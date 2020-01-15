@@ -7,100 +7,97 @@ X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB96EC33CB1
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 13:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DF758C33CB1
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 13:24:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D3C72467C
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 13:23:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B090120728
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Jan 2020 13:24:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="fDjTchss"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D3C72467C
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1N153joI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B090120728
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A5DD6E9DB;
-	Wed, 15 Jan 2020 13:23:06 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2059.outbound.protection.outlook.com [40.107.220.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B3EC6E9DB
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 13:23:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 791306E9DD;
+	Wed, 15 Jan 2020 13:24:07 +0000 (UTC)
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr680051.outbound.protection.outlook.com [40.107.68.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1735F6E9DD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Jan 2020 13:24:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LKkEEcgIFpRyqOjS+Xq+iwbwYyDpMSKvHo2OZFMFAxId5aKq/Ll/SjJoxTPYDTMGj8FASRUr2qW8AopqdKrHJ4m9ManSJHKB+6MkO9FkbgGY7iw5Un5Y+Sayli3jNn9zmhCV/dEUu2DP2a0lcCcVOzlTJBQ/+TJAyc4HN8Opjawv0jS9EwRd3l7PtWeTt4AjtrZx27+ZM6nHSEYacpBSrk4tLrql+RsEBFdgUh5w1JaXFmRmS1ce4B/dJzVEWHOHOMttqyGxcfy3PzLZ4KB/PQZ8QP899FSDOsZ02XmzDfOTplprtuU76WqvKE4tsr7IyrA+SkOx3T6XTVksWZzzdA==
+ b=oLjInoZPQN9ST7rI0Y5/8bEsRHW0mIimsDp7GWLEFcEGrwxER+8IQJbhWBdMlplxIvdsQmCBxe/0bMxIo6HikJx2Ys2hWMpnMAm2FAjXttrhniN18vKoiO/Gxl88DukK8VBusMqlyj/KRcdRDLHi3c8p4cs8y4Fc931gowfnqrc7CLddsHaK2bZ4pS6WYqTfQmv97fESGSUbpiW1JOdhKePRbjH70Pq3wYh+UC1Ti67gM83cCOI+DvYvh8mmPspHqBHRF2rxnubb//90mXr96OQdHavnurnWKmM/EbKCH5lM92XtLR3dkVnsCBMKOJOsQaKKS9XYxXe/HCI2hDj4Iw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RRjJChEUh6E9PdO60lum/ewDgf7hPsZD47vBMKbZLSo=;
- b=HwER9Ruv/Uk0TxIXfwW8JZBFhvVSH7bcRB9WYud1WtlqQFgkS2oighhiTNo54NFbgyNjPEeOLxlxmBwFdWHlCeUkBwPnL4FVafuCAeylC3Vu4RKgy592BFD1h09zyooWKN4rh2BdloynzGV7aHU0ygWM5F/GMa47WImkAN7mj6jucqxqR6Cea5XPBOu+h47040orNccIYTUlhy8oEFFAb+kDvKG+k7TrP/i36+KzbppzkcAYBJcENyLk7Q0V0IB/5+xF61orreVqn9hSP0hmfE4JFt1tsIPxEy1hntvOT0pR+DzpRAfuA7/dDOjEPt3Yud+hvuOOgWS/BoLBoz4waQ==
+ bh=Zn9pwCRXIvony71e9RCMWns5pdW1sTiZZpJZkpb3mCk=;
+ b=C0gaHEert3UKQgvAMh7LtuC9tw2eqYih9EAfJ5QYTjBqMgkz95Byk52EZM08lDMV/Ukj6qB4kzUM+zFNX3wNyqlSnGNR9inMTgFpvjz+GwLUS3/KhTiE2FoxeLvK80AjmkArybqj9+RfmqSEc3xyKOk9D1+XPR/bFQceBCIyCsNV6qiZvNQpBwMmKyRx1uCUJbMMPwmvAO/TvnKw4uHVquIWZNZfP1W5RBM7RQzjBdrbhopNDdFLXY5oBNI1ETE7D6RXON1NZ6gaYFOxepnztDB5L86jVPESaIrZX9+iPNSS7j7RwJUEBYGlgy0ptGdVwJwHGwjX0I7Bcag77gAbcQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RRjJChEUh6E9PdO60lum/ewDgf7hPsZD47vBMKbZLSo=;
- b=fDjTchss+OhOBL4T1N4NBZnBLh6yaZstOmHJohwkr/mRowjd0OQtIDlTvpPcRGn5R2iW0GaocGlmgyDR8nJKweN11MlkJonhSLp4modfB0f9VQvj8FITZKERWNSSYk+W7XxM5XyHHunt37e+TfNQbf5/lUqkHjqfTxRmBFpJ9yo=
+ bh=Zn9pwCRXIvony71e9RCMWns5pdW1sTiZZpJZkpb3mCk=;
+ b=1N153joICH1sTxRn7m5tE6GJe3TzchUby98ZogKFa/uamt7wlhlBcwHxzZTBc6fg6V6wLsVCF9k5w1tD2nnpHGBJTv8SzzRd3ghRl9Z9cjl97OGINsegB4RysRm/hcSCYgCvp6MwPZnXA0zCzdNkaIrtP9n+fbDbdFTc4QUNba4=
 Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Nirmoy.Das@amd.com; 
-Received: from DM5PR12MB2376.namprd12.prod.outlook.com (52.132.143.139) by
- DM5PR12MB1307.namprd12.prod.outlook.com (10.168.239.149) with Microsoft SMTP
+ smtp.mailfrom=Leo.Liu@amd.com; 
+Received: from DM6PR12MB3914.namprd12.prod.outlook.com (10.255.174.32) by
+ DM6PR12MB3739.namprd12.prod.outlook.com (10.255.172.213) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.9; Wed, 15 Jan 2020 13:23:03 +0000
-Received: from DM5PR12MB2376.namprd12.prod.outlook.com
- ([fe80::c06c:24da:d4c5:5ee3]) by DM5PR12MB2376.namprd12.prod.outlook.com
- ([fe80::c06c:24da:d4c5:5ee3%6]) with mapi id 15.20.2644.015; Wed, 15 Jan 2020
- 13:23:02 +0000
-Subject: Re: [PATCH] drm/scheduler: fix race condition in load balancer
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Nirmoy Das <nirmoy.aiemd@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20200114154339.3519-1-nirmoy.das@amd.com>
- <5deb3805-f7e8-3d0d-4259-a3be1c5d3cf5@gmail.com>
- <862ad550-082d-7ece-1d4d-99801ab10428@amd.com>
- <8b4d2ea2-a28d-6eb4-2d50-02b5c450922f@amd.com>
-From: Nirmoy <nirmodas@amd.com>
-Message-ID: <a23d0e09-dd32-fd18-9ea2-a5bf724bfe7f@amd.com>
-Date: Wed, 15 Jan 2020 14:24:06 +0100
+ 15.20.2644.19; Wed, 15 Jan 2020 13:24:05 +0000
+Received: from DM6PR12MB3914.namprd12.prod.outlook.com
+ ([fe80::90fd:cd84:e116:6968]) by DM6PR12MB3914.namprd12.prod.outlook.com
+ ([fe80::90fd:cd84:e116:6968%7]) with mapi id 15.20.2623.018; Wed, 15 Jan 2020
+ 13:24:05 +0000
+Subject: Re: [PATCH v3 0/5] support Arcturus IFM workaround
+To: James Zhu <James.Zhu@amd.com>, amd-gfx@lists.freedesktop.org
+References: <1579040596-12728-1-git-send-email-James.Zhu@amd.com>
+From: Leo Liu <leo.liu@amd.com>
+Organization: AMD
+Message-ID: <e2f1684d-8f5b-ce92-bbc8-3264de2035b6@amd.com>
+Date: Wed, 15 Jan 2020 08:24:04 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
-In-Reply-To: <8b4d2ea2-a28d-6eb4-2d50-02b5c450922f@amd.com>
+ Thunderbird/68.2.2
+In-Reply-To: <1579040596-12728-1-git-send-email-James.Zhu@amd.com>
 Content-Language: en-US
-X-ClientProxiedBy: ZR0P278CA0046.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:1d::15) To DM5PR12MB2376.namprd12.prod.outlook.com
- (2603:10b6:4:b9::11)
+X-ClientProxiedBy: YTOPR0101CA0058.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::35) To DM6PR12MB3914.namprd12.prod.outlook.com
+ (2603:10b6:5:1c9::32)
 MIME-Version: 1.0
-Received: from [IPv6:2003:c5:8f2b:bb00:33a:7193:ff09:7830]
- (2003:c5:8f2b:bb00:33a:7193:ff09:7830) by
- ZR0P278CA0046.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:1d::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.19 via Frontend Transport; Wed, 15 Jan 2020 13:22:44 +0000
-X-Originating-IP: [2003:c5:8f2b:bb00:33a:7193:ff09:7830]
+Received: from [172.27.228.95] (165.204.55.251) by
+ YTOPR0101CA0058.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::35) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.19 via Frontend
+ Transport; Wed, 15 Jan 2020 13:24:05 +0000
+X-Originating-IP: [165.204.55.251]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ccdf7e33-ef3b-483f-ed14-08d799be0c52
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1307:|DM5PR12MB1307:
+X-MS-Office365-Filtering-Correlation-Id: 4cf93204-246b-4130-d1b7-08d799be31b9
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3739:|DM6PR12MB3739:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB13072BA834CF78A4BD7735388B370@DM5PR12MB1307.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3739B0C39ED09F19FF2BF0FBE5370@DM6PR12MB3739.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2958;
 X-Forefront-PRVS: 02830F0362
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(346002)(39860400002)(366004)(136003)(376002)(189003)(199004)(66946007)(8676002)(478600001)(2906002)(6666004)(316002)(110136005)(81166006)(66556008)(36756003)(52116002)(6486002)(81156014)(8936002)(5660300002)(186003)(16526019)(66476007)(2616005)(31696002)(31686004)(4326008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1307;
- H:DM5PR12MB2376.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ SFS:(10009020)(4636009)(346002)(376002)(396003)(39860400002)(136003)(366004)(199004)(189003)(36916002)(52116002)(31686004)(5660300002)(6486002)(478600001)(956004)(2616005)(2906002)(16576012)(316002)(86362001)(8936002)(44832011)(31696002)(4326008)(81156014)(66476007)(66556008)(8676002)(81166006)(66946007)(36756003)(53546011)(16526019)(186003)(26005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3739;
+ H:DM6PR12MB3914.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wIsYvrrZx2nNicR5P6ifwwmCY4RIB64mQgcw7x1PHc7XlN211qPWpGzLqSY9gh7Cmp8AV3HmKgj83qKf3DmE1TvC5otfZXunJIabF8cGVZf8TM2zaSpsCmP2zEx6151tlk8ks+2N/cLWHpD9cGM2pVTKKd3+TOZ8HWA7R/uRzTWiaSlA1d5KQja2XjZsVWPTAy6VRa8bSQUXw+C82yyajQO8XaK6jcdrUpbsRiAWpveMJw/4afBrOyyT76bVZ61Xrey4hV0wo8wFi8uzZte12dEyy6pEMXfbeBZDl77HEgJ+dKcOAARb5rDqaQ87uS6eHQmiVng8TnakOyJYs8jGbVG/554/7is8PYyUpe/7aDSQuRqiodUJVOQVBHwsjruiYxOCsveaw9RTpOdC0Lgx/gu7+HomRndhKxcsDMHi+I33kVtFs4vqAoWxcE48ySwH
+X-Microsoft-Antispam-Message-Info: K3IQY5nwtjYExS2pi0vFi+mtD8G2M+RVwUHE3QnrKAKj5kkQLKTy+7toCtv6HGNZ7ygzUief+yMmSKQqeAB0RTIrSlqNevlAQJCEy0XMhfQhgSE4Vk1p8AflY6OVs0FD7OkhGfMHaGSUR4WA83ahaIGXjWJWYroFwKhDcUHHNWTUk58mBMmb9oVtiNRyYrYsdoU+jNUQMZIwYlMdcRbVHoo9tmqVRJ3hFWPMOoi8GpuqqXnV8aL4HAFr/fZ2nSQQtdrlxXHPAx8Z70PmTTKumOEox/hkEU5M432Gqo4nC3hlk2IZhvvcnYNjncI+OUAAI34k4yeyfGFIKYhtO+JTH+9ZxBTJXHSdw5bDOe84BKdLL2hcoVXLhNhB1LyvTGgZl26SO3+XSTsDRbH3nT7X0R5lLB+C1iigF8zsROyQmYw2Q7ykaC7m4IPKn0BvfXoR
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ccdf7e33-ef3b-483f-ed14-08d799be0c52
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2020 13:23:02.7860 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4cf93204-246b-4130-d1b7-08d799be31b9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jan 2020 13:24:05.5710 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /JU1Olh8/hjU+YEqgYwSxVMcQyvGKWRUBzCC+Vr6LzyDYFb4DECyu46I3+LCTFSEacPNj1B7DjoCwqvMcxKfEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1307
+X-MS-Exchange-CrossTenant-UserPrincipalName: NTjjO0D9olmBRAHQw78GZXSvfmogDBrVMJsEoA0ShAMYbyXr6Z1OFHw478HHsbAX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3739
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,53 +109,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, kenny.ho@amd.com, nirmoy.das@amd.com,
- pierre-eric.pelloux-prayer@amd.com
+Cc: jamesz@amd.com
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
->> I think I know why it happens. At init all entity's rq gets assigned 
->> to sched_list[0]. I put some prints to check what we compare in 
->> drm_sched_entity_get_free_sched.
->>
->> It turns out most of the time it compares zero values(num_jobs(0) < 
->> min_jobs(0)) so most of the time 1st rq(sdma0, comp_1.0.0) was picked 
->> by drm_sched_entity_get_free_sched.
+On 2020-01-14 5:23 p.m., James Zhu wrote:
+> Add vcn2.5 dpg mode/dpg pause mode/dpg sram mode to support
+> acturus IFM(instruction fetch monitor) work around.
 >
-> Well that is expected because the unit tests always does 
-> submission,wait,submission,wait,submission,wait.... So the number of 
-> jobs in the scheduler becomes zero in between.
-Even with multiple parallel instances of amdgpu_test, I haven't seen any 
-improvement in the load balance.
->
->> This patch was not correct , had an extra atomic_inc(num_jobs) in 
->> drm_sched_job_init. This probably added bit of randomness I think, 
->> which helped in better job distribution.
->
-> Mhm, that might not be a bad idea after all. We could rename num_jobs 
-> into something like like score and do a +1 in 
-> drm_sched_rq_add_entity() and a -1 in drm_sched_rq_remove_entity().
->
-> That should have pretty much the effect we want to have.
-That's sounds good as well. I will create a patch.
->
->> I've updated my previous RFC patch which uses time consumed by each 
->> sched for load balance with a twist of ignoring previously scheduled 
->> sched/rq. Let me know what do you think.
->
-> I didn't had time yet to wrap my head around that in detail, but at 
-> least of hand Luben is right that the locking looks really awkward.
-I was unable to find a better way to do the locking part. My mail client 
-might've missed Luben's review, can't find it :/
+> v2: Correct firmware ucode index in vcn_v2_5_mc_resume_dpg_mode
+> v3: Share multiple instance indirect DPG SRAM mode support for vcn2
+
+With those fixed in patch2&3, the series are:
+
+Reviewed-by: Leo Liu <leo.liu@amd.com>
 
 
 Regards,
 
-Nirmoy
+Leo
 
+
+
+>
+> James Zhu (5):
+>    drm/amdgpu/vcn: support multiple-instance dpg pause mode
+>    drm/amdgpu/vcn2.5: support multiple instance direct SRAM read and
+>      write
+>    drm/amdgpu/vcn2.5: add DPG mode start and stop
+>    drm/amdgpu/vcn2.5: add dpg pause mode
+>    drm/amdgpu/vcn2.5: implement indirect DPG SRAM mode
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c |  34 +--
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h |  48 ++--
+>   drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c   |   8 +-
+>   drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c   |  98 ++++----
+>   drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c   | 394 +++++++++++++++++++++++++++++++-
+>   5 files changed, 487 insertions(+), 95 deletions(-)
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
