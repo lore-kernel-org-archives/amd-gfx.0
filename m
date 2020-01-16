@@ -2,105 +2,68 @@ Return-Path: <SRS0=9Rk5=3F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6429FC33CB1
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 06:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B9A7BC33CB1
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 08:03:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2EC672075B
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 06:32:12 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Ko03KNM+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2EC672075B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 96C7420748
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 08:03:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96C7420748
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D60996EBEF;
-	Thu, 16 Jan 2020 06:32:11 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20606.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::606])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC816EBEF
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 06:32:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IEMK0kTAlquE7IS89iaR9bEiOJFoLeOltBDXA/QivjlljrloNQQEk2Nky8UbigutUZj7dGn6LNsIJskuWcZHAVmwQBBjYCnFkKyICPmexYmjkEiBJuiC/iRmBAYw6bXA10TQuWyLxPVxlJp/P+sRNcsNR+R869oBf5gNJAq5vTbZ7iSeoAVuOpATQrMZovhj/OSYaEqAHaLzfXX14RtWWXSlNiYeurdyif0R6Z0vNgf4SOrILM773RIw5X7ctfFXtcTinQ+WgdGxVtJi/M2guGyxY9ukwDNJUSa3pz/aovoeSvk7da3tZWk74WGe8gKGpGgRzrA3JlKWFDOAN6Mb/g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XZfH+OM8phkxMVJnCKKCuk3X8E87ifCZSQT+se+BF+k=;
- b=QqV+KyAt//ZnirXta1JQGL7vfZBUgeoidwgVUwtBiBHVUx3vY0gKGwB20CUKinrumevrDpmKVAY9OwGC/3t7Q1TsYYc0pjDVIqUeQQVqgMrmGnvEVm/fZYtcLjf5Iw8HRmJ2aCCOMb8bI47DZTzo83cRZ1VlMTFKf92q9GSdhi/C+EA60yge2lX3iu0nMfxImPFfgmjLhuVGsiWf2o8g8bEOwUoheH/z94uyji0Hus5pVw5eeUDp0g42ycciGYAJt2H5ZY5LrHoDmD6gFUDe4fmL4rumhFDpk4c2v0+6COXU+e5WxgHrfaYPLGCQdxFx8f9ZudpuYUXhYja0IWOoLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XZfH+OM8phkxMVJnCKKCuk3X8E87ifCZSQT+se+BF+k=;
- b=Ko03KNM+G+y5+mqtkqANE8XnWT7BZ45opcc32gT2wFljyEdgMoGn/e6bxF6bWsjsI44Xc0hbqE3sUgCLw47R2Vmb0pXJGLOSBOcRd998UU6LYShOoDJqDVCnAc5JND4fW68M1P1VCnc0O+WliC3KBrdvLtlk/BeTxeHFEUeG5TU=
-Received: from CH2PR12MB3767.namprd12.prod.outlook.com (52.132.244.213) by
- CH2PR12MB3799.namprd12.prod.outlook.com (52.132.231.202) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.20; Thu, 16 Jan 2020 06:32:08 +0000
-Received: from CH2PR12MB3767.namprd12.prod.outlook.com
- ([fe80::703e:37ee:ddb1:d321]) by CH2PR12MB3767.namprd12.prod.outlook.com
- ([fe80::703e:37ee:ddb1:d321%3]) with mapi id 15.20.2644.015; Thu, 16 Jan 2020
- 06:32:08 +0000
-From: "Xu, Feifei" <Feifei.Xu@amd.com>
-To: "Pan, Xinhui" <Xinhui.Pan@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: add the lost mutex_init back
-Thread-Topic: [PATCH] drm/amdgpu: add the lost mutex_init back
-Thread-Index: AdXMM3R2ar8RTqN/RB+oGoIMPAFrEgAAzRqA
-Date: Thu, 16 Jan 2020 06:32:08 +0000
-Message-ID: <CH2PR12MB3767F4115CBAA3EFADDB7BDFFE360@CH2PR12MB3767.namprd12.prod.outlook.com>
-References: <SN6PR12MB280058965C66589B199AC18C87360@SN6PR12MB2800.namprd12.prod.outlook.com>
-In-Reply-To: <SN6PR12MB280058965C66589B199AC18C87360@SN6PR12MB2800.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=92bde98d-97ef-4e31-b1de-0000e258c821;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-01-16T06:08:40Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Feifei.Xu@amd.com; 
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 820ad4d6-6af6-4112-a229-08d79a4dcfae
-x-ms-traffictypediagnostic: CH2PR12MB3799:|CH2PR12MB3799:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB37998396903F20842C523C8CFE360@CH2PR12MB3799.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:813;
-x-forefront-prvs: 02843AA9E0
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(376002)(39860400002)(136003)(366004)(396003)(189003)(199004)(33656002)(478600001)(45080400002)(966005)(4326008)(52536014)(5660300002)(316002)(110136005)(81166006)(81156014)(8676002)(8936002)(9686003)(71200400001)(26005)(53546011)(6506007)(186003)(86362001)(7696005)(64756008)(76116006)(66946007)(66476007)(55016002)(66556008)(66446008)(2906002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB3799;
- H:CH2PR12MB3767.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: DUhWwj5RC3PghM2vUHwXmkwQqI92oKkf1glIKCmaKIGx3+lNyvHE8sAPuN11oJWZykb8u1H5VIMYBeD2dWAfjJqN5SP/BguZFhcgFIJeOIXZ9ufiPqpTN0N9GWZMGUh9W2A27MRlEwHmK6VSdQiAbieUk0hpROpd7+y3bQGLTTiJklpEWbQLc/XKIz90LuvROLVtgdS9wIHhN6ehCoiBILEjek2fix4rdMfF7uDpoLaJN0enH8PMlGiMfPhQJLdHenWqDa3TtNjbQv2I6GZQgS4oiCM2sVHZ3LdrtGouDm5RVmm7orE/oUbnrwE4opJlw0GJ6iikBISLyb4ROw2lxpE/a3/fgdTi0in8lmG8tYQGUQfMTqU1pm9AdU/DqtK72d2f6aHUubqfHoCj9UvC1FL+sj79n5Kjj7poSgm+8nQPUjbh4ER3kVQ3FlW4qcW7gSx2OecxgUmsrhDnRaHA6sb3CNJWhJpGEryMvkjRPoI=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 613A36EC11;
+	Thu, 16 Jan 2020 08:03:47 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0BB66E202;
+ Thu, 16 Jan 2020 08:03:45 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 5DC81AE8C;
+ Thu, 16 Jan 2020 08:03:43 +0000 (UTC)
+Subject: Re: [Intel-gfx] [PATCH v2 02/21] drm: Evaluate struct
+ drm_device.vblank_disable_immediate on each use
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+References: <20200115121652.7050-1-tzimmermann@suse.de>
+ <20200115121652.7050-3-tzimmermann@suse.de>
+ <20200115143757.GZ13686@intel.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ mQENBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAG0J1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPokBVAQTAQgAPhYh
+ BHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKCQgLAgQWAgMB
+ Ah4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLCdg62AmR
+ irxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6PXo
+ clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7
+ mneMC5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6i
+ KupZstMxstPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8os
+ Bv6pnSn7eAq5AQ0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRH
+ UE9eosYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgT
+ RjP+qbU63Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+R
+ dhgATnWWGKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zb
+ ehDda8lvhFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r
+ 12+lqdsAEQEAAYkBPAQYAQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkD
+ wmcAAAoJEGgNwR1TC3ojpfcIAInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2
+ h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxU
+ n+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uI
+ aMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBW
+ HE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8CtirPdPWu/VXNRYAl/lat7lSI
+ 3H26qrE=
+Message-ID: <646e4236-ff5e-acd0-32f2-e6d33cba70e3@suse.de>
+Date: Thu, 16 Jan 2020 09:03:38 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 820ad4d6-6af6-4112-a229-08d79a4dcfae
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jan 2020 06:32:08.3202 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RZXsWo2UD1sNNdS4SzeCVzjpRoReq+Cet02Ost5xPZJZjWDYKz1qzEQ2nZanAt/q
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3799
+In-Reply-To: <20200115143757.GZ13686@intel.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,50 +75,233 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
+ eric@anholt.net, amd-gfx@lists.freedesktop.org, benjamin.gaignard@linaro.org,
+ alexandre.torgue@st.com, David1.Zhou@amd.com, thellstrom@vmware.com,
+ sean@poorly.run, patrik.r.jakobsson@gmail.com,
+ linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
+ harry.wentland@amd.com, mcoquelin.stm32@gmail.com, sunpeng.li@amd.com,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, vincent.abriou@st.com, rodrigosiqueiramelo@gmail.com,
+ philippe.cornu@st.com, yannick.fertre@st.com, robdclark@gmail.com,
+ daniel@ffwll.ch, alexander.deucher@amd.com, freedreno@lists.freedesktop.org,
+ christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============0506309208=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0506309208==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="3eAvSttXZQZFdMeghjaqeDuI1UsRNq3sn"
 
-Reviewed-by: Feifei Xu <Feifei.Xu@amd.com>
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--3eAvSttXZQZFdMeghjaqeDuI1UsRNq3sn
+Content-Type: multipart/mixed; boundary="IDhA7LRVBgaf9BIUqPyHk8du8qIhBJ2s0";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
+Cc: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
+ christian.koenig@amd.com, David1.Zhou@amd.com,
+ maarten.lankhorst@linux.intel.com, patrik.r.jakobsson@gmail.com,
+ robdclark@gmail.com, sean@poorly.run, benjamin.gaignard@linaro.org,
+ vincent.abriou@st.com, yannick.fertre@st.com, philippe.cornu@st.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@st.com, eric@anholt.net,
+ rodrigosiqueiramelo@gmail.com, hamohammed.sa@gmail.com,
+ linux-graphics-maintainer@vmware.com, thellstrom@vmware.com,
+ bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
+Message-ID: <646e4236-ff5e-acd0-32f2-e6d33cba70e3@suse.de>
+Subject: Re: [Intel-gfx] [PATCH v2 02/21] drm: Evaluate struct
+ drm_device.vblank_disable_immediate on each use
+References: <20200115121652.7050-1-tzimmermann@suse.de>
+ <20200115121652.7050-3-tzimmermann@suse.de>
+ <20200115143757.GZ13686@intel.com>
+In-Reply-To: <20200115143757.GZ13686@intel.com>
 
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Pan, Xinhui
-Sent: Thursday, January 16, 2020 2:10 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: add the lost mutex_init back
+--IDhA7LRVBgaf9BIUqPyHk8du8qIhBJ2s0
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+
+Am 15.01.20 um 15:37 schrieb Ville Syrj=C3=A4l=C3=A4:
+> On Wed, Jan 15, 2020 at 01:16:33PM +0100, Thomas Zimmermann wrote:
+>> VBLANK interrupts can be disabled immediately or with a delay, where t=
+he
+>> latter is the default. The former option can be selected by setting
+>> get_vblank_timestamp, and enabling vblank_disable_immediate in struct
+>> drm_device.
+>>
+>> The setup is only evaluated once when DRM initializes VBLANKs. Evaluat=
+ing
+>> the settings on each use of vblank_disable_immediate will allow for ea=
+sy
+>> integration of CRTC VBLANK functions.
+>>
+>> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+>> ---
+>>  drivers/gpu/drm/drm_vblank.c | 31 ++++++++++++++-----------------
+>>  1 file changed, 14 insertions(+), 17 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank=
+=2Ec
+>> index 3f1dd54cc8bb..abb085c67d82 100644
+>> --- a/drivers/gpu/drm/drm_vblank.c
+>> +++ b/drivers/gpu/drm/drm_vblank.c
+>> @@ -481,19 +481,6 @@ int drm_vblank_init(struct drm_device *dev, unsig=
+ned int num_crtcs)
+>> =20
+>>  	DRM_INFO("Supports vblank timestamp caching Rev 2 (21.10.2013).\n");=
+
+>> =20
+>> -	/* Driver specific high-precision vblank timestamping supported? */
+>> -	if (dev->driver->get_vblank_timestamp)
+>> -		DRM_INFO("Driver supports precise vblank timestamp query.\n");
+>> -	else
+>> -		DRM_INFO("No driver support for vblank timestamp query.\n");
+>> -
+>> -	/* Must have precise timestamping for reliable vblank instant disabl=
+e */
+>> -	if (dev->vblank_disable_immediate && !dev->driver->get_vblank_timest=
+amp) {
+>> -		dev->vblank_disable_immediate =3D false;
+>> -		DRM_INFO("Setting vblank_disable_immediate to false because "
+>> -			 "get_vblank_timestamp =3D=3D NULL\n");
+>> -	}
+>=20
+> Which drivers are so broken they set vblank_disable_immediate to true
+> without having the vfunc specified? IMO this code should just go away
+> (or converted to a WARN).
+
+It's probably not a problem in practice. I'll put WARN_ON around the
+condition.
+
+Best regards
+Thomas
+
+>=20
+>> -
+>>  	return 0;
+>> =20
+>>  err:
+>> @@ -1070,6 +1057,15 @@ int drm_crtc_vblank_get(struct drm_crtc *crtc)
+>>  }
+>>  EXPORT_SYMBOL(drm_crtc_vblank_get);
+>> =20
+>> +static bool __vblank_disable_immediate(struct drm_device *dev, unsign=
+ed int pipe)
+>> +{
+>> +	if (!dev->vblank_disable_immediate)
+>> +		return false;
+>> +	if (!dev->driver->get_vblank_timestamp)
+>> +		return false;
+>> +	return true;
+>> +}
+>> +
+>>  static void drm_vblank_put(struct drm_device *dev, unsigned int pipe)=
+
+>>  {
+>>  	struct drm_vblank_crtc *vblank =3D &dev->vblank[pipe];
+>> @@ -1086,7 +1082,7 @@ static void drm_vblank_put(struct drm_device *de=
+v, unsigned int pipe)
+>>  			return;
+>>  		else if (drm_vblank_offdelay < 0)
+>>  			vblank_disable_fn(&vblank->disable_timer);
+>> -		else if (!dev->vblank_disable_immediate)
+>> +		else if (__vblank_disable_immediate(dev, pipe))
+>>  			mod_timer(&vblank->disable_timer,
+>>  				  jiffies + ((drm_vblank_offdelay * HZ)/1000));
+>>  	}
+>> @@ -1663,7 +1659,7 @@ int drm_wait_vblank_ioctl(struct drm_device *dev=
+, void *data,
+>>  	/* If the counter is currently enabled and accurate, short-circuit
+>>  	 * queries to return the cached timestamp of the last vblank.
+>>  	 */
+>> -	if (dev->vblank_disable_immediate &&
+>> +	if (__vblank_disable_immediate(dev, pipe) &&
+>>  	    drm_wait_vblank_is_query(vblwait) &&
+>>  	    READ_ONCE(vblank->enabled)) {
+>>  		drm_wait_vblank_reply(dev, pipe, &vblwait->reply);
+>> @@ -1820,7 +1816,7 @@ bool drm_handle_vblank(struct drm_device *dev, u=
+nsigned int pipe)
+>>  	 * been signaled. The disable has to be last (after
+>>  	 * drm_handle_vblank_events) so that the timestamp is always accurat=
+e.
+>>  	 */
+>> -	disable_irq =3D (dev->vblank_disable_immediate &&
+>> +	disable_irq =3D (__vblank_disable_immediate(dev, pipe) &&
+>>  		       drm_vblank_offdelay > 0 &&
+>>  		       !atomic_read(&vblank->refcount));
+>> =20
+>> @@ -1893,7 +1889,8 @@ int drm_crtc_get_sequence_ioctl(struct drm_devic=
+e *dev, void *data,
+>>  	pipe =3D drm_crtc_index(crtc);
+>> =20
+>>  	vblank =3D &dev->vblank[pipe];
+>> -	vblank_enabled =3D dev->vblank_disable_immediate && READ_ONCE(vblank=
+->enabled);
+>> +	vblank_enabled =3D __vblank_disable_immediate(dev, pipe) &&
+>> +			 READ_ONCE(vblank->enabled);
+>> =20
+>>  	if (!vblank_enabled) {
+>>  		ret =3D drm_crtc_vblank_get(crtc);
+>> --=20
+>> 2.24.1
+>>
+>> _______________________________________________
+>> Intel-gfx mailing list
+>> Intel-gfx@lists.freedesktop.org
+>> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
 
 
-Initialize notifier_lock.
+--IDhA7LRVBgaf9BIUqPyHk8du8qIhBJ2s0--
 
-Signed-off-by: xinhui pan <xinhui.pan@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
- 1 file changed, 1 insertion(+)
+--3eAvSttXZQZFdMeghjaqeDuI1UsRNq3sn
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 2c64d2a83d61..c2453532fd95 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2851,6 +2851,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	hash_init(adev->mn_hash);
- 	mutex_init(&adev->lock_reset);
- 	mutex_init(&adev->psp.mutex);
-+	mutex_init(&adev->notifier_lock);
- 
- 	r = amdgpu_device_check_arguments(adev);
- 	if (r)
--- 
-2.17.1
+-----BEGIN PGP SIGNATURE-----
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7CFeifei.Xu%40amd.com%7Cc9b343a7880547442b7108d79a4aafda%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637147517952107932&amp;sdata=42C3Wzh1ns23%2BhjFlX0sbqxEyYmGejLLzVUZ50b1lNw%3D&amp;reserved=0
+iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl4gGNoACgkQaA3BHVML
+eiNPFgf/b563UWPp0EQB+KhHbYFGNwBE93tVR9rTSpEC68YSAq0sKTzsWZs/jY3R
+mUdR9mw1M4FQ100hBNlBMYuy9IcCPVTZrCQx1fWG4Dq2z8LIgKQ+LTibOoV9uHjx
+5UjyTv7ewlYhBtJf6Jxd3M3mnhJmA5MMn4/FTxvTwHBvSD/eaIFhMCiJSVTqhbG7
+ITyKWyxaAgqjB0Vqdt5Vnf5P4F0zYD4ucI3qBGIz/9ucGY5UqZV9HDDofG5qvRD+
+hjaD2rUB4UuK/Pn+O6CkxjrdY+pTn1RVepXnlNmfoDAPlL1JGaZbCUN0pOL9TOCT
+NHm/tc5uOXP9Kvk30ipDAftWo99msA==
+=42jk
+-----END PGP SIGNATURE-----
+
+--3eAvSttXZQZFdMeghjaqeDuI1UsRNq3sn--
+
+--===============0506309208==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0506309208==--
