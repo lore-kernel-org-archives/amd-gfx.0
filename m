@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19D49C33CB6
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C4B4C33CAF
 	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 20:14:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DEE84206D9
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 20:14:37 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6E310206D9
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 20:14:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="prowa1ii"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DEE84206D9
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IzHGW9NJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E310206D9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96A266E47A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E21536E480;
 	Thu, 16 Jan 2020 20:14:35 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750079.outbound.protection.outlook.com [40.107.75.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 838506E2B2
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 20:14:33 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770042.outbound.protection.outlook.com [40.107.77.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E58436E2E6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 20:14:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NB0zbgYgmFHRGdIDdpmdLBfFtO4r8l82HudUvANRnlleX425AGLE56mYlYvJkC2xjFspuar95CSJhRvSsdJggwxhP/+iyWbjM8c/xvd07qnAIsLOr4lYZ7JijeUu1lqCu1mL2VpBgh6CvOyPrvFbyfej3dlnHWLZjhUONc93deg1xMSzqL3T44kTMVpcOjfu+giQdK5mpSKqd4EepFpgAbN33Pf64dnabiMmOIE7teNZO/R/n+RFl5rW0+9yjuQ+d7DFKxR2d5QSA95IEwfXCZIQhx7Oq03/h/9mZ5qenYGN75lVCkCOG7NVFWFWD3V7xaJdKPtwvI8X5+OQ9G/eHw==
+ b=QHU0fEuw1DJQXmGO7esH8P7PhaKW48AVRDpkvB6abLhGqal34eXDkbBJQxem5lpiLDlthDzp9Oyu+qHspso7YXJy8PLkeJIujoymULolt6SfeNuvr9quTQgjuKaY9P2eA6zzDfphnDDLPDu9iZwyzC/nYO+1r7CymdAx/Vh0UqYWCLdSW7Q55qQh/wIpfpJOP7wlInEfGX1OtWZlltFfvA2AGgeBzCjifMrtWHsZMl9nKdIOExAM25y+VwoDe7npK//QbZnXnRWxvC1zPEcZJ+aGKIF7D38mZovZbeBj51tLwgr8dsoNRsYquSc68hJoAU50NKbqCE+rG0ejiAXAKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HG1JlcYxJ74+Q6baokx7nsyCgZEcgolGVrymniqTErU=;
- b=oKq8/q0bRO2oKr+m6lBoGJZWjMWcalNPDamWWtYKtOYG7uC7VN9/3vEnORrt0dxwtvEjIaGr27DJMpjLg7fDH+m+UfTXta6TRF6u2Q6u1noohRgUNDQuwgqgnb3Z4BSkH03a+aydq7ddY52mbk93IhAufEA7y3SsHOYFrDiP/dK7zjdNJ9w6KmnMOwoHkN1WYOO+l5yNCSHrbtF5J9mHVmtp7rPpxDp4TR39FNGLimrEkiKlkNQ6gShGbxuS8/mEDWi3C/ZtSHh3xvC+TRTiEYhcbEF6JuLvA97Aj1VD23VZkCwjm2FJKXWrrxcI/AsplSLd/+hbVpnBHu8hXwDYkA==
+ bh=s9PdVEtu/W3bQnuk89/ehE3YRyqDWVDpbP8LkSrEiMo=;
+ b=l3A/pbEFV7kZ0qQ10VRLekeWcnKcCd2T2+5+sUA0YQ3gmfoMVtaqjMnrXNACvYG8ocwyubcYbG29YQkvQmZvzFNz46PzOf0Btngxrw6kwaWBrPWpyP/nmoR8566erCvggNHpdPrLZ7fnUFltgJOm3pW8Z/sBUBWVrrZYOHYgpAspx9y/+ViQvMpfCq1aDApmQlUEx8QFFhjo7pKUYidCkZ+EbDTSZosI66Tjru7ZpCZ9lo8MH0K+f7GEg5wHzM5eu8dYyM3XiPdOpF2GKk5xBNYvoHet1SHiKzrKjctODMjD/93kW0u5uDZD0V8mVAifGFiYxoSr/kCT2NAg/eCl8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,40 +40,45 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HG1JlcYxJ74+Q6baokx7nsyCgZEcgolGVrymniqTErU=;
- b=prowa1iifeIzlwLSa8anDbnxOAZZTcIoy7QhZTtaZk2wtLFOjwrM4oWU5D0UmTNjtk6wTbsJhD4hX+evmGMfyST4CVCMitXMyzTybHksRVQkoYEQNkSZRg1GMvjsktNs1Jh0AbojnU99QRXhfZ1a2D5xyGeDXcS4y77uAFBOwrI=
-Received: from DM5PR12CA0007.namprd12.prod.outlook.com (2603:10b6:4:1::17) by
- BY5PR12MB4308.namprd12.prod.outlook.com (2603:10b6:a03:20a::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.20; Thu, 16 Jan 2020 20:14:31 +0000
-Received: from DM6NAM11FT042.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::200) by DM5PR12CA0007.outlook.office365.com
- (2603:10b6:4:1::17) with Microsoft SMTP Server (version=TLS1_2,
+ bh=s9PdVEtu/W3bQnuk89/ehE3YRyqDWVDpbP8LkSrEiMo=;
+ b=IzHGW9NJw97Kx7JLs1imlBSGvrgUaGco1rQCsZU45brlmkdcUT2qd3FVgKs1Rd52uGxj1XGNZZxbaULQmJgV6CqW/9340hXwOB008iylt4dhE+e03SxuaHF9eWyKlnEWrT9bioABOc8vZK0JOawqk0DksiA4UPEvV9+5o5C7C/c=
+Received: from MN2PR12CA0012.namprd12.prod.outlook.com (2603:10b6:208:a8::25)
+ by CY4PR1201MB2470.namprd12.prod.outlook.com (2603:10b6:903:d1::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2623.14; Thu, 16 Jan
+ 2020 20:14:32 +0000
+Received: from CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::202) by MN2PR12CA0012.outlook.office365.com
+ (2603:10b6:208:a8::25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.18 via Frontend
- Transport; Thu, 16 Jan 2020 20:14:31 +0000
+ Transport; Thu, 16 Jan 2020 20:14:32 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT042.mail.protection.outlook.com (10.13.173.165) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT033.mail.protection.outlook.com (10.13.174.247) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2644.19 via Frontend Transport; Thu, 16 Jan 2020 20:14:30 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.2644.19 via Frontend Transport; Thu, 16 Jan 2020 20:14:31 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 16 Jan
- 2020 14:14:28 -0600
+ 2020 14:14:30 -0600
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 16 Jan
+ 2020 14:14:30 -0600
 Received: from blakha.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Thu, 16 Jan 2020 14:14:27 -0600
+ Transport; Thu, 16 Jan 2020 14:14:30 -0600
 From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 12/22] drm/amd/display: 3.2.69
-Date: Thu, 16 Jan 2020 15:14:08 -0500
-Message-ID: <20200116201418.2254-13-Bhawanpreet.Lakha@amd.com>
+Subject: [PATCH 16/22] drm/amd/display: Call ATOM_INIT instead of ATOM_ENABLE
+ for DMCUB
+Date: Thu, 16 Jan 2020 15:14:12 -0500
+Message-ID: <20200116201418.2254-17-Bhawanpreet.Lakha@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200116201418.2254-1-Bhawanpreet.Lakha@amd.com>
 References: <20200116201418.2254-1-Bhawanpreet.Lakha@amd.com>
@@ -82,26 +87,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(376002)(39860400002)(396003)(346002)(428003)(189003)(199004)(5660300002)(36756003)(70206006)(478600001)(2906002)(4744005)(54906003)(6666004)(356004)(70586007)(316002)(6916009)(1076003)(186003)(426003)(26005)(2616005)(336012)(7696005)(86362001)(4326008)(8676002)(8936002)(81166006)(81156014);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BY5PR12MB4308; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+ SFS:(10009020)(4636009)(136003)(39860400002)(346002)(376002)(396003)(428003)(199004)(189003)(8936002)(81166006)(81156014)(478600001)(86362001)(2616005)(5660300002)(54906003)(8676002)(356004)(6666004)(6916009)(186003)(7696005)(70586007)(4326008)(70206006)(316002)(2906002)(36756003)(26005)(426003)(336012)(1076003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR1201MB2470; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8e08270d-b6cf-4d28-8529-08d79ac0b212
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4308:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB43081FA7CA5DF0E67549E62FF9360@BY5PR12MB4308.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:296;
+X-MS-Office365-Filtering-Correlation-Id: b6145aa6-3f0c-4e14-bf4e-08d79ac0b296
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB2470:
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB24709AAECFFCD7C9AC785547F9360@CY4PR1201MB2470.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
 X-Forefront-PRVS: 02843AA9E0
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: HtUwVhXx6+akGahF60aZAXjX/XwdeZKEeOT1F8uosPD5Gu+wM7cPkPyABWYlYRMVeVff6fotq0dEq37p0Tq1RO167nIEh+kIFwzUv16r236fOA0bgKMHt8Lm+u8/F+7h74UsIWsgXfh7JN0LHs75Hh4kYvyyUmzpXONSFDdJYh0JaD1cgEnbZHAXNOPrbF7GBttuucPBGVSjy1lOLaNJlb2b0mJ8NE0HTYqBGSCeLTlMUu9hKIt2WwYFUwJB6OUNxKuAKgj8tbLBb2pY4PaV+74bvtGcDkKPXQvSaX1i0rJT7Hyawz0m/nccwbJRTkSAWwgDe3/+SGK3T4/kX5UAJS04o7qFnGgk+3hUFhC+kwStHYkJItY0IK8EpHawOZJ+/RXetcG8YA+EeCS3YJ+ife0xMscd/U76CvP1P4pQPv3Ur2KbCWB6cvV2XFUXweX/
+X-Microsoft-Antispam-Message-Info: ZqjygnR+W8wfJ7L2UQjTLKk+Ht1T7ZlpO4fMaEV4n+hASNyIsU6Ak4DKgE4r4utgipJPL4zyXRVNsz8brMR6o4RuCaxFw+IG7tN7GKlJzvNWUdXoEQ1kz7rGEox2qiyiUdpe3kb26Bd+fKGajOOT4wjYqhbirF8UGpqfAd/9PPMy0SJ8BMygG6twpB4nHdt0xDn3N1zK0JLwJNFTtrbCcOoBuzRlZVAPHBI6P++aHPDVNkVh1y8O6/lCqi4WYSB4OarWjAxgrQ7wJcj1rOvYbaUdcBtoRg++2tIsztFyArrZ68KSsfN20/q7WWBW2G5a0XHWpncufm0CD3E+H75QxOkML+j9b2tq70yl1RT0RFQ8l4j04dc1EVgbLapR8TwJdO2eYKEEQ4ZC9rObzspTJcBC8S3jU9sZk6Io2g5QG2fViZrctSxdpFHHcnQn9Qvn
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2020 20:14:30.7130 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e08270d-b6cf-4d28-8529-08d79ac0b212
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2020 20:14:31.5234 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b6145aa6-3f0c-4e14-bf4e-08d79ac0b296
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
+ Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4308
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2470
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,35 +118,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, rodrigo.siqueira@amd.com, Aric Cyr <aric.cyr@amd.com>,
- harry.wentland@amd.com
+Cc: sunpeng.li@amd.com, rodrigo.siqueira@amd.com, harry.wentland@amd.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+[Why]
+DMCUB command table doesn't support ATOM_ENABLE/ATOM_DISABLE anymore
+so we never end up calling the DCN init path in DMCUB.
+
+[How]
+Map ATOM_ENABLE to ATOM_INIT only for DMCUB command table offloading.
+
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
 Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/bios/command_table2.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 7d31dcb9e37f..8ff25b5dd2f6 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -39,7 +39,7 @@
- #include "inc/hw/dmcu.h"
- #include "dml/display_mode_lib.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table2.c b/drivers/gpu/drm/amd/display/dc/bios/command_table2.c
+index c4ba6e84db65..629a07a2719b 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/command_table2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/command_table2.c
+@@ -711,6 +711,10 @@ static void enable_disp_power_gating_dmcub(
+ 	power_gating.header.sub_type = DMUB_CMD__VBIOS_ENABLE_DISP_POWER_GATING;
+ 	power_gating.power_gating.pwr = *pwr;
  
--#define DC_VER "3.2.68"
-+#define DC_VER "3.2.69"
- 
- #define MAX_SURFACES 3
- #define MAX_PLANES 6
++	/* ATOM_ENABLE is old API in DMUB */
++	if (power_gating.power_gating.pwr.enable == ATOM_ENABLE)
++		power_gating.power_gating.pwr.enable = ATOM_INIT;
++
+ 	dc_dmub_srv_cmd_queue(dmcub, &power_gating.header);
+ 	dc_dmub_srv_cmd_execute(dmcub);
+ 	dc_dmub_srv_wait_idle(dmcub);
 -- 
 2.17.1
 
