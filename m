@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7759DC33CAF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA406C33CB6
 	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 20:14:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 495B620663
+	by mail.kernel.org (Postfix) with ESMTPS id 91A7220663
 	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 20:14:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="fXi3dX65"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 495B620663
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="HVI4vPur"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91A7220663
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 060876E489;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F8E56E48B;
 	Thu, 16 Jan 2020 20:14:45 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90F456E48C
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 20:14:41 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2065.outbound.protection.outlook.com [40.107.236.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C17D16E48B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 20:14:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=I89zuWAzdHZ1z3vN7wt5kJGCcKahFlnKQzlrI4x8P3NqDupDmZYOY/cXv2tTVXFgPk1yZTLwdL+6P8oO5CU2jaXrYuElKQzXlsVwfG8CuMAaauXKs6cJeA/fBAJxoFj0yrSnvpjYlJTykEqEbJzHR8OiKlUlFfC7rQGH+79RsOfCDWwhlHhe8wz10+Q98fDe7z52V7iuYrOkLhy6dATDa7A5Eadd0uhVE7Vg8qoczgEOTtjuRIPean1592nMjyMZHGMeUqTAMRIcpdlt5ORWksSHsqaKzlhrk1qdvLHrPBvLue1hDgEu/jOymOf+hSey78H/aWi/LHJ5lw2OlPeoJQ==
+ b=SuspvAFozXL5Pbkk6UzGlrPHn0nOgyvjwEciu3YumXFmOdoMEvp+3MLBLZgYNV0JYxFFQCx/TztC3CD22z5GmGlXq5QZTLnQgnhbZc8vOtNLajKltdDWEo8yWDZlz33tUcr4qhlqJGOHUUCvAib3MofEwVHselDZ6ukeof/Q5jSAiJwjR4BOa5AJ/SoIRCeHTnQ5sNSVI4MI+YbpKqw/RB1gbIU10J6751Fkg2JRdDUUp7SoZt/6w95lkp5i69qlDAcgOlZIogAicMpiLsRPzGfsSJ/j3BTjAeM1Vsik9cCyAiehWbIFQ9A7R1o96Wpd+34c/H6s2BY2vqDil2+R4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7GTmAr0JWR4jEDAdUJvUAC4Sv1MFnuUYJmPo8t2QehU=;
- b=SgxY3gU8J56dDKdpAGmdPuw/YaS0zTSzY+YUhtUtV1dvjBaXnvoAn8dXkUc7fxzAiqbYwwv3b4PRwBQbsGiZXT37fGIVBxnLdYPvTYhdsp/X+qF30RGvy0fhwcZKlc+/+VdJh/Vg1GeFjF+lJfH/rkob99ZrdtlFCKKgJ6/6XQrk0J7NpDNUF2IT//oZ7bTo3u6N6mmVXsAOhH+Cp4o4zK118SIB0Vrk40ye07rEXTPbiej5QtnEhm1iWtfLCVBy567u34n0JeipXmZhd+srsZWiaWWC4vRRLme8NTtDnyGiHzCNmCkMhAL8kmfm3kbwLZMjskSirKsvWQuIw0SqCA==
+ bh=h8z8MnNSFZ7ZEsFH6HhYg6GOYScx/b8kfUtgyVUPu0A=;
+ b=SClUh66ZfnQkNyVcjEKURsZEt8j4K6P92nyuaNcUuDrIfwHanuBAhqZSltcgdHCg59g9FppF09kxO+kBZtLDfyUzTRTHCZoeFhrk/WFMBb9cl2UDT0R6lXglEDtFhEXEQd67HK4VKClgErTl7vHXpkpL3nWJD/w5r3oFPyAUsrpmv2arWegpZZXOcOPsZ8hdnKJ+/DT2vj1DFUNXSVXDGFaGYv8a4lAbj2LxUvjh0FhoMl6hQXlFMrchGSY5AOIggRPDY86/+19AI8elWCoArEpscf/AnySFst6WiC/BOTT0XW233W3a42H6znoM/FWosU4onrJ7Npuh9QC1VfLaiA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7GTmAr0JWR4jEDAdUJvUAC4Sv1MFnuUYJmPo8t2QehU=;
- b=fXi3dX65znKjTbdF3WMZnQsXkmip2MPZPTnsuDty0+31tzunrMTT0P+CdOqleu6hWKeNdqJwNthw/k7riRSy4e+H9h8N/qVxN8IclXCJea1ltBImOexlsZapGeNPb98j0lOyYoqSVGjnBjGxMaYDDNaTfG47YF34+GXC0pvCM4o=
-Received: from DM5PR12CA0007.namprd12.prod.outlook.com (2603:10b6:4:1::17) by
- BY5PR12MB4196.namprd12.prod.outlook.com (2603:10b6:a03:205::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.18; Thu, 16 Jan
- 2020 20:14:34 +0000
-Received: from DM6NAM11FT042.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::200) by DM5PR12CA0007.outlook.office365.com
- (2603:10b6:4:1::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.18 via Frontend
- Transport; Thu, 16 Jan 2020 20:14:32 +0000
+ bh=h8z8MnNSFZ7ZEsFH6HhYg6GOYScx/b8kfUtgyVUPu0A=;
+ b=HVI4vPurzC2ok0WbvD0pV1EG56I3gTcA5tvK2xRE/PqZya+lbVQFrguK+RNnNorYwRXl1/NPCGn+pYGVBx50NlGsn+TZ1VRgC25NTjimJkVQE/62KS05gHarJL3qlsYNI6A5EXV7gosVrKbP0keK8icQVE3YCnlCW58zkQY6z7E=
+Received: from DM3PR12CA0133.namprd12.prod.outlook.com (2603:10b6:0:51::29) by
+ MWHPR12MB1405.namprd12.prod.outlook.com (2603:10b6:300:13::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2644.18; Thu, 16 Jan 2020 20:14:37 +0000
+Received: from DM6NAM11FT050.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eaa::208) by DM3PR12CA0133.outlook.office365.com
+ (2603:10b6:0:51::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.20 via Frontend
+ Transport; Thu, 16 Jan 2020 20:14:37 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -59,21 +59,22 @@ Authentication-Results: spf=none (sender IP is 165.204.84.17)
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT042.mail.protection.outlook.com (10.13.173.165) with Microsoft SMTP
+ DM6NAM11FT050.mail.protection.outlook.com (10.13.173.111) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2644.19 via Frontend Transport; Thu, 16 Jan 2020 20:14:31 +0000
+ 15.20.2644.19 via Frontend Transport; Thu, 16 Jan 2020 20:14:37 +0000
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 16 Jan
- 2020 14:14:28 -0600
+ 2020 14:14:31 -0600
 Received: from blakha.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Thu, 16 Jan 2020 14:14:28 -0600
+ Transport; Thu, 16 Jan 2020 14:14:31 -0600
 From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 13/22] drm/amd/display: fix rotation_angle to use enum values
-Date: Thu, 16 Jan 2020 15:14:09 -0500
-Message-ID: <20200116201418.2254-14-Bhawanpreet.Lakha@amd.com>
+Subject: [PATCH 18/22] drm/amd/display: Check hw_init state when determining
+ if DMCUB is initialized
+Date: Thu, 16 Jan 2020 15:14:14 -0500
+Message-ID: <20200116201418.2254-19-Bhawanpreet.Lakha@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200116201418.2254-1-Bhawanpreet.Lakha@amd.com>
 References: <20200116201418.2254-1-Bhawanpreet.Lakha@amd.com>
@@ -82,26 +83,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(346002)(376002)(396003)(136003)(428003)(189003)(199004)(2906002)(336012)(70206006)(70586007)(86362001)(6916009)(478600001)(7696005)(54906003)(36756003)(356004)(6666004)(186003)(316002)(26005)(4326008)(2616005)(81166006)(81156014)(8936002)(8676002)(5660300002)(1076003)(426003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BY5PR12MB4196; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+ SFS:(10009020)(4636009)(346002)(376002)(136003)(39860400002)(396003)(428003)(199004)(189003)(186003)(6666004)(5660300002)(426003)(26005)(356004)(336012)(6916009)(36756003)(7696005)(316002)(54906003)(478600001)(86362001)(4326008)(81156014)(8936002)(1076003)(70586007)(8676002)(81166006)(2616005)(2906002)(70206006);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1405; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7bf44e92-ead5-46bc-b4a2-08d79ac0b2be
-X-MS-TrafficTypeDiagnostic: BY5PR12MB4196:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB419689B07EC31F3FECA0367FF9360@BY5PR12MB4196.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:454;
+X-MS-Office365-Filtering-Correlation-Id: 13cbae99-0372-4f77-45c4-08d79ac0b611
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1405:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1405531477D800AADC87C19BF9360@MWHPR12MB1405.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
 X-Forefront-PRVS: 02843AA9E0
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jGZ2THNZhpYSZuwHt9jhSHLFqKkc3f8cGBlhc7Lq/Wcy/UMU05tDjTYxfFC/8wNO1xBUwamlwKdnsbt3+hUhUVzdHngdbJrDenThHxf0jmsphv9sFD5RJBw+QyHr24EcfIB7csl+0JtnYgW+ItBXfmFL4M6YlKbyjJWuy3nL+VhC51EDp8Nhtu/FP+h7H1YDBRCOZ1k/zoFb8oGHq0c60sPgStN5lEzPLJ0SBwUb3A1eEbyUOflM83Te5nF8Y6t5Y+UPcXeTGzyvDU3f9ceXyonC2a3Wabtv+RoiJbNrrZvc/EHOXRRTOPBNC3JMAX3BBU2rWkbGLwDvv72bTTgKK1GaPWWhUvJS5oFzgKRYMHmRfEgJyA6NShxQ8VgkaIJEKnr9zQdjfgkXbkB8Gpl5fqw4vWM3Gjyelly5SiBuLMIRGnnPRhkUyt7d+ntIsoev
+X-Microsoft-Antispam-Message-Info: RSWV+Rq9+WcggrZ3uXJgCA2PkhR74M1awsgUQN/7HNe8XX4EtZAZEDOGNYuWJ+ju31rfaU3DBhH0fdcYV2Z5PJ9agfhaBCnCWE6gOF3BINjVONmPmvrSLlWNibEOnfa/PmJ7UMqBSFh4Q4UUCU2nHacGrl24ptY8fj9fUDc2anEXuCoANxpMUHJglUQ+XeY5Ec78DqPr/IaE1Da6o97EZIi+fIjU+wtevZ1l22PK5v/IQzrVFN1vYze15ua9hMZZ3P+9L8kDI2sxz+J75vzAdmGGUOSXkaC4uN4rYRoEdidqj06eR+99PJo1VlkxVA0fSVe5UoWv5+7oGwigJLFe+duauopqh9asGCf4JaDL1ATfIhDf/XjeVTTnuP1TkinaRaNCvJjvfUDjHD0BWoEODrWMcX5qhQYlow5hNy5FTMPn/sNHe6pDlyWfjOuEsDiY
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2020 20:14:31.8423 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7bf44e92-ead5-46bc-b4a2-08d79ac0b2be
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2020 20:14:37.4227 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13cbae99-0372-4f77-45c4-08d79ac0b611
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4196
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1405
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,75 +114,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, rodrigo.siqueira@amd.com,
- Brandon Syu <Brandon.Syu@amd.com>, harry.wentland@amd.com
+Cc: sunpeng.li@amd.com, rodrigo.siqueira@amd.com, harry.wentland@amd.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Brandon Syu <Brandon.Syu@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
 [Why]
-Hardcoded fixed values are not proper.
+CW2 may already be programmed when coming back from S4. In this case
+we want to unconditionally replace whatever DMCUB version is currently
+enabled with the latest.
 
 [How]
-Use enum values instead of fixed numbers.
+Check the hw_init flag to know whether or not we've previously executed
+the initliazed routine.
 
-Signed-off-by: Brandon Syu <Brandon.Syu@amd.com>
-Reviewed-by: Eric Yang <eric.yang2@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
 Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c
-index da63fc53cc4a..cf09b9335728 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c
-@@ -261,28 +261,28 @@ static void hubp21_apply_PLAT_54186_wa(
- 			address->video_progressive.luma_addr.high_part == 0xf4)
- 		return;
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+index ea99d4cf34cc..85a518bf8a76 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+@@ -312,6 +312,9 @@ enum dmub_status dmub_srv_is_hw_init(struct dmub_srv *dmub, bool *is_hw_init)
+ 	if (!dmub->sw_init)
+ 		return DMUB_STATUS_INVALID;
  
--	if ((rotation_angle == 0 || rotation_angle == 180)
-+	if ((rotation_angle == ROTATION_ANGLE_0 || rotation_angle == ROTATION_ANGLE_180)
- 			&& viewport_c_height <= 512)
- 		return;
++	if (!dmub->hw_init)
++		return DMUB_STATUS_OK;
++
+ 	if (dmub->hw_funcs.is_hw_init)
+ 		*is_hw_init = dmub->hw_funcs.is_hw_init(dmub);
  
--	if ((rotation_angle == 90 || rotation_angle == 270)
-+	if ((rotation_angle == ROTATION_ANGLE_90 || rotation_angle == ROTATION_ANGLE_270)
- 				&& viewport_c_width <= 512)
- 		return;
- 
- 	switch (rotation_angle) {
--	case 0: /* 0 degree rotation */
-+	case ROTATION_ANGLE_0: /* 0 degree rotation */
- 		row_height = 128;
- 		patched_viewport_height = (viewport_c_height / row_height + 1) * row_height + 1;
- 		patched_viewport_width = viewport_c_width;
- 		hubp21->PLAT_54186_wa_chroma_addr_offset = 0;
- 		break;
--	case 2: /* 180 degree rotation */
-+	case ROTATION_ANGLE_180: /* 180 degree rotation */
- 		row_height = 128;
- 		patched_viewport_height = viewport_c_height + row_height;
- 		patched_viewport_width = viewport_c_width;
- 		hubp21->PLAT_54186_wa_chroma_addr_offset = 0 - chroma_pitch * row_height * chroma_bpe;
- 		break;
--	case 1: /* 90 degree rotation */
-+	case ROTATION_ANGLE_90: /* 90 degree rotation */
- 		row_height = 256;
- 		if (h_mirror_en) {
- 			patched_viewport_height = viewport_c_height;
-@@ -294,7 +294,7 @@ static void hubp21_apply_PLAT_54186_wa(
- 			hubp21->PLAT_54186_wa_chroma_addr_offset = 0 - tile_blk_size;
- 		}
- 		break;
--	case 3:	/* 270 degree rotation */
-+	case ROTATION_ANGLE_270: /* 270 degree rotation */
- 		row_height = 256;
- 		if (h_mirror_en) {
- 			patched_viewport_height = viewport_c_height;
 -- 
 2.17.1
 
