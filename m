@@ -6,47 +6,47 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81BFFC33CB3
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 17:41:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6309AC33CB6
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 17:46:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A8A42469F
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 17:41:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3E629246DD
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 17:46:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="XEX2jzml"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A8A42469F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="QG+NaBx5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E629246DD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A49566EE65;
-	Thu, 16 Jan 2020 17:41:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 892286EE7A;
+	Thu, 16 Jan 2020 17:46:58 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0D346EE64;
- Thu, 16 Jan 2020 17:41:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBF496EE78;
+ Thu, 16 Jan 2020 17:46:56 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B0359246AC;
- Thu, 16 Jan 2020 17:41:47 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E0168246F2;
+ Thu, 16 Jan 2020 17:46:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579196508;
- bh=u4Wnu6vdTq3zbpaXhgACT1ejyw+Rhxp+TLvXUrakHKw=;
+ s=default; t=1579196816;
+ bh=nhIElsysXcFU95RfT3RG20+fw0nnoG2gyr1HSGZjdKk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XEX2jzml1GNB5ifN02yyvYoO2ItdqDw4azpvwSR6rflW3ckpBLovwr9awVt0l+JiH
- zLzE2+XrkWUz3Yh3GBB0i2OBBzElILWEXBrpXVr2HnHH8iDKIh+/l+6BJ/90I1vyUO
- PNVJ3Va/CcONPqfGhQaPdjmC2NCk7Bj4GsDHqmCo=
+ b=QG+NaBx5FH4W7CFcE8dDRQXQJ7Bl9JdQgLAQgQZxBV+bbIr7hVnu+xRUdL2t2hHYi
+ fyzaXkSTiNrTKZ/MEYMHPvCYRcCmq6PYSsquwBnqw7i9VX3XnqsIYGZaBRbmQPuOmv
+ VRcKjSn51l8RecnYBYh1mnJR0xjUfR7WwurUXhbQ=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 248/251] drm/radeon: fix bad DMA from
+Subject: [PATCH AUTOSEL 4.4 172/174] drm/radeon: fix bad DMA from
  INTERRUPT_CNTL2
-Date: Thu, 16 Jan 2020 12:36:37 -0500
-Message-Id: <20200116173641.22137-208-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 12:42:49 -0500
+Message-Id: <20200116174251.24326-172-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200116173641.22137-1-sashal@kernel.org>
-References: <20200116173641.22137-1-sashal@kernel.org>
+In-Reply-To: <20200116174251.24326-1-sashal@kernel.org>
+References: <20200116174251.24326-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -94,10 +94,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  3 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/radeon/cik.c b/drivers/gpu/drm/radeon/cik.c
-index b99f3e59011c..5fcb5869a489 100644
+index 80b6d6e4721a..7acde09c8e8f 100644
 --- a/drivers/gpu/drm/radeon/cik.c
 +++ b/drivers/gpu/drm/radeon/cik.c
-@@ -7026,8 +7026,8 @@ static int cik_irq_init(struct radeon_device *rdev)
+@@ -7372,8 +7372,8 @@ static int cik_irq_init(struct radeon_device *rdev)
  	}
  
  	/* setup interrupt control */
@@ -109,10 +109,10 @@ index b99f3e59011c..5fcb5869a489 100644
  	/* IH_DUMMY_RD_OVERRIDE=0 - dummy read disabled with msi, enabled without msi
  	 * IH_DUMMY_RD_OVERRIDE=1 - dummy read controlled by IH_DUMMY_RD_EN
 diff --git a/drivers/gpu/drm/radeon/r600.c b/drivers/gpu/drm/radeon/r600.c
-index f2eac6b6c46a..9569c35f8766 100644
+index 0e20c08f8977..2056224d0b3c 100644
 --- a/drivers/gpu/drm/radeon/r600.c
 +++ b/drivers/gpu/drm/radeon/r600.c
-@@ -3697,8 +3697,8 @@ int r600_irq_init(struct radeon_device *rdev)
+@@ -3647,8 +3647,8 @@ int r600_irq_init(struct radeon_device *rdev)
  	}
  
  	/* setup interrupt control */
@@ -124,10 +124,10 @@ index f2eac6b6c46a..9569c35f8766 100644
  	/* IH_DUMMY_RD_OVERRIDE=0 - dummy read disabled with msi, enabled without msi
  	 * IH_DUMMY_RD_OVERRIDE=1 - dummy read controlled by IH_DUMMY_RD_EN
 diff --git a/drivers/gpu/drm/radeon/si.c b/drivers/gpu/drm/radeon/si.c
-index b75d809c292e..919d389869ce 100644
+index 5cf3a2cbc07e..4128c98d9054 100644
 --- a/drivers/gpu/drm/radeon/si.c
 +++ b/drivers/gpu/drm/radeon/si.c
-@@ -6018,8 +6018,8 @@ static int si_irq_init(struct radeon_device *rdev)
+@@ -6013,8 +6013,8 @@ static int si_irq_init(struct radeon_device *rdev)
  	}
  
  	/* setup interrupt control */
