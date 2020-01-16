@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85230C33CB3
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 20:14:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 19D49C33CB6
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 20:14:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 565B2206D9
+	by mail.kernel.org (Postfix) with ESMTPS id DEE84206D9
 	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 20:14:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="CZfLgb9U"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 565B2206D9
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="prowa1ii"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DEE84206D9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BEB56E2B2;
-	Thu, 16 Jan 2020 20:14:34 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCC946E2B2
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 20:14:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96A266E47A;
+	Thu, 16 Jan 2020 20:14:35 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750079.outbound.protection.outlook.com [40.107.75.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 838506E2B2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 20:14:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XaU78mFTmvOq6OXWVLSXha94FiyF3uxgJoFDprNdTSj+gNXV9SW1awl+jw+Ba9FSt8KcYuKKDahZHBWPrLt3MUX8v/PRBBZS707vv/W+qb08Pjd9FP5saXBw6F6XuOInKQKbh/3cjURveCaTxSWm9abzAlmheIHLAPcWLloUB1rDp6+k6gGQyGthrhSOy4wEk/VxJf476MEu1W9lNozjJCEp8fNkCFmOLsSL8S2SWO/U3v1phFKAMnoQoAJ1lTBdkTHvVMszS92YZOljesVAl14JXuggdcssl5O+bL3u4cMnAyuETZl7yjFadSlxxoGpt6b5i7YdwmFx1+CMR2wnRw==
+ b=NB0zbgYgmFHRGdIDdpmdLBfFtO4r8l82HudUvANRnlleX425AGLE56mYlYvJkC2xjFspuar95CSJhRvSsdJggwxhP/+iyWbjM8c/xvd07qnAIsLOr4lYZ7JijeUu1lqCu1mL2VpBgh6CvOyPrvFbyfej3dlnHWLZjhUONc93deg1xMSzqL3T44kTMVpcOjfu+giQdK5mpSKqd4EepFpgAbN33Pf64dnabiMmOIE7teNZO/R/n+RFl5rW0+9yjuQ+d7DFKxR2d5QSA95IEwfXCZIQhx7Oq03/h/9mZ5qenYGN75lVCkCOG7NVFWFWD3V7xaJdKPtwvI8X5+OQ9G/eHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b0iPfJ4xdMFyM0XD/DDqpPgDV3H/4xPBRfkXWpU7GhE=;
- b=oGubkOIEmXuljtF2zmioj8VFkXPkvOP1BClsgvwIfqJfVVRNHAepQz1JaHiiojd3bt84a9JBSJraVoqUB9GIMZV42okoQx/jp5J73uF1IEceWOtrCKwre8GCZIP0h6moGAu1+L4+2g8ROXtzDtyaTord0DgoMa8M3Z1bxWuO1yns3cS6XnQDleB8OWwWYhMhh/54bdYYVAwDgiEGFO8hVu5qqwX7C729RoT7hNH1zBzNGctziYR4vD7zLFOb7dqq2p77w8UEcM7HHjCornWaNUAd2OUiFp04LAR+UF4i577hwvQ8SXvxeYoJJDTV5gO8NsTTysiEJ6r1zJOryu47IA==
+ bh=HG1JlcYxJ74+Q6baokx7nsyCgZEcgolGVrymniqTErU=;
+ b=oKq8/q0bRO2oKr+m6lBoGJZWjMWcalNPDamWWtYKtOYG7uC7VN9/3vEnORrt0dxwtvEjIaGr27DJMpjLg7fDH+m+UfTXta6TRF6u2Q6u1noohRgUNDQuwgqgnb3Z4BSkH03a+aydq7ddY52mbk93IhAufEA7y3SsHOYFrDiP/dK7zjdNJ9w6KmnMOwoHkN1WYOO+l5yNCSHrbtF5J9mHVmtp7rPpxDp4TR39FNGLimrEkiKlkNQ6gShGbxuS8/mEDWi3C/ZtSHh3xvC+TRTiEYhcbEF6JuLvA97Aj1VD23VZkCwjm2FJKXWrrxcI/AsplSLd/+hbVpnBHu8hXwDYkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b0iPfJ4xdMFyM0XD/DDqpPgDV3H/4xPBRfkXWpU7GhE=;
- b=CZfLgb9Umwkqzuh/IkJsJykWX3NSNePDNkC7bS8eMagzl50C+3cQEubbjVDTg6s/8rOowwMaNznl6/5b4zb6d2LF13UURDd3LdyQo5gtqWLKAdzC16HLyaMHqwLuX47bBbkRhjXTUpmQc+XxN6VM6ucqe+njj99CNW5Plj1ny7M=
-Received: from DM5PR12CA0010.namprd12.prod.outlook.com (2603:10b6:4:1::20) by
- CY4PR12MB1350.namprd12.prod.outlook.com (2603:10b6:903:41::7) with
+ bh=HG1JlcYxJ74+Q6baokx7nsyCgZEcgolGVrymniqTErU=;
+ b=prowa1iifeIzlwLSa8anDbnxOAZZTcIoy7QhZTtaZk2wtLFOjwrM4oWU5D0UmTNjtk6wTbsJhD4hX+evmGMfyST4CVCMitXMyzTybHksRVQkoYEQNkSZRg1GMvjsktNs1Jh0AbojnU99QRXhfZ1a2D5xyGeDXcS4y77uAFBOwrI=
+Received: from DM5PR12CA0007.namprd12.prod.outlook.com (2603:10b6:4:1::17) by
+ BY5PR12MB4308.namprd12.prod.outlook.com (2603:10b6:a03:20a::9) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.9; Thu, 16 Jan 2020 20:14:30 +0000
+ 15.20.2644.20; Thu, 16 Jan 2020 20:14:31 +0000
 Received: from DM6NAM11FT042.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::205) by DM5PR12CA0010.outlook.office365.com
- (2603:10b6:4:1::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.19 via Frontend
- Transport; Thu, 16 Jan 2020 20:14:30 +0000
+ (2a01:111:f400:7eaa::200) by DM5PR12CA0007.outlook.office365.com
+ (2603:10b6:4:1::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.18 via Frontend
+ Transport; Thu, 16 Jan 2020 20:14:31 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -65,16 +65,15 @@ Received: from SATLEXMB02.amd.com (165.204.84.17) by
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 16 Jan
- 2020 14:14:27 -0600
+ 2020 14:14:28 -0600
 Received: from blakha.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
  Transport; Thu, 16 Jan 2020 14:14:27 -0600
 From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 11/22] drm/amd/display: Refine i2c frequency calculating
- sequence
-Date: Thu, 16 Jan 2020 15:14:07 -0500
-Message-ID: <20200116201418.2254-12-Bhawanpreet.Lakha@amd.com>
+Subject: [PATCH 12/22] drm/amd/display: 3.2.69
+Date: Thu, 16 Jan 2020 15:14:08 -0500
+Message-ID: <20200116201418.2254-13-Bhawanpreet.Lakha@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200116201418.2254-1-Bhawanpreet.Lakha@amd.com>
 References: <20200116201418.2254-1-Bhawanpreet.Lakha@amd.com>
@@ -83,26 +82,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(346002)(376002)(39860400002)(136003)(428003)(199004)(189003)(2906002)(8936002)(336012)(426003)(316002)(6916009)(36756003)(81156014)(70206006)(54906003)(81166006)(70586007)(8676002)(186003)(4326008)(26005)(2616005)(7696005)(478600001)(356004)(6666004)(1076003)(5660300002)(86362001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR12MB1350; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+ SFS:(10009020)(4636009)(136003)(376002)(39860400002)(396003)(346002)(428003)(189003)(199004)(5660300002)(36756003)(70206006)(478600001)(2906002)(4744005)(54906003)(6666004)(356004)(70586007)(316002)(6916009)(1076003)(186003)(426003)(26005)(2616005)(336012)(7696005)(86362001)(4326008)(8676002)(8936002)(81166006)(81156014);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BY5PR12MB4308; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: eff75174-2308-4269-9626-08d79ac0b1cc
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1350:
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1350DD05B97EF7FD8FC1EE5CF9360@CY4PR12MB1350.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:758;
+X-MS-Office365-Filtering-Correlation-Id: 8e08270d-b6cf-4d28-8529-08d79ac0b212
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4308:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB43081FA7CA5DF0E67549E62FF9360@BY5PR12MB4308.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:296;
 X-Forefront-PRVS: 02843AA9E0
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1VztyHHoSyIMjQ/V5jFeURtrRVzB0QEeNqAxXy4fc0JF07IgZTtRFcsRDdqjT66w8ZnPLFqb2FQG4om3n9KHjQIy0Fq8s5TM8tioWdRSwMCT3K0BSs+qqIYxZ+uYItyvEUpXUW8D+zF/2ACJCkfEIMB1vojwUz0eUXbvReH70sS46hcDAjPpw+arXL/ddMxqQnx233TlVIl6PBOkHe4Vc6eKoQVXQphwMa6/SJB4NM03dfiqGYScRhjSRG+8UGpGuh3vngav1s1YcXfmcNFytx5e7bxUpwe9RRG4VRQPWg7LRv/Wo4k8bGJZ8tzU7g6y4o5EP2KhRsYIr2MWhr/hH8tXKCT0yE0gPsKqIdedoflIr2eMk+uZ0QsLFY4/Ar9ySyixwdE6u8XnYzcuVs+2V/W4t3tnok7Zxguaff/vsOVVokE0lms01yzQO5PL+Ss9
+X-Microsoft-Antispam-Message-Info: HtUwVhXx6+akGahF60aZAXjX/XwdeZKEeOT1F8uosPD5Gu+wM7cPkPyABWYlYRMVeVff6fotq0dEq37p0Tq1RO167nIEh+kIFwzUv16r236fOA0bgKMHt8Lm+u8/F+7h74UsIWsgXfh7JN0LHs75Hh4kYvyyUmzpXONSFDdJYh0JaD1cgEnbZHAXNOPrbF7GBttuucPBGVSjy1lOLaNJlb2b0mJ8NE0HTYqBGSCeLTlMUu9hKIt2WwYFUwJB6OUNxKuAKgj8tbLBb2pY4PaV+74bvtGcDkKPXQvSaX1i0rJT7Hyawz0m/nccwbJRTkSAWwgDe3/+SGK3T4/kX5UAJS04o7qFnGgk+3hUFhC+kwStHYkJItY0IK8EpHawOZJ+/RXetcG8YA+EeCS3YJ+ife0xMscd/U76CvP1P4pQPv3Ur2KbCWB6cvV2XFUXweX/
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2020 20:14:30.2547 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eff75174-2308-4269-9626-08d79ac0b1cc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2020 20:14:30.7130 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e08270d-b6cf-4d28-8529-08d79ac0b212
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1350
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4308
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,187 +113,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, rodrigo.siqueira@amd.com, harry.wentland@amd.com,
- Lewis Huang <Lewis.Huang@amd.com>
+Cc: sunpeng.li@amd.com, rodrigo.siqueira@amd.com, Aric Cyr <aric.cyr@amd.com>,
+ harry.wentland@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lewis Huang <Lewis.Huang@amd.com>
+From: Aric Cyr <aric.cyr@amd.com>
 
-[Why]
-In HG mode, vbios didn't call DispController_Init to program NV1x
-XTAL_REF_DIV value when ASIC_INIT, but driver read XTAL_REF_DIV
-to calculate i2c reference frequency. it cause i2c frequency change
-from 100kHz to 200kHz.
-
-[How]
-remove get_speed function and calculate reference frequency at
-set_speed functiton.
-
-Signed-off-by: Lewis Huang <Lewis.Huang@amd.com>
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Signed-off-by: Aric Cyr <aric.cyr@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dce/dce_i2c_hw.c   | 68 ++++++-------------
- 1 file changed, 19 insertions(+), 49 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-index 1cd4d8fc361f..49d490214060 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-@@ -100,20 +100,6 @@ static uint32_t get_hw_buffer_available_size(
- 			dce_i2c_hw->buffer_used_bytes;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 7d31dcb9e37f..8ff25b5dd2f6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -39,7 +39,7 @@
+ #include "inc/hw/dmcu.h"
+ #include "dml/display_mode_lib.h"
  
--static uint32_t get_speed(
--	const struct dce_i2c_hw *dce_i2c_hw)
--{
--	uint32_t pre_scale = 0;
--
--	REG_GET(SPEED, DC_I2C_DDC1_PRESCALE, &pre_scale);
--
--	/* [anaumov] it seems following is unnecessary */
--	/*ASSERT(value.bits.DC_I2C_DDC1_PRESCALE);*/
--	return pre_scale ?
--		dce_i2c_hw->reference_frequency / pre_scale :
--		dce_i2c_hw->default_speed;
--}
--
- static void process_channel_reply(
- 	struct dce_i2c_hw *dce_i2c_hw,
- 	struct i2c_payload *reply)
-@@ -278,16 +264,25 @@ static void set_speed(
- 	struct dce_i2c_hw *dce_i2c_hw,
- 	uint32_t speed)
- {
-+	uint32_t xtal_ref_div = 0;
-+	uint32_t prescale = 0;
-+
-+	REG_GET(MICROSECOND_TIME_BASE_DIV, XTAL_REF_DIV, &xtal_ref_div);
-+
-+	if (xtal_ref_div == 0)
-+		xtal_ref_div = 2;
-+
-+	prescale = ((dce_i2c_hw->reference_frequency * 2) / xtal_ref_div) / speed;
+-#define DC_VER "3.2.68"
++#define DC_VER "3.2.69"
  
- 	if (speed) {
- 		if (dce_i2c_hw->masks->DC_I2C_DDC1_START_STOP_TIMING_CNTL)
- 			REG_UPDATE_N(SPEED, 3,
--				     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_PRESCALE), dce_i2c_hw->reference_frequency / speed,
-+				     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_PRESCALE), prescale,
- 				     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_THRESHOLD), 2,
- 				     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_START_STOP_TIMING_CNTL), speed > 50 ? 2:1);
- 		else
- 			REG_UPDATE_N(SPEED, 2,
--				     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_PRESCALE), dce_i2c_hw->reference_frequency / speed,
-+				     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_PRESCALE), prescale,
- 				     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_THRESHOLD), 2);
- 	}
- }
-@@ -344,9 +339,7 @@ static void release_engine(
- 	bool safe_to_reset;
- 
- 	/* Restore original HW engine speed */
--
--	set_speed(dce_i2c_hw, dce_i2c_hw->original_speed);
--
-+	REG_WRITE(SPEED, dce_i2c_hw->original_speed);
- 
- 	/* Reset HW engine */
- 	{
-@@ -416,7 +409,7 @@ struct dce_i2c_hw *acquire_i2c_hw_engine(
- 
- 	dce_i2c_hw->ddc = ddc;
- 
--	current_speed = get_speed(dce_i2c_hw);
-+	current_speed = REG_READ(SPEED);
- 
- 	if (current_speed)
- 		dce_i2c_hw->original_speed = current_speed;
-@@ -478,13 +471,9 @@ static void submit_channel_request_hw(
- 
- static uint32_t get_transaction_timeout_hw(
- 	const struct dce_i2c_hw *dce_i2c_hw,
--	uint32_t length)
-+	uint32_t length,
-+	uint32_t speed)
- {
--
--	uint32_t speed = get_speed(dce_i2c_hw);
--
--
--
- 	uint32_t period_timeout;
- 	uint32_t num_of_clock_stretches;
- 
-@@ -504,7 +493,8 @@ static uint32_t get_transaction_timeout_hw(
- bool dce_i2c_hw_engine_submit_payload(
- 	struct dce_i2c_hw *dce_i2c_hw,
- 	struct i2c_payload *payload,
--	bool middle_of_transaction)
-+	bool middle_of_transaction,
-+	uint32_t speed)
- {
- 
- 	struct i2c_request_transaction_data request;
-@@ -542,7 +532,7 @@ bool dce_i2c_hw_engine_submit_payload(
- 	/* obtain timeout value before submitting request */
- 
- 	transaction_timeout = get_transaction_timeout_hw(
--		dce_i2c_hw, payload->length + 1);
-+		dce_i2c_hw, payload->length + 1, speed);
- 
- 	submit_channel_request_hw(
- 		dce_i2c_hw, &request);
-@@ -588,13 +578,11 @@ bool dce_i2c_submit_command_hw(
- 		struct i2c_payload *payload = cmd->payloads + index_of_payload;
- 
- 		if (!dce_i2c_hw_engine_submit_payload(
--				dce_i2c_hw, payload, mot)) {
-+				dce_i2c_hw, payload, mot, cmd->speed)) {
- 			result = false;
- 			break;
- 		}
- 
--
--
- 		++index_of_payload;
- 	}
- 
-@@ -640,9 +628,6 @@ void dce100_i2c_hw_construct(
- 	const struct dce_i2c_shift *shifts,
- 	const struct dce_i2c_mask *masks)
- {
--
--	uint32_t xtal_ref_div = 0;
--
- 	dce_i2c_hw_construct(dce_i2c_hw,
- 			ctx,
- 			engine_id,
-@@ -650,21 +635,6 @@ void dce100_i2c_hw_construct(
- 			shifts,
- 			masks);
- 	dce_i2c_hw->buffer_size = I2C_HW_BUFFER_SIZE_DCE100;
--
--	REG_GET(MICROSECOND_TIME_BASE_DIV, XTAL_REF_DIV, &xtal_ref_div);
--
--	if (xtal_ref_div == 0)
--		xtal_ref_div = 2;
--
--	/*Calculating Reference Clock by divding original frequency by
--	 * XTAL_REF_DIV.
--	 * At upper level, uint32_t reference_frequency =
--	 *  dal_dce_i2c_get_reference_clock(as) >> 1
--	 *  which already divided by 2. So we need x2 to get original
--	 *  reference clock from ppll_info
--	 */
--	dce_i2c_hw->reference_frequency =
--		(dce_i2c_hw->reference_frequency * 2) / xtal_ref_div;
- }
- 
- void dce112_i2c_hw_construct(
+ #define MAX_SURFACES 3
+ #define MAX_PLANES 6
 -- 
 2.17.1
 
