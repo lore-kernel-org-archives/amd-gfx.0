@@ -2,102 +2,67 @@ Return-Path: <SRS0=9Rk5=3F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 898C9C33CB1
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 15:22:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B693BC33CB1
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 15:26:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4863A2072B
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 15:22:35 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 84B452072B
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 15:26:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="N14Dz1hf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4863A2072B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KpdjrA71"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 84B452072B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE2BD6EAF5;
-	Thu, 16 Jan 2020 15:22:34 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2058.outbound.protection.outlook.com [40.107.220.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE9E66EAF5
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 15:22:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q7gnYqqiKgU6U0eEk1T8DpLLjuENJQ9AI00mzQktsm64Mw3oGq2KIsez+75cOvx3rtTTJtsC9XBpfgdV29fqzOYdo6ViQXaozYhZELq/3MjHHs8QY+Rr/FT47a/oStuFrWBhZ+tPVjv5gwD1wnwjDNW2ywQVcpbsylUKJiIlaV7tqjcELK3MkC+vwzif8y/QLgEtW+U8JPcW9rhHCZv7OCpySg7DWB5zuUvBLTc3myXgSr1uEDg7ZDQwfNROk/8qz3r/Wpkz9DeohKxa7Qc2hf7xe1q0kGGu18tAWl0UVR0ZCxqIhfQJflJ4fp73rReQc4F1p0Hsi4x28B+gevFiJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PkbZ1lQzeJIO3ARs2scLqrYPyuyvS/iL6CVUgMnmGHk=;
- b=WihXlxJWZ+gt5siEkJ5fo5RTzDJBDeAphnUPnjF3AS3SNsvsKAt+6qHkmjm2vRWSWMAEULQ+2IZz5x11j2DxPmfyU5siuHQ84SxJXfHOJFeDsu1zsskh3CN6y/W1v0/3EzBplTq0h+KFYDclI+vJqmwgVvXIinWo7dV0N2DgHLSzLALDs9fi+7clKpxm8RZ8rXShyJ4qgoup8D0Q1EJbc5n3nuj7HhefcBl8AFfdiai8oZLw7tDsSOGFyLskDuluCKofulxRgh7aHKiqOe2Zwp6dxolNEMTl0bfKWDfCwg6uvg3whG7oOdpQpI/xhfhcKKcTnBPXUP8lKeLOuaiAeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PkbZ1lQzeJIO3ARs2scLqrYPyuyvS/iL6CVUgMnmGHk=;
- b=N14Dz1hfJWJkCB4K/10Az5AfuScSgQ36080sBSUmatUbsQCXvV55H8SLfzKauCtddmaOPy94XwsL3Ge6S4J6jbxMsyOptotRKO4MdguwD1CrGLBk5ZTH2zyVRymLL8lAZjuwaVgxzcQHcYR8O5KermFK9TmA4z5WNaDtvcbb30M=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Christian.Koenig@amd.com; 
-Received: from BN6PR12MB1699.namprd12.prod.outlook.com (10.175.97.148) by
- BN6PR12MB1283.namprd12.prod.outlook.com (10.168.225.136) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.20; Thu, 16 Jan 2020 15:22:32 +0000
-Received: from BN6PR12MB1699.namprd12.prod.outlook.com
- ([fe80::2cac:fcd3:c947:5813]) by BN6PR12MB1699.namprd12.prod.outlook.com
- ([fe80::2cac:fcd3:c947:5813%8]) with mapi id 15.20.2623.017; Thu, 16 Jan 2020
- 15:22:32 +0000
-Subject: Re: [PATCH] drm/scheduler: fix documentation by replacing rq_list
- with sched_list
-To: Nirmoy Das <nirmoy.aiemd@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20200116144320.109044-1-nirmoy.das@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <d77b5c95-78b0-b62d-f6ca-8b25fe8de45c@amd.com>
-Date: Thu, 16 Jan 2020 16:22:26 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <20200116144320.109044-1-nirmoy.das@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM3PR07CA0097.eurprd07.prod.outlook.com
- (2603:10a6:207:6::31) To BN6PR12MB1699.namprd12.prod.outlook.com
- (2603:10b6:404:ff::20)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AA726EB20;
+	Thu, 16 Jan 2020 15:26:18 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E44726EB20
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 15:26:17 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id b6so19602697wrq.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 07:26:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=EvWhaEjUf4I7npzYBPYdqHPXveZyQpmSLHIdNYnO8h0=;
+ b=KpdjrA71hKKZsSPiSMLOWcre9IaErVWngKBlnDiLBrgIshJfANPmwSqd1/jtJEAARS
+ NIoMxCuX5zc84Uwsbr3utqqiB9XfKifHsoCXrkY06zCUgGYbjXoyXeflTJb7kiHa+uGa
+ adReBC9ezGq0/QT7yPbxz+S5tAyivGhMSC5cvsTRB2wCaufzsMy4dk/FFiQK0YVc8fYm
+ +IgHQC9scngbW9EQuuKnaMf/jxYB53IXcn95xGUzUr42ewCbkIyTcwzeCbFfYtbmzyJU
+ 8+eVQh9NBx76HNx1rlxhuJGDlL5c2uOUpwVrTNxoekT5KGm3bgGvxp4FvFb9wD4TlRhm
+ fXWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=EvWhaEjUf4I7npzYBPYdqHPXveZyQpmSLHIdNYnO8h0=;
+ b=ZviCx/ISFEAMsAjwzstYJ/ihZnljSZ77zy/4yvwhiJXXCVTqkbzgVv4nHbFBH2mPkC
+ zavK7+MwdbYBeXrmJOVpedd6qadLtWkOTYCrpNNe7h3uVsJZHpuY29t2CHD9CMhj9dWJ
+ L21B7eNVZQr8gPDPdGTVfpRJlceGFBtUltPzy6PPgIOw3v0Ag18f073IiI6I5YrKspt6
+ wohwPGkzwn48rqh4kmNa3x1FCrHJRsOG4IsCW7zThdgHs+2+qvGRsKGOsOAaPQUNA2TH
+ pQOyDxoH/GFtS6uNYW9JW+uJX5lM/3D/lIqQlIqZKboqkg0+AkY8KDxhyHXgW5gtmFAO
+ ZJqw==
+X-Gm-Message-State: APjAAAWenrRjf0sIjHbNgYaUNhSDGdX1gbU/Pe2k8HmyPfKkr3o6KffT
+ 2v9ieITnSyGdpylCd38Wi6RJwJw1ZYKSMkeODbk=
+X-Google-Smtp-Source: APXvYqwq0d0D7LGGnmtd7pcQLvRV2Re35PgPU3tLr/0BiXCJrSIxpO4/82IeVuKwb05ASMKjE57pPVwbw4VzeQ6gkEw=
+X-Received: by 2002:a5d:5091:: with SMTP id a17mr3877511wrt.362.1579188376559; 
+ Thu, 16 Jan 2020 07:26:16 -0800 (PST)
 MIME-Version: 1.0
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM3PR07CA0097.eurprd07.prod.outlook.com (2603:10a6:207:6::31) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.10 via Frontend Transport; Thu, 16 Jan 2020 15:22:31 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e2b166a1-28d6-458e-7cae-08d79a97e7f5
-X-MS-TrafficTypeDiagnostic: BN6PR12MB1283:|BN6PR12MB1283:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN6PR12MB12834D1159BED0A9579153CA83360@BN6PR12MB1283.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
-X-Forefront-PRVS: 02843AA9E0
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(396003)(366004)(376002)(346002)(39860400002)(199004)(189003)(66574012)(16526019)(31696002)(66476007)(6486002)(6666004)(2616005)(2906002)(66556008)(186003)(86362001)(66946007)(52116002)(478600001)(4326008)(31686004)(81166006)(8936002)(81156014)(8676002)(5660300002)(36756003)(316002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BN6PR12MB1283;
- H:BN6PR12MB1699.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wDg474DIzx50uKxBAuk7ils/tYxjs1BkiTRGzklJ4DkP84teAdgmKE7V1P5eaxITSjoDkY4fmbkXoO4yy/uIWqaoT2VhPVM18bYP5oN185vkWIe1d4ZrNDy4THkUSWT7CSkHHFXN8MQxvYNJLN6ABI6VSulNz3m2a1SsQ+vwzn8nbbUyWjHGcWVIrKgtC9sTBrHEqL/HK7ZKZXmJ4w/dWQOkuDKAs7tAREGgIpldTTIcAOAptZilMgn1yNuVzQt32gEYjVxRVJCneVDzIaBVKw+ixfiF93ztnzVbOUtKN9oTaORtjWa3YelVZHuL26LILBqE9iXfDKggCRQBUt8r0FcwO8oC6Cq4Mm7nHfCEaKA3CXIsEtSl4rPOZv54vjw2gssdcJCN4Ml7Vq93lTD33heodA9JmCN2PBJ8XgLftIFKKhDJ9gAgoQlWX8V2lx/A
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e2b166a1-28d6-458e-7cae-08d79a97e7f5
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2020 15:22:32.1967 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y/6VY4B2Ln0orktmlEdx+777tx/5p0ThQXdeCGf7EsQeiqFEmFeReOg0TYfMAcK6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1283
+References: <20200115173139.1392429-1-alexander.deucher@amd.com>
+ <MN2PR12MB31672D3E94DEB4EBB91359CFED360@MN2PR12MB3167.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB31672D3E94DEB4EBB91359CFED360@MN2PR12MB3167.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 16 Jan 2020 10:26:04 -0500
+Message-ID: <CADnq5_Oes7UDa9oUnGY_vejccrO6yz+n_a5C1Uk-xsEb4U_ZuA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: attempt to enable gfxoff on more raven1 boards
+To: "Li, Dennis" <Dennis.Li@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,62 +74,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, nirmoy.das@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTYuMDEuMjAgdW0gMTU6NDMgc2NocmllYiBOaXJtb3kgRGFzOgo+IFRoaXMgYWxzbyByZXBs
-YWNlcyBvbGQgYXJ0aWZhY3RzIHdpdGggYSBjb3JyZWN0IG9uZSBpbiBkcm1fc2NoZWRfZW50aXR5
-X2luaXQoKQo+IGRlY2xhcmF0aW9uCj4KPiBTaWduZWQtb2ZmLWJ5OiBOaXJtb3kgRGFzIDxuaXJt
-b3kuZGFzQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFu
-LmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIvc2No
-ZWRfZW50aXR5LmMgfCAgMiArLQo+ICAgaW5jbHVkZS9kcm0vZ3B1X3NjaGVkdWxlci5oICAgICAg
-ICAgICAgICB8IDEwICsrKysrLS0tLS0KPiAgIDIgZmlsZXMgY2hhbmdlZCwgNiBpbnNlcnRpb25z
-KCspLCA2IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hl
-ZHVsZXIvc2NoZWRfZW50aXR5LmMgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX2Vu
-dGl0eS5jCj4gaW5kZXggMzNlMmNkMTA4OWEyLi5lYzc5ZThlNWFkM2MgMTAwNjQ0Cj4gLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9lbnRpdHkuYwo+ICsrKyBiL2RyaXZlcnMv
-Z3B1L2RybS9zY2hlZHVsZXIvc2NoZWRfZW50aXR5LmMKPiBAQCAtNDUsNyArNDUsNyBAQAo+ICAg
-ICogQGd1aWx0eTogYXRvbWljX3Qgc2V0IHRvIDEgd2hlbiBhIGpvYiBvbiB0aGlzIHF1ZXVlCj4g
-ICAgKiAgICAgICAgICBpcyBmb3VuZCB0byBiZSBndWlsdHkgY2F1c2luZyBhIHRpbWVvdXQKPiAg
-ICAqCj4gLSAqIE5vdGU6IHRoZSBycV9saXN0IHNob3VsZCBoYXZlIGF0bGVhc3Qgb25lIGVsZW1l
-bnQgdG8gc2NoZWR1bGUKPiArICogTm90ZTogdGhlIHNjaGVkX2xpc3Qgc2hvdWxkIGhhdmUgYXRs
-ZWFzdCBvbmUgZWxlbWVudCB0byBzY2hlZHVsZQo+ICAgICogICAgICAgdGhlIGVudGl0eQo+ICAg
-ICoKPiAgICAqIFJldHVybnMgMCBvbiBzdWNjZXNzIG9yIGEgbmVnYXRpdmUgZXJyb3IgY29kZSBv
-biBmYWlsdXJlLgo+IGRpZmYgLS1naXQgYS9pbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmggYi9p
-bmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmgKPiBpbmRleCA1MzdmN2E0NjU1YTUuLjllNzFiZTEy
-OWMzMCAxMDA2NDQKPiAtLS0gYS9pbmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmgKPiArKysgYi9p
-bmNsdWRlL2RybS9ncHVfc2NoZWR1bGVyLmgKPiBAQCAtNTIsOSArNTIsOSBAQCBlbnVtIGRybV9z
-Y2hlZF9wcmlvcml0eSB7Cj4gICAgKiBAbGlzdDogdXNlZCB0byBhcHBlbmQgdGhpcyBzdHJ1Y3Qg
-dG8gdGhlIGxpc3Qgb2YgZW50aXRpZXMgaW4gdGhlCj4gICAgKiAgICAgICAgcnVucXVldWUuCj4g
-ICAgKiBAcnE6IHJ1bnF1ZXVlIG9uIHdoaWNoIHRoaXMgZW50aXR5IGlzIGN1cnJlbnRseSBzY2hl
-ZHVsZWQuCj4gLSAqIEBycV9saXN0OiBhIGxpc3Qgb2YgcnVuIHF1ZXVlcyBvbiB3aGljaCBqb2Jz
-IGZyb20gdGhpcyBlbnRpdHkgY2FuCj4gLSAqICAgICAgICAgICBiZSBzY2hlZHVsZWQKPiAtICog
-QG51bV9ycV9saXN0OiBudW1iZXIgb2YgcnVuIHF1ZXVlcyBpbiB0aGUgcnFfbGlzdAo+ICsgKiBA
-c2NoZWRfbGlzdDogYSBsaXN0IG9mIGRybV9ncHVfc2NoZWR1bGVycyBvbiB3aGljaCBqb2JzIGZy
-b20gdGhpcyBlbnRpdHkgY2FuCj4gKyAqICAgICAgICAgICAgICBiZSBzY2hlZHVsZWQKPiArICog
-QG51bV9zY2hlZF9saXN0OiBudW1iZXIgb2YgZHJtX2dwdV9zY2hlZHVsZXJzIGluIHRoZSBzY2hl
-ZF9saXN0Lgo+ICAgICogQHJxX2xvY2s6IGxvY2sgdG8gbW9kaWZ5IHRoZSBydW5xdWV1ZSB0byB3
-aGljaCB0aGlzIGVudGl0eSBiZWxvbmdzLgo+ICAgICogQGpvYl9xdWV1ZTogdGhlIGxpc3Qgb2Yg
-am9icyBvZiB0aGlzIGVudGl0eS4KPiAgICAqIEBmZW5jZV9zZXE6IGEgbGluZWFybHkgaW5jcmVh
-c2luZyBzZXFubyBpbmNyZW1lbnRlZCB3aXRoIGVhY2gKPiBAQCAtODEsOCArODEsOCBAQCBlbnVt
-IGRybV9zY2hlZF9wcmlvcml0eSB7Cj4gICBzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSB7Cj4gICAJ
-c3RydWN0IGxpc3RfaGVhZAkJbGlzdDsKPiAgIAlzdHJ1Y3QgZHJtX3NjaGVkX3JxCQkqcnE7Cj4g
-LQl1bnNpZ25lZCBpbnQgICAgICAgICAgICAgICAgICAgIG51bV9zY2hlZF9saXN0Owo+ICAgCXN0
-cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAgICAgICAgKipzY2hlZF9saXN0Owo+ICsJdW5zaWduZWQg
-aW50ICAgICAgICAgICAgICAgICAgICBudW1fc2NoZWRfbGlzdDsKPiAgIAllbnVtIGRybV9zY2hl
-ZF9wcmlvcml0eSAgICAgICAgIHByaW9yaXR5Owo+ICAgCXNwaW5sb2NrX3QJCQlycV9sb2NrOwo+
-ICAgCj4gQEAgLTMxNSw3ICszMTUsNyBAQCB2b2lkIGRybV9zY2hlZF9ycV9yZW1vdmVfZW50aXR5
-KHN0cnVjdCBkcm1fc2NoZWRfcnEgKnJxLAo+ICAgaW50IGRybV9zY2hlZF9lbnRpdHlfaW5pdChz
-dHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5LAo+ICAgCQkJICBlbnVtIGRybV9zY2hlZF9w
-cmlvcml0eSBwcmlvcml0eSwKPiAgIAkJCSAgc3RydWN0IGRybV9ncHVfc2NoZWR1bGVyICoqc2No
-ZWRfbGlzdCwKPiAtCQkJICB1bnNpZ25lZCBpbnQgbnVtX3JxX2xpc3QsCj4gKwkJCSAgdW5zaWdu
-ZWQgaW50IG51bV9zY2hlZF9saXN0LAo+ICAgCQkJICBhdG9taWNfdCAqZ3VpbHR5KTsKPiAgIGxv
-bmcgZHJtX3NjaGVkX2VudGl0eV9mbHVzaChzdHJ1Y3QgZHJtX3NjaGVkX2VudGl0eSAqZW50aXR5
-LCBsb25nIHRpbWVvdXQpOwo+ICAgdm9pZCBkcm1fc2NoZWRfZW50aXR5X2Zpbmkoc3RydWN0IGRy
-bV9zY2hlZF9lbnRpdHkgKmVudGl0eSk7CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVk
-ZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2FtZC1nZngK
+On Wed, Jan 15, 2020 at 8:51 PM Li, Dennis <Dennis.Li@amd.com> wrote:
+>
+> [AMD Official Use Only - Internal Distribution Only]
+>
+> Hi, Alex,
+>       it is better to refine the patch as a common function, not only used for raven.
+
+I originally had the name as gfx_v9_0_check_disable_gfxoff(), but I
+changed it to be raven specific because if we call this independent of
+the other conditions in the CHIP_RAVEN case, we may end up disabling
+gfxoff in cases where we don't want to (e.g., if a raven1 refresh uses
+the same DID/SSID/RIDs as a non-kicker for example, and one works and
+the other doesn't).  I guess we can revisit if we have to add cases
+for other asics.  If you feel strongly I can change the name.
+
+Alex
+
+>
+> Best Regards
+> Dennis Li
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
+> Sent: Thursday, January 16, 2020 1:32 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Subject: [PATCH] drm/amdgpu: attempt to enable gfxoff on more raven1 boards
+>
+> Switch to a blacklist so we can disable specific boards that are problematic.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 42 ++++++++++++++++++++++++---
+>  1 file changed, 38 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index e3d466bd5c4e..b48b07bcd0fb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -1031,6 +1031,37 @@ static void gfx_v9_0_check_fw_write_wait(struct amdgpu_device *adev)
+>         }
+>  }
+>
+> +struct amdgpu_gfxoff_quirk {
+> +       u16 chip_vendor;
+> +       u16 chip_device;
+> +       u16 subsys_vendor;
+> +       u16 subsys_device;
+> +       u8 revision;
+> +};
+> +
+> +static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] = {
+> +       /* https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fbugzilla.kernel.org%2Fshow_bug.cgi%3Fid%3D204689&amp;data=02%7C01%7CDennis.Li%40amd.com%7C33990b7157714a2f943a08d799e0cda3%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637147063123345220&amp;sdata=2mT3Eug%2FEDKGGbI1bqymp2tnMqLX4x%2B2BAWnLUnq5m0%3D&amp;reserved=0 */
+> +       { 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc8 },
+> +       { 0, 0, 0, 0, 0 },
+> +};
+> +
+> +static bool gfx_v9_0_raven_check_disable_gfxoff(struct pci_dev *pdev) {
+> +       const struct amdgpu_gfxoff_quirk *p = amdgpu_gfxoff_quirk_list;
+> +
+> +       while (p && p->chip_device != 0) {
+> +               if (pdev->vendor == p->chip_vendor &&
+> +                   pdev->device == p->chip_device &&
+> +                   pdev->subsystem_vendor == p->subsys_vendor &&
+> +                   pdev->subsystem_device == p->subsys_device &&
+> +                   pdev->revision == p->revision) {
+> +                       return true;
+> +               }
+> +               ++p;
+> +       }
+> +       return false;
+> +}
+> +
+>  static void gfx_v9_0_check_if_need_gfxoff(struct amdgpu_device *adev)  {
+>         switch (adev->asic_type) {
+> @@ -1039,10 +1070,13 @@ static void gfx_v9_0_check_if_need_gfxoff(struct amdgpu_device *adev)
+>         case CHIP_VEGA20:
+>                 break;
+>         case CHIP_RAVEN:
+> -               if (!(adev->rev_id >= 0x8 ||
+> -                     adev->pdev->device == 0x15d8) &&
+> -                   (adev->pm.fw_version < 0x41e2b || /* not raven1 fresh */
+> -                    !adev->gfx.rlc.is_rlc_v2_1)) /* without rlc save restore ucodes */
+> +               if (!(adev->rev_id >= 0x8 || adev->pdev->device == 0x15d8) &&
+> +                   ((adev->gfx.rlc_fw_version != 106 &&
+> +                     adev->gfx.rlc_fw_version < 531) ||
+> +                    (adev->gfx.rlc_fw_version == 53815) ||
+> +                    (adev->gfx.rlc_feature_version < 1) ||
+> +                    !adev->gfx.rlc.is_rlc_v2_1) &&
+> +                   !gfx_v9_0_raven_check_disable_gfxoff(adev->pdev))
+>                         adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
+>
+>                 if (adev->pm.pp_feature & PP_GFXOFF_MASK)
+> --
+> 2.24.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7CDennis.Li%40amd.com%7C33990b7157714a2f943a08d799e0cda3%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637147063123345220&amp;sdata=ON7UTCOhoCaW%2Bwp0KiMCjOQHt6QohngaFxx9hgfKS7o%3D&amp;reserved=0
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
