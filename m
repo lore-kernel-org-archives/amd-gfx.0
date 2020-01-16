@@ -2,101 +2,72 @@ Return-Path: <SRS0=9Rk5=3F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7D71FC33CB1
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 15:03:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 79501C33CB1
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 15:15:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 135D120730
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 15:03:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 432FA20730
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Jan 2020 15:15:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="l3Jl5pAu"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 135D120730
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="vStNgSmr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 432FA20730
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5EFA6ED81;
-	Thu, 16 Jan 2020 15:03:19 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2060.outbound.protection.outlook.com [40.107.237.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D72E6ED81
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 15:03:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XKwjKj/c1wQZ4s9tgM7xWgtMgdo5s04t056wvXyqQYDYjQgtZuUjLJ8J9teQwmZDP4eKiHlSyGzU5JLlB+a235gtlXkdZAsGokEL5btaooiMRNwthaxv9Od8jXHxITBrnZQNF5vrRW0od0y3OFEQ3bC/nrEJIdV5LTTlFf+v4YBugTFpdNcwOt5ODAO5HC6eG+tzOc1TmayyZo0TmsvhQpBXSn0/Ezg5lG1m/W/Fi76NotTHLTnqwMsYeCnytwZft1GPH6uKiXlwkTkbQ4w1BbJJycd7sxknaKHKtKMLpRFV2QSrTWZW7ri9f5V4OeE5Asqa4aDJUkVFywenkGBEYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lsuZl5ZSoG1ybjVPnI4no2tEJL0om0b4/4sr+P5g+nA=;
- b=kr83CEYP5SeiVCLmIylNMLYQ0z6FA9F83MUrABNugicL6983HMBX1+PWx5guP26GtHfRg03rgwhoIDe/Yyr43ttqaL8hPE+CzrORZM0zneQ+yizcz8bLnj1nSA1Qh2ZyTTzDcYIyc1FjmIcO/in+qETmotU2yV8ZDXjiWsGQN6oCfJYH1d7enWWUJ2VUeySTHg3oBOTmKCpoIW267xluvTG8S75mqRv57mtMCYL5ey8mHMRBz1hUBRm3ooYicOMtxCCWGFzfNJPAIGe8zecN5CJm+pptSITP2jTwl+o87BXwpmt7yLAheEzfOx/52bKEjxNQPQosZ6YlJnNu/aAg1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lsuZl5ZSoG1ybjVPnI4no2tEJL0om0b4/4sr+P5g+nA=;
- b=l3Jl5pAuFrVcq9qSfjRmWgZmkpcKJ3p9+8EmJK71svhxTnDeNsvOpizppu1QTnI4eJ6eeclWVcmwUp+RkekVcjYf/yn6cDFFrUMhMUXU8FcT8Ts3UUULBZvv52T/3ERDRFY7N8fbbpaLxwk/LNHNV6oD/LMTCRQ/8WUuEYYiMtc=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=James.Zhu@amd.com; 
-Received: from BYAPR12MB3285.namprd12.prod.outlook.com (20.179.92.142) by
- BYAPR12MB2728.namprd12.prod.outlook.com (20.177.125.217) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2623.10; Thu, 16 Jan 2020 15:03:16 +0000
-Received: from BYAPR12MB3285.namprd12.prod.outlook.com
- ([fe80::18a7:759:1dbb:ef99]) by BYAPR12MB3285.namprd12.prod.outlook.com
- ([fe80::18a7:759:1dbb:ef99%7]) with mapi id 15.20.2644.015; Thu, 16 Jan 2020
- 15:03:16 +0000
-Subject: Re: [PATCH 2/2] drm/amdgpu: fix the instance loop and build warning
-To: amd-gfx@lists.freedesktop.org
-References: <20200116004508.26678-1-leo.liu@amd.com>
- <20200116004508.26678-2-leo.liu@amd.com>
-From: James Zhu <jamesz@amd.com>
-Organization: AMD RTG
-Message-ID: <3093425f-d18a-d7bb-0cd7-81dc6920c7a7@amd.com>
-Date: Thu, 16 Jan 2020 10:03:13 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-In-Reply-To: <20200116004508.26678-2-leo.liu@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0034.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::47)
- To BYAPR12MB3285.namprd12.prod.outlook.com
- (2603:10b6:a03:134::14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E1C3F6ED83;
+	Thu, 16 Jan 2020 15:15:04 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A57816ED83
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 15:15:03 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id p17so4228700wmb.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Jan 2020 07:15:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Dcl4UWfwgHtLs/lgK4pT0D4Mt03++vm5tf12mbGu0xs=;
+ b=vStNgSmrMLGS7lullHFZJ4mszFBlfG9oRk3sJBx4adfSwy4pLS1/ZH+eGZxRuZTC3u
+ mOAHizA2D3yxxFamFt2q2AtZ0uYLsEjYYlmU0W7E6FyIIKHHeG6RJj+2rOLXggaZ2S/A
+ fr/d0Xcy6H3352EwsFFCMXuXFw9PG5kPq/j+YAe5TKGDyc0NtQG/1l8ML0lL3vB5RSPR
+ O6/HJ827LVcDvMAaRJc+KiP46QDqCr1s3JyIs17mEF07MLG71+3gT/9WZ09AEPFrQeEV
+ pcG85pYqAzyfPBnJh6L5dea/h+Mv0eTSJxYf/aYb7mAoh8RQP+6O9HnO2tqs07HJCj87
+ LxjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Dcl4UWfwgHtLs/lgK4pT0D4Mt03++vm5tf12mbGu0xs=;
+ b=C9J9A3GY5qvh30FxPqr1YYolcptjKlxHnSXHdoqJ4wEZrnivc8lghEw8l5MIGRrcQU
+ S9BWuI0LXUoD0uJyF7xz25z8ljiXzI8ukLTTAYy98F/Hw3yDUgv5Oxqd/SUXDbybFh2A
+ D9Ct2EH3pdWOQD4LoGBW4bsbprl0dBPf9/wUjozmdtrd3z/OgMLn1W4d/MwHd39x2GXy
+ x4/PifL7lXchWySct3kLmSi9HbjCMobXoAjxOT9ZJexnLYjhy53D0IeSSQsIoC0FWVwV
+ V42ur8mW0Pt3KaKHoQUN6w+YzcRi8IlOnV+1qrhzT5BKIy3je43Vd827VJzD65WjS0sg
+ ckzQ==
+X-Gm-Message-State: APjAAAU5dC52vrbbArZFV8vNue1BN9Uq8zP5IMxzCmrAc+E3mcBVuke7
+ LGHikrqrld7E38Sxb5yzSwgSFix2u6gfC8HifVv2pA==
+X-Google-Smtp-Source: APXvYqydd32jTkNrJfMblX4hCLRewlE2tvVwHRRjYQWceAfkd/fp+hJmsjVJhSxR+0SPsMsEfv1v+dWTcLBDSuFvu1A=
+X-Received: by 2002:a7b:ca4b:: with SMTP id m11mr6734923wml.164.1579187702280; 
+ Thu, 16 Jan 2020 07:15:02 -0800 (PST)
 MIME-Version: 1.0
-Received: from [172.27.230.192] (165.204.55.251) by
- YT1PR01CA0034.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::47) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.19 via Frontend Transport; Thu, 16 Jan 2020 15:03:15 +0000
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: eb8585ca-96bd-485f-c920-08d79a953715
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2728:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB27281E13643FB58F06633E6DE4360@BYAPR12MB2728.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
-X-Forefront-PRVS: 02843AA9E0
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(136003)(346002)(39860400002)(376002)(396003)(199004)(189003)(2906002)(31686004)(6486002)(36916002)(52116002)(478600001)(5660300002)(8936002)(53546011)(36756003)(31696002)(26005)(186003)(81166006)(81156014)(66946007)(16526019)(66476007)(66556008)(956004)(2616005)(8676002)(316002)(16576012)(6916009);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB2728;
- H:BYAPR12MB3285.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ytE8lMl3MPEsbnL4g2XHhxb30Z/sKNL3/JJWBAdq40x9ACS80E1sOuhe0tb/4sQIYqZVuTkpVkiwzOpSR7aDRD6H08XV9JjIK7HSabsA6H6sF1PHytgSlnuOrg9QCLK0snpc/28Bopj7EnrKjQNJjSRujXCsbMD6wu8uqLxITDGOokbo5PMa0XQLrRo605QIU7JaFlWhdsM3kZOkk45SWGg1WEJ1lkP908JDy6BlX0f+yAOWrSzwL9Loi28zwVv9MLsY86Z452NUj71DfPwaPfbEgq3jkwJg7WdTVuMGdeRSn8v8I4JE/5wkhKDYLU6Fm9kT66yWX7lvF7CfnvxVMnMxlpLj4eyE6raR6DqEHlrWr1Jo45OHS+U8LT+HP4hzdfv4HLnlfVdJgsdKSJAglRvu4fe4cM9Rqg7FqRP4ZD6A0JSHve1GCUGnjWsABB+m
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb8585ca-96bd-485f-c920-08d79a953715
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Jan 2020 15:03:16.3732 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EspQUKA0wR7lfsCKKq+INjbvPcMXmPgbb8fGfo3kk03EqHoRJynJKthnhc97vuY1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2728
+References: <20191015065002.18701-1-drake@endlessm.com>
+ <CADnq5_M4Leu0raYS6M72MqTm1+PLg9BjHCHLAYuB2-dEVP56_A@mail.gmail.com>
+ <CAD8Lp443ZhPEo0PJRxbTSB9DY9x92OvWBeH29m9Ehpyhg+2n5A@mail.gmail.com>
+ <CADnq5_OaATVESAY9E2mtd7PoV2VjG=WLS56LCHVpieSHDTas0A@mail.gmail.com>
+ <CAD8Lp46f9LR_VJ26BGfOGvj8sTjKZowkbjLNv6R4CsVMfRZQ=Q@mail.gmail.com>
+ <CAD8Lp46+Te+AUQKLkLEcGf34izw=JzkU5w=CsZRf_UKJQ_k7qg@mail.gmail.com>
+ <CADnq5_OObnKTP7-tBmPz75R5qXs8ubRxgfX-qkBnzqcox0TZyQ@mail.gmail.com>
+ <CAD8Lp44FKuEsmdK+zDX_-ZYQEnqjQM-z6nnfE-CJ62mutd+scA@mail.gmail.com>
+In-Reply-To: <CAD8Lp44FKuEsmdK+zDX_-ZYQEnqjQM-z6nnfE-CJ62mutd+scA@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 16 Jan 2020 10:14:49 -0500
+Message-ID: <CADnq5_PNGr4=MqpBeKbhxJ-gpniSCj7L0wO5_V6mjuwpKoaCAg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: always reset asic when going into suspend
+To: Daniel Drake <drake@endlessm.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,40 +79,113 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Chunming Zhou <David1.Zhou@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Linux PM <linux-pm@vger.kernel.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: James Zhu <James.Zhu@amd.com> for the series
-
-James
-
-On 2020-01-15 7:45 p.m., Leo Liu wrote:
-> Fixes: 8ae1e132 "drm/amdgpu/vcn: support multiple instance direct SRAM read and write"
+On Wed, Jan 15, 2020 at 2:44 AM Daniel Drake <drake@endlessm.com> wrote:
 >
-> Signed-off-by: Leo Liu <leo.liu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 6 +++---
->   1 file changed, 3 insertions(+), 3 deletions(-)
+> On Thu, Dec 19, 2019 at 10:08 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> > I think there may be some AMD specific handling needed in
+> > drivers/acpi/sleep.c.  My understanding from reading the modern
+> > standby documents from MS is that each vendor needs to provide a
+> > platform specific PEP driver.  I'm not sure how much of that current
+> > code is Intel specific or not.
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index ab51f0e9539c..f96464e2c157 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -193,9 +193,9 @@ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev)
->   		if (adev->vcn.harvest_config & (1 << j))
->   			continue;
->   		if (adev->vcn.indirect_sram) {
-> -			amdgpu_bo_free_kernel(&adev->vcn.inst[i].dpg_sram_bo,
-> -						  &adev->vcn.inst[i].dpg_sram_gpu_addr,
-> -						  (void **)&adev->vcn.inst[i].dpg_sram_cpu_addr);
-> +			amdgpu_bo_free_kernel(&adev->vcn.inst[j].dpg_sram_bo,
-> +						  &adev->vcn.inst[j].dpg_sram_gpu_addr,
-> +						  (void **)&adev->vcn.inst[j].dpg_sram_cpu_addr);
->   		}
->   		kvfree(adev->vcn.inst[j].saved_bo);
->   
+> I don't think there is anything Intel-specific in drivers/acpi/sleep.c.
+>
+> Reading more about PEP, I see that Linux supports PEP devices with
+> ACPI ID INT33A1 or PNP0D80. Indeed the Intel platforms we work with
+> have INT33A1 devices in their ACPI tables.
+>
+> This product has a \_SB.PEP ACPI device with _HID AMD0004 and _CID
+> PNP0D80. Full acpidump:
+> https://gist.github.com/dsd/ff3dfc0f63cdd9eba4a0fbd9e776e8be (see
+> ssdt7)
+>
+> This PEP device responds to a _DSM with UUID argument
+> "e3f32452-febc-43ce-9039-932122d37721", which is not the one
+> documented at https://uefi.org/sites/default/files/resources/Intel_ACPI_Low_Power_S0_Idle.pdf
+>
+> Nevertheless, there is some data about the GPU:
+>                     Package (0x04)
+>                     {
+>                         One,
+>                         "\\_SB.PCI0.GP17.VGA",
+>                         Zero,
+>                         0x03
+>                     },
+>
+> However since this data is identical to many other devices that
+> suspend and resume just fine, I wonder if it is really important.
+>
+> The one supported method does offer two calls which may mirror the
+> Display Off/On Notifications in the above spec:
+>                         Case (0x02)
+>                         {
+>                             \_SB.PCI0.SBRG.EC0.CSEE (0xB7)
+>                             Return (Zero)
+>                         }
+>                         Case (0x03)
+>                         {
+>                             \_SB.PCI0.SBRG.EC0.CSEE (0xB8)
+>                             Notify (\_SB.PCI0.SBRG.EC0.LID, 0x80) //
+> Status Change
+>                             Return (Zero)
+>                         }
+>
+> but I tried executing this code after suspending amdgpu, and the
+> problem still stands, amdgpu cannot wakeup correctly.
+>
+> There's nothing else really interesting in the PEP device as far as I can see.
+>
+> PEP things aside, I am still quite suspicious about the fact that
+> calling amdgpu_device_suspend() then amdgpu_device_resume() on
+> multiple products (not just this one) fails. It seems that this code
+> flow is relying on the BIOS doing something in the S3 suspend/resume
+> path in order to make the device resumable by amdgpu_device_resume(),
+> which is why we have only encountered this issue for the first time on
+> our first AMD platform that does not support S3 suspend.
+>
+
+It makes sense.  This is an SOC, not a collection of individual
+devices.  There are more devices than power rails so the sbios (via
+ACPI) has to handle the power rail.  All of the devices using that
+power rail have to suspend and tell the sbios before the platform
+microcontroller can turn off the power rail.  Presumably there is
+something missing that prevents the microcontroller for powering down
+the rail.  If the power rail is kept on, the device is never powered
+off and still retains its current state.
+
+> With that in mind, and lacking any better info, wouldn't it make sense
+> for amdgpu_device_resume() to always call reset? Maybe it's not
+> necessary in the S3 case, but it shouldn't harm anything. Or perhaps
+> it could check if the device is alive and reset it if it's not?
+
+It's just papering over the problem.  It would be better from a power
+perspective for the driver to just not suspend and keep running like
+normal.  When the driver is not suspended runtime things like clock
+and power gating are active which keep the GPU power at a minimum.
+
+>
+> Alternatively do you have any other contacts within AMD that could
+> help us figure out the underlying question of how to correctly suspend
+> and resume these devices? Happy to ship an affected product sample
+> your way.
+>
+
+I talked to our sbios team and they seem to think our S0ix
+implementation works pretty differently from Intel's.  I'm not really
+an expert on this area however.  We have a new team ramping on up this
+for Linux however.
+
+Alex
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
