@@ -2,80 +2,66 @@ Return-Path: <SRS0=QkQq=3G=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F18BC33C9E
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2020 18:47:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 151CCC3F68F
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2020 19:23:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3264E20730
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2020 18:47:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E4C7A2087E
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Jan 2020 19:23:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QtnSUtEJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3264E20730
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oI6u5zbe"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E4C7A2087E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE1996F8AB;
-	Fri, 17 Jan 2020 18:47:05 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F2486F8AB
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2020 18:47:05 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id t2so23726079wrr.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2020 10:47:05 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A0EB6F8CE;
+	Fri, 17 Jan 2020 19:23:22 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0BD16F8CE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2020 19:23:20 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id t14so8714944wmi.5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Jan 2020 11:23:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=YnyM8R39P/eCQ05KW7ucaKJEPxPyO7cRkyunQR2bZqg=;
- b=QtnSUtEJK9vRO1E7RVZZ1urIoKX9zBW50l9rhMB6bS4xFbxC3EB06JaTZke/zWK9M6
- JC80DbVicZ+pXvXfVIzifOks5ZxcQa4sgEPSjLbA1QLjmNQZFGx4KRlZk8b1iLilL8h2
- J/A/d//mcfGoy7r1XLjD+llLzfEU3OdqrtiArCU1Uw6CbNXmTsDM4WfLm9SFAULcNkeR
- CaldWB19eFzP1RNjl1lnHhLdBov/RSCGeOiWX5e1fizzQHXF+7XfVjmTzVCktaCFYGEn
- OVhopu5RQPeIqTT5j054sVgX6PxRkc2JT6wmuhr/SU21E7hSLpD6TUnJr19zL0G9KKHo
- 5IzQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=jjyqqm3h6GkOeSSeVSLrDA8jPXsGS/vE2dAwQVX/QeQ=;
+ b=oI6u5zbeX0HCLJ32u3pB7F+bugbikg4vTgCAlD39QAth+UD8a9VbP8Ml7gEp0v/H5h
+ 5TTSzk0KMuM156rIK30hj+2XYmJhhDULs/fsd/NIlqcv1GNEbI6bi2bYv2KfdJ1I38HK
+ PDaARCAGRmDRNH3hmuP26ss4+k5nzwC4zUELo1DFbijgvV5axRK6pLZtVFdsCRgM6b9J
+ RsgaKqumGWeeq+erMezxrv48hUqnbWIjj0+3aJ3jpIjsJt1BNZT4vEx5eWsRM+tZPcbF
+ /uYc6LwXhYPN1vlxfr2y40b7SFbAhtJwMG2M866J3BxQe0L6UMuba4fzzW1nCex83ox5
+ tz0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=YnyM8R39P/eCQ05KW7ucaKJEPxPyO7cRkyunQR2bZqg=;
- b=oK3eD3AxOPHFiZ0qLwjOWq8s3ZoHkZG4QgJMb1UtjsyhTRbDmJ2xFPKeGTGsbk/BeT
- D+OoMJ79JFRVO9rBEN6q8YJIJCZ/61WypuViRNSht50YbxqLqgHDmf+4cn2oPsdDzCaL
- N1etlGS5Lb+utKQWzJMV6x3FurubQkC8uH2JSp9UHhzgkCUmYd5xB1wpBSWc2BazVes1
- RybugIR86hw/QIZ3Eh2z+Ok4Sm6AEsXVZd27lDjmSuv8dk929SpWKOS2hPD7EURLCSFd
- RPEiVTd1g+kaP+fo9Zi18GilQQWzrmQWr6a+tESKDgE2iBPlfl7d6Xha3yeVuZITXFke
- Q8Tw==
-X-Gm-Message-State: APjAAAX87kU1d+gHWFG0pWFlwjFwqeYpVlWF/NSRZdtV59AlWdqaToEN
- F5kgQkIiDQvvyrADfP9JWV1cSi1p
-X-Google-Smtp-Source: APXvYqzfV3epCso+HUQrHV/k7mCH8aSko5uhW1LPMkQckkzN9K8+rpU9azvcG41VUsbiPMPlHwPyWg==
-X-Received: by 2002:adf:d183:: with SMTP id v3mr4785119wrc.180.1579286823594; 
- Fri, 17 Jan 2020 10:47:03 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id u16sm8667795wmj.41.2020.01.17.10.47.00
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 17 Jan 2020 10:47:03 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: add coreboot workaround for KV/KB
-To: Felix Kuehling <felix.kuehling@amd.com>, christian.koenig@amd.com,
- fredrik.bruhn@unibap.com, amd-gfx@lists.freedesktop.org
-References: <20200116130907.22410-1-christian.koenig@amd.com>
- <c5aa1227-adc0-f7d0-1786-deec7ca681c1@amd.com>
- <3c1b6bea-d5bc-0532-9805-2eb2c1003653@gmail.com>
- <2f992eda-75c8-570b-fc77-584ad4959168@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <b2b1b2b2-e99d-5941-4670-786034fbcc56@gmail.com>
-Date: Fri, 17 Jan 2020 19:46:59 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=jjyqqm3h6GkOeSSeVSLrDA8jPXsGS/vE2dAwQVX/QeQ=;
+ b=Dci6FPD0nUZXNkwm+/EqwsqDBYJvb9vQU7nHt51rOMhk22d2AWjOr88mPWiBok2/Qr
+ WKRLO40IzIvQWfcPTJQPOnbDAzrRhlJBQafm8m4Xd7TUrM6BUoH2KW7GQIalVUsT2MUR
+ thKCD1HpqcuUBBe81tM4cTbQSyuEv9L1l3HaLASv8IfB+ywcneGOv8Afua0wdvd64i1K
+ VC2esV2lBa4hLTGOsL2Xq4ECDaJLM6Ws1lcJbrUKEEPURzrt1RkOzRyLxLc3/wU/6E7R
+ U2iWiV+Tx757+B25jP1OzjL/nHOQG4oe/YGTeiCZX1prEDFt07bmyY8DkaUYsCTEUs6/
+ K1hA==
+X-Gm-Message-State: APjAAAUxZLK+iYTBJMYPedagUHSDPuUWsgcjudWFs9xvirPNA0McX3IH
+ yj2YTlIHuo4D7K9kwrylse1DV2BOEEBRcCMLS8asbQ==
+X-Google-Smtp-Source: APXvYqyr0ZrcMCWdF63wpWWC0eY/t0nw6ZcaCbvt4nl0grf1NwV7ms5AV0HDEHlX4ZKnaDQIsWTdrvywihv/pDdq628=
+X-Received: by 2002:a1c:3d07:: with SMTP id k7mr6196950wma.79.1579288999211;
+ Fri, 17 Jan 2020 11:23:19 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <2f992eda-75c8-570b-fc77-584ad4959168@amd.com>
-Content-Language: en-US
+References: <20200116202945.21801-1-Bhawanpreet.Lakha@amd.com>
+ <20200116202945.21801-4-Bhawanpreet.Lakha@amd.com>
+In-Reply-To: <20200116202945.21801-4-Bhawanpreet.Lakha@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 17 Jan 2020 14:23:07 -0500
+Message-ID: <CADnq5_Ms88BpiKvk5Okitu944yd3Ar5=AAzDb-_ne-SFP7YAEw@mail.gmail.com>
+Subject: Re: [PATCH 3/5] drm/amd/display: Add sysfs interface for set/get srm
+To: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,75 +73,248 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "Wentland, Harry" <harry.wentland@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTcuMDEuMjAgdW0gMTg6MDcgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPiBPbiAyMDIwLTAx
-LTE3IDM6MTcgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0gMTcuMDEuMjAgdW0g
-MDM6MDEgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPj4+IE9uIDIwMjAtMDEtMTYgODowOSwgQ2hy
-aXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+PiBDb3JlYm9vdCBzZWVtcyB0byBoYXZlIGEgcHJvYmxl
-bSBjb3JyZWN0bHkgc2V0dGluZyB1cCBhY2Nlc3MgdG8gdGhlIAo+Pj4+IHN0b2xlbiBWUkFNCj4+
-Pj4gb24gS1YvS0IuIFVzZSB0aGUgZGlyZWN0IGFjY2VzcyBvbmx5IHdoZW4gbmVjZXNzYXJ5Lgo+
-Pj4KPj4+IEknbSBub3Qgc3VyZSB3aGF0IHlvdSBtZWFuIGJ5ICJuZWNlc3NhcnkiLgo+Pgo+PiBO
-ZWNlc3NhcnkgZm9yIGJldHRlciBwZXJmb3JtYW5jZS4KPgo+IFJpZ2h0LiBTbyB5b3VyIHBhdGNo
-IGRlc2NyaXB0aW9uIHNheXMgdGhhdCBzb21ldGltZXMgYmV0dGVyIAo+IHBlcmZvcm1hbmNlIGlz
-IG5vdCBuZWNlc3NhcnkuCgpXZWxsIHdoYXQgSSB3YW50IHRvIHNheSBpcyB0aGF0IGl0IGlzIG5v
-dCBuZWNlc3NhcnkgZm9yIGJldHRlciAKcGVyZm9ybWFuY2UuIElmIEZCIGlzIHNtYWxsIGVub3Vn
-aCB3ZSBjYW4gdXNlIHRoZSBCQVIgYXMgd2VsbC4KCj4gVGhlIGNyaXRlcmlhIGlzIGJhc2VkIG9u
-IHRoZSBzaXplIG9mIHRoZSBCQVIsIHdoaWNoIGRvZXNuJ3QgcmVhbGx5IAo+IGhhdmUgYW55dGhp
-bmcgdG8gZG8gd2l0aCBwZXJmb3JtYW5jZS4KCldoeT8gTW9zdCBvZiB0aGUgcGVyZm9ybWFuY2Ug
-Z2FpbiBjb21lcyBmcm9tIG5vdCBzaHVmZmxpbmcgYXJvdW5kIFZSQU0gCmJ1ZmZlcnMgZm9yIENQ
-VSBhY2Nlc3MgYW55IG1vcmUuCgpBZGRpdGlvbmFsIHRvIHRoYXQgdGhlcmUgaXMgYSByZWR1Y3Rp
-b24gaW4gbGF0ZW5jeSB3aGVuIGFjY2Vzc2luZyB0aGUgClZSQU0sIGJ1dCB0aGF0IHVzdWFsbHkg
-ZG9lc24ndCBtYXR0ZXIgZm9yIHBlcmZvcm1hbmNlLgoKPgo+Cj4+Cj4+Pgo+Pj4+Cj4+Pj4gU2ln
-bmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+
-Pj4+IC0tLQo+Pj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMgfCAz
-ICsrLQo+Pj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24o
-LSkKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
-djdfMC5jIAo+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y3XzAuYwo+Pj4+
-IGluZGV4IDE5ZDViMTMzZTFkNy4uOWRhOTU5NmEzNjM4IDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192N18wLmMKPj4+PiArKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nbWNfdjdfMC5jCj4+Pj4gQEAgLTM4MSw3ICszODEsOCBAQCBzdGF0aWMg
-aW50IGdtY192N18wX21jX2luaXQoc3RydWN0IAo+Pj4+IGFtZGdwdV9kZXZpY2UgKmFkZXYpCj4+
-Pj4gwqDCoMKgwqDCoCBhZGV2LT5nbWMuYXBlcl9zaXplID0gcGNpX3Jlc291cmNlX2xlbihhZGV2
-LT5wZGV2LCAwKTsKPj4+PiDCoCDCoCAjaWZkZWYgQ09ORklHX1g4Nl82NAo+Pj4+IC3CoMKgwqAg
-aWYgKGFkZXYtPmZsYWdzICYgQU1EX0lTX0FQVSkgewo+Pj4+ICvCoMKgwqAgaWYgKGFkZXYtPmZs
-YWdzICYgQU1EX0lTX0FQVSAmJgo+Pj4+ICvCoMKgwqDCoMKgwqDCoCBhZGV2LT5nbWMucmVhbF92
-cmFtX3NpemUgPiBhZGV2LT5nbWMuYXBlcl9zaXplKSB7Cj4+Pgo+Pj4gQ1BVIGFjY2VzcyB0byB0
-aGUgd2hvbGUgVlJBTSBpc24ndCByZWFsbHkgbmVjZXNzYXJ5LiBJIHRob3VnaHQgdGhlIAo+Pj4g
-bWFpbiBtb3RpdmF0aW9uIGZvciBhY2Nlc3NpbmcgRkIgZGlyZWN0bHkgb24gQVBVcyB3YXMgYmV0
-dGVyIAo+Pj4gcGVyZm9ybWFuY2UuIFlvdSdyZSBkaXNhYmxpbmcgdGhhdCBvcHRpbWl6YXRpb24g
-b24gYWxsIEFQVXMgd2hlcmUgCj4+PiB0aGUgRkIgaXMgc21hbGxlciB0aGFuIHRoZSBhcGVydHVy
-ZSBzaXplLgo+Pgo+PiBDb3JyZWN0LCB5ZXMuIEZvciBzb21lIHJlYXNvbiBjb3JlYm9vdCBzZWVt
-cyB0byBleHBsaWNpdGx5IHNldHVwIHRoZSAKPj4gbWVtb3J5IHVzZWQgZm9yIHRoZSBGQiBhcyB3
-cml0ZS1wcm90ZWN0ZWQuCj4+Cj4+IFRoZSBHUFUgY2FuIHN0aWxsIHJlYWQvd3JpdGUgaXQgbm9y
-bWFsbHkgY2F1c2UgaXQgaWdub3JlcyB0aGF0IAo+PiBwcm90ZWN0aW9uLCBidXQgdGhlIENQVSBj
-YW4ndCBjaGFuZ2UgdGhlIEZCIG1lbW9yeSBhbnkgbW9yZSB3aXRoIHRoYXQgCj4+IHNldHVwLgo+
-Cj4gQ2FuIHdlIHRlc3Qgd2hldGhlciB3cml0aW5nIHRvIEZCIHdvcmtzIGFuZCBtYWtlIHRoZSBk
-ZWNpc2lvbiBiYXNlZCBvbiAKPiB0aGF0PwoKVGhvdWdodCBhYm91dCB0aGF0IGFzIHdlbGwuIEJ1
-dCBpdCBpcyBjb21wbGljYXRlZCB0byBpbXBsZW1lbnQgYW5kIHdlIAp3b3VsZCBuZWVkIHRvIHRl
-c3QgdGhlIHdob2xlIEZCIHRvIGJlIHN1cmUgYW5kIHRoYXQgY291bGQgdGFrZSBhIHdoaWxlLgoK
-Q2hyaXN0aWFuLgoKPgo+IFRoYW5rcywKPiDCoCBGZWxpeAo+Cj4+Cj4+IE5vIGlkZWEgd2h5IHRo
-ZXkgZG8gdGhpcywgbW9zdCBsaWtlbHkganVzdCBhbiBvdmVyIGNvbnNlcnZhdGl2ZSAKPj4gcHJv
-dGVjdGlvbiBvZiBhIHJlc2VydmVkIGFyZWEgb2YgbWVtb3J5Lgo+Pgo+PiBSZWdhcmRzLAo+PiBD
-aHJpc3RpYW4uCj4+Cj4+Pgo+Pj4gUmVnYXJkcywKPj4+IMKgIEZlbGl4Cj4+Pgo+Pj4KPj4+PiDC
-oMKgwqDCoMKgwqDCoMKgwqAgYWRldi0+Z21jLmFwZXJfYmFzZSA9ICgodTY0KVJSRUczMihtbU1D
-X1ZNX0ZCX09GRlNFVCkpIDw8IAo+Pj4+IDIyOwo+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBhZGV2
-LT5nbWMuYXBlcl9zaXplID0gYWRldi0+Z21jLnJlYWxfdnJhbV9zaXplOwo+Pj4+IMKgwqDCoMKg
-wqAgfQo+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-Pj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zwo+Pj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJs
-PWh0dHBzJTNBJTJGJTJGbGlzdHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxpc3RpbmZv
-JTJGYW1kLWdmeCZhbXA7ZGF0YT0wMiU3QzAxJTdDZmVsaXgua3VlaGxpbmclNDBhbWQuY29tJTdD
-ZDU5NDkwZjBlN2Y1NDdkM2EzZmMwOGQ3OWIyNWJlZDQlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4
-MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3MTQ4NDU4NzU5NjU4NjE3JmFtcDtzZGF0YT1Ubzlmc0VI
-dlE0ZG9rWktTd1RaUTdWOExJUkVBJTJCajU4b3V2YVVWdEhmcEklM0QmYW1wO3Jlc2VydmVkPTAg
-Cj4+Pgo+Pgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Cj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAoK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Thu, Jan 16, 2020 at 3:30 PM Bhawanpreet Lakha
+<Bhawanpreet.Lakha@amd.com> wrote:
+>
+> [Why]
+> We need to set/get SRM and linux kernel is not suppose to write to the
+> storage, so we need to provide a interface.
+>
+> [How]
+> Provide interface so usermode can set/get srm
+>
+> Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+> Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> ---
+>  .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    | 124 +++++++++++++++++-
+>  .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.h    |   6 +
+>  2 files changed, 128 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+> index a269916f7dd6..a191c84ad8eb 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+> @@ -28,6 +28,8 @@
+>  #include "amdgpu_dm.h"
+>  #include "dm_helpers.h"
+>  #include <drm/drm_hdcp.h>
+> +#include "hdcp_psp.h"
+> +
+>
+>  static bool
+>  lp_write_i2c(void *handle, uint32_t address, const uint8_t *data, uint32_t size)
+> @@ -67,6 +69,16 @@ lp_read_dpcd(void *handle, uint32_t address, uint8_t *data, uint32_t size)
+>         return dm_helpers_dp_read_dpcd(link->ctx, link, address, data, size);
+>  }
+>
+> +static uint8_t *psp_get_srm(struct psp_context *psp, uint32_t *srm_version, uint32_t *srm_size)
+> +{
+> +       return NULL;
+> +}
+> +
+> +static int psp_set_srm(struct psp_context *psp, uint8_t *srm, uint32_t srm_size, uint32_t *srm_version)
+> +{
+> +       return 0;
+> +}
+> +
+>  static void process_output(struct hdcp_workqueue *hdcp_work)
+>  {
+>         struct mod_hdcp_output output = hdcp_work->output;
+> @@ -88,6 +100,18 @@ static void process_output(struct hdcp_workqueue *hdcp_work)
+>         schedule_delayed_work(&hdcp_work->property_validate_dwork, msecs_to_jiffies(0));
+>  }
+>
+> +static void link_lock(struct hdcp_workqueue *work, bool lock)
+> +{
+> +
+> +       int i = 0;
+> +
+> +       for (i = 0; i < work->max_link; i++) {
+> +               if (lock)
+> +                       mutex_lock(&work[i].mutex);
+> +               else
+> +                       mutex_unlock(&work[i].mutex);
+> +       }
+> +}
+>  void hdcp_update_display(struct hdcp_workqueue *hdcp_work,
+>                          unsigned int link_index,
+>                          struct amdgpu_dm_connector *aconnector,
+> @@ -302,7 +326,8 @@ void hdcp_destroy(struct hdcp_workqueue *hdcp_work)
+>         }
+>
+>         kfree(hdcp_work);
+> -
+> +       kfree(hdcp_work->srm);
+> +       kfree(hdcp_work->srm_temp);
+>  }
+>
+>  static void update_config(void *handle, struct cp_psp_stream_config *config)
+> @@ -338,6 +363,84 @@ static void update_config(void *handle, struct cp_psp_stream_config *config)
+>         hdcp_update_display(hdcp_work, link_index, aconnector, DRM_MODE_HDCP_CONTENT_TYPE0, false);
+>  }
+>
+> +
+> +/*
+> + * This can be called twice, because SRM_SIZE > PAGE_SIZE.
+> + *
+> + * We set the SRM on each call, if SRM_SIZE > PAGE_SIZE, PSP will fail on the
+> + * first call but pass on the second call.
+> + *
+> + * Because of this we are not throwing any errors as it will stop the next call.
+> + * So it is a good idea to call the "read" sysfs to verify that the SRM was set
+> + *
+> + */
+
+Rather than using a file to get the data directly in chunks, how about
+adding a sysfs file where you can specify the path to the srm file.
+The driver can then use the path provided to call request firmware and
+just get the entire binary in one shot.
+
+Alex
+
+
+> +static ssize_t srm_data_write(struct file *filp, struct kobject *kobj, struct bin_attribute *bin_attr, char *buffer,
+> +                             loff_t pos, size_t count)
+> +{
+> +       struct hdcp_workqueue *work;
+> +       uint32_t srm_version = 0;
+> +
+> +       work = container_of(bin_attr, struct hdcp_workqueue, attr);
+> +       link_lock(work, true);
+> +
+> +       memcpy(work->srm_temp + pos, buffer, count);
+> +
+> +       if (!psp_set_srm(work->hdcp.config.psp.handle, work->srm_temp, pos + count, &srm_version)) {
+> +               DRM_DEBUG_DRIVER("HDCP SRM SET version 0x%X", srm_version);
+> +               memcpy(work->srm, work->srm_temp, pos + count);
+> +               work->srm_size = pos + count;
+> +               work->srm_version = srm_version;
+> +       }
+> +
+> +
+> +       link_lock(work, false);
+> +
+> +       return count;
+> +}
+> +
+> +static ssize_t srm_data_read(struct file *filp, struct kobject *kobj, struct bin_attribute *bin_attr, char *buffer,
+> +                            loff_t pos, size_t count)
+> +{
+> +       struct hdcp_workqueue *work;
+> +       uint8_t *srm = NULL;
+> +       uint32_t srm_version;
+> +       uint32_t srm_size;
+> +       size_t ret = count;
+> +
+> +       work = container_of(bin_attr, struct hdcp_workqueue, attr);
+> +
+> +       link_lock(work, true);
+> +
+> +       srm = psp_get_srm(work->hdcp.config.psp.handle, &srm_version, &srm_size);
+> +
+> +       if (!srm)
+> +               return -EINVAL;
+> +
+> +       if (pos >= srm_size)
+> +               ret = 0;
+> +
+> +       if (srm_size - pos < count) {
+> +               memcpy(buffer, srm + pos, srm_size - pos);
+> +               ret = srm_size - pos;
+> +               goto ret;
+> +       }
+> +
+> +       memcpy(buffer, srm + pos, count);
+> +
+> +ret:
+> +       link_lock(work, false);
+> +       return ret;
+> +}
+> +
+> +
+> +static const struct bin_attribute data_attr = {
+> +       .attr = {.name = "hdcp_srm", .mode = 0664},
+> +       .size = PSP_HDCP_SRM_FIRST_GEN_MAX_SIZE, /* Limit SRM size */
+> +       .write = srm_data_write,
+> +       .read = srm_data_read,
+> +};
+> +
+> +
+>  struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct cp_psp *cp_psp, struct dc *dc)
+>  {
+>
+> @@ -348,10 +451,19 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct
+>         if (hdcp_work == NULL)
+>                 goto fail_alloc_context;
+>
+> +       hdcp_work->srm = kcalloc(PSP_HDCP_SRM_FIRST_GEN_MAX_SIZE, sizeof(*hdcp_work->srm), GFP_KERNEL);
+> +
+> +       if (hdcp_work->srm == NULL)
+> +               goto fail_alloc_context;
+> +
+> +       hdcp_work->srm_temp = kcalloc(PSP_HDCP_SRM_FIRST_GEN_MAX_SIZE, sizeof(*hdcp_work->srm_temp), GFP_KERNEL);
+> +
+> +       if (hdcp_work->srm_temp == NULL)
+> +               goto fail_alloc_context;
+> +
+>         hdcp_work->max_link = max_caps;
+>
+>         for (i = 0; i < max_caps; i++) {
+> -
+>                 mutex_init(&hdcp_work[i].mutex);
+>
+>                 INIT_WORK(&hdcp_work[i].cpirq_work, event_cpirq);
+> @@ -371,10 +483,18 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct
+>         cp_psp->funcs.update_stream_config = update_config;
+>         cp_psp->handle = hdcp_work;
+>
+> +       /* File created at /sys/class/drm/card0/device/hdcp_srm*/
+> +       hdcp_work[0].attr = data_attr;
+> +
+> +       if (sysfs_create_bin_file(&adev->dev->kobj, &hdcp_work[0].attr))
+> +               DRM_WARN("Failed to create device file hdcp_srm");
+> +
+>         return hdcp_work;
+>
+>  fail_alloc_context:
+>         kfree(hdcp_work);
+> +       kfree(hdcp_work->srm);
+> +       kfree(hdcp_work->srm_temp);
+>
+>         return NULL;
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
+> index 331b50825510..5159b3a5e5b0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
+> @@ -53,6 +53,12 @@ struct hdcp_workqueue {
+>
+>         enum mod_hdcp_encryption_status encryption_status;
+>         uint8_t max_link;
+> +
+> +       uint8_t *srm;
+> +       uint8_t *srm_temp;
+> +       uint32_t srm_version;
+> +       uint32_t srm_size;
+> +       struct bin_attribute attr;
+>  };
+>
+>  void hdcp_update_display(struct hdcp_workqueue *hdcp_work,
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
