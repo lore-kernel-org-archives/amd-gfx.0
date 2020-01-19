@@ -7,50 +7,50 @@ X-Spam-Status: No, score=-5.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75 autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3C31C32771
-	for <amd-gfx@archiver.kernel.org>; Sun, 19 Jan 2020 03:39:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0D7FC33CAF
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 Jan 2020 04:40:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6D7D02072E
-	for <amd-gfx@archiver.kernel.org>; Sun, 19 Jan 2020 03:39:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 18E6D20674
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 Jan 2020 04:40:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="SmyJRyV6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D7D02072E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="YA6GbNyY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18E6D20674
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF4056E1BE;
-	Sun, 19 Jan 2020 03:39:56 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2063.outbound.protection.outlook.com [40.107.94.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B3E96E1BE
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jan 2020 03:39:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF3F16E1D7;
+	Sun, 19 Jan 2020 04:40:28 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2086.outbound.protection.outlook.com [40.107.220.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E2BE6E1D7
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jan 2020 04:40:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fhEmaMySjHzrhPhz5UokReuyYRjf9sQzVDNNifsdj8TiRXGNXcRVqDcIIRejwF2ZtetblkaNeQQOwcHO6DeVIYO6bUB/x/Fid5nGgcDmIsd2jygl4dxdKcQhGpV6dDVRUFSdpU6K5LnNwb1wfcjjUm2GL649zENjNyiNxkLDzKcrxQLN7/g3IHEzwucOqHR2qyFFA/YRzPhWd5NzplAd7SSWpAcO4xP+n92P+IWiySRw99z0Du29RDNMf34BBUiQpocI44TGnauOVTmYpd6E0nncQIfT6+v4LFMvEpxAu6Dr5AP+gmhk8QXP1YZj4g3qa3dNMZfiSzCWfVS1vl6MXA==
+ b=fkKdfFatAhunNOptMgb+aDQhVvJXTEUfEPg/gfD9AGv6p3aBr6CF+9bznPm4W2FJV6gkJ+8Dm0ktTwW+xCUGjRG8zUCf6Jmws8XZlDhV6LK7kXx3KLgUzyWfESzxYEZaxUjBvaUZOAbmkoGMk66N0OvryKZpnuR/yU2KxeOjoKDViG3Z7dloaJkMgsjUD1vy4XdgqKGly1TzHLcctF3/5wp+3OFuq0dNWthNVoxxVw36BYvnEhZ/6v16xT4ptOrpyXEZ58wG0pr9p8+VGypktiyeGKLhtZBMVRkIxUi1aj8Zl/QQ1qOUOdOVNa4jNJwvoLclkw0pQWQcpjIdw1OzjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QpoCHFloF7FCRcV7cqQSUQzH+iIZSH01df7GlqqTkIM=;
- b=DVJvSr/iSQA025hqWqvWHwzdsEwN5fDna55/s+msd2USuRIH1xsdVKzzu5kmMHnhGoEmbU8OfuC2ocx/IVSKR46SJ5vTkr3I/IDCtlcM2oKzGUN7/lQPMzjRbH/VxoehQRp6/T1kI+DDngRK96+LpxthaTJh6rbvd26LAlMNkipSWolNG9xXyNHFNpJqDeJyBBcR01ovq2onG098iBSyLzgC0BbwUInkaaIgfatKVckLS1813VdxlcXwa79YmNYs3TwisbXTVHPXd8PalB6LMWhi2A3Bz2x/UDVTjxAjxyPvybNtpVINtstyCoZe4gZ/HrPW840vb1ZDurFtlh906Q==
+ bh=5MEWCQS8/z/lDUt7wUcc/kShG8u5zaLWt+ONYs6r8u0=;
+ b=lB2gw1aLONMN0RXXw6szq9WCo3YJqkXm009N2Um62xqx/68iT+EkLAj7D2CLBSX1PsGT0ODPBjMzBOni0DC1T1mrGPJTfOa4MJ0VlmyIs3sSB1rZfgCXuBdZPtbbQi62QbNfHcGty4LHRhdJu2st/JnDoc+zZ5kAOO8TfWqUbqFgmQCVFGVhAOn2xBwaxujZ36OSTgUDVi31uDd1+7dUsltNEb9pfrOdFQYCnkuBLKMQckRrh8r3IXVDCpS9Q0sewbAJ+8F/GqIrmJsfHke4SXMrHLJMO99n/UpdNu5vYsprglHuOPBNsAbgGLqFZIm6efcVq3CmNMJtByLeSl1Kqg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QpoCHFloF7FCRcV7cqQSUQzH+iIZSH01df7GlqqTkIM=;
- b=SmyJRyV6d2n5DaF5KHfM3jwXdZSrHwWIZYBbxn/BGurs39MEB04v75oqESA84gCVupTY8m3jgqSlMADNBtAXeeELQ4/wGpvtspj7gDxg/NPQR1eV0KUojUKMpYt5lFnh/OW3nWRolo+Bf4GoSuveGXOoBVLp9Cwl2iSS20GddUg=
-Received: from BYAPR12MB2806.namprd12.prod.outlook.com (20.176.254.20) by
- BYAPR12MB3077.namprd12.prod.outlook.com (20.178.54.74) with Microsoft SMTP
+ bh=5MEWCQS8/z/lDUt7wUcc/kShG8u5zaLWt+ONYs6r8u0=;
+ b=YA6GbNyYsTDRV7XV5qz0D7/xJTmNLKgnegad/1yERsjbm9hTJbDxLujw45VkzQpGdUlESbUaFWMYEWeOaxgNbANuC9K0AsH/ABoELxdTrbdXm53LU/nBYx/WdndRZ4WBxxVoc7JuqaacIzjfkiF0lr/wG1cPCWqN3LUyf7kPmdM=
+Received: from MN2PR12MB3167.namprd12.prod.outlook.com (20.179.80.95) by
+ MN2PR12MB2862.namprd12.prod.outlook.com (20.179.80.83) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.23; Sun, 19 Jan 2020 03:39:50 +0000
-Received: from BYAPR12MB2806.namprd12.prod.outlook.com
- ([fe80::bccf:40ec:3b93:4269]) by BYAPR12MB2806.namprd12.prod.outlook.com
- ([fe80::bccf:40ec:3b93:4269%6]) with mapi id 15.20.2644.024; Sun, 19 Jan 2020
- 03:39:50 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Li, Dennis" <Dennis.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 15.20.2644.25; Sun, 19 Jan 2020 04:40:23 +0000
+Received: from MN2PR12MB3167.namprd12.prod.outlook.com
+ ([fe80::746d:8d3c:30d3:fd71]) by MN2PR12MB3167.namprd12.prod.outlook.com
+ ([fe80::746d:8d3c:30d3:fd71%7]) with mapi id 15.20.2644.024; Sun, 19 Jan 2020
+ 04:40:23 +0000
+From: "Li, Dennis" <Dennis.Li@amd.com>
+To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
  <Alexander.Deucher@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Zhang,
  Hawking" <Hawking.Zhang@amd.com>
@@ -58,13 +58,14 @@ Subject: RE: [PATCH 4/4] drm/amdgpu: add RAS support for the gfx block of
  Arcturus
 Thread-Topic: [PATCH 4/4] drm/amdgpu: add RAS support for the gfx block of
  Arcturus
-Thread-Index: AQHVznKp8TVJBoCHvUORSOuq9nFMuKfxVPWQ
-Date: Sun, 19 Jan 2020 03:39:49 +0000
-Message-ID: <BYAPR12MB28060B2EBCD6DC04BD77D577F1330@BYAPR12MB2806.namprd12.prod.outlook.com>
+Thread-Index: AQHVznKovbiJqd3GF0OpZJe3/6IMzafxV06AgAAPlAA=
+Date: Sun, 19 Jan 2020 04:40:23 +0000
+Message-ID: <MN2PR12MB3167A71AA800EA4EB8475254ED330@MN2PR12MB3167.namprd12.prod.outlook.com>
 References: <20200119024602.23079-1-Dennis.Li@amd.com>
  <20200119024602.23079-5-Dennis.Li@amd.com>
-In-Reply-To: <20200119024602.23079-5-Dennis.Li@amd.com>
-Accept-Language: en-US
+ <BYAPR12MB28060B2EBCD6DC04BD77D577F1330@BYAPR12MB2806.namprd12.prod.outlook.com>
+In-Reply-To: <BYAPR12MB28060B2EBCD6DC04BD77D577F1330@BYAPR12MB2806.namprd12.prod.outlook.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
@@ -76,42 +77,42 @@ msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=b11e4735-30aa-4af4-a28c-000041fc64f8;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-01-19T03:39:46Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-01-19T04:40:18Z
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: ef8f91bb-1aa0-40d4-af77-0000732c7533
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 81e71c89-9d38-45aa-97a2-000074b93921
 msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Guchun.Chen@amd.com; 
+ smtp.mailfrom=Dennis.Li@amd.com; 
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 9c1c360e-7455-4038-c3db-08d79c913cea
-x-ms-traffictypediagnostic: BYAPR12MB3077:|BYAPR12MB3077:
+x-ms-office365-filtering-correlation-id: 7b883c44-8795-4bd2-55ff-08d79c99b298
+x-ms-traffictypediagnostic: MN2PR12MB2862:|MN2PR12MB2862:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR12MB30777C8F4AE8D56EFF319B53F1330@BYAPR12MB3077.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <MN2PR12MB286220ADBA22258A244F6BACED330@MN2PR12MB2862.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:10000;
 x-forefront-prvs: 0287BBA78D
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(396003)(346002)(39860400002)(376002)(366004)(189003)(199004)(9686003)(66446008)(186003)(26005)(64756008)(76116006)(66476007)(66946007)(66556008)(66574012)(71200400001)(5660300002)(30864003)(86362001)(52536014)(6636002)(55016002)(33656002)(2906002)(110136005)(316002)(6506007)(478600001)(8936002)(8676002)(53546011)(7696005)(81156014)(4326008)(81166006)(559001)(579004)(569006);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB3077;
- H:BYAPR12MB2806.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ SFS:(10009020)(4636009)(136003)(366004)(376002)(346002)(396003)(39860400002)(199004)(189003)(66946007)(66446008)(66476007)(66556008)(64756008)(76116006)(71200400001)(52536014)(81166006)(8676002)(8936002)(5660300002)(86362001)(81156014)(30864003)(66574012)(316002)(110136005)(2906002)(33656002)(478600001)(55016002)(9686003)(6636002)(7696005)(26005)(186003)(53546011)(6506007)(579004)(569006);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB2862;
+ H:MN2PR12MB3167.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Eh50zA3uI9Emx8GlsPqD+E4H25afa1IGN6HICL8xWPYv4aq7+grTwCp0KwWgvLpZnDcUWsp2NEQG3ajGktesJd1ZpW9HJK3slZrfWxrLmAb/DITiV9tpBSP1/GNQf3HkR471PBiR/JEyMWpriZa63JFa+Z2PHD6o0bpvRw63GlDqYBvn11ZjOk7UkeiG1MsBocEcjEihNTWuvq+AqYxWPGPPUw3CdqjOHJ6JZqjEd4z75eNTin6VExJKKXM8cWm8/2AW0108hwbF77f0O6y8SPqiNTbeJAyvZELWnlh73nAb0knDZvSlItqaOEd+bV0gD8ZmfPzHhrsr/ilvUZGUcf9j7l1EuZRXt9deuC6G/tFbDJavb7b7QqpaADu3zvpchwWf5OMu5K2PgHeVyCB+XpCza9A6EMd7jhw5TxyJxTX+UPiG7GiDdX4WCezLyE4YRSYenVrupI560c+SvOV+ENCyscqip67/Zlxk+XdlAnM=
+x-microsoft-antispam-message-info: L5nBqWsK1YALEwDP7UKGl8qLjCSKNHtyfL+QnxMzZ2HDccIlocbwYpzBGDQ+4ksP4UR2KOsclTzWqFCAYjNzYtdYfZ3kSdENvdq/cBTEKtX8XnIkvlxSOXfyrRJRgDt0cd4YKf1H/WW4afJpZXWNeswZPpmzbCy7+vD8BNJZ+ya7hqQZFyckerPfdZThmYwEWxKXiVzdUdMt5s+1EUE4nE/DkkKsxd/3fCLmk4mNDhK+2mWfPVhMuktk8nhu0nKQo5/gmF3URUZCxsR0BE2FUy/vgWSxDFhiXtTvuYYQDEhxJ9lT/sJsCPuR6cNwPb78C+5IszinJZn26x0kcJWqiSGKafCm7MPKBUbI8rbuNh5dLUGWFc80udbfKQbqiPcEDmHCO0fgjQEXVo3YEPXE0F+jw8GrGDkMimVPgLMNPoy//S5uNfsRUdUHMwP6zmeesRpSYct90Oh4d5j99TDq7xdCpij8NALdu60b9Z8LuFA=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c1c360e-7455-4038-c3db-08d79c913cea
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jan 2020 03:39:50.0685 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b883c44-8795-4bd2-55ff-08d79c99b298
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Jan 2020 04:40:23.4792 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: CgIZsOUtg0ojrCk44UBK2ZGviBzSQy9wRsQCLJ4h+mJW8ggGgOw8FiSjP6i4yhJJF7zfk/UjBb3oqmZ7HtQiDg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3077
+X-MS-Exchange-CrossTenant-userprincipalname: IFojziKVAUAFipZrj5q/t9SdDTzXO394YVJvzW9htxMWi7D3NTPdW9qcN7NJPoNp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB2862
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,11 +124,24 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Dennis" <Dennis.Li@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+[AMD Public Use]
+
+Hi, Guchun,
+      adev->grbm_idx_mutex is only used to protect the access to registers whose instance switch is indexed by grbm_index. 
+
+Best Regards
+Dennis Li
+-----Original Message-----
+From: Chen, Guchun <Guchun.Chen@amd.com> 
+Sent: Sunday, January 19, 2020 11:40 AM
+To: Li, Dennis <Dennis.Li@amd.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+Cc: Li, Dennis <Dennis.Li@amd.com>
+Subject: RE: [PATCH 4/4] drm/amdgpu: add RAS support for the gfx block of Arcturus
 
 [AMD Public Use]
 
@@ -146,7 +160,7 @@ Regards,
 Guchun
 
 -----Original Message-----
-From: Dennis Li <Dennis.Li@amd.com> 
+From: Dennis Li <Dennis.Li@amd.com>
 Sent: Sunday, January 19, 2020 10:46 AM
 To: amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Chen, Guchun <Guchun.Chen@amd.com>
 Cc: Li, Dennis <Dennis.Li@amd.com>
@@ -1198,7 +1212,7 @@ index 000000000000..e19d275f3f7d
 +	WREG32_SOC15(GC, 0, mmATC_L2_CACHE_2M_DSM_INDEX, 255);
 +	WREG32_SOC15(GC, 0, mmATC_L2_CACHE_4K_DSM_INDEX, 255); }
 +
-+int gfx_v9_4_ras_error_inject(struct amdgpu_device *adev, void 
++int gfx_v9_4_ras_error_inject(struct amdgpu_device *adev, void
 +*inject_if) {
 +	struct ras_inject_if *info = (struct ras_inject_if *)inject_if;
 +	int ret;
