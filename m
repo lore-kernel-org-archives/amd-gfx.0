@@ -2,106 +2,50 @@ Return-Path: <SRS0=J303=3J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D960C2D0DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 15:40:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43E9EC33CAA
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 15:40:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD420217F4
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 15:39:59 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="caiRfOnL"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD420217F4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 242AD217F4
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 15:40:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 242AD217F4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F5306E9C2;
-	Mon, 20 Jan 2020 15:39:59 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20622.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::622])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F30996E9C2
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2020 15:39:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jKnaTsuXgskQhKn/QyCAxMbdCLgFhXBL1OH+QojOjZ2y8QlCHfMWFDGSrYdjflaPdzu+CjIGnLkgblsGwakIPmmZI7BNAjd3v5qD/iYdXXlSrW6cKHmQBws62kvKWA0W/tTfPomrBrkEL770A3EGV/TR5ait3m9iIkWiv1wqH8ai8VDxbO0v0gJ9HbEDKaxqsWLHcMUdVtj8SGRPGZJakv5wogT5PiTtikInrqduF48n/fNBIudBEfWwQ7FBUTlGMzhmUqg4WXI0NCDXloY2lpVeRjdXpUC9jwT9IJsR/D+GjIRdTtx2XValsuiBPLk9GtRB0hJiz9RqqDCC5AGj7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lZH0i9chd06hqNREr6nK0s+WlNUkve4HMJNDi5JOQkc=;
- b=BVzwGFIgV24we+e/9/H2mQrVcj/HketVHpqZ7SoilgR2ZoyBUejlHLm8uY7QhwfIig0J5B2GR13ZpP/lk9Q8pZB8sFd9QV7db61+8fM4pliFADkn0mlkIA9kHKPH2NbeRpT8YGsaP5JpA8Y1YA60nHqOJQSJaXBViZbCHtrPfawR/ZTihUsCAYGuHtmR80TKOdpeV8FLeKsAX7jJBJ4mvVfb4ELpspWfutd2sxwYvcZffYzYtwXg6RAt8A164HOnWvX9Ot+n3ypoBd5ofiEkm0wut9H3U3rhN6TmwxXkvZoOc5yo5kiIgc3UDFFupNo+v6wzxml5q8PLP0p2PEkrKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lZH0i9chd06hqNREr6nK0s+WlNUkve4HMJNDi5JOQkc=;
- b=caiRfOnL2tplikaMrpxxViUV8kz+WHnJowsakM2j0r02mpxtqjrmehvmB0CYsDw+d0VMPQ+Zv2zNhg5MN0lP3yXnnc5ku8ZB151SICW5l4OzrxkE4OcaMxSJeyh2ftsWFWRktRDnAVQvX+fawf3d8S1nbdaJa9CIMU3pazpSh/Y=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Luben.Tuikov@amd.com; 
-Received: from DM6PR12MB3355.namprd12.prod.outlook.com (20.178.29.90) by
- DM6PR12MB2940.namprd12.prod.outlook.com (20.179.71.211) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.18; Mon, 20 Jan 2020 15:39:56 +0000
-Received: from DM6PR12MB3355.namprd12.prod.outlook.com
- ([fe80::799b:b372:6589:c8a]) by DM6PR12MB3355.namprd12.prod.outlook.com
- ([fe80::799b:b372:6589:c8a%7]) with mapi id 15.20.2644.024; Mon, 20 Jan 2020
- 15:39:55 +0000
-Subject: Re: [PATCH] drm/scheduler: fix documentation by replacing rq_list
- with sched_list
-To: Nirmoy <nirmodas@amd.com>, Nirmoy Das <nirmoy.aiemd@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20200116144320.109044-1-nirmoy.das@amd.com>
- <cec773a9-8040-ee55-c73b-f7165a117696@amd.com>
- <8080c3c5-0d8d-5f85-011a-1edf4074eda9@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-Message-ID: <97e0f042-e6e6-0d62-85d2-dec4f2434c5d@amd.com>
-Date: Mon, 20 Jan 2020 10:39:54 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-In-Reply-To: <8080c3c5-0d8d-5f85-011a-1edf4074eda9@amd.com>
-Content-Language: en-CA
-X-ClientProxiedBy: YTOPR0101CA0061.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:14::38) To DM6PR12MB3355.namprd12.prod.outlook.com
- (2603:10b6:5:115::26)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD1186E9C7;
+	Mon, 20 Jan 2020 15:40:41 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 933AF6E9C7;
+ Mon, 20 Jan 2020 15:40:40 +0000 (UTC)
+X-Amp-Result: UNSCANNABLE
+X-Amp-File-Uploaded: False
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2020 07:40:40 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,342,1574150400"; d="scan'208";a="220698779"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by fmsmga007.fm.intel.com with SMTP; 20 Jan 2020 07:40:31 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 20 Jan 2020 17:40:31 +0200
+Date: Mon, 20 Jan 2020 17:40:31 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [PATCH v3 22/22] drm: Remove legacy version of
+ get_scanout_position()
+Message-ID: <20200120154031.GY13686@intel.com>
+References: <20200120082314.14756-1-tzimmermann@suse.de>
+ <20200120082314.14756-23-tzimmermann@suse.de>
 MIME-Version: 1.0
-Received: from localhost.localdomain (165.204.55.250) by
- YTOPR0101CA0061.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::38) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.19 via Frontend
- Transport; Mon, 20 Jan 2020 15:39:55 +0000
-X-Originating-IP: [165.204.55.250]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: daaadb27-1fd9-4724-f8d9-08d79dbeffb3
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2940:|DM6PR12MB2940:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB294050CEEAB8AF5303EA29FE99320@DM6PR12MB2940.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-Forefront-PRVS: 0288CD37D9
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(136003)(346002)(39860400002)(396003)(376002)(199004)(189003)(86362001)(6512007)(4326008)(81166006)(6486002)(956004)(2616005)(44832011)(31696002)(66946007)(66476007)(2906002)(66556008)(478600001)(36756003)(186003)(110136005)(316002)(31686004)(16526019)(8936002)(5660300002)(52116002)(81156014)(26005)(6506007)(53546011)(8676002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2940;
- H:DM6PR12MB3355.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tIpaA01fnFW2xKSBtYMoJA3Q+ZIrdGyRIzxcndl9JOmNCubdDREeXS58XOC9OkJ/y5hdGQFX34nKTb92n3kAHn1nir4LQO3/HtEd6ckhjAo6HrYPxsdbqddcW4Fdp+OAdqY4A/zccWHqnvLYICgRs9YHIBH69D9AuhvfcIb/3iBOJohCxqsdk5AcPEk1C0cq4T7Tre+YpBtcLmnaJ/MvZ48wyk2GEm+5kxoUAh7pG6g/WrAiRgGg/g4ax1Hz1Wc2FqXONJMcwm8NMAf2iObOeod6x+X4dX2Sv4nOpFH9FASIScCrFwh+225GwbRWfa1lJWFoNLrmvmrMs4Fq69Fr7FiPByILrUFEHIo84HqGAGNkIu8emXkjIrL6vgYZEzfUX8upOo4DJ8PgEAOpZMSIvqUS5M5EOuTJMaTofOIZMqES9oFanb6EjMHsMWNHXjP7
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: daaadb27-1fd9-4724-f8d9-08d79dbeffb3
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2020 15:39:55.8264 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Dg30b9dnjpXlPi3PpQTATucmgAqMepYG1LlJfFyLwDIE904vC4mpc2NvCKNcrhRe
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2940
+Content-Disposition: inline
+In-Reply-To: <20200120082314.14756-23-tzimmermann@suse.de>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,64 +57,174 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, nirmoy.das@amd.com, christian.koenig@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
+ eric@anholt.net, amd-gfx@lists.freedesktop.org, benjamin.gaignard@linaro.org,
+ alexandre.torgue@st.com, David1.Zhou@amd.com, thellstrom@vmware.com,
+ sean@poorly.run, patrik.r.jakobsson@gmail.com,
+ linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
+ harry.wentland@amd.com, mcoquelin.stm32@gmail.com, sunpeng.li@amd.com,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, vincent.abriou@st.com, rodrigosiqueiramelo@gmail.com,
+ philippe.cornu@st.com, yannick.fertre@st.com, robdclark@gmail.com,
+ daniel@ffwll.ch, alexander.deucher@amd.com, freedreno@lists.freedesktop.org,
+ christian.koenig@amd.com
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-01-17 5:59 a.m., Nirmoy wrote:
-> Hi Luben,
-> 
-> On 1/16/20 6:13 PM, Luben Tuikov wrote:
->>> - * Note: the rq_list should have atleast one element to schedule
->>> + * Note: the sched_list should have atleast one element to schedule
->> "atleast" --> "at least".
-> Always a tricky one to catch, Thanks!
-> I will create a patch and ask Alex to squash with this one.
->>
->>> - * @num_rq_list: number of run queues in the rq_list
->>> + * @sched_list: a list of drm_gpu_schedulers on which jobs from this entity can
->>> + *              be scheduled
->> I had to read this a few times to understand it. I wonder if splitting
->> it into two sentences would make it clearer:
->>
->> "A list of schedulers (drm_gpu_schedulers). Jobs from this entity,
->>   can be scheduled on any scheduler on this list."
-> 
-> I don't know, both feels right to me. Please create a patch if you think 
-> this splitting makes it more clearer.
+On Mon, Jan 20, 2020 at 09:23:14AM +0100, Thomas Zimmermann wrote:
+> The legacy version of get_scanout_position() was only useful while
+> drivers still used drm_driver.get_scanout_position(). With no such
+> drivers left, the related typedef and code can be removed
+> =
 
-Oh, god, since you're submitting a patch to fix "atleast" to "at least",
-it would've been good to also fix this.
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-But you chose not to do it. Sure, you understand it, but making it more
-clear, surely shows attention to detail and thinking process. And it
-would help others to maintain the driver and contribute. Making
-it more obfuscated, by bunching up what acts and what, makes it difficult
-to understand.
+Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
 
-I had to read this sentence a few times to separate the entities,
-what acts on what, in order to understand the description.
+> ---
+>  drivers/gpu/drm/drm_vblank.c    | 27 +++++++--------------------
+>  drivers/gpu/drm/i915/i915_irq.c |  2 +-
+>  include/drm/drm_vblank.h        | 10 +---------
+>  3 files changed, 9 insertions(+), 30 deletions(-)
+> =
 
-Bunching this up into a single sentence, invariably makes
-the documentation *more difficult* to understand. Breaking it up
-into two sentences, makes it much easier to understand. For instance,
+> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+> index 34428ce3c676..0bda7d7a0af2 100644
+> --- a/drivers/gpu/drm/drm_vblank.c
+> +++ b/drivers/gpu/drm/drm_vblank.c
+> @@ -576,9 +576,6 @@ EXPORT_SYMBOL(drm_calc_timestamping_constants);
+>   * @get_scanout_position:
+>   *     Callback function to retrieve the scanout position. See
+>   *     @struct drm_crtc_helper_funcs.get_scanout_position.
+> - * @get_scanout_position_legacy:
+> - *     Callback function to retrieve the scanout position. See
+> - *     @struct drm_driver.get_scanout_position.
+>   *
+>   * Implements calculation of exact vblank timestamps from given drm_disp=
+lay_mode
+>   * timings and current video scanout position of a CRTC.
+> @@ -601,8 +598,7 @@ bool
+>  drm_crtc_vblank_helper_get_vblank_timestamp_internal(
+>  	struct drm_crtc *crtc, int *max_error, ktime_t *vblank_time,
+>  	bool in_vblank_irq,
+> -	drm_vblank_get_scanout_position_func get_scanout_position,
+> -	drm_vblank_get_scanout_position_legacy_func get_scanout_position_legacy)
+> +	drm_vblank_get_scanout_position_func get_scanout_position)
+>  {
+>  	struct drm_device *dev =3D crtc->dev;
+>  	unsigned int pipe =3D crtc->index;
+> @@ -620,7 +616,7 @@ drm_crtc_vblank_helper_get_vblank_timestamp_internal(
+>  	}
+>  =
 
-The first sentences describes a single object: the list:
-"A list of schedulers (drm_gpu_schedulers)."
-The second sentence describes the jobs, that they can be
-scheduled on any scheduler of the previously talked about list:
-"Jobs from this entity, can be scheduled on any scheduler on this list."
+>  	/* Scanout position query not supported? Should not happen. */
+> -	if (!get_scanout_position && !get_scanout_position_legacy) {
+> +	if (!get_scanout_position) {
+>  		DRM_ERROR("Called from CRTC w/o get_scanout_position()!?\n");
+>  		return false;
+>  	}
+> @@ -651,19 +647,10 @@ drm_crtc_vblank_helper_get_vblank_timestamp_interna=
+l(
+>  		 * Get vertical and horizontal scanout position vpos, hpos,
+>  		 * and bounding timestamps stime, etime, pre/post query.
+>  		 */
+> -		if (get_scanout_position) {
+> -			vbl_status =3D get_scanout_position(crtc,
+> -							  in_vblank_irq,
+> -							  &vpos, &hpos,
+> -							  &stime, &etime,
+> -							  mode);
+> -		} else {
+> -			vbl_status =3D get_scanout_position_legacy(dev, pipe,
+> -								 in_vblank_irq,
+> -								 &vpos, &hpos,
+> -								 &stime, &etime,
+> -								 mode);
+> -		}
+> +		vbl_status =3D get_scanout_position(crtc, in_vblank_irq,
+> +						  &vpos, &hpos,
+> +						  &stime, &etime,
+> +						  mode);
+>  =
 
-Why would you refuse to also update the documentation, as part of your
-spelling mistake patch, is beyond me. It only makes sense to make
-things better for other people to understand.
+>  		/* Return as no-op if scanout query unsupported or failed. */
+>  		if (!vbl_status) {
+> @@ -755,7 +742,7 @@ bool drm_crtc_vblank_helper_get_vblank_timestamp(stru=
+ct drm_crtc *crtc,
+>  {
+>  	return drm_crtc_vblank_helper_get_vblank_timestamp_internal(
+>  		crtc, max_error, vblank_time, in_vblank_irq,
+> -		crtc->helper_private->get_scanout_position, NULL);
+> +		crtc->helper_private->get_scanout_position);
+>  }
+>  EXPORT_SYMBOL(drm_crtc_vblank_helper_get_vblank_timestamp);
+>  =
 
-And this is how well-written documentation dies.
+> diff --git a/drivers/gpu/drm/i915/i915_irq.c b/drivers/gpu/drm/i915/i915_=
+irq.c
+> index 29bf847999f5..3245f7c5c84f 100644
+> --- a/drivers/gpu/drm/i915/i915_irq.c
+> +++ b/drivers/gpu/drm/i915/i915_irq.c
+> @@ -886,7 +886,7 @@ bool intel_crtc_get_vblank_timestamp(struct drm_crtc =
+*crtc, int *max_error,
+>  {
+>  	return drm_crtc_vblank_helper_get_vblank_timestamp_internal(
+>  		crtc, max_error, vblank_time, in_vblank_irq,
+> -		i915_get_crtc_scanoutpos, NULL);
+> +		i915_get_crtc_scanoutpos);
+>  }
+>  =
 
-Regards,
-Luben
+>  int intel_get_crtc_scanline(struct intel_crtc *crtc)
+> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+> index a6ca8be93dd8..0f474e855e7f 100644
+> --- a/include/drm/drm_vblank.h
+> +++ b/include/drm/drm_vblank.h
+> @@ -245,20 +245,12 @@ typedef bool (*drm_vblank_get_scanout_position_func=
+)(struct drm_crtc *crtc,
+>  						     ktime_t *stime, ktime_t *etime,
+>  						     const struct drm_display_mode *mode);
+>  =
+
+> -typedef bool (*drm_vblank_get_scanout_position_legacy_func)(struct drm_d=
+evice *dev,
+> -							    unsigned int pipe,
+> -							    bool in_vblank_irq,
+> -							    int *vpos, int *hpos,
+> -							    ktime_t *stime, ktime_t *etime,
+> -							    const struct drm_display_mode *mode);
+> -
+>  bool
+>  drm_crtc_vblank_helper_get_vblank_timestamp_internal(struct drm_crtc *cr=
+tc,
+>  						     int *max_error,
+>  						     ktime_t *vblank_time,
+>  						     bool in_vblank_irq,
+> -						     drm_vblank_get_scanout_position_func get_scanout_position,
+> -						     drm_vblank_get_scanout_position_legacy_func get_scanout_posit=
+ion_legacy);
+> +						     drm_vblank_get_scanout_position_func get_scanout_position);
+>  bool drm_crtc_vblank_helper_get_vblank_timestamp(struct drm_crtc *crtc,
+>  						 int *max_error,
+>  						 ktime_t *vblank_time,
+> -- =
+
+> 2.24.1
+> =
+
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
