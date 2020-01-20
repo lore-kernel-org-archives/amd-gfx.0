@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F203C35241
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 08:24:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 95EFBC33CB7
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 08:24:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C562207FD
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 08:24:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C562207FD
+	by mail.kernel.org (Postfix) with ESMTPS id 77240207E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 08:24:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77240207E0
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C4CB6FA64;
-	Mon, 20 Jan 2020 08:23:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E994F6E832;
+	Mon, 20 Jan 2020 08:23:49 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC7676E851;
- Mon, 20 Jan 2020 08:23:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37CF56FA68;
+ Mon, 20 Jan 2020 08:23:47 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 5A498B262;
- Mon, 20 Jan 2020 08:23:42 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id C8F2FB24D;
+ Mon, 20 Jan 2020 08:23:45 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  christian.koenig@amd.com, David1.Zhou@amd.com,
@@ -38,9 +38,9 @@ To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
  jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com
-Subject: [PATCH v3 15/22] drm/stm: Convert to CRTC VBLANK callbacks
-Date: Mon, 20 Jan 2020 09:23:07 +0100
-Message-Id: <20200120082314.14756-16-tzimmermann@suse.de>
+Subject: [PATCH v3 19/22] drm/vkms: Convert to CRTC VBLANK callbacks
+Date: Mon, 20 Jan 2020 09:23:11 +0100
+Message-Id: <20200120082314.14756-20-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200120082314.14756-1-tzimmermann@suse.de>
 References: <20200120082314.14756-1-tzimmermann@suse.de>
@@ -56,48 +56,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
+Cc: Rodrigo Siqueira <rodrigosiqueira@gmail.com>, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ nouveau@lists.freedesktop.org, freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 VBLANK callbacks in struct drm_driver are deprecated in favor of
-their equivalents in struct drm_crtc_funcs. Convert stm over.
+their equivalents in struct drm_crtc_funcs. Convert vkms over.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reviewed-by: Rodrigo Siqueira <rodrigosiqueira@gmail.com>
+Tested-by: Rodrigo Siqueira <rodrigosiqueira@gmail.com>
 ---
- drivers/gpu/drm/stm/drv.c  | 1 -
- drivers/gpu/drm/stm/ltdc.c | 1 +
- 2 files changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/vkms/vkms_crtc.c | 9 ++++++---
+ drivers/gpu/drm/vkms/vkms_drv.c  | 1 -
+ drivers/gpu/drm/vkms/vkms_drv.h  | 4 ----
+ 3 files changed, 6 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/stm/drv.c b/drivers/gpu/drm/stm/drv.c
-index 486985604109..ea9fcbdc68b3 100644
---- a/drivers/gpu/drm/stm/drv.c
-+++ b/drivers/gpu/drm/stm/drv.c
-@@ -72,7 +72,6 @@ static struct drm_driver drv_driver = {
- 	.gem_prime_vmap = drm_gem_cma_prime_vmap,
- 	.gem_prime_vunmap = drm_gem_cma_prime_vunmap,
- 	.gem_prime_mmap = drm_gem_cma_prime_mmap,
--	.get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
- };
+diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
+index 74f703b8d22a..ac85e17428f8 100644
+--- a/drivers/gpu/drm/vkms/vkms_crtc.c
++++ b/drivers/gpu/drm/vkms/vkms_crtc.c
+@@ -76,10 +76,12 @@ static void vkms_disable_vblank(struct drm_crtc *crtc)
+ 	hrtimer_cancel(&out->vblank_hrtimer);
+ }
  
- static int drv_load(struct drm_device *ddev)
-diff --git a/drivers/gpu/drm/stm/ltdc.c b/drivers/gpu/drm/stm/ltdc.c
-index 8b6d1a2252e3..ee2a8cac59cb 100644
---- a/drivers/gpu/drm/stm/ltdc.c
-+++ b/drivers/gpu/drm/stm/ltdc.c
-@@ -722,6 +722,7 @@ static const struct drm_crtc_funcs ltdc_crtc_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
- 	.enable_vblank = ltdc_crtc_enable_vblank,
- 	.disable_vblank = ltdc_crtc_disable_vblank,
-+	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
- 	.gamma_set = drm_atomic_helper_legacy_gamma_set,
- };
+-bool vkms_get_vblank_timestamp(struct drm_device *dev, unsigned int pipe,
+-			       int *max_error, ktime_t *vblank_time,
+-			       bool in_vblank_irq)
++static bool vkms_get_vblank_timestamp(struct drm_crtc *crtc,
++				      int *max_error, ktime_t *vblank_time,
++				      bool in_vblank_irq)
+ {
++	struct drm_device *dev = crtc->dev;
++	unsigned int pipe = crtc->index;
+ 	struct vkms_device *vkmsdev = drm_device_to_vkms_device(dev);
+ 	struct vkms_output *output = &vkmsdev->output;
+ 	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
+@@ -154,6 +156,7 @@ static const struct drm_crtc_funcs vkms_crtc_funcs = {
+ 	.atomic_destroy_state   = vkms_atomic_crtc_destroy_state,
+ 	.enable_vblank		= vkms_enable_vblank,
+ 	.disable_vblank		= vkms_disable_vblank,
++	.get_vblank_timestamp	= vkms_get_vblank_timestamp,
+ 	.get_crc_sources	= vkms_get_crc_sources,
+ 	.set_crc_source		= vkms_set_crc_source,
+ 	.verify_crc_source	= vkms_verify_crc_source,
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
+index 25bd7519295f..860de052e820 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.c
++++ b/drivers/gpu/drm/vkms/vkms_drv.c
+@@ -103,7 +103,6 @@ static struct drm_driver vkms_driver = {
+ 	.dumb_create		= vkms_dumb_create,
+ 	.gem_vm_ops		= &vkms_gem_vm_ops,
+ 	.gem_free_object_unlocked = vkms_gem_free_object,
+-	.get_vblank_timestamp	= vkms_get_vblank_timestamp,
+ 	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
+ 	.gem_prime_import_sg_table = vkms_prime_import_sg_table,
  
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
+index 7d52e24564db..eda04ffba7b1 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.h
++++ b/drivers/gpu/drm/vkms/vkms_drv.h
+@@ -111,10 +111,6 @@ struct vkms_gem_object {
+ int vkms_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
+ 		   struct drm_plane *primary, struct drm_plane *cursor);
+ 
+-bool vkms_get_vblank_timestamp(struct drm_device *dev, unsigned int pipe,
+-			       int *max_error, ktime_t *vblank_time,
+-			       bool in_vblank_irq);
+-
+ int vkms_output_init(struct vkms_device *vkmsdev, int index);
+ 
+ struct drm_plane *vkms_plane_init(struct vkms_device *vkmsdev,
 -- 
 2.24.1
 
