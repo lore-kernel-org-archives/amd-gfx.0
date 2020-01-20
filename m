@@ -2,102 +2,50 @@ Return-Path: <SRS0=J303=3J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1445DC2D0DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 13:36:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 50180C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 15:38:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB1122087E
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 13:36:50 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="rWxeuuS8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB1122087E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2C6C5217F4
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 15:38:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C6C5217F4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E4756E958;
-	Mon, 20 Jan 2020 13:36:50 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2062.outbound.protection.outlook.com [40.107.93.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AFC46E958
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2020 13:36:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LNesgjUwMtuJIHt0T92c4r2/yCLD95aClcOjiavf+4r202RStFmnDx1HKApFPhv2TN2XIxEUn+6AngFR4bOlesS10p0FZdbG18WeE5pV/2WYUq21nfTYAeg34X2w0t0z9jOeS8OvHjrWZtQFHojtj99qHcprSMu2R9zZxU/O3Y5ybtcKbXm0T2W/1oKMDh6Y9R9dvrttaVi0PGuNKdl7Yrme6taReiF4xNfyEWKDdoE2COIgFDLqCEHq2lYyP9uVHAbm0e1Xz3SlZjWks+sXEPEEuzzOg+g8wGLv88442mOuJUyzgNjpydvyNcfMh5uhwxwOd/yFTyEJqY7hkT6Ojg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J9AbOs7AhGSKbWfpQXIRqvFpKJq3+jUql2miWLLa7nU=;
- b=DM8QteOSgMXa8hpgtCBSoEbBYFV21+Ja/oU884X45w8eZLtBfIOOJGJzJ/udiURitlZpBerqXFSdCHUm+cL6lg4DXYM1g7kShDU0Q+TfXOSpgksx4+e4w6MIA9sPEdcRIygabx8kA8jdqYFSMbo0Lbd0NDZvfAsvnJaMOQnCaO4j6l/nLpAPuhseL/6JYuAL9avuZU1J9huz1HOe/PuUPfSgurfHioE9hS37wFu5nZtj6yQ3nRp0t5JNGunEv/ndEUTaxO46kzjmklzByGP3hdHDAikEd4xaiI2A/AEdj28Pt5dJcj6CCDVW4nRgj+sJCPbs96nBoLzqC4XBkvG0qg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J9AbOs7AhGSKbWfpQXIRqvFpKJq3+jUql2miWLLa7nU=;
- b=rWxeuuS8rGt2EqREQMOTagK2G8rpZkf45//3Y+t4PTzP/q7BkGFdesmfavtwAg7KfCZV5N9ZNyXgDVgFR/KUkvWd7Iuq8mziyKSx+qgGq+3g7g77i3SOGBRVeDhdGPnxEoKJ/8xEGzDOm6bqQzKLhasBfmukBMHfBb59MT0DlCI=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Christian.Koenig@amd.com; 
-Received: from DM5PR12MB1705.namprd12.prod.outlook.com (10.175.88.22) by
- DM5PR12MB2374.namprd12.prod.outlook.com (52.132.141.15) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.18; Mon, 20 Jan 2020 13:36:47 +0000
-Received: from DM5PR12MB1705.namprd12.prod.outlook.com
- ([fe80::8dde:b52a:d97a:e89]) by DM5PR12MB1705.namprd12.prod.outlook.com
- ([fe80::8dde:b52a:d97a:e89%2]) with mapi id 15.20.2644.026; Mon, 20 Jan 2020
- 13:36:47 +0000
-Subject: Re: [PATCH] drm/amdgpu: fix a typo atleast -> at least
-To: Nirmoy Das <nirmoy.aiemd@gmail.com>, amd-gfx@lists.freedesktop.org,
- luben.tuikov@amd.com
-References: <20200120133621.7911-1-nirmoy.das@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <1bb20182-0ddf-49ab-2dc8-e8e71b912bb9@amd.com>
-Date: Mon, 20 Jan 2020 14:36:41 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <20200120133621.7911-1-nirmoy.das@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: FR2P281CA0032.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:14::19) To DM5PR12MB1705.namprd12.prod.outlook.com
- (2603:10b6:3:10c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17E376E9C4;
+	Mon, 20 Jan 2020 15:38:16 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E08446E9C3;
+ Mon, 20 Jan 2020 15:38:14 +0000 (UTC)
+X-Amp-Result: UNSCANNABLE
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 20 Jan 2020 07:38:14 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,342,1574150400"; d="scan'208";a="244432839"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by orsmga002.jf.intel.com with SMTP; 20 Jan 2020 07:38:05 -0800
+Received: by stinkbox (sSMTP sendmail emulation);
+ Mon, 20 Jan 2020 17:38:04 +0200
+Date: Mon, 20 Jan 2020 17:38:04 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Subject: Re: [Intel-gfx] [PATCH v3 03/22] drm: Add get_vblank_timestamp() to
+ struct drm_crtc_funcs
+Message-ID: <20200120153804.GX13686@intel.com>
+References: <20200120082314.14756-1-tzimmermann@suse.de>
+ <20200120082314.14756-4-tzimmermann@suse.de>
 MIME-Version: 1.0
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- FR2P281CA0032.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:14::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.20 via Frontend Transport; Mon, 20 Jan 2020 13:36:45 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1774a437-6fdb-485f-b417-08d79dadcc1d
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2374:|DM5PR12MB2374:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB237447E53E3D97AD6B0F5FAF83320@DM5PR12MB2374.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
-X-Forefront-PRVS: 0288CD37D9
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(136003)(346002)(366004)(376002)(396003)(189003)(199004)(66574012)(36756003)(316002)(52116002)(6486002)(478600001)(81166006)(186003)(2616005)(8676002)(81156014)(8936002)(16526019)(86362001)(6666004)(4326008)(31696002)(2906002)(31686004)(5660300002)(4744005)(66556008)(66946007)(66476007)(6636002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2374;
- H:DM5PR12MB1705.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LhUmZ3RdH9EI4jDHy7uWTvwwOaGpYcgdfK3vwKTaihQvFPcU4ACnyh39v0NDo4e8OHay/kfs31vtKHB6570J6GZt3JP2Eh1gdL5TxhykEZpRw+2WTaGJYIyqudLAhIOJgNhrGNaQbOOe7KTAziA5YKnXYRApVB4n1/s+DvYu+cJnAd475M3lyoifv2XUR/lJ+fj/nQY93KftcPUEpmlKQVZfhBdATIr8KSJVJfvDONtI6Y/wbKmJCeG0aOLFWxL6cCXMoOpzpaU4HkUEykY3XKXF/koeJtA0F2lwaYQs72up8PdhiRrp5w2rCM825noYZefbBfP5nshES0Zpqfvr3tilNWae+OEPPQZG0IPXYBlkdEJd654Mkrf8tJ0TMwW8XOcjtFtKm2EBgAlEUqZ49myKzXNc4AfqpBsJyPhBIxRwjp4RW8XBvIe35wYwm8a1
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1774a437-6fdb-485f-b417-08d79dadcc1d
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2020 13:36:47.7525 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VcK3Z48hY9X9GOmKrRwAGv/YlXKOzfM+RctsXcJ7zm2A+blgo47suE2bDoCU9ymd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2374
+Content-Disposition: inline
+In-Reply-To: <20200120082314.14756-4-tzimmermann@suse.de>
+X-Patchwork-Hint: comment
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,29 +57,387 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, kenny.ho@amd.com, nirmoy.das@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: hamohammed.sa@gmail.com, airlied@linux.ie, nouveau@lists.freedesktop.org,
+ joonas.lahtinen@linux.intel.com, dri-devel@lists.freedesktop.org,
+ eric@anholt.net, amd-gfx@lists.freedesktop.org, benjamin.gaignard@linaro.org,
+ alexandre.torgue@st.com, David1.Zhou@amd.com, thellstrom@vmware.com,
+ sean@poorly.run, patrik.r.jakobsson@gmail.com,
+ linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
+ harry.wentland@amd.com, mcoquelin.stm32@gmail.com, sunpeng.li@amd.com,
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ maarten.lankhorst@linux.intel.com, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, vincent.abriou@st.com, rodrigosiqueiramelo@gmail.com,
+ philippe.cornu@st.com, yannick.fertre@st.com, robdclark@gmail.com,
+ daniel@ffwll.ch, alexander.deucher@amd.com, freedreno@lists.freedesktop.org,
+ christian.koenig@amd.com
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjAuMDEuMjAgdW0gMTQ6MzYgc2NocmllYiBOaXJtb3kgRGFzOgo+IEZpeGVzOiBiOGM4YjIz
-ZjU4YzcxIChkcm0vc2NoZWR1bGVyOiBmaXggZG9jdW1lbnRhdGlvbiBieSByZXBsYWNpbmcgcnFf
-bGlzdCB3aXRoCj4gc2NoZWRfbGlzdCkKPgo+IFNpZ25lZC1vZmYtYnk6IE5pcm1veSBEYXMgPG5p
-cm1veS5kYXNAYW1kLmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
-YW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9z
-Y2hlZF9lbnRpdHkuYyB8IDIgKy0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwg
-MSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVsZXIv
-c2NoZWRfZW50aXR5LmMgYi9kcml2ZXJzL2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX2VudGl0eS5j
-Cj4gaW5kZXggZWM3OWU4ZTVhZDNjLi42M2JjY2QyMDFiOTcgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9lbnRpdHkuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9zY2hlZHVsZXIvc2NoZWRfZW50aXR5LmMKPiBAQCAtNDUsNyArNDUsNyBAQAo+ICAgICogQGd1
-aWx0eTogYXRvbWljX3Qgc2V0IHRvIDEgd2hlbiBhIGpvYiBvbiB0aGlzIHF1ZXVlCj4gICAgKiAg
-ICAgICAgICBpcyBmb3VuZCB0byBiZSBndWlsdHkgY2F1c2luZyBhIHRpbWVvdXQKPiAgICAqCj4g
-LSAqIE5vdGU6IHRoZSBzY2hlZF9saXN0IHNob3VsZCBoYXZlIGF0bGVhc3Qgb25lIGVsZW1lbnQg
-dG8gc2NoZWR1bGUKPiArICogTm90ZTogdGhlIHNjaGVkX2xpc3Qgc2hvdWxkIGhhdmUgYXQgbGVh
-c3Qgb25lIGVsZW1lbnQgdG8gc2NoZWR1bGUKPiAgICAqICAgICAgIHRoZSBlbnRpdHkKPiAgICAq
-Cj4gICAgKiBSZXR1cm5zIDAgb24gc3VjY2VzcyBvciBhIG5lZ2F0aXZlIGVycm9yIGNvZGUgb24g
-ZmFpbHVyZS4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
-Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+On Mon, Jan 20, 2020 at 09:22:55AM +0100, Thomas Zimmermann wrote:
+> The callback get_vblank_timestamp() is currently located in struct
+> drm_driver, but really belongs into struct drm_crtc_funcs. Add an
+> equivalent there. Driver will be converted in separate patches.
+> =
+
+> The default implementation is drm_calc_vbltimestamp_from_scanoutpos().
+> The patch adds drm_crtc_vblank_helper_get_vblank_timestamp(), which is
+> an implementation for the CRTC callback.
+> =
+
+> v3:
+> 	* use refactored timestamp calculation to minimize duplicated code
+> 	* do more checks for crtc !=3D NULL to support legacy drivers
+> v2:
+> 	* rename helper to drm_crtc_vblank_helper_get_vblank_timestamp()
+> 	* replace drm_calc_vbltimestamp_from_scanoutpos() with
+> 	  drm_crtc_vblank_helper_get_vblank_timestamp() in docs
+> =
+
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+> ---
+>  drivers/gpu/drm/drm_vblank.c             | 74 +++++++++++++++++++++---
+>  include/drm/drm_crtc.h                   | 46 ++++++++++++++-
+>  include/drm/drm_modeset_helper_vtables.h |  4 +-
+>  include/drm/drm_vblank.h                 | 16 +++--
+>  4 files changed, 123 insertions(+), 17 deletions(-)
+> =
+
+> diff --git a/drivers/gpu/drm/drm_vblank.c b/drivers/gpu/drm/drm_vblank.c
+> index 7e962c29780c..fc297043e3ba 100644
+> --- a/drivers/gpu/drm/drm_vblank.c
+> +++ b/drivers/gpu/drm/drm_vblank.c
+> @@ -333,7 +333,9 @@ u64 drm_crtc_accurate_vblank_count(struct drm_crtc *c=
+rtc)
+>  	u64 vblank;
+>  	unsigned long flags;
+>  =
+
+> -	WARN_ONCE(drm_debug_enabled(DRM_UT_VBL) && !dev->driver->get_vblank_tim=
+estamp,
+> +	WARN_ONCE(drm_debug_enabled(DRM_UT_VBL) &&
+> +		  !crtc->funcs->get_vblank_timestamp &&
+> +		  !dev->driver->get_vblank_timestamp,
+>  		  "This function requires support for accurate vblank timestamps.");
+>  =
+
+>  	spin_lock_irqsave(&dev->vblank_time_lock, flags);
+> @@ -511,9 +513,9 @@ EXPORT_SYMBOL(drm_crtc_vblank_waitqueue);
+>   *
+>   * Calculate and store various constants which are later needed by vblan=
+k and
+>   * swap-completion timestamping, e.g, by
+> - * drm_calc_vbltimestamp_from_scanoutpos(). They are derived from CRTC's=
+ true
+> - * scanout timing, so they take things like panel scaling or other adjus=
+tments
+> - * into account.
+> + * drm_crtc_vblank_helper_get_vblank_timestamp(). They are derived from
+> + * CRTC's true scanout timing, so they take things like panel scaling or
+> + * other adjustments into account.
+>   */
+>  void drm_calc_timestamping_constants(struct drm_crtc *crtc,
+>  				     const struct drm_display_mode *mode)
+> @@ -577,8 +579,9 @@ EXPORT_SYMBOL(drm_calc_timestamping_constants);
+>   *
+>   * Implements calculation of exact vblank timestamps from given drm_disp=
+lay_mode
+>   * timings and current video scanout position of a CRTC. This can be dir=
+ectly
+> - * used as the &drm_driver.get_vblank_timestamp implementation of a kms =
+driver
+> - * if &drm_crtc_helper_funcs.get_scanout_position is implemented.
+> + * used as the &drm_crtc_funcs.get_vblank_timestamp implementation of a =
+kms
+> + * driver if &drm_crtc_helper_funcs.get_scanout_position or
+> + * &drm_driver.get_scanout_position is implemented.
+>   *
+>   * The current implementation only handles standard video modes. For dou=
+ble scan
+>   * and interlaced modes the driver is supposed to adjust the hardware mo=
+de
+> @@ -774,6 +777,48 @@ drm_crtc_vblank_helper_get_vblank_timestamp_internal(
+>  }
+>  EXPORT_SYMBOL(drm_crtc_vblank_helper_get_vblank_timestamp_internal);
+>  =
+
+> +/**
+> + * drm_crtc_vblank_helper_get_vblank_timestamp - precise vblank timestamp
+> + *                                               helper
+> + * @crtc: CRTC whose vblank timestamp to retrieve
+> + * @max_error: Desired maximum allowable error in timestamps (nanosecs)
+> + *             On return contains true maximum error of timestamp
+> + * @vblank_time: Pointer to time which should receive the timestamp
+> + * @in_vblank_irq:
+> + *     True when called from drm_crtc_handle_vblank().  Some drivers
+> + *     need to apply some workarounds for gpu-specific vblank irq quirks
+> + *     if flag is set.
+> + *
+> + * Implements calculation of exact vblank timestamps from given drm_disp=
+lay_mode
+> + * timings and current video scanout position of a CRTC. This can be dir=
+ectly
+> + * used as the &drm_crtc_funcs.get_vblank_timestamp implementation of a =
+kms
+> + * driver if &drm_crtc_helper_funcs.get_scanout_position is implemented.
+> + *
+> + * The current implementation only handles standard video modes. For dou=
+ble scan
+> + * and interlaced modes the driver is supposed to adjust the hardware mo=
+de
+> + * (taken from &drm_crtc_state.adjusted mode for atomic modeset drivers)=
+ to
+> + * match the scanout position reported.
+> + *
+> + * Note that atomic drivers must call drm_calc_timestamping_constants() =
+before
+> + * enabling a CRTC. The atomic helpers already take care of that in
+> + * drm_atomic_helper_update_legacy_modeset_state().
+> + *
+> + * Returns:
+> + *
+> + * Returns true on success, and false on failure, i.e. when no accurate
+> + * timestamp could be acquired.
+> + */
+> +bool drm_crtc_vblank_helper_get_vblank_timestamp(struct drm_crtc *crtc,
+> +						 int *max_error,
+> +						 ktime_t *vblank_time,
+> +						 bool in_vblank_irq)
+> +{
+> +	return drm_crtc_vblank_helper_get_vblank_timestamp_internal(
+> +		crtc, max_error, vblank_time, in_vblank_irq,
+> +		crtc->helper_private->get_scanout_position, NULL);
+> +}
+> +EXPORT_SYMBOL(drm_crtc_vblank_helper_get_vblank_timestamp);
+> +
+>  /**
+>   * drm_get_last_vbltimestamp - retrieve raw timestamp for the most recent
+>   *                             vblank interval
+> @@ -799,15 +844,22 @@ static bool
+>  drm_get_last_vbltimestamp(struct drm_device *dev, unsigned int pipe,
+>  			  ktime_t *tvblank, bool in_vblank_irq)
+>  {
+> +	struct drm_crtc *crtc =3D drm_crtc_from_index(dev, pipe);
+>  	bool ret =3D false;
+>  =
+
+>  	/* Define requested maximum error on timestamps (nanoseconds). */
+>  	int max_error =3D (int) drm_timestamp_precision * 1000;
+>  =
+
+>  	/* Query driver if possible and precision timestamping enabled. */
+> -	if (dev->driver->get_vblank_timestamp && (max_error > 0))
+> +	if (crtc && crtc->funcs->get_vblank_timestamp && max_error > 0) {
+> +		struct drm_crtc *crtc =3D drm_crtc_from_index(dev, pipe);
+> +
+> +		ret =3D crtc->funcs->get_vblank_timestamp(crtc, &max_error,
+> +							tvblank, in_vblank_irq);
+> +	} else if (dev->driver->get_vblank_timestamp && max_error > 0) {
+>  		ret =3D dev->driver->get_vblank_timestamp(dev, pipe, &max_error,
+>  							tvblank, in_vblank_irq);
+> +	}
+>  =
+
+>  	/* GPU high precision timestamp query unsupported or failed.
+>  	 * Return current monotonic/gettimeofday timestamp as best estimate.
+> @@ -1790,9 +1842,11 @@ int drm_wait_vblank_ioctl(struct drm_device *dev, =
+void *data,
+>  =
+
+>  static void drm_handle_vblank_events(struct drm_device *dev, unsigned in=
+t pipe)
+>  {
+> +	struct drm_crtc *crtc =3D drm_crtc_from_index(dev, pipe);
+>  	struct drm_pending_vblank_event *e, *t;
+>  	ktime_t now;
+>  	u64 seq;
+> +	bool high_prec;
+>  =
+
+>  	assert_spin_locked(&dev->event_lock);
+>  =
+
+> @@ -1812,8 +1866,10 @@ static void drm_handle_vblank_events(struct drm_de=
+vice *dev, unsigned int pipe)
+>  		send_vblank_event(dev, e, seq, now);
+>  	}
+>  =
+
+> -	trace_drm_vblank_event(pipe, seq, now,
+> -			dev->driver->get_vblank_timestamp !=3D NULL);
+> +	high_prec =3D crtc && crtc->funcs->get_vblank_timestamp ||
+> +		    dev->driver->get_vblank_timestamp;
+
+I'm sure gcc will complain about the && vs. || here. Hmm, yeah looks
+like quite a few gcc/sparse/checkpatch warnings in this series.
+
+With some of the more important warns fixed patches 1-3 are
+Reviewed-by: Ville Syrj=E4l=E4 <ville.syrjala@linux.intel.com>
+
+> +
+> +	trace_drm_vblank_event(pipe, seq, now, high_prec);
+>  }
+>  =
+
+>  /**
+> diff --git a/include/drm/drm_crtc.h b/include/drm/drm_crtc.h
+> index 5e9b15a0e8c5..db46abbbf4e7 100644
+> --- a/include/drm/drm_crtc.h
+> +++ b/include/drm/drm_crtc.h
+> @@ -867,6 +867,47 @@ struct drm_crtc_funcs {
+>  	 * new drivers as the replacement of &drm_driver.disable_vblank hook.
+>  	 */
+>  	void (*disable_vblank)(struct drm_crtc *crtc);
+> +
+> +	/**
+> +	 * @get_vblank_timestamp:
+> +	 *
+> +	 * Called by drm_get_last_vbltimestamp(). Should return a precise
+> +	 * timestamp when the most recent vblank interval ended or will end.
+> +	 *
+> +	 * Specifically, the timestamp in @vblank_time should correspond as
+> +	 * closely as possible to the time when the first video scanline of
+> +	 * the video frame after the end of vblank will start scanning out,
+> +	 * the time immediately after end of the vblank interval. If the
+> +	 * @crtc is currently inside vblank, this will be a time in the future.
+> +	 * If the @crtc is currently scanning out a frame, this will be the
+> +	 * past start time of the current scanout. This is meant to adhere
+> +	 * to the OpenML OML_sync_control extension specification.
+> +	 *
+> +	 * Parameters:
+> +	 *
+> +	 * crtc:
+> +	 *     CRTC for which timestamp should be returned.
+> +	 * max_error:
+> +	 *     Maximum allowable timestamp error in nanoseconds.
+> +	 *     Implementation should strive to provide timestamp
+> +	 *     with an error of at most max_error nanoseconds.
+> +	 *     Returns true upper bound on error for timestamp.
+> +	 * vblank_time:
+> +	 *     Target location for returned vblank timestamp.
+> +	 * in_vblank_irq:
+> +	 *     True when called from drm_crtc_handle_vblank().  Some drivers
+> +	 *     need to apply some workarounds for gpu-specific vblank irq quirks
+> +	 *     if flag is set.
+> +	 *
+> +	 * Returns:
+> +	 *
+> +	 * True on success, false on failure, which means the core should
+> +	 * fallback to a simple timestamp taken in drm_crtc_handle_vblank().
+> +	 */
+> +	bool (*get_vblank_timestamp)(struct drm_crtc *crtc,
+> +				     int *max_error,
+> +				     ktime_t *vblank_time,
+> +				     bool in_vblank_irq);
+>  };
+>  =
+
+>  /**
+> @@ -974,11 +1015,12 @@ struct drm_crtc {
+>  	 * Programmed mode in hw, after adjustments for encoders, crtc, panel
+>  	 * scaling etc. Should only be used by legacy drivers, for high
+>  	 * precision vblank timestamps in
+> -	 * drm_calc_vbltimestamp_from_scanoutpos().
+> +	 * drm_crtc_vblank_helper_get_vblank_timestamp().
+>  	 *
+>  	 * Note that atomic drivers should not use this, but instead use
+>  	 * &drm_crtc_state.adjusted_mode. And for high-precision timestamps
+> -	 * drm_calc_vbltimestamp_from_scanoutpos() used &drm_vblank_crtc.hwmode,
+> +	 * drm_crtc_vblank_helper_get_vblank_timestamp() used
+> +	 * &drm_vblank_crtc.hwmode,
+>  	 * which is filled out by calling drm_calc_timestamping_constants().
+>  	 */
+>  	struct drm_display_mode hwmode;
+> diff --git a/include/drm/drm_modeset_helper_vtables.h b/include/drm/drm_m=
+odeset_helper_vtables.h
+> index e398512bfd5f..0afaf58da40d 100644
+> --- a/include/drm/drm_modeset_helper_vtables.h
+> +++ b/include/drm/drm_modeset_helper_vtables.h
+> @@ -459,8 +459,8 @@ struct drm_crtc_helper_funcs {
+>  	 * Returns the current display scanout position from a CRTC and an
+>  	 * optional accurate ktime_get() timestamp of when the position was
+>  	 * measured. Note that this is a helper callback which is only used
+> -	 * if a driver uses drm_calc_vbltimestamp_from_scanoutpos() for the
+> -	 * @drm_driver.get_vblank_timestamp callback.
+> +	 * if a driver uses drm_crtc_vblank_helper_get_vblank_timestamp()
+> +	 * for the @drm_crtc_funcs.get_vblank_timestamp callback.
+>  	 *
+>  	 * Parameters:
+>  	 *
+> diff --git a/include/drm/drm_vblank.h b/include/drm/drm_vblank.h
+> index 1c84e99b3f4f..4bfffe990828 100644
+> --- a/include/drm/drm_vblank.h
+> +++ b/include/drm/drm_vblank.h
+> @@ -174,13 +174,13 @@ struct drm_vblank_crtc {
+>  	unsigned int pipe;
+>  	/**
+>  	 * @framedur_ns: Frame/Field duration in ns, used by
+> -	 * drm_calc_vbltimestamp_from_scanoutpos() and computed by
+> +	 * drm_crtc_vblank_helper_get_vblank_timestamp() and computed by
+>  	 * drm_calc_timestamping_constants().
+>  	 */
+>  	int framedur_ns;
+>  	/**
+>  	 * @linedur_ns: Line duration in ns, used by
+> -	 * drm_calc_vbltimestamp_from_scanoutpos() and computed by
+> +	 * drm_crtc_vblank_helper_get_vblank_timestamp() and computed by
+>  	 * drm_calc_timestamping_constants().
+>  	 */
+>  	int linedur_ns;
+> @@ -190,8 +190,8 @@ struct drm_vblank_crtc {
+>  	 *
+>  	 * Cache of the current hardware display mode. Only valid when @enabled
+>  	 * is set. This is used by helpers like
+> -	 * drm_calc_vbltimestamp_from_scanoutpos(). We can't just access the
+> -	 * hardware mode by e.g. looking at &drm_crtc_state.adjusted_mode,
+> +	 * drm_crtc_vblank_helper_get_vblank_timestamp(). We can't just access
+> +	 * the hardware mode by e.g. looking at &drm_crtc_state.adjusted_mode,
+>  	 * because that one is really hard to get from interrupt context.
+>  	 */
+>  	struct drm_display_mode hwmode;
+> @@ -239,6 +239,10 @@ wait_queue_head_t *drm_crtc_vblank_waitqueue(struct =
+drm_crtc *crtc);
+>  void drm_crtc_set_max_vblank_count(struct drm_crtc *crtc,
+>  				   u32 max_vblank_count);
+>  =
+
+> +/*
+> + * Helpers for struct drm_crtc_funcs
+> + */
+> +
+>  typedef bool (*drm_vblank_get_scanout_position_func)(struct drm_crtc *cr=
+tc,
+>  						     bool in_vblank_irq,
+>  						     int *vpos, int *hpos,
+> @@ -259,5 +263,9 @@ drm_crtc_vblank_helper_get_vblank_timestamp_internal(=
+struct drm_crtc *crtc,
+>  						     bool in_vblank_irq,
+>  						     drm_vblank_get_scanout_position_func get_scanout_position,
+>  						     drm_vblank_get_scanout_position_legacy_func get_scanout_posit=
+ion_legacy);
+> +bool drm_crtc_vblank_helper_get_vblank_timestamp(struct drm_crtc *crtc,
+> +						 int *max_error,
+> +						 ktime_t *vblank_time,
+> +						 bool in_vblank_irq);
+>  =
+
+>  #endif
+> -- =
+
+> 2.24.1
+> =
+
+> _______________________________________________
+> Intel-gfx mailing list
+> Intel-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
