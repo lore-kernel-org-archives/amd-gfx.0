@@ -6,26 +6,26 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 95EFBC33CB7
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 08:24:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A17FC33CB1
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 08:24:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 77240207E0
+	by mail.kernel.org (Postfix) with ESMTPS id DF1FA207E0
 	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 08:24:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77240207E0
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF1FA207E0
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E994F6E832;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF0E56E83B;
 	Mon, 20 Jan 2020 08:23:49 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37CF56FA68;
- Mon, 20 Jan 2020 08:23:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 780B36E860;
+ Mon, 20 Jan 2020 08:23:45 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id C8F2FB24D;
- Mon, 20 Jan 2020 08:23:45 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 13A46B1EE;
+ Mon, 20 Jan 2020 08:23:44 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  christian.koenig@amd.com, David1.Zhou@amd.com,
@@ -38,9 +38,10 @@ To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
  jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com
-Subject: [PATCH v3 19/22] drm/vkms: Convert to CRTC VBLANK callbacks
-Date: Mon, 20 Jan 2020 09:23:11 +0100
-Message-Id: <20200120082314.14756-20-tzimmermann@suse.de>
+Subject: [PATCH v3 17/22] drm/vc4: Convert to struct
+ drm_crtc_helper_funcs.get_scanout_position()
+Date: Mon, 20 Jan 2020 09:23:09 +0100
+Message-Id: <20200120082314.14756-18-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200120082314.14756-1-tzimmermann@suse.de>
 References: <20200120082314.14756-1-tzimmermann@suse.de>
@@ -56,82 +57,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rodrigo Siqueira <rodrigosiqueira@gmail.com>, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- nouveau@lists.freedesktop.org, freedreno@lists.freedesktop.org
+Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VBLANK callbacks in struct drm_driver are deprecated in favor of
-their equivalents in struct drm_crtc_funcs. Convert vkms over.
+The callback struct drm_driver.get_scanout_position() is deprecated in
+favor of struct drm_crtc_helper_funcs.get_scanout_position(). Convert vc4
+over.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Rodrigo Siqueira <rodrigosiqueira@gmail.com>
-Tested-by: Rodrigo Siqueira <rodrigosiqueira@gmail.com>
 ---
- drivers/gpu/drm/vkms/vkms_crtc.c | 9 ++++++---
- drivers/gpu/drm/vkms/vkms_drv.c  | 1 -
- drivers/gpu/drm/vkms/vkms_drv.h  | 4 ----
- 3 files changed, 6 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/vc4/vc4_crtc.c | 12 +++++++-----
+ drivers/gpu/drm/vc4/vc4_drv.c  |  1 -
+ drivers/gpu/drm/vc4/vc4_drv.h  |  4 ----
+ 3 files changed, 7 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_crtc.c b/drivers/gpu/drm/vkms/vkms_crtc.c
-index 74f703b8d22a..ac85e17428f8 100644
---- a/drivers/gpu/drm/vkms/vkms_crtc.c
-+++ b/drivers/gpu/drm/vkms/vkms_crtc.c
-@@ -76,10 +76,12 @@ static void vkms_disable_vblank(struct drm_crtc *crtc)
- 	hrtimer_cancel(&out->vblank_hrtimer);
- }
+diff --git a/drivers/gpu/drm/vc4/vc4_crtc.c b/drivers/gpu/drm/vc4/vc4_crtc.c
+index b00e20f5ce05..f1e7597ea17e 100644
+--- a/drivers/gpu/drm/vc4/vc4_crtc.c
++++ b/drivers/gpu/drm/vc4/vc4_crtc.c
+@@ -84,13 +84,14 @@ static const struct debugfs_reg32 crtc_regs[] = {
+ 	VC4_REG32(PV_HACT_ACT),
+ };
  
--bool vkms_get_vblank_timestamp(struct drm_device *dev, unsigned int pipe,
--			       int *max_error, ktime_t *vblank_time,
--			       bool in_vblank_irq)
-+static bool vkms_get_vblank_timestamp(struct drm_crtc *crtc,
-+				      int *max_error, ktime_t *vblank_time,
-+				      bool in_vblank_irq)
+-bool vc4_crtc_get_scanoutpos(struct drm_device *dev, unsigned int crtc_id,
+-			     bool in_vblank_irq, int *vpos, int *hpos,
+-			     ktime_t *stime, ktime_t *etime,
+-			     const struct drm_display_mode *mode)
++static bool vc4_crtc_get_scanout_position(struct drm_crtc *crtc,
++					  bool in_vblank_irq,
++					  int *vpos, int *hpos,
++					  ktime_t *stime, ktime_t *etime,
++					  const struct drm_display_mode *mode)
  {
 +	struct drm_device *dev = crtc->dev;
-+	unsigned int pipe = crtc->index;
- 	struct vkms_device *vkmsdev = drm_device_to_vkms_device(dev);
- 	struct vkms_output *output = &vkmsdev->output;
- 	struct drm_vblank_crtc *vblank = &dev->vblank[pipe];
-@@ -154,6 +156,7 @@ static const struct drm_crtc_funcs vkms_crtc_funcs = {
- 	.atomic_destroy_state   = vkms_atomic_crtc_destroy_state,
- 	.enable_vblank		= vkms_enable_vblank,
- 	.disable_vblank		= vkms_disable_vblank,
-+	.get_vblank_timestamp	= vkms_get_vblank_timestamp,
- 	.get_crc_sources	= vkms_get_crc_sources,
- 	.set_crc_source		= vkms_set_crc_source,
- 	.verify_crc_source	= vkms_verify_crc_source,
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
-index 25bd7519295f..860de052e820 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.c
-+++ b/drivers/gpu/drm/vkms/vkms_drv.c
-@@ -103,7 +103,6 @@ static struct drm_driver vkms_driver = {
- 	.dumb_create		= vkms_dumb_create,
- 	.gem_vm_ops		= &vkms_gem_vm_ops,
- 	.gem_free_object_unlocked = vkms_gem_free_object,
--	.get_vblank_timestamp	= vkms_get_vblank_timestamp,
- 	.prime_fd_to_handle	= drm_gem_prime_fd_to_handle,
- 	.gem_prime_import_sg_table = vkms_prime_import_sg_table,
+ 	struct vc4_dev *vc4 = to_vc4_dev(dev);
+-	struct drm_crtc *crtc = drm_crtc_from_index(dev, crtc_id);
+ 	struct vc4_crtc *vc4_crtc = to_vc4_crtc(crtc);
+ 	u32 val;
+ 	int fifo_lines;
+@@ -1039,6 +1040,7 @@ static const struct drm_crtc_helper_funcs vc4_crtc_helper_funcs = {
+ 	.atomic_flush = vc4_crtc_atomic_flush,
+ 	.atomic_enable = vc4_crtc_atomic_enable,
+ 	.atomic_disable = vc4_crtc_atomic_disable,
++	.get_scanout_position = vc4_crtc_get_scanout_position,
+ };
  
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index 7d52e24564db..eda04ffba7b1 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -111,10 +111,6 @@ struct vkms_gem_object {
- int vkms_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
- 		   struct drm_plane *primary, struct drm_plane *cursor);
+ static const struct vc4_crtc_data pv0_data = {
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
+index 5e6fb6c2307f..e6982a7b0c5e 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.c
++++ b/drivers/gpu/drm/vc4/vc4_drv.c
+@@ -190,7 +190,6 @@ static struct drm_driver vc4_drm_driver = {
+ 	.irq_postinstall = vc4_irq_postinstall,
+ 	.irq_uninstall = vc4_irq_uninstall,
  
--bool vkms_get_vblank_timestamp(struct drm_device *dev, unsigned int pipe,
--			       int *max_error, ktime_t *vblank_time,
--			       bool in_vblank_irq);
--
- int vkms_output_init(struct vkms_device *vkmsdev, int index);
+-	.get_scanout_position = vc4_crtc_get_scanoutpos,
+ 	.get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
  
- struct drm_plane *vkms_plane_init(struct vkms_device *vkmsdev,
+ #if defined(CONFIG_DEBUG_FS)
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
+index 6627b20c99e9..f90c0d08e740 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.h
++++ b/drivers/gpu/drm/vc4/vc4_drv.h
+@@ -743,10 +743,6 @@ void vc4_bo_remove_from_purgeable_pool(struct vc4_bo *bo);
+ 
+ /* vc4_crtc.c */
+ extern struct platform_driver vc4_crtc_driver;
+-bool vc4_crtc_get_scanoutpos(struct drm_device *dev, unsigned int crtc_id,
+-			     bool in_vblank_irq, int *vpos, int *hpos,
+-			     ktime_t *stime, ktime_t *etime,
+-			     const struct drm_display_mode *mode);
+ void vc4_crtc_handle_vblank(struct vc4_crtc *crtc);
+ void vc4_crtc_txp_armed(struct drm_crtc_state *state);
+ void vc4_crtc_get_margins(struct drm_crtc_state *state,
 -- 
 2.24.1
 
