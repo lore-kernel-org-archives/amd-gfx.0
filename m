@@ -2,107 +2,78 @@ Return-Path: <SRS0=J303=3J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E88A8C33CA1
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 11:08:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9627C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 11:58:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD16D2073D
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 11:08:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AA48E207FF
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 11:58:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="GZa114ue"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD16D2073D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ub5znn7g"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AA48E207FF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D4286E8CD;
-	Mon, 20 Jan 2020 11:08:38 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2053.outbound.protection.outlook.com [40.107.244.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 71DA36E8CD
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2020 11:08:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Dg+vXg9AscvuMWO+vxPlBAr03RQEYfalFv6ZNYFe0pjL77B1wiIAXY1AwbgP0GJFYdrD8pGEZukqEWZMSyrv1h790fxXfZtppuAcT4FKHQN5Sx+uA9ipbbiZvfGj2nuB1H7IZtZ9tuhMFcJ0vXx74hkGY6eAkpE560LQV8XtJDtvKGPhRq1TRGjJ9+jHR0DwUcy3gDJaMpaL0r60hHNf2yPeImNOg16GynxWZTA/2S8/SIAAH5eIA4JvlgHq8cBjCyo53bEVLDiuj++TQUPCDuHyjKGvx0odRL6x4zVhVGasZHk+Def/dHGKGZuoj2DmZ6To9Py0bFbbMapSkqgsjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1KrjjUbon0uczS7rGNueAtCk4SK6e/zMb0tEXSKbxgk=;
- b=d453wImusyokfTatWOtFgam28X/4Sly2gvARpMx/Qt3914jr+NbiWoIbalQSgcfKMSYwJ8+axSDBtB7FIRmFDYYdO7SFSybh19eoyYL9RMGtjGFKJOF2tOPIpXbvB6fK9dbiW68BSMIxShDCAgWNKsh2uGN36SovRGP6iUC0xfeDmKwVnABpy68yQWheLTttBSC835AZ0/lJIuRYpjzXTlDKMvvkf7DK11O4Kr+ZAfwXZ3kj1I0H/gCSt++YzmZ40ctumDdUkV4NoaB4tKAFJK8lWAhIQ5OxXK7L84xQbSamwG/s++SqhxnmmnQjwXXsjfmvsHKYBIIYqI3s1h/tWw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1KrjjUbon0uczS7rGNueAtCk4SK6e/zMb0tEXSKbxgk=;
- b=GZa114ue3RxAvLgBEnvDucapX68+G/dWAlY7I9EjJpqFyk7jykH9DGYOYMbxW8P5MWWW5xkbFdzrRnjiAlWQL+4BnmPgn2US6dzsNxiLOG0V6y+9sCTWq7VHCLDICJD3GDkjp2UGRFkhAm9pNrdNUROdtz12tAhzMJSkpAa0OLo=
-Received: from BN6PR12CA0040.namprd12.prod.outlook.com (2603:10b6:405:70::26)
- by DM6PR12MB3082.namprd12.prod.outlook.com (2603:10b6:5:11b::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.23; Mon, 20 Jan
- 2020 11:08:34 +0000
-Received: from DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::204) by BN6PR12CA0040.outlook.office365.com
- (2603:10b6:405:70::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.19 via Frontend
- Transport; Mon, 20 Jan 2020 11:08:34 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT027.mail.protection.outlook.com (10.13.172.205) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2644.19 via Frontend Transport; Mon, 20 Jan 2020 11:08:34 +0000
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 20 Jan
- 2020 05:08:33 -0600
-Received: from rico-code.amd.com (10.180.168.240) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Mon, 20 Jan 2020 05:08:30 -0600
-From: Tianci Yin <tianci.yin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu: fix VRAM partially encroached issue in GDDR6
- memory training
-Date: Mon, 20 Jan 2020 19:08:22 +0800
-Message-ID: <20200120110822.30163-2-tianci.yin@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200120110822.30163-1-tianci.yin@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 412F16E91E;
+	Mon, 20 Jan 2020 11:58:40 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCCF06E91E
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2020 11:58:38 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id c9so29258962wrw.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2020 03:58:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=dkhoXGrBpm1FpSKAkYKcAKNXT8m+SF8f928hO5IGSL0=;
+ b=Ub5znn7gOuf1RSElulXmFGCj7cAicKMMFDSD5bsmtBZZSUGPhX81/wCRq6RoftuJdV
+ 6GEZhmPRuNALLtxSmU/jO0bzrRiar2I7cc8bPUTfZQJsdhjSQkLOTDAk2pfBDT1hM0yD
+ Q8UwJAyipZSiPZ3+6Pinf0TSbpkCOzwZKeJOFFHzaXf8ev07J+QEWMQijSEB/TRKJhS6
+ 0lsqlU5cpNIDlJL82T9ofwdgDIJ66R9Yo4gOz/WnFvh3hm7j2yi8/6CKIGYx94FBHMnO
+ m4hb/AVlJcZmA1XMrBAVu9R16RXzYnP5PDhr86nMjHSj5HMJtmmCgGmgD//XZNRRyLLj
+ jiHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=dkhoXGrBpm1FpSKAkYKcAKNXT8m+SF8f928hO5IGSL0=;
+ b=nazAFmm8MgnWa81kRSwEaNg0F+eJPiHZV11SRWxfqeaQ58+l/S2OdyRyQZVHPPXogP
+ CA0hSyXg94oILjRNdC1hPdqQndC2N2cg7Kv3qsOxhGi8pXwFtWiq/vihs3jEtUGxS0kX
+ iI0BCU/XI+8oY/9fIlJOSrWoqhSCiKLqVXmhx4PSHEi/mP+LH9zbQC78oJpL030tKG/J
+ oOrfPXmIFPS5AoYn/VY5//yURm5GXzGgNE5VrcS8RdtF/R4KjJnaz6XrVsMW2O0PDVcb
+ PmfRJdCA+xbRb3Tr2nmpo2qsV6el2iUDEn0RTtWxUWQYVcWLNYPKdAyKoCFW61b8JvSj
+ S4dw==
+X-Gm-Message-State: APjAAAXoVteri0M60TfYwEq7A6riA8iiMRyX7GPBv4vVLvQPVEx7Re1O
+ ak2CKEZ53QUzwH0BODGox8YPUrCt
+X-Google-Smtp-Source: APXvYqwkImBvihusnRg9OPCJ5jGqkC2z9NsM+0OpLF9T3FwNXmytcOZ6+rjU/A5XL9y6pLmMhjm3Pw==
+X-Received: by 2002:a5d:4045:: with SMTP id w5mr17896460wrp.59.1579521517392; 
+ Mon, 20 Jan 2020 03:58:37 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id x17sm46308350wrt.74.2020.01.20.03.58.36
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 20 Jan 2020 03:58:36 -0800 (PST)
+Subject: Re: [PATCH 2/2] drm/amdgpu: fix VRAM partially encroached issue in
+ GDDR6 memory training
+To: Tianci Yin <tianci.yin@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20200120110822.30163-1-tianci.yin@amd.com>
+ <20200120110822.30163-2-tianci.yin@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <d2cf1e77-9d4a-229a-95e9-bc47b7f89389@gmail.com>
+Date: Mon, 20 Jan 2020 12:58:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(376002)(39860400002)(346002)(136003)(428003)(189003)(199004)(86362001)(8676002)(478600001)(8936002)(7696005)(6666004)(356004)(186003)(54906003)(316002)(81166006)(81156014)(26005)(2906002)(426003)(44832011)(336012)(2616005)(1076003)(6916009)(36756003)(5660300002)(70586007)(70206006)(4326008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3082; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 614947a8-0ebb-459d-9aff-08d79d99174a
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3082:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB30825D1947B4A684ED21C6BB95320@DM6PR12MB3082.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
-X-Forefront-PRVS: 0288CD37D9
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4Hv5TLwHyQbmThUUuxzaCSCkTl90L5wcut6KLhfCYRTSyJ0TLIvyYf2vd4RiMs0lpjkr1f4HEkdy4z/rkWozGvA8Kb5fVscV91YlgRoZ9C6gb4+MiiNP24Bp8b5BfPTBEDyP6O7KPL7J3XFN+dKTGIvEjMm1diQjSPsWiYxAgZTUNagFhlZdBshZ7+rF13rh0uAXYfxnqbLZjTBzQ3Uyb5J8n7Dz4xcFPmg2yp3Cdpt94UOa+CfZgtr1xIZw5Pg07RT/scTbcXCsT2hUBBROEukXcBPXoqwW9OHJf5R86GtBkU0d2CTii/6Du9KPPnQb02M24K7Z4nyq6JCbKGkRnzKaEljzHPgBfprOoFJoKGw3zTTzw1aUHdfhBKbvdMKyi6lU7yQ700Qmk85v3nhw+rcqlC2T3EpcoWhnQAOeCDeOwU2F09OY669fbwmRtk0S
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2020 11:08:34.1576 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 614947a8-0ebb-459d-9aff-08d79d99174a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3082
+In-Reply-To: <20200120110822.30163-2-tianci.yin@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,113 +85,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Long Gang <Gang.Long@amd.com>, Tianci Yin <tianci.yin@amd.com>,
- Feifei Xu <Feifei.Xu@amd.com>, Kevin Wang <Kevin1.Wang@amd.com>,
- Tuikov Luben <Luben.Tuikov@amd.com>,
+Reply-To: christian.koenig@amd.com
+Cc: Long Gang <Gang.Long@amd.com>, Feifei Xu <Feifei.Xu@amd.com>,
+ Kevin Wang <Kevin1.Wang@amd.com>, Tuikov Luben <Luben.Tuikov@amd.com>,
  Deucher Alexander <Alexander.Deucher@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Xiaojie Yuan <xiaojie.yuan@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+ Xiaojie Yuan <xiaojie.yuan@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Tianci.Yin" <tianci.yin@amd.com>
+Am 20.01.20 um 12:08 schrieb Tianci Yin:
+> From: "Tianci.Yin" <tianci.yin@amd.com>
+>
+> [why]
+> In GDDR6 BIST training, a certain mount of bottom VRAM will be encroached by
+> UMC, that causes problems(like GTT corrupted and page fault observed).
+>
+> [how]
+> Saving the content of this bottom VRAM to system memory before training, and
+> restoring it after training to avoid VRAM corruption.
 
-[why]
-In GDDR6 BIST training, a certain mount of bottom VRAM will be encroached by
-UMC, that causes problems(like GTT corrupted and page fault observed).
+You need to re-order the patches, this one should come first and the 
+other one last.
 
-[how]
-Saving the content of this bottom VRAM to system memory before training, and
-restoring it after training to avoid VRAM corruption.
+One more style nit pick below.
 
-Change-Id: I04a8a6e8e63b3619f7c693fe67883b229cbf3c53
-Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  2 ++
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 32 ++++++++++++++++++++++++-
- 2 files changed, 33 insertions(+), 1 deletion(-)
+>
+> Change-Id: I04a8a6e8e63b3619f7c693fe67883b229cbf3c53
+> Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  2 ++
+>   drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 32 ++++++++++++++++++++++++-
+>   2 files changed, 33 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> index 3265487b859f..611021514c52 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+> @@ -172,6 +172,8 @@ struct psp_dtm_context {
+>   #define MEM_TRAIN_SYSTEM_SIGNATURE		0x54534942
+>   #define GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES	0x1000
+>   #define GDDR6_MEM_TRAINING_OFFSET		0x8000
+> +/*Define the VRAM size that will be encroached by BIST training.*/
+> +#define GDDR6_MEM_TRAINING_ENCROACHED_SIZE	0x2000000
+>   
+>   enum psp_memory_training_init_flag {
+>   	PSP_MEM_TRAIN_NOT_SUPPORT	= 0x0,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+> index 685dd9754c67..51011b661ba8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+> @@ -972,7 +972,10 @@ static int psp_v11_0_memory_training_init(struct psp_context *psp)
+>   static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
+>   {
+>   	int ret;
+> +	void *buf;
+> +	uint32_t sz;
+>   	uint32_t p2c_header[4];
+> +	struct amdgpu_device *adev = psp->adev;
+>   	struct psp_memory_training_context *ctx = &psp->mem_train_ctx;
+>   	uint32_t *pcache = (uint32_t*)ctx->sys_cache;
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index 3265487b859f..611021514c52 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -172,6 +172,8 @@ struct psp_dtm_context {
- #define MEM_TRAIN_SYSTEM_SIGNATURE		0x54534942
- #define GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES	0x1000
- #define GDDR6_MEM_TRAINING_OFFSET		0x8000
-+/*Define the VRAM size that will be encroached by BIST training.*/
-+#define GDDR6_MEM_TRAINING_ENCROACHED_SIZE	0x2000000
- 
- enum psp_memory_training_init_flag {
- 	PSP_MEM_TRAIN_NOT_SUPPORT	= 0x0,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index 685dd9754c67..51011b661ba8 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -972,7 +972,10 @@ static int psp_v11_0_memory_training_init(struct psp_context *psp)
- static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
- {
- 	int ret;
-+	void *buf;
-+	uint32_t sz;
- 	uint32_t p2c_header[4];
-+	struct amdgpu_device *adev = psp->adev;
- 	struct psp_memory_training_context *ctx = &psp->mem_train_ctx;
- 	uint32_t *pcache = (uint32_t*)ctx->sys_cache;
- 
-@@ -989,7 +992,7 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
- 		return 0;
- 	}
- 
--	amdgpu_device_vram_access(psp->adev, ctx->p2c_train_data_offset, p2c_header, sizeof(p2c_header), false);
-+	amdgpu_device_vram_access(adev, ctx->p2c_train_data_offset, p2c_header, sizeof(p2c_header), false);
- 	DRM_DEBUG("sys_cache[%08x,%08x,%08x,%08x] p2c_header[%08x,%08x,%08x,%08x]\n",
- 		  pcache[0], pcache[1], pcache[2], pcache[3],
- 		  p2c_header[0], p2c_header[1], p2c_header[2], p2c_header[3]);
-@@ -1026,11 +1029,38 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
- 	DRM_DEBUG("Memory training ops:%x.\n", ops);
- 
- 	if (ops & PSP_MEM_TRAIN_SEND_LONG_MSG) {
-+		/*
-+		 * Long traing will encroach certain mount of bottom VRAM,
-+		 * saving the content of this bottom VRAM to system memory
-+		 * before training, and restoring it after training to avoid
-+		 * VRAM corruption.
-+		 */
-+		sz = GDDR6_MEM_TRAINING_ENCROACHED_SIZE;
-+
-+		if (adev->gmc.visible_vram_size < sz || !adev->mman.aper_base_kaddr) {
-+			DRM_ERROR("visible_vram_size %llx or aper_base_kaddr %p is not initialized.\n",
-+				  adev->gmc.visible_vram_size,
-+				  adev->mman.aper_base_kaddr);
-+			return -EINVAL;
-+		}
-+
-+		buf = vmalloc(sz);
-+		if (!buf) {
-+			DRM_ERROR("failed to allocate system memory.\n");
-+			return -ENOMEM;
-+		}
-+
-+		memcpy_fromio(buf, adev->mman.aper_base_kaddr, sz);
- 		ret = psp_v11_0_memory_training_send_msg(psp, PSP_BL__DRAM_LONG_TRAIN);
- 		if (ret) {
- 			DRM_ERROR("Send long training msg failed.\n");
-+			vfree(buf);
- 			return ret;
- 		}
-+
-+		memcpy_toio(adev->mman.aper_base_kaddr, buf, sz);
-+		adev->nbio.funcs->hdp_flush(adev, NULL);
-+		vfree(buf);
- 	}
- 
- 	if (ops & PSP_MEM_TRAIN_SAVE) {
--- 
-2.17.1
+In general it is preferred to order the lines in reverse xmas tree.
+
+E.g. long lines with pre-initializes variables such as adev, ctx, pcache 
+first. And temporary stuff like i, ret, buf etc last.
+
+Apart from that this looks good to me,
+Christian.
+
+>   
+> @@ -989,7 +992,7 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
+>   		return 0;
+>   	}
+>   
+> -	amdgpu_device_vram_access(psp->adev, ctx->p2c_train_data_offset, p2c_header, sizeof(p2c_header), false);
+> +	amdgpu_device_vram_access(adev, ctx->p2c_train_data_offset, p2c_header, sizeof(p2c_header), false);
+>   	DRM_DEBUG("sys_cache[%08x,%08x,%08x,%08x] p2c_header[%08x,%08x,%08x,%08x]\n",
+>   		  pcache[0], pcache[1], pcache[2], pcache[3],
+>   		  p2c_header[0], p2c_header[1], p2c_header[2], p2c_header[3]);
+> @@ -1026,11 +1029,38 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
+>   	DRM_DEBUG("Memory training ops:%x.\n", ops);
+>   
+>   	if (ops & PSP_MEM_TRAIN_SEND_LONG_MSG) {
+> +		/*
+> +		 * Long traing will encroach certain mount of bottom VRAM,
+> +		 * saving the content of this bottom VRAM to system memory
+> +		 * before training, and restoring it after training to avoid
+> +		 * VRAM corruption.
+> +		 */
+> +		sz = GDDR6_MEM_TRAINING_ENCROACHED_SIZE;
+> +
+> +		if (adev->gmc.visible_vram_size < sz || !adev->mman.aper_base_kaddr) {
+> +			DRM_ERROR("visible_vram_size %llx or aper_base_kaddr %p is not initialized.\n",
+> +				  adev->gmc.visible_vram_size,
+> +				  adev->mman.aper_base_kaddr);
+> +			return -EINVAL;
+> +		}
+> +
+> +		buf = vmalloc(sz);
+> +		if (!buf) {
+> +			DRM_ERROR("failed to allocate system memory.\n");
+> +			return -ENOMEM;
+> +		}
+> +
+> +		memcpy_fromio(buf, adev->mman.aper_base_kaddr, sz);
+>   		ret = psp_v11_0_memory_training_send_msg(psp, PSP_BL__DRAM_LONG_TRAIN);
+>   		if (ret) {
+>   			DRM_ERROR("Send long training msg failed.\n");
+> +			vfree(buf);
+>   			return ret;
+>   		}
+> +
+> +		memcpy_toio(adev->mman.aper_base_kaddr, buf, sz);
+> +		adev->nbio.funcs->hdp_flush(adev, NULL);
+> +		vfree(buf);
+>   	}
+>   
+>   	if (ops & PSP_MEM_TRAIN_SAVE) {
 
 _______________________________________________
 amd-gfx mailing list
