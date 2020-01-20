@@ -2,36 +2,37 @@ Return-Path: <SRS0=J303=3J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA2D0C2D0DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 11:08:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E88A8C33CA1
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 11:08:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AA3812073D
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 11:08:35 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id BD16D2073D
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jan 2020 11:08:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="V281VZJg"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AA3812073D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="GZa114ue"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD16D2073D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E0216E8CC;
-	Mon, 20 Jan 2020 11:08:35 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2045.outbound.protection.outlook.com [40.107.94.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 238D56E8CC
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2020 11:08:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D4286E8CD;
+	Mon, 20 Jan 2020 11:08:38 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2053.outbound.protection.outlook.com [40.107.244.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71DA36E8CD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jan 2020 11:08:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=N3F7rxWLGx1/4YE4arS01Q7bYFI1I9VTeQOu8DeQf6U+PDD8UhDu1QbI2KNWJNUnV7D6I8yTQD1cEtIuTyJivvexznfp7596M/8DidEF2DJlqaJO003G2+i00qpL89EWp3FjyoPU/Ro+ztQj7x1/tXcq+rX63jF8uMVuSWhNY+vJICS9PZbWX6zL+tezblqaD9TGeG9QvDz+17UboIM3xdjs4HFbcyEER5gAWAT6RRAds6U4Dk9Mm0gZMufrUl3PfUyY4E57P2TuzbwwrvVUwxarUsnCH93nMIFGV2QjH4eIAlE7EA1sDYuj5vQzKixuSMW0zyzdciVpUDUe0q62sw==
+ b=Dg+vXg9AscvuMWO+vxPlBAr03RQEYfalFv6ZNYFe0pjL77B1wiIAXY1AwbgP0GJFYdrD8pGEZukqEWZMSyrv1h790fxXfZtppuAcT4FKHQN5Sx+uA9ipbbiZvfGj2nuB1H7IZtZ9tuhMFcJ0vXx74hkGY6eAkpE560LQV8XtJDtvKGPhRq1TRGjJ9+jHR0DwUcy3gDJaMpaL0r60hHNf2yPeImNOg16GynxWZTA/2S8/SIAAH5eIA4JvlgHq8cBjCyo53bEVLDiuj++TQUPCDuHyjKGvx0odRL6x4zVhVGasZHk+Def/dHGKGZuoj2DmZ6To9Py0bFbbMapSkqgsjQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EYgabKPRalFBhvVBvD7sFHWzgLhHCsho47s++Zo4w70=;
- b=VVWqkAcg0EQcKRAUn+C5L2uHGiprsVvvkkFyopcLl+PgYRtWWplq9q4rfwD4aqwX+nYUI3h1dDl5qqFNmfrhzNR8PEUMXQDPJeriCNfi94QthTo0tTYtArOFJsZc3tPYJzW8Iv1NzYiuawppVQZWkaKy6b+F195u1cbLn60/KNqzh93EFR5/zxi2TR1Nz4hd/9DLkJ3aMuLKg6K36OlgJ4co+ApxSZShm/JPBwT+qgokl8QNlE9XFLRL7a7d0TmgyZZWf25e2YhWvtCnwQ4eoHEUB+jpVqYoLeE3aQnoIinnwvhcQcOnkFs8k6LiKLzgUT5SDMM/0bCtjWbw0cTNOg==
+ bh=1KrjjUbon0uczS7rGNueAtCk4SK6e/zMb0tEXSKbxgk=;
+ b=d453wImusyokfTatWOtFgam28X/4Sly2gvARpMx/Qt3914jr+NbiWoIbalQSgcfKMSYwJ8+axSDBtB7FIRmFDYYdO7SFSybh19eoyYL9RMGtjGFKJOF2tOPIpXbvB6fK9dbiW68BSMIxShDCAgWNKsh2uGN36SovRGP6iUC0xfeDmKwVnABpy68yQWheLTttBSC835AZ0/lJIuRYpjzXTlDKMvvkf7DK11O4Kr+ZAfwXZ3kj1I0H/gCSt++YzmZ40ctumDdUkV4NoaB4tKAFJK8lWAhIQ5OxXK7L84xQbSamwG/s++SqhxnmmnQjwXXsjfmvsHKYBIIYqI3s1h/tWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -39,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EYgabKPRalFBhvVBvD7sFHWzgLhHCsho47s++Zo4w70=;
- b=V281VZJgFy/rQq/xO/jN7VFNNotjaciw0rzyqi0eWV6PODGTagsyTyUUGdJ0N9jP/cFY8XzghMUEoCKrMStcG4avOt8N2W0kk3llVxZIsHMfBzgBdC92kgpqRs+eBLpYfqSPDh3tAvQgAAB3TjQQIo34DtFoiOMksjeq2KbIpzU=
-Received: from SN1PR12CA0064.namprd12.prod.outlook.com (2603:10b6:802:20::35)
- by BN6PR1201MB0097.namprd12.prod.outlook.com (2603:10b6:405:54::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.18; Mon, 20 Jan
- 2020 11:08:31 +0000
-Received: from DM6NAM11FT032.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::206) by SN1PR12CA0064.outlook.office365.com
- (2603:10b6:802:20::35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.20 via Frontend
- Transport; Mon, 20 Jan 2020 11:08:31 +0000
+ bh=1KrjjUbon0uczS7rGNueAtCk4SK6e/zMb0tEXSKbxgk=;
+ b=GZa114ue3RxAvLgBEnvDucapX68+G/dWAlY7I9EjJpqFyk7jykH9DGYOYMbxW8P5MWWW5xkbFdzrRnjiAlWQL+4BnmPgn2US6dzsNxiLOG0V6y+9sCTWq7VHCLDICJD3GDkjp2UGRFkhAm9pNrdNUROdtz12tAhzMJSkpAa0OLo=
+Received: from BN6PR12CA0040.namprd12.prod.outlook.com (2603:10b6:405:70::26)
+ by DM6PR12MB3082.namprd12.prod.outlook.com (2603:10b6:5:11b::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.23; Mon, 20 Jan
+ 2020 11:08:34 +0000
+Received: from DM6NAM11FT027.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eaa::204) by BN6PR12CA0040.outlook.office365.com
+ (2603:10b6:405:70::26) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.19 via Frontend
+ Transport; Mon, 20 Jan 2020 11:08:34 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -58,48 +59,50 @@ Authentication-Results: spf=none (sender IP is 165.204.84.17)
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT032.mail.protection.outlook.com (10.13.173.93) with Microsoft SMTP
+ DM6NAM11FT027.mail.protection.outlook.com (10.13.172.205) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2644.19 via Frontend Transport; Mon, 20 Jan 2020 11:08:31 +0000
+ 15.20.2644.19 via Frontend Transport; Mon, 20 Jan 2020 11:08:34 +0000
 Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 20 Jan
- 2020 05:08:30 -0600
+ 2020 05:08:33 -0600
 Received: from rico-code.amd.com (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Mon, 20 Jan 2020 05:08:28 -0600
+ Transport; Mon, 20 Jan 2020 05:08:30 -0600
 From: Tianci Yin <tianci.yin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] Revert "drm/amdgpu: fix modprobe failure of the secondary
- GPU when GDDR6 training enabled(V5)"
-Date: Mon, 20 Jan 2020 19:08:21 +0800
-Message-ID: <20200120110822.30163-1-tianci.yin@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: fix VRAM partially encroached issue in GDDR6
+ memory training
+Date: Mon, 20 Jan 2020 19:08:22 +0800
+Message-ID: <20200120110822.30163-2-tianci.yin@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200120110822.30163-1-tianci.yin@amd.com>
+References: <20200120110822.30163-1-tianci.yin@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(396003)(376002)(136003)(39860400002)(428003)(199004)(189003)(4326008)(81166006)(8676002)(426003)(26005)(186003)(5660300002)(81156014)(316002)(478600001)(336012)(8936002)(1076003)(44832011)(70586007)(70206006)(36756003)(54906003)(2616005)(2906002)(86362001)(6916009)(7696005)(6666004)(356004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BN6PR1201MB0097; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+ SFS:(10009020)(4636009)(396003)(376002)(39860400002)(346002)(136003)(428003)(189003)(199004)(86362001)(8676002)(478600001)(8936002)(7696005)(6666004)(356004)(186003)(54906003)(316002)(81166006)(81156014)(26005)(2906002)(426003)(44832011)(336012)(2616005)(1076003)(6916009)(36756003)(5660300002)(70586007)(70206006)(4326008);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3082; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9cf41db1-8fa6-4b31-0a0b-08d79d991591
-X-MS-TrafficTypeDiagnostic: BN6PR1201MB0097:
-X-Microsoft-Antispam-PRVS: <BN6PR1201MB0097FCA6BBBEE70C4E0611C395320@BN6PR1201MB0097.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:270;
+X-MS-Office365-Filtering-Correlation-Id: 614947a8-0ebb-459d-9aff-08d79d99174a
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3082:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB30825D1947B4A684ED21C6BB95320@DM6PR12MB3082.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
 X-Forefront-PRVS: 0288CD37D9
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UM/21a7ZObOjsAof/eEeo1YMBo+bQzuzBHW4D4t8jBRxqPQcphbO4f95frkbKMHfxcdjBXOxrb21AnBQzT2ewFcwdIE0KpIgyOt79fYH8Po5qm0dSuSyOxUB/7K/D/8m1fatzsRlTKQD9ym6prjFV1rYpKejoVDuJgWnBv6Z9vVc25yOqEv85OLhsUSsDK9VDYok1Orryhw0FN6rMPupkzzhS/4zq5GW2k6EUHgD7MbPlCFgrJ6pJTs1mH2XxQnAZOV/UfbXErJGicVayvIlNYvgTmSZahp7qYLtMaYLgHZNTJCgLDG5/UuEpq/9MStDdTeGamIhBxTy1WPhJPDPJtz23P5dZfeZLm5NzEniLbk8FTtclxt9ktnqGYswBO1sQcu9Ymgu1ywqcREKCXDtDbPb0igB3HW9QOP52QCVuM3zWNX1vd4FaCudWwzuuUno
+X-Microsoft-Antispam-Message-Info: 4Hv5TLwHyQbmThUUuxzaCSCkTl90L5wcut6KLhfCYRTSyJ0TLIvyYf2vd4RiMs0lpjkr1f4HEkdy4z/rkWozGvA8Kb5fVscV91YlgRoZ9C6gb4+MiiNP24Bp8b5BfPTBEDyP6O7KPL7J3XFN+dKTGIvEjMm1diQjSPsWiYxAgZTUNagFhlZdBshZ7+rF13rh0uAXYfxnqbLZjTBzQ3Uyb5J8n7Dz4xcFPmg2yp3Cdpt94UOa+CfZgtr1xIZw5Pg07RT/scTbcXCsT2hUBBROEukXcBPXoqwW9OHJf5R86GtBkU0d2CTii/6Du9KPPnQb02M24K7Z4nyq6JCbKGkRnzKaEljzHPgBfprOoFJoKGw3zTTzw1aUHdfhBKbvdMKyi6lU7yQ700Qmk85v3nhw+rcqlC2T3EpcoWhnQAOeCDeOwU2F09OY669fbwmRtk0S
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2020 11:08:31.2637 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9cf41db1-8fa6-4b31-0a0b-08d79d991591
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jan 2020 11:08:34.1576 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 614947a8-0ebb-459d-9aff-08d79d99174a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0097
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3082
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,82 +128,97 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: "Tianci.Yin" <tianci.yin@amd.com>
 
-This reverts commit 2ad857d7b82081736c078997ba0542acfdd50099.
+[why]
+In GDDR6 BIST training, a certain mount of bottom VRAM will be encroached by
+UMC, that causes problems(like GTT corrupted and page fault observed).
 
-The patch will be replaced with a better solution, revert it.
+[how]
+Saving the content of this bottom VRAM to system memory before training, and
+restoring it after training to avoid VRAM corruption.
+
+Change-Id: I04a8a6e8e63b3619f7c693fe67883b229cbf3c53
+Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  5 -----
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 27 +------------------------
- 2 files changed, 1 insertion(+), 31 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  2 ++
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 32 ++++++++++++++++++++++++-
+ 2 files changed, 33 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index 86267baca07c..d3c27a3c43f6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -60,11 +60,6 @@
-  */
- #define AMDGPU_GMC_FAULT_TIMEOUT	5000ULL
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index 3265487b859f..611021514c52 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -172,6 +172,8 @@ struct psp_dtm_context {
+ #define MEM_TRAIN_SYSTEM_SIGNATURE		0x54534942
+ #define GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES	0x1000
+ #define GDDR6_MEM_TRAINING_OFFSET		0x8000
++/*Define the VRAM size that will be encroached by BIST training.*/
++#define GDDR6_MEM_TRAINING_ENCROACHED_SIZE	0x2000000
  
--/*
-- * Default stolen memory size, 1024 * 768 * 4
-- */
--#define AMDGPU_STOLEN_BIST_TRAINING_DEFAULT_SIZE	0x300000ULL
--
- struct firmware;
- 
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-index 86f4ffe408e7..0c5bf3bd640f 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
-@@ -641,12 +641,7 @@ static int gmc_v10_0_late_init(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	int r;
- 
--	/*
--	 * Can't free the stolen VGA memory when it might be used for memory
--	 * training again.
--	 */
--	if (!adev->fw_vram_usage.mem_train_support)
--		amdgpu_bo_late_init(adev);
-+	amdgpu_bo_late_init(adev);
- 
- 	r = amdgpu_gmc_allocate_vm_inv_eng(adev);
- 	if (r)
-@@ -830,19 +825,6 @@ static int gmc_v10_0_sw_init(void *handle)
- 
- 	adev->gmc.stolen_size = gmc_v10_0_get_vbios_fb_size(adev);
- 
--	/*
--	 * In dual GPUs scenario, stolen_size is assigned to zero on the
--	 * secondary GPU, since there is no pre-OS console using that memory.
--	 * Then the bottom region of VRAM was allocated as GTT, unfortunately a
--	 * small region of bottom VRAM was encroached by UMC firmware during
--	 * GDDR6 BIST training, this cause page fault.
--	 * The page fault can be fixed by forcing stolen_size to 3MB, then the
--	 * bottom region of VRAM was allocated as stolen memory, GTT corruption
--	 * avoid.
--	 */
--	adev->gmc.stolen_size = max(adev->gmc.stolen_size,
--				    AMDGPU_STOLEN_BIST_TRAINING_DEFAULT_SIZE);
--
- 	/* Memory manager */
- 	r = amdgpu_bo_init(adev);
- 	if (r)
-@@ -882,13 +864,6 @@ static void gmc_v10_0_gart_fini(struct amdgpu_device *adev)
- static int gmc_v10_0_sw_fini(void *handle)
+ enum psp_memory_training_init_flag {
+ 	PSP_MEM_TRAIN_NOT_SUPPORT	= 0x0,
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+index 685dd9754c67..51011b661ba8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+@@ -972,7 +972,10 @@ static int psp_v11_0_memory_training_init(struct psp_context *psp)
+ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
  {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	void *stolen_vga_buf;
--
--	/*
--	 * Free the stolen memory if it wasn't already freed in late_init
--	 * because of memory training.
--	 */
--	amdgpu_bo_free_kernel(&adev->stolen_vga_memory, NULL, &stolen_vga_buf);
+ 	int ret;
++	void *buf;
++	uint32_t sz;
+ 	uint32_t p2c_header[4];
++	struct amdgpu_device *adev = psp->adev;
+ 	struct psp_memory_training_context *ctx = &psp->mem_train_ctx;
+ 	uint32_t *pcache = (uint32_t*)ctx->sys_cache;
  
- 	amdgpu_vm_manager_fini(adev);
- 	gmc_v10_0_gart_fini(adev);
+@@ -989,7 +992,7 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
+ 		return 0;
+ 	}
+ 
+-	amdgpu_device_vram_access(psp->adev, ctx->p2c_train_data_offset, p2c_header, sizeof(p2c_header), false);
++	amdgpu_device_vram_access(adev, ctx->p2c_train_data_offset, p2c_header, sizeof(p2c_header), false);
+ 	DRM_DEBUG("sys_cache[%08x,%08x,%08x,%08x] p2c_header[%08x,%08x,%08x,%08x]\n",
+ 		  pcache[0], pcache[1], pcache[2], pcache[3],
+ 		  p2c_header[0], p2c_header[1], p2c_header[2], p2c_header[3]);
+@@ -1026,11 +1029,38 @@ static int psp_v11_0_memory_training(struct psp_context *psp, uint32_t ops)
+ 	DRM_DEBUG("Memory training ops:%x.\n", ops);
+ 
+ 	if (ops & PSP_MEM_TRAIN_SEND_LONG_MSG) {
++		/*
++		 * Long traing will encroach certain mount of bottom VRAM,
++		 * saving the content of this bottom VRAM to system memory
++		 * before training, and restoring it after training to avoid
++		 * VRAM corruption.
++		 */
++		sz = GDDR6_MEM_TRAINING_ENCROACHED_SIZE;
++
++		if (adev->gmc.visible_vram_size < sz || !adev->mman.aper_base_kaddr) {
++			DRM_ERROR("visible_vram_size %llx or aper_base_kaddr %p is not initialized.\n",
++				  adev->gmc.visible_vram_size,
++				  adev->mman.aper_base_kaddr);
++			return -EINVAL;
++		}
++
++		buf = vmalloc(sz);
++		if (!buf) {
++			DRM_ERROR("failed to allocate system memory.\n");
++			return -ENOMEM;
++		}
++
++		memcpy_fromio(buf, adev->mman.aper_base_kaddr, sz);
+ 		ret = psp_v11_0_memory_training_send_msg(psp, PSP_BL__DRAM_LONG_TRAIN);
+ 		if (ret) {
+ 			DRM_ERROR("Send long training msg failed.\n");
++			vfree(buf);
+ 			return ret;
+ 		}
++
++		memcpy_toio(adev->mman.aper_base_kaddr, buf, sz);
++		adev->nbio.funcs->hdp_flush(adev, NULL);
++		vfree(buf);
+ 	}
+ 
+ 	if (ops & PSP_MEM_TRAIN_SAVE) {
 -- 
 2.17.1
 
