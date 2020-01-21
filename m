@@ -7,99 +7,97 @@ X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9118CC2D0CE
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 22:42:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A3A94C2D0CE
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 23:34:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5091524125
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 22:42:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6F06524125
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 23:34:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qbaYDt/u"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5091524125
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1Y7sqGlb"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F06524125
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 14F6F6E4C7;
-	Tue, 21 Jan 2020 22:42:00 +0000 (UTC)
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690080.outbound.protection.outlook.com [40.107.69.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CD1786E4C7
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jan 2020 22:41:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 231E56EDEB;
+	Tue, 21 Jan 2020 23:34:55 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2083.outbound.protection.outlook.com [40.107.236.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1D1B6EDEB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jan 2020 23:34:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NnD3nIDwA1cWq7fEXlu07V5ApVZzx5TWqet7OJkp8ECBo3MB571DqRSDCSlN/l5ySfd+W/8tHmyd1F2tcByCCoPMGdynwDcOwdal+jtKzYO575lD4VhGU19ei5vrY5YITsR3d7uDMnuivpatk1fZPrOz9Y9w2rD6L41cpDJc0caW9DwmMARhfmjj2Hz45hphlOSCtV94tT1JTSTdIbTrU9NfH2PA+hxAlLd2oH9IeGAogeAmZoQ0C1punWvgJwJFyD5VWwo9gRH4K3lPgCIGq7zGvIouv4j/lGDkGAeyVt9DdjUHTa9oLFDUczWTRj3PyfTOexib4kxVJo2PhnXGmQ==
+ b=fXjwE7YK3j9kk5LUKSYSjw7FKZSpGrzyvvKCpGINyn0uNW/VmxuVBgGVzK9hqazCfjZC6kuGXikGLYxb6vgBKYlLlC/hutcdAfkvkK5ug+eTQg8c/5i1XH/ETc+0v5PZ5WV4o1Ydr8kmBFDKR2RItS5KgJ0cBqzyf+GjIweOJ1Simnh3XxRdbw8j5FAAuFNRuA05qCaaiNz3whX9jHy806xKDNh2+LkqLk01wIdG9OfuzJI8DOjBpA9UlR9D0ufBv9lDhvxnxKpVQt6VsExvY7Etca82VbgZoVHfsU5HI08kRnjZGVuq4xlpDhbS9GqhyqbqPZJSL6zNVXv3ADxHVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Eh9BUpez+qBxQW3ugD5Y6nG6suZ20vafS8+XSSQJ8DM=;
- b=NP/djT8Y+ZL2Fw42YIazvsnX1dNsUF7KGcNaSGEQ5hpZ7deOwwFtB4Rde0cnoPSiw1mHL9vCbHF2lHNTgGuYzbcvedvrXN5qsGOmexQ83S7Z8hnI6U0teqggBCP4RVOJVfa+hWAc7Iq+zP5XPboDJD7n7al1AXP11h+lJwxOOfvMAsQWC9RyCY4FukN+3WbdR8RlYw+/LNg/f5LHD5LyfYkM9fUpKdnmylt7zBYOoPLHm5uRJ9t9TY4L7zM12IiCdgZik9Y0HScSeHXk7z3k+gnzO8vLE6Ur3OkGcB7MfU2i7G4eYmhSS3wsjX2R77j9OfuiPGPO0dTnNEYIhXZ+rw==
+ bh=e8QbZRWPEh7TEpFNmH33j2nFaPCItqetbrT34SZSxpI=;
+ b=iQWSu3ee8a8rsYY4E9xrElWM54IknDSpJ2mQxrqQu4J4Tx5RU6BGpWXTZDwn8Qwb56ykDVzdJqu6668WMFIcZxlFxXeHD/1jG4v2Y1kr8zvfDcdGwVKfl23qzmFRfbLvYa3kwXpgd92xUoMrYnwRC/+F5t7EypXCUMtF58BTbcXZ5aqlcAur841vRIiz0mCDA7FcvJe20FKrVWEcx2DTClTM3W2Is5TXhmNTHR3kta3uqNNpN2fJ3ISSL1kRrKKerYzTW6qglVM4r43BfArhNy8GfLd0Mp2OruQV/04JQpZ1fkBOIkd8p3ZOvNU4hmE0neDrjLK1QcJWRwUpyaSMxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Eh9BUpez+qBxQW3ugD5Y6nG6suZ20vafS8+XSSQJ8DM=;
- b=qbaYDt/uCGKK/Aj+XqDPjsqYTS93wG/jlkZHcf/tPoDAopD1XF9rK0Tz54iuM07o0IEXpY2j7u5EKsLK+mCXHYexqE7i/hbrAdfqOb0NaOQSJIziPcsOnx3ko0OmpQ0AaoV1muyFQk8T8By4KwH8SLMj1/jK+kDD5MUt9w5vEdc=
+ bh=e8QbZRWPEh7TEpFNmH33j2nFaPCItqetbrT34SZSxpI=;
+ b=1Y7sqGlb6B0xX1L/HH9/kUsSEORpCrxjo0121bJVLlk1l/6GSbysiNWd8SHKvkhhy0lI6EIfq4ye1PzY17yeMSfwg/D8SF24UHOln7rvuP3o64xNlmkd3C3QeYmcyXoCrqJshyCzrnKLknn6QCVG6HJ4pZt40xUrATC6z2lNUpk=
 Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Felix.Kuehling@amd.com; 
-Received: from DM5PR1201MB0090.namprd12.prod.outlook.com (10.174.105.140) by
- DM5PR1201MB0201.namprd12.prod.outlook.com (10.174.109.149) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.20; Tue, 21 Jan 2020 22:41:57 +0000
-Received: from DM5PR1201MB0090.namprd12.prod.outlook.com
- ([fe80::7119:ff0:b3eb:619c]) by DM5PR1201MB0090.namprd12.prod.outlook.com
- ([fe80::7119:ff0:b3eb:619c%4]) with mapi id 15.20.2644.024; Tue, 21 Jan 2020
- 22:41:57 +0000
-Subject: Re: [PATCH 1/3] drm/amdgpu: Fix TLB invalidation request when using
- semaphore
-To: amd-gfx@lists.freedesktop.org, Yong Zhao <yong.zhao@amd.com>,
- "Zeng, Oak" <Oak.Zeng@amd.com>, Shaoyun Liu <Shaoyun.Liu@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <20200118013735.19361-1-Felix.Kuehling@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-Message-ID: <e6c483dc-cafc-bd81-5501-286e7f988600@amd.com>
-Date: Tue, 21 Jan 2020 17:41:55 -0500
+ smtp.mailfrom=Luben.Tuikov@amd.com; 
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com (20.178.29.90) by
+ DM6PR12MB3017.namprd12.prod.outlook.com (20.178.199.141) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2644.20; Tue, 21 Jan 2020 23:34:51 +0000
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::799b:b372:6589:c8a]) by DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::799b:b372:6589:c8a%7]) with mapi id 15.20.2644.027; Tue, 21 Jan 2020
+ 23:34:50 +0000
+Subject: Re: [PATCH 1/2] drm/amdgpu: individualize amdgpu entity allocation
+ per HW IP
+To: Nirmoy Das <nirmoy.aiemd@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20200121165002.3709-1-nirmoy.das@amd.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+Message-ID: <3d159a30-f7f5-a4f7-b63a-26b9f5df0ec2@amd.com>
+Date: Tue, 21 Jan 2020 18:34:49 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
-In-Reply-To: <20200118013735.19361-1-Felix.Kuehling@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YTXPR0101CA0005.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::18) To DM5PR1201MB0090.namprd12.prod.outlook.com
- (2603:10b6:4:53::12)
+In-Reply-To: <20200121165002.3709-1-nirmoy.das@amd.com>
+Content-Language: en-CA
+X-ClientProxiedBy: YTXPR0101CA0059.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::36) To DM6PR12MB3355.namprd12.prod.outlook.com
+ (2603:10b6:5:115::26)
 MIME-Version: 1.0
-Received: from [172.27.226.80] (165.204.55.251) by
- YTXPR0101CA0005.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.18 via Frontend Transport; Tue, 21 Jan 2020 22:41:56 +0000
-X-Originating-IP: [165.204.55.251]
+Received: from localhost.localdomain (165.204.55.250) by
+ YTXPR0101CA0059.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::36) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.20 via Frontend
+ Transport; Tue, 21 Jan 2020 23:34:50 +0000
+X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: b5492c12-2b62-4e9e-3603-08d79ec31eee
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0201:|DM5PR1201MB0201:
+X-MS-Office365-Filtering-Correlation-Id: 50b1c9da-9c06-4838-47ff-08d79eca827f
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3017:|DM6PR12MB3017:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB02015E04026B7424169BCC69920D0@DM5PR1201MB0201.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB30177358AEB3842F390E6A73990D0@DM6PR12MB3017.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
 X-Forefront-PRVS: 0289B6431E
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(39860400002)(376002)(136003)(346002)(366004)(199004)(189003)(2616005)(956004)(2906002)(6636002)(44832011)(81156014)(16526019)(26005)(36916002)(186003)(8676002)(36756003)(31686004)(66946007)(52116002)(53546011)(86362001)(31696002)(6486002)(8936002)(478600001)(16576012)(110136005)(66556008)(66476007)(5660300002)(316002)(81166006);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR1201MB0201;
- H:DM5PR1201MB0090.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
+ SFS:(10009020)(4636009)(39860400002)(136003)(396003)(346002)(366004)(376002)(189003)(199004)(36756003)(8676002)(6512007)(478600001)(66556008)(66476007)(5660300002)(8936002)(31696002)(26005)(81156014)(86362001)(186003)(6506007)(53546011)(81166006)(16526019)(52116002)(2906002)(2616005)(44832011)(31686004)(6486002)(956004)(316002)(66946007)(4326008);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3017;
+ H:DM6PR12MB3355.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6mf+rRTNIuHBcKRjTdxMq3Xt2L0bbf4W/Vywy69T5OqTJVo2LhE8ybesgqCiYs2cu8QnfWj6ivE6mELfKNqJ1Z4lzvd7YDcqPRArNyJIBMOsNnRtK531vmEaHaGIOqRIfcvtQJulEIt236zT5bkWxH+33LOxTq3wmfUxD4JEbZ5wi69jps9EmlCxm7jaDjZB+CpiW6k6l1nr4o0eQP+sex4GxzW6VYv/CE/Vfu0ZuDn9zC3N2j098MyXkOc09F2KToMvXXghMhlPQVzX4VVX4Y1KWOOMsIwrcJt9PqtqNOUtxyHS2fc29QG/6EPajiWa+cwECMUxejipSdxtOGt4HPLcn6fCddnx5I8R0qJGHSS4QmGaTzN6hO2iV4NpsZA8DpNyl9lNLLqV6OEH66ZhpKVJE1SNoFIhzLDDWetxtIsvhcGqc0fCYpNgpVJX6IZE
+X-Microsoft-Antispam-Message-Info: NfsJsu2fVk2cpUcBpEyQfNEqbVhwnJLeBGfoBzUojhaqedTdmfWklwgU+iw20mrMbEGxDDvVn3x65VY28fRks94ZEWZYHM3nr/pl/wi3ZP6/ai7gFNXAxJhrzMgJCBYIceTkPy5EBA/H5T2gGDGxj9RlMMowOX/H8P9WUk2w0FZW7NTz075f8y/zB2saMNajZogFHYfyZ6fSCh2fvXOl7eSNveoI2TMyLmClO6QaVy8Kboe0FmNFgxEEoIXiVzW4U4lG158hOznuk43SXOKNjXsq/tdqv9006yT8sKXxkazvTJCQfucgnNJkZ/psQNeD96xPKNMyrstb7gMPMglwgFqFIrQYifBbG2KK1gq+hdudR7AXuJ/5Uhc9mBzx7Sx2Pe9M3aLWith9z8bTdEWifPF3yFyFU9gNNhgDi9nvjoSmOsdbyOwhg44wXTHzxNkv
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5492c12-2b62-4e9e-3603-08d79ec31eee
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2020 22:41:57.3172 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 50b1c9da-9c06-4838-47ff-08d79eca827f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2020 23:34:50.8195 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rM7qg0t9jEFdNBPfaw7l5GNukpAk9g/n9PYPuQjQmeWiRSXxx19w0BCjtDCGFaYq9wzWvDGrMPhhP8YJat25Pw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0201
+X-MS-Exchange-CrossTenant-UserPrincipalName: uGnfYlIqOLzxNwy0BXmD9ttlzXJ6ArWP/M3AN9RHClB8K/D8SqgoEuaB2L7t5NKK
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3017
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,71 +109,320 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: alexander.deucher@amd.com, kenny.ho@amd.com, nirmoy.das@amd.com,
+ christian.koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VGhhbmsgZm9yIHRoZSByZXZpZXdzLiBJIHB1c2hlZCBwYXRjaCAxIGFuZCAyIGJlY2F1c2UgdGhl
-eSdyZSBvYnZpb3VzIApmaXhlcy4gVGhleSBoYXZlIHBhc3NlZCBsb2NhbCB0ZXN0aW5nIG9uIGEg
-VmVnYTEwLiBJJ20gc3RpbGwgd2FpdGluZyBmb3IgCmFuIG9wcG9ydHVuaXR5IHRvIHRlc3QgdGhl
-IHJlLXdvcmtlZCB3b3JrYXJvdW5kIGluIHBhdGNoIDMgb24gYSAKcHJvYmxlbWF0aWMgc3lzdGVt
-IHdpdGggVmVnYTIwIGFuZCBYR01JLgoKUmVnYXJkcywKIMKgIEZlbGl4CgpPbiAyMDIwLTAxLTE3
-IDg6MzcgcC5tLiwgRmVsaXggS3VlaGxpbmcgd3JvdGU6Cj4gVXNlIGEgbW9yZSBtZWFuaW5nZnVs
-IHZhcmlhYmxlIG5hbWUgZm9yIHRoZSBpbnZhbGlkYXRpb24gcmVxdWVzdAo+IHRoYXQgaXMgZGlz
-dGluY3QgZnJvbSB0aGUgdG1wIHZhcmlhYmxlIHRoYXQgZ2V0cyBvdmVyd3JpdHRlbiB3aGVuCj4g
-YWNxdWlyaW5nIHRoZSBpbnZhbGlkYXRpb24gc2VtYXBob3JlLgo+Cj4gRml4ZXM6IDAwZjYwN2Yz
-OGQ4MiAoImRybS9hbWRncHU6IGludmFsaWRhdGUgbW1odWIgc2VtYXBob3JlIHdvcmthcm91bmQg
-aW4gZ21jOS9nbWMxMCIpCj4gU2lnbmVkLW9mZi1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1
-ZWhsaW5nQGFtZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNf
-djEwXzAuYyB8IDUgKysrLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192OV8w
-LmMgIHwgOCArKysrLS0tLQo+ICAgMiBmaWxlcyBjaGFuZ2VkLCA3IGluc2VydGlvbnMoKyksIDYg
-ZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z21jX3YxMF8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjEwXzAuYwo+IGlu
-ZGV4IDg2ZjRmZmU0MDhlNy4uZDkxNDU1NWUxMjEyIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2dtY192MTBfMC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvZ21jX3YxMF8wLmMKPiBAQCAtMjYyLDcgKzI2Miw4IEBAIHN0YXRpYyB2b2lkIGdtY192
-MTBfMF9mbHVzaF92bV9odWIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHZt
-aWQsCj4gICB7Cj4gICAJYm9vbCB1c2Vfc2VtYXBob3JlID0gZ21jX3YxMF8wX3VzZV9pbnZhbGlk
-YXRlX3NlbWFwaG9yZShhZGV2LCB2bWh1Yik7Cj4gICAJc3RydWN0IGFtZGdwdV92bWh1YiAqaHVi
-ID0gJmFkZXYtPnZtaHViW3ZtaHViXTsKPiAtCXUzMiB0bXAgPSBnbWNfdjEwXzBfZ2V0X2ludmFs
-aWRhdGVfcmVxKHZtaWQsIGZsdXNoX3R5cGUpOwo+ICsJdTMyIGludl9yZXEgPSBnbWNfdjEwXzBf
-Z2V0X2ludmFsaWRhdGVfcmVxKHZtaWQsIGZsdXNoX3R5cGUpOwo+ICsJdTMyIHRtcDsKPiAgIAkv
-KiBVc2UgcmVnaXN0ZXIgMTcgZm9yIEdBUlQgKi8KPiAgIAljb25zdCB1bnNpZ25lZCBlbmcgPSAx
-NzsKPiAgIAl1bnNpZ25lZCBpbnQgaTsKPiBAQCAtMjg5LDcgKzI5MCw3IEBAIHN0YXRpYyB2b2lk
-IGdtY192MTBfMF9mbHVzaF92bV9odWIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQz
-Ml90IHZtaWQsCj4gICAJCQlEUk1fRVJST1IoIlRpbWVvdXQgd2FpdGluZyBmb3Igc2VtIGFjcXVp
-cmUgaW4gVk0gZmx1c2ghXG4iKTsKPiAgIAl9Cj4gICAKPiAtCVdSRUczMl9OT19LSVEoaHViLT52
-bV9pbnZfZW5nMF9yZXEgKyBlbmcsIHRtcCk7Cj4gKwlXUkVHMzJfTk9fS0lRKGh1Yi0+dm1faW52
-X2VuZzBfcmVxICsgZW5nLCBpbnZfcmVxKTsKPiAgIAo+ICAgCS8qCj4gICAJICogSXNzdWUgYSBk
-dW1teSByZWFkIHRvIHdhaXQgZm9yIHRoZSBBQ0sgcmVnaXN0ZXIgdG8gYmUgY2xlYXJlZAo+IGRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvZ21jX3Y5XzAuYwo+IGluZGV4IDU0YmRjMTc4NmFiMS4uNmQ5
-NWRlMTQxM2M0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dtY192
-OV8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nbWNfdjlfMC5jCj4gQEAg
-LTQ3NiwxMyArNDc2LDEzIEBAIHN0YXRpYyB2b2lkIGdtY192OV8wX2ZsdXNoX2dwdV90bGIoc3Ry
-dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHZtaWQsCj4gICB7Cj4gICAJYm9vbCB1
-c2Vfc2VtYXBob3JlID0gZ21jX3Y5XzBfdXNlX2ludmFsaWRhdGVfc2VtYXBob3JlKGFkZXYsIHZt
-aHViKTsKPiAgIAljb25zdCB1bnNpZ25lZCBlbmcgPSAxNzsKPiAtCXUzMiBqLCB0bXA7Cj4gKwl1
-MzIgaiwgaW52X3JlcSwgdG1wOwo+ICAgCXN0cnVjdCBhbWRncHVfdm1odWIgKmh1YjsKPiAgIAo+
-ICAgCUJVR19PTih2bWh1YiA+PSBhZGV2LT5udW1fdm1odWJzKTsKPiAgIAo+ICAgCWh1YiA9ICZh
-ZGV2LT52bWh1Ylt2bWh1Yl07Cj4gLQl0bXAgPSBnbWNfdjlfMF9nZXRfaW52YWxpZGF0ZV9yZXEo
-dm1pZCwgZmx1c2hfdHlwZSk7Cj4gKwlpbnZfcmVxID0gZ21jX3Y5XzBfZ2V0X2ludmFsaWRhdGVf
-cmVxKHZtaWQsIGZsdXNoX3R5cGUpOwo+ICAgCj4gICAJLyogVGhpcyBpcyBuZWNlc3NhcnkgZm9y
-IGEgSFcgd29ya2Fyb3VuZCB1bmRlciBTUklPViBhcyB3ZWxsCj4gICAJICogYXMgR0ZYT0ZGIHVu
-ZGVyIGJhcmUgbWV0YWwKPiBAQCAtNDkzLDcgKzQ5Myw3IEBAIHN0YXRpYyB2b2lkIGdtY192OV8w
-X2ZsdXNoX2dwdV90bGIoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHVpbnQzMl90IHZtaWQs
-Cj4gICAJCXVpbnQzMl90IHJlcSA9IGh1Yi0+dm1faW52X2VuZzBfcmVxICsgZW5nOwo+ICAgCQl1
-aW50MzJfdCBhY2sgPSBodWItPnZtX2ludl9lbmcwX2FjayArIGVuZzsKPiAgIAo+IC0JCWFtZGdw
-dV92aXJ0X2tpcV9yZWdfd3JpdGVfcmVnX3dhaXQoYWRldiwgcmVxLCBhY2ssIHRtcCwKPiArCQlh
-bWRncHVfdmlydF9raXFfcmVnX3dyaXRlX3JlZ193YWl0KGFkZXYsIHJlcSwgYWNrLCBpbnZfcmVx
-LAo+ICAgCQkJCTEgPDwgdm1pZCk7Cj4gICAJCXJldHVybjsKPiAgIAl9Cj4gQEAgLTUyMSw3ICs1
-MjEsNyBAQCBzdGF0aWMgdm9pZCBnbWNfdjlfMF9mbHVzaF9ncHVfdGxiKHN0cnVjdCBhbWRncHVf
-ZGV2aWNlICphZGV2LCB1aW50MzJfdCB2bWlkLAo+ICAgCQkJRFJNX0VSUk9SKCJUaW1lb3V0IHdh
-aXRpbmcgZm9yIHNlbSBhY3F1aXJlIGluIFZNIGZsdXNoIVxuIik7Cj4gICAJfQo+ICAgCj4gLQlX
-UkVHMzJfTk9fS0lRKGh1Yi0+dm1faW52X2VuZzBfcmVxICsgZW5nLCB0bXApOwo+ICsJV1JFRzMy
-X05PX0tJUShodWItPnZtX2ludl9lbmcwX3JlcSArIGVuZywgaW52X3JlcSk7Cj4gICAKPiAgIAkv
-Kgo+ICAgCSAqIElzc3VlIGEgZHVtbXkgcmVhZCB0byB3YWl0IGZvciB0aGUgQUNLIHJlZ2lzdGVy
-IHRvIGJlIGNsZWFyZWQKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On 2020-01-21 11:50 a.m., Nirmoy Das wrote:
+> Do not allocate all the entity at once. This is required for
+> dynamic amdgpu_ctx_entity creation.
+> 
+> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 130 ++++++++++++------------
+>  1 file changed, 65 insertions(+), 65 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> index 05c2af61e7de..91638a2a5163 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> @@ -42,16 +42,6 @@ const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM] = {
+>  	[AMDGPU_HW_IP_VCN_JPEG]	=	1,
+>  };
+>  
+> -static int amdgpu_ctx_total_num_entities(void)
+> -{
+> -	unsigned i, num_entities = 0;
+> -
+> -	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+> -		num_entities += amdgpu_ctx_num_entities[i];
+> -
+> -	return num_entities;
+> -}
+> -
+>  static int amdgpu_ctx_priority_permit(struct drm_file *filp,
+>  				      enum drm_sched_priority priority)
+>  {
+> @@ -73,7 +63,6 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
+>  			   struct drm_file *filp,
+>  			   struct amdgpu_ctx *ctx)
+>  {
+> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
+>  	unsigned i, j;
+>  	int r;
+>  
+> @@ -87,28 +76,29 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
+>  	memset(ctx, 0, sizeof(*ctx));
+>  	ctx->adev = adev;
+>  
+> -
+> -	ctx->entities[0] = kcalloc(num_entities,
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+> +		ctx->entities[i] = kcalloc(amdgpu_ctx_num_entities[i],
+>  				   sizeof(struct amdgpu_ctx_entity),
+>  				   GFP_KERNEL);
+
+Are these lines indented to the agument list column? They seem
+that they are not...
+
+> -	if (!ctx->entities[0])
+> -		return -ENOMEM;
+>  
+> +		if (!ctx->entities[0]) {
+> +			r =  -ENOMEM;
+> +			goto error_cleanup_entity_memory;
+> +		}
+> +	}
+
+Brake the paragraphs with an empty line, here.
+
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+
+Please use a brace for the outer for-loop, the i-counter.
+This style leaves the ending row/column
+empty for two levels of indentation.
+
+>  
+> -	for (i = 0; i < num_entities; ++i) {
+> -		struct amdgpu_ctx_entity *entity = &ctx->entities[0][i];
+> +			struct amdgpu_ctx_entity *entity = &ctx->entities[i][j];
+>  
+> -		entity->sequence = 1;
+> -		entity->fences = kcalloc(amdgpu_sched_jobs,
+> +			entity->sequence = 1;
+> +			entity->fences = kcalloc(amdgpu_sched_jobs,
+>  					 sizeof(struct dma_fence*), GFP_KERNEL);
+
+The indentation of sizeof(... seems incorrect.
+
+> -		if (!entity->fences) {
+> -			r = -ENOMEM;
+> -			goto error_cleanup_memory;
+> +			if (!entity->fences) {
+> +				r = -ENOMEM;
+> +				goto error_cleanup_memory;
+> +			}
+>  		}
+> -	}
+
+This brace would stay...
+
+> -	for (i = 1; i < AMDGPU_HW_IP_NUM; ++i)
+> -		ctx->entities[i] = ctx->entities[i - 1] +
+> -			amdgpu_ctx_num_entities[i - 1];
+>  
+>  	kref_init(&ctx->refcount);
+>  	spin_lock_init(&ctx->ring_lock);
+> @@ -179,44 +169,52 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
+>  	return 0;
+>  
+>  error_cleanup_entities:
+
+Notice this label sits after the "return 0;", so it really
+is an "unroll" and "free" operation.
+
+> -	for (i = 0; i < num_entities; ++i)
+> -		drm_sched_entity_destroy(&ctx->entities[0][i].entity);
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j)
+> +			drm_sched_entity_destroy(&ctx->entities[i][j].entity);
+>  
+>  error_cleanup_memory:
+> -	for (i = 0; i < num_entities; ++i) {
+> -		struct amdgpu_ctx_entity *entity = &ctx->entities[0][i];
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+
+Add the brace back in for completeness and style.
+
+> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+> +			struct amdgpu_ctx_entity *entity = &ctx->entities[i][j];
+>  
+> -		kfree(entity->fences);
+> -		entity->fences = NULL;
+> +			kfree(entity->fences);
+> +			entity->fences = NULL;
+> +		}
+> +
+> +error_cleanup_entity_memory:
+
+"cleanup" refers to something spilled, or something to be collected.
+(Or winning in a wagered game of chance.) Also at "module_exit", maybe.
+
+The kernel has traditionally used "unroll" and "free" for this. Now, since
+you're unrolling the loop (notice that it sits after the "return 0;"), then
+you can backtrack and name it like this:
+
+Error_unroll_free1:
+	for ( ; i >= 0; i--)
+		free(my_array[i]);
+
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+> +		kfree(ctx->entities[i]);
+> +		ctx->entities[i] = NULL;
+>  	}
+>  
+> -	kfree(ctx->entities[0]);
+> -	ctx->entities[0] = NULL;
+>  	return r;
+>  }
+>  
+>  static void amdgpu_ctx_fini(struct kref *ref)
+>  {
+>  	struct amdgpu_ctx *ctx = container_of(ref, struct amdgpu_ctx, refcount);
+> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
+>  	struct amdgpu_device *adev = ctx->adev;
+> -	unsigned i, j;
+> +	unsigned i, j, k;
+>  
+>  	if (!adev)
+>  		return;
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+> +			struct amdgpu_ctx_entity *entity = &ctx->entities[i][j];
+>  
+> -	for (i = 0; i < num_entities; ++i) {
+> -		struct amdgpu_ctx_entity *entity = &ctx->entities[0][i];
+> +			for (k = 0; k < amdgpu_sched_jobs; ++k)
+> +				dma_fence_put(entity->fences[k]);
+>  
+> -		for (j = 0; j < amdgpu_sched_jobs; ++j)
+> -			dma_fence_put(entity->fences[j]);
+> +			kfree(entity->fences);
+> +		}
+>  
+> -		kfree(entity->fences);
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+> +		kfree(ctx->entities[i]);
+> +		ctx->entities[i] = NULL;
+>  	}
+>  
+> -	kfree(ctx->entities[0]);
+>  	mutex_destroy(&ctx->lock);
+> -
+>  	kfree(ctx);
+>  }
+>  
+> @@ -279,14 +277,12 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
+>  static void amdgpu_ctx_do_release(struct kref *ref)
+>  {
+>  	struct amdgpu_ctx *ctx;
+> -	unsigned num_entities;
+> -	u32 i;
+> +	u32 i, j;
+>  
+>  	ctx = container_of(ref, struct amdgpu_ctx, refcount);
+> -
+> -	num_entities = amdgpu_ctx_total_num_entities();
+> -	for (i = 0; i < num_entities; i++)
+> -		drm_sched_entity_destroy(&ctx->entities[0][i].entity);
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j)
+> +			drm_sched_entity_destroy(&ctx->entities[i][j].entity);
+>  
+>  	amdgpu_ctx_fini(ref);
+>  }
+> @@ -516,20 +512,21 @@ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
+>  void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
+>  				  enum drm_sched_priority priority)
+>  {
+> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
+>  	enum drm_sched_priority ctx_prio;
+> -	unsigned i;
+> +	unsigned i, j;
+>  
+>  	ctx->override_priority = priority;
+>  
+>  	ctx_prio = (ctx->override_priority == DRM_SCHED_PRIORITY_UNSET) ?
+>  			ctx->init_priority : ctx->override_priority;
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+
+Brace.
+
+> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+>  
+> -	for (i = 0; i < num_entities; i++) {
+> -		struct drm_sched_entity *entity = &ctx->entities[0][i].entity;
+> +			struct drm_sched_entity *entity =
+> +				&ctx->entities[i][j].entity;
+>  
+> -		drm_sched_entity_set_priority(entity, ctx_prio);
+> -	}
+> +			drm_sched_entity_set_priority(entity, ctx_prio);
+> +		}
+	} ;-)
+>  }
+>  
+>  int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx,
+> @@ -564,20 +561,20 @@ void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr)
+>  
+>  long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+>  {
+> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
+>  	struct amdgpu_ctx *ctx;
+>  	struct idr *idp;
+> -	uint32_t id, i;
+> +	uint32_t id, i, j;
+>  
+>  	idp = &mgr->ctx_handles;
+>  
+>  	mutex_lock(&mgr->lock);
+>  	idr_for_each_entry(idp, ctx, id) {
+> -		for (i = 0; i < num_entities; i++) {
+> -			struct drm_sched_entity *entity;
+> +		for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+
+Brace.
+
+> +			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+> +				struct drm_sched_entity *entity;
+>  
+> -			entity = &ctx->entities[0][i].entity;
+> -			timeout = drm_sched_entity_flush(entity, timeout);
+> +				entity = &ctx->entities[i][j].entity;
+> +				timeout = drm_sched_entity_flush(entity, timeout);
+>  		}
+>  	}
+>  	mutex_unlock(&mgr->lock);
+> @@ -586,10 +583,9 @@ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+>  
+>  void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+>  {
+> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
+>  	struct amdgpu_ctx *ctx;
+>  	struct idr *idp;
+> -	uint32_t id, i;
+> +	uint32_t id, i, j;
+>  
+>  	idp = &mgr->ctx_handles;
+>  
+> @@ -598,9 +594,13 @@ void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+>  			DRM_ERROR("ctx %p is still alive\n", ctx);
+>  			continue;
+>  		}
+> +		for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+
+Brace.
+
+> +			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+> +				struct drm_sched_entity *entity;
+>  
+> -		for (i = 0; i < num_entities; i++)
+> -			drm_sched_entity_fini(&ctx->entities[0][i].entity);
+> +				entity = &ctx->entities[i][j].entity;
+> +				drm_sched_entity_fini(entity);
+> +			}
+>  	}
+>  }
+>  
+> 
+
+Regards,
+Luben
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
