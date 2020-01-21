@@ -6,35 +6,35 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72CFAC2D0CE
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 28F6BC2D0CE
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1609A217F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1609A217F4
+	by mail.kernel.org (Postfix) with ESMTPS id 09B39217F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09B39217F4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 751756ED7D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 895C66ED7E;
 	Tue, 21 Jan 2020 16:08:17 +0000 (UTC)
 Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 292F76FADD;
- Tue, 21 Jan 2020 14:01:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F10A46FADD;
+ Tue, 21 Jan 2020 14:01:10 +0000 (UTC)
 Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 4005B1B279A62B193AAF;
+ by Forcepoint Email with ESMTP id 3990EE71B9CA0851C051;
  Tue, 21 Jan 2020 22:01:07 +0800 (CST)
 Received: from localhost.localdomain.localdomain (10.175.113.25) by
  DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
- 14.3.439.0; Tue, 21 Jan 2020 22:01:00 +0800
+ 14.3.439.0; Tue, 21 Jan 2020 22:00:57 +0800
 From: Chen Zhou <chenzhou10@huawei.com>
 To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>
-Subject: [PATCH -next 12/14] drm/amdgpu: remove unnecessary conversion to bool
- in athub_v2_0.c
-Date: Tue, 21 Jan 2020 21:55:38 +0800
-Message-ID: <20200121135540.165798-13-chenzhou10@huawei.com>
+Subject: [PATCH -next 10/14] drm/amdgpu: remove unnecessary conversion to bool
+ in mmhub_v9_4.c
+Date: Tue, 21 Jan 2020 21:55:36 +0800
+Message-ID: <20200121135540.165798-11-chenzhou10@huawei.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200121135540.165798-1-chenzhou10@huawei.com>
 References: <20200121135540.165798-1-chenzhou10@huawei.com>
@@ -63,27 +63,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes coccicheck warning:
 
-./drivers/gpu/drm/amd/amdgpu/athub_v2_0.c:80:40-45: WARNING:
+./drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c:628:40-45: WARNING:
 	conversion to bool not needed here
-./drivers/gpu/drm/amd/amdgpu/athub_v2_0.c:82:40-45: WARNING:
+./drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c:630:40-45: WARNING:
 	conversion to bool not needed here
 
 Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
 ---
- drivers/gpu/drm/amd/amdgpu/athub_v2_0.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/athub_v2_0.c
-index ceb9aa4..921a69a 100644
---- a/drivers/gpu/drm/amd/amdgpu/athub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/athub_v2_0.c
-@@ -77,9 +77,9 @@ int athub_v2_0_set_clockgating(struct amdgpu_device *adev,
- 	case CHIP_NAVI14:
- 	case CHIP_NAVI12:
- 		athub_v2_0_update_medium_grain_clock_gating(adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+index 5c42387..b1f30d6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c
+@@ -625,9 +625,9 @@ int mmhub_v9_4_set_clockgating(struct amdgpu_device *adev,
+ 	switch (adev->asic_type) {
+ 	case CHIP_ARCTURUS:
+ 		mmhub_v9_4_update_medium_grain_clock_gating(adev,
 -				state == AMD_CG_STATE_GATE ? true : false);
 +				state == AMD_CG_STATE_GATE);
- 		athub_v2_0_update_medium_grain_light_sleep(adev,
+ 		mmhub_v9_4_update_medium_grain_light_sleep(adev,
 -				state == AMD_CG_STATE_GATE ? true : false);
 +				state == AMD_CG_STATE_GATE);
  		break;
