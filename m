@@ -6,35 +6,35 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5172EC33CAA
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6FC4C2D0CE
 	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 335DB217F4
+	by mail.kernel.org (Postfix) with ESMTPS id C7396217F4
 	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 335DB217F4
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7396217F4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 341366ED85;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41A566ED87;
 	Tue, 21 Jan 2020 16:08:18 +0000 (UTC)
 Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 741FD6FADE;
- Tue, 21 Jan 2020 14:01:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A1656FADC;
+ Tue, 21 Jan 2020 14:01:04 +0000 (UTC)
 Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 93D3A96F2E6239D13922;
- Tue, 21 Jan 2020 22:01:02 +0800 (CST)
+ by Forcepoint Email with ESMTP id 678768EBA5D468A15A51;
+ Tue, 21 Jan 2020 22:00:58 +0800 (CST)
 Received: from localhost.localdomain.localdomain (10.175.113.25) by
  DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
- 14.3.439.0; Tue, 21 Jan 2020 22:00:52 +0800
+ 14.3.439.0; Tue, 21 Jan 2020 22:00:41 +0800
 From: Chen Zhou <chenzhou10@huawei.com>
 To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>
-Subject: [PATCH -next 07/14] drm/amdgpu: remove unnecessary conversion to bool
- in amdgpu_acp.c
-Date: Tue, 21 Jan 2020 21:55:33 +0800
-Message-ID: <20200121135540.165798-8-chenzhou10@huawei.com>
+Subject: [PATCH -next 01/14] drm/amdgpu: remove unnecessary conversion to bool
+ in mmhub_v1_0.c
+Date: Tue, 21 Jan 2020 21:55:27 +0800
+Message-ID: <20200121135540.165798-2-chenzhou10@huawei.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200121135540.165798-1-chenzhou10@huawei.com>
 References: <20200121135540.165798-1-chenzhou10@huawei.com>
@@ -63,27 +63,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes coccicheck warning:
 
-./drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c:530:51-56: WARNING:
+./drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c:526:40-45: WARNING:
+	conversion to bool not needed here
+./drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c:528:40-45: WARNING:
 	conversion to bool not needed here
 
 Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-index 82155ac..8008b67 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c
-@@ -527,7 +527,7 @@ static int acp_set_powergating_state(void *handle,
- 				     enum amd_powergating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = state == AMD_PG_STATE_GATE ? true : false;
-+	bool enable = state == AMD_PG_STATE_GATE;
- 
- 	if (adev->powerplay.pp_funcs &&
- 		adev->powerplay.pp_funcs->set_powergating_by_smu)
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+index adfd8a6..49a3a56 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c
+@@ -523,9 +523,9 @@ int mmhub_v1_0_set_clockgating(struct amdgpu_device *adev,
+ 	case CHIP_RAVEN:
+ 	case CHIP_RENOIR:
+ 		mmhub_v1_0_update_medium_grain_clock_gating(adev,
+-				state == AMD_CG_STATE_GATE ? true : false);
++				state == AMD_CG_STATE_GATE);
+ 		mmhub_v1_0_update_medium_grain_light_sleep(adev,
+-				state == AMD_CG_STATE_GATE ? true : false);
++				state == AMD_CG_STATE_GATE);
+ 		break;
+ 	default:
+ 		break;
 -- 
 2.7.4
 
