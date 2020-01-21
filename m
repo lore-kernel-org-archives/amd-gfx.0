@@ -6,35 +6,35 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BCB8C33CAA
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B4A62C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7C7C5217F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C7C5217F4
+	by mail.kernel.org (Postfix) with ESMTPS id 900BA217F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 900BA217F4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D0E16ED80;
-	Tue, 21 Jan 2020 16:08:17 +0000 (UTC)
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 240486FAE1;
- Tue, 21 Jan 2020 14:01:21 +0000 (UTC)
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 40F61A60D87D0269834C;
- Tue, 21 Jan 2020 22:01:12 +0800 (CST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 030776ED81;
+	Tue, 21 Jan 2020 16:08:18 +0000 (UTC)
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 512FE6ED09;
+ Tue, 21 Jan 2020 14:01:01 +0000 (UTC)
+Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 7C6434BEF500F9348F8D;
+ Tue, 21 Jan 2020 22:00:58 +0800 (CST)
 Received: from localhost.localdomain.localdomain (10.175.113.25) by
  DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
- 14.3.439.0; Tue, 21 Jan 2020 22:01:04 +0800
+ 14.3.439.0; Tue, 21 Jan 2020 22:00:44 +0800
 From: Chen Zhou <chenzhou10@huawei.com>
 To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>
-Subject: [PATCH -next 14/14] drm/amdgpu: remove unnecessary conversion to bool
- in gfx_v9_0.c
-Date: Tue, 21 Jan 2020 21:55:40 +0800
-Message-ID: <20200121135540.165798-15-chenzhou10@huawei.com>
+Subject: [PATCH -next 03/14] drm/amdgpu: remove unnecessary conversion to bool
+ in navi10_ih.c
+Date: Tue, 21 Jan 2020 21:55:29 +0800
+Message-ID: <20200121135540.165798-4-chenzhou10@huawei.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200121135540.165798-1-chenzhou10@huawei.com>
 References: <20200121135540.165798-1-chenzhou10@huawei.com>
@@ -63,36 +63,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes coccicheck warning:
 
-./drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c:4737:43-48: WARNING:
+./drivers/gpu/drm/amd/amdgpu/navi10_ih.c:429:40-45: WARNING:
 	conversion to bool not needed here
 
 Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 2f782c3..e4744ae 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -4672,7 +4672,7 @@ static int gfx_v9_0_set_powergating_state(void *handle,
- 					  enum amd_powergating_state state)
- {
+diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+index f737ce4..cf557a42 100644
+--- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
++++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
+@@ -426,7 +426,7 @@ static int navi10_ih_set_clockgating_state(void *handle,
  	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_PG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_PG_STATE_GATE;
  
- 	switch (adev->asic_type) {
- 	case CHIP_RAVEN:
-@@ -4734,7 +4734,7 @@ static int gfx_v9_0_set_clockgating_state(void *handle,
- 	case CHIP_ARCTURUS:
- 	case CHIP_RENOIR:
- 		gfx_v9_0_update_gfx_clock_gating(adev,
--						 state == AMD_CG_STATE_GATE ? true : false);
-+						 state == AMD_CG_STATE_GATE);
- 		break;
- 	default:
- 		break;
+ 	navi10_ih_update_clockgating_state(adev,
+-				state == AMD_CG_STATE_GATE ? true : false);
++				state == AMD_CG_STATE_GATE);
+ 	return 0;
+ }
+ 
 -- 
 2.7.4
 
