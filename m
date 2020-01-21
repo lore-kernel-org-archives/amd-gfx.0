@@ -6,35 +6,35 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 93192C2D0CE
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31F7BC33CAA
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6FB50217F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6FB50217F4
+	by mail.kernel.org (Postfix) with ESMTPS id 13D2C217F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 16:08:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 13D2C217F4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1279F6ED93;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52E9A6ED94;
 	Tue, 21 Jan 2020 16:08:27 +0000 (UTC)
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 027AF6FADC;
- Tue, 21 Jan 2020 14:01:04 +0000 (UTC)
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 82FE7B0DDD2F09070CCC;
- Tue, 21 Jan 2020 22:00:58 +0800 (CST)
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 906866FAE6;
+ Tue, 21 Jan 2020 14:01:18 +0000 (UTC)
+Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.59])
+ by Forcepoint Email with ESMTP id 4850046AF737AF7CA74B;
+ Tue, 21 Jan 2020 22:01:12 +0800 (CST)
 Received: from localhost.localdomain.localdomain (10.175.113.25) by
  DGGEMS413-HUB.china.huawei.com (10.3.19.213) with Microsoft SMTP Server id
- 14.3.439.0; Tue, 21 Jan 2020 22:00:46 +0800
+ 14.3.439.0; Tue, 21 Jan 2020 22:01:02 +0800
 From: Chen Zhou <chenzhou10@huawei.com>
 To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>
-Subject: [PATCH -next 04/14] drm/amdgpu: remove unnecessary conversion to bool
- in gfx_v10_0.c
-Date: Tue, 21 Jan 2020 21:55:30 +0800
-Message-ID: <20200121135540.165798-5-chenzhou10@huawei.com>
+Subject: [PATCH -next 13/14] drm/amdgpu: remove unnecessary conversion to bool
+ in sdma_v4_0.c
+Date: Tue, 21 Jan 2020 21:55:39 +0800
+Message-ID: <20200121135540.165798-14-chenzhou10@huawei.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200121135540.165798-1-chenzhou10@huawei.com>
 References: <20200121135540.165798-1-chenzhou10@huawei.com>
@@ -63,52 +63,38 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes coccicheck warning:
 
-./drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c:4259:43-48: WARNING:
+./drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c:2180:40-45: WARNING
 	conversion to bool not needed here
 
 and many more similar messages.
 
 Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 4 ++--
- drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 1cfc508..3da9d79 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4230,7 +4230,7 @@ static int gfx_v10_0_set_powergating_state(void *handle,
- 					  enum amd_powergating_state state)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
--	bool enable = (state == AMD_PG_STATE_GATE) ? true : false;
-+	bool enable = state == AMD_PG_STATE_GATE;
- 	switch (adev->asic_type) {
- 	case CHIP_NAVI10:
- 	case CHIP_NAVI14:
-@@ -4256,7 +4256,7 @@ static int gfx_v10_0_set_clockgating_state(void *handle,
- 	case CHIP_NAVI14:
- 	case CHIP_NAVI12:
- 		gfx_v10_0_update_gfx_clock_gating(adev,
--						 state == AMD_CG_STATE_GATE ? true : false);
-+						 state == AMD_CG_STATE_GATE);
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index 01898d2..9d479a0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -2177,9 +2177,9 @@ static int sdma_v4_0_set_clockgating_state(void *handle,
+ 	case CHIP_ARCTURUS:
+ 	case CHIP_RENOIR:
+ 		sdma_v4_0_update_medium_grain_clock_gating(adev,
+-				state == AMD_CG_STATE_GATE ? true : false);
++				state == AMD_CG_STATE_GATE);
+ 		sdma_v4_0_update_medium_grain_light_sleep(adev,
+-				state == AMD_CG_STATE_GATE ? true : false);
++				state == AMD_CG_STATE_GATE);
  		break;
  	default:
  		break;
-diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-index a7cb185..bde1896 100644
---- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
-@@ -427,9 +427,9 @@ int mmhub_v2_0_set_clockgating(struct amdgpu_device *adev,
- 	case CHIP_NAVI14:
- 	case CHIP_NAVI12:
- 		mmhub_v2_0_update_medium_grain_clock_gating(adev,
--				state == AMD_CG_STATE_GATE ? true : false);
-+				state == AMD_CG_STATE_GATE);
- 		mmhub_v2_0_update_medium_grain_light_sleep(adev,
--				state == AMD_CG_STATE_GATE ? true : false);
-+				state == AMD_CG_STATE_GATE);
+@@ -2195,7 +2195,7 @@ static int sdma_v4_0_set_powergating_state(void *handle,
+ 	switch (adev->asic_type) {
+ 	case CHIP_RAVEN:
+ 		sdma_v4_1_update_power_gating(adev,
+-				state == AMD_PG_STATE_GATE ? true : false);
++				state == AMD_PG_STATE_GATE);
  		break;
  	default:
  		break;
