@@ -2,66 +2,104 @@ Return-Path: <SRS0=N3S+=3L=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 71101C32771
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jan 2020 20:41:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FFF8C32771
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jan 2020 21:06:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3ADDB21835
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jan 2020 20:41:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 35DA121734
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jan 2020 21:06:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jScAA0k2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3ADDB21835
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Y8iVaJ2Y"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 35DA121734
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 069696F630;
-	Wed, 22 Jan 2020 20:41:53 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 028F76F630;
- Wed, 22 Jan 2020 20:41:51 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id z3so576716wru.3;
- Wed, 22 Jan 2020 12:41:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Qdw7JpRHyaMu3FUJiTZyQrT3wWOYBrtmMuNGKfuANjs=;
- b=jScAA0k2ZSjJRzVDFGf6AVQaoZ7/K1FY8CbHEEq90AxBjy8ekR+45JRmO/0ZKdk6Kg
- HolN58FsABXvX0tQf6WilrBiNniN3MpjjigZRCj1XWp6C3eoivzbOklHINFEi8OL27jA
- X/DcKqhcH06lbEgqyARvuwGz/wNp2nJtn9jaPeEOGrEQrf+Ydlpp0V8yOVIwDCgaIELO
- fpA+MMeLLeLdDrGVu+xkHENnXqBZId0cRJOm0Xf5hCxio4w+J/s2MGxiZytyw/V8RC11
- Q2TUAjl8j39xITxRmKmcsMj5v05+OEtLstxXpmGZ12q+ax31L0QUT09p9+gOBbolA1u2
- cosw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Qdw7JpRHyaMu3FUJiTZyQrT3wWOYBrtmMuNGKfuANjs=;
- b=RYgJOOowGi5bdZdeXfakvZxOqCr7ZuZCfdQ54YKHq+R2POrG++TqlUgHllAGRVTb8s
- IhWLHI+FsCVO4KACjvg1jC0ehyVM8P3/QSkupTMxjNPpzGUeVxHklzpVf7DMt+3Zoz6G
- KaOb61ZskX4TqkFuXpKoEcOMixpOk3PQchFpI9dTqJL2QnxvFF+gPP+5ymKyAApAhC7j
- kofz6yZOi9qW4FVmI+ZmNzKpUyFvQhmDpBmAW2LHMaFC/9cKsa74T883k3JyFpMJsTyP
- lrPmwIrTI63F8cixdhwTktT5VZr/FQ8Gb9cLk96iAcISG8ylgmjksHjo8dRHmctD48wn
- d6Dw==
-X-Gm-Message-State: APjAAAVm4U445rY4aeOOsIdZgedgLg5XO0MNOgyL6oaSxlA5YpBnZIis
- LTh25tQa5+VmOI/hZngSNj8X4Pjmqk1Pl6DYxtc=
-X-Google-Smtp-Source: APXvYqyhX1wOGJFOsB5ufkPnKOsAev6KnrN0YHJmFBY/gUCypnbvRr913/FnV7MjADfTHjvVFEG82onnpl23B2MXdFE=
-X-Received: by 2002:adf:ec4c:: with SMTP id w12mr13775560wrn.124.1579725710701; 
- Wed, 22 Jan 2020 12:41:50 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDCA16F63C;
+	Wed, 22 Jan 2020 21:06:01 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2085.outbound.protection.outlook.com [40.107.243.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C8976F63C;
+ Wed, 22 Jan 2020 21:06:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=W99ZDTMwCUGoGPJYwwPXbmNTnKd9afQHBeekFfMFUZDwcwLDcprSiyFTmOWAmNJg1TfdKRQN5pO0NTg+P9DdHVa9evp1BzrobLmvy/DeRNgctUajKm3jHnqfDEXivKmJ4OlHix1KmeXtXZOl/WqsEolhRCV3kSQcGWt3zRVQLCwy/u4O2ep1mDG4xS5oW9tsDscp2QK9PJOyRLd0HY3HD//UEItN6qTPef9/MhPJtWjvQupOiZVwXJFKGjUptwI+wF5/VyWmfOfY1XTuhPg6KcsEcUCNgPtXWQVDBRKTZ+wyonZJ0JtSGuq0HvQC3965rlDCJPLBLRROpCD7Awsr8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h25s12haoap5ZnIHOpgB5Mn8mM/RqFoNuZm23ERPXGA=;
+ b=W+5SeY4B8WK2elFaJwf5UJnjg/zuFtBONclxvCTdl8dSOBqbJfS7tbDwF02rvorAJXaT8S2dIrh/AEYB1/0G7g8AWWHb/bwXuC1mkrx5Spto5JS1vXa36eUfSR4LZkgwNFVHxk5FD6AD1A861jcLMClHKxuSL2MTFTZy4TXbCuxG+abTmF/BVOgzfwzikDHi70wf69M9WPyayhpCjYdQ91Bv1RRrlV308SJdyvk/Pl7LF9s62BEfLdalsEtI8qjZ130wFQ2W891YaCIPErVW9iZqmr3XdY+rUg+KybtsI1OMED7iymvKyw7j3+cb2r/nWmkL9mJNFWUT+LEKzjFPiA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h25s12haoap5ZnIHOpgB5Mn8mM/RqFoNuZm23ERPXGA=;
+ b=Y8iVaJ2Y6X66Ac6k5j6+sQ0/2I2iEPRLh8demgJNiJJzy9iFW/lw70e+nrhiO4xDE63IzmUVFREIAOhvy/9qsDW3D9ouvmqQfgJpbsqugNiQrg9ZSOsKUBggztKRlgE60M2hG0qeR14arl/AIm1LMzEm2jPJLhzc3wfUTxDBtig=
+Received: from DM3PR12CA0093.namprd12.prod.outlook.com (2603:10b6:0:55::13) by
+ CY4PR1201MB2550.namprd12.prod.outlook.com (2603:10b6:903:ce::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.21; Wed, 22 Jan
+ 2020 21:05:58 +0000
+Received: from CO1NAM11FT051.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::208) by DM3PR12CA0093.outlook.office365.com
+ (2603:10b6:0:55::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2665.19 via Frontend
+ Transport; Wed, 22 Jan 2020 21:05:59 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT051.mail.protection.outlook.com (10.13.174.114) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2644.19 via Frontend Transport; Wed, 22 Jan 2020 21:05:57 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 22 Jan
+ 2020 15:05:57 -0600
+Received: from blakha.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Wed, 22 Jan 2020 15:05:56 -0600
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+To: <harry.wentland@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, <Alexander.Deucher@amd.com>
+Subject: [PATCH 0/6] HDCP SRM interface v2
+Date: Wed, 22 Jan 2020 16:05:42 -0500
+Message-ID: <20200122210548.2647-1-Bhawanpreet.Lakha@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <1579679591-116290-1-git-send-email-zhengbin13@huawei.com>
-In-Reply-To: <1579679591-116290-1-git-send-email-zhengbin13@huawei.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 22 Jan 2020 15:41:38 -0500
-Message-ID: <CADnq5_MOy+spK8MO8Sw96DOz6tstRBeDm-ZMGd8VNxN21sZBBQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/powerplay: use true,
- false for bool variable in smu7_hwmgr.c
-To: Zheng Bin <zhengbin13@huawei.com>
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(346002)(376002)(39860400002)(136003)(428003)(189003)(199004)(26005)(186003)(7696005)(450100002)(6636002)(1076003)(4326008)(5660300002)(70206006)(81166006)(426003)(81156014)(2616005)(336012)(8676002)(70586007)(8936002)(6666004)(86362001)(478600001)(110136005)(2906002)(36756003)(316002)(356004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR1201MB2550; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: de427eb4-3908-4ff0-fae1-08d79f7ee0bc
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB2550:
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB25501E8F4DF26355D6AC9B53F90C0@CY4PR1201MB2550.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:843;
+X-Forefront-PRVS: 029097202E
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: e3tcHSKP36IqccGXx0nkeVVzCK+T1uy6jJxlpuyXzpcJ3gZ7V6nqG96zCuySgWrh8vd+CSjpzqcn/pTc+jQWwii+hhL7y6gHSmjcclhw2FhzCA+xaWkUrG0oRbE1YebJy5qNCimaJAF04op+AByoXgmAAcuZCWNaTh1qlmgPn+wL+o6RKEIY1NMCMLUXqoEjftN8mMa2G29BpTO/ytKqo1gT6Izxr3vjhxTbC0wY9PEO7rm5YwOweOb6Tmp7iTfCJM9x9YOb1mi8m1ux+PHhDSKzZPh/d2Qds2vW6gZu7nbJXqZsvTZAGYZKkell+oy5FDcjakeLmlGm6OTkCH2edLuHQd/tb81oTg02yMbnq+WxZNCxYwFqDuFj1fVChxsygSePobvy2i5F0cB71Rp6FvTSeif8NCCB/VomHAKgfUMtZ4GTZ2fH9erGeWpoqdkG
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2020 21:05:57.9800 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: de427eb4-3908-4ff0-fae1-08d79f7ee0bc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2550
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,76 +111,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jan 22, 2020 at 3:22 AM Zheng Bin <zhengbin13@huawei.com> wrote:
->
-> From: zhengbin <zhengbin13@huawei.com>
->
-> Fixes coccicheck warning:
->
-> drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c:723:2-50: WARNING: Assignment of 0/1 to bool variable
-> drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c:733:3-52: WARNING: Assignment of 0/1 to bool variable
-> drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c:747:3-51: WARNING: Assignment of 0/1 to bool variable
->
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: zhengbin <zhengbin13@huawei.com>
+These patches adds support for SRM loading. SRM has to be saved in a
+non-volatile memory(spec) and PSP can't do that directly so we need to
+use the driver to do this
 
-Applied.  thanks!
+Since the kernel cannot directly write to system storage we need to provide an
+interface so that the usermode can do it for us
 
-Alex
+v2
+-update commit descriptions
+  drm/amd/display: Add sysfs interface for set/get srm
+  drm/amd/display: update psp interface header
+-update comment for sysfs
+  drm/amd/display: Add sysfs interface for set/get srm
+-use define instead of a magic number
+  drm/amd/display: call psp set/get interfaces
 
-> ---
->  drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> index d70abad..bf04cfe 100644
-> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-> @@ -720,7 +720,7 @@ static int smu7_setup_dpm_tables_v0(struct pp_hwmgr *hwmgr)
->                 data->dpm_table.vddc_table.dpm_levels[i].value = allowed_vdd_mclk_table->entries[i].v;
->                 data->dpm_table.vddc_table.dpm_levels[i].param1 = std_voltage_table->entries[i].Leakage;
->                 /* param1 is for corresponding std voltage */
-> -               data->dpm_table.vddc_table.dpm_levels[i].enabled = 1;
-> +               data->dpm_table.vddc_table.dpm_levels[i].enabled = true;
->         }
->
->         data->dpm_table.vddc_table.count = allowed_vdd_sclk_table->count;
-> @@ -730,7 +730,7 @@ static int smu7_setup_dpm_tables_v0(struct pp_hwmgr *hwmgr)
->                 /* Initialize Vddci DPM table based on allow Mclk values */
->                 for (i = 0; i < allowed_vdd_mclk_table->count; i++) {
->                         data->dpm_table.vddci_table.dpm_levels[i].value = allowed_vdd_mclk_table->entries[i].v;
-> -                       data->dpm_table.vddci_table.dpm_levels[i].enabled = 1;
-> +                       data->dpm_table.vddci_table.dpm_levels[i].enabled = true;
->                 }
->                 data->dpm_table.vddci_table.count = allowed_vdd_mclk_table->count;
->         }
-> @@ -744,7 +744,7 @@ static int smu7_setup_dpm_tables_v0(struct pp_hwmgr *hwmgr)
->                  */
->                 for (i = 0; i < allowed_vdd_mclk_table->count; i++) {
->                         data->dpm_table.mvdd_table.dpm_levels[i].value = allowed_vdd_mclk_table->entries[i].v;
-> -                       data->dpm_table.mvdd_table.dpm_levels[i].enabled = 1;
-> +                       data->dpm_table.mvdd_table.dpm_levels[i].enabled = true;
->                 }
->                 data->dpm_table.mvdd_table.count = allowed_vdd_mclk_table->count;
->         }
-> --
-> 2.7.4
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+Bhawanpreet Lakha (6):
+  drm/amd/display: Pass amdgpu_device instead of psp_context
+  drm/amd/display: update psp interface header
+  drm/amd/display: Add sysfs interface for set/get srm
+  drm/amd/display: Load srm before enabling HDCP
+  drm/amd/display: call psp set/get interfaces
+  drm/amd/display: REFERENCE for srm interface patches
+
+ REFERENCE                                     |  49 ++++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   2 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    | 238 +++++++++++++++++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.h    |   9 +-
+ .../drm/amd/display/modules/hdcp/hdcp_psp.h   |  26 +-
+ 5 files changed, 317 insertions(+), 7 deletions(-)
+ create mode 100644 REFERENCE
+
+-- 
+2.17.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
