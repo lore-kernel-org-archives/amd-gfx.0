@@ -2,91 +2,66 @@ Return-Path: <SRS0=N3S+=3L=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 101A6C2D0DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jan 2020 20:18:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96AD5C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jan 2020 20:22:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D1B7B2073A
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jan 2020 20:18:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6844824655
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jan 2020 20:22:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GowiQHd5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D1B7B2073A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LmLw0Hxd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6844824655
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FDF06F8B2;
-	Wed, 22 Jan 2020 20:18:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5CF86F60D
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jan 2020 20:18:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1579724307;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=CZFB953qV+gIBO5olx5LNPvRiXJZ0yhjDpEkk+yDmPc=;
- b=GowiQHd55CHiABT4nV+YwIKhVGP/FEQoJWcNfBTwb8pHj4T3DMR00gHxj/7x8HYPQptquA
- YsmwM7bkCRKvHCtYKrOqOG/GPVO3ORfwdVChes0hNfAkvI25s30MUtbm110ANjPHETBuV0
- QTYJ3Bh2ZsycyLovv2VvB9VFh1iPJ2w=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-417-ZwLe4xXkNt2P7LUD4QqJXg-1; Wed, 22 Jan 2020 15:18:26 -0500
-Received: by mail-qt1-f198.google.com with SMTP id z11so655211qts.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jan 2020 12:18:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A8386F8C0;
+	Wed, 22 Jan 2020 20:22:05 +0000 (UTC)
+Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
+ [IPv6:2a00:1450:4864:20::42a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4A536F8BF;
+ Wed, 22 Jan 2020 20:22:03 +0000 (UTC)
+Received: by mail-wr1-x42a.google.com with SMTP id t2so528688wrr.1;
+ Wed, 22 Jan 2020 12:22:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=tVuD5M/MYCtIro+NiHeJqsEtK6AMbnd7kxhI4hTwchA=;
+ b=LmLw0HxdNBFf7ECjrsO5sltd9/xYioUniTzKT1bbDVnXENzkPG3gkkLmeSy4qClr2d
+ e8dT3ZVxttShq2xC9cc1Cb9H5fwFDaRTdS7zwQDVHadroujs4Dv+nNgpwlxkeUCI5frb
+ Vofl2Q+dUCC2bz+5GNm/pxC+YJfpVsVq9x1/KNCknqF0YhdXSqMVWzmWSkYid8F78UrJ
+ RwdP9PO57Y7Ws9hUBvPv6v97LGzGZtH69IFU7ssOR0uaB45Wd7jSd5uvEsQH2s581CrT
+ UFWB/62GGDv5384otm3o+Gr7ZS6NcCZ61ih24zvl4D7v6dMYOsMEPnulIRyl0oEWsyVI
+ qCXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=CZFB953qV+gIBO5olx5LNPvRiXJZ0yhjDpEkk+yDmPc=;
- b=mTrnPj0c3YgS3JEq7H43DfanbaHOwxEhMz+jgot1pqa7IetKH+FbZp3/+nSweI8bPR
- rc8qeFxfFs/jOxQdGJ0tBpn3K3u3Da2e8IGwYqPQZ1ppyVHaTQWw0d0bB0cC44aEPPK0
- W/waI3dMvpMeV/O6SKV0x2oAL2fhgMU4akNp5T58ipm+cS9EsfSTxiGS+AXqB3foKHkd
- 6PeS2kZDP6BJC9v7vEIQYtSClHqpzWiXVUdcNzSBEKktGKNpVcRiFH5BaaKPALaXQCix
- heAf7APrTfEI4bDws1yaHryUpsXY8cHzyYaceNL8UZzVSgLVD1TssOkQMws3S8d3G8iP
- aMpQ==
-X-Gm-Message-State: APjAAAX46bmS9eVZWyNkIwo8oiEEYN5OFq853nrG2l7XAKTrGa3YqVTD
- HVgIiekaVQ8/bUFyX2Nymij6gsb/iT0EA/+hGPALi8yXeSPVG5ibJUMGwFAF6pXgENqBPWHHaXx
- tbtamxSi/l7OTPmE1hxXnCcl2rw==
-X-Received: by 2002:a05:620a:56f:: with SMTP id
- p15mr10557838qkp.160.1579724305581; 
- Wed, 22 Jan 2020 12:18:25 -0800 (PST)
-X-Google-Smtp-Source: APXvYqxJt7eLOsdHLJ4QKtTD3EU7lXYZhiFee2cOwokWCRVaccEWePb8GAyHZ6oAM374sdLYV1zyoA==
-X-Received: by 2002:a05:620a:56f:: with SMTP id
- p15mr10557814qkp.160.1579724305308; 
- Wed, 22 Jan 2020 12:18:25 -0800 (PST)
-Received: from dhcp-10-20-1-90.bss.redhat.com ([144.121.20.162])
- by smtp.gmail.com with ESMTPSA id m8sm21978682qtk.60.2020.01.22.12.18.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Jan 2020 12:18:24 -0800 (PST)
-Message-ID: <696e7d77904ecbe86878169efa18f49d7cb1a4ec.camel@redhat.com>
-Subject: Re: [PATCH v2] drm/dp_mst: Remove VCPI while disabling topology mgr
-From: Lyude Paul <lyude@redhat.com>
-To: "Lin, Wayne" <Wayne.Lin@amd.com>, Sean Paul <sean@poorly.run>
-Date: Wed, 22 Jan 2020 15:18:23 -0500
-In-Reply-To: <DM6PR12MB4137A84B694D85E26F8050D8FC0C0@DM6PR12MB4137.namprd12.prod.outlook.com>
-References: <20191205090043.7580-1-Wayne.Lin@amd.com>
- <a6c4db964da7e00a6069d40abcb3aa887ef5522b.camel@redhat.com>
- <ec3e020798d99ce638c05b0f3eb00ebf53c3bd7c.camel@redhat.com>
- <DM6PR12MB41371AC4B0EC24E84AB0C84DFC580@DM6PR12MB4137.namprd12.prod.outlook.com>
- <CAMavQK+pS40SQibFuirjLAmjmy8NbOcXWvNsFP8PanS6dEcXWw@mail.gmail.com>
- <31d9eabe57a25ff8f4df22e645494d57715cdc0b.camel@redhat.com>
- <CAMavQK+pOtQ62mp4DSRDW7nHDz4doW3LA5AV1NML-wFa3s3cQA@mail.gmail.com>
- <cfae7fec779bd8fa4da0ad0e7664cf797a1700ab.camel@redhat.com>
- <DM6PR12MB4137A84B694D85E26F8050D8FC0C0@DM6PR12MB4137.namprd12.prod.outlook.com>
-Organization: Red Hat
-User-Agent: Evolution 3.34.3 (3.34.3-1.fc31)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=tVuD5M/MYCtIro+NiHeJqsEtK6AMbnd7kxhI4hTwchA=;
+ b=Do4d5XKoTNZODMdrNcNUlgIsx88qt6p4HAnfz0j9jH1SCtTg8IE0i3HjjcyosUps/v
+ JGhxyjeAu/vrOKeHKwKqzQi/T4IDrAIvEZdyxTiRvMwhpQ4WMf6fIyh7pReNNXxeaSr0
+ BlhwH0FCrBIGTS5O/oSN6kzuIjeO+ReHca1UXMYYl/vw0x6fQLXWIBhLy1DErUbq1pJs
+ AlVvQBWkr6zYLVZMFdjZ7SZ4mA8X/YdETzqXO9BvyNPJNWFs3w6lk0RwNm4dNCntu8xg
+ oywtXk5BAZThg4UI2/FcRORk1r2vUhfVeHpj+2gu0z45q+2ubQebsZxsLJdRwKsu7qIl
+ R28w==
+X-Gm-Message-State: APjAAAXJfjlrGwmIa7dcXFkhDcOPsgiiJVaQxt7YI3W3fJwj0T82iqPv
+ MLP6KKtDZC6/HXCzygxzqCzzHksqBA2Km7S7euw=
+X-Google-Smtp-Source: APXvYqyeSw31DSoMsVo1tGcVhk/TW2SRv/VBLC1ScXJUSxOqdCQ+CHeLEYjUrgNXmb35TLEgo95z3NVp92YSiJflkKE=
+X-Received: by 2002:adf:ec4c:: with SMTP id w12mr13693493wrn.124.1579724522583; 
+ Wed, 22 Jan 2020 12:22:02 -0800 (PST)
 MIME-Version: 1.0
-X-MC-Unique: ZwLe4xXkNt2P7LUD4QqJXg-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+References: <20200121135540.165798-1-chenzhou10@huawei.com>
+In-Reply-To: <20200121135540.165798-1-chenzhou10@huawei.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 22 Jan 2020 15:21:48 -0500
+Message-ID: <CADnq5_OeoTqpf5Rhtwac8gJ_8P5rUKYhrhRDC-5BgHt0WUYFnw@mail.gmail.com>
+Subject: Re: [PATCH -next 00/14] drm/amdgpu: remove unnecessary conversion to
+ bool
+To: Chen Zhou <chenzhou10@huawei.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,89 +73,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>, "Zuo,
- Jerry" <Jerry.Zuo@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "Kazlauskas, Nicholas" <Nicholas.Kazlauskas@amd.com>
+Cc: Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>,
+ "Kuehling, Felix" <Felix.Kuehling@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ "Deucher, Alexander" <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2020-01-22 at 04:48 +0000, Lin, Wayne wrote:
-> [AMD Public Use]
-> 
-> Sorry for any inconvenience I brought.
+On Tue, Jan 21, 2020 at 11:08 AM Chen Zhou <chenzhou10@huawei.com> wrote:
+>
+> This patch series remove unnecessary conversion to bool in dir
+> drivers/gpu/drm/amd/amdgpu/, which is detected by coccicheck.
 
-Nothing to be sorry about! This happens from time to time, it's my fault for
-not noticing it in the first place anyway :P. Ville from Intel is able to
-review it, so there's no rush
+Thanks for the patches.  Already applied this patch:
+https://patchwork.freedesktop.org/series/72281/#rev2
+which covers these.
 
-> Thank you so much Lyude, I will have a look on that fix patch later.
-> 
-> > -----Original Message-----
-> > From: Lyude Paul <lyude@redhat.com>
-> > Sent: Saturday, January 18, 2020 4:45 AM
-> > To: Sean Paul <sean@poorly.run>
-> > Cc: Lin, Wayne <Wayne.Lin@amd.com>; dri-devel@lists.freedesktop.org;
-> > amd-gfx@lists.freedesktop.org; Zuo, Jerry <Jerry.Zuo@amd.com>; Kazlauskas,
-> > Nicholas <Nicholas.Kazlauskas@amd.com>; stable@vger.kernel.org
-> > Subject: Re: [PATCH v2] drm/dp_mst: Remove VCPI while disabling topology
-> > mgr
-> > 
-> > Yeah that's fine with me, I'll send out a revert for this in just a moment
-> > 
-> > On Fri, 2020-01-17 at 15:43 -0500, Sean Paul wrote:
-> > > On Fri, Jan 17, 2020 at 3:27 PM Lyude Paul <lyude@redhat.com> wrote:
-> > > > On Fri, 2020-01-17 at 11:19 -0500, Sean Paul wrote:
-> > > > > On Mon, Dec 9, 2019 at 12:56 AM Lin, Wayne <Wayne.Lin@amd.com>
-> > wrote:
-> > > > > > > -----Original Message-----
-> > > > > > > From: Lyude Paul <lyude@redhat.com>
-> > > > > > > Sent: Saturday, December 7, 2019 3:57 AM
-> > > > > > > To: Lin, Wayne <Wayne.Lin@amd.com>;
-> > > > > > > dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org
-> > > > > > > Cc: Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>;
-> > > > > > > Wentland, Harry <Harry.Wentland@amd.com>; Zuo, Jerry
-> > > > > > > <Jerry.Zuo@amd.com>; stable@vger.kernel.org
-> > > > > > > Subject: Re: [PATCH v2] drm/dp_mst: Remove VCPI while
-> > > > > > > disabling topology mgr
-> > > > > > > 
-> > > > > > > On Fri, 2019-12-06 at 14:24 -0500, Lyude Paul wrote:
-> > > > > > > > Reviewed-by: Lyude Paul <lyude@redhat.com>
-> > > > > > > > 
-> > > > > > > > I'll go ahead and push this to drm-misc-next-fixes right
-> > > > > > > > now, thanks!
-> > > > > > > 
-> > > > > > > Whoops-meant to say drm-misc-next here, anyway, pushed!
-> > > > > > Thanks for your time!
-> > > > > > 
-> > > > > 
-> > > > > I'm getting the following warning on unplug with this patch:
-> > > > > 
-> > > 
-> > > \snip
-> > > 
-> > > > I think I've got a better fix for this that should avoid that
-> > > > problem, I'll write up a patch and send it out in a bit
-> > > 
-> > > Thanks Lyude! Should we revert this patch for the time being?
-> > > 
-> > > > --
-> > > > Cheers,
-> > > >         Lyude Paul
-> > > > 
-> > --
-> > Cheers,
-> > 	Lyude Paul
+Alex
+
+>
+> Chen Zhou (14):
+>   drm/amdgpu: remove unnecessary conversion to bool in mmhub_v1_0.c
+>   drm/amdgpu: remove unnecessary conversion to bool in vega10_ih.c
+>   drm/amdgpu: remove unnecessary conversion to bool in navi10_ih.c
+>   drm/amdgpu: remove unnecessary conversion to bool in gfx_v10_0.c
+>   drm/amdgpu: remove unnecessary conversion to bool in sdma_v5_0.c
+>   drm/amdgpu: remove unnecessary conversion to bool in athub_v1_0.c
+>   drm/amdgpu: remove unnecessary conversion to bool in amdgpu_acp.c
+>   drm/amdgpu: remove unnecessary conversion to bool in soc15.c
+>   drm/amdgpu: remove unnecessary conversion to bool in nv.c
+>   drm/amdgpu: remove unnecessary conversion to bool in mmhub_v9_4.c
+>   drm/amdgpu: remove unnecessary conversion to bool in amdgpu_device.c
+>   drm/amdgpu: remove unnecessary conversion to bool in athub_v2_0.c
+>   drm/amdgpu: remove unnecessary conversion to bool in sdma_v4_0.c
+>   drm/amdgpu: remove unnecessary conversion to bool in gfx_v9_0.c
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c    |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  8 +++-----
+>  drivers/gpu/drm/amd/amdgpu/athub_v1_0.c    |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/athub_v2_0.c    |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c    |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c    |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c    |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/navi10_ih.c     |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/nv.c            |  8 ++++----
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c     |  6 +++---
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c     |  4 ++--
+>  drivers/gpu/drm/amd/amdgpu/soc15.c         | 28 ++++++++++++++--------------
+>  drivers/gpu/drm/amd/amdgpu/vega10_ih.c     |  2 +-
+>  15 files changed, 43 insertions(+), 45 deletions(-)
+>
 > --
-> Best regards,
-> Wayne
--- 
-Cheers,
-	Lyude Paul
-
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
