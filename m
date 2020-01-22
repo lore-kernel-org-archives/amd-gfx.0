@@ -1,4 +1,4 @@
-Return-Path: <SRS0=lIYJ=3K=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=N3S+=3L=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
@@ -7,97 +7,96 @@ X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A3A94C2D0CE
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 23:34:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DE577C2D0CE
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jan 2020 00:07:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6F06524125
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jan 2020 23:34:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8BE192253D
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jan 2020 00:07:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1Y7sqGlb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F06524125
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PhvfBVGg"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8BE192253D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 231E56EDEB;
-	Tue, 21 Jan 2020 23:34:55 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2083.outbound.protection.outlook.com [40.107.236.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1D1B6EDEB
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jan 2020 23:34:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43E596EE7E;
+	Wed, 22 Jan 2020 00:07:08 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2074.outbound.protection.outlook.com [40.107.243.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82DFE6EE76
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jan 2020 00:07:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fXjwE7YK3j9kk5LUKSYSjw7FKZSpGrzyvvKCpGINyn0uNW/VmxuVBgGVzK9hqazCfjZC6kuGXikGLYxb6vgBKYlLlC/hutcdAfkvkK5ug+eTQg8c/5i1XH/ETc+0v5PZ5WV4o1Ydr8kmBFDKR2RItS5KgJ0cBqzyf+GjIweOJ1Simnh3XxRdbw8j5FAAuFNRuA05qCaaiNz3whX9jHy806xKDNh2+LkqLk01wIdG9OfuzJI8DOjBpA9UlR9D0ufBv9lDhvxnxKpVQt6VsExvY7Etca82VbgZoVHfsU5HI08kRnjZGVuq4xlpDhbS9GqhyqbqPZJSL6zNVXv3ADxHVQ==
+ b=oNxx4WKaIZcyXxXW/8VyDMoLilDnnlW5/Za5qgGWnqvHOvaAjQwXU9eDyd3IjEnE+GlPZWkp1OI2hywqOMk8TElVdayLtp0eKxXobOz6Szegt6/2DUBnngFXyyQPS02MUb7x6TklISQxflIs+25nAumn1MeOiQoXy45U2b/gPLfe91itYr0SS4SrHn5JBdrwo6CECKVsXlTKTM32qfbnGPRXgkn3zCPIVSTiZn4Qkg4MaV4T2i7C42C/Y1OXlJWg9YO2ouJTQvL/QjyiUVyrwljtT8nRU6YWut4AnWtC1MOcdmJS4iv2iaf0bxx0v/C3Oesm3L/hXYM9s4/y2pGeQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e8QbZRWPEh7TEpFNmH33j2nFaPCItqetbrT34SZSxpI=;
- b=iQWSu3ee8a8rsYY4E9xrElWM54IknDSpJ2mQxrqQu4J4Tx5RU6BGpWXTZDwn8Qwb56ykDVzdJqu6668WMFIcZxlFxXeHD/1jG4v2Y1kr8zvfDcdGwVKfl23qzmFRfbLvYa3kwXpgd92xUoMrYnwRC/+F5t7EypXCUMtF58BTbcXZ5aqlcAur841vRIiz0mCDA7FcvJe20FKrVWEcx2DTClTM3W2Is5TXhmNTHR3kta3uqNNpN2fJ3ISSL1kRrKKerYzTW6qglVM4r43BfArhNy8GfLd0Mp2OruQV/04JQpZ1fkBOIkd8p3ZOvNU4hmE0neDrjLK1QcJWRwUpyaSMxg==
+ bh=WhohDcKIBbaNbN4Dz6q+mJ+tnDroUbAxyZN694tyjic=;
+ b=ZuVzrXyvENZVHf2Fza8cwSBveow/O8eP9gmp0IVYpzzlmiXc+AwoXn+NTLc7X26e9DxkfWTFHrhX3pa5UeXWKroryQCKXNCtkFkLsVtxDf+F5aEp2di+oJFKwsMxHmf6jCftfGf0QXWmh3Usk6bt/ymycoXRQ0EeA0Z/6m99/xkdvDgpX+zk+rJA9EVDbmEABlmEH5qDQsy/CnRjAYYaIGDOCruDyGBFwg3x6e6EqhF8e2AEvWtsMvRtIoUN0mVeoYBH4sgMHab2ZeBBFSAJgX6hYmLRkYLdQG+weGUe0CF57XIT7YVylrR2Zb4oE86fv/lcQzXS3lBMYsLfOWfeeA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=e8QbZRWPEh7TEpFNmH33j2nFaPCItqetbrT34SZSxpI=;
- b=1Y7sqGlb6B0xX1L/HH9/kUsSEORpCrxjo0121bJVLlk1l/6GSbysiNWd8SHKvkhhy0lI6EIfq4ye1PzY17yeMSfwg/D8SF24UHOln7rvuP3o64xNlmkd3C3QeYmcyXoCrqJshyCzrnKLknn6QCVG6HJ4pZt40xUrATC6z2lNUpk=
+ bh=WhohDcKIBbaNbN4Dz6q+mJ+tnDroUbAxyZN694tyjic=;
+ b=PhvfBVGgc0ibjyLx4GB6KSI+ZRJFy8J1iIPPRH5CD5UjqQ49stCz56W7+w8b94cdXWmVn6aTGfp3ir17yxq97LXAvm9QVlfnE9bPxbU8V3TnMTMiK5aSpDAnX/RdAYI7Y0enwSFBnnxplTmUI1QS5sKZ7cijvAmFAWcmPEoDIUI=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Luben.Tuikov@amd.com; 
 Received: from DM6PR12MB3355.namprd12.prod.outlook.com (20.178.29.90) by
- DM6PR12MB3017.namprd12.prod.outlook.com (20.178.199.141) with Microsoft SMTP
+ DM6PR12MB3131.namprd12.prod.outlook.com (20.178.31.77) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.20; Tue, 21 Jan 2020 23:34:51 +0000
+ 15.20.2644.23; Wed, 22 Jan 2020 00:07:04 +0000
 Received: from DM6PR12MB3355.namprd12.prod.outlook.com
  ([fe80::799b:b372:6589:c8a]) by DM6PR12MB3355.namprd12.prod.outlook.com
- ([fe80::799b:b372:6589:c8a%7]) with mapi id 15.20.2644.027; Tue, 21 Jan 2020
- 23:34:50 +0000
-Subject: Re: [PATCH 1/2] drm/amdgpu: individualize amdgpu entity allocation
- per HW IP
+ ([fe80::799b:b372:6589:c8a%7]) with mapi id 15.20.2644.027; Wed, 22 Jan 2020
+ 00:07:04 +0000
+Subject: Re: [PATCH 2/2] drm/amdgpu: allocate entities on demand
 To: Nirmoy Das <nirmoy.aiemd@gmail.com>, amd-gfx@lists.freedesktop.org
 References: <20200121165002.3709-1-nirmoy.das@amd.com>
+ <20200121165002.3709-2-nirmoy.das@amd.com>
 From: Luben Tuikov <luben.tuikov@amd.com>
-Message-ID: <3d159a30-f7f5-a4f7-b63a-26b9f5df0ec2@amd.com>
-Date: Tue, 21 Jan 2020 18:34:49 -0500
+Message-ID: <50c72f0a-bc2d-3467-0312-edb0bb858fb4@amd.com>
+Date: Tue, 21 Jan 2020 19:07:03 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
-In-Reply-To: <20200121165002.3709-1-nirmoy.das@amd.com>
+In-Reply-To: <20200121165002.3709-2-nirmoy.das@amd.com>
 Content-Language: en-CA
-X-ClientProxiedBy: YTXPR0101CA0059.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::36) To DM6PR12MB3355.namprd12.prod.outlook.com
+X-ClientProxiedBy: YTXPR0101CA0005.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::18) To DM6PR12MB3355.namprd12.prod.outlook.com
  (2603:10b6:5:115::26)
 MIME-Version: 1.0
 Received: from localhost.localdomain (165.204.55.250) by
- YTXPR0101CA0059.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::36) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.20 via Frontend
- Transport; Tue, 21 Jan 2020 23:34:50 +0000
+ YTXPR0101CA0005.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2644.18 via Frontend Transport; Wed, 22 Jan 2020 00:07:04 +0000
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 50b1c9da-9c06-4838-47ff-08d79eca827f
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3017:|DM6PR12MB3017:
+X-MS-Office365-Filtering-Correlation-Id: 83a35977-054b-403f-9172-08d79ecf031a
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3131:|DM6PR12MB3131:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB30177358AEB3842F390E6A73990D0@DM6PR12MB3017.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
-X-Forefront-PRVS: 0289B6431E
+X-Microsoft-Antispam-PRVS: <DM6PR12MB31313E76D71B1B4FC7514B63990C0@DM6PR12MB3131.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Forefront-PRVS: 029097202E
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(136003)(396003)(346002)(366004)(376002)(189003)(199004)(36756003)(8676002)(6512007)(478600001)(66556008)(66476007)(5660300002)(8936002)(31696002)(26005)(81156014)(86362001)(186003)(6506007)(53546011)(81166006)(16526019)(52116002)(2906002)(2616005)(44832011)(31686004)(6486002)(956004)(316002)(66946007)(4326008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3017;
+ SFS:(10009020)(4636009)(346002)(376002)(366004)(396003)(39860400002)(136003)(189003)(199004)(81156014)(6506007)(316002)(53546011)(31696002)(36756003)(5660300002)(8676002)(52116002)(86362001)(478600001)(26005)(81166006)(66946007)(66476007)(66556008)(6512007)(2906002)(4326008)(16526019)(186003)(31686004)(6486002)(8936002)(2616005)(44832011)(956004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3131;
  H:DM6PR12MB3355.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NfsJsu2fVk2cpUcBpEyQfNEqbVhwnJLeBGfoBzUojhaqedTdmfWklwgU+iw20mrMbEGxDDvVn3x65VY28fRks94ZEWZYHM3nr/pl/wi3ZP6/ai7gFNXAxJhrzMgJCBYIceTkPy5EBA/H5T2gGDGxj9RlMMowOX/H8P9WUk2w0FZW7NTz075f8y/zB2saMNajZogFHYfyZ6fSCh2fvXOl7eSNveoI2TMyLmClO6QaVy8Kboe0FmNFgxEEoIXiVzW4U4lG158hOznuk43SXOKNjXsq/tdqv9006yT8sKXxkazvTJCQfucgnNJkZ/psQNeD96xPKNMyrstb7gMPMglwgFqFIrQYifBbG2KK1gq+hdudR7AXuJ/5Uhc9mBzx7Sx2Pe9M3aLWith9z8bTdEWifPF3yFyFU9gNNhgDi9nvjoSmOsdbyOwhg44wXTHzxNkv
+X-Microsoft-Antispam-Message-Info: mMx5YbHmCjNjRYTnITssUfLquGUYMn2j2iYSAUtlBKIa4rKgRZY+93+jDXpuxAGV6bHsSnftU1wpmeOSxl7RZ/8ffiHzuQnUqREa6rcKOOx1PN/0Bomf5pV1Ks0T/tmdccdD5tf4uuMl0YwtqMs5flJ7BF3H9c1+OUEThG6VclH8qI0O0JpHlXZ3xadKE/eW+cuoAzOy/i83oW1qHHEfTFgjv7mSFkblQTOyym5phRlmx8qRjre9cUwA+DcUNppSdXb5NNnOWDKlhsiUZPj9O3F4uTCkAzvrwWTM7GFX4svBnhA5wPseRLvaupLyPiPNB9Om1ygAHDcsRfPercILw7ost5WnmmayBsbEdDY/JWjo0aTXKKW1aKI/T4jvs1LoRvgIjG6WNDIsM2hYy1W3Cds28aNr9+B0bjg9yaojX0djpy30a+20b3Zeqv96QTCH
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50b1c9da-9c06-4838-47ff-08d79eca827f
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2020 23:34:50.8195 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83a35977-054b-403f-9172-08d79ecf031a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2020 00:07:04.5025 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uGnfYlIqOLzxNwy0BXmD9ttlzXJ6ArWP/M3AN9RHClB8K/D8SqgoEuaB2L7t5NKK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3017
+X-MS-Exchange-CrossTenant-UserPrincipalName: lJ09VeboMokmTKlD16EIDA1LUKDfQOEAikwHmszuc+eoyRmNaziZPnLfEgBTuac/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3131
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,308 +116,313 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 2020-01-21 11:50 a.m., Nirmoy Das wrote:
-> Do not allocate all the entity at once. This is required for
-> dynamic amdgpu_ctx_entity creation.
+> Currently we pre-allocate entities and fences for all the HW IPs on
+> context creation and some of which are might never be used.
+> 
+> This patch tries to resolve entity/fences wastage by creating entities
+> for a HW IP only when it is required.
 > 
 > Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 130 ++++++++++++------------
->  1 file changed, 65 insertions(+), 65 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 163 +++++++++++++-----------
+>  1 file changed, 92 insertions(+), 71 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> index 05c2af61e7de..91638a2a5163 100644
+> index 91638a2a5163..43f1266b1b2e 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-> @@ -42,16 +42,6 @@ const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM] = {
->  	[AMDGPU_HW_IP_VCN_JPEG]	=	1,
->  };
+> @@ -58,64 +58,37 @@ static int amdgpu_ctx_priority_permit(struct drm_file *filp,
+>  	return -EACCES;
+>  }
 >  
-> -static int amdgpu_ctx_total_num_entities(void)
-> -{
-> -	unsigned i, num_entities = 0;
-> -
-> -	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
-> -		num_entities += amdgpu_ctx_num_entities[i];
-> -
-> -	return num_entities;
-> -}
-> -
->  static int amdgpu_ctx_priority_permit(struct drm_file *filp,
->  				      enum drm_sched_priority priority)
+> -static int amdgpu_ctx_init(struct amdgpu_device *adev,
+> -			   enum drm_sched_priority priority,
+> -			   struct drm_file *filp,
+> -			   struct amdgpu_ctx *ctx)
+> +static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, u32 hw_ip)
+
+I believe we can set "hw_ip" to "const u32 hw_ip", to protect it
+from accidential changes.
+
 >  {
-> @@ -73,7 +63,6 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
->  			   struct drm_file *filp,
->  			   struct amdgpu_ctx *ctx)
->  {
-> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
->  	unsigned i, j;
->  	int r;
+> -	unsigned i, j;
+> -	int r;
+> +	struct amdgpu_device *adev = ctx->adev;
+> +	struct drm_gpu_scheduler **scheds;
+> +	struct drm_gpu_scheduler *sched;
+> +	unsigned num_scheds = 0;
+> +	enum drm_sched_priority priority;
+> +	int j, r;
 >  
-> @@ -87,28 +76,29 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
->  	memset(ctx, 0, sizeof(*ctx));
->  	ctx->adev = adev;
+> -	if (priority < 0 || priority >= DRM_SCHED_PRIORITY_MAX)
+> -		return -EINVAL;
+> +	ctx->entities[hw_ip] = kcalloc(amdgpu_ctx_num_entities[hw_ip],
+> +			sizeof(struct amdgpu_ctx_entity), GFP_KERNEL);
 >  
-> -
-> -	ctx->entities[0] = kcalloc(num_entities,
-> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
-> +		ctx->entities[i] = kcalloc(amdgpu_ctx_num_entities[i],
->  				   sizeof(struct amdgpu_ctx_entity),
->  				   GFP_KERNEL);
+> -	r = amdgpu_ctx_priority_permit(filp, priority);
+> -	if (r)
+> -		return r;
+> +	if (!ctx->entities[hw_ip])
+> +		return  -ENOMEM;
 
-Are these lines indented to the agument list column? They seem
-that they are not...
-
-> -	if (!ctx->entities[0])
-> -		return -ENOMEM;
->  
-> +		if (!ctx->entities[0]) {
-> +			r =  -ENOMEM;
-> +			goto error_cleanup_entity_memory;
-> +		}
-> +	}
-
-Brake the paragraphs with an empty line, here.
-
-> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
-> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
-
-Please use a brace for the outer for-loop, the i-counter.
-This style leaves the ending row/column
-empty for two levels of indentation.
+There seem to be two spaces here.
 
 >  
-> -	for (i = 0; i < num_entities; ++i) {
-> -		struct amdgpu_ctx_entity *entity = &ctx->entities[0][i];
-> +			struct amdgpu_ctx_entity *entity = &ctx->entities[i][j];
+> -	memset(ctx, 0, sizeof(*ctx));
+> -	ctx->adev = adev;
+> +	for (j = 0; j < amdgpu_ctx_num_entities[hw_ip]; ++j) {
 >  
-> -		entity->sequence = 1;
-> -		entity->fences = kcalloc(amdgpu_sched_jobs,
-> +			entity->sequence = 1;
-> +			entity->fences = kcalloc(amdgpu_sched_jobs,
->  					 sizeof(struct dma_fence*), GFP_KERNEL);
+> -	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+> -		ctx->entities[i] = kcalloc(amdgpu_ctx_num_entities[i],
+> -				   sizeof(struct amdgpu_ctx_entity),
+> -				   GFP_KERNEL);
+> +		struct amdgpu_ctx_entity *entity = &ctx->entities[hw_ip][j];
+>  
+> -		if (!ctx->entities[0]) {
+> -			r =  -ENOMEM;
+> -			goto error_cleanup_entity_memory;
+> +		entity->sequence = 1;
+> +		entity->fences = kcalloc(amdgpu_sched_jobs,
+> +				sizeof(struct dma_fence*), GFP_KERNEL);
 
-The indentation of sizeof(... seems incorrect.
+The indent here seems wrong...
 
-> -		if (!entity->fences) {
-> -			r = -ENOMEM;
-> -			goto error_cleanup_memory;
-> +			if (!entity->fences) {
-> +				r = -ENOMEM;
-> +				goto error_cleanup_memory;
-> +			}
+> +		if (!entity->fences) {
+> +			r = -ENOMEM;
+> +			goto error_cleanup_memory;
 >  		}
-> -	}
-
-This brace would stay...
-
-> -	for (i = 1; i < AMDGPU_HW_IP_NUM; ++i)
-> -		ctx->entities[i] = ctx->entities[i - 1] +
-> -			amdgpu_ctx_num_entities[i - 1];
+>  	}
+> -	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+> -		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+> -
+> -			struct amdgpu_ctx_entity *entity = &ctx->entities[i][j];
+> -
+> -			entity->sequence = 1;
+> -			entity->fences = kcalloc(amdgpu_sched_jobs,
+> -					 sizeof(struct dma_fence*), GFP_KERNEL);
+> -			if (!entity->fences) {
+> -				r = -ENOMEM;
+> -				goto error_cleanup_memory;
+> -			}
+> -		}
 >  
->  	kref_init(&ctx->refcount);
->  	spin_lock_init(&ctx->ring_lock);
-> @@ -179,44 +169,52 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
+> -	kref_init(&ctx->refcount);
+> -	spin_lock_init(&ctx->ring_lock);
+> -	mutex_init(&ctx->lock);
+> -
+> -	ctx->reset_counter = atomic_read(&adev->gpu_reset_counter);
+> -	ctx->reset_counter_query = ctx->reset_counter;
+> -	ctx->vram_lost_counter = atomic_read(&adev->vram_lost_counter);
+> -	ctx->init_priority = priority;
+> -	ctx->override_priority = DRM_SCHED_PRIORITY_UNSET;
+> -
+> -	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+> -		struct drm_gpu_scheduler **scheds;
+> -		struct drm_gpu_scheduler *sched;
+> -		unsigned num_scheds = 0;
+> -
+> -		switch (i) {
+> +	priority = (ctx->override_priority == DRM_SCHED_PRIORITY_UNSET) ?
+> +				ctx->init_priority : ctx->override_priority;
+
+You don't need parenthesis around the relational equality operator used here.
+It has higher precedence than the ternary conditional, in which it is embedded.
+
+> +	switch (hw_ip) {
+>  		case AMDGPU_HW_IP_GFX:
+>  			sched = &adev->gfx.gfx_ring[0].sched;
+>  			scheds = &sched;
+> @@ -156,12 +129,12 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
+>  			scheds = adev->jpeg.jpeg_sched;
+>  			num_scheds =  adev->jpeg.num_jpeg_sched;
+>  			break;
+> -		}
+> +	}
+>  
+> -		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j)
+> -			r = drm_sched_entity_init(&ctx->entities[i][j].entity,
+> -						  priority, scheds,
+> -						  num_scheds, &ctx->guilty);
+> +	for (j = 0; j < amdgpu_ctx_num_entities[hw_ip]; ++j) {
+> +		r = drm_sched_entity_init(&ctx->entities[hw_ip][j].entity,
+> +				priority, scheds,
+> +				num_scheds, &ctx->guilty);
+
+The indent here seems off...
+
+>  		if (r)
+>  			goto error_cleanup_entities;
+>  	}
+> @@ -169,28 +142,54 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
 >  	return 0;
 >  
 >  error_cleanup_entities:
-
-Notice this label sits after the "return 0;", so it really
-is an "unroll" and "free" operation.
-
-> -	for (i = 0; i < num_entities; ++i)
-> -		drm_sched_entity_destroy(&ctx->entities[0][i].entity);
-> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
-> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j)
-> +			drm_sched_entity_destroy(&ctx->entities[i][j].entity);
+> -	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+> -		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j)
+> -			drm_sched_entity_destroy(&ctx->entities[i][j].entity);
+> +	for (j = 0; j < amdgpu_ctx_num_entities[hw_ip]; ++j)
+> +		drm_sched_entity_destroy(&ctx->entities[hw_ip][j].entity);
 >  
 >  error_cleanup_memory:
-> -	for (i = 0; i < num_entities; ++i) {
-> -		struct amdgpu_ctx_entity *entity = &ctx->entities[0][i];
-> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
-
-Add the brace back in for completeness and style.
-
-> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
-> +			struct amdgpu_ctx_entity *entity = &ctx->entities[i][j];
+> -	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+> -		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+> -			struct amdgpu_ctx_entity *entity = &ctx->entities[i][j];
+> +	for (j = 0; j < amdgpu_ctx_num_entities[hw_ip]; ++j) {
+> +		struct amdgpu_ctx_entity *entity = &ctx->entities[hw_ip][j];
 >  
-> -		kfree(entity->fences);
-> -		entity->fences = NULL;
-> +			kfree(entity->fences);
-> +			entity->fences = NULL;
-> +		}
-> +
-> +error_cleanup_entity_memory:
-
-"cleanup" refers to something spilled, or something to be collected.
-(Or winning in a wagered game of chance.) Also at "module_exit", maybe.
-
-The kernel has traditionally used "unroll" and "free" for this. Now, since
-you're unrolling the loop (notice that it sits after the "return 0;"), then
-you can backtrack and name it like this:
-
-Error_unroll_free1:
-	for ( ; i >= 0; i--)
-		free(my_array[i]);
-
-> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
-> +		kfree(ctx->entities[i]);
-> +		ctx->entities[i] = NULL;
+> -			kfree(entity->fences);
+> -			entity->fences = NULL;
+> -		}
+> -
+> -error_cleanup_entity_memory:
+> -	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+> -		kfree(ctx->entities[i]);
+> -		ctx->entities[i] = NULL;
+> +		kfree(entity->fences);
+> +		entity->fences = NULL;
 >  	}
 >  
-> -	kfree(ctx->entities[0]);
-> -	ctx->entities[0] = NULL;
+> +	kfree(ctx->entities[hw_ip]);
+> +	ctx->entities[hw_ip] = NULL;
+> +
 >  	return r;
 >  }
 >  
+> +static int amdgpu_ctx_init(struct amdgpu_device *adev,
+> +			   enum drm_sched_priority priority,
+> +			   struct drm_file *filp,
+> +			   struct amdgpu_ctx *ctx)
+
+The indent of the argument list here seems off...
+
+> +{
+> +	int r;
+> +
+> +	if (priority < 0 || priority >= DRM_SCHED_PRIORITY_MAX)
+> +		return -EINVAL;
+
+This shouldn't be possible since it is an enum...
+But why not do this check in "amdgpu_ctx_priority_permit()"
+which is introduced by this patchset and used in the imediately
+following line?
+
+Or perhaps fix up amdgpu_to_sched_priority() where it is massaged
+from the ioctl argument which is an integer.
+
+On a side note: I noticed that the enum drm_sched_priority
+has no DRM_SCHED_PRIORITY_NONE.
+
+I've found value in setting the first value of an enum to
+"_NONE" (unless zero actually has a meaning as set by HW/etc., anyway).
+Enum drm_sched_priority starts with "_MIN" and "_LOW" which
+are both set to the same (zero) value.
+
+So having DRM_SCHED_PRIORITY_NONE, could be used to denote
+that no priority was given and any is fine, or to mean
+that if the priority was given out of range, set it to "none",
+to mean pick any.
+
+> +
+> +	r = amdgpu_ctx_priority_permit(filp, priority);
+> +	if (r)
+> +		return r;
+> +
+> +	memset(ctx, 0, sizeof(*ctx));
+> +	ctx->adev = adev;
+> +
+> +	kref_init(&ctx->refcount);
+> +	spin_lock_init(&ctx->ring_lock);
+> +	mutex_init(&ctx->lock);
+> +
+> +	ctx->reset_counter = atomic_read(&adev->gpu_reset_counter);
+> +	ctx->reset_counter_query = ctx->reset_counter;
+> +	ctx->vram_lost_counter = atomic_read(&adev->vram_lost_counter);
+> +	ctx->init_priority = priority;
+> +	ctx->override_priority = DRM_SCHED_PRIORITY_UNSET;
+> +
+> +	return 0;
+> +
+> +}
+> +
 >  static void amdgpu_ctx_fini(struct kref *ref)
 >  {
 >  	struct amdgpu_ctx *ctx = container_of(ref, struct amdgpu_ctx, refcount);
-> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
->  	struct amdgpu_device *adev = ctx->adev;
-> -	unsigned i, j;
-> +	unsigned i, j, k;
->  
->  	if (!adev)
+> @@ -201,10 +200,18 @@ static void amdgpu_ctx_fini(struct kref *ref)
 >  		return;
-> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
-> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
-> +			struct amdgpu_ctx_entity *entity = &ctx->entities[i][j];
+>  	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+>  		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+> -			struct amdgpu_ctx_entity *entity = &ctx->entities[i][j];
+> +			struct amdgpu_ctx_entity *entity;
+> +
+> +			if (!ctx->entities[i])
+> +				continue;
+> +
+> +			entity = &ctx->entities[i][j];
+> +			if (!entity->fences)
+> +				continue;
 >  
-> -	for (i = 0; i < num_entities; ++i) {
-> -		struct amdgpu_ctx_entity *entity = &ctx->entities[0][i];
-> +			for (k = 0; k < amdgpu_sched_jobs; ++k)
-> +				dma_fence_put(entity->fences[k]);
+> -			for (k = 0; k < amdgpu_sched_jobs; ++k)
+> +			for (k = 0; k < amdgpu_sched_jobs; ++k) {
+>  				dma_fence_put(entity->fences[k]);
+> +			}
+
+LKCS: A single non-compound statement as the body of a loop, doesn't
+warrant braces. So you can leave this is it was.
+
 >  
-> -		for (j = 0; j < amdgpu_sched_jobs; ++j)
-> -			dma_fence_put(entity->fences[j]);
-> +			kfree(entity->fences);
-> +		}
->  
-> -		kfree(entity->fences);
-> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
-> +		kfree(ctx->entities[i]);
-> +		ctx->entities[i] = NULL;
+>  			kfree(entity->fences);
+>  		}
+> @@ -237,6 +244,11 @@ int amdgpu_ctx_get_entity(struct amdgpu_ctx *ctx, u32 hw_ip, u32 instance,
+>  		return -EINVAL;
 >  	}
 >  
-> -	kfree(ctx->entities[0]);
->  	mutex_destroy(&ctx->lock);
-> -
->  	kfree(ctx);
+> +	if (ctx->entities[hw_ip] == NULL) {
+> +		amdgpu_ctx_init_entity(ctx, hw_ip);
+> +	}
+
+No need for braces.
+
+> +
+> +
+>  	*entity = &ctx->entities[hw_ip][ring].entity;
+>  	return 0;
 >  }
->  
-> @@ -279,14 +277,12 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
->  static void amdgpu_ctx_do_release(struct kref *ref)
->  {
->  	struct amdgpu_ctx *ctx;
-> -	unsigned num_entities;
-> -	u32 i;
-> +	u32 i, j;
+> @@ -281,8 +293,11 @@ static void amdgpu_ctx_do_release(struct kref *ref)
 >  
 >  	ctx = container_of(ref, struct amdgpu_ctx, refcount);
-> -
-> -	num_entities = amdgpu_ctx_total_num_entities();
-> -	for (i = 0; i < num_entities; i++)
-> -		drm_sched_entity_destroy(&ctx->entities[0][i].entity);
-> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
-> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j)
-> +			drm_sched_entity_destroy(&ctx->entities[i][j].entity);
+>  	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+> -		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j)
+> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+> +			if (!ctx->entities[i])
+> +				continue;
+>  			drm_sched_entity_destroy(&ctx->entities[i][j].entity);
+> +		}
 >  
 >  	amdgpu_ctx_fini(ref);
 >  }
-> @@ -516,20 +512,21 @@ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
->  void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
->  				  enum drm_sched_priority priority)
->  {
-> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
->  	enum drm_sched_priority ctx_prio;
-> -	unsigned i;
-> +	unsigned i, j;
+> @@ -573,6 +588,9 @@ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+>  			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+>  				struct drm_sched_entity *entity;
 >  
->  	ctx->override_priority = priority;
->  
->  	ctx_prio = (ctx->override_priority == DRM_SCHED_PRIORITY_UNSET) ?
->  			ctx->init_priority : ctx->override_priority;
-> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
-
-Brace.
-
-> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
->  
-> -	for (i = 0; i < num_entities; i++) {
-> -		struct drm_sched_entity *entity = &ctx->entities[0][i].entity;
-> +			struct drm_sched_entity *entity =
-> +				&ctx->entities[i][j].entity;
->  
-> -		drm_sched_entity_set_priority(entity, ctx_prio);
-> -	}
-> +			drm_sched_entity_set_priority(entity, ctx_prio);
-> +		}
-	} ;-)
->  }
->  
->  int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx,
-> @@ -564,20 +561,20 @@ void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr)
->  
->  long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
->  {
-> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
->  	struct amdgpu_ctx *ctx;
->  	struct idr *idp;
-> -	uint32_t id, i;
-> +	uint32_t id, i, j;
->  
->  	idp = &mgr->ctx_handles;
->  
->  	mutex_lock(&mgr->lock);
->  	idr_for_each_entry(idp, ctx, id) {
-> -		for (i = 0; i < num_entities; i++) {
-> -			struct drm_sched_entity *entity;
-> +		for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
-
-Brace.
-
-> +			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
-> +				struct drm_sched_entity *entity;
->  
-> -			entity = &ctx->entities[0][i].entity;
-> -			timeout = drm_sched_entity_flush(entity, timeout);
-> +				entity = &ctx->entities[i][j].entity;
-> +				timeout = drm_sched_entity_flush(entity, timeout);
+> +				if (!ctx->entities[i])
+> +					continue;
+> +
+>  				entity = &ctx->entities[i][j].entity;
+>  				timeout = drm_sched_entity_flush(entity, timeout);
 >  		}
->  	}
->  	mutex_unlock(&mgr->lock);
-> @@ -586,10 +583,9 @@ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+> @@ -598,6 +616,9 @@ void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+>  			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+>  				struct drm_sched_entity *entity;
 >  
->  void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
->  {
-> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
->  	struct amdgpu_ctx *ctx;
->  	struct idr *idp;
-> -	uint32_t id, i;
-> +	uint32_t id, i, j;
->  
->  	idp = &mgr->ctx_handles;
->  
-> @@ -598,9 +594,13 @@ void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
->  			DRM_ERROR("ctx %p is still alive\n", ctx);
->  			continue;
->  		}
-> +		for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
-
-Brace.
-
-> +			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
-> +				struct drm_sched_entity *entity;
->  
-> -		for (i = 0; i < num_entities; i++)
-> -			drm_sched_entity_fini(&ctx->entities[0][i].entity);
-> +				entity = &ctx->entities[i][j].entity;
-> +				drm_sched_entity_fini(entity);
-> +			}
->  	}
->  }
->  
+> +				if (!ctx->entities[i])
+> +					continue;
+> +
+>  				entity = &ctx->entities[i][j].entity;
+>  				drm_sched_entity_fini(entity);
+>  			}
 > 
+
+I think these changes are good and in the right direction.
 
 Regards,
 Luben
