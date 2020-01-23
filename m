@@ -6,26 +6,26 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E2AA7C33CB8
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2020 14:01:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 040EDC2D0DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2020 14:01:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C2C5120684
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2020 14:01:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C2C5120684
+	by mail.kernel.org (Postfix) with ESMTPS id D015A20684
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2020 14:01:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D015A20684
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 556756FD4E;
-	Thu, 23 Jan 2020 14:00:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77D476FD51;
+	Thu, 23 Jan 2020 14:00:12 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8E276FD19;
- Thu, 23 Jan 2020 14:00:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E5776FCFA;
+ Thu, 23 Jan 2020 14:00:02 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 45644B283;
- Thu, 23 Jan 2020 14:00:03 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id C041BB284;
+ Thu, 23 Jan 2020 14:00:00 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  christian.koenig@amd.com, David1.Zhou@amd.com,
@@ -38,9 +38,9 @@ To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
  jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com
-Subject: [PATCH v4 18/22] drm/vc4: Convert to CRTC VBLANK callbacks
-Date: Thu, 23 Jan 2020 14:59:39 +0100
-Message-Id: <20200123135943.24140-19-tzimmermann@suse.de>
+Subject: [PATCH v4 15/22] drm/stm: Convert to CRTC VBLANK callbacks
+Date: Thu, 23 Jan 2020 14:59:36 +0100
+Message-Id: <20200123135943.24140-16-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200123135943.24140-1-tzimmermann@suse.de>
 References: <20200123135943.24140-1-tzimmermann@suse.de>
@@ -60,49 +60,35 @@ Cc: linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  Thomas Zimmermann <tzimmermann@suse.de>, nouveau@lists.freedesktop.org,
  freedreno@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VBLANK callbacks in struct drm_driver are deprecated in favor of
-their equivalents in struct drm_crtc_funcs. Convert vc4 over.
-
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- drivers/gpu/drm/vc4/vc4_crtc.c | 1 +
- drivers/gpu/drm/vc4/vc4_drv.c  | 2 --
- 2 files changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/vc4/vc4_crtc.c b/drivers/gpu/drm/vc4/vc4_crtc.c
-index f1e7597ea17e..1208258ad3b2 100644
---- a/drivers/gpu/drm/vc4/vc4_crtc.c
-+++ b/drivers/gpu/drm/vc4/vc4_crtc.c
-@@ -1031,6 +1031,7 @@ static const struct drm_crtc_funcs vc4_crtc_funcs = {
- 	.gamma_set = drm_atomic_helper_legacy_gamma_set,
- 	.enable_vblank = vc4_enable_vblank,
- 	.disable_vblank = vc4_disable_vblank,
-+	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
- };
- 
- static const struct drm_crtc_helper_funcs vc4_crtc_helper_funcs = {
-diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
-index e6982a7b0c5e..76f93b662766 100644
---- a/drivers/gpu/drm/vc4/vc4_drv.c
-+++ b/drivers/gpu/drm/vc4/vc4_drv.c
-@@ -190,8 +190,6 @@ static struct drm_driver vc4_drm_driver = {
- 	.irq_postinstall = vc4_irq_postinstall,
- 	.irq_uninstall = vc4_irq_uninstall,
- 
--	.get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
--
- #if defined(CONFIG_DEBUG_FS)
- 	.debugfs_init = vc4_debugfs_init,
- #endif
--- 
-2.24.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VkJMQU5LIGNhbGxiYWNrcyBpbiBzdHJ1Y3QgZHJtX2RyaXZlciBhcmUgZGVwcmVjYXRlZCBpbiBm
+YXZvciBvZgp0aGVpciBlcXVpdmFsZW50cyBpbiBzdHJ1Y3QgZHJtX2NydGNfZnVuY3MuIENvbnZl
+cnQgc3RtIG92ZXIuCgpTaWduZWQtb2ZmLWJ5OiBUaG9tYXMgWmltbWVybWFubiA8dHppbW1lcm1h
+bm5Ac3VzZS5kZT4KVGVzdGVkLWJ5OiBZYW5uaWNrIEZlcnRyw6kgPHlhbm5pY2suZmVydHJlQHN0
+LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vc3RtL2Rydi5jICB8IDEgLQogZHJpdmVycy9ncHUv
+ZHJtL3N0bS9sdGRjLmMgfCAxICsKIDIgZmlsZXMgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEg
+ZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vc3RtL2Rydi5jIGIvZHJp
+dmVycy9ncHUvZHJtL3N0bS9kcnYuYwppbmRleCA0ODY5ODU2MDQxMDkuLmVhOWZjYmRjNjhiMyAx
+MDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL3N0bS9kcnYuYworKysgYi9kcml2ZXJzL2dwdS9k
+cm0vc3RtL2Rydi5jCkBAIC03Miw3ICs3Miw2IEBAIHN0YXRpYyBzdHJ1Y3QgZHJtX2RyaXZlciBk
+cnZfZHJpdmVyID0gewogCS5nZW1fcHJpbWVfdm1hcCA9IGRybV9nZW1fY21hX3ByaW1lX3ZtYXAs
+CiAJLmdlbV9wcmltZV92dW5tYXAgPSBkcm1fZ2VtX2NtYV9wcmltZV92dW5tYXAsCiAJLmdlbV9w
+cmltZV9tbWFwID0gZHJtX2dlbV9jbWFfcHJpbWVfbW1hcCwKLQkuZ2V0X3ZibGFua190aW1lc3Rh
+bXAgPSBkcm1fY2FsY192Ymx0aW1lc3RhbXBfZnJvbV9zY2Fub3V0cG9zLAogfTsKIAogc3RhdGlj
+IGludCBkcnZfbG9hZChzdHJ1Y3QgZHJtX2RldmljZSAqZGRldikKZGlmZiAtLWdpdCBhL2RyaXZl
+cnMvZ3B1L2RybS9zdG0vbHRkYy5jIGIvZHJpdmVycy9ncHUvZHJtL3N0bS9sdGRjLmMKaW5kZXgg
+OGI2ZDFhMjI1MmUzLi5lZTJhOGNhYzU5Y2IgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9z
+dG0vbHRkYy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9zdG0vbHRkYy5jCkBAIC03MjIsNiArNzIy
+LDcgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBkcm1fY3J0Y19mdW5jcyBsdGRjX2NydGNfZnVuY3Mg
+PSB7CiAJLmF0b21pY19kZXN0cm95X3N0YXRlID0gZHJtX2F0b21pY19oZWxwZXJfY3J0Y19kZXN0
+cm95X3N0YXRlLAogCS5lbmFibGVfdmJsYW5rID0gbHRkY19jcnRjX2VuYWJsZV92YmxhbmssCiAJ
+LmRpc2FibGVfdmJsYW5rID0gbHRkY19jcnRjX2Rpc2FibGVfdmJsYW5rLAorCS5nZXRfdmJsYW5r
+X3RpbWVzdGFtcCA9IGRybV9jcnRjX3ZibGFua19oZWxwZXJfZ2V0X3ZibGFua190aW1lc3RhbXAs
+CiAJLmdhbW1hX3NldCA9IGRybV9hdG9taWNfaGVscGVyX2xlZ2FjeV9nYW1tYV9zZXQsCiB9Owog
+Ci0tIAoyLjI0LjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
