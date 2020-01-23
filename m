@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A3D9C33CAF
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2020 14:01:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2AA7C33CB8
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2020 14:01:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5421820684
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2020 14:01:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5421820684
+	by mail.kernel.org (Postfix) with ESMTPS id C2C5120684
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jan 2020 14:01:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C2C5120684
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A05F6FD4D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 556756FD4E;
 	Thu, 23 Jan 2020 14:00:11 +0000 (UTC)
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72EBD6FD27;
- Thu, 23 Jan 2020 14:00:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8E276FD19;
+ Thu, 23 Jan 2020 14:00:04 +0000 (UTC)
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 022D3B28B;
- Thu, 23 Jan 2020 14:00:05 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id 45644B283;
+ Thu, 23 Jan 2020 14:00:03 +0000 (UTC)
 From: Thomas Zimmermann <tzimmermann@suse.de>
 To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  christian.koenig@amd.com, David1.Zhou@amd.com,
@@ -38,9 +38,9 @@ To: airlied@linux.ie, daniel@ffwll.ch, alexander.deucher@amd.com,
  bskeggs@redhat.com, harry.wentland@amd.com, sunpeng.li@amd.com,
  jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
  rodrigo.vivi@intel.com
-Subject: [PATCH v4 20/22] drm/vmwgfx: Convert to CRTC VBLANK callbacks
-Date: Thu, 23 Jan 2020 14:59:41 +0100
-Message-Id: <20200123135943.24140-21-tzimmermann@suse.de>
+Subject: [PATCH v4 18/22] drm/vc4: Convert to CRTC VBLANK callbacks
+Date: Thu, 23 Jan 2020 14:59:39 +0100
+Message-Id: <20200123135943.24140-19-tzimmermann@suse.de>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200123135943.24140-1-tzimmermann@suse.de>
 References: <20200123135943.24140-1-tzimmermann@suse.de>
@@ -66,126 +66,39 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 VBLANK callbacks in struct drm_driver are deprecated in favor of
-their equivalents in struct drm_crtc_funcs. Convert vmwgfx over.
-
-v2:
-	* remove accidental whitespace fixes
+their equivalents in struct drm_crtc_funcs. Convert vc4 over.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Acked-by: Thomas Hellstrom <thellstrom@vmware.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.c  | 3 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_drv.h  | 6 +++---
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c  | 6 +++---
- drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c  | 3 +++
- drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c | 3 +++
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c | 3 +++
- 6 files changed, 15 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/vc4/vc4_crtc.c | 1 +
+ drivers/gpu/drm/vc4/vc4_drv.c  | 2 --
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-index e962048f65d2..673d6920fc29 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-@@ -1393,9 +1393,6 @@ static struct drm_driver driver = {
- 	DRIVER_MODESET | DRIVER_RENDER | DRIVER_ATOMIC,
- 	.load = vmw_driver_load,
- 	.unload = vmw_driver_unload,
--	.get_vblank_counter = vmw_get_vblank_counter,
--	.enable_vblank = vmw_enable_vblank,
--	.disable_vblank = vmw_disable_vblank,
- 	.ioctls = vmw_ioctls,
- 	.num_ioctls = ARRAY_SIZE(vmw_ioctls),
- 	.master_set = vmw_master_set,
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
-index a31e726d6d71..845b3b8c29ca 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.h
-@@ -1100,9 +1100,9 @@ int vmw_kms_write_svga(struct vmw_private *vmw_priv,
- bool vmw_kms_validate_mode_vram(struct vmw_private *dev_priv,
- 				uint32_t pitch,
- 				uint32_t height);
--u32 vmw_get_vblank_counter(struct drm_device *dev, unsigned int pipe);
--int vmw_enable_vblank(struct drm_device *dev, unsigned int pipe);
--void vmw_disable_vblank(struct drm_device *dev, unsigned int pipe);
-+u32 vmw_get_vblank_counter(struct drm_crtc *crtc);
-+int vmw_enable_vblank(struct drm_crtc *crtc);
-+void vmw_disable_vblank(struct drm_crtc *crtc);
- int vmw_kms_present(struct vmw_private *dev_priv,
- 		    struct drm_file *file_priv,
- 		    struct vmw_framebuffer *vfb,
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-index f47d5710cc95..eb6e23e8d8ef 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
-@@ -1991,7 +1991,7 @@ bool vmw_kms_validate_mode_vram(struct vmw_private *dev_priv,
- /**
-  * Function called by DRM code called with vbl_lock held.
-  */
--u32 vmw_get_vblank_counter(struct drm_device *dev, unsigned int pipe)
-+u32 vmw_get_vblank_counter(struct drm_crtc *crtc)
- {
- 	return 0;
- }
-@@ -1999,7 +1999,7 @@ u32 vmw_get_vblank_counter(struct drm_device *dev, unsigned int pipe)
- /**
-  * Function called by DRM code called with vbl_lock held.
-  */
--int vmw_enable_vblank(struct drm_device *dev, unsigned int pipe)
-+int vmw_enable_vblank(struct drm_crtc *crtc)
- {
- 	return -EINVAL;
- }
-@@ -2007,7 +2007,7 @@ int vmw_enable_vblank(struct drm_device *dev, unsigned int pipe)
- /**
-  * Function called by DRM code called with vbl_lock held.
-  */
--void vmw_disable_vblank(struct drm_device *dev, unsigned int pipe)
-+void vmw_disable_vblank(struct drm_crtc *crtc)
- {
- }
- 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c b/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
-index 5702219ec38f..16dafff5cab1 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c
-@@ -236,6 +236,9 @@ static const struct drm_crtc_funcs vmw_legacy_crtc_funcs = {
- 	.atomic_duplicate_state = vmw_du_crtc_duplicate_state,
- 	.atomic_destroy_state = vmw_du_crtc_destroy_state,
- 	.set_config = drm_atomic_helper_set_config,
-+	.get_vblank_counter = vmw_get_vblank_counter,
-+	.enable_vblank = vmw_enable_vblank,
-+	.disable_vblank = vmw_disable_vblank,
+diff --git a/drivers/gpu/drm/vc4/vc4_crtc.c b/drivers/gpu/drm/vc4/vc4_crtc.c
+index f1e7597ea17e..1208258ad3b2 100644
+--- a/drivers/gpu/drm/vc4/vc4_crtc.c
++++ b/drivers/gpu/drm/vc4/vc4_crtc.c
+@@ -1031,6 +1031,7 @@ static const struct drm_crtc_funcs vc4_crtc_funcs = {
+ 	.gamma_set = drm_atomic_helper_legacy_gamma_set,
+ 	.enable_vblank = vc4_enable_vblank,
+ 	.disable_vblank = vc4_disable_vblank,
++	.get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
  };
  
+ static const struct drm_crtc_helper_funcs vc4_crtc_helper_funcs = {
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.c b/drivers/gpu/drm/vc4/vc4_drv.c
+index e6982a7b0c5e..76f93b662766 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.c
++++ b/drivers/gpu/drm/vc4/vc4_drv.c
+@@ -190,8 +190,6 @@ static struct drm_driver vc4_drm_driver = {
+ 	.irq_postinstall = vc4_irq_postinstall,
+ 	.irq_uninstall = vc4_irq_uninstall,
  
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-index e5a283263211..32a22e4eddb1 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c
-@@ -319,6 +319,9 @@ static const struct drm_crtc_funcs vmw_screen_object_crtc_funcs = {
- 	.atomic_destroy_state = vmw_du_crtc_destroy_state,
- 	.set_config = drm_atomic_helper_set_config,
- 	.page_flip = drm_atomic_helper_page_flip,
-+	.get_vblank_counter = vmw_get_vblank_counter,
-+	.enable_vblank = vmw_enable_vblank,
-+	.disable_vblank = vmw_disable_vblank,
- };
- 
- /*
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-index 41a96fb49835..570687a1a327 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
-@@ -916,6 +916,9 @@ static const struct drm_crtc_funcs vmw_stdu_crtc_funcs = {
- 	.atomic_destroy_state = vmw_du_crtc_destroy_state,
- 	.set_config = drm_atomic_helper_set_config,
- 	.page_flip = drm_atomic_helper_page_flip,
-+	.get_vblank_counter = vmw_get_vblank_counter,
-+	.enable_vblank = vmw_enable_vblank,
-+	.disable_vblank = vmw_disable_vblank,
- };
- 
- 
+-	.get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
+-
+ #if defined(CONFIG_DEBUG_FS)
+ 	.debugfs_init = vc4_debugfs_init,
+ #endif
 -- 
 2.24.1
 
