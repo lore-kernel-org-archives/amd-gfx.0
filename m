@@ -2,106 +2,73 @@ Return-Path: <SRS0=Oth2=3N=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B3AAC2D0DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 12:56:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7481EC2D0DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 13:05:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C023C20708
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 12:56:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 45D9C2072C
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 13:05:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="rtJKC3DP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C023C20708
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pdk7nG5M"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 45D9C2072C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7878872A4D;
-	Fri, 24 Jan 2020 12:56:54 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on20621.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eae::621])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B55972A4D
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jan 2020 12:56:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QQjsVrlsXXSNKBxd3EWRqMLAn+zgrcd/FN1vvZYaZj9i+7/jlmcfBbqMTBwedn5ZvIT5BKFT5yoNk4BEwTpUL6jX5Yb54XNQO2r5ceBN3BTDT48KDEKWI4ij2C++zIeLsmtijFjL95FiEoSkAmVr0N3PCRk20S1lU7GwsHXZWBdUWqcgyhxotIhujhLWmB0uojhQOroqF460gY5gKTM17mwm39UCNeGOGG1cKBl9lL6pKT6j6cJmH+ewT3BxSSyeOTRtMBraLZb83opwKSyVbe8ht1GGK0cvkUWK7mvshzrF30JdDuqga/pH6uesm9x62NnQVWPT0YUuEmB6Lvf+ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=37skD22By++OE1x/mFYQhtEG6s7B16rlbyz+2EDhwjQ=;
- b=A5H1cStn+5g3WxqHSDKmcnmZdq8KN5oKWjmojonKwmaQ7gG2QBTRa1yVnWW1whn9CY/w4bsC2AjyqsxBjdEO+iiluy24Rtp+ZFtNvKAFix3sFb9zcYajhfHtSOQbvc4NrN7Uiy0k3P/hrv6zq4dj4VPf5LPiIoX5Ce7Qy2Xd2fzEEwvE1hpBb4C+cFdCW5Mcf/0UuN98kO5xl0JkiEC3+Y4HtOuOI0QKJAAtqV74tGdxTUXLxe3jEak0g2XOZb+4TgYcBFiwcoRqEr/jdQAJaTdlSXgBORyZR9YLOjTqbTwvK46OLkRuok2K/zAfBy7zcJi3Ikf4EXilxKrLCE5jhw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=37skD22By++OE1x/mFYQhtEG6s7B16rlbyz+2EDhwjQ=;
- b=rtJKC3DPUDh1hxqBjkZ0Kf9QSCWAeGHWg1A+hQC3xoKu9M0K8gUBdJNhRnqxGn4UaS48FQlIcuKEFMqnBLRP9nUwt3cFqBYlp3D7K+0dSU9/Aeeeie7lKb8LCaUKLo+t8NJQB0U1eQvFeJFnBTyo0j3CTbE4yLMyyxZRLoFl3Ks=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Christian.Koenig@amd.com; 
-Received: from MWHPR12MB1710.namprd12.prod.outlook.com (10.175.56.16) by
- MWHPR12MB1741.namprd12.prod.outlook.com (10.175.53.143) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2665.22; Fri, 24 Jan 2020 12:56:51 +0000
-Received: from MWHPR12MB1710.namprd12.prod.outlook.com
- ([fe80::1980:e91a:a256:269b]) by MWHPR12MB1710.namprd12.prod.outlook.com
- ([fe80::1980:e91a:a256:269b%8]) with mapi id 15.20.2665.017; Fri, 24 Jan 2020
- 12:56:50 +0000
-Subject: Re: [PATCH] drm/amdgpu: allocate entities on demand
-To: Nirmoy <nirmodas@amd.com>, Nirmoy Das <nirmoy.aiemd@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20200124115311.8037-1-nirmoy.das@amd.com>
- <bc9b30e6-1ecb-574f-8712-446091cca580@amd.com>
- <c62a3859-dbfb-8b5e-ec9c-4498220e3f61@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <47d6aca2-1df7-37fc-cae9-02e55d4f0eab@amd.com>
-Date: Fri, 24 Jan 2020 13:56:43 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <c62a3859-dbfb-8b5e-ec9c-4498220e3f61@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: ZR0P278CA0014.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:910:16::24) To MWHPR12MB1710.namprd12.prod.outlook.com
- (2603:10b6:300:114::16)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB04872A55;
+	Fri, 24 Jan 2020 13:05:28 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D8386E378
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jan 2020 13:05:28 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id a5so1615795wmb.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jan 2020 05:05:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jDJw9GAnX4lLZGrPkyEdIgkj7Z3+VZLajQXYj0y2QsE=;
+ b=Pdk7nG5MhqoqiI736LpnS3WjmGMNs6bAFN7Ps8aDPyj0KsUPPMcfo9cooVnpYPOUrt
+ Qt1x547OeD8yliGtBdt3jbZRx5/GLMuJKMVUr9E35l0GL+0gb2OePAt76HI1mjphxstb
+ Vp45KbEsalHe10RpK8KVH2X3vytOIOn6XUqy4tTVf3XKgtJt6BOLN8O02UcdVPrrkUZ5
+ HjgxQVo+N5T5eXlZSErtJO1WBV7zQ/Bsnvplhkl9wIFBDQOJlGFF7qXceSmmwMyCjOJE
+ Dvneoroe3YNKTeL93N2aTt3IUWv3yq0g8iUtGy6VUpEs4Se7/SEVrFhS36azl+en6aNg
+ xIcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jDJw9GAnX4lLZGrPkyEdIgkj7Z3+VZLajQXYj0y2QsE=;
+ b=gUQ9+lbsdRhQNFKnbfZSYP4wbw3CbTSW2khmanYGPRxfNs4PKAVPPs4M4FAJoDsv65
+ 1efxAAFdssKvcZ1dNn5oEUVUWP+EQFkwFxPDTSWLJXYIW7iRSMqrY/2y6+D9BvQAmxcc
+ Uzv9yaB+yEzkY8d2EdqMjP10SlZcogrnGD3e72Dtq9ODQsb4+X1o8GNQwoy0vgrySdU4
+ +8jpGZ/ml7MtT2McKl0YZyKRon1EoQ4blNVBRLt5Ux3kRIitzJVIXjsls5f1wEqK4m39
+ HPNA3raqEMLV8hBOh2FnFUuQXFhXxiolLXz3nv6CMLKc5S3B+c7q3ybLN1aEG7rzTFtg
+ 7jyQ==
+X-Gm-Message-State: APjAAAWo/TxivO5ukO6oGS+DGxsRye2+W3uNU3kOrFzxM+y0SoReLQ5h
+ 2GsTrIt+OBeDOzQa1ER0VCWyvsCJ
+X-Google-Smtp-Source: APXvYqwgNW8f3Rs5IavxiusAAwOYCtG2lPzcyLqu4w898+wXuwScMHV3tZLxjLOOfe2ywi/UcL3YvQ==
+X-Received: by 2002:a05:600c:2c01:: with SMTP id
+ q1mr3248314wmg.179.1579871126886; 
+ Fri, 24 Jan 2020 05:05:26 -0800 (PST)
+Received: from abel.fritz.box ([2a02:908:1252:fb60:9c03:ec12:e225:5a75])
+ by smtp.gmail.com with ESMTPSA id g9sm7393513wro.67.2020.01.24.05.05.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jan 2020 05:05:26 -0800 (PST)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Jonathan.Kim@amd.com, felix.kuehling@amd.com, amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu: optimize amdgpu_device_vram_access a bit.
+Date: Fri, 24 Jan 2020 14:05:24 +0100
+Message-Id: <20200124130525.1800-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- ZR0P278CA0014.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:16::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2665.20 via Frontend Transport; Fri, 24 Jan 2020 12:56:48 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1303a351-153c-449b-b6ba-08d7a0cce0d7
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1741:|MWHPR12MB1741:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR12MB174152C5D5CE3A13687787FE830E0@MWHPR12MB1741.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-Forefront-PRVS: 02929ECF07
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(396003)(366004)(376002)(39860400002)(136003)(189003)(199004)(6486002)(478600001)(316002)(31696002)(66946007)(4326008)(66556008)(66476007)(86362001)(6666004)(16526019)(186003)(110136005)(2616005)(66574012)(36756003)(81156014)(2906002)(81166006)(52116002)(31686004)(33964004)(8676002)(5660300002)(8936002)(53546011);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1741;
- H:MWHPR12MB1710.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XOuh7TN0sFnLGogCRjuQyefehO+VOr6Js8MZYZ27tj2IaESJSDcUpaB7dl0ow/TvaZHoUfZ6+2kYK1hnQKMb6uqUCOYiS9zdDZQgJa/SQTWPP4MCuoADdqRmbfLnk4jSdnmgAHqiyahav66sJHnAuq79WxkynONSIIOyGDv6wS6n3F/5reG7JlHUFr6l2Zq7wdWgKkvmP4wkfu05zmbyVZ491CG2IyO+en7zyDDEvAlqyMlmdJE2b/F2Fl6ifvYqrc5O/NHUAAT5tPFMm52givekppGrQcQp8h4kR5JguHcljFsmlT6xQweHJnOONRQh+FLy+KGLEJyZDA4VkP2f+CeLWu7qW+pZqREGViaAs0eJJS1dMOj0DlVkjl2ElXyavzw7LD588FoGQqlBDX8o3QO5/Wmvo5LmaD4Q44rzN6sozdc9Hc1kpmwmbaGF1Ycu
-X-MS-Exchange-AntiSpam-MessageData: 5mKx9t2UP35TOWnlGGtsAqvh8DycpxJQoGcr7QBtCG5Mz6PeAFEvxGffuKFm6VRARg/j1fv4Ju7L3K//jxczDY+QYv0hh5oZOUqZ7ST1aMU/HeJMPHAuxrOWYvrUvlEZDr8ytnKkGDNHN4eTaR5dYZUxoBzsuBLHL5vQzIGIRlXmvUqb4Kj78xfJBGdQcr8LE95y8fVklrPWk5mUAwBmBQ==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1303a351-153c-449b-b6ba-08d7a0cce0d7
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2020 12:56:50.5319 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hkT+DVLbqiOBeesV2FtytDXCm5yusZBa2phh6/Epy1OJ+CLnt85UskAkBDl4Pzwn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1741
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,116 +80,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, kenny.ho@amd.com, nirmoy.das@amd.com
-Content-Type: multipart/mixed; boundary="===============0379369955=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0379369955==
-Content-Type: multipart/alternative;
- boundary="------------3CF8F2BEDEC382B4088AEA93"
-Content-Language: en-US
-
---------------3CF8F2BEDEC382B4088AEA93
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 24.01.20 um 13:43 schrieb Nirmoy:
->
->
-> On 1/24/20 1:09 PM, Christian König wrote:
->>> + return  -ENOMEM;
->>
->> That's complete overkill, just statically allocate the array in the 
->> amdgpu_ctx structure.
->>
->> The maximum instance should be 4 IIRC, so something like "struct 
->> amdgpu_ctx_entity *entities[AMDGPU_HW_IP_NUM][4];" so a maximum of 
->> 288 bytes used.
->>
->> Only alternative I see would be to allocate the array behind the 
->> structure, see dma_resv_list_alloc() for an example on how to do 
->> this. But I don't think that this is worth it.
-> Resent with added
-> +#define AMDGPU_MAX_ENTITY_NUM 4
-
-Yes, of course that is certainly a good idea as well.
-
-Christian.
-
->
-> Regards,
-> Nirmoy
->>
->> Christian.
-
-
---------------3CF8F2BEDEC382B4088AEA93
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 24.01.20 um 13:43 schrieb Nirmoy:<br>
-    </div>
-    <blockquote type="cite" cite="mid:c62a3859-dbfb-8b5e-ec9c-4498220e3f61@amd.com">
-      
-      <p><br>
-      </p>
-      <div class="moz-cite-prefix">On 1/24/20 1:09 PM, Christian König
-        wrote:<br>
-      </div>
-      <blockquote type="cite" cite="mid:bc9b30e6-1ecb-574f-8712-446091cca580@amd.com">
-        <blockquote type="cite" style="color: #000000;">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          return&nbsp; -ENOMEM; <br>
-        </blockquote>
-        <br>
-        That's complete overkill, just statically allocate the array in
-        the amdgpu_ctx structure. <br>
-        <br>
-        The maximum instance should be 4 IIRC, so something like &quot;struct
-        amdgpu_ctx_entity *entities[AMDGPU_HW_IP_NUM][4];&quot; so a maximum
-        of 288 bytes used. <br>
-        <br>
-        Only alternative I see would be to allocate the array behind the
-        structure, see dma_resv_list_alloc() for an example on how to do
-        this. But I don't think that this is worth it. <br>
-      </blockquote>
-      Resent with added <br>
-      <pre class="moz-quote-pre" wrap="">&#43;#define AMDGPU_MAX_ENTITY_NUM 4</pre>
-    </blockquote>
-    <br>
-    Yes, of course that is certainly a good idea as well.<br>
-    <br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite" cite="mid:c62a3859-dbfb-8b5e-ec9c-4498220e3f61@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-
-Regards,
-Nirmoy 
-</pre>
-      <blockquote type="cite" cite="mid:bc9b30e6-1ecb-574f-8712-446091cca580@amd.com"> <br>
-        Christian. <br>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------3CF8F2BEDEC382B4088AEA93--
-
---===============0379369955==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0379369955==--
+T25seSB3cml0ZSB0aGUgX0hJIHJlZ2lzdGVyIHdoZW4gbmVjZXNzYXJ5LgoKU2lnbmVkLW9mZi1i
+eTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyB8IDE3ICsrKysrKysrKysrLS0t
+LS0tCiAxIGZpbGUgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKCmRp
+ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMgYi9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKaW5kZXggMWRhMDM2NTg4
+OTFjLi44ZDY3ZTYzZjg3ZGQgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9kZXZpY2UuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+ZGV2aWNlLmMKQEAgLTE4NCwyMCArMTg0LDI1IEBAIGJvb2wgYW1kZ3B1X2RldmljZV9zdXBwb3J0
+c19iYWNvKHN0cnVjdCBkcm1fZGV2aWNlICpkZXYpCiB2b2lkIGFtZGdwdV9kZXZpY2VfdnJhbV9h
+Y2Nlc3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGxvZmZfdCBwb3MsCiAJCQkgICAgICAg
+dWludDMyX3QgKmJ1Ziwgc2l6ZV90IHNpemUsIGJvb2wgd3JpdGUpCiB7Ci0JdWludDY0X3QgbGFz
+dDsKIAl1bnNpZ25lZCBsb25nIGZsYWdzOworCXVpbnQzMl90IGhpID0gfjA7CisJdWludDY0X3Qg
+bGFzdDsKKworCXNwaW5fbG9ja19pcnFzYXZlKCZhZGV2LT5tbWlvX2lkeF9sb2NrLCBmbGFncyk7
+CisJZm9yIChsYXN0ID0gcG9zICsgc2l6ZTsgcG9zIDwgbGFzdDsgcG9zICs9IDQpIHsKKwkJdWlu
+dDMyX3QgdG1wID0gcG9zID4+IDMxOwogCi0JbGFzdCA9IHNpemUgLSA0OwotCWZvciAobGFzdCAr
+PSBwb3M7IHBvcyA8PSBsYXN0OyBwb3MgKz0gNCkgewotCQlzcGluX2xvY2tfaXJxc2F2ZSgmYWRl
+di0+bW1pb19pZHhfbG9jaywgZmxhZ3MpOwogCQlXUkVHMzJfTk9fS0lRKG1tTU1fSU5ERVgsICgo
+dWludDMyX3QpcG9zKSB8IDB4ODAwMDAwMDApOwotCQlXUkVHMzJfTk9fS0lRKG1tTU1fSU5ERVhf
+SEksIHBvcyA+PiAzMSk7CisJCWlmICh0bXAgIT0gaGkpIHsKKwkJCVdSRUczMl9OT19LSVEobW1N
+TV9JTkRFWF9ISSwgdG1wKTsKKwkJCWhpID0gdG1wOworCQl9CiAJCWlmICh3cml0ZSkKIAkJCVdS
+RUczMl9OT19LSVEobW1NTV9EQVRBLCAqYnVmKyspOwogCQllbHNlCiAJCQkqYnVmKysgPSBSUkVH
+MzJfTk9fS0lRKG1tTU1fREFUQSk7Ci0JCXNwaW5fdW5sb2NrX2lycXJlc3RvcmUoJmFkZXYtPm1t
+aW9faWR4X2xvY2ssIGZsYWdzKTsKIAl9CisJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmYWRldi0+
+bW1pb19pZHhfbG9jaywgZmxhZ3MpOwogfQogCiAvKgotLSAKMi4xNy4xCgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
