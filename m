@@ -5,56 +5,55 @@ X-Spam-Level:
 X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12514C3F68F
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 14:48:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FEB1C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 14:56:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DCC4C20704
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 14:48:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CD92120704
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 14:56:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="XV49cioQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCC4C20704
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qK95yE14"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD92120704
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B7426E3B8;
-	Fri, 24 Jan 2020 14:48:51 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2049.outbound.protection.outlook.com [40.107.237.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB866E39B;
- Fri, 24 Jan 2020 14:48:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD7EE6E3D2;
+	Fri, 24 Jan 2020 14:56:07 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8469F6E3D0;
+ Fri, 24 Jan 2020 14:56:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jmQUcAYCKJS2GtnXdR1Yc8ZF/4LYk8zQ9fJjUjBJR82oWLyttq1vDhEzybCozixJ5xzzFdXvftniP4rFo2kOw88Fx1XJpktBk/HVphhygtRohVmwUfeNeclMB4Cx7FBd8WUy0h9/okTJvvO4cRLrW12fq52EZ9TGJRGZXAZyigbVEDP77klMZQDupVO+H7P7T8XqCImKayjyY9mYNhG92PG4p2ztGe20r5MwhdCpmI8EiLSHuVGGA0KbW+7sCGEgr9/2hI+H/vHz7WIFN/+vSXF3GQ/tUgwjCCoV/wR3brTyS7cR0YvwRSiInj//8ot38GUI3i3wcgJsBfaSwZd3EQ==
+ b=fKdymGc9LhqzSmxumAdeX4sRmwF/0dJ1SdXe/iLXOoJQPJvMs1AJJ9M1QmEVA3niCyaHb3FUq2ZPR1Wbd+Gx6XXjEE3LuN1OVyR+LVO2MWthcH1EGLtjVAkD84QtXjxnxFg1gsZI9PsRYISYCOHYCnKN4oCy5RYff0QIHa3p08jzfeNnpEv4Or5j+TVroj/RfRZAbfZbyyxBXP+YNPgnb2FU7h7bgjwPbCUW4r1vrYOrXgIXZohNtoo29i8Bi08C8VRgobWUC+RCiVihiMWzZmNPjLlrvMM1SMIsLlL1plphTCJklYpE2nS22DTrim3ivgyytX/8yRUIFg72GeyKaA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qyBWAv7BFwojbeUXoCHr1EtwtV7M5apP+LDN3yZOOjo=;
- b=LSb0AVsxLnkeQfL3br1y2ah/KOmWkt1FEujlYNuKBWtOPYfpXoY3pSxvvMnJS69jm4Eq922xmKTSTzAoqIfphJa99pZW0I2Y6K8g/YlD8sD4u9bf5zIvPWJO3G57f0ERsq7B0QE0Y7Rj73U97q1d0XJV2/zLdJXoutWi7JI13g6vnlj5OOm/qDPektDoEmIdVEzHlclpgJpl/0GjR+msxjPaWspfkmvBs6O6vlXTKejKiblKPc980kkouOaYlf9DPzodMfmt2K3kS4z1CjvKoeY146NG7dEt6OFyks5duQLbDj2vsNg+GFjvfZPkPaQ9mJ0wIE4rSYyco4xc5Cy29Q==
+ bh=f1T3CR72OPxP+skINAGHvXe3hM/JeIr676viU8BsZQo=;
+ b=iNvBk4kVZzZ4ytx9mBANVfPRy8z3NfihQt9TQ91+X4ldinK4iM5xTgO/7efVUhptjfE4U5qsAGhEXmN5b0n7olp7E0GAJQYXvsT1PLU7QJ2DhrMMCtFU6P14zlUbP5Ku5ycBTmMxTfwnSAzDd3e6B1LmSI8ZaWxLVgaJ02OvphrTy80L7c34KdVjJdzEM1TtCoKqUiJY8/W9OSACmOFFWYTHoXqT+b1R1aqrtQHWYqJku6e9lVf2V3MRmzhKGj3agt/V7pPRpekqIoXg2XOqbcqALIP+hrJbo2J7Vc3gvuohdKlneeQfOjrXL+1iIVOGnStW8avMcW0nf/gpiaOrvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qyBWAv7BFwojbeUXoCHr1EtwtV7M5apP+LDN3yZOOjo=;
- b=XV49cioQUsLehlvsVqzWrfAd4AeW/2sYHZ1RfUFh1RC8TcHoVT5SMhsdRAJDm71xW3bKvxghPLs5yIWQ7OLlvymatO3bMwaUPavY5mNByFBl30F2ZOhCp6fkk8P/IQ+JbF+tddBCAUQSH1uqlo6M6aeTSMoANLbmfaO9LmjLof8=
+ bh=f1T3CR72OPxP+skINAGHvXe3hM/JeIr676viU8BsZQo=;
+ b=qK95yE14VadHm/ziFdrc6+xaORczO0enKBEsqKwfk7jmUXIqcsvkFARe/hnTLVpyZYXpwFKYlOy7Fg4qDMdUpGkU+2CavFr6WLYPDGpWLmRAEZYqJLyDHaDDlHVCDq1T6ZEFrJ9aalGrJLPb4GidLdIDfIJpzbTRi6owt3HZ+7g=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Harry.Wentland@amd.com; 
 Received: from CY4PR1201MB0230.namprd12.prod.outlook.com (10.172.79.7) by
- CY4PR1201MB0246.namprd12.prod.outlook.com (10.174.53.144) with Microsoft SMTP
+ CY4PR1201MB2487.namprd12.prod.outlook.com (10.172.116.22) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2665.22; Fri, 24 Jan 2020 14:48:47 +0000
+ 15.20.2665.22; Fri, 24 Jan 2020 14:56:03 +0000
 Received: from CY4PR1201MB0230.namprd12.prod.outlook.com
  ([fe80::4c09:215c:e5d2:3c8f]) by CY4PR1201MB0230.namprd12.prod.outlook.com
  ([fe80::4c09:215c:e5d2:3c8f%9]) with mapi id 15.20.2644.028; Fri, 24 Jan 2020
- 14:48:47 +0000
-Subject: Re: [PATCH] drm/amdgpu: Stop using the DRIVER debugging flag for
- vblank debugging messages
+ 14:56:02 +0000
+Subject: Re: [PATCH] drm/amd/dm/mst: Ignore payload update failures on disable
 To: Lyude Paul <lyude@redhat.com>, amd-gfx@lists.freedesktop.org
-References: <20200124010744.102849-1-lyude@redhat.com>
+References: <20200124000643.99859-1-lyude@redhat.com>
 From: Harry Wentland <hwentlan@amd.com>
 Autocrypt: addr=hwentlan@amd.com; keydata=
  mQENBFhb4C8BCADhHHUNoBQ7K7LupCP0FsUb443Vuqq+dH0uo4A3lnPkMF6FJmGcJ9Sbx1C6
@@ -79,48 +78,48 @@ Autocrypt: addr=hwentlan@amd.com; keydata=
  T5ASJ97G4XvQNO+XXGY55MrmhoNqMaeIa/3Jas54fPVd5olcnUAyDty29/VWXNllUq38iBCX
  /0tTF7oav1lzPGfeW2c6B700FFZMTR4YBVSGE8jPIzu2Fj0E8EkDmsgS+nibqSvWXfo1v231
  410h35CjbYDlYQO7Z1YD7asqbaOnF0As+rckyRMweQ9CxZn5+YBijtPJA3x5ldbCfQ9rWiTu XQ==
-Message-ID: <f9ab0fdf-b235-2709-8431-5a094b539531@amd.com>
-Date: Fri, 24 Jan 2020 09:48:39 -0500
+Message-ID: <41187639-f077-0212-aa02-d5dcc96c442b@amd.com>
+Date: Fri, 24 Jan 2020 09:55:54 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
-In-Reply-To: <20200124010744.102849-1-lyude@redhat.com>
+In-Reply-To: <20200124000643.99859-1-lyude@redhat.com>
 Content-Language: en-US
-X-ClientProxiedBy: BN4PR10CA0015.namprd10.prod.outlook.com (2603:10b6:403::25)
- To CY4PR1201MB0230.namprd12.prod.outlook.com
+X-ClientProxiedBy: BN6PR17CA0026.namprd17.prod.outlook.com
+ (2603:10b6:405:75::15) To CY4PR1201MB0230.namprd12.prod.outlook.com
  (2603:10b6:910:1e::7)
 MIME-Version: 1.0
 Received: from [172.31.7.234] (165.204.84.11) by
- BN4PR10CA0015.namprd10.prod.outlook.com (2603:10b6:403::25) with Microsoft
+ BN6PR17CA0026.namprd17.prod.outlook.com (2603:10b6:405:75::15) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2665.21 via Frontend Transport; Fri, 24 Jan 2020 14:48:42 +0000
+ 15.20.2665.20 via Frontend Transport; Fri, 24 Jan 2020 14:55:56 +0000
 X-Originating-IP: [165.204.84.11]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: cf4310ab-8d97-4bb5-ca0b-08d7a0dc8436
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0246:|CY4PR1201MB0246:
+X-MS-Office365-Filtering-Correlation-Id: 3ef5b1c1-57c3-4ca2-8c73-08d7a0dd87f1
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB2487:|CY4PR1201MB2487:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB02464AB8BA28C4ADB62C11FA8C0E0@CY4PR1201MB0246.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB2487DB63BD1A1FAFB3CBC30A8C0E0@CY4PR1201MB2487.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-Forefront-PRVS: 02929ECF07
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(39860400002)(346002)(136003)(366004)(376002)(199004)(189003)(36756003)(956004)(2616005)(66476007)(31696002)(66946007)(4326008)(53546011)(52116002)(66556008)(8936002)(81166006)(6486002)(8676002)(81156014)(2906002)(31686004)(316002)(478600001)(16576012)(5660300002)(16526019)(6666004)(186003)(54906003)(26005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR1201MB0246;
+ SFS:(10009020)(4636009)(396003)(136003)(346002)(39860400002)(376002)(366004)(189003)(199004)(316002)(16576012)(4326008)(54906003)(5660300002)(6486002)(7416002)(36756003)(956004)(53546011)(26005)(16526019)(186003)(31696002)(2616005)(52116002)(31686004)(478600001)(2906002)(45080400002)(66476007)(81156014)(8936002)(8676002)(66946007)(81166006)(66556008)(15650500001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR1201MB2487;
  H:CY4PR1201MB0230.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
+ PTR:InfoNoRecords; MX:1; A:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: J6wKA6Lb22w3HPiuWnHfVQfJFlywVouYph8XB0cKj+UrKyotmaZPgzchaAs2lC0zzDJcnAA8OLwk60GUxr2J5NzPV0/CcpgE1Qh2YntXbcHmgUa2DLpIiRqmhsnqqF1YV6fSRJ/a/SCQIdnDLVsdonSA6K06n4gvSBaMeF0ODKvgHC5UQQ4D52Xjl7xQTdKvtXHJ+GnWD+72VUhW7kRj4JbN0bSVNWrZMiBxVC8ozuhrBYURC2a9K0d9jRUJQ28EVk5GdaBc+rNJA66fChoUEfif9FBp5c2cST+KPzeLbmk7dno9g8bTiGsgEbkq/ssAWCdNgHsVe1Tm7HMACucwJnB24GAbJzseOWpPe1CXQlNSLp8xU5c9GwMYW2T215IiTXQkAKsOKzwnFKNPYyGI/2fl9roSUDcbm8AIfOw5wQqjIKpd0rhauZqKjYWXZ28F
-X-MS-Exchange-AntiSpam-MessageData: 22t3YdYa8gnsigrpeJcPNX4dbQzhrqW1TLLYX9zvfJBZPMj6hjEXoK0ZSi0LbQ/YoNMIMpCJuIWk9JjptyhpjgFTUojCy/ecnBTesJmD7SaeNKymhbVQbXz1MzDY39U6iRI4JZnvigFFVJYYfbOXkg==
+X-Microsoft-Antispam-Message-Info: 3aX7LpUWp1TTu7P8P9ZbDOadAeyks44+xBgSfZdP5KJ8SMT3ZDWcFWdNVgIAafF2KtmQP8bh8QLV9+zd5Ez1gc4SmVrGx6E0f9eqP30MDh9HZAdm5HGSJR40BQksf0M/wj98Zakh7sCK6SJYSjStDM9fTISlSII5509m5FUjt/qdlHRpXr4rP6k8brDpAh0DEzDkPIV63USu/j1IDDluK/HjgwBiJnUF85a/uQPNNSQjmYS47+Gbx/19/IwZtzvbbxwt5shjQtNVmqSX5sJ/jS5hTlIeT9Jz+K8LybuiAf1eqn9k3erVs80zDgARin0HB+MJKS32tRsKSjTppQAFKDqXklbJDdiVFc71opF0IgTubdHZoBB+T6PY4sleprUGKB0PXinCamOE+TlVmgyfrKFfEBC0dkUv968bInajEYOiHOcWUANddX4kvLJJj0gq
+X-MS-Exchange-AntiSpam-MessageData: tIJUJheGsHyjOnskux/bVeoetxZ+CHMbbaUL6786+BZ8aoT38MCJMA+bbaVj/xCSYC3YruhQq841dOhWdbCNlM85O4E33Zo4J/8Q4FMl1qsXtddUg+uNZdaUqRtLurtDa0GHUK4Qrj32GF2RPrIu2Q==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cf4310ab-8d97-4bb5-ca0b-08d7a0dc8436
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2020 14:48:47.3444 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ef5b1c1-57c3-4ca2-8c73-08d7a0dd87f1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2020 14:56:02.7644 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZHOREk/ZpMRODxhgOJIzzXHTqQTCBLcR15nqHTVkiMPCww790DfclO4Q0hWPrcDQCe6riqoOnpwLkBLy18SKoQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0246
+X-MS-Exchange-CrossTenant-UserPrincipalName: O5U+EScVazYoQeeEhiWa2pV26LM7txyXCwCbmKrpYNUZbZClNlph792Duz0arRxPwsSWNJTtIShYzF5djP1Cpg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2487
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,78 +132,167 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Mario Kleiner <mario.kleiner.de@gmail.com>, Leo Li <sunpeng.li@amd.com>,
+ Martin Tsai <martin.tsai@amd.com>, dri-devel@lists.freedesktop.org,
+ Sam Ravnborg <sam@ravnborg.org>, Leo Li <sunpeng.li@amd.com>,
  Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
  David Francis <David.Francis@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ David Airlie <airlied@linux.ie>, Alvin Lee <alvin.lee2@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, "Lin, Wayne" <Wayne.Lin@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+ Mikita Lipski <mikita.lipski@amd.com>, Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Jean Delvare <jdelvare@suse.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-01-23 8:07 p.m., Lyude Paul wrote:
-> These are some very loud debug statements that get printed on every
-> vblank when driver level debug printing is enabled in DRM, and doesn't
-> really tell us anything that isn't related to vblanks. So let's move
-> this over to the proper debug flag to be a little less spammy with our
-> debug output.
+On 2020-01-23 7:06 p.m., Lyude Paul wrote:
+> Disabling a display on MST can potentially happen after the entire MST
+> topology has been removed, which means that we can't communicate with
+> the topology at all in this scenario. Likewise, this also means that we
+> can't properly update payloads on the topology and as such, it's a good
+> idea to ignore payload update failures when disabling displays.
+> Currently, amdgpu makes the mistake of halting the payload update
+> process when any payload update failures occur, resulting in leaving
+> DC's local copies of the payload tables out of date.
+> 
+> This ends up causing problems with hotplugging MST topologies, and
+> causes modesets on the second hotplug to fail like so:
+> 
+> [drm] Failed to updateMST allocation table forpipe idx:1
+> ------------[ cut here ]------------
+> WARNING: CPU: 5 PID: 1511 at
+> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:2677
+> update_mst_stream_alloc_table+0x11e/0x130 [amdgpu]
+> Modules linked in: cdc_ether usbnet fuse xt_conntrack nf_conntrack
+> nf_defrag_ipv6 libcrc32c nf_defrag_ipv4 ipt_REJECT nf_reject_ipv4
+> nft_counter nft_compat nf_tables nfnetlink tun bridge stp llc sunrpc
+> vfat fat wmi_bmof uvcvideo snd_hda_codec_realtek snd_hda_codec_generic
+> snd_hda_codec_hdmi videobuf2_vmalloc snd_hda_intel videobuf2_memops
+> videobuf2_v4l2 snd_intel_dspcfg videobuf2_common crct10dif_pclmul
+> snd_hda_codec videodev crc32_pclmul snd_hwdep snd_hda_core
+> ghash_clmulni_intel snd_seq mc joydev pcspkr snd_seq_device snd_pcm
+> sp5100_tco k10temp i2c_piix4 snd_timer thinkpad_acpi ledtrig_audio snd
+> wmi soundcore video i2c_scmi acpi_cpufreq ip_tables amdgpu(O)
+> rtsx_pci_sdmmc amd_iommu_v2 gpu_sched mmc_core i2c_algo_bit ttm
+> drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops cec drm
+> crc32c_intel serio_raw hid_multitouch r8152 mii nvme r8169 nvme_core
+> rtsx_pci pinctrl_amd
+> CPU: 5 PID: 1511 Comm: gnome-shell Tainted: G           O      5.5.0-rc7Lyude-Test+ #4
+> Hardware name: LENOVO FA495SIT26/FA495SIT26, BIOS R12ET22W(0.22 ) 01/31/2019
+> RIP: 0010:update_mst_stream_alloc_table+0x11e/0x130 [amdgpu]
+> Code: 28 00 00 00 75 2b 48 8d 65 e0 5b 41 5c 41 5d 41 5e 5d c3 0f b6 06
+> 49 89 1c 24 41 88 44 24 08 0f b6 46 01 41 88 44 24 09 eb 93 <0f> 0b e9
+> 2f ff ff ff e8 a6 82 a3 c2 66 0f 1f 44 00 00 0f 1f 44 00
+> RSP: 0018:ffffac428127f5b0 EFLAGS: 00010202
+> RAX: 0000000000000002 RBX: ffff8d1e166eee80 RCX: 0000000000000000
+> RDX: ffffac428127f668 RSI: ffff8d1e166eee80 RDI: ffffac428127f610
+> RBP: ffffac428127f640 R08: ffffffffc03d94a8 R09: 0000000000000000
+> R10: ffff8d1e24b02000 R11: ffffac428127f5b0 R12: ffff8d1e1b83d000
+> R13: ffff8d1e1bea0b08 R14: 0000000000000002 R15: 0000000000000002
+> FS:  00007fab23ffcd80(0000) GS:ffff8d1e28b40000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 00007f151f1711e8 CR3: 00000005997c0000 CR4: 00000000003406e0
+> Call Trace:
+>  ? mutex_lock+0xe/0x30
+>  dc_link_allocate_mst_payload+0x9a/0x210 [amdgpu]
+>  ? dm_read_reg_func+0x39/0xb0 [amdgpu]
+>  ? core_link_enable_stream+0x656/0x730 [amdgpu]
+>  core_link_enable_stream+0x656/0x730 [amdgpu]
+>  dce110_apply_ctx_to_hw+0x58e/0x5d0 [amdgpu]
+>  ? dcn10_verify_allow_pstate_change_high+0x1d/0x280 [amdgpu]
+>  ? dcn10_wait_for_mpcc_disconnect+0x3c/0x130 [amdgpu]
+>  dc_commit_state+0x292/0x770 [amdgpu]
+>  ? add_timer+0x101/0x1f0
+>  ? ttm_bo_put+0x1a1/0x2f0 [ttm]
+>  amdgpu_dm_atomic_commit_tail+0xb59/0x1ff0 [amdgpu]
+>  ? amdgpu_move_blit.constprop.0+0xb8/0x1f0 [amdgpu]
+>  ? amdgpu_bo_move+0x16d/0x2b0 [amdgpu]
+>  ? ttm_bo_handle_move_mem+0x118/0x570 [ttm]
+>  ? ttm_bo_validate+0x134/0x150 [ttm]
+>  ? dm_plane_helper_prepare_fb+0x1b9/0x2a0 [amdgpu]
+>  ? _cond_resched+0x15/0x30
+>  ? wait_for_completion_timeout+0x38/0x160
+>  ? _cond_resched+0x15/0x30
+>  ? wait_for_completion_interruptible+0x33/0x190
+>  commit_tail+0x94/0x130 [drm_kms_helper]
+>  drm_atomic_helper_commit+0x113/0x140 [drm_kms_helper]
+>  drm_atomic_helper_set_config+0x70/0xb0 [drm_kms_helper]
+>  drm_mode_setcrtc+0x194/0x6a0 [drm]
+>  ? _cond_resched+0x15/0x30
+>  ? mutex_lock+0xe/0x30
+>  ? drm_mode_getcrtc+0x180/0x180 [drm]
+>  drm_ioctl_kernel+0xaa/0xf0 [drm]
+>  drm_ioctl+0x208/0x390 [drm]
+>  ? drm_mode_getcrtc+0x180/0x180 [drm]
+>  amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
+>  do_vfs_ioctl+0x458/0x6d0
+>  ksys_ioctl+0x5e/0x90
+>  __x64_sys_ioctl+0x16/0x20
+>  do_syscall_64+0x55/0x1b0
+>  entry_SYSCALL_64_after_hwframe+0x44/0xa9
+> RIP: 0033:0x7fab2121f87b
+> Code: 0f 1e fa 48 8b 05 0d 96 2c 00 64 c7 00 26 00 00 00 48 c7 c0 ff ff
+> ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa b8 10 00 00 00 0f 05 <48> 3d 01
+> f0 ff ff 73 01 c3 48 8b 0d dd 95 2c 00 f7 d8 64 89 01 48
+> RSP: 002b:00007ffd045f9068 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+> RAX: ffffffffffffffda RBX: 00007ffd045f90a0 RCX: 00007fab2121f87b
+> RDX: 00007ffd045f90a0 RSI: 00000000c06864a2 RDI: 000000000000000b
+> RBP: 00007ffd045f90a0 R08: 0000000000000000 R09: 000055dbd2985d10
+> R10: 000055dbd2196280 R11: 0000000000000246 R12: 00000000c06864a2
+> R13: 000000000000000b R14: 0000000000000000 R15: 000055dbd2196280
+> ---[ end trace 6ea888c24d2059cd ]---
+> 
+> Note as well, I have only been able to reproduce this on setups with 2
+> MST displays.
 > 
 > Signed-off-by: Lyude Paul <lyude@redhat.com>
+> Cc: stable@vger.kernel.org
 
-Thanks. Great change.
-
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+LGTM but would like Mikita or Wayne to have a look as well.
+Acked-by: Harry Wentland <harry.wentland@amd.com>
 
 Harry
 
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++++------
->  1 file changed, 8 insertions(+), 6 deletions(-)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 9402374d2466..3675e1c32707 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -407,8 +407,9 @@ static void dm_vupdate_high_irq(void *interrupt_params)
->  	if (acrtc) {
->  		acrtc_state = to_dm_crtc_state(acrtc->base.state);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> index 069b7a6f5597..252fa60c6775 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> @@ -216,6 +216,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
+>  		drm_dp_mst_reset_vcpi_slots(mst_mgr, mst_port);
+>  	}
 >  
-> -		DRM_DEBUG_DRIVER("crtc:%d, vupdate-vrr:%d\n", acrtc->crtc_id,
-> -				 amdgpu_dm_vrr_active(acrtc_state));
-> +		DRM_DEBUG_VBL("crtc:%d, vupdate-vrr:%d\n",
-> +			      acrtc->crtc_id,
-> +			      amdgpu_dm_vrr_active(acrtc_state));
+> +	/* If disabling, it's OK for this to fail */
+>  	ret = drm_dp_update_payload_part1(mst_mgr);
 >  
->  		/* Core vblank handling is done here after end of front-porch in
->  		 * vrr mode, as vblank timestamping will give valid results
-> @@ -458,8 +459,9 @@ static void dm_crtc_high_irq(void *interrupt_params)
->  	if (acrtc) {
->  		acrtc_state = to_dm_crtc_state(acrtc->base.state);
+>  	/* mst_mgr->->payloads are VC payload notify MST branch using DPCD or
+> @@ -225,7 +226,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
 >  
-> -		DRM_DEBUG_DRIVER("crtc:%d, vupdate-vrr:%d\n", acrtc->crtc_id,
-> -				 amdgpu_dm_vrr_active(acrtc_state));
-> +		DRM_DEBUG_VBL("crtc:%d, vupdate-vrr:%d\n",
-> +			      acrtc->crtc_id,
-> +			      amdgpu_dm_vrr_active(acrtc_state));
+>  	get_payload_table(aconnector, proposed_table);
 >  
->  		/* Core vblank handling at start of front-porch is only possible
->  		 * in non-vrr mode, as only there vblank timestamping will give
-> @@ -522,8 +524,8 @@ static void dm_dcn_crtc_high_irq(void *interrupt_params)
+> -	if (ret)
+> +	if (ret && !enable)
+>  		return false;
 >  
->  	acrtc_state = to_dm_crtc_state(acrtc->base.state);
+>  	return true;
+> @@ -299,9 +300,9 @@ bool dm_helpers_dp_mst_send_payload_allocation(
+>  	if (!mst_mgr->mst_state)
+>  		return false;
 >  
-> -	DRM_DEBUG_DRIVER("crtc:%d, vupdate-vrr:%d\n", acrtc->crtc_id,
-> -				amdgpu_dm_vrr_active(acrtc_state));
-> +	DRM_DEBUG_VBL("crtc:%d, vupdate-vrr:%d\n", acrtc->crtc_id,
-> +		      amdgpu_dm_vrr_active(acrtc_state));
+> +	/* If disabling, it's OK for this to fail */
+>  	ret = drm_dp_update_payload_part2(mst_mgr);
+> -
+> -	if (ret)
+> +	if (enable && ret)
+>  		return false;
 >  
->  	amdgpu_dm_crtc_handle_crc_irq(&acrtc->base);
->  	drm_crtc_handle_vblank(&acrtc->base);
+>  	if (!enable)
 > 
 _______________________________________________
 amd-gfx mailing list
