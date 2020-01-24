@@ -2,124 +2,75 @@ Return-Path: <SRS0=Oth2=3N=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FEB1C2D0DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 14:56:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45103C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 15:13:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CD92120704
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 14:56:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 14ECF20709
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 15:13:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qK95yE14"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD92120704
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KCxhJ8m3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 14ECF20709
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD7EE6E3D2;
-	Fri, 24 Jan 2020 14:56:07 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2072.outbound.protection.outlook.com [40.107.93.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8469F6E3D0;
- Fri, 24 Jan 2020 14:56:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fKdymGc9LhqzSmxumAdeX4sRmwF/0dJ1SdXe/iLXOoJQPJvMs1AJJ9M1QmEVA3niCyaHb3FUq2ZPR1Wbd+Gx6XXjEE3LuN1OVyR+LVO2MWthcH1EGLtjVAkD84QtXjxnxFg1gsZI9PsRYISYCOHYCnKN4oCy5RYff0QIHa3p08jzfeNnpEv4Or5j+TVroj/RfRZAbfZbyyxBXP+YNPgnb2FU7h7bgjwPbCUW4r1vrYOrXgIXZohNtoo29i8Bi08C8VRgobWUC+RCiVihiMWzZmNPjLlrvMM1SMIsLlL1plphTCJklYpE2nS22DTrim3ivgyytX/8yRUIFg72GeyKaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f1T3CR72OPxP+skINAGHvXe3hM/JeIr676viU8BsZQo=;
- b=iNvBk4kVZzZ4ytx9mBANVfPRy8z3NfihQt9TQ91+X4ldinK4iM5xTgO/7efVUhptjfE4U5qsAGhEXmN5b0n7olp7E0GAJQYXvsT1PLU7QJ2DhrMMCtFU6P14zlUbP5Ku5ycBTmMxTfwnSAzDd3e6B1LmSI8ZaWxLVgaJ02OvphrTy80L7c34KdVjJdzEM1TtCoKqUiJY8/W9OSACmOFFWYTHoXqT+b1R1aqrtQHWYqJku6e9lVf2V3MRmzhKGj3agt/V7pPRpekqIoXg2XOqbcqALIP+hrJbo2J7Vc3gvuohdKlneeQfOjrXL+1iIVOGnStW8avMcW0nf/gpiaOrvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f1T3CR72OPxP+skINAGHvXe3hM/JeIr676viU8BsZQo=;
- b=qK95yE14VadHm/ziFdrc6+xaORczO0enKBEsqKwfk7jmUXIqcsvkFARe/hnTLVpyZYXpwFKYlOy7Fg4qDMdUpGkU+2CavFr6WLYPDGpWLmRAEZYqJLyDHaDDlHVCDq1T6ZEFrJ9aalGrJLPb4GidLdIDfIJpzbTRi6owt3HZ+7g=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Harry.Wentland@amd.com; 
-Received: from CY4PR1201MB0230.namprd12.prod.outlook.com (10.172.79.7) by
- CY4PR1201MB2487.namprd12.prod.outlook.com (10.172.116.22) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2665.22; Fri, 24 Jan 2020 14:56:03 +0000
-Received: from CY4PR1201MB0230.namprd12.prod.outlook.com
- ([fe80::4c09:215c:e5d2:3c8f]) by CY4PR1201MB0230.namprd12.prod.outlook.com
- ([fe80::4c09:215c:e5d2:3c8f%9]) with mapi id 15.20.2644.028; Fri, 24 Jan 2020
- 14:56:02 +0000
-Subject: Re: [PATCH] drm/amd/dm/mst: Ignore payload update failures on disable
-To: Lyude Paul <lyude@redhat.com>, amd-gfx@lists.freedesktop.org
-References: <20200124000643.99859-1-lyude@redhat.com>
-From: Harry Wentland <hwentlan@amd.com>
-Autocrypt: addr=hwentlan@amd.com; keydata=
- mQENBFhb4C8BCADhHHUNoBQ7K7LupCP0FsUb443Vuqq+dH0uo4A3lnPkMF6FJmGcJ9Sbx1C6
- cd4PbVAaTFZUEmjqfpm+wCRBe11eF55hW3GJ273wvfH69Q/zmAxwO8yk+i5ZWWl8Hns5h69K
- D9QURHLpXxrcwnfHFah0DwV23TrD1KGB7vowCZyJOw93U/GzAlXKESy0FM7ZOYIJH83X7qhh
- Q9KX94iTEYTeH86Wy8hwHtqM6ySviwEz0g+UegpG8ebbz0w3b5QmdKCAg+eZTmBekP5o77YE
- BKqR+Miiwo9+tzm2N5GiF9HDeI2pVe/egOLa5UcmsgdF4Y5FKoMnBbAHNaA6Fev8PHlNABEB
- AAG0J0hhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPokBNwQTAQgAIQUC
- WFvgLwIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRAtWBXJjBS24xUlCAC9MqAlIbZO
- /a37s41h+MQ+D20C6/hVErWO+RA06nA+jFDPUWrDJKYdn6EDQWdLY3ATeAq3X8GIeOTXGrPD
- b2OXD6kOViW/RNvlXdrIsnIDacdr39aoAlY1b+bhTzZVz4pto4l+K1PZb5jlMgTk/ks9HesL
- RfYVq5wOy3qIpocdjdlXnSUKn0WOkGBBd8Nv3o0OI18tiJ1S/QwLBBfZoVvfGinoB2p4j/wO
- kJxpi3F9TaOtLGcdrgfghg31Fb48DP+6kodZ4ircerp4hyAp0U2iKtsrQ/sVWR4mbe3eTfcn
- YjBxGd2JOVdNQZa2VTNf9GshIDMD8IIQK6jN0LfY8Py2uQENBFhb4C8BCAC/0KWY3pIbU2cy
- i7GMj3gqB6h0jGqRuMpMRoSNDoAUIuSh17w+bawuOF6XZPdK3D4lC9cOXMwP3aP9tTJOori2
- 8vMH8KW9jp9lAYnGWYhSqLdjzIACquMqi96EBtawJDct1e9pVgp+d4JXHlgIrl11ITJo8rCP
- dEqjro2bCBWxijsIncdCzMjf57+nR7u86SBtGSFcXKapS7YJeWcvM6MzFYgIkxHxxBDvBBvm
- U2/mAXiL72kwmlV1BNrabQxX2UnIb3xt3UovYJehrnDUMdYjxJgSPRBx27wQ/D05xAlhkmmL
- FJ01ZYc412CRCC6gjgFPfUi2y7YJTrQHS79WSyANABEBAAGJAR8EGAEIAAkFAlhb4C8CGwwA
- CgkQLVgVyYwUtuM72Qf+J6JOQ/27pWf5Ulde9GS0BigA1kV9CNfIq396TgvQzeyixHMvgPdq
- Z36x89zZi0otjMZv6ypIdEg5co1Bvz0wFaKbCiNbTjpnA1VAbQVLSFjCZLQiu0vc+BZ1yKDV
- T5ASJ97G4XvQNO+XXGY55MrmhoNqMaeIa/3Jas54fPVd5olcnUAyDty29/VWXNllUq38iBCX
- /0tTF7oav1lzPGfeW2c6B700FFZMTR4YBVSGE8jPIzu2Fj0E8EkDmsgS+nibqSvWXfo1v231
- 410h35CjbYDlYQO7Z1YD7asqbaOnF0As+rckyRMweQ9CxZn5+YBijtPJA3x5ldbCfQ9rWiTu XQ==
-Message-ID: <41187639-f077-0212-aa02-d5dcc96c442b@amd.com>
-Date: Fri, 24 Jan 2020 09:55:54 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-In-Reply-To: <20200124000643.99859-1-lyude@redhat.com>
-Content-Language: en-US
-X-ClientProxiedBy: BN6PR17CA0026.namprd17.prod.outlook.com
- (2603:10b6:405:75::15) To CY4PR1201MB0230.namprd12.prod.outlook.com
- (2603:10b6:910:1e::7)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1CF872AE7;
+	Fri, 24 Jan 2020 15:13:56 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C99C26E3DF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jan 2020 15:13:55 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id d16so2376975wre.10
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jan 2020 07:13:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=vPuDbIGBXxyIfcTk2Zum8utgtdb0qSqk7SriL8LXvf0=;
+ b=KCxhJ8m3DZXyDivQsGOrF4WQO9hCRf5E8JJiOkWmJJVtIE0xiKTnwBt/HtbpcIkifd
+ g/eQoTogXuLOTnp9AXUJw3bxv8ZQG3V/XOaLBNxt9nrumRQo8sNZXr2/uIt1irGCe/PC
+ Al0KhaUX67CYBu14KQI9Cu/LF7Hn6T3HR2k8Gsa6fpCNkdEgC6RuMje/bBfD9h/BbAtq
+ N/NUwXPN3KG/47bjwsSyOqY/tkDgB9ZEFbQJ8ZMqcfJ52W/ZOwbhSYtWXCnWKVT1FpvS
+ W9+ev83jbj2TxRkRpgCKFyotznWuXytMZDa63SJzxj3URxUJEsCExlNPBrKjITqUG//v
+ HZKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=vPuDbIGBXxyIfcTk2Zum8utgtdb0qSqk7SriL8LXvf0=;
+ b=cA24osENo4adu08ZFutV+fU1r01uwpobigGDqzArCPhVdma9jZig1pqLL+7trCGI9/
+ fyPc1eLHloBap8kOkTkPDl7bZb3eVE0voOdkYn9vZ3+duvw5UjBoJVH6yjnFsoEBIvQN
+ nNeXl8wERa82YmChuD/4fOyZxN1Pxtz8NufFelq6i6F+WI1RSO5jzxS0T30G16m1b3+S
+ v8qea1ac6Fr2epHCaHtvv1+p0/sz0sae4i/OlcIa5RkyBxbIW3r/fX4tEFgVBhXYJQca
+ TaFWE7ISDuhkdCJqNeje7S2zABLc+9dBbfMdjuoQ2vYeY7HVIT6c2QZl0AGLHoddLX+S
+ VPmg==
+X-Gm-Message-State: APjAAAX1NQVmwdBlqliM/euYPfPbmx4vEHuaoD6+EXmAuKvnEHbkBTq9
+ BQ4MNHh/3xdCZxbRmErpaRBvmorxNQypbw==
+X-Google-Smtp-Source: APXvYqzhPVySIca5Fdg2WEAVdjeefps69JRtaYNN4lvDxZKoHdePqMiFQba1MDmaZKKQVKUKMxg7zQ==
+X-Received: by 2002:a5d:6a10:: with SMTP id m16mr4756842wru.411.1579878833983; 
+ Fri, 24 Jan 2020 07:13:53 -0800 (PST)
+Received: from brihaspati.fritz.box
+ (p200300C58F2A4600F739B6467D2A1C91.dip0.t-ipconnect.de.
+ [2003:c5:8f2a:4600:f739:b646:7d2a:1c91])
+ by smtp.gmail.com with ESMTPSA id z3sm7628473wrs.94.2020.01.24.07.13.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jan 2020 07:13:53 -0800 (PST)
+From: Nirmoy Das <nirmoy.aiemd@gmail.com>
+X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH V2] drm/amdgpu: allocate entities on demand
+Date: Fri, 24 Jan 2020 16:15:41 +0100
+Message-Id: <20200124151541.3429-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200124115311.8037-1-nirmoy.das@amd.com>
+References: <20200124115311.8037-1-nirmoy.das@amd.com>
 MIME-Version: 1.0
-Received: from [172.31.7.234] (165.204.84.11) by
- BN6PR17CA0026.namprd17.prod.outlook.com (2603:10b6:405:75::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2665.20 via Frontend Transport; Fri, 24 Jan 2020 14:55:56 +0000
-X-Originating-IP: [165.204.84.11]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 3ef5b1c1-57c3-4ca2-8c73-08d7a0dd87f1
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB2487:|CY4PR1201MB2487:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB2487DB63BD1A1FAFB3CBC30A8C0E0@CY4PR1201MB2487.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-Forefront-PRVS: 02929ECF07
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(136003)(346002)(39860400002)(376002)(366004)(189003)(199004)(316002)(16576012)(4326008)(54906003)(5660300002)(6486002)(7416002)(36756003)(956004)(53546011)(26005)(16526019)(186003)(31696002)(2616005)(52116002)(31686004)(478600001)(2906002)(45080400002)(66476007)(81156014)(8936002)(8676002)(66946007)(81166006)(66556008)(15650500001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR1201MB2487;
- H:CY4PR1201MB0230.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3aX7LpUWp1TTu7P8P9ZbDOadAeyks44+xBgSfZdP5KJ8SMT3ZDWcFWdNVgIAafF2KtmQP8bh8QLV9+zd5Ez1gc4SmVrGx6E0f9eqP30MDh9HZAdm5HGSJR40BQksf0M/wj98Zakh7sCK6SJYSjStDM9fTISlSII5509m5FUjt/qdlHRpXr4rP6k8brDpAh0DEzDkPIV63USu/j1IDDluK/HjgwBiJnUF85a/uQPNNSQjmYS47+Gbx/19/IwZtzvbbxwt5shjQtNVmqSX5sJ/jS5hTlIeT9Jz+K8LybuiAf1eqn9k3erVs80zDgARin0HB+MJKS32tRsKSjTppQAFKDqXklbJDdiVFc71opF0IgTubdHZoBB+T6PY4sleprUGKB0PXinCamOE+TlVmgyfrKFfEBC0dkUv968bInajEYOiHOcWUANddX4kvLJJj0gq
-X-MS-Exchange-AntiSpam-MessageData: tIJUJheGsHyjOnskux/bVeoetxZ+CHMbbaUL6786+BZ8aoT38MCJMA+bbaVj/xCSYC3YruhQq841dOhWdbCNlM85O4E33Zo4J/8Q4FMl1qsXtddUg+uNZdaUqRtLurtDa0GHUK4Qrj32GF2RPrIu2Q==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ef5b1c1-57c3-4ca2-8c73-08d7a0dd87f1
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2020 14:56:02.7644 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O5U+EScVazYoQeeEhiWa2pV26LM7txyXCwCbmKrpYNUZbZClNlph792Duz0arRxPwsSWNJTtIShYzF5djP1Cpg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2487
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,169 +82,412 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Martin Tsai <martin.tsai@amd.com>, dri-devel@lists.freedesktop.org,
- Sam Ravnborg <sam@ravnborg.org>, Leo Li <sunpeng.li@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- David Francis <David.Francis@amd.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Chris Wilson <chris@chris-wilson.co.uk>,
- David Airlie <airlied@linux.ie>, Alvin Lee <alvin.lee2@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, "Lin, Wayne" <Wayne.Lin@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Jean Delvare <jdelvare@suse.de>
+Cc: alexander.deucher@amd.com, kenny.ho@amd.com, nirmoy.das@amd.com,
+ christian.koenig@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-01-23 7:06 p.m., Lyude Paul wrote:
-> Disabling a display on MST can potentially happen after the entire MST
-> topology has been removed, which means that we can't communicate with
-> the topology at all in this scenario. Likewise, this also means that we
-> can't properly update payloads on the topology and as such, it's a good
-> idea to ignore payload update failures when disabling displays.
-> Currently, amdgpu makes the mistake of halting the payload update
-> process when any payload update failures occur, resulting in leaving
-> DC's local copies of the payload tables out of date.
-> 
-> This ends up causing problems with hotplugging MST topologies, and
-> causes modesets on the second hotplug to fail like so:
-> 
-> [drm] Failed to updateMST allocation table forpipe idx:1
-> ------------[ cut here ]------------
-> WARNING: CPU: 5 PID: 1511 at
-> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:2677
-> update_mst_stream_alloc_table+0x11e/0x130 [amdgpu]
-> Modules linked in: cdc_ether usbnet fuse xt_conntrack nf_conntrack
-> nf_defrag_ipv6 libcrc32c nf_defrag_ipv4 ipt_REJECT nf_reject_ipv4
-> nft_counter nft_compat nf_tables nfnetlink tun bridge stp llc sunrpc
-> vfat fat wmi_bmof uvcvideo snd_hda_codec_realtek snd_hda_codec_generic
-> snd_hda_codec_hdmi videobuf2_vmalloc snd_hda_intel videobuf2_memops
-> videobuf2_v4l2 snd_intel_dspcfg videobuf2_common crct10dif_pclmul
-> snd_hda_codec videodev crc32_pclmul snd_hwdep snd_hda_core
-> ghash_clmulni_intel snd_seq mc joydev pcspkr snd_seq_device snd_pcm
-> sp5100_tco k10temp i2c_piix4 snd_timer thinkpad_acpi ledtrig_audio snd
-> wmi soundcore video i2c_scmi acpi_cpufreq ip_tables amdgpu(O)
-> rtsx_pci_sdmmc amd_iommu_v2 gpu_sched mmc_core i2c_algo_bit ttm
-> drm_kms_helper syscopyarea sysfillrect sysimgblt fb_sys_fops cec drm
-> crc32c_intel serio_raw hid_multitouch r8152 mii nvme r8169 nvme_core
-> rtsx_pci pinctrl_amd
-> CPU: 5 PID: 1511 Comm: gnome-shell Tainted: G           O      5.5.0-rc7Lyude-Test+ #4
-> Hardware name: LENOVO FA495SIT26/FA495SIT26, BIOS R12ET22W(0.22 ) 01/31/2019
-> RIP: 0010:update_mst_stream_alloc_table+0x11e/0x130 [amdgpu]
-> Code: 28 00 00 00 75 2b 48 8d 65 e0 5b 41 5c 41 5d 41 5e 5d c3 0f b6 06
-> 49 89 1c 24 41 88 44 24 08 0f b6 46 01 41 88 44 24 09 eb 93 <0f> 0b e9
-> 2f ff ff ff e8 a6 82 a3 c2 66 0f 1f 44 00 00 0f 1f 44 00
-> RSP: 0018:ffffac428127f5b0 EFLAGS: 00010202
-> RAX: 0000000000000002 RBX: ffff8d1e166eee80 RCX: 0000000000000000
-> RDX: ffffac428127f668 RSI: ffff8d1e166eee80 RDI: ffffac428127f610
-> RBP: ffffac428127f640 R08: ffffffffc03d94a8 R09: 0000000000000000
-> R10: ffff8d1e24b02000 R11: ffffac428127f5b0 R12: ffff8d1e1b83d000
-> R13: ffff8d1e1bea0b08 R14: 0000000000000002 R15: 0000000000000002
-> FS:  00007fab23ffcd80(0000) GS:ffff8d1e28b40000(0000) knlGS:0000000000000000
-> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> CR2: 00007f151f1711e8 CR3: 00000005997c0000 CR4: 00000000003406e0
-> Call Trace:
->  ? mutex_lock+0xe/0x30
->  dc_link_allocate_mst_payload+0x9a/0x210 [amdgpu]
->  ? dm_read_reg_func+0x39/0xb0 [amdgpu]
->  ? core_link_enable_stream+0x656/0x730 [amdgpu]
->  core_link_enable_stream+0x656/0x730 [amdgpu]
->  dce110_apply_ctx_to_hw+0x58e/0x5d0 [amdgpu]
->  ? dcn10_verify_allow_pstate_change_high+0x1d/0x280 [amdgpu]
->  ? dcn10_wait_for_mpcc_disconnect+0x3c/0x130 [amdgpu]
->  dc_commit_state+0x292/0x770 [amdgpu]
->  ? add_timer+0x101/0x1f0
->  ? ttm_bo_put+0x1a1/0x2f0 [ttm]
->  amdgpu_dm_atomic_commit_tail+0xb59/0x1ff0 [amdgpu]
->  ? amdgpu_move_blit.constprop.0+0xb8/0x1f0 [amdgpu]
->  ? amdgpu_bo_move+0x16d/0x2b0 [amdgpu]
->  ? ttm_bo_handle_move_mem+0x118/0x570 [ttm]
->  ? ttm_bo_validate+0x134/0x150 [ttm]
->  ? dm_plane_helper_prepare_fb+0x1b9/0x2a0 [amdgpu]
->  ? _cond_resched+0x15/0x30
->  ? wait_for_completion_timeout+0x38/0x160
->  ? _cond_resched+0x15/0x30
->  ? wait_for_completion_interruptible+0x33/0x190
->  commit_tail+0x94/0x130 [drm_kms_helper]
->  drm_atomic_helper_commit+0x113/0x140 [drm_kms_helper]
->  drm_atomic_helper_set_config+0x70/0xb0 [drm_kms_helper]
->  drm_mode_setcrtc+0x194/0x6a0 [drm]
->  ? _cond_resched+0x15/0x30
->  ? mutex_lock+0xe/0x30
->  ? drm_mode_getcrtc+0x180/0x180 [drm]
->  drm_ioctl_kernel+0xaa/0xf0 [drm]
->  drm_ioctl+0x208/0x390 [drm]
->  ? drm_mode_getcrtc+0x180/0x180 [drm]
->  amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
->  do_vfs_ioctl+0x458/0x6d0
->  ksys_ioctl+0x5e/0x90
->  __x64_sys_ioctl+0x16/0x20
->  do_syscall_64+0x55/0x1b0
->  entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> RIP: 0033:0x7fab2121f87b
-> Code: 0f 1e fa 48 8b 05 0d 96 2c 00 64 c7 00 26 00 00 00 48 c7 c0 ff ff
-> ff ff c3 66 0f 1f 44 00 00 f3 0f 1e fa b8 10 00 00 00 0f 05 <48> 3d 01
-> f0 ff ff 73 01 c3 48 8b 0d dd 95 2c 00 f7 d8 64 89 01 48
-> RSP: 002b:00007ffd045f9068 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-> RAX: ffffffffffffffda RBX: 00007ffd045f90a0 RCX: 00007fab2121f87b
-> RDX: 00007ffd045f90a0 RSI: 00000000c06864a2 RDI: 000000000000000b
-> RBP: 00007ffd045f90a0 R08: 0000000000000000 R09: 000055dbd2985d10
-> R10: 000055dbd2196280 R11: 0000000000000246 R12: 00000000c06864a2
-> R13: 000000000000000b R14: 0000000000000000 R15: 000055dbd2196280
-> ---[ end trace 6ea888c24d2059cd ]---
-> 
-> Note as well, I have only been able to reproduce this on setups with 2
-> MST displays.
-> 
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Cc: stable@vger.kernel.org
+Currently we pre-allocate entities and fences for all the HW IPs on
+context creation and some of which are might never be used.
 
-LGTM but would like Mikita or Wayne to have a look as well.
-Acked-by: Harry Wentland <harry.wentland@amd.com>
+This patch tries to resolve entity/fences wastage by creating entity
+only when needed.
 
-Harry
+v2: allocate memory for entity and fences together
 
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index 069b7a6f5597..252fa60c6775 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -216,6 +216,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
->  		drm_dp_mst_reset_vcpi_slots(mst_mgr, mst_port);
->  	}
->  
-> +	/* If disabling, it's OK for this to fail */
->  	ret = drm_dp_update_payload_part1(mst_mgr);
->  
->  	/* mst_mgr->->payloads are VC payload notify MST branch using DPCD or
-> @@ -225,7 +226,7 @@ bool dm_helpers_dp_mst_write_payload_allocation_table(
->  
->  	get_payload_table(aconnector, proposed_table);
->  
-> -	if (ret)
-> +	if (ret && !enable)
->  		return false;
->  
->  	return true;
-> @@ -299,9 +300,9 @@ bool dm_helpers_dp_mst_send_payload_allocation(
->  	if (!mst_mgr->mst_state)
->  		return false;
->  
-> +	/* If disabling, it's OK for this to fail */
->  	ret = drm_dp_update_payload_part2(mst_mgr);
-> -
-> -	if (ret)
-> +	if (enable && ret)
->  		return false;
->  
->  	if (!enable)
-> 
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 231 ++++++++++++------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |   6 +-
+ 2 files changed, 122 insertions(+), 115 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 05c2af61e7de..d246ae9fe0eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -42,19 +42,12 @@ const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM] = {
+ 	[AMDGPU_HW_IP_VCN_JPEG]	=	1,
+ };
+
+-static int amdgpu_ctx_total_num_entities(void)
+-{
+-	unsigned i, num_entities = 0;
+-
+-	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+-		num_entities += amdgpu_ctx_num_entities[i];
+-
+-	return num_entities;
+-}
+-
+ static int amdgpu_ctx_priority_permit(struct drm_file *filp,
+ 				      enum drm_sched_priority priority)
+ {
++	if (priority < 0 || priority >= DRM_SCHED_PRIORITY_MAX)
++		return -EINVAL;
++
+ 	/* NORMAL and below are accessible by everyone */
+ 	if (priority <= DRM_SCHED_PRIORITY_NORMAL)
+ 		return 0;
+@@ -68,64 +61,26 @@ static int amdgpu_ctx_priority_permit(struct drm_file *filp,
+ 	return -EACCES;
+ }
+
+-static int amdgpu_ctx_init(struct amdgpu_device *adev,
+-			   enum drm_sched_priority priority,
+-			   struct drm_file *filp,
+-			   struct amdgpu_ctx *ctx)
++static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, const u32 hw_ip, const u32 ring)
+ {
+-	unsigned num_entities = amdgpu_ctx_total_num_entities();
+-	unsigned i, j;
++	struct amdgpu_device *adev = ctx->adev;
++	struct amdgpu_ctx_entity *entity;
++	struct drm_gpu_scheduler **scheds = NULL, *sched = NULL;
++	unsigned num_scheds = 0;
++	enum drm_sched_priority priority;
+ 	int r;
+
+-	if (priority < 0 || priority >= DRM_SCHED_PRIORITY_MAX)
+-		return -EINVAL;
++	entity = kcalloc(1, offsetof(typeof(*entity), fences[amdgpu_sched_jobs]),
++			 GFP_KERNEL);
++	if (!entity)
++		return  -ENOMEM;
+
+-	r = amdgpu_ctx_priority_permit(filp, priority);
+-	if (r)
+-		return r;
+-
+-	memset(ctx, 0, sizeof(*ctx));
+-	ctx->adev = adev;
+-
+-
+-	ctx->entities[0] = kcalloc(num_entities,
+-				   sizeof(struct amdgpu_ctx_entity),
+-				   GFP_KERNEL);
+-	if (!ctx->entities[0])
+-		return -ENOMEM;
++	entity->sequence = 1;
+
+-
+-	for (i = 0; i < num_entities; ++i) {
+-		struct amdgpu_ctx_entity *entity = &ctx->entities[0][i];
+-
+-		entity->sequence = 1;
+-		entity->fences = kcalloc(amdgpu_sched_jobs,
+-					 sizeof(struct dma_fence*), GFP_KERNEL);
+-		if (!entity->fences) {
+-			r = -ENOMEM;
+-			goto error_cleanup_memory;
+-		}
+-	}
+-	for (i = 1; i < AMDGPU_HW_IP_NUM; ++i)
+-		ctx->entities[i] = ctx->entities[i - 1] +
+-			amdgpu_ctx_num_entities[i - 1];
+-
+-	kref_init(&ctx->refcount);
+-	spin_lock_init(&ctx->ring_lock);
+-	mutex_init(&ctx->lock);
+-
+-	ctx->reset_counter = atomic_read(&adev->gpu_reset_counter);
+-	ctx->reset_counter_query = ctx->reset_counter;
+-	ctx->vram_lost_counter = atomic_read(&adev->vram_lost_counter);
+-	ctx->init_priority = priority;
+-	ctx->override_priority = DRM_SCHED_PRIORITY_UNSET;
+-
+-	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+-		struct drm_gpu_scheduler **scheds;
+-		struct drm_gpu_scheduler *sched;
+-		unsigned num_scheds = 0;
+-
+-		switch (i) {
++	ctx->entities[hw_ip][ring] = entity;
++	priority = (ctx->override_priority == DRM_SCHED_PRIORITY_UNSET) ?
++				ctx->init_priority : ctx->override_priority;
++	switch (hw_ip) {
+ 		case AMDGPU_HW_IP_GFX:
+ 			sched = &adev->gfx.gfx_ring[0].sched;
+ 			scheds = &sched;
+@@ -166,63 +121,87 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
+ 			scheds = adev->jpeg.jpeg_sched;
+ 			num_scheds =  adev->jpeg.num_jpeg_sched;
+ 			break;
+-		}
+-
+-		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j)
+-			r = drm_sched_entity_init(&ctx->entities[i][j].entity,
+-						  priority, scheds,
+-						  num_scheds, &ctx->guilty);
+-		if (r)
+-			goto error_cleanup_entities;
+ 	}
+
++	r = drm_sched_entity_init(&ctx->entities[hw_ip][ring]->entity,
++				  priority, scheds,
++				  num_scheds, &ctx->guilty);
++	if (r)
++		goto error_free_entity;
++
+ 	return 0;
+
+-error_cleanup_entities:
+-	for (i = 0; i < num_entities; ++i)
+-		drm_sched_entity_destroy(&ctx->entities[0][i].entity);
++error_free_entity:
++	kfree(ctx->entities[hw_ip][ring]);
++	return r;
++}
+
+-error_cleanup_memory:
+-	for (i = 0; i < num_entities; ++i) {
+-		struct amdgpu_ctx_entity *entity = &ctx->entities[0][i];
++static int amdgpu_ctx_init(struct amdgpu_device *adev,
++			   enum drm_sched_priority priority,
++			   struct drm_file *filp,
++			   struct amdgpu_ctx *ctx)
++{
++	int r;
+
+-		kfree(entity->fences);
+-		entity->fences = NULL;
+-	}
++	r = amdgpu_ctx_priority_permit(filp, priority);
++	if (r)
++		return r;
++
++	memset(ctx, 0, sizeof(*ctx));
++
++	ctx->adev = adev;
++
++	kref_init(&ctx->refcount);
++	spin_lock_init(&ctx->ring_lock);
++	mutex_init(&ctx->lock);
++
++	ctx->reset_counter = atomic_read(&adev->gpu_reset_counter);
++	ctx->reset_counter_query = ctx->reset_counter;
++	ctx->vram_lost_counter = atomic_read(&adev->vram_lost_counter);
++	ctx->init_priority = priority;
++	ctx->override_priority = DRM_SCHED_PRIORITY_UNSET;
++
++	return 0;
+
+-	kfree(ctx->entities[0]);
+-	ctx->entities[0] = NULL;
+-	return r;
+ }
+
+ static void amdgpu_ctx_fini(struct kref *ref)
+ {
+ 	struct amdgpu_ctx *ctx = container_of(ref, struct amdgpu_ctx, refcount);
+-	unsigned num_entities = amdgpu_ctx_total_num_entities();
+ 	struct amdgpu_device *adev = ctx->adev;
+-	unsigned i, j;
++	unsigned i, j, k;
+
+ 	if (!adev)
+ 		return;
+
+-	for (i = 0; i < num_entities; ++i) {
+-		struct amdgpu_ctx_entity *entity = &ctx->entities[0][i];
++	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
++		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
++			struct amdgpu_ctx_entity *entity;
++
++			if (!ctx->entities[i] || !ctx->entities[i][j])
++				continue;
+
+-		for (j = 0; j < amdgpu_sched_jobs; ++j)
+-			dma_fence_put(entity->fences[j]);
++			entity = ctx->entities[i][j];
++			if (!entity->fences)
++				continue;
+
+-		kfree(entity->fences);
++			for (k = 0; k < amdgpu_sched_jobs; ++k)
++				dma_fence_put(entity->fences[k]);
++
++			kfree(entity);
++			ctx->entities[i][j] = NULL;
++		}
+ 	}
+
+-	kfree(ctx->entities[0]);
+ 	mutex_destroy(&ctx->lock);
+-
+ 	kfree(ctx);
+ }
+
+ int amdgpu_ctx_get_entity(struct amdgpu_ctx *ctx, u32 hw_ip, u32 instance,
+ 			  u32 ring, struct drm_sched_entity **entity)
+ {
++	int r;
++
+ 	if (hw_ip >= AMDGPU_HW_IP_NUM) {
+ 		DRM_ERROR("unknown HW IP type: %d\n", hw_ip);
+ 		return -EINVAL;
+@@ -239,7 +218,14 @@ int amdgpu_ctx_get_entity(struct amdgpu_ctx *ctx, u32 hw_ip, u32 instance,
+ 		return -EINVAL;
+ 	}
+
+-	*entity = &ctx->entities[hw_ip][ring].entity;
++	if (ctx->entities[hw_ip][ring] == NULL) {
++		r = amdgpu_ctx_init_entity(ctx, hw_ip, ring);
++		if (r)
++			return r;
++	}
++
++
++	*entity = &ctx->entities[hw_ip][ring]->entity;
+ 	return 0;
+ }
+
+@@ -279,14 +265,17 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
+ static void amdgpu_ctx_do_release(struct kref *ref)
+ {
+ 	struct amdgpu_ctx *ctx;
+-	unsigned num_entities;
+-	u32 i;
++	u32 i, j;
+
+ 	ctx = container_of(ref, struct amdgpu_ctx, refcount);
++	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
++		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
++			if (!ctx->entities[i][j])
++				continue;
+
+-	num_entities = amdgpu_ctx_total_num_entities();
+-	for (i = 0; i < num_entities; i++)
+-		drm_sched_entity_destroy(&ctx->entities[0][i].entity);
++			drm_sched_entity_destroy(&ctx->entities[i][j]->entity);
++		}
++	}
+
+ 	amdgpu_ctx_fini(ref);
+ }
+@@ -516,19 +505,23 @@ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
+ void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
+ 				  enum drm_sched_priority priority)
+ {
+-	unsigned num_entities = amdgpu_ctx_total_num_entities();
+ 	enum drm_sched_priority ctx_prio;
+-	unsigned i;
++	unsigned i, j;
+
+ 	ctx->override_priority = priority;
+
+ 	ctx_prio = (ctx->override_priority == DRM_SCHED_PRIORITY_UNSET) ?
+ 			ctx->init_priority : ctx->override_priority;
++	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
++		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
++			struct drm_sched_entity *entity;
+
+-	for (i = 0; i < num_entities; i++) {
+-		struct drm_sched_entity *entity = &ctx->entities[0][i].entity;
++			if (!ctx->entities[i][j])
++				continue;
+
+-		drm_sched_entity_set_priority(entity, ctx_prio);
++			entity = &ctx->entities[i][j]->entity;
++			drm_sched_entity_set_priority(entity, ctx_prio);
++		}
+ 	}
+ }
+
+@@ -564,20 +557,24 @@ void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr)
+
+ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+ {
+-	unsigned num_entities = amdgpu_ctx_total_num_entities();
+ 	struct amdgpu_ctx *ctx;
+ 	struct idr *idp;
+-	uint32_t id, i;
++	uint32_t id, i, j;
+
+ 	idp = &mgr->ctx_handles;
+
+ 	mutex_lock(&mgr->lock);
+ 	idr_for_each_entry(idp, ctx, id) {
+-		for (i = 0; i < num_entities; i++) {
+-			struct drm_sched_entity *entity;
++		for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
++			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
++				struct drm_sched_entity *entity;
++
++				if (!ctx->entities[i][j])
++					continue;
+
+-			entity = &ctx->entities[0][i].entity;
+-			timeout = drm_sched_entity_flush(entity, timeout);
++				entity = &ctx->entities[i][j]->entity;
++				timeout = drm_sched_entity_flush(entity, timeout);
++			}
+ 		}
+ 	}
+ 	mutex_unlock(&mgr->lock);
+@@ -586,10 +583,9 @@ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+
+ void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+ {
+-	unsigned num_entities = amdgpu_ctx_total_num_entities();
+ 	struct amdgpu_ctx *ctx;
+ 	struct idr *idp;
+-	uint32_t id, i;
++	uint32_t id, i, j;
+
+ 	idp = &mgr->ctx_handles;
+
+@@ -599,8 +595,17 @@ void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+ 			continue;
+ 		}
+
+-		for (i = 0; i < num_entities; i++)
+-			drm_sched_entity_fini(&ctx->entities[0][i].entity);
++		for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
++			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
++				struct drm_sched_entity *entity;
++
++				if (!ctx->entities[i][j])
++					continue;
++
++				entity = &ctx->entities[i][j]->entity;
++				drm_sched_entity_fini(entity);
++			}
++		}
+ 	}
+ }
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+index a6cd9d4b078c..de490f183af2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+@@ -29,10 +29,12 @@ struct drm_device;
+ struct drm_file;
+ struct amdgpu_fpriv;
+
++#define AMDGPU_MAX_ENTITY_NUM 4
++
+ struct amdgpu_ctx_entity {
+ 	uint64_t		sequence;
+-	struct dma_fence	**fences;
+ 	struct drm_sched_entity	entity;
++	struct dma_fence	*fences[];
+ };
+
+ struct amdgpu_ctx {
+@@ -42,7 +44,7 @@ struct amdgpu_ctx {
+ 	unsigned			reset_counter_query;
+ 	uint32_t			vram_lost_counter;
+ 	spinlock_t			ring_lock;
+-	struct amdgpu_ctx_entity	*entities[AMDGPU_HW_IP_NUM];
++	struct amdgpu_ctx_entity	*entities[AMDGPU_HW_IP_NUM][AMDGPU_MAX_ENTITY_NUM];
+ 	bool				preamble_presented;
+ 	enum drm_sched_priority		init_priority;
+ 	enum drm_sched_priority		override_priority;
+--
+2.24.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
