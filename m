@@ -1,101 +1,73 @@
-Return-Path: <SRS0=Oth2=3N=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=ij9B=3O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E19CC2D0CE
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 23:45:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B530BC2D0DB
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Jan 2020 15:50:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 355B6206D4
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jan 2020 23:45:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7E34920704
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Jan 2020 15:50:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="LoKYIDF4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 355B6206D4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g9QS/q0u"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7E34920704
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAE436E053;
-	Fri, 24 Jan 2020 23:45:26 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2066.outbound.protection.outlook.com [40.107.243.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 771906E053
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jan 2020 23:45:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nhEi9lbx6IdGcv3p5UVHliRp0+td/93QVVBsKrSSMpyWT/5j37k4lcec6xgJ/BOZ6mPVrI/JF/zcC4M7+ALnGHpT5trR85f3AUU+gGSA6o1yLz//hWqly8NcK38I3dUoAff/jC3wR+T0snF79ha+6e5sOKdTXYena2yvw+hFXr3HXlWyTIWb7lOrhSQOUVLEIi+N/Ed6QDt5Ty/Q7AH87R/AA/4pZwRHGRzvLalVMgNeK2WknSCAgx2VUMMmoiUVXrQaUCMkXOgIS9FSGwxK8nFlXldYoKix319oWxNomPtfwLBxXvtoqRXCy3lbX10giqsdZ/EdPApZN1wDeXhO9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gZ17X4xaF/g87dN+pDLE/2jkXu1KvkwFHRAG4Y50iHM=;
- b=LaTLb2g4UrKKCBAtHtWpkyk5qli52twBe3J+fISCwyFmkf3BzYDKELjOnooB4e76K8MU6s7KBbpZay0Vq/zywdhCwpn/53SQqunlRL0K8wchDpBL9MWbykqvNVem8ezodpeJdwh/UuIVAyaFhtn4lsihfnDn+xSbv0ohp//gPM51/br+WHfQ+2r2jjOxril5YGbYtsMlu6BhCf0a4lPClVDHF+/at7qUIOWt9XPrKGqo4WSLNA2RxHrI6NmLmg/WOAGDpaJ8t+VLGECB0BZaMR7/tcoUQdIljTfzdL9mqlNw0QSfgupCB/xItid3XazoIUUohU4g7DtEjT/INAoD9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gZ17X4xaF/g87dN+pDLE/2jkXu1KvkwFHRAG4Y50iHM=;
- b=LoKYIDF43lTfA8kv5ZnC2h+UPGJ20D5wV4lV0DhwP0Mjt9Mjpqjp/VQYWTsvq9HsXHfl/6gmsn5v0Kj+3HZqtpHVLqH/Ndtj/WYWaPdMi30QLhODKlR/kTz2BEdswyiKQ/8nPAcUVNu9il/xqczZpzezXrVU5ctrNB1rzJD7W3o=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Joseph.Greathouse@amd.com; 
-Received: from DM5PR1201MB2472.namprd12.prod.outlook.com (10.172.86.151) by
- DM5PR1201MB2520.namprd12.prod.outlook.com (10.172.90.150) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.20; Fri, 24 Jan 2020 23:45:24 +0000
-Received: from DM5PR1201MB2472.namprd12.prod.outlook.com
- ([fe80::7c50:5e2f:e0a:3721]) by DM5PR1201MB2472.namprd12.prod.outlook.com
- ([fe80::7c50:5e2f:e0a:3721%6]) with mapi id 15.20.2644.028; Fri, 24 Jan 2020
- 23:45:23 +0000
-From: Joseph Greathouse <Joseph.Greathouse@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2] drm/amdgpu: Enable DISABLE_BARRIER_WAITCNT for Arcturus
-Date: Fri, 24 Jan 2020 17:45:12 -0600
-Message-Id: <20200124234512.217961-1-Joseph.Greathouse@amd.com>
-X-Mailer: git-send-email 2.19.1
-In-Reply-To: <20200124233756.217565-1-Joseph.Greathouse@amd.com>
-References: <20200124233756.217565-1-Joseph.Greathouse@amd.com>
-X-ClientProxiedBy: SN4PR0601CA0006.namprd06.prod.outlook.com
- (2603:10b6:803:2f::16) To DM5PR1201MB2472.namprd12.prod.outlook.com
- (2603:10b6:3:e1::23)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 354376E88C;
+	Sat, 25 Jan 2020 15:50:03 +0000 (UTC)
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7089F720C1;
+ Fri, 24 Jan 2020 10:18:56 +0000 (UTC)
+Received: by mail-qv1-xf44.google.com with SMTP id m14so644989qvl.3;
+ Fri, 24 Jan 2020 02:18:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=g0veyCUqrTy58lbkF11Bet/SvIre531kekpYNQJUe2M=;
+ b=g9QS/q0utfNTJTVotzHW2LuXRhtmHrDBaZ7INqs9fp0LdVBrqNtJGfG/mw0j78osZk
+ 6WCR6u7G6HydfuwzEIhK7mHJhRcTj3vTC87VaV5D3fy85bufhdvjOI7mhQ/6fN0Ly0W6
+ YK+MpRw6o8mH31CL2cPNRCo+KPxh9YiGw0UMYawRPXidLjRsFXVflE77/nQEYQnalhzr
+ iSg2edYXGHopQ8aBLufSs9rEEkAhklydmvpak8JLgGgNwjxo1oX+96L1UwAZPp69W9I0
+ X+kgjFWfW3Jl0QYejYB2hEfx7jC9bfWzTdXDcogQ+DWfBfKymw/0HY65t89a8g+199u5
+ QkFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=g0veyCUqrTy58lbkF11Bet/SvIre531kekpYNQJUe2M=;
+ b=eMtbhnmqLzrKBvVWVVYw3zsuDqybv/HjgBiacJIxq9TVuFCIXCCgY0OFS70EplHJt0
+ 7UagDyv0RURM7hFjJGsBVqf/Jrby/AhIUBpsRQvYn9FzDk8sF77t1EtjntZ2gJ9VmMIA
+ NGGbEC8XtmNYW+IgmxlkC8HJlWvlVw/j/fGjNefWKh7JvBACb+SdDOtXnix5jURUEer/
+ G7sCqnBiZIGAx/jGn6kCLWZhf6tqX5QuefTsdfOyyZke1w/MOr053uDcnhdkF3/PpCN4
+ AylnodzEpq9B7b/lshjwRQJo7nzqLBKoI0JNo09uanL6soJtIRE01Wk9RNt0YKzUv4zH
+ E9lA==
+X-Gm-Message-State: APjAAAUN/eXL4slcxw2S5TsFv8GYGeQOai8JzHbiCOzjUznczusGOZtR
+ cZl4YbQsu5qnZZNhILbDFnQ+MXoiL2v5S3dX97x0WjRm
+X-Google-Smtp-Source: APXvYqzwGZsd8oZGp5EYk5uHfEPCzrWjui4Vu6C6zY1OuIRUv30YR5wbUI5fw84EeGQSwfsfhW3pHlpT21GZKhi3g0s=
+X-Received: by 2002:a05:6214:707:: with SMTP id
+ b7mr1936520qvz.97.1579861135198; 
+ Fri, 24 Jan 2020 02:18:55 -0800 (PST)
 MIME-Version: 1.0
-Received: from rocm-perf01.amd.com (165.204.78.2) by
- SN4PR0601CA0006.namprd06.prod.outlook.com (2603:10b6:803:2f::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.20 via Frontend
- Transport; Fri, 24 Jan 2020 23:45:23 +0000
-X-Mailer: git-send-email 2.19.1
-X-Originating-IP: [165.204.78.2]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 5d09084c-7e62-40b7-7312-08d7a1277afa
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB2520:|DM5PR1201MB2520:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB25202121D630BEF7A380F439F90E0@DM5PR1201MB2520.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
-X-Forefront-PRVS: 02929ECF07
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(346002)(376002)(396003)(136003)(39860400002)(199004)(189003)(5660300002)(6916009)(8936002)(8676002)(81156014)(81166006)(186003)(86362001)(6486002)(4326008)(1076003)(26005)(36756003)(7696005)(52116002)(6666004)(2906002)(16526019)(66476007)(2616005)(66556008)(956004)(478600001)(66946007)(316002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR1201MB2520;
- H:DM5PR1201MB2472.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: QKF2Mka4eWxfLUIUnDhoCEbhedeRy+izmyco0biNaWQUmnU7p1acKz8QBD45Rcko78Dem/3bQbf6IvHbVqhv2Wz3wX0aX74YvrYuB/yf/GiZS9URcpVQrS5ROWsWQD7mp1Hw6K6eVtgF8ewDtj0/gLDCo6L+U6Mw3AywXDS+a2A/vuqi74G4V+LGKdJxWN6nHzGVqqbQSrEknHxkOEp3GncSXljMtIiMQMWPVH5oQMvt81iKcLuXG84DKVEQlJKqzm9Eit77yUG+f8u4Yn3VuUoBEwOOIzQunzheBlSj6ypAPkeHTm27CKVu9R//lgpMcgw/y8yroiyz9FOBs+ptymlWcXdBtIpWnQ74Bx8EIEQSSMDt0/GY3OOuG0cdgmaiaGldCuNy7cyIEW8z5n/vP3PFR+5MDgddNA3L9jM7TJLC3pH0qJZ+v3AgmKMSB3lI
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d09084c-7e62-40b7-7312-08d7a1277afa
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jan 2020 23:45:23.7893 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xIoafuCZ10yCMqmnNkFczuVoYLXh54Do9QhgBPUvNJ5RqryZwTmFrUBTCby5wvlrPexBl+tPnmbwxbraG26AlQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2520
+References: <20200104122217.148883-1-dor.askayo@gmail.com>
+ <CAO80jNS795mgHCp3XedZQ1o1QHbwxb8DeuSqPtKHmKbAVYsfmg@mail.gmail.com>
+In-Reply-To: <CAO80jNS795mgHCp3XedZQ1o1QHbwxb8DeuSqPtKHmKbAVYsfmg@mail.gmail.com>
+From: Dor Askayo <dor.askayo@gmail.com>
+Date: Fri, 24 Jan 2020 12:18:43 +0200
+Message-ID: <CAO80jNS6fV+8s1R5CH9swbkDB+-RmZADFvA0UkBmWG2bEQioPw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: do not allocate display_mode_lib
+ unnecessarily
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, 
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+X-Mailman-Approved-At: Sat, 25 Jan 2020 15:50:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,89 +79,161 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Joseph Greathouse <Joseph.Greathouse@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>,
+ "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In previous gfx9 parts, S_BARRIER shader instructions are implicitly
-S_WAITCNT 0 instructions as well. This setting turns off that
-mechanism in Arcturus and beyond. With this, shaders must follow
-the ISA guide insofar as putting in explicit S_WAITCNT operations
-even after an S_BARRIER.
+On Fri, Jan 17, 2020 at 12:59 PM Dor Askayo <dor.askayo@gmail.com> wrote:
+>
+> On Sat, Jan 4, 2020 at 2:23 PM Dor Askayo <dor.askayo@gmail.com> wrote:
+> >
+> > This allocation isn't required and can fail when resuming from suspend.
+> >
+> > Bug: https://gitlab.freedesktop.org/drm/amd/issues/1009
+> > Signed-off-by: Dor Askayo <dor.askayo@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/core/dc.c | 17 +++++++++--------
+> >  1 file changed, 9 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > index dd4731ab935c..83ebb716166b 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > @@ -2179,12 +2179,7 @@ void dc_set_power_state(
+> >         enum dc_acpi_cm_power_state power_state)
+> >  {
+> >         struct kref refcount;
+> > -       struct display_mode_lib *dml = kzalloc(sizeof(struct display_mode_lib),
+> > -                                               GFP_KERNEL);
+> > -
+> > -       ASSERT(dml);
+> > -       if (!dml)
+> > -               return;
+> > +       struct display_mode_lib *dml;
+> >
+> >         switch (power_state) {
+> >         case DC_ACPI_CM_POWER_STATE_D0:
+> > @@ -2206,6 +2201,12 @@ void dc_set_power_state(
+> >                  * clean state, and dc hw programming optimizations will not
+> >                  * cause any trouble.
+> >                  */
+> > +               dml = kzalloc(sizeof(struct display_mode_lib),
+> > +                               GFP_KERNEL);
+> > +
+> > +               ASSERT(dml);
+> > +               if (!dml)
+> > +                       return;
+> >
+> >                 /* Preserve refcount */
+> >                 refcount = dc->current_state->refcount;
+> > @@ -2219,10 +2220,10 @@ void dc_set_power_state(
+> >                 dc->current_state->refcount = refcount;
+> >                 dc->current_state->bw_ctx.dml = *dml;
+> >
+> > +               kfree(dml);
+> > +
+> >                 break;
+> >         }
+> > -
+> > -       kfree(dml);
+> >  }
+> >
+> >  void dc_resume(struct dc *dc)
+> > --
+> > 2.24.1
+> >
+>
+> I've been running with this fix applied on top of Fedora's
+> 5.3.16-300.fc31.x86_64 kernel for the past two weeks, suspending
+> and resuming often. This the first time since I bought my RX 580 8GB
+> more than a year ago that I can suspend and resume reliably.
+>
+> I'd appreciate a quick review for the above, it really is a trivial change.
+>
+> Thanks,
+> Dor
 
-v2: Fix patch title to list component
+Bumping this up again. I've been running with this change for the past
+20 days without issues.
 
-Change-Id: I4f80d6bc0c795b62e1f71bbd09d063b7f75249fd
-Signed-off-by: Joseph Greathouse <Joseph.Greathouse@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c           | 17 +++++++++++++++++
- .../amd/include/asic_reg/gc/gc_9_0_sh_mask.h    |  6 ++++--
- 2 files changed, 21 insertions(+), 2 deletions(-)
+Thanks,
+Dor
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 67ea6a9e13d9..ddde19f9d601 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -2441,6 +2441,22 @@ static void gfx_v9_0_init_gds_vmid(struct amdgpu_device *adev)
- 	}
- }
- 
-+static void gfx_v9_0_init_sq_config(struct amdgpu_device *adev)
-+{
-+	uint32_t tmp;
-+
-+	switch (adev->asic_type) {
-+	case CHIP_ARCTURUS:
-+		tmp = RREG32_SOC15(GC, 0, mmSQ_CONFIG);
-+		tmp = REG_SET_FIELD(tmp, SQ_CONFIG,
-+					DISABLE_BARRIER_WAITCNT, 1);
-+		WREG32_SOC15(GC, 0, mmSQ_CONFIG, tmp);
-+		break;
-+	default:
-+		break;
-+	};
-+}
-+
- static void gfx_v9_0_constants_init(struct amdgpu_device *adev)
- {
- 	u32 tmp;
-@@ -2486,6 +2502,7 @@ static void gfx_v9_0_constants_init(struct amdgpu_device *adev)
- 
- 	gfx_v9_0_init_compute_vmid(adev);
- 	gfx_v9_0_init_gds_vmid(adev);
-+	gfx_v9_0_init_sq_config(adev);
- }
- 
- static void gfx_v9_0_wait_for_rlc_serdes(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_sh_mask.h
-index c9e3f6d849a8..ea316d8dcb37 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_sh_mask.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_sh_mask.h
-@@ -2060,7 +2060,8 @@
- 
- // addressBlock: gc_sqdec
- //SQ_CONFIG
--#define SQ_CONFIG__UNUSED__SHIFT                                                                              0x0
-+#define SQ_CONFIG__DISABLE_BARRIER_WAITCNT__SHIFT                                                             0x0
-+#define SQ_CONFIG__UNUSED__SHIFT                                                                              0x1
- #define SQ_CONFIG__OVERRIDE_ALU_BUSY__SHIFT                                                                   0x7
- #define SQ_CONFIG__DEBUG_EN__SHIFT                                                                            0x8
- #define SQ_CONFIG__DEBUG_SINGLE_MEMOP__SHIFT                                                                  0x9
-@@ -2079,7 +2080,8 @@
- #define SQ_CONFIG__DISABLE_SP_REDUNDANT_THREAD_GATING__SHIFT                                                  0x1d
- #define SQ_CONFIG__DISABLE_FLAT_SOFT_CLAUSE__SHIFT                                                            0x1e
- #define SQ_CONFIG__DISABLE_MIMG_SOFT_CLAUSE__SHIFT                                                            0x1f
--#define SQ_CONFIG__UNUSED_MASK                                                                                0x0000007FL
-+#define SQ_CONFIG__DISABLE_BARRIER_WAITCNT_MASK                                                               0x00000001L
-+#define SQ_CONFIG__UNUSED_MASK                                                                                0x0000007EL
- #define SQ_CONFIG__OVERRIDE_ALU_BUSY_MASK                                                                     0x00000080L
- #define SQ_CONFIG__DEBUG_EN_MASK                                                                              0x00000100L
- #define SQ_CONFIG__DEBUG_SINGLE_MEMOP_MASK                                                                    0x00000200L
--- 
-2.19.1
-
+On Fri, Jan 17, 2020 at 12:59 PM Dor Askayo <dor.askayo@gmail.com> wrote:
+>
+> On Sat, Jan 4, 2020 at 2:23 PM Dor Askayo <dor.askayo@gmail.com> wrote:
+> >
+> > This allocation isn't required and can fail when resuming from suspend.
+> >
+> > Bug: https://gitlab.freedesktop.org/drm/amd/issues/1009
+> > Signed-off-by: Dor Askayo <dor.askayo@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/display/dc/core/dc.c | 17 +++++++++--------
+> >  1 file changed, 9 insertions(+), 8 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > index dd4731ab935c..83ebb716166b 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+> > @@ -2179,12 +2179,7 @@ void dc_set_power_state(
+> >         enum dc_acpi_cm_power_state power_state)
+> >  {
+> >         struct kref refcount;
+> > -       struct display_mode_lib *dml = kzalloc(sizeof(struct display_mode_lib),
+> > -                                               GFP_KERNEL);
+> > -
+> > -       ASSERT(dml);
+> > -       if (!dml)
+> > -               return;
+> > +       struct display_mode_lib *dml;
+> >
+> >         switch (power_state) {
+> >         case DC_ACPI_CM_POWER_STATE_D0:
+> > @@ -2206,6 +2201,12 @@ void dc_set_power_state(
+> >                  * clean state, and dc hw programming optimizations will not
+> >                  * cause any trouble.
+> >                  */
+> > +               dml = kzalloc(sizeof(struct display_mode_lib),
+> > +                               GFP_KERNEL);
+> > +
+> > +               ASSERT(dml);
+> > +               if (!dml)
+> > +                       return;
+> >
+> >                 /* Preserve refcount */
+> >                 refcount = dc->current_state->refcount;
+> > @@ -2219,10 +2220,10 @@ void dc_set_power_state(
+> >                 dc->current_state->refcount = refcount;
+> >                 dc->current_state->bw_ctx.dml = *dml;
+> >
+> > +               kfree(dml);
+> > +
+> >                 break;
+> >         }
+> > -
+> > -       kfree(dml);
+> >  }
+> >
+> >  void dc_resume(struct dc *dc)
+> > --
+> > 2.24.1
+> >
+>
+> I've been running with this fix applied on top of Fedora's
+> 5.3.16-300.fc31.x86_64 kernel for
+> the past two weeks, suspending and resuming often. This the first time
+> since I bought my
+> RX 580 8GB more than a year ago that I can suspend and resume reliably.
+>
+> I'd appreciate a quick review for the above, it really is a trivial change.
+>
+> Thanks,
+> Dor
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
