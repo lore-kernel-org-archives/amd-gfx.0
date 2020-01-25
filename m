@@ -2,72 +2,40 @@ Return-Path: <SRS0=ij9B=3O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33DBFC2D0DB
-	for <amd-gfx@archiver.kernel.org>; Sat, 25 Jan 2020 18:33:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AE1BBC2D0DB
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Jan 2020 18:47:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F29DD2071A
-	for <amd-gfx@archiver.kernel.org>; Sat, 25 Jan 2020 18:33:32 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UstTMPwO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F29DD2071A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6994C20716
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Jan 2020 18:47:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6994C20716
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=bastelmap.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACCE06E8E2;
-	Sat, 25 Jan 2020 18:33:32 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83E326E8E2
- for <amd-gfx@lists.freedesktop.org>; Sat, 25 Jan 2020 18:33:31 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id j20so5546118qka.10
- for <amd-gfx@lists.freedesktop.org>; Sat, 25 Jan 2020 10:33:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Xui/cFvjG12J6fSCpItmVCyDY4ZPXzRAK7FtzZyxscY=;
- b=UstTMPwOaf7WFNnapPKrhs2wImGCA+zXHrPZ9m3LpUmVaJR8JNI9I2oUJlWAi/H2Ss
- VJ11nHFY1jUrYrY40xHDqsYnznyCXCcx1/Wm90pyuP+KQhyXErwFeqTPQ9zMEJeIV8NP
- QRedQ8RvQZMnxAFDhXhejkSBySTVq1mOPTvzHB1Qyh5CXsd7MPGY1P0mOh8PnB47Uatq
- W1qwkkWxUiAd0q09xexi2vMdybXBEJrS/SsoUsDbtA4QaoWHWEPGutMmw1fhdsLj87Bo
- fSOWxQpHYzaSqYDCAE9CdHAwQioxUjO1vW3NJiRRuf15PBgtGvVzv5/DcMpAjfP7xh5X
- jB6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Xui/cFvjG12J6fSCpItmVCyDY4ZPXzRAK7FtzZyxscY=;
- b=DPW4e8hDUNIuz+MkfZGS5+dspFEIFkPZscBkqYKBFcFlMyGuIQK5Sms812SygzW4nq
- ADyW2sn4DZZsKTzPmfLumU3Txcbsgk4MOoTTq+g/VTLIhxV+9cdFt42uLPy30BxdVmog
- HxeCz9qsM4U1iTBu46rsHZOP1slp0m8gjHHxd96ln2m97oBS4MszNlylLvfhN92+1Lty
- tPIjog7i9VJbNGsMJy3T0vS7Y0Y33u+3xfSDyxWhgtseEU+WKZvrNAo6vykdoH1QetQQ
- huhl1zxO6jCbMdfU8ooitN8OnXoVx6MYfZ9sSMSriq9Qi0bHpSe06gSKLm+xUj1sx5me
- CH4g==
-X-Gm-Message-State: APjAAAWZCx8YibvlVXJMoseB43yt4Hp6Z58eOkX7orr9m4lxbzJMClw+
- 65HrOF34ju5YZwEGwLAOzDx6qMo7
-X-Google-Smtp-Source: APXvYqxSyf1MBmDYq2oYwoRtymPCgB7H7Rs2qOZtjB/O22OE0JCVvOKPfM/IliaJhZZWEFPZ7pzCvg==
-X-Received: by 2002:a37:905:: with SMTP id 5mr8556987qkj.404.1579977210301;
- Sat, 25 Jan 2020 10:33:30 -0800 (PST)
-Received: from localhost.localdomain ([71.219.59.120])
- by smtp.gmail.com with ESMTPSA id y26sm2111395qtv.28.2020.01.25.10.33.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 25 Jan 2020 10:33:29 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/navi10: add mclk to
- navi10_get_clock_by_type_with_latency
-Date: Sat, 25 Jan 2020 13:33:21 -0500
-Message-Id: <20200125183321.2315-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.24.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id E70BE6E8E3;
+	Sat, 25 Jan 2020 18:47:50 +0000 (UTC)
+Received: from dd10814.kasserver.com (dd10814.kasserver.com [85.13.133.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 146FB6E8E3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 25 Jan 2020 18:47:50 +0000 (UTC)
+Received: from zeus.ad.home.arpa (p5080FAB5.dip0.t-ipconnect.de
+ [80.128.250.181])
+ by dd10814.kasserver.com (Postfix) with ESMTPSA id 51EA3120033B;
+ Sat, 25 Jan 2020 19:47:48 +0100 (CET)
+Date: Sat, 25 Jan 2020 19:47:47 +0100
+From: Andreas Messer <andi@bastelmap.de>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Zhou <David1.Zhou@amd.com>
+Subject: [PATCH] drm/radeon: avoid page fault during gpu reset
+Message-ID: <20200125184746.GA5668@zeus.ad.home.arpa>
 MIME-Version: 1.0
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,35 +47,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Doesn't seem to be used, but add it just in case.
+When backing up a ring, validate pointer to avoid page fault.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+When the drivers attempts to handle a gpu lockup, a page fault might occur
+during call of radeon_ring_backup() since (*ring->next_rptr_cpu_addr) could
+have invalid content:
+
+  [ 3790.348267] radeon 0000:01:00.0: ring 0 stalled for more than 10150msec
+  [ 3790.348276] radeon 0000:01:00.0: GPU lockup (current fence id 0x00000000000699e4 last fence id 0x00000000000699f9 on ring 0)
+  [ 3791.504484] BUG: unable to handle page fault for address: ffffba5602800ffc
+  [ 3791.504485] #PF: supervisor read access in kernel mode
+  [ 3791.504486] #PF: error_code(0x0000) - not-present page
+  [ 3791.504487] PGD 851d3b067 P4D 851d3b067 PUD 0 
+  [ 3791.504488] Oops: 0000 [#1] SMP PTI
+  [ 3791.504490] CPU: 5 PID: 268 Comm: kworker/5:1H Tainted: G            E     5.4.8-amesser #3
+  [ 3791.504491] Hardware name: Gigabyte Technology Co., Ltd. X170-WS ECC/X170-WS ECC-CF, BIOS F2 06/20/2016
+  [ 3791.504507] Workqueue: radeon-crtc radeon_flip_work_func [radeon]
+  [ 3791.504520] RIP: 0010:radeon_ring_backup+0xb9/0x130 [radeon]
+
+It seems that my HD7750 enters such a state during thermal shutdown. Here
+the kernel message with added debug print and fix:
+
+  [ 2930.783094] radeon 0000:01:00.0: ring 3 stalled for more than 10280msec
+  [ 2930.783104] radeon 0000:01:00.0: GPU lockup (current fence id 0x000000000011194b last fence id 0x000000000011196a on ring 3)
+  [ 2931.936653] radeon 0000:01:00.0: Bad ptr 0xffffffff [   -1] for backup
+  [ 2931.937704] radeon 0000:01:00.0: GPU softreset: 0x00000BFD
+  [ 2931.937705] radeon 0000:01:00.0:   GRBM_STATUS               = 0xFFFFFFFF
+  [ 2931.937707] radeon 0000:01:00.0:   GRBM_STATUS_SE0           = 0xFFFFFFFF
+
+Signed-off-by: Andreas Messer <andi@bastelmap.de>
 ---
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index 015f5ea38901..f60762f9b143 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -1008,6 +1008,8 @@ static int navi10_get_clock_by_type_with_latency(struct smu_context *smu,
- 	case SMU_GFXCLK:
- 	case SMU_DCEFCLK:
- 	case SMU_SOCCLK:
-+	case SMU_MCLK:
-+	case SMU_UCLK:
- 		ret = smu_get_dpm_level_count(smu, clk_type, &level_count);
- 		if (ret)
- 			return ret;
--- 
-2.24.1
-
+diff --git a/drivers/gpu/drm/radeon/radeon_ring.c b/drivers/gpu/drm/radeon/radeon_ring.c
+index 37093cea24c5..bf55a682442a 100644
+--- a/drivers/gpu/drm/radeon/radeon_ring.c
++++ b/drivers/gpu/drm/radeon/radeon_ring.c
+@@ -309,6 +309,12 @@ unsigned radeon_ring_backup(struct radeon_device *rdev, struct radeon_ring *ring
+ 		return 0;
+ 	}
+ 
++	/* ptr could be invalid after thermal shutdown */
++	if (ptr >= (ring->ring_size / 4)) {
++		mutex_unlock(&rdev->ring_lock);
++		return 0;
++	}
++
+ 	size = ring->wptr + (ring->ring_size / 4);
+ 	size -= ptr;
+ 	size &= ring->ptr_mask;
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
