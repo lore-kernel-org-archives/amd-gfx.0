@@ -2,71 +2,50 @@ Return-Path: <SRS0=ij9B=3O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B530BC2D0DB
-	for <amd-gfx@archiver.kernel.org>; Sat, 25 Jan 2020 15:50:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 876D5C35243
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Jan 2020 15:50:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7E34920704
-	for <amd-gfx@archiver.kernel.org>; Sat, 25 Jan 2020 15:50:03 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g9QS/q0u"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7E34920704
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 6888520704
+	for <amd-gfx@archiver.kernel.org>; Sat, 25 Jan 2020 15:50:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6888520704
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=sk2.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 354376E88C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EAB06E88D;
 	Sat, 25 Jan 2020 15:50:03 +0000 (UTC)
-Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
- [IPv6:2607:f8b0:4864:20::f44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7089F720C1;
- Fri, 24 Jan 2020 10:18:56 +0000 (UTC)
-Received: by mail-qv1-xf44.google.com with SMTP id m14so644989qvl.3;
- Fri, 24 Jan 2020 02:18:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=g0veyCUqrTy58lbkF11Bet/SvIre531kekpYNQJUe2M=;
- b=g9QS/q0utfNTJTVotzHW2LuXRhtmHrDBaZ7INqs9fp0LdVBrqNtJGfG/mw0j78osZk
- 6WCR6u7G6HydfuwzEIhK7mHJhRcTj3vTC87VaV5D3fy85bufhdvjOI7mhQ/6fN0Ly0W6
- YK+MpRw6o8mH31CL2cPNRCo+KPxh9YiGw0UMYawRPXidLjRsFXVflE77/nQEYQnalhzr
- iSg2edYXGHopQ8aBLufSs9rEEkAhklydmvpak8JLgGgNwjxo1oX+96L1UwAZPp69W9I0
- X+kgjFWfW3Jl0QYejYB2hEfx7jC9bfWzTdXDcogQ+DWfBfKymw/0HY65t89a8g+199u5
- QkFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=g0veyCUqrTy58lbkF11Bet/SvIre531kekpYNQJUe2M=;
- b=eMtbhnmqLzrKBvVWVVYw3zsuDqybv/HjgBiacJIxq9TVuFCIXCCgY0OFS70EplHJt0
- 7UagDyv0RURM7hFjJGsBVqf/Jrby/AhIUBpsRQvYn9FzDk8sF77t1EtjntZ2gJ9VmMIA
- NGGbEC8XtmNYW+IgmxlkC8HJlWvlVw/j/fGjNefWKh7JvBACb+SdDOtXnix5jURUEer/
- G7sCqnBiZIGAx/jGn6kCLWZhf6tqX5QuefTsdfOyyZke1w/MOr053uDcnhdkF3/PpCN4
- AylnodzEpq9B7b/lshjwRQJo7nzqLBKoI0JNo09uanL6soJtIRE01Wk9RNt0YKzUv4zH
- E9lA==
-X-Gm-Message-State: APjAAAUN/eXL4slcxw2S5TsFv8GYGeQOai8JzHbiCOzjUznczusGOZtR
- cZl4YbQsu5qnZZNhILbDFnQ+MXoiL2v5S3dX97x0WjRm
-X-Google-Smtp-Source: APXvYqzwGZsd8oZGp5EYk5uHfEPCzrWjui4Vu6C6zY1OuIRUv30YR5wbUI5fw84EeGQSwfsfhW3pHlpT21GZKhi3g0s=
-X-Received: by 2002:a05:6214:707:: with SMTP id
- b7mr1936520qvz.97.1579861135198; 
- Fri, 24 Jan 2020 02:18:55 -0800 (PST)
+X-Greylist: delayed 2350 seconds by postgrey-1.36 at gabe;
+ Sat, 25 Jan 2020 12:26:24 UTC
+Received: from 7.mo2.mail-out.ovh.net (7.mo2.mail-out.ovh.net [188.165.48.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 419E26E81E
+ for <amd-gfx@lists.freedesktop.org>; Sat, 25 Jan 2020 12:26:24 +0000 (UTC)
+Received: from player159.ha.ovh.net (unknown [10.110.171.54])
+ by mo2.mail-out.ovh.net (Postfix) with ESMTP id 3CAED1B833A
+ for <amd-gfx@lists.freedesktop.org>; Sat, 25 Jan 2020 12:47:12 +0100 (CET)
+Received: from sk2.org (nat-fit.net.vutbr.cz [147.229.117.36])
+ (Authenticated sender: steve@sk2.org)
+ by player159.ha.ovh.net (Postfix) with ESMTPSA id F2C3EE9AA732;
+ Sat, 25 Jan 2020 11:46:57 +0000 (UTC)
+From: Stephen Kitt <steve@sk2.org>
+To: Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>
+Subject: [PATCH] amdgpu: use dma-resv API instead of manual kmalloc
+Date: Sat, 25 Jan 2020 12:46:24 +0100
+Message-Id: <20200125114624.2093235-1-steve@sk2.org>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-References: <20200104122217.148883-1-dor.askayo@gmail.com>
- <CAO80jNS795mgHCp3XedZQ1o1QHbwxb8DeuSqPtKHmKbAVYsfmg@mail.gmail.com>
-In-Reply-To: <CAO80jNS795mgHCp3XedZQ1o1QHbwxb8DeuSqPtKHmKbAVYsfmg@mail.gmail.com>
-From: Dor Askayo <dor.askayo@gmail.com>
-Date: Fri, 24 Jan 2020 12:18:43 +0200
-Message-ID: <CAO80jNS6fV+8s1R5CH9swbkDB+-RmZADFvA0UkBmWG2bEQioPw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: do not allocate display_mode_lib
- unnecessarily
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>, 
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+X-Ovh-Tracer-Id: 3080180672509660668
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedugedrvdejgdeffecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefhvffufffkofgggfestdekredtredttdenucfhrhhomhepufhtvghphhgvnhcumfhithhtuceoshhtvghvvgesshhkvddrohhrgheqnecukfhppedtrddtrddtrddtpddugeejrddvvdelrdduudejrdefieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehplhgrhigvrhduheelrdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomhepshhtvghvvgesshhkvddrohhrghdprhgtphhtthhopegrmhguqdhgfhigsehlihhsthhsrdhfrhgvvgguvghskhhtohhprdhorhhg
 X-Mailman-Approved-At: Sat, 25 Jan 2020 15:50:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,161 +58,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>,
- "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org, Stephen Kitt <steve@sk2.org>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jan 17, 2020 at 12:59 PM Dor Askayo <dor.askayo@gmail.com> wrote:
->
-> On Sat, Jan 4, 2020 at 2:23 PM Dor Askayo <dor.askayo@gmail.com> wrote:
-> >
-> > This allocation isn't required and can fail when resuming from suspend.
-> >
-> > Bug: https://gitlab.freedesktop.org/drm/amd/issues/1009
-> > Signed-off-by: Dor Askayo <dor.askayo@gmail.com>
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/core/dc.c | 17 +++++++++--------
-> >  1 file changed, 9 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > index dd4731ab935c..83ebb716166b 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > @@ -2179,12 +2179,7 @@ void dc_set_power_state(
-> >         enum dc_acpi_cm_power_state power_state)
-> >  {
-> >         struct kref refcount;
-> > -       struct display_mode_lib *dml = kzalloc(sizeof(struct display_mode_lib),
-> > -                                               GFP_KERNEL);
-> > -
-> > -       ASSERT(dml);
-> > -       if (!dml)
-> > -               return;
-> > +       struct display_mode_lib *dml;
-> >
-> >         switch (power_state) {
-> >         case DC_ACPI_CM_POWER_STATE_D0:
-> > @@ -2206,6 +2201,12 @@ void dc_set_power_state(
-> >                  * clean state, and dc hw programming optimizations will not
-> >                  * cause any trouble.
-> >                  */
-> > +               dml = kzalloc(sizeof(struct display_mode_lib),
-> > +                               GFP_KERNEL);
-> > +
-> > +               ASSERT(dml);
-> > +               if (!dml)
-> > +                       return;
-> >
-> >                 /* Preserve refcount */
-> >                 refcount = dc->current_state->refcount;
-> > @@ -2219,10 +2220,10 @@ void dc_set_power_state(
-> >                 dc->current_state->refcount = refcount;
-> >                 dc->current_state->bw_ctx.dml = *dml;
-> >
-> > +               kfree(dml);
-> > +
-> >                 break;
-> >         }
-> > -
-> > -       kfree(dml);
-> >  }
-> >
-> >  void dc_resume(struct dc *dc)
-> > --
-> > 2.24.1
-> >
->
-> I've been running with this fix applied on top of Fedora's
-> 5.3.16-300.fc31.x86_64 kernel for the past two weeks, suspending
-> and resuming often. This the first time since I bought my RX 580 8GB
-> more than a year ago that I can suspend and resume reliably.
->
-> I'd appreciate a quick review for the above, it really is a trivial change.
->
-> Thanks,
-> Dor
+Instead of hand-coding the dma_resv_list allocation, use
+dma_resv_list_alloc, which masks the shared_max handling. While we're
+at it, since we only need shared_count fences, allocate shared_count
+fences rather than shared_max.
 
-Bumping this up again. I've been running with this change for the past
-20 days without issues.
+(This is the only place in the kernel, outside of dma-resv.c, which
+touches shared_max. This suggests we'd probably be better off without
+it!)
 
-Thanks,
-Dor
+Signed-off-by: Stephen Kitt <steve@sk2.org>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-On Fri, Jan 17, 2020 at 12:59 PM Dor Askayo <dor.askayo@gmail.com> wrote:
->
-> On Sat, Jan 4, 2020 at 2:23 PM Dor Askayo <dor.askayo@gmail.com> wrote:
-> >
-> > This allocation isn't required and can fail when resuming from suspend.
-> >
-> > Bug: https://gitlab.freedesktop.org/drm/amd/issues/1009
-> > Signed-off-by: Dor Askayo <dor.askayo@gmail.com>
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/core/dc.c | 17 +++++++++--------
-> >  1 file changed, 9 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > index dd4731ab935c..83ebb716166b 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> > @@ -2179,12 +2179,7 @@ void dc_set_power_state(
-> >         enum dc_acpi_cm_power_state power_state)
-> >  {
-> >         struct kref refcount;
-> > -       struct display_mode_lib *dml = kzalloc(sizeof(struct display_mode_lib),
-> > -                                               GFP_KERNEL);
-> > -
-> > -       ASSERT(dml);
-> > -       if (!dml)
-> > -               return;
-> > +       struct display_mode_lib *dml;
-> >
-> >         switch (power_state) {
-> >         case DC_ACPI_CM_POWER_STATE_D0:
-> > @@ -2206,6 +2201,12 @@ void dc_set_power_state(
-> >                  * clean state, and dc hw programming optimizations will not
-> >                  * cause any trouble.
-> >                  */
-> > +               dml = kzalloc(sizeof(struct display_mode_lib),
-> > +                               GFP_KERNEL);
-> > +
-> > +               ASSERT(dml);
-> > +               if (!dml)
-> > +                       return;
-> >
-> >                 /* Preserve refcount */
-> >                 refcount = dc->current_state->refcount;
-> > @@ -2219,10 +2220,10 @@ void dc_set_power_state(
-> >                 dc->current_state->refcount = refcount;
-> >                 dc->current_state->bw_ctx.dml = *dml;
-> >
-> > +               kfree(dml);
-> > +
-> >                 break;
-> >         }
-> > -
-> > -       kfree(dml);
-> >  }
-> >
-> >  void dc_resume(struct dc *dc)
-> > --
-> > 2.24.1
-> >
->
-> I've been running with this fix applied on top of Fedora's
-> 5.3.16-300.fc31.x86_64 kernel for
-> the past two weeks, suspending and resuming often. This the first time
-> since I bought my
-> RX 580 8GB more than a year ago that I can suspend and resume reliably.
->
-> I'd appreciate a quick review for the above, it really is a trivial change.
->
-> Thanks,
-> Dor
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 888209eb8cec..aec595752200 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -234,12 +234,11 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
+ 	if (!old)
+ 		return 0;
+ 
+-	new = kmalloc(offsetof(typeof(*new), shared[old->shared_max]),
+-		      GFP_KERNEL);
++	new = dma_resv_list_alloc(old->shared_count);
+ 	if (!new)
+ 		return -ENOMEM;
+ 
+-	/* Go through all the shared fences in the resevation object and sort
++	/* Go through all the shared fences in the reservation object and sort
+ 	 * the interesting ones to the end of the list.
+ 	 */
+ 	for (i = 0, j = old->shared_count, k = 0; i < old->shared_count; ++i) {
+@@ -253,7 +252,6 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
+ 		else
+ 			RCU_INIT_POINTER(new->shared[k++], f);
+ 	}
+-	new->shared_max = old->shared_max;
+ 	new->shared_count = k;
+ 
+ 	/* Install the new fence list, seqcount provides the barriers */
+-- 
+2.24.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
