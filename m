@@ -2,102 +2,67 @@ Return-Path: <SRS0=W31V=3Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15C31C2D0DB
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2020 19:54:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D23DC33CB7
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2020 19:58:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 945CA22527
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2020 19:54:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E55BE2467B
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jan 2020 19:58:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="k+DjZ6Lj"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 945CA22527
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UhMz/7MY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E55BE2467B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C81B6E990;
-	Mon, 27 Jan 2020 19:54:04 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2048.outbound.protection.outlook.com [40.107.236.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E9426E987
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jan 2020 19:54:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oacpB8dOh1P4MPQwwLz+/H3IkLxIVX4iLpFe/x1dHy23ncamOsbO3MVjGjDm459aJ3X2ZY1euVo7SM1+i2jU8oEL/dZhcJvNZ/ECJo4Q9+ktxuthXJplq4H0NKcVaumJM4ShFOUWLdmp0h7oKafzKIO6VX3IH0ndHi8VdKgD+9D7XRjqRyaXwcqwJjbgHURqmxGycJlBHhjaCoJxtrzDDB1ljOke6zW6ah8XnF2CcZL980RfUEZnWxNk/TfCkAUUqqkTh0vc9JK4fctmeMvWaycjAdfJBviMHcyl8SeOLO9a+RQ8UtLCMukA/PkuzEXzBT8+VScgLoc6ymw+3tgbVw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uDPqW+0ZlYB128IcmhAScGGWo7WwTCd9dDeFickZ8l4=;
- b=fvdHRt/3jk7MOmOu8xleH+b4JrCb+oJVNCiTmbAq69m4pbuZO2e/Wgg3YXm2bgMHDqIE9/L0uIQ3tDeVPLYPh0XYh8UMaiGnr1ALd0hEAmf+MzBtuR/AOVSwtUEcNgrlHuwsR2SqMRq1w20QUx+K6DLXHBuGroQkXvVd404d1y7wcwkyYbG/Yi1tw2pfBGIMuEKDRbZbMTTERXjc4YAnpsA6ojSWkmUxoOqG6h/Znqpnr55UluBkA74VgU1yIY6R0rtcjyCtjRKforTXaDAVPjH97xsxFpB4Yhs8XaXNl53i2MQmpZ/ZWLWjOWWKo582w7WGcAE8jHVEqRi4JCpzfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uDPqW+0ZlYB128IcmhAScGGWo7WwTCd9dDeFickZ8l4=;
- b=k+DjZ6LjvL2Ir4JLm+VR5199UjOCheQhHgIj18OkD8nXBZ6cywBe4v+8xAQQ8npzX2wvk6vn87UT/W1n1eeAQycV+yWniDc2zkCeQrN1kF6Fetv25vSs8ge/kabGMN5bTscbfN7cwiav5+i3wt84brYShbjBeA51RgLDkBQahTk=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Andrey.Grodzovsky@amd.com; 
-Received: from MWHPR12MB1453.namprd12.prod.outlook.com (10.172.55.22) by
- MWHPR12MB1741.namprd12.prod.outlook.com (10.175.53.143) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2665.22; Mon, 27 Jan 2020 19:54:00 +0000
-Received: from MWHPR12MB1453.namprd12.prod.outlook.com
- ([fe80::610d:b9b1:dbd1:1150]) by MWHPR12MB1453.namprd12.prod.outlook.com
- ([fe80::610d:b9b1:dbd1:1150%6]) with mapi id 15.20.2665.017; Mon, 27 Jan 2020
- 19:54:00 +0000
-Subject: Re: [PATCH 2/2] drm/amdgpu: enable GPU reset by default on renoir
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20200127193757.28379-1-alexander.deucher@amd.com>
- <20200127193757.28379-2-alexander.deucher@amd.com>
-From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Message-ID: <25d4318b-2800-cc1f-86cd-51f07f031bce@amd.com>
-Date: Mon, 27 Jan 2020 14:53:57 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
-In-Reply-To: <20200127193757.28379-2-alexander.deucher@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YTXPR0101CA0005.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::18) To MWHPR12MB1453.namprd12.prod.outlook.com
- (2603:10b6:301:e::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93F0D6E987;
+	Mon, 27 Jan 2020 19:58:57 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BD806E987
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jan 2020 19:58:56 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id f129so8462885wmf.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jan 2020 11:58:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=NjWH5hq6JOVGc8DtlGVaAUzKTFE7kCZSGUKwFEb4+oE=;
+ b=UhMz/7MY18F0hGdePd6lNR+cm3IMw+AbNUlYpkwwxPBZFvkG0MnPDjCO8sejM15k4H
+ uF94cG1a7ac9w90hheUYaSAUCJMhUROFBU+Ovp3KHpYa2c3DfNHCnn2Dqv9TIiHe3ZOt
+ R+SU1jE9eYNNUC3idlnoCd6SEW275cYX63ty1PLhk3EuYRrQCWdH+Aa9+J2o+utruM9Q
+ bQgz+bx83v5BNR5ASGhtxsWdL7tHbzrVozc2HjNv+f5PwM0nmWRpAZHBRKIXkgtiYqVI
+ 15aPVq8av6fTC/orv4X0jwMxhRwd27VSE9RKv5ESC2qPByp5nT75OcQh0NkNx1ckCsP6
+ d5Pw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=NjWH5hq6JOVGc8DtlGVaAUzKTFE7kCZSGUKwFEb4+oE=;
+ b=IygoTuGWl8GUZZOKFl/AAUHH5UIcDngXX+mHslJfDeoUWCHdT4H0dkgj65jenJC3bS
+ JW2owegOYcPSxnGuu9tUc6/YdcdGpvXQcPHhelCzPRcJNNvIsXVZ5CJaK5133vnwKFUH
+ HBv5OqTNjbIZbwlTYFI+CpIbUjzAKYnt7voEk5kryoFssNFopCF/UGw5DawnnwKGFel3
+ /m3vx8i3w7ZlRIV1fdUUg4U7XSI2IRoVIDSJVLTgEP5/UHwFNeujEP7o7PAchZ2+hPI0
+ 7c4OwbyaT4DRTWPlUxdHbALSeLJTaOXJlwXLP2X+WvGgkOPZ26XHqR0qDGuUkfdTz6e2
+ ++bg==
+X-Gm-Message-State: APjAAAV+1e/5iKjXyYLsPu8mhPXTEQuertHy/QdA21dR8Wa3SuU4SWvu
+ +dQJ2yhr9l/qNdMHA1T1CQ8T0RgwKt+8f39GTwc=
+X-Google-Smtp-Source: APXvYqzSJ4yyeECv+2kLzTliNZRLy+OPAVYReep+n1Fu+lioWSk+6VGtA93kTBKWU3V6V/BGm429NVr4nbzXx9d58Bo=
+X-Received: by 2002:a1c:f009:: with SMTP id a9mr300738wmb.73.1580155135137;
+ Mon, 27 Jan 2020 11:58:55 -0800 (PST)
 MIME-Version: 1.0
-Received: from [172.27.231.243] (165.204.55.251) by
- YTXPR0101CA0005.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2665.20 via Frontend Transport; Mon, 27 Jan 2020 19:54:00 +0000
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 89e74138-bfa3-474f-ec3c-08d7a362a74e
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1741:|MWHPR12MB1741:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MWHPR12MB17412F05815F2411B72E404AEA0B0@MWHPR12MB1741.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:854;
-X-Forefront-PRVS: 02951C14DC
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(39850400004)(136003)(346002)(376002)(396003)(199004)(189003)(16576012)(316002)(81166006)(4326008)(81156014)(8676002)(6666004)(6486002)(4744005)(8936002)(5660300002)(16526019)(2616005)(956004)(26005)(186003)(66476007)(66946007)(31686004)(2906002)(52116002)(53546011)(66556008)(478600001)(36756003)(31696002)(86362001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1741;
- H:MWHPR12MB1453.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TOFNsfNJnWtZF5l89A8+j8KmWUb8RDzIJbT4dLvgtNZe8MKHXR/XtQEgUuFJLztXq0o733djtTJ24EcdcW1n0L24RRwTrU7hzU8FzpiRPyPdiA49nak/QQzao2dZBHfA98HkwQ5xoOLoCnacyL2YXMvBBjLDn8LD7r7Kx6JCDw0ZcqyEqfdlcnNUJCZsHKjkHj2PJZ3M7xciYXdjg2zlJQxdWYuJGxMTQI3VPz65DPAXTPDJG0/rFxLhDZ/VdUc1dq9c1TIf0euVkL+eef/utQbHYPc1Tr46ujBxfpm07ZzeToOe5kkzkEgIQ633dXBiiYekbhhcC2IeNxA7eKKP/aPA30blKa0C/hfADvm0nHTRzMV7mBe+KaB3yqaki2Izjs2l6TUdtUM7CJf9wiOpYPlIhflCvlGBfupyfOY6nC89Z30c6g7AFtgjKz5/qhIs
-X-MS-Exchange-AntiSpam-MessageData: XcBh3hfj/DdpwvFozaFwejZ+aqRmIKty3biDCvwyDh20jlBaXxU4RL4FFvDHLMRUvVTZRnFkibLxmW3Y8jvP0+yv7b0Rscnuj4t9edX5Ea9MRYDwNEFJJtDlQYZZQAJ6sehdz6B6XRqD+EtHdPTuiw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89e74138-bfa3-474f-ec3c-08d7a362a74e
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2020 19:54:00.8153 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5biuymQ4aubPm9JIHW5dPR6BP1cri8TweJO5V7CGuU+utIgcbX+WMu6cbhtaJCvgYAbRp3G8AN7QXH2Rfz4rUg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1741
+References: <d4fb24b4-bc95-4684-bb09-3cf4df8b3c2c@canonical.com>
+ <20200124192343.12540-1-harry.wentland@amd.com>
+In-Reply-To: <20200124192343.12540-1-harry.wentland@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 27 Jan 2020 14:58:41 -0500
+Message-ID: <CADnq5_Nz-RD6+Or0qS2SWf-r8dxcz1BwJjrjNS7tuSJqu+-odQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix psr static frames calculation
+To: Harry Wentland <harry.wentland@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,36 +74,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Colin Ian King <colin.king@canonical.com>,
+ "for 3.8" <stable@vger.kernel.org>, Zhan Liu <Zhan.Liu@amd.com>,
+ Roman Li <roman.li@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is Reviewed-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-
-Andrey
-
-On 1/27/20 2:37 PM, Alex Deucher wrote:
-> Everything is in place.
+On Fri, Jan 24, 2020 at 2:23 PM Harry Wentland <harry.wentland@amd.com> wrote:
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> From: Roman Li <Roman.Li@amd.com>
+>
+> [Why]
+> Driver crash with psr feature enabled due to divide-by-zero error.
+> This is a regression after rework to calculate static screen frame
+> number entry time.
+>
+> [How]
+> Correct order of operations to avoid divide-by-zero.
+>
+> Cc: Colin Ian King <colin.king@canonical.com>
+> Fixes: 5b5abe952607 drm/amd/display: make PSR static screen entry within 30 ms
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Roman Li <roman.li@amd.com>
+> Reviewed-by: Zhan Liu <Zhan.Liu@amd.com>
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
->   1 file changed, 1 insertion(+)
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 69248d1b2417..5030a09babb8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3762,6 +3762,7 @@ bool amdgpu_device_should_recover_gpu(struct amdgpu_device *adev)
->   		case CHIP_VEGA12:
->   		case CHIP_RAVEN:
->   		case CHIP_ARCTURUS:
-> +		case CHIP_RENOIR:
->   		case CHIP_NAVI10:
->   		case CHIP_NAVI14:
->   		case CHIP_NAVI12:
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index eed3ed7180fd..61c36c1520c2 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -8491,7 +8491,6 @@ bool amdgpu_dm_psr_enable(struct dc_stream_state *stream)
+>         /* Calculate number of static frames before generating interrupt to
+>          * enter PSR.
+>          */
+> -       unsigned int frame_time_microsec = 1000000 / vsync_rate_hz;
+>         // Init fail safe of 2 frames static
+>         unsigned int num_frames_static = 2;
+>
+> @@ -8506,8 +8505,10 @@ bool amdgpu_dm_psr_enable(struct dc_stream_state *stream)
+>          * Calculate number of frames such that at least 30 ms of time has
+>          * passed.
+>          */
+> -       if (vsync_rate_hz != 0)
+> +       if (vsync_rate_hz != 0) {
+> +               unsigned int frame_time_microsec = 1000000 / vsync_rate_hz;
+>                 num_frames_static = (30000 / frame_time_microsec) + 1;
+> +       }
+>
+>         params.triggers.cursor_update = true;
+>         params.triggers.overlay_update = true;
+> --
+> 2.25.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
