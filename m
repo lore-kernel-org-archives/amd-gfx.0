@@ -2,76 +2,152 @@ Return-Path: <SRS0=HJvn=3R=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C795C2D0DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 16:22:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D06E1C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 16:44:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6082D20CC7
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 16:22:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A12232173E
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 16:44:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H+2SCA1Z"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6082D20CC7
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nUJnmQHS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A12232173E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 217836E0CF;
-	Tue, 28 Jan 2020 16:22:45 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 378226E0CF
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 16:22:44 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id k11so2042090wrd.9
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 08:22:44 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B1526E0D1;
+	Tue, 28 Jan 2020 16:44:12 +0000 (UTC)
+Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
+ [IPv6:2607:f8b0:4864:20::d43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60AA56E0D1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 16:44:11 +0000 (UTC)
+Received: by mail-io1-xd43.google.com with SMTP id e7so14994656iof.11
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 08:44:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=P3epVrj2BsnGrQ1aqY3WAwZz6tHvjIp1+Sl7R5rXVG4=;
- b=H+2SCA1ZSx5Li7jyMSqeYYBXU4fis3FxjWnLexJzDrbE2723t4/Cga1ILiwjkivzmg
- RZWw2kxfxoEFc883bfj1NeKU8rKPH3od+Mzig4PEbKLtztPLQBgo4g/IZLNZ95GFGJ7N
- l41TK/sazFZxQDZZDOI7kSk0qOWV1ZdFEFk51oUWDPU4k589IB3sccegIxgcLHbp4Oyx
- dyX4AkCVBCPXUv7GjR2mJcQcdyiWJmnxZrLUlt9NTy5yuxI0U7WLu0kgjeoUYUjzEqYl
- FsJ8HFgFgouKvEKN7hj7Uv9l7z5do8CCzN4H08wabbYN+s/b2EqlCiQjKLIAgHl2CXL6
- gCoA==
+ h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=jtrMH5RFqFz1TP5tkS8PuoJ81SGX8yUHp61Ylk/7eCo=;
+ b=nUJnmQHS5oBgBJGFgLSVUIxndA12pjyUBbBn3COShJ65gzz3+OrX1WM3Bgnd101I2A
+ Ejra62yetoNclviJuXHELFpH2UUgWA+1fN3z/ZOzwsZv/sFBNsZlLW7RigrSunw7xfeh
+ YQGvkMDuwg8scf1vxhKGIgAHVFKd0RNC56C9j95aMEKtFzykfs08bkGMY0+GB3e+Y8ci
+ 6Flfmi7GZCJQoR307vTdvaqNrtz2umWsbV2p4y9fXoDdcqFpnlr09/xgwJqMYZ7rmVQi
+ ijwxugjWLICo2B2ZaHvL5zlv+nqco5d1IaN500SA9myOgXrpJk4dx2KP6+XJQlGuB/sO
+ 8omg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ h=x-gm-message-state:subject:to:cc:references:from:autocrypt
  :message-id:date:user-agent:mime-version:in-reply-to
- :content-language;
- bh=P3epVrj2BsnGrQ1aqY3WAwZz6tHvjIp1+Sl7R5rXVG4=;
- b=IRz3A9phQN7NYZ5R9vgf9UgDALesm/ooPfO3CD+O8K4+7v39pJf33YpmSEMCOzvnKe
- H9H+9xuT5KYRNx/hbKZsRTset8NW6dN9pxgk6ERatgXs3fhYFgXEmKM4SLJkxR6fWgK2
- IAcl1NuIf9axY9Sv4at9iuCwEssWOpPOukUT2GsIeliWhsNNHLG8lE1aJRAcj4puuouv
- uq/u6V8Uytg8/v0SPEY9Y2zuwL4CtzcQEJul/l64oHWMJbF/QPB8F9okHSCj6Bm4p4gk
- ZgY68nLayyYJeVUxbpEbf3M71Y7jHL2RpiuIzHQZzqaNeF/Fd1pYEeCOpEabvpeMJilH
- A2nQ==
-X-Gm-Message-State: APjAAAWGZ5+KxuuoWHrxTweRSfj+LN/jpmapa+vydYr+rbMIz1INRSUn
- oxKLRHFbkfrZcbXey0ouJpprOWoz
-X-Google-Smtp-Source: APXvYqy72z9NbXXlnB2GmCVROSreIdZvlE2FVKKGvSdLSPGsAdsiam7n+vM7HrFF15JlOWB41Elhtg==
-X-Received: by 2002:a5d:4749:: with SMTP id o9mr28926239wrs.242.1580228559237; 
- Tue, 28 Jan 2020 08:22:39 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id u1sm3545196wmc.5.2020.01.28.08.22.32
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 28 Jan 2020 08:22:34 -0800 (PST)
-Subject: Re: [PATCH] drm/radeon: avoid page fault during gpu reset
-To: Andreas Messer <andi@bastelmap.de>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-References: <e034c038-f7a5-4bb0-8ec8-2f1a4d089436@email.android.com>
- <20200128131518.GB12260@zeus.ad.home.arpa>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <d566cd7a-d1dc-98c0-88a7-8ca5021e00d3@gmail.com>
-Date: Tue, 28 Jan 2020 17:22:31 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ :content-language:content-transfer-encoding;
+ bh=jtrMH5RFqFz1TP5tkS8PuoJ81SGX8yUHp61Ylk/7eCo=;
+ b=lPs9JRgAb/5SC9YWZsS17d/yy9mn0taslJwotq32uHK170h7+YVv4zaS1P+c2tgpdn
+ 4qBb1rFn4zh85HF4RZA2ENvwtqllhzVkkq7N+KLJl/pjvQt3sfRkRgUxVJgNIbpnTo1E
+ JEpXqDpthd0RCDb3o7uuDiJEWmuBLfmEsPxkgv418BtMR5Gubh03VN+Ef7Saix8mc/Yb
+ slEWc+Y2WhDfeEBqR0pmtIeb8t0hFTQH6w7/oD9DSbYso71E6Buow5z+aga8eTct4AML
+ dQkG4qXHFjiEV1UGavzqB2JJTXqXyoLspRCrz49santD5Qtm4SrILFrnLorhxGNtS9wK
+ DWww==
+X-Gm-Message-State: APjAAAWDYHMlJY1GhPbWadBMUYT5KXFkKWR9nH6oJFnwu/7B4IwzREu2
+ jNgoFWbC/NDaUKKp9rSrY3E=
+X-Google-Smtp-Source: APXvYqyQ5A/MD9Ibb2Y5QqsFUenSMov31VUYPyn4eq1hX6o9OGYsT1GF80ImW+lkE+gwPkObq5347w==
+X-Received: by 2002:a05:6638:2b7:: with SMTP id
+ d23mr18190823jaq.108.1580229850641; 
+ Tue, 28 Jan 2020 08:44:10 -0800 (PST)
+Received: from ?IPv6:2602:ae:10d1:b00:6d4:c4ff:fe4a:ea6b?
+ ([2602:ae:10d1:b00:6d4:c4ff:fe4a:ea6b])
+ by smtp.gmail.com with ESMTPSA id y11sm4479318iol.23.2020.01.28.08.44.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Jan 2020 08:44:10 -0800 (PST)
+Subject: Re: [PATCH 3/3] drm/amdgpu/navi10: add OD support for restoring
+ default table
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20200125184845.4233-1-alexander.deucher@amd.com>
+ <20200125184845.4233-3-alexander.deucher@amd.com>
+From: Matt Coffin <mcoffin13@gmail.com>
+Autocrypt: addr=mcoffin13@gmail.com; keydata=
+ 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
+ tuwClJVHcEqY1gkUE/HKR1MQFfXl979G/1Ql1g==
+Message-ID: <f51f32b5-9a08-bb30-66e9-52bddb8f469c@gmail.com>
+Date: Tue, 28 Jan 2020 09:44:09 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <20200128131518.GB12260@zeus.ad.home.arpa>
+In-Reply-To: <20200125184845.4233-3-alexander.deucher@amd.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,251 +160,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1444296627=="
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============1444296627==
-Content-Type: multipart/alternative;
- boundary="------------11E1BB4FFA902F0F5A55DF38"
-Content-Language: en-US
-
-This is a multi-part message in MIME format.
---------------11E1BB4FFA902F0F5A55DF38
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 28.01.20 um 14:15 schrieb Andreas Messer:
-> On Sat, Jan 25, 2020 at 07:01:36PM +0000, Koenig, Christian wrote:
->>
->> Am 25.01.2020 19:47 schrieb Andreas Messer <andi@bastelmap.de>:
->> When backing up a ring, validate pointer to avoid page fault.
->> [ cut description / kernel messages ]
->>
->> NAK, that was suggested multiple times now and is essentially the wrong
->> approach.
->>
->> The problem is that the value is invalid because the hardware is not
->> functional any more. Returning here without backing up the ring just
->> papers over the real problem.
->>
->> This is just the first occurance of this and you would need to fix a
->> couple of hundred register accesses (both inside and outside of the
->> driver) to make that really work reliable.
-> Sure, it wont fix the hardware. But since the page fault is most prominent
-> part in kernel log, people will continue suggesting it. With that change,
-> the kernel messages are full of ring and atom bios timeouts and might make
-> users more likely to consider a hardware issue in the first place.
-
-That is correct, but the problem is that we currently have 2209 places 
-where we read a register and usually expect that the values to be in a 
-valid range.
-
-If you really want to avoid all crashes you would need to audit and fix 
-all occurrences where for example the register value is used as index in 
-an array or similar.
-
-And the radeon code is only the beginning, the whole PCIe subsystem 
-would need an audit in a similar way. That is a huge lot of work we are 
-not willing to do.
-
->   Anyway:
->
->> The only advice I can give you is to replace the hardware. From
->> experience those symptoms mean that your GPU will die rather soon.
-> I think my hardware is fine. I have monitored gpu temp and fan pwm now for
-> a while and found the pwm to be driven at ~60% only although the gpu
-> already got quite high temperature during gameplay. When forcing the pwm
-> to ~80% no crash occurs anymore. I suppose it is not the GPU crashing but
-> instead the VRMs, not getting enough airflow.
->
-> I have compared the Bios fan tables of my card with them of other cards
-> bios (downloaded from web) of same GPU type and similar design.
-> Although they differ in cooler construction and used fan, all of them
-> despite one model have exactly the same fan regulation points with PWMHigh
-> at 80% for 90°C. This single model with other settings has 100% for this
-> temp and generally much more sane looking regulation curve.
->
-> I suppose most of the vendors just copied some reference design,
-> maybe the vendor's windows driver adjust the curve to a better one,
-> I don't know.
->
-> I think I'll add some sysfs attributes or module parameter to adjust
-> the curve to my needs.
-
-The issue is that this is most likely not a temperature problem at all. 
-If you have a temperature problem the ASIC usually just hangs in a 
-shader or so, but the BIF is still fully functional (e.g. you can probe 
-PCI-IDs etc...).
-
-That looks more like the ESD protection is kicking in for some reason. 
-In other words what you got here is a cold/broken solder point on the 
-SMD components which happens to loose contact because the material 
-expands when it warms up.
-
-That is a serious hardware fault and a really good indicator that you 
-should replace the faulty component ASAP.
-
-Regards,
-Christian.
-
->
->> [ Patch cut out ]
-> cheers,
-> Andreas
->
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+For this, I believe we're updating `table_context->overdrive_table` with
+the values set by the user, wouldn't the intended behavior here be to
+restore the settings that were there on boot?
 
 
---------------11E1BB4FFA902F0F5A55DF38
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
 
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 28.01.20 um 14:15 schrieb Andreas
-      Messer:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:20200128131518.GB12260@zeus.ad.home.arpa">
-      <pre class="moz-quote-pre" wrap="">On Sat, Jan 25, 2020 at 07:01:36PM +0000, Koenig, Christian wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-
-Am 25.01.2020 19:47 schrieb Andreas Messer <a class="moz-txt-link-rfc2396E" href="mailto:andi@bastelmap.de">&lt;andi@bastelmap.de&gt;</a>:
-When backing up a ring, validate pointer to avoid page fault.
-[ cut description / kernel messages ] 
-
-NAK, that was suggested multiple times now and is essentially the wrong
-approach.
-
-The problem is that the value is invalid because the hardware is not
-functional any more. Returning here without backing up the ring just
-papers over the real problem.
-
-This is just the first occurance of this and you would need to fix a
-couple of hundred register accesses (both inside and outside of the
-driver) to make that really work reliable.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-Sure, it wont fix the hardware. But since the page fault is most prominent
-part in kernel log, people will continue suggesting it. With that change,
-the kernel messages are full of ring and atom bios timeouts and might make
-users more likely to consider a hardware issue in the first place.</pre>
-    </blockquote>
-    <br>
-    That is correct, but the problem is that we currently have 2209
-    places where we read a register and usually expect that the values
-    to be in a valid range.<br>
-    <br>
-    If you really want to avoid all crashes you would need to audit and
-    fix all occurrences where for example the register value is used as
-    index in an array or similar.<br>
-    <br>
-    And the radeon code is only the beginning, the whole PCIe subsystem
-    would need an audit in a similar way. That is a huge lot of work we
-    are not willing to do.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:20200128131518.GB12260@zeus.ad.home.arpa">
-      <pre class="moz-quote-pre" wrap=""> Anyway:
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">The only advice I can give you is to replace the hardware. From
-experience those symptoms mean that your GPU will die rather soon.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-I think my hardware is fine. I have monitored gpu temp and fan pwm now for
-a while and found the pwm to be driven at ~60% only although the gpu
-already got quite high temperature during gameplay. When forcing the pwm
-to ~80% no crash occurs anymore. I suppose it is not the GPU crashing but
-instead the VRMs, not getting enough airflow.
-
-I have compared the Bios fan tables of my card with them of other cards
-bios (downloaded from web) of same GPU type and similar design.
-Although they differ in cooler construction and used fan, all of them
-despite one model have exactly the same fan regulation points with PWMHigh
-at 80% for 90°C. This single model with other settings has 100% for this
-temp and generally much more sane looking regulation curve.
-
-I suppose most of the vendors just copied some reference design,
-maybe the vendor's windows driver adjust the curve to a better one,
-I don't know.
-
-I think I'll add some sysfs attributes or module parameter to adjust 
-the curve to my needs.</pre>
-    </blockquote>
-    <br>
-    The issue is that this is most likely not a temperature problem at
-    all. If you have a temperature problem the ASIC usually just hangs
-    in a shader or so, but the BIF is still fully functional (e.g. you
-    can probe PCI-IDs etc...).<br>
-    <br>
-    That looks more like the ESD protection is kicking in for some
-    reason. In other words what you got here is a cold/broken solder
-    point on the SMD components which happens to loose contact because
-    the material expands when it warms up.<br>
-    <br>
-    That is a serious hardware fault and a really good indicator that
-    you should replace the faulty component ASAP.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite"
-      cite="mid:20200128131518.GB12260@zeus.ad.home.arpa">
-      <pre class="moz-quote-pre" wrap="">
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">[ Patch cut out ]
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-cheers,
-Andreas
+If so, I think we'd have to cache the overdrive table that was there on
+boot, and use that in the response for `PP_OD_RESTORE_DEFAULT_TABLE`, no?
 
 
-</pre>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
 
---------------11E1BB4FFA902F0F5A55DF38--
+I'm doing some testing on this patchset, but on initial lookover that's
+the only thing I saw. I could be mistaken, but I think this just writes
+the overdrive table that we are currently using over again instead of
+writing the default one.
 
---===============1444296627==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+On 1/25/20 11:48 AM, Alex Deucher wrote:
+> Was missing before.
+> 
+> Bug: https://gitlab.freedesktop.org/drm/amd/issues/1020
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> index d2d45181ae23..f60762f9b143 100644
+> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> @@ -2062,6 +2062,14 @@ static int navi10_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TABL
+>  		if (ret)
+>  			return ret;
+>  		od_table->UclkFmax = input[1];
+> +		break;
+> +	case PP_OD_RESTORE_DEFAULT_TABLE:
+> +		ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, table_context->overdrive_table, false);
+> +		if (ret) {
+> +			pr_err("Failed to export over drive table!\n");
+> +			return ret;
+> +		}
+> +
+>  		break;
+>  	case PP_OD_COMMIT_DPM_TABLE:
+>  		navi10_dump_od_table(od_table);
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1444296627==--
