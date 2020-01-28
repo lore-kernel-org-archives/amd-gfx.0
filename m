@@ -8,66 +8,66 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF0CEC2D0DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 19:47:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6477EC33CB2
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 19:47:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B1B96206A2
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 19:47:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3CEC1206A2
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 19:47:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="heWPlKYR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B1B96206A2
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C1pUBqFG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3CEC1206A2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59CCA6F3C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D95976F3C9;
 	Tue, 28 Jan 2020 19:47:16 +0000 (UTC)
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6FB66F3C0
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34EE26F3C0
  for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 19:47:15 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id t13so10866239qto.3
+Received: by mail-qk1-x744.google.com with SMTP id w15so12908750qkf.6
  for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 11:47:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=/AX5SIWmveyNDwwxZFTOBj/Pe9QepHmy+0fUCBeNEWM=;
- b=heWPlKYRb9KXjZEWMyix4WTX2A8FXYZ6qSmUCFaYvZgpx4pvpjtQ5HBgDUTq9K8v3g
- ZBoP7pjWZoWJ/sscTUh9AL1JQecqD9f8yUKKRyCTl+jpgL7Y/Kxy0PRcihzCJ2kdk2k7
- J6/g0VSf6k4Id6slAuQPWXRiAUVQ1Bcl6dLUp1v6N8Gh9pwvjVsbXAjJ19IFp/HTxug5
- LnW4iqwTq+W1oA7GSIR9Mg0vITU/aUM447wZ3wnAuvoyoFflNSiFvHTwr5G4rA75OJRn
- YiA4gUodeGhMi+dtwo9UaQufndbfNViFJ85UIR+uM48uLD7nb9jmmH9iiLgjg8UkIeSN
- MGXg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GJohU3KzvZYhEw1cbst+KlBdmKzpV0ja0z2afTuVFv0=;
+ b=C1pUBqFGkO6gZ8EcC47c3f7jp8hcy19TAMA2xJqO+26pGw2aUAA7tU8dPaQOqKykAA
+ gq+9uE90dWb8bnpp8AHVzdzyoDwjJhmkDNkD2xYTsvDHwduy2LReiim2U2jCH/4Qo9mp
+ Dv3gXBx6HMvwalv0+YMHEV8l0OJXf1+HKkRk9HkmY5mTAXSpdBous5cCE5ARRxZ/VbVO
+ O3ocfKnzqdG5iLwGOhY2sgutOcldeoUskoZMp9umt8k0sp6BipEOZd3d0TPYjwxHgicF
+ qZVR1Tsros9cWbmPRQLCNuv3vX0p4GVaww/HxRPqjA4Alesx3u9uzVI3Sf+jJ4zUu5jZ
+ xBtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=/AX5SIWmveyNDwwxZFTOBj/Pe9QepHmy+0fUCBeNEWM=;
- b=p5GiBeGBkAQo8qi19PcB7NKntT7ouVLdNyJL1J3Yz6OpElf0iqjAS3rj4c1gfmbybH
- otqDIuU94OG+23Dhh2VS9C6l/pRnH3rx4j611+sjSiDG9yPz+OLdunBXvNRZKIkdj7nu
- H5hfPUhAUBH2c8/YeqqLBmHuI0Mwnh8fkJXVtsfmusuIaLGf2yXBaN8ZUkLpHMe5m/yK
- sykrpN7mOuDJh+0uGGwv15UsK0xcnbxyhXYOQBQlgA5/dquFHZavehKdMapO6WJc4j80
- eyVLQcxdEWjateHcRZ0zspx9Lf0Va0/kA+A6Dp5Ct2pnLX7dOxbmfFBqifxygqRizSVR
- r7TQ==
-X-Gm-Message-State: APjAAAXoOaKpzzy6MOx3n0MNmfSV892RqYUIkcjkQurptFR0Qcscpwr4
- UBCDKxS35Tg3ybKYQ6G7d9mkGnW2
-X-Google-Smtp-Source: APXvYqw+ooTHCbZdyvy/oN/vaR7p/s20NMpJ+AZTwgcfwXmhrKadWicMcFEXq2E/TnqM8hUKEEfrEw==
-X-Received: by 2002:ac8:769a:: with SMTP id g26mr23101446qtr.259.1580240834910; 
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GJohU3KzvZYhEw1cbst+KlBdmKzpV0ja0z2afTuVFv0=;
+ b=dJOdG+2RHWrPLKN8zzreQfq/rlxsi1Gs3sI86jSs6BxhhmVP36srfV547WYmzCXnpA
+ PGTyX+KAUftqkNDKoKqD9eYDUDayGFc19UafEVFUUr8Xbuy+s91rLNJiehJF0EvL+usN
+ ZyFk7mf49YcvaaLHkquJInNKkicPUUa3om3Rim5G3NC6Ac5F5xJ9fmR7+QbqV+4RFp3N
+ eTnGNXqS9DhaPjjphnNXizuZSWnPOVWoW4kbpn9DbyxX/cp5Up1QPna1GFB4OuCJyW3H
+ aerlno5YFwUjHimAG5Ro8W5SI8T7Q32esiKHQoqxhzfx/TAOPe/lesIs+dqDY/MX7soP
+ o9xA==
+X-Gm-Message-State: APjAAAWr4+oJ9Vf+SNQDurta5Y5hEfRC6iEafCX+uBZxLthyFnhZIyQk
+ g/jAAFIFHR+J9nLAAS6BowQtirgi
+X-Google-Smtp-Source: APXvYqxhS6zPd6QGI/bKyvpyMcqkz7xrrCOz8/BvD5V2ilq9bdq8hgJu0rDV1WJfcjaLySWJT2iTcQ==
+X-Received: by 2002:a37:a68f:: with SMTP id
+ p137mr24325587qke.328.1580240834125; 
  Tue, 28 Jan 2020 11:47:14 -0800 (PST)
 Received: from localhost.localdomain ([71.219.59.120])
- by smtp.gmail.com with ESMTPSA id b22sm12590452qka.121.2020.01.28.11.47.14
+ by smtp.gmail.com with ESMTPSA id b22sm12590452qka.121.2020.01.28.11.47.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jan 2020 11:47:14 -0800 (PST)
+ Tue, 28 Jan 2020 11:47:13 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu/smu10: fix smu10_get_clock_by_type_with_latency
-Date: Tue, 28 Jan 2020 14:47:07 -0500
-Message-Id: <20200128194707.87898-2-alexander.deucher@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu/display: handle multiple numbers of fclks in
+ dcn_calcs.c
+Date: Tue, 28 Jan 2020 14:47:06 -0500
+Message-Id: <20200128194707.87898-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.24.1
-In-Reply-To: <20200128194707.87898-1-alexander.deucher@amd.com>
-References: <20200128194707.87898-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,41 +86,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Only send non-0 clocks to DC for validation.  This mirrors
-what the windows driver does.
+We might get different numbers of clocks from powerplay depending
+on what the OEM has populated.
 
 Bug: https://gitlab.freedesktop.org/drm/amd/issues/963
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ .../gpu/drm/amd/display/dc/calcs/dcn_calcs.c  | 31 ++++++++++++-------
+ 1 file changed, 20 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
-index 4e8ab139bb3b..273126cfc37d 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
-@@ -1026,12 +1026,15 @@ static int smu10_get_clock_by_type_with_latency(struct pp_hwmgr *hwmgr,
+diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
+index a27d84ca15a5..8ad32a11d363 100644
+--- a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
++++ b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
+@@ -1446,17 +1446,26 @@ void dcn_bw_update_from_pplib(struct dc *dc)
+ 		res = verify_clock_values(&fclks);
  
- 	clocks->num_levels = 0;
- 	for (i = 0; i < pclk_vol_table->count; i++) {
--		clocks->data[i].clocks_in_khz = pclk_vol_table->entries[i].clk * 10;
--		clocks->data[i].latency_in_us = latency_required ?
--						smu10_get_mem_latency(hwmgr,
--						pclk_vol_table->entries[i].clk) :
--						0;
--		clocks->num_levels++;
-+		if (pclk_vol_table->entries[i].clk) {
-+			clocks->data[clocks->num_levels].clocks_in_khz =
-+				pclk_vol_table->entries[i].clk * 10;
-+			clocks->data[clocks->num_levels].latency_in_us = latency_required ?
-+				smu10_get_mem_latency(hwmgr,
-+						      pclk_vol_table->entries[i].clk) :
-+				0;
-+			clocks->num_levels++;
-+		}
- 	}
+ 	if (res) {
+-		ASSERT(fclks.num_levels >= 3);
+-		dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 = 32 * (fclks.data[0].clocks_in_khz / 1000.0) / 1000.0;
+-		dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 = dc->dcn_soc->number_of_channels *
+-				(fclks.data[fclks.num_levels - (fclks.num_levels > 2 ? 3 : 2)].clocks_in_khz / 1000.0)
+-				* ddr4_dram_factor_single_Channel / 1000.0;
+-		dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 = dc->dcn_soc->number_of_channels *
+-				(fclks.data[fclks.num_levels - 2].clocks_in_khz / 1000.0)
+-				* ddr4_dram_factor_single_Channel / 1000.0;
+-		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = dc->dcn_soc->number_of_channels *
+-				(fclks.data[fclks.num_levels - 1].clocks_in_khz / 1000.0)
+-				* ddr4_dram_factor_single_Channel / 1000.0;
++		unsigned vmin0p65_idx = 0;
++		unsigned vmid0p72_idx = fclks.num_levels -
++			(fclks.num_levels > 2 ? 3 : (fclks.num_levels > 1 ? 2 : 1));
++		unsigned vnom0p8_idx = fclks.num_levels - (fclks.num_levels > 1 ? 2 : 1);
++		unsigned vmax0p9_idx = fclks.num_levels - 1;
++
++		dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 =
++			32 * (fclks.data[vmin0p65_idx].clocks_in_khz / 1000.0) / 1000.0;
++		dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 =
++			dc->dcn_soc->number_of_channels *
++			(fclks.data[vmid0p72_idx].clocks_in_khz / 1000.0)
++			* ddr4_dram_factor_single_Channel / 1000.0;
++		dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 =
++			dc->dcn_soc->number_of_channels *
++			(fclks.data[vnom0p8_idx].clocks_in_khz / 1000.0)
++			* ddr4_dram_factor_single_Channel / 1000.0;
++		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 =
++			dc->dcn_soc->number_of_channels *
++			(fclks.data[vmax0p9_idx].clocks_in_khz / 1000.0)
++			* ddr4_dram_factor_single_Channel / 1000.0;
+ 	} else
+ 		BREAK_TO_DEBUGGER();
  
- 	return 0;
 -- 
 2.24.1
 
