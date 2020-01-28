@@ -2,101 +2,104 @@ Return-Path: <SRS0=HJvn=3R=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E7530C32771
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 01:30:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CE5FC33CB3
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 10:11:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BA169214AF
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 01:30:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 408482467B
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 10:11:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1vx3vHn0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BA169214AF
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ctz2Dcoe"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 408482467B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D5046EC4B;
-	Tue, 28 Jan 2020 01:30:13 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-cys01nam02on0622.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe45::622])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01F076EC4C
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 01:30:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBD326ED8D;
+	Tue, 28 Jan 2020 10:11:44 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20607.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::607])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C4BB6ED8D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 10:11:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jhvrdRkDCvEOcBLHYa9hEUSI5mJzgguKZOu4HJLjA3spA1KRiescLNwyHIoNEwj1f1gWGBr5EcbQhZCHORgp3nOtpRiMnH8ZTVrule5r4jYuef9UTEi7VqXB7DaebsC9GwVv4z7gKAy1L2CxlaQAX+7LVycM//WF7L8duQ0dE/GJvM0lXmpQgRipfbeeggS9C1y0Ib/Gy5TmYwINxp17HcaFHoqEnULY4fq4dPVMZ1gY57sW10XrJos4QLnL8X21hQ6ZNjmLUeaaMCwilUf1kdTQztnxtNa+TDU5epWP0iBuIupoxk7ejWBvr65NeDgCw/ELzEzpD7X9Ba9rDyiAgg==
+ b=RfwI4H1QP24MNttrSWnWjg0+e910SPbDQ51Ez4+W+1iM15dpaey+TygF9CmPwDheB4unhAi7cWEaaoDEqslPJ4yFcq0OootdbhIZs0upv5xwSTwDKS9Be1vog+W+Z8cXE+nqj7vxp/MTSQSxGlaWZnN0LwWVIe4excA5oRXjHTWodCK/HqYmPF4wQBIgO0tX3izZMO6JRrusnqMuoSZOVg+kFRzCQlwoo4dmAJZWpx2nu+faqDK42FM7jDJ2EcAX7sBIoHaeC0KIC8n9UE1I4SQ0Y90n3b7A2KQ2kpCxO07VMNuXY3V/fpfJmlLbPr2za4hUYa4JKlqMxeQi31ltyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hdFi+DaDG+wj7E8LJ0JxSj4WC1qTel8YWZcQlDlP+eg=;
- b=RA0iZbtYXpAgNM9xLZkjsQ4dofgxKLMtjQWDJui9Dbp03ThkTerjwJoOiS6UXRhzxvRiVJr/iJpIN+3WjZ3YWRe8/U7p+qSmpnXmaoi6NCT6xYSp3/mL0f+/zChdJ118nl1zeUfkjtfWk2qvQK+FMR1voNEiVpnhHLF26ofW5WPUoHP53A00eq1vE8Qa5gsh/SZILDCaPHDIPX6yxLOdSidpOCNGxJ+EW6DZeyf9G+SXRlT9YBTxLQV7DF5RJVXrZHXvJI6L7xTUV9G/XA1Mddz9SrewY27xe8NbH+g3++zjlkrohvLxS7QuXSACAb8RE/cAI78ozbUMyptJ40zPtQ==
+ bh=+huuVIEAEAsxE2fjGrl5WRZk8p43O5qrymTzQnYJ8zk=;
+ b=JNymulyNjDCCHWEcttXSYicm0PJ189o00S+N4G7DOoUGpGIFHJHW9UQUcda+J3iEhbcQrZNsdbMxQEYj5YclcjEK4Bbpl/K7aPsMusUTumHqnZ0xQh15tAENrjYK5x/1603bsQJtlHIIX35C2IqUwlSgz0/D0K0w8xTT61GGkg+WY/bnyyuWZS/TasBhrcCp5k9Yf70bwZCWzIo8aK9PXB5jAChUdK8kgid2m+tyaKFGarAikxANrUwIwvWO3RDB+t0JMPO4AEif9poSxC505nA8IYPMLWZFkAltPafyrwPg+V5ul3TphadOlJq8n3tdIXfUok2gt8JhIsixqG2yCw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hdFi+DaDG+wj7E8LJ0JxSj4WC1qTel8YWZcQlDlP+eg=;
- b=1vx3vHn0NYuHPd5ovu+sx0S+vKYcwkgmMtBSvS7DHpRgPKDhd6NzlB3Nvd0lJiEioGOMic7MVSCGp5Nn3Trx46/oc0UCNtyobzF9L7ki0qa11fZN6VrVC5utgE/FJqoaVKVw63zMZuU6syXQtKnYn5qu5J5alTaqB2wF0ZnTbeE=
+ bh=+huuVIEAEAsxE2fjGrl5WRZk8p43O5qrymTzQnYJ8zk=;
+ b=ctz2DcoeHpDmWzdJhAk9UMRoiDaO91QqEsDf1JdDgM2o5uMPa5h/+PKH3+XhTLYr3tRLBscWTRZ9c9PTz2fzQfAifgL0lGwbo9TDEau+VqiYmFVAuC9wAn7/vzQbnX188Ah+GhXL0doRFgtJRRN6A/JNaMqU6OP4410ydayZJjM=
 Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Rajneesh.Bhardwaj@amd.com; 
-Received: from SN1PR12MB2366.namprd12.prod.outlook.com (52.132.194.147) by
- SN1PR12MB2416.namprd12.prod.outlook.com (52.132.199.158) with Microsoft SMTP
+ smtp.mailfrom=Nirmoy.Das@amd.com; 
+Received: from DM5PR12MB2376.namprd12.prod.outlook.com (52.132.143.139) by
+ DM5PR12MB2502.namprd12.prod.outlook.com (52.132.138.156) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2665.24; Tue, 28 Jan 2020 01:30:08 +0000
-Received: from SN1PR12MB2366.namprd12.prod.outlook.com
- ([fe80::596e:6046:7bf6:9a80]) by SN1PR12MB2366.namprd12.prod.outlook.com
- ([fe80::596e:6046:7bf6:9a80%7]) with mapi id 15.20.2665.025; Tue, 28 Jan 2020
- 01:30:08 +0000
-From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [Patch v1 5/5] drm/amdkfd: refactor runtime pm for baco
-Date: Mon, 27 Jan 2020 20:29:23 -0500
-Message-Id: <20200128012923.25536-6-rajneesh.bhardwaj@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200128012923.25536-1-rajneesh.bhardwaj@amd.com>
-References: <20200128012923.25536-1-rajneesh.bhardwaj@amd.com>
-X-ClientProxiedBy: YTXPR0101CA0033.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00::46) To SN1PR12MB2366.namprd12.prod.outlook.com
- (2603:10b6:802:25::19)
+ 15.20.2665.20; Tue, 28 Jan 2020 10:11:41 +0000
+Received: from DM5PR12MB2376.namprd12.prod.outlook.com
+ ([fe80::c06c:24da:d4c5:5ee3]) by DM5PR12MB2376.namprd12.prod.outlook.com
+ ([fe80::c06c:24da:d4c5:5ee3%6]) with mapi id 15.20.2665.026; Tue, 28 Jan 2020
+ 10:11:40 +0000
+Subject: Re: [PATCH] drm/amdgpu: allocate entities on demand
+To: Nirmoy Das <nirmoy.aiemd@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20200124115311.8037-1-nirmoy.das@amd.com>
+ <20200124163135.4012-1-nirmoy.das@amd.com>
+From: Nirmoy <nirmodas@amd.com>
+Message-ID: <c309c8f1-ac7a-0c15-18ad-add491214f78@amd.com>
+Date: Tue, 28 Jan 2020 11:13:35 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
+In-Reply-To: <20200124163135.4012-1-nirmoy.das@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: AM0PR06CA0041.eurprd06.prod.outlook.com
+ (2603:10a6:208:aa::18) To DM5PR12MB2376.namprd12.prod.outlook.com
+ (2603:10b6:4:b9::11)
 MIME-Version: 1.0
-Received: from rajneesh-desk.amd.com (165.204.55.251) by
- YTXPR0101CA0033.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::46) with Microsoft
+Received: from [IPv6:2003:c5:8f2c:2200:a989:adcb:9808:964]
+ (2003:c5:8f2c:2200:a989:adcb:9808:964) by
+ AM0PR06CA0041.eurprd06.prod.outlook.com (2603:10a6:208:aa::18) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2665.21 via Frontend Transport; Tue, 28 Jan 2020 01:30:07 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.251]
+ 15.20.2665.20 via Frontend Transport; Tue, 28 Jan 2020 10:11:39 +0000
+X-Originating-IP: [2003:c5:8f2c:2200:a989:adcb:9808:964]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f54e8726-9af4-4a20-e4fc-08d7a3919bc8
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2416:|SN1PR12MB2416:
+X-MS-Office365-Filtering-Correlation-Id: 46dcad85-3a8a-4590-6384-08d7a3da77cc
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2502:|DM5PR12MB2502:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB2416E7ED04F4412CA2FD3A6CFE0A0@SN1PR12MB2416.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB2502F953CB55024CD2E012BF8B0A0@DM5PR12MB2502.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:983;
 X-Forefront-PRVS: 029651C7A1
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(346002)(39860400002)(136003)(366004)(396003)(199004)(189003)(26005)(186003)(16526019)(6486002)(956004)(2616005)(44832011)(6916009)(36756003)(86362001)(8936002)(8676002)(81156014)(81166006)(2906002)(6666004)(66946007)(478600001)(4326008)(66476007)(1076003)(66556008)(316002)(7696005)(52116002)(5660300002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:SN1PR12MB2416;
- H:SN1PR12MB2366.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10009020)(4636009)(346002)(376002)(39860400002)(396003)(366004)(136003)(199004)(189003)(186003)(66476007)(66556008)(66946007)(31686004)(53546011)(2616005)(52116002)(36756003)(16526019)(31696002)(4326008)(5660300002)(81156014)(81166006)(8676002)(2906002)(6486002)(478600001)(316002)(8936002)(6666004)(30864003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2502;
+ H:DM5PR12MB2376.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: EHBHMadE/9hS3x4qCubsinifVMYinSBRdGnCVOZd3Tt1aI0LHDhRnQ2ypLmLuzO7ADLBPaIDMwUkADsbqScGAWUKtsaI7tIXvpwH8r6VFtxNgk/FkpqN6lqToKJSCqLSybD0zLGTyN8RZhxnj5A/JYxSupyc/fgCnVle3E9F4R1DNyv5OhcONBvsnR0aofZebkB/eRIrwF0T9M48TsKczv3jwaOMYq3NSHrwpMVZV47FWTZyh6otq/V3fzDcOW6RLizvkqt9icLXcvnoW5Y04LrWbh+3WN0b+a9j1hvrx8kdIHeH9yi4fodUHYA5d2AHWe8trkhG8/S2DsQybv35EZcsNE3lRNAyKI2xpdgo8Zr0F/NYzYtqWXgtm1Lqi4J/3asHQYJ7rvsf+i2IJXHkaznpKkg9Aadpi+CPO+AGXhvt7MMMkKZ6b0QNKKOcgvG9
-X-MS-Exchange-AntiSpam-MessageData: 9jtoij7Wo3woBUSEoLvqeHZdidnlQsUe3E0LwK4TlZDucUIePO6crICOx+s4YnmvYDBl10V9YRSKWBOTiRM7C5yKfhJ4b4Vf5X/bkWQYXtwKcAd8lsC4txzypEeB1o/5jhVxYmzinzK7+YqIsyYFlQ==
+X-Microsoft-Antispam-Message-Info: Uxii1X4WEnEtZ/hqHAi0y/dLe/b2uKtc5C7b082Ott5BWYRljgZyChPqgdtbqwngzv7RbGofN3qJDimwcupUjrxBZ06cK5gHSi2opfVFLhABHFWtxbysz2slClogZ5HURPzGRXivRrVyzlHInBTXxZxANGo+xSEmmhTU3EIuTWwEOQH16e8soZHRVv4kVjUm2AbUApKzX/rLo6CpUTyPr2aXXxHpMwoV6JrX+LFTccOE7N/RtcuI7gPfrdapH/2WyTeJTXtdB6EKa7TzcVX7bv0QxBuI3IL3nvLMJadrEe+yHVK8Q2lzVhOTVrYv8Xjwjsl08mp6AaIPSosC0myAHROmbonAxJruRNdss0bsu2uwpJTIXVwrbARA0FeFmk5FTqUSQE9f55gb3Qky6g+Ttkdr+EfkQqb0LcbGg3aa9umpTxrU1Zo+oKPORShx4Mvo
+X-MS-Exchange-AntiSpam-MessageData: nkJ9dbqwsO8MBCgmDLLGzhlSX07Ij982sXkUY3SwgdyTgivcIrLVdoIWa5UfxmqMAZGzEaBwaHauA3KuP7N/ZY2wjmknan5TG6JfQ76kTfCah5MSsGAD7Md7k7PMYwGSpAUKPKZYSJKsMfwsMq5qvoC3SYGsyrn3Muos/us06AvXbAp/zbdN9DmAZO1BgBrvCo8Vp1iMNX1JxriAsAes6Q==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f54e8726-9af4-4a20-e4fc-08d7a3919bc8
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2020 01:30:07.7163 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46dcad85-3a8a-4590-6384-08d7a3da77cc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2020 10:11:40.7134 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +APiOYbss0OwIHdqnr4fTk94jRRR+oqyfgcdxIS9ATgZtPrVarLTyCxIEKx8ZBDbhQ/vQVKkTz9rQLDMngrP2g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2416
+X-MS-Exchange-CrossTenant-UserPrincipalName: fdF8vCzqqIdLcdpSk90TX62c4Q/R2bA3IcaHE1zfe14ZeLNTVuTfxWMDvOGUmwUjSPF/l3zgJDRzuJIznNlU2g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2502
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,278 +111,414 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Felix.Kuehling@amd.com,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: alexander.deucher@amd.com, kenny.ho@amd.com, nirmoy.das@amd.com,
+ christian.koenig@amd.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-So far the kfd driver implemented same routines for runtime and system
-wide suspend and resume (s2idle or mem). During system wide suspend the
-kfd aquires an atomic lock that prevents any more user processes to
-create queues and interact with kfd driver and amd gpu. This mechanism
-created problem when amdgpu device is runtime suspended with BACO
-enabled. Any application that relies on kfd driver fails to load because
-the driver reports a locked kfd device since gpu is runtime suspended.
+Gentle reminder !
 
-However, in an ideal case, when gpu is runtime  suspended the kfd driver
-should be able to:
-
- - auto resume amdgpu driver whenever a client requests compute service
- - prevent runtime suspend for amdgpu  while kfd is in use
-
-This change refactors the amdgpu and amdkfd drivers to support BACO and
-runtime runtime power management.
-
-Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 12 ++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  8 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  4 +--
- drivers/gpu/drm/amd/amdkfd/kfd_device.c    | 31 +++++++++++++---------
- drivers/gpu/drm/amd/amdkfd/kfd_iommu.c     |  5 +++-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 19 ++++++++++---
- 6 files changed, 51 insertions(+), 28 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index 8609287620ea..314c4a2a0354 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -178,18 +178,18 @@ void amdgpu_amdkfd_interrupt(struct amdgpu_device *adev,
- 		kgd2kfd_interrupt(adev->kfd.dev, ih_ring_entry);
- }
- 
--void amdgpu_amdkfd_suspend(struct amdgpu_device *adev)
-+void amdgpu_amdkfd_suspend(struct amdgpu_device *adev, bool run_pm)
- {
- 	if (adev->kfd.dev)
--		kgd2kfd_suspend(adev->kfd.dev);
-+		kgd2kfd_suspend(adev->kfd.dev, run_pm);
- }
- 
--int amdgpu_amdkfd_resume(struct amdgpu_device *adev)
-+int amdgpu_amdkfd_resume(struct amdgpu_device *adev, bool run_pm)
- {
- 	int r = 0;
- 
- 	if (adev->kfd.dev)
--		r = kgd2kfd_resume(adev->kfd.dev);
-+		r = kgd2kfd_resume(adev->kfd.dev, run_pm);
- 
- 	return r;
- }
-@@ -713,11 +713,11 @@ void kgd2kfd_exit(void)
- {
- }
- 
--void kgd2kfd_suspend(struct kfd_dev *kfd)
-+void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
- {
- }
- 
--int kgd2kfd_resume(struct kfd_dev *kfd)
-+int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
- {
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 0fa898d30207..3dce4a51e522 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -123,8 +123,8 @@ struct amdkfd_process_info {
- int amdgpu_amdkfd_init(void);
- void amdgpu_amdkfd_fini(void);
- 
--void amdgpu_amdkfd_suspend(struct amdgpu_device *adev);
--int amdgpu_amdkfd_resume(struct amdgpu_device *adev);
-+void amdgpu_amdkfd_suspend(struct amdgpu_device *adev, bool run_pm);
-+int amdgpu_amdkfd_resume(struct amdgpu_device *adev, bool run_pm);
- void amdgpu_amdkfd_interrupt(struct amdgpu_device *adev,
- 			const void *ih_ring_entry);
- void amdgpu_amdkfd_device_probe(struct amdgpu_device *adev);
-@@ -250,8 +250,8 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
- 			 struct drm_device *ddev,
- 			 const struct kgd2kfd_shared_resources *gpu_resources);
- void kgd2kfd_device_exit(struct kfd_dev *kfd);
--void kgd2kfd_suspend(struct kfd_dev *kfd);
--int kgd2kfd_resume(struct kfd_dev *kfd);
-+void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm);
-+int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm);
- int kgd2kfd_pre_reset(struct kfd_dev *kfd);
- int kgd2kfd_post_reset(struct kfd_dev *kfd);
- void kgd2kfd_interrupt(struct kfd_dev *kfd, const void *ih_ring_entry);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d9e5eac182d3..787d49e9f4de 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3314,7 +3314,7 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
- 		}
- 	}
- 
--	amdgpu_amdkfd_suspend(adev);
-+	amdgpu_amdkfd_suspend(adev, fbcon);
- 
- 	amdgpu_ras_suspend(adev);
- 
-@@ -3398,7 +3398,7 @@ int amdgpu_device_resume(struct drm_device *dev, bool fbcon)
- 			}
- 		}
- 	}
--	r = amdgpu_amdkfd_resume(adev);
-+	r = amdgpu_amdkfd_resume(adev, fbcon);
- 	if (r)
- 		return r;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 2a9e40131735..e9f00c3a067a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -23,6 +23,7 @@
- #include <linux/bsearch.h>
- #include <linux/pci.h>
- #include <linux/slab.h>
-+#include <linux/pm_runtime.h>
- #include "kfd_priv.h"
- #include "kfd_device_queue_manager.h"
- #include "kfd_pm4_headers_vi.h"
-@@ -710,7 +711,7 @@ bool kgd2kfd_device_init(struct kfd_dev *kfd,
- void kgd2kfd_device_exit(struct kfd_dev *kfd)
- {
- 	if (kfd->init_complete) {
--		kgd2kfd_suspend(kfd);
-+		kgd2kfd_suspend(kfd, true);
- 		device_queue_manager_uninit(kfd->dqm);
- 		kfd_interrupt_exit(kfd);
- 		kfd_topology_remove_device(kfd);
-@@ -731,7 +732,7 @@ int kgd2kfd_pre_reset(struct kfd_dev *kfd)
- 
- 	kfd->dqm->ops.pre_reset(kfd->dqm);
- 
--	kgd2kfd_suspend(kfd);
-+	kgd2kfd_suspend(kfd, true);
- 
- 	kfd_signal_reset_event(kfd);
- 	return 0;
-@@ -765,21 +766,24 @@ bool kfd_is_locked(void)
- 	return  (atomic_read(&kfd_locked) > 0);
- }
- 
--void kgd2kfd_suspend(struct kfd_dev *kfd)
-+void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
- {
- 	if (!kfd->init_complete)
- 		return;
- 
--	/* For first KFD device suspend all the KFD processes */
--	if (atomic_inc_return(&kfd_locked) == 1)
--		kfd_suspend_all_processes();
-+	/* for runtime suspend, skip locking kfd */
-+	if (run_pm) {
-+		/* For first KFD device suspend all the KFD processes */
-+		if (atomic_inc_return(&kfd_locked) == 1)
-+			kfd_suspend_all_processes();
-+	}
- 
-+	pm_runtime_set_autosuspend_delay(kfd->ddev->dev, 5000);
- 	kfd->dqm->ops.stop(kfd->dqm);
--
- 	kfd_iommu_suspend(kfd);
- }
- 
--int kgd2kfd_resume(struct kfd_dev *kfd)
-+int kgd2kfd_resume(struct kfd_dev *kfd, bool run_pm)
- {
- 	int ret, count;
- 
-@@ -790,10 +794,13 @@ int kgd2kfd_resume(struct kfd_dev *kfd)
- 	if (ret)
- 		return ret;
- 
--	count = atomic_dec_return(&kfd_locked);
--	WARN_ONCE(count < 0, "KFD suspend / resume ref. error");
--	if (count == 0)
--		ret = kfd_resume_all_processes();
-+	/* for runtime resume, skip unlocking kfd */
-+	if (run_pm) {
-+		count = atomic_dec_return(&kfd_locked);
-+		WARN_ONCE(count < 0, "KFD suspend / resume ref. error");
-+		if (count == 0)
-+			ret = kfd_resume_all_processes();
-+	}
- 
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-index 8d871514671e..6301d77ed3d6 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_iommu.c
-@@ -25,6 +25,7 @@
- #include <linux/slab.h>
- #include <linux/pci.h>
- #include <linux/amd-iommu.h>
-+#include <linux/pm_runtime.h>
- #include "kfd_priv.h"
- #include "kfd_dbgmgr.h"
- #include "kfd_topology.h"
-@@ -134,8 +135,10 @@ void kfd_iommu_unbind_process(struct kfd_process *p)
- 	struct kfd_process_device *pdd;
- 
- 	list_for_each_entry(pdd, &p->per_device_data, per_device_list)
--		if (pdd->bound == PDD_BOUND)
-+		if (pdd->bound == PDD_BOUND) {
- 			amd_iommu_unbind_pasid(pdd->dev->pdev, p->pasid);
-+			pm_runtime_set_autosuspend_delay(pdd->dev->ddev->dev, 5000);
-+		}
- }
- 
- /* Callback for process shutdown invoked by the IOMMU driver */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 25b90f70aecd..d19d5e97405c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -31,6 +31,7 @@
- #include <linux/compat.h>
- #include <linux/mman.h>
- #include <linux/file.h>
-+#include <linux/pm_runtime.h>
- #include "amdgpu_amdkfd.h"
- #include "amdgpu.h"
- 
-@@ -843,15 +844,27 @@ struct kfd_process_device *kfd_bind_process_to_device(struct kfd_dev *dev,
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
-+	err = pm_runtime_get_sync(dev->ddev->dev);
-+	pm_runtime_set_autosuspend_delay(dev->ddev->dev, 60000);
-+	if (err < 0)
-+		return ERR_PTR(err);
-+
- 	err = kfd_iommu_bind_process_to_device(pdd);
- 	if (err)
--		return ERR_PTR(err);
-+		goto out;
- 
- 	err = kfd_process_device_init_vm(pdd, NULL);
- 	if (err)
--		return ERR_PTR(err);
-+		goto out;
- 
--	return pdd;
-+out:
-+	pm_runtime_mark_last_busy(dev->ddev->dev);
-+	pm_runtime_put_autosuspend(dev->ddev->dev);
-+
-+	if (!err)
-+		return pdd;
-+	else
-+		return ERR_PTR(err);
- }
- 
- struct kfd_process_device *kfd_get_first_process_device_data(
--- 
-2.17.1
-
+On 1/24/20 5:31 PM, Nirmoy Das wrote:
+> Currently we pre-allocate entities and fences for all the HW IPs on
+> context creation and some of which are might never be used.
+>
+> This patch tries to resolve entity/fences wastage by creating entity
+> only when needed.
+>
+> v2: allocate memory for entity and fences together
+>
+> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 235 ++++++++++++------------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h |   6 +-
+>   2 files changed, 124 insertions(+), 117 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> index 05c2af61e7de..94a6c42f29ea 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> @@ -42,19 +42,12 @@ const unsigned int amdgpu_ctx_num_entities[AMDGPU_HW_IP_NUM] = {
+>   	[AMDGPU_HW_IP_VCN_JPEG]	=	1,
+>   };
+>   
+> -static int amdgpu_ctx_total_num_entities(void)
+> -{
+> -	unsigned i, num_entities = 0;
+> -
+> -	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i)
+> -		num_entities += amdgpu_ctx_num_entities[i];
+> -
+> -	return num_entities;
+> -}
+> -
+>   static int amdgpu_ctx_priority_permit(struct drm_file *filp,
+>   				      enum drm_sched_priority priority)
+>   {
+> +	if (priority < 0 || priority >= DRM_SCHED_PRIORITY_MAX)
+> +		return -EINVAL;
+> +
+>   	/* NORMAL and below are accessible by everyone */
+>   	if (priority <= DRM_SCHED_PRIORITY_NORMAL)
+>   		return 0;
+> @@ -68,64 +61,24 @@ static int amdgpu_ctx_priority_permit(struct drm_file *filp,
+>   	return -EACCES;
+>   }
+>   
+> -static int amdgpu_ctx_init(struct amdgpu_device *adev,
+> -			   enum drm_sched_priority priority,
+> -			   struct drm_file *filp,
+> -			   struct amdgpu_ctx *ctx)
+> +static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, const u32 hw_ip, const u32 ring)
+>   {
+> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
+> -	unsigned i, j;
+> +	struct amdgpu_device *adev = ctx->adev;
+> +	struct amdgpu_ctx_entity *entity;
+> +	struct drm_gpu_scheduler **scheds = NULL, *sched = NULL;
+> +	unsigned num_scheds = 0;
+> +	enum drm_sched_priority priority;
+>   	int r;
+>   
+> -	if (priority < 0 || priority >= DRM_SCHED_PRIORITY_MAX)
+> -		return -EINVAL;
+> -
+> -	r = amdgpu_ctx_priority_permit(filp, priority);
+> -	if (r)
+> -		return r;
+> -
+> -	memset(ctx, 0, sizeof(*ctx));
+> -	ctx->adev = adev;
+> -
+> -
+> -	ctx->entities[0] = kcalloc(num_entities,
+> -				   sizeof(struct amdgpu_ctx_entity),
+> -				   GFP_KERNEL);
+> -	if (!ctx->entities[0])
+> -		return -ENOMEM;
+> -
+> +	entity = kcalloc(1, offsetof(typeof(*entity), fences[amdgpu_sched_jobs]),
+> +			 GFP_KERNEL);
+> +	if (!entity)
+> +		return  -ENOMEM;
+>   
+> -	for (i = 0; i < num_entities; ++i) {
+> -		struct amdgpu_ctx_entity *entity = &ctx->entities[0][i];
+> -
+> -		entity->sequence = 1;
+> -		entity->fences = kcalloc(amdgpu_sched_jobs,
+> -					 sizeof(struct dma_fence*), GFP_KERNEL);
+> -		if (!entity->fences) {
+> -			r = -ENOMEM;
+> -			goto error_cleanup_memory;
+> -		}
+> -	}
+> -	for (i = 1; i < AMDGPU_HW_IP_NUM; ++i)
+> -		ctx->entities[i] = ctx->entities[i - 1] +
+> -			amdgpu_ctx_num_entities[i - 1];
+> -
+> -	kref_init(&ctx->refcount);
+> -	spin_lock_init(&ctx->ring_lock);
+> -	mutex_init(&ctx->lock);
+> -
+> -	ctx->reset_counter = atomic_read(&adev->gpu_reset_counter);
+> -	ctx->reset_counter_query = ctx->reset_counter;
+> -	ctx->vram_lost_counter = atomic_read(&adev->vram_lost_counter);
+> -	ctx->init_priority = priority;
+> -	ctx->override_priority = DRM_SCHED_PRIORITY_UNSET;
+> -
+> -	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+> -		struct drm_gpu_scheduler **scheds;
+> -		struct drm_gpu_scheduler *sched;
+> -		unsigned num_scheds = 0;
+> -
+> -		switch (i) {
+> +	entity->sequence = 1;
+> +	priority = (ctx->override_priority == DRM_SCHED_PRIORITY_UNSET) ?
+> +				ctx->init_priority : ctx->override_priority;
+> +	switch (hw_ip) {
+>   		case AMDGPU_HW_IP_GFX:
+>   			sched = &adev->gfx.gfx_ring[0].sched;
+>   			scheds = &sched;
+> @@ -166,63 +119,90 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
+>   			scheds = adev->jpeg.jpeg_sched;
+>   			num_scheds =  adev->jpeg.num_jpeg_sched;
+>   			break;
+> -		}
+> -
+> -		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j)
+> -			r = drm_sched_entity_init(&ctx->entities[i][j].entity,
+> -						  priority, scheds,
+> -						  num_scheds, &ctx->guilty);
+> -		if (r)
+> -			goto error_cleanup_entities;
+>   	}
+>   
+> +	r = drm_sched_entity_init(&entity->entity, priority, scheds, num_scheds,
+> +				  &ctx->guilty);
+> +	if (r)
+> +		goto error_free_entity;
+> +
+> +	ctx->entities[hw_ip][ring] = entity;
+>   	return 0;
+>   
+> -error_cleanup_entities:
+> -	for (i = 0; i < num_entities; ++i)
+> -		drm_sched_entity_destroy(&ctx->entities[0][i].entity);
+> +error_free_entity:
+> +	kfree(entity);
+>   
+> -error_cleanup_memory:
+> -	for (i = 0; i < num_entities; ++i) {
+> -		struct amdgpu_ctx_entity *entity = &ctx->entities[0][i];
+> +	return r;
+> +}
+>   
+> -		kfree(entity->fences);
+> -		entity->fences = NULL;
+> -	}
+> +static int amdgpu_ctx_init(struct amdgpu_device *adev,
+> +			   enum drm_sched_priority priority,
+> +			   struct drm_file *filp,
+> +			   struct amdgpu_ctx *ctx)
+> +{
+> +	int r;
+>   
+> -	kfree(ctx->entities[0]);
+> -	ctx->entities[0] = NULL;
+> -	return r;
+> +	r = amdgpu_ctx_priority_permit(filp, priority);
+> +	if (r)
+> +		return r;
+> +
+> +	memset(ctx, 0, sizeof(*ctx));
+> +
+> +	ctx->adev = adev;
+> +
+> +	kref_init(&ctx->refcount);
+> +	spin_lock_init(&ctx->ring_lock);
+> +	mutex_init(&ctx->lock);
+> +
+> +	ctx->reset_counter = atomic_read(&adev->gpu_reset_counter);
+> +	ctx->reset_counter_query = ctx->reset_counter;
+> +	ctx->vram_lost_counter = atomic_read(&adev->vram_lost_counter);
+> +	ctx->init_priority = priority;
+> +	ctx->override_priority = DRM_SCHED_PRIORITY_UNSET;
+> +
+> +	return 0;
+> +
+> +}
+> +
+> +static void amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
+> +{
+> +
+> +	int i;
+> +
+> +	if (!entity)
+> +		return;
+> +
+> +	for (i = 0; i < amdgpu_sched_jobs; ++i)
+> +		dma_fence_put(entity->fences[i]);
+> +
+> +	kfree(entity);
+>   }
+>   
+>   static void amdgpu_ctx_fini(struct kref *ref)
+>   {
+>   	struct amdgpu_ctx *ctx = container_of(ref, struct amdgpu_ctx, refcount);
+> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
+>   	struct amdgpu_device *adev = ctx->adev;
+>   	unsigned i, j;
+>   
+>   	if (!adev)
+>   		return;
+>   
+> -	for (i = 0; i < num_entities; ++i) {
+> -		struct amdgpu_ctx_entity *entity = &ctx->entities[0][i];
+> -
+> -		for (j = 0; j < amdgpu_sched_jobs; ++j)
+> -			dma_fence_put(entity->fences[j]);
+> -
+> -		kfree(entity->fences);
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+> +		for (j = 0; j < AMDGPU_MAX_ENTITY_NUM; ++j) {
+> +			amdgpu_ctx_fini_entity(ctx->entities[i][j]);
+> +			ctx->entities[i][j] = NULL;
+> +		}
+>   	}
+>   
+> -	kfree(ctx->entities[0]);
+>   	mutex_destroy(&ctx->lock);
+> -
+>   	kfree(ctx);
+>   }
+>   
+>   int amdgpu_ctx_get_entity(struct amdgpu_ctx *ctx, u32 hw_ip, u32 instance,
+>   			  u32 ring, struct drm_sched_entity **entity)
+>   {
+> +	int r;
+> +
+>   	if (hw_ip >= AMDGPU_HW_IP_NUM) {
+>   		DRM_ERROR("unknown HW IP type: %d\n", hw_ip);
+>   		return -EINVAL;
+> @@ -239,7 +219,13 @@ int amdgpu_ctx_get_entity(struct amdgpu_ctx *ctx, u32 hw_ip, u32 instance,
+>   		return -EINVAL;
+>   	}
+>   
+> -	*entity = &ctx->entities[hw_ip][ring].entity;
+> +	if (ctx->entities[hw_ip][ring] == NULL) {
+> +		r = amdgpu_ctx_init_entity(ctx, hw_ip, ring);
+> +		if (r)
+> +			return r;
+> +	}
+> +
+> +	*entity = &ctx->entities[hw_ip][ring]->entity;
+>   	return 0;
+>   }
+>   
+> @@ -279,14 +265,17 @@ static int amdgpu_ctx_alloc(struct amdgpu_device *adev,
+>   static void amdgpu_ctx_do_release(struct kref *ref)
+>   {
+>   	struct amdgpu_ctx *ctx;
+> -	unsigned num_entities;
+> -	u32 i;
+> +	u32 i, j;
+>   
+>   	ctx = container_of(ref, struct amdgpu_ctx, refcount);
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+> +			if (!ctx->entities[i][j])
+> +				continue;
+>   
+> -	num_entities = amdgpu_ctx_total_num_entities();
+> -	for (i = 0; i < num_entities; i++)
+> -		drm_sched_entity_destroy(&ctx->entities[0][i].entity);
+> +			drm_sched_entity_destroy(&ctx->entities[i][j]->entity);
+> +		}
+> +	}
+>   
+>   	amdgpu_ctx_fini(ref);
+>   }
+> @@ -516,19 +505,23 @@ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
+>   void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
+>   				  enum drm_sched_priority priority)
+>   {
+> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
+>   	enum drm_sched_priority ctx_prio;
+> -	unsigned i;
+> +	unsigned i, j;
+>   
+>   	ctx->override_priority = priority;
+>   
+>   	ctx_prio = (ctx->override_priority == DRM_SCHED_PRIORITY_UNSET) ?
+>   			ctx->init_priority : ctx->override_priority;
+> +	for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+> +		for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+> +			struct drm_sched_entity *entity;
+>   
+> -	for (i = 0; i < num_entities; i++) {
+> -		struct drm_sched_entity *entity = &ctx->entities[0][i].entity;
+> +			if (!ctx->entities[i][j])
+> +				continue;
+>   
+> -		drm_sched_entity_set_priority(entity, ctx_prio);
+> +			entity = &ctx->entities[i][j]->entity;
+> +			drm_sched_entity_set_priority(entity, ctx_prio);
+> +		}
+>   	}
+>   }
+>   
+> @@ -564,20 +557,24 @@ void amdgpu_ctx_mgr_init(struct amdgpu_ctx_mgr *mgr)
+>   
+>   long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+>   {
+> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
+>   	struct amdgpu_ctx *ctx;
+>   	struct idr *idp;
+> -	uint32_t id, i;
+> +	uint32_t id, i, j;
+>   
+>   	idp = &mgr->ctx_handles;
+>   
+>   	mutex_lock(&mgr->lock);
+>   	idr_for_each_entry(idp, ctx, id) {
+> -		for (i = 0; i < num_entities; i++) {
+> -			struct drm_sched_entity *entity;
+> +		for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+> +			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+> +				struct drm_sched_entity *entity;
+> +
+> +				if (!ctx->entities[i][j])
+> +					continue;
+>   
+> -			entity = &ctx->entities[0][i].entity;
+> -			timeout = drm_sched_entity_flush(entity, timeout);
+> +				entity = &ctx->entities[i][j]->entity;
+> +				timeout = drm_sched_entity_flush(entity, timeout);
+> +			}
+>   		}
+>   	}
+>   	mutex_unlock(&mgr->lock);
+> @@ -586,10 +583,9 @@ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout)
+>   
+>   void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+>   {
+> -	unsigned num_entities = amdgpu_ctx_total_num_entities();
+>   	struct amdgpu_ctx *ctx;
+>   	struct idr *idp;
+> -	uint32_t id, i;
+> +	uint32_t id, i, j;
+>   
+>   	idp = &mgr->ctx_handles;
+>   
+> @@ -599,8 +595,17 @@ void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr)
+>   			continue;
+>   		}
+>   
+> -		for (i = 0; i < num_entities; i++)
+> -			drm_sched_entity_fini(&ctx->entities[0][i].entity);
+> +		for (i = 0; i < AMDGPU_HW_IP_NUM; ++i) {
+> +			for (j = 0; j < amdgpu_ctx_num_entities[i]; ++j) {
+> +				struct drm_sched_entity *entity;
+> +
+> +				if (!ctx->entities[i][j])
+> +					continue;
+> +
+> +				entity = &ctx->entities[i][j]->entity;
+> +				drm_sched_entity_fini(entity);
+> +			}
+> +		}
+>   	}
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+> index a6cd9d4b078c..de490f183af2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+> @@ -29,10 +29,12 @@ struct drm_device;
+>   struct drm_file;
+>   struct amdgpu_fpriv;
+>   
+> +#define AMDGPU_MAX_ENTITY_NUM 4
+> +
+>   struct amdgpu_ctx_entity {
+>   	uint64_t		sequence;
+> -	struct dma_fence	**fences;
+>   	struct drm_sched_entity	entity;
+> +	struct dma_fence	*fences[];
+>   };
+>   
+>   struct amdgpu_ctx {
+> @@ -42,7 +44,7 @@ struct amdgpu_ctx {
+>   	unsigned			reset_counter_query;
+>   	uint32_t			vram_lost_counter;
+>   	spinlock_t			ring_lock;
+> -	struct amdgpu_ctx_entity	*entities[AMDGPU_HW_IP_NUM];
+> +	struct amdgpu_ctx_entity	*entities[AMDGPU_HW_IP_NUM][AMDGPU_MAX_ENTITY_NUM];
+>   	bool				preamble_presented;
+>   	enum drm_sched_priority		init_priority;
+>   	enum drm_sched_priority		override_priority;
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
