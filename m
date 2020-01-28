@@ -2,102 +2,105 @@ Return-Path: <SRS0=HJvn=3R=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3ECF3C2D0DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 21:44:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8224FC2D0DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 21:48:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 049E62087F
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 21:44:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5081C2087F
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 21:48:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="dY5n3m+g"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 049E62087F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="B5PrRevb"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5081C2087F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE47D6E135;
-	Tue, 28 Jan 2020 21:44:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07B576F426;
+	Tue, 28 Jan 2020 21:48:02 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2049.outbound.protection.outlook.com [40.107.236.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33A846E135
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 21:44:39 +0000 (UTC)
+ (mail-bn8nam11on2056.outbound.protection.outlook.com [40.107.236.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F377C6F426
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 21:48:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l3qgajA6DRxr84vttpVqNNHm+HRqk/nkOMp7WIDgoZPIMf9vC0HgbbOVsen4ZKtGFfHZVEMd+G+Hg75HbuURpLdwsaomofAgKUJPEPbqjsNRB4T85Aix/ukrrw5dPzYkdNdupix8IewJhCnGmP1j2VIBvHhFpmirzOqXDxO0t9mIwEesSUh+jxW6N7qTN0xGc7rZDRc0/7A3j7PSPXD2o6sHADdQw+XpRJn7K2K9zBNI+w2WxThOpc9t1sBPx7z/QjPmOI8ubuMrBpe9/lngAl5Ih9UN6hkv/zmHFAsgJ/4eenCSzSQPoOLzcLp3zS/M9cR53jA/yOSsWhwZu+GMhw==
+ b=ByqZDhormLGRqpEJWaGJ5LuKYQDK9hDgjYPNak4PLLPZXKBhfk90qoi2d4U2Ll5fLnVZMBtTUsJ+FLKqpckVHtS3p7aeVUZ2Yhi9QKjfno0mf0nGy5xlo1iwbvkmk3G+pPX9nbX0mtQdzvwCEZ1WwoGRUiOFgOVucnSIxUN7tsO9WfMgj3NsDcrEdhb0/a27z7A6PBEagH4zHkiidgQPbt05Fhyz3OA7pCK832JLPV7WhTLg1GEOz5Bg7zpZ0Wjvk0TM3rK0RmrZ7/F6ozbUBlih1/dpcS+eI8ugpEm6pEVm6fcgisAg/2gZ0wzj5QH2P9r/nUyujgnLaRXiSEchbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ocj6sSi0PWzQ7Loc3BvFeM6bYSutPtm2ydUg1GY3EWw=;
- b=KHI5ZU3J8ynlt3Ud/7fHO7tTi2i9KyuCGX/BUgRaRBl7AdI4DBLVIXm5h6wtOMFMJqQGNE+gpBi6F1DQVDXHVV4uf7caH/h0xJFQ/m9Rc5E+upl/wM4YazomTLUXp0t0oKcpuuK6roe4D7oaHDDqGNWwozHItQVeU9OibiaMuGMwH6RS3gA7UCej5qBjAM1iMmduQbqwzy7avzAG17zGVyI6wl3wo8H02lmu4Dk3kPi6D49XeXF9GI2mh/aZzONhUoEroxjJkS4tNwrm61sYp+j68mXlgJ+JiTrLq3/HmQtYagCMmQZdyvZu7fq2VDoKh+eRKCPWCQz6t7do1/CGiw==
+ bh=WCywni62vLPpFTgvCMVO6Yk7Mf5sWKDFugK/3JZ0+zs=;
+ b=gycU9UcW18kA2jmxhry+rSYSQfwGS4VJHNh6Wi1Hw+Zg/3F1D1XPkw7v1zhLsOUGbbQ9p2sF0N+nvzFRyS3809Ktya5TTRDTFRGml/Ly7iAvqEZxS1pXKQ+BVpshs+dihcL0Ra78DxU4bJEDCILv1yi27VYMiS4KSYRT94PxXuI6bJfFlHXgjO0F+lkahkUS1nxfxPipF1HpSNuZP87LDmfch1kUE6R2OBvDJPR6ohRjOxtjbO6prCxFGI5nXP8F6KUAvsyz1nmLrUsWA4BnuJupnyjrytA7mDoCk3U3zsgnErSRLyTkM6AWnhuSO3AoqHTyxGxaRKwVgRyDQ2EZQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ocj6sSi0PWzQ7Loc3BvFeM6bYSutPtm2ydUg1GY3EWw=;
- b=dY5n3m+gM9Zq3OsCSuuwFspG8DCo48KY+KGxe/72H7bQhBQrGzdyRXJUvs5cDYjlb0DUEDibrlcE4kNLpZ10ULEEfCaw54bCN4GQcWf2QDPVRGJqw3dkYVtmsRgrOKXvnEG2d3Ab4TbI6mnol/AVx/WTm6oCOvf1W/rHFiiaQ34=
+ bh=WCywni62vLPpFTgvCMVO6Yk7Mf5sWKDFugK/3JZ0+zs=;
+ b=B5PrRevbGXBF6Ny86qNLEw3BOTqFBcd1Qj8ea9RoAn+SVJNfR4HwC4482AfIGsmS15CbdbDdcvAXgGENaEe+fmUzw6oafZwR/4ws5yKvvzspmd9Y1Bkuz61fiix/RX2q9ZikGvy9P5gybogQxAaTQdhADamnZPQMo4NOdLgQLvU=
 Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Zhan.Liu@amd.com; 
-Received: from DM5PR1201MB2554.namprd12.prod.outlook.com (10.172.92.14) by
- DM5PR1201MB0139.namprd12.prod.outlook.com (10.174.247.8) with Microsoft SMTP
+ smtp.mailfrom=Mikita.Lipski@amd.com; 
+Received: from DM6PR12MB2906.namprd12.prod.outlook.com (20.179.71.212) by
+ DM6PR12MB3802.namprd12.prod.outlook.com (10.255.173.27) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2665.20; Tue, 28 Jan 2020 21:44:37 +0000
-Received: from DM5PR1201MB2554.namprd12.prod.outlook.com
- ([fe80::918b:7720:5da1:d845]) by DM5PR1201MB2554.namprd12.prod.outlook.com
- ([fe80::918b:7720:5da1:d845%9]) with mapi id 15.20.2665.026; Tue, 28 Jan 2020
- 21:44:37 +0000
-From: Zhan Liu <zhan.liu@amd.com>
-To: amd-gfx@lists.freedesktop.org,
-	Mikita.Lipski@amd.com,
-	zhan.liu@amd.com
-Subject: [PATCH] drm/amd/display: Move drm_dp_mst_atomic_check() to the front
- of dc_validate_global_state()
-Date: Tue, 28 Jan 2020 16:44:24 -0500
-Message-Id: <20200128214424.43253-1-zhan.liu@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: YTXPR0101CA0062.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::39) To DM5PR1201MB2554.namprd12.prod.outlook.com
- (2603:10b6:3:ec::14)
+ 15.20.2665.24; Tue, 28 Jan 2020 21:47:59 +0000
+Received: from DM6PR12MB2906.namprd12.prod.outlook.com
+ ([fe80::c4f1:5ec7:7314:75bf]) by DM6PR12MB2906.namprd12.prod.outlook.com
+ ([fe80::c4f1:5ec7:7314:75bf%7]) with mapi id 15.20.2665.026; Tue, 28 Jan 2020
+ 21:47:59 +0000
+Subject: Re: [PATCH] drm/amd/display: Move drm_dp_mst_atomic_check() to the
+ front of dc_validate_global_state()
+To: Zhan Liu <zhan.liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ Mikita.Lipski@amd.com
+References: <20200128214424.43253-1-zhan.liu@amd.com>
+From: Mikita Lipski <mlipski@amd.com>
+Organization: AMD
+Message-ID: <4ec0cbdd-efce-f2f6-5c6e-cce1b67909ac@amd.com>
+Date: Tue, 28 Jan 2020 16:47:57 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+In-Reply-To: <20200128214424.43253-1-zhan.liu@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: YTOPR0101CA0037.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::14) To DM6PR12MB2906.namprd12.prod.outlook.com
+ (2603:10b6:5:15f::20)
 MIME-Version: 1.0
-Received: from ubuntu.localdomain (165.204.55.250) by
- YTXPR0101CA0062.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::39) with
+Received: from [172.29.224.72] (165.204.55.250) by
+ YTOPR0101CA0037.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2665.20 via Frontend
- Transport; Tue, 28 Jan 2020 21:44:36 +0000
-X-Mailer: git-send-email 2.17.1
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2665.19 via Frontend
+ Transport; Tue, 28 Jan 2020 21:47:58 +0000
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1d4344a3-65d8-43c1-9e99-08d7a43b4563
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0139:|DM5PR1201MB0139:
+X-MS-Office365-Filtering-Correlation-Id: 5af5ba1f-845c-4faf-2c06-08d7a43bbda7
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3802:|DM6PR12MB3802:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB01392DC86C81AE7F1B6DB33E9E0A0@DM5PR1201MB0139.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5797;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3802F8653DD3804C586128F8E40A0@DM6PR12MB3802.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
 X-Forefront-PRVS: 029651C7A1
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(346002)(39860400002)(396003)(136003)(376002)(189003)(199004)(6486002)(186003)(5660300002)(81166006)(8936002)(81156014)(26005)(86362001)(6506007)(6512007)(1076003)(16526019)(316002)(52116002)(8676002)(6666004)(36756003)(2906002)(2616005)(44832011)(66476007)(478600001)(66946007)(956004)(66556008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR1201MB0139;
- H:DM5PR1201MB2554.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10009020)(4636009)(396003)(39860400002)(136003)(366004)(346002)(376002)(189003)(199004)(2906002)(478600001)(2616005)(6486002)(36756003)(36916002)(31686004)(6636002)(316002)(52116002)(956004)(53546011)(66476007)(66556008)(66946007)(16526019)(186003)(26005)(81166006)(31696002)(16576012)(8936002)(81156014)(8676002)(5660300002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3802;
+ H:DM6PR12MB2906.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Kir+5xVkpFbRolECHjxEVqBC6g6JqxmPg+jbg0dxL5ObbCD2IyXlGCFoWNTsM8rRyowkCEcjkawNDeuBz2KVCVmQnSUR2N8vLVEJBqa8lnAi95c0e0I4r0HayNAQyIF9TDbR1nBH/5ioCEGlJbargPzK496+lK8Z1pnXDwRII0z9Zp6WqKomsJYyNFyY6XyAGA5LIUJDIKOis0SdJsOuRZLVZA/cOZKHZo/MvPepurniLE3NOOpU00NP+LgBv88zsQzu21Abf15A5fPOSQVHJFjswPKJQc/F4hjd57hC/O1slFtec7/lySMnxw51Ktf1U+boFi2mo2V0sWLpunV/msq8mrmdTCZL1/lQTAW3Y7eS6AvEFoDvTT7RtQFqfgx96HMVi7sunF1Tpl3EfB+MMhn5aq+qTb7cU2lVMqpc19mVKr5FwGYTtZAraLsIUlAQ
-X-MS-Exchange-AntiSpam-MessageData: TnArv0+sFe86CFD0KQtBrMu3gOF53iUUR2gy/U5a7nJxz9I/b11iPYxMkgEA6zg6Xz0m9OSHIBp+XxyscZShg0KVYXTqqRFqcow4RcWOSno3RGyp8mfGPJ57Blcl52IunS/WS2axDjT3+3vprCxL2g==
+X-Microsoft-Antispam-Message-Info: WGq90Ictk0svfq1jrv6moHa9apqydNaAiq0WpeUyszfE2NujJ9eDMQIncXpePfTvZs1Kso48JR0Cyam0Bh1Vti5sO1+V/3YP1GazkHB58sH96sTPo6w1KmEV2ygz+q0Mmuh2kRt6MswvRQBPEhGKdtBd+47LEWNP77FKZg68rMYDP1kWtNXJolg0xn2AlTx9D5lgUG9iYC0Oh9jpFUVSIYeL+YnnMHAYWhFNrS/+0oQxMKFXz5kSoA80nZGQ/4RrBuwCrMV5s14Bhs8u1wetW4EfOhVA728taPJ7TUUn8k4gkamEB9A7W3OLwW3DJsykEmkDjLJ9IDutvf52MJaNNISV11aWnymupKJiOxBxua1Hp7uAr7OFKSFMJw7elvEgmbRbOaottJsc4aopcVXCJ1rG6cw0By+cdXy0a+iSFipzEbatHk3TBA1SXPfKRW79
+X-MS-Exchange-AntiSpam-MessageData: okBXR2jLRZZ2h/i/r6co5W0Qm2K9AtTnwdMCJQwhhm16GYDx+ivoUT9RNXQE++MVH2CDYvbV+wGa3ScM50VicxoMC64YTHYtp4JvZFOlfZLCfpk2iqtZIMWAZNmQUuRlDTIEFPQnrKOP5nE/W5SLWA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d4344a3-65d8-43c1-9e99-08d7a43b4563
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2020 21:44:37.4015 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5af5ba1f-845c-4faf-2c06-08d7a43bbda7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2020 21:47:58.9459 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /uU45O6L8c/69nxlKOQL6MF5VQ+ls9lyysqoZU8muzpfntTRc2vPgnKlgBh65F5Z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0139
+X-MS-Exchange-CrossTenant-UserPrincipalName: UiXI/6pKddnhTjvTUOl1HLKYqMUvb1Z7VeWA8ZjMME88hTJBsHNoN1+pn69fnbnu
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3802
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,60 +112,70 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-Need to do atomic check first, then validate global state.
-If not, when connecting both MST and HDMI displays and
-set a bad mode via xrandr, system will hang.
+Reviewed-by: Mikita Lipski <mikita.lipski@amd.com>
 
-[How]
-Move drm_dp_mst_atomic_check() to the front of
-dc_validate_global_state().
+Thanks!
+Mikita
 
-Signed-off-by: Zhan Liu <zhan.liu@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+On 1/28/20 4:44 PM, Zhan Liu wrote:
+> [Why]
+> Need to do atomic check first, then validate global state.
+> If not, when connecting both MST and HDMI displays and
+> set a bad mode via xrandr, system will hang.
+> 
+> [How]
+> Move drm_dp_mst_atomic_check() to the front of
+> dc_validate_global_state().
+> 
+> Signed-off-by: Zhan Liu <zhan.liu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++++++----
+>   1 file changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index eed3ed7180fd..805d8d84ebb8 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -8256,6 +8256,16 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+>   			goto fail;
+>   #endif
+>   
+> +		/*
+> +		 * Perform validation of MST topology in the state:
+> +		 * We need to perform MST atomic check before calling
+> +		 * dc_validate_global_state(), or there is a chance
+> +		 * to get stuck in an infinite loop and hang eventually.
+> +		 */
+> +		ret = drm_dp_mst_atomic_check(state);
+> +		if (ret)
+> +			goto fail;
+> +
+>   		if (dc_validate_global_state(dc, dm_state->context, false) != DC_OK) {
+>   			ret = -EINVAL;
+>   			goto fail;
+> @@ -8284,10 +8294,6 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+>   				dc_retain_state(old_dm_state->context);
+>   		}
+>   	}
+> -	/* Perform validation of MST topology in the state*/
+> -	ret = drm_dp_mst_atomic_check(state);
+> -	if (ret)
+> -		goto fail;
+>   
+>   	/* Store the overall update type for use later in atomic check. */
+>   	for_each_new_crtc_in_state (state, crtc, new_crtc_state, i) {
+> 
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index eed3ed7180fd..805d8d84ebb8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -8256,6 +8256,16 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 			goto fail;
- #endif
- 
-+		/*
-+		 * Perform validation of MST topology in the state:
-+		 * We need to perform MST atomic check before calling
-+		 * dc_validate_global_state(), or there is a chance
-+		 * to get stuck in an infinite loop and hang eventually.
-+		 */
-+		ret = drm_dp_mst_atomic_check(state);
-+		if (ret)
-+			goto fail;
-+
- 		if (dc_validate_global_state(dc, dm_state->context, false) != DC_OK) {
- 			ret = -EINVAL;
- 			goto fail;
-@@ -8284,10 +8294,6 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 				dc_retain_state(old_dm_state->context);
- 		}
- 	}
--	/* Perform validation of MST topology in the state*/
--	ret = drm_dp_mst_atomic_check(state);
--	if (ret)
--		goto fail;
- 
- 	/* Store the overall update type for use later in atomic check. */
- 	for_each_new_crtc_in_state (state, crtc, new_crtc_state, i) {
 -- 
-2.17.1
-
+Thanks,
+Mikita Lipski
+Software Engineer 2, AMD
+mikita.lipski@amd.com
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
