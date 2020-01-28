@@ -2,66 +2,66 @@ Return-Path: <SRS0=HJvn=3R=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 99141C2D0DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 20:11:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88332C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 20:14:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 689AB20708
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 20:11:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5A8162070E
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 20:14:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L6WnLk1+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 689AB20708
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lEQC//3W"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A8162070E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35F236F3D8;
-	Tue, 28 Jan 2020 20:11:45 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4704D6F3D8
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 20:11:44 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id s144so2546378wme.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 12:11:44 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F0856F3E2;
+	Tue, 28 Jan 2020 20:14:44 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE15B6F3E2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 20:14:42 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id w15so17618313wru.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 12:14:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fPpB1pZYkmn/hjMHd3BquZiU1iu5N9KtoesX0Ki6K7g=;
- b=L6WnLk1+zWHKaFjEcLsJt+ggcE3xFHb8d3pJZRKjTNroXNSWl7f8QKd3oeWaZlaQ9S
- OT+JxO/yDW0QqKkdEloStF+ZVQ+ElPqTAApHzvXpjw0jZAJeAv3UcDWr0OGpnWzqc02a
- 1ijSZHoOOVxb0R+Ajv43jPAIdxv/7DISlkWxB8wpo3svCvYyAMCbwXeDHUpAe05+aB8j
- 2B6jeGuKFHlY8PVxaTQ1imQlRk/iltZy0VxBu+P+CEmIhiVMVhAsbDL8FLB7YVfD3IG0
- moDtwsHS5079INILa2OYcMj87tMYxDby3PoaEgTDW7T5UHK+l3400zF2SVJtQHWQJ6xX
- oEBQ==
+ :cc; bh=W+OzFAtDPoho58BmhLihNfDGa3T/ar1e5aSVjbxK/mU=;
+ b=lEQC//3W81K5IOEPsClTlGmnPNpOPI0wkTnjIRq/s4W5svn3mA0s/2sGigdwvHmmOb
+ lVtufJtaTs4OGybH0NeRhGxMEBDc0WaHHEjG3aWMDDyLs2MdlWOhq048e9UESAMrY6aW
+ P2F8QwfqscOCVAPfxXYlirtDBwCKyqhrmf6tLYoYw1+0Kg1tgcTnUcBkxKcdCnIARWqB
+ DM+mBKcvE305yD0QVxksffhbjHGy3hT00QnEL7g5cG7sxv+i2eUtp38r6WaGjL539/ig
+ iI7CU0WEVjrFezbXKe5QOnK9hbnQ2ySBBmgfk511Gsk6/V91Rnq5oeJb0lI6kgeWbzHS
+ 5o2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=fPpB1pZYkmn/hjMHd3BquZiU1iu5N9KtoesX0Ki6K7g=;
- b=NZXMKgYeEBAmiPxCP5Ij/ywDkC+H/C6gXneiTrXCvbwhKfsnSDG6YNYw53Qc8HfMlc
- 4K1/yoRZjVeYen0MvbqzKpDhSot/rMsSugPTSyQ8B+rgjv4KoMa7idAuVahoBct7nBuF
- dG04YRKo1+mnYdjdQcmBgu/8GVIj9T920OjI+E4JWD1ZTfQ/mNjQQlqreZPt3ZuosC4u
- JGSslvHWDM+d0ySotZTjEH7nBOvKCnORWtrpFGqD+krwa5/bKCGGISuwJMmdEJgag7jO
- P/AL7ovYVb+e9rjs1u2TeBFCTTTJIa2iGVc2d8+7YGizlWl/ggjo3lNSEn0+IOpQUFRz
- ieeA==
-X-Gm-Message-State: APjAAAV40Gu+RYO9aC0/2009VN0zTy4lTNEA5JPgmcWZqqZ3zA8S9REy
- eXY14N/vsAEUsBmt5swr9lZBsGK6GgTCZH6XKyo=
-X-Google-Smtp-Source: APXvYqwH3Ga/g0mYF0nDm3jWep/oQ+HSNvzwfkjuQCmI14mLN0W1QPvBtgopNf8A1n57iozUTH4t0AXoW+D5NtWXy4g=
-X-Received: by 2002:a7b:c152:: with SMTP id z18mr6706784wmi.70.1580242302884; 
- Tue, 28 Jan 2020 12:11:42 -0800 (PST)
+ bh=W+OzFAtDPoho58BmhLihNfDGa3T/ar1e5aSVjbxK/mU=;
+ b=OrXrMdNYNQ7vU3a51BBI8VGKGf7dsL3cDoaow6vf2y1itVsnrOl/0IZbPUkr6xaBdC
+ NtbM6BkBWdjK/dzeEcIG3Z92oWiOjDeaz+oNHXKLBntb8axmkTy4ciGutvxrHpYXN1U9
+ UmCDKPD/d5ZFGeNIablmPo0gddqCpld6p0hrfqIwJ7EwgkNEsSWRIh00n69QbBCIFA7t
+ 7O4qFI4ZeizBVlV9BUfpAf5IMISlg5MoycQQfZp4HqEECQJ4im4lhRjxsS1Ecq/Hnp1T
+ /gW47+URWrovSwfMWDq3ZQOUhVjun05wchXjFe1LsKNVDwldKGK9DtqbtMmF3yWUmfjx
+ y9uw==
+X-Gm-Message-State: APjAAAWnMYnWI2aac+iBP0k9wdeXuHgViF2WPHIVW2YAnnODOIHPG1SV
+ VtP8n4y2pRxC7az++h74/Rh+msWxM+42y45f6Lnd75s4
+X-Google-Smtp-Source: APXvYqxsza8Rg9LP6a2/vxRB/fQZq77oYsg3ZjVLI+NudrZiSQZb0axWf/ynbN60Q8q62MeXoNCMJqM9CVR+kL6Qd5M=
+X-Received: by 2002:a5d:5091:: with SMTP id a17mr30072272wrt.362.1580242481363; 
+ Tue, 28 Jan 2020 12:14:41 -0800 (PST)
 MIME-Version: 1.0
 References: <20200128012923.25536-1-rajneesh.bhardwaj@amd.com>
- <CAHbf0-G_mG-awokOA5yeLwp4CKzQ1WB_a6rBLj-xKY5cnS+YUw@mail.gmail.com>
-In-Reply-To: <CAHbf0-G_mG-awokOA5yeLwp4CKzQ1WB_a6rBLj-xKY5cnS+YUw@mail.gmail.com>
+ <20200128012923.25536-2-rajneesh.bhardwaj@amd.com>
+In-Reply-To: <20200128012923.25536-2-rajneesh.bhardwaj@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 28 Jan 2020 15:11:31 -0500
-Message-ID: <CADnq5_OANiWKd=cA1BzdQ_QOGNoLwEZ0EFF0c2UmRmw9rVf19g@mail.gmail.com>
-Subject: Re: [Patch v1 0/5] Enable BACO with KFD
-To: Mike Lothian <mike@fireburn.co.uk>
+Date: Tue, 28 Jan 2020 15:14:29 -0500
+Message-ID: <CADnq5_N6vKSpLGBj2TkiCOaOskrT2T4EQ3NmNp0hOLumCLithw@mail.gmail.com>
+Subject: Re: [Patch v1 1/5] drm/amdgpu: always enable runtime power management
+To: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,78 +73,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <Alexander.Deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jan 28, 2020 at 12:39 PM Mike Lothian <mike@fireburn.co.uk> wrote:
+On Mon, Jan 27, 2020 at 8:30 PM Rajneesh Bhardwaj
+<rajneesh.bhardwaj@amd.com> wrote:
 >
-> Is this designed to work with PRIME laptops too?
+> This allows runtime power management to kick in on amdgpu driver when
+> the underlying hardware supports either BOCO or BACO. This can still be
+> avoided if boot arg amdgpu.runpm = 0 is supplied.
 >
+>         BOCO: Bus Off, Chip Off
+>         BACO: Bus Alive, Chip Off
+>
+> Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 
-Yes.  The title should really be runtime pm rather than BACO
-specifically.  The underlying power savings mechanism (BOCO, BACO,
-etc.) varies from platform to platform.
+This patch should be the last one in the series, otherwise we'll
+enable runpm on BACO capable devices before the KFD code is in place.
+Also, it's only supported on VI and newer asics, so we should use this
+patch instead:
+https://patchwork.freedesktop.org/patch/335402/
 
 Alex
 
-> On Tue, 28 Jan 2020 at 01:29, Rajneesh Bhardwaj
-> <rajneesh.bhardwaj@amd.com> wrote:
-> >
-> > This series aims to enable BACO by default on supported AMD platforms
-> > and ensures that the AMD Kernel Fusion Driver can co-exist with this
-> > feature when the GPU devices are runtime suspended and firmware pushes
-> > the envelop to save more power with BACO entry sequence. Current
-> > approach makes sure that if KFD is using GPU services for compute, it
-> > won't let AMDGPU driver suspend and if the AMDGPU driver is already
-> > runtime suspended with GPUs in deep power saving mode with BACO, the KFD
-> > driver wakes up the AMDGPU and then starts the compute workload
-> > execution.
-> >
-> > This series has been tested with a single GPU (fiji), Dual GPUs (fiji
-> > and fiji/tonga) and seems to work fine. I have not seen but expect some
-> > corner cases where for some reason a KFD client binds a process but is
-> > unable to complete the task within 60 seconds. Ideally we should put the
-> > runtime_put and auto_suspend code in some function which is logical
-> > opposite of bind_process_to_device but during my experiments, it ended
-> > up with random gpu hang, machine reboot etc so any comments for
-> > improvement are welcome.
-> >
-> > Todo:
-> >
-> > rebase on top of https://patchwork.freedesktop.org/patch/338037/
-> >
-> > Rajneesh Bhardwaj (5):
-> >   drm/amdgpu: always enable runtime power management
-> >   drm/amdgpu: Fix missing error check in suspend
-> >   drm/amdkfd: Introduce debugfs option to disable baco
-> >   drm/amdkfd: show warning when kfd is locked
-> >   drm/amdkfd: refactor runtime pm for baco
-> >
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 12 ++++-----
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  9 ++++---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  7 +++--
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  3 +++
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    |  9 +++----
-> >  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   |  2 ++
-> >  drivers/gpu/drm/amd/amdkfd/kfd_debugfs.c   | 27 +++++++++++++++++++
-> >  drivers/gpu/drm/amd/amdkfd/kfd_device.c    | 31 +++++++++++++---------
-> >  drivers/gpu/drm/amd/amdkfd/kfd_iommu.c     |  5 +++-
-> >  drivers/gpu/drm/amd/amdkfd/kfd_process.c   | 19 ++++++++++---
-> >  10 files changed, 91 insertions(+), 33 deletions(-)
-> >
-> > --
-> > 2.17.1
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 9 ++++-----
+>  1 file changed, 4 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> index 3a0ea9096498..7958d508486e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+> @@ -169,11 +169,10 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
+>                 goto out;
+>         }
+>
+> -       if (amdgpu_device_supports_boco(dev) &&
+> -           (amdgpu_runtime_pm != 0)) /* enable runpm by default */
+> -               adev->runpm = true;
+> -       else if (amdgpu_device_supports_baco(dev) &&
+> -                (amdgpu_runtime_pm > 0)) /* enable runpm if runpm=1 */
+> +       /* always enable runtime power management except when amdgpu.runpm=0 */
+> +       if ((amdgpu_device_supports_boco(dev) ||
+> +                       amdgpu_device_supports_baco(dev))
+> +                       && (amdgpu_runtime_pm != 0))
+>                 adev->runpm = true;
+>
+>         /* Call ACPI methods: require modeset init
+> --
+> 2.17.1
+>
 > _______________________________________________
 > amd-gfx mailing list
 > amd-gfx@lists.freedesktop.org
