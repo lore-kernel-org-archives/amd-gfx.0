@@ -7,60 +7,61 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88332C2D0DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 20:14:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 97513C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 20:15:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A8162070E
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 20:14:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 660CE20708
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 20:15:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lEQC//3W"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A8162070E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZqHN8ZIj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 660CE20708
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F0856F3E2;
-	Tue, 28 Jan 2020 20:14:44 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE15B6F3E2
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 20:14:42 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id w15so17618313wru.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 12:14:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34D066E123;
+	Tue, 28 Jan 2020 20:15:31 +0000 (UTC)
+Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
+ [IPv6:2a00:1450:4864:20::32f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D21FC6E123
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 20:15:29 +0000 (UTC)
+Received: by mail-wm1-x32f.google.com with SMTP id q9so3888149wmj.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 12:15:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=W+OzFAtDPoho58BmhLihNfDGa3T/ar1e5aSVjbxK/mU=;
- b=lEQC//3W81K5IOEPsClTlGmnPNpOPI0wkTnjIRq/s4W5svn3mA0s/2sGigdwvHmmOb
- lVtufJtaTs4OGybH0NeRhGxMEBDc0WaHHEjG3aWMDDyLs2MdlWOhq048e9UESAMrY6aW
- P2F8QwfqscOCVAPfxXYlirtDBwCKyqhrmf6tLYoYw1+0Kg1tgcTnUcBkxKcdCnIARWqB
- DM+mBKcvE305yD0QVxksffhbjHGy3hT00QnEL7g5cG7sxv+i2eUtp38r6WaGjL539/ig
- iI7CU0WEVjrFezbXKe5QOnK9hbnQ2ySBBmgfk511Gsk6/V91Rnq5oeJb0lI6kgeWbzHS
- 5o2w==
+ :cc; bh=UFocr1OZqfUg3bmEOAkET+wQr/XSbmGGBJmeInfqso4=;
+ b=ZqHN8ZIj1OC/5+dP55GkK3tQet9GUaVpgZlH4uvdp+UjUlDBJ0z8Fi/abRKMMLfxzc
+ vuEUVNit9KFH60CNaWBiqh2QeuKYV6y1qyBNRD1pKkDXdGaJrRrheMu22PgJsDQHK/sq
+ yGL3exCozndYkJuJ5t4EHZpDQaw5rJtNWmDQVaWHkRK44nL9gT4TK0Hq2q1uswfNa7+2
+ jSZC6ZvB8oHZLUVPsxCAzhVRpr3dKnpOdL6/A9kxwxhFMbQ0yCBKMnPIq+S+GC1od3Eq
+ yYFA7jvFKIyjJNlt97trjRNUZzsUP4eF27Gi7wGh9w9AtNenAR6YdNSM7HfiqDOBLjjY
+ aXyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=W+OzFAtDPoho58BmhLihNfDGa3T/ar1e5aSVjbxK/mU=;
- b=OrXrMdNYNQ7vU3a51BBI8VGKGf7dsL3cDoaow6vf2y1itVsnrOl/0IZbPUkr6xaBdC
- NtbM6BkBWdjK/dzeEcIG3Z92oWiOjDeaz+oNHXKLBntb8axmkTy4ciGutvxrHpYXN1U9
- UmCDKPD/d5ZFGeNIablmPo0gddqCpld6p0hrfqIwJ7EwgkNEsSWRIh00n69QbBCIFA7t
- 7O4qFI4ZeizBVlV9BUfpAf5IMISlg5MoycQQfZp4HqEECQJ4im4lhRjxsS1Ecq/Hnp1T
- /gW47+URWrovSwfMWDq3ZQOUhVjun05wchXjFe1LsKNVDwldKGK9DtqbtMmF3yWUmfjx
- y9uw==
-X-Gm-Message-State: APjAAAWnMYnWI2aac+iBP0k9wdeXuHgViF2WPHIVW2YAnnODOIHPG1SV
- VtP8n4y2pRxC7az++h74/Rh+msWxM+42y45f6Lnd75s4
-X-Google-Smtp-Source: APXvYqxsza8Rg9LP6a2/vxRB/fQZq77oYsg3ZjVLI+NudrZiSQZb0axWf/ynbN60Q8q62MeXoNCMJqM9CVR+kL6Qd5M=
-X-Received: by 2002:a5d:5091:: with SMTP id a17mr30072272wrt.362.1580242481363; 
- Tue, 28 Jan 2020 12:14:41 -0800 (PST)
+ bh=UFocr1OZqfUg3bmEOAkET+wQr/XSbmGGBJmeInfqso4=;
+ b=QSWGug0Jbu75I2sKd4NQdtAwb2a5mNMVkHTKT8YUGuCmsSrwowFGqr2b7a0c3C6oOU
+ JbwZryftJnedth7mo7Jwq+UyEOPULd5g74xz9MgJCKs8PCYNaAtGEFx07+aTlDULpJvB
+ ORkZtZtv3bdVm6C6pqpYSU+xWv9cbo6ZPCs96EoitcMnYsK/ckBeTh4XdeoCbRIlaTo6
+ xL6Kd1Z9bWlVVLBmJzunROOIBjRzl1RXwEVHdDyeiS2hxikkTCiTGuJKaetKk6yozYsV
+ fJz52yh1OTtqoVKqRAEFAXg58CSj6V3sBK7Ricf2A7Vut4/ppOJlxPAj/44OwxubXfq6
+ nFvA==
+X-Gm-Message-State: APjAAAXMMhRVcooYepayzW+SIEaI4fb0uyckplyVGdvBjyOjlLsLuMJ0
+ nwi0ewggiXgtq7J8yXRyKin04PyvOGv3gb/1ZwE=
+X-Google-Smtp-Source: APXvYqweDshBYqDVSmBznOSMZSf+yNZb5CueDyPiBR4uqbTccNb+iqEDtgpy0iiQwAO8F8ODpVWuXL/MWe6+zDUlZgU=
+X-Received: by 2002:a05:600c:2c53:: with SMTP id
+ r19mr6854698wmg.39.1580242528478; 
+ Tue, 28 Jan 2020 12:15:28 -0800 (PST)
 MIME-Version: 1.0
 References: <20200128012923.25536-1-rajneesh.bhardwaj@amd.com>
- <20200128012923.25536-2-rajneesh.bhardwaj@amd.com>
-In-Reply-To: <20200128012923.25536-2-rajneesh.bhardwaj@amd.com>
+ <20200128012923.25536-3-rajneesh.bhardwaj@amd.com>
+In-Reply-To: <20200128012923.25536-3-rajneesh.bhardwaj@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 28 Jan 2020 15:14:29 -0500
-Message-ID: <CADnq5_N6vKSpLGBj2TkiCOaOskrT2T4EQ3NmNp0hOLumCLithw@mail.gmail.com>
-Subject: Re: [Patch v1 1/5] drm/amdgpu: always enable runtime power management
+Date: Tue, 28 Jan 2020 15:15:17 -0500
+Message-ID: <CADnq5_P_z3P=16vSChO86XN3=bSJ1hmzZmfq1mQMi5iyaBC_pg@mail.gmail.com>
+Subject: Re: [Patch v1 2/5] drm/amdgpu: Fix missing error check in suspend
 To: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,47 +84,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On Mon, Jan 27, 2020 at 8:30 PM Rajneesh Bhardwaj
 <rajneesh.bhardwaj@amd.com> wrote:
 >
-> This allows runtime power management to kick in on amdgpu driver when
-> the underlying hardware supports either BOCO or BACO. This can still be
-> avoided if boot arg amdgpu.runpm = 0 is supplied.
->
->         BOCO: Bus Off, Chip Off
->         BACO: Bus Alive, Chip Off
+> amdgpu_device_suspend might return an error code since it can be called
+> from both runtime and system suspend flows. Add the missing return code
+> in case of a failure.
 >
 > Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 
-This patch should be the last one in the series, otherwise we'll
-enable runpm on BACO capable devices before the KFD code is in place.
-Also, it's only supported on VI and newer asics, so we should use this
-patch instead:
-https://patchwork.freedesktop.org/patch/335402/
-
-Alex
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 9 ++++-----
->  1 file changed, 4 insertions(+), 5 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 +++
+>  1 file changed, 3 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 3a0ea9096498..7958d508486e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -169,11 +169,10 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
->                 goto out;
->         }
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 137e76f0e3db..71466df6dff6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -1236,6 +1236,9 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+>         drm_kms_helper_poll_disable(drm_dev);
 >
-> -       if (amdgpu_device_supports_boco(dev) &&
-> -           (amdgpu_runtime_pm != 0)) /* enable runpm by default */
-> -               adev->runpm = true;
-> -       else if (amdgpu_device_supports_baco(dev) &&
-> -                (amdgpu_runtime_pm > 0)) /* enable runpm if runpm=1 */
-> +       /* always enable runtime power management except when amdgpu.runpm=0 */
-> +       if ((amdgpu_device_supports_boco(dev) ||
-> +                       amdgpu_device_supports_baco(dev))
-> +                       && (amdgpu_runtime_pm != 0))
->                 adev->runpm = true;
->
->         /* Call ACPI methods: require modeset init
+>         ret = amdgpu_device_suspend(drm_dev, false);
+> +       if (ret)
+> +               return ret;
+> +
+>         if (amdgpu_device_supports_boco(drm_dev)) {
+>                 /* Only need to handle PCI state in the driver for ATPX
+>                  * PCI core handles it for _PR3.
 > --
 > 2.17.1
 >
