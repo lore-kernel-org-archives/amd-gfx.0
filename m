@@ -8,66 +8,63 @@ X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45103C2D0DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 18:49:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE2B2C35240
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 18:50:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1ADE3207FD
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 18:49:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C76442468D
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jan 2020 18:50:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DSaDLd3L"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1ADE3207FD
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k1OFPR63"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C76442468D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBA396E0B7;
-	Tue, 28 Jan 2020 18:49:01 +0000 (UTC)
-Received: from mail-il1-x144.google.com (mail-il1-x144.google.com
- [IPv6:2607:f8b0:4864:20::144])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D4D26E0B7
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 18:49:00 +0000 (UTC)
-Received: by mail-il1-x144.google.com with SMTP id f70so6629169ill.6
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 10:49:00 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ACF86F39C;
+	Tue, 28 Jan 2020 18:50:08 +0000 (UTC)
+Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
+ [IPv6:2607:f8b0:4864:20::141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85ED86F39C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 18:50:07 +0000 (UTC)
+Received: by mail-il1-x141.google.com with SMTP id l4so11654498ilj.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jan 2020 10:50:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=6AUhHf8f8o50SaQVLa66tseDCk/cIYAA4iv+xlBDRtE=;
- b=DSaDLd3LGpgsB3wa1NlA5m8iR3ZNKcR/+fympk/PWTBrhpDbDdla74gVqGLmiHFGox
- QBGkBUdwux6yL+UoPKEvl8OyS3lAv/Fh0gTvF6jj4hQLAroeVM5xtSpe2PKtmOiIikVf
- oVI0p2xMfC9TEWuiKp6ug7HKFzUYu4KmQ3raKNpodYf+uyhAlD7ktI4QNmFCn4VpmsFZ
- uUCgeQk2jREhhtJzJHLvaJGB3qufYBTvtP7JxMrN2g4Q3WuTWtp8oEfrfCntYvGzSOb3
- 3y4Xu/8DxxeC0OvneK5/T3LmK/hiQOlQ2xCURMmJT3eYQhYQO1gLchatIDiU6hyCMOsu
- 8Gjg==
+ bh=9h8sArmaQTDD2UFZf3/rsPrG5bghl0v5son2A2Ir94w=;
+ b=k1OFPR63fK7m1hqt56xSQvJ1IDSelsb6/03Nl5Z1v8Oqgi1dbZqK16PdWGNMjxbqqj
+ ibmqSmHjVcjnogo0TRe4491y/cULZ+aiX31r8IaXnu0yNom7UppsWPi8WoEBAHHbv02V
+ 2UwHl1zgAMNX3QuIUWzsWmDU3fwkQAUUvHNSXYE6skLMVZnsf4q6+yncejH96OO8kYDo
+ S97qB7wPavX2uEzcc1lbR+BErAekK8AWYDD6+cujGMTRg6CH834LV8lb5NFj7nUADhDk
+ DmjkKWwyWAqY52Lp3Nx1SyIv3uKmUph9oe81h0u83PQVwGttNj5AYg54+jtAuS1gU5vT
+ Fs7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:autocrypt
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-language:content-transfer-encoding;
- bh=6AUhHf8f8o50SaQVLa66tseDCk/cIYAA4iv+xlBDRtE=;
- b=o20kpeNAu1jrt/t3kamSrFpAWAIeYO5DGvLtXa225lD09CwSSqO8xfkqJuPT/Q7IrW
- 2QU2Pl/Hc8tGCHzlVLONx/ZeVw8WcVKl/g7FiOaQlJKMpToSAbnz2/jCGx/pwzdlIcMW
- +rBY+IOba2SfCQSnGxtf7mEX13UvEtJPYbJskLGxrt6UmeO1GwZCNGE92Anzz6nQOsqV
- MLBPx2ni6zAuiZzqnfk/qjavmWrntQ2qpGRdvSpL2jq0/cLX5f+F5pRwvjMJMtRtxsIs
- lbM3PRw889jQ7N/8DGbvbi2jgzcvA6pbbtNVSEOXDbhJdENg8j6SwciQX5C78Kvr3kdB
- vowA==
-X-Gm-Message-State: APjAAAWwn0a32tSKlGcePk8HRph99wV8gdRiXgnT7VocafCNzOyBtiuN
- 1s+A7RrQ9yrcpiegTEMfhrE=
-X-Google-Smtp-Source: APXvYqyWl3+Dgsda74SPO6Nu3kGBG/obmhwxfH5Gts91EwJiYQB3JYSlFi1P4gT8zGxr/6wev3bl2g==
-X-Received: by 2002:a92:d610:: with SMTP id w16mr20545588ilm.283.1580237339648; 
- Tue, 28 Jan 2020 10:48:59 -0800 (PST)
+ bh=9h8sArmaQTDD2UFZf3/rsPrG5bghl0v5son2A2Ir94w=;
+ b=Rw9m+TAT9mPrEwJJbkoqL+ePd4G2NZL3WNc3xb+DbQwlmJDi00QEmx2sJvM83Crh8K
+ +VFVY0C2Fx2l1WvRYgzZsQ7EwMK3/p0biSQ7A1730YUZT76kKczEl8zaXkXP1+OK6/gZ
+ Vo3m+9HtsVAZXhXnyufGr+Xbyg4pdOzAwC6u5Y4/iWTqHZZokTFjTZKOUKELP96RimA/
+ 0asluL5PwpwIAiyLh9yN57WiHHKFSus7lb/91XkJio7cPltAOoBpgvmiJO9lLX8FJAwg
+ AwvNMNAuld6f1QYn0QQD9iyIO4JksnTcBRN9duzKRnAHcm/zzlFZUJKHa9JDsZ6dyq6i
+ OVZg==
+X-Gm-Message-State: APjAAAU+yuTzJ9PrmAXWQ6wqrXrz+e4EcsIjPj2BU3MJVaALlR3P2spa
+ +nEIT2WwX53oK+NAGOP+/7I=
+X-Google-Smtp-Source: APXvYqxzheNss1FKvp0wfcG4eO1md1as5b3dZnTSJ6GOPv+052+CebuaDQLDhb0m/OvCGGdWWXd5Ow==
+X-Received: by 2002:a92:d5c3:: with SMTP id d3mr21116182ilq.250.1580237406933; 
+ Tue, 28 Jan 2020 10:50:06 -0800 (PST)
 Received: from ?IPv6:2602:ae:10d1:b00:6d4:c4ff:fe4a:ea6b?
  ([2602:ae:10d1:b00:6d4:c4ff:fe4a:ea6b])
- by smtp.gmail.com with ESMTPSA id q6sm4594960ioj.49.2020.01.28.10.48.58
+ by smtp.gmail.com with ESMTPSA id p19sm3571398ilc.69.2020.01.28.10.50.06
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2020 10:48:59 -0800 (PST)
-Subject: Re: [PATCH 3/3] drm/amdgpu/navi10: add OD support for restoring
- default table
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20200125184845.4233-1-alexander.deucher@amd.com>
- <20200125184845.4233-3-alexander.deucher@amd.com>
- <f51f32b5-9a08-bb30-66e9-52bddb8f469c@gmail.com>
- <CADnq5_NUjjtf_kSut0doWRoRUOqi-OrN=M8=3=sf3JoYiCuuwA@mail.gmail.com>
+ Tue, 28 Jan 2020 10:50:06 -0800 (PST)
+Subject: Re: [PATCH] drm/amdgpu/navi10: add mclk to
+ navi10_get_clock_by_type_with_latency
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20200125183321.2315-1-alexander.deucher@amd.com>
 From: Matt Coffin <mcoffin13@gmail.com>
 Autocrypt: addr=mcoffin13@gmail.com; keydata=
  mQINBFXzZLABEADfD/9dfQPD/Ho+NHBmduela1i/ZAuKmYkKHmu3xrqZvxguxzWPUgyJpTXh
@@ -143,12 +140,12 @@ Autocrypt: addr=mcoffin13@gmail.com; keydata=
  /CfIe6JJY5NEK7N0nZ3t4c/7/ys0uL5bKDJ2TT8N8MLPfmd4IPvrQTakWlNeaTir+PXLISug
  CmeZkKqj9XNAhrxWTXlEJiCAN7GbX+pI8bpOikCSc5RQf5gDxypiTNnCW6zFd6ia2giFR9P7
  tuwClJVHcEqY1gkUE/HKR1MQFfXl979G/1Ql1g==
-Message-ID: <f63fecc3-fd56-55cb-4bcf-178ead1628d6@gmail.com>
-Date: Tue, 28 Jan 2020 11:48:54 -0700
+Message-ID: <3caaa45e-03c4-4e34-61d4-6db90b6d17c8@gmail.com>
+Date: Tue, 28 Jan 2020 11:50:06 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <CADnq5_NUjjtf_kSut0doWRoRUOqi-OrN=M8=3=sf3JoYiCuuwA@mail.gmail.com>
+In-Reply-To: <20200125183321.2315-1-alexander.deucher@amd.com>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -161,58 +158,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Let me know if I'm not doing this correctly since I'm still new.
 
 
-On 1/28/20 10:26 AM, Alex Deucher wrote:
-> On Tue, Jan 28, 2020 at 11:44 AM Matt Coffin <mcoffin13@gmail.com> wrote:
 
-> I just copied that vega20 did.  You may be right.  I haven't paged the
-> recent SMU interface stuff into my head in a while.  If so, we should
-> also fix the vega20_ppt.c code.
+Patch is
 
-The vega20_ppt code was correct, until we implemented the ability for
-the user to write to that overdrive table, which will land in 5.5.
+Reviewed-by: Matt Coffin <mcoffin13@gmail.com>
 
-Not entirely sure about the canonical way to distribute changes to
-someone else's series, but I can take a crack at fixing this.
-
->>
->> On 1/25/20 11:48 AM, Alex Deucher wrote:
->>> Was missing before.
->>>
->>> Bug: https://gitlab.freedesktop.org/drm/amd/issues/1020
->>> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->>> ---
->>>  drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 8 ++++++++
->>>  1 file changed, 8 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
->>> index d2d45181ae23..f60762f9b143 100644
->>> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
->>> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
->>> @@ -2062,6 +2062,14 @@ static int navi10_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TABL
->>>               if (ret)
->>>                       return ret;
->>>               od_table->UclkFmax = input[1];
->>> +             break;
->>> +     case PP_OD_RESTORE_DEFAULT_TABLE:
->>> +             ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, table_context->overdrive_table, false);
->>> +             if (ret) {
->>> +                     pr_err("Failed to export over drive table!\n");
->>> +                     return ret;
->>> +             }
->>> +
->>>               break;
->>>       case PP_OD_COMMIT_DPM_TABLE:
->>>               navi10_dump_od_table(od_table);
->>>
+On 1/25/20 11:33 AM, Alex Deucher wrote:
+> Doesn't seem to be used, but add it just in case.
+> 
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> index 015f5ea38901..f60762f9b143 100644
+> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> @@ -1008,6 +1008,8 @@ static int navi10_get_clock_by_type_with_latency(struct smu_context *smu,
+>  	case SMU_GFXCLK:
+>  	case SMU_DCEFCLK:
+>  	case SMU_SOCCLK:
+> +	case SMU_MCLK:
+> +	case SMU_UCLK:
+>  		ret = smu_get_dpm_level_count(smu, clk_type, &level_count);
+>  		if (ret)
+>  			return ret;
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
