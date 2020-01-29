@@ -8,64 +8,67 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 22E0BC2D0DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2020 18:18:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 766F5C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2020 18:18:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F2502206D4
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2020 18:18:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 53E0C206D4
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2020 18:18:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N7epFMFG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2502206D4
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="atywVzkp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53E0C206D4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE5326F61F;
-	Wed, 29 Jan 2020 18:18:01 +0000 (UTC)
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4857A6F61F
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jan 2020 18:18:00 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id v25so220771qto.7
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jan 2020 10:18:00 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC7926F621;
+	Wed, 29 Jan 2020 18:18:03 +0000 (UTC)
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
+ [IPv6:2607:f8b0:4864:20::f43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09CD26F620
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jan 2020 18:18:02 +0000 (UTC)
+Received: by mail-qv1-xf43.google.com with SMTP id s7so127150qvn.8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jan 2020 10:18:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SKL2sqi2EL4mq8psKYKolWdZLh6vJTuTy7MFp7cI8oM=;
- b=N7epFMFGOKQhgWLBqNCtYLI20nkHUAMLIOkjXTgK1jyn6WSp+5r5w/uGCKjvsDBWow
- 9MlW9vMCMFN9iiQ79goXHc3icxpb+jA1tZvs66eTUs09/kOK0dCkKE7q9Il0uWZPuVD7
- Ua1s+PwBk71BtN1L7j4QToKs4YRAXkf9kQOyKBjlBvryMOGlYp2NzDyINpznrH9MYCjj
- JrClB/kKL6OMVHr6V+K5TUGMS9sBImTKOJO3VdIuf76QCJMBJid58ebSmcfJGJnZVrl0
- 5a+hu4Io71vtrdYUM42vt2j0U+gOg1jbsmw2SgkDSkZ3VTC6SaKot/DWVRTTCnZOH87U
- vg3Q==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=5AXPKfHbVUx1xLagrAMEhZSVXTYnY+jajIWQrKyhubQ=;
+ b=atywVzkpLdgV8R84h/cPehXMbf27Z1ujEqHUbIgNM0yPrBLs1MqpULiweAyGm2Du7N
+ GHwzNHmWYdplusTJ7hUAvPUBPhOyrG2HKv9bgPSD81ObsCV+OejIkd6KUfag3zygOg+r
+ NKBoIp3YvdsNygPs79PcIY5kT5F50x7aaEbzEBC5cdWRdOTSk4C0XP4XLLmx9UWEm2Un
+ LLI59F+a0KhAfmogOSsf9LEf/FSHJKjoKyhZTUwOzuNouRopSwnNUXAC6u4mscrUP0jc
+ FLpBsBkHwPt2k4KAc2pcvRthWlsHOamd+sQlurFi//DHqiwkEKvWJLL9I4Tl188bi6qp
+ IxOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SKL2sqi2EL4mq8psKYKolWdZLh6vJTuTy7MFp7cI8oM=;
- b=aSR/sRRX0pVvZ7EL5szTEJqryYm2GEB7PqEKQ0RaqLje/r8rwiBWAziZlbNR0bcuLE
- RnBvCNHGkVpPkzM0LPpwitf8mJOhuUXFfhxaJubmkfeYAlZc+s1Yglce8v0gGIs1U7xO
- xE4PDHxrqDVKnBBY0i84w5Yc9YId01b7O4VmlTMwXIvcLaMZrG6cLXkKiC4nI1DueB8I
- 6jdHVAheFvTdyAAO6tKVkaMFevTQjk1uCxzNY/OXqUzquvAp3PPrc0n/H+Zg9LuXiqut
- Bu8T+Clf9dx6sJDaDvzx9+z+RuJG0osJbPQqoOOZRw7Whm/DZk3PAVgoCI6ZkZXx1GG5
- QG3g==
-X-Gm-Message-State: APjAAAWP2tYT1wxxRNztokdJAvm1suN7IKftsWdGDQ/rpeSy7SXyUtu6
- mXXhQf9fu8SNPnuSs+KGluVAoHH7
-X-Google-Smtp-Source: APXvYqwp2bxWkGYOjvoemCMo12DwPYqoVuHIEnwIVzauo90kQuidY66Krc1XsM16oMEC4Ub6L+VaHQ==
-X-Received: by 2002:ac8:a8b:: with SMTP id d11mr503547qti.94.1580321879273;
- Wed, 29 Jan 2020 10:17:59 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=5AXPKfHbVUx1xLagrAMEhZSVXTYnY+jajIWQrKyhubQ=;
+ b=pG0pA80cLwnz6fV3k7lygA/AD7eva74/DNEiXtu4+96JEIWqGrFrzXp12ODA0UsdVP
+ syNaiKihef+3W+ai7/dFeoNMhvfmEYl7wf3bX5feQUle9T90I94NTXN7mOnzKBx3Mu+O
+ jVpGF7p8hunYXt2ueT5y5TJHrMq1T6dbDL3BMbxuYwg4lHZqB8Rpu+vw/6GV984Vhy+2
+ uDgXtvXH7RxAE2rbU0BGBQRO74/b2RDG1jlCqad5YUlrUs74OcRyQipQLfGNiExrsRIm
+ /nBjLo6CuUxNsBSHFjCNQqbQ9D9YRbTymtWsL83DUlyBYNSGev0eqKjqnQy35A2aGIwj
+ LSQA==
+X-Gm-Message-State: APjAAAUUF6pt7r3rnU5i/FxrydX77hd+BPBFhEJpvE2vhRxS9RHETECR
+ KOHBj7yD3u5P5ecOJEsr/K1/A06V
+X-Google-Smtp-Source: APXvYqwnHcGTMHCXtzooTxHkz9vm3AXy0Z8kYqbZ0KSq/NAbKRAguThcbuuwP4mkFTTm1nbsbk3qcA==
+X-Received: by 2002:ad4:4e34:: with SMTP id dm20mr284980qvb.163.1580321880960; 
+ Wed, 29 Jan 2020 10:18:00 -0800 (PST)
 Received: from localhost.localdomain ([71.219.59.120])
- by smtp.gmail.com with ESMTPSA id v55sm1510114qtc.1.2020.01.29.10.17.58
+ by smtp.gmail.com with ESMTPSA id v55sm1510114qtc.1.2020.01.29.10.18.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jan 2020 10:17:58 -0800 (PST)
+ Wed, 29 Jan 2020 10:18:00 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/amdgpu/navi: fix index for OD MCLK
-Date: Wed, 29 Jan 2020 13:17:50 -0500
-Message-Id: <20200129181752.609344-1-alexander.deucher@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu/smu_v11_0: Correct behavior of restoring
+ default tables (v2)
+Date: Wed, 29 Jan 2020 13:17:52 -0500
+Message-Id: <20200129181752.609344-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200129181752.609344-1-alexander.deucher@amd.com>
+References: <20200129181752.609344-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,33 +81,129 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Matt Coffin <mcoffin13@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-You can only adjust the max mclk, not the min.
+From: Matt Coffin <mcoffin13@gmail.com>
+
+Previously, the syfs functionality for restoring the default powerplay
+table was sourcing it's information from the currently-staged powerplay
+table.
+
+This patch adds a step to cache the first overdrive table that we see on
+boot, so that it can be used later to "restore" the powerplay table
+
+v2: sqaush my original with Matt's fix
 
 Bug: https://gitlab.freedesktop.org/drm/amd/issues/1020
+Signed-off-by: Matt Coffin <mcoffin13@gmail.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  1 +
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c    |  7 +++++
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     |  6 ++++
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c    | 28 ++++++-------------
+ 4 files changed, 22 insertions(+), 20 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+index b0591a8dda41..1e33c3e9b98d 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+@@ -273,6 +273,7 @@ struct smu_table_context
+ 	uint8_t                         thermal_controller_type;
+ 
+ 	void				*overdrive_table;
++	void                            *boot_overdrive_table;
+ };
+ 
+ struct smu_dpm_context {
 diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index f1b27fc20c19..c8f09874c2ec 100644
+index d2d45181ae23..26cfccc57331 100644
 --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -843,7 +843,7 @@ static int navi10_print_clk_levels(struct smu_context *smu,
- 		if (!navi10_od_feature_is_supported(od_settings, SMU_11_0_ODFEATURE_UCLK_MAX))
- 			break;
- 		size += sprintf(buf + size, "OD_MCLK:\n");
--		size += sprintf(buf + size, "0: %uMHz\n", od_table->UclkFmax);
-+		size += sprintf(buf + size, "1: %uMHz\n", od_table->UclkFmax);
+@@ -2063,6 +2063,13 @@ static int navi10_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TABL
+ 			return ret;
+ 		od_table->UclkFmax = input[1];
  		break;
- 	case SMU_OD_VDDC_CURVE:
- 		if (!smu->od_enabled || !od_table || !od_settings)
++	case PP_OD_RESTORE_DEFAULT_TABLE:
++		if (!(table_context->overdrive_table && table_context->boot_overdrive_table)) {
++			pr_err("Overdrive table was not initialized!\n");
++			return -EINVAL;
++		}
++		memcpy(table_context->overdrive_table, table_context->boot_overdrive_table, sizeof(OverDriveTable_t));
++		break;
+ 	case PP_OD_COMMIT_DPM_TABLE:
+ 		navi10_dump_od_table(od_table);
+ 		ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, (void *)od_table, true);
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+index 02f8c9cb89d9..0dc49479a7eb 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+@@ -1882,6 +1882,12 @@ int smu_v11_0_set_default_od_settings(struct smu_context *smu, bool initialize,
+ 			pr_err("Failed to export overdrive table!\n");
+ 			return ret;
+ 		}
++		if (!table_context->boot_overdrive_table) {
++			table_context->boot_overdrive_table = kmemdup(table_context->overdrive_table, overdrive_table_size, GFP_KERNEL);
++			if (!table_context->boot_overdrive_table) {
++				return -ENOMEM;
++			}
++		}
+ 	}
+ 	ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, table_context->overdrive_table, true);
+ 	if (ret) {
+diff --git a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+index 38febd5ca4da..4ad8d6c14ee5 100644
+--- a/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/vega20_ppt.c
+@@ -1706,22 +1706,11 @@ static int vega20_set_default_od_settings(struct smu_context *smu,
+ 	struct smu_table_context *table_context = &smu->smu_table;
+ 	int ret;
+ 
+-	if (initialize) {
+-		if (table_context->overdrive_table)
+-			return -EINVAL;
+-
+-		table_context->overdrive_table = kzalloc(sizeof(OverDriveTable_t), GFP_KERNEL);
+-
+-		if (!table_context->overdrive_table)
+-			return -ENOMEM;
+-
+-		ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0,
+-				       table_context->overdrive_table, false);
+-		if (ret) {
+-			pr_err("Failed to export over drive table!\n");
+-			return ret;
+-		}
++	ret = smu_v11_0_set_default_od_settings(smu, initialize, sizeof(OverDriveTable_t));
++	if (ret)
++		return ret;
+ 
++	if (initialize) {
+ 		ret = vega20_set_default_od8_setttings(smu);
+ 		if (ret)
+ 			return ret;
+@@ -2778,12 +2767,11 @@ static int vega20_odn_edit_dpm_table(struct smu_context *smu,
+ 		break;
+ 
+ 	case PP_OD_RESTORE_DEFAULT_TABLE:
+-		ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, table_context->overdrive_table, false);
+-		if (ret) {
+-			pr_err("Failed to export over drive table!\n");
+-			return ret;
++		if (!(table_context->overdrive_table && table_context->boot_overdrive_table)) {
++			pr_err("Overdrive table was not initialized!\n");
++			return -EINVAL;
+ 		}
+-
++		memcpy(table_context->overdrive_table, table_context->boot_overdrive_table, sizeof(OverDriveTable_t));
+ 		break;
+ 
+ 	case PP_OD_COMMIT_DPM_TABLE:
 -- 
 2.24.1
 
