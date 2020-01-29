@@ -2,68 +2,102 @@ Return-Path: <SRS0=fmWI=3S=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 853D1C35240
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2020 08:26:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8524C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2020 13:53:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5AA7520708
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2020 08:26:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 338A220678
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jan 2020 13:53:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dSNO9wjN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5AA7520708
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="YCgu2aGa"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 338A220678
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 135686F49A;
-	Wed, 29 Jan 2020 08:26:03 +0000 (UTC)
-Received: from mail-yb1-xb44.google.com (mail-yb1-xb44.google.com
- [IPv6:2607:f8b0:4864:20::b44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D55E36F49A;
- Wed, 29 Jan 2020 08:26:01 +0000 (UTC)
-Received: by mail-yb1-xb44.google.com with SMTP id q190so8340491ybq.2;
- Wed, 29 Jan 2020 00:26:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=sgF2vmhz2T7IeFLxb2F117QIdy1NFOJJsX193BxkqOw=;
- b=dSNO9wjN2SsIBCH49OqTw/A/PZDqYOhzfrV2bZZqib4KDx0TSD+ni80dMEBk59atxI
- N/H3dy3x9h6l8+GyOFyfyhKzsiNKl92xMtTEqSEvQxQktrQ/g/i3fyKSkV2XlzQQXedG
- 9RYuTGVZ9dltnlbFbN6Z3xrsbt26kFKGreKDHGEtBdu6kUzxb3/R+7WvQ27byrztsof5
- a0pOa1tq1O25hD0B/wAnZTeTU3TVu/K3D3pFDFgILT8dfi6xdRkVpw0ZGqusli/vHMMs
- JiOgO4MTQ5p4pkgqTFjrlq6i2a3O0xfuYOgtw/7CZftq7P3zwKz8rTO3xrog1fcCGHJk
- 6nug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=sgF2vmhz2T7IeFLxb2F117QIdy1NFOJJsX193BxkqOw=;
- b=OMExpqIiP9lyTBXwfdugj+XezqIOw0yha4IgEWWbq/J59SgmDAwt/r0QQL99wVdb/D
- czCL/PnPap0i8zho8ljTWU2xHF/gYBuXzYe4GKJBr6IGqVFxqjehElLC1DTYlzmgBDhZ
- hiWPH/1pMdi8CmQub75xhoHBm5QjMW2IUlFoUnUX0g7u8D/Nvkiy5ykg8ZQVt7sD1GY9
- GWbOR4jsFMcbrX3Nh0d5oSHrJEPiekzjAsqlZQ9dBwYsgO0qucbf+6bSx5VIldG/RAQ5
- +4qcgrGlVYlwcWsi9pApsnVhvyb7G87ALn19ZpOwoPLxPvv9qVoyqSKW1EKzPDoEp7U6
- OE4w==
-X-Gm-Message-State: APjAAAXt9tBhHUdpyOrdphl0EaUobxUN4QaxclflLSpBXKEUOfrLmEPo
- zeGIM/0JP8WfQbUG1yYztgLmpIm4EU/GPoxmgWc=
-X-Google-Smtp-Source: APXvYqyVyK9PjCztHzRXzGqMcg86H7OYSIU9PnLCzOGfOIj82VVVgpuSOxqUS6U+h720ew60ng17+3R2jqUohlRgOEg=
-X-Received: by 2002:a25:69c9:: with SMTP id
- e192mr19401976ybc.162.1580286361002; 
- Wed, 29 Jan 2020 00:26:01 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5D9B6E38A;
+	Wed, 29 Jan 2020 13:53:35 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2053.outbound.protection.outlook.com [40.107.243.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 753EC6E38A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jan 2020 13:53:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WltrCixVVroVGj1SuQsKzUKY/SsrtBAp5e63RNVgtl8hrh6NmgwLEKwetIBmPi/C7lAiWGa/tcy6G/75pPZAjF5loZFZnZScWU0hhM5EO74VScNvkzr5OZlEGBa19z1qKkLzN5XaFBTOqaGPmod0mQy6KNY5jUNrZTPLdtHRgW+m+BNd/PNmeok6GJ2BerSNRxdDtNfGUhZy/BYUBUDLxsbB1avqPPB3VKuldNVqx+S+xk2nNaeNtHYtmKgO2aPI3EDCHLp8eGVTOP3j3kIJTu4e5xg17H9Iji9KwqwxLMhVnVdodc0D56KcyJLlbSXl48/4QTD/J+tTsq7b8h7+lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9gWo9BWxPdILHHOSdsokK8LunAVBowm7/vz+7NKWoMg=;
+ b=ob4L84buq6/OioMoGUhkeElKr0GAPFq2ky9dG4oQmqby+55WSL0aTg0j5zsUf74gVq5dySZ8JCOz+c+3oUfoBmKFVDz5EB2MvUKPEDgID3QnhAT+TlXJCf/8HkfyIc7Dq0zW10KBN5YJhpVN/KJCHjuxx+1sXWZvay0Zgz08qjwGZr0FoXVgDtj18K0697CLt5IC+L3tvQ1dVin3F+YBj1mryPgWHHNuEyeqdVNxNo3yIQPzs+UFsvGLwnhgQ6Oupg8nTrOmsCiGbS3x7KvX6jJauJFOmNToeEvAI+wzOYp8jhWS0aIQ3OorxO9GjcMVM6DeY+ojMaA1qozeU+RZzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9gWo9BWxPdILHHOSdsokK8LunAVBowm7/vz+7NKWoMg=;
+ b=YCgu2aGaguNXmtiFzGpyHz/cs4i95ZxgmZY3azdA0KbuCIdVU7WXATU2Gopz1UmRulH2X1RkH1PqGRc/CaQQv34PsvQmvo5vQIoBG5J9H09KmdWJ5OXYQaGo6A0cNKdHbDz++GJNH0YGA3+bJ8Ydir8nLXxMWfK5oMfi6daRGXU=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Nicholas.Kazlauskas@amd.com; 
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com (20.178.197.10) by
+ BYAPR12MB3094.namprd12.prod.outlook.com (20.178.54.87) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2665.24; Wed, 29 Jan 2020 13:53:32 +0000
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::5f8:d155:b213:ef50]) by BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::5f8:d155:b213:ef50%3]) with mapi id 15.20.2644.031; Wed, 29 Jan 2020
+ 13:53:32 +0000
+Subject: Re: [PATCH 1/2] drm/amdgpu/display: handle multiple numbers of fclks
+ in dcn_calcs.c
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20200128194707.87898-1-alexander.deucher@amd.com>
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Message-ID: <1f3b69d0-617b-38d5-18fc-0af081cf7856@amd.com>
+Date: Wed, 29 Jan 2020 08:53:29 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.2
+In-Reply-To: <20200128194707.87898-1-alexander.deucher@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: YTXPR0101CA0017.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::30) To BYAPR12MB3560.namprd12.prod.outlook.com
+ (2603:10b6:a03:ae::10)
 MIME-Version: 1.0
-References: <20200123135943.24140-1-tzimmermann@suse.de>
- <20200123135943.24140-10-tzimmermann@suse.de>
-In-Reply-To: <20200123135943.24140-10-tzimmermann@suse.de>
-From: Ben Skeggs <skeggsb@gmail.com>
-Date: Wed, 29 Jan 2020 18:25:49 +1000
-Message-ID: <CACAvsv4Yp99w845A8kERpnx+mSax16PLzEBx-uEpZyfAoLu_Qg@mail.gmail.com>
-Subject: Re: [PATCH v4 09/22] drm/nouveau: Convert to CRTC VBLANK callbacks
-To: Thomas Zimmermann <tzimmermann@suse.de>
+Received: from [172.29.1.94] (165.204.55.250) by
+ YTXPR0101CA0017.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::30) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2665.22 via Frontend Transport; Wed, 29 Jan 2020 13:53:31 +0000
+X-Originating-IP: [165.204.55.250]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 9f171a0e-9073-4837-a293-08d7a4c2a099
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3094:|BYAPR12MB3094:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR12MB3094FBEB7A2B3A756768F7FBEC050@BYAPR12MB3094.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-Forefront-PRVS: 02973C87BC
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(366004)(376002)(39860400002)(136003)(396003)(189003)(199004)(66946007)(6486002)(478600001)(31686004)(316002)(66476007)(16576012)(8676002)(2906002)(81166006)(81156014)(66556008)(53546011)(26005)(16526019)(186003)(4326008)(52116002)(86362001)(5660300002)(36756003)(956004)(31696002)(2616005)(966005)(8936002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB3094;
+ H:BYAPR12MB3560.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ZsOwwugmMEN+FQayRiQQMdWYgCpe/heFigGBWMQccr6QWH2i+CFmrewCBc02U5t5T6Pt3O4ioExEVWSUE+QWeEcrfmVElXBEQQ3tPq8bE1XZSD/mZf6RXiatJLZE8sPNfHJ2YPPdNya+NXPCMZvOi6PLm2ITPvCiJvCymL/j5jpnFIiItjo1897r38Q6yXFiQ19N3VDx8DpBbz7TlIX2KmvngNBViJ3P2qo1ZadWuOCaHVAwOlNnvpaOMM0Uf+xG0I3ioYGfY75yyHdsX3odtC27Wzu/g5+Qet4dGwPpIJDri0u+pkAhIay2RQYO8c/RKvZa9fAZ4FaS+rOcPmBLJH9b+jfDwxPAPLc6eeRr68dbMDmU93fPOFpi+v90Y226m572KYaO/JUZ7HFXrB7nIxcfW3as2h1nsCjyHzgpd/HjMoKzuzEMsFzEpEuI4SI0liySlGsMEOGyFkoLDchMHfU7UUiXkTA84ihpaQmKVASQKfjWDtfYK5RTnK+OuUsRp3idVltWZ66atBEfA6mW+A==
+X-MS-Exchange-AntiSpam-MessageData: gQWIEi1qPMhYbtwtwVZ/gK9pKj8WiAt+ogCbH3W/t6tIcoKNDOmKMq+D2CzPVZWivuAauR7SqsBQu0VxhkR2wUagU+hihpWtYjc/KdF6NQUf7obUXPlxDJMx3siIE9NIP3hPD9EGGKsnFza7z/rNIg==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f171a0e-9073-4837-a293-08d7a4c2a099
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2020 13:53:32.4146 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: iD+pd5XYcI1bcU16/9BK4sXyLEFbYr2g4dpSlVU/au6EIIyL6j9jcHwBAMYM6vO5j9YVPgsLahB+ek25hxipQg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3094
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,157 +109,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: hamohammed.sa@gmail.com, Dave Airlie <airlied@linux.ie>,
- ML nouveau <nouveau@lists.freedesktop.org>, joonas.lahtinen@linux.intel.com,
- ML dri-devel <dri-devel@lists.freedesktop.org>, eric@anholt.net,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- benjamin.gaignard@linaro.org, alexandre.torgue@st.com, David1.Zhou@amd.com,
- thellstrom@vmware.com, sean@poorly.run, patrik.r.jakobsson@gmail.com,
- linux-graphics-maintainer@vmware.com, Ben Skeggs <bskeggs@redhat.com>,
- Harry Wentland <harry.wentland@amd.com>, mcoquelin.stm32@gmail.com,
- sunpeng.li@amd.com, linux-arm-msm@vger.kernel.org,
- intel-gfx <intel-gfx@lists.freedesktop.org>, maarten.lankhorst@linux.intel.com,
- Jani Nikula <jani.nikula@linux.intel.com>, rodrigo.vivi@intel.com,
- vincent.abriou@st.com, rodrigosiqueiramelo@gmail.com, philippe.cornu@st.com,
- yannick.fertre@st.com, Rob Clark <robdclark@gmail.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- freedreno@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 24 Jan 2020 at 00:00, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->
-> VBLANK callbacks in struct drm_driver are deprecated in favor of
-> their equivalents in struct drm_crtc_funcs. Convert nouvean over.
->
-> v4:
->         * add argument names in function declaration
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reviewed-by: Ben Skeggs <bskeggs@redhat.com>
-
+On 2020-01-28 2:47 p.m., Alex Deucher wrote:
+> We might get different numbers of clocks from powerplay depending
+> on what the OEM has populated.
+> 
+> Bug: https://gitlab.freedesktop.org/drm/amd/issues/963
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/nouveau/dispnv04/crtc.c   |  3 +++
->  drivers/gpu/drm/nouveau/dispnv50/head.c   |  4 ++++
->  drivers/gpu/drm/nouveau/nouveau_display.c | 14 ++------------
->  drivers/gpu/drm/nouveau/nouveau_display.h |  4 ++--
->  drivers/gpu/drm/nouveau/nouveau_drm.c     |  4 ----
->  5 files changed, 11 insertions(+), 18 deletions(-)
->
-> diff --git a/drivers/gpu/drm/nouveau/dispnv04/crtc.c b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-> index 17e9d1c078a0..1f08de4241e0 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv04/crtc.c
-> @@ -1248,6 +1248,9 @@ static const struct drm_crtc_funcs nv04_crtc_funcs = {
->         .set_config = drm_crtc_helper_set_config,
->         .page_flip = nv04_crtc_page_flip,
->         .destroy = nv_crtc_destroy,
-> +       .enable_vblank = nouveau_display_vblank_enable,
-> +       .disable_vblank = nouveau_display_vblank_disable,
-> +       .get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
->  };
->
->  static const struct drm_crtc_helper_funcs nv04_crtc_helper_funcs = {
-> diff --git a/drivers/gpu/drm/nouveau/dispnv50/head.c b/drivers/gpu/drm/nouveau/dispnv50/head.c
-> index 41852dd8fdbd..8f6455697ba7 100644
-> --- a/drivers/gpu/drm/nouveau/dispnv50/head.c
-> +++ b/drivers/gpu/drm/nouveau/dispnv50/head.c
-> @@ -29,6 +29,7 @@
->
->  #include <drm/drm_atomic_helper.h>
->  #include <drm/drm_crtc_helper.h>
-> +#include <drm/drm_vblank.h>
->  #include "nouveau_connector.h"
->  void
->  nv50_head_flush_clr(struct nv50_head *head,
-> @@ -482,6 +483,9 @@ nv50_head_func = {
->         .page_flip = drm_atomic_helper_page_flip,
->         .atomic_duplicate_state = nv50_head_atomic_duplicate_state,
->         .atomic_destroy_state = nv50_head_atomic_destroy_state,
-> +       .enable_vblank = nouveau_display_vblank_enable,
-> +       .disable_vblank = nouveau_display_vblank_disable,
-> +       .get_vblank_timestamp = drm_crtc_vblank_helper_get_vblank_timestamp,
->  };
->
->  struct nv50_head *
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-> index 86f99dc8fcef..700817dc4fa0 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_display.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-> @@ -54,15 +54,10 @@ nouveau_display_vblank_handler(struct nvif_notify *notify)
->  }
->
->  int
-> -nouveau_display_vblank_enable(struct drm_device *dev, unsigned int pipe)
-> +nouveau_display_vblank_enable(struct drm_crtc *crtc)
->  {
-> -       struct drm_crtc *crtc;
->         struct nouveau_crtc *nv_crtc;
->
-> -       crtc = drm_crtc_from_index(dev, pipe);
-> -       if (!crtc)
-> -               return -EINVAL;
-> -
->         nv_crtc = nouveau_crtc(crtc);
->         nvif_notify_get(&nv_crtc->vblank);
->
-> @@ -70,15 +65,10 @@ nouveau_display_vblank_enable(struct drm_device *dev, unsigned int pipe)
->  }
->
->  void
-> -nouveau_display_vblank_disable(struct drm_device *dev, unsigned int pipe)
-> +nouveau_display_vblank_disable(struct drm_crtc *crtc)
->  {
-> -       struct drm_crtc *crtc;
->         struct nouveau_crtc *nv_crtc;
->
-> -       crtc = drm_crtc_from_index(dev, pipe);
-> -       if (!crtc)
-> -               return;
-> -
->         nv_crtc = nouveau_crtc(crtc);
->         nvif_notify_put(&nv_crtc->vblank);
->  }
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_display.h b/drivers/gpu/drm/nouveau/nouveau_display.h
-> index 26d34f1a77da..de004018ab5c 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_display.h
-> +++ b/drivers/gpu/drm/nouveau/nouveau_display.h
-> @@ -61,8 +61,8 @@ int  nouveau_display_init(struct drm_device *dev, bool resume, bool runtime);
->  void nouveau_display_fini(struct drm_device *dev, bool suspend, bool runtime);
->  int  nouveau_display_suspend(struct drm_device *dev, bool runtime);
->  void nouveau_display_resume(struct drm_device *dev, bool runtime);
-> -int  nouveau_display_vblank_enable(struct drm_device *, unsigned int);
-> -void nouveau_display_vblank_disable(struct drm_device *, unsigned int);
-> +int  nouveau_display_vblank_enable(struct drm_crtc *crtc);
-> +void nouveau_display_vblank_disable(struct drm_crtc *crtc);
->  bool nouveau_display_scanoutpos(struct drm_crtc *crtc,
->                                 bool in_vblank_irq, int *vpos, int *hpos,
->                                 ktime_t *stime, ktime_t *etime,
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> index fcc036a08965..6b1629c14dd7 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> @@ -1120,10 +1120,6 @@ driver_stub = {
->         .debugfs_init = nouveau_drm_debugfs_init,
->  #endif
->
-> -       .enable_vblank = nouveau_display_vblank_enable,
-> -       .disable_vblank = nouveau_display_vblank_disable,
-> -       .get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
-> -
->         .ioctls = nouveau_ioctls,
->         .num_ioctls = ARRAY_SIZE(nouveau_ioctls),
->         .fops = &nouveau_driver_fops,
-> --
-> 2.24.1
->
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>   .../gpu/drm/amd/display/dc/calcs/dcn_calcs.c  | 31 ++++++++++++-------
+>   1 file changed, 20 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
+> index a27d84ca15a5..8ad32a11d363 100644
+> --- a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
+> +++ b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
+> @@ -1446,17 +1446,26 @@ void dcn_bw_update_from_pplib(struct dc *dc)
+>   		res = verify_clock_values(&fclks);
+>   
+>   	if (res) {
+> -		ASSERT(fclks.num_levels >= 3);
+> -		dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 = 32 * (fclks.data[0].clocks_in_khz / 1000.0) / 1000.0;
+> -		dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 = dc->dcn_soc->number_of_channels *
+> -				(fclks.data[fclks.num_levels - (fclks.num_levels > 2 ? 3 : 2)].clocks_in_khz / 1000.0)
+> -				* ddr4_dram_factor_single_Channel / 1000.0;
+> -		dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 = dc->dcn_soc->number_of_channels *
+> -				(fclks.data[fclks.num_levels - 2].clocks_in_khz / 1000.0)
+> -				* ddr4_dram_factor_single_Channel / 1000.0;
+> -		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 = dc->dcn_soc->number_of_channels *
+> -				(fclks.data[fclks.num_levels - 1].clocks_in_khz / 1000.0)
+> -				* ddr4_dram_factor_single_Channel / 1000.0;
+> +		unsigned vmin0p65_idx = 0;
+> +		unsigned vmid0p72_idx = fclks.num_levels -
+> +			(fclks.num_levels > 2 ? 3 : (fclks.num_levels > 1 ? 2 : 1));
+> +		unsigned vnom0p8_idx = fclks.num_levels - (fclks.num_levels > 1 ? 2 : 1);
+> +		unsigned vmax0p9_idx = fclks.num_levels - 1;
+
+Might want an assertion for fclks.num_levels > 0 still, since that's 
+what the function is expecting now.
+
+With that change, this is:
+
+Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+
+> +
+> +		dc->dcn_soc->fabric_and_dram_bandwidth_vmin0p65 =
+> +			32 * (fclks.data[vmin0p65_idx].clocks_in_khz / 1000.0) / 1000.0;
+> +		dc->dcn_soc->fabric_and_dram_bandwidth_vmid0p72 =
+> +			dc->dcn_soc->number_of_channels *
+> +			(fclks.data[vmid0p72_idx].clocks_in_khz / 1000.0)
+> +			* ddr4_dram_factor_single_Channel / 1000.0;
+> +		dc->dcn_soc->fabric_and_dram_bandwidth_vnom0p8 =
+> +			dc->dcn_soc->number_of_channels *
+> +			(fclks.data[vnom0p8_idx].clocks_in_khz / 1000.0)
+> +			* ddr4_dram_factor_single_Channel / 1000.0;
+> +		dc->dcn_soc->fabric_and_dram_bandwidth_vmax0p9 =
+> +			dc->dcn_soc->number_of_channels *
+> +			(fclks.data[vmax0p9_idx].clocks_in_khz / 1000.0)
+> +			* ddr4_dram_factor_single_Channel / 1000.0;
+>   	} else
+>   		BREAK_TO_DEBUGGER();
+>   
+> 
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
