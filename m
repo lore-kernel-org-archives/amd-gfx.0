@@ -2,103 +2,113 @@ Return-Path: <SRS0=GnFq=3T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CDF1C2D0DB
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jan 2020 23:07:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 279E8C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jan 2020 23:23:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 327662083E
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jan 2020 23:07:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EB25A20708
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jan 2020 23:23:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="tDJG2R8z"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 327662083E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="M8xJ7GMz"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB25A20708
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9B2F6FA51;
-	Thu, 30 Jan 2020 23:07:14 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2064.outbound.protection.outlook.com [40.107.236.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6324F6FA51
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jan 2020 23:07:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F7EB6E0D4;
+	Thu, 30 Jan 2020 23:23:19 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2049.outbound.protection.outlook.com [40.107.244.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D34D06E0D4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jan 2020 23:23:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DBCNhBwqnV2gGe9INt7zrrfdHaqarxclVRc162mF98z9seAPTG5Djv6rkAV1xobooA/0Mk0NKoaA88A2CP3izz1CRT02wIhGM4U4iCgjPPac5rW6kUl3UQea7Y9Mmnf6hWkponi5tt+EAfTq0OudI0aPz3hFJW1AXECOV6qq3ufy4CdWujgDKYEuWoB/VnMYuuia5Clltyl+UJxkbWmBgezFa5XsqJnsxHu60ImTCbeXKaEeVFxbpep6qWCyiIoERZULiWNAdosQM9o2HeFw48i+XRQCFmrveowCtxU1pvhopWbXiw7hHoodUlASuqY8zcaTaOUQlfG0/4S35aJfSw==
+ b=OlDY+izis0LXlwPysCGd/4QWhQDYvovQgrVzQ5M14Z9gjx4clV5xNMyfJ9xYnxgaeYenUXoHjxzgT01PlCOWZ7G35Xy7FrvkdO4ydJww0NJD3mHasTEKi8XL19VkztGoqzzfncrkjP2cJgMCttNhxrZMvoMjA9msKhXsbVJjb6BBIVM3oWmV46NzSxWz3mcCmuHCWxAv+h0DCt9r2OXn2MVOsTxTSi5tEFHleCZWB6asFTYGlD4B3OorcNNEFY19VTtlqLCo9Xux+RmT8Y+fNCJsOuORK0wS0ub+n226BLDpkFImxr1dG0vdi5jR9Xc0S56e3bVonZEkoF4/C32eWg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4z4pdI4x+T4UXNxQC2OOR6x0Lwmx9wAQZEvQs9OKX0g=;
- b=XWUVLaFVFH6ve3TOTzZqfH8hRFDfvFatihq9txOSbXWljNEVgVmNUDly82IXs507dvK/C2f72HQdTS5L6b7deE4lTgjPHUPB7robaWSsAPR7rxgGIt+E94trb2e1cQUsmOWfrwi3nEGmSIk1XujQstFowr/jlk7NgcRiEGUEu9nf4QyhMiWFHLdSevrK8C4Szv/Zn5n8vmG8XOmgcZaN5Rt6gfSZEF5nRofwkDGC/I5qtJGbBaiKu3h8RTdf93+u8ooT1Et7TyKrJC/gtKfspVBsTpS1EcnzDsNUA+xQusnB5DI8o4sflrU6RTB7cUEdu0ZJ8wxOvdXolP2S837sPg==
+ bh=DTQToKEh+M74li9m0OKFvK1ne7M7gSyYuwuEv8WZ7g8=;
+ b=hOq32VvMrf1NNBZs2zWTgY+KSXPG0vUFb9cvoyl1NdiOdNtRjS+K0VG+qHAtUS1VErCsybHwBeerbt64xaTTQm5j7FkHRGxVMURRHS4g0wYmViXswE0zkmbEk9s17XykifIN+8vAI1ojj5Ipr/kAnht3CS2SPbc5qfpvBXm3rwAUdW3Ec7eHDwKgQPVPDsiGM74np1rKe73yjOVhNPwwRECGtAQ92GYs6SqpqdovxQb+iuOWDMyBjhZMqvaDze58xpPm7LZ7+LtnaKwbTxXZudlEW+Oy+IWqt7NlHGznsHlFLqtPqea2bwOxH3f0IViX0NGWObbw+By5knBqGNGEug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4z4pdI4x+T4UXNxQC2OOR6x0Lwmx9wAQZEvQs9OKX0g=;
- b=tDJG2R8zrd502hnd35iErB1viO8UmtN7bhI0y+afV51jUHk/b8RVR1t7dHUWBjTuw4+iCOrYPxaZ/6+VTL1nVssrJT0Lg5zw0jm7XRj/QRZPYhXU1Pk5vMqA9yRvG6SQQ3VRf28u+bjPwd5gT2dlPAcJbMSXR0nnzxg//vnLIQA=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Yong.Zhao@amd.com; 
-Received: from CH2PR12MB3926.namprd12.prod.outlook.com (52.132.245.30) by
- CH2PR12MB3864.namprd12.prod.outlook.com (52.132.244.155) with Microsoft SMTP
+ bh=DTQToKEh+M74li9m0OKFvK1ne7M7gSyYuwuEv8WZ7g8=;
+ b=M8xJ7GMzWPM2ucvZ6SNXh8vL+oyjH0MfnmmmmeVn2mJzGm8rVx3Lk9/i+dd4xrulkhDOSEMyNai8hDk4LKZtV5JEVMMXDjNC9huKxMZQLGrPlTTGfSLgLZq4r6b4pD8l+hxW8jzf8jJgfZhxWX5gfRG+MHezdwG9poqzB3zERoc=
+Received: from DM5PR1201MB0187.namprd12.prod.outlook.com (10.174.109.137) by
+ DM5PR1201MB2472.namprd12.prod.outlook.com (10.172.86.151) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2686.27; Thu, 30 Jan 2020 23:07:12 +0000
-Received: from CH2PR12MB3926.namprd12.prod.outlook.com
- ([fe80::81de:623c:a226:a92d]) by CH2PR12MB3926.namprd12.prod.outlook.com
- ([fe80::81de:623c:a226:a92d%4]) with mapi id 15.20.2686.025; Thu, 30 Jan 2020
- 23:07:12 +0000
-Subject: Re: [PATCH] drm/amdkfd: Fix a bug in SDMA RLC queue counting under
- HWS mode
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200130222908.1403-1-Yong.Zhao@amd.com>
- <5f7d507f-25f9-bebc-a1d5-cf3b509c060a@amd.com>
-From: Yong Zhao <yong.zhao@amd.com>
-Message-ID: <b4934a13-b00e-d81a-454b-779eaa779af0@amd.com>
-Date: Thu, 30 Jan 2020 18:07:10 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
-In-Reply-To: <5f7d507f-25f9-bebc-a1d5-cf3b509c060a@amd.com>
+ 15.20.2665.24; Thu, 30 Jan 2020 23:22:58 +0000
+Received: from DM5PR1201MB0187.namprd12.prod.outlook.com
+ ([fe80::bd97:2661:434a:65fe]) by DM5PR1201MB0187.namprd12.prod.outlook.com
+ ([fe80::bd97:2661:434a:65fe%4]) with mapi id 15.20.2686.025; Thu, 30 Jan 2020
+ 23:22:58 +0000
+From: "Kasiviswanathan, Harish" <Harish.Kasiviswanathan@amd.com>
+To: "Lin, Amber" <Amber.Lin@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdkfd: Add queue information to sysfs
+Thread-Topic: [PATCH] drm/amdkfd: Add queue information to sysfs
+Thread-Index: AQHV1zC934Xl9a1Nd0eDb6otCdxBIKgD1KfQ
+Date: Thu, 30 Jan 2020 23:22:58 +0000
+Message-ID: <DM5PR1201MB0187BC565C484FC27AB693D88C040@DM5PR1201MB0187.namprd12.prod.outlook.com>
+References: <1580363174-31854-1-git-send-email-Amber.Lin@amd.com>
+In-Reply-To: <1580363174-31854-1-git-send-email-Amber.Lin@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-ClientProxiedBy: YT1PR01CA0011.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::24)
- To CH2PR12MB3926.namprd12.prod.outlook.com
- (2603:10b6:610:27::30)
-MIME-Version: 1.0
-Received: from [172.27.227.155] (165.204.55.251) by
- YT1PR01CA0011.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2686.27 via Frontend Transport; Thu, 30 Jan 2020 23:07:11 +0000
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 82ede6bf-c26d-4044-8244-08d7a5d92384
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3864:|CH2PR12MB3864:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB386451DF7777825B79419B76F0040@CH2PR12MB3864.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
-X-Forefront-PRVS: 02981BE340
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(136003)(366004)(396003)(346002)(376002)(199004)(189003)(478600001)(16576012)(8676002)(31686004)(2616005)(2906002)(52116002)(316002)(53546011)(5660300002)(81166006)(186003)(44832011)(81156014)(956004)(31696002)(36756003)(8936002)(16526019)(26005)(86362001)(66946007)(66556008)(66476007)(6486002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB3864;
- H:CH2PR12MB3926.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-01-30T23:22:57Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=63076ec0-cf5e-423b-a9e9-000085bb131b;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-01-30T23:22:57Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: a7409896-758f-47ad-9461-00009a0d27b6
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Harish.Kasiviswanathan@amd.com; 
+x-originating-ip: [165.204.55.251]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: a7cb9e4a-9943-41ac-8a1c-08d7a5db57be
+x-ms-traffictypediagnostic: DM5PR1201MB2472:|DM5PR1201MB2472:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR1201MB24729419842C44CA506289998C040@DM5PR1201MB2472.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2733;
+x-forefront-prvs: 02981BE340
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(396003)(366004)(376002)(346002)(136003)(199004)(189003)(76116006)(66476007)(4326008)(66946007)(66556008)(45080400002)(966005)(7696005)(8936002)(316002)(186003)(66446008)(81156014)(81166006)(8676002)(110136005)(64756008)(33656002)(26005)(53546011)(6506007)(5660300002)(71200400001)(478600001)(9686003)(55016002)(2906002)(52536014)(86362001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR1201MB2472;
+ H:DM5PR1201MB0187.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: uQLeg808SCrW7Pi76mZXCf/98Hd0zI3SQvLHeTD+MdDrUkAt70qJCwlYqbEjgX9EkeUMRSukAeVnGTuDR8kJ9fZDUj9ogeFqoIllDHP7eRVrNqOig7yiqlJnGxtwXQaYQbp8XUDsAexVdm4A7tSGBuIM0TDD8E+WnbCzvnidJd7BkrAxVWrCrc8ei60DdpBiHSEVeQxMH6gqYtQ8ia7ZCtPaFFv4Rv7ccGt1AquUP3gyv5amOYc0OCweX6ADHiWG1IZzPXNLsS3HcAtpfscmlo7nOqg/AbdFrGyKn3soDsFa+KvjNYkaPc/kDIJkmJskjAFkLRO+SswxIFlGyvRvhAVNjyMEoJ5qyMbYeNOq+1ek/BDrsOJz3AhZjOULqcveVz+maD06q0Gs3qNBRT0kvlORr8msesrFFuBdVrH4/W9eEgw5lp5H+kV8j82nKVEd
-X-MS-Exchange-AntiSpam-MessageData: KV9TA6d493gvrUF3Jvu8qKLxWVqbR5aIWW4tyH0OFQcyUajPjcXGRbdDo9ziSAT3DATXH8nsGY1yDPTIgc1FSlbuPg/ITO2zHWf3BWcFd+uPnRttzFnlgRG1KOSZgREicac6KKXuP/VOw/GAmL8RyA==
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: s8zufDjsgh8STPBcN8ytlrUXjZAa3s1cUZv5M7kV4s64FEyVX3Z06+7eys1lPzTk1U9AIqZnODjCBkTrWCUvn+H2CqV22ixbz5N7QH9PNMbPoHMff301qcjRPnF2dnY7dFZ/n6s6pHvTm/OMhQ528n87AkKvTxExx8homrRgxr5xoUZi+08GUpmqTrXu+7oMMsk5TRMhWGoSEMO80gvNlufR6ahC6r/JXG0CJeBUp8q1VwLhPmCBI5/IbddWh7gZd0G8Kd00tGwJRmoizyIU4a9lknxJlg13BtfmV87wo/QMgAQf9rDckJ0axaF0FV1/WTWeoNh9Z2B1zXyp0oR8RGQQv5l8TpBegfxC/cG52f4QgpsLVYI83wMlPJ+wkL3uZOV6ETT1z7OEZ8AUxKvfBK3pvKL8YXIV+tPIoNW4cgHIJrkkWTOiWJanAQF5dJEPD121BPoTzCAv/6XUbxRb3s7qm5Ui2t5vr6T3sJ3EcGGQeDASkWXIog4iHE/JAQzv0EOEOtIMwT2tONYhbkC5jw==
+x-ms-exchange-antispam-messagedata: 07vlykFkfHYxqUs0SPw0CKuXwwFr25u/EA7sJPdGshJCcYRFi2q/71aaIDxZpMPY89Vmupn9DZRZFa17qTY8fX3A/udzWYDn9sDrHvk4c01NJltFO/RCdWrjeF2kmzNdo9dcPVYwqXpEyQegvp2Jqg==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82ede6bf-c26d-4044-8244-08d7a5d92384
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jan 2020 23:07:11.9796 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AmepDYcQ6flFlR+iY6jh+96BGcnbz09w95GnEM2r6w8jwHCFI/3Fm80AQoOPUkby
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3864
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7cb9e4a-9943-41ac-8a1c-08d7a5db57be
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jan 2020 23:22:58.3710 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: BjGN3/MfoGBPamAE2UAII04WekBO8Utl3nG62mkEAaWYFF4rtf8EdQ5U9OYjSOeHfEK/DqKnekENh03cjzpsjA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB2472
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,59 +120,226 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "Lin, Amber" <Amber.Lin@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VHJ1ZS4gSXQgaXMgYSBidWcgdG9vLiBJIGFtIGxvb2tpbmcgaW50byBpdC4KCllvbmcKCk9uIDIw
-MjAtMDEtMzAgNTo1MSBwLm0uLCBGZWxpeCBLdWVobGluZyB3cm90ZToKPiBPbiAyMDIwLTAxLTMw
-IDE3OjI5LCBZb25nIFpoYW8gd3JvdGU6Cj4+IFRoZSBzZG1hX3F1ZXVlX2NvdW50IGluY3JlbWVu
-dCBzaG91bGQgYmUgZG9uZSBiZWZvcmUKPj4gZXhlY3V0ZV9xdWV1ZXNfY3BzY2goKSwgd2hpY2gg
-Y2FsbHMgcG1fY2FsY19ybGliX3NpemUoKSB3aGVyZQo+PiBzZG1hX3F1ZXVlX2NvdW50IGlzIHVz
-ZWQgdG8gY2FsY3VsYXRlIHdoZXRoZXIgb3Zlcl9zdWJzY3JpcHRpb24gaXMKPj4gdHJpZ2dlcmVk
-Lgo+Pgo+PiBXaXRoIHRoZSBwcmV2aW91cyBjb2RlLCB3aGVuIGEgU0RNQSBxdWV1ZSBpcyBjcmVh
-dGVkLAo+PiBjb21wdXRlX3F1ZXVlX2NvdW50IGluIHBtX2NhbGNfcmxpYl9zaXplKCkgaXMgb25l
-IG1vcmUgdGhhbiB0aGUKPj4gYWN0dWFsIGNvbXB1dGUgcXVldWUgbnVtYmVyLCBiZWNhdXNlIHRo
-ZSBxdWV1ZV9jb3VudCBoYXMgYmVlbgo+PiBpbmNyZW1lbnRlZCB3aGlsZSBzZG1hX3F1ZXVlX2Nv
-dW50IGhhcyBub3QuIFRoaXMgcGF0Y2ggZml4ZXMgdGhhdC4KPj4KPj4gQ2hhbmdlLUlkOiBJMjAz
-NTNlNjU3ZWZkNTA1MzUzZDBkZDlmN2ViMmZhYjUwODVlNzIwMgo+PiBTaWduZWQtb2ZmLWJ5OiBZ
-b25nIFpoYW8gPFlvbmcuWmhhb0BhbWQuY29tPgo+Cj4gUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhs
-aW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgo+Cj4gQnV0IEkgdG9vayBhIGxvb2sgYXQgcG1f
-Y2FsY19ybGliX3NpemUuIEkgZG9uJ3QgdGhpbmsgc3VidHJhY3RpbmcgCj4gZHFtLT5zZG1hX3F1
-ZXVlX2NvdW50IGZyb20gZHFtLT5xdWV1ZV9jb3VudCBpcyBub3QgcXVpdGUgY29ycmVjdCwgCj4g
-YmVjYXVzZSBzZG1hX3F1ZXVlX2NvdW50IGNvdW50cyBhbGwgU0RNQSBxdWV1ZXMsIHdoaWxlIHF1
-ZXVlX2NvdW50IAo+IG9ubHkgY291bnRzIGFjdGl2ZSBxdWV1ZXMuIFNvIGFuIGFwcGxpY2F0aW9u
-IHRoYXQgY3JlYXRlcyBpbmFjdGl2ZSAKPiBTRE1BIHF1ZXVlcyB3aWxsIGFsc28gY3JlYXRlIGVy
-cm9ycyBoZXJlLiBXZSBwcm9iYWJseSBuZWVkIHRvIGNvdW50IAo+IGFjdGl2ZSBjb21wdXRlIGFu
-ZCBhY3RpdmUgU0RNQSBxdWV1ZXMgc2VwYXJhdGVseSBpbiBEUU0gdG8gZml4IHRoaXMgCj4gcHJv
-cGVybHkuCj4KPiBSZWdhcmRzLAo+IMKgIEZlbGl4Cj4KPgo+PiAtLS0KPj4gwqAgZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1ZV9tYW5hZ2VyLmMgfCAxMCArKysrKyst
-LS0tCj4+IMKgIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDQgZGVsZXRpb25zKC0p
-Cj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2aWNl
-X3F1ZXVlX21hbmFnZXIuYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfZGV2
-aWNlX3F1ZXVlX21hbmFnZXIuYwo+PiBpbmRleCAyODcwNTUzYTJjZTAuLjgwZDIyYmY3MDJlOCAx
-MDA2NDQKPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2RldmljZV9xdWV1
-ZV9tYW5hZ2VyLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX2Rldmlj
-ZV9xdWV1ZV9tYW5hZ2VyLmMKPj4gQEAgLTEyMzcsMTYgKzEyMzcsMTggQEAgc3RhdGljIGludCBj
-cmVhdGVfcXVldWVfY3BzY2goc3RydWN0IAo+PiBkZXZpY2VfcXVldWVfbWFuYWdlciAqZHFtLCBz
-dHJ1Y3QgcXVldWUgKnEsCj4+IMKgIMKgwqDCoMKgwqAgbGlzdF9hZGQoJnEtPmxpc3QsICZxcGQt
-PnF1ZXVlc19saXN0KTsKPj4gwqDCoMKgwqDCoCBxcGQtPnF1ZXVlX2NvdW50Kys7Cj4+ICsKPj4g
-K8KgwqDCoCBpZiAocS0+cHJvcGVydGllcy50eXBlID09IEtGRF9RVUVVRV9UWVBFX1NETUEpCj4+
-ICvCoMKgwqDCoMKgwqDCoCBkcW0tPnNkbWFfcXVldWVfY291bnQrKzsKPj4gK8KgwqDCoCBlbHNl
-IGlmIChxLT5wcm9wZXJ0aWVzLnR5cGUgPT0gS0ZEX1FVRVVFX1RZUEVfU0RNQV9YR01JKQo+PiAr
-wqDCoMKgwqDCoMKgwqAgZHFtLT54Z21pX3NkbWFfcXVldWVfY291bnQrKzsKPj4gKwo+PiDCoMKg
-wqDCoMKgIGlmIChxLT5wcm9wZXJ0aWVzLmlzX2FjdGl2ZSkgewo+PiDCoMKgwqDCoMKgwqDCoMKg
-wqAgZHFtLT5xdWV1ZV9jb3VudCsrOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dmFsID0gZXhl
-Y3V0ZV9xdWV1ZXNfY3BzY2goZHFtLAo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIEtGRF9VTk1BUF9RVUVVRVNfRklMVEVSX0RZTkFNSUNfUVVFVUVTLCAwKTsKPj4gwqDCoMKg
-wqDCoCB9Cj4+IMKgIC3CoMKgwqAgaWYgKHEtPnByb3BlcnRpZXMudHlwZSA9PSBLRkRfUVVFVUVf
-VFlQRV9TRE1BKQo+PiAtwqDCoMKgwqDCoMKgwqAgZHFtLT5zZG1hX3F1ZXVlX2NvdW50Kys7Cj4+
-IC3CoMKgwqAgZWxzZSBpZiAocS0+cHJvcGVydGllcy50eXBlID09IEtGRF9RVUVVRV9UWVBFX1NE
-TUFfWEdNSSkKPj4gLcKgwqDCoMKgwqDCoMKgIGRxbS0+eGdtaV9zZG1hX3F1ZXVlX2NvdW50Kys7
-Cj4+IMKgwqDCoMKgwqAgLyoKPj4gwqDCoMKgwqDCoMKgICogVW5jb25kaXRpb25hbGx5IGluY3Jl
-bWVudCB0aGlzIGNvdW50ZXIsIHJlZ2FyZGxlc3Mgb2YgdGhlIAo+PiBxdWV1ZSdzCj4+IMKgwqDC
-oMKgwqDCoCAqIHR5cGUgb3Igd2hldGhlciB0aGUgcXVldWUgaXMgYWN0aXZlLgpfX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
-dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+[AMD Official Use Only - Internal Distribution Only]
+
+One minor comment.
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Amber Lin
+Sent: Thursday, January 30, 2020 12:46 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Lin, Amber <Amber.Lin@amd.com>
+Subject: [PATCH] drm/amdkfd: Add queue information to sysfs
+
+Provide compute queues information in sysfs under /sys/class/kfd/kfd/proc.
+The format is /sys/class/kfd/kfd/proc/<pid>/queues/<queue id>/XX where
+XX are size, type, and gpuid three files to represent queue size, queue
+type, and the GPU this queue uses. <queue id> folder and files underneath
+are generated when a queue is created. They are removed when the queue is
+destroyed.
+
+Signed-off-by: Amber Lin <Amber.Lin@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  9 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           | 99 ++++++++++++++++++++++
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  2 +
+ 3 files changed, 110 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index c0b0def..cb2d2d7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -503,6 +503,12 @@ struct queue {
+ 	struct kfd_process	*process;
+ 	struct kfd_dev		*device;
+ 	void *gws;
++
++	/* procfs */
++	struct kobject *kobj_qid;
++	struct attribute attr_size;
++	struct attribute attr_type;
++	struct attribute attr_gpuid;
+ };
+ 
+ /*
+@@ -730,6 +736,7 @@ struct kfd_process {
+ 
+ 	/* Kobj for our procfs */
+ 	struct kobject *kobj;
++	struct kobject *kobj_queues;
+ 	struct attribute attr_pasid;
+ };
+ 
+@@ -836,6 +843,8 @@ extern struct device *kfd_device;
+ /* KFD's procfs */
+ void kfd_procfs_init(void);
+ void kfd_procfs_shutdown(void);
++int kfd_procfs_add_queue(struct queue *q);
++void kfd_procfs_del_queue(struct queue *q);
+ 
+ /* Topology */
+ int kfd_topology_init(void);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 25b90f7..0220651 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -132,6 +132,97 @@ void kfd_procfs_shutdown(void)
+ 	}
+ }
+ 
++static int kfd_procfs_add_file(const char *name, struct kobject *kobj,
++			       struct attribute *attr)
++{
++	int ret;
++
++	attr->name = name;
++	attr->mode = KFD_SYSFS_FILE_MODE;
++	sysfs_attr_init(attr);
++	ret = sysfs_create_file(kobj, attr);
++	if (ret)
++		pr_warn("Creating %s file failed", name);
++	return ret;
++}
++
++static ssize_t kfd_procfs_queue_show(struct kobject *kobj,
++				     struct attribute *attr, char *buffer)
++{
++	if (!strcmp(attr->name, "size")) {
++		struct queue *q = container_of(attr, struct queue, attr_size);
++		return snprintf(buffer, PAGE_SIZE, "%llu",
++				q->properties.queue_size);
++	} else if (!strcmp(attr->name, "type")) {
++		struct queue *q = container_of(attr, struct queue, attr_type);
++		return snprintf(buffer, PAGE_SIZE, "%d", q->properties.type);
++	} else if (!strcmp(attr->name, "gpuid")) {
++		struct queue *q = container_of(attr, struct queue, attr_gpuid);
++		return snprintf(buffer, PAGE_SIZE, "%u", q->device->id);
++	} else
++		pr_err("Invalid attribute");
++
++	return 0;
++}
++
++static const struct sysfs_ops procfs_queue_ops = {
++	.show = kfd_procfs_queue_show,
++};
++
++static struct kobj_type procfs_queue_type = {
++	.release = kfd_procfs_kobj_release,
++	.sysfs_ops = &procfs_queue_ops,
++};
++
++int kfd_procfs_add_queue(struct queue *q)
++{
++	struct kfd_process *proc;
++	int ret;
++
++	if (!q || !q->process)
++		return -EINVAL;
++	proc = q->process;
++
++	/* Create proc/<pid>/queues/<queue id> folder*/
++	if (!proc->kobj_queues)
++		return -EFAULT;
++	if (q->kobj_qid)
++		return -EEXIST;
++	q->kobj_qid = kfd_alloc_struct(q->kobj_qid);
++	if (!q->kobj_qid)
++		return -ENOMEM;
++	ret = kobject_init_and_add(q->kobj_qid, &procfs_queue_type,
++			proc->kobj_queues, "%u", q->properties.queue_id);
++	if (ret < 0) {
++		pr_warn("Creating proc/<pid>/queues/%u failed",
++			q->properties.queue_id);
++		return ret;
++	}
++
++	/* Create proc/<pid>/queues/<queue id>/XX files */
++	kfd_procfs_add_file("size", q->kobj_qid, &q->attr_size);
++	kfd_procfs_add_file("type", q->kobj_qid, &q->attr_type);
++	kfd_procfs_add_file("gpuid", q->kobj_qid, &q->attr_gpuid);
++
++	return 0;
++}
++
++void kfd_procfs_del_queue(struct queue *q)
++{
++	struct kfd_process *proc;
+
+[HK] : proc is not used
+
++
++	if (!q || !q->process)
++		return;
++	proc = q->process;
++
++	sysfs_remove_file(q->kobj_qid, &q->attr_size);
++	sysfs_remove_file(q->kobj_qid, &q->attr_type);
++	sysfs_remove_file(q->kobj_qid, &q->attr_gpuid);
++	kobject_del(q->kobj_qid);
++	kobject_put(q->kobj_qid);
++	q->kobj_qid = NULL;
++}
++
+ int kfd_process_create_wq(void)
+ {
+ 	if (!kfd_process_wq)
+@@ -323,6 +414,11 @@ struct kfd_process *kfd_create_process(struct file *filep)
+ 		if (ret)
+ 			pr_warn("Creating pasid for pid %d failed",
+ 					(int)process->lead_thread->pid);
++
++		process->kobj_queues = kobject_create_and_add("queues",
++							process->kobj);
++		if (!process->kobj_queues)
++			pr_warn("Creating KFD proc/queues folder failed");
+ 	}
+ out:
+ 	if (!IS_ERR(process))
+@@ -457,6 +553,9 @@ static void kfd_process_wq_release(struct work_struct *work)
+ 	/* Remove the procfs files */
+ 	if (p->kobj) {
+ 		sysfs_remove_file(p->kobj, &p->attr_pasid);
++		kobject_del(p->kobj_queues);
++		kobject_put(p->kobj_queues);
++		p->kobj_queues = NULL;
+ 		kobject_del(p->kobj);
+ 		kobject_put(p->kobj);
+ 		p->kobj = NULL;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 8fa856e..cb1ca11 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -322,6 +322,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+ 
+ 	if (q) {
+ 		pr_debug("PQM done creating queue\n");
++		kfd_procfs_add_queue(q);
+ 		print_queue_properties(&q->properties);
+ 	}
+ 
+@@ -378,6 +379,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
+ 	}
+ 
+ 	if (pqn->q) {
++		kfd_procfs_del_queue(pqn->q);
+ 		dqm = pqn->q->device->dqm;
+ 		retval = dqm->ops.destroy_queue(dqm, &pdd->qpd, pqn->q);
+ 		if (retval) {
+-- 
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Charish.kasiviswanathan%40amd.com%7C496ec14c22b84457329608d7a547c2ed%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637159600420395549&amp;sdata=h6eKxRwq4kPv7z7qHuiPvhb7UoR0QKlRWK8OAdBEyqk%3D&amp;reserved=0
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
