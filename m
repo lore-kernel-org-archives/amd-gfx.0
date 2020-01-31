@@ -2,84 +2,77 @@ Return-Path: <SRS0=jwYW=3U=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EAE24C33CB2
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 11:14:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07BF2C33CB2
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 11:58:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BAA3220707
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 11:14:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CF572214D8
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 11:58:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="jCb7+Hfw"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BAA3220707
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ftp6skno"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CF572214D8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 685706FAFC;
-	Fri, 31 Jan 2020 11:14:00 +0000 (UTC)
-X-Greylist: delayed 22519 seconds by postgrey-1.36 at gabe;
- Fri, 31 Jan 2020 11:13:58 UTC
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5414B6FAFC
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 11:13:58 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 00V4vt2U194365;
- Fri, 31 Jan 2020 04:58:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type; s=corp-2019-08-05;
- bh=+I6RfZxDTErkgikWYprG/z/JStkYXUsW5y5QJH/rzTA=;
- b=jCb7+HfwhDDI3Oacu5UPSWDNzB4Y29Dr2c7zc/4XiOhrfaoRVuRO8/8uKvSSjHfLoTe/
- KPasM4qmSjyJCrtNTvcbCPBBkMM17SdAhV1GVbPwdEOH1i3975ANxXdq+i8lvQFTL/Cu
- PFCAByzxMOMMnTGv+fQ6R9sFjfG7MMOMfai0fqpWlcclAFS51hfnVv4T1qJUJFXYoXjW
- jtPxtCdvWX6USFoBFri2EaJWPCAwOrwGfyeUbR6ENw3Kwc5C7lkKdm9Q8Ex9mrj7bhd3
- WxqMSRvmwOe0CCtfx2myA+evreQoc6IE5aOPjydzMvh0V03GssvsgJUES3aOnW6yPvyx Sw== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by userp2130.oracle.com with ESMTP id 2xrd3ur3sw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 31 Jan 2020 04:58:33 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 00V4wVv6182854;
- Fri, 31 Jan 2020 04:58:32 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by aserp3030.oracle.com with ESMTP id 2xv8nq0s6f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 31 Jan 2020 04:58:32 +0000
-Received: from abhmp0017.oracle.com (abhmp0017.oracle.com [141.146.116.23])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 00V4vpEQ009294;
- Fri, 31 Jan 2020 04:57:51 GMT
-Received: from kili.mountain (/129.205.23.165)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 30 Jan 2020 20:57:50 -0800
-Date: Fri, 31 Jan 2020 07:57:39 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Harry Wentland <harry.wentland@amd.com>, Lewis Huang <Lewis.Huang@amd.com>
-Subject: [PATCH] drm/amd/display: Possible divide by zero in set_speed()
-Message-ID: <20200131045739.ault4d6yk2lqlbed@kili.mountain>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 869E96E971;
+	Fri, 31 Jan 2020 11:58:19 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD05C6E971
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 11:58:18 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id b17so8387264wmb.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 03:58:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=o47aCp52FAxqBuP6YPIbHVzG+ZR+z27cIRZxqXjRBzg=;
+ b=ftp6skno7L7zbZBxisIHuVM9vlvPoBU1npw2/P09zCF4LymNz21Gui5TkhrRJ1YWFK
+ GczgkGwODWxQERubi2XknmTMZnC/NqdgkVvoitvCHrIh8ubr9UmD2hk8pfcUAUB32Zsl
+ RnU22ebpdUWLMbaHOBessdqb4quL0fG1A4Xfnzx9UyN30WZ8cgxxMWPv5myBXq+197lI
+ 5jls2/v3/xGHikAomUG4zIyCaeQUlW65cpYeUMgWGXXzJVUpkUVZSsSEUuhfkXGKB9fq
+ WPlJaDtFPCzykOtbUUVb3g3pg62ksZK6CJfVk85z6uNMv4UcPqOJU3ZSr7sBK+Ls507W
+ Xusw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:references:from:message-id
+ :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=o47aCp52FAxqBuP6YPIbHVzG+ZR+z27cIRZxqXjRBzg=;
+ b=C8DaF33YPBvoW1rvfPJNPbgWAslkG/A+qMVILNTE6lDZtJMsr5ZcRS4ii7q5nkHEkh
+ mS1GEoZ1DBrs+qu68zMVZOCS6s4qyIqKb1VuZmWLszUiRYhR+cVjh0fkkiD1InAgMROM
+ rUfc01NnFh8Dz3FP9e3gRreR5Ad0KYWlzt9z//0w1QLovVgLAIysJV9nR2U3kw4ogXlP
+ mdY0/qrPVQtjh0RiVgNHmLDWnmTjBq+7O+sH0kOAh5CCpWMpyDjaWUlz/n7zxUw86yxL
+ G8OdN9Gf0q+z1X5zlwvT8T2uRZiUrZHjEGk3SiFsUkLCVdjMu4DN0TYI7RBbyWC7A0PZ
+ RH1Q==
+X-Gm-Message-State: APjAAAWZeOcQCA1hzaA22W3AWX683EQAiXVmD7xHUJT7HMJ4PVUm3Q+L
+ J+SAKh/9NSJJjcLp8MHl/bZt6azY
+X-Google-Smtp-Source: APXvYqxJvsGt8qyqrwipAsNOL8DyE+9nIspw8igO8LH/pb1MC1lRCOCDVbEEWlbxq1K2zib+oXHIyw==
+X-Received: by 2002:a1c:3803:: with SMTP id f3mr4162521wma.134.1580471897022; 
+ Fri, 31 Jan 2020 03:58:17 -0800 (PST)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id e6sm10389917wme.3.2020.01.31.03.58.16
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 31 Jan 2020 03:58:16 -0800 (PST)
+Subject: Re: [PATCH 1/5] drm/amdgpu: fix braces in amdgpu_vm_update_ptes
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20200130124940.30380-1-christian.koenig@amd.com>
+ <43ecd5a5-6087-0cb6-4ba0-adf0d4b3ac07@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <beb94356-a60b-61d1-92b1-aa13daa57700@gmail.com>
+Date: Fri, 31 Jan 2020 12:58:15 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Disposition: inline
-X-Mailer: git-send-email haha only kidding
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9516
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1911140001 definitions=main-2001310043
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9516
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
- definitions=main-2001310043
+In-Reply-To: <43ecd5a5-6087-0cb6-4ba0-adf0d4b3ac07@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,75 +84,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Derek Lai <Derek.Lai@amd.com>, Charlene Liu <charlene.liu@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Tony Cheng <Tony.Cheng@amd.com>,
- kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: christian.koenig@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If "speed" is zero then we use it as a divisor to find "prescale".  It's
-better to move the check for zero to the very start of the function.
-
-Fixes: 9eeec26a1339 ("drm/amd/display: Refine i2c frequency calculating sequence")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c | 23 ++++++++++++-----------
- 1 file changed, 12 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-index 066188ba7949..24adec407972 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
-@@ -267,6 +267,9 @@ static void set_speed(
- 	uint32_t xtal_ref_div = 0;
- 	uint32_t prescale = 0;
- 
-+	if (speed == 0)
-+		return;
-+
- 	REG_GET(MICROSECOND_TIME_BASE_DIV, XTAL_REF_DIV, &xtal_ref_div);
- 
- 	if (xtal_ref_div == 0)
-@@ -274,17 +277,15 @@ static void set_speed(
- 
- 	prescale = ((dce_i2c_hw->reference_frequency * 2) / xtal_ref_div) / speed;
- 
--	if (speed) {
--		if (dce_i2c_hw->masks->DC_I2C_DDC1_START_STOP_TIMING_CNTL)
--			REG_UPDATE_N(SPEED, 3,
--				     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_PRESCALE), prescale,
--				     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_THRESHOLD), 2,
--				     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_START_STOP_TIMING_CNTL), speed > 50 ? 2:1);
--		else
--			REG_UPDATE_N(SPEED, 2,
--				     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_PRESCALE), prescale,
--				     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_THRESHOLD), 2);
--	}
-+	if (dce_i2c_hw->masks->DC_I2C_DDC1_START_STOP_TIMING_CNTL)
-+		REG_UPDATE_N(SPEED, 3,
-+			     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_PRESCALE), prescale,
-+			     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_THRESHOLD), 2,
-+			     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_START_STOP_TIMING_CNTL), speed > 50 ? 2:1);
-+	else
-+		REG_UPDATE_N(SPEED, 2,
-+			     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_PRESCALE), prescale,
-+			     FN(DC_I2C_DDC1_SPEED, DC_I2C_DDC1_THRESHOLD), 2);
- }
- 
- static bool setup_engine(
--- 
-2.11.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMzAuMDEuMjAgdW0gMjM6MTEgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPgo+IE9uIDIwMjAt
+MDEtMzAgNzo0OSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gRm9yIHRoZSByb290IFBEIG1h
+c2sgY2FuIGJlIDB4ZmZmZmZmZmYgYXMgd2VsbCB3aGljaCB3b3VsZAo+PiBvdmVycnVuIHRvIDAg
+aWYgd2UgZG9uJ3QgY2FzdCBpdCBiZWZvcmUgd2UgYWRkIG9uZS4KPiBZb3UncmUgZml4aW5nIHBh
+cmVudGhlc2VzLCBub3QgYnJhY2VzLgo+Cj4gUGFyZW50aGVzZXM6ICgpCj4gQnJhY2tldHM6IFtd
+Cj4gQnJhY2VzOiB7fQoKWWVhaCwgSSBjYW4ndCByZW1lbWJlciB3aGljaCBpcyB3aGF0IGluIEVu
+Z2xpc2guIE5lZWQgdG8gZG91YmxlIGNoZWNrIAp0aGF0IG5leHQgdGltZS4KCj4KPiBXaXRoIHRo
+ZSB0aXRsZSBmaXhlZCwgdGhpcyBwYXRjaCBpcwo+Cj4gUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhs
+aW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgoKVGhhbmtzIGZvciB0aGUgcmV2aWV3LApDaHJp
+c3RpYW4uCgo+Cj4+Cj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
+bi5rb2VuaWdAYW1kLmNvbT4KPj4gVGVzdGVkLWJ5OiBUb20gU3QgRGVuaXMgPHRvbS5zdGRlbmlz
+QGFtZC5jb20+Cj4+IC0tLQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dm0uYyB8IDIgKy0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0
+aW9uKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfdm0uYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+PiBp
+bmRleCA1Y2IxODIyMzFmNWQuLjRiYTZhNWU1ZDA5NCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gQEAgLTE0ODcsNyArMTQ4Nyw3IEBAIHN0YXRpYyBpbnQg
+YW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzKHN0cnVjdCAKPj4gYW1kZ3B1X3ZtX3VwZGF0ZV9wYXJhbXMg
+KnBhcmFtcywKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGluY3IgPSAodWludDY0X3QpQU1ER1BVX0dQ
+VV9QQUdFX1NJWkUgPDwgc2hpZnQ7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBtYXNrID0gYW1kZ3B1
+X3ZtX2VudHJpZXNfbWFzayhhZGV2LCBjdXJzb3IubGV2ZWwpOwo+PiDCoMKgwqDCoMKgwqDCoMKg
+wqAgcGVfc3RhcnQgPSAoKGN1cnNvci5wZm4gPj4gc2hpZnQpICYgbWFzaykgKiA4Owo+PiAtwqDC
+oMKgwqDCoMKgwqAgZW50cnlfZW5kID0gKHVpbnQ2NF90KShtYXNrICsgMSkgPDwgc2hpZnQ7Cj4+
+ICvCoMKgwqDCoMKgwqDCoCBlbnRyeV9lbmQgPSAoKHVpbnQ2NF90KW1hc2sgKyAxKSA8PCBzaGlm
+dDsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGVudHJ5X2VuZCArPSBjdXJzb3IucGZuICYgfihlbnRy
+eV9lbmQgLSAxKTsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGVudHJ5X2VuZCA9IG1pbihlbnRyeV9l
+bmQsIGVuZCk7CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
