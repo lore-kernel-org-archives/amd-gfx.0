@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3265EC33CB7
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:17:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 401DAC2D0DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:17:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 070622082E
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:17:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 13A552082E
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:17:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Clpwg9sn"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 070622082E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Axf12Dpe"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 13A552082E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A7726FC44;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7BC26FC49;
 	Fri, 31 Jan 2020 22:17:33 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2088.outbound.protection.outlook.com [40.107.243.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C1026FC50
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 22:17:23 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2085.outbound.protection.outlook.com [40.107.92.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67A826FC3C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 22:17:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WRWRMOotnwhFARwRYg2w753QCrp5WhCH1eZoxwytW979CUsgSmDsLZdQlrOtiHJuIMJb4LRcpf8VMvXXnSL50xDc0gcPy9TZU167tVYlDt2Q57eJLcXXa2GhJ/YYXu6Y3shZgZPPfZlnfm6TXDZvfTUX4ZIJPJqR8CxACogXORQ9jbsXZ+oIaW4nMzMJb2VZSGJ1ZjYIRivrTZ/24XguYDXhmhQoMnUHUE+DfT5jjcNNDse+MKgGKXo2g7PVbZ9l6DGpp6eXdrTDa0z5iQd7bkpdKzyvPtagCVx/9gmKd9oM5H12kXLfB+q7J2H0VOqoQb/2YBrmf95RUtHg7TOiIA==
+ b=AN8xnSJWprYwPaPqjLXBukgUKfjbfLW27lHwfEZeBCVC92p3ccNJkXLgyelv0Qbl/IJ3uBY6ArleSjoL1OoUp9eOHsZZI8fw9vbohI6oLcuM3BUcAdPj9UHoiRYHGYWBnZbDguewu1eo4rIc/KBMNbjFinOAH7ixF7vIES8N3NCWChdjiebpE7Gm5sNPDjktj4ENnSVlR6n4DPBwBlwUJJXO6+KAkpfXjWGVXWr+SV5vBrblvcGdPu1mD54skyN01P8NgCJxgGggWgHmeh1Nep+oWFRPLagKGpz6M8jc1yWzHODKVGgd1kIkUGRaEjIU2PUg5vvFgLHY6Q1SUQYABQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9kTLcBObAd2snhFGYbGA4ybLJo6yoXcEXZO8AJc/eLY=;
- b=SirYMfjZFLf2BqTgYbGa/e2uD0qoF2oBlZmNbeg/3wU5s2x5vMDw40fcuZ8lRNcwyBj9ZDnQdeCuFn6WX09yastrn06kzHCDlQO8UHMBvzgpVnzChf9h0IRB1wkDifC/0pnEIngGGwz2vSiyg6n5Suui12RHkxi/oroindVmf19gmpmUTYdIkXWRDRGVlHEC/olmOfGS2RAVhbnGUSy0FMTQRbvOiWT6VTuS27nFdTQ3VHT1IME+vLzWMYLS/bNU7D6jlh/XhyFMQ9LvrXmrYbeR4uqHJiuUV4jlJUzihP+CO5D1XuZZHHL3B+HonKN04y370lcXwrTikPX0ogw9BQ==
+ bh=bVzstDqJgvLO4L9r1SBR0cHIs+dsvDJZx8hRoYQNVcY=;
+ b=YBptkvef1fNKOnvUDY+owOtiDDugUeZbxhgOmnW2rDK04KnRUe81Gyln1QxsJlyP/+Uymlpm1q6JnUbUZB8f/kF1EMNOVGaOXdhXhP0hSO+xiU8+tiPFW+rZfduYOUtONYY7CCCTr5tgAgsNe01mnozDOeoGDH7RYcm8GiVqxgYdSiKyw7Gn7xaGKErmrwZRi5XRmHREwyuAebRQ0hpwPCDzbUT2ii/Ap9ggnVB7dQtXkV5+wwiG2YKl6+fS6yQT0g08vAg1pbotDtqq3hmbiGRV93QwEvBV8+ChXeEERxAy/cQyJARrIvnm7x08ylHUYQuV7LepifpL3p87CGm+Qw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,45 +40,40 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9kTLcBObAd2snhFGYbGA4ybLJo6yoXcEXZO8AJc/eLY=;
- b=Clpwg9sn0fSdH23+vVh7cnUiA18lZp2y7Tr6zI8u5POWhH9b2QPbB3hfpqsSxM51cHtzTNmRr425IElGOIuN9/ZtzfSwkr3IQ1hwo3WDRpAE0GAbEgip/y/CMrALeL/9HaZG0s8sOJg2gySpIJGtEGMjoltMJ9bQME3O9vvTd7g=
-Received: from SN1PR12CA0074.namprd12.prod.outlook.com (2603:10b6:802:20::45)
- by DM5PR12MB1738.namprd12.prod.outlook.com (2603:10b6:3:112::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2686.29; Fri, 31 Jan
- 2020 22:17:21 +0000
-Received: from BN8NAM11FT026.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eae::207) by SN1PR12CA0074.outlook.office365.com
- (2603:10b6:802:20::45) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.20 via Frontend
- Transport; Fri, 31 Jan 2020 22:17:21 +0000
+ bh=bVzstDqJgvLO4L9r1SBR0cHIs+dsvDJZx8hRoYQNVcY=;
+ b=Axf12DpeaTLn47FCY9w/BG0x0e/ZdYdy/4Eaq+iIiT2F97G5GKwktWnf9hNauHanJKx9issksuk6vsK3OPrIMov9A2iTmfUnlxrTB4K5qaGzkxGhDQSF/GXCTIPVkCTzAgxt2PiWcxzQJNySKIj6xABdfOWS4Se1x1F2A34dL68=
+Received: from DM3PR12CA0084.namprd12.prod.outlook.com (2603:10b6:0:57::28) by
+ DM6PR12MB2715.namprd12.prod.outlook.com (2603:10b6:5:4a::15) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2665.20; Fri, 31 Jan 2020 22:17:18 +0000
+Received: from CO1NAM11FT007.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::209) by DM3PR12CA0084.outlook.office365.com
+ (2603:10b6:0:57::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2686.27 via Frontend
+ Transport; Fri, 31 Jan 2020 22:17:18 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- BN8NAM11FT026.mail.protection.outlook.com (10.13.177.51) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT007.mail.protection.outlook.com (10.13.174.131) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2686.25 via Frontend Transport; Fri, 31 Jan 2020 22:17:21 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.2686.25 via Frontend Transport; Fri, 31 Jan 2020 22:17:18 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 31 Jan
- 2020 16:17:14 -0600
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 31 Jan
- 2020 16:17:13 -0600
+ 2020 16:17:09 -0600
 Received: from blakha.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 31 Jan 2020 16:17:13 -0600
+ Transport; Fri, 31 Jan 2020 16:17:08 -0600
 From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 29/33] drm/amd/display: external monitor abm enabled in modern
- standby
-Date: Fri, 31 Jan 2020 17:16:39 -0500
-Message-ID: <20200131221643.10035-30-Bhawanpreet.Lakha@amd.com>
+Subject: [PATCH 19/33] drm/amd/display: Use dcfclk to populate watermark ranges
+Date: Fri, 31 Jan 2020 17:16:29 -0500
+Message-ID: <20200131221643.10035-20-Bhawanpreet.Lakha@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200131221643.10035-1-Bhawanpreet.Lakha@amd.com>
 References: <20200131221643.10035-1-Bhawanpreet.Lakha@amd.com>
@@ -87,26 +82,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(396003)(346002)(376002)(39860400002)(428003)(189003)(199004)(186003)(1076003)(5660300002)(26005)(336012)(70206006)(70586007)(2616005)(426003)(7696005)(36756003)(478600001)(86362001)(4326008)(2906002)(54906003)(356004)(6666004)(6916009)(316002)(8936002)(81166006)(81156014)(8676002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1738; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+ SFS:(10009020)(4636009)(396003)(346002)(376002)(39860400002)(136003)(428003)(199004)(189003)(36756003)(2906002)(6916009)(86362001)(7696005)(1076003)(336012)(4326008)(26005)(2616005)(426003)(186003)(8936002)(356004)(6666004)(54906003)(478600001)(8676002)(81166006)(316002)(70206006)(5660300002)(81156014)(70586007)(40753002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2715; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 9d718eb8-e6c2-4109-0e7a-08d7a69b5751
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1738:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB173814D4F9008E3AB08571BBF9070@DM5PR12MB1738.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Office365-Filtering-Correlation-Id: 3ebd9d31-85c2-4c32-a58d-08d7a69b55a0
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2715:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2715E7227EF116F075ABEDE7F9070@DM6PR12MB2715.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
 X-Forefront-PRVS: 029976C540
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4IfPeacmig0c4KSPY7Qyf96VyOxMRIjrs3Wut+FMwLOXnzlKKiQIXOxOinR+DdNdCsUyGncCVnS9zZEmpEr3tFZTQybhV5+wxv3C3qyCQY/25RStMJkm8TnHMc4LvgGEaGVPdumziTKevhYPXMNHOc92c/AziBkqgIRILzfCER8rLbc1u6d5r+vJLh8OUwA2pPgNeRBHuQB2IfKpHYsySlvyXtEzgt8j4OhwXv9UTod3LoIdiAStmWPxcDLdxK6P0WkuWvbiL6Gv5BlcD5auYTSVyRZXc9HYQeI4Xj/oFDMjd4fmZOdc8HSsH2h9bcYDpM7Lo9NRvOJhlOimpy8qNm4vSnwRLv23xl3eQ9raAiKC/BIUShjofXm4YNfsq7H3YWFiTTJFYl4oVYTiMdgb2Ta1xxTkZwoJLX+PRHQ9ru7waLE6RE0btW9BSUkZoeuh
+X-Microsoft-Antispam-Message-Info: bcrF7H/Uq6DYvzdz2x4mTKWxyj/rKlYvZ/n3T1W7P8GSGlwCtbM/CfJvig32Tn6UgTx+5EWGzUdqD9RYX5NMh5XfDhg4QWNbmolNgKqM6AXN7I4wP98CcX4vv+AJtVrZpOE1tO4cFksU31UdaFZ7/RFs0yTFXh1VdgR7cDQd3bjeOR8FyhaapJ+fkXf33ErsrPNB3kEHU8vLgO5UmWJRhVx5FWiWYBCdEDlBm843VV5wcu3Wd0gfpXtYNiUT+no7SbmMhAL49P6BKfn5T6UZzU7xuYL16m6WCdJVFlZE4duXFXjzErXjw9mrfZB3l47k3rxZyzOBsFExAz9WyI1n52s+rSE3Umj7SLxptmLgYuodpdp3+HIP9Mzs9hxi0fLDXMBCEY8swuAnN7RTa0Prsyg88bNJuT3Ho9B87qYZDIdA379HnPXWl1knZV61YKgyKB/aTtRvef1hX8WHQ2AReCEr+bILBUtLqlW0ccUKVwVNJllN0Q/jjoGglmTClS41
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2020 22:17:21.0855 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d718eb8-e6c2-4109-0e7a-08d7a69b5751
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2020 22:17:18.1336 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3ebd9d31-85c2-4c32-a58d-08d7a69b55a0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
+ Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1738
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2715
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,61 +113,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, rodrigo.siqueira@amd.com, harry.wentland@amd.com,
- Jing Zhou <Jing.Zhou@amd.com>
+Cc: sunpeng.li@amd.com, rodrigo.siqueira@amd.com, Sung Lee <sung.lee@amd.com>,
+ harry.wentland@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jing Zhou <Jing.Zhou@amd.com>
+From: Sung Lee <sung.lee@amd.com>
 
-[why]
-Resume from modern standby, edp stream disabled
-but abm keep enabled. External monitor select OTG
-source 0 which ABM enabled.
-[how]
-Disable abm before disable crtc when reset path
-mode not call core link disable stream.
+[WHY & HOW]
+Previously drain clk was unconstrained and fill clk was constrained on fclk.
+We want to change it to fill clk unconstrained and drain clock constrained
+to dcfclk.
 
-Signed-off-by: Jing Zhou <Jing.Zhou@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Signed-off-by: Sung Lee <sung.lee@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
 Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 4 ++++
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c        | 4 ++++
- 2 files changed, 8 insertions(+)
+ .../drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c  | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 7fc559acffcd..0225f8d8bb82 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -901,6 +901,10 @@ static void dcn10_reset_back_end_for_pipe(
- 	 * parent pipe.
- 	 */
- 	if (pipe_ctx->top_pipe == NULL) {
-+
-+		if (pipe_ctx->stream_res.abm)
-+			pipe_ctx->stream_res.abm->funcs->set_abm_immediate_disable(pipe_ctx->stream_res.abm);
-+
- 		pipe_ctx->stream_res.tg->funcs->disable_crtc(pipe_ctx->stream_res.tg);
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+index 7ae4c06232dd..034a5852a416 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+@@ -412,19 +412,19 @@ void build_watermark_ranges(struct clk_bw_params *bw_params, struct pp_smu_wm_ra
  
- 		pipe_ctx->stream_res.tg->funcs->enable_optc_clock(pipe_ctx->stream_res.tg, false);
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 52ef4d333112..b9ec40a31f5c 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -2011,6 +2011,10 @@ static void dcn20_reset_back_end_for_pipe(
- 	 * parent pipe.
- 	 */
- 	if (pipe_ctx->top_pipe == NULL) {
-+
-+		if (pipe_ctx->stream_res.abm)
-+			pipe_ctx->stream_res.abm->funcs->set_abm_immediate_disable(pipe_ctx->stream_res.abm);
-+
- 		pipe_ctx->stream_res.tg->funcs->disable_crtc(pipe_ctx->stream_res.tg);
+ 		ranges->reader_wm_sets[num_valid_sets].wm_inst = bw_params->wm_table.entries[i].wm_inst;
+ 		ranges->reader_wm_sets[num_valid_sets].wm_type = bw_params->wm_table.entries[i].wm_type;
+-		/* We will not select WM based on dcfclk, so leave it as unconstrained */
+-		ranges->reader_wm_sets[num_valid_sets].min_drain_clk_mhz = PP_SMU_WM_SET_RANGE_CLK_UNCONSTRAINED_MIN;
+-		ranges->reader_wm_sets[num_valid_sets].max_drain_clk_mhz = PP_SMU_WM_SET_RANGE_CLK_UNCONSTRAINED_MAX;
+-		/* fclk wil be used to select WM*/
++		/* We will not select WM based on fclk, so leave it as unconstrained */
++		ranges->reader_wm_sets[num_valid_sets].min_fill_clk_mhz = PP_SMU_WM_SET_RANGE_CLK_UNCONSTRAINED_MIN;
++		ranges->reader_wm_sets[num_valid_sets].max_fill_clk_mhz = PP_SMU_WM_SET_RANGE_CLK_UNCONSTRAINED_MAX;
++		/* dcfclk wil be used to select WM*/
  
- 		pipe_ctx->stream_res.tg->funcs->enable_optc_clock(pipe_ctx->stream_res.tg, false);
+ 		if (ranges->reader_wm_sets[num_valid_sets].wm_type == WM_TYPE_PSTATE_CHG) {
+ 			if (i == 0)
+-				ranges->reader_wm_sets[num_valid_sets].min_fill_clk_mhz = 0;
++				ranges->reader_wm_sets[num_valid_sets].min_drain_clk_mhz = 0;
+ 			else {
+ 				/* add 1 to make it non-overlapping with next lvl */
+-				ranges->reader_wm_sets[num_valid_sets].min_fill_clk_mhz = bw_params->clk_table.entries[i - 1].fclk_mhz + 1;
++				ranges->reader_wm_sets[num_valid_sets].min_drain_clk_mhz = bw_params->clk_table.entries[i - 1].dcfclk_mhz + 1;
+ 			}
+-			ranges->reader_wm_sets[num_valid_sets].max_fill_clk_mhz = bw_params->clk_table.entries[i].fclk_mhz;
++			ranges->reader_wm_sets[num_valid_sets].max_drain_clk_mhz = bw_params->clk_table.entries[i].dcfclk_mhz;
+ 
+ 		} else {
+ 			/* unconstrained for memory retraining */
 -- 
 2.17.1
 
