@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 865DAC35240
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:17:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BB03C35246
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:17:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B9BF2082E
+	by mail.kernel.org (Postfix) with ESMTPS id E40E92082E
 	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:17:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZVKrp/i8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B9BF2082E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="edlYGSwr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E40E92082E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE9536FC4A;
-	Fri, 31 Jan 2020 22:17:22 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2057.outbound.protection.outlook.com [40.107.220.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92EDD6FC3C
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 22:17:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03D2B6FC43;
+	Fri, 31 Jan 2020 22:17:25 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2058.outbound.protection.outlook.com [40.107.223.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B0356FC3D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 22:17:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UkRJjlK2PhzizAGYnYRpgItChfPrbdlm7chRbPlLLyLmbCngt/Q7iM280WEx3R8iqWJNl/RxlQjy2fGVcKE7GmX3xLG8zpfXoyjMnHbtKVfXtwqzOV/nV/dJJCohLAJ7DuE3ObDnGPNqi1yCPkKkXsyuxwqSRYtbNR1jNKSdXKMvAxAWg8jC8GHc8FuTZ4dauQryaJ8A4cyuE62QFSDABMJVYK0wPFQW2SrhKJQpZSFQH73ZAYGlkpGiqolgX80ONn9rOaET5P5hv7yHl78d6Gc01phHDA/ysoO0fKkElv5zIFT+Z0kp8wwmhVT+d+80BB5Pq0/2kZeGrL1RtcGa9w==
+ b=gLEhz5oRHQa9eVaIWiznTDusrBmwAM6OzS+5uiMtcTqPdSkHr4v1uLGp8liTlDJZ3CVYcBkhPehMvljFE2lLmLEBT9s+UbFfYtVz5rtOmAjI6QKntjALwkwg7kvsZaIFuYNRcAJbNmRb8x2YZFzP0QPbVSeOtOSVL+zCYuWSeFEvv3/YuFoaSZSsF9r6IPF/7Lc97AFYxz68w3UUBwJUFxgHGH+zLxgY8mk4lWViFV6iVmPKBP43U9O9W92k4Pu+CHiQ0BeiJMVwSZgu6KyPesKWQXhzYkfx5iKOfTlmPNGRh5f3B85nNGJgp70wFAVcbOn6OUDgEp5VKdG0w2GGGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vggLN7SmcvUoo17xW8G34+vnxjMwhZ/kofQQZHC5s+E=;
- b=QiV9FHdOLGLBSauek+nsdwxUF4MUYeLg7lSKn3jdBw+zgk3t7+WM/23Kg47nRIXmB3MrqrbBMHsh8/sBrnETWtgLyV6pTGpgpoVbBjBSPbHxYvx8Q97HdkXer6tBl3MNEbAmsZngywVY9A+e2OE1tNnUvaXsA8yKEyI8Fnk9kt4koswyB1AoqsUDeP7snLR3vq5B1vM1FpxH03OlnZhBqAVkGErET9PfHGqlV4fYfcRo0HA/zYuqdzr1rI2r8fagZho61snXmJ5Lf2mThSWimIVj4oSAlV4BmqQ7oAlIVsYn6Z0zS7OBcFVjFitiOZORs4gPXaPDtcAndCjBpY5R2w==
+ bh=ef0ss84leJZJ5Idx3pr7elxnafK3sSwgNLXm5iBZdzQ=;
+ b=IRy2pl8eiTukjSNjizK/HP9xEWmU+yUtZICI52iddQSaeSXBpbQbcXznUlR4Q4PyxFZj+R+tD4ceR+V0ip67rKusQW9MRCD6VSyFn2JmKbc/FmE64/4kbqAYCtLvlMKbxpXtjKFCpwjEvVV6mLZda69lw+kRtOLMAwwwiyHu/e3uPC+7PTapCj1s0j9ujzHaHP7Ft0iugjF2n90oBxYNO8c7e+JFqVj729t/FgCVRTldfZBaNDYJlUL17xKRLYKriXIIMRtcyxb627Yw2Bq6ibyc48w3pj9QYIgBXQTFmGxteqQMRCYPeDg3jbLCYZLbCMP+IrxXQsvbS21rAMTqvA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vggLN7SmcvUoo17xW8G34+vnxjMwhZ/kofQQZHC5s+E=;
- b=ZVKrp/i8Ne8BQ5cN7NmoKlIi1p21Cxs/BTm7s8OuwOaoD80jsFTv62Im6Kdxfx8kcZlTESEYwjEE6VzO9zMYbHFL3GYZlw/Vp+/3XHMa3lfVLmMAt6T1G2USmrNs+MsuLpiVGsdndkIK/9zQ5jNkecBEGsASX68XGR5vhopLMnQ=
-Received: from SN1PR12CA0098.namprd12.prod.outlook.com (2603:10b6:802:21::33)
- by CH2PR12MB4149.namprd12.prod.outlook.com (2603:10b6:610:7c::13)
+ bh=ef0ss84leJZJ5Idx3pr7elxnafK3sSwgNLXm5iBZdzQ=;
+ b=edlYGSwrQkp8FvblIxME0QFoUY7+ZUFtdGDi6zVBbO3Xr+tYV4SZY4gGKGeapNaH0WEmqzbWLGPdlW7CSyekEnIR3yeRG/umEHV2lVA1+fK6FVF8e1oJf7KOccGUGqzFEsLoag1mMTYGQlf/PkSwHLlIp/JqblE+yX+H2BnGflQ=
+Received: from SN1PR12CA0095.namprd12.prod.outlook.com (2603:10b6:802:21::30)
+ by MN2PR12MB3295.namprd12.prod.outlook.com (2603:10b6:208:ae::31)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2686.26; Fri, 31 Jan
- 2020 22:17:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2686.28; Fri, 31 Jan
+ 2020 22:17:18 +0000
 Received: from CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eab::204) by SN1PR12CA0098.outlook.office365.com
- (2603:10b6:802:21::33) with Microsoft SMTP Server (version=TLS1_2,
+ (2a01:111:f400:7eab::201) by SN1PR12CA0095.outlook.office365.com
+ (2603:10b6:802:21::30) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.23 via Frontend
- Transport; Fri, 31 Jan 2020 22:17:16 +0000
+ Transport; Fri, 31 Jan 2020 22:17:18 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -61,20 +61,20 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
  CO1NAM11FT067.mail.protection.outlook.com (10.13.174.212) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2686.25 via Frontend Transport; Fri, 31 Jan 2020 22:17:16 +0000
+ 15.20.2686.25 via Frontend Transport; Fri, 31 Jan 2020 22:17:17 +0000
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 31 Jan
- 2020 16:17:07 -0600
+ 2020 16:17:08 -0600
 Received: from blakha.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 31 Jan 2020 16:17:07 -0600
+ Transport; Fri, 31 Jan 2020 16:17:08 -0600
 From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 16/33] drm/amd/display: remove early break in
- interdependent_lock
-Date: Fri, 31 Jan 2020 17:16:26 -0500
-Message-ID: <20200131221643.10035-17-Bhawanpreet.Lakha@amd.com>
+Subject: [PATCH 18/33] drm/amd/display: add stream_enc_inst for PSP HDCP inst
+ use
+Date: Fri, 31 Jan 2020 17:16:28 -0500
+Message-ID: <20200131221643.10035-19-Bhawanpreet.Lakha@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200131221643.10035-1-Bhawanpreet.Lakha@amd.com>
 References: <20200131221643.10035-1-Bhawanpreet.Lakha@amd.com>
@@ -83,26 +83,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(376002)(396003)(346002)(136003)(428003)(199004)(189003)(2906002)(86362001)(356004)(2616005)(4744005)(6666004)(336012)(36756003)(70206006)(4326008)(426003)(70586007)(7696005)(8676002)(8936002)(1076003)(186003)(26005)(5660300002)(478600001)(316002)(54906003)(6916009)(81156014)(81166006);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4149; H:SATLEXMB01.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+ SFS:(10009020)(4636009)(346002)(396003)(136003)(376002)(39860400002)(428003)(189003)(199004)(6916009)(54906003)(36756003)(316002)(478600001)(7696005)(5660300002)(70206006)(70586007)(2906002)(26005)(4326008)(6666004)(8936002)(1076003)(81166006)(186003)(81156014)(8676002)(2616005)(336012)(426003)(356004)(86362001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3295; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 084a533f-2a13-4450-9214-08d7a69b5486
-X-MS-TrafficTypeDiagnostic: CH2PR12MB4149:
-X-Microsoft-Antispam-PRVS: <CH2PR12MB4149BFEA8557B751A6E59A0AF9070@CH2PR12MB4149.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-MS-Office365-Filtering-Correlation-Id: bfcced4f-fded-4425-7fd3-08d7a69b553b
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3295:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3295A32D60454726151DC6CCF9070@MN2PR12MB3295.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1013;
 X-Forefront-PRVS: 029976C540
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1YvMnZjPlVVusT+YSqSM0l6veUzOJCb8lbOsgW2Cc0FOkcJ4WnXEcnvhHRNZerSAih2wtcsBggi0SieiZyjwYfUkxDttiTmMUhpyN98gh61WjUzhFpKmblC5BSiFFL9p5qUSkW4ukVCLS1xmzjV55oCwUlTSDRRrUPDu4WvSfNCGH0YObs+JQb0iFmpR0QtLsCdcWcBwh5zicFIz9NDKw+I9lkYexUiOHVNxhRuVYWROC3pJ+z2dbjDmRTqRTfiidTlk2qKkvIQSpbEJy8HrdTHgntlPsz2zG0rn11c/pccoqoPxfNaFDOJ+aaxMhmqJJrezpwq79OQPlCBMH6cNlqUthZDJ0nfXbMib7uyjCp7yn54h/ohqbsgt9NV65fnjv5H0kzETqKLwtgSQ8iAJ2fsNkcin9p9MGNSKzguLiyL9bP8QUJbbUFBlni539Ph/
+X-Microsoft-Antispam-Message-Info: 0rqXR8KCZEvSvgfVM/5Pt51oYabn9T0CwotvOZeyA2BrcPFULHJTniARB/wf8X7hMYS0NZZSIw9erYWk5n9qDa05aRruBJ4zg+aUaw4N9USruD67Wph3/Qr90zTzZBurP85tWMMo8jr0DxY06byuDRn2YdUDiyKaI6vPetv5AzDSVYuC61sXV7bAXi30DLS2fzzvVC911/70BiIUfJ0wY1YochkoYG4SQKNnUBepyhaXQTSpOLToBZefUYiCLv/38pA+aYJm8wz6JKJeTcuRL0bGR7cvK7o2Q1EkN9idiwEsW1wtUaKVGW4qXk5Bxrs2uxwJ9h6kv6U4s5VpK2G0pK0pPEn6McrnsxwItf4nH5ZqMDPg6q76Er9hwkX/ALEErTTaZUOq75j6OnMGf1WYNwzvbMX7cj/cBUo5c6xH06b2VzxXw0uib6194fuWgoHw
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2020 22:17:16.2840 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 084a533f-2a13-4450-9214-08d7a69b5486
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2020 22:17:17.4693 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfcced4f-fded-4425-7fd3-08d7a69b553b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4149
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3295
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,39 +115,91 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: sunpeng.li@amd.com, rodrigo.siqueira@amd.com, harry.wentland@amd.com,
- Roman Li <roman.li@amd.com>
+ Charlene Liu <Charlene.Liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Roman Li <roman.li@amd.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
-[Why]
-The break in apply_ctx_interdependent_lock() may potentially
-lead to early break from the loop leaving update plane unlocked
+[why]
+new HW engine mapping requirment use in PSP
+[how]
+report stream_enc_inst
 
-[How]
-Remove break
-
-Signed-off-by: Roman Li <roman.li@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c               | 3 ++-
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c           | 2 +-
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c | 1 +
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c | 1 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h      | 1 +
+ 5 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 2208282ea6cb..7fdd82b7708a 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -778,7 +778,6 @@ void apply_ctx_interdependent_lock(struct dc *dc, struct dc_state *context, stru
- 				if (!pipe_ctx->top_pipe &&
- 					(pipe_ctx->plane_state || old_pipe_ctx->plane_state))
- 					dc->hwss.pipe_control_lock(dc, pipe_ctx, lock);
--				break;
- 			}
- 		}
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 41184e593f85..fe50747692ec 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -2922,7 +2922,8 @@ static void update_psp_stream_config(struct pipe_ctx *pipe_ctx, bool dpms_off)
+ 		memset(&config, 0, sizeof(config));
+ 
+ 		config.otg_inst = (uint8_t) pipe_ctx->stream_res.tg->inst;
+-		config.stream_enc_inst = (uint8_t) pipe_ctx->stream_res.stream_enc->id;
++		/*stream_enc_inst*/
++		config.stream_enc_inst = (uint8_t) pipe_ctx->stream_res.stream_enc->stream_enc_inst;
+ 		config.link_enc_inst = pipe_ctx->stream->link->link_enc_hw_inst;
+ 		config.dpms_off = dpms_off;
+ 		config.dm_stream_ctx = pipe_ctx->stream->dm_stream_context;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index a0eb9e533a61..cd80d8249d14 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -2034,7 +2034,7 @@ enum dc_status resource_map_pool_resources(
+ 	for (i = 0; i < context->stream_count; i++)
+ 		if (context->streams[i] == stream) {
+ 			context->stream_status[i].primary_otg_inst = pipe_ctx->stream_res.tg->inst;
+-			context->stream_status[i].stream_enc_inst = pipe_ctx->stream_res.stream_enc->id;
++			context->stream_status[i].stream_enc_inst = pipe_ctx->stream_res.stream_enc->stream_enc_inst;
+ 			context->stream_status[i].audio_inst =
+ 				pipe_ctx->stream_res.audio ? pipe_ctx->stream_res.audio->inst : -1;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
+index 376c4264d295..7eba9333c328 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_stream_encoder.c
+@@ -1667,5 +1667,6 @@ void dcn10_stream_encoder_construct(
+ 	enc1->regs = regs;
+ 	enc1->se_shift = se_shift;
+ 	enc1->se_mask = se_mask;
++	enc1->base.stream_enc_inst = eng_id - ENGINE_ID_DIGA;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c
+index 9b70a1e7b962..99a7ef6ab878 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_stream_encoder.c
+@@ -616,5 +616,6 @@ void dcn20_stream_encoder_construct(
+ 	enc1->regs = regs;
+ 	enc1->se_shift = se_shift;
+ 	enc1->se_mask = se_mask;
++	enc1->base.stream_enc_inst = eng_id - ENGINE_ID_DIGA;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
+index 351b387ad606..ac6523c0828e 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/stream_encoder.h
+@@ -103,6 +103,7 @@ struct stream_encoder {
+ 	struct dc_context *ctx;
+ 	struct dc_bios *bp;
+ 	enum engine_id id;
++	uint32_t stream_enc_inst;
+ };
+ 
+ struct enc_state {
 -- 
 2.17.1
 
