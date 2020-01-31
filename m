@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A14CEC2D0DB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4B38C35240
 	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:17:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 722382082E
+	by mail.kernel.org (Postfix) with ESMTPS id A94F42082E
 	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:17:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="MLfsQLFb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 722382082E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wZf+fNFf"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A94F42082E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25CA56FC42;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DD1E6FC46;
 	Fri, 31 Jan 2020 22:17:33 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2074.outbound.protection.outlook.com [40.107.236.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A2056FC48
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 22:17:24 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2072.outbound.protection.outlook.com [40.107.244.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 630F66FC40
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 22:17:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mWIcruhjllcoVpuGRMVRRrMkgCD6kLEODwh88ilv0bqknl+ZpMaOGr6ykLFiG1LVr5JdNq5sMqNNsFcJ6QRnMHFaXnDmWufpaTGQARIz99WyOlnrnPmt6RGg4Pf5Dc4R8udJU7PBDoZN5JOvYW63SW/7lBa09mM2DscPRQNBaQ6aOp0Fy17o6TRcs+sF7EA/xeeByh1hUSoRxV8T1heGEEsxr+vmqqJ1URXFx4HSnKYZfTCN1h/HdJSCscwvQsvdn3KaoGpmh80GAeKpcK2LdE4obfhdYhsEXzbXLL4cAo89eO0j9RIM0enDV56HlIsp6s9yEX6D5IVAK0ly2pYLNQ==
+ b=Au4BY5g9sloMGsP9/Y96+SVyUMMwNgjHqvREI9jbKLevuwZ3CzFy/Ri04DetpPhf7D+5x8qOOpKmYiBUCHNBBbvqBGk+skPoK6ig8QX4JJWlf4MoeD6XzrWdPRMm6QiHKYGPy7sOBDA+JzEGfTv0n1UYXYJhZlOPbG3SLriuaNcz4J4yUpYG69nsxtkNJTe1ABFl3sver+UFA8DzksN74lx0nnBj44cRyW1KRv9on9wfp7PVGl97PQaAJCgM1+QPxX7h7QIkvhxb5hbLRF45M56B3X3yHH7M9jWdLKqVBVD+tlsJPCpOcR68GBrq7+A7xCVoTQfhgLw7uQ1WJlSDMg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MCKMS0Y/omgH8jMoCvt/s7x2eHkzEQqAb90aBD0kZ2Y=;
- b=UDFegB+mTrkXP/KBWcMLbmZhuHeqTFFQnZrF+z3QUAMgf3u4D/3yiSCiMPYy0M16B2ZAjP0CuQ6OEwfTOvLCve/ARAZRmVkJuOHc5yqSp9WppbhSI+PL3l23ed2SwhqbmckPJdc3qbG6+M6qjt0xDjtqTxnBrQjpv5VAI+6qqeqWajesAcXUrhrQ47hP52P3neuIfLFzSoRhfCkotnvOorBybPzQ7MrxyKsTW9pkWPn5vUKKCY3cTJbZ9ckXXNwrstBSX9w/5hzfU3H83t8UJEnKk9gdwfuodeH6Xr0ukpMh0skBnbdHaQjrU/ruqL/e7TYkC+dG7B0nvJWzDxv9Ag==
+ bh=URAebmJuxQnBPlZW1D8RiU6geKlQ6+Pek/wFpx+XjJM=;
+ b=mGardI6mn0wQsWyImex/Ztxq29OGb2z5XtE513pMjk28ABX4X6zGQURPaynstltIFltHI5e+ismwiHmiFDfJQr6sM+RvPAHGi+Doap5obIuSGri/ECGtI1SM/EKRv6pG+p5/8RdKILAZbTWqICx1G9ft9WJTA9kKvxf0mfV2XAfuDmidGyPmqB48Sgo/Xt23nEDhyxX5NFsTtXzLQaC5XPHk0G7ZpFisJ11BxJeUJntw+bFqU3/KJciJYyOMnOilQFe8Mn04rKfhGiQdW7JCtfNF3RbWb1Cj4y6E0p+1idnWQzHla6mSVKSJLJe2XyuzaV+LuCA+eRPmuKtPZLZ1BQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MCKMS0Y/omgH8jMoCvt/s7x2eHkzEQqAb90aBD0kZ2Y=;
- b=MLfsQLFbNSPAPdYXfFNFvHA2YpmwsDiILt5Lyowk6N8DnWviG8ZX+w18RrJac+PD7qxLrCmjDjxAiMsP2q33Qj7mUZPS0FTnQiHUiqBHeJgejz6TY44ZNLcj032Nz9hvK9NqAFMp7ofZ1N2H9pgiCyhEc4Vts0ir8h/1TBXOrHc=
+ bh=URAebmJuxQnBPlZW1D8RiU6geKlQ6+Pek/wFpx+XjJM=;
+ b=wZf+fNFf2SnPD0RrBDeY1Tzju2CrAcVDanqXvRZG6TOMxzQBeadLP/TbeHOWGUxYFf0Cl1CFykRuLjEDOdXpjvgjRSOWZHJO5hUKT6BIKL0Ro/yOtIm/srQIHpP+LmKp/tMt4CvbV6ROg/+7mn5y8qI3OklEmP5DOnTb/KX9TMk=
 Received: from SN1PR12CA0095.namprd12.prod.outlook.com (2603:10b6:802:21::30)
- by DM5PR12MB2471.namprd12.prod.outlook.com (2603:10b6:4:b5::10) with
- Microsoft SMTP Server (version=TLS1_2,
+ by BN8PR12MB3444.namprd12.prod.outlook.com (2603:10b6:408:47::31)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2686.26; Fri, 31 Jan
- 2020 22:17:22 +0000
+ 2020 22:17:21 +0000
 Received: from CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
  (2a01:111:f400:7eab::201) by SN1PR12CA0095.outlook.office365.com
  (2603:10b6:802:21::30) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.23 via Frontend
- Transport; Fri, 31 Jan 2020 22:17:22 +0000
+ Transport; Fri, 31 Jan 2020 22:17:20 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -61,23 +61,24 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
  CO1NAM11FT067.mail.protection.outlook.com (10.13.174.212) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2686.25 via Frontend Transport; Fri, 31 Jan 2020 22:17:21 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
+ 15.20.2686.25 via Frontend Transport; Fri, 31 Jan 2020 22:17:20 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 31 Jan
- 2020 16:17:11 -0600
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ 2020 16:17:10 -0600
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 31 Jan
- 2020 16:17:11 -0600
+ 2020 16:17:10 -0600
 Received: from blakha.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 31 Jan 2020 16:17:11 -0600
+ Transport; Fri, 31 Jan 2020 16:17:09 -0600
 From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 24/33] drm/amd/display: Add wm ranges to clk_mgr
-Date: Fri, 31 Jan 2020 17:16:34 -0500
-Message-ID: <20200131221643.10035-25-Bhawanpreet.Lakha@amd.com>
+Subject: [PATCH 21/33] drm/amd/display: decouple global lock out of pipe
+ control lock
+Date: Fri, 31 Jan 2020 17:16:31 -0500
+Message-ID: <20200131221643.10035-22-Bhawanpreet.Lakha@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200131221643.10035-1-Bhawanpreet.Lakha@amd.com>
 References: <20200131221643.10035-1-Bhawanpreet.Lakha@amd.com>
@@ -86,26 +87,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(136003)(346002)(376002)(396003)(428003)(199004)(189003)(6916009)(26005)(186003)(54906003)(336012)(316002)(426003)(7696005)(36756003)(70206006)(2616005)(70586007)(1076003)(356004)(6666004)(478600001)(4326008)(8676002)(2906002)(8936002)(81166006)(5660300002)(86362001)(81156014);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2471; H:SATLEXMB01.amd.com; FPR:;
+ SFS:(10009020)(4636009)(136003)(376002)(346002)(396003)(39860400002)(428003)(199004)(189003)(7696005)(5660300002)(2616005)(36756003)(4326008)(86362001)(316002)(54906003)(6916009)(2906002)(336012)(186003)(8676002)(81156014)(1076003)(356004)(70586007)(70206006)(81166006)(6666004)(26005)(426003)(478600001)(8936002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN8PR12MB3444; H:SATLEXMB01.amd.com; FPR:;
  SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 0446355f-7c9f-4411-aff1-08d7a69b57b6
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2471:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB2471E1B8596C701DB1220D30F9070@DM5PR12MB2471.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-MS-Office365-Filtering-Correlation-Id: 787856bd-bd11-4a32-dfd8-08d7a69b56db
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3444:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB34447F154BFE1641221C35D4F9070@BN8PR12MB3444.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1079;
 X-Forefront-PRVS: 029976C540
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 9i5ygAy8CjE7geUl8wz2ZJvtZ/qoj8JfDyapMsc1rhWRJp/I4yrei5d0YA/NvOAnSivol76+TsTgHPh1yc1pIXqSXDbpSvA4DOOCRqXVwUrgg5Z5JSH7bqp9z6E8SjE95PkXwCy8ywNwvsY+T3jxceXl1938poC058UnS/1M+1dTGiILSqP3yb8aX1qZT6gm56S3Ns6JqyFg2UOSuyk1X8f/ttbanlOEsHa+moUBFxVG2QloFxwMvTWL9WHSSPTxD0pLrngDgF/EBfaCn9TbAzCKFU58+gNYo/8AjxNtMq0Uzr9AHo4PFSLK5zYEXjuAyiSEGp+nt+W9JK1odXUWt8XVclNfXYPYUkrkQaALCQS86qRcfCinHcD8/jZdsvEoJWPftDta9CZx+Ns+h9WA/nGLFiKJV1VjyYPz6YNaa39Rk9oNq9R4gIax1Br0PLNF
+X-Microsoft-Antispam-Message-Info: nVJ8j4wA/HjsjGDiaLMhuu4jT95RKUAV0xX+1ZVaTrtGjZt5IxPydhXVwimDSvvz5FocmYs0gFrL8HLyQjC9bYiFGag1Lkrw/78HMd00e5MQ6iFErkVtNzziZuPNeKdA5QFFV8dNF/up0C5j2EAB08i5LF2+3noWyCSbWFblB5XmkC2UGUcsLnEKSAewYzFOErKi3XCYacMglcx1ND2iJR9OOdFtM3GEgZM/bOv5nVzx08mWORXqmCjegWhKg8rmY13WUQA6BPyM7Z/+n61vfuyr+m2PrcWYGOBnpO68G/rhpxUT17izzV3eeeEuKToST2IMpZYPdeTNeZmo1uJtHQ/3tf3kQnrwfy7puP2aW2x5pc4ncTZHADJLh9eVcmxtHhGaIJWLGl4SFrQXRnsZls1HbsSf54X6dWA9zyT4eIPcxZDdUgT8fzFrkQ/OYRqA
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2020 22:17:21.6325 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0446355f-7c9f-4411-aff1-08d7a69b57b6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2020 22:17:20.1985 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 787856bd-bd11-4a32-dfd8-08d7a69b56db
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2471
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3444
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,72 +118,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: sunpeng.li@amd.com, rodrigo.siqueira@amd.com, Sung Lee <sung.lee@amd.com>,
- harry.wentland@amd.com
+Cc: sunpeng.li@amd.com, rodrigo.siqueira@amd.com, harry.wentland@amd.com,
+ Wenjing Liu <Wenjing.Liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sung Lee <sung.lee@amd.com>
+From: Wenjing Liu <Wenjing.Liu@amd.com>
 
-[WHY & HOW]
-Having watermark ranges saved inside clk_mgr to be
-available for debug at all times would be useful.
-Add it to the clk_mgr_internal struct for reference.
-Only populated for Renoir, unused for other asics.
+[why]
+hwss should not guess what type of pipe lock is needed.
+The caller of the lock function should know
+the right type of pipe lock.
+Decouple the setup of global lock outside of pipe control lock
+logic.
 
-Signed-off-by: Sung Lee <sung.lee@amd.com>
-Reviewed-by: Yongqiang Sun <yongqiang.sun@amd.com>
+Signed-off-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
 Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 5 ++---
- drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h           | 2 ++
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 20 ++++++++++++++
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 27 -------------------
+ 2 files changed, 20 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-index 034a5852a416..8ecb98c29eb9 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-@@ -459,16 +459,15 @@ void build_watermark_ranges(struct clk_bw_params *bw_params, struct pp_smu_wm_ra
- static void rn_notify_wm_ranges(struct clk_mgr *clk_mgr_base)
- {
- 	struct dc_debug_options *debug = &clk_mgr_base->ctx->dc->debug;
--	struct pp_smu_wm_range_sets ranges = {0};
- 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
- 	struct pp_smu_funcs *pp_smu = clk_mgr->pp_smu;
- 
- 	if (!debug->disable_pplib_wm_range) {
--		build_watermark_ranges(clk_mgr_base->bw_params, &ranges);
-+		build_watermark_ranges(clk_mgr_base->bw_params, &clk_mgr_base->ranges);
- 
- 		/* Notify PP Lib/SMU which Watermarks to use for which clock ranges */
- 		if (pp_smu && pp_smu->rn_funcs.set_wm_ranges)
--			pp_smu->rn_funcs.set_wm_ranges(&pp_smu->rn_funcs.pp_smu, &ranges);
-+			pp_smu->rn_funcs.set_wm_ranges(&pp_smu->rn_funcs.pp_smu, &clk_mgr_base->ranges);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 7fdd82b7708a..40878b86a05d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2220,6 +2220,11 @@ static void commit_planes_for_stream(struct dc *dc,
+ 		}
  	}
  
++	if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
++		if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable)
++			top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable(
++					top_pipe_to_program->stream_res.tg);
++
+ 	if ((update_type != UPDATE_TYPE_FAST) && dc->hwss.interdependent_update_lock)
+ 		dc->hwss.interdependent_update_lock(dc, context, true);
+ 	else
+@@ -2377,6 +2382,21 @@ static void commit_planes_for_stream(struct dc *dc,
+ 	else
+ 		dc->hwss.pipe_control_lock(dc, top_pipe_to_program, false);
+ 
++	if ((update_type != UPDATE_TYPE_FAST) && stream->update_flags.bits.dsc_changed)
++		if (top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_enable) {
++			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
++					top_pipe_to_program->stream_res.tg,
++					CRTC_STATE_VACTIVE);
++			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
++					top_pipe_to_program->stream_res.tg,
++					CRTC_STATE_VBLANK);
++			top_pipe_to_program->stream_res.tg->funcs->wait_for_state(
++					top_pipe_to_program->stream_res.tg,
++					CRTC_STATE_VACTIVE);
++			top_pipe_to_program->stream_res.tg->funcs->lock_doublebuffer_disable(
++					top_pipe_to_program->stream_res.tg);
++		}
++
+ 	if (update_type != UPDATE_TYPE_FAST)
+ 		dc->hwss.post_unlock_program_front_end(dc, context);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 9713f452debf..52ef4d333112 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1094,7 +1094,6 @@ void dcn20_pipe_control_lock(
+ 	bool lock)
+ {
+ 	bool flip_immediate = false;
+-	bool dig_update_required = false;
+ 
+ 	/* use TG master update lock to lock everything on the TG
+ 	 * therefore only top pipe need to lock
+@@ -1132,19 +1131,6 @@ void dcn20_pipe_control_lock(
+ 		    (!flip_immediate && pipe->stream_res.gsl_group > 0))
+ 			dcn20_setup_gsl_group_as_lock(dc, pipe, flip_immediate);
+ 
+-	if (pipe->stream && pipe->stream->update_flags.bits.dsc_changed)
+-		dig_update_required = true;
+-
+-	/* Need double buffer lock mode in order to synchronize front end pipe
+-	 * updates with dig updates.
+-	 */
+-	if (dig_update_required) {
+-		if (lock) {
+-			pipe->stream_res.tg->funcs->lock_doublebuffer_enable(
+-					pipe->stream_res.tg);
+-		}
+-	}
+-
+ 	if (pipe->plane_state != NULL && pipe->plane_state->triplebuffer_flips) {
+ 		if (lock)
+ 			pipe->stream_res.tg->funcs->triplebuffer_lock(pipe->stream_res.tg);
+@@ -1156,19 +1142,6 @@ void dcn20_pipe_control_lock(
+ 		else
+ 			pipe->stream_res.tg->funcs->unlock(pipe->stream_res.tg);
+ 	}
+-
+-	if (dig_update_required) {
+-		if (!lock) {
+-			pipe->stream_res.tg->funcs->wait_for_state(pipe->stream_res.tg,
+-					CRTC_STATE_VACTIVE);
+-			pipe->stream_res.tg->funcs->wait_for_state(pipe->stream_res.tg,
+-					CRTC_STATE_VBLANK);
+-			pipe->stream_res.tg->funcs->wait_for_state(pipe->stream_res.tg,
+-					CRTC_STATE_VACTIVE);
+-			pipe->stream_res.tg->funcs->lock_doublebuffer_disable(
+-					pipe->stream_res.tg);
+-		}
+-	}
  }
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
-index ac530c057ddd..ce65678c03b2 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
-@@ -27,6 +27,7 @@
- #define __DAL_CLK_MGR_H__
  
- #include "dc.h"
-+#include "dm_pp_smu.h"
- 
- #define DCN_MINIMUM_DISPCLK_Khz 100000
- #define DCN_MINIMUM_DPPCLK_Khz 100000
-@@ -193,6 +194,7 @@ struct clk_mgr {
- 	int dentist_vco_freq_khz;
- 	struct clk_state_registers_and_bypass boot_snapshot;
- 	struct clk_bw_params *bw_params;
-+	struct pp_smu_wm_range_sets ranges;
- };
- 
- /* forward declarations */
+ static void dcn20_detect_pipe_changes(struct pipe_ctx *old_pipe, struct pipe_ctx *new_pipe)
 -- 
 2.17.1
 
