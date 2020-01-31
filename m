@@ -3,48 +3,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A89C4C2D0DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:03:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99735C2D0DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:17:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1433220705
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:03:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3096A2082E
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 22:17:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=pm.me header.i=@pm.me header.b="ha9+g8Bw"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1433220705
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=pm.me
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="yZS+p2Vc"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3096A2082E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D14CC6FC09;
-	Fri, 31 Jan 2020 22:03:35 +0000 (UTC)
-Received: from mail1.protonmail.ch (mail1.protonmail.ch [185.70.40.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CD4F6FC09
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 22:03:34 +0000 (UTC)
-Date: Fri, 31 Jan 2020 22:03:29 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me; s=proton;
- t=1580508211; bh=isjAMn6c/pCB/UJCv6QyxUG7r71WX+313PjML16hqhk=;
- h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:
- Feedback-ID:From;
- b=ha9+g8BwQewH+WGjNyTSkTQWdXuaRQRH2W9j94F04HxTMb21C2QMV2874v3boabZ/
- QOyDC8tb34+fODSXgudWgl/XqnMAG802K2R1NXhvvube4xoiHiqIm+gLOTsGDhaWPs
- yhhx3kdNc8MI6ULsrboD8GO9grFtp17I4PwKjNh4Bfp5o8Y1tSKaGZPTsfUt/YJaTE
- Dq51GvI/XaxaU3AdiMv8u5vtrcgfR3yLpeFkRfIFXGf9q8tWZfnGFDbyYVPHrXglA6
- eu4VFUegkb+vAPXIBFKTEozcqRMtl+rqJGEsvl+28YVRYOcH/w1pLjwTaNjIdTMbwv
- +Fw1HXnrpwPeQ==
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-From: Josh Fuhs <Joshua.Fuhs@pm.me>
-Subject: Re: Asking for Direction
-Message-ID: <g9ixZmJqc2bB2c99p0gpz9wMr10heu_9ftGinCsTkkkjqfmDLC_fSrdpMeT11cSXfTqVR-UuCBQUkfmxzIRK-Ma_UcTs_Zs6Rfw6NSpQf9M=@pm.me>
-In-Reply-To: <CH2PR12MB391261E5E0B4ED644B27F85DF7070@CH2PR12MB3912.namprd12.prod.outlook.com>
-References: <_a89rdMCBfe551EYsOQQ9AS8gdX2eNTS9VmWelbIZo6asP2FTaRqmNsPHEluPZ6wLVCDUqQIHYiHMQbNsen89RQjb_R4LfpmApIdOjf2fNM=@pm.me>
- <CH2PR12MB391261E5E0B4ED644B27F85DF7070@CH2PR12MB3912.namprd12.prod.outlook.com>
-Feedback-ID: Z662AikR9l0kvOVYg-m6awgxgDvAwWrs2Bm3gEUXm9LfoVZ1m76tPXUIXwvGIf4o-c-y35FVaJ-GCj--pnTrbw==:Ext:ProtonMail
+	by gabe.freedesktop.org (Postfix) with ESMTP id 799C46FC2E;
+	Fri, 31 Jan 2020 22:17:05 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2078.outbound.protection.outlook.com [40.107.220.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6886F6FC2E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 22:17:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=aoSSLevfvyDBbmr2ZnBdX6jth+R12gHBcPSC2Q3ASjPfomi2q4wzYt8OLPSwJFsOHL7rbccUsNDCyZb7g0sp1vahZltxmtxn5Gy7h4m3rKScQHYT0JVQGkbWASDa4su/5IoTYry6lXqz5pMsEmBuznbMrAkKE995MMVyrf1ic1Mg6n5BVIskKdlQ7WENOYJ00fAzyzT9gMiBIgM/W8LgFdCw1dWXcI33dAwrGMyJ3+Ckn3WXNqL4kzdoz63AL16lPEvHjfVzA087409b1syLornU7IDr6Teh66ZVksniXMds3UnvYsYeivVnQwh/jvurvQHCb71i74MJKe9uWsNAHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pv1qfg8HPmbOy8w1/w36KKAFrgqbHwhT/DS780CLo5E=;
+ b=h5kDb2ppo7MEZA3JZodrGlAuttmZZ8seyhhmpB9pSdT+APFmbfEs+qfTQUchKGgHCjQUpqRppwINmJ/bZqwvdjxeQvzrWP+/HBG4hSDfPY/4eVZ6xHa5h/hIr+T3vzlVicyjF+zD9bStsERlvcX8xs717wLV46TdbTBfPLlOdrXjaPugrhNkBPWuc1yo2wzsAel8zG/GdbxwaC8GPDPi0EE7I1F/fD6pwddeRdTjnJ4L2wfFcx3H0YU61kuge3r/ATdFgjikxdHJPnRKuApIBWwR35xFta0JSAjNEeQ4THTMr6jpib19l28LGWOViatjNLZsVAYRWFgNXF3fjFm3FA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Pv1qfg8HPmbOy8w1/w36KKAFrgqbHwhT/DS780CLo5E=;
+ b=yZS+p2VcvegFVHVQeAwePKL/O6JhL4GhYtnqWwT8/+OOVYdORw2erm97RDsT5tPy6JFLMjIe/tHluctpb5O6t01XEggZ8wdI6Imo1OkiQ0vvRA9/0rnk/knWn5w1nNDTETB51OiIP8z6VIvLPPHBz3EpZWGJMlSIJgoIfLRd1Yw=
+Received: from SN1PR12CA0098.namprd12.prod.outlook.com (2603:10b6:802:21::33)
+ by BN6PR1201MB0148.namprd12.prod.outlook.com (2603:10b6:405:55::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2686.27; Fri, 31 Jan
+ 2020 22:17:02 +0000
+Received: from CO1NAM11FT067.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::204) by SN1PR12CA0098.outlook.office365.com
+ (2603:10b6:802:21::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.23 via Frontend
+ Transport; Fri, 31 Jan 2020 22:17:02 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT067.mail.protection.outlook.com (10.13.174.212) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2686.25 via Frontend Transport; Fri, 31 Jan 2020 22:17:01 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 31 Jan
+ 2020 16:16:59 -0600
+Received: from blakha.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Fri, 31 Jan 2020 16:16:59 -0600
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 00/33] DC Patches 31 Jan 2020
+Date: Fri, 31 Jan 2020 17:16:10 -0500
+Message-ID: <20200131221643.10035-1-Bhawanpreet.Lakha@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(346002)(396003)(376002)(136003)(428003)(189003)(199004)(478600001)(7696005)(6916009)(26005)(8936002)(186003)(70206006)(5660300002)(70586007)(6666004)(4326008)(36756003)(1076003)(356004)(2906002)(54906003)(316002)(86362001)(81156014)(8676002)(81166006)(2616005)(426003)(336012);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN6PR1201MB0148; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: b4399310-3dd6-4ee7-59c8-08d7a69b4b8c
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0148:
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB01486FF7627891F52EBFAE1CF9070@BN6PR1201MB0148.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-Forefront-PRVS: 029976C540
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cjTqm7AtYBk02oWKpyanjxlJ/6jeg+Wkyn5MwAmkA69c+InW6A5fn4r8cJSp5YWBY9x1pjL2E1BjzB4ciyYEiNRKJF+jUwoRlbhxctRuayXoXSetFOg+PALVB/1yMhXa6ag7G3dN/UyMPQFoQoQMsX7oF2fqom7vJ43xbjG7DCHfaN7lhRFdaX9r3RIU6AZCSG2ceqr9uHTZJ2B7hbPVPb0aIvd4Wi9vx0cQZSh3XSTZuSIhDyq3gDv7D+rau+tXbTkZHdMJoxOm5WMOD23RUWKnOStsVP1V6RViJU7QTUWAC3ElhFc9L7OcYgWiPUHYNJfdptfJfFXncKI5eqkXkS+z3LZvq2tOqBg2k+NC4mJ3VYeToMjUGyfqpzv5dh4Bl+ghb8dsJO2uPIttgBWtkC6IOoxS7R3df/bMjl/q8o7tKuNCmE1f0BmoostDK5Y9
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2020 22:17:01.2224 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b4399310-3dd6-4ee7-59c8-08d7a69b4b8c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0148
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,138 +110,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Josh Fuhs <Joshua.Fuhs@pm.me>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1832910955=="
+Cc: sunpeng.li@amd.com, rodrigo.siqueira@amd.com,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, harry.wentland@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
+Summary Of Changes
+*DMCUB changes
+*psr frame calculation fix
+*fix compile warnings
+*refactor front end programing
+*enable OLED support in DC
 
---===============1832910955==
-Content-Type: multipart/alternative;
-	boundary="b1_2d21ee6833e3719f337830a55ddec594"
+Anthony Koo (3):
+  drm/amd/display: Split program front end part that occur outside lock
+  drm/amd/display: Indicate dsc updates explicitly
+  drm/amd/display: Added locking for atomic update stream and update
+    planes
 
-This is a multi-part message in MIME format.
+Aric Cyr (5):
+  drm/amd/display: Fix GSL acquire
+  drm/amd/display: remove unused variable
+  drm/amd/display: 3.2.70
+  drm/amd/display: Check engine is not NULL before acquiring
+  drm/amd/display: 3.2.71
 
---b1_2d21ee6833e3719f337830a55ddec594
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+Charlene Liu (1):
+  drm/amd/display: add stream_enc_inst for PSP HDCP inst use
 
-VGhhbmtzLiBJIGNhbiBjb25maXJtIGtlcm5lbCA1LjVyYzcgaW1wcm92ZXMgdGhpbmdzIHNpZ25p
-ZmljYW50bHkuIEknbGwgcG9zdCB0aGlzIHRvIHRoZSB2YXJpb3VzIGNoYW5uZWxzIEkndmUgYXNr
-ZWQgaW4uCgpKb3NoCgrigJDigJDigJDigJDigJDigJDigJAgT3JpZ2luYWwgTWVzc2FnZSDigJDi
-gJDigJDigJDigJDigJDigJAKT24gRnJpZGF5LCBKYW51YXJ5IDMxLCAyMDIwIDI6MDUgUE0sIERl
-dWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT4gd3JvdGU6Cgo+IFtB
-TUQgT2ZmaWNpYWwgVXNlIE9ubHkgLSBJbnRlcm5hbCBEaXN0cmlidXRpb24gT25seV0KPgo+IFBs
-ZWFzZSBtYWtlIHN1cmUgeW91ciBrZXJuZWwgaGFzIHRoaXMgcGF0Y2g6Cj4KPiBjb21taXQgNDYy
-MDNhNTA4ZjY0YjRiZmExNTBhOWQyNWVhYjFkYzg5MWU3ZTY1MAo+IEF1dGhvcjogQWxleCBEZXVj
-aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+IERhdGU6ICAgVHVlIE9jdCAyOSAxNzox
-NDoxNSAyMDE5IC0wNDAwCj4KPiAgICAgZHJtL2FtZGdwdS9nbWMxMDogcHJvcGVybHkgc2V0IEJB
-TktfU0VMRUNUIGFuZCBGUkFHTUVOVF9TSVpFCj4KPiAgICAgVGhlc2Ugd2VyZSBub3QgYWxpZ25l
-ZCBmb3Igb3B0aW1hbCBwZXJmb3JtYW5jZSBmb3IgR1BVVk0uCj4KPiAgICAgQWNrZWQtYnk6IENo
-cmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAgICAgUmV2aWV3ZWQt
-Ynk6IFRpYW5jaSBZaW4gPHRpYW5jaS55aW5AYW1kLmNvbT4KPiAgICAgU2lnbmVkLW9mZi1ieTog
-QWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+Cj4gQWxleAo+Cj4gLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tCj4KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnPiBvbiBiZWhhbGYgb2YgSm9zaCBGdWhzIDxKb3NodWEuRnVoc0BwbS5tZT4KPiBTZW50OiBG
-cmlkYXksIEphbnVhcnkgMzEsIDIwMjAgMTI6NDggUE0KPiBUbzogYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcgPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPgo+IFN1YmplY3Q6IEFz
-a2luZyBmb3IgRGlyZWN0aW9uCj4KPiBIaSBhbGwsCj4KPiBJIGFtIHRyeWluZyB0byB1c2UgYSBS
-YWRlb24gUlggNTcwMFhUIHZpYSBPcGVuQ0wgd2l0aCBrZXJuZWwgNS4zLjAgKEkgaGF2ZSBhbHNv
-IHRyaWVkIGtlcm5lbCA1LjMuMTgpIG9uIFVidW50dSAxOC4wNC4gSSBoYXZlIG5vdGljZWQgdGhh
-dCB0aGlzIGNvbWJpbmF0aW9uIGlzIG11Y2ggc2xvd2VyIHRoYW4gZXhwZWN0ZWQuIEknbSB0cnlp
-bmcgdG8gZmluZCBvdXQgd2h5LCBhbmQgaG93IHRvIGZpeCBpdC4KPgo+IElmIEknbSBpbiB0aGUg
-d3JvbmcgcGxhY2UgdG8gYXNrLCB3b3VsZCB5b3UgYmUgYWJsZSB0byBwb2ludCBtZSBpbiB0aGUg
-cmlnaHQgZGlyZWN0aW9uPwo+Cj4gSWYgdGhpcyBpcyBhIGtub3duIG91dHN0YW5kaW5nIHByb2Js
-ZW0sIGEgcmVmZXJlbmNlIHRvIGEgYnVnIG9yIHNvbWV0aGluZyBlbHNlIHRoYXQgd291bGQgbGV0
-IG1lIGRpZyBpbnRvIGl0IHdvdWxkIGJlIGdyZWF0Lgo+Cj4gVGhhbmtzCj4KPiBKb3NoIEZ1aHM=
+David Galiffi (1):
+  drm/amd/display: Use uint64_t logger_mask instead of uint32_t
 
+Eric Bernstein (1):
+  drm/amd/display: Fix various issues found by compiler warning as
+    errors
 
---b1_2d21ee6833e3719f337830a55ddec594
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: base64
+Eric Yang (1):
+  drm/amd/display: fix inputting clk lvl into dml for RN
 
-PGRpdj5UaGFua3MuIEkgY2FuIGNvbmZpcm0ga2VybmVsIDUuNXJjNyBpbXByb3ZlcyB0aGluZ3Mg
-c2lnbmlmaWNhbnRseS4gSSdsbCBwb3N0IHRoaXMgdG8gdGhlIHZhcmlvdXMgY2hhbm5lbHMgSSd2
-ZSBhc2tlZCBpbi48YnI+PGJyPkpvc2g8YnI+PC9kaXY+PGRpdiBjbGFzcz0icHJvdG9ubWFpbF9z
-aWduYXR1cmVfYmxvY2sgcHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2stZW1wdHkiPjxkaXYgY2xh
-c3M9InByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2NrLXVzZXIgcHJvdG9ubWFpbF9zaWduYXR1cmVf
-YmxvY2stZW1wdHkiPjxicj48L2Rpdj48ZGl2IGNsYXNzPSJwcm90b25tYWlsX3NpZ25hdHVyZV9i
-bG9jay1wcm90b24gcHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2stZW1wdHkiPjxicj48L2Rpdj48
-L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PuKAkOKAkOKAkOKAkOKAkOKAkOKAkCBPcmlnaW5hbCBN
-ZXNzYWdlIOKAkOKAkOKAkOKAkOKAkOKAkOKAkDxicj48L2Rpdj48ZGl2PiBPbiBGcmlkYXksIEph
-bnVhcnkgMzEsIDIwMjAgMjowNSBQTSwgRGV1Y2hlciwgQWxleGFuZGVyICZsdDtBbGV4YW5kZXIu
-RGV1Y2hlckBhbWQuY29tJmd0OyB3cm90ZTo8YnI+PC9kaXY+PGRpdj4gPGJyPjwvZGl2PjxibG9j
-a3F1b3RlIGNsYXNzPSJwcm90b25tYWlsX3F1b3RlIiB0eXBlPSJjaXRlIj48cCBzdHlsZT0ibWFy
-Z2luOiAxNXB0OyIgYWxpZ249IkxlZnQiPjxzcGFuIHN0eWxlPSJjb2xvcjpyZ2IoMCwgMTIwLCAy
-MTUpIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6QXJpYWwiPjxzcGFuIHN0eWxlPSJmb250LXNp
-emU6MTBwdCI+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBP
-bmx5XTwvc3Bhbj48L3NwYW4+PC9zcGFuPjxicj48L3A+PGRpdj48YnI+PC9kaXY+PGRpdj48ZGl2
-IHN0eWxlPSJmb250LWZhbWlseTogQ2FsaWJyaSwgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJp
-ZjsgZm9udC1zaXplOiAxMnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+UGxlYXNlIG1ha2Ugc3Vy
-ZSB5b3VyIGtlcm5lbCBoYXMgdGhpcyBwYXRjaDo8YnI+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1m
-YW1pbHk6IENhbGlicmksIEFyaWFsLCBIZWx2ZXRpY2EsIHNhbnMtc2VyaWY7IGZvbnQtc2l6ZTog
-MTJwdDsgY29sb3I6IHJnYigwLCAwLCAwKTsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZh
-bWlseTogQ2FsaWJyaSwgQXJpYWwsIEhlbHZldGljYSwgc2Fucy1zZXJpZjsgZm9udC1zaXplOiAx
-MnB0OyBjb2xvcjogcmdiKDAsIDAsIDApOyI+PGRpdj48c3Bhbj5jb21taXQgNDYyMDNhNTA4ZjY0
-YjRiZmExNTBhOWQyNWVhYjFkYzg5MWU3ZTY1MDxicj4gPC9zcGFuPiA8L2Rpdj48ZGl2PkF1dGhv
-cjogQWxleCBEZXVjaGVyICZsdDthbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tJmd0Ozxicj48L2Rp
-dj48ZGl2PkRhdGU6ICZuYnNwOyBUdWUgT2N0IDI5IDE3OjE0OjE1IDIwMTkgLTA0MDA8YnI+PC9k
-aXY+PGRpdj48YnI+PC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7IGRybS9hbWRncHUvZ21jMTA6IHBy
-b3Blcmx5IHNldCBCQU5LX1NFTEVDVCBhbmQgRlJBR01FTlRfU0laRTxicj48L2Rpdj48ZGl2PiZu
-YnNwOyAmbmJzcDsgPGJyPjwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOyBUaGVzZSB3ZXJlIG5vdCBh
-bGlnbmVkIGZvciBvcHRpbWFsIHBlcmZvcm1hbmNlIGZvciBHUFVWTS48YnI+PC9kaXY+PGRpdj4m
-bmJzcDsgJm5ic3A7IDxicj48L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsgQWNrZWQtYnk6IENocmlz
-dGlhbiBLw7ZuaWcgJmx0O2NocmlzdGlhbi5rb2VuaWdAYW1kLmNvbSZndDs8YnI+PC9kaXY+PGRp
-dj4mbmJzcDsgJm5ic3A7IFJldmlld2VkLWJ5OiBUaWFuY2kgWWluICZsdDt0aWFuY2kueWluQGFt
-ZC5jb20mZ3Q7PGJyPjwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOyBTaWduZWQtb2ZmLWJ5OiBBbGV4
-IERldWNoZXIgJmx0O2FsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20mZ3Q7PGJyPjwvZGl2PjxkaXY+
-PGJyPjwvZGl2PjxkaXY+PHNwYW4+PC9zcGFuPkFsZXggPGJyPjwvZGl2PjwvZGl2PjxkaXY+PGJy
-PjwvZGl2PjxkaXY+PGhyIHN0eWxlPSJkaXNwbGF5OmlubGluZS1ibG9jazt3aWR0aDo5OCUiIHRh
-YmluZGV4PSItMSI+PGJyPjwvZGl2PjxkaXYgZGlyPSJsdHIiPjxkaXY+PHNwYW4gc3R5bGU9ImZv
-bnQtZmFtaWx5OkNhbGlicmksIHNhbnMtc2VyaWYiPjxzcGFuIHN0eWxlPSJjb2xvcjojMDAwMDAw
-Ij48Yj5Gcm9tOjwvYj4gYW1kLWdmeCAmbHQ7YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZyZndDsgb24gYmVoYWxmIG9mIEpvc2ggRnVocyAmbHQ7Sm9zaHVhLkZ1aHNAcG0ubWUm
-Z3Q7PGJyPiA8Yj5TZW50OjwvYj4gRnJpZGF5LCBKYW51YXJ5IDMxLCAyMDIwIDEyOjQ4IFBNPGJy
-PiA8Yj5Ubzo8L2I+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnICZsdDthbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZyZndDs8YnI+IDxiPlN1YmplY3Q6PC9iPiBBc2tpbmcgZm9yIERp
-cmVjdGlvbjwvc3Bhbj48L3NwYW4+IDwvZGl2PjxkaXY+Jm5ic3A7PGJyPjwvZGl2PjwvZGl2Pjxk
-aXY+PGRpdj48ZGl2PkhpIGFsbCw8YnI+PC9kaXY+PGRpdj4gPGJyPjwvZGl2PjxkaXY+IEkgYW0g
-dHJ5aW5nIHRvIHVzZSBhIFJhZGVvbiBSWCA1NzAwWFQgdmlhIE9wZW5DTCB3aXRoIGtlcm5lbCA1
-LjMuMCAoSSBoYXZlIGFsc28gdHJpZWQga2VybmVsIDUuMy4xOCkgb24gVWJ1bnR1IDE4LjA0LiBJ
-IGhhdmUgbm90aWNlZCB0aGF0IHRoaXMgY29tYmluYXRpb24gaXMgbXVjaCBzbG93ZXIgdGhhbiBl
-eHBlY3RlZC4gSSdtIHRyeWluZyB0byBmaW5kIG91dCB3aHksIGFuZCBob3cgdG8gZml4IGl0Ljxi
-cj48L2Rpdj48ZGl2PiA8YnI+PC9kaXY+PGRpdj4gSWYgSSdtIGluIHRoZSB3cm9uZyBwbGFjZSB0
-byBhc2ssIHdvdWxkIHlvdSBiZSBhYmxlIHRvIHBvaW50IG1lIGluIHRoZSByaWdodCBkaXJlY3Rp
-b24/PGJyPjwvZGl2PjwvZGl2PjxkaXYgY2xhc3M9InhfcHJvdG9ubWFpbF9zaWduYXR1cmVfYmxv
-Y2sgeF9wcm90b25tYWlsX3NpZ25hdHVyZV9ibG9jay1lbXB0eSI+PGRpdiBjbGFzcz0ieF9wcm90
-b25tYWlsX3NpZ25hdHVyZV9ibG9jay11c2VyIHhfcHJvdG9ubWFpbF9zaWduYXR1cmVfYmxvY2st
-ZW1wdHkiPjxicj48L2Rpdj48ZGl2IGNsYXNzPSJ4X3Byb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2Nr
-LXByb3RvbiB4X3Byb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2NrLWVtcHR5Ij48YnI+PC9kaXY+PC9k
-aXY+PGRpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PklmIHRoaXMgaXMgYSBrbm93biBvdXRzdGFuZGlu
-ZyBwcm9ibGVtLCBhIHJlZmVyZW5jZSB0byBhIGJ1ZyBvciBzb21ldGhpbmcgZWxzZSB0aGF0IHdv
-dWxkIGxldCBtZSBkaWcgaW50byBpdCB3b3VsZCBiZSBncmVhdC48YnI+PC9kaXY+PGRpdj4gPGJy
-PjwvZGl2PjxkaXY+IFRoYW5rczxicj48L2Rpdj48ZGl2PiA8YnI+PC9kaXY+PGRpdj4gSm9zaCBG
-dWhzPGJyPjwvZGl2PjwvZGl2PjwvZGl2PjwvZGl2PjwvYmxvY2txdW90ZT48ZGl2Pjxicj48L2Rp
-dj4=
+George Shen (1):
+  drm/amd/display: Move USB-C workaround to after parameter variables
+    are set
 
+Hersen Wu (1):
+  drm/amd/display: linux enable oled panel support dc part
 
+Isabel Zhang (1):
+  drm/amd/display: Add initialitions for PLL2 clock source
 
---b1_2d21ee6833e3719f337830a55ddec594--
+Jing Zhou (1):
+  drm/amd/display: external monitor abm enabled in modern standby
 
+Joseph Gravenor (2):
+  drm/amd/display: remove invalid dc_is_hw_initialized function
+  drm/amd/display: turn off the mst hub before we do detection
 
---===============1832910955==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Nicholas Kazlauskas (3):
+  drm/amd/display: Add GPINT handler interface
+  drm/amd/display: Wait for clean shutdown in DMCUB reset
+  drm/amd/display: Add DMUB tracebuffer debugfs
+
+Peikang Zhang (2):
+  drm/amd/display: dc_get_vmid_use_vector() crashes when get called
+  drm/amd/display: Update hubbub description comment
+
+Roman Li (2):
+  drm/amd/display: Fix psr static frames calculation
+  drm/amd/display: remove early break in interdependent_lock
+
+Sung Lee (3):
+  drm/amd/display: Do not set optimized_require to false after plane
+    disable
+  drm/amd/display: Use dcfclk to populate watermark ranges
+  drm/amd/display: Add wm ranges to clk_mgr
+
+Tony Cheng (1):
+  drm/amd/display: fix workaround for incorrect double buffer register
+    for DLG ADL and TTU
+
+Wenjing Liu (1):
+  drm/amd/display: decouple global lock out of pipe control lock
+
+Wyatt Wood (1):
+  drm/amd/display: Add set psr version message
+
+Yongqiang Sun (2):
+  drm/amd/display: Check hyperV flag in DC.
+  drm/amd/display: Limit minimum DPPCLK to 100MHz.
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   5 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  61 ++++++
+ .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |  25 ++-
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 149 ++++++++++----
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |  41 +++-
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 189 +++++++++++++++++-
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |   2 +-
+ .../drm/amd/display/dc/core/dc_vm_helper.c    |   5 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  22 +-
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  |  34 ++++
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  16 ++
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |   1 +
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c  |   2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c |  62 ++++--
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h |   9 +-
+ .../display/dc/dce110/dce110_hw_sequencer.c   |  43 ++--
+ .../drm/amd/display/dc/dcn10/dcn10_hubbub.c   |  63 +-----
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  93 ++++++---
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.h |   7 +
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_init.c |   2 +
+ .../display/dc/dcn10/dcn10_stream_encoder.c   |   1 +
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  90 +++------
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.h    |   7 +-
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_init.c |   3 +-
+ .../display/dc/dcn20/dcn20_stream_encoder.c   |   1 +
+ .../gpu/drm/amd/display/dc/dcn21/dcn21_hubp.c |  35 +++-
+ .../gpu/drm/amd/display/dc/dcn21/dcn21_init.c |   3 +-
+ .../drm/amd/display/dc/dcn21/dcn21_resource.c | 171 ++++++++++++----
+ .../amd/display/dc/dml/display_mode_structs.h |   5 +-
+ .../gpu/drm/amd/display/dc/inc/dc_link_dp.h   |   2 +
+ .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |   2 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/dwb.h   |   3 +-
+ .../amd/display/dc/inc/hw/stream_encoder.h    |   1 +
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |   6 +-
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  10 +-
+ .../drm/amd/display/dmub/inc/dmub_cmd_dal.h   |   4 +-
+ .../drm/amd/display/dmub/inc/dmub_gpint_cmd.h |  74 +++++++
+ .../gpu/drm/amd/display/dmub/inc/dmub_srv.h   |  48 +++++
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn20.c |  58 ++++++
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn20.h |   9 +
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |  50 +++++
+ 41 files changed, 1074 insertions(+), 340 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dmub/inc/dmub_gpint_cmd.h
+
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1832910955==--
-
