@@ -2,77 +2,98 @@ Return-Path: <SRS0=jwYW=3U=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 07BF2C33CB2
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 11:58:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 729DEC2D0DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 13:46:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CF572214D8
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 11:58:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3875B206F0
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jan 2020 13:46:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ftp6skno"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CF572214D8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="h4s8OKme"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3875B206F0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 869E96E971;
-	Fri, 31 Jan 2020 11:58:19 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD05C6E971
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 11:58:18 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id b17so8387264wmb.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 03:58:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=o47aCp52FAxqBuP6YPIbHVzG+ZR+z27cIRZxqXjRBzg=;
- b=ftp6skno7L7zbZBxisIHuVM9vlvPoBU1npw2/P09zCF4LymNz21Gui5TkhrRJ1YWFK
- GczgkGwODWxQERubi2XknmTMZnC/NqdgkVvoitvCHrIh8ubr9UmD2hk8pfcUAUB32Zsl
- RnU22ebpdUWLMbaHOBessdqb4quL0fG1A4Xfnzx9UyN30WZ8cgxxMWPv5myBXq+197lI
- 5jls2/v3/xGHikAomUG4zIyCaeQUlW65cpYeUMgWGXXzJVUpkUVZSsSEUuhfkXGKB9fq
- WPlJaDtFPCzykOtbUUVb3g3pg62ksZK6CJfVk85z6uNMv4UcPqOJU3ZSr7sBK+Ls507W
- Xusw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=o47aCp52FAxqBuP6YPIbHVzG+ZR+z27cIRZxqXjRBzg=;
- b=C8DaF33YPBvoW1rvfPJNPbgWAslkG/A+qMVILNTE6lDZtJMsr5ZcRS4ii7q5nkHEkh
- mS1GEoZ1DBrs+qu68zMVZOCS6s4qyIqKb1VuZmWLszUiRYhR+cVjh0fkkiD1InAgMROM
- rUfc01NnFh8Dz3FP9e3gRreR5Ad0KYWlzt9z//0w1QLovVgLAIysJV9nR2U3kw4ogXlP
- mdY0/qrPVQtjh0RiVgNHmLDWnmTjBq+7O+sH0kOAh5CCpWMpyDjaWUlz/n7zxUw86yxL
- G8OdN9Gf0q+z1X5zlwvT8T2uRZiUrZHjEGk3SiFsUkLCVdjMu4DN0TYI7RBbyWC7A0PZ
- RH1Q==
-X-Gm-Message-State: APjAAAWZeOcQCA1hzaA22W3AWX683EQAiXVmD7xHUJT7HMJ4PVUm3Q+L
- J+SAKh/9NSJJjcLp8MHl/bZt6azY
-X-Google-Smtp-Source: APXvYqxJvsGt8qyqrwipAsNOL8DyE+9nIspw8igO8LH/pb1MC1lRCOCDVbEEWlbxq1K2zib+oXHIyw==
-X-Received: by 2002:a1c:3803:: with SMTP id f3mr4162521wma.134.1580471897022; 
- Fri, 31 Jan 2020 03:58:17 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id e6sm10389917wme.3.2020.01.31.03.58.16
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 31 Jan 2020 03:58:16 -0800 (PST)
-Subject: Re: [PATCH 1/5] drm/amdgpu: fix braces in amdgpu_vm_update_ptes
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200130124940.30380-1-christian.koenig@amd.com>
- <43ecd5a5-6087-0cb6-4ba0-adf0d4b3ac07@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <beb94356-a60b-61d1-92b1-aa13daa57700@gmail.com>
-Date: Fri, 31 Jan 2020 12:58:15 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC6656FB48;
+	Fri, 31 Jan 2020 13:45:59 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700061.outbound.protection.outlook.com [40.107.70.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF30D6FB48
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jan 2020 13:45:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=d/cUJNb4C1XGFmW3DOb2qUiarB63RVQFFGHUjVkKQuRIFiDmfYXEW1S30yB+UqAtMVKy9v2N9tQUMnbQ/mf7f97kDhrflbrR4xvWOTY6/RdScP7iBguUTbH36i9UynUxvDVOA6xzdbb8910vZgy6BvV7R+mGgre8UIy/wPtJ3qc4eaUH634T5ufAngYsEecNtiibCgkVvPKGYb/brkb/ZZlCL5Wra97gKmhMzn0fJ0MONle9c1xJlA5DH9QeGb9t25+WWr2jk9IUcK9DmICjNjJP/EhwCTtGHTYhted3YRA5XSQolWmBSqpyREdSlhXVhn132ou6DunIHdu3DwVByA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OmsVgk8iNcFm5bC2BLtKL3XRWIFKBSsYoseXJasa+5U=;
+ b=JCsBre63fx/T48K4l1aLGqryKPpPE1en8Cr/6HvOloiK2CCytu2fmdSsnwGsq5FOQyQRCXWzRSexrnGXG3bICUMhINrTcEsCpGgBUzBq6aaCY5d95Sa3b/L2u3THQgDIzdXhPZdn40bbo48on29torHlXddpa2N84uTRDnPy9bP8V2pqMiQfy+JeHeAZUHXXHqflZo/O10gctkcb7CJQAxM9rECzaoQZom4uj8EL/FhgmCFZOhlLJOHFW0SPKK0rPr2XkY2Po9rAvpKyK9eYTMiTOXTSbMYZurbW8YXP0YIUintaRgay2owiqm6o0bxR8WH192cQu9U83iW+mPcl4Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OmsVgk8iNcFm5bC2BLtKL3XRWIFKBSsYoseXJasa+5U=;
+ b=h4s8OKmeIzWERyOkrByapXdoB7jDtrcnsSjbgDe0Tc3t1qrlWHQbaLNxjyfgYKz+5vg+Mwn7aUrTkCt1yi5qM79hqfiAGo0tDv8k0KEjP5K6MLKAsAcj0FQ9EpD0kPhgo5dxfqrG+DOTXThTD+OSI3iu3kdjgu2DGSUCBfQhpZk=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Amber.Lin@amd.com; 
+Received: from DM6PR12MB3050.namprd12.prod.outlook.com (20.178.30.142) by
+ DM6PR12MB2794.namprd12.prod.outlook.com (20.176.116.150) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2665.24; Fri, 31 Jan 2020 13:45:57 +0000
+Received: from DM6PR12MB3050.namprd12.prod.outlook.com
+ ([fe80::fd6d:4cf1:218f:b398]) by DM6PR12MB3050.namprd12.prod.outlook.com
+ ([fe80::fd6d:4cf1:218f:b398%3]) with mapi id 15.20.2665.027; Fri, 31 Jan 2020
+ 13:45:57 +0000
+From: Amber Lin <Amber.Lin@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v2] drm/amdkfd: Add queue information to sysfs
+Date: Fri, 31 Jan 2020 08:45:44 -0500
+Message-Id: <1580478344-14836-1-git-send-email-Amber.Lin@amd.com>
+X-Mailer: git-send-email 2.7.4
+X-ClientProxiedBy: YTBPR01CA0012.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::25) To DM6PR12MB3050.namprd12.prod.outlook.com
+ (2603:10b6:5:11a::14)
 MIME-Version: 1.0
-In-Reply-To: <43ecd5a5-6087-0cb6-4ba0-adf0d4b3ac07@amd.com>
-Content-Language: en-US
+Received: from alin.amd.com (165.204.55.251) by
+ YTBPR01CA0012.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.2665.22 via Frontend Transport; Fri, 31 Jan 2020 13:45:56 +0000
+X-Mailer: git-send-email 2.7.4
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 4ff061a7-7325-4257-663f-08d7a653e62d
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2794:|DM6PR12MB2794:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB279447C54A7B7A74F1588DD3E1070@DM6PR12MB2794.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1148;
+X-Forefront-PRVS: 029976C540
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(136003)(396003)(366004)(346002)(39860400002)(189003)(199004)(81166006)(478600001)(26005)(8676002)(186003)(81156014)(6486002)(2906002)(66946007)(66476007)(66556008)(36756003)(5660300002)(52116002)(7696005)(4326008)(956004)(2616005)(8936002)(86362001)(6916009)(6666004)(16526019)(316002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2794;
+ H:DM6PR12MB3050.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Ly4wig1/8DxtmEFNZYElhgvAs3iRxTrZw7PJXti8CGQxgtJOvpoB1u3wtzObFZTWnus/Es2SBeofTLQd6Tair5BW+ddHodLoVMpwey5vyaHjgCZruZ8UKzXR8CGrKqorSELjy4CvwTdbjk9vuwcGqpUGSTdYLePtmjT6ESf/7Bx4fr6Z+/UuX2q8KuSwMfYwTvik1USD3rIoIdFASctlVgI+D/xaIob+JHlQq8P52VHt0CLBnZfw+rSzXjLL/3LKPnJuzr2nXKTAReDsCFmvnjOKm3kwNANnFfLNNrxPG1wm7W1mgnQqIdn6a7jJ4PLPshj2vhBVrJrSBx6ug2WNxjUYjF0X7C5i9Sk2R9bfED7s2oBsTH6sSu2g9GOoIXIDsoTyayDRbwUyLTSPCqwH2JMRU2pxbzLHGhd0JawdrEbi3HPh9eRiy8uyJGbyZAi+
+X-MS-Exchange-AntiSpam-MessageData: 3qUL4Fuebt/Yga1zoA5BJ2bVABCC7A1fBMSFmpZ1swhNCcHybsZVLESGT5iFkr7cMbvC4d6p5lsEI5Hd8AB6M6GbW42OlgATkwq8LiRb/JOG06QdSVELDfdVxhmhrer0GcarnSxEkKBkF7/G3lNVYw==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ff061a7-7325-4257-663f-08d7a653e62d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jan 2020 13:45:57.2134 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vEOJeyg0LHgJ0dXuTNzN6MeypQBkr47PgrPUkUT0T1Va8T1ZR5LcaG9+wTGw7bv+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2794
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,39 +105,205 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Amber Lin <Amber.Lin@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMzAuMDEuMjAgdW0gMjM6MTEgc2NocmllYiBGZWxpeCBLdWVobGluZzoKPgo+IE9uIDIwMjAt
-MDEtMzAgNzo0OSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gRm9yIHRoZSByb290IFBEIG1h
-c2sgY2FuIGJlIDB4ZmZmZmZmZmYgYXMgd2VsbCB3aGljaCB3b3VsZAo+PiBvdmVycnVuIHRvIDAg
-aWYgd2UgZG9uJ3QgY2FzdCBpdCBiZWZvcmUgd2UgYWRkIG9uZS4KPiBZb3UncmUgZml4aW5nIHBh
-cmVudGhlc2VzLCBub3QgYnJhY2VzLgo+Cj4gUGFyZW50aGVzZXM6ICgpCj4gQnJhY2tldHM6IFtd
-Cj4gQnJhY2VzOiB7fQoKWWVhaCwgSSBjYW4ndCByZW1lbWJlciB3aGljaCBpcyB3aGF0IGluIEVu
-Z2xpc2guIE5lZWQgdG8gZG91YmxlIGNoZWNrIAp0aGF0IG5leHQgdGltZS4KCj4KPiBXaXRoIHRo
-ZSB0aXRsZSBmaXhlZCwgdGhpcyBwYXRjaCBpcwo+Cj4gUmV2aWV3ZWQtYnk6IEZlbGl4IEt1ZWhs
-aW5nIDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPgoKVGhhbmtzIGZvciB0aGUgcmV2aWV3LApDaHJp
-c3RpYW4uCgo+Cj4+Cj4+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
-bi5rb2VuaWdAYW1kLmNvbT4KPj4gVGVzdGVkLWJ5OiBUb20gU3QgRGVuaXMgPHRvbS5zdGRlbmlz
-QGFtZC5jb20+Cj4+IC0tLQo+PiDCoCBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dm0uYyB8IDIgKy0KPj4gwqAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0
-aW9uKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfdm0uYyAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+PiBp
-bmRleCA1Y2IxODIyMzFmNWQuLjRiYTZhNWU1ZDA5NCAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPj4gQEAgLTE0ODcsNyArMTQ4Nyw3IEBAIHN0YXRpYyBpbnQg
-YW1kZ3B1X3ZtX3VwZGF0ZV9wdGVzKHN0cnVjdCAKPj4gYW1kZ3B1X3ZtX3VwZGF0ZV9wYXJhbXMg
-KnBhcmFtcywKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGluY3IgPSAodWludDY0X3QpQU1ER1BVX0dQ
-VV9QQUdFX1NJWkUgPDwgc2hpZnQ7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBtYXNrID0gYW1kZ3B1
-X3ZtX2VudHJpZXNfbWFzayhhZGV2LCBjdXJzb3IubGV2ZWwpOwo+PiDCoMKgwqDCoMKgwqDCoMKg
-wqAgcGVfc3RhcnQgPSAoKGN1cnNvci5wZm4gPj4gc2hpZnQpICYgbWFzaykgKiA4Owo+PiAtwqDC
-oMKgwqDCoMKgwqAgZW50cnlfZW5kID0gKHVpbnQ2NF90KShtYXNrICsgMSkgPDwgc2hpZnQ7Cj4+
-ICvCoMKgwqDCoMKgwqDCoCBlbnRyeV9lbmQgPSAoKHVpbnQ2NF90KW1hc2sgKyAxKSA8PCBzaGlm
-dDsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGVudHJ5X2VuZCArPSBjdXJzb3IucGZuICYgfihlbnRy
-eV9lbmQgLSAxKTsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGVudHJ5X2VuZCA9IG1pbihlbnRyeV9l
-bmQsIGVuZCk7CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
-czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Provide compute queues information in sysfs under /sys/class/kfd/kfd/proc.
+The format is /sys/class/kfd/kfd/proc/<pid>/queues/<queue id>/XX where
+XX are size, type, and gpuid three files to represent queue size, queue
+type, and the GPU this queue uses. <queue id> folder and files underneath
+are generated when a queue is created. They are removed when the queue is
+destroyed.
+
+Signed-off-by: Amber Lin <Amber.Lin@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h              |  9 ++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c           | 96 ++++++++++++++++++++++
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |  2 +
+ 3 files changed, 107 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index c0b0def..cb2d2d7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -503,6 +503,12 @@ struct queue {
+ 	struct kfd_process	*process;
+ 	struct kfd_dev		*device;
+ 	void *gws;
++
++	/* procfs */
++	struct kobject *kobj_qid;
++	struct attribute attr_size;
++	struct attribute attr_type;
++	struct attribute attr_gpuid;
+ };
+ 
+ /*
+@@ -730,6 +736,7 @@ struct kfd_process {
+ 
+ 	/* Kobj for our procfs */
+ 	struct kobject *kobj;
++	struct kobject *kobj_queues;
+ 	struct attribute attr_pasid;
+ };
+ 
+@@ -836,6 +843,8 @@ extern struct device *kfd_device;
+ /* KFD's procfs */
+ void kfd_procfs_init(void);
+ void kfd_procfs_shutdown(void);
++int kfd_procfs_add_queue(struct queue *q);
++void kfd_procfs_del_queue(struct queue *q);
+ 
+ /* Topology */
+ int kfd_topology_init(void);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 25b90f7..78ca037 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -132,6 +132,94 @@ void kfd_procfs_shutdown(void)
+ 	}
+ }
+ 
++static int kfd_procfs_add_file(const char *name, struct kobject *kobj,
++			       struct attribute *attr)
++{
++	int ret;
++
++	attr->name = name;
++	attr->mode = KFD_SYSFS_FILE_MODE;
++	sysfs_attr_init(attr);
++	ret = sysfs_create_file(kobj, attr);
++	if (ret)
++		pr_warn("Creating %s file failed", name);
++	return ret;
++}
++
++static ssize_t kfd_procfs_queue_show(struct kobject *kobj,
++				     struct attribute *attr, char *buffer)
++{
++	if (!strcmp(attr->name, "size")) {
++		struct queue *q = container_of(attr, struct queue, attr_size);
++		return snprintf(buffer, PAGE_SIZE, "%llu",
++				q->properties.queue_size);
++	} else if (!strcmp(attr->name, "type")) {
++		struct queue *q = container_of(attr, struct queue, attr_type);
++		return snprintf(buffer, PAGE_SIZE, "%d", q->properties.type);
++	} else if (!strcmp(attr->name, "gpuid")) {
++		struct queue *q = container_of(attr, struct queue, attr_gpuid);
++		return snprintf(buffer, PAGE_SIZE, "%u", q->device->id);
++	} else
++		pr_err("Invalid attribute");
++
++	return 0;
++}
++
++static const struct sysfs_ops procfs_queue_ops = {
++	.show = kfd_procfs_queue_show,
++};
++
++static struct kobj_type procfs_queue_type = {
++	.release = kfd_procfs_kobj_release,
++	.sysfs_ops = &procfs_queue_ops,
++};
++
++int kfd_procfs_add_queue(struct queue *q)
++{
++	struct kfd_process *proc;
++	int ret;
++
++	if (!q || !q->process)
++		return -EINVAL;
++	proc = q->process;
++
++	/* Create proc/<pid>/queues/<queue id> folder*/
++	if (!proc->kobj_queues)
++		return -EFAULT;
++	if (q->kobj_qid)
++		return -EEXIST;
++	q->kobj_qid = kfd_alloc_struct(q->kobj_qid);
++	if (!q->kobj_qid)
++		return -ENOMEM;
++	ret = kobject_init_and_add(q->kobj_qid, &procfs_queue_type,
++			proc->kobj_queues, "%u", q->properties.queue_id);
++	if (ret < 0) {
++		pr_warn("Creating proc/<pid>/queues/%u failed",
++			q->properties.queue_id);
++		return ret;
++	}
++
++	/* Create proc/<pid>/queues/<queue id>/XX files */
++	kfd_procfs_add_file("size", q->kobj_qid, &q->attr_size);
++	kfd_procfs_add_file("type", q->kobj_qid, &q->attr_type);
++	kfd_procfs_add_file("gpuid", q->kobj_qid, &q->attr_gpuid);
++
++	return 0;
++}
++
++void kfd_procfs_del_queue(struct queue *q)
++{
++	if (!q || !q->process)
++		return;
++
++	sysfs_remove_file(q->kobj_qid, &q->attr_size);
++	sysfs_remove_file(q->kobj_qid, &q->attr_type);
++	sysfs_remove_file(q->kobj_qid, &q->attr_gpuid);
++	kobject_del(q->kobj_qid);
++	kobject_put(q->kobj_qid);
++	q->kobj_qid = NULL;
++}
++
+ int kfd_process_create_wq(void)
+ {
+ 	if (!kfd_process_wq)
+@@ -323,6 +411,11 @@ struct kfd_process *kfd_create_process(struct file *filep)
+ 		if (ret)
+ 			pr_warn("Creating pasid for pid %d failed",
+ 					(int)process->lead_thread->pid);
++
++		process->kobj_queues = kobject_create_and_add("queues",
++							process->kobj);
++		if (!process->kobj_queues)
++			pr_warn("Creating KFD proc/queues folder failed");
+ 	}
+ out:
+ 	if (!IS_ERR(process))
+@@ -457,6 +550,9 @@ static void kfd_process_wq_release(struct work_struct *work)
+ 	/* Remove the procfs files */
+ 	if (p->kobj) {
+ 		sysfs_remove_file(p->kobj, &p->attr_pasid);
++		kobject_del(p->kobj_queues);
++		kobject_put(p->kobj_queues);
++		p->kobj_queues = NULL;
+ 		kobject_del(p->kobj);
+ 		kobject_put(p->kobj);
+ 		p->kobj = NULL;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 8fa856e..cb1ca11 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -322,6 +322,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+ 
+ 	if (q) {
+ 		pr_debug("PQM done creating queue\n");
++		kfd_procfs_add_queue(q);
+ 		print_queue_properties(&q->properties);
+ 	}
+ 
+@@ -378,6 +379,7 @@ int pqm_destroy_queue(struct process_queue_manager *pqm, unsigned int qid)
+ 	}
+ 
+ 	if (pqn->q) {
++		kfd_procfs_del_queue(pqn->q);
+ 		dqm = pqn->q->device->dqm;
+ 		retval = dqm->ops.destroy_queue(dqm, &pdd->qpd, pqn->q);
+ 		if (retval) {
+-- 
+2.7.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
