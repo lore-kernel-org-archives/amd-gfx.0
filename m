@@ -3,103 +3,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18A8EC33CB3
-	for <amd-gfx@archiver.kernel.org>; Sat,  1 Feb 2020 15:21:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85D9FC33CB3
+	for <amd-gfx@archiver.kernel.org>; Sat,  1 Feb 2020 16:26:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D03FD206F0
-	for <amd-gfx@archiver.kernel.org>; Sat,  1 Feb 2020 15:21:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 595E5206D3
+	for <amd-gfx@archiver.kernel.org>; Sat,  1 Feb 2020 16:26:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="u6n9ohpm"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D03FD206F0
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="YSNZofZ7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 595E5206D3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A8B46E500;
-	Sat,  1 Feb 2020 15:21:58 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2075.outbound.protection.outlook.com [40.107.223.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C60E56E500
- for <amd-gfx@lists.freedesktop.org>; Sat,  1 Feb 2020 15:21:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=V+IisJmjjMblsYDHWWpLfkDfoyOCOpotg3rXEp8SmcsBDWV+ZT/fcuS61nWnZaHUBHOpWhzvJ8Gn3z4MQyoYn8/XFROk3tEaf1oN/iUwxrku1bMDd242M4oNvMAjuEd2DAQ/ZLdEX71ZVL8uv25zDWf0qaE7wWxtTUsjdNm7INTk9g6Lv5/0kwc5l3WMfzNPiF8EH8fju8d15gIPxWNlT9Ii2CLpn+TRHnq/9A0blwg5fKyOibHrhrb2h76rdeN5hHpBW+xOjxEtPfwR9TnXU73xT4V6OA0miXRpmVNHqbxwqQJut1L2mlDNhJNZffCN7HWXG7BXLTiovBHW7h5k2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8NXhh3BNRNnDfPYbRu4o57oSXKHQxONxApNuBhOtBD8=;
- b=Km9knYuojdPJTExdfGIGBKXm6MqLh7fhKmqJ5yWN1KfLQVCjM7bEbbodS8cE+yIoGcn4RJC0h03cGYDFFFRuP3sB7JPwzUS1QYq98F8YBKnaxKa9Kvq+U/fdurgwZbYQYGZeSsGUgNnVANtHNi2+r//9NTZiwX8tlnI9Ar5uWTEqi5FRoPgpwLkEnUacRQu/t74lwvEVNzlNP2YVBD81cXvzMxIGo0LvFk4z9cZLckF3XoNk/50j1I50B04rvF0tP37wOksGYzxJJd5rTncq1bpfgDBAZzRg/LGQ+JmYMQvuOwFW/pdpDxVpgCR/LZHbZhhVZ/HUMBLU4phlyOABkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8NXhh3BNRNnDfPYbRu4o57oSXKHQxONxApNuBhOtBD8=;
- b=u6n9ohpm7+CQc25LdmASfSfumluQp0ZQhuU3blH0llztnAx/NoSd7rc5Talm3yb5SmCeWmmr/ROo4OfXuLSkcLi7CyGGf/ELmK5NEpM+SrmAg+98ehWPlLpRoJlnGa5GeaasH2bgKfxWTxJrRaTomne4NT4GXwxt5yhdWD2WZgA=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Rajneesh.Bhardwaj@amd.com; 
-Received: from SN1PR12MB2366.namprd12.prod.outlook.com (52.132.194.147) by
- SN1PR12MB2512.namprd12.prod.outlook.com (52.132.200.142) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2686.29; Sat, 1 Feb 2020 15:21:55 +0000
-Received: from SN1PR12MB2366.namprd12.prod.outlook.com
- ([fe80::596e:6046:7bf6:9a80]) by SN1PR12MB2366.namprd12.prod.outlook.com
- ([fe80::596e:6046:7bf6:9a80%7]) with mapi id 15.20.2686.031; Sat, 1 Feb 2020
- 15:21:54 +0000
-Subject: Re: [Patch v2 3/4] drm/amdkfd: refactor runtime pm for baco
-To: "Zeng, Oak" <Oak.Zeng@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20200201033707.16351-1-rajneesh.bhardwaj@amd.com>
- <20200201033707.16351-4-rajneesh.bhardwaj@amd.com>
- <BL0PR12MB2580A03910EE0EFAE1D6DE5F80060@BL0PR12MB2580.namprd12.prod.outlook.com>
-From: "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>
-Message-ID: <27c6811a-f5e0-33e0-ba36-955d61267e08@amd.com>
-Date: Sat, 1 Feb 2020 10:21:52 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
-In-Reply-To: <BL0PR12MB2580A03910EE0EFAE1D6DE5F80060@BL0PR12MB2580.namprd12.prod.outlook.com>
-Content-Language: en-US
-X-ClientProxiedBy: YTBPR01CA0006.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::19) To SN1PR12MB2366.namprd12.prod.outlook.com
- (2603:10b6:802:25::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0145D6E049;
+	Sat,  1 Feb 2020 16:26:33 +0000 (UTC)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20ECB6E049;
+ Sat,  1 Feb 2020 16:26:32 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 011GO2ho170066;
+ Sat, 1 Feb 2020 16:26:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2019-08-05;
+ bh=qcGXKiY3GE8IoOSuEgOX+PWsQEJZ9WKgu7dUUWQqrfQ=;
+ b=YSNZofZ7ZqYnCJOxzT8gCflqxf5fW+U69ygw+SqauiAzTzmO5wdPmyb7Iu3JqVUPldJb
+ i4r/4UJOEV/voWzBdpRGAh/ya5x/TjfXvibYstNEOW9IdwbVwSv6B/4saeuF600HaYMF
+ C5gZbNGYHs4s6ZeVgIJM6UhsD0etsXyU5jEl+kbCx+nSVhWdZvDF7TIl+R/zKI1nuVKE
+ e+m6pmS/XHQMPyJ4yFW4AuL+2NmZN1y/tGy8JKvmwZ6MyOQXStAjsAeX1tEzXV1Ia75Z
+ QYxEF6Ttok170eDo5OkRmk4kjnGANo6PeQKsEWXJYtR4p3ExjsYmzrUdbccT+UyrA+lp TQ== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2130.oracle.com with ESMTP id 2xw0rtsr75-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Sat, 01 Feb 2020 16:26:04 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 011GNKM2187896;
+ Sat, 1 Feb 2020 16:26:04 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3030.oracle.com with ESMTP id 2xvycydah3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Sat, 01 Feb 2020 16:26:03 +0000
+Received: from abhmp0009.oracle.com (abhmp0009.oracle.com [141.146.116.15])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 011GPpS3016390;
+ Sat, 1 Feb 2020 16:25:51 GMT
+Received: from kadam (/129.205.23.165) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Sat, 01 Feb 2020 08:25:50 -0800
+Date: Sat, 1 Feb 2020 19:25:37 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Hillf Danton <hdanton@sina.com>
+Subject: Re: KASAN: use-after-free Read in vgem_gem_dumb_create
+Message-ID: <20200201162537.GK1778@kadam>
+References: <20200201043209.13412-1-hdanton@sina.com>
+ <20200201090247.10928-1-hdanton@sina.com>
 MIME-Version: 1.0
-Received: from [192.168.2.34] (69.156.99.251) by
- YTBPR01CA0006.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2686.27 via Frontend Transport; Sat, 1 Feb 2020 15:21:54 +0000
-X-Originating-IP: [69.156.99.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 158c7e38-fa5e-4dc5-7dc8-08d7a72a783c
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2512:|SN1PR12MB2512:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB25126D8537277640345FD6F2FE060@SN1PR12MB2512.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
-X-Forefront-PRVS: 03008837BD
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(396003)(136003)(39850400004)(366004)(376002)(199004)(189003)(53546011)(16576012)(316002)(110136005)(54906003)(478600001)(186003)(5660300002)(16526019)(52116002)(956004)(6486002)(2616005)(66946007)(4744005)(66476007)(66556008)(31696002)(81166006)(8676002)(81156014)(26005)(8936002)(86362001)(4326008)(36756003)(2906002)(31686004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:SN1PR12MB2512;
- H:SN1PR12MB2366.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: R7sHH6SvNF4I1SXMqhWXO71izaqxEnMUGh3jnGZESqvQk1gj/ZMEmaa8A2C2vu6s5OXeQU1xlAVNjZDaVU0E44DXwKCoxXHjv9dMZkWWOo83cjaHM9ljvS+tZJSjOQLpQO8AIkQtVJMleR9FIG/RzX9nMBf+OnpFLkqEDh2v8wNWXIOjxODryQ3PVgVYKJPwx5EWrVaHKxFknikjKMenN3PvBs5mFkWHKv3dphPVgD/tuCHfezbaG6/VcEW1YEZhPY/UHuGpNC5J6PZEbM6KQGxWlkWqU7gvag3mLE/7NRXLIhQSxvYoe0Y+BU9YCtsYDYtnQtrmM19jN16hHDqX1UauuHugD1oKKMxfKll/G4gBpFE4xXxBTqkeOA0rpNr/C1dF8ye4EOZRo5S1zJKmWV5KxrZUKt9xopBmLs4CUIkhncTquSrVXnRfGJTQVsBh
-X-MS-Exchange-AntiSpam-MessageData: VNunPLiIXv8rqtabDT6eo9UoQF4eLNPTjnzj5WO8ESoHr8LPBGGEezOsmPSANuGalLFbF8ES8kT44PFmWhGf27UF2qTnoY7cUVUBpTu/dGwNsPCJg/Ewiq9ESrze7e4BiChrhx0S8GOtcz+0dKqNIg==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 158c7e38-fa5e-4dc5-7dc8-08d7a72a783c
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2020 15:21:54.7777 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: A93FpWGsaXLjbmV8hJXrrHoKFFodbuDI7oBnhXZid8CPweDpzmvoqPzt0m83TPcBqVFRv7RhXP6ESt0rvEVHiw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2512
+Content-Disposition: inline
+In-Reply-To: <20200201090247.10928-1-hdanton@sina.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9518
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1911140001 definitions=main-2002010121
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9518
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
+ definitions=main-2002010121
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,40 +91,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>
+Cc: robdclark@chromium.org, daniel@ffwll.ch, davem@davemloft.net,
+ airlied@linux.ie, netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ chris@chris-wilson.co.uk, linaro-mm-sig@lists.linaro.org, eric@anholt.net,
+ seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
+ syzbot <syzbot+0dc4444774d419e916c8@syzkaller.appspotmail.com>,
+ alexander.deucher@amd.com, linux-media@vger.kernel.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, emil.velikov@collabora.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Sat, Feb 01, 2020 at 05:02:47PM +0800, Hillf Danton wrote:
+> 
+> On Sat, 1 Feb 2020 09:17:57 +0300 Dan Carpenter wrote:
+> > On Sat, Feb 01, 2020 at 12:32:09PM +0800, Hillf Danton wrote:
+> > >
+> > > Release obj in error path.
+> > > 
+> > > --- a/drivers/gpu/drm/vgem/vgem_drv.c
+> > > +++ b/drivers/gpu/drm/vgem/vgem_drv.c
+> > > @@ -196,10 +196,10 @@ static struct drm_gem_object *vgem_gem_c
+> > >  		return ERR_CAST(obj);
+> > >  
+> > >  	ret = drm_gem_handle_create(file, &obj->base, handle);
+> > > -	drm_gem_object_put_unlocked(&obj->base);
+> > > -	if (ret)
+> > > +	if (ret) {
+> > > +		drm_gem_object_put_unlocked(&obj->base);
+> > >  		return ERR_PTR(ret);
+> > > -
+> > > +	}
+> > >  	return &obj->base;
+> > 
+> > Oh yeah.  It's weird that we never noticed the success path was broken.
+> > It's been that way for three years and no one noticed at all.  Very
+> > strange.
+> > 
+> > Anyway, it already gets freed on error in drm_gem_handle_create() so
+> > we should just delete the drm_gem_object_put_unlocked() here it looks
+> > like.
+> 
+> Good catch, Dan :P
+> Would you please post a patch sometime convenient next week?
 
-On 1/31/2020 11:21 PM, Zeng, Oak wrote:
-> [AMD Official Use Only - Internal Distribution Only]
->
-> Patch 1,2,3 work for me. See one comment inline, otherwise Reviewed-by: Oak Zeng <Oak.Zeng@amd.com>
->
-> Regards,
-> Oak
+Sure.  Will do.
 
-
-Thanks for the review and testing! My response below.
-
-----8< -------------snip ------------------------>8-----------
-
->   
-> -void kgd2kfd_suspend(struct kfd_dev *kfd)
-> +void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
-> [Oak] I think parameter run_pm is better to called: call_from_pm_runtime. Or you can add some comments to the parameter of this function to say when run_pm==true it is called from pm_runtime.
-
-
-The main purpose of passing this arg is to skip locking kfd for runtime 
-suspend and its already described in the comment above the block that 
-skips locking.
-
-Thanks,
-
-Rajneesh
+regards,
+dan carpenter
 
 _______________________________________________
 amd-gfx mailing list
