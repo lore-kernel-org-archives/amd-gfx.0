@@ -2,85 +2,104 @@ Return-Path: <SRS0=aySl=3V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EBE8C33C9E
-	for <amd-gfx@archiver.kernel.org>; Sat,  1 Feb 2020 08:55:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 18A8EC33CB3
+	for <amd-gfx@archiver.kernel.org>; Sat,  1 Feb 2020 15:21:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5AC212067C
-	for <amd-gfx@archiver.kernel.org>; Sat,  1 Feb 2020 08:55:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D03FD206F0
+	for <amd-gfx@archiver.kernel.org>; Sat,  1 Feb 2020 15:21:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="SphCMJiY"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5AC212067C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="u6n9ohpm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D03FD206F0
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEE866E4C5;
-	Sat,  1 Feb 2020 08:55:15 +0000 (UTC)
-X-Greylist: delayed 9391 seconds by postgrey-1.36 at gabe;
- Sat, 01 Feb 2020 08:55:13 UTC
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D41DB6E4C5
- for <amd-gfx@lists.freedesktop.org>; Sat,  1 Feb 2020 08:55:13 +0000 (UTC)
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 01169RgQ156228;
- Sat, 1 Feb 2020 06:18:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2019-08-05;
- bh=hhdznTEjRn2TpmzARpZTSkC5xlcE7JS0bxN00dg8cWo=;
- b=SphCMJiY6NF2lB9BYBVYJsUlXbkmNQPKeGuoORl4r6QeCguSEuV57oEQxoqsiPxXXCIW
- mnfblYrRsTae4DXgjpIz8eyTpSlfKTkNJRdQ8ayxgAf3Bz/vLJti6Nulhe76jgLGgAsz
- yLlUorD6awK26SSvb2reg/uray7+e2RyrK/8CFYOgbVr3LlB2BCUgZ8geH72orNFVi2P
- pJrYT8w2pOIj7B0W/ARSsqspeAu7JQpYf5ooLDjXHZeUIER5yUsinuGgr+SURTSguPdd
- HGTpH+uY46XXKCtyTrqacnEe19mGi8M7b0NtkBRgFSuvzafXa9jBLPsMiDnMA5xaLicr HA== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by aserp2120.oracle.com with ESMTP id 2xw19q0f31-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sat, 01 Feb 2020 06:18:19 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id 01169AIe082788;
- Sat, 1 Feb 2020 06:18:18 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 2xvxffx53b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sat, 01 Feb 2020 06:18:18 +0000
-Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 0116ICvr009522;
- Sat, 1 Feb 2020 06:18:12 GMT
-Received: from kadam (/129.205.23.165) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 31 Jan 2020 22:18:11 -0800
-Date: Sat, 1 Feb 2020 09:17:57 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Hillf Danton <hdanton@sina.com>
-Subject: Re: KASAN: use-after-free Read in vgem_gem_dumb_create
-Message-ID: <20200201061756.GG1778@kadam>
-References: <20200201043209.13412-1-hdanton@sina.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A8B46E500;
+	Sat,  1 Feb 2020 15:21:58 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2075.outbound.protection.outlook.com [40.107.223.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C60E56E500
+ for <amd-gfx@lists.freedesktop.org>; Sat,  1 Feb 2020 15:21:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=V+IisJmjjMblsYDHWWpLfkDfoyOCOpotg3rXEp8SmcsBDWV+ZT/fcuS61nWnZaHUBHOpWhzvJ8Gn3z4MQyoYn8/XFROk3tEaf1oN/iUwxrku1bMDd242M4oNvMAjuEd2DAQ/ZLdEX71ZVL8uv25zDWf0qaE7wWxtTUsjdNm7INTk9g6Lv5/0kwc5l3WMfzNPiF8EH8fju8d15gIPxWNlT9Ii2CLpn+TRHnq/9A0blwg5fKyOibHrhrb2h76rdeN5hHpBW+xOjxEtPfwR9TnXU73xT4V6OA0miXRpmVNHqbxwqQJut1L2mlDNhJNZffCN7HWXG7BXLTiovBHW7h5k2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8NXhh3BNRNnDfPYbRu4o57oSXKHQxONxApNuBhOtBD8=;
+ b=Km9knYuojdPJTExdfGIGBKXm6MqLh7fhKmqJ5yWN1KfLQVCjM7bEbbodS8cE+yIoGcn4RJC0h03cGYDFFFRuP3sB7JPwzUS1QYq98F8YBKnaxKa9Kvq+U/fdurgwZbYQYGZeSsGUgNnVANtHNi2+r//9NTZiwX8tlnI9Ar5uWTEqi5FRoPgpwLkEnUacRQu/t74lwvEVNzlNP2YVBD81cXvzMxIGo0LvFk4z9cZLckF3XoNk/50j1I50B04rvF0tP37wOksGYzxJJd5rTncq1bpfgDBAZzRg/LGQ+JmYMQvuOwFW/pdpDxVpgCR/LZHbZhhVZ/HUMBLU4phlyOABkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8NXhh3BNRNnDfPYbRu4o57oSXKHQxONxApNuBhOtBD8=;
+ b=u6n9ohpm7+CQc25LdmASfSfumluQp0ZQhuU3blH0llztnAx/NoSd7rc5Talm3yb5SmCeWmmr/ROo4OfXuLSkcLi7CyGGf/ELmK5NEpM+SrmAg+98ehWPlLpRoJlnGa5GeaasH2bgKfxWTxJrRaTomne4NT4GXwxt5yhdWD2WZgA=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Rajneesh.Bhardwaj@amd.com; 
+Received: from SN1PR12MB2366.namprd12.prod.outlook.com (52.132.194.147) by
+ SN1PR12MB2512.namprd12.prod.outlook.com (52.132.200.142) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2686.29; Sat, 1 Feb 2020 15:21:55 +0000
+Received: from SN1PR12MB2366.namprd12.prod.outlook.com
+ ([fe80::596e:6046:7bf6:9a80]) by SN1PR12MB2366.namprd12.prod.outlook.com
+ ([fe80::596e:6046:7bf6:9a80%7]) with mapi id 15.20.2686.031; Sat, 1 Feb 2020
+ 15:21:54 +0000
+Subject: Re: [Patch v2 3/4] drm/amdkfd: refactor runtime pm for baco
+To: "Zeng, Oak" <Oak.Zeng@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20200201033707.16351-1-rajneesh.bhardwaj@amd.com>
+ <20200201033707.16351-4-rajneesh.bhardwaj@amd.com>
+ <BL0PR12MB2580A03910EE0EFAE1D6DE5F80060@BL0PR12MB2580.namprd12.prod.outlook.com>
+From: "Bhardwaj, Rajneesh" <rajneesh.bhardwaj@amd.com>
+Message-ID: <27c6811a-f5e0-33e0-ba36-955d61267e08@amd.com>
+Date: Sat, 1 Feb 2020 10:21:52 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.2
+In-Reply-To: <BL0PR12MB2580A03910EE0EFAE1D6DE5F80060@BL0PR12MB2580.namprd12.prod.outlook.com>
+Content-Language: en-US
+X-ClientProxiedBy: YTBPR01CA0006.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::19) To SN1PR12MB2366.namprd12.prod.outlook.com
+ (2603:10b6:802:25::19)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200201043209.13412-1-hdanton@sina.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9517
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1911140001 definitions=main-2002010043
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9517
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
- definitions=main-2002010043
+Received: from [192.168.2.34] (69.156.99.251) by
+ YTBPR01CA0006.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2686.27 via Frontend Transport; Sat, 1 Feb 2020 15:21:54 +0000
+X-Originating-IP: [69.156.99.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 158c7e38-fa5e-4dc5-7dc8-08d7a72a783c
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2512:|SN1PR12MB2512:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SN1PR12MB25126D8537277640345FD6F2FE060@SN1PR12MB2512.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Forefront-PRVS: 03008837BD
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(396003)(136003)(39850400004)(366004)(376002)(199004)(189003)(53546011)(16576012)(316002)(110136005)(54906003)(478600001)(186003)(5660300002)(16526019)(52116002)(956004)(6486002)(2616005)(66946007)(4744005)(66476007)(66556008)(31696002)(81166006)(8676002)(81156014)(26005)(8936002)(86362001)(4326008)(36756003)(2906002)(31686004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SN1PR12MB2512;
+ H:SN1PR12MB2366.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: R7sHH6SvNF4I1SXMqhWXO71izaqxEnMUGh3jnGZESqvQk1gj/ZMEmaa8A2C2vu6s5OXeQU1xlAVNjZDaVU0E44DXwKCoxXHjv9dMZkWWOo83cjaHM9ljvS+tZJSjOQLpQO8AIkQtVJMleR9FIG/RzX9nMBf+OnpFLkqEDh2v8wNWXIOjxODryQ3PVgVYKJPwx5EWrVaHKxFknikjKMenN3PvBs5mFkWHKv3dphPVgD/tuCHfezbaG6/VcEW1YEZhPY/UHuGpNC5J6PZEbM6KQGxWlkWqU7gvag3mLE/7NRXLIhQSxvYoe0Y+BU9YCtsYDYtnQtrmM19jN16hHDqX1UauuHugD1oKKMxfKll/G4gBpFE4xXxBTqkeOA0rpNr/C1dF8ye4EOZRo5S1zJKmWV5KxrZUKt9xopBmLs4CUIkhncTquSrVXnRfGJTQVsBh
+X-MS-Exchange-AntiSpam-MessageData: VNunPLiIXv8rqtabDT6eo9UoQF4eLNPTjnzj5WO8ESoHr8LPBGGEezOsmPSANuGalLFbF8ES8kT44PFmWhGf27UF2qTnoY7cUVUBpTu/dGwNsPCJg/Ewiq9ESrze7e4BiChrhx0S8GOtcz+0dKqNIg==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 158c7e38-fa5e-4dc5-7dc8-08d7a72a783c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Feb 2020 15:21:54.7777 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: A93FpWGsaXLjbmV8hJXrrHoKFFodbuDI7oBnhXZid8CPweDpzmvoqPzt0m83TPcBqVFRv7RhXP6ESt0rvEVHiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2512
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,179 +111,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: robdclark@chromium.org, daniel@ffwll.ch, davem@davemloft.net,
- airlied@linux.ie, netdev@vger.kernel.org, syzkaller-bugs@googlegroups.com,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- chris@chris-wilson.co.uk, linaro-mm-sig@lists.linaro.org, eric@anholt.net,
- seanpaul@chromium.org, dri-devel@lists.freedesktop.org,
- syzbot <syzbot+0dc4444774d419e916c8@syzkaller.appspotmail.com>,
- alexander.deucher@amd.com, linux-media@vger.kernel.org,
- sumit.semwal@linaro.org, christian.koenig@amd.com, emil.velikov@collabora.com
-Content-Type: text/plain; charset="us-ascii"
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Feb 01, 2020 at 12:32:09PM +0800, Hillf Danton wrote:
-> 
-> Fri, 31 Jan 2020 14:28:10 -0800 (PST)
-> > syzbot found the following crash on:
-> > 
-> > HEAD commit:    39bed42d Merge tag 'for-linus-hmm' of git://git.kernel.org..
-> > git tree:       upstream
-> > console output: https://syzkaller.appspot.com/x/log.txt?x=179465bee00000
-> > kernel config:  https://syzkaller.appspot.com/x/.config?x=2646535f8818ae25
-> > dashboard link: https://syzkaller.appspot.com/bug?extid=0dc4444774d419e916c8
-> > compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
-> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16251279e00000
-> > 
-> > The bug was bisected to:
-> > 
-> > commit 7611750784664db46d0db95631e322aeb263dde7
-> > Author: Alex Deucher <alexander.deucher@amd.com>
-> > Date:   Wed Jun 21 16:31:41 2017 +0000
-> > 
-> >     drm/amdgpu: use kernel is_power_of_2 rather than local version
-> > 
-> > bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=11628df1e00000
-> > final crash:    https://syzkaller.appspot.com/x/report.txt?x=13628df1e00000
-> > console output: https://syzkaller.appspot.com/x/log.txt?x=15628df1e00000
-> > 
-> > IMPORTANT: if you fix the bug, please add the following tag to the commit:
-> > Reported-by: syzbot+0dc4444774d419e916c8@syzkaller.appspotmail.com
-> > Fixes: 761175078466 ("drm/amdgpu: use kernel is_power_of_2 rather than local version")
-> > 
-> > ==================================================================
-> > BUG: KASAN: use-after-free in vgem_gem_dumb_create+0x238/0x250 drivers/gpu/drm/vgem/vgem_drv.c:221
-> > Read of size 8 at addr ffff88809fa67908 by task syz-executor.0/14871
-> > 
-> > CPU: 0 PID: 14871 Comm: syz-executor.0 Not tainted 5.5.0-syzkaller #0
-> > Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
-> > Call Trace:
-> >  __dump_stack lib/dump_stack.c:77 [inline]
-> >  dump_stack+0x197/0x210 lib/dump_stack.c:118
-> >  print_address_description.constprop.0.cold+0xd4/0x30b mm/kasan/report.c:374
-> >  __kasan_report.cold+0x1b/0x32 mm/kasan/report.c:506
-> >  kasan_report+0x12/0x20 mm/kasan/common.c:639
-> >  __asan_report_load8_noabort+0x14/0x20 mm/kasan/generic_report.c:135
-> >  vgem_gem_dumb_create+0x238/0x250 drivers/gpu/drm/vgem/vgem_drv.c:221
-> >  drm_mode_create_dumb+0x282/0x310 drivers/gpu/drm/drm_dumb_buffers.c:94
-> >  drm_mode_create_dumb_ioctl+0x26/0x30 drivers/gpu/drm/drm_dumb_buffers.c:100
-> >  drm_ioctl_kernel+0x244/0x300 drivers/gpu/drm/drm_ioctl.c:786
-> >  drm_ioctl+0x54e/0xa60 drivers/gpu/drm/drm_ioctl.c:886
-> >  vfs_ioctl fs/ioctl.c:47 [inline]
-> >  ksys_ioctl+0x123/0x180 fs/ioctl.c:747
-> >  __do_sys_ioctl fs/ioctl.c:756 [inline]
-> >  __se_sys_ioctl fs/ioctl.c:754 [inline]
-> >  __x64_sys_ioctl+0x73/0xb0 fs/ioctl.c:754
-> >  do_syscall_64+0xfa/0x790 arch/x86/entry/common.c:294
-> >  entry_SYSCALL_64_after_hwframe+0x49/0xbe
-> > RIP: 0033:0x45b349
-> > Code: ad b6 fb ff c3 66 2e 0f 1f 84 00 00 00 00 00 66 90 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 0f 83 7b b6 fb ff c3 66 2e 0f 1f 84 00 00 00 00
-> > RSP: 002b:00007f871af46c78 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-> > RAX: ffffffffffffffda RBX: 00007f871af476d4 RCX: 000000000045b349
-> > RDX: 0000000020000180 RSI: 00000000c02064b2 RDI: 0000000000000003
-> > RBP: 000000000075bf20 R08: 0000000000000000 R09: 0000000000000000
-> > R10: 0000000000000000 R11: 0000000000000246 R12: 00000000ffffffff
-> > R13: 0000000000000285 R14: 00000000004d14d0 R15: 000000000075bf2c
-> > 
-> > Allocated by task 14871:
-> >  save_stack+0x23/0x90 mm/kasan/common.c:72
-> >  set_track mm/kasan/common.c:80 [inline]
-> >  __kasan_kmalloc mm/kasan/common.c:513 [inline]
-> >  __kasan_kmalloc.constprop.0+0xcf/0xe0 mm/kasan/common.c:486
-> >  kasan_kmalloc+0x9/0x10 mm/kasan/common.c:527
-> >  kmem_cache_alloc_trace+0x158/0x790 mm/slab.c:3551
-> >  kmalloc include/linux/slab.h:556 [inline]
-> >  kzalloc include/linux/slab.h:670 [inline]
-> >  __vgem_gem_create+0x49/0x100 drivers/gpu/drm/vgem/vgem_drv.c:165
-> >  vgem_gem_create drivers/gpu/drm/vgem/vgem_drv.c:194 [inline]
-> >  vgem_gem_dumb_create+0xd7/0x250 drivers/gpu/drm/vgem/vgem_drv.c:217
-> >  drm_mode_create_dumb+0x282/0x310 drivers/gpu/drm/drm_dumb_buffers.c:94
-> >  drm_mode_create_dumb_ioctl+0x26/0x30 drivers/gpu/drm/drm_dumb_buffers.c:100
-> >  drm_ioctl_kernel+0x244/0x300 drivers/gpu/drm/drm_ioctl.c:786
-> >  drm_ioctl+0x54e/0xa60 drivers/gpu/drm/drm_ioctl.c:886
-> >  vfs_ioctl fs/ioctl.c:47 [inline]
-> >  ksys_ioctl+0x123/0x180 fs/ioctl.c:747
-> >  __do_sys_ioctl fs/ioctl.c:756 [inline]
-> >  __se_sys_ioctl fs/ioctl.c:754 [inline]
-> >  __x64_sys_ioctl+0x73/0xb0 fs/ioctl.c:754
-> >  do_syscall_64+0xfa/0x790 arch/x86/entry/common.c:294
-> >  entry_SYSCALL_64_after_hwframe+0x49/0xbe
-> > 
-> > Freed by task 14871:
-> >  save_stack+0x23/0x90 mm/kasan/common.c:72
-> >  set_track mm/kasan/common.c:80 [inline]
-> >  kasan_set_free_info mm/kasan/common.c:335 [inline]
-> >  __kasan_slab_free+0x102/0x150 mm/kasan/common.c:474
-> >  kasan_slab_free+0xe/0x10 mm/kasan/common.c:483
-> >  __cache_free mm/slab.c:3426 [inline]
-> >  kfree+0x10a/0x2c0 mm/slab.c:3757
-> >  vgem_gem_free_object+0xbe/0xe0 drivers/gpu/drm/vgem/vgem_drv.c:68
-> >  drm_gem_object_free+0x100/0x220 drivers/gpu/drm/drm_gem.c:983
-> >  kref_put include/linux/kref.h:65 [inline]
-> >  drm_gem_object_put_unlocked drivers/gpu/drm/drm_gem.c:1017 [inline]
-> >  drm_gem_object_put_unlocked+0x196/0x1c0 drivers/gpu/drm/drm_gem.c:1002
-> >  vgem_gem_create drivers/gpu/drm/vgem/vgem_drv.c:199 [inline]
-> >  vgem_gem_dumb_create+0x115/0x250 drivers/gpu/drm/vgem/vgem_drv.c:217
-> >  drm_mode_create_dumb+0x282/0x310 drivers/gpu/drm/drm_dumb_buffers.c:94
-> >  drm_mode_create_dumb_ioctl+0x26/0x30 drivers/gpu/drm/drm_dumb_buffers.c:100
-> >  drm_ioctl_kernel+0x244/0x300 drivers/gpu/drm/drm_ioctl.c:786
-> >  drm_ioctl+0x54e/0xa60 drivers/gpu/drm/drm_ioctl.c:886
-> >  vfs_ioctl fs/ioctl.c:47 [inline]
-> >  ksys_ioctl+0x123/0x180 fs/ioctl.c:747
-> >  __do_sys_ioctl fs/ioctl.c:756 [inline]
-> >  __se_sys_ioctl fs/ioctl.c:754 [inline]
-> >  __x64_sys_ioctl+0x73/0xb0 fs/ioctl.c:754
-> >  do_syscall_64+0xfa/0x790 arch/x86/entry/common.c:294
-> >  entry_SYSCALL_64_after_hwframe+0x49/0xbe
-> > 
-> > The buggy address belongs to the object at ffff88809fa67800
-> >  which belongs to the cache kmalloc-1k of size 1024
-> > The buggy address is located 264 bytes inside of
-> >  1024-byte region [ffff88809fa67800, ffff88809fa67c00)
-> > The buggy address belongs to the page:
-> > page:ffffea00027e99c0 refcount:1 mapcount:0 mapping:ffff8880aa400c40 index:0x0
-> > raw: 00fffe0000000200 ffffea0002293548 ffffea00023e1f08 ffff8880aa400c40
-> > raw: 0000000000000000 ffff88809fa67000 0000000100000002 0000000000000000
-> > page dumped because: kasan: bad access detected
-> > 
-> > Memory state around the buggy address:
-> >  ffff88809fa67800: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-> >  ffff88809fa67880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-> > >ffff88809fa67900: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-> >                       ^
-> >  ffff88809fa67980: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-> >  ffff88809fa67a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-> > ==================================================================
-> 
-> Release obj in error path.
-> 
-> --- a/drivers/gpu/drm/vgem/vgem_drv.c
-> +++ b/drivers/gpu/drm/vgem/vgem_drv.c
-> @@ -196,10 +196,10 @@ static struct drm_gem_object *vgem_gem_c
->  		return ERR_CAST(obj);
->  
->  	ret = drm_gem_handle_create(file, &obj->base, handle);
-> -	drm_gem_object_put_unlocked(&obj->base);
-> -	if (ret)
-> +	if (ret) {
-> +		drm_gem_object_put_unlocked(&obj->base);
->  		return ERR_PTR(ret);
-> -
-> +	}
->  	return &obj->base;
 
-Oh yeah.  It's weird that we never noticed the success path was broken.
-It's been that way for three years and no one noticed at all.  Very
-strange.
+On 1/31/2020 11:21 PM, Zeng, Oak wrote:
+> [AMD Official Use Only - Internal Distribution Only]
+>
+> Patch 1,2,3 work for me. See one comment inline, otherwise Reviewed-by: Oak Zeng <Oak.Zeng@amd.com>
+>
+> Regards,
+> Oak
 
-Anyway, it already gets freed on error in drm_gem_handle_create() so
-we should just delete the drm_gem_object_put_unlocked() here it looks
-like.
 
-regards,
-dan carpenter
+Thanks for the review and testing! My response below.
+
+----8< -------------snip ------------------------>8-----------
+
+>   
+> -void kgd2kfd_suspend(struct kfd_dev *kfd)
+> +void kgd2kfd_suspend(struct kfd_dev *kfd, bool run_pm)
+> [Oak] I think parameter run_pm is better to called: call_from_pm_runtime. Or you can add some comments to the parameter of this function to say when run_pm==true it is called from pm_runtime.
+
+
+The main purpose of passing this arg is to skip locking kfd for runtime 
+suspend and its already described in the comment above the block that 
+skips locking.
+
+Thanks,
+
+Rajneesh
 
 _______________________________________________
 amd-gfx mailing list
