@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9920FC35247
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2020 21:08:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A478C35247
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2020 21:31:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 67CBB2084E
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2020 21:08:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ECD2A20658
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2020 21:31:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SsrFTU4Q"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67CBB2084E
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G4UBtWEI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ECD2A20658
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A6FE6ED0D;
-	Mon,  3 Feb 2020 21:08:04 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B1EB6ED0D
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Feb 2020 21:08:03 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id y11so20157392wrt.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Feb 2020 13:08:03 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B88726E43C;
+	Mon,  3 Feb 2020 21:31:40 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F6846E43C
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Feb 2020 21:31:39 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id p9so934810wmc.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Feb 2020 13:31:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Vg+RKXLvXi19Y2p4NXyguQMFL80U3pDKEhSnM9bwJGw=;
- b=SsrFTU4QkfJVD39wQlHUiABZWCu7WNHMMFHtbeB/83lpRYJJhv6GXQwsabAE7rqt4X
- hSrzKAZCCdlBaumrsPrw4sv2G47mFf09QHXlFynxCG4Wq4yuxZ5w3NNdhz42WxXRjy0d
- rFHQ/qwJrHKAmzKor0fSHny/T/1QCV1nbv2DIS4zYPqHBG0UJBknceE4AO6us/c6KQ+z
- aHMQoPTHZXOSOvcAaYsxZ6DY3SyV68QpYB2mZlcLvfc97E/yrbc28YMaVNNLH+vUQKId
- pI7EUKzZ1wxeXh8MBGJgI+Ig5c6eVSJ1CbGQvQUXaNSrxoucG7B20fMzE0B2/hHWVKrf
- odgg==
+ :cc; bh=POerSjEcv0EozI7qUYM9Y7hQudZqbYstRVXW/f4lA0s=;
+ b=G4UBtWEIW1R++TO7b/S9QroDlAuLOzZV8gx+99RxPIsqgQ95+doD5r0WUnfPJjImYY
+ WdhSes3hJQ+iyuGoofihNBe09OJQxOvsuL6En6JiRCjV2lS6z9Vr4nFmja1RWpPXqhJ3
+ 53yXboWPpDCALCY/Gc9j8tQbN9Zh+ZTjxArtDtLM+ducvnpQ7+WdHXupH/0mFrkvRJHL
+ l/CGHNeuHq9uHSavbSvkp0DRC1JMic2rEMhDneAYf1fYWd+8jiREqkRaFVWssJTzQTnh
+ f8vvxO+58Uejw/cCkk2iWNPTuVxa4u81k5bM/IvbuxAiNcQAffvkEGKF2+RYVa2Pw4OD
+ GzRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Vg+RKXLvXi19Y2p4NXyguQMFL80U3pDKEhSnM9bwJGw=;
- b=d4U9hWte84lE5i/Vnj+SD8jVNwSF/ERjjaiRMQ23iETdaHrvEO4DQmYv/BZXUkw99Q
- BCskwKwRK/i5bh3d2xmoicE5O9gQtQc+OcBe+8afXLgvSYnxAS6SPOnyA+u8vajloiFa
- buIoBI+9t/csS7sPeANkXSp7XzrtHEv7m9E4csZIIB3BmKQpfpiIx0zR1Vu3DJieW+g2
- 7gbvlBcyXCRxUrELULK5Wzt3gIQRpW2lQ2V4LQZ721V7bKIr+codQM5+ihW3Gy8wWXIC
- ax5cWWoEjyA6qRQ8h/4plXWIi1wa7JU9SPoE7mFXcZvkOppyT+33St5gxZgDqKmMxkQg
- BPcg==
-X-Gm-Message-State: APjAAAXIJMijxtBBEbv1Ci6LYmnhN2m9VOXW70o6/xPnpniQIimO3UYj
- vkAguA9O0oIRvwx3u55NoC1Qk4hHdgmmWwpGhHFIIA==
-X-Google-Smtp-Source: APXvYqxO5qh5pL790dqm0vE+kZvNBN/dJ14FKW84nwlrWbYwA+pwwvkqQiW04VY37FwCOcIR/vG3/RNHRoJF+QHJlAs=
-X-Received: by 2002:adf:ec4c:: with SMTP id w12mr18567970wrn.124.1580764081882; 
- Mon, 03 Feb 2020 13:08:01 -0800 (PST)
+ bh=POerSjEcv0EozI7qUYM9Y7hQudZqbYstRVXW/f4lA0s=;
+ b=P6mGVxypngkZqnGULdUnLWr8wDYft4laxjuIY7/6BRpuwphGUFWMznwei6t7HwmmZg
+ ZZejNozEARRM//UrQYZOvAMeFh7dlaUKvL6xwpPi3uzvLm9Jw+1jh7tkoW3Coi7wOTg7
+ wVH1SfYWVsrS5ojwlLuWQSU79bTZGe/ajk7bJojL1KSwbeYF9mZwcVseZERWMk66iSU/
+ IGRpram0LBV3o+cUdxaHmmOryFmyGP6I9haInk4ogTnFAZPQyys/ltYs0nUCU4tv/RyL
+ g5VHvdNGXJhJ2nUnFGnHaLoUGPwPCijHKP3MkW6pc2b0baHU+m3JoYv3xerp/mO1B218
+ XPjw==
+X-Gm-Message-State: APjAAAVEJ3bDqYIpNPkd3NJe4waQkMtj+1RW2yY0Cg+29NYGs9Mw1K8v
+ URarxMSy00Cz4+DNR1g2ZpMblkBm8qKaufqtEneYbw==
+X-Google-Smtp-Source: APXvYqwLMl/yo4T4liq+9VRmf0avGm5rB57C/0NWUtNpKHs47rfNWQvYeIToNvVt+y6JjLm/m/pp/Ge/dVnuKLFIiVI=
+X-Received: by 2002:a05:600c:218b:: with SMTP id
+ e11mr1046676wme.56.1580765497685; 
+ Mon, 03 Feb 2020 13:31:37 -0800 (PST)
 MIME-Version: 1.0
-References: <20200110201110.117166-1-alexander.deucher@amd.com>
-In-Reply-To: <20200110201110.117166-1-alexander.deucher@amd.com>
+References: <20200128194707.87898-1-alexander.deucher@amd.com>
+ <20200128194707.87898-2-alexander.deucher@amd.com>
+In-Reply-To: <20200128194707.87898-2-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 3 Feb 2020 16:07:51 -0500
-Message-ID: <CADnq5_PqWGUjn06jvxXfr=qQa45WJCK1aKgJ-b+VJRkVj9z4Yg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/display: fix logic inversion in
- program_timing_sync()
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Wenjing Liu <Wenjing.Liu@amd.com>, 
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Harry Wentland <hwentlan@amd.com>
+Date: Mon, 3 Feb 2020 16:31:26 -0500
+Message-ID: <CADnq5_OP4DDFUM49AoXb3_qzyKyDjHAjFP1uU7cChZpLR=sX9g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu/smu10: fix
+ smu10_get_clock_by_type_with_latency
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,34 +84,43 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Ping?
 
-On Fri, Jan 10, 2020 at 3:11 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+On Tue, Jan 28, 2020 at 2:47 PM Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> It looks like we should be reducing the group size when we don't
-> have a plane rather than when we do.
+> Only send non-0 clocks to DC for validation.  This mirrors
+> what the windows driver does.
 >
-> Bug: https://gitlab.freedesktop.org/drm/amd/issues/781
-> Fixes: 5fc0cbfad45648 ("drm/amd/display: determine if a pipe is synced by plane state")
+> Bug: https://gitlab.freedesktop.org/drm/amd/issues/963
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/core/dc.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c | 15 +++++++++------
+>  1 file changed, 9 insertions(+), 6 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> index 3d89904003f0..01b27726d9c5 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-> @@ -1003,9 +1003,9 @@ static void program_timing_sync(
->                                 status->timing_sync_info.master = false;
+> diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+> index 4e8ab139bb3b..273126cfc37d 100644
+> --- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+> +++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+> @@ -1026,12 +1026,15 @@ static int smu10_get_clock_by_type_with_latency(struct pp_hwmgr *hwmgr,
 >
->                 }
-> -               /* remove any other pipes with plane as they have already been synced */
-> +               /* remove any other pipes without plane as they have already been synced */
->                 for (j = j + 1; j < group_size; j++) {
-> -                       if (pipe_set[j]->plane_state) {
-> +                       if (!pipe_set[j]->plane_state) {
->                                 group_size--;
->                                 pipe_set[j] = pipe_set[group_size];
->                                 j--;
+>         clocks->num_levels = 0;
+>         for (i = 0; i < pclk_vol_table->count; i++) {
+> -               clocks->data[i].clocks_in_khz = pclk_vol_table->entries[i].clk * 10;
+> -               clocks->data[i].latency_in_us = latency_required ?
+> -                                               smu10_get_mem_latency(hwmgr,
+> -                                               pclk_vol_table->entries[i].clk) :
+> -                                               0;
+> -               clocks->num_levels++;
+> +               if (pclk_vol_table->entries[i].clk) {
+> +                       clocks->data[clocks->num_levels].clocks_in_khz =
+> +                               pclk_vol_table->entries[i].clk * 10;
+> +                       clocks->data[clocks->num_levels].latency_in_us = latency_required ?
+> +                               smu10_get_mem_latency(hwmgr,
+> +                                                     pclk_vol_table->entries[i].clk) :
+> +                               0;
+> +                       clocks->num_levels++;
+> +               }
+>         }
+>
+>         return 0;
 > --
 > 2.24.1
 >
