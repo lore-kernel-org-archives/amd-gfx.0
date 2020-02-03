@@ -2,72 +2,68 @@ Return-Path: <SRS0=wWp/=3X=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 11355C35247
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2020 20:36:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49F3FC35247
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2020 20:39:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D32F020658
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2020 20:36:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1B52220658
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2020 20:39:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E53k/Nu1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D32F020658
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oRxezjuq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B52220658
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EBAF6ECF2;
-	Mon,  3 Feb 2020 20:36:27 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AA776ECF2
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Feb 2020 20:36:26 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id g3so7055956qka.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Feb 2020 12:36:26 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D20186ECF6;
+	Mon,  3 Feb 2020 20:39:55 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7A226ECF6;
+ Mon,  3 Feb 2020 20:39:54 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id a9so906670wmj.3;
+ Mon, 03 Feb 2020 12:39:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=5rgOkcwzEaZ40Q36bhItmGF2l+ZVk1RhYnO96yLcFfk=;
- b=E53k/Nu1aaN7c63OwMVGrp3juzzMngo753Kgn60SxWhps75azqCG5fhEKV5lYnEcPn
- aCEPvKCXoWNLbUz+vHyB512WRC8WVYbWZjjBOjQjE2xZ1QdGDApOVFq00rSS7mqlfLAd
- xu7agCEP5UiR4iaGWnQ4D5KbTBbtRcmt4V3eeaJoGJFO+1OmAxnxd5ogpHvouOv/if7X
- S7m/ElKQDoV9AjP33J6adjcCmXeFC0wZVSVjhe8vcfLDmp2YsVXplf8T4LAPPsqwg6c9
- ZUq/7XFMlj9r2PDMq9i2f/vOJf3xWBMDRETZSLiCvZiuVKmpknrDcWcmPUXMwHK/Gv1i
- fBFg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=mOB+jXb70psFwK6ilNyJvCjU6t2LYt+4h3WNAoOnGBQ=;
+ b=oRxezjuqZkM1EZRn8OD6Aazas+pCiWl2XxZnL3WkFkHfKAX0y8nlbb7X5wixjp47Hz
+ f0hlar9LplYIlfF7bRpfEST4n6OULQzG0vEOnZjvfmbzuk4REE0qOFBmFTySB6eFfkDv
+ 5XAyI2omeCL4fS7Au6HVxVGngPBiI9Yq4UyPdof5w70BhNN2fPyhegfB//s+zYh/XZhX
+ +1zgb8oIX2RdlnQa46Q4QzdBQQE1zA9YqVUdVFNTbJkk3lcNh7fQovkchaQsQprzEqIB
+ wCqcU9fvHjbnrCD8A+kk7KJ56HqeQjmw41+dhOQHErvOtoFXcV9ijhNdeq3mOpWPRqLB
+ IL7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=5rgOkcwzEaZ40Q36bhItmGF2l+ZVk1RhYnO96yLcFfk=;
- b=fRs6c9igLXE0aGg+TtUDXtFsJyjn/vxcXgLIeCIU4Uot0vHCg9BjY0es5/rlJC5Gll
- 1w8qYA7tdlOa0Sr+w+c8xD9CNkehu3By7mXsebN0bIp2dREw0y0wFIqfajwAFZ7S1fXv
- Hn8VgcH8RfvIEiNJnvXEKawjhLUlPiRmQELhU4bpHqhw39nLAGuyYA/klA8OT02WB7Em
- +l3Hwcnled1d89zKPZ406eupvBCGIMXl7F0OMRcvCajYteC86egoHFNQY2eDqdbFtsM0
- 3IqrHY3NH/0aj8y1ridzhGXsBTqk1mHknnPAO4ez9pmR9gq8KSrePqKgMq4yTUo3Dd/j
- iaUA==
-X-Gm-Message-State: APjAAAUbXiG56L/j0/Opg+XSnkr5o5/62tzStajZa5HoAJgF2TwuLu8s
- uzqye6q/esAuEpIY04FXYI2OVK5E
-X-Google-Smtp-Source: APXvYqwnbLK0bwP7YU2mefaC7yJL0RgGvTQb8Rwn6NxcrrSg0bN3hxr/bO16eYvaxNreUO91gdZLcw==
-X-Received: by 2002:a05:620a:1001:: with SMTP id
- z1mr23081011qkj.99.1580762185291; 
- Mon, 03 Feb 2020 12:36:25 -0800 (PST)
-Received: from localhost.localdomain ([71.219.59.120])
- by smtp.gmail.com with ESMTPSA id y5sm3938951qki.123.2020.02.03.12.36.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Feb 2020 12:36:24 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: fetch default VDDC curve voltages (v2)
-Date: Mon,  3 Feb 2020 15:36:17 -0500
-Message-Id: <20200203203617.23887-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.24.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=mOB+jXb70psFwK6ilNyJvCjU6t2LYt+4h3WNAoOnGBQ=;
+ b=V/veBa1UqHleNPdXRFrCa1R/nv9FHDRAVppNlKkskxvR34QmEU9Q7GUxLMbiB/h/VE
+ 1oskjFh5mzsCB10N268z77LSypvKocxHjzjR+73V78V+wIal1NUz7SdXENnfX3mv6pFz
+ CCO7cyTMipQhQsTHoRrh9Hr4MDvo+YW/7eie5fuWjITDdCtiyYyoiWiLWmfh5glS/utM
+ jYxzLa8xFzgGmw++NBhnWVdsUO54h9YJ6E7JvdSWV9Pa80XhFJem2ZI5in6wqVaZw86Q
+ 39U/MmE5fv3xRgHJkZj8zZAKCbCt3geYwaPWnN9wQfO8Vjg2zPOdWzZR5eZ6bW5cNzel
+ 3TZg==
+X-Gm-Message-State: APjAAAXe5S2KHHk7aFak641NSWIf1gefhOcp6Sxj7Vrhib6r8HDSQmXo
+ XuYGMvsjV7BQ/gxIySQnBiDNxZGMvxB7au615Mw=
+X-Google-Smtp-Source: APXvYqxvTdOavw69tuuAGfm7oJ9JVYTNTSKrsIsXBFt/8TWLfz8KY2AQETn8wjig5LG4ek97Cl+wnCAPHFTSB+EGzRg=
+X-Received: by 2002:a1c:f009:: with SMTP id a9mr806440wmb.73.1580762393328;
+ Mon, 03 Feb 2020 12:39:53 -0800 (PST)
 MIME-Version: 1.0
+References: <20200123135943.24140-1-tzimmermann@suse.de>
+ <20200123135943.24140-11-tzimmermann@suse.de>
+In-Reply-To: <20200123135943.24140-11-tzimmermann@suse.de>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 3 Feb 2020 15:39:42 -0500
+Message-ID: <CADnq5_M89Hmx-5n+sJgWvMAwcwtvtF31kfjEfui1hUukxaFrvg@mail.gmail.com>
+Subject: Re: [PATCH v4 10/22] drm/radeon: Convert to struct
+ drm_crtc_helper_funcs.get_scanout_position()
+To: Thomas Zimmermann <tzimmermann@suse.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,110 +75,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: hamohammed.sa@gmail.com, Dave Airlie <airlied@linux.ie>,
+ nouveau <nouveau@lists.freedesktop.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Eric Anholt <eric@anholt.net>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>, alexandre.torgue@st.com,
+ Chunming Zhou <David1.Zhou@amd.com>, Thomas Hellstrom <thellstrom@vmware.com>,
+ Sean Paul <sean@poorly.run>, Patrik Jakobsson <patrik.r.jakobsson@gmail.com>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Ben Skeggs <bskeggs@redhat.com>, "Wentland, Harry" <harry.wentland@amd.com>,
+ mcoquelin.stm32@gmail.com, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ linux-arm-msm <linux-arm-msm@vger.kernel.org>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Vincent Abriou <vincent.abriou@st.com>,
+ rodrigosiqueiramelo@gmail.com, philippe.cornu@st.com, yannick.fertre@st.com,
+ Rob Clark <robdclark@gmail.com>, Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ freedreno <freedreno@lists.freedesktop.org>,
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ask the SMU for the default VDDC curve voltage values.  This
-properly reports the VDDC values in the OD interface.
+On Thu, Jan 23, 2020 at 9:00 AM Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>
+> The callback struct drm_driver.get_scanout_position() is deprecated in
+> favor of struct drm_crtc_helper_funcs.get_scanout_position(). Convert
+> radeon over.
+>
+> v4:
+>         * 80-character line fixes
+>
+> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 
-v2: only update if the original values are 0
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Bug: https://gitlab.freedesktop.org/drm/amd/issues/1020
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 50 +++++++++++++++++++++-
- 1 file changed, 49 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index 26cfccc57331..a1c1257cf2cb 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -119,6 +119,8 @@ static struct smu_11_0_cmn2aisc_mapping navi10_message_map[SMU_MSG_MAX_COUNT] =
- 	MSG_MAP(PowerDownJpeg,		PPSMC_MSG_PowerDownJpeg),
- 	MSG_MAP(BacoAudioD3PME,		PPSMC_MSG_BacoAudioD3PME),
- 	MSG_MAP(ArmD3,			PPSMC_MSG_ArmD3),
-+	MSG_MAP(GetVoltageByDpm,		     PPSMC_MSG_GetVoltageByDpm),
-+	MSG_MAP(GetVoltageByDpmOverdrive,	     PPSMC_MSG_GetVoltageByDpmOverdrive),
- };
- 
- static struct smu_11_0_cmn2aisc_mapping navi10_clk_map[SMU_CLK_COUNT] = {
-@@ -1932,6 +1934,28 @@ static int navi10_od_setting_check_range(struct smu_11_0_overdrive_table *od_tab
- 	return 0;
- }
- 
-+static int navi10_overdrive_get_gfx_clk_base_voltage(struct smu_context *smu,
-+						     uint16_t *voltage,
-+						     uint32_t freq)
-+{
-+	uint32_t param = (freq & 0xFFFF) | (PPCLK_GFXCLK << 16);
-+	uint32_t value = 0;
-+	int ret;
-+
-+	ret = smu_send_smc_msg_with_param(smu,
-+					  SMU_MSG_GetVoltageByDpm,
-+					  param);
-+	if (ret) {
-+		pr_err("[GetBaseVoltage] failed to get GFXCLK AVFS voltage from SMU!");
-+		return ret;
-+	}
-+
-+	smu_read_smc_arg(smu, &value);
-+	*voltage = (uint16_t)value;
-+
-+	return 0;
-+}
-+
- static int navi10_setup_od_limits(struct smu_context *smu) {
- 	struct smu_11_0_overdrive_table *overdrive_table = NULL;
- 	struct smu_11_0_powerplay_table *powerplay_table = NULL;
-@@ -1958,16 +1982,40 @@ static int navi10_set_default_od_settings(struct smu_context *smu, bool initiali
- 	if (ret)
- 		return ret;
- 
-+	od_table = (OverDriveTable_t *)smu->smu_table.overdrive_table;
- 	if (initialize) {
- 		ret = navi10_setup_od_limits(smu);
- 		if (ret) {
- 			pr_err("Failed to retrieve board OD limits\n");
- 			return ret;
- 		}
-+		if (od_table) {
-+			if (!od_table->GfxclkVolt1) {
-+				ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
-+										&od_table->GfxclkVolt1,
-+										od_table->GfxclkFreq1);
-+				if (ret)
-+					od_table->GfxclkVolt1 = 0;
-+			}
-+
-+			if (!od_table->GfxclkVolt2) {
-+				ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
-+										&od_table->GfxclkVolt2,
-+										od_table->GfxclkFreq2);
-+				if (ret)
-+					od_table->GfxclkVolt2 = 0;
-+			}
- 
-+			if (!od_table->GfxclkVolt3) {
-+				ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
-+										&od_table->GfxclkVolt3,
-+										od_table->GfxclkFreq3);
-+				if (ret)
-+					od_table->GfxclkVolt3 = 0;
-+			}
-+		}
- 	}
- 
--	od_table = (OverDriveTable_t *)smu->smu_table.overdrive_table;
- 	if (od_table) {
- 		navi10_dump_od_table(od_table);
- 	}
--- 
-2.24.1
-
+> ---
+>  drivers/gpu/drm/radeon/atombios_crtc.c      |  1 +
+>  drivers/gpu/drm/radeon/radeon_display.c     | 13 +++++++++++++
+>  drivers/gpu/drm/radeon/radeon_drv.c         | 11 -----------
+>  drivers/gpu/drm/radeon/radeon_legacy_crtc.c |  3 ++-
+>  drivers/gpu/drm/radeon/radeon_mode.h        |  6 ++++++
+>  5 files changed, 22 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/radeon/atombios_crtc.c
+> index be583695427a..91811757104c 100644
+> --- a/drivers/gpu/drm/radeon/atombios_crtc.c
+> +++ b/drivers/gpu/drm/radeon/atombios_crtc.c
+> @@ -2231,6 +2231,7 @@ static const struct drm_crtc_helper_funcs atombios_helper_funcs = {
+>         .prepare = atombios_crtc_prepare,
+>         .commit = atombios_crtc_commit,
+>         .disable = atombios_crtc_disable,
+> +       .get_scanout_position = radeon_get_crtc_scanout_position,
+>  };
+>
+>  void radeon_atombios_init_crtc(struct drm_device *dev,
+> diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+> index 856526cb2caf..2f641f3b39e7 100644
+> --- a/drivers/gpu/drm/radeon/radeon_display.c
+> +++ b/drivers/gpu/drm/radeon/radeon_display.c
+> @@ -1978,3 +1978,16 @@ int radeon_get_crtc_scanoutpos(struct drm_device *dev, unsigned int pipe,
+>
+>         return ret;
+>  }
+> +
+> +bool
+> +radeon_get_crtc_scanout_position(struct drm_crtc *crtc,
+> +                                bool in_vblank_irq, int *vpos, int *hpos,
+> +                                ktime_t *stime, ktime_t *etime,
+> +                                const struct drm_display_mode *mode)
+> +{
+> +       struct drm_device *dev = crtc->dev;
+> +       unsigned int pipe = crtc->index;
+> +
+> +       return radeon_get_crtc_scanoutpos(dev, pipe, 0, vpos, hpos,
+> +                                         stime, etime, mode);
+> +}
+> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+> index fd74e2611185..1f597f166bff 100644
+> --- a/drivers/gpu/drm/radeon/radeon_drv.c
+> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
+> @@ -563,16 +563,6 @@ static const struct file_operations radeon_driver_kms_fops = {
+>  #endif
+>  };
+>
+> -static bool
+> -radeon_get_crtc_scanout_position(struct drm_device *dev, unsigned int pipe,
+> -                                bool in_vblank_irq, int *vpos, int *hpos,
+> -                                ktime_t *stime, ktime_t *etime,
+> -                                const struct drm_display_mode *mode)
+> -{
+> -       return radeon_get_crtc_scanoutpos(dev, pipe, 0, vpos, hpos,
+> -                                         stime, etime, mode);
+> -}
+> -
+>  static struct drm_driver kms_driver = {
+>         .driver_features =
+>             DRIVER_USE_AGP | DRIVER_GEM | DRIVER_RENDER,
+> @@ -585,7 +575,6 @@ static struct drm_driver kms_driver = {
+>         .enable_vblank = radeon_enable_vblank_kms,
+>         .disable_vblank = radeon_disable_vblank_kms,
+>         .get_vblank_timestamp = drm_calc_vbltimestamp_from_scanoutpos,
+> -       .get_scanout_position = radeon_get_crtc_scanout_position,
+>         .irq_preinstall = radeon_driver_irq_preinstall_kms,
+>         .irq_postinstall = radeon_driver_irq_postinstall_kms,
+>         .irq_uninstall = radeon_driver_irq_uninstall_kms,
+> diff --git a/drivers/gpu/drm/radeon/radeon_legacy_crtc.c b/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
+> index a1985a552794..8817fd033cd0 100644
+> --- a/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
+> +++ b/drivers/gpu/drm/radeon/radeon_legacy_crtc.c
+> @@ -1111,7 +1111,8 @@ static const struct drm_crtc_helper_funcs legacy_helper_funcs = {
+>         .mode_set_base_atomic = radeon_crtc_set_base_atomic,
+>         .prepare = radeon_crtc_prepare,
+>         .commit = radeon_crtc_commit,
+> -       .disable = radeon_crtc_disable
+> +       .disable = radeon_crtc_disable,
+> +       .get_scanout_position = radeon_get_crtc_scanout_position,
+>  };
+>
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_mode.h b/drivers/gpu/drm/radeon/radeon_mode.h
+> index fd470d6bf3f4..3a61530c1398 100644
+> --- a/drivers/gpu/drm/radeon/radeon_mode.h
+> +++ b/drivers/gpu/drm/radeon/radeon_mode.h
+> @@ -881,6 +881,12 @@ extern int radeon_get_crtc_scanoutpos(struct drm_device *dev, unsigned int pipe,
+>                                       ktime_t *stime, ktime_t *etime,
+>                                       const struct drm_display_mode *mode);
+>
+> +extern bool
+> +radeon_get_crtc_scanout_position(struct drm_crtc *crtc, bool in_vblank_irq,
+> +                                int *vpos, int *hpos,
+> +                                ktime_t *stime, ktime_t *etime,
+> +                                const struct drm_display_mode *mode);
+> +
+>  extern bool radeon_combios_check_hardcoded_edid(struct radeon_device *rdev);
+>  extern struct edid *
+>  radeon_bios_get_hardcoded_edid(struct radeon_device *rdev);
+> --
+> 2.24.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
