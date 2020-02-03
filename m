@@ -2,104 +2,67 @@ Return-Path: <SRS0=wWp/=3X=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9E96C35247
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2020 15:13:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EFDBC35247
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2020 16:19:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8F07A21775
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2020 15:13:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D709D20838
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Feb 2020 16:19:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="nvgi5Gcb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8F07A21775
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=digitalocean.com header.i=@digitalocean.com header.b="eINJVtQO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D709D20838
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=digitalocean.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54BF96E3B5;
-	Mon,  3 Feb 2020 15:13:25 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2083.outbound.protection.outlook.com [40.107.220.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 149A26E3B5;
- Mon,  3 Feb 2020 15:13:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bFbT42sMFRY7vyR2jsg+vU861J73ShTeCYxIeU7+UOMEX77sOrClFHi9SDo2lfCqCRGe2cnkI9PUrjVOgkxM60kbN0xkW2QJNKGd1Jn4fXtoO72gCnLKaxC+LjGC/2VtQplrm23KjVETjmOL1MsZaH99Fw9XnfeOFRiiEQJmsZ5VfejtQwOZyuwK+N1kdt98nl+u5QXdaXDiHUejF92+Pv1qUjtgSK3nqSuNCXsm0l/g2dEPWW+UNd5mA2DyKwuO2tSmHiuc/W0F2rpykyDZRuMr+HR+FIqDv+Pfk88zoscgGzAPbqvVmMYLq60j8c2pm9j9TW4IesBXvGenzLeb7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mDPxitvLu7tX2qnG6XHJ2l592m0cADpHtKPko8YQ3Bs=;
- b=EhoXJC4wpGIj+FfvX09YRSfw3h5OkN59SeUw99sXtQC346rl8LWJKG7oF6Hpxjr2BqlW93U9KCEvMLZmRFQguB+99tWwHbdiz2sZPsdSe6een6wxsjjw+Vhxv/57otApg9djMq7SfChNEvFx7VVIGTU6myWNp6WL8Po98BcuUiYJ3LOp8NRjrQeJOWzO/c/mhPr/RWNZBeqJViJHNx1BZ0+p7o/h73CXCfhk4bP40weod5bhuBSrrBmeyOA8YZ8dUKoDLA/0p7ZtGaBjIKeYw1ylC4OWgrRToZQ1lnm3NLBnsLaATYCMNdoN5aMdfAOb0WRcmvqrXa2jGJhtgnandw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id 563BD6EC79;
+	Mon,  3 Feb 2020 16:19:17 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 478FB6EC7A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Feb 2020 16:18:40 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id k6so14749063qki.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Feb 2020 08:18:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mDPxitvLu7tX2qnG6XHJ2l592m0cADpHtKPko8YQ3Bs=;
- b=nvgi5GcbStbtbT6MhsY4R4jdQh6fKkjZtyQWhiVqR5ntAiDc2LWCwgaqo/QRWFzpn0VodUEK+EFaUiDeHYfFUHh6W4ptY1gcc8uN+jxbYYfAT7fUaYDZF0BbRzBns5LbGO7vzypW1U2nQT4/427VmEweEjswpA9faWePIZ5J+Z0=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Christian.Koenig@amd.com; 
-Received: from DM5PR12MB1705.namprd12.prod.outlook.com (10.175.88.22) by
- DM5PR12MB1129.namprd12.prod.outlook.com (10.168.240.7) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2686.32; Mon, 3 Feb 2020 15:09:00 +0000
-Received: from DM5PR12MB1705.namprd12.prod.outlook.com
- ([fe80::d40e:7339:8605:bc92]) by DM5PR12MB1705.namprd12.prod.outlook.com
- ([fe80::d40e:7339:8605:bc92%11]) with mapi id 15.20.2686.031; Mon, 3 Feb 2020
- 15:09:00 +0000
-Subject: Re: KASAN: use-after-free Read in vgem_gem_dumb_create
-To: Dan Carpenter <dan.carpenter@oracle.com>, Daniel Vetter <daniel@ffwll.ch>
-References: <000000000000ae2f81059d7716b8@google.com>
- <CAKMK7uGivsYzP6h9rg0eN34YuOVbee6gnhdOxiys=M=4phK+kw@mail.gmail.com>
- <20200203090619.GL1778@kadam>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <7ba76c48-a002-12c3-8114-701e399b1190@amd.com>
-Date: Mon, 3 Feb 2020 16:08:53 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <20200203090619.GL1778@kadam>
-Content-Language: en-US
-X-ClientProxiedBy: AM4PR05CA0005.eurprd05.prod.outlook.com (2603:10a6:205::18)
- To DM5PR12MB1705.namprd12.prod.outlook.com
- (2603:10b6:3:10c::22)
-MIME-Version: 1.0
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM4PR05CA0005.eurprd05.prod.outlook.com (2603:10a6:205::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2686.27 via Frontend Transport; Mon, 3 Feb 2020 15:08:57 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 365c22ee-84fd-4d7b-d8ba-08d7a8baffc3
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1129:|DM5PR12MB1129:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB112930A95A172964ADD1FFD983000@DM5PR12MB1129.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-Forefront-PRVS: 0302D4F392
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10001)(10009020)(4636009)(396003)(376002)(366004)(136003)(39860400002)(346002)(189003)(199004)(45080400002)(478600001)(186003)(16526019)(66946007)(6486002)(966005)(6666004)(53546011)(7416002)(2906002)(54906003)(31696002)(110136005)(86362001)(4326008)(316002)(52116002)(81156014)(31686004)(66556008)(66476007)(81166006)(2616005)(36756003)(8676002)(8936002)(5660300002)(99710200001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1129;
- H:DM5PR12MB1705.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tTNPf+FzOYMVATiqEOY3aDFPauPiAn7KMNMGfQ2Z5DvCSYrnWPXHZ/5PmkjfBrpsesgsdDkiW6H3F1v188Ak49K6jXD7csXYXqEoB40TmF2Edt52F56nMjk/IXpmUssloF5hSuSLlJcbZoyGfk1b/QD9WKaO0+Nc3fVuDj0rAWBBSsJLo1yws5YKXgxFgUwfKvtleIsUUagGtdrGu7p+4keDZ78oSxRPUBsJEz2wl0wgfVTIfK3yIUMY97qw3Mov7Rq0PRgwKBbv+TejRSm5QoV04LWlzW0cN4Nn0ODHCaR2wrO/nala6C6Lgvuo+7yohRTqcRfZgHIC0tS0oSAz7QS8NEEgw0oRw4heRf6qoEQSt3fugZC5eRXoU6krBwbKmgCziNedlOoC/A8QxmmQof1LGbyx8wiKe/rGXOTpvEthUvgTDzc/OSwDUcpaN46XXWKYzcVitehx0XeIy865Z4LrN1bZEXFyUJdoQ6AcLa78lV5E/g0EbQOfkDnA8JfwJK+4ajTuGSG3pUrcdYBoaDCSTiSubGFKXOl6T0WW8LEnqUspXDsjvcHApjIOmtZPvfjLQZgn9G0sqWRGgbqM1BznkFMici1Q4c9rY9Aq4BFDgWCFepAEemrVMviKvv8G4BwPrT4Pb/cD8J4fsKATKw==
-X-MS-Exchange-AntiSpam-MessageData: BEEKTmWHUNj9YPxqZRt34IaeDjojfLOnibllKiw1hZ7t7HvxZplsXb2CKlaNt44z50sIYKayORMWNYFNnL8YCvREejxF7tzaf6Ot/fC2qKL6nKCgbotLkNVWG3S6ERLyT69WRyxIQ6ds1c299zv2HQI3yL3XkcTBbR41Kd2ky9PN5YFMyJgFGtkni/axItOJh7AG1+2U7uRenS5P3j8/wQ==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 365c22ee-84fd-4d7b-d8ba-08d7a8baffc3
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2020 15:09:00.7031 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Q8284h64pNXNi3WZvQfc60O+idzZPv7ycBZwMJ+q7dFh5AabbkVgJO08MdI8xfYg
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1129
+ d=digitalocean.com; s=google;
+ h=from:to:cc:subject:date:message-id;
+ bh=ptdL8j4y4Nu0slWC9GMlqw2vupDc3jE8cCzq/d6QOxo=;
+ b=eINJVtQOFasRcQUUhrRypp1cvIgGSB2uv66wDqp4LEqIw+IxE8nZFh8zR1m5xpcBNs
+ asYRxtDshmiHoSfr1mRX75C2UKBJu2rdW11q9+Bv/5yr2fbQHpAax5CNnqgsso8HZU0v
+ UyOp9uDe8Q5dKeQmicM7GjESp/71ZeaA3EeFA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=ptdL8j4y4Nu0slWC9GMlqw2vupDc3jE8cCzq/d6QOxo=;
+ b=S0YSMPQLXPREd60b2EcWPVkHudJpTzN033QhzWDOeW4FrizVkwU4qbV28txONCJcaB
+ J0ZZdlmXKJH3pqLXXiIaC/uTYbjhGhsoL9RSw6pAt74WmnYyB4uBqO4TIZY+2WLBU9az
+ ly8kOG0bSHOl/Y7ECzMSkfX2dFbsCT/DX5vnOi6nIui6MfSFNPsYs0GxfKEgri7MAdUG
+ zSLevwSUV7RpLHxFjoUj38ROzAOZPwqj7Xsikou72Nn1A8ZlqVtH2X3qCk/BRM7yOxM6
+ JF5cG7sngdvla3r8JXtKiFP5Soq1q2dB9gI+L0dO2bNHMOVuq7jrdJSyW/q2497JbRfT
+ 4EKQ==
+X-Gm-Message-State: APjAAAXnGTa7IJU8Cxxd3BDMx+ERBmyhjrMMqJgsdyIsWl+NQOFb/jF3
+ reS6SiOqQRNZ5q+2oUnbJGeT
+X-Google-Smtp-Source: APXvYqxDPyKmX7Xb7xJg3h+x7fg95e7oQwGe6vGn9t+4Xg/mY5Q8WpzfOarZKicAK8elQfsAEGxyDw==
+X-Received: by 2002:a05:620a:306:: with SMTP id
+ s6mr22664268qkm.469.1580746719156; 
+ Mon, 03 Feb 2020 08:18:39 -0800 (PST)
+Received: from tina-kpatch ([162.243.188.76])
+ by smtp.gmail.com with ESMTPSA id 8sm9530476qkm.92.2020.02.03.08.18.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Feb 2020 08:18:38 -0800 (PST)
+From: Tianlin Li <tli@digitalocean.com>
+To: kernel-hardening@lists.openwall.com
+Subject: [PATCH v2] drm/radeon: have the callers of set_memory_*() check the
+ return value
+Date: Mon,  3 Feb 2020 10:18:27 -0600
+Message-Id: <20200203161827.768-1-tli@digitalocean.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Mon, 03 Feb 2020 16:19:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,81 +74,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Rob Clark <robdclark@chromium.org>, Dave Airlie <airlied@linux.ie>,
- netdev <netdev@vger.kernel.org>,
- syzkaller-bugs <syzkaller-bugs@googlegroups.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Wilson,
- Chris" <chris@chris-wilson.co.uk>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- "Anholt, Eric" <eric@anholt.net>, Sean Paul <seanpaul@chromium.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- syzbot <syzbot+0dc4444774d419e916c8@syzkaller.appspotmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, David Miller <davem@davemloft.net>,
- Emil Velikov <emil.velikov@collabora.com>
+Cc: David1.Zhou@amd.com, keescook@chromium.org, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Tianlin Li <tli@digitalocean.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ christian.koenig@amd.com
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 03.02.20 um 10:06 schrieb Dan Carpenter:
-> On Sun, Feb 02, 2020 at 02:19:18PM +0100, Daniel Vetter wrote:
->> On Fri, Jan 31, 2020 at 11:28 PM syzbot
->> <syzbot+0dc4444774d419e916c8@syzkaller.appspotmail.com> wrote:
->>> Hello,
->>>
->>> syzbot found the following crash on:
->>>
->>> HEAD commit:    39bed42d Merge tag 'for-linus-hmm' of git://git.kernel.org..
->>> git tree:       upstream
->>> console output: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsyzkaller.appspot.com%2Fx%2Flog.txt%3Fx%3D179465bee00000&amp;data=02%7C01%7Cchristian.koenig%40amd.com%7C529f2273b8374f38560108d7a88862eb%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637163176051177627&amp;sdata=3goGqBs4%2BjkjCeV2bX5VTB%2F1PRLEP5bzq5Ec%2BN7fKHs%3D&amp;reserved=0
->>> kernel config:  https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsyzkaller.appspot.com%2Fx%2F.config%3Fx%3D2646535f8818ae25&amp;data=02%7C01%7Cchristian.koenig%40amd.com%7C529f2273b8374f38560108d7a88862eb%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637163176051177627&amp;sdata=SnlKln%2FAG%2BVRVjSrOSJjUE%2BhSDf35wTqzWLCAyGQVss%3D&amp;reserved=0
->>> dashboard link: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsyzkaller.appspot.com%2Fbug%3Fextid%3D0dc4444774d419e916c8&amp;data=02%7C01%7Cchristian.koenig%40amd.com%7C529f2273b8374f38560108d7a88862eb%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637163176051177627&amp;sdata=33EJNAWjTm6Edi1J0oPBfs8epb%2BQ2cpAKlzl1sT40CQ%3D&amp;reserved=0
->>> compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
->>> syz repro:      https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsyzkaller.appspot.com%2Fx%2Frepro.syz%3Fx%3D16251279e00000&amp;data=02%7C01%7Cchristian.koenig%40amd.com%7C529f2273b8374f38560108d7a88862eb%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637163176051177627&amp;sdata=zmUyyp7znqQfLzzNZ80bNgCILAjeMeCVVr7xf7CHaWk%3D&amp;reserved=0
->>>
->>> The bug was bisected to:
->>>
->>> commit 7611750784664db46d0db95631e322aeb263dde7
->>> Author: Alex Deucher <alexander.deucher@amd.com>
->>> Date:   Wed Jun 21 16:31:41 2017 +0000
->>>
->>>      drm/amdgpu: use kernel is_power_of_2 rather than local version
->>>
->>> bisection log:  https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsyzkaller.appspot.com%2Fx%2Fbisect.txt%3Fx%3D11628df1e00000&amp;data=02%7C01%7Cchristian.koenig%40amd.com%7C529f2273b8374f38560108d7a88862eb%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637163176051177627&amp;sdata=5QpTG4iU%2FOt22L3jxRbNxtVPZZ2EvBAcFGZdqVnVCbU%3D&amp;reserved=0
->>> final crash:    https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsyzkaller.appspot.com%2Fx%2Freport.txt%3Fx%3D13628df1e00000&amp;data=02%7C01%7Cchristian.koenig%40amd.com%7C529f2273b8374f38560108d7a88862eb%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637163176051177627&amp;sdata=hN6UZnFR2nIMPMspjIF7S82oXstaRl%2BLAzmz5yujPac%3D&amp;reserved=0
->>> console output: https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Fsyzkaller.appspot.com%2Fx%2Flog.txt%3Fx%3D15628df1e00000&amp;data=02%7C01%7Cchristian.koenig%40amd.com%7C529f2273b8374f38560108d7a88862eb%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637163176051177627&amp;sdata=LHXMANOURDv3EsqTSvHSBZnPEzGQoJU1RbeqYExCaGk%3D&amp;reserved=0
->>>
->>> IMPORTANT: if you fix the bug, please add the following tag to the commit:
->>> Reported-by: syzbot+0dc4444774d419e916c8@syzkaller.appspotmail.com
->>> Fixes: 761175078466 ("drm/amdgpu: use kernel is_power_of_2 rather than local version")
->> Aside: This bisect line is complete nonsense ... I'm kinda at the
->> point where I'm assuming that syzbot bisect results are garbage, which
->> is maybe not what we want. I guess much stricter filtering for noise
->> is needed, dunno.
->> -Danile
-> With race conditions the git bisect is often nonsense.
+Right now several architectures allow their set_memory_*() family of  
+functions to fail, but callers may not be checking the return values.
+If set_memory_*() returns with an error, call-site assumptions may be
+infact wrong to assume that it would either succeed or not succeed at  
+all. Ideally, the failure of set_memory_*() should be passed up the 
+call stack, and callers should examine the failure and deal with it. 
 
-Which makes sense, but we can still try to sanitize the result. I'm not 
-familiar with the test case, but I think it doesn't even compile the 
-amdgpu driver.
+Need to fix the callers and add the __must_check attribute. They also 
+may not provide any level of atomicity, in the sense that the memory 
+protections may be left incomplete on failure. This issue likely has a 
+few steps on effects architectures:
+1)Have all callers of set_memory_*() helpers check the return value.
+2)Add __must_check to all set_memory_*() helpers so that new uses do  
+not ignore the return value.
+3)Add atomicity to the calls so that the memory protections aren't left 
+in a partial state.
 
-So skipping all patches of stuff you don't even compile would make not 
-only the result of bisecting quite a bit more reliable, but also speed 
-the process up quite a bit.
+This series is part of step 1. Make drm/radeon check the return value of  
+set_memory_*().
 
-But no good idea to how teach that to a compile bot or the git bisect 
-command.
+Signed-off-by: Tianlin Li <tli@digitalocean.com>
+---
+v2:
+The hardware is too old to be tested on and the code cannot be simply
+removed from the kernel, so this is the solution for the short term. 
+- Just print an error when something goes wrong
+- Remove patch 2.  
+v1:
+https://lore.kernel.org/lkml/20200107192555.20606-1-tli@digitalocean.com/
+---
+ drivers/gpu/drm/radeon/radeon_gart.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-Regards,
-Christian.
-
->
-> regards,
-> dan carpenter
->
+diff --git a/drivers/gpu/drm/radeon/radeon_gart.c b/drivers/gpu/drm/radeon/radeon_gart.c
+index f178ba321715..a2cc864aa08d 100644
+--- a/drivers/gpu/drm/radeon/radeon_gart.c
++++ b/drivers/gpu/drm/radeon/radeon_gart.c
+@@ -80,8 +80,9 @@ int radeon_gart_table_ram_alloc(struct radeon_device *rdev)
+ #ifdef CONFIG_X86
+ 	if (rdev->family == CHIP_RS400 || rdev->family == CHIP_RS480 ||
+ 	    rdev->family == CHIP_RS690 || rdev->family == CHIP_RS740) {
+-		set_memory_uc((unsigned long)ptr,
+-			      rdev->gart.table_size >> PAGE_SHIFT);
++		if (set_memory_uc((unsigned long)ptr,
++			      rdev->gart.table_size >> PAGE_SHIFT))
++			DRM_ERROR("set_memory_uc failed.\n");
+ 	}
+ #endif
+ 	rdev->gart.ptr = ptr;
+@@ -106,8 +107,9 @@ void radeon_gart_table_ram_free(struct radeon_device *rdev)
+ #ifdef CONFIG_X86
+ 	if (rdev->family == CHIP_RS400 || rdev->family == CHIP_RS480 ||
+ 	    rdev->family == CHIP_RS690 || rdev->family == CHIP_RS740) {
+-		set_memory_wb((unsigned long)rdev->gart.ptr,
+-			      rdev->gart.table_size >> PAGE_SHIFT);
++		if (set_memory_wb((unsigned long)rdev->gart.ptr,
++			      rdev->gart.table_size >> PAGE_SHIFT))
++			DRM_ERROR("set_memory_wb failed.\n");
+ 	}
+ #endif
+ 	pci_free_consistent(rdev->pdev, rdev->gart.table_size,
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
