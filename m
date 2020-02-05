@@ -8,63 +8,61 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 65A55C35247
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2020 19:25:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47032C35247
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2020 19:43:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 346A020720
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2020 19:25:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 19D9520730
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2020 19:43:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kea8LUPw"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 346A020720
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tm7U5PG9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19D9520730
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E976889AB9;
-	Wed,  5 Feb 2020 19:25:00 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 338FB89AB9
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Feb 2020 19:25:00 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id t2so4207667wrr.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Feb 2020 11:25:00 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD4A26E9ED;
+	Wed,  5 Feb 2020 19:43:25 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78E3A6E9ED
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Feb 2020 19:43:24 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id t23so3800549wmi.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 05 Feb 2020 11:43:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=+6etbyOth5pMxXkcE8HaqKM6khgkgksXD/eH9UJNJEA=;
- b=kea8LUPwju4mf0/GuitOCtd4RcakZ3//Hbo/lrpf/J2v8cjFp9EELIa05iM/s6kRG4
- AldWv2McCuLH573q1GeUa7fjFPrtJHPtsAEZhgvdV87+qE+wWDpNZ0P5XQ8zvkj3cGKs
- mVVukXjY6jxRJ0RCTLkX0T0AETpzR8RLH31M9ypQ/FvyB9LX6I/GUxzJgniZrTJbSRDR
- 7554ffIVunUUpkqfR2x6N8CCaYeyW7TexjzUcK/PQyuITdsIPErc2+QDH8STImI0PJ/M
- dCWhm7yws9tZbxmfGvhdyxV69r5/0LQIFjipTZZYGPJq0Z9f4RdG4tQORz3UJjp3tWOa
- ipng==
+ :cc; bh=SO/yJ+CxLWdlzSzvECpxjBgfng5aHRexC/OIl5nXatw=;
+ b=tm7U5PG9ZNs1PTr3+vNBvUgYP4V0OtlInjm+sLI/Sr6Ukigb0rL6F+GaQUGq/ks5PS
+ GTn/fP42y4UwRlKwUZlF+NE5X7sPsUThZQPxZehITfD2VjPj7Zgw+aL/vWij/LQl1UTl
+ JBNt8UqxE1rwRT6R8qsa1qyNymJbiAF8TpD1ygafl6ur8ERSU8aLL8Le4LT2ztiZOQZ5
+ dbft7c8yd9oDos1kRI0b6ZYVEK9xZ79UVhXmEYmrJB0SIvFddrsYW9K7W0d51Bmk2AxH
+ iIbSCRotAZOl8DupPIpOqOUaIVPf3SHir7phZlNleBFk6opILxXMPznlXwILLEcuaHSH
+ IhQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=+6etbyOth5pMxXkcE8HaqKM6khgkgksXD/eH9UJNJEA=;
- b=fNlR/9tWSBllnIQCYcZZS5KIbhNGoYuLznrezl8EJTYPtR5AeLE3KQLq1M9Ou8KEFg
- kmzGON9trEIhQvtFj6RIIvZNQbHTVHE43bXegUJBgTs3AHDjwa0q+NWBhsFekEpkEy2O
- eTcsIcPkNH4zW6NCB2vHcogai5jStdAZKVMWyNvnUX4hsrpMtTo2T157OHn39LMjP2nu
- cYMfWRJ9cd6YECmqAO8suM7Gk1EFlo5jBVfMeuqtKRgCqxdu3Fc2F7mOtOnYq8m40h/Q
- 5oBt3zDJOhzFQwceYKZpgHN5wXqSEfab3P4lgMVqDv/COyZwkrlnecT9yxItZzSGOl3c
- p8Pw==
-X-Gm-Message-State: APjAAAXHlwrbd73BTIPP4cuJvKOdwvM49n7xUFD6iRoEiJeQMXrCg4wL
- brCsEd4dsIJ2L6f15zpELR7dWtl8rh3t91CmD6U=
-X-Google-Smtp-Source: APXvYqyMLJBwyVxuotgLvKnfj9oNGmWehdUKnu2ODm8IuE8L4oG5vN33hTqu5Uzf1HExm07/WCxf+URHGHMmvSz67kw=
-X-Received: by 2002:adf:8b59:: with SMTP id v25mr29638010wra.419.1580930698911; 
- Wed, 05 Feb 2020 11:24:58 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=SO/yJ+CxLWdlzSzvECpxjBgfng5aHRexC/OIl5nXatw=;
+ b=JyJLGSJ+iyvMcX/t8YDkHKp/MZFuhJgclWWmgmI6jGIcZAH+qyvXANX7h91aJ3vlrn
+ EgqgP3ZAYT5zDSbGSuxATHc2xDbD0OCnisV2djLiOO17tg7HCwoSfxwLQ3oJ7hcPI90/
+ kRqps7DnBDUDE+jS1PZVVZ4j4/4l/j82+/RkYPrq9tYDSUic+6rDtG5OBd/B9DpAWvOP
+ bAPN16wQMov4NLoyLVjkoaw7ddYp2wyaswk9WWZKyZVdRzMR9Ntb6WmHQhJwZx+akuOH
+ pK/c/WEuqFq+yHiqAlIhg3YhPocWBXxIjhK4Fj12WrGucGeJrYEw8C5HH+owML3n3bhw
+ VgVA==
+X-Gm-Message-State: APjAAAWUO8cUEeXd6aCgeCn7ejiInUL08nLh3gYGL90ZzXT+2+xqCIBm
+ wh+EUgF7Kdv1tbOwMxwj/BODn/bG+zgP+vBynII=
+X-Google-Smtp-Source: APXvYqxIxtXoHtTYG5ylAB7gXVxDFgOzGgFWCRiAV4cXnT5LMYKpT5GVtyZfz4DAD2Mcg/SZ2SQEnZ6vugyLxxJn784=
+X-Received: by 2002:a1c:f009:: with SMTP id a9mr7326145wmb.73.1580931803092;
+ Wed, 05 Feb 2020 11:43:23 -0800 (PST)
 MIME-Version: 1.0
-References: <20191128082714.18609-1-tiwai@suse.de>
- <8a2e290c-f06d-07e6-3768-59f40539bf7d@amd.com>
- <s5hd0at9dof.wl-tiwai@suse.de>
-In-Reply-To: <s5hd0at9dof.wl-tiwai@suse.de>
+References: <20200205183714.6t5c7ewyovwjicm6@kili.mountain>
+ <b9a18739-cada-05e8-d894-be8dcba9fb43@amd.com>
+In-Reply-To: <b9a18739-cada-05e8-d894-be8dcba9fb43@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 5 Feb 2020 14:24:47 -0500
-Message-ID: <CADnq5_PfxHrTr=Mndn1fQQ=9EEamydL8M+TFc__kyg=w12wjCg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix wrongly passed static prefix
-To: Takashi Iwai <tiwai@suse.de>
+Date: Wed, 5 Feb 2020 14:43:11 -0500
+Message-ID: <CADnq5_PF2ofuZM9NNeDoWHo-atHQd=ExcWNFDg9yCC9R4v9Tuw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix some use after free bugs
+To: Bhawanpreet Lakha <Bhawanpreet.lakha@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,59 +74,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Zhou <David1.Zhou@amd.com>, Leo Li <sunpeng.li@amd.com>,
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Zhan Liu <zhan.liu@amd.com>,
+ kernel-janitors@vger.kernel.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ zhengbin <zhengbin13@huawei.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
  Harry Wentland <harry.wentland@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
- Christian K6nig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBGZWIgNSwgMjAyMCBhdCAxMTo1NSBBTSBUYWthc2hpIEl3YWkgPHRpd2FpQHN1c2Uu
-ZGU+IHdyb3RlOgo+Cj4gT24gVGh1LCAyOCBOb3YgMjAxOSAxNTozNToyMyArMDEwMCwKPiBIYXJy
-eSBXZW50bGFuZCB3cm90ZToKPiA+Cj4gPiBPbiAyMDE5LTExLTI4IDM6MjcgYS5tLiwgVGFrYXNo
-aSBJd2FpIHdyb3RlOgo+ID4gPiBDdXJyZW50bHksIGdjYyBzcGV3cyBhIHdhcm5pbmcgYXM6Cj4g
-PiA+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvLi4vZGlzcGxheS9kYy9kY24xMC9kY24x
-MF9odWJidWIuYzogSW4gZnVuY3Rpb24g4oCYaHViYnViMV92ZXJpZnlfYWxsb3dfcHN0YXRlX2No
-YW5nZV9oaWdo4oCZOgo+ID4gPiAgIC4vaW5jbHVkZS9kcm0vZHJtX3ByaW50Lmg6MzE2OjI6IHdh
-cm5pbmc6IOKAmGRlYnVnX2RhdGHigJkgbWF5IGJlIHVzZWQgdW5pbml0aWFsaXplZCBpbiB0aGlz
-IGZ1bmN0aW9uIFstV21heWJlLXVuaW5pdGlhbGl6ZWRdCj4gPiA+Cj4gPiA+IFRoaXMgaXMgYmVj
-YXVzZSB0aGUgY29kZSBjaGVja3MgYWdhaW5zdCBhIHN0YXRpYyB2YWx1ZSBhbHRob3VnaCBpdCdz
-Cj4gPiA+IGJhc2ljYWxseSBhIGNvbnN0YW50IGFuZCBndWFyYW50ZWVkIHRvIGJlIHNldC4KPiA+
-ID4KPiA+ID4gVGhpcyBwYXRjaCBjaGFuZ2VzIHRoZSB0eXBlIHByZWZpeCBmcm9tIHN0YXRpYyB0
-byBjb25zdCBmb3IgYWRkcmVzc2luZwo+ID4gPiB0aGUgY29tcGlsZSB3YXJuaW5nIGFib3ZlIGFu
-ZCBhbHNvIGZvciBsZXR0aW5nIHRoZSBjb21waWxlciBvcHRpbWl6ZQo+ID4gPiBiZXR0ZXIuCj4g
-PiA+Cj4gPiA+IEZpeGVzOiA2MmQ1OTFhOGUwMGMgKCJkcm0vYW1kL2Rpc3BsYXk6IGNyZWF0ZSBu
-ZXcgZmlsZXMgZm9yIGh1YmJ1YiBmdW5jdGlvbnMiKQo+ID4gPiBTaWduZWQtb2ZmLWJ5OiBUYWth
-c2hpIEl3YWkgPHRpd2FpQHN1c2UuZGU+Cj4gPgo+ID4gUmV2aWV3ZWQtYnk6IEhhcnJ5IFdlbnRs
-YW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPgo+ID4KPiA+IEhhcnJ5Cj4KPiBUaGlzIHBhdGNo
-IHNlZW1zIGZvcmdvdHRlbj8gIFRoZSBjb21waWxlIHdhcm5pbmcgaXMgc3RpbGwgcHJlc2VudCBp
-bgo+IHRoZSBsYXRlc3QgZm9yLW5leHQuCj4KClNvcnJ5LCB0b3RhbGx5IG1pc3NlZCB0aGlzIG9u
-ZS4gIEFwcGxpZWQuCgpBbGV4Cgo+Cj4gdGhhbmtzLAo+Cj4gVGFrYXNoaQo+Cj4gPgo+ID4gPiAt
-LS0KPiA+ID4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kY24xMC9kY24xMF9odWJi
-dWIuYyB8IDQgKystLQo+ID4gPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgMiBk
-ZWxldGlvbnMoLSkKPiA+ID4KPiA+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9kYy9kY24xMC9kY24xMF9odWJidWIuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlz
-cGxheS9kYy9kY24xMC9kY24xMF9odWJidWIuYwo+ID4gPiBpbmRleCBhMDJjMTBlMjNlMGQuLmI1
-YzQ0YzNiZGI5OCAxMDA2NDQKPiA+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2RjbjEwL2RjbjEwX2h1YmJ1Yi5jCj4gPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9kYy9kY24xMC9kY24xMF9odWJidWIuYwo+ID4gPiBAQCAtMTI4LDggKzEyOCw4IEBA
-IGJvb2wgaHViYnViMV92ZXJpZnlfYWxsb3dfcHN0YXRlX2NoYW5nZV9oaWdoKAo+ID4gPiAgICAg
-ICogcHN0YXRlIHRha2VzIGFyb3VuZCB+MTAwdXMgb24gbGludXguIFVua25vd24gY3VycmVudGx5
-IGFzIHRvCj4gPiA+ICAgICAgKiB3aHkgaXQgdGFrZXMgdGhhdCBsb25nIG9uIGxpbnV4Cj4gPiA+
-ICAgICAgKi8KPiA+ID4gLSAgIHN0YXRpYyB1bnNpZ25lZCBpbnQgcHN0YXRlX3dhaXRfdGltZW91
-dF91cyA9IDIwMDsKPiA+ID4gLSAgIHN0YXRpYyB1bnNpZ25lZCBpbnQgcHN0YXRlX3dhaXRfZXhw
-ZWN0ZWRfdGltZW91dF91cyA9IDQwOwo+ID4gPiArICAgY29uc3QgdW5zaWduZWQgaW50IHBzdGF0
-ZV93YWl0X3RpbWVvdXRfdXMgPSAyMDA7Cj4gPiA+ICsgICBjb25zdCB1bnNpZ25lZCBpbnQgcHN0
-YXRlX3dhaXRfZXhwZWN0ZWRfdGltZW91dF91cyA9IDQwOwo+ID4gPiAgICAgc3RhdGljIHVuc2ln
-bmVkIGludCBtYXhfc2FtcGxlZF9wc3RhdGVfd2FpdF91czsgLyogZGF0YSBjb2xsZWN0aW9uICov
-Cj4gPiA+ICAgICBzdGF0aWMgYm9vbCBmb3JjZWRfcHN0YXRlX2FsbG93OyAvKiBoZWxwIHdpdGgg
-cmV2ZXJ0IHdhICovCj4gPiA+Cj4gPiA+Cj4gPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+Applied.  Thanks!
+
+Alex
+
+On Wed, Feb 5, 2020 at 1:44 PM Bhawanpreet Lakha
+<Bhawanpreet.lakha@amd.com> wrote:
+>
+> Reviewed-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+>
+> On 2020-02-05 1:38 p.m., Dan Carpenter wrote:
+> > These frees need to be re-ordered so that we don't dereference "hdcp_work"
+> > right after it's freed.  Also in hdcp_create_workqueue() there is a
+> > problem that "hdcp_work" can be NULL if the allocation fails so it would
+> > lead to a NULL dereference in the cleanup code.
+> >
+> > Fixes: 9aeb8a134a0a ("drm/amd/display: Add sysfs interface for set/get srm")
+> > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> > ---
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 9 +++++----
+> >   1 file changed, 5 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+> > index 1768a33b1dc3..f3330df782a4 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+> > @@ -380,9 +380,9 @@ void hdcp_destroy(struct hdcp_workqueue *hdcp_work)
+> >               cancel_delayed_work_sync(&hdcp_work[i].watchdog_timer_dwork);
+> >       }
+> >
+> > -     kfree(hdcp_work);
+> >       kfree(hdcp_work->srm);
+> >       kfree(hdcp_work->srm_temp);
+> > +     kfree(hdcp_work);
+> >   }
+> >
+> >   static void update_config(void *handle, struct cp_psp_stream_config *config)
+> > @@ -555,11 +555,12 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct
+> >   {
+> >
+> >       int max_caps = dc->caps.max_links;
+> > -     struct hdcp_workqueue *hdcp_work = kzalloc(max_caps*sizeof(*hdcp_work), GFP_KERNEL);
+> > +     struct hdcp_workqueue *hdcp_work;
+> >       int i = 0;
+> >
+> > +     hdcp_work = kcalloc(max_caps, sizeof(*hdcp_work), GFP_KERNEL);
+> >       if (hdcp_work == NULL)
+> > -             goto fail_alloc_context;
+> > +             return NULL;
+> >
+> >       hdcp_work->srm = kcalloc(PSP_HDCP_SRM_FIRST_GEN_MAX_SIZE, sizeof(*hdcp_work->srm), GFP_KERNEL);
+> >
+> > @@ -602,9 +603,9 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct
+> >       return hdcp_work;
+> >
+> >   fail_alloc_context:
+> > -     kfree(hdcp_work);
+> >       kfree(hdcp_work->srm);
+> >       kfree(hdcp_work->srm_temp);
+> > +     kfree(hdcp_work);
+> >
+> >       return NULL;
+> >
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
