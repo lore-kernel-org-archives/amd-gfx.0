@@ -2,70 +2,98 @@ Return-Path: <SRS0=mUog=3Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ED77BC35247
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2020 20:59:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65616C35247
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2020 23:28:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF97C20720
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2020 20:59:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 33F522082E
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2020 23:28:48 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F7c5tWkG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF97C20720
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="c8S8kdou"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 33F522082E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77FA38990D;
-	Wed,  5 Feb 2020 20:59:36 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D70F58990D
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Feb 2020 20:59:35 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id a9so4492020wmj.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Feb 2020 12:59:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=zsEgbdltqLgdoSGK0ofzlJ8J8ihZgeZQpWkPWEMwvXk=;
- b=F7c5tWkGGrMEjhDKYjhe33bZlxveyBiknpmvz0Xj80HTPjbGv1Yy2lPYyz5gEbpjoL
- 5H5xwATYLpwCabI5DKUCs18/MjBw+677lQigzj+rvkF6Wg0Q+T1jxZcVOst63HSzTzi1
- zqezNoFyDQBUuT96kOB60XR2MuNX4kRE9XU/m5hPgMiiYAP0+gTsv5E5bwNqPndqoj0A
- yPOxGaaIGcgX8wAflOsf6bX25VwWmXA4ekt6XooiIvZGOp8fDlQhNAsPe3bvPoG7j7rK
- HyBYk8n8OcAOAzFlmkEF4win1cQHz9M3InXkip/R8LEfcJEURmh2sx5rBlRln83GD5Ql
- 9gtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=zsEgbdltqLgdoSGK0ofzlJ8J8ihZgeZQpWkPWEMwvXk=;
- b=gKHdyLkTC2Qfz/xtl871iv923lw+/LPt+udT68Ro76Q4qmZfSFaf8sKYzjTOpZqxZx
- n/ajjnPpsAASy6GtL02V0if50lhjM9mPzyZrxBrSZ+ONHz3kvS5HqS6xMJMVXvY9bPkG
- QpF02xXbhTlDwzLE1840GzUwdXdIgVwMPyzlCQAcFBF64eV5fE4Wn1a+V2kpBW+gHG6/
- zAoZbxWyx3FjX94T+WaJtbkrO9+IWLaBvDTlMrxZEOJdkUYY5En+GpLBJD6uT6e4PqCk
- qGK99HMMrQcvmBFS4USVhdA5gSleNwB66HNOCHp5Hx8b1GCiETVvxNHJwjXDfHq+djYN
- Dv/w==
-X-Gm-Message-State: APjAAAXITF4n1NRUvracgQngDR4+wg2CgLApKY3FLDgumrYvyHTFyxaB
- nj03AIVxGp2Dq/9dcbr7I7JfyET1I/7OsEGpYq8MOA==
-X-Google-Smtp-Source: APXvYqwfnSwEkjEvXmUW5iqsEnkrBDYuT3qYQzxAm9NDNV7oHl1lZuR0yld50yWLuNvpDF0keN7VpGKlyNI7oAR+m2s=
-X-Received: by 2002:a05:600c:2c53:: with SMTP id
- r19mr7698854wmg.39.1580936374544; 
- Wed, 05 Feb 2020 12:59:34 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20B746F97A;
+	Wed,  5 Feb 2020 23:28:48 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2073.outbound.protection.outlook.com [40.107.244.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E0EE6F97B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Feb 2020 23:28:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cd5QHTQpO+X1PnG7rt+/zNkBhChWfn0M0C+6xFzRQKVZjBhrUBsT6uyx3PX9LTkKW/OWxTVQEDAEetfrmAYOxyAhOpnzmJX/pjKshvvWCDzSbr9zGsDGGDNSM9cQEMY83+vBfCJw2/jUCxL7VqXGe+mHwlAdRXulC+w+rz6irZNxB9EzMzHGZBDnCbA0uSzsfmF9NpIzwm6wQKtG4d/LzkvI5VmPAscgN+bzdAxluBXAOiAV7WtjWWsxbkk1CeGTzUin/twOaaTUYH8oxk8c53rDOz3HmglEKWw98ytjwuDirNg4caUDrmnj/bgnvpgTjgmSEJaNOsBsGzYbj48Zhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NyLg7ZsvHpfeI9BRynudaQD6jxJZjNCrABi9WgNfJpo=;
+ b=XzOSuYW8LwrnlaRivjLPDLhQJXezyDBt3R5MkOM4Hk5krg0bD4uqOjXAkBWFRyGniYLVV07ifzNpIGbm0H2nB2xXwm3y24mY8mYNVWfDiwqXGj6Mj5TMvY8al53Y/9AnmW/zBVux1ZQ0HQDhmGEcf3rslE/c0uAdt5PIwWprEgNDJDADvCc0dVAxx6mkiPlekuQZKAiA6Ivs5r2NbYp9Q9QB63tgAVtEzy12e6Hwb/oPectnXXRp+VlS7V+VmR0z/9Gmb/O52pCBS5JK/qXGNDT3P0d+ytymlPVx4NKwnvhOWSoSfZN6QXjbNmJo6kA4T4wzs1gTp1DgMzm9d7u6Zg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NyLg7ZsvHpfeI9BRynudaQD6jxJZjNCrABi9WgNfJpo=;
+ b=c8S8kdouPSfvYR/eQpij7G3R6T/gG9xfILSiR1IdrSi/ac5RJJl2xSMB5Nez39IyuJLAuErCQttcjpR9NuQa3VSyGXsUzWPGTaCdiamtk2dir5uF2sTgJOnoam1zZhPqCcP8H0LNv17ptsWejhLOGyYgsQlyIiclQAdBBtiv3WU=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Yong.Zhao@amd.com; 
+Received: from CH2PR12MB3926.namprd12.prod.outlook.com (52.132.245.30) by
+ CH2PR12MB4248.namprd12.prod.outlook.com (20.180.17.23) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2707.21; Wed, 5 Feb 2020 23:28:46 +0000
+Received: from CH2PR12MB3926.namprd12.prod.outlook.com
+ ([fe80::81de:623c:a226:a92d]) by CH2PR12MB3926.namprd12.prod.outlook.com
+ ([fe80::81de:623c:a226:a92d%4]) with mapi id 15.20.2686.031; Wed, 5 Feb 2020
+ 23:28:45 +0000
+From: Yong Zhao <Yong.Zhao@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/6] drm/amdkfd: Rename queue_count to active_queue_count
+Date: Wed,  5 Feb 2020 18:28:27 -0500
+Message-Id: <20200205232832.26226-1-Yong.Zhao@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: YQBPR01CA0115.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:1::15) To CH2PR12MB3926.namprd12.prod.outlook.com
+ (2603:10b6:610:27::30)
 MIME-Version: 1.0
-References: <20200205152238.45258-1-christian.koenig@amd.com>
- <20200205152238.45258-4-christian.koenig@amd.com>
-In-Reply-To: <20200205152238.45258-4-christian.koenig@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 5 Feb 2020 15:59:22 -0500
-Message-ID: <CADnq5_NSJXM+DHvGU+3k=trZaxTbJuS2DNasLs4m=byOcNO72A@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amdgpu: use amdgpu_device_vram_access in
- amdgpu_ttm_access_memory
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
+Received: from yong-dev.amd.com (165.204.55.251) by
+ YQBPR01CA0115.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:1::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2707.21 via Frontend Transport; Wed, 5 Feb 2020 23:28:45 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: fb2f4d16-2a0d-4420-cf8e-08d7aa932501
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4248:|CH2PR12MB4248:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CH2PR12MB424894E834C49B39EB6E8153F0020@CH2PR12MB4248.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1247;
+X-Forefront-PRVS: 0304E36CA3
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(136003)(396003)(366004)(376002)(39860400002)(189003)(199004)(6666004)(1076003)(86362001)(2906002)(52116002)(478600001)(4326008)(7696005)(186003)(16526019)(316002)(6486002)(66476007)(6916009)(8676002)(66946007)(5660300002)(26005)(81166006)(66556008)(81156014)(2616005)(36756003)(8936002)(956004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4248;
+ H:CH2PR12MB3926.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: AQSEhzyB5udTCOGXaWCii+4c0VI0pU9B8MRa/AfTNjjKvZ4pRhjyRoeFD0OitvcGAUg+YGMHSPEv8LcttLWie2aUyUJINswpUePEe6g9pCQJiXQQbN0xSItGMNRbpHbNO2fCED9oNs9/LOXir0Vf7ttTlgILg2QxQw71ZhHF4LDJvK3q67QVvcLUuSEDZIy0owBKoyZQ3Lwx0XbMKR4cJN8c5JtTqsNchx/xWu1hwqVoZzSHQBq7dIL3aAlTdrcA9l3uj3EJ9MIk6CwYOTovNb3JdwTvjPp5ihOw6Y3Ql4eJP26WnewIaPAFj2010ta5hEpgV2jb3KtPRU0M8GHDWJdoYgZmDAo2Njmva9Qh7eTM43i2fuYiBBWHGxiMzmv5Ixf6EUzyqNCu4pN9BF1frNu/oH3gO8z594gRmqK49/5WZ84Q5L7NiEkxqY4skHJq
+X-MS-Exchange-AntiSpam-MessageData: uzH3nnrmUOzm+rDNOPJJnymS8PJS/aGnM9JhZ8nWT3Njfdg8nvxkgtTRQN0woDmPf8iGfInXna57BOXbTrJk1qw/5FPOIxR+AMMFvSm1uP+Wx4mOleCMzxZAkOs66d55+JIcTtc0kSbqncNQEJ5XjQ==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb2f4d16-2a0d-4420-cf8e-08d7aa932501
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2020 23:28:45.6503 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MDYhfzXkZfcwuhjs2JnmRNkGC8vcBQoAzyAPRD55GTCcj9+NkPqmh5D0XlNzyf5P
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4248
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,75 +105,240 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Kuehling, Felix" <felix.kuehling@amd.com>, "Kim,
- Jonathan" <Jonathan.Kim@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Yong Zhao <Yong.Zhao@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-U2VyaWVzIGlzOgpSZXZpZXdlZC1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBh
-bWQuY29tPgoKT24gV2VkLCBGZWIgNSwgMjAyMCBhdCAxMDoyMiBBTSBDaHJpc3RpYW4gS8O2bmln
-Cjxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBNYWtlIHVzZSBv
-ZiB0aGUgYmV0dGVyIHBlcmZvcm1hbmNlIGhlcmUgYXMgd2VsbC4KPgo+IFRoaXMgcGF0Y2ggaXMg
-b25seSBjb21waWxlIHRlc3RlZCEKPgo+IFNpZ25lZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcg
-PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3R0bS5jIHwgMzggKysrKysrKysrKysrKysrLS0tLS0tLS0tLQo+ICAxIGZp
-bGUgY2hhbmdlZCwgMjMgaW5zZXJ0aW9ucygrKSwgMTUgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIGIvZHJpdmVycy9n
-cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4gaW5kZXggNThkMTQzYjI0YmEwLi41Mzhj
-M2I1MmI3MTIgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3R0bS5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCj4g
-QEAgLTE1NjUsNyArMTU2NSw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3R0bV9hY2Nlc3NfbWVtb3J5
-KHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8sCj4KPiAgICAgICAgIHdoaWxlIChsZW4gJiYg
-cG9zIDwgYWRldi0+Z21jLm1jX3ZyYW1fc2l6ZSkgewo+ICAgICAgICAgICAgICAgICB1aW50NjRf
-dCBhbGlnbmVkX3BvcyA9IHBvcyAmIH4odWludDY0X3QpMzsKPiAtICAgICAgICAgICAgICAgdWlu
-dDMyX3QgYnl0ZXMgPSA0IC0gKHBvcyAmIDMpOwo+ICsgICAgICAgICAgICAgICB1aW50NjRfdCBi
-eXRlcyA9IDQgLSAocG9zICYgMyk7Cj4gICAgICAgICAgICAgICAgIHVpbnQzMl90IHNoaWZ0ID0g
-KHBvcyAmIDMpICogODsKPiAgICAgICAgICAgICAgICAgdWludDMyX3QgbWFzayA9IDB4ZmZmZmZm
-ZmYgPDwgc2hpZnQ7Cj4KPiBAQCAtMTU3NCwyMCArMTU3NCwyOCBAQCBzdGF0aWMgaW50IGFtZGdw
-dV90dG1fYWNjZXNzX21lbW9yeShzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+ICAgICAg
-ICAgICAgICAgICAgICAgICAgIGJ5dGVzID0gbGVuOwo+ICAgICAgICAgICAgICAgICB9Cj4KPiAt
-ICAgICAgICAgICAgICAgc3Bpbl9sb2NrX2lycXNhdmUoJmFkZXYtPm1taW9faWR4X2xvY2ssIGZs
-YWdzKTsKPiAtICAgICAgICAgICAgICAgV1JFRzMyX05PX0tJUShtbU1NX0lOREVYLCAoKHVpbnQz
-Ml90KWFsaWduZWRfcG9zKSB8IDB4ODAwMDAwMDApOwo+IC0gICAgICAgICAgICAgICBXUkVHMzJf
-Tk9fS0lRKG1tTU1fSU5ERVhfSEksIGFsaWduZWRfcG9zID4+IDMxKTsKPiAtICAgICAgICAgICAg
-ICAgaWYgKCF3cml0ZSB8fCBtYXNrICE9IDB4ZmZmZmZmZmYpCj4gLSAgICAgICAgICAgICAgICAg
-ICAgICAgdmFsdWUgPSBSUkVHMzJfTk9fS0lRKG1tTU1fREFUQSk7Cj4gLSAgICAgICAgICAgICAg
-IGlmICh3cml0ZSkgewo+IC0gICAgICAgICAgICAgICAgICAgICAgIHZhbHVlICY9IH5tYXNrOwo+
-IC0gICAgICAgICAgICAgICAgICAgICAgIHZhbHVlIHw9ICgqKHVpbnQzMl90ICopYnVmIDw8IHNo
-aWZ0KSAmIG1hc2s7Cj4gLSAgICAgICAgICAgICAgICAgICAgICAgV1JFRzMyX05PX0tJUShtbU1N
-X0RBVEEsIHZhbHVlKTsKPiAtICAgICAgICAgICAgICAgfQo+IC0gICAgICAgICAgICAgICBzcGlu
-X3VubG9ja19pcnFyZXN0b3JlKCZhZGV2LT5tbWlvX2lkeF9sb2NrLCBmbGFncyk7Cj4gLSAgICAg
-ICAgICAgICAgIGlmICghd3JpdGUpIHsKPiAtICAgICAgICAgICAgICAgICAgICAgICB2YWx1ZSA9
-ICh2YWx1ZSAmIG1hc2spID4+IHNoaWZ0Owo+IC0gICAgICAgICAgICAgICAgICAgICAgIG1lbWNw
-eShidWYsICZ2YWx1ZSwgYnl0ZXMpOwo+ICsgICAgICAgICAgICAgICBpZiAobWFzayAhPSAweGZm
-ZmZmZmZmKSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgc3Bpbl9sb2NrX2lycXNhdmUoJmFk
-ZXYtPm1taW9faWR4X2xvY2ssIGZsYWdzKTsKPiArICAgICAgICAgICAgICAgICAgICAgICBXUkVH
-MzJfTk9fS0lRKG1tTU1fSU5ERVgsICgodWludDMyX3QpYWxpZ25lZF9wb3MpIHwgMHg4MDAwMDAw
-MCk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgV1JFRzMyX05PX0tJUShtbU1NX0lOREVYX0hJ
-LCBhbGlnbmVkX3BvcyA+PiAzMSk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgaWYgKCF3cml0
-ZSB8fCBtYXNrICE9IDB4ZmZmZmZmZmYpCj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICB2YWx1ZSA9IFJSRUczMl9OT19LSVEobW1NTV9EQVRBKTsKPiArICAgICAgICAgICAgICAgICAg
-ICAgICBpZiAod3JpdGUpIHsKPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHZhbHVl
-ICY9IH5tYXNrOwo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdmFsdWUgfD0gKCoo
-dWludDMyX3QgKilidWYgPDwgc2hpZnQpICYgbWFzazsKPiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIFdSRUczMl9OT19LSVEobW1NTV9EQVRBLCB2YWx1ZSk7Cj4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgfQo+ICsgICAgICAgICAgICAgICAgICAgICAgIHNwaW5fdW5sb2NrX2lycXJl
-c3RvcmUoJmFkZXYtPm1taW9faWR4X2xvY2ssIGZsYWdzKTsKPiArICAgICAgICAgICAgICAgICAg
-ICAgICBpZiAoIXdyaXRlKSB7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB2YWx1
-ZSA9ICh2YWx1ZSAmIG1hc2spID4+IHNoaWZ0Owo+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgbWVtY3B5KGJ1ZiwgJnZhbHVlLCBieXRlcyk7Cj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgfQo+ICsgICAgICAgICAgICAgICB9IGVsc2Ugewo+ICsgICAgICAgICAgICAgICAgICAgICAg
-IGJ5dGVzID0gKG5vZGVzLT5zdGFydCArIG5vZGVzLT5zaXplKSA8PCBQQUdFX1NISUZUOwo+ICsg
-ICAgICAgICAgICAgICAgICAgICAgIGJ5dGVzID0gbWluKHBvcyAtIGJ5dGVzLCAodWludDY0X3Qp
-bGVuICYgfjB4M3VsbCk7Cj4gKwo+ICsgICAgICAgICAgICAgICAgICAgICAgIGFtZGdwdV9kZXZp
-Y2VfdnJhbV9hY2Nlc3MoYWRldiwgcG9zLCAodWludDMyX3QgKilidWYsCj4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBieXRlcywgd3JpdGUpOwo+ICAg
-ICAgICAgICAgICAgICB9Cj4KPiAgICAgICAgICAgICAgICAgcmV0ICs9IGJ5dGVzOwo+IC0tCj4g
-Mi4xNy4xCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Xwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
-YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
-cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+The name is easier to understand the code.
+
+Change-Id: I9064dab1d022e02780023131f940fff578a06b72
+Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
+---
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 38 +++++++++----------
+ .../drm/amd/amdkfd/kfd_device_queue_manager.h |  2 +-
+ .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |  4 +-
+ .../amd/amdkfd/kfd_process_queue_manager.c    |  2 +-
+ 4 files changed, 23 insertions(+), 23 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 80d22bf702e8..7ef9b89f5c70 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -359,7 +359,7 @@ static int create_queue_nocpsch(struct device_queue_manager *dqm,
+ 	list_add(&q->list, &qpd->queues_list);
+ 	qpd->queue_count++;
+ 	if (q->properties.is_active)
+-		dqm->queue_count++;
++		dqm->active_queue_count++;
+ 
+ 	if (q->properties.type == KFD_QUEUE_TYPE_SDMA)
+ 		dqm->sdma_queue_count++;
+@@ -494,7 +494,7 @@ static int destroy_queue_nocpsch_locked(struct device_queue_manager *dqm,
+ 	}
+ 	qpd->queue_count--;
+ 	if (q->properties.is_active)
+-		dqm->queue_count--;
++		dqm->active_queue_count--;
+ 
+ 	return retval;
+ }
+@@ -563,13 +563,13 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q)
+ 	/*
+ 	 * check active state vs. the previous state and modify
+ 	 * counter accordingly. map_queues_cpsch uses the
+-	 * dqm->queue_count to determine whether a new runlist must be
++	 * dqm->active_queue_count to determine whether a new runlist must be
+ 	 * uploaded.
+ 	 */
+ 	if (q->properties.is_active && !prev_active)
+-		dqm->queue_count++;
++		dqm->active_queue_count++;
+ 	else if (!q->properties.is_active && prev_active)
+-		dqm->queue_count--;
++		dqm->active_queue_count--;
+ 
+ 	if (dqm->sched_policy != KFD_SCHED_POLICY_NO_HWS)
+ 		retval = map_queues_cpsch(dqm);
+@@ -618,7 +618,7 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
+ 		mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
+ 				q->properties.type)];
+ 		q->properties.is_active = false;
+-		dqm->queue_count--;
++		dqm->active_queue_count--;
+ 
+ 		if (WARN_ONCE(!dqm->sched_running, "Evict when stopped\n"))
+ 			continue;
+@@ -662,7 +662,7 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
+ 			continue;
+ 
+ 		q->properties.is_active = false;
+-		dqm->queue_count--;
++		dqm->active_queue_count--;
+ 	}
+ 	retval = execute_queues_cpsch(dqm,
+ 				qpd->is_debug ?
+@@ -731,7 +731,7 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
+ 		mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
+ 				q->properties.type)];
+ 		q->properties.is_active = true;
+-		dqm->queue_count++;
++		dqm->active_queue_count++;
+ 
+ 		if (WARN_ONCE(!dqm->sched_running, "Restore when stopped\n"))
+ 			continue;
+@@ -786,7 +786,7 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
+ 			continue;
+ 
+ 		q->properties.is_active = true;
+-		dqm->queue_count++;
++		dqm->active_queue_count++;
+ 	}
+ 	retval = execute_queues_cpsch(dqm,
+ 				KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
+@@ -899,7 +899,7 @@ static int initialize_nocpsch(struct device_queue_manager *dqm)
+ 
+ 	mutex_init(&dqm->lock_hidden);
+ 	INIT_LIST_HEAD(&dqm->queues);
+-	dqm->queue_count = dqm->next_pipe_to_allocate = 0;
++	dqm->active_queue_count = dqm->next_pipe_to_allocate = 0;
+ 	dqm->sdma_queue_count = 0;
+ 	dqm->xgmi_sdma_queue_count = 0;
+ 
+@@ -924,7 +924,7 @@ static void uninitialize(struct device_queue_manager *dqm)
+ {
+ 	int i;
+ 
+-	WARN_ON(dqm->queue_count > 0 || dqm->processes_count > 0);
++	WARN_ON(dqm->active_queue_count > 0 || dqm->processes_count > 0);
+ 
+ 	kfree(dqm->allocated_queues);
+ 	for (i = 0 ; i < KFD_MQD_TYPE_MAX ; i++)
+@@ -1064,7 +1064,7 @@ static int initialize_cpsch(struct device_queue_manager *dqm)
+ 
+ 	mutex_init(&dqm->lock_hidden);
+ 	INIT_LIST_HEAD(&dqm->queues);
+-	dqm->queue_count = dqm->processes_count = 0;
++	dqm->active_queue_count = dqm->processes_count = 0;
+ 	dqm->sdma_queue_count = 0;
+ 	dqm->xgmi_sdma_queue_count = 0;
+ 	dqm->active_runlist = false;
+@@ -1158,7 +1158,7 @@ static int create_kernel_queue_cpsch(struct device_queue_manager *dqm,
+ 			dqm->total_queue_count);
+ 
+ 	list_add(&kq->list, &qpd->priv_queue_list);
+-	dqm->queue_count++;
++	dqm->active_queue_count++;
+ 	qpd->is_debug = true;
+ 	execute_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
+ 	dqm_unlock(dqm);
+@@ -1172,7 +1172,7 @@ static void destroy_kernel_queue_cpsch(struct device_queue_manager *dqm,
+ {
+ 	dqm_lock(dqm);
+ 	list_del(&kq->list);
+-	dqm->queue_count--;
++	dqm->active_queue_count--;
+ 	qpd->is_debug = false;
+ 	execute_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES, 0);
+ 	/*
+@@ -1244,7 +1244,7 @@ static int create_queue_cpsch(struct device_queue_manager *dqm, struct queue *q,
+ 		dqm->xgmi_sdma_queue_count++;
+ 
+ 	if (q->properties.is_active) {
+-		dqm->queue_count++;
++		dqm->active_queue_count++;
+ 		retval = execute_queues_cpsch(dqm,
+ 				KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
+ 	}
+@@ -1319,7 +1319,7 @@ static int map_queues_cpsch(struct device_queue_manager *dqm)
+ 
+ 	if (!dqm->sched_running)
+ 		return 0;
+-	if (dqm->queue_count <= 0 || dqm->processes_count <= 0)
++	if (dqm->active_queue_count <= 0 || dqm->processes_count <= 0)
+ 		return 0;
+ 	if (dqm->active_runlist)
+ 		return 0;
+@@ -1438,7 +1438,7 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
+ 	list_del(&q->list);
+ 	qpd->queue_count--;
+ 	if (q->properties.is_active) {
+-		dqm->queue_count--;
++		dqm->active_queue_count--;
+ 		retval = execute_queues_cpsch(dqm,
+ 				KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0);
+ 		if (retval == -ETIME)
+@@ -1648,7 +1648,7 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
+ 	/* Clean all kernel queues */
+ 	list_for_each_entry_safe(kq, kq_next, &qpd->priv_queue_list, list) {
+ 		list_del(&kq->list);
+-		dqm->queue_count--;
++		dqm->active_queue_count--;
+ 		qpd->is_debug = false;
+ 		dqm->total_queue_count--;
+ 		filter = KFD_UNMAP_QUEUES_FILTER_ALL_QUEUES;
+@@ -1665,7 +1665,7 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
+ 		}
+ 
+ 		if (q->properties.is_active)
+-			dqm->queue_count--;
++			dqm->active_queue_count--;
+ 
+ 		dqm->total_queue_count--;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+index 871d3b628d2d..ee3400e92c30 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
+@@ -180,7 +180,7 @@ struct device_queue_manager {
+ 	struct list_head	queues;
+ 	unsigned int		saved_flags;
+ 	unsigned int		processes_count;
+-	unsigned int		queue_count;
++	unsigned int		active_queue_count;
+ 	unsigned int		sdma_queue_count;
+ 	unsigned int		xgmi_sdma_queue_count;
+ 	unsigned int		total_queue_count;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+index dc406e6dee23..393c218734fd 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
+@@ -47,7 +47,7 @@ static void pm_calc_rlib_size(struct packet_manager *pm,
+ 	struct kfd_dev *dev = pm->dqm->dev;
+ 
+ 	process_count = pm->dqm->processes_count;
+-	queue_count = pm->dqm->queue_count;
++	queue_count = pm->dqm->active_queue_count;
+ 	compute_queue_count = queue_count - pm->dqm->sdma_queue_count -
+ 				pm->dqm->xgmi_sdma_queue_count;
+ 
+@@ -141,7 +141,7 @@ static int pm_create_runlist_ib(struct packet_manager *pm,
+ 	pm->ib_size_bytes = alloc_size_bytes;
+ 
+ 	pr_debug("Building runlist ib process count: %d queues count %d\n",
+-		pm->dqm->processes_count, pm->dqm->queue_count);
++		pm->dqm->processes_count, pm->dqm->active_queue_count);
+ 
+ 	/* build the run list ib packet */
+ 	list_for_each_entry(cur, queues, list) {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index cb1ca11b99c3..606b1a8aacad 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -266,7 +266,7 @@ int pqm_create_queue(struct process_queue_manager *pqm,
+ 		if ((dev->dqm->sched_policy ==
+ 		     KFD_SCHED_POLICY_HWS_NO_OVERSUBSCRIPTION) &&
+ 		((dev->dqm->processes_count >= dev->vm_info.vmid_num_kfd) ||
+-		(dev->dqm->queue_count >= get_queues_num(dev->dqm)))) {
++		(dev->dqm->active_queue_count >= get_queues_num(dev->dqm)))) {
+ 			pr_debug("Over-subscription is not allowed when amdkfd.sched_policy == 1\n");
+ 			retval = -EPERM;
+ 			goto err_create_queue;
+-- 
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
