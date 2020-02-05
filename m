@@ -2,67 +2,66 @@ Return-Path: <SRS0=mUog=3Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47032C35247
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2020 19:43:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B5336C35247
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2020 20:33:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19D9520730
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2020 19:43:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8522A20659
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Feb 2020 20:33:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tm7U5PG9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19D9520730
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XixeV5hJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8522A20659
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD4A26E9ED;
-	Wed,  5 Feb 2020 19:43:25 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78E3A6E9ED
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Feb 2020 19:43:24 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id t23so3800549wmi.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Feb 2020 11:43:24 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ABF06F941;
+	Wed,  5 Feb 2020 20:33:17 +0000 (UTC)
+Received: from mail-wr1-x42d.google.com (mail-wr1-x42d.google.com
+ [IPv6:2a00:1450:4864:20::42d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A08476F941
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Feb 2020 20:33:15 +0000 (UTC)
+Received: by mail-wr1-x42d.google.com with SMTP id t2so4447254wrr.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 05 Feb 2020 12:33:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SO/yJ+CxLWdlzSzvECpxjBgfng5aHRexC/OIl5nXatw=;
- b=tm7U5PG9ZNs1PTr3+vNBvUgYP4V0OtlInjm+sLI/Sr6Ukigb0rL6F+GaQUGq/ks5PS
- GTn/fP42y4UwRlKwUZlF+NE5X7sPsUThZQPxZehITfD2VjPj7Zgw+aL/vWij/LQl1UTl
- JBNt8UqxE1rwRT6R8qsa1qyNymJbiAF8TpD1ygafl6ur8ERSU8aLL8Le4LT2ztiZOQZ5
- dbft7c8yd9oDos1kRI0b6ZYVEK9xZ79UVhXmEYmrJB0SIvFddrsYW9K7W0d51Bmk2AxH
- iIbSCRotAZOl8DupPIpOqOUaIVPf3SHir7phZlNleBFk6opILxXMPznlXwILLEcuaHSH
- IhQw==
+ :cc:content-transfer-encoding;
+ bh=h8w3PKy3NgpkpwLlrPWS9PryMtHQ1jZpvrTxUtkyro4=;
+ b=XixeV5hJs0o/am/o6mUxL0LxJKYcMTui7tM8GJ7mbdXUWjQ81SVaySZySS9wLRS+UM
+ fdjJcHowccptBN1L+1Qovx9TPhvIz0GCBxz9t9kH9GMeAYlZLWQQX/Vy71UUsKg95Kk1
+ Pu8EOdUm5txcbZpRtyunhLiENAfzKt2oEf8mYf9juRUDSEsRl3T5gZEtRa+R2PDxvm5j
+ DRghEMYrzYPeUs2w7q+LQQghHZRZd8lvdhtiEifYe72RDI/rLDuq3ymYLRKSXcgZNZD7
+ OnHzXJMrdg43wfsQeazEQHCyq4lPgwNz7bO0RlmsjDECKZTX+VlDIO5SAmHh0Ppltch5
+ BuHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SO/yJ+CxLWdlzSzvECpxjBgfng5aHRexC/OIl5nXatw=;
- b=JyJLGSJ+iyvMcX/t8YDkHKp/MZFuhJgclWWmgmI6jGIcZAH+qyvXANX7h91aJ3vlrn
- EgqgP3ZAYT5zDSbGSuxATHc2xDbD0OCnisV2djLiOO17tg7HCwoSfxwLQ3oJ7hcPI90/
- kRqps7DnBDUDE+jS1PZVVZ4j4/4l/j82+/RkYPrq9tYDSUic+6rDtG5OBd/B9DpAWvOP
- bAPN16wQMov4NLoyLVjkoaw7ddYp2wyaswk9WWZKyZVdRzMR9Ntb6WmHQhJwZx+akuOH
- pK/c/WEuqFq+yHiqAlIhg3YhPocWBXxIjhK4Fj12WrGucGeJrYEw8C5HH+owML3n3bhw
- VgVA==
-X-Gm-Message-State: APjAAAWUO8cUEeXd6aCgeCn7ejiInUL08nLh3gYGL90ZzXT+2+xqCIBm
- wh+EUgF7Kdv1tbOwMxwj/BODn/bG+zgP+vBynII=
-X-Google-Smtp-Source: APXvYqxIxtXoHtTYG5ylAB7gXVxDFgOzGgFWCRiAV4cXnT5LMYKpT5GVtyZfz4DAD2Mcg/SZ2SQEnZ6vugyLxxJn784=
-X-Received: by 2002:a1c:f009:: with SMTP id a9mr7326145wmb.73.1580931803092;
- Wed, 05 Feb 2020 11:43:23 -0800 (PST)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=h8w3PKy3NgpkpwLlrPWS9PryMtHQ1jZpvrTxUtkyro4=;
+ b=V4kyqGL5E112G5en39aYhxGgYKUsZ5PyrynVNV0noR3O6PJSxeDQJI/GNBzK/vWvrS
+ Zo1h1+pUPYU/RZ4b7BfKgnrIIsQld6GAomoYM9YK1zwWJwoQADgYZoJtOZ71ZW4X0hDW
+ 7KukHsffGuEWf4uvKYi8xCQw28VXFJ1XcbJjHFi7HWvEbfPmxp9AycWWuxKOJ+zS6sWv
+ FxXNE0+8Jh5+HMr/m2Os4kALscIwc7NoBblM5qrEQhxB9mJCvZf78YKvCW2Sm6nE8X7E
+ gLb5lueAVun2IbssmXy0v/YBSzS6/XcGGcAWfWiCOUQILOMve/w11K0RdFlJpMq82ZQW
+ HYFQ==
+X-Gm-Message-State: APjAAAUpqSuf5TYn+cbac9WvpUHLKNg6AqJev0zhgnHp2iAaM2D7X7TA
+ 72QXZhkNwveSiQiUKCIFZ2UbPKtAQRpuqLxyInM491+l
+X-Google-Smtp-Source: APXvYqw4/SFbc9A4o3AWykibAqMSOcEgxZoxYiIlt48C712GOy0BOWvUg0O2HGKsVbwDHyYJVHDkz9spPkPzerJ+3m0=
+X-Received: by 2002:adf:a50b:: with SMTP id i11mr313454wrb.362.1580934794307; 
+ Wed, 05 Feb 2020 12:33:14 -0800 (PST)
 MIME-Version: 1.0
-References: <20200205183714.6t5c7ewyovwjicm6@kili.mountain>
- <b9a18739-cada-05e8-d894-be8dcba9fb43@amd.com>
-In-Reply-To: <b9a18739-cada-05e8-d894-be8dcba9fb43@amd.com>
+References: <DM6PR12MB33724602207E1D3B7839A4EF81020@DM6PR12MB3372.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB33724602207E1D3B7839A4EF81020@DM6PR12MB3372.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 5 Feb 2020 14:43:11 -0500
-Message-ID: <CADnq5_PF2ofuZM9NNeDoWHo-atHQd=ExcWNFDg9yCC9R4v9Tuw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix some use after free bugs
-To: Bhawanpreet Lakha <Bhawanpreet.lakha@amd.com>
+Date: Wed, 5 Feb 2020 15:33:03 -0500
+Message-ID: <CADnq5_Pb904Z_=4zcVkQHBpBghV-zevorL9q_zwHgL5JP57ypw@mail.gmail.com>
+Subject: Re: [Dali] Raven 2 detection Patch
+To: "Tawfik, Aly" <Aly.Tawfik@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,82 +73,42 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Zhan Liu <zhan.liu@amd.com>,
- kernel-janitors@vger.kernel.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- zhengbin <zhengbin13@huawei.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chiu,
+ Michael" <Michael.Chiu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+just a couple of typos in the patch title:
+drm\amdgpu: [DALI] Dali Varient Detection
+It should be:
+drm/amdgpu: [DALI] Dali Variant Detection
+With that fixed, patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Alex
-
-On Wed, Feb 5, 2020 at 1:44 PM Bhawanpreet Lakha
-<Bhawanpreet.lakha@amd.com> wrote:
+On Wed, Feb 5, 2020 at 9:59 AM Tawfik, Aly <Aly.Tawfik@amd.com> wrote:
 >
-> Reviewed-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+> Hi,
 >
-> On 2020-02-05 1:38 p.m., Dan Carpenter wrote:
-> > These frees need to be re-ordered so that we don't dereference "hdcp_work"
-> > right after it's freed.  Also in hdcp_create_workqueue() there is a
-> > problem that "hdcp_work" can be NULL if the allocation fails so it would
-> > lead to a NULL dereference in the cleanup code.
-> >
-> > Fixes: 9aeb8a134a0a ("drm/amd/display: Add sysfs interface for set/get srm")
-> > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-> > ---
-> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 9 +++++----
-> >   1 file changed, 5 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-> > index 1768a33b1dc3..f3330df782a4 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-> > @@ -380,9 +380,9 @@ void hdcp_destroy(struct hdcp_workqueue *hdcp_work)
-> >               cancel_delayed_work_sync(&hdcp_work[i].watchdog_timer_dwork);
-> >       }
-> >
-> > -     kfree(hdcp_work);
-> >       kfree(hdcp_work->srm);
-> >       kfree(hdcp_work->srm_temp);
-> > +     kfree(hdcp_work);
-> >   }
-> >
-> >   static void update_config(void *handle, struct cp_psp_stream_config *config)
-> > @@ -555,11 +555,12 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct
-> >   {
-> >
-> >       int max_caps = dc->caps.max_links;
-> > -     struct hdcp_workqueue *hdcp_work = kzalloc(max_caps*sizeof(*hdcp_work), GFP_KERNEL);
-> > +     struct hdcp_workqueue *hdcp_work;
-> >       int i = 0;
-> >
-> > +     hdcp_work = kcalloc(max_caps, sizeof(*hdcp_work), GFP_KERNEL);
-> >       if (hdcp_work == NULL)
-> > -             goto fail_alloc_context;
-> > +             return NULL;
-> >
-> >       hdcp_work->srm = kcalloc(PSP_HDCP_SRM_FIRST_GEN_MAX_SIZE, sizeof(*hdcp_work->srm), GFP_KERNEL);
-> >
-> > @@ -602,9 +603,9 @@ struct hdcp_workqueue *hdcp_create_workqueue(struct amdgpu_device *adev, struct
-> >       return hdcp_work;
-> >
-> >   fail_alloc_context:
-> > -     kfree(hdcp_work);
-> >       kfree(hdcp_work->srm);
-> >       kfree(hdcp_work->srm_temp);
-> > +     kfree(hdcp_work);
-> >
-> >       return NULL;
-> >
+>
+>
+> Dali is a raven2 based asic that drives at a lower (6W) TDP than other raven 2 chips. Currently the fused internal id is the same on all raven 2 boards, this means that the detection process must be done through PCIE REV ID.
+>
+> Unfortunately PCIE REV ID is not defined inside the scope of display. I created a patch to alter the fused value for internal rev_id if the chip is detected as dali through PCIE REV ID. So that detection of the chip will be possible inside of Display core.
+>
+>
+>
+> Can you kindly provide feedback on this workaround.
+>
+>
+>
+> Best Regards,
+>
+> Aly Tawfik
+>
+>
+>
 > _______________________________________________
 > amd-gfx mailing list
 > amd-gfx@lists.freedesktop.org
