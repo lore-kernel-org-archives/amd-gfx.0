@@ -2,67 +2,71 @@ Return-Path: <SRS0=1Ph7=32=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-8.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B229C352A3
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Feb 2020 19:27:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 573C4C35247
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Feb 2020 19:55:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D09821775
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Feb 2020 19:27:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 25D0F21741
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Feb 2020 19:55:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YItvg52s"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D09821775
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qSzn+yXD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 25D0F21741
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7BE36FB2F;
-	Thu,  6 Feb 2020 19:27:31 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70B3F6E1F2
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Feb 2020 19:27:30 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id f129so1434495wmf.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Feb 2020 11:27:30 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF5B66E2DE;
+	Thu,  6 Feb 2020 19:55:26 +0000 (UTC)
+Received: from mail-yw1-xc43.google.com (mail-yw1-xc43.google.com
+ [IPv6:2607:f8b0:4864:20::c43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7684C6E2DE
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Feb 2020 19:55:26 +0000 (UTC)
+Received: by mail-yw1-xc43.google.com with SMTP id z141so5548959ywd.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Feb 2020 11:55:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=JNG+gzJIgq1UTobw38YyUGDqVQ/Lt4xnjooDs7FbPMo=;
- b=YItvg52sh4XodhATEoHIu8CPATanmUWHl1C3QpZUKeAWVrIXWJSrF/t8VsT4m2Kop5
- gK2rqR3Bc6BIsq9xOLu/AgiMrrbNMQQ9J1/PIiGhG4XPJjU4uHERR7lj63Au/YVJEUEV
- uA30OGU4o6E8zwtQSSRt7GFM0tbLEci+yyVMbyyhbJxcWbbSv988RQafj45BoKNZBW36
- infkTj8OhBfDlr5tBYUnFKGLY8zZqJpEIAZkrGR36C2A1Hr7n0bxPvSTIOqdJI1LSIUu
- 4LzSjCJEaiztv5vjOXgVJp4f+OdIqUmn3m+j3FOG+dHqQPdNtyrC+lUx62yo6VwdJ+UC
- WrIQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4k7Ls6Zq6i1MiYpaIBiVXUV7tzBS4tfUUhdXHiHaJZ4=;
+ b=qSzn+yXDlM/XuhyBq56p8932A1pLrdq2ErRDltEOrNBAw2vmcZt1Ppn14mPw2p/nKA
+ zQgqT2+HYMGbbIQoA+J9Z6T4z38bFX4x7XdeeH7OHbZFhQzyIH5f6yNvDgj7x/GUoWD6
+ PSWvE9OgE9MmZFG/v+1fmLklFNdGVbVTSGqwzI0/g34bwjpiBi+K+1wQJArvTUjsumSh
+ lYLWMgWyCKen8dJoFRvxPmIkGmkT/C3lCKMbyfcdI5uUGZlubXzRKwx+zFb9UXT/lYN/
+ Perr2SRkx/Qtd+K0c/2WHvb44G+i/iXk0VENVDmASVe24xy+1SyLhTb81E8rNnVX7AO5
+ azHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=JNG+gzJIgq1UTobw38YyUGDqVQ/Lt4xnjooDs7FbPMo=;
- b=GNeslcwI33WXWAzH165jU2lMcXlVk5DL/ZpvnH6Bt1VVHqEZC429JAHqO/druX0RBb
- F8qn6K3T00rYDpDHryl5x3WchNhjUb4DptcQ+xPhRwxkrJA5ksQsxa32aNI0iDaJWoCT
- AGllTYQysn8h2XGsucVv2jLxpDv7tNj3UhiICwbkUnXB9NnX1aXMKmcJttiOZYrUgBXc
- GwmvsDnjxKFcFj8rMuRfpxh/41zvnvdHB5m+90BVWkyTPuU38AwqFMMWAqa52i8wH0p3
- EaXpqAhaNr0ZmmPI2t1KPwSGGGjvjwBwbYA5RqOdDri/+u52gs8p//6eSIrvnkslSX8s
- zSJw==
-X-Gm-Message-State: APjAAAXfUwi5flinrq9Tl04vdT2ZJT2YImx/9IDJj34SkoYA3HUO73R2
- qUtcTIHpRmShdpQ+C9i3iYHRrBK85P8ANbeuTrohRA==
-X-Google-Smtp-Source: APXvYqzjF4wptsg/+OkGXtgnuHMZ0gQr2kFtR4NTautyo9qvsyYR9r7WMUMV3j0BH5nSq2qcj4IK3vHBMdTIEs2BdvA=
-X-Received: by 2002:adf:8b59:: with SMTP id v25mr5538058wra.419.1581017249137; 
- Thu, 06 Feb 2020 11:27:29 -0800 (PST)
-MIME-Version: 1.0
-References: <20200206191435.12715-1-daniel@octaforge.org>
-In-Reply-To: <20200206191435.12715-1-daniel@octaforge.org>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4k7Ls6Zq6i1MiYpaIBiVXUV7tzBS4tfUUhdXHiHaJZ4=;
+ b=lUW+qO4FeKNFG8jmoWqlkdem22TDbmwvm5IJAvTcYDSDbH/eYfICCok6m4fqTAUVTN
+ PZhwhK/rlcVLsqKwYUqY9XskRHCdbUp2pzwR2mgqoJBI//By47aNq3M6dGlrHL8wt9ka
+ sAVKfT4qxXqgDCUm+5ZXwdDZQyOAf+Ci/QloLM9pMxhuvajT6NgQRWnYX2fY3EGzJ8W+
+ Yw+5dtGRE31HTGmh+9I2GPRZAfxtC+MpqV5+Bib0Xh2N5RXvV8WbIH+5UnIOrkYbwFEu
+ N6Vvv4oL806fWtxqqcDJC026k1JnPmzZNjr+s6d/6Z8U87AX3iXuE/zJkvm7z48Dw3e2
+ 0yYw==
+X-Gm-Message-State: APjAAAUodAjc0q8ls3/+NmChbZwocc4T9d77ZthaEbUVlaU0tdK28QSg
+ L4I7mC3pY5D/+oNvlaQExDeTaEck
+X-Google-Smtp-Source: APXvYqwx0JMavobxto9i6RcKNVUhELmGLGVCMmFkAdINnzJShe3jmyi4jCqK0jkibLbKL31LLKz1Ow==
+X-Received: by 2002:a0d:e20a:: with SMTP id l10mr4740324ywe.17.1581018925364; 
+ Thu, 06 Feb 2020 11:55:25 -0800 (PST)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id e63sm179870ywd.64.2020.02.06.11.55.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Feb 2020 11:55:24 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 6 Feb 2020 14:27:18 -0500
-Message-ID: <CADnq5_Mc=P5WtGXRKnv_URZeF9YBaaT754ZzJE4O6pLeoqRgbw@mail.gmail.com>
-Subject: Re: [PATCH] amdgpu: Prevent build errors regarding soft/hard-float FP
- ABI tags
-To: Daniel Kolesa <daniel@octaforge.org>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/2] drm/amdgpu: update smu_v11_0_pptable.h
+Date: Thu,  6 Feb 2020 14:55:15 -0500
+Message-Id: <20200206195516.302101-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.24.1
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,60 +78,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 6, 2020 at 2:21 PM Daniel Kolesa <daniel@octaforge.org> wrote:
->
-> On PowerPC, the compiler will tag object files with whether they
-> use hard or soft float FP ABI and whether they use 64 or 128-bit
-> long double ABI. On systems with 64-bit long double ABI, a tag
-> will get emitted whenever a double is used, as on those systems
-> a long double is the same as a double. This will prevent linkage
-> as other files are being compiled with hard-float.
->
-> On ppc64, this code will never actually get used for the time
-> being, as the only currently existing hardware using it are the
-> Renoir APUs. Therefore, until this is testable and can be fixed
-> properly, at least make sure the build will not fail.
->
-> Signed-off-by: Daniel Kolesa <daniel@octaforge.org>
+Update to the latest changes.
 
-Applied.  Thanks!
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ .../drm/amd/powerplay/inc/smu_v11_0_pptable.h | 46 +++++++++++++------
+ 1 file changed, 32 insertions(+), 14 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0_pptable.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0_pptable.h
+index b2f96a101124..7a63cf8e85ed 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0_pptable.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0_pptable.h
+@@ -39,21 +39,39 @@
+ #define SMU_11_0_PP_OVERDRIVE_VERSION                   0x0800
+ #define SMU_11_0_PP_POWERSAVINGCLOCK_VERSION            0x0100
+ 
++enum SMU_11_0_ODFEATURE_CAP {
++    SMU_11_0_ODCAP_GFXCLK_LIMITS = 0,
++    SMU_11_0_ODCAP_GFXCLK_CURVE,
++    SMU_11_0_ODCAP_UCLK_MAX,
++    SMU_11_0_ODCAP_POWER_LIMIT,
++    SMU_11_0_ODCAP_FAN_ACOUSTIC_LIMIT,
++    SMU_11_0_ODCAP_FAN_SPEED_MIN,
++    SMU_11_0_ODCAP_TEMPERATURE_FAN,
++    SMU_11_0_ODCAP_TEMPERATURE_SYSTEM,
++    SMU_11_0_ODCAP_MEMORY_TIMING_TUNE,
++    SMU_11_0_ODCAP_FAN_ZERO_RPM_CONTROL,
++    SMU_11_0_ODCAP_AUTO_UV_ENGINE,
++    SMU_11_0_ODCAP_AUTO_OC_ENGINE,
++    SMU_11_0_ODCAP_AUTO_OC_MEMORY,
++    SMU_11_0_ODCAP_FAN_CURVE,
++    SMU_11_0_ODCAP_COUNT,
++};
++
+ enum SMU_11_0_ODFEATURE_ID {
+-    SMU_11_0_ODFEATURE_GFXCLK_LIMITS        = 1 << 0,         //GFXCLK Limit feature
+-    SMU_11_0_ODFEATURE_GFXCLK_CURVE         = 1 << 1,         //GFXCLK Curve feature
+-    SMU_11_0_ODFEATURE_UCLK_MAX             = 1 << 2,         //UCLK Limit feature
+-    SMU_11_0_ODFEATURE_POWER_LIMIT          = 1 << 3,         //Power Limit feature
+-    SMU_11_0_ODFEATURE_FAN_ACOUSTIC_LIMIT   = 1 << 4,         //Fan Acoustic RPM feature
+-    SMU_11_0_ODFEATURE_FAN_SPEED_MIN        = 1 << 5,         //Minimum Fan Speed feature
+-    SMU_11_0_ODFEATURE_TEMPERATURE_FAN      = 1 << 6,         //Fan Target Temperature Limit feature
+-    SMU_11_0_ODFEATURE_TEMPERATURE_SYSTEM   = 1 << 7,         //Operating Temperature Limit feature
+-    SMU_11_0_ODFEATURE_MEMORY_TIMING_TUNE   = 1 << 8,         //AC Timing Tuning feature
+-    SMU_11_0_ODFEATURE_FAN_ZERO_RPM_CONTROL = 1 << 9,         //Zero RPM feature
+-    SMU_11_0_ODFEATURE_AUTO_UV_ENGINE       = 1 << 10,        //Auto Under Volt GFXCLK feature
+-    SMU_11_0_ODFEATURE_AUTO_OC_ENGINE       = 1 << 11,        //Auto Over Clock GFXCLK feature
+-    SMU_11_0_ODFEATURE_AUTO_OC_MEMORY       = 1 << 12,        //Auto Over Clock MCLK feature
+-    SMU_11_0_ODFEATURE_FAN_CURVE            = 1 << 13,        //VICTOR TODO
++    SMU_11_0_ODFEATURE_GFXCLK_LIMITS        = 1 << SMU_11_0_ODCAP_GFXCLK_LIMITS,            //GFXCLK Limit feature
++    SMU_11_0_ODFEATURE_GFXCLK_CURVE         = 1 << SMU_11_0_ODCAP_GFXCLK_CURVE,             //GFXCLK Curve feature
++    SMU_11_0_ODFEATURE_UCLK_MAX             = 1 << SMU_11_0_ODCAP_UCLK_MAX,                 //UCLK Limit feature
++    SMU_11_0_ODFEATURE_POWER_LIMIT          = 1 << SMU_11_0_ODCAP_POWER_LIMIT,              //Power Limit feature
++    SMU_11_0_ODFEATURE_FAN_ACOUSTIC_LIMIT   = 1 << SMU_11_0_ODCAP_FAN_ACOUSTIC_LIMIT,       //Fan Acoustic RPM feature
++    SMU_11_0_ODFEATURE_FAN_SPEED_MIN        = 1 << SMU_11_0_ODCAP_FAN_SPEED_MIN,            //Minimum Fan Speed feature
++    SMU_11_0_ODFEATURE_TEMPERATURE_FAN      = 1 << SMU_11_0_ODCAP_TEMPERATURE_FAN,          //Fan Target Temperature Limit feature
++    SMU_11_0_ODFEATURE_TEMPERATURE_SYSTEM   = 1 << SMU_11_0_ODCAP_TEMPERATURE_SYSTEM,       //Operating Temperature Limit feature
++    SMU_11_0_ODFEATURE_MEMORY_TIMING_TUNE   = 1 << SMU_11_0_ODCAP_MEMORY_TIMING_TUNE,       //AC Timing Tuning feature
++    SMU_11_0_ODFEATURE_FAN_ZERO_RPM_CONTROL = 1 << SMU_11_0_ODCAP_FAN_ZERO_RPM_CONTROL,     //Zero RPM feature
++    SMU_11_0_ODFEATURE_AUTO_UV_ENGINE       = 1 << SMU_11_0_ODCAP_AUTO_UV_ENGINE,           //Auto Under Volt GFXCLK feature
++    SMU_11_0_ODFEATURE_AUTO_OC_ENGINE       = 1 << SMU_11_0_ODCAP_AUTO_OC_ENGINE,           //Auto Over Clock GFXCLK feature
++    SMU_11_0_ODFEATURE_AUTO_OC_MEMORY       = 1 << SMU_11_0_ODCAP_AUTO_OC_MEMORY,           //Auto Over Clock MCLK feature
++    SMU_11_0_ODFEATURE_FAN_CURVE            = 1 << SMU_11_0_ODCAP_FAN_CURVE,                //Fan Curve feature
+     SMU_11_0_ODFEATURE_COUNT                = 14,
+ };
+ #define SMU_11_0_MAX_ODFEATURE    32          //Maximum Number of OD Features
+-- 
+2.24.1
 
-> ---
->  drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> index b864869..6fa7422 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-> @@ -91,6 +91,12 @@ ifdef CONFIG_DRM_AMD_DC_DCN2_1
->  ###############################################################################
->  CLK_MGR_DCN21 = rn_clk_mgr.o rn_clk_mgr_vbios_smu.o
->
-> +# prevent build errors regarding soft-float vs hard-float FP ABI tags
-> +# this code is currently unused on ppc64, as it applies to Renoir APUs only
-> +ifdef CONFIG_PPC64
-> +CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn21/rn_clk_mgr.o := $(call cc-option,-mno-gnu-attribute)
-> +endif
-> +
->  AMD_DAL_CLK_MGR_DCN21 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn21/,$(CLK_MGR_DCN21))
->
->  AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN21)
-> --
-> 2.25.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
