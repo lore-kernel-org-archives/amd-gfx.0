@@ -7,55 +7,55 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D4D6C04EB5
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 15:50:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7558DC35242
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 15:50:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8F0520720
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 15:50:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4BF4720720
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 15:50:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1xJTSXod"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8F0520720
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Y1tMW3SU"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4BF4720720
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C14F6FD03;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B08EF6FD05;
 	Fri,  7 Feb 2020 15:50:47 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam10on2070.outbound.protection.outlook.com [40.107.93.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C20636FD03
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2020 15:50:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A1506FD00
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2020 15:50:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SiXqroYxrQtMI/AY5crNHfymI6mI/V6rg/hrf0CwZL5X/8fRADqdIJkkfISUDj9MwCqzt5YJ+95WRtkn9WGMLxN2HhvyeUS/5+WoCf4VJp+ILHAfAJrAR7d7YjUCIyyjZICcqBfjW0UjS9c2mW4WaZB1jZHflaCEHzmwb0iK8rfYo/ZMIzTKeR+7aOWLo1TXo6V4INWGPQPvBl1LiMmBFCyJbClCYEQ7ab6G104dd3eLLWU/KK5DRIk/pipaXeTrOWrf8a6jSUaaq4KcF+1IjUhIhgNcC455DhUq0gwFueBLNeV+IXDQaUj+sNgfRk+i8dCJhoOCNchqyH/xJYla+Q==
+ b=Y8MPV8W3qbW8XcdIBV7YCo3iyPUHwEGOWUZz9aVungc7pceESb/qsYFUKyRgDLuOuixuF3bqkdMYHK5KNqTNRIsF79IuwgNfX+n/HCHOm4U/yV5zJIbEoXdVzoPP1714HFcEWGpBClt/nh5pQBdXJeoZFH37NkEElbR9Q9TWVWfrfW+Q6/KuSg7foht4ALpIyIRJDjuzsKZPh2H34bOy10Hxiu61KatyqPBAHyW+rci/W9RcNWKSRbdUDkIp8qkNZT/YFv5boVlCNEUle/aFoac8GeIzX5QBY9lf8i2pI87eug39LDf50oLxV/gbmc0SnjeH5Rh90dpy1BFl044Xmw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dKfgOrPZKg7SUDRMDibIrzxEqlrwfIpbggpnqCe40aU=;
- b=HMPtztGU5WAsW7ePzufun1WHW0GslasP6oefHCcxOtobPELrU1HkgY9F4671/5Mg0BVjakkUXKRXe004cpnVAKkZ+eijf9wKfZlAtC3i5ikmOS+QWzzGR4M5Fpt6UgwnfZAvrEMDx5haNr1EG0I5uCKi91vqXJo8lmGR+dOC6uh8Cn9xD458Ug1ToMmhmn1nWatf+4DTzul9viuQ0gcOHZiXivca24XVTj9AanPSCdWbLYaqZr32vYh9DKWmME2uPDsYkZ+IoKrOVtpJcDvRjFJCcPc6b3PWTFvUB1dNj4oUpd708Tr+4jBXXTxFsd5NdRHkro8X1za1SYuKEQd0IQ==
+ bh=WeUQFjSIkuOJRtJZPoN2FoGgEGkwY+VgXBA1G9gv/cA=;
+ b=no8jq5zmi2NjB5dWO2zpS300RIXSj40gnTzCZSrbbmh/QHuyIYmdmYbyDW5XHdM53+YXA/zqaFwcFTtueC7PDnx04n1V6Pjm64S9BhVf+oTRtajHhUvIe/JEP3y0IcK0YB1yT64wvJKN0cwjzoc3vnqxmtR3RUtAuLVmA6GHMMOvSvrmWi4SQpci3YeZ8l5NYs4G9J1/B3/KwNC1h8STDkUWpX5/JhWRDGTjTo8hfRhqLkrlHWpEOFC1it7p0qvme3gzqJg85HNuf0DcSvZwXfQzyHMbK/kudinqr4IQ55xX7W69b6xoWkQwLQ5O6Qtt6gznTwvZXyw8ozi27BQTAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dKfgOrPZKg7SUDRMDibIrzxEqlrwfIpbggpnqCe40aU=;
- b=1xJTSXoddxb3He1SVnR+9i8U2GzPUHY1MdOz7gN7Z0fhmwFWl5rlWTh7xOLTN9Jnd7HavFafPDGibQ2c7t+2Yw8d+h57MdLRfLFhDU2jg1PnksDtR8t8OZr0+HMVM3tdV2h8ZK8fHMNTfixp6INh33p9JOBk31z7/FuFfQ1MKuY=
+ bh=WeUQFjSIkuOJRtJZPoN2FoGgEGkwY+VgXBA1G9gv/cA=;
+ b=Y1tMW3SUk0wvlgXR9H8FAqjo9WWhULN47TsjONrfOEZyF7608Va2O9vV3q6vFd2+WK+7h8wsaCzFaB/b/co/qfnvCbCcNHqkLJFtSu0uJLeTbLNl991PX501ghnb13x6lFbslZxJqDSpHR52KHpO0qDiSST/Pe7xwQ/Wh5CZzdw=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from DM5PR12MB2519.namprd12.prod.outlook.com (52.132.141.150) by
  DM5PR12MB2440.namprd12.prod.outlook.com (52.132.142.39) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2686.29; Fri, 7 Feb 2020 15:50:42 +0000
+ 15.20.2686.29; Fri, 7 Feb 2020 15:50:45 +0000
 Received: from DM5PR12MB2519.namprd12.prod.outlook.com
  ([fe80::3506:db14:d616:9f43]) by DM5PR12MB2519.namprd12.prod.outlook.com
  ([fe80::3506:db14:d616:9f43%6]) with mapi id 15.20.2707.024; Fri, 7 Feb 2020
- 15:50:41 +0000
+ 15:50:45 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 01/17] drm/amd/display: always apply T7/T9 delay logic
-Date: Fri,  7 Feb 2020 10:49:54 -0500
-Message-Id: <20200207155010.1070737-2-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 04/17] drm/amd/display: Pass override OUI in to dc_init_data
+Date: Fri,  7 Feb 2020 10:49:57 -0500
+Message-Id: <20200207155010.1070737-5-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200207155010.1070737-1-Rodrigo.Siqueira@amd.com>
 References: <20200207155010.1070737-1-Rodrigo.Siqueira@amd.com>
@@ -67,19 +67,19 @@ Received: from atma2.amd.com (165.204.55.250) by
  YTOPR0101CA0019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::32) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2707.21 via Frontend
- Transport; Fri, 7 Feb 2020 15:50:41 +0000
+ Transport; Fri, 7 Feb 2020 15:50:43 +0000
 X-Mailer: git-send-email 2.25.0
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 2171ec56-e73d-465c-c239-08d7abe57c42
+X-MS-Office365-Filtering-Correlation-Id: 531de227-8e2c-4c2d-f44d-08d7abe57d54
 X-MS-TrafficTypeDiagnostic: DM5PR12MB2440:|DM5PR12MB2440:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB24401178AFFB9689D3797F94981C0@DM5PR12MB2440.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB24403B37F2B8D5DA7A1D9E5F981C0@DM5PR12MB2440.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
 X-Forefront-PRVS: 0306EE2ED4
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(396003)(39860400002)(136003)(346002)(376002)(199004)(189003)(8676002)(36756003)(2906002)(66556008)(186003)(6916009)(81156014)(81166006)(8936002)(16526019)(66946007)(66476007)(5660300002)(478600001)(6486002)(1076003)(956004)(2616005)(4326008)(7696005)(26005)(54906003)(316002)(6666004)(52116002)(86362001);
+ SFS:(10009020)(4636009)(366004)(396003)(39860400002)(136003)(346002)(376002)(199004)(189003)(8676002)(36756003)(2906002)(66556008)(186003)(6916009)(81156014)(81166006)(8936002)(16526019)(66946007)(66476007)(5660300002)(478600001)(19627235002)(6486002)(1076003)(956004)(2616005)(4326008)(7696005)(26005)(54906003)(316002)(6666004)(52116002)(86362001);
  DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2440;
  H:DM5PR12MB2519.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
@@ -87,15 +87,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 15gMXnsU+sQVK3l7lU//dKGuxFWUJgkiqoBGVpiTO2uYVoi9wWSrccvSH5Hd7lIf/CAq2jAfIvYqfEsqC15qTcHFupwrbQsya7MXPGLpbR/AVm+y1ya3//MLvWZsNpg/M1jfkCAxKtPZxys76mnlIPYqmwCC5b5s9Bf6pa2zgK1HMmwHqPPa45+JmEBNQKYbEhSwUkRX35YRjoNPa+HsHdh9DBQFqx2l30zakKdpCSP0PNcU4i92wCfbEyKi+VpO2wjgiN8FNkbCtg4EIjOCZ0Vs3N74yFE4DJnhqu2ihXmFFy9n8FQIpr0cFddBwnFVB0IdoZaLDKYVFl4Z4faY0gC4b3xdupCU75dJHNlRsGh5x5xduNMELH3m9mUTCxd1sHtBDnT61XTSR95vHF6iL1Xz7Cn4nBSPOdGqc18b7EsqwFEXKFlw5nmtyyK+66t0
-X-MS-Exchange-AntiSpam-MessageData: uLGtoGnFlIz8f9piPpjZTwd8vmM328VZOLUwtAVBrQNbZJuVN2Zu4XfDZdF4Jqgq3sfGIBTrCzopY7lzFyRPCbMVGzSIoSAw5a2nYBsS+j7EUWKIWPDsPuRAx4U4byi4ghjd+aHFgP4ks3h2EH1+oQ==
+X-Microsoft-Antispam-Message-Info: uMvrYMg9FOKD4WelqCrcskk8In/3C1/MePex3+/s973N8bzg1NQ2FTwLr8I8Ka7brzazC6gOmjsvrqymADvWHCjMgN/XEpOtgVy/kKx1ToqU8XW8AWOGE/d7IsDQy5M4g57yfFCmCyLXsfYI+UtSEEj8tyLHDDfQY9A2tRgfYOmUyMxRAqVCY08iFuqMTc4UE6x0HmOv7FD6LBQzqpoP/NcUKgypmSz6pcLBNnpuCDzOHU53uPKulrM4XObMqRHKy1uGinmpfzL15cgiqtSduv1tvfH8MakkBdFq2hMOyhQ++DayvVvvpRDVu8M1uRMjoVK2RUU+EnWqUFo3bd4Mk8UYyoSenRT9IaN3FVXksASKEGadc0TwD/fVFrmY18vRWxYILwsL9t6zL22Cj0UVrBpoHwyNI8wGN50QY5fPbEbGzIz6pRQc6/6u1iwNFzUN
+X-MS-Exchange-AntiSpam-MessageData: hN5g6GLdMqfPuCjYuUYnA5zzj659eqzU2d5B4ZGC6BhO9fYLRxnC6AAMm2P1KuArU7Mo/Zd4TdKbMU1hQbge1M88xtdujDPBusGt07SBZctCY1sPf4c5iAtVr/K+3HV1Jn1a+LajArM7OOZHBrAMUA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2171ec56-e73d-465c-c239-08d7abe57c42
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2020 15:50:41.8973 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 531de227-8e2c-4c2d-f44d-08d7abe57d54
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2020 15:50:43.7293 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KGa6PIsO1NPTgymVFA9gfrdzDdtevk0BmKVGiMX609xcG+g/OW4cWJP4RwiotfpRyZroOdDTIBIyDsKpY23bXQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1S1CyCS6bl+qDU2szlLJ6AM9fpNVTr5X7263XEwjTvtpPjvPSmMDMUBeplodhahDLYgvpmSGXOrb5gyuQOdXKQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2440
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,104 +108,146 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Harry.Wentland@amd.com,
- Anthony Koo <Anthony.Koo@amd.com>, Martin Leung <martin.leung@amd.com>
+Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Jun Lei <Jun.Lei@amd.com>,
+ Harry.Wentland@amd.com, Calvin Hou <Calvin.Hou@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Martin Leung <martin.leung@amd.com>
+From: Calvin Hou <Calvin.Hou@amd.com>
 
-[why]
-before we exit early in edp_reciever_ready if we detect that panel
-is not edp or below rev 1.2. This will skip the backlight/t7 delay panel
-patch.
+[WHY]
+Vendor dongle requires propietary OUI and handshake sequence.
 
-[how]
-edit logic to ensure panel patch is applied regardless of edp rev.
+[HOW]
+Add a new structure to dc_init_data, to allow creator to pass
+an override vendor_oui. This value will be written to DP_SOURCE_OUI
+instead of AMD signature, when dpcd_set_source_specific_data is
+called.
 
-Signed-off-by: Martin Leung <martin.leung@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Signed-off-by: Calvin Hou <Calvin.Hou@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../drm/amd/display/dc/core/dc_link_hwss.c    | 56 ++++++++++---------
- 1 file changed, 29 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  2 +-
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 41 +++++++++++--------
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 +
+ drivers/gpu/drm/amd/display/dc/dc_dp_types.h  | 14 +++++++
+ 4 files changed, 41 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
-index ddb855045767..58634f191a55 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
-@@ -153,18 +153,19 @@ bool edp_receiver_ready_T9(struct dc_link *link)
- 	unsigned char edpRev = 0;
- 	enum dc_status result = DC_OK;
- 	result = core_link_read_dpcd(link, DP_EDP_DPCD_REV, &edpRev, sizeof(edpRev));
--	if (edpRev < DP_EDP_12)
--		return true;
--	/* start from eDP version 1.2, SINK_STAUS indicate the sink is ready.*/
--	do {
--		sinkstatus = 1;
--		result = core_link_read_dpcd(link, DP_SINK_STATUS, &sinkstatus, sizeof(sinkstatus));
--		if (sinkstatus == 0)
--			break;
--		if (result != DC_OK)
--			break;
--		udelay(100); //MAx T9
--	} while (++tries < 50);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 40878b86a05d..7513aa71da38 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -701,7 +701,7 @@ static bool dc_construct(struct dc *dc,
+ 		dc_ctx->created_bios = true;
+ 	}
+ 
+-
++	dc->vendor_signature = init_params->vendor_signature;
+ 
+ 	/* Create GPIO service */
+ 	dc_ctx->gpio_service = dal_gpio_service_create(
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index c5b45d17e8cd..3bc05fa93ed5 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -4179,25 +4179,32 @@ void dp_set_fec_enable(struct dc_link *link, bool enable)
+ 
+ void dpcd_set_source_specific_data(struct dc_link *link)
+ {
+-	struct dpcd_amd_signature amd_signature;
+ 	const uint32_t post_oui_delay = 30; // 30ms
+ 
+-	amd_signature.AMD_IEEE_TxSignature_byte1 = 0x0;
+-	amd_signature.AMD_IEEE_TxSignature_byte2 = 0x0;
+-	amd_signature.AMD_IEEE_TxSignature_byte3 = 0x1A;
+-	amd_signature.device_id_byte1 =
+-			(uint8_t)(link->ctx->asic_id.chip_id);
+-	amd_signature.device_id_byte2 =
+-			(uint8_t)(link->ctx->asic_id.chip_id >> 8);
+-	memset(&amd_signature.zero, 0, 4);
+-	amd_signature.dce_version =
+-			(uint8_t)(link->ctx->dce_version);
+-	amd_signature.dal_version_byte1 = 0x0; // needed? where to get?
+-	amd_signature.dal_version_byte2 = 0x0; // needed? where to get?
+-
+-	core_link_write_dpcd(link, DP_SOURCE_OUI,
+-			(uint8_t *)(&amd_signature),
+-			sizeof(amd_signature));
++	if (!link->dc->vendor_signature.is_valid) {
++		struct dpcd_amd_signature amd_signature;
++		amd_signature.AMD_IEEE_TxSignature_byte1 = 0x0;
++		amd_signature.AMD_IEEE_TxSignature_byte2 = 0x0;
++		amd_signature.AMD_IEEE_TxSignature_byte3 = 0x1A;
++		amd_signature.device_id_byte1 =
++				(uint8_t)(link->ctx->asic_id.chip_id);
++		amd_signature.device_id_byte2 =
++				(uint8_t)(link->ctx->asic_id.chip_id >> 8);
++		memset(&amd_signature.zero, 0, 4);
++		amd_signature.dce_version =
++				(uint8_t)(link->ctx->dce_version);
++		amd_signature.dal_version_byte1 = 0x0; // needed? where to get?
++		amd_signature.dal_version_byte2 = 0x0; // needed? where to get?
 +
-+     /* start from eDP version 1.2, SINK_STAUS indicate the sink is ready.*/
-+	if (result == DC_OK && edpRev >= DP_EDP_12) {
-+		do {
-+			sinkstatus = 1;
-+			result = core_link_read_dpcd(link, DP_SINK_STATUS, &sinkstatus, sizeof(sinkstatus));
-+			if (sinkstatus == 0)
-+				break;
-+			if (result != DC_OK)
-+				break;
-+			udelay(100); //MAx T9
-+		} while (++tries < 50);
++		core_link_write_dpcd(link, DP_SOURCE_OUI,
++				(uint8_t *)(&amd_signature),
++				sizeof(amd_signature));
++
++	} else {
++		core_link_write_dpcd(link, DP_SOURCE_OUI,
++				link->dc->vendor_signature.data.raw,
++				sizeof(link->dc->vendor_signature.data.raw));
 +	}
  
- 	if (link->local_sink->edid_caps.panel_patch.extra_delay_backlight_off > 0)
- 		udelay(link->local_sink->edid_caps.panel_patch.extra_delay_backlight_off * 1000);
-@@ -183,21 +184,22 @@ bool edp_receiver_ready_T7(struct dc_link *link)
- 	unsigned long long time_taken_in_ns = 0;
+ 	// Sink may need to configure internals based on vendor, so allow some
+ 	// time before proceeding with possibly vendor specific transactions
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 6e2e5e24daaf..8c88706040a7 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -527,6 +527,7 @@ struct dc {
+ 	struct compressor *fbc_compressor;
  
- 	result = core_link_read_dpcd(link, DP_EDP_DPCD_REV, &edpRev, sizeof(edpRev));
--	if (result == DC_OK && edpRev < DP_EDP_12)
--		return true;
--	/* start from eDP version 1.2, SINK_STAUS indicate the sink is ready.*/
--	enter_timestamp = dm_get_timestamp(link->ctx);
--	do {
--		sinkstatus = 0;
--		result = core_link_read_dpcd(link, DP_SINK_STATUS, &sinkstatus, sizeof(sinkstatus));
--		if (sinkstatus == 1)
--			break;
--		if (result != DC_OK)
--			break;
--		udelay(25);
--		finish_timestamp = dm_get_timestamp(link->ctx);
--		time_taken_in_ns = dm_get_elapse_time_in_ns(link->ctx, finish_timestamp, enter_timestamp);
--	} while (time_taken_in_ns < 50 * 1000000); //MAx T7 is 50ms
+ 	struct dc_debug_data debug_data;
++	struct dpcd_vendor_signature vendor_signature;
+ 
+ 	const char *build_id;
+ 	struct vm_helper *vm_helper;
+@@ -573,6 +574,7 @@ struct dc_init_data {
+ 	 * available in FW
+ 	 */
+ 	const struct gpu_info_soc_bounding_box_v1_0 *soc_bounding_box;
++	struct dpcd_vendor_signature vendor_signature;
+ };
+ 
+ struct dc_callback_init {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+index f762f35f529d..bb2730e9521e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dp_types.h
+@@ -432,6 +432,20 @@ struct dp_sink_hw_fw_revision {
+ 	uint8_t ieee_fw_rev[2];
+ };
+ 
++struct dpcd_vendor_signature {
++	bool is_valid;
 +
-+	if (result == DC_OK && edpRev >= DP_EDP_12) {
-+		/* start from eDP version 1.2, SINK_STAUS indicate the sink is ready.*/
-+		enter_timestamp = dm_get_timestamp(link->ctx);
-+		do {
-+			sinkstatus = 0;
-+			result = core_link_read_dpcd(link, DP_SINK_STATUS, &sinkstatus, sizeof(sinkstatus));
-+			if (sinkstatus == 1)
-+				break;
-+			if (result != DC_OK)
-+				break;
-+			udelay(25);
-+			finish_timestamp = dm_get_timestamp(link->ctx);
-+			time_taken_in_ns = dm_get_elapse_time_in_ns(link->ctx, finish_timestamp, enter_timestamp);
-+		} while (time_taken_in_ns < 50 * 1000000); //MAx T7 is 50ms
-+	}
- 
- 	if (link->local_sink->edid_caps.panel_patch.extra_t7_ms > 0)
- 		udelay(link->local_sink->edid_caps.panel_patch.extra_t7_ms * 1000);
++	union dpcd_ieee_vendor_signature {
++		struct {
++			uint8_t ieee_oui[3];/*24-bit IEEE OUI*/
++			uint8_t ieee_device_id[6];/*usually 6-byte ASCII name*/
++			uint8_t ieee_hw_rev;
++			uint8_t ieee_fw_rev[2];
++		};
++		uint8_t raw[12];
++	} data;
++};
++
+ struct dpcd_amd_signature {
+ 	uint8_t AMD_IEEE_TxSignature_byte1;
+ 	uint8_t AMD_IEEE_TxSignature_byte2;
 -- 
 2.25.0
 
