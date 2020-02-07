@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8569CC04EB5
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 15:50:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07DBDC35242
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 15:50:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 581A220720
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 15:50:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CE74B20720
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 15:50:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="CgnjD+T8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 581A220720
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="gd3hjSxH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE74B20720
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D938D6FD0E;
-	Fri,  7 Feb 2020 15:50:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 613BE6FD12;
+	Fri,  7 Feb 2020 15:50:52 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2068.outbound.protection.outlook.com [40.107.93.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 353276FD03
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2020 15:50:47 +0000 (UTC)
+ (mail-dm6nam10on2077.outbound.protection.outlook.com [40.107.93.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E175E6FD0A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2020 15:50:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DkZJVUjHMYg54h8VRZK59lBd8qAGqhbSuKdR/RhjszgcA23eBYUdAR9BZ7j3Kp1DdxOLjSFN6rkzM5Fq2Z86uNv8cI3ViG2w8FGziXF/5mhuguqn5ET0sCpholWh7Xj6BKlFK8BsfIHHP6uqi3q43oygZbiAdwmL2s0lbNIuTzuNeqPW2XCRskD2RJoA2QpeenFfW1s7dd/GMnd0C0DywhPsnB9hdrFy+mFvTdF5aKicRJlsEO4xtNThub3Zi4pdMU+dstJHprNPW7dsyRo+lFB7ebimVnTIiKRjclgcPQ1EzkOtW0zqWgzRCHrXnonxuzQls07ozQkbbNeT7rqt9A==
+ b=l2Vv5V4WLhJyvaxxQw6vP+/d/W3vPB71bVDWsSFReXXF5PzJtpLx5On/byOEwVg2hOOv0md6KLI10WBIx7gE9B94975frDjDZaqLyzEfYzW5Vs+beXsb9SMzXTzJnxZWMXBman0wUSaiPrQ2wSn0md/JLUAuvSGCQTMDbFjcL26LgZnT9SVCuOdPkaXasal4oGtjW8XNrF4v+QTUvDct7f8PGNitVBnq/659oKfme2UKjQcfCzLEW8OKquxNQ+x95ATft21St6ZjMfgtMAP64bA2zMFxbt51CgQ3F4phQuNlF/0EXJriKw6ryMTdu+fxSr82BMrul6bnRdVQTi2SUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R8LMKQKG7rbKHG2FLlgpKlGMCFXQpRmFjhMSP36Tz8E=;
- b=Txv4ZVc2efNr20mqZ/GP90mL/L5rlqLo91avIPvCflS05FNV7htvQJe1eU/Jat1YYY7+KHNOrdh5TN7aUyvTBiIlBcKBbrtV3UmFyQGm2p4uXnSyTIZKlcjx7jXQrQpTTgwrRvubfHK28nWdn9SEYm9yb+W7kzoYSN7LJx7qpgkSx/l+gd8biPFQpz+8vXq4bt25W0gZy5cGGaLsSQFpVvznlJ9nnV3k8flfAY2QbulK+xcmQ5yhnf+zrpPPmnhinnUuUgRAwtsS2Z329AwkbqDMqnH6F3Ie+FoVTgKAsdiTQiUnSp+DlY3x+SbUHUv4YJo7FBk0CgdnWrqO/nMnmg==
+ bh=PQVWC2a9+uyvS07nFk6JfROT7nIKyCV+JfLVKn3Tnuo=;
+ b=A5Cz5efGhtVQefX6qmmLzjo3T/2KR5MDt/6RZsa9olB8ikivCrCb7ki1yy/ICt3PVkB8XEDPQL8QvQdHqyNqxFsOdR7WCgq8OEvoMpS8+ifh53DAcBt2PTzX1tz6tdJ+NjL9XL4SGt6f5Ao7xV50/nBB8nkhCSgnokqAvK1x3QJE5DuYCE2tx+eZANNLwjWBquDkG5IVuxLirVCozr90DsKZUzfI3p3pSiVnZ245V24+fm3a5ci2Iakq9giulePOoGw25EUWbEmhcAyzPZkfRt+jGTiW2eDw1M342fqeO39/mqczd50SadG+nH7Oif0xwTfhCHldk9zpk4ZtTt5WwA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R8LMKQKG7rbKHG2FLlgpKlGMCFXQpRmFjhMSP36Tz8E=;
- b=CgnjD+T8LWnMD3cTRpYKhehmtprzxa5Ydh5ilYa9HwqhVELmOAEgErQM2UgVpi20u0VJ4//fdWmNm/JyUJ8QmFRH7DIRIXeSIFSNlUELZiqGJAgKFqkZvI9vDFY3lDeKVZh5W0mcVW6IMHtJzL/HkJ+H5SK23bMZxNIoYCW6lvI=
+ bh=PQVWC2a9+uyvS07nFk6JfROT7nIKyCV+JfLVKn3Tnuo=;
+ b=gd3hjSxHXiembPWCSbh9rnr+JNCa89tr1jQLB6sEhMGghp5cNzv47z5vsvzZWoVkZjylgLscoaKlehzSsENzd4lhFwYIgiA+ndHLkPlDuyNKYu5TzzoP/2geWKPLmro5o+fpLaSKjCsvkSdXY9B6DcsWBWndGoldbUE4TIkZKO0=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from DM5PR12MB2519.namprd12.prod.outlook.com (52.132.141.150) by
  DM5PR12MB2440.namprd12.prod.outlook.com (52.132.142.39) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2686.29; Fri, 7 Feb 2020 15:50:46 +0000
+ 15.20.2686.29; Fri, 7 Feb 2020 15:50:48 +0000
 Received: from DM5PR12MB2519.namprd12.prod.outlook.com
  ([fe80::3506:db14:d616:9f43]) by DM5PR12MB2519.namprd12.prod.outlook.com
  ([fe80::3506:db14:d616:9f43%6]) with mapi id 15.20.2707.024; Fri, 7 Feb 2020
- 15:50:46 +0000
+ 15:50:48 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 05/17] drm/amd/display: Hookup psr set version call
-Date: Fri,  7 Feb 2020 10:49:58 -0500
-Message-Id: <20200207155010.1070737-6-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 09/17] drm/amd/display: Update register defines
+Date: Fri,  7 Feb 2020 10:50:02 -0500
+Message-Id: <20200207155010.1070737-10-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200207155010.1070737-1-Rodrigo.Siqueira@amd.com>
 References: <20200207155010.1070737-1-Rodrigo.Siqueira@amd.com>
@@ -67,19 +67,19 @@ Received: from atma2.amd.com (165.204.55.250) by
  YTOPR0101CA0019.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::32) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2707.21 via Frontend
- Transport; Fri, 7 Feb 2020 15:50:43 +0000
+ Transport; Fri, 7 Feb 2020 15:50:46 +0000
 X-Mailer: git-send-email 2.25.0
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 0a4c960f-c35f-4623-acae-08d7abe57db1
+X-MS-Office365-Filtering-Correlation-Id: 7c902dcc-7334-4105-b2ad-08d7abe57f48
 X-MS-TrafficTypeDiagnostic: DM5PR12MB2440:|DM5PR12MB2440:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB2440DAE4152318B298B9E2BE981C0@DM5PR12MB2440.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB24405123FB8378CF50DDD8A7981C0@DM5PR12MB2440.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:167;
 X-Forefront-PRVS: 0306EE2ED4
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(396003)(39860400002)(136003)(346002)(376002)(199004)(189003)(8676002)(36756003)(2906002)(66556008)(186003)(6916009)(81156014)(81166006)(8936002)(16526019)(66946007)(66476007)(5660300002)(478600001)(6486002)(1076003)(956004)(2616005)(4326008)(7696005)(26005)(54906003)(316002)(6666004)(52116002)(86362001)(52103002)(158003001);
+ SFS:(10009020)(4636009)(366004)(396003)(39860400002)(136003)(346002)(376002)(199004)(189003)(8676002)(36756003)(2906002)(66556008)(186003)(6916009)(81156014)(81166006)(8936002)(16526019)(66946007)(66476007)(5660300002)(478600001)(6486002)(1076003)(956004)(2616005)(4326008)(7696005)(26005)(54906003)(316002)(6666004)(15650500001)(52116002)(86362001);
  DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2440;
  H:DM5PR12MB2519.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
@@ -87,15 +87,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hHSXK4UHzPcnLMFpzyWyqo0piM+xhzYMbNOR4E1ysNpgXB/cZxTe1vodXfEgVYl0nYnlcq9FAeJ3KS0b4BFiQcZDZwOlOB/MosFBfa0gGOfDOqKz5F6rvvj5K0cry9uI4+iJNsR2RIEv6Ff7QQPpBEMXMvqkydglv9zSVYoN8xmd81barRimRzNOzNmzj93ESGNpfizvYCYB3hXEfkZGF5S5DAOQATzbOIf/qTluV0Mu4JmMiGI34dvcYEZzZzMf/uoz0zlh2hf1+lT6VqAALQWg5sBypIQAMjc9m1nI+K8Nz0FDfqm9jlbKT1f4FsQDmiHJBXZQnXTpiG7+YZ68wmEORq1mP4Onvp/PbwiD3u/iku9/p4E9e3TCCb1UZc/QbRLJqqibMS6rDeubWl0ShFz2zkGSuMM9HP49RLZxsT4+yotSBndI/o+1CLTfFigTggntKhHafqhV3tvM1ErDjjN2tJcV3RD/nNhDu1AiUZNl48O6cp7XtD6aSZcQRnmlp4T1e+ZgoLg/h6yUhzwgIQ==
-X-MS-Exchange-AntiSpam-MessageData: 7GVJIz1T5aN0XRmTTSd7jXjl1Iff5OK+75sT6g3IG1QJiz/aDLRzjqJk6uRRxpKLET0Xgv3fZH4DiM0gqBOz5vAxoYx+jcgC15lqX3hWPbRHDlFnKqwY038hWAF78PRPoVRhRuQNCJvm6dQsd/Y9cQ==
+X-Microsoft-Antispam-Message-Info: k/9uqV/ro+3CqoKqCrTCsyKiZrHR1nd0TG7Kg+AyC9++7aaN3sWVWTmS793vN/QtOl15xPD85lp9bUKhemOXGryvMLKJj7sUzHhwgXR2yX0uhCOoHYdLIoqPcgmdfX1HKo7Utckj9JEtng7Lves1gakIUng7LDXv+G24nJnM4cm0wzSTVDvJk7blScOXDkegxVpLQ2/yFtrVvm87QM707UTOOBx/v2rAvXUVVUPQVIEpPaMxW/negYlHCpO4nP92gzD6l+Wiqiy2d5yd2sZkFIKUg1KJomDL4jX0N/wrKkjcutV6WnM/wQWnrz4c5x6HEZ9egWmdIkcQbx/kgLIiVpwFiQbho3hCFYsa0jVWq9wrG4t0SkySTI86XtRQ+z4ECqEZwfNC9dRcTgpwLBPblWJMJ/eqiWOwD/L7jD8sqcs2d8PTUUNUqLBsWpkRpl2n
+X-MS-Exchange-AntiSpam-MessageData: uMWh486lPelXsNivXVbYqWvYTHqA8vqhVKuCHyrx4y45qbLNlxJloqTdqzTRabJ7qdrl+yffRETA7zcUOVUQ4PD/ubhlLHR62iEURPNyHxgHmcBW/ePsrR9N0JAR5mAw9X2H5q1Ym33pPoDFli7WWg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0a4c960f-c35f-4623-acae-08d7abe57db1
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2020 15:50:44.3789 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c902dcc-7334-4105-b2ad-08d7abe57f48
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2020 15:50:47.0064 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EmOi8MWytceIC5DIF8n6k6sn6fj8fa75U3SuuoWlX4HVv1xt6YXE4+gDqLVSjV+p5lNoZhRlvXqR+feYKhhn8g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: JaZONK06OxwsbXSHz6Sv/TjPyRXZW/pKn8WJoABtRm3qDp5hmjlrnCqtfaXbCQTFAD8dAn6fDtpARLv61LToEA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2440
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,99 +109,79 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Harry.Wentland@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- Wyatt Wood <wyatt.wood@amd.com>
+ Anthony Koo <Anthony.Koo@amd.com>, Wyatt Wood <Wyatt.Wood@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wyatt Wood <wyatt.wood@amd.com>
+From: Anthony Koo <Anthony.Koo@amd.com>
 
 [Why]
-Set version is currently not called.
+Some register defines are redundant or updated
 
 [How]
-Add call to set version from copy settings. This
-should be the only time this is called as the eDP
-caps should never change.
+Update register defines
+Remove some redundant defines
 
-Signed-off-by: Wyatt Wood <wyatt.wood@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Wyatt Wood <Wyatt.Wood@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Acked-by: Sun peng Li <Sunpeng.Li@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c | 17 ++++++++++++-----
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h |  1 -
- 2 files changed, 12 insertions(+), 6 deletions(-)
+ .../drm/amd/display/dc/dcn20/dcn20_mmhubbub.h | 20 -------------------
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_vmid.h |  7 -------
+ 2 files changed, 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-index 59cdd8ea31fb..cacb46979f31 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-@@ -42,17 +42,19 @@ static void dmub_psr_get_state(uint32_t *psr_state)
- 	// Trigger GPINT interrupt from firmware
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mmhubbub.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mmhubbub.h
+index 3fccd5eeecbb..7bcee5894d2e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mmhubbub.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_mmhubbub.h
+@@ -36,26 +36,6 @@
+ #define BASE(seg) \
+ 	BASE_INNER(seg)
  
--static void dmub_psr_set_version(struct dmub_psr *dmub, struct dc_stream_state *stream)
-+/**
-+ * Set PSR version.
-+ */
-+static bool dmub_psr_set_version(struct dmub_psr *dmub, struct dc_stream_state *stream)
- {
--	//stream->psr_version;
- 	union dmub_rb_cmd cmd;
- 	struct dc_context *dc = dmub->ctx;
+-#define SR(reg_name)\
+-		.reg_name = BASE(mm ## reg_name ## _BASE_IDX) +  \
+-					mm ## reg_name
+-
+-#define SRI(reg_name, block, id)\
+-	.reg_name = BASE(mm ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+-					mm ## block ## id ## _ ## reg_name
+-
+-#define SRI2(reg_name, block, id)\
+-	.reg_name = BASE(mm ## reg_name ## _BASE_IDX) + \
+-					mm ## reg_name
+-
+-#define SRII(reg_name, block, id)\
+-	.reg_name[id] = BASE(mm ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+-					mm ## block ## id ## _ ## reg_name
+-
+-#define SF(reg_name, field_name, post_fix)\
+-	.field_name = reg_name ## __ ## field_name ## post_fix
+-
+-
+ #define MCIF_WB_COMMON_REG_LIST_DCN2_0(inst) \
+ 	SRI(MCIF_WB_BUFMGR_SW_CONTROL, MCIF_WB, inst),\
+ 	SRI(MCIF_WB_BUFMGR_CUR_LINE_R, MCIF_WB, inst),\
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.h
+index 02fafb013fc6..f1ef46e8da5b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_vmid.h
+@@ -34,13 +34,6 @@
+ #define BASE(seg) \
+ 	BASE_INNER(seg)
  
- 	cmd.psr_set_version.header.type = DMUB_CMD__PSR;
- 	cmd.psr_set_version.header.sub_type = DMUB_CMD__PSR_SET_VERSION;
- 
--	if (stream->psr_version == 0x0)
--		return;
-+	if (stream->psr_version == 0x0) // Unsupported
-+		return false;
- 	else if (stream->psr_version == 0x1)
- 		cmd.psr_set_version.psr_set_version_data.version = PSR_VERSION_1;
- 	else if (stream->psr_version == 0x2)
-@@ -63,6 +65,8 @@ static void dmub_psr_set_version(struct dmub_psr *dmub, struct dc_stream_state *
- 	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd.psr_enable.header);
- 	dc_dmub_srv_cmd_execute(dc->dmub_srv);
- 	dc_dmub_srv_wait_idle(dc->dmub_srv);
-+
-+	return true;
- }
- 
- /**
-@@ -139,6 +143,10 @@ static bool dmub_psr_copy_settings(struct dmub_psr *dmub,
- 	if (!pipe_ctx || !&pipe_ctx->plane_res || !&pipe_ctx->stream_res)
- 		return false;
- 
-+	// First, set the psr version
-+	if (!dmub_psr_set_version(dmub, pipe_ctx->stream))
-+		return false;
-+
- 	// Program DP DPHY fast training registers
- 	link->link_enc->funcs->psr_program_dp_dphy_fast_training(link->link_enc,
- 			psr_context->psrExitLinkTrainingRequired);
-@@ -186,7 +194,6 @@ static bool dmub_psr_copy_settings(struct dmub_psr *dmub,
- }
- 
- static const struct dmub_psr_funcs psr_funcs = {
--	.psr_set_version		= dmub_psr_set_version,
- 	.psr_copy_settings		= dmub_psr_copy_settings,
- 	.psr_enable			= dmub_psr_enable,
- 	.psr_get_state			= dmub_psr_get_state,
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
-index 4fe8b53d9551..5e8553d450c9 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.h
-@@ -34,7 +34,6 @@ struct dmub_psr {
- };
- 
- struct dmub_psr_funcs {
--	void (*psr_set_version)(struct dmub_psr *dmub, struct dc_stream_state *stream);
- 	bool (*psr_copy_settings)(struct dmub_psr *dmub, struct dc_link *link, struct psr_context *psr_context);
- 	void (*psr_enable)(struct dmub_psr *dmub, bool enable);
- 	void (*psr_get_state)(uint32_t *psr_state);
+-#define SRI(reg_name, block, id)\
+-	.reg_name = BASE(mm ## block ## id ## _ ## reg_name ## _BASE_IDX) + \
+-					mm ## block ## id ## _ ## reg_name
+-
+-#define SF(reg_name, field_name, post_fix)\
+-	.field_name = reg_name ## __ ## field_name ## post_fix
+-
+ #define DCN20_VMID_REG_LIST(id)\
+ 	SRI(CNTL, DCN_VM_CONTEXT, id),\
+ 	SRI(PAGE_TABLE_BASE_ADDR_HI32, DCN_VM_CONTEXT, id),\
 -- 
 2.25.0
 
