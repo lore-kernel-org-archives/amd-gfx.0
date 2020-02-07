@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 891EAC04EB5
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 15:19:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C8E06C2BA83
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 15:19:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5FBAA246C3
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 15:19:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9F720246C3
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 15:19:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LnEBio34"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5FBAA246C3
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W+bbTb8J"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9F720246C3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D7896FCFB;
-	Fri,  7 Feb 2020 15:19:22 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 541466FCFB
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2020 15:19:20 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id x1so2482573qkl.12
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Feb 2020 07:19:20 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44B1E6FCF7;
+	Fri,  7 Feb 2020 15:19:23 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AAAE6FCFB
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2020 15:19:21 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id b7so2511475qkl.7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Feb 2020 07:19:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=5otuR5JUX7SIDvbn/VZvzc6h0aaV42+sjpHbNlV99g0=;
- b=LnEBio34YoNBtqxKrUjMvC/o89U/6MunIiAO0pRJOF221pupKp5niqllkjMDK9suiE
- HQrzyGRIQjbxE9DsoKgz5PJLrwKG9lLD0wmUQ3W+B0cY2asMtyOS/mIpfyJ5tdHGwx27
- kgX4sdyn36F+isHuRvL8aOy1FFSqtp7fHeHlcy8LH79xlcS+GOOgywRSd+7ipN5bGAlh
- rICaatwuifMbshdW6LBCGFl4OCnqFeyL7HBFfF/uo7IozwmhHyF2GjtfVT/wr3RWrZS8
- P5KKkKNA/lBOtAnSRqmwxHxm9agimY/5NbUcd2GYN8hEajZwDghgyc2+JQx+dMSc0Jp7
- HKPA==
+ bh=pES7Dzm9sSVh8UYtez+RnlymnaGVbXHhfy0cOL6/MR4=;
+ b=W+bbTb8JJKerAf0wvk/+A9/gVYwYmsJ3NsleZ3524GsUG49tJihq8OnPZcDqoQFWHl
+ ygbk4bkE4kNMNH8MrjqYphyRY3dkJ3ZgSaNSjlaYVtMKV6UI5xELu2ob8WkzZd8qwRcG
+ LUj1kMEz5Qi7YaP7eQLWt/fO05merbarM8jWGv2QJMhRDcWYtFnXz8pJGt+iXoSIJ+pI
+ G6eMjIor54/N4jAErKnhi+tDxoI55cIfObu5Yg/ig3GocHpEHzSlXSeutRpov88s0Qlu
+ wc3rkOoFVuLgitWDSeNviDwq2CfOH0Oaby1i5kG2//Rw541rlDiCQZJNMZVboPyuheMM
+ eFRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=5otuR5JUX7SIDvbn/VZvzc6h0aaV42+sjpHbNlV99g0=;
- b=oYP6iSe6R5ZWNxDuePvUTpj903XfW93Of+vOdClpucLJfGi6WD935DYBBsp6q8qnIU
- sAp+OstUaKf+w6iKo4gA+kxBeFGePdNG46lXsuOybC27hnnqly+Z82eo22R026NEgC4k
- w+SbTuB9K+W3u3cOFNlc2pdQ7FO+v78HJSOD6OCjm3yf6V/+N4tnM8Ag/pS8f+pt4x/r
- KOIkhwuNqEjv4wuPSp+VuSRIYB3cW2q/exfB1vogzfQW607OhDHrB1rEGH2i1aQOzz/s
- r3J35qxCrwa8Ns1W8BTz1xaOOaCTpEeBD+idCjhkVX+ejreCysgFoqS/CBMXoYt4qySE
- iMhQ==
-X-Gm-Message-State: APjAAAX/l29YhOHOzq2YQZrPrhYEQ++TfifvSkLDH6Sp4qGo/HPAEe3i
- a6GQDIIi9yWcMnpJ/4a5ubFejVDV
-X-Google-Smtp-Source: APXvYqxMNQsT+A8fSxh6FXplTifLUUjQm/ABw/c8+GLkoAsK5uE7j+HNGi/83/ujEBT/XZ2iGeU7CQ==
-X-Received: by 2002:a37:a392:: with SMTP id m140mr854127qke.211.1581088759240; 
- Fri, 07 Feb 2020 07:19:19 -0800 (PST)
+ bh=pES7Dzm9sSVh8UYtez+RnlymnaGVbXHhfy0cOL6/MR4=;
+ b=FjXu9zNfYW/gYctbJK68RdF0DRD27XsVH35aYlOVer36gTlyux+89QVALjiYXvUkjd
+ BDQ6NBkB5sTZuB3W9sdQIEaYfHmHgTmbWZt7yNmCW3ECqT0vDjtTiGnQeM0Iojprdokf
+ X9i3OcqxAA8O1XVj8bzoBwtkJ+vO/qz4m1rav4OjR9wOOetCBDgZoW41cwDrAk9AbJpc
+ kt7tswXKc/uuWZ4zY4JJdTtsjAx3Bq8nsnlubLrIGSwWUDSxesuyJ/Rwbg8nBRA/fDFP
+ 3Hqp9TrrfhBPS3XBJyYy6Prq+kXhM/pbbMiKg7gi7JHqqsUIn1cbVx+ql/skKAJonl2i
+ r6lA==
+X-Gm-Message-State: APjAAAXFC/M+42C+2UzF0+oRIE9th/uwmHc+sKQFYIROmZqtZW97CPgs
+ aouh3vYsVBbgs9w8zVRU1m/ds3Je
+X-Google-Smtp-Source: APXvYqwbVJXSC2rlm7bdEcexNoJnUPr9By13yWEKZxqAbYU3CjOMOV0Fybg1Ab5jK8yOU0GWxF8VsQ==
+X-Received: by 2002:a37:6897:: with SMTP id d145mr7595440qkc.398.1581088760278; 
+ Fri, 07 Feb 2020 07:19:20 -0800 (PST)
 Received: from localhost.localdomain ([71.219.59.120])
- by smtp.gmail.com with ESMTPSA id t29sm1445619qkt.36.2020.02.07.07.19.18
+ by smtp.gmail.com with ESMTPSA id t29sm1445619qkt.36.2020.02.07.07.19.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Feb 2020 07:19:18 -0800 (PST)
+ Fri, 07 Feb 2020 07:19:19 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] drm/amdgpu/smu: properly handle runpm/suspend/reset
-Date: Fri,  7 Feb 2020 10:18:41 -0500
-Message-Id: <20200207151842.802638-2-alexander.deucher@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu/powerplay: fix baco check for vega20
+Date: Fri,  7 Feb 2020 10:18:42 -0500
+Message-Id: <20200207151842.802638-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200207151842.802638-1-alexander.deucher@amd.com>
 References: <20200207151842.802638-1-alexander.deucher@amd.com>
@@ -86,87 +86,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We need some special handling when using baco vs. other
-things.
+We need to handle the runpm case as well as GPU reset.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 35 ++++++++++++----------
- 1 file changed, 19 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index 0e9d33ee08ab..53ea5343fbed 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -1454,11 +1454,15 @@ int smu_reset(struct smu_context *smu)
- 	return ret;
- }
- 
--static int smu_disabled_dpms(struct smu_context *smu)
-+static int smu_disable_dpm(struct smu_context *smu)
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+index 3b3ec5666051..08b6ba39a6d7 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+@@ -487,15 +487,16 @@ static int vega20_setup_asic_task(struct pp_hwmgr *hwmgr)
  {
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t smu_version;
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)(hwmgr->adev);
  	int ret = 0;
-+	bool use_baco = !smu->is_apu &&
-+		((adev->in_gpu_reset &&
-+		  (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)) ||
-+		 (adev->in_runpm && amdgpu_asic_supports_baco(adev)));
++	bool use_baco = (adev->in_gpu_reset &&
++			 (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)) ||
++		(adev->in_runpm && amdgpu_asic_supports_baco(adev));
  
- 	ret = smu_get_smc_version(smu, NULL, &smu_version);
- 	if (ret) {
-@@ -1467,13 +1471,13 @@ static int smu_disabled_dpms(struct smu_context *smu)
- 	}
+ 	ret = vega20_init_sclk_threshold(hwmgr);
+ 	PP_ASSERT_WITH_CODE(!ret,
+ 			"Failed to init sclk threshold!",
+ 			return ret);
  
- 	/*
--	 * For baco reset on Arcturus, this operation
-+	 * For baco on Arcturus, this operation
- 	 * (disable all smu feature) will be handled by SMU FW.
- 	 */
 -	if (adev->in_gpu_reset &&
--	    (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) &&
--	    (adev->asic_type == CHIP_ARCTURUS && smu_version > 0x360e00))
--		return 0;
-+	if (adev->asic_type == CHIP_ARCTURUS) {
-+		if (use_baco && (smu_version > 0x360e00))
-+			return 0;
-+	}
- 
- 	/* Disable all enabled SMU features */
- 	ret = smu_system_features_control(smu, false);
-@@ -1482,15 +1486,14 @@ static int smu_disabled_dpms(struct smu_context *smu)
- 		return ret;
- 	}
- 
--	/* For baco reset, need to leave BACO feature enabled */
--	if (adev->in_gpu_reset &&
--	    (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) &&
--	    !smu->is_apu &&
--	    smu_feature_is_enabled(smu, SMU_FEATURE_BACO_BIT)) {
--		ret = smu_feature_set_enabled(smu, SMU_FEATURE_BACO_BIT, true);
--		if (ret) {
--			pr_warn("set BACO feature enabled failed, return %d\n", ret);
--			return ret;
-+	/* For baco, need to leave BACO feature enabled */
+-	    (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)) {
+-
 +	if (use_baco) {
-+		if (smu_feature_is_enabled(smu, SMU_FEATURE_BACO_BIT)) {
-+			ret = smu_feature_set_enabled(smu, SMU_FEATURE_BACO_BIT, true);
-+			if (ret) {
-+				pr_warn("set BACO feature enabled failed, return %d\n", ret);
-+				return ret;
-+			}
- 		}
- 	}
- 
-@@ -1510,7 +1513,7 @@ static int smu_suspend(void *handle)
- 		return 0;
- 
- 	if(!amdgpu_sriov_vf(adev)) {
--		ret = smu_disabled_dpms(smu);
-+		ret = smu_disable_dpm(smu);
+ 		ret = vega20_baco_apply_vdci_flush_workaround(hwmgr);
  		if (ret)
- 			return ret;
- 	}
+ 			pr_err("Failed to apply vega20 baco workaround!\n");
 -- 
 2.24.1
 
