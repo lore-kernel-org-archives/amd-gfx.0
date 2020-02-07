@@ -4,58 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60D94C352A2
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 00:09:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DBA28C35247
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 00:09:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 365AB214AF
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 00:09:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ADC3220838
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Feb 2020 00:09:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="V4CiNVen"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 365AB214AF
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="JGI/b3P1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ADC3220838
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1B116E4AB;
-	Fri,  7 Feb 2020 00:09:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E77B6E4E6;
+	Fri,  7 Feb 2020 00:09:32 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
  (mail-bn8nam12on2078.outbound.protection.outlook.com [40.107.237.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E40AC6E4AB
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2020 00:09:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 222AD6E4CA
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Feb 2020 00:09:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IWsN+UJXnzN055trNRJaJI9Wv/BZXOLLnwgnkp2qcKmzu9KTBQmQnMcZh4jhHJx1aXFCwOPO3oNEfx1rj1XFONKEu/AQJzMNdZnyGZ+AqEP0wowhIMli77vOqqj3+yKVOWllpKRQ33MjqYgUkC7hJ7lttPJUeFweiqQ9doKyN9qo5l1uMWg3jCugPkT8zAIX517aj/9rzEJL8YeEBpmLWAEab1UNBRmjD0KzMqZjvMQ9ZyI3vgVFY7pojC12iKJboM8C47c5JmpKGFetEa1PevTsBfSY2vGOTm2p6Wc8DkVpGLKkighwPlq0JYCoer1brLdmItJoqbqI7dpK4BbTaA==
+ b=XdLHyvnOp8uAeYpkAy0wAwjiTMa2eYcc/pA0tuyTyhaOHpUuBG1z9V6w5aFKOyX3g4Ks2YPPsPAeboeb10IMPFP2PZ0pHa02U0sszHQmCkTjPyBMrALMqiHsrNSzunuBAYNM5fvMRI/F2NNupksRS+UZ1wn4z+HxMXEHpK2t2UZicY61gLqZd006XiG90em9xJOQTGIN7ksKxaM8dmBVm9xX0+jpiAu8sExW5k6tpIhzp9kGYHf6zfTWuN7JFjw4CnrmPkze/bBYK4FEFn4g/Z7TwspUUHa6mlNbAA53+DZjIq/jpjwZB6IMcBOrhTRpPLRKrfKLBLNJpec2PGv3cA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dEbGFdpx3cU2RVgDDQv8h+Lklsj0SsHI0zTVZfsX59c=;
- b=jGdCod3aKv41IttqBJ1v28lWOqMyf7JPAU6wHwMgobbuxu6UKDv+76iWxy36QKMX+gJy48j0UpKDGfio7j6IGpvtZ+pCkqpGEZ8sPMzQ4XdCNNVcF/htVUJmUsMPn98qqqb088XANeZ7INpp7lyRgN9rhb8Sdbid0pJpbKwzJLifjG8twSz9zuToThGItSmPcFBpy6Eb1HGQ+2shDPNgZ8BfMzYCCBCnBASYKZBPal1/iAR8mRE/muJvs5F/pZZ4H8+YzKxYvcKng6s+0dMs0MqOG7DeGLJDdiUKtWHc/FCcbK6fkluwf98ZazhHL9GVfG0El8atTlQPIZm+JkpWJA==
+ bh=cEivH5zKNcRMZqZhyKi6zY2BS+dxUFYeJZkz6uFD9Vk=;
+ b=icxSNQgwrZXo1R9U7VKV6Uor/yoyCeZvqTnGmeH7eQe1XaVBJ2eT6XoJB+JbB4hkUSs9NhBxIJOUj6vY8QUN7Z5iRol8nQsq9DHIPFVRuQpo7c4t4QbbTXd/4MgZ103KNfhalEVCDouiqBh6VNeQePhZTMC59CXaQpoGIxPPuSNDrgXlXnYgYRVCziWxCKClmuFl7mbHDnqXVl16gPSjSelFOAAnbkJD0zot9FTq+XmO7ohsuKpE7E9yTsqOwxrjnqW8DFbJsL+RKDJv5zPPge5GLpuah/FMvz1WDjUAyEU5+a9L8z5oLgT0KDtYkWCdShr2qWJoNVxybkmrqDKDXA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dEbGFdpx3cU2RVgDDQv8h+Lklsj0SsHI0zTVZfsX59c=;
- b=V4CiNVenI4SiwbQ/jwCwiQ3nlHXHfJx49ySql1kfs7dqFobWBbO9dAl6rt0Lk+Ci4jSwZsA2jqTVIIwk+Zj5A6QHj7MUAcuoPdoc7ouetcNJj5eqNYY0xE6ztS0+fT1HDtq8b/CUiMeKanf+D8Nxb1ny66RZU9IP0S0TN4+edvg=
+ bh=cEivH5zKNcRMZqZhyKi6zY2BS+dxUFYeJZkz6uFD9Vk=;
+ b=JGI/b3P1ToFPM7IexDAbKAb3I0KLWq8lB30Mc+lFo0GkNtDf6812/N3G8f8Tdj28u0r7BXOB62lyenfm265qVVdVlbAzR0Sk3jFniZuJsobSSvkNwKh/eRFhO5x7K/T2jVxoPPzOyl2O0/C0Ywzlz400bXlHYmG8mhOZzudqeBk=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rajneesh.Bhardwaj@amd.com; 
 Received: from DM5PR12MB2359.namprd12.prod.outlook.com (52.132.141.12) by
  DM5PR12MB1530.namprd12.prod.outlook.com (10.172.34.23) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2686.30; Fri, 7 Feb 2020 00:09:27 +0000
+ 15.20.2686.30; Fri, 7 Feb 2020 00:09:28 +0000
 Received: from DM5PR12MB2359.namprd12.prod.outlook.com
  ([fe80::5539:bec0:f67:934f]) by DM5PR12MB2359.namprd12.prod.outlook.com
  ([fe80::5539:bec0:f67:934f%6]) with mapi id 15.20.2707.024; Fri, 7 Feb 2020
- 00:09:27 +0000
+ 00:09:28 +0000
 From: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [Patch v3 1/4] drm/amdgpu: Fix missing error check in suspend
-Date: Thu,  6 Feb 2020 19:09:08 -0500
-Message-Id: <20200207000911.19166-2-rajneesh.bhardwaj@amd.com>
+Subject: [Patch v3 2/4] drm/amdkfd: show warning when kfd is locked
+Date: Thu,  6 Feb 2020 19:09:09 -0500
+Message-Id: <20200207000911.19166-3-rajneesh.bhardwaj@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200207000911.19166-1-rajneesh.bhardwaj@amd.com>
 References: <20200207000911.19166-1-rajneesh.bhardwaj@amd.com>
@@ -72,14 +72,14 @@ X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [165.204.55.251]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 04f859e1-ecbd-45af-a76e-08d7ab61fee2
+X-MS-Office365-Filtering-Correlation-Id: 435717d3-8fe3-465a-201b-08d7ab61ff27
 X-MS-TrafficTypeDiagnostic: DM5PR12MB1530:|DM5PR12MB1530:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB15306CE03B87EE3D73542DAAFE1C0@DM5PR12MB1530.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB15302655491E78EB004B6F47FE1C0@DM5PR12MB1530.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
 X-Forefront-PRVS: 0306EE2ED4
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(396003)(136003)(366004)(39860400002)(346002)(189003)(199004)(26005)(15650500001)(66946007)(44832011)(66476007)(5660300002)(956004)(66556008)(478600001)(6486002)(7696005)(6666004)(186003)(16526019)(2906002)(52116002)(36756003)(316002)(86362001)(8676002)(2616005)(6916009)(81166006)(1076003)(4326008)(8936002)(81156014);
+ SFS:(10009020)(4636009)(376002)(396003)(136003)(366004)(39860400002)(346002)(189003)(199004)(26005)(66946007)(44832011)(66476007)(5660300002)(956004)(66556008)(478600001)(6486002)(7696005)(6666004)(186003)(16526019)(2906002)(52116002)(36756003)(316002)(86362001)(8676002)(2616005)(6916009)(81166006)(1076003)(4744005)(4326008)(8936002)(81156014);
  DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1530;
  H:DM5PR12MB2359.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
@@ -87,15 +87,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8Mj5i/shiG+mJ3S6FGbUD/aUyIi52Guvyfx2fgeswlke4UB5gYWLrgSoTNNid/kvvJoSfH2tiaDf3vsC2PZOvJAX+8u7wB+fJGeaZ0J9UjOq8EU07ct458oTa0GP2hwrYcOGPmBXUn3SYf158tKYvi3nDcrz7Bktc1UppHQoaFPR5AcSlDPadX+ZJ+FcgxpbdflRkgBBd0r7Lq3o5sV56L37M7Q9fNQMvnFUPTRbUrFB5Y1vH67hMv3Uou/izXmNHpCy6IdjvszUn57rbzKKSXR2ohrEbsLFJwfA8+hjwzIVDuWVRdoIdTMQGJfgDspPl07u7McvH0e8P7HvclKC2S7Fo/X1iGsATBwQ128Tb7EJ+H/KugI2Jtcb2XuqVbTTA158nPhMcMHo3EG2aq4RlJKIhuiRQiOfKtNmQkGVnhbCryRLr4OABaTONxLCyfku
-X-MS-Exchange-AntiSpam-MessageData: Tms0S1h7nPQJYHNcu1QjI4MiyKZeFI9pqXUAymdd507vKy3VM3zgv4zYVg0QgJi54EyGW2r0k2HvejO8TXvgs3F6c6jxZkgPxfQx2NSCQBjf7vTPnzSTc4Z1VhK8U2sdZ20iV7iFRq305+FSNY5whw==
+X-Microsoft-Antispam-Message-Info: rkpOWTr5egnVIBDr/2UxWJzFVHsA/JwAQJyqKFqztOwcxFVT6OEQoJRfhqwXBLICf6SH9wbOyOy1ZEKtSyXj3LroJDfiQyUDX/JIpeMS9TVJYHp8V/4/wvE0ejesi+qYE43BjnW1YLZaWo2Ey/5lDIukPx4FGDV3HGIpbJGty4V0c1ONiU4HJVRCelxZA6LzU/99dpAm4cZgaGuLpK7h0Hbf8sya5ns2CnZAXk7VEmhawVMQmXxC3ty/YYj118bK2WGTNKolRRtpD0ARPWe98NUSA/4rEzgSndrSnRlqjeWfakLhJ+EBlL7roiN2PWEcUsDjZeNqXG3gD+TGK9GXZkYYkqE4Vjk1qmPnfA5Kbd71vptzgvamwezJaTBLta4X+eCMGqFYQBSOGPdMAkT8nePyyHmc3LL9ZEDTwVsWCDBWX7sMq62lpiBiAwcJI1ps
+X-MS-Exchange-AntiSpam-MessageData: Hu3zmzzzeE6oS5pD+EojF1Ld6iOWDCm3CD2/dbIge8JjTrX82uZ5YKwZGYnxU4m3lNU3ILgKdu4HYvFKtp1LrMEYVkUCw52ajVj4Xzd9/R9ZoJQ02/jjECj0jleMvqWtsZ3ad6F3m6shjJCO7vqFXA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 04f859e1-ecbd-45af-a76e-08d7ab61fee2
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2020 00:09:27.4407 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 435717d3-8fe3-465a-201b-08d7ab61ff27
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Feb 2020 00:09:27.9025 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CJQ0BPcXskli8YwT+UjlAQNRVWPvRWF0FyU+YligQuXdAkqbNU2xKDNsX7in08E5UHHFqE465qIczzrQty15Zw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: wLgqwsUYmIKVgYsQt7kErC9DHEfFRZwQJJ2v7B6mbnIIt03craouSd5BMfuuIpWYel7dDHnmTzPunMRKrgw+Vg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1530
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,32 +115,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_device_suspend might return an error code since it can be called
-from both runtime and system suspend flows. Add the missing return code
-in case of a failure.
+During system suspend the kfd driver aquires a lock that prohibits
+further kfd actions unless the gpu is resumed. This adds some info which
+can be useful while debugging.
 
 Reviewed-by: Oak Zeng <oak.zeng@amd.com>
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index f28d040de3ce..0026ff56542c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1235,6 +1235,9 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
- 	drm_kms_helper_poll_disable(drm_dev);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 275f79ab0900..86b919d82129 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -127,6 +127,8 @@ static int kfd_open(struct inode *inode, struct file *filep)
+ 		return PTR_ERR(process);
  
- 	ret = amdgpu_device_suspend(drm_dev, false);
-+	if (ret)
-+		return ret;
-+
- 	if (amdgpu_device_supports_boco(drm_dev)) {
- 		/* Only need to handle PCI state in the driver for ATPX
- 		 * PCI core handles it for _PR3.
+ 	if (kfd_is_locked()) {
++		dev_dbg(kfd_device, "kfd is locked!\n"
++				"process %d unreferenced", process->pasid);
+ 		kfd_unref_process(process);
+ 		return -EAGAIN;
+ 	}
 -- 
 2.17.1
 
