@@ -7,63 +7,64 @@ X-Spam-Status: No, score=-1.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BFDC7C2BA83
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Feb 2020 21:13:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A6F5C2BA83
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Feb 2020 22:03:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8766A20708
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Feb 2020 21:13:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0531F20715
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Feb 2020 22:03:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="vO2ifhmE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8766A20708
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iNX5gsi0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0531F20715
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32D176E22C;
-	Sun,  9 Feb 2020 21:13:51 +0000 (UTC)
-Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
- [IPv6:2607:f8b0:4864:20::d29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F208E6E22C
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Feb 2020 21:13:49 +0000 (UTC)
-Received: by mail-io1-xd29.google.com with SMTP id z8so5394324ioh.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Feb 2020 13:13:49 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55ABF6E887;
+	Sun,  9 Feb 2020 22:03:31 +0000 (UTC)
+Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
+ [IPv6:2607:f8b0:4864:20::d42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A1116E887
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Feb 2020 22:03:30 +0000 (UTC)
+Received: by mail-io1-xd42.google.com with SMTP id k24so5445394ioc.4
+ for <amd-gfx@lists.freedesktop.org>; Sun, 09 Feb 2020 14:03:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=to:from:subject:autocrypt:message-id:date:user-agent:mime-version
- :content-language:content-transfer-encoding;
- bh=f+8wJKMg/1jUXPTUhG84opDU7VnkEafZR0BKJ4FS1yk=;
- b=vO2ifhmEPGJ7gNlPRbEsn8d7bBDnBt8f+KX+/Vh9fpgIPI6zwgbMwkCqzHWRkxFlRv
- zRKGXOj1I6v1NFauCW0Gyt5IdP6oh7/an3Kuws9Sqfp4QOCMHF3p/U6r5K88k3hlnkvO
- B/BQEwn8tK7FVL5t6cMQtHTObMAn2UBE+ctX9VZv2PmXAzVSWH7QG/AeTjodxn+dDp3P
- fR/ga+eOAEWUV9fmtyoB0Hvrazn091NkbbwWQnwlCT0+xa4QhiaHc/xa+xdCqMly1fJ+
- RUEmEbicesVESFiFtgBqxFqeg+Cl0tcOF4gaaBSWyZHnG+CBAnW+/gtHyNZZyt5ih+/a
- DVyA==
+ h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
+ :mime-version:in-reply-to;
+ bh=VCGgoPpYK2Rcdm7UOAgv8MU3j7/xVL3UtTvGLwbr7k0=;
+ b=iNX5gsi0E5WbuSK/C8YcRR0LK3xYfPaWtMIFQwcleKRw0VbsHRNVBymN5JUm4g9cMl
+ df3tyE4tzAS0gm6hU3Yz1ptTUFBBDouvssU9rrQPGuJHVxiqH7IWoSuVeRJxos7ScnzG
+ gBAtvAEibR2dvK2XoEwKbAsK1aqp9RYJXeyQcKSxRKTlBHE/T7+iPnGDVnjb1z5gZOjr
+ Q8DCdv4LyTN30yHYSeHDRyf3bkRTJ7b3tvQ3a4rNhXVtJWZCRAbbj+Z1jSD7KWC2TbQs
+ fcki3z85ypFsvCyX0EA31/y0hH8IRx4Q/MNC90Q8mQm3+4DdtvT0hyVW3GX5EyLYPR+v
+ CX4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:to:from:subject:autocrypt:message-id:date
- :user-agent:mime-version:content-language:content-transfer-encoding;
- bh=f+8wJKMg/1jUXPTUhG84opDU7VnkEafZR0BKJ4FS1yk=;
- b=RFUdRtvry0WTEeLZoIOihLb8fVNAMQKC8ZDSlj7JyErxE6NFxFpn1fZZQaF6HwB/uW
- KwJ2QG3hoUow5+tyW0t+IfCiKJt6SDbOF52pj8aw/U1FXgSK8Pv4+XNHVkSdh3MG0pOP
- nuqQ2fhsopj3H1ic1ovYiW/qnRrBW0F8k9QFvoCmXNQFb+dor03uett8LFNbDal5pXmS
- KDe0xO8BIyntI0LgdyzhERR1M0Vu8+npX/9dSbEwkhykctMox6WD8+BGWEEbikFF4jl4
- KceJBr3pCIGH2IpG4RGHUBDph91ZPWCC31zaT7zLNjTth5AwjXo3eRQclw1pkkJaaqS7
- cVbA==
-X-Gm-Message-State: APjAAAVRKkvw5ErZjkmICL97IitkvieQSEBPUBhJNO3UjB6kcfYgLoiL
- bFL98hT0uryX88kdlr5Cn2FSkb8l2/Q=
-X-Google-Smtp-Source: APXvYqxUxLHkC5lPRtFBsqQNz4LXga4R8AiHKrjMiFgjd2vOM2LfcpaGWy51Kuoef7f9Zp3kgk3wTQ==
-X-Received: by 2002:a6b:ec0f:: with SMTP id c15mr6541949ioh.149.1581282828998; 
- Sun, 09 Feb 2020 13:13:48 -0800 (PST)
+ h=x-gm-message-state:subject:to:cc:references:from:autocrypt
+ :message-id:date:user-agent:mime-version:in-reply-to;
+ bh=VCGgoPpYK2Rcdm7UOAgv8MU3j7/xVL3UtTvGLwbr7k0=;
+ b=XJfY81P+zdNkQl5c0eEPjBOg0aJKX36Zy8uNMukoSn/V4mfiTEnR1Mbs7RJQasS6zG
+ UmuV2/ElZD1/ZxTRvtGpbSBSnN3xk2i08rrmWQn0n9PKpxhVKTDT+EQ3rWn0bLmQNj5W
+ 7LTvbBDRvU+30FLjKvXlkQIM2otgtIIzt6eSnEFxbtO7bZads8Q37OnBAMH3ZHYr0Qvc
+ p6PZdQRtxGgJtl9GswnRRytDk++7O2uM5y9YggcrRyPqS1kNMtarOMnHmMrngNNylYtm
+ 4SPzWSJZ1yd6ovwjaJdS6Vvgjc9KL0UCLn2F44WthKZHc+WwnAaEQThhcFQ5BQ93vF4B
+ qJeA==
+X-Gm-Message-State: APjAAAWaefQQRZ9oYkBsmyF52BWGQeZRg8UnohQPcw+c3tB+1sxg5ZQf
+ aFtRMvvvyT2lbNvZ1XQ3DAU=
+X-Google-Smtp-Source: APXvYqzzC1iOp3VDusrBBvEufkyX1rxpVRh3VRaFnZvzu7L0dlrTvziKdyf95VKdajAzT96b8QVTWQ==
+X-Received: by 2002:a02:c78f:: with SMTP id n15mr7683017jao.100.1581285809524; 
+ Sun, 09 Feb 2020 14:03:29 -0800 (PST)
 Received: from ?IPv6:2602:ae:10d1:b00:6d4:c4ff:fe4a:ea6b?
  ([2602:ae:10d1:b00:6d4:c4ff:fe4a:ea6b])
- by smtp.gmail.com with ESMTPSA id e1sm4284496ill.47.2020.02.09.13.13.48
- for <amd-gfx@lists.freedesktop.org>
+ by smtp.gmail.com with ESMTPSA id b4sm4377928ill.24.2020.02.09.14.03.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 09 Feb 2020 13:13:48 -0800 (PST)
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+ Sun, 09 Feb 2020 14:03:28 -0800 (PST)
+Subject: Re: [PATCH 2/2] drm/amdgpu:/navi10: use the ODCAP enum to index the
+ caps array
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20200206195516.302101-1-alexander.deucher@amd.com>
+ <20200206195516.302101-2-alexander.deucher@amd.com>
 From: Matt Coffin <mcoffin13@gmail.com>
-Subject: Power limit OD stopped working for navi10 - broken on previously
- working commit
 Autocrypt: addr=mcoffin13@gmail.com; keydata=
  mQINBFXzZLABEADfD/9dfQPD/Ho+NHBmduela1i/ZAuKmYkKHmu3xrqZvxguxzWPUgyJpTXh
  ok1xaJyKsPEyBE2ISWtO6E7daG9ugnU/k7wYb0/Yte+LZRI+ZdeM+ZOFuu3csHmxI65DNnFT
@@ -138,12 +139,12 @@ Autocrypt: addr=mcoffin13@gmail.com; keydata=
  /CfIe6JJY5NEK7N0nZ3t4c/7/ys0uL5bKDJ2TT8N8MLPfmd4IPvrQTakWlNeaTir+PXLISug
  CmeZkKqj9XNAhrxWTXlEJiCAN7GbX+pI8bpOikCSc5RQf5gDxypiTNnCW6zFd6ia2giFR9P7
  tuwClJVHcEqY1gkUE/HKR1MQFfXl979G/1Ql1g==
-Message-ID: <103c1815-dea7-0154-c4bf-dda61a3cd6ea@gmail.com>
-Date: Sun, 9 Feb 2020 14:13:47 -0700
+Message-ID: <b46d6d8c-1c70-ed38-2158-2c3a62710d3b@gmail.com>
+Date: Sun, 9 Feb 2020 15:03:13 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.2
 MIME-Version: 1.0
-Content-Language: en-US
+In-Reply-To: <20200206195516.302101-2-alexander.deucher@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,46 +156,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Aleksandr Mezin <mezin.alexander@gmail.com>
+Content-Type: multipart/mixed; boundary="===============1326880089=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I was doing some benchmarking, and noticed some poor performance,
-indicating that my overdrive settings were not in place, which they
-were. hwmon/power1_cap reports the correctly adjusted value after it is
-written to, and I confirmed with a quick patch that the updated power
-limit value is actually being returned from the SMU after it is set, yet
-the card refuses to go over stock settings (+/- 3% of stock power draw,
-even with a 50% increase in power limit).
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============1326880089==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="RQ9fXH31SvBlYLjk4s1REeRshPRDD0YSE"
 
-Since I worked on that code a while back, I went to go bisect, using
-c39f062e881dcc6ab4c1c1c5835dc774be1bcfd6 as a starting location, since I
-know that commit had working power limit overdrive before.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--RQ9fXH31SvBlYLjk4s1REeRshPRDD0YSE
+Content-Type: multipart/mixed; boundary="LHcQ0vlWKIo5eTVFjs0Jd8Yia9qLu4qum"
 
-Strangely, I'm seeing the same behavior on that
-previously-known-to-be-working commit!
+--LHcQ0vlWKIo5eTVFjs0Jd8Yia9qLu4qum
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-This happens for both *increased* and *decreased* power limits. sysfs
-reflects the change, but I see no change in the actual power draw on the
-card, and for the *increased* case, performance reflects a card that is
-throttling due to power limits.
+On 2/6/20 12:55 PM, Alex Deucher wrote:
+> Rather than the FEATURE_ID flags.  Avoids a possible reading past
+> the end of the array.
 
-Were there any firmware changes or anything that could be causing this
-since I don't know where to start since a previously-working commit is
-now somehow broken.
+Just to make sure I understand, this has been broken the whole time,
+right, and just happened to be working because we were only using the
+lower-end values and happened to not read past the end of the array?
 
-Since the behavior seems to have changed on me, it would also be
-incredibly helpful if anyone can either confirm or deny that they can
-reproduce this problem (or not) off of the latest codebase OR
-c39f062e881dcc6ab4c1c1c5835dc774be1bcfd6.
+I'll do some testing for navi10, and play around with actually disabling
+the capabilities manually to make sure we're responding correctly.
 
-Any help, testing information, or simple confirm/deny from your side
-would go a long way.
+Thanks for fixing it!
 
-Thanks in advance,
-Matt
+
+--LHcQ0vlWKIo5eTVFjs0Jd8Yia9qLu4qum--
+
+--RQ9fXH31SvBlYLjk4s1REeRshPRDD0YSE
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEwz6NkrTNYgbdBT2N4mzKau7FyAcFAl5AgaUACgkQ4mzKau7F
+yAf5pA//ZEP+WXabelB+8OIAc9QAa7K0SA8YdEJz4JcNR7zxD9D/FQRcnrb1IHY3
+Vu/vuWuR2M62Qp8k9IGKwRh7lJs43fQX7LXr9Brqaz/FpDvVc21qEjCojcoYhWoi
+03duIUh5dzpKG561kxbloCNqKH4pz/CgV2oL/Q9yiKasL/2FWHNqBa+lIt+b8D+X
+2cfP8lDoctAXTlxl/AQNFAMEncRf1bYMUO9QZFvtM6AOawsCNolCDLIJIJjB/hib
+PLOY0lN3Eh3xd15L8RBm3UVbQH72LnE9mMnDx6AFgKmcgg+7mB6Rxm5oZeC41ieD
+oXv5vLZTrmNppknUbGFa7yy7QYRWUNbHupVXzr0vDtwNor4SQq08KWbTX1tQtd1F
+x2soL0mpaUYMmFhXx1Tmmc0dfpsrWUSMU+SXJHJf893gy4TT3Z2ZJfMxw/T1Vy5Y
+tOkt9jhfZ91IbLtkAfGkeCvdiNCn3yw/Kd9BoU8TNU2Q9bEPS7HCiuXxNhr6/5kr
+RNp/I16+/w2HqgDbnLnixX0lXdfU6xgK+mJ1h34lPq0y/5GRbOh828JmZIRVXT4o
+6jSust4LOe5a3M9FuZHR6+Sfa+8Ty/0U1V9LekGh279m5dOEvdAKdLCgbML+aYN3
+4Dm/toQKSW1HmnfaMQuQGo8hHfgGGGozoac7H+IoJU99gSeLuFw=
+=zDzx
+-----END PGP SIGNATURE-----
+
+--RQ9fXH31SvBlYLjk4s1REeRshPRDD0YSE--
+
+--===============1326880089==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1326880089==--
