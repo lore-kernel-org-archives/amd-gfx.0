@@ -1,150 +1,105 @@
-Return-Path: <SRS0=qiLQ=35=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=VWwp=36=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A6F5C2BA83
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Feb 2020 22:03:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CEC7FC2BA83
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Feb 2020 00:59:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0531F20715
-	for <amd-gfx@archiver.kernel.org>; Sun,  9 Feb 2020 22:03:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4CBDA208C4
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Feb 2020 00:59:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iNX5gsi0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0531F20715
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Lgum28iq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CBDA208C4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55ABF6E887;
-	Sun,  9 Feb 2020 22:03:31 +0000 (UTC)
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A1116E887
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Feb 2020 22:03:30 +0000 (UTC)
-Received: by mail-io1-xd42.google.com with SMTP id k24so5445394ioc.4
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Feb 2020 14:03:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
- :mime-version:in-reply-to;
- bh=VCGgoPpYK2Rcdm7UOAgv8MU3j7/xVL3UtTvGLwbr7k0=;
- b=iNX5gsi0E5WbuSK/C8YcRR0LK3xYfPaWtMIFQwcleKRw0VbsHRNVBymN5JUm4g9cMl
- df3tyE4tzAS0gm6hU3Yz1ptTUFBBDouvssU9rrQPGuJHVxiqH7IWoSuVeRJxos7ScnzG
- gBAtvAEibR2dvK2XoEwKbAsK1aqp9RYJXeyQcKSxRKTlBHE/T7+iPnGDVnjb1z5gZOjr
- Q8DCdv4LyTN30yHYSeHDRyf3bkRTJ7b3tvQ3a4rNhXVtJWZCRAbbj+Z1jSD7KWC2TbQs
- fcki3z85ypFsvCyX0EA31/y0hH8IRx4Q/MNC90Q8mQm3+4DdtvT0hyVW3GX5EyLYPR+v
- CX4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:autocrypt
- :message-id:date:user-agent:mime-version:in-reply-to;
- bh=VCGgoPpYK2Rcdm7UOAgv8MU3j7/xVL3UtTvGLwbr7k0=;
- b=XJfY81P+zdNkQl5c0eEPjBOg0aJKX36Zy8uNMukoSn/V4mfiTEnR1Mbs7RJQasS6zG
- UmuV2/ElZD1/ZxTRvtGpbSBSnN3xk2i08rrmWQn0n9PKpxhVKTDT+EQ3rWn0bLmQNj5W
- 7LTvbBDRvU+30FLjKvXlkQIM2otgtIIzt6eSnEFxbtO7bZads8Q37OnBAMH3ZHYr0Qvc
- p6PZdQRtxGgJtl9GswnRRytDk++7O2uM5y9YggcrRyPqS1kNMtarOMnHmMrngNNylYtm
- 4SPzWSJZ1yd6ovwjaJdS6Vvgjc9KL0UCLn2F44WthKZHc+WwnAaEQThhcFQ5BQ93vF4B
- qJeA==
-X-Gm-Message-State: APjAAAWaefQQRZ9oYkBsmyF52BWGQeZRg8UnohQPcw+c3tB+1sxg5ZQf
- aFtRMvvvyT2lbNvZ1XQ3DAU=
-X-Google-Smtp-Source: APXvYqzzC1iOp3VDusrBBvEufkyX1rxpVRh3VRaFnZvzu7L0dlrTvziKdyf95VKdajAzT96b8QVTWQ==
-X-Received: by 2002:a02:c78f:: with SMTP id n15mr7683017jao.100.1581285809524; 
- Sun, 09 Feb 2020 14:03:29 -0800 (PST)
-Received: from ?IPv6:2602:ae:10d1:b00:6d4:c4ff:fe4a:ea6b?
- ([2602:ae:10d1:b00:6d4:c4ff:fe4a:ea6b])
- by smtp.gmail.com with ESMTPSA id b4sm4377928ill.24.2020.02.09.14.03.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 09 Feb 2020 14:03:28 -0800 (PST)
-Subject: Re: [PATCH 2/2] drm/amdgpu:/navi10: use the ODCAP enum to index the
- caps array
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20200206195516.302101-1-alexander.deucher@amd.com>
- <20200206195516.302101-2-alexander.deucher@amd.com>
-From: Matt Coffin <mcoffin13@gmail.com>
-Autocrypt: addr=mcoffin13@gmail.com; keydata=
- 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
- tuwClJVHcEqY1gkUE/HKR1MQFfXl979G/1Ql1g==
-Message-ID: <b46d6d8c-1c70-ed38-2158-2c3a62710d3b@gmail.com>
-Date: Sun, 9 Feb 2020 15:03:13 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BE9D6E0D4;
+	Mon, 10 Feb 2020 00:59:22 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2044.outbound.protection.outlook.com [40.107.243.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACB146E0D4
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Feb 2020 00:59:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=BBzHGqSHPhcgpknm/+sCBsdIf0QhznXKlldETuVGEf5t2EHO5eS9DO30CI0qRXaMmCZB/zXhGKLv0R4daJc18wYrLd0XH9CCV1PZgquo6n1+626Dzu38fluVmqJDb0XdjES9m4r93VC8nfPRvoTYC5dt/TPtdpWaKVQieUAoR4uF8MVB1QZAbcXokN2QH6Gfq3Hk5HjOu8qElIztc//7lWjy0e4CKT8xATc9Pq1O0SWZ56JPck0JMT3cfTgXZaCKG8JmsD/42908GHwOlTAzjpchbQayVfxufcVSFNaEKQNBnaE5euJGUWZmyRCIlsLp68V/JiJ/2lRL60ZOJoxEpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B9fh9awag9tJOnMd/Nx0WhYSE/ZzRiYJlJTOZM19gew=;
+ b=l2P6WrDgS8Cy+8SD1ray93xBbEIkBSRfODh1rdSskz+M6vZdQ5SJ5gO4WSak2JtwaU7+KBdwIEGy46j+8GsML+1MkNuRAAYQzI0Ijlfy/U7mA0+Nwrzkck2gI61NIDGhL3UpW96b/1HaDi8U+pQUu04qjzG8MZ228IaOsvLbzFsKSGqeKgjJBwS3AeDRVRhw+z1LOOl67txg2rNX3VWTNfkVGYOS3hs+863adTadenvaZMlHAzHUssYO5xQc+R0vKkSpD/MWdkIoh/OiqkQGnu3jVskcG9Q/C7YWJcNKIHrXwBAJTRoKnKBuk1YKFQoWrKeU1uJP4UIShoie5b8z0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B9fh9awag9tJOnMd/Nx0WhYSE/ZzRiYJlJTOZM19gew=;
+ b=Lgum28iqBOqQlxEJR2NFhIrSLtClOZpvurIE27NCVaRqrMoky8zowuBXq6pEUzYDRKgZDpfY34IXlEq6JU9ntFa/0f1ykwNyKPbJVHS9vx3z8hOC1RkKhJ5ZxIQeyg7YLoAvjP70zQiuUADLLIMeEfTDoRExg9H6Pc6mEg+9WIg=
+Received: from SN6PR12MB2800.namprd12.prod.outlook.com (52.135.101.138) by
+ SN6PR12MB2750.namprd12.prod.outlook.com (52.135.107.29) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2707.29; Mon, 10 Feb 2020 00:59:17 +0000
+Received: from SN6PR12MB2800.namprd12.prod.outlook.com
+ ([fe80::b99c:18c0:8685:1c10]) by SN6PR12MB2800.namprd12.prod.outlook.com
+ ([fe80::b99c:18c0:8685:1c10%5]) with mapi id 15.20.2707.028; Mon, 10 Feb 2020
+ 00:59:17 +0000
+From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Do not move root PT bo to relocated list
+Thread-Topic: [PATCH] drm/amdgpu: Do not move root PT bo to relocated list
+Thread-Index: AQHV3vNP56MTPbl2TEqB6lFXcDTL9KgSheGAgAEVWGg=
+Date: Mon, 10 Feb 2020 00:59:17 +0000
+Message-ID: <SN6PR12MB28004896C5D08FC3F4BBE2A787190@SN6PR12MB2800.namprd12.prod.outlook.com>
+References: <SN6PR12MB2800EB2C9B3EE8BC3DC6B664871E0@SN6PR12MB2800.namprd12.prod.outlook.com>,
+ <cb22f498-f1c5-fa7b-ffb7-643ef9a584ff@gmail.com>
+In-Reply-To: <cb22f498-f1c5-fa7b-ffb7-643ef9a584ff@gmail.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-02-10T00:53:52.2873681Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Privileged
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Xinhui.Pan@amd.com; 
+x-originating-ip: [101.88.245.88]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 41330edf-e2cf-43f2-3713-08d7adc4747e
+x-ms-traffictypediagnostic: SN6PR12MB2750:|SN6PR12MB2750:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <SN6PR12MB275043C50A973E4F2DAD9B2587190@SN6PR12MB2750.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-forefront-prvs: 03094A4065
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(39860400002)(376002)(396003)(366004)(136003)(189003)(199004)(2906002)(71200400001)(33656002)(110136005)(4326008)(316002)(54906003)(186003)(86362001)(26005)(53546011)(55016002)(66556008)(81166006)(6506007)(8676002)(66946007)(91956017)(76116006)(81156014)(66476007)(64756008)(66446008)(66574012)(8936002)(478600001)(52536014)(9686003)(5660300002)(7696005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SN6PR12MB2750;
+ H:SN6PR12MB2800.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: bziJpeF//qBphCt2GRTHNPJEwc8jTtCy+SrrX7lcpKXyMZuPSEligfdewh2AaITTQhP8syA/UvUAnHNz7DZzg4agD+cYpSRzA25JrAJUMqzqqlrogM7qMKIUexwFfwkQOhY8aLxDnTsrlBW8C5QV04j9p7GgBsJWOMnenOpqqwOHg4qZ5Y7WnJLZF0slwF/tjRabwjFi1s/v2LbHBrjLGG8cFrsaDBTxbhE5F3ByyGAPnbMDImuFH/LWh6MO/E/8nw/ViqC9IGq1wo0u0hYov2YZ/c5dxWkzjIxljRKDP8vYUnHeiUGujnAjPgXzPgVfRZPlqZZCumw0egwn0dfdf6/0AheU+MWdyj6Id14m5MWtvJKRw4Q4ITeyIeik1bAltyqPspTFvSKTxpG0bOdA7nTNDtWmiWy4T9XcS96uqP+XeyJGE7YF3QP3YdaYylqB
+x-ms-exchange-antispam-messagedata: 0wEdaOowM7yXwR69rdxau/bayZIR4izYh4I0dQH2Nk5VuMOjlNLskEUIf3q5MaeDFaVOQ5tzztZBpnkiMC25LoiC0OHqBNBjgRPU9jd0uxEoCNZnRf1BSyixsOpgFaNh6aQ9enZ+O+b6SFpKTaz8CQ==
 MIME-Version: 1.0
-In-Reply-To: <20200206195516.302101-2-alexander.deucher@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41330edf-e2cf-43f2-3713-08d7adc4747e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Feb 2020 00:59:17.4729 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: bp83FjLdss/RYEJFc9Rt4Ia9Ze96mnfduGoJgm2AMFlZqnpoo4bD/wC/uI6a05PF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2750
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,68 +111,534 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Aleksandr Mezin <mezin.alexander@gmail.com>
-Content-Type: multipart/mixed; boundary="===============1326880089=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+Content-Type: multipart/mixed; boundary="===============0975517894=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1326880089==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="RQ9fXH31SvBlYLjk4s1REeRshPRDD0YSE"
+--===============0975517894==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_SN6PR12MB28004896C5D08FC3F4BBE2A787190SN6PR12MB2800namp_"
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---RQ9fXH31SvBlYLjk4s1REeRshPRDD0YSE
-Content-Type: multipart/mixed; boundary="LHcQ0vlWKIo5eTVFjs0Jd8Yia9qLu4qum"
-
---LHcQ0vlWKIo5eTVFjs0Jd8Yia9qLu4qum
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+--_000_SN6PR12MB28004896C5D08FC3F4BBE2A787190SN6PR12MB2800namp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-On 2/6/20 12:55 PM, Alex Deucher wrote:
-> Rather than the FEATURE_ID flags.  Avoids a possible reading past
-> the end of the array.
+[AMD Official Use Only - Internal Distribution Only]
 
-Just to make sure I understand, this has been broken the whole time,
-right, and just happened to be working because we were only using the
-lower-end values and happened to not read past the end of the array?
+If so the function name does not match its functionality.
 
-I'll do some testing for navi10, and play around with actually disabling
-the capabilities manually to make sure we're responding correctly.
+________________________________
+From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>
+Sent: Sunday, February 9, 2020 4:21:13 PM
+To: Pan, Xinhui <Xinhui.Pan@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
+x@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Do not move root PT bo to relocated list
 
-Thanks for fixing it!
+Am 09.02.20 um 03:52 schrieb Pan, Xinhui:
+> hit panic when we update the page tables.
+>
+> <1>[  122.103290] BUG: kernel NULL pointer dereference, address: 00000000=
+00000008
+> <1>[  122.103348] #PF: supervisor read access in kernel mode
+> <1>[  122.103376] #PF: error_code(0x0000) - not-present page
+> <6>[  122.103403] PGD 0 P4D 0
+> <4>[  122.103421] Oops: 0000 [#1] SMP PTI
+> <4>[  122.103442] CPU: 13 PID: 2133 Comm: kfdtest Tainted: G           OE=
+     5.4.0-rc7+ #7
+> <4>[  122.103480] Hardware name: Supermicro SYS-7048GR-TR/X10DRG-Q, BIOS =
+3.0b 03/09/2018
+> <4>[  122.103657] RIP: 0010:amdgpu_vm_update_pdes+0x140/0x330 [amdgpu]
+> <4>[  122.103689] Code: 03 4c 89 73 08 49 89 9d c8 00 00 00 48 8b 7b f0 c=
+6 43 10 00 45 31 c0 48 8b 87 28 04 00 00 48 85 c0 74 07 4c 8b 80 20 04 00 0=
+0 <4d> 8b 70 08 31 f6 49 8b 86 28 04 00 00 48 85 c0 74 0f 48 8b 80 28
+> <4>[  122.103769] RSP: 0018:ffffb49a0a6a3a98 EFLAGS: 00010246
+> <4>[  122.103797] RAX: 0000000000000000 RBX: ffff9020f823c148 RCX: dead00=
+0000000122
+> <4>[  122.103831] RDX: ffff9020ece70018 RSI: ffff9020f823c0c8 RDI: ffff90=
+10ca31c800
+> <4>[  122.103865] RBP: ffffb49a0a6a3b38 R08: 0000000000000000 R09: 000000=
+0000000001
+> <4>[  122.103899] R10: 000000006044f994 R11: 00000000df57fb58 R12: ffff90=
+20f823c000
+> <4>[  122.103933] R13: ffff9020f823c000 R14: ffff9020f823c0c8 R15: ffff90=
+10d5d20000
+> <4>[  122.103968] FS:  00007f32c83dc780(0000) GS:ffff9020ff380000(0000) k=
+nlGS:0000000000000000
+> <4>[  122.104006] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> <4>[  122.104035] CR2: 0000000000000008 CR3: 0000002036bba005 CR4: 000000=
+00003606e0
+> <4>[  122.104069] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 000000=
+0000000000
+> <4>[  122.104103] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 000000=
+0000000400
+> <4>[  122.104137] Call Trace:
+> <4>[  122.104241]  vm_update_pds+0x31/0x50 [amdgpu]
+> <4>[  122.104347]  amdgpu_amdkfd_gpuvm_map_memory_to_gpu+0x2ef/0x690 [amd=
+gpu]
+> <4>[  122.104466]  kfd_process_alloc_gpuvm+0x98/0x190 [amdgpu]
+> <4>[  122.104576]  kfd_process_device_init_vm.part.8+0xf3/0x1f0 [amdgpu]
+> <4>[  122.104688]  kfd_process_device_init_vm+0x24/0x30 [amdgpu]
+> <4>[  122.104794]  kfd_ioctl_acquire_vm+0xa4/0xc0 [amdgpu]
+> <4>[  122.104900]  kfd_ioctl+0x277/0x500 [amdgpu]
+> <4>[  122.105001]  ? kfd_ioctl_free_memory_of_gpu+0xc0/0xc0 [amdgpu]
+> <4>[  122.105039]  ? rcu_read_lock_sched_held+0x4f/0x80
+> <4>[  122.105068]  ? kmem_cache_free+0x2ba/0x300
+> <4>[  122.105093]  ? vm_area_free+0x18/0x20
+> <4>[  122.105117]  ? find_held_lock+0x35/0xa0
+> <4>[  122.105143]  do_vfs_ioctl+0xa9/0x6f0
+> <4>[  122.106001]  ksys_ioctl+0x75/0x80
+> <4>[  122.106802]  ? do_syscall_64+0x17/0x230
+> <4>[  122.107605]  __x64_sys_ioctl+0x1a/0x20
+> <4>[  122.108378]  do_syscall_64+0x5f/0x230
+> <4>[  122.109118]  entry_SYSCALL_64_after_hwframe+0x49/0xbe
+> <4>[  122.109842] RIP: 0033:0x7f32c6b495d7
+>
+> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index 3195bc90985a..3c388fdf335c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2619,7 +2619,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_device *=
+adev,
+>                        continue;
+>                bo_base->moved =3D true;
+>
+> -             if (bo->tbo.type =3D=3D ttm_bo_type_kernel)
+> +             if (bo->tbo.type =3D=3D ttm_bo_type_kernel && bo->parent)
+
+Good catch, but that would mean that we move the root PD to the moved
+state which in turn is illegal as well.
+
+Maybe better adjust amdgpu_vm_bo_relocated() to move the root PD to the
+idle state instead.
+
+Christian.
 
 
---LHcQ0vlWKIo5eTVFjs0Jd8Yia9qLu4qum--
+>                        amdgpu_vm_bo_relocated(bo_base);
+>                else if (bo->tbo.base.resv =3D=3D vm->root.base.bo->tbo.ba=
+se.resv)
+>                        amdgpu_vm_bo_moved(bo_base);
 
---RQ9fXH31SvBlYLjk4s1REeRshPRDD0YSE
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
+________________________________
+From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>
+Sent: Sunday, February 9, 2020 4:21:13 PM
+To: Pan, Xinhui <Xinhui.Pan@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
+x@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Do not move root PT bo to relocated list
 
------BEGIN PGP SIGNATURE-----
+Am 09.02.20 um 03:52 schrieb Pan, Xinhui:
+> hit panic when we update the page tables.
+>
+> <1>[  122.103290] BUG: kernel NULL pointer dereference, address: 00000000=
+00000008
+> <1>[  122.103348] #PF: supervisor read access in kernel mode
+> <1>[  122.103376] #PF: error_code(0x0000) - not-present page
+> <6>[  122.103403] PGD 0 P4D 0
+> <4>[  122.103421] Oops: 0000 [#1] SMP PTI
+> <4>[  122.103442] CPU: 13 PID: 2133 Comm: kfdtest Tainted: G           OE=
+     5.4.0-rc7+ #7
+> <4>[  122.103480] Hardware name: Supermicro SYS-7048GR-TR/X10DRG-Q, BIOS =
+3.0b 03/09/2018
+> <4>[  122.103657] RIP: 0010:amdgpu_vm_update_pdes+0x140/0x330 [amdgpu]
+> <4>[  122.103689] Code: 03 4c 89 73 08 49 89 9d c8 00 00 00 48 8b 7b f0 c=
+6 43 10 00 45 31 c0 48 8b 87 28 04 00 00 48 85 c0 74 07 4c 8b 80 20 04 00 0=
+0 <4d> 8b 70 08 31 f6 49 8b 86 28 04 00 00 48 85 c0 74 0f 48 8b 80 28
+> <4>[  122.103769] RSP: 0018:ffffb49a0a6a3a98 EFLAGS: 00010246
+> <4>[  122.103797] RAX: 0000000000000000 RBX: ffff9020f823c148 RCX: dead00=
+0000000122
+> <4>[  122.103831] RDX: ffff9020ece70018 RSI: ffff9020f823c0c8 RDI: ffff90=
+10ca31c800
+> <4>[  122.103865] RBP: ffffb49a0a6a3b38 R08: 0000000000000000 R09: 000000=
+0000000001
+> <4>[  122.103899] R10: 000000006044f994 R11: 00000000df57fb58 R12: ffff90=
+20f823c000
+> <4>[  122.103933] R13: ffff9020f823c000 R14: ffff9020f823c0c8 R15: ffff90=
+10d5d20000
+> <4>[  122.103968] FS:  00007f32c83dc780(0000) GS:ffff9020ff380000(0000) k=
+nlGS:0000000000000000
+> <4>[  122.104006] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> <4>[  122.104035] CR2: 0000000000000008 CR3: 0000002036bba005 CR4: 000000=
+00003606e0
+> <4>[  122.104069] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 000000=
+0000000000
+> <4>[  122.104103] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 000000=
+0000000400
+> <4>[  122.104137] Call Trace:
+> <4>[  122.104241]  vm_update_pds+0x31/0x50 [amdgpu]
+> <4>[  122.104347]  amdgpu_amdkfd_gpuvm_map_memory_to_gpu+0x2ef/0x690 [amd=
+gpu]
+> <4>[  122.104466]  kfd_process_alloc_gpuvm+0x98/0x190 [amdgpu]
+> <4>[  122.104576]  kfd_process_device_init_vm.part.8+0xf3/0x1f0 [amdgpu]
+> <4>[  122.104688]  kfd_process_device_init_vm+0x24/0x30 [amdgpu]
+> <4>[  122.104794]  kfd_ioctl_acquire_vm+0xa4/0xc0 [amdgpu]
+> <4>[  122.104900]  kfd_ioctl+0x277/0x500 [amdgpu]
+> <4>[  122.105001]  ? kfd_ioctl_free_memory_of_gpu+0xc0/0xc0 [amdgpu]
+> <4>[  122.105039]  ? rcu_read_lock_sched_held+0x4f/0x80
+> <4>[  122.105068]  ? kmem_cache_free+0x2ba/0x300
+> <4>[  122.105093]  ? vm_area_free+0x18/0x20
+> <4>[  122.105117]  ? find_held_lock+0x35/0xa0
+> <4>[  122.105143]  do_vfs_ioctl+0xa9/0x6f0
+> <4>[  122.106001]  ksys_ioctl+0x75/0x80
+> <4>[  122.106802]  ? do_syscall_64+0x17/0x230
+> <4>[  122.107605]  __x64_sys_ioctl+0x1a/0x20
+> <4>[  122.108378]  do_syscall_64+0x5f/0x230
+> <4>[  122.109118]  entry_SYSCALL_64_after_hwframe+0x49/0xbe
+> <4>[  122.109842] RIP: 0033:0x7f32c6b495d7
+>
+> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index 3195bc90985a..3c388fdf335c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -2619,7 +2619,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_device *=
+adev,
+>                        continue;
+>                bo_base->moved =3D true;
+>
+> -             if (bo->tbo.type =3D=3D ttm_bo_type_kernel)
+> +             if (bo->tbo.type =3D=3D ttm_bo_type_kernel && bo->parent)
 
-iQIzBAEBCAAdFiEEwz6NkrTNYgbdBT2N4mzKau7FyAcFAl5AgaUACgkQ4mzKau7F
-yAf5pA//ZEP+WXabelB+8OIAc9QAa7K0SA8YdEJz4JcNR7zxD9D/FQRcnrb1IHY3
-Vu/vuWuR2M62Qp8k9IGKwRh7lJs43fQX7LXr9Brqaz/FpDvVc21qEjCojcoYhWoi
-03duIUh5dzpKG561kxbloCNqKH4pz/CgV2oL/Q9yiKasL/2FWHNqBa+lIt+b8D+X
-2cfP8lDoctAXTlxl/AQNFAMEncRf1bYMUO9QZFvtM6AOawsCNolCDLIJIJjB/hib
-PLOY0lN3Eh3xd15L8RBm3UVbQH72LnE9mMnDx6AFgKmcgg+7mB6Rxm5oZeC41ieD
-oXv5vLZTrmNppknUbGFa7yy7QYRWUNbHupVXzr0vDtwNor4SQq08KWbTX1tQtd1F
-x2soL0mpaUYMmFhXx1Tmmc0dfpsrWUSMU+SXJHJf893gy4TT3Z2ZJfMxw/T1Vy5Y
-tOkt9jhfZ91IbLtkAfGkeCvdiNCn3yw/Kd9BoU8TNU2Q9bEPS7HCiuXxNhr6/5kr
-RNp/I16+/w2HqgDbnLnixX0lXdfU6xgK+mJ1h34lPq0y/5GRbOh828JmZIRVXT4o
-6jSust4LOe5a3M9FuZHR6+Sfa+8Ty/0U1V9LekGh279m5dOEvdAKdLCgbML+aYN3
-4Dm/toQKSW1HmnfaMQuQGo8hHfgGGGozoac7H+IoJU99gSeLuFw=
-=zDzx
------END PGP SIGNATURE-----
+Good catch, but that would mean that we move the root PD to the moved
+state which in turn is illegal as well.
 
---RQ9fXH31SvBlYLjk4s1REeRshPRDD0YSE--
+Maybe better adjust amdgpu_vm_bo_relocated() to move the root PD to the
+idle state instead.
 
---===============1326880089==
+Christian.
+
+
+>                        amdgpu_vm_bo_relocated(bo_base);
+>                else if (bo->tbo.base.resv =3D=3D vm->root.base.bo->tbo.ba=
+se.resv)
+>                        amdgpu_vm_bo_moved(bo_base);
+
+
+--_000_SN6PR12MB28004896C5D08FC3F4BBE2A787190SN6PR12MB2800namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+</head>
+<body>
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div>
+<meta content=3D"text/html; charset=3Dus-ascii">
+</div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
+If so the function name does not match its functionality.&nbsp;</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto" style=3D"text-align: l=
+eft;">
+<div><br>
+</div>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Christian K=F6nig &lt=
+;ckoenig.leichtzumerken@gmail.com&gt;<br>
+<b>Sent:</b> Sunday, February 9, 2020 4:21:13 PM<br>
+<b>To:</b> Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;; amd-gfx@lists.freedeskto=
+p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
+ristian &lt;Christian.Koenig@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Do not move root PT bo to relocated=
+ list</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">Am 09.02.20 um 03:52 schrieb Pan, Xinhui:<br>
+&gt; hit panic when we update the page tables.<br>
+&gt;<br>
+&gt; &lt;1&gt;[&nbsp; 122.103290] BUG: kernel NULL pointer dereference, add=
+ress: 0000000000000008<br>
+&gt; &lt;1&gt;[&nbsp; 122.103348] #PF: supervisor read access in kernel mod=
+e<br>
+&gt; &lt;1&gt;[&nbsp; 122.103376] #PF: error_code(0x0000) - not-present pag=
+e<br>
+&gt; &lt;6&gt;[&nbsp; 122.103403] PGD 0 P4D 0<br>
+&gt; &lt;4&gt;[&nbsp; 122.103421] Oops: 0000 [#1] SMP PTI<br>
+&gt; &lt;4&gt;[&nbsp; 122.103442] CPU: 13 PID: 2133 Comm: kfdtest Tainted: =
+G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OE&nbsp;&nbsp=
+;&nbsp;&nbsp; 5.4.0-rc7&#43; #7<br>
+&gt; &lt;4&gt;[&nbsp; 122.103480] Hardware name: Supermicro SYS-7048GR-TR/X=
+10DRG-Q, BIOS 3.0b 03/09/2018<br>
+&gt; &lt;4&gt;[&nbsp; 122.103657] RIP: 0010:amdgpu_vm_update_pdes&#43;0x140=
+/0x330 [amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.103689] Code: 03 4c 89 73 08 49 89 9d c8 00 00 00=
+ 48 8b 7b f0 c6 43 10 00 45 31 c0 48 8b 87 28 04 00 00 48 85 c0 74 07 4c 8b=
+ 80 20 04 00 00 &lt;4d&gt; 8b 70 08 31 f6 49 8b 86 28 04 00 00 48 85 c0 74 =
+0f 48 8b 80 28<br>
+&gt; &lt;4&gt;[&nbsp; 122.103769] RSP: 0018:ffffb49a0a6a3a98 EFLAGS: 000102=
+46<br>
+&gt; &lt;4&gt;[&nbsp; 122.103797] RAX: 0000000000000000 RBX: ffff9020f823c1=
+48 RCX: dead000000000122<br>
+&gt; &lt;4&gt;[&nbsp; 122.103831] RDX: ffff9020ece70018 RSI: ffff9020f823c0=
+c8 RDI: ffff9010ca31c800<br>
+&gt; &lt;4&gt;[&nbsp; 122.103865] RBP: ffffb49a0a6a3b38 R08: 00000000000000=
+00 R09: 0000000000000001<br>
+&gt; &lt;4&gt;[&nbsp; 122.103899] R10: 000000006044f994 R11: 00000000df57fb=
+58 R12: ffff9020f823c000<br>
+&gt; &lt;4&gt;[&nbsp; 122.103933] R13: ffff9020f823c000 R14: ffff9020f823c0=
+c8 R15: ffff9010d5d20000<br>
+&gt; &lt;4&gt;[&nbsp; 122.103968] FS:&nbsp; 00007f32c83dc780(0000) GS:ffff9=
+020ff380000(0000) knlGS:0000000000000000<br>
+&gt; &lt;4&gt;[&nbsp; 122.104006] CS:&nbsp; 0010 DS: 0000 ES: 0000 CR0: 000=
+0000080050033<br>
+&gt; &lt;4&gt;[&nbsp; 122.104035] CR2: 0000000000000008 CR3: 0000002036bba0=
+05 CR4: 00000000003606e0<br>
+&gt; &lt;4&gt;[&nbsp; 122.104069] DR0: 0000000000000000 DR1: 00000000000000=
+00 DR2: 0000000000000000<br>
+&gt; &lt;4&gt;[&nbsp; 122.104103] DR3: 0000000000000000 DR6: 00000000fffe0f=
+f0 DR7: 0000000000000400<br>
+&gt; &lt;4&gt;[&nbsp; 122.104137] Call Trace:<br>
+&gt; &lt;4&gt;[&nbsp; 122.104241]&nbsp; vm_update_pds&#43;0x31/0x50 [amdgpu=
+]<br>
+&gt; &lt;4&gt;[&nbsp; 122.104347]&nbsp; amdgpu_amdkfd_gpuvm_map_memory_to_g=
+pu&#43;0x2ef/0x690 [amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.104466]&nbsp; kfd_process_alloc_gpuvm&#43;0x98/0x=
+190 [amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.104576]&nbsp; kfd_process_device_init_vm.part.8&#=
+43;0xf3/0x1f0 [amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.104688]&nbsp; kfd_process_device_init_vm&#43;0x24=
+/0x30 [amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.104794]&nbsp; kfd_ioctl_acquire_vm&#43;0xa4/0xc0 =
+[amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.104900]&nbsp; kfd_ioctl&#43;0x277/0x500 [amdgpu]<=
+br>
+&gt; &lt;4&gt;[&nbsp; 122.105001]&nbsp; ? kfd_ioctl_free_memory_of_gpu&#43;=
+0xc0/0xc0 [amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.105039]&nbsp; ? rcu_read_lock_sched_held&#43;0x4f=
+/0x80<br>
+&gt; &lt;4&gt;[&nbsp; 122.105068]&nbsp; ? kmem_cache_free&#43;0x2ba/0x300<b=
+r>
+&gt; &lt;4&gt;[&nbsp; 122.105093]&nbsp; ? vm_area_free&#43;0x18/0x20<br>
+&gt; &lt;4&gt;[&nbsp; 122.105117]&nbsp; ? find_held_lock&#43;0x35/0xa0<br>
+&gt; &lt;4&gt;[&nbsp; 122.105143]&nbsp; do_vfs_ioctl&#43;0xa9/0x6f0<br>
+&gt; &lt;4&gt;[&nbsp; 122.106001]&nbsp; ksys_ioctl&#43;0x75/0x80<br>
+&gt; &lt;4&gt;[&nbsp; 122.106802]&nbsp; ? do_syscall_64&#43;0x17/0x230<br>
+&gt; &lt;4&gt;[&nbsp; 122.107605]&nbsp; __x64_sys_ioctl&#43;0x1a/0x20<br>
+&gt; &lt;4&gt;[&nbsp; 122.108378]&nbsp; do_syscall_64&#43;0x5f/0x230<br>
+&gt; &lt;4&gt;[&nbsp; 122.109118]&nbsp; entry_SYSCALL_64_after_hwframe&#43;=
+0x49/0xbe<br>
+&gt; &lt;4&gt;[&nbsp; 122.109842] RIP: 0033:0x7f32c6b495d7<br>
+&gt;<br>
+&gt; Signed-off-by: xinhui pan &lt;xinhui.pan@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 &#43;-<br>
+&gt;&nbsp;&nbsp; 1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_vm.c<br>
+&gt; index 3195bc90985a..3c388fdf335c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt; @@ -2619,7 &#43;2619,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_d=
+evice *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continu=
+e;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; bo_base-&gt;moved =3D true;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (bo-&gt;tbo.type =3D=3D ttm_bo_type_kernel)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (bo-&gt;tbo.type =3D=3D ttm_bo_type_kernel &amp;&amp; bo-&gt;par=
+ent)<br>
+<br>
+Good catch, but that would mean that we move the root PD to the moved <br>
+state which in turn is illegal as well.<br>
+<br>
+Maybe better adjust amdgpu_vm_bo_relocated() to move the root PD to the <br=
+>
+idle state instead.<br>
+<br>
+Christian.<br>
+<br>
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+vm_bo_relocated(bo_base);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; else if (bo-&gt;tbo.base.resv =3D=3D vm-&gt;root.base.b=
+o-&gt;tbo.base.resv)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+vm_bo_moved(bo_base);<br>
+<br>
+</div>
+</span></font></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K=F6nig &lt=
+;ckoenig.leichtzumerken@gmail.com&gt;<br>
+<b>Sent:</b> Sunday, February 9, 2020 4:21:13 PM<br>
+<b>To:</b> Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;; amd-gfx@lists.freedeskto=
+p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
+ristian &lt;Christian.Koenig@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Do not move root PT bo to relocated=
+ list</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Am 09.02.20 um 03:52 schrieb Pan, Xinhui:<br>
+&gt; hit panic when we update the page tables.<br>
+&gt;<br>
+&gt; &lt;1&gt;[&nbsp; 122.103290] BUG: kernel NULL pointer dereference, add=
+ress: 0000000000000008<br>
+&gt; &lt;1&gt;[&nbsp; 122.103348] #PF: supervisor read access in kernel mod=
+e<br>
+&gt; &lt;1&gt;[&nbsp; 122.103376] #PF: error_code(0x0000) - not-present pag=
+e<br>
+&gt; &lt;6&gt;[&nbsp; 122.103403] PGD 0 P4D 0<br>
+&gt; &lt;4&gt;[&nbsp; 122.103421] Oops: 0000 [#1] SMP PTI<br>
+&gt; &lt;4&gt;[&nbsp; 122.103442] CPU: 13 PID: 2133 Comm: kfdtest Tainted: =
+G&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OE&nbsp;&nbsp=
+;&nbsp;&nbsp; 5.4.0-rc7&#43; #7<br>
+&gt; &lt;4&gt;[&nbsp; 122.103480] Hardware name: Supermicro SYS-7048GR-TR/X=
+10DRG-Q, BIOS 3.0b 03/09/2018<br>
+&gt; &lt;4&gt;[&nbsp; 122.103657] RIP: 0010:amdgpu_vm_update_pdes&#43;0x140=
+/0x330 [amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.103689] Code: 03 4c 89 73 08 49 89 9d c8 00 00 00=
+ 48 8b 7b f0 c6 43 10 00 45 31 c0 48 8b 87 28 04 00 00 48 85 c0 74 07 4c 8b=
+ 80 20 04 00 00 &lt;4d&gt; 8b 70 08 31 f6 49 8b 86 28 04 00 00 48 85 c0 74 =
+0f 48 8b 80 28<br>
+&gt; &lt;4&gt;[&nbsp; 122.103769] RSP: 0018:ffffb49a0a6a3a98 EFLAGS: 000102=
+46<br>
+&gt; &lt;4&gt;[&nbsp; 122.103797] RAX: 0000000000000000 RBX: ffff9020f823c1=
+48 RCX: dead000000000122<br>
+&gt; &lt;4&gt;[&nbsp; 122.103831] RDX: ffff9020ece70018 RSI: ffff9020f823c0=
+c8 RDI: ffff9010ca31c800<br>
+&gt; &lt;4&gt;[&nbsp; 122.103865] RBP: ffffb49a0a6a3b38 R08: 00000000000000=
+00 R09: 0000000000000001<br>
+&gt; &lt;4&gt;[&nbsp; 122.103899] R10: 000000006044f994 R11: 00000000df57fb=
+58 R12: ffff9020f823c000<br>
+&gt; &lt;4&gt;[&nbsp; 122.103933] R13: ffff9020f823c000 R14: ffff9020f823c0=
+c8 R15: ffff9010d5d20000<br>
+&gt; &lt;4&gt;[&nbsp; 122.103968] FS:&nbsp; 00007f32c83dc780(0000) GS:ffff9=
+020ff380000(0000) knlGS:0000000000000000<br>
+&gt; &lt;4&gt;[&nbsp; 122.104006] CS:&nbsp; 0010 DS: 0000 ES: 0000 CR0: 000=
+0000080050033<br>
+&gt; &lt;4&gt;[&nbsp; 122.104035] CR2: 0000000000000008 CR3: 0000002036bba0=
+05 CR4: 00000000003606e0<br>
+&gt; &lt;4&gt;[&nbsp; 122.104069] DR0: 0000000000000000 DR1: 00000000000000=
+00 DR2: 0000000000000000<br>
+&gt; &lt;4&gt;[&nbsp; 122.104103] DR3: 0000000000000000 DR6: 00000000fffe0f=
+f0 DR7: 0000000000000400<br>
+&gt; &lt;4&gt;[&nbsp; 122.104137] Call Trace:<br>
+&gt; &lt;4&gt;[&nbsp; 122.104241]&nbsp; vm_update_pds&#43;0x31/0x50 [amdgpu=
+]<br>
+&gt; &lt;4&gt;[&nbsp; 122.104347]&nbsp; amdgpu_amdkfd_gpuvm_map_memory_to_g=
+pu&#43;0x2ef/0x690 [amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.104466]&nbsp; kfd_process_alloc_gpuvm&#43;0x98/0x=
+190 [amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.104576]&nbsp; kfd_process_device_init_vm.part.8&#=
+43;0xf3/0x1f0 [amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.104688]&nbsp; kfd_process_device_init_vm&#43;0x24=
+/0x30 [amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.104794]&nbsp; kfd_ioctl_acquire_vm&#43;0xa4/0xc0 =
+[amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.104900]&nbsp; kfd_ioctl&#43;0x277/0x500 [amdgpu]<=
+br>
+&gt; &lt;4&gt;[&nbsp; 122.105001]&nbsp; ? kfd_ioctl_free_memory_of_gpu&#43;=
+0xc0/0xc0 [amdgpu]<br>
+&gt; &lt;4&gt;[&nbsp; 122.105039]&nbsp; ? rcu_read_lock_sched_held&#43;0x4f=
+/0x80<br>
+&gt; &lt;4&gt;[&nbsp; 122.105068]&nbsp; ? kmem_cache_free&#43;0x2ba/0x300<b=
+r>
+&gt; &lt;4&gt;[&nbsp; 122.105093]&nbsp; ? vm_area_free&#43;0x18/0x20<br>
+&gt; &lt;4&gt;[&nbsp; 122.105117]&nbsp; ? find_held_lock&#43;0x35/0xa0<br>
+&gt; &lt;4&gt;[&nbsp; 122.105143]&nbsp; do_vfs_ioctl&#43;0xa9/0x6f0<br>
+&gt; &lt;4&gt;[&nbsp; 122.106001]&nbsp; ksys_ioctl&#43;0x75/0x80<br>
+&gt; &lt;4&gt;[&nbsp; 122.106802]&nbsp; ? do_syscall_64&#43;0x17/0x230<br>
+&gt; &lt;4&gt;[&nbsp; 122.107605]&nbsp; __x64_sys_ioctl&#43;0x1a/0x20<br>
+&gt; &lt;4&gt;[&nbsp; 122.108378]&nbsp; do_syscall_64&#43;0x5f/0x230<br>
+&gt; &lt;4&gt;[&nbsp; 122.109118]&nbsp; entry_SYSCALL_64_after_hwframe&#43;=
+0x49/0xbe<br>
+&gt; &lt;4&gt;[&nbsp; 122.109842] RIP: 0033:0x7f32c6b495d7<br>
+&gt;<br>
+&gt; Signed-off-by: xinhui pan &lt;xinhui.pan@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 &#43;-<br>
+&gt;&nbsp;&nbsp; 1 file changed, 1 insertion(&#43;), 1 deletion(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_vm.c<br>
+&gt; index 3195bc90985a..3c388fdf335c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+&gt; @@ -2619,7 &#43;2619,7 @@ void amdgpu_vm_bo_invalidate(struct amdgpu_d=
+evice *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continu=
+e;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; bo_base-&gt;moved =3D true;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (bo-&gt;tbo.type =3D=3D ttm_bo_type_kernel)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (bo-&gt;tbo.type =3D=3D ttm_bo_type_kernel &amp;&amp; bo-&gt;par=
+ent)<br>
+<br>
+Good catch, but that would mean that we move the root PD to the moved <br>
+state which in turn is illegal as well.<br>
+<br>
+Maybe better adjust amdgpu_vm_bo_relocated() to move the root PD to the <br=
+>
+idle state instead.<br>
+<br>
+Christian.<br>
+<br>
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+vm_bo_relocated(bo_base);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; else if (bo-&gt;tbo.base.resv =3D=3D vm-&gt;root.base.b=
+o-&gt;tbo.base.resv)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+vm_bo_moved(bo_base);<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_SN6PR12MB28004896C5D08FC3F4BBE2A787190SN6PR12MB2800namp_--
+
+--===============0975517894==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -228,4 +649,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1326880089==--
+--===============0975517894==--
