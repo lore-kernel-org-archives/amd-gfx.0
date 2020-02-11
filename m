@@ -2,72 +2,74 @@ Return-Path: <SRS0=OHPl=37=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A3DABC352A3
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 14:17:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89EB4C352A3
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 14:29:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 74FB42086A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 14:17:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5860120714
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 14:29:41 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="3FiQwSwi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74FB42086A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZksN/hpo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5860120714
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F2726EE64;
-	Tue, 11 Feb 2020 14:17:23 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2087.outbound.protection.outlook.com [40.107.220.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3E366EE63
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2020 14:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7426EE6E;
+	Tue, 11 Feb 2020 14:29:41 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::61d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D0ED6EE70
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2020 14:29:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DSqIkhq4VdBLOK8tsqNFUHNunwY33coiYN/aCuJd/JUj9Kc0gjq7xzThve+Ap1O/Jo5e9GXrzZ87ETiOTTfqeDRxDqLbrQOP5BSFAZ4INTT33d45PoHKBTNIM5GLid899+4sggNLqGZwZR+Y30BIiFLOsisrI7YI9KNHXbpo9nxPHMVnC3kbBvHQZWydctfp9zjVh2suDxMxkX97r2iK/aEpB8n7Tgm/+Vl+UM6ml2jjR6XtlHnYZDtR3yv3l8pPTB+KBZLL2vEsiK6LYTOBQi+dcJVB4kaA2aZtBd3Dfg9lR2202eTFzQIVnn7BdZ43FPpbDaXlVee9h49I83k3Jw==
+ b=AMJi2YCVkf+6NZfh9E7AIXpWBQD6MIED+Leb2QbxhE5KRT1FQl4eNkQ12+krviPicFJDY9oZays/iCAIU5gCWRVNIvHU+vtvmncQFcNJHkCWkPmFyoiai5kFIAv0EHZX1IYKom8RIKj194gq6B2EWYrjtoc9iNcOFGLcyuAYruGepVTgqDSJqjLOLPzl8JP1wS//IGPsOIBBjVIWZCbIQSsnCNPi7Wp99z8Ag1Ys7S6XAbhmVC3NUs2y4XU7eFiEpdAdxFKu4VFH0dWh++NAkxJlHvBdw2P/Cy2c0G+LKubxorN4tVPGtpdD8KQKidiIjOaoSTC0VNYhuJKhaKaCPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1ej1/oI5Ctg+BVuCcUS7XxiVyyF5QqrKTKUi0B1nfFY=;
- b=QBIEdWt4ywIXzxdBNGEFUGq0T2hoMj983hX6zabWOcxr7Cd0XwxohPj6rVtUTF8uT5KXDd40+rbI4D/gckYOTvndhDzLAryY2n7xptckocyuvPbyp9r9Fl1fQjObCBgnHCKh5HEkg2uxzHtFzR1tyZu56j6gkFvqWbZ6RCpa8sCDyVsa10+dVau7gExwPGFi836cOPkVZzp3sGppd1EgFW3JPCnhgGV0kwVQUWPdc3/+N+W+Ncy4X3UrOHWPx5na18tlfGgEN4bEsqhVjlPieMoL5TeFBFAYH94psipMeCm0cEpoZf0N7GIauuuL1dSm57Jv9GN1IPJ6gTPmwOI8zQ==
+ bh=kqatKQhpdRYnH8lVZudSulJOOwEgUav/RFEFcPqp5w0=;
+ b=Ne1w2pkhgHefFk3ikowBAAYFRo1Y6ifEiRNQktZ4F4jwY/kH8rVBw7P/B1gI5A7NNI7k4RNC6vaewW2VTpPicQhzrbt8PI2QRDQAv5gkUN+TnMOE9QuoPJhmT7InVsbaznWcYuBWoT/kx5HNOrBEfUCBoHBVA+a6IS/6omJ+O8df3o0b1j5tRWSvJRwmsVUpF5NroOaWPalZGfQd3oLF0+mC9qMhtFybhBCILD/6l2/RdOA9w8k6ORzWKVwmbywJ6RGHw7f2vz0xbxKczovTrSIgH+KK3pQhPtbWLgXGfO9cHbyrVQTyep7lHO3n78PthTqsVj1M+AXgD7T7l61BOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1ej1/oI5Ctg+BVuCcUS7XxiVyyF5QqrKTKUi0B1nfFY=;
- b=3FiQwSwizzqxnbPZag9JpZhPpaBTaOk8UfaDwSQVHROunjbHUaJtLgNkhiQpV7fWalgMY3vtUfmJoBHh/ec27T5wzD4MYNLEegKpxjoPx2hEplb960bMkDbuUf/jBEUZYZMTSSdDHv4NjdPoLlSK/qodBOeyubtUDWBofTaGxRc=
+ bh=kqatKQhpdRYnH8lVZudSulJOOwEgUav/RFEFcPqp5w0=;
+ b=ZksN/hpooMg1I7Wg7Hj3LtPkplhgg33gY0iz44bHOAMw5VL8ac6VpHP1ytScHtvOV/PQDR1AkrUXEXgITA9FGoSyM77uM0JVMMhc8qD1+jKH6Bwcdh3+N+GTfuAvBMTzIgy2RgV/inntFTu1ON03e8p008K+sIyYue+uiHemc5Y=
 Received: from CH2PR12MB3912.namprd12.prod.outlook.com (52.132.246.86) by
- CH2PR12MB3750.namprd12.prod.outlook.com (52.132.247.94) with Microsoft SMTP
+ CH2PR12MB4328.namprd12.prod.outlook.com (20.180.6.14) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2707.29; Tue, 11 Feb 2020 14:17:18 +0000
+ 15.20.2707.27; Tue, 11 Feb 2020 14:29:38 +0000
 Received: from CH2PR12MB3912.namprd12.prod.outlook.com
  ([fe80::7921:a391:1d1b:5167]) by CH2PR12MB3912.namprd12.prod.outlook.com
  ([fe80::7921:a391:1d1b:5167%5]) with mapi id 15.20.2707.030; Tue, 11 Feb 2020
- 14:17:18 +0000
+ 14:29:38 +0000
 From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "Huang, Ray" <Ray.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amd/powerplay: always refetch the enabled features
- status on dpm enablement
-Thread-Topic: [PATCH] drm/amd/powerplay: always refetch the enabled features
- status on dpm enablement
-Thread-Index: AQHV4J30BOHyHw3Y30qYPsStzxM+aqgWCpou
-Date: Tue, 11 Feb 2020 14:17:17 +0000
-Message-ID: <CH2PR12MB39126909C9F6D8A956EB9A54F7180@CH2PR12MB3912.namprd12.prod.outlook.com>
-References: <20200211054121.32154-1-evan.quan@amd.com>
-In-Reply-To: <20200211054121.32154-1-evan.quan@amd.com>
+Subject: Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgpu
+ tests
+Thread-Topic: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgpu
+ tests
+Thread-Index: AQHV4M2dMDJ+Dd/Zb0Oh6MhZzzoHHKgV3juAgAAvYbo=
+Date: Tue, 11 Feb 2020 14:29:38 +0000
+Message-ID: <CH2PR12MB39128F0E67FFB7E60C16B1ADF7180@CH2PR12MB3912.namprd12.prod.outlook.com>
+References: <1581420183-14223-1-git-send-email-ray.huang@amd.com>,
+ <a54f6008-918a-dbf6-0000-f2f048cdaaff@gmail.com>
+In-Reply-To: <a54f6008-918a-dbf6-0000-f2f048cdaaff@gmail.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-02-11T14:17:17.214Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-02-11T14:29:37.202Z;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
  Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
@@ -76,32 +78,32 @@ authentication-results: spf=none (sender IP is )
 x-originating-ip: [71.219.59.120]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 1260d8b2-b4c8-43f5-a20b-08d7aefd19e6
-x-ms-traffictypediagnostic: CH2PR12MB3750:|CH2PR12MB3750:
+x-ms-office365-filtering-correlation-id: 079bcaaa-6b7a-425d-9094-08d7aefed310
+x-ms-traffictypediagnostic: CH2PR12MB4328:|CH2PR12MB4328:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB375033B210EB2823CE2332D0F7180@CH2PR12MB3750.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:551;
+x-microsoft-antispam-prvs: <CH2PR12MB4328A9ED0EF29BF5E35B436FF7180@CH2PR12MB4328.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:639;
 x-forefront-prvs: 0310C78181
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(366004)(376002)(396003)(39860400002)(136003)(199004)(189003)(66946007)(76116006)(66476007)(5660300002)(186003)(55016002)(71200400001)(8676002)(478600001)(52536014)(81166006)(45080400002)(86362001)(33656002)(53546011)(8936002)(6506007)(2906002)(66556008)(64756008)(66446008)(81156014)(7696005)(966005)(316002)(26005)(19627405001)(9686003)(110136005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB3750;
+ SFS:(10009020)(4636009)(396003)(136003)(376002)(39860400002)(366004)(346002)(199004)(189003)(8676002)(81156014)(55016002)(6506007)(53546011)(9686003)(186003)(7696005)(81166006)(8936002)(26005)(66574012)(71200400001)(2906002)(478600001)(66446008)(64756008)(66556008)(66476007)(66946007)(76116006)(33656002)(54906003)(19627405001)(52536014)(110136005)(5660300002)(316002)(4326008)(86362001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4328;
  H:CH2PR12MB3912.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 9hnjyrpksNifeQNzC80OmSsvjOOENaIHbwSGKcS9ufDRVt8j63u583hLLEaQyGk/y57McqHQHrQR6UNSOVISp3nKAnPZjTgbbkEd2vuMPInNXnC1Qbtu0MZEiKQE2YcbgADvm4u3v9Ws8XZmi5LFQ1aKmoVFBKaYTnMu2ltPPqksRDGjKtrheqDMZk8dcWyRGGpDsL6fqL4wlHd2VeL2bZwIouxLJrWwDl9iTDHf7JXty8+gjNvKHfi3Cay5L+Jezi5MoDGafiV3Btpjc1Uqen9QffTyjpgBPKo/LnyEOZpj5SuYb5MQQG57GhaecpBPXjMf7H9YP6RKMWdK7dFK/lD5aMtwe7O9vn910CVH/c96eQPT75/rVWgs8QX49v9LmAgTLiS2tF2OFS/tVNU7dAVDJTO7Df98WKrZ3Km0Wir/1oqXAYoAtu27eLm6EPriMtEetFzX7Cs6wMpZ8q0WBrokzXyIp44AeY2q5oqPwWvojbArxQvzfBT4QLt1o/W3Zb1Thly0I71bQsmhAosDNw==
-x-ms-exchange-antispam-messagedata: jT8UwWkh8GYUbYtg8/h8uYpmumDCbkklHM+wViO4nwrYgrqyYEppp3n4Zj1YtRXGFezaEuLDuOUqMKV04c/q7Lw9QJjSZOJ/NNwVy9olJUyKt0FnkZWR1EIaRJrMxnERAyYEo1h9Ltvs1gfVZ7Z8jA==
+x-microsoft-antispam-message-info: z16YwoDCBi9/WQmcakdPgXK7RNQI9rCUFL5E1FqcIMPPpxYhxfBEfNN82nBpJm+DX3xlVEGvRw8BEdvccWQO4EX1THHH1LKAh7v9pr2m2sVJlgOEVi7CSx472bhD+U+kOh1//rIzO2ElIvubXfsZ0cxCw4PyhAecBFd81adC7JEDKLxml1xrxOU9xSQNbeICBczs6uFXrG0uC4MiN/IKNpTbbmwf+jXEYWMEOrO6UQVE5QRwXSxmq04FWgCvablSsU7qiFH/3gdrxNaXvBrocmzdC21EwH/cMTBBOC+xoMR3VX7PqfVALifpbg7Wt/r14uxc/eU/TwhXsu+bvQlz0uFPA/3RO2L972oNWWpJ3RBEYT6BUu3tBSL41ZmIhd/R+hWrgilOUCmzLpowi/3lo38zTcpmVWGuDc3U3jEWQx0MpOBhZ/uiQyyk0IndGJK3
+x-ms-exchange-antispam-messagedata: MDPtokX+py7DeIvvhviznzuCNK7FniYh3qaU2B7ik6QLN/RUWpwp05Pp9UoRPpcTl+EpXAXxTe3oy4bd0lVwARhmFrarJk7aTov144iTZFGE3CUDFl6OCFoYpaUVLApvt+GDel4ZpdyBJOUL6cLsbg==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1260d8b2-b4c8-43f5-a20b-08d7aefd19e6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2020 14:17:17.9269 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 079bcaaa-6b7a-425d-9094-08d7aefed310
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2020 14:29:38.0349 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 5OFyA7Ato8ynbasVXFr7HOsq6gdFvDEmeL2rV6URtiyQ2n/Ea7Ltk88FM3zUYbnGxvPiR1u+85EXaENhCOwGjw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3750
+X-MS-Exchange-CrossTenant-userprincipalname: at89zFQMd1boHU62mgzmHQQ0UBWvTHEgy5qUFtRryP6zUTTaPRDGvZsEL1wahd6napDhMUxKgzK1Id9GkjNNGQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4328
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,89 +115,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2101894996=="
+Cc: "Pelloux-prayer, Pierre-eric" <Pierre-eric.Pelloux-prayer@amd.com>, "Olsak,
+ Marek" <Marek.Olsak@amd.com>, "Tuikov, Luben" <Luben.Tuikov@amd.com>, "Liu,
+ Aaron" <Aaron.Liu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
+Content-Type: multipart/mixed; boundary="===============2047160900=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============2101894996==
+--===============2047160900==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CH2PR12MB39126909C9F6D8A956EB9A54F7180CH2PR12MB3912namp_"
+	boundary="_000_CH2PR12MB39128F0E67FFB7E60C16B1ADF7180CH2PR12MB3912namp_"
 
---_000_CH2PR12MB39126909C9F6D8A956EB9A54F7180CH2PR12MB3912namp_
-Content-Type: text/plain; charset="us-ascii"
+--_000_CH2PR12MB39128F0E67FFB7E60C16B1ADF7180CH2PR12MB3912namp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Public Use]
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Also, libdrm changes should go through a gitlab MR now.
+
+Alex
+
 ________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Evan Qua=
-n <evan.quan@amd.com>
-Sent: Tuesday, February 11, 2020 12:41 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Quan, Evan <Evan.Quan@amd.com>
-Subject: [PATCH] drm/amd/powerplay: always refetch the enabled features sta=
-tus on dpm enablement
+From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>
+Sent: Tuesday, February 11, 2020 6:39 AM
+To: Huang, Ray <Ray.Huang@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@=
+lists.freedesktop.org>
+Cc: Pelloux-prayer, Pierre-eric <Pierre-eric.Pelloux-prayer@amd.com>; Olsak=
+, Marek <Marek.Olsak@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>; Tuikov, Lube=
+n <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; K=
+oenig, Christian <Christian.Koenig@amd.com>
+Subject: Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgp=
+u tests
 
-Otherwise, the cached dpm features status may be inconsistent under some
-case(e.g. baco reset of Navi asic).
+Looks good on first glance, but Marek and/or Pierre can probably better
+judge than me.
 
-Change-Id: Ia7d7089e82cbe4ccaa9fadce1f2f0043c42c73df
-Signed-off-by: Evan Quan <evan.quan@amd.com>
----
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
-d/powerplay/smu_v11_0.c
-index 0dc49479a7eb..b06c057a9002 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -898,6 +898,9 @@ int smu_v11_0_system_features_control(struct smu_contex=
-t *smu,
-         if (ret)
-                 return ret;
+Am 11.02.20 um 12:22 schrieb Huang Rui:
+> So far, the amdgpu_cs_submit_raw2 is used for MesaGL, however the amdgpu =
+tests
+> still use the legacy interface. So we would like to make amdgpu tests ver=
+ify the
+> amdgpu_cs_submit_raw2 API.
+>
+> Thanks,
+> Ray
+>
+> Huang Rui (4):
+>    amdgpu: use alloca for dependencies and sem_dependencies
+>    amdgpu: use amdgpu_cs_submit_raw2 in amdgpu_cs_submit
+>    amdgpu: remove the un-used chunk_array
+>    amdgpu: clean up the cs structure variable
+>
+>   amdgpu/amdgpu_cs.c | 36 +++++++++++++-----------------------
+>   1 file changed, 13 insertions(+), 23 deletions(-)
+>
 
-+       bitmap_zero(feature->enabled, feature->feature_num);
-+       bitmap_zero(feature->supported, feature->feature_num);
-+
-         if (en) {
-                 ret =3D smu_feature_get_enabled_mask(smu, feature_mask, 2)=
-;
-                 if (ret)
-@@ -907,9 +910,6 @@ int smu_v11_0_system_features_control(struct smu_contex=
-t *smu,
-                             feature->feature_num);
-                 bitmap_copy(feature->supported, (unsigned long *)&feature_=
-mask,
-                             feature->feature_num);
--       } else {
--               bitmap_zero(feature->enabled, feature->feature_num);
--               bitmap_zero(feature->supported, feature->feature_num);
-         }
 
-         return ret;
---
-2.25.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7C8aeb99fc3dd046dbbaa208d7aeb51500%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637169965095304122&amp;sdata=3DQeFFA07xzLC07niJ9fi=
-BG7g5cxN99GcXHnnM%2BK4PiWg%3D&amp;reserved=3D0
-
---_000_CH2PR12MB39126909C9F6D8A956EB9A54F7180CH2PR12MB3912namp_
-Content-Type: text/html; charset="us-ascii"
+--_000_CH2PR12MB39128F0E67FFB7E60C16B1ADF7180CH2PR12MB3912namp_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
 <style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
 ttom:0;} </style>
 </head>
@@ -208,100 +195,77 @@ ign=3D"Left">
 <div>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
-Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+Also, libdrm changes should go through a gitlab MR now.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
 </div>
 <div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
-om&gt;<br>
-<b>Sent:</b> Tuesday, February 11, 2020 12:41 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Quan, Evan &lt;Evan.Quan@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amd/powerplay: always refetch the enabled featu=
-res status on dpm enablement</font>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
+=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Christian K=F6nig &=
+lt;ckoenig.leichtzumerken@gmail.com&gt;<br>
+<b>Sent:</b> Tuesday, February 11, 2020 6:39 AM<br>
+<b>To:</b> Huang, Ray &lt;Ray.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.=
+org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Pelloux-prayer, Pierre-eric &lt;Pierre-eric.Pelloux-prayer@amd.c=
+om&gt;; Olsak, Marek &lt;Marek.Olsak@amd.com&gt;; Liu, Aaron &lt;Aaron.Liu@=
+amd.com&gt;; Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Deucher, Alexander=
+ &lt;Alexander.Deucher@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@=
+amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 fo=
+r amdgpu tests</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Otherwise, the cached dpm features status may be i=
-nconsistent under some<br>
-case(e.g. baco reset of Navi asic).<br>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">Looks good on first glance, but Marek and/or Pierr=
+e can probably better
 <br>
-Change-Id: Ia7d7089e82cbe4ccaa9fadce1f2f0043c42c73df<br>
-Signed-off-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/powerplay/smu_v11_0.c | 6 &#43;&#43;&#43;---<br>
-&nbsp;1 file changed, 3 insertions(&#43;), 3 deletions(-)<br>
+judge than me.<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/am=
-d/powerplay/smu_v11_0.c<br>
-index 0dc49479a7eb..b06c057a9002 100644<br>
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c<br>
-@@ -898,6 &#43;898,9 @@ int smu_v11_0_system_features_control(struct smu_co=
-ntext *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bitmap_zero(feature-&gt;enabled, =
-feature-&gt;feature_num);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bitmap_zero(feature-&gt;supported=
-, feature-&gt;feature_num);<br>
-&#43;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (en) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; ret =3D smu_feature_get_enabled_mask(smu, feature_mas=
-k, 2);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-@@ -907,9 &#43;910,6 @@ int smu_v11_0_system_features_control(struct smu_co=
-ntext *smu,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; feature-&gt;feature_num);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; bitmap_copy(feature-&gt;supported, (unsigned long *)&=
-amp;feature_mask,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; feature-&gt;feature_num);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; bitmap_zero(feature-&gt;enabled, feature-&gt;feature_num);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; bitmap_zero(feature-&gt;supported, feature-&gt;feature_num);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
--- <br>
-2.25.0<br>
+Christian.<br>
 <br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Calexander.deucher%40amd.com%7C8aeb99fc3dd046dbbaa208d7aeb51500%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637169965095304122&amp;amp;sdata=3D=
-QeFFA07xzLC07niJ9fiBG7g5cxN99GcXHnnM%2BK4PiWg%3D&amp;amp;reserved=3D0">http=
-s://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freed=
-esktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7C8aeb99fc3dd046dbbaa208d7aeb51500%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637169965095304122&amp;amp;sdata=3DQeFFA07xzLC07ni=
-J9fiBG7g5cxN99GcXHnnM%2BK4PiWg%3D&amp;amp;reserved=3D0</a><br>
+Am 11.02.20 um 12:22 schrieb Huang Rui:<br>
+&gt; So far, the amdgpu_cs_submit_raw2 is used for MesaGL, however the amdg=
+pu tests<br>
+&gt; still use the legacy interface. So we would like to make amdgpu tests =
+verify the<br>
+&gt; amdgpu_cs_submit_raw2 API.<br>
+&gt;<br>
+&gt; Thanks,<br>
+&gt; Ray<br>
+&gt;<br>
+&gt; Huang Rui (4):<br>
+&gt;&nbsp;&nbsp;&nbsp; amdgpu: use alloca for dependencies and sem_dependen=
+cies<br>
+&gt;&nbsp;&nbsp;&nbsp; amdgpu: use amdgpu_cs_submit_raw2 in amdgpu_cs_submi=
+t<br>
+&gt;&nbsp;&nbsp;&nbsp; amdgpu: remove the un-used chunk_array<br>
+&gt;&nbsp;&nbsp;&nbsp; amdgpu: clean up the cs structure variable<br>
+&gt;<br>
+&gt;&nbsp;&nbsp; amdgpu/amdgpu_cs.c | 36 &#43;&#43;&#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;-----------------------<br>
+&gt;&nbsp;&nbsp; 1 file changed, 13 insertions(&#43;), 23 deletions(-)<br>
+&gt;<br>
+<br>
 </div>
 </span></font></div>
 </div>
 </body>
 </html>
 
---_000_CH2PR12MB39126909C9F6D8A956EB9A54F7180CH2PR12MB3912namp_--
+--_000_CH2PR12MB39128F0E67FFB7E60C16B1ADF7180CH2PR12MB3912namp_--
 
---===============2101894996==
+--===============2047160900==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -312,4 +276,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============2101894996==--
+--===============2047160900==--
