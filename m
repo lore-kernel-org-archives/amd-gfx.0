@@ -5,65 +5,64 @@ X-Spam-Level:
 X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5420C3B188
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 16:13:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A555C3B187
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 16:27:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9CE252070A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 16:13:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0E73920848
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 16:27:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kZSU2Qe9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9CE252070A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bWg35xF/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0E73920848
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6534E6E507;
-	Tue, 11 Feb 2020 16:13:54 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A3F76E507;
- Tue, 11 Feb 2020 16:13:53 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id t14so4269601wmi.5;
- Tue, 11 Feb 2020 08:13:53 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C89026EEA3;
+	Tue, 11 Feb 2020 16:27:19 +0000 (UTC)
+Received: from mail-wr1-x436.google.com (mail-wr1-x436.google.com
+ [IPv6:2a00:1450:4864:20::436])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E66456EEA3;
+ Tue, 11 Feb 2020 16:27:18 +0000 (UTC)
+Received: by mail-wr1-x436.google.com with SMTP id k11so13117749wrd.9;
+ Tue, 11 Feb 2020 08:27:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=b5qXSJffspK0gIHV4j3zfjqzd3AYpeWH5pDi5Wk3Aug=;
- b=kZSU2Qe9ZnQJMNlp+m51s3hOluX5r2mw80qgV9RBzqi/blWLRZcA22G+r4W7P9Evvg
- pQUHLVCl/v4tRpF2dzhXT17adJVzVoLDmxv2uH84Aajjn0RNBiEFuiD6cTCPPXv8dBj0
- WlVor9sM+eIAjn0n7q8QT3eq4F5XKmwT5werlNkmIPPFes2lFNvXlBEV1kWwF+CumgYM
- HU5xFrem9sab+A1ztd1nGIwZYResHH7hgVLOL3sp3ytJf4tFyGdG0FqiiPHMDoa40lG7
- Vvn1D/cXZ8gKXM3a1Dnaf2hVqGiNKw9HpovoZzbe+IofL73GJ8fS4CTDB6bh/5W5EjB3
- n0cw==
+ :cc; bh=Bb55gTYbvX5LbdEf+EUAlbMGla2WoqoUJ8i650G+fRc=;
+ b=bWg35xF/yD9pqZ9r9gAfcFYbcO01dATtpd5p/Yu+BmIBqo+lRQ7+4bsut1tsRWTfl8
+ ToapJrBfwq6ld3O/77RBF5A79hiOM6g53wO86v0uru9JZHUyJafV178juS00IiaXfjAe
+ 9pGroEiCI1KvXxFiQhXBU1zOAE3dv4jVg2ed1BQvvhevAE33L4S4WpnjFLif2zoIOgBC
+ lVi8zE6ih4CZRsKn5tpzo6dd5D1pro92eh6b1R9vnZRMtYQBvnjX9bwHlrxsLCw/KV3u
+ 6u84QJPojqmGpfz+rDkMuVWm5A5qe2jRENq8gsrIXsz6I3e+XyVF7K8vM58p/7rPxR7l
+ KyAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=b5qXSJffspK0gIHV4j3zfjqzd3AYpeWH5pDi5Wk3Aug=;
- b=JANehjcgZA+3DnaHKArz/qAjgB29kpMlhOWLhpn6RaZ1a3trW9t5rIZEienuEQ34/g
- 3IImuXeJEWDPV+2q3J598REA6/hXWCktNB5pkmLFY2a3RkY0AAbSl51Zw4xk9a09iu63
- IkxIC2c6pbLLOJcgKJDN1g3Blp5o16NtWjWq76kEhXSzLT7JDiMgTbm0vZRDd95Up5vj
- sPjFl8J812BShw6I/b2vdKVmLGYQ9NWDYSBJah4X8GkkFdZqwce0BL8CEFROmmmiiBBC
- pCeiTqWfoPi9HAMPmCpHgc3On5jrR/c22hHcR9kMSYl3NQ576t5MAN93sAGMrDHK0187
- 4qUw==
-X-Gm-Message-State: APjAAAXS+Ohpj4bHpttHbNLQRi6nI2YeB5eaiw/73v+TkqPbi2vNEr2F
- l06tAosnUSrXcvgvg6kv9PxLDRJazhjBtnUPcJ6Qlg==
-X-Google-Smtp-Source: APXvYqz4l/5oPRJk3RZwcpBAgXd/dQa7gZbGaffqPRR4ydtRluAXn116c16dNGtuCpeIMvH0jdsIDpAbF4iMzSarLm4=
-X-Received: by 2002:a7b:c152:: with SMTP id z18mr6256582wmi.70.1581437631848; 
- Tue, 11 Feb 2020 08:13:51 -0800 (PST)
+ bh=Bb55gTYbvX5LbdEf+EUAlbMGla2WoqoUJ8i650G+fRc=;
+ b=PwC0eEO8Ec2S6t0yVtdTSA8E4ZBNQrwvHeTyvq7qRkMJBgnq7dk28zYiwHJTL3WK+6
+ hYhWQRGI6wOjnz+yGers03MWsvgfk+xyb8Hk289j8uyWTu41xslqk8vtqqxpodlCABZF
+ 8Q68RVRiAUMh6Q8JTUdfeN5K5Flzir5ackemf9Bezkws3jFgKnkb314aYc6Fy/nkG2Bb
+ 2d++REULWq0EC1xeVEQq9wXRRHRv0Q4wFv/9zNECe3AjZrUJXrj6YIm2NuWIDQ0iA1Or
+ 5YEyHmArrQK3VIkP8r064Bt+/BFZZHBFbRhzol/wfbpkDuzDofYOpC3TOFSAMfmTwb6p
+ 1xZw==
+X-Gm-Message-State: APjAAAV+keyR0rJWN1fL+1AIklNo4BChJUryHtIluGc/4dHG/WPfzLuS
+ WQikAWYLmvndyOUxP2DT/d+h9JQjm6IJsqgd/C8=
+X-Google-Smtp-Source: APXvYqxJIVk57by6TFkLMzF0DpAckbyFa0fFzF1uA/eHJG2PTvQ3sdvui9aGi+JIzbggU7p4lUEdYv2UQenZQmQYUyM=
+X-Received: by 2002:adf:ec4c:: with SMTP id w12mr9786904wrn.124.1581438437502; 
+ Tue, 11 Feb 2020 08:27:17 -0800 (PST)
 MIME-Version: 1.0
-References: <20200207211713.3870-1-alexander.deucher@amd.com>
-In-Reply-To: <20200207211713.3870-1-alexander.deucher@amd.com>
+References: <20200210150826.35200-1-yuehaibing@huawei.com>
+In-Reply-To: <20200210150826.35200-1-yuehaibing@huawei.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 11 Feb 2020 11:13:40 -0500
-Message-ID: <CADnq5_NxooERCdT3N59Z4OSao6Jx7rDnqhOfFa3mtjEmFysOqg@mail.gmail.com>
-Subject: Re: [PATCH 13/15] drm/amdgpu/display: split dp connector registration
- (v3)
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>, 
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Date: Tue, 11 Feb 2020 11:27:06 -0500
+Message-ID: <CADnq5_My4OM4CvDHHWN3MxVKAon78pvbw71mO2yzer-FdxYu1w@mail.gmail.com>
+Subject: Re: [RFC PATCH -next] drm/amd/display: Remove set but not unused
+ variable 'stream_status'
+To: YueHaibing <yuehaibing@huawei.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,127 +74,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Chunming Zhou <David1.Zhou@amd.com>, "Cyr, Aric" <aric.cyr@amd.com>,
+ Eric Yang <Eric.Yang2@amd.com>, Yongqiang Sun <yongqiang.sun@amd.com>,
+ Charlene Liu <charlene.liu@amd.com>, "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Dave Airlie <airlied@linux.ie>,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Martin Leung <martin.leung@amd.com>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, "Wentland,
+ Harry" <harry.wentland@amd.com>, Christian Koenig <christian.koenig@amd.com>,
+ Anthony Koo <Anthony.Koo@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
+On Mon, Feb 10, 2020 at 10:38 AM YueHaibing <yuehaibing@huawei.com> wrote:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:
+>  In function dcn10_post_unlock_program_front_end:
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dcn10/dcn10_hw_sequencer.c:2623:29:
+>  warning: variable stream_status set but not used [-Wunused-but-set-variable]
+>
+> commit bbf5f6c3f83b ("drm/amd/display: Split program front end part that occur outside lock")
+> involved this unused variable.
+>
+> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+
+Applied.  Thanks!
 
 Alex
 
-On Fri, Feb 7, 2020 at 4:17 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> Split into init and register functions to avoid a segfault
-> in some configs when the load/unload callbacks are removed.
->
-> v2:
-> - add back accidently dropped has_aux setting
-> - set dev in late_register
->
-> v3:
-> - fix dp cec ordering
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c   | 16 ++++++++++++++++
->  drivers/gpu/drm/amd/amdgpu/atombios_dp.c         | 10 ++--------
->  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  |  7 ++++++-
->  3 files changed, 24 insertions(+), 9 deletions(-)
+>  drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 8 +-------
+>  1 file changed, 1 insertion(+), 7 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> index ec1501e3a63a..f355d9a752d2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-> @@ -1461,6 +1461,20 @@ static enum drm_mode_status amdgpu_connector_dp_mode_valid(struct drm_connector
->         return MODE_OK;
->  }
->
-> +static int
-> +amdgpu_connector_late_register(struct drm_connector *connector)
-> +{
-> +       struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
-> +       int r = 0;
-> +
-> +       if (amdgpu_connector->ddc_bus->has_aux) {
-> +               amdgpu_connector->ddc_bus->aux.dev = amdgpu_connector->base.kdev;
-> +               r = drm_dp_aux_register(&amdgpu_connector->ddc_bus->aux);
-> +       }
-> +
-> +       return r;
-> +}
-> +
->  static const struct drm_connector_helper_funcs amdgpu_connector_dp_helper_funcs = {
->         .get_modes = amdgpu_connector_dp_get_modes,
->         .mode_valid = amdgpu_connector_dp_mode_valid,
-> @@ -1475,6 +1489,7 @@ static const struct drm_connector_funcs amdgpu_connector_dp_funcs = {
->         .early_unregister = amdgpu_connector_unregister,
->         .destroy = amdgpu_connector_destroy,
->         .force = amdgpu_connector_dvi_force,
-> +       .late_register = amdgpu_connector_late_register,
->  };
->
->  static const struct drm_connector_funcs amdgpu_connector_edp_funcs = {
-> @@ -1485,6 +1500,7 @@ static const struct drm_connector_funcs amdgpu_connector_edp_funcs = {
->         .early_unregister = amdgpu_connector_unregister,
->         .destroy = amdgpu_connector_destroy,
->         .force = amdgpu_connector_dvi_force,
-> +       .late_register = amdgpu_connector_late_register,
->  };
->
->  void
-> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
-> index ea702a64f807..9b74cfdba7b8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
-> @@ -186,16 +186,10 @@ amdgpu_atombios_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *m
->
->  void amdgpu_atombios_dp_aux_init(struct amdgpu_connector *amdgpu_connector)
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+> index 42fcfee..b2ed0fa 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+> @@ -2610,7 +2610,7 @@ void dcn10_post_unlock_program_front_end(
+>                 struct dc *dc,
+>                 struct dc_state *context)
 >  {
-> -       int ret;
+> -       int i, j;
+> +       int i;
+>
+>         DC_LOGGER_INIT(dc->ctx->logger);
+>
+> @@ -2620,14 +2620,8 @@ void dcn10_post_unlock_program_front_end(
+>                 if (!pipe_ctx->top_pipe &&
+>                         !pipe_ctx->prev_odm_pipe &&
+>                         pipe_ctx->stream) {
+> -                       struct dc_stream_status *stream_status = NULL;
+>                         struct timing_generator *tg = pipe_ctx->stream_res.tg;
+>
+> -                       for (j = 0; j < context->stream_count; j++) {
+> -                               if (pipe_ctx->stream == context->streams[j])
+> -                                       stream_status = &context->stream_status[j];
+> -                       }
 > -
->         amdgpu_connector->ddc_bus->rec.hpd = amdgpu_connector->hpd.hpd;
-> -       amdgpu_connector->ddc_bus->aux.dev = amdgpu_connector->base.kdev;
->         amdgpu_connector->ddc_bus->aux.transfer = amdgpu_atombios_dp_aux_transfer;
-> -       ret = drm_dp_aux_register(&amdgpu_connector->ddc_bus->aux);
-> -       if (!ret)
-> -               amdgpu_connector->ddc_bus->has_aux = true;
-> -
-> -       WARN(ret, "drm_dp_aux_register_i2c_bus() failed with error %d\n", ret);
-> +       drm_dp_aux_init(&amdgpu_connector->ddc_bus->aux);
-> +       amdgpu_connector->ddc_bus->has_aux = true;
->  }
->
->  /***** general DP utility functions *****/
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> index 3959c942c88b..d5b9e72f2649 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> @@ -155,6 +155,11 @@ amdgpu_dm_mst_connector_late_register(struct drm_connector *connector)
->         struct amdgpu_dm_connector *amdgpu_dm_connector =
->                 to_amdgpu_dm_connector(connector);
->         struct drm_dp_mst_port *port = amdgpu_dm_connector->port;
-> +       int r;
-> +
-> +       r = drm_dp_aux_register(&amdgpu_dm_connector->dm_dp_aux.aux);
-> +       if (r)
-> +               return r;
->
->  #if defined(CONFIG_DEBUG_FS)
->         connector_debugfs_init(amdgpu_dm_connector);
-> @@ -484,7 +489,7 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
->         aconnector->dm_dp_aux.aux.transfer = dm_dp_aux_transfer;
->         aconnector->dm_dp_aux.ddc_service = aconnector->dc_link->ddc;
->
-> -       drm_dp_aux_register(&aconnector->dm_dp_aux.aux);
-> +       drm_dp_aux_init(&aconnector->dm_dp_aux.aux);
->         drm_dp_cec_register_connector(&aconnector->dm_dp_aux.aux,
->                                       &aconnector->base);
->
+>                         if (context->stream_status[i].plane_count == 0)
+>                                 false_optc_underflow_wa(dc, pipe_ctx->stream, tg);
+>                 }
 > --
-> 2.24.1
+> 2.7.4
 >
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
