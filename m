@@ -2,76 +2,103 @@ Return-Path: <SRS0=OHPl=37=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03757C352A3
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 09:46:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E73DC352A3
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 11:07:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA64320714
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 09:46:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7613A20714
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 11:07:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ps/IiMNy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA64320714
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="SME4UQ7c"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7613A20714
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6415B6E245;
-	Tue, 11 Feb 2020 09:46:52 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 351996E245
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2020 09:46:51 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id m16so11370093wrx.11
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2020 01:46:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=NAG7aRGv5aiJOiJLa/iDSv31FEn4kWeUGnD9CWS9tKM=;
- b=ps/IiMNyhXnRPrFMYYaKwegv44PL8yELxtQChPcbf3xkdjBGlB8j55s5GP0vMeca0A
- 2qGKJ7Yhluo5lNRUd6SIpul27ZwHR3brQnxltP/3O5bl8ekz+E2EJI8aOvtf5VtRoseR
- x3v5OhfawgAKirCzdAU54xP9HMpPvcpWh0i2has7yMiXSxMNBQv19d48f29SJDQ3iWSS
- d/SvowIdVLEe80ataFRJmq41ciZTgG5oCxOmUuYL2Ze4v5KeCInIIlZg+51LQd1AzkUa
- OZ0WhqtESTmv2F4b/OgAvyRKW9bE1UvQhSYhQFfqK5J+/eoe1dTOnbnwx3b+pURYDDd6
- Hyqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=NAG7aRGv5aiJOiJLa/iDSv31FEn4kWeUGnD9CWS9tKM=;
- b=qoqyOPoXfDrICb54MWginEXxslOcr1i93zy3o5E12e9CpKllyS88HE72fkvWE2qV/S
- ambDbICbT/FpVNllKWK1lDUEOL/C/1vp5VqkVgfhzGJeC8JWtcjivCFQDaqR+9L7FqEp
- H85gxLWAn1KZQ3VWK/y95JpUvqiwAPcJzCxOXmq6kzNH6UIyo10Nf+X6sNVP9OX68PWw
- DWlD70P2pe6mpwmckRoNvbXo5r5dRTnAHnx+8FFY9/ttrAJzyurpcNMqszySPA2Mx5pt
- dofYIYI/3gKHv0+oeGPuk8uC+mXGlvhDyDMQHPXf1r9b5DCCwM4YKr/V/ocYizWMgGFo
- +qbw==
-X-Gm-Message-State: APjAAAWzvHW6VATouTu1x46fe4Ba5MzmSppjRlKDg7bBx9vCapn/LDSQ
- BJa4lAwOY86xvxgSEltjACZp8me4
-X-Google-Smtp-Source: APXvYqzKCxkHRdLiDuKBMYPTcgyJ9LdbKlZm3+6yaZO5Z4ddMEImX4o0NEoSbMJSyrgrdKmUupqe1g==
-X-Received: by 2002:adf:e70d:: with SMTP id c13mr7514655wrm.248.1581414409822; 
- Tue, 11 Feb 2020 01:46:49 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id b16sm2871700wmj.39.2020.02.11.01.46.48
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 11 Feb 2020 01:46:49 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: Do not move root PT bo to relocated list
-To: xinhui pan <xinhui.pan@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200211023245.3092-1-xinhui.pan@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <21e97807-d7ad-8181-89da-eae0da17628a@gmail.com>
-Date: Tue, 11 Feb 2020 10:46:47 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id D067F6EE1D;
+	Tue, 11 Feb 2020 11:06:56 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2040.outbound.protection.outlook.com [40.107.94.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 071DF6EE0C;
+ Tue, 11 Feb 2020 11:06:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kXnw0+YG2U8CblSt970zknrPT5pyDesNQgujImYzt6Ib55YGk412NlJZymOq9cZ1gv1sUzMl9Jdc67mDwCWVbzi1XsA64pmPwoj1oR5OdaTv/XHVnweVHc5FsDUoNBB5KccXqVjNe4A//zcUgyngdraMtVTJl27znEuC8sB50EeXPr+vfxlVYOY3osj5+J0G4z3tKTUuhCKScXnt9ozO8+Xud+MMAKK/nQwi/QuFNBz4+CZcxvnXcS3IYy5CJxxei/3qDuxrWGPLhSZ8QfGyd4M5Ls2KQidIeomupOcXpUw8RhJqjiyH0Lt4H+oMVQud61ugB3fyTm6ZKTYKl9nFGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZDEW6kZwEo5V+iFlDbk2SGcWTRmDxVeHUHh7KIdH26g=;
+ b=FXFIwq26TnGNlypMCLk8A9a8zAYaGVGx0IU7tmyVVYPa3lW3XMxp50SJQxJVgtcyuDB6gMtcmJoR//xRFMEvD8N1qCunEAa6q4wlj72IDigjBvoeZQPbz32eb+k8YBjkACtUA/bmS8BvBZeCfzhIAW7IfFRTwxx1sVn0dVNFusFSVgq0MSsIuiJseZdte0gIZGJxNdoTqw9+B2eH8kluBLa3gAeaZNXAd8uZqg71ViJ7W8DSdjjFrY2Lm+vCd5eV8VWMyFPz+qKCF5G9efpF35Fak8FrvPaWPlsryuYt3ymESfD7y0HzssZvuz6xD1tv2BwpnFtjo5msWyd8QeWJ9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZDEW6kZwEo5V+iFlDbk2SGcWTRmDxVeHUHh7KIdH26g=;
+ b=SME4UQ7cVQ5VTA7loIRvaJhmla8eckEnjp0B5lS9TRvVooPzbq64k25HR4lM5orXkLuoRDaZrLAMnxGz1O7l4qVrJUXMQj1tPz1Cuq3RNNpWGBAshaH+bVtR5HvlRcl/3dN8zZkt9aM5Xp9+Lj/dCN28mVAAKEWvBLkob3LzY8Q=
+Received: from SN6PR12MB2800.namprd12.prod.outlook.com (52.135.101.138) by
+ SN6PR12MB2688.namprd12.prod.outlook.com (52.135.103.29) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2707.24; Tue, 11 Feb 2020 11:06:53 +0000
+Received: from SN6PR12MB2800.namprd12.prod.outlook.com
+ ([fe80::b99c:18c0:8685:1c10]) by SN6PR12MB2800.namprd12.prod.outlook.com
+ ([fe80::b99c:18c0:8685:1c10%5]) with mapi id 15.20.2707.030; Tue, 11 Feb 2020
+ 11:06:53 +0000
+From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Subject: Re: Cleanup TTMs delayed delete handling
+Thread-Topic: Cleanup TTMs delayed delete handling
+Thread-Index: AQHV4CQPCZC9/A8t+kaaApr3xqZ+hKgV1ixb
+Date: Tue, 11 Feb 2020 11:06:53 +0000
+Message-ID: <SN6PR12MB2800BAF6444C0BC373C13E9087180@SN6PR12MB2800.namprd12.prod.outlook.com>
+References: <20200210150907.20616-1-christian.koenig@amd.com>
+In-Reply-To: <20200210150907.20616-1-christian.koenig@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-02-11T11:05:53.7373018Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Privileged
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Xinhui.Pan@amd.com; 
+x-originating-ip: [101.88.214.163]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 9bedfece-7dc6-44bd-998a-08d7aee28028
+x-ms-traffictypediagnostic: SN6PR12MB2688:
+x-microsoft-antispam-prvs: <SN6PR12MB2688566C150324852462783D87180@SN6PR12MB2688.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-forefront-prvs: 0310C78181
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(136003)(346002)(366004)(39860400002)(376002)(199004)(189003)(91956017)(64756008)(66446008)(66556008)(316002)(66946007)(66476007)(76116006)(8676002)(186003)(53546011)(81156014)(26005)(81166006)(5660300002)(8936002)(110136005)(52536014)(6506007)(86362001)(4744005)(9686003)(55016002)(478600001)(2906002)(66574012)(7696005)(33656002)(71200400001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SN6PR12MB2688;
+ H:SN6PR12MB2800.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: o/UbbdvQd5ezlfgJEnD1lYNcDeOoqPJCfjoLBdKEKUhyQZawR+fmX0NMf3NhVTtSWzkb6/MJLIjH2Co3NPWULbN6N8htf+9TR7A8iI9iIPQh/QN3rxw3B/UIv6/CRK5OwtX9Y2xfE/xTnRGZZARwj5x3nTGL933qD+NWe09rotYDjXAFm+zEEqfLBhDxzoxU6dkKUDK3s9gaQk2qUxbswAS8on9iuCjafhbhxoR7/E8GnxEDQH7dUXGtfxDZCLafh4MZSm/a4z1Xr7xfWGcpeoZAn8D4n/losVd7R8Q/Ausr0be3Du5gqlVIs89YWmiy9Dnyah1qAsF1t3GlA0VwdouzgwxCXugciPGugSKgIkC8sleRwkzsHQGlHLwzxfSaoqxPC1p48p8vsZJX4XYQS6AQOfQ+3MiKTnIm7bPmSdEMiBycyNlLcEOqkQUY/0GY
+x-ms-exchange-antispam-messagedata: SmsEhll/tFU9epIgm180LDari0EFRf6JAlC1HdGE8kFILnxtQg6Awg353XZ0L2KtMbVztIbMQ93u+2ViCWkT8yZPevAlrWj5kwZJx54s2494RQfXbaLhNQOM+YJ69NH0hS4J3nGod9LzTDtuM9EOIQ==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-In-Reply-To: <20200211023245.3092-1-xinhui.pan@amd.com>
-Content-Language: en-US
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9bedfece-7dc6-44bd-998a-08d7aee28028
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2020 11:06:53.1161 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PTuxvbovyvw1ZN+osCf2nEC28f15YvYC/rlOG+ytTJOfZWlP50ZfeC5bpGbiOYkB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2688
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,53 +110,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============2009106019=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTEuMDIuMjAgdW0gMDM6MzIgc2NocmllYiB4aW5odWkgcGFuOgo+IEFzIHJvb3QgUEQgaGFz
-IG5vIHBhcmVudCwgd2UganVzdCBuZWVkIG1vdmUgaXRzIHN0YXR1cyB0byBpZGxlLgo+Cj4gU3Vn
-Z2VzdGVkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4g
-U2lnbmVkLW9mZi1ieTogeGluaHVpIHBhbiA8eGluaHVpLnBhbkBhbWQuY29tPgo+IENDOiBDaHJp
-c3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CgpSZXZpZXdlZC1ieTogQ2hy
-aXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKPiAtLS0KPiAgIGRyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIHwgMzQgKysrKysrKysrKysrKy0tLS0t
-LS0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxNyBpbnNlcnRpb25zKCspLCAxNyBkZWxldGlv
-bnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4gaW5kZXggY2M1
-NmVhYmExOTExLi4wYmUyOTNlYjI3NzMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3ZtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdm0uYwo+IEBAIC0yMjksMTkgKzIyOSw2IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV92bV9i
-b19ldmljdGVkKHN0cnVjdCBhbWRncHVfdm1fYm9fYmFzZSAqdm1fYm8pCj4gICAJZWxzZQo+ICAg
-CQlsaXN0X21vdmVfdGFpbCgmdm1fYm8tPnZtX3N0YXR1cywgJnZtLT5ldmljdGVkKTsKPiAgIH0K
-PiAtCj4gLS8qKgo+IC0gKiBhbWRncHVfdm1fYm9fcmVsb2NhdGVkIC0gdm1fYm8gaXMgcmVsb2Fj
-dGVkCj4gLSAqCj4gLSAqIEB2bV9ibzogdm1fYm8gd2hpY2ggaXMgcmVsb2NhdGVkCj4gLSAqCj4g
-LSAqIFN0YXRlIGZvciBQRHMvUFRzIHdoaWNoIG5lZWRzIHRvIHVwZGF0ZSB0aGVpciBwYXJlbnQg
-UEQuCj4gLSAqLwo+IC1zdGF0aWMgdm9pZCBhbWRncHVfdm1fYm9fcmVsb2NhdGVkKHN0cnVjdCBh
-bWRncHVfdm1fYm9fYmFzZSAqdm1fYm8pCj4gLXsKPiAtCWxpc3RfbW92ZSgmdm1fYm8tPnZtX3N0
-YXR1cywgJnZtX2JvLT52bS0+cmVsb2NhdGVkKTsKPiAtfQo+IC0KPiAgIC8qKgo+ICAgICogYW1k
-Z3B1X3ZtX2JvX21vdmVkIC0gdm1fYm8gaXMgbW92ZWQKPiAgICAqCj4gQEAgLTI4NCw2ICsyNzEs
-MjIgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X3ZtX2JvX2ludmFsaWRhdGVkKHN0cnVjdCBhbWRncHVf
-dm1fYm9fYmFzZSAqdm1fYm8pCj4gICAJc3Bpbl91bmxvY2soJnZtX2JvLT52bS0+aW52YWxpZGF0
-ZWRfbG9jayk7Cj4gICB9Cj4gICAKPiArLyoqCj4gKyAqIGFtZGdwdV92bV9ib19yZWxvY2F0ZWQg
-LSB2bV9ibyBpcyByZWxvYWN0ZWQKPiArICoKPiArICogQHZtX2JvOiB2bV9ibyB3aGljaCBpcyBy
-ZWxvY2F0ZWQKPiArICoKPiArICogU3RhdGUgZm9yIFBEcy9QVHMgd2hpY2ggbmVlZHMgdG8gdXBk
-YXRlIHRoZWlyIHBhcmVudCBQRC4KPiArICogRm9yIHRoZSByb290IFBELCBqdXN0IG1vdmUgdG8g
-aWRsZSBzdGF0ZS4KPiArICovCj4gK3N0YXRpYyB2b2lkIGFtZGdwdV92bV9ib19yZWxvY2F0ZWQo
-c3RydWN0IGFtZGdwdV92bV9ib19iYXNlICp2bV9ibykKPiArewo+ICsJaWYgKHZtX2JvLT5iby0+
-cGFyZW50KQo+ICsJCWxpc3RfbW92ZSgmdm1fYm8tPnZtX3N0YXR1cywgJnZtX2JvLT52bS0+cmVs
-b2NhdGVkKTsKPiArCWVsc2UKPiArCQlhbWRncHVfdm1fYm9faWRsZSh2bV9ibyk7Cj4gK30KPiAr
-Cj4gICAvKioKPiAgICAqIGFtZGdwdV92bV9ib19kb25lIC0gdm1fYm8gaXMgZG9uZQo+ICAgICoK
-PiBAQCAtNjkxLDEwICs2OTQsNyBAQCBpbnQgYW1kZ3B1X3ZtX3ZhbGlkYXRlX3B0X2JvcyhzdHJ1
-Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sCj4gICAJCQlhbWRn
-cHVfdm1fYm9fbW92ZWQoYm9fYmFzZSk7Cj4gICAJCX0gZWxzZSB7Cj4gICAJCQl2bS0+dXBkYXRl
-X2Z1bmNzLT5tYXBfdGFibGUoYm8pOwo+IC0JCQlpZiAoYm8tPnBhcmVudCkKPiAtCQkJCWFtZGdw
-dV92bV9ib19yZWxvY2F0ZWQoYm9fYmFzZSk7Cj4gLQkJCWVsc2UKPiAtCQkJCWFtZGdwdV92bV9i
-b19pZGxlKGJvX2Jhc2UpOwo+ICsJCQlhbWRncHVfdm1fYm9fcmVsb2NhdGVkKGJvX2Jhc2UpOwo+
-ICAgCQl9Cj4gICAJfQo+ICAgCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
-ZngK
+--===============2009106019==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_SN6PR12MB2800BAF6444C0BC373C13E9087180SN6PR12MB2800namp_"
+
+--_000_SN6PR12MB2800BAF6444C0BC373C13E9087180SN6PR12MB2800namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
+
+For patch 1/2/3/5/6
+Reviewed-by: xinhui pan <xinhui.pan@amd.com>
+________________________________
+From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>
+Sent: Monday, February 10, 2020 11:09:01 PM
+To: Pan, Xinhui <Xinhui.Pan@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
+x@lists.freedesktop.org>; dri-devel@lists.freedesktop.org <dri-devel@lists.=
+freedesktop.org>
+Subject: Cleanup TTMs delayed delete handling
+
+This series of patches cleans up TTMs delayed delete handling.
+
+The core of the new handling is that we new only have a single reference co=
+unter instead of two and use kref_get_unless_zero() to grab BOs from the LR=
+U during eviction.
+
+This reduces the overhead of LRU moves and allows us to properly individual=
+ize the BOs reservation object during deletion to allow adding BOs for clea=
+ring memory, unmapping page tables etc..
+
+Please review and comment,
+Christian.
+
+
+
+--_000_SN6PR12MB2800BAF6444C0BC373C13E9087180SN6PR12MB2800namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+</head>
+<body>
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+For patch 1/2/3/5/6<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+Reviewed-by: xinhui pan &lt;xinhui.pan@amd.com&gt;</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Christian K=F6nig &lt=
+;ckoenig.leichtzumerken@gmail.com&gt;<br>
+<b>Sent:</b> Monday, February 10, 2020 11:09:01 PM<br>
+<b>To:</b> Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;; amd-gfx@lists.freedeskto=
+p.org &lt;amd-gfx@lists.freedesktop.org&gt;; dri-devel@lists.freedesktop.or=
+g &lt;dri-devel@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> Cleanup TTMs delayed delete handling</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">This series of patches cleans up TTMs delayed dele=
+te handling.<br>
+<br>
+The core of the new handling is that we new only have a single reference co=
+unter instead of two and use kref_get_unless_zero() to grab BOs from the LR=
+U during eviction.<br>
+<br>
+This reduces the overhead of LRU moves and allows us to properly individual=
+ize the BOs reservation object during deletion to allow adding BOs for clea=
+ring memory, unmapping page tables etc..<br>
+<br>
+Please review and comment,<br>
+Christian.<br>
+<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_SN6PR12MB2800BAF6444C0BC373C13E9087180SN6PR12MB2800namp_--
+
+--===============2009106019==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============2009106019==--
