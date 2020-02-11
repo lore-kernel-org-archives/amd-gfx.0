@@ -6,63 +6,63 @@ X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 89EB4C352A3
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 14:29:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0D8C9C352A3
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 14:35:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5860120714
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 14:29:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B231C206D7
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 14:35:28 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZksN/hpo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5860120714
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="VphPNy1h"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B231C206D7
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7426EE6E;
-	Tue, 11 Feb 2020 14:29:41 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2061d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::61d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D0ED6EE70
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2020 14:29:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 634AA6E037;
+	Tue, 11 Feb 2020 14:35:28 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2056.outbound.protection.outlook.com [40.107.244.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78F736E037
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2020 14:35:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AMJi2YCVkf+6NZfh9E7AIXpWBQD6MIED+Leb2QbxhE5KRT1FQl4eNkQ12+krviPicFJDY9oZays/iCAIU5gCWRVNIvHU+vtvmncQFcNJHkCWkPmFyoiai5kFIAv0EHZX1IYKom8RIKj194gq6B2EWYrjtoc9iNcOFGLcyuAYruGepVTgqDSJqjLOLPzl8JP1wS//IGPsOIBBjVIWZCbIQSsnCNPi7Wp99z8Ag1Ys7S6XAbhmVC3NUs2y4XU7eFiEpdAdxFKu4VFH0dWh++NAkxJlHvBdw2P/Cy2c0G+LKubxorN4tVPGtpdD8KQKidiIjOaoSTC0VNYhuJKhaKaCPQ==
+ b=K84KgYdeWzqQ90MAbLfUCj2DBYvQmSqNUvneDoyg/kBPqq2qloXito+Adx2sW9DvuYRAiKW5DvbYvdZW0VJkBQnBx5nQxA+nmkevnQS5BWlnGbGlLBqjdizgf+PbSKdGr0fXDE+WcvQYlfKN+bWofz9UpKt2CM1+19t3sgEKy2vWjmvR1nLQnIQFlDQieD4DgpQkZvc2S13pO/GrYrQxS4okDxiHEm9353bFAfoSmCYQtSZ2lZXh4IIqzZVFUEw1xS4KI3TxodcEdrngb0o5Hergq5kcMKLHrCGtlq5f8SmhKObbqftli40ibThaSQoq6Z25Vq3MnEWitafJyyquWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kqatKQhpdRYnH8lVZudSulJOOwEgUav/RFEFcPqp5w0=;
- b=Ne1w2pkhgHefFk3ikowBAAYFRo1Y6ifEiRNQktZ4F4jwY/kH8rVBw7P/B1gI5A7NNI7k4RNC6vaewW2VTpPicQhzrbt8PI2QRDQAv5gkUN+TnMOE9QuoPJhmT7InVsbaznWcYuBWoT/kx5HNOrBEfUCBoHBVA+a6IS/6omJ+O8df3o0b1j5tRWSvJRwmsVUpF5NroOaWPalZGfQd3oLF0+mC9qMhtFybhBCILD/6l2/RdOA9w8k6ORzWKVwmbywJ6RGHw7f2vz0xbxKczovTrSIgH+KK3pQhPtbWLgXGfO9cHbyrVQTyep7lHO3n78PthTqsVj1M+AXgD7T7l61BOA==
+ bh=54ZSVES4s/aPYbe+gU5ksWmkutEDNVUI5bMBrENGG4Q=;
+ b=eYSqNNqo8jU2D03a0bU+fabsztW47u9kTkLPZ8v4/Xc5Gt9grbmUIgPB+JxUPyHWkopZk8bIhTAiGbJ1pRAigxlSp2ca02Tc00qeWs18zvqYckb6MQ1n7VdJ5+FNTwIixcRJf367Jmj2BC+ji296h3ZR2VIGO9YCKMhfSAOopMx7tyXhCRaPKvCzm/hNQbqIQQ8F9sdbvpGMLOfnLyaFc5rvhbsiQqpIj9iI4HYT4bNSLc4i6We8fCeqa/4Cxic0KZLthpIh5xUYD3A8774+k+dae9vsF6ZUq1oYfgTrRl3VL2Pe83fnVTAIvw8WSDLTkQue/5QYmCewgyHHSsykbg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kqatKQhpdRYnH8lVZudSulJOOwEgUav/RFEFcPqp5w0=;
- b=ZksN/hpooMg1I7Wg7Hj3LtPkplhgg33gY0iz44bHOAMw5VL8ac6VpHP1ytScHtvOV/PQDR1AkrUXEXgITA9FGoSyM77uM0JVMMhc8qD1+jKH6Bwcdh3+N+GTfuAvBMTzIgy2RgV/inntFTu1ON03e8p008K+sIyYue+uiHemc5Y=
-Received: from CH2PR12MB3912.namprd12.prod.outlook.com (52.132.246.86) by
- CH2PR12MB4328.namprd12.prod.outlook.com (20.180.6.14) with Microsoft SMTP
+ bh=54ZSVES4s/aPYbe+gU5ksWmkutEDNVUI5bMBrENGG4Q=;
+ b=VphPNy1hBFd8tnxssW7YddFnxfJC6dGdoF8+FBWzpbxmQrWP+JXUcQ+c/ikHd6Ha7CQeOi1jYTQXjRK2kO+yEVEQv8hwsiJtL/DcjEaksnsA23jHpsYhblrOCwoxtBfzGwWLDqIF9vvaI/JOgfomX0fdTARDNvT3SUMUJuokUrM=
+Received: from MN2PR12MB3309.namprd12.prod.outlook.com (20.179.83.157) by
+ MN2PR12MB3312.namprd12.prod.outlook.com (20.179.80.215) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2707.27; Tue, 11 Feb 2020 14:29:38 +0000
-Received: from CH2PR12MB3912.namprd12.prod.outlook.com
- ([fe80::7921:a391:1d1b:5167]) by CH2PR12MB3912.namprd12.prod.outlook.com
- ([fe80::7921:a391:1d1b:5167%5]) with mapi id 15.20.2707.030; Tue, 11 Feb 2020
- 14:29:38 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
- "Huang, Ray" <Ray.Huang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgpu
+ 15.20.2729.22; Tue, 11 Feb 2020 14:35:24 +0000
+Received: from MN2PR12MB3309.namprd12.prod.outlook.com
+ ([fe80::f945:5c4c:9c3f:930a]) by MN2PR12MB3309.namprd12.prod.outlook.com
+ ([fe80::f945:5c4c:9c3f:930a%6]) with mapi id 15.20.2707.030; Tue, 11 Feb 2020
+ 14:35:24 +0000
+From: "Huang, Ray" <Ray.Huang@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ =?iso-8859-1?Q?Christian_K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgpu
  tests
 Thread-Topic: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgpu
  tests
-Thread-Index: AQHV4M2dMDJ+Dd/Zb0Oh6MhZzzoHHKgV3juAgAAvYbo=
-Date: Tue, 11 Feb 2020 14:29:38 +0000
-Message-ID: <CH2PR12MB39128F0E67FFB7E60C16B1ADF7180@CH2PR12MB3912.namprd12.prod.outlook.com>
+Thread-Index: AQHV4M2cyckBS3g50Ual3kzv6T+qkKgV3juAgAAvigCAAACDgA==
+Date: Tue, 11 Feb 2020 14:35:24 +0000
+Message-ID: <MN2PR12MB330985788CF1A81319DF67C3EC180@MN2PR12MB3309.namprd12.prod.outlook.com>
 References: <1581420183-14223-1-git-send-email-ray.huang@amd.com>,
  <a54f6008-918a-dbf6-0000-f2f048cdaaff@gmail.com>
-In-Reply-To: <a54f6008-918a-dbf6-0000-f2f048cdaaff@gmail.com>
+ <CH2PR12MB39128F0E67FFB7E60C16B1ADF7180@CH2PR12MB3912.namprd12.prod.outlook.com>
+In-Reply-To: <CH2PR12MB39128F0E67FFB7E60C16B1ADF7180@CH2PR12MB3912.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -73,37 +73,44 @@ msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
  Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-02-11T14:35:20Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 75a77215-ebba-4bfb-8cbc-000017faa689
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Alexander.Deucher@amd.com; 
-x-originating-ip: [71.219.59.120]
+ smtp.mailfrom=Ray.Huang@amd.com; 
+x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 079bcaaa-6b7a-425d-9094-08d7aefed310
-x-ms-traffictypediagnostic: CH2PR12MB4328:|CH2PR12MB4328:
+x-ms-office365-filtering-correlation-id: 5bdbf6eb-cdab-4640-177d-08d7aeffa1af
+x-ms-traffictypediagnostic: MN2PR12MB3312:|MN2PR12MB3312:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB4328A9ED0EF29BF5E35B436FF7180@CH2PR12MB4328.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:639;
+x-microsoft-antispam-prvs: <MN2PR12MB3312ECDB27BAAF87A34DC793EC180@MN2PR12MB3312.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1247;
 x-forefront-prvs: 0310C78181
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(136003)(376002)(39860400002)(366004)(346002)(199004)(189003)(8676002)(81156014)(55016002)(6506007)(53546011)(9686003)(186003)(7696005)(81166006)(8936002)(26005)(66574012)(71200400001)(2906002)(478600001)(66446008)(64756008)(66556008)(66476007)(66946007)(76116006)(33656002)(54906003)(19627405001)(52536014)(110136005)(5660300002)(316002)(4326008)(86362001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4328;
- H:CH2PR12MB3912.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10009020)(4636009)(366004)(136003)(346002)(39860400002)(396003)(376002)(199004)(189003)(8936002)(478600001)(81166006)(81156014)(8676002)(76116006)(52536014)(55016002)(66446008)(66556008)(86362001)(66476007)(64756008)(66946007)(5660300002)(9686003)(2906002)(4326008)(33656002)(110136005)(54906003)(26005)(316002)(186003)(6506007)(53546011)(66574012)(71200400001)(7696005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3312;
+ H:MN2PR12MB3309.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: z16YwoDCBi9/WQmcakdPgXK7RNQI9rCUFL5E1FqcIMPPpxYhxfBEfNN82nBpJm+DX3xlVEGvRw8BEdvccWQO4EX1THHH1LKAh7v9pr2m2sVJlgOEVi7CSx472bhD+U+kOh1//rIzO2ElIvubXfsZ0cxCw4PyhAecBFd81adC7JEDKLxml1xrxOU9xSQNbeICBczs6uFXrG0uC4MiN/IKNpTbbmwf+jXEYWMEOrO6UQVE5QRwXSxmq04FWgCvablSsU7qiFH/3gdrxNaXvBrocmzdC21EwH/cMTBBOC+xoMR3VX7PqfVALifpbg7Wt/r14uxc/eU/TwhXsu+bvQlz0uFPA/3RO2L972oNWWpJ3RBEYT6BUu3tBSL41ZmIhd/R+hWrgilOUCmzLpowi/3lo38zTcpmVWGuDc3U3jEWQx0MpOBhZ/uiQyyk0IndGJK3
-x-ms-exchange-antispam-messagedata: MDPtokX+py7DeIvvhviznzuCNK7FniYh3qaU2B7ik6QLN/RUWpwp05Pp9UoRPpcTl+EpXAXxTe3oy4bd0lVwARhmFrarJk7aTov144iTZFGE3CUDFl6OCFoYpaUVLApvt+GDel4ZpdyBJOUL6cLsbg==
+x-microsoft-antispam-message-info: NlldG7lMfouSTQuyDWvwhpQNn6Cv5z/MCOc4IzqL5lCQ60ln9xfhjiXrphL4f7Yj1VZmiYz6Qwm+Cfdygs0L5iw6WaFsXqh05kfDSuYy4hy3QZUM8j8qXQ+4iCUuD16xFvTiLdl/LcgbNst2/605AenR5f8H6MtaGl476UVaBqvxBXZTAWcPKuxx3N8epfbpXlLxuvUZTZL9RnIzTWNw2XgQ1C/IXFvFi716f9+Rt5NkTWAj9glIiit9noeqhdM7AgKmiUEsSVxgSWTaO8Jq92XtLJ82yenJVJ3MbFdo9r74zfgqRBqTrnQZNuQBDJY0UFc0Iwb19gvII146hUV6sMvoT1FvvlHsMgzu7v5YofHQZDtdWY33WYkBguJEsQ7cH5VtSucnIs3QbSz3IUYC8zs1mzKSy1plr64LQThLV3f7QlkQE7SW9SSywdtYLyoY
+x-ms-exchange-antispam-messagedata: kPAw1ghVTQ8wCphSiYc1ogDOHnn5nuYNz4Z2gcn5otOknYzpFcDwvx0sVSzBKO5rHkcYJENS6QnOaE6buyg1gNgYmWv68Gn+nq/ynIzOu70AYEwdBHl9+meJWqxcrStEG1pL5xkRzJU6Grsy9UEvoA==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 079bcaaa-6b7a-425d-9094-08d7aefed310
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2020 14:29:38.0349 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bdbf6eb-cdab-4640-177d-08d7aeffa1af
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2020 14:35:24.7585 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: at89zFQMd1boHU62mgzmHQQ0UBWvTHEgy5qUFtRryP6zUTTaPRDGvZsEL1wahd6napDhMUxKgzK1Id9GkjNNGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4328
+X-MS-Exchange-CrossTenant-userprincipalname: VcIIbVtO81aW4hCvYyNKpYbDmPpd5XEl5vCbsEEHvyIDsv3zLxkHtzwqrb2jJmeyDJRONQZZuLgXykqEI7tYMA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3312
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,18 +125,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: "Pelloux-prayer, Pierre-eric" <Pierre-eric.Pelloux-prayer@amd.com>, "Olsak,
  Marek" <Marek.Olsak@amd.com>, "Tuikov, Luben" <Luben.Tuikov@amd.com>, "Liu,
  Aaron" <Aaron.Liu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============2047160900=="
+Content-Type: multipart/mixed; boundary="===============0532679569=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============2047160900==
+--===============0532679569==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CH2PR12MB39128F0E67FFB7E60C16B1ADF7180CH2PR12MB3912namp_"
+	boundary="_000_MN2PR12MB330985788CF1A81319DF67C3EC180MN2PR12MB3309namp_"
 
---_000_CH2PR12MB39128F0E67FFB7E60C16B1ADF7180CH2PR12MB3912namp_
+--_000_MN2PR12MB330985788CF1A81319DF67C3EC180MN2PR12MB3309namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
+Hi Alex,
+
+MR =3D merge request?  Should I create account to send merge request in the=
+ freedesktop gitlab?
+
+Thanks,
+Ray
+
+From: Deucher, Alexander <Alexander.Deucher@amd.com>
+Sent: Tuesday, February 11, 2020 10:30 PM
+To: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>; Huang, Ray <Ray.H=
+uang@amd.com>; amd-gfx@lists.freedesktop.org
+Cc: Pelloux-prayer, Pierre-eric <Pierre-eric.Pelloux-prayer@amd.com>; Olsak=
+, Marek <Marek.Olsak@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>; Tuikov, Lube=
+n <Luben.Tuikov@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+Subject: Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgp=
+u tests
+
 
 [AMD Public Use]
 
@@ -138,14 +166,19 @@ Also, libdrm changes should go through a gitlab MR now.
 Alex
 
 ________________________________
-From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>
+From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com<mailto:ckoenig.le=
+ichtzumerken@gmail.com>>
 Sent: Tuesday, February 11, 2020 6:39 AM
-To: Huang, Ray <Ray.Huang@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@=
-lists.freedesktop.org>
-Cc: Pelloux-prayer, Pierre-eric <Pierre-eric.Pelloux-prayer@amd.com>; Olsak=
-, Marek <Marek.Olsak@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>; Tuikov, Lube=
-n <Luben.Tuikov@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; K=
-oenig, Christian <Christian.Koenig@amd.com>
+To: Huang, Ray <Ray.Huang@amd.com<mailto:Ray.Huang@amd.com>>; amd-gfx@lists=
+.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freed=
+esktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Pelloux-prayer, Pierre-eric <Pierre-eric.Pelloux-prayer@amd.com<mailto:=
+Pierre-eric.Pelloux-prayer@amd.com>>; Olsak, Marek <Marek.Olsak@amd.com<mai=
+lto:Marek.Olsak@amd.com>>; Liu, Aaron <Aaron.Liu@amd.com<mailto:Aaron.Liu@a=
+md.com>>; Tuikov, Luben <Luben.Tuikov@amd.com<mailto:Luben.Tuikov@amd.com>>=
+; Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@am=
+d.com>>; Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koeni=
+g@amd.com>>
 Subject: Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgp=
 u tests
 
@@ -174,61 +207,162 @@ ify the
 >   1 file changed, 13 insertions(+), 23 deletions(-)
 >
 
-
---_000_CH2PR12MB39128F0E67FFB7E60C16B1ADF7180CH2PR12MB3912namp_
+--_000_MN2PR12MB330985788CF1A81319DF67C3EC180MN2PR12MB3309namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
 1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+span.EmailStyle18
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+p.msipheader87abd423, li.msipheader87abd423, div.msipheader87abd423
+	{mso-style-name:msipheader87abd423;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
-ign=3D"Left">
-[AMD Public Use]<br>
-</p>
-<br>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"msipheader87abd423" style=3D"margin:0in;margin-bottom:.0001pt">=
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:#317100">[AMD Public Use]</span><o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hi Alex,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">MR =3D merge request?&nbsp; Should I create account =
+to send merge request in the freedesktop gitlab?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Ray<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Also, libdrm changes should go through a gitlab MR now.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
-</div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Christian K=F6nig &=
-lt;ckoenig.leichtzumerken@gmail.com&gt;<br>
-<b>Sent:</b> Tuesday, February 11, 2020 6:39 AM<br>
-<b>To:</b> Huang, Ray &lt;Ray.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.=
-org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> Deucher, Alexander &lt;Alexander.Deuche=
+r@amd.com&gt; <br>
+<b>Sent:</b> Tuesday, February 11, 2020 10:30 PM<br>
+<b>To:</b> Christian K=F6nig &lt;ckoenig.leichtzumerken@gmail.com&gt;; Huan=
+g, Ray &lt;Ray.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
 <b>Cc:</b> Pelloux-prayer, Pierre-eric &lt;Pierre-eric.Pelloux-prayer@amd.c=
 om&gt;; Olsak, Marek &lt;Marek.Olsak@amd.com&gt;; Liu, Aaron &lt;Aaron.Liu@=
-amd.com&gt;; Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Deucher, Alexander=
- &lt;Alexander.Deucher@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@=
-amd.com&gt;<br>
+amd.com&gt;; Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Koenig, Christian =
+&lt;Christian.Koenig@amd.com&gt;<br>
 <b>Subject:</b> Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 fo=
-r amdgpu tests</font>
-<div>&nbsp;</div>
+r amdgpu tests<o:p></o:p></p>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Looks good on first glance, but Marek and/or Pierr=
-e can probably better
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:#317100">[AMD Public Use]<o:p></o:p></span><=
+/p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Also, l=
+ibdrm changes should go through a gitlab MR now.<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Alex<o:=
+p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Christian K=F6nig &lt;</span><a href=3D"mailto:ckoe=
+nig.leichtzumerken@gmail.com">ckoenig.leichtzumerken@gmail.com</a><span sty=
+le=3D"color:black">&gt;<br>
+<b>Sent:</b> Tuesday, February 11, 2020 6:39 AM<br>
+<b>To:</b> Huang, Ray &lt;</span><a href=3D"mailto:Ray.Huang@amd.com">Ray.H=
+uang@amd.com</a><span style=3D"color:black">&gt;;
+</span><a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freed=
+esktop.org</a><span style=3D"color:black"> &lt;</span><a href=3D"mailto:amd=
+-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><span style=3D=
+"color:black">&gt;<br>
+<b>Cc:</b> Pelloux-prayer, Pierre-eric &lt;</span><a href=3D"mailto:Pierre-=
+eric.Pelloux-prayer@amd.com">Pierre-eric.Pelloux-prayer@amd.com</a><span st=
+yle=3D"color:black">&gt;; Olsak, Marek &lt;</span><a href=3D"mailto:Marek.O=
+lsak@amd.com">Marek.Olsak@amd.com</a><span style=3D"color:black">&gt;;
+ Liu, Aaron &lt;</span><a href=3D"mailto:Aaron.Liu@amd.com">Aaron.Liu@amd.c=
+om</a><span style=3D"color:black">&gt;; Tuikov, Luben &lt;</span><a href=3D=
+"mailto:Luben.Tuikov@amd.com">Luben.Tuikov@amd.com</a><span style=3D"color:=
+black">&gt;; Deucher, Alexander &lt;</span><a href=3D"mailto:Alexander.Deuc=
+her@amd.com">Alexander.Deucher@amd.com</a><span style=3D"color:black">&gt;;
+ Koenig, Christian &lt;</span><a href=3D"mailto:Christian.Koenig@amd.com">C=
+hristian.Koenig@amd.com</a><span style=3D"color:black">&gt;<br>
+<b>Subject:</b> Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 fo=
+r amdgpu tests</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Looks good on first g=
+lance, but Marek and/or Pierre can probably better
 <br>
 judge than me.<br>
 <br>
@@ -255,17 +389,17 @@ t<br>
 &gt;&nbsp;&nbsp; amdgpu/amdgpu_cs.c | 36 &#43;&#43;&#43;&#43;&#43;&#43;&#43=
 ;&#43;&#43;&#43;&#43;&#43;&#43;-----------------------<br>
 &gt;&nbsp;&nbsp; 1 file changed, 13 insertions(&#43;), 23 deletions(-)<br>
-&gt;<br>
-<br>
+&gt;<o:p></o:p></p>
 </div>
-</span></font></div>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_CH2PR12MB39128F0E67FFB7E60C16B1ADF7180CH2PR12MB3912namp_--
+--_000_MN2PR12MB330985788CF1A81319DF67C3EC180MN2PR12MB3309namp_--
 
---===============2047160900==
+--===============0532679569==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -276,4 +410,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============2047160900==--
+--===============0532679569==--
