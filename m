@@ -2,109 +2,68 @@ Return-Path: <SRS0=OHPl=37=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A0B1C352A3
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 16:08:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C5420C3B188
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 16:13:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C9AE22070A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 16:08:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9CE252070A
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 16:13:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PUCcQkg8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9AE22070A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kZSU2Qe9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9CE252070A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB066EE9A;
-	Tue, 11 Feb 2020 16:08:40 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2054.outbound.protection.outlook.com [40.107.243.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C22C56E53C;
- Tue, 11 Feb 2020 16:08:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F41zWHJ/ZQbbiGyhRQqbv4x/vlDw+psEs4nfHpQsSho8NMI/UPQiEAttE0ktmzi7XIHRHvhY+vNWyNvmhS24ZZ3dmRh4gT7TJ1cbM+1igUwlE1ch1p+cLFARJH5w1YMVOIPtVqivlIGRh0NjR7SYBZQuxSDUbMoZL6k30/gQ00ZkHbVviS8CeyCZAimi0EzkUrSlLoZvII8Magghfxy1rYn7o3Eh0wHbLlWPRCHfxC0Pk2Ru8IwZ5IAW7Ex7bHqtI7NgQZGiTPzaAJqK0qCPCPBXS8VWTwp8DpGoaYT/fU19EVjYpQ1wEMei8bnCyIAF11RfRmfVcHXQCWVFPJLBlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eMFxTAUD1oqcwAQ5Sojiu6hTYu95syQuUxVrqgnT5b0=;
- b=ihQQdJ/53dE9DQzhUZSP6SAObhrmTPyqHvUzlfDTbpfo6YDdEicJzfSygryoc83fpttQNQzMgMt9lXXHftNTVODtekWR3DijH45FRC3j3Sff8NuHoZEJ4NRkqF1gm/IPYMlKkuNeRy4y2Z8bWDco/JWcoU375F19WfwIyUX8geme1rLPvJa4+UlqG2fLzq5kmc3XiqrB3/tfRhhObVMqHLnJUDxDuKYkvRLlufoU58J7xei6PvCQFBlVxCAewO930kT9dTkBET9f1mYCIQcsRhyj2Tbf4N8zlIpg74LotnAUpmF7VNFtumYYwYBsCdk8yMQxJGX+Gmgf6yv0V9uuzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eMFxTAUD1oqcwAQ5Sojiu6hTYu95syQuUxVrqgnT5b0=;
- b=PUCcQkg80xD31V6CMtY/tx92NPGPU54bXAabm8Xs1gdN2B2k+2SLxgn7nV8aZLBfXOTyTRrAxJcmh/CiATfwKcvCPtul1/6q8moV8OIje9ns9JIgnVAsyWuC4HPb0jk66uG5Ir6JIXQjqlvktmMTFsgQsU+psgd4w6JqaMP2GDo=
-Received: from BN6PR12CA0035.namprd12.prod.outlook.com (2603:10b6:405:70::21)
- by DM6PR12MB3707.namprd12.prod.outlook.com (2603:10b6:5:1c1::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2707.25; Tue, 11 Feb
- 2020 16:08:38 +0000
-Received: from DM6NAM11FT032.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::207) by BN6PR12CA0035.outlook.office365.com
- (2603:10b6:405:70::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2729.22 via Frontend
- Transport; Tue, 11 Feb 2020 16:08:38 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- DM6NAM11FT032.mail.protection.outlook.com (10.13.173.93) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2707.21 via Frontend Transport; Tue, 11 Feb 2020 16:08:37 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 11 Feb
- 2020 10:08:36 -0600
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 11 Feb
- 2020 10:08:36 -0600
-Received: from jzuo-linux.amd.com (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Tue, 11 Feb 2020 10:08:35 -0600
-From: "Jerry (Fangzhi) Zuo" <Jerry.Zuo@amd.com>
-To: <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH V7] drm: Add support for DP 1.4 Compliance edid corruption test
-Date: Tue, 11 Feb 2020 11:08:32 -0500
-Message-ID: <20200211160832.24259-1-Jerry.Zuo@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6534E6E507;
+	Tue, 11 Feb 2020 16:13:54 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A3F76E507;
+ Tue, 11 Feb 2020 16:13:53 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id t14so4269601wmi.5;
+ Tue, 11 Feb 2020 08:13:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=b5qXSJffspK0gIHV4j3zfjqzd3AYpeWH5pDi5Wk3Aug=;
+ b=kZSU2Qe9ZnQJMNlp+m51s3hOluX5r2mw80qgV9RBzqi/blWLRZcA22G+r4W7P9Evvg
+ pQUHLVCl/v4tRpF2dzhXT17adJVzVoLDmxv2uH84Aajjn0RNBiEFuiD6cTCPPXv8dBj0
+ WlVor9sM+eIAjn0n7q8QT3eq4F5XKmwT5werlNkmIPPFes2lFNvXlBEV1kWwF+CumgYM
+ HU5xFrem9sab+A1ztd1nGIwZYResHH7hgVLOL3sp3ytJf4tFyGdG0FqiiPHMDoa40lG7
+ Vvn1D/cXZ8gKXM3a1Dnaf2hVqGiNKw9HpovoZzbe+IofL73GJ8fS4CTDB6bh/5W5EjB3
+ n0cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=b5qXSJffspK0gIHV4j3zfjqzd3AYpeWH5pDi5Wk3Aug=;
+ b=JANehjcgZA+3DnaHKArz/qAjgB29kpMlhOWLhpn6RaZ1a3trW9t5rIZEienuEQ34/g
+ 3IImuXeJEWDPV+2q3J598REA6/hXWCktNB5pkmLFY2a3RkY0AAbSl51Zw4xk9a09iu63
+ IkxIC2c6pbLLOJcgKJDN1g3Blp5o16NtWjWq76kEhXSzLT7JDiMgTbm0vZRDd95Up5vj
+ sPjFl8J812BShw6I/b2vdKVmLGYQ9NWDYSBJah4X8GkkFdZqwce0BL8CEFROmmmiiBBC
+ pCeiTqWfoPi9HAMPmCpHgc3On5jrR/c22hHcR9kMSYl3NQ576t5MAN93sAGMrDHK0187
+ 4qUw==
+X-Gm-Message-State: APjAAAXS+Ohpj4bHpttHbNLQRi6nI2YeB5eaiw/73v+TkqPbi2vNEr2F
+ l06tAosnUSrXcvgvg6kv9PxLDRJazhjBtnUPcJ6Qlg==
+X-Google-Smtp-Source: APXvYqz4l/5oPRJk3RZwcpBAgXd/dQa7gZbGaffqPRR4ydtRluAXn116c16dNGtuCpeIMvH0jdsIDpAbF4iMzSarLm4=
+X-Received: by 2002:a7b:c152:: with SMTP id z18mr6256582wmi.70.1581437631848; 
+ Tue, 11 Feb 2020 08:13:51 -0800 (PST)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(396003)(39860400002)(136003)(376002)(428003)(199004)(189003)(26005)(2616005)(8936002)(6666004)(186003)(8676002)(1076003)(336012)(86362001)(426003)(5660300002)(356004)(81166006)(81156014)(7696005)(54906003)(316002)(110136005)(36756003)(478600001)(2906002)(70586007)(4326008)(70206006);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3707; H:SATLEXMB01.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 513b8637-9338-4f76-8476-08d7af0ca6fc
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3707:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB370781C4934949EC2C3057D1E5180@DM6PR12MB3707.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1360;
-X-Forefront-PRVS: 0310C78181
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BqjpIdAZ11G6n4kNj8wzPqLaGa72U5WG2n6vMJQH0wrByS9S1Z5vi23Ek1Wt+lF0b2dfxYCxYSG+rnPp35uhURCUqh22xJmiYz1fOhKsoIr1V0PWSFkq0FMrd/Ht7Z7b4udrRKQoJRAkfrDZfahVZ8v6fBcQxmj8nwvc30RzI4tCedrj1sjtKdvkEWz8dRTmcqF4G2uCPP+pcHY9V6bAPOewBabyYSaUPXj8FdSC8PIwEOPysuvb1JiBx/obuuiTxeo9ZFvAsBshWyX1ItLkh5UndqAIioI5tM+EQsteDXmmfhfJFDp7qJGsuiA34bDIGFZZVNyCXDPRHUGw8PTXBux+MU04kWfGz+2y+pYzn1kx1wrv3f2G/ep227deR8zLlBNc9J8m62sztKGDy4BFatpqrXPwFZx0QcRj17W/D434su4jcv0WICsAkd+tkrvI
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2020 16:08:37.1349 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 513b8637-9338-4f76-8476-08d7af0ca6fc
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3707
+References: <20200207211713.3870-1-alexander.deucher@amd.com>
+In-Reply-To: <20200207211713.3870-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 11 Feb 2020 11:13:40 -0500
+Message-ID: <CADnq5_NxooERCdT3N59Z4OSao6Jx7rDnqhOfFa3mtjEmFysOqg@mail.gmail.com>
+Subject: Re: [PATCH 13/15] drm/amdgpu/display: split dp connector registration
+ (v3)
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,212 +75,127 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: rodrigo.siqueira@amd.com, Jani Nikula <jani.nikula@linux.intel.com>,
- manasi.d.navare@intel.com, Jerry.Zuo@amd.com, Alexander.Deucher@amd.com,
- harry.wentland@amd.com, nicholas.kazlauskas@amd.com,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Unlike DP 1.2 edid corruption test, DP 1.4 requires to calculate
-real CRC value of the last edid data block, and write it back.
-Current edid CRC calculates routine adds the last CRC byte,
-and check if non-zero.
+Ping?
 
-This behavior is not accurate; actually, we need to return
-the actual CRC value when corruption is detected.
-This commit changes this issue by returning the calculated CRC,
-and initiate the required sequence.
+Alex
 
-Change since v7
-- Fix for CI.CHECKPATCH
-
-Change since v6
-- Add return check
-
-Change since v5
-- Obtain real CRC value before dumping bad edid
-
-Change since v4
-- Fix for CI.CHECKPATCH
-
-Change since v3
-- Fix a minor typo.
-
-Change since v2
-- Rewrite checksum computation routine to avoid duplicated code.
-- Rename to avoid confusion.
-
-Change since v1
-- Have separate routine for returning real CRC.
-
-Signed-off-by: Jerry (Fangzhi) Zuo <Jerry.Zuo@amd.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- drivers/gpu/drm/drm_dp_helper.c | 59 +++++++++++++++++++++++++++++++++
- drivers/gpu/drm/drm_edid.c      | 24 +++++++++++---
- include/drm/drm_connector.h     |  6 ++++
- include/drm/drm_dp_helper.h     |  3 ++
- 4 files changed, 88 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_dp_helper.c b/drivers/gpu/drm/drm_dp_helper.c
-index f629fc5494a4..43e9f1968af4 100644
---- a/drivers/gpu/drm/drm_dp_helper.c
-+++ b/drivers/gpu/drm/drm_dp_helper.c
-@@ -351,6 +351,65 @@ int drm_dp_dpcd_read_link_status(struct drm_dp_aux *aux,
- }
- EXPORT_SYMBOL(drm_dp_dpcd_read_link_status);
- 
-+/**
-+ * drm_dp_send_real_edid_checksum() - send back real edid checksum value
-+ * @aux: DisplayPort AUX channel
-+ * @real_edid_checksum: real edid checksum for the last block
-+ *
-+ * Returns:
-+ * True on success
-+ */
-+bool drm_dp_send_real_edid_checksum(struct drm_dp_aux *aux,
-+				    u8 real_edid_checksum)
-+{
-+	u8 link_edid_read = 0, auto_test_req = 0, test_resp = 0;
-+
-+	if (drm_dp_dpcd_read(aux, DP_DEVICE_SERVICE_IRQ_VECTOR,
-+			     &auto_test_req, 1) < 1) {
-+		DRM_ERROR("DPCD failed read at register 0x%x\n",
-+			  DP_DEVICE_SERVICE_IRQ_VECTOR);
-+		return false;
-+	}
-+	auto_test_req &= DP_AUTOMATED_TEST_REQUEST;
-+
-+	if (drm_dp_dpcd_read(aux, DP_TEST_REQUEST, &link_edid_read, 1) < 1) {
-+		DRM_ERROR("DPCD failed read at register 0x%x\n",
-+			  DP_TEST_REQUEST);
-+		return false;
-+	}
-+	link_edid_read &= DP_TEST_LINK_EDID_READ;
-+
-+	if (!auto_test_req || !link_edid_read) {
-+		DRM_DEBUG_KMS("Source DUT does not support TEST_EDID_READ\n");
-+		return false;
-+	}
-+
-+	if (drm_dp_dpcd_write(aux, DP_DEVICE_SERVICE_IRQ_VECTOR,
-+			      &auto_test_req, 1) < 1) {
-+		DRM_ERROR("DPCD failed write at register 0x%x\n",
-+			  DP_DEVICE_SERVICE_IRQ_VECTOR);
-+		return false;
-+	}
-+
-+	/* send back checksum for the last edid extension block data */
-+	if (drm_dp_dpcd_write(aux, DP_TEST_EDID_CHECKSUM,
-+			      &real_edid_checksum, 1) < 1) {
-+		DRM_ERROR("DPCD failed write at register 0x%x\n",
-+			  DP_TEST_EDID_CHECKSUM);
-+		return false;
-+	}
-+
-+	test_resp |= DP_TEST_EDID_CHECKSUM_WRITE;
-+	if (drm_dp_dpcd_write(aux, DP_TEST_RESPONSE, &test_resp, 1) < 1) {
-+		DRM_ERROR("DPCD failed write at register 0x%x\n",
-+			  DP_TEST_RESPONSE);
-+		return false;
-+	}
-+
-+	return true;
-+}
-+EXPORT_SYMBOL(drm_dp_send_real_edid_checksum);
-+
- /**
-  * drm_dp_downstream_max_clock() - extract branch device max
-  *                                 pixel rate for legacy VGA
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 99769d6c9f84..1fcec5f4c3ec 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -1590,11 +1590,22 @@ static int validate_displayid(u8 *displayid, int length, int idx);
- static int drm_edid_block_checksum(const u8 *raw_edid)
- {
- 	int i;
--	u8 csum = 0;
--	for (i = 0; i < EDID_LENGTH; i++)
-+	u8 csum = 0, crc = 0;
-+
-+	for (i = 0; i < EDID_LENGTH - 1; i++)
- 		csum += raw_edid[i];
- 
--	return csum;
-+	crc = 0x100 - csum;
-+
-+	return crc;
-+}
-+
-+static bool drm_edid_block_checksum_diff(const u8 *raw_edid, u8 real_checksum)
-+{
-+	if (raw_edid[EDID_LENGTH - 1] != real_checksum)
-+		return true;
-+	else
-+		return false;
- }
- 
- static bool drm_edid_is_zero(const u8 *in_edid, int length)
-@@ -1652,7 +1663,7 @@ bool drm_edid_block_valid(u8 *raw_edid, int block, bool print_bad_edid,
- 	}
- 
- 	csum = drm_edid_block_checksum(raw_edid);
--	if (csum) {
-+	if (drm_edid_block_checksum_diff(raw_edid, csum)) {
- 		if (edid_corrupt)
- 			*edid_corrupt = true;
- 
-@@ -1793,6 +1804,11 @@ static void connector_bad_edid(struct drm_connector *connector,
- 			       u8 *edid, int num_blocks)
- {
- 	int i;
-+	u8 num_of_ext = edid[0x7e];
-+
-+	/* Calculate real checksum for the last edid extension block data */
-+	connector->real_edid_checksum =
-+		drm_edid_block_checksum(edid + num_of_ext * EDID_LENGTH);
- 
- 	if (connector->bad_edid_counter++ && !drm_debug_enabled(DRM_UT_KMS))
- 		return;
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 2113500b4075..b3815371c271 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -1357,6 +1357,12 @@ struct drm_connector {
- 	 * rev1.1 4.2.2.6
- 	 */
- 	bool edid_corrupt;
-+	/**
-+	 * @real_edid_checksum: real edid checksum for corrupted edid block.
-+	 * Required in Displayport 1.4 compliance testing
-+	 * rev1.1 4.2.2.6
-+	 */
-+	u8 real_edid_checksum;
- 
- 	/** @debugfs_entry: debugfs directory for this connector */
- 	struct dentry *debugfs_entry;
-diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-index 127d6e1d3338..957a3d00ee05 100644
---- a/include/drm/drm_dp_helper.h
-+++ b/include/drm/drm_dp_helper.h
-@@ -1459,6 +1459,9 @@ static inline ssize_t drm_dp_dpcd_writeb(struct drm_dp_aux *aux,
- int drm_dp_dpcd_read_link_status(struct drm_dp_aux *aux,
- 				 u8 status[DP_LINK_STATUS_SIZE]);
- 
-+bool drm_dp_send_real_edid_checksum(struct drm_dp_aux *aux,
-+				    u8 real_edid_checksum);
-+
- int drm_dp_downstream_max_clock(const u8 dpcd[DP_RECEIVER_CAP_SIZE],
- 				const u8 port_cap[4]);
- int drm_dp_downstream_max_bpc(const u8 dpcd[DP_RECEIVER_CAP_SIZE],
--- 
-2.17.1
-
+On Fri, Feb 7, 2020 at 4:17 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> Split into init and register functions to avoid a segfault
+> in some configs when the load/unload callbacks are removed.
+>
+> v2:
+> - add back accidently dropped has_aux setting
+> - set dev in late_register
+>
+> v3:
+> - fix dp cec ordering
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c   | 16 ++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/atombios_dp.c         | 10 ++--------
+>  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  |  7 ++++++-
+>  3 files changed, 24 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> index ec1501e3a63a..f355d9a752d2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> @@ -1461,6 +1461,20 @@ static enum drm_mode_status amdgpu_connector_dp_mode_valid(struct drm_connector
+>         return MODE_OK;
+>  }
+>
+> +static int
+> +amdgpu_connector_late_register(struct drm_connector *connector)
+> +{
+> +       struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
+> +       int r = 0;
+> +
+> +       if (amdgpu_connector->ddc_bus->has_aux) {
+> +               amdgpu_connector->ddc_bus->aux.dev = amdgpu_connector->base.kdev;
+> +               r = drm_dp_aux_register(&amdgpu_connector->ddc_bus->aux);
+> +       }
+> +
+> +       return r;
+> +}
+> +
+>  static const struct drm_connector_helper_funcs amdgpu_connector_dp_helper_funcs = {
+>         .get_modes = amdgpu_connector_dp_get_modes,
+>         .mode_valid = amdgpu_connector_dp_mode_valid,
+> @@ -1475,6 +1489,7 @@ static const struct drm_connector_funcs amdgpu_connector_dp_funcs = {
+>         .early_unregister = amdgpu_connector_unregister,
+>         .destroy = amdgpu_connector_destroy,
+>         .force = amdgpu_connector_dvi_force,
+> +       .late_register = amdgpu_connector_late_register,
+>  };
+>
+>  static const struct drm_connector_funcs amdgpu_connector_edp_funcs = {
+> @@ -1485,6 +1500,7 @@ static const struct drm_connector_funcs amdgpu_connector_edp_funcs = {
+>         .early_unregister = amdgpu_connector_unregister,
+>         .destroy = amdgpu_connector_destroy,
+>         .force = amdgpu_connector_dvi_force,
+> +       .late_register = amdgpu_connector_late_register,
+>  };
+>
+>  void
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> index ea702a64f807..9b74cfdba7b8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> @@ -186,16 +186,10 @@ amdgpu_atombios_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *m
+>
+>  void amdgpu_atombios_dp_aux_init(struct amdgpu_connector *amdgpu_connector)
+>  {
+> -       int ret;
+> -
+>         amdgpu_connector->ddc_bus->rec.hpd = amdgpu_connector->hpd.hpd;
+> -       amdgpu_connector->ddc_bus->aux.dev = amdgpu_connector->base.kdev;
+>         amdgpu_connector->ddc_bus->aux.transfer = amdgpu_atombios_dp_aux_transfer;
+> -       ret = drm_dp_aux_register(&amdgpu_connector->ddc_bus->aux);
+> -       if (!ret)
+> -               amdgpu_connector->ddc_bus->has_aux = true;
+> -
+> -       WARN(ret, "drm_dp_aux_register_i2c_bus() failed with error %d\n", ret);
+> +       drm_dp_aux_init(&amdgpu_connector->ddc_bus->aux);
+> +       amdgpu_connector->ddc_bus->has_aux = true;
+>  }
+>
+>  /***** general DP utility functions *****/
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 3959c942c88b..d5b9e72f2649 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -155,6 +155,11 @@ amdgpu_dm_mst_connector_late_register(struct drm_connector *connector)
+>         struct amdgpu_dm_connector *amdgpu_dm_connector =
+>                 to_amdgpu_dm_connector(connector);
+>         struct drm_dp_mst_port *port = amdgpu_dm_connector->port;
+> +       int r;
+> +
+> +       r = drm_dp_aux_register(&amdgpu_dm_connector->dm_dp_aux.aux);
+> +       if (r)
+> +               return r;
+>
+>  #if defined(CONFIG_DEBUG_FS)
+>         connector_debugfs_init(amdgpu_dm_connector);
+> @@ -484,7 +489,7 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+>         aconnector->dm_dp_aux.aux.transfer = dm_dp_aux_transfer;
+>         aconnector->dm_dp_aux.ddc_service = aconnector->dc_link->ddc;
+>
+> -       drm_dp_aux_register(&aconnector->dm_dp_aux.aux);
+> +       drm_dp_aux_init(&aconnector->dm_dp_aux.aux);
+>         drm_dp_cec_register_connector(&aconnector->dm_dp_aux.aux,
+>                                       &aconnector->base);
+>
+> --
+> 2.24.1
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
