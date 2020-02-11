@@ -2,109 +2,100 @@ Return-Path: <SRS0=OHPl=37=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E433AC3B187
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 14:57:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92368C3B189
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 15:02:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B938D206DB
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 14:57:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 69913206DB
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 15:02:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="HggBqdzT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B938D206DB
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="JHvQ5C/0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69913206DB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 331146E4D0;
-	Tue, 11 Feb 2020 14:57:07 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2048.outbound.protection.outlook.com [40.107.93.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B351F6E4D0
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2020 14:57:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02E4D6EE7C;
+	Tue, 11 Feb 2020 15:02:37 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2069.outbound.protection.outlook.com [40.107.243.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08B2F6EE7C;
+ Tue, 11 Feb 2020 15:02:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lxXVMbO9KTRcU/RF7m0H9xRvTKmzJSxyltht+viD8kgs7KqsLtv9EtJqEZPnLzSmd2MdSGrusXFG4ueg5kyBX6EIi/Xr/1xSc0FWL3YA124cdIDq4iU6WAihlA8zstpJsTXS7I0FRWrRcUq1+I/IMeIfw0ucTv8ciGg/nW3tMdnhVwVgEsbpOvpl0s2oJuUjHpGArBZeZNA9gp67SD/Y7r0lFUWChT/LvelY/w2ntv7tmGor3CxpV+bkS99IgdZGRIFr3MZ2scYh15u6kd3dHOC5C3fhhbcy7sckE8CAU+1KbcKqNQ9uxiujggyBMGFFCCxp9HZBusxvqGTx4gUxGA==
+ b=SeU/uGSvxP0NAsVu7OhlBiKk4Qd/1aA+J1wEsPq035JwlBWpOoMB0uRcvWE/3eHjhM1MuGUcjybOL6ABEhYAymZO9lyj6GZa5SpVTfq63VIOyRvLD3mw96LLP4QLrWhUiD5bcCjPzt2dW7ebaL5cQ17LMxUeKgIX44HV2abxzaDLczzq9Op9bjLp9brA+UpgzFG7syZrrKeXIeso0GMf8cEaxMnf/N0C+1LBDku41sZIiq/PG6mr/SnClcjXaD5S35YJGgLx8OP/pai1gV1EObhI/KXm8v882lT80t6ljk86mnL0Z8rcMZNZy2H22WvbP6M6uwXlCOdImAM6yOU4/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=93HykOjxFClJuH1i2jbaN7TeC/yI5uK4SULbqQrl6Is=;
- b=P3xXgXPtQTuz1lNft0y9jH7KXN4KbXBFw3Bzkr3uVTyczMpz9MQAfhtgr6ecrIjq9teFnPmJb+IiIme9L+4KpE6STTXBc1xJUAtNmTEBMdJI/J6vMr0Q6aERGzkN01BdeAropCydjVLCZ1wXcP9rv2z3DvmRbK04oNj79Hp7Zt6OJNxUgXQbcnFQbx8cUOaetR20nXlyry13m13PdqlnOyzC9u/V8arGPhOHMnvPsBCysuV84U+aycNZxY01GB+UKQn9aFvU37JM4F+RMMTjGOgV9kJpy3ZBkRN9kzw1MRneCtd0sqmhwUmVNi3nD2JUD43Qx3W1V4YzjxLl4Cs1Xg==
+ bh=Pf9yMPyQ0IECAnrNOGMLca6nJdDtD5BpL6hu3fWqS+g=;
+ b=gFAS8lnYLb6IHHPWzupHW0YFfgePrH4Zlh+9jk8WO41zSTINqdGUl4cax4DDyY8RnMOcV/l6YFfIaOZ/NFpS3/Nluul7SEg81YAQLLt0xh+XhEDqBOFGj/CgjTEJ0GQQJLlm0OdaZqImiY9vWdOI/BeKSxd+GUafvw5hL9ZSrVsq+iVnbZsfh/o66R7g1k0H18VOJlzd/Ise/HbCAUszMgWkhpAvE5LgqkUnT+7xBt3Z8H+uQ/lJXX1tRbdG+m/s/9SgNmc77tu58n5W6aROveU47mCUzmxjeVtEgV8R2gwgRNH2q3cWGn/eoCQhVWTCVFWvHK59TxEfBe2vOVRNGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=93HykOjxFClJuH1i2jbaN7TeC/yI5uK4SULbqQrl6Is=;
- b=HggBqdzTGIf+OmO0ni44tQIcvMpLuc7q0Je8OENJPjIuwSd82TkgnhKUFrwfeZnbmDX5xsJ+37LXHi3JrQhxWFqQ5m4FfCaXyZnECBqiw3A0tjyXZX2c+Gs3sWb9WG8613UZXM8HTX0dPShQNEHNQ1cghQ/wDALw9h1T5kB2H1k=
-Received: from CH2PR12MB3912.namprd12.prod.outlook.com (52.132.246.86) by
- CH2PR12MB4135.namprd12.prod.outlook.com (20.180.17.150) with Microsoft SMTP
+ bh=Pf9yMPyQ0IECAnrNOGMLca6nJdDtD5BpL6hu3fWqS+g=;
+ b=JHvQ5C/0kDn1b9OHRhBXcmMv5K5LvQ3vHEWGTZHqQdbSCuQIiF8NdTY3s1w6h6z4AwN+A+yL9MoBw/KoTuq+QAAOXUj/9pzXB+zDWw7oDmoM+XRXMqmep5bd55FIghA9B2ezND8qpfAXb6c7yyr/4mNOCuzGqIPJ2TeGSNtLCh0=
+Received: from SN6PR12MB2800.namprd12.prod.outlook.com (52.135.101.138) by
+ SN6PR12MB2750.namprd12.prod.outlook.com (52.135.107.29) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2707.23; Tue, 11 Feb 2020 14:57:03 +0000
-Received: from CH2PR12MB3912.namprd12.prod.outlook.com
- ([fe80::7921:a391:1d1b:5167]) by CH2PR12MB3912.namprd12.prod.outlook.com
- ([fe80::7921:a391:1d1b:5167%5]) with mapi id 15.20.2707.030; Tue, 11 Feb 2020
- 14:57:03 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Huang, Ray" <Ray.Huang@amd.com>, =?iso-8859-1?Q?Christian_K=F6nig?=
- <ckoenig.leichtzumerken@gmail.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgpu
- tests
-Thread-Topic: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgpu
- tests
-Thread-Index: AQHV4M2dMDJ+Dd/Zb0Oh6MhZzzoHHKgV3juAgAAvYbqAAAHGAIAABeJ7
-Date: Tue, 11 Feb 2020 14:57:03 +0000
-Message-ID: <CH2PR12MB3912CCDC4F15E6B7B1E92543F7180@CH2PR12MB3912.namprd12.prod.outlook.com>
-References: <1581420183-14223-1-git-send-email-ray.huang@amd.com>,
- <a54f6008-918a-dbf6-0000-f2f048cdaaff@gmail.com>
- <CH2PR12MB39128F0E67FFB7E60C16B1ADF7180@CH2PR12MB3912.namprd12.prod.outlook.com>,
- <MN2PR12MB330985788CF1A81319DF67C3EC180@MN2PR12MB3309.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB330985788CF1A81319DF67C3EC180@MN2PR12MB3309.namprd12.prod.outlook.com>
-Accept-Language: en-US
+ 15.20.2707.29; Tue, 11 Feb 2020 15:02:34 +0000
+Received: from SN6PR12MB2800.namprd12.prod.outlook.com
+ ([fe80::b99c:18c0:8685:1c10]) by SN6PR12MB2800.namprd12.prod.outlook.com
+ ([fe80::b99c:18c0:8685:1c10%5]) with mapi id 15.20.2707.030; Tue, 11 Feb 2020
+ 15:02:34 +0000
+From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+To: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH 5/6] drm/ttm: replace dma_resv object on deleted BOs v2
+Thread-Topic: [PATCH 5/6] drm/ttm: replace dma_resv object on deleted BOs v2
+Thread-Index: AQHV4CQS1ZsaSNoZEkeVrYU13dVQjagWCrwAgAANKQA=
+Date: Tue, 11 Feb 2020 15:02:34 +0000
+Message-ID: <11341C05-E5C8-47C6-A77D-F3B3380453AA@amd.com>
+References: <20200210150907.20616-1-christian.koenig@amd.com>
+ <20200210150907.20616-6-christian.koenig@amd.com>
+ <20200211141402.GB2363188@phenom.ffwll.local>
+In-Reply-To: <20200211141402.GB2363188@phenom.ffwll.local>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-02-11T14:57:03.289Z;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
- Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Standard; 
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Alexander.Deucher@amd.com; 
-x-originating-ip: [71.219.59.120]
+ smtp.mailfrom=Xinhui.Pan@amd.com; 
+x-originating-ip: [101.88.214.163]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: d3623f0b-b5d6-4780-c9e1-08d7af02a7fc
-x-ms-traffictypediagnostic: CH2PR12MB4135:|CH2PR12MB4135:
+x-ms-office365-filtering-correlation-id: 16f35b4e-afb7-4e6b-e175-08d7af036cea
+x-ms-traffictypediagnostic: SN6PR12MB2750:|SN6PR12MB2750:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB4135887ACB994DAAC85EAC48F7180@CH2PR12MB4135.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1247;
+x-microsoft-antispam-prvs: <SN6PR12MB2750D771783B1B024C30DF4987180@SN6PR12MB2750.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:421;
 x-forefront-prvs: 0310C78181
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(396003)(39860400002)(136003)(366004)(346002)(189003)(199004)(5660300002)(66574012)(52536014)(53546011)(19627405001)(6506007)(86362001)(110136005)(19627235002)(26005)(54906003)(71200400001)(55016002)(478600001)(9686003)(186003)(8936002)(316002)(33656002)(8676002)(4326008)(7696005)(81156014)(66946007)(66476007)(64756008)(66446008)(66556008)(2906002)(76116006)(81166006);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4135;
- H:CH2PR12MB3912.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10009020)(4636009)(396003)(136003)(376002)(346002)(366004)(39860400002)(189003)(199004)(316002)(2906002)(86362001)(5660300002)(966005)(66476007)(81156014)(8936002)(186003)(66946007)(64756008)(66556008)(66446008)(6486002)(8676002)(33656002)(6506007)(478600001)(6512007)(81166006)(6916009)(66574012)(4326008)(76116006)(54906003)(26005)(71200400001)(36756003)(91956017)(45080400002)(2616005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SN6PR12MB2750;
+ H:SN6PR12MB2800.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: s1yEOYZdcBI5qiD8N1QSF18PynBu+R2+rSyFT1OYp7FwvRHN0frS/iTc+OhBNciqd6Qp9UB0GhHDRMT1zDX97kS577GySSHLP3fuZQNB+Zu8GCilAh070+co403lBf0AZ0gvmi1Tb1jdEQOg5Ex9sM3jX5r8RCHXECoJ/xxhev7cL4ZO08Xwt6ne2Q5XpXO6H+5LceQxHFuX9Qd2sZ9u2+DHny+8pxyL6+QnQWuRxz3cvvcR1ECQDXTM8johBzTxfJ8nmBmDdLvK87OmVS/49PsR/n4aBO+K/hek6sbmKPR4yK8laX0OQqAnR7hh8P7IN7wu5ZOCQPblNHrvPsna56K25b1/TgcQutzrC+f/GW0Uy1TwouG8jhz6QXhv266F+/FT92ObalR0ZHTLB5iCh+733bSAMDhblN87XWb5msmazDGp4/Urz6Teaet3MZva
-x-ms-exchange-antispam-messagedata: lOZFypf0lFkvWq9KVCIZ9vvHEbuiACsVPLLrhLloHevLcJ2UIgGiA1oHkQpk9sHJJzoJyMK8dzBvACnI1dYivFfbgSUZsEvEpB+Re2DrQhTRd23hRpk7kZMlwXJC7sBr8gEN5aZKvjVGm4UQwvIaIw==
+x-microsoft-antispam-message-info: TI4CkIgdFTt+JWEWvg1KjT1klfhsKulEssbLp/LlHe+F6JlKEcIf+q01KKA9txOdE1OL2uTAaJvtCxcc+Rm1f9Qb5t2olO9FYbGyiDaXvSVnM/IWTN8bLKt5Jy+kDdTJRxFZuKHExYaegBPE+NG6MswEAjN1TU0Ti/vNrtvvQt45RuOU1ca+sUHblvgebsWhHWwbSPHA2GOl5iVhRBE/In89mG9cv7dZO51Ze8bf/oRpvt/VqTN6ZPkWa5FBgl7W/RjAddI6noLRxCIF+9WnHnOBUt4ue9MwhLWiDdk2iBbBwas7XhpliOVrc4m3orgUMScNE+pT/uJKIsj/i4iUeV2nexxokO7QwDZtmM9rhi1pjEeyFriOmj2zAZhsAWf3M4L7LNccB/Y6o/cHznSpcuuTtBactWQCPZz/hfSOwE16BOMOh+othcK7KH80fyo5tmqOdQAYKRGIaoKZaLXy4Ap9mnnsLTfhWtWdgavu2Pk02bxXxI7fLCKANzClU5kn6fQ58H5B2aclFx1y+TZEWg==
+x-ms-exchange-antispam-messagedata: 0mjU5abuEmc4C9elvApBweQ+DFqSLtX7aeKPBjOxs6XaT2dAzKh6QI5ylyhjYSdAHxD0x9kY1wdNk+fza2I8AKFyGX0f/k8+Ao7MckFzd51xM6LS7WsHu5KYCgYLAc7878Y1bQcWTkZCZY/Y45KNyQ==
+Content-ID: <0DA6BDAA50B0B743A4893EC30E2C9FC1@namprd12.prod.outlook.com>
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d3623f0b-b5d6-4780-c9e1-08d7af02a7fc
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2020 14:57:03.7832 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16f35b4e-afb7-4e6b-e175-08d7af036cea
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Feb 2020 15:02:34.2590 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: quNidYMlhHRF205nqQCIknOgCLOhicgIwIsKTDbwMjZQmWNB7Pcuw9HcMSZ46aK/4tMhIKTwrYqrYgP908jMVw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4135
+X-MS-Exchange-CrossTenant-userprincipalname: pgapzomReUruJN0uAsZ2b3UnoZ9b/NgkK+sTNU8T1RJEShUQqm5rfp7j6n/seR4d
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2750
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,335 +107,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Pelloux-prayer, Pierre-eric" <Pierre-eric.Pelloux-prayer@amd.com>, "Olsak,
- Marek" <Marek.Olsak@amd.com>, "Tuikov, Luben" <Luben.Tuikov@amd.com>, "Liu,
- Aaron" <Aaron.Liu@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
-Content-Type: multipart/mixed; boundary="===============0723043108=="
+Cc: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <ckoenig.leichtzumerken@gmail.com>,
+ "Pan, Xinhui" <Xinhui.Pan@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0723043108==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CH2PR12MB3912CCDC4F15E6B7B1E92543F7180CH2PR12MB3912namp_"
-
---_000_CH2PR12MB3912CCDC4F15E6B7B1E92543F7180CH2PR12MB3912namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Yes, correct.
-
-Alex
-________________________________
-From: Huang, Ray <Ray.Huang@amd.com>
-Sent: Tuesday, February 11, 2020 9:35 AM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; Christian K=F6nig <ckoe=
-nig.leichtzumerken@gmail.com>; amd-gfx@lists.freedesktop.org <amd-gfx@lists=
-.freedesktop.org>
-Cc: Pelloux-prayer, Pierre-eric <Pierre-eric.Pelloux-prayer@amd.com>; Olsak=
-, Marek <Marek.Olsak@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>; Tuikov, Lube=
-n <Luben.Tuikov@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
-Subject: RE: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgp=
-u tests
-
-
-[AMD Public Use]
-
-
-
-Hi Alex,
-
-
-
-MR =3D merge request?  Should I create account to send merge request in the=
- freedesktop gitlab?
-
-
-
-Thanks,
-
-Ray
-
-
-
-From: Deucher, Alexander <Alexander.Deucher@amd.com>
-Sent: Tuesday, February 11, 2020 10:30 PM
-To: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>; Huang, Ray <Ray.H=
-uang@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Pelloux-prayer, Pierre-eric <Pierre-eric.Pelloux-prayer@amd.com>; Olsak=
-, Marek <Marek.Olsak@amd.com>; Liu, Aaron <Aaron.Liu@amd.com>; Tuikov, Lube=
-n <Luben.Tuikov@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
-Subject: Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgp=
-u tests
-
-
-
-[AMD Public Use]
-
-
-
-Also, libdrm changes should go through a gitlab MR now.
-
-
-
-Alex
-
-
-
-________________________________
-
-From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com<mailto:ckoenig.le=
-ichtzumerken@gmail.com>>
-Sent: Tuesday, February 11, 2020 6:39 AM
-To: Huang, Ray <Ray.Huang@amd.com<mailto:Ray.Huang@amd.com>>; amd-gfx@lists=
-.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freed=
-esktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Pelloux-prayer, Pierre-eric <Pierre-eric.Pelloux-prayer@amd.com<mailto:=
-Pierre-eric.Pelloux-prayer@amd.com>>; Olsak, Marek <Marek.Olsak@amd.com<mai=
-lto:Marek.Olsak@amd.com>>; Liu, Aaron <Aaron.Liu@amd.com<mailto:Aaron.Liu@a=
-md.com>>; Tuikov, Luben <Luben.Tuikov@amd.com<mailto:Luben.Tuikov@amd.com>>=
-; Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@am=
-d.com>>; Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koeni=
-g@amd.com>>
-Subject: Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 for amdgp=
-u tests
-
-
-
-Looks good on first glance, but Marek and/or Pierre can probably better
-judge than me.
-
-Christian.
-
-Am 11.02.20 um 12:22 schrieb Huang Rui:
-> So far, the amdgpu_cs_submit_raw2 is used for MesaGL, however the amdgpu =
-tests
-> still use the legacy interface. So we would like to make amdgpu tests ver=
-ify the
-> amdgpu_cs_submit_raw2 API.
->
-> Thanks,
-> Ray
->
-> Huang Rui (4):
->    amdgpu: use alloca for dependencies and sem_dependencies
->    amdgpu: use amdgpu_cs_submit_raw2 in amdgpu_cs_submit
->    amdgpu: remove the un-used chunk_array
->    amdgpu: clean up the cs structure variable
->
->   amdgpu/amdgpu_cs.c | 36 +++++++++++++-----------------------
->   1 file changed, 13 insertions(+), 23 deletions(-)
->
-
---_000_CH2PR12MB3912CCDC4F15E6B7B1E92543F7180CH2PR12MB3912namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Yes, correct.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Alex<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Huang, Ray &lt;Ray.Hu=
-ang@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, February 11, 2020 9:35 AM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Christian =
-K=F6nig &lt;ckoenig.leichtzumerken@gmail.com&gt;; amd-gfx@lists.freedesktop=
-.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Pelloux-prayer, Pierre-eric &lt;Pierre-eric.Pelloux-prayer@amd.c=
-om&gt;; Olsak, Marek &lt;Marek.Olsak@amd.com&gt;; Liu, Aaron &lt;Aaron.Liu@=
-amd.com&gt;; Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Koenig, Christian =
-&lt;Christian.Koenig@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 fo=
-r amdgpu tests</font>
-<div>&nbsp;</div>
-</div>
-<style>
-<!--
-@font-face
-	{font-family:"Cambria Math"}
-@font-face
-	{font-family:DengXian}
-@font-face
-	{font-family:Calibri}
-@font-face
-	{}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-a:link, span.x_MsoHyperlink
-	{color:#0563C1;
-	text-decoration:underline}
-span.x_EmailStyle18
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-p.x_msipheader87abd423, li.x_msipheader87abd423, div.x_msipheader87abd423
-	{margin-right:0in;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-.x_MsoChpDefault
-	{font-size:10.0pt}
-@page WordSection1
-	{margin:1.0in 1.0in 1.0in 1.0in}
-div.x_WordSection1
-	{}
--->
-</style>
-<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"x_WordSection1">
-<p class=3D"x_msipheader87abd423" style=3D"margin:0in; margin-bottom:.0001p=
-t"><span style=3D"font-size:10.0pt; font-family:&quot;Arial&quot;,sans-seri=
-f; color:#317100">[AMD Public Use]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Hi Alex,</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">MR =3D merge request?&nbsp; Should I create accoun=
-t to send merge request in the freedesktop gitlab?</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Thanks,</p>
-<p class=3D"x_MsoNormal">Ray</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1 1.0pt; padding:3.0pt 0i=
-n 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Deucher, Alexander &lt;Alexander.Deuc=
-her@amd.com&gt;
-<br>
-<b>Sent:</b> Tuesday, February 11, 2020 10:30 PM<br>
-<b>To:</b> Christian K=F6nig &lt;ckoenig.leichtzumerken@gmail.com&gt;; Huan=
-g, Ray &lt;Ray.Huang@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
-<b>Cc:</b> Pelloux-prayer, Pierre-eric &lt;Pierre-eric.Pelloux-prayer@amd.c=
-om&gt;; Olsak, Marek &lt;Marek.Olsak@amd.com&gt;; Liu, Aaron &lt;Aaron.Liu@=
-amd.com&gt;; Tuikov, Luben &lt;Luben.Tuikov@amd.com&gt;; Koenig, Christian =
-&lt;Christian.Koenig@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 fo=
-r amdgpu tests</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
-ot;Arial&quot;,sans-serif; color:#317100">[AMD Public Use]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">Also=
-, libdrm changes should go through a gitlab MR now.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
-p;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">Alex=
-</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black">&nbs=
-p;</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal"><b><span style=3D"color:black">From:</span></b><sp=
-an style=3D"color:black"> Christian K=F6nig &lt;</span><a href=3D"mailto:ck=
-oenig.leichtzumerken@gmail.com">ckoenig.leichtzumerken@gmail.com</a><span s=
-tyle=3D"color:black">&gt;<br>
-<b>Sent:</b> Tuesday, February 11, 2020 6:39 AM<br>
-<b>To:</b> Huang, Ray &lt;</span><a href=3D"mailto:Ray.Huang@amd.com">Ray.H=
-uang@amd.com</a><span style=3D"color:black">&gt;;
-</span><a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freed=
-esktop.org</a><span style=3D"color:black"> &lt;</span><a href=3D"mailto:amd=
--gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><span style=3D=
-"color:black">&gt;<br>
-<b>Cc:</b> Pelloux-prayer, Pierre-eric &lt;</span><a href=3D"mailto:Pierre-=
-eric.Pelloux-prayer@amd.com">Pierre-eric.Pelloux-prayer@amd.com</a><span st=
-yle=3D"color:black">&gt;; Olsak, Marek &lt;</span><a href=3D"mailto:Marek.O=
-lsak@amd.com">Marek.Olsak@amd.com</a><span style=3D"color:black">&gt;;
- Liu, Aaron &lt;</span><a href=3D"mailto:Aaron.Liu@amd.com">Aaron.Liu@amd.c=
-om</a><span style=3D"color:black">&gt;; Tuikov, Luben &lt;</span><a href=3D=
-"mailto:Luben.Tuikov@amd.com">Luben.Tuikov@amd.com</a><span style=3D"color:=
-black">&gt;; Deucher, Alexander &lt;</span><a href=3D"mailto:Alexander.Deuc=
-her@amd.com">Alexander.Deucher@amd.com</a><span style=3D"color:black">&gt;;
- Koenig, Christian &lt;</span><a href=3D"mailto:Christian.Koenig@amd.com">C=
-hristian.Koenig@amd.com</a><span style=3D"color:black">&gt;<br>
-<b>Subject:</b> Re: [PATCH libdrm 0/4] amdgpu: use amdgpu_cs_submit_raw2 fo=
-r amdgpu tests</span>
-</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin-bottom:12.0pt">Looks good on first=
- glance, but Marek and/or Pierre can probably better
-<br>
-judge than me.<br>
-<br>
-Christian.<br>
-<br>
-Am 11.02.20 um 12:22 schrieb Huang Rui:<br>
-&gt; So far, the amdgpu_cs_submit_raw2 is used for MesaGL, however the amdg=
-pu tests<br>
-&gt; still use the legacy interface. So we would like to make amdgpu tests =
-verify the<br>
-&gt; amdgpu_cs_submit_raw2 API.<br>
-&gt;<br>
-&gt; Thanks,<br>
-&gt; Ray<br>
-&gt;<br>
-&gt; Huang Rui (4):<br>
-&gt;&nbsp;&nbsp;&nbsp; amdgpu: use alloca for dependencies and sem_dependen=
-cies<br>
-&gt;&nbsp;&nbsp;&nbsp; amdgpu: use amdgpu_cs_submit_raw2 in amdgpu_cs_submi=
-t<br>
-&gt;&nbsp;&nbsp;&nbsp; amdgpu: remove the un-used chunk_array<br>
-&gt;&nbsp;&nbsp;&nbsp; amdgpu: clean up the cs structure variable<br>
-&gt;<br>
-&gt;&nbsp;&nbsp; amdgpu/amdgpu_cs.c | 36 &#43;&#43;&#43;&#43;&#43;&#43;&#43=
-;&#43;&#43;&#43;&#43;&#43;&#43;-----------------------<br>
-&gt;&nbsp;&nbsp; 1 file changed, 13 insertions(&#43;), 23 deletions(-)<br>
-&gt;</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_CH2PR12MB3912CCDC4F15E6B7B1E92543F7180CH2PR12MB3912namp_--
-
---===============0723043108==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0723043108==--
+DQoNCj4gMjAyMOW5tDLmnIgxMeaXpSAyMjoxNO+8jERhbmllbCBWZXR0ZXIgPGRhbmllbEBmZnds
+bC5jaD4g5YaZ6YGT77yaDQo+IA0KPiBPbiBNb24sIEZlYiAxMCwgMjAyMCBhdCAwNDowOTowNlBN
+ICswMTAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOg0KPj4gV2hlbiBub24taW1wb3J0ZWQgQk9z
+IGFyZSByZXN1cnJlY3RlZCBmb3IgZGVsYXllZCBkZWxldGUgd2UgcmVwbGFjZQ0KPj4gdGhlIGRt
+YV9yZXN2IG9iamVjdCB0byBhbGxvdyBmb3IgZWFzeSByZWNsYWltaW5nIG9mIHRoZSByZXNvdXJj
+ZXMuDQo+PiANCj4+IHYyOiBtb3ZlIHRoYXQgdG8gdHRtX2JvX2luZGl2aWR1YWxpemVfcmVzdg0K
+Pj4gDQo+PiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmln
+QGFtZC5jb20+DQo+PiAtLS0NCj4+IGRyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMgfCAxMCAr
+KysrKysrKystDQo+PiAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
+KC0pDQo+PiANCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIGIv
+ZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYw0KPj4gaW5kZXggZDA2MjQ2ODVmNWQyLi40ZDE2
+MTAzOGRlOTggMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jDQo+
+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jDQo+PiBAQCAtMzkzLDYgKzM5Mywx
+NCBAQCBzdGF0aWMgaW50IHR0bV9ib19pbmRpdmlkdWFsaXplX3Jlc3Yoc3RydWN0IHR0bV9idWZm
+ZXJfb2JqZWN0ICpibykNCj4+IA0KPj4gCXIgPSBkbWFfcmVzdl9jb3B5X2ZlbmNlcygmYm8tPmJh
+c2UuX3Jlc3YsIGJvLT5iYXNlLnJlc3YpOw0KPj4gCWRtYV9yZXN2X3VubG9jaygmYm8tPmJhc2Uu
+X3Jlc3YpOw0KPj4gKwlpZiAocikNCj4+ICsJCXJldHVybiByOw0KPj4gKw0KPj4gKwlpZiAoYm8t
+PnR5cGUgIT0gdHRtX2JvX3R5cGVfc2cpIHsNCj4+ICsJCXNwaW5fbG9jaygmdHRtX2JvX2dsb2Iu
+bHJ1X2xvY2spOw0KPj4gKwkJYm8tPmJhc2UucmVzdiA9ICZiby0+YmFzZS5fcmVzdjsNCj4gDQo+
+IEhhdmluZyB0aGUgZG1hX3Jlc3YgcG9pbnRlciBiZSBwcm90ZWN0ZWQgYnkgdGhlIGxydV9sb2Nr
+IGZvciB0dG0gaW50ZXJuYWwNCj4gc3R1ZmYsIGJ1dCBpbnZhcmlhbnQgZXZlcnl3aGVyZSBlbHNl
+IGlzIHJlYWxseSBjb25mdXNpbmcuIE5vdCBzdXJlIHRoYXQncw0KDQpJIHRoaW5rIHRoaXMgaXMg
+cmVhZGVyIFZTIHdyaXRlci4NClRvIGF2b2lkIGFueSBpbnRlcm5hbCBmdW5jdGlvbnMgdXNpbmcg
+dGhlIG9sZCByZXN2LCAgdXNpbmcgYW4gZXhpc3Rpbmcgc3BpbiBsb2NrIGlzIGFjY2VwdGFibGUu
+DQpNYXliZSBSQ1UgaXMgYmV0dGVyPyBUaGF0IHdpbGwgbmVlZCBhIGxvdCBvZiBlZmZvcnQuDQpB
+bnl3YXksIHR0bSBzdWNrcy4gV2UgSEFTIGRvbmUgYSBsb3Qgb2Ygd29yayBvbiBpdCB0byBtYWtl
+IGl0IGJldHRlciBydW5uaW5nIG9uIG1vZGVybiBzeXN0ZW0uDQoNCg0KPiBhIGdyZWF0IGlkZWEs
+IEkndmUganVzdCBjaGFzZWQgc29tZSB0dG0gY29kZSBhcm91bmQgZnJlYWtpbmcgb3V0IGFib3V0
+DQo+IHRoYXQuDQo+IC1EYW5pZWwNCj4gDQo+PiArCQlzcGluX3VubG9jaygmdHRtX2JvX2dsb2Iu
+bHJ1X2xvY2spOw0KPj4gKwl9DQo+PiANCj4+IAlyZXR1cm4gcjsNCj4+IH0NCj4+IEBAIC03MjAs
+NyArNzI4LDcgQEAgc3RhdGljIGJvb2wgdHRtX2JvX2V2aWN0X3N3YXBvdXRfYWxsb3dhYmxlKHN0
+cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8sDQo+PiANCj4+IAlpZiAoYm8tPmJhc2UucmVzdiA9
+PSBjdHgtPnJlc3YpIHsNCj4+IAkJZG1hX3Jlc3ZfYXNzZXJ0X2hlbGQoYm8tPmJhc2UucmVzdik7
+DQo+PiAtCQlpZiAoY3R4LT5mbGFncyAmIFRUTV9PUFRfRkxBR19BTExPV19SRVNfRVZJQ1QgfHwg
+Ym8tPmRlbGV0ZWQpDQo+PiArCQlpZiAoY3R4LT5mbGFncyAmIFRUTV9PUFRfRkxBR19BTExPV19S
+RVNfRVZJQ1QpDQo+PiAJCQlyZXQgPSB0cnVlOw0KPj4gCQkqbG9ja2VkID0gZmFsc2U7DQo+PiAJ
+CWlmIChidXN5KQ0KPj4gLS0gDQo+PiAyLjE3LjENCj4+IA0KPj4gX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4+IGRyaS1kZXZlbCBtYWlsaW5nIGxpc3QN
+Cj4+IGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4+IGh0dHBzOi8vbmFtMTEuc2Fm
+ZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUyRmRyaS1kZXZlbCZhbXA7ZGF0YT0w
+MiU3QzAxJTdDWGluaHVpLlBhbiU0MGFtZC5jb20lN0NlZTY3MzEwZTI2YjY0Y2E5ZTc5MDA4ZDdh
+ZWZjYTdiNCU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2Mzcx
+NzAyNzI0ODE3NjU5MDQmYW1wO3NkYXRhPVpwblA5TU5CUDFjc1FDS1BSMjc1ZWpJdnNaM2I4eEw4
+MHRtU2xwZjdNUEElM0QmYW1wO3Jlc2VydmVkPTANCj4gDQo+IC0tIA0KPiBEYW5pZWwgVmV0dGVy
+DQo+IFNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbg0KPiBodHRwczovL25hbTEx
+LnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29tLz91cmw9aHR0cCUzQSUyRiUyRmJsb2cu
+ZmZ3bGwuY2gmYW1wO2RhdGE9MDIlN0MwMSU3Q1hpbmh1aS5QYW4lNDBhbWQuY29tJTdDZWU2NzMx
+MGUyNmI2NGNhOWU3OTAwOGQ3YWVmY2E3YjQlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRl
+MTgzZCU3QzAlN0MwJTdDNjM3MTcwMjcyNDgxNzY1OTA0JmFtcDtzZGF0YT1mazI4anRIaEFuRTMx
+MkNGTWdWWGFadGFTMllOcUpqbXlKMzE3RldqQW9NJTNEJmFtcDtyZXNlcnZlZD0wDQoNCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
