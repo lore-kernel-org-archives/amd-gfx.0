@@ -7,56 +7,56 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E262C352A3
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 11:23:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BA0FC352A3
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 11:23:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 457EE206D7
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 11:23:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 106DB206D7
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Feb 2020 11:23:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="y3R/bcFz"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 457EE206D7
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Y22o3b5Q"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 106DB206D7
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B03B56EA2C;
-	Tue, 11 Feb 2020 11:23:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5BBC6EA2E;
+	Tue, 11 Feb 2020 11:23:05 +0000 (UTC)
 Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690086.outbound.protection.outlook.com [40.107.69.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40A776EA2C
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2020 11:23:01 +0000 (UTC)
+ (mail-eopbgr690056.outbound.protection.outlook.com [40.107.69.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3D0B6EA2E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2020 11:23:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=YeYkWPEjCeIhnn1y+f0lEL2EfjQJyXTNLI83wGYeeZJrfHEh/7LgPDdaW977NijWzuxGOIQaJ5ktFrxFdMrXHiwjg8EUBcPbRzvFOXcqGhD5ZeHLLtHCChWjTRs+HRbIqysSb5GMC/RcXM5Ho5zU81jz55qPNcg0okZQeq6N9IH8By+P0cxCt1l2ui6eetnbgoehAkvm3WsKVkpe//HRJRNgOpZNkmPIkMJv2nfTZ+1AxFLZskt9p0D6kW7kWTiLBIbdzHWdRan5WtOXfqF0nx0VD3Vj9xCHFKYJi2HDnZgaKhDyE+DtwhD4svv+0/EIs7RGKGLDgKYZwEmmdkUe/Q==
+ b=kUkc4L/zwo5+KH2mMJTQDWC8iVLD7f3TFT0loHZZh1/JD2ktgL0w4OT55pw8UHAqT6ysu+VuXEQeb2AlqicOzUg8sSvkkh2eGgTlbHaUYwWcrJCvtJPVSGqmFN0kgYigDRKdNe4BV5kcN45M6tgqPmrmkeEY0RBjWW/N6tf2emjcyoyprCCkB3xWEI5PkI1HApBViuyGYBZTR+fbF2gwfgm8oUuBIlze9U6OFT1axBTJJ/3NFlEfW+PvY4r6XpwsxObl0w6SdiCzJNekRv/vr+SrlsBmwgoMt+hA6QttMi8Ops5JhBkUf+EtKmvIlXUbFIUwS2/o9+T3tn/Ewe15og==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7VaWe5uLWrtDBuzjDencHgcEZLDbyZAR35cz8nd+96g=;
- b=cJaj3wG6p/nWIbZKKs5a10+TxPJqrdUXuyw5HJdXSiXUgJmx9cmyVw6VAKBZ1wzw+xlxn0MraeeIq++pmr07Mg+ybHrKnE3mSMfKrnGsqL/rIlhD/IUoVrwIsreBVKDzeF35dxmNPFhd36k/sbop9Rj0tDwXsAPNwqcLuxQrirMHKVwc/k/qtl7gaPJh+D3I0yJqqQ+ROVUiiuAmdBQWTBtkHDk63oVUDsHD8NPSdQzGeDInm2kpc5QloAyJol+8xWFgHyhwYiGqhrRRyC4ztPGwpjwzymYEuLzuqK6/TblJtc1+6H0mPn6ZcMAAQNJrFVm18WgrX2E63zi5BasNFg==
+ bh=xK+SxD6TVFJyRlQMZbGV5MXGs4z2unQWsq+gveO7h/w=;
+ b=a81SHGU6dwA66lNdcAgSi/6Cwm4T068jqipHUmmYtX+YKlZsfpOhrhRO7Q+FogE8syqpl+ktJJiBKxkiZfXIRWzc6Jy4obohU2b8PBz/RB99+GHiEKMtd9hRaDJxhhP1tgScV8Yy9aebPwxVab+Vqx2FZcGM1+S/BWrfKiPxcdL83sP4FUZOB3mF0TM+7kwa3OOeHyhEYdVRqoYcAEhl4TkvUxDYAFI3N6fyQnKBHxQpvq4Njg3nWgUKOgNzSt2F/wvxRzYgw+rsc9kfFCePpGD/gUYiuS6HaAAaupRwP081EYSd8sG/gtURZ9HhLQRAsBaHbgxOVHoOBovUKKKoug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7VaWe5uLWrtDBuzjDencHgcEZLDbyZAR35cz8nd+96g=;
- b=y3R/bcFzPcig7H/vabLsmiG+7wuzppkViVYPIBbxAWknGAHykY8BmsOxHpq5JblKvYIpaHLl3QBzudqOEcvQlsDuW63SIvIHRi062Ja80ukoUJUaYxEEyNLD8tfbxVkeDunLi/xdLEzk9qS2zb5FBx9S0pfqu4Oo43P3Xog0s/4=
+ bh=xK+SxD6TVFJyRlQMZbGV5MXGs4z2unQWsq+gveO7h/w=;
+ b=Y22o3b5Qj4N/z7XiEAYtnE23tlIGA8A8x1cB5HeMYEFG1PPlU62AfCfsjqFJb8LNsNT30cTyIhiENOrhJzhCR4KoqQryiunulER7pEr3aPxv1eG753uvaz7EIG3u63Dubr8CmV7YIZWo+NZJaLSOJs5M1N727YXY+Tio0Ee0OWA=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Ray.Huang@amd.com; 
 Received: from MN2PR12MB3309.namprd12.prod.outlook.com (20.179.83.157) by
  MN2PR12MB4221.namprd12.prod.outlook.com (52.135.48.87) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2707.23; Tue, 11 Feb 2020 11:23:00 +0000
+ 15.20.2707.23; Tue, 11 Feb 2020 11:23:04 +0000
 Received: from MN2PR12MB3309.namprd12.prod.outlook.com
  ([fe80::f945:5c4c:9c3f:930a]) by MN2PR12MB3309.namprd12.prod.outlook.com
  ([fe80::f945:5c4c:9c3f:930a%6]) with mapi id 15.20.2707.030; Tue, 11 Feb 2020
- 11:23:00 +0000
+ 11:23:04 +0000
 From: Huang Rui <ray.huang@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH libdrm 1/4] amdgpu: use alloca for dependencies and
- sem_dependencies
-Date: Tue, 11 Feb 2020 19:23:00 +0800
-Message-Id: <1581420183-14223-2-git-send-email-ray.huang@amd.com>
+Subject: [PATCH libdrm 2/4] amdgpu: use amdgpu_cs_submit_raw2 in
+ amdgpu_cs_submit
+Date: Tue, 11 Feb 2020 19:23:01 +0800
+Message-Id: <1581420183-14223-3-git-send-email-ray.huang@amd.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1581420183-14223-1-git-send-email-ray.huang@amd.com>
 References: <1581420183-14223-1-git-send-email-ray.huang@amd.com>
@@ -68,19 +68,19 @@ Received: from hr-intel.amd.com (180.167.199.188) by
  HK2PR0401CA0018.apcprd04.prod.outlook.com (2603:1096:202:2::28) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.20.2707.21 via Frontend
- Transport; Tue, 11 Feb 2020 11:22:57 +0000
+ Transport; Tue, 11 Feb 2020 11:23:00 +0000
 X-Mailer: git-send-email 2.7.4
 X-Originating-IP: [180.167.199.188]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: db1d0734-ef4b-4647-07e2-08d7aee4c074
+X-MS-Office365-Filtering-Correlation-Id: 5fd5ddeb-7f59-4ffd-5b5a-08d7aee4c297
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4221:|MN2PR12MB4221:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4221CF137351176E2483A2DAEC180@MN2PR12MB4221.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
+X-Microsoft-Antispam-PRVS: <MN2PR12MB42217AFB81A4ADC1DBB48449EC180@MN2PR12MB4221.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
 X-Forefront-PRVS: 0310C78181
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(366004)(346002)(396003)(39860400002)(376002)(199004)(189003)(7696005)(52116002)(956004)(316002)(8676002)(5660300002)(4326008)(86362001)(2906002)(2616005)(54906003)(81156014)(478600001)(8936002)(6486002)(6666004)(81166006)(66476007)(66556008)(6916009)(66946007)(36756003)(16526019)(186003)(26005);
+ SFS:(10009020)(4636009)(136003)(366004)(346002)(396003)(39860400002)(376002)(199004)(189003)(7696005)(52116002)(956004)(316002)(8676002)(5660300002)(4326008)(86362001)(2906002)(2616005)(54906003)(81156014)(478600001)(8936002)(6486002)(81166006)(66476007)(66556008)(6916009)(66946007)(36756003)(16526019)(186003)(26005);
  DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4221;
  H:MN2PR12MB3309.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
@@ -88,15 +88,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TgbGS/hG2h51LDtnWyE5KX6G0CrU6KCkczs1a1joYtwVHwxtahhi12uZZiU5s3kui2pMSwH+oRMW/4MfkJSn6sz0JGXS8uotvOh3jLueZNVFbYfBdjbT3PuVIvHrjWLCU9wt6vBQGkSlc3jLi8g8QyCMeRBJgtnm/axbLtYNbBWynig9DNP5iC7JB3ocOXc3CdlwroCrp/r0j94UhbaGMY/vJ0QAe7lhqcPNihBdXzcH2G/sQHQKc6ObxKF6AKu4QvB3qVUOMwkn2tNZYkwwMBHwCfiF8HAOTOjYalLc21rHcs5xKJ5D8Cthoa4eW/+CzPW9x9LomElND6g4mxqbMFS2Sd7JjgNCDjLsxEgrmBDy/JLbocm2flBJ+90ogLbq1vTWSd5pfQCoJX7G3mOrXYCkMcbzkPnVxP+IHOC3oIbiS3rdGkiwCnegWyAE8O8K
-X-MS-Exchange-AntiSpam-MessageData: CBNZUaMg9R2LlFbgW0CQU0Xe0YrIfTdMC7PRID1y3SvySiUB3ym2wFAbgt00fKYOEVqXjFNRU3JvrZiNpkAwaZ3tj/4t1hDECm+tkykVPcV0Am1oT5LkxuhlVkRa7qYgAChy7FMjLO9Z+j8xP/07ZA==
+X-Microsoft-Antispam-Message-Info: VZJW1g1ELZbznSxwbX8c69qZzs5sUwLGVjU079quPjoNCFrPcoDdyqUUZiMCrQt/Qn/S41ywLZLqHXFiT7T/yfLVtG6FrtDEV5i4O7qSxotsZS42Rf8SEv1P+mvi/z2x4yFGb2SFixA3i2ZPHKfKdcluxLYvf2unlSEPcs+UUujgqZtuJo0CKHBQ8c6Qy5jy+YmLR09gYlmjCd5eVV/93m2EU/SwFIu7c/iLv7SQEy6zrWXqKEI5MAJBn9tp5eDVVvdiGcurtLiPLBlJ5JmsMChJRBIPn1m2yrvtl9MloMw3wqb0DQCkB95qKWzUC4NPWhix6z016/XxaXdWUIw95JaMvFTVVPBAEZA2VKy0KC6TIfa8hTm7nEgKcX3rZzKxAm9mmi/7k4mBPv792fcALOvlw9xeikk9HEA6QMzmc7FJ6hBFqfs43KRI+gpqw0Uy
+X-MS-Exchange-AntiSpam-MessageData: S/EiSOshsplz/XPFI8t4h8xu0kAd6gKpdXbQNzBKao7uIKvIfA4kqoARBAwU9c0T7+4Zxc3N+MFO/6O7AGx1/laF5yW7WNaHE/H6aIWO+wiU+cMjDsn/dsxBIVCXQDenVOfPebLD6w3NrJ3snkoSDg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: db1d0734-ef4b-4647-07e2-08d7aee4c074
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2020 11:23:00.3998 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fd5ddeb-7f59-4ffd-5b5a-08d7aee4c297
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2020 11:23:04.0018 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MaWLGVG6x2rIBaxwtzZZZjAuRlZZg6s41GfeJuqbLFpulq6Lj5u/yHCpVvVnxSX9uwM8pI8YdUXbYG7YruX57w==
+X-MS-Exchange-CrossTenant-UserPrincipalName: OYCoqsQvw2wRc6wlxpwCcsGYgKJWlUOhV6ee5Rb3V/mGLjdRODKx7BNM6Is6siMzbEbsAtN1ULZZynoxCudlmw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4221
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,45 +119,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use alloca instead of malloc, then we don't need free them at the end of this
-function.
+So far, amdgpu_cs_submit_raw2 is mainly used for upper layer (Mesa), however,
+amdgpu_cs_submit is used for current all unit tests. Our intention is that the
+unit tests can actually verify the API which is really used.
 
 Signed-off-by: Huang Rui <ray.huang@amd.com>
 ---
- amdgpu/amdgpu_cs.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ amdgpu/amdgpu_cs.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/amdgpu/amdgpu_cs.c b/amdgpu/amdgpu_cs.c
-index 1bd974f..aaa1f7b 100644
+index aaa1f7b..864a76a 100644
 --- a/amdgpu/amdgpu_cs.c
 +++ b/amdgpu/amdgpu_cs.c
-@@ -295,7 +295,7 @@ static int amdgpu_cs_submit_one(amdgpu_context_handle context,
+@@ -226,9 +226,11 @@ static int amdgpu_cs_submit_one(amdgpu_context_handle context,
+ 	struct drm_amdgpu_cs_chunk_data *chunk_data;
+ 	struct drm_amdgpu_cs_chunk_dep *dependencies = NULL;
+ 	struct drm_amdgpu_cs_chunk_dep *sem_dependencies = NULL;
++	amdgpu_device_handle dev = context->dev;
+ 	struct list_head *sem_list;
+ 	amdgpu_semaphore_handle sem, tmp;
+ 	uint32_t i, size, sem_count = 0;
++	uint64_t seq_no;
+ 	bool user_fence;
+ 	int r = 0;
+ 
+@@ -354,12 +356,12 @@ static int amdgpu_cs_submit_one(amdgpu_context_handle context,
+ 		chunks[i].chunk_data = (uint64_t)(uintptr_t)sem_dependencies;
  	}
  
- 	if (ibs_request->number_of_dependencies) {
--		dependencies = malloc(sizeof(struct drm_amdgpu_cs_chunk_dep) *
-+		dependencies = alloca(sizeof(struct drm_amdgpu_cs_chunk_dep) *
- 			ibs_request->number_of_dependencies);
- 		if (!dependencies) {
- 			r = -ENOMEM;
-@@ -326,7 +326,7 @@ static int amdgpu_cs_submit_one(amdgpu_context_handle context,
- 	LIST_FOR_EACH_ENTRY(sem, sem_list, list)
- 		sem_count++;
- 	if (sem_count) {
--		sem_dependencies = malloc(sizeof(struct drm_amdgpu_cs_chunk_dep) * sem_count);
-+		sem_dependencies = alloca(sizeof(struct drm_amdgpu_cs_chunk_dep) * sem_count);
- 		if (!sem_dependencies) {
- 			r = -ENOMEM;
- 			goto error_unlock;
-@@ -363,8 +363,6 @@ static int amdgpu_cs_submit_one(amdgpu_context_handle context,
+-	r = drmCommandWriteRead(context->dev->fd, DRM_AMDGPU_CS,
+-				&cs, sizeof(cs));
++	r = amdgpu_cs_submit_raw2(dev, context, cs.in.bo_list_handle, cs.in.num_chunks,
++				  chunks, &seq_no);
+ 	if (r)
+ 		goto error_unlock;
+ 
+-	ibs_request->seq_no = cs.out.handle;
++	ibs_request->seq_no = seq_no;
  	context->last_seq[ibs_request->ip_type][ibs_request->ip_instance][ibs_request->ring] = ibs_request->seq_no;
  error_unlock:
  	pthread_mutex_unlock(&context->sequence_mutex);
--	free(dependencies);
--	free(sem_dependencies);
- 	return r;
- }
- 
 -- 
 2.7.4
 
