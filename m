@@ -8,65 +8,66 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 102AEC2BA83
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2020 04:33:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD76FC2BA83
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2020 04:33:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D1C0A20848
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2020 04:33:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A3E6620848
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2020 04:33:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MajzqVIg"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D1C0A20848
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kykCR+KB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A3E6620848
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 663C26E5D3;
-	Wed, 12 Feb 2020 04:33:17 +0000 (UTC)
-Received: from mail-yb1-xb42.google.com (mail-yb1-xb42.google.com
- [IPv6:2607:f8b0:4864:20::b42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 492746E4AB
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2020 04:33:16 +0000 (UTC)
-Received: by mail-yb1-xb42.google.com with SMTP id x191so458746ybg.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2020 20:33:16 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 591D86E4AB;
+	Wed, 12 Feb 2020 04:33:22 +0000 (UTC)
+Received: from mail-yb1-xb35.google.com (mail-yb1-xb35.google.com
+ [IPv6:2607:f8b0:4864:20::b35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 909CB6E4AB
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2020 04:33:20 +0000 (UTC)
+Received: by mail-yb1-xb35.google.com with SMTP id b141so465954ybg.10
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Feb 2020 20:33:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7PJ/r1K24eno9F0izEkDsLH2/2KQLBSSH8pPy9GMptI=;
- b=MajzqVIgq/Sc0DsSe2PCEdQ0z5aKqtnv4xkf50KX4Kf9TO2BQfrTI0g0f6OhE9/RWi
- kvq3m/n5YQ2uzzhc909NkmBcN0/dyURXzEO9J2qcfooe9GQ7eqsFDh7wx8r46AIQeyXN
- ts6LerIG1KXq1WcID38MS07DwVV9CGemkSP23bs6GRoTmjYQeU1d/2I7VMmOHgUx47gd
- QIHhxNc4GbkN4s8+dfvpBjIOeqYkTRJzBHt4sCo5KacuL1RZ2/wyYbwazGSGfqg7rEz1
- enBEh/vx7e5evsvfa6R32XbX8mKyXhFDpY6R1XgHlBcVfy4naxQK8edrVGQW10bQgFOf
- A23w==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=/+3Gc05t28Hko+ggBOMzzH8ntI4hl+K6ektSGvsDRPE=;
+ b=kykCR+KByMLzEQi/DgVUR/qRntburGg3BQANAH7dynSMs81Tk5EDsil/fTrFyBT49I
+ pdl/hLGBZ1DAwseFIKz1+sgqfabS0CwhjjxDWFbs6q1Q6xThafoejx3QQrxajeMEnumO
+ AcpHtzYcPN7my2AMX+ZrRc38cUkn3pkiNIo3dsnkhVWefizgW5/kOTGnpKT2PxW7SnHE
+ g/BKsASF7noTOwqAsT3wfTj9bQ5eBkZY08+C/jN8cF+3EdNyXeCJgd1Lz+Tw3Ygax1yF
+ 5Mq9sEEVWFqd1zftfNaYsIgf6jSbSdZG6mEH32c45Qi5Bet2KgEerg62NJEtIOIRnk/9
+ MBQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7PJ/r1K24eno9F0izEkDsLH2/2KQLBSSH8pPy9GMptI=;
- b=lT0uI4i8NeUohvyo6NHbg03iWZYE6HtxRDAHs48U4rsaD/s1gjopZVNDvXy1Db1qeg
- sPIw+S9DvBiFGhO2sOgav+j1vT1xv4CyX2gTLhCBhKSuiNNNsg9pDSIF+Va5furc/8oq
- nVx5B/840OXDD2nTmXsZkGN+j9zTbEisfIdecDXjgvKuPjFPO/L/YcKMqjUcuGH7oFek
- qJfQhxuIHRo9WXlGhB+sdgXm6jmlW2LEG50hnAkZ2EeQrOhblMtVY/F/Bt1vN1PRT8F8
- 1z4XFkS53wgA7l+CfzuktzBKtvwHwWUvKugcK7IqjrRmjES3xdMKUcH871mUiIKooLAc
- ziRA==
-X-Gm-Message-State: APjAAAUnO3gqgkr7jG/1AuEDTR6j7T19x3+Xu8q4NbOMb86EOstYOynN
- Mbe/v23VX62LTUXipSL19yOmQgwi
-X-Google-Smtp-Source: APXvYqwytJsaVzoK1ZAexntE9y/u/O92XkB5whlZpUeZwUiTqfBzp3Q/FMs1CJIVj28MLi7F1z0keA==
-X-Received: by 2002:a81:3ad0:: with SMTP id h199mr8234387ywa.37.1581481995145; 
- Tue, 11 Feb 2020 20:33:15 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=/+3Gc05t28Hko+ggBOMzzH8ntI4hl+K6ektSGvsDRPE=;
+ b=Fu8kfps+qJ1AdGNpy5C02BuUCTnUoiG9q4grVxVBwSapy9SFS/qMvcwtbDEgTnM9Et
+ +UvjyoznUG0ZTle2A0C5+YYas21vd9bRdByAVrvtV3weZLa+1DFmDlaDfaD9usSDIF06
+ yIM9qEHspU4HPcuzjHCpTWIJl+FIeawjIM82AHDfnu4gXIQVWtctLlR7l96/ab/gWmTH
+ tSp8hwsNIa0nBKx3oQOXMw6os3kRRscxeOqQ1LEDN0Wt0TJHF474gVG8Z+GLYY0ujkrH
+ TCSt3E4Ej57HfaE8YYlREB9TwJL18fDC6Q/ksNzMxr5kj5f3qGR0bNPZ/iZHWfXJtb4D
+ tDZg==
+X-Gm-Message-State: APjAAAWR/xdmKre7hSfhpUKeCC8477TLelN0/RwnT4eBtLdT1DqZe4Q0
+ KYOUqQJN1PUkmXtSLRmL+tjuwDZ7
+X-Google-Smtp-Source: APXvYqzGNHJmSdJrAeJ3o/eIXxwYIbPOrMw2WFsnejjthN1dm/7cnAkQge03Bq3ZXSsG+0a0tN5Yrg==
+X-Received: by 2002:a5b:88e:: with SMTP id e14mr9109521ybq.338.1581481999509; 
+ Tue, 11 Feb 2020 20:33:19 -0800 (PST)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h23sm2966676ywc.105.2020.02.11.20.33.13
+ by smtp.gmail.com with ESMTPSA id h23sm2966676ywc.105.2020.02.11.20.33.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 11 Feb 2020 20:33:14 -0800 (PST)
+ Tue, 11 Feb 2020 20:33:19 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/amdgpu/display: extend DCN guard in
- dal_bios_parser_init_cmd_tbl_helper2
-Date: Tue, 11 Feb 2020 23:32:56 -0500
-Message-Id: <20200212043258.1123758-1-alexander.deucher@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu/display: extend DCN guards
+Date: Tue, 11 Feb 2020 23:32:57 -0500
+Message-Id: <20200212043258.1123758-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200212043258.1123758-1-alexander.deucher@amd.com>
+References: <20200212043258.1123758-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,46 +86,64 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-To cover DCN 2.x.
+to cover dcn2.x related headers.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/display/dc/bios/command_table_helper2.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c  | 4 ++--
+ drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c   | 2 +-
+ drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/command_table_helper2.c b/drivers/gpu/drm/amd/display/dc/bios/command_table_helper2.c
-index 7388c987c595..204d7942a6e5 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/command_table_helper2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/command_table_helper2.c
-@@ -53,25 +53,18 @@ bool dal_bios_parser_init_cmd_tbl_helper2(
- 
- 	case DCE_VERSION_11_2:
- 	case DCE_VERSION_11_22:
-+	case DCE_VERSION_12_0:
-+	case DCE_VERSION_12_1:
- 		*h = dal_cmd_tbl_helper_dce112_get_table2();
- 		return true;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index a65a1e7820d6..c02e5994d32b 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -46,12 +46,12 @@
+ #include "dce100/dce100_resource.h"
+ #include "dce110/dce110_resource.h"
+ #include "dce112/dce112_resource.h"
++#include "dce120/dce120_resource.h"
  #if defined(CONFIG_DRM_AMD_DC_DCN)
- 	case DCN_VERSION_1_0:
- 	case DCN_VERSION_1_01:
--		*h = dal_cmd_tbl_helper_dce112_get_table2();
--		return true;
+ #include "dcn10/dcn10_resource.h"
 -#endif
--
- 	case DCN_VERSION_2_0:
--		*h = dal_cmd_tbl_helper_dce112_get_table2();
--		return true;
- 	case DCN_VERSION_2_1:
- 		*h = dal_cmd_tbl_helper_dce112_get_table2();
- 		return true;
--	case DCE_VERSION_12_0:
--	case DCE_VERSION_12_1:
--		*h = dal_cmd_tbl_helper_dce112_get_table2();
--		return true;
+ #include "dcn20/dcn20_resource.h"
+ #include "dcn21/dcn21_resource.h"
+-#include "dce120/dce120_resource.h"
 +#endif
  
- 	default:
- 		/* Unsupported DCE */
+ #define DC_LOGGER_INIT(logger)
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c
+index d2d36d48caaa..f252af1947c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_factory.c
+@@ -47,9 +47,9 @@
+ #include "dce120/hw_factory_dce120.h"
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ #include "dcn10/hw_factory_dcn10.h"
+-#endif
+ #include "dcn20/hw_factory_dcn20.h"
+ #include "dcn21/hw_factory_dcn21.h"
++#endif
+ 
+ #include "diagnostics/hw_factory_diag.h"
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c
+index 5d396657a1ee..04e2c0f74cb0 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_translate.c
+@@ -45,9 +45,9 @@
+ #include "dce120/hw_translate_dce120.h"
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ #include "dcn10/hw_translate_dcn10.h"
+-#endif
+ #include "dcn20/hw_translate_dcn20.h"
+ #include "dcn21/hw_translate_dcn21.h"
++#endif
+ 
+ #include "diagnostics/hw_translate_diag.h"
+ 
 -- 
 2.24.1
 
