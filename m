@@ -2,105 +2,99 @@ Return-Path: <SRS0=l6GN=4A=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E375C2BA83
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2020 14:30:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60C7AC2BA83
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2020 14:39:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5A687206D7
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2020 14:30:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2CEB920724
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Feb 2020 14:39:41 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="MSWld7/9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A687206D7
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ReyjZWxS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2CEB920724
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6BA36EAB7;
-	Wed, 12 Feb 2020 14:30:43 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770050.outbound.protection.outlook.com [40.107.77.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 673496EAB7
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2020 14:30:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8DB96F50B;
+	Wed, 12 Feb 2020 14:39:40 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690087.outbound.protection.outlook.com [40.107.69.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 864096EAB6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Feb 2020 14:39:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X7iv+zZlK+Mzmzzg3N9EispDSo1j7oRFXm57t+fN4t1fhey58bU69hVi7rlub0qX3/SbtPemwIJ92RPZXvS+5zWSelJP/Rw2OIllKHUBbJbXgLMhGyYkAEiS3lM91htOmxneOhYChPeCW6sJHyo8J8f3pVu36AcLbRIyBqYaRDpb0nuA7qlKbvjmL5i/XvTgSkqcVN5OrTl9IcXm3xgT967lH0SU+Nx+c3wSmhey3VAgIuEraJPe/gYjTOJ+Q8gLOZao0i+ZqmWcI23RLPWZoKMEC2EOfvEu29okYu7AxEOzdrulzaoE2Q7MQfrzMfn4Vk1LkQcZQBsHCJlhqV/r2g==
+ b=gi3ZrjwCBWhuCbjgHiKeuQBSvDkey5m5A5pIvIbwpk7VVgIGBePfC6vtrO2lAxkEj9w3vHPCWIPKoYi39WhLunX9jQj0ycO9jIuq4bgBUoCVep24RYDBDaBjA38pVGqY2fpfvkAQgRfpdrovXTpbblLWY1BXi4uqvxq+jRuDSm6lpK06GQ2peroxqiF1jrzJgQz5kYrKSOR7HFGzVHZrqeqRaumduvqydYEOnsDcitj23vEcTqU0NbGojaIx9TjSPhJB498B7WUcLLD229Er5THXqnBW5iEss8MhEFOfQY4K17jTschpd80ort+CbXTZiD2xj2lH58rv92hmQHbZZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TO1cjsDZE6Spx5XVapqhZrXttxbyeoyLWtlOHER5OQg=;
- b=iRY707sqyVFCBWWuAHGOWqd0NLTrp+cb/1DBqIpn9uEXBghQJkYdq8UPOnrOKwUVGQ3ZtE+uE96Wj+TfnwjlDpbsRQyBgu9fX5j51GwEzNUJknvgQFSm8o4goli+QCqcq68jsstpL5PH8jofWMUmpAmSlVe9xuV2MPP6EqQH4FXFSgh3Gexa24dsarNfI9kbY99tUJl4bzsUqhj/ciG5zPbcPU6ZF5z5rdl1KWkYlGiJvb9FzpigLVvkqJ1VRbvSedxBpE+gWKwkol1eg/YGYUUyO1p/mdoytbmHSks5Z4jbOsMnJ4ILOqru2L7JGIysHKsUADftAj2UrXp3gyyJ+w==
+ bh=NBySE8trXuVDcRqpEpbqwOPcuUgilx7I2UqWLhZEFcA=;
+ b=Lr7bsPf/W0eM+xjXuflkKFuKneo6mmVDVJaQJ+WNURmiNUvIezvlMhBURDz6lrKcvriO2eegJ9wvFSZR+3BUdph8kcbwjfiVPUFjTxXimQcwYLFAmCebwlsrbGQzsppYk5akSw9F7yzYNHRgo4r7mRDdcfxyB3ITLT7/MqF1IqwbPYwJEn0CquYlvXxSIGoblL6dckXq5rwMbJCBEMRTPpAzdvVVcKfmJLAvAY/cRnJpMOhTL7yV0ces8pR8E+BLWfESCxPqAfzxT/rvtBFI5tK/UeZsgzQlZEYvvgjLwnGmf6doxDArYuBX+6Ii98gUyRDqgPopw7yyDaj7zbTdNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TO1cjsDZE6Spx5XVapqhZrXttxbyeoyLWtlOHER5OQg=;
- b=MSWld7/9XHb98pFUSAcWlTJGiAEPcamaYGcijT5Ebprwa6GwqOvzxVjwRz4zvwGBbbxHxzNs6CqljPQzguzwstEotEZnW4Cp7Xy+0AmHI7r7wtGtVfff3Bj925Sl/MKEoaIsmSQvq71wKiFk89mFA1caKdfpw/bffVgixTzu1kU=
-Received: from BYAPR12MB3285.namprd12.prod.outlook.com (20.179.92.142) by
- BYAPR12MB3224.namprd12.prod.outlook.com (20.179.93.83) with Microsoft SMTP
+ bh=NBySE8trXuVDcRqpEpbqwOPcuUgilx7I2UqWLhZEFcA=;
+ b=ReyjZWxSqLT5cWqJDf2eZ0XEYEp1TJtORwAV3r2V+8pYGxjv1gLPk/SAYQZO52cU95DKGv/kRWT3PMUAP0AHxFuQFP/jDadf1kpIL5EVt4fyc+NyD0pvB6QNWSeucoQeO8o/2tw5t+BgbKNIn44hzROpqDKRH7TM3KGWPB82ey8=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Kent.Russell@amd.com; 
+Received: from BN6PR12MB1316.namprd12.prod.outlook.com (10.168.227.7) by
+ BN6PR12MB1570.namprd12.prod.outlook.com (10.172.18.136) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2729.22; Wed, 12 Feb 2020 14:27:35 +0000
-Received: from BYAPR12MB3285.namprd12.prod.outlook.com
- ([fe80::18a7:759:1dbb:ef99]) by BYAPR12MB3285.namprd12.prod.outlook.com
- ([fe80::18a7:759:1dbb:ef99%7]) with mapi id 15.20.2707.030; Wed, 12 Feb 2020
- 14:27:35 +0000
-From: "Zhu, James" <James.Zhu@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 1/2] drm/amdgpu/vcn: fix race condition issue for vcn start
-Thread-Topic: [PATCH 1/2] drm/amdgpu/vcn: fix race condition issue for vcn
- start
-Thread-Index: AQHV4DzlsX32TKlgQEWFDwveeeppLqgXoJoc
-Date: Wed, 12 Feb 2020 14:27:35 +0000
-Message-ID: <BYAPR12MB32852AA885154B9C31A3F268E41B0@BYAPR12MB3285.namprd12.prod.outlook.com>
-References: <1581358016-8986-1-git-send-email-James.Zhu@amd.com>
-In-Reply-To: <1581358016-8986-1-git-send-email-James.Zhu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-02-12T14:27:34.615Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=James.Zhu@amd.com; 
-x-originating-ip: [2607:9880:2480:14:b0bf:419:3b71:afd1]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 7707027d-b918-493d-51d9-08d7afc7b425
-x-ms-traffictypediagnostic: BYAPR12MB3224:
-x-microsoft-antispam-prvs: <BYAPR12MB322422F434E8749CB25CBCD7E41B0@BYAPR12MB3224.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:40;
-x-forefront-prvs: 0311124FA9
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(376002)(39860400002)(366004)(346002)(136003)(199004)(189003)(53546011)(6916009)(316002)(6506007)(7696005)(86362001)(81156014)(8676002)(71200400001)(55016002)(186003)(8936002)(33656002)(81166006)(478600001)(66946007)(76116006)(9686003)(66476007)(66556008)(2906002)(52536014)(64756008)(5660300002)(19627405001)(66446008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB3224;
- H:BYAPR12MB3285.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 5XazeoCkdVShDD1az2dTNMqJOmhIYL6P2e9Dv648N1SRO1ei4u7eDqy3w0TKEL33dFs0faor+CLHgBdtyXXkB2SzZmFjyjrcXP6e5jLMvdZsceeYhgBdPeyDMIUWJFnRIV5azliTo8P5Lu+VhscNSb+CXDmnfoYZTRlgniQvIvueHsjZiGdtnJhv+SGwGNNHugF79RKvZ30R06Yw5CuE4qv+Pn9lNoL4V1FuR6LSOCh1Y/Z3RL7dpJ5Aq49S4g0skR5CX3Ke+XsrmYKjmDWJn01Hff0Yux7NGpJWGK02pJSfIN0A2Oa3RAsYRDqeAUNTxGibSwiLmKYhnhERQh3mmZ4IYOt7V6uM4CTHOVpA6/sN8zcU4TKfg130/TB4b8qwVfM70oCld3iZqyBeMKd6qAgyrr32CoODstoWp7Z+mOfG25NlrGkt6xzFY45L8aJT
-x-ms-exchange-antispam-messagedata: b7Uumhd2c0yw6SqSPuTuA6zYfbTBVHnKNGRB7gX7ahIhrlgGqxTHff2NcGu+mZQP1h1hzxXxFTaE8aqLq8Prk4491RFsbEssTUpv4ymf6FFujW7l5dlTYJx+PJp2yiq6uv22Nnxg6cuUi9vmNemIdbjLpsebZmqQDVQX/hD2e6kp9CIInT17F7ZmaAtIceSSQKXdhXL9r0Ovl9Q6jI/Tew==
-x-ms-exchange-transport-forked: True
+ 15.20.2729.22; Wed, 12 Feb 2020 14:39:38 +0000
+Received: from BN6PR12MB1316.namprd12.prod.outlook.com
+ ([fe80::9ca:8201:570:9323]) by BN6PR12MB1316.namprd12.prod.outlook.com
+ ([fe80::9ca:8201:570:9323%8]) with mapi id 15.20.2729.021; Wed, 12 Feb 2020
+ 14:39:38 +0000
+From: Kent Russell <kent.russell@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/powerplay: Ratelimit PP_ASSERT warnings
+Date: Wed, 12 Feb 2020 09:39:28 -0500
+Message-Id: <20200212143928.6308-1-kent.russell@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: YTXPR0101CA0068.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::45) To BN6PR12MB1316.namprd12.prod.outlook.com
+ (2603:10b6:404:1c::7)
 MIME-Version: 1.0
+Received: from krussell.amd.com (165.204.55.251) by
+ YTXPR0101CA0068.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::45) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2729.23 via Frontend
+ Transport; Wed, 12 Feb 2020 14:39:37 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 1dd1fd46-d031-4a21-e7ab-08d7afc962f7
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1570:|BN6PR12MB1570:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN6PR12MB157022DA82DA8ADD66329F2F851B0@BN6PR12MB1570.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1468;
+X-Forefront-PRVS: 0311124FA9
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(366004)(39860400002)(346002)(136003)(376002)(396003)(189003)(199004)(2906002)(6916009)(5660300002)(66946007)(6666004)(6486002)(4326008)(66556008)(66476007)(8936002)(36756003)(81166006)(81156014)(1076003)(16526019)(8676002)(186003)(26005)(7696005)(44832011)(52116002)(956004)(86362001)(2616005)(316002)(478600001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN6PR12MB1570;
+ H:BN6PR12MB1316.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Y9d3IImfzwofUo4KIcIf6a6e95hIBL9SbAmF9tHO7I4EZr4M3SvRUp5mRveWKrNz2UOaSTRUysMrwUdTwbkFa2+6zFlO0Mb/SOUaq1sMn8FnOrIeg/6C5xznsVTh11WJUtmglE0JlfRMnU4Zxqvgji89kNz01DzovGxEEdar+09lWgz+RxEYPVaACB2JNhgFGmp0DGN4We/mLXC9a8VuGF8RwguKcl3WX7BiJ7+hFE6POYExbxtiLPGPXd9c1t7AauAPPgoxnhKx1fzYDj1PxetvPJlowbhzgMssdST0abOPOCDkQevWes4Pjqkvo3dXsesXwnuEgRWP81dnBuw0qWDJxHHqB/F2ooHZlTiRhbMPwGsNsPKEsroahd2x4f7mwg2bCCe+FLbm0xpJcL5RM7+WUkT4Qal1HinW5ZHmbOK/R7OQVVBYZkmfP/oNsB7o
+X-MS-Exchange-AntiSpam-MessageData: AqHChqvdCGSuWlBVipnp8VzQt0aGQi67yXwyhWK67dOIYCQwuWc0DVCP6Esd7L/kBwvmcxIFItx9SH6sv1IcsXO7/KUcf+FlyU4FIIPrCqCGs9o/gooPzpFk4P5E52CzuXhLJodJnOZCCfE3wetxFA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7707027d-b918-493d-51d9-08d7afc7b425
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Feb 2020 14:27:35.0942 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Dn8IpbD2Z2n738D4Jdw3aAW4UmCj5/SBdfYkVNdEe51NmY5ljJGGT2ZozGoHWW/M
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3224
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1dd1fd46-d031-4a21-e7ab-08d7afc962f7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Feb 2020 14:39:38.3204 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PoVYBL19CNpQAdQBJhDfojQCGVSvy768D9AI6MIEnLfjWfQdUMZXdCSr03j/v3xq4LOPFaboeNittlklTocjnA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1570
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,242 +106,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1398825514=="
+Cc: Kent Russell <kent.russell@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1398825514==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BYAPR12MB32852AA885154B9C31A3F268E41B0BYAPR12MB3285namp_"
+In certain situations the message could be reported dozens-to-hundreds of
+times, based on how often the function is called.
+E.g. If MCLK DPM, any calls to get/set MCLK will result in a failure
+message, potentially flooding dmesg. Ratelimit the warnings to avoid
+this flood.
 
---_000_BYAPR12MB32852AA885154B9C31A3F268E41B0BYAPR12MB3285namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-ping
-
-________________________________
-From: Zhu, James <James.Zhu@amd.com>
-Sent: Monday, February 10, 2020 1:06 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhu, James <James.Zhu@amd.com>
-Subject: [PATCH 1/2] drm/amdgpu/vcn: fix race condition issue for vcn start
-
-Fix race condition issue when multiple vcn starts are called.
-
-Signed-off-by: James Zhu <James.Zhu@amd.com>
+Change-Id: Ib817fd9227e9ffec8f1ed18c5441cbb135bc413b
+Signed-off-by: Kent Russell <kent.russell@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 4 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h | 1 +
- 2 files changed, 5 insertions(+)
+ drivers/gpu/drm/amd/powerplay/inc/pp_debug.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vcn.c
-index f96464e..aa7663f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-@@ -63,6 +63,7 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)
-         int i, r;
-
-         INIT_DELAYED_WORK(&adev->vcn.idle_work, amdgpu_vcn_idle_work_handl=
-er);
-+       mutex_init(&adev->vcn.vcn_pg_lock);
-
-         switch (adev->asic_type) {
-         case CHIP_RAVEN:
-@@ -210,6 +211,7 @@ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev)
-         }
-
-         release_firmware(adev->vcn.fw);
-+       mutex_destroy(&adev->vcn.vcn_pg_lock);
-
-         return 0;
- }
-@@ -321,6 +323,7 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring=
-)
-         struct amdgpu_device *adev =3D ring->adev;
-         bool set_clocks =3D !cancel_delayed_work_sync(&adev->vcn.idle_work=
-);
-
-+       mutex_lock(&adev->vcn.vcn_pg_lock);
-         if (set_clocks) {
-                 amdgpu_gfx_off_ctrl(adev, false);
-                 amdgpu_device_ip_set_powergating_state(adev, AMD_IP_BLOCK_=
-TYPE_VCN,
-@@ -345,6 +348,7 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *ring=
-)
-
-                 adev->vcn.pause_dpg_mode(adev, ring->me, &new_state);
-         }
-+       mutex_unlock(&adev->vcn.vcn_pg_lock);
- }
-
- void amdgpu_vcn_ring_end_use(struct amdgpu_ring *ring)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vcn.h
-index 6fe0573..2ae110d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
-@@ -200,6 +200,7 @@ struct amdgpu_vcn {
-         struct drm_gpu_scheduler *vcn_dec_sched[AMDGPU_MAX_VCN_INSTANCES];
-         uint32_t                 num_vcn_enc_sched;
-         uint32_t                 num_vcn_dec_sched;
-+       struct mutex             vcn_pg_lock;
-
-         unsigned        harvest_config;
-         int (*pause_dpg_mode)(struct amdgpu_device *adev,
---
-2.7.4
-
-
---_000_BYAPR12MB32852AA885154B9C31A3F268E41B0BYAPR12MB3285namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-ping<br>
-</div>
-<div id=3D"Signature">
-<div><br>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Zhu, James &lt;Jame=
-s.Zhu@amd.com&gt;<br>
-<b>Sent:</b> Monday, February 10, 2020 1:06 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhu, James &lt;James.Zhu@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 1/2] drm/amdgpu/vcn: fix race condition issue for vc=
-n start</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Fix race condition issue when multiple vcn starts =
-are called.<br>
-<br>
-Signed-off-by: James Zhu &lt;James.Zhu@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 4 &#43;&#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h | 1 &#43;<br>
-&nbsp;2 files changed, 5 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vcn.c<br>
-index f96464e..aa7663f 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c<br>
-@@ -63,6 &#43;63,7 @@ int amdgpu_vcn_sw_init(struct amdgpu_device *adev)<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, r;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_DELAYED_WORK(&amp;ade=
-v-&gt;vcn.idle_work, amdgpu_vcn_idle_work_handler);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;adev-&gt;vcn.vcn_=
-pg_lock);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type=
-) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_RAVEN:<br>
-@@ -210,6 &#43;211,7 @@ int amdgpu_vcn_sw_fini(struct amdgpu_device *adev)<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; release_firmware(adev-&gt;=
-vcn.fw);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_destroy(&amp;adev-&gt;vcn.v=
-cn_pg_lock);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-@@ -321,6 &#43;323,7 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *=
-ring)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev=
- =3D ring-&gt;adev;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool set_clocks =3D !cance=
-l_delayed_work_sync(&amp;adev-&gt;vcn.idle_work);<br>
-&nbsp;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;vcn.vcn_=
-pg_lock);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (set_clocks) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_off_ctrl(adev, false);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_set_powergating_state(adev, AMD_IP_B=
-LOCK_TYPE_VCN,<br>
-@@ -345,6 &#43;348,7 @@ void amdgpu_vcn_ring_begin_use(struct amdgpu_ring *=
-ring)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; adev-&gt;vcn.pause_dpg_mode(adev, ring-&gt;me, &amp;n=
-ew_state);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;vcn.vc=
-n_pg_lock);<br>
-&nbsp;}<br>
-&nbsp;<br>
-&nbsp;void amdgpu_vcn_ring_end_use(struct amdgpu_ring *ring)<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_vcn.h<br>
-index 6fe0573..2ae110d 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h<br>
-@@ -200,6 &#43;200,7 @@ struct amdgpu_vcn {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_gpu_scheduler *=
-vcn_dec_sched[AMDGPU_MAX_VCN_INSTANCES];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; num_vcn_enc_sched;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; num_vcn_dec_sched;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vcn_pg_lock;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; harvest_config;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*pause_dpg_mode)(stru=
-ct amdgpu_device *adev,<br>
--- <br>
-2.7.4<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BYAPR12MB32852AA885154B9C31A3F268E41B0BYAPR12MB3285namp_--
-
---===============1398825514==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h b/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h
+index 822cd8b5bf90..cea65093b6ad 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/pp_debug.h
+@@ -37,7 +37,7 @@
+ #define PP_ASSERT_WITH_CODE(cond, msg, code)	\
+ 	do {					\
+ 		if (!(cond)) {			\
+-			pr_warn("%s\n", msg);	\
++			pr_warn_ratelimited("%s\n", msg);	\
+ 			code;			\
+ 		}				\
+ 	} while (0)
+@@ -45,7 +45,7 @@
+ #define PP_ASSERT(cond, msg)	\
+ 	do {					\
+ 		if (!(cond)) {			\
+-			pr_warn("%s\n", msg);	\
++			pr_warn_ratelimited("%s\n", msg);	\
+ 		}				\
+ 	} while (0)
+ 
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1398825514==--
