@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DB0DC3B1A2
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:04:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4426C3B1A4
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 160BF2467E
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:04:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9D56B24691
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:04:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="DM750cux"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 160BF2467E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="i+EsdO0h"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D56B24691
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00FFB6FA35;
-	Fri, 14 Feb 2020 16:04:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 139676FA3B;
+	Fri, 14 Feb 2020 16:04:38 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BC316FA2F;
- Fri, 14 Feb 2020 16:04:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E17A6FA2F;
+ Fri, 14 Feb 2020 16:04:35 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 07A9C2467E;
- Fri, 14 Feb 2020 16:04:32 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6483124676;
+ Fri, 14 Feb 2020 16:04:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696274;
- bh=QjtRAkFz86K8t0Yr71VMUq3M6m0erGyhUVbvNt9bh+Y=;
+ s=default; t=1581696275;
+ bh=HpiIeod6sqqqok91ZLMDjz0W7nDlJkN/pEmAn0kleNs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=DM750cuxjnahUk7gYeGMfPrtkvk12QVqdSaXURT8M+UhT8Gz3HE5d6G0HadYbjQ9M
- 2S7JFwUmz94dS+av5RE/wcj2R1bOTAu+MbkrZH4+vUCLmrdUzMat8Yw/T8GBsTpmdP
- 3enLdxYoSKAZojJtfmQ9eAbgbsoFUNMmQwAQg0xE=
+ b=i+EsdO0h04L06q93O9MxpBLqmhNXvv7Ivw1FEk35MO6ZAenriQtqnZRezYryQJr/g
+ OLSb1NLRjdZ3VANjpURbfrH8o2ewAC4ptY0DvhaAVObVzqK5PYOW+kEEHRWTWnNUgM
+ YAv3ghhxJ7jkZ8RSa5XQ36sYgCZkqRrufNerCtjc=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 124/459] drm/amd/powerplay: remove set but not
- used variable 'vbios_version', 'data'
-Date: Fri, 14 Feb 2020 10:56:14 -0500
-Message-Id: <20200214160149.11681-124-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 125/459] drm/amd/powerplay: remove set but not
+ used variable 'data'
+Date: Fri, 14 Feb 2020 10:56:15 -0500
+Message-Id: <20200214160149.11681-125-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
 References: <20200214160149.11681-1-sashal@kernel.org>
@@ -72,18 +72,12 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: zhengbin <zhengbin13@huawei.com>
 
-[ Upstream commit cb7709223b39287a020e92ff880d11d377dc53a1 ]
+[ Upstream commit 4bf321c177c74f7d834956387cd74805c3098322 ]
 
 Fixes gcc '-Wunused-but-set-variable' warning:
 
-drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c: In function smu7_check_mc_firmware:
-drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c:4215:11: warning: variable vbios_version set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c: In function smu7_get_performance_level:
-drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c:5054:21: warning: variable data set but not used [-Wunused-but-set-variable]
-
-'vbios_version' is introduced by commit 599a7e9fe1b6 ("drm/amd/powerplay:
-implement smu7 hwmgr to manager asics with smu ip version 7."),
-but never used, so remove it.
+drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c: In function vega10_get_performance_level:
+drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c:5217:23: warning: variable data set but not used [-Wunused-but-set-variable]
 
 'data' is introduced by commit f688b614b643 ("drm/amd/pp:
 Implement get_performance_level for legacy dgpu"), but never used,
@@ -95,41 +89,25 @@ Signed-off-by: zhengbin <zhengbin13@huawei.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 4 ----
- 1 file changed, 4 deletions(-)
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index 203ce4b1028f8..042800f63ef32 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -4232,7 +4232,6 @@ static int smu7_check_mc_firmware(struct pp_hwmgr *hwmgr)
- {
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
- 
--	uint32_t vbios_version;
- 	uint32_t tmp;
- 
- 	/* Read MC indirect register offset 0x9F bits [3:0] to see
-@@ -4241,7 +4240,6 @@ static int smu7_check_mc_firmware(struct pp_hwmgr *hwmgr)
- 	 */
- 
- 	smu7_get_mc_microcode_version(hwmgr);
--	vbios_version = hwmgr->microcode_version_info.MC & 0xf;
- 
- 	data->need_long_memory_training = false;
- 
-@@ -5071,13 +5069,11 @@ static int smu7_get_performance_level(struct pp_hwmgr *hwmgr, const struct pp_hw
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+index beacfffbdc3eb..a3d9d612af1be 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+@@ -5247,13 +5247,11 @@ static int vega10_get_performance_level(struct pp_hwmgr *hwmgr, const struct pp_
  				PHM_PerformanceLevel *level)
  {
- 	const struct smu7_power_state *ps;
--	struct smu7_hwmgr *data;
+ 	const struct vega10_power_state *ps;
+-	struct vega10_hwmgr *data;
  	uint32_t i;
  
  	if (level == NULL || hwmgr == NULL || state == NULL)
  		return -EINVAL;
  
 -	data = hwmgr->backend;
- 	ps = cast_const_phw_smu7_power_state(state);
+ 	ps = cast_const_phw_vega10_power_state(state);
  
  	i = index > ps->performance_level_count - 1 ?
 -- 
