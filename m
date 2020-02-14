@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 78B97C2BA83
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:25:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 68ACBC3B19F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:25:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4FA23247B1
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:25:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 405DF2472B
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:25:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="jP3YhyCf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4FA23247B1
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="RvNLADaA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 405DF2472B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E44B36FB4B;
-	Fri, 14 Feb 2020 16:25:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D04AF6FB4F;
+	Fri, 14 Feb 2020 16:25:17 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F2046FB47;
- Fri, 14 Feb 2020 16:25:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 368B36FB45;
+ Fri, 14 Feb 2020 16:25:09 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5BFC02479C;
- Fri, 14 Feb 2020 16:25:05 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 34EE9247B5;
+ Fri, 14 Feb 2020 16:25:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581697506;
- bh=yFT/HfqTv96zbqzm723myqHdTunLNrOuSTQ4e9ESzqQ=;
+ s=default; t=1581697509;
+ bh=rWKJNV9Sbr1m7wRyPB2Ede1g5VawtcrzSvOZgyNhgN4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=jP3YhyCf02FyQ9FO2GTI05z5dLPTnHrGI0VPgS0lYgZlv++6PLydR8bwHak+6F5Zg
- +c0VrUHgTq/gRCzA+4Dw6g4E+2FO6JXRLouxH/FT5fWSb9/YIEp523RF+WvyWkby9p
- nB59UYeFdGgYKi8rOseYL0BjqXMDrUnDQ0kAUHi4=
+ b=RvNLADaAM6kmitXq6tjt5//ERnZtpWDTySs7wl2v9i6Kfq2Y4tJgwL8KY+fHjJngF
+ W2MBrf/6N1IUoqdVN+hhPbRJmRsvxj93iXsehlLfTc9bBW1LOUFcu5smPlrPGgKEaA
+ 1cG7Rl9oqyQts13Vua9coYTfHtj/NoEemfgX0yQA=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.4 033/100] drm/radeon: remove set but not used
- variable 'radeon_connector'
-Date: Fri, 14 Feb 2020 11:23:17 -0500
-Message-Id: <20200214162425.21071-33-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.4 035/100] drm/radeon: remove set but not used
+ variable 'tv_pll_cntl1'
+Date: Fri, 14 Feb 2020 11:23:19 -0500
+Message-Id: <20200214162425.21071-35-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214162425.21071-1-sashal@kernel.org>
 References: <20200214162425.21071-1-sashal@kernel.org>
@@ -71,44 +71,51 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: zhengbin <zhengbin13@huawei.com>
 
-[ Upstream commit 5952c48993375a9da2de39be30df475cf590b0ce ]
+[ Upstream commit dc9b3dbd28744510b78490dc6312848a8f918749 ]
 
 Fixes gcc '-Wunused-but-set-variable' warning:
 
-drivers/gpu/drm/radeon/radeon_display.c: In function radeon_crtc_scaling_mode_fixup:
-drivers/gpu/drm/radeon/radeon_display.c:1685:27: warning: variable radeon_connector set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/radeon/radeon_legacy_tv.c: In function radeon_legacy_tv_mode_set:
+drivers/gpu/drm/radeon/radeon_legacy_tv.c:538:24: warning: variable tv_pll_cntl1 set but not used [-Wunused-but-set-variable]
 
-It is not used since commit 377bd8a98d7d ("drm/radeon:
-use a fetch function to get the edid")
+It is introduced by commit 4ce001abafaf ("drm/radeon/kms:
+add initial radeon tv-out support."), but never used,
+so remove it.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: zhengbin <zhengbin13@huawei.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/radeon/radeon_display.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/radeon/radeon_legacy_tv.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index 446d990623069..b26e4eae7ac54 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -1736,7 +1736,6 @@ bool radeon_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
- 	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
- 	struct radeon_encoder *radeon_encoder;
- 	struct drm_connector *connector;
--	struct radeon_connector *radeon_connector;
- 	bool first = true;
- 	u32 src_v = 1, dst_v = 1;
- 	u32 src_h = 1, dst_h = 1;
-@@ -1749,7 +1748,6 @@ bool radeon_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
- 			continue;
- 		radeon_encoder = to_radeon_encoder(encoder);
- 		connector = radeon_get_connector_for_encoder(encoder);
--		radeon_connector = to_radeon_connector(connector);
+diff --git a/drivers/gpu/drm/radeon/radeon_legacy_tv.c b/drivers/gpu/drm/radeon/radeon_legacy_tv.c
+index 49750d07ab7d4..3133f5dfc239a 100644
+--- a/drivers/gpu/drm/radeon/radeon_legacy_tv.c
++++ b/drivers/gpu/drm/radeon/radeon_legacy_tv.c
+@@ -544,7 +544,7 @@ void radeon_legacy_tv_mode_set(struct drm_encoder *encoder,
+ 	uint32_t tv_master_cntl, tv_rgb_cntl, tv_dac_cntl;
+ 	uint32_t tv_modulator_cntl1, tv_modulator_cntl2;
+ 	uint32_t tv_vscaler_cntl1, tv_vscaler_cntl2;
+-	uint32_t tv_pll_cntl, tv_pll_cntl1, tv_ftotal;
++	uint32_t tv_pll_cntl, tv_ftotal;
+ 	uint32_t tv_y_fall_cntl, tv_y_rise_cntl, tv_y_saw_tooth_cntl;
+ 	uint32_t m, n, p;
+ 	const uint16_t *hor_timing;
+@@ -716,12 +716,6 @@ void radeon_legacy_tv_mode_set(struct drm_encoder *encoder,
+ 		(((n >> 9) & RADEON_TV_N0HI_MASK) << RADEON_TV_N0HI_SHIFT) |
+ 		((p & RADEON_TV_P_MASK) << RADEON_TV_P_SHIFT);
  
- 		if (first) {
- 			/* set scaling */
+-	tv_pll_cntl1 = (((4 & RADEON_TVPCP_MASK) << RADEON_TVPCP_SHIFT) |
+-			((4 & RADEON_TVPVG_MASK) << RADEON_TVPVG_SHIFT) |
+-			((1 & RADEON_TVPDC_MASK) << RADEON_TVPDC_SHIFT) |
+-			RADEON_TVCLK_SRC_SEL_TVPLL |
+-			RADEON_TVPLL_TEST_DIS);
+-
+ 	tv_dac->tv.tv_uv_adr = 0xc8;
+ 
+ 	if (tv_dac->tv_std == TV_STD_NTSC ||
 -- 
 2.20.1
 
