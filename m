@@ -2,68 +2,68 @@ Return-Path: <SRS0=cmay=4C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0AD1C3B1A1
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:59:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07D96C3B1A6
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 17:08:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B494E2067D
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:59:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D042420656
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 17:08:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=jlekstrand-net.20150623.gappssmtp.com header.i=@jlekstrand-net.20150623.gappssmtp.com header.b="jxaDxrhT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B494E2067D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pFBKb/sD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D042420656
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 049C66FB27;
-	Fri, 14 Feb 2020 16:59:38 +0000 (UTC)
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
- [IPv6:2a00:1450:4864:20::543])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91D5F6FAF2
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2020 16:59:36 +0000 (UTC)
-Received: by mail-ed1-x543.google.com with SMTP id f8so11983991edv.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2020 08:59:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 927146E83A;
+	Fri, 14 Feb 2020 17:08:49 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7C776E83A;
+ Fri, 14 Feb 2020 17:08:48 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id s10so10698514wmh.3;
+ Fri, 14 Feb 2020 09:08:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=zQET2SWePAJHC5EHLg4nL/UHPX4TOmdQlwDQSD1yBRU=;
- b=jxaDxrhTS2j/WU6i6mWG1dncKx/D05CV5ryV0kK43IO1YI14tc8bK+TW5WaEBW+WW9
- 9aKHpU0z+5yJc32jHo2Ai0DLDakL0YS0brdcNRTIAeXMEeQqTHHIfxYnBe3N5H5pe6LZ
- pfa6rf4t33ie+jgBu4T/jqkzQpoBVCjbh0O8oyZfWsh6iVybWL45Uwep/F6I7/+Nhny1
- AykU27vVEgaPcFuyEHdXHPe9WRfTjbBXD90LMkkXOwHmUmWFiVF8DkKDxsRjO7gva/Rg
- nqH/wvz9zmFHTACXFf3MB1yK/jj/qiv7xqbvkbuBZ0jbEDDHg9ApVR1zt3sHMJ9dt9TZ
- hAPw==
+ bh=Rc05Jw2jcIY6Tk9luxB2qNAUA7nD4IKbOzgJ1s31oiE=;
+ b=pFBKb/sDm28yjbGME9ToZOVxKo+vZjURKMiQiVVwKAHHdJenwCwfcTgQN6H+QZdIiN
+ MSvrwkXI7T/Plxn9sstDgcj8GREI11QHsk9wMiz7BuNxWTpEJqEjGEXdvqj0/Vo8PWyy
+ iqvojITR+6eEL8llKf+IvkIZLdmPH1fx2c/EZDyw2i8P/YWHYo4jpTMFK4469WTpKzBP
+ 1uA6QAmaABBIBgUCj4jpqxXgtn6xGqqKOQnrNE8DaYMmCaQZYkPcMYRXtx7OYpadhPyx
+ no+t7bWO8tY6B0LJ18svDOEpHc1Vw60QOVd2YZz6yI8Re+RrrrQDCyjJkidwOuqksFL9
+ bf/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=zQET2SWePAJHC5EHLg4nL/UHPX4TOmdQlwDQSD1yBRU=;
- b=Ms4/m6CmAaTktn1hp5nXA153HOw2TSEyE9U9waFDDJ6t67XII1sh9a/+3h0VceVGrl
- jIjk5sx0iDIxGAO28R6H2McODH0np8yd+HFWLCR7mSwn8Z0vbNCNAamGn4Y4UMQuUgtD
- BpNu94FhXg0vDUqThldbmI1yfPuhGGU2K5iT1Leys4n18d60t3+GLItypqqNUT4piJbx
- 7wG3iG9fdTewKmtaDhxzf9MnJYc5vdOIJJFIKyLRxrXyTk6rZsLpExxToSzeyESFh6K6
- MTZpQyYlga8Tu/9xByrHxID12tomf7OC4kOOjcSVI6CSym4ru/bKYa4+Y+c7xgg5MNEY
- EjVA==
-X-Gm-Message-State: APjAAAUENIES0iivRNDWe8Lx458trJWJoRFdQevp+08Q0cefEAzYmrCJ
- 43mneiUq3TAQekZPrbr+7O3mHGY/9D+BrUXZWtUnKg==
-X-Google-Smtp-Source: APXvYqyi3xELtjIUkFA5b+C9V1wlrG14ep02SLUR8oDHucg/EPaG/bs9LwQcW5Dtf8EkVYEGXfIGJCng3QXNsvaF6fQ=
-X-Received: by 2002:aa7:d1cf:: with SMTP id g15mr3644699edp.301.1581699574677; 
- Fri, 14 Feb 2020 08:59:34 -0800 (PST)
+ bh=Rc05Jw2jcIY6Tk9luxB2qNAUA7nD4IKbOzgJ1s31oiE=;
+ b=CODDxiNfEjmXvE1hw3u4bm67swEoxXjjUX7MB3qMJ5p2LGhksOywKfx8639A46bCOH
+ pgTC9vs9vTaKuv/IsWuHLQfwjdEYNXXXbfcs/K3IGQqm5TvWk92w/n6aQWN+Nhp5yCZ0
+ Ke6CORO7TwDFm3VjOhHtQ79DDoB/0a+TSN8mrsLNLan+Tdwr4G5KhzFPdQEWCSfco8JZ
+ JxHg76wPkEZp7M+IReyCbd78x4W7A7HBWiIjOad+5v+kHM1zKR5keiJpkNn1SPaTv4df
+ 3970mSaPlsJxKrXHGX+B1X40n2JhQf7j/5q408X9Jx79KIvtpZ65yVjvTFeXrxVyeIfw
+ S/mw==
+X-Gm-Message-State: APjAAAWdvSIWIHTPeYHOdFWUeRVdwogDDraI3GcA6+Ybxq2PlVJijSC9
+ Mn27qy4ankU8wsgvhrxuNenCXwU54gJBMYd122Q=
+X-Google-Smtp-Source: APXvYqzDYkAXWHlMjJQQqQnNjPeK3kngzOJN7NluLKc9FNLZKlt1F4AROJCv/t0dbx6tVJ7cvw2RJepqrGxGviwE3Ag=
+X-Received: by 2002:a1c:65d6:: with SMTP id z205mr5484074wmb.38.1581700127007; 
+ Fri, 14 Feb 2020 09:08:47 -0800 (PST)
 MIME-Version: 1.0
 References: <20200214155650.21203-1-Kenny.Ho@amd.com>
  <20200214155650.21203-10-Kenny.Ho@amd.com>
  <CAOFGe96N5gG+08rQCRC+diHKDAfxPFYEnVxDS8_udvjcBYgsPg@mail.gmail.com>
 In-Reply-To: <CAOFGe96N5gG+08rQCRC+diHKDAfxPFYEnVxDS8_udvjcBYgsPg@mail.gmail.com>
-From: Jason Ekstrand <jason@jlekstrand.net>
-Date: Fri, 14 Feb 2020 10:59:23 -0600
-Message-ID: <CAOFGe94=vqFEU_ULyoQ=WPz-JjcOEXTkrY8W7SsF2QeOxBfWEg@mail.gmail.com>
+From: Kenny Ho <y2kenny@gmail.com>
+Date: Fri, 14 Feb 2020 12:08:35 -0500
+Message-ID: <CAOWid-f62Uv=GZXX2V2BsQGM5A1JJG_qmyrOwd=KwZBx_sr-bg@mail.gmail.com>
 Subject: Re: [PATCH 09/11] drm, cgroup: Introduce lgpu as DRM cgroup resource
-To: Kenny Ho <Kenny.Ho@amd.com>
+To: Jason Ekstrand <jason@jlekstrand.net>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,11 +76,12 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: juan.zuniga-anaya@amd.com, Daniel Vetter <daniel@ffwll.ch>,
- felix.kuehling@amd.com, jsparks@cray.com,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>, lkaplan@cray.com,
- alexander.deucher@amd.com, nirmoy.das@amd.com, y2kenny@gmail.com,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- joseph.greathouse@amd.com, tj@kernel.org, cgroups@vger.kernel.org,
+ Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>,
+ jsparks@cray.com, amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ lkaplan@cray.com, Alex Deucher <alexander.deucher@amd.com>, nirmoy.das@amd.com,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Greathouse,
+ Joseph" <joseph.greathouse@amd.com>, Tejun Heo <tj@kernel.org>,
+ cgroups@vger.kernel.org,
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  damon.mcdougall@amd.com
 Content-Type: text/plain; charset="us-ascii"
@@ -88,28 +89,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 14, 2020 at 10:44 AM Jason Ekstrand <jason@jlekstrand.net> wrote:
+Hi Jason,
+
+Thanks for the review.
+
+On Fri, Feb 14, 2020 at 11:44 AM Jason Ekstrand <jason@jlekstrand.net> wrote:
 >
 > Pardon my ignorance but I'm a bit confused by this.  What is a "logical GPU"?  What are we subdividing?  Are we carving up memory?  Compute power?  Both?
->
-> If it's carving up memory, why aren't we just measuring it in megabytes?
->
+
+The intention is compute but it is up to the individual drm driver to decide.
+
 > If it's carving up compute power, what's actually being carved up?  Time?  Execution units/waves/threads?  Even if that's the case, what advantage does it give to have it in terms of a fixed set of lgpus where each cgroup gets to pick a fixed set.  Does affinity matter that much?  Why not just say how many waves the GPU supports and that they have to be allocated in chunks of 16 waves (pulling a number out of thin air) and let the cgroup specify how many waves it wants.
-
-One more question:  If I'm a userspace driver, and there are 14 lgpus
-allocated to my cgroup, does that mean I have 14 GPUs?  Or does that
-mean I have one GPU with 14 units of compute power?
-
+>
 > Don't get me wrong here.  I'm all for the notion of being able to use cgroups to carve up GPU compute resources.  However, this sounds to me like the most AMD-specific solution possible.  We (Intel) could probably do some sort of carving up as well but we'd likely want to do it with preemption and time-slicing rather than handing out specific EUs.
 
-Ok, so "most AMD-specific solution possible" probably wasn't fair.
-However, it does seem like an unnecessarily rigid solution to me.
-Maybe there's something I'm not getting?
+This has been discussed in the RFC before
+(https://www.spinics.net/lists/cgroups/msg23469.html.)  As mentioned
+before, the idea of a compute unit is hardly an AMD specific thing as
+it is in the OpenCL standard and part of the architecture of many
+different vendors.  In addition, the interface presented here supports
+Intel's use case.  What you described is what I considered as the
+"anonymous resources" view of the lgpu.  What you/Intel can do, is to
+register your device to drmcg to have 100 lgpu and users can specify
+simply by count.  So if they want to allocate 5% for a cgroup, they
+would set count=5.  Per the documentation in this patch: "Some DRM
+devices may only support lgpu as anonymous resources.  In such case,
+the significance of the position of the set bits in list will be
+ignored."  What Intel does with the user expressed configuration of "5
+out of 100" is entirely up to Intel (time slice if you like, change to
+specific EUs later if you like, or make it driver configurable to
+support both if you like.)
 
---Jason
+Regards,
+Kenny
 
-> --Jason
->
 >
 > On Fri, Feb 14, 2020 at 9:57 AM Kenny Ho <Kenny.Ho@amd.com> wrote:
 >>
