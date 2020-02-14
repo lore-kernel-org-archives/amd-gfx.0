@@ -6,43 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C734EC3B1A2
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:09:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81167C3B1A1
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:10:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9FBE124687
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:09:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4882B2468C
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:10:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="xhxxuooJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9FBE124687
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="PpTW8/vU"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4882B2468C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C4966FA70;
-	Fri, 14 Feb 2020 16:09:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E8796FA85;
+	Fri, 14 Feb 2020 16:10:48 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 596856FA6D;
- Fri, 14 Feb 2020 16:09:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DC576FA85;
+ Fri, 14 Feb 2020 16:10:46 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2C67D2467E;
- Fri, 14 Feb 2020 16:09:02 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7C27D2469C;
+ Fri, 14 Feb 2020 16:10:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696543;
- bh=cF0AFVHw8PPABmHKwcOZG09O4STfsB3xpXfX9/LrqXg=;
+ s=default; t=1581696646;
+ bh=We/SMqES5kF9MPTnXDpKNKHaq6SPjYDZobbxfBZQkFw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=xhxxuooJcoQ6GiEL7acBv6XLjJMdENEggS7hd72p4PTSgQxDWAYeIfFtc2mrd7rB+
- jLAbWzjbh47wKZ7uzVwFrA9DY0cr3fCnD2uQw0RXJuBb/XkgG9hAeES8CZlHT8ZGnU
- hqKcF3sd/4R2soJ5qskAlzB7tSnoUQnlBfsmqQLQ=
+ b=PpTW8/vUAWhY2b7zPOHm0QmJS/WtFBHsup+W8Hy2x+1OWQ3ISo2SZ6BcOj2KUDJbF
+ A34LACR3/XX61l7tl6BIJgFBkkhpqW87emN2KZ1eMGUW1avcvtYqUjrfGqkcBChq32
+ 9iM/Sut53N6sGmOCDLRqv1Vu4mbflQIZa067Sz5A=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 337/459] drm/amd/display: fixup DML dependencies
-Date: Fri, 14 Feb 2020 10:59:47 -0500
-Message-Id: <20200214160149.11681-337-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 422/459] drm/amd/display: do not allocate
+ display_mode_lib unnecessarily
+Date: Fri, 14 Feb 2020 11:01:12 -0500
+Message-Id: <20200214160149.11681-422-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
 References: <20200214160149.11681-1-sashal@kernel.org>
@@ -60,69 +61,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Anthony Koo <Anthony.Koo@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Jun Lei <Jun.Lei@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Dor Askayo <dor.askayo@gmail.com>,
+ Leo Li <sunpeng.li@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jun Lei <Jun.Lei@amd.com>
+From: Dor Askayo <dor.askayo@gmail.com>
 
-[ Upstream commit 34ad0230062c39cdcba564d16d122c0fb467a7d6 ]
+[ Upstream commit bb67bfd2e7101bf2ac5327b0b7a847cd9fb9723f ]
 
-[why]
-Need to fix DML portability issues to enable SW unit testing around DML
+This allocation isn't required and can fail when resuming from suspend.
 
-[how]
-Move calcs into dc include folder since multiple components reference it
-Remove relative paths to external dependencies
-
-Signed-off-by: Jun Lei <Jun.Lei@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
-Acked-by: Harry Wentland <harry.wentland@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Bug: https://gitlab.freedesktop.org/drm/amd/issues/1009
+Signed-off-by: Dor Askayo <dor.askayo@gmail.com>
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dml/dml_common_defs.c          | 2 +-
- drivers/gpu/drm/amd/display/dc/dml/dml_inline_defs.h          | 2 +-
- drivers/gpu/drm/amd/display/dc/{calcs => inc}/dcn_calc_math.h | 0
- 3 files changed, 2 insertions(+), 2 deletions(-)
- rename drivers/gpu/drm/amd/display/dc/{calcs => inc}/dcn_calc_math.h (100%)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml_common_defs.c b/drivers/gpu/drm/amd/display/dc/dml/dml_common_defs.c
-index b953b02a15121..723af0b2dda04 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dml_common_defs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dml_common_defs.c
-@@ -24,7 +24,7 @@
-  */
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 4b8819c27fcda..4704aac336c29 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2267,12 +2267,7 @@ void dc_set_power_state(
+ 	enum dc_acpi_cm_power_state power_state)
+ {
+ 	struct kref refcount;
+-	struct display_mode_lib *dml = kzalloc(sizeof(struct display_mode_lib),
+-						GFP_KERNEL);
+-
+-	ASSERT(dml);
+-	if (!dml)
+-		return;
++	struct display_mode_lib *dml;
  
- #include "dml_common_defs.h"
--#include "../calcs/dcn_calc_math.h"
-+#include "dcn_calc_math.h"
+ 	switch (power_state) {
+ 	case DC_ACPI_CM_POWER_STATE_D0:
+@@ -2294,6 +2289,12 @@ void dc_set_power_state(
+ 		 * clean state, and dc hw programming optimizations will not
+ 		 * cause any trouble.
+ 		 */
++		dml = kzalloc(sizeof(struct display_mode_lib),
++				GFP_KERNEL);
++
++		ASSERT(dml);
++		if (!dml)
++			return;
  
- #include "dml_inline_defs.h"
+ 		/* Preserve refcount */
+ 		refcount = dc->current_state->refcount;
+@@ -2307,10 +2308,10 @@ void dc_set_power_state(
+ 		dc->current_state->refcount = refcount;
+ 		dc->current_state->bw_ctx.dml = *dml;
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dml_inline_defs.h b/drivers/gpu/drm/amd/display/dc/dml/dml_inline_defs.h
-index eca140da13d82..ded71ea82413d 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dml_inline_defs.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dml_inline_defs.h
-@@ -27,7 +27,7 @@
- #define __DML_INLINE_DEFS_H__
++		kfree(dml);
++
+ 		break;
+ 	}
+-
+-	kfree(dml);
+ }
  
- #include "dml_common_defs.h"
--#include "../calcs/dcn_calc_math.h"
-+#include "dcn_calc_math.h"
- #include "dml_logger.h"
- 
- static inline double dml_min(double a, double b)
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calc_math.h b/drivers/gpu/drm/amd/display/dc/inc/dcn_calc_math.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/display/dc/calcs/dcn_calc_math.h
-rename to drivers/gpu/drm/amd/display/dc/inc/dcn_calc_math.h
+ void dc_resume(struct dc *dc)
 -- 
 2.20.1
 
