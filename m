@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 70BCBC2BA83
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB00FC3B19F
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:52:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 47C582467E
+	by mail.kernel.org (Postfix) with ESMTPS id 92B322467E
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:52:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5fezyZ6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47C582467E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="x07HsUGB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92B322467E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 151FB6F9A5;
-	Fri, 14 Feb 2020 15:52:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3919A6F9B4;
+	Fri, 14 Feb 2020 15:52:27 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13EF76F9B3;
- Fri, 14 Feb 2020 15:52:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AE3986F9B4;
+ Fri, 14 Feb 2020 15:52:24 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E964B222C4;
- Fri, 14 Feb 2020 15:52:20 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id AF47624676;
+ Fri, 14 Feb 2020 15:52:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581695541;
- bh=mCOEe5nfmTF5/aZn0fqadNVXIBDE7qooNGqNGL1thUc=;
+ s=default; t=1581695544;
+ bh=Zyh3gxQCNHNRIhs5e1XYrjc0NPYFdY4P2QPnyJn75c0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=F5fezyZ67ZAz8XKzPI0Uxw74xhC//vz0HPYzzWPWC2Cwxap72COMJ/NZdhqCjBAxk
- +EktHa1URSPTtkkF8VBrGaIGY9h4yQXEszdzvOd50f0P06isdGKL5u+o8kywu9u/cr
- UioSdx7d2eES/z3MUepS7BsiW61JWM0i3pgjP8kU=
+ b=x07HsUGBggJefPForajyuyOuI56xL1899vS6E2KLvJjNdFotKIVgBkFxB6YkaBp8P
+ bPIBD5STnuJ8SEKc6Ppsd21JIGSi069/o8jN+AIqEZNHPsNM9MBKV+TyU+iWitMWp8
+ Cth9gRTk/Iy4xtslFdD2e03KTxqHFRcz7l7HFnCk=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.5 159/542] drm/amd/display: remove set but not used
- variable 'min_content'
-Date: Fri, 14 Feb 2020 10:42:31 -0500
-Message-Id: <20200214154854.6746-159-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.5 161/542] drm/radeon: remove set but not used
+ variable 'size', 'relocs_chunk'
+Date: Fri, 14 Feb 2020 10:42:33 -0500
+Message-Id: <20200214154854.6746-161-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214154854.6746-1-sashal@kernel.org>
 References: <20200214154854.6746-1-sashal@kernel.org>
@@ -61,10 +61,9 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
  zhengbin <zhengbin13@huawei.com>, Hulk Robot <hulkci@huawei.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -72,45 +71,88 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: zhengbin <zhengbin13@huawei.com>
 
-[ Upstream commit 8f72bfe8d85a827f638141d0f07de42d0c24a36f ]
+[ Upstream commit e9f782dd22c0e17874b8b8e12aafcd3a06810dd0 ]
 
 Fixes gcc '-Wunused-but-set-variable' warning:
 
-drivers/gpu/drm/amd/display/modules/color/color_gamma.c: In function build_freesync_hdr:
-drivers/gpu/drm/amd/display/modules/color/color_gamma.c:830:20: warning: variable min_content set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/radeon/r600_cs.c: In function r600_cs_track_validate_cb:
+drivers/gpu/drm/radeon/r600_cs.c:353:22: warning: variable size set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/radeon/r600_cs.c: In function r600_cs_track_validate_db:
+drivers/gpu/drm/radeon/r600_cs.c:520:27: warning: variable size set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/radeon/r600_cs.c: In function r600_dma_cs_next_reloc:
+drivers/gpu/drm/radeon/r600_cs.c:2345:26: warning: variable relocs_chunk set but not used [-Wunused-but-set-variable]
 
-It is not used since commit 50575eb5b339 ("drm/amd/display:
-Only use EETF when maxCL > max display")
+The first 'size' is not used since commit f30df2fad0c9 ("drm/radeon/r600:
+fix tiling issues in CS checker.")
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+The second 'size' is introduced by commit 88f50c80748b ("drm/radeon/kms:
+add htile support to the cs checker v3"), but never used, so remove it.
+
+'relocs_chunk' is not used since commit 9305ede6afe2 ("radeon/kms:
+fix dma relocation checking")
+
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: zhengbin <zhengbin13@huawei.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/radeon/r600_cs.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-index 1de4805cb8c7f..9b121b08c8063 100644
---- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-+++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-@@ -937,7 +937,6 @@ static bool build_freesync_hdr(struct pwl_float_data_ex *rgb_regamma,
- 	struct fixed31_32 max_display;
- 	struct fixed31_32 min_display;
- 	struct fixed31_32 max_content;
--	struct fixed31_32 min_content;
- 	struct fixed31_32 clip = dc_fixpt_one;
- 	struct fixed31_32 output;
- 	bool use_eetf = false;
-@@ -951,7 +950,6 @@ static bool build_freesync_hdr(struct pwl_float_data_ex *rgb_regamma,
- 	max_display = dc_fixpt_from_int(fs_params->max_display);
- 	min_display = dc_fixpt_from_fraction(fs_params->min_display, 10000);
- 	max_content = dc_fixpt_from_int(fs_params->max_content);
--	min_content = dc_fixpt_from_fraction(fs_params->min_content, 10000);
- 	sdr_white_level = dc_fixpt_from_int(fs_params->sdr_white_level);
+diff --git a/drivers/gpu/drm/radeon/r600_cs.c b/drivers/gpu/drm/radeon/r600_cs.c
+index d6c28a5d77abb..49e8266461f85 100644
+--- a/drivers/gpu/drm/radeon/r600_cs.c
++++ b/drivers/gpu/drm/radeon/r600_cs.c
+@@ -350,7 +350,7 @@ static void r600_cs_track_init(struct r600_cs_track *track)
+ static int r600_cs_track_validate_cb(struct radeon_cs_parser *p, int i)
+ {
+ 	struct r600_cs_track *track = p->track;
+-	u32 slice_tile_max, size, tmp;
++	u32 slice_tile_max, tmp;
+ 	u32 height, height_align, pitch, pitch_align, depth_align;
+ 	u64 base_offset, base_align;
+ 	struct array_mode_checker array_check;
+@@ -360,7 +360,6 @@ static int r600_cs_track_validate_cb(struct radeon_cs_parser *p, int i)
+ 	/* When resolve is used, the second colorbuffer has always 1 sample. */
+ 	unsigned nsamples = track->is_resolve && i == 1 ? 1 : track->nsamples;
  
- 	if (fs_params->min_display > 1000) // cap at 0.1 at the bottom
+-	size = radeon_bo_size(track->cb_color_bo[i]) - track->cb_color_bo_offset[i];
+ 	format = G_0280A0_FORMAT(track->cb_color_info[i]);
+ 	if (!r600_fmt_is_valid_color(format)) {
+ 		dev_warn(p->dev, "%s:%d cb invalid format %d for %d (0x%08X)\n",
+@@ -517,7 +516,7 @@ static int r600_cs_track_validate_cb(struct radeon_cs_parser *p, int i)
+ static int r600_cs_track_validate_db(struct radeon_cs_parser *p)
+ {
+ 	struct r600_cs_track *track = p->track;
+-	u32 nviews, bpe, ntiles, size, slice_tile_max, tmp;
++	u32 nviews, bpe, ntiles, slice_tile_max, tmp;
+ 	u32 height_align, pitch_align, depth_align;
+ 	u32 pitch = 8192;
+ 	u32 height = 8192;
+@@ -564,7 +563,6 @@ static int r600_cs_track_validate_db(struct radeon_cs_parser *p)
+ 		}
+ 		ib[track->db_depth_size_idx] = S_028000_SLICE_TILE_MAX(tmp - 1) | (track->db_depth_size & 0x3FF);
+ 	} else {
+-		size = radeon_bo_size(track->db_bo);
+ 		/* pitch in pixels */
+ 		pitch = (G_028000_PITCH_TILE_MAX(track->db_depth_size) + 1) * 8;
+ 		slice_tile_max = G_028000_SLICE_TILE_MAX(track->db_depth_size) + 1;
+@@ -2342,7 +2340,6 @@ int r600_cs_parse(struct radeon_cs_parser *p)
+ int r600_dma_cs_next_reloc(struct radeon_cs_parser *p,
+ 			   struct radeon_bo_list **cs_reloc)
+ {
+-	struct radeon_cs_chunk *relocs_chunk;
+ 	unsigned idx;
+ 
+ 	*cs_reloc = NULL;
+@@ -2350,7 +2347,6 @@ int r600_dma_cs_next_reloc(struct radeon_cs_parser *p,
+ 		DRM_ERROR("No relocation chunk !\n");
+ 		return -EINVAL;
+ 	}
+-	relocs_chunk = p->chunk_relocs;
+ 	idx = p->dma_reloc_idx;
+ 	if (idx >= p->nrelocs) {
+ 		DRM_ERROR("Relocs at %d after relocations chunk end %d !\n",
 -- 
 2.20.1
 
