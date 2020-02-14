@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E136C3B19D
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:05:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7AE8EC2BA83
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 45F5724689
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:05:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5317724684
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:05:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="1bkT8HuI"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 45F5724689
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="EHpK/eUJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5317724684
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA2C46FA53;
-	Fri, 14 Feb 2020 16:04:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 376CA6FA58;
+	Fri, 14 Feb 2020 16:05:01 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96A7C6FA42;
- Fri, 14 Feb 2020 16:04:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3E236FA4E;
+ Fri, 14 Feb 2020 16:04:59 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4057624699;
- Fri, 14 Feb 2020 16:04:53 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B2A6124685;
+ Fri, 14 Feb 2020 16:04:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696294;
- bh=Q4JZlLKaoaY9EBcVmw7f8lt78ZDUSaFNgPHucgZNZJU=;
+ s=default; t=1581696299;
+ bh=4HCmXbuWpLBfwxdVNssIxL9w5lNhZNqYmfydz4zxs7k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=1bkT8HuInPFfW/N3YVdBYJtuaEIAKOYMrCMfZ0mlhnqCTGtjBeC3FLL3KMMIIeZ04
- zrbushFd5QcEY4CHwOMJaGGPzhvAMsSvktRPIcoeb7NPCOT2boqmKqzvGtKq6+1EAl
- rZkDAz/5vNRmXkSKLY/BFRyom7hPPJOIopAEIMTI=
+ b=EHpK/eUJmS0EQe/klk1GSa5/fRChdgX/ZoJZjWFPY9GV5vkISEBhbE9/OqJPZ4Bic
+ k4GwKXaT4MxnxZKURyLDy1wbQBhCBl/PlRQXti9p9kVSa3R1X+9wuLiEVYLk2eRk1F
+ NetrgcGEtdfewrTo1C0txw6XtnX0ZMORNRQROAK0=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 140/459] drm/radeon: remove set but not used
- variable 'backbias_response_time'
-Date: Fri, 14 Feb 2020 10:56:30 -0500
-Message-Id: <20200214160149.11681-140-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 144/459] drm/radeon: remove set but not used
+ variable 'tv_pll_cntl1'
+Date: Fri, 14 Feb 2020 10:56:34 -0500
+Message-Id: <20200214160149.11681-144-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
 References: <20200214160149.11681-1-sashal@kernel.org>
@@ -71,44 +71,51 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: zhengbin <zhengbin13@huawei.com>
 
-[ Upstream commit ac52caecbcf2c30ce95b2536c1caf2643c49b91c ]
+[ Upstream commit dc9b3dbd28744510b78490dc6312848a8f918749 ]
 
 Fixes gcc '-Wunused-but-set-variable' warning:
 
-drivers/gpu/drm/radeon/si_dpm.c: In function si_program_response_times:
-drivers/gpu/drm/radeon/si_dpm.c:3640:29: warning: variable backbias_response_time set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/radeon/radeon_legacy_tv.c: In function radeon_legacy_tv_mode_set:
+drivers/gpu/drm/radeon/radeon_legacy_tv.c:538:24: warning: variable tv_pll_cntl1 set but not used [-Wunused-but-set-variable]
 
-It is introduced by commit a9e61410921b ("drm/radeon/kms:
-add dpm support for SI (v7)"), but never used, so remove it.
+It is introduced by commit 4ce001abafaf ("drm/radeon/kms:
+add initial radeon tv-out support."), but never used,
+so remove it.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: zhengbin <zhengbin13@huawei.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/radeon/si_dpm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/radeon_legacy_tv.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
-index a0b382a637a64..8148a7883de43 100644
---- a/drivers/gpu/drm/radeon/si_dpm.c
-+++ b/drivers/gpu/drm/radeon/si_dpm.c
-@@ -3640,14 +3640,13 @@ static int si_notify_smc_display_change(struct radeon_device *rdev,
+diff --git a/drivers/gpu/drm/radeon/radeon_legacy_tv.c b/drivers/gpu/drm/radeon/radeon_legacy_tv.c
+index f132eec737adf..d9df7f311e761 100644
+--- a/drivers/gpu/drm/radeon/radeon_legacy_tv.c
++++ b/drivers/gpu/drm/radeon/radeon_legacy_tv.c
+@@ -537,7 +537,7 @@ void radeon_legacy_tv_mode_set(struct drm_encoder *encoder,
+ 	uint32_t tv_master_cntl, tv_rgb_cntl, tv_dac_cntl;
+ 	uint32_t tv_modulator_cntl1, tv_modulator_cntl2;
+ 	uint32_t tv_vscaler_cntl1, tv_vscaler_cntl2;
+-	uint32_t tv_pll_cntl, tv_pll_cntl1, tv_ftotal;
++	uint32_t tv_pll_cntl, tv_ftotal;
+ 	uint32_t tv_y_fall_cntl, tv_y_rise_cntl, tv_y_saw_tooth_cntl;
+ 	uint32_t m, n, p;
+ 	const uint16_t *hor_timing;
+@@ -709,12 +709,6 @@ void radeon_legacy_tv_mode_set(struct drm_encoder *encoder,
+ 		(((n >> 9) & RADEON_TV_N0HI_MASK) << RADEON_TV_N0HI_SHIFT) |
+ 		((p & RADEON_TV_P_MASK) << RADEON_TV_P_SHIFT);
  
- static void si_program_response_times(struct radeon_device *rdev)
- {
--	u32 voltage_response_time, backbias_response_time, acpi_delay_time, vbi_time_out;
-+	u32 voltage_response_time, acpi_delay_time, vbi_time_out;
- 	u32 vddc_dly, acpi_dly, vbi_dly;
- 	u32 reference_clock;
+-	tv_pll_cntl1 = (((4 & RADEON_TVPCP_MASK) << RADEON_TVPCP_SHIFT) |
+-			((4 & RADEON_TVPVG_MASK) << RADEON_TVPVG_SHIFT) |
+-			((1 & RADEON_TVPDC_MASK) << RADEON_TVPDC_SHIFT) |
+-			RADEON_TVCLK_SRC_SEL_TVPLL |
+-			RADEON_TVPLL_TEST_DIS);
+-
+ 	tv_dac->tv.tv_uv_adr = 0xc8;
  
- 	si_write_smc_soft_register(rdev, SI_SMC_SOFT_REGISTER_mvdd_chg_time, 1);
- 
- 	voltage_response_time = (u32)rdev->pm.dpm.voltage_response_time;
--	backbias_response_time = (u32)rdev->pm.dpm.backbias_response_time;
- 
- 	if (voltage_response_time == 0)
- 		voltage_response_time = 1000;
+ 	if (tv_dac->tv_std == TV_STD_NTSC ||
 -- 
 2.20.1
 
