@@ -2,75 +2,70 @@ Return-Path: <SRS0=cmay=4C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CEC96C2BA83
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 19:17:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 17FAFC35242
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 20:07:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 91B74206D7
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 19:17:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CCCF2222C4
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 20:07:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ogbXgW9e"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91B74206D7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="svIlGFKv"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCCF2222C4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 407656E85C;
-	Fri, 14 Feb 2020 19:17:57 +0000 (UTC)
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBB326E85C;
- Fri, 14 Feb 2020 19:17:56 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id l21so7681003qtr.8;
- Fri, 14 Feb 2020 11:17:56 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9ACBC6E86C;
+	Fri, 14 Feb 2020 20:07:18 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54B446E86C;
+ Fri, 14 Feb 2020 20:07:17 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id k11so12325567wrd.9;
+ Fri, 14 Feb 2020 12:07:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=2bDv0jVyoaqUAZCYtXw4PRnG3vvu6ogXS+PiWyXVnGQ=;
- b=ogbXgW9ewuGmJIGKdp7mK1xwjaEV448C9wRMZUb/UpM2qUxfj6kQmQ8YI/6OYFAoQ1
- luR+o1V+KBIaQyMsIVJNs0bEdQ9gHJQmqWJLN2W6XvGxC3T1Z35sfCCMib3C/wFp3sdc
- 9Zxk6HrtSWgYljyCwbvwgny/YallHX+aY27ZMvcxno9Ox80WA0Un+eIfVBjDFqHiWKli
- 2Jnls9HUxdWYnq57CdVGXws1lZjKaPqhnYv/yqvp3BD/NRNVpfaItfjgME/elE4BRKHx
- WHJWRHi9qIM7yRhB+1p808k+sKqB/KTo7wZR+FVlSs2JDxfOvrErluaL32I9aia9AN3j
- GxRA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=vd6W0wjDcFJCl/ABzyCdJXEUtR9Unm1DtVjv55fqtuk=;
+ b=svIlGFKvH9Xc0P603FWA9KJK9E8DHvqZq1VOJWP69/Wgg4LhwWeYwTBaHRHx1Zq0lm
+ zjcV4AvoQKlB9zyc53b1sMRx7+8IxdDeh3/qBmufSgGM6LJ5cGeADy5011egqFgXwwg3
+ QZQ2IDM9b0Dvxlh4/gFnA+Sj2cVVXZf9A5E3Fj+hOzrUYBhDHAwzF0pOMYxSwxDGKuKA
+ sq8/SfEE/HfcGORhM9klnuTHPxTAMgvSL2KCLYVDgbD+Gn3V812XpE8T0rBm22kvoySB
+ J5Y4QXTS8LJ2VAsgJlQGtxjrVXoKiu8GIym3AKc7g57xmlzUvMvpfg2GXulAJlLO63X/
+ LUEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to;
- bh=2bDv0jVyoaqUAZCYtXw4PRnG3vvu6ogXS+PiWyXVnGQ=;
- b=DUCNBsraHHx2dYTTJZd70e/z6vVy8KQDl4p1zeMaeyXRzAfMotIwbqJGvfxckM1fFa
- bhRHzX6hrGZg+MDImjj8vSCkyQJfUpa8Ad3GUtuUqhvZCKjTFs1SlL8qqMJVJXcCFMVy
- Mi7i7zsLbI4YIYcZUs3R169t3bxf1/NHGQxaYxmdtDazmQFn3slVqej+yq7f/Y3XQKL1
- VlNHs99lTC46DO/N9Eae496xyoYwDDCFZBo4tgxXmx4dALPLIIQtBLpY3BIlQUGeV9iH
- cBVYlqbHnn+rgCowrxwwyNIBPhystXATN+hxTemfn4cW+kKkTTq4Rk57HjthneMeW/yX
- BHSA==
-X-Gm-Message-State: APjAAAVvDfbp2/3mQZHtZNRLUfJSlPQIOVMIEVExHc7EslUOK0m44KrB
- Col0a33vCrq7io5sTWHPqRs=
-X-Google-Smtp-Source: APXvYqytUjdeIbKwbQxd6Th0soZnJasR/yjL1sgiAE3JeOhzZ+blcMoyfUQzZmkjOfux0H13K1BulQ==
-X-Received: by 2002:ac8:4446:: with SMTP id m6mr3902660qtn.159.1581707875654; 
- Fri, 14 Feb 2020 11:17:55 -0800 (PST)
-Received: from localhost ([2620:10d:c091:480::e8a3])
- by smtp.gmail.com with ESMTPSA id g11sm2293790qtc.48.2020.02.14.11.17.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Feb 2020 11:17:54 -0800 (PST)
-Date: Fri, 14 Feb 2020 14:17:54 -0500
-From: Tejun Heo <tj@kernel.org>
-To: Kenny Ho <y2kenny@gmail.com>
-Subject: Re: [PATCH 09/11] drm, cgroup: Introduce lgpu as DRM cgroup resource
-Message-ID: <20200214191754.GA218629@mtj.thefacebook.com>
-References: <20200214155650.21203-1-Kenny.Ho@amd.com>
- <20200214155650.21203-10-Kenny.Ho@amd.com>
- <CAOFGe96N5gG+08rQCRC+diHKDAfxPFYEnVxDS8_udvjcBYgsPg@mail.gmail.com>
- <CAOWid-f62Uv=GZXX2V2BsQGM5A1JJG_qmyrOwd=KwZBx_sr-bg@mail.gmail.com>
- <20200214183401.GY2363188@phenom.ffwll.local>
- <CAOWid-caJHeXUnQv3MOi=9U+vdBLfewN+CrA-7jRrz0VXqatbQ@mail.gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=vd6W0wjDcFJCl/ABzyCdJXEUtR9Unm1DtVjv55fqtuk=;
+ b=p5kmDCF1Q7H+UvI1Fm2quFnp9aJUkcObgGYChcvelYBMoYnMGmHnQywcriWGRcIi6e
+ UJqvfY3M4fNJ1UlYkyIlWpFaljZpNENcNFo+s+rTV7hb9j60eXs/bjgFbN/KVqkt3uPf
+ jRc8ozvHdCs1JNj349SxPgueAzEgFA9fXYLs2a6El2ayV0LdReqEP8GP/LnzTVoTjYw2
+ YEbhaGpjJv/exqdNG7B3uZQliGTtXr9+FlHIu+Z4fmBJdxO5ITJ4IYcdUiupDR1hZ32M
+ 5mjGdGIJ5rLPMj6uKI6j7db/v96+n4J8bRB28yo6dylvUt8Q3/Gka9uMD/ocU17yc8ZE
+ QzdA==
+X-Gm-Message-State: APjAAAXg1Z/FPVeLE0kRhzJfALsePPJF6qHS8o0hrwHW8rVeOw81yrc5
+ 4DCBTC69D+Y4Er3qRV3VnNka4gr1SLrwjoj5WXw=
+X-Google-Smtp-Source: APXvYqxM5Zmz3lGNP5hYzb0HjFcAfb6cX66LDslQJjh7ecQydS16T1AaYzUdOWRDlk1Ops67yvYg8cIcgPxIqMsrOus=
+X-Received: by 2002:a05:6000:1183:: with SMTP id
+ g3mr5775729wrx.374.1581710835710; 
+ Fri, 14 Feb 2020 12:07:15 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAOWid-caJHeXUnQv3MOi=9U+vdBLfewN+CrA-7jRrz0VXqatbQ@mail.gmail.com>
+References: <20200207211713.3870-1-alexander.deucher@amd.com>
+ <20200214073934.GV2363188@phenom.ffwll.local>
+ <CADnq5_PW7QwUk6TdaWiY3i=udua1REkw0HDQZ3eBwk4Xg24OSg@mail.gmail.com>
+ <20200214183514.GZ2363188@phenom.ffwll.local>
+In-Reply-To: <20200214183514.GZ2363188@phenom.ffwll.local>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 14 Feb 2020 15:07:04 -0500
+Message-ID: <CADnq5_Pr90Qvkn2XezPciA_La=5W_ng=QZ_5_tcfM5qteKo=Wg@mail.gmail.com>
+Subject: Re: [PATCH 13/15] drm/amdgpu/display: split dp connector registration
+ (v3)
+To: Daniel Vetter <daniel@ffwll.ch>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,68 +77,173 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: juan.zuniga-anaya@amd.com, Daniel Vetter <daniel@ffwll.ch>,
- Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>,
- jsparks@cray.com, nirmoy.das@amd.com,
+Cc: Alex Deucher <alexander.deucher@amd.com>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- lkaplan@cray.com, "Greathouse, Joseph" <joseph.greathouse@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Jason Ekstrand <jason@jlekstrand.net>, Johannes Weiner <hannes@cmpxchg.org>,
- Alex Deucher <alexander.deucher@amd.com>, cgroups@vger.kernel.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- damon.mcdougall@amd.com
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello, Kenny, Daniel.
-
-(cc'ing Johannes)
-
-On Fri, Feb 14, 2020 at 01:51:32PM -0500, Kenny Ho wrote:
-> On Fri, Feb 14, 2020 at 1:34 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+On Fri, Feb 14, 2020 at 1:35 PM Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> On Fri, Feb 14, 2020 at 12:39:22PM -0500, Alex Deucher wrote:
+> > On Fri, Feb 14, 2020 at 2:39 AM Daniel Vetter <daniel@ffwll.ch> wrote:
+> > >
+> > > On Fri, Feb 07, 2020 at 04:17:13PM -0500, Alex Deucher wrote:
+> > > > Split into init and register functions to avoid a segfault
+> > > > in some configs when the load/unload callbacks are removed.
+> > > >
+> > > > v2:
+> > > > - add back accidently dropped has_aux setting
+> > > > - set dev in late_register
+> > > >
+> > > > v3:
+> > > > - fix dp cec ordering
+> > >
+> > > Why did you move this back out of the late_register callback when going
+> > > from v2->v3? In i915 we register the cec stuff from ->late_register, like
 > >
-> > I think guidance from Tejun in previos discussions was pretty clear that
-> > he expects cgroups to be both a) standardized and c) sufficient clear
-> > meaning that end-users have a clear understanding of what happens when
-> > they change the resource allocation.
+> > I got a bunch of complaints from the cec code when I had it switched
+> > the other way.  They went away when I moved it back.  I don't remember
+> > the exact messages off hand.
+>
+> Would be interesting to learn want went wrong, just in case there's a core
+> bug here somewhere that prevents drivers from tdtr. But definitely no
+> reason to hold off this patch.
+
+I'll repo it next week and send it out for posterity.  Thanks for the review.
+
+Alex
+
+> -Daniel
+>
 > >
-> > I'm not sure lgpu here, at least as specified, passes either.
-> 
-> I disagree (at least on the characterization of the feedback
-> provided.)  I believe this series satisfied the sprite of Tejun's
-> guidance so far (the weight knob for lgpu, for example, was
-> specifically implemented base on his input.)  But, I will let Tejun
-> speak for himself after he considered the implementation in detail.
-
-I have to agree with Daniel here. My apologies if I weren't clear
-enough. Here's one interface I can think of:
-
- * compute weight: The same format as io.weight. Proportional control
-   of gpu compute.
-
- * memory low: Please see how the system memory.low behaves. For gpus,
-   it'll need per-device entries.
-
-Note that for both, there one number to configure and conceptually
-it's pretty clear to everybody what that number means, which is not to
-say that it's clear to implement but it's much better to deal with
-that on this side of the interface than the other.
-
-cc'ing Johannes. Do you have anything on mind regarding how gpu memory
-configuration should look like? e.g. should it go w/ weights rather
-than absoulte units (I don't think so given that it'll most likely
-need limits at some point too but still and there are benefits from
-staying consistent with system memory).
-
-Also, a rather trivial high level question. Is drm a good controller
-name given that other controller names are like cpu, memory, io?
-
-Thanks.
-
--- 
-tejun
+> > Alex
+> >
+> > > anything else userspace visible. Maybe follow-up patch (the idea behind
+> > > removing the ->load callback is to close all the driver load races,
+> > > instead of only open("/dev/dri/0"), which is protected by
+> > > drm_global_mutex). On this:
+> > >
+> > > Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> > >
+> > > Cheers, Daniel
+> > >
+> > > >
+> > > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > > > ---
+> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c   | 16 ++++++++++++++++
+> > > >  drivers/gpu/drm/amd/amdgpu/atombios_dp.c         | 10 ++--------
+> > > >  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  |  7 ++++++-
+> > > >  3 files changed, 24 insertions(+), 9 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> > > > index ec1501e3a63a..f355d9a752d2 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> > > > @@ -1461,6 +1461,20 @@ static enum drm_mode_status amdgpu_connector_dp_mode_valid(struct drm_connector
+> > > >       return MODE_OK;
+> > > >  }
+> > > >
+> > > > +static int
+> > > > +amdgpu_connector_late_register(struct drm_connector *connector)
+> > > > +{
+> > > > +     struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
+> > > > +     int r = 0;
+> > > > +
+> > > > +     if (amdgpu_connector->ddc_bus->has_aux) {
+> > > > +             amdgpu_connector->ddc_bus->aux.dev = amdgpu_connector->base.kdev;
+> > > > +             r = drm_dp_aux_register(&amdgpu_connector->ddc_bus->aux);
+> > > > +     }
+> > > > +
+> > > > +     return r;
+> > > > +}
+> > > > +
+> > > >  static const struct drm_connector_helper_funcs amdgpu_connector_dp_helper_funcs = {
+> > > >       .get_modes = amdgpu_connector_dp_get_modes,
+> > > >       .mode_valid = amdgpu_connector_dp_mode_valid,
+> > > > @@ -1475,6 +1489,7 @@ static const struct drm_connector_funcs amdgpu_connector_dp_funcs = {
+> > > >       .early_unregister = amdgpu_connector_unregister,
+> > > >       .destroy = amdgpu_connector_destroy,
+> > > >       .force = amdgpu_connector_dvi_force,
+> > > > +     .late_register = amdgpu_connector_late_register,
+> > > >  };
+> > > >
+> > > >  static const struct drm_connector_funcs amdgpu_connector_edp_funcs = {
+> > > > @@ -1485,6 +1500,7 @@ static const struct drm_connector_funcs amdgpu_connector_edp_funcs = {
+> > > >       .early_unregister = amdgpu_connector_unregister,
+> > > >       .destroy = amdgpu_connector_destroy,
+> > > >       .force = amdgpu_connector_dvi_force,
+> > > > +     .late_register = amdgpu_connector_late_register,
+> > > >  };
+> > > >
+> > > >  void
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> > > > index ea702a64f807..9b74cfdba7b8 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> > > > @@ -186,16 +186,10 @@ amdgpu_atombios_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *m
+> > > >
+> > > >  void amdgpu_atombios_dp_aux_init(struct amdgpu_connector *amdgpu_connector)
+> > > >  {
+> > > > -     int ret;
+> > > > -
+> > > >       amdgpu_connector->ddc_bus->rec.hpd = amdgpu_connector->hpd.hpd;
+> > > > -     amdgpu_connector->ddc_bus->aux.dev = amdgpu_connector->base.kdev;
+> > > >       amdgpu_connector->ddc_bus->aux.transfer = amdgpu_atombios_dp_aux_transfer;
+> > > > -     ret = drm_dp_aux_register(&amdgpu_connector->ddc_bus->aux);
+> > > > -     if (!ret)
+> > > > -             amdgpu_connector->ddc_bus->has_aux = true;
+> > > > -
+> > > > -     WARN(ret, "drm_dp_aux_register_i2c_bus() failed with error %d\n", ret);
+> > > > +     drm_dp_aux_init(&amdgpu_connector->ddc_bus->aux);
+> > > > +     amdgpu_connector->ddc_bus->has_aux = true;
+> > > >  }
+> > > >
+> > > >  /***** general DP utility functions *****/
+> > > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> > > > index 3959c942c88b..d5b9e72f2649 100644
+> > > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> > > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> > > > @@ -155,6 +155,11 @@ amdgpu_dm_mst_connector_late_register(struct drm_connector *connector)
+> > > >       struct amdgpu_dm_connector *amdgpu_dm_connector =
+> > > >               to_amdgpu_dm_connector(connector);
+> > > >       struct drm_dp_mst_port *port = amdgpu_dm_connector->port;
+> > > > +     int r;
+> > > > +
+> > > > +     r = drm_dp_aux_register(&amdgpu_dm_connector->dm_dp_aux.aux);
+> > > > +     if (r)
+> > > > +             return r;
+> > > >
+> > > >  #if defined(CONFIG_DEBUG_FS)
+> > > >       connector_debugfs_init(amdgpu_dm_connector);
+> > > > @@ -484,7 +489,7 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+> > > >       aconnector->dm_dp_aux.aux.transfer = dm_dp_aux_transfer;
+> > > >       aconnector->dm_dp_aux.ddc_service = aconnector->dc_link->ddc;
+> > > >
+> > > > -     drm_dp_aux_register(&aconnector->dm_dp_aux.aux);
+> > > > +     drm_dp_aux_init(&aconnector->dm_dp_aux.aux);
+> > > >       drm_dp_cec_register_connector(&aconnector->dm_dp_aux.aux,
+> > > >                                     &aconnector->base);
+> > > >
+> > > > --
+> > > > 2.24.1
+> > > >
+> > > > _______________________________________________
+> > > > dri-devel mailing list
+> > > > dri-devel@lists.freedesktop.org
+> > > > https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> > >
+> > > --
+> > > Daniel Vetter
+> > > Software Engineer, Intel Corporation
+> > > http://blog.ffwll.ch
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
