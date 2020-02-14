@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 900BCC3B1A1
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC0A1C3B1A4
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:18:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 68B702471E
+	by mail.kernel.org (Postfix) with ESMTPS id C40C82470A
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:18:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="2jWCv0iE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 68B702471E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="zZJffNy5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C40C82470A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 687176FAEA;
-	Fri, 14 Feb 2020 16:18:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2042E6FAEB;
+	Fri, 14 Feb 2020 16:18:38 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EF536FAE9;
- Fri, 14 Feb 2020 16:18:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81F7E6FAE9;
+ Fri, 14 Feb 2020 16:18:34 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 217C824700;
- Fri, 14 Feb 2020 16:18:32 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 68FF1246FB;
+ Fri, 14 Feb 2020 16:18:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581697113;
- bh=fFAY4u15hVnQZTtLDHb/0vJN8XTyQ+k5F3zCX4jEDm4=;
+ s=default; t=1581697114;
+ bh=13YwOUhm/zgYS0OzSv2ocq+cj0TP0yaw0TFlpIWVLzg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=2jWCv0iEQJj1+HY/So1UTuDzek0pCZ0PwHx//MCXPbF+CVQTRzuy34ABGsFzTERoM
- t+JzGlCGZfIgnNQfSDiuC+heg1oVrXjrw8B1LgQYROW7BQd+zcZxpO7kwVFomQrfwt
- 0Ohss3JSvJ3r6wMQyRW9XWbRgsl7Rm+BZ9bp+zpI=
+ b=zZJffNy5k2bCXWamVxablHc6CKhHwYEEeC0Un/CPKe0nqsUAU2kBPmM5sZVyfbTp3
+ JWJKfwNCUritDnn+7OEr0gwbYD0GeluCVOnW8tZqubOwyT5KT9QHFhyKwryqQ4tANL
+ clsYdceqzJhw0h+P6dQ6Y2ErDSYguNyQExNxq7sM=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.14 060/186] drm/radeon: remove set but not used
- variable 'blocks'
-Date: Fri, 14 Feb 2020 11:15:09 -0500
-Message-Id: <20200214161715.18113-60-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.14 061/186] drm/radeon: remove set but not used
+ variable 'tv_pll_cntl1'
+Date: Fri, 14 Feb 2020 11:15:10 -0500
+Message-Id: <20200214161715.18113-61-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214161715.18113-1-sashal@kernel.org>
 References: <20200214161715.18113-1-sashal@kernel.org>
@@ -71,15 +71,15 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: zhengbin <zhengbin13@huawei.com>
 
-[ Upstream commit 77441f77949807fda4a0aec0bdf3e86ae863fd56 ]
+[ Upstream commit dc9b3dbd28744510b78490dc6312848a8f918749 ]
 
 Fixes gcc '-Wunused-but-set-variable' warning:
 
-drivers/gpu/drm/radeon/radeon_combios.c: In function radeon_combios_get_power_modes:
-drivers/gpu/drm/radeon/radeon_combios.c:2638:10: warning: variable blocks set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/radeon/radeon_legacy_tv.c: In function radeon_legacy_tv_mode_set:
+drivers/gpu/drm/radeon/radeon_legacy_tv.c:538:24: warning: variable tv_pll_cntl1 set but not used [-Wunused-but-set-variable]
 
-It is introduced by commit 56278a8edace ("drm/radeon/kms:
-pull power mode info from bios tables (v3)"), but never used,
+It is introduced by commit 4ce001abafaf ("drm/radeon/kms:
+add initial radeon tv-out support."), but never used,
 so remove it.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
@@ -87,30 +87,35 @@ Signed-off-by: zhengbin <zhengbin13@huawei.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/radeon/radeon_combios.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/radeon/radeon_legacy_tv.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
-index 3178ba0c537c1..a01e52445ad11 100644
---- a/drivers/gpu/drm/radeon/radeon_combios.c
-+++ b/drivers/gpu/drm/radeon/radeon_combios.c
-@@ -2635,7 +2635,7 @@ void radeon_combios_get_power_modes(struct radeon_device *rdev)
- {
- 	struct drm_device *dev = rdev->ddev;
- 	u16 offset, misc, misc2 = 0;
--	u8 rev, blocks, tmp;
-+	u8 rev, tmp;
- 	int state_index = 0;
- 	struct radeon_i2c_bus_rec i2c_bus;
+diff --git a/drivers/gpu/drm/radeon/radeon_legacy_tv.c b/drivers/gpu/drm/radeon/radeon_legacy_tv.c
+index 611cf934b2119..840a08a69b81f 100644
+--- a/drivers/gpu/drm/radeon/radeon_legacy_tv.c
++++ b/drivers/gpu/drm/radeon/radeon_legacy_tv.c
+@@ -545,7 +545,7 @@ void radeon_legacy_tv_mode_set(struct drm_encoder *encoder,
+ 	uint32_t tv_master_cntl, tv_rgb_cntl, tv_dac_cntl;
+ 	uint32_t tv_modulator_cntl1, tv_modulator_cntl2;
+ 	uint32_t tv_vscaler_cntl1, tv_vscaler_cntl2;
+-	uint32_t tv_pll_cntl, tv_pll_cntl1, tv_ftotal;
++	uint32_t tv_pll_cntl, tv_ftotal;
+ 	uint32_t tv_y_fall_cntl, tv_y_rise_cntl, tv_y_saw_tooth_cntl;
+ 	uint32_t m, n, p;
+ 	const uint16_t *hor_timing;
+@@ -717,12 +717,6 @@ void radeon_legacy_tv_mode_set(struct drm_encoder *encoder,
+ 		(((n >> 9) & RADEON_TV_N0HI_MASK) << RADEON_TV_N0HI_SHIFT) |
+ 		((p & RADEON_TV_P_MASK) << RADEON_TV_P_SHIFT);
  
-@@ -2725,7 +2725,6 @@ void radeon_combios_get_power_modes(struct radeon_device *rdev)
- 		offset = combios_get_table_offset(dev, COMBIOS_POWERPLAY_INFO_TABLE);
- 		if (offset) {
- 			rev = RBIOS8(offset);
--			blocks = RBIOS8(offset + 0x2);
- 			/* power mode 0 tends to be the only valid one */
- 			rdev->pm.power_state[state_index].num_clock_modes = 1;
- 			rdev->pm.power_state[state_index].clock_info[0].mclk = RBIOS32(offset + 0x5 + 0x2);
+-	tv_pll_cntl1 = (((4 & RADEON_TVPCP_MASK) << RADEON_TVPCP_SHIFT) |
+-			((4 & RADEON_TVPVG_MASK) << RADEON_TVPVG_SHIFT) |
+-			((1 & RADEON_TVPDC_MASK) << RADEON_TVPDC_SHIFT) |
+-			RADEON_TVCLK_SRC_SEL_TVPLL |
+-			RADEON_TVPLL_TEST_DIS);
+-
+ 	tv_dac->tv.tv_uv_adr = 0xc8;
+ 
+ 	if (tv_dac->tv_std == TV_STD_NTSC ||
 -- 
 2.20.1
 
