@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B342C3B19F
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:53:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3253C3B19F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:53:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E3CA0222C4
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:53:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8B41B24673
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:53:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="vDL04vJp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3CA0222C4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="xqcIwbD8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B41B24673
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB526F99C;
-	Fri, 14 Feb 2020 15:52:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53AC66E826;
+	Fri, 14 Feb 2020 15:53:57 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48A026F9BE;
- Fri, 14 Feb 2020 15:52:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A6866E826;
+ Fri, 14 Feb 2020 15:53:56 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 5EBAA222C4;
- Fri, 14 Feb 2020 15:52:46 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 09C3224676;
+ Fri, 14 Feb 2020 15:53:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581695567;
- bh=vMAIxQCEcBteBvTjRTi8zaQHQRbcimfsWflvIWcKtRU=;
+ s=default; t=1581695636;
+ bh=zERLyX57mTufDyJ7gVj+1+koC2enHgrS/6UrUIXrfNo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=vDL04vJppJ0l+GABfBMUIv6b6NtLE2FsRO9U0wMUGo9gTfxkZId1yqNmCYbYSt1SA
- VIicDTk8+PyuIvvX7uVIohyZIK4hneJaJBgaHMVlZ2g5XhvY4pjj4Caq2+W/L5H8wy
- GLBvvxFABO79+xCE/Aw0g/zxdwG+PWAZDME+Xoho=
+ b=xqcIwbD8gSA+/1iE3yFjTBIjiSebqVaa8eQemCTCECaRJWlGAIjQ3eO9pl9lc0NZb
+ MGKurRM1P9l7Y5I1NirWIdcGckjWqw4Wp6Q/V20g4I9GxsdJ8ADMSSFOHdqxDxbplm
+ LMJb5dL+w4W+N1Lm9Cf0SHgSBECGjPYCPVAh2ecs=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.5 179/542] Revert "drm/amdgpu: enable VCN DPG on
- Raven and Raven2"
-Date: Fri, 14 Feb 2020 10:42:51 -0500
-Message-Id: <20200214154854.6746-179-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.5 232/542] drm/amd/display: Fix
+ update_bw_bounding_box Calcs
+Date: Fri, 14 Feb 2020 10:43:44 -0500
+Message-Id: <20200214154854.6746-232-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214154854.6746-1-sashal@kernel.org>
 References: <20200214154854.6746-1-sashal@kernel.org>
@@ -61,57 +61,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Thong Thai <thong.thai@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Sung Lee <sung.lee@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Yongqiang Sun <yongqiang.sun@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Thong Thai <thong.thai@amd.com>
+From: Sung Lee <sung.lee@amd.com>
 
-[ Upstream commit d515959125f24767d02e82587a11e444eeba0e7b ]
+[ Upstream commit 615b9b585eb57c1d49382d16a62de768f2c6a340 ]
 
-This reverts commit a4840d91c984f93b2acdcd44441d624bbc1af0d2.
+[Why]
+Previously update_bw_bounding_box for RN was commented out
+due to incorrect values causing BSOD on Hybrid Graphics.
+However, commenting out this function also may cause issues
+such as underflow in certain cases such as 2x4K displays.
 
-Reverting due to power efficiency issues seen on Raven 1 and 2
-when DPG mode is enabled.
+[How]
+Fix dram_speed_mts calculations.
+Update from proper index of clock_limits[]
 
-Signed-off-by: Thong Thai <thong.thai@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sung Lee <sung.lee@amd.com>
+Reviewed-by: Yongqiang Sun <yongqiang.sun@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/soc15.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 11 ++---------
+ 1 file changed, 2 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 8e1640bc07aff..04ea7cd692955 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -1145,9 +1145,7 @@ static int soc15_common_early_init(void *handle)
- 				AMD_CG_SUPPORT_SDMA_LS |
- 				AMD_CG_SUPPORT_VCN_MGCG;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+index fe0ed4c09ad0a..83cda43a1b6b3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+@@ -1352,12 +1352,6 @@ struct display_stream_compressor *dcn21_dsc_create(
  
--			adev->pg_flags = AMD_PG_SUPPORT_SDMA |
--				AMD_PG_SUPPORT_VCN |
--				AMD_PG_SUPPORT_VCN_DPG;
-+			adev->pg_flags = AMD_PG_SUPPORT_SDMA | AMD_PG_SUPPORT_VCN;
- 		} else if (adev->pdev->device == 0x15d8) {
- 			adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
- 				AMD_CG_SUPPORT_GFX_MGLS |
-@@ -1190,9 +1188,7 @@ static int soc15_common_early_init(void *handle)
- 				AMD_CG_SUPPORT_SDMA_LS |
- 				AMD_CG_SUPPORT_VCN_MGCG;
+ static void update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_params)
+ {
+-	/*
+-	TODO: Fix this function to calcualte correct values.
+-	There are known issues with this function currently
+-	that will need to be investigated. Use hardcoded known good values for now.
+-
+-
+ 	struct dcn21_resource_pool *pool = TO_DCN21_RES_POOL(dc->res_pool);
+ 	struct clk_limit_table *clk_table = &bw_params->clk_table;
+ 	int i;
+@@ -1372,11 +1366,10 @@ static void update_bw_bounding_box(struct dc *dc, struct clk_bw_params *bw_param
+ 		dcn2_1_soc.clock_limits[i].dcfclk_mhz = clk_table->entries[i].dcfclk_mhz;
+ 		dcn2_1_soc.clock_limits[i].fabricclk_mhz = clk_table->entries[i].fclk_mhz;
+ 		dcn2_1_soc.clock_limits[i].socclk_mhz = clk_table->entries[i].socclk_mhz;
+-		dcn2_1_soc.clock_limits[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 16 / 1000;
++		dcn2_1_soc.clock_limits[i].dram_speed_mts = clk_table->entries[i].memclk_mhz * 2;
+ 	}
+-	dcn2_1_soc.clock_limits[i] = dcn2_1_soc.clock_limits[i - i];
++	dcn2_1_soc.clock_limits[i] = dcn2_1_soc.clock_limits[i - 1];
+ 	dcn2_1_soc.num_states = i;
+-	*/
+ }
  
--			adev->pg_flags = AMD_PG_SUPPORT_SDMA |
--				AMD_PG_SUPPORT_VCN |
--				AMD_PG_SUPPORT_VCN_DPG;
-+			adev->pg_flags = AMD_PG_SUPPORT_SDMA | AMD_PG_SUPPORT_VCN;
- 		}
- 		break;
- 	case CHIP_ARCTURUS:
+ /* Temporary Place holder until we can get them from fuse */
 -- 
 2.20.1
 
