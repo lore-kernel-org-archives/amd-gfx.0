@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81167C3B1A1
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:10:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57BDEC3F68F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:10:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4882B2468C
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:10:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 30EB82469C
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:10:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="PpTW8/vU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4882B2468C
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="QxHoDqkF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 30EB82469C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E8796FA85;
-	Fri, 14 Feb 2020 16:10:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F19726FA7D;
+	Fri, 14 Feb 2020 16:10:54 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DC576FA85;
- Fri, 14 Feb 2020 16:10:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 653DC6FA88;
+ Fri, 14 Feb 2020 16:10:54 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7C27D2469C;
- Fri, 14 Feb 2020 16:10:45 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4D53624680;
+ Fri, 14 Feb 2020 16:10:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696646;
- bh=We/SMqES5kF9MPTnXDpKNKHaq6SPjYDZobbxfBZQkFw=;
+ s=default; t=1581696654;
+ bh=lbb8p6MEsHz1aytgvvoCCNt4UaPulBkyaxqYhVkjEcA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PpTW8/vUAWhY2b7zPOHm0QmJS/WtFBHsup+W8Hy2x+1OWQ3ISo2SZ6BcOj2KUDJbF
- A34LACR3/XX61l7tl6BIJgFBkkhpqW87emN2KZ1eMGUW1avcvtYqUjrfGqkcBChq32
- 9iM/Sut53N6sGmOCDLRqv1Vu4mbflQIZa067Sz5A=
+ b=QxHoDqkF65bJDjzaOxDG9OyjE943kQba/weJApi3BJKfPP+kECKPMD8lIH1Zd8NoW
+ 6cZ94XhCr363G1Aii5xIfZ2Lpu12zKLBJQZjFZbWecQ5ZqIySNJSsqMQeNbxDSXq6o
+ l7HYtNa+aheOW0U9qWwUNOlPrQ7QLWx9McNXlH7E=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 422/459] drm/amd/display: do not allocate
- display_mode_lib unnecessarily
-Date: Fri, 14 Feb 2020 11:01:12 -0500
-Message-Id: <20200214160149.11681-422-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 429/459] radeon: insert 10ms sleep in
+ dce5_crtc_load_lut
+Date: Fri, 14 Feb 2020 11:01:19 -0500
+Message-Id: <20200214160149.11681-429-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
 References: <20200214160149.11681-1-sashal@kernel.org>
@@ -61,77 +61,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Dor Askayo <dor.askayo@gmail.com>,
- Leo Li <sunpeng.li@amd.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Sasha Levin <sashal@kernel.org>, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ =?UTF-8?q?Michel=20D=C3=A4nzer?= <michel.daenzer@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dor Askayo <dor.askayo@gmail.com>
-
-[ Upstream commit bb67bfd2e7101bf2ac5327b0b7a847cd9fb9723f ]
-
-This allocation isn't required and can fail when resuming from suspend.
-
-Bug: https://gitlab.freedesktop.org/drm/amd/issues/1009
-Signed-off-by: Dor Askayo <dor.askayo@gmail.com>
-Reviewed-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 4b8819c27fcda..4704aac336c29 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2267,12 +2267,7 @@ void dc_set_power_state(
- 	enum dc_acpi_cm_power_state power_state)
- {
- 	struct kref refcount;
--	struct display_mode_lib *dml = kzalloc(sizeof(struct display_mode_lib),
--						GFP_KERNEL);
--
--	ASSERT(dml);
--	if (!dml)
--		return;
-+	struct display_mode_lib *dml;
- 
- 	switch (power_state) {
- 	case DC_ACPI_CM_POWER_STATE_D0:
-@@ -2294,6 +2289,12 @@ void dc_set_power_state(
- 		 * clean state, and dc hw programming optimizations will not
- 		 * cause any trouble.
- 		 */
-+		dml = kzalloc(sizeof(struct display_mode_lib),
-+				GFP_KERNEL);
-+
-+		ASSERT(dml);
-+		if (!dml)
-+			return;
- 
- 		/* Preserve refcount */
- 		refcount = dc->current_state->refcount;
-@@ -2307,10 +2308,10 @@ void dc_set_power_state(
- 		dc->current_state->refcount = refcount;
- 		dc->current_state->bw_ctx.dml = *dml;
- 
-+		kfree(dml);
-+
- 		break;
- 	}
--
--	kfree(dml);
- }
- 
- void dc_resume(struct dc *dc)
--- 
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RnJvbTogRGFuaWVsIFZldHRlciA8ZGFuaWVsLnZldHRlckBmZndsbC5jaD4KClsgVXBzdHJlYW0g
+Y29tbWl0IGVjM2Q2NTA4MmQ3ZGFiYWQ2ZmE4ZjY2YThlZjE2NmYyZDUyMmQ2YjIgXQoKUGVyIGF0
+IGxlYXN0IG9uZSB0ZXN0ZXIgdGhpcyBpcyBlbm91Z2ggbWFnaWMgdG8gcmVjb3ZlciB0aGUgcmVn
+cmVzc2lvbgppbnRyb2R1Y2VkIGZvciBzb21lIHBlb3BsZSAoYnV0IG5vdCBhbGwpIGluCgpjb21t
+aXQgYjhlMmIwMTk5Y2MzNzc2MTdkYzIzOGY1MTA2MzUyYzA2ZGNkM2ZhMgpBdXRob3I6IFBldGVy
+IFJvc2luIDxwZWRhQGF4ZW50aWEuc2U+CkRhdGU6ICAgVHVlIEp1bCA0IDEyOjM2OjU3IDIwMTcg
+KzAyMDAKCiAgICBkcm0vZmItaGVscGVyOiBmYWN0b3Igb3V0IHBzZXVkby1wYWxldHRlCgp3aGlj
+aCBmb3IgcmFkZW9uIGhhZCB0aGUgc2lkZS1lZmZlY3Qgb2YgcmVmYWN0b3Jpbmcgb3V0IGEgc2Vl
+bWluZ2x5CnJlZHVkYW50IHdyaXRpbmcgb2YgdGhlIGNvbG9yIHBhbGV0dGUuCgoxMG1zIGluIGEg
+ZmFpcmx5IHNsb3cgbW9kZXNldCBwYXRoIGZlZWxzIGxpa2UgYW4gYWNjZXB0YWJsZSBmb3JtIG9m
+CmR1Y3QtdGFwZSwgc28gbWF5YmUgd29ydGggYSBzaG90IGFuZCBzZWUgd2hhdCBzdGlja3MuCgpD
+YzogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpDYzogTWljaGVsIETD
+pG56ZXIgPG1pY2hlbC5kYWVuemVyQGFtZC5jb20+ClJlZmVyZW5jZXM6IGh0dHBzOi8vYnVnemls
+bGEua2VybmVsLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTk4MTIzClNpZ25lZC1vZmYtYnk6IERhbmll
+bCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAaW50ZWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBBbGV4IERl
+dWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+ClNpZ25lZC1vZmYtYnk6IFNhc2hhIExl
+dmluIDxzYXNoYWxAa2VybmVsLm9yZz4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVv
+bl9kaXNwbGF5LmMgfCAyICsrCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspCgpkaWZm
+IC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZGlzcGxheS5jIGIvZHJpdmVy
+cy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZGlzcGxheS5jCmluZGV4IDg0ZDNkODg1YjdhNDYuLjYw
+Njk3MmM0NTkzYWEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2Rp
+c3BsYXkuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9kaXNwbGF5LmMKQEAg
+LTEyNyw2ICsxMjcsOCBAQCBzdGF0aWMgdm9pZCBkY2U1X2NydGNfbG9hZF9sdXQoc3RydWN0IGRy
+bV9jcnRjICpjcnRjKQogCiAJRFJNX0RFQlVHX0tNUygiJWRcbiIsIHJhZGVvbl9jcnRjLT5jcnRj
+X2lkKTsKIAorCW1zbGVlcCgxMCk7CisKIAlXUkVHMzIoTklfSU5QVVRfQ1NDX0NPTlRST0wgKyBy
+YWRlb25fY3J0Yy0+Y3J0Y19vZmZzZXQsCiAJICAgICAgIChOSV9JTlBVVF9DU0NfR1JQSF9NT0RF
+KE5JX0lOUFVUX0NTQ19CWVBBU1MpIHwKIAkJTklfSU5QVVRfQ1NDX09WTF9NT0RFKE5JX0lOUFVU
+X0NTQ19CWVBBU1MpKSk7Ci0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
