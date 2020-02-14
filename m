@@ -2,102 +2,52 @@ Return-Path: <SRS0=cmay=4C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DFD60C3B19D
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:01:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9E11C3B19F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:01:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B0C93222C4
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:01:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B0D6C206CC
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:01:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="L4ToET56"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0C93222C4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="jZVMT4Mn"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0D6C206CC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6601F6FA14;
-	Fri, 14 Feb 2020 16:01:03 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2056.outbound.protection.outlook.com [40.107.244.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 183F46FA14;
- Fri, 14 Feb 2020 16:01:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aqxPY6eTeSGI/N/1Gh4F7aLmbhABKSSXWTlAnGBWkM9zJ7wKTG0ZAxgFvyc1fxdwXDZik7lxR81TDTxqUoxctNt20kuxT28vrqMyipH49B2NYsKZIrnvziS0lbvLZkJ6R1x42TF4Y2qvGaSls/KDKKF0JmGJZ9C+huEFCeNpLRMEvayNmBDHG2wTQ9PsLEx7qFlpPTb3Idl+hwOmcn6EdpMfjtlEET/BuuflUpflrlotQUcQqkvzwM24yOxLE1EFeB+0Oh08FsDzPWgplCOPC8j+QYVrr/ZW4fo4cwZAn50mGr5RjUBEMlBgMAoFJO+6/too94McPXUWoWgy8h6d2Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x1NmVgVHJPBjz5DDw59G4emVWseGWn1aWJozqn0khA0=;
- b=MDrYQnvaK4KiUXHm+jje0bbb8jTu98IxEXgvEAg/ZE61el0g34iqbgVGluaklHz7pgyG+aBqwXKziHMkZTBVSgW9XYBGargpBUuPmLbETOEBOeTgNS8xJ3JF/u2HSgW60deBCPTKfva56ZBUo83ub41QHHXDep0Q1flN0QGgZsExTcSuEhLnrfvRLEttqAHWhJXqgFu7/z6fxCm0asaNzsdNJRSCW8SrIMD1nAmsjoXiNJIBWBhZBPTUYUU1iKrA7tjpYjuLjMWW53+C9rC5l7EruhHRD91qsUPCIz4+0lqNc7fDqZrEGFb/2ENKdOuEpmDyFnCMan1xW91u+tCr7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x1NmVgVHJPBjz5DDw59G4emVWseGWn1aWJozqn0khA0=;
- b=L4ToET564guG3PHNnfS0P/jjByUSSqvrPx7Dz2NhoH5hI1tla+W3YCklxeRz6CfAh5fG6E4wk2/r4qavRc4IGOXlmADKR1nPAQboVAjewu2oKOn6aweagDte9KRDMRs7Vhg6uTU7yhC7ctAyXzecCfKjIgWDBs4urRaZvTX+7u8=
-Received: from DM5PR1201MB2554.namprd12.prod.outlook.com (10.172.92.14) by
- DM5PR1201MB0012.namprd12.prod.outlook.com (10.172.89.146) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2729.22; Fri, 14 Feb 2020 16:01:02 +0000
-Received: from DM5PR1201MB2554.namprd12.prod.outlook.com
- ([fe80::c4c:bafd:5833:2b51]) by DM5PR1201MB2554.namprd12.prod.outlook.com
- ([fe80::c4c:bafd:5833:2b51%5]) with mapi id 15.20.2729.025; Fri, 14 Feb 2020
- 16:01:02 +0000
-From: "Liu, Zhan" <Zhan.Liu@amd.com>
-To: Nathan Chancellor <natechancellor@gmail.com>, "Wentland, Harry"
- <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)" <David1.Zhou@amd.com>
-Subject: RE: [PATCH] drm/amd/display: Don't take the address of
- skip_scdc_overwrite in dc_link_detect_helper
-Thread-Topic: [PATCH] drm/amd/display: Don't take the address of
- skip_scdc_overwrite in dc_link_detect_helper
-Thread-Index: AQHV4w3nrdEjDXoM7k+tBRh46kQ/F6ga2T+A
-Date: Fri, 14 Feb 2020 16:01:01 +0000
-Message-ID: <DM5PR1201MB2554F94D7E206B7690C208109E150@DM5PR1201MB2554.namprd12.prod.outlook.com>
-References: <20200214062950.14151-1-natechancellor@gmail.com>
-In-Reply-To: <20200214062950.14151-1-natechancellor@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Zhan.Liu@amd.com; 
-x-originating-ip: [165.204.55.250]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 6ffdb09a-7ea3-4819-cc1f-08d7b16716e7
-x-ms-traffictypediagnostic: DM5PR1201MB0012:|DM5PR1201MB0012:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR1201MB0012E5CB2FC3BA1759E6B0A79E150@DM5PR1201MB0012.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
-x-forefront-prvs: 03137AC81E
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10001)(10009020)(4636009)(136003)(366004)(376002)(396003)(39860400002)(346002)(189003)(199004)(26005)(186003)(33656002)(4326008)(2906002)(52536014)(5660300002)(66476007)(9686003)(8936002)(316002)(81156014)(86362001)(81166006)(66556008)(7696005)(54906003)(110136005)(64756008)(76116006)(45080400002)(55016002)(6636002)(966005)(66446008)(53546011)(66946007)(8676002)(6506007)(71200400001)(478600001)(921003)(1121003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR1201MB0012;
- H:DM5PR1201MB2554.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: BawvpbGpghwUyTJwki8NC9In2ZKQuSMjrRh1hGnQAn+ehswAwnP3bidg7Jy8EuabQiLWrBDv1LmCcfZzNUq7UWno0APNlGd0CkGqyZ9rRgGccjYnMAvWZdtMupt25EmeZ2Pflm2hSPPcZ9N/V9Af2e7v6/4Ctwd+EPM+PSlq5nZcdJNRH+PAqk/Ao0LuXZQG5ajMKECEY2XXSUen8q8SBiizdPCISNxdpK8+LCvWJisLZD6c1tcVHkwxW9+RyaLbhsU8vAqX/n4EJRKD0DnFSOF5rhw1rtAtiUjYOaxTjYg3UdF+bGL0vJDsxWnoYgSAfQ1AR00lePKu/J4iXuJmjUosztMq//Y44Oz+EsR8d/BKEHrnzjhjpR0xJ0XLdp+Yj5cS0utw0rguIXcS3Uxj1bAfAvnmTuxNln9hfYpYn+yDd6m2IqZlVS9iijfjAE5zH7XD+QYdD8jH8VYR9xxYtfmcoBmwUnbhBZ1zgflIiQa/paZFaxOpE5D3dwvoibL7qaT6i0GEGuln8uQsdJoHm7DBo7w8LdhCMYSDfo9AK9BodqgYvylIyRAKqg5BJBKbZdeKoO39jGV23ruc7g1Z5dj/qm0Ym7eUO3wqh2L/BQ5tB7qrVQZOoHnVMG6AVdHYE/CHSC5QobuLTOY3u3n9aqS8Rc9mDpn0MLkrRlqKM8uIXnL7XqgPR4J3O+aMrgaa
-x-ms-exchange-antispam-messagedata: +NKeL3LmO+gO5ICcSbVdEER6hv0xG4uGHk9/PD/1idLzkm+hGZZTj/vA9jmE/DyZqAnO5Gdx4I4tAgKrSvQvpBvgbQX2CqXfOuw4OJ+zvJlGynL9W7IAwK5B1E4uIkcgAQXpSDn6dlYeIWHmbKP8/A==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 597336FA13;
+	Fri, 14 Feb 2020 16:01:53 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDB4E6FA13;
+ Fri, 14 Feb 2020 16:01:51 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C815C2067D;
+ Fri, 14 Feb 2020 16:01:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1581696111;
+ bh=qStBGHPkTXhC16Gn47aKMJJ/N5wTThCfHowY2fSdCRw=;
+ h=From:To:Cc:Subject:Date:From;
+ b=jZVMT4MnUUtf+S/oP2ATc7AbxOUnB5XXWE2J33qHn5fAdyJnch59QpuGdtNIoen9U
+ AmupylHS/9ej5ZxcvfPwL3G/irThWq5gqgqA2xjy0Dsdo7WRJAO6xCxBASPU/3Gzvn
+ Tk9I52t9MQGp9WiR16ayCrho96LmUzVj3mi5CYKA=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.4 001/459] drm/amdgpu: remove set but not used
+ variable 'mc_shared_chmap' from 'gfx_v6_0.c' and 'gfx_v7_0.c'
+Date: Fri, 14 Feb 2020 10:54:11 -0500
+Message-Id: <20200214160149.11681-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ffdb09a-7ea3-4819-cc1f-08d7b16716e7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Feb 2020 16:01:01.9322 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cF2EsSxkd+6UbYflf8L0J5ouH4wmgWLWJfKs+OM+11vYp3rBQc/4Ito1P8SS26Rt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0012
+X-stable: review
+X-Patchwork-Hint: Ignore
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,98 +59,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "clang-built-linux@googlegroups.com" <clang-built-linux@googlegroups.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexander.deucher@amd.com>, yu kuai <yukuai3@huawei.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Sasha Levin <sashal@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-> -----Original Message-----
-> From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of
-> Nathan Chancellor
-> Sent: 2020/February/14, Friday 1:30 AM
-> To: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
-> <Sunpeng.Li@amd.com>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Zhou, David(ChunMing)
-> <David1.Zhou@amd.com>
-> Cc: clang-built-linux@googlegroups.com; Nathan Chancellor
-> <natechancellor@gmail.com>; dri-devel@lists.freedesktop.org; amd-
-> gfx@lists.freedesktop.org; linux-kernel@vger.kernel.org
-> Subject: [PATCH] drm/amd/display: Don't take the address of
-> skip_scdc_overwrite in dc_link_detect_helper
-> 
-> Clang warns:
-> 
-> ../drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:980:36:
-> warning: address of 'sink->edid_caps.panel_patch.skip_scdc_overwrite'
-> will always evaluate to 'true' [-Wpointer-bool-conversion]
->                 if (&sink->edid_caps.panel_patch.skip_scdc_overwrite)
->                 ~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
-> 1 warning generated.
-> 
-> This is probably not what was intended so remove the address of operator,
-> which matches how skip_scdc_overwrite is handled in the rest of the driver.
-> 
-> While we're here, drop an extra newline after this if block.
-> 
-> Fixes: a760fc1bff03 ("drm/amd/display: add monitor patch to disable SCDC
-> read/write")
-> Link:
-> https://github.com/ClangBuiltLinux/linux/issues/879
-> Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
-
-Thank you!
-Reviewed-by: Zhan Liu <zhan.liu@amd.com>
-
-> ---
-> 
-> As an aside, I don't see skip_scdc_overwrite assigned a value anywhere, is
-> this working as intended?
-> 
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> index 24d99849be5e..a3bfa05c545e 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> @@ -977,10 +977,9 @@ static bool dc_link_detect_helper(struct dc_link
-> *link,
->  		if ((prev_sink != NULL) && ((edid_status == EDID_THE_SAME)
-> || (edid_status == EDID_OK)))
->  			same_edid = is_same_edid(&prev_sink->dc_edid,
-> &sink->dc_edid);
-> 
-> -		if (&sink->edid_caps.panel_patch.skip_scdc_overwrite)
-> +		if (sink->edid_caps.panel_patch.skip_scdc_overwrite)
->  			link->ctx->dc->debug.hdmi20_disable = true;
-> 
-> -
->  		if (link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT
-> &&
->  			sink_caps.transaction_type ==
-> DDC_TRANSACTION_TYPE_I2C_OVER_AUX) {
->  			/*
-> --
-> 2.25.0
-> 
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.
-> freedesktop.org%2Fmailman%2Flistinfo%2Fdri-
-> devel&amp;data=02%7C01%7Czhan.liu%40amd.com%7Cb0b05e8e1c944b85
-> 0cc108d7b12508b4%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7
-> C637172644928182374&amp;sdata=OfX%2BPBPCkFt8Elo12VfVBg6Ecnui7Vh
-> hZwQFaKy5eyM%3D&amp;reserved=0
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RnJvbTogeXUga3VhaSA8eXVrdWFpM0BodWF3ZWkuY29tPgoKWyBVcHN0cmVhbSBjb21taXQgNzQ3
+YTM5N2QzOTRmYWMwMDAxZTRiM2MwM2Q3ZGNlM2ExMThhZjU2NyBdCgpGaXhlcyBnY2MgJy1XdW51
+c2VkLWJ1dC1zZXQtdmFyaWFibGUnIHdhcm5pbmc6Cgpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9nZnhfdjZfMC5jOiBJbiBmdW5jdGlvbgrigJhnZnhfdjZfMF9jb25zdGFudHNfaW5pdOKAmToK
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYzoxNTc5OjY6IHdhcm5pbmc6IHZh
+cmlhYmxlCuKAmG1jX3NoYXJlZF9jaG1hcOKAmSBzZXQgYnV0IG5vdCB1c2VkIFstV3VudXNlZC1i
+dXQtc2V0LXZhcmlhYmxlXQoKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYzog
+SW4gZnVuY3Rpb24K4oCYZ2Z4X3Y3XzBfZ3B1X2Vhcmx5X2luaXTigJk6CmRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2dmeF92N18wLmM6NDI2Mjo2OiB3YXJuaW5nOiB2YXJpYWJsZQrigJhtY19z
+aGFyZWRfY2htYXDigJkgc2V0IGJ1dCBub3QgdXNlZCBbLVd1bnVzZWQtYnV0LXNldC12YXJpYWJs
+ZV0KCkZpeGVzOiAyY2Q0NmFkMjIzODMgKCJkcm0vYW1kZ3B1OiBhZGQgZ3JhcGhpYyBwaXBlbGlu
+ZSBpbXBsZW1lbnRhdGlvbiBmb3Igc2kgdjgiKQpGaXhlczogZDkzZjNjYTcwNmI4ICgiZHJtL2Ft
+ZGdwdS9nZng3OiByZXdvcmsgZ3B1X2luaXQoKSIpClNpZ25lZC1vZmYtYnk6IHl1IGt1YWkgPHl1
+a3VhaTNAaHVhd2VpLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
+ZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5l
+bC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYyB8IDMgKy0t
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jIHwgMyArLS0KIDIgZmlsZXMg
+Y2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nZnhfdjZfMC5jCmluZGV4IDdmMGE2MzYyOGM0M2EuLjMxZjQ0ZDA1ZTYwNmQgMTAw
+NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMKKysrIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYwpAQCAtMTU3Niw3ICsxNTc2LDcgQEAg
+c3RhdGljIHZvaWQgZ2Z4X3Y2XzBfY29uZmlnX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
+ZXYpCiBzdGF0aWMgdm9pZCBnZnhfdjZfMF9jb25zdGFudHNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rl
+dmljZSAqYWRldikKIHsKIAl1MzIgZ2JfYWRkcl9jb25maWcgPSAwOwotCXUzMiBtY19zaGFyZWRf
+Y2htYXAsIG1jX2FyYl9yYW1jZmc7CisJdTMyIG1jX2FyYl9yYW1jZmc7CiAJdTMyIHN4X2RlYnVn
+XzE7CiAJdTMyIGhkcF9ob3N0X3BhdGhfY250bDsKIAl1MzIgdG1wOwpAQCAtMTY3OCw3ICsxNjc4
+LDYgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y2XzBfY29uc3RhbnRzX2luaXQoc3RydWN0IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYpCiAKIAlXUkVHMzIobW1CSUZfRkJfRU4sIEJJRl9GQl9FTl9fRkJfUkVBRF9F
+Tl9NQVNLIHwgQklGX0ZCX0VOX19GQl9XUklURV9FTl9NQVNLKTsKIAotCW1jX3NoYXJlZF9jaG1h
+cCA9IFJSRUczMihtbU1DX1NIQVJFRF9DSE1BUCk7CiAJYWRldi0+Z2Z4LmNvbmZpZy5tY19hcmJf
+cmFtY2ZnID0gUlJFRzMyKG1tTUNfQVJCX1JBTUNGRyk7CiAJbWNfYXJiX3JhbWNmZyA9IGFkZXYt
+PmdmeC5jb25maWcubWNfYXJiX3JhbWNmZzsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
+N18wLmMKaW5kZXggNzkxYmEzOThmMDA3ZS4uNThiN2VmOTdiZmY1NCAxMDA2NDQKLS0tIGEvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nZnhfdjdfMC5jCkBAIC00MjU4LDcgKzQyNTgsNyBAQCBzdGF0aWMgaW50IGdm
+eF92N18wX2xhdGVfaW5pdCh2b2lkICpoYW5kbGUpCiBzdGF0aWMgdm9pZCBnZnhfdjdfMF9ncHVf
+ZWFybHlfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKIAl1MzIgZ2JfYWRkcl9j
+b25maWc7Ci0JdTMyIG1jX3NoYXJlZF9jaG1hcCwgbWNfYXJiX3JhbWNmZzsKKwl1MzIgbWNfYXJi
+X3JhbWNmZzsKIAl1MzIgZGltbTAwX2FkZHJfbWFwLCBkaW1tMDFfYWRkcl9tYXAsIGRpbW0xMF9h
+ZGRyX21hcCwgZGltbTExX2FkZHJfbWFwOwogCXUzMiB0bXA7CiAKQEAgLTQzMzUsNyArNDMzNSw2
+IEBAIHN0YXRpYyB2b2lkIGdmeF92N18wX2dwdV9lYXJseV9pbml0KHN0cnVjdCBhbWRncHVfZGV2
+aWNlICphZGV2KQogCQlicmVhazsKIAl9CiAKLQltY19zaGFyZWRfY2htYXAgPSBSUkVHMzIobW1N
+Q19TSEFSRURfQ0hNQVApOwogCWFkZXYtPmdmeC5jb25maWcubWNfYXJiX3JhbWNmZyA9IFJSRUcz
+MihtbU1DX0FSQl9SQU1DRkcpOwogCW1jX2FyYl9yYW1jZmcgPSBhZGV2LT5nZnguY29uZmlnLm1j
+X2FyYl9yYW1jZmc7CiAKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
+ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbWQtZ2Z4Cg==
