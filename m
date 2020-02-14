@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2791C2BA83
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:52:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37ADBC47409
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:52:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 89B26222C4
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:52:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0F22B24693
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:52:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gp/wfcsi"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89B26222C4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="xlTFuh+T"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F22B24693
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 596E26F999;
-	Fri, 14 Feb 2020 15:52:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD9206F9A1;
+	Fri, 14 Feb 2020 15:52:10 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70C416F999;
- Fri, 14 Feb 2020 15:52:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B56A56F9A2;
+ Fri, 14 Feb 2020 15:52:08 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2DCE724649;
- Fri, 14 Feb 2020 15:52:04 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id D5E7A24685;
+ Fri, 14 Feb 2020 15:52:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581695525;
- bh=gNp+W51s5dQ8cfrOzVkhpPb0MYqdMHWlHPW/kPgJOLI=;
+ s=default; t=1581695528;
+ bh=RH/40Ut+9piaDQ+a1B7aQX3vadBeoW1qkQgrLS0+VgM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Gp/wfcsiioN1sFsxlRkdGKg+7rbQ/RPeVl/dyy/amRErsl4P3/Y1qFWLc6oBJNrXs
- 29NA2h0B4hDSPmfbNPRq675fxJ/K9hxYkrD8kLcbkRH6yYJ7PGRnKHEOIGRf6uCD5o
- h+o7W4HzDidI6ox88FXLMQ6Qtw1Tb2GRBnWA0EU0=
+ b=xlTFuh+TF0aPIVujUaagx9AXFnQTk7VrHyrivI0c+90r83blryGFPYhUw/lOJeDm+
+ jdBzIwIqD14BUKJT+lxjPoebXg+vhffGedF1dF12+BXHYET7AcJ9ZfAabBOSXStepB
+ qYCR0a+FgsBFqb8T3/RY1E5qjFSWLe5IQ+9b3nyo=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.5 146/542] drm/amd/powerplay: remove set but not
- used variable 'threshold', 'state'
-Date: Fri, 14 Feb 2020 10:42:18 -0500
-Message-Id: <20200214154854.6746-146-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.5 149/542] drm/amdgpu: remove set but not used
+ variable 'invalid'
+Date: Fri, 14 Feb 2020 10:42:21 -0500
+Message-Id: <20200214154854.6746-149-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214154854.6746-1-sashal@kernel.org>
 References: <20200214154854.6746-1-sashal@kernel.org>
@@ -61,80 +61,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
- zhengbin <zhengbin13@huawei.com>, Hulk Robot <hulkci@huawei.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexander.deucher@amd.com>, yu kuai <yukuai3@huawei.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Sasha Levin <sashal@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: zhengbin <zhengbin13@huawei.com>
-
-[ Upstream commit f5ac1595156a8b63812ed6fa0803ddf7207cced7 ]
-
-Fixes gcc '-Wunused-but-set-variable' warning:
-
-drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c: In function fiji_populate_single_graphic_level:
-drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c:943:11: warning: variable threshold set but not used [-Wunused-but-set-variable]
-drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c: In function fiji_populate_memory_timing_parameters:
-drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c:1504:8: warning: variable state set but not used [-Wunused-but-set-variable]
-
-They are introduced by commit 2e112b4ae3ba ("drm/amd/pp:
-remove fiji_smc/smumgr split."), but never used,
-so remove it.
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: zhengbin <zhengbin13@huawei.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
-index da025b1d302da..32ebb383c4568 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
-@@ -940,7 +940,7 @@ static int fiji_populate_single_graphic_level(struct pp_hwmgr *hwmgr,
- {
- 	int result;
- 	/* PP_Clocks minClocks; */
--	uint32_t threshold, mvdd;
-+	uint32_t mvdd;
- 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
- 	struct phm_ppt_v1_information *table_info =
- 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
-@@ -973,8 +973,6 @@ static int fiji_populate_single_graphic_level(struct pp_hwmgr *hwmgr,
- 	level->VoltageDownHyst = 0;
- 	level->PowerThrottle = 0;
- 
--	threshold = clock * data->fast_watermark_threshold / 100;
--
- 	data->display_timing.min_clock_in_sr = hwmgr->display_config->min_core_set_clock_in_sr;
- 
- 	if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps, PHM_PlatformCaps_SclkDeepSleep))
-@@ -1501,7 +1499,7 @@ static int fiji_populate_memory_timing_parameters(struct pp_hwmgr *hwmgr,
- 	uint32_t dram_timing;
- 	uint32_t dram_timing2;
- 	uint32_t burstTime;
--	ULONG state, trrds, trrdl;
-+	ULONG trrds, trrdl;
- 	int result;
- 
- 	result = atomctrl_set_engine_dram_timings_rv770(hwmgr,
-@@ -1513,7 +1511,6 @@ static int fiji_populate_memory_timing_parameters(struct pp_hwmgr *hwmgr,
- 	dram_timing2 = cgs_read_register(hwmgr->device, mmMC_ARB_DRAM_TIMING2);
- 	burstTime = cgs_read_register(hwmgr->device, mmMC_ARB_BURST_TIME);
- 
--	state = PHM_GET_FIELD(burstTime, MC_ARB_BURST_TIME, STATE0);
- 	trrds = PHM_GET_FIELD(burstTime, MC_ARB_BURST_TIME, TRRDS0);
- 	trrdl = PHM_GET_FIELD(burstTime, MC_ARB_BURST_TIME, TRRDL0);
- 
--- 
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RnJvbTogeXUga3VhaSA8eXVrdWFpM0BodWF3ZWkuY29tPgoKWyBVcHN0cmVhbSBjb21taXQgOWUw
+ODlhMjljNjk2ZDg2ZDI2ZTc5NzM3YmFmYmNlOTQ3MzhmYjQ2MiBdCgpGaXhlcyBnY2MgJy1XdW51
+c2VkLWJ1dC1zZXQtdmFyaWFibGUnIHdhcm5pbmc6Cgpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfYW1ka2ZkX2dwdXZtLmM6IEluIGZ1bmN0aW9uCuKAmGFtZGdwdV9hbWRrZmRfZXZp
+Y3RfdXNlcnB0cuKAmToKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9n
+cHV2bS5jOjE2NjU6Njogd2FybmluZzoKdmFyaWFibGUg4oCYaW52YWxpZOKAmSBzZXQgYnV0IG5v
+dCB1c2VkIFstV3VudXNlZC1idXQtc2V0LXZhcmlhYmxlXQoKJ2ludmFsaWQnIGlzIG5ldmVyIHVz
+ZWQsIHNvIGNhbiBiZSByZW1vdmVkLiBUaHVzICdhdG9taWNfaW5jX3JldHVybicKY2FuIGJlIHJl
+cGxhY2VkIGFzICdhdG9taWNfaW5jJwoKRml4ZXM6IDVhZTAyODNlODMxYSAoImRybS9hbWRncHU6
+IEFkZCB1c2VycHRyIHN1cHBvcnQgZm9yIEtGRCIpClNpZ25lZC1vZmYtYnk6IHl1IGt1YWkgPHl1
+a3VhaTNAaHVhd2VpLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
+ZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5l
+bC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2
+bS5jIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9u
+cygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRr
+ZmRfZ3B1dm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1
+dm0uYwppbmRleCA4ODgyMDllYjhjZWNkLi44Y2YyZThmNjQ3MDY1IDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMKKysrIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZF9ncHV2bS5jCkBAIC0xNjc0LDEwICsx
+Njc0LDEwIEBAIGludCBhbWRncHVfYW1ka2ZkX2V2aWN0X3VzZXJwdHIoc3RydWN0IGtnZF9tZW0g
+Km1lbSwKIAkJCQlzdHJ1Y3QgbW1fc3RydWN0ICptbSkKIHsKIAlzdHJ1Y3QgYW1ka2ZkX3Byb2Nl
+c3NfaW5mbyAqcHJvY2Vzc19pbmZvID0gbWVtLT5wcm9jZXNzX2luZm87Ci0JaW50IGludmFsaWQs
+IGV2aWN0ZWRfYm9zOworCWludCBldmljdGVkX2JvczsKIAlpbnQgciA9IDA7CiAKLQlpbnZhbGlk
+ID0gYXRvbWljX2luY19yZXR1cm4oJm1lbS0+aW52YWxpZCk7CisJYXRvbWljX2luYygmbWVtLT5p
+bnZhbGlkKTsKIAlldmljdGVkX2JvcyA9IGF0b21pY19pbmNfcmV0dXJuKCZwcm9jZXNzX2luZm8t
+PmV2aWN0ZWRfYm9zKTsKIAlpZiAoZXZpY3RlZF9ib3MgPT0gMSkgewogCQkvKiBGaXJzdCBldmlj
+dGlvbiwgc3RvcCB0aGUgcXVldWVzICovCi0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
