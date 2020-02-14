@@ -2,109 +2,101 @@ Return-Path: <SRS0=cmay=4C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C315C3B19D
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 14:05:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 18582C2BA83
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 14:07:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 224442187F
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 14:05:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DD3572082F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 14:07:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="TBHpnpo3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 224442187F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qYiz0+hX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD3572082F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D211D6E811;
-	Fri, 14 Feb 2020 14:05:18 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2046.outbound.protection.outlook.com [40.107.94.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDC936E7FA
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2020 14:05:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94A176EB81;
+	Fri, 14 Feb 2020 14:07:14 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::601])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED7E06E81C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2020 14:07:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Vhxiqo3gzLH17TcmBbSKnSuWxKwxoloT7YqTNVrQz6DgL6TEWN4BYFXHt7czgEjYdr2mQmWCNXDtAPrShjD9yvYrFU5llNCzZBdDSQcM49kTH28TLSlq73U0C7ycRaCRth0M2YnfUIUGLFoJbg8p7C8qHBqIOggPCkOXGF7QbKVLRR6T+DG294TREV7O/xHzoVx+pqhnVL9QRxT3yW44ta/1UvUtVHPv03O0yy8I/Og2QLyzbZJ9uOmxdnXYO4yazOWlaSj/N0+drtX7Qcee85VEG533eOSS7kfJHncndN961Vg9lsqimVgzqHRKjJy4AzWrfk/0qZ6EfOFOXQ9+iQ==
+ b=mS0HkjMU2isvXSLK5xwjYDJLdYCT4QwSSzr4eZsL6OZsvgXSLwhAiysy7KqPvc7XzjVjj9TuKKebHxUR5eDinSFEE1OMjoRJddzL1LPu/spZGvk4QQn8SispvXa00uKl9AGVuhWiSMxLS/eItbtrsm9xoaPYfoWmmctf70ViP1UgTc3qbecxQiuZlmEGdWykmOmW+JzVB5YS9DSCkmWRPQdlWG/tM+Y2j7SRsVx+KdBRonj9C8kobeXE6t5W/dTpvdUFhnEiCcrc5hQlEBKSnEeycgCT4EmQF5eIOiAjxtyTJCg4lzr4EJiQ/FuUDdxSwl6f+fbwXzVQDUdTGbiiPA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X/+Krr0nUgLHp6wU382RfPl1iCXTaRgSfHU6+cz9hrw=;
- b=a2/3HNUFT/uEO+QMydJj0o7+Kc6XEi83tv0oZHs8DIg/T9woWKv9dFg6nh72bueo0wptcjtTdOiTg2jzGDSml2bv/mPIf/KklydISKsZhDQeanEorXnuyEiq0RIc15ToPc4LI4CYF4zpsHV+F8t3zoETqU0CTF11GvqduUlYPXFTJk+NyR3Jmk3JQnDTHI7OXMCX6N+RZrs3eXHGVUj+0A8ygplJiwmHOmYNjsqTsJAP84xGaSFn0OjgrXbY5rErawIVya3f9CleiN6R8PuK3ZDtC/Yh4OrgpP7vbQNOvDAawyUw907ZWuSFn+3CUs/yR2orUpWdthD+HWH+oVAAmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
+ bh=3H907+lWqM/MOyqFMlNItVMLvq4UvVYgBDV83SUs2/I=;
+ b=kQp4o2RdS8NlrxBmivmuLGaX9ZoFooGEJev6h8pmSVJiLnDTPnu7jLjLuHC6yxoraJbMhO7hyoxq1Q4oy32v74NrpELdIn37E2QsMkGn4bbsq9VFMUZQY+9TzEoR+6cb/oBeHFHxg7ANtp4u+cNZG9sPZB4YcZtiwauRCTiwRLZ+eB3nbpSYDmANO/5PNvbwgpf6c3xqLNcmP15f1E7YqUa07rPk/KKs026ROoZgu+l5ftCrkRC9lVAtuRixV4Q8nFNeK5w8CPgYUn7Kq7f1gAWtGFxpo6t1mElG/3QXJu4TT/jVSP//e58p2KdTL1Bx9qrVhtoxo+N/sTitikpn6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X/+Krr0nUgLHp6wU382RfPl1iCXTaRgSfHU6+cz9hrw=;
- b=TBHpnpo3+eDaon/h0utEPLy7GZHU09eHIApFDn2OdVmXURNMIZuzptyo9FDsQYuix/uFdmfqBVr4mXF/K/uAlBHvX1/scHECDGAy5bZpp7hcjikyM3Q1cAmR8macoM3cZLybwxl6Lb4PqkdLj7e6M1LjVkv28CaYfgUKbZSwXfQ=
-Received: from MWHPR12CA0070.namprd12.prod.outlook.com (2603:10b6:300:103::32)
- by DM6PR12MB3212.namprd12.prod.outlook.com (2603:10b6:5:186::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2729.25; Fri, 14 Feb
- 2020 14:05:16 +0000
-Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::206) by MWHPR12CA0070.outlook.office365.com
- (2603:10b6:300:103::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2729.22 via Frontend
- Transport; Fri, 14 Feb 2020 14:05:16 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
+ bh=3H907+lWqM/MOyqFMlNItVMLvq4UvVYgBDV83SUs2/I=;
+ b=qYiz0+hXnI1n+EeEhEFpEOE4AwD4lOn1xf2U7K8uuDfcXVwSBlaLV/SI7a2848QJpdrxW2upEKon0KWKG+QhVyrwrcOb7nOPFLxR7bN6Mv9DQSHOnnzlfZcCJ37f/4WwTC619Cvx/Z337azWpUTEWHF2vmlaJ0zcJlO+EtahHHY=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Guchun.Chen@amd.com; 
+Received: from BYAPR12MB2806.namprd12.prod.outlook.com (20.176.254.20) by
+ BYAPR12MB3110.namprd12.prod.outlook.com (20.178.53.77) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2707.21; Fri, 14 Feb 2020 14:07:08 +0000
+Received: from BYAPR12MB2806.namprd12.prod.outlook.com
+ ([fe80::5034:d0dc:246d:399f]) by BYAPR12MB2806.namprd12.prod.outlook.com
+ ([fe80::5034:d0dc:246d:399f%7]) with mapi id 15.20.2707.031; Fri, 14 Feb 2020
+ 14:07:08 +0000
+From: Guchun Chen <guchun.chen@amd.com>
+To: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, Dennis.Li@amd.com,
+ Tao.Zhou1@amd.com, John.Clements@amd.com
+Subject: [PATCH 1/2] drm/amdgpu: log on non-zero error conter per IP before
+ GPU reset
+Date: Fri, 14 Feb 2020 22:06:49 +0800
+Message-Id: <20200214140650.2133-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: HK2PR02CA0196.apcprd02.prod.outlook.com
+ (2603:1096:201:21::32) To BYAPR12MB2806.namprd12.prod.outlook.com
+ (2603:10b6:a03:70::20)
+MIME-Version: 1.0
+Received: from guchchen-System-Product-Name.amd.com (180.167.199.189) by
+ HK2PR02CA0196.apcprd02.prod.outlook.com (2603:1096:201:21::32) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2729.24 via Frontend Transport; Fri, 14 Feb 2020 14:07:06 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [180.167.199.189]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 9e67500c-2c05-4764-5d49-08d7b1572dcf
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3110:|BYAPR12MB3110:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR12MB3110E4A2D6DA33BCB1C80309F1150@BYAPR12MB3110.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-Forefront-PRVS: 03137AC81E
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(366004)(376002)(346002)(39860400002)(136003)(199004)(189003)(52116002)(66476007)(66556008)(66946007)(478600001)(7696005)(5660300002)(6636002)(6666004)(1076003)(316002)(81156014)(4326008)(2906002)(2616005)(36756003)(86362001)(8676002)(44832011)(8936002)(81166006)(6486002)(186003)(26005)(16526019)(956004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB3110;
+ H:BYAPR12MB2806.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2729.22 via Frontend Transport; Fri, 14 Feb 2020 14:05:15 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 14 Feb
- 2020 08:05:14 -0600
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 14 Feb
- 2020 08:05:14 -0600
-Received: from hersenwu-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Fri, 14 Feb 2020 08:05:14 -0600
-From: Hersen Wu <hersenxs.wu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] drm/amdgpu/powerplay: nv1x,
- renior copy dcn clock settings of watermark to smu during boot up
-Date: Fri, 14 Feb 2020 09:05:08 -0500
-Message-ID: <20200214140508.4582-1-hersenxs.wu@amd.com>
-X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(346002)(376002)(396003)(39860400002)(428003)(189003)(199004)(6916009)(336012)(6666004)(8936002)(70206006)(36756003)(478600001)(356004)(2616005)(8676002)(70586007)(2906002)(426003)(7696005)(81166006)(26005)(186003)(86362001)(4326008)(1076003)(316002)(5660300002)(81156014)(32563001)(357404004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3212; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c84c4e88-82af-4ff4-d7c5-08d7b156ea79
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3212:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3212EE110C018492CEFCBD90FD150@DM6PR12MB3212.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2043;
-X-Forefront-PRVS: 03137AC81E
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: FJxz21OVjM8L6ZR9YQi6M/pY90toZ/hehrbuYLp8lXH1F6TOqVXDlGv5akAn1dkGzJq7Up5HdwHFZosIjFIMGZnTnh6HOzMCB4M7R0MYJ+ISUFor9ahNMpf1WOrQVi0DP0Z++5P+sIuQJtBnksLt3iZILBWoBW2psUJBo2RxQyTR4baaeUMbpUzLJavInNlYRMkI2QXA7H3K0ZbfhVsDb2tmpoIfrwW0lGEv0MJn4AoHvKiJ/HKvHsS0w58X9iOvznc1TarVgrlyABjRrPeQeXPEj8vL71EJ+d3GPu3ILotuyn6mzb4x6KMjgFxWITcQaIrStFm0+n1CNlQIOdY+uiAOG9pn+rtAk/Qdabj3Jx8IKG57vm70izV0RC8maD5aROC1nIGGyogSCYod5Y5Lcigu4WQOtkEvGBR0fz742xgmCEMjzQNlBUrUhdz8vMi5N2vUgG7sMKib4MZSs0dDWVLLMzR/8OchSo3Ujn/dQcfnSSk8Jd4TJ46yujXEhYeUVFqDiEdE28VZJ3HXSRYsZw==
+X-Microsoft-Antispam-Message-Info: o6TnKIpfw8CdyZls8aE62ZQhH3SUiHysvo5JyzpsK3xKLtHZPzcaaG8Bg1aXNdWBbkwGCYC41Dc/8FSuyvHllRUM4fxAP2TEYZ2FuHUVo3134uZcY32ALLfjGRIOoPWRHXnW1oN8lHMeWsPuGOFun3C+RhajpNKnRz/tTcc3gQzI1NS5BsiZ3MOih6in/DNNAyysk2nez4C7rhfxO/7nU8ACt/fteqto3SUQP6krK8gebnMbZkW6dr/kycOrNcBEBe/gjVEIY3FzVqp1arjURUITTT4UG90TGjIwXzV+1zRqtQ1NI3nE4s4Z6aysHnG+CdcN9RMmh864Rmx2Rrlm02L/ljm4PkyvLVYeV0drNDYzuPT1C6vSCno9vg7DTIN8EFJ0KNrqedWPHF8PnlaXGm4dqHwGU8v/gaHRPGMHnId9fvj/SzmjvSMNko1TDutN
+X-MS-Exchange-AntiSpam-MessageData: dxDo+o72q3uU5xqpqXgwJw3txoYLGD2QouaJgu2s/0Jn/i8zhoQNmdK5Ad1gdaXYEnWdXSNyba0H9I6wnxImkzhi5dGPxgCQY++AXvb81FpCofNH9iiwwEJJxeTv7ijeC4zrjq7+k+0KvJDdddPgKg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2020 14:05:15.4533 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c84c4e88-82af-4ff4-d7c5-08d7b156ea79
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e67500c-2c05-4764-5d49-08d7b1572dcf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2020 14:07:08.7788 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3212
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wVpr8lDIQ+17315EjGNSfXKwbaa1ZcTDAVANSDuziqNjXIc4cif2uGTmvP5AcoKTcncYpxIycVqU2CYqZjz8fg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3110
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,109 +108,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hersen Wu <hersenxs.wu@amd.com>
+Cc: Guchun Chen <guchun.chen@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dc to pplib interface is changed for navi1x, renoir.
-display_config_changed is not called by dc anymore.
-smu_write_watermarks_table is not executed for navi1x, renoir
-during boot up.
+Once sync flood interrupt is triggered by RAS error, before
+actual GPU recovery job, it's necessary to log on and print
+non-zero error counter, this will help user knows where the
+RAS error source is from quickly.
 
-solution: call smu_write_watermarks_table just after dc pass
-watermark clock settings to pplib
-
-Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c |  7 +++++--
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 22 +++++++++++++---------
- drivers/gpu/drm/amd/powerplay/renoir_ppt.c |  5 +++--
- 3 files changed, 21 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 33 +++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index 9f2428fd98f6..882d5db427db 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -2056,8 +2056,11 @@ int smu_set_watermarks_for_clock_ranges(struct smu_context *smu,
- 			smu_feature_is_enabled(smu, SMU_FEATURE_DPM_DCEFCLK_BIT) &&
- 			smu_feature_is_enabled(smu, SMU_FEATURE_DPM_SOCCLK_BIT)) {
- 		smu_set_watermarks_table(smu, table, clock_ranges);
--		smu->watermarks_bitmap |= WATERMARKS_EXIST;
--		smu->watermarks_bitmap &= ~WATERMARKS_LOADED;
-+
-+		if (!(smu->watermarks_bitmap & WATERMARKS_EXIST)) {
-+			smu->watermarks_bitmap |= WATERMARKS_EXIST;
-+			smu->watermarks_bitmap &= ~WATERMARKS_LOADED;
-+		}
- 	}
- 
- 	mutex_unlock(&smu->mutex);
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index 0d73a49166af..aed4d6e60907 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -1062,15 +1062,6 @@ static int navi10_display_config_changed(struct smu_context *smu)
- {
- 	int ret = 0;
- 
--	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
--	    !(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
--		ret = smu_write_watermarks_table(smu);
--		if (ret)
--			return ret;
--
--		smu->watermarks_bitmap |= WATERMARKS_LOADED;
--	}
--
- 	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
- 	    smu_feature_is_supported(smu, SMU_FEATURE_DPM_DCEFCLK_BIT) &&
- 	    smu_feature_is_supported(smu, SMU_FEATURE_DPM_SOCCLK_BIT)) {
-@@ -1493,6 +1484,7 @@ static int navi10_set_watermarks_table(struct smu_context *smu,
- 				       *clock_ranges)
- {
- 	int i;
-+	int ret = 0;
- 	Watermarks_t *table = watermarks;
- 
- 	if (!table || !clock_ranges)
-@@ -1544,6 +1536,18 @@ static int navi10_set_watermarks_table(struct smu_context *smu,
- 				clock_ranges->wm_mcif_clocks_ranges[i].wm_set_id;
- 	}
- 
-+	smu->watermarks_bitmap |= WATERMARKS_EXIST;
-+
-+	/* pass data to smu controller */
-+	if (!(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
-+		ret = smu_write_watermarks_table(smu);
-+		if (ret) {
-+			pr_err("Failed to update WMTABLE!");
-+			return ret;
-+		}
-+		smu->watermarks_bitmap |= WATERMARKS_LOADED;
-+	}
-+
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index cef94e2169fe..6a9a45d6b9e4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -1319,6 +1319,33 @@ static int amdgpu_ras_interrupt_remove_all(struct amdgpu_device *adev)
  }
+ /* ih end */
  
-diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-index 810994017f49..bdbf1fc48c68 100644
---- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-@@ -810,9 +810,10 @@ static int renoir_set_watermarks_table(
- 				clock_ranges->wm_mcif_clocks_ranges[i].wm_set_id;
- 	}
- 
-+	smu->watermarks_bitmap |= WATERMARKS_EXIST;
++/* traversal all IPs except NBIO to query error counter */
++static void amdgpu_ras_log_on_err_counter(struct amdgpu_device *adev)
++{
++	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
++	struct ras_manager *obj;
 +
- 	/* pass data to smu controller */
--	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
--			!(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
-+	if (!(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
- 		ret = smu_write_watermarks_table(smu);
- 		if (ret) {
- 			pr_err("Failed to update WMTABLE!");
++	if (!con)
++		return;
++
++	list_for_each_entry(obj, &con->head, node) {
++		struct ras_query_if info = {
++			.head = obj->head,
++		};
++
++		/*
++		 * PCIE_BIF IP has one different isr by ras controller
++		 * interrupt, the specific ras counter query will be
++		 * done in that isr. So skip such block from common
++		 * sync flood interrupt isr calling.
++		 */
++		if (info.head.block == AMDGPU_RAS_BLOCK__PCIE_BIF)
++			continue;
++
++		amdgpu_ras_error_query(adev, &info);
++	}
++}
++
+ /* recovery begin */
+ 
+ /* return 0 on success.
+@@ -1373,6 +1400,12 @@ static void amdgpu_ras_do_recovery(struct work_struct *work)
+ 	struct amdgpu_ras *ras =
+ 		container_of(work, struct amdgpu_ras, recovery_work);
+ 
++	/*
++	 * Query and print non zero error counter per IP block for
++	 * awareness before recovering GPU.
++	 */
++	amdgpu_ras_log_on_err_counter(ras->adev);
++
+ 	if (amdgpu_device_should_recover_gpu(ras->adev))
+ 		amdgpu_device_gpu_recover(ras->adev, 0);
+ 	atomic_set(&ras->in_recovery, 0);
 -- 
 2.17.1
 
