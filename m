@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F24BEC3B1A4
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:57:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D0CDBC3B1A2
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:57:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CA56E2086A
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:57:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A0BFF222C4
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:57:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZXNvmeey"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA56E2086A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="GJbqEog+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0BFF222C4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9528D6F9F8;
-	Fri, 14 Feb 2020 15:57:20 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2076.outbound.protection.outlook.com [40.107.244.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41BBD6F9F3;
- Fri, 14 Feb 2020 15:57:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 983CE6F9FD;
+	Fri, 14 Feb 2020 15:57:22 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2087.outbound.protection.outlook.com [40.107.93.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80F1B6F9F6;
+ Fri, 14 Feb 2020 15:57:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bYSJAfFMAYFE8gqu8576XVMEcL3dUiBsUOAdaHohAqoW0aadcOel1qJr0KSAHOBXJOYw0tgjZSzQ7+wRov+SyrOn0K02Tlk1YZgw0QK3R0FQBUEzk91N0zB3ZLYny9rVXCVPjZhcOQ/bheJO4o9rsmFdag0C2e9HI6SzRqsPKovmm1+Gb/vvqdQ4ujMtxJww6iQXWKsrxKNbS72kuCJQlSyStaMzzEZgdWOdRf5fMVBqyDHffdTffu/oX0BkRlAUHGe3+v0eHXXyW2eJ42zYq0tKRs8RppYyJqNiuHmsyhgI20c116C9pNdNCfl3A+s+A1MSTDrghV2eUL8RFTVMwQ==
+ b=E1MK9CWLsXaKfKnklbWJY7f5SxyMoV9uThFds1vl7QF2hXHKumO+KiVVWDphFB6Sp15LECJbfueAGmVXTzmQ72bFpk3AhCwGtxDdDzCmNnhizhDz6jHTMGVGwMTFdyXoidcveeXdfZJF7+rooZKahB5kANp6UIlmN5y9fuxpZM0iqTjFB+ZjG6/2LUEVeBjMfoR9do4qBNAYYI/Twi6JroYlrsfbATbuovO4ds+q5diLclPCJrIH7xCCDclVMVAWfrjn8zH6I60Ddg4wCQgmi0Bfb9Nm/uNU/3F8zhoonzIGA41gbzZ/efrwXJmw4qUQnR4fdXACGE20jDc7sutMsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WDD+cg9HBA357VUjoIcAxcX6UVY3AQ/GVu0LDkHvt50=;
- b=fYSq2hIEq70calrJAHhH82wgCN9shLUqbYdj3wVF67vG3VQbTvj+LcHIGBS1C7IiTg8xWnU1gr7ohavKwwFpD92SfTYLpyoI9+uvMBLL4mmqGWaw9Udv7e+LWV3rP0w761Tebf07WEx5WgVYMRW0de9tZB0VEYu0g3yqdb/OnIhGxw81S4tBlpoGtLkrXTtCPbiKJFeX5zpIJKlmBNpCPzJBUVu0uWN78hqYXRn71QaodV9Kojdvkx27knjmyLAcdULOSN0gtvxib3DZcpiN24e6yzdHksja85uqyYyxgTsm5azSvEo+ZgKtM7vKtegNybG1bZIwlHSy2o6oC5e/bg==
+ bh=KLv/u15lZ9XpkHbBOGen0kbWuhUNiUYh6hxxozpkJkA=;
+ b=NhCVgxIN2juxh0Ut0q/1xi2LgIgRB6RXpCcGCxz2SeV4nzZzlaaNubtIO5IBOlQGvXtUXOCKNrbWu9lkByGLeSqXNDZXTZkvCSIXmORVBaNWo1191Lfwm+ecOUWPBZjX1a0c8fGAFavmHeLzj4mUqNXI04SE7xB9nYKMxFhybr1WdSMlg0IWYDTeElim/NRmiSDp2TrLd6M5YBlXlqoEb0gfDbpCfYm4v0ifjAKhS9p0OiMX273mvSblZZ2yx3UlaNltklEQvUg6EsmC6VyM+y7tDu+9o5yFFZrP+EWI1CLVCWyJoc49+2YhWTQBVSrCXY6xd9epviu+r2XYLXVmYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com;
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WDD+cg9HBA357VUjoIcAxcX6UVY3AQ/GVu0LDkHvt50=;
- b=ZXNvmeeyMcR6EXG1zk4wJpm766woTM0kz3TirBQtRmx37K3t9N7cI7AiGX0jTjCFjp+EAfCcnDxZjxkV3BL5Kmf8uhWjksD/K9rjq2WajS6Ri8t+YhbtyW4zkckNw54UCfd+agEOhYfEsXUctJp3E7Hf7VXwrl7P0MRFaGf7Ues=
+ bh=KLv/u15lZ9XpkHbBOGen0kbWuhUNiUYh6hxxozpkJkA=;
+ b=GJbqEog+gKWYrhcPDPaxc6xgwPaohE/K+eH+rdNLmRXaY2wxnbs8QN4t/oYQjg68LGn1kAEVMfpyAfmqyWQx/07YNx7M3e1TTMdZkor0vGrp26kJPLoUZEO0RBzBuYf9Rb/QJoqY/LqiVtxI3+luThQHxCDclHa7se7sXKrw0AU=
 Received: from SN1PR12CA0078.namprd12.prod.outlook.com (2603:10b6:802:20::49)
- by DM6PR12MB3500.namprd12.prod.outlook.com (2603:10b6:5:11d::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2707.28; Fri, 14 Feb
- 2020 15:57:15 +0000
+ by BY5PR12MB3697.namprd12.prod.outlook.com (2603:10b6:a03:1a2::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2729.25; Fri, 14 Feb
+ 2020 15:57:17 +0000
 Received: from BN8NAM11FT029.eop-nam11.prod.protection.outlook.com
  (2a01:111:f400:7eae::208) by SN1PR12CA0078.outlook.office365.com
  (2603:10b6:802:20::49) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2729.22 via Frontend
- Transport; Fri, 14 Feb 2020 15:57:15 +0000
+ Transport; Fri, 14 Feb 2020 15:57:17 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; gmail.com; dkim=none (message not signed)
  header.d=none;gmail.com; dmarc=permerror action=none header.from=amd.com;
@@ -60,14 +60,14 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
  BN8NAM11FT029.mail.protection.outlook.com (10.13.177.68) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2729.22 via Frontend Transport; Fri, 14 Feb 2020 15:57:15 +0000
+ 15.20.2729.22 via Frontend Transport; Fri, 14 Feb 2020 15:57:17 +0000
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 14 Feb
- 2020 09:57:13 -0600
+ 2020 09:57:16 -0600
 Received: from yuho-zbook.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Fri, 14 Feb 2020 09:57:12 -0600
+ Transport; Fri, 14 Feb 2020 09:57:15 -0600
 From: Kenny Ho <Kenny.Ho@amd.com>
 To: <y2kenny@gmail.com>, <cgroups@vger.kernel.org>,
  <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
@@ -75,9 +75,9 @@ To: <y2kenny@gmail.com>, <cgroups@vger.kernel.org>,
  <felix.kuehling@amd.com>, <joseph.greathouse@amd.com>, <jsparks@cray.com>,
  <lkaplan@cray.com>, <daniel@ffwll.ch>, <nirmoy.das@amd.com>,
  <damon.mcdougall@amd.com>, <juan.zuniga-anaya@amd.com>
-Subject: [PATCH 06/11] drm, cgroup: Add GEM buffer allocation count stats
-Date: Fri, 14 Feb 2020 10:56:45 -0500
-Message-ID: <20200214155650.21203-7-Kenny.Ho@amd.com>
+Subject: [PATCH 09/11] drm, cgroup: Introduce lgpu as DRM cgroup resource
+Date: Fri, 14 Feb 2020 10:56:48 -0500
+Message-ID: <20200214155650.21203-10-Kenny.Ho@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200214155650.21203-1-Kenny.Ho@amd.com>
 References: <20200214155650.21203-1-Kenny.Ho@amd.com>
@@ -86,26 +86,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(396003)(39860400002)(136003)(376002)(428003)(189003)(199004)(8936002)(186003)(110136005)(316002)(1076003)(8676002)(86362001)(4326008)(336012)(356004)(6666004)(426003)(7696005)(26005)(81156014)(81166006)(5660300002)(70586007)(2906002)(6636002)(2616005)(70206006)(478600001)(36756003)(921003)(1121003)(2101003)(83996005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3500; H:SATLEXMB01.amd.com; FPR:;
+ SFS:(10009020)(4636009)(396003)(376002)(136003)(346002)(39860400002)(428003)(189003)(199004)(186003)(2906002)(26005)(86362001)(2616005)(1076003)(4326008)(6636002)(110136005)(316002)(36756003)(70206006)(70586007)(30864003)(426003)(7696005)(336012)(356004)(6666004)(8676002)(8936002)(5660300002)(81166006)(81156014)(478600001)(921003)(83996005)(2101003)(1121003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BY5PR12MB3697; H:SATLEXMB01.amd.com; FPR:;
  SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: e8369b42-479c-4339-1fae-08d7b1669007
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3500:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB35009E030EA580E9F87B209A83150@DM6PR12MB3500.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Office365-Filtering-Correlation-Id: 4fc46d2b-b6a3-4316-82c7-08d7b1669102
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3697:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB3697B12D5EB7A6091B5ECD8183150@BY5PR12MB3697.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
 X-Forefront-PRVS: 03137AC81E
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kwqyLK1KmQC95I3c98hLGn9SDV7prZoUytAu4eFgTpU/zsmOledqFLxCe251O1iUx8DcoNJaTkGuSIcH+FrRVMFuzSDHa5KuAT0vIqlllg2uMCv43yZkJy0uUneeKYrmDMpo28ueJ5mrhpCicYyOOu9EImO8pUHEzoMIkmz7YEBsaMWy5E8smYJzHSdMNY9MV2FbwhGwWLIfuYzshtfvB+lHVN+4X8w/vgBIIspEMksPaS4N1xzEv65oDUzO0S+2nqNyO9vPTHp+IdTyuyOK1wSkGGJYOoLwAkinFAh5G/SLijKe/hhgm1W9bjMls22A1uloh7YaN6RrxEb25l8iJmmhWZo4JkeiDvYpxg1MgiVK9EP26CF1jYQZXE1Ez+mhkMiAK/h0fBwSX0cJ6sBTgmCivztVPwJ7Eeh4uRCLyNhQX11+a/fI+3vkR3QedONXOgvnw6f+SpfARyOyJbWkImHVs8FJTTcmz3tnkPQb8rYzuq2M5im7/CBS6dZWRSbo5QwFS7cpNbBB+zR+NRs8gFIyIiXYTaBNvfUpKmhoBbY=
+X-Microsoft-Antispam-Message-Info: 5XnFPKQRDoyklldr+DAEP1uAhmiD+yJdWknvQmB6m9HcYUHV99HsLy28y7Xc96YkhGvIE26vTS/re6Fw+cHqbAU7gNeqkYp6y4HNXfRTtfVQTb3p3UNkATsjmgSR6sOsK9CIUn88qbBo0kh5wCl380DzFhtmKOp3gKM5+zyJ1eUCaGbRHIFhYHsoodSuoMvUuNJPbkm8PaJgGS75W+5xO1SRDWybyFjkB1guS/8/DT1IndJYb7pNgXnOUEwcU+dsu0wexl6aKVvXxanZb8zpS4qdDzkeDt1guij1eYdvsPUaZQKmtxRTHuLp8ExxQ2kfUUj9GXOR+mEEtE/jOXNKptJsT+IatPvqbk4SPCb6bFyhHDvrVnb58hDEHzedMPjDuoVkQakNaWgDde4HXi7DH5ARUqbTjfkUGNnhX7nzRAKAd/ax0YU+tmaebIDHrrDPEKBjaEZEKZhimxAi6f4BiKu7Irzy0C95S7ODVJJwTkze3IRQAjONhYS14sNAo7YnamuU9wLNMfekx3mvpjTD7OcOBsVdXgb5d+6rvLqBpv0=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2020 15:57:15.6940 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8369b42-479c-4339-1fae-08d7b1669007
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2020 15:57:17.3438 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4fc46d2b-b6a3-4316-82c7-08d7b1669102
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3500
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3697
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,118 +123,673 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drm.buffer.count.stats
-        A read-only flat-keyed file which exists on all cgroups.  Each
-        entry is keyed by the drm device's major:minor.
+drm.lgpu
+      A read-write nested-keyed file which exists on all cgroups.
+      Each entry is keyed by the DRM device's major:minor.
 
-        Total number of GEM buffer allocated.
+      lgpu stands for logical GPU, it is an abstraction used to
+      subdivide a physical DRM device for the purpose of resource
+      management.  This file stores user configuration while the
+      drm.lgpu.effective reflects the actual allocation after
+      considering the relationship between the cgroups and their
+      configurations.
 
-Change-Id: Iad29bdf44390dbcee07b1e72ea0ff811aa3b9dcd
+      The lgpu is a discrete quantity that is device specific (i.e.
+      some DRM devices may have 64 lgpus while others may have 100
+      lgpus.)  The lgpu is a single quantity that can be allocated
+      in three different ways denoted by the following nested keys.
+
+        =====     ==============================================
+        weight    Allocate by proportion in relationship with
+                  active sibling cgroups
+        count     Allocate by amount statically, treat lgpu as
+                  anonymous resources
+        list      Allocate statically, treat lgpu as named
+                  resource
+        =====     ==============================================
+
+      For example:
+      226:0 weight=100 count=256 list=0-255
+      226:1 weight=100 count=4 list=0,2,4,6
+      226:2 weight=100 count=32 list=32-63
+      226:3 weight=100 count=0 list=
+      226:4 weight=500 count=0 list=
+
+      lgpu is represented by a bitmap and uses the bitmap_parselist
+      kernel function so the list key input format is a
+      comma-separated list of decimal numbers and ranges.
+
+      Consecutively set bits are shown as two hyphen-separated decimal
+      numbers, the smallest and largest bit numbers set in the range.
+      Optionally each range can be postfixed to denote that only parts
+      of it should be set.  The range will divided to groups of
+      specific size.
+      Syntax: range:used_size/group_size
+      Example: 0-1023:2/256 ==> 0,1,256,257,512,513,768,769
+
+      The count key is the hamming weight / hweight of the bitmap.
+
+      Weight, count and list accept the max and default keywords.
+
+      Some DRM devices may only support lgpu as anonymous resources.
+      In such case, the significance of the position of the set bits
+      in list will be ignored.
+
+      The weight quantity is only in effect when static allocation
+      is not used (by setting count=0) for this cgroup.  The weight
+      quantity distributes lgpus that are not statically allocated by
+      the siblings.  For example, given siblings cgroupA, cgroupB and
+      cgroupC for a DRM device that has 64 lgpus, if cgroupA occupies
+      0-63, no lgpu is available to be distributed by weight.
+      Similarly, if cgroupA has list=0-31 and cgroupB has list=16-63,
+      cgroupC will be starved if it tries to allocate by weight.
+
+      On the other hand, if cgroupA has weight=100 count=0, cgroupB
+      has list=16-47, and cgroupC has weight=100 count=0, then 32
+      lgpus are available to be distributed evenly between cgroupA
+      and cgroupC.  In drm.lgpu.effective, cgroupA will have
+      list=0-15 and cgroupC will have list=48-63.
+
+      This lgpu resource supports the 'allocation' and 'weight'
+      resource distribution model.
+
+drm.lgpu.effective
+      A read-only nested-keyed file which exists on all cgroups.
+      Each entry is keyed by the DRM device's major:minor.
+
+      lgpu stands for logical GPU, it is an abstraction used to
+      subdivide a physical DRM device for the purpose of resource
+      management.  This file reflects the actual allocation after
+      considering the relationship between the cgroups and their
+      configurations in drm.lgpu.
+
+Change-Id: Idde0ef9a331fd67bb9c7eb8ef9978439e6452488
 Signed-off-by: Kenny Ho <Kenny.Ho@amd.com>
 ---
- Documentation/admin-guide/cgroup-v2.rst |  6 ++++++
- include/linux/cgroup_drm.h              |  3 +++
- kernel/cgroup/drm.c                     | 22 +++++++++++++++++++---
- 3 files changed, 28 insertions(+), 3 deletions(-)
+ Documentation/admin-guide/cgroup-v2.rst |  80 ++++++
+ include/drm/drm_cgroup.h                |   3 +
+ include/linux/cgroup_drm.h              |  22 ++
+ kernel/cgroup/drm.c                     | 324 +++++++++++++++++++++++-
+ 4 files changed, 427 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 75b97962b127..19fcf54ace83 100644
+index ce5dc027366a..d8a41956e5c7 100644
 --- a/Documentation/admin-guide/cgroup-v2.rst
 +++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -2075,6 +2075,12 @@ DRM Interface Files
+@@ -2120,6 +2120,86 @@ DRM Interface Files
+ 	Set largest allocation for /dev/dri/card1 to 4MB
+ 	echo "226:1 4m" > drm.buffer.peak.max
  
- 	Largest (high water mark) GEM buffer allocated in bytes.
- 
-+  drm.buffer.count.stats
-+	A read-only flat-keyed file which exists on all cgroups.  Each
-+	entry is keyed by the drm device's major:minor.
++  drm.lgpu
++	A read-write nested-keyed file which exists on all cgroups.
++	Each entry is keyed by the DRM device's major:minor.
 +
-+	Total number of GEM buffer allocated.
++	lgpu stands for logical GPU, it is an abstraction used to
++	subdivide a physical DRM device for the purpose of resource
++	management.  This file stores user configuration while the
++        drm.lgpu.effective reflects the actual allocation after
++        considering the relationship between the cgroups and their
++        configurations.
++
++	The lgpu is a discrete quantity that is device specific (i.e.
++	some DRM devices may have 64 lgpus while others may have 100
++	lgpus.)  The lgpu is a single quantity that can be allocated
++        in three different ways denoted by the following nested keys.
++
++	  =====     ==============================================
++	  weight    Allocate by proportion in relationship with
++                    active sibling cgroups
++	  count     Allocate by amount statically, treat lgpu as
++                    anonymous resources
++	  list      Allocate statically, treat lgpu as named
++                    resource
++	  =====     ==============================================
++
++	For example:
++	226:0 weight=100 count=256 list=0-255
++	226:1 weight=100 count=4 list=0,2,4,6
++	226:2 weight=100 count=32 list=32-63
++	226:3 weight=100 count=0 list=
++	226:4 weight=500 count=0 list=
++
++	lgpu is represented by a bitmap and uses the bitmap_parselist
++	kernel function so the list key input format is a
++	comma-separated list of decimal numbers and ranges.
++
++	Consecutively set bits are shown as two hyphen-separated decimal
++	numbers, the smallest and largest bit numbers set in the range.
++	Optionally each range can be postfixed to denote that only parts
++	of it should be set.  The range will divided to groups of
++	specific size.
++	Syntax: range:used_size/group_size
++	Example: 0-1023:2/256 ==> 0,1,256,257,512,513,768,769
++
++	The count key is the hamming weight / hweight of the bitmap.
++
++	Weight, count and list accept the max and default keywords.
++
++	Some DRM devices may only support lgpu as anonymous resources.
++	In such case, the significance of the position of the set bits
++	in list will be ignored.
++
++	The weight quantity is only in effect when static allocation
++	is not used (by setting count=0) for this cgroup.  The weight
++	quantity distributes lgpus that are not statically allocated by
++	the siblings.  For example, given siblings cgroupA, cgroupB and
++	cgroupC for a DRM device that has 64 lgpus, if cgroupA occupies
++	0-63, no lgpu is available to be distributed by weight.
++	Similarly, if cgroupA has list=0-31 and cgroupB has list=16-63,
++	cgroupC will be starved if it tries to allocate by weight.
++
++	On the other hand, if cgroupA has weight=100 count=0, cgroupB
++	has list=16-47, and cgroupC has weight=100 count=0, then 32
++	lgpus are available to be distributed evenly between cgroupA
++	and cgroupC.  In drm.lgpu.effective, cgroupA will have
++	list=0-15 and cgroupC will have list=48-63.
++
++	This lgpu resource supports the 'allocation' and 'weight'
++	resource distribution model.
++
++  drm.lgpu.effective
++	A read-only nested-keyed file which exists on all cgroups.
++	Each entry is keyed by the DRM device's major:minor.
++
++	lgpu stands for logical GPU, it is an abstraction used to
++	subdivide a physical DRM device for the purpose of resource
++	management.  This file reflects the actual allocation after
++        considering the relationship between the cgroups and their
++        configurations in drm.lgpu.
 +
  GEM Buffer Ownership
  ~~~~~~~~~~~~~~~~~~~~
  
+diff --git a/include/drm/drm_cgroup.h b/include/drm/drm_cgroup.h
+index 2b41d4d22e33..619a110cc748 100644
+--- a/include/drm/drm_cgroup.h
++++ b/include/drm/drm_cgroup.h
+@@ -17,6 +17,9 @@ struct drmcg_props {
+ 
+ 	s64			bo_limits_total_allocated_default;
+ 	s64			bo_limits_peak_allocated_default;
++
++	int			lgpu_capacity;
++	DECLARE_BITMAP(lgpu_slots, MAX_DRMCG_LGPU_CAPACITY);
+ };
+ 
+ void drmcg_bind(struct drm_minor (*(*acq_dm)(unsigned int minor_id)),
 diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
-index 593ad12602cd..51a0cd37da92 100644
+index eae400f3d9b4..bb09704e7f71 100644
 --- a/include/linux/cgroup_drm.h
 +++ b/include/linux/cgroup_drm.h
-@@ -14,6 +14,7 @@
+@@ -11,10 +11,14 @@
+ /* limit defined per the way drm_minor_alloc operates */
+ #define MAX_DRM_DEV (64 * DRM_MINOR_RENDER)
+ 
++#define MAX_DRMCG_LGPU_CAPACITY 256
++
  enum drmcg_res_type {
  	DRMCG_TYPE_BO_TOTAL,
  	DRMCG_TYPE_BO_PEAK,
-+	DRMCG_TYPE_BO_COUNT,
+ 	DRMCG_TYPE_BO_COUNT,
++	DRMCG_TYPE_LGPU,
++	DRMCG_TYPE_LGPU_EFF,
  	__DRMCG_TYPE_LAST,
  };
  
-@@ -27,6 +28,8 @@ struct drmcg_device_resource {
- 	s64			bo_stats_total_allocated;
+@@ -32,6 +36,24 @@ struct drmcg_device_resource {
+ 	s64			bo_limits_peak_allocated;
  
- 	s64			bo_stats_peak_allocated;
+ 	s64			bo_stats_count_allocated;
 +
-+	s64			bo_stats_count_allocated;
++	/**
++	 * Logical GPU
++	 *
++	 * *_cfg are properties configured by users
++	 * *_eff are the effective properties being applied to the hardware
++         * *_stg is used to calculate _eff before applying to _eff
++	 * after considering the entire hierarchy
++	 */
++	DECLARE_BITMAP(lgpu_stg, MAX_DRMCG_LGPU_CAPACITY);
++	/* user configurations */
++	s64			lgpu_weight_cfg;
++	DECLARE_BITMAP(lgpu_cfg, MAX_DRMCG_LGPU_CAPACITY);
++	/* effective lgpu for the cgroup after considering
++	 * relationship with other cgroup
++	 */
++	s64			lgpu_count_eff;
++	DECLARE_BITMAP(lgpu_eff, MAX_DRMCG_LGPU_CAPACITY);
  };
  
  /**
 diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
-index 7a0da70c5a25..bc162aa9971d 100644
+index 5fcbbc13fa1c..a4e88a3704bb 100644
 --- a/kernel/cgroup/drm.c
 +++ b/kernel/cgroup/drm.c
-@@ -280,6 +280,9 @@ static void drmcg_print_stats(struct drmcg_device_resource *ddr,
+@@ -9,6 +9,7 @@
+ #include <linux/seq_file.h>
+ #include <linux/mutex.h>
+ #include <linux/kernel.h>
++#include <linux/bitmap.h>
+ #include <linux/cgroup_drm.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_drv.h>
+@@ -41,6 +42,10 @@ enum drmcg_file_type {
+ 	DRMCG_FTYPE_DEFAULT,
+ };
+ 
++#define LGPU_LIMITS_NAME_LIST "list"
++#define LGPU_LIMITS_NAME_COUNT "count"
++#define LGPU_LIMITS_NAME_WEIGHT "weight"
++
+ /**
+  * drmcg_bind - Bind DRM subsystem to cgroup subsystem
+  * @acq_dm: function pointer to the drm_minor_acquire function
+@@ -98,6 +103,13 @@ static inline int init_drmcg_single(struct drmcg *drmcg, struct drm_device *dev)
+ 	ddr->bo_limits_peak_allocated =
+ 		dev->drmcg_props.bo_limits_peak_allocated_default;
+ 
++	bitmap_copy(ddr->lgpu_cfg, dev->drmcg_props.lgpu_slots,
++			MAX_DRMCG_LGPU_CAPACITY);
++	bitmap_copy(ddr->lgpu_stg, dev->drmcg_props.lgpu_slots,
++			MAX_DRMCG_LGPU_CAPACITY);
++
++	ddr->lgpu_weight_cfg = CGROUP_WEIGHT_DFL;
++
+ 	return 0;
+ }
+ 
+@@ -121,6 +133,120 @@ static inline void drmcg_update_cg_tree(struct drm_device *dev)
+ 	mutex_unlock(&cgroup_mutex);
+ }
+ 
++static void drmcg_calculate_effective_lgpu(struct drm_device *dev,
++		const unsigned long *free_static,
++		const unsigned long *free_weighted,
++		struct drmcg *parent_drmcg)
++{
++	int capacity = dev->drmcg_props.lgpu_capacity;
++	DECLARE_BITMAP(lgpu_unused, MAX_DRMCG_LGPU_CAPACITY);
++	DECLARE_BITMAP(lgpu_by_weight, MAX_DRMCG_LGPU_CAPACITY);
++	struct drmcg_device_resource *parent_ddr;
++	struct drmcg_device_resource *ddr;
++	int minor = dev->primary->index;
++	struct cgroup_subsys_state *pos;
++	struct drmcg *child;
++	s64 weight_sum = 0;
++	s64 unused;
++
++	parent_ddr = parent_drmcg->dev_resources[minor];
++
++	if (bitmap_empty(parent_ddr->lgpu_cfg, capacity))
++		/* no static cfg, use weight for calculating the effective */
++		bitmap_copy(parent_ddr->lgpu_stg, free_weighted, capacity);
++	else
++		/* lgpu statically configured, use the overlap as effective */
++		bitmap_and(parent_ddr->lgpu_stg, free_static,
++				parent_ddr->lgpu_cfg, capacity);
++
++	/* calculate lgpu available for distribution by weight for children */
++	bitmap_copy(lgpu_unused, parent_ddr->lgpu_stg, capacity);
++	css_for_each_child(pos, &parent_drmcg->css) {
++		child = css_to_drmcg(pos);
++		ddr = child->dev_resources[minor];
++
++		if (bitmap_empty(ddr->lgpu_cfg, capacity))
++			/* no static allocation, participate in weight dist */
++			weight_sum += ddr->lgpu_weight_cfg;
++		else
++			/* take out statically allocated lgpu by siblings */
++			bitmap_andnot(lgpu_unused, lgpu_unused, ddr->lgpu_cfg,
++					capacity);
++	}
++
++	unused = bitmap_weight(lgpu_unused, capacity);
++
++	css_for_each_child(pos, &parent_drmcg->css) {
++		child = css_to_drmcg(pos);
++		ddr = child->dev_resources[minor];
++
++		bitmap_zero(lgpu_by_weight, capacity);
++		/* no static allocation, participate in weight distribution */
++		if (bitmap_empty(ddr->lgpu_cfg, capacity)) {
++			int c;
++			int p = 0;
++
++			for (c = ddr->lgpu_weight_cfg * unused / weight_sum;
++					c > 0; c--) {
++				p = find_next_bit(lgpu_unused, capacity, p);
++				if (p < capacity) {
++					clear_bit(p, lgpu_unused);
++					set_bit(p, lgpu_by_weight);
++				}
++			}
++
++		}
++
++		drmcg_calculate_effective_lgpu(dev, parent_ddr->lgpu_stg,
++				lgpu_by_weight, child);
++	}
++}
++
++static void drmcg_apply_effective_lgpu(struct drm_device *dev)
++{
++	int capacity = dev->drmcg_props.lgpu_capacity;
++	int minor = dev->primary->index;
++	struct drmcg_device_resource *ddr;
++	struct cgroup_subsys_state *pos;
++	struct drmcg *drmcg;
++
++	if (root_drmcg == NULL) {
++		WARN_ON(root_drmcg == NULL);
++		return;
++	}
++
++	rcu_read_lock();
++
++	/* process the entire cgroup tree from root to simplify the algorithm */
++	drmcg_calculate_effective_lgpu(dev, dev->drmcg_props.lgpu_slots,
++			dev->drmcg_props.lgpu_slots, root_drmcg);
++
++	/* apply changes to effective only if there is a change */
++	css_for_each_descendant_pre(pos, &root_drmcg->css) {
++		drmcg = css_to_drmcg(pos);
++		ddr = drmcg->dev_resources[minor];
++
++		if (!bitmap_equal(ddr->lgpu_stg, ddr->lgpu_eff, capacity)) {
++			bitmap_copy(ddr->lgpu_eff, ddr->lgpu_stg, capacity);
++			ddr->lgpu_count_eff =
++				bitmap_weight(ddr->lgpu_eff, capacity);
++		}
++	}
++	rcu_read_unlock();
++}
++
++static void drmcg_apply_effective(enum drmcg_res_type type,
++		struct drm_device *dev, struct drmcg *changed_drmcg)
++{
++	switch (type) {
++	case DRMCG_TYPE_LGPU:
++		drmcg_apply_effective_lgpu(dev);
++		break;
++	default:
++		break;
++	}
++}
++
+ /**
+  * drmcg_register_dev - register a DRM device for usage in drm cgroup
+  * @dev: DRM device
+@@ -143,7 +269,13 @@ void drmcg_register_dev(struct drm_device *dev)
+ 	{
+ 		dev->driver->drmcg_custom_init(dev, &dev->drmcg_props);
+ 
++		WARN_ON(dev->drmcg_props.lgpu_capacity !=
++				bitmap_weight(dev->drmcg_props.lgpu_slots,
++					MAX_DRMCG_LGPU_CAPACITY));
++
+ 		drmcg_update_cg_tree(dev);
++
++		drmcg_apply_effective(DRMCG_TYPE_LGPU, dev, root_drmcg);
+ 	}
+ 	mutex_unlock(&drmcg_mutex);
+ }
+@@ -297,7 +429,8 @@ static void drmcg_print_stats(struct drmcg_device_resource *ddr,
+ }
+ 
+ static void drmcg_print_limits(struct drmcg_device_resource *ddr,
+-		struct seq_file *sf, enum drmcg_res_type type)
++		struct seq_file *sf, enum drmcg_res_type type,
++		struct drm_device *dev)
+ {
+ 	if (ddr == NULL) {
+ 		seq_puts(sf, "\n");
+@@ -311,6 +444,25 @@ static void drmcg_print_limits(struct drmcg_device_resource *ddr,
  	case DRMCG_TYPE_BO_PEAK:
- 		seq_printf(sf, "%lld\n", ddr->bo_stats_peak_allocated);
+ 		seq_printf(sf, "%lld\n", ddr->bo_limits_peak_allocated);
  		break;
-+	case DRMCG_TYPE_BO_COUNT:
-+		seq_printf(sf, "%lld\n", ddr->bo_stats_count_allocated);
++	case DRMCG_TYPE_LGPU:
++		seq_printf(sf, "%s=%lld %s=%d %s=%*pbl\n",
++				LGPU_LIMITS_NAME_WEIGHT,
++				ddr->lgpu_weight_cfg,
++				LGPU_LIMITS_NAME_COUNT,
++				bitmap_weight(ddr->lgpu_cfg,
++					dev->drmcg_props.lgpu_capacity),
++				LGPU_LIMITS_NAME_LIST,
++				dev->drmcg_props.lgpu_capacity,
++				ddr->lgpu_cfg);
++		break;
++	case DRMCG_TYPE_LGPU_EFF:
++		seq_printf(sf, "%s=%lld %s=%*pbl\n",
++				LGPU_LIMITS_NAME_COUNT,
++				ddr->lgpu_count_eff,
++				LGPU_LIMITS_NAME_LIST,
++				dev->drmcg_props.lgpu_capacity,
++				ddr->lgpu_eff);
 +		break;
  	default:
  		seq_puts(sf, "\n");
  		break;
-@@ -334,6 +337,12 @@ struct cftype files[] = {
- 		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_BO_PEAK,
+@@ -329,6 +481,17 @@ static void drmcg_print_default(struct drmcg_props *props,
+ 		seq_printf(sf, "%lld\n",
+ 			props->bo_limits_peak_allocated_default);
+ 		break;
++	case DRMCG_TYPE_LGPU:
++		seq_printf(sf, "%s=%d %s=%d %s=%*pbl\n",
++				LGPU_LIMITS_NAME_WEIGHT,
++				CGROUP_WEIGHT_DFL,
++				LGPU_LIMITS_NAME_COUNT,
++				bitmap_weight(props->lgpu_slots,
++					props->lgpu_capacity),
++				LGPU_LIMITS_NAME_LIST,
++				props->lgpu_capacity,
++				props->lgpu_slots);
++		break;
+ 	default:
+ 		seq_puts(sf, "\n");
+ 		break;
+@@ -358,7 +521,7 @@ static int drmcg_seq_show_fn(int id, void *ptr, void *data)
+ 		drmcg_print_stats(ddr, sf, type);
+ 		break;
+ 	case DRMCG_FTYPE_LIMIT:
+-		drmcg_print_limits(ddr, sf, type);
++		drmcg_print_limits(ddr, sf, type, minor->dev);
+ 		break;
+ 	case DRMCG_FTYPE_DEFAULT:
+ 		drmcg_print_default(&minor->dev->drmcg_props, sf, type);
+@@ -415,6 +578,115 @@ static int drmcg_process_limit_s64_val(char *sval, bool is_mem,
+ 	return rc;
+ }
+ 
++static void drmcg_nested_limit_parse(struct kernfs_open_file *of,
++		struct drm_device *dev, char *attrs)
++{
++	DECLARE_BITMAP(tmp_bitmap, MAX_DRMCG_LGPU_CAPACITY);
++	DECLARE_BITMAP(chk_bitmap, MAX_DRMCG_LGPU_CAPACITY);
++	enum drmcg_res_type type =
++		DRMCG_CTF_PRIV2RESTYPE(of_cft(of)->private);
++	struct drmcg *drmcg = css_to_drmcg(of_css(of));
++	struct drmcg_props *props = &dev->drmcg_props;
++	char *cft_name = of_cft(of)->name;
++	int minor = dev->primary->index;
++	char *nested = strstrip(attrs);
++	struct drmcg_device_resource *ddr =
++		drmcg->dev_resources[minor];
++	char *attr;
++	char sname[256];
++	char sval[256];
++	s64 val;
++	int rc;
++
++	while (nested != NULL) {
++		attr = strsep(&nested, " ");
++
++		if (sscanf(attr, "%255[^=]=%255[^=]", sname, sval) != 2)
++			continue;
++
++		switch (type) {
++		case DRMCG_TYPE_LGPU:
++			if (strncmp(sname, LGPU_LIMITS_NAME_LIST, 256) &&
++				strncmp(sname, LGPU_LIMITS_NAME_COUNT, 256) &&
++				strncmp(sname, LGPU_LIMITS_NAME_WEIGHT, 256))
++				continue;
++
++			if (strncmp(sname, LGPU_LIMITS_NAME_WEIGHT, 256) &&
++					(!strcmp("max", sval) ||
++					!strcmp("default", sval))) {
++				bitmap_copy(ddr->lgpu_cfg, props->lgpu_slots,
++						props->lgpu_capacity);
++
++				continue;
++			}
++
++			if (strncmp(sname, LGPU_LIMITS_NAME_WEIGHT, 256) == 0) {
++				rc = drmcg_process_limit_s64_val(sval,
++					false, CGROUP_WEIGHT_DFL,
++					CGROUP_WEIGHT_MAX, &val);
++
++				if (rc || val < CGROUP_WEIGHT_MIN ||
++						val > CGROUP_WEIGHT_MAX) {
++					drmcg_pr_cft_err(drmcg, rc, cft_name,
++							minor);
++					continue;
++				}
++
++				ddr->lgpu_weight_cfg = val;
++				continue;
++			}
++
++			if (strncmp(sname, LGPU_LIMITS_NAME_COUNT, 256) == 0) {
++				rc = drmcg_process_limit_s64_val(sval,
++					false, props->lgpu_capacity,
++					props->lgpu_capacity, &val);
++
++				if (rc || val < 0) {
++					drmcg_pr_cft_err(drmcg, rc, cft_name,
++							minor);
++					continue;
++				}
++
++				bitmap_zero(tmp_bitmap,
++						MAX_DRMCG_LGPU_CAPACITY);
++				bitmap_set(tmp_bitmap, 0, val);
++			}
++
++			if (strncmp(sname, LGPU_LIMITS_NAME_LIST, 256) == 0) {
++				rc = bitmap_parselist(sval, tmp_bitmap,
++						MAX_DRMCG_LGPU_CAPACITY);
++
++				if (rc) {
++					drmcg_pr_cft_err(drmcg, rc, cft_name,
++							minor);
++					continue;
++				}
++
++				bitmap_andnot(chk_bitmap, tmp_bitmap,
++					props->lgpu_slots,
++					MAX_DRMCG_LGPU_CAPACITY);
++
++				/* user setting does not intersect with
++				 * available lgpu */
++				if (!bitmap_empty(chk_bitmap,
++						MAX_DRMCG_LGPU_CAPACITY)) {
++					drmcg_pr_cft_err(drmcg, 0, cft_name,
++							minor);
++					continue;
++				}
++			}
++
++			bitmap_copy(ddr->lgpu_cfg, tmp_bitmap,
++					props->lgpu_capacity);
++
++			break; /* DRMCG_TYPE_LGPU */
++		default:
++			break;
++		} /* switch (type) */
++	}
++}
++
++
+ /**
+  * drmcg_limit_write - parse cgroup interface files to obtain user config
+  *
+@@ -499,9 +771,15 @@ static ssize_t drmcg_limit_write(struct kernfs_open_file *of, char *buf,
+ 
+ 			ddr->bo_limits_peak_allocated = val;
+ 			break;
++		case DRMCG_TYPE_LGPU:
++			drmcg_nested_limit_parse(of, dm->dev, sattr);
++			break;
+ 		default:
+ 			break;
+ 		}
++
++		drmcg_apply_effective(type, dm->dev, drmcg);
++
+ 		mutex_unlock(&dm->dev->drmcg_mutex);
+ 
+ 		mutex_lock(&drmcg_mutex);
+@@ -560,12 +838,51 @@ struct cftype files[] = {
+ 		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_BO_COUNT,
  						DRMCG_FTYPE_STATS),
  	},
 +	{
-+		.name = "buffer.count.stats",
++		.name = "lgpu",
 +		.seq_show = drmcg_seq_show,
-+		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_BO_COUNT,
-+						DRMCG_FTYPE_STATS),
++		.write = drmcg_limit_write,
++		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_LGPU,
++						DRMCG_FTYPE_LIMIT),
++	},
++	{
++		.name = "lgpu.default",
++		.seq_show = drmcg_seq_show,
++		.flags = CFTYPE_ONLY_ON_ROOT,
++		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_LGPU,
++						DRMCG_FTYPE_DEFAULT),
++	},
++	{
++		.name = "lgpu.effective",
++		.seq_show = drmcg_seq_show,
++		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_LGPU_EFF,
++						DRMCG_FTYPE_LIMIT),
 +	},
  	{ }	/* terminate */
  };
  
-@@ -385,6 +394,8 @@ void drmcg_chg_bo_alloc(struct drmcg *drmcg, struct drm_device *dev,
- 
- 		if (ddr->bo_stats_peak_allocated < (s64)size)
- 			ddr->bo_stats_peak_allocated = (s64)size;
++static int drmcg_online_fn(int id, void *ptr, void *data)
++{
++	struct drm_minor *minor = ptr;
++	struct drmcg *drmcg = data;
 +
-+		ddr->bo_stats_count_allocated++;
- 	}
- 	mutex_unlock(&dev->drmcg_mutex);
++	if (minor->type != DRM_MINOR_PRIMARY)
++		return 0;
++
++	drmcg_apply_effective(DRMCG_TYPE_LGPU, minor->dev, drmcg);
++
++	return 0;
++}
++
++static int drmcg_css_online(struct cgroup_subsys_state *css)
++{
++	return drm_minor_for_each(&drmcg_online_fn, css_to_drmcg(css));
++}
++
+ struct cgroup_subsys drm_cgrp_subsys = {
+ 	.css_alloc	= drmcg_css_alloc,
+ 	.css_free	= drmcg_css_free,
++	.css_online	= drmcg_css_online,
+ 	.early_init	= false,
+ 	.legacy_cftypes	= files,
+ 	.dfl_cftypes	= files,
+@@ -585,6 +902,9 @@ void drmcg_device_early_init(struct drm_device *dev)
+ 	dev->drmcg_props.bo_limits_total_allocated_default = S64_MAX;
+ 	dev->drmcg_props.bo_limits_peak_allocated_default = S64_MAX;
+ 
++	dev->drmcg_props.lgpu_capacity = MAX_DRMCG_LGPU_CAPACITY;
++	bitmap_fill(dev->drmcg_props.lgpu_slots, MAX_DRMCG_LGPU_CAPACITY);
++
+ 	drmcg_update_cg_tree(dev);
  }
-@@ -402,15 +413,20 @@ EXPORT_SYMBOL(drmcg_chg_bo_alloc);
- void drmcg_unchg_bo_alloc(struct drmcg *drmcg, struct drm_device *dev,
- 		size_t size)
- {
-+	struct drmcg_device_resource *ddr;
- 	int devIdx = dev->primary->index;
- 
- 	if (drmcg == NULL)
- 		return;
- 
- 	mutex_lock(&dev->drmcg_mutex);
--	for ( ; drmcg != NULL; drmcg = drmcg_parent(drmcg))
--		drmcg->dev_resources[devIdx]->bo_stats_total_allocated
--			-= (s64)size;
-+	for ( ; drmcg != NULL; drmcg = drmcg_parent(drmcg)) {
-+		ddr = drmcg->dev_resources[devIdx];
-+
-+		ddr->bo_stats_total_allocated -= (s64)size;
-+
-+		ddr->bo_stats_count_allocated--;
-+	}
- 	mutex_unlock(&dev->drmcg_mutex);
- }
- EXPORT_SYMBOL(drmcg_unchg_bo_alloc);
+ EXPORT_SYMBOL(drmcg_device_early_init);
 -- 
 2.25.0
 
