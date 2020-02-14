@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DD19CC2BA83
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:05:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 19FE9C3B1A1
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:05:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B25D524676
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:05:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E62A524682
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:05:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="szcUBxjB"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B25D524676
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="fZybdwrP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E62A524682
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7DBEE6FA51;
-	Fri, 14 Feb 2020 16:04:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30A886FA31;
+	Fri, 14 Feb 2020 16:04:59 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6347B6FA30;
- Fri, 14 Feb 2020 16:04:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31EF06FA4E;
+ Fri, 14 Feb 2020 16:04:57 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 499732468D;
- Fri, 14 Feb 2020 16:04:49 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2E3AE24682;
+ Fri, 14 Feb 2020 16:04:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696290;
- bh=mGGUVcEnu23lmvJ3wrP1EZ09z+7+weoGfbNXkW2JdH8=;
+ s=default; t=1581696297;
+ bh=2l0FD7qlaeZPztYC+TuvaUCe+sMVLCuYRZFJ8QrNvVI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=szcUBxjBkc1U7GCqbj37Nm4zduQLhPcbDKTAINPFoKBDKWKwuTahwfW6XVYG3o/Ww
- ekXx1VTXBIK/3fzcxOkikCmr9RHft/BNVQcSfydsQk2T1WYTTeSOFCgjVGA0B91M0n
- A3rokkyH+9DdMUyKWTR/VMwVSjEV8+KU3efeizGc=
+ b=fZybdwrPzSjPRL/TtAro5fAoU01eCQ/wh86kSvEvuxJ6sAmqUKFcIm+WQau+nZSZl
+ Grqibx0ZWich29nguF2JBaxYEA01cpBYRQ6kQ8Tugdoep3oNaCvYHu2sYHNd6cYsvd
+ hAhnu0sRefoyeZnEyyWmYjpbiAoY7E1J73FcGTn8=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 137/459] drm/amd/display: remove set but not used
- variable 'bp' in bios_parser2.c
-Date: Fri, 14 Feb 2020 10:56:27 -0500
-Message-Id: <20200214160149.11681-137-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 142/459] drm/radeon: remove set but not used
+ variable 'radeon_connector'
+Date: Fri, 14 Feb 2020 10:56:32 -0500
+Message-Id: <20200214160149.11681-142-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
 References: <20200214160149.11681-1-sashal@kernel.org>
@@ -61,10 +61,9 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
  zhengbin <zhengbin13@huawei.com>, Hulk Robot <hulkci@huawei.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -72,46 +71,44 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: zhengbin <zhengbin13@huawei.com>
 
-[ Upstream commit 589d8d282ebe1eab2dd8b1fba3e60322787a50e6 ]
+[ Upstream commit 5952c48993375a9da2de39be30df475cf590b0ce ]
 
 Fixes gcc '-Wunused-but-set-variable' warning:
 
-drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c: In function bios_get_board_layout_info:
-drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c:1826:22: warning: variable bp set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/radeon/radeon_display.c: In function radeon_crtc_scaling_mode_fixup:
+drivers/gpu/drm/radeon/radeon_display.c:1685:27: warning: variable radeon_connector set but not used [-Wunused-but-set-variable]
 
-It is introduced by commit 1eeedbcc20d6 ("drm/amd/display:
-get board layout for edid emulation"), but never used,
-so remove it.
+It is not used since commit 377bd8a98d7d ("drm/radeon:
+use a fetch function to get the edid")
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: zhengbin <zhengbin13@huawei.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 2 --
+ drivers/gpu/drm/radeon/radeon_display.c | 2 --
  1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index dff65c0fe82f8..270035473f120 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -1829,7 +1829,6 @@ static enum bp_result bios_get_board_layout_info(
- 	struct board_layout_info *board_layout_info)
- {
- 	unsigned int i;
--	struct bios_parser *bp;
- 	enum bp_result record_result;
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index e81b01f8db90e..84d3d885b7a46 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -1687,7 +1687,6 @@ bool radeon_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
+ 	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
+ 	struct radeon_encoder *radeon_encoder;
+ 	struct drm_connector *connector;
+-	struct radeon_connector *radeon_connector;
+ 	bool first = true;
+ 	u32 src_v = 1, dst_v = 1;
+ 	u32 src_h = 1, dst_h = 1;
+@@ -1700,7 +1699,6 @@ bool radeon_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
+ 			continue;
+ 		radeon_encoder = to_radeon_encoder(encoder);
+ 		connector = radeon_get_connector_for_encoder(encoder);
+-		radeon_connector = to_radeon_connector(connector);
  
- 	const unsigned int slot_index_to_vbios_id[MAX_BOARD_SLOTS] = {
-@@ -1838,7 +1837,6 @@ static enum bp_result bios_get_board_layout_info(
- 		0, 0
- 	};
- 
--	bp = BP_FROM_DCB(dcb);
- 	if (board_layout_info == NULL) {
- 		DC_LOG_DETECTION_EDID_PARSER("Invalid board_layout_info\n");
- 		return BP_RESULT_BADINPUT;
+ 		if (first) {
+ 			/* set scaling */
 -- 
 2.20.1
 
