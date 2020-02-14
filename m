@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 67389C2BA83
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:13:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1533CC47409
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:13:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D6E52469F
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:13:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E1A51246B3
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:13:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="ev55xwgf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D6E52469F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="XRdfvZHi"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1A51246B3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C21F6FA8E;
-	Fri, 14 Feb 2020 16:13:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E96C6FA92;
+	Fri, 14 Feb 2020 16:13:04 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B0486FA8B;
- Fri, 14 Feb 2020 16:13:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A05736FA8B;
+ Fri, 14 Feb 2020 16:13:03 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 367E3246A5;
- Fri, 14 Feb 2020 16:13:00 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 97483246A1;
+ Fri, 14 Feb 2020 16:13:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696781;
- bh=vG9Kez7b3b+wLpV9ubT79hRNXg900CAu4NLM/p328T4=;
+ s=default; t=1581696783;
+ bh=hEqE9s7hwqc0TcLQaHrv60bKO82V3yKIzTCuzVp1MNM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ev55xwgfdeWwW1RDas+MzCQNW83qqB2P6/DoSUHXlkkI3E3ccmMkqHX08ebQR0pt2
- +QJ1kYVZtDKtd2MQp5bmnd6pAwaDr3OALu7zsxO2NwIjQT+JreEqeZZQvV4CbOPCpd
- kFYaL5YW5o5kmzZzxjJ5V5vG55JiTGDfQ/EXAiWo=
+ b=XRdfvZHi+h3n+36WffgnNhjGYETdOZBy1lSwSi8dyNCOg4/QfuTwhGD8OX5TV+POm
+ BO5xGHaiajuNJf4rZji/wYnbM5TzAFe4KZiSLxOkpUawAIGYJYnbGx/4hwvmmtzyRX
+ nMS3l017KgvWUhJeGQtymU5PB5wOgJL6eRlncXao=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 057/252] drm/amdgpu: remove always false
- comparison in 'amdgpu_atombios_i2c_process_i2c_ch'
-Date: Fri, 14 Feb 2020 11:08:32 -0500
-Message-Id: <20200214161147.15842-57-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 059/252] drm/amd/powerplay: remove set but not
+ used variable 'threshold', 'state'
+Date: Fri, 14 Feb 2020 11:08:34 -0500
+Message-Id: <20200214161147.15842-59-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214161147.15842-1-sashal@kernel.org>
 References: <20200214161147.15842-1-sashal@kernel.org>
@@ -61,39 +61,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, yu kuai <yukuai3@huawei.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Sasha Levin <sashal@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
+ zhengbin <zhengbin13@huawei.com>, Hulk Robot <hulkci@huawei.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogeXUga3VhaSA8eXVrdWFpM0BodWF3ZWkuY29tPgoKWyBVcHN0cmVhbSBjb21taXQgMjIw
-YWM4ZDE0NDQwNTRhZGUwN2NlMTQ0OThmY2RhMjY2NDEwZjkwZSBdCgpGaXhlcyBnY2MgJy1XdHlw
-ZS1saW1pdHMnIHdhcm5pbmc6Cgpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hdG9tYmlvc19p
-MmMuYzogSW4gZnVuY3Rpb24K4oCYYW1kZ3B1X2F0b21iaW9zX2kyY19wcm9jZXNzX2kyY19jaOKA
-mToKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYXRvbWJpb3NfaTJjLmM6Nzk6MTE6IHdhcm5p
-bmc6IGNvbXBhcmlzb24gaXMKYWx3YXlzIGZhbHNlIGR1ZSB0byBsaW1pdGVkIHJhbmdlIG9mIGRh
-dGEgdHlwZSBbLVd0eXBlLWxpbWl0c10KCidudW0nIGlzICd1OCcsIHNvIGl0IHdpbGwgbmV2ZXIg
-YmUgZ3JlYXRlciB0aGFuICdUT01fTUFYX0hXX0kyQ19SRUFEJywKd2hpY2ggaXMgZGVmaW5lZCBh
-cyAyNTUuIFRoZXJlZm9yZSwgdGhlIGNvbXBhcmlzb24gY2FuIGJlIHJlbW92ZWQuCgpGaXhlczog
-ZDM4Y2VhZjk5ZWQwICgiZHJtL2FtZGdwdTogYWRkIGNvcmUgZHJpdmVyICh2NCkiKQpTaWduZWQt
-b2ZmLWJ5OiB5dSBrdWFpIDx5dWt1YWkzQGh1YXdlaS5jb20+ClNpZ25lZC1vZmYtYnk6IEFsZXgg
-RGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogU2FzaGEg
-TGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2F0b21iaW9zX2kyYy5jIHwgNSAtLS0tLQogMSBmaWxlIGNoYW5nZWQsIDUgZGVsZXRpb25zKC0p
-CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYXRvbWJpb3NfaTJjLmMg
-Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hdG9tYmlvc19pMmMuYwppbmRleCBmOWIyY2U5
-YTk4ZjNlLi45YzdkMGJmNjcxMmFiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hdG9tYmlvc19pMmMuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hdG9t
-Ymlvc19pMmMuYwpAQCAtNzYsMTEgKzc2LDYgQEAgc3RhdGljIGludCBhbWRncHVfYXRvbWJpb3Nf
-aTJjX3Byb2Nlc3NfaTJjX2NoKHN0cnVjdCBhbWRncHVfaTJjX2NoYW4gKmNoYW4sCiAJCX0KIAkJ
-YXJncy5scEkyQ0RhdGFPdXQgPSBjcHVfdG9fbGUxNihvdXQpOwogCX0gZWxzZSB7Ci0JCWlmIChu
-dW0gPiBBVE9NX01BWF9IV19JMkNfUkVBRCkgewotCQkJRFJNX0VSUk9SKCJodyBpMmM6IHRyaWVk
-IHRvIHJlYWQgdG9vIG1hbnkgYnl0ZXMgKCVkIHZzIDI1NSlcbiIsIG51bSk7Ci0JCQlyID0gLUVJ
-TlZBTDsKLQkJCWdvdG8gZG9uZTsKLQkJfQogCQlhcmdzLnVjUmVnSW5kZXggPSAwOwogCQlhcmdz
-LmxwSTJDRGF0YU91dCA9IDA7CiAJfQotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+From: zhengbin <zhengbin13@huawei.com>
+
+[ Upstream commit f5ac1595156a8b63812ed6fa0803ddf7207cced7 ]
+
+Fixes gcc '-Wunused-but-set-variable' warning:
+
+drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c: In function fiji_populate_single_graphic_level:
+drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c:943:11: warning: variable threshold set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c: In function fiji_populate_memory_timing_parameters:
+drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c:1504:8: warning: variable state set but not used [-Wunused-but-set-variable]
+
+They are introduced by commit 2e112b4ae3ba ("drm/amd/pp:
+remove fiji_smc/smumgr split."), but never used,
+so remove it.
+
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: zhengbin <zhengbin13@huawei.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
+index 40df5c2706cce..d517fbd6809c9 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/fiji_smumgr.c
+@@ -950,7 +950,7 @@ static int fiji_populate_single_graphic_level(struct pp_hwmgr *hwmgr,
+ {
+ 	int result;
+ 	/* PP_Clocks minClocks; */
+-	uint32_t threshold, mvdd;
++	uint32_t mvdd;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+ 	struct phm_ppt_v1_information *table_info =
+ 			(struct phm_ppt_v1_information *)(hwmgr->pptable);
+@@ -983,8 +983,6 @@ static int fiji_populate_single_graphic_level(struct pp_hwmgr *hwmgr,
+ 	level->VoltageDownHyst = 0;
+ 	level->PowerThrottle = 0;
+ 
+-	threshold = clock * data->fast_watermark_threshold / 100;
+-
+ 	data->display_timing.min_clock_in_sr = hwmgr->display_config->min_core_set_clock_in_sr;
+ 
+ 	if (phm_cap_enabled(hwmgr->platform_descriptor.platformCaps, PHM_PlatformCaps_SclkDeepSleep))
+@@ -1510,7 +1508,7 @@ static int fiji_populate_memory_timing_parameters(struct pp_hwmgr *hwmgr,
+ 	uint32_t dram_timing;
+ 	uint32_t dram_timing2;
+ 	uint32_t burstTime;
+-	ULONG state, trrds, trrdl;
++	ULONG trrds, trrdl;
+ 	int result;
+ 
+ 	result = atomctrl_set_engine_dram_timings_rv770(hwmgr,
+@@ -1522,7 +1520,6 @@ static int fiji_populate_memory_timing_parameters(struct pp_hwmgr *hwmgr,
+ 	dram_timing2 = cgs_read_register(hwmgr->device, mmMC_ARB_DRAM_TIMING2);
+ 	burstTime = cgs_read_register(hwmgr->device, mmMC_ARB_BURST_TIME);
+ 
+-	state = PHM_GET_FIELD(burstTime, MC_ARB_BURST_TIME, STATE0);
+ 	trrds = PHM_GET_FIELD(burstTime, MC_ARB_BURST_TIME, TRRDS0);
+ 	trrdl = PHM_GET_FIELD(burstTime, MC_ARB_BURST_TIME, TRRDL0);
+ 
+-- 
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
