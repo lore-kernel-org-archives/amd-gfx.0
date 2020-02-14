@@ -6,45 +6,47 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B4476C2BA83
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:11:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47583C3B19F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:12:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7F0F4246A6
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:11:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1EC502469B
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:12:52 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z4Oh62ci"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7F0F4246A6
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="OIgGQXou"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1EC502469B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3ABCD6FA86;
-	Fri, 14 Feb 2020 16:11:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCBC86FA8A;
+	Fri, 14 Feb 2020 16:12:51 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 184046FA83;
- Fri, 14 Feb 2020 16:11:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 304816FA8A;
+ Fri, 14 Feb 2020 16:12:51 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0A919222C2;
- Fri, 14 Feb 2020 16:11:48 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DE6BF246AD;
+ Fri, 14 Feb 2020 16:12:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696709;
- bh=MKNm3DH+iFG/2MKS7mW0IPl2gpbcCAHThyKYruf9gXM=;
- h=From:To:Cc:Subject:Date:From;
- b=Z4Oh62ci8HZzM61xAIyouudBRbxEve7eXRxatUKe8UOM4Wo4XgP8mT5MuHfH4vbG9
- tu9GintuoQGixsUQRDO+U7HowWSMVU9DRpCvxcNOeTmG0Bx9giPuz6QmvQ4/+pwiAS
- F8Jr7IbNjqC87w1yqeQ46iIVAEzqa7gffkfrd7OU=
+ s=default; t=1581696771;
+ bh=LOx3G48+qeXW1DcwfmUwMyuzLK0jenhTWOn+vwiGn6s=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=OIgGQXouL24ll5AUew/Ttwf9FD6PNTzp/oOAeV6d32mTExZgDs0IXs1TnpVBjo36f
+ wOeI3Yqit6UBSXtOddPqN9ivWGFjE0mOjcCJcHlrq/9bFzHhV644EiKv7LP4FABbCW
+ DLepagD8i5L2j20AAV/Cepik3RZ2H+6iCBZF4fuI=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 001/252] drm/amdgpu: remove set but not used
- variable 'mc_shared_chmap' from 'gfx_v6_0.c' and 'gfx_v7_0.c'
-Date: Fri, 14 Feb 2020 11:07:36 -0500
-Message-Id: <20200214161147.15842-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 049/252] drm/amd/display: Retrain dongles when
+ SINK_COUNT becomes non-zero
+Date: Fri, 14 Feb 2020 11:08:24 -0500
+Message-Id: <20200214161147.15842-49-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200214161147.15842-1-sashal@kernel.org>
+References: <20200214161147.15842-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -59,60 +61,83 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, yu kuai <yukuai3@huawei.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Sasha Levin <sashal@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sasha Levin <sashal@kernel.org>, Eric Yang <Eric.Yang2@amd.com>,
+ Wenjing Liu <Wenjing.Liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ Hersen Wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Louis Li <Ching-shih.Li@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogeXUga3VhaSA8eXVrdWFpM0BodWF3ZWkuY29tPgoKWyBVcHN0cmVhbSBjb21taXQgNzQ3
-YTM5N2QzOTRmYWMwMDAxZTRiM2MwM2Q3ZGNlM2ExMThhZjU2NyBdCgpGaXhlcyBnY2MgJy1XdW51
-c2VkLWJ1dC1zZXQtdmFyaWFibGUnIHdhcm5pbmc6Cgpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9nZnhfdjZfMC5jOiBJbiBmdW5jdGlvbgrigJhnZnhfdjZfMF9jb25zdGFudHNfaW5pdOKAmToK
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYzoxNTc5OjY6IHdhcm5pbmc6IHZh
-cmlhYmxlCuKAmG1jX3NoYXJlZF9jaG1hcOKAmSBzZXQgYnV0IG5vdCB1c2VkIFstV3VudXNlZC1i
-dXQtc2V0LXZhcmlhYmxlXQoKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYzog
-SW4gZnVuY3Rpb24K4oCYZ2Z4X3Y3XzBfZ3B1X2Vhcmx5X2luaXTigJk6CmRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dmeF92N18wLmM6NDI2Mjo2OiB3YXJuaW5nOiB2YXJpYWJsZQrigJhtY19z
-aGFyZWRfY2htYXDigJkgc2V0IGJ1dCBub3QgdXNlZCBbLVd1bnVzZWQtYnV0LXNldC12YXJpYWJs
-ZV0KCkZpeGVzOiAyY2Q0NmFkMjIzODMgKCJkcm0vYW1kZ3B1OiBhZGQgZ3JhcGhpYyBwaXBlbGlu
-ZSBpbXBsZW1lbnRhdGlvbiBmb3Igc2kgdjgiKQpGaXhlczogZDkzZjNjYTcwNmI4ICgiZHJtL2Ft
-ZGdwdS9nZng3OiByZXdvcmsgZ3B1X2luaXQoKSIpClNpZ25lZC1vZmYtYnk6IHl1IGt1YWkgPHl1
-a3VhaTNAaHVhd2VpLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
-ZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5l
-bC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYyB8IDMgKy0t
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jIHwgMyArLS0KIDIgZmlsZXMg
-Y2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nZnhfdjZfMC5jCmluZGV4IGRlMTg0YTg4NjA1NzMuLjAxNjc1NmNlYzBkMTAgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYwpAQCAtMTU1NSw3ICsxNTU1LDcgQEAg
-c3RhdGljIHZvaWQgZ2Z4X3Y2XzBfY29uZmlnX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYpCiBzdGF0aWMgdm9pZCBnZnhfdjZfMF9ncHVfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
-YWRldikKIHsKIAl1MzIgZ2JfYWRkcl9jb25maWcgPSAwOwotCXUzMiBtY19zaGFyZWRfY2htYXAs
-IG1jX2FyYl9yYW1jZmc7CisJdTMyIG1jX2FyYl9yYW1jZmc7CiAJdTMyIHN4X2RlYnVnXzE7CiAJ
-dTMyIGhkcF9ob3N0X3BhdGhfY250bDsKIAl1MzIgdG1wOwpAQCAtMTY1Nyw3ICsxNjU3LDYgQEAg
-c3RhdGljIHZvaWQgZ2Z4X3Y2XzBfZ3B1X2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYp
-CiAKIAlXUkVHMzIobW1CSUZfRkJfRU4sIEJJRl9GQl9FTl9fRkJfUkVBRF9FTl9NQVNLIHwgQklG
-X0ZCX0VOX19GQl9XUklURV9FTl9NQVNLKTsKIAotCW1jX3NoYXJlZF9jaG1hcCA9IFJSRUczMiht
-bU1DX1NIQVJFRF9DSE1BUCk7CiAJYWRldi0+Z2Z4LmNvbmZpZy5tY19hcmJfcmFtY2ZnID0gUlJF
-RzMyKG1tTUNfQVJCX1JBTUNGRyk7CiAJbWNfYXJiX3JhbWNmZyA9IGFkZXYtPmdmeC5jb25maWcu
-bWNfYXJiX3JhbWNmZzsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-Z2Z4X3Y3XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMKaW5kZXgg
-OTU0NTJjNWE5ZGY2ZS4uOGJkY2M0YTY2NTVhZiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9n
-ZnhfdjdfMC5jCkBAIC00MzIzLDcgKzQzMjMsNyBAQCBzdGF0aWMgaW50IGdmeF92N18wX2xhdGVf
-aW5pdCh2b2lkICpoYW5kbGUpCiBzdGF0aWMgdm9pZCBnZnhfdjdfMF9ncHVfZWFybHlfaW5pdChz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKIAl1MzIgZ2JfYWRkcl9jb25maWc7Ci0JdTMy
-IG1jX3NoYXJlZF9jaG1hcCwgbWNfYXJiX3JhbWNmZzsKKwl1MzIgbWNfYXJiX3JhbWNmZzsKIAl1
-MzIgZGltbTAwX2FkZHJfbWFwLCBkaW1tMDFfYWRkcl9tYXAsIGRpbW0xMF9hZGRyX21hcCwgZGlt
-bTExX2FkZHJfbWFwOwogCXUzMiB0bXA7CiAKQEAgLTQ0MDAsNyArNDQwMCw2IEBAIHN0YXRpYyB2
-b2lkIGdmeF92N18wX2dwdV9lYXJseV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQog
-CQlicmVhazsKIAl9CiAKLQltY19zaGFyZWRfY2htYXAgPSBSUkVHMzIobW1NQ19TSEFSRURfQ0hN
-QVApOwogCWFkZXYtPmdmeC5jb25maWcubWNfYXJiX3JhbWNmZyA9IFJSRUczMihtbU1DX0FSQl9S
-QU1DRkcpOwogCW1jX2FyYl9yYW1jZmcgPSBhZGV2LT5nZnguY29uZmlnLm1jX2FyYl9yYW1jZmc7
-CiAKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+From: Harry Wentland <harry.wentland@amd.com>
+
+[ Upstream commit 3eb6d7aca53d81ce888624f09cd44dc0302161e8 ]
+
+[WHY]
+Two years ago the patch referenced by the Fixes tag stopped running
+dp_verify_link_cap_with_retries during DP detection when the reason
+for the detection was a short-pulse interrupt. This effectively meant
+that we were no longer doing the verify_link_cap training on active
+dongles when their SINK_COUNT changed from 0 to 1.
+
+A year ago this was partly remedied with:
+commit 80adaebd2d41 ("drm/amd/display: Don't skip link training for empty dongle")
+
+This made sure that we trained the dongle on initial hotplug (without
+connected downstream devices).
+
+This is all fine and dandy if it weren't for the fact that there are
+some dongles on the market that don't like link training when SINK_COUNT
+is 0 These dongles will in fact indicate a SINK_COUNT of 0 immediately
+after hotplug, even when a downstream device is connected, and then
+trigger a shortpulse interrupt indicating a SINK_COUNT change to 1.
+
+In order to play nicely we will need our policy to not link train an
+active DP dongle when SINK_COUNT is 0 but ensure we train it when the
+SINK_COUNT changes to 1.
+
+[HOW]
+Call dp_verify_link_cap_with_retries on detection even when the detection
+is triggered from a short pulse interrupt.
+
+With this change we can also revert this commit which we'll do in a separate
+follow-up change:
+commit 80adaebd2d41 ("drm/amd/display: Don't skip link training for empty dongle")
+
+Fixes: 0301ccbaf67d ("drm/amd/display: DP Compliance 400.1.1 failure")
+Suggested-by: Louis Li <Ching-shih.Li@amd.com>
+Tested-by: Louis Li <Ching-shih.Li@amd.com>
+Cc: Wenjing Liu <Wenjing.Liu@amd.com>
+Cc: Hersen Wu <hersenxs.wu@amd.com>
+Cc: Eric Yang <Eric.Yang2@amd.com>
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 2f42964fb9f45..3abc0294c05f5 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -780,8 +780,7 @@ bool dc_link_detect(struct dc_link *link, enum dc_detect_reason reason)
+ 			same_edid = is_same_edid(&prev_sink->dc_edid, &sink->dc_edid);
+ 
+ 		if (link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
+-			sink_caps.transaction_type == DDC_TRANSACTION_TYPE_I2C_OVER_AUX &&
+-			reason != DETECT_REASON_HPDRX) {
++			sink_caps.transaction_type == DDC_TRANSACTION_TYPE_I2C_OVER_AUX) {
+ 			/*
+ 			 * TODO debug why Dell 2413 doesn't like
+ 			 *  two link trainings
+-- 
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
