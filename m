@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D7EFAC3B19F
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:52:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67F41C3B1A1
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:52:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AF787222C4
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:52:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3A971222C4
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:52:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="n7SkdmpA"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF787222C4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="pZoHZLTb"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A971222C4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71F1E6F9B9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 701876F9B8;
 	Fri, 14 Feb 2020 15:52:28 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A13276F9B1;
- Fri, 14 Feb 2020 15:52:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBBBA6F9B3;
+ Fri, 14 Feb 2020 15:52:25 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 891232467E;
- Fri, 14 Feb 2020 15:52:19 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0009424673;
+ Fri, 14 Feb 2020 15:52:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581695540;
- bh=eJKMDsNfkCSE8iaeKvTgTaLuJjG9/+64ASQSb5MgAos=;
+ s=default; t=1581695545;
+ bh=Q4JZlLKaoaY9EBcVmw7f8lt78ZDUSaFNgPHucgZNZJU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=n7SkdmpAft7tWlvcKdVVN+4DjMskZNthCKmTG8IznKTJlaYB7Tv4YX3kWzDKP0Esn
- 0ZYGjRsRSM1UVHITmM9+aol7kT2sXzGsyjL5FyF2TP/YzKMK77ftk/6hp4h+uVMXb+
- RXYXYxXxjE3p4sfqmGJq80tb3clLNaURzdqZQLuE=
+ b=pZoHZLTb72yCe7pJzQUDwH0R/4bclyKl06kw8UoK0lKcxKkP0MRS+n8EM8qJukELR
+ 05V8GkepKuAnR/l4qn00TU86dV8qnCu+azTwjYM73KbYMcGX9sssu//ZmJXmXMP9S0
+ 0apJJ4wNR+vaBomio5EHFiO/6Ex+sJR5x4Y4bXcY=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.5 158/542] drm/amd/display: remove set but not used
- variable 'bp' in bios_parser.c
-Date: Fri, 14 Feb 2020 10:42:30 -0500
-Message-Id: <20200214154854.6746-158-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.5 162/542] drm/radeon: remove set but not used
+ variable 'backbias_response_time'
+Date: Fri, 14 Feb 2020 10:42:34 -0500
+Message-Id: <20200214154854.6746-162-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214154854.6746-1-sashal@kernel.org>
 References: <20200214154854.6746-1-sashal@kernel.org>
@@ -61,10 +61,9 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
  zhengbin <zhengbin13@huawei.com>, Hulk Robot <hulkci@huawei.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -72,46 +71,44 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: zhengbin <zhengbin13@huawei.com>
 
-[ Upstream commit 7e30402bed151fc6222baafe5aa1abe3e65c3065 ]
+[ Upstream commit ac52caecbcf2c30ce95b2536c1caf2643c49b91c ]
 
 Fixes gcc '-Wunused-but-set-variable' warning:
 
-drivers/gpu/drm/amd/display/dc/bios/bios_parser.c: In function bios_get_board_layout_info:
-drivers/gpu/drm/amd/display/dc/bios/bios_parser.c:2743:22: warning: variable bp set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/radeon/si_dpm.c: In function si_program_response_times:
+drivers/gpu/drm/radeon/si_dpm.c:3640:29: warning: variable backbias_response_time set but not used [-Wunused-but-set-variable]
 
-It is introduced by commit 1eeedbcc20d6 ("drm/amd/display:
-get board layout for edid emulation"), but never used,
-so remove it.
+It is introduced by commit a9e61410921b ("drm/radeon/kms:
+add dpm support for SI (v7)"), but never used, so remove it.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: zhengbin <zhengbin13@huawei.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/bios/bios_parser.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/radeon/si_dpm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-index 823843cd26133..c34797cb4d2d3 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser.c
-@@ -2739,7 +2739,6 @@ static enum bp_result bios_get_board_layout_info(
- 	struct board_layout_info *board_layout_info)
+diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+index a0b382a637a64..8148a7883de43 100644
+--- a/drivers/gpu/drm/radeon/si_dpm.c
++++ b/drivers/gpu/drm/radeon/si_dpm.c
+@@ -3640,14 +3640,13 @@ static int si_notify_smc_display_change(struct radeon_device *rdev,
+ 
+ static void si_program_response_times(struct radeon_device *rdev)
  {
- 	unsigned int i;
--	struct bios_parser *bp;
- 	enum bp_result record_result;
+-	u32 voltage_response_time, backbias_response_time, acpi_delay_time, vbi_time_out;
++	u32 voltage_response_time, acpi_delay_time, vbi_time_out;
+ 	u32 vddc_dly, acpi_dly, vbi_dly;
+ 	u32 reference_clock;
  
- 	const unsigned int slot_index_to_vbios_id[MAX_BOARD_SLOTS] = {
-@@ -2748,7 +2747,6 @@ static enum bp_result bios_get_board_layout_info(
- 		0, 0
- 	};
+ 	si_write_smc_soft_register(rdev, SI_SMC_SOFT_REGISTER_mvdd_chg_time, 1);
  
--	bp = BP_FROM_DCB(dcb);
- 	if (board_layout_info == NULL) {
- 		DC_LOG_DETECTION_EDID_PARSER("Invalid board_layout_info\n");
- 		return BP_RESULT_BADINPUT;
+ 	voltage_response_time = (u32)rdev->pm.dpm.voltage_response_time;
+-	backbias_response_time = (u32)rdev->pm.dpm.backbias_response_time;
+ 
+ 	if (voltage_response_time == 0)
+ 		voltage_response_time = 1000;
 -- 
 2.20.1
 
