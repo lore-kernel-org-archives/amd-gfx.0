@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF55DC3B19F
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:50:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4158CC2BA83
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:51:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B78202086A
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:50:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 18AA02467D
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:51:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="HBQhyUML"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B78202086A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="e4oY3o4U"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18AA02467D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43C976F987;
-	Fri, 14 Feb 2020 15:50:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDDD06F98A;
+	Fri, 14 Feb 2020 15:51:28 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BD546F986;
- Fri, 14 Feb 2020 15:50:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8251A6F97A;
+ Fri, 14 Feb 2020 15:51:27 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id DE8CB24650;
- Fri, 14 Feb 2020 15:50:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E56DD2168B;
+ Fri, 14 Feb 2020 15:51:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581695439;
- bh=tud2cv99dE6wjxlK392HtWbNS/Q2yAcd7HSkB+mD/w0=;
+ s=default; t=1581695487;
+ bh=v9kgbTRLSbsOE/FA6v/8+h7+wnByHJqRW7CwIyvCXio=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HBQhyUMLg3yeEvo9WxQvnhz35mhBVbWow2ss6vMICnARChOOh/Wr0qPHEnYYnNrt5
- yLdhnCyrpU0Yo+qBcSRy/cUDIW9ehJVj6yiINGEf9CCRjZLdoqtpU1sEayPBTXtu7s
- VnZvLq3Fa6xV5gqy9pFMLgg8+Xc8N8mvF+p0iabM=
+ b=e4oY3o4UhveyG5wOPUgyvjmvzXiGxNGi4QRHnn4DCuFGNXwq+JSo0JB7pJwZTWPYo
+ j6uHzZbr5JYQN5socnClFhBSGBlDxMtftH7wKRx1vRtBqyVzJ3g2EFuvXzVPqUeU23
+ 7pM7czD+MtotNmM3QtnAweCcRniTX48H3oVp2Tys=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.5 080/542] drm/amd/display: Clear state after
- exiting fixed active VRR state
-Date: Fri, 14 Feb 2020 10:41:12 -0500
-Message-Id: <20200214154854.6746-80-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.5 117/542] drm/amd/display: Retrain dongles when
+ SINK_COUNT becomes non-zero
+Date: Fri, 14 Feb 2020 10:41:49 -0500
+Message-Id: <20200214154854.6746-117-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214154854.6746-1-sashal@kernel.org>
 References: <20200214154854.6746-1-sashal@kernel.org>
@@ -61,56 +61,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Anthony Koo <Anthony.Koo@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Amanda Liu <amanda.liu@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Eric Yang <Eric.Yang2@amd.com>,
+ Wenjing Liu <Wenjing.Liu@amd.com>, amd-gfx@lists.freedesktop.org,
+ Hersen Wu <hersenxs.wu@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Louis Li <Ching-shih.Li@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Amanda Liu <amanda.liu@amd.com>
+From: Harry Wentland <harry.wentland@amd.com>
 
-[ Upstream commit 6f8f76444baf405bacb0591d97549a71a9aaa1ac ]
+[ Upstream commit 3eb6d7aca53d81ce888624f09cd44dc0302161e8 ]
 
-[why]
-Upon exiting a fixed active VRR state, the state isn't cleared. This
-leads to the variable VRR range to be calculated incorrectly.
+[WHY]
+Two years ago the patch referenced by the Fixes tag stopped running
+dp_verify_link_cap_with_retries during DP detection when the reason
+for the detection was a short-pulse interrupt. This effectively meant
+that we were no longer doing the verify_link_cap training on active
+dongles when their SINK_COUNT changed from 0 to 1.
 
-[how]
-Set fixed active state to false when updating vrr params
+A year ago this was partly remedied with:
+commit 80adaebd2d41 ("drm/amd/display: Don't skip link training for empty dongle")
 
-Signed-off-by: Amanda Liu <amanda.liu@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
-Acked-by: Harry Wentland <harry.wentland@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+This made sure that we trained the dongle on initial hotplug (without
+connected downstream devices).
+
+This is all fine and dandy if it weren't for the fact that there are
+some dongles on the market that don't like link training when SINK_COUNT
+is 0 These dongles will in fact indicate a SINK_COUNT of 0 immediately
+after hotplug, even when a downstream device is connected, and then
+trigger a shortpulse interrupt indicating a SINK_COUNT change to 1.
+
+In order to play nicely we will need our policy to not link train an
+active DP dongle when SINK_COUNT is 0 but ensure we train it when the
+SINK_COUNT changes to 1.
+
+[HOW]
+Call dp_verify_link_cap_with_retries on detection even when the detection
+is triggered from a short pulse interrupt.
+
+With this change we can also revert this commit which we'll do in a separate
+follow-up change:
+commit 80adaebd2d41 ("drm/amd/display: Don't skip link training for empty dongle")
+
+Fixes: 0301ccbaf67d ("drm/amd/display: DP Compliance 400.1.1 failure")
+Suggested-by: Louis Li <Ching-shih.Li@amd.com>
+Tested-by: Louis Li <Ching-shih.Li@amd.com>
+Cc: Wenjing Liu <Wenjing.Liu@amd.com>
+Cc: Hersen Wu <hersenxs.wu@amd.com>
+Cc: Eric Yang <Eric.Yang2@amd.com>
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-index 5437b50e9f90d..d9ea4ae690af6 100644
---- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-+++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-@@ -807,6 +807,7 @@ void mod_freesync_build_vrr_params(struct mod_freesync *mod_freesync,
- 			2 * in_out_vrr->min_refresh_in_uhz)
- 		in_out_vrr->btr.btr_enabled = false;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 4619f94f0ac78..70846ae7d854d 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -968,8 +968,7 @@ static bool dc_link_detect_helper(struct dc_link *link,
+ 			same_edid = is_same_edid(&prev_sink->dc_edid, &sink->dc_edid);
  
-+	in_out_vrr->fixed.fixed_active = false;
- 	in_out_vrr->btr.btr_active = false;
- 	in_out_vrr->btr.inserted_duration_in_us = 0;
- 	in_out_vrr->btr.frames_to_insert = 0;
-@@ -826,6 +827,7 @@ void mod_freesync_build_vrr_params(struct mod_freesync *mod_freesync,
- 		in_out_vrr->adjust.v_total_max = stream->timing.v_total;
- 	} else if (in_out_vrr->state == VRR_STATE_ACTIVE_VARIABLE &&
- 			refresh_range >= MIN_REFRESH_RANGE_IN_US) {
-+
- 		in_out_vrr->adjust.v_total_min =
- 			calc_v_total_from_refresh(stream,
- 				in_out_vrr->max_refresh_in_uhz);
+ 		if (link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
+-			sink_caps.transaction_type == DDC_TRANSACTION_TYPE_I2C_OVER_AUX &&
+-			reason != DETECT_REASON_HPDRX) {
++			sink_caps.transaction_type == DDC_TRANSACTION_TYPE_I2C_OVER_AUX) {
+ 			/*
+ 			 * TODO debug why Dell 2413 doesn't like
+ 			 *  two link trainings
 -- 
 2.20.1
 
