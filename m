@@ -2,76 +2,65 @@ Return-Path: <SRS0=cmay=4C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 07A20C2BA83
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 08:50:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 686DEC2BA83
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 09:19:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C87E72187F
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 08:50:20 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bl2+RkZv"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C87E72187F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4394D2086A
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 09:19:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4394D2086A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A27D76E560;
-	Fri, 14 Feb 2020 08:50:20 +0000 (UTC)
-Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
- [IPv6:2607:f8b0:4864:20::244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96F4E6E441;
- Fri, 14 Feb 2020 06:30:37 +0000 (UTC)
-Received: by mail-oi1-x244.google.com with SMTP id b18so8455643oie.2;
- Thu, 13 Feb 2020 22:30:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ntwhmb838HNdG68VgBkMbYUyn9XVt7puNK0dtc2mxiU=;
- b=Bl2+RkZv0uKfnpwqzGIIxsKeThJkZXZ76VITQy9giZ6bgEBu0UV9/krz+5ZD7iRrHd
- /CoK51Nxbh2tquNgg0zTxh2q1hdt3NNU7A/fxgt8EcnYN3MPsTw1HLaPjRxZ7NC16/FH
- IDjt5ByQBiqH3d3tI9HIvlQHf2iQNmUwvG0Wk8JOFBczVwsx7iM6LVAmrWDQH8YZFhTG
- y5I6hGBQwm4WwgQzD6yX85fJO/Es1hEEyQerjlTe40XRO8x4FCsh7VrcBiV9ktIloURp
- MBv8JOvEoD2D+GMtAhl2GSfaWZlJEmc/+Hz1W1zXy6xkyYs/nzU+bRMp6yT/aoN2Luxz
- QWxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ntwhmb838HNdG68VgBkMbYUyn9XVt7puNK0dtc2mxiU=;
- b=CgMy7m1nAHMvUuWQHdR5aQvr5b3fMKkbMMc/WnOurXTEb5COIEtfXShsOBXYnm4zxz
- Z47xWha+liazBbK9Bo7WQeaXrZcWZyE9jQ1boLhDjAI6V4T+G9tM0QG31SyK5D6svuiB
- slNLuJ3JgwJeAJ4ndeojPcU3ck4gaIZl5uG7pEWA4l4ZwcNQMDGpiOKATUljqmTvssA8
- 6rjstXX/9ve19cHb5hP/sad2jqjfI4q98AHBgJrFphoy3OV1vEsSR1P/Ia1/QZeA+ewq
- Sprdr+NkHP0jvLNF9sx5A5S2+Od+2NT3Tz9hJsOky5LpVreaqoXMJCoEPqXwDA45igKE
- 8LfA==
-X-Gm-Message-State: APjAAAW6YZfvhRuOz7SpJWcms9sCND2W7Uac0v/WsiXzhdwaWOAxQ4TY
- jLy5/AvBquJRVxG0+SCwQG8=
-X-Google-Smtp-Source: APXvYqxxXnIoySUdm4W+GhJ2vz7rNqEhAKOFi0tphwN1shGVUp6HVae+n1bLo3B19UkUchCoRll9/g==
-X-Received: by 2002:aca:6542:: with SMTP id j2mr873096oiw.69.1581661836582;
- Thu, 13 Feb 2020 22:30:36 -0800 (PST)
-Received: from localhost.localdomain ([2604:1380:4111:8b00::1])
- by smtp.gmail.com with ESMTPSA id c123sm1483599oib.34.2020.02.13.22.30.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Feb 2020 22:30:36 -0800 (PST)
-From: Nathan Chancellor <natechancellor@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "David (ChunMing) Zhou" <David1.Zhou@amd.com>
-Subject: [PATCH] drm/amd/display: Don't take the address of
- skip_scdc_overwrite in dc_link_detect_helper
-Date: Thu, 13 Feb 2020 23:29:51 -0700
-Message-Id: <20200214062950.14151-1-natechancellor@gmail.com>
-X-Mailer: git-send-email 2.25.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCE076E57A;
+	Fri, 14 Feb 2020 09:19:32 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADCA76E57A;
+ Fri, 14 Feb 2020 09:19:31 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 9EB32B1AA;
+ Fri, 14 Feb 2020 09:19:29 +0000 (UTC)
+Subject: Re: [RFC PATCH 0/6] do not store GPU address in TTM
+To: Nirmoy Das <nirmoy.aiemd@gmail.com>, dri-devel@lists.freedesktop.org
+References: <20200213120203.29368-1-nirmoy.das@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ mQENBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAG0J1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPokBVAQTAQgAPhYh
+ BHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKCQgLAgQWAgMB
+ Ah4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLCdg62AmR
+ irxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6PXo
+ clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7
+ mneMC5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6i
+ KupZstMxstPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8os
+ Bv6pnSn7eAq5AQ0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRH
+ UE9eosYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgT
+ RjP+qbU63Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+R
+ dhgATnWWGKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zb
+ ehDda8lvhFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r
+ 12+lqdsAEQEAAYkBPAQYAQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkD
+ wmcAAAoJEGgNwR1TC3ojpfcIAInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2
+ h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxU
+ n+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uI
+ aMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBW
+ HE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8CtirPdPWu/VXNRYAl/lat7lSI
+ 3H26qrE=
+Message-ID: <f536d419-9fe3-97c0-0abd-2fb5b26c891a@suse.de>
+Date: Fri, 14 Feb 2020 10:19:24 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-X-Mailman-Approved-At: Fri, 14 Feb 2020 08:50:19 +0000
+In-Reply-To: <20200213120203.29368-1-nirmoy.das@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,60 +72,167 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: clang-built-linux@googlegroups.com,
- Nathan Chancellor <natechancellor@gmail.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: thellstrom@vmware.com, airlied@linux.ie, kenny.ho@amd.com,
+ brian.welty@intel.com, amd-gfx@lists.freedesktop.org, nirmoy.das@amd.com,
+ linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
+ alexander.deucher@amd.com, sean@poorly.run, christian.koenig@amd.com,
+ kraxel@redhat.com
+Content-Type: multipart/mixed; boundary="===============0294232620=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Clang warns:
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0294232620==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="SRBP2UyuM59cFR3edbw6izyOmNDxYJaHx"
 
-../drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_link.c:980:36:
-warning: address of 'sink->edid_caps.panel_patch.skip_scdc_overwrite'
-will always evaluate to 'true' [-Wpointer-bool-conversion]
-                if (&sink->edid_caps.panel_patch.skip_scdc_overwrite)
-                ~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~
-1 warning generated.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--SRBP2UyuM59cFR3edbw6izyOmNDxYJaHx
+Content-Type: multipart/mixed; boundary="tDwvXPjsTOTgHFADmDEs3YTnlecgJM5vx";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Nirmoy Das <nirmoy.aiemd@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: thellstrom@vmware.com, airlied@linux.ie, kenny.ho@amd.com,
+ brian.welty@intel.com, amd-gfx@lists.freedesktop.org, nirmoy.das@amd.com,
+ linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
+ alexander.deucher@amd.com, sean@poorly.run, christian.koenig@amd.com,
+ kraxel@redhat.com
+Message-ID: <f536d419-9fe3-97c0-0abd-2fb5b26c891a@suse.de>
+Subject: Re: [RFC PATCH 0/6] do not store GPU address in TTM
+References: <20200213120203.29368-1-nirmoy.das@amd.com>
+In-Reply-To: <20200213120203.29368-1-nirmoy.das@amd.com>
 
-This is probably not what was intended so remove the address of
-operator, which matches how skip_scdc_overwrite is handled in the rest
-of the driver.
+--tDwvXPjsTOTgHFADmDEs3YTnlecgJM5vx
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-While we're here, drop an extra newline after this if block.
+Hi
 
-Fixes: a760fc1bff03 ("drm/amd/display: add monitor patch to disable SCDC read/write")
-Link: https://github.com/ClangBuiltLinux/linux/issues/879
-Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
----
+Am 13.02.20 um 13:01 schrieb Nirmoy Das:
+> With this patch series I am trying to remove GPU address dependency in
+> TTM and moving GPU address calculation to individual drm drivers.
+> This is required[1] to continue the work started by Brian Welty to crea=
+te
+> struct drm_mem_region which can be leverage by DRM cgroup controller to=
+ manage memory
+> limits.
+>=20
+>=20
+> I have only manage to test amdgpu driver as I only have GPU for that.
+> I might be doing something really stupid while calculeting gpu offset f=
+or
+> some of the drivers so please be patient and let me know how can I impr=
+ove
+> that.
+>=20
+> [1] https://www.mail-archive.com/dri-devel@lists.freedesktop.org/msg272=
+238.html
+>=20
+> Nirmoy Das (6):
+>   drm/amdgpu: move ttm bo->offset to amdgpu_bo
+>   drm/radeon: don't use ttm bo->offset
+>   drm/vmwgfx: don't use ttm bo->offset
+>   drm/nouveau: don't use ttm bo->offset
+>   drm/qxl: don't use ttm bo->offset
+>   drm/ttm: do not keep GPU dependent addresses
 
-As an aside, I don't see skip_scdc_overwrite assigned a value anywhere,
-is this working as intended?
+I think VRAM helpers are missing from this patchset. [1] You can use
+bochs in qemu to test them.
 
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Best regards
+Thomas
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 24d99849be5e..a3bfa05c545e 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -977,10 +977,9 @@ static bool dc_link_detect_helper(struct dc_link *link,
- 		if ((prev_sink != NULL) && ((edid_status == EDID_THE_SAME) || (edid_status == EDID_OK)))
- 			same_edid = is_same_edid(&prev_sink->dc_edid, &sink->dc_edid);
- 
--		if (&sink->edid_caps.panel_patch.skip_scdc_overwrite)
-+		if (sink->edid_caps.panel_patch.skip_scdc_overwrite)
- 			link->ctx->dc->debug.hdmi20_disable = true;
- 
--
- 		if (link->connector_signal == SIGNAL_TYPE_DISPLAY_PORT &&
- 			sink_caps.transaction_type == DDC_TRANSACTION_TYPE_I2C_OVER_AUX) {
- 			/*
--- 
-2.25.0
+[1]
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/d=
+rivers/gpu/drm/drm_gem_vram_helper.c?h=3Dv5.6-rc1#n217
+
+>=20
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 22 ++++++++++++++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 29 ++++++++++++++++-----=
+
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c |  4 +--
+>  drivers/gpu/drm/nouveau/dispnv04/crtc.c     |  6 ++---
+>  drivers/gpu/drm/nouveau/dispnv04/disp.c     |  2 +-
+>  drivers/gpu/drm/nouveau/dispnv04/overlay.c  |  6 ++---
+>  drivers/gpu/drm/nouveau/dispnv50/base507c.c |  2 +-
+>  drivers/gpu/drm/nouveau/dispnv50/core507d.c |  2 +-
+>  drivers/gpu/drm/nouveau/dispnv50/ovly507e.c |  2 +-
+>  drivers/gpu/drm/nouveau/dispnv50/wndw.c     |  2 +-
+>  drivers/gpu/drm/nouveau/dispnv50/wndwc37e.c |  2 +-
+>  drivers/gpu/drm/nouveau/nouveau_abi16.c     |  8 +++---
+>  drivers/gpu/drm/nouveau/nouveau_bo.c        |  1 +
+>  drivers/gpu/drm/nouveau/nouveau_bo.h        |  3 +++
+>  drivers/gpu/drm/nouveau/nouveau_chan.c      |  2 +-
+>  drivers/gpu/drm/nouveau/nouveau_fbcon.c     |  2 +-
+>  drivers/gpu/drm/nouveau/nouveau_gem.c       | 10 +++----
+>  drivers/gpu/drm/qxl/qxl_drv.h               |  6 ++---
+>  drivers/gpu/drm/qxl/qxl_kms.c               |  3 +++
+>  drivers/gpu/drm/qxl/qxl_object.h            |  5 ----
+>  drivers/gpu/drm/qxl/qxl_ttm.c               |  9 -------
+>  drivers/gpu/drm/radeon/radeon.h             |  1 +
+>  drivers/gpu/drm/radeon/radeon_object.h      | 16 +++++++++++-
+>  drivers/gpu/drm/radeon/radeon_ttm.c         |  4 +--
+>  drivers/gpu/drm/ttm/ttm_bo.c                |  7 -----
+>  drivers/gpu/drm/vmwgfx/vmwgfx_bo.c          |  4 +--
+>  drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c     |  2 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_fifo.c        |  2 +-
+>  drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c  |  2 --
+>  include/drm/ttm/ttm_bo_api.h                |  2 --
+>  include/drm/ttm/ttm_bo_driver.h             |  1 -
+>  33 files changed, 99 insertions(+), 72 deletions(-)
+>=20
+> --
+> 2.25.0
+>=20
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--tDwvXPjsTOTgHFADmDEs3YTnlecgJM5vx--
+
+--SRBP2UyuM59cFR3edbw6izyOmNDxYJaHx
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl5GZh8ACgkQaA3BHVML
+eiPTBwgAr/jlTykHDqF7eY+nhC72kGXczdwRNy/tse0r5FyOkI6BUGXoKJniOcOo
+CPIY8/fOIwWlQRp+KtxkNfv2dreF/baw1DAj/4tLxmtPyb2Hr0aluw9R1cQ4+Y1n
+ZRjviy/Qtp/oF4ULdWTxNYkyI5kU4TliHPQeSGW3SQ2CzipoG7tyd0MXe/x6fQi/
+0GcITpNPBkIFqxm8oEj6/BNO6n6tmYTHOUFBs7GtCqDA0yKSWZCpeId588jUj8t2
+Lyjo5ZhFk1K7PQ/OgtBy/0WU9/RdzAYAVJzKG8Cxwq/RXlc2Je2t0b/2Ma76E/w2
+NabWE7Tczo0wubc/OswpuZNL4sd5OA==
+=aufy
+-----END PGP SIGNATURE-----
+
+--SRBP2UyuM59cFR3edbw6izyOmNDxYJaHx--
+
+--===============0294232620==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0294232620==--
