@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B44E8C2BA83
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:02:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C6A8DC3B19F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:03:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D4F32082F
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:02:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9E3342067D
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:03:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="aQNAepDB"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D4F32082F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCt7zg7g"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E3342067D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EA926FA1B;
-	Fri, 14 Feb 2020 16:02:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D93ED6F988;
+	Fri, 14 Feb 2020 16:03:14 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB186FA18;
- Fri, 14 Feb 2020 16:02:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 610A96E82D;
+ Fri, 14 Feb 2020 16:03:13 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 59145206CC;
- Fri, 14 Feb 2020 16:02:21 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 722362187F;
+ Fri, 14 Feb 2020 16:03:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696142;
- bh=WR9Oaq7I2qiVdzYcJS2BkJV1ZDAdhC9BSSC5ISkdASE=;
+ s=default; t=1581696193;
+ bh=zHTUh5PHMgFWU1edZPn6wQntKg1Dv1p7HKF4+eFYTeo=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aQNAepDBSR/23f+arCFspZ8NNGf+huVXWDAHuKjvtkrOmkFZoF6S8EpByg+uRvmJe
- QmMliC5Sftja+qunM6vndyX54f1dx3NW0De5kvlYpRYCLdne7Irsy3Qe8QFyuKAtAI
- omq26gkp2SeEBOQ77DChKrWnxofJ0HZ0Z+RH8hHk=
+ b=YCt7zg7gbabT+7dCl4yHESp/yhNmyTmrcLXj/MC6lWvIma9ofastbsWl9oHVPyda6
+ t8+Iiiee7BXHTrHOWOxdBCAAZXuV6k2Zz7sYJWHw2A1YqhuQ0K+GAi4VlHU+HGXeVP
+ mSBsrAlVA6/3HmAe3oqHO4RSfdiQwEajoa9TjE4U=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 023/459] drm/amd/display: Map ODM memory correctly
- when doing ODM combine
-Date: Fri, 14 Feb 2020 10:54:33 -0500
-Message-Id: <20200214160149.11681-23-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 061/459] drm/amdgpu/sriov: workaround on rev_id
+ for Navi12 under sriov
+Date: Fri, 14 Feb 2020 10:55:11 -0500
+Message-Id: <20200214160149.11681-61-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
 References: <20200214160149.11681-1-sashal@kernel.org>
@@ -61,96 +61,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Nikola Cornij <nikola.cornij@amd.com>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Tiecheng Zhou <Tiecheng.Zhou@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nikola Cornij <nikola.cornij@amd.com>
+From: Tiecheng Zhou <Tiecheng.Zhou@amd.com>
 
-[ Upstream commit ec5b356c58941bb8930858155d9ce14ceb3d30a0 ]
+[ Upstream commit df5e984c8bd414561c320d6cbbb66d53abf4c7e2 ]
 
-[why]
-Up to 4 ODM memory pieces are required per ODM combine and cannot
-overlap, i.e. each ODM "session" has to use its own memory pieces.
-The ODM-memory mapping is currently broken for generic case.
+guest vm gets 0xffffffff when reading RCC_DEV0_EPF0_STRAP0,
+as a consequence, the rev_id and external_rev_id are wrong.
 
-The maximum number of memory pieces is ASIC-dependent, but it's always
-big enough to satisfy maximum number of ODM combines. Memory pieces
-are mapped as a bit-map, i.e. one memory piece corresponds to one bit.
-The OPTC doing ODM needs to select memory pieces by setting the
-corresponding bits, making sure there's no overlap with other OPTC
-instances that might be doing ODM.
+workaround it by hardcoding the rev_id to 0, which is the default value.
 
-The current mapping works only for OPTC instance indexes smaller than
-3. For instance indexes 3 and up it practically maps no ODM memory,
-causing black, gray or white screen in display configs that include
-ODM on OPTC instance 3 or up.
+v2. add comment in the code
 
-[how]
-Statically map two unique ODM memory pieces for each OPTC instance
-and piece them together when programming ODM combine mode.
-
-Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Tiecheng Zhou <Tiecheng.Zhou@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/dcn20/dcn20_optc.c    | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-index dda90995ba933..8d5cfd5357c75 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
-@@ -233,12 +233,13 @@ void optc2_set_odm_combine(struct timing_generator *optc, int *opp_id, int opp_c
- 		struct dc_crtc_timing *timing)
- {
- 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
--	/* 2 pieces of memory required for up to 5120 displays, 4 for up to 8192 */
- 	int mpcc_hactive = (timing->h_addressable + timing->h_border_left + timing->h_border_right)
- 			/ opp_cnt;
--	int memory_mask = mpcc_hactive <= 2560 ? 0x3 : 0xf;
-+	uint32_t memory_mask;
- 	uint32_t data_fmt = 0;
- 
-+	ASSERT(opp_cnt == 2);
-+
- 	/* TODO: In pseudocode but does not affect maximus, delete comment if we dont need on asic
- 	 * REG_SET(OTG_GLOBAL_CONTROL2, 0, GLOBAL_UPDATE_LOCK_EN, 1);
- 	 * Program OTG register MASTER_UPDATE_LOCK_DB_X/Y to the position before DP frame start
-@@ -246,9 +247,17 @@ void optc2_set_odm_combine(struct timing_generator *optc, int *opp_id, int opp_c
- 	 *		MASTER_UPDATE_LOCK_DB_X, 160,
- 	 *		MASTER_UPDATE_LOCK_DB_Y, 240);
- 	 */
-+
-+	/* 2 pieces of memory required for up to 5120 displays, 4 for up to 8192,
-+	 * however, for ODM combine we can simplify by always using 4.
-+	 * To make sure there's no overlap, each instance "reserves" 2 memories and
-+	 * they are uniquely combined here.
-+	 */
-+	memory_mask = 0x3 << (opp_id[0] * 2) | 0x3 << (opp_id[1] * 2);
-+
- 	if (REG(OPTC_MEMORY_CONFIG))
- 		REG_SET(OPTC_MEMORY_CONFIG, 0,
--			OPTC_MEM_SEL, memory_mask << (optc->inst * 4));
-+			OPTC_MEM_SEL, memory_mask);
- 
- 	if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR422)
- 		data_fmt = 1;
-@@ -257,7 +266,6 @@ void optc2_set_odm_combine(struct timing_generator *optc, int *opp_id, int opp_c
- 
- 	REG_UPDATE(OPTC_DATA_FORMAT_CONTROL, OPTC_DATA_FORMAT, data_fmt);
- 
--	ASSERT(opp_cnt == 2);
- 	REG_SET_3(OPTC_DATA_SOURCE_SELECT, 0,
- 			OPTC_NUM_OF_INPUT_SEGMENT, 1,
- 			OPTC_SEG0_SRC_SEL, opp_id[0],
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index de9b995b65b1a..2d780820ba00e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -660,6 +660,12 @@ static int nv_common_early_init(void *handle)
+ 		adev->pg_flags = AMD_PG_SUPPORT_VCN |
+ 			AMD_PG_SUPPORT_VCN_DPG |
+ 			AMD_PG_SUPPORT_ATHUB;
++		/* guest vm gets 0xffffffff when reading RCC_DEV0_EPF0_STRAP0,
++		 * as a consequence, the rev_id and external_rev_id are wrong.
++		 * workaround it by hardcoding rev_id to 0 (default value).
++		 */
++		if (amdgpu_sriov_vf(adev))
++			adev->rev_id = 0;
+ 		adev->external_rev_id = adev->rev_id + 0xa;
+ 		break;
+ 	default:
 -- 
 2.20.1
 
