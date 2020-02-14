@@ -2,77 +2,52 @@ Return-Path: <SRS0=cmay=4C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E5CFEC35242
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 21:15:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B4146C35242
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 22:40:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B2C73217F4
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 21:15:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 795422081E
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 22:40:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fFy3EPOl"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B2C73217F4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="bfTkxxCd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 795422081E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 148FA6E878;
-	Fri, 14 Feb 2020 21:15:32 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 77E7C6E878;
- Fri, 14 Feb 2020 21:15:31 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id c188so10609795qkg.4;
- Fri, 14 Feb 2020 13:15:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=oZCVTJqDOaYO0qLkkhU/b4V9LR30/p6GYzU8hBz9PHo=;
- b=fFy3EPOllhkeZuzDwhQeqY7WkzV5jBRVVniJ7hseWZc2SSWEnQ9ce7rP0M2cQrtBfW
- 7hjXGLyLSXhHOn7Wn+bbVWsEqqTZXjwGqwLKmERklVLh+nVry9j8yIENTvW6e8r4nLyB
- 9+1r3RfKg8wimtCMuqW6k29EPOP8HHgvs89vRtxhFp3zep4Zkk4/9YolWCEC3bn9RGho
- HpB2Vbx1/sAk8/99Vg8kA9lMEMqsw7ZFsczNvCPnDn09+DCLogmOtCPSh0PAJbq4xZfO
- UxpTTCCq/EU7xB/PwUDxql5HhYbniZ8ZFh0GUFh+BY+u/OR21TGFiOJr2voMSp/WIyOB
- Edrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to;
- bh=oZCVTJqDOaYO0qLkkhU/b4V9LR30/p6GYzU8hBz9PHo=;
- b=QImBXroqFy9ZSCCQmfrlz1pWxYAQ7Oj36LBm1yUt32eQvNMCeegZSomqPkuYykWpq/
- II3aUUJ7VOyi2Y/8RkKDshjodbdCtLloTL9JooGpPEUSb5zB+ZsXNgpu2P6q/qI/6/Lo
- 5v2Q7zF5gkRidu7CgAOCctw+ORUUs2c2t9z6/qu+Txn3+JEKGNh++b+NhDn3bB2y1qqt
- 7SmPg0z0jbLjOy6RhNp8hDt0RNvE0JWKeCord8g68pgVxuzoWaKbr6Z2vcd/5SuHe91k
- SlwzPElyeqM1CaMX1go/otCtIWPsK0FnVPH1vDArhXhS3TiqzrPAfvSuFs21Nt0JZ11a
- SxKw==
-X-Gm-Message-State: APjAAAVKITrwnvGq6fuljoRiqtbQlbBMWba5DCE5jSP0+iawhcRbr46t
- dnDmQTgcICfvAS1/io0bZIg=
-X-Google-Smtp-Source: APXvYqziQyHs3bVmpBXrquJ+5i9yGG3Fr9rPm43Z6JuOcRifUzLwShtrXg9OOOmQtz99j0+IIjn5tw==
-X-Received: by 2002:a37:4dc6:: with SMTP id a189mr4458143qkb.122.1581714930189; 
- Fri, 14 Feb 2020 13:15:30 -0800 (PST)
-Received: from localhost ([2620:10d:c091:480::9655])
- by smtp.gmail.com with ESMTPSA id h6sm3907303qtr.33.2020.02.14.13.15.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Feb 2020 13:15:29 -0800 (PST)
-Date: Fri, 14 Feb 2020 16:15:28 -0500
-From: Tejun Heo <tj@kernel.org>
-To: Kenny Ho <y2kenny@gmail.com>
-Subject: Re: [PATCH 09/11] drm, cgroup: Introduce lgpu as DRM cgroup resource
-Message-ID: <20200214211528.GB218629@mtj.thefacebook.com>
-References: <20200214155650.21203-1-Kenny.Ho@amd.com>
- <20200214155650.21203-10-Kenny.Ho@amd.com>
- <CAOFGe96N5gG+08rQCRC+diHKDAfxPFYEnVxDS8_udvjcBYgsPg@mail.gmail.com>
- <CAOWid-f62Uv=GZXX2V2BsQGM5A1JJG_qmyrOwd=KwZBx_sr-bg@mail.gmail.com>
- <20200214183401.GY2363188@phenom.ffwll.local>
- <CAOWid-caJHeXUnQv3MOi=9U+vdBLfewN+CrA-7jRrz0VXqatbQ@mail.gmail.com>
- <20200214191754.GA218629@mtj.thefacebook.com>
- <CAOWid-dA2Ad-FTZDDLOs4pperYbsru9cknSuXo_2ajpPbQH0Xg@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 258E36FBBE;
+	Fri, 14 Feb 2020 22:40:24 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B8E06FBAF;
+ Fri, 14 Feb 2020 21:54:29 +0000 (UTC)
+Received: from localhost (unknown [65.119.211.164])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 25E892187F;
+ Fri, 14 Feb 2020 21:54:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1581717269;
+ bh=8Ebtq9A+AtuBJOntDicY0rR/lJZViC+UEAZu9rPpKl0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=bfTkxxCddELi/TRjJNFHtsLoMFRKSS2M5KOPK0vmRFNwlLhU3dVWR5NktoePPI9G7
+ mCzQaKFCMTzVTLG4oWgN7FjE3mXEmB8ddwhuQzoT2uWOoeTVopyUfEY6DuWmCkPhKC
+ Hl5wVH0o+iSLC12EnoniR4le08s+RvzlN06NvtDs=
+Date: Fri, 14 Feb 2020 16:44:29 -0500
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Sasha Levin <sashal@kernel.org>
+Subject: Re: [PATCH AUTOSEL 5.5 155/542] drm/amdkfd: remove set but not used
+ variable 'top_dev'
+Message-ID: <20200214214429.GA4193448@kroah.com>
+References: <20200214154854.6746-1-sashal@kernel.org>
+ <20200214154854.6746-155-sashal@kernel.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CAOWid-dA2Ad-FTZDDLOs4pperYbsru9cknSuXo_2ajpPbQH0Xg@mail.gmail.com>
+In-Reply-To: <20200214154854.6746-155-sashal@kernel.org>
+X-Mailman-Approved-At: Fri, 14 Feb 2020 22:40:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,53 +59,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: juan.zuniga-anaya@amd.com, Daniel Vetter <daniel@ffwll.ch>,
- Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>,
- jsparks@cray.com, nirmoy.das@amd.com,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- lkaplan@cray.com, "Greathouse, Joseph" <joseph.greathouse@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Jason Ekstrand <jason@jlekstrand.net>, Johannes Weiner <hannes@cmpxchg.org>,
- Alex Deucher <alexander.deucher@amd.com>, cgroups@vger.kernel.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- damon.mcdougall@amd.com
+Cc: dri-devel@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ zhengbin <zhengbin13@huawei.com>, Hulk Robot <hulkci@huawei.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 14, 2020 at 03:28:40PM -0500, Kenny Ho wrote:
-> Can you elaborate, per your understanding, how the lgpu weight
-> attribute differ from the io.weight you suggested?  Is it merely a
-
-Oh, it's the non-weight part which is problematic.
-
-> formatting/naming issue or is it the implementation details that you
-> find troubling?  From my perspective, the weight attribute implements
-> as you suggested back in RFCv4 (proportional control on top of a unit
-> - either physical or time unit.)
+On Fri, Feb 14, 2020 at 10:42:27AM -0500, Sasha Levin wrote:
+> From: zhengbin <zhengbin13@huawei.com>
 > 
-> Perhaps more explicit questions would help me understand what you
-> mean. If I remove the 'list' and 'count' attributes leaving just
-> weight, is that satisfactory?  Are you saying the idea of affinity or
-
-At least from interface pov, yes, although I think it should be clear
-what the weight controls.
-
-> named-resource is banned from cgroup entirely (even though it exists
-> in the form of cpuset already and users are interested in having such
-> options [i.e. userspace OpenCL] when needed?)
+> [ Upstream commit d191bd678153307573d615bb42da4fcca19fe477 ]
 > 
-> To be clear, I am not saying no proportional control.  I am saying
-> give the user the options, which is what has been implemented.
+> Fixes gcc '-Wunused-but-set-variable' warning:
+> 
+> drivers/gpu/drm/amd/amdkfd/kfd_iommu.c: In function kfd_iommu_device_init:
+> drivers/gpu/drm/amd/amdkfd/kfd_iommu.c:65:30: warning: variable top_dev set but not used [-Wunused-but-set-variable]
+> 
+> Reported-by: Hulk Robot <hulkci@huawei.com>
+> Fixes: 1ae99eab34f9 ("drm/amdkfd: Initialize HSA_CAP_ATS_PRESENT capability in topology codes")
+> Signed-off-by: zhengbin <zhengbin13@huawei.com>
+> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_iommu.c | 3 ---
+>  1 file changed, 3 deletions(-)
 
-We can get there if we *really* have to but not from the get-go but
-I'd rather avoid affinities if at all possible.
+Unless all of these "unused bt set variable" patches are needed for
+"real" fixes, there's no need to add them here as we are NOT building
+the kernel with that option enabled any time soon from what I can tell.
 
-Thanks.
+So you can drop a ton of these patches from all of these AUTOSEL
+branches please.
 
--- 
-tejun
+thanks,
+
+greg kh
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
