@@ -2,99 +2,70 @@ Return-Path: <SRS0=cmay=4C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 190C5C2BA83
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 07:02:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5107DC3B195
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 07:39:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A37462082F
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 07:02:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1F90B20873
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 07:39:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="bx5YOHZN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A37462082F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Xq/pG5yy"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F90B20873
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AE056E08A;
-	Fri, 14 Feb 2020 07:02:45 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700089.outbound.protection.outlook.com [40.107.70.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 452876E08A
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2020 07:02:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mjczx1hlHQHEjyKzAIDFMfyVxYPxnEdOo/P5pKbboqmUMhSgRlzWFjWPr14U00jvS1do4Cgdz1A0tjxKspua0RSZPUCuI/f2tvrNeYkwKeOsG/hBNx0oGzf/qKx7zTJZA+F4FMfogtKbs1wLxzd/A9M5HIHkcfOYK5HViU0C/JfzRAPm3ZpBRLV4A5voHHgU5LH6WTXh9cPj3/JPWgKrgO2by9LvtL50Cp1eTb2vdpUk3NddKeUmtvlr8Pm95E14hx+dMQNH+RbEpBFyqgw2ym2L2Vnv7toGZEEGdtX0ZjyohAqKity/EX6UUCvp5wnHHdZge6Mr/meiamc7ebhqvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x0YcCcyZVzHtgnaZKm65ChNEyYVqOozdWhIZrF4f9w8=;
- b=S7vFpJAthJqTVb9rfmmAGXt87H8sY9SDdB+cUI74y779o99pVYuPgVdosrkMBIf/Ehu3Er2szDJRRDOzoHq11ZbEYnLXXOMtwkYUxdqcfBe9djB/g67hv8r2WUY/OrOAJM5jjpLMo6rZcl4VfCYyfuP0Qh0BNo4kb3eYH4Jf/dFKC+DxUCF4+Zdddr+0oGbsMo+xh3P4cwmWBO9jUJXZzyBydFh/L68CQhO16iv4Ntzob190JMzo3Np/t1Jo1HxTnly42jeZN5G3wm9UmXrIfKpLHVgUvCsWqgqLP4SrlIbxKOL3WJfHBuUK6VPewQE4syRRRjYApVnbHOoHeQo4Nw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x0YcCcyZVzHtgnaZKm65ChNEyYVqOozdWhIZrF4f9w8=;
- b=bx5YOHZNOmShLJ62G2ThIJytcbGA+gD2HEWwPEo01gCJTSSVodPUVWIjjfkvh2lDV99yZ3g1S0S1BQ/K/dkyY1guTWUkEX6Tzxa6AZiTE/g/vt1Xv92vQt0RN3EllLeXQWAKiFusaVJQq9nhQelKrSkMiQT3xcgfDEQyZUPZm6k=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Changfeng.Zhu@amd.com; 
-Received: from MN2PR12MB2896.namprd12.prod.outlook.com (20.179.80.214) by
- MN2PR12MB3615.namprd12.prod.outlook.com (20.178.242.82) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2729.25; Fri, 14 Feb 2020 07:02:42 +0000
-Received: from MN2PR12MB2896.namprd12.prod.outlook.com
- ([fe80::fc81:31af:b81a:1cc7]) by MN2PR12MB2896.namprd12.prod.outlook.com
- ([fe80::fc81:31af:b81a:1cc7%6]) with mapi id 15.20.2707.031; Fri, 14 Feb 2020
- 07:02:42 +0000
-From: "Changfeng.Zhu" <changfeng.zhu@amd.com>
-To: Ray.Huang@amd.com,
-	amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: add is_raven_kicker judgement for raven1
-Date: Fri, 14 Feb 2020 15:02:22 +0800
-Message-Id: <20200214070222.31089-1-changfeng.zhu@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: HK2PR04CA0057.apcprd04.prod.outlook.com
- (2603:1096:202:14::25) To MN2PR12MB2896.namprd12.prod.outlook.com
- (2603:10b6:208:ab::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 579586E463;
+	Fri, 14 Feb 2020 07:39:40 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF2486E462
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Feb 2020 07:39:38 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id y11so9713681wrt.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Feb 2020 23:39:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=gwEXGayWNjSUDwj4aJkTLljk4bGT0CReLTVZDc39sU0=;
+ b=Xq/pG5yyeEeBlDKdZXWTpZm8VEBGTgxYCdZ0teJEdSa+sexS8LAIinohzMT9BQ+PYe
+ MT6CMno/oGY5ounDL+2VbMpPq9hyR6lHROVtnMpZuE6cXry0wCzBdYd12qVVXwcH+FhM
+ Un1dpnGmyi28nSDZ1G+9gv/5vXXRdDCsO1a40=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=gwEXGayWNjSUDwj4aJkTLljk4bGT0CReLTVZDc39sU0=;
+ b=lYkrEpsN+JsBBLaWyi6Xo81dbdVwCB1hw7UqiCxggP/U+b0f+STxiPSlf+Yv/itgpi
+ EJ8WkxoykIN0WWsJZ9uU4wioIivfziNLG3tYZS64IxJnd2DqSspwTXLbcOIeOR7oVbMa
+ R2XzXteow4mzwMaqG9M8CF1soqWCLcF35P2LUJSUUy++IxnsvM1ldn4Z8X5ZoGWs07zm
+ 54Am6F1lA27eoFnhwnGfvj94wWOesL3spDJXJAXpfBNu1Obczs8osikMgmBwokdyHwRE
+ uYstIc1vFJ87VulwgQCvtv6hcfsqBwYnbcZcot1fYWhJ1nFGGiKlPjmifsVE/7UFJy7P
+ AUwg==
+X-Gm-Message-State: APjAAAWofmnu5vJio6o8ZLZBFRJrQZzrnHS66Oh/NqPXVOyZV9409yig
+ r1K1CtuRc4oGS94RLe/U4F81Yw==
+X-Google-Smtp-Source: APXvYqwcG8o8u+cGRJxharaUuoXuRJfBSDoC9kR2L00dkWuuhKJ3mN4MBN9VolZV6wjcMWeZVtIMEw==
+X-Received: by 2002:a05:6000:1112:: with SMTP id
+ z18mr2343126wrw.140.1581665977001; 
+ Thu, 13 Feb 2020 23:39:37 -0800 (PST)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id e1sm6052742wrt.84.2020.02.13.23.39.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Feb 2020 23:39:36 -0800 (PST)
+Date: Fri, 14 Feb 2020 08:39:34 +0100
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 13/15] drm/amdgpu/display: split dp connector
+ registration (v3)
+Message-ID: <20200214073934.GV2363188@phenom.ffwll.local>
+References: <20200207211713.3870-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-Received: from jenkins-System-Product-Name.amd.com (180.167.199.189) by
- HK2PR04CA0057.apcprd04.prod.outlook.com (2603:1096:202:14::25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2729.22 via Frontend Transport; Fri, 14 Feb 2020 07:02:41 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [180.167.199.189]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1a539eaa-a36e-43fc-47ad-08d7b11be2d4
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3615:|MN2PR12MB3615:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB36158DD2EC82B02296919B01FD150@MN2PR12MB3615.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
-X-Forefront-PRVS: 03137AC81E
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(136003)(396003)(376002)(39860400002)(366004)(199004)(189003)(8936002)(66946007)(26005)(66476007)(956004)(36756003)(6666004)(66556008)(7696005)(52116002)(86362001)(2616005)(2906002)(16526019)(186003)(316002)(8676002)(478600001)(6486002)(4326008)(81156014)(5660300002)(81166006)(1076003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3615;
- H:MN2PR12MB2896.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hQ8aDj9ucACBt4rtuXnUmrudoodiNKAnWNXOXYL49bHX3PRolpzP1nm7Vj4g64a6iLeGoNXbyCVLQ0AMFiL67MPd1uS7PFxAUFBHri+q3osE4VnMn+qIGiXFOodFdG0v/nfSGxl2nUImX7u5iwxcgEFcKxySCs7B2m6I17j2fSH8k6VP6WtGfF07HKi3EMeMESo0oI7cTrl/t7qLujjjpQk8BzVjP21b8SXsyjpyjJ6bCHbmL7SU89oyW/Ghxh4acyRaSJ8hV+pdReVzvfaOW2k52Aq/h5tGuacv5GdgcHMpBqMaET/qhtrKtyp4ByG+FHesKevhy8pTMEM+AOUwFDnfHh7lUrkk0PHhOZgUVlfBdWIi8IzKhuUO1xDNweGKmllXHo7fdPOIzqSWcJhMsSBXktxFSERQ1EHK46xp/+rnKbeCnUUEXqW6E7beil8G
-X-MS-Exchange-AntiSpam-MessageData: pegg3F+gb4IZpjn0rL3nW9qHgA4yLw5JQQtYP2lXt/ygdg0Sivyi3hK8H/AOMSn2mqgAl40NIz7ZpJhGJyXhzED3x+Pz69k0KvXAq2crX11tNvhdVkuiv/+LoAVLCu7X9pQspPggaQCOPm40FkTMDw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a539eaa-a36e-43fc-47ad-08d7b11be2d4
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Feb 2020 07:02:42.6409 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AKnQWe2f6tXWuTyabHT9PGXnxkUJiTIlL0BR1HQx4RtWtIFjp/FUv5BG4AyGkV/89VyqDnu3h7cBs3ZX5kG6Sg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3615
+Content-Disposition: inline
+In-Reply-To: <20200207211713.3870-1-alexander.deucher@amd.com>
+X-Operating-System: Linux phenom 5.3.0-3-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,57 +77,144 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: changzhu <Changfeng.Zhu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: changzhu <Changfeng.Zhu@amd.com>
+On Fri, Feb 07, 2020 at 04:17:13PM -0500, Alex Deucher wrote:
+> Split into init and register functions to avoid a segfault
+> in some configs when the load/unload callbacks are removed.
+> 
+> v2:
+> - add back accidently dropped has_aux setting
+> - set dev in late_register
+> 
+> v3:
+> - fix dp cec ordering
 
-The rlc version of raven_kicer_rlc is different from the legacy rlc
-version of raven_rlc. So it needs to add a judgement function for
-raven_kicer_rlc and avoid disable GFXOFF when loading raven_kicer_rlc.
+Why did you move this back out of the late_register callback when going
+from v2->v3? In i915 we register the cec stuff from ->late_register, like
+anything else userspace visible. Maybe follow-up patch (the idea behind
+removing the ->load callback is to close all the driver load races,
+instead of only open("/dev/dri/0"), which is protected by
+drm_global_mutex). On this:
 
-Change-Id: I00d726cc39eae4ea788c1d5faeb8ce75ec0b884d
-Signed-off-by: changzhu <Changfeng.Zhu@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 4d8b58e9d0ae..9b7ff783e9a5 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -1193,6 +1193,14 @@ static bool gfx_v9_0_should_disable_gfxoff(struct pci_dev *pdev)
- 	return false;
- }
- 
-+static bool is_raven_kicker(struct amdgpu_device *adev)
-+{
-+	if (adev->pm.fw_version >= 0x41e2b)
-+		return true;
-+	else
-+		return false;
-+}
-+
- static void gfx_v9_0_check_if_need_gfxoff(struct amdgpu_device *adev)
- {
- 	if (gfx_v9_0_should_disable_gfxoff(adev->pdev))
-@@ -1205,9 +1213,8 @@ static void gfx_v9_0_check_if_need_gfxoff(struct amdgpu_device *adev)
- 		break;
- 	case CHIP_RAVEN:
- 		if (!(adev->rev_id >= 0x8 || adev->pdev->device == 0x15d8) &&
--		    ((adev->gfx.rlc_fw_version != 106 &&
-+		    ((!is_raven_kicker(adev) &&
- 		      adev->gfx.rlc_fw_version < 531) ||
--		     (adev->gfx.rlc_fw_version == 53815) ||
- 		     (adev->gfx.rlc_feature_version < 1) ||
- 		     !adev->gfx.rlc.is_rlc_v2_1))
- 			adev->pm.pp_feature &= ~PP_GFXOFF_MASK;
+Cheers, Daniel
+
+> 
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c   | 16 ++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/atombios_dp.c         | 10 ++--------
+>  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  |  7 ++++++-
+>  3 files changed, 24 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> index ec1501e3a63a..f355d9a752d2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> @@ -1461,6 +1461,20 @@ static enum drm_mode_status amdgpu_connector_dp_mode_valid(struct drm_connector
+>  	return MODE_OK;
+>  }
+>  
+> +static int
+> +amdgpu_connector_late_register(struct drm_connector *connector)
+> +{
+> +	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
+> +	int r = 0;
+> +
+> +	if (amdgpu_connector->ddc_bus->has_aux) {
+> +		amdgpu_connector->ddc_bus->aux.dev = amdgpu_connector->base.kdev;
+> +		r = drm_dp_aux_register(&amdgpu_connector->ddc_bus->aux);
+> +	}
+> +
+> +	return r;
+> +}
+> +
+>  static const struct drm_connector_helper_funcs amdgpu_connector_dp_helper_funcs = {
+>  	.get_modes = amdgpu_connector_dp_get_modes,
+>  	.mode_valid = amdgpu_connector_dp_mode_valid,
+> @@ -1475,6 +1489,7 @@ static const struct drm_connector_funcs amdgpu_connector_dp_funcs = {
+>  	.early_unregister = amdgpu_connector_unregister,
+>  	.destroy = amdgpu_connector_destroy,
+>  	.force = amdgpu_connector_dvi_force,
+> +	.late_register = amdgpu_connector_late_register,
+>  };
+>  
+>  static const struct drm_connector_funcs amdgpu_connector_edp_funcs = {
+> @@ -1485,6 +1500,7 @@ static const struct drm_connector_funcs amdgpu_connector_edp_funcs = {
+>  	.early_unregister = amdgpu_connector_unregister,
+>  	.destroy = amdgpu_connector_destroy,
+>  	.force = amdgpu_connector_dvi_force,
+> +	.late_register = amdgpu_connector_late_register,
+>  };
+>  
+>  void
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> index ea702a64f807..9b74cfdba7b8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> @@ -186,16 +186,10 @@ amdgpu_atombios_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *m
+>  
+>  void amdgpu_atombios_dp_aux_init(struct amdgpu_connector *amdgpu_connector)
+>  {
+> -	int ret;
+> -
+>  	amdgpu_connector->ddc_bus->rec.hpd = amdgpu_connector->hpd.hpd;
+> -	amdgpu_connector->ddc_bus->aux.dev = amdgpu_connector->base.kdev;
+>  	amdgpu_connector->ddc_bus->aux.transfer = amdgpu_atombios_dp_aux_transfer;
+> -	ret = drm_dp_aux_register(&amdgpu_connector->ddc_bus->aux);
+> -	if (!ret)
+> -		amdgpu_connector->ddc_bus->has_aux = true;
+> -
+> -	WARN(ret, "drm_dp_aux_register_i2c_bus() failed with error %d\n", ret);
+> +	drm_dp_aux_init(&amdgpu_connector->ddc_bus->aux);
+> +	amdgpu_connector->ddc_bus->has_aux = true;
+>  }
+>  
+>  /***** general DP utility functions *****/
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 3959c942c88b..d5b9e72f2649 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -155,6 +155,11 @@ amdgpu_dm_mst_connector_late_register(struct drm_connector *connector)
+>  	struct amdgpu_dm_connector *amdgpu_dm_connector =
+>  		to_amdgpu_dm_connector(connector);
+>  	struct drm_dp_mst_port *port = amdgpu_dm_connector->port;
+> +	int r;
+> +
+> +	r = drm_dp_aux_register(&amdgpu_dm_connector->dm_dp_aux.aux);
+> +	if (r)
+> +		return r;
+>  
+>  #if defined(CONFIG_DEBUG_FS)
+>  	connector_debugfs_init(amdgpu_dm_connector);
+> @@ -484,7 +489,7 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+>  	aconnector->dm_dp_aux.aux.transfer = dm_dp_aux_transfer;
+>  	aconnector->dm_dp_aux.ddc_service = aconnector->dc_link->ddc;
+>  
+> -	drm_dp_aux_register(&aconnector->dm_dp_aux.aux);
+> +	drm_dp_aux_init(&aconnector->dm_dp_aux.aux);
+>  	drm_dp_cec_register_connector(&aconnector->dm_dp_aux.aux,
+>  				      &aconnector->base);
+>  
+> -- 
+> 2.24.1
+> 
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+
 -- 
-2.17.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
