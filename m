@@ -6,45 +6,47 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BBFDBC3B19F
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:48:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4300AC3B19F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:49:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 88F7F217F4
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:48:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1ABD524682
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 15:49:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="SQ5zNQEU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 88F7F217F4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="0/EytJ1F"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1ABD524682
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 196F06E3EE;
-	Fri, 14 Feb 2020 15:48:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6C066F976;
+	Fri, 14 Feb 2020 15:49:33 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFE336E3EE;
- Fri, 14 Feb 2020 15:48:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E6D26F974;
+ Fri, 14 Feb 2020 15:49:33 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A77902086A;
- Fri, 14 Feb 2020 15:48:55 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E404224650;
+ Fri, 14 Feb 2020 15:49:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581695336;
- bh=IKYMgjBeoDBAoEF+iuAVlhvvQpsP6YlXHDORnZotvPI=;
- h=From:To:Cc:Subject:Date:From;
- b=SQ5zNQEUxazzdQcq0owq2r5aj3xyXWFPjvnY+gv6zbQKesIjcqnwymn8BOk4HYNlZ
- nbpc1dGtK6l+AOh+OpoK1MWBgc1kO2QX+cv+6/ZpWYHW19QpGGGhjirbEhn/szgdr/
- OJm3rrBWugBIJJJWm451farGEEX2lMkhHtlQVGhU=
+ s=default; t=1581695372;
+ bh=w72o9lcZbaZku5BCWTjN8fzU+n6bQrTtcghNJBGySBw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=0/EytJ1FBGpi+CzroumUQWiU1E+lQZU19a8zwNTS/kFG+zePcj4gurTCJPolErIOQ
+ ondLQH43Qi6GzN19EQYoAWemqaTeRpzUKyDxit45IB//J2hf3p3dCbZ/N/4h3z2vw1
+ NUSsTS5Cnd9meR+mQXV0IwWxe4ST69ZfdH+WrE78=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.5 001/542] drm/amdgpu: remove set but not used
- variable 'mc_shared_chmap' from 'gfx_v6_0.c' and 'gfx_v7_0.c'
-Date: Fri, 14 Feb 2020 10:39:53 -0500
-Message-Id: <20200214154854.6746-1-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.5 029/542] drm/amd/display: Map ODM memory correctly
+ when doing ODM combine
+Date: Fri, 14 Feb 2020 10:40:21 -0500
+Message-Id: <20200214154854.6746-29-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200214154854.6746-1-sashal@kernel.org>
+References: <20200214154854.6746-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -59,61 +61,100 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, yu kuai <yukuai3@huawei.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Sasha Levin <sashal@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sasha Levin <sashal@kernel.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Nikola Cornij <nikola.cornij@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogeXUga3VhaSA8eXVrdWFpM0BodWF3ZWkuY29tPgoKWyBVcHN0cmVhbSBjb21taXQgNzQ3
-YTM5N2QzOTRmYWMwMDAxZTRiM2MwM2Q3ZGNlM2ExMThhZjU2NyBdCgpGaXhlcyBnY2MgJy1XdW51
-c2VkLWJ1dC1zZXQtdmFyaWFibGUnIHdhcm5pbmc6Cgpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9nZnhfdjZfMC5jOiBJbiBmdW5jdGlvbgrigJhnZnhfdjZfMF9jb25zdGFudHNfaW5pdOKAmToK
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYzoxNTc5OjY6IHdhcm5pbmc6IHZh
-cmlhYmxlCuKAmG1jX3NoYXJlZF9jaG1hcOKAmSBzZXQgYnV0IG5vdCB1c2VkIFstV3VudXNlZC1i
-dXQtc2V0LXZhcmlhYmxlXQoKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYzog
-SW4gZnVuY3Rpb24K4oCYZ2Z4X3Y3XzBfZ3B1X2Vhcmx5X2luaXTigJk6CmRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2dmeF92N18wLmM6NDI2Mjo2OiB3YXJuaW5nOiB2YXJpYWJsZQrigJhtY19z
-aGFyZWRfY2htYXDigJkgc2V0IGJ1dCBub3QgdXNlZCBbLVd1bnVzZWQtYnV0LXNldC12YXJpYWJs
-ZV0KCkZpeGVzOiAyY2Q0NmFkMjIzODMgKCJkcm0vYW1kZ3B1OiBhZGQgZ3JhcGhpYyBwaXBlbGlu
-ZSBpbXBsZW1lbnRhdGlvbiBmb3Igc2kgdjgiKQpGaXhlczogZDkzZjNjYTcwNmI4ICgiZHJtL2Ft
-ZGdwdS9nZng3OiByZXdvcmsgZ3B1X2luaXQoKSIpClNpZ25lZC1vZmYtYnk6IHl1IGt1YWkgPHl1
-a3VhaTNAaHVhd2VpLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIu
-ZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5l
-bC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYyB8IDMgKy0t
-CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jIHwgMyArLS0KIDIgZmlsZXMg
-Y2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9nZnhfdjZfMC5jCmluZGV4IDdmMGE2MzYyOGM0M2EuLjMxZjQ0ZDA1ZTYwNmQgMTAw
-NjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8wLmMKKysrIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYwpAQCAtMTU3Niw3ICsxNTc2LDcgQEAg
-c3RhdGljIHZvaWQgZ2Z4X3Y2XzBfY29uZmlnX2luaXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFk
-ZXYpCiBzdGF0aWMgdm9pZCBnZnhfdjZfMF9jb25zdGFudHNfaW5pdChzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldikKIHsKIAl1MzIgZ2JfYWRkcl9jb25maWcgPSAwOwotCXUzMiBtY19zaGFyZWRf
-Y2htYXAsIG1jX2FyYl9yYW1jZmc7CisJdTMyIG1jX2FyYl9yYW1jZmc7CiAJdTMyIHN4X2RlYnVn
-XzE7CiAJdTMyIGhkcF9ob3N0X3BhdGhfY250bDsKIAl1MzIgdG1wOwpAQCAtMTY3OCw3ICsxNjc4
-LDYgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y2XzBfY29uc3RhbnRzX2luaXQoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgKmFkZXYpCiAKIAlXUkVHMzIobW1CSUZfRkJfRU4sIEJJRl9GQl9FTl9fRkJfUkVBRF9F
-Tl9NQVNLIHwgQklGX0ZCX0VOX19GQl9XUklURV9FTl9NQVNLKTsKIAotCW1jX3NoYXJlZF9jaG1h
-cCA9IFJSRUczMihtbU1DX1NIQVJFRF9DSE1BUCk7CiAJYWRldi0+Z2Z4LmNvbmZpZy5tY19hcmJf
-cmFtY2ZnID0gUlJFRzMyKG1tTUNfQVJCX1JBTUNGRyk7CiAJbWNfYXJiX3JhbWNmZyA9IGFkZXYt
-PmdmeC5jb25maWcubWNfYXJiX3JhbWNmZzsKIApkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92
-N18wLmMKaW5kZXggZDkyZTkyZTVkNTBiNy4uOGYyMGE1ZGQ0NGZlNyAxMDA2NDQKLS0tIGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYworKysgYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9nZnhfdjdfMC5jCkBAIC00MjU4LDcgKzQyNTgsNyBAQCBzdGF0aWMgaW50IGdm
-eF92N18wX2xhdGVfaW5pdCh2b2lkICpoYW5kbGUpCiBzdGF0aWMgdm9pZCBnZnhfdjdfMF9ncHVf
-ZWFybHlfaW5pdChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKIHsKIAl1MzIgZ2JfYWRkcl9j
-b25maWc7Ci0JdTMyIG1jX3NoYXJlZF9jaG1hcCwgbWNfYXJiX3JhbWNmZzsKKwl1MzIgbWNfYXJi
-X3JhbWNmZzsKIAl1MzIgZGltbTAwX2FkZHJfbWFwLCBkaW1tMDFfYWRkcl9tYXAsIGRpbW0xMF9h
-ZGRyX21hcCwgZGltbTExX2FkZHJfbWFwOwogCXUzMiB0bXA7CiAKQEAgLTQzMzUsNyArNDMzNSw2
-IEBAIHN0YXRpYyB2b2lkIGdmeF92N18wX2dwdV9lYXJseV9pbml0KHN0cnVjdCBhbWRncHVfZGV2
-aWNlICphZGV2KQogCQlicmVhazsKIAl9CiAKLQltY19zaGFyZWRfY2htYXAgPSBSUkVHMzIobW1N
-Q19TSEFSRURfQ0hNQVApOwogCWFkZXYtPmdmeC5jb25maWcubWNfYXJiX3JhbWNmZyA9IFJSRUcz
-MihtbU1DX0FSQl9SQU1DRkcpOwogCW1jX2FyYl9yYW1jZmcgPSBhZGV2LT5nZnguY29uZmlnLm1j
-X2FyYl9yYW1jZmc7CiAKLS0gCjIuMjAuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+From: Nikola Cornij <nikola.cornij@amd.com>
+
+[ Upstream commit ec5b356c58941bb8930858155d9ce14ceb3d30a0 ]
+
+[why]
+Up to 4 ODM memory pieces are required per ODM combine and cannot
+overlap, i.e. each ODM "session" has to use its own memory pieces.
+The ODM-memory mapping is currently broken for generic case.
+
+The maximum number of memory pieces is ASIC-dependent, but it's always
+big enough to satisfy maximum number of ODM combines. Memory pieces
+are mapped as a bit-map, i.e. one memory piece corresponds to one bit.
+The OPTC doing ODM needs to select memory pieces by setting the
+corresponding bits, making sure there's no overlap with other OPTC
+instances that might be doing ODM.
+
+The current mapping works only for OPTC instance indexes smaller than
+3. For instance indexes 3 and up it practically maps no ODM memory,
+causing black, gray or white screen in display configs that include
+ODM on OPTC instance 3 or up.
+
+[how]
+Statically map two unique ODM memory pieces for each OPTC instance
+and piece them together when programming ODM combine mode.
+
+Signed-off-by: Nikola Cornij <nikola.cornij@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_optc.c    | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+index 3b613fb93ef80..0162d3ffe268f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_optc.c
+@@ -233,12 +233,13 @@ void optc2_set_odm_combine(struct timing_generator *optc, int *opp_id, int opp_c
+ 		struct dc_crtc_timing *timing)
+ {
+ 	struct optc *optc1 = DCN10TG_FROM_TG(optc);
+-	/* 2 pieces of memory required for up to 5120 displays, 4 for up to 8192 */
+ 	int mpcc_hactive = (timing->h_addressable + timing->h_border_left + timing->h_border_right)
+ 			/ opp_cnt;
+-	int memory_mask = mpcc_hactive <= 2560 ? 0x3 : 0xf;
++	uint32_t memory_mask;
+ 	uint32_t data_fmt = 0;
+ 
++	ASSERT(opp_cnt == 2);
++
+ 	/* TODO: In pseudocode but does not affect maximus, delete comment if we dont need on asic
+ 	 * REG_SET(OTG_GLOBAL_CONTROL2, 0, GLOBAL_UPDATE_LOCK_EN, 1);
+ 	 * Program OTG register MASTER_UPDATE_LOCK_DB_X/Y to the position before DP frame start
+@@ -246,9 +247,17 @@ void optc2_set_odm_combine(struct timing_generator *optc, int *opp_id, int opp_c
+ 	 *		MASTER_UPDATE_LOCK_DB_X, 160,
+ 	 *		MASTER_UPDATE_LOCK_DB_Y, 240);
+ 	 */
++
++	/* 2 pieces of memory required for up to 5120 displays, 4 for up to 8192,
++	 * however, for ODM combine we can simplify by always using 4.
++	 * To make sure there's no overlap, each instance "reserves" 2 memories and
++	 * they are uniquely combined here.
++	 */
++	memory_mask = 0x3 << (opp_id[0] * 2) | 0x3 << (opp_id[1] * 2);
++
+ 	if (REG(OPTC_MEMORY_CONFIG))
+ 		REG_SET(OPTC_MEMORY_CONFIG, 0,
+-			OPTC_MEM_SEL, memory_mask << (optc->inst * 4));
++			OPTC_MEM_SEL, memory_mask);
+ 
+ 	if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR422)
+ 		data_fmt = 1;
+@@ -257,7 +266,6 @@ void optc2_set_odm_combine(struct timing_generator *optc, int *opp_id, int opp_c
+ 
+ 	REG_UPDATE(OPTC_DATA_FORMAT_CONTROL, OPTC_DATA_FORMAT, data_fmt);
+ 
+-	ASSERT(opp_cnt == 2);
+ 	REG_SET_3(OPTC_DATA_SOURCE_SELECT, 0,
+ 			OPTC_NUM_OF_INPUT_SEGMENT, 1,
+ 			OPTC_SEG0_SRC_SEL, opp_id[0],
+-- 
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
