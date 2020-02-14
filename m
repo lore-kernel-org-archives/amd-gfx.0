@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19FE9C3B1A1
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:05:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E136C3B19D
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:05:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E62A524682
+	by mail.kernel.org (Postfix) with ESMTPS id 45F5724689
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:05:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="fZybdwrP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E62A524682
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="1bkT8HuI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 45F5724689
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30A886FA31;
-	Fri, 14 Feb 2020 16:04:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA2C46FA53;
+	Fri, 14 Feb 2020 16:04:56 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31EF06FA4E;
- Fri, 14 Feb 2020 16:04:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96A7C6FA42;
+ Fri, 14 Feb 2020 16:04:54 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2E3AE24682;
- Fri, 14 Feb 2020 16:04:56 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 4057624699;
+ Fri, 14 Feb 2020 16:04:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696297;
- bh=2l0FD7qlaeZPztYC+TuvaUCe+sMVLCuYRZFJ8QrNvVI=;
+ s=default; t=1581696294;
+ bh=Q4JZlLKaoaY9EBcVmw7f8lt78ZDUSaFNgPHucgZNZJU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fZybdwrPzSjPRL/TtAro5fAoU01eCQ/wh86kSvEvuxJ6sAmqUKFcIm+WQau+nZSZl
- Grqibx0ZWich29nguF2JBaxYEA01cpBYRQ6kQ8Tugdoep3oNaCvYHu2sYHNd6cYsvd
- hAhnu0sRefoyeZnEyyWmYjpbiAoY7E1J73FcGTn8=
+ b=1bkT8HuInPFfW/N3YVdBYJtuaEIAKOYMrCMfZ0mlhnqCTGtjBeC3FLL3KMMIIeZ04
+ zrbushFd5QcEY4CHwOMJaGGPzhvAMsSvktRPIcoeb7NPCOT2boqmKqzvGtKq6+1EAl
+ rZkDAz/5vNRmXkSKLY/BFRyom7hPPJOIopAEIMTI=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 142/459] drm/radeon: remove set but not used
- variable 'radeon_connector'
-Date: Fri, 14 Feb 2020 10:56:32 -0500
-Message-Id: <20200214160149.11681-142-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 140/459] drm/radeon: remove set but not used
+ variable 'backbias_response_time'
+Date: Fri, 14 Feb 2020 10:56:30 -0500
+Message-Id: <20200214160149.11681-140-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
 References: <20200214160149.11681-1-sashal@kernel.org>
@@ -71,44 +71,44 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: zhengbin <zhengbin13@huawei.com>
 
-[ Upstream commit 5952c48993375a9da2de39be30df475cf590b0ce ]
+[ Upstream commit ac52caecbcf2c30ce95b2536c1caf2643c49b91c ]
 
 Fixes gcc '-Wunused-but-set-variable' warning:
 
-drivers/gpu/drm/radeon/radeon_display.c: In function radeon_crtc_scaling_mode_fixup:
-drivers/gpu/drm/radeon/radeon_display.c:1685:27: warning: variable radeon_connector set but not used [-Wunused-but-set-variable]
+drivers/gpu/drm/radeon/si_dpm.c: In function si_program_response_times:
+drivers/gpu/drm/radeon/si_dpm.c:3640:29: warning: variable backbias_response_time set but not used [-Wunused-but-set-variable]
 
-It is not used since commit 377bd8a98d7d ("drm/radeon:
-use a fetch function to get the edid")
+It is introduced by commit a9e61410921b ("drm/radeon/kms:
+add dpm support for SI (v7)"), but never used, so remove it.
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: zhengbin <zhengbin13@huawei.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/radeon/radeon_display.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/radeon/si_dpm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index e81b01f8db90e..84d3d885b7a46 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -1687,7 +1687,6 @@ bool radeon_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
- 	struct radeon_crtc *radeon_crtc = to_radeon_crtc(crtc);
- 	struct radeon_encoder *radeon_encoder;
- 	struct drm_connector *connector;
--	struct radeon_connector *radeon_connector;
- 	bool first = true;
- 	u32 src_v = 1, dst_v = 1;
- 	u32 src_h = 1, dst_h = 1;
-@@ -1700,7 +1699,6 @@ bool radeon_crtc_scaling_mode_fixup(struct drm_crtc *crtc,
- 			continue;
- 		radeon_encoder = to_radeon_encoder(encoder);
- 		connector = radeon_get_connector_for_encoder(encoder);
--		radeon_connector = to_radeon_connector(connector);
+diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+index a0b382a637a64..8148a7883de43 100644
+--- a/drivers/gpu/drm/radeon/si_dpm.c
++++ b/drivers/gpu/drm/radeon/si_dpm.c
+@@ -3640,14 +3640,13 @@ static int si_notify_smc_display_change(struct radeon_device *rdev,
  
- 		if (first) {
- 			/* set scaling */
+ static void si_program_response_times(struct radeon_device *rdev)
+ {
+-	u32 voltage_response_time, backbias_response_time, acpi_delay_time, vbi_time_out;
++	u32 voltage_response_time, acpi_delay_time, vbi_time_out;
+ 	u32 vddc_dly, acpi_dly, vbi_dly;
+ 	u32 reference_clock;
+ 
+ 	si_write_smc_soft_register(rdev, SI_SMC_SOFT_REGISTER_mvdd_chg_time, 1);
+ 
+ 	voltage_response_time = (u32)rdev->pm.dpm.voltage_response_time;
+-	backbias_response_time = (u32)rdev->pm.dpm.backbias_response_time;
+ 
+ 	if (voltage_response_time == 0)
+ 		voltage_response_time = 1000;
 -- 
 2.20.1
 
