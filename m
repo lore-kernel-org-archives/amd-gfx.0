@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A996C3B1A1
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:22:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10CE5C3B19F
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:22:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0044A24725
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:22:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DD04724747
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Feb 2020 16:22:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="PepKEXcF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0044A24725
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="blYfuMWm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD04724747
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DB826FB11;
-	Fri, 14 Feb 2020 16:22:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 254076FB18;
+	Fri, 14 Feb 2020 16:22:19 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F78D6FB0E;
- Fri, 14 Feb 2020 16:22:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 492106FB15;
+ Fri, 14 Feb 2020 16:22:17 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id ACA83246DF;
- Fri, 14 Feb 2020 16:22:08 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 450582473C;
+ Fri, 14 Feb 2020 16:22:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581697329;
- bh=jn4K9rDlecWTJSRHUz03JEu4YRkIIjvf91FBDrRDW14=;
+ s=default; t=1581697337;
+ bh=9Et37cIllYVrbRLcETJX4azs8dFhX5iB0xAVVervu7w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PepKEXcFte97Cc2hl/ii68rXDcQtRKm9SBUzaFpxSdkRIXYupe0weqkSFF3++H7oq
- fNTDn5iv9Gb7jJKyAGwSS9nPmQGwriGL9a3C01xDmHXQp7G56vUj8FCcGY6kidpM/Q
- NqT+RiZtEe4ofHR1WVwteVzSS7N7a46gBSpQ378Q=
+ b=blYfuMWmBX0zgWuVBBwNNJXmI2rvRGlrCe3odFDW/HlGilg5yINUMtkgHjzh4jsyn
+ poLC3kbCAZHItmw+XM+Q0sOFMxEkA9qaa01VvUOtzNoqNnIptudEUo0peun2kItR7e
+ eGIrlJehqOZDbeFD9rolQS4GGNBEKAeKfk++vCKs=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.9 037/141] drm/amdgpu: remove set but not used
- variable 'amdgpu_connector'
-Date: Fri, 14 Feb 2020 11:19:37 -0500
-Message-Id: <20200214162122.19794-37-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.9 043/141] drm/radeon: remove set but not used
+ variable 'backbias_response_time'
+Date: Fri, 14 Feb 2020 11:19:43 -0500
+Message-Id: <20200214162122.19794-43-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214162122.19794-1-sashal@kernel.org>
 References: <20200214162122.19794-1-sashal@kernel.org>
@@ -61,42 +61,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, yu kuai <yukuai3@huawei.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Sasha Levin <sashal@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
+ zhengbin <zhengbin13@huawei.com>, Hulk Robot <hulkci@huawei.com>,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogeXUga3VhaSA8eXVrdWFpM0BodWF3ZWkuY29tPgoKWyBVcHN0cmVhbSBjb21taXQgNGYy
-OTIyZDEyZDZjNjNkMGY0YWE0ZTg1OWFkOTVhZWU2ZDBkNGVhMCBdCgpGaXhlcyBnY2MgJy1XdW51
-c2VkLWJ1dC1zZXQtdmFyaWFibGUnIHdhcm5pbmc6Cgpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfZGlzcGxheS5jOiBJbiBmdW5jdGlvbgrigJhhbWRncHVfZGlzcGxheV9jcnRjX3Nj
-YWxpbmdfbW9kZV9maXh1cOKAmToKZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rp
-c3BsYXkuYzo2OTM6Mjc6IHdhcm5pbmc6IHZhcmlhYmxlCuKAmGFtZGdwdV9jb25uZWN0b3LigJkg
-c2V0IGJ1dCBub3QgdXNlZCBbLVd1bnVzZWQtYnV0LXNldC12YXJpYWJsZV0KCkZpeGVzOiBkMzhj
-ZWFmOTllZDAgKCJkcm0vYW1kZ3B1OiBhZGQgY29yZSBkcml2ZXIgKHY0KSIpClNpZ25lZC1vZmYt
-Ynk6IHl1IGt1YWkgPHl1a3VhaTNAaHVhd2VpLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVj
-aGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZp
-biA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2Rpc3BsYXkuYyB8IDIgLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGRlbGV0aW9ucygtKQoKZGlm
-ZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMgYi9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGlzcGxheS5jCmluZGV4IDE1YTJkOGYz
-NzI1ZDUuLmYyOWYwMjUyMDJkMDMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV9kaXNwbGF5LmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2Rpc3BsYXkuYwpAQCAtNjY2LDcgKzY2Niw2IEBAIGJvb2wgYW1kZ3B1X2NydGNfc2NhbGlu
-Z19tb2RlX2ZpeHVwKHN0cnVjdCBkcm1fY3J0YyAqY3J0YywKIAlzdHJ1Y3QgYW1kZ3B1X2NydGMg
-KmFtZGdwdV9jcnRjID0gdG9fYW1kZ3B1X2NydGMoY3J0Yyk7CiAJc3RydWN0IGFtZGdwdV9lbmNv
-ZGVyICphbWRncHVfZW5jb2RlcjsKIAlzdHJ1Y3QgZHJtX2Nvbm5lY3RvciAqY29ubmVjdG9yOwot
-CXN0cnVjdCBhbWRncHVfY29ubmVjdG9yICphbWRncHVfY29ubmVjdG9yOwogCXUzMiBzcmNfdiA9
-IDEsIGRzdF92ID0gMTsKIAl1MzIgc3JjX2ggPSAxLCBkc3RfaCA9IDE7CiAKQEAgLTY3OCw3ICs2
-NzcsNiBAQCBib29sIGFtZGdwdV9jcnRjX3NjYWxpbmdfbW9kZV9maXh1cChzdHJ1Y3QgZHJtX2Ny
-dGMgKmNydGMsCiAJCQljb250aW51ZTsKIAkJYW1kZ3B1X2VuY29kZXIgPSB0b19hbWRncHVfZW5j
-b2RlcihlbmNvZGVyKTsKIAkJY29ubmVjdG9yID0gYW1kZ3B1X2dldF9jb25uZWN0b3JfZm9yX2Vu
-Y29kZXIoZW5jb2Rlcik7Ci0JCWFtZGdwdV9jb25uZWN0b3IgPSB0b19hbWRncHVfY29ubmVjdG9y
-KGNvbm5lY3Rvcik7CiAKIAkJLyogc2V0IHNjYWxpbmcgKi8KIAkJaWYgKGFtZGdwdV9lbmNvZGVy
-LT5ybXhfdHlwZSA9PSBSTVhfT0ZGKQotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+From: zhengbin <zhengbin13@huawei.com>
+
+[ Upstream commit ac52caecbcf2c30ce95b2536c1caf2643c49b91c ]
+
+Fixes gcc '-Wunused-but-set-variable' warning:
+
+drivers/gpu/drm/radeon/si_dpm.c: In function si_program_response_times:
+drivers/gpu/drm/radeon/si_dpm.c:3640:29: warning: variable backbias_response_time set but not used [-Wunused-but-set-variable]
+
+It is introduced by commit a9e61410921b ("drm/radeon/kms:
+add dpm support for SI (v7)"), but never used, so remove it.
+
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: zhengbin <zhengbin13@huawei.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/radeon/si_dpm.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
+index ac7ae206f2e71..06c7244a1f9c5 100644
+--- a/drivers/gpu/drm/radeon/si_dpm.c
++++ b/drivers/gpu/drm/radeon/si_dpm.c
+@@ -3695,14 +3695,13 @@ static int si_notify_smc_display_change(struct radeon_device *rdev,
+ 
+ static void si_program_response_times(struct radeon_device *rdev)
+ {
+-	u32 voltage_response_time, backbias_response_time, acpi_delay_time, vbi_time_out;
++	u32 voltage_response_time, acpi_delay_time, vbi_time_out;
+ 	u32 vddc_dly, acpi_dly, vbi_dly;
+ 	u32 reference_clock;
+ 
+ 	si_write_smc_soft_register(rdev, SI_SMC_SOFT_REGISTER_mvdd_chg_time, 1);
+ 
+ 	voltage_response_time = (u32)rdev->pm.dpm.voltage_response_time;
+-	backbias_response_time = (u32)rdev->pm.dpm.backbias_response_time;
+ 
+ 	if (voltage_response_time == 0)
+ 		voltage_response_time = 1000;
+-- 
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
