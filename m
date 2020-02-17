@@ -2,105 +2,67 @@ Return-Path: <SRS0=Eo1a=4F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 725BBC35254
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Feb 2020 12:49:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CDECCC34021
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Feb 2020 14:44:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 292B82072C
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Feb 2020 12:49:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A4F9E20718
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Feb 2020 14:44:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="3BDKkYOo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 292B82072C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oMz3a39n"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4F9E20718
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A616A6E943;
-	Mon, 17 Feb 2020 12:49:58 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2076.outbound.protection.outlook.com [40.107.243.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3137A6E943;
- Mon, 17 Feb 2020 12:49:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IBqByATXhGnizN0CCdKV1FyogMx1s5LHoQKwKNX3xhYU2aWGw0A6pQe0ea8ayLQxV4IZR+Yalp6pl2mqSMyO+ynmb7uCaCBsv0suZFb25SbsmLp1b+BmvRA0Ospplqtc8sGggkQdoOIKxkNolfLyc4GfNldW3Bspm/PYRTe/idvfN3yF8ZP6anFU9Aex9kjCXCGmLsTqMeRVA9E7D3D1Du3vTnYZiRg/oTIYK6E4qzpF4D7X0zDdl75YLEUajAdAx9N2UAIcjBEWHOqRU/Y5XI1U/X+wu+BsmWIB4Yio9sBRXrVboAHptKMQSV5IeV+ZJFG/MF6pV7QQ4RfZNFfbGA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5NSmFRMw1N870owlGA73k00pN2p3TuLfzrksQxov0cg=;
- b=e3OJZRuvMcb4B/f1wHjRWEH2OiTt9hXNCAvR3LAetkQbn86/eBDnzu07GWbfwy313mAFpgmYKiXUN9xIbd4QPV23mk0cYfS+uX2f0TxQ6lkkiAyEwHniNVkiI/+1qmMwf6bCQIHuo5LM8hSxVZgn5eMdZHI7lK9WPPL5nFaxpkv2prpNJJ8v2ScSjbseF3LqUN/xsGHInE8jRj4yFSH0n8qiQrswC4AfaWJ9ZSLKj4WmxFoy2LXK+/x0pY4vEU8OAj+ZIF/naJ7YX+oL3xGhVYGmDbkAtWSRXubxcRkD8LlSImO1oENNtSw9BxP3grwdKu+N37iNVzUJ6dCZnDneag==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5NSmFRMw1N870owlGA73k00pN2p3TuLfzrksQxov0cg=;
- b=3BDKkYOoj9uXpLtYlPB0sCTho7Jpp0XMBIjFl594ndBMbbu8Pk1L1QxUp7qOe6Kbo4QoxSjnu8BizUA4HxdaI8Ga+vqjmciyo713odDcTv2Hx4m6buaocTRQzVOHerXlTLUQTHXF3yMUasWoH/2xbRu5M2ge1PbTd0z8FZeUWFI=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Nirmoy.Das@amd.com; 
-Received: from DM5PR12MB2376.namprd12.prod.outlook.com (52.132.143.139) by
- DM5PR12MB2550.namprd12.prod.outlook.com (52.132.143.31) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2729.25; Mon, 17 Feb 2020 12:49:56 +0000
-Received: from DM5PR12MB2376.namprd12.prod.outlook.com
- ([fe80::c06c:24da:d4c5:5ee3]) by DM5PR12MB2376.namprd12.prod.outlook.com
- ([fe80::c06c:24da:d4c5:5ee3%6]) with mapi id 15.20.2729.028; Mon, 17 Feb 2020
- 12:49:56 +0000
-Subject: Re: [PATCH 6/7] drm/bochs: don't use ttm bo->offset
-To: Gerd Hoffmann <kraxel@redhat.com>, Nirmoy Das <nirmoy.aiemd@gmail.com>
-References: <20200217101841.7437-1-nirmoy.das@amd.com>
- <20200217101841.7437-7-nirmoy.das@amd.com>
- <20200217124119.et35zk6ndp73nlfy@sirius.home.kraxel.org>
-From: Nirmoy <nirmodas@amd.com>
-Message-ID: <c8cee9fa-3501-9799-a12e-2ba73f5f9cc6@amd.com>
-Date: Mon, 17 Feb 2020 13:52:39 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
-In-Reply-To: <20200217124119.et35zk6ndp73nlfy@sirius.home.kraxel.org>
-Content-Language: en-US
-X-ClientProxiedBy: AM0PR0102CA0046.eurprd01.prod.exchangelabs.com
- (2603:10a6:208::23) To DM5PR12MB2376.namprd12.prod.outlook.com
- (2603:10b6:4:b9::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 493616E967;
+	Mon, 17 Feb 2020 14:44:39 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C9D46E968
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Feb 2020 14:44:37 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id a6so18764830wme.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Feb 2020 06:44:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=BlCz0pxtbpswmPT4z1roh2o5wpVhy8aDm9TpZVmFN7Y=;
+ b=oMz3a39nie6zhqjMgoSTqr7PpEgv8yrVqQmERbHrhWJ/pH7VMoTiLoivevnv1W4yIG
+ aTyiZKUDMP+/aEjhUVKIahiWGDGmKk+Bn77XQXYbTmhRB4+PTfDT5g6tb/ryirNu8Qhd
+ 7jnl36lMHCR1Y1HaKo0tcojzUbB7Iwk6EsQrhS/hLpkacgZaIIlsAVUpZ/YAqciw2Sqa
+ 0wjkFccxRu8wqzWLomg77EKhgv65ETANk5iPZ5JAircwVlFoJYiRB/1Rm/bZg9huxNYK
+ jkoDwagfUV6fyPHkOHqFVdrLpIVkMFzzFKWHy10ER5tMX2ipAamf73JINJl0ajhW5zOV
+ iy0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BlCz0pxtbpswmPT4z1roh2o5wpVhy8aDm9TpZVmFN7Y=;
+ b=IB5KpzgPZz6rLejEkThqMpIp91VSHTZoJTjEEV/SWj7vjSy2MOILGscrXThoOPW7XO
+ uiB+xVxBoRflpxP2oXvHWDxO26IwXmaPwRjGvWJFjXzrKJB3+f8qi7O+GGkWJAVKIFDc
+ qkLIv8w3QGa5VgUXbmC4jb0zhsFr3P/6AzJPEjnIRTV8Q3jbEAT/my57ji65C8NF7FLF
+ sUD0Q3lmjbX014GbTY2xsPrY1PqnbLgz7QcrVRry6C3QXHpHJ0BaakukOhUN9tXj+uFk
+ M3Gm88UAP9P06TketNT2RIdngupQMG+pdSWmb8Uu9DHt9+ymRTIFjfjTNZcaTBp1dz3Z
+ fBng==
+X-Gm-Message-State: APjAAAWm4BOXlCN9QEYOBMlNkgprnWLLPa50iT1vHMWyNhZCk5pdx8dN
+ /xJtNTQM7r8Ji692xDjz9Xx0nHWPdGjHkE8gOjU=
+X-Google-Smtp-Source: APXvYqyZOsPkUqdcLktxwsk/m2julFzvLE+/kShqr/iEZ+41zjqDLhqo/DOPNEVt9sTLOBB6LfAG9XMO6dzcnxL3SBs=
+X-Received: by 2002:a05:600c:218b:: with SMTP id
+ e11mr22906794wme.56.1581950676212; 
+ Mon, 17 Feb 2020 06:44:36 -0800 (PST)
 MIME-Version: 1.0
-Received: from [IPv6:2003:c5:8f26:1400:bc11:1ead:619e:c67c]
- (2003:c5:8f26:1400:bc11:1ead:619e:c67c) by
- AM0PR0102CA0046.eurprd01.prod.exchangelabs.com (2603:10a6:208::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2729.22 via Frontend
- Transport; Mon, 17 Feb 2020 12:49:53 +0000
-X-Originating-IP: [2003:c5:8f26:1400:bc11:1ead:619e:c67c]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: dbb98f48-7764-46e4-706f-08d7b3a7e3f6
-X-MS-TrafficTypeDiagnostic: DM5PR12MB2550:|DM5PR12MB2550:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB25509A366BF3E747ED7D82B68B160@DM5PR12MB2550.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1284;
-X-Forefront-PRVS: 0316567485
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(366004)(396003)(39860400002)(346002)(136003)(189003)(199004)(6666004)(52116002)(4326008)(478600001)(2616005)(316002)(110136005)(2906002)(66556008)(66476007)(66946007)(5660300002)(6486002)(36756003)(31686004)(186003)(53546011)(7416002)(16526019)(81166006)(31696002)(81156014)(8936002)(8676002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2550;
- H:DM5PR12MB2376.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jnLidFCQyxdLrF/W2iaDGuG/eA/HIAe0v4NNHJWAsmFqRNc3YSNoI5Sfez6nrXPyp/FB/ywzXkKemsdutcA4L3MpBqCjxgW3ysMrMkpwBrbKrozP+25IOxEjunuOCxZTnvNuD6bXheTy2PUCnles3rOX3zyeZbZpb2O6JCbYyvqqaP4/WpgzpLPHcUEBWpatB6edrSW8eTq2qQrYmCG6hcmoKKPbtZZbKeiZ+5uWUCch+hd/AifxBbNsrx/NF4kgG9IzUpuKhMiHEwHVmy/k8jLaI2fo155W5zUMoVjCqJ0O4maZOMMi/6J3O8Nxl9aDEwV+4pSR8ZFAlcfStIi1b8WpER4wjumepKsBBegPcTTEtxstHs3NYuXs3Ag81Nn+GXH+I6u0SqiMU2XuAA/X8oeIBgpNNHZGiA7y3Z0FUcPqr0fFBlOK66cLY/H7Ku41
-X-MS-Exchange-AntiSpam-MessageData: 8dQ0czNIHNn5RIQVK0Zn9+gcBS4+8a/wwtWdGM58Usw0c1KUB9T25eNyEvtjQwRRYtlTZ0AsZrZBRpjMfgN4u6/NlOsEvaFBmavXeXgZ7Vg0v0bcnSjhWklsXvQns0lajkHlJUvNjExzQAh+1bJRLQwcAz2NV7FFbZ6LhLzb1MTPItZlNOk4nmuaQJ72x+rUYwvTU6vl1FqAHeak63QoXw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dbb98f48-7764-46e4-706f-08d7b3a7e3f6
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2020 12:49:56.3772 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Wn/kYOUvmGCNeZnobSxVyaKt3VcAl2JPgHxT9l6EpnjI633Sby+la0Lg73sP1NdZidD37vKx7+Y3ygafo1Yvlg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2550
+References: <20200215001714.605727-1-luben.tuikov@amd.com>
+In-Reply-To: <20200215001714.605727-1-luben.tuikov@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 17 Feb 2020 09:44:24 -0500
+Message-ID: <CADnq5_NQnRx-=zRru0zLcp61cLFhdL6xr7+PDcfh1oQCBTPpHQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Add a GEM_CREATE mask and bugfix
+To: Luben Tuikov <luben.tuikov@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,67 +74,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David1.Zhou@amd.com, thellstrom@vmware.com, amd-gfx@lists.freedesktop.org,
- airlied@linux.ie, kenny.ho@amd.com, brian.welty@intel.com,
- maarten.lankhorst@linux.intel.com, dri-devel@lists.freedesktop.org,
- nirmoy.das@amd.com, linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
- daniel@ffwll.ch, alexander.deucher@amd.com, sean@poorly.run,
- christian.koenig@amd.com
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-On 2/17/20 1:41 PM, Gerd Hoffmann wrote:
-> On Mon, Feb 17, 2020 at 11:18:40AM +0100, Nirmoy Das wrote:
->> Calculate GPU offset within bochs driver itself without depending on
->> bo->offset
->>
->> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
->> ---
->>   drivers/gpu/drm/bochs/bochs_kms.c     | 3 ++-
->>   drivers/gpu/drm/drm_gem_vram_helper.c | 2 +-
->>   2 files changed, 3 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/bochs/bochs_kms.c b/drivers/gpu/drm/bochs/bochs_kms.c
->> index 8066d7d370d5..852ec7910d84 100644
->> --- a/drivers/gpu/drm/bochs/bochs_kms.c
->> +++ b/drivers/gpu/drm/bochs/bochs_kms.c
->> @@ -38,7 +38,8 @@ static void bochs_plane_update(struct bochs_device *bochs,
->>   			 state->crtc_x,
->>   			 state->crtc_y,
->>   			 state->fb->pitches[0],
->> -			 state->fb->offsets[0] + gbo->bo.offset);
->> +			 state->fb->offsets[0] +
->> +			 (gbo->bo.mem.start << PAGE_SHIFT));
-> I'd suggest to use drm_gem_vram_offset() here ...
+On Fri, Feb 14, 2020 at 7:17 PM Luben Tuikov <luben.tuikov@amd.com> wrote:
 >
->> diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
->> index 92a11bb42365..e7ef4cd8116d 100644
->> --- a/drivers/gpu/drm/drm_gem_vram_helper.c
->> +++ b/drivers/gpu/drm/drm_gem_vram_helper.c
->> @@ -214,7 +214,7 @@ s64 drm_gem_vram_offset(struct drm_gem_vram_object *gbo)
->>   {
->>   	if (WARN_ON_ONCE(!gbo->pin_count))
->>   		return (s64)-ENODEV;
->> -	return gbo->bo.offset;
->> +	return gbo->bo.mem.start << PAGE_SHIFT;
-> ... and move this to a separate patch.  The vram helpers are used by
-> more drivers than just bochs.
-
-Thanks for reviewing Gerd, will send next version with your suggestions 
-applied.
-
-
-Regards,
-
-Nirmoy
-
+> Add a AMDGPU_GEM_CREATE_MASK and use it to check
+> for valid/invalid GEM create flags coming in from
+> userspace.
 >
-> cheers,
->    Gerd
+> Fix a bug in checking whether TMZ is supported at
+> GEM create time.
 >
+> Signed-off-by: Luben Tuikov <luben.tuikov@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 11 ++---------
+>  include/uapi/drm/amdgpu_drm.h           |  2 ++
+>  2 files changed, 4 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> index b51a060c637d..74bb79e64fa3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -221,21 +221,14 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+>         int r;
+>
+>         /* reject invalid gem flags */
+> -       if (flags & ~(AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED |
+> -                     AMDGPU_GEM_CREATE_NO_CPU_ACCESS |
+> -                     AMDGPU_GEM_CREATE_CPU_GTT_USWC |
+> -                     AMDGPU_GEM_CREATE_VRAM_CLEARED |
+> -                     AMDGPU_GEM_CREATE_VM_ALWAYS_VALID |
+> -                     AMDGPU_GEM_CREATE_EXPLICIT_SYNC |
+> -                     AMDGPU_GEM_CREATE_ENCRYPTED))
+> -
+
+I'd rather keep the list explicit so no one ends up forgetting to
+update the mask the next time new flags are added.
+
+Alex
+
+> +       if (flags & ~AMDGPU_GEM_CREATE_MASK)
+>                 return -EINVAL;
+>
+>         /* reject invalid gem domains */
+>         if (args->in.domains & ~AMDGPU_GEM_DOMAIN_MASK)
+>                 return -EINVAL;
+>
+> -       if (amdgpu_is_tmz(adev) && (flags & AMDGPU_GEM_CREATE_ENCRYPTED)) {
+> +       if (!amdgpu_is_tmz(adev) && flags & AMDGPU_GEM_CREATE_ENCRYPTED) {
+>                 DRM_ERROR("Cannot allocate secure buffer since TMZ is disabled\n");
+>                 return -EINVAL;
+>         }
+> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+> index eaf94a421901..c8463cdf4448 100644
+> --- a/include/uapi/drm/amdgpu_drm.h
+> +++ b/include/uapi/drm/amdgpu_drm.h
+> @@ -141,6 +141,8 @@ extern "C" {
+>   */
+>  #define AMDGPU_GEM_CREATE_ENCRYPTED            (1 << 10)
+>
+> +#define AMDGPU_GEM_CREATE_MASK                  ((1 << 11)-1)
+> +
+>  struct drm_amdgpu_gem_create_in  {
+>         /** the requested memory size */
+>         __u64 bo_size;
+> --
+> 2.25.0.232.gd8437c57fa
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
