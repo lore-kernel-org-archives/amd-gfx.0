@@ -2,75 +2,100 @@ Return-Path: <SRS0=Eo1a=4F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B61FC35254
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Feb 2020 10:16:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33341C3B185
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Feb 2020 10:32:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1CD1420679
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Feb 2020 10:16:14 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D0B2720725
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Feb 2020 10:32:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WGKq+4fg"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1CD1420679
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="3gC6TRO6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D0B2720725
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC8B06E913;
-	Mon, 17 Feb 2020 10:16:13 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB5D36E916;
- Mon, 17 Feb 2020 10:16:10 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id k11so18938154wrd.9;
- Mon, 17 Feb 2020 02:16:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=1BQ3RLCCPj8Vx5ymm6Uw4hsRHsW/TZRnV/QBxLYgzPE=;
- b=WGKq+4fgVhtkETJVlVTABzl+QqNb8Jqw3m4onad5SHBssBiUMLn9bDl14TzSFtmAQI
- OZR0RVFsDB7xIsl7QZOOnhnEj9NchsUC8dtXy+L38Q1CJ7cqzTJvKoJCsvsegJumEXJT
- jwVy/cp3ibFuBis2ggJZbrzgiSOs22T2AbZHJ7/T9qe6J9zB39/u2XCQdV7inQUvim+Z
- +YtdT+B9/PaQ5DvEygmaSXfiJOeIZKl72TrAef9TwSqPwnmUT/6Eq+It5joHUagF6ce3
- QEr6kkpK+r4Ra3vEw3DmokrDnil0A4NlmEgwiISb1vknhMBxbfnUKiN7n6K0CB2WJF6r
- 2zYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=1BQ3RLCCPj8Vx5ymm6Uw4hsRHsW/TZRnV/QBxLYgzPE=;
- b=FHmRYADGlsxPkkOJAAr9CaDCt70I6AViU/FkhhrQ5QXELVN3GozfyBawhsEkxohyAY
- t1hPmtMok6XCKvGAE3Xoz11wXQGM1/LCON7sOag6SC8lPWsH+f87Oz7hAonUE8D0X+4o
- P4DFNcsU1lrpa3v+uJy69G/ncmPqlqZJHjmfnUTr8RAJ8G7TZNAygQ1Ybi9LvcekIPZI
- XST1IFh7yNZGO3HCEqwg29t3e06YA7L/pGlli6Ca7XypxcKMMhHxWn3O20ktWsLzQkkt
- Sr+1f0VRyopJPsuvfimhKnqB+/nRMUHbMekW3uorPDZbXnK1NUDmycPeAAI6d11iadi+
- KCYQ==
-X-Gm-Message-State: APjAAAU2SVWNmREbEwS8TY/pH6RdbApciUsBP57XlwqBjdS9/asWWk5w
- +j74WojeaXrFgJBlmb/gM6UODXHocSMtZg==
-X-Google-Smtp-Source: APXvYqx9rjuZR5lXX9kcxCTxETYvWNx9nB+4sQ+RnTnzCBMa2uaN7jl+//VNkVFtNdh1YfB+VuhE4g==
-X-Received: by 2002:adf:e9d2:: with SMTP id l18mr21320314wrn.344.1581934569118; 
- Mon, 17 Feb 2020 02:16:09 -0800 (PST)
-Received: from brihaspati.fritz.box
- (p200300C58F261400BC111EAD619EC67C.dip0.t-ipconnect.de.
- [2003:c5:8f26:1400:bc11:1ead:619e:c67c])
- by smtp.gmail.com with ESMTPSA id a16sm278487wrt.30.2020.02.17.02.16.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Feb 2020 02:16:08 -0800 (PST)
-From: Nirmoy Das <nirmoy.aiemd@gmail.com>
-X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
-To: dri-devel@lists.freedesktop.org
-Subject: [PATCH 7/7] drm/ttm: do not keep GPU dependent addresses
-Date: Mon, 17 Feb 2020 11:18:41 +0100
-Message-Id: <20200217101841.7437-8-nirmoy.das@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71AE689B98;
+	Mon, 17 Feb 2020 10:32:58 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760042.outbound.protection.outlook.com [40.107.76.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B511A89B98
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Feb 2020 10:32:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JTtnCCJgqk7lbl0rlw8PqVUeOPXrGlQW+tRHimp0Jo+XEa8XNCldyc2liI5ib3+bCfMFWC6tZfbkLTJ2giJ3OZcWDXv+YRbUJ783/8okVKXpErx/lVpKndxnuPKRdDJaksFQR7TRALyem5rcBqiF6l5qaS0xhZvszqjqrNzkXh8IIwv8Xji9HP18MiW3BaZ2aRtu7RKO94aC1gcamhSUFQXNKdGTzpW+QTzQuK3w98ySmlLha/bQJA03gdqhHy9FfLKyQAJVXmHYC3dbjRm1p0r/oxrrFV21fjpuYXruM+7/mqXg0z46MUWAtoMAIf/IyemBg4ZoCRKPbhxaUjIGPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RCjBIWHhBI44uKbljAo+lp54Qzuo34BU5mfGd1msr5Q=;
+ b=ZYhuFLEtbXfoCKpkQpujG7GqNxB5JFaVjeYwvla2Mv0JYdjxNFxCm+GG9RzOA2pX4jAGPjTGO3tspBvnMSqKbCRJX1Rm+BtYFJyxz0spTuk2cSGYUojPDe29TJRYzObbBRD7UTRdBS0Hyro33NJXbPHTRQKzA/0fopnEdESEy2Pss2owAld98HwJO9y6zu7kmOH5a0wQY62Tq+eUmmOP5lyxqfCElbpaHqVZrYqriCNU1iK8SmDuZrmX0yZCDUJ8aOg/ttwTIm9qCllltuz3NqR7c9vPMAcA0/FZ6HRoM7eWvR+dxrhhSG/3J272BD4mEEotWaQdpOijtOhTIhJgqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RCjBIWHhBI44uKbljAo+lp54Qzuo34BU5mfGd1msr5Q=;
+ b=3gC6TRO6XFAiOCxg4q/ZnvkP6VyUjjvD+sjapV5nRkMfkvbat4GZuq6V0Mz62LKfE921YeBTMbOjIfOltLU0zkOkf6rD2v0W/RB3TThCl+B/jQCjusO7TaDh4Od6dUk20mGB42fUzMSOE8fOETCy169qOMLA1Ux/hk2zft6HGlU=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Evan.Quan@amd.com; 
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com (20.178.241.74) by
+ MN2PR12MB4046.namprd12.prod.outlook.com (52.135.50.87) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2729.25; Mon, 17 Feb 2020 10:32:56 +0000
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::69c7:b493:690:2173]) by MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::69c7:b493:690:2173%3]) with mapi id 15.20.2729.031; Mon, 17 Feb 2020
+ 10:32:56 +0000
+From: Evan Quan <evan.quan@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: drop the non-sense firmware version check on
+ arcturus
+Date: Mon, 17 Feb 2020 18:32:36 +0800
+Message-Id: <20200217103236.23783-1-evan.quan@amd.com>
 X-Mailer: git-send-email 2.25.0
-In-Reply-To: <20200217101841.7437-1-nirmoy.das@amd.com>
-References: <20200217101841.7437-1-nirmoy.das@amd.com>
+X-ClientProxiedBy: HK0PR01CA0059.apcprd01.prod.exchangelabs.com
+ (2603:1096:203:a6::23) To MN2PR12MB3344.namprd12.prod.outlook.com
+ (2603:10b6:208:c5::10)
 MIME-Version: 1.0
+Received: from equan-buildpc.amd.com (180.167.199.189) by
+ HK0PR01CA0059.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2729.22 via Frontend
+ Transport; Mon, 17 Feb 2020 10:32:55 +0000
+X-Mailer: git-send-email 2.25.0
+X-Originating-IP: [180.167.199.189]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 1fe63813-f488-4ad7-f900-08d7b394c083
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4046:|MN2PR12MB4046:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB404682169A62FD35907935CEE4160@MN2PR12MB4046.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
+X-Forefront-PRVS: 0316567485
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(346002)(366004)(396003)(136003)(39860400002)(189003)(199004)(7696005)(5660300002)(52116002)(8676002)(81166006)(86362001)(4326008)(36756003)(81156014)(8936002)(1076003)(66556008)(26005)(66476007)(66946007)(16526019)(44832011)(186003)(2616005)(956004)(6486002)(6916009)(6666004)(2906002)(316002)(478600001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4046;
+ H:MN2PR12MB3344.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: E/3IazZ318ew6FLmrn/i6wfJg0rLLcHvvEhgHFzzlEwCxSGO26POLSwDNS3XdXojbYy0vhd761dJNws1qPHh0CT66FL5bces/wVDrI64/NYj3tzGg80PD5vJH50NyrBXF+M7L7zHHu9tDnaWseX/0EE7WurVitYmeWpjn8r3X1VayDEs/hyzY5ZKHAzao+PiI6uC1srTPeac+HiNPqFaDFAgUKcUySD8TULhpRvD4sjDcFehU5QEZPZeRnHb30kKU9IJnjVw0PzXI6J3SxK2jN6mLd8ep8QYoI1bzgb+QTEVg7W9SCGfwmjOfCbaktSRUmh3qG/6Qo5p/cFHnZ6UtldM9Qig7oHvsxvsWg/ribKjedSAsVeJNpQu5n+u/lusOOJct4YBLG5hO49ZGUo6YyKY4zpkmzsGqCs6zT2CAX/+CpbiJz5w8r/1MrmRFjwM
+X-MS-Exchange-AntiSpam-MessageData: lRbPKohpRMbyq1uhrGICPUCo5lEW48wmEQC62MXWfoouB0o08IxpjFico5lSnEBz5/A2xA8XVPHzyXDpZpC3Ezd2mW6z7L/b1ZJTjvPh7CAbLzZ3z8G4FcuonQMTyMIvibkwVE+7KaTVBNAKw9Cs/Q==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1fe63813-f488-4ad7-f900-08d7b394c083
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Feb 2020 10:32:56.7637 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: frcbr+a1zHb1DSaE2ErEn6eMjp1zmFzL6TFNwTFtOtNb4juijGijqzu9uhZoYhUe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4046
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,77 +107,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David1.Zhou@amd.com, thellstrom@vmware.com, airlied@linux.ie,
- kenny.ho@amd.com, brian.welty@intel.com, maarten.lankhorst@linux.intel.com,
- amd-gfx@lists.freedesktop.org, nirmoy.das@amd.com,
- linux-graphics-maintainer@vmware.com, bskeggs@redhat.com, daniel@ffwll.ch,
- alexander.deucher@amd.com, sean@poorly.run, christian.koenig@amd.com,
- kraxel@redhat.com
+Cc: Evan Quan <evan.quan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-GPU address handling is device specific and should be handle by its device
-driver.
+As the firmware versions of arcturus are different from other gfx9
+ASICs. And the warning("CP firmware version too old, please update!")
+caused by this check can be eliminated.
 
-Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+Change-Id: I04ab0e435b6ff9712be502e6ebb8d6e1f0a776d8
+Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/ttm/ttm_bo.c    | 7 -------
- include/drm/ttm/ttm_bo_api.h    | 2 --
- include/drm/ttm/ttm_bo_driver.h | 1 -
- 3 files changed, 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 151edfd8de77..d5885cd609a3 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -85,7 +85,6 @@ static void ttm_mem_type_debug(struct ttm_bo_device *bdev, struct drm_printer *p
- 	drm_printf(p, "    has_type: %d\n", man->has_type);
- 	drm_printf(p, "    use_type: %d\n", man->use_type);
- 	drm_printf(p, "    flags: 0x%08X\n", man->flags);
--	drm_printf(p, "    gpu_offset: 0x%08llX\n", man->gpu_offset);
- 	drm_printf(p, "    size: %llu\n", man->size);
- 	drm_printf(p, "    available_caching: 0x%08X\n", man->available_caching);
- 	drm_printf(p, "    default_caching: 0x%08X\n", man->default_caching);
-@@ -345,12 +344,6 @@ static int ttm_bo_handle_move_mem(struct ttm_buffer_object *bo,
- moved:
- 	bo->evicted = false;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 9b7ff783e9a5..1c7a16b91686 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -1106,10 +1106,11 @@ static void gfx_v9_0_check_fw_write_wait(struct amdgpu_device *adev)
+ 	adev->gfx.me_fw_write_wait = false;
+ 	adev->gfx.mec_fw_write_wait = false;
  
--	if (bo->mem.mm_node)
--		bo->offset = (bo->mem.start << PAGE_SHIFT) +
--		    bdev->man[bo->mem.mem_type].gpu_offset;
--	else
--		bo->offset = 0;
--
- 	ctx->bytes_moved += bo->num_pages << PAGE_SHIFT;
- 	return 0;
+-	if ((adev->gfx.mec_fw_version < 0x000001a5) ||
++	if ((adev->asic_type != CHIP_ARCTURUS) &&
++	    ((adev->gfx.mec_fw_version < 0x000001a5) ||
+ 	    (adev->gfx.mec_feature_version < 46) ||
+ 	    (adev->gfx.pfp_fw_version < 0x000000b7) ||
+-	    (adev->gfx.pfp_feature_version < 46))
++	    (adev->gfx.pfp_feature_version < 46)))
+ 		DRM_WARN_ONCE("CP firmware version too old, please update!");
  
-diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
-index b9bc1b00142e..d6f39ee5bf5d 100644
---- a/include/drm/ttm/ttm_bo_api.h
-+++ b/include/drm/ttm/ttm_bo_api.h
-@@ -213,8 +213,6 @@ struct ttm_buffer_object {
- 	 * either of these locks held.
- 	 */
- 
--	uint64_t offset; /* GPU address space is independent of CPU word size */
--
- 	struct sg_table *sg;
- };
- 
-diff --git a/include/drm/ttm/ttm_bo_driver.h b/include/drm/ttm/ttm_bo_driver.h
-index c9e0fd09f4b2..c8ce6c181abe 100644
---- a/include/drm/ttm/ttm_bo_driver.h
-+++ b/include/drm/ttm/ttm_bo_driver.h
-@@ -177,7 +177,6 @@ struct ttm_mem_type_manager {
- 	bool has_type;
- 	bool use_type;
- 	uint32_t flags;
--	uint64_t gpu_offset; /* GPU address space is independent of CPU word size */
- 	uint64_t size;
- 	uint32_t available_caching;
- 	uint32_t default_caching;
+ 	switch (adev->asic_type) {
 -- 
 2.25.0
 
