@@ -2,82 +2,72 @@ Return-Path: <SRS0=rgj7=4G=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-3.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B81F8C34048
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2020 17:24:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2644BC34026
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2020 18:02:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8EC0E20801
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2020 17:24:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EC9AD2070B
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2020 18:02:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ayyzoamN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8EC0E20801
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UnKFmgNI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC9AD2070B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFFDD6EA50;
-	Tue, 18 Feb 2020 17:24:00 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B826E6EA4C;
- Tue, 18 Feb 2020 17:23:59 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id q9so3590621wmj.5;
- Tue, 18 Feb 2020 09:23:59 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 979796E378;
+	Tue, 18 Feb 2020 18:02:18 +0000 (UTC)
+Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
+ [IPv6:2a00:1450:4864:20::332])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4521E6E378;
+ Tue, 18 Feb 2020 18:02:17 +0000 (UTC)
+Received: by mail-wm1-x332.google.com with SMTP id a5so3732559wmb.0;
+ Tue, 18 Feb 2020 10:02:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=oIbM87yhZF+ZH+jKmPC9oE2Wau1kgCqRY99ToID5pw8=;
- b=ayyzoamN2CHPt5hFg1f5OgYxGvqJnou/kGM2skI3GAtv41tU0ZLa5T5RET8q65wFqB
- cEOq1477Fy3x74V+tXX+nCRH4NZ71ht3w+GuxAUrrVLdVNspMQ/wbmJEtVSWtL7AhviQ
- /tGXs5JUmlOIg4yQPrPem6KBmb9svf0xrAc5FxP7VLmu8cvRtZv82jL+5zfR/P6moHFb
- tny7y40Du3PFWs6mLAPouot0LrWnRLEnK+vhAuJUpadEtUaX7vVus/s0GkPH07dd1ecO
- wVW/c5I/hXRm2Yn7pF1JsLO4Ev7w+kkb8HdbxXCZAEgS2mZQGBpT3sKvyipn9ZbV5w2e
- Mwwg==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=5/aGfmke5p7Ed/41ONpUn8RHbz5PHbPuoNq8nR97UqE=;
+ b=UnKFmgNItIUiXTA9WVW0wZkxs8iNrOsLu3su/9inoASDCLmvmuLY353/NRedcr91cP
+ MWtIJGFJz97C/JQpFrCIVpCURNIa/CLpxQPPZhWhO0OPgxvnqp8CDdfDvmkG1Sx/1OrK
+ EfTovzJqHdvcd7YnbIIWmtoUKM03HQzWDzTZr2DuxQnEtHaoPOTcH9gsrxVHgzgvP7Wa
+ z5M6CRSsGU4jGtplGrhlGvVcI9/hzkgK7NkqkmGZsvRxIAlFOPhbzUR9OD5PtFyLTz5O
+ O/RjlE4Tzc/UfZdMlrRjFlgjBGquXd4DR57gJ1fBTpJLYYsdNzrSIGUiJa6MxtFQmBqB
+ OIUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=oIbM87yhZF+ZH+jKmPC9oE2Wau1kgCqRY99ToID5pw8=;
- b=THIX3Fh27Hm6NHongbwy+sZAp2J8jbiBHfMA3aABsuaiD6+3bd9dt/1H5BtzeHWvxf
- KdzFaipFHpSY/1ZD2oXdXMcYUDFqX2yfeCnh2JYvVz+AOAmodg3UHvvWFj2MIqs7IxOO
- M3G3KfBxkSpYojzAVEqyyeJRGiwfauvAGX2+1WCMwuW3LNCNFfFziEtttxt1K3jygp65
- 3YbbuqV97XLece1Z86JJR1X8A2SAFpUkGcyqBaAd/xDiW8k46lFHmCGpX8x5fWfmrtGZ
- 36rxqb0mWU1rYZ6vIaXcimNNHgOvfSeXX0TXMr4AL7zeIzfylFQO1p0yibRAEKJ/DxOF
- XlFw==
-X-Gm-Message-State: APjAAAU8Pk/4h1nl60uoqlMi/Jvctnenq6l7d29QzqpUu5pRbhbfC3NH
- cCXnVVI2uobSA7tvrei3dhY=
-X-Google-Smtp-Source: APXvYqxIZID/DtFRQYJUOmV9gZ+q4fabUwqFBKQxU5M8U44dq6XMY/pT/pmHKkIhmpSS35WgLZIBxw==
-X-Received: by 2002:a7b:c0c7:: with SMTP id s7mr4426173wmh.129.1582046638192; 
- Tue, 18 Feb 2020 09:23:58 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id m21sm4268832wmi.27.2020.02.18.09.23.56
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 18 Feb 2020 09:23:57 -0800 (PST)
-Subject: Re: [PATCH 8/8] drm/ttm: do not keep GPU dependent addresses
-To: Nirmoy <nirmodas@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Nirmoy Das <nirmoy.aiemd@gmail.com>, dri-devel@lists.freedesktop.org
-References: <20200217150427.49994-1-nirmoy.das@amd.com>
- <20200217150427.49994-9-nirmoy.das@amd.com>
- <c3a20c1b-0520-1995-7445-9e3f3ea77394@suse.de>
- <9db59846-90b4-2b9a-8200-69297112693a@amd.com>
- <edc985f1-8856-4d1a-8960-efe4d21b960d@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <6bc47952-393f-9f19-9c87-5a9a31c18880@gmail.com>
-Date: Tue, 18 Feb 2020 18:23:53 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=5/aGfmke5p7Ed/41ONpUn8RHbz5PHbPuoNq8nR97UqE=;
+ b=lX0v714ESVVuyPKACLjLqBhlAacSBleaZJDk/tXcYxat9dnRsbG9UFjuTg46yubyLr
+ 589cDWMj7f3+kVllhr3mGxZk5LHL8uG0iLdMK8DTFxtFY+wYAK0goW3OeP6WN6BtSsaB
+ vK7debz1JhCZ6tEUKRbrF0sZjL/uUFr9iYhG1688FBU9dGxA4VZI2N671ZMixdGj8aIj
+ T2idu7q1E/KfBdEHbRxp3cSqbg/QQ54TNNi3kJKIhdRooBZ3xmUCyAOEQHp+yTuUjx7C
+ /n2lTbSOklUVL+4vBZl+c0aEHl/Zy+B1BBYPkscKuqqS/xp6WRXO6kz4DnVZm2EmxyCH
+ MiVw==
+X-Gm-Message-State: APjAAAUoBuMxAI7rDHQ6R4SVGbN0jLzOE2JKxj1Ky1PMDA66fZ4fXCyW
+ UEi4Ddh9u+ySMpFLqO867VQQ4y3WN4pUew==
+X-Google-Smtp-Source: APXvYqwjHiu5iN46HCCqStfHW6YD3jK1AybZxHcENnDeiXu+vzsWEZeQjpJvbgjRRHS4BIeq2VI3fA==
+X-Received: by 2002:a7b:c8d2:: with SMTP id f18mr4139070wml.47.1582048935021; 
+ Tue, 18 Feb 2020 10:02:15 -0800 (PST)
+Received: from brihaspati.fritz.box
+ (p200300C58F2CE900751228326401B174.dip0.t-ipconnect.de.
+ [2003:c5:8f2c:e900:7512:2832:6401:b174])
+ by smtp.gmail.com with ESMTPSA id d16sm7872733wrg.27.2020.02.18.10.02.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Feb 2020 10:02:14 -0800 (PST)
+From: Nirmoy Das <nirmoy.aiemd@gmail.com>
+X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH v2 0/8] do not store GPU address in TTM
+Date: Tue, 18 Feb 2020 19:04:46 +0100
+Message-Id: <20200218180454.81866-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
-In-Reply-To: <edc985f1-8856-4d1a-8960-efe4d21b960d@amd.com>
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,111 +79,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: thellstrom@vmware.com, airlied@linux.ie, kenny.ho@amd.com,
+Cc: David1.Zhou@amd.com, thellstrom@vmware.com, airlied@linux.ie,
+ kenny.ho@amd.com, brian.welty@intel.com, maarten.lankhorst@linux.intel.com,
  amd-gfx@lists.freedesktop.org, nirmoy.das@amd.com,
- linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
- nouveau@lists.freedesktop.org, alexander.deucher@amd.com, sean@poorly.run,
+ linux-graphics-maintainer@vmware.com, bskeggs@redhat.com, daniel@ffwll.ch,
+ alexander.deucher@amd.com, sean@poorly.run, christian.koenig@amd.com,
  kraxel@redhat.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTguMDIuMjAgdW0gMTg6MTMgc2NocmllYiBOaXJtb3k6Cj4KPiBPbiAyLzE4LzIwIDE6NDQg
-UE0sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IEFtIDE4LjAyLjIwIHVtIDEzOjQwIHNjaHJp
-ZWIgVGhvbWFzIFppbW1lcm1hbm46Cj4+PiBIaQo+Pj4KPj4+IEFtIDE3LjAyLjIwIHVtIDE2OjA0
-IHNjaHJpZWIgTmlybW95IERhczoKPj4+PiBHUFUgYWRkcmVzcyBoYW5kbGluZyBpcyBkZXZpY2Ug
-c3BlY2lmaWMgYW5kIHNob3VsZCBiZSBoYW5kbGUgYnkgaXRzIAo+Pj4+IGRldmljZQo+Pj4+IGRy
-aXZlci4KPj4+Pgo+Pj4+IFNpZ25lZC1vZmYtYnk6IE5pcm1veSBEYXMgPG5pcm1veS5kYXNAYW1k
-LmNvbT4KPj4+PiAtLS0KPj4+PiDCoCBkcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jwqDCoMKg
-IHwgNyAtLS0tLS0tCj4+Pj4gwqAgaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19hcGkuaMKgwqDCoCB8
-IDIgLS0KPj4+PiDCoCBpbmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZlci5oIHwgMSAtCj4+Pj4g
-wqAgMyBmaWxlcyBjaGFuZ2VkLCAxMCBkZWxldGlvbnMoLSkKPj4+Pgo+Pj4+IGRpZmYgLS1naXQg
-YS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jIAo+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL3R0
-bS90dG1fYm8uYwo+Pj4+IGluZGV4IDE1MWVkZmQ4ZGU3Ny4uZDU4ODVjZDYwOWEzIDEwMDY0NAo+
-Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKPj4+PiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vdHRtL3R0bV9iby5jCj4+Pj4gQEAgLTg1LDcgKzg1LDYgQEAgc3RhdGljIHZvaWQg
-dHRtX21lbV90eXBlX2RlYnVnKHN0cnVjdCAKPj4+PiB0dG1fYm9fZGV2aWNlICpiZGV2LCBzdHJ1
-Y3QgZHJtX3ByaW50ZXIgKnAKPj4+PiDCoMKgwqDCoMKgIGRybV9wcmludGYocCwgIsKgwqDCoCBo
-YXNfdHlwZTogJWRcbiIsIG1hbi0+aGFzX3R5cGUpOwo+Pj4+IMKgwqDCoMKgwqAgZHJtX3ByaW50
-ZihwLCAiwqDCoMKgIHVzZV90eXBlOiAlZFxuIiwgbWFuLT51c2VfdHlwZSk7Cj4+Pj4gwqDCoMKg
-wqDCoCBkcm1fcHJpbnRmKHAsICLCoMKgwqAgZmxhZ3M6IDB4JTA4WFxuIiwgbWFuLT5mbGFncyk7
-Cj4+Pj4gLcKgwqDCoCBkcm1fcHJpbnRmKHAsICLCoMKgwqAgZ3B1X29mZnNldDogMHglMDhsbFhc
-biIsIG1hbi0+Z3B1X29mZnNldCk7Cj4+Pj4gwqDCoMKgwqDCoCBkcm1fcHJpbnRmKHAsICLCoMKg
-wqAgc2l6ZTogJWxsdVxuIiwgbWFuLT5zaXplKTsKPj4+PiDCoMKgwqDCoMKgIGRybV9wcmludGYo
-cCwgIsKgwqDCoCBhdmFpbGFibGVfY2FjaGluZzogMHglMDhYXG4iLCAKPj4+PiBtYW4tPmF2YWls
-YWJsZV9jYWNoaW5nKTsKPj4+PiDCoMKgwqDCoMKgIGRybV9wcmludGYocCwgIsKgwqDCoCBkZWZh
-dWx0X2NhY2hpbmc6IDB4JTA4WFxuIiwgCj4+Pj4gbWFuLT5kZWZhdWx0X2NhY2hpbmcpOwo+Pj4+
-IEBAIC0zNDUsMTIgKzM0NCw2IEBAIHN0YXRpYyBpbnQgdHRtX2JvX2hhbmRsZV9tb3ZlX21lbShz
-dHJ1Y3QgCj4+Pj4gdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAo+Pj4+IMKgIG1vdmVkOgo+Pj4+IMKg
-wqDCoMKgwqAgYm8tPmV2aWN0ZWQgPSBmYWxzZTsKPj4+PiDCoCAtwqDCoMKgIGlmIChiby0+bWVt
-Lm1tX25vZGUpCj4+Pj4gLcKgwqDCoMKgwqDCoMKgIGJvLT5vZmZzZXQgPSAoYm8tPm1lbS5zdGFy
-dCA8PCBQQUdFX1NISUZUKSArCj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYmRldi0+bWFu
-W2JvLT5tZW0ubWVtX3R5cGVdLmdwdV9vZmZzZXQ7Cj4+Pj4gLcKgwqDCoCBlbHNlCj4+Pj4gLcKg
-wqDCoMKgwqDCoMKgIGJvLT5vZmZzZXQgPSAwOwo+Pj4+IC0KPj4+IEFmdGVyIG1vdmluZyB0aGlz
-IGludG8gdXNlcnMsIHRoZSBlbHNlIGJyYW5jaCBoYXMgYmVlbiBsb3N0LiBJcwo+Pj4gJ2JvLT5t
-ZW0ubW1fbm9kZScgYWx3YXlzIHRydWU/Cj4+Cj4+IEF0IGxlYXN0IGZvciB0aGUgYW1kZ3B1IGFu
-ZCByYWRlb24gdXNlIGNhc2VzLCB5ZXMuCj4+Cj4+IEJ1dCB0aGF0IGlzIGEgcmF0aGVyIGdvb2Qg
-cXVlc3Rpb24gSSBtZWFuIGZvciBpdCBpcyBpbGxlZ2FsIHRvIGdldCAKPj4gdGhlIEdQVSBCTyBh
-ZGRyZXNzIGlmIGl0IGlzIGluYWNjZXNzaWJsZSAoZS5nLiBpbiB0aGUgc3lzdGVtIGRvbWFpbiku
-Cj4+Cj4+IENvdWxkIGJlIHRoYXQgc29tZSBkcml2ZXIgcmVsaWVkIG9uIHRoZSBiZWhhdmlvciB0
-byBnZXQgMCBmb3IgdGhlIAo+PiBzeXN0ZW0gZG9tYWluIGhlcmUuCj4KPiBJIHdvbmRlciBob3cg
-dG8gdmVyaWZ5IHRoYXQgPwoKTm8gaWRlYSwgYnV0IEkgd291bGRuJ3Qgd29ycnkgdG8gbXVjaCBh
-Ym91dCB0aGF0LgoKPgo+IElmIEkgdW5kZXJzdGFuZCBjb3JyZWN0bHk6Cj4KPiAxIHF4bCB1c2Vz
-IGJvLT5vZmZzZXQgb25seSBpbiBxeGxfYm9fcGh5c2ljYWxfYWRkcmVzcygpIHdoaWNoIGlzIG5v
-dCAKPiBpbsKgIHN5c3RlbSBkb21haW4uCj4KPiAyIHVuZm9ydHVuYXRlbHkgSSBjYW4ndCBzYXkg
-dGhlIHNhbWUgZm9yIGJvY2hzIGJ1dCBpdCB3b3JrcyB3aXRoIHRoaXMgCj4gcGF0Y2ggc2VyaWVz
-IHNvIEkgdGhpbmsgYm9jaHMgaXMgZmluZSBhcyB3ZWxsLgo+Cj4gMyB2bXdnZnggdXNlcyBiby0+
-b2Zmc2V0IG9ubHkgd2hlbiBiby0+bWVtLm1lbV90eXBlID09IFRUTV9QTF9WUkFNIHNvIAo+IHZt
-d2dmeCBzaG91bGQgYmUgZmluZS4KPgo+IDQgYW1kZ3B1IGFuZCByYWRlb24gcnVucyB3aXRoICdi
-by0+bWVtLm1tX25vZGUnIGFsd2F5cyB0cnVlCgpUaGF0IHNvdW5kcyBsaWtlIHRob3NlIGZvdXIg
-YXJlIG9rIHRvIG1lLgoKPgo+IEkgYW0gbm90IHN1cmUgYWJvdXTCoCBub3V2ZWF1IGFzIGJvLT5v
-ZmZzZXQgaXMgYmVpbmcgdXNlZCBpbiBtYW55IHBsYWNlcy4KPgo+IEkgY291bGQgcHJvYmFibHkg
-bWlycm9yIHRoZSByZW1vdmVkIGxvZ2ljIHRvIG5vdXZlYXUgYXMKPgo+IGRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2JvLmMgCj4gYi9kcml2ZXJzL2dwdS9kcm0v
-bm91dmVhdS9ub3V2ZWF1X2JvLmMKPiBpbmRleCBmODAxNWUwMzE4ZDcuLjVhNmEyYWY5MTMxOCAx
-MDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2JvLmMKPiArKysg
-Yi9kcml2ZXJzL2dwdS9kcm0vbm91dmVhdS9ub3V2ZWF1X2JvLmMKPiBAQCAtMTMxNyw2ICsxMzE3
-LDEwIEBAIG5vdXZlYXVfYm9fbW92ZV9udGZ5KHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAKPiAq
-Ym8sIGJvb2wgZXZpY3QsCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGxpc3RfZm9y
-X2VhY2hfZW50cnkodm1hLCAmbnZiby0+dm1hX2xpc3QsIGhlYWQpIHsKPiDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG5vdXZlYXVfdm1hX21hcCh2bWEsIG1l
-bSk7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIH0KPiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBpZiAoYm8tPm1lbS5tbV9ub2RlKQo+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBudmJvLT5vZmZzZXQgPSAobmV3X3JlZy0+c3RhcnQg
-PDwgUEFHRV9TSElGVCk7Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZWxzZQo+ICvC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBudmJvLT5vZmZzZXQg
-PSAwOwo+IMKgwqDCoMKgwqDCoMKgIH0gZWxzZSB7Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIGxpc3RfZm9yX2VhY2hfZW50cnkodm1hLCAmbnZiby0+dm1hX2xpc3QsIGhlYWQpIHsK
-PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFdBUk5fT04o
-dHRtX2JvX3dhaXQoYm8sIGZhbHNlLCBmYWxzZSkpOwoKWWVhaCwgSSB3b3VsZCBnbyBkb3duIHRo
-YXQgcm91dGUuCgpDaHJpc3RpYW4uCgo+Cj4gUmVnYXJkcywKPgo+IE5pcm1veQo+Cj4KPj4KPj4g
-UmVnYXJkcywKPj4gQ2hyaXN0aWFuLgo+Pgo+Pj4KPj4+IEJlc3QgcmVnYXJkcwo+Pj4gVGhvbWFz
-Cj4+Pgo+Pj4+IMKgwqDCoMKgwqAgY3R4LT5ieXRlc19tb3ZlZCArPSBiby0+bnVtX3BhZ2VzIDw8
-IFBBR0VfU0hJRlQ7Cj4+Pj4gwqDCoMKgwqDCoCByZXR1cm4gMDsKPj4+PiDCoCBkaWZmIC0tZ2l0
-IGEvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19hcGkuaCAKPj4+PiBiL2luY2x1ZGUvZHJtL3R0bS90
-dG1fYm9fYXBpLmgKPj4+PiBpbmRleCBiOWJjMWIwMDE0MmUuLmQ2ZjM5ZWU1YmY1ZCAxMDA2NDQK
-Pj4+PiAtLS0gYS9pbmNsdWRlL2RybS90dG0vdHRtX2JvX2FwaS5oCj4+Pj4gKysrIGIvaW5jbHVk
-ZS9kcm0vdHRtL3R0bV9ib19hcGkuaAo+Pj4+IEBAIC0yMTMsOCArMjEzLDYgQEAgc3RydWN0IHR0
-bV9idWZmZXJfb2JqZWN0IHsKPj4+PiDCoMKgwqDCoMKgwqAgKiBlaXRoZXIgb2YgdGhlc2UgbG9j
-a3MgaGVsZC4KPj4+PiDCoMKgwqDCoMKgwqAgKi8KPj4+PiDCoCAtwqDCoMKgIHVpbnQ2NF90IG9m
-ZnNldDsgLyogR1BVIGFkZHJlc3Mgc3BhY2UgaXMgaW5kZXBlbmRlbnQgb2YgQ1BVIAo+Pj4+IHdv
-cmQgc2l6ZSAqLwo+Pj4+IC0KPj4+PiDCoMKgwqDCoMKgIHN0cnVjdCBzZ190YWJsZSAqc2c7Cj4+
-Pj4gwqAgfTsKPj4+PiDCoCBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19kcml2
-ZXIuaCAKPj4+PiBiL2luY2x1ZGUvZHJtL3R0bS90dG1fYm9fZHJpdmVyLmgKPj4+PiBpbmRleCBj
-OWUwZmQwOWY0YjIuLmM4Y2U2YzE4MWFiZSAxMDA2NDQKPj4+PiAtLS0gYS9pbmNsdWRlL2RybS90
-dG0vdHRtX2JvX2RyaXZlci5oCj4+Pj4gKysrIGIvaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19kcml2
-ZXIuaAo+Pj4+IEBAIC0xNzcsNyArMTc3LDYgQEAgc3RydWN0IHR0bV9tZW1fdHlwZV9tYW5hZ2Vy
-IHsKPj4+PiDCoMKgwqDCoMKgIGJvb2wgaGFzX3R5cGU7Cj4+Pj4gwqDCoMKgwqDCoCBib29sIHVz
-ZV90eXBlOwo+Pj4+IMKgwqDCoMKgwqAgdWludDMyX3QgZmxhZ3M7Cj4+Pj4gLcKgwqDCoCB1aW50
-NjRfdCBncHVfb2Zmc2V0OyAvKiBHUFUgYWRkcmVzcyBzcGFjZSBpcyBpbmRlcGVuZGVudCBvZiAK
-Pj4+PiBDUFUgd29yZCBzaXplICovCj4+Pj4gwqDCoMKgwqDCoCB1aW50NjRfdCBzaXplOwo+Pj4+
-IMKgwqDCoMKgwqAgdWludDMyX3QgYXZhaWxhYmxlX2NhY2hpbmc7Cj4+Pj4gwqDCoMKgwqDCoCB1
-aW50MzJfdCBkZWZhdWx0X2NhY2hpbmc7Cj4+Pj4KPj4KPiBfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8v
-YW1kLWdmeAo=
+With this patch series I am trying to remove GPU address dependency in
+TTM and moving GPU address calculation to individual drm drivers.
+
+I tested this patch series on qxl, bochs and amdgpu. Christian tested it on radeon HW.
+It would be nice if someone test this for nouveau and vmgfx.
+
+v2:
+set bo->offset = 0 for drm/nouveau if bo->mem.mm_node == NULL
+
+Nirmoy Das (8):
+  drm/amdgpu: move ttm bo->offset to amdgpu_bo
+  drm/radeon: don't use ttm bo->offset
+  drm/vmwgfx: don't use ttm bo->offset
+  drm/nouveau: don't use ttm bo->offset
+  drm/qxl: don't use ttm bo->offset
+  drm/vram-helper: don't use ttm bo->offset
+  drm/bochs: use drm_gem_vram_offset to get bo offset
+  drm/ttm: do not keep GPU dependent addresses
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 22 ++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 29 ++++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  1 +
+ drivers/gpu/drm/bochs/bochs_kms.c           |  2 +-
+ drivers/gpu/drm/drm_gem_vram_helper.c       |  2 +-
+ drivers/gpu/drm/nouveau/dispnv04/crtc.c     |  6 ++---
+ drivers/gpu/drm/nouveau/dispnv04/disp.c     |  2 +-
+ drivers/gpu/drm/nouveau/dispnv04/overlay.c  |  6 ++---
+ drivers/gpu/drm/nouveau/dispnv50/base507c.c |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/core507d.c |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/ovly507e.c |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/wndw.c     |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/wndwc37e.c |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_abi16.c     |  8 +++---
+ drivers/gpu/drm/nouveau/nouveau_bo.c        |  1 +
+ drivers/gpu/drm/nouveau/nouveau_bo.h        |  3 +++
+ drivers/gpu/drm/nouveau/nouveau_chan.c      |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_dmem.c      |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_fbcon.c     |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_gem.c       | 10 +++----
+ drivers/gpu/drm/qxl/qxl_drv.h               |  6 ++---
+ drivers/gpu/drm/qxl/qxl_kms.c               |  5 ++--
+ drivers/gpu/drm/qxl/qxl_object.h            |  5 ----
+ drivers/gpu/drm/qxl/qxl_ttm.c               |  9 -------
+ drivers/gpu/drm/radeon/radeon.h             |  1 +
+ drivers/gpu/drm/radeon/radeon_object.h      | 16 +++++++++++-
+ drivers/gpu/drm/radeon/radeon_ttm.c         |  4 +--
+ drivers/gpu/drm/ttm/ttm_bo.c                |  7 -----
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c          |  4 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c     |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fifo.c        |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c  |  2 --
+ include/drm/ttm/ttm_bo_api.h                |  2 --
+ include/drm/ttm/ttm_bo_driver.h             |  1 -
+ 35 files changed, 99 insertions(+), 76 deletions(-)
+
+--
+2.25.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
