@@ -2,108 +2,123 @@ Return-Path: <SRS0=rgj7=4G=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.4 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,HTTPS_HTTP_MISMATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0360CC3403D
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2020 14:43:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A3A6FC34026
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2020 14:48:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CAADC208C4
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2020 14:43:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 76BA320658
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Feb 2020 14:48:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="KvFHpasC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CAADC208C4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="iU34zdly"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 76BA320658
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79CBA6EA1F;
-	Tue, 18 Feb 2020 14:43:30 +0000 (UTC)
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690058.outbound.protection.outlook.com [40.107.69.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CF166EA1F
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2020 14:43:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30E7A6E2F9;
+	Tue, 18 Feb 2020 14:48:47 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on20628.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eae::628])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36CEC6E2F9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Feb 2020 14:48:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OzX03JvGIhUk/IlqbnWtPgK2AUPrLeKmqNZOiEzzPB9NOnossdSAVibU2/tvcSgOZ1eP1Jmnoa2LS/PlfqWnvcqzMYityKtqvaahDBtH6f+RWcwQXpPIKU42cE0oIN1qz+z8j9d2+eaqWgPQpQSO+XyxhuyLpQRwefAsJ8Mkq5YUuoD9Dm76AQjInj7k4jaAbp6GMu6Gq7/54W1ezD6nNHEGPEPNdqpJIg1brxCLeEOWa0g8K68GO3Ixzwpc1rC87ksoU1h0+kilEIR4XND/xhCj4Ie6bjNUYG88eFv3MRgE7+/32olXWswWWbvBPzj3FscndffzEtqO8YvMk/cuHw==
+ b=dDw6Po0gDz4jbjzT8tfrb78rcJjdXQZSQYI8U2/ACDsGx+RQ+KgSWeh0cwHcPYGKZEbq46R144u5BsOrsq9+FrWXjiS3zGV43fykfz7pOR1VQR5xv7/oOwCy+quupkHC8Rcu7vgOxaqv5ef226mTkr3M6C1YJWKUJopwNpBweZb3Y2EeOq1trpfwVzrbpGC3UC1yPRXhoQtKuKzUIx2uMjZdh19KGce8dRa2AXRj/rdS1XnMVNdYbMTihMDGTANfCeocwQ75rUTct9abKlbbsw1uwWApS5ADcKJIcjUQckFTpCo8PY5pk2qzW1i2cQWgpKv2HWDf5hcriBJDi0aqBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z4Cs+fCv6GTXjdjOjEMugYrFg5u67xJ/EUvwgGPeX4U=;
- b=Ec9Y4HLGtm9V/beqJU8hBVXuqkkCNLFhe8oQgPMD9CeY7qchlfwynmSPXxobqweg6b714r8gL7XSWhaVYICFyvr2Zyk/elWP6VrSF4KwUJil1YG8dtCCErK8q03BBn177tjqN1nhEao7f9Oc1s5I5esdm+TiNZaTYF1QOzDAfGVcMZyc1eeA0K/ZvvWrp15vBOdqCxOvKRJISavikLUEsKfQoDWRWVnIeT2Q3pHCPBJ78Wle06icQ8YjTuUEhZFgkqLHv3XSpMrd46ylw8IIxDV6y/ddnHiMgChpeB9wbvTHJKC7T+NlFtZF99oY1Yz+d9MKoMjJ4T7uYNAgz2tO1g==
+ bh=L9o9QVbnkX0TnIZcsh8tocHgaD2Bzpt0UzJ3VYYKguI=;
+ b=IwwClrRbDCPUUdCxL+o12D4JARuIxJ07p3+JwmtfXbtlzuFI1H4/Af18LDIvYPO3dI3KmLYVCJYNRDF4cqMgjVSlnZTwQcNBq3BSyL3O3CZfD8MTJa0U8XnjXMFw2zqCCHs3doC4gD+9DXAo87tB06BfW3+Q5knSnolh2sNJ58cVImTnjNAx36FBKkGm6b9eWOFqIOVDxs+JX1QPoV7Aixlk37Ye1lJ7D1/2caMk3VGlgbnzzRmrwCNGNxKA25fTlEhOAmcs2hTDl6PCr0sxnRd0IQVL+XNSkAQiKi+7KvnGrj6tjw9d2sUnB5t7OOo+bJcrsYzrI6X5MZjha5qxHQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z4Cs+fCv6GTXjdjOjEMugYrFg5u67xJ/EUvwgGPeX4U=;
- b=KvFHpasCPWdAGIHblrXFW13hHeQn7kQ3yXt6j6ncazFndBQ7BISjQjiI52ctcro3xvWRp+cWFyYdadDxOqcyuwV65rPOmBNmPwzfjG01/y9NttANhjYQrbhAj/b97Yq+DBztuUGpoKR4jJ4YMBFFIGwAcP3vLgbMmvkJpE/CKe8=
-Received: from DM6PR12MB3097.namprd12.prod.outlook.com (20.178.31.89) by
- DM6PR12MB4202.namprd12.prod.outlook.com (10.141.186.86) with Microsoft SMTP
+ bh=L9o9QVbnkX0TnIZcsh8tocHgaD2Bzpt0UzJ3VYYKguI=;
+ b=iU34zdlyVGufvCOx8A3eq4inE03l33SV2BHLzlpGJNz8z78cbpDp6xzJfjVY2ZSDdYj05h+2fTmg8HFW+7VvyQeNgSzro21ah52lrm9g4tC2Z3N/2xqP1W3rbuTaTnnxcbQrHbLNZOXzvewIR0nm0X5j3a8IufiPYsWuCEg4Ghg=
+Received: from BYAPR12MB3365.namprd12.prod.outlook.com (20.178.55.206) by
+ BYAPR12MB3109.namprd12.prod.outlook.com (20.178.54.81) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2729.25; Tue, 18 Feb 2020 14:43:28 +0000
-Received: from DM6PR12MB3097.namprd12.prod.outlook.com
- ([fe80::c90d:ccf4:5717:9b46]) by DM6PR12MB3097.namprd12.prod.outlook.com
- ([fe80::c90d:ccf4:5717:9b46%5]) with mapi id 15.20.2729.031; Tue, 18 Feb 2020
- 14:43:27 +0000
-From: "Bridgman, John" <John.Bridgman@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, =?iso-8859-3?Q?Yusuf_Alt=B9parmak?=
- <yusufalti1997@gmail.com>, "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: Re: writing custom driver for VGA emulation ?
-Thread-Topic: writing custom driver for VGA emulation ?
-Thread-Index: AQHV5jEFFbMOyBOfOEaevdkKK6oZK6gg+GyAgAAC7gOAAAUNgIAABUTW
-Date: Tue, 18 Feb 2020 14:43:27 +0000
-Message-ID: <DM6PR12MB309715C009FB496F1D3B4B56E8110@DM6PR12MB3097.namprd12.prod.outlook.com>
-References: <CAGzVRjzs8rgaLkWcaxdAn-DUf3Kk70TW=NPM+Hk9SLt7Tcjsfg@mail.gmail.com>
- <CADnq5_MutDzY0fdhX3anCQXFAOLkAbcMS3timfFEDFBqVc-jxA@mail.gmail.com>
- <DM6PR12MB3097CF2E5C2F02FC1C94F4ACE8110@DM6PR12MB3097.namprd12.prod.outlook.com>,
- <460d7881-2223-12f1-bc47-b48b851d1138@gmail.com>
-In-Reply-To: <460d7881-2223-12f1-bc47-b48b851d1138@gmail.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-CA
+ 15.20.2729.31; Tue, 18 Feb 2020 14:48:42 +0000
+Received: from BYAPR12MB3365.namprd12.prod.outlook.com
+ ([fe80::2dee:a162:da5:55ea]) by BYAPR12MB3365.namprd12.prod.outlook.com
+ ([fe80::2dee:a162:da5:55ea%7]) with mapi id 15.20.2729.032; Tue, 18 Feb 2020
+ 14:48:42 +0000
+From: "Fernlund, Hans" <Hans.Fernlund@amd.com>
+To: "Liu, Monk" <Monk.Liu@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: =?utf-8?B?UkU6IOWbnuWkjTogW1BBVENIIDMvM10gZHJtL2FtZGdwdTogZml4IGNvbGxp?=
+ =?utf-8?Q?ding_of_preemption?=
+Thread-Topic: =?utf-8?B?5Zue5aSNOiBbUEFUQ0ggMy8zXSBkcm0vYW1kZ3B1OiBmaXggY29sbGlkaW5n?=
+ =?utf-8?Q?_of_preemption?=
+Thread-Index: AQHV5ga7OM0WAZZyvUCj+DK+6PEWzqgg0gYAgAAEfICAAAnkcIAABJqAgAACpZCAACD+sA==
+Date: Tue, 18 Feb 2020 14:48:42 +0000
+Message-ID: <BYAPR12MB336585E8F9006D1A346D593DEB110@BYAPR12MB3365.namprd12.prod.outlook.com>
+References: <1581994453-5498-1-git-send-email-Monk.Liu@amd.com>
+ <1581994453-5498-3-git-send-email-Monk.Liu@amd.com>
+ <DM5PR12MB1418C6AC8DAC7F035AC2DCEBFC110@DM5PR12MB1418.namprd12.prod.outlook.com>
+ <DM5PR12MB1418D0DB790F1CE215545BBDFC110@DM5PR12MB1418.namprd12.prod.outlook.com>
+ <MN2PR12MB393375DD0B47A374C7856FE484110@MN2PR12MB3933.namprd12.prod.outlook.com>
+ <6e0f09af-270c-66ca-ab7a-2f5ae231c3d5@gmail.com>
+ <MN2PR12MB3933B4279B1CEA45190DECFD84110@MN2PR12MB3933.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB3933B4279B1CEA45190DECFD84110@MN2PR12MB3933.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-02-18T14:48:38Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-02-18T14:43:26.957Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=f857f754-3e78-4554-9f7c-000035aff93a;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-02-18T14:48:38Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 50599fa6-06b8-40dc-b532-000097b81015
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=John.Bridgman@amd.com; 
-x-originating-ip: [72.139.204.163]
+ smtp.mailfrom=Hans.Fernlund@amd.com; 
+x-originating-ip: [165.204.84.17]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: d1739753-9734-4620-45bd-08d7b480ea83
-x-ms-traffictypediagnostic: DM6PR12MB4202:|DM6PR12MB4202:
+x-ms-office365-filtering-correlation-id: ecb8ddca-6657-4710-217a-08d7b481a618
+x-ms-traffictypediagnostic: BYAPR12MB3109:|BYAPR12MB3109:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB42022DD1657EFE5555357575E8110@DM6PR12MB4202.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-microsoft-antispam-prvs: <BYAPR12MB3109F2D3E63E7EBD35F2CE1CEB110@BYAPR12MB3109.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4714;
 x-forefront-prvs: 031763BCAF
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(199004)(189003)(9686003)(5660300002)(55016002)(4326008)(52536014)(66574012)(86362001)(7696005)(6636002)(110136005)(53546011)(6506007)(33656002)(186003)(26005)(66476007)(64756008)(76116006)(81166006)(81156014)(8676002)(8936002)(45080400002)(966005)(66946007)(19627405001)(2906002)(498600001)(66446008)(71200400001)(66556008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB4202;
- H:DM6PR12MB3097.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10001)(10009020)(4636009)(346002)(39860400002)(366004)(396003)(376002)(136003)(199004)(189003)(71200400001)(5660300002)(86362001)(66946007)(66556008)(66476007)(52536014)(76116006)(224303003)(33656002)(316002)(7696005)(8936002)(186003)(966005)(81156014)(64756008)(26005)(45080400002)(81166006)(55016002)(2906002)(9686003)(478600001)(66446008)(110136005)(6506007)(53546011);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB3109;
+ H:BYAPR12MB3365.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ND/1J9RQ2UhF0QRiysaz9RomIj2EhLTHQMYZLsI1WKbfSfjv9YLPkcvJlKtXX3kh9VK7S2L62gS51MCWnXBKU5gNm8/xRuhnry5Ll6HF5BzNdFNbMq2nT4w6uOc1USmhfGQ9AjkpCgXx8JLLfdmXGFp8QfA90co4ppYQRqCcp0yWazpKeZlwPVRx72J3O1egoYU+YLxWgXmhIjQohhMVpd34+cLyv7f/GIlZRvXQE8jqkfIt7gMnFLOgA1YMji6hC7bLNHU5+08UCY9xxbKwVhM+t35Ug+3avvHhQROivBxnQgIV5BFwjIdgPvUqrNHY5eyVsA6QhhARADWI4YwL79CHaC9dT318X1Ia0rWmFGhAIqFPYuT5p1mg3qiQrdMi5JHHVVHUmOFFqwOxZVOa1cJv7n2Kpm59aBSXOLg8tCXIeomSOTJ4cXJj1NfcZn2Cd0EXbP9i6rLUKZp9FfqzUx6sGN1w6sxc8Q48j7NiemRd6F9H/9A1AqwFZQCCTcqxwKL3jHJ00iykizZX7TTgnQ==
-x-ms-exchange-antispam-messagedata: 5oV5xhID5OmgM5Dfj0Uy9WxJiFgn4Jz2cM89SBrEONPVDTAIH4BS2/iu61vo8fPIUpsmA4WGppmp5LTgS8qpE42lNJNpeqgY/s3QlacRB9v4cRY11dvJXpJAXi+vrEzUE8lBgA8obHO+GjABM82A5g==
+x-microsoft-antispam-message-info: OQqLlqXkv6g8X8//FtTuZnMqhOkRrXnuVD+bZa/Kl3lBZ1ZUOJQvIheKtgK7OXF/LXUoCSdI3PS7EyRd6gNM37yxYxDYUgl072lrPOEovVsGoiaLwJ4Q8EkfPvHIWYQBVoIKZgeDFY6CYEY8InLsg1TpcGbZKryoHeq3QMUbi8Bxd4pYCKt7bznJCmQBco/IoAqpMH7ZdSfxsXXJE8vJWC3qAmdxuXIBH6PymnD5xj7yKfHJl46NEKH9WP02ZPtO85MQAHzbn9SLT9MKxp9lvyWfpyYf7YkQkEB/59WpWiVMeNhtKsvOAfWRjOJpiPhpsRNhnQls3H2wjExgrq2hoktuhWU7qKskPKU/22XH+wsFc/+klLzqW0b16oqWN9Ist+ms2Hz1u91E1sXopR9NTnSx3CxuMCxTCKKvXXDLhuK9JYPg8rflu1HdyB59C4o6aBkAtLFfVuDs67cHeieetOgFkRRLZUEXHS1EyYnoYS9pCKL4vIjtsKJSLnYPpj9NZs0St9D4AgkWcXg4g9JLQ+zNLJlF84AxMkJwbjkHaI93Aaxh5o23z9tgm+i0bn1X2Go7fjjo3d5ykgYx1uxVmP4WMRv4leFYjBphhezINwmvoMF1R4SZzu1PuK1duHEw
+x-ms-exchange-antispam-messagedata: uTmSjlaANlQl3hTxX4DpsvfDJPQMHzgYbpFXlAE/1Mcj6zM1yjzdEBqloVlcJ8iTdrSYVPBqWy7IXTUUsDFiuLT0+gx3MoBjp4w7tdGt+nl4T1FY5pJCT6CSN1gGEznp8O6bgkfqqsJ1FPuJh0xttQ==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1739753-9734-4620-45bd-08d7b480ea83
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Feb 2020 14:43:27.7760 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ecb8ddca-6657-4710-217a-08d7b481a618
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Feb 2020 14:48:42.4795 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: lS/2Ez85zIpJe3cGWAB+845zx9Y/eIGCIhXsMe2RK9z97fX5n2BkgBLlF9+wQfU1/2hzGd9bpCgk++sXdBhu1A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4202
+X-MS-Exchange-CrossTenant-userprincipalname: JymCN0/jE9+dpAkPwb5C0/ITsIiJ9fhBuAw5OBa8GqUKaLAesf15WHFp8SQTZJx0GOgRmrzmmbAQVlpeJLOqdw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3109
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,353 +130,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1952406959=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1952406959==
-Content-Language: en-CA
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB309715C009FB496F1D3B4B56E8110DM6PR12MB3097namp_"
-
---_000_DM6PR12MB309715C009FB496F1D3B4B56E8110DM6PR12MB3097namp_
-Content-Type: text/plain; charset="iso-8859-3"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
->And we already checked, 256MB is unfortunately the minimum you can resize =
-the VRAM BAR on the E9171 to.
-
-Ahh, OK... I didn't realize we had already looked into that. I guess that a=
-pproach isn't going to work.
-
-Yusef, guessing you are using a 32-bit CPU ? Is it possible to talk to whoe=
-ver does SBIOS for your platform to see if you could maybe reduce address s=
-pace allocated to RAM and bump up the MMIO space ?
-
-________________________________
-From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com>
-Sent: February 18, 2020 9:19 AM
-To: Bridgman, John <John.Bridgman@amd.com>; Alex Deucher <alexdeucher@gmail=
-.com>; Yusuf Alt=B9parmak <yusufalti1997@gmail.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Subject: Re: writing custom driver for VGA emulation ?
-
-The problem Yusuf runs into is that his platform has multiple PCIe root hub=
-s, but only 512MB of MMIO address space. That is not enough to fit all the =
-BARs of an E9171 into.
-
-But without the BARs neither the VGA emulation nor amdgpu not anything else=
- will work correctly.
-
-And we already checked, 256MB is unfortunately the minimum you can resize t=
-he VRAM BAR on the E9171 to.
-
-What could maybe work is to trick the upstream bridge of the VGA device int=
-o not routing all the addresses to the BARs and actually use only a smaller=
- portion of visible VRAM. But that would be highly experimental and require=
-s a rather big hack into the PCI(e) subsystem in the Linux kernel.
-
-Regards,
-Christian.
-
-Am 18.02.20 um 15:08 schrieb Bridgman, John:
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Does the VBIOS come up with something like a splash screen, ie is VBIOS abl=
-e to initialize and drive the card ?
-
-If so then another option might be to use a VESA driver rather than VGA.
-
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org><mailto:amd-gfx-bounce=
-s@lists.freedesktop.org> on behalf of Alex Deucher <alexdeucher@gmail.com><=
-mailto:alexdeucher@gmail.com>
-Sent: February 18, 2020 8:50 AM
-To: Yusuf Alt=B9parmak <yusufalti1997@gmail.com><mailto:yusufalti1997@gmail=
-.com>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org><mailto:amd-gfx@lists.freed=
-esktop.org>
-Subject: Re: writing custom driver for VGA emulation ?
-
-On Tue, Feb 18, 2020 at 2:56 AM Yusuf Alt=B9parmak
-<yusufalti1997@gmail.com><mailto:yusufalti1997@gmail.com> wrote:
->
-> Hello AMD team;
->
-> I have E 9171 GPU and want to use it on a embedded system which has limit=
-ed MMIO space on PCIe bus (MAX 512 MB).
->
-> I received feedbacks that I can only use VGA emulation with this memory s=
-pace. I was unable to get 'amdgpu' driver working with Xorg due to I had ma=
-ny errors(firmwares are not loading) in each step and tired of solving them=
- one by one.
->
-> I want to write a simple custom driver for this GPU with kernel version 4=
-.19.
-> Is it possible to print some colors on screen with a custom driver over P=
-CIe communication ? or writing some words on screen as VGA ?
->
-> If answer is yes, then which code pieces (on amdgpu driver folder) or ref=
-erence documentation should I use? I have Register Reference Guide.pdf.
->
-> I will be appreciated for your guidance.
-
-That is not going to do what you want on your platform.  The VGA
-emulation requires that you set up the card first to enable it, which
-in turn requires MMIO access and thus you are back to square one.
-
-Alex
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Cjohn.bri=
-dgman%40amd.com%7Ce7bf224775ad487d240708d7b47992f4%7C3dd8961fe4884e608e11a8=
-2d994e183d%7C0%7C0%7C637176306561328560&amp;sdata=3DQbfaIN%2F6LvgUihz5O0x41=
-TwvdGYy7QTS5IVJq3RXYlA%3D&amp;reserved=3D0<https://nam11.safelinks.protecti=
-on.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flisti=
-nfo%2Famd-gfx&data=3D02%7C01%7CJohn.Bridgman%40amd.com%7Ccda5469b6f5f4ae43e=
-6d08d7b47d899a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637176323587003=
-958&sdata=3D6eKo51jnHbE1QWkDB%2BN%2FFLMLB40HA2wVN3mU1l%2FeFhk%3D&reserved=
-=3D0>
-
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx<https://nam11.safeli=
-nks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmai=
-lman%2Flistinfo%2Famd-gfx&data=3D02%7C01%7CJohn.Bridgman%40amd.com%7Ccda546=
-9b6f5f4ae43e6d08d7b47d899a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637=
-176323587003958&sdata=3D6eKo51jnHbE1QWkDB%2BN%2FFLMLB40HA2wVN3mU1l%2FeFhk%3=
-D&reserved=3D0>
-
-
-
---_000_DM6PR12MB309715C009FB496F1D3B4B56E8110DM6PR12MB3097namp_
-Content-Type: text/html; charset="iso-8859-3"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-3">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-&gt;And we already checked, 256MB is unfortunately the minimum you can resi=
-ze the VRAM BAR on the E9171 to.<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Ahh, OK... I didn't realize we had already looked into that. I guess that a=
-pproach isn't going to work.
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Yusef, guessing you are using a 32-bit CPU ? Is it possible to talk to whoe=
-ver does SBIOS for your platform to see if you could maybe reduce address s=
-pace allocated to RAM and bump up the MMIO space ?<br>
-</div>
-<div>
-<div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Christian K=F6nig &=
-lt;ckoenig.leichtzumerken@gmail.com&gt;<br>
-<b>Sent:</b> February 18, 2020 9:19 AM<br>
-<b>To:</b> Bridgman, John &lt;John.Bridgman@amd.com&gt;; Alex Deucher &lt;a=
-lexdeucher@gmail.com&gt;; Yusuf Alt=B9parmak &lt;yusufalti1997@gmail.com&gt=
-;<br>
-<b>Cc:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Subject:</b> Re: writing custom driver for VGA emulation ?</font>
-<div>&nbsp;</div>
-</div>
-<div style=3D"background-color:#FFFFFF">
-<div class=3D"x_moz-cite-prefix">The problem Yusuf runs into is that his pl=
-atform has multiple PCIe root hubs, but only 512MB of MMIO address space. T=
-hat is not enough to fit all the BARs of an E9171 into.<br>
-<br>
-But without the BARs neither the VGA emulation nor amdgpu not anything else=
- will work correctly.<br>
-<br>
-And we already checked, 256MB is unfortunately the minimum you can resize t=
-he VRAM BAR on the E9171 to.<br>
-<br>
-What could maybe work is to trick the upstream bridge of the VGA device int=
-o not routing all the addresses to the BARs and actually use only a smaller=
- portion of visible VRAM. But that would be highly experimental and require=
-s a rather big hack into the PCI(e)
- subsystem in the Linux kernel.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 18.02.20 um 15:08 schrieb Bridgman, John:<br>
-</div>
-<blockquote type=3D"cite">
-<p style=3D"margin-top: 0px; margin-bottom: 0px;font-family:Arial; font-siz=
-e:10pt; color:#0078D7; margin:15pt" align=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div>Does the VBIOS come up with something like a splash screen, ie is VBIO=
-S able to initialize and drive the card ?<br>
-</div>
-<div><br>
-</div>
-<div>If so then another option might be to use a VESA driver rather than VG=
-A. <br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> amd-gfx
-<a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:amd-gfx-bounces@lists.f=
-reedesktop.org">
-&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> on behalf of Alex Deucher=
- <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:alexdeucher@gmail.com"=
->
-&lt;alexdeucher@gmail.com&gt;</a><br>
-<b>Sent:</b> February 18, 2020 8:50 AM<br>
-<b>To:</b> Yusuf Alt=B9parmak <a class=3D"x_moz-txt-link-rfc2396E" href=3D"=
-mailto:yusufalti1997@gmail.com">
-&lt;yusufalti1997@gmail.com&gt;</a><br>
-<b>Cc:</b> amd-gfx list <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto=
-:amd-gfx@lists.freedesktop.org">
-&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-<b>Subject:</b> Re: writing custom driver for VGA emulation ?</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">On Tue, Feb 18, 2020 at 2:56 AM Yusuf Alt=B9parm=
-ak<br>
-<a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:yusufalti1997@gmail.com=
-">&lt;yusufalti1997@gmail.com&gt;</a> wrote:<br>
-&gt;<br>
-&gt; Hello AMD team;<br>
-&gt;<br>
-&gt; I have E 9171 GPU and want to use it on a embedded system which has li=
-mited MMIO space on PCIe bus (MAX 512 MB).<br>
-&gt;<br>
-&gt; I received feedbacks that I can only use VGA emulation with this memor=
-y space. I was unable to get 'amdgpu' driver working with Xorg due to I had=
- many errors(firmwares are not loading) in each step and tired of solving t=
-hem one by one.<br>
-&gt;<br>
-&gt; I want to write a simple custom driver for this GPU with kernel versio=
-n 4.19.<br>
-&gt; Is it possible to print some colors on screen with a custom driver ove=
-r PCIe communication ? or writing some words on screen as VGA ?<br>
-&gt;<br>
-&gt; If answer is yes, then which code pieces (on amdgpu driver folder) or =
-reference documentation should I use? I have Register Reference Guide.pdf.<=
-br>
-&gt;<br>
-&gt; I will be appreciated for your guidance.<br>
-<br>
-That is not going to do what you want on your platform.&nbsp; The VGA<br>
-emulation requires that you set up the card first to enable it, which<br>
-in turn requires MMIO access and thus you are back to square one.<br>
-<br>
-Alex<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a class=3D"x_moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@lists.freede=
-sktop.org">amd-gfx@lists.freedesktop.org</a><br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01=
-%7CJohn.Bridgman%40amd.com%7Ccda5469b6f5f4ae43e6d08d7b47d899a%7C3dd8961fe48=
-84e608e11a82d994e183d%7C0%7C0%7C637176323587003958&amp;sdata=3D6eKo51jnHbE1=
-QWkDB%2BN%2FFLMLB40HA2wVN3mU1l%2FeFhk%3D&amp;reserved=3D0" originalsrc=3D"h=
-ttps://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash=3D"U6meQaXVtmM=
-vUg9YEUEclm83S&#43;Z07KrR9tCRISlpsrQ2MhZ3nHWjky8Y5XYAe9N&#43;vGF9XTpXLPgG33=
-LoV6btCVtFURjkdXC6O1izBKd19S&#43;02Npep/Uw50puidKypM969urqdIFuT0ZCb9NZI4a8/=
-iRekjRKHFXPNbeIJs51WNo=3D">https://nam11.safelinks.protection.outlook.com/?=
-url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&am=
-p;amp;data=3D02%7C01%7Cjohn.bridgman%40amd.com%7Ce7bf224775ad487d240708d7b4=
-7992f4%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637176306561328560&amp;=
-amp;sdata=3DQbfaIN%2F6LvgUihz5O0x41TwvdGYy7QTS5IVJq3RXYlA%3D&amp;amp;reserv=
-ed=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-<br>
-<fieldset class=3D"x_mimeAttachmentHeader"></fieldset>
-<pre class=3D"x_moz-quote-pre">____________________________________________=
-___=0A=
-amd-gfx mailing list=0A=
-<a class=3D"x_moz-txt-link-abbreviated" href=3D"mailto:amd-gfx@lists.freede=
-sktop.org">amd-gfx@lists.freedesktop.org</a>=0A=
-<a class=3D"x_moz-txt-link-freetext" href=3D"https://nam11.safelinks.protec=
-tion.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flis=
-tinfo%2Famd-gfx&amp;data=3D02%7C01%7CJohn.Bridgman%40amd.com%7Ccda5469b6f5f=
-4ae43e6d08d7b47d899a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637176323=
-587003958&amp;sdata=3D6eKo51jnHbE1QWkDB%2BN%2FFLMLB40HA2wVN3mU1l%2FeFhk%3D&=
-amp;reserved=3D0" originalsrc=3D"https://lists.freedesktop.org/mailman/list=
-info/amd-gfx" shash=3D"U6meQaXVtmMvUg9YEUEclm83S&#43;Z07KrR9tCRISlpsrQ2MhZ3=
-nHWjky8Y5XYAe9N&#43;vGF9XTpXLPgG33LoV6btCVtFURjkdXC6O1izBKd19S&#43;02Npep/U=
-w50puidKypM969urqdIFuT0ZCb9NZI4a8/iRekjRKHFXPNbeIJs51WNo=3D">https://lists.=
-freedesktop.org/mailman/listinfo/amd-gfx</a>=0A=
-</pre>
-</blockquote>
-<br>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB309715C009FB496F1D3B4B56E8110DM6PR12MB3097namp_--
-
---===============1952406959==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1952406959==--
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQ0KDQpB
+dCBDUCBsZXZlbCwgTUNCUCBhbmQgU1JJT1YgYXJlIG5vdCBtdXR1YWxseSBleGNsdXNpdmUuIFRo
+ZXkgYXJlIHVzZWQgdG9nZXRoZXIgaW4gc29tZSBlbnZpcm9ubWVudHMuDQoNCi9IYW5zDQoNCg0K
+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IExpdSwgTW9uayA8TW9uay5MaXVAYW1k
+LmNvbT4gDQpTZW50OiBUdWVzZGF5LCBGZWJydWFyeSAxOCwgMjAyMCA3OjUzIEFNDQpUbzogS29l
+bmlnLCBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IFpoYW5nLCBIYXdraW5n
+IDxIYXdraW5nLlpoYW5nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsg
+RmVybmx1bmQsIEhhbnMgPEhhbnMuRmVybmx1bmRAYW1kLmNvbT4NClN1YmplY3Q6IOWbnuWkjTog
+5Zue5aSNOiBbUEFUQ0ggMy8zXSBkcm0vYW1kZ3B1OiBmaXggY29sbGlkaW5nIG9mIHByZWVtcHRp
+b24NCg0KSWYgT1MgcHJlZW1wdGlvbiBjYW4gd29yayB3aXRoIFNSSU9WIHdvcmxkIHN3aXRjaCBJ
+IHdvbid0IHByb3ZpZGUgc3VjaCBwYXRjaCwgSSB3b3VsZCBhbHJlYWR5IGNsZWFuIHVwIHRob3Nl
+IE1DQlAgY2hlY2tpbmcgLi4uIA0KDQpUbyB5b3VyIHF1ZXN0aW9uOiBJIGRvbid0IGtub3cgZGV0
+YWlscywgYnV0IG15IGd1ZXNzIGlzIHRoYXQgQ1AgdXNlIHRoZSBzYW1lIGludGVyZmFjZSB3aXRo
+IEtNRCAoZS5nLiBDRS9ERSBtZXRhKSB0byBoYW5kbGUgdHdvIE1DQlAgdHlwZTogd29ybGQgc3dp
+dGNoIGFuZCBPUyBwcmVlbXB0LCBCdXQgc29tZSBpbXBsZW1lbnRhdGlvbiBpcyBkaWZmZXJlbnQg
+aW5zaWRlIENQIGZpcm13YXJlIGJ5IHRoZSBnaXZlbiBpbnRlcmZhY2UsIHRoYXQgbmVlZCBARmVy
+bmx1bmQsIEhhbnMgdG8gcHJvdmlkZSB0aGUgZGV0YWlscyBpZiB5b3Ugd2FudCBhbiBleHBlcnRp
+c2UsIGhlIGlzIHRoZSBhdXRob3Igb2YgQ1AgcHJlZW1wdGlvbiANCg0KVGhhbmtzIA0KDQotLS0t
+LemCruS7tuWOn+S7ti0tLS0tDQrlj5Hku7bkuro6IENocmlzdGlhbiBLw7ZuaWcgPGNrb2VuaWcu
+bGVpY2h0enVtZXJrZW5AZ21haWwuY29tPg0K5Y+R6YCB5pe26Ze0OiAyMDIw5bm0MuaciDE45pel
+IDIwOjQwDQrmlLbku7bkuro6IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbT47IFpoYW5nLCBI
+YXdraW5nIDxIYXdraW5nLlpoYW5nQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZw0K5Li76aKYOiBSZTog5Zue5aSNOiBbUEFUQ0ggMy8zXSBkcm0vYW1kZ3B1OiBmaXggY29s
+bGlkaW5nIG9mIHByZWVtcHRpb24NCg0KSGF3a2luZyBpcyByaWdodCBoZXJlLiBXZSBjb3VsZCBq
+dXN0IGNoZWNrIGFtZGdwdV9tY2JwIGR1cmluZyBkZXZpY2UgaW5pdGlhbGl6YXRpb24gYW5kIGZv
+cmNlZnVsbHkgY2xlYXIgaXQgdW5kZXIgU1JJT1YuDQoNCkJ1dCB3aHkgaXMgTUNCUCBhbmQgU1JJ
+T1YgbXV0dWFsIGV4Y2x1c2l2ZT8gV2UgYXJlIGNlcnRhaW5seSBnZXR0aW5nIHRoZSByZXF1aXJl
+bWVudCBmb3IgdGhpcyBzb29uZXIgb3IgbGF0ZXIuDQoNClJlZ2FyZHMsDQpDaHJpc3RpYW4uDQoN
+CkFtIDE4LjAyLjIwIHVtIDEzOjI5IHNjaHJpZWIgTGl1LCBNb25rOg0KPiBFdmVuIG5vdCB0YWxr
+aW5nIGFib3V0IENFL0RFIG1ldGEgYW5kIFNETUEgQ1MsIHdlIHN0aWxsIGNhbm5vdCBzaGFyZSBh
+bWRncHVfbWNicCB3aXRoIFNSSU9WIGNhc2UsICBlLmcuOg0KPiBJbiBzb21lIHBsYWNlIHdlIHVz
+ZSAiaWYgKGFtZGdwdV9tY2JwIHx8IGFtZGdwdV9zcmlvdl92ZigpIiB0byBjaGVjaywgDQo+IGFu
+ZCB3ZSBkbyB0aGUgc2FtZSB0aGluZyB1bmRlciB0aGF0IGNvbmRpdGlvbiwgQnV0IHdlIGNhbm5v
+dCBkbyB0aGF0IA0KPiB0aGluZyBieSAiaWYgKGFtZGdwdV9tY2JwKSIgYW5kIHNldCAiYW1kZ3B1
+X21jYnAiIHRvIHRydWUgdW5kZXIgU1JJT1YgDQo+IGNhc2UuIEJlY2F1c2UgdGhhdCB3aWxsIGxl
+dCBPUyBwcmVlbXB0aW9uIHdvcmssIHdoaWNoIHdpbGwgdHJpZ2dlciANCj4gbWlzbWF0Y2gvY3J1
+c2ggaW4gQ1BHIHNpZGUgZHVyaW5nIHRoZSBNQ0JQLiAobm90IHN1cmUgaWYgQ1dTUiBoYXMgc3Vj
+aA0KPiBjb2xsaWRpbmcpDQo+DQo+IFNvIHdlIGFsd2F5cyBuZWVkIHRvIGRpc2FibGUgT1MgcHJl
+ZW1wdGlvbiBiZWhhdmlvciBmb3IgU1JJT1YgKGRvbid0IA0KPiB0byBwcmVlbXB0IGFuIElCIGJ5
+IHRvdWNoIHZtaWRfcHJlZW1wdCByZWdpc3RlciwgYW5kIG5vIElCIHJlc3VtZQ0KPiBoYXBwZW4p
+DQo+DQo+IFRoYW5rcw0KPg0KPg0KPiAtLS0tLemCruS7tuWOn+S7ti0tLS0tDQo+IOWPkeS7tuS6
+ujogWmhhbmcsIEhhd2tpbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4NCj4g5Y+R6YCB5pe26Ze0
+OiAyMDIw5bm0MuaciDE45pelIDE5OjQ4DQo+IOaUtuS7tuS6ujogWmhhbmcsIEhhd2tpbmcgPEhh
+d2tpbmcuWmhhbmdAYW1kLmNvbT47IExpdSwgTW9uayANCj4gPE1vbmsuTGl1QGFtZC5jb20+OyBh
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiDmioTpgIE6IExpdSwgTW9uayA8TW9uay5M
+aXVAYW1kLmNvbT4NCj4g5Li76aKYOiBSRTogW1BBVENIIDMvM10gZHJtL2FtZGdwdTogZml4IGNv
+bGxpZGluZyBvZiBwcmVlbXB0aW9uDQo+DQo+IFtBTUQgT2ZmaWNpYWwgVXNlIE9ubHkgLSBJbnRl
+cm5hbCBEaXN0cmlidXRpb24gT25seV0NCj4NCj4gQWhoaC4uLi4gU2VuZCBpdCB0b28gcXVpY2ts
+eS4gT2YgY291cnNlLCB3ZSBzdGlsbCBuZWVkIHRvIGFwcGx5IHZmIGNoZWNrIGZvciBjZS9kZS1t
+ZXRhLCBidXQgSSB0aGluayBpbiBzdWNoIHdheSwgd2UgY2FuIGRyYW1hdGljYWxseSByZWR1Y2Ug
+dGhlIGFtZGdwdV9zaXJvdl92ZiBjaGVjayBpbiBldmVyeSBtY2JwIGNvZGUgcGF0aC4NCj4NCj4g
+UmVnYXJkcywNCj4gSGF3a2luZw0KPg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBG
+cm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBC
+ZWhhbGYgT2YgDQo+IFpoYW5nLCBIYXdraW5nDQo+IFNlbnQ6IFR1ZXNkYXksIEZlYnJ1YXJ5IDE4
+LCAyMDIwIDE5OjMyDQo+IFRvOiBMaXUsIE1vbmsgPE1vbmsuTGl1QGFtZC5jb20+OyBhbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogTGl1LCBNb25rIDxNb25rLkxpdUBhbWQuY29t
+Pg0KPiBTdWJqZWN0OiBSRTogW1BBVENIIDMvM10gZHJtL2FtZGdwdTogZml4IGNvbGxpZGluZyBv
+ZiBwcmVlbXB0aW9uDQo+DQo+IFtBTUQgT2ZmaWNpYWwgVXNlIE9ubHkgLSBJbnRlcm5hbCBEaXN0
+cmlidXRpb24gT25seV0NCj4NCj4gSXQncyBzb21lIGtpbmQgb2YgYW5ub3lpbmcgdG8gY2hlY2sg
+dmYgaW4gZXZlcnkgcGxhY2UgdGhhdCBpcyByZXF1aXJlZCBmb3IgbWNicCB1bnRpbCBhbWRncHVf
+bWNicCBpcyBlbmFibGVkIGJ5IGRlZmF1bHQuIFdoYXQncyBtb3JlLCB3aGVuIGFtZGdwdV9tY2Jw
+IGlzIGVuYWJsZWQgYnkgZGVmYXVsdCwgdGhlcmUgd2lsbCBiZSBtYW55IHVubmVjZXNzYXJ5IHZm
+IGNoZWNrIHRoYXQgY2FuIGJlIHJlbW92ZWQgYXMgbW9zdCBvZiBtY2JwIGZ1bmN0aW9uIGFjdHVh
+bGx5IGNhbiBiZSBzaGFyZWQgYmV0d2VlbiB3b3JsZCBzd2l0Y2ggcHJlZW1wdGlvbiBhbmQgb3Mg
+cHJlZW1wdGlvbi4NCj4NCj4gSSdkIHByZWZlciB0byBlbmFibGUgYW1kZ3B1X21jYnAgZm9yIHNy
+aW92IGluIGFtZGdwdV9kZXZpY2VfY2hlY2tfYXJndW1lbnRzIHRvIHJlZHVjZSB0aGUgdmYgc3Bl
+Y2lmaWMgY2hlY2sgZXZlcnl3aGVyZS4NCj4NCj4gUmVnYXJkcywNCj4gSGF3a2luZw0KPg0KPiAt
+LS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJvdW5j
+ZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YgDQo+IE1vbmsgTGl1DQo+IFNl
+bnQ6IFR1ZXNkYXksIEZlYnJ1YXJ5IDE4LCAyMDIwIDEwOjU0DQo+IFRvOiBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZw0KPiBDYzogTGl1LCBNb25rIDxNb25rLkxpdUBhbWQuY29tPg0KPiBT
+dWJqZWN0OiBbUEFUQ0ggMy8zXSBkcm0vYW1kZ3B1OiBmaXggY29sbGlkaW5nIG9mIHByZWVtcHRp
+b24NCj4NCj4gd2hhdDoNCj4gc29tZSBvcyBwcmVlbXB0aW9uIHBhdGggaXMgbWVzc2VkIHVwIHdp
+dGggd29ybGQgc3dpdGNoIHByZWVtcHRpb24NCj4NCj4gZml4Og0KPiBjbGVhbnVwIHRob3NlIGxv
+Z2ljcyBzbyBvcyBwcmVlbXB0aW9uIG5vdCBtaXhlZCB3aXRoIHdvcmxkIHN3aXRjaA0KPg0KPiB0
+aGlzIHBhdGNoIGlzIGEgZ2VuZXJhbCBmaXggZm9yIGlzc3VlcyBjb21lcyBmcm9tIFNSSU9WIE1D
+QlAsIGJ1dCB0aGVyZSBpcyBzdGlsbCBVTUQgc2lkZSBpc3N1ZXMgbm90IHJlc292bHZlZCB5ZXQs
+IHNvIHRoaXMgcGF0Y2ggY2Fubm90IGZpeCBhbGwgd29ybGQgc3dpdGNoIGJ1Zy4NCj4NCj4gU2ln
+bmVkLW9mZi1ieTogTW9uayBMaXUgPE1vbmsuTGl1QGFtZC5jb20+DQo+IC0tLQ0KPiAgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zZG1hLmMgfCAzICsrLQ0KPiAgIGRyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5jICAgfCA4ICsrKystLS0tDQo+ICAgMiBmaWxl
+cyBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pDQo+DQo+IGRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2RtYS5jDQo+IGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3NkbWEuYw0KPiBpbmRleCBhMmVlMzBiLi43ODU0
+YzA1IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc2Rt
+YS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zZG1hLmMNCj4g
+QEAgLTcwLDcgKzcwLDggQEAgdWludDY0X3QgYW1kZ3B1X3NkbWFfZ2V0X2NzYV9tY19hZGRyKHN0
+cnVjdCBhbWRncHVfcmluZyAqcmluZywNCj4gICAJdWludDMyX3QgaW5kZXggPSAwOw0KPiAgIAlp
+bnQgcjsNCj4gICANCj4gLQlpZiAodm1pZCA9PSAwIHx8ICFhbWRncHVfbWNicCkNCj4gKwkvKiBk
+b24ndCBlbmFibGUgT1MgcHJlZW1wdGlvbiBvbiBTRE1BIHVuZGVyIFNSSU9WICovDQo+ICsJaWYg
+KGFtZGdwdV9zcmlvdl92ZihhZGV2KSB8fCB2bWlkID09IDAgfHwgIWFtZGdwdV9tY2JwKQ0KPiAg
+IAkJcmV0dXJuIDA7DQo+ICAgDQo+ICAgCXIgPSBhbWRncHVfc2RtYV9nZXRfaW5kZXhfZnJvbV9y
+aW5nKHJpbmcsICZpbmRleCk7IGRpZmYgLS1naXQgDQo+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvZ2Z4X3YxMF8wLmMNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEw
+XzAuYw0KPiBpbmRleCA1ZTlmYjA5Li43YjYxNTgzIDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYw0KPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nZnhfdjEwXzAuYw0KPiBAQCAtNDQxMyw3ICs0NDEzLDcgQEAgc3RhdGljIHZvaWQg
+Z2Z4X3YxMF8wX3JpbmdfZW1pdF9pYl9nZngoc3RydWN0IA0KPiBhbWRncHVfcmluZyAqcmluZywN
+Cj4gICANCj4gICAJY29udHJvbCB8PSBpYi0+bGVuZ3RoX2R3IHwgKHZtaWQgPDwgMjQpOw0KPiAg
+IA0KPiAtCWlmIChhbWRncHVfbWNicCAmJiAoaWItPmZsYWdzICYgQU1ER1BVX0lCX0ZMQUdfUFJF
+RU1QVCkpIHsNCj4gKwlpZiAoKGFtZGdwdV9zcmlvdl92ZihyaW5nLT5hZGV2KSB8fCBhbWRncHVf
+bWNicCkgJiYgKGliLT5mbGFncyAmDQo+ICtBTURHUFVfSUJfRkxBR19QUkVFTVBUKSkgew0KPiAg
+IAkJY29udHJvbCB8PSBJTkRJUkVDVF9CVUZGRVJfUFJFX0VOQigxKTsNCj4gICANCj4gICAJCWlm
+IChmbGFncyAmIEFNREdQVV9JQl9QUkVFTVBURUQpDQo+IEBAIC00NDIxLDcgKzQ0MjEsNyBAQCBz
+dGF0aWMgdm9pZCBnZnhfdjEwXzBfcmluZ19lbWl0X2liX2dmeChzdHJ1Y3QgDQo+IGFtZGdwdV9y
+aW5nICpyaW5nLA0KPiAgIA0KPiAgIAkJaWYgKCEoaWItPmZsYWdzICYgQU1ER1BVX0lCX0ZMQUdf
+Q0UpKQ0KPiAgIAkJCWdmeF92MTBfMF9yaW5nX2VtaXRfZGVfbWV0YShyaW5nLA0KPiAtCQkJCSAg
+ICBmbGFncyAmIEFNREdQVV9JQl9QUkVFTVBURUQgPyB0cnVlIDogZmFsc2UpOw0KPiArCQkJCSAg
+ICAoIWFtZGdwdV9zcmlvdl92ZihyaW5nLT5hZGV2KSAmJiBmbGFncyAmIEFNREdQVV9JQl9QUkVF
+TVBURUQpID8NCj4gK3RydWUgOiBmYWxzZSk7DQo+ICAgCX0NCj4gICANCj4gICAJYW1kZ3B1X3Jp
+bmdfd3JpdGUocmluZywgaGVhZGVyKTsNCj4gQEAgLTQ1NjksOSArNDU2OSw5IEBAIHN0YXRpYyB2
+b2lkIGdmeF92MTBfMF9yaW5nX2VtaXRfY250eGNudGwoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5n
+LCAgew0KPiAgIAl1aW50MzJfdCBkdzIgPSAwOw0KPiAgIA0KPiAtCWlmIChhbWRncHVfbWNicCkN
+Cj4gKwlpZiAoYW1kZ3B1X21jYnAgfHwgYW1kZ3B1X3NyaW92X3ZmKHJpbmctPmFkZXYpKQ0KPiAg
+IAkJZ2Z4X3YxMF8wX3JpbmdfZW1pdF9jZV9tZXRhKHJpbmcsDQo+IC0JCQkJICAgIGZsYWdzICYg
+QU1ER1BVX0lCX1BSRUVNUFRFRCA/IHRydWUgOiBmYWxzZSk7DQo+ICsJCQkJICAgICghYW1kZ3B1
+X3NyaW92X3ZmKHJpbmctPmFkZXYpICYmIGZsYWdzICYgQU1ER1BVX0lCX1BSRUVNUFRFRCkgPw0K
+PiArdHJ1ZSA6IGZhbHNlKTsNCj4gICANCj4gICAJZHcyIHw9IDB4ODAwMDAwMDA7IC8qIHNldCBs
+b2FkX2VuYWJsZSBvdGhlcndpc2UgdGhpcyBwYWNrYWdlIGlzIGp1c3QgTk9QcyAqLw0KPiAgIAlp
+ZiAoZmxhZ3MgJiBBTURHUFVfSEFWRV9DVFhfU1dJVENIKSB7DQo+IC0tDQo+IDIuNy40DQo+DQo+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fDQo+IGFtZC1n
+ZnggbWFpbGluZyBsaXN0DQo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQo+IGh0dHBz
+Oi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUy
+RiUyRmxpc3QNCj4gcy5mcmVlZGVza3RvcC5vcmclMkZtYWlsbWFuJTJGbGlzdGluZm8lMkZhbWQt
+Z2Z4JmFtcDtkYXRhPTAyJTdDMDElN0NNbw0KPiBuay5MaXUlNDBhbWQuY29tJTdDODZhZTZiMzk2
+YWJlNDBiYTE3OTYwOGQ3YjQ2ZmFjZjMlN0MzZGQ4OTYxZmU0ODg0ZTYwDQo+IDhlMTFhODJkOTk0
+ZTE4M2QlN0MwJTdDMCU3QzYzNzE3NjI2NDA0OTAxODQxNCZhbXA7c2RhdGE9TFl3eEJtU3lmbUgz
+ZXANCj4gdVl1T1ExcGRwMUlMNlFsVEEzMGk4QnkyN2lEaGclM0QmYW1wO3Jlc2VydmVkPTANCj4g
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdm
+eCBtYWlsaW5nIGxpc3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6
+Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJG
+JTJGbGlzdA0KPiBzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1n
+ZngmYW1wO2RhdGE9MDIlN0MwMSU3Q01vDQo+IG5rLkxpdSU0MGFtZC5jb20lN0M4NmFlNmIzOTZh
+YmU0MGJhMTc5NjA4ZDdiNDZmYWNmMyU3QzNkZDg5NjFmZTQ4ODRlNjANCj4gOGUxMWE4MmQ5OTRl
+MTgzZCU3QzAlN0MwJTdDNjM3MTc2MjY0MDQ5MDE4NDE0JmFtcDtzZGF0YT1MWXd4Qm1TeWZtSDNl
+cA0KPiB1WXVPUTFwZHAxSUw2UWxUQTMwaThCeTI3aURoZyUzRCZhbXA7cmVzZXJ2ZWQ9MA0KPiBf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXw0KPiBhbWQtZ2Z4
+IG1haWxpbmcgbGlzdA0KPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBodHRwczov
+L25hbTExLnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29tLz91cmw9aHR0cHMlM0ElMkYl
+MkZsaXN0DQo+IHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxpc3RpbmZvJTJGYW1kLWdm
+eCZhbXA7ZGF0YT0wMiU3QzAxJTdDTW8NCj4gbmsuTGl1JTQwYW1kLmNvbSU3Qzg2YWU2YjM5NmFi
+ZTQwYmExNzk2MDhkN2I0NmZhY2YzJTdDM2RkODk2MWZlNDg4NGU2MA0KPiA4ZTExYTgyZDk5NGUx
+ODNkJTdDMCU3QzAlN0M2MzcxNzYyNjQwNDkwMTg0MTQmYW1wO3NkYXRhPUxZd3hCbVN5Zm1IM2Vw
+DQo+IHVZdU9RMXBkcDFJTDZRbFRBMzBpOEJ5MjdpRGhnJTNEJmFtcDtyZXNlcnZlZD0wDQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
