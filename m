@@ -7,57 +7,57 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA40EC35657
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:03:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 049F2C35656
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:03:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ACB872067D
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:03:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CF4442067D
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:03:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="pKJPLR1z"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ACB872067D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="UdDIUq9h"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CF4442067D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 475636F497;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76E876F499;
 	Fri, 21 Feb 2020 16:03:52 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
  (mail-dm6nam11on20614.outbound.protection.outlook.com
  [IPv6:2a01:111:f400:7eaa::614])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD5956F497
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:03:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B108D6F497
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:03:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=njzoW6+BwFszrfM9XlWECYcx+XGlAiz+jxcAn9ZMTThvxE3eVjt+xxEecdBGnKCakEv/xiXcEnOVMA/pQMqAVSoTdk4FnyD8QwXHRNh8Egbd1ZEcrzzq73s29V0bCtIECwJy6uEiaOoMAc0pWRYjBLjXYXYvQrqEyTWd9doDiLTB5TF4mremwKfQ8VwRQ6mtc8Da1cyrMByswvM70tjhvmu1n+G6TcaXtL6DyCeo4qcffWKEhZ4dDbxVPJwEJesNZ2eDiegBvQmFxaqJFUPQ8k1dniiMQ/IpBVR6Tj/Thrh6xiU587vEe8EM85SIs/r+ykEIkbAsTqdtxqKvk0v1eQ==
+ b=V5RUyf/0tOxmtk6zbYkmXX3q2W0b2FIxBefC0xRcA3ImYzTjN6hMV7iJXf5eIBXiSAxMM7dlwaoe3LhAiZilsSntk69ZvpLnlXuV741vygPEExCoEIMJ/6Aqz5pCB796dorK4lDHlEfZiGzKT2csVPn0nkWDsmRJFUExVj+kHaXqY3rkdlpVNd0yzdU+OHZWygI39FWWbJ7RxqUf9Q8fxle3713risLUtoyGz6ernT2U/xKngfeF6GsotxQiCixgkm0I96nQfJrUT4zF84J6k6CMnn2YhXkjxEavBU6K7GUOEv3mZD/BrNdAD6f374NgWzZT3p5B6IZxQaW203+BQQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EPPC7k5S1t/RnsohxaMP9IprA4u6azaannlD1KkhCP0=;
- b=kZlEm5QUG82UYj927dk4/mr7ZkuzEeiRa+Rtc7O/c6L4AYbaOm+E/d8YK0Ak6IkHpEyf1DUOxtrgbflF9i2hezGf2hT3nPn3nzDXMGRd/KtuLrmmrxe8J/q7A1xEgcfxb0QQKBlCF/XoshYSpZR6jySu8hV02T90nSCOAG8D+jqW0utyh8wIaxV9tP6s9W7NErIBfjXgpzdkXG/odJHlqTvr62xqWyGqTnRehpJtFrSqHc/S+LHFM+iJBFOJrrA30ZajNiScoXfuXuNN4BC/VHlVMXWeOFt+MGOdMMOIwmDlZMrbo8GTHg5lpR2hr55dlXSZfoQSEzep9ggll8939w==
+ bh=eZJMxi6nCqTWUPqlpyzjGN7zdNC35xtzeyRsqQ7+plM=;
+ b=B5Vdbj4EfMT60X2xDRj1GgTV2QOoYf6s0bjD2ozFXQh2hKjyc6oCO0Vva3ZpDw/G6R6KcDG+O+nFdwYNyEklBV0xhpvO4pwL94WXVGYe2KkZuOrhqTmZhwj95aDJ3KJHKdQuH7FybVA9nhc/8Xn5w4pelQg78ztFPPoF/pHPcV9IE7U2TGKLM2D0WWqPxF1RIkBpqAJXkQlL04ElS4DbvyC3Ab4Ds4gY3ocaMr8f9/vbr+yDBA5ciXv91H8ibI/eZLJ/QRuvIJWRQEA8Dl+HbTX4PnztCSgWLJuioLI+OOg0z+w/4XR4G/wFvl9UKKxvSkq5NN6mrgUsAubjabzNgA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EPPC7k5S1t/RnsohxaMP9IprA4u6azaannlD1KkhCP0=;
- b=pKJPLR1zHty+nzpXf0j0iU0wvfNHMo8kmmStLuiTTmx69l2dcWFJ9syluCFsTi2M/rdDjraqKXJUVviHpiAUHZMoEUPcmcHgfx5iA3/tmhBjIikAkV8LeuG5O9VtIrkUjUnn3aWkHCYy3SduEp4mMqJd+tdrVHX489QVMVePHn8=
+ bh=eZJMxi6nCqTWUPqlpyzjGN7zdNC35xtzeyRsqQ7+plM=;
+ b=UdDIUq9hiEG7nVOX/oAaLlqHwQxUCi3x0e5MZ9BQ5M0S3+sRRnULAJ8G8R0jPGzZfEcABwJ8qwB8gNqoY9ya3kVJOCsYRstF2Ic0vdrCcWu6uUxqKAnnU/iQuBg6Q/c8K/tvbxfZxsTepnkKxK4+XpPKOMUJAGmlHun2qbNydyY=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
  by MW2PR12MB2572.namprd12.prod.outlook.com (2603:10b6:907:6::27) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Fri, 21 Feb
- 2020 16:03:49 +0000
+ 2020 16:03:50 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::b8ff:6893:5820:420f]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::b8ff:6893:5820:420f%6]) with mapi id 15.20.2729.033; Fri, 21 Feb 2020
  16:03:49 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 03/35] drm/amd/display: Update TX masks correctly
-Date: Fri, 21 Feb 2020 11:02:52 -0500
-Message-Id: <20200221160324.2969975-4-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 04/35] drm/amd/display: dmub back door load
+Date: Fri, 21 Feb 2020 11:02:53 -0500
+Message-Id: <20200221160324.2969975-5-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
 References: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
@@ -69,16 +69,16 @@ Received: from atma2.amd.com (165.204.55.250) by
  YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
- Transport; Fri, 21 Feb 2020 16:03:44 +0000
+ Transport; Fri, 21 Feb 2020 16:03:45 +0000
 X-Mailer: git-send-email 2.25.0
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c13b2b19-8030-47cb-0b73-08d7b6e7a131
+X-MS-Office365-Filtering-Correlation-Id: 2d383527-5ca7-4ee3-9cfa-08d7b6e7a1ca
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2572:|MW2PR12MB2572:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB25727F0D887FF4B3D87310CF98120@MW2PR12MB2572.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:415;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB2572411E17A9504BC4F2936E98120@MW2PR12MB2572.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1303;
 X-Forefront-PRVS: 0320B28BE1
 X-Forefront-Antispam-Report: SFV:NSPM;
  SFS:(10009020)(4636009)(396003)(39860400002)(376002)(366004)(346002)(136003)(189003)(199004)(1076003)(5660300002)(36756003)(2906002)(8936002)(86362001)(8676002)(6486002)(81156014)(81166006)(7696005)(52116002)(4326008)(6666004)(316002)(186003)(26005)(6916009)(16526019)(54906003)(2616005)(66476007)(66556008)(66946007)(956004)(478600001);
@@ -89,15 +89,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /NYIICB62AeEmmJeBt0rLYzjd9Pxmcs1zgyORvwUuOn1tH9LxohA+bXDPOmrZj2p4kaXhGuuA54nxdsCS726omVFNP1spPsdBvA+vq+XVN+mrYODHOQCfzQgtKKGlxI2Nee4I2PmWs3654l7eJmhlllLDBWB0WblyQ1FFngeoatxfV1bmZdFhj3X8eNTDAMsNTpjo4RzqfVQEjQq5B0+tD3KUXKPR5EGZTd6NpC1t4pfA1DeZvy3pK/LnwUwmTvuBnTgq6TOKiRMCB+Zy9/XeRXxj948pK1YK0XFUrWISfofbwnjNlIuYC2t4nxeNiHXXw6vVGvIz/gzBmDorH5+h+9wHvbLp8UdFqBpsD0HZQwz7CyMiWF7+LobGfNiJ4dps+DP9JVG9Uo3y5+vfvPxRy+VDyumAlnZOdsKY5BnCUCaNVAAF67r9Faoz4DJr0QA
-X-MS-Exchange-AntiSpam-MessageData: 2lUHw7VWkzVUsPn7qjPqReVotj9r1uwBX2VDBuM0edtgx18eacJy6uGKCUOoQ0tSpVuC9iZep3+nO1ZCMUY7cuHWyjSTMEvT9hFhLIeCA7VInR/9xsy9hWmr5WYBeTdEGb+iKrZBgOMb7qh36S3zUA==
+X-Microsoft-Antispam-Message-Info: Flc1Kr+78P7C07Q/Z/cX68DM9kzzZVXEluLVKaiKwTUFakQZaQ2evfSGorM8zB1Yt0Z9vT1SgC9re1jWZI/rXDZc9hLbmsQLXel3X7j7jmvz+GWZ0nQgaaCXnWe0lKfYoiJU4O0pW/wk8H9e5C17eviHZ9TRHCYkqy/EG5DWGlMmZQ/8AMfLXSHmwDpkIX6XNQSLwtR4RNxL7B4eSfflBZ8xklg++vX8tqf+w5LHxfxLVoHOUJ48TtzsyFuW4DSl5MmIQyG3d8dsWZP+erLVNzY0czk6b9calSnnn351m4+ERnVvLPyMw3x6zDdjeSiGsH9FTWfdlbBBZ76hX5pBfH+XT/oxxF0WAccjIspBm7xVs57EJLnTTMXT1gEhws4FWggTiSDvIs/HbjFrewb+8yeJvxkcJLAuw7cjipPNKjkeKXSSSJ18p+EWCNlxaLPo
+X-MS-Exchange-AntiSpam-MessageData: Sq7AoYGyqQlgwRQn/l48SDlrgKJn/whkWW7L88oqSuBHw3mM7mxMT9sV9eWsRpqZtopJrFbiuxCf8Z981Z0PFouRWEg+yBSjHKN0/DHywmd/JKtSu5Ba6KLtSAe4g8paPc+TOkVkM4D16P+nA8zCEw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c13b2b19-8030-47cb-0b73-08d7b6e7a131
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:03:45.6509 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d383527-5ca7-4ee3-9cfa-08d7b6e7a1ca
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:03:46.6664 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sF7jA+gehYH8XWhg6ou8vdhSJH3Xf2V53VpVmwZIav99rpPxTpjHaeg4ae3szsWyMKWlD1mN+qnrUZInW6pQ6A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: QG2Xz6HD3XpJCn2arAcVzv3tvcatwbaF/Hj5lJM0rAgAFfhaXQMc+6nwSYIXnFsY25WDyjwgHCpeCCct6K1X8w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2572
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,70 +111,51 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sunpeng.Li@amd.com, Harry Wentland <harry.wentland@amd.com>,
- Rodrigo.Siqueira@amd.com, Alvin Lee <alvin.lee2@amd.com>,
- Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com
+ Rodrigo.Siqueira@amd.com, Jerry Zuo <Jerry.Zuo@amd.com>,
+ Hersen Wu <hersenxs.wu@amd.com>, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <alvin.lee2@amd.com>
+From: Hersen Wu <hersenxs.wu@amd.com>
 
-[Why]
-Bugs occur when TX interrupt comes in when no USB-C on board.
-
-[How]
-Check PHY for USB-C before enabling TX interrupt in DMCU FW.
-
-Signed-off-by: Alvin Lee <alvin.lee2@amd.com>
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
+Signed-off-by: Jerry (Fangzhi) Zuo <Jerry.Zuo@amd.com>
+Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Acked-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
-index 30d953acd016..f0cebe721bcc 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
-@@ -378,6 +378,11 @@ static bool dcn10_dmcu_init(struct dmcu *dmcu)
- 	struct dce_dmcu *dmcu_dce = TO_DCE_DMCU(dmcu);
- 	const struct dc_config *config = &dmcu->ctx->dc->config;
- 	bool status = false;
-+	struct dc_context *ctx = dmcu->ctx;
-+	unsigned int i;
-+	//  5 4 3 2 1 0
-+	//  F E D C B A - bit 0 is A, bit 5 is F
-+	unsigned int tx_interrupt_mask = 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 0e7d75436d59..aeca0ada2484 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -823,6 +823,10 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
+ 	hw_params.fb_base = adev->gmc.fb_start;
+ 	hw_params.fb_offset = adev->gmc.aper_base;
  
- 	PERF_TRACE();
- 	/*  Definition of DC_DMCU_SCRATCH
-@@ -387,6 +392,15 @@ static bool dcn10_dmcu_init(struct dmcu *dmcu)
- 	 */
- 	dmcu->dmcu_state = REG_READ(DC_DMCU_SCRATCH);
- 
-+	for (i = 0; i < ctx->dc->link_count; i++) {
-+		if (ctx->dc->links[i]->link_enc->features.flags.bits.DP_IS_USB_C) {
-+			if (ctx->dc->links[i]->link_enc->transmitter >= TRANSMITTER_UNIPHY_A &&
-+					ctx->dc->links[i]->link_enc->transmitter <= TRANSMITTER_UNIPHY_F) {
-+				tx_interrupt_mask |= 1 << ctx->dc->links[i]->link_enc->transmitter;
-+			}
-+		}
-+	}
++	/* backdoor load firmware and trigger dmub running */
++	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP)
++		hw_params.load_inst_const = true;
 +
- 	switch (dmcu->dmcu_state) {
- 	case DMCU_UNLOADED:
- 		status = false;
-@@ -401,6 +415,8 @@ static bool dcn10_dmcu_init(struct dmcu *dmcu)
- 		/* Set backlight ramping stepsize */
- 		REG_WRITE(MASTER_COMM_DATA_REG2, abm_gain_stepsize);
+ 	if (dmcu)
+ 		hw_params.psp_version = dmcu->psp_version;
  
-+		REG_WRITE(MASTER_COMM_DATA_REG3, tx_interrupt_mask);
-+
- 		/* Set command to initialize microcontroller */
- 		REG_UPDATE(MASTER_COMM_CMD_REG, MASTER_COMM_CMD_REG_BYTE0,
- 			MCP_INIT_DMCU);
+@@ -1187,11 +1191,6 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
+ 		return 0;
+ 	}
+ 
+-	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
+-		DRM_WARN("Only PSP firmware loading is supported for DMUB\n");
+-		return 0;
+-	}
+-
+ 	hdr = (const struct dmcub_firmware_header_v1_0 *)adev->dm.dmub_fw->data;
+ 	adev->firmware.ucode[AMDGPU_UCODE_ID_DMCUB].ucode_id =
+ 		AMDGPU_UCODE_ID_DMCUB;
 -- 
 2.25.0
 
