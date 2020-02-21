@@ -7,57 +7,57 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 068A1C35646
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C0AA9C35658
 	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:03:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CFC852067D
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:03:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 93FB42067D
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:03:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="cKkbEAhA"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CFC852067D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kLiwXkzL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 93FB42067D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F9AF6F49D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9F6A6F49F;
 	Fri, 21 Feb 2020 16:03:55 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on20614.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::614])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCF236F498
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:03:51 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2055.outbound.protection.outlook.com [40.107.92.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CDA906F49B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:03:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Mbfl6en/50HVhbbJLvMjRJL39OWQxiuqAZO8vF85pmPdWJRLIVfZOtFDs7xmJl0zkCv8nfDQMjmAYPHN82NIp7+MM6oUE8fV+klayk0U2Ead01zmj94NqA5elrNbxBMhuyj0b76p3tiPXmzMyliKm/DahbnfF4/EW/Q8NbGprZgFUD/ao5LsiSw3r44wkUOTwBApEL44xojRRyb808CA3yCk78d3zFn/6rSDkzopYaJ1vVm3RLK45d6z1QoEVoFFWuitBdFfuCvdXmK2euzUy0F+3eE4PV4Q/nmEBwjqe0dnEk23EI0iPmUgihq7znZOuGbTp7G/UL/gjbjiJJuZ6w==
+ b=OFqbxgOxdtDH8f+0ckFNs6p0kuRzilm3eQE9KAgS0ZGQl5TZFcnkEwLR1x8/sVyTEWud1UBnj2a0VhqKW99riWTOhahSu/ZFbXXOHfxtlxHmmAkaaCOdAiwO+M5sMDKKeWyvMXcHS62OPGWzIJc4eU6ihIOBLNf6/E+9k6+YUTB/R078mUrrIP+3I1mTYEYqwEF7E5JdwjbxWv0dNBBSoDu8e6IL3h9G3zCRtZxqgBsjxe/57JeejWCEIQo5FCmlsiFWooqXi7lAofX9Mlu2YHfb6N7e1slcuVa1KN1FDtK9dxBPb4ld5T5h6xZ6RLyi7ICg/NUHPeWZi5MGV9714A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vzj3L67Jl8o7cYey7Hc1Ae5zUksASiIFx3ZjCDZLeLw=;
- b=GsSmvLssDvVR7KljWhnDUn5vf5DWn0iUKoHGd9njNpeKCJsrrt6CuPNZ5tpnCno/E0Oe8rpwqBKrXkYvNpz/jE6csAWvQ9ZEVFdOwqE2uNXnl7jndeRGhO3jmaAV7k5kCbo6O5L25BMBR1oUBzz8y+Jyoogyq/rVsP+fmKLPVWkhpFiTOP2rNkcNakxKW278alIYWnxTTklpy0Bc5w7uUmJlsLpGNqTirh8IaPyQ8CkH5jk7UWNK4w2EkYvWNaXX1v8hkXeIfz9gx7fLE9kf/ahwpo7YLaFFqszM2u7Nnpr8KmjjmAYVWrVL5BeFj5eiZf78z7vYNKZ/DX25X2ax2g==
+ bh=vXhyaksnwoFVBNGg1i76dah1Fru4NwQBK6xmumqCpHg=;
+ b=mNYHRsGz1/F7pVq9h6z3xuO04KhNlpANuU5mlcGpbvOxjqci00WY9nUHvzt1DCi0wZtV323KOhQ/1Uzdb3Oum9ZQcIlKTTn+fKatyf2nQLtXqpY9pZFpbtHoTfBPXaJztzmxpDkyw8bWNP6TT3Rhl65hHBFfC8NhhRH1+6hwk+hNYH/UcCEq6lOte3bGBgOdYpQfPu4160J4SPrThWTYkUkLZxLzg+gwFKraX6Sid9iChfmfD6ldMRKf6lkYrv55LbfRfVFBlDleT+/0LFblGySAwK4huci9+S+VXyceFZVcddVsSZnAh5XVXUvspuvcX7UyKA8Jz6DfkeUG1hYDcA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Vzj3L67Jl8o7cYey7Hc1Ae5zUksASiIFx3ZjCDZLeLw=;
- b=cKkbEAhAY2HIAQLVLm1Rlxvuhr4hbkmgM2ZiXRhJ8dATVgeTra7pH6SZSk0A9bk5qI4QqYtazraTYSrFFCyiWCQ1svS67lYA6XPbOPWLUb66/naExuhANWUli2BClaZ2I6FBX4oMSRPgF4LGGn1TNB8HSW5lQq4rCVleZl/BbIg=
+ bh=vXhyaksnwoFVBNGg1i76dah1Fru4NwQBK6xmumqCpHg=;
+ b=kLiwXkzLvqodGWllrAwt4BFU3DbOILcoCfGo7oFRsD1B7nD17uTCoFa2pYdLmAUCIHDPGYlFl0yI6iq1dSicCS7cfjL71Ozd0TMAdewrXQaqWuq0ZBTYYhPhNLqWNgTDnGJ/YUUe1Qz1xi9xrLsBiumuiZHP0Sk2UBnOVZwFuLA=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
  by MW2PR12MB2572.namprd12.prod.outlook.com (2603:10b6:907:6::27) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Fri, 21 Feb
- 2020 16:03:50 +0000
+ 2020 16:03:53 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::b8ff:6893:5820:420f]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::b8ff:6893:5820:420f%6]) with mapi id 15.20.2729.033; Fri, 21 Feb 2020
- 16:03:50 +0000
+ 16:03:53 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 05/35] drm/amd/display: DMUB Firmware Load by PSP
-Date: Fri, 21 Feb 2020 11:02:54 -0500
-Message-Id: <20200221160324.2969975-6-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 08/35] drm/amd/display: Don't ask PSP to load DMCUB for
+ backdoor load
+Date: Fri, 21 Feb 2020 11:02:57 -0500
+Message-Id: <20200221160324.2969975-9-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
 References: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
@@ -69,19 +69,19 @@ Received: from atma2.amd.com (165.204.55.250) by
  YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
- Transport; Fri, 21 Feb 2020 16:03:46 +0000
+ Transport; Fri, 21 Feb 2020 16:03:50 +0000
 X-Mailer: git-send-email 2.25.0
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 981a4df4-0143-49d4-7c8b-08d7b6e7a264
+X-MS-Office365-Filtering-Correlation-Id: 5fe3172f-9d5f-4983-aabf-08d7b6e7a46c
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2572:|MW2PR12MB2572:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2572255DAEEEEE2890C55AF298120@MW2PR12MB2572.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1728;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB2572B5B91DB933B00FFD705598120@MW2PR12MB2572.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-Forefront-PRVS: 0320B28BE1
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(39860400002)(376002)(366004)(346002)(136003)(189003)(199004)(1076003)(5660300002)(36756003)(2906002)(8936002)(86362001)(8676002)(6486002)(81156014)(81166006)(7696005)(52116002)(4326008)(6666004)(316002)(186003)(26005)(6916009)(16526019)(54906003)(2616005)(66476007)(66556008)(66946007)(956004)(478600001);
+ SFS:(10009020)(4636009)(396003)(39860400002)(376002)(366004)(346002)(136003)(189003)(199004)(1076003)(5660300002)(36756003)(2906002)(8936002)(86362001)(8676002)(6486002)(81156014)(81166006)(7696005)(52116002)(4326008)(316002)(186003)(26005)(6916009)(16526019)(54906003)(2616005)(66476007)(66556008)(66946007)(956004)(478600001);
  DIR:OUT; SFP:1101; SCL:1; SRVR:MW2PR12MB2572;
  H:MW2PR12MB2524.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
@@ -89,15 +89,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JjIOt7Kk5DCCDOfLjxS5vxRIsiPs+DKxEt7u9icwA3p00jZWFEPsMDzzD+3LBzyEo9p6B4mNwyKvDBI6ah6L16m2mGFO8vkDnGRzNrCiV3Uk33UR35MX/wem3eP0Doo2VscWiBe5syYsHVjp5rzNAOWJphiVuhL82DjQG0qF7yh+ozzZRy66eirR3+/Gxpgt4YJ6/HTmuTRA7sARu+C5xXbFBgUtCD6RNUvk/p6UA83fjYX2vwL0XZqiOM3PX1IQ3hK71fP/9FNBK3nwANiqgd73+wKB246396RjWv2LImwAtZMZf9hCwgrNKQFWdQFL2lNC7/NTjrwIJs4nA4xOOeXWR4wO+TMVGdnPMxCBIjZX79iMyhVZ0UXdZjUzHlzD9lx/BjqnDXAi0nK1pfJDtcZNHrceM1NyqebVB2NtGxqVBROYYaX2cDhn+Ep4rbwQ
-X-MS-Exchange-AntiSpam-MessageData: emW1z1trNk8YuzNmqiRV4qyZbado4uRseyS4ak1xNMqrJXYhFU8Zg/V3ejGOz46TvztUeojq8c2z6ZZ+JiA0CTtYwa7fKNEkwmZbTrXJ1kJaKOJZTMDgXecD+RjBOIYkxddhf++e5lmmXJHTfke4/Q==
+X-Microsoft-Antispam-Message-Info: z1r4w/zcqSOMFU1NlRS62dIPs0aei4VP8H9zLntfVrknfbLD82CvbERL35bh5pONrCgT6mD2r2VsByZqtR4l07ol+tnnkN6d6rGpGBNty/k9rheaGmDLzme1PrfqRSgPHVy+umVakhXBpHwE9sFFnVdfVmt8ib0zFAUBNYfc3H491iadD/01dUey98f4OpchLTS9wytkul+mYrfqPLWHxFphxAsM0WKxqtOJS177GXPgztQOaxWoGAPaDbe0LD/DfuEho6anvxMWxnwoJc6FWWHmkyRE7PynJx7dLJA5e/wCCk5zzhOH2kXygALVDLt7aNDOcMeVhHqP69DbYqf41mxnX8h460rFSjrs7NRshP7HPwVOxJniigKh0Zb57QlnGowU5HudXJvtRnlr+JcXWQg7dn6BY0rN/CFp/TyWpK2ACjHPMv0SXDW2618UhcH9
+X-MS-Exchange-AntiSpam-MessageData: u9MEl2DWcPQU3gpQyfPasP9Rh1XxSTDTEePnRQw4OaS6zh8YHwzdF0few/5Q97bZXh5zNTyJzvN7PPcsSdakVUSTL09jK9B8nIrf4Jxsgdh0sdC8KZDzga/IAJpvYoAvu7KDoDNEcfuHwxotQIJE8w==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 981a4df4-0143-49d4-7c8b-08d7b6e7a264
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:03:47.6158 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5fe3172f-9d5f-4983-aabf-08d7b6e7a46c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:03:51.0808 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dZRbinOWEgmqEk5t4qII8xDmZroGgtGZJPtWX65Pd5gP5WX7hb7SRoIKNOHkyiQAN5CLhYQQa0f6Yo7/wM3Ilw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 17VEmXhn3e86+zyorWZePHOUkNuL75tbUqsEULvWy60CG9IkFgJOY+LkBkL11yM6hNo2jO7zZXDVWHJI3aI6rg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2572
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,51 +111,65 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sunpeng.Li@amd.com, Harry Wentland <harry.wentland@amd.com>,
- Rodrigo.Siqueira@amd.com, Jerry Zuo <Jerry.Zuo@amd.com>,
- Hersen Wu <hersenxs.wu@amd.com>, Bhawanpreet.Lakha@amd.com
+ Rodrigo.Siqueira@amd.com, Hersen Wu <hersenxs.wu@amd.com>,
+ Bhawanpreet.Lakha@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hersen Wu <hersenxs.wu@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
-Signed-off-by: Jerry (Fangzhi) Zuo <Jerry.Zuo@amd.com>
+[Why]
+If we're doing backdoor load then do it entirely ourselves without
+invoking any of the frontdoor path to avoid potential issues with
+outdated tOS.
+
+[How]
+Check the load type and don't pass it to base if we don't want it
+loaded.
+
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Acked-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 20 +++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index aeca0ada2484..8bb022c91b8b 100644
+index 8bb022c91b8b..933bbe8350bb 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -801,10 +801,20 @@ static int dm_dmub_hw_init(struct amdgpu_device *adev)
+@@ -1202,16 +1202,20 @@ static int dm_dmub_sw_init(struct amdgpu_device *adev)
+ 	}
  
- 	fw_bss_data_size = le32_to_cpu(hdr->bss_data_bytes);
+ 	hdr = (const struct dmcub_firmware_header_v1_0 *)adev->dm.dmub_fw->data;
+-	adev->firmware.ucode[AMDGPU_UCODE_ID_DMCUB].ucode_id =
+-		AMDGPU_UCODE_ID_DMCUB;
+-	adev->firmware.ucode[AMDGPU_UCODE_ID_DMCUB].fw = adev->dm.dmub_fw;
+-	adev->firmware.fw_size +=
+-		ALIGN(le32_to_cpu(hdr->inst_const_bytes), PAGE_SIZE);
  
--	memcpy(fb_info->fb[DMUB_WINDOW_0_INST_CONST].cpu_addr, fw_inst_const,
--	       fw_inst_const_size);
-+	/* if adev->firmware.load_type == AMDGPU_FW_LOAD_PSP,
-+	 * amdgpu_ucode_init_single_fw will load dmub firmware
-+	 * fw_inst_const part to cw0; otherwise, the firmware back door load
-+	 * will be done by dm_dmub_hw_init
-+	 */
-+	if (adev->firmware.load_type != AMDGPU_FW_LOAD_PSP) {
-+		memcpy(fb_info->fb[DMUB_WINDOW_0_INST_CONST].cpu_addr, fw_inst_const,
-+				fw_inst_const_size);
+-	adev->dm.dmcub_fw_version = le32_to_cpu(hdr->header.ucode_version);
++	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
++		adev->firmware.ucode[AMDGPU_UCODE_ID_DMCUB].ucode_id =
++			AMDGPU_UCODE_ID_DMCUB;
++		adev->firmware.ucode[AMDGPU_UCODE_ID_DMCUB].fw =
++			adev->dm.dmub_fw;
++		adev->firmware.fw_size +=
++			ALIGN(le32_to_cpu(hdr->inst_const_bytes), PAGE_SIZE);
+ 
+-	DRM_INFO("Loading DMUB firmware via PSP: version=0x%08X\n",
+-		 adev->dm.dmcub_fw_version);
++		DRM_INFO("Loading DMUB firmware via PSP: version=0x%08X\n",
++			 adev->dm.dmcub_fw_version);
 +	}
 +
- 	memcpy(fb_info->fb[DMUB_WINDOW_2_BSS_DATA].cpu_addr, fw_bss_data,
- 	       fw_bss_data_size);
-+
-+	/* Copy firmware bios info into FB memory. */
- 	memcpy(fb_info->fb[DMUB_WINDOW_3_VBIOS].cpu_addr, adev->bios,
- 	       adev->bios_size);
++	adev->dm.dmcub_fw_version = le32_to_cpu(hdr->header.ucode_version);
  
+ 	adev->dm.dmub_srv = kzalloc(sizeof(*adev->dm.dmub_srv), GFP_KERNEL);
+ 	dmub_srv = adev->dm.dmub_srv;
 -- 
 2.25.0
 
