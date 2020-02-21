@@ -7,57 +7,56 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 86923C35656
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8795CC35656
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5CFD42067D
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5D028222C4
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qItXcrHj"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5CFD42067D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ITErO4DP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D028222C4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2916F4AB;
-	Fri, 21 Feb 2020 16:04:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04DB16F4A6;
+	Fri, 21 Feb 2020 16:04:06 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2077.outbound.protection.outlook.com [40.107.92.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C9D86F4A5
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:04:00 +0000 (UTC)
+ (mail-bn7nam10on2058.outbound.protection.outlook.com [40.107.92.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AC7A6F4AA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:04:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QGdrhNUN6LneEOv1OFuwoZCt/ZVuAh1LQe9qgYD+7yQMXSPDfJFLwSpXfbJOcRhk3+AE3mjH3O49MUcFH5A1iYc105yesnXeR27BW/8H8iNEADlE4DYI87sj/7UM3Qvp8DEUpHlbMg/fsL8eTqhFyQ1LVSbXqPuEq+jas97flcToJ+dE9YKCDyENulZnCc0Wc1zJODgyQK9pfh2xe36FACRhjnFcG2nTGwdI9TuUSho4/d6US2ba3C1SSrrLiJbq616rS6MwIZdyumFw6SbAd9nqq3obqXWWOEpMiYm/Oh/feOPHxavTPgB76PVWcQmax90BZWcsqqnk4w5HGJb6Yg==
+ b=aI4Epyh6zczo7M5S4BP5KgA7VoOHlUCq3nNN0WjvAVq7XantSYd91f13ToYa9o/IQhJ5g6O551dCEUo8w0U5gKZGkCA13RllPGN7YU3TSPmR02owSQwlGB1qYC5vvqW3XTqRqdSZPE6gvHPrwbt10+gG/CJMapfl1Y7tqBadBqGrSXh3UC1wcB0okMAj9/t8L4qTD+FFiMjdG5ueYfg+1/7dY6NMTLwU311XHrpqim0XMzXJKEH2unxo7c2KVgz6YZpRuy+egDe+Dq0Beo29EDC4RqlGM+1EJhiPnSFKoHROMrJZEJ7MEj8HnMDT78wgS1rtQSxr5IKCFWmxar39ZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WQISLCRrCfzcKr65CBBpRk8oQTDzcDO+a9nWxTJiIBU=;
- b=NQTyj3V7MFTk7M3uWlb+8+KWFjhTnSugPGY8DLT6zPLRiOXEK01wSNLFEPA7hwSCU8SbpjAgZLlM7nckos7zwEWbqlgDuuhYV40qXWo1j78XDpxlQGZ9GNJ4PHrUqXb81ZyRa3vnru9R/hBA2V/x7/KmhVQZFhm3hSPJ/NvMB0ZgAVXtLX91ssaA4dNs5kkcS88GZ+FXNXmuyz909uxLLrdVYGXptA23+Jqkbj6eoDsnDxRkZWScD1ytnKzfKPe14HPNhstK+sdSgkq0kp8p1K8Kn17lt2GOKzbwWbey+Xb1uFRZDA76cigJ7mLbRxVX21xGKh7sdJ2jYk9DL7osBw==
+ bh=eOI97U2U1x95FFCR4KkBCnTcj1p20JLjYRTsoy3F/uk=;
+ b=ataz6uyYnE0PczZwVaY/zTqyWvbbeduLD0TwLKAcgfsU4q84P+P2YiPCp26P5sTxu5vxOuRaDvKvlYufOWzXtmuQ/bZIWbCfTIsBLEhwaaNoOC/e0ke92eugGDnSeqFFKLzM4ymb982A1gRvwcMInr2hZxwndBKkxBzh27vrBbyGIsuD15HpF5URGSKYn0BQDzZ/6ZwHbmXEPphT3ww0PxKFx2YlaflXqGL6Q68xlsAVUALNgraEyNovYL8FVxrn515Eure+M3nTkl0jLNOjkmlkmrS7e7iEWJPzFSSLWf2H9lEPZuVTpmk8I1hQrnzOBmBU9Texm1NAzZum2v6tJA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WQISLCRrCfzcKr65CBBpRk8oQTDzcDO+a9nWxTJiIBU=;
- b=qItXcrHjmos8LBfXnxYWU9t3vFNKX3jzHgb+sa4m4+FyWWjrT8VQEWBP8iQqQ1CP+d4bEjHxyIaFhn1qqzuNdZLa+1T3vTifujslcjOQgNjKdJ10YTDhTVqQsPscHzSbHvoB6/DggjxsaoQELspCz6bmqyWeg/G6+ls1KDnLhTU=
+ bh=eOI97U2U1x95FFCR4KkBCnTcj1p20JLjYRTsoy3F/uk=;
+ b=ITErO4DPqegq/TtUuYCWcQcFPp33P+kiXzQVzPY7KiZ5cLz3J0p928x1H7fKr5xQPEbDXWHE9+uv9TXA+LUE/SbXCMJRcMR2tiQ5wDvWDL5LbFGmy/C6u1b4Wvq2gtRkL37kTfrsAmBCXHKDodVefTUXFDCoKRGmDT866QYmhjE=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
  by MW2PR12MB2409.namprd12.prod.outlook.com (2603:10b6:907:9::26) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Fri, 21 Feb
- 2020 16:03:59 +0000
+ 2020 16:04:01 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::b8ff:6893:5820:420f]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::b8ff:6893:5820:420f%6]) with mapi id 15.20.2729.033; Fri, 21 Feb 2020
- 16:03:59 +0000
+ 16:04:01 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 16/35] drm/amd/display: make some rn_clk_mgr structs and funcs
- static
-Date: Fri, 21 Feb 2020 11:03:05 -0500
-Message-Id: <20200221160324.2969975-17-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 18/35] drm/amd/display: Add DMUB firmware state debugfs
+Date: Fri, 21 Feb 2020 11:03:07 -0500
+Message-Id: <20200221160324.2969975-19-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
 References: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
@@ -69,19 +68,19 @@ Received: from atma2.amd.com (165.204.55.250) by
  YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
- Transport; Fri, 21 Feb 2020 16:03:58 +0000
+ Transport; Fri, 21 Feb 2020 16:04:00 +0000
 X-Mailer: git-send-email 2.25.0
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 9f6f1a42-e69e-49f9-a4da-08d7b6e7a922
+X-MS-Office365-Filtering-Correlation-Id: 4dc3fa4f-2eca-47e9-acfa-08d7b6e7aa61
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2409:|MW2PR12MB2409:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB24091C0684801732268B558498120@MW2PR12MB2409.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3173;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB2409643E09DF0694A2D3A2C998120@MW2PR12MB2409.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
 X-Forefront-PRVS: 0320B28BE1
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(376002)(346002)(39860400002)(136003)(396003)(189003)(199004)(16526019)(36756003)(66946007)(66476007)(7696005)(66556008)(6916009)(26005)(52116002)(6486002)(1076003)(5660300002)(6666004)(4326008)(8936002)(81166006)(2906002)(2616005)(956004)(81156014)(54906003)(186003)(316002)(478600001)(8676002)(86362001);
+ SFS:(10009020)(4636009)(366004)(376002)(346002)(39860400002)(136003)(396003)(189003)(199004)(16526019)(36756003)(66946007)(66476007)(7696005)(66556008)(6916009)(26005)(52116002)(6486002)(1076003)(5660300002)(4326008)(8936002)(81166006)(2906002)(2616005)(956004)(81156014)(54906003)(186003)(316002)(478600001)(8676002)(86362001);
  DIR:OUT; SFP:1101; SCL:1; SRVR:MW2PR12MB2409;
  H:MW2PR12MB2524.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
@@ -89,15 +88,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: T88SQ8bnAZuXSJDd4p9hMHgdcagysVqSer5FQK6ICX07U29hGwixq8SJvWeh9xJX3t85sLJBcULmz3ezlvqx4JnVDfqOSjHjR9Dv96UzsB15yTHE61NyIeuJsGCWF3VGWU3v96hRmj+p5Hm8BwFY6q5MPu6UT0Zg/lKMLmUaRxp2XiiLrv04uPjb8lTGS1Eac2vGXy50wPP3TF/6z3Md9g9FDfMCdE+mKhaoGwelxleZx3YoT56NxooJtY209vmA+17bHzZi2MvRY66t7WQvJCxoVlXvp4v7xRV9GeT57QkGMNDaoDxzoXJqkKmk31WVXGpTcDn0Pex3kILlzx2KXFVZl2mReXux3ADm99Hu7tZWHWTdQcS6bGfaPqJlY5OGcgPaT7oSCHs1Ou0j2GsHNkyDGR7FmyeWqzRctdZv+0U4Fz91HQNK2oNJUENcJnut
-X-MS-Exchange-AntiSpam-MessageData: +qv7JX4DWyCcp2Wq6jIvR1j8XHtNSuagE0FSNvi/oJOLaYC8LIMSlBKPK7QcfeFubVoEvA58SUEjigYnYEymBKdZogZmG6MHcG5fW4XpuToUqoqgTdxN+8tTsm31OnO9rMspocac983nBImF3EcMrg==
+X-Microsoft-Antispam-Message-Info: PiUGsAVVW1fZPFW59p9U2zgzRScdZF7VFJcXxpSPTPj+hXbqY4ZXtkIPEQwi/VSqbl5DlYZPSr9eRc/szS4IrfjMR4kr6CQTnpBglq3e1rBZI+u0BkjHQpzg+CNiFHeTcI5z6irtR4sA+BNq2VmSQ0Nln2q4njCHlhNvH6IIyn69HY1mIETG6z6WdVtxM/z89MxMIMAizrnw93kTUm18SXZkcrDzq0J9NLSEuf5SW0xf6WRuCCvYlZR/DjVanCc59ZUixED729gAjMzxAL+KeIxNROVDidR1MlXmSmkHJRHhiQis8bnu2tHnbiqKhD0tKx9sDQyJeQApPSbf1/s1j5TKrQrUQuralEwaW2cqPpzkjMUV3FLQdHUKfTwGR5c9nEtNT8uajCBlcYmrGiqeP6nMYFrhv6RtoOwzV8zqAmdzEfL/hySxo8C5uYNK5MTR
+X-MS-Exchange-AntiSpam-MessageData: mDQTgD+0DSL90J6aEYyfXnwfsy5nYw0irkTF+mDkCqBw7w72TjORl8uKZwTPmc3hxcCN/RGluwoNpgiwOqZSoAK/kzPc0Ry8uNs8MSREHR4w1mcMhZqJy+4/jexvnkgYDlo6e1DhuQSyYqzIa30eWA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f6f1a42-e69e-49f9-a4da-08d7b6e7a922
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:03:58.9923 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4dc3fa4f-2eca-47e9-acfa-08d7b6e7aa61
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:04:01.0681 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: r1WXX7PFBNrir7c2SDvrG/ztdJUfG03PKYsp1GNl49Bh+4Myyp2q6eZ0ldsDThrXiA0BpJF3Zyf3gn12nypr1w==
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ae1e3jktCDvSxN4Ume6EqaqSVjb/EQO0A/9j67ZSfY0UtW90zegCTVm93UZtS0PNyd2XqyG9JOrJmavzr0f+EA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2409
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,72 +109,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com,
- Harry Wentland <harry.wentland@amd.com>, Rodrigo.Siqueira@amd.com,
- Bhawanpreet.Lakha@amd.com, Anthony Koo <Anthony.Koo@amd.com>
+Cc: Sunpeng.Li@amd.com, Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo.Siqueira@amd.com, Hersen Wu <hersenxs.wu@amd.com>,
+ Bhawanpreet.Lakha@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Anthony Koo <Anthony.Koo@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
 [Why]
-There are some structures and functions meant only to be used in the
-scope of that single rn_clk_mgr c file.
+Firmware state helps to debug sequence issues and hangs for DMCUB
+commands and we don't have an easy mechanism to dump it from the driver.
 
 [How]
-Make structs and funcs static if only meant to be used within
-rn_clk_mgr
+Add a debugfs entry to dump the current firmware state.
+Example usage:
 
-Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+cat /sys/kernel/debug/dri/0/amdgpu_dm_dmub_fw_state
+
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Acked-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 27 +++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-index 5d82ec1f1ce5..64cbd5462c79 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-@@ -405,7 +405,7 @@ void rn_init_clocks(struct clk_mgr *clk_mgr)
- 	clk_mgr->clks.pwr_state = DCN_PWR_STATE_UNKNOWN;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 6bc0bdc8835c..0461fecd68db 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -732,6 +732,29 @@ static int dmub_tracebuffer_show(struct seq_file *m, void *data)
+ 	return 0;
  }
  
--void build_watermark_ranges(struct clk_bw_params *bw_params, struct pp_smu_wm_range_sets *ranges)
-+static void build_watermark_ranges(struct clk_bw_params *bw_params, struct pp_smu_wm_range_sets *ranges)
- {
- 	int i, num_valid_sets;
++/**
++ * Returns the DMCUB firmware state contents.
++ * Example usage: cat /sys/kernel/debug/dri/0/amdgpu_dm_dmub_fw_state
++ */
++static int dmub_fw_state_show(struct seq_file *m, void *data)
++{
++	struct amdgpu_device *adev = m->private;
++	struct dmub_srv_fb_info *fb_info = adev->dm.dmub_fb_info;
++	uint8_t *state_base;
++	uint32_t state_size;
++
++	if (!fb_info)
++		return 0;
++
++	state_base = (uint8_t *)fb_info->fb[DMUB_WINDOW_6_FW_STATE].cpu_addr;
++	if (!state_base)
++		return 0;
++
++	state_size = fb_info->fb[DMUB_WINDOW_6_FW_STATE].size;
++
++	return seq_write(m, state_base, state_size);
++}
++
+ /*
+  * Returns the current and maximum output bpc for the connector.
+  * Example usage: cat /sys/kernel/debug/dri/0/DP-1/output_bpc
+@@ -937,6 +960,7 @@ static ssize_t dp_dpcd_data_read(struct file *f, char __user *buf,
+ 	return read_size - r;
+ }
  
-@@ -503,7 +503,7 @@ static struct clk_mgr_funcs dcn21_funcs = {
- 	.notify_wm_ranges = rn_notify_wm_ranges
- };
++DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
+ DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
+ DEFINE_SHOW_ATTRIBUTE(output_bpc);
+ DEFINE_SHOW_ATTRIBUTE(vrr_range);
+@@ -1252,5 +1276,8 @@ int dtn_debugfs_init(struct amdgpu_device *adev)
+ 	debugfs_create_file_unsafe("amdgpu_dm_dmub_tracebuffer", 0644, root,
+ 				   adev, &dmub_tracebuffer_fops);
  
--struct clk_bw_params rn_bw_params = {
-+static struct clk_bw_params rn_bw_params = {
- 	.vram_type = Ddr4MemType,
- 	.num_channels = 1,
- 	.clk_table = {
-@@ -543,7 +543,7 @@ struct clk_bw_params rn_bw_params = {
- 
- };
- 
--struct wm_table ddr4_wm_table = {
-+static struct wm_table ddr4_wm_table = {
- 	.entries = {
- 		{
- 			.wm_inst = WM_A,
-@@ -580,7 +580,7 @@ struct wm_table ddr4_wm_table = {
- 	}
- };
- 
--struct wm_table lpddr4_wm_table = {
-+static struct wm_table lpddr4_wm_table = {
- 	.entries = {
- 		{
- 			.wm_inst = WM_A,
++	debugfs_create_file_unsafe("amdgpu_dm_dmub_fw_state", 0644, root,
++				   adev, &dmub_fw_state_fops);
++
+ 	return 0;
+ }
 -- 
 2.25.0
 
