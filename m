@@ -2,66 +2,104 @@ Return-Path: <SRS0=HRUr=4J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC6CAC35646
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 18:59:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C7E6C35669
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 20:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 895DB2071E
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 18:59:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1A9C02072C
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 20:24:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TIFet7FQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 895DB2071E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="U5X+fufs"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A9C02072C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FDD36E46E;
-	Fri, 21 Feb 2020 18:59:34 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08C6D6E46E
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 18:59:33 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id a5so2855559wmb.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 10:59:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=gzZQMzbIVXGFvjaX6e6trWUhSJI0u59h2QsoXfUMV4M=;
- b=TIFet7FQl1cI4TjEli1ZMBFKXbwYKiFN4Q+B6yqBa3a0tB5xNJlIE+1yLw6KfzksHa
- aHMLCJWsKdZiom3fAv5mltEGRoTLEMx12vP6XIxGp8Psq7mNptzNbeb29MErai6oNl+l
- pd+bZ9gZUOSOGrAssprcPFg5f7leTCzx/O5Uf9jQUbzP9L6hZRAFYumW0whyUbXdzT0B
- UFy21Zw6xGC4X8k0mD6Nmr4yIGoljw2zorXutyCur1/iPrBHcXGTwW3v+UsidWkDqVX9
- Gdlp2HYKUokX2AJxuhcySbJ+R9YJC48QTEbgLqzf5+XUnlnzCJD9SpYYulVBI8JsZHhE
- KthQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=gzZQMzbIVXGFvjaX6e6trWUhSJI0u59h2QsoXfUMV4M=;
- b=kscvuR28kp2jk+8BIXNBtiNAPm0uE61TnEIKHLkRVZL2fBtnhkMVfH8B5dE+SCdbMA
- C//3yyB9VuaAC92b7C+Vfqlzcqy7LZbZx3sscSzyQXcScE3s4JzZIS2jmveE/pJYj1Wp
- 7G7uL1BZ3BMjg34txYkluuXR1XqTfG3cKEL0+xl2acQbBw57p0Lbm4Ba4pjTYB3omq2u
- Up/xkQTI100JBYQ6i9Of3rukJ2hJTFJk3nqenXU5FuYyZkjyvuQrtmRJq8EzSB5iwTq0
- +kn1L6V9mcLXTEl+tf/BQCpHfV6vch3b/CTSZ+oLywJFcgwhBcxpnqRmacz6cD4QAxF2
- 4CXg==
-X-Gm-Message-State: APjAAAVdMnvGE3WXSe2cnFbj6RUHaV4AJdNPxf5EC/fyEDVieQW3q/LK
- AMKk4Eps/N2V/hBNH2w3i8/vQzYUI/HvPZz9CnvVoHUE
-X-Google-Smtp-Source: APXvYqzYOaSOW0qwu0gTlVM6Rre7UG6k1hXrcVnE/IEASajn5GT7XWS0/opYgdjQdXG5ypg8Y+Mo/QJ6mcy77t8YbaY=
-X-Received: by 2002:a1c:f009:: with SMTP id a9mr5205674wmb.73.1582311571595;
- Fri, 21 Feb 2020 10:59:31 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C78B66F507;
+	Fri, 21 Feb 2020 20:24:28 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2078.outbound.protection.outlook.com [40.107.244.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BF8A6F507
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 20:24:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CtZukQtYARJJOKQaZ+u6iZ5muAhkeyyIrFpabOhbTeLBs+6zidPPapVM6GeYgQrFFQyMfU2YPgsOGZIxEG5vAF4eNzmOyDzufCc7hd8fDzIDM0WPRvi+2MUqMGqyL31pDlm4UgrVenFGVcGaseBZY2vIiJwVViuIsXc+XNPYCs6kGl0ozo4lJiq2rw5JpQ4p3Y7rcvoOwyN0kO+cyfCqE4DdxdN2MytcZBv0lcX8K018QmfmbEizdUom95FZ/r5/oeckbmXRQMmKQqeJ/OvHwRCUUm5T0N7J5QcveAwnOCgSS/Lv9kXuGjDnqTPdQRlba2UtguNAJB9hMAxN+KMVfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7Riexe4qJv1UPJrosFb+zunUcSKEWbUelzNvZ9yO0bQ=;
+ b=cRpRv6mGbY48tdXbeqzJ0vxhZ/2cNs2szPUFdBJgVpSdH7w376gd1esejmdyuzYXoXUtU2iFEpYJj+V9PGdNf9FHuPQ78gYBrIaaOOJ+0NzL7a1QXeCbEclI1BpGOy73xZaK/TzzpGwh8glb1IU4ZhkyOBdXjdFvldfunBb+ArpcJLcyG0/mql0pSQmiboEC3VSMNDfOPtC7O4yuZRhSsGV0ZA1lNYnrdrP1QMHbRLMOLdrq3D7ye2VwGZRVnh23K0s325LfGFwkD6VmbiTc0z4lFQSNsdYFnLXwjkn+DfIsR9WrwqAoVoHofgCUyebLTL4iJsNjkhKv1urI6kuZEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7Riexe4qJv1UPJrosFb+zunUcSKEWbUelzNvZ9yO0bQ=;
+ b=U5X+fufst3Dopa6xUdoxNLur06kQZza1CyvDe/oMIbfazLHdT3GZEmI42vmuicnT2rd8bsU1vyLhbMy9MXXBjnP4gbhVUqhMHJIKqxeZ0KKTgyacFRbOrVLJSOUSf9G9zci9oc4WL3YuFB0u4RD/1JF/tWIkRRKLzWJJiHqLBw8=
+Received: from MWHPR12CA0061.namprd12.prod.outlook.com (2603:10b6:300:103::23)
+ by DM6PR12MB3546.namprd12.prod.outlook.com (2603:10b6:5:18d::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2729.24; Fri, 21 Feb
+ 2020 20:24:26 +0000
+Received: from CO1NAM11FT032.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:103:cafe::a2) by MWHPR12CA0061.outlook.office365.com
+ (2603:10b6:300:103::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
+ Transport; Fri, 21 Feb 2020 20:24:26 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT032.mail.protection.outlook.com (10.13.174.218) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2750.18 via Frontend Transport; Fri, 21 Feb 2020 20:24:25 +0000
+Received: from Rohit-Dev.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 21 Feb
+ 2020 14:24:23 -0600
+From: Rohit Khaire <Rohit.Khaire@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] SWDEV-220585 - Navi12 L1 policy GC regs WAR #1
+Date: Fri, 21 Feb 2020 15:24:10 -0500
+Message-ID: <20200221202410.3876-1-Rohit.Khaire@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-References: <20200221184510.636829-1-tom.stdenis@amd.com>
-In-Reply-To: <20200221184510.636829-1-tom.stdenis@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 21 Feb 2020 13:59:20 -0500
-Message-ID: <CADnq5_Oi2w=Wy3m7e9v1wXd003Rbe2RYmwWSD3DOHz8Okbeyew@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/amdgpu: Add gfxoff debugfs entry
-To: Tom St Denis <tom.stdenis@amd.com>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: SATLEXMB01.amd.com (10.181.40.142) To SATLEXMB01.amd.com
+ (10.181.40.142)
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(136003)(396003)(39860400002)(346002)(376002)(428003)(199004)(189003)(16526019)(2906002)(86362001)(4326008)(26005)(316002)(186003)(70586007)(8936002)(81166006)(1076003)(6916009)(36756003)(70206006)(2616005)(7696005)(5660300002)(8676002)(478600001)(336012)(426003)(356004)(6666004)(81156014)(17413003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3546; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 5d1f1b77-aa04-40fd-3566-08d7b70c0b8f
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3546:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3546A44DA62BC79D7EE0F88787120@DM6PR12MB3546.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2331;
+X-Forefront-PRVS: 0320B28BE1
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cdT4B4XarbE7nMWUNUr4xUMUjiUK30T2MpwfSIF458xlWp7xQaELjFjZRHU88cIPTowP9m6AN67TZu+DZZGvI9VKyx7OW0n4cjk3GpKBFP2RRXYTnUEDsCqUmQ/frxqz/SF9CJC1AS13lRGXvPlGPGdrgc4QBp0TBaAb3w0YOA+1fhMMRhazRFzjMcV3iBcPSyVjTMcgGe4GD/u36bBA+45EOzuM1K46VOU55aOtI2k0vMljwbPeH1s3IMvLsnWiACTcg403d+A0dUeODMzrFk6XOJdPLpGcgHCKTR1LYI4P4SnR15I7ZPlPh9Q+YDvdfeEkKcyOqZU5sE6AdpQ5vBsi8q7ryvG70PwtKiT6CCWogCUlrB5iZ2+Ej5xO5OAv20svA8lpzYNLYyZghyJP637kMg8fQV8z9mHmsD+RI+dcjvwt+7nnj4TDpWqIWL2q/agxjFiVoK2wsxERiMgAN7OLda3REHTCKWB2pTofp1Com3URRbQ+uof6gjmv6HQ7
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 20:24:25.6040 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d1f1b77-aa04-40fd-3566-08d7b70c0b8f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3546
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,136 +111,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Rohit Khaire <Rohit.Khaire@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Feb 21, 2020 at 1:45 PM Tom St Denis <tom.stdenis@amd.com> wrote:
->
-> Write a 32-bit value of zero to disable GFXOFF and write a 32-bit
-> value of non-zero to enable GFXOFF.
->
-> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 56 +++++++++++++++++++++
->  1 file changed, 56 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 7379910790c9..3bb74056b9d2 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -842,6 +842,55 @@ static ssize_t amdgpu_debugfs_gpr_read(struct file *f, char __user *buf,
->         return result;
->  }
->
-> +/**
-> + * amdgpu_debugfs_regs_gfxoff_write - Enable/disable GFXOFF
-> + *
-> + * @f: open file handle
-> + * @buf: User buffer to write data from
-> + * @size: Number of bytes to write
-> + * @pos:  Offset to seek to
-> + *
-> + * Write a 32-bit zero to disable or a 32-bit non-zero to enable
-> + */
-> +static ssize_t amdgpu_debugfs_gfxoff_write(struct file *f, const char __user *buf,
-> +                                        size_t size, loff_t *pos)
-> +{
-> +       struct amdgpu_device *adev = file_inode(f)->i_private;
-> +       ssize_t result = 0;
-> +       int r;
-> +
-> +       if (size & 0x3 || *pos & 0x3)
-> +               return -EINVAL;
-> +
-> +       r = pm_runtime_get_sync(adev->ddev->dev);
+This change disables programming of GCVM_L2_CNTL* regs on VF.
 
-Not really directly related to this patch, but If you are using umr
-for debugging, we should probably disable runtime pm, otherwise the
-entire GPU may be powered down between accesses.  There is already an
-interface to do that via the core kernel power subsystem in sysfs.
-E.g.,
-/sys/class/drm/card0/device/power/control
-/sys/class/drm/card0/device/power/runtime_status
-Something else to look at for umr.
+Signed-off-by: Rohit Khaire <Rohit.Khaire@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-We don't store the state for when we dynamically turn it off like this
-so if we get a GPU reset or a power management event (runtime pm or
-S3), GFXOFF will be re-enabled at that point.  This is just for
-debugging though so:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
+index b70c7b483c24..e0654a216ab5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
+@@ -135,6 +135,10 @@ static void gfxhub_v2_0_init_cache_regs(struct amdgpu_device *adev)
+ {
+ 	uint32_t tmp;
+ 
++	/* These regs are not accessible for VF, PF will program these in SRIOV */
++	if (amdgpu_sriov_vf(adev))
++		return;
++
+ 	/* Setup L2 cache */
+ 	tmp = RREG32_SOC15(GC, 0, mmGCVM_L2_CNTL);
+ 	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL, ENABLE_L2_CACHE, 1);
+@@ -298,9 +302,11 @@ void gfxhub_v2_0_gart_disable(struct amdgpu_device *adev)
+ 			    ENABLE_ADVANCED_DRIVER_MODEL, 0);
+ 	WREG32_SOC15(GC, 0, mmGCMC_VM_MX_L1_TLB_CNTL, tmp);
+ 
+-	/* Setup L2 cache */
+-	WREG32_FIELD15(GC, 0, GCVM_L2_CNTL, ENABLE_L2_CACHE, 0);
+-	WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL3, 0);
++	if (!amdgpu_sriov_vf(adev)) {
++		/* Setup L2 cache */
++		WREG32_FIELD15(GC, 0, GCVM_L2_CNTL, ENABLE_L2_CACHE, 0);
++		WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL3, 0);
++	}
+ }
+ 
+ /**
+-- 
+2.17.1
 
-Alex
-
-
-> +       if (r < 0)
-> +               return r;
-> +
-> +       while (size) {
-> +               uint32_t value;
-> +
-> +               r = get_user(value, (uint32_t *)buf);
-> +               if (r) {
-> +                       pm_runtime_mark_last_busy(adev->ddev->dev);
-> +                       pm_runtime_put_autosuspend(adev->ddev->dev);
-> +                       return r;
-> +               }
-> +
-> +               amdgpu_gfx_off_ctrl(adev, value ? true : false);
-> +
-> +               result += 4;
-> +               buf += 4;
-> +               *pos += 4;
-> +               size -= 4;
-> +       }
-> +
-> +       pm_runtime_mark_last_busy(adev->ddev->dev);
-> +       pm_runtime_put_autosuspend(adev->ddev->dev);
-> +
-> +       return result;
-> +}
-> +
-> +
->  static const struct file_operations amdgpu_debugfs_regs_fops = {
->         .owner = THIS_MODULE,
->         .read = amdgpu_debugfs_regs_read,
-> @@ -890,6 +939,11 @@ static const struct file_operations amdgpu_debugfs_gpr_fops = {
->         .llseek = default_llseek
->  };
->
-> +static const struct file_operations amdgpu_debugfs_gfxoff_fops = {
-> +       .owner = THIS_MODULE,
-> +       .write = amdgpu_debugfs_gfxoff_write,
-> +};
-> +
->  static const struct file_operations *debugfs_regs[] = {
->         &amdgpu_debugfs_regs_fops,
->         &amdgpu_debugfs_regs_didt_fops,
-> @@ -899,6 +953,7 @@ static const struct file_operations *debugfs_regs[] = {
->         &amdgpu_debugfs_sensors_fops,
->         &amdgpu_debugfs_wave_fops,
->         &amdgpu_debugfs_gpr_fops,
-> +       &amdgpu_debugfs_gfxoff_fops,
->  };
->
->  static const char *debugfs_regs_names[] = {
-> @@ -910,6 +965,7 @@ static const char *debugfs_regs_names[] = {
->         "amdgpu_sensors",
->         "amdgpu_wave",
->         "amdgpu_gpr",
-> +       "amdgpu_gfxoff",
->  };
->
->  /**
-> --
-> 2.24.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
