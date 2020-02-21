@@ -2,116 +2,125 @@ Return-Path: <SRS0=HRUr=4J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,HTTPS_HTTP_MISMATCH,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	T_KAM_HTML_FONT_INVALID,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE44DC35646
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:10:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48694C35646
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:45:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9BAA92073A
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:10:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 135E224650
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:45:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="06OHCXjz"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9BAA92073A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="bzUcLTI4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 135E224650
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 518D86F4A1;
-	Fri, 21 Feb 2020 16:10:32 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2087.outbound.protection.outlook.com [40.107.223.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 409496F4A1
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:10:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C34036E03B;
+	Fri, 21 Feb 2020 16:45:37 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2068.outbound.protection.outlook.com [40.107.92.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB9156E03B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:45:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SXkYR7aEOYZHxCBEas1a7D9BEhwCfHurJV1Vcci8fBfJqIbg9i7SlA6qnFDfLqHVkBTYtjl6YcjEf1LkA1BJYf2PkuRFwwkjdz712y2Xy4ClD9T8u3QROUSg8Zx5eRWA6uwN5kDczgpPI+QSbLdedX05B5lIjGmwr0t6Wn4xKvxPh/Gbfv9Swh9PUTPDXBr6kttJ/vYgZgtdEA6Y+pdSahIVekzhmTY8KEcE5aorvh4Phb4AikfmnyS1wrI99XGiFaEJSJbsOFosrI2iAFjP6s3L65IWzJXc6oOoYK3M2wjQZpOtsNONcrTX+ItSVgUUq4ZOws5eICvwmbaayGHNMQ==
+ b=WpeYskvO544iEanGmhH8IvJ2+fSl/VD2W/sbzEHtpvRDzcrwIF3KfAVtIju4q/nOxjbolLJvBQt/NMFCjFzzyaCEslFmWdWjgDNhdke6xum6VDuWoGCP7SMRlGxc1RHgGv0vZT2lMguJcPaEfZulqG5Ab1UcJQ/rdGr2PsLZQZPHAtd1c2Xacw3ArmVWiSyiHwf6zSGkb3MGMZeYYemIbyIxhi2ZjUvgkeu60eyPDvs4aiKBN81bqGjAqzvNsn991CPZn3MhbD+UuOTg7uFqYjHCGnLBSEbUNJWzKa1XAsoGTyB3N8Holal1squWgF9oHdoZJkxO2KZI2QSzVwaV6Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pZPqAaT8sbzrvjPsGgjSL9HKNx+1tf7sskUNqbQ8emo=;
- b=KC+uvmY05rkbskyHmG1CDjFWhHeRgzRzp4QdYwy5yKHu8dn8oFg8SzEx7/l3I3dlks3VrRwd69SS3QzuaS29jnFr+hRW/R6j6UJZn6nQP1WV57AYZSJRwa2RDm4xEnRTd+ZwLn/fznX71TyWO7tKf2iZA0MmQRYoPRW8yUf1Jpdf/9zmCSxglMjo01vBAdE7bmml8ceugslH6QvcvcBgONZhiBN3EOxHafunaAn1A915iAlfPwgI2qKA93/9Y2n+YcxNVObvnzqC92aheksPMHSwY4LUdi9LeR2cbEAjLKVsnNMQfnM0Jv+cRin9fpKpxb3wTHVi0psUYf7J/tMldg==
+ bh=hEI5qUsffYM2IXruLJfA2BUiybnZVZjzSQlJQ+oqa0k=;
+ b=NjadAxZH67yhi/xh0eoU47/n5Ps0yaYPWqmYvh9Ras11W5KHCmRd+B+QM2yaIN1eKYFRYie2vmR5zzqZ+XKFvAEYFM8Vbem7uRRbR2wGV6ojEj2rmpYxucB3FKEZQ7s8TOFMiNqvnYhbcknwC9EsTsO6e/ylLXm39Pt6ESJhPI51l7CRWNzLOfN/+QnHn9oaITa2a3JnnN0P1nJb3orC5RZR5Zge3lggbB7Xj+OQBm8P2DTzDs35/rPvBUigMlAkYQ4bx1DUSxTkPoxHw/h3guenHku/rXSgJ1Xuj5/Ixiq3MW4tOOxt90NLwbEY7mbbLrKF6QQnOPJGz8ASWU8k5Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pZPqAaT8sbzrvjPsGgjSL9HKNx+1tf7sskUNqbQ8emo=;
- b=06OHCXjzhAgwY0dE+8apqVeWTeRK9PD+a2zPO5zm8YvbY+zmC9+6V1bHE/Ize9vWkPsVoiYyIwkfi1rrFxbtr0R1Jtqq3G/9S6gZ97dPow6wnjxHOzQy4aVkvthnX0IwK/LuILd4QEqz5Rp+3HD4vGQlow/UZVn5amv2oQsjEWU=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Christian.Koenig@amd.com; 
-Received: from DM5PR12MB1705.namprd12.prod.outlook.com (10.175.88.22) by
- DM5PR12MB1385.namprd12.prod.outlook.com (10.168.234.19) with Microsoft SMTP
+ bh=hEI5qUsffYM2IXruLJfA2BUiybnZVZjzSQlJQ+oqa0k=;
+ b=bzUcLTI4MJKWgQTECIdfhL6H6n1ljltJIC2BcDwCXvjUCJ+kZKHvscsXJ8YaW7hSO9lZcxJKiEUA8K8rcS5rHNYhOnssYypS9ksyyLGPALw5Dwch1je+XQh8u61FitnmcxI8K1N6hUcsVfykqA5FfvpenuUR5Iau9LCRua/LfsQ=
+Received: from MWHPR12MB1406.namprd12.prod.outlook.com (10.169.207.13) by
+ MWHPR12MB1407.namprd12.prod.outlook.com (10.169.207.137) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2729.22; Fri, 21 Feb 2020 16:10:25 +0000
-Received: from DM5PR12MB1705.namprd12.prod.outlook.com
- ([fe80::d40e:7339:8605:bc92]) by DM5PR12MB1705.namprd12.prod.outlook.com
- ([fe80::d40e:7339:8605:bc92%11]) with mapi id 15.20.2729.032; Fri, 21 Feb
- 2020 16:10:24 +0000
-Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1BBVENIXSBkcm0vYW1kL2FtZGdwdTogZGlzYWJs?=
- =?UTF-8?Q?e_GFXOFF_around_debugfs_access_to_MMIO?=
-To: Tom St Denis <tom.stdenis@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Huang, Ray" <Ray.Huang@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>
-References: <20200219150417.510884-1-tom.stdenis@amd.com>
- <CADnq5_PaR2a4UCwQFF6y1A1MCqaDAbPbFJZSzdBcTMkRnREw5g@mail.gmail.com>
- <6f93ee3f-4fba-575a-f8eb-0441b0efd4c8@amd.com>
- <20200221143359.GF28698@jenkins-Celadon-RN>
- <DM6PR12MB393101FB6C3250020720509A84120@DM6PR12MB3931.namprd12.prod.outlook.com>
- <20200221152321.GH28698@jenkins-Celadon-RN>
- <2e56e194-dceb-8315-987e-5825ad02a143@gmail.com>
- <CH2PR12MB391225487BEB1F7F94F305EBF7120@CH2PR12MB3912.namprd12.prod.outlook.com>
- <4baecca5-199b-414c-5865-410456bc2876@gmail.com>
- <CH2PR12MB39120922B0E459A5721F0A15F7120@CH2PR12MB3912.namprd12.prod.outlook.com>
- <d59d3310-329d-10a7-45c9-3bb85cb58644@gmail.com>
- <03fe7a97-a454-fd48-382e-1c62a2d8b4bc@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <c1dadd38-17a9-d2cf-cc90-00bfa18596a8@amd.com>
-Date: Fri, 21 Feb 2020 17:10:19 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <03fe7a97-a454-fd48-382e-1c62a2d8b4bc@amd.com>
+ 15.20.2729.29; Fri, 21 Feb 2020 16:45:31 +0000
+Received: from MWHPR12MB1406.namprd12.prod.outlook.com
+ ([fe80::b029:90fd:e576:2b68]) by MWHPR12MB1406.namprd12.prod.outlook.com
+ ([fe80::b029:90fd:e576:2b68%5]) with mapi id 15.20.2729.033; Fri, 21 Feb 2020
+ 16:45:31 +0000
+From: "Zhou, David(ChunMing)" <David1.Zhou@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, =?iso-8859-1?Q?Christian_K=F6nig?=
+ <ckoenig.leichtzumerken@gmail.com>, "He, Jacob" <Jacob.He@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Add a chunk ID for spm trace
+Thread-Topic: [PATCH] drm/amdgpu: Add a chunk ID for spm trace
+Thread-Index: AQHV5w2KvhLwlJGH906PcncqCOU+FqgiWh+AgAD9lNCAAIjCgIAASoGAgAAHrECAAUKdgIAAVIEAgAAAqICAABP1wA==
+Date: Fri, 21 Feb 2020 16:45:30 +0000
+Message-ID: <MWHPR12MB1406BBDF0726D961289869E8B4120@MWHPR12MB1406.namprd12.prod.outlook.com>
+References: <20200219101506.16779-1-jacob.he@amd.com>
+ <e2fea4f5-0eea-75b5-9cd7-68b603629d8d@gmail.com>
+ <MWHPR12MB1406B3418562F0692572C511B4130@MWHPR12MB1406.namprd12.prod.outlook.com>
+ <MN2PR12MB337663C5CCF3D53744FD377D9B130@MN2PR12MB3376.namprd12.prod.outlook.com>
+ <MN2PR12MB3376E699E0A85E8065D3E72D9B130@MN2PR12MB3376.namprd12.prod.outlook.com>
+ <MWHPR12MB140699AA6711A7E6876C56E5B4130@MWHPR12MB1406.namprd12.prod.outlook.com>
+ <e09919bf-f084-55ed-04a7-f52bec5b0be9@gmail.com>
+ <CH2PR12MB3912AE29A4EBF30B5826CCC2F7120@CH2PR12MB3912.namprd12.prod.outlook.com>
+ <1b15e97e-2a19-70dc-d9da-672e337e2d15@amd.com>
+In-Reply-To: <1b15e97e-2a19-70dc-d9da-672e337e2d15@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-ClientProxiedBy: FR2P281CA0021.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:14::8) To DM5PR12MB1705.namprd12.prod.outlook.com
- (2603:10b6:3:10c::22)
-MIME-Version: 1.0
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- FR2P281CA0021.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:14::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2750.18 via Frontend Transport; Fri, 21 Feb 2020 16:10:22 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 3e03ce20-e762-4e2a-a2ae-08d7b6e88ef3
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1385:|DM5PR12MB1385:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1385A1DAE0D69792ACA215EB83120@DM5PR12MB1385.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-Forefront-PRVS: 0320B28BE1
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10001)(10009020)(4636009)(396003)(376002)(39860400002)(136003)(366004)(346002)(199004)(189003)(54906003)(316002)(966005)(36756003)(2906002)(86362001)(4326008)(66574012)(2616005)(30864003)(110136005)(6666004)(5660300002)(53546011)(31686004)(31696002)(8936002)(224303003)(478600001)(81156014)(81166006)(6486002)(45080400002)(6636002)(66476007)(66946007)(186003)(16526019)(66556008)(52116002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1385;
- H:DM5PR12MB1705.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-02-21T16:45:26Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=2851395d-3f11-4e39-bd81-0000c4d0d1b0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-02-21T16:45:26Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: af917e76-9908-4cb6-a385-00007cb0c367
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=David1.Zhou@amd.com; 
+x-originating-ip: [240e:e0:8c36:100:a495:e4e4:dcd1:4804]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: b7a482e4-0812-4e90-2975-08d7b6ed76bc
+x-ms-traffictypediagnostic: MWHPR12MB1407:|MWHPR12MB1407:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MWHPR12MB14076C5F65ADEF70F4A17F93B4120@MWHPR12MB1407.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4714;
+x-forefront-prvs: 0320B28BE1
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(136003)(376002)(366004)(396003)(39860400002)(346002)(199004)(189003)(30864003)(110136005)(2906002)(966005)(66574012)(316002)(7696005)(478600001)(45080400002)(55016002)(86362001)(5660300002)(64756008)(186003)(66946007)(66556008)(53546011)(6506007)(66476007)(66446008)(81156014)(8936002)(52536014)(33656002)(9686003)(8676002)(81166006)(76116006)(71200400001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1407;
+ H:MWHPR12MB1406.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ksSxhF1n7HW+9bCoYSXHZ3xK4lOoG/+c4Cj6B2Cl7wx+kPSwEOCECGV/IgZLdkUAe8c5mFclYbbQFcxwxcNYHZyG05hZpOYbc/d9l1SFGQaPnRegb+SCpDHHK3+7Ic2o/BJ2mK5Bpys2bprhs+JUWH090Bt4xXsaijFnGpKvvZHICqOQVOIWRpKubWDXVT8rO1J5CPKYcJWyZzywuCxrQOVy22AizpyBcprLi7COsYM/JQI9wm1ABHJGKXvQRscexOBIoQtczdNRa5SmveErPpxuV/HFrmAnqKolQl8z8gFTWvvKkgJxlat6BglLnZXZSnJ0Qm22j9sbvN71U0y99kg3ORX12XkGAp12TwlxXtbR9+tvineYV0X4hYIQihU8nkfZmIWXS2pkUHRLGm9fvUdtVNkoQillWWnOwYSxbR6RP5cGD6iV3faKI98mZlc6rYxchrP+LIOuSNC6yFO+YYJzZLbHmyo6dkO/2JjDh5LKSl75a7iRIe/z+MozPUyH/sXrmdNiLxd9t8lDgGZ0eCRiccmvxQHzuVN9rsARXuxfjhfBxlQlKmyA+3gh231HMpWJXxw8oiiSbgdByvp5me1Sb6qICLTreWvVJjDQ7/ruDsxHkF5UNYC2spIBXsnu
-X-MS-Exchange-AntiSpam-MessageData: x3XfS4wlVBklKlLE7DbUJi5c+o0PC1gTubH0W9kTWe3cuVLFvYDF2SQjdU5jnOVyWJ7x7NtQ2Iqoe/BJP8y/OEvLV0P6Xcu0q1FayTvQfp+54tdetIGqExjcpbAAqDQmr0ioFjducF78X/ugTgnDkyEiibJQaWLBNws/YO3ZO4gJcCxdxlxfpUNUEKfkz7mxktST7DVY2+ptJ7aYWyhBgQ==
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: aK3eLQNYhSo1fHia0mljqUXrE2UMiZkqqCBlJlWGkvcPhfNF88T3ZYA8c6B/IiNVyy4TGlqIVmJZMQYY7RLl7/pLA8c9DaGR7bZqS6Nf2kGOVdU3Tlvr5tbk8Ndl/g67xCYqvIKQUMPbwcCWpOU4oWpkQAhqeQmLsjcEPqL647umkeULdrp6Bbwr2Qe7dvsWf0VIkECmd7+DFB69h/4AIQDVpdw2QB9+GaipZDiY6OI/ybQSsVHVK/BDL2pU+x12S9bt954I6H1FMItmoWMBFXJDeFoyNrB6sGyImt6rA/SMRWyHAAxkP3q8+EGLdteSh4BA4nX14Uwp0I8f0vkDhMDmBnYD4rDAt4Ksdco//js7+7NF/E1sn0prN0GwGT3pf/GU8yKByhNldI5QlD+elMVnT14Xrvhnv7aCkiw4UdpwGG/U0uOJNG72aJa+Xk5Y5QMFaqBp2J4CK4mzY/vvcLRMeo3of1X/bR7D/WB1IOsC38jlThz5WR813OnmwiwRYybOUTA+Ur98S+9iYgmT4w==
+x-ms-exchange-antispam-messagedata: HqvLA4sJMvmAZj8Jew6ZitOxpFw39F8FIF5jDAXwJJl4sgKWeUY638NDqTdCrGKESnMwNaI82CtAqP2COp2YFDzHXMBc2x47/eJklfNC78dxO9XeqreI3kSB+OMoPCCmamFl9DiFOiHUizjKIRk7VHVzn9QC9GyC7BTW1efj9XwTOH/f9NIvNP6LMLLszJRoDFgrsrE0GlpuEHUYtJIUOw==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e03ce20-e762-4e2a-a2ae-08d7b6e88ef3
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:10:24.5792 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dZ3rrDWNuSm+yWSl6vFtJ/OjhhUUvORa7Ce5OiXFnar5sA8dPPS0Zvg8qg2KrOzm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1385
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7a482e4-0812-4e90-2975-08d7b6ed76bc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Feb 2020 16:45:31.0110 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: RqqsgXTtGYLwn7s6HqciNLPiWFG01eK3qxFvr/G7SIi942GabxvPMvpuoX38EZ2h
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1407
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,206 +132,1250 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexdeucher@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0195615443=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PiBQcm9iYWJseSBzaW1wbGVyIGp1c3QgdG8gZG8gb24vb2ZmIGFuZCBsZXQgdXNlcnNwYWNlIGRl
-dGVybWluZSB0aW1pbmcgCj4gYnV0IG90aGVyIHRoYW4gdGhhdCB5YSBzb3VuZHMgZ29vZC4KCldv
-cmtzIGZvciBtZSBhcyBsb25nIGFzIHdlIG9ubHkgZXhwb3NlIGl0IHRocm91Z2ggZGVidWdmcyBm
-b3Igcm9vdC4gCk90aGVyd2lzZSB0aGVyZSBpcyBhbHdheXMgdGhlIHJpc2sgb2YgdXNlcnNwYWNl
-IGZvcmdldHRpbmcgdG8gdHVybiBpdCBvbiAKYWdhaW4uCgpDaHJpc3RpYW4uCgpBbSAyMS4wMi4y
-MCB1bSAxNzowNiBzY2hyaWViIFRvbSBTdCBEZW5pczoKPiBQcm9iYWJseSBzaW1wbGVyIGp1c3Qg
-dG8gZG8gb24vb2ZmIGFuZCBsZXQgdXNlcnNwYWNlIGRldGVybWluZSB0aW1pbmcgCj4gYnV0IG90
-aGVyIHRoYW4gdGhhdCB5YSBzb3VuZHMgZ29vZC4KPgo+Cj4gRm9yIHRoaW5ncyBsaWtlIHVtcidz
-IC0tdG9wIHdoaWNoIHJ1bnMgaW5kZWZpbml0ZWx5IGhhdmluZyBhIHRpbWVyIAo+IHdvdWxkbid0
-IHdvcmsuwqAgU2ltaWxhcmx5LCAtLXdhdmVzIGNhbiB0YWtlIGEgbG9uZyB0aW1lIGRlcGVuZGlu
-ZyBvbiAKPiBhY3Rpdml0eSBhbmQgdGhlIGFzaWMuCj4KPgo+IFRvbQo+Cj4KPgo+IE9uIDIwMjAt
-MDItMjEgMTE6MDQgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gT2sgaG93IGFib3V0
-IHRoaXM6Cj4+Cj4+IFdlIGFkZCBhIGRlYnVnZnMgZmlsZSB3aGljaCB3aGVuIHJlYWQgcmV0dXJu
-cyB0aGUgR0ZYT0ZGIHN0YXR1cyBhbmQgCj4+IHdoZW4gd3JpdHRlbiB3aXRoIGEgbnVtYmVyIGRp
-c2FibGVkIEdGWE9GRiBmb3IgTiBzZWNvbmRzIHdpdGggMCAKPj4gbWVhbmluZyBmb3JldmVyLgo+
-Pgo+PiBVbXIgZ2V0cyBhIG5ldyBjb21tYW5kbGluZSBvcHRpb24gdG8gd3JpdGUgdG8gdGhhdCBm
-aWxlIGJlZm9yZSAKPj4gcmVhZGluZyByZWdpc3RlcnMuCj4+Cj4+IFRoaXMgd2F5IHRoZSB1c2Vy
-IGNhbiBzdGlsbCBkaXNhYmxlIGl0IGlmIGl0IGNhdXNlcyBhbnkgcHJvYmxlbXMuIAo+PiBEb2Vz
-IHRoYXQgc291bmRzIGxpa2UgYSBwbGFuPwo+Pgo+PiBSZWdhcmRzLAo+PiBDaHJpc3RpYW4uCj4+
-Cj4+IEFtIDIxLjAyLjIwIHVtIDE2OjU2IHNjaHJpZWIgRGV1Y2hlciwgQWxleGFuZGVyOgo+Pj4K
-Pj4+IFtBTUQgUHVibGljIFVzZV0KPj4+Cj4+Pgo+Pj4gTm90IGF0IHRoZSBtb21lbnQuwqAgQnV0
-IHdlIGNvdWxkIGFkZCBhIGRlYnVnZnMgZmlsZSB3aGljaCBqdXN0IHdyYXBzIAo+Pj4gYW1kZ3B1
-X2dmeF9vZmZfY3RybCgpLiBUaGF0IHNhaWQsIG1heWJlIHdlIGp1c3QgYWRkIGEgZGVsYXkgaGVy
-ZSBvciAKPj4+IGEgdXNlIGEgdGltZXIgdG8gZGVsYXkgdHVybmluZyBnZnhvZmYgYmFjayBvbiBh
-Z2FpbiBzbyB0aGF0IHdlIAo+Pj4gYXJlbid0IHR1cm5pbmcgaXQgb24gYW5kIG9mZiBzbyByYXBp
-ZGx5Lgo+Pj4KPj4+IEFsZXgKPj4+Cj4+PiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gCj4+Pgo+Pj4gKkZyb206
-KiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4KPj4+
-ICpTZW50OiogRnJpZGF5LCBGZWJydWFyeSAyMSwgMjAyMCAxMDo0MyBBTQo+Pj4gKlRvOiogRGV1
-Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgSHVhbmcsIFJheSAK
-Pj4+IDxSYXkuSHVhbmdAYW1kLmNvbT47IExpdSwgTW9uayA8TW9uay5MaXVAYW1kLmNvbT4KPj4+
-ICpDYzoqIFN0RGVuaXMsIFRvbSA8VG9tLlN0RGVuaXNAYW1kLmNvbT47IEFsZXggRGV1Y2hlciAK
-Pj4+IDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+OyBhbWQtZ2Z4IGxpc3QgPGFtZC1nZnhAbGlzdHMu
-ZnJlZWRlc2t0b3Aub3JnPgo+Pj4gKlN1YmplY3Q6KiBSZTog5Zue5aSNOiBbUEFUQ0hdIGRybS9h
-bWQvYW1kZ3B1OiBkaXNhYmxlIEdGWE9GRiBhcm91bmQgCj4+PiBkZWJ1Z2ZzIGFjY2VzcyB0byBN
-TUlPCj4+PiBEbyB3ZSBoYXZlIGEgd2F5IHRvIGRpc2FibGUgR0ZYT0ZGIG9uIHRoZSBmbHk/Cj4+
-Pgo+Pj4gSWYgbm90IG1heWJlIGl0IHdvdWxkIGJlIGEgZ29vZCBpZGVhIHRvIGFkZCBhIHNlcGFy
-YXRlIGRlYnVnZnMgZmlsZSAKPj4+IHRvIGRvIHRoaXMuCj4+Pgo+Pj4gQ2hyaXN0aWFuLgo+Pj4K
-Pj4+IEFtIDIxLjAyLjIwIHVtIDE2OjM5IHNjaHJpZWIgRGV1Y2hlciwgQWxleGFuZGVyOgo+Pj4+
-Cj4+Pj4gW0FNRCBQdWJsaWMgVXNlXQo+Pj4+Cj4+Pj4KPj4+PiBJZiB3ZSBhcmUgdHJ5aW5nIHRv
-IGRlYnVnIGEgcmVwcm9kdWNpYmxlIGhhbmcsIHByb2JhYmx5IGJlc3QgdG8gCj4+Pj4ganVzdCB0
-byBkaXNhYmxlIGdmeG9mZiBiZWZvcmUgbWVzc2luZyB3aXRoIGl0IHRvIHJlbW92ZSB0aGF0IGFz
-IGEgCj4+Pj4gZmFjdG9yLsKgIE90aGVyd2lzZSwgdGhlIG1ldGhvZCBpbmNsdWRlZCBpbiB0aGlz
-IHBhdGNoIGlzIHRoZSBwcm9wZXIgCj4+Pj4gd2F5IHRvIGRpc2FibGUvZW5hYmxlIEdGWE9GRiBk
-eW5hbWljYWxseS4KPj4+Pgo+Pj4+IEFsZXgKPj4+Pgo+Pj4+IC0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAKPj4+
-Pgo+Pj4+ICpGcm9tOiogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2VzQGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZz4gCj4+Pj4gPG1haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-PiBvbiBiZWhhbGYgb2YgCj4+Pj4gQ2hyaXN0aWFuIEvDtm5pZyA8Y2tvZW5pZy5sZWljaHR6dW1l
-cmtlbkBnbWFpbC5jb20+IAo+Pj4+IDxtYWlsdG86Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFp
-bC5jb20+Cj4+Pj4gKlNlbnQ6KiBGcmlkYXksIEZlYnJ1YXJ5IDIxLCAyMDIwIDEwOjI3IEFNCj4+
-Pj4gKlRvOiogSHVhbmcsIFJheSA8UmF5Lkh1YW5nQGFtZC5jb20+IDxtYWlsdG86UmF5Lkh1YW5n
-QGFtZC5jb20+OyAKPj4+PiBMaXUsIE1vbmsgPE1vbmsuTGl1QGFtZC5jb20+IDxtYWlsdG86TW9u
-ay5MaXVAYW1kLmNvbT4KPj4+PiAqQ2M6KiBTdERlbmlzLCBUb20gPFRvbS5TdERlbmlzQGFtZC5j
-b20+IAo+Pj4+IDxtYWlsdG86VG9tLlN0RGVuaXNAYW1kLmNvbT47IEFsZXggRGV1Y2hlciA8YWxl
-eGRldWNoZXJAZ21haWwuY29tPiAKPj4+PiA8bWFpbHRvOmFsZXhkZXVjaGVyQGdtYWlsLmNvbT47
-IGFtZC1nZnggbGlzdCAKPj4+PiA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+IDxtYWls
-dG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+Cj4+Pj4gKlN1YmplY3Q6KiBSZTog5Zue
-5aSNOiBbUEFUQ0hdIGRybS9hbWQvYW1kZ3B1OiBkaXNhYmxlIEdGWE9GRiBhcm91bmQgCj4+Pj4g
-ZGVidWdmcyBhY2Nlc3MgdG8gTU1JTwo+Pj4+IEFtIDIxLjAyLjIwIHVtIDE2OjIzIHNjaHJpZWIg
-SHVhbmcgUnVpOgo+Pj4+ID4gT24gRnJpLCBGZWIgMjEsIDIwMjAgYXQgMTE6MTg6MDdQTSArMDgw
-MCwgTGl1LCBNb25rIHdyb3RlOgo+Pj4+ID4+IEJldHRlciBub3QgdXNlIEtJUSwgYmVjYXVzZSB3
-aGVuIHlvdSB1c2UgZGVidWdmcyB0byByZWFkIAo+Pj4+IHJlZ2lzdGVyIHlvdSB1c3VhbGx5IGhp
-dCBhIGhhbmcsIGFuZCBieSB0aGF0IGNhc2UgS0lRIHByb2JhYmx5IAo+Pj4+IGFscmVhZHkgZGll
-Cj4+Pj4gPiBJZiBDUCBpcyBidXN5LCB0aGUgZ2Z4IHNob3VsZCBiZSBpbiAib24iIHN0YXRlIGF0
-IHRoYXQgdGltZSwgd2UgCj4+Pj4gbmVlZG4ndCB1c2UgS0lRLgo+Pj4+Cj4+Pj4gWWVhaCwgYnV0
-IGhvdyBkbyB5b3UgZGV0ZWN0IHRoYXQ/IERvIHdlIGhhdmUgYSB3YXkgdG8gd2FrZSB1cCB0aGUg
-Q1AKPj4+PiB3aXRob3V0IGFza2luZyBwb3dlciBtYW5hZ2VtZW50IHRvIGRvIHNvPwo+Pj4+Cj4+
-Pj4gQ2F1c2UgdGhlIHJlZ2lzdGVyIGRlYnVnIGludGVyZmFjZSBpcyBtZWFudCB0byBiZSB1c2Vk
-IHdoZW4gdGhlIAo+Pj4+IEFTSUMgaXMKPj4+PiBjb21wbGV0ZWQgbG9ja2VkIHVwLiBTZW5kaW5n
-IG1lc3NhZ2VzIHRvIHRoZSBTTVUgaXMgbm90IHJlYWxseSAKPj4+PiBnb2luZyB0bwo+Pj4+IHdv
-cmsgaW4gdGhhdCBzaXR1YXRpb24uCj4+Pj4KPj4+PiBSZWdhcmRzLAo+Pj4+IENocmlzdGlhbi4K
-Pj4+Pgo+Pj4+ID4KPj4+PiA+IFRoYW5rcywKPj4+PiA+IFJheQo+Pj4+ID4KPj4+PiA+PiAtLS0t
-LemCruS7tuWOn+S7ti0tLS0tCj4+Pj4gPj4g5Y+R5Lu25Lq6OiBhbWQtZ2Z4IDxhbWQtZ2Z4LWJv
-dW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiAKPj4+PiA8bWFpbHRvOmFtZC1nZngtYm91bmNl
-c0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IOS7o+ihqCBIdWFuZyBSdWkKPj4+PiA+PiDlj5HpgIHm
-l7bpl7Q6IDIwMjDlubQy5pyIMjHml6UgMjI6MzQKPj4+PiA+PiDmlLbku7bkuro6IFN0RGVuaXMs
-IFRvbSA8VG9tLlN0RGVuaXNAYW1kLmNvbT4gCj4+Pj4gPG1haWx0bzpUb20uU3REZW5pc0BhbWQu
-Y29tPgo+Pj4+ID4+IOaKhOmAgTogQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+
-IAo+Pj4+IDxtYWlsdG86YWxleGRldWNoZXJAZ21haWwuY29tPjsgYW1kLWdmeCBsaXN0IAo+Pj4+
-IDxhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZz4KPj4+PiA+PiDkuLvpopg6IFJlOiBbUEFUQ0hdIGRybS9hbWQvYW1kZ3B1
-OiBkaXNhYmxlIEdGWE9GRiBhcm91bmQgZGVidWdmcyAKPj4+PiBhY2Nlc3MgdG8gTU1JTwo+Pj4+
-ID4+Cj4+Pj4gPj4gT24gV2VkLCBGZWIgMTksIDIwMjAgYXQgMTA6MDk6NDZBTSAtMDUwMCwgVG9t
-IFN0IERlbmlzIHdyb3RlOgo+Pj4+ID4+PiBJIGdvdCBzb21lIG1lc3NhZ2VzIGFmdGVyIGEgd2hp
-bGU6Cj4+Pj4gPj4+Cj4+Pj4gPj4+IFvCoCA3NDEuNzg4NTY0XSBGYWlsZWQgdG8gc2VuZCBNZXNz
-YWdlIDguCj4+Pj4gPj4+IFvCoCA3NDYuNjcxNTA5XSBGYWlsZWQgdG8gc2VuZCBNZXNzYWdlIDgu
-Cj4+Pj4gPj4+IFvCoCA3NDguNzQ5NjczXSBGYWlsZWQgdG8gc2VuZCBNZXNzYWdlIDJiLgo+Pj4+
-ID4+PiBbwqAgNzU5LjI0NTQxNF0gRmFpbGVkIHRvIHNlbmQgTWVzc2FnZSA3Lgo+Pj4+ID4+PiBb
-wqAgNzYzLjIxNjkwMl0gRmFpbGVkIHRvIHNlbmQgTWVzc2FnZSAyYS4KPj4+PiA+Pj4KPj4+PiA+
-Pj4gQXJlIHRoZXJlIGFueSBhZGRpdGlvbmFsIGxvY2tzIHRoYXQgc2hvdWxkIGJlIGhlbGQ/wqAg
-QmVjYXVzZSBzb21lCj4+Pj4gPj4+IGNvbW1hbmRzIGxpa2UgLS10b3Agb3IgLS13YXZlcyBjYW4g
-ZG8gYSBsb3Qgb2YgZGlzdGluY3QgcmVhZAo+Pj4+ID4+PiBvcGVyYXRpb25zIChjYXVzaW5nIGEg
-bG90IG9mIGVuYWJsZS9kaXNhYmxlIGNhbGxzKS4KPj4+PiA+Pj4KPj4+PiA+Pj4gSSdtIGdvaW5n
-IHRvIHNpdCBvbiB0aGlzIGEgYml0IHNpbmNlIEkgZG9uJ3QgdGhpbmsgdGhlIHBhdGNoIGlzIAo+
-Pj4+IHJlYWR5Cj4+Pj4gPj4+IGZvciBwdXNoaW5nIG91dC4KPj4+PiA+Pj4KPj4+PiA+PiBIb3cg
-YWJvdXQgdXNlIFJSRUczMl9LSVEgYW5kIFdSRUczMl9LSVE/Cj4+Pj4gPj4KPj4+PiA+PiBUaGFu
-a3MsCj4+Pj4gPj4gUmF5Cj4+Pj4gPj4KPj4+PiA+Pj4gVG9tCj4+Pj4gPj4+Cj4+Pj4gPj4+IE9u
-IDIwMjAtMDItMTkgMTA6MDcgYS5tLiwgQWxleCBEZXVjaGVyIHdyb3RlOgo+Pj4+ID4+Pj4gT24g
-V2VkLCBGZWIgMTksIDIwMjAgYXQgMTA6MDQgQU0gVG9tIFN0IERlbmlzIAo+Pj4+IDx0b20uc3Rk
-ZW5pc0BhbWQuY29tPiA8bWFpbHRvOnRvbS5zdGRlbmlzQGFtZC5jb20+IHdyb3RlOgo+Pj4+ID4+
-Pj4+IFNpZ25lZC1vZmYtYnk6IFRvbSBTdCBEZW5pcyA8dG9tLnN0ZGVuaXNAYW1kLmNvbT4gCj4+
-Pj4gPG1haWx0bzp0b20uc3RkZW5pc0BhbWQuY29tPgo+Pj4+ID4+Pj4gUGxlYXNlIGFkZCBhIHBh
-dGNoIGRlc2NyaXB0aW9uLsKgIFdpdGggdGhhdCBmaXhlZDoKPj4+PiA+Pj4+IFJldmlld2VkLWJ5
-OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+IAo+Pj4+IDxtYWlsdG86
-YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPj4+PiA+Pj4+Cj4+Pj4gPj4+Pj4gLS0tCj4+Pj4g
-Pj4+Pj4gZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RlYnVnZnMuYyB8IDMgKysr
-Cj4+Pj4gPj4+Pj7CoMKgwqAgMSBmaWxlIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKQo+Pj4+ID4+
-Pj4+Cj4+Pj4gPj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kZWJ1Z2ZzLmMKPj4+PiA+Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9kZWJ1Z2ZzLmMKPj4+PiA+Pj4+PiBpbmRleCA3Mzc5OTEwNzkwYzkuLjY2Zjc2MzMwMGM5
-NiAxMDA2NDQKPj4+PiA+Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfZGVidWdmcy5jCj4+Pj4gPj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
-YW1kZ3B1X2RlYnVnZnMuYwo+Pj4+ID4+Pj4+IEBAIC0xNjksNiArMTY5LDcgQEAgc3RhdGljIGlu
-dCAKPj4+PiBhbWRncHVfZGVidWdmc19wcm9jZXNzX3JlZ19vcChib29sIHJlYWQsIHN0cnVjdCBm
-aWxlICpmLAo+Pj4+ID4+Pj4+wqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHBtX3BnX2xvY2spCj4+
-Pj4gPj4+Pj4gbXV0ZXhfbG9jaygmYWRldi0+cG0ubXV0ZXgpOwo+Pj4+ID4+Pj4+Cj4+Pj4gPj4+
-Pj4gKyBhbWRncHVfZ2Z4X29mZl9jdHJsKGFkZXYsIGZhbHNlKTsKPj4+PiA+Pj4+PsKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHdoaWxlIChzaXplKSB7Cj4+Pj4gPj4+Pj7CoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgdWludDMyX3QgdmFsdWU7Cj4+Pj4gPj4+Pj4KPj4+PiA+Pj4+PiBA
-QCAtMTkyLDYgKzE5Myw4IEBAIHN0YXRpYyBpbnQgCj4+Pj4gYW1kZ3B1X2RlYnVnZnNfcHJvY2Vz
-c19yZWdfb3AoYm9vbCByZWFkLCBzdHJ1Y3QgZmlsZSAqZiwKPj4+PiA+Pj4+PsKgwqDCoMKgwqDC
-oMKgwqDCoMKgIH0KPj4+PiA+Pj4+Pgo+Pj4+ID4+Pj4+wqDCoMKgIGVuZDoKPj4+PiA+Pj4+PiAr
-IGFtZGdwdV9nZnhfb2ZmX2N0cmwoYWRldiwgdHJ1ZSk7Cj4+Pj4gPj4+Pj4gKwo+Pj4+ID4+Pj4+
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHVzZV9iYW5rKSB7Cj4+Pj4gPj4+Pj4gYW1kZ3B1X2dm
-eF9zZWxlY3Rfc2Vfc2goYWRldiwgMHhmZmZmZmZmZiwgMHhmZmZmZmZmZiwgCj4+Pj4gMHhmZmZm
-ZmZmZik7Cj4+Pj4gPj4+Pj4gbXV0ZXhfdW5sb2NrKCZhZGV2LT5ncmJtX2lkeF9tdXRleCk7Cj4+
-Pj4gPj4+Pj4gLS0KPj4+PiA+Pj4+PiAyLjI0LjEKPj4+PiA+Pj4+Pgo+Pj4+ID4+Pj4+IF9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+Pj4gPj4+Pj4gYW1k
-LWdmeCBtYWlsaW5nIGxpc3QKPj4+PiA+Pj4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-ZyAKPj4+PiA8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPgo+Pj4+ID4+Pj4+
-IAo+Pj4+IGh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3Vy
-bD1odHRwcyUzQSUyRiUyRgo+Pj4+ID4+Pj4+IAo+Pj4+IGxpc3RzLmZyZWVkZXNrdG9wLm9yZyUy
-Rm1haWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1nZngmYW1wO2RhdGE9MDIlNwo+Pj4+ID4+Pj4+IAo+
-Pj4+IEMwMSU3Q21vbmsubGl1JTQwYW1kLmNvbSU3Q2JhNDVlZmIyNmMwMjQwZWQwMzZmMDhkN2I2
-ZGIyMGFhJTdDM2RkOAo+Pj4+ID4+Pj4+IAo+Pj4+IDk2MWZlNDg4NGU2MDhlMTFhODJkOTk0ZTE4
-M2QlN0MwJTdDMCU3QzYzNzE3ODkyNDYwNTUyNDM3OCZhbXA7c2RhdAo+Pj4+ID4+Pj4+IAo+Pj4+
-IGE9JTJGeUhrdllVNVQlMkY0aUZ4UmV4c2clMkJJZG03c0R6eVhianpOcEhVR0NPN2g0ayUzRCZh
-bXA7cmVzZXJ2ZQo+Pj4+ID4+Pj4+IGQ9MAo+Pj4+ID4+PiBfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwo+Pj4+ID4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+
-Pj4+ID4+PiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyAKPj4+PiA8bWFpbHRvOmFtZC1n
-ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPgo+Pj4+ID4+PiAKPj4+PiBodHRwczovL25hbTExLnNh
-ZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29tLz91cmw9aHR0cHMlM0ElMkYlMkZsaXN0Cj4+
-Pj4gPj4+IAo+Pj4+IHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxpc3RpbmZvJTJGYW1k
-LWdmeCZhbXA7ZGF0YT0wMiU3QzAxJTdDbW8KPj4+PiA+Pj4gCj4+Pj4gbmsubGl1JTQwYW1kLmNv
-bSU3Q2JhNDVlZmIyNmMwMjQwZWQwMzZmMDhkN2I2ZGIyMGFhJTdDM2RkODk2MWZlNDg4NGU2MAo+
-Pj4+ID4+PiAKPj4+PiA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2MzcxNzg5MjQ2MDU1MjQz
-NzgmYW1wO3NkYXRhPSUyRnlIa3ZZVTVUJTJGCj4+Pj4gPj4+IDRpRnhSZXhzZyUyQklkbTdzRHp5
-WGJqek5wSFVHQ083aDRrJTNEJmFtcDtyZXNlcnZlZD0wCj4+Pj4gPj4gX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+PiA+PiBhbWQtZ2Z4IG1haWxpbmcg
-bGlzdAo+Pj4+ID4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIAo+Pj4+IDxtYWlsdG86
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+Cj4+Pj4gPj4gCj4+Pj4gaHR0cHM6Ly9uYW0x
-MS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlz
-dHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxpc3RpbmZvJTJGYW1kLWdmeCZhbXA7ZGF0
-YT0wMiU3QzAxJTdDYWxleGFuZGVyLmRldWNoZXIlNDBhbWQuY29tJTdDZjM3NjIzMDQ5MjViNDAx
-OWJmZWQwOGQ3YjZlMjg3ZTQlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAl
-N0MwJTdDNjM3MTc4OTU3MTc5MTc5NDMxJmFtcDtzZGF0YT1iWTdWJTJCS09GM2dZdTRJVEdDS2dB
-aVJ2WFV2eFBjd3N6MnpzRUpEbnMzakklM0QmYW1wO3Jlc2VydmVkPTAgCj4+Pj4gPGh0dHBzOi8v
-bmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUy
-Rmxpc3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1nZngmZGF0
-YT0wMiU3QzAxJTdDVG9tLlN0RGVuaXMlNDBhbWQuY29tJTdDZTdjNjI3N2MyNjg4NGU1MDljZTUw
-OGQ3YjZlN2FlYTUlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdD
-NjM3MTc4OTc4Nzk4ODE2MDk2JnNkYXRhPU5qJTJCeGVtUHFyTDRWaFhKRGNrdFFCV3U3N0t4dHd5
-WUxQVXZIRVBxdXZIdyUzRCZyZXNlcnZlZD0wPiAKPj4+Pgo+Pj4+ID4gX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+PiA+IGFtZC1nZnggbWFpbGluZyBs
-aXN0Cj4+Pj4gPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyA8bWFpbHRvOmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnPgo+Pj4+ID4gCj4+Pj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlu
-a3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlzdHMuZnJlZWRl
-c2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxpc3RpbmZvJTJGYW1kLWdmeCZhbXA7ZGF0YT0wMiU3QzAx
-JTdDYWxleGFuZGVyLmRldWNoZXIlNDBhbWQuY29tJTdDZjM3NjIzMDQ5MjViNDAxOWJmZWQwOGQ3
-YjZlMjg3ZTQlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3
-MTc4OTU3MTc5MTc5NDMxJmFtcDtzZGF0YT1iWTdWJTJCS09GM2dZdTRJVEdDS2dBaVJ2WFV2eFBj
-d3N6MnpzRUpEbnMzakklM0QmYW1wO3Jlc2VydmVkPTAgCj4+Pj4gPGh0dHBzOi8vbmFtMTEuc2Fm
-ZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmxpc3RzLmZy
-ZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1nZngmZGF0YT0wMiU3QzAx
-JTdDVG9tLlN0RGVuaXMlNDBhbWQuY29tJTdDZTdjNjI3N2MyNjg4NGU1MDljZTUwOGQ3YjZlN2Fl
-YTUlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3MTc4OTc4
-Nzk4ODI2MDg3JnNkYXRhPVZRRU9YMXA0bVdxV2VhbVdQOU9GNGRwUWVoOHdBZEpFJTJCNFNPVGhG
-QWhTWSUzRCZyZXNlcnZlZD0wPiAKPj4+Pgo+Pj4+Cj4+Pj4gX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KPj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+Pj4+
-IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnIDxtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmc+Cj4+Pj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlvbi5vdXRs
-b29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlzdHMuZnJlZWRlc2t0b3Aub3JnJTJGbWFpbG1h
-biUyRmxpc3RpbmZvJTJGYW1kLWdmeCZhbXA7ZGF0YT0wMiU3QzAxJTdDYWxleGFuZGVyLmRldWNo
-ZXIlNDBhbWQuY29tJTdDZjM3NjIzMDQ5MjViNDAxOWJmZWQwOGQ3YjZlMjg3ZTQlN0MzZGQ4OTYx
-ZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3MTc4OTU3MTc5MTc5NDMxJmFt
-cDtzZGF0YT1iWTdWJTJCS09GM2dZdTRJVEdDS2dBaVJ2WFV2eFBjd3N6MnpzRUpEbnMzakklM0Qm
-YW1wO3Jlc2VydmVkPTAgCj4+Pj4gPGh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24u
-b3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmxpc3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1h
-aWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1nZngmZGF0YT0wMiU3QzAxJTdDVG9tLlN0RGVuaXMlNDBh
-bWQuY29tJTdDZTdjNjI3N2MyNjg4NGU1MDljZTUwOGQ3YjZlN2FlYTUlN0MzZGQ4OTYxZmU0ODg0
-ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3MTc4OTc4Nzk4ODM2MDgzJnNkYXRhPUhP
-SUJXNGN0cjYxVUNXeHIlMkZFcEJZelA2a1RNeHg1SjlJdE9YQk1tWlVONCUzRCZyZXNlcnZlZD0w
-PiAKPj4+Pgo+Pj4KPj4KCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-Cmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+--===============0195615443==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MWHPR12MB1406BBDF0726D961289869E8B4120MWHPR12MB1406namp_"
+
+--_000_MWHPR12MB1406BBDF0726D961289869E8B4120MWHPR12MB1406namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
+
+That's fine to me.
+
+-David
+
+From: Koenig, Christian <Christian.Koenig@amd.com>
+Sent: Friday, February 21, 2020 11:33 PM
+To: Deucher, Alexander <Alexander.Deucher@amd.com>; Christian K=F6nig <ckoe=
+nig.leichtzumerken@gmail.com>; Zhou, David(ChunMing) <David1.Zhou@amd.com>;=
+ He, Jacob <Jacob.He@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amdgpu: Add a chunk ID for spm trace
+
+I would just do this as part of the vm_flush() callback on the ring.
+
+E.g. check if the VMID you want to flush is reserved and if yes enable SPM.
+
+Maybe pass along a flag or something in the job to make things easier.
+
+Christian.
+
+Am 21.02.20 um 16:31 schrieb Deucher, Alexander:
+
+[AMD Public Use]
+
+We already have the RESERVE_VMID ioctl interface, can't we just use that in=
+ternally in the kernel to update the rlc register via the ring when we sche=
+dule the relevant IB?  E.g., add a new ring callback to set SPM state and t=
+hen set it to the reserved vmid before we schedule the ib, and then reset i=
+t to 0 after the IB in amdgpu_ib_schedule().
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/a=
+mdgpu/amdgpu_ib.c
+index 4b2342d11520..e0db9362c6ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+@@ -185,6 +185,9 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsign=
+ed num_ibs,
+        if (ring->funcs->insert_start)
+                ring->funcs->insert_start(ring);
+
++       if (ring->funcs->setup_spm)
++               ring->funcs->setup_spm(ring, job);
++
+        if (job) {
+                r =3D amdgpu_vm_flush(ring, job, need_pipe_sync);
+                if (r) {
+@@ -273,6 +276,9 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsign=
+ed num_ibs,
+                return r;
+        }
+
++       if (ring->funcs->setup_spm)
++               ring->funcs->setup_spm(ring, NULL);
++
+        if (ring->funcs->insert_end)
+                ring->funcs->insert_end(ring);
+
+
+
+Alex
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org><mailto:amd-gfx-bounce=
+s@lists.freedesktop.org> on behalf of Christian K=F6nig <ckoenig.leichtzume=
+rken@gmail.com><mailto:ckoenig.leichtzumerken@gmail.com>
+Sent: Friday, February 21, 2020 5:28 AM
+To: Zhou, David(ChunMing) <David1.Zhou@amd.com><mailto:David1.Zhou@amd.com>=
+; He, Jacob <Jacob.He@amd.com><mailto:Jacob.He@amd.com>; Koenig, Christian =
+<Christian.Koenig@amd.com><mailto:Christian.Koenig@amd.com>; amd-gfx@lists.=
+freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <amd-gfx@lists.freede=
+sktop.org><mailto:amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Add a chunk ID for spm trace
+
+That would probably be a no-go, but we could enhance the kernel driver to u=
+pdate the RLC_SPM_VMID register with the reserved VMID.
+
+Handling that in userspace is most likely not working anyway, since the RLC=
+ registers are usually not accessible by userspace.
+
+Regards,
+Christian.
+
+Am 20.02.20 um 16:15 schrieb Zhou, David(ChunMing):
+
+[AMD Official Use Only - Internal Distribution Only]
+
+
+
+You can enhance amdgpu_vm_ioctl In amdgpu_vm.c to return vmid to userspace.
+
+
+
+-David
+
+
+
+
+
+From: He, Jacob <Jacob.He@amd.com><mailto:Jacob.He@amd.com>
+Sent: Thursday, February 20, 2020 10:46 PM
+To: Zhou, David(ChunMing) <David1.Zhou@amd.com><mailto:David1.Zhou@amd.com>=
+; Koenig, Christian <Christian.Koenig@amd.com><mailto:Christian.Koenig@amd.=
+com>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Add a chunk ID for spm trace
+
+
+
+amdgpu_vm_reserve_vmid doesn't return the reserved vmid back to user space.=
+ There is no chance for user mode driver to update RLC_SPM_VMID.
+
+
+
+Thanks
+
+Jacob
+
+
+
+From: He, Jacob<mailto:Jacob.He@amd.com>
+Sent: Thursday, February 20, 2020 6:20 PM
+To: Zhou, David(ChunMing)<mailto:David1.Zhou@amd.com>; Koenig, Christian<ma=
+ilto:Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop.org<mailto:amd-gf=
+x@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Add a chunk ID for spm trace
+
+
+
+Looks like amdgpu_vm_reserve_vmid could work, let me have a try to update t=
+he RLC_SPM_VMID with pm4 packets in UMD.
+
+
+
+Thanks
+
+Jacob
+
+
+
+From: Zhou, David(ChunMing)<mailto:David1.Zhou@amd.com>
+Sent: Thursday, February 20, 2020 10:13 AM
+To: Koenig, Christian<mailto:Christian.Koenig@amd.com>; He, Jacob<mailto:Ja=
+cob.He@amd.com>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedes=
+ktop.org>
+Subject: RE: [PATCH] drm/amdgpu: Add a chunk ID for spm trace
+
+
+
+[AMD Official Use Only - Internal Distribution Only]
+
+Christian is right here, that will cause many problems for simply using VMI=
+D in kernel.
+We already have an pair interface for RGP, I think you can use it instead o=
+f involving additional kernel change.
+amdgpu_vm_reserve_vmid/ amdgpu_vm_unreserve_vmid.
+
+-David
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
+@lists.freedesktop.org>> On Behalf Of Christian K=F6nig
+Sent: Wednesday, February 19, 2020 7:03 PM
+To: He, Jacob <Jacob.He@amd.com<mailto:Jacob.He@amd.com>>; amd-gfx@lists.fr=
+eedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdgpu: Add a chunk ID for spm trace
+
+Am 19.02.20 um 11:15 schrieb Jacob He:
+> [WHY]
+> When SPM trace enabled, SPM_VMID should be updated with the current
+> vmid.
+>
+> [HOW]
+> Add a chunk id, AMDGPU_CHUNK_ID_SPM_TRACE, so that UMD can tell us
+> which job should update SPM_VMID.
+> Right before a job is submitted to GPU, set the SPM_VMID accordingly.
+>
+> [Limitation]
+> Running more than one SPM trace enabled processes simultaneously is
+> not supported.
+
+Well there are multiple problems with that patch.
+
+First of all you need to better describe what SPM tracing is in the commit =
+message.
+
+Then the updating of mmRLC_SPM_MC_CNTL must be executed asynchronously on t=
+he ring. Otherwise we might corrupt an already executing SPM trace.
+
+And you also need to make sure to disable the tracing again or otherwise we=
+ run into a bunch of trouble when the VMID is reused.
+
+You also need to make sure that IBs using the SPM trace are serialized with=
+ each other, e.g. hack into amdgpu_ids.c file and make sure that only one V=
+MID at a time can have that attribute.
+
+Regards,
+Christian.
+
+>
+> Change-Id: Ic932ef6ac9dbf244f03aaee90550e8ff3a675666
+> Signed-off-by: Jacob He <jacob.he@amd.com<mailto:jacob.he@amd.com>>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c  |  7 +++++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c  | 10 +++++++---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.h |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h |  1 +
+>   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 15 ++++++++++++++-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   |  3 ++-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   |  3 ++-
+>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 15 ++++++++++++++-
+>   8 files changed, 48 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> index f9fa6e104fef..3f32c4db5232 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -113,6 +113,7 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_par=
+ser *p, union drm_amdgpu_cs
+>        uint32_t uf_offset =3D 0;
+>        int i;
+>        int ret;
+> +     bool update_spm_vmid =3D false;
+>
+>        if (cs->in.num_chunks =3D=3D 0)
+>                return 0;
+> @@ -221,6 +222,10 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_pa=
+rser *p, union drm_amdgpu_cs
+>                case AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL:
+>                        break;
+>
+> +             case AMDGPU_CHUNK_ID_SPM_TRACE:
+> +                     update_spm_vmid =3D true;
+> +                     break;
+> +
+>                default:
+>                        ret =3D -EINVAL;
+>                        goto free_partial_kdata;
+> @@ -231,6 +236,8 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_par=
+ser *p, union drm_amdgpu_cs
+>        if (ret)
+>                goto free_all_kdata;
+>
+> +     p->job->need_update_spm_vmid =3D update_spm_vmid;
+> +
+>        if (p->ctx->vram_lost_counter !=3D p->job->vram_lost_counter) {
+>                ret =3D -ECANCELED;
+>                goto free_all_kdata;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> index cae81914c821..36faab12b585 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+> @@ -156,9 +156,13 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, uns=
+igned num_ibs,
+>                return -EINVAL;
+>        }
+>
+> -     if (vm && !job->vmid) {
+> -             dev_err(adev->dev, "VM IB without ID\n");
+> -             return -EINVAL;
+> +     if (vm) {
+> +             if (!job->vmid) {
+> +                     dev_err(adev->dev, "VM IB without ID\n");
+> +                     return -EINVAL;
+> +             } else if (adev->gfx.rlc.funcs->update_spm_vmid && job->nee=
+d_update_spm_vmid) {
+> +                     adev->gfx.rlc.funcs->update_spm_vmid(adev, job->vmi=
+d);
+> +             }
+>        }
+>
+>        alloc_size =3D ring->funcs->emit_frame_size + num_ibs * diff --git
+> a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> index 2e2110dddb76..4582536961c7 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h
+> @@ -52,6 +52,7 @@ struct amdgpu_job {
+>        bool                    vm_needs_flush;
+>        uint64_t                vm_pd_addr;
+>        unsigned                vmid;
+> +     bool                    need_update_spm_vmid;
+>        unsigned                pasid;
+>        uint32_t                gds_base, gds_size;
+>        uint32_t                gws_base, gws_size;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+> index d3d4707f2168..52509c254cbd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+> @@ -126,6 +126,7 @@ struct amdgpu_rlc_funcs {
+>        void (*stop)(struct amdgpu_device *adev);
+>        void (*reset)(struct amdgpu_device *adev);
+>        void (*start)(struct amdgpu_device *adev);
+> +     void (*update_spm_vmid)(struct amdgpu_device *adev, unsigned vmid);
+>   };
+>
+>   struct amdgpu_rlc {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> index 5e9fb0976c6c..91eb788d6229 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+> @@ -4214,6 +4214,18 @@ static int gfx_v10_0_update_gfx_clock_gating(struc=
+t amdgpu_device *adev,
+>        return 0;
+>   }
+>
+> +static void gfx_v10_0_update_spm_vmid(struct amdgpu_device *adev,
+> +unsigned vmid) {
+> +     u32 data;
+> +
+> +     data =3D RREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL);
+> +
+> +     data &=3D ~RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK;
+> +     data |=3D (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) <<
+> +RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;
+> +
+> +     WREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL, data); }
+> +
+>   static const struct amdgpu_rlc_funcs gfx_v10_0_rlc_funcs =3D {
+>        .is_rlc_enabled =3D gfx_v10_0_is_rlc_enabled,
+>        .set_safe_mode =3D gfx_v10_0_set_safe_mode, @@ -4224,7 +4236,8 @@
+> static const struct amdgpu_rlc_funcs gfx_v10_0_rlc_funcs =3D {
+>        .resume =3D gfx_v10_0_rlc_resume,
+>        .stop =3D gfx_v10_0_rlc_stop,
+>        .reset =3D gfx_v10_0_rlc_reset,
+> -     .start =3D gfx_v10_0_rlc_start
+> +     .start =3D gfx_v10_0_rlc_start,
+> +     .update_spm_vmid =3D gfx_v10_0_update_spm_vmid
+>   };
+>
+>   static int gfx_v10_0_set_powergating_state(void *handle, diff --git
+> a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> index 8f20a5dd44fe..b24fc55cf13a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+> @@ -4221,7 +4221,8 @@ static const struct amdgpu_rlc_funcs gfx_v7_0_rlc_f=
+uncs =3D {
+>        .resume =3D gfx_v7_0_rlc_resume,
+>        .stop =3D gfx_v7_0_rlc_stop,
+>        .reset =3D gfx_v7_0_rlc_reset,
+> -     .start =3D gfx_v7_0_rlc_start
+> +     .start =3D gfx_v7_0_rlc_start,
+> +     .update_spm_vmid =3D NULL
+>   };
+>
+>   static int gfx_v7_0_early_init(void *handle) diff --git
+> a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> index fa245973de12..66640d2b6b37 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -5600,7 +5600,8 @@ static const struct amdgpu_rlc_funcs iceland_rlc_fu=
+ncs =3D {
+>        .resume =3D gfx_v8_0_rlc_resume,
+>        .stop =3D gfx_v8_0_rlc_stop,
+>        .reset =3D gfx_v8_0_rlc_reset,
+> -     .start =3D gfx_v8_0_rlc_start
+> +     .start =3D gfx_v8_0_rlc_start,
+> +     .update_spm_vmid =3D NULL
+>   };
+>
+>   static void gfx_v8_0_update_medium_grain_clock_gating(struct
+> amdgpu_device *adev, diff --git
+> a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 9b7ff783e9a5..df872f949f68 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -4704,6 +4704,18 @@ static int gfx_v9_0_update_gfx_clock_gating(struct=
+ amdgpu_device *adev,
+>        return 0;
+>   }
+>
+> +static void gfx_v9_0_update_spm_vmid(struct amdgpu_device *adev,
+> +unsigned vmid) {
+> +     u32 data;
+> +
+> +     data =3D RREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL);
+> +
+> +     data &=3D ~RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK;
+> +     data |=3D (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) <<
+> +RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;
+> +
+> +     WREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL, data); }
+> +
+>   static const struct amdgpu_rlc_funcs gfx_v9_0_rlc_funcs =3D {
+>        .is_rlc_enabled =3D gfx_v9_0_is_rlc_enabled,
+>        .set_safe_mode =3D gfx_v9_0_set_safe_mode, @@ -4715,7 +4727,8 @@
+> static const struct amdgpu_rlc_funcs gfx_v9_0_rlc_funcs =3D {
+>        .resume =3D gfx_v9_0_rlc_resume,
+>        .stop =3D gfx_v9_0_rlc_stop,
+>        .reset =3D gfx_v9_0_rlc_reset,
+> -     .start =3D gfx_v9_0_rlc_start
+> +     .start =3D gfx_v9_0_rlc_start,
+> +     .update_spm_vmid =3D gfx_v9_0_update_spm_vmid
+>   };
+>
+>   static int gfx_v9_0_set_powergating_state(void *handle,
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Cdavid1.z=
+hou%40amd.com%7C354be34ff18e4f424f6708d7b52b43b0%7C3dd8961fe4884e608e11a82d=
+994e183d%7C0%7C0%7C637177069753914395&amp;sdata=3D9rSL4kgPJweuZ4EJpdqtqTxyC=
+VGEkmsg6aUzbtvGFrs%3D&amp;reserved=3D0<https://nam11.safelinks.protection.o=
+utlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%=
+2Famd-gfx&data=3D02%7C01%7Calexander.deucher%40amd.com%7Ce68811adba0647c651=
+a308d7b6b8d4c5%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637178777321057=
+824&sdata=3DuRP0wQyfVKk0QoGlWM36nbeOY67nIjfD6vou2A%2BybEc%3D&reserved=3D0>
+
+
+
+
+
+
+_______________________________________________
+
+amd-gfx mailing list
+
+amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx<https://nam11.safeli=
+nks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmai=
+lman%2Flistinfo%2Famd-gfx&data=3D02%7C01%7Calexander.deucher%40amd.com%7Ce6=
+8811adba0647c651a308d7b6b8d4c5%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7=
+C637178777321067823&sdata=3D7o2j5dTvK%2B5Gihwd5IB%2Blp1Bi0ZOx%2B%2F%2Bmi8wp=
+Rh4NBs%3D&reserved=3D0>
+
+
+
+--_000_MWHPR12MB1406BBDF0726D961289869E8B4120MWHPR12MB1406namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+pre
+	{mso-style-priority:99;
+	mso-style-link:"HTML Preformatted Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	color:black;}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-priority:99;
+	mso-style-link:"HTML Preformatted";
+	font-family:Consolas;
+	color:black;}
+p.xmsonormal, li.xmsonormal, div.xmsonormal
+	{mso-style-name:x_msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+p.xmsipheader4d0fcdd7, li.xmsipheader4d0fcdd7, div.xmsipheader4d0fcdd7
+	{mso-style-name:x_msipheader4d0fcdd7;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	color:black;}
+p.msipheader4d0fcdd7, li.msipheader4d0fcdd7, div.msipheader4d0fcdd7
+	{mso-style-name:msipheader4d0fcdd7;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle24
+	{mso-style-type:personal-compose;
+	font-family:"Arial",sans-serif;
+	color:#0078D7;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body bgcolor=3D"white" lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
+<div class=3D"WordSection1">
+<p class=3D"msipheader4d0fcdd7" style=3D"margin:0in;margin-bottom:.0001pt">=
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:#0078D7">[AMD Official Use Only - Internal Distribution Only]</span><o:=
+p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">That&#8217;s fine t=
+o me.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext">-David<o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"color:windowtext"><o:p>&nbsp;</o:p></=
+span></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"color:windowtext">From:</span></b>=
+<span style=3D"color:windowtext"> Koenig, Christian &lt;Christian.Koenig@am=
+d.com&gt;
+<br>
+<b>Sent:</b> Friday, February 21, 2020 11:33 PM<br>
+<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Christian =
+K=F6nig &lt;ckoenig.leichtzumerken@gmail.com&gt;; Zhou, David(ChunMing) &lt=
+;David1.Zhou@amd.com&gt;; He, Jacob &lt;Jacob.He@amd.com&gt;; amd-gfx@lists=
+.freedesktop.org<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Add a chunk ID for spm trace<o:p></=
+o:p></span></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">I would just do this as part of the vm_flush() callb=
+ack on the ring.<br>
+<br>
+E.g. check if the VMID you want to flush is reserved and if yes enable SPM.=
+<br>
+<br>
+Maybe pass along a flag or something in the job to make things easier.<br>
+<br>
+Christian.<br>
+<br>
+Am 21.02.20 um 16:31 schrieb Deucher, Alexander:<o:p></o:p></p>
+</div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:#317100">[AMD Public Use]<o:p></o:p></span><=
+/p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">We already have the=
+ RESERVE_VMID ioctl interface, can't we just use that internally in the ker=
+nel to update the rlc register via the ring when we schedule the relevant I=
+B?&nbsp; E.g., add a new ring callback to
+ set SPM state and then set it to the reserved vmid before we schedule the =
+ib, and then reset it to 0 after the IB in amdgpu_ib_schedule().<o:p></o:p>=
+</span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">diff --git a/driver=
+s/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<o=
+:p></o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">index 4b2342d11520.=
+.e0db9362c6ee 100644<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">--- a/drivers/gpu/d=
+rm/amd/amdgpu/amdgpu_ib.c<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&#43;&#43;&#43; b/d=
+rivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">@@ -185,6 &#43;185,=
+9 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,<o:p=
+></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp; &nbsp; &nbsp=
+; &nbsp; if (ring-&gt;funcs-&gt;insert_start)<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ring-&gt;funcs-&gt;insert_start(ring);=
+<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp;<o:p></o:p></=
+span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&#43; &nbsp; &nbsp;=
+ &nbsp; if (ring-&gt;funcs-&gt;setup_spm)<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&#43; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ring-&gt;funcs-&gt;setup_spm(ring, job)=
+;<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&#43;<o:p></o:p></s=
+pan></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp; &nbsp; &nbsp=
+; &nbsp; if (job) {<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; r =3D amdgpu_vm_flush(ring, job, need_=
+pipe_sync);<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; if (r) {<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">@@ -273,6 &#43;276,=
+9 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,<o:p=
+></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return r;<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp; &nbsp; &nbsp=
+; &nbsp; }<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp;<o:p></o:p></=
+span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&#43; &nbsp; &nbsp;=
+ &nbsp; if (ring-&gt;funcs-&gt;setup_spm)<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&#43; &nbsp; &nbsp;=
+ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ring-&gt;funcs-&gt;setup_spm(ring, NULL=
+);<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&#43;<o:p></o:p></s=
+pan></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp; &nbsp; &nbsp=
+; &nbsp; if (ring-&gt;funcs-&gt;insert_end)<o:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp; &nbsp; &nbsp=
+; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ring-&gt;funcs-&gt;insert_end(ring);<o=
+:p></o:p></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">&nbsp;<o:p></o:p></=
+span></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt">Alex<o:p></o:p></sp=
+an></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b>From:</b> amd-gfx <a href=3D"mailto:amd-gfx-bounc=
+es@lists.freedesktop.org">
+&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> on behalf of Christian K=
+=F6nig <a href=3D"mailto:ckoenig.leichtzumerken@gmail.com">
+&lt;ckoenig.leichtzumerken@gmail.com&gt;</a><br>
+<b>Sent:</b> Friday, February 21, 2020 5:28 AM<br>
+<b>To:</b> Zhou, David(ChunMing) <a href=3D"mailto:David1.Zhou@amd.com">&lt=
+;David1.Zhou@amd.com&gt;</a>; He, Jacob
+<a href=3D"mailto:Jacob.He@amd.com">&lt;Jacob.He@amd.com&gt;</a>; Koenig, C=
+hristian <a href=3D"mailto:Christian.Koenig@amd.com">
+&lt;Christian.Koenig@amd.com&gt;</a>; <a href=3D"mailto:amd-gfx@lists.freed=
+esktop.org">amd-gfx@lists.freedesktop.org</a>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesk=
+top.org&gt;</a><br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: Add a chunk ID for spm trace <o:p><=
+/o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal" style=3D"background:white">That would probably be a =
+no-go, but we could enhance the kernel driver to update the RLC_SPM_VMID re=
+gister with the reserved VMID.<br>
+<br>
+Handling that in userspace is most likely not working anyway, since the RLC=
+ registers are usually not accessible by userspace.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+Am 20.02.20 um 16:15 schrieb Zhou, David(ChunMing):<o:p></o:p></p>
+</div>
+<blockquote style=3D"margin-top:5.0pt;margin-bottom:5.0pt">
+<div>
+<p class=3D"xmsipheader4d0fcdd7" style=3D"margin:0in;margin-bottom:.0001pt;=
+background:white">
+<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
+lor:#0078D7">[AMD Official Use Only - Internal Distribution Only]</span><o:=
+p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">You can enhance amdgpu_v=
+m_ioctl In amdgpu_vm.c to return vmid to userspace.
+<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">-David<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"xmsonormal" style=3D"background:white"><b>From:</b> He, Jacob <=
+a href=3D"mailto:Jacob.He@amd.com">
+&lt;Jacob.He@amd.com&gt;</a> <br>
+<b>Sent:</b> Thursday, February 20, 2020 10:46 PM<br>
+<b>To:</b> Zhou, David(ChunMing) <a href=3D"mailto:David1.Zhou@amd.com">&lt=
+;David1.Zhou@amd.com&gt;</a>; Koenig, Christian
+<a href=3D"mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt=
+;</a>; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
+<b>Subject:</b> RE: [PATCH] drm/amdgpu: Add a chunk ID for spm trace<o:p></=
+o:p></p>
+</div>
+</div>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">amdgpu_vm_reserve_vmid d=
+oesn&#8217;t return the reserved vmid back to user space. There is no chanc=
+e for user mode driver to update RLC_SPM_VMID.<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">Thanks<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">Jacob<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"xmsonormal" style=3D"background:white"><b>From: </b><a href=3D"=
+mailto:Jacob.He@amd.com">He, Jacob</a><br>
+<b>Sent: </b>Thursday, February 20, 2020 6:20 PM<br>
+<b>To: </b><a href=3D"mailto:David1.Zhou@amd.com">Zhou, David(ChunMing)</a>=
+; <a href=3D"mailto:Christian.Koenig@amd.com">
+Koenig, Christian</a>; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a><br>
+<b>Subject: </b>RE: [PATCH] drm/amdgpu: Add a chunk ID for spm trace<o:p></=
+o:p></p>
+</div>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">Looks like amdgpu_vm_res=
+erve_vmid could work, let me have a try to update the RLC_SPM_VMID with pm4=
+ packets in UMD.<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">Thanks<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">Jacob<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"xmsonormal" style=3D"background:white"><b>From: </b><a href=3D"=
+mailto:David1.Zhou@amd.com">Zhou, David(ChunMing)</a><br>
+<b>Sent: </b>Thursday, February 20, 2020 10:13 AM<br>
+<b>To: </b><a href=3D"mailto:Christian.Koenig@amd.com">Koenig, Christian</a=
+>; <a href=3D"mailto:Jacob.He@amd.com">
+He, Jacob</a>; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lis=
+ts.freedesktop.org</a><br>
+<b>Subject: </b>RE: [PATCH] drm/amdgpu: Add a chunk ID for spm trace<o:p></=
+o:p></p>
+</div>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">[AMD Official Use Only -=
+ Internal Distribution Only]<br>
+<br>
+Christian is right here, that will cause many problems for simply using VMI=
+D in kernel.<br>
+We already have an pair interface for RGP, I think you can use it instead o=
+f involving additional kernel change.<br>
+amdgpu_vm_reserve_vmid/ amdgpu_vm_unreserve_vmid.<br>
+<br>
+-David<br>
+<br>
+-----Original Message-----<br>
+From: amd-gfx &lt;<a href=3D"mailto:amd-gfx-bounces@lists.freedesktop.org">=
+amd-gfx-bounces@lists.freedesktop.org</a>&gt; On Behalf Of Christian K=F6ni=
+g<br>
+Sent: Wednesday, February 19, 2020 7:03 PM<br>
+To: He, Jacob &lt;<a href=3D"mailto:Jacob.He@amd.com">Jacob.He@amd.com</a>&=
+gt;; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">
+amd-gfx@lists.freedesktop.org</a><br>
+Subject: Re: [PATCH] drm/amdgpu: Add a chunk ID for spm trace<br>
+<br>
+Am 19.02.20 um 11:15 schrieb Jacob He:<br>
+&gt; [WHY]<br>
+&gt; When SPM trace enabled, SPM_VMID should be updated with the current <b=
+r>
+&gt; vmid.<br>
+&gt;<br>
+&gt; [HOW]<br>
+&gt; Add a chunk id, AMDGPU_CHUNK_ID_SPM_TRACE, so that UMD can tell us <br=
+>
+&gt; which job should update SPM_VMID.<br>
+&gt; Right before a job is submitted to GPU, set the SPM_VMID accordingly.<=
+br>
+&gt;<br>
+&gt; [Limitation]<br>
+&gt; Running more than one SPM trace enabled processes simultaneously is <b=
+r>
+&gt; not supported.<br>
+<br>
+Well there are multiple problems with that patch.<br>
+<br>
+First of all you need to better describe what SPM tracing is in the commit =
+message.<br>
+<br>
+Then the updating of mmRLC_SPM_MC_CNTL must be executed asynchronously on t=
+he ring. Otherwise we might corrupt an already executing SPM trace.<br>
+<br>
+And you also need to make sure to disable the tracing again or otherwise we=
+ run into a bunch of trouble when the VMID is reused.<br>
+<br>
+You also need to make sure that IBs using the SPM trace are serialized with=
+ each other, e.g. hack into amdgpu_ids.c file and make sure that only one V=
+MID at a time can have that attribute.<br>
+<br>
+Regards,<br>
+Christian.<br>
+<br>
+&gt;<br>
+&gt; Change-Id: Ic932ef6ac9dbf244f03aaee90550e8ff3a675666<br>
+&gt; Signed-off-by: Jacob He &lt;<a href=3D"mailto:jacob.he@amd.com">jacob.=
+he@amd.com</a>&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c&nbsp; |&nbsp; 7 &#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c&nbsp; | 10 &#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_job.h |&nbsp; 1 &#43;<br=
+>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h |&nbsp; 1 &#43;<br=
+>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c&nbsp; | 15 &#43;&#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c&nbsp;&nbsp; |&nbsp; =
+3 &#43;&#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c&nbsp;&nbsp; |&nbsp; =
+3 &#43;&#43;-<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c&nbsp;&nbsp; | 15 &#4=
+3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-<br>
+&gt;&nbsp;&nbsp; 8 files changed, 48 insertions(&#43;), 7 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+&gt; index f9fa6e104fef..3f32c4db5232 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c<br>
+&gt; @@ -113,6 &#43;113,7 @@ static int amdgpu_cs_parser_init(struct amdgpu=
+_cs_parser *p, union drm_amdgpu_cs<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t uf_offset =3D 0;<br=
+>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bool update_spm_vmid =3D false;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (cs-&gt;in.num_chunks =3D=
+=3D 0)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; @@ -221,6 &#43;222,10 @@ static int amdgpu_cs_parser_init(struct amdgp=
+u_cs_parser *p, union drm_amdgpu_cs<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; case AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<=
+br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; case AMDGPU_CHUNK_ID_SPM_TRACE:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; update_spm_vmid =3D=
+ true;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; default:<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D=
+ -EINVAL;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto fr=
+ee_partial_kdata;<br>
+&gt; @@ -231,6 &#43;236,8 @@ static int amdgpu_cs_parser_init(struct amdgpu=
+_cs_parser *p, union drm_amdgpu_cs<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; goto free_all_kdata;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; p-&gt;job-&gt;need_update_spm_vmid =3D u=
+pdate_spm_vmid;<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (p-&gt;ctx-&gt;vram_lost_=
+counter !=3D p-&gt;job-&gt;vram_lost_counter) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; ret =3D -ECANCELED;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; goto free_all_kdata;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<br>
+&gt; index cae81914c821..36faab12b585 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c<br>
+&gt; @@ -156,9 &#43;156,13 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ri=
+ng, unsigned num_ibs,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (vm &amp;&amp; !job-&gt;vmid) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; dev_err(adev-&gt;dev, &quot;VM IB without ID\n&quot;);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (vm) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (!job-&gt;vmid) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(adev-&gt;de=
+v, &quot;VM IB without ID\n&quot;);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; } else if (adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid &amp;&amp; jo=
+b-&gt;need_update_spm_vmid) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.rlc.fu=
+ncs-&gt;update_spm_vmid(adev, job-&gt;vmid);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; alloc_size =3D ring-&gt;func=
+s-&gt;emit_frame_size &#43; num_ibs * diff --git <br>
+&gt; a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h<br>
+&gt; index 2e2110dddb76..4582536961c7 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.h<br>
+&gt; @@ -52,6 &#43;52,7 @@ struct amdgpu_job {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; vm_needs_flush;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm_p=
+d_addr;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vmid=
+;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; need_update_spm_vmid;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pasi=
+d;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gds_=
+base, gds_size;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gws_=
+base, gws_size;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h<br>
+&gt; index d3d4707f2168..52509c254cbd 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h<br>
+&gt; @@ -126,6 &#43;126,7 @@ struct amdgpu_rlc_funcs {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*stop)(struct amdgpu_d=
+evice *adev);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*reset)(struct amdgpu_=
+device *adev);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*start)(struct amdgpu_=
+device *adev);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; void (*update_spm_vmid)(struct amdgpu_de=
+vice *adev, unsigned vmid);<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; struct amdgpu_rlc {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
+&gt; index 5e9fb0976c6c..91eb788d6229 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
+&gt; @@ -4214,6 &#43;4214,18 @@ static int gfx_v10_0_update_gfx_clock_gatin=
+g(struct amdgpu_device *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;static void gfx_v10_0_update_spm_vmid(struct amdgpu_device *adev,=
+ <br>
+&gt; &#43;unsigned vmid) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; u32 data;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data =3D RREG32_SOC15(GC, 0, mmRLC_SPM_M=
+C_CNTL);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data &amp;=3D ~RLC_SPM_MC_CNTL__RLC_SPM_=
+VMID_MASK;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data |=3D (vmid &amp; RLC_SPM_MC_CNTL__R=
+LC_SPM_VMID_MASK) &lt;&lt; <br>
+&gt; &#43;RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL, d=
+ata); }<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp; static const struct amdgpu_rlc_funcs gfx_v10_0_rlc_funcs =
+=3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .is_rlc_enabled =3D gfx_v10_=
+0_is_rlc_enabled,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_safe_mode =3D gfx_v10_0=
+_set_safe_mode, @@ -4224,7 &#43;4236,8 @@ <br>
+&gt; static const struct amdgpu_rlc_funcs gfx_v10_0_rlc_funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .resume =3D gfx_v10_0_rlc_re=
+sume,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .stop =3D gfx_v10_0_rlc_stop=
+,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset =3D gfx_v10_0_rlc_res=
+et,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .start =3D gfx_v10_0_rlc_start<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .start =3D gfx_v10_0_rlc_start,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .update_spm_vmid =3D gfx_v10_0_update_sp=
+m_vmid<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static int gfx_v10_0_set_powergating_state(void *handle, d=
+iff --git <br>
+&gt; a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c<br>
+&gt; index 8f20a5dd44fe..b24fc55cf13a 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c<br>
+&gt; @@ -4221,7 &#43;4221,8 @@ static const struct amdgpu_rlc_funcs gfx_v7_=
+0_rlc_funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .resume =3D gfx_v7_0_rlc_res=
+ume,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .stop =3D gfx_v7_0_rlc_stop,=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset =3D gfx_v7_0_rlc_rese=
+t,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .start =3D gfx_v7_0_rlc_start<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .start =3D gfx_v7_0_rlc_start,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .update_spm_vmid =3D NULL<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static int gfx_v7_0_early_init(void *handle) diff --git <b=
+r>
+&gt; a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+&gt; index fa245973de12..66640d2b6b37 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c<br>
+&gt; @@ -5600,7 &#43;5600,8 @@ static const struct amdgpu_rlc_funcs iceland=
+_rlc_funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .resume =3D gfx_v8_0_rlc_res=
+ume,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .stop =3D gfx_v8_0_rlc_stop,=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset =3D gfx_v8_0_rlc_rese=
+t,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .start =3D gfx_v8_0_rlc_start<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .start =3D gfx_v8_0_rlc_start,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .update_spm_vmid =3D NULL<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static void gfx_v8_0_update_medium_grain_clock_gating(stru=
+ct <br>
+&gt; amdgpu_device *adev, diff --git <br>
+&gt; a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c <br>
+&gt; b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&gt; index 9b7ff783e9a5..df872f949f68 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
+&gt; @@ -4704,6 &#43;4704,18 @@ static int gfx_v9_0_update_gfx_clock_gating=
+(struct amdgpu_device *adev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;static void gfx_v9_0_update_spm_vmid(struct amdgpu_device *adev, =
+<br>
+&gt; &#43;unsigned vmid) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; u32 data;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data =3D RREG32_SOC15(GC, 0, mmRLC_SPM_M=
+C_CNTL);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data &amp;=3D ~RLC_SPM_MC_CNTL__RLC_SPM_=
+VMID_MASK;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; data |=3D (vmid &amp; RLC_SPM_MC_CNTL__R=
+LC_SPM_VMID_MASK) &lt;&lt; <br>
+&gt; &#43;RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL, d=
+ata); }<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp; static const struct amdgpu_rlc_funcs gfx_v9_0_rlc_funcs =
+=3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .is_rlc_enabled =3D gfx_v9_0=
+_is_rlc_enabled,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_safe_mode =3D gfx_v9_0_=
+set_safe_mode, @@ -4715,7 &#43;4727,8 @@ <br>
+&gt; static const struct amdgpu_rlc_funcs gfx_v9_0_rlc_funcs =3D {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .resume =3D gfx_v9_0_rlc_res=
+ume,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .stop =3D gfx_v9_0_rlc_stop,=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .reset =3D gfx_v9_0_rlc_rese=
+t,<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; .start =3D gfx_v9_0_rlc_start<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .start =3D gfx_v9_0_rlc_start,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; .update_spm_vmid =3D gfx_v9_0_update_spm=
+_vmid<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static int gfx_v9_0_set_powergating_state(void *handle,<br=
+>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01=
+%7Calexander.deucher%40amd.com%7Ce68811adba0647c651a308d7b6b8d4c5%7C3dd8961=
+fe4884e608e11a82d994e183d%7C0%7C0%7C637178777321057824&amp;sdata=3DuRP0wQyf=
+VKk0QoGlWM36nbeOY67nIjfD6vou2A%2BybEc%3D&amp;reserved=3D0">https://nam11.sa=
+felinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2=
+Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Cdavid1.zhou%40amd.co=
+m%7C354be34ff18e4f424f6708d7b52b43b0%7C3dd8961fe4884e608e11a82d994e183d%7C0=
+%7C0%7C637177069753914395&amp;amp;sdata=3D9rSL4kgPJweuZ4EJpdqtqTxyCVGEkmsg6=
+aUzbtvGFrs%3D&amp;amp;reserved=3D0</a><o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal" style=3D"background:white">&nbsp;<o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;background:white"><o:p=
+>&nbsp;</o:p></p>
+<pre style=3D"background:white">___________________________________________=
+____<o:p></o:p></pre>
+<pre style=3D"background:white">amd-gfx mailing list<o:p></o:p></pre>
+<pre style=3D"background:white"><a href=3D"mailto:amd-gfx@lists.freedesktop=
+.org">amd-gfx@lists.freedesktop.org</a><o:p></o:p></pre>
+<pre style=3D"background:white"><a href=3D"https://nam11.safelinks.protecti=
+on.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flisti=
+nfo%2Famd-gfx&amp;data=3D02%7C01%7Calexander.deucher%40amd.com%7Ce68811adba=
+0647c651a308d7b6b8d4c5%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C6371787=
+77321067823&amp;sdata=3D7o2j5dTvK%2B5Gihwd5IB%2Blp1Bi0ZOx%2B%2F%2Bmi8wpRh4N=
+Bs%3D&amp;reserved=3D0">https://lists.freedesktop.org/mailman/listinfo/amd-=
+gfx</a><o:p></o:p></pre>
+</blockquote>
+<p class=3D"MsoNormal" style=3D"background:white"><o:p>&nbsp;</o:p></p>
+</div>
+</div>
+</blockquote>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_MWHPR12MB1406BBDF0726D961289869E8B4120MWHPR12MB1406namp_--
+
+--===============0195615443==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0195615443==--
