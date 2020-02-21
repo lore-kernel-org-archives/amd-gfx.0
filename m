@@ -7,57 +7,57 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EFB61C35646
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DCF87C35657
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C66692067D
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B39252067D
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IANIvywT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C66692067D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PLZZzEap"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B39252067D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 772376F4C1;
-	Fri, 21 Feb 2020 16:04:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E4356F4C3;
+	Fri, 21 Feb 2020 16:04:57 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2059.outbound.protection.outlook.com [40.107.92.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 133EF6F4BE
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:04:54 +0000 (UTC)
+ (mail-bn7nam10on2054.outbound.protection.outlook.com [40.107.92.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E3C76F4C1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:04:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BL9nu47UlUNy4cHlEJWkrSWBEi1P0us6XY1VALDN/a/v1inwFKqyTDyPSrUbvk/UT+9iI5477+ZodTXLEIOoC5Ux6sjGV4WVbWqSA91STRP6hZbJ7X6FYYiadCQh1n1WpVbcxSO4/ZBAEQMjsHbt7o2WVm4pQtoL0eSwDL+njRXrolMQNpMQMjjAuZhSxnSMp0ycb/Wc1Pxyvqz9zqbnt3AVNlur6eEtnCRDgznTSbpcp14BOZ42nHWHSNBA3Npk2SqtGnNDcP6n8+AuHB8nXB6B4ZFKK38C4BVrjcgIkuhi9rofBj/ICwf+cKRbExTMtKXM4Me7PViSWxMoI/34sQ==
+ b=CR5IclNvxhRZ+ob+ZiyWIFUvcupbI/HgY9eeEXqdRy5IoNJJpnWuX/NP+3p9gucCYJy38e04o/21mbIN2czM+IsoFfL7yWX2daDh8ytXMWuczKX0SL3KOCA7r/wy3qQBqVqSz6Te9+HSNbLsRJ7MmmmB9x/IFautDH3oeNsom1Dle9BpWHXW5Jrw4kdAvGiB/6OltXvGUTynjtrfNmVt47w7VzCJX9O9vCjpMK3Ib6hqhZUWQhClxeCVfgHIK17+WZHFuC27q7K/181kuNrw3RAyn8Cd/Z1EIilXXqXt44rabgZ/1GLx1OgYN0bv3KjlsS8bEKvJsqymIFes3fm+FQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IcwIGDw5txcJbLVx1WAAuan/bud2WadjYYQgZzZ4grA=;
- b=N6xjxdadsjq40iGVdGH0totjC+jaf9v6jGKlRl9swiuOdvXUjp1Sd24KkKx2avgAeMGSwad43W7gnrAB6Mb5245A6wHx7tZtT3D5ZAs1i9jnyijcvAREQdDmRJwi0fjoaJwbVB71Rt9Vb9NL2a6trz3SWEyG4K661AuQxKnAPL20vNi8ul17XNOG6ajgkrTEEflNgoxx5DF5At8jx3Dgx2E0J0vAiX05TQuTxB4adT96Q7faE9xLtE6YFNkX3nOgQqp0z/LetwAt/8ac8umK3uSN3T2j5K4mX/kuJLf6ZhV+nC3t9gF6eaHARV42VZde1S4YWggCFLcx0lCekxhbZA==
+ bh=6ORsPwvq+hb7Rt91HrQOqiBZm8y4VvQMRIGgPce/P4w=;
+ b=Te/nyxXDKsJsDGt16gqIAkXO7jr6lvEKLwSNyQfXeMMAs8K1Dfl+JXHWuQhAleESoL0RW4hWKVfHX+6WjbRPLWMPZF8W3cKh43z0iYX2bpiF0b97y+ufOvkZP6jCgFOPH6lOhXpeguk9P9AysWQ2wH27DFyJZd+heyiAA6AwqsWLf7wwBDIY2ZDL87a9XKOJVyWJAbyB8rxcZozhabzMk95yHZUSsYX3szw5jAbVAtrdFVVkIgx3yV4p51i2UnkanUXtxdMnK66bhjMyNy3z7NcoT9VAFlKuxZoBWIvLmQjEeIaA8tCkbj9obRaNKBH0eQ5XdHNyXOXS3gh1N3Q75w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IcwIGDw5txcJbLVx1WAAuan/bud2WadjYYQgZzZ4grA=;
- b=IANIvywTj/4bBsstTrTGs7EAVgbx7LwoEv22ANbiAPgBts2ZxBRys+9HN5PpbekJfX1MqVR7dn1uMQp8Byq2kVH23Hdla78GsxWjZGxV+PWnqOBKBJN61j7hGPqMuzi2YthTQzZtfmnmDNshBHdZWiDF2WX2OU2lT3HCNMb8Fzk=
+ bh=6ORsPwvq+hb7Rt91HrQOqiBZm8y4VvQMRIGgPce/P4w=;
+ b=PLZZzEapdm9Y2H8pvcpHBNDCjc3STbNtDjwynBPRjLwQKV181JuJTe7OXObmVs+P9ff/N8k+gxlT2msyVp19VASTA1GADFzofgmwjDbtCK4Kbr14c91zOccalkATzX3rH7GD3GIgQQge75GEJHrnQohKo53EE3txzCQ/vo8aQlE=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
  by MW2PR12MB2572.namprd12.prod.outlook.com (2603:10b6:907:6::27) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Fri, 21 Feb
- 2020 16:04:52 +0000
+ 2020 16:04:51 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::b8ff:6893:5820:420f]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::b8ff:6893:5820:420f%6]) with mapi id 15.20.2729.033; Fri, 21 Feb 2020
- 16:04:52 +0000
+ 16:04:51 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 35/35] drm/amd/display: limit display clock to 100MHz to avoid
- FIFO error
-Date: Fri, 21 Feb 2020 11:03:24 -0500
-Message-Id: <20200221160324.2969975-36-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 33/35] drm/amd/display: Temporarily disable stutter on MPO
+ transition
+Date: Fri, 21 Feb 2020 11:03:22 -0500
+Message-Id: <20200221160324.2969975-34-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
 References: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
@@ -69,16 +69,16 @@ Received: from atma2.amd.com (165.204.55.250) by
  YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
- Transport; Fri, 21 Feb 2020 16:04:17 +0000
+ Transport; Fri, 21 Feb 2020 16:04:15 +0000
 X-Mailer: git-send-email 2.25.0
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 3c068f96-9773-4c8a-885e-08d7b6e7b4b2
+X-MS-Office365-Filtering-Correlation-Id: f8f9d2ea-ab93-48d3-fbbd-08d7b6e7b356
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2572:|MW2PR12MB2572:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2572C917421C0D5EBE0CAA6098120@MW2PR12MB2572.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB25727FADF954BE7F695C611298120@MW2PR12MB2572.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1284;
 X-Forefront-PRVS: 0320B28BE1
 X-Forefront-Antispam-Report: SFV:NSPM;
  SFS:(10009020)(4636009)(396003)(39860400002)(376002)(366004)(346002)(136003)(189003)(199004)(1076003)(5660300002)(36756003)(2906002)(8936002)(86362001)(8676002)(6486002)(81156014)(81166006)(7696005)(52116002)(4326008)(6666004)(316002)(186003)(26005)(6916009)(16526019)(54906003)(2616005)(66476007)(66556008)(66946007)(956004)(478600001);
@@ -89,15 +89,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BGiudkydH2pkL+shXIsM4DW7LAz/AOgtn8px4WcqPo7AFFj5+5IG0fb6KjqvhNiGd23HNP151rAwiyVi2WqUZbrlJDJs20XaIkFrQH0+FapNk1uHorLTt9+7IdizcS/+n2yX823rYAO8Y3AiMjtJAAWI50x9Psttus905whSJb+HtcRInDk1tA6gQoNqGrmecrC2Y8HgVJev54YClCyw1d0v7ZId3bpzp+sdiU6sYmQ+xGFqx8nqzIKtPB9DiXgcLk9kNtTFXQo9pVY15UxwrvK6tqMS2QkkpiJPpuxWpPF2DuXAFDpPJ7Htmv8YUVEoTzz2CXu2ZOymAH8WAOPz7YbupcIECANoFmlkCOjzdD8hXFDa3WezQK3ALn/SyDqQdebDyqHG6QJNn1p2vgSwWJrZWJDk6w7+rQnhbqHhhi8yWpx5Y6ZWgCqL6ULTM+6d
-X-MS-Exchange-AntiSpam-MessageData: rjJWQM5MSzrJX7gYX3TIF8Ydtd25PqYdw7gBHxi4D5KH8c6VxyJV5wNjYUOV/3dhGLsOrr+mEKy4yYS7LOfQ/V6TtbDGvB/lV790nrvgrsrYY0nwOiEVAsQDoTsuzSq1t6lw/uUtikz1kAz0nL74Hw==
+X-Microsoft-Antispam-Message-Info: LP57XFzGus5jyrzK0bzt/wELVSSdYos9ckkJIlp0ee2aHzH+19TD6KGR6JNTp4rV7nFHDkwRoAa4pCtk8z3MB3GGbtBygVK0W/A4wkLdtUyNbJt5sczE5uyUqOcEC4Pr/91ildx7mXY8CLOWuAhpN+kGwTQJc/QpocrlvKncArUsx8KhYZzbe4LxoPC0FCZzIBbgwuufHGKkovKMh5ZnREGWz4JqYutJh5QXY+tSj2r2aYy4BoL7SAgbcEnAKfv5Wr7Uv40k0fcdUBE+qbEDgb6zPFZ+WEsO1JEB51KuCLQ6ZChse3I8GRDEyCy8uNhG3hheD6P+q3vzZD8IwXJUxObu64hOMnsmCmCD2VjxHCXZPOoPpR+P4BH8MaITJ4ScryIjKRpi+74FhNyaAK94Lsa6l0WS8/X0X+OTYm+rShXx7HzNlK43bdVIfso496Bb
+X-MS-Exchange-AntiSpam-MessageData: z2e39yi1xUe5QDFGZnp+aqc4+lrWO+jclCJ7NqKetNmiJB79mEY5xta98V4nlLfBjltsEuQbdFxSVtoM3076IdvsAp5EX77RectB0x0daziD+IS2+lPUxhRx1hjNKdzymfu6f5TfyWHODsbkWt+fpw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3c068f96-9773-4c8a-885e-08d7b6e7b4b2
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:04:18.3323 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8f9d2ea-ab93-48d3-fbbd-08d7b6e7b356
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:04:16.0586 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kiLbOomN0fF6nMFc0aH//h9sk9TBOrGJku0y3C1NATHF3xld59970mrV1PNmfuPa/6uJaUQW0bV5+OC9fDVvoA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: yoYuwRBvkVCh/R3oSKNSmv8MDX0dLGI0bmeHXWDN8Vo8R9PAbGbWpYdAfsxVDohH9/oSLS/EX+PxpnwO4gagAg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2572
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,59 +110,150 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Yu-ting Shen <Yu-ting.Shen@amd.com>, Sunpeng.Li@amd.com,
- Tony Cheng <Tony.Cheng@amd.com>, Rodrigo.Siqueira@amd.com,
- Harry Wentland <harry.wentland@amd.com>, Bhawanpreet.Lakha@amd.com
+Cc: Eric Yang <eric.yang2@amd.com>, Sunpeng.Li@amd.com,
+ Tony Cheng <tony.cheng@amd.com>, George Shen <george.shen@amd.com>,
+ Rodrigo.Siqueira@amd.com, Harry Wentland <harry.wentland@amd.com>,
+ Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yu-ting Shen <Yu-ting.Shen@amd.com>
+From: George Shen <george.shen@amd.com>
 
 [Why]
-when changing display clock, SMU need to use power up DFS and use
-DENTIST to ramp DFS DID to switch target frequency before switching back
-to bypass.
+Underflow sometimes occurs during transition into MPO with stutter
+enabled.
 
 [How]
-fixed the minimum display clock to 100MHz, it's W/A the same with PCO.
+When transitioning into MPO, disable stutter. Re-enable stutter within
+one frame.
 
-Signed-off-by: Yu-ting Shen <Yu-ting.Shen@amd.com>
-Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+Signed-off-by: George Shen <george.shen@amd.com>
+Signed-off-by: Tony Cheng <tony.cheng@amd.com>
+Reviewed-by: Eric Yang <eric.yang2@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Acked-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 3 +++
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 1 +
- 2 files changed, 4 insertions(+)
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 14 ++++++++++++++
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    | 19 ++++++++++++++++++-
+ .../drm/amd/display/dc/dcn21/dcn21_hubbub.c   |  1 +
+ .../drm/amd/display/dc/dcn21/dcn21_resource.c |  1 +
+ .../amd/display/dc/inc/hw_sequencer_private.h |  3 +++
+ 5 files changed, 37 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index 883ecd2ed4c8..78971b6b195c 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -2786,6 +2786,9 @@ void dcn20_calculate_dlg_params(
- 							!= dm_dram_clock_change_unsupported;
- 	context->bw_ctx.bw.dcn.clk.dppclk_khz = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index c381d347208f..c31ea11f10fc 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -2925,6 +2925,7 @@ void dcn10_update_pending_status(struct pipe_ctx *pipe_ctx)
+ 	struct dc_plane_state *plane_state = pipe_ctx->plane_state;
+ 	struct timing_generator *tg = pipe_ctx->stream_res.tg;
+ 	bool flip_pending;
++	struct dc *dc = plane_state->ctx->dc;
  
-+	if (context->bw_ctx.bw.dcn.clk.dispclk_khz < dc->debug.min_disp_clk_khz)
-+		context->bw_ctx.bw.dcn.clk.dispclk_khz = dc->debug.min_disp_clk_khz;
+ 	if (plane_state == NULL)
+ 		return;
+@@ -2942,6 +2943,19 @@ void dcn10_update_pending_status(struct pipe_ctx *pipe_ctx)
+ 		plane_state->status.is_right_eye =
+ 				!tg->funcs->is_stereo_left_eye(pipe_ctx->stream_res.tg);
+ 	}
 +
- 	/*
- 	 * An artifact of dml pipe split/odm is that pipes get merged back together for
- 	 * calculation. Therefore we need to only extract for first pipe in ascending index order
++	if (dc->hwseq->wa_state.disallow_self_refresh_during_multi_plane_transition_applied) {
++		struct dce_hwseq *hwseq = dc->hwseq;
++		struct timing_generator *tg = dc->res_pool->timing_generators[0];
++		unsigned int cur_frame = tg->funcs->get_frame_count(tg);
++
++		if (cur_frame != hwseq->wa_state.disallow_self_refresh_during_multi_plane_transition_applied_on_frame) {
++			struct hubbub *hubbub = dc->res_pool->hubbub;
++
++			hubbub->funcs->allow_self_refresh_control(hubbub, !dc->debug.disable_stutter);
++			hwseq->wa_state.disallow_self_refresh_during_multi_plane_transition_applied = false;
++		}
++	}
+ }
+ 
+ void dcn10_update_dchub(struct dce_hwseq *hws, struct dchub_init_data *dh_data)
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index cf13b1db1025..97c0c8ced8e5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -1584,6 +1584,7 @@ void dcn20_post_unlock_program_front_end(
+ {
+ 	int i;
+ 	const unsigned int TIMEOUT_FOR_PIPE_ENABLE_MS = 100;
++	struct dce_hwseq *hwseq = dc->hwseq;
+ 
+ 	DC_LOGGER_INIT(dc->ctx->logger);
+ 
+@@ -1611,8 +1612,24 @@ void dcn20_post_unlock_program_front_end(
+ 	}
+ 
+ 	/* WA to apply WM setting*/
+-	if (dc->hwseq->wa.DEGVIDCN21)
++	if (hwseq->wa.DEGVIDCN21)
+ 		dc->res_pool->hubbub->funcs->apply_DEDCN21_147_wa(dc->res_pool->hubbub);
++
++
++	/* WA for stutter underflow during MPO transitions when adding 2nd plane */
++	if (hwseq->wa.disallow_self_refresh_during_multi_plane_transition) {
++
++		if (dc->current_state->stream_status[0].plane_count == 1 &&
++				context->stream_status[0].plane_count > 1) {
++
++			struct timing_generator *tg = dc->res_pool->timing_generators[0];
++
++			dc->res_pool->hubbub->funcs->allow_self_refresh_control(dc->res_pool->hubbub, false);
++
++			hwseq->wa_state.disallow_self_refresh_during_multi_plane_transition_applied = true;
++			hwseq->wa_state.disallow_self_refresh_during_multi_plane_transition_applied_on_frame = tg->funcs->get_frame_count(tg);
++		}
++	}
+ }
+ 
+ void dcn20_prepare_bandwidth(
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
+index 8440975206e0..5e2d14b897af 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
+@@ -702,6 +702,7 @@ static const struct hubbub_funcs hubbub21_funcs = {
+ 	.wm_read_state = hubbub21_wm_read_state,
+ 	.get_dchub_ref_freq = hubbub2_get_dchub_ref_freq,
+ 	.program_watermarks = hubbub21_program_watermarks,
++	.allow_self_refresh_control = hubbub1_allow_self_refresh_control,
+ 	.apply_DEDCN21_147_wa = hubbub21_apply_DEDCN21_147_wa,
+ };
+ 
 diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-index aa73025c1747..dce4966eca20 100644
+index f453de10aa2d..aa73025c1747 100644
 --- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
 +++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-@@ -859,6 +859,7 @@ static const struct dc_debug_options debug_defaults_drv = {
- 		.timing_trace = false,
- 		.clock_trace = true,
- 		.disable_pplib_clock_request = true,
-+		.min_disp_clk_khz = 100000,
- 		.pipe_split_policy = MPC_SPLIT_AVOID_MULT_DISP,
- 		.force_single_disp_pipe_split = false,
- 		.disable_dcc = DCC_ENABLE,
+@@ -1564,6 +1564,7 @@ static struct dce_hwseq *dcn21_hwseq_create(
+ 		hws->shifts = &hwseq_shift;
+ 		hws->masks = &hwseq_mask;
+ 		hws->wa.DEGVIDCN21 = true;
++		hws->wa.disallow_self_refresh_during_multi_plane_transition = true;
+ 	}
+ 	return hws;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h
+index c5511e6157af..b1d736cbcd5a 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h
+@@ -40,10 +40,13 @@ struct dce_hwseq_wa {
+ 	bool false_optc_underflow;
+ 	bool DEGVIDCN10_254;
+ 	bool DEGVIDCN21;
++	bool disallow_self_refresh_during_multi_plane_transition;
+ };
+ 
+ struct hwseq_wa_state {
+ 	bool DEGVIDCN10_253_applied;
++	bool disallow_self_refresh_during_multi_plane_transition_applied;
++	unsigned int disallow_self_refresh_during_multi_plane_transition_applied_on_frame;
+ };
+ 
+ struct pipe_ctx;
 -- 
 2.25.0
 
