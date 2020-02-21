@@ -2,102 +2,116 @@ Return-Path: <SRS0=HRUr=4J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59131C35656
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 148D1C35646
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:06:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2AB692067D
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DB49D2067D
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:06:11 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="iCFjwVPc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2AB692067D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="yWyhC6KD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB49D2067D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC7986F4C2;
-	Fri, 21 Feb 2020 16:04:56 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2054.outbound.protection.outlook.com [40.107.92.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F1F36F4AA
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:04:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ED476F498;
+	Fri, 21 Feb 2020 16:06:11 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2053.outbound.protection.outlook.com [40.107.220.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97E5F6F498
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:06:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HcmzLTJ8gFJJNLCw7+QDMLnGVFurXbIrGxyQQL680gqTMSaEkYj1TMLzpjuK9JO9kBceHWBROWFXJC8j5iZ0Z2NYDagv9t6igWlrPpcnAIGzVR81piThzWr/on1g1Z44zfrDLc6MDtB+8nhiaYb+wzXkITtDSoASh6kdRwKgXnhXmrZhHSWQksaeIoBNCWXUtYG7pg8cBRG63iPLr/36uMcMTtSwFER6qcv/EVbDEehK3/RRlECb12fx9eh2j5XWZpHfl4gJ7hNSzbBKuJxRD7yAWKU9NkzBX5WkIY1C/fZGs+sDHpXVbmVoFfNh31iVhPZYFTOefNeqHawv0cjshA==
+ b=LOTDKSXhc0TJyWonOdzgJgZ2dvhH5St1kI1tkGeA34QAqkwAczOT1O00yjWAtm8RSVrC3WSnZdhFq1/c8BjXh0Tx44bBWG2pIwLepSFVzHlD9PZ8nN/1dzosB7mmF+xVDrWSHfRfo4zRDkfuKztqT9j7epcsp5wZxond5c4kYMBQU7yQG5CtNaet1PJHk7I/ra6rB10Q5kHP74uRAVIv6dmfqPgctmoqkFaKI7sD3l6df4H32R82HuJ5LdaHqu5ddwgWQSAMx33tAm2ApkXvhgZwEAeYTfzWXSpONjz0okcQGdaKrTscKO7b4qmbc7qtS1rtFo6Gm3ejZr/SL/SCjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=znLCXCqOiUVF0CI7HNBXonSarMXkGJ3a8+mZs6htnnk=;
- b=famWDB2jtLdvl6anXQEuJHXIIJP0i9FUtLxVDsw9JRqGQ6rjL/ScohZGwNyKAGQXRrI8xmwS4iWnVwXStx8b4m3V31X9oInpLNrkYzhtbK1caTQvwRqJsDQyAgGSpwla4uD1iVLw/4mFenhfnwE8dTT6tEOQr98EqyT/BLxshVKzXwVrmlgjBqugDKM3gY4Mt1vVBArFUF369KasF46mVF1FhxH/fycXtKswn+qH1owq+j+JrJih5X+l2DXzrHMEv//Qbtsdwoz/0W+HZ07PJjPFByIV1XSqJI13DLf8Rx7iA94NU5/WRSN1oprKF3rYdXV4kT14xplYkZaWcvrACA==
+ bh=tx52SbhxHrlNYOdqUslCAyZ5tF7GraE0YhQgKrTUXdY=;
+ b=QL3VTQqk74qI5PABs3xV7XFnBaIDI4izRCkxxuSH7Aojo4WVhePavD0yhD/PVNmv+iK65Z/c5ef2DqY86nVpHOlcLRWOCv8bJsbTUvoErluNMJhEoUkJRb8GhWCorvH0IZH65nS1zsjFIVN9TkBJFvo1C32HJc+oye/7YogeMQjkfMJzEdeupM7tIhzfeAsyRW1whmuhlYm2PqBKRQ/OB911R5P5cR42NizbsGAq8XlUxvvIHPC9j/D5jBEAb5dz4TMCxp1f3b7rmAabMd6twznBUML3PEhgsT6YLFJ+OemLuWIHi0qE9ccjQA5MlgMOHH+ENpPOpL60omjGT2MxGw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=znLCXCqOiUVF0CI7HNBXonSarMXkGJ3a8+mZs6htnnk=;
- b=iCFjwVPc4zp1TeKzSnHINbZhdtrr7mt/BPv0xZW1ERXKSJ5shlTyorzL2R2NrLU1+BV93n1zksjzpCExtK+YedUjn2HOrRbe4GD1dUAB1YPWZdV1UFfb/mLwtmLjjPzRgWe9ENFx8HEmWs85r63lXRNXZD1gyEqRMOYeDW13mAw=
+ bh=tx52SbhxHrlNYOdqUslCAyZ5tF7GraE0YhQgKrTUXdY=;
+ b=yWyhC6KDbA8qw9X36dHcsytLlj6tVuzPTmhnNiywZ7zq60gS2T71JRttVqA8edIOhMHXC6fVVu3hGowSbTqdxaHmcAt1PMGppy2KZ9I9BZZVOSpdtcBFyMK+lYNw499PK+eIH6pUsGMKZqkEDW6xNWJzlt2yD2kwK8AbWYwIFKQ=
 Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
-Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
- by MW2PR12MB2572.namprd12.prod.outlook.com (2603:10b6:907:6::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Fri, 21 Feb
- 2020 16:04:47 +0000
-Received: from MW2PR12MB2524.namprd12.prod.outlook.com
- ([fe80::b8ff:6893:5820:420f]) by MW2PR12MB2524.namprd12.prod.outlook.com
- ([fe80::b8ff:6893:5820:420f%6]) with mapi id 15.20.2729.033; Fri, 21 Feb 2020
- 16:04:47 +0000
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 31/35] drm/amd/display: optimize prgoram wm and clks
-Date: Fri, 21 Feb 2020 11:03:20 -0500
-Message-Id: <20200221160324.2969975-32-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.25.0
-In-Reply-To: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
-References: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
-X-ClientProxiedBy: YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::21) To MW2PR12MB2524.namprd12.prod.outlook.com
- (2603:10b6:907:9::27)
+ smtp.mailfrom=Tom.StDenis@amd.com; 
+Received: from CH2PR12MB3927.namprd12.prod.outlook.com (2603:10b6:610:2d::13)
+ by CH2PR12MB4166.namprd12.prod.outlook.com (2603:10b6:610:78::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2729.23; Fri, 21 Feb
+ 2020 16:06:09 +0000
+Received: from CH2PR12MB3927.namprd12.prod.outlook.com
+ ([fe80::54a8:8b32:7a8f:488c]) by CH2PR12MB3927.namprd12.prod.outlook.com
+ ([fe80::54a8:8b32:7a8f:488c%7]) with mapi id 15.20.2729.033; Fri, 21 Feb 2020
+ 16:06:09 +0000
+Subject: =?UTF-8?B?UmU6IOWbnuWkjTogW1BBVENIXSBkcm0vYW1kL2FtZGdwdTogZGlzYWJs?=
+ =?UTF-8?Q?e_GFXOFF_around_debugfs_access_to_MMIO?=
+To: christian.koenig@amd.com, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Huang, Ray" <Ray.Huang@amd.com>,
+ "Liu, Monk" <Monk.Liu@amd.com>
+References: <20200219150417.510884-1-tom.stdenis@amd.com>
+ <CADnq5_PaR2a4UCwQFF6y1A1MCqaDAbPbFJZSzdBcTMkRnREw5g@mail.gmail.com>
+ <6f93ee3f-4fba-575a-f8eb-0441b0efd4c8@amd.com>
+ <20200221143359.GF28698@jenkins-Celadon-RN>
+ <DM6PR12MB393101FB6C3250020720509A84120@DM6PR12MB3931.namprd12.prod.outlook.com>
+ <20200221152321.GH28698@jenkins-Celadon-RN>
+ <2e56e194-dceb-8315-987e-5825ad02a143@gmail.com>
+ <CH2PR12MB391225487BEB1F7F94F305EBF7120@CH2PR12MB3912.namprd12.prod.outlook.com>
+ <4baecca5-199b-414c-5865-410456bc2876@gmail.com>
+ <CH2PR12MB39120922B0E459A5721F0A15F7120@CH2PR12MB3912.namprd12.prod.outlook.com>
+ <d59d3310-329d-10a7-45c9-3bb85cb58644@gmail.com>
+From: Tom St Denis <tom.stdenis@amd.com>
+Message-ID: <03fe7a97-a454-fd48-382e-1c62a2d8b4bc@amd.com>
+Date: Fri, 21 Feb 2020 11:06:04 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+In-Reply-To: <d59d3310-329d-10a7-45c9-3bb85cb58644@gmail.com>
+Content-Language: en-US
+X-ClientProxiedBy: BN6PR2001CA0033.namprd20.prod.outlook.com
+ (2603:10b6:405:16::19) To CH2PR12MB3927.namprd12.prod.outlook.com
+ (2603:10b6:610:2d::13)
 MIME-Version: 1.0
-Received: from atma2.amd.com (165.204.55.250) by
- YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::21) with
+Received: from localhost.localdomain (165.204.84.11) by
+ BN6PR2001CA0033.namprd20.prod.outlook.com (2603:10b6:405:16::19) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
- Transport; Fri, 21 Feb 2020 16:04:13 +0000
-X-Mailer: git-send-email 2.25.0
-X-Originating-IP: [165.204.55.250]
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.17 via Frontend
+ Transport; Fri, 21 Feb 2020 16:06:07 +0000
+X-Originating-IP: [165.204.84.11]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 20525ea1-7a87-4f53-c81b-08d7b6e7b219
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2572:|MW2PR12MB2572:
+X-MS-Office365-Filtering-Correlation-Id: e610524f-278c-4f68-80dd-08d7b6e7f6d0
+X-MS-TrafficTypeDiagnostic: CH2PR12MB4166:|CH2PR12MB4166:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB257233A4FD39C5F56394479098120@MW2PR12MB2572.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:913;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB41662348736823D0895B94CFF7120@CH2PR12MB4166.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-Forefront-PRVS: 0320B28BE1
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(39860400002)(376002)(366004)(346002)(136003)(189003)(199004)(1076003)(5660300002)(36756003)(2906002)(8936002)(86362001)(30864003)(8676002)(6486002)(81156014)(81166006)(7696005)(52116002)(4326008)(6666004)(316002)(186003)(26005)(6916009)(16526019)(54906003)(2616005)(66476007)(66556008)(66946007)(956004)(478600001)(579004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MW2PR12MB2572;
- H:MW2PR12MB2524.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10001)(10009020)(4636009)(376002)(346002)(366004)(136003)(396003)(39860400002)(189003)(199004)(66476007)(66556008)(30864003)(81166006)(8936002)(2906002)(31696002)(5660300002)(66946007)(224303003)(6486002)(6512007)(36756003)(81156014)(6636002)(956004)(2616005)(4326008)(966005)(53546011)(186003)(6506007)(110136005)(54906003)(45080400002)(16526019)(66574012)(31686004)(6666004)(316002)(86362001)(478600001)(52116002)(26005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4166;
+ H:CH2PR12MB3927.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rcjMyY//UnyPqW/mBnQUJf86/fYCefFVy8/BeklPlfuF7NmjK/zJK+mVCyYBri6F/INYbOs/MXiRJyJbwa11tBlBjy4zbkqKSIIZVRuiV/XVJxTtUVFroz0N3XYoMjru/1K5m4StPaoTvrdPKSgkDWURVPbGmpnGxc6SoYg2kAtP+G+9SWQKRfTRslWv6VRJathw9WYstMZtjcOpnuNKOiVc+POUJWTy5/wGNORiQjnbJH2xSoJtn3Bn9+1ukVCzer3L21RCfToGWHHqisoOqSHe1uF5S7nDpdeOTSq5B8I45cDIejg9JB77IT3Cv+jchpJC67QD4ele0pD2a9VeMcooMkvVaWgpMZJATECov2QSMtkmb0nbM20dRBc2e/ujG75W6C1AmGyg8UUW/fxTbbYO8TQdGyiIqbx81gyfKliEEI+0radpN+C/qc8Zq8XL
-X-MS-Exchange-AntiSpam-MessageData: 5StlepVp7uBNwXBCoLA7lXQcxakg/aTceJdBX5CCqSIHEgHF+5g7hsWa67FOy+XZkTCRdb5TbM0C55kEXcrPOvGkwBea+5v5YU/GEqZLHyh5nem3EbhBbkWwOEbzTj8iIsPljqPzpYx+sfOEkSi4uA==
+X-Microsoft-Antispam-Message-Info: 8rcswkjMpze5hXdmmZKvw3mqXdexweqLmMlsDt+dyiIbqRLbNu/f/OyRZ2AT4+YNzQhimPTgRsm7FbLd68Mc8rNfzuAUmpHYmwdTLEdz6prgEG7LcwTnc1zP7HKJape3AV5wr67UtPW4RLVBFufCGqQxib4eEHLzleYF5nPFXl9cH7XYU3cXSduWeZvp0LkPk9OFWF20P75HTs2pKKWjBLru1YFSavwwdGztfqH2T8WroBW6z9K8YDNZ91H6AIj5CZO5TmwKxuu4U76ra765fuNltHqf6NmHtIQmWtyYW+/GXUfzRoY0iRXvM6rymId1ExD9J5hqGLtzVJH3xIl6cG4ClFA3lPrBsQOu9u3/VqGa9/sLyYijOfv4LM5ArPBcKVj1ztdPkxgfDC7nqXP51H96whZot3+i1AAWGcAojTjeO8Ppv1KwaiuaI7CZnBksfYDEbfFK2P7M6tQhjYLKaMMikGcolRB6s18U7pVh5Ydh8KZNQ5VkahUvpPABKoudIPTxelzUvjshBZY4IreGWhsGUGHjhGCrqbv8Z2p6encrPUirvHJScIEwcSM0BLMMo6xMoBGLVdhH2UtuHDZzFtS7U4B5OG8xEm6T+8unceYyVkXBYpsYh1YSHXRVpeJK
+X-MS-Exchange-AntiSpam-MessageData: iqNhOpvrFgahONOK/2mjOLZaoDhAewJF6tlT3YgNHeQl8mfIqTEUPt5lcyJ85OnxM9gyO+4+XBbVcLZUCG8QWmssje0AChFlaiPICxyHKujrsVjcZCr5Aedh7oRUezdah2NuS5LExUV6uAavv20KyA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20525ea1-7a87-4f53-c81b-08d7b6e7b219
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:04:13.9858 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e610524f-278c-4f68-80dd-08d7b6e7f6d0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:06:09.3033 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V2IvNduGSvaMDJuyyScal7poL5Ju1NshC0Fo8arAOlEyimsx26gz4cP0nx/oN2xupxZjUNdIHh6HmMfcbKQq9A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2572
+X-MS-Exchange-CrossTenant-UserPrincipalName: RzrDuvE9HW1sYxI6/G7lB2/IB5aqHtnNqkKrzP3TO/RKQFLOFXnRT9E+vxWRPSeRGDO+SPs1EezzrQFTHRa03A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4166
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,1018 +123,195 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Tony Cheng <Tony.Cheng@amd.com>,
- Rodrigo.Siqueira@amd.com, Yongqiang Sun <yongqiang.sun@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Bhawanpreet.Lakha@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexdeucher@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yongqiang Sun <yongqiang.sun@amd.com>
-
-[Why]
-In some display configuration like 1080P monitor playing a 1080P video,
-if user use ALT+F4 to exit Movie and TV, there is a chance clocks are
-same only water mark changed. Current clock optimization machanism will
-result in water mark keeps high after exit Movie and TV app.
-
-[How]
-Return if watermark need to be optimized when doing program watermark,
-perform the optimization after.
-
-Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
-Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Acked-by: Harry Wentland <harry.wentland@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  10 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |   3 +-
- .../drm/amd/display/dc/dcn10/dcn10_hubbub.c   | 101 +++++++++----
- .../drm/amd/display/dc/dcn10/dcn10_hubbub.h   |   8 +-
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  33 +++--
- .../drm/amd/display/dc/dcn20/dcn20_hubbub.c   |  11 +-
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  26 ++--
- .../drm/amd/display/dc/dcn21/dcn21_hubbub.c   | 137 +++++++++++++-----
- .../drm/amd/display/dc/dcn21/dcn21_hubbub.h   |   8 +-
- .../gpu/drm/amd/display/dc/inc/hw/dchubbub.h  |   2 +-
- 10 files changed, 237 insertions(+), 102 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 7513aa71da38..6dece1ee30bf 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -1365,7 +1365,7 @@ bool dc_post_update_surfaces_to_stream(struct dc *dc)
- 	int i;
- 	struct dc_state *context = dc->current_state;
- 
--	if (!dc->optimized_required || dc->optimize_seamless_boot_streams > 0)
-+	if ((!dc->clk_optimized_required && !dc->wm_optimized_required) || dc->optimize_seamless_boot_streams > 0)
- 		return true;
- 
- 	post_surface_trace(dc);
-@@ -1377,8 +1377,6 @@ bool dc_post_update_surfaces_to_stream(struct dc *dc)
- 			dc->hwss.disable_plane(dc, &context->res_ctx.pipe_ctx[i]);
- 		}
- 
--	dc->optimized_required = false;
--
- 	dc->hwss.optimize_bandwidth(dc, context);
- 	return true;
- }
-@@ -1826,10 +1824,10 @@ enum surface_update_type dc_check_update_surfaces_for_stream(
- 		// If there's an available clock comparator, we use that.
- 		if (dc->clk_mgr->funcs->are_clock_states_equal) {
- 			if (!dc->clk_mgr->funcs->are_clock_states_equal(&dc->clk_mgr->clks, &dc->current_state->bw_ctx.bw.dcn.clk))
--				dc->optimized_required = true;
-+				dc->clk_optimized_required = true;
- 		// Else we fallback to mem compare.
- 		} else if (memcmp(&dc->current_state->bw_ctx.bw.dcn.clk, &dc->clk_mgr->clks, offsetof(struct dc_clocks, prev_p_state_change_support)) != 0) {
--			dc->optimized_required = true;
-+			dc->clk_optimized_required = true;
- 		}
- 	}
- 
-@@ -2200,7 +2198,7 @@ static void commit_planes_for_stream(struct dc *dc,
- 			dc->optimize_seamless_boot_streams--;
- 
- 			if (dc->optimize_seamless_boot_streams == 0)
--				dc->optimized_required = true;
-+				dc->clk_optimized_required = true;
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index e10d5a7d0cb8..bc1220dce3b1 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -520,7 +520,8 @@ struct dc {
- 	struct dce_hwseq *hwseq;
- 
- 	/* Require to optimize clocks and bandwidth for added/removed planes */
--	bool optimized_required;
-+	bool clk_optimized_required;
-+	bool wm_optimized_required;
- 
- 	/* Require to maintain clocks and bandwidth for UEFI enabled HW */
- 	int optimize_seamless_boot_streams;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
-index 3e851713cf8d..e441c149ff40 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c
-@@ -243,7 +243,7 @@ void hubbub1_wm_change_req_wa(struct hubbub *hubbub)
- 			DCHUBBUB_ARB_WATERMARK_CHANGE_REQUEST, 1);
- }
- 
--void hubbub1_program_urgent_watermarks(
-+bool hubbub1_program_urgent_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-@@ -251,6 +251,7 @@ void hubbub1_program_urgent_watermarks(
- {
- 	struct dcn10_hubbub *hubbub1 = TO_DCN10_HUBBUB(hubbub);
- 	uint32_t prog_wm_value;
-+	bool wm_pending = false;
- 
- 	/* Repeat for water mark set A, B, C and D. */
- 	/* clock state A */
-@@ -264,7 +265,8 @@ void hubbub1_program_urgent_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("URGENCY_WATERMARK_A calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->a.urgent_ns, prog_wm_value);
--	}
-+	} else if (watermarks->a.urgent_ns < hubbub1->watermarks.a.urgent_ns)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->a.pte_meta_urgent_ns > hubbub1->watermarks.a.pte_meta_urgent_ns) {
- 		hubbub1->watermarks.a.pte_meta_urgent_ns = watermarks->a.pte_meta_urgent_ns;
-@@ -274,7 +276,8 @@ void hubbub1_program_urgent_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("PTE_META_URGENCY_WATERMARK_A calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->a.pte_meta_urgent_ns, prog_wm_value);
--	}
-+	} else if (watermarks->a.pte_meta_urgent_ns < hubbub1->watermarks.a.pte_meta_urgent_ns)
-+		wm_pending = true;
- 
- 	/* clock state B */
- 	if (safe_to_lower || watermarks->b.urgent_ns > hubbub1->watermarks.b.urgent_ns) {
-@@ -287,7 +290,8 @@ void hubbub1_program_urgent_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("URGENCY_WATERMARK_B calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->b.urgent_ns, prog_wm_value);
--	}
-+	} else if (watermarks->b.urgent_ns < hubbub1->watermarks.b.urgent_ns)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->b.pte_meta_urgent_ns > hubbub1->watermarks.b.pte_meta_urgent_ns) {
- 		hubbub1->watermarks.b.pte_meta_urgent_ns = watermarks->b.pte_meta_urgent_ns;
-@@ -297,7 +301,8 @@ void hubbub1_program_urgent_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("PTE_META_URGENCY_WATERMARK_B calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->b.pte_meta_urgent_ns, prog_wm_value);
--	}
-+	} else if (watermarks->b.pte_meta_urgent_ns < hubbub1->watermarks.b.pte_meta_urgent_ns)
-+		wm_pending = true;
- 
- 	/* clock state C */
- 	if (safe_to_lower || watermarks->c.urgent_ns > hubbub1->watermarks.c.urgent_ns) {
-@@ -310,7 +315,8 @@ void hubbub1_program_urgent_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("URGENCY_WATERMARK_C calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->c.urgent_ns, prog_wm_value);
--	}
-+	} else if (watermarks->c.urgent_ns < hubbub1->watermarks.c.urgent_ns)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->c.pte_meta_urgent_ns > hubbub1->watermarks.c.pte_meta_urgent_ns) {
- 		hubbub1->watermarks.c.pte_meta_urgent_ns = watermarks->c.pte_meta_urgent_ns;
-@@ -320,7 +326,8 @@ void hubbub1_program_urgent_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("PTE_META_URGENCY_WATERMARK_C calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->c.pte_meta_urgent_ns, prog_wm_value);
--	}
-+	} else if (watermarks->c.pte_meta_urgent_ns < hubbub1->watermarks.c.pte_meta_urgent_ns)
-+		wm_pending = true;
- 
- 	/* clock state D */
- 	if (safe_to_lower || watermarks->d.urgent_ns > hubbub1->watermarks.d.urgent_ns) {
-@@ -333,7 +340,8 @@ void hubbub1_program_urgent_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("URGENCY_WATERMARK_D calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->d.urgent_ns, prog_wm_value);
--	}
-+	} else if (watermarks->d.urgent_ns < hubbub1->watermarks.d.urgent_ns)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->d.pte_meta_urgent_ns > hubbub1->watermarks.d.pte_meta_urgent_ns) {
- 		hubbub1->watermarks.d.pte_meta_urgent_ns = watermarks->d.pte_meta_urgent_ns;
-@@ -343,10 +351,13 @@ void hubbub1_program_urgent_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("PTE_META_URGENCY_WATERMARK_D calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->d.pte_meta_urgent_ns, prog_wm_value);
--	}
-+	} else if (watermarks->d.pte_meta_urgent_ns < hubbub1->watermarks.d.pte_meta_urgent_ns)
-+		wm_pending = true;
-+
-+	return wm_pending;
- }
- 
--void hubbub1_program_stutter_watermarks(
-+bool hubbub1_program_stutter_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-@@ -354,6 +365,7 @@ void hubbub1_program_stutter_watermarks(
- {
- 	struct dcn10_hubbub *hubbub1 = TO_DCN10_HUBBUB(hubbub);
- 	uint32_t prog_wm_value;
-+	bool wm_pending = false;
- 
- 	/* clock state A */
- 	if (safe_to_lower || watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns
-@@ -368,7 +380,9 @@ void hubbub1_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_A calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns
-+			< hubbub1->watermarks.a.cstate_pstate.cstate_enter_plus_exit_ns)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->a.cstate_pstate.cstate_exit_ns
- 			> hubbub1->watermarks.a.cstate_pstate.cstate_exit_ns) {
-@@ -382,7 +396,9 @@ void hubbub1_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_A calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->a.cstate_pstate.cstate_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->a.cstate_pstate.cstate_exit_ns
-+			< hubbub1->watermarks.a.cstate_pstate.cstate_exit_ns)
-+		wm_pending = true;
- 
- 	/* clock state B */
- 	if (safe_to_lower || watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns
-@@ -397,7 +413,9 @@ void hubbub1_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_B calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns
-+			< hubbub1->watermarks.b.cstate_pstate.cstate_enter_plus_exit_ns)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->b.cstate_pstate.cstate_exit_ns
- 			> hubbub1->watermarks.b.cstate_pstate.cstate_exit_ns) {
-@@ -411,7 +429,9 @@ void hubbub1_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_B calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->b.cstate_pstate.cstate_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->b.cstate_pstate.cstate_exit_ns
-+			< hubbub1->watermarks.b.cstate_pstate.cstate_exit_ns)
-+		wm_pending = true;
- 
- 	/* clock state C */
- 	if (safe_to_lower || watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns
-@@ -426,7 +446,9 @@ void hubbub1_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_C calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns
-+			< hubbub1->watermarks.c.cstate_pstate.cstate_enter_plus_exit_ns)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->c.cstate_pstate.cstate_exit_ns
- 			> hubbub1->watermarks.c.cstate_pstate.cstate_exit_ns) {
-@@ -440,7 +462,9 @@ void hubbub1_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_C calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->c.cstate_pstate.cstate_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->c.cstate_pstate.cstate_exit_ns
-+			< hubbub1->watermarks.c.cstate_pstate.cstate_exit_ns)
-+		wm_pending = true;
- 
- 	/* clock state D */
- 	if (safe_to_lower || watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns
-@@ -455,7 +479,9 @@ void hubbub1_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_D calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns
-+			< hubbub1->watermarks.d.cstate_pstate.cstate_enter_plus_exit_ns)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->d.cstate_pstate.cstate_exit_ns
- 			> hubbub1->watermarks.d.cstate_pstate.cstate_exit_ns) {
-@@ -469,11 +495,14 @@ void hubbub1_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_D calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->d.cstate_pstate.cstate_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->d.cstate_pstate.cstate_exit_ns
-+			< hubbub1->watermarks.d.cstate_pstate.cstate_exit_ns)
-+		wm_pending = true;
- 
-+	return wm_pending;
- }
- 
--void hubbub1_program_pstate_watermarks(
-+bool hubbub1_program_pstate_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-@@ -481,6 +510,7 @@ void hubbub1_program_pstate_watermarks(
- {
- 	struct dcn10_hubbub *hubbub1 = TO_DCN10_HUBBUB(hubbub);
- 	uint32_t prog_wm_value;
-+	bool wm_pending = false;
- 
- 	/* clock state A */
- 	if (safe_to_lower || watermarks->a.cstate_pstate.pstate_change_ns
-@@ -495,7 +525,9 @@ void hubbub1_program_pstate_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_A calculated =%d\n"
- 			"HW register value = 0x%x\n\n",
- 			watermarks->a.cstate_pstate.pstate_change_ns, prog_wm_value);
--	}
-+	} else if (watermarks->a.cstate_pstate.pstate_change_ns
-+			< hubbub1->watermarks.a.cstate_pstate.pstate_change_ns)
-+		wm_pending = true;
- 
- 	/* clock state B */
- 	if (safe_to_lower || watermarks->b.cstate_pstate.pstate_change_ns
-@@ -510,7 +542,9 @@ void hubbub1_program_pstate_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_B calculated =%d\n"
- 			"HW register value = 0x%x\n\n",
- 			watermarks->b.cstate_pstate.pstate_change_ns, prog_wm_value);
--	}
-+	} else if (watermarks->b.cstate_pstate.pstate_change_ns
-+			< hubbub1->watermarks.b.cstate_pstate.pstate_change_ns)
-+		wm_pending = true;
- 
- 	/* clock state C */
- 	if (safe_to_lower || watermarks->c.cstate_pstate.pstate_change_ns
-@@ -525,7 +559,9 @@ void hubbub1_program_pstate_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_C calculated =%d\n"
- 			"HW register value = 0x%x\n\n",
- 			watermarks->c.cstate_pstate.pstate_change_ns, prog_wm_value);
--	}
-+	} else if (watermarks->c.cstate_pstate.pstate_change_ns
-+			< hubbub1->watermarks.c.cstate_pstate.pstate_change_ns)
-+		wm_pending = true;
- 
- 	/* clock state D */
- 	if (safe_to_lower || watermarks->d.cstate_pstate.pstate_change_ns
-@@ -540,23 +576,33 @@ void hubbub1_program_pstate_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_D calculated =%d\n"
- 			"HW register value = 0x%x\n\n",
- 			watermarks->d.cstate_pstate.pstate_change_ns, prog_wm_value);
--	}
-+	} else if (watermarks->d.cstate_pstate.pstate_change_ns
-+			< hubbub1->watermarks.d.cstate_pstate.pstate_change_ns)
-+		wm_pending = true;
-+
-+	return wm_pending;
- }
- 
--void hubbub1_program_watermarks(
-+bool hubbub1_program_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
- 		bool safe_to_lower)
- {
- 	struct dcn10_hubbub *hubbub1 = TO_DCN10_HUBBUB(hubbub);
-+	bool wm_pending = false;
- 	/*
- 	 * Need to clamp to max of the register values (i.e. no wrap)
- 	 * for dcn1, all wm registers are 21-bit wide
- 	 */
--	hubbub1_program_urgent_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower);
--	hubbub1_program_stutter_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower);
--	hubbub1_program_pstate_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower);
-+	if (hubbub1_program_urgent_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
-+
-+	if (hubbub1_program_stutter_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
-+
-+	if (hubbub1_program_pstate_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
- 
- 	REG_UPDATE(DCHUBBUB_ARB_SAT_LEVEL,
- 			DCHUBBUB_ARB_SAT_LEVEL, 60 * refclk_mhz);
-@@ -570,6 +616,7 @@ void hubbub1_program_watermarks(
- 			DCHUBBUB_ARB_WATERMARK_CHANGE_DONE_INTERRUPT_DISABLE, 1,
- 			DCHUBBUB_ARB_WATERMARK_CHANGE_REQUEST, 1);
- #endif
-+	return wm_pending;
- }
- 
- void hubbub1_update_dchub(
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
-index af57751253de..343a537172c7 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.h
-@@ -308,7 +308,7 @@ bool hubbub1_verify_allow_pstate_change_high(
- 
- void hubbub1_wm_change_req_wa(struct hubbub *hubbub);
- 
--void hubbub1_program_watermarks(
-+bool hubbub1_program_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-@@ -331,17 +331,17 @@ void hubbub1_construct(struct hubbub *hubbub,
- 	const struct dcn_hubbub_shift *hubbub_shift,
- 	const struct dcn_hubbub_mask *hubbub_mask);
- 
--void hubbub1_program_urgent_watermarks(
-+bool hubbub1_program_urgent_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
- 		bool safe_to_lower);
--void hubbub1_program_stutter_watermarks(
-+bool hubbub1_program_stutter_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
- 		bool safe_to_lower);
--void hubbub1_program_pstate_watermarks(
-+bool hubbub1_program_pstate_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 77396a08ad29..c381d347208f 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -1048,7 +1048,7 @@ void dcn10_plane_atomic_disconnect(struct dc *dc, struct pipe_ctx *pipe_ctx)
- 	if (opp != NULL)
- 		opp->mpcc_disconnect_pending[pipe_ctx->plane_res.mpcc_inst] = true;
- 
--	dc->optimized_required = true;
-+	dc->clk_optimized_required = true;
- 
- 	if (hubp->funcs->hubp_disconnect)
- 		hubp->funcs->hubp_disconnect(hubp);
-@@ -1099,7 +1099,7 @@ void dcn10_plane_atomic_disable(struct dc *dc, struct pipe_ctx *pipe_ctx)
- 				false);
- 
- 	hubp->power_gated = true;
--	dc->optimized_required = false; /* We're powering off, no need to optimize */
-+	dc->clk_optimized_required = false; /* We're powering off, no need to optimize */
- 
- 	hws->funcs.plane_atomic_power_down(dc,
- 			pipe_ctx->plane_res.dpp,
-@@ -2686,7 +2686,7 @@ void dcn10_prepare_bandwidth(
- 				false);
- 	}
- 
--	hubbub->funcs->program_watermarks(hubbub,
-+	dc->wm_optimized_required = hubbub->funcs->program_watermarks(hubbub,
- 			&context->bw_ctx.bw.dcn.watermarks,
- 			dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000,
- 			true);
-@@ -2710,19 +2710,30 @@ void dcn10_optimize_bandwidth(
- 		hws->funcs.verify_allow_pstate_change_high(dc);
- 
- 	if (!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment)) {
--		if (context->stream_count == 0)
-+		if (context->stream_count == 0) {
- 			context->bw_ctx.bw.dcn.clk.phyclk_khz = 0;
- 
--		dc->clk_mgr->funcs->update_clocks(
--				dc->clk_mgr,
--				context,
-+			dc->clk_mgr->funcs->update_clocks(
-+					dc->clk_mgr,
-+					context,
-+					true);
-+		} else if (dc->clk_optimized_required || IS_DIAG_DC(dc->ctx->dce_environment)) {
-+			dc->clk_mgr->funcs->update_clocks(
-+								dc->clk_mgr,
-+								context,
-+								true);
-+		}
-+	}
-+
-+	if (dc->wm_optimized_required || IS_DIAG_DC(dc->ctx->dce_environment)) {
-+		hubbub->funcs->program_watermarks(hubbub,
-+				&context->bw_ctx.bw.dcn.watermarks,
-+				dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000,
- 				true);
- 	}
- 
--	hubbub->funcs->program_watermarks(hubbub,
--			&context->bw_ctx.bw.dcn.watermarks,
--			dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000,
--			true);
-+	dc->clk_optimized_required = false;
-+	dc->wm_optimized_required = false;
- 	dcn10_stereo_hw_frame_pack_wa(dc, context);
- 
- 	if (dc->debug.pplib_wm_report_mode == WM_REPORT_OVERRIDE)
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c
-index 9235f7d29454..c0b21d7450d4 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c
-@@ -562,19 +562,23 @@ void hubbub2_get_dchub_ref_freq(struct hubbub *hubbub,
- 	}
- }
- 
--static void hubbub2_program_watermarks(
-+static bool hubbub2_program_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
- 		bool safe_to_lower)
- {
- 	struct dcn20_hubbub *hubbub1 = TO_DCN20_HUBBUB(hubbub);
-+	bool wm_pending = false;
- 	/*
- 	 * Need to clamp to max of the register values (i.e. no wrap)
- 	 * for dcn1, all wm registers are 21-bit wide
- 	 */
--	hubbub1_program_urgent_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower);
--	hubbub1_program_stutter_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower);
-+	if (hubbub1_program_urgent_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
-+
-+	if (hubbub1_program_stutter_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
- 
- 	/*
- 	 * There's a special case when going from p-state support to p-state unsupported
-@@ -592,6 +596,7 @@ static void hubbub2_program_watermarks(
- 	REG_UPDATE(DCHUBBUB_ARB_DF_REQ_OUTSTAND, DCHUBBUB_ARB_MIN_REQ_OUTSTAND, 180);
- 
- 	hubbub->funcs->allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
-+	return wm_pending;
- }
- 
- static const struct hubbub_funcs hubbub2_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index b9ec40a31f5c..cf13b1db1025 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -1627,7 +1627,7 @@ void dcn20_prepare_bandwidth(
- 			false);
- 
- 	/* program dchubbub watermarks */
--	hubbub->funcs->program_watermarks(hubbub,
-+	dc->wm_optimized_required = hubbub->funcs->program_watermarks(hubbub,
- 					&context->bw_ctx.bw.dcn.watermarks,
- 					dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000,
- 					false);
-@@ -1639,16 +1639,22 @@ void dcn20_optimize_bandwidth(
- {
- 	struct hubbub *hubbub = dc->res_pool->hubbub;
- 
--	/* program dchubbub watermarks */
--	hubbub->funcs->program_watermarks(hubbub,
--					&context->bw_ctx.bw.dcn.watermarks,
--					dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000,
--					true);
-+	if (dc->wm_optimized_required || IS_DIAG_DC(dc->ctx->dce_environment)) {
-+		/* program dchubbub watermarks */
-+		hubbub->funcs->program_watermarks(hubbub,
-+						&context->bw_ctx.bw.dcn.watermarks,
-+						dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000,
-+						true);
-+		dc->wm_optimized_required = false;
-+	}
- 
--	dc->clk_mgr->funcs->update_clocks(
--			dc->clk_mgr,
--			context,
--			true);
-+	if (dc->clk_optimized_required || IS_DIAG_DC(dc->ctx->dce_environment)) {
-+		dc->clk_mgr->funcs->update_clocks(
-+				dc->clk_mgr,
-+				context,
-+				true);
-+		dc->wm_optimized_required = false;
-+	}
- }
- 
- bool dcn20_update_bandwidth(
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
-index f546260c15b7..8440975206e0 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
-@@ -141,7 +141,7 @@ int hubbub21_init_dchub(struct hubbub *hubbub,
- 	return NUM_VMID;
- }
- 
--void hubbub21_program_urgent_watermarks(
-+bool hubbub21_program_urgent_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-@@ -149,6 +149,7 @@ void hubbub21_program_urgent_watermarks(
- {
- 	struct dcn20_hubbub *hubbub1 = TO_DCN20_HUBBUB(hubbub);
- 	uint32_t prog_wm_value;
-+	bool wm_pending = false;
- 
- 	/* Repeat for water mark set A, B, C and D. */
- 	/* clock state A */
-@@ -163,7 +164,8 @@ void hubbub21_program_urgent_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("URGENCY_WATERMARK_A calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->a.urgent_ns, prog_wm_value);
--	}
-+	} else if (watermarks->a.urgent_ns < hubbub1->watermarks.a.urgent_ns)
-+		wm_pending = true;
- 
- 	/* determine the transfer time for a quantity of data for a particular requestor.*/
- 	if (safe_to_lower || watermarks->a.frac_urg_bw_flip
-@@ -172,7 +174,9 @@ void hubbub21_program_urgent_watermarks(
- 
- 		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_A, 0,
- 				DCHUBBUB_ARB_FRAC_URG_BW_FLIP_A, watermarks->a.frac_urg_bw_flip);
--	}
-+	} else if (watermarks->a.frac_urg_bw_flip
-+			< hubbub1->watermarks.a.frac_urg_bw_flip)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->a.frac_urg_bw_nom
- 			> hubbub1->watermarks.a.frac_urg_bw_nom) {
-@@ -180,14 +184,18 @@ void hubbub21_program_urgent_watermarks(
- 
- 		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_NOM_A, 0,
- 				DCHUBBUB_ARB_FRAC_URG_BW_NOM_A, watermarks->a.frac_urg_bw_nom);
--	}
-+	} else if (watermarks->a.frac_urg_bw_nom
-+			< hubbub1->watermarks.a.frac_urg_bw_nom)
-+		wm_pending = true;
-+
- 	if (safe_to_lower || watermarks->a.urgent_latency_ns > hubbub1->watermarks.a.urgent_latency_ns) {
- 		hubbub1->watermarks.a.urgent_latency_ns = watermarks->a.urgent_latency_ns;
- 		prog_wm_value = convert_and_clamp(watermarks->a.urgent_latency_ns,
- 				refclk_mhz, 0x1fffff);
- 		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A, 0,
- 				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A, prog_wm_value);
--	}
-+	} else if (watermarks->a.urgent_latency_ns < hubbub1->watermarks.a.urgent_latency_ns)
-+		wm_pending = true;
- 
- 	/* clock state B */
- 	if (safe_to_lower || watermarks->b.urgent_ns > hubbub1->watermarks.b.urgent_ns) {
-@@ -201,7 +209,8 @@ void hubbub21_program_urgent_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("URGENCY_WATERMARK_B calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->b.urgent_ns, prog_wm_value);
--	}
-+	} else if (watermarks->b.urgent_ns < hubbub1->watermarks.b.urgent_ns)
-+		wm_pending = true;
- 
- 	/* determine the transfer time for a quantity of data for a particular requestor.*/
- 	if (safe_to_lower || watermarks->a.frac_urg_bw_flip
-@@ -210,7 +219,9 @@ void hubbub21_program_urgent_watermarks(
- 
- 		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_B, 0,
- 				DCHUBBUB_ARB_FRAC_URG_BW_FLIP_B, watermarks->a.frac_urg_bw_flip);
--	}
-+	} else if (watermarks->a.frac_urg_bw_flip
-+			< hubbub1->watermarks.a.frac_urg_bw_flip)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->a.frac_urg_bw_nom
- 			> hubbub1->watermarks.a.frac_urg_bw_nom) {
-@@ -218,7 +229,9 @@ void hubbub21_program_urgent_watermarks(
- 
- 		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_NOM_B, 0,
- 				DCHUBBUB_ARB_FRAC_URG_BW_NOM_B, watermarks->a.frac_urg_bw_nom);
--	}
-+	} else if (watermarks->a.frac_urg_bw_nom
-+			< hubbub1->watermarks.a.frac_urg_bw_nom)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->b.urgent_latency_ns > hubbub1->watermarks.b.urgent_latency_ns) {
- 		hubbub1->watermarks.b.urgent_latency_ns = watermarks->b.urgent_latency_ns;
-@@ -226,7 +239,8 @@ void hubbub21_program_urgent_watermarks(
- 				refclk_mhz, 0x1fffff);
- 		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B, 0,
- 				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B, prog_wm_value);
--	}
-+	} else if (watermarks->b.urgent_latency_ns < hubbub1->watermarks.b.urgent_latency_ns)
-+		wm_pending = true;
- 
- 	/* clock state C */
- 	if (safe_to_lower || watermarks->c.urgent_ns > hubbub1->watermarks.c.urgent_ns) {
-@@ -240,7 +254,8 @@ void hubbub21_program_urgent_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("URGENCY_WATERMARK_C calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->c.urgent_ns, prog_wm_value);
--	}
-+	} else if (watermarks->c.urgent_ns < hubbub1->watermarks.c.urgent_ns)
-+		wm_pending = true;
- 
- 	/* determine the transfer time for a quantity of data for a particular requestor.*/
- 	if (safe_to_lower || watermarks->a.frac_urg_bw_flip
-@@ -249,7 +264,9 @@ void hubbub21_program_urgent_watermarks(
- 
- 		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_C, 0,
- 				DCHUBBUB_ARB_FRAC_URG_BW_FLIP_C, watermarks->a.frac_urg_bw_flip);
--	}
-+	} else if (watermarks->a.frac_urg_bw_flip
-+			< hubbub1->watermarks.a.frac_urg_bw_flip)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->a.frac_urg_bw_nom
- 			> hubbub1->watermarks.a.frac_urg_bw_nom) {
-@@ -257,7 +274,9 @@ void hubbub21_program_urgent_watermarks(
- 
- 		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_NOM_C, 0,
- 				DCHUBBUB_ARB_FRAC_URG_BW_NOM_C, watermarks->a.frac_urg_bw_nom);
--	}
-+	} else if (watermarks->a.frac_urg_bw_nom
-+			< hubbub1->watermarks.a.frac_urg_bw_nom)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->c.urgent_latency_ns > hubbub1->watermarks.c.urgent_latency_ns) {
- 		hubbub1->watermarks.c.urgent_latency_ns = watermarks->c.urgent_latency_ns;
-@@ -265,7 +284,8 @@ void hubbub21_program_urgent_watermarks(
- 				refclk_mhz, 0x1fffff);
- 		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C, 0,
- 				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C, prog_wm_value);
--	}
-+	} else if (watermarks->c.urgent_latency_ns < hubbub1->watermarks.c.urgent_latency_ns)
-+		wm_pending = true;
- 
- 	/* clock state D */
- 	if (safe_to_lower || watermarks->d.urgent_ns > hubbub1->watermarks.d.urgent_ns) {
-@@ -279,7 +299,8 @@ void hubbub21_program_urgent_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("URGENCY_WATERMARK_D calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->d.urgent_ns, prog_wm_value);
--	}
-+	} else if (watermarks->d.urgent_ns < hubbub1->watermarks.d.urgent_ns)
-+		wm_pending = true;
- 
- 	/* determine the transfer time for a quantity of data for a particular requestor.*/
- 	if (safe_to_lower || watermarks->a.frac_urg_bw_flip
-@@ -288,7 +309,9 @@ void hubbub21_program_urgent_watermarks(
- 
- 		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_D, 0,
- 				DCHUBBUB_ARB_FRAC_URG_BW_FLIP_D, watermarks->a.frac_urg_bw_flip);
--	}
-+	} else if (watermarks->a.frac_urg_bw_flip
-+			< hubbub1->watermarks.a.frac_urg_bw_flip)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->a.frac_urg_bw_nom
- 			> hubbub1->watermarks.a.frac_urg_bw_nom) {
-@@ -296,7 +319,9 @@ void hubbub21_program_urgent_watermarks(
- 
- 		REG_SET(DCHUBBUB_ARB_FRAC_URG_BW_NOM_D, 0,
- 				DCHUBBUB_ARB_FRAC_URG_BW_NOM_D, watermarks->a.frac_urg_bw_nom);
--	}
-+	} else if (watermarks->a.frac_urg_bw_nom
-+			< hubbub1->watermarks.a.frac_urg_bw_nom)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->d.urgent_latency_ns > hubbub1->watermarks.d.urgent_latency_ns) {
- 		hubbub1->watermarks.d.urgent_latency_ns = watermarks->d.urgent_latency_ns;
-@@ -304,10 +329,13 @@ void hubbub21_program_urgent_watermarks(
- 				refclk_mhz, 0x1fffff);
- 		REG_SET(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D, 0,
- 				DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D, prog_wm_value);
--	}
-+	} else if (watermarks->d.urgent_latency_ns < hubbub1->watermarks.d.urgent_latency_ns)
-+		wm_pending = true;
-+
-+	return wm_pending;
- }
- 
--void hubbub21_program_stutter_watermarks(
-+bool hubbub21_program_stutter_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-@@ -315,6 +343,7 @@ void hubbub21_program_stutter_watermarks(
- {
- 	struct dcn20_hubbub *hubbub1 = TO_DCN20_HUBBUB(hubbub);
- 	uint32_t prog_wm_value;
-+	bool wm_pending = false;
- 
- 	/* clock state A */
- 	if (safe_to_lower || watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns
-@@ -330,7 +359,9 @@ void hubbub21_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_A calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->a.cstate_pstate.cstate_enter_plus_exit_ns
-+			< hubbub1->watermarks.a.cstate_pstate.cstate_enter_plus_exit_ns)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->a.cstate_pstate.cstate_exit_ns
- 			> hubbub1->watermarks.a.cstate_pstate.cstate_exit_ns) {
-@@ -345,7 +376,9 @@ void hubbub21_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_A calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->a.cstate_pstate.cstate_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->a.cstate_pstate.cstate_exit_ns
-+			< hubbub1->watermarks.a.cstate_pstate.cstate_exit_ns)
-+		wm_pending = true;
- 
- 	/* clock state B */
- 	if (safe_to_lower || watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns
-@@ -361,7 +394,9 @@ void hubbub21_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_B calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->b.cstate_pstate.cstate_enter_plus_exit_ns
-+			< hubbub1->watermarks.b.cstate_pstate.cstate_enter_plus_exit_ns)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->b.cstate_pstate.cstate_exit_ns
- 			> hubbub1->watermarks.b.cstate_pstate.cstate_exit_ns) {
-@@ -376,7 +411,9 @@ void hubbub21_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_B calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->b.cstate_pstate.cstate_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->b.cstate_pstate.cstate_exit_ns
-+			< hubbub1->watermarks.b.cstate_pstate.cstate_exit_ns)
-+		wm_pending = true;
- 
- 	/* clock state C */
- 	if (safe_to_lower || watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns
-@@ -392,7 +429,9 @@ void hubbub21_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_C calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->c.cstate_pstate.cstate_enter_plus_exit_ns
-+			< hubbub1->watermarks.c.cstate_pstate.cstate_enter_plus_exit_ns)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->c.cstate_pstate.cstate_exit_ns
- 			> hubbub1->watermarks.c.cstate_pstate.cstate_exit_ns) {
-@@ -407,7 +446,9 @@ void hubbub21_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_C calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->c.cstate_pstate.cstate_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->c.cstate_pstate.cstate_exit_ns
-+			< hubbub1->watermarks.c.cstate_pstate.cstate_exit_ns)
-+		wm_pending = true;
- 
- 	/* clock state D */
- 	if (safe_to_lower || watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns
-@@ -423,7 +464,9 @@ void hubbub21_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_ENTER_EXIT_WATERMARK_D calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->d.cstate_pstate.cstate_enter_plus_exit_ns
-+			< hubbub1->watermarks.d.cstate_pstate.cstate_enter_plus_exit_ns)
-+		wm_pending = true;
- 
- 	if (safe_to_lower || watermarks->d.cstate_pstate.cstate_exit_ns
- 			> hubbub1->watermarks.d.cstate_pstate.cstate_exit_ns) {
-@@ -438,10 +481,14 @@ void hubbub21_program_stutter_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("SR_EXIT_WATERMARK_D calculated =%d\n"
- 			"HW register value = 0x%x\n",
- 			watermarks->d.cstate_pstate.cstate_exit_ns, prog_wm_value);
--	}
-+	} else if (watermarks->d.cstate_pstate.cstate_exit_ns
-+			< hubbub1->watermarks.d.cstate_pstate.cstate_exit_ns)
-+		wm_pending = true;
-+
-+	return wm_pending;
- }
- 
--void hubbub21_program_pstate_watermarks(
-+bool hubbub21_program_pstate_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-@@ -450,6 +497,8 @@ void hubbub21_program_pstate_watermarks(
- 	struct dcn20_hubbub *hubbub1 = TO_DCN20_HUBBUB(hubbub);
- 	uint32_t prog_wm_value;
- 
-+	bool wm_pending = false;
-+
- 	/* clock state A */
- 	if (safe_to_lower || watermarks->a.cstate_pstate.pstate_change_ns
- 			> hubbub1->watermarks.a.cstate_pstate.pstate_change_ns) {
-@@ -464,7 +513,9 @@ void hubbub21_program_pstate_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_A calculated =%d\n"
- 			"HW register value = 0x%x\n\n",
- 			watermarks->a.cstate_pstate.pstate_change_ns, prog_wm_value);
--	}
-+	} else if (watermarks->a.cstate_pstate.pstate_change_ns
-+			< hubbub1->watermarks.a.cstate_pstate.pstate_change_ns)
-+		wm_pending = true;
- 
- 	/* clock state B */
- 	if (safe_to_lower || watermarks->b.cstate_pstate.pstate_change_ns
-@@ -480,7 +531,9 @@ void hubbub21_program_pstate_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_B calculated =%d\n"
- 			"HW register value = 0x%x\n\n",
- 			watermarks->b.cstate_pstate.pstate_change_ns, prog_wm_value);
--	}
-+	} else if (watermarks->b.cstate_pstate.pstate_change_ns
-+			< hubbub1->watermarks.b.cstate_pstate.pstate_change_ns)
-+		wm_pending = false;
- 
- 	/* clock state C */
- 	if (safe_to_lower || watermarks->c.cstate_pstate.pstate_change_ns
-@@ -496,7 +549,9 @@ void hubbub21_program_pstate_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_C calculated =%d\n"
- 			"HW register value = 0x%x\n\n",
- 			watermarks->c.cstate_pstate.pstate_change_ns, prog_wm_value);
--	}
-+	} else if (watermarks->c.cstate_pstate.pstate_change_ns
-+			< hubbub1->watermarks.c.cstate_pstate.pstate_change_ns)
-+		wm_pending = true;
- 
- 	/* clock state D */
- 	if (safe_to_lower || watermarks->d.cstate_pstate.pstate_change_ns
-@@ -512,20 +567,30 @@ void hubbub21_program_pstate_watermarks(
- 		DC_LOG_BANDWIDTH_CALCS("DRAM_CLK_CHANGE_WATERMARK_D calculated =%d\n"
- 			"HW register value = 0x%x\n\n",
- 			watermarks->d.cstate_pstate.pstate_change_ns, prog_wm_value);
--	}
-+	} else if (watermarks->d.cstate_pstate.pstate_change_ns
-+			< hubbub1->watermarks.d.cstate_pstate.pstate_change_ns)
-+		wm_pending = true;
-+
-+	return wm_pending;
- }
- 
--void hubbub21_program_watermarks(
-+bool hubbub21_program_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
- 		bool safe_to_lower)
- {
- 	struct dcn20_hubbub *hubbub1 = TO_DCN20_HUBBUB(hubbub);
-+	bool wm_pending = false;
-+
-+	if (hubbub21_program_urgent_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
- 
--	hubbub21_program_urgent_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower);
--	hubbub21_program_stutter_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower);
--	hubbub21_program_pstate_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower);
-+	if (hubbub21_program_stutter_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
-+
-+	if (hubbub21_program_pstate_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
- 
- 	/*
- 	 * The DCHub arbiter has a mechanism to dynamically rate limit the DCHub request stream to the fabric.
-@@ -549,6 +614,8 @@ void hubbub21_program_watermarks(
- 			DCHUBBUB_ARB_MAX_QOS_COMMIT_THRESHOLD, 0xF);
- 
- 	hubbub1_allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
-+
-+	return wm_pending;
- }
- 
- void hubbub21_wm_read_state(struct hubbub *hubbub,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.h
-index c4840dfb1fa5..ef3ef28509ed 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.h
-@@ -113,22 +113,22 @@
- void dcn21_dchvm_init(struct hubbub *hubbub);
- int hubbub21_init_dchub(struct hubbub *hubbub,
- 		struct dcn_hubbub_phys_addr_config *pa_config);
--void hubbub21_program_watermarks(
-+bool hubbub21_program_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
- 		bool safe_to_lower);
--void hubbub21_program_urgent_watermarks(
-+bool hubbub21_program_urgent_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
- 		bool safe_to_lower);
--void hubbub21_program_stutter_watermarks(
-+bool hubbub21_program_stutter_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
- 		bool safe_to_lower);
--void hubbub21_program_pstate_watermarks(
-+bool hubbub21_program_pstate_watermarks(
- 		struct hubbub *hubbub,
- 		struct dcn_watermark_set *watermarks,
- 		unsigned int refclk_mhz,
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-index c0dc1d0f5cae..f5dd0cc73c63 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-@@ -134,7 +134,7 @@ struct hubbub_funcs {
- 			unsigned int dccg_ref_freq_inKhz,
- 			unsigned int *dchub_ref_freq_inKhz);
- 
--	void (*program_watermarks)(
-+	bool (*program_watermarks)(
- 			struct hubbub *hubbub,
- 			struct dcn_watermark_set *watermarks,
- 			unsigned int refclk_mhz,
--- 
-2.25.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+UHJvYmFibHkgc2ltcGxlciBqdXN0IHRvIGRvIG9uL29mZiBhbmQgbGV0IHVzZXJzcGFjZSBkZXRl
+cm1pbmUgdGltaW5nIApidXQgb3RoZXIgdGhhbiB0aGF0IHlhIHNvdW5kcyBnb29kLgoKCkZvciB0
+aGluZ3MgbGlrZSB1bXIncyAtLXRvcCB3aGljaCBydW5zIGluZGVmaW5pdGVseSBoYXZpbmcgYSB0
+aW1lciAKd291bGRuJ3Qgd29yay7CoCBTaW1pbGFybHksIC0td2F2ZXMgY2FuIHRha2UgYSBsb25n
+IHRpbWUgZGVwZW5kaW5nIG9uIAphY3Rpdml0eSBhbmQgdGhlIGFzaWMuCgoKVG9tCgoKCk9uIDIw
+MjAtMDItMjEgMTE6MDQgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiBPayBob3cgYWJv
+dXQgdGhpczoKPgo+IFdlIGFkZCBhIGRlYnVnZnMgZmlsZSB3aGljaCB3aGVuIHJlYWQgcmV0dXJu
+cyB0aGUgR0ZYT0ZGIHN0YXR1cyBhbmQgCj4gd2hlbiB3cml0dGVuIHdpdGggYSBudW1iZXIgZGlz
+YWJsZWQgR0ZYT0ZGIGZvciBOIHNlY29uZHMgd2l0aCAwIAo+IG1lYW5pbmcgZm9yZXZlci4KPgo+
+IFVtciBnZXRzIGEgbmV3IGNvbW1hbmRsaW5lIG9wdGlvbiB0byB3cml0ZSB0byB0aGF0IGZpbGUg
+YmVmb3JlIHJlYWRpbmcgCj4gcmVnaXN0ZXJzLgo+Cj4gVGhpcyB3YXkgdGhlIHVzZXIgY2FuIHN0
+aWxsIGRpc2FibGUgaXQgaWYgaXQgY2F1c2VzIGFueSBwcm9ibGVtcy4gRG9lcyAKPiB0aGF0IHNv
+dW5kcyBsaWtlIGEgcGxhbj8KPgo+IFJlZ2FyZHMsCj4gQ2hyaXN0aWFuLgo+Cj4gQW0gMjEuMDIu
+MjAgdW0gMTY6NTYgc2NocmllYiBEZXVjaGVyLCBBbGV4YW5kZXI6Cj4+Cj4+IFtBTUQgUHVibGlj
+IFVzZV0KPj4KPj4KPj4gTm90IGF0IHRoZSBtb21lbnQuwqAgQnV0IHdlIGNvdWxkIGFkZCBhIGRl
+YnVnZnMgZmlsZSB3aGljaCBqdXN0IHdyYXBzIAo+PiBhbWRncHVfZ2Z4X29mZl9jdHJsKCkuIFRo
+YXQgc2FpZCwgbWF5YmUgd2UganVzdCBhZGQgYSBkZWxheSBoZXJlIG9yIGEgCj4+IHVzZSBhIHRp
+bWVyIHRvIGRlbGF5IHR1cm5pbmcgZ2Z4b2ZmIGJhY2sgb24gYWdhaW4gc28gdGhhdCB3ZSBhcmVu
+J3QgCj4+IHR1cm5pbmcgaXQgb24gYW5kIG9mZiBzbyByYXBpZGx5Lgo+Pgo+PiBBbGV4Cj4+Cj4+
+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLQo+PiAqRnJvbToqIENocmlzdGlhbiBLw7ZuaWcgPGNrb2VuaWcubGVp
+Y2h0enVtZXJrZW5AZ21haWwuY29tPgo+PiAqU2VudDoqIEZyaWRheSwgRmVicnVhcnkgMjEsIDIw
+MjAgMTA6NDMgQU0KPj4gKlRvOiogRGV1Y2hlciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hl
+ckBhbWQuY29tPjsgSHVhbmcsIFJheSAKPj4gPFJheS5IdWFuZ0BhbWQuY29tPjsgTGl1LCBNb25r
+IDxNb25rLkxpdUBhbWQuY29tPgo+PiAqQ2M6KiBTdERlbmlzLCBUb20gPFRvbS5TdERlbmlzQGFt
+ZC5jb20+OyBBbGV4IERldWNoZXIgCj4+IDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+OyBhbWQtZ2Z4
+IGxpc3QgPGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPgo+PiAqU3ViamVjdDoqIFJlOiDl
+m57lpI06IFtQQVRDSF0gZHJtL2FtZC9hbWRncHU6IGRpc2FibGUgR0ZYT0ZGIGFyb3VuZCAKPj4g
+ZGVidWdmcyBhY2Nlc3MgdG8gTU1JTwo+PiBEbyB3ZSBoYXZlIGEgd2F5IHRvIGRpc2FibGUgR0ZY
+T0ZGIG9uIHRoZSBmbHk/Cj4+Cj4+IElmIG5vdCBtYXliZSBpdCB3b3VsZCBiZSBhIGdvb2QgaWRl
+YSB0byBhZGQgYSBzZXBhcmF0ZSBkZWJ1Z2ZzIGZpbGUgCj4+IHRvIGRvIHRoaXMuCj4+Cj4+IENo
+cmlzdGlhbi4KPj4KPj4gQW0gMjEuMDIuMjAgdW0gMTY6Mzkgc2NocmllYiBEZXVjaGVyLCBBbGV4
+YW5kZXI6Cj4+Pgo+Pj4gW0FNRCBQdWJsaWMgVXNlXQo+Pj4KPj4+Cj4+PiBJZiB3ZSBhcmUgdHJ5
+aW5nIHRvIGRlYnVnIGEgcmVwcm9kdWNpYmxlIGhhbmcsIHByb2JhYmx5IGJlc3QgdG8ganVzdCAK
+Pj4+IHRvIGRpc2FibGUgZ2Z4b2ZmIGJlZm9yZSBtZXNzaW5nIHdpdGggaXQgdG8gcmVtb3ZlIHRo
+YXQgYXMgYSAKPj4+IGZhY3Rvci7CoCBPdGhlcndpc2UsIHRoZSBtZXRob2QgaW5jbHVkZWQgaW4g
+dGhpcyBwYXRjaCBpcyB0aGUgcHJvcGVyIAo+Pj4gd2F5IHRvIGRpc2FibGUvZW5hYmxlIEdGWE9G
+RiBkeW5hbWljYWxseS4KPj4+Cj4+PiBBbGV4Cj4+Pgo+Pj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4+PiAq
+RnJvbToqIGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IAo+
+Pj4gPG1haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBvbiBiZWhh
+bGYgb2YgCj4+PiBDaHJpc3RpYW4gS8O2bmlnIDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWls
+LmNvbT4gCj4+PiA8bWFpbHRvOmNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPgo+Pj4g
+KlNlbnQ6KiBGcmlkYXksIEZlYnJ1YXJ5IDIxLCAyMDIwIDEwOjI3IEFNCj4+PiAqVG86KiBIdWFu
+ZywgUmF5IDxSYXkuSHVhbmdAYW1kLmNvbT4gPG1haWx0bzpSYXkuSHVhbmdAYW1kLmNvbT47IAo+
+Pj4gTGl1LCBNb25rIDxNb25rLkxpdUBhbWQuY29tPiA8bWFpbHRvOk1vbmsuTGl1QGFtZC5jb20+
+Cj4+PiAqQ2M6KiBTdERlbmlzLCBUb20gPFRvbS5TdERlbmlzQGFtZC5jb20+IAo+Pj4gPG1haWx0
+bzpUb20uU3REZW5pc0BhbWQuY29tPjsgQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5j
+b20+IAo+Pj4gPG1haWx0bzphbGV4ZGV1Y2hlckBnbWFpbC5jb20+OyBhbWQtZ2Z4IGxpc3QgCj4+
+PiA8YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+IDxtYWlsdG86YW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmc+Cj4+PiAqU3ViamVjdDoqIFJlOiDlm57lpI06IFtQQVRDSF0gZHJtL2Ft
+ZC9hbWRncHU6IGRpc2FibGUgR0ZYT0ZGIGFyb3VuZCAKPj4+IGRlYnVnZnMgYWNjZXNzIHRvIE1N
+SU8KPj4+IEFtIDIxLjAyLjIwIHVtIDE2OjIzIHNjaHJpZWIgSHVhbmcgUnVpOgo+Pj4gPiBPbiBG
+cmksIEZlYiAyMSwgMjAyMCBhdCAxMToxODowN1BNICswODAwLCBMaXUsIE1vbmsgd3JvdGU6Cj4+
+PiA+PiBCZXR0ZXIgbm90IHVzZSBLSVEsIGJlY2F1c2Ugd2hlbiB5b3UgdXNlIGRlYnVnZnMgdG8g
+cmVhZCByZWdpc3RlciAKPj4+IHlvdSB1c3VhbGx5IGhpdCBhIGhhbmcsIGFuZCBieSB0aGF0IGNh
+c2UgS0lRIHByb2JhYmx5IGFscmVhZHkgZGllCj4+PiA+IElmIENQIGlzIGJ1c3ksIHRoZSBnZngg
+c2hvdWxkIGJlIGluICJvbiIgc3RhdGUgYXQgdGhhdCB0aW1lLCB3ZSAKPj4+IG5lZWRuJ3QgdXNl
+IEtJUS4KPj4+Cj4+PiBZZWFoLCBidXQgaG93IGRvIHlvdSBkZXRlY3QgdGhhdD8gRG8gd2UgaGF2
+ZSBhIHdheSB0byB3YWtlIHVwIHRoZSBDUAo+Pj4gd2l0aG91dCBhc2tpbmcgcG93ZXIgbWFuYWdl
+bWVudCB0byBkbyBzbz8KPj4+Cj4+PiBDYXVzZSB0aGUgcmVnaXN0ZXIgZGVidWcgaW50ZXJmYWNl
+IGlzIG1lYW50IHRvIGJlIHVzZWQgd2hlbiB0aGUgQVNJQyBpcwo+Pj4gY29tcGxldGVkIGxvY2tl
+ZCB1cC4gU2VuZGluZyBtZXNzYWdlcyB0byB0aGUgU01VIGlzIG5vdCByZWFsbHkgZ29pbmcgdG8K
+Pj4+IHdvcmsgaW4gdGhhdCBzaXR1YXRpb24uCj4+Pgo+Pj4gUmVnYXJkcywKPj4+IENocmlzdGlh
+bi4KPj4+Cj4+PiA+Cj4+PiA+IFRoYW5rcywKPj4+ID4gUmF5Cj4+PiA+Cj4+PiA+PiAtLS0tLemC
+ruS7tuWOn+S7ti0tLS0tCj4+PiA+PiDlj5Hku7bkuro6IGFtZC1nZnggPGFtZC1nZngtYm91bmNl
+c0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IAo+Pj4gPG1haWx0bzphbWQtZ2Z4LWJvdW5jZXNAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnPiDku6PooaggSHVhbmcgUnVpCj4+PiA+PiDlj5HpgIHml7bpl7Q6
+IDIwMjDlubQy5pyIMjHml6UgMjI6MzQKPj4+ID4+IOaUtuS7tuS6ujogU3REZW5pcywgVG9tIDxU
+b20uU3REZW5pc0BhbWQuY29tPiAKPj4+IDxtYWlsdG86VG9tLlN0RGVuaXNAYW1kLmNvbT4KPj4+
+ID4+IOaKhOmAgTogQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+IAo+Pj4gPG1h
+aWx0bzphbGV4ZGV1Y2hlckBnbWFpbC5jb20+OyBhbWQtZ2Z4IGxpc3QgCj4+PiA8YW1kLWdmeEBs
+aXN0cy5mcmVlZGVza3RvcC5vcmc+IDxtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmc+Cj4+PiA+PiDkuLvpopg6IFJlOiBbUEFUQ0hdIGRybS9hbWQvYW1kZ3B1OiBkaXNhYmxlIEdG
+WE9GRiBhcm91bmQgZGVidWdmcyAKPj4+IGFjY2VzcyB0byBNTUlPCj4+PiA+Pgo+Pj4gPj4gT24g
+V2VkLCBGZWIgMTksIDIwMjAgYXQgMTA6MDk6NDZBTSAtMDUwMCwgVG9tIFN0IERlbmlzIHdyb3Rl
+Ogo+Pj4gPj4+IEkgZ290IHNvbWUgbWVzc2FnZXMgYWZ0ZXIgYSB3aGlsZToKPj4+ID4+Pgo+Pj4g
+Pj4+IFvCoCA3NDEuNzg4NTY0XSBGYWlsZWQgdG8gc2VuZCBNZXNzYWdlIDguCj4+PiA+Pj4gW8Kg
+IDc0Ni42NzE1MDldIEZhaWxlZCB0byBzZW5kIE1lc3NhZ2UgOC4KPj4+ID4+PiBbwqAgNzQ4Ljc0
+OTY3M10gRmFpbGVkIHRvIHNlbmQgTWVzc2FnZSAyYi4KPj4+ID4+PiBbwqAgNzU5LjI0NTQxNF0g
+RmFpbGVkIHRvIHNlbmQgTWVzc2FnZSA3Lgo+Pj4gPj4+IFvCoCA3NjMuMjE2OTAyXSBGYWlsZWQg
+dG8gc2VuZCBNZXNzYWdlIDJhLgo+Pj4gPj4+Cj4+PiA+Pj4gQXJlIHRoZXJlIGFueSBhZGRpdGlv
+bmFsIGxvY2tzIHRoYXQgc2hvdWxkIGJlIGhlbGQ/wqAgQmVjYXVzZSBzb21lCj4+PiA+Pj4gY29t
+bWFuZHMgbGlrZSAtLXRvcCBvciAtLXdhdmVzIGNhbiBkbyBhIGxvdCBvZiBkaXN0aW5jdCByZWFk
+Cj4+PiA+Pj4gb3BlcmF0aW9ucyAoY2F1c2luZyBhIGxvdCBvZiBlbmFibGUvZGlzYWJsZSBjYWxs
+cykuCj4+PiA+Pj4KPj4+ID4+PiBJJ20gZ29pbmcgdG8gc2l0IG9uIHRoaXMgYSBiaXQgc2luY2Ug
+SSBkb24ndCB0aGluayB0aGUgcGF0Y2ggaXMgCj4+PiByZWFkeQo+Pj4gPj4+IGZvciBwdXNoaW5n
+IG91dC4KPj4+ID4+Pgo+Pj4gPj4gSG93IGFib3V0IHVzZSBSUkVHMzJfS0lRIGFuZCBXUkVHMzJf
+S0lRPwo+Pj4gPj4KPj4+ID4+IFRoYW5rcywKPj4+ID4+IFJheQo+Pj4gPj4KPj4+ID4+PiBUb20K
+Pj4+ID4+Pgo+Pj4gPj4+IE9uIDIwMjAtMDItMTkgMTA6MDcgYS5tLiwgQWxleCBEZXVjaGVyIHdy
+b3RlOgo+Pj4gPj4+PiBPbiBXZWQsIEZlYiAxOSwgMjAyMCBhdCAxMDowNCBBTSBUb20gU3QgRGVu
+aXMgCj4+PiA8dG9tLnN0ZGVuaXNAYW1kLmNvbT4gPG1haWx0bzp0b20uc3RkZW5pc0BhbWQuY29t
+PiB3cm90ZToKPj4+ID4+Pj4+IFNpZ25lZC1vZmYtYnk6IFRvbSBTdCBEZW5pcyA8dG9tLnN0ZGVu
+aXNAYW1kLmNvbT4gCj4+PiA8bWFpbHRvOnRvbS5zdGRlbmlzQGFtZC5jb20+Cj4+PiA+Pj4+IFBs
+ZWFzZSBhZGQgYSBwYXRjaCBkZXNjcmlwdGlvbi7CoCBXaXRoIHRoYXQgZml4ZWQ6Cj4+PiA+Pj4+
+IFJldmlld2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+IAo+
+Pj4gPG1haWx0bzphbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+Pj4gPj4+Pgo+Pj4gPj4+Pj4g
+LS0tCj4+PiA+Pj4+PiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGVidWdmcy5j
+IHwgMyArKysKPj4+ID4+Pj4+wqDCoMKgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykK
+Pj4+ID4+Pj4+Cj4+PiA+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2RlYnVnZnMuYwo+Pj4gPj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
+dS9hbWRncHVfZGVidWdmcy5jCj4+PiA+Pj4+PiBpbmRleCA3Mzc5OTEwNzkwYzkuLjY2Zjc2MzMw
+MGM5NiAxMDA2NDQKPj4+ID4+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kZWJ1Z2ZzLmMKPj4+ID4+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV9kZWJ1Z2ZzLmMKPj4+ID4+Pj4+IEBAIC0xNjksNiArMTY5LDcgQEAgc3RhdGljIGlu
+dMKgIAo+Pj4gYW1kZ3B1X2RlYnVnZnNfcHJvY2Vzc19yZWdfb3AoYm9vbCByZWFkLCBzdHJ1Y3Qg
+ZmlsZSAqZiwKPj4+ID4+Pj4+wqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHBtX3BnX2xvY2spCj4+
+PiA+Pj4+PiBtdXRleF9sb2NrKCZhZGV2LT5wbS5tdXRleCk7Cj4+PiA+Pj4+Pgo+Pj4gPj4+Pj4g
+KyBhbWRncHVfZ2Z4X29mZl9jdHJsKGFkZXYsIGZhbHNlKTsKPj4+ID4+Pj4+wqDCoMKgwqDCoMKg
+wqDCoMKgwqAgd2hpbGUgKHNpemUpIHsKPj4+ID4+Pj4+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgIHVpbnQzMl90IHZhbHVlOwo+Pj4gPj4+Pj4KPj4+ID4+Pj4+IEBAIC0xOTIs
+NiArMTkzLDggQEAgc3RhdGljIGludMKgIAo+Pj4gYW1kZ3B1X2RlYnVnZnNfcHJvY2Vzc19yZWdf
+b3AoYm9vbCByZWFkLCBzdHJ1Y3QgZmlsZSAqZiwKPj4+ID4+Pj4+wqDCoMKgwqDCoMKgwqDCoMKg
+wqAgfQo+Pj4gPj4+Pj4KPj4+ID4+Pj4+wqDCoMKgIGVuZDoKPj4+ID4+Pj4+ICsgYW1kZ3B1X2dm
+eF9vZmZfY3RybChhZGV2LCB0cnVlKTsKPj4+ID4+Pj4+ICsKPj4+ID4+Pj4+wqDCoMKgwqDCoMKg
+wqDCoMKgwqAgaWYgKHVzZV9iYW5rKSB7Cj4+PiA+Pj4+PiBhbWRncHVfZ2Z4X3NlbGVjdF9zZV9z
+aChhZGV2LCAweGZmZmZmZmZmLCAweGZmZmZmZmZmLCAweGZmZmZmZmZmKTsKPj4+ID4+Pj4+IG11
+dGV4X3VubG9jaygmYWRldi0+Z3JibV9pZHhfbXV0ZXgpOwo+Pj4gPj4+Pj4gLS0KPj4+ID4+Pj4+
+IDIuMjQuMQo+Pj4gPj4+Pj4KPj4+ID4+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCj4+PiA+Pj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+Pj4gPj4+
+Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcgCj4+PiA8bWFpbHRvOmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnPgo+Pj4gPj4+Pj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJv
+dGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGCj4+PiA+Pj4+PiBsaXN0cy5m
+cmVlZGVza3RvcC5vcmclMkZtYWlsbWFuJTJGbGlzdGluZm8lMkZhbWQtZ2Z4JmFtcDtkYXRhPTAy
+JTcKPj4+ID4+Pj4+IEMwMSU3Q21vbmsubGl1JTQwYW1kLmNvbSU3Q2JhNDVlZmIyNmMwMjQwZWQw
+MzZmMDhkN2I2ZGIyMGFhJTdDM2RkOAo+Pj4gPj4+Pj4gOTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRl
+MTgzZCU3QzAlN0MwJTdDNjM3MTc4OTI0NjA1NTI0Mzc4JmFtcDtzZGF0Cj4+PiA+Pj4+PiBhPSUy
+RnlIa3ZZVTVUJTJGNGlGeFJleHNnJTJCSWRtN3NEenlYYmp6TnBIVUdDTzdoNGslM0QmYW1wO3Jl
+c2VydmUKPj4+ID4+Pj4+IGQ9MAo+Pj4gPj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCj4+PiA+Pj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+ID4+PiBh
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyA8bWFpbHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnPgo+Pj4gPj4+IAo+Pj4gaHR0cHM6Ly9uYW0xMS5zYWZlbGlua3MucHJvdGVjdGlv
+bi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlzdAo+Pj4gPj4+IAo+Pj4gcy5mcmVl
+ZGVza3RvcC5vcmclMkZtYWlsbWFuJTJGbGlzdGluZm8lMkZhbWQtZ2Z4JmFtcDtkYXRhPTAyJTdD
+MDElN0Ntbwo+Pj4gPj4+IAo+Pj4gbmsubGl1JTQwYW1kLmNvbSU3Q2JhNDVlZmIyNmMwMjQwZWQw
+MzZmMDhkN2I2ZGIyMGFhJTdDM2RkODk2MWZlNDg4NGU2MAo+Pj4gPj4+IAo+Pj4gOGUxMWE4MmQ5
+OTRlMTgzZCU3QzAlN0MwJTdDNjM3MTc4OTI0NjA1NTI0Mzc4JmFtcDtzZGF0YT0lMkZ5SGt2WVU1
+VCUyRgo+Pj4gPj4+IDRpRnhSZXhzZyUyQklkbTdzRHp5WGJqek5wSFVHQ083aDRrJTNEJmFtcDty
+ZXNlcnZlZD0wCj4+PiA+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwo+Pj4gPj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPj4+ID4+IGFtZC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnIDxtYWlsdG86YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+Cj4+
+PiA+PiAKPj4+IGh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20v
+P3VybD1odHRwcyUzQSUyRiUyRmxpc3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0
+aW5mbyUyRmFtZC1nZngmYW1wO2RhdGE9MDIlN0MwMSU3Q2FsZXhhbmRlci5kZXVjaGVyJTQwYW1k
+LmNvbSU3Q2YzNzYyMzA0OTI1YjQwMTliZmVkMDhkN2I2ZTI4N2U0JTdDM2RkODk2MWZlNDg4NGU2
+MDhlMTFhODJkOTk0ZTE4M2QlN0MwJTdDMCU3QzYzNzE3ODk1NzE3OTE3OTQzMSZhbXA7c2RhdGE9
+Ylk3ViUyQktPRjNnWXU0SVRHQ0tnQWlSdlhVdnhQY3dzejJ6c0VKRG5zM2pJJTNEJmFtcDtyZXNl
+cnZlZD0wIAo+Pj4gPGh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5j
+b20vP3VybD1odHRwcyUzQSUyRiUyRmxpc3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZs
+aXN0aW5mbyUyRmFtZC1nZngmZGF0YT0wMiU3QzAxJTdDVG9tLlN0RGVuaXMlNDBhbWQuY29tJTdD
+ZTdjNjI3N2MyNjg4NGU1MDljZTUwOGQ3YjZlN2FlYTUlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4
+MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3MTc4OTc4Nzk4ODE2MDk2JnNkYXRhPU5qJTJCeGVtUHFy
+TDRWaFhKRGNrdFFCV3U3N0t4dHd5WUxQVXZIRVBxdXZIdyUzRCZyZXNlcnZlZD0wPgo+Pj4gPiBf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+Pj4gPiBhbWQt
+Z2Z4IG1haWxpbmcgbGlzdAo+Pj4gPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZyA8bWFp
+bHRvOmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPgo+Pj4gPiAKPj4+IGh0dHBzOi8vbmFt
+MTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmxp
+c3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1nZngmYW1wO2Rh
+dGE9MDIlN0MwMSU3Q2FsZXhhbmRlci5kZXVjaGVyJTQwYW1kLmNvbSU3Q2YzNzYyMzA0OTI1YjQw
+MTliZmVkMDhkN2I2ZTI4N2U0JTdDM2RkODk2MWZlNDg4NGU2MDhlMTFhODJkOTk0ZTE4M2QlN0Mw
+JTdDMCU3QzYzNzE3ODk1NzE3OTE3OTQzMSZhbXA7c2RhdGE9Ylk3ViUyQktPRjNnWXU0SVRHQ0tn
+QWlSdlhVdnhQY3dzejJ6c0VKRG5zM2pJJTNEJmFtcDtyZXNlcnZlZD0wIAo+Pj4gPGh0dHBzOi8v
+bmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUy
+Rmxpc3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1nZngmZGF0
+YT0wMiU3QzAxJTdDVG9tLlN0RGVuaXMlNDBhbWQuY29tJTdDZTdjNjI3N2MyNjg4NGU1MDljZTUw
+OGQ3YjZlN2FlYTUlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdD
+NjM3MTc4OTc4Nzk4ODI2MDg3JnNkYXRhPVZRRU9YMXA0bVdxV2VhbVdQOU9GNGRwUWVoOHdBZEpF
+JTJCNFNPVGhGQWhTWSUzRCZyZXNlcnZlZD0wPgo+Pj4KPj4+IF9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+PiBhbWQtZ2Z4IG1haWxpbmcgbGlzdAo+Pj4g
+YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcgPG1haWx0bzphbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZz4KPj4+IGh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9v
+ay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmxpc3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4l
+MkZsaXN0aW5mbyUyRmFtZC1nZngmYW1wO2RhdGE9MDIlN0MwMSU3Q2FsZXhhbmRlci5kZXVjaGVy
+JTQwYW1kLmNvbSU3Q2YzNzYyMzA0OTI1YjQwMTliZmVkMDhkN2I2ZTI4N2U0JTdDM2RkODk2MWZl
+NDg4NGU2MDhlMTFhODJkOTk0ZTE4M2QlN0MwJTdDMCU3QzYzNzE3ODk1NzE3OTE3OTQzMSZhbXA7
+c2RhdGE9Ylk3ViUyQktPRjNnWXU0SVRHQ0tnQWlSdlhVdnhQY3dzejJ6c0VKRG5zM2pJJTNEJmFt
+cDtyZXNlcnZlZD0wIAo+Pj4gPGh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0
+bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmxpc3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxt
+YW4lMkZsaXN0aW5mbyUyRmFtZC1nZngmZGF0YT0wMiU3QzAxJTdDVG9tLlN0RGVuaXMlNDBhbWQu
+Y29tJTdDZTdjNjI3N2MyNjg4NGU1MDljZTUwOGQ3YjZlN2FlYTUlN0MzZGQ4OTYxZmU0ODg0ZTYw
+OGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3MTc4OTc4Nzk4ODM2MDgzJnNkYXRhPUhPSUJX
+NGN0cjYxVUNXeHIlMkZFcEJZelA2a1RNeHg1SjlJdE9YQk1tWlVONCUzRCZyZXNlcnZlZD0wPgo+
+Pgo+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
