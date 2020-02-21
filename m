@@ -7,57 +7,57 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C1265C35658
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DD66C35646
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9649A2067D
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 542152067D
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IjzZkmrx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9649A2067D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="W/117iZV"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 542152067D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A37E6F4AF;
-	Fri, 21 Feb 2020 16:04:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 15F386F4B1;
+	Fri, 21 Feb 2020 16:04:14 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2049.outbound.protection.outlook.com [40.107.92.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B969B6F4A6
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:04:03 +0000 (UTC)
+ (mail-bn7nam10on2051.outbound.protection.outlook.com [40.107.92.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D3B16F4AA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:04:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eWl8SO6pWwy/q2/8h95Zaw+PiqkJPXwdHPotils8HDSD9wi1RXEtlwJq8uUB1DsW8zufiAdLLf17SokyCCV1txcTPz3aUwRNRnPEtHiaFFefotKAZPe1I6CcKLneecrRZKtjGHtvWO5r6VWmNpouASP46e9O3ZIcIHtQ15lYkO4zEwuQXTat2o0oEnCJAK65EkFY4vovoybYtsq1zisXCC8EgOFmZ9Kyk4s+RBzGgTQi2IZtS5NPYCiK0x3oiHuLmrrYm5uY2kNAi3KjUCq6bwY2U5e4R/L4C0Q1za/ytymy7QLf/ER+a0usV2GhshsulQbwzByk14rKj6IDb8EZsg==
+ b=G+j92AM0Fio2dvqIf8Bh4Y2Zqj7a8nLHOygMWnedyAp3O/Ojf+DR9eWfO3MAyVDCQ79OQyTld1mqZBc60kVCMQK8G21QZLDZFSfNydqaVX38BMhqAs/UI2EjpOPFKC7Oszeez6G6PJ2u2cfKKdZprWiZ/hNe4c8Q8EO2C3Dy7+sQTRJ41WzO7TGwSGDxHa8LFeIUQlYHu6o1mnrgF7rV1YChbEPISzprO9CWmDLvcxkgwYmQX+cG8vulqXAcY04eiv+eGVxB/wry+VO8NxaITlA0lGQhMB7Jko0MvfIBBdsJkrihONLOguay90eENKEc93ZCTaj2Lf49IGeS8juA+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=socV50YO1J7SaXibEqsvEnVxJTrYAgyEdrpkp8h8Yek=;
- b=J9dLJu6Q+t48uWr2VYMpb3e9d09sfRwVUSSNE2nfd3HrCpEZeniSuGSgi7vL1yIgEyLa5kjWfKaNNovFxHEBp3Qx3/SOJ+bKMcWOqxOAZ7Ln0TfG9dmwgnBB/cVlK+eWFz1rO+mnu41Yj4mCq+BRK5Z/GMeGJR2G5IwcdTZyo9wt4rNj+AZOryKzgmddWVTJ33nWRp9IReZHhQJfAH94ZDoHu1IRxHKU1Z9fCfDAkR238nQ4ZwMh7/y1x7EA0R/hG/GipYNjyljuBqdWTTRCVc8n0mSCNcb2ITCc8lZ5sd3rbfoyHUG9zGVKIRzHiPW1KLEyNjEVa5VzS1UmLyBe+w==
+ bh=lcUH8T6PyqAa6rksBv1BMzauHnDG+NNV7FGVKYpb89A=;
+ b=B405F0Klb4rXpXZpU3XYW1Xzw70Fujcxpb/Zyqq1f8/vvpRdKHe4fpjk9vKbNGc10mmCml8gIC0bHsZjy61j79afu5Qwq3hYbWKZ3HwZyLSbNyYUMi1VYp9RUCOBcMNTZCoFASlsRKUIAC8d3ezgq2G3tRi0lgO3hODfmTyBZN4LuMULeH+ioBuEDvl88aZLMZf5+VT90dB2KIe3kCwKd8jCS2xbsPTntM625Q91RgjjAWv7osQ70hZVOJTujDdm2kuenuFWt+bqHc2fVROxTM/cKCbWEHWRL4YpE8OZGnnE4q9iV2eT7Sv+9kP7/bBmB/kvb4rfza272GGHMl+siA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=socV50YO1J7SaXibEqsvEnVxJTrYAgyEdrpkp8h8Yek=;
- b=IjzZkmrxaEteGVDKpQLIKJRb1gN2T0aqqdWb58zQ+eH4O8EhV99Mg+0Nr7paXziB3ldhRI209Asnhq4Bn1Os1zQnKs/BKzyYUv/VWLayeSnHJjhnjm5mEkog5V5fV3YBiPnxHG/OnTRPF4uxXBE6I5LA8uGrj24O6RhuHotFpQk=
+ bh=lcUH8T6PyqAa6rksBv1BMzauHnDG+NNV7FGVKYpb89A=;
+ b=W/117iZVTMGEdpxvsOD/2PF4rXZuSKMSY54PbjelMCYjUz0Zu2Bdu4e+lrensa4nCXkb/TP9K5j2Yr35iCYMlbfVWRtAPJURhUaRFY2LGZrGxBByV4cYRVnE2zOR+NYqPNOB7RfbkpoNcumO9ykciMyYTJw+0lUrmVtCjzBBSkw=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
  by MW2PR12MB2409.namprd12.prod.outlook.com (2603:10b6:907:9::26) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Fri, 21 Feb
- 2020 16:04:02 +0000
+ 2020 16:04:06 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::b8ff:6893:5820:420f]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::b8ff:6893:5820:420f%6]) with mapi id 15.20.2729.033; Fri, 21 Feb 2020
- 16:04:02 +0000
+ 16:04:05 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 19/35] drm/amd/display: Revert "DCN2.x Do not program DPPCLK
- if same value"
-Date: Fri, 21 Feb 2020 11:03:08 -0500
-Message-Id: <20200221160324.2969975-20-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 23/35] drm/amd/display: Add visual confirm support for
+ FreeSync 2 ARGB2101010
+Date: Fri, 21 Feb 2020 11:03:12 -0500
+Message-Id: <20200221160324.2969975-24-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
 References: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
@@ -69,19 +69,19 @@ Received: from atma2.amd.com (165.204.55.250) by
  YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
- Transport; Fri, 21 Feb 2020 16:04:01 +0000
+ Transport; Fri, 21 Feb 2020 16:04:05 +0000
 X-Mailer: git-send-email 2.25.0
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 26da1ecd-dd93-42d6-4beb-08d7b6e7aaf5
+X-MS-Office365-Filtering-Correlation-Id: a303876c-b6e4-4087-55be-08d7b6e7ad53
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2409:|MW2PR12MB2409:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB24093797C1E8AF549A9E094798120@MW2PR12MB2409.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:147;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB24097DB264700F8DCBE3E86D98120@MW2PR12MB2409.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
 X-Forefront-PRVS: 0320B28BE1
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(376002)(346002)(39860400002)(136003)(396003)(189003)(199004)(16526019)(36756003)(66946007)(66476007)(7696005)(66556008)(6916009)(26005)(52116002)(6486002)(1076003)(5660300002)(4326008)(8936002)(81166006)(2906002)(2616005)(956004)(81156014)(54906003)(186003)(316002)(478600001)(8676002)(86362001);
+ SFS:(10009020)(4636009)(366004)(376002)(346002)(39860400002)(136003)(396003)(189003)(199004)(16526019)(36756003)(66946007)(66476007)(7696005)(66556008)(6916009)(26005)(52116002)(6486002)(1076003)(5660300002)(6666004)(4326008)(8936002)(81166006)(2906002)(2616005)(956004)(81156014)(54906003)(186003)(316002)(478600001)(8676002)(86362001);
  DIR:OUT; SFP:1101; SCL:1; SRVR:MW2PR12MB2409;
  H:MW2PR12MB2524.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
@@ -89,15 +89,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MGxpI/evU69xqGEXHkavMpJvZtubddm7IAdGWD0W3kOdP4vY3apGZE09OHPV9NQXP0xetM7HZZNIF94gNrsHHCpZtT6PH+7ShSPgXs0a+lrYJPfCWCCSciCJXkwBbZLujQSZzkCIVGZjJkyYpuNdHOQ+GbnuMHiiSrN52u2ig3jeO+Nivb+TUarlwx1HBflEEFfzjk8cPTxM3zsKkUls9bxueAbTijWjC2hjiTd8jDF2NxTt2fZuXqwQILzuFKotY1fUmkYNZgl+iOHuDbDOIZEy2R+WOwILvaunSV6+m1OC0bX/9FmmdQjO6ihy51VsgM+pjymiQs8mbX5Gg2J55kL8cW2OvbWTpTyXLthaXF4q+1Uhoi9VO8XtHvdXhZfNlUZqo+B9RAyevFdvtW6zO1SpucxIORPgdu0BkAsZiXEGye8rrMtNeLky6brbqf+K
-X-MS-Exchange-AntiSpam-MessageData: B/7Wjwg16fzuH3Y7+tO4+2QVLE21BfJbEikjCCj/v6Y+y7/BwS9MECo7MhLejaw446U1fBAmVChqazZ2EhafAP7OXTOLKOVVosQVpnkFtHz4SfRgh2emImddgJlVmvhXmOcdM8SHHTYn2OLQI9kYVw==
+X-Microsoft-Antispam-Message-Info: KkajGQR3Op+L4fMx7pIIz6ZQ9WdWMD2UwgEADsK7oF286GyxDbNVxT2J9fB6T3K5RxxBao89RXr2opEzutCfTYulcXUizn7mQCJTf0jc+3W//A3A0738baexzgMs8kUoSGSaaANKNjyYx4fIShBpXmS1VOT54MbOACTAk8hTWZkAgeYHazUshHsOFsh1ZQvOBU9lx1OfF/raddFx8UsEMV/V6RWs3/N27tb42bYnxU9amAr9sMMW01YDeK0IPYmUq7QSmoo2SGC25y8l8946xDRJ9WkSbHUmnHqrHoC/DGvgVX4nO8m4bB5T5O/2xtM15Z4YWNv11PQqemf374TVXUoYvS/UzD2gRI+SbwTPF64K8Sm9AkVTX6VEW0t7IaCPyBgW5HJ47s0qilguWLd0tV6uFrtVZxLVWLto8A2vjtXjYM5LYArqMXlP0ZDOR6v6
+X-MS-Exchange-AntiSpam-MessageData: i4PJrM2iEXXaYclmlLD9iF8VEgc5vkvs7kCER59sVO2AO7803ZMWKsSFfw+KS2Tmt1+V9PhClw4mMMYKglwGkg9RzMaSlXo9VvlTg033gZCKVuJeMAQNsXEIoy5I045ec5pq94flfuZUf+gaiWcjlQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26da1ecd-dd93-42d6-4beb-08d7b6e7aaf5
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:04:02.0936 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a303876c-b6e4-4087-55be-08d7b6e7ad53
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:04:05.9693 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FtD+W67xEBK6zOuEDsS8wnjXp/AFGCcFhnZkaxIvVaRng93IdmuG9vVeSbp86N136YOqiVToMUvdqqmRGNvCEw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7m3shTqW1nIEX8UMIz1WbPESQwo/ejJKTQg68rIOZDkalzvZmHxe37xZrHpz+G89Lmo8uOmo+pqAy7663DutZQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2409
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,44 +110,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sung Lee <sung.lee@amd.com>, Sunpeng.Li@amd.com,
- Harry Wentland <harry.wentland@amd.com>, Rodrigo.Siqueira@amd.com,
- Yongqiang Sun <yongqiang.sun@amd.com>, Bhawanpreet.Lakha@amd.com
+Cc: Sunpeng.Li@amd.com, Harry Wentland <harry.wentland@amd.com>,
+ Rodrigo.Siqueira@amd.com, Peikang Zhang <peikang.zhang@amd.com>,
+ Bhawanpreet.Lakha@amd.com, Anthony Koo <Anthony.Koo@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sung Lee <sung.lee@amd.com>
+From: Peikang Zhang <peikang.zhang@amd.com>
 
-[WHY]
-Not programming dto with same values causes test failures in DCN2 diags
-DPP tests.
+[Why]
+DalMPVisualConfirm does not support FreeSync 2 ARGB2101010 which causes
+black visual confirm bar when playing HDR video on FreeSync 2 display in
+full screen mode
 
-[HOW]
-This reverts commit 6f4c8c3022bcdad362b89953a43644e943608f9f.
+[How]
+Added pink color for DalMPVisualConfirm on FreeSync 2 ARGB2101010
+surface
 
-Signed-off-by: Sung Lee <sung.lee@amd.com>
-Reviewed-by: Yongqiang Sun <yongqiang.sun@amd.com>
+Signed-off-by: Peikang Zhang <peikang.zhang@amd.com>
+Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Acked-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
-index 68a1120ff674..368d497bc64b 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c
-@@ -117,7 +117,7 @@ void dcn20_update_clocks_update_dpp_dto(struct clk_mgr_internal *clk_mgr,
- 
- 		prev_dppclk_khz = clk_mgr->base.ctx->dc->current_state->res_ctx.pipe_ctx[i].plane_res.bw.dppclk_khz;
- 
--		if ((prev_dppclk_khz > dppclk_khz && safe_to_lower) || prev_dppclk_khz < dppclk_khz) {
-+		if (safe_to_lower || prev_dppclk_khz < dppclk_khz) {
- 			clk_mgr->dccg->funcs->update_dpp_dto(
- 							clk_mgr->dccg, dpp_inst, dppclk_khz);
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 113ff6731902..77396a08ad29 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -2114,6 +2114,10 @@ void dcn10_get_hdr_visual_confirm_color(
+ 		if (top_pipe_ctx->stream->out_transfer_func->tf == TRANSFER_FUNCTION_PQ) {
+ 			/* HDR10, ARGB2101010 - set boarder color to red */
+ 			color->color_r_cr = color_value;
++		} else if (top_pipe_ctx->stream->out_transfer_func->tf == TRANSFER_FUNCTION_GAMMA22) {
++			/* FreeSync 2 ARGB2101010 - set boarder color to pink */
++			color->color_r_cr = color_value;
++			color->color_b_cb = color_value;
  		}
+ 		break;
+ 	case PIXEL_FORMAT_FP16:
 -- 
 2.25.0
 
