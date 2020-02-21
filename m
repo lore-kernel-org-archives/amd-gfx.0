@@ -7,57 +7,57 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9E56C35658
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86923C35656
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B138D2067D
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5CFD42067D
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 16:04:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="0+LajJvR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B138D2067D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qItXcrHj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5CFD42067D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCFA56F4A9;
-	Fri, 21 Feb 2020 16:04:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B2916F4AB;
+	Fri, 21 Feb 2020 16:04:02 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
  (mail-bn7nam10on2077.outbound.protection.outlook.com [40.107.92.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 011406F4A9
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:03:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C9D86F4A5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 16:04:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VP0jZ1WSPmYF1X9amjn6PFPFh2c+iq1dsGS+/26FeCn90MrX65Kn8wqlSawb5FKSDO+BgCCtcqaMNFoth59Ijj77GGDSb25BjdpZpi3CMZ74a+j4wzyGO1gwLn3vFOzHqTwx3Es/eiAtSB09NJC9liaCzSV8XlhIPt016A9y7ZdcHph5/BESl4PC5Lqo8OELNk64HcIAymknSd4vVJVOrcJfYDoMzc1ZY2o0FJc/SGFFcLNMW6JZycl1K7keDcfU57GIBYR5OgLD3FyHJ6zdB5sLR2/NZoVH84ixKjgiitVclrbKyUQH7cmEC2mvnLF39LENbUzt/8oed2Gw37htEQ==
+ b=QGdrhNUN6LneEOv1OFuwoZCt/ZVuAh1LQe9qgYD+7yQMXSPDfJFLwSpXfbJOcRhk3+AE3mjH3O49MUcFH5A1iYc105yesnXeR27BW/8H8iNEADlE4DYI87sj/7UM3Qvp8DEUpHlbMg/fsL8eTqhFyQ1LVSbXqPuEq+jas97flcToJ+dE9YKCDyENulZnCc0Wc1zJODgyQK9pfh2xe36FACRhjnFcG2nTGwdI9TuUSho4/d6US2ba3C1SSrrLiJbq616rS6MwIZdyumFw6SbAd9nqq3obqXWWOEpMiYm/Oh/feOPHxavTPgB76PVWcQmax90BZWcsqqnk4w5HGJb6Yg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D9+IdZgncZxMMOV42Fz0ftzesdMGjkI6cecY2LL5e6c=;
- b=G8lIDF6RqNcZka2uxO8NI9gsjJL7KlVQv+K7TFrlemHE56688sN7ldX8N6jSMq2E3M/woc3MqpOJrmAYF3JKAIfVQL9ddfX7JQa+DTH4zbyxuRcsBSWuicgksTgSL5fpdkZueztqWZBMl/hh0Ba9i7fWt8r8rwRItadH6TkBZOf2sNk6yGBdTgluFQFR9O14po+aYsv/guGJ8uAuSGfnRKuKxvWGAilKgyoCzsbba9bsY7O9oP4BnjmslP7MYAkRjhnUHAb/JY6xVoDM5SntEhf9JWFrruz/joghQacvYPi6eFyPlg7mzQVxYgAGdHUi8NYTRPGwg2Yi9DHMLmPVSw==
+ bh=WQISLCRrCfzcKr65CBBpRk8oQTDzcDO+a9nWxTJiIBU=;
+ b=NQTyj3V7MFTk7M3uWlb+8+KWFjhTnSugPGY8DLT6zPLRiOXEK01wSNLFEPA7hwSCU8SbpjAgZLlM7nckos7zwEWbqlgDuuhYV40qXWo1j78XDpxlQGZ9GNJ4PHrUqXb81ZyRa3vnru9R/hBA2V/x7/KmhVQZFhm3hSPJ/NvMB0ZgAVXtLX91ssaA4dNs5kkcS88GZ+FXNXmuyz909uxLLrdVYGXptA23+Jqkbj6eoDsnDxRkZWScD1ytnKzfKPe14HPNhstK+sdSgkq0kp8p1K8Kn17lt2GOKzbwWbey+Xb1uFRZDA76cigJ7mLbRxVX21xGKh7sdJ2jYk9DL7osBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D9+IdZgncZxMMOV42Fz0ftzesdMGjkI6cecY2LL5e6c=;
- b=0+LajJvRcnLWi/Ufe/cAwQlDoDJl/sWOxVEA9U4ezBVgY/xLZG940byP6IFP24J9ivF0UHJ763+boIORtobdyBohAH2hd18uKGcHcROuD/AsrYWbZBihMTJUir8sz4iEVdW+xQ1b/YdqKuySzby3etmLa4uKxIdT+r6Y+IcuNfI=
+ bh=WQISLCRrCfzcKr65CBBpRk8oQTDzcDO+a9nWxTJiIBU=;
+ b=qItXcrHjmos8LBfXnxYWU9t3vFNKX3jzHgb+sa4m4+FyWWjrT8VQEWBP8iQqQ1CP+d4bEjHxyIaFhn1qqzuNdZLa+1T3vTifujslcjOQgNjKdJ10YTDhTVqQsPscHzSbHvoB6/DggjxsaoQELspCz6bmqyWeg/G6+ls1KDnLhTU=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
  by MW2PR12MB2409.namprd12.prod.outlook.com (2603:10b6:907:9::26) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Fri, 21 Feb
- 2020 16:03:58 +0000
+ 2020 16:03:59 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::b8ff:6893:5820:420f]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::b8ff:6893:5820:420f%6]) with mapi id 15.20.2729.033; Fri, 21 Feb 2020
- 16:03:58 +0000
+ 16:03:59 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 15/35] drm/amd/display: Add function pointers for panel
- related hw functions
-Date: Fri, 21 Feb 2020 11:03:04 -0500
-Message-Id: <20200221160324.2969975-16-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 16/35] drm/amd/display: make some rn_clk_mgr structs and funcs
+ static
+Date: Fri, 21 Feb 2020 11:03:05 -0500
+Message-Id: <20200221160324.2969975-17-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
 References: <20200221160324.2969975-1-Rodrigo.Siqueira@amd.com>
@@ -69,16 +69,16 @@ Received: from atma2.amd.com (165.204.55.250) by
  YTOPR0101CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
- Transport; Fri, 21 Feb 2020 16:03:57 +0000
+ Transport; Fri, 21 Feb 2020 16:03:58 +0000
 X-Mailer: git-send-email 2.25.0
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c7323aa0-a293-4238-8cef-08d7b6e7a887
+X-MS-Office365-Filtering-Correlation-Id: 9f6f1a42-e69e-49f9-a4da-08d7b6e7a922
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2409:|MW2PR12MB2409:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB24094038FE43480D31BC5ED098120@MW2PR12MB2409.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:125;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB24091C0684801732268B558498120@MW2PR12MB2409.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3173;
 X-Forefront-PRVS: 0320B28BE1
 X-Forefront-Antispam-Report: SFV:NSPM;
  SFS:(10009020)(4636009)(366004)(376002)(346002)(39860400002)(136003)(396003)(189003)(199004)(16526019)(36756003)(66946007)(66476007)(7696005)(66556008)(6916009)(26005)(52116002)(6486002)(1076003)(5660300002)(6666004)(4326008)(8936002)(81166006)(2906002)(2616005)(956004)(81156014)(54906003)(186003)(316002)(478600001)(8676002)(86362001);
@@ -89,15 +89,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LTJZRS/HdJFQT/Lif6HqpxnyL5LB6TMLGp/ufBz7QwBrSBld1n9fYnodnX0hnC26x7JB38Blamy2i/1/MMr4NBhlV0cHGhB/1Gptp8j7xBN+0UtypEmyAzemgNZsU5AhprSxpy619/XYu/JMLuIhK0f60+u3yACSKxA/tuVemqgrAU6VbxYKlvHCEIvS6d14V5sHP3q0/OuS2Wv5Z1ZKg0awMr7I1mUUIzR8W3YTcnzdX0c+Pg9ulip6XEqhCQALRsH/D5H/jz/mXbSmp1NDAKY0zpA6zzmZ5AarZl5ImLQsPCztA8uY+veXNeauxGIzRnPDq6F4UX1QO6RAfqSW/9mJ1yRL/CXa70TlnRrF4VXb093hoEDp879tlV10qO1BJ3RKb1IHJzv7aG5rmSZrxxieRZMa3Yac08iFcBJljtNJu8Y6XTncGHjxmW/jDWWA
-X-MS-Exchange-AntiSpam-MessageData: lnUo1Rer+R5zpYO8S4xh3SBxE/eRgVcOHcHT28+TjxeJpD2sY8P0bHdWnpJC0lZuO4AQbNF0u6ZL6Sp5wuT+/uVCsSUxnPJ8oRrgZKihVrHR9cuniFm5Na3hMwvsygT1X1ZTEOeKBI9HwTa36Pyp7g==
+X-Microsoft-Antispam-Message-Info: T88SQ8bnAZuXSJDd4p9hMHgdcagysVqSer5FQK6ICX07U29hGwixq8SJvWeh9xJX3t85sLJBcULmz3ezlvqx4JnVDfqOSjHjR9Dv96UzsB15yTHE61NyIeuJsGCWF3VGWU3v96hRmj+p5Hm8BwFY6q5MPu6UT0Zg/lKMLmUaRxp2XiiLrv04uPjb8lTGS1Eac2vGXy50wPP3TF/6z3Md9g9FDfMCdE+mKhaoGwelxleZx3YoT56NxooJtY209vmA+17bHzZi2MvRY66t7WQvJCxoVlXvp4v7xRV9GeT57QkGMNDaoDxzoXJqkKmk31WVXGpTcDn0Pex3kILlzx2KXFVZl2mReXux3ADm99Hu7tZWHWTdQcS6bGfaPqJlY5OGcgPaT7oSCHs1Ou0j2GsHNkyDGR7FmyeWqzRctdZv+0U4Fz91HQNK2oNJUENcJnut
+X-MS-Exchange-AntiSpam-MessageData: +qv7JX4DWyCcp2Wq6jIvR1j8XHtNSuagE0FSNvi/oJOLaYC8LIMSlBKPK7QcfeFubVoEvA58SUEjigYnYEymBKdZogZmG6MHcG5fW4XpuToUqoqgTdxN+8tTsm31OnO9rMspocac983nBImF3EcMrg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7323aa0-a293-4238-8cef-08d7b6e7a887
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:03:58.0099 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f6f1a42-e69e-49f9-a4da-08d7b6e7a922
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 16:03:58.9923 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EOc0XsEdcRreyqJq+jyJEXzNMQogEC7JTcJlX4Gc8B3eGfQT/RPungWRnkQdbRWeEzScTchzt28Mu5MQ62x+ww==
+X-MS-Exchange-CrossTenant-UserPrincipalName: r1WXX7PFBNrir7c2SDvrG/ztdJUfG03PKYsp1GNl49Bh+4Myyp2q6eZ0ldsDThrXiA0BpJF3Zyf3gn12nypr1w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2409
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,151 +121,61 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Anthony Koo <Anthony.Koo@amd.com>
 
 [Why]
-Make panel backlight and power on/off functions into
-hardware specific function pointers
+There are some structures and functions meant only to be used in the
+scope of that single rn_clk_mgr c file.
 
 [How]
-Add function pointers for panel related hw functions
- - is_panel_powered_on
- - is_panel_backlight_on
+Make structs and funcs static if only meant to be used within
+rn_clk_mgr
 
 Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
 Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Acked-by: Harry Wentland <harry.wentland@amd.com>
 ---
- .../amd/display/dc/dce110/dce110_hw_sequencer.c   | 15 ++++++++++-----
- .../amd/display/dc/dce110/dce110_hw_sequencer.h   |  4 ++++
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c |  2 ++
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c |  2 ++
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c |  2 ++
- .../drm/amd/display/dc/inc/hw_sequencer_private.h |  2 ++
- 6 files changed, 22 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index 28b681b33f7a..0976e378659f 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -698,8 +698,10 @@ void dce110_enable_stream(struct pipe_ctx *pipe_ctx)
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+index 5d82ec1f1ce5..64cbd5462c79 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
+@@ -405,7 +405,7 @@ void rn_init_clocks(struct clk_mgr *clk_mgr)
+ 	clk_mgr->clks.pwr_state = DCN_PWR_STATE_UNKNOWN;
  }
  
- /*todo: cloned in stream enc, fix*/
--static bool is_panel_backlight_on(struct dce_hwseq *hws)
-+bool dce110_is_panel_backlight_on(struct dc_link *link)
+-void build_watermark_ranges(struct clk_bw_params *bw_params, struct pp_smu_wm_range_sets *ranges)
++static void build_watermark_ranges(struct clk_bw_params *bw_params, struct pp_smu_wm_range_sets *ranges)
  {
-+	struct dc_context *ctx = link->ctx;
-+	struct dce_hwseq *hws = ctx->dc->hwseq;
- 	uint32_t value;
+ 	int i, num_valid_sets;
  
- 	REG_GET(LVTMA_PWRSEQ_CNTL, LVTMA_BLON, &value);
-@@ -707,11 +709,12 @@ static bool is_panel_backlight_on(struct dce_hwseq *hws)
- 	return value;
- }
- 
--static bool is_panel_powered_on(struct dce_hwseq *hws)
-+bool dce110_is_panel_powered_on(struct dc_link *link)
- {
-+	struct dc_context *ctx = link->ctx;
-+	struct dce_hwseq *hws = ctx->dc->hwseq;
- 	uint32_t pwr_seq_state, dig_on, dig_on_ovrd;
- 
--
- 	REG_GET(LVTMA_PWRSEQ_STATE, LVTMA_PWRSEQ_TARGET_STATE_R, &pwr_seq_state);
- 
- 	REG_GET_2(LVTMA_PWRSEQ_CNTL, LVTMA_DIGON, &dig_on, LVTMA_DIGON_OVRD, &dig_on_ovrd);
-@@ -818,7 +821,7 @@ void dce110_edp_power_control(
- 		return;
- 	}
- 
--	if (power_up != is_panel_powered_on(hwseq)) {
-+	if (power_up != hwseq->funcs.is_panel_powered_on(link)) {
- 		/* Send VBIOS command to prompt eDP panel power */
- 		if (power_up) {
- 			unsigned long long current_ts = dm_get_timestamp(ctx);
-@@ -898,7 +901,7 @@ void dce110_edp_backlight_control(
- 		return;
- 	}
- 
--	if (enable && is_panel_backlight_on(hws)) {
-+	if (enable && hws->funcs.is_panel_backlight_on(link)) {
- 		DC_LOG_HW_RESUME_S3(
- 				"%s: panel already powered up. Do nothing.\n",
- 				__func__);
-@@ -2764,6 +2767,8 @@ static const struct hwseq_private_funcs dce110_private_funcs = {
- 	.disable_stream_gating = NULL,
- 	.enable_stream_gating = NULL,
- 	.edp_backlight_control = dce110_edp_backlight_control,
-+	.is_panel_backlight_on = dce110_is_panel_backlight_on,
-+	.is_panel_powered_on = dce110_is_panel_powered_on,
+@@ -503,7 +503,7 @@ static struct clk_mgr_funcs dcn21_funcs = {
+ 	.notify_wm_ranges = rn_notify_wm_ranges
  };
  
- void dce110_hw_sequencer_construct(struct dc *dc)
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.h
-index 26a9c14a58b1..34be166e8ff0 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.h
-@@ -85,5 +85,9 @@ void dce110_edp_wait_for_hpd_ready(
- 		struct dc_link *link,
- 		bool power_up);
+-struct clk_bw_params rn_bw_params = {
++static struct clk_bw_params rn_bw_params = {
+ 	.vram_type = Ddr4MemType,
+ 	.num_channels = 1,
+ 	.clk_table = {
+@@ -543,7 +543,7 @@ struct clk_bw_params rn_bw_params = {
  
-+bool dce110_is_panel_backlight_on(struct dc_link *link);
-+
-+bool dce110_is_panel_powered_on(struct dc_link *link);
-+
- #endif /* __DC_HWSS_DCE110_H__ */
+ };
  
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
-index b88ef9703b2b..dd02d3983695 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
-@@ -87,6 +87,8 @@ static const struct hwseq_private_funcs dcn10_private_funcs = {
- 	.reset_hw_ctx_wrap = dcn10_reset_hw_ctx_wrap,
- 	.enable_stream_timing = dcn10_enable_stream_timing,
- 	.edp_backlight_control = dce110_edp_backlight_control,
-+	.is_panel_backlight_on = dce110_is_panel_backlight_on,
-+	.is_panel_powered_on = dce110_is_panel_powered_on,
- 	.disable_stream_gating = NULL,
- 	.enable_stream_gating = NULL,
- 	.setup_vupdate_interrupt = dcn10_setup_vupdate_interrupt,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
-index 44ec5f5f9fd2..6c4f90f58656 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
-@@ -97,6 +97,8 @@ static const struct hwseq_private_funcs dcn20_private_funcs = {
- 	.reset_hw_ctx_wrap = dcn20_reset_hw_ctx_wrap,
- 	.enable_stream_timing = dcn20_enable_stream_timing,
- 	.edp_backlight_control = dce110_edp_backlight_control,
-+	.is_panel_backlight_on = dce110_is_panel_backlight_on,
-+	.is_panel_powered_on = dce110_is_panel_powered_on,
- 	.disable_stream_gating = dcn20_disable_stream_gating,
- 	.enable_stream_gating = dcn20_enable_stream_gating,
- 	.setup_vupdate_interrupt = dcn20_setup_vupdate_interrupt,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
-index 53006f3b9eb9..f9a7e43d66b9 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
-@@ -105,6 +105,8 @@ static const struct hwseq_private_funcs dcn21_private_funcs = {
- 	.reset_hw_ctx_wrap = dcn20_reset_hw_ctx_wrap,
- 	.enable_stream_timing = dcn20_enable_stream_timing,
- 	.edp_backlight_control = dce110_edp_backlight_control,
-+	.is_panel_backlight_on = dce110_is_panel_backlight_on,
-+	.is_panel_powered_on = dce110_is_panel_powered_on,
- 	.disable_stream_gating = dcn20_disable_stream_gating,
- 	.enable_stream_gating = dcn20_enable_stream_gating,
- 	.setup_vupdate_interrupt = dcn20_setup_vupdate_interrupt,
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h
-index ecf566378ccd..c5511e6157af 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer_private.h
-@@ -97,6 +97,8 @@ struct hwseq_private_funcs {
- 			struct dc *dc);
- 	void (*edp_backlight_control)(struct dc_link *link,
- 			bool enable);
-+	bool (*is_panel_backlight_on)(struct dc_link *link);
-+	bool (*is_panel_powered_on)(struct dc_link *link);
- 	void (*setup_vupdate_interrupt)(struct dc *dc,
- 			struct pipe_ctx *pipe_ctx);
- 	bool (*did_underflow_occur)(struct dc *dc, struct pipe_ctx *pipe_ctx);
+-struct wm_table ddr4_wm_table = {
++static struct wm_table ddr4_wm_table = {
+ 	.entries = {
+ 		{
+ 			.wm_inst = WM_A,
+@@ -580,7 +580,7 @@ struct wm_table ddr4_wm_table = {
+ 	}
+ };
+ 
+-struct wm_table lpddr4_wm_table = {
++static struct wm_table lpddr4_wm_table = {
+ 	.entries = {
+ 		{
+ 			.wm_inst = WM_A,
 -- 
 2.25.0
 
