@@ -2,74 +2,104 @@ Return-Path: <SRS0=HRUr=4J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F2E2C35640
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 06:00:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AF879C35640
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 06:55:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0F59720637
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 06:00:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5B14E208C4
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 06:55:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MOqfv/ka"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F59720637
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="l5sIEIcW"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B14E208C4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 924136EE97;
-	Fri, 21 Feb 2020 06:00:10 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA6076EE93;
- Fri, 21 Feb 2020 06:00:08 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id m10so4373321wmc.0;
- Thu, 20 Feb 2020 22:00:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=H7aXQTqmLNxvdPr5mBNnJfbo38LB1xJHVHK2rWbKEqw=;
- b=MOqfv/kaObHJEU4A0mnaFSEPVoAQ+XzGpPBw1qUzIDChC2bV5Xis329ghi0OSMUe2T
- YhVicpLrQndbQZs6riGjFqTmtdy+EMbG4jyCnKVus42lLRijK/C+rJhfwsU1A1+dZ2oq
- x9Iy53HEEPilEHf0enrdVhBui0Cuk44XNN8OwtHBWBHJG4b2EaSDPRDTxw6C8lUt5zYA
- mHMjTP2udC0KW3zyt6aJmu5BQahyQw6PpXAAISnMF6MG4/nYxe6+8f552zlV89Bl8i8e
- Rq9Iqy2Y+S2iwCZPuVrxEqWRujTeaoMDyqLddd6W1ztvZrcj+S68m6+yNug0QMoHvJop
- m+Pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=H7aXQTqmLNxvdPr5mBNnJfbo38LB1xJHVHK2rWbKEqw=;
- b=M3mZjYFyNDzYCIJBzPFvnfSSdBlXrABVTSn4uX42+70ZOgGv7fp/1uqTQOBPnG3Ewu
- SWpMqDxG58snsEGNr/hlimow8QSRe5Wz5A+MHw4Oes92fIF7Xlfmf3QSHFprJD4Dzcj+
- 0GjFTQhX8sVsXcasRTlLqD2zSpQ0+wNOzze8vks3yKD8Uq6mOA2XkcPND1HfXYWJcGun
- 9L7m70SxghdDJKbJW6qyBGQC0dJMFv55vgYtDL9LrtRSTOco4qHUi6saJmgKxeJsKcvz
- DswJYdwHRF7QCM4CzwDdTqZ7vVmcoEu0rbfiuEGBbZuVkQSS4mmWuQrSaxJCTHCOBrDc
- kHBQ==
-X-Gm-Message-State: APjAAAU1Krm9fpxIKZwInzW96r48iW3wIialF9ZOmnM5B7EVSXNbbuQ0
- LOuetR7RtEYdy7VFREkFvZNoI15T2yLV5vu7XL4=
-X-Google-Smtp-Source: APXvYqwUciNnVQPNEXNeyIwx5TVfT9GtH4vdeEDW/3kEC5yZ72E+38Ud0AgtP2twlUA6naX2Ps2iMF7lw5IFwrkqRMQ=
-X-Received: by 2002:a1c:9602:: with SMTP id y2mr1420482wmd.23.1582264807381;
- Thu, 20 Feb 2020 22:00:07 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A96A46E213;
+	Fri, 21 Feb 2020 06:55:31 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2055.outbound.protection.outlook.com [40.107.236.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BAF26E213
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 06:55:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=HsklD8nX3lJgt/5jr0GCI4vERq8eHtEd63NK6oZpIaFBg3flXMynHF31RX8DioggGI1jwBGRhbYtLC0jG7QC2mwUGg5cy5MQus6UNOfDe7Y0mlomWSe4vmTyWtz/JWZiN+Evzp0khCoU1+y2Hbyv5X69uYU2GUmZ9i+i2+2JwK8h/F/sXmMPWP6PYKs9tDB8evDmFd0L2csZBn8TDCx9qh+QkmPTBgyhzyDPyN7zXn3vsjqWfYGInhylpxH0O1KLIirreojobOfKVp4uYD26ZikzoEhqzuJOvStVaqc9Y9bsxtkuLeaMtSmKBzblO3y/k2YhLFb6AKnN1Od6aCCqig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jEfcoBBJufAF+hRPgHjqQhgfm/Kq7h/otq2W/4TXhlg=;
+ b=VTWDjJv7RjM2COu0Q6DiGw0dw8vgpBqvtd5ensSboBZqudmFMNMnv6Ytx5I5+d9gd2PkH0NZ6pDpjV2FwRsDfyoRohCzYBLMwq8dC/dQbP0GVmDXP9/WAr4Wfa51kYJDh207BvHd49jOS9AwLu1BdshtMsK83ahR8zBsBufhzpfiWrnImX8qOnf3ajIsD9Y9ek15Z9WwstK6bImwWfC8MaXduyeVe3Ry1tq2CgxTcSGoyFSI/80wJSw6UrxpgKvcfoCf7ovQiaEc+ksVZYDUKd0P/hr3Hbsd2JTEvOxjsslSwMhF2aFKM42AWHDV6F2lOeXBVNtfpvzcJAkVECU/+A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=jEfcoBBJufAF+hRPgHjqQhgfm/Kq7h/otq2W/4TXhlg=;
+ b=l5sIEIcWowzKvsKNu12sLxat+mFFM0KVDOIqNFobqfZ/lewc14YJQ2qQNRSPZC06+8e+kdhuL5DBaAAs4wNfojKPN7q+IavZVMeuJZfcKG4RjG1qtVdRgdtnh5a4vGW6Ah+VNMR6nOcxBCnnJWeFyXkFpAPHXF+nihq0qkCgntQ=
+Received: from BN6PR11CA0036.namprd11.prod.outlook.com (2603:10b6:404:4b::22)
+ by BN6PR1201MB0067.namprd12.prod.outlook.com (2603:10b6:405:57::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2729.24; Fri, 21 Feb
+ 2020 06:55:28 +0000
+Received: from BN8NAM11FT042.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:404:4b:cafe::37) by BN6PR11CA0036.outlook.office365.com
+ (2603:10b6:404:4b::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
+ Transport; Fri, 21 Feb 2020 06:55:28 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT042.mail.protection.outlook.com (10.13.177.85) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2750.18 via Frontend Transport; Fri, 21 Feb 2020 06:55:28 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 21 Feb
+ 2020 00:55:27 -0600
+Received: from monk-build.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Fri, 21 Feb 2020 00:55:26 -0600
+From: Monk Liu <Monk.Liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: fix psp ucode not loaded in bare-metal
+Date: Fri, 21 Feb 2020 14:55:24 +0800
+Message-ID: <1582268124-31292-1-git-send-email-Monk.Liu@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20200214155650.21203-1-Kenny.Ho@amd.com>
- <20200214155650.21203-10-Kenny.Ho@amd.com>
- <CAOFGe96N5gG+08rQCRC+diHKDAfxPFYEnVxDS8_udvjcBYgsPg@mail.gmail.com>
- <CAOWid-f62Uv=GZXX2V2BsQGM5A1JJG_qmyrOwd=KwZBx_sr-bg@mail.gmail.com>
- <20200214183401.GY2363188@phenom.ffwll.local>
- <CAOWid-caJHeXUnQv3MOi=9U+vdBLfewN+CrA-7jRrz0VXqatbQ@mail.gmail.com>
- <20200214191754.GA218629@mtj.thefacebook.com>
- <20200219161850.GB13406@cmpxchg.org>
- <CAOWid-e=7V4TUqK_h5Gs9dUXqH-Vgr-Go8c1dCkMux98Vdd1sQ@mail.gmail.com>
- <20200219183841.GA54486@cmpxchg.org>
-In-Reply-To: <20200219183841.GA54486@cmpxchg.org>
-From: Kenny Ho <y2kenny@gmail.com>
-Date: Fri, 21 Feb 2020 00:59:55 -0500
-Message-ID: <CAOWid-dLs079jHAVoDeJ2Ung1Tti0Jszhd-0D2RYPOjuWnTprQ@mail.gmail.com>
-Subject: Re: [PATCH 09/11] drm, cgroup: Introduce lgpu as DRM cgroup resource
-To: Johannes Weiner <hannes@cmpxchg.org>
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(346002)(39860400002)(136003)(396003)(428003)(199004)(189003)(2616005)(70206006)(8676002)(2906002)(8936002)(70586007)(336012)(81166006)(4326008)(186003)(81156014)(7696005)(356004)(86362001)(6916009)(26005)(5660300002)(316002)(36756003)(4744005)(478600001)(426003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN6PR1201MB0067; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 2f3045b4-4fa9-4b3c-b2ac-08d7b69b08d4
+X-MS-TrafficTypeDiagnostic: BN6PR1201MB0067:
+X-Microsoft-Antispam-PRVS: <BN6PR1201MB0067A93199748E0BEB1FBB1C84120@BN6PR1201MB0067.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
+X-Forefront-PRVS: 0320B28BE1
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: WIVxf0D+QbvKVD3sa53pZlel4yrGwrYaDCTZS2g6bgFPKqcK4C5ZI8+3S1oq5N+9l3h8HGgzQ7Axl64T9KBP0We2l9aqHxLSmr88Vg+SKyMGKL6m5ECKHr/cMlHQbl3RB1RlhjMG+A70DxdmRSuLyEpLRllfA8b8xXY4h2jNPsxmivJ8z6m0Sv2WdQB99bjH0J+SnjVynU0oqr1YN+Y4JiJVA3FNo0wNAFgPIqnDt/PJkMa8xEyuHpPqmG4Fnbn3yh8bQywpzPEkv7ABZHRbjiRQ4CTD1FB80pMJO1CXHzY38m00wvGsJT9ZuS6FdzQA93g1YZ5Yq01NFqPesXu/DVfq1sKZbxWGHIqsQ+ZDt6AtVNxH3zs8gnV+XQ1pw4qRAQ6MofVjoeJ0T8DqOZ3CS6BcCDFHXbjjLME8D7kj9CcHznQOOQNKzvU/ZS+qSVac
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Feb 2020 06:55:28.0137 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2f3045b4-4fa9-4b3c-b2ac-08d7b69b08d4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR1201MB0067
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,63 +111,35 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: juan.zuniga-anaya@amd.com, Daniel Vetter <daniel@ffwll.ch>,
- Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>,
- jsparks@cray.com, nirmoy.das@amd.com,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- lkaplan@cray.com, Alex Deucher <alexander.deucher@amd.com>, "Greathouse,
- Joseph" <joseph.greathouse@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Jason Ekstrand <jason@jlekstrand.net>, Tejun Heo <tj@kernel.org>,
- cgroups@vger.kernel.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- damon.mcdougall@amd.com
+Cc: Monk Liu <Monk.Liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Thanks, I will take a look.
+for bare-metal we alawys need to load sys/sos/kdb
 
-Regards,
-Kenny
+Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Wed, Feb 19, 2020 at 1:38 PM Johannes Weiner <hannes@cmpxchg.org> wrote:
->
-> On Wed, Feb 19, 2020 at 11:28:48AM -0500, Kenny Ho wrote:
-> > On Wed, Feb 19, 2020 at 11:18 AM Johannes Weiner <hannes@cmpxchg.org> wrote:
-> > >
-> > > Yes, I'd go with absolute units when it comes to memory, because it's
-> > > not a renewable resource like CPU and IO, and so we do have cliff
-> > > behavior around the edge where you transition from ok to not-enough.
-> > >
-> > > memory.low is a bit in flux right now, so if anything is unclear
-> > > around its semantics, please feel free to reach out.
-> >
-> > I am not familiar with the discussion, would you point me to a
-> > relevant thread please?
->
-> Here is a cleanup patch, not yet merged, that documents the exact
-> semantics and behavioral considerations:
->
-> https://lore.kernel.org/linux-mm/20191213192158.188939-3-hannes@cmpxchg.org/
->
-> But the high-level idea is this: you assign each cgroup or cgroup
-> subtree a chunk of the resource that it's guaranteed to be able to
-> consume. It *can* consume beyond that threshold if available, but that
-> overage may get reclaimed again if somebody else needs it instead.
->
-> This allows you to do a ballpark distribution of the resource between
-> different workloads, while the kernel retains the ability to optimize
-> allocation of spare resources - because in practice, workload demand
-> varies over time, workloads disappear and new ones start up etc.
->
-> > In addition, is there some kind of order of preference for
-> > implementing low vs high vs max?
->
-> If you implement only one allocation model, the preference would be on
-> memory.low. Limits are rigid and per definition waste resources, so in
-> practice we're moving away from them.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 3494966..51839ab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -1081,7 +1081,7 @@ static int psp_hw_start(struct psp_context *psp)
+ 	struct amdgpu_device *adev = psp->adev;
+ 	int ret;
+ 
+-	if (!amdgpu_sriov_vf(adev) && !adev->in_gpu_reset) {
++	if (!amdgpu_sriov_vf(adev)) {
+ 		if (psp->kdb_bin_size &&
+ 		    (psp->funcs->bootloader_load_kdb != NULL)) {
+ 			ret = psp_bootloader_load_kdb(psp);
+-- 
+2.7.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
