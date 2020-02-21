@@ -2,64 +2,74 @@ Return-Path: <SRS0=HRUr=4J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4F02C11D00
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 02:04:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F2E2C35640
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 06:00:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5F46820722
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 02:04:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0F59720637
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Feb 2020 06:00:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=moreofthesa.me.uk header.i=@moreofthesa.me.uk header.b="dHSFc6KN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F46820722
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=moreofthesa.me.uk
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MOqfv/ka"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0F59720637
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC9CC6EE82;
-	Fri, 21 Feb 2020 02:04:10 +0000 (UTC)
-X-Greylist: delayed 1011 seconds by postgrey-1.36 at gabe;
- Fri, 21 Feb 2020 02:04:09 UTC
-Received: from spam.moreofthesa.me.uk (moreofthesa.me.uk
- [IPv6:2001:8b0:897:1651::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA0E46EE82
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Feb 2020 02:04:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=moreofthesa.me.uk; s=201708; h=Content-Type:MIME-Version:Message-ID:Subject
- :To:From:Date:Sender:Reply-To:Cc:Content-Transfer-Encoding:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=xcYm1TfW7l7yOkaU3dYpGf5+7pAcrL7I0CVWLT3yy4g=; b=dHSFc6KNlWrUdXbtT9fJ+kHRvg
- Q3SstcsnMrNgRw1mTFc2WEGIHETGAnO/NOHc+hLRlMegUggXQFzyWDgPoTN7imwKjMj55G+qtOEeZ
- MqEN9M/IeCm43YFBYjq4kwpLmWaFZ5lZrqLxbq17eNfE11vXu4mGk+rk4vmtU73gUvsFZ1Q+xWRaa
- Ugl0slLER1P1tVMzI9rD5wcDCW7bI+jWEZtmyKzjUPx6V31M6/z7ugz338wYjlDW5ibtrqWP7vQqP
- WcCgQbOB40ONb+jeN4BYYj4hICbcpfxKzMffwXfWRapRSv1v7Qy8vaetlMIKCbg3dA0podnn8cY1W
- 8ONvH27Q==;
-Received: from [2001:8b0:897:1650::2]
- by spam.moreofthesa.me.uk with esmtp (Exim 4.92)
- (envelope-from <devspam@moreofthesa.me.uk>) id 1j4xPP-00069V-BT
- for amd-gfx@lists.freedesktop.org; Fri, 21 Feb 2020 01:47:15 +0000
-Date: Fri, 21 Feb 2020 01:45:08 +0000
-From: Darren Salt <devspam@moreofthesa.me.uk>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] radeon, amdgpu: allow for symbolic errno output when reporting
- drm_edid_to_sad errors
-Message-ID: <584AF8CA80%devspam@moreofthesa.me.uk>
-Mail-Followup-To: amd-gfx@lists.freedesktop.org, Darren Salt 
- <devspam@moreofthesa.me.uk>
-User-Agent: Messenger-Pro/2.73.6.4250 (Qt/5.11.3) (Linux-x86_64)
-X-No-Archive: no
-X-Orwell-Date: Fri, 12866 Dec 1984 01:45:08 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 924136EE97;
+	Fri, 21 Feb 2020 06:00:10 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA6076EE93;
+ Fri, 21 Feb 2020 06:00:08 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id m10so4373321wmc.0;
+ Thu, 20 Feb 2020 22:00:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=H7aXQTqmLNxvdPr5mBNnJfbo38LB1xJHVHK2rWbKEqw=;
+ b=MOqfv/kaObHJEU4A0mnaFSEPVoAQ+XzGpPBw1qUzIDChC2bV5Xis329ghi0OSMUe2T
+ YhVicpLrQndbQZs6riGjFqTmtdy+EMbG4jyCnKVus42lLRijK/C+rJhfwsU1A1+dZ2oq
+ x9Iy53HEEPilEHf0enrdVhBui0Cuk44XNN8OwtHBWBHJG4b2EaSDPRDTxw6C8lUt5zYA
+ mHMjTP2udC0KW3zyt6aJmu5BQahyQw6PpXAAISnMF6MG4/nYxe6+8f552zlV89Bl8i8e
+ Rq9Iqy2Y+S2iwCZPuVrxEqWRujTeaoMDyqLddd6W1ztvZrcj+S68m6+yNug0QMoHvJop
+ m+Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=H7aXQTqmLNxvdPr5mBNnJfbo38LB1xJHVHK2rWbKEqw=;
+ b=M3mZjYFyNDzYCIJBzPFvnfSSdBlXrABVTSn4uX42+70ZOgGv7fp/1uqTQOBPnG3Ewu
+ SWpMqDxG58snsEGNr/hlimow8QSRe5Wz5A+MHw4Oes92fIF7Xlfmf3QSHFprJD4Dzcj+
+ 0GjFTQhX8sVsXcasRTlLqD2zSpQ0+wNOzze8vks3yKD8Uq6mOA2XkcPND1HfXYWJcGun
+ 9L7m70SxghdDJKbJW6qyBGQC0dJMFv55vgYtDL9LrtRSTOco4qHUi6saJmgKxeJsKcvz
+ DswJYdwHRF7QCM4CzwDdTqZ7vVmcoEu0rbfiuEGBbZuVkQSS4mmWuQrSaxJCTHCOBrDc
+ kHBQ==
+X-Gm-Message-State: APjAAAU1Krm9fpxIKZwInzW96r48iW3wIialF9ZOmnM5B7EVSXNbbuQ0
+ LOuetR7RtEYdy7VFREkFvZNoI15T2yLV5vu7XL4=
+X-Google-Smtp-Source: APXvYqwUciNnVQPNEXNeyIwx5TVfT9GtH4vdeEDW/3kEC5yZ72E+38Ud0AgtP2twlUA6naX2Ps2iMF7lw5IFwrkqRMQ=
+X-Received: by 2002:a1c:9602:: with SMTP id y2mr1420482wmd.23.1582264807381;
+ Thu, 20 Feb 2020 22:00:07 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="507152968--1469347429--456175675"
-X-SA-Exim-Connect-IP: 2001:8b0:897:1650::2
-X-SA-Exim-Mail-From: devspam@moreofthesa.me.uk
-X-SA-Exim-Scanned: No (on spam.moreofthesa.me.uk);
- SAEximRunCond expanded to false
+References: <20200214155650.21203-1-Kenny.Ho@amd.com>
+ <20200214155650.21203-10-Kenny.Ho@amd.com>
+ <CAOFGe96N5gG+08rQCRC+diHKDAfxPFYEnVxDS8_udvjcBYgsPg@mail.gmail.com>
+ <CAOWid-f62Uv=GZXX2V2BsQGM5A1JJG_qmyrOwd=KwZBx_sr-bg@mail.gmail.com>
+ <20200214183401.GY2363188@phenom.ffwll.local>
+ <CAOWid-caJHeXUnQv3MOi=9U+vdBLfewN+CrA-7jRrz0VXqatbQ@mail.gmail.com>
+ <20200214191754.GA218629@mtj.thefacebook.com>
+ <20200219161850.GB13406@cmpxchg.org>
+ <CAOWid-e=7V4TUqK_h5Gs9dUXqH-Vgr-Go8c1dCkMux98Vdd1sQ@mail.gmail.com>
+ <20200219183841.GA54486@cmpxchg.org>
+In-Reply-To: <20200219183841.GA54486@cmpxchg.org>
+From: Kenny Ho <y2kenny@gmail.com>
+Date: Fri, 21 Feb 2020 00:59:55 -0500
+Message-ID: <CAOWid-dLs079jHAVoDeJ2Ung1Tti0Jszhd-0D2RYPOjuWnTprQ@mail.gmail.com>
+Subject: Re: [PATCH 09/11] drm, cgroup: Introduce lgpu as DRM cgroup resource
+To: Johannes Weiner <hannes@cmpxchg.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,83 +81,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: juan.zuniga-anaya@amd.com, Daniel Vetter <daniel@ffwll.ch>,
+ Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>,
+ jsparks@cray.com, nirmoy.das@amd.com,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ lkaplan@cray.com, Alex Deucher <alexander.deucher@amd.com>, "Greathouse,
+ Joseph" <joseph.greathouse@amd.com>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Jason Ekstrand <jason@jlekstrand.net>, Tejun Heo <tj@kernel.org>,
+ cgroups@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ damon.mcdougall@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This message is in MIME format.
+Thanks, I will take a look.
 
---507152968--1469347429--456175675
-Content-Type: text/plain; charset=us-ascii
+Regards,
+Kenny
 
-This fixes some kernel log text when CONFIG_SYMBOLIC_ERRNAMES=Y.
-
-Signed-off-by: Darren Salt <devspam@moreofthesa.me.uk>
-
---507152968--1469347429--456175675
-Content-Type: application/octet-stream; name="amd-dc-errname.patch"
-Content-Disposition: attachment; filename="amd-dc-errname.patch"
-Content-Transfer-Encoding: base64
-
-LS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fYXVkaW8uYwkyMDIwLTAyLTIx
-IDAwOjE3OjQ0LjAwMDAwMDAwMCArMDAwMAorKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9u
-L3JhZGVvbl9hdWRpby5jCTIwMjAtMDItMjEgMDE6MTE6MDMuODM1OTkzMjE3ICswMDAwCkBA
-IC0zNjgsNyArMzY4LDcgQEAKIAogCXNhZF9jb3VudCA9IGRybV9lZGlkX3RvX3NhZChyYWRl
-b25fY29ubmVjdG9yX2VkaWQoY29ubmVjdG9yKSwgJnNhZHMpOwogCWlmIChzYWRfY291bnQg
-PCAwKQotCQlEUk1fRVJST1IoIkNvdWxkbid0IHJlYWQgU0FEczogJWRcbiIsIHNhZF9jb3Vu
-dCk7CisJCURSTV9FUlJPUigiQ291bGRuJ3QgcmVhZCBTQURzOiAlcGVcbiIsIEVSUl9QVFIo
-c2FkX2NvdW50KSk7CiAJaWYgKHNhZF9jb3VudCA8PSAwKQogCQlyZXR1cm47CiAJQlVHX09O
-KCFzYWRzKTsKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZGNlX3Y4XzAuYwky
-MDIwLTAyLTIxIDAwOjE3OjQ0LjAwMDAwMDAwMCArMDAwMAorKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9kY2VfdjhfMC5jCTIwMjAtMDItMjEgMDE6MTE6MzQuMDc0NTQ1MTE0
-ICswMDAwCkBAIC0xMzI0LDcgKzEzMjQsNyBAQAogCiAJc2FkX2NvdW50ID0gZHJtX2VkaWRf
-dG9fc2FkKGFtZGdwdV9jb25uZWN0b3JfZWRpZChjb25uZWN0b3IpLCAmc2Fkcyk7CiAJaWYg
-KHNhZF9jb3VudCA8IDApCi0JCURSTV9FUlJPUigiQ291bGRuJ3QgcmVhZCBTQURzOiAlZFxu
-Iiwgc2FkX2NvdW50KTsKKwkJRFJNX0VSUk9SKCJDb3VsZG4ndCByZWFkIFNBRHM6ICVwZVxu
-IiwgRVJSX1BUUihzYWRfY291bnQpKTsKIAlpZiAoc2FkX2NvdW50IDw9IDApCiAJCXJldHVy
-bjsKIAlCVUdfT04oIXNhZHMpOwotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9k
-Y2VfdjZfMC5jCTIwMjAtMDItMjEgMDA6MTc6NDQuMDAwMDAwMDAwICswMDAwCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92Nl8wLmMJMjAyMC0wMi0yMSAwMToxMTo0
-Mi4wMDM2ODk5MzEgKzAwMDAKQEAgLTEyNzUsNyArMTI3NSw3IEBACiAKIAlzYWRfY291bnQg
-PSBkcm1fZWRpZF90b19zYWQoYW1kZ3B1X2Nvbm5lY3Rvcl9lZGlkKGNvbm5lY3RvciksICZz
-YWRzKTsKIAlpZiAoc2FkX2NvdW50IDwgMCkKLQkJRFJNX0VSUk9SKCJDb3VsZG4ndCByZWFk
-IFNBRHM6ICVkXG4iLCBzYWRfY291bnQpOworCQlEUk1fRVJST1IoIkNvdWxkbid0IHJlYWQg
-U0FEczogJXBlXG4iLCBFUlJfUFRSKHNhZF9jb3VudCkpOwogCWlmIChzYWRfY291bnQgPD0g
-MCkKIAkJcmV0dXJuOwogCi0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92
-MTBfMC5jCTIwMjAtMDItMjEgMDA6MTc6NDQuMDAwMDAwMDAwICswMDAwCisrKyBiL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RjZV92MTBfMC5jCTIwMjAtMDItMjEgMDE6MTE6MjYu
-NDA2NDA1MTAyICswMDAwCkBAIC0xMzcxLDcgKzEzNzEsNyBAQAogCiAJc2FkX2NvdW50ID0g
-ZHJtX2VkaWRfdG9fc2FkKGFtZGdwdV9jb25uZWN0b3JfZWRpZChjb25uZWN0b3IpLCAmc2Fk
-cyk7CiAJaWYgKHNhZF9jb3VudCA8IDApCi0JCURSTV9FUlJPUigiQ291bGRuJ3QgcmVhZCBT
-QURzOiAlZFxuIiwgc2FkX2NvdW50KTsKKwkJRFJNX0VSUk9SKCJDb3VsZG4ndCByZWFkIFNB
-RHM6ICVwZVxuIiwgRVJSX1BUUihzYWRfY291bnQpKTsKIAlpZiAoc2FkX2NvdW50IDw9IDAp
-CiAJCXJldHVybjsKIAlCVUdfT04oIXNhZHMpOwotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9kY2VfdjExXzAuYwkyMDIwLTAyLTIxIDAwOjE3OjQ0LjAwMDAwMDAwMCArMDAw
-MAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kY2VfdjExXzAuYwkyMDIwLTAy
-LTIxIDAxOjExOjUzLjE5NDg5NDM5MCArMDAwMApAQCAtMTM5Nyw3ICsxMzk3LDcgQEAKIAog
-CXNhZF9jb3VudCA9IGRybV9lZGlkX3RvX3NhZChhbWRncHVfY29ubmVjdG9yX2VkaWQoY29u
-bmVjdG9yKSwgJnNhZHMpOwogCWlmIChzYWRfY291bnQgPCAwKQotCQlEUk1fRVJST1IoIkNv
-dWxkbid0IHJlYWQgU0FEczogJWRcbiIsIHNhZF9jb3VudCk7CisJCURSTV9FUlJPUigiQ291
-bGRuJ3QgcmVhZCBTQURzOiAlcGVcbiIsIEVSUl9QVFIoc2FkX2NvdW50KSk7CiAJaWYgKHNh
-ZF9jb3VudCA8PSAwKQogCQlyZXR1cm47CiAJQlVHX09OKCFzYWRzKTsKLS0tIGEvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1faGVscGVycy5jCTIw
-MjAtMDItMjEgMDA6MTc6NTUuMDAwMDAwMDAwICswMDAwCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2hlbHBlcnMuYwkyMDIwLTAyLTIx
-IDAxOjEyOjAyLjM2NzA2MjAyMSArMDAwMApAQCAtOTgsNyArOTgsNyBAQAogCiAJc2FkX2Nv
-dW50ID0gZHJtX2VkaWRfdG9fc2FkKChzdHJ1Y3QgZWRpZCAqKSBlZGlkLT5yYXdfZWRpZCwg
-JnNhZHMpOwogCWlmIChzYWRfY291bnQgPCAwKQotCQlEUk1fRVJST1IoIkNvdWxkbid0IHJl
-YWQgU0FEczogJWRcbiIsIHNhZF9jb3VudCk7CisJCURSTV9FUlJPUigiQ291bGRuJ3QgcmVh
-ZCBTQURzOiAlcGVcbiIsIEVSUl9QVFIoc2FkX2NvdW50KSk7CiAJaWYgKHNhZF9jb3VudCA8
-PSAwKQogCQlyZXR1cm4gcmVzdWx0OwogCg==
-
---507152968--1469347429--456175675
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+On Wed, Feb 19, 2020 at 1:38 PM Johannes Weiner <hannes@cmpxchg.org> wrote:
+>
+> On Wed, Feb 19, 2020 at 11:28:48AM -0500, Kenny Ho wrote:
+> > On Wed, Feb 19, 2020 at 11:18 AM Johannes Weiner <hannes@cmpxchg.org> wrote:
+> > >
+> > > Yes, I'd go with absolute units when it comes to memory, because it's
+> > > not a renewable resource like CPU and IO, and so we do have cliff
+> > > behavior around the edge where you transition from ok to not-enough.
+> > >
+> > > memory.low is a bit in flux right now, so if anything is unclear
+> > > around its semantics, please feel free to reach out.
+> >
+> > I am not familiar with the discussion, would you point me to a
+> > relevant thread please?
+>
+> Here is a cleanup patch, not yet merged, that documents the exact
+> semantics and behavioral considerations:
+>
+> https://lore.kernel.org/linux-mm/20191213192158.188939-3-hannes@cmpxchg.org/
+>
+> But the high-level idea is this: you assign each cgroup or cgroup
+> subtree a chunk of the resource that it's guaranteed to be able to
+> consume. It *can* consume beyond that threshold if available, but that
+> overage may get reclaimed again if somebody else needs it instead.
+>
+> This allows you to do a ballpark distribution of the resource between
+> different workloads, while the kernel retains the ability to optimize
+> allocation of spare resources - because in practice, workload demand
+> varies over time, workloads disappear and new ones start up etc.
+>
+> > In addition, is there some kind of order of preference for
+> > implementing low vs high vs max?
+>
+> If you implement only one allocation model, the preference would be on
+> memory.low. Limits are rigid and per definition waste resources, so in
+> practice we're moving away from them.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---507152968--1469347429--456175675--
