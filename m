@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD90EC35671
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Feb 2020 02:23:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 33DC7C35673
+	for <amd-gfx@archiver.kernel.org>; Sun, 23 Feb 2020 02:23:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A565220707
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Feb 2020 02:23:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 061B42071E
+	for <amd-gfx@archiver.kernel.org>; Sun, 23 Feb 2020 02:23:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="GyKMpp3S"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A565220707
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="y87Rya1T"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 061B42071E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF8386F466;
-	Sun, 23 Feb 2020 02:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CE0A6E9AC;
+	Sun, 23 Feb 2020 02:23:03 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 559536E9AB;
- Sun, 23 Feb 2020 02:23:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4B726E9AA;
+ Sun, 23 Feb 2020 02:23:01 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4C809208C3;
- Sun, 23 Feb 2020 02:23:03 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id BB9C12071E;
+ Sun, 23 Feb 2020 02:23:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1582424584;
- bh=Y2gDl/DBouWsnZ7k9yTDr+JWTxGOv496eoFBcZNk5EU=;
+ s=default; t=1582424581;
+ bh=g9RnykzEodxfWrp1WVCnoI0ktr7vw50NZU8MMja7NyI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=GyKMpp3SO5eO513O6RHlh8fg8pO/4d//+FUmK6ZzO/VNCNfrakHlvPDwNVjy096Fq
- 7PUvkRPmyv8dmgZkZnVqo+ZIOomOZ2r5t705p1H8VgtfRRvho0E5fPdra/VdlA80ns
- JwXaTuSKayKMOtKMzJY8Zf5PPOjvgwOJgOKI/kfc=
+ b=y87Rya1TBP8S+RjeFfC3SGQCfK39VR1RgAA1Tt21Ml30Bl442zkklGXEIv/EyTdQM
+ 1K63s7SzIyVrBor025ZJi5ttsHzNfMq4OWVMq4XC8y+I3a5t2qg+qJ9DSCw1XU8TxB
+ 6TxhnTLzYeEWHbF9o89jOluvmM6XJ0kmm+fC3xQw=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 23/50] drm/amd/display: Check engine is not NULL
- before acquiring
-Date: Sat, 22 Feb 2020 21:22:08 -0500
-Message-Id: <20200223022235.1404-23-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 21/50] drm/amd/display: Do not set
+ optimized_require to false after plane disable
+Date: Sat, 22 Feb 2020 21:22:06 -0500
+Message-Id: <20200223022235.1404-21-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200223022235.1404-1-sashal@kernel.org>
 References: <20200223022235.1404-1-sashal@kernel.org>
@@ -61,8 +61,8 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Aric Cyr <aric.cyr@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, amd-gfx@lists.freedesktop.org,
+Cc: Sasha Levin <sashal@kernel.org>, Sung Lee <sung.lee@amd.com>,
+ Tony Cheng <Tony.Cheng@amd.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 Content-Type: text/plain; charset="us-ascii"
@@ -70,38 +70,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+From: Sung Lee <sung.lee@amd.com>
 
-[ Upstream commit 2b63d0ec0daf79ba503fa8bfa25e07dc3da274f3 ]
+[ Upstream commit df36f6cf23ada812930afa8ee76681d4ad307c61 ]
 
-[Why]
-Engine can be NULL in some cases, so we must not acquire it.
+[WHY]
+The optimized_require flag is needed to set watermarks and clocks lower
+in certain conditions. This flag is set to true and then set to false
+while programming front end in dcn20.
 
-[How]
-Check for NULL engine before acquiring.
+[HOW]
+Do not set the flag to false while disabling plane.
 
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Sung Lee <sung.lee@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
 Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dce_aux.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-index c3f9f4185ce8d..cf877238fff9d 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
-@@ -386,7 +386,7 @@ static bool acquire(
- {
- 	enum gpio_result result;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+index 937a8ba811603..e933f6a369f92 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
+@@ -493,7 +493,6 @@ static void dcn20_plane_atomic_disable(struct dc *dc, struct pipe_ctx *pipe_ctx)
+ 	dpp->funcs->dpp_dppclk_control(dpp, false, false);
  
--	if (!is_engine_available(engine))
-+	if ((engine == NULL) || !is_engine_available(engine))
- 		return false;
+ 	hubp->power_gated = true;
+-	dc->optimized_required = false; /* We're powering off, no need to optimize */
  
- 	result = dal_ddc_open(ddc, GPIO_MODE_HARDWARE,
+ 	dc->hwss.plane_atomic_power_down(dc,
+ 			pipe_ctx->plane_res.dpp,
 -- 
 2.20.1
 
