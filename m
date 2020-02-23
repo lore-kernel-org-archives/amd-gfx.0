@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35746C35674
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Feb 2020 02:23:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A6C4C35669
+	for <amd-gfx@archiver.kernel.org>; Sun, 23 Feb 2020 02:23:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A07F2071E
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Feb 2020 02:23:09 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D58002071E
+	for <amd-gfx@archiver.kernel.org>; Sun, 23 Feb 2020 02:23:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="tT6I7qmb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A07F2071E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="ctjQr527"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D58002071E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E93D6E9AF;
-	Sun, 23 Feb 2020 02:23:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADBD66F5E0;
+	Sun, 23 Feb 2020 02:23:10 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A576B6E9AB;
- Sun, 23 Feb 2020 02:23:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A18E6E9AF;
+ Sun, 23 Feb 2020 02:23:08 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 981A8208C4;
- Sun, 23 Feb 2020 02:23:04 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 397E720702;
+ Sun, 23 Feb 2020 02:23:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1582424585;
- bh=DRIj/511LI9YCCerkUGQuQURMrZ2X0geKBW/bOYrSwk=;
+ s=default; t=1582424588;
+ bh=nu12upa2YBED248NaTn+dMF9VDPyyAVLRlkgIW0kpbc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tT6I7qmb96XSR3nffMDZSi2LZ4+V6HpLkjGiMqs9sonosk4dGQZG/2z/8k26SC9zl
- QGlbS5eN6rbJuUdlLe6m2FyhEBsHrm3f23T3c6mMHdf7C5XI/s0lyctf8mMfRnXZtx
- 4O2hnIiOs01xNzWdH0AyHp8aSqVAl6VKVkXZi92I=
+ b=ctjQr527dfwdfDOlF9M9dXm6qrTWpOXe21lMgfLxtfKKPc7nsuuaWudg1SaJj8m2D
+ uHrjOntD1fnxR89EyCHC5xQg5b3BsCQQMtUQSVa1ylRhN/pgphd/WxLGD4H/FHDXW0
+ eZQpVWOpj0FcCvg+zF96HKNU0ye0OUXbbTF+zM4w=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 24/50] drm/amd/display: Limit minimum DPPCLK to
- 100MHz.
-Date: Sat, 22 Feb 2020 21:22:09 -0500
-Message-Id: <20200223022235.1404-24-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 26/50] amdgpu: Prevent build errors regarding
+ soft/hard-float FP ABI tags
+Date: Sat, 22 Feb 2020 21:22:11 -0500
+Message-Id: <20200223022235.1404-26-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200223022235.1404-1-sashal@kernel.org>
 References: <20200223022235.1404-1-sashal@kernel.org>
@@ -61,52 +61,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Eric Yang <eric.yang2@amd.com>,
- amd-gfx@lists.freedesktop.org, Yongqiang Sun <yongqiang.sun@amd.com>,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Kolesa <daniel@octaforge.org>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Sasha Levin <sashal@kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yongqiang Sun <yongqiang.sun@amd.com>
+From: Daniel Kolesa <daniel@octaforge.org>
 
-[ Upstream commit 6c81917a0485ee2a1be0dc23321ac10ecfd9578b ]
+[ Upstream commit 416611d9b6eebaeae58ed26cc7d23131c69126b1 ]
 
-[Why]
-Underflow is observed when plug in a 4K@60 monitor with
-1366x768 eDP due to DPPCLK is too low.
+On PowerPC, the compiler will tag object files with whether they
+use hard or soft float FP ABI and whether they use 64 or 128-bit
+long double ABI. On systems with 64-bit long double ABI, a tag
+will get emitted whenever a double is used, as on those systems
+a long double is the same as a double. This will prevent linkage
+as other files are being compiled with hard-float.
 
-[How]
-Limit minimum DPPCLK to 100MHz.
+On ppc64, this code will never actually get used for the time
+being, as the only currently existing hardware using it are the
+Renoir APUs. Therefore, until this is testable and can be fixed
+properly, at least make sure the build will not fail.
 
-Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
-Reviewed-by: Eric Yang <eric.yang2@amd.com>
-Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Signed-off-by: Daniel Kolesa <daniel@octaforge.org>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c | 6 ++++++
+ drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile | 6 ++++++
  1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-index 787f94d815f42..dd92f9c295b45 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c
-@@ -91,6 +91,12 @@ void rn_update_clocks(struct clk_mgr *clk_mgr_base,
- 		rn_vbios_smu_set_min_deep_sleep_dcfclk(clk_mgr, clk_mgr_base->clks.dcfclk_deep_sleep_khz);
- 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
+index b864869cc7e3e..6fa7422c51da5 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
+@@ -91,6 +91,12 @@ ifdef CONFIG_DRM_AMD_DC_DCN2_1
+ ###############################################################################
+ CLK_MGR_DCN21 = rn_clk_mgr.o rn_clk_mgr_vbios_smu.o
  
-+	// workaround: Limit dppclk to 100Mhz to avoid lower eDP panel switch to plus 4K monitor underflow.
-+	if (!IS_DIAG_DC(dc->ctx->dce_environment)) {
-+		if (new_clocks->dppclk_khz < 100000)
-+			new_clocks->dppclk_khz = 100000;
-+	}
++# prevent build errors regarding soft-float vs hard-float FP ABI tags
++# this code is currently unused on ppc64, as it applies to Renoir APUs only
++ifdef CONFIG_PPC64
++CFLAGS_$(AMDDALPATH)/dc/clk_mgr/dcn21/rn_clk_mgr.o := $(call cc-option,-mno-gnu-attribute)
++endif
 +
- 	if (should_set_clock(safe_to_lower, new_clocks->dppclk_khz, clk_mgr->base.clks.dppclk_khz)) {
- 		if (clk_mgr->base.clks.dppclk_khz > new_clocks->dppclk_khz)
- 			dpp_clock_lowered = true;
+ AMD_DAL_CLK_MGR_DCN21 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn21/,$(CLK_MGR_DCN21))
+ 
+ AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN21)
 -- 
 2.20.1
 
