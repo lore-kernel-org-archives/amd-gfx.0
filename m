@@ -8,66 +8,66 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F209BC11D30
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2020 16:46:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD628C11D2F
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2020 16:48:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C7A2220637
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2020 16:46:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AD2BD20637
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2020 16:48:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kYPcYQb1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7A2220637
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aw8w7IBi"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD2BD20637
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38B926E5BB;
-	Mon, 24 Feb 2020 16:46:49 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E66236E5B4
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Feb 2020 16:46:47 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id s144so290253wme.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Feb 2020 08:46:47 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B3AE6E5C3;
+	Mon, 24 Feb 2020 16:48:18 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4817F6E5BF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Feb 2020 16:48:17 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id z15so2870927wrl.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Feb 2020 08:48:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
  bh=K9KMJlNaf94iiVh8lmR2dMd5QLlvvc9zpJE58yF3ggg=;
- b=kYPcYQb1Zoudpt/fE7MeFmz10+GC/UTo3tWMw8mtYVvsQcMcpBnbQIxL1CjUZk11yJ
- 4Id8+6xmpugaUNzKipA60WrlbmRg4xBdQ6rQWgF5wCl34bqgt7rNJrRr8W7a8OMRN6cJ
- 5YElPa+S5iYJ/uC/NcTzPCZCG+EtzDJ+bJE2Rr/qBbeB1A6ZhTC8WahsZD0kI5TuPQ2r
- H/4DNDuVb0UJvuZCNua9ieS8b8z4v7YH2fPrZlwjf9M86DR8X2G1Q/r0Ds57WwmvQsdL
- bptqNasT5cOwliCTtEwPQ/Z08BMrt7NParrDIy4Fi19v0MStaoRjNmroI5vI8oMzmVMv
- UE8A==
+ b=Aw8w7IBi+bDuvyaaPumXndOAPIsnjwUXl+c0vVKJfs3IN8aAuptZBNjCl2PVOS0kwb
+ jUFUfDrkOg/5xU2HFp1BDXyj78vwSxjh7wpz24lUDmxyMY9nZeM9Wl4uwBrfTddqCrND
+ ifVXUopX3JmbP5bYD/q/UI0bAon9UPt7IJAbpm4RM2ZQiREopWCG5NDNnqJPdWVZdcJJ
+ bAqR9jP4P3xXRr8TP4CMZqjj36OOw7I/8OYpsJdRqxOgoS8dW5Ihr4IbzyajgaYKKLNR
+ d7u6Si2ZUEDk+Hq1ePxkz1Ajw7CbsJzf+5ICr1tpM2LJBhphYJDeASJQr0U9eX7SxO6B
+ 0n+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
  bh=K9KMJlNaf94iiVh8lmR2dMd5QLlvvc9zpJE58yF3ggg=;
- b=FBP+kfJElRPTwkfZq2oyThFfeKHFFFA1U7DB4jVixOaQ5a64kM0cd1U+7pZXHPGHtl
- JUoexGFHkKmijeLqT6fXE6iS9BOkLClVhoo/pYTdzJrZWRhPA2mcMVDc8TXGPXIXnViZ
- hjihQEvyJ05DPr2WK6AEqESCYhwpGDQO99XHQeGupfSMibryVLxNE31Fg5VEAlYym9y4
- 7D+gkX9WwOQaJ9Tgnb+cDRCZo877avoR8aRi5OA212ZyXPT/QOJtnzba8w2vFKEP2nUy
- 1HEG87xIYihl2FSRp/trWq+DjltWRZGbJ89qoEmkNYpyxfANPSK7/x15d0TyJFtxqKc6
- bKPg==
-X-Gm-Message-State: APjAAAUU1KfVoGyWT4vP3fLX9wm93i1gIcE0Dgyvr5nfRz/PVxlaA+qC
- 16SAtbigH4+U2EBa2cMTYHnTLwvNbfFVwA==
-X-Google-Smtp-Source: APXvYqwvqptfvUNYFCcr3LFnKOd77TyWiUzWS0hr7LP9/uJH/pW7MrUz5x1vNFxuGRg0CZsVsJr01Q==
-X-Received: by 2002:a7b:cd8c:: with SMTP id y12mr21967003wmj.23.1582562805959; 
- Mon, 24 Feb 2020 08:46:45 -0800 (PST)
+ b=iQ7Gyjoz6Xsg7Di9cdiCPZBAEory7hyyjeGzhu4r5+3PwZzckp92g//hYW1UzfIfM/
+ svGkOrtNtT2zYL0pxpH786nP0aX0LfRWauSWKNu0Z6s7x0SgNUxrSzRVpMcRFqJc9MJ5
+ kcIQ5Fm8WCiTRMAdCrSBMcnqYORj4+6Mzpn2I/ISvrA/j89jFZ0z4XrFXRddfowE4EzK
+ eVaYe0WaG1X78d9eCThn7GOuzZQvm7tgS3NIk8o3P+ky17FWdJjUU/4L5n6FVTB4pIPT
+ vV2BeqfTuf2aQ69bz+171bVIbeZfa0vXfmz1B66gIUQQqNb/Kor4dXep3PV6AsZgtvGn
+ Fj1g==
+X-Gm-Message-State: APjAAAXVwFS3kBROEb4Gc/giDZKeWgIiKu6wgab6h7CJ57egrSNfqkx6
+ kGxjHUWzIJs8M8bQ1sOfRd8hYyqBxMnCd+6c
+X-Google-Smtp-Source: APXvYqxpFa45vA2NowGVO/rnmGE0q/AipGqd1aL5pMMEEqNt9C7zg/qBSldbR29PdCq0e9KWkq132Q==
+X-Received: by 2002:adf:aa0e:: with SMTP id p14mr14786257wrd.399.1582562895415; 
+ Mon, 24 Feb 2020 08:48:15 -0800 (PST)
 Received: from brihaspati.fritz.box
  (p200300C58F431E007B60635B4CE4ED05.dip0.t-ipconnect.de.
  [2003:c5:8f43:1e00:7b60:635b:4ce4:ed05])
- by smtp.gmail.com with ESMTPSA id f207sm19807227wme.9.2020.02.24.08.46.44
+ by smtp.gmail.com with ESMTPSA id b67sm20463644wmc.38.2020.02.24.08.48.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Feb 2020 08:46:45 -0800 (PST)
+ Mon, 24 Feb 2020 08:48:14 -0800 (PST)
 From: Nirmoy Das <nirmoy.aiemd@gmail.com>
 X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
 To: amd-gfx@lists.freedesktop.org
 Subject: [RFC PATCH 1/1] drm/amdgpu: wait for sched to become ready on job
  submit
-Date: Mon, 24 Feb 2020 17:49:39 +0100
-Message-Id: <20200224164939.4598-1-nirmoy.das@amd.com>
+Date: Mon, 24 Feb 2020 17:51:04 +0100
+Message-Id: <20200224165104.4664-1-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
