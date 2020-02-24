@@ -1,55 +1,111 @@
-Return-Path: <SRS0=mgZh=4L=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=KDYH=4M=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BADCC35676
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Feb 2020 02:23:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0680CC35673
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2020 03:21:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5DA8F2071E
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Feb 2020 02:23:14 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B7C322067D
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2020 03:21:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="pWnEoicN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5DA8F2071E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="njT8+Bu9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B7C322067D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47BCD6F5DF;
-	Sun, 23 Feb 2020 02:23:10 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC43D6E9AF;
- Sun, 23 Feb 2020 02:23:06 +0000 (UTC)
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E2FAE21741;
- Sun, 23 Feb 2020 02:23:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1582424586;
- bh=PhncEhRCTKBC5B1M7UkmrcPOnOXpB7zh+aV1dws/UrY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=pWnEoicNkqYd5Tjqq6oCdluu4gVcxTF/VTw/4Q8t1hYtq7d5sivBYVMZa0JlaQhyI
- JJ0b5S3jn8CCRfMp8wbDSpNXzXHfrsUrWsSDtTtNn6Gq8rmutRWRYHBg89A+18/1K1
- XG3BfVKhLuo5fG8yRDIqphYJ4cMKLpnteoGrWPcs=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 25/50] drm/amd/display: Add initialitions for PLL2
- clock source
-Date: Sat, 22 Feb 2020 21:22:10 -0500
-Message-Id: <20200223022235.1404-25-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200223022235.1404-1-sashal@kernel.org>
-References: <20200223022235.1404-1-sashal@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5313489B0B;
+	Mon, 24 Feb 2020 03:21:58 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2083.outbound.protection.outlook.com [40.107.243.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 013FA89B0B;
+ Mon, 24 Feb 2020 03:21:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Cfq5Lmt4VV1yKsLAiZUND3zBRZx9lI2JgzRS1VBSTpBSpfKqRwPZSG/bsYAfry6rBBRIf54YxHfoCKU62nEySGxsdk1G7vjfg1sTYjJnjzCaZn71fsCVEr8bRAkf+KaWtKIrqGOok+dLrV5nEWOxnq74HKLo9NsBEm/T8p4PzLwg78m9IVt1SRnljTc0MxIcirHcVN+SrPcvr9snvsZc89R5OInjpYGKJFdLWWa9q0RAj6EDZ+j56P0jdECiypRXameK10oIZWkfIR2t7ZukeDmopGygIWwhOyXcqCZkyLHTEiH5pjkv7U0T2tNI4s2TmQ4gujYb3MSv1SZwhpJJJQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LYiK360nRyA7aqtzCF9gPYS3mFfa9ATdkvebWnxZjzk=;
+ b=cOtLgeuq2b1ZWJkPeCnKMhDY/laClEu9HkRcSAPNpseMMODhUjML8xI+N+ZAzl5D1wGq8KFY3k0i93YDTmAaVr5pLEa6MyqlGkvLLuKvml6NgucRiNK72MiIuVhMxZr8GGe+ig3o5Ry6ciZyBiR1ILPcM/ClthCDpe9ml3cxvZhr4uW3WY/luP+cJuPBF1y8OMeVBAzmyJhNNuJjd2mw7y2N48mOXbZ2pWHFQJQB+w96ON2Rq5YqzEOwTlr3FB1HmN7GSHB0U/5ifer1IwnWQQjau8FmmPWnJ6LjvoLeCg/3aw9QbY1TTBPrNeMreZItD3U7ICPjBh12AiwpGbLx4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LYiK360nRyA7aqtzCF9gPYS3mFfa9ATdkvebWnxZjzk=;
+ b=njT8+Bu9Lsn4NFlnKqzQGqud5xDYy15TxMV0h9bhC+jDWvwTAXUbjZG9l3NBHO50kk21YMpvm10VcfbWyfnJJMeyZJez5AgzKtCI4WUXUIKRml1hqBcVtLW4af9wLRCK8XJCUA74hT4Jxb44liK9/p6h/KHMsqzif11tqxra3do=
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com (2603:10b6:208:c5::10)
+ by MN2PR12MB3805.namprd12.prod.outlook.com (2603:10b6:208:15a::28)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Mon, 24 Feb
+ 2020 03:21:49 +0000
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::69c7:b493:690:2173]) by MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::69c7:b493:690:2173%3]) with mapi id 15.20.2729.033; Mon, 24 Feb 2020
+ 03:21:49 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: Chen Zhou <chenzhou10@huawei.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "airlied@linux.ie"
+ <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>
+Subject: RE: [PATCH -next] drm/amd/powerplay: Use bitwise instead of
+ arithmetic operator for flags
+Thread-Topic: [PATCH -next] drm/amd/powerplay: Use bitwise instead of
+ arithmetic operator for flags
+Thread-Index: AQHV6LJreIpz8B8T80OFeSAr9vQubqgpsZ2w
+Date: Mon, 24 Feb 2020 03:21:49 +0000
+Message-ID: <MN2PR12MB33447575BAF26E919965AB5CE4EC0@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20200221122139.148664-1-chenzhou10@huawei.com>
+In-Reply-To: <20200221122139.148664-1-chenzhou10@huawei.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=5cc58c55-68c2-4342-86f5-000040c15cb1;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-02-24T03:21:30Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Evan.Quan@amd.com; 
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: b553474c-0bda-4a81-fb1b-08d7b8d8af6f
+x-ms-traffictypediagnostic: MN2PR12MB3805:|MN2PR12MB3805:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB38056BEE928F8768BB4F34C8E4EC0@MN2PR12MB3805.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6108;
+x-forefront-prvs: 032334F434
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(39860400002)(136003)(366004)(346002)(376002)(189003)(199004)(33656002)(4326008)(81156014)(8676002)(186003)(6506007)(53546011)(7696005)(86362001)(26005)(81166006)(8936002)(66476007)(66446008)(64756008)(76116006)(66946007)(66556008)(52536014)(5660300002)(110136005)(54906003)(55016002)(9686003)(478600001)(2906002)(71200400001)(316002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3805;
+ H:MN2PR12MB3344.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: /Qx5shFwmHgQHVt0kQxKy9JULCvq2Cq4cJKr6Xuwk2zex+b1bmFM6SoAuCnjT8kZ6AVGegGdUmurBJTe3H6J0Lu8eUyklYOl17JzNZ/JON+wDu7QPDNSayRTcinfYTjGDAh6I3NF99dcUy4jVRhX6CIxU59WdPj4zRSNjmROEuaweeYcyup3OkxoK/fV5cS64ssGZ+0nOpWfd/1Uqi18i6l/cs3Zm64D8iRUQETAFU48fdtTN+g2oIC8kF83gWA370kpv94/SN6luR7Fh1eVOSk6ZM89sRPqSk0Qs6BBpAqUAVJAUI+aEQtLYpncaBq/tKVJqSS4V5tJvGR207FIi/pTfBG9nq8leckkn0YyRvbYqdB6BWXpeKlQMwbQkYdre88tKRrZ/11LoYNzREfBRiiAm1TPpK8T8yGkKkrrNf617BWqtLRpDS/6twHu3pJi
+x-ms-exchange-antispam-messagedata: 8mP70oeWnmlNrp08F9V4w6pjW+hKF/Obww2tMqJltb7TsTYm56CGAIXjkIa4GYTeBYp7ECKbw7X/zeWGBs9E+knbqGJfIjA24/pNzuPaWgXBgi9Td0lKnANadS3imScMdIJK1UouvvgnWMWtMI2LYw==
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b553474c-0bda-4a81-fb1b-08d7b8d8af6f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Feb 2020 03:21:49.1363 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9WypD+Ky7YGYBWqfdCeEFJHZUvBTuFadsQ9AqbSzl8fcrvspwMueCtGUN4nRdEx1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3805
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,69 +117,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Isabel Zhang <isabel.zhang@amd.com>,
- Eric Yang <eric.yang2@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Isabel Zhang <isabel.zhang@amd.com>
+Thanks. Reviewed-by: Evan Quan <evan.quan@amd.com>
 
-[ Upstream commit c134c3cabae46a56ab2e1f5e5fa49405e1758838 ]
+-----Original Message-----
+From: Chen Zhou <chenzhou10@huawei.com> 
+Sent: Friday, February 21, 2020 8:22 PM
+To: Quan, Evan <Evan.Quan@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Zhou, David(ChunMing) <David1.Zhou@amd.com>; airlied@linux.ie; daniel@ffwll.ch
+Cc: Feng, Kenneth <Kenneth.Feng@amd.com>; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; chenzhou10@huawei.com
+Subject: [PATCH -next] drm/amd/powerplay: Use bitwise instead of arithmetic operator for flags
 
-[Why]
-Starting from 14nm, the PLL is built into the PHY and the PLL is mapped
-to PHY on 1 to 1 basis. In the code, the DP port is mapped to a PLL that was not
-initialized. This causes DP to HDMI dongle to not light up the display.
+This silences the following coccinelle warning:
 
-[How]
-Initializations added for PLL2 when creating resources.
+"WARNING: sum of probable bitmasks, consider |"
 
-Signed-off-by: Isabel Zhang <isabel.zhang@amd.com>
-Reviewed-by: Eric Yang <eric.yang2@amd.com>
-Acked-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-index b0e5e64df2127..161bf7caf3ae0 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-@@ -57,6 +57,7 @@
- #include "dcn20/dcn20_dccg.h"
- #include "dcn21_hubbub.h"
- #include "dcn10/dcn10_resource.h"
-+#include "dce110/dce110_resource.h"
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+index 92a65e3d..f29f95b 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega10_hwmgr.c
+@@ -3382,7 +3382,7 @@ static int vega10_populate_and_upload_sclk_mclk_dpm_levels(
+ 	}
  
- #include "dcn20/dcn20_dwb.h"
- #include "dcn20/dcn20_mmhubbub.h"
-@@ -824,6 +825,7 @@ static const struct dc_debug_options debug_defaults_diags = {
- enum dcn20_clk_src_array_id {
- 	DCN20_CLK_SRC_PLL0,
- 	DCN20_CLK_SRC_PLL1,
-+	DCN20_CLK_SRC_PLL2,
- 	DCN20_CLK_SRC_TOTAL_DCN21
- };
+ 	if (data->need_update_dpm_table &
+-			(DPMTABLE_OD_UPDATE_SCLK + DPMTABLE_UPDATE_SCLK + DPMTABLE_UPDATE_SOCCLK)) {
++			(DPMTABLE_OD_UPDATE_SCLK | DPMTABLE_UPDATE_SCLK | 
++DPMTABLE_UPDATE_SOCCLK)) {
+ 		result = vega10_populate_all_graphic_levels(hwmgr);
+ 		PP_ASSERT_WITH_CODE((0 == result),
+ 				"Failed to populate SCLK during PopulateNewDPMClocksStates Function!", @@ -3390,7 +3390,7 @@ static int vega10_populate_and_upload_sclk_mclk_dpm_levels(
+ 	}
  
-@@ -1492,6 +1494,10 @@ static bool construct(
- 			dcn21_clock_source_create(ctx, ctx->dc_bios,
- 				CLOCK_SOURCE_COMBO_PHY_PLL1,
- 				&clk_src_regs[1], false);
-+	pool->base.clock_sources[DCN20_CLK_SRC_PLL2] =
-+			dcn21_clock_source_create(ctx, ctx->dc_bios,
-+				CLOCK_SOURCE_COMBO_PHY_PLL2,
-+				&clk_src_regs[2], false);
- 
- 	pool->base.clk_src_count = DCN20_CLK_SRC_TOTAL_DCN21;
- 
--- 
-2.20.1
+ 	if (data->need_update_dpm_table &
+-			(DPMTABLE_OD_UPDATE_MCLK + DPMTABLE_UPDATE_MCLK)) {
++			(DPMTABLE_OD_UPDATE_MCLK | DPMTABLE_UPDATE_MCLK)) {
+ 		result = vega10_populate_all_memory_levels(hwmgr);
+ 		PP_ASSERT_WITH_CODE((0 == result),
+ 				"Failed to populate MCLK during PopulateNewDPMClocksStates Function!",
+--
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
