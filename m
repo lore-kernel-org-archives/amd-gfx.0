@@ -2,100 +2,130 @@ Return-Path: <SRS0=KDYH=4M=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E31A5C38BE2
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2020 20:54:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA233C38BE0
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2020 21:09:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A7D7B21556
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2020 20:54:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7B82020CC7
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Feb 2020 21:09:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="jPTGBIQI"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A7D7B21556
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="MnVl/SFF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7B82020CC7
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 444DF6E856;
-	Mon, 24 Feb 2020 20:54:36 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2071.outbound.protection.outlook.com [40.107.93.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C04496E856
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Feb 2020 20:54:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31B326E97D;
+	Mon, 24 Feb 2020 21:09:53 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2061a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::61a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8136E97D;
+ Mon, 24 Feb 2020 21:09:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C7dAdgPT2r1GBWoHhFN3g+SLw4oH5dZ09wAM+4BPzpvCaMXstPLU9UeJEu8EqWY10QB0Mwpg8Rzzjnsu+di5ZWB0nYZpRSEelHMORdVKFUbPdlpAxVBOSpPNEPrjFpSRkQnm5v8gA7qw7tRQXGg//A7ki9f5Q5sGo+uyhTYmqiEhX4KPqDvUS8xKIHB+Hv3fHufZo4fwwfTa7y8n4QhRSbodRg+fovBp9Z0V2nfxDEdoyf/e/zIYtgcJ00eCqCmsP2iEcYw9CbFsj++m57FwhzmC7z5oPnNAl6LZ6d4CZm8bZroq0rVns5jC9W0C/mtpaBJHNHXfI8mGVltbuLR53g==
+ b=cXT6r/y8mNy8xyTuksJfSmzQnkazRrTej4GCrGsILqX0xHyO1RS5C13loH0gKpDbjUx2Cq0MRSH/9i1x0evmzouUzXwUXt04wS4d7RASWL0LI122jo/JLLCO72QyynZZVlEI3a1yd1wZBx+Rl9Kl+PQQ3+aDi9qOIlj7mJ43cKIIILoSLBeSIvUzdPheGDPYYJTvkfv5iF5Jt4ecfYxik09WcRf6xptphR++CA0jDjStv9R2A+ji0s8Ts688QTQhKpvyHKKdCbWGY7SA3vuu99Snfe3xBNY85QhHSdaVV1vCqHoiN2qSo3R51QC7TCeE4EytkfaMPIBCY2c8yWiCow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=41Vin5hYI4r9ZXQpAqyarnfHjoF1vsX7S41YwgpPmPw=;
- b=gkQMgAU0cCFaG90hVGzrNEWJSaepVUZXVpGRL4/oOOtWsRWaF4i2Nq3gxWrRXeuVX6wI6dJRY/doFIgxWYhSNAMJWgmu3x6gznyPREwxWPzAYhj8d4neRNhlr9PbRAXgFmPp0Ar/YviurY3pHhy0rekDPvd9zVwEOy9vm5z8cMUvtOlqSbRIPcfRT3+zGgeYlxxChIha9aoB0KjCvX+o0r3SytUWOJNGts+h7qOnPA1PBYN+ns70bc8G1phv3lWKin4gaEDBywMh/whfjZbgBAFdBFQDGwxpgJJurQ5Bw6dOUAUIt4cGvHO+1TBTCKYsx27hftTbcUYYImorPo48jg==
+ bh=R+EH0vva8YWYOPFN2kXczHDG295M2wVm4u9JJBfP9XY=;
+ b=Jf9OUxnK9xHPKMpGgokZ6vC83nPZnq6aGM2qbBKBk/RlIkmBKbzOsuRtrh9jD92b3oT293CCIq5YivPHo7V/5CeW+cuVchyj/TmMsb5mKRPdquBCOdODdczOgSvVBlCwm7WeKMr88NOfu3n2oAJr5cPs/PFyZXjr58WtxrOk5xb2YkLgjDpdYt+evOFG+5MyfYq7x84iJtXAmVHrEWq4AtrXXDRFLmeLka6aRkfcf/QgimtUP6bvGszhcDiXNoUOC3pdMdWXJ5FvvoE2G5Bp5zM5RnQ30NhbuFYJnY3Zu7IAkP7GDNpWG37azDtPrBJNPjIjHQi0zcHSDih1A6RgGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=41Vin5hYI4r9ZXQpAqyarnfHjoF1vsX7S41YwgpPmPw=;
- b=jPTGBIQI+1XeAk+FnPPaVNCEugh3w4k6u2I71IUWnFlqU//ZdCPTj4CT7Rtd2m23xuuj3ZF1Mys7bH4peiiJFX+1TCar5MIXCgLAHHxNvZGN5TfFcckxiSiKHa8u1cRkiLKl5ZpKhv4x4f4SrWFe3M3dbYKDkvkp8EGnFqCggXU=
-Received: from DM5PR1201MB2554.namprd12.prod.outlook.com (2603:10b6:3:ec::14)
- by DM5PR1201MB0121.namprd12.prod.outlook.com (2603:10b6:4:56::9) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=R+EH0vva8YWYOPFN2kXczHDG295M2wVm4u9JJBfP9XY=;
+ b=MnVl/SFFaWhIimSWx7r3LWhHmFcBwTcc9BKTTpMZDnmmuvDs7hfpgxgj3LpT7YhUN7egedJ1GQcdMcKqRMKkrxECShQoSIBsjGl83GZAGtLgQ0Po07Jne2VazpN3yrTTc7Nchtl5DsW9pGBC464O01EmMnnLQbUW0EoamD+4D20=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Harry.Wentland@amd.com; 
+Received: from MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11)
+ by MW3PR12MB4361.namprd12.prod.outlook.com (2603:10b6:303:5a::15)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Mon, 24 Feb
- 2020 20:54:33 +0000
-Received: from DM5PR1201MB2554.namprd12.prod.outlook.com
- ([fe80::c4c:bafd:5833:2b51]) by DM5PR1201MB2554.namprd12.prod.outlook.com
- ([fe80::c4c:bafd:5833:2b51%5]) with mapi id 15.20.2750.021; Mon, 24 Feb 2020
- 20:54:33 +0000
-From: "Liu, Zhan" <Zhan.Liu@amd.com>
-To: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: log TA versions on init
-Thread-Topic: [PATCH] drm/amdgpu: log TA versions on init
-Thread-Index: AQHV60sYUsjH3SqTtk+0APy3brdqA6gq0m3g
-Date: Mon, 24 Feb 2020 20:54:33 +0000
-Message-ID: <DM5PR1201MB25540AA66E86F5FC291898CB9EEC0@DM5PR1201MB2554.namprd12.prod.outlook.com>
-References: <20200224194527.15599-1-Bhawanpreet.Lakha@amd.com>
-In-Reply-To: <20200224194527.15599-1-Bhawanpreet.Lakha@amd.com>
-Accept-Language: en-US
+ 2020 21:09:50 +0000
+Received: from MW3PR12MB4379.namprd12.prod.outlook.com
+ ([fe80::2ca3:d95b:6303:76a5]) by MW3PR12MB4379.namprd12.prod.outlook.com
+ ([fe80::2ca3:d95b:6303:76a5%7]) with mapi id 15.20.2750.021; Mon, 24 Feb 2020
+ 21:09:49 +0000
+Subject: Re: [PATCH 13/15] drm/amdgpu/display: split dp connector registration
+ (v3)
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20200207211713.3870-1-alexander.deucher@amd.com>
+From: Harry Wentland <hwentlan@amd.com>
+Autocrypt: addr=hwentlan@amd.com; keydata=
+ mQENBFhb4C8BCADhHHUNoBQ7K7LupCP0FsUb443Vuqq+dH0uo4A3lnPkMF6FJmGcJ9Sbx1C6
+ cd4PbVAaTFZUEmjqfpm+wCRBe11eF55hW3GJ273wvfH69Q/zmAxwO8yk+i5ZWWl8Hns5h69K
+ D9QURHLpXxrcwnfHFah0DwV23TrD1KGB7vowCZyJOw93U/GzAlXKESy0FM7ZOYIJH83X7qhh
+ Q9KX94iTEYTeH86Wy8hwHtqM6ySviwEz0g+UegpG8ebbz0w3b5QmdKCAg+eZTmBekP5o77YE
+ BKqR+Miiwo9+tzm2N5GiF9HDeI2pVe/egOLa5UcmsgdF4Y5FKoMnBbAHNaA6Fev8PHlNABEB
+ AAG0J0hhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPokBNwQTAQgAIQUC
+ WFvgLwIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRAtWBXJjBS24xUlCAC9MqAlIbZO
+ /a37s41h+MQ+D20C6/hVErWO+RA06nA+jFDPUWrDJKYdn6EDQWdLY3ATeAq3X8GIeOTXGrPD
+ b2OXD6kOViW/RNvlXdrIsnIDacdr39aoAlY1b+bhTzZVz4pto4l+K1PZb5jlMgTk/ks9HesL
+ RfYVq5wOy3qIpocdjdlXnSUKn0WOkGBBd8Nv3o0OI18tiJ1S/QwLBBfZoVvfGinoB2p4j/wO
+ kJxpi3F9TaOtLGcdrgfghg31Fb48DP+6kodZ4ircerp4hyAp0U2iKtsrQ/sVWR4mbe3eTfcn
+ YjBxGd2JOVdNQZa2VTNf9GshIDMD8IIQK6jN0LfY8Py2uQENBFhb4C8BCAC/0KWY3pIbU2cy
+ i7GMj3gqB6h0jGqRuMpMRoSNDoAUIuSh17w+bawuOF6XZPdK3D4lC9cOXMwP3aP9tTJOori2
+ 8vMH8KW9jp9lAYnGWYhSqLdjzIACquMqi96EBtawJDct1e9pVgp+d4JXHlgIrl11ITJo8rCP
+ dEqjro2bCBWxijsIncdCzMjf57+nR7u86SBtGSFcXKapS7YJeWcvM6MzFYgIkxHxxBDvBBvm
+ U2/mAXiL72kwmlV1BNrabQxX2UnIb3xt3UovYJehrnDUMdYjxJgSPRBx27wQ/D05xAlhkmmL
+ FJ01ZYc412CRCC6gjgFPfUi2y7YJTrQHS79WSyANABEBAAGJAR8EGAEIAAkFAlhb4C8CGwwA
+ CgkQLVgVyYwUtuM72Qf+J6JOQ/27pWf5Ulde9GS0BigA1kV9CNfIq396TgvQzeyixHMvgPdq
+ Z36x89zZi0otjMZv6ypIdEg5co1Bvz0wFaKbCiNbTjpnA1VAbQVLSFjCZLQiu0vc+BZ1yKDV
+ T5ASJ97G4XvQNO+XXGY55MrmhoNqMaeIa/3Jas54fPVd5olcnUAyDty29/VWXNllUq38iBCX
+ /0tTF7oav1lzPGfeW2c6B700FFZMTR4YBVSGE8jPIzu2Fj0E8EkDmsgS+nibqSvWXfo1v231
+ 410h35CjbYDlYQO7Z1YD7asqbaOnF0As+rckyRMweQ9CxZn5+YBijtPJA3x5ldbCfQ9rWiTu XQ==
+Message-ID: <22cf2c92-52a0-5e1a-e569-4fe421e38022@amd.com>
+Date: Mon, 24 Feb 2020 16:09:47 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
+In-Reply-To: <20200207211713.3870-1-alexander.deucher@amd.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Zhan.Liu@amd.com; 
-x-originating-ip: [165.204.55.250]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 5e52b2f8-4b3d-4e74-0e29-08d7b96bc03c
-x-ms-traffictypediagnostic: DM5PR1201MB0121:|DM5PR1201MB0121:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR1201MB01213AF8F2B32790135A51209EEC0@DM5PR1201MB0121.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
-x-forefront-prvs: 032334F434
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(136003)(39860400002)(346002)(376002)(396003)(199004)(189003)(52536014)(186003)(478600001)(53546011)(9686003)(6506007)(7696005)(71200400001)(86362001)(55016002)(26005)(6636002)(66476007)(2906002)(5660300002)(81166006)(76116006)(8676002)(33656002)(81156014)(66946007)(8936002)(66446008)(64756008)(66556008)(110136005)(316002)(4326008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR1201MB0121;
- H:DM5PR1201MB2554.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: cCLqdTL8CVXjiMwz1XP+4xDRER0eQDjDWF91wY5XrWkNZzwRl2/EeRJgg9TSCc/uqJygtLtoiAX1If+ePV04KMUJAGKSWahYDcm/Nfzc+bW7wwDsJut6seJqomI+cW6QyFvDIgBvgQrz89qt3X36pa6jMkWQkhIQFt4hlaKUoz14hfgqEAT+/MoTqgacF8+haNT07rZrQblPFcM3etjQs4YWDwhpUid+tDP0ROgLWyUrlRH/iK2vVdfkMrZdzX1zXaZUMYfd73F7i2IZ9fpCOW+4TOE4tG+RYCpJPW2WDvbNEhRBqd1/iO9FfbXrsc4rfn2DgxSG8lDvUBb+qmkFbl/Q86ayxeITlp9gpPYwPx8Mn6tIjIIKha0HuwrB7JnUZeQXFYQK0ruMJ2fG4RAKDyKPHxWxn4cbHzwu7Ejrs7ygeddP7RvyGE6edrqoP6as
-x-ms-exchange-antispam-messagedata: /8D1ng3H7KnI+SljLOKDJh8p6wJA3fFKTxASokwuseqDfflOPUisVAjCLximtrRG/yP9GWI+Iz17Aa0JwuEU1Hgb4Hcp+xQXgcRlRxwGsViAaIRRGM2WZy5RBUMQrCL1wYBfJcv6WLoIgewUTv1sCA==
+X-ClientProxiedBy: YTOPR0101CA0004.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:15::17) To MW3PR12MB4379.namprd12.prod.outlook.com
+ (2603:10b6:303:5e::11)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [10.4.41.132] (165.204.55.251) by
+ YTOPR0101CA0004.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.17 via Frontend
+ Transport; Mon, 24 Feb 2020 21:09:48 +0000
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 0bda095e-d47c-4607-ad3d-08d7b96de242
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4361:|MW3PR12MB4361:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MW3PR12MB4361A069766289C2BFE60B6E8CEC0@MW3PR12MB4361.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
+X-Forefront-PRVS: 032334F434
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(396003)(366004)(136003)(346002)(39860400002)(199004)(189003)(31696002)(2906002)(53546011)(186003)(36756003)(81166006)(16526019)(31686004)(26005)(8936002)(66946007)(4326008)(8676002)(81156014)(478600001)(16576012)(66476007)(54906003)(316002)(6486002)(2616005)(956004)(5660300002)(52116002)(66556008);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MW3PR12MB4361;
+ H:MW3PR12MB4379.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 3ZK4lnG/L213EhRUWzK8+h3ARYMcJOtuqP3WeEcV6h8LX+6h9ZzosNGQX9fSNabCIAaE7k3rIsiq+srHJGM4VkR/kn9AO1AgEL/xC0rpbTqrQ/RDTQnZ3k2mH3ZXBy3hQ1zXys+F4XT3HbRrz34nkjCjpJEbS0ipJrHWpbIRccsooeBsxM2RRZFoGw49df1a3nDc/czI5Qm3PruKFvh3s1jt2mIUqLiPnBFMJOXyWLlH9w5OHXAZ7DghUp5sNjWIyPr6NQlJY+KUOTfBzSuHW/kzs3imH573Grxn4PnC7ZVqr++rTAd2ndIQmC318X5dJgxEsFvnWV+rsZagqazxNn2TI8Zixoc2UcHMcOW371WBH5N9/UW3t9quMmt4hem4RHUUN733e+f23HeT8FpRsyi0lJ/b1h5pL266JdvQvuexd+FlQAKCX7DBa++0aJMp
+X-MS-Exchange-AntiSpam-MessageData: yO4TZauAFAl+7wgEoQIf5Dj7eVDoK32A6kKicH0oSI37qDqeob7JkY0LcvplkSiogydaN1CG0V+j4cLqxaOJcOCxuGovkilcj3I88LvVaRUlyLQPEcAGIrV6pnsu1nU4VT42YxW6jxxZUjPdud6EFw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e52b2f8-4b3d-4e74-0e29-08d7b96bc03c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Feb 2020 20:54:33.2105 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UWlx4ot+gj6HDd8iHZjPHQVaVTj3iUJjMRF6dlbZLEXLlqyBCj2fVzLjvwqZjxVB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0121
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bda095e-d47c-4607-ad3d-08d7b96de242
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2020 21:09:49.6899 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: KSIbYz/JjiJOscJIxhe4AT1wOSHbGOIBX9OyI9BUKpEejAEGWxM5Npp2z8xxytWarnx573DSn+cv33o2CpzyOA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4361
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,89 +137,131 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, "Broadworth,
+ Mark" <Mark.Broadworth@amd.com>, "Liu, Zhan" <Zhan.Liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> Bhawanpreet Lakha
-> Sent: 2020/February/24, Monday 2:45 PM
-> To: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Zhang, Hawking
-> <Hawking.Zhang@amd.com>
-> Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
-> Subject: [PATCH] drm/amdgpu: log TA versions on init
+On 2020-02-07 4:17 p.m., Alex Deucher wrote:
+> Split into init and register functions to avoid a segfault
+> in some configs when the load/unload callbacks are removed.
 > 
-> It is helpful to know what version the TA's are for debugging
+
+Looks like MST is completely broken with this change with a NULL pointer
+dereference in drm_dp_aux_register.
+
+> v2:
+> - add back accidently dropped has_aux setting
+> - set dev in late_register
 > 
-> Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-
-Reviewed-by: Zhan Liu <zhan.liu@amd.com>
-
+> v3:
+> - fix dp cec ordering
+> 
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 5 +++++
->  1 file changed, 5 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c   | 16 ++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/atombios_dp.c         | 10 ++--------
+>  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  |  7 ++++++-
+>  3 files changed, 24 insertions(+), 9 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index a16c8101e250..09d1433677a6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -358,6 +358,7 @@ static int psp_asd_load(struct psp_context *psp)
->  	if (!ret) {
->  		psp->asd_context.asd_initialized = true;
->  		psp->asd_context.session_id = cmd->resp.session_id;
-> +		DRM_INFO("ASD: Initialized (version: 0x%X)", psp-
-> >asd_fw_version);
->  	}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> index ec1501e3a63a..f355d9a752d2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> @@ -1461,6 +1461,20 @@ static enum drm_mode_status amdgpu_connector_dp_mode_valid(struct drm_connector
+>  	return MODE_OK;
+>  }
+>  
+> +static int
+> +amdgpu_connector_late_register(struct drm_connector *connector)
+> +{
+> +	struct amdgpu_connector *amdgpu_connector = to_amdgpu_connector(connector);
+> +	int r = 0;
+> +
+> +	if (amdgpu_connector->ddc_bus->has_aux) {
+> +		amdgpu_connector->ddc_bus->aux.dev = amdgpu_connector->base.kdev;
+> +		r = drm_dp_aux_register(&amdgpu_connector->ddc_bus->aux);
+> +	}
+> +
+> +	return r;
+> +}
+> +
+>  static const struct drm_connector_helper_funcs amdgpu_connector_dp_helper_funcs = {
+>  	.get_modes = amdgpu_connector_dp_get_modes,
+>  	.mode_valid = amdgpu_connector_dp_mode_valid,
+> @@ -1475,6 +1489,7 @@ static const struct drm_connector_funcs amdgpu_connector_dp_funcs = {
+>  	.early_unregister = amdgpu_connector_unregister,
+>  	.destroy = amdgpu_connector_destroy,
+>  	.force = amdgpu_connector_dvi_force,
+> +	.late_register = amdgpu_connector_late_register,
+>  };
+>  
+>  static const struct drm_connector_funcs amdgpu_connector_edp_funcs = {
+> @@ -1485,6 +1500,7 @@ static const struct drm_connector_funcs amdgpu_connector_edp_funcs = {
+>  	.early_unregister = amdgpu_connector_unregister,
+>  	.destroy = amdgpu_connector_destroy,
+>  	.force = amdgpu_connector_dvi_force,
+> +	.late_register = amdgpu_connector_late_register,
+>  };
+>  
+>  void
+> diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> index ea702a64f807..9b74cfdba7b8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> @@ -186,16 +186,10 @@ amdgpu_atombios_dp_aux_transfer(struct drm_dp_aux *aux, struct drm_dp_aux_msg *m
+>  
+>  void amdgpu_atombios_dp_aux_init(struct amdgpu_connector *amdgpu_connector)
+>  {
+> -	int ret;
+> -
+>  	amdgpu_connector->ddc_bus->rec.hpd = amdgpu_connector->hpd.hpd;
+> -	amdgpu_connector->ddc_bus->aux.dev = amdgpu_connector->base.kdev;
+>  	amdgpu_connector->ddc_bus->aux.transfer = amdgpu_atombios_dp_aux_transfer;
+> -	ret = drm_dp_aux_register(&amdgpu_connector->ddc_bus->aux);
+> -	if (!ret)
+> -		amdgpu_connector->ddc_bus->has_aux = true;
+> -
+> -	WARN(ret, "drm_dp_aux_register_i2c_bus() failed with error %d\n", ret);
+> +	drm_dp_aux_init(&amdgpu_connector->ddc_bus->aux);
+> +	amdgpu_connector->ddc_bus->has_aux = true;
+>  }
+>  
+>  /***** general DP utility functions *****/
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> index 3959c942c88b..d5b9e72f2649 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> @@ -155,6 +155,11 @@ amdgpu_dm_mst_connector_late_register(struct drm_connector *connector)
+>  	struct amdgpu_dm_connector *amdgpu_dm_connector =
+>  		to_amdgpu_dm_connector(connector);
+>  	struct drm_dp_mst_port *port = amdgpu_dm_connector->port;
+> +	int r;
+> +
+> +	r = drm_dp_aux_register(&amdgpu_dm_connector->dm_dp_aux.aux);
+
+This calls drm_dp_aux_register_devnode which is also called later in
+drm_dp_mst_connector_late_register. Wonder if that's a problem.
+
+Harry
+
+> +	if (r)
+> +		return r;
+>  
+>  #if defined(CONFIG_DEBUG_FS)
+>  	connector_debugfs_init(amdgpu_dm_connector);
+> @@ -484,7 +489,7 @@ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+>  	aconnector->dm_dp_aux.aux.transfer = dm_dp_aux_transfer;
+>  	aconnector->dm_dp_aux.ddc_service = aconnector->dc_link->ddc;
+>  
+> -	drm_dp_aux_register(&aconnector->dm_dp_aux.aux);
+> +	drm_dp_aux_init(&aconnector->dm_dp_aux.aux);
+>  	drm_dp_cec_register_connector(&aconnector->dm_dp_aux.aux,
+>  				      &aconnector->base);
+>  
 > 
->  	kfree(cmd);
-> @@ -518,6 +519,7 @@ static int psp_xgmi_load(struct psp_context *psp)
->  	if (!ret) {
->  		psp->xgmi_context.initialized = 1;
->  		psp->xgmi_context.session_id = cmd->resp.session_id;
-> +		DRM_INFO("XGMI: Initialized (version: 0x%X)", psp-
-> >ta_xgmi_ucode_version);
->  	}
-> 
->  	kfree(cmd);
-> @@ -658,6 +660,7 @@ static int psp_ras_load(struct psp_context *psp)
->  	if (!ret) {
->  		psp->ras.ras_initialized = true;
->  		psp->ras.session_id = cmd->resp.session_id;
-> +		DRM_INFO("RAS: Initialized (version: 0x%X)", psp-
-> >ta_ras_ucode_version);
->  	}
-> 
->  	kfree(cmd);
-> @@ -832,6 +835,7 @@ static int psp_hdcp_load(struct psp_context *psp)
->  	if (!ret) {
->  		psp->hdcp_context.hdcp_initialized = true;
->  		psp->hdcp_context.session_id = cmd->resp.session_id;
-> +		DRM_INFO("HDCP: Initialized (version: 0x%X)", psp-
-> >ta_hdcp_ucode_version);
->  	}
-> 
->  	kfree(cmd);
-> @@ -977,6 +981,7 @@ static int psp_dtm_load(struct psp_context *psp)
->  	if (!ret) {
->  		psp->dtm_context.dtm_initialized = true;
->  		psp->dtm_context.session_id = cmd->resp.session_id;
-> +		DRM_INFO("DTM: Initialized (version: 0x%X)", psp-
-> >ta_dtm_ucode_version);
->  	}
-> 
->  	kfree(cmd);
-> --
-> 2.17.1
-> 
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
