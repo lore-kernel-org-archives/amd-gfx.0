@@ -7,99 +7,98 @@ X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06863C4BA04
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2020 22:56:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 05F22C4BA04
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2020 23:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CAF7220838
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2020 22:56:37 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C7E3320637
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2020 23:40:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZIK1DGDQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CAF7220838
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="i4nEWi8J"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7E3320637
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D78E89242;
-	Tue, 25 Feb 2020 22:56:37 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2049.outbound.protection.outlook.com [40.107.94.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E52889242
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2020 22:56:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E31F88E26;
+	Tue, 25 Feb 2020 23:40:12 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2065.outbound.protection.outlook.com [40.107.244.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BE8488E26
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2020 23:40:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f/00Death4IaaJi1szlcq9zJ7BxX0t3pE7YlbRHft2t3izVSe5tSc9AMdwuHQCrPbyBeICvKUgKFxfMkCL3o16HW7VwcOPoHeql5DMdx4vNcvjYx0kKX/iQ1BWaFiTvN5KkvmeCP2yHaIPrNwv2zjx6lXhwy/DpbU9g+qXkIuYWq8gIzG/M5FUYlQKlkPZyfz0CeDMef0yhbEKIUU2ja9V0W2Ra1FWDHYLEOo+KVTWYVFVGnpUtTRnLCRFQFUtJ/41CHIMJ+hvxEq1x7glcccENOFURj73PPAbqSvZEitXlpRZJiRmP5fS3FBfJk1UGqtfVVnlbeM20/44yCMQf7Vg==
+ b=i4249RFwBjqSv5tMES598Y4G9cPvsLrFnjD+CRQg8F3aocNyCcJr+VJGCxOzx+7NRWZ38yJp/DBIUGHWsj5kfTTlP3Q/FSRBcN+Ku4JfrK939SGi2kDIpsy21ctevKcwrPKId6oWN7fBCUudSJED6nE6AELrZirpqp6TS4RIoKl2IyOclgpmV8/9Wshs6F+JuSkke42OEIYhRbqZSHrC1hwzSnj9Rh0zab7jA/aS1+HgAoMCOMm+pZzl3NGhnoxCmDxaKsqk4LptZIgQngOOHzDkX1aZOVFYfPL2lF81R9Hl5pm2MrwJnzwNNJwJe+749mIVx3hAzfOEx7YMiGbCyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8KCohlzNPLLHd/cELKI62MCjaYYL3GeyL2d8bt/TjvU=;
- b=lb39pM+3JCO4hGket5Y6O4meo/+mBYgG0Hk/HRs8Va2qNUSoc2SRdVghutXN2yD/ZfavTYkUamGxXjijcFs4mIx9DOVPqhUzSfCdQOCCjE1IgmCOUqv8k0g6iZ35rHR7Lx75aqGpoXB7xyNGUBx27p7SvfDK2E3bpVaQbGwJEzOrI9YdKXwEfkG7Zvw7zpRkpKasz22R6cKip01QwFwSiL1nwpHVP2eg++Wad52TDLb6u94srfmZCYdKeMHNNRWuJlG09B1RZEh8Sgky/twlsSB08q/j5PdWXuUBACo7QnWqCMSL0W+rbbPipVFj2O8kczpugTiEWDEhCkHldd90gg==
+ bh=SotgyLp2NpxbVzt3uOjri2RFoJBRlgCbJhXl2HP+J24=;
+ b=JT7vTyOy9qM0+fyvtUmSTpXZ9gpcnTDBixRVUp2JxCC1/N88AHcfmNSMpptTe70S2QeY+3HIHQ6G0x9mPDEy5FIANN+IRDTsbWWbOrJkg2MDDB8DIoyW1gY2HXaPapbjdaltrU59w56Gz1eopdJkg8f4sQgTodeLaTcCLXKOxyuemdH2Xlm6QrSY3bzDxJEytbC+4Nk3ymHNYfuO0gVIWx923/RsFo3LmwSm5nT+yI9GTX9uHR12h8Tp6phcVdxGdPdopQ/jDz2GPzap5Ak7mQ6hKPM1wtWQ+WxZDCCyFKx7YhWgHm7nu5h0iTbgAzUcrDssJIujleign139wXLdug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8KCohlzNPLLHd/cELKI62MCjaYYL3GeyL2d8bt/TjvU=;
- b=ZIK1DGDQ7hr0Rt1S77G3tkKAddhO9mNXgi/aK+vFNqegDs2YdBPq14u8lcdhuVAMxC5xntKNMH+2Hwtl+waUyFcoFJatxQssClovVxrt24Y5r1THFwBTNEXeDKTzHL2BHq6wXpTt0w+hZk3COuzAJM1XI+0F41Rux4RZwwoi2kQ=
+ bh=SotgyLp2NpxbVzt3uOjri2RFoJBRlgCbJhXl2HP+J24=;
+ b=i4nEWi8JQXSz0lFT4anD639I63RHyHV6DtRU8SSPWWZ2sVmgc4Bc2EkbIO96W887DI66T44nf/z7eoj171/k+hBki1VrxMD7Qn1aKL/MGS44y8i3Gl0QZRTK8tbTQhNmV13xrQau91GVGform7nEajby/9q6PKUV7bZYf2Ke//I=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Luben.Tuikov@amd.com; 
 Received: from DM6PR12MB3355.namprd12.prod.outlook.com (2603:10b6:5:115::26)
- by DM6PR12MB4092.namprd12.prod.outlook.com (2603:10b6:5:214::14) with
+ by DM6PR12MB3769.namprd12.prod.outlook.com (2603:10b6:5:14a::26) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Tue, 25 Feb
- 2020 22:56:36 +0000
+ 2020 23:40:09 +0000
 Received: from DM6PR12MB3355.namprd12.prod.outlook.com
  ([fe80::9505:d766:9ac9:2bfd]) by DM6PR12MB3355.namprd12.prod.outlook.com
  ([fe80::9505:d766:9ac9:2bfd%6]) with mapi id 15.20.2750.021; Tue, 25 Feb 2020
- 22:56:36 +0000
+ 23:40:09 +0000
 Subject: Re: [PATCH] drm/amdgpu: fix the gfx hang while use per-ib secure flag
 To: Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org
 References: <1582639073-16555-1-git-send-email-ray.huang@amd.com>
 From: Luben Tuikov <luben.tuikov@amd.com>
-Message-ID: <19bad72c-202e-115c-2974-d4ab8cf75f4a@amd.com>
-Date: Tue, 25 Feb 2020 17:56:34 -0500
+Message-ID: <478627e0-3954-e729-f8ed-c5a8fac8e81d@amd.com>
+Date: Tue, 25 Feb 2020 18:40:07 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 In-Reply-To: <1582639073-16555-1-git-send-email-ray.huang@amd.com>
 Content-Language: en-CA
-X-ClientProxiedBy: YTOPR0101CA0049.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:14::26) To DM6PR12MB3355.namprd12.prod.outlook.com
+X-ClientProxiedBy: YTBPR01CA0007.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:14::20) To DM6PR12MB3355.namprd12.prod.outlook.com
  (2603:10b6:5:115::26)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from localhost.localdomain (165.204.55.250) by
- YTOPR0101CA0049.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
- Transport; Tue, 25 Feb 2020 22:56:35 +0000
+ YTBPR01CA0007.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::20) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2772.14 via Frontend Transport; Tue, 25 Feb 2020 23:40:08 +0000
 X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7739ff97-2271-4feb-80f3-08d7ba45f704
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4092:|DM6PR12MB4092:
+X-MS-Office365-Filtering-Correlation-Id: 243a1eb6-ac8e-4816-7d77-08d7ba4c0c8a
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3769:|DM6PR12MB3769:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4092CF3FC780CD592362EFCF99ED0@DM6PR12MB4092.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1079;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB376904EB24BD9A127CBE384299ED0@DM6PR12MB3769.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:655;
 X-Forefront-PRVS: 0324C2C0E2
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(136003)(366004)(396003)(376002)(346002)(199004)(189003)(478600001)(53546011)(36756003)(31686004)(6486002)(2906002)(86362001)(31696002)(316002)(4326008)(5660300002)(52116002)(54906003)(44832011)(81166006)(2616005)(26005)(186003)(8936002)(66476007)(956004)(16526019)(66556008)(8676002)(81156014)(6512007)(66946007)(6506007);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB4092;
+ SFS:(10009020)(4636009)(346002)(39860400002)(396003)(136003)(366004)(376002)(189003)(199004)(36756003)(8936002)(5660300002)(6486002)(81166006)(2906002)(81156014)(54906003)(316002)(31696002)(52116002)(86362001)(8676002)(53546011)(6512007)(2616005)(66476007)(956004)(478600001)(16526019)(4326008)(26005)(186003)(44832011)(66946007)(6506007)(31686004)(66556008);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3769;
  H:DM6PR12MB3355.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
+ PTR:InfoNoRecords; MX:1; A:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: LW8sHgrXFxLfn6QGXxnhE1WxCTdNIratNLdJljtPglZpkGWGP4IY4QQUQtXPNtOplxqkZr1l6TV1m0yTdHNr1Ue8oJwmHHGjE8+nBMndZhMsJPMwTIk5RzXowO4eV7oxtHHaE3fzbN3hsaG/JD4vtD8zAsSytbPi4fwEd9gORN3/tT0EAesqA/zG0ELjAytcOAnVSs5Mw1Nm/nxT+IO008WB8pLCgGZpO/118h/nOB/Rc2uP/RO/ZrYuQxkpfIJgqCpAA9g566EgPL1fNOX3mpON7emoHdYhVWAHdVpxQsplg00DbRZEMHIy1Dx0ByB3ts7p4e4IuD/Xk94pzWJ8AzLEQVOzazgROYU/U6hD05nVcuutMhuiLqAXJx/PGvMQe1B28Jd8ROQMqbBjD9TboNUQ08jmA309yQzBSU8/5YAJ+srFJJvN9AMTH64X88WQ
-X-MS-Exchange-AntiSpam-MessageData: f/5SkONuDaD8IZKpr07NloORvrCrkvExiWB9PHHjuIHpAQY5r/wXUsrE4xrfh/PLgzN1NI44nxzDkDzm2jp5aLBGp825mJq2/C1UReni9djiu8b2bTklvsE2frDf82GEEXqWFja0g5gYOZmC7JtkVg==
+X-Microsoft-Antispam-Message-Info: 4gAVrtmAiNIGLBpEepgIijZFw3mM+Z+IFkuZHdWtFPRp+zosKC9F7agMniyh8DJVcrJVCK6Sn78lWn1hgYDEkmJnwwD0HD8GY9TgiLgS5tOGgSjPXJfxmD0PBQ9+6aL0+qsadCEnp2mF5Jz1lh91mM5iUNztmn30E1RJrN/ilVbQbgd2pKbBO898j+3T2Dr7Qt5o6sWktlAhU5hwF4VbykkXtKsBBlm35dUJ9Km6A+FSwsRFsLHJLCPSU4x5gNkRqzSoHIZcznhLC5nq11uq7YqHTJtQvPcP4OyocXh6wZliILu6X/05GwTCumupSQZzIWDIIvbPn6izxT7BRS9dMYhZDR8nj72mAPR94qemHqJtI6xXBNKL/UclHGkDi5PU2j8+HFwQJBTMjgu/qUcdSXoHT0BDnLgt4CXPieL3+1uRFk9nNLmMwS8aPb0EVmFu
+X-MS-Exchange-AntiSpam-MessageData: 4HvUo8cBLtrBqCqnbeUpQWzCPm4x0Y8E8pLFwYfqj81rSDhj+90+g3FC19IkCPJuRliTf7XHALGONSSUqpvTpnX0NotayE+lpAbYnTGw0IH2z7LxeUd+WO6sjHDku4YuQrYKc/EEq2hxLhbyVJtZSQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7739ff97-2271-4feb-80f3-08d7ba45f704
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2020 22:56:35.8750 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 243a1eb6-ac8e-4816-7d77-08d7ba4c0c8a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2020 23:40:08.8806 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1WJ72ClKn0Kw5t67xNG4Y6TpuKhB1nEjgaggDkwkJT/CyHM5KNzkqLPW3zf91aDC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4092
+X-MS-Exchange-CrossTenant-UserPrincipalName: P1YLJgf1qvro3I7d904rFZjgN9RPvxbGJip1g5c9WtPOorEC4NlxABl/gf6Xu/YU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3769
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,13 +118,6 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-
-Thanks for fixing this Ray.
-
-I think we can simplify the logic introduced in this patch.
-
-Regards,
-Luben
 
 On 2020-02-25 8:57 a.m., Huang Rui wrote:
 > Since 6643ba1 frame control packets are only issued in presence of secure IB(s).
@@ -154,6 +146,13 @@ On 2020-02-25 8:57 a.m., Huang Rui wrote:
 >  	unsigned fence_flags = 0;
 > -	bool secure;
 > +	int secure = -1;
+
+Don't initialize them far away from where they're being
+used. That's a very bad habit.
+This function is pretty long.
+Initialize "secure" next to where it is being used--right
+above the for-loop so that it is clear how it's used.
+
 >  
 >  	unsigned i;
 >  	int r = 0;
@@ -162,6 +161,14 @@ On 2020-02-25 8:57 a.m., Huang Rui wrote:
 >  	}
 >  
 > -	secure = false;
+
+Set "secure" here, close to where it is used.
+This makes the code modular, so that it is easy
+to see what is happening _locally_. Another
+advantage is that should ever this code be pulled
+out into its own function, we don't have to chase
+variables around.
+
 >  	for (i = 0; i < num_ibs; ++i) {
 >  		ib = &ibs[i];
 >  
@@ -185,6 +192,15 @@ On 2020-02-25 8:57 a.m., Huang Rui wrote:
 > +					secure = 0;
 > +					amdgpu_ring_emit_frame_cntl(ring, true, false);
 > +				}
+
+So the above is executed only once. At the very first
+iteration, since "secure" is set to -1. You can pull
+that out of the loop and have a more straightforward
+body of the loop.
+
+Regards,
+Luben
+
 > +			} else {
 > +				if (secure == 1 &&
 > +				    !(ib->flags & AMDGPU_IB_FLAGS_SECURE)) {
