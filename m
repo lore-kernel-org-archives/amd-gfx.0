@@ -2,73 +2,66 @@ Return-Path: <SRS0=Kz8i=4N=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9AA8C35E01
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2020 20:32:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8484C35E01
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2020 20:35:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ADCF021744
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2020 20:32:35 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ACA2021744
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Feb 2020 20:35:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HddmFmZb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ADCF021744
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DjV4VMi0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ACA2021744
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DA616E909;
-	Tue, 25 Feb 2020 20:32:35 +0000 (UTC)
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06AD66E8E7
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2020 20:32:33 +0000 (UTC)
-Received: by mail-qt1-x842.google.com with SMTP id j34so622704qtk.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2020 12:32:32 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72F816EBA7;
+	Tue, 25 Feb 2020 20:35:36 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDBCD6EBA7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2020 20:35:35 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id t14so628882wmi.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Feb 2020 12:35:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=wimofHPSlfd4nz0ukRpRm+xjmm3kRO5KxhatcIZiayQ=;
- b=HddmFmZbMumtxVmA/RwhzfJ/p3t+MuNX301nX9O9EXGhLyori/YMcLz5DRYwzsEzt5
- 9ZEkN5+NGCr0PJdmyTxSm+1bGsl7sdJV49g26wbVKcrTnmgAbR7hJdfwgLsHKVsTuCFs
- fYm6uWtn7C5rDa9QGUco3SQ3ZgdmMVF0cmo85RvmtReJ6gYiCeHs972OTKAUspGlAucL
- mACXYeByH5vaCf0b4KTNl74zXvXVzhW6hva4Ytv5y84npZtV6PnHliXmN+JP/mPWfgOL
- 841yZcTqTriJZE+SIyJeo5eCCKMV+hryqcnl5rtbT3nIglkD+2w7JKNpXdMz+WUPJv3T
- gvOw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=SoSRx4x8kVvcuhJTJtwqA+3RWF111GaBWrToxbP8AJ4=;
+ b=DjV4VMi0i2cOx0hxOSC6dA15LVjh8FoBXJ7skiK+sYYE0RAjCY3i4gjm358uOs3i0x
+ o7W/K0cI4iWI4q1w2RC9lC0/DpIAFMlwiIV9Tc+UjxrgwXgczCAYHz60YXTy6cpLnvMn
+ eyjaBmbYoRom7fITSr0vnFG7HGktCvC029ubDHnnX+dWci8c3aGfPS8dRq6V0rS7aRZh
+ rX5Zu/atnz9U5w5JSHM/Kql3ZIUU1gcWdgSTWTb4zgz+1agWucH/AHJmQGWyDNdCGbjx
+ SlJ/3zvpc9CDmLCtBEUfvEiwxgHOimx8fd+xzCsy5JMYhmB5PR4eQJQ5LwcX5UE96tUI
+ 4EPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=wimofHPSlfd4nz0ukRpRm+xjmm3kRO5KxhatcIZiayQ=;
- b=QLiQyrGOJPaJjumBhskcOOzPIwOf2ltDA0tC2oXSFS2q6EL3El1XYN/X4b/zi6+At6
- Qj59jWJQ/XBAFf8IcHSnYn5WUSuAt0FUQKfkIHsteSQ1NgrX6u7jQ3bbf8gvCa8nS61G
- UmRrwKTZmzk/UiB3DiX4UFPOVStD5R/f37Fvq+IXZQidRTSYOPp9Bat/bDYc+Qiax5Lk
- mC30Xb5E4cMhfJi5vFFgexxhET5q+TbcfpqSeWVgFIJpNKhwfv24l5i9CSBMbs2OCG50
- yrmmBi6AX3s0Iz25X1jVACJhGzsJ5U9Ii0FNEHunWjgqAaRtghWWRyI/uEl8B3r0KhtX
- 5oVw==
-X-Gm-Message-State: APjAAAX7gTB8uMhMQ6jTl/pCSI5dIVZeeUbKzSgMxN9jSHcWQmdpSmjl
- MzuE2AaLsKrcwUR/pkzs0FLwmge6
-X-Google-Smtp-Source: APXvYqyRt1sLPefEPe1XFfXbP7BrFFL2RU7zjYp9oLp4H+oO+zW7TEE6Skj0aRb95NWrF1HYCaVsQw==
-X-Received: by 2002:ac8:2fd4:: with SMTP id m20mr479133qta.313.1582662751886; 
- Tue, 25 Feb 2020 12:32:31 -0800 (PST)
-Received: from localhost.localdomain ([71.219.59.120])
- by smtp.gmail.com with ESMTPSA id h34sm8219530qtc.62.2020.02.25.12.32.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 25 Feb 2020 12:32:31 -0800 (PST)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu/display: Fix Pollock Variant Detection
-Date: Tue, 25 Feb 2020 15:32:24 -0500
-Message-Id: <20200225203224.1129396-2-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.24.1
-In-Reply-To: <20200225203224.1129396-1-alexander.deucher@amd.com>
-References: <20200225203224.1129396-1-alexander.deucher@amd.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=SoSRx4x8kVvcuhJTJtwqA+3RWF111GaBWrToxbP8AJ4=;
+ b=K/DSkQdVt8wbrG+xlTBAIWk6m8FQwbp78fmtBEajSxjnQYiYKab0ys0bLpnyikfiDn
+ +sD4VETc/zzwfEF1l++u/vFx4fgeE0prny5NRJ/Zhc7jpbAlTJOmOEc3xYQkDIBkGAsH
+ lrrVy3aPzlbmdCYHykVdQlKPUUMYA5DBNruCLoq1tqfLKDKbBzTL4y6DQM2v9sFfzaPA
+ Hq/QwPLAYV6LGAyzTg0wp8ZrUlOgRJyFd3E8ySHCLns1QJF6t5g7rYp9vs2l8bPB/yFr
+ hZiBDYnFynZFoP14qCocytiSYQbQJoG8uxVxb9HUT1fyV8MbZljCMWYZokeU7FLkIKyc
+ vYyg==
+X-Gm-Message-State: APjAAAWU/9glz9VYOF21fkomiAi2DL0DtkO2ASi6II6F6gV2ThV63QFN
+ wOkgh1HRXkJMvgoNyDNuhkkT9uW9BApGbLHEvTOMrQ==
+X-Google-Smtp-Source: APXvYqxU+4SsUxLkw8r4zNinLxI99cqJe5XnADvAlHrQzlFh7kZKTRMY9yTfL7RwVMjmtqJrArel9gf5WeP0wPDht7Q=
+X-Received: by 2002:a1c:f009:: with SMTP id a9mr956057wmb.73.1582662934569;
+ Tue, 25 Feb 2020 12:35:34 -0800 (PST)
 MIME-Version: 1.0
+References: <20200225201945.27720-1-kent.russell@amd.com>
+In-Reply-To: <20200225201945.27720-1-kent.russell@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 25 Feb 2020 15:35:23 -0500
+Message-ID: <CADnq5_PJOfFxcE1dX55TcJ5S8MBKxGNKVyFO-WPbT2MOVPXW-A@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix check for DPM when returning max clock
+To: Kent Russell <kent.russell@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,87 +73,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Aly-Tawfik <altawfik@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aly-Tawfik <altawfik@amd.com>
+On Tue, Feb 25, 2020 at 3:20 PM Kent Russell <kent.russell@amd.com> wrote:
+>
+> pp_funcs may not exist, while dpm may be enabled. This change ensures
+> that KFD topology will report the same as pp_dpm_sclk, as the conditions
+> for reporting them will be the same.
+>
+> Otherwise, we may see the issue where KFD reports "100MHz" in topology
+> as the max speed, while DPM is working correctly.
+>
+> Change-Id: I967988e936de5371c22bf92895bda22324d9631b
+> Signed-off-by: Kent Russell <kent.russell@amd.com>
 
-Problem Description:
-Currently we are checking internal fused rev id with pci rev id. However, fused
-internal rev id is the same on all raven2 parts (in which Dali and Pollock were
-based on too), thus Pollock detection fails
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Fix:
-use the pci rev to preform the detection for bandwidth calculations.
-
-Signed-off-by: Aly-Tawfik <altawfik@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c |  5 +++++
- .../gpu/drm/amd/display/include/dal_asic_id.h    | 16 ++++++----------
- 2 files changed, 11 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
-index f0f07b160152..3960a8db94cb 100644
---- a/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c
-@@ -712,6 +712,11 @@ unsigned int get_highest_allowed_voltage_level(uint32_t hw_internal_rev, uint32_
- 		case PRID_DALI_DF:
- 		case PRID_DALI_E3:
- 		case PRID_DALI_E4:
-+		case PRID_POLLOCK_94:
-+		case PRID_POLLOCK_95:
-+		case PRID_POLLOCK_E9:
-+		case PRID_POLLOCK_EA:
-+		case PRID_POLLOCK_EB:
- 			return 0;
- 		default:
- 			break;
-diff --git a/drivers/gpu/drm/amd/display/include/dal_asic_id.h b/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-index ea7015f869c9..8a87d0ed90ae 100644
---- a/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-+++ b/drivers/gpu/drm/amd/display/include/dal_asic_id.h
-@@ -134,11 +134,6 @@
- #define PICASSO_A0 0x41
- /* DCN1_01 */
- #define RAVEN2_A0 0x81
--#define RAVEN2_15D8_REV_94 0x94
--#define RAVEN2_15D8_REV_95 0x95
--#define RAVEN2_15D8_REV_E9 0xE9
--#define RAVEN2_15D8_REV_EA 0xEA
--#define RAVEN2_15D8_REV_EB 0xEB
- #define RAVEN1_F0 0xF0
- #define RAVEN_UNKNOWN 0xFF
- #ifndef ASICREV_IS_RAVEN
-@@ -149,16 +144,17 @@
- #define PRID_DALI_E3 0xE3
- #define PRID_DALI_E4 0xE4
- 
-+#define PRID_POLLOCK_94 0x94
-+#define PRID_POLLOCK_95 0x95
-+#define PRID_POLLOCK_E9 0xE9
-+#define PRID_POLLOCK_EA 0xEA
-+#define PRID_POLLOCK_EB 0xEB
-+
- #define ASICREV_IS_PICASSO(eChipRev) ((eChipRev >= PICASSO_A0) && (eChipRev < RAVEN2_A0))
- #ifndef ASICREV_IS_RAVEN2
- #define ASICREV_IS_RAVEN2(eChipRev) ((eChipRev >= RAVEN2_A0) && (eChipRev < RENOIR_A0))
- #endif
- #define ASICREV_IS_RV1_F0(eChipRev) ((eChipRev >= RAVEN1_F0) && (eChipRev < RAVEN_UNKNOWN))
--#define ASICREV_IS_POLLOCK(eChipRev) (eChipRev == RAVEN2_15D8_REV_94 \
--		|| eChipRev == RAVEN2_15D8_REV_95 \
--			|| eChipRev == RAVEN2_15D8_REV_E9 \
--				|| eChipRev == RAVEN2_15D8_REV_EA \
--					|| eChipRev == RAVEN2_15D8_REV_EB)
- 
- #define FAMILY_RV 142 /* DCN 1*/
- 
--- 
-2.24.1
-
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index e1c2c182898f..7e8276651865 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -402,7 +402,7 @@ void amdgpu_amdkfd_get_local_mem_info(struct kgd_dev *kgd,
+>
+>         if (amdgpu_sriov_vf(adev))
+>                 mem_info->mem_clk_max = adev->clock.default_mclk / 100;
+> -       else if (adev->powerplay.pp_funcs) {
+> +       else if (adev->pm.dpm_enabled) {
+>                 if (amdgpu_emu_mode == 1)
+>                         mem_info->mem_clk_max = 0;
+>                 else
+> @@ -427,7 +427,7 @@ uint32_t amdgpu_amdkfd_get_max_engine_clock_in_mhz(struct kgd_dev *kgd)
+>         /* the sclk is in quantas of 10kHz */
+>         if (amdgpu_sriov_vf(adev))
+>                 return adev->clock.default_sclk / 100;
+> -       else if (adev->powerplay.pp_funcs)
+> +       else if (adev->pm.dpm_enabled)
+>                 return amdgpu_dpm_get_sclk(adev, false) / 100;
+>         else
+>                 return 100;
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
