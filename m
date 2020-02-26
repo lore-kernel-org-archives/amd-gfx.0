@@ -2,77 +2,104 @@ Return-Path: <SRS0=BS7L=4O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40E53C4BA13
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 16:18:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C510C4BA18
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 16:26:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 12B6B2084E
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 16:18:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3406D206E6
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 16:26:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SHPX6AKV"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 12B6B2084E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="natmyXf8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3406D206E6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB0996E042;
-	Wed, 26 Feb 2020 16:18:20 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2331A6E042
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Feb 2020 16:18:20 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id m16so3754821wrx.11
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Feb 2020 08:18:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=Zj4LgVYjL4ijH3cecF5AebAOtgf95es4CcD8/Z/N6tk=;
- b=SHPX6AKViUKgWCuAhyF/+NWzRR84pYTyxBQHZ6XVEu440w3g1AodhC56wk96GUAmBP
- V+rd+IfJZWE/0I7V85nNjngEQhb3Zesjx2QK7XpcpJ/+9pSG0RPBNz2BkGCVkNuFiHYI
- OLnBX4YkO10oAnswyLeFa9ivT4aLVoTNozm9ZD/ydnx1cu7Lt05RmbF9RWx2ZQn8bUCu
- kjitfds5iSDt94/NiKMxENYgOJRgT6Piz0bj4rKVTLd10iCinXhxpzdUcksXdRzGO7b8
- T3roIsMrOSi5zKBUI8RKnTpCaB8MRBf3iro7zNAf6D0OWczhlp55ZdeFeX+EcTbCArkz
- R5sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=Zj4LgVYjL4ijH3cecF5AebAOtgf95es4CcD8/Z/N6tk=;
- b=AvU7BIOpPBn4+V0/4FfSJHpKGzhp+g19i2yjBZOJEBvIyJoyX0hRchJ9fWGG7GecJv
- k7Q5/+YABZ1yTFds7G0RcDi2BqX91ooZQ1xPRGUr4BtVYn+BNBOPwJhgEpTgL/X7ArZF
- ok9V7E6XjZUjpAp5LV0CrDJuVVC0DQ88gf0rA7D/b6vO5W3801ILEENolKX3t/w3IWkE
- M22ZmvVdOMaixww06FHYU330lb8b0ZN4wnwQOw0Y0jeiHTEtXNDtTh5qcsFX+Xg5P6t4
- /CX1Dv6h9Czf+LXBGTWW4JZ6jTXJp5E/vQXsfcMhxHwVGjMUPg6YKOgiOmzZwvaqoK5K
- INsg==
-X-Gm-Message-State: APjAAAXLA0TRJWQzsCeM5j9KscVkbWqYZwQNFFXDksBl7gwRv7v3woGa
- AuHDIT1eUvdNVIvrk++LwA8Vbbrd
-X-Google-Smtp-Source: APXvYqygT1nC11y9pLGZb2t7ANlQUTJXtw0nqf06amkUOUAHaGUhsyac4j8H70B9ugDLPQgoFgfv6w==
-X-Received: by 2002:adf:f6c1:: with SMTP id y1mr6175892wrp.17.1582733898516;
- Wed, 26 Feb 2020 08:18:18 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id 25sm3617797wmi.32.2020.02.26.08.18.17
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 26 Feb 2020 08:18:17 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu/sriov: Use kiq to copy the gpu clock
-To: Alex Deucher <alexdeucher@gmail.com>, Emily Deng <Emily.Deng@amd.com>
-References: <1582691649-4876-1-git-send-email-Emily.Deng@amd.com>
- <CADnq5_NEnQoDRQzyk4v9Nie+qUJo3q5eZUGoC1j+CoY+SG25hg@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <799e1e1f-bfaf-7b96-d569-88aac46a077f@gmail.com>
-Date: Wed, 26 Feb 2020 17:18:16 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id E842A8922A;
+	Wed, 26 Feb 2020 16:26:14 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2047.outbound.protection.outlook.com [40.107.237.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E763789227
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Feb 2020 16:26:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=O37EvmRfhQ4zD2fMJX/STbrY9FBIqLT2+MeoCVBwaLvtF1dKYzdhR6Prhx21KaNlcPobzQr/SwOIxbCrG+/MiN01Nsn1Bp8MN79AmzoKKm/GEbDkhw73EbD1jLLcyFlajMrMVt6IX6N2vokhd9VmP8lGJ1yyw6Uou2FFEDwigaPNKO4chUcc0z7HfESsEUTPakUD2C0HTEL9oeIWqUOwaceYN3yzBGKTQrVaIeQZbi/+5LX/ptiYyeE0O3Laww4hBaDTzoC2NvOKND8sAQtCjATpht+pKnaVKOnxhxdhwkMV4IWwwxQxr6qz1EjNCGIH0PqpIE0rFT/5WLrC1GPyag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=18csKG5TTWkwKR6MfH9oUuCIOUe52PP3TkJ/Y+8FXNc=;
+ b=UZ4TD2AkisXAohSrRl8k/PwzGZ42NlABBYCEAgkh60DsyheluF4kEnS25S11kuS3bJNL6yxnMC1gsHiMplLV7I7cYPaTLjYzNotzYtGF/6Cxq8tUiX+7FtUZfWR04QXbhnB99tkEKWRIe39XtDDkz0c8dEomHq3c70MdNOWpBTsi337NOe6/SYngy/+iQPHkZvi8Vi7i+YLfDY4KZJ2ON4fGk36rhHsfgIZzDSXjJPUMEPvOnkElE3xufjnyElx0ikA+98gTZdWWN7hTZJMpK4K/iPAJlokKULf562oWzolT2gkDSXCig05clIpa54R4t8EAyihGNKxgKQ4jm+J4mQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=18csKG5TTWkwKR6MfH9oUuCIOUe52PP3TkJ/Y+8FXNc=;
+ b=natmyXf8fJABJNYkA+YnwKz78Jx9/+tyr+/qu3DA2suHoEORFCTqkxzerlLXJ1hG+OPdaSEhtsdcC82Aabr1fIIhoHqkMTZhzgBc4oD34tcZE8Pf6w/0Dzbm/+OVevi4S7/6uX88tKQJt6Hpa+O81i67tCEAvbcznA3+gVpFAUw=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Luben.Tuikov@amd.com; 
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com (2603:10b6:5:115::26)
+ by DM6PR12MB4219.namprd12.prod.outlook.com (2603:10b6:5:217::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.17; Wed, 26 Feb
+ 2020 16:26:12 +0000
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::9505:d766:9ac9:2bfd]) by DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::9505:d766:9ac9:2bfd%6]) with mapi id 15.20.2750.021; Wed, 26 Feb 2020
+ 16:26:12 +0000
+Subject: Re: [PATCH] drm/amdgpu: fix the gfx hang while use per-ib secure flag
+From: Luben Tuikov <luben.tuikov@amd.com>
+To: Huang Rui <ray.huang@amd.com>, amd-gfx@lists.freedesktop.org
+References: <1582639073-16555-1-git-send-email-ray.huang@amd.com>
+ <478627e0-3954-e729-f8ed-c5a8fac8e81d@amd.com>
+Message-ID: <c062930f-d9bd-bb7b-e75a-3e5b4e0c7de4@amd.com>
+Date: Wed, 26 Feb 2020 11:26:12 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
+In-Reply-To: <478627e0-3954-e729-f8ed-c5a8fac8e81d@amd.com>
+Content-Language: en-CA
+X-ClientProxiedBy: YT1PR01CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::21)
+ To DM6PR12MB3355.namprd12.prod.outlook.com
+ (2603:10b6:5:115::26)
 MIME-Version: 1.0
-In-Reply-To: <CADnq5_NEnQoDRQzyk4v9Nie+qUJo3q5eZUGoC1j+CoY+SG25hg@mail.gmail.com>
-Content-Language: en-US
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.1.4] (108.162.131.176) by
+ YT1PR01CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2772.14 via Frontend Transport; Wed, 26 Feb 2020 16:26:11 +0000
+X-Originating-IP: [108.162.131.176]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 8ed4f966-f1e3-45e5-427d-08d7bad89810
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4219:|DM6PR12MB4219:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB42192830270CAB7C35CD16F599EA0@DM6PR12MB4219.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2000;
+X-Forefront-PRVS: 0325F6C77B
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(366004)(376002)(39860400002)(396003)(346002)(136003)(189003)(199004)(186003)(86362001)(16526019)(956004)(53546011)(26005)(31696002)(8936002)(55236004)(2616005)(4326008)(2906002)(16576012)(54906003)(52116002)(316002)(8676002)(36756003)(81156014)(6486002)(81166006)(66476007)(66946007)(66556008)(5660300002)(478600001)(44832011)(31686004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB4219;
+ H:DM6PR12MB3355.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: FO6pvXZObc5FzrRUSoPL8Uhwn8vPNMl3QooXWFF74COz4WPxwQD07M0l8PaMtYYTUeveZ4r65AvNIQNPhJa/xSpCR2NoFADtw2iS7iAknyjk5F5EWKP0MfvsEI1Q6mgY122sdLDTENFAl1Wz00+F5LvDmM/9VvQNTkpv3vOM9aVbihTdMEIoTo8ZIKXn+yS7btKXlDmJuPTbiP7L47y78noc3JywuzNbZ7ztAimvKjH2fYgf0l+A5X5mXEkLsYaDCiDKxdc8cAJKzHzftrb+yPOTv87GtsP/EuP0jDY81YjtolxM7jQHrPbJ8Lw5TF0tkR7OsVrL662MLQmlyyausKbRGs5RJC8NtJd6Jn2WyuXM1/qjZHyE+5dNUt/hwUVru0pbzpTzadEXUQ6R8HfYyBWV0wMfTz/zo1/FAhaLp8tvVgK7jeHh4PxeXJAbWY1f
+X-MS-Exchange-AntiSpam-MessageData: neXybaMH1HO8WzBpWlgvaVU+79Tk9eIeW0zUa/sU4gvFUrF4B/NGde1vgPC0o0lDkvC5MyFCy0ttETZeMzFyk7Ba9wXNfniDbF7/bTv6rUzn2RuQWVnqdtdT99Oglz8fDFVHUqOOKOCPNHqcqxRl6g==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ed4f966-f1e3-45e5-427d-08d7bad89810
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2020 16:26:12.5327 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LMo824bpVwEjkAObzDICfRcx9BmhalUEweKiA1wOzBciMFMAIO/EtAv0GfpKi6Q5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4219
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,136 +111,240 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Aaron Liu <aaron.liu@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 26.02.20 um 15:29 schrieb Alex Deucher:
-> On Tue, Feb 25, 2020 at 11:34 PM Emily Deng <Emily.Deng@amd.com> wrote:
->> For vega10 sriov, the register is blocked, use
->> copy data command to fix the issue.
+On 2020-02-25 18:40, Luben Tuikov wrote:
+> On 2020-02-25 8:57 a.m., Huang Rui wrote:
+>> Since 6643ba1 frame control packets are only issued in presence of secure IB(s).
+>> This causes hangs on some hardware (eg: Raven1). This patch restores the
+>> unconditionnal frame control packets issuing, that's to keep the per-IB logic
+>> regarding the secure flag.
 >>
->> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+>> Fixes: 6643ba1 drm/amdgpu: Move to a per-IB secure flag (TMZ)
+>>
+>> Reported-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+>> Signed-off-by: Huang Rui <ray.huang@amd.com>
 >> ---
->>   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 68 +++++++++++++++++++++++++++++------
->>   1 file changed, 58 insertions(+), 10 deletions(-)
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   | 41 +++++++++++++++++++-------------
+>>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  5 ++--
+>>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 15 ++++++------
+>>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 13 +++++-----
+>>  4 files changed, 43 insertions(+), 31 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
->> index 1c7a16b..71df0d9 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
->> @@ -3963,6 +3963,63 @@ static int gfx_v9_0_soft_reset(void *handle)
->>          return 0;
->>   }
->>
->> +static uint64_t amdgpu_kiq_read_clock(struct amdgpu_device *adev)
-> Please name this function gfx_v9_0_kiq_read_clock for consistency.
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+>> index 4b2342d..9713a7d 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
+>> @@ -131,7 +131,7 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+>>  	uint64_t fence_ctx;
+>>  	uint32_t status = 0, alloc_size;
+>>  	unsigned fence_flags = 0;
+>> -	bool secure;
+>> +	int secure = -1;
+> 
+> Don't initialize them far away from where they're being
+> used. That's a very bad habit.
+> This function is pretty long.
+> Initialize "secure" next to where it is being used--right
+> above the for-loop so that it is clear how it's used.
+> 
+>>  
+>>  	unsigned i;
+>>  	int r = 0;
+>> @@ -216,7 +216,6 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+>>  		amdgpu_ring_emit_cntxcntl(ring, status);
+>>  	}
+>>  
+>> -	secure = false;
+> 
+> Set "secure" here, close to where it is used.
+> This makes the code modular, so that it is easy
+> to see what is happening _locally_. Another
+> advantage is that should ever this code be pulled
+> out into its own function, we don't have to chase
+> variables around.
+> 
+>>  	for (i = 0; i < num_ibs; ++i) {
+>>  		ib = &ibs[i];
+>>  
+>> @@ -228,27 +227,37 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
+>>  		    !amdgpu_sriov_vf(adev)) /* for SRIOV preemption, Preamble CE ib must be inserted anyway */
+>>  			continue;
+>>  
+>> -		/* If this IB is TMZ, add frame TMZ start packet,
+>> -		 * else, turn off TMZ.
+>> -		 */
+>> -		if (ib->flags & AMDGPU_IB_FLAGS_SECURE && ring->funcs->emit_tmz) {
+>> -			if (!secure) {
+>> -				secure = true;
+>> -				amdgpu_ring_emit_tmz(ring, true);
+>> +		if (job && ring->funcs->emit_frame_cntl) {
 
-Alternatively it might also be a good idea to move this in amdgpu_kiq.c.
+Also note that the value of this conditional is static to the body of the loop,
+i.e. invariant to the loop, and it can be pulled out of the loop.
+Each loop iteration doesn't change the value of this conditional. This would 
+create two tight loops. This is a formulaic optimization method which generates
+slightly longer code, but more streamlined.
 
-But depends on you what you think makes more sense.
+I'm ambivalent as to whether you implement those optimizations.
 
 Regards,
-Christian.
+Luben
 
->
->
->> +{
->> +       signed long r, cnt = 0;
->> +       unsigned long flags;
->> +       uint32_t seq;
->> +       struct amdgpu_kiq *kiq = &adev->gfx.kiq;
->> +       struct amdgpu_ring *ring = &kiq->ring;
+>> +			if (secure == -1) {
+>> +				if (ib->flags & AMDGPU_IB_FLAGS_SECURE) {
+>> +					secure = 1;
+>> +					amdgpu_ring_emit_frame_cntl(ring, true, true);
+>> +				} else {
+>> +					secure = 0;
+>> +					amdgpu_ring_emit_frame_cntl(ring, true, false);
+>> +				}
+> 
+> So the above is executed only once. At the very first
+> iteration, since "secure" is set to -1. You can pull
+> that out of the loop and have a more straightforward
+> body of the loop.
+> 
+> Regards,
+> Luben
+> 
+>> +			} else {
+>> +				if (secure == 1 &&
+>> +				    !(ib->flags & AMDGPU_IB_FLAGS_SECURE)) {
+>> +					secure = 0;
+>> +					amdgpu_ring_emit_frame_cntl(ring, false, true);
+>> +					amdgpu_ring_emit_frame_cntl(ring, true, false);
+>> +				} else if (secure == 0 &&
+>> +					   ib->flags & AMDGPU_IB_FLAGS_SECURE) {
+>> +					secure = 1;
+>> +					amdgpu_ring_emit_frame_cntl(ring, false, false);
+>> +					amdgpu_ring_emit_frame_cntl(ring, true, true);
+>> +				}
+>>  			}
+>> -		} else if (secure) {
+>> -			secure = false;
+>> -			amdgpu_ring_emit_tmz(ring, false);
+>>  		}
+>>  
+>>  		amdgpu_ring_emit_ib(ring, job, ib, status);
+>>  		status &= ~AMDGPU_HAVE_CTX_SWITCH;
+>>  	}
+>>  
+>> -	if (secure) {
+>> -		secure = false;
+>> -		amdgpu_ring_emit_tmz(ring, false);
+>> -	}
+>> +	if (job && ring->funcs->emit_frame_cntl)
+>> +		amdgpu_ring_emit_frame_cntl(ring, false,
+>> +					    (secure == 1) ? true : false);
+>>  
+>>  #ifdef CONFIG_X86_64
+>>  	if (!(adev->flags & AMD_IS_APU))
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> index 24caff0..4d019d6 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> @@ -166,7 +166,8 @@ struct amdgpu_ring_funcs {
+>>  	void (*emit_reg_write_reg_wait)(struct amdgpu_ring *ring,
+>>  					uint32_t reg0, uint32_t reg1,
+>>  					uint32_t ref, uint32_t mask);
+>> -	void (*emit_tmz)(struct amdgpu_ring *ring, bool start);
+>> +	void (*emit_frame_cntl)(struct amdgpu_ring *ring, bool start,
+>> +				bool secure);
+>>  	/* priority functions */
+>>  	void (*set_priority) (struct amdgpu_ring *ring,
+>>  			      enum drm_sched_priority priority);
+>> @@ -247,7 +248,7 @@ struct amdgpu_ring {
+>>  #define amdgpu_ring_emit_wreg(r, d, v) (r)->funcs->emit_wreg((r), (d), (v))
+>>  #define amdgpu_ring_emit_reg_wait(r, d, v, m) (r)->funcs->emit_reg_wait((r), (d), (v), (m))
+>>  #define amdgpu_ring_emit_reg_write_reg_wait(r, d0, d1, v, m) (r)->funcs->emit_reg_write_reg_wait((r), (d0), (d1), (v), (m))
+>> -#define amdgpu_ring_emit_tmz(r, b) (r)->funcs->emit_tmz((r), (b))
+>> +#define amdgpu_ring_emit_frame_cntl(r, b, s) (r)->funcs->emit_frame_cntl((r), (b), (s))
+>>  #define amdgpu_ring_pad_ib(r, ib) ((r)->funcs->pad_ib((r), (ib)))
+>>  #define amdgpu_ring_init_cond_exec(r) (r)->funcs->init_cond_exec((r))
+>>  #define amdgpu_ring_patch_cond_exec(r,o) (r)->funcs->patch_cond_exec((r),(o))
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>> index 7b61583..748ac35 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>> @@ -256,7 +256,7 @@ static int gfx_v10_0_rlc_backdoor_autoload_enable(struct amdgpu_device *adev);
+>>  static int gfx_v10_0_wait_for_rlc_autoload_complete(struct amdgpu_device *adev);
+>>  static void gfx_v10_0_ring_emit_ce_meta(struct amdgpu_ring *ring, bool resume);
+>>  static void gfx_v10_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume);
+>> -static void gfx_v10_0_ring_emit_tmz(struct amdgpu_ring *ring, bool start);
+>> +static void gfx_v10_0_ring_emit_frame_cntl(struct amdgpu_ring *ring, bool start, bool secure);
+>>  
+>>  static void gfx10_kiq_set_resources(struct amdgpu_ring *kiq_ring, uint64_t queue_mask)
+>>  {
+>> @@ -4729,12 +4729,13 @@ static void gfx_v10_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume)
+>>  					   sizeof(de_payload) >> 2);
+>>  }
+>>  
+>> -static void gfx_v10_0_ring_emit_tmz(struct amdgpu_ring *ring, bool start)
+>> +static void gfx_v10_0_ring_emit_frame_cntl(struct amdgpu_ring *ring, bool start,
+>> +				    bool secure)
+>>  {
+>> -	if (amdgpu_is_tmz(ring->adev)) {
+>> -		amdgpu_ring_write(ring, PACKET3(PACKET3_FRAME_CONTROL, 0));
+>> -		amdgpu_ring_write(ring, FRAME_TMZ | FRAME_CMD(start ? 0 : 1));
+>> -	}
+>> +	uint32_t v = secure ? FRAME_TMZ : 0;
 >> +
->> +       BUG_ON(!ring->funcs->emit_rreg);
+>> +	amdgpu_ring_write(ring, PACKET3(PACKET3_FRAME_CONTROL, 0));
+>> +	amdgpu_ring_write(ring, v | FRAME_CMD(start ? 0 : 1));
+>>  }
+>>  
+>>  static void gfx_v10_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg)
+>> @@ -5188,7 +5189,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_gfx = {
+>>  	.init_cond_exec = gfx_v10_0_ring_emit_init_cond_exec,
+>>  	.patch_cond_exec = gfx_v10_0_ring_emit_patch_cond_exec,
+>>  	.preempt_ib = gfx_v10_0_ring_preempt_ib,
+>> -	.emit_tmz = gfx_v10_0_ring_emit_tmz,
+>> +	.emit_frame_cntl = gfx_v10_0_ring_emit_frame_cntl,
+>>  	.emit_wreg = gfx_v10_0_ring_emit_wreg,
+>>  	.emit_reg_wait = gfx_v10_0_ring_emit_reg_wait,
+>>  	.emit_reg_write_reg_wait = gfx_v10_0_ring_emit_reg_write_reg_wait,
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>> index 1c7a16b..fbde712 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>> @@ -5230,12 +5230,13 @@ static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring)
+>>  	amdgpu_ring_write_multiple(ring, (void *)&de_payload, sizeof(de_payload) >> 2);
+>>  }
+>>  
+>> -static void gfx_v9_0_ring_emit_tmz(struct amdgpu_ring *ring, bool start)
+>> +static void gfx_v9_0_ring_emit_frame_cntl(struct amdgpu_ring *ring, bool start,
+>> +				   bool secure)
+>>  {
+>> -	if (amdgpu_is_tmz(ring->adev)) {
+>> -		amdgpu_ring_write(ring, PACKET3(PACKET3_FRAME_CONTROL, 0));
+>> -		amdgpu_ring_write(ring, FRAME_TMZ | FRAME_CMD(start ? 0 : 1));
+>> -	}
+>> +	uint32_t v = secure ? FRAME_TMZ : 0;
 >> +
->> +       spin_lock_irqsave(&kiq->ring_lock, flags);
->> +       amdgpu_ring_alloc(ring, 32);
->> +       amdgpu_ring_write(ring, PACKET3(PACKET3_COPY_DATA, 4));
->> +       amdgpu_ring_write(ring, 9 |     /* src: register*/
-> Is src 9 the counter?
->
-> Assuming that is correct, with the naming fixed:
-> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->
->> +                               (5 << 8) |      /* dst: memory */
->> +                               (1 << 16) |     /* count sel */
->> +                               (1 << 20));     /* write confirm */
->> +       amdgpu_ring_write(ring, 0);
->> +       amdgpu_ring_write(ring, 0);
->> +       amdgpu_ring_write(ring, lower_32_bits(adev->wb.gpu_addr +
->> +                               kiq->reg_val_offs * 4));
->> +       amdgpu_ring_write(ring, upper_32_bits(adev->wb.gpu_addr +
->> +                               kiq->reg_val_offs * 4));
->> +       amdgpu_fence_emit_polling(ring, &seq);
->> +       amdgpu_ring_commit(ring);
->> +       spin_unlock_irqrestore(&kiq->ring_lock, flags);
->> +
->> +       r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
->> +
->> +       /* don't wait anymore for gpu reset case because this way may
->> +        * block gpu_recover() routine forever, e.g. this virt_kiq_rreg
->> +        * is triggered in TTM and ttm_bo_lock_delayed_workqueue() will
->> +        * never return if we keep waiting in virt_kiq_rreg, which cause
->> +        * gpu_recover() hang there.
->> +        *
->> +        * also don't wait anymore for IRQ context
->> +        * */
->> +       if (r < 1 && (adev->in_gpu_reset || in_interrupt()))
->> +               goto failed_kiq_read;
->> +
->> +       might_sleep();
->> +       while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
->> +               msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
->> +               r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
->> +       }
->> +
->> +       if (cnt > MAX_KIQ_REG_TRY)
->> +               goto failed_kiq_read;
->> +
->> +       return (uint64_t)adev->wb.wb[kiq->reg_val_offs] |
->> +               (uint64_t)adev->wb.wb[kiq->reg_val_offs + 1 ] << 32ULL;
->> +
->> +failed_kiq_read:
->> +       pr_err("failed to read gpu clock\n");
->> +       return ~0;
->> +}
->> +
->>   static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
->>   {
->>          uint64_t clock;
->> @@ -3970,16 +4027,7 @@ static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
->>          amdgpu_gfx_off_ctrl(adev, false);
->>          mutex_lock(&adev->gfx.gpu_clock_mutex);
->>          if (adev->asic_type == CHIP_VEGA10 && amdgpu_sriov_runtime(adev)) {
->> -               uint32_t tmp, lsb, msb, i = 0;
->> -               do {
->> -                       if (i != 0)
->> -                               udelay(1);
->> -                       tmp = RREG32_SOC15(GC, 0, mmRLC_REFCLOCK_TIMESTAMP_MSB);
->> -                       lsb = RREG32_SOC15(GC, 0, mmRLC_REFCLOCK_TIMESTAMP_LSB);
->> -                       msb = RREG32_SOC15(GC, 0, mmRLC_REFCLOCK_TIMESTAMP_MSB);
->> -                       i++;
->> -               } while (unlikely(tmp != msb) && (i < adev->usec_timeout));
->> -               clock = (uint64_t)lsb | ((uint64_t)msb << 32ULL);
->> +               clock = amdgpu_kiq_read_clock(adev);
->>          } else {
->>                  WREG32_SOC15(GC, 0, mmRLC_CAPTURE_GPU_CLOCK_COUNT, 1);
->>                  clock = (uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUNT_LSB) |
->> --
->> 2.7.4
+>> +	amdgpu_ring_write(ring, PACKET3(PACKET3_FRAME_CONTROL, 0));
+>> +	amdgpu_ring_write(ring, v | FRAME_CMD(start ? 0 : 1));
+>>  }
+>>  
+>>  static void gfx_v9_ring_emit_cntxcntl(struct amdgpu_ring *ring, uint32_t flags)
+>> @@ -6477,7 +6478,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx = {
+>>  	.emit_cntxcntl = gfx_v9_ring_emit_cntxcntl,
+>>  	.init_cond_exec = gfx_v9_0_ring_emit_init_cond_exec,
+>>  	.patch_cond_exec = gfx_v9_0_ring_emit_patch_cond_exec,
+>> -	.emit_tmz = gfx_v9_0_ring_emit_tmz,
+>> +	.emit_frame_cntl = gfx_v9_0_ring_emit_frame_cntl,
+>>  	.emit_wreg = gfx_v9_0_ring_emit_wreg,
+>>  	.emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
+>>  	.emit_reg_write_reg_wait = gfx_v9_0_ring_emit_reg_write_reg_wait,
 >>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> 
 
 _______________________________________________
 amd-gfx mailing list
