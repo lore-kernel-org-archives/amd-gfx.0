@@ -5,67 +5,62 @@ X-Spam-Level:
 X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 296EBC4BA12
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 14:15:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4F12C4BA10
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 14:30:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F10442467B
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 14:15:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B6D8D2467B
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 14:30:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VBzMZvGY"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F10442467B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="vZhAT4H6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B6D8D2467B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72ADB6E2E3;
-	Wed, 26 Feb 2020 14:15:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A9C76E2BE;
+	Wed, 26 Feb 2020 14:30:02 +0000 (UTC)
 Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
  [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D10E66E2D3;
- Wed, 26 Feb 2020 14:15:31 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id e8so3225802wrm.5;
- Wed, 26 Feb 2020 06:15:31 -0800 (PST)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E21716E2BE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Feb 2020 14:30:00 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id p18so3262082wre.9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Feb 2020 06:30:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=mdMg8Sa+YDOHuSHW5grLYYtS/WDgI37EbCoL+QmiyVM=;
- b=VBzMZvGYHbqZB0uvESRd13igVB+JjRyBuFugZp+9w4T9OyBokFw88rXNA0M6lxyhZR
- QxtiSNV8vJ72G82vrF3OEFtaqmyXY2/KtOJcfCmPhXjuDRwmR389PbAt6OfIas9NwELg
- MysBCsHkBX7qMdnEeWCaBYtRJSFz+A4qubXnj3J8cLgixlB9vCFPOLssdibgZdQ6pX9K
- bg5k5A+3EirU0lBePXIxEaH0sUOMNKTEI6dW9/HSreXQ99j56XHUibelUGm5hUrPyR35
- GOMeCuunWHZKaD5WBm2UZw6rOJ9Iz6WBATNTCNEBtf3iu2I12R47LUTfzq+bTsf+F29f
- hRrg==
+ :cc; bh=BS+4+KWPRWYL3BYTVDgjO+hTwl98mowUBFjXfepShfw=;
+ b=vZhAT4H6jfhigWd788KtL1iQZOqiVZHSdZ5IWrh0vO4qq2Azzfox5J6pi010/KBgfg
+ y94Wie1zgx37jQY1JYwR4FUb+1BcKxMphcYg0bSCl4dqvy0D5jodzKMAyBpOxUuA0Bho
+ LZ8r1PyQkwES4U14DFvbOjSb3cpxa0kXRB06mpquIhW/mr+jaq0hUqrJImorlmplt0eu
+ tKaMEcOzVSI7TWHvzDeTr/Q96NqurNuFty0OQGxXyV2MXVxf6yUZkN8bJYQG7fJlm3SR
+ eb7cs3ZJ/kRLCibrKDweCHmZqY8jiJlY2sO00cT7KUDqYFdkIgftoh6pzXFdVtuItbh6
+ 5Qfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=mdMg8Sa+YDOHuSHW5grLYYtS/WDgI37EbCoL+QmiyVM=;
- b=i9Csimyo3K9WXISvuzCOnhMuontJ+o1HeGjAz+c5vzXWVjvfn4Psur4aWjhr5oU2R0
- x1cW3JYEApoCk5NdUmzryAjfN3AK5kby73U50l/voel2IIWMtDG+JoKuXesFg/Inbz+H
- 3Q10CAXFru8eRc5SrlznVfM4QjnWHvHR7XW1YzY2ifikmw3IIG/yJxRubzEZOOD9Q0XO
- 5f31lJ/VwznVK8EX4dQ8Al/8a9GG0ym/G933UNmMQ8TMmr33TJQbV4CWFnjL9BoGb5ij
- 0g9tTSRvl493wP4ufDdrfqBCXCeG4/pOnVQp8VLnbDPZj/1JPhgL34qY7RtG4BGH+6Ct
- NUVQ==
-X-Gm-Message-State: APjAAAXX2Jc3L1sJLkUwx4p8FJ/R1/SDmDvS8HltRY/X9f+c0ZZwnDqw
- 6Ann0Z8Qo2vBH3EqlF4aGuH+kAv/+ecivgXhfc4=
-X-Google-Smtp-Source: APXvYqwPDLbSc29UNVgVFnv8aU7kruYNL8trd+HrJkooAtovAv/U9DjGeXVwPxf5VmgHGNNWeUGn7CYIDZptZBcbyBU=
-X-Received: by 2002:adf:8b59:: with SMTP id v25mr6067744wra.419.1582726530460; 
- Wed, 26 Feb 2020 06:15:30 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=BS+4+KWPRWYL3BYTVDgjO+hTwl98mowUBFjXfepShfw=;
+ b=rQlRJglfFSHUs3wrxZNga/kaF0l6hYpAfP5WOB6qYB4idnlzKRbB8+S0HBgKdRpLn+
+ HT3VebVOtYoiSlTHBKY+CHicNrsvfK8Gz4aew2Bgc199PbA5HiajVBo7NbfF5G/4sFo7
+ KXJMckwKH+tVrBan2B51BUZwzzJIByTX+k5juZyEES6rF7P9vqZ4pPXPT0edaoWsD/fM
+ +htgULeXCnzWGJ4A36VwYj+KpnQsQbHt4/pyaOCexPeJWw59nllcnMqEt0VltJKTpcZL
+ tNvYujwEGL077lmt/odLhcWP712bNbMpbd96WUNr3UZKiySD7HJakNQ2CwOBNRcD04Ex
+ JMRg==
+X-Gm-Message-State: APjAAAXeIoUN/bhZNZUMt6A2MDj13WhxEDoCIgSd6RdKXjiPauwM2WiC
+ j9aS7WhD5TgSTrW/dWvpGAU0o5pPE+jZ2dkDM6kLqQ==
+X-Google-Smtp-Source: APXvYqwBk/KChNRx3T8ToT3wecGoD576zlEAv+VwQ8UuDgl13ZNC99UPCPj0SaFnH+7kd2g+tASMZXEAFhxEdkv2eN8=
+X-Received: by 2002:a5d:55ca:: with SMTP id i10mr5781785wrw.111.1582727399542; 
+ Wed, 26 Feb 2020 06:29:59 -0800 (PST)
 MIME-Version: 1.0
-References: <20200225185614.1058688-1-alexander.deucher@amd.com>
- <0e6fa597-62c4-3dd3-27bf-fa5ddd6ec1a4@gmail.com>
- <CADnq5_Ox=8+drn8TKSYoo6iCF9fQK6rCtD+uRQSFH3qqGQgO9A@mail.gmail.com>
- <42760da2-ad4f-4bc1-ca25-d176fb94a52d@amd.com>
- <33f5a17b-c2f3-1a56-276d-675c520a83fc@gmail.com>
-In-Reply-To: <33f5a17b-c2f3-1a56-276d-675c520a83fc@gmail.com>
+References: <1582691649-4876-1-git-send-email-Emily.Deng@amd.com>
+In-Reply-To: <1582691649-4876-1-git-send-email-Emily.Deng@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 26 Feb 2020 09:15:19 -0500
-Message-ID: <CADnq5_PcQ2xEpPOjDPK2K0ABgZsHw8YBCBAD6Kr-aK82hhykfw@mail.gmail.com>
-Subject: Re: [PATCH] drm/ttm: fix leaking fences via ttm_buffer_object_transfer
-To: Christian Koenig <christian.koenig@amd.com>
+Date: Wed, 26 Feb 2020 09:29:48 -0500
+Message-ID: <CADnq5_NEnQoDRQzyk4v9Nie+qUJo3q5eZUGoC1j+CoY+SG25hg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/sriov: Use kiq to copy the gpu clock
+To: Emily Deng <Emily.Deng@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,61 +72,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Ahzo <Ahzo@tutanota.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBGZWIgMjYsIDIwMjAgYXQgODozMCBBTSBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
-LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBBbSAyNS4wMi4yMCB1bSAyMDox
-MiBzY2hyaWViIENocmlzdGlhbiBLw7ZuaWc6Cj4gPiBBbSAyNS4wMi4yMCB1bSAyMDoxMSBzY2hy
-aWViIEFsZXggRGV1Y2hlcjoKPiA+PiBPbiBUdWUsIEZlYiAyNSwgMjAyMCBhdCAyOjA5IFBNIENo
-cmlzdGlhbiBLw7ZuaWcKPiA+PiA8Y2tvZW5pZy5sZWljaHR6dW1lcmtlbkBnbWFpbC5jb20+IHdy
-b3RlOgo+ID4+PiBBbSAyNS4wMi4yMCB1bSAxOTo1NiBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiA+
-Pj4+IEZyb206IEFoem8gPEFoem9AdHV0YW5vdGEuY29tPgo+ID4+Pj4KPiA+Pj4+IFNldCB0aGUg
-ZHJtX2RldmljZSB0byBOVUxMLCBzbyB0aGF0IHRoZSBuZXdseSBjcmVhdGVkIGJ1ZmZlciBvYmpl
-Y3QKPiA+Pj4+IGRvZXNuJ3QgYXBwZWFyIHRvIHVzZSB0aGUgZW1iZWRkZWQgZ2VtIG9iamVjdC4K
-PiA+Pj4+Cj4gPj4+PiBUaGlzIGlzIG5lY2Vzc2FyeSwgYmVjYXVzZSBvdGhlcndpc2Ugbm8gY29y
-cmVzcG9uZGluZyBkbWFfcmVzdl9maW5pCj4gPj4+PiBmb3IKPiA+Pj4+IHRoZSBkbWFfcmVzdl9p
-bml0IGlzIGNhbGxlZCwgcmVzdWx0aW5nIGluIGEgbWVtb3J5IGxlYWsuCj4gPj4+Pgo+ID4+Pj4g
-VGhlIGRtYV9yZXN2X2ZpbmkgaW4gdHRtX2JvX3JlbGVhc2VfbGlzdCBpcyBvbmx5IGNhbGxlZCBp
-ZiB0aGUKPiA+Pj4+IGVtYmVkZGVkCj4gPj4+PiBnZW0gb2JqZWN0IGlzIG5vdCB1c2VkLCB3aGlj
-aCBpcyBkZXRlcm1pbmVkIGJ5IGNoZWNraW5nIGlmIHRoZQo+ID4+Pj4gZHJtX2RldmljZSBpcyBO
-VUxMLgo+ID4+Pj4KPiA+Pj4+IEJ1ZzoKPiA+Pj4+IGh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnBy
-b3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmdpdGxhYi5mcmVlZGVza3Rv
-cC5vcmclMkZkcm0lMkZhbWQlMkZpc3N1ZXMlMkY5NTgmYW1wO2RhdGE9MDIlN0MwMSU3Q2Nocmlz
-dGlhbi5rb2VuaWclNDBhbWQuY29tJTdDYWEzZjc3NGRhMDNlNGRmY2MwOWEwOGQ3YmEyNjgzMDUl
-N0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3MTgyNTQ2ODc5
-MTQ0MDMwJmFtcDtzZGF0YT1OOFd4WVpaUmo1b2JNVTVTTHYwZ2lvZzBhMXNDWWklMkZvdXhTdVdO
-b20wZ3clM0QmYW1wO3Jlc2VydmVkPTAKPiA+Pj4+IEZpeGVzOiAxZTA1M2IxMGJhNjAgKCJkcm0v
-dHRtOiB1c2UgZ2VtIHJlc2VydmF0aW9uIG9iamVjdCIpCj4gPj4+PiBTaWduZWQtb2ZmLWJ5OiBB
-aHpvIDxBaHpvQHR1dGFub3RhLmNvbT4KPiA+Pj4+IFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hl
-ciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPiA+Pj4gR29vZCBjYXRjaCBJIHdhcyB0cnlp
-bmcgdG8gaHVudCB0aGF0IG9uZSBkb3duIGFzIHdlbGwuCj4gPj4+Cj4gPj4+IFJldmlld2VkLWJ5
-OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gPj4gQ2FuIHlv
-dSBhcHBseSBpdCB0byBkcm0tbWlzYz8KPiA+Cj4gPiBTdXJlLCBidXQgbm90IHRvZGF5LiBOZWVk
-IHRvIGdldCB0aGUga2lkcyB0byBiZWQuCj4KPiBTbyBqdXN0IHB1c2hlZCB0byBkcm0tbWlzYy1m
-aXhlcy4gRG8gd2UgYWxzbyBuZWVkIHRoYXQgb24KPiBhbWQtc3RhZ2luZy1kcm0tbmV4dD8KClN1
-cmUuCgpBbGV4Cgo+Cj4gQ2hyaXN0aWFuLgo+Cj4gPgo+ID4gQ2hyaXN0aWFuLgo+ID4KPiA+Pgo+
-ID4+IFRoYW5rcywKPiA+Pgo+ID4+IEFsZXgKPiA+Pgo+ID4+Pj4gLS0tCj4gPj4+PiAgICBkcml2
-ZXJzL2dwdS9kcm0vdHRtL3R0bV9ib191dGlsLmMgfCAxICsKPiA+Pj4+ICAgIDEgZmlsZSBjaGFu
-Z2VkLCAxIGluc2VydGlvbigrKQo+ID4+Pj4KPiA+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vdHRtL3R0bV9ib191dGlsLmMKPiA+Pj4+IGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1f
-Ym9fdXRpbC5jCj4gPj4+PiBpbmRleCBjOGUzNTlkZWQxZGYuLjQ0YzFlN2FkZmI3YyAxMDA2NDQK
-PiA+Pj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvX3V0aWwuYwo+ID4+Pj4gKysr
-IGIvZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm9fdXRpbC5jCj4gPj4+PiBAQCAtNTE0LDYgKzUx
-NCw3IEBAIHN0YXRpYyBpbnQgdHRtX2J1ZmZlcl9vYmplY3RfdHJhbnNmZXIoc3RydWN0Cj4gPj4+
-PiB0dG1fYnVmZmVyX29iamVjdCAqYm8sCj4gPj4+PiAgICAgICAgICAgICAgICBmYm8tPmJhc2Uu
-YmFzZS5yZXN2ID0gJmZiby0+YmFzZS5iYXNlLl9yZXN2Owo+ID4+Pj4KPiA+Pj4+ICAgICAgICBk
-bWFfcmVzdl9pbml0KCZmYm8tPmJhc2UuYmFzZS5fcmVzdik7Cj4gPj4+PiArICAgICBmYm8tPmJh
-c2UuYmFzZS5kZXYgPSBOVUxMOwo+ID4+Pj4gICAgICAgIHJldCA9IGRtYV9yZXN2X3RyeWxvY2so
-JmZiby0+YmFzZS5iYXNlLl9yZXN2KTsKPiA+Pj4+ICAgICAgICBXQVJOX09OKCFyZXQpOwo+ID4+
-Pj4KPiA+Cj4gPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Xwo+ID4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiA+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCj4gPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngKPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Tue, Feb 25, 2020 at 11:34 PM Emily Deng <Emily.Deng@amd.com> wrote:
+>
+> For vega10 sriov, the register is blocked, use
+> copy data command to fix the issue.
+>
+> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 68 +++++++++++++++++++++++++++++------
+>  1 file changed, 58 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 1c7a16b..71df0d9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -3963,6 +3963,63 @@ static int gfx_v9_0_soft_reset(void *handle)
+>         return 0;
+>  }
+>
+> +static uint64_t amdgpu_kiq_read_clock(struct amdgpu_device *adev)
+
+Please name this function gfx_v9_0_kiq_read_clock for consistency.
+
+
+> +{
+> +       signed long r, cnt = 0;
+> +       unsigned long flags;
+> +       uint32_t seq;
+> +       struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+> +       struct amdgpu_ring *ring = &kiq->ring;
+> +
+> +       BUG_ON(!ring->funcs->emit_rreg);
+> +
+> +       spin_lock_irqsave(&kiq->ring_lock, flags);
+> +       amdgpu_ring_alloc(ring, 32);
+> +       amdgpu_ring_write(ring, PACKET3(PACKET3_COPY_DATA, 4));
+> +       amdgpu_ring_write(ring, 9 |     /* src: register*/
+
+Is src 9 the counter?
+
+Assuming that is correct, with the naming fixed:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+> +                               (5 << 8) |      /* dst: memory */
+> +                               (1 << 16) |     /* count sel */
+> +                               (1 << 20));     /* write confirm */
+> +       amdgpu_ring_write(ring, 0);
+> +       amdgpu_ring_write(ring, 0);
+> +       amdgpu_ring_write(ring, lower_32_bits(adev->wb.gpu_addr +
+> +                               kiq->reg_val_offs * 4));
+> +       amdgpu_ring_write(ring, upper_32_bits(adev->wb.gpu_addr +
+> +                               kiq->reg_val_offs * 4));
+> +       amdgpu_fence_emit_polling(ring, &seq);
+> +       amdgpu_ring_commit(ring);
+> +       spin_unlock_irqrestore(&kiq->ring_lock, flags);
+> +
+> +       r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+> +
+> +       /* don't wait anymore for gpu reset case because this way may
+> +        * block gpu_recover() routine forever, e.g. this virt_kiq_rreg
+> +        * is triggered in TTM and ttm_bo_lock_delayed_workqueue() will
+> +        * never return if we keep waiting in virt_kiq_rreg, which cause
+> +        * gpu_recover() hang there.
+> +        *
+> +        * also don't wait anymore for IRQ context
+> +        * */
+> +       if (r < 1 && (adev->in_gpu_reset || in_interrupt()))
+> +               goto failed_kiq_read;
+> +
+> +       might_sleep();
+> +       while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
+> +               msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
+> +               r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
+> +       }
+> +
+> +       if (cnt > MAX_KIQ_REG_TRY)
+> +               goto failed_kiq_read;
+> +
+> +       return (uint64_t)adev->wb.wb[kiq->reg_val_offs] |
+> +               (uint64_t)adev->wb.wb[kiq->reg_val_offs + 1 ] << 32ULL;
+> +
+> +failed_kiq_read:
+> +       pr_err("failed to read gpu clock\n");
+> +       return ~0;
+> +}
+> +
+>  static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
+>  {
+>         uint64_t clock;
+> @@ -3970,16 +4027,7 @@ static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
+>         amdgpu_gfx_off_ctrl(adev, false);
+>         mutex_lock(&adev->gfx.gpu_clock_mutex);
+>         if (adev->asic_type == CHIP_VEGA10 && amdgpu_sriov_runtime(adev)) {
+> -               uint32_t tmp, lsb, msb, i = 0;
+> -               do {
+> -                       if (i != 0)
+> -                               udelay(1);
+> -                       tmp = RREG32_SOC15(GC, 0, mmRLC_REFCLOCK_TIMESTAMP_MSB);
+> -                       lsb = RREG32_SOC15(GC, 0, mmRLC_REFCLOCK_TIMESTAMP_LSB);
+> -                       msb = RREG32_SOC15(GC, 0, mmRLC_REFCLOCK_TIMESTAMP_MSB);
+> -                       i++;
+> -               } while (unlikely(tmp != msb) && (i < adev->usec_timeout));
+> -               clock = (uint64_t)lsb | ((uint64_t)msb << 32ULL);
+> +               clock = amdgpu_kiq_read_clock(adev);
+>         } else {
+>                 WREG32_SOC15(GC, 0, mmRLC_CAPTURE_GPU_CLOCK_COUNT, 1);
+>                 clock = (uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUNT_LSB) |
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
