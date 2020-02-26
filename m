@@ -2,107 +2,110 @@ Return-Path: <SRS0=BS7L=4O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73ED9C4BA1E
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 18:23:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7424DC4BA21
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4850624656
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 18:23:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 474BD2072D
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="tD+esmaS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4850624656
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1PqKup73"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 474BD2072D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEE8F89AEB;
-	Wed, 26 Feb 2020 18:23:42 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2080.outbound.protection.outlook.com [40.107.236.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B457E89AEB
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Feb 2020 18:23:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF8FD6E107;
+	Wed, 26 Feb 2020 19:02:06 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770089.outbound.protection.outlook.com [40.107.77.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C30F6E107;
+ Wed, 26 Feb 2020 19:02:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l6Y8DLu+2+ykJDBkDz36/2/u2/0kGAh3r8AiCTcRaobvcBH/TEJQe1Ea0A5hZVTBNDxo9sXMsW1y4FHmXn+BbW5X4NdbtSiEfjPuYWGp2p4d2NrUuHh+/jWggE7tx40clyDViXa9APcrgjdhGabK8NfTLeP5FbKmXWPR8vbw2shqhQoq3M29f0QGZJHQ5rqcWgfgfPcWCNrT1gncB9BhXziGrwRiLa28vEIp8JryU14ZbXMUMM+RYn77jTe8Ko7A93j/Zga+/q27JX7e5iasz1smJsTkg10JutA6ySLLbUswK7bNzxKd+noVdG4hDDLX1WQH77cPpzYY2dN/BeYVEA==
+ b=RUd7FZFPRa4DaajCnSaFWGTU06rentfzDce/MiwbEXtpPNi0HD7JxEAS7DikANen72JvckZW3M9oSbxjjH9Gv7H9tRGllaZAb6URfBn7PowV3P0K21HDjEu/VW+8WTSsfjMm2djI/YLJSVXmkt+hqTyeRkDuBrQXywO4V6fVU07SjrSnlkN5KU93d8VkWO1XofJHolNvYztUjHKHPEa6yisKrtX4lU3BfjWXkloQHF0g6w+c+d3x0a3FFQWjZRabiCbdTnQ9960ZU7M9IRNtgEkY11l1CID9WCdOPQOgc2Lvs4jhMno0HLu494IJXw0I4/TYeda1nxksz8oT/zh+Pg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7b0FVgFIbIe3m9eYOg9/vZC6XxLlwRd4OXUI5FcJfHk=;
- b=d5nn8Xvqp29s3Q87jSU0JygE9WrePC/YM2lF26b0QylyMZw+S1z/0JoMcOrloq8wEw+4RRI+2P2rG3UDqgCczf3RUZ0ICzyqUOB8dEtOFnuE/eAKdqmqHqpV8WTfuhObxLu3zdYNvoq9lL441NFkguQRjZ/OVdXS85az1eTk3sa/NP/Ak3r0YG1KVhGkWlJCGU+MytbxAS+yQWjZrnzwQjjC1jxAohHvMOi1PzPabLld9/+eeWHWh+34CPSHgcZxTYkejwI663rqoK0O9zE6u3okuNkgratdjiK0Ul/r9A9l8/2IhgcDL6L7Z2A4yYGNeTdvJqUnsjoRos/h+JLi7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Cbd1SlHF0GT3rkAKka7pQv0vq0zGroXvz/Uf3xVD+j4=;
+ b=erOqMn5Dxo9ljojFSkWAUwvDIpZc1AFZo86GhpDh8i8L3ENqN3bS1nD81SBpHbNfN6j23gPKlOxDiTUoArIHiiUHM7M/wYPzt3ZVntpaBpyZ7ntoqEkL5ATCiBvHXvkOY0YIowzmOhZDuYu8pI03yCJ/ssztmW3ZeboHVCU0gAFYG6p2NdlpfWYhIWY10HmfMW8fTlVOYE9Lgr9ZJl71C4RZnBdcIq9MHikw38eJGsxyl/bs8uyeMxoIwBPTaPm1gIbGREhW1iTIygFpYIoIVStHtAogFWdGROVcBZIyK2TgkHHn+blORd6yTBHH2u/VeUEc/IYHTan923iJPYMrPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com;
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7b0FVgFIbIe3m9eYOg9/vZC6XxLlwRd4OXUI5FcJfHk=;
- b=tD+esmaSczJfo+H6LRYdqfIy2BS6BWEDQAOAW0sxv/pHQofjezxBTJxiJCXSnTjqhLMQju1xcT59bPEz6t1DtQQBVEnHk6GIFUjiakga1lrd7qraVnyW6HHO5q9f+OPAx3lcQO1T4ZjrL6Yhnvbqc3j93VH26T6Iz9NGV2AqMZ0=
-Received: from CH2PR12MB3912.namprd12.prod.outlook.com (2603:10b6:610:2c::22)
- by CH2PR12MB3815.namprd12.prod.outlook.com (2603:10b6:610:2e::22)
+ bh=Cbd1SlHF0GT3rkAKka7pQv0vq0zGroXvz/Uf3xVD+j4=;
+ b=1PqKup73YTPJxMOXE9gWf+Bq0e+Jnmns5X91AzIocvorV0H+Xer9QWdH+vhxV3ytn4JMinqc2Ei6k2yXshtHmPFBs1s7pFncngKWpapXMvkyyG8Ev/3fM/Cs5BXoKJy03W1VqJlIaFU2MVEVjLJvve7bKLVoIs5C1hjX9VViQc0=
+Received: from MN2PR16CA0035.namprd16.prod.outlook.com (2603:10b6:208:134::48)
+ by SN1PR12MB2591.namprd12.prod.outlook.com (2603:10b6:802:30::32)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15; Wed, 26 Feb
- 2020 18:23:39 +0000
-Received: from CH2PR12MB3912.namprd12.prod.outlook.com
- ([fe80::7921:a391:1d1b:5167]) by CH2PR12MB3912.namprd12.prod.outlook.com
- ([fe80::7921:a391:1d1b:5167%5]) with mapi id 15.20.2772.012; Wed, 26 Feb 2020
- 18:23:39 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Zhao, Yong" <Yong.Zhao@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] drm/amdkfd: Make get_tile_config() generic
-Thread-Topic: [PATCH 2/2] drm/amdkfd: Make get_tile_config() generic
-Thread-Index: AQHV7M5vbUrSx5u85E2DgCKL92E49KgtygkB
-Date: Wed, 26 Feb 2020 18:23:39 +0000
-Message-ID: <CH2PR12MB3912D6821CCB1C4D931AA041F7EA0@CH2PR12MB3912.namprd12.prod.outlook.com>
-References: <20200226175812.31788-1-Yong.Zhao@amd.com>,
- <20200226175812.31788-2-Yong.Zhao@amd.com>
-In-Reply-To: <20200226175812.31788-2-Yong.Zhao@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-02-26T18:23:39.241Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Alexander.Deucher@amd.com; 
-x-originating-ip: [71.219.59.120]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: e762345c-7176-4cdd-9ecb-08d7bae9009d
-x-ms-traffictypediagnostic: CH2PR12MB3815:|CH2PR12MB3815:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB38153898DF53564D4D6C1362F7EA0@CH2PR12MB3815.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-forefront-prvs: 0325F6C77B
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(136003)(396003)(376002)(39860400002)(366004)(199004)(189003)(45080400002)(53546011)(26005)(966005)(19627405001)(6506007)(2906002)(110136005)(7696005)(478600001)(86362001)(186003)(316002)(9686003)(8936002)(66556008)(66446008)(66476007)(64756008)(81166006)(81156014)(76116006)(66946007)(55016002)(8676002)(52536014)(30864003)(5660300002)(71200400001)(33656002)(41533002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB3815;
- H:CH2PR12MB3912.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Wed, 26 Feb
+ 2020 19:02:04 +0000
+Received: from BN8NAM11FT039.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:208:134:cafe::34) by MN2PR16CA0035.outlook.office365.com
+ (2603:10b6:208:134::48) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14 via Frontend
+ Transport; Wed, 26 Feb 2020 19:02:03 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=permerror action=none header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: lQxAokJv3ELLGSrbkNnoez3jke+XAoYp3IJMiLMxmmXZHeOcj2KTo+sYGCJfSNDhLeco+M+Hc/E3n7wc1mRrqEqY14Fn8r7sA/Az0pJFkywwYZFvmspXWQLfXTDZONBhQyh07kR2qNZGJFV9O7E0Wqo9Yggojh2Ra9v4E5CPgqZ5DT8388TrJe/P/paJhpcUpECFhWmyCL7HCE54w9cY4TDSaM0NLOdksNJGQ+3EPh4xvvguz6r3uOgraPiYo8lUekBctkw+QgNzxww16WCTbdAznN0nv8jkOKx1zE5Pq+UjXmxQwzjI0tvZUpKMJHxsRs7XrBuCjybVovhjndDr1bnyfhTLbvZodS+Nbc18jBBIvFmwiGyU4ywNZQM4Arq9ypE9FOO8QjBnAKT/3mFSXUDZpz+BIzj615dPMtLRBgzE/ThCUo3x4AfLj91EtRj/u31g2ze11QvsSkeeSShnnkvngNaPdrKEV7mJJwLvlnmU33OjyHK9m9bsFhTynO9XjOHr5D7M0zh0gPbFJqyZDpvzMtlWfykiNkzze/FPTf/ItLe/WoWokJ6pTglbNpd1
-x-ms-exchange-antispam-messagedata: r5eSakTQT73ogPa9Zwfdbx5tk8Qz/51EmBlF5EZHNGdBIt461iUFUrQVeUVg3O56vl2woEFZglCXgL7m0Eg4PRvAnEbHTMNqyMD3rjh9v7eh2LswvYPvquQZONd+oXpNalTkeL/adoPW7w+0BPdO6A==
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT039.mail.protection.outlook.com (10.13.177.169) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2772.14 via Frontend Transport; Wed, 26 Feb 2020 19:02:03 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 26 Feb
+ 2020 13:02:02 -0600
+Received: from yuho-zbook.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Wed, 26 Feb 2020 13:02:01 -0600
+From: Kenny Ho <Kenny.Ho@amd.com>
+To: <y2kenny@gmail.com>, <cgroups@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
+ <tj@kernel.org>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <felix.kuehling@amd.com>, <joseph.greathouse@amd.com>, <jsparks@cray.com>
+Subject: [PATCH v2 00/11] new cgroup controller for gpu/drm subsystem
+Date: Wed, 26 Feb 2020 14:01:41 -0500
+Message-ID: <20200226190152.16131-1-Kenny.Ho@amd.com>
+X-Mailer: git-send-email 2.25.0
+In-Reply-To: <lkaplan@cray.com; daniel@ffwll.ch; nirmoy.das@amd.com;
+ damon.mcdougall@amd.com; juan.zuniga-anaya@amd.com; hannes@cmpxchg.org>
+References: <lkaplan@cray.com; daniel@ffwll.ch; nirmoy.das@amd.com;
+ damon.mcdougall@amd.com; juan.zuniga-anaya@amd.com; hannes@cmpxchg.org>
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10001)(10009020)(4636009)(396003)(376002)(136003)(39860400002)(346002)(428003)(189003)(199004)(966005)(2906002)(81156014)(478600001)(7696005)(86362001)(426003)(6666004)(5660300002)(356004)(4326008)(36756003)(336012)(81166006)(8676002)(8936002)(70586007)(1076003)(316002)(186003)(26005)(2616005)(110136005)(70206006)(921003)(1121003)(2101003)(83996005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SN1PR12MB2591; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 197d4d04-7c3b-4d99-20ad-08d7baee5dde
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2591:
+X-Microsoft-Antispam-PRVS: <SN1PR12MB25912CBD2DE472770F97BE6883EA0@SN1PR12MB2591.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Forefront-PRVS: 0325F6C77B
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DevkaLxOgJfhuT+lGFEeKI1RV+L06kV1msSCEQ3Fz+TAf3YYUiSb5V7GPze35dixn4CLlfp9kwJHcr3IvZ63Fw7DI9tlzBC0hcNIgF5Jfw/A+bfIBbBgQDozjkCU7T/ICCVr5KNsXKFAqvaVt4t0ZYReroAfyQiTutQqrkax7zyniZNeJ17Nu1XEljjTZkgmWq4Rko7/B66Uk4w1SKh9VpqbEi8H4OE8W3nJAyr5aEnYgAMn+Mi+hBG6M7LWXLAqJQl2cQ2Ymkq25ewE962K6hbHJaqDk7bveDuNE9pk15xqX/eTI1RXfzcgSpNEb7vREiK1ahYNDAgSfRfa8Ecs60nCDbdBLeYBMp2mjBVd5QkuHrsTa/wteSJTPEFmo0vItS2JSySyXIAg0zan6TfSRAVmByVuofLhxX6OgXj3m7B3qv5hR2whmitS19sgoD1N0ctPFJc8FuIjLcsvJqUHOvtfqLbZGq7dFd9rfbQG4mmv9yIu9bWK2+UCbOpHVL14But8WlXbwN2JznUL6eYD1KvC/5Ujp/PHDat/x0c+80/tbb5TIjvS/mGm905XGWUYcGyjO9U/ca1ZiPuq2lJ4YNpBU91+dq4Zh/yLuMZyLBccNiCoZdwQyvRO0CRrfIMB1DPH8VEP/gDLxyfCGAqlT6vB9I1mL/NiwTBH0Wl70vYr2adysJKYyUfUNG6nAU5g
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e762345c-7176-4cdd-9ecb-08d7bae9009d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Feb 2020 18:23:39.5261 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VXquQFcM4Zj6EkUIMuAC26RCYDWLa1AnIeLfKNl+7650DNqc/Gl1xkCt6G/cPSus2MvOkyGtk32zuUjuwbe6Tw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3815
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2020 19:02:03.5596 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 197d4d04-7c3b-4d99-20ad-08d7baee5dde
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2591
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,908 +117,192 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1912102988=="
+Cc: Kenny Ho <Kenny.Ho@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1912102988==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CH2PR12MB3912D6821CCB1C4D931AA041F7EA0CH2PR12MB3912namp_"
+This is a submission for the introduction of a new cgroup controller for the drm subsystem follow a series of RFCs [v1, v2, v3, v4]
 
---_000_CH2PR12MB3912D6821CCB1C4D931AA041F7EA0CH2PR12MB3912namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Changes from PR v1
+* changed cgroup controller name from drm to gpu
+* removed lgpu
+* added compute.weight resources, clarified resources being distributed as partitions of compute device
 
-[AMD Official Use Only - Internal Distribution Only]
+PR v1: https://www.spinics.net/lists/cgroups/msg24479.html
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Yong Zha=
-o <Yong.Zhao@amd.com>
-Sent: Wednesday, February 26, 2020 12:58 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Zhao, Yong <Yong.Zhao@amd.com>
-Subject: [PATCH 2/2] drm/amdkfd: Make get_tile_config() generic
+Changes from the RFC base on the feedbacks:
+* drop all drm.memory.* related implementation and focus only on buffer and lgpu
+* add weight resource type for logical gpu (lgpu)
+* uncoupled drmcg device iteration from drm_minor
 
-Given we can query all the asic specific information from amdgpu_gfx_config=
-,
-we can make get_tile_config() generic.
+I'd also like to highlight the fact that these patches are currently released under MIT/X11 license aligning with the norm of the drm subsystem, but I am working to have the cgroup parts release under GPLv2 to align with the norm of the cgroup subsystem.
 
-Change-Id: I1080fec4d50c51bc84bb49b0145f8fec50081fce
-Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  3 ++
- .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |  1 -
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 33 -------------------
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c | 26 ---------------
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c | 26 ---------------
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 23 -------------
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |  2 --
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 22 +++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  2 +-
- .../gpu/drm/amd/include/kgd_kfd_interface.h   |  4 ---
- 10 files changed, 26 insertions(+), 116 deletions(-)
+RFC:
+[v1]: https://lists.freedesktop.org/archives/dri-devel/2018-November/197106.html
+[v2]: https://www.spinics.net/lists/cgroups/msg22074.html
+[v3]: https://lists.freedesktop.org/archives/amd-gfx/2019-June/036026.html
+[v4]: https://patchwork.kernel.org/cover/11120371/
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.h
-index b0ad3be0b03f..13feb313e9b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -242,6 +242,9 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct kgd_dev *k=
-gd,
- void amdgpu_amdkfd_gpuvm_init_mem_limits(void);
- void amdgpu_amdkfd_unreserve_memory_limit(struct amdgpu_bo *bo);
+Changes since the start of RFC are as follows:
 
-+int amdgpu_amdkfd_get_tile_config(struct kgd_dev *kgd,
-+                               struct tile_config *config);
-+
- /* KGD2KFD callbacks */
- int kgd2kfd_init(void);
- void kgd2kfd_exit(void);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/=
-gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-index 4bcc175a149d..d6549e5ea7e3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-@@ -319,7 +319,6 @@ const struct kfd2kgd_calls arcturus_kfd2kgd =3D {
-         .address_watch_get_offset =3D kgd_gfx_v9_address_watch_get_offset,
-         .get_atc_vmid_pasid_mapping_info =3D
-                         kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
--       .get_tile_config =3D kgd_gfx_v9_get_tile_config,
-         .set_vm_context_page_table_base =3D kgd_set_vm_context_page_table_=
-base,
-         .get_hive_id =3D amdgpu_amdkfd_get_hive_id,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-index ca91fffb8a36..4ec6d0c03201 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-@@ -42,38 +42,6 @@ enum hqd_dequeue_request_type {
-         SAVE_WAVES
- };
+v4:
+Unchanged (no review needed)
+* drm.memory.*/ttm resources (Patch 9-13, I am still working on memory bandwidth
+and shrinker)
+Base on feedbacks on v3:
+* update nominclature to drmcg
+* embed per device drmcg properties into drm_device
+* split GEM buffer related commits into stats and limit
+* rename function name to align with convention
+* combined buffer accounting and check into a try_charge function
+* support buffer stats without limit enforcement
+* removed GEM buffer sharing limitation
+* updated documentations
+New features:
+* introducing logical GPU concept
+* example implementation with AMD KFD
 
--/* Because of REG_GET_FIELD() being used, we put this function in the
-- * asic specific file.
-- */
--static int amdgpu_amdkfd_get_tile_config(struct kgd_dev *kgd,
--               struct tile_config *config)
--{
--       struct amdgpu_device *adev =3D (struct amdgpu_device *)kgd;
--
--       config->gb_addr_config =3D adev->gfx.config.gb_addr_config;
--#if 0
--/* TODO - confirm REG_GET_FIELD x2, should be OK as is... but
-- * MC_ARB_RAMCFG register doesn't exist on Vega10 - initial amdgpu
-- * changes commented out related code, doing the same here for now but
-- * need to sync with Ken et al
-- */
--       config->num_banks =3D REG_GET_FIELD(adev->gfx.config.mc_arb_ramcfg,
--                               MC_ARB_RAMCFG, NOOFBANK);
--       config->num_ranks =3D REG_GET_FIELD(adev->gfx.config.mc_arb_ramcfg,
--                               MC_ARB_RAMCFG, NOOFRANKS);
--#endif
--
--       config->tile_config_ptr =3D adev->gfx.config.tile_mode_array;
--       config->num_tile_configs =3D
--                       ARRAY_SIZE(adev->gfx.config.tile_mode_array);
--       config->macro_tile_config_ptr =3D
--                       adev->gfx.config.macrotile_mode_array;
--       config->num_macro_tile_configs =3D
--                       ARRAY_SIZE(adev->gfx.config.macrotile_mode_array);
--
--       return 0;
--}
--
- static inline struct amdgpu_device *get_amdgpu_device(struct kgd_dev *kgd)
- {
-         return (struct amdgpu_device *)kgd;
-@@ -805,7 +773,6 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd =3D {
-         .address_watch_get_offset =3D kgd_address_watch_get_offset,
-         .get_atc_vmid_pasid_mapping_info =3D
-                         get_atc_vmid_pasid_mapping_info,
--       .get_tile_config =3D amdgpu_amdkfd_get_tile_config,
-         .set_vm_context_page_table_base =3D set_vm_context_page_table_base=
-,
-         .get_hive_id =3D amdgpu_amdkfd_get_hive_id,
-         .get_unique_id =3D amdgpu_amdkfd_get_unique_id,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
-index 8f052e98a3c6..0b7e78748540 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
-@@ -84,31 +84,6 @@ union TCP_WATCH_CNTL_BITS {
-         float f32All;
- };
+v3:
+Base on feedbacks on v2:
+* removed .help type file from v2
+* conform to cgroup convention for default and max handling
+* conform to cgroup convention for addressing device specific limits (with major:minor)
+New function:
+* adopted memparse for memory size related attributes
+* added macro to marshall drmcgrp cftype private ?(DRMCG_CTF_PRIV, etc.)
+* added ttm buffer usage stats (per cgroup, for system, tt, vram.)
+* added ttm buffer usage limit (per cgroup, for vram.)
+* added per cgroup bandwidth stats and limiting (burst and average bandwidth)
 
--/* Because of REG_GET_FIELD() being used, we put this function in the
-- * asic specific file.
-- */
--static int get_tile_config(struct kgd_dev *kgd,
--               struct tile_config *config)
--{
--       struct amdgpu_device *adev =3D (struct amdgpu_device *)kgd;
--
--       config->gb_addr_config =3D adev->gfx.config.gb_addr_config;
--       config->num_banks =3D REG_GET_FIELD(adev->gfx.config.mc_arb_ramcfg,
--                               MC_ARB_RAMCFG, NOOFBANK);
--       config->num_ranks =3D REG_GET_FIELD(adev->gfx.config.mc_arb_ramcfg,
--                               MC_ARB_RAMCFG, NOOFRANKS);
--
--       config->tile_config_ptr =3D adev->gfx.config.tile_mode_array;
--       config->num_tile_configs =3D
--                       ARRAY_SIZE(adev->gfx.config.tile_mode_array);
--       config->macro_tile_config_ptr =3D
--                       adev->gfx.config.macrotile_mode_array;
--       config->num_macro_tile_configs =3D
--                       ARRAY_SIZE(adev->gfx.config.macrotile_mode_array);
--
--       return 0;
--}
--
- static inline struct amdgpu_device *get_amdgpu_device(struct kgd_dev *kgd)
- {
-         return (struct amdgpu_device *)kgd;
-@@ -730,7 +705,6 @@ const struct kfd2kgd_calls gfx_v7_kfd2kgd =3D {
-         .address_watch_get_offset =3D kgd_address_watch_get_offset,
-         .get_atc_vmid_pasid_mapping_info =3D get_atc_vmid_pasid_mapping_in=
-fo,
-         .set_scratch_backing_va =3D set_scratch_backing_va,
--       .get_tile_config =3D get_tile_config,
-         .set_vm_context_page_table_base =3D set_vm_context_page_table_base=
-,
-         .read_vmid_from_vmfault_reg =3D read_vmid_from_vmfault_reg,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
-index 19a10db93d68..ccd635b812b5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
-@@ -41,31 +41,6 @@ enum hqd_dequeue_request_type {
-         RESET_WAVES
- };
+v2:
+* Removed the vendoring concepts
+* Add limit to total buffer allocation
+* Add limit to the maximum size of a buffer allocation
 
--/* Because of REG_GET_FIELD() being used, we put this function in the
-- * asic specific file.
-- */
--static int get_tile_config(struct kgd_dev *kgd,
--               struct tile_config *config)
--{
--       struct amdgpu_device *adev =3D (struct amdgpu_device *)kgd;
--
--       config->gb_addr_config =3D adev->gfx.config.gb_addr_config;
--       config->num_banks =3D REG_GET_FIELD(adev->gfx.config.mc_arb_ramcfg,
--                               MC_ARB_RAMCFG, NOOFBANK);
--       config->num_ranks =3D REG_GET_FIELD(adev->gfx.config.mc_arb_ramcfg,
--                               MC_ARB_RAMCFG, NOOFRANKS);
--
--       config->tile_config_ptr =3D adev->gfx.config.tile_mode_array;
--       config->num_tile_configs =3D
--                       ARRAY_SIZE(adev->gfx.config.tile_mode_array);
--       config->macro_tile_config_ptr =3D
--                       adev->gfx.config.macrotile_mode_array;
--       config->num_macro_tile_configs =3D
--                       ARRAY_SIZE(adev->gfx.config.macrotile_mode_array);
--
--       return 0;
--}
--
- static inline struct amdgpu_device *get_amdgpu_device(struct kgd_dev *kgd)
- {
-         return (struct amdgpu_device *)kgd;
-@@ -676,6 +651,5 @@ const struct kfd2kgd_calls gfx_v8_kfd2kgd =3D {
-         .get_atc_vmid_pasid_mapping_info =3D
-                         get_atc_vmid_pasid_mapping_info,
-         .set_scratch_backing_va =3D set_scratch_backing_va,
--       .get_tile_config =3D get_tile_config,
-         .set_vm_context_page_table_base =3D set_vm_context_page_table_base=
-,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 7f91feff7c4f..df841c2ac5e7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -48,28 +48,6 @@ enum hqd_dequeue_request_type {
-         RESET_WAVES
- };
+v1: cover letter
 
--
--/* Because of REG_GET_FIELD() being used, we put this function in the
-- * asic specific file.
-- */
--int kgd_gfx_v9_get_tile_config(struct kgd_dev *kgd,
--               struct tile_config *config)
--{
--       struct amdgpu_device *adev =3D (struct amdgpu_device *)kgd;
--
--       config->gb_addr_config =3D adev->gfx.config.gb_addr_config;
--
--       config->tile_config_ptr =3D adev->gfx.config.tile_mode_array;
--       config->num_tile_configs =3D
--                       ARRAY_SIZE(adev->gfx.config.tile_mode_array);
--       config->macro_tile_config_ptr =3D
--                       adev->gfx.config.macrotile_mode_array;
--       config->num_macro_tile_configs =3D
--                       ARRAY_SIZE(adev->gfx.config.macrotile_mode_array);
--
--       return 0;
--}
--
- static inline struct amdgpu_device *get_amdgpu_device(struct kgd_dev *kgd)
- {
-         return (struct amdgpu_device *)kgd;
-@@ -736,7 +714,6 @@ const struct kfd2kgd_calls gfx_v9_kfd2kgd =3D {
-         .address_watch_get_offset =3D kgd_gfx_v9_address_watch_get_offset,
-         .get_atc_vmid_pasid_mapping_info =3D
-                         kgd_gfx_v9_get_atc_vmid_pasid_mapping_info,
--       .get_tile_config =3D kgd_gfx_v9_get_tile_config,
-         .set_vm_context_page_table_base =3D kgd_gfx_v9_set_vm_context_page=
-_table_base,
-         .get_hive_id =3D amdgpu_amdkfd_get_hive_id,
-         .get_unique_id =3D amdgpu_amdkfd_get_unique_id,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-index 63d3e6683dfe..aedf67d57449 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-@@ -60,5 +60,3 @@ uint32_t kgd_gfx_v9_address_watch_get_offset(struct kgd_d=
-ev *kgd,
+The purpose of this patch series is to start a discussion for a generic cgroup
+controller for the drm subsystem.  The design proposed here is a very early 
+one.  We are hoping to engage the community as we develop the idea.
 
- bool kgd_gfx_v9_get_atc_vmid_pasid_mapping_info(struct kgd_dev *kgd,
-                                         uint8_t vmid, uint16_t *p_pasid);
--int kgd_gfx_v9_get_tile_config(struct kgd_dev *kgd,
--               struct tile_config *config);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index e1d1eed7a25f..e4481caed648 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -2242,3 +2242,25 @@ int amdgpu_amdkfd_remove_gws_from_process(void *info=
-, void *mem)
-         kfree(mem);
-         return 0;
- }
-+
-+/* Returns GPU-specific tiling mode information */
-+int amdgpu_amdkfd_get_tile_config(struct kgd_dev *kgd,
-+                               struct tile_config *config)
-+{
-+       struct amdgpu_device *adev =3D (struct amdgpu_device *)kgd;
-+
-+       config->gb_addr_config =3D adev->gfx.config.gb_addr_config;
-+       config->tile_config_ptr =3D adev->gfx.config.tile_mode_array;
-+       config->num_tile_configs =3D
-+                       ARRAY_SIZE(adev->gfx.config.tile_mode_array);
-+       config->macro_tile_config_ptr =3D
-+                       adev->gfx.config.macrotile_mode_array;
-+       config->num_macro_tile_configs =3D
-+                       ARRAY_SIZE(adev->gfx.config.macrotile_mode_array);
-+
-+       /* Those values are not set from GFX9 onwards */
-+       config->num_banks =3D adev->gfx.config.num_banks;
-+       config->num_ranks =3D adev->gfx.config.num_ranks;
-+
-+       return 0;
-+}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_chardev.c
-index 675735b8243a..f8fa03a12add 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1169,7 +1169,7 @@ static int kfd_ioctl_get_tile_config(struct file *fil=
-ep,
-         if (!dev)
-                 return -EINVAL;
+Backgrounds
+===========
+Control Groups/cgroup provide a mechanism for aggregating/partitioning sets of
+tasks, and all their future children, into hierarchical groups with specialized
+behaviour, such as accounting/limiting the resources which processes in a 
+cgroup can access[1].  Weights, limits, protections, allocations are the main 
+resource distribution models.  Existing cgroup controllers includes cpu, 
+memory, io, rdma, and more.  cgroup is one of the foundational technologies 
+that enables the popular container application deployment and management method.
 
--       dev->kfd2kgd->get_tile_config(dev->kgd, &config);
-+       amdgpu_amdkfd_get_tile_config(dev->kgd, &config);
+Direct Rendering Manager/drm contains code intended to support the needs of
+complex graphics devices. Graphics drivers in the kernel may make use of DRM
+functions to make tasks like memory management, interrupt handling and DMA
+easier, and provide a uniform interface to applications.  The DRM has also
+developed beyond traditional graphics applications to support compute/GPGPU
+applications.
 
-         args->gb_addr_config =3D config.gb_addr_config;
-         args->num_banks =3D config.num_banks;
-diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/=
-drm/amd/include/kgd_kfd_interface.h
-index abc0eb4ac493..0cee79d56075 100644
---- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-@@ -223,8 +223,6 @@ struct tile_config {
-  * @set_scratch_backing_va: Sets VA for scratch backing memory of a VMID.
-  * Only used for no cp scheduling mode
-  *
-- * @get_tile_config: Returns GPU-specific tiling mode information
-- *
-  * @set_vm_context_page_table_base: Program page table base for a VMID
-  *
-  * @invalidate_tlbs: Invalidate TLBs for a specific PASID
-@@ -310,8 +308,6 @@ struct kfd2kgd_calls {
-         void (*set_scratch_backing_va)(struct kgd_dev *kgd,
-                                 uint64_t va, uint32_t vmid);
+Motivations
+===========
+As GPU grow beyond the realm of desktop/workstation graphics into areas like
+data center clusters and IoT, there are increasing needs to monitor and 
+regulate GPU as a resource like cpu, memory and io.
 
--       int (*get_tile_config)(struct kgd_dev *kgd, struct tile_config *con=
-fig);
--
-         void (*set_vm_context_page_table_base)(struct kgd_dev *kgd,
-                         uint32_t vmid, uint64_t page_table_base);
-         uint32_t (*read_vmid_from_vmfault_reg)(struct kgd_dev *kgd);
---
-2.17.1
+Matt Roper from Intel began working on similar idea in early 2018 [2] for the
+purpose of managing GPU priority using the cgroup hierarchy.  While that
+particular use case may not warrant a standalone drm cgroup controller, there
+are other use cases where having one can be useful [3].  Monitoring GPU
+resources such as VRAM and buffers, CU (compute unit [AMD's nomenclature])/EU
+(execution unit [Intel's nomenclature]), GPU job scheduling [4] can help
+sysadmins get a better understanding of the applications usage profile. 
+Further usage regulations of the aforementioned resources can also help sysadmins
+optimize workload deployment on limited GPU resources.
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7C8f3b7599907940152a9908d7bae57d15%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637183367446481070&amp;sdata=3D8SNAbkJvgXicyXsv%2B=
-0jUbnLgvWM5M%2FR9uEChJrwHrxY%3D&amp;reserved=3D0
+With the increased importance of machine learning, data science and other
+cloud-based applications, GPUs are already in production use in data centers
+today [5,6,7].  Existing GPU resource management is very course grain, however,
+as sysadmins are only able to distribute workload on a per-GPU basis [8].  An
+alternative is to use GPU virtualization (with or without SRIOV) but it
+generally acts on the entire GPU instead of the specific resources in a GPU.
+With a drm cgroup controller, we can enable alternate, fine-grain, sub-GPU
+resource management (in addition to what may be available via GPU
+virtualization.)
 
---_000_CH2PR12MB3912D6821CCB1C4D931AA041F7EA0CH2PR12MB3912namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+In addition to production use, the DRM cgroup can also help with testing
+graphics application robustness by providing a mean to artificially limit DRM
+resources availble to the applications.
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Series is:</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Yong Zhao &lt;Yong.Zhao@amd.c=
-om&gt;<br>
-<b>Sent:</b> Wednesday, February 26, 2020 12:58 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Zhao, Yong &lt;Yong.Zhao@amd.com&gt;<br>
-<b>Subject:</b> [PATCH 2/2] drm/amdkfd: Make get_tile_config() generic</fon=
-t>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Given we can query all the asic specific informati=
-on from amdgpu_gfx_config,<br>
-we can make get_tile_config() generic.<br>
-<br>
-Change-Id: I1080fec4d50c51bc84bb49b0145f8fec50081fce<br>
-Signed-off-by: Yong Zhao &lt;Yong.Zhao@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h&nbsp;&nbsp;&nbsp; |&nbsp; =
-3 &#43;&#43;<br>
-&nbsp;.../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c&nbsp;&nbsp; |&nbsp; 1 -<b=
-r>
-&nbsp;.../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c&nbsp;&nbsp;&nbsp; | 33 ---=
-----------------<br>
-&nbsp;.../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c | 26 ---------------<br=
->
-&nbsp;.../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c | 26 ---------------<br=
->
-&nbsp;.../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 23 -------------<br>
-&nbsp;.../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |&nbsp; 2 --<br>
-&nbsp;.../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c&nbsp; | 22 &#43;&#43;&#4=
-3;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
-&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_chardev.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-; |&nbsp; 2 &#43;-<br>
-&nbsp;.../gpu/drm/amd/include/kgd_kfd_interface.h&nbsp;&nbsp; |&nbsp; 4 ---=
-<br>
-&nbsp;10 files changed, 26 insertions(&#43;), 116 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.h<br>
-index b0ad3be0b03f..13feb313e9b3 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h<br>
-@@ -242,6 &#43;242,9 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct kgd_de=
-v *kgd,<br>
-&nbsp;void amdgpu_amdkfd_gpuvm_init_mem_limits(void);<br>
-&nbsp;void amdgpu_amdkfd_unreserve_memory_limit(struct amdgpu_bo *bo);<br>
-&nbsp;<br>
-&#43;int amdgpu_amdkfd_get_tile_config(struct kgd_dev *kgd,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct tile_config *config);<br>
-&#43;<br>
-&nbsp;/* KGD2KFD callbacks */<br>
-&nbsp;int kgd2kfd_init(void);<br>
-&nbsp;void kgd2kfd_exit(void);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/=
-gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c<br>
-index 4bcc175a149d..d6549e5ea7e3 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c<br>
-@@ -319,7 &#43;319,6 @@ const struct kfd2kgd_calls arcturus_kfd2kgd =3D {<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .address_watch_get_offset =
-=3D kgd_gfx_v9_address_watch_get_offset,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_atc_vmid_pasid_mappin=
-g_info =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kgd_g=
-fx_v9_get_atc_vmid_pasid_mapping_info,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_tile_config =3D kgd_gfx_v9_get_t=
-ile_config,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_vm_context_page_table=
-_base =3D kgd_set_vm_context_page_table_base,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_hive_id =3D amdgpu_am=
-dkfd_get_hive_id,<br>
-&nbsp;};<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c<br>
-index ca91fffb8a36..4ec6d0c03201 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c<br>
-@@ -42,38 &#43;42,6 @@ enum hqd_dequeue_request_type {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; SAVE_WAVES<br>
-&nbsp;};<br>
-&nbsp;<br>
--/* Because of REG_GET_FIELD() being used, we put this function in the<br>
-- * asic specific file.<br>
-- */<br>
--static int amdgpu_amdkfd_get_tile_config(struct kgd_dev *kgd,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct tile_config *config)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (struc=
-t amdgpu_device *)kgd;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;gb_addr_config =3D adev-&g=
-t;gfx.config.gb_addr_config;<br>
--#if 0<br>
--/* TODO - confirm REG_GET_FIELD x2, should be OK as is... but<br>
-- * MC_ARB_RAMCFG register doesn't exist on Vega10 - initial amdgpu<br>
-- * changes commented out related code, doing the same here for now but<br>
-- * need to sync with Ken et al<br>
-- */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_banks =3D REG_GET_FIEL=
-D(adev-&gt;gfx.config.mc_arb_ramcfg,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MC_ARB_RAMCFG, NOOFBANK);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_ranks =3D REG_GET_FIEL=
-D(adev-&gt;gfx.config.mc_arb_ramcfg,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MC_ARB_RAMCFG, NOOFRANKS);<br>
--#endif<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;tile_config_ptr =3D adev-&=
-gt;gfx.config.tile_mode_array;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_tile_configs =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARRAY_SIZE(adev-=
-&gt;gfx.config.tile_mode_array);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;macro_tile_config_ptr =3D<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.con=
-fig.macrotile_mode_array;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_macro_tile_configs =3D=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARRAY_SIZE(adev-=
-&gt;gfx.config.macrotile_mode_array);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
--}<br>
--<br>
-&nbsp;static inline struct amdgpu_device *get_amdgpu_device(struct kgd_dev =
-*kgd)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (struct amdgpu_devi=
-ce *)kgd;<br>
-@@ -805,7 &#43;773,6 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd =3D {<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .address_watch_get_offset =
-=3D kgd_address_watch_get_offset,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_atc_vmid_pasid_mappin=
-g_info =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get_a=
-tc_vmid_pasid_mapping_info,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_tile_config =3D amdgpu_amdkfd_ge=
-t_tile_config,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_vm_context_page_table=
-_base =3D set_vm_context_page_table_base,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_hive_id =3D amdgpu_am=
-dkfd_get_hive_id,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_unique_id =3D amdgpu_=
-amdkfd_get_unique_id,<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c<br>
-index 8f052e98a3c6..0b7e78748540 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c<br>
-@@ -84,31 &#43;84,6 @@ union TCP_WATCH_CNTL_BITS {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; float f32All;<br>
-&nbsp;};<br>
-&nbsp;<br>
--/* Because of REG_GET_FIELD() being used, we put this function in the<br>
-- * asic specific file.<br>
-- */<br>
--static int get_tile_config(struct kgd_dev *kgd,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct tile_config *config)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (struc=
-t amdgpu_device *)kgd;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;gb_addr_config =3D adev-&g=
-t;gfx.config.gb_addr_config;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_banks =3D REG_GET_FIEL=
-D(adev-&gt;gfx.config.mc_arb_ramcfg,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MC_ARB_RAMCFG, NOOFBANK);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_ranks =3D REG_GET_FIEL=
-D(adev-&gt;gfx.config.mc_arb_ramcfg,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MC_ARB_RAMCFG, NOOFRANKS);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;tile_config_ptr =3D adev-&=
-gt;gfx.config.tile_mode_array;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_tile_configs =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARRAY_SIZE(adev-=
-&gt;gfx.config.tile_mode_array);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;macro_tile_config_ptr =3D<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.con=
-fig.macrotile_mode_array;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_macro_tile_configs =3D=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARRAY_SIZE(adev-=
-&gt;gfx.config.macrotile_mode_array);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
--}<br>
--<br>
-&nbsp;static inline struct amdgpu_device *get_amdgpu_device(struct kgd_dev =
-*kgd)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (struct amdgpu_devi=
-ce *)kgd;<br>
-@@ -730,7 &#43;705,6 @@ const struct kfd2kgd_calls gfx_v7_kfd2kgd =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .address_watch_get_offset =
-=3D kgd_address_watch_get_offset,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_atc_vmid_pasid_mappin=
-g_info =3D get_atc_vmid_pasid_mapping_info,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_scratch_backing_va =
-=3D set_scratch_backing_va,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_tile_config =3D get_tile_config,=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_vm_context_page_table=
-_base =3D set_vm_context_page_table_base,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read_vmid_from_vmfault_re=
-g =3D read_vmid_from_vmfault_reg,<br>
-&nbsp;};<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c<br>
-index 19a10db93d68..ccd635b812b5 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c<br>
-@@ -41,31 &#43;41,6 @@ enum hqd_dequeue_request_type {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RESET_WAVES<br>
-&nbsp;};<br>
-&nbsp;<br>
--/* Because of REG_GET_FIELD() being used, we put this function in the<br>
-- * asic specific file.<br>
-- */<br>
--static int get_tile_config(struct kgd_dev *kgd,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct tile_config *config)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (struc=
-t amdgpu_device *)kgd;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;gb_addr_config =3D adev-&g=
-t;gfx.config.gb_addr_config;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_banks =3D REG_GET_FIEL=
-D(adev-&gt;gfx.config.mc_arb_ramcfg,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MC_ARB_RAMCFG, NOOFBANK);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_ranks =3D REG_GET_FIEL=
-D(adev-&gt;gfx.config.mc_arb_ramcfg,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; MC_ARB_RAMCFG, NOOFRANKS);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;tile_config_ptr =3D adev-&=
-gt;gfx.config.tile_mode_array;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_tile_configs =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARRAY_SIZE(adev-=
-&gt;gfx.config.tile_mode_array);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;macro_tile_config_ptr =3D<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.con=
-fig.macrotile_mode_array;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_macro_tile_configs =3D=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARRAY_SIZE(adev-=
-&gt;gfx.config.macrotile_mode_array);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
--}<br>
--<br>
-&nbsp;static inline struct amdgpu_device *get_amdgpu_device(struct kgd_dev =
-*kgd)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (struct amdgpu_devi=
-ce *)kgd;<br>
-@@ -676,6 &#43;651,5 @@ const struct kfd2kgd_calls gfx_v8_kfd2kgd =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_atc_vmid_pasid_mappin=
-g_info =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get_a=
-tc_vmid_pasid_mapping_info,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_scratch_backing_va =
-=3D set_scratch_backing_va,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_tile_config =3D get_tile_config,=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_vm_context_page_table=
-_base =3D set_vm_context_page_table_base,<br>
-&nbsp;};<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
-index 7f91feff7c4f..df841c2ac5e7 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c<br>
-@@ -48,28 &#43;48,6 @@ enum hqd_dequeue_request_type {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RESET_WAVES<br>
-&nbsp;};<br>
-&nbsp;<br>
--<br>
--/* Because of REG_GET_FIELD() being used, we put this function in the<br>
-- * asic specific file.<br>
-- */<br>
--int kgd_gfx_v9_get_tile_config(struct kgd_dev *kgd,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct tile_config *config)<br>
--{<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (struc=
-t amdgpu_device *)kgd;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;gb_addr_config =3D adev-&g=
-t;gfx.config.gb_addr_config;<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;tile_config_ptr =3D adev-&=
-gt;gfx.config.tile_mode_array;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_tile_configs =3D<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARRAY_SIZE(adev-=
-&gt;gfx.config.tile_mode_array);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;macro_tile_config_ptr =3D<=
-br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.con=
-fig.macrotile_mode_array;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_macro_tile_configs =3D=
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARRAY_SIZE(adev-=
-&gt;gfx.config.macrotile_mode_array);<br>
--<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
--}<br>
--<br>
-&nbsp;static inline struct amdgpu_device *get_amdgpu_device(struct kgd_dev =
-*kgd)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return (struct amdgpu_devi=
-ce *)kgd;<br>
-@@ -736,7 &#43;714,6 @@ const struct kfd2kgd_calls gfx_v9_kfd2kgd =3D {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .address_watch_get_offset =
-=3D kgd_gfx_v9_address_watch_get_offset,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_atc_vmid_pasid_mappin=
-g_info =3D<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kgd_g=
-fx_v9_get_atc_vmid_pasid_mapping_info,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_tile_config =3D kgd_gfx_v9_get_t=
-ile_config,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .set_vm_context_page_table=
-_base =3D kgd_gfx_v9_set_vm_context_page_table_base,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_hive_id =3D amdgpu_am=
-dkfd_get_hive_id,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_unique_id =3D amdgpu_=
-amdkfd_get_unique_id,<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h<br>
-index 63d3e6683dfe..aedf67d57449 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h<br>
-@@ -60,5 &#43;60,3 @@ uint32_t kgd_gfx_v9_address_watch_get_offset(struct k=
-gd_dev *kgd,<br>
-&nbsp;<br>
-&nbsp;bool kgd_gfx_v9_get_atc_vmid_pasid_mapping_info(struct kgd_dev *kgd,<=
-br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; uint8_t vmid, uint16_t *p_pasid);<br>
--int kgd_gfx_v9_get_tile_config(struct kgd_dev *kgd,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; struct tile_config *config);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu=
-/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
-index e1d1eed7a25f..e4481caed648 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
-@@ -2242,3 &#43;2242,25 @@ int amdgpu_amdkfd_remove_gws_from_process(void *=
-info, void *mem)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(mem);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&#43;<br>
-&#43;/* Returns GPU-specific tiling mode information */<br>
-&#43;int amdgpu_amdkfd_get_tile_config(struct kgd_dev *kgd,<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct tile_config *config)<br>
-&#43;{<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D (s=
-truct amdgpu_device *)kgd;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;gb_addr_config =3D ade=
-v-&gt;gfx.config.gb_addr_config;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;tile_config_ptr =3D ad=
-ev-&gt;gfx.config.tile_mode_array;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_tile_configs =3D<b=
-r>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARRAY_SIZE(a=
-dev-&gt;gfx.config.tile_mode_array);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;macro_tile_config_ptr =
-=3D<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx=
-.config.macrotile_mode_array;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_macro_tile_configs=
- =3D<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ARRAY_SIZE(a=
-dev-&gt;gfx.config.macrotile_mode_array);<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Those values are not set from =
-GFX9 onwards */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_banks =3D adev-&gt=
-;gfx.config.num_banks;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; config-&gt;num_ranks =3D adev-&gt=
-;gfx.config.num_ranks;<br>
-&#43;<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&#43;}<br>
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_chardev.c<br>
-index 675735b8243a..f8fa03a12add 100644<br>
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
-@@ -1169,7 &#43;1169,7 @@ static int kfd_ioctl_get_tile_config(struct file =
-*filep,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev-&gt;kfd2kgd-&gt;get_tile_config(d=
-ev-&gt;kgd, &amp;config);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_get_tile_config(dev=
--&gt;kgd, &amp;config);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;gb_addr_config =
-=3D config.gb_addr_config;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&gt;num_banks =3D con=
-fig.num_banks;<br>
-diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/=
-drm/amd/include/kgd_kfd_interface.h<br>
-index abc0eb4ac493..0cee79d56075 100644<br>
---- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h<br>
-@@ -223,8 &#43;223,6 @@ struct tile_config {<br>
-&nbsp; * @set_scratch_backing_va: Sets VA for scratch backing memory of a V=
-MID.<br>
-&nbsp; * Only used for no cp scheduling mode<br>
-&nbsp; *<br>
-- * @get_tile_config: Returns GPU-specific tiling mode information<br>
-- *<br>
-&nbsp; * @set_vm_context_page_table_base: Program page table base for a VMI=
-D<br>
-&nbsp; *<br>
-&nbsp; * @invalidate_tlbs: Invalidate TLBs for a specific PASID<br>
-@@ -310,8 &#43;308,6 @@ struct kfd2kgd_calls {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*set_scratch_backing=
-_va)(struct kgd_dev *kgd,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t va, uint32_t vmid);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int (*get_tile_config)(struct kgd_dev=
- *kgd, struct tile_config *config);<br>
--<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void (*set_vm_context_page=
-_table_base)(struct kgd_dev *kgd,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint3=
-2_t vmid, uint64_t page_table_base);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t (*read_vmid_from_=
-vmfault_reg)(struct kgd_dev *kgd);<br>
--- <br>
-2.17.1<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Calexander.deucher%40amd.com%7C8f3b7599907940152a9908d7bae57d15%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637183367446481070&amp;amp;sdata=3D=
-8SNAbkJvgXicyXsv%2B0jUbnLgvWM5M%2FR9uEChJrwHrxY%3D&amp;amp;reserved=3D0">ht=
-tps://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.fre=
-edesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexan=
-der.deucher%40amd.com%7C8f3b7599907940152a9908d7bae57d15%7C3dd8961fe4884e60=
-8e11a82d994e183d%7C0%7C0%7C637183367446481070&amp;amp;sdata=3D8SNAbkJvgXicy=
-Xsv%2B0jUbnLgvWM5M%2FR9uEChJrwHrxY%3D&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
 
---_000_CH2PR12MB3912D6821CCB1C4D931AA041F7EA0CH2PR12MB3912namp_--
+Challenges
+==========
+While there are common infrastructure in DRM that is shared across many vendors
+(the scheduler [4] for example), there are also aspects of DRM that are vendor
+specific.  To accommodate this, we borrowed the mechanism used by the cgroup to
+handle different kinds of cgroup controller.
 
---===============1912102988==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Resources for DRM are also often device (GPU) specific instead of system
+specific and a system may contain more than one GPU.  For this, we borrowed
+some of the ideas from RDMA cgroup controller.
+
+Approach
+========
+To experiment with the idea of a DRM cgroup, we would like to start with basic
+accounting and statistics, then continue to iterate and add regulating
+mechanisms into the driver.
+
+[1] https://www.kernel.org/doc/Documentation/cgroup-v1/cgroups.txt
+[2] https://lists.freedesktop.org/archives/intel-gfx/2018-January/153156.html
+[3] https://www.spinics.net/lists/cgroups/msg20720.html
+[4] https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/scheduler
+[5] https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/
+[6] https://blog.openshift.com/gpu-accelerated-sql-queries-with-postgresql-pg-strom-in-openshift-3-10/
+[7] https://github.com/RadeonOpenCompute/k8s-device-plugin
+[8] https://github.com/kubernetes/kubernetes/issues/52757
+
+Kenny Ho (11):
+  cgroup: Introduce cgroup for drm subsystem
+  drm, cgroup: Bind drm and cgroup subsystem
+  drm, cgroup: Initialize drmcg properties
+  drm, cgroup: Add total GEM buffer allocation stats
+  drm, cgroup: Add peak GEM buffer allocation stats
+  drm, cgroup: Add GEM buffer allocation count stats
+  drm, cgroup: Add total GEM buffer allocation limit
+  drm, cgroup: Add peak GEM buffer allocation limit
+  drm, cgroup: Add compute as gpu cgroup resource
+  drm, cgroup: add update trigger after limit change
+  drm/amdgpu: Integrate with DRM cgroup
+
+ Documentation/admin-guide/cgroup-v2.rst       | 138 ++-
+ Documentation/cgroup-v1/drm.rst               |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  48 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |   6 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |   7 +
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   3 +
+ .../amd/amdkfd/kfd_process_queue_manager.c    | 153 +++
+ drivers/gpu/drm/drm_drv.c                     |  12 +
+ drivers/gpu/drm/drm_gem.c                     |  16 +-
+ include/drm/drm_cgroup.h                      |  81 ++
+ include/drm/drm_device.h                      |   7 +
+ include/drm/drm_drv.h                         |  19 +
+ include/drm/drm_gem.h                         |  12 +-
+ include/linux/cgroup_drm.h                    | 138 +++
+ include/linux/cgroup_subsys.h                 |   4 +
+ init/Kconfig                                  |   5 +
+ kernel/cgroup/Makefile                        |   1 +
+ kernel/cgroup/drm.c                           | 913 ++++++++++++++++++
+ 19 files changed, 1563 insertions(+), 5 deletions(-)
+ create mode 100644 Documentation/cgroup-v1/drm.rst
+ create mode 100644 include/drm/drm_cgroup.h
+ create mode 100644 include/linux/cgroup_drm.h
+ create mode 100644 kernel/cgroup/drm.c
+
+-- 
+2.25.0
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1912102988==--
