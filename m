@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 132E1C4BA21
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C27A0C4BA28
 	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DC8642072D
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 90FFF2072D
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QWpKUaq0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC8642072D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="KgJaquNe"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90FFF2072D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 344666EBA9;
-	Wed, 26 Feb 2020 19:02:18 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2054.outbound.protection.outlook.com [40.107.237.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC1F46EBA9;
- Wed, 26 Feb 2020 19:02:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 816726EB99;
+	Wed, 26 Feb 2020 19:02:25 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2047.outbound.protection.outlook.com [40.107.94.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6B1A6EBA9;
+ Wed, 26 Feb 2020 19:02:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NI3U8w40SGD9RgDiESHGArmcdoSIOHDd6I3hyZZ6/fJWiAdqs1ymKlg/HDr20943phyv95gsJlvOvhUKwiVpcUkLZQ2xejCECilFY5YgvZ06N9Jv7bi968sMEl7yvgiMllFMZ8lzCyGw9NTZ8YUUWfo0y7vwhZOWwwoiUeODrGNoEHZvJvG7KjdtHjVYRRD/jeIUZ35BoyX0a6nIYiVPpCy1hsR3bUK0NFe6yN/kvnzoQck/7Yb0C7gD21+2k1pvhUZzkJ3eA3LBlR4q+Lj0dytBKqA7MuE8TBf7EAbVmhzSvkApas0qpFfhPtfQUbQEvToh10Ho/HyxdBtgMR/Uxw==
+ b=ZL68/XCvoVpArNIHFZUTGrT1jigxcEBdiyn7A72/b30WDqQpwofNrxC5AHjq9AP5E3phqxoylueuorU16NpkPIeN23r9nQXdpJNTZUAuuTIJ+cv7/mdfuYGM53REqXF4y2RulaKZ0HUfZ9/qI/EC9lnRH3uYy2dhuZiIYDA3k7NTN5a9Z6NS3XgN3ZCNlDPeNINSwgpQ0hGCMXcjr+MZNLKq8awIMihNYp1dk7ddhRVBtxBq2fu4lPPDKFfLT3BPr8wBP29MhAjL9XO6n465c565bRw+UGK37+HPJdGAtSqo6X2CT6/T1YHDDYob6rDe7snKltSNe+JHQUlBjSikcw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W9U7NEPPNIxK9vLDx9ztf8Nw8JMRkapZr2Z7bfi02Ns=;
- b=Mb6HtP9HJ6rsO22+xTCWzbRMwMNzCU1IDYzJBfzNdQPdcUDR1CxdBsgXZYjDl1iVcFcKlnF9wPpWzGJ1lAN3zDwvfK7jGfcdLgyngSN0e9Qtd7bgXGRdlzHGgPD2xggc0AIJHSTiePwbWRDvh9HqeYMgGwYWHreIpGxLLHk3ZEPSztyKApB+7gjY/q8wj8hOrv4GXzyOeic3NipVx/aLMIuAFP1KcLBESvl1lv5dusMM9L4KsBHftZGstlZaISFj7BRcm4qrNQ/HuJTbbdBJXGeiJqkfrBnjr2R3OJrQ57qluwYS03qas1PDgHGLwP9YuVJ2p3nfc8kfnCmIwHpiaA==
+ bh=W0yw5UORnhD9jhJZKoq3U0mozi1+naoh8kxFcJWfwYQ=;
+ b=gYBHz9aNVpOj+aNocqbh2kTFmQy7L6EpvjgtBySNiGnHD7tI/pQ+cnhAONUJZTQXsGZ0Vm/VREDBfAifIi2g3qASSbhgIbVWgRtE4r/x/ES2XwsjGc1SY5YBMWNXbpx71wQYRn3UX13ePYs4Q+LtiK+UPaf6chHQsULEj0hPUx61rPWHPT10WHwJkIMZnqOQJ3Zfkr8xcsSAQPU/XdFGJer0gMlBaW3oxVSqecwYK1rvwzT526YzqwLNSyxGeKN3IuzBKYiZCwRRNt4qH3tC6tmXuj+E4Ndw5bQOUKrH3rjQ/UWonFwb2iuPTqj1WJNpY7S/KvgngyuIOM6XQqya2w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com;
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,46 +40,46 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W9U7NEPPNIxK9vLDx9ztf8Nw8JMRkapZr2Z7bfi02Ns=;
- b=QWpKUaq0iv9VYjHDJgQjF5MMYNX88XViZp6gsTR7bikY+lpGf1oQHb4KvO5/6T3WkWcF++WjX+n7tPDGZ0gcgncQjYCh52vYlpCClIlmlNODmt+UuL2WvvRult93zN2nKtLT3HNEQyFS+GPPaVWECfih6SDoH7vjd2E9yDTRDaQ=
-Received: from DM5PR04CA0062.namprd04.prod.outlook.com (2603:10b6:3:ef::24) by
- DM6PR12MB2988.namprd12.prod.outlook.com (2603:10b6:5:3d::23) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2750.21; Wed, 26 Feb 2020 19:02:12 +0000
-Received: from DM6NAM11FT059.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:ef:cafe::d) by DM5PR04CA0062.outlook.office365.com
- (2603:10b6:3:ef::24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
- Transport; Wed, 26 Feb 2020 19:02:12 +0000
+ bh=W0yw5UORnhD9jhJZKoq3U0mozi1+naoh8kxFcJWfwYQ=;
+ b=KgJaquNe0Hwu5kpjK6KkUnJ0pP6tS1H8sRS2QGP9xFnngd7UY9bqVDejDQ0SS7tPcSvTN3kLPt7Gcocw5f5cPvMpGjveMoUOe0Opc5fRz3oWMEbnvba9tvz3qnKwdjhF32ioJrCbDgNsY3ZubGGd0SJCG9XfJixctaG0J18bTlo=
+Received: from BN6PR1701CA0011.namprd17.prod.outlook.com
+ (2603:10b6:405:15::21) by DM5PR12MB1337.namprd12.prod.outlook.com
+ (2603:10b6:3:6e::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.22; Wed, 26 Feb
+ 2020 19:02:10 +0000
+Received: from BN8NAM11FT012.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:405:15:cafe::13) by BN6PR1701CA0011.outlook.office365.com
+ (2603:10b6:405:15::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14 via Frontend
+ Transport; Wed, 26 Feb 2020 19:02:10 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; gmail.com; dkim=none (message not signed)
  header.d=none;gmail.com; dmarc=permerror action=none header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT059.mail.protection.outlook.com (10.13.172.92) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT012.mail.protection.outlook.com (10.13.177.55) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2772.14 via Frontend Transport; Wed, 26 Feb 2020 19:02:12 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.2772.14 via Frontend Transport; Wed, 26 Feb 2020 19:02:09 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 26 Feb
- 2020 13:02:11 -0600
+ 2020 13:02:08 -0600
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 26 Feb
- 2020 13:02:11 -0600
+ 2020 13:02:08 -0600
 Received: from yuho-zbook.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Wed, 26 Feb 2020 13:02:10 -0600
+ Transport; Wed, 26 Feb 2020 13:02:08 -0600
 From: Kenny Ho <Kenny.Ho@amd.com>
 To: <y2kenny@gmail.com>, <cgroups@vger.kernel.org>,
  <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
  <tj@kernel.org>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <felix.kuehling@amd.com>, <joseph.greathouse@amd.com>, <jsparks@cray.com>
-Subject: [PATCH v2 11/11] drm/amdgpu: Integrate with DRM cgroup
-Date: Wed, 26 Feb 2020 14:01:52 -0500
-Message-ID: <20200226190152.16131-12-Kenny.Ho@amd.com>
+Subject: [PATCH v2 08/11] drm, cgroup: Add peak GEM buffer allocation limit
+Date: Wed, 26 Feb 2020 14:01:49 -0500
+Message-ID: <20200226190152.16131-9-Kenny.Ho@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200226190152.16131-1-Kenny.Ho@amd.com>
 References: <lkaplan@cray.com; daniel@ffwll.ch; nirmoy.das@amd.com;
@@ -90,26 +90,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(346002)(136003)(396003)(376002)(428003)(189003)(199004)(4326008)(478600001)(26005)(86362001)(2906002)(316002)(5660300002)(110136005)(7696005)(336012)(1076003)(8676002)(186003)(36756003)(426003)(2616005)(356004)(81166006)(70586007)(6666004)(81156014)(70206006)(8936002)(921003)(1121003)(83996005)(2101003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2988; H:SATLEXMB02.amd.com; FPR:;
+ SFS:(10009020)(4636009)(396003)(136003)(346002)(376002)(39860400002)(428003)(189003)(199004)(186003)(2616005)(26005)(426003)(336012)(4326008)(81156014)(81166006)(8676002)(6666004)(2906002)(1076003)(8936002)(316002)(356004)(70206006)(36756003)(478600001)(86362001)(7696005)(70586007)(5660300002)(110136005)(921003)(2101003)(83996005)(1121003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1337; H:SATLEXMB01.amd.com; FPR:;
  SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 68aeacbe-ae5b-4aa9-82c1-08d7baee62fd
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2988:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB29883D89BF34F2D7890572B483EA0@DM6PR12MB2988.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-MS-Office365-Filtering-Correlation-Id: c46743ce-005a-444d-a350-08d7baee61ad
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1337:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1337B383AB9663E0AE9E0DCD83EA0@DM5PR12MB1337.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
 X-Forefront-PRVS: 0325F6C77B
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: rDYwxrqMvkijOuqsl88Ag0EWbKY0O+6qsHJ/RKjoXSmF+q5sOvPwyI4tCdfllUZ1ObXCQYPBKGiDtHfd/u9R3yWPURrEHENgxef25zlk25Sfw/5FdTNHpLIlAwL7WJQtupb4BXzmVQtaQaEuvoPLMhjOOTu6J6ecHT+udVLv8lnboeXDS9KQcjEwccdQKsvok2uXWzaR11G9TpE0/rXRlVDzHLhU/GapS4I7CvXCoNrtGvk0/+pVoA31RfeNKhf5Nb/dECW5ZOnbGehUbcrgfZwcagCAOFAvq1Lwpi/886JAnOI8f7VMyTpVK6iunbI4YPUBsEGDb63BR4oHr/Zl8Y128zW7SbMO7StsiSWN6tzQr+WvvatFvp8LRMKHCXvKeEhf0+m1tRegH4E13M5BN+jBj/txZqkecQ4tTvYl8EUuzQDmaI+qIeO9CVY1UWxi7kaZiT/vH1DlLzHYHpbf/uYG8jWGn506lC5FD+tq1w3EcxyLFf+ns/r2jRbaNFg9jDu13TcPIUypI6JGccQfjf50Ko9CUVAxpnshyy5AkR4=
+X-Microsoft-Antispam-Message-Info: kx2r1P3QAN8LF4XsYHkJ8LbzczTJ8h9aBtACrEHymsrkZkpDTE9r4nP2ftBJMks3+O2m+Nai43BKdMu0ndUA9T+/5JvS9Q7tjuHUPY5qS4cCzkSxS9INPzNA1i6CB6hCdMZy3KsLgQKQWTgaQFgP/5tarorcdDE/EI/x3MzzsxrFfNvwm4dyjJhZ/tmHUX9XQsCdGj3+UPnJj3/UcyivhksiuUySXkwVEBrnH83B4VMShXz7k0ifC7aTtVqoyulFDN6VPbNwyGo3KYM6u37dliD5GncU2LAqE4W6Avpj9IKazmxMlONrvEiUYmSkanw17EF6fj/E5mBEmU0H1rZpCOjeE2tLZq7TE0eWD/N6UGDdEH6rO6ZHlz3s2cMSkE0GQHTKrNi24Wmqa1chvPiEY1Yi1f8xQlaiV1PvJKhMMVHRJ9qH95tTJoJ9i47Hb/HmB+Qw9ojrWGvLyDinSqz/IaCQEe0+Lyr8WXIGVHFO65HOAvmrebFVwfIL4KgWuqLWElTNu43LOlKT7MddCjw8l3Qj+DpYzM4C5VVfXLFrarQ=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2020 19:02:12.0759 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68aeacbe-ae5b-4aa9-82c1-08d7baee62fd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2020 19:02:09.9537 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c46743ce-005a-444d-a350-08d7baee61ad
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
+ Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2988
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1337
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,314 +127,182 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The number of compute unit (CU) for a device is used for the gpu cgroup
-compute capacity.  The gpu cgroup compute allocation limit only applies
-to compute workload for the moment (enforced via kfd queue creation.)
-Any cu_mask update is validated against the availability of the compute
-unit as defined by the drmcg the kfd process belongs to.
+gpu.buffer.peak.default
+        A read-only flat-keyed file which exists on the root cgroup.
+        Each entry is keyed by the drm device's major:minor.
 
-Change-Id: I2930e76ef9ac6d36d0feb81f604c89a4208e6614
+        Default limits on the largest GEM buffer allocation in bytes.
+
+gpu.buffer.peak.max
+        A read-write flat-keyed file which exists on all cgroups.  Each
+        entry is keyed by the drm device's major:minor.
+
+        Per device limits on the largest GEM buffer allocation in bytes.
+        This is a hard limit.  Attempts in allocating beyond the cgroup
+        limit will result in ENOMEM.  Shorthand understood by memparse
+        (such as k, m, g) can be used.
+
+        Set largest allocation for /dev/dri/card1 to 4MB
+        echo "226:1 4m" > gpu.buffer.peak.max
+
+Change-Id: I5ab3fb4a442b6cbd5db346be595897c90217da69
 Signed-off-by: Kenny Ho <Kenny.Ho@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  29 ++++
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |   7 +
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   3 +
- .../amd/amdkfd/kfd_process_queue_manager.c    | 153 ++++++++++++++++++
- 5 files changed, 196 insertions(+)
+ Documentation/admin-guide/cgroup-v2.rst | 18 +++++++++++
+ include/drm/drm_cgroup.h                |  1 +
+ include/linux/cgroup_drm.h              |  1 +
+ kernel/cgroup/drm.c                     | 43 +++++++++++++++++++++++++
+ 4 files changed, 63 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 0ee8aae6c519..1efbc0d3c03e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -199,6 +199,10 @@ uint8_t amdgpu_amdkfd_get_xgmi_hops_count(struct kgd_dev *dst, struct kgd_dev *s
- 		valid;							\
- 	})
+diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
+index f2d7abf5c783..581343472651 100644
+--- a/Documentation/admin-guide/cgroup-v2.rst
++++ b/Documentation/admin-guide/cgroup-v2.rst
+@@ -2108,6 +2108,24 @@ GPU Interface Files
+ 	Set allocation limit for /dev/dri/card0 to 512MB
+ 	echo "226:0 512m" > gpu.buffer.total.max
  
-+int amdgpu_amdkfd_update_cu_mask_for_process(struct task_struct *task,
-+		struct amdgpu_device *adev, unsigned long *compute_bm,
-+		unsigned int compute_bm_size);
++  gpu.buffer.peak.default
++	A read-only flat-keyed file which exists on the root cgroup.
++	Each entry is keyed by the drm device's major:minor.
 +
- /* GPUVM API */
- int amdgpu_amdkfd_gpuvm_create_process_vm(struct kgd_dev *kgd, unsigned int pasid,
- 					void **vm, void **process_info,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 171397708855..595ad852080b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1418,9 +1418,31 @@ amdgpu_get_crtc_scanout_position(struct drm_device *dev, unsigned int pipe,
- static void amdgpu_drmcg_custom_init(struct drm_device *dev,
- 	struct drmcg_props *props)
- {
-+	struct amdgpu_device *adev = dev->dev_private;
++	Default limits on the largest GEM buffer allocation in bytes.
 +
-+	props->compute_capacity = adev->gfx.cu_info.number;
-+	bitmap_zero(props->compute_slots, MAX_DRMCG_COMPUTE_CAPACITY);
-+	bitmap_fill(props->compute_slots, props->compute_capacity);
++  gpu.buffer.peak.max
++	A read-write flat-keyed file which exists on all cgroups.  Each
++	entry is keyed by the drm device's major:minor.
 +
- 	props->limit_enforced = true;
++	Per device limits on the largest GEM buffer allocation in bytes.
++	This is a hard limit.  Attempts in allocating beyond the cgroup
++	limit will result in ENOMEM.  Shorthand understood by memparse
++	(such as k, m, g) can be used.
++
++	Set largest allocation for /dev/dri/card1 to 4MB
++	echo "226:1 4m" > gpu.buffer.peak.max
++
+ GEM Buffer Ownership
+ ~~~~~~~~~~~~~~~~~~~~
+ 
+diff --git a/include/drm/drm_cgroup.h b/include/drm/drm_cgroup.h
+index 2783e56690db..2b41d4d22e33 100644
+--- a/include/drm/drm_cgroup.h
++++ b/include/drm/drm_cgroup.h
+@@ -16,6 +16,7 @@ struct drmcg_props {
+ 	bool			limit_enforced;
+ 
+ 	s64			bo_limits_total_allocated_default;
++	s64			bo_limits_peak_allocated_default;
+ };
+ 
+ void drmcg_bind(struct drm_minor (*(*acq_dm)(unsigned int minor_id)),
+diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
+index 71023654fb77..aba3b26718c0 100644
+--- a/include/linux/cgroup_drm.h
++++ b/include/linux/cgroup_drm.h
+@@ -29,6 +29,7 @@ struct drmcg_device_resource {
+ 	s64			bo_limits_total_allocated;
+ 
+ 	s64			bo_stats_peak_allocated;
++	s64			bo_limits_peak_allocated;
+ 
+ 	s64			bo_stats_count_allocated;
+ };
+diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
+index 4b19e533941d..62d2a9d33d0c 100644
+--- a/kernel/cgroup/drm.c
++++ b/kernel/cgroup/drm.c
+@@ -95,6 +95,9 @@ static inline int init_drmcg_single(struct drmcg *drmcg, struct drm_device *dev)
+ 	ddr->bo_limits_total_allocated =
+ 		dev->drmcg_props.bo_limits_total_allocated_default;
+ 
++	ddr->bo_limits_peak_allocated =
++		dev->drmcg_props.bo_limits_peak_allocated_default;
++
+ 	return 0;
  }
  
-+static void amdgpu_drmcg_limit_updated(struct drm_device *dev,
-+		struct task_struct *task, struct drmcg_device_resource *ddr,
-+		enum drmcg_res_type res_type)
-+{
-+	struct amdgpu_device *adev = dev->dev_private;
-+
-+	switch (res_type) {
-+	case DRMCG_TYPE_COMPUTE:
-+		amdgpu_amdkfd_update_cu_mask_for_process(task, adev,
-+                        ddr->compute_eff, dev->drmcg_props.compute_capacity);
+@@ -305,6 +308,9 @@ static void drmcg_print_limits(struct drmcg_device_resource *ddr,
+ 	case DRMCG_TYPE_BO_TOTAL:
+ 		seq_printf(sf, "%lld\n", ddr->bo_limits_total_allocated);
+ 		break;
++	case DRMCG_TYPE_BO_PEAK:
++		seq_printf(sf, "%lld\n", ddr->bo_limits_peak_allocated);
 +		break;
-+	default:
+ 	default:
+ 		seq_puts(sf, "\n");
+ 		break;
+@@ -319,6 +325,10 @@ static void drmcg_print_default(struct drmcg_props *props,
+ 		seq_printf(sf, "%lld\n",
+ 			props->bo_limits_total_allocated_default);
+ 		break;
++	case DRMCG_TYPE_BO_PEAK:
++		seq_printf(sf, "%lld\n",
++			props->bo_limits_peak_allocated_default);
 +		break;
-+	}
-+}
-+
- #else
+ 	default:
+ 		seq_puts(sf, "\n");
+ 		break;
+@@ -476,6 +486,19 @@ static ssize_t drmcg_limit_write(struct kernfs_open_file *of, char *buf,
  
- static void amdgpu_drmcg_custom_init(struct drm_device *dev,
-@@ -1428,6 +1450,12 @@ static void amdgpu_drmcg_custom_init(struct drm_device *dev,
- {
- }
- 
-+static void amdgpu_drmcg_limit_updated(struct drm_device *dev,
-+		struct task_struct *task, struct drmcg_device_resource *ddr,
-+		enum drmcg_res_type res_type)
-+{
-+}
+ 			ddr->bo_limits_total_allocated = val;
+ 			break;
++		case DRMCG_TYPE_BO_PEAK:
++			rc = drmcg_process_limit_s64_val(sattr, true,
++				props->bo_limits_peak_allocated_default,
++				S64_MAX,
++				&val);
 +
- #endif /* CONFIG_CGROUP_DRM */
- 
- static struct drm_driver kms_driver = {
-@@ -1462,6 +1490,7 @@ static struct drm_driver kms_driver = {
- 	.gem_prime_mmap = amdgpu_gem_prime_mmap,
- 
- 	.drmcg_custom_init = amdgpu_drmcg_custom_init,
-+	.drmcg_limit_updated = amdgpu_drmcg_limit_updated,
- 
- 	.name = DRIVER_NAME,
- 	.desc = DRIVER_DESC,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 675735b8243a..a35596f2dc4e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -451,6 +451,13 @@ static int kfd_ioctl_set_cu_mask(struct file *filp, struct kfd_process *p,
- 		return -EFAULT;
- 	}
- 
-+	if (!pqm_drmcg_compute_validate(p, args->queue_id,
-+                    properties.cu_mask, cu_mask_size)) {
-+		pr_debug("CU mask not permitted by DRM Cgroup");
-+		kfree(properties.cu_mask);
-+		return -EACCES;
-+	}
-+
- 	mutex_lock(&p->mutex);
- 
- 	retval = pqm_set_cu_mask(&p->pqm, args->queue_id, &properties);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 063096ec832d..0fb619586e24 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -929,6 +929,9 @@ int pqm_get_wave_state(struct process_queue_manager *pqm,
- 		       u32 *ctl_stack_used_size,
- 		       u32 *save_area_used_size);
- 
-+bool pqm_drmcg_compute_validate(struct kfd_process *p, int qid, u32 *cu_mask,
-+		unsigned int cu_mask_size);
-+
- int amdkfd_fence_wait_timeout(unsigned int *fence_addr,
- 			      unsigned int fence_value,
- 			      unsigned int timeout_ms);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index cb1ca11b99c3..bd09403e07b5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -23,9 +23,11 @@
- 
- #include <linux/slab.h>
- #include <linux/list.h>
-+#include <linux/cgroup_drm.h>
- #include "kfd_device_queue_manager.h"
- #include "kfd_priv.h"
- #include "kfd_kernel_queue.h"
-+#include "amdgpu.h"
- #include "amdgpu_amdkfd.h"
- 
- static inline struct process_queue_node *get_queue_by_qid(
-@@ -167,6 +169,7 @@ static int init_user_queue(struct process_queue_manager *pqm,
- 				struct queue_properties *q_properties,
- 				struct file *f, unsigned int qid)
- {
-+	struct drmcg *drmcg;
- 	int retval;
- 
- 	/* Doorbell initialized in user space*/
-@@ -180,6 +183,37 @@ static int init_user_queue(struct process_queue_manager *pqm,
- 	if (retval != 0)
- 		return retval;
- 
-+#ifdef CONFIG_CGROUP_DRM
-+	drmcg = drmcg_get(pqm->process->lead_thread);
-+	if (drmcg) {
-+		struct amdgpu_device *adev;
-+		struct drmcg_device_resource *ddr;
-+		int mask_size;
-+		u32 *mask;
-+
-+		adev = (struct amdgpu_device *) dev->kgd;
-+
-+		mask_size = adev->ddev->drmcg_props.compute_capacity;
-+		mask = kzalloc(sizeof(u32) * round_up(mask_size, 32),
-+				GFP_KERNEL);
-+
-+		if (!mask) {
-+			drmcg_put(drmcg);
-+			uninit_queue(*q);
-+			return -ENOMEM;
-+		}
-+
-+		ddr = drmcg->dev_resources[adev->ddev->primary->index];
-+
-+		bitmap_to_arr32(mask, ddr->compute_eff, mask_size);
-+
-+		(*q)->properties.cu_mask_count = mask_size;
-+		(*q)->properties.cu_mask = mask;
-+
-+		drmcg_put(drmcg);
-+	}
-+#endif /* CONFIG_CGROUP_DRM */
-+
- 	(*q)->device = dev;
- 	(*q)->process = pqm->process;
- 
-@@ -510,6 +544,125 @@ int pqm_get_wave_state(struct process_queue_manager *pqm,
- 						       save_area_used_size);
- }
- 
-+#ifdef CONFIG_CGROUP_DRM
-+
-+bool pqm_drmcg_compute_validate(struct kfd_process *p, int qid, u32 *cu_mask,
-+		unsigned int cu_mask_size)
-+{
-+	DECLARE_BITMAP(curr_mask, MAX_DRMCG_COMPUTE_CAPACITY);
-+	struct drmcg_device_resource *ddr;
-+	struct process_queue_node *pqn;
-+	struct amdgpu_device *adev;
-+	struct drmcg *drmcg;
-+	bool result;
-+
-+	if (cu_mask_size > MAX_DRMCG_COMPUTE_CAPACITY)
-+		return false;
-+
-+	bitmap_from_arr32(curr_mask, cu_mask, cu_mask_size);
-+
-+	pqn = get_queue_by_qid(&p->pqm, qid);
-+	if (!pqn)
-+		return false;
-+
-+	adev = (struct amdgpu_device *)pqn->q->device->kgd;
-+
-+	drmcg = drmcg_get(p->lead_thread);
-+	ddr = drmcg->dev_resources[adev->ddev->primary->index];
-+
-+	if (bitmap_subset(curr_mask, ddr->compute_eff,
-+				MAX_DRMCG_COMPUTE_CAPACITY))
-+		result = true;
-+	else
-+		result = false;
-+
-+	drmcg_put(drmcg);
-+
-+	return result;
-+}
-+
-+#else
-+
-+bool pqm_drmcg_compute_validate(struct kfd_process *p, int qid, u32 *cu_mask,
-+		unsigned int cu_mask_size)
-+{
-+	return true;
-+}
-+
-+#endif /* CONFIG_CGROUP_DRM */
-+
-+int amdgpu_amdkfd_update_cu_mask_for_process(struct task_struct *task,
-+		struct amdgpu_device *adev, unsigned long *compute_bm,
-+		unsigned int compute_bm_size)
-+{
-+	struct kfd_dev *kdev = adev->kfd.dev;
-+	struct process_queue_node *pqn;
-+	struct kfd_process *kfdproc;
-+	size_t size_in_bytes;
-+	u32 *cu_mask;
-+	int rc = 0;
-+
-+	if ((compute_bm_size % 32) != 0) {
-+		pr_warn("compute_bm_size %d must be a multiple of 32",
-+				compute_bm_size);
-+		return -EINVAL;
-+	}
-+
-+	kfdproc = kfd_get_process(task);
-+
-+	if (IS_ERR(kfdproc))
-+		return -ESRCH;
-+
-+	size_in_bytes = sizeof(u32) * round_up(compute_bm_size, 32);
-+
-+	mutex_lock(&kfdproc->mutex);
-+	list_for_each_entry(pqn, &kfdproc->pqm.queues, process_queue_list) {
-+		if (pqn->q && pqn->q->device == kdev) {
-+			/* update cu_mask accordingly */
-+			cu_mask = kzalloc(size_in_bytes, GFP_KERNEL);
-+			if (!cu_mask) {
-+				rc = -ENOMEM;
++			if (rc || val < 0) {
++				drmcg_pr_cft_err(drmcg, rc, cft_name, minor);
 +				break;
 +			}
 +
-+			if (pqn->q->properties.cu_mask) {
-+				DECLARE_BITMAP(curr_mask,
-+						MAX_DRMCG_COMPUTE_CAPACITY);
-+
-+				if (pqn->q->properties.cu_mask_count >
-+						compute_bm_size) {
-+					rc = -EINVAL;
-+					kfree(cu_mask);
-+					break;
-+				}
-+
-+				bitmap_from_arr32(curr_mask,
-+						pqn->q->properties.cu_mask,
-+						pqn->q->properties.cu_mask_count);
-+
-+				bitmap_and(curr_mask, curr_mask, compute_bm,
-+						compute_bm_size);
-+
-+				bitmap_to_arr32(cu_mask, curr_mask,
-+						compute_bm_size);
-+
-+				kfree(curr_mask);
-+			} else
-+				bitmap_to_arr32(cu_mask, compute_bm,
-+						compute_bm_size);
-+
-+			pqn->q->properties.cu_mask = cu_mask;
-+			pqn->q->properties.cu_mask_count = compute_bm_size;
-+
-+			rc = pqn->q->device->dqm->ops.update_queue(
-+					pqn->q->device->dqm, pqn->q);
-+		}
-+	}
-+	mutex_unlock(&kfdproc->mutex);
-+
-+	return rc;
-+}
-+
- #if defined(CONFIG_DEBUG_FS)
++			ddr->bo_limits_peak_allocated = val;
++			break;
+ 		default:
+ 			break;
+ 		}
+@@ -517,6 +540,20 @@ struct cftype files[] = {
+ 		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_BO_PEAK,
+ 						DRMCG_FTYPE_STATS),
+ 	},
++	{
++		.name = "buffer.peak.default",
++		.seq_show = drmcg_seq_show,
++		.flags = CFTYPE_ONLY_ON_ROOT,
++		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_BO_PEAK,
++						DRMCG_FTYPE_DEFAULT),
++	},
++	{
++		.name = "buffer.peak.max",
++		.write = drmcg_limit_write,
++		.seq_show = drmcg_seq_show,
++		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_BO_PEAK,
++						DRMCG_FTYPE_LIMIT),
++	},
+ 	{
+ 		.name = "buffer.count.stats",
+ 		.seq_show = drmcg_seq_show,
+@@ -546,6 +583,7 @@ void drmcg_device_early_init(struct drm_device *dev)
+ 	dev->drmcg_props.limit_enforced = false;
  
- int pqm_debugfs_mqds(struct seq_file *m, void *data)
+ 	dev->drmcg_props.bo_limits_total_allocated_default = S64_MAX;
++	dev->drmcg_props.bo_limits_peak_allocated_default = S64_MAX;
+ 
+ 	drmcg_update_cg_tree(dev);
+ }
+@@ -585,6 +623,11 @@ bool drmcg_try_chg_bo_alloc(struct drmcg *drmcg, struct drm_device *dev,
+ 				result = false;
+ 				break;
+ 			}
++
++			if (ddr->bo_limits_peak_allocated < size) {
++				result = false;
++				break;
++			}
+ 		}
+ 	}
+ 
 -- 
 2.25.0
 
