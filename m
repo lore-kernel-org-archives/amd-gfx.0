@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EDCF3C4BA26
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B797C4BA25
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C331B2072D
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 304302072D
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="y7I620ll"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C331B2072D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PIMxun9I"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 304302072D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0A096EBB1;
-	Wed, 26 Feb 2020 19:02:13 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750071.outbound.protection.outlook.com [40.107.75.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEB7B6EBAE;
- Wed, 26 Feb 2020 19:02:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C05676EBAE;
+	Wed, 26 Feb 2020 19:02:16 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2084.outbound.protection.outlook.com [40.107.236.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A44606EBA9;
+ Wed, 26 Feb 2020 19:02:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BjHQGUY2EhWuiTjV+jcp+w38PRGKXBJ6CFPZKv/XdQowJew8fcInCqv9YShfYmXoIirDYfonnnHgEm3BqMAtDFSZl53VVg8lYVtgFAxhA+vq16RQ2GSs2xCVtXsKkNoOS3MFZ01h6YZxzWoFzVmTyKj+vtVxPE1KlXmGhYaatLbNiwzsm2UN3I/ILem55uUrAekPOyEdvUYt9/GZ4iybqHjM92x3C56jvdkmnndb98qOM+OG4cb8jD3sIchUmtEWqIQhyx74aO9AJXr1+eLVfB67qkwyCGZTU3mCQSsjVxSirGxIwm/TDoCDMkOhh47snwMppBDnwtrCOwxO5C7/ag==
+ b=bUMMbuZM8ZuxYLqIzil8RdXG6RMy0cPBljgeiJ7VG/IX3dPFycGIBLpMj1PQ5iiFKcX0nMxQHIMFBs7EuwJnxm+V8qvhsUyqWOB86yekCMgCRcIJfutof4GJ4B1/vhXhbxS1Owfj9jADb48xVKmZ33I34fC59s93QL/C+69N5jH7oc5ldCdJLKymCvh+qKEW3Ye3+thU6IrZhYDcSEzHMh8a2sDEU/4tt3jSWhJ9ZYectMwbYsVq2IiZH5LjeUHTDo61c590QItiO0EB3qDI0Gb6ElWn+tumBKvDNumg0OOIhJ9EkD541tbsTcPb3CHUz2j30Y2HEniROxMUJEiG4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZtbIUCcTEiB8r0n5RAMV9tMcF6GnAvzY3cASx+IKURY=;
- b=emLkzoYWlH+fLlWzFez2/pBG1Fv/xf3vPmTrlwBFWBYEp8jzoMTMKwAiSNx03ZL+peDg3T3Q+41Un0ay7cPCc+eeJkoFocqu7wpUTcRs3Qkk62c+q1hL0XA8qyxNaJBH7UIH0IwCqk8AsHjswNqQHygsVM+lotzR7/Ly5oMWp6H2MTun/tKsnkQ0qeME+IK4nvxtxwCgfBVXqGME06Qe8wyurHuSe5TUuhYWt/rF1pdZdx8DUiPbauJh3g0pWuiWH/ptXWRj5o1oaFLZXLLqo8A7KBesSIHvyyiCCJCxHsDSg5ao0NiH7p/uPZ5kZDZWdh9yNjfjwSt5u0EzWpW9ew==
+ bh=fZS7Y5c64/ZEFBwFzkh5BDxJTRdiicRP1BQpcSK8Pf4=;
+ b=mZ/Ywv72rCQsi7MZFcFFiXgoum2yOqu2Cj59FADByhoMhJ8kot4DMt3CR9mTI2AdGOdYJ1NkKOXCmIL8QOElgIXbhqNSKxl58VTvbLad90CzqQDq36fo65MaSBY13PQXCAfsEY2o1jlbYnmjZdZZ1c+E0z2FhqAQkOACD3zDLpxdI6zZbw40BVysACAdlCUU23O0KuP9A7oLZVy+48Mymsva2DXveRimpJ3M2y1a2rcEeC9wtpQAzjupVKKwV59C52DntOOZNkFt9CLO0PDwl0ZrVPEZa8yIDApZElOEkwDt0AqR+Wt8d5ti0VSrvBdeRMKBijpjdBr2ciRg3vLl0g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com;
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZtbIUCcTEiB8r0n5RAMV9tMcF6GnAvzY3cASx+IKURY=;
- b=y7I620llbdPyqeDCZVflQsR5Az+01WIJSNOa2yO4Ma9KoomvHIwlUQ/p/An1Wf2zT1muXlsvvv8cHcxkN5qD/orj5l5cU2ozNPIH3P2pOBKdH0rUG0KaY0dXzJm5sReTXfGYaQnc/ra4xN7ozusuUovf8p2+PIr+zkcsDzVVnVU=
-Received: from DM5PR04CA0057.namprd04.prod.outlook.com (2603:10b6:3:ef::19) by
- BY5PR12MB3713.namprd12.prod.outlook.com (2603:10b6:a03:1a6::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.22; Wed, 26 Feb
- 2020 19:02:09 +0000
+ bh=fZS7Y5c64/ZEFBwFzkh5BDxJTRdiicRP1BQpcSK8Pf4=;
+ b=PIMxun9I+kyJMFzZGLPIWePdBPuyMJDae3MkHwey25jHG2DWdowd1GYYUveoGs4+gHT80yORKBy+3zlv+p9CCKqs8m31uaGVMDku0dOCpfALlCyUg6V/EbivxK7sXR19Nx59/IIQgSjxgJk2Bq0lwHRWXamiQxBKMAypfFAAYjA=
+Received: from DM5PR04CA0066.namprd04.prod.outlook.com (2603:10b6:3:ef::28) by
+ DM6PR12MB2969.namprd12.prod.outlook.com (2603:10b6:5:115::18) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2750.17; Wed, 26 Feb 2020 19:02:10 +0000
 Received: from DM6NAM11FT017.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:ef:cafe::9e) by DM5PR04CA0057.outlook.office365.com
- (2603:10b6:3:ef::19) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:3:ef:cafe::b6) by DM5PR04CA0066.outlook.office365.com
+ (2603:10b6:3:ef::28) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
- Transport; Wed, 26 Feb 2020 19:02:09 +0000
+ Transport; Wed, 26 Feb 2020 19:02:10 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; gmail.com; dkim=none (message not signed)
  header.d=none;gmail.com; dmarc=permerror action=none header.from=amd.com;
@@ -60,26 +60,26 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
  DM6NAM11FT017.mail.protection.outlook.com (10.13.172.145) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2772.14 via Frontend Transport; Wed, 26 Feb 2020 19:02:08 +0000
+ 15.20.2772.14 via Frontend Transport; Wed, 26 Feb 2020 19:02:10 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 26 Feb
- 2020 13:02:08 -0600
+ 2020 13:02:09 -0600
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 26 Feb
- 2020 13:02:07 -0600
+ 2020 13:02:09 -0600
 Received: from yuho-zbook.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Wed, 26 Feb 2020 13:02:07 -0600
+ Transport; Wed, 26 Feb 2020 13:02:08 -0600
 From: Kenny Ho <Kenny.Ho@amd.com>
 To: <y2kenny@gmail.com>, <cgroups@vger.kernel.org>,
  <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
  <tj@kernel.org>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <felix.kuehling@amd.com>, <joseph.greathouse@amd.com>, <jsparks@cray.com>
-Subject: [PATCH v2 07/11] drm, cgroup: Add total GEM buffer allocation limit
-Date: Wed, 26 Feb 2020 14:01:48 -0500
-Message-ID: <20200226190152.16131-8-Kenny.Ho@amd.com>
+Subject: [PATCH v2 09/11] drm, cgroup: Add compute as gpu cgroup resource
+Date: Wed, 26 Feb 2020 14:01:50 -0500
+Message-ID: <20200226190152.16131-10-Kenny.Ho@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200226190152.16131-1-Kenny.Ho@amd.com>
 References: <lkaplan@cray.com; daniel@ffwll.ch; nirmoy.das@amd.com;
@@ -90,26 +90,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(39860400002)(376002)(346002)(396003)(428003)(189003)(199004)(2906002)(70206006)(7696005)(316002)(36756003)(356004)(8676002)(70586007)(110136005)(81166006)(81156014)(6666004)(8936002)(4326008)(478600001)(1076003)(86362001)(30864003)(336012)(2616005)(426003)(26005)(186003)(5660300002)(921003)(83996005)(2101003)(1121003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BY5PR12MB3713; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+ SFS:(10009020)(4636009)(39860400002)(396003)(376002)(136003)(346002)(428003)(199004)(189003)(70206006)(356004)(6666004)(5660300002)(81156014)(81166006)(70586007)(8676002)(1076003)(36756003)(4326008)(86362001)(7696005)(30864003)(316002)(2906002)(478600001)(8936002)(186003)(26005)(2616005)(336012)(426003)(110136005)(921003)(83996005)(2101003)(1121003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2969; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: bb9f5da8-6077-4a61-8670-08d7baee610c
-X-MS-TrafficTypeDiagnostic: BY5PR12MB3713:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB371341E95CEB823E8101070883EA0@BY5PR12MB3713.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-MS-Office365-Filtering-Correlation-Id: 9f200430-4511-432a-43e3-08d7baee61e1
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2969:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2969CFC8AD27B3FED5610EBF83EA0@DM6PR12MB2969.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
 X-Forefront-PRVS: 0325F6C77B
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CGezJMHQr/QbUaHhW9VOOG9/Tyvg26/AZBo0LeWjk5HOTWnrKNhQrYcqH11v6qqFmTD/MxwAPu0vFQhXNDBvhwIdPsRq+UEPKtVaT3pSylMJh5T2q+TWu41rJn8fTWGeDrvG5ydrRLXQ5CAIt9fR8X4Do1CgcnNJHClEPT1xWrTRSy3K30OHBHwZdA1MaF0YO6EFG8Rjgi3F2d21h6EqqjSldsf50qkqgm1/hDTmxjGgFvkny8s1TjE9NOi/3tvznl0oQPsCXebUEsr36DvV4TzDd2OH/Ax4RuMyaIc7zc3XJ1u0Uj+NE05m0luMqw69pALiQQomNHEvm5rjq8vM4+PTkoOcvMJ63QH7EYj58j+kpd9bhQLvUyn/JUZSx/3Kwp23GdzkPqC/Gd/+tAs+npr1FC4fDVE2wpwTrDoHK92yIDL+BM4X+W6sFqNN9TYJ3RpaaNE3GQ/CcMdPrh3M67ejtmmbGNQFFQ7Gjy2OnfvmLJdUCYV2niFWfB143rmoZzEf1HWJ2mhA7+7AN8JCA5XBv2kk+oFmx0JYnG+hp5g=
+X-Microsoft-Antispam-Message-Info: hudmHUcIjsfGTeIrJyggKrIhUo0DyjInxYJHdzQvFbb49YlS0R9/VkqKEZxOb/tOC7NPeF4oMm/Q3xjWhaEaav+aPuRyIa4dkFu+3IZH7Gt6ZjF2fp8R5kj8B2LO/nA+3YDtXdspiIZlQPcaeLU+fs7eEMpNYcRUvMVH/iaav6owvUC4RwGZ76j2kx7j1s05p0LC8t4Ps5mFhNu914CXB117Xxe8tsY4KZrV5/jkECL0yaGSRsqGtycGXm6DxQcyJDCAmx56sc3GaaPLqoOlrkzbW+LnPCsHVdaMZRe9KVBaw79TTBK9rwqMwVe+H8/vZbdXhnSrWczIEBiHoY90aPuAY+PqTAMjsOHVLxGUkzguc9Si+2Z2OuhpFoBrE0enYZbryOSrRtcAWrKB8XjHgB4Kl26ns46AhITJTmeXN5sHTK2GTfTGj3ma/+/XheoItFwn3SPF7ZOqGwtGMT55B5rgo5OB1E9HpJQBnpoowaIdrO6L6Fn+8pjsRQkfEbPgqGxN4m/ocqWi66uXXSY2o/s8anYo5gj1gaEwDt9sPpo=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2020 19:02:08.8438 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb9f5da8-6077-4a61-8670-08d7baee610c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2020 19:02:10.2320 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f200430-4511-432a-43e3-08d7baee61e1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3713
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2969
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,549 +127,381 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The drm resource being limited here is the GEM buffer objects.  User
-applications allocate and free these buffers.  In addition, a process
-can allocate a buffer and share it with another process.  The consumer
-of a shared buffer can also outlive the allocator of the buffer.
+gpu.compute.weight
+      A read-write flat-keyed file which exists on all cgroups.  The
+      default weight is 100.  Each entry is keyed by the DRM device's
+      major:minor (the primary minor).  The weights are in the range [1,
+      10000] and specifies the relative amount of physical partitions
+      the cgroup can use in relation to its siblings.  The partition
+      concept here is analogous to the subdevice of OpenCL.
 
-For the purpose of cgroup accounting and limiting, ownership of the
-buffer is deemed to be the cgroup for which the allocating process
-belongs to.  There is one cgroup limit per drm device.
+gpu.compute.effective
+      A read-only nested-keyed file which exists on all cgroups.  Each
+      entry is keyed by the DRM device's major:minor.
 
-The limiting functionality is added to the previous stats collection
-function.  The drm_gem_private_object_init is modified to have a return
-value to allow failure due to cgroup limit.
+      It lists the GPU subdevices that are actually granted to this
+      cgroup by its parent.  These subdevices are allowed to be used by
+      tasks within the current cgroup.
 
-The try_chg function only fails if the DRM cgroup properties has
-limit_enforced set to true for the DRM device.  This is to allow the DRM
-cgroup controller to collect usage stats without enforcing the limits.
+      =====     ==============================================
+      count     The total number of granted subdevices
+      list      Enumeration of the subdevices
+      =====     ==============================================
 
-gpu.buffer.default
-        A read-only flat-keyed file which exists on the root cgroup.
-        Each entry is keyed by the drm device's major:minor.
-
-        Default limits on the total GEM buffer allocation in bytes.
-
-gpu.buffer.max
-        A read-write flat-keyed file which exists on all cgroups.  Each
-        entry is keyed by the drm device's major:minor.
-
-        Per device limits on the total GEM buffer allocation in byte.
-        This is a hard limit.  Attempts in allocating beyond the cgroup
-        limit will result in ENOMEM.  Shorthand understood by memparse
-        (such as k, m, g) can be used.
-
-        Set allocation limit for /dev/dri/card1 to 1GB
-        echo "226:1 1g" > gpu.buffer.total.max
-
-        Set allocation limit for /dev/dri/card0 to 512MB
-        echo "226:0 512m" > gpu.buffer.total.max
-
-Change-Id: Id3265bbd0fafe84a16b59617df79bd32196160be
+Change-Id: Idde0ef9a331fd67bb9c7eb8ef9978439e6452488
 Signed-off-by: Kenny Ho <Kenny.Ho@amd.com>
 ---
- Documentation/admin-guide/cgroup-v2.rst    |  21 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  19 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c |   6 +-
- drivers/gpu/drm/drm_gem.c                  |  11 +-
- include/drm/drm_cgroup.h                   |   8 +-
- include/drm/drm_gem.h                      |   2 +-
- include/linux/cgroup_drm.h                 |   1 +
- kernel/cgroup/drm.c                        | 227 ++++++++++++++++++++-
- 8 files changed, 278 insertions(+), 17 deletions(-)
+ Documentation/admin-guide/cgroup-v2.rst |  21 +++
+ include/drm/drm_cgroup.h                |   3 +
+ include/linux/cgroup_drm.h              |  16 +++
+ kernel/cgroup/drm.c                     | 177 +++++++++++++++++++++++-
+ 4 files changed, 215 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/admin-guide/cgroup-v2.rst b/Documentation/admin-guide/cgroup-v2.rst
-index 065f2b52da57..f2d7abf5c783 100644
+index 581343472651..f92f1f4a64d4 100644
 --- a/Documentation/admin-guide/cgroup-v2.rst
 +++ b/Documentation/admin-guide/cgroup-v2.rst
-@@ -2087,6 +2087,27 @@ GPU Interface Files
+@@ -2126,6 +2126,27 @@ GPU Interface Files
+ 	Set largest allocation for /dev/dri/card1 to 4MB
+ 	echo "226:1 4m" > gpu.buffer.peak.max
  
- 	Total number of GEM buffer allocated.
- 
-+  gpu.buffer.default
-+	A read-only flat-keyed file which exists on the root cgroup.
-+	Each entry is keyed by the drm device's major:minor.
++  gpu.compute.weight
++	A read-write flat-keyed file which exists on all cgroups.  The
++	default weight is 100.  Each entry is keyed by the DRM device's
++	major:minor (the primary minor).  The weights are in the range
++	[1, 10000] and specifies the relative amount of physical partitions 
++	the cgroup can use in relation to its siblings.  The partition
++	concept here is analogous to the subdevice concept of OpenCL.
 +
-+	Default limits on the total GEM buffer allocation in bytes.
++  gpu.compute.effective
++  	A read-only nested-keyed file which exists on all cgroups.
++	Each entry is keyed by the DRM device's major:minor.
 +
-+  gpu.buffer.max
-+	A read-write flat-keyed file which exists on all cgroups.  Each
-+	entry is keyed by the drm device's major:minor.
++	It lists the GPU subdevices that are actually granted to this
++	cgroup by its parent.  These subdevices are allowed to be used
++	by tasks within the current cgroup.
 +
-+	Per device limits on the total GEM buffer allocation in byte.
-+	This is a hard limit.  Attempts in allocating beyond the cgroup
-+	limit will result in ENOMEM.  Shorthand understood by memparse
-+	(such as k, m, g) can be used.
-+
-+	Set allocation limit for /dev/dri/card1 to 1GB
-+	echo "226:1 1g" > gpu.buffer.total.max
-+
-+	Set allocation limit for /dev/dri/card0 to 512MB
-+	echo "226:0 512m" > gpu.buffer.total.max
++	  =====		==============================================
++	  count		The total number of granted subdevices
++	  list		Enumeration of the subdevices
++	  =====		==============================================
 +
  GEM Buffer Ownership
  ~~~~~~~~~~~~~~~~~~~~
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 6e1faf8a2bca..171397708855 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1413,6 +1413,23 @@ amdgpu_get_crtc_scanout_position(struct drm_device *dev, unsigned int pipe,
- 						  stime, etime, mode);
- }
- 
-+#ifdef CONFIG_CGROUP_DRM
-+
-+static void amdgpu_drmcg_custom_init(struct drm_device *dev,
-+	struct drmcg_props *props)
-+{
-+	props->limit_enforced = true;
-+}
-+
-+#else
-+
-+static void amdgpu_drmcg_custom_init(struct drm_device *dev,
-+	struct drmcg_props *props)
-+{
-+}
-+
-+#endif /* CONFIG_CGROUP_DRM */
-+
- static struct drm_driver kms_driver = {
- 	.driver_features =
- 	    DRIVER_USE_AGP | DRIVER_ATOMIC |
-@@ -1444,6 +1461,8 @@ static struct drm_driver kms_driver = {
- 	.gem_prime_vunmap = amdgpu_gem_prime_vunmap,
- 	.gem_prime_mmap = amdgpu_gem_prime_mmap,
- 
-+	.drmcg_custom_init = amdgpu_drmcg_custom_init,
-+
- 	.name = DRIVER_NAME,
- 	.desc = DRIVER_DESC,
- 	.date = DRIVER_DATE,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 5766d20f29d8..4d08ccbc541a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -34,6 +34,7 @@
- 
- #include <drm/amdgpu_drm.h>
- #include <drm/drm_cache.h>
-+#include <drm/drm_cgroup.h>
- #include "amdgpu.h"
- #include "amdgpu_trace.h"
- #include "amdgpu_amdkfd.h"
-@@ -551,7 +552,10 @@ static int amdgpu_bo_do_create(struct amdgpu_device *adev,
- 	bo = kzalloc(sizeof(struct amdgpu_bo), GFP_KERNEL);
- 	if (bo == NULL)
- 		return -ENOMEM;
--	drm_gem_private_object_init(adev->ddev, &bo->tbo.base, size);
-+	if (!drm_gem_private_object_init(adev->ddev, &bo->tbo.base, size)) {
-+		kfree(bo);
-+		return -ENOMEM;
-+	}
- 	INIT_LIST_HEAD(&bo->shadow_list);
- 	bo->vm_bo = NULL;
- 	bo->preferred_domains = bp->preferred_domain ? bp->preferred_domain :
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 589f8f6bde2c..30adf730da0f 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -150,11 +150,17 @@ EXPORT_SYMBOL(drm_gem_object_init);
-  * no GEM provided backing store. Instead the caller is responsible for
-  * backing the object and handling it.
-  */
--void drm_gem_private_object_init(struct drm_device *dev,
-+bool drm_gem_private_object_init(struct drm_device *dev,
- 				 struct drm_gem_object *obj, size_t size)
- {
- 	BUG_ON((size & (PAGE_SIZE - 1)) != 0);
- 
-+	obj->drmcg = drmcg_get(current);
-+	if (!drmcg_try_chg_bo_alloc(obj->drmcg, dev, size)) {
-+		drmcg_put(obj->drmcg);
-+		obj->drmcg = NULL;
-+		return false;
-+	}
- 	obj->dev = dev;
- 	obj->filp = NULL;
- 
-@@ -167,8 +173,7 @@ void drm_gem_private_object_init(struct drm_device *dev,
- 
- 	drm_vma_node_reset(&obj->vma_node);
- 
--	obj->drmcg = drmcg_get(current);
--	drmcg_chg_bo_alloc(obj->drmcg, dev, size);
-+	return true;
- }
- EXPORT_SYMBOL(drm_gem_private_object_init);
- 
 diff --git a/include/drm/drm_cgroup.h b/include/drm/drm_cgroup.h
-index 1eb3012e16a1..2783e56690db 100644
+index 2b41d4d22e33..5aac47ca536f 100644
 --- a/include/drm/drm_cgroup.h
 +++ b/include/drm/drm_cgroup.h
-@@ -13,6 +13,9 @@
-  * of storing per device defaults
-  */
- struct drmcg_props {
-+	bool			limit_enforced;
+@@ -17,6 +17,9 @@ struct drmcg_props {
+ 
+ 	s64			bo_limits_total_allocated_default;
+ 	s64			bo_limits_peak_allocated_default;
 +
-+	s64			bo_limits_total_allocated_default;
++	int			compute_capacity;
++	DECLARE_BITMAP(compute_slots, MAX_DRMCG_COMPUTE_CAPACITY);
  };
  
  void drmcg_bind(struct drm_minor (*(*acq_dm)(unsigned int minor_id)),
-@@ -26,7 +29,7 @@ void drmcg_unregister_dev(struct drm_device *dev);
- 
- void drmcg_device_early_init(struct drm_device *device);
- 
--void drmcg_chg_bo_alloc(struct drmcg *drmcg, struct drm_device *dev,
-+bool drmcg_try_chg_bo_alloc(struct drmcg *drmcg, struct drm_device *dev,
- 		size_t size);
- 
- void drmcg_unchg_bo_alloc(struct drmcg *drmcg, struct drm_device *dev,
-@@ -59,9 +62,10 @@ static inline void drmcg_device_early_init(struct drm_device *device)
- {
- }
- 
--static inline void drmcg_chg_bo_alloc(struct drmcg *drmcg,
-+static inline bool drmcg_try_chg_bo_alloc(struct drmcg *drmcg,
- 		struct drm_device *dev,	size_t size)
- {
-+	return true;
- }
- 
- static inline void drmcg_unchg_bo_alloc(struct drmcg *drmcg,
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index 9c588c329da0..ef073a5e7d67 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -352,7 +352,7 @@ void drm_gem_object_release(struct drm_gem_object *obj);
- void drm_gem_object_free(struct kref *kref);
- int drm_gem_object_init(struct drm_device *dev,
- 			struct drm_gem_object *obj, size_t size);
--void drm_gem_private_object_init(struct drm_device *dev,
-+bool drm_gem_private_object_init(struct drm_device *dev,
- 				 struct drm_gem_object *obj, size_t size);
- void drm_gem_vm_open(struct vm_area_struct *vma);
- void drm_gem_vm_close(struct vm_area_struct *vma);
 diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
-index 103868d972d0..71023654fb77 100644
+index aba3b26718c0..fd02f59cabab 100644
 --- a/include/linux/cgroup_drm.h
 +++ b/include/linux/cgroup_drm.h
-@@ -26,6 +26,7 @@ enum drmcg_res_type {
- struct drmcg_device_resource {
- 	/* for per device stats */
- 	s64			bo_stats_total_allocated;
-+	s64			bo_limits_total_allocated;
+@@ -11,10 +11,14 @@
+ /* limit defined per the way drm_minor_alloc operates */
+ #define MAX_DRM_DEV (64 * DRM_MINOR_RENDER)
  
- 	s64			bo_stats_peak_allocated;
++#define MAX_DRMCG_COMPUTE_CAPACITY 256
++
+ enum drmcg_res_type {
+ 	DRMCG_TYPE_BO_TOTAL,
+ 	DRMCG_TYPE_BO_PEAK,
+ 	DRMCG_TYPE_BO_COUNT,
++	DRMCG_TYPE_COMPUTE,
++	DRMCG_TYPE_COMPUTE_EFF,
+ 	__DRMCG_TYPE_LAST,
+ };
  
-diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
-index 5a700833a304..4b19e533941d 100644
---- a/kernel/cgroup/drm.c
-+++ b/kernel/cgroup/drm.c
-@@ -37,6 +37,8 @@ static void (*put_drm_dev)(struct drm_device *dev);
+@@ -32,6 +36,18 @@ struct drmcg_device_resource {
+ 	s64			bo_limits_peak_allocated;
  
- enum drmcg_file_type {
- 	DRMCG_FTYPE_STATS,
-+	DRMCG_FTYPE_LIMIT,
-+	DRMCG_FTYPE_DEFAULT,
+ 	s64			bo_stats_count_allocated;
++
++        /* compute_stg is used to calculate _eff before applying to _eff
++	 * after considering the entire hierarchy
++	 */
++	DECLARE_BITMAP(compute_stg, MAX_DRMCG_COMPUTE_CAPACITY);
++	/* user configurations */
++	s64			compute_weight;
++	/* effective compute for the cgroup after considering
++	 * relationship with other cgroup
++	 */
++	s64			compute_count_eff;
++	DECLARE_BITMAP(compute_eff, MAX_DRMCG_COMPUTE_CAPACITY);
  };
  
  /**
-@@ -90,6 +92,8 @@ static inline int init_drmcg_single(struct drmcg *drmcg, struct drm_device *dev)
- 	drmcg->dev_resources[minor] = ddr;
+diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
+index 62d2a9d33d0c..2eadabebdfea 100644
+--- a/kernel/cgroup/drm.c
++++ b/kernel/cgroup/drm.c
+@@ -9,6 +9,7 @@
+ #include <linux/seq_file.h>
+ #include <linux/mutex.h>
+ #include <linux/kernel.h>
++#include <linux/bitmap.h>
+ #include <linux/cgroup_drm.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_drv.h>
+@@ -98,6 +99,11 @@ static inline int init_drmcg_single(struct drmcg *drmcg, struct drm_device *dev)
+ 	ddr->bo_limits_peak_allocated =
+ 		dev->drmcg_props.bo_limits_peak_allocated_default;
  
- 	/* set defaults here */
-+	ddr->bo_limits_total_allocated =
-+		dev->drmcg_props.bo_limits_total_allocated_default;
- 
++	bitmap_copy(ddr->compute_stg, dev->drmcg_props.compute_slots,
++			MAX_DRMCG_COMPUTE_CAPACITY);
++
++	ddr->compute_weight = CGROUP_WEIGHT_DFL;
++
  	return 0;
  }
-@@ -289,6 +293,38 @@ static void drmcg_print_stats(struct drmcg_device_resource *ddr,
- 	}
+ 
+@@ -121,6 +127,104 @@ static inline void drmcg_update_cg_tree(struct drm_device *dev)
+ 	mutex_unlock(&cgroup_mutex);
  }
  
-+static void drmcg_print_limits(struct drmcg_device_resource *ddr,
-+		struct seq_file *sf, enum drmcg_res_type type)
++static void drmcg_calculate_effective_compute(struct drm_device *dev,
++		const unsigned long *free_weighted,
++		struct drmcg *parent_drmcg)
 +{
-+	if (ddr == NULL) {
-+		seq_puts(sf, "\n");
++	int capacity = dev->drmcg_props.compute_capacity;
++	DECLARE_BITMAP(compute_unused, MAX_DRMCG_COMPUTE_CAPACITY);
++	DECLARE_BITMAP(compute_by_weight, MAX_DRMCG_COMPUTE_CAPACITY);
++	struct drmcg_device_resource *parent_ddr;
++	struct drmcg_device_resource *ddr;
++	int minor = dev->primary->index;
++	struct cgroup_subsys_state *pos;
++	struct drmcg *child;
++	s64 weight_sum = 0;
++	s64 unused;
++
++	parent_ddr = parent_drmcg->dev_resources[minor];
++
++	/* no static cfg, use weight for calculating the effective */
++	bitmap_copy(parent_ddr->compute_stg, free_weighted, capacity);
++
++	/* calculate compute available for dist by weight for children */
++	bitmap_copy(compute_unused, parent_ddr->compute_stg, capacity);
++	unused = bitmap_weight(compute_unused, capacity);
++	css_for_each_child(pos, &parent_drmcg->css) {
++		child = css_to_drmcg(pos);
++		ddr = child->dev_resources[minor];
++
++		/* no static allocation, participate in weight dist */
++		weight_sum += ddr->compute_weight;
++	}
++
++	css_for_each_child(pos, &parent_drmcg->css) {
++		int c;
++		int p = 0;
++		child = css_to_drmcg(pos);
++		ddr = child->dev_resources[minor];
++
++		bitmap_zero(compute_by_weight, capacity);
++		for (c = ddr->compute_weight * unused / weight_sum;
++				c > 0; c--) {
++			p = find_next_bit(compute_unused, capacity, p);
++			if (p < capacity) {
++				clear_bit(p, compute_unused);
++				set_bit(p, compute_by_weight);
++			}
++		}
++
++		drmcg_calculate_effective_compute(dev, compute_by_weight, child);
++	}
++}
++
++static void drmcg_apply_effective_compute(struct drm_device *dev)
++{
++	int capacity = dev->drmcg_props.compute_capacity;
++	int minor = dev->primary->index;
++	struct drmcg_device_resource *ddr;
++	struct cgroup_subsys_state *pos;
++	struct drmcg *drmcg;
++
++	if (root_drmcg == NULL) {
++		WARN_ON(root_drmcg == NULL);
 +		return;
 +	}
 +
-+	switch (type) {
-+	case DRMCG_TYPE_BO_TOTAL:
-+		seq_printf(sf, "%lld\n", ddr->bo_limits_total_allocated);
-+		break;
-+	default:
-+		seq_puts(sf, "\n");
-+		break;
++	rcu_read_lock();
++
++	/* process the entire cgroup tree from root to simplify the algorithm */
++	drmcg_calculate_effective_compute(dev, dev->drmcg_props.compute_slots,
++                                            root_drmcg);
++
++	/* apply changes to effective only if there is a change */
++	css_for_each_descendant_pre(pos, &root_drmcg->css) {
++		drmcg = css_to_drmcg(pos);
++		ddr = drmcg->dev_resources[minor];
++
++		if (!bitmap_equal(ddr->compute_stg,
++                            ddr->compute_eff, capacity)) {
++			bitmap_copy(ddr->compute_eff, ddr->compute_stg,
++                                capacity);
++			ddr->compute_count_eff =
++				bitmap_weight(ddr->compute_eff, capacity);
++		}
 +	}
++	rcu_read_unlock();
 +}
 +
-+static void drmcg_print_default(struct drmcg_props *props,
-+		struct seq_file *sf, enum drmcg_res_type type)
++static void drmcg_apply_effective(enum drmcg_res_type type,
++		struct drm_device *dev, struct drmcg *changed_drmcg)
 +{
 +	switch (type) {
-+	case DRMCG_TYPE_BO_TOTAL:
-+		seq_printf(sf, "%lld\n",
-+			props->bo_limits_total_allocated_default);
++	case DRMCG_TYPE_COMPUTE:
++		drmcg_apply_effective_compute(dev);
 +		break;
 +	default:
-+		seq_puts(sf, "\n");
 +		break;
 +	}
 +}
 +
- static int drmcg_seq_show_fn(int id, void *ptr, void *data)
+ /**
+  * drmcg_register_dev - register a DRM device for usage in drm cgroup
+  * @dev: DRM device
+@@ -143,7 +247,13 @@ void drmcg_register_dev(struct drm_device *dev)
+ 	{
+ 		dev->driver->drmcg_custom_init(dev, &dev->drmcg_props);
+ 
++		WARN_ON(dev->drmcg_props.compute_capacity !=
++				bitmap_weight(dev->drmcg_props.compute_slots,
++					MAX_DRMCG_COMPUTE_CAPACITY));
++
+ 		drmcg_update_cg_tree(dev);
++
++		drmcg_apply_effective(DRMCG_TYPE_COMPUTE, dev, root_drmcg);
+ 	}
+ 	mutex_unlock(&drmcg_mutex);
+ }
+@@ -297,7 +407,8 @@ static void drmcg_print_stats(struct drmcg_device_resource *ddr,
+ }
+ 
+ static void drmcg_print_limits(struct drmcg_device_resource *ddr,
+-		struct seq_file *sf, enum drmcg_res_type type)
++		struct seq_file *sf, enum drmcg_res_type type,
++		struct drm_device *dev)
  {
- 	struct drm_minor *minor = ptr;
-@@ -311,6 +347,12 @@ static int drmcg_seq_show_fn(int id, void *ptr, void *data)
- 	case DRMCG_FTYPE_STATS:
- 		drmcg_print_stats(ddr, sf, type);
+ 	if (ddr == NULL) {
+ 		seq_puts(sf, "\n");
+@@ -311,6 +422,17 @@ static void drmcg_print_limits(struct drmcg_device_resource *ddr,
+ 	case DRMCG_TYPE_BO_PEAK:
+ 		seq_printf(sf, "%lld\n", ddr->bo_limits_peak_allocated);
  		break;
-+	case DRMCG_FTYPE_LIMIT:
-+		drmcg_print_limits(ddr, sf, type);
++	case DRMCG_TYPE_COMPUTE:
++		seq_printf(sf, "%lld\n", ddr->compute_weight);
 +		break;
-+	case DRMCG_FTYPE_DEFAULT:
-+		drmcg_print_default(&minor->dev->drmcg_props, sf, type);
++	case DRMCG_TYPE_COMPUTE_EFF:
++		seq_printf(sf, "%s=%lld %s=%*pbl\n",
++				"count",
++				ddr->compute_count_eff,
++				"list",
++				dev->drmcg_props.compute_capacity,
++				ddr->compute_eff);
 +		break;
  	default:
  		seq_puts(sf, "\n");
  		break;
-@@ -324,6 +366,130 @@ int drmcg_seq_show(struct seq_file *sf, void *v)
- 	return drm_minor_for_each(&drmcg_seq_show_fn, sf);
- }
+@@ -358,7 +480,7 @@ static int drmcg_seq_show_fn(int id, void *ptr, void *data)
+ 		drmcg_print_stats(ddr, sf, type);
+ 		break;
+ 	case DRMCG_FTYPE_LIMIT:
+-		drmcg_print_limits(ddr, sf, type);
++		drmcg_print_limits(ddr, sf, type, minor->dev);
+ 		break;
+ 	case DRMCG_FTYPE_DEFAULT:
+ 		drmcg_print_default(&minor->dev->drmcg_props, sf, type);
+@@ -499,9 +621,25 @@ static ssize_t drmcg_limit_write(struct kernfs_open_file *of, char *buf,
  
-+static void drmcg_pr_cft_err(const struct drmcg *drmcg,
-+		int rc, const char *cft_name, int minor)
-+{
-+	pr_err("drmcg: error parsing %s, minor %d, rc %d ",
-+			cft_name, minor, rc);
-+	pr_cont_cgroup_name(drmcg->css.cgroup);
-+	pr_cont("\n");
-+}
-+
-+static int drmcg_process_limit_s64_val(char *sval, bool is_mem,
-+			s64 def_val, s64 max_val, s64 *ret_val)
-+{
-+	int rc = strcmp("max", sval);
-+
-+
-+	if (!rc)
-+		*ret_val = max_val;
-+	else {
-+		rc = strcmp("default", sval);
-+
-+		if (!rc)
-+			*ret_val = def_val;
-+	}
-+
-+	if (rc) {
-+		if (is_mem) {
-+			*ret_val = memparse(sval, NULL);
-+			rc = 0;
-+		} else {
-+			rc = kstrtoll(sval, 0, ret_val);
-+		}
-+	}
-+
-+	if (*ret_val > max_val)
-+		rc = -EINVAL;
-+
-+	return rc;
-+}
-+
-+/**
-+ * drmcg_limit_write - parse cgroup interface files to obtain user config
-+ *
-+ * Minimal value check to keep track of user intent.  For example, user
-+ * can specify limits greater than the values allowed by the parents.
-+ * This way, the user configuration is kept and comes into effect if and
-+ * when parents' limits are relaxed.
-+ */
-+static ssize_t drmcg_limit_write(struct kernfs_open_file *of, char *buf,
-+		size_t nbytes, loff_t off)
-+{
-+	struct drmcg *drmcg = css_to_drmcg(of_css(of));
-+	enum drmcg_res_type type =
-+		DRMCG_CTF_PRIV2RESTYPE(of_cft(of)->private);
-+	char *cft_name = of_cft(of)->name;
-+	char *limits = strstrip(buf);
-+	struct drmcg_device_resource *ddr;
-+	struct drmcg_props *props;
-+	struct drm_minor *dm;
-+	char *line;
-+	char sattr[256];
-+	s64 val;
-+	int rc;
-+	int minor;
-+
-+	while (limits != NULL) {
-+		line =  strsep(&limits, "\n");
-+
-+		if (sscanf(line,
-+			__stringify(DRM_MAJOR)":%u %255[^\t\n]",
-+							&minor, sattr) != 2) {
-+			pr_err("drmcg: error parsing %s ", cft_name);
-+			pr_cont_cgroup_name(drmcg->css.cgroup);
-+			pr_cont("\n");
-+
-+			continue;
-+		}
-+
-+		mutex_lock(&drmcg_mutex);
-+		if (acquire_drm_minor)
-+			dm = acquire_drm_minor(minor);
-+		else
-+			dm = NULL;
-+		mutex_unlock(&drmcg_mutex);
-+
-+		if (IS_ERR_OR_NULL(dm)) {
-+			pr_err("drmcg: invalid minor %d for %s ",
-+					minor, cft_name);
-+			pr_cont_cgroup_name(drmcg->css.cgroup);
-+			pr_cont("\n");
-+
-+			continue;
-+		}
-+
-+		mutex_lock(&dm->dev->drmcg_mutex);
-+		ddr = drmcg->dev_resources[minor];
-+		props = &dm->dev->drmcg_props;
-+		switch (type) {
-+		case DRMCG_TYPE_BO_TOTAL:
+ 			ddr->bo_limits_peak_allocated = val;
+ 			break;
++		case DRMCG_TYPE_COMPUTE:
 +			rc = drmcg_process_limit_s64_val(sattr, true,
-+				props->bo_limits_total_allocated_default,
-+				S64_MAX,
++				CGROUP_WEIGHT_DFL, CGROUP_WEIGHT_MAX,
 +				&val);
 +
-+			if (rc || val < 0) {
++			if (rc || val < CGROUP_WEIGHT_MIN ||
++						val > CGROUP_WEIGHT_MAX) {
 +				drmcg_pr_cft_err(drmcg, rc, cft_name, minor);
 +				break;
 +			}
 +
-+			ddr->bo_limits_total_allocated = val;
++			ddr->compute_weight = val;
 +			break;
-+		default:
-+			break;
-+		}
-+		mutex_unlock(&dm->dev->drmcg_mutex);
+ 		default:
+ 			break;
+ 		}
 +
-+		mutex_lock(&drmcg_mutex);
-+		if (put_drm_dev)
-+			put_drm_dev(dm->dev); /* release from acquire */
-+		mutex_unlock(&drmcg_mutex);
-+	}
++		drmcg_apply_effective(type, dm->dev, drmcg);
 +
-+	return nbytes;
-+}
-+
- struct cftype files[] = {
- 	{
- 		.name = "buffer.total.stats",
-@@ -331,6 +497,20 @@ struct cftype files[] = {
- 		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_BO_TOTAL,
+ 		mutex_unlock(&dm->dev->drmcg_mutex);
+ 
+ 		mutex_lock(&drmcg_mutex);
+@@ -560,12 +698,44 @@ struct cftype files[] = {
+ 		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_BO_COUNT,
  						DRMCG_FTYPE_STATS),
  	},
 +	{
-+		.name = "buffer.total.default",
++		.name = "compute.weight",
 +		.seq_show = drmcg_seq_show,
-+		.flags = CFTYPE_ONLY_ON_ROOT,
-+		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_BO_TOTAL,
-+						DRMCG_FTYPE_DEFAULT),
-+	},
-+	{
-+		.name = "buffer.total.max",
 +		.write = drmcg_limit_write,
-+		.seq_show = drmcg_seq_show,
-+		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_BO_TOTAL,
++		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_COMPUTE,
 +						DRMCG_FTYPE_LIMIT),
 +	},
- 	{
- 		.name = "buffer.peak.stats",
- 		.seq_show = drmcg_seq_show,
-@@ -363,12 +543,16 @@ struct cgroup_subsys gpu_cgrp_subsys = {
-  */
- void drmcg_device_early_init(struct drm_device *dev)
- {
-+	dev->drmcg_props.limit_enforced = false;
++	{
++		.name = "compute.effective",
++		.seq_show = drmcg_seq_show,
++		.private = DRMCG_CTF_PRIV(DRMCG_TYPE_COMPUTE_EFF,
++						DRMCG_FTYPE_LIMIT),
++	},
+ 	{ }	/* terminate */
+ };
+ 
++static int drmcg_online_fn(int id, void *ptr, void *data)
++{
++	struct drm_minor *minor = ptr;
++	struct drmcg *drmcg = data;
 +
-+	dev->drmcg_props.bo_limits_total_allocated_default = S64_MAX;
++	if (minor->type != DRM_MINOR_PRIMARY)
++		return 0;
++
++	drmcg_apply_effective(DRMCG_TYPE_COMPUTE, minor->dev, drmcg);
++
++	return 0;
++}
++
++static int drmcg_css_online(struct cgroup_subsys_state *css)
++{
++	return drm_minor_for_each(&drmcg_online_fn, css_to_drmcg(css));
++}
++
+ struct cgroup_subsys gpu_cgrp_subsys = {
+ 	.css_alloc	= drmcg_css_alloc,
+ 	.css_free	= drmcg_css_free,
++	.css_online	= drmcg_css_online,
+ 	.early_init	= false,
+ 	.legacy_cftypes	= files,
+ 	.dfl_cftypes	= files,
+@@ -585,6 +755,9 @@ void drmcg_device_early_init(struct drm_device *dev)
+ 	dev->drmcg_props.bo_limits_total_allocated_default = S64_MAX;
+ 	dev->drmcg_props.bo_limits_peak_allocated_default = S64_MAX;
+ 
++	dev->drmcg_props.compute_capacity = MAX_DRMCG_COMPUTE_CAPACITY;
++	bitmap_fill(dev->drmcg_props.compute_slots, MAX_DRMCG_COMPUTE_CAPACITY);
 +
  	drmcg_update_cg_tree(dev);
  }
  EXPORT_SYMBOL(drmcg_device_early_init);
- 
- /**
-- * drmcg_chg_bo_alloc - charge GEM buffer usage for a device and cgroup
-+ * drmcg_try_chg_bo_alloc - charge GEM buffer usage for a device and cgroup
-  * @drmcg: the DRM cgroup to be charged to
-  * @dev: the device the usage should be charged to
-  * @size: size of the GEM buffer to be accounted for
-@@ -377,29 +561,52 @@ EXPORT_SYMBOL(drmcg_device_early_init);
-  * for the utilization.  This should not be called when the buffer is shared (
-  * the GEM buffer's reference count being incremented.)
-  */
--void drmcg_chg_bo_alloc(struct drmcg *drmcg, struct drm_device *dev,
-+bool drmcg_try_chg_bo_alloc(struct drmcg *drmcg, struct drm_device *dev,
- 		size_t size)
- {
- 	struct drmcg_device_resource *ddr;
- 	int devIdx = dev->primary->index;
-+	struct drmcg_props *props = &dev->drmcg_props;
-+	struct drmcg *drmcg_cur = drmcg;
-+	bool result = true;
-+	s64 delta = 0;
- 
- 	if (drmcg == NULL)
--		return;
-+		return true;
- 
- 	mutex_lock(&dev->drmcg_mutex);
--	for ( ; drmcg != NULL; drmcg = drmcg_parent(drmcg)) {
--		ddr = drmcg->dev_resources[devIdx];
-+	if (props->limit_enforced) {
-+		for ( ; drmcg != NULL; drmcg = drmcg_parent(drmcg)) {
-+			ddr = drmcg->dev_resources[devIdx];
-+			delta = ddr->bo_limits_total_allocated -
-+					ddr->bo_stats_total_allocated;
-+
-+			if (delta <= 0 || size > delta) {
-+				result = false;
-+				break;
-+			}
-+		}
-+	}
-+
-+	drmcg = drmcg_cur;
-+
-+	if (result || !props->limit_enforced) {
-+		for ( ; drmcg != NULL; drmcg = drmcg_parent(drmcg)) {
-+			ddr = drmcg->dev_resources[devIdx];
- 
--		ddr->bo_stats_total_allocated += (s64)size;
-+			ddr->bo_stats_total_allocated += (s64)size;
- 
--		if (ddr->bo_stats_peak_allocated < (s64)size)
--			ddr->bo_stats_peak_allocated = (s64)size;
-+			if (ddr->bo_stats_peak_allocated < (s64)size)
-+				ddr->bo_stats_peak_allocated = (s64)size;
- 
--		ddr->bo_stats_count_allocated++;
-+			ddr->bo_stats_count_allocated++;
-+		}
- 	}
- 	mutex_unlock(&dev->drmcg_mutex);
-+
-+	return result;
- }
--EXPORT_SYMBOL(drmcg_chg_bo_alloc);
-+EXPORT_SYMBOL(drmcg_try_chg_bo_alloc);
- 
- /**
-  * drmcg_unchg_bo_alloc -
 -- 
 2.25.0
 
