@@ -2,65 +2,123 @@ Return-Path: <SRS0=BS7L=4O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4F12C4BA10
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 14:30:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B9CF8C4BA12
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 15:36:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B6D8D2467B
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 14:30:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5A947222C2
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 15:36:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="vZhAT4H6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B6D8D2467B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="q9+yhOEj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5A947222C2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A9C76E2BE;
-	Wed, 26 Feb 2020 14:30:02 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E21716E2BE
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Feb 2020 14:30:00 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id p18so3262082wre.9
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Feb 2020 06:30:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=BS+4+KWPRWYL3BYTVDgjO+hTwl98mowUBFjXfepShfw=;
- b=vZhAT4H6jfhigWd788KtL1iQZOqiVZHSdZ5IWrh0vO4qq2Azzfox5J6pi010/KBgfg
- y94Wie1zgx37jQY1JYwR4FUb+1BcKxMphcYg0bSCl4dqvy0D5jodzKMAyBpOxUuA0Bho
- LZ8r1PyQkwES4U14DFvbOjSb3cpxa0kXRB06mpquIhW/mr+jaq0hUqrJImorlmplt0eu
- tKaMEcOzVSI7TWHvzDeTr/Q96NqurNuFty0OQGxXyV2MXVxf6yUZkN8bJYQG7fJlm3SR
- eb7cs3ZJ/kRLCibrKDweCHmZqY8jiJlY2sO00cT7KUDqYFdkIgftoh6pzXFdVtuItbh6
- 5Qfw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=BS+4+KWPRWYL3BYTVDgjO+hTwl98mowUBFjXfepShfw=;
- b=rQlRJglfFSHUs3wrxZNga/kaF0l6hYpAfP5WOB6qYB4idnlzKRbB8+S0HBgKdRpLn+
- HT3VebVOtYoiSlTHBKY+CHicNrsvfK8Gz4aew2Bgc199PbA5HiajVBo7NbfF5G/4sFo7
- KXJMckwKH+tVrBan2B51BUZwzzJIByTX+k5juZyEES6rF7P9vqZ4pPXPT0edaoWsD/fM
- +htgULeXCnzWGJ4A36VwYj+KpnQsQbHt4/pyaOCexPeJWw59nllcnMqEt0VltJKTpcZL
- tNvYujwEGL077lmt/odLhcWP712bNbMpbd96WUNr3UZKiySD7HJakNQ2CwOBNRcD04Ex
- JMRg==
-X-Gm-Message-State: APjAAAXeIoUN/bhZNZUMt6A2MDj13WhxEDoCIgSd6RdKXjiPauwM2WiC
- j9aS7WhD5TgSTrW/dWvpGAU0o5pPE+jZ2dkDM6kLqQ==
-X-Google-Smtp-Source: APXvYqwBk/KChNRx3T8ToT3wecGoD576zlEAv+VwQ8UuDgl13ZNC99UPCPj0SaFnH+7kd2g+tASMZXEAFhxEdkv2eN8=
-X-Received: by 2002:a5d:55ca:: with SMTP id i10mr5781785wrw.111.1582727399542; 
- Wed, 26 Feb 2020 06:29:59 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B41D6EA89;
+	Wed, 26 Feb 2020 15:36:25 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750057.outbound.protection.outlook.com [40.107.75.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E08016EA89;
+ Wed, 26 Feb 2020 15:36:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PIAWoSR/NCmZkgReocqrJbEH+B6Zn3WGP38RZ1vAOrGnMWlQBTt1689j8sS6IHV9FDEGIM7X4drFdsWBkQDDQHfvQ+r+hfpDOfieJoD02MNVf02/NpD8fK2nbIqi3mS9Kgwhs8PgyMfhl2IcIbmzFgoT7+3Faf9Z55UZNyM90IvOYPTs87taKBTUcxB+XPTDFfkRlIFb4VCacMa3Gi6bpVE8VXTVedXRDvAflr2MqXXWr/3HahsslBYkwa7RELDTe4MqzA4CAaNLGkwMzJiUjvDxr3dG8t3j9gr6+NIpXs6kFBQrfFX7lETaf8nlStuVW7buSbsEvISn/M7kFa1yCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fD7FT+s1jpoB3qz/AMNf0lT3G018/QvZySnnIVjC/X4=;
+ b=EE1puJQoR/llAsmH5yQSXNkefh4NdFgTnDD20h9zneuv1oqMJMfTBLcvd5R7zzYD/P74F3FgKtIuVsAPa7T7tAQQrbjZh95YP0zg9bOsTkRX7fWLp4rtRqPaeZFK75RBWtthb3LvmyzUFJluF5QJUZwK4AOc9SQcxovdZjrvySycs7K2T4ihQi5NIf+BMXJRQVL9yCF/u8qpRsNHG54wxwTO0GlM9aepMfGLuhX0c/mUoq+1kxf+g+t1uMKFZel9u7mI5YP0JLDMoZ98VSmgoYA+pS98RTdFqv5AcVxnOBa5nAh31qQVUiVO38IdjpWDz+lG6L9+1KIWkcnlctiJhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fD7FT+s1jpoB3qz/AMNf0lT3G018/QvZySnnIVjC/X4=;
+ b=q9+yhOEjPBBzPzQCMrdUqKSyNaJeC2rhnYF3xS0SQR76BgNUK0S1z+B2mBQYguaJdecq/g+NwnQr0ZJ4nbwosb28dwY3iwVnRBt41EetwXAOmFGKzI/9qMKu61N6vLCB6jY1xVEai8btikn9yy/yCNae9qiE4vNC1OhofxS9m9g=
+Received: from MN2PR12MB4319.namprd12.prod.outlook.com (2603:10b6:208:1dc::10)
+ by MN2PR12MB4389.namprd12.prod.outlook.com (2603:10b6:208:262::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Wed, 26 Feb
+ 2020 15:36:22 +0000
+Received: from MN2PR12MB4319.namprd12.prod.outlook.com
+ ([fe80::6091:29d2:8a4e:d3c]) by MN2PR12MB4319.namprd12.prod.outlook.com
+ ([fe80::6091:29d2:8a4e:d3c%5]) with mapi id 15.20.2750.021; Wed, 26 Feb 2020
+ 15:36:22 +0000
+From: "Zuo, Jerry" <Jerry.Zuo@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: RE: [PATCH 13/15] drm/amdgpu/display: split dp connector registration
+ (v3)
+Thread-Topic: [PATCH 13/15] drm/amdgpu/display: split dp connector
+ registration (v3)
+Thread-Index: AQHV7AhHd3YVyUf54E25aK+XlpP6P6gsOTeAgAABlvCAAADeAIAAAtuAgAFd6IA=
+Date: Wed, 26 Feb 2020 15:36:22 +0000
+Message-ID: <MN2PR12MB4319E90F772888AEC7A1C209E5EA0@MN2PR12MB4319.namprd12.prod.outlook.com>
+References: <20200207211713.3870-1-alexander.deucher@amd.com>
+ <22cf2c92-52a0-5e1a-e569-4fe421e38022@amd.com>
+ <CADnq5_M9yngJYmhOKiUvpR0H-e5yoVOrqwoim+_Ps63wY3QsRg@mail.gmail.com>
+ <DM5PR1201MB2554BBEA6B0C7DECFFE8DD3E9EED0@DM5PR1201MB2554.namprd12.prod.outlook.com>
+ <DM5PR1201MB2554768A51B1A4625E67BB899EED0@DM5PR1201MB2554.namprd12.prod.outlook.com>
+ <CADnq5_M8Hb9YJ-cVzr0x8ABUpQjeL5DwOuCwjEWfdTXFJdbGeQ@mail.gmail.com>
+ <MN2PR12MB431991DF654BFF4C028DDD46E5ED0@MN2PR12MB4319.namprd12.prod.outlook.com>
+ <CADnq5_Mmg9spo_Zb0PEEo-gx4JeAr3meSmjR693iWurH_rw7aw@mail.gmail.com>
+ <CADnq5_NmmhXjTo=qVnZR+hua6W6ReNx8fRDqXebgP9KCbdHF3Q@mail.gmail.com>
+In-Reply-To: <CADnq5_NmmhXjTo=qVnZR+hua6W6ReNx8fRDqXebgP9KCbdHF3Q@mail.gmail.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-02-26T15:36:20Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=f431758c-1651-453d-995d-0000887fb350;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-02-26T15:36:20Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: a9e3c694-8d83-4181-b0fe-0000f90b677b
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Jerry.Zuo@amd.com; 
+x-originating-ip: [165.204.55.250]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: c7cd85b0-d794-496e-72ef-08d7bad1a1e1
+x-ms-traffictypediagnostic: MN2PR12MB4389:|MN2PR12MB4389:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB438968F0587308EE7865D108E5EA0@MN2PR12MB4389.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:813;
+x-forefront-prvs: 0325F6C77B
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(136003)(39860400002)(366004)(346002)(396003)(199004)(189003)(71200400001)(478600001)(81156014)(316002)(2906002)(8676002)(54906003)(4326008)(81166006)(33656002)(53546011)(6506007)(5660300002)(9686003)(8936002)(66446008)(66476007)(66556008)(64756008)(66946007)(52536014)(55016002)(7696005)(26005)(76116006)(6916009)(186003)(86362001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4389;
+ H:MN2PR12MB4319.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: dV/u/Fjkp5YSyz8qtxC7uddguNg8r0zHDEUnheA4egPidPgAKPceh5Im9SVbiD1KgCL6oM89Rh8iGAILk0aYBDsKAa0fNuqtmGD0RE/ID8d7fjgajET8nNS/FNWRghVBqZoU2NvgZIMTRevZdwK9aoJSKKgTy9+5uxZq/59xyrimKzibL8mwGSexGT1kBwcJ9ud3riAFsLEtazXpKeOL2BfAjgEHySiDNgmBFbvEvU8pD/NgrbfHjpG6jXrmrKIkUqL+kTQ9kseN6p0kSUujvU4VMbwlCTM8v6QWeF7MFmjBm81bQcY8noQY7CDXawywO0EO+GcxTxF0hdrjPtmR5I7OujrMgRBm10X+l9eSzWaWiUaELvF+YMDbB3SleofKj+F0bzR9qpzoObh6ZGyMk6M+b/HlfoQMTs2aauZGIswHRMeijwq6p4vvhAdYc0No
+x-ms-exchange-antispam-messagedata: kwGgx2KxFJpi7YkdHDQgviNBD5TD6r2ODTSzu4eu+nkL35Brqs576FpnoCllUrGMDONkipw3lYhFEXto72QcTy4j7hrMBr+MIXJsKkRTwxlWONcZ7FQfikVUGBiGlsk1c5CCrfvZw62Xql97XDajqA==
 MIME-Version: 1.0
-References: <1582691649-4876-1-git-send-email-Emily.Deng@amd.com>
-In-Reply-To: <1582691649-4876-1-git-send-email-Emily.Deng@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 26 Feb 2020 09:29:48 -0500
-Message-ID: <CADnq5_NEnQoDRQzyk4v9Nie+qUJo3q5eZUGoC1j+CoY+SG25hg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/sriov: Use kiq to copy the gpu clock
-To: Emily Deng <Emily.Deng@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7cd85b0-d794-496e-72ef-08d7bad1a1e1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Feb 2020 15:36:22.1927 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9pICDaoowaIXyl7o+OXaf2GuhEG0PRy923smvhc66LmXb75gPx6jE7kyOzt1/msG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4389
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,125 +130,282 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Broadworth, Mark" <Mark.Broadworth@amd.com>, "Liu,
+ Zhan" <Zhan.Liu@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher, 
+ Alexander" <Alexander.Deucher@amd.com>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Feb 25, 2020 at 11:34 PM Emily Deng <Emily.Deng@amd.com> wrote:
+[AMD Official Use Only - Internal Distribution Only]
+
+Hi Alex:
+
+     The patch set works. Please let me know when you push the change to drm-next.
+
+     Thanks a lot.
+
+Regards,
+Jerry
+
+-----Original Message-----
+From: Alex Deucher <alexdeucher@gmail.com>
+Sent: February 25, 2020 1:42 PM
+To: Zuo, Jerry <Jerry.Zuo@amd.com>
+Cc: Liu, Zhan <Zhan.Liu@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop.org>; Maling list - DRI developers <dri-devel@lists.freedesktop.org>; Deucher, Alexander <Alexander.Deucher@amd.com>; Broadworth, Mark <Mark.Broadworth@amd.com>
+Subject: Re: [PATCH 13/15] drm/amdgpu/display: split dp connector registration (v3)
+
+On Tue, Feb 25, 2020 at 1:32 PM Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> For vega10 sriov, the register is blocked, use
-> copy data command to fix the issue.
+> On Tue, Feb 25, 2020 at 1:30 PM Zuo, Jerry <Jerry.Zuo@amd.com> wrote:
+> >
+> > [AMD Official Use Only - Internal Distribution Only]
+> >
+> > Hi Alex:
+> >
+> >      It happened when a MST monitor is attached, either in driver load or hotplug later.
 >
-> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 68 +++++++++++++++++++++++++++++------
->  1 file changed, 58 insertions(+), 10 deletions(-)
+> I think I found the issue.  I'll send a patch shortly.
+
+Attaching two patches.  I think patch 1 should fix it.  Patch 2 is the same patch as before.  I'm not sure
+drm_dp_mst_connector_late_register() is necessary since no other driver calls it.
+
+Alex
+
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 1c7a16b..71df0d9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -3963,6 +3963,63 @@ static int gfx_v9_0_soft_reset(void *handle)
->         return 0;
->  }
+> Alex
 >
-> +static uint64_t amdgpu_kiq_read_clock(struct amdgpu_device *adev)
-
-Please name this function gfx_v9_0_kiq_read_clock for consistency.
-
-
-> +{
-> +       signed long r, cnt = 0;
-> +       unsigned long flags;
-> +       uint32_t seq;
-> +       struct amdgpu_kiq *kiq = &adev->gfx.kiq;
-> +       struct amdgpu_ring *ring = &kiq->ring;
-> +
-> +       BUG_ON(!ring->funcs->emit_rreg);
-> +
-> +       spin_lock_irqsave(&kiq->ring_lock, flags);
-> +       amdgpu_ring_alloc(ring, 32);
-> +       amdgpu_ring_write(ring, PACKET3(PACKET3_COPY_DATA, 4));
-> +       amdgpu_ring_write(ring, 9 |     /* src: register*/
-
-Is src 9 the counter?
-
-Assuming that is correct, with the naming fixed:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-> +                               (5 << 8) |      /* dst: memory */
-> +                               (1 << 16) |     /* count sel */
-> +                               (1 << 20));     /* write confirm */
-> +       amdgpu_ring_write(ring, 0);
-> +       amdgpu_ring_write(ring, 0);
-> +       amdgpu_ring_write(ring, lower_32_bits(adev->wb.gpu_addr +
-> +                               kiq->reg_val_offs * 4));
-> +       amdgpu_ring_write(ring, upper_32_bits(adev->wb.gpu_addr +
-> +                               kiq->reg_val_offs * 4));
-> +       amdgpu_fence_emit_polling(ring, &seq);
-> +       amdgpu_ring_commit(ring);
-> +       spin_unlock_irqrestore(&kiq->ring_lock, flags);
-> +
-> +       r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
-> +
-> +       /* don't wait anymore for gpu reset case because this way may
-> +        * block gpu_recover() routine forever, e.g. this virt_kiq_rreg
-> +        * is triggered in TTM and ttm_bo_lock_delayed_workqueue() will
-> +        * never return if we keep waiting in virt_kiq_rreg, which cause
-> +        * gpu_recover() hang there.
-> +        *
-> +        * also don't wait anymore for IRQ context
-> +        * */
-> +       if (r < 1 && (adev->in_gpu_reset || in_interrupt()))
-> +               goto failed_kiq_read;
-> +
-> +       might_sleep();
-> +       while (r < 1 && cnt++ < MAX_KIQ_REG_TRY) {
-> +               msleep(MAX_KIQ_REG_BAILOUT_INTERVAL);
-> +               r = amdgpu_fence_wait_polling(ring, seq, MAX_KIQ_REG_WAIT);
-> +       }
-> +
-> +       if (cnt > MAX_KIQ_REG_TRY)
-> +               goto failed_kiq_read;
-> +
-> +       return (uint64_t)adev->wb.wb[kiq->reg_val_offs] |
-> +               (uint64_t)adev->wb.wb[kiq->reg_val_offs + 1 ] << 32ULL;
-> +
-> +failed_kiq_read:
-> +       pr_err("failed to read gpu clock\n");
-> +       return ~0;
-> +}
-> +
->  static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
->  {
->         uint64_t clock;
-> @@ -3970,16 +4027,7 @@ static uint64_t gfx_v9_0_get_gpu_clock_counter(struct amdgpu_device *adev)
->         amdgpu_gfx_off_ctrl(adev, false);
->         mutex_lock(&adev->gfx.gpu_clock_mutex);
->         if (adev->asic_type == CHIP_VEGA10 && amdgpu_sriov_runtime(adev)) {
-> -               uint32_t tmp, lsb, msb, i = 0;
-> -               do {
-> -                       if (i != 0)
-> -                               udelay(1);
-> -                       tmp = RREG32_SOC15(GC, 0, mmRLC_REFCLOCK_TIMESTAMP_MSB);
-> -                       lsb = RREG32_SOC15(GC, 0, mmRLC_REFCLOCK_TIMESTAMP_LSB);
-> -                       msb = RREG32_SOC15(GC, 0, mmRLC_REFCLOCK_TIMESTAMP_MSB);
-> -                       i++;
-> -               } while (unlikely(tmp != msb) && (i < adev->usec_timeout));
-> -               clock = (uint64_t)lsb | ((uint64_t)msb << 32ULL);
-> +               clock = amdgpu_kiq_read_clock(adev);
->         } else {
->                 WREG32_SOC15(GC, 0, mmRLC_CAPTURE_GPU_CLOCK_COUNT, 1);
->                 clock = (uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUNT_LSB) |
-> --
-> 2.7.4
 >
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> >
+> > Regards,
+> > Jerry
+> >
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: February 25, 2020 1:23 PM
+> > To: Liu, Zhan <Zhan.Liu@amd.com>
+> > Cc: Wentland, Harry <Harry.Wentland@amd.com>; Zuo, Jerry 
+> > <Jerry.Zuo@amd.com>; amd-gfx list <amd-gfx@lists.freedesktop.org>; 
+> > Maling list - DRI developers <dri-devel@lists.freedesktop.org>;
+> > Deucher, Alexander <Alexander.Deucher@amd.com>; Broadworth, Mark 
+> > <Mark.Broadworth@amd.com>
+> > Subject: Re: [PATCH 13/15] drm/amdgpu/display: split dp connector 
+> > registration (v3)
+> >
+> > On Tue, Feb 25, 2020 at 1:20 PM Liu, Zhan <Zhan.Liu@amd.com> wrote:
+> > >
+> > >
+> > > > -----Original Message-----
+> > > > From: Liu, Zhan
+> > > > Sent: 2020/February/25, Tuesday 10:10 AM
+> > > > To: Alex Deucher <alexdeucher@gmail.com>; Wentland, Harry 
+> > > > <Harry.Wentland@amd.com>
+> > > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Maling list - 
+> > > > DRI developers <dri-devel@lists.freedesktop.org>; Deucher, 
+> > > > Alexander <Alexander.Deucher@amd.com>; Broadworth, Mark 
+> > > > <Mark.Broadworth@amd.com>
+> > > > Subject: RE: [PATCH 13/15] drm/amdgpu/display: split dp 
+> > > > connector registration (v3)
+> > > >
+> > > >
+> > > > > -----Original Message-----
+> > > > > From: Alex Deucher <alexdeucher@gmail.com>
+> > > > > Sent: 2020/February/25, Tuesday 9:07 AM
+> > > > > To: Wentland, Harry <Harry.Wentland@amd.com>
+> > > > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Maling list
+> > > > > - DRI developers <dri-devel@lists.freedesktop.org>; Deucher, 
+> > > > > Alexander <Alexander.Deucher@amd.com>; Broadworth, Mark 
+> > > > > <Mark.Broadworth@amd.com>; Liu, Zhan <Zhan.Liu@amd.com>
+> > > > > Subject: Re: [PATCH 13/15] drm/amdgpu/display: split dp 
+> > > > > connector registration (v3)
+> > > > >
+> > > > > On Mon, Feb 24, 2020 at 4:09 PM Harry Wentland 
+> > > > > <hwentlan@amd.com>
+> > > > > wrote:
+> > > > > >
+> > > > > > On 2020-02-07 4:17 p.m., Alex Deucher wrote:
+> > > > > > > Split into init and register functions to avoid a segfault 
+> > > > > > > in some configs when the load/unload callbacks are removed.
+> > > > > > >
+> > > > > >
+> > > > > > Looks like MST is completely broken with this change with a 
+> > > > > > NULL pointer dereference in drm_dp_aux_register.
+> > > > > >
+> > > > > > > v2:
+> > > > > > > - add back accidently dropped has_aux setting
+> > > > > > > - set dev in late_register
+> > > > > > >
+> > > > > > > v3:
+> > > > > > > - fix dp cec ordering
+> > > > > > >
+> > > > > > > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > > > > > > ---
+> > > > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c   | 16
+> > > > > ++++++++++++++++
+> > > > > > >  drivers/gpu/drm/amd/amdgpu/atombios_dp.c         | 10 ++--------
+> > > > > > >  .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c  |  7
+> > > > > > > ++++++-
+> > > > > > >  3 files changed, 24 insertions(+), 9 deletions(-)
+> > > > > > >
+> > > > > > > diff --git
+> > > > > > > a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> > > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> > > > > > > index ec1501e3a63a..f355d9a752d2 100644
+> > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
+> > > > > > > @@ -1461,6 +1461,20 @@ static enum drm_mode_status
+> > > > > amdgpu_connector_dp_mode_valid(struct drm_connector
+> > > > > > >       return MODE_OK;
+> > > > > > >  }
+> > > > > > >
+> > > > > > > +static int
+> > > > > > > +amdgpu_connector_late_register(struct drm_connector *connector) {
+> > > > > > > +     struct amdgpu_connector *amdgpu_connector =
+> > > > > to_amdgpu_connector(connector);
+> > > > > > > +     int r = 0;
+> > > > > > > +
+> > > > > > > +     if (amdgpu_connector->ddc_bus->has_aux) {
+> > > > > > > +             amdgpu_connector->ddc_bus->aux.dev =
+> > > > > > > + amdgpu_connector-
+> > > > > >base.kdev;
+> > > > > > > +             r = drm_dp_aux_register(&amdgpu_connector->ddc_bus->aux);
+> > > > > > > +     }
+> > > > > > > +
+> > > > > > > +     return r;
+> > > > > > > +}
+> > > > > > > +
+> > > > > > >  static const struct drm_connector_helper_funcs
+> > > > > amdgpu_connector_dp_helper_funcs = {
+> > > > > > >       .get_modes = amdgpu_connector_dp_get_modes,
+> > > > > > >       .mode_valid = amdgpu_connector_dp_mode_valid, @@
+> > > > > > > -1475,6
+> > > > > > > +1489,7 @@ static const struct drm_connector_funcs
+> > > > > amdgpu_connector_dp_funcs = {
+> > > > > > >       .early_unregister = amdgpu_connector_unregister,
+> > > > > > >       .destroy = amdgpu_connector_destroy,
+> > > > > > >       .force = amdgpu_connector_dvi_force,
+> > > > > > > +     .late_register = amdgpu_connector_late_register,
+> > > > > > >  };
+> > > > > > >
+> > > > > > >  static const struct drm_connector_funcs 
+> > > > > > > amdgpu_connector_edp_funcs = { @@ -1485,6 +1500,7 @@ 
+> > > > > > > static
+> > > > const
+> > > > > > > struct drm_connector_funcs
+> > > > > amdgpu_connector_edp_funcs = {
+> > > > > > >       .early_unregister = amdgpu_connector_unregister,
+> > > > > > >       .destroy = amdgpu_connector_destroy,
+> > > > > > >       .force = amdgpu_connector_dvi_force,
+> > > > > > > +     .late_register = amdgpu_connector_late_register,
+> > > > > > >  };
+> > > > > > >
+> > > > > > >  void
+> > > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> > > > > > > b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> > > > > > > index ea702a64f807..9b74cfdba7b8 100644
+> > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/atombios_dp.c
+> > > > > > > @@ -186,16 +186,10 @@
+> > > > > > > amdgpu_atombios_dp_aux_transfer(struct
+> > > > > > > drm_dp_aux *aux, struct drm_dp_aux_msg *m
+> > > > > > >
+> > > > > > >  void amdgpu_atombios_dp_aux_init(struct amdgpu_connector
+> > > > > > > *amdgpu_connector)  {
+> > > > > > > -     int ret;
+> > > > > > > -
+> > > > > > >       amdgpu_connector->ddc_bus->rec.hpd =
+> > > > > > > amdgpu_connector-
+> > > > > >hpd.hpd;
+> > > > > > > -     amdgpu_connector->ddc_bus->aux.dev = amdgpu_connector-
+> > > > > >base.kdev;
+> > > > > > >       amdgpu_connector->ddc_bus->aux.transfer =
+> > > > > amdgpu_atombios_dp_aux_transfer;
+> > > > > > > -     ret = drm_dp_aux_register(&amdgpu_connector->ddc_bus->aux);
+> > > > > > > -     if (!ret)
+> > > > > > > -             amdgpu_connector->ddc_bus->has_aux = true;
+> > > > > > > -
+> > > > > > > -     WARN(ret, "drm_dp_aux_register_i2c_bus() failed with error %d\n",
+> > > > > ret);
+> > > > > > > +     drm_dp_aux_init(&amdgpu_connector->ddc_bus->aux);
+> > > > > > > +     amdgpu_connector->ddc_bus->has_aux = true;
+> > > > > > >  }
+> > > > > > >
+> > > > > > >  /***** general DP utility functions *****/ diff --git 
+> > > > > > > a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_type
+> > > > > > > s.c
+> > > > > > > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_type
+> > > > > > > s.c index 3959c942c88b..d5b9e72f2649 100644
+> > > > > > > ---
+> > > > > a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> > > > > > > +++
+> > > > > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+> > > > > > > @@ -155,6 +155,11 @@
+> > > > > amdgpu_dm_mst_connector_late_register(struct drm_connector
+> > > > > *connector)
+> > > > > > >       struct amdgpu_dm_connector *amdgpu_dm_connector =
+> > > > > > >               to_amdgpu_dm_connector(connector);
+> > > > > > >       struct drm_dp_mst_port *port = 
+> > > > > > > amdgpu_dm_connector->port;
+> > > > > > > +     int r;
+> > > > > > > +
+> > > > > > > +     r =
+> > > > > > > + drm_dp_aux_register(&amdgpu_dm_connector->dm_dp_aux.aux)
+> > > > > > > + ;
+> > > > > >
+> > > > > > This calls drm_dp_aux_register_devnode which is also called 
+> > > > > > later in drm_dp_mst_connector_late_register. Wonder if that's a problem.
+> > > > >
+> > > > > Does this patch help?  I'm not too familiar with the MST code 
+> > > > > and I don't have an MST monitor.
+> > > >
+> > > > I have an MST monitor and I can give it a spin. I'll get back to you later.
+> > >
+> > > + Jerry who is following up on this issue
+> > >
+> > > Thank you Alex for your patch. Unfortunately, it doesn't solve the issue.
+> > >
+> > > Jerry is following up on this ticket, and I've added him to this email thread.
+> >
+> > Can you send me the full dmesg output?  Also, does it happen as soon as the driver loads or sometime later?
+> >
+> > Alex
+> >
+> >
+> > >
+> > > Zhan
+> > >
+> > > >
+> > > > Zhan
+> > > >
+> > > > >
+> > > > > Alex
+> > > > >
+> > > > >
+> > > > > >
+> > > > > > Harry
+> > > > > >
+> > > > > > > +     if (r)
+> > > > > > > +             return r;
+> > > > > > >
+> > > > > > >  #if defined(CONFIG_DEBUG_FS)
+> > > > > > >       connector_debugfs_init(amdgpu_dm_connector);
+> > > > > > > @@ -484,7 +489,7 @@ void
+> > > > amdgpu_dm_initialize_dp_connector(struct
+> > > > > amdgpu_display_manager *dm,
+> > > > > > >       aconnector->dm_dp_aux.aux.transfer = dm_dp_aux_transfer;
+> > > > > > >       aconnector->dm_dp_aux.ddc_service =
+> > > > > > > aconnector->dc_link->ddc;
+> > > > > > >
+> > > > > > > -     drm_dp_aux_register(&aconnector->dm_dp_aux.aux);
+> > > > > > > +     drm_dp_aux_init(&aconnector->dm_dp_aux.aux);
+> > > > > > >       drm_dp_cec_register_connector(&aconnector->dm_dp_aux.aux,
+> > > > > > >                                     &aconnector->base);
+> > > > > > >
+> > > > > > >
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
