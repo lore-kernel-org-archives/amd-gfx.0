@@ -2,37 +2,36 @@ Return-Path: <SRS0=BS7L=4O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7424DC4BA21
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 04F85C4BA24
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 474BD2072D
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CE7B72072D
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Feb 2020 19:02:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1PqKup73"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 474BD2072D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="lGjAlDV/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE7B72072D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF8FD6E107;
-	Wed, 26 Feb 2020 19:02:06 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770089.outbound.protection.outlook.com [40.107.77.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C30F6E107;
- Wed, 26 Feb 2020 19:02:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0A286EB8D;
+	Wed, 26 Feb 2020 19:02:07 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D6A96E107;
+ Wed, 26 Feb 2020 19:02:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RUd7FZFPRa4DaajCnSaFWGTU06rentfzDce/MiwbEXtpPNi0HD7JxEAS7DikANen72JvckZW3M9oSbxjjH9Gv7H9tRGllaZAb6URfBn7PowV3P0K21HDjEu/VW+8WTSsfjMm2djI/YLJSVXmkt+hqTyeRkDuBrQXywO4V6fVU07SjrSnlkN5KU93d8VkWO1XofJHolNvYztUjHKHPEa6yisKrtX4lU3BfjWXkloQHF0g6w+c+d3x0a3FFQWjZRabiCbdTnQ9960ZU7M9IRNtgEkY11l1CID9WCdOPQOgc2Lvs4jhMno0HLu494IJXw0I4/TYeda1nxksz8oT/zh+Pg==
+ b=cPonj55NW3W4swJP8O23xVx552XApuCRzxz0tTvq1v35QqfSS014mqLYWOSTKBrviP7sVeSXxqCK051fAZXekZ3MeddCFn2nEb7RQrAzQmSW5otJljL4FY2TKZEykxPQk2sARhc27ml1eXz+dW/KO2D1Br5FQKcRFi910+ZMjPENMqYJxvMT4vVAMlAsfAgSDVaUSjBMIv6MaY12YAsOkB8WaHPv7QdIR1J6mySc+VBRApo7qEv4lJCos30Dk2DwK8we4lkFR5REpTlEcCFPnXxUbirQwLsdm3+K1oN8yBug8Ix0UHsyzlKDDmrmby6QGPgXehZJ5O+iSrFljwc0ZQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cbd1SlHF0GT3rkAKka7pQv0vq0zGroXvz/Uf3xVD+j4=;
- b=erOqMn5Dxo9ljojFSkWAUwvDIpZc1AFZo86GhpDh8i8L3ENqN3bS1nD81SBpHbNfN6j23gPKlOxDiTUoArIHiiUHM7M/wYPzt3ZVntpaBpyZ7ntoqEkL5ATCiBvHXvkOY0YIowzmOhZDuYu8pI03yCJ/ssztmW3ZeboHVCU0gAFYG6p2NdlpfWYhIWY10HmfMW8fTlVOYE9Lgr9ZJl71C4RZnBdcIq9MHikw38eJGsxyl/bs8uyeMxoIwBPTaPm1gIbGREhW1iTIygFpYIoIVStHtAogFWdGROVcBZIyK2TgkHHn+blORd6yTBHH2u/VeUEc/IYHTan923iJPYMrPg==
+ bh=dC80z490x8sni2ZqGHuoJ/3EBLF3zugdZGEK5Ukyck0=;
+ b=ExRAGX0qM0efyV7aaJV33GgMU4apKLCpwDdWoZvlFz4QWugKygJt5SKlGddwNniJ60SwZvpTbWP+BrAsqvQufw8rZZY4g4dZCwQ892fOAsZmHoMykF+Qvk3uUQukV/hYMSRInEEd1DEeBnz4XlZiMnNT/Atyz23mRu4zzTg7LajlnagauFdleiE8G4ELo9TF6LGXSZId71o6EudgELt92g15jwy0EsQbIuoyZhDDYkbM2cg3lMIyZTu5GRs1ifXdgFNgpJ9ZzOtz3OEueSmiqkuokYHzdovfMD8ZxX7tf69YpX9Aflr79PAltN/Xu5LRnHpA8hM74YQ9OprC0rJr/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com;
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +39,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cbd1SlHF0GT3rkAKka7pQv0vq0zGroXvz/Uf3xVD+j4=;
- b=1PqKup73YTPJxMOXE9gWf+Bq0e+Jnmns5X91AzIocvorV0H+Xer9QWdH+vhxV3ytn4JMinqc2Ei6k2yXshtHmPFBs1s7pFncngKWpapXMvkyyG8Ev/3fM/Cs5BXoKJy03W1VqJlIaFU2MVEVjLJvve7bKLVoIs5C1hjX9VViQc0=
-Received: from MN2PR16CA0035.namprd16.prod.outlook.com (2603:10b6:208:134::48)
- by SN1PR12MB2591.namprd12.prod.outlook.com (2603:10b6:802:30::32)
+ bh=dC80z490x8sni2ZqGHuoJ/3EBLF3zugdZGEK5Ukyck0=;
+ b=lGjAlDV/6q/ERlytj0/HlD6csUGaIJWXe2RX2tWv37Zsuc8UQpUOf0wLkhKCjFy1xloNzlcrdy5YGMYFZk/XOTjTfChJJJQrAXsJ13qI0aHVLnC7q+8zuROyIgJA4HE+lh6CmBPww9jhOW/VrDYAay9pS4I3F0Mr6Kp9kKp8Hc0=
+Received: from MN2PR16CA0032.namprd16.prod.outlook.com (2603:10b6:208:134::45)
+ by MN2PR12MB4190.namprd12.prod.outlook.com (2603:10b6:208:1dd::24)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Wed, 26 Feb
- 2020 19:02:04 +0000
+ 2020 19:02:05 +0000
 Received: from BN8NAM11FT039.eop-nam11.prod.protection.outlook.com
- (2603:10b6:208:134:cafe::34) by MN2PR16CA0035.outlook.office365.com
- (2603:10b6:208:134::48) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14 via Frontend
- Transport; Wed, 26 Feb 2020 19:02:03 +0000
+ (2603:10b6:208:134:cafe::91) by MN2PR16CA0032.outlook.office365.com
+ (2603:10b6:208:134::45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15 via Frontend
+ Transport; Wed, 26 Feb 2020 19:02:05 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; gmail.com; dkim=none (message not signed)
  header.d=none;gmail.com; dmarc=permerror action=none header.from=amd.com;
@@ -60,52 +59,56 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
  BN8NAM11FT039.mail.protection.outlook.com (10.13.177.169) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2772.14 via Frontend Transport; Wed, 26 Feb 2020 19:02:03 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ 15.20.2772.14 via Frontend Transport; Wed, 26 Feb 2020 19:02:05 +0000
+Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 26 Feb
- 2020 13:02:02 -0600
+ 2020 13:02:04 -0600
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
+ (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 26 Feb
+ 2020 13:02:03 -0600
 Received: from yuho-zbook.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Wed, 26 Feb 2020 13:02:01 -0600
+ Transport; Wed, 26 Feb 2020 13:02:03 -0600
 From: Kenny Ho <Kenny.Ho@amd.com>
 To: <y2kenny@gmail.com>, <cgroups@vger.kernel.org>,
  <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
  <tj@kernel.org>, <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <felix.kuehling@amd.com>, <joseph.greathouse@amd.com>, <jsparks@cray.com>
-Subject: [PATCH v2 00/11] new cgroup controller for gpu/drm subsystem
-Date: Wed, 26 Feb 2020 14:01:41 -0500
-Message-ID: <20200226190152.16131-1-Kenny.Ho@amd.com>
+Subject: [PATCH v2 02/11] drm, cgroup: Bind drm and cgroup subsystem
+Date: Wed, 26 Feb 2020 14:01:43 -0500
+Message-ID: <20200226190152.16131-3-Kenny.Ho@amd.com>
 X-Mailer: git-send-email 2.25.0
-In-Reply-To: <lkaplan@cray.com; daniel@ffwll.ch; nirmoy.das@amd.com;
- damon.mcdougall@amd.com; juan.zuniga-anaya@amd.com; hannes@cmpxchg.org>
+In-Reply-To: <20200226190152.16131-1-Kenny.Ho@amd.com>
 References: <lkaplan@cray.com; daniel@ffwll.ch; nirmoy.das@amd.com;
  damon.mcdougall@amd.com; juan.zuniga-anaya@amd.com; hannes@cmpxchg.org>
+ <20200226190152.16131-1-Kenny.Ho@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10001)(10009020)(4636009)(396003)(376002)(136003)(39860400002)(346002)(428003)(189003)(199004)(966005)(2906002)(81156014)(478600001)(7696005)(86362001)(426003)(6666004)(5660300002)(356004)(4326008)(36756003)(336012)(81166006)(8676002)(8936002)(70586007)(1076003)(316002)(186003)(26005)(2616005)(110136005)(70206006)(921003)(1121003)(2101003)(83996005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:SN1PR12MB2591; H:SATLEXMB01.amd.com; FPR:;
+ SFS:(10009020)(4636009)(396003)(376002)(136003)(346002)(39860400002)(428003)(189003)(199004)(81156014)(110136005)(2616005)(8676002)(70206006)(426003)(6666004)(26005)(70586007)(81166006)(186003)(356004)(1076003)(8936002)(478600001)(7696005)(86362001)(316002)(5660300002)(2906002)(36756003)(4326008)(336012)(921003)(2101003)(83996005)(1121003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4190; H:SATLEXMB01.amd.com; FPR:;
  SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 197d4d04-7c3b-4d99-20ad-08d7baee5dde
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2591:
-X-Microsoft-Antispam-PRVS: <SN1PR12MB25912CBD2DE472770F97BE6883EA0@SN1PR12MB2591.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-MS-Office365-Filtering-Correlation-Id: f62ef0fb-7496-4f8c-fea5-08d7baee5ecf
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4190:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB419024C6E468D6E96C777FDC83EA0@MN2PR12MB4190.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
 X-Forefront-PRVS: 0325F6C77B
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DevkaLxOgJfhuT+lGFEeKI1RV+L06kV1msSCEQ3Fz+TAf3YYUiSb5V7GPze35dixn4CLlfp9kwJHcr3IvZ63Fw7DI9tlzBC0hcNIgF5Jfw/A+bfIBbBgQDozjkCU7T/ICCVr5KNsXKFAqvaVt4t0ZYReroAfyQiTutQqrkax7zyniZNeJ17Nu1XEljjTZkgmWq4Rko7/B66Uk4w1SKh9VpqbEi8H4OE8W3nJAyr5aEnYgAMn+Mi+hBG6M7LWXLAqJQl2cQ2Ymkq25ewE962K6hbHJaqDk7bveDuNE9pk15xqX/eTI1RXfzcgSpNEb7vREiK1ahYNDAgSfRfa8Ecs60nCDbdBLeYBMp2mjBVd5QkuHrsTa/wteSJTPEFmo0vItS2JSySyXIAg0zan6TfSRAVmByVuofLhxX6OgXj3m7B3qv5hR2whmitS19sgoD1N0ctPFJc8FuIjLcsvJqUHOvtfqLbZGq7dFd9rfbQG4mmv9yIu9bWK2+UCbOpHVL14But8WlXbwN2JznUL6eYD1KvC/5Ujp/PHDat/x0c+80/tbb5TIjvS/mGm905XGWUYcGyjO9U/ca1ZiPuq2lJ4YNpBU91+dq4Zh/yLuMZyLBccNiCoZdwQyvRO0CRrfIMB1DPH8VEP/gDLxyfCGAqlT6vB9I1mL/NiwTBH0Wl70vYr2adysJKYyUfUNG6nAU5g
+X-Microsoft-Antispam-Message-Info: S1tcfA2YlO45KEOJ1Gxbj3YVLuBNUglMe5U7+9t4beaQyFcNP+/qA1l21YqYq+UffjPLPDVIg3+fDq9rloE8T9FczIt1uUSJSe3Inm7qrCWeu4/P7JnelOlvnsyVXKYNKIp2gqXSGhroACI/j5S/h/lzPEsEdJkzziWmK4Adx7tSA4HiRd+u3v91M8AYHoScB6tGVUUnzzgmiWuMP0s/ZlqhFUqoS/ttiWzHVXTEUNByv74sHARU0Y6vmc8wXSqzm+56pVnIO8ecfIYIhvZmuCvascAFqkCpLmokQGWWi4RUTEo8b1SRP2oSRh5+xH6QffRbqudwU62+32swUBcn+qGWAR10Y2NukmSnQAKVortPklW/gqTfTF6Mxi/GWkIIbUdmJhJM44dFUGUNIOmLSgcnuTRGGjklbOOqG1APSC+LtAYi6BTXM+0rloSllmNf2QyUmej0XQKa3jtlPf9IGoB74INF59r+oRlzYTs5ptmlA1YiA2mhflPQ3grrQoBjDRlqZtAk84GmyAk5jnK7/TYWn0izjSes0At6o1ECMZM=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2020 19:02:03.5596 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 197d4d04-7c3b-4d99-20ad-08d7baee5dde
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2020 19:02:05.1447 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f62ef0fb-7496-4f8c-fea5-08d7baee5ecf
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2591
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4190
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,182 +126,281 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a submission for the introduction of a new cgroup controller for the drm subsystem follow a series of RFCs [v1, v2, v3, v4]
+Since the drm subsystem can be compiled as a module and drm devices can
+be added and removed during run time, add several functions to bind the
+drm subsystem as well as drm devices with drmcg.
 
-Changes from PR v1
-* changed cgroup controller name from drm to gpu
-* removed lgpu
-* added compute.weight resources, clarified resources being distributed as partitions of compute device
+Two pairs of functions:
+drmcg_bind/drmcg_unbind - used to bind/unbind the drm subsystem to the
+cgroup subsystem as the drm core initialize/exit.
 
-PR v1: https://www.spinics.net/lists/cgroups/msg24479.html
+drmcg_register_dev/drmcg_unregister_dev - used to register/unregister
+drm devices to the cgroup subsystem as the devices are presented/removed
+from userspace.
 
-Changes from the RFC base on the feedbacks:
-* drop all drm.memory.* related implementation and focus only on buffer and lgpu
-* add weight resource type for logical gpu (lgpu)
-* uncoupled drmcg device iteration from drm_minor
-
-I'd also like to highlight the fact that these patches are currently released under MIT/X11 license aligning with the norm of the drm subsystem, but I am working to have the cgroup parts release under GPLv2 to align with the norm of the cgroup subsystem.
-
-RFC:
-[v1]: https://lists.freedesktop.org/archives/dri-devel/2018-November/197106.html
-[v2]: https://www.spinics.net/lists/cgroups/msg22074.html
-[v3]: https://lists.freedesktop.org/archives/amd-gfx/2019-June/036026.html
-[v4]: https://patchwork.kernel.org/cover/11120371/
-
-Changes since the start of RFC are as follows:
-
-v4:
-Unchanged (no review needed)
-* drm.memory.*/ttm resources (Patch 9-13, I am still working on memory bandwidth
-and shrinker)
-Base on feedbacks on v3:
-* update nominclature to drmcg
-* embed per device drmcg properties into drm_device
-* split GEM buffer related commits into stats and limit
-* rename function name to align with convention
-* combined buffer accounting and check into a try_charge function
-* support buffer stats without limit enforcement
-* removed GEM buffer sharing limitation
-* updated documentations
-New features:
-* introducing logical GPU concept
-* example implementation with AMD KFD
-
-v3:
-Base on feedbacks on v2:
-* removed .help type file from v2
-* conform to cgroup convention for default and max handling
-* conform to cgroup convention for addressing device specific limits (with major:minor)
-New function:
-* adopted memparse for memory size related attributes
-* added macro to marshall drmcgrp cftype private ?(DRMCG_CTF_PRIV, etc.)
-* added ttm buffer usage stats (per cgroup, for system, tt, vram.)
-* added ttm buffer usage limit (per cgroup, for vram.)
-* added per cgroup bandwidth stats and limiting (burst and average bandwidth)
-
-v2:
-* Removed the vendoring concepts
-* Add limit to total buffer allocation
-* Add limit to the maximum size of a buffer allocation
-
-v1: cover letter
-
-The purpose of this patch series is to start a discussion for a generic cgroup
-controller for the drm subsystem.  The design proposed here is a very early 
-one.  We are hoping to engage the community as we develop the idea.
-
-Backgrounds
-===========
-Control Groups/cgroup provide a mechanism for aggregating/partitioning sets of
-tasks, and all their future children, into hierarchical groups with specialized
-behaviour, such as accounting/limiting the resources which processes in a 
-cgroup can access[1].  Weights, limits, protections, allocations are the main 
-resource distribution models.  Existing cgroup controllers includes cpu, 
-memory, io, rdma, and more.  cgroup is one of the foundational technologies 
-that enables the popular container application deployment and management method.
-
-Direct Rendering Manager/drm contains code intended to support the needs of
-complex graphics devices. Graphics drivers in the kernel may make use of DRM
-functions to make tasks like memory management, interrupt handling and DMA
-easier, and provide a uniform interface to applications.  The DRM has also
-developed beyond traditional graphics applications to support compute/GPGPU
-applications.
-
-Motivations
-===========
-As GPU grow beyond the realm of desktop/workstation graphics into areas like
-data center clusters and IoT, there are increasing needs to monitor and 
-regulate GPU as a resource like cpu, memory and io.
-
-Matt Roper from Intel began working on similar idea in early 2018 [2] for the
-purpose of managing GPU priority using the cgroup hierarchy.  While that
-particular use case may not warrant a standalone drm cgroup controller, there
-are other use cases where having one can be useful [3].  Monitoring GPU
-resources such as VRAM and buffers, CU (compute unit [AMD's nomenclature])/EU
-(execution unit [Intel's nomenclature]), GPU job scheduling [4] can help
-sysadmins get a better understanding of the applications usage profile. 
-Further usage regulations of the aforementioned resources can also help sysadmins
-optimize workload deployment on limited GPU resources.
-
-With the increased importance of machine learning, data science and other
-cloud-based applications, GPUs are already in production use in data centers
-today [5,6,7].  Existing GPU resource management is very course grain, however,
-as sysadmins are only able to distribute workload on a per-GPU basis [8].  An
-alternative is to use GPU virtualization (with or without SRIOV) but it
-generally acts on the entire GPU instead of the specific resources in a GPU.
-With a drm cgroup controller, we can enable alternate, fine-grain, sub-GPU
-resource management (in addition to what may be available via GPU
-virtualization.)
-
-In addition to production use, the DRM cgroup can also help with testing
-graphics application robustness by providing a mean to artificially limit DRM
-resources availble to the applications.
-
-
-Challenges
-==========
-While there are common infrastructure in DRM that is shared across many vendors
-(the scheduler [4] for example), there are also aspects of DRM that are vendor
-specific.  To accommodate this, we borrowed the mechanism used by the cgroup to
-handle different kinds of cgroup controller.
-
-Resources for DRM are also often device (GPU) specific instead of system
-specific and a system may contain more than one GPU.  For this, we borrowed
-some of the ideas from RDMA cgroup controller.
-
-Approach
-========
-To experiment with the idea of a DRM cgroup, we would like to start with basic
-accounting and statistics, then continue to iterate and add regulating
-mechanisms into the driver.
-
-[1] https://www.kernel.org/doc/Documentation/cgroup-v1/cgroups.txt
-[2] https://lists.freedesktop.org/archives/intel-gfx/2018-January/153156.html
-[3] https://www.spinics.net/lists/cgroups/msg20720.html
-[4] https://elixir.bootlin.com/linux/latest/source/drivers/gpu/drm/scheduler
-[5] https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/
-[6] https://blog.openshift.com/gpu-accelerated-sql-queries-with-postgresql-pg-strom-in-openshift-3-10/
-[7] https://github.com/RadeonOpenCompute/k8s-device-plugin
-[8] https://github.com/kubernetes/kubernetes/issues/52757
-
-Kenny Ho (11):
-  cgroup: Introduce cgroup for drm subsystem
-  drm, cgroup: Bind drm and cgroup subsystem
-  drm, cgroup: Initialize drmcg properties
-  drm, cgroup: Add total GEM buffer allocation stats
-  drm, cgroup: Add peak GEM buffer allocation stats
-  drm, cgroup: Add GEM buffer allocation count stats
-  drm, cgroup: Add total GEM buffer allocation limit
-  drm, cgroup: Add peak GEM buffer allocation limit
-  drm, cgroup: Add compute as gpu cgroup resource
-  drm, cgroup: add update trigger after limit change
-  drm/amdgpu: Integrate with DRM cgroup
-
- Documentation/admin-guide/cgroup-v2.rst       | 138 ++-
- Documentation/cgroup-v1/drm.rst               |   1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |   4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  48 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |   6 +-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |   7 +
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   3 +
- .../amd/amdkfd/kfd_process_queue_manager.c    | 153 +++
- drivers/gpu/drm/drm_drv.c                     |  12 +
- drivers/gpu/drm/drm_gem.c                     |  16 +-
- include/drm/drm_cgroup.h                      |  81 ++
- include/drm/drm_device.h                      |   7 +
- include/drm/drm_drv.h                         |  19 +
- include/drm/drm_gem.h                         |  12 +-
- include/linux/cgroup_drm.h                    | 138 +++
- include/linux/cgroup_subsys.h                 |   4 +
- init/Kconfig                                  |   5 +
- kernel/cgroup/Makefile                        |   1 +
- kernel/cgroup/drm.c                           | 913 ++++++++++++++++++
- 19 files changed, 1563 insertions(+), 5 deletions(-)
- create mode 100644 Documentation/cgroup-v1/drm.rst
+Change-Id: I1cb6b2080fc7d27979d886ef23e784341efafb41
+---
+ drivers/gpu/drm/drm_drv.c  |   8 +++
+ include/drm/drm_cgroup.h   |  39 +++++++++++
+ include/linux/cgroup_drm.h |   4 ++
+ kernel/cgroup/drm.c        | 131 +++++++++++++++++++++++++++++++++++++
+ 4 files changed, 182 insertions(+)
  create mode 100644 include/drm/drm_cgroup.h
- create mode 100644 include/linux/cgroup_drm.h
- create mode 100644 kernel/cgroup/drm.c
 
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index 7c18a980cd4b..e418a61f5c85 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -41,6 +41,7 @@
+ #include <drm/drm_file.h>
+ #include <drm/drm_mode_object.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_cgroup.h>
+ 
+ #include "drm_crtc_internal.h"
+ #include "drm_internal.h"
+@@ -973,6 +974,8 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+ 
+ 	ret = 0;
+ 
++	drmcg_register_dev(dev);
++
+ 	DRM_INFO("Initialized %s %d.%d.%d %s for %s on minor %d\n",
+ 		 driver->name, driver->major, driver->minor,
+ 		 driver->patchlevel, driver->date,
+@@ -1007,6 +1010,8 @@ EXPORT_SYMBOL(drm_dev_register);
+  */
+ void drm_dev_unregister(struct drm_device *dev)
+ {
++	drmcg_unregister_dev(dev);
++
+ 	if (drm_core_check_feature(dev, DRIVER_LEGACY))
+ 		drm_lastclose(dev);
+ 
+@@ -1113,6 +1118,7 @@ static const struct file_operations drm_stub_fops = {
+ 
+ static void drm_core_exit(void)
+ {
++	drmcg_unbind();
+ 	unregister_chrdev(DRM_MAJOR, "drm");
+ 	debugfs_remove(drm_debugfs_root);
+ 	drm_sysfs_destroy();
+@@ -1139,6 +1145,8 @@ static int __init drm_core_init(void)
+ 	if (ret < 0)
+ 		goto error;
+ 
++	drmcg_bind(&drm_minor_acquire, &drm_dev_put);
++
+ 	drm_core_init_complete = true;
+ 
+ 	DRM_DEBUG("Initialized\n");
+diff --git a/include/drm/drm_cgroup.h b/include/drm/drm_cgroup.h
+new file mode 100644
+index 000000000000..530c9a0b3238
+--- /dev/null
++++ b/include/drm/drm_cgroup.h
+@@ -0,0 +1,39 @@
++/* SPDX-License-Identifier: MIT
++ * Copyright 2019 Advanced Micro Devices, Inc.
++ */
++#ifndef __DRM_CGROUP_H__
++#define __DRM_CGROUP_H__
++
++#ifdef CONFIG_CGROUP_DRM
++
++void drmcg_bind(struct drm_minor (*(*acq_dm)(unsigned int minor_id)),
++		void (*put_ddev)(struct drm_device *dev));
++
++void drmcg_unbind(void);
++
++void drmcg_register_dev(struct drm_device *dev);
++
++void drmcg_unregister_dev(struct drm_device *dev);
++
++#else
++
++static inline void drmcg_bind(
++		struct drm_minor (*(*acq_dm)(unsigned int minor_id)),
++		void (*put_ddev)(struct drm_device *dev))
++{
++}
++
++static inline void drmcg_unbind(void)
++{
++}
++
++static inline void drmcg_register_dev(struct drm_device *dev)
++{
++}
++
++static inline void drmcg_unregister_dev(struct drm_device *dev)
++{
++}
++
++#endif /* CONFIG_CGROUP_DRM */
++#endif /* __DRM_CGROUP_H__ */
+diff --git a/include/linux/cgroup_drm.h b/include/linux/cgroup_drm.h
+index 345af54a5d41..307bb75db248 100644
+--- a/include/linux/cgroup_drm.h
++++ b/include/linux/cgroup_drm.h
+@@ -5,6 +5,10 @@
+ #define _CGROUP_DRM_H
+ 
+ #include <linux/cgroup.h>
++#include <drm/drm_file.h>
++
++/* limit defined per the way drm_minor_alloc operates */
++#define MAX_DRM_DEV (64 * DRM_MINOR_RENDER)
+ 
+ #ifdef CONFIG_CGROUP_DRM
+ 
+diff --git a/kernel/cgroup/drm.c b/kernel/cgroup/drm.c
+index 5e38a8230922..061bb9c458e4 100644
+--- a/kernel/cgroup/drm.c
++++ b/kernel/cgroup/drm.c
+@@ -1,11 +1,142 @@
+ // SPDX-License-Identifier: MIT
+ // Copyright 2019 Advanced Micro Devices, Inc.
++#include <linux/bitmap.h>
++#include <linux/mutex.h>
+ #include <linux/slab.h>
+ #include <linux/cgroup.h>
+ #include <linux/cgroup_drm.h>
++#include <drm/drm_file.h>
++#include <drm/drm_device.h>
++#include <drm/drm_cgroup.h>
+ 
+ static struct drmcg *root_drmcg __read_mostly;
+ 
++/* global mutex for drmcg across all devices */
++static DEFINE_MUTEX(drmcg_mutex);
++
++static DECLARE_BITMAP(known_devs, MAX_DRM_DEV);
++
++static struct drm_minor (*(*acquire_drm_minor)(unsigned int minor_id));
++
++static void (*put_drm_dev)(struct drm_device *dev);
++
++/**
++ * drmcg_bind - Bind DRM subsystem to cgroup subsystem
++ * @acq_dm: function pointer to the drm_minor_acquire function
++ * @put_ddev: function pointer to the drm_dev_put function
++ *
++ * This function binds some functions from the DRM subsystem and make
++ * them available to the drmcg subsystem.
++ *
++ * drmcg_unbind does the opposite of this function
++ */
++void drmcg_bind(struct drm_minor (*(*acq_dm)(unsigned int minor_id)),
++		void (*put_ddev)(struct drm_device *dev))
++{
++	mutex_lock(&drmcg_mutex);
++	acquire_drm_minor = acq_dm;
++	put_drm_dev = put_ddev;
++	mutex_unlock(&drmcg_mutex);
++}
++EXPORT_SYMBOL(drmcg_bind);
++
++/**
++ * drmcg_unbind - Unbind DRM subsystem from cgroup subsystem
++ *
++ * drmcg_bind does the opposite of this function
++ */
++void drmcg_unbind(void)
++{
++	mutex_lock(&drmcg_mutex);
++	acquire_drm_minor = NULL;
++	put_drm_dev = NULL;
++	mutex_unlock(&drmcg_mutex);
++}
++EXPORT_SYMBOL(drmcg_unbind);
++
++/**
++ * drmcg_register_dev - register a DRM device for usage in drm cgroup
++ * @dev: DRM device
++ *
++ * This function make a DRM device visible to the cgroup subsystem.
++ * Once the drmcg is aware of the device, drmcg can start tracking and
++ * control resource usage for said device.
++ *
++ * drmcg_unregister_dev reverse the operation of this function
++ */
++void drmcg_register_dev(struct drm_device *dev)
++{
++	if (WARN_ON(dev->primary->index >= MAX_DRM_DEV))
++		return;
++
++	mutex_lock(&drmcg_mutex);
++	set_bit(dev->primary->index, known_devs);
++	mutex_unlock(&drmcg_mutex);
++}
++EXPORT_SYMBOL(drmcg_register_dev);
++
++/**
++ * drmcg_unregister_dev - Iterate through all stored DRM minors
++ * @dev: DRM device
++ *
++ * Unregister @dev so that drmcg no longer control resource usage
++ * of @dev.  The @dev was registered to drmcg using
++ * drmcg_register_dev function
++ */
++void drmcg_unregister_dev(struct drm_device *dev)
++{
++	if (WARN_ON(dev->primary->index >= MAX_DRM_DEV))
++		return;
++
++	mutex_lock(&drmcg_mutex);
++	clear_bit(dev->primary->index, known_devs);
++	mutex_unlock(&drmcg_mutex);
++}
++EXPORT_SYMBOL(drmcg_unregister_dev);
++
++/**
++ * drm_minor_for_each - Iterate through all stored DRM minors
++ * @fn: Function to be called for each pointer.
++ * @data: Data passed to callback function.
++ *
++ * The callback function will be called for each registered device, passing
++ * the minor, the @drm_minor entry and @data.
++ *
++ * If @fn returns anything other than %0, the iteration stops and that
++ * value is returned from this function.
++ */
++static int drm_minor_for_each(int (*fn)(int id, void *p, void *data),
++		void *data)
++{
++	int rc = 0;
++
++	mutex_lock(&drmcg_mutex);
++	if (acquire_drm_minor) {
++		unsigned int minor;
++		struct drm_minor *dm;
++
++		minor = find_next_bit(known_devs, MAX_DRM_DEV, 0);
++		while (minor < MAX_DRM_DEV) {
++			dm = acquire_drm_minor(minor);
++
++			if (IS_ERR(dm))
++				continue;
++
++			rc = fn(minor, (void *)dm, data);
++
++			put_drm_dev(dm->dev); /* release from acquire_drm_minor */
++
++			if (rc)
++				break;
++
++			minor = find_next_bit(known_devs, MAX_DRM_DEV, minor+1);
++		}
++	}
++	mutex_unlock(&drmcg_mutex);
++
++	return rc;
++}
++
+ static void drmcg_css_free(struct cgroup_subsys_state *css)
+ {
+ 	struct drmcg *drmcg = css_to_drmcg(css);
 -- 
 2.25.0
 
