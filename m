@@ -2,104 +2,105 @@ Return-Path: <SRS0=YjM5=4P=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 62669C4BA24
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 12:06:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 55938C4BA24
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 12:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2CB5624695
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 12:06:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2022124695
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 12:46:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="hdbRkTW4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2CB5624695
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="eX54IbnE"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2022124695
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E88F06E86D;
-	Thu, 27 Feb 2020 12:06:28 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2077.outbound.protection.outlook.com [40.107.243.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0061A6E86D
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2020 12:06:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACA5A6EC97;
+	Thu, 27 Feb 2020 12:46:49 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on20631.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe5b::631])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A73C36EC97
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2020 12:46:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AbICgJux9CiPX6Quf5rqVuOjOZULDycH3X8zMViFmyVF9s7GrEOtwIuaiBTmMFRaFyaDWvcX4byJEHvJecI4XRZJsB2tU04DekW5JQEHovY47OchRRyh2UPBo6gYQWOFgJI9W14Gd+6/BaMmu+vlQhaqXGJyO+m8PsTuZXpt2HU2D0wGHpf53uW9Imx47bguAEQLbYJLjNvGXs8sJYA/SzH+9oRC1qO6oFRTOz7v9OJ1liV8DYbYaQ2sMZ2Ih+JONeLUMFcIdb+ASGJqQ3qqDfZK5DnqX8qJFMqwR/s3pAmmtjScmnvIMUXYusMF23bJv0y23gX3IXnNRBvLAalbGg==
+ b=mYK4hgy0lo9d/L80EGoycn0NV9b8gkpb/3NMgk1q0+xs4du6/dJjoCUeLHqskFrX+5ihYC6bPvqjk+5WKbTXRrrOQFgXya2mOOwa6ua1SSByktq74E050hoPRpWUJP0mma3FnlC7NztDgPjb9GwQ5edp0AfDSMpgifYFDcCc5fBcQ81dMo+ALC97PuINjqknqmLz+vnqqpnoBLfB/1HI0AKjZrd6+FMA5dB40Okq1P9drNjCi0NhFMymQ6uoP1FTWrQGE6U/xGOhruUbCZh0Zs1xMVHxCJAX4u0IAHuQySDQAYWrcO28tVvLZZDq82CFwTq8BHnMS7Fh4Lkxwzupbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B2xST0S9ws7x2aS8hF8YEGze5ATM2Zp0uE6Rt0KRp7E=;
- b=RXSyn0pTjrHt9SKKOKhkfFfoUPoiKLoKBXCJVgmNzrxc4JNWNkiGU/8sK7SNbrmDiVE1l6pmkxOGzz8Yo4e4suwNrAVYo7GQc4BEPnZHjE9tvBFJnSavh8uh3w7lyY3uHXQYw12dCZYFHpH/uQr46p2WZXKIZwacHNZXL0FnXRa27ap8gYDiUxs7CKXpVKqvYPI5QF0Pv+fGDA29tO1/63DE83v+z1JOQ52jRIQ8neDjiBQyjZXdOKU0YFIfcl5EDwNUQRC3QA+iJeNDAWwJBu9I8lGn4gZQf0REubDiR3C16DyVTgcAu/88UWziEQgXCQ67m9FIHNBJdIxLsi8HsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=JzRVsqB4414JK6A1G5RP8IxrzsWZO21lG2QK3vqULjE=;
+ b=ZZqGFtOVrIVZ8tFDB9fcMw9DB036kGR8L4cN1UY5Ws/dGOrIDUxI4BRAH4we3ervt+H5fXfj/+w0ZF3sHlufCissrzHWprZTg4ExNJLRBVHbZ8KBIO63NmRjTImLBsfXY+2sKbfkTYVTNPMn4Xf8HuzYu+kZ5TlcGiEdTlprsykPE97H2JI7FC4p8XlmKfEwjckVvao3SC8K/DZ1mF+ryj6xKxON+xmvM+V/6r5vbOjGb2yiSJ1/3lafqX8CMXri1exVbaYDBBm0buYwpqvA2AANp61nXKLXD2zS47gGTpedNVBmOLJkebOAZ0ZpWCOY5Ej4gGAMU6dNAPl5kVk5pg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=B2xST0S9ws7x2aS8hF8YEGze5ATM2Zp0uE6Rt0KRp7E=;
- b=hdbRkTW4bQpYWUNVCp4Qy7Jj3tc9QcSLZbe+rGQUUrEt/VxvZ9IZ62xXnfR7i/gn8Zt1P/d57vw3v+DJrVr51GWPkSOUtDtOPevHiPEl6HUGqz+KPNwOLEYbV3hf548SJPcbDsH+5QcSDDhL+tYW+vKsgBlgwnXvPeaYXDoFyTg=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Ray.Huang@amd.com; 
-Received: from MN2PR12MB3309.namprd12.prod.outlook.com (2603:10b6:208:106::29)
- by MN2PR12MB4333.namprd12.prod.outlook.com (2603:10b6:208:1d3::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Thu, 27 Feb
- 2020 12:06:26 +0000
-Received: from MN2PR12MB3309.namprd12.prod.outlook.com
- ([fe80::f945:5c4c:9c3f:930a]) by MN2PR12MB3309.namprd12.prod.outlook.com
- ([fe80::f945:5c4c:9c3f:930a%6]) with mapi id 15.20.2750.021; Thu, 27 Feb 2020
- 12:06:26 +0000
-Date: Thu, 27 Feb 2020 20:06:16 +0800
-From: Huang Rui <ray.huang@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: Re: [PATCH v2] drm/amdgpu: fix the gfx hang while use per-ib secure
- flag (v2)
-Message-ID: <20200227120615.GC13364@jenkins-Celadon-RN>
-References: <1582803483-27446-1-git-send-email-ray.huang@amd.com>
- <377c5042-8890-4ccf-b376-c282c1231970@amd.com>
-Content-Disposition: inline
-In-Reply-To: <377c5042-8890-4ccf-b376-c282c1231970@amd.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-ClientProxiedBy: HK2P15301CA0012.APCP153.PROD.OUTLOOK.COM
- (2603:1096:202:1::22) To MN2PR12MB3309.namprd12.prod.outlook.com
- (2603:10b6:208:106::29)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from jenkins-Celadon-RN (180.167.199.189) by
- HK2P15301CA0012.APCP153.PROD.OUTLOOK.COM (2603:1096:202:1::22) with Microsoft
+ bh=JzRVsqB4414JK6A1G5RP8IxrzsWZO21lG2QK3vqULjE=;
+ b=eX54IbnE3cpGOfLTulXJ0Sm6xJEuI8+8Z1UXAm6xFyDYWSJFqS3QxnyxLjxg5llUbUGjlamAE7u4BvVZ7ZPaLna1/QUEwWohDA2rNu5RQEqVYFKZcilPV9JSLOy6ajQnHqokEJ78Ptms3QspvNSiXMLkq9U0WaKkl8nosyXaPXs=
+Received: from DM3PR08CA0024.namprd08.prod.outlook.com (2603:10b6:0:52::34) by
+ DM6PR12MB3865.namprd12.prod.outlook.com (2603:10b6:5:1c4::14) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2793.5 via Frontend Transport; Thu, 27 Feb 2020 12:06:24 +0000
-X-Originating-IP: [180.167.199.189]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: cdc763d2-da9c-426f-e27d-08d7bb7d787a
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4333:|MN2PR12MB4333:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4333DF1097AAD25C24260DD2ECEB0@MN2PR12MB4333.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:785;
-X-Forefront-PRVS: 03264AEA72
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(346002)(39860400002)(136003)(396003)(376002)(189003)(199004)(33656002)(5660300002)(478600001)(33716001)(956004)(66556008)(66476007)(2906002)(4326008)(66946007)(6862004)(26005)(86362001)(316002)(6636002)(54906003)(8936002)(52116002)(6496006)(16526019)(186003)(6666004)(1076003)(55016002)(8676002)(9686003)(81166006)(81156014);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4333;
- H:MN2PR12MB3309.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ 15.20.2772.15; Thu, 27 Feb 2020 12:46:45 +0000
+Received: from DM6NAM11FT065.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:0:52:cafe::7) by DM3PR08CA0024.outlook.office365.com
+ (2603:10b6:0:52::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15 via Frontend
+ Transport; Thu, 27 Feb 2020 12:46:45 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ DM6NAM11FT065.mail.protection.outlook.com (10.13.172.109) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2772.14 via Frontend Transport; Thu, 27 Feb 2020 12:46:44 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 27 Feb
+ 2020 06:46:44 -0600
+Received: from yttao-code-machine.amd.com (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Thu, 27 Feb 2020 06:46:42 -0600
+From: Yintian Tao <yttao@amd.com>
+To: <christian.koenig@amd.com>, <Alexander.Deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: no need to clean debugfs at amdgpu
+Date: Thu, 27 Feb 2020 20:46:41 +0800
+Message-ID: <20200227124641.1412-1-yttao@amd.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(346002)(376002)(136003)(39860400002)(428003)(199004)(189003)(7696005)(426003)(6636002)(54906003)(2616005)(70586007)(70206006)(356004)(1076003)(2906002)(5660300002)(110136005)(36756003)(4326008)(478600001)(186003)(8676002)(26005)(336012)(316002)(81156014)(8936002)(81166006);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3865; H:SATLEXMB02.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 0fda77b9-6cdb-4f37-d223-08d7bb831a18
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3865:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3865400FF43AB91BFCE1CD2AE5EB0@DM6PR12MB3865.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
+X-Forefront-PRVS: 03264AEA72
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Cb78EFM5fGWxT3tOvYgLKNr1h+F/Am3MCxYpbOizLVjDNCcvbPJVAzswGdN6XiJdCSwIwCnohELePL5LYwokJCiC8++mizL1PskW01SpvDgZuWUkoeyMoEzSzgeGBaHZz3KiTknfQkDy9xtixTipt4dYKpcQ36I+xUqPYnD6ZMh1W7Nw03vUm8AoN4xTgkFeUtGT60vXVNxDem3lmekL5zq8SzY7oOqpW+KjFzuj3Udj3snGPDHCAHaYeVp6RhTPpJOzSRE7eBYnO8p9FD0esycGBC7OvO7g9t54I5pd2PGMmn4gYI72jTq2DKbuPQm0Cc6kyB+A7eqDJ/Wul5thIz49OSXETio7ICd6pQ62tlBNDv4JIJnjBVz/YZlzRVd5OHgcKF6tubgZncneXyp4mPjhHmH4LvvFCFw4nEkLzKpUEOGXYN85NZNcgFueARkh
-X-MS-Exchange-AntiSpam-MessageData: 9kU675RPaOhFVJxrsE+aEMCQO6EAm23qB2PQhs20tfNA6rzDhZttX13vcJXdzO85y0NF5RVsdHKIJz7PKpvmsw00pUefTvJST6I1j46nz8j079mt9H2AtuOpNk0RaMPLNACxF3TJwdhZXrH4K6s1kg==
+X-Microsoft-Antispam-Message-Info: oIJEg+ze3lwyB8OuW3m/aOfUQvo1f35WcZhcn6jroQu7H/ISjlahCaoz+8LX9xC376oTFiz3b1cwB1rBoyH0eHF0ezkdLzYsRFuCBa/WxKk8y7JfbXhOBlsKru/j9ZjEmeyuvapQbWRHwKUcqDAnRWgwaXFoJFurDI3y5Py0I/CgXMoCvYv2rKUm7c2UKk4iWwMa2JGhoScDdmgE+1s4jW8UVpYW0majVSWjUDpqXpcEnCrO10JPkY0n4ffBNjJP6No33xFJ4t4s4HCv4+z8wI6sXuIrFxzU+U6Tzc1AWBixm7yNd11n4gyblisX8OGSszFcGU7F1ikbhzMHh+mJrGjQIURHeWPTZdFe0DtClWSvT9e+CMHjfrZnf5NSC05WkOZgJ1PxQNxkNFCUWOW2f9KD84N/gTtzUPQewaK3qAs+KlmEuYTrZoFGvuxBOk0i
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cdc763d2-da9c-426f-e27d-08d7bb7d787a
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2020 12:06:26.5938 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2020 12:46:44.8299 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0fda77b9-6cdb-4f37-d223-08d7bb831a18
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iJtbWSySwMYSFXrBbl4KHCL9NNr/D62UxwRjqGuDmRWTeoTlFsCGPFxs6F/hTpbRKkmQCLzO3+Rprb4fZODvgQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4333
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3865
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,223 +112,205 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Pelloux-prayer,
- Pierre-eric" <Pierre-eric.Pelloux-prayer@amd.com>, "Tuikov,
- Luben" <Luben.Tuikov@amd.com>, "Liu, Aaron" <Aaron.Liu@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: amd-gfx@lists.freedesktop.org, Yintian Tao <yttao@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 27, 2020 at 07:47:17PM +0800, Koenig, Christian wrote:
-> Am 27.02.20 um 12:38 schrieb Huang Rui:
-> > Since 6643ba1 frame control packets are only issued in presence of secure IB(s).
-> > This causes hangs on some hardware (eg: Raven1). This patch restores the
-> > unconditionnal frame control packets issuing, that's to keep the per-IB logic
-> > regarding the secure flag.
-> >
-> > Fixes: 6643ba1 drm/amdgpu: Move to a per-IB secure flag (TMZ)
-> >
-> > v1 -> v2:
-> > As suggested by Luben, and accept part of implemetation from this patch:
-> > - Put "secure" closed to the loop and use optimization
-> > - Change "secure" to bool again, and move "secure == -1" out of loop.
-> >
-> > Reported-and-Tested-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> > Signed-off-by: Huang Rui <ray.huang@amd.com>
-> > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c   | 29 +++++++++++++++--------------
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  5 +++--
-> >   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 15 ++++++++-------
-> >   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 13 +++++++------
-> >   4 files changed, 33 insertions(+), 29 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> > index 4b2342d..0f4909a 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> > @@ -216,7 +216,14 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
-> >   		amdgpu_ring_emit_cntxcntl(ring, status);
-> >   	}
-> >   
-> > +	/* Setup initial TMZiness and send it off.
-> > +	 */
-> >   	secure = false;
-> > +	if (job && ring->funcs->emit_frame_cntl) {
-> 
-> Does anybody remember why we check the job here in the first place?
+drm_minor_unregister will invoke drm_debugfs_cleanup
+to clean all the child node under primary minor node.
+We don't need to invoke amdgpu_debugfs_fini and
+amdgpu_debugfs_regs_cleanup to clean agian.
+Otherwise, it will raise the NULL pointer like below.
+[   45.046029] BUG: unable to handle kernel NULL pointer dereference at 00000000000000a8
+[   45.047256] PGD 0 P4D 0
+[   45.047713] Oops: 0002 [#1] SMP PTI
+[   45.048198] CPU: 0 PID: 2796 Comm: modprobe Tainted: G        W  OE     4.18.0-15-generic #16~18.04.1-Ubuntu
+[   45.049538] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.12.0-1 04/01/2014
+[   45.050651] RIP: 0010:down_write+0x1f/0x40
+[   45.051194] Code: 90 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 55 48 89 e5 53 48 89 fb e8 ce d9 ff ff 48 ba 01 00 00 00 ff ff ff ff 48 89 d8 <f0> 48 0f c1 10 85 d2 74 05 e8 53 1c ff ff 65 48 8b 04 25 00 5c 01
+[   45.053702] RSP: 0018:ffffad8f4133fd40 EFLAGS: 00010246
+[   45.054384] RAX: 00000000000000a8 RBX: 00000000000000a8 RCX: ffffa011327dd814
+[   45.055349] RDX: ffffffff00000001 RSI: 0000000000000001 RDI: 00000000000000a8
+[   45.056346] RBP: ffffad8f4133fd48 R08: 0000000000000000 R09: ffffffffc0690a00
+[   45.057326] R10: ffffad8f4133fd58 R11: 0000000000000001 R12: ffffa0113cff0300
+[   45.058266] R13: ffffa0113c0a0000 R14: ffffffffc0c02a10 R15: ffffa0113e5c7860
+[   45.059221] FS:  00007f60d46f9540(0000) GS:ffffa0113fc00000(0000) knlGS:0000000000000000
+[   45.060809] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[   45.061826] CR2: 00000000000000a8 CR3: 0000000136250004 CR4: 00000000003606f0
+[   45.062913] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+[   45.064404] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+[   45.065897] Call Trace:
+[   45.066426]  debugfs_remove+0x36/0xa0
+[   45.067131]  amdgpu_debugfs_ring_fini+0x15/0x20 [amdgpu]
+[   45.068019]  amdgpu_debugfs_fini+0x2c/0x50 [amdgpu]
+[   45.068756]  amdgpu_pci_remove+0x49/0x70 [amdgpu]
+[   45.069439]  pci_device_remove+0x3e/0xc0
+[   45.070037]  device_release_driver_internal+0x18a/0x260
+[   45.070842]  driver_detach+0x3f/0x80
+[   45.071325]  bus_remove_driver+0x59/0xd0
+[   45.071850]  driver_unregister+0x2c/0x40
+[   45.072377]  pci_unregister_driver+0x22/0xa0
+[   45.073043]  amdgpu_exit+0x15/0x57c [amdgpu]
+[   45.073683]  __x64_sys_delete_module+0x146/0x280
+[   45.074369]  do_syscall_64+0x5a/0x120
+[   45.074916]  entry_SYSCALL_64_after_hwframe+0x44/0xa9
 
-Align with previous logic, we only issue this packet while it's user mode
-submission. Looks ib tests needn't this.
+v2: remove all debugfs cleanup/fini code at amdgpu
 
-> 
-> Independent of that I think that the check if 
-> ring->funcs->emit_frame_cntl should be moved into the 
-> amdgpu_ring_emit_frame_cntl() function so that we don't need to repeat 
-> that over and over again.
-> 
-> If amdgpu_ring_emit_frame_cntl() is still a macro then that is probably 
-> also a good opportunity to change that.
+Signed-off-by: Yintian Tao <yttao@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 30 ---------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     |  1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c    |  7 -----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 10 -------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  1 -
+ 7 files changed, 51 deletions(-)
 
-Agree, this looks better.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 3bb74056b9d2..abc148280ba5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -992,18 +992,6 @@ int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
+-void amdgpu_debugfs_regs_cleanup(struct amdgpu_device *adev)
+-{
+-	unsigned i;
+-
+-	for (i = 0; i < ARRAY_SIZE(debugfs_regs); i++) {
+-		if (adev->debugfs_regs[i]) {
+-			debugfs_remove(adev->debugfs_regs[i]);
+-			adev->debugfs_regs[i] = NULL;
+-		}
+-	}
+-}
+-
+ static int amdgpu_debugfs_test_ib(struct seq_file *m, void *data)
+ {
+ 	struct drm_info_node *node = (struct drm_info_node *) m->private;
+@@ -1339,31 +1327,13 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 					ARRAY_SIZE(amdgpu_debugfs_list));
+ }
+ 
+-void amdgpu_debugfs_fini(struct amdgpu_device *adev)
+-{
+-	int i;
+-
+-	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+-		struct amdgpu_ring *ring = adev->rings[i];
+-
+-		if (!ring)
+-			continue;
+-
+-		amdgpu_debugfs_ring_fini(ring);
+-	}
+-	amdgpu_ttm_debugfs_fini(adev);
+-	debugfs_remove(adev->debugfs_preempt);
+-}
+-
+ #else
+ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ {
+ 	return 0;
+ }
+-void amdgpu_debugfs_fini(struct amdgpu_device *adev) { }
+ int amdgpu_debugfs_regs_init(struct amdgpu_device *adev)
+ {
+ 	return 0;
+ }
+-void amdgpu_debugfs_regs_cleanup(struct amdgpu_device *adev) { }
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
+index b382527e359a..de12d1101526 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
+@@ -32,7 +32,6 @@ struct amdgpu_debugfs {
+ };
+ 
+ int amdgpu_debugfs_regs_init(struct amdgpu_device *adev);
+-void amdgpu_debugfs_regs_cleanup(struct amdgpu_device *adev);
+ int amdgpu_debugfs_init(struct amdgpu_device *adev);
+ void amdgpu_debugfs_fini(struct amdgpu_device *adev);
+ int amdgpu_debugfs_add_files(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 8ef8a49b9255..351096ab4301 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3237,7 +3237,6 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
+ 	adev->rmmio = NULL;
+ 	amdgpu_device_doorbell_fini(adev);
+ 
+-	amdgpu_debugfs_regs_cleanup(adev);
+ 	device_remove_file(adev->dev, &dev_attr_pcie_replay_count);
+ 	if (adev->ucode_sysfs_en)
+ 		amdgpu_ucode_sysfs_fini(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 7cf5f597b90a..02d80b9dbfe1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1139,7 +1139,6 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+ 		DRM_ERROR("Hotplug removal is not supported\n");
+ 	drm_dev_unplug(dev);
+ 	drm_dev_put(dev);
+-	amdgpu_debugfs_fini(adev);
+ 	amdgpu_driver_unload_kms(dev);
+ 	pci_disable_device(pdev);
+ 	pci_set_drvdata(pdev, NULL);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index 18e11b0fdc3e..ca6b52054b4b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -499,13 +499,6 @@ int amdgpu_debugfs_ring_init(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
+-void amdgpu_debugfs_ring_fini(struct amdgpu_ring *ring)
+-{
+-#if defined(CONFIG_DEBUG_FS)
+-	debugfs_remove(ring->ent);
+-#endif
+-}
+-
+ /**
+  * amdgpu_ring_test_helper - tests ring and set sched readiness status
+  *
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 660867cf2597..1947a326de57 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -2571,13 +2571,3 @@ int amdgpu_ttm_debugfs_init(struct amdgpu_device *adev)
+ 	return 0;
+ #endif
+ }
+-
+-void amdgpu_ttm_debugfs_fini(struct amdgpu_device *adev)
+-{
+-#if defined(CONFIG_DEBUG_FS)
+-	unsigned i;
+-
+-	for (i = 0; i < ARRAY_SIZE(ttm_debugfs_entries); i++)
+-		debugfs_remove(adev->mman.debugfs_entries[i]);
+-#endif
+-}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+index 2c4ad5b589d0..dc6502d1060b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
+@@ -134,6 +134,5 @@ uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct ttm_tt *ttm,
+ 				 struct ttm_mem_reg *mem);
+ 
+ int amdgpu_ttm_debugfs_init(struct amdgpu_device *adev);
+-void amdgpu_ttm_debugfs_fini(struct amdgpu_device *adev);
+ 
+ #endif
+-- 
+2.17.1
 
-> 
-> > +		secure = ib->flags & AMDGPU_IB_FLAGS_SECURE ? true : false;
-> > +		amdgpu_ring_emit_frame_cntl(ring, true, secure);
-> > +	}
-> > +
-> >   	for (i = 0; i < num_ibs; ++i) {
-> >   		ib = &ibs[i];
-> >   
-> > @@ -228,27 +235,21 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned num_ibs,
-> >   		    !amdgpu_sriov_vf(adev)) /* for SRIOV preemption, Preamble CE ib must be inserted anyway */
-> >   			continue;
-> >   
-> > -		/* If this IB is TMZ, add frame TMZ start packet,
-> > -		 * else, turn off TMZ.
-> > -		 */
-> > -		if (ib->flags & AMDGPU_IB_FLAGS_SECURE && ring->funcs->emit_tmz) {
-> > -			if (!secure) {
-> > -				secure = true;
-> > -				amdgpu_ring_emit_tmz(ring, true);
-> > +		if (job && ring->funcs->emit_frame_cntl) {
-> > +			if (!!secure ^ !!(ib->flags & AMDGPU_IB_FLAGS_SECURE)) {
-> 
-> Maybe write this as (secure != !!(ib->flags & AMDGPU_IB_FLAGS_SECURE)). 
-> That is probably easier to understand.
-
-Actually, I spend quit a few minutes to understand previous checking. :-)
-I am fine to change if Lunben has no objection.
-
-Thanks,
-Ray
-
-> 
-> Regards,
-> Christian.
-> 
-> > +				amdgpu_ring_emit_frame_cntl(ring, false, secure);
-> > +				secure = !secure;
-> > +				amdgpu_ring_emit_frame_cntl(ring, true, secure);
-> >   			}
-> > -		} else if (secure) {
-> > -			secure = false;
-> > -			amdgpu_ring_emit_tmz(ring, false);
-> >   		}
-> >   
-> >   		amdgpu_ring_emit_ib(ring, job, ib, status);
-> >   		status &= ~AMDGPU_HAVE_CTX_SWITCH;
-> >   	}
-> >   
-> > -	if (secure) {
-> > -		secure = false;
-> > -		amdgpu_ring_emit_tmz(ring, false);
-> > -	}
-> > +	if (job && ring->funcs->emit_frame_cntl)
-> > +		amdgpu_ring_emit_frame_cntl(ring, false,
-> > +					    secure ? true : false);
-> >   
-> >   #ifdef CONFIG_X86_64
-> >   	if (!(adev->flags & AMD_IS_APU))
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > index 24caff0..4d019d6 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-> > @@ -166,7 +166,8 @@ struct amdgpu_ring_funcs {
-> >   	void (*emit_reg_write_reg_wait)(struct amdgpu_ring *ring,
-> >   					uint32_t reg0, uint32_t reg1,
-> >   					uint32_t ref, uint32_t mask);
-> > -	void (*emit_tmz)(struct amdgpu_ring *ring, bool start);
-> > +	void (*emit_frame_cntl)(struct amdgpu_ring *ring, bool start,
-> > +				bool secure);
-> >   	/* priority functions */
-> >   	void (*set_priority) (struct amdgpu_ring *ring,
-> >   			      enum drm_sched_priority priority);
-> > @@ -247,7 +248,7 @@ struct amdgpu_ring {
-> >   #define amdgpu_ring_emit_wreg(r, d, v) (r)->funcs->emit_wreg((r), (d), (v))
-> >   #define amdgpu_ring_emit_reg_wait(r, d, v, m) (r)->funcs->emit_reg_wait((r), (d), (v), (m))
-> >   #define amdgpu_ring_emit_reg_write_reg_wait(r, d0, d1, v, m) (r)->funcs->emit_reg_write_reg_wait((r), (d0), (d1), (v), (m))
-> > -#define amdgpu_ring_emit_tmz(r, b) (r)->funcs->emit_tmz((r), (b))
-> > +#define amdgpu_ring_emit_frame_cntl(r, b, s) (r)->funcs->emit_frame_cntl((r), (b), (s))
-> >   #define amdgpu_ring_pad_ib(r, ib) ((r)->funcs->pad_ib((r), (ib)))
-> >   #define amdgpu_ring_init_cond_exec(r) (r)->funcs->init_cond_exec((r))
-> >   #define amdgpu_ring_patch_cond_exec(r,o) (r)->funcs->patch_cond_exec((r),(o))
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > index 7b61583..748ac35 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> > @@ -256,7 +256,7 @@ static int gfx_v10_0_rlc_backdoor_autoload_enable(struct amdgpu_device *adev);
-> >   static int gfx_v10_0_wait_for_rlc_autoload_complete(struct amdgpu_device *adev);
-> >   static void gfx_v10_0_ring_emit_ce_meta(struct amdgpu_ring *ring, bool resume);
-> >   static void gfx_v10_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume);
-> > -static void gfx_v10_0_ring_emit_tmz(struct amdgpu_ring *ring, bool start);
-> > +static void gfx_v10_0_ring_emit_frame_cntl(struct amdgpu_ring *ring, bool start, bool secure);
-> >   
-> >   static void gfx10_kiq_set_resources(struct amdgpu_ring *kiq_ring, uint64_t queue_mask)
-> >   {
-> > @@ -4729,12 +4729,13 @@ static void gfx_v10_0_ring_emit_de_meta(struct amdgpu_ring *ring, bool resume)
-> >   					   sizeof(de_payload) >> 2);
-> >   }
-> >   
-> > -static void gfx_v10_0_ring_emit_tmz(struct amdgpu_ring *ring, bool start)
-> > +static void gfx_v10_0_ring_emit_frame_cntl(struct amdgpu_ring *ring, bool start,
-> > +				    bool secure)
-> >   {
-> > -	if (amdgpu_is_tmz(ring->adev)) {
-> > -		amdgpu_ring_write(ring, PACKET3(PACKET3_FRAME_CONTROL, 0));
-> > -		amdgpu_ring_write(ring, FRAME_TMZ | FRAME_CMD(start ? 0 : 1));
-> > -	}
-> > +	uint32_t v = secure ? FRAME_TMZ : 0;
-> > +
-> > +	amdgpu_ring_write(ring, PACKET3(PACKET3_FRAME_CONTROL, 0));
-> > +	amdgpu_ring_write(ring, v | FRAME_CMD(start ? 0 : 1));
-> >   }
-> >   
-> >   static void gfx_v10_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg)
-> > @@ -5188,7 +5189,7 @@ static const struct amdgpu_ring_funcs gfx_v10_0_ring_funcs_gfx = {
-> >   	.init_cond_exec = gfx_v10_0_ring_emit_init_cond_exec,
-> >   	.patch_cond_exec = gfx_v10_0_ring_emit_patch_cond_exec,
-> >   	.preempt_ib = gfx_v10_0_ring_preempt_ib,
-> > -	.emit_tmz = gfx_v10_0_ring_emit_tmz,
-> > +	.emit_frame_cntl = gfx_v10_0_ring_emit_frame_cntl,
-> >   	.emit_wreg = gfx_v10_0_ring_emit_wreg,
-> >   	.emit_reg_wait = gfx_v10_0_ring_emit_reg_wait,
-> >   	.emit_reg_write_reg_wait = gfx_v10_0_ring_emit_reg_write_reg_wait,
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > index 1c7a16b..fbde712 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> > @@ -5230,12 +5230,13 @@ static void gfx_v9_0_ring_emit_de_meta(struct amdgpu_ring *ring)
-> >   	amdgpu_ring_write_multiple(ring, (void *)&de_payload, sizeof(de_payload) >> 2);
-> >   }
-> >   
-> > -static void gfx_v9_0_ring_emit_tmz(struct amdgpu_ring *ring, bool start)
-> > +static void gfx_v9_0_ring_emit_frame_cntl(struct amdgpu_ring *ring, bool start,
-> > +				   bool secure)
-> >   {
-> > -	if (amdgpu_is_tmz(ring->adev)) {
-> > -		amdgpu_ring_write(ring, PACKET3(PACKET3_FRAME_CONTROL, 0));
-> > -		amdgpu_ring_write(ring, FRAME_TMZ | FRAME_CMD(start ? 0 : 1));
-> > -	}
-> > +	uint32_t v = secure ? FRAME_TMZ : 0;
-> > +
-> > +	amdgpu_ring_write(ring, PACKET3(PACKET3_FRAME_CONTROL, 0));
-> > +	amdgpu_ring_write(ring, v | FRAME_CMD(start ? 0 : 1));
-> >   }
-> >   
-> >   static void gfx_v9_ring_emit_cntxcntl(struct amdgpu_ring *ring, uint32_t flags)
-> > @@ -6477,7 +6478,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_gfx = {
-> >   	.emit_cntxcntl = gfx_v9_ring_emit_cntxcntl,
-> >   	.init_cond_exec = gfx_v9_0_ring_emit_init_cond_exec,
-> >   	.patch_cond_exec = gfx_v9_0_ring_emit_patch_cond_exec,
-> > -	.emit_tmz = gfx_v9_0_ring_emit_tmz,
-> > +	.emit_frame_cntl = gfx_v9_0_ring_emit_frame_cntl,
-> >   	.emit_wreg = gfx_v9_0_ring_emit_wreg,
-> >   	.emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
-> >   	.emit_reg_write_reg_wait = gfx_v9_0_ring_emit_reg_write_reg_wait,
-> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
