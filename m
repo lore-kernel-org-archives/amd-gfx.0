@@ -2,105 +2,106 @@ Return-Path: <SRS0=YjM5=4P=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37ADFC11D3D
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 20:30:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C0E3C11D3D
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 20:39:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 098472468F
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 20:30:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 39A6F2469C
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 20:39:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="dgrVqgs0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 098472468F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="r+B98Gch"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 39A6F2469C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C94E16E0D1;
-	Thu, 27 Feb 2020 20:30:14 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2067.outbound.protection.outlook.com [40.107.236.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 567216E0D1
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2020 20:30:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CB1E6E0F5;
+	Thu, 27 Feb 2020 20:39:26 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2061.outbound.protection.outlook.com [40.107.92.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 954F66E0F5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2020 20:39:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VXldv85OfXoPdu7nrkh+4LDm19A2xzCgUthAmk7DylbVTsm6ndOkOLLmvKM0eQd49u41G1amqh9BRsPvSgDYV+jACxZh8kQOTeRBaC+yAb1oMQxK2VYGJ/MEhTk07tplHARnDam0MeYhIJr9OpnudP+d9a1OaU8Afv1ndC6b+cEvhX95yNxcEUhtLcSRUgQscHTp3ekGgPtMTdTBQQSkI7U4sjSTD2gPp8+fZajnmXxNJjf/kzALPyAW3siDipSNUS1ny3lXlvT6KSkTzbk+Wo5DFRggQPNn6p6oyYMsWg5jC7U357jBT2Ad2MInnLUfV583Csd6/hd/0eig+rwhtg==
+ b=epkWVh8qKius8RRM2PWiBHxPC7RxTVe5iC+luI3LZLcZHt7iU9Fn5tYadPNuToyy48VlL+FGh0ulANXVlOMPm6lZ/AgO33QZFwDGB8QqAqAj2UHTbzO2jR6mAsABWEJ13WjaTY2J2bkBxYXOzhsShK7jWOTJpbDsExjzrcQu16zSEKBgykbcGvG0bcx2iIroAYGve5YtUEOICM17AvqbiqlhJA8sDxdjgRRZbw/xMVAploF9mE/NW0Nk7AoaCtnHhNuN2tFGByabwpDdSFwJUB7jKZ8HEZE9OphWbN5P/mHlySgLHvRe3j6MQjkcrpesW3eTfH32DczdDGVH3n8KXw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CBuUvfj3DcXoo2mnvwBG4hhboDBfTl6vfOtnXjYxe+4=;
- b=Byl2QQiQ5c6luCm+Pxb6a0PX3YDKR0c7ha910Wg/bpZ2MD94p6cBpdmGW2yNyXtqmB3VT6lvYEYU2y7HRUWr/hXMCek+Eufy2meiqUZnywjou+bJEW1wKjWLhrWPM3C5WVNMOMHxvFZU8FsM+y318NvRSXxyEAQ/ODZpB1B8KX6Qz75MTFg8h4solJGcSDfCXNGXP5mhoek4vWT5YRr4y4V/XKpxsHO6fwhcDu3sR+xcm4SQHWzTa3Slfvdd4XLlQYEL0pcYxqRMsglKsF88rM+aFy6SmXifWq7NJWnQXzR92njYIGVeSPeQxehOjSHFE1NyampKSypg9CRXAK15fg==
+ bh=WsoN/t1hR9x7HReJK9yUebutVHF1ayCAmU6lZNxHnzc=;
+ b=djFvrQSnMaSBgJiBCaLWI+cBALE16K4o7zKYtGowhfJ7sCH8EghPQCzj0VpzyRHm2QOtXc1WZUhWdmFxX+VxjDxZzlwCx4fDzptE/+wxd1e1YN7qhpRiJ4BHGWptjf/gQMEkWT+kxp2aE0poqI/teCmldU5qgcaJSqjgNdXvSphS4HQu3hSkpUth3NnyeV+9Ypx0QUAOOSrKdzjR98PIIUGwkhU+/7oWPnk+9uHusVk0KsfH50pUlJsd++ELfCUPnlyCrIyiUvnb0gm8ohPW45uqnKU3UCVMYus8Onwu0t7uuV6kfUWGPMwj/rzJF5YQhutvfnHWTZpW5bMixZ/lUQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CBuUvfj3DcXoo2mnvwBG4hhboDBfTl6vfOtnXjYxe+4=;
- b=dgrVqgs0qt4Rb+DwoYrhhcGSvqEsYz3Py7P0frVrfhs3q/kF6aYdCXox4uFtbEplJyo+GSdG9aZzS9LNSZ8uFXgCdNgbUjyPzTJbXOim7lO3kcj+BXUghEHhbz9D2rpkdwG5E7IqjHNXCOpkOwzyJpYpcnC30ESf3wlbsxe1Fws=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Nirmoy.Das@amd.com; 
-Received: from DM5PR12MB2376.namprd12.prod.outlook.com (2603:10b6:4:b9::11) by
- DM5SPR01MB0358.namprd12.prod.outlook.com (2603:10b6:4:e9::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2772.14; Thu, 27 Feb 2020 20:30:10 +0000
-Received: from DM5PR12MB2376.namprd12.prod.outlook.com
- ([fe80::ac12:6413:cd14:4904]) by DM5PR12MB2376.namprd12.prod.outlook.com
- ([fe80::ac12:6413:cd14:4904%4]) with mapi id 15.20.2750.021; Thu, 27 Feb 2020
- 20:30:10 +0000
-Subject: Re: [PATCH 2/2] drm/amdgpu/gfx: fix indentation in new rlc spm code
-To: amd-gfx@lists.freedesktop.org
+ bh=WsoN/t1hR9x7HReJK9yUebutVHF1ayCAmU6lZNxHnzc=;
+ b=r+B98GchOqSNQHaSOuVzL1dV+7d9YyBnR8wUPlWw13pcEqZmvfKtOf4Mjej3hz0qDxsduJJUJFoNe3hH9weVtUFLaNCFcssmQ4BIj1QZ3JwQjAWrIJ3zPVXfgqdoMsisXey7i9r3lEKh9NRg4R/KmTgQu8Hq/Se5/+tZq92pNsw=
+Received: from CH2PR12MB3926.namprd12.prod.outlook.com (2603:10b6:610:27::30)
+ by CH2PR12MB3797.namprd12.prod.outlook.com (2603:10b6:610:27::27)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15; Thu, 27 Feb
+ 2020 20:39:21 +0000
+Received: from CH2PR12MB3926.namprd12.prod.outlook.com
+ ([fe80::81de:623c:a226:a92d]) by CH2PR12MB3926.namprd12.prod.outlook.com
+ ([fe80::81de:623c:a226:a92d%4]) with mapi id 15.20.2750.021; Thu, 27 Feb 2020
+ 20:39:21 +0000
+From: "Zhao, Yong" <Yong.Zhao@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 1/2] drm/amdgpu: remove unused variable
+Thread-Topic: [PATCH 1/2] drm/amdgpu: remove unused variable
+Thread-Index: AQHV7aqbmyoYyx3C5k2kXD4uD289BagvgIa4
+Date: Thu, 27 Feb 2020 20:39:20 +0000
+Message-ID: <CH2PR12MB392656F0C897C3B6780594B7F0EB0@CH2PR12MB3926.namprd12.prod.outlook.com>
 References: <20200227201450.185953-1-alexander.deucher@amd.com>
- <20200227201450.185953-2-alexander.deucher@amd.com>
-From: Nirmoy <nirmodas@amd.com>
-Message-ID: <f6bbeab4-23a4-487f-339d-d7af49bec232@amd.com>
-Date: Thu, 27 Feb 2020 21:33:19 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
-In-Reply-To: <20200227201450.185953-2-alexander.deucher@amd.com>
+In-Reply-To: <20200227201450.185953-1-alexander.deucher@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-ClientProxiedBy: AM4PR0701CA0029.eurprd07.prod.outlook.com
- (2603:10a6:200:42::39) To DM5PR12MB2376.namprd12.prod.outlook.com
- (2603:10b6:4:b9::11)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2003:c5:8f2a:b800:8c:b0f3:cb6e:896b]
- (2003:c5:8f2a:b800:8c:b0f3:cb6e:896b) by
- AM4PR0701CA0029.eurprd07.prod.outlook.com (2603:10a6:200:42::39) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.5 via Frontend
- Transport; Thu, 27 Feb 2020 20:30:09 +0000
-X-Originating-IP: [2003:c5:8f2a:b800:8c:b0f3:cb6e:896b]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4010c69c-5f3e-4056-c465-08d7bbc3d76d
-X-MS-TrafficTypeDiagnostic: DM5SPR01MB0358:
-X-Microsoft-Antispam-PRVS: <DM5SPR01MB03581C8F09EF5DE32B8A28638BEB0@DM5SPR01MB0358.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:346;
-X-Forefront-PRVS: 03264AEA72
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(136003)(39850400004)(376002)(366004)(346002)(189003)(199004)(66946007)(6486002)(36756003)(52116002)(2906002)(6666004)(66556008)(8936002)(8676002)(478600001)(81156014)(16526019)(66476007)(186003)(2616005)(31696002)(53546011)(31686004)(5660300002)(6916009)(316002)(81166006);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5SPR01MB0358;
- H:DM5PR12MB2376.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-02-27T20:39:20.299Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Yong.Zhao@amd.com; 
+x-originating-ip: [165.204.54.211]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 382672a7-adfc-47b6-ac0c-08d7bbc51fdc
+x-ms-traffictypediagnostic: CH2PR12MB3797:|CH2PR12MB3797:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CH2PR12MB379701B1AFBBEDD0989974E6F0EB0@CH2PR12MB3797.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:419;
+x-forefront-prvs: 03264AEA72
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(366004)(136003)(39850400004)(396003)(346002)(376002)(189003)(199004)(5660300002)(45080400002)(9686003)(55016002)(8936002)(33656002)(66446008)(91956017)(6506007)(66476007)(66556008)(64756008)(76116006)(66946007)(71200400001)(86362001)(52536014)(7696005)(966005)(110136005)(2906002)(4326008)(316002)(26005)(81166006)(8676002)(81156014)(53546011)(19627405001)(478600001)(186003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB3797;
+ H:CH2PR12MB3926.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: TBUbrWOyXWTA57GJc17lnLedGHJ0flu520S3Tr7lL03q21mShr8W7/wB9G+2QfaGVFMluUG+BWKhjLqMCjE3ST+H/XRLk8WDdb5ZfJJmXF0Xf3NtMiH/q1KYHZRSHsjgqPW4FL0ZwqH5e1tlNco2i0bwak7g52QVtMjMoawhR9L/3iylPVBDcayBzuNLYT5f95WSOK7RxMZBiB6p3BkpNOGhTxJ9rLbcugPGglS8EeRfG90kG3f/KU/X5DGRdA6zrlaqz9vn6isz6FHGQDMHYCy8QGUpX2P7ovg1j4cQvYGtt2Bdjj5t16F5mEKnQRa7Gp5bDNHX+fOU4BXaQ/nIUxOqohOzQnpPOG0ls8coFpqMC6WpwCPCy1BdQx/wKvw23jz6q5f4nOGtKg+pk+Erz4SzwROZ2UWi4Wa9sy4qbKwdzGTViv1f8JG0Xv67Z4+J
-X-MS-Exchange-AntiSpam-MessageData: MMwnJWtDn71jDAPF0NEp3N8f5gDKeNhPV0D7HuGXd4eFQ/E2MNrdkXW6GSnDIqjSN4c0j2yoeThe2YbuQT0GLmWzTZTw/kCgJMD+LleuuCLEvVxUJArNarUXhDP5excxGH25TVJ2W8ZqfvKoLUnb8HeMl5ffO6B0w2Mcd/5waVx8gCs9KL0kh0uaw6pyRLxq2LsZANAGiXLjRpSEvttHVw==
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: /YXPvDTduGcG9QGTfeRl5LFDrqW0m5/BMkydbCLaE7UU0J1djpdS3FTumGZQ11ECio7OPfuUrKeY3qxFaCXAJOfCOrMTdQ0LorDxRrEaAUYNW1sWdeVEQnXcNBaXm9vWG1jxQBRkewI1H9JrNryIeiwRus1Stw8B7UXAjwIkh7Zeqm28HEtkzuWYtlyxALxK36wC8+7V3XrvWJtttcc7Dc15MgbpO5brX6v4dtegBBVb+mKJwMu4xWWje0fVgcwzxpjiPb5wSRu9lQG47TQUQeR9TB6WXIZg1gB2wfBwRwThJ8O1tdiXFwCHQRdzBxCeOsBiPKjuLtQ7I4WvvAanNsLsDx9TTUDYXNMx8rsvfXBvJfIe3zxUwu2TC5Cke2jv0sdCjYQb6Q7PjmMqtU18atlbRTgPLrVpbbTTy6yGRN/oM+AVKY9IpguYXmM1ESZty28icJM85vzsXcFY9FJYWj+Y0VlrEMNOg4hIBovW4wc=
+x-ms-exchange-antispam-messagedata: gRxxHicJ+VEXtYQU7lwFKM8UOuKa8KWN45PZAttBhspf9mfLrbVtEry5nzCFaFH//AgA1smUXgHcjPgif4UQAvtYqvqprRIuvBx6XxzROo34JR/ezMWeMqRgm6muk3xjxoMn11nHM1WswVbuwo61Rg==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4010c69c-5f3e-4056-c465-08d7bbc3d76d
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2020 20:30:10.5195 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UYED4OjAtYPWQRoLGJIqi8/WPUyZqeuwu4BT64gF7crYN8CrGOAlrUiLjNyldULTTTf71bb7xlz7K8LauKuyLg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5SPR01MB0358
+X-MS-Exchange-CrossTenant-Network-Message-Id: 382672a7-adfc-47b6-ac0c-08d7bbc51fdc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2020 20:39:21.1203 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: iKGzRdc7b9pgXHL3+CUpxYKrPRlsnkw2kCo2EGteK/8ZKKlQQF059hfDikMFbDnY
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3797
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,93 +113,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: multipart/mixed; boundary="===============0360204160=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-series Reviewed-by:Nirmoy Das <nirmoy.das@amd.com>
+--===============0360204160==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CH2PR12MB392656F0C897C3B6780594B7F0EB0CH2PR12MB3926namp_"
 
-On 2/27/20 9:14 PM, Alex Deucher wrote:
-> fixes warnings with -Wmisleading-indentation.
+--_000_CH2PR12MB392656F0C897C3B6780594B7F0EB0CH2PR12MB3926namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
+
+Reviewed-by: Yong Zhao <Yong.Zhao@amd.com>
+________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Alex Deu=
+cher <alexdeucher@gmail.com>
+Sent: Thursday, February 27, 2020 3:14 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: remove unused variable
+
+Fixes a warning.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index bec4337156a7..b3e32969eb7f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1131,7 +1131,6 @@ static void
+ amdgpu_pci_remove(struct pci_dev *pdev)
+ {
+         struct drm_device *dev =3D pci_get_drvdata(pdev);
+-       struct amdgpu_device *adev =3D dev->dev_private;
+
+ #ifdef MODULE
+         if (THIS_MODULE->state !=3D MODULE_STATE_GOING)
+--
+2.24.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Cyong.zha=
+o%40amd.com%7Ca4b7a490c31647472ca608d7bbc1bc24%7C3dd8961fe4884e608e11a82d99=
+4e183d%7C0%7C0%7C637184313087705310&amp;sdata=3DLNUqZiHj4Ey7KHjtp1o2c%2BpYO=
+87JeL61VAYfNwNiE0Q%3D&amp;reserved=3D0
+
+--_000_CH2PR12MB392656F0C897C3B6780594B7F0EB0CH2PR12MB3926namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 6 +++---
->   drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c  | 6 +++---
->   drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c  | 6 +++---
->   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 6 +++---
->   4 files changed, 12 insertions(+), 12 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> index cb3421e25adc..0dc3ed694fe8 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-> @@ -1016,9 +1016,9 @@ static int gfx_v10_0_rlc_init(struct amdgpu_device *adev)
->   			return r;
->   	}
->   
-> -    /* init spm vmid with 0xf */
-> -    if (adev->gfx.rlc.funcs->update_spm_vmid)
-> -        adev->gfx.rlc.funcs->update_spm_vmid(adev, 0xf);
-> +	/* init spm vmid with 0xf */
-> +	if (adev->gfx.rlc.funcs->update_spm_vmid)
-> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0xf);
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> index 397c62c58436..733d398c61cc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-> @@ -3346,9 +3346,9 @@ static int gfx_v7_0_rlc_init(struct amdgpu_device *adev)
->   			return r;
->   	}
->   
-> -    /* init spm vmid with 0xf */
-> -    if (adev->gfx.rlc.funcs->update_spm_vmid)
-> -        adev->gfx.rlc.funcs->update_spm_vmid(adev, 0xf);
-> +	/* init spm vmid with 0xf */
-> +	if (adev->gfx.rlc.funcs->update_spm_vmid)
-> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0xf);
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> index 294abff9efb7..393a1324daa9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
-> @@ -1318,9 +1318,9 @@ static int gfx_v8_0_rlc_init(struct amdgpu_device *adev)
->   			return r;
->   	}
->   
-> -    /* init spm vmid with 0xf */
-> -    if (adev->gfx.rlc.funcs->update_spm_vmid)
-> -        adev->gfx.rlc.funcs->update_spm_vmid(adev, 0xf);
-> +	/* init spm vmid with 0xf */
-> +	if (adev->gfx.rlc.funcs->update_spm_vmid)
-> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0xf);
->   
->   	return 0;
->   }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 1d5fd5f17a30..9962ef80da92 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -1847,9 +1847,9 @@ static int gfx_v9_0_rlc_init(struct amdgpu_device *adev)
->   		break;
->   	}
->   
-> -    /* init spm vmid with 0xf */
-> -    if (adev->gfx.rlc.funcs->update_spm_vmid)
-> -        adev->gfx.rlc.funcs->update_spm_vmid(adev, 0xf);
-> +	/* init spm vmid with 0xf */
-> +	if (adev->gfx.rlc.funcs->update_spm_vmid)
-> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, 0xf);
->   
->   	return 0;
->   }
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Yong Zhao &lt;Yong.Zhao@amd.com&gt;</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Alex Deucher &lt;alexdeucher@=
+gmail.com&gt;<br>
+<b>Sent:</b> Thursday, February 27, 2020 3:14 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> [PATCH 1/2] drm/amdgpu: remove unused variable</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Fixes a warning.<br>
+<br>
+Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 -<br>
+&nbsp;1 file changed, 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c<br>
+index bec4337156a7..b3e32969eb7f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+@@ -1131,7 &#43;1131,6 @@ static void<br>
+&nbsp;amdgpu_pci_remove(struct pci_dev *pdev)<br>
+&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_device *dev =3D=
+ pci_get_drvdata(pdev);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D dev-&g=
+t;dev_private;<br>
+&nbsp;<br>
+&nbsp;#ifdef MODULE<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (THIS_MODULE-&gt;state =
+!=3D MODULE_STATE_GOING)<br>
+-- <br>
+2.24.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
+7C01%7Cyong.zhao%40amd.com%7Ca4b7a490c31647472ca608d7bbc1bc24%7C3dd8961fe48=
+84e608e11a82d994e183d%7C0%7C0%7C637184313087705310&amp;amp;sdata=3DLNUqZiHj=
+4Ey7KHjtp1o2c%2BpYO87JeL61VAYfNwNiE0Q%3D&amp;amp;reserved=3D0">https://nam1=
+1.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.o=
+rg%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Cyong.zhao%40amd.=
+com%7Ca4b7a490c31647472ca608d7bbc1bc24%7C3dd8961fe4884e608e11a82d994e183d%7=
+C0%7C0%7C637184313087705310&amp;amp;sdata=3DLNUqZiHj4Ey7KHjtp1o2c%2BpYO87Je=
+L61VAYfNwNiE0Q%3D&amp;amp;reserved=3D0</a><br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CH2PR12MB392656F0C897C3B6780594B7F0EB0CH2PR12MB3926namp_--
+
+--===============0360204160==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0360204160==--
