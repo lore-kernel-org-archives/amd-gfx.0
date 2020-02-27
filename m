@@ -2,79 +2,109 @@ Return-Path: <SRS0=YjM5=4P=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 39039C11D3D
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 15:29:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A64CC11D3D
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 15:54:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 09B402469F
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 15:29:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EDEC524688
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 15:54:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g5uJTwid"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09B402469F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="spjMBvpc"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EDEC524688
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AC6876E045;
-	Thu, 27 Feb 2020 15:29:01 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E4426E045
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2020 15:29:00 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id a9so3937620wmj.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2020 07:29:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=iF2h1LG+EFZ8BiHcH/ixFWaE+GGPfuVZsPYgamUz+9U=;
- b=g5uJTwidUK1N3MLuOFxNPrW3fFy9ptUsx5rY4pb8Ps9pZa64yEFqzKew8U5/vnlmwh
- 0QUF5EvvUVpkgJGiWE/wbXcSQ6ig78r8UBXDmjL29m3LCCU+sNiFA3LmdBL/Pchw/JzO
- inQtBLGSGM9eKhpCljDYd+KzAQF4ZCEkrdCLaH6jdr+qhJYHLzONtcT8URTGekC/ZMTw
- B05pYMc95CsqtBOIodWlxU+WofG2o4n0EbUU3UYG/7KofYGABq8htQnZb1vrQw+JXX4A
- Vovm60lG8DLYhcZ/Pb3/kpxi86wiJ6AxEGC1SiKBY4vlncvYBBFbJ0QBoSTzB9ZvYV+n
- bVFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=iF2h1LG+EFZ8BiHcH/ixFWaE+GGPfuVZsPYgamUz+9U=;
- b=rTK4yf56/FkZ/QQfBlsYuIg87GTaWbaPWf8Se69pRlxtWTznpRMN4QzCgnoHiKgKHG
- mOR0BInOyGQYmahsSRp58ZHqYCyIiEg86H9fPz5W9aLAyCOwuOnLPxmwl8f18BiJuv3B
- 4Vpj+3RrzzSEuVmOP9Kcc1euwAUCVdY8bmQNp/V1mPsGcTRYyoqEm5s8TkPffxdfCUpE
- DnetdRykYu1MG5HhDVnEnRiP/qngzofYyxc4dPDpbA0iDTu4HkXIy4w3WzI9ca9zXobo
- EJ1M/1z6Z6hjyNEOoBrAC1s5bpWRxJWmKfGu97ORpOBZMtKJufTlRYYUyIOj8zM+qwve
- e/5w==
-X-Gm-Message-State: APjAAAXHSWmbBifPuZAzVNck8AadU6Uk3jKxMOdFcTd/y4IBGaxi+h4B
- I+TJYs5mbsEXb3M5HMHfVF746sLc
-X-Google-Smtp-Source: APXvYqwQ5QY1XUXg7xXXJLAvju3SFOrD3L6x0rlroBRZMXW8psd8Xnutfge3gGr3BoD9HQ7/janBkg==
-X-Received: by 2002:a1c:2b44:: with SMTP id r65mr80553wmr.72.1582817338609;
- Thu, 27 Feb 2020 07:28:58 -0800 (PST)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id a5sm8133114wmb.37.2020.02.27.07.28.56
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 27 Feb 2020 07:28:58 -0800 (PST)
-Subject: Re: [PATCH] drm/amdgpu: stop allocating PDs/PTs with the eviction
- lock held
-To: Felix Kuehling <felix.kuehling@amd.com>, alex.sierra@amd.com,
- amd-gfx@lists.freedesktop.org
-References: <20200212151426.14197-1-christian.koenig@amd.com>
- <7f0c6e3e-be75-3fa8-a5e7-d8ae6bf0dba5@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <eaf782de-e45d-70df-9211-69a96f8ccd80@gmail.com>
-Date: Thu, 27 Feb 2020 16:28:55 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id B22F66E926;
+	Thu, 27 Feb 2020 15:54:03 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2073.outbound.protection.outlook.com [40.107.243.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F1656E926
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Feb 2020 15:54:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GavtQX3H4jtv/j0SqekP+7cJRxC5kSsQVbEL3Ykp9XZtJ+5AVbFw0A94P6jWRENPa9DeG6GYUzn3vee/ZHZ1h1dCuhsRNsiKbPVfSyeT1jSsrY7i3uog00iD6B9uQ1QEhQZIcktMzBgH+TmPup5/lZLduTGUfzk5XZ0t4A1DIt+gO5MViNYEexUaB8lwDZbZG+vEDdnUtJxpP9PdPwRI9EZNVA6QVpGA3NYMwo3jvSYjwDEYTAfZRPLWEpcFdedU90IT8gYmlfeTswveM6JU6CKMGTyJUSQCzaHrZmfwucGRR33xqyYJFOHQJRmmaSIGhfh6QlP9jAjNhn0Y2L4xDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aD5Vkh9SfYsVU8CTzE3RvafotDYiJeVrhABXhcCCK+g=;
+ b=nF9DXOUqsc6yKYgIBLRbUjfFFxWv3RePG/LlWaY8OGZOja5SG2AVbhuRJr4Q4jSz4JrlJzdWTJZuOWNXHLHmqlqvbeoKLmRtDKwREf8uxKvF+vTkZ107n84GYXBhxwmjeo5BNSDuO0TBAkc0WT3SslrVK/pD3cHeWXK/jUTFloXgjWUxLEh2eLySccrslbo0Ho8I+puNjNOn4GlcUcz7rSbfTXSW4lzrFqMLOpFxPFqircupdq50o+oOGr3/O2+RIW4KUq3tn6ZV5JX1YzOQtawcOQvkFSY2GxPoUOpxsZf/LMCVsOpAxdRgn7ebYRxuXCvVDeJBNM1+xVWQfK2Kzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aD5Vkh9SfYsVU8CTzE3RvafotDYiJeVrhABXhcCCK+g=;
+ b=spjMBvpcbuxT/PUKRVI+giAZwtRxz3SmVERZg6SyytznwyjuQWQjy57RyMix1urlwGG2Gsxe9xaNka9V/WylkPWT1LdAi8H9pqGFmyOpi1Oz8jcXt8czKk2dVJ1ZyYBf3hZImoAGgDI15daKOGede81n5zdQTMoCju6riPj1kXc=
+Received: from MWHPR08CA0044.namprd08.prod.outlook.com (2603:10b6:300:c0::18)
+ by BYAPR12MB2613.namprd12.prod.outlook.com (2603:10b6:a03:69::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.22; Thu, 27 Feb
+ 2020 15:53:57 +0000
+Received: from CO1NAM11FT006.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:c0:cafe::bb) by MWHPR08CA0044.outlook.office365.com
+ (2603:10b6:300:c0::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21 via Frontend
+ Transport; Thu, 27 Feb 2020 15:53:56 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT006.mail.protection.outlook.com (10.13.174.246) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2772.14 via Frontend Transport; Thu, 27 Feb 2020 15:53:56 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 27 Feb
+ 2020 09:53:55 -0600
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 27 Feb
+ 2020 09:53:54 -0600
+Received: from hersenwu-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Thu, 27 Feb 2020 09:53:54 -0600
+From: Hersen Wu <hersenxs.wu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 2/2] drm/amdgpu/display: navi1x copy dcn watermark clock
+ settings to smu resume from s3
+Date: Thu, 27 Feb 2020 10:53:49 -0500
+Message-ID: <20200227155349.10993-1-hersenxs.wu@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <7f0c6e3e-be75-3fa8-a5e7-d8ae6bf0dba5@amd.com>
-Content-Language: en-US
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(39860400002)(346002)(376002)(136003)(428003)(199004)(189003)(26005)(6916009)(86362001)(7696005)(2616005)(81156014)(81166006)(8676002)(8936002)(70206006)(426003)(1076003)(70586007)(54906003)(478600001)(4326008)(316002)(186003)(36756003)(5660300002)(6666004)(2906002)(356004)(336012)(32563001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB2613; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 16f7e405-23a1-49a5-c7e5-08d7bb9d40a5
+X-MS-TrafficTypeDiagnostic: BYAPR12MB2613:
+X-Microsoft-Antispam-PRVS: <BYAPR12MB261361DB654B92C952C1BCE7FDEB0@BYAPR12MB2613.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Forefront-PRVS: 03264AEA72
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: S7QKCqXVrxWrwgdEz5Oyr0/yzmyXFzH6pxI69P+40bsOU7Ri7rgSOlpVfMFRd26l5mNNw9YWuL2O4utJm8fOdzaoxFvSnd3EUYMFUINpttn99CZ+g0G64KRrJrHOJALGvMQoAhoU0MTtGdRD0KgqH8SP9BtKWdGFIOTupAoz1VFUExIy9Lb/sgdpwzivbVUYu2TnnUCz1mYTN3mU3T6RfN+MuOfDLp/n8P8+3kaJHhFxIAu8D3JYELnf7DOjDeIhZdYoGDUXNDqpUJz/bKP5cOFDwsAqLE1mpVzql+tqbiwTf6J1A9xyA1sQVokWtnmlAbDevMDwzQu0pLGdss+rRLG4Z7FcYOjjto4c6XCK5szTXnpxFRTggjtMELNhsZXZzUhovvPNZKV4QydngzQEyLWWMokTaTVOMre1E1SmWVM0gPw7GMSnHMATxVhMt29QOZa0hEuKEu63U85d9P/lrGJ3e37jveFBin4ApHnNg1bUshWnUJti3T/miOi1DWW9
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Feb 2020 15:53:56.3501 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16f7e405-23a1-49a5-c7e5-08d7bb9d40a5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2613
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,83 +116,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Hersen Wu <hersenxs.wu@amd.com>, evan.quan@amd.com, kenneth.feng@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SGkgRmVsaXgsCgpzbyBjb21pbmcgYmFjayB0byB0aGlzIGFmdGVyIHR3byB3ZWVrcyBvZiBkaXN0
-cmFjdGlvbi4KCkFtIDE0LjAyLjIwIHVtIDIyOjEyIHNjaHJpZWIgRmVsaXggS3VlaGxpbmc6Cj4g
-Tm93IHlvdSBhbGxvdyBldmljdGlvbiBvZiBwYWdlIHRhYmxlcyB3aGlsZSB5b3UgYWxsb2NhdGUg
-cGFnZSB0YWJsZXMuIAo+IElzbid0IHRoZSB3aG9sZSBwb2ludCBvZiB0aGUgZXZpY3Rpb24gbG9j
-ayB0byBwcmV2ZW50IHBhZ2UgdGFibGUgCj4gZXZpY3Rpb25zIHdoaWxlIG1hbmlwdWxhdGluZyBw
-YWdlIHRhYmxlcz8KPgo+IE9yIGRvZXMgdGhpcyBvbmx5IGFwcGx5IHRvIFBURSBpbnZhbGlkYXRp
-b25zIHdoaWNoIG5ldmVyIGFsbG9jYXRlZCAKPiBtZW1vcnk/IElzIHRoYXQgdGhlIG9ubHkgY2Fz
-ZSB0aGF0IGRvZXNuJ3QgcmVzZXJ2ZSBwYWdlIHRhYmxlcz8KClllcywgZXhhY3RseS4gV2UgZXNz
-ZW50aWFsbHkgaGF2ZSB0byBkaXN0aW5jdCB0d28gY2FzZXMgaGVyZToKCjEuIFdlIGFyZSB2YWxp
-ZGF0aW5nIFBURXMgYW5kIHNvIGV2ZW50dWFsbHkgbmVlZCB0byBhbGxvY2F0ZSBwYWdlIHRhYmxl
-cy4KIMKgwqDCoCBGb3IgdGhpcyB0aGUgcm9vdCBQRCBpcyByZXNlcnZlZCBhbmQgd2UgYWN0dWFs
-bHkga25vdyB0aGF0IHRoZSBWTSAKY2FuJ3QgYmUgZXZpY3RlZC4KIMKgwqDCoCBCdXQgd2Ugc3Rp
-bGwgbmVlZCB0byBob2xkIHRoZSBsb2NrIHdoaWxlIHB1c2hpbmcgdGhlIGFjdHVhbCB1cGRhdGVz
-IAp0aGUgaGFyZHdhcmUgdG8gbWFrZSBzdXJlIHdlIGRvbid0IG1lc3MgdXAgdGhlIGRhdGEgc3Ry
-dWN0dXJlcyB3aXRoIApjb25jdXJyZW50IGludmFsaWRhdGlvbnMuCgoyLiBXZSBhcmUgaW52YWxp
-ZGF0aW5nIFBURXMuCiDCoMKgwqAgSGVyZSB3ZSBtaWdodCBvciBtaWdodCBub3QgaGF2ZSB0aGUg
-cm9vdCBQRCByZXNlcnZlZCBhbmQgc28gbmVlZCB0byAKbWFrZSBzdXJlIHRoYXQgbm9ib2R5IGlz
-IGV2aWN0aW5nIHBhZ2UgdGFibGVzIHdoaWxlIHdlIGFyZSBpbnZhbGlkYXRpbmcuCgpRdWl0ZSBh
-IGNvbXBsaWNhdGVkIGRhbmNlLCBidXQgb2YgaGFuZCBJIGFsc28gZG9uJ3Qgc2VlIG11Y2ggb3Ro
-ZXIgY2hvaWNlLgoKUmVnYXJkcywKQ2hyaXN0aWFuLgoKPgo+IFJlZ2FyZHMsCj4gwqAgRmVsaXgK
-Pgo+IE9uIDIwMjAtMDItMTIgMTA6MTQgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4g
-V2UgbmVlZCB0byBtYWtlIHN1cmUgdG8gbm90IGFsbG9jYXRlIFBEcy9QVHMgd2hpbGUgaG9sZGlu
-Zwo+PiB0aGUgZXZpY3Rpb24gbG9jayBvciBvdGhlcndpc2Ugd2Ugd2lsbCBydW4gaW50byBsb2Nr
-IGludmVyc2lvbgo+PiBpbiB0aGUgTU0gYXMgc29vbiBhcyB3ZSBlbmFibGUgdGhlIE1NVSBub3Rp
-Zmllci4KPj4KPj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtv
-ZW5pZ0BhbWQuY29tPgo+PiAtLS0KPj4gwqAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X3ZtLmMgfCAzMSArKysrKysrKysrKysrKysrKysrKystLS0tLQo+PiDCoCAxIGZpbGUgY2hh
-bmdlZCwgMjUgaW5zZXJ0aW9ucygrKSwgNiBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBh
-L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIAo+PiBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCj4+IGluZGV4IDc3YzQwMDY3NWI3OS4uZTdhYjBj
-MWUyNzkzIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dm0uYwo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYwo+PiBA
-QCAtODk3LDI3ICs4OTcsNDIgQEAgc3RhdGljIGludCBhbWRncHVfdm1fYWxsb2NfcHRzKHN0cnVj
-dCAKPj4gYW1kZ3B1X2RldmljZSAqYWRldiwKPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X3Zt
-X3B0ICplbnRyeSA9IGN1cnNvci0+ZW50cnk7Cj4+IMKgwqDCoMKgwqAgc3RydWN0IGFtZGdwdV9i
-b19wYXJhbSBicDsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgYW1kZ3B1X2JvICpwdDsKPj4gK8KgwqDC
-oCBib29sIG5lZWRfZW50cmllczsKPj4gwqDCoMKgwqDCoCBpbnQgcjsKPj4gwqAgLcKgwqDCoCBp
-ZiAoY3Vyc29yLT5sZXZlbCA8IEFNREdQVV9WTV9QVEIgJiYgIWVudHJ5LT5lbnRyaWVzKSB7Cj4+
-ICvCoMKgwqAgbmVlZF9lbnRyaWVzID0gY3Vyc29yLT5sZXZlbCA8IEFNREdQVV9WTV9QVEIgJiYg
-IWVudHJ5LT5lbnRyaWVzOwo+PiArwqDCoMKgIGlmICghbmVlZF9lbnRyaWVzICYmIGVudHJ5LT5i
-YXNlLmJvKQo+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+ICsKPj4gK8KgwqDCoCAvKiBX
-ZSBuZWVkIHRvIG1ha2Ugc3VyZSB0aGF0IHdlIGRvbid0IGFsbG9jYXRlIFBEcy9QVHMgd2hpbGUg
-Cj4+IGhvbGRpbmcgdGhlCj4+ICvCoMKgwqDCoCAqIGV2aWN0aW9uIGxvY2sgb3Igd2UgcnVuIGlu
-dG8gbG9jayByZWN1cnNpb24gaW4gdGhlIE1NLgo+PiArwqDCoMKgwqAgKi8KPj4gK8KgwqDCoCBh
-bWRncHVfdm1fZXZpY3Rpb25fdW5sb2NrKHZtKTsKPj4gKwo+PiArwqDCoMKgIGlmIChuZWVkX2Vu
-dHJpZXMpIHsKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIG51bV9lbnRyaWVzOwo+PiDC
-oCDCoMKgwqDCoMKgwqDCoMKgwqAgbnVtX2VudHJpZXMgPSBhbWRncHVfdm1fbnVtX2VudHJpZXMo
-YWRldiwgY3Vyc29yLT5sZXZlbCk7Cj4+IMKgwqDCoMKgwqDCoMKgwqDCoCBlbnRyeS0+ZW50cmll
-cyA9IGt2bWFsbG9jX2FycmF5KG51bV9lbnRyaWVzLAo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzaXplb2YoKmVudHJ5LT5lbnRyaWVzKSwKPj4g
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgR0ZQX0tF
-Uk5FTCB8IF9fR0ZQX1pFUk8pOwo+PiAtwqDCoMKgwqDCoMKgwqAgaWYgKCFlbnRyeS0+ZW50cmll
-cykKPj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FTk9NRU07Cj4+ICvCoMKgwqDC
-oMKgwqDCoCBpZiAoIWVudHJ5LT5lbnRyaWVzKSB7Cj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IHIgPSAtRU5PTUVNOwo+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGVycm9yX2xvY2s7
-Cj4+ICvCoMKgwqDCoMKgwqDCoCB9Cj4+IMKgwqDCoMKgwqAgfQo+PiDCoCAtwqDCoMKgIGlmIChl
-bnRyeS0+YmFzZS5ibykKPj4gLcKgwqDCoMKgwqDCoMKgIHJldHVybiAwOwo+PiArwqDCoMKgIGlm
-IChlbnRyeS0+YmFzZS5ibykgewo+PiArwqDCoMKgwqDCoMKgwqAgciA9IDA7Cj4+ICvCoMKgwqDC
-oMKgwqDCoCBnb3RvIGVycm9yX2xvY2s7Cj4+ICvCoMKgwqAgfQo+PiDCoCDCoMKgwqDCoMKgIGFt
-ZGdwdV92bV9ib19wYXJhbShhZGV2LCB2bSwgY3Vyc29yLT5sZXZlbCwgZGlyZWN0LCAmYnApOwo+
-PiDCoCDCoMKgwqDCoMKgIHIgPSBhbWRncHVfYm9fY3JlYXRlKGFkZXYsICZicCwgJnB0KTsKPj4g
-K8KgwqDCoCBhbWRncHVfdm1fZXZpY3Rpb25fbG9jayh2bSk7Cj4+IMKgwqDCoMKgwqAgaWYgKHIp
-Cj4+IC3CoMKgwqDCoMKgwqDCoCByZXR1cm4gcjsKPj4gK8KgwqDCoMKgwqDCoMKgIGdvdG8gZXJy
-b3JfZnJlZV9wdDsKPj4gwqAgwqDCoMKgwqDCoCAvKiBLZWVwIGEgcmVmZXJlbmNlIHRvIHRoZSBy
-b290IGRpcmVjdG9yeSB0byBhdm9pZAo+PiDCoMKgwqDCoMKgwqAgKiBmcmVlaW5nIHRoZW0gdXAg
-aW4gdGhlIHdyb25nIG9yZGVyLgo+PiBAQCAtOTM2LDYgKzk1MSwxMCBAQCBzdGF0aWMgaW50IGFt
-ZGdwdV92bV9hbGxvY19wdHMoc3RydWN0IAo+PiBhbWRncHVfZGV2aWNlICphZGV2LAo+PiDCoMKg
-wqDCoMKgIGFtZGdwdV9ib191bnJlZigmcHQpOwo+PiDCoMKgwqDCoMKgIGVudHJ5LT5iYXNlLmJv
-ID0gTlVMTDsKPj4gwqDCoMKgwqDCoCByZXR1cm4gcjsKPj4gKwo+PiArZXJyb3JfbG9jazoKPj4g
-K8KgwqDCoCBhbWRncHVfdm1fZXZpY3Rpb25fbG9jayh2bSk7Cj4+ICvCoMKgwqAgcmV0dXJuIHI7
-Cj4+IMKgIH0KPj4gwqAgwqAgLyoqCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
-ZC1nZngK
+ This interface is for dGPU Navi1x. Linux dc-pplib interface depends
+ on window driver dc implementation.
+
+ For Navi1x, clock settings of dcn watermarks are fixed. the settings
+ should be passed to smu during boot up and resume from s3.
+ boot up: dc calculate dcn watermark clock settings within dc_create,
+ dcn20_resource_construct, then call pplib functions below to pass
+ the settings to smu:
+ smu_set_watermarks_for_clock_ranges
+ smu_set_watermarks_table
+ navi10_set_watermarks_table
+ smu_write_watermarks_table
+
+ For Renoir, clock settings of dcn watermark are also fixed values.
+ dc has implemented different flow for window driver:
+ dc_hardware_init / dc_set_power_state
+ dcn10_init_hw
+ notify_wm_ranges
+ set_wm_ranges
+
+ For Linux
+ smu_set_watermarks_for_clock_ranges
+ renoir_set_watermarks_table
+ smu_write_watermarks_table
+
+ dc_hardware_init -> amdgpu_dm_init
+ dc_set_power_state --> dm_resume
+
+ therefore, linux dc-pplib interface of navi10/12/14 is different
+ from that of Renoir.
+
+Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 64 +++++++++++++++++++
+ 1 file changed, 64 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 931cbd7b372e..c58c0e95735e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1435,6 +1435,68 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
+ 		drm_kms_helper_hotplug_event(dev);
+ }
+ 
++static int amdgpu_dm_smu_write_watermarks_table(struct amdgpu_device *adev)
++{
++	struct smu_context *smu = &adev->smu;
++	int ret = 0;
++
++	if (!is_support_sw_smu(adev))
++		return 0;
++
++	/* This interface is for dGPU Navi1x.Linux dc-pplib interface depends
++	 * on window driver dc implementation.
++	 * For Navi1x, clock settings of dcn watermarks are fixed. the settings
++	 * should be passed to smu during boot up and resume from s3.
++	 * boot up: dc calculate dcn watermark clock settings within dc_create,
++	 * dcn20_resource_construct
++	 * then call pplib functions below to pass the settings to smu:
++	 * smu_set_watermarks_for_clock_ranges
++	 * smu_set_watermarks_table
++	 * navi10_set_watermarks_table
++	 * smu_write_watermarks_table
++	 *
++	 * For Renoir, clock settings of dcn watermark are also fixed values.
++	 * dc has implemented different flow for window driver:
++	 * dc_hardware_init / dc_set_power_state
++	 * dcn10_init_hw
++	 * notify_wm_ranges
++	 * set_wm_ranges
++	 * -- Linux
++	 * smu_set_watermarks_for_clock_ranges
++	 * renoir_set_watermarks_table
++	 * smu_write_watermarks_table
++	 *
++	 * For Linux,
++	 * dc_hardware_init -> amdgpu_dm_init
++	 * dc_set_power_state --> dm_resume
++	 *
++	 * therefore, this function apply to navi10/12/14 but not Renoir
++	 * *
++	 */
++	switch(adev->asic_type) {
++	case CHIP_NAVI10:
++	case CHIP_NAVI14:
++	case CHIP_NAVI12:
++		break;
++	default:
++		return 0;
++	}
++
++	/* pass data to smu controller */
++	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
++			!(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
++		ret = smu_write_watermarks_table(smu);
++
++		if (ret) {
++			DRM_ERROR("Failed to update WMTABLE!\n");
++			return ret;
++		}
++		smu->watermarks_bitmap |= WATERMARKS_LOADED;
++	}
++
++	return 0;
++}
++
+ /**
+  * dm_hw_init() - Initialize DC device
+  * @handle: The base driver device containing the amdgpu_dm device.
+@@ -1713,6 +1775,8 @@ static int dm_resume(void *handle)
+ 
+ 	amdgpu_dm_irq_resume_late(adev);
+ 
++	amdgpu_dm_smu_write_watermarks_table(adev);
++
+ 	return 0;
+ }
+ 
+-- 
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
