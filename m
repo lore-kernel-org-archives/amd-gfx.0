@@ -2,106 +2,70 @@ Return-Path: <SRS0=YjM5=4P=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 34A82C11D3D
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 18:48:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 258F8C11D3D
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 19:12:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE5BD246C9
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 18:48:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F009E2469D
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Feb 2020 19:12:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="4ESLdAcS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE5BD246C9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W9KjGjqI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F009E2469D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E6D56EBFA;
-	Thu, 27 Feb 2020 18:48:43 +0000 (UTC)
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690048.outbound.protection.outlook.com [40.107.69.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4585D6EBFA;
- Thu, 27 Feb 2020 18:48:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XRbedbXKK7VV/dOhuywAHuO7PMDsYjf5rmAxkggoOp7yp7WcVp1qhVXPbzF0w+knqTq6KNAl5u1pxHOIqHePEqGiVT/eE/DJ79qPbn6EvFHpFZECqkb2L9VYlY82s7ezILKwF+O/13sOQi1kHUdAMqY+62JWLyBv84Lu37jRgRTauKcoDmr07ahyFoElzTRsrUaaV3zuEQereDYl66soKO4kCGjqgEBmr02l9F5KcFgs/7nSNPvAE3qGQagED1rIN8CKgUnRYs3uRM3ryO1UUzne8/fx2Fx4bcXHS0YjQnq/ZEjnC3+vtruJoIQV0I0FU3vWPI31AdbHAOBEO2E4bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AqAmKewSwjbt4PpcORodUeg5KR8XOhPiQyAVZR+Z3RY=;
- b=NQ1JMFtLqd+B1VjSj26ppWdYUMmQxAZ0OJBniD+UfLBhAiqsofdhyJGEPURgfArWmAFw97l7Z8P+eKx9IPL92Pyq1qzYeTs6Uf6WetfjzK/VMzRQexpiQT8T7OjBZhZMVHAyuB2rI5Ur6X9FiJZGi4cBEgeEC7QGtYFLvSUo1P2VtpP6kwSTwTO+mZUKYYni+tKxVYfEdFvAZLoImLRqQORYo9UG5TjTP5K1vn+o/GRgoYYjcUetlvs7BbLpuIkhursD7PQ7dCqZG5Ckn3nhFYRhlAK/u1Wju8f5exjDqVyzUsXpEg3/IYamvVUdSJnl+o+Dsa3YUvkBSUXBov/nlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AqAmKewSwjbt4PpcORodUeg5KR8XOhPiQyAVZR+Z3RY=;
- b=4ESLdAcSfoPYT7IOYzyQrmVzCSBcUZQ/9KZaYbKoHoPcRb7lIZ81hL8ASx73BLyrjtO5r5HQJCOdssFxaxcOnZH23n1lUGxEJYb0V3ze1vbHvlmBPYnIaMChvGo6F9zf1sJs5szWvYiTLAfCB/X58hhFKZYBuesBN+SYbb9H7+w=
-Received: from DM5PR1201MB2554.namprd12.prod.outlook.com (2603:10b6:3:ec::14)
- by DM5PR1201MB0268.namprd12.prod.outlook.com (2603:10b6:4:54::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14; Thu, 27 Feb
- 2020 18:48:41 +0000
-Received: from DM5PR1201MB2554.namprd12.prod.outlook.com
- ([fe80::c4c:bafd:5833:2b51]) by DM5PR1201MB2554.namprd12.prod.outlook.com
- ([fe80::c4c:bafd:5833:2b51%5]) with mapi id 15.20.2750.024; Thu, 27 Feb 2020
- 18:48:41 +0000
-From: "Liu, Zhan" <Zhan.Liu@amd.com>
-To: "Liu, Zhan" <Zhan.Liu@amd.com>, Melissa Wen <melissa.srw@gmail.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>, "Zhou, David(ChunMing)"
- <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>, Daniel Vetter
- <daniel@ffwll.ch>, Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>
-Subject: RE: [PATCH 2/2] drm/amd/display: dc_link: code clean up on detect_dp
- function
-Thread-Topic: [PATCH 2/2] drm/amd/display: dc_link: code clean up on detect_dp
- function
-Thread-Index: AQHV7PFJrzsxO38xA0qqdJAhaAZqgqgvYCNQgAACWBA=
-Date: Thu, 27 Feb 2020 18:48:40 +0000
-Message-ID: <DM5PR1201MB2554FCEFFDD68D74FFE2DEDF9EEB0@DM5PR1201MB2554.namprd12.prod.outlook.com>
-References: <cover.1582752490.git.melissa.srw@gmail.com>
- <9961afca2cf831ac688025a63b7cd35dd0908fac.1582752490.git.melissa.srw@gmail.com>
- <DM5PR1201MB25540271F42D8034FB2611829EEB0@DM5PR1201MB2554.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR1201MB25540271F42D8034FB2611829EEB0@DM5PR1201MB2554.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Zhan.Liu@amd.com; 
-x-originating-ip: [165.204.55.250]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 7ba8a28e-6fad-4170-c0bf-08d7bbb5a9e9
-x-ms-traffictypediagnostic: DM5PR1201MB0268:|DM5PR1201MB0268:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR1201MB02685FA8E206FADF572E3F889EEB0@DM5PR1201MB0268.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3968;
-x-forefront-prvs: 03264AEA72
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(396003)(376002)(39860400002)(366004)(346002)(189003)(199004)(186003)(6506007)(26005)(478600001)(54906003)(71200400001)(53546011)(316002)(2906002)(7696005)(86362001)(110136005)(33656002)(5660300002)(8936002)(81156014)(55016002)(66446008)(76116006)(9686003)(64756008)(4326008)(2940100002)(8676002)(81166006)(66476007)(66556008)(66946007)(52536014)(921003)(1121003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR1201MB0268;
- H:DM5PR1201MB2554.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: iINNV0Q+VopZhRro/fEQqb47khKedVA8pG841HndeRa9AD7XA+u1jgLDkTG9e6z3DAVxvI86BMAeQz6RMKYrLdP2GkON87OZ62qOCQ6pjsxQIRG1oENa408tbHYIdx6zfDW60NE7hOmJtwqs5LhD8koZ8FZqtbvwZws2XPPCWNqncu/Q5qo4tYOD0FXLUCxFz1ileyhNVklTr0TGKcqzm3tAkBfiH49OMZvAByYXSZHhI3g3+CJWAtB/9//NkY8qjuBEQf/xwG4H9x8kIJupEjHngIar+/9Dp0cwHb3ocjEcjFmNAItEhWJqwFUOHRPk3hAvqeYiGMyio3XGNajIwQsCZalkgdIqYwQ6I3lfHQ530A5KSpnFgp2QBqdMweHWcB65ScwPWU2I8QqQBQlD5lz0tOR8Ylnjq1q9LhRVerr6N9a1zUCODlFY8FJ4RzgDSiKJ5vIA/m/8kCUY7UpALe/Sxa1sKkVjIk9E/9R+7+vmf9jwgT9i+WNf99uFzG/T
-x-ms-exchange-antispam-messagedata: 5adomc7QC6AQtvxXs9vuH+rf/MSPpCb4Faa7kCkvE7cx/6FwZYSxwOmOuen0AN3F+xNjHI5Vluf8+blsUB9N0q8xTSQTUvZpM+r0olJBYIMrcLkqsWjd44gk3IuB654J9qcuV6Q6e4CJQZ0cZR5I0w==
+	by gabe.freedesktop.org (Postfix) with ESMTP id A11216E07D;
+	Thu, 27 Feb 2020 19:12:07 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16DEB6E07D;
+ Thu, 27 Feb 2020 19:12:07 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id m16so98469wrx.11;
+ Thu, 27 Feb 2020 11:12:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=KkQe8mlSP5SADtIkQuuaOq1esIHKxDqiaQzPxc9O6SA=;
+ b=W9KjGjqIN3CjehNKbl4BbdVczPfWcE5kRAmYTtHKLdz6gU9oxQp2b3h56YnO8WSHKc
+ fmH9z54DyLhSljuNu6iOjUCPJM7OLVasQKJPZ2I0ANT+GyqQ/Y5UR+Pf7WF5UlQi51ON
+ V/fDRfKaWXenxfEwHEAi8M0/kFlI+BbSKzk6B3DEPSiwoA2s+ozFB2mDASGDlvxU2w/y
+ VX+p6fIO6x/5HwtXnuQWtfvCu2WC93w+IIa2mFyFMsfydeV88N9cuPdrYl8gq/2bcHpa
+ eQ77e9vHzEaCYJvj08RwLb63XqlZSH3aT8Q1BRuSxhSn4BBUKdWL7B1XBKODON8hcl0A
+ bbRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KkQe8mlSP5SADtIkQuuaOq1esIHKxDqiaQzPxc9O6SA=;
+ b=F5HVWPYt9CtBRgJnjFlHIRd+c22fh6lezBJl7qrwZCIDC3tb8S5j0w+yn2fFTf6hl+
+ tlw3z6K/M/7HL6b6WWEs9XBWDT4sJm7qAfbw/7mqcGoUZ1lbihptuwK8L3F61r3O0Y84
+ MyC9i7MhDaC4kmJtB0z6yoMvp0PiDTF1D3T6yGtllhtKB98OjSrqz/ESnYzbGnY+5bPK
+ 7blJgZwRuJXWt7H5sjYrdnoSC2I/17vH2xCLB1G1Etsi85oOtQYgX/M/mfPiVYeg8Kod
+ hDFxwH+tQIYD6NKSJBbhP2c752Mol/jOKK5sTQpzrPar0WB2ePIHsAKs4uo83B33ahpK
+ FJLw==
+X-Gm-Message-State: APjAAAVqb6m0FE+6Lwn/aWKu0j2/6z3PsedWq/CIjgMmj4P/SvAsr47i
+ 9JpX26clZyMxxDVmLrsHpSSMD4mqz7P4if15vGQ=
+X-Google-Smtp-Source: APXvYqzpYc9tJz+jWc/GnaaUykaEkTnBmp3z5ng0KWPJ8dAcfDtstQJq1sVli5ZB4Y5xmsfzPEzqF6fdOwaYguWM1Uc=
+X-Received: by 2002:adf:cc85:: with SMTP id p5mr341250wrj.196.1582830725676;
+ Thu, 27 Feb 2020 11:12:05 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ba8a28e-6fad-4170-c0bf-08d7bbb5a9e9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Feb 2020 18:48:40.8878 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: B0fO4DYjp3h9J/j75ZIXZQICPmgl+xWQn3DfiNRPDTK2kTMOg1J8LBQ+ZSU8GS+f
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0268
+References: <20200109152028.28260-1-mario.kleiner.de@gmail.com>
+ <20200109152028.28260-3-mario.kleiner.de@gmail.com>
+ <9238371c-fc93-2a65-c3e5-df6b3d1270dd@amd.com>
+ <CAEsyxygx+2p+i91bvYBLVfq-9qog-SLQ_KdHBTmSyq4Zfr09jg@mail.gmail.com>
+ <6d481758-d0d9-8911-1473-4257b74a1e97@amd.com>
+In-Reply-To: <6d481758-d0d9-8911-1473-4257b74a1e97@amd.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Thu, 27 Feb 2020 20:11:53 +0100
+Message-ID: <CAEsyxygQff4kcOweR_PTKSMf9wss5i+nGA=BwiUjSH+V-MXXAQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: Allow current eDP link settings to
+ override verified ones.
+To: Harry Wentland <hwentlan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,173 +77,179 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Mario Kleiner <mario.kleiner.de@gmail.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Harry
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Liu,
-> Zhan
-> Sent: 2020/February/27, Thursday 1:40 PM
-> To: Melissa Wen <melissa.srw@gmail.com>; Wentland, Harry
-> <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>;
-> Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> <Christian.Koenig@amd.com>; Zhou, David(ChunMing)
-> <David1.Zhou@amd.com>; David Airlie <airlied@linux.ie>; Daniel Vetter
-> <daniel@ffwll.ch>; Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>
-> Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-
-> kernel@vger.kernel.org
-> Subject: RE: [PATCH 2/2] drm/amd/display: dc_link: code clean up on
-> detect_dp function
-> 
-> 
-> > -----Original Message-----
-> > From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of
-> > Melissa Wen
-> > Sent: 2020/February/26, Wednesday 5:08 PM
-> > To: Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo)
-> > <Sunpeng.Li@amd.com>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>;
-> > Koenig, Christian <Christian.Koenig@amd.com>; Zhou, David(ChunMing)
-> > <David1.Zhou@amd.com>; David Airlie <airlied@linux.ie>; Daniel Vetter
-> > <daniel@ffwll.ch>; Rodrigo Siqueira <rodrigosiqueiramelo@gmail.com>
-> > Cc: dri-devel@lists.freedesktop.org; amd-gfx@lists.freedesktop.org;
-> > linux- kernel@vger.kernel.org
-> > Subject: [PATCH 2/2] drm/amd/display: dc_link: code clean up on
-> > detect_dp function
-> >
-> > Removes codestyle issues on detect_dp function as suggested by
-> > checkpatch.pl.
-> >
-> > CHECK: Lines should not end with a '('
-> > WARNING: Missing a blank line after declarations
-> > WARNING: line over 80 characters
-> > CHECK: Alignment should match open parenthesis
-> >
-> > Signed-off-by: Melissa Wen <melissa.srw@gmail.com>
-> 
-> Thank you Melissa for your contribution! Will apply it.
-> 
-> This patch is:
-> Reviewed-by: Zhan Liu <zhan.liu@amd.com>
+Ok, back from various other emergencies and deadlines, sorry for the
+late reply. I also fixed my e-mail address - it was mistyped, causing
+all these delivery failures :/
 
-Sorry I didn't see Rodrigo already replied your email. Please send us a V2, then we will review your V2 patch.
+On Thu, Jan 9, 2020 at 10:26 PM Harry Wentland <hwentlan@amd.com> wrote:
+>
+> On 2020-01-09 4:13 p.m., Mario Kleiner wrote:
+> > On Thu, Jan 9, 2020 at 7:44 PM Harry Wentland <hwentlan@amd.com
+> > <mailto:hwentlan@amd.com>> wrote:
+> >
+> >     On 2020-01-09 10:20 a.m., Mario Kleiner wrote:
+> >     > If the current eDP link settings, as read from hw, provide a higher
+> >     > bandwidth than the verified_link_cap ones (= reported_link_cap), then
+> >     > override verified_link_cap with current settings.
+> >     >
+> >     > These initial current eDP link settings have been set up by
+> >     > firmware during boot, so they should work on the eDP panel.
+> >     > Therefore use them if the firmware thinks they are good and
+> >     > they provide higher link bandwidth, e.g., to enable higher
+> >     > resolutions / color depths.
+> >     >
+... snip ...
+> >
+> >
+> > Tried that already (see other mail), replacing the whole if statement
+> > with a if (true) to force reading DP_SUPPORTED_LINK_RATES. The whole
+> > table reads back as all-zero, and versions are DP 1.1, eDP 1.3, not 1.4+
+> > as what seems to be required. The use the classic link bw stuff, but
+> > with a non-standard link bandwidth multiplier of 0xc, and a reported
+> > DP_MAX_LINK_RATE of 0xa, contradicting the 0xc setting that the firmware
+> > sets at bootup.
+> >
+> > Seems to be a very Apple thing...
+>
+> Indeed. I think it was a funky panel that was "ahead of its time" and
+> ahead of the spec.
+>
+> I would prefer a DPCD quirk for this panel that updates the reported DP
+> caps, rather than picking the "current" ones from the FW lightup.
+>
+> Harry
+>
 
-And again, thank you so much for your contribution!
+How would i do this? I see various options:
 
-Zhan
+I could rewrite my current patch, move it down inside
+dc_link_detect_helper() until after the edid was read and we have
+vendor/model id available, then say if(everything that's there now &&
+(vendor=Apple) && (model=Troublesomepanel)) { ... }
 
-> 
-> > ---
-> >  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 35
-> > +++++++++----------
-> >  1 file changed, 16 insertions(+), 19 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> > b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> > index 0f28b5694144..adb717f02c9c 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> > @@ -585,14 +585,14 @@ static void
-> > read_current_link_settings_on_detect(struct dc_link *link)
-> >  		LINK_SPREAD_05_DOWNSPREAD_30KHZ :
-> > LINK_SPREAD_DISABLED;  }
-> >
-> > -static bool detect_dp(
-> > -	struct dc_link *link,
-> > -	struct display_sink_capability *sink_caps,
-> > -	bool *converter_disable_audio,
-> > -	struct audio_support *audio_support,
-> > -	enum dc_detect_reason reason)
-> > +static bool detect_dp(struct dc_link *link,
-> > +		      struct display_sink_capability *sink_caps,
-> > +		      bool *converter_disable_audio,
-> > +		      struct audio_support *audio_support,
-> > +		      enum dc_detect_reason reason)
-> >  {
-> >  	bool boot = false;
-> > +
-> >  	sink_caps->signal = link_detect_sink(link, reason);
-> >  	sink_caps->transaction_type =
-> >  		get_ddc_transaction_type(sink_caps->signal);
-> > @@ -606,9 +606,8 @@ static bool detect_dp(
-> >  			sink_caps->signal =
-> > SIGNAL_TYPE_DISPLAY_PORT_MST;
-> >  			link->type = dc_connection_mst_branch;
-> >
-> > -			dal_ddc_service_set_transaction_type(
-> > -							link->ddc,
-> > -							sink_caps-
-> > >transaction_type);
-> > +			dal_ddc_service_set_transaction_type(link->ddc,
-> > +							     sink_caps-
-> > >transaction_type);
-> >
-> >  			/*
-> >  			 * This call will initiate MST topology discovery.
-> > Which @@ -637,13 +636,10 @@ static bool detect_dp(
-> >  			if (reason == DETECT_REASON_BOOT)
-> >  				boot = true;
-> >
-> > -			dm_helpers_dp_update_branch_info(
-> > -				link->ctx,
-> > -				link);
-> > +			dm_helpers_dp_update_branch_info(link->ctx, link);
-> >
-> > -			if (!dm_helpers_dp_mst_start_top_mgr(
-> > -				link->ctx,
-> > -				link, boot)) {
-> > +			if (!dm_helpers_dp_mst_start_top_mgr(link->ctx,
-> > +							     link, boot)) {
-> >  				/* MST not supported */
-> >  				link->type = dc_connection_single;
-> >  				sink_caps->signal =
-> > SIGNAL_TYPE_DISPLAY_PORT; @@ -651,7 +647,7 @@ static bool
-> detect_dp(
-> >  		}
-> >
-> >  		if (link->type != dc_connection_mst_branch &&
-> > -			is_dp_active_dongle(link)) {
-> > +		    is_dp_active_dongle(link)) {
-> >  			/* DP active dongles */
-> >  			link->type = dc_connection_active_dongle;
-> >  			if (!link->dpcd_caps.sink_count.bits.SINK_COUNT)
-> > { @@ -662,14 +658,15 @@ static bool detect_dp(
-> >  				return true;
-> >  			}
-> >
-> > -			if (link->dpcd_caps.dongle_type !=
-> > DISPLAY_DONGLE_DP_HDMI_CONVERTER)
-> > +			if (link->dpcd_caps.dongle_type !=
-> > +			    DISPLAY_DONGLE_DP_HDMI_CONVERTER)
-> >  				*converter_disable_audio = true;
-> >  		}
-> >  	} else {
-> >  		/* DP passive dongles */
-> >  		sink_caps->signal = dp_passive_dongle_detection(link->ddc,
-> > -				sink_caps,
-> > -				audio_support);
-> > +								sink_caps,
-> > +
-> > 	audio_support);
-> >  	}
-> >
-> >  	return true;
-> > --
-> > 2.25.0
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
+Or i could add quirk code to detect_edp_sink_caps() after
+retrieve_link_cap() [or inside retrieve_link_cap] to override the
+reported_link_cap. But at that point we don't have edid yet and
+therefore no vendor/model id. Is there something inside the dpcd one
+can use to uniquely identify this display model?
 
+struct dp_device_vendor_id sink_id; queried inside retrieve_link_cap()
+sounds like it could be a unique id? I don't know about that.
+
+My intention was to actually do nothing on the AMD side here, as my
+photometer measurements suggest that the panel gives better quality
+results for >= 10 bpc output if it is operated at 8 bit and then the
+gpu's spatial dithering convincingly fakes the extra bits. Quality
+seems worse if one actually switches the panel into 10 bpc, as it
+doesn't seem to be a real 10 bit panel, just a 8 bit panel that
+accepts 10 bit and then badly dithers it to 10 bit.
+
+The situation has changed for Linux 5.6-rc, because of this recent
+commit from Roman Li, which is already in 5.6-rc:
+4a8ca46bae8affba063aabac85a0b1401ba810a3 "drm/amd/display: Default max
+bpc to 16 for eDP"
+
+While that commit supposedly fixes some darkness on some other eDP
+panel, it now breaks my eDP panel. It leaves edid reported bpc
+unclamped, so the driver uses 10 bpc as basis for required bandwidth
+calculations and then the required bandwidth for all modes exceeds the
+link bandwidth. I end with the eDP panel having no valid modes at all
+==> Panel goes black, game over.
+
+We either need to revert that commit for drm-fixes, or quirk it for
+the specific panels that are troublesome, or need to get some solution
+into 5.6-rc, otherwise there will be a lot of regressions for at least
+Apple MBP users.
+
+thanks,
+-mario
+
+> > -mario
+> >
+> >
+> >
+> >     Thanks,
+> >     Harry
+> >
+> >     > This fixes a problem found on the MacBookPro 2017 Retina panel:
+> >     >
+> >     > The panel reports 10 bpc color depth in its EDID, and the
+> >     > firmware chooses link settings at boot which support enough
+> >     > bandwidth for 10 bpc (324000 kbit/sec aka LINK_RATE_RBR2),
+> >     > but the DP_MAX_LINK_RATE dpcd register only reports 2.7 Gbps
+> >     > as possible, so verified_link_cap is only good for 2.7 Gbps
+> >     > and 8 bpc, not providing the full color depth of the panel.
+> >     >
+> >     > Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com
+> >     <mailto:mario.kleiner.de@gmail.com>>
+> >     > Cc: Alex Deucher <alexander.deucher@amd.com
+> >     <mailto:alexander.deucher@amd.com>>
+> >     > ---
+> >     >  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 21
+> >     +++++++++++++++++++
+> >     >  1 file changed, 21 insertions(+)
+> >     >
+> >     > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> >     b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> >     > index 5ea4a1675259..f3acdb8fead5 100644
+> >     > --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> >     > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> >     > @@ -819,6 +819,27 @@ static bool dc_link_detect_helper(struct
+> >     dc_link *link,
+> >     >               case SIGNAL_TYPE_EDP: {
+> >     >                       detect_edp_sink_caps(link);
+> >     >                       read_current_link_settings_on_detect(link);
+> >     > +
+> >     > +                     /* If cur_link_settings provides higher
+> >     bandwidth than
+> >     > +                      * verified_link_cap, then use
+> >     cur_link_settings as new
+> >     > +                      * verified_link_cap, as it obviously works
+> >     according to
+> >     > +                      * firmware boot setup.
+> >     > +                      *
+> >     > +                      * This has been observed on the Apple
+> >     MacBookPro 2017
+> >     > +                      * Retina panel, which boots with a link
+> >     setting higher
+> >     > +                      * than what dpcd[DP_MAX_LINK_RATE] claims
+> >     as possible.
+> >     > +                      * Overriding allows to run the panel at 10
+> >     bpc / 30 bit.
+> >     > +                      */
+> >     > +                     if (dc_link_bandwidth_kbps(link,
+> >     &link->cur_link_settings) >
+> >     > +                         dc_link_bandwidth_kbps(link,
+> >     &link->verified_link_cap)) {
+> >     > +                             DC_LOG_DETECTION_DP_CAPS(
+> >     > +                             "eDP current link setting bw %d kbps
+> >     > verified_link_cap %d kbps. Override.",
+> >     > +                             dc_link_bandwidth_kbps(link,
+> >     &link->cur_link_settings),
+> >     > +                             dc_link_bandwidth_kbps(link,
+> >     &link->verified_link_cap));
+> >     > +
+> >     > +                             link->verified_link_cap =
+> >     link->cur_link_settings;
+> >     > +                     }
+> >     > +
+> >     >                       sink_caps.transaction_type =
+> >     DDC_TRANSACTION_TYPE_I2C_OVER_AUX;
+> >     >                       sink_caps.signal = SIGNAL_TYPE_EDP;
+> >     >                       break;
+> >     >
+> >
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
