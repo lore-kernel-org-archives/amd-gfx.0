@@ -2,78 +2,71 @@ Return-Path: <SRS0=XGul=4Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 698F6C3F2D3
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 16:43:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB1BEC3F2D2
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 17:00:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C59824699
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 16:43:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8C6B02467B
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 17:00:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XkgKXpMV"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C59824699
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jN0nIDBf"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C6B02467B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96DFF6F480;
-	Fri, 28 Feb 2020 16:43:29 +0000 (UTC)
-Received: from mail-ed1-x541.google.com (mail-ed1-x541.google.com
- [IPv6:2a00:1450:4864:20::541])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 586ED6E091;
- Fri, 28 Feb 2020 16:43:28 +0000 (UTC)
-Received: by mail-ed1-x541.google.com with SMTP id dm3so4108569edb.1;
- Fri, 28 Feb 2020 08:43:28 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 281EF6F483;
+	Fri, 28 Feb 2020 17:00:44 +0000 (UTC)
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA376F488;
+ Fri, 28 Feb 2020 17:00:43 +0000 (UTC)
+Received: by mail-ed1-x529.google.com with SMTP id c26so4121920eds.8;
+ Fri, 28 Feb 2020 09:00:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=10ldW0StfDF5LQn5px5zjojzk7W9mvvMvbddw+jgFsA=;
- b=XkgKXpMVRw195GbFLaoE1Lus3mosOPFgls1V02Wvy1Vj5vnwWa/HRfYURh8n8PZpaJ
- GkkkX3RdNYcvyJtM4AnWGWxiNk9HM4LBrUL9G2/xBYaUn4nNhl0jhV83HNR6fI2ajKQK
- /ETtlOkksDL/o5pz0bHC7Wi+BlJ3qRQlsiTOta/ifPscYgV+XNiDtrl/yZPGF4t75ctM
- hTdDnCOg8YNAMiVoC8iwHNfW0zk4ML4bSbxMwJV4BwBXuY7sdgvNCYaZG6l6vkc81t78
- 6/ZYVosISVmDrBi4WrIDONYZVhLbUBgjnMstgqn+Q1pUDlwXXRVCti9+m6gKW29nAtsd
- wgNg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=t9YiIycZVF0Hu5aCAfarmS/T54kw0IBJHApMv3cYyyo=;
+ b=jN0nIDBfY2ec/EKrTiSc5Aq9wsDCRonITliImv6ykJo+pekRswPAxsdv8ZpdqALnNT
+ vzqeEJXtDoG39hKaeRXk3G+WmXkYLAaJuYyMTdWab6MVOnaCiZ9PUamQplXkrXNGiI4F
+ xEtWliCIsxI+uPoQDTQ1oU/N/gRUdYZe0s3XTWdrIVq1soP992B7EUqF3eyDyltesBQq
+ JSP6t9LEX2x2NNJy4R8KIf9NQmWw6vK9I2Tco0JSOKjPYI2ZWNbu8bHpcLzVrqE6TVVH
+ 4u2FCr4rWb5WYc6sazE4+2qihNrxywdBJRh34awoZ2V3NB9sMS1SfuOBQV5aTu061/DP
+ yO9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=10ldW0StfDF5LQn5px5zjojzk7W9mvvMvbddw+jgFsA=;
- b=AWAGJiwHJMqXQIJsfJG/7dBdVo4BJcwfOwLPZyKd5Wpa09cA3IWPfrsbbTtipyBYGo
- sPaw6rG0X/dpgwZ3y5vfUVdyaO8ZUH0Q3C+9+BU5/MGqINMpDMR2uq1sJUbRS1GRMg9k
- nPvFkQGN58zT2eow3ETppNR5ikRvgJkDgrVTuj8sLmxxn9CkMTMk1sc7G2fyWpimXhkg
- TkZB1MInmp4qEwiaOFR5pcq/RPfcOjKYUhhOOX8Izu8yYZN0xg1Zn7V2OhI6v1S5OoZV
- O7GyCusIb4hZq7BR8HayjHkdUym6vzCkXDKtNJrayN4HJZUZKSy2B3fC5liZoeQ4L4aA
- SHZQ==
-X-Gm-Message-State: APjAAAX1XRlMaWkvfkytaYY+UasavAfggi2aTg3suOM22U22+E24YFlJ
- Pzu2lc4qkHB7P1iORy/1Zj0=
-X-Google-Smtp-Source: APXvYqxq6JyAJsx/ABxv5xVgyd+/eUW8LdQVVIyzQs61/8UwUjygLRJ5olX/k0a0wg+uYk8PR3GkRQ==
-X-Received: by 2002:a50:eb04:: with SMTP id y4mr4879876edp.170.1582908207050; 
- Fri, 28 Feb 2020 08:43:27 -0800 (PST)
-Received: from smtp.gmail.com (1.77.115.89.rev.vodafone.pt. [89.115.77.1])
- by smtp.gmail.com with ESMTPSA id g6sm318212edm.29.2020.02.28.08.43.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Feb 2020 08:43:26 -0800 (PST)
-Date: Fri, 28 Feb 2020 13:43:19 -0300
-From: Melissa Wen <melissa.srw@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian Konig <christian.koenig@amd.com>,
- David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Subject: [PATCH v2 2/2] drm/amd/display: dc_link: code clean up on detect_dp
- function
-Message-ID: <60bc9ed29e4136eedd3b92c9fd536310b6b9c00d.1582907436.git.melissa.srw@gmail.com>
-References: <cover.1582907436.git.melissa.srw@gmail.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=t9YiIycZVF0Hu5aCAfarmS/T54kw0IBJHApMv3cYyyo=;
+ b=LpEn0AqmfaKoVWlPN297as1l2q4YViOixluH4gjtVOQ+6VhOxA1s3WkeNYW2puagJu
+ Q8W2YabBx6Z1PDbKktMvN7R1/ar7ngrp54wm3VAPY64BPcwLpce9zY+CzjFOKNNgSZ69
+ WL9esjE/2Q38HoZt7tpzrVigoECkY3cUyyJ3n2EgI+LRnv3gaKt5q5BRKtxAqerSkAVk
+ SxJz2aYMqRJG5fUx4URt1anWDiq8UydJd+U7o0BSSHXredfG8bd5sxgFwFnQCih7aAPw
+ ePjiI0hC8iGzIQL6j3jxbSnzUn9vjWZ6yWrU0EzJdaG31yrPxdHhwuy9yYTQJ+MtKYWQ
+ KQSg==
+X-Gm-Message-State: APjAAAVNo2HnWr65kEAUk4GDwdCd0WX7IGNEKcj60JW/KBc1bhma1SWP
+ 1hXybAhzQ+sd2hEMMQIX2acKXu7NddXXH5ylcl4=
+X-Google-Smtp-Source: APXvYqxbjCqrpCI1OkxCpw8KyES2BvRzo2pZAN2KOEt7Qtynvj4pBA/I1ZuC8e6htAAuU45HTRB4V6ehhZByiCnplzM=
+X-Received: by 2002:a17:906:b751:: with SMTP id
+ fx17mr3511604ejb.207.1582909241537; 
+ Fri, 28 Feb 2020 09:00:41 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cover.1582907436.git.melissa.srw@gmail.com>
+References: <CAKMK7uHHK2SsCfpmZwEUyTJJHsoccKoadoko3cEBOoYDFkmeAw@mail.gmail.com>
+ <CAPM=9txcGPvFdSzMtYZXyqLKnWyacSMuHdoXdV63M53fLFVFpw@mail.gmail.com>
+ <b398161ff7d0268454413058dc6c194cf93f5990.camel@collabora.com>
+ <a7727f84-ba85-f19d-9823-c7ba04fd1bb8@daenzer.net>
+In-Reply-To: <a7727f84-ba85-f19d-9823-c7ba04fd1bb8@daenzer.net>
+From: Rob Clark <robdclark@gmail.com>
+Date: Fri, 28 Feb 2020 09:00:29 -0800
+Message-ID: <CAF6AEGspENM8iRxnfzOSvWp2Y-CfAcxV+=Do4t0Ojp5Qo3O3YA@mail.gmail.com>
+Subject: Re: [Intel-gfx] [Mesa-dev] gitlab.fd.o financial situation and impact
+ on services
+To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,112 +78,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Erik Faye-Lund <erik.faye-lund@collabora.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "X.Org development" <xorg-devel@lists.x.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ wayland <wayland-devel@lists.freedesktop.org>,
+ "X.Org Foundation Board" <board@foundation.x.org>,
+ Xorg Members List <members@x.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Mesa Dev <mesa-dev@lists.freedesktop.org>, Dave Airlie <airlied@gmail.com>,
+ Discussion of the development of and with GStreamer
+ <gstreamer-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Removes codestyle issues on detect_dp function as suggested by
-checkpatch.pl.
-
-CHECK: Lines should not end with a '('
-WARNING: Missing a blank line after declarations
-WARNING: line over 80 characters
-CHECK: Alignment should match open parenthesis
-
-Signed-off-by: Melissa Wen <melissa.srw@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 35 +++++++++----------
- 1 file changed, 16 insertions(+), 19 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index eb9894e416ed..549bea1d725c 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -585,14 +585,14 @@ static void read_current_link_settings_on_detect(struct dc_link *link)
- 		LINK_SPREAD_05_DOWNSPREAD_30KHZ : LINK_SPREAD_DISABLED;
- }
- 
--static bool detect_dp(
--	struct dc_link *link,
--	struct display_sink_capability *sink_caps,
--	bool *converter_disable_audio,
--	struct audio_support *audio_support,
--	enum dc_detect_reason reason)
-+static bool detect_dp(struct dc_link *link,
-+		      struct display_sink_capability *sink_caps,
-+		      bool *converter_disable_audio,
-+		      struct audio_support *audio_support,
-+		      enum dc_detect_reason reason)
- {
- 	bool boot = false;
-+
- 	sink_caps->signal = link_detect_sink(link, reason);
- 	sink_caps->transaction_type =
- 		get_ddc_transaction_type(sink_caps->signal);
-@@ -609,9 +609,8 @@ static bool detect_dp(
- 			sink_caps->signal = SIGNAL_TYPE_DISPLAY_PORT_MST;
- 			link->type = dc_connection_mst_branch;
- 
--			dal_ddc_service_set_transaction_type(
--							link->ddc,
--							sink_caps->transaction_type);
-+			dal_ddc_service_set_transaction_type(link->ddc,
-+							     sink_caps->transaction_type);
- 
- 			/*
- 			 * This call will initiate MST topology discovery. Which
-@@ -640,13 +639,10 @@ static bool detect_dp(
- 			if (reason == DETECT_REASON_BOOT)
- 				boot = true;
- 
--			dm_helpers_dp_update_branch_info(
--				link->ctx,
--				link);
-+			dm_helpers_dp_update_branch_info(link->ctx, link);
- 
--			if (!dm_helpers_dp_mst_start_top_mgr(
--				link->ctx,
--				link, boot)) {
-+			if (!dm_helpers_dp_mst_start_top_mgr(link->ctx,
-+							     link, boot)) {
- 				/* MST not supported */
- 				link->type = dc_connection_single;
- 				sink_caps->signal = SIGNAL_TYPE_DISPLAY_PORT;
-@@ -654,7 +650,7 @@ static bool detect_dp(
- 		}
- 
- 		if (link->type != dc_connection_mst_branch &&
--			is_dp_active_dongle(link)) {
-+		    is_dp_active_dongle(link)) {
- 			/* DP active dongles */
- 			link->type = dc_connection_active_dongle;
- 			if (!link->dpcd_caps.sink_count.bits.SINK_COUNT) {
-@@ -665,14 +661,15 @@ static bool detect_dp(
- 				return true;
- 			}
- 
--			if (link->dpcd_caps.dongle_type != DISPLAY_DONGLE_DP_HDMI_CONVERTER)
-+			if (link->dpcd_caps.dongle_type !=
-+			    DISPLAY_DONGLE_DP_HDMI_CONVERTER)
- 				*converter_disable_audio = true;
- 		}
- 	} else {
- 		/* DP passive dongles */
- 		sink_caps->signal = dp_passive_dongle_detection(link->ddc,
--				sink_caps,
--				audio_support);
-+								sink_caps,
-+								audio_support);
- 	}
- 
- 	return true;
--- 
-2.25.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gRnJpLCBGZWIgMjgsIDIwMjAgYXQgMzo0MyBBTSBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRh
+ZW56ZXIubmV0PiB3cm90ZToKPgo+IE9uIDIwMjAtMDItMjggMTA6MjggYS5tLiwgRXJpayBGYXll
+LUx1bmQgd3JvdGU6Cj4gPgo+ID4gV2UgY291bGQgYWxzbyBkbyBzdHVmZiBsaWtlIHJlZHVjaW5n
+IHRoZSBhbW91bnQgb2YgdGVzdHMgd2UgcnVuIG9uIGVhY2gKPiA+IGNvbW1pdCwgYW5kIHB1bnQg
+c29tZSB0ZXN0aW5nIHRvIGEgcGVyLXdlZWtlbmQgdGVzdC1ydW4gb3Igc29tZXRpbmcKPiA+IGxp
+a2UgdGhhdC4gV2UgZG9uJ3QgKm5lZWQqIHRvIGtub3cgYWJvdXQgZXZlcnkgcHJvYmxlbSB1cCBm
+cm9udCwganVzdAo+ID4gdGhlIHN0dWZmIHRoYXQncyBhYm91dCB0byBiZSByZWxlYXNlZCwgcmVh
+bGx5LiBUaGUgb3RoZXIgc3R1ZmYgaXMganVzdAo+ID4gbmljZSB0byBoYXZlLiBJZiBpdCdzIHRv
+byBleHBlbnNpdmUsIEkgd291bGQgc2F5IGRyb3AgaXQuCj4KPiBJIGRvbid0IGFncmVlIHRoYXQg
+cHJlLW1lcmdlIHRlc3RpbmcgaXMganVzdCBuaWNlIHRvIGhhdmUuIEEgcHJvYmxlbQo+IHdoaWNo
+IGlzIG9ubHkgY2F1Z2h0IGFmdGVyIGl0IGxhbmRzIGluIG1haW5saW5lIGhhcyBhIG11Y2ggYmln
+Z2VyIGltcGFjdAo+IHRoYW4gb25lIHdoaWNoIGlzIGFscmVhZHkgY2F1Z2h0IGVhcmxpZXIuCj4K
+Cm9uZSB0aG91Z2h0Li4gc2luY2Ugd2l0aCBtZXNhK21hcmdlYm90IHdlIGVmZmVjdGl2ZWx5IGdl
+dCBhdCBsZWFzdAp0d28oaXNoKSBDSSBydW5zIHBlciBNUiwgaWUuIG9uZSB3aGVuIGl0IGlzIGlu
+aXRpYWxseSBwdXNoZWQsIGFuZCBvbmUKd2hlbiBtYXJnZWJvdCByZWJhc2VzIGFuZCB0cmllcyB0
+byBtZXJnZSwgY291bGQgd2UgbGV2ZXJhZ2UgdGhpcyB0bwpoYXZlIHRyaW1tZWQgZG93biBwcmUt
+bWFyZ2Vib3QgQ0kgd2hpY2ggdHJpZXMgdG8ganVzdCB0YXJnZXQgYWZmZWN0ZWQKZHJpdmVycywg
+d2l0aCBtYXJnZWJvdCBkb2luZyBhIGZ1bGwgQ0kgcnVuICh3aGVuIGl0IGlzIHBvdGVudGlhbGx5
+CmJhdGNoaW5nIHRvZ2V0aGVyIG11bHRpcGxlIE1Scyk/CgpTZWVtcyBsaWtlIGEgd2F5IHRvIHJl
+ZHVjZSBvdXIgQ0kgcnVucyB3aXRoIGEgZ29vZCBzYWZldHkgbmV0IHRvCnByZXZlbnQgdGhpbmdz
+IGZyb20gc2xpcHBpbmcgdGhyb3VnaCB0aGUgY3JhY2tzLgoKKE5vdCBzdXJlIGhvdyBtdWNoIHRo
+YXQgd291bGQgaGVscCByZWR1Y2UgYmFuZHdpZHRoIGNvc3RzLCBidXQgSSBndWVzcwppdCBzaG91
+bGQgaGVscCBhIGJpdC4pCgpCUiwKLVIKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
