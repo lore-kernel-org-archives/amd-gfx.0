@@ -2,83 +2,69 @@ Return-Path: <SRS0=XGul=4Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CB18CC3F2D1
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 10:59:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14630C3F2D1
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 11:12:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C929246AF
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 10:59:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DC60820732
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 11:12:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="gSUczNgc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C929246AF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=fooishbar-org.20150623.gappssmtp.com header.i=@fooishbar-org.20150623.gappssmtp.com header.b="g4C7DdAE"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC60820732
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fooishbar.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A78D6EF35;
-	Fri, 28 Feb 2020 10:59:03 +0000 (UTC)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB4DF6F38A
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 10:58:54 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 01SArcTx176738;
- Fri, 28 Feb 2020 10:58:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type : in-reply-to;
- s=corp-2020-01-29; bh=0+vZn6NqhTW6Uvr9vfeHgipQzC+n/RijPnPddupJ8kk=;
- b=gSUczNgczvfbzNfkwZTu5Bsq8AJgb51ZL4h1je9Y9T1e5SjelLFbcZsaxjHJwVxXLgKw
- 1X9OUl8gUHHFS1WlKxyoyiaFHcZ11FIM4oZGRaEdsk0fuOiJsemA0OHwTh9ESDEDRD4l
- VSVO6L5RrUKWC5bdOWWYzWun8W0XA4EDkYlPtbir6ZCdI1KwlptnTsbuVJrcxMYsTk+e
- jArA8XlKZsXM/MJt0Y/6y3AHKk38rp8XnWCIgHDkG4xFXQoGKr8ktMUNLyiHaivzSFTT
- huZahUZ5CcPluYeOpd/pcIWQ43EiDfxriUO5p/sPJtbybRVGRnCWzN7mFA7O5a42REst BA== 
-Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
- by userp2130.oracle.com with ESMTP id 2ydcsnt7uw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 28 Feb 2020 10:58:50 +0000
-Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
- by aserp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 01SAqXHS153828;
- Fri, 28 Feb 2020 10:58:49 GMT
-Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
- by aserp3020.oracle.com with ESMTP id 2ydcsdte2q-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 28 Feb 2020 10:58:49 +0000
-Received: from abhmp0004.oracle.com (abhmp0004.oracle.com [141.146.116.10])
- by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 01SAwhe5000470;
- Fri, 28 Feb 2020 10:58:43 GMT
-Received: from kili.mountain (/129.205.23.165)
- by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 28 Feb 2020 02:58:42 -0800
-Date: Fri, 28 Feb 2020 13:58:33 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Harry Wentland <harry.wentland@amd.com>, Wyatt Wood <wyatt.wood@amd.com>
-Subject: [PATCH v2] drm/amd/display: Fix dmub_psr_destroy()
-Message-ID: <20200228105833.2jdsy7sxpeoo3lvy@kili.mountain>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D1306F3E9;
+	Fri, 28 Feb 2020 11:12:09 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F0386F3F9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 11:11:57 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id r17so2483925wrj.7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 03:11:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar-org.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=DHQ6TzRktfwCFm2G9nYdTK63QiLmDj/mtTDHdDVEhuo=;
+ b=g4C7DdAEqM4BKXX20OOHqg1jMbkUdn4kj4rTEouy1QKgYT0nk2TjxlAZjK10Wmf728
+ kfzYLmO7somr4O7GfJsilkrGWsonG5wEm/U0gqyvvtDEfV6lHIuhcvmNsIZCW/yxArf6
+ Fg9YuGFPMUNEdyC0AFMt63kfuMwDM1xQ/TB3MSESmxMSeqcR7WpoovpDU9F4DxZJaksl
+ Ya7rZG+SrhDJyst13zvU6YvtBX/NvQd57mGb68E+7j2KXsT8StwPYYYp6z4DL4ES0sBJ
+ 1j7n1cTo+KuazVLKgIPWLEF3B8CQIbshox+u9VkRYKsk6TaFD1lujddwJJO2WuZ3Uo5D
+ 0pfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=DHQ6TzRktfwCFm2G9nYdTK63QiLmDj/mtTDHdDVEhuo=;
+ b=E17KrwoK1XocKRak7JhiZcQQtdmEuMFDXYFU9VAEacohqJWEo0LfgbNKjpMYtaHbdE
+ ZB3FL2rQRLO9cRmh89RKtHm1rvF7Q9DnMyz244udy+kYM18NgY/DXenBXXqJm6PopBgY
+ /GbODxJaBQdmf0ieI4PhUU7tuhBqJAuqfAEMBzwYwIA1gWwgdro2k9Q4pzB6xiJW40mM
+ oZ6i/pY9GebWYVGFIeHpEC/qdZQjnTgou8+s/9kWbp50RLM0V3Mlm1W+dpx0TRxRIljX
+ MHytVlWY6XmgfVzPbZk8XLZqzjtzwfJxyQzXjwvLTuDrLEzsUcGjOw8Z//GoRDuSzMt8
+ z0Dw==
+X-Gm-Message-State: APjAAAV5wXNBrwvt/TAaWu5dhC0YNmUYV9roi2O+CdBUdxnRdXLBgQ0P
+ elbixR94UgM9kWszwhAcNRajFI5rL17n+g556sM8zg==
+X-Google-Smtp-Source: APXvYqwARf5DZs1zg6/ecp9sruGG1vb9RhyuI2hP5UvlreueEs7N7/Xx1koU3RPXd3D2P8QO3Kd44Sqsy05qaxAK14I=
+X-Received: by 2002:adf:f586:: with SMTP id f6mr4346004wro.256.1582888315899; 
+ Fri, 28 Feb 2020 03:11:55 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cba36257-8562-d14a-da9b-cc38076d350f@daenzer.net>
-X-Mailer: git-send-email haha only kidding
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9544
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- bulkscore=0 phishscore=0
- mlxlogscore=999 spamscore=0 suspectscore=0 mlxscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2001150001
- definitions=main-2002280091
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9544
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- malwarescore=0 bulkscore=0
- lowpriorityscore=0 mlxlogscore=999 phishscore=0 spamscore=0 adultscore=0
- suspectscore=0 impostorscore=0 clxscore=1015 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2001150001
- definitions=main-2002280091
+References: <CAKMK7uHHK2SsCfpmZwEUyTJJHsoccKoadoko3cEBOoYDFkmeAw@mail.gmail.com>
+ <CAEdQ38Hr-L6rg80Gf18QNM7eK-QDK0BBU-9tChT6VxrP+T4qCw@mail.gmail.com>
+ <CAPj87rOhwLPGHaHvPrZ6j8zufO8VqiwNFoBGFjx95yHr3cBm3Q@mail.gmail.com>
+ <nycvar.YFH.7.76.2002281033590.15553@n3.vanv.qr>
+In-Reply-To: <nycvar.YFH.7.76.2002281033590.15553@n3.vanv.qr>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Fri, 28 Feb 2020 11:11:15 +0000
+Message-ID: <CAPj87rOwKMorAw_roNuBG63oRO-pMZZNHkYJ3Bo9OL6=o5xMrA@mail.gmail.com>
+Subject: Re: gitlab.fd.o financial situation and impact on services
+To: Jan Engelhardt <jengelh@inai.de>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,43 +76,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Leo Li <sunpeng.li@amd.com>, kernel-janitors@vger.kernel.org,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "X.Org development" <xorg-devel@lists.x.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ wayland <wayland-devel@lists.freedesktop.org>,
+ "X.Org Foundation Board" <board@foundation.x.org>,
+ Xorg Members List <members@x.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Mesa Dev <mesa-dev@lists.freedesktop.org>, Matt Turner <mattst88@gmail.com>,
+ gstreamer-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is freeing the wrong variable so it will crash.  It should be
-freeing "*dmub" instead of "dmub".
-
-Fixes: 4c1a1335dfe0 ("drm/amd/display: Driverside changes to support PSR in DMCUB")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-index 2c932c29f1f9..f0936cb3c056 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-@@ -235,6 +235,6 @@ struct dmub_psr *dmub_psr_create(struct dc_context *ctx)
-  */
- void dmub_psr_destroy(struct dmub_psr **dmub)
- {
--	kfree(dmub);
-+	kfree(*dmub);
- 	*dmub = NULL;
- }
--- 
-2.11.0
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGkgSmFuLAoKT24gRnJpLCAyOCBGZWIgMjAyMCBhdCAxMDowOSwgSmFuIEVuZ2VsaGFyZHQgPGpl
+bmdlbGhAaW5haS5kZT4gd3JvdGU6Cj4gT24gRnJpZGF5IDIwMjAtMDItMjggMDg6NTksIERhbmll
+bCBTdG9uZSB3cm90ZToKPiA+SSBiZWxpZXZlIHRoYXQgaW4gSmFudWFyeSwgd2UgaGFkICQyMDgy
+IG9mIG5ldHdvcmsgY29zdCAoYWxtb3N0Cj4gPmVudGlyZWx5IGVncmVzczsgaW5ncmVzcyBpcyBi
+YXNpY2FsbHkgZnJlZSkgYW5kICQxNzUwIG9mCj4gPmNsb3VkLXN0b3JhZ2UgY29zdCAoYWxtb3N0
+IGFsbCBvZiB3aGljaCB3YXMgZG93bmxvYWQpLiBUaGF0J3MgYmFzZWQKPiA+b24gMTZUQiBvZiBj
+bG91ZC1zdG9yYWdlIChDSSBhcnRpZmFjdHMsIGNvbnRhaW5lciBpbWFnZXMsIGZpbGUKPiA+dXBs
+b2FkcywgR2l0IExGUykgZWdyZXNzIGFuZCAxNy45VEIgb2Ygb3RoZXIgZWdyZXNzICh0aGUgd2Vi
+IHNlcnZpY2UKPiA+aXRzZWxmLCByZXBvIGFjdGl2aXR5KS4gUHJvamVjdGluZyB0aGF0IG91dCBb
+w5cxMiBmb3IgYSB5ZWFyXSBnaXZlcwo+ID51cyByb3VnaGx5ICQ0NWsgb2YgbmV0d29yayBhY3Rp
+dml0eSBhbG9uZSwKPgo+IEkgaGFkIGNvbWUgdG8gYSBzaW1pbGFyIGNvbmNsdXNpb24gYSBmZXcg
+eWVhcnMgYmFjazogSXQgaXMgbm90IHZlcnkKPiBlY29ub21pYyB0byBydW4gZXBoZW1lcmVhbCBi
+dWlsZHJvb3RzIChhbmQgYW55dGhpbmcgbGlrZSBpdCkgYmV0d2Vlbgo+IHR3byAob3IgbW9yZSkg
+InNpZ25pZmljYW50IGxvY2F0aW9ucyIgb2Ygd2hpY2ggb25lIGVuZCBpcyBsb2NhdGVkIGluCj4g
+YSBMYXJnZSBDbG91ZCBkYXRhY2VudGVyIGxpa2UgRUMyL0FXUy9ldGMuCj4KPiBBcyBmb3Igc3Vj
+aCB1c2VjYXNlcywgbWUgYW5kIG15IHN1cnJvdW5kaW5nIHBlZXJzIGhhdmUgdXNlZCAob3RoZXIp
+Cj4gb2ZmZXJpbmdzIHdoZXJlIHRoZXJlIGlzIDUwIFRCIGZyZWUgbmV0d29yay9tb250aCwgYW5k
+IHllcyB0aGF0IG1heQo+IGhhdmUgZW50YWlsZWQgZG9pbmcgbW9yZSBhZG1pbm5pbmcgdGhhbiBl
+bHNld2hlcmUgLSBidXQgYW4gYWRtaW4KPiBhcHByZWNpYXRlcyAkMjAwMCBhIGxvdCBtb3JlIHRo
+YW4gYSBjb3Jwb3JhdGlvbiwgdG9vLgoKWWVzLCBhYnNvbHV0ZWx5LiBGb3IgY29udGV4dCwgb3Vy
+IHN0b3JhZ2UgJiBuZXR3b3JrIGNvc3RzIGhhdmUKaW5jcmVhc2VkID4xMHggaW4gdGhlIHBhc3Qg
+MTIgbW9udGhzICh+JDMyMCBKYW4gMjAxOSksID4zeCBpbiB0aGUgcGFzdAo2IG1vbnRocyAofiQx
+MzUwIEp1bHkgMjAxOSksIGFuZCB+MnggaW4gdGhlIHBhc3QgMyBtb250aHMgKH4kMjAwMCBPY3QK
+MjAxOSkuCgpJIGRvIG5vdyAocGVyc29uYWxseSkgdGhpbmsgdGhhdCBpdCdzIGNyb3NzZWQgdGhl
+IHBvaW50IGF0IHdoaWNoIGl0CndvdWxkIGJlIHdvcnRod2hpbGUgcGF5aW5nIGFuIGFkbWluIHRv
+IHNvbHZlIHRoZSBwcm9ibGVtcyB0aGF0IGNsb3VkCnNlcnZpY2VzIGN1cnJlbnRseSBzb2x2ZSBm
+b3IgdXMgLSB3aGljaCB3YXNuJ3QgdHJ1ZSBiZWZvcmUuIFN1Y2ggYW4KYWRtaW4gY291bGQgYWxz
+byBkZWFsIHdpdGggdGhpbmdzIGxpa2Ugb3VyIFNNVFAgZGVsaXZlcnkgZmFpbHVyZSByYXRlLAp3
+aGljaCBpbiB0aGUgcGFzdCB5ZWFyIGhhcyBzcGlrZWQgb3ZlciA1MCUgKHNlZSBwcmV2aW91cyBl
+bWFpbCksCmRlbWFuZCBmb3IgbmV3IHNlcnZpY2VzIHN1Y2ggYXMgRGlzY291cnNlIHdoaWNoIHdp
+bGwgZW5hYmxlIHVzZXIKc3VwcG9ydCB3aXRob3V0IGVpdGhlciBhKSB1c2VycyBoYXZpbmcgdG8g
+c3Vic2NyaWJlIHRvIGEgbWFpbGluZyBsaXN0LApvciBiKSBidWcgdHJhY2tlcnMgYmVpbmcgY2x1
+dHRlcmVkIHVwIHdpdGggdXNlciByZXF1ZXN0cyBhbmQgb3RoZXIKbm9uLWJ1Z3MsIGV0Yy4KCkNo
+ZWVycywKRGFuaWVsCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
