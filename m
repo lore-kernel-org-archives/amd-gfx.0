@@ -2,37 +2,37 @@ Return-Path: <SRS0=XGul=4Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10B99C3F2CE
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 02:37:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F60EC3F2CE
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 02:37:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C7C5624688
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 02:37:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 017A224688
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 02:37:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="OaQOw/aq"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7C5624688
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="uQiQKPrX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 017A224688
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B14E6EDCE;
-	Fri, 28 Feb 2020 02:37:44 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680053.outbound.protection.outlook.com [40.107.68.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2289A6EDCE
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 02:37:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABFAF6EDD3;
+	Fri, 28 Feb 2020 02:37:58 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750089.outbound.protection.outlook.com [40.107.75.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 146366EDD0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 02:37:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FYbAVzLRDO4XFt4Cd6x/1k24VCAT6K6dJ50Ixm2SKPqQWG81NRp+or9ydlLL76qigqpaceflqHie4P5co473ds7rJ9InS4IGkUf4XR3HMF7+62G1KVRQe+W2Ip9/wJH0zVzdBy1AcLrPAbjMLwwCD163p1schTNpZBAFr2g8Op7W58rcN+UTVdUl/cLwfx6CBtJCG2NKhxdOWZ7pv3OVMvFFI0IP8kybSPFnlp3/x9t+Q/2WpFCzCLvDeDtf/EQufTLyZyTx08+6vJkYIMbOa6Esz3BXniP5NRTFyOo8oJXCPPDi3gUhUkvbf/LYr83gxMxEYXteNRWx56B/+ebAzQ==
+ b=mxkRi3htx+g0a0g0wkPR1RVxsha2VezuPdU/ang5t/AWLk41lq9P3O7ZCubnuZW2Z1wz3ihs5XcK3LCZn7DutSw915AzMS82nM+V7J0q/lysvT9pwuEZtRuI170Brn453akdUIDYrMa+DMsLbuW7HjgT2CVMkGioJHu9v00Bf2R1ByQKk4dQL4P0y1YDH602SQc2XdM7b4IVSjpc0a5O7RtmD8vr6SN3LZ6fJVa7OasoRGPDoFTMDT+K+kwEYqNmRt5Q63sF5skmbPDEmaJnnPIr0sxWimWOlFQu8FcJEfv3Ha9ynZg9oMnyL1AtY0i/st2ZPxxKZm2aa3ErrqnUEg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vT+atZShILhw07Dod8r/nYkWVDiVdlsGwNCtfdpVq88=;
- b=F4SsKKha1HlDyzVFoqqiyYTrdXSf7qcvXXD20Po4YY+3o0oCUA+W41XUauj/ThF2x0giq3Z15KkAa+wX8wxbjbu6JxOaclM0OVItILTk0/SvZ5nYlxpGkmzQAUiB7UHeQuqZ2VPQK4nXZ/ffAwapHJn6mtqnBProMg5moEDz2l/p33f03rDjuGUXYpL/1J/3Lrw9IVSDCkO7fdYFsh5kNqdedjr6ApoVrk/4KlXj8BfnhZhnjdYqYHGyASDOSul0CxoLl+h9+SufGidLUD2EWWinbF40Hu/Uzd9mEkwhLY/DtUs2WEc7IxnLU7ajSoNx/Dr7xRAwdMxrI0vxOWd9dA==
+ bh=NLRAN2eVy+McWPTbSJYEzPJZ4s8xfQUcnoG38QlfCHE=;
+ b=Z0pOfxemXE/MwRzYj0sUPpu/ESYFUp9FTrdJb4e3cyg6pU+bUdPPXThYq/5rfsGgBsVnFSTjQbHcnavgCCve+NeUnuIo/Nf1w70ot4sLTsxZFxI0QWyE+txX/NOUmC2QTiI3hy3lmX3sWSRVbY5fJENzwVchNH2d3T145H5Hf4eVElmFQT8dr8h9ZNbB4mcLNIBCR9ZfHQsxI9K7dTAgJLRCVD7m7l//c8Gp47G1mPEwaEPTsbYnzm0K4kYHc/tlKC2UevpNpA6IE5OAqSE8E6h4GygzCfNT70xgWY69e6OpwPDRGlJ+QP+PvQbOTcyfDsJzqigedBilntxNYB1CsQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,67 +40,69 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vT+atZShILhw07Dod8r/nYkWVDiVdlsGwNCtfdpVq88=;
- b=OaQOw/aqhxbNHtWdNpdb0P0XiNjK52TxR7ZlVKdKbZHbQqAIOeoSzYrpXxelYbdOf0o7gvrtRIbYMMuCgZ5UORvci7rokmWub6731ihHGLaLVZVNpYULmI25vrbB4Js+iBwxwbf26kTMCa+tMu0mVDzjZ0swtJjIE1/NsHH1mCI=
-Received: from MWHPR2201CA0043.namprd22.prod.outlook.com
- (2603:10b6:301:16::17) by BY5PR12MB3906.namprd12.prod.outlook.com
- (2603:10b6:a03:1a9::26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15; Fri, 28 Feb
- 2020 02:37:42 +0000
-Received: from CO1NAM11FT022.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:16:cafe::f7) by MWHPR2201CA0043.outlook.office365.com
- (2603:10b6:301:16::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14 via Frontend
- Transport; Fri, 28 Feb 2020 02:37:42 +0000
+ bh=NLRAN2eVy+McWPTbSJYEzPJZ4s8xfQUcnoG38QlfCHE=;
+ b=uQiQKPrXRiH5kbB2nMyhXZwI1xIeTknUbokA2ecE6LbUIs+45tNtimoxTdXqLE0A5hvqywXJ0/F2k5BumzoMptrjtbl4qn5OlUkkO/1jZj+LmmtaeJi8j82tVSsFWB2vZfeyx+MrCOZRsY4lDTKc/e+DLCrEFD9QtoNkX+0A1gI=
+Received: from DM5PR12CA0070.namprd12.prod.outlook.com (2603:10b6:3:103::32)
+ by DM6PR12MB4235.namprd12.prod.outlook.com (2603:10b6:5:220::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14; Fri, 28 Feb
+ 2020 02:37:55 +0000
+Received: from DM6NAM11FT023.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:103:cafe::3e) by DM5PR12CA0070.outlook.office365.com
+ (2603:10b6:3:103::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15 via Frontend
+ Transport; Fri, 28 Feb 2020 02:37:55 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT022.mail.protection.outlook.com (10.13.175.199) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ DM6NAM11FT023.mail.protection.outlook.com (10.13.173.96) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2772.14 via Frontend Transport; Fri, 28 Feb 2020 02:37:42 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.2772.14 via Frontend Transport; Fri, 28 Feb 2020 02:37:55 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 27 Feb
- 2020 20:37:41 -0600
+ 2020 20:37:54 -0600
 Received: from gc-System-Product-Name.amd.com (10.180.168.240) by
  SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Thu, 27 Feb 2020 20:37:39 -0600
+ via Frontend Transport; Thu, 27 Feb 2020 20:37:52 -0600
 From: Chengming Gui <Jack.Gui@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/2] Revert "drm/amdgpu: add sysfs interface to set arbitrary
- sclk value for navi14"
-Date: Fri, 28 Feb 2020 10:37:20 +0800
-Message-ID: <1582857441-32135-1-git-send-email-Jack.Gui@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: Add debugfs interface to set arbitrary sclk
+ for navi14
+Date: Fri, 28 Feb 2020 10:37:21 +0800
+Message-ID: <1582857441-32135-2-git-send-email-Jack.Gui@amd.com>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1582857441-32135-1-git-send-email-Jack.Gui@amd.com>
+References: <1582857441-32135-1-git-send-email-Jack.Gui@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(396003)(136003)(346002)(376002)(428003)(199004)(189003)(5660300002)(36756003)(4326008)(70206006)(70586007)(7696005)(478600001)(2616005)(426003)(8936002)(8676002)(81166006)(26005)(336012)(86362001)(186003)(2906002)(316002)(356004)(6916009)(54906003)(81156014)(6666004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BY5PR12MB3906; H:SATLEXMB02.amd.com; FPR:;
+ SFS:(10009020)(4636009)(346002)(376002)(396003)(39860400002)(136003)(428003)(199004)(189003)(186003)(26005)(86362001)(2906002)(478600001)(7696005)(2616005)(81156014)(336012)(81166006)(36756003)(426003)(8676002)(70206006)(70586007)(6666004)(316002)(6916009)(5660300002)(356004)(8936002)(4326008)(54906003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB4235; H:SATLEXMB01.amd.com; FPR:;
  SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 433e8593-a0cf-406c-7a32-08d7bbf72f5c
-X-MS-TrafficTypeDiagnostic: BY5PR12MB3906:
-X-Microsoft-Antispam-PRVS: <BY5PR12MB3906A1C0BDEE175A32E55B4D8BE80@BY5PR12MB3906.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:478;
+X-MS-Office365-Filtering-Correlation-Id: 1de04986-87a1-4a3b-58ea-08d7bbf73714
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4235:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB423535617B30D431E7F0F9E08BE80@DM6PR12MB4235.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1332;
 X-Forefront-PRVS: 0327618309
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +LRmuYIUYju2yrvJQ/cRvZFV1Q+/z9N+rVCt4XAzpYGH33MPgF6NEg0ejEhMC3YezU8hKFKFpg7XzWh/LjfGXNZfX/FgWaAeMhzAtPD2CpQfVRai7e5ZLxY3T7PIzbhEZWLhAZMr2+fwT2V8FxhXt4S4X+MTRok0nQrOKud9EdSbbtRqrXZTB91vmOhs7x/T7KgYdQQKLsNrTbi+407/D62+MKcRRGYXkE+vwgpHGSfAKNm2QCoWayD8a3WxqCWtF0a/Wa2ZTO2EMX+eJjYwqK567d4q9lNPitu9s2ZCUccqBeRTP1X16oyQ/eLhuEuSHUzVuaHRgE9XNvbKZpTXXVJmUl3zZGeV0nGjKDkjkX6ssNkortOaHnHN66qe6PWBmLbiX5JNl76HCDGp37W+1JsDe7lfwA/sjS0/GEzIDIoOSPZJYAIQ5NRRfgRL6CVk
+X-Microsoft-Antispam-Message-Info: 6Oh2P1zE5eF8SPPzd2LolM1YnBkWcNaSs/s5A0kJZX1oukUVlWEQJlnny1UnrsFkZXeAZq7dXe8l+OqUsN2u4wI9yOQhCL56qyL8mHzIuGj0Lq2DSYig58Zey7f8V+Rc1fgAqZpVXOfNR6R5aEiMI3pdPXo/W4A8qbS/FzC79pAnJvqDDSl7d5UHCduu6Pq2ao2mzJUnMYmXyHH5Os/s+ipVmEP/EyPdMDCKBAIEfWEExzYdSKSe0rnGf7C1zod13wEaeyBYkHUfKtPQGrTIjmWe/Nsmy7jKx5sL444HbS2+UjiKT2XTDZ5GquEveyBEyQrttaFM8WZVuG3Gy3Wajo+UtZi8/TO1JnQpXLlsm++wlA6OWLOjGA5sC5QU6irDXiTgMTsXxuUBqhHsKefjPB8r6ElpDYxU7uGGDYR6z1lBdfyMClo6bzcTSuUeC//F
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2020 02:37:42.0521 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 433e8593-a0cf-406c-7a32-08d7bbf72f5c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2020 02:37:55.0721 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1de04986-87a1-4a3b-58ea-08d7bbf73714
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
+ Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3906
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4235
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,114 +121,101 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Revert this commit and than add debugfs interface to
-replace this to meet the specitic requirement.
+add debugfs interface amdgpu_force_sclk
+to set arbitrary sclk for navi14
 
-This reverts commit 3107269204f8e18f389080673f7848b420970aa5.
+Signed-off-by: Chengming Gui <Jack.Gui@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c    | 42 -------------------------------
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c |  9 ++-----
- 2 files changed, 2 insertions(+), 49 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c    | 44 ++++++++++++++++++++++++++
+ drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h |  3 ++
+ 2 files changed, 47 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-index 9deff8c..bc3cf04 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -1034,40 +1034,6 @@ static ssize_t amdgpu_read_mask(const char *buf, size_t count, uint32_t *mask)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 3bb7405..5ee7e92 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -1269,9 +1269,43 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
  	return 0;
  }
  
--static ssize_t amdgpu_set_pp_sclk(struct device *dev,
--		struct device_attribute *attr,
--		const char *buf,
--		size_t count)
--{
--	struct drm_device *ddev = dev_get_drvdata(dev);
--	struct amdgpu_device *adev = ddev->dev_private;
--	int ret;
--	uint32_t value;
--
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return -EINVAL;
--
--	ret = pm_runtime_get_sync(ddev->dev);
--	if (ret < 0)
--		return ret;
--
--	ret = kstrtou32(buf, 0, &value);
--	if (ret < 0)
--		return ret;
--	if (is_support_sw_smu(adev))
--		ret = smu_set_soft_freq_range(&adev->smu, SMU_SCLK, value, value);
--	else
--		return 0;
--
--	pm_runtime_mark_last_busy(ddev->dev);
--	pm_runtime_put_autosuspend(ddev->dev);
--
--	if (ret)
--		return -EINVAL;
--
--	return count;
--}
--
- static ssize_t amdgpu_set_pp_dpm_sclk(struct device *dev,
- 		struct device_attribute *attr,
- 		const char *buf,
-@@ -1829,8 +1795,6 @@ static DEVICE_ATTR(pp_force_state, S_IRUGO | S_IWUSR,
- static DEVICE_ATTR(pp_table, S_IRUGO | S_IWUSR,
- 		amdgpu_get_pp_table,
- 		amdgpu_set_pp_table);
--static DEVICE_ATTR(pp_sclk, S_IWUSR,
--		NULL, amdgpu_set_pp_sclk);
- static DEVICE_ATTR(pp_dpm_sclk, S_IRUGO | S_IWUSR,
- 		amdgpu_get_pp_dpm_sclk,
- 		amdgpu_set_pp_dpm_sclk);
-@@ -3322,12 +3286,6 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
- 		return ret;
- 	}
++static int amdgpu_debugfs_sclk_set(void *data, u64 val)
++{
++	int ret = 0;
++	uint32_t max_freq, min_freq;
++	struct amdgpu_device *adev = (struct amdgpu_device *)data;
++
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return -EINVAL;
++
++	ret = pm_runtime_get_sync(adev->ddev->dev);
++	if (ret < 0)
++		return ret;
++
++	if (is_support_sw_smu(adev)) {
++		ret = smu_get_dpm_freq_range(&adev->smu, SMU_SCLK, &min_freq, &max_freq, true);
++		if (ret || val > max_freq || val < min_freq)
++			return -EINVAL;
++		ret = smu_set_soft_freq_range(&adev->smu, SMU_SCLK, (uint32_t)val, (uint32_t)val);
++	} else {
++		return 0;
++	}
++
++	pm_runtime_mark_last_busy(adev->ddev->dev);
++	pm_runtime_put_autosuspend(adev->ddev->dev);
++
++	if (ret)
++		return -EINVAL;
++
++	return 0;
++}
++
+ DEFINE_SIMPLE_ATTRIBUTE(fops_ib_preempt, NULL,
+ 			amdgpu_debugfs_ib_preempt, "%llu\n");
  
--	ret = device_create_file(adev->dev, &dev_attr_pp_sclk);
--	if (ret) {
--		DRM_ERROR("failed to create device file pp_sclk\n");
--		return ret;
--	}
--
- 	ret = device_create_file(adev->dev, &dev_attr_pp_dpm_sclk);
- 	if (ret) {
- 		DRM_ERROR("failed to create device file pp_dpm_sclk\n");
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index 1507bb7..c9e5ce1 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -1803,17 +1803,12 @@ int smu_v11_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_
++DEFINE_SIMPLE_ATTRIBUTE(fops_sclk_set, NULL,
++			amdgpu_debugfs_sclk_set, "%llu\n");
++
+ int amdgpu_debugfs_init(struct amdgpu_device *adev)
  {
- 	int ret = 0, clk_id = 0;
- 	uint32_t param;
--	uint32_t min_freq, max_freq;
- 
- 	clk_id = smu_clk_get_index(smu, clk_type);
- 	if (clk_id < 0)
- 		return clk_id;
- 
--	ret = smu_get_dpm_freq_range(smu, clk_type, &min_freq, &max_freq, true);
--	if (ret)
--		return ret;
--
--	if (max > 0 && max <=  max_freq) {
-+	if (max > 0) {
- 		param = (uint32_t)((clk_id << 16) | (max & 0xffff));
- 		ret = smu_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMaxByFreq,
- 						  param);
-@@ -1821,7 +1816,7 @@ int smu_v11_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_
- 			return ret;
+ 	int r, i;
+@@ -1285,6 +1319,15 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 		return -EIO;
  	}
  
--	if (min > 0 && min >= min_freq) {
-+	if (min > 0) {
- 		param = (uint32_t)((clk_id << 16) | (min & 0xffff));
- 		ret = smu_send_smc_msg_with_param(smu, SMU_MSG_SetSoftMinByFreq,
- 						  param);
++	adev->smu.debugfs_sclk =
++		debugfs_create_file("amdgpu_force_sclk", 0200,
++				    adev->ddev->primary->debugfs_root, adev,
++				    &fops_sclk_set);
++	if (!(adev->smu.debugfs_sclk)) {
++		DRM_ERROR("unable to create amdgpu_set_sclk debugsfs file\n");
++		return -EIO;
++	}
++
+ 	/* Register debugfs entries for amdgpu_ttm */
+ 	r = amdgpu_ttm_debugfs_init(adev);
+ 	if (r) {
+@@ -1353,6 +1396,7 @@ void amdgpu_debugfs_fini(struct amdgpu_device *adev)
+ 	}
+ 	amdgpu_ttm_debugfs_fini(adev);
+ 	debugfs_remove(adev->debugfs_preempt);
++	debugfs_remove(adev->smu.debugfs_sclk);
+ }
+ 
+ #else
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+index 97b6714..36fe19c 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+@@ -371,6 +371,9 @@ struct smu_context
+ 	struct amd_pp_display_configuration  *display_config;
+ 	struct smu_baco_context		smu_baco;
+ 	void *od_settings;
++#if defined(CONFIG_DEBUG_FS)
++	struct dentry                   *debugfs_sclk;
++#endif
+ 
+ 	uint32_t pstate_sclk;
+ 	uint32_t pstate_mclk;
 -- 
 2.7.4
 
