@@ -2,108 +2,106 @@ Return-Path: <SRS0=XGul=4Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42115C3F2C6
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 03:03:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C4BCC3F2CE
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 03:30:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 147CC20658
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 03:03:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2D55E24692
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 03:30:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Qx3tZQG4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 147CC20658
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="LWdpnh4I"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D55E24692
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C81016E9A9;
-	Fri, 28 Feb 2020 03:03:00 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00D356E9A9
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 03:02:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7B126E9A1;
+	Fri, 28 Feb 2020 03:30:00 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2041.outbound.protection.outlook.com [40.107.243.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0013B6E11A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 03:29:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=DIbX00cw9j5HYmuqEViGDWK6q5XVxGSMdlPDSPQpQxr/8/5q3ZCRnDEFRRFAASpcwyPq/lb3nHb8jTkzUVcCL2jB93aCwH5m2JPXmndMPQFn3wfdCtej8KR9idDhm4cLCiL/YnfskzDCGFaxZJ3PQv5JQYIw9Cgs/nvcT8vt3O1WqnHYokP/0v3dnHeCeNeefacdHiedA1PoDqakKFX+8iShgBv5hDAyrP5TSSTtxO7BEH6/iq8AAqkHdEJ7Q6CQaDdBa0uF9+fhvXR60b8/N6F4Vl+I71xuBtcevJaNzhvqwwRo5iWlPbdLsGhEZ6mGCtkbdPt8KiWbzpRJI2igYA==
+ b=BIic1ywT2pO/8vVvbKiXGEpc4fPER37v6aXxpSf0zxV5vnpRVBcW6ROo73iliumbwQB/z6xItI5/4bXotJ8n3GqTSYGgGRCCA8iZyswD6rRwgDgcLEU82RxQYFgzlN/Y0lebL/2ajmVafBjZK6MxTArOwpTpEtw0Vl1+jR2tCBydsA3Cky16flk90255chWKp4K4PRZscfiiZQ8J5GoCaq3fM9au6RBlkANp0yqmzJIlsh937DesQK3e5iUP8gNFkYZXvSXmeg5XDuvrUFL6RI0jzS9xRyHIN3bamGXfSfJcaUpwgYKW8n8CeJq8aUzS2lxLnUqDdvhS7geLQwVJmQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SjDOGs6hsJ2v5ILrIBha4V3qZFtP5QGV9Lr6Aatv5XM=;
- b=Y84Y0M6q8fhMg9FsZKN5Rh/WKeGHAoMYvpr3rh06BDPh5pKHzOJezfiSIWd2NOUyatXBzPavzld1A2lXvkRVASNwtKYnapJtJHRlJizWyMiHUKNyLyfMFuduxg8d2Z3mqvInLYJ8A/6w/XttbI10MKuDzlBgPNlpgt1qkaqt3ZKzZ2UVLm3SK747Z26sW4A10PSmbqqS3FlwpTpanb4vjst1Qwu3uvb4KmCiP9D8+iItArqjHiD7TdUY5OMlFim6X4fqkCr2RlkkNVstoaEgjk3wyeqqVtKS49BqJVl0GMpUN9Au0j6nbskJvXid0VETdVVQT/LyfpeCrCuK6HFfmA==
+ bh=x0ULi5xQQgnRg5971/Ft/1oTEUbj17IS5VIJsWqtf9A=;
+ b=ibi3ssFAA95IT75ikTIHzAr9l6cTJDAtHXBiuI7bbHVMlIFpPxuBA2RpDokOcgUo4X92dHmfkADH0IQ2AsgINIsQPckAYtVSNm44hmyzp5Vh4/GkaN1gvnivulVYNLxHNki0aIcHetPdJVASnOj/9OF1oEqXD0cWioyMPKR74b1Wvifrusgce96Jd7h8dLtK0I0YR9vDNW5l4CSJzAuWO+opb/nlUI+hMOwYxyY1uA1+oYPe2F4+u2tlK4wQpZXFu0KIHurFszuxQ00olUT1Ag/uS5HJ/AF2n2E98AxNmSjMBDgb+T61oofVRwGq+XEZ/4xZKHkg+gnmDujj6mrG2A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SjDOGs6hsJ2v5ILrIBha4V3qZFtP5QGV9Lr6Aatv5XM=;
- b=Qx3tZQG4h/FkIyZ7VdXku7oxMg4MfHBJCS3lyH/l1XKp/AiHU2LIa/eHTqij/8iwlZgNwmSdblyTi9X0EsR/8q4gVJ1hP2GSt2LAf2JfEqFG1hZSMKX53SveqdtuoCvLn2RZToDRtHrslb0wpVBnrkDp7uSphScVUSUhglC4VNM=
-Received: from MN2PR12MB3056.namprd12.prod.outlook.com (2603:10b6:208:ca::15)
- by MN2PR12MB3552.namprd12.prod.outlook.com (2603:10b6:208:ab::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Fri, 28 Feb
- 2020 03:02:57 +0000
-Received: from MN2PR12MB3056.namprd12.prod.outlook.com
- ([fe80::10cb:fc6c:98ff:d995]) by MN2PR12MB3056.namprd12.prod.outlook.com
- ([fe80::10cb:fc6c:98ff:d995%7]) with mapi id 15.20.2772.012; Fri, 28 Feb 2020
- 03:02:56 +0000
-From: "Zhao, Jiange" <Jiange.Zhao@amd.com>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu/sriov: Use VF-accessible register for
- gpu_clock_count
-Thread-Topic: [PATCH] drm/amdgpu/sriov: Use VF-accessible register for
- gpu_clock_count
-Thread-Index: AQHV7WAZPKgsQIwr9kWWASZqWxnkkagvGB6AgADT7YM=
-Date: Fri, 28 Feb 2020 03:02:56 +0000
-Message-ID: <MN2PR12MB3056EF4F92975A794D55D304E1E80@MN2PR12MB3056.namprd12.prod.outlook.com>
-References: <1582802479-14724-1-git-send-email-Jiange.Zhao@amd.com>,
- <CH2PR12MB3912BF71221F4F9C9FDEA665F7EB0@CH2PR12MB3912.namprd12.prod.outlook.com>
-In-Reply-To: <CH2PR12MB3912BF71221F4F9C9FDEA665F7EB0@CH2PR12MB3912.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-02-28T03:02:54.591Z;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
- Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Standard; 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Jiange.Zhao@amd.com; 
-x-originating-ip: [223.116.87.119]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: b7efd975-e6c4-4c41-9fbb-08d7bbfab62d
-x-ms-traffictypediagnostic: MN2PR12MB3552:|MN2PR12MB3552:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB3552B9F25D187232D99C3900E1E80@MN2PR12MB3552.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
-x-forefront-prvs: 0327618309
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(136003)(396003)(376002)(39860400002)(346002)(189003)(199004)(478600001)(26005)(55016002)(4326008)(45080400002)(33656002)(19627405001)(53546011)(9686003)(91956017)(186003)(64756008)(6506007)(966005)(66556008)(66446008)(76116006)(66946007)(54906003)(52536014)(8676002)(5660300002)(316002)(66476007)(8936002)(7696005)(2906002)(71200400001)(110136005)(81156014)(81166006)(86362001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3552;
- H:MN2PR12MB3056.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: usE/wxsJKnFaXCSlqtN0SVoc+oN5Ep/v8jY/sdrwWdCfM+28sqDtEE/elicDlvTaALYR26p+vKX9DTz2ZkILiwOZshnr4CB/X4jDlhr2L+u6mPSJAEyG1/DtkD5/k1ry8htKYFXEyY6aqzjoSyA6vJDFFcjnyS87BMQGDQZsulpZT0bnyHYw4flH7GTd95a5ub8OuRBWnCAkq//WUNAX6RiHV+GQ2oRSj5DtbYnR2GXnxxU1L8ioRgkqDSwibavZuuaQkBmW7vqKH7W3hYYpuZLoHuAKti0L7lz5cFKyNmhc+CgXPQhwHoHIokhjW0l/nnQyJis3mirBcqIbmzO54JZEkcg0WOEw1A4dJix8sze16y5DsIo0cEuwT/g6fswcPgCLLn17zUQyJmklue4BnFDrNzB8zu9aiOrNVFwE25o/ulReXmB5Y2UceU5CrQcQCGHO4QCfhqU/CSTEocvaIAiPMZOGgvHAVTeyWXQiwTE=
-x-ms-exchange-antispam-messagedata: ri5RjYwsUBg4KX+oCCSPwe7zRQN4tkyeJ/HwVjWKasURYxt/Umzt3xC7S6Z9jgXLW8F+eSzWaB5YZSOyDN+Z/K2aew3mKcT/OYdXuVhidOrVW+vQRBAqMo5QgywKWMbPFlKsAC1QS94lXDG0gERtwg==
+ bh=x0ULi5xQQgnRg5971/Ft/1oTEUbj17IS5VIJsWqtf9A=;
+ b=LWdpnh4It//tLPhEeXeAHW5nOfwOKRsGCCzdNHTdIrmEsL+QNyxoIpZDbKnYi25TYWFWojL1uqUbSYAKnYOVMsEmHi8cEmICfAVQk1JB1MNDkpVCfl4EtuwPZf3Gu9WzXApEZN08/K7gDoqLUXUPaO9pnLGc+Hz/SbWM1FoKLN8=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Luben.Tuikov@amd.com; 
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com (2603:10b6:5:115::26)
+ by DM6PR12MB4387.namprd12.prod.outlook.com (2603:10b6:5:2ac::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14; Fri, 28 Feb
+ 2020 03:29:57 +0000
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::9505:d766:9ac9:2bfd]) by DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::9505:d766:9ac9:2bfd%6]) with mapi id 15.20.2750.021; Fri, 28 Feb 2020
+ 03:29:57 +0000
+Subject: Re: [RFC PATCH 1/3] drm/amdgpu: implement ring init_priority for
+ compute ring
+To: Nirmoy Das <nirmoy.aiemd@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20200226203730.4621-1-nirmoy.das@amd.com>
+ <20200226203730.4621-2-nirmoy.das@amd.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+Message-ID: <d76bc281-31e5-d0e2-47a5-6c41bc05c401@amd.com>
+Date: Thu, 27 Feb 2020 22:29:55 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
+In-Reply-To: <20200226203730.4621-2-nirmoy.das@amd.com>
+Content-Language: en-CA
+X-ClientProxiedBy: YTXPR0101CA0044.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::21) To DM6PR12MB3355.namprd12.prod.outlook.com
+ (2603:10b6:5:115::26)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain (165.204.55.250) by
+ YTXPR0101CA0044.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14 via Frontend
+ Transport; Fri, 28 Feb 2020 03:29:56 +0000
+X-Originating-IP: [165.204.55.250]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: c4dfcdb9-ce91-4803-8c39-08d7bbfe7bcf
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4387:|DM6PR12MB4387:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB43873AC044272D286743089B99E80@DM6PR12MB4387.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Forefront-PRVS: 0327618309
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(39860400002)(366004)(376002)(396003)(136003)(199004)(189003)(478600001)(186003)(66556008)(2616005)(956004)(53546011)(966005)(26005)(66476007)(31686004)(16526019)(6506007)(316002)(52116002)(86362001)(31696002)(2906002)(36756003)(8676002)(81166006)(66946007)(8936002)(6512007)(44832011)(81156014)(4326008)(6486002)(5660300002)(45080400002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB4387;
+ H:DM6PR12MB3355.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: vZuhIjzs1wB6KWoY0yiwgpdFygQEXi3q7quBLu/OlDshnfXururaShoUxLY+X1pPtEZERb1gLPVuHHCR0BzxKoztmlkBBpZYW9JhRKzoxj2ch80RXIivycrbZi+IQocbfyEgzn3pHg0injsnqBFqsyuxH6KPqPGDJWTIHuanBualCZktgRNlOuZUtfow8VpjC9Faj33CvG4KvSqAn1vYtTE12j3QfEDoDWcLbpkXi7ug1Vsq+YRjAdlC4aQNdd+5dI00qfcBxKsbDFzlOB5qRhyCfL+6TRuNdvHPSZS1CnZW5Zw5b3vUSQHm0tRVkoVHMtDCd9p9AM3juUvqOfjzNFLi6nnqpSDdep6+93VXXJhsqgEpILZqSibOdubPcw6Ld8C/ZUcxbD1iNoLuoNJV/BecLLzdoN1WqixwPXfMOFrek8WoNd6+jt+LbwimM6r+GUeADhoiL7T30nr1mvpVhH5n31RJckJBGUT9yRKyRaA=
+X-MS-Exchange-AntiSpam-MessageData: wo/RBe/7XgtlwVOaKFjBg70JZZ69qCgtW7bgrvtKwaKvrKzE+LPfrVczrnVTG9V9Vg/xF8gBDDs2suKN5xiTmrFdjWMtHElQpG8N7a02b7bI/TACO7leXGNtzCt1PkEDDQc0p2jkUZjaA26peNpYaA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7efd975-e6c4-4c41-9fbb-08d7bbfab62d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Feb 2020 03:02:56.7616 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YZdxZWjzW7gCek/jwshnzBMOBrrm3LkFxH7F2rM7qrni69q1K6xOSJT6JASM7IH/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3552
+X-MS-Exchange-CrossTenant-Network-Message-Id: c4dfcdb9-ce91-4803-8c39-08d7bbfe7bcf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2020 03:29:57.1310 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ZWQARK0sWfXATHzUHwly8y3sWMsBUE/NjPIuionF2vH2o7L7hqt23ui5+fIATLAe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4387
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,310 +113,159 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deng, Emily" <Emily.Deng@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>
-Content-Type: multipart/mixed; boundary="===============0832171799=="
+Cc: alexander.deucher@amd.com, Ray.Huang@amd.com, nirmoy.das@amd.com,
+ christian.koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0832171799==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB3056EF4F92975A794D55D304E1E80MN2PR12MB3056namp_"
+On 2020-02-26 3:37 p.m., Nirmoy Das wrote:
+> init_priority will set second compute queue(gfx8 and gfx9) of a pipe to high priority
+> and 1st queue to normal priority.
+> 
+> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c    | 14 ++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 13 +++++++++++++
+>  3 files changed, 28 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> index 24caff085d00..a109373b9fe8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> @@ -170,6 +170,7 @@ struct amdgpu_ring_funcs {
+>  	/* priority functions */
+>  	void (*set_priority) (struct amdgpu_ring *ring,
+>  			      enum drm_sched_priority priority);
+> +	void (*init_priority) (struct amdgpu_ring *ring);
+>  	/* Try to soft recover the ring to make the fence signal */
+>  	void (*soft_recovery)(struct amdgpu_ring *ring, unsigned vmid);
+>  	int (*preempt_ib)(struct amdgpu_ring *ring);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> index fa245973de12..14bab6e08bd6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+> @@ -6334,6 +6334,19 @@ static void gfx_v8_0_ring_set_priority_compute(struct amdgpu_ring *ring,
+>  	gfx_v8_0_pipe_reserve_resources(adev, ring, acquire);
+>  }
+> 
+> +static void gfx_v8_0_ring_init_priority_compute(struct amdgpu_ring *ring)
 
---_000_MN2PR12MB3056EF4F92975A794D55D304E1E80MN2PR12MB3056namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Why two verbs in this function: "init" and "compute"?
+Certainly there is no need for "compute".
+Just call it
 
-Hi,
+gfx_blah_ring_priority_init()
 
-I got feedback from Linux team and they simply don't want to change.
+Putting the object first and the verb last, as is commonly done.
 
-I believe that it would work for bare metal as well.
+> +{
+> +	/* set pipe 0 to normal priority and pipe 1 to high priority*/
+> +	if (ring->queue == 1) {
+> +		gfx_v8_0_hqd_set_priority(ring->adev, ring, true);
+> +		gfx_v8_0_ring_set_pipe_percent(ring, true);
+> +	} else {
+> +		gfx_v8_0_hqd_set_priority(ring->adev, ring, false);
+> +		gfx_v8_0_ring_set_pipe_percent(ring, false);
+> +	}
+> +
+> +}
 
-Jiange
-________________________________
-From: Deucher, Alexander <Alexander.Deucher@amd.com>
-Sent: Thursday, February 27, 2020 10:23 PM
-To: Zhao, Jiange <Jiange.Zhao@amd.com>; amd-gfx@lists.freedesktop.org <amd-=
-gfx@lists.freedesktop.org>
-Cc: Deng, Emily <Emily.Deng@amd.com>; Liu, Monk <Monk.Liu@amd.com>
-Subject: Re: [PATCH] drm/amdgpu/sriov: Use VF-accessible register for gpu_c=
-lock_count
+Again. Notice that the only difference between the two outcomes
+of the conditional is the last parameter to both.
+
+So you could write your code like this:
+
+gfx_v8_0_hqd_set_priority(ring->adev, ring, ring->queue == 1);
+gfx_v8_0_ring_set_pipe_percent(ring, ring->queue == 1);
+
+Further more if "priority" had to be variable value,
+I'd parameterize it in a map (i.e. array) and use
+a computed index to index the map in order to retrieve
+the variabled "priority". This eliminates if-conditionals.
+
+Note in general that we want less if-conditionals,
+in the execution path and more streamline execution.
+
+> +
+>  static void gfx_v8_0_ring_emit_fence_compute(struct amdgpu_ring *ring,
+>  					     u64 addr, u64 seq,
+>  					     unsigned flags)
+> @@ -6967,6 +6980,7 @@ static const struct amdgpu_ring_funcs gfx_v8_0_ring_funcs_compute = {
+>  	.insert_nop = amdgpu_ring_insert_nop,
+>  	.pad_ib = amdgpu_ring_generic_pad_ib,
+>  	.set_priority = gfx_v8_0_ring_set_priority_compute,
+> +	.init_priority = gfx_v8_0_ring_init_priority_compute,
+>  	.emit_wreg = gfx_v8_0_ring_emit_wreg,
+>  };
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 1c7a16b91686..0c66743fb6f5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -5143,6 +5143,18 @@ static void gfx_v9_0_ring_set_priority_compute(struct amdgpu_ring *ring,
+>  	gfx_v9_0_pipe_reserve_resources(adev, ring, acquire);
+>  }
+> 
+> +static void gfx_v9_0_ring_init_priority_compute(struct amdgpu_ring *ring)
+
+Ditto for this name as per above.
+
+> +{
+> +	/* set pipe 0 to normal priority and pipe 1 to high priority*/
+> +	if (ring->queue == 1) {
+> +		gfx_v9_0_hqd_set_priority(ring->adev, ring, true);
+> +		gfx_v9_0_ring_set_pipe_percent(ring, true);
+> +	} else {
+> +		gfx_v9_0_hqd_set_priority(ring->adev, ring, false);
+> +		gfx_v9_0_ring_set_pipe_percent(ring, true);
+> +	}
+> +}
+
+Note how similar this is to the v8 above?
+Those could be made the same and he vX parameterized to
+the correct implementation.
+
+For instance, if you parameterize the "gfx_vX_0_hqd_set_priority()"
+and "gfx_vX_0_ring_set_pipe_percent()". Then your code becomes,
+like this pseudo-code:
+
+ring_init_set_priority(ring)
+{
+    map = ring->property[ring->version];
+
+    map->hqd_priority_set(ring->adev, ring, ring->queue == 1);
+    map->ring_pipe_percent_set(ring, ring->queue == 1);
+}
+
+Regards,
+Luben
 
 
-[AMD Public Use]
-
-Is there any reason to not just use this for bare metal as well?
-
-Alex
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of jianzh <=
-Jiange.Zhao@amd.com>
-Sent: Thursday, February 27, 2020 6:21 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deng, Emily <Emily.Deng@amd.com>; Zhao, Jiange <Jiange.Zhao@amd.com>; L=
-iu, Monk <Monk.Liu@amd.com>
-Subject: [PATCH] drm/amdgpu/sriov: Use VF-accessible register for gpu_clock=
-_count
-
-Navi12 VK CTS subtest timestamp.calibrated.dev_domain_test failed
-because mmRLC_CAPTURE_GPU_CLOCK_COUNT register cannot be
-written in VF due to security policy.
-
-Solution: use a VF-accessible timestamp register pair
-mmGOLDEN_TSC_COUNT_LOWER/UPPER for SRIOV case.
-
-Signed-off-by: jianzh <Jiange.Zhao@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c
-index 44f00ec..8787a46 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -35,6 +35,8 @@
-
- #include "gc/gc_10_1_0_offset.h"
- #include "gc/gc_10_1_0_sh_mask.h"
-+#include "smuio/smuio_11_0_0_offset.h"
-+#include "smuio/smuio_11_0_0_sh_mask.h"
- #include "navi10_enum.h"
- #include "hdp/hdp_5_0_0_offset.h"
- #include "ivsrcid/gfx/irqsrcs_gfx_10_1.h"
-@@ -3920,9 +3922,14 @@ static uint64_t gfx_v10_0_get_gpu_clock_counter(stru=
-ct amdgpu_device *adev)
-
-         amdgpu_gfx_off_ctrl(adev, false);
-         mutex_lock(&adev->gfx.gpu_clock_mutex);
--       WREG32_SOC15(GC, 0, mmRLC_CAPTURE_GPU_CLOCK_COUNT, 1);
--       clock =3D (uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUNT_LSB) =
-|
--               ((uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUNT_MSB) <=
-< 32ULL);
-+       if (!amdgpu_sriov_vf(adev)) {
-+               WREG32_SOC15(GC, 0, mmRLC_CAPTURE_GPU_CLOCK_COUNT, 1);
-+               clock =3D (uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COU=
-NT_LSB) |
-+                       ((uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUN=
-T_MSB) << 32ULL);
-+       } else {
-+               clock =3D (uint64_t)RREG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COU=
-NT_LOWER) |
-+                       ((uint64_t)RREG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COUN=
-T_UPPER) << 32ULL);
-+       }
-         mutex_unlock(&adev->gfx.gpu_clock_mutex);
-         amdgpu_gfx_off_ctrl(adev, true);
-         return clock;
---
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7C9b14a49e41fd48f7138f08d7bb773ed9%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637183993593225894&amp;sdata=3DjFUVpgeEcTTJbTJ3a7i=
-bAPOyAU3RVF%2FEIN41zaqS0eM%3D&amp;reserved=3D0
-
---_000_MN2PR12MB3056EF4F92975A794D55D304E1E80MN2PR12MB3056namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hi,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I got feedback from Linux team and they simply don't want to change.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-I believe that it would work for bare metal as well.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Jiange<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Deucher, Alexander &l=
-t;Alexander.Deucher@amd.com&gt;<br>
-<b>Sent:</b> Thursday, February 27, 2020 10:23 PM<br>
-<b>To:</b> Zhao, Jiange &lt;Jiange.Zhao@amd.com&gt;; amd-gfx@lists.freedesk=
-top.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Deng, Emily &lt;Emily.Deng@amd.com&gt;; Liu, Monk &lt;Monk.Liu@a=
-md.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu/sriov: Use VF-accessible register fo=
-r gpu_clock_count</font>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#317100=
-; margin:15pt">
-[AMD Public Use]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Is there any reason to not just use this for bare metal as well?</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Alex</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div id=3D"x_appendonsend"></div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces@lists.freedesktop.org&gt; on behalf of jianzh &lt;Jiange.Zhao@amd.=
-com&gt;<br>
-<b>Sent:</b> Thursday, February 27, 2020 6:21 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deng, Emily &lt;Emily.Deng@amd.com&gt;; Zhao, Jiange &lt;Jiange.=
-Zhao@amd.com&gt;; Liu, Monk &lt;Monk.Liu@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/sriov: Use VF-accessible register for gp=
-u_clock_count</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">Navi12 VK CTS subtest timestamp.calibrated.dev_d=
-omain_test failed<br>
-because mmRLC_CAPTURE_GPU_CLOCK_COUNT register cannot be<br>
-written in VF due to security policy.<br>
-<br>
-Solution: use a VF-accessible timestamp register pair<br>
-mmGOLDEN_TSC_COUNT_LOWER/UPPER for SRIOV case.<br>
-<br>
-Signed-off-by: jianzh &lt;Jiange.Zhao@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 13 &#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;&#43;&#43;---<br>
-&nbsp;1 file changed, 10 insertions(&#43;), 3 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c<br>
-index 44f00ec..8787a46 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-@@ -35,6 &#43;35,8 @@<br>
-&nbsp;<br>
-&nbsp;#include &quot;gc/gc_10_1_0_offset.h&quot;<br>
-&nbsp;#include &quot;gc/gc_10_1_0_sh_mask.h&quot;<br>
-&#43;#include &quot;smuio/smuio_11_0_0_offset.h&quot;<br>
-&#43;#include &quot;smuio/smuio_11_0_0_sh_mask.h&quot;<br>
-&nbsp;#include &quot;navi10_enum.h&quot;<br>
-&nbsp;#include &quot;hdp/hdp_5_0_0_offset.h&quot;<br>
-&nbsp;#include &quot;ivsrcid/gfx/irqsrcs_gfx_10_1.h&quot;<br>
-@@ -3920,9 &#43;3922,14 @@ static uint64_t gfx_v10_0_get_gpu_clock_counter(=
-struct amdgpu_device *adev)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_off_ctrl(adev, =
-false);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;g=
-fx.gpu_clock_mutex);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmRLC_CAPTURE_GPU=
-_CLOCK_COUNT, 1);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock =3D (uint64_t)RREG32_SOC15(GC, =
-0, mmRLC_GPU_CLOCK_COUNT_LSB) |<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ((uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUNT_MSB) &lt;&l=
-t; 32ULL);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev)) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmRLC_CAPTURE_GPU_CLOCK_COUNT, 1);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; clock =3D (uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUN=
-T_LSB) |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((uint64_t)R=
-REG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUNT_MSB) &lt;&lt; 32ULL);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; clock =3D (uint64_t)RREG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COUN=
-T_LOWER) |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ((uint64_t)R=
-REG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COUNT_UPPER) &lt;&lt; 32ULL);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt=
-;gfx.gpu_clock_mutex);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_off_ctrl(adev, =
-true);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return clock;<br>
--- <br>
-2.7.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Calexander.deucher%40amd.com%7C9b14a49e41fd48f7138f08d7bb773ed9%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637183993593225894&amp;amp;sdata=3D=
-jFUVpgeEcTTJbTJ3a7ibAPOyAU3RVF%2FEIN41zaqS0eM%3D&amp;amp;reserved=3D0">http=
-s://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freed=
-esktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7C9b14a49e41fd48f7138f08d7bb773ed9%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637183993593225894&amp;amp;sdata=3DjFUVpgeEcTTJbTJ=
-3a7ibAPOyAU3RVF%2FEIN41zaqS0eM%3D&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB3056EF4F92975A794D55D304E1E80MN2PR12MB3056namp_--
-
---===============0832171799==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> +
+>  static void gfx_v9_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
+>  {
+>  	struct amdgpu_device *adev = ring->adev;
+> @@ -6514,6 +6526,7 @@ static const struct amdgpu_ring_funcs gfx_v9_0_ring_funcs_compute = {
+>  	.insert_nop = amdgpu_ring_insert_nop,
+>  	.pad_ib = amdgpu_ring_generic_pad_ib,
+>  	.set_priority = gfx_v9_0_ring_set_priority_compute,
+> +	.init_priority = gfx_v9_0_ring_init_priority_compute,
+>  	.emit_wreg = gfx_v9_0_ring_emit_wreg,
+>  	.emit_reg_wait = gfx_v9_0_ring_emit_reg_wait,
+>  	.emit_reg_write_reg_wait = gfx_v9_0_ring_emit_reg_write_reg_wait,
+> --
+> 2.25.0
+> 
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cluben.tuikov%40amd.com%7Cfb0f769b48da4c3c390108d7bafb4e1b%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637183460845495056&amp;sdata=qqzOg3W%2FvkOrG2eglBM7NmByS1ZreZAfigOJWFgA1Hw%3D&amp;reserved=0
+> 
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0832171799==--
