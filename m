@@ -2,107 +2,109 @@ Return-Path: <SRS0=XGul=4Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F60EC3F2CE
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 02:37:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2CBFC3F2CE
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 02:58:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 017A224688
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 02:37:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A3F912469B
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 02:58:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="uQiQKPrX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 017A224688
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="oknegmBJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A3F912469B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABFAF6EDD3;
-	Fri, 28 Feb 2020 02:37:58 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750089.outbound.protection.outlook.com [40.107.75.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 146366EDD0
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 02:37:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EFBC6E9A6;
+	Fri, 28 Feb 2020 02:58:25 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2065.outbound.protection.outlook.com [40.107.243.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E57B56E9A6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 02:58:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mxkRi3htx+g0a0g0wkPR1RVxsha2VezuPdU/ang5t/AWLk41lq9P3O7ZCubnuZW2Z1wz3ihs5XcK3LCZn7DutSw915AzMS82nM+V7J0q/lysvT9pwuEZtRuI170Brn453akdUIDYrMa+DMsLbuW7HjgT2CVMkGioJHu9v00Bf2R1ByQKk4dQL4P0y1YDH602SQc2XdM7b4IVSjpc0a5O7RtmD8vr6SN3LZ6fJVa7OasoRGPDoFTMDT+K+kwEYqNmRt5Q63sF5skmbPDEmaJnnPIr0sxWimWOlFQu8FcJEfv3Ha9ynZg9oMnyL1AtY0i/st2ZPxxKZm2aa3ErrqnUEg==
+ b=Brr7jdnej3NU1YVGMTbhtrv+L//w+6DfTxFYTRfKY2wrFRf7eC90UqY3VIjDNUZ/Ze4t1UjdT+GyvdXGqvk7VKphbZLMiD1akPUe57KmD7XI0+MMnJsf7oefOQqXqdCohrqVEwcLzCT0VCi5Pj1diXgDuJr0YMP4YtekPmaG0HzaLd9y8Of94e2S+9V22z1VMJtJhURICyd/BeyMWiPnjkBprOKgdUG0/jdPMKQH+jdf7wrX5FD+rLHT6j1apu0MONDyJf0teuGrDCliJSVM1jomBqFnCVVDyyHc/P6v73Tog2t3atG6gdWCjIJvhx2B1Yfl4lcDbryIpykVfy7BUw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NLRAN2eVy+McWPTbSJYEzPJZ4s8xfQUcnoG38QlfCHE=;
- b=Z0pOfxemXE/MwRzYj0sUPpu/ESYFUp9FTrdJb4e3cyg6pU+bUdPPXThYq/5rfsGgBsVnFSTjQbHcnavgCCve+NeUnuIo/Nf1w70ot4sLTsxZFxI0QWyE+txX/NOUmC2QTiI3hy3lmX3sWSRVbY5fJENzwVchNH2d3T145H5Hf4eVElmFQT8dr8h9ZNbB4mcLNIBCR9ZfHQsxI9K7dTAgJLRCVD7m7l//c8Gp47G1mPEwaEPTsbYnzm0K4kYHc/tlKC2UevpNpA6IE5OAqSE8E6h4GygzCfNT70xgWY69e6OpwPDRGlJ+QP+PvQbOTcyfDsJzqigedBilntxNYB1CsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
+ bh=Zp/4/tQ63YpMXh2iRngyMIaKc8U2f2/c5NoQYw9Hz/M=;
+ b=MppiK8iLOgStrdgzsFbVSom90/sm1ZBH7z4F/qsum8tLUyCSbUG2XMTNIJjkM2kBX4+Z39OsXIu6CDS+cy1739mPPEfyU+CwiWfohMxeDBSNf/0DpJC3zYftLpOGaP9Mb1zW2U2AfC+O/+jQfoaIKaHhT4Dh5bMpPPiyqOb0RaGhEKFKELiEgTq88Erj5ByabD/sFm3CyucQ4MqcRcnqDFpjQbGyj//qnvkxtLcrDTH4qu8okL8dKaVsXusbK8jHcxPOChctVW/w4OWN34Cl8WOJ0HV3Yujat2lp6ZHoksBYkIkgRX2/nIaSPPwAMSdQ9pAcRRZYJ0V4NGxLwHf/yw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NLRAN2eVy+McWPTbSJYEzPJZ4s8xfQUcnoG38QlfCHE=;
- b=uQiQKPrXRiH5kbB2nMyhXZwI1xIeTknUbokA2ecE6LbUIs+45tNtimoxTdXqLE0A5hvqywXJ0/F2k5BumzoMptrjtbl4qn5OlUkkO/1jZj+LmmtaeJi8j82tVSsFWB2vZfeyx+MrCOZRsY4lDTKc/e+DLCrEFD9QtoNkX+0A1gI=
-Received: from DM5PR12CA0070.namprd12.prod.outlook.com (2603:10b6:3:103::32)
- by DM6PR12MB4235.namprd12.prod.outlook.com (2603:10b6:5:220::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14; Fri, 28 Feb
- 2020 02:37:55 +0000
-Received: from DM6NAM11FT023.eop-nam11.prod.protection.outlook.com
- (2603:10b6:3:103:cafe::3e) by DM5PR12CA0070.outlook.office365.com
- (2603:10b6:3:103::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15 via Frontend
- Transport; Fri, 28 Feb 2020 02:37:55 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+ bh=Zp/4/tQ63YpMXh2iRngyMIaKc8U2f2/c5NoQYw9Hz/M=;
+ b=oknegmBJUl6KBzS6K/Mefichta24xxQr1hZc+dJeK+GaMTkBNOYa1GmKF/tvdcZbVBn9C8Qif4eNqtLY3fJGOnearJ1SmU+2nU20tUuk6MvjwsZ577wtDoj48UggZVzsPlJsijNfIyh+vsxBs/oOs7O3hkw9DoBdFQeVgxjvNJ8=
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com (2603:10b6:208:c5::10)
+ by MN2PR12MB3598.namprd12.prod.outlook.com (2603:10b6:208:d1::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15; Fri, 28 Feb
+ 2020 02:58:21 +0000
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::69c7:b493:690:2173]) by MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::69c7:b493:690:2173%3]) with mapi id 15.20.2750.021; Fri, 28 Feb 2020
+ 02:58:21 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Wu, Hersen" <hersenxs.wu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/2] drm/amdgpu/display: navi1x copy dcn watermark clock
+ settings to smu resume from s3
+Thread-Topic: [PATCH 2/2] drm/amdgpu/display: navi1x copy dcn watermark clock
+ settings to smu resume from s3
+Thread-Index: AQHV7YYgrtvifOjtV0Ge4g/Lc3C3bKgv6n+w
+Date: Fri, 28 Feb 2020 02:58:20 +0000
+Message-ID: <MN2PR12MB33448440496BD112CE52820BE4E80@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20200227155349.10993-1-hersenxs.wu@amd.com>
+In-Reply-To: <20200227155349.10993-1-hersenxs.wu@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=3660e013-cb2b-405f-a39c-00001cdfc665;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-02-28T02:57:12Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Evan.Quan@amd.com; 
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 72762de0-934c-439f-2a4b-08d7bbfa1227
+x-ms-traffictypediagnostic: MN2PR12MB3598:|MN2PR12MB3598:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB3598EBDA76178159A83D51AAE4E80@MN2PR12MB3598.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-forefront-prvs: 0327618309
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(136003)(376002)(346002)(39860400002)(366004)(199004)(189003)(66556008)(86362001)(66446008)(316002)(54906003)(110136005)(64756008)(478600001)(6506007)(53546011)(33656002)(186003)(9686003)(66476007)(7696005)(26005)(55016002)(81156014)(8676002)(4326008)(52536014)(81166006)(71200400001)(2906002)(76116006)(8936002)(66946007)(5660300002)(32563001)(357404004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3598;
+ H:MN2PR12MB3344.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- DM6NAM11FT023.mail.protection.outlook.com (10.13.173.96) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2772.14 via Frontend Transport; Fri, 28 Feb 2020 02:37:55 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 27 Feb
- 2020 20:37:54 -0600
-Received: from gc-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Thu, 27 Feb 2020 20:37:52 -0600
-From: Chengming Gui <Jack.Gui@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 2/2] drm/amdgpu: Add debugfs interface to set arbitrary sclk
- for navi14
-Date: Fri, 28 Feb 2020 10:37:21 +0800
-Message-ID: <1582857441-32135-2-git-send-email-Jack.Gui@amd.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1582857441-32135-1-git-send-email-Jack.Gui@amd.com>
-References: <1582857441-32135-1-git-send-email-Jack.Gui@amd.com>
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: VgFx7ZP0gN37RrzuvB8gDP9+iAuZPv9oMvYISxC0jA9Vdr519jnO+jDrrqTvsF9gsKRv9rGqpb5ie+ed0d5fxWKS2AHL2toBauGa57NlUHGzTe47/VUr8xnTdG8Ol3w4OLqEFf1+SVJNNG+QapX9G3hkj03EhGXedaonLGa3D9+K9UVm4rB51BHlgvk4+BrjhJlCekO774CHcw5Fl75Fb9Z7hNTasgtSby4I4qLUd00i2OX9d3WywRbsgqlsurqllyhkB+XtfxRYVORw578JDQKhAlkzhgcvNtfFjWdC431i4zXopMG5NMG+jJ2CjoASxbL7LzYuuc0U6uWO7bsy/TlRucXJk7uy8qcW/5zFYE4b+ke7opCFq9kCr8hc875rFMZgauPOHp2XBgj3mRGAgyhbuH3gD3U673fPiSK1CxI6om9ne7xuOdasegsbK292oinj5ijTdml9JBhN78ngUUONGOB5U3AHTjRiSCUlusa+TJQubuo9/dPADaVEI+QZvP98U/6uAZ/DVbWc2byCsw==
+x-ms-exchange-antispam-messagedata: lLipjc7ByuPPA7cUghvw9Tt4R39ermOqZiIIM18YoqGpqH03TURosylm3r8h7syj40ZJUv2pEbBl3ST359QVLTcyo8hquYY4wNaOnXmzUg58J1fpDY/Rl4+9iZWfxkI/Sjre62MwUzldQI31dmzIDQ==
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(376002)(396003)(39860400002)(136003)(428003)(199004)(189003)(186003)(26005)(86362001)(2906002)(478600001)(7696005)(2616005)(81156014)(336012)(81166006)(36756003)(426003)(8676002)(70206006)(70586007)(6666004)(316002)(6916009)(5660300002)(356004)(8936002)(4326008)(54906003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB4235; H:SATLEXMB01.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1de04986-87a1-4a3b-58ea-08d7bbf73714
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4235:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB423535617B30D431E7F0F9E08BE80@DM6PR12MB4235.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1332;
-X-Forefront-PRVS: 0327618309
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 6Oh2P1zE5eF8SPPzd2LolM1YnBkWcNaSs/s5A0kJZX1oukUVlWEQJlnny1UnrsFkZXeAZq7dXe8l+OqUsN2u4wI9yOQhCL56qyL8mHzIuGj0Lq2DSYig58Zey7f8V+Rc1fgAqZpVXOfNR6R5aEiMI3pdPXo/W4A8qbS/FzC79pAnJvqDDSl7d5UHCduu6Pq2ao2mzJUnMYmXyHH5Os/s+ipVmEP/EyPdMDCKBAIEfWEExzYdSKSe0rnGf7C1zod13wEaeyBYkHUfKtPQGrTIjmWe/Nsmy7jKx5sL444HbS2+UjiKT2XTDZ5GquEveyBEyQrttaFM8WZVuG3Gy3Wajo+UtZi8/TO1JnQpXLlsm++wlA6OWLOjGA5sC5QU6irDXiTgMTsXxuUBqhHsKefjPB8r6ElpDYxU7uGGDYR6z1lBdfyMClo6bzcTSuUeC//F
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Feb 2020 02:37:55.0721 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1de04986-87a1-4a3b-58ea-08d7bbf73714
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4235
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72762de0-934c-439f-2a4b-08d7bbfa1227
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Feb 2020 02:58:20.8064 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: T4bemgFo+NN/nqW6Jp2EdaCmju9agHWgudd8z/DkcZqZ7EdhE3XovQY1WJk+FVL+
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3598
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,110 +116,136 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Feifei.Xu@amd.com, Evan.Quan@amd.com, Kenneth.Feng@amd.com,
- Chengming Gui <Jack.Gui@amd.com>
+Cc: "Wu, Hersen" <hersenxs.wu@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-add debugfs interface amdgpu_force_sclk
-to set arbitrary sclk for navi14
+Thanks. But could you help to confirm whether this is correctly protected by "mutex_lock(&smu->mutex)"?
 
-Signed-off-by: Chengming Gui <Jack.Gui@amd.com>
+-----Original Message-----
+From: Hersen Wu <hersenxs.wu@amd.com> 
+Sent: Thursday, February 27, 2020 11:54 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Quan, Evan <Evan.Quan@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; Wu, Hersen <hersenxs.wu@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu/display: navi1x copy dcn watermark clock settings to smu resume from s3
+
+ This interface is for dGPU Navi1x. Linux dc-pplib interface depends  on window driver dc implementation.
+
+ For Navi1x, clock settings of dcn watermarks are fixed. the settings  should be passed to smu during boot up and resume from s3.
+ boot up: dc calculate dcn watermark clock settings within dc_create,  dcn20_resource_construct, then call pplib functions below to pass  the settings to smu:
+ smu_set_watermarks_for_clock_ranges
+ smu_set_watermarks_table
+ navi10_set_watermarks_table
+ smu_write_watermarks_table
+
+ For Renoir, clock settings of dcn watermark are also fixed values.
+ dc has implemented different flow for window driver:
+ dc_hardware_init / dc_set_power_state
+ dcn10_init_hw
+ notify_wm_ranges
+ set_wm_ranges
+
+ For Linux
+ smu_set_watermarks_for_clock_ranges
+ renoir_set_watermarks_table
+ smu_write_watermarks_table
+
+ dc_hardware_init -> amdgpu_dm_init
+ dc_set_power_state --> dm_resume
+
+ therefore, linux dc-pplib interface of navi10/12/14 is different  from that of Renoir.
+
+Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c    | 44 ++++++++++++++++++++++++++
- drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h |  3 ++
- 2 files changed, 47 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 64 +++++++++++++++++++
+ 1 file changed, 64 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 3bb7405..5ee7e92 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -1269,9 +1269,43 @@ static int amdgpu_debugfs_ib_preempt(void *data, u64 val)
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 931cbd7b372e..c58c0e95735e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -1435,6 +1435,68 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
+ 		drm_kms_helper_hotplug_event(dev);
  }
  
-+static int amdgpu_debugfs_sclk_set(void *data, u64 val)
-+{
++static int amdgpu_dm_smu_write_watermarks_table(struct amdgpu_device 
++*adev) {
++	struct smu_context *smu = &adev->smu;
 +	int ret = 0;
-+	uint32_t max_freq, min_freq;
-+	struct amdgpu_device *adev = (struct amdgpu_device *)data;
 +
-+	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
-+		return -EINVAL;
++	if (!is_support_sw_smu(adev))
++		return 0;
 +
-+	ret = pm_runtime_get_sync(adev->ddev->dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (is_support_sw_smu(adev)) {
-+		ret = smu_get_dpm_freq_range(&adev->smu, SMU_SCLK, &min_freq, &max_freq, true);
-+		if (ret || val > max_freq || val < min_freq)
-+			return -EINVAL;
-+		ret = smu_set_soft_freq_range(&adev->smu, SMU_SCLK, (uint32_t)val, (uint32_t)val);
-+	} else {
++	/* This interface is for dGPU Navi1x.Linux dc-pplib interface depends
++	 * on window driver dc implementation.
++	 * For Navi1x, clock settings of dcn watermarks are fixed. the settings
++	 * should be passed to smu during boot up and resume from s3.
++	 * boot up: dc calculate dcn watermark clock settings within dc_create,
++	 * dcn20_resource_construct
++	 * then call pplib functions below to pass the settings to smu:
++	 * smu_set_watermarks_for_clock_ranges
++	 * smu_set_watermarks_table
++	 * navi10_set_watermarks_table
++	 * smu_write_watermarks_table
++	 *
++	 * For Renoir, clock settings of dcn watermark are also fixed values.
++	 * dc has implemented different flow for window driver:
++	 * dc_hardware_init / dc_set_power_state
++	 * dcn10_init_hw
++	 * notify_wm_ranges
++	 * set_wm_ranges
++	 * -- Linux
++	 * smu_set_watermarks_for_clock_ranges
++	 * renoir_set_watermarks_table
++	 * smu_write_watermarks_table
++	 *
++	 * For Linux,
++	 * dc_hardware_init -> amdgpu_dm_init
++	 * dc_set_power_state --> dm_resume
++	 *
++	 * therefore, this function apply to navi10/12/14 but not Renoir
++	 * *
++	 */
++	switch(adev->asic_type) {
++	case CHIP_NAVI10:
++	case CHIP_NAVI14:
++	case CHIP_NAVI12:
++		break;
++	default:
 +		return 0;
 +	}
 +
-+	pm_runtime_mark_last_busy(adev->ddev->dev);
-+	pm_runtime_put_autosuspend(adev->ddev->dev);
++	/* pass data to smu controller */
++	if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
++			!(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
++		ret = smu_write_watermarks_table(smu);
 +
-+	if (ret)
-+		return -EINVAL;
++		if (ret) {
++			DRM_ERROR("Failed to update WMTABLE!\n");
++			return ret;
++		}
++		smu->watermarks_bitmap |= WATERMARKS_LOADED;
++	}
 +
 +	return 0;
 +}
 +
- DEFINE_SIMPLE_ATTRIBUTE(fops_ib_preempt, NULL,
- 			amdgpu_debugfs_ib_preempt, "%llu\n");
+ /**
+  * dm_hw_init() - Initialize DC device
+  * @handle: The base driver device containing the amdgpu_dm device.
+@@ -1713,6 +1775,8 @@ static int dm_resume(void *handle)
  
-+DEFINE_SIMPLE_ATTRIBUTE(fops_sclk_set, NULL,
-+			amdgpu_debugfs_sclk_set, "%llu\n");
-+
- int amdgpu_debugfs_init(struct amdgpu_device *adev)
- {
- 	int r, i;
-@@ -1285,6 +1319,15 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
- 		return -EIO;
- 	}
+ 	amdgpu_dm_irq_resume_late(adev);
  
-+	adev->smu.debugfs_sclk =
-+		debugfs_create_file("amdgpu_force_sclk", 0200,
-+				    adev->ddev->primary->debugfs_root, adev,
-+				    &fops_sclk_set);
-+	if (!(adev->smu.debugfs_sclk)) {
-+		DRM_ERROR("unable to create amdgpu_set_sclk debugsfs file\n");
-+		return -EIO;
-+	}
++	amdgpu_dm_smu_write_watermarks_table(adev);
 +
- 	/* Register debugfs entries for amdgpu_ttm */
- 	r = amdgpu_ttm_debugfs_init(adev);
- 	if (r) {
-@@ -1353,6 +1396,7 @@ void amdgpu_debugfs_fini(struct amdgpu_device *adev)
- 	}
- 	amdgpu_ttm_debugfs_fini(adev);
- 	debugfs_remove(adev->debugfs_preempt);
-+	debugfs_remove(adev->smu.debugfs_sclk);
+ 	return 0;
  }
  
- #else
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-index 97b6714..36fe19c 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -371,6 +371,9 @@ struct smu_context
- 	struct amd_pp_display_configuration  *display_config;
- 	struct smu_baco_context		smu_baco;
- 	void *od_settings;
-+#if defined(CONFIG_DEBUG_FS)
-+	struct dentry                   *debugfs_sclk;
-+#endif
- 
- 	uint32_t pstate_sclk;
- 	uint32_t pstate_mclk;
--- 
-2.7.4
+--
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
