@@ -4,41 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 305FCC3F2D2
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 11:46:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88FFCC3F2D3
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 13:08:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0E753246AA
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 11:46:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0E753246AA
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
+	by mail.kernel.org (Postfix) with ESMTPS id 69C582067C
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 13:08:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 69C582067C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF00D6F426;
-	Fri, 28 Feb 2020 11:46:40 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.178])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4CDBD6F423;
- Fri, 28 Feb 2020 11:46:39 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 8DF5E2A6046;
- Fri, 28 Feb 2020 12:46:38 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id rNCXxpm2Hb5o; Fri, 28 Feb 2020 12:46:38 +0100 (CET)
-Received: from thor (252.80.76.83.dynamic.wline.res.cust.swisscom.ch
- [83.76.80.252])
- by netline-mail3.netline.ch (Postfix) with ESMTPSA id 1C7EF2A6016;
- Fri, 28 Feb 2020 12:46:38 +0100 (CET)
-Received: from localhost ([::1]) by thor with esmtp (Exim 4.93)
- (envelope-from <michel@daenzer.net>)
- id 1j7e6H-000A76-JB; Fri, 28 Feb 2020 12:46:37 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF03F6F448;
+	Fri, 28 Feb 2020 13:08:24 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BE546F445;
+ Fri, 28 Feb 2020 13:08:23 +0000 (UTC)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 28 Feb 2020 05:08:22 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,496,1574150400"; d="scan'208";a="411397329"
+Received: from unknown (HELO [10.249.39.174]) ([10.249.39.174])
+ by orsmga005.jf.intel.com with ESMTP; 28 Feb 2020 05:08:18 -0800
 Subject: Re: [Mesa-dev] [Intel-gfx] gitlab.fd.o financial situation and impact
  on services
-To: Erik Faye-Lund <erik.faye-lund@collabora.com>,
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ Erik Faye-Lund <erik.faye-lund@collabora.com>,
  Daniel Stone <daniel@fooishbar.org>
 References: <CAKMK7uHHK2SsCfpmZwEUyTJJHsoccKoadoko3cEBOoYDFkmeAw@mail.gmail.com>
  <CAPM=9txcGPvFdSzMtYZXyqLKnWyacSMuHdoXdV63M53fLFVFpw@mail.gmail.com>
@@ -47,14 +43,17 @@ References: <CAKMK7uHHK2SsCfpmZwEUyTJJHsoccKoadoko3cEBOoYDFkmeAw@mail.gmail.com>
  <6d2ec570f957b4504fb70e0b1f0632712a99dc0c.camel@collabora.com>
  <CAPj87rO7BuKQj2Kei3T7RdkFq5=TiuShBvtrPU2sn0iqMfXSTg@mail.gmail.com>
  <6761e107fda6af2f70f0a11784e182dfbc61cb0e.camel@collabora.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Message-ID: <8915813c-ec74-6b1c-6021-bb67219174a0@daenzer.net>
-Date: Fri, 28 Feb 2020 12:46:37 +0100
+ <8915813c-ec74-6b1c-6021-bb67219174a0@daenzer.net>
+From: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Organization: Intel Corporation (UK) Ltd. - Co. Reg. #1134945 - Pipers Way,
+ Swindon SN3 1RJ
+Message-ID: <800a567b-c00d-dcc3-0ea2-7ea61a0cd4b6@intel.com>
+Date: Fri, 28 Feb 2020 15:08:17 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
 MIME-Version: 1.0
-In-Reply-To: <6761e107fda6af2f70f0a11784e182dfbc61cb0e.camel@collabora.com>
-Content-Language: en-CA
+In-Reply-To: <8915813c-ec74-6b1c-6021-bb67219174a0@daenzer.net>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,42 +73,40 @@ Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
  "X.Org Foundation Board" <board@foundation.x.org>,
  Xorg Members List <members@x.org>,
  amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Mesa Dev <mesa-dev@lists.freedesktop.org>,
- Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
- Dave Airlie <airlied@gmail.com>, gstreamer-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="utf-8"
+ Mesa Dev <mesa-dev@lists.freedesktop.org>, Dave Airlie <airlied@gmail.com>,
+ gstreamer-devel@lists.freedesktop.org
 Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMC0wMi0yOCAxMjowMiBwLm0uLCBFcmlrIEZheWUtTHVuZCB3cm90ZToKPiBPbiBGcmks
-IDIwMjAtMDItMjggYXQgMTA6NDMgKzAwMDAsIERhbmllbCBTdG9uZSB3cm90ZToKPj4gT24gRnJp
-LCAyOCBGZWIgMjAyMCBhdCAxMDowNiwgRXJpayBGYXllLUx1bmQKPj4gPGVyaWsuZmF5ZS1sdW5k
-QGNvbGxhYm9yYS5jb20+IHdyb3RlOgo+Pj4gT24gRnJpLCAyMDIwLTAyLTI4IGF0IDExOjQwICsw
-MjAwLCBMaW9uZWwgTGFuZHdlcmxpbiB3cm90ZToKPj4+PiBZZWFoLCBjaGFuZ2VzIG9uIHZ1bGth
-biBkcml2ZXJzIG9yIGJhY2tlbmQgY29tcGlsZXJzIHNob3VsZCBiZQo+Pj4+IGZhaXJseQo+Pj4+
-IHNhbmRib3hlZC4KPj4+Pgo+Pj4+IFdlIGFsc28gaGF2ZSB0b29scyB0aGF0IG9ubHkgd29yayBm
-b3IgaW50ZWwgc3R1ZmYsIHRoYXQgc2hvdWxkCj4+Pj4gbmV2ZXIKPj4+PiB0cmlnZ2VyIGFueXRo
-aW5nIG9uIG90aGVyIHBlb3BsZSdzIEhXLgo+Pj4+Cj4+Pj4gQ291bGQgc29tZXRoaW5nIGJlIHdv
-cmtlZCBvdXQgdXNpbmcgdGhlIHRhZ3M/Cj4+Pgo+Pj4gSSB0aGluayBzbyEgV2UgaGF2ZSB0aGUg
-cHJlLWRlZmluZWQgZW52aXJvbm1lbnQgdmFyaWFibGUKPj4+IENJX01FUkdFX1JFUVVFU1RfTEFC
-RUxTLCBhbmQgd2UgY2FuIGRvIHZhcmlhYmxlIGNvbmRpdGlvbnM6Cj4+Pgo+Pj4gaHR0cHM6Ly9k
-b2NzLmdpdGxhYi5jb20vZWUvY2kveWFtbC8jb25seXZhcmlhYmxlc2V4Y2VwdHZhcmlhYmxlcwo+
-Pj4KPj4+IFRoYXQgc291bmRzIGxpa2UgYSBwcmV0dHkgbmVhdCBtaWRkbGUtZ3JvdW5kIHRvIG1l
-LiBJIGp1c3QgaG9wZQo+Pj4gdGhhdAo+Pj4gbmV3IHBpcGVsaW5lcyBhcmUgdHJpZ2dlcmVkIGlm
-IG5ldyBsYWJlbHMgYXJlIGFkZGVkLCBiZWNhdXNlIG5vdAo+Pj4gZXZlcnlvbmUgaXMgYWxsb3dl
-ZCB0byBzZXQgbGFiZWxzLCBhbmQgc29tZXRpbWVzIHBlb3BsZSBmb3JnZXQuLi4KPj4KPj4gVGhl
-cmUncyBhbHNvIHRoaXMgd2hpY2ggaXMgc29tZXdoYXQgbW9yZSByb2J1c3Q6Cj4+IGh0dHBzOi8v
-Z2l0bGFiLmZyZWVkZXNrdG9wLm9yZy9tZXNhL21lc2EvbWVyZ2VfcmVxdWVzdHMvMjU2OQo+IAo+
-IEknbSBub3Qgc3VyZSBpdCdzIG1vcmUgcm9idXN0LCBidXQgeWVhaCB0aGF0IGEgdXNlZnVsIHRv
-b2wgdG9vLgo+IAo+IFRoZSByZWFzb24gSSdtIHNrZXB0aWNhbCBhYm91dCB0aGUgcm9idXN0bmVz
-cyBpcyB0aGF0IHdlJ2xsIG1pc3MKPiB0ZXN0aW5nIGlmIHRoaXMgbWlzc2VzIGEgcGF0aC4KClN1
-cmVseSBtaXNzaW5nIGEgcGF0aCB3aWxsIGJlIGxlc3MgbGlrZWx5IC8gb2Z0ZW4gdG8gaGFwcGVu
-IGNvbXBhcmVkIHRvCmFuIE1SIG1pc3NpbmcgYSBsYWJlbC4gKFVzZXJzIHdoaWNoIGFyZW4ndCBt
-ZW1iZXJzIG9mIHRoZSBwcm9qZWN0IGNhbid0CmV2ZW4gc2V0IGxhYmVscyBmb3IgYW4gTVIpCgoK
-LS0gCkVhcnRobGluZyBNaWNoZWwgRMOkbnplciAgICAgICAgICAgICAgIHwgICAgICAgICAgICAg
-ICBodHRwczovL3JlZGhhdC5jb20KTGlicmUgc29mdHdhcmUgZW50aHVzaWFzdCAgICAgICAgICAg
-ICB8ICAgICAgICAgICAgIE1lc2EgYW5kIFggZGV2ZWxvcGVyCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
-YW4vbGlzdGluZm8vYW1kLWdmeAo=
+T24gMjgvMDIvMjAyMCAxMzo0NiwgTWljaGVsIETDpG56ZXIgd3JvdGU6Cj4gT24gMjAyMC0wMi0y
+OCAxMjowMiBwLm0uLCBFcmlrIEZheWUtTHVuZCB3cm90ZToKPj4gT24gRnJpLCAyMDIwLTAyLTI4
+IGF0IDEwOjQzICswMDAwLCBEYW5pZWwgU3RvbmUgd3JvdGU6Cj4+PiBPbiBGcmksIDI4IEZlYiAy
+MDIwIGF0IDEwOjA2LCBFcmlrIEZheWUtTHVuZAo+Pj4gPGVyaWsuZmF5ZS1sdW5kQGNvbGxhYm9y
+YS5jb20+IHdyb3RlOgo+Pj4+IE9uIEZyaSwgMjAyMC0wMi0yOCBhdCAxMTo0MCArMDIwMCwgTGlv
+bmVsIExhbmR3ZXJsaW4gd3JvdGU6Cj4+Pj4+IFllYWgsIGNoYW5nZXMgb24gdnVsa2FuIGRyaXZl
+cnMgb3IgYmFja2VuZCBjb21waWxlcnMgc2hvdWxkIGJlCj4+Pj4+IGZhaXJseQo+Pj4+PiBzYW5k
+Ym94ZWQuCj4+Pj4+Cj4+Pj4+IFdlIGFsc28gaGF2ZSB0b29scyB0aGF0IG9ubHkgd29yayBmb3Ig
+aW50ZWwgc3R1ZmYsIHRoYXQgc2hvdWxkCj4+Pj4+IG5ldmVyCj4+Pj4+IHRyaWdnZXIgYW55dGhp
+bmcgb24gb3RoZXIgcGVvcGxlJ3MgSFcuCj4+Pj4+Cj4+Pj4+IENvdWxkIHNvbWV0aGluZyBiZSB3
+b3JrZWQgb3V0IHVzaW5nIHRoZSB0YWdzPwo+Pj4+IEkgdGhpbmsgc28hIFdlIGhhdmUgdGhlIHBy
+ZS1kZWZpbmVkIGVudmlyb25tZW50IHZhcmlhYmxlCj4+Pj4gQ0lfTUVSR0VfUkVRVUVTVF9MQUJF
+TFMsIGFuZCB3ZSBjYW4gZG8gdmFyaWFibGUgY29uZGl0aW9uczoKPj4+Pgo+Pj4+IGh0dHBzOi8v
+ZG9jcy5naXRsYWIuY29tL2VlL2NpL3lhbWwvI29ubHl2YXJpYWJsZXNleGNlcHR2YXJpYWJsZXMK
+Pj4+Pgo+Pj4+IFRoYXQgc291bmRzIGxpa2UgYSBwcmV0dHkgbmVhdCBtaWRkbGUtZ3JvdW5kIHRv
+IG1lLiBJIGp1c3QgaG9wZQo+Pj4+IHRoYXQKPj4+PiBuZXcgcGlwZWxpbmVzIGFyZSB0cmlnZ2Vy
+ZWQgaWYgbmV3IGxhYmVscyBhcmUgYWRkZWQsIGJlY2F1c2Ugbm90Cj4+Pj4gZXZlcnlvbmUgaXMg
+YWxsb3dlZCB0byBzZXQgbGFiZWxzLCBhbmQgc29tZXRpbWVzIHBlb3BsZSBmb3JnZXQuLi4KPj4+
+IFRoZXJlJ3MgYWxzbyB0aGlzIHdoaWNoIGlzIHNvbWV3aGF0IG1vcmUgcm9idXN0Ogo+Pj4gaHR0
+cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL21lc2EvbWVzYS9tZXJnZV9yZXF1ZXN0cy8yNTY5
+Cj4+IEknbSBub3Qgc3VyZSBpdCdzIG1vcmUgcm9idXN0LCBidXQgeWVhaCB0aGF0IGEgdXNlZnVs
+IHRvb2wgdG9vLgo+Pgo+PiBUaGUgcmVhc29uIEknbSBza2VwdGljYWwgYWJvdXQgdGhlIHJvYnVz
+dG5lc3MgaXMgdGhhdCB3ZSdsbCBtaXNzCj4+IHRlc3RpbmcgaWYgdGhpcyBtaXNzZXMgYSBwYXRo
+Lgo+IFN1cmVseSBtaXNzaW5nIGEgcGF0aCB3aWxsIGJlIGxlc3MgbGlrZWx5IC8gb2Z0ZW4gdG8g
+aGFwcGVuIGNvbXBhcmVkIHRvCj4gYW4gTVIgbWlzc2luZyBhIGxhYmVsLiAoVXNlcnMgd2hpY2gg
+YXJlbid0IG1lbWJlcnMgb2YgdGhlIHByb2plY3QgY2FuJ3QKPiBldmVuIHNldCBsYWJlbHMgZm9y
+IGFuIE1SKQo+Cj4KU291bmRzIGxpa2UgYSBnb29kIGFsdGVybmF0aXZlIHRvIHRhZ3MuCgoKLUxp
+b25lbAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1k
+LWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9s
+aXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
