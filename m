@@ -2,65 +2,68 @@ Return-Path: <SRS0=XGul=4Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2684C3F2CD
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 18:04:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3357C3F2D3
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 19:34:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7C4CC2469F
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 18:04:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id BE2702469F
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 19:34:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vft3P9RC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C4CC2469F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=anholt-net.20150623.gappssmtp.com header.i=@anholt-net.20150623.gappssmtp.com header.b="oNgAEPmd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE2702469F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=anholt.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F196C6F4A7;
-	Fri, 28 Feb 2020 18:04:02 +0000 (UTC)
-Received: from mail-vs1-xe33.google.com (mail-vs1-xe33.google.com
- [IPv6:2607:f8b0:4864:20::e33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BB39A6F4A8;
- Fri, 28 Feb 2020 18:04:01 +0000 (UTC)
-Received: by mail-vs1-xe33.google.com with SMTP id h5so1557396vsc.4;
- Fri, 28 Feb 2020 10:04:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D69C6F4B5;
+	Fri, 28 Feb 2020 19:34:23 +0000 (UTC)
+Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
+ [IPv6:2a00:1450:4864:20::141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 71D576F4B5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 19:34:21 +0000 (UTC)
+Received: by mail-lf1-x141.google.com with SMTP id s23so2927666lfs.10
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 11:34:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=anholt-net.20150623.gappssmtp.com; s=20150623;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=qPM9qKUxW+tvu+nHraYgvpodBPKrrabdSOZuzexcQW4=;
- b=Vft3P9RCHZKCJoSYqwJR/wGO9OMbuPr51hTgWgPV+y/hmJ+zYFKFNEwR6fh38qSBdA
- BGzGhNMbhS2+oIItKjaPdrhwOVaT68R5F1JGAF5XZpb0bYZ2IUb2LZ9y7MKkIR2v0ri2
- z4hEBTnTFU/tHSmY0OFfYnc0xEpEevUrykTwccTnbB9lpMxNOSf49/piDmbNWWCFpZXJ
- sT7mG13C3QWBAnaVhfgiGorx27UvY7Z5tmZt/VRDSv5qDAw1ZsTxdlcjvpQSOvNX1QDz
- UNG9o1nb+UQXq/xifPWvoNoIyFJRlQMx1p9ORHQ1PQpL4hJFk4PtPBp//4qe5p344Q3r
- kxYQ==
+ :cc; bh=+3wfcVucKNDT8xQ2IYHdrb8ypqAQcsLMWiIEAUmRFdY=;
+ b=oNgAEPmd74TVlRaCo9qXmuaQ2h23gSNubAj7tWcrLgKDd+2Bh/Yw8MWSML8Ow11IPF
+ YsFG8/mBKQ7Eexoq0TAX89Y1ck+y+Ci0u9AJ9Gs6nDQi6CmuAIko0h7I50olvrbmFXPZ
+ BwV6MkLmAEDJpVSji/8sTxiSM3awqekihYusRy/L+iamTnZpxbYI3U1EQM3RU8+wGYog
+ +cu+Q4u0fAHwTlc21hgOeGCFW8YZwoLnKfe74/9paqZkjCVCZnePW9NW2KegomNSS9N3
+ a2+d1yFqW+t4/Mg5WIDUoGqJZYM5FkVh8Z/9QZduutAAX3ZnUpCucctaHmosEwmTwr4n
+ 2zpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=qPM9qKUxW+tvu+nHraYgvpodBPKrrabdSOZuzexcQW4=;
- b=gn+WM+mmRmcryxortvTi663nVYxIhfUfrXRjfePndfhoSdzitYKjbcF1EEu2DEsShv
- yhdZ9xYpvPldVKjlqwPUaHssgxj2TPAPharfnXQr2Rr9s7sa8dmD6Y+sR5SfUrmDtHpO
- Gh8EnCnq73+8pGNuIofdNunDrh9uHOVrDvfrE5idzS2T4Wha6GHh98IO+IUIqeMbT52L
- yMn/MrMiJchxzMK1PgIqQUtJTJmdZfEIhiP9Xtmr4I5OlN1qtczs87kqh8Y2foMyFccF
- /LwnNjnfDKcAw1kTJZ288hHIh9hCYgNUJrII5FkVMnCmAxSihuYieYOKglTp/ZgFZ5Yp
- bI+A==
-X-Gm-Message-State: ANhLgQ1k1Y8lQwo4KVdhiAC+i0Onb5l0MfOkPe62ETEANc12e1jzGaOQ
- Waqn5Xrv+K9GN6JxUM0ce4S5bFFHcrPcqk7/Mec=
-X-Google-Smtp-Source: ADFU+vv5PJJYdw0HlTGK68jX0JVJsDv8ISEF+CNdsAjizFn5QhsF/+1hMHUlmSiIdSz/+6WSkYfFlFEW5CwoUT6kzms=
-X-Received: by 2002:a67:cf46:: with SMTP id f6mr3366351vsm.143.1582913040412; 
- Fri, 28 Feb 2020 10:04:00 -0800 (PST)
+ bh=+3wfcVucKNDT8xQ2IYHdrb8ypqAQcsLMWiIEAUmRFdY=;
+ b=ihPXAxlBcC/Zxjwkg9cZlErbre/0WNFnGMGGLwAYm254QCq4Kr0DNkPneJNod/NwYg
+ aC2YKaA+fgaCY4Y3odtPkAq0ldB1MBW4pcmcu+DHVURetGuMGdmoyqvY/Q+LXQlifMSw
+ t2rgp07jZmmiqM5Xj0YLdqYmuqgXWR0lqUXwkDnF6XiQRg9WOQdJV17qlKwXOYhiVHPR
+ Tk/jX/6ctNjW1ziB0nzLqB3z9l1GfNV0OMh+6O8g5aerd/BDn10bvIhVzePYsIc+r0q6
+ ePrymbCRe16pnlxous0oigfaUs9J0hDtFLhdMmXl5F6+XNg9V71DtSPTrkodWDBacwT2
+ qdkg==
+X-Gm-Message-State: ANhLgQ0jMGjMMcfNTKjRk8mR3Twu4jrPJLMfJF1502FfLasH/sdM0qnm
+ S1SDZruRgpiFwyuVpUfD4BT6EpMZ46RKc1RmRPJ16A==
+X-Google-Smtp-Source: ADFU+vsyYu1Fsr6NUj2fklhT+YtbDcWuaoofEA6zLDAf2pBT55gUwm6pdVZXJH9rxGAVWEbxXo0Khtrnm1qEQhPXP+8=
+X-Received: by 2002:a19:6b09:: with SMTP id d9mr3597759lfa.203.1582918459634; 
+ Fri, 28 Feb 2020 11:34:19 -0800 (PST)
 MIME-Version: 1.0
 References: <CAKMK7uHHK2SsCfpmZwEUyTJJHsoccKoadoko3cEBOoYDFkmeAw@mail.gmail.com>
  <CAPM=9txcGPvFdSzMtYZXyqLKnWyacSMuHdoXdV63M53fLFVFpw@mail.gmail.com>
-In-Reply-To: <CAPM=9txcGPvFdSzMtYZXyqLKnWyacSMuHdoXdV63M53fLFVFpw@mail.gmail.com>
-From: =?UTF-8?Q?Kristian_H=C3=B8gsberg?= <hoegsberg@gmail.com>
-Date: Fri, 28 Feb 2020 10:03:49 -0800
-Message-ID: <CAOeoa-e1erNAhwfHBm6ReB8qcjsUZwCNA0h_kdjf=zzmztZExQ@mail.gmail.com>
-Subject: Re: [Intel-gfx] gitlab.fd.o financial situation and impact on services
+ <CAPj87rM76W9y_76WUHR35NS3V4_-RFi9ZM3GA=aED3dD3hWYkg@mail.gmail.com>
+ <CAPM=9txN-RKGwinzsSPrmT_xFjS2J_XUhXVsRQ2pSSe529wpEA@mail.gmail.com>
+In-Reply-To: <CAPM=9txN-RKGwinzsSPrmT_xFjS2J_XUhXVsRQ2pSSe529wpEA@mail.gmail.com>
+From: Eric Anholt <eric@anholt.net>
+Date: Fri, 28 Feb 2020 11:34:08 -0800
+Message-ID: <CADaigPUjYZ-Mqd91eyR3Luo=PxLHratUhvodJmCJHf__MnPozA@mail.gmail.com>
+Subject: Re: [Mesa-dev] [Intel-gfx] gitlab.fd.o financial situation and impact
+ on services
 To: Dave Airlie <airlied@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,14 +76,14 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
  intel-gfx <intel-gfx@lists.freedesktop.org>,
  "X.Org development" <xorg-devel@lists.x.org>,
  dri-devel <dri-devel@lists.freedesktop.org>,
  wayland <wayland-devel@lists.freedesktop.org>,
  "X.Org Foundation Board" <board@foundation.x.org>,
- Xorg Members List <members@x.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Xorg Members List <members@x.org>, Daniel Stone <daniel@fooishbar.org>,
  Mesa Dev <mesa-dev@lists.freedesktop.org>,
  gstreamer-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
@@ -88,81 +91,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Feb 27, 2020 at 7:38 PM Dave Airlie <airlied@gmail.com> wrote:
+On Fri, Feb 28, 2020 at 12:48 AM Dave Airlie <airlied@gmail.com> wrote:
 >
-> On Fri, 28 Feb 2020 at 07:27, Daniel Vetter <daniel.vetter@ffwll.ch> wrote:
+> On Fri, 28 Feb 2020 at 18:18, Daniel Stone <daniel@fooishbar.org> wrote:
 > >
-> > Hi all,
+> > On Fri, 28 Feb 2020 at 03:38, Dave Airlie <airlied@gmail.com> wrote:
+> > > b) we probably need to take a large step back here.
+> > >
+> > > Look at this from a sponsor POV, why would I give X.org/fd.o
+> > > sponsorship money that they are just giving straight to google to pay
+> > > for hosting credits? Google are profiting in some minor way from these
+> > > hosting credits being bought by us, and I assume we aren't getting any
+> > > sort of discounts here. Having google sponsor the credits costs google
+> > > substantially less than having any other company give us money to do
+> > > it.
 > >
-> > You might have read the short take in the X.org board meeting minutes
-> > already, here's the long version.
+> > The last I looked, Google GCP / Amazon AWS / Azure were all pretty
+> > comparable in terms of what you get and what you pay for them.
+> > Obviously providers like Packet and Digital Ocean who offer bare-metal
+> > services are cheaper, but then you need to find someone who is going
+> > to properly administer the various machines, install decent
+> > monitoring, make sure that more storage is provisioned when we need
+> > more storage (which is basically all the time), make sure that the
+> > hardware is maintained in decent shape (pretty sure one of the fd.o
+> > machines has had a drive in imminent-failure state for the last few
+> > months), etc.
 > >
-> > The good news: gitlab.fd.o has become very popular with our
-> > communities, and is used extensively. This especially includes all the
-> > CI integration. Modern development process and tooling, yay!
-> >
-> > The bad news: The cost in growth has also been tremendous, and it's
-> > breaking our bank account. With reasonable estimates for continued
-> > growth we're expecting hosting expenses totalling 75k USD this year,
-> > and 90k USD next year. With the current sponsors we've set up we can't
-> > sustain that. We estimate that hosting expenses for gitlab.fd.o
-> > without any of the CI features enabled would total 30k USD, which is
-> > within X.org's ability to support through various sponsorships, mostly
-> > through XDC.
-> >
-> > Note that X.org does no longer sponsor any CI runners themselves,
-> > we've stopped that. The huge additional expenses are all just in
-> > storing and serving build artifacts and images to outside CI runners
-> > sponsored by various companies. A related topic is that with the
-> > growth in fd.o it's becoming infeasible to maintain it all on
-> > volunteer admin time. X.org is therefore also looking for admin
-> > sponsorship, at least medium term.
-> >
-> > Assuming that we want cash flow reserves for one year of gitlab.fd.o
-> > (without CI support) and a trimmed XDC and assuming no sponsor payment
-> > meanwhile, we'd have to cut CI services somewhere between May and June
-> > this year. The board is of course working on acquiring sponsors, but
-> > filling a shortfall of this magnitude is neither easy nor quick work,
-> > and we therefore decided to give an early warning as soon as possible.
-> > Any help in finding sponsors for fd.o is very much appreciated.
+> > Given the size of our service, that's a much better plan (IMO) than
+> > relying on someone who a) isn't an admin by trade, b) has a million
+> > other things to do, and c) hasn't wanted to do it for the past several
+> > years. But as long as that's the resources we have, then we're paying
+> > the cloud tradeoff, where we pay more money in exchange for fewer
+> > problems.
 >
-> a) Ouch.
->
-> b) we probably need to take a large step back here.
+> Admin for gitlab and CI is a full time role anyways. The system is
+> definitely not self sustaining without time being put in by you and
+> anholt still. If we have $75k to burn on credits, and it was diverted
+> to just pay an admin to admin the real hw + gitlab/CI would that not
+> be a better use of the money? I didn't know if we can afford $75k for
+> an admin, but suddenly we can afford it for gitlab credits?
 
-If we're taking a step back here, I also want to recognize what a
-tremendous success this has been so far and thank everybody involved
-for building something so useful. Between gitlab and the CI, our
-workflow has improved and code quality has gone up.  I don't have
-anything useful to add to the technical discussion, except that that
-it seems pretty standard engineering practice to build a system,
-observe it and identify and eliminate bottlenecks. Planning never
-hurts, of course, but I don't think anybody could have realistically
-modeled and projected the cost of this infrastructure as it's grown
-organically and fast.
+As I think about the time that I've spent at google in less than a
+year on trying to keep the lights on for CI and optimize our
+infrastructure in the current cloud environment, that's more than the
+entire yearly budget you're talking about here.  Saying "let's just
+pay for people to do more work instead of paying for full-service
+cloud" is not a cost optimization.
 
-Kristian
 
-> Look at this from a sponsor POV, why would I give X.org/fd.o
-> sponsorship money that they are just giving straight to google to pay
-> for hosting credits? Google are profiting in some minor way from these
-> hosting credits being bought by us, and I assume we aren't getting any
-> sort of discounts here. Having google sponsor the credits costs google
-> substantially less than having any other company give us money to do
-> it.
+> > Yes, we could federate everything back out so everyone runs their own
+> > builds and executes those. Tinderbox did something really similar to
+> > that IIRC; not sure if Buildbot does as well. Probably rules out
+> > pre-merge testing, mind.
 >
-> If our current CI architecture is going to burn this amount of money a
-> year and we hadn't worked this out in advance of deploying it then I
-> suggest the system should be taken offline until we work out what a
-> sustainable system would look like within the budget we have, whether
-> that be never transferring containers and build artifacts from the
-> google network, just having local runner/build combos etc.
->
-> Dave.
-> _______________________________________________
-> Intel-gfx mailing list
-> Intel-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gfx
+> Why? does gitlab not support the model? having builds done in parallel
+> on runners closer to the test runners seems like it should be a thing.
+> I guess artifact transfer would cost less then as a result.
+
+Let's do some napkin math.  The biggest artifacts cost we have in Mesa
+is probably meson-arm64/meson-arm (60MB zipped from meson-arm64,
+downloaded by 4 freedreno and 6ish lava, about 100 pipelines/day,
+makes ~1.8TB/month ($180 or so).  We could build a local storage next
+to the lava dispatcher so that the artifacts didn't have to contain
+the rootfs that came from the container (~2/3 of the insides of the
+zip file), but that's another service to build and maintain.  Building
+the drivers once locally and storing it would save downloading the
+other ~1/3 of the inside of the zip file, but that requires a big
+enough system to do builds in time.
+
+I'm planning on doing a local filestore for google's lava lab, since I
+need to be able to move our xml files off of the lava DUTs to get the
+xml results we've become accustomed to, but this would not bubble up
+to being a priority for my time if I wasn't doing it anyway.  If it
+takes me a single day to set all this up (I estimate a couple of
+weeks), that costs my employer a lot more than sponsoring the costs of
+the inefficiencies of the system that has accumulated.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
