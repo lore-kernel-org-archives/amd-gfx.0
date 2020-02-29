@@ -2,81 +2,77 @@ Return-Path: <SRS0=ZiRI=4T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C59CBC3F2D7
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 08:19:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7556FC3F2D4
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 08:19:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C0AC246B4
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 08:19:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 44D36246B6
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 08:19:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ndufresne-ca.20150623.gappssmtp.com header.i=@ndufresne-ca.20150623.gappssmtp.com header.b="R23L3M8U"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C0AC246B4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ndufresne.ca
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xw6Smsm8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 44D36246B6
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 107C16E10F;
-	Mon,  2 Mar 2020 08:19:31 +0000 (UTC)
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57D616E3D2
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Feb 2020 22:20:41 +0000 (UTC)
-Received: by mail-qt1-x829.google.com with SMTP id v22so1253906qtp.10
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Feb 2020 14:20:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ndufresne-ca.20150623.gappssmtp.com; s=20150623;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECB276E116;
+	Mon,  2 Mar 2020 08:19:35 +0000 (UTC)
+Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
+ [IPv6:2a00:1450:4864:20::331])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7251A6E394;
+ Sat, 29 Feb 2020 18:14:08 +0000 (UTC)
+Received: by mail-wm1-x331.google.com with SMTP id u9so949660wml.3;
+ Sat, 29 Feb 2020 10:14:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=message-id:subject:from:to:cc:date:in-reply-to:references
  :user-agent:mime-version:content-transfer-encoding;
- bh=l9GZeBnH2PlgEgNSsvcaZAM9Qu/cwRutN1QkTRPrWzA=;
- b=R23L3M8URLJLFayXEOrEy2quRJEmMR4UwP/ujtWMR35gK1Pd1Bicw12llnZv7/CbTv
- 37MOWm8ZoqmeLN+BkIwL3akEQO6tu+iub3pC1rIh82zQSyyfQUG8C+D8UqifX/EExrWi
- m9MhYV7H4fhMVRjn5fIRoklnAoi8926kwMfkdXoaMs5+//ciZlfWVAo9kEb75qOPcEqM
- PyKSlZIxv3lXnZLEzKCWN88c60zOL+3MAL9aVmNQU/eLqCid9rRVLV0NNy4lAxrzHW/A
- VA2rnNupvhla+KC620WSqlYgTm17V0E1v8MipnhdbePkDEfEBDI4G8TZFYNwguOFrQEc
- cKTQ==
+ bh=/YOqBOlJrUI1flDmCuCHKMLtepW5A1wxOXV1iaBg5Zg=;
+ b=Xw6Smsm8KtPM8OC991PrJ6I786aMOsrvMXt1LNA+ZTZjcWFCTSRhzx4E7eerOI+a8j
+ oirw2M/flraj1u+/g0rD4SlLa1fFaOxplRfeTh6WwIyFi/ubTU/zJE1TL5zj5sKiGhoS
+ hg+9wP+nO8f8NMjraZpQ8zxLltzT4MOn9OmU8o80FXyP+9sUr9tHjF4Dl7QMkvPubXC9
+ aXVrj/nt2PHVkvdzjUSvnKEi1IC5JIm917IFIdb8ZOQOctwNbo1HObb+J35cRrUH3OaP
+ l0S0RzxJ2gCGYIZN2NjBayG9byD+NmRtGE5cxMINgLXSl28hs1Q1Z/mK4NJzO4CFRILw
+ Gktw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
  :references:user-agent:mime-version:content-transfer-encoding;
- bh=l9GZeBnH2PlgEgNSsvcaZAM9Qu/cwRutN1QkTRPrWzA=;
- b=fr5dYjmsapPw8SZI0lEO1Yzpr338rmiwIVt3frP+ltlVa/XyZir7ECPSFAvx0/gBMD
- sblhtpyxLQRagKRaS0ejfar95dF0wjY94Q85n2KyM+PJ1SJ7gS6jmZ125fXapMSBcRQk
- Ja/1iyai/gVtOh6fLYVkFsAoMqxJTjl/J8OGOVZ0oPrVR79b0cH1wURZIYAVtHaqg0Ln
- BpubHhqZNduNxXdhLnsJia7PC0o5vLN4PksoV1ZpUDKps04wciTJWaZbA1Bf1YoQbrwW
- XUo+9dM81SmPhwHtkxg/i9KYfSXx92WmcRKsXx3GyJnmd+VFp3bgVmLOyTsCfnLSFdqg
- 9D8w==
-X-Gm-Message-State: APjAAAWL1xzAcaMYmlmCTzdpxQLyurVd8VpDEyS9+OFwBRhqLJnBpQFx
- wBzDTp4F9MNPhq5tLpRLGZJ04Q==
-X-Google-Smtp-Source: APXvYqyL5y7EY84Eu21MFFV49WtPG/KW8qCyZCgGOnMt94q7DHyuNS1E2vIMod0s9a9aCUN/RsATkA==
-X-Received: by 2002:ac8:4b6f:: with SMTP id g15mr9940084qts.196.1583014840309; 
- Sat, 29 Feb 2020 14:20:40 -0800 (PST)
-Received: from skullcanyon ([192.222.193.21])
- by smtp.gmail.com with ESMTPSA id n8sm7518555qke.37.2020.02.29.14.20.38
+ bh=/YOqBOlJrUI1flDmCuCHKMLtepW5A1wxOXV1iaBg5Zg=;
+ b=KjZxRb+ow7AYVhTESjeVLfUkGEUXXvVj4NkjyJaeG++/63+gHGpnP1oGvjfa9lRKex
+ rGlrQW2ByE/bDo/3MU5c3tdEmckpsvHn7fXrfWVtar5i45q1BVMHgB6GgGAXmsZnZVYr
+ Zyh2ExXO1dKLx7ro6fO4OlYb7TQwURhWqkHRaQm0W7pmTuu9ORpNc9nW1Q7L6RqPhyJc
+ mO/gaqFVmsbwWkjjnhIrgD1DaXLDGj3UDrBZwiOcNT5/Pn+E8NB/wG78odJVZIlg22uw
+ anYSYJaZHh/rdHe2LR4Sj52aY8xTJDxcW0RwYlkcfRVqKr64VF0eT2C1+dCzlfVOyRRf
+ lq8w==
+X-Gm-Message-State: APjAAAW8qTFugrlUKM2EEtGXdP1hRd4FF4WEm6hWQ2SH1juBMBT0IYqd
+ 4DhCaD78xsHgy9dTP5vO0Q4=
+X-Google-Smtp-Source: APXvYqyRtFe1dg/neYu3kj9xZXUEpYq4gJN/mXtTelG04QTVkriVeOk06WCBQ0T+b6cxQbLv5W5Jyw==
+X-Received: by 2002:a1c:bc46:: with SMTP id m67mr10367591wmf.40.1583000047136; 
+ Sat, 29 Feb 2020 10:14:07 -0800 (PST)
+Received: from Timur-XPS ([2a02:ab88:3846:1b00:9eb6:d0ff:fe89:c25f])
+ by smtp.gmail.com with ESMTPSA id i8sm12579747wrq.10.2020.02.29.10.14.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 29 Feb 2020 14:20:39 -0800 (PST)
-Message-ID: <5551426acf99f73d3ce8234c14c176c1c7a1fe44.camel@ndufresne.ca>
+ Sat, 29 Feb 2020 10:14:06 -0800 (PST)
+Message-ID: <59f4ea1f13a9a9d37f7801b93061b4ae7dd595e2.camel@gmail.com>
 Subject: Re: [Mesa-dev] [Intel-gfx] gitlab.fd.o financial situation and
  impact on services
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Jason Ekstrand <jason@jlekstrand.net>, Timur =?ISO-8859-1?Q?Krist=F3f?=
- <timur.kristof@gmail.com>
-Date: Sat, 29 Feb 2020 17:20:37 -0500
-In-Reply-To: <CAOFGe96WqRTagf=Lhp6j9aMnB6hxwog7t93t=4r6QE_4f+HpeQ@mail.gmail.com>
+From: Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>
+To: Daniel Stone <daniel@fooishbar.org>, Erik Faye-Lund
+ <erik.faye-lund@collabora.com>
+Date: Sat, 29 Feb 2020 19:14:04 +0100
+In-Reply-To: <CAPj87rO7BuKQj2Kei3T7RdkFq5=TiuShBvtrPU2sn0iqMfXSTg@mail.gmail.com>
 References: <CAKMK7uHHK2SsCfpmZwEUyTJJHsoccKoadoko3cEBOoYDFkmeAw@mail.gmail.com>
  <CAPM=9txcGPvFdSzMtYZXyqLKnWyacSMuHdoXdV63M53fLFVFpw@mail.gmail.com>
  <b398161ff7d0268454413058dc6c194cf93f5990.camel@collabora.com>
  <ece8ebe3-40ec-2457-02da-4fef19cbe8f6@intel.com>
  <6d2ec570f957b4504fb70e0b1f0632712a99dc0c.camel@collabora.com>
  <CAPj87rO7BuKQj2Kei3T7RdkFq5=TiuShBvtrPU2sn0iqMfXSTg@mail.gmail.com>
- <59f4ea1f13a9a9d37f7801b93061b4ae7dd595e2.camel@gmail.com>
- <d0ef47e45c83b342494e6781b808b4831a008836.camel@ndufresne.ca>
- <d9dca12759fd6a549dc4cd71b5f210a4dced01cd.camel@gmail.com>
- <CAOFGe96WqRTagf=Lhp6j9aMnB6hxwog7t93t=4r6QE_4f+HpeQ@mail.gmail.com>
-User-Agent: Evolution 3.34.4 (3.34.4-1.fc31) 
+User-Agent: Evolution 3.34.3 (3.34.3-1.fc31) 
 MIME-Version: 1.0
 X-Mailman-Approved-At: Mon, 02 Mar 2020 08:19:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,75 +86,69 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Erik Faye-Lund <erik.faye-lund@collabora.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
  intel-gfx <intel-gfx@lists.freedesktop.org>,
  "X.Org development" <xorg-devel@lists.x.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
  wayland <wayland-devel@lists.freedesktop.org>,
  "X.Org Foundation Board" <board@foundation.x.org>,
  Xorg Members List <members@x.org>,
- Discussion of the development of and with GStreamer
- <gstreamer-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
  Mesa Dev <mesa-dev@lists.freedesktop.org>,
  Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
- Daniel Stone <daniel@fooishbar.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ gstreamer-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-TGUgc2FtZWRpIDI5IGbDqXZyaWVyIDIwMjAgw6AgMTU6NTQgLTA2MDAsIEphc29uIEVrc3RyYW5k
-IGEgw6ljcml0IDoKPiBPbiBTYXQsIEZlYiAyOSwgMjAyMCBhdCAzOjQ3IFBNIFRpbXVyIEtyaXN0
-w7NmIDx0aW11ci5rcmlzdG9mQGdtYWlsLmNvbT4gd3JvdGU6Cj4gPiBPbiBTYXQsIDIwMjAtMDIt
-MjkgYXQgMTQ6NDYgLTA1MDAsIE5pY29sYXMgRHVmcmVzbmUgd3JvdGU6Cj4gPiA+ID4gMS4gSSB0
-aGluayB3ZSBzaG91bGQgY29tcGxldGVseSBkaXNhYmxlIHJ1bm5pbmcgdGhlIENJIG9uIE1ScyB3
-aGljaAo+ID4gPiA+IGFyZQo+ID4gPiA+IG1hcmtlZCBXSVAuIFNwZWFraW5nIGZyb20gcGVyc29u
-YWwgZXhwZXJpZW5jZSwgSSB1c3VhbGx5IG1ha2UgYSBsb3QKPiA+ID4gPiBvZgo+ID4gPiA+IGNo
-YW5nZXMgdG8gbXkgTVJzIGJlZm9yZSB0aGV5IGFyZSBtZXJnZWQsIHNvIGl0IGlzIGEgd2FzdGUg
-b2YgQ0kKPiA+ID4gPiByZXNvdXJjZXMuCj4gPiA+IAo+ID4gPiBJbiB0aGUgbWVhbiB0aW1lLCB5
-b3UgY2FuIGhlbHAgYnkgdGFraW5nIHRoZSBoYWJpdCB0byB1c2U6Cj4gPiA+IAo+ID4gPiAgIGdp
-dCBwdXNoIC1vIGNpLnNraXAKPiA+IAo+ID4gVGhhbmtzIGZvciB0aGUgYWR2aWNlLCBJIHdhc24n
-dCBhd2FyZSBzdWNoIGFuIG9wdGlvbiBleGlzdHMuIERvZXMgdGhpcwo+ID4gYWxzbyB3b3JrIG9u
-IHRoZSBtZXNhIGdpdGxhYiBvciBpcyB0aGlzIGEgR1N0cmVhbWVyIG9ubHkgdGhpbmc/Cj4gCj4g
-TWVzYSBpcyBhbHJlYWR5IHNldCB1cCBzbyB0aGF0IGl0IG9ubHkgcnVucyBvbiBNUnMgYW5kIGJy
-YW5jaGVzIG5hbWVkCj4gY2ktKiAob3IgbWF5YmUgaXQncyBjaS8qOyBJIGNhbid0IHJlbWVtYmVy
-KS4KPiAKPiA+IEhvdyBoYXJkIHdvdWxkIGl0IGJlIHRvIG1ha2UgdGhpcyB0aGUgZGVmYXVsdD8K
-PiAKPiBJIHN0cm9uZ2x5IHN1Z2dlc3QgbG9va2luZyBhdCBob3cgTWVzYSBkb2VzIGl0IGFuZCBk
-b2luZyB0aGF0IGluCj4gR1N0cmVhbWVyIGlmIHlvdSBjYW4uICBJdCBzZWVtcyB0byB3b3JrIHBy
-ZXR0eSB3ZWxsIGluIE1lc2EuCgpZb3UgYXJlIHJpZ2h0LCB0aGV5IGFkZGVkIENJX01FUkdFX1JF
-UVVFU1RfU09VUkNFX0JSQU5DSF9OQU1FIGluIDExLjYKKHdlIHN0YXJ0ZWQgb3VyIENJIGEgd2hp
-bGUgYWdvKS4gQnV0IHRoZXJlIGlzIGV2ZW4gYmV0dGVyIG5vdywgb3UgY2FuCmRvOgoKICBvbmx5
-OgogICAgcmVmczoKICAgICAgLSBtZXJnZV9yZXF1ZXN0cwoKVGhhbmtzIGZvciB0aGUgaGludCwg
-SSdsbCBzdWdnZXN0IHRoYXQuIEkndmUgbG9va3VwIHNvbWUgb2YgdGhlIGJhY2tlbmQKb2YgbWVz
-YSwgSSB0aGluayBpdCdzIHJlYWxseSBuaWNlLCB0aG91Z2ggdGhlcmUgaXMgYSBsb3Qgb2YgY29u
-Y2VwdAp0aGF0IHdvbid0IHdvcmsgaW4gYSBtdWx0aS1yZXBvIENJLiBBZ2FpbiwgSSBuZWVkIHRv
-IHJlZnJlc2ggb24gd2hhdAp3YXMgbW92ZWQgZnJvbSB0aGUgZW50ZXJwcmlzZSB0byB0aGUgY29t
-bXVuaXR5IHZlcnNpb24gaW4gdGhpcyByZWdhcmQsCgo+IAo+IC0tSmFzb24KPiAKPiAKPiA+ID4g
-VGhhdCdzIGEgbXVjaCBtb3JlIGRpZmZpY3VsdCBnb2FsIHRoZW4gaXQgbG9va3MgbGlrZS4gTGV0
-IGVhY2gKPiA+ID4gcHJvamVjdHMKPiA+ID4gbWFuYWdlIHRoZWlyIENJIGdyYXBoIGFuZCBjb250
-ZW50LCBhcyBlYWNoIGNhc2UgaXMgdW5pcXVlLiBSdW5uaW5nCj4gPiA+IG1vcmUKPiA+ID4gdGVz
-dHMsIG9yIGJ1aWxkaW5nIG1vcmUgY29kZSBpc24ndCB0aGUgbWFpbiBpc3N1ZSBhcyB0aGUgQ1BV
-IHRpbWUgaXMKPiA+ID4gbW9zdGx5IHNwb25zb3JlZC4gVGhlIGRhdGEgdHJhbnNmZXJzIGJldHdl
-ZW4gdGhlIGNsb3VkIG9mIGdpdGxhYiBhbmQKPiA+ID4gdGhlIHJ1bm5lcnMgKHdoaWNoIGFyZSBl
-eHRlcm5hbCksIGFsb25nIHRvIHNlbmRpbmcgT1MgaW1hZ2UgdG8gTGF2YQo+ID4gPiBsYWJzIGlz
-IHdoYXQgaXMgbGlrZWx5IHRoZSBtb3N0IGV4cGVuc2l2ZS4KPiA+ID4gCj4gPiA+IEFzIGl0IHdh
-cyBhbHJlYWR5IG1lbnRpb24gaW4gdGhlIHRocmVhZCwgd2hhdCB3ZSBhcmUgbWlzc2luZyBub3cs
-IGFuZAo+ID4gPiBiZWluZyB3b3JrZWQgb24sIGlzIHBlciBncm91cC9wcm9qZWN0IHN0YXRpc3Rp
-Y3MgdGhhdCBnaXZlIHVzIHRoZQo+ID4gPiBob3RzcG90IHNvIHdlIGNhbiBiZXR0ZXIgdGFyZ2V0
-IHRoZSBvcHRpbWl6YXRpb24gd29yay4KPiA+IAo+ID4gWWVzLCB3b3VsZCBiZSBuaWNlIHRvIGtu
-b3cgd2hhdCB0aGUgaG90c3BvdCBpcywgaW5kZWVkLgo+ID4gCj4gPiBBcyBmYXIgYXMgSSB1bmRl
-cnN0YW5kLCB0aGUgcHJvYmxlbSBpcyBub3QgQ0kgaXRzZWxmLCBidXQgdGhlIGJhbmR3aWR0aAo+
-ID4gbmVlZGVkIGJ5IHRoZSBidWlsZCBhcnRpZmFjdHMsIHJpZ2h0PyBXb3VsZCBpdCBiZSBwb3Nz
-aWJsZSB0byBub3QgaG9zdAo+ID4gdGhlIGJ1aWxkIGFydGlmYWN0cyBvbiB0aGUgZ2l0bGFiLCBi
-dXQgcmF0aGVyIG9ubHkgdGhlIHBsYWNlIHdoZXJlIHRoZQo+ID4gYnVpbGQgYWN0dWFsbHkgaGFw
-cGVuZWQ/IE9yIGF0IGxlYXN0LCBvbmx5IHRyYW5zZmVyIHRoZSBidWlsZCBhcnRpZmFjdHMKPiA+
-IG9uLWRlbWFuZD8KPiA+IAo+ID4gSSdtIG5vdCBleGFjdGx5IGZhbWlsaWFyIHdpdGggaG93IHRo
-ZSBzeXN0ZW0gd29ya3MsIHNvIHNvcnJ5IGlmIHRoaXMgaXMKPiA+IGEgc2lsbHkgcXVlc3Rpb24u
-Cj4gPiAKPiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Cj4gPiBtZXNhLWRldiBtYWlsaW5nIGxpc3QKPiA+IG1lc2EtZGV2QGxpc3RzLmZyZWVkZXNrdG9w
-Lm9yZwo+ID4gaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9t
-ZXNhLWRldgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Fri, 2020-02-28 at 10:43 +0000, Daniel Stone wrote:
+> On Fri, 28 Feb 2020 at 10:06, Erik Faye-Lund
+> <erik.faye-lund@collabora.com> wrote:
+> > On Fri, 2020-02-28 at 11:40 +0200, Lionel Landwerlin wrote:
+> > > Yeah, changes on vulkan drivers or backend compilers should be
+> > > fairly
+> > > sandboxed.
+> > > 
+> > > We also have tools that only work for intel stuff, that should
+> > > never
+> > > trigger anything on other people's HW.
+> > > 
+> > > Could something be worked out using the tags?
+> > 
+> > I think so! We have the pre-defined environment variable
+> > CI_MERGE_REQUEST_LABELS, and we can do variable conditions:
+> > 
+> > https://docs.gitlab.com/ee/ci/yaml/#onlyvariablesexceptvariables
+> > 
+> > That sounds like a pretty neat middle-ground to me. I just hope
+> > that
+> > new pipelines are triggered if new labels are added, because not
+> > everyone is allowed to set labels, and sometimes people forget...
+> 
+> There's also this which is somewhat more robust:
+> https://gitlab.freedesktop.org/mesa/mesa/merge_requests/2569
+
+My 20 cents:
+
+1. I think we should completely disable running the CI on MRs which are
+marked WIP. Speaking from personal experience, I usually make a lot of
+changes to my MRs before they are merged, so it is a waste of CI
+resources.
+
+2. Maybe we could take this one step further and only allow the CI to
+be only triggered manually instead of automatically on every push.
+
+3. I completely agree with Pierre-Eric on MR 2569, let's not run the
+full CI pipeline on every change, only those parts which are affected
+by the change. It not only costs money, but is also frustrating when
+you submit a change and you get unrelated failures from a completely
+unrelated driver.
+
+Best regards,
+Timur
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
