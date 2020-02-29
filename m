@@ -1,63 +1,84 @@
-Return-Path: <SRS0=XGul=4Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=TA90=4R=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B7150C3F2D2
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 23:15:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DE4BDC3F2D3
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Feb 2020 10:13:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 85320246AF
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Feb 2020 23:15:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B4E332468E
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Feb 2020 10:13:41 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iGXs/Lun"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 85320246AF
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dr+DR2Di"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B4E332468E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 496366F51C;
-	Fri, 28 Feb 2020 23:15:19 +0000 (UTC)
-Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
- [IPv6:2607:f8b0:4864:20::72d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F052C6F51C
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 23:15:17 +0000 (UTC)
-Received: by mail-qk1-x72d.google.com with SMTP id o28so4671584qkj.9
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Feb 2020 15:15:17 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CCD26E1D8;
+	Sat, 29 Feb 2020 10:13:22 +0000 (UTC)
+Received: from mail-qv1-xf2f.google.com (mail-qv1-xf2f.google.com
+ [IPv6:2607:f8b0:4864:20::f2f])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15D4F6F501;
+ Sat, 29 Feb 2020 01:52:02 +0000 (UTC)
+Received: by mail-qv1-xf2f.google.com with SMTP id o18so2304426qvf.1;
+ Fri, 28 Feb 2020 17:52:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=eYTrl9LcM+d9QhpSpzccWUFnHmToGstmZ9vJKkbdD3c=;
- b=iGXs/Lun3WBvSF0g5nSmSV0WbDvdJhbgVlK1IOQbDDKybYuBymIgrnpj+QWAuBq89S
- RTAAdqxDIdLyvnsTineepGXuSl6KD13ZG45naeOnsLOfVzQlY0YW9IMBpNZgsyT+N1bp
- hWk6DzQRsLuWZkNtGCUeyXac9gDlROcUXirNko6Y5ThkNcoBTGnsmw7dOxh0S16vVflX
- YGq9YfZ0HGz7XHUx2w2/1U7C75WcoGL4iGJyBOohYQPRtgM6cJdf+z4RyGDGsHGlEDX+
- 36qDvUhMhqwfdxQJhbJ0TMPWB3rhrs1GEekiCx5ntFU9nH2neuuWoLC1+HpPOxa8a95N
- puLA==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=QehzKiv3PwK4QKHln4i5lVby7aEXgChaUChIRuKLYGw=;
+ b=dr+DR2DiuMWTVtOuehGQuDb1Ddfbuhv8EJ0XJH9h0+gVlHys1CTxUuom1VzlwqVsoE
+ PXLe8WMJKzK1IIhXi/bRGPK9rpR2YnO6caU0jMDQCUXec/1TXM0b4B3piE1qEaADFzw2
+ 4HgBet63SGqXWGDnxH0DP0+vAY4YxbNOWsTPlTmuoQPs1+dMuo9bqgoQZS9Do5wyof2J
+ FpIpPj5sxsTFkJ1E48KOcg85Nw7TZMgXSXGNcmQ8PwziUoU1XXGSI0aihkH4zW7Hl2Gd
+ AuJTXRPi3l6mz81br9JajJTGDYuBR5GmwVIdOwcBrvaRk7gnqVQwzYZrzzp4PY0WGnFN
+ lSKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=eYTrl9LcM+d9QhpSpzccWUFnHmToGstmZ9vJKkbdD3c=;
- b=Ov7ZmN7Xy/elXM9S2J6AGlpAcrVdjFF7Xdfolt9HKn2XhaxH5ytaxw5MCCu9Gv+7Fh
- RY4J+7TiW9vH0CMztkF65XfGy2+3cENnYZ9SGfbuwYpD68ycpgMQeLrPZDixMnM+9vQ5
- l7wTYnfq4l/9+TBzp/Ldri/uEyKCX6h/3nLc+ylI1SRRX8ovYQvPYBWlKyAgc8V5VJWJ
- 0HN6APNkqt7RJl2rq4CL0Lhu+TBWnN8iy1Unk/in4YwDflH35ru+BcLECRi4HPPZOiZ0
- mQhP3ytrPSHKvb4yjeG9OKq/nIQ92elUARCk4RAqHavoNqF0lytroRsS0f7cL2kWz3Gs
- HyLw==
-X-Gm-Message-State: APjAAAWmvq+yPVCv1thKdHKgVxBTT9Uu/rLwAV3PxY8TYZk1sn+uXt8X
- YXkiAcdQdENvV7k10/o7QJrA5uX85lb1hjLE/1ddXjSFslg=
-X-Google-Smtp-Source: APXvYqxNOo7vCfTXUMXXEq4XsRaxDTZ3BbhW6GHTnpr9ZNTKoPUzq4JkQol8J9HIQ40zb67W8LpDVXtLdxxbTlGiMQc=
-X-Received: by 2002:a37:b8c2:: with SMTP id i185mr6596040qkf.156.1582931716928; 
- Fri, 28 Feb 2020 15:15:16 -0800 (PST)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=QehzKiv3PwK4QKHln4i5lVby7aEXgChaUChIRuKLYGw=;
+ b=QdtkbsCCH4wZUbGsU+fawcFPRZSemZEiGxyNsz4o8zI/GfCYChmJA2ZCDcpTQGHbHZ
+ LIjpbHyREhMIua3Xp8HdQxxluB/yQvRQw1bjjp8Mp8VH3T1Ik3st3B3UYwKTEOYDdXz1
+ V7HVgO9xmCfQzILolq2HO0J90bCOu1UFby74ld/UE0/SWkaeD2m4EpchKcbcSW9exZyx
+ m/H/9IE1FpWccifOwMCDi2cEyyBu2ekyDOD3rom4ZHyJF9mSwQ79MB+17O5ymYhw+rzv
+ W9vECkLbS14841h7fB6U88ABF4/tl1nNPn9w7Q/L5YYomxKp+qGcPYwqA1BAg13LEyyq
+ DBVg==
+X-Gm-Message-State: APjAAAX1pJZoEqu7+l8CSNKNSfmRGkZyu+av5hYjSQ4JDYS08ix44B8B
+ XAzP2CJlgEFUtlz9aViEkorPxpLfNqc=
+X-Google-Smtp-Source: APXvYqyAM8T/YEH3AjXI47OO0EaKiJ0fRgW7rmxWfPjtrpCTqcvACAJGu4nhbFcNYpV74AGuFJw14A==
+X-Received: by 2002:ad4:5429:: with SMTP id g9mr6007285qvt.134.1582941120710; 
+ Fri, 28 Feb 2020 17:52:00 -0800 (PST)
+Received: from [192.168.1.103] (173-230-163-45.cable.teksavvy.com.
+ [173.230.163.45])
+ by smtp.gmail.com with ESMTPSA id x19sm6017256qtm.47.2020.02.28.17.51.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 28 Feb 2020 17:51:59 -0800 (PST)
+Subject: Re: [Mesa-dev] [Intel-gfx] gitlab.fd.o financial situation and impact
+ on services
+To: Daniel Vetter <daniel.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
+References: <CAKMK7uHHK2SsCfpmZwEUyTJJHsoccKoadoko3cEBOoYDFkmeAw@mail.gmail.com>
+ <CAPM=9txcGPvFdSzMtYZXyqLKnWyacSMuHdoXdV63M53fLFVFpw@mail.gmail.com>
+ <CAPj87rM76W9y_76WUHR35NS3V4_-RFi9ZM3GA=aED3dD3hWYkg@mail.gmail.com>
+ <CAPM=9txN-RKGwinzsSPrmT_xFjS2J_XUhXVsRQ2pSSe529wpEA@mail.gmail.com>
+ <CADaigPUjYZ-Mqd91eyR3Luo=PxLHratUhvodJmCJHf__MnPozA@mail.gmail.com>
+ <CAPM=9tyhoagJmzMtwDKU-rjsCUPjokUp2ECOV0FdbkO5CQdZ2w@mail.gmail.com>
+ <CAKMK7uG-HwYX4M8sSAU6Qee_hUTFZZNHngsR+_K+Ewrqu8=ZDg@mail.gmail.com>
+From: Nicholas Krause <xerofoify@gmail.com>
+Message-ID: <6e2e2770-4302-e3e9-dde4-e378d6573d1c@gmail.com>
+Date: Fri, 28 Feb 2020 20:51:58 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-From: David Brinovec <david.brinovec@gmail.com>
-Date: Fri, 28 Feb 2020 18:15:06 -0500
-Message-ID: <CAGdK0PJB+TBuyqdzJ3VDxnWk9J8_irHD_meHGDx8WSfxHSEx9g@mail.gmail.com>
-Subject: AMD FirePro W5130M radeon/amdgpu driver bug
-To: amd-gfx@lists.freedesktop.org
+In-Reply-To: <CAKMK7uG-HwYX4M8sSAU6Qee_hUTFZZNHngsR+_K+Ewrqu8=ZDg@mail.gmail.com>
+Content-Language: en-US
+X-Mailman-Approved-At: Sat, 29 Feb 2020 10:13:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,99 +90,184 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1632878935=="
+Cc: intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "X.Org development" <xorg-devel@lists.x.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ wayland <wayland-devel@lists.freedesktop.org>,
+ "X.Org Foundation Board" <board@foundation.x.org>,
+ Xorg Members List <members@x.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Mesa Dev <mesa-dev@lists.freedesktop.org>,
+ gstreamer-devel@lists.freedesktop.org
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1632878935==
-Content-Type: multipart/alternative; boundary="000000000000b0f5e5059fab0227"
 
---000000000000b0f5e5059fab0227
-Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+On 2/28/20 4:22 PM, Daniel Vetter wrote:
+> On Fri, Feb 28, 2020 at 9:31 PM Dave Airlie <airlied@gmail.com> wrote:
+>> On Sat, 29 Feb 2020 at 05:34, Eric Anholt <eric@anholt.net> wrote:
+>>> On Fri, Feb 28, 2020 at 12:48 AM Dave Airlie <airlied@gmail.com> wrote:
+>>>> On Fri, 28 Feb 2020 at 18:18, Daniel Stone <daniel@fooishbar.org> wrote:
+>>>>> On Fri, 28 Feb 2020 at 03:38, Dave Airlie <airlied@gmail.com> wrote:
+>>>>>> b) we probably need to take a large step back here.
+>>>>>>
+>>>>>> Look at this from a sponsor POV, why would I give X.org/fd.o
+>>>>>> sponsorship money that they are just giving straight to google to pay
+>>>>>> for hosting credits? Google are profiting in some minor way from these
+>>>>>> hosting credits being bought by us, and I assume we aren't getting any
+>>>>>> sort of discounts here. Having google sponsor the credits costs google
+>>>>>> substantially less than having any other company give us money to do
+>>>>>> it.
+>>>>> The last I looked, Google GCP / Amazon AWS / Azure were all pretty
+>>>>> comparable in terms of what you get and what you pay for them.
+>>>>> Obviously providers like Packet and Digital Ocean who offer bare-metal
+>>>>> services are cheaper, but then you need to find someone who is going
+>>>>> to properly administer the various machines, install decent
+>>>>> monitoring, make sure that more storage is provisioned when we need
+>>>>> more storage (which is basically all the time), make sure that the
+>>>>> hardware is maintained in decent shape (pretty sure one of the fd.o
+>>>>> machines has had a drive in imminent-failure state for the last few
+>>>>> months), etc.
+>>>>>
+>>>>> Given the size of our service, that's a much better plan (IMO) than
+>>>>> relying on someone who a) isn't an admin by trade, b) has a million
+>>>>> other things to do, and c) hasn't wanted to do it for the past several
+>>>>> years. But as long as that's the resources we have, then we're paying
+>>>>> the cloud tradeoff, where we pay more money in exchange for fewer
+>>>>> problems.
+>>>> Admin for gitlab and CI is a full time role anyways. The system is
+>>>> definitely not self sustaining without time being put in by you and
+>>>> anholt still. If we have $75k to burn on credits, and it was diverted
+>>>> to just pay an admin to admin the real hw + gitlab/CI would that not
+>>>> be a better use of the money? I didn't know if we can afford $75k for
+>>>> an admin, but suddenly we can afford it for gitlab credits?
+>>> As I think about the time that I've spent at google in less than a
+>>> year on trying to keep the lights on for CI and optimize our
+>>> infrastructure in the current cloud environment, that's more than the
+>>> entire yearly budget you're talking about here.  Saying "let's just
+>>> pay for people to do more work instead of paying for full-service
+>>> cloud" is not a cost optimization.
+>>>
+>>>
+>>>>> Yes, we could federate everything back out so everyone runs their own
+>>>>> builds and executes those. Tinderbox did something really similar to
+>>>>> that IIRC; not sure if Buildbot does as well. Probably rules out
+>>>>> pre-merge testing, mind.
+>>>> Why? does gitlab not support the model? having builds done in parallel
+>>>> on runners closer to the test runners seems like it should be a thing.
+>>>> I guess artifact transfer would cost less then as a result.
+>>> Let's do some napkin math.  The biggest artifacts cost we have in Mesa
+>>> is probably meson-arm64/meson-arm (60MB zipped from meson-arm64,
+>>> downloaded by 4 freedreno and 6ish lava, about 100 pipelines/day,
+>>> makes ~1.8TB/month ($180 or so).  We could build a local storage next
+>>> to the lava dispatcher so that the artifacts didn't have to contain
+>>> the rootfs that came from the container (~2/3 of the insides of the
+>>> zip file), but that's another service to build and maintain.  Building
+>>> the drivers once locally and storing it would save downloading the
+>>> other ~1/3 of the inside of the zip file, but that requires a big
+>>> enough system to do builds in time.
+>>>
+>>> I'm planning on doing a local filestore for google's lava lab, since I
+>>> need to be able to move our xml files off of the lava DUTs to get the
+>>> xml results we've become accustomed to, but this would not bubble up
+>>> to being a priority for my time if I wasn't doing it anyway.  If it
+>>> takes me a single day to set all this up (I estimate a couple of
+>>> weeks), that costs my employer a lot more than sponsoring the costs of
+>>> the inefficiencies of the system that has accumulated.
+>> I'm not trying to knock the engineering works the CI contributors have
+>> done at all, but I've never seen a real discussion about costs until
+>> now. Engineers aren't accountants.
+>>
+>> The thing we seem to be missing here is fiscal responsibility. I know
+>> this email is us being fiscally responsible, but it's kinda after the
+>> fact.
+>>
+>> I cannot commit my employer to spending a large amount of money (> 0
+>> actually) without a long and lengthy process with checks and bounds.
+>> Can you?
+>>
+>> The X.org board has budgets and procedures as well. I as a developer
+>> of Mesa should not be able to commit the X.org foundation to spending
+>> large amounts of money without checks and bounds.
+>>
+>> The CI infrastructure lacks any checks and bounds. There is no link
+>> between editing .gitlab-ci/* and cashflow. There is no link to me
+>> adding support for a new feature to llvmpipe that blows out test times
+>> (granted it won't affect CI budget but just an example).
+> We're working to get the logging in place to know which projects
+> exactly burn down the money so that we can take specific actions. If
+> needed. So pretty soon you wont be able to just burn down endless
+> amounts of cash with a few gitlab-ci commits. Or at least not for long
+> until we catch you and you either fix things up or CI is gone for your
+> project.
+>
+>> The fact that clouds run on credit means that it's not possible to say
+>> budget 30K and say when that runs out it runs out, you end up getting
+>> bills for ever increasing amounts that you have to cover, with nobody
+>> "responsible" for ever reducing those bills. Higher Faster Further
+>> baby comes to mind.
+> We're working on this, since it's the boards responsibility to be on
+> top of stuff. It's simply that we didn't expect a massive growth of
+> this scale and this quickly, so we're a bit behind on the controlling
+> aspect.
+>
+> Also I guess it wasnt clear, but the board decision yesterday was the
+> stop loss order where we cut the cord (for CI at least). So yeah the
+> short term budget is firmly in place now.
+>
+>> Has X.org actually allocated the remaining cash in it's bank account
+>> to this task previously? Was there plans for this money that can't be
+>> executed now because we have to pay the cloud fees? If we continue to
+>> May and the X.org bank account hits 0, can XDC happen?
+> There's numbers elsewhere in this thread, but if you'd read the
+> original announcement it states that the stop loss would still
+> guarantee that we can pay for everything for at least one year. We're
+> not going to get even close to 0 in the bank account.
+>
+> So yeah XDC happens, and it'll also still happen next year. Also fd.o
+> servers will keep running. The only thing we might need to switch off
+> is the CI support.
+>
+>> Budgeting and cloud is hard, the feedback loops are messy. In the old
+>> system the feedback loop was simple, we don't have admin time or money
+>> for servers we don't get the features, cloud allows us to get the
+>> features and enjoy them and at some point in the future the bill gets
+>> paid by someone else. Credit cards lifestyles all the way.
+> Uh ... where exactly do you get the credit card approach from? SPI is
+> legally not allowed to extend us a credit (we're not a legal org
+> anymore), so if we hit 0 it's out real quick. No credit for us. If SPI
+> isnt on top of that it's their loss (but they're getting pretty good
+> at tracking stuff with the contractor they now have and all that).
+>
+> Which is not going to happen btw, if you've read the announcement mail
+> and all that.
+>
+> Cheers, Daniel
+Sorry to enter mid conversation. You may want to see how the
+GCC test Farm does it or the Yocto Project. I do get their different
+projects but they seem to be managing fine. I'm not sure of
+their funding but I do recall that a lot of the machines I use
+for work on the farm are donated from IBM or some company.
 
-I've been struggling for a long time with an issue I have getting either
-the radeon or the amdgpu drivers to work with the AMD FirePro W5130M
-discrete GPU in my Dell Precision 3510.
+Not sure if you can get a company(ies) to donate some machines
+and store them in a data center like GCC or the Yocto Project,
 
-Most recently I've been loading the drivers once I have the system booted
-with modprobe commands.  This makes things a bit more convenient for
-testing.
-
-I get fairly similar behavior whether I use the radeon driver or the amdgpu
-driver.
-
-I'm able to insert the module but once I start an application that uses it
-for 3D rendering the application typically freezes and sometimes the entire
-system does too.
-
-In my dmesg output I see alot of errors like "ring 0 stalled for more than
-##msec" and "GPU fault detected".
-
-In the past when I've reported bugs, I've been told to try the most recent
-version of the kernel.  I'm wondering if someone can point me to the best
-way to go about that.  As in, is there a good linux distro that I can use
-to build the latest kernel, etc.
-
-Any help or suggestions would be appreciated.
-
-Thanks,
-Dave
-
---000000000000b0f5e5059fab0227
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:verdana,=
-sans-serif;color:#274e13">Hello,</div><div class=3D"gmail_default" style=3D=
-"font-family:verdana,sans-serif;color:#274e13"><br></div><div class=3D"gmai=
-l_default" style=3D"font-family:verdana,sans-serif;color:#274e13">I&#39;ve =
-been struggling for a long time with an issue I have getting either the rad=
-eon or the amdgpu drivers to work with the AMD FirePro W5130M discrete GPU =
-in my Dell Precision 3510.</div><div class=3D"gmail_default" style=3D"font-=
-family:verdana,sans-serif;color:#274e13"><br></div><div class=3D"gmail_defa=
-ult" style=3D"font-family:verdana,sans-serif;color:#274e13">Most recently I=
-&#39;ve been loading the drivers once I have the system booted with modprob=
-e commands.=C2=A0 This makes things a bit more convenient for testing.</div=
-><div class=3D"gmail_default" style=3D"font-family:verdana,sans-serif;color=
-:#274e13"><br></div><div class=3D"gmail_default" style=3D"font-family:verda=
-na,sans-serif;color:#274e13">I get fairly similar behavior whether I use th=
-e radeon driver or the amdgpu driver.</div><div class=3D"gmail_default" sty=
-le=3D"font-family:verdana,sans-serif;color:#274e13"><br></div><div class=3D=
-"gmail_default" style=3D"font-family:verdana,sans-serif;color:#274e13">I&#3=
-9;m able to insert the module but once I start an application that uses it =
-for 3D rendering the application typically freezes and sometimes the entire=
- system does too.</div><div class=3D"gmail_default" style=3D"font-family:ve=
-rdana,sans-serif;color:#274e13"><br></div><div class=3D"gmail_default" styl=
-e=3D"font-family:verdana,sans-serif;color:#274e13">In my dmesg output I see=
- alot of errors like &quot;ring 0 stalled for more than ##msec&quot; and &q=
-uot;GPU fault detected&quot;.</div><div class=3D"gmail_default" style=3D"fo=
-nt-family:verdana,sans-serif;color:#274e13"><br></div><div class=3D"gmail_d=
-efault" style=3D"font-family:verdana,sans-serif;color:#274e13">In the past =
-when I&#39;ve reported bugs, I&#39;ve been told to try the most recent vers=
-ion of the kernel.=C2=A0 I&#39;m wondering if someone can point me to the b=
-est way to go about that.=C2=A0 As in, is there a good linux distro that I =
-can use to build the latest kernel, etc.</div><div class=3D"gmail_default" =
-style=3D"font-family:verdana,sans-serif;color:#274e13"><br></div><div class=
-=3D"gmail_default" style=3D"font-family:verdana,sans-serif;color:#274e13">A=
-ny help or suggestions would be appreciated.<br></div><div class=3D"gmail_d=
-efault" style=3D"font-family:verdana,sans-serif;color:#274e13"><br></div><d=
-iv class=3D"gmail_default" style=3D"font-family:verdana,sans-serif;color:#2=
-74e13">Thanks,</div><div class=3D"gmail_default" style=3D"font-family:verda=
-na,sans-serif;color:#274e13">Dave<br></div></div>
-
---000000000000b0f5e5059fab0227--
-
---===============1632878935==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Nick
+>> Like maybe we can grow up here and find sponsors to cover all of this,
+>> but it still feels a bit backwards from a fiscal pov.
+>>
+>> Again I'm not knocking the work people have done at all, CI is very
+>> valuable to the projects involved, but that doesn't absolve us from
+>> costs.
+>>
+>> Dave.
+>
+>
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1632878935==--
