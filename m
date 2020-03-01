@@ -1,59 +1,59 @@
-Return-Path: <SRS0=TA90=4R=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=OcZx=4S=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3748C3F2CD
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Feb 2020 21:54:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2022C3F2CE
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Mar 2020 05:46:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 81E16222C3
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Feb 2020 21:54:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 980EE21D56
+	for <amd-gfx@archiver.kernel.org>; Sun,  1 Mar 2020 05:46:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=jlekstrand-net.20150623.gappssmtp.com header.i=@jlekstrand-net.20150623.gappssmtp.com header.b="ad9wtX6s"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81E16222C3
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jlekstrand.net
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s4JEFEt0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 980EE21D56
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2006F6E3D3;
-	Sat, 29 Feb 2020 21:54:27 +0000 (UTC)
-Received: from mail-ed1-x535.google.com (mail-ed1-x535.google.com
- [IPv6:2a00:1450:4864:20::535])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27B296E3CE
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Feb 2020 21:54:26 +0000 (UTC)
-Received: by mail-ed1-x535.google.com with SMTP id m13so8157215edb.6
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Feb 2020 13:54:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=jlekstrand-net.20150623.gappssmtp.com; s=20150623;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A49E6E426;
+	Sun,  1 Mar 2020 05:46:15 +0000 (UTC)
+Received: from mail-pl1-x62d.google.com (mail-pl1-x62d.google.com
+ [IPv6:2607:f8b0:4864:20::62d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6986E420;
+ Sun,  1 Mar 2020 05:46:13 +0000 (UTC)
+Received: by mail-pl1-x62d.google.com with SMTP id g6so2890502plt.2;
+ Sat, 29 Feb 2020 21:46:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=AMNxI2RKOwUcPazieul3Yy+ClQQ96T1AC7oQYhKq8LU=;
- b=ad9wtX6s4Rst8oGEGje9rkIp2jhQeFlUFKgdq2WuNz39LUJHV+sffJPpITR0VuqW7d
- T2OjLFRCiS9BshJzSSpYWywM1hW9zTUuI5BPJSJN3dl2TfZ677ZDusdpQhfTR2X5p66H
- 6w3gpG4CGJr+gxVN5o0tdI+tsELJ4yKxjTDeMj6CxAx1sH7RFm4q2rmwqPO8xwxUdLjI
- IiUPVkmkfW/Kx26gczi/1Bbqm4w6aqzeJZtfvJk9VWdzr4XrW7Nj8ye8BeoueqT5+KeM
- a4Kz7ouANKNIqJQHPjZbqVfTmEr0GW231jT+D9aQAmb7kGIxeSNfwKCrTlFhHrT2pYh5
- MfrQ==
+ :cc; bh=BMFva8+eOa5vh3fnHy/a9L8r9X1WjtrkhhfpiOzrz5c=;
+ b=s4JEFEt05s6mpcwTrB3V/VPGd65ZgRxP7oWGdoMf+o1IznVj/+DarhDC9YPj2ZhUrc
+ A54Td41jsBwVNJ+vsOY/8s9H5D/Wys38MGEhrU5A3WNNzDSMGKKKxhbyyIYgA8OC7jjR
+ Og7LalY/Wv7jFjQEi5iVR+9uysUtyYesUnrGSPoA9zdXNnR7Ci0efXRx8YpMfwQ74NjG
+ R5VQiQU271N7l4dhga3PQPlTixjm62NiKM7h2Ye76aPJUGVIW8dSwYqlKD/FbpkEudgd
+ 1Dezu+GyAw1dkYWpf81u9A4zgxXikonV2AvKpuDjOWzkOddbwNXb8Rf7bpaLJ08J5uFC
+ N5tA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=AMNxI2RKOwUcPazieul3Yy+ClQQ96T1AC7oQYhKq8LU=;
- b=DjRFWM33WHZ8UNgP7RV0z24PlyDeQtNCtr//RbwUF+23UG6S21e9ZXVPclF9H2Z/Ba
- a96jwm/t4Y4syZbupY8pEZ4iZL33vDEQMlys09tyffoZmn57NoZw5ZeCRWmK1i6xJE6a
- GceClOrt/WIP5wBsrLlKzgB7Wy7S7ny/VORSQFi72btSMDjVQv8QhlQWb9G21eqIAmrV
- JVwejDNFPd4zrOUNeatYAu0xNorNomROOU4XGUwUwvlCP6jbLugwRUCs2tztynOHFvt4
- zFkvY7EjciL7f+3VbydQvGAM53gRXMSFHAOGLc7NFlDnDNQkfc90F3cNMiO2Y+amAGc1
- TUjw==
-X-Gm-Message-State: APjAAAWSvHmfeI8ADAlwixQ1yPVcFJygE90VnZ6o+eatDespuU0hXkLo
- uUSsqp1Td7i1XPrAIQfN0doYE7HlxdiZyeQM8t58XA==
-X-Google-Smtp-Source: APXvYqwopTVexk7jLz+WFfE8EvkPjw8nA8+eVm2GLLuN9YHJ6uBTPTX058jhQBVEsmj7fIlIxY+jW/0v62K6lAEinZk=
-X-Received: by 2002:a17:906:489:: with SMTP id f9mr9151025eja.27.1583013264636; 
- Sat, 29 Feb 2020 13:54:24 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=BMFva8+eOa5vh3fnHy/a9L8r9X1WjtrkhhfpiOzrz5c=;
+ b=bm26AUOz5AcYXzHT94Xo6RBEuNoDzt8SvT6zUxl7jtywtPudWVehHVM3SZKiH+Qsip
+ NfCnag2NvD4sJz74vryWqqooul4q+qmK75AzXHXQD4UICG+TRAuI3g8uOhXsVE45Qm2e
+ 6fJKSEi3RDlP/PIr5eJg5HkwwgBpxIcmZFM8LD6vKS2xNiaM5rAXFvEn8bEZ883B3ItP
+ YWVIUWa0pqbTVuu3CH2HsT7XgrfmlHaDXQFzbW63s8KGRKeoX6ywKPwc7jVAzrTDJzR6
+ YtJ+2D508bL6DDKA4OjqeQn89v9B4vm0zLFtadZUWR6hiAi7KooIgDnt6Ls7v1h0mGjB
+ DfoA==
+X-Gm-Message-State: APjAAAW6Hy5BGH0HxShZKht48lMkuiGGF4RZRZqF+QdU7NvHfq2BOx/8
+ WDXgOetqLQYvPFOlp8jpj2KMAInI3l9EhJY/BPs=
+X-Google-Smtp-Source: APXvYqxDzPK1Bfz4mrHH3OesFTKhwvaemtm2OM0JFb07CjQ328g4kuHTaUK+kPzJ6RiqsRsjRARYH7P8aUrBu3C3PMI=
+X-Received: by 2002:a17:902:7898:: with SMTP id
+ q24mr11203695pll.164.1583041572643; 
+ Sat, 29 Feb 2020 21:46:12 -0800 (PST)
 MIME-Version: 1.0
 References: <CAKMK7uHHK2SsCfpmZwEUyTJJHsoccKoadoko3cEBOoYDFkmeAw@mail.gmail.com>
  <CAPM=9txcGPvFdSzMtYZXyqLKnWyacSMuHdoXdV63M53fLFVFpw@mail.gmail.com>
@@ -64,13 +64,15 @@ References: <CAKMK7uHHK2SsCfpmZwEUyTJJHsoccKoadoko3cEBOoYDFkmeAw@mail.gmail.com>
  <59f4ea1f13a9a9d37f7801b93061b4ae7dd595e2.camel@gmail.com>
  <d0ef47e45c83b342494e6781b808b4831a008836.camel@ndufresne.ca>
  <d9dca12759fd6a549dc4cd71b5f210a4dced01cd.camel@gmail.com>
-In-Reply-To: <d9dca12759fd6a549dc4cd71b5f210a4dced01cd.camel@gmail.com>
-From: Jason Ekstrand <jason@jlekstrand.net>
-Date: Sat, 29 Feb 2020 15:54:13 -0600
-Message-ID: <CAOFGe96WqRTagf=Lhp6j9aMnB6hxwog7t93t=4r6QE_4f+HpeQ@mail.gmail.com>
+ <CAOFGe96WqRTagf=Lhp6j9aMnB6hxwog7t93t=4r6QE_4f+HpeQ@mail.gmail.com>
+ <5551426acf99f73d3ce8234c14c176c1c7a1fe44.camel@ndufresne.ca>
+In-Reply-To: <5551426acf99f73d3ce8234c14c176c1c7a1fe44.camel@ndufresne.ca>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Sun, 1 Mar 2020 00:46:00 -0500
+Message-ID: <CAAxE2A5zSy7Rh6xyPW8NCqj3q0_8F7yw8tAXx=_z8+mJ-u2uWw@mail.gmail.com>
 Subject: Re: [Mesa-dev] [Intel-gfx] gitlab.fd.o financial situation and impact
  on services
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: Nicolas Dufresne <nicolas@ndufresne.ca>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,64 +85,258 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Erik Faye-Lund <erik.faye-lund@collabora.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
+ Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
  Daniel Vetter <daniel.vetter@ffwll.ch>,
  intel-gfx <intel-gfx@lists.freedesktop.org>,
  "X.Org development" <xorg-devel@lists.x.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Nicolas Dufresne <nicolas@ndufresne.ca>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
  wayland <wayland-devel@lists.freedesktop.org>,
  "X.Org Foundation Board" <board@foundation.x.org>,
  Xorg Members List <members@x.org>,
- Discussion of the development of and with GStreamer
- <gstreamer-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Jason Ekstrand <jason@jlekstrand.net>,
  Mesa Dev <mesa-dev@lists.freedesktop.org>,
- Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
- Daniel Stone <daniel@fooishbar.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Discussion of the development of and with GStreamer
+ <gstreamer-devel@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============1813898956=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gU2F0LCBGZWIgMjksIDIwMjAgYXQgMzo0NyBQTSBUaW11ciBLcmlzdMOzZiA8dGltdXIua3Jp
-c3RvZkBnbWFpbC5jb20+IHdyb3RlOgo+Cj4gT24gU2F0LCAyMDIwLTAyLTI5IGF0IDE0OjQ2IC0w
-NTAwLCBOaWNvbGFzIER1ZnJlc25lIHdyb3RlOgo+ID4gPgo+ID4gPiAxLiBJIHRoaW5rIHdlIHNo
-b3VsZCBjb21wbGV0ZWx5IGRpc2FibGUgcnVubmluZyB0aGUgQ0kgb24gTVJzIHdoaWNoCj4gPiA+
-IGFyZQo+ID4gPiBtYXJrZWQgV0lQLiBTcGVha2luZyBmcm9tIHBlcnNvbmFsIGV4cGVyaWVuY2Us
-IEkgdXN1YWxseSBtYWtlIGEgbG90Cj4gPiA+IG9mCj4gPiA+IGNoYW5nZXMgdG8gbXkgTVJzIGJl
-Zm9yZSB0aGV5IGFyZSBtZXJnZWQsIHNvIGl0IGlzIGEgd2FzdGUgb2YgQ0kKPiA+ID4gcmVzb3Vy
-Y2VzLgo+ID4KPiA+IEluIHRoZSBtZWFuIHRpbWUsIHlvdSBjYW4gaGVscCBieSB0YWtpbmcgdGhl
-IGhhYml0IHRvIHVzZToKPiA+Cj4gPiAgIGdpdCBwdXNoIC1vIGNpLnNraXAKPgo+IFRoYW5rcyBm
-b3IgdGhlIGFkdmljZSwgSSB3YXNuJ3QgYXdhcmUgc3VjaCBhbiBvcHRpb24gZXhpc3RzLiBEb2Vz
-IHRoaXMKPiBhbHNvIHdvcmsgb24gdGhlIG1lc2EgZ2l0bGFiIG9yIGlzIHRoaXMgYSBHU3RyZWFt
-ZXIgb25seSB0aGluZz8KCk1lc2EgaXMgYWxyZWFkeSBzZXQgdXAgc28gdGhhdCBpdCBvbmx5IHJ1
-bnMgb24gTVJzIGFuZCBicmFuY2hlcyBuYW1lZApjaS0qIChvciBtYXliZSBpdCdzIGNpLyo7IEkg
-Y2FuJ3QgcmVtZW1iZXIpLgoKPiBIb3cgaGFyZCB3b3VsZCBpdCBiZSB0byBtYWtlIHRoaXMgdGhl
-IGRlZmF1bHQ/CgpJIHN0cm9uZ2x5IHN1Z2dlc3QgbG9va2luZyBhdCBob3cgTWVzYSBkb2VzIGl0
-IGFuZCBkb2luZyB0aGF0IGluCkdTdHJlYW1lciBpZiB5b3UgY2FuLiAgSXQgc2VlbXMgdG8gd29y
-ayBwcmV0dHkgd2VsbCBpbiBNZXNhLgoKLS1KYXNvbgoKCj4gPiBUaGF0J3MgYSBtdWNoIG1vcmUg
-ZGlmZmljdWx0IGdvYWwgdGhlbiBpdCBsb29rcyBsaWtlLiBMZXQgZWFjaAo+ID4gcHJvamVjdHMK
-PiA+IG1hbmFnZSB0aGVpciBDSSBncmFwaCBhbmQgY29udGVudCwgYXMgZWFjaCBjYXNlIGlzIHVu
-aXF1ZS4gUnVubmluZwo+ID4gbW9yZQo+ID4gdGVzdHMsIG9yIGJ1aWxkaW5nIG1vcmUgY29kZSBp
-c24ndCB0aGUgbWFpbiBpc3N1ZSBhcyB0aGUgQ1BVIHRpbWUgaXMKPiA+IG1vc3RseSBzcG9uc29y
-ZWQuIFRoZSBkYXRhIHRyYW5zZmVycyBiZXR3ZWVuIHRoZSBjbG91ZCBvZiBnaXRsYWIgYW5kCj4g
-PiB0aGUgcnVubmVycyAod2hpY2ggYXJlIGV4dGVybmFsKSwgYWxvbmcgdG8gc2VuZGluZyBPUyBp
-bWFnZSB0byBMYXZhCj4gPiBsYWJzIGlzIHdoYXQgaXMgbGlrZWx5IHRoZSBtb3N0IGV4cGVuc2l2
-ZS4KPiA+Cj4gPiBBcyBpdCB3YXMgYWxyZWFkeSBtZW50aW9uIGluIHRoZSB0aHJlYWQsIHdoYXQg
-d2UgYXJlIG1pc3Npbmcgbm93LCBhbmQKPiA+IGJlaW5nIHdvcmtlZCBvbiwgaXMgcGVyIGdyb3Vw
-L3Byb2plY3Qgc3RhdGlzdGljcyB0aGF0IGdpdmUgdXMgdGhlCj4gPiBob3RzcG90IHNvIHdlIGNh
-biBiZXR0ZXIgdGFyZ2V0IHRoZSBvcHRpbWl6YXRpb24gd29yay4KPgo+IFllcywgd291bGQgYmUg
-bmljZSB0byBrbm93IHdoYXQgdGhlIGhvdHNwb3QgaXMsIGluZGVlZC4KPgo+IEFzIGZhciBhcyBJ
-IHVuZGVyc3RhbmQsIHRoZSBwcm9ibGVtIGlzIG5vdCBDSSBpdHNlbGYsIGJ1dCB0aGUgYmFuZHdp
-ZHRoCj4gbmVlZGVkIGJ5IHRoZSBidWlsZCBhcnRpZmFjdHMsIHJpZ2h0PyBXb3VsZCBpdCBiZSBw
-b3NzaWJsZSB0byBub3QgaG9zdAo+IHRoZSBidWlsZCBhcnRpZmFjdHMgb24gdGhlIGdpdGxhYiwg
-YnV0IHJhdGhlciBvbmx5IHRoZSBwbGFjZSB3aGVyZSB0aGUKPiBidWlsZCBhY3R1YWxseSBoYXBw
-ZW5lZD8gT3IgYXQgbGVhc3QsIG9ubHkgdHJhbnNmZXIgdGhlIGJ1aWxkIGFydGlmYWN0cwo+IG9u
-LWRlbWFuZD8KPgo+IEknbSBub3QgZXhhY3RseSBmYW1pbGlhciB3aXRoIGhvdyB0aGUgc3lzdGVt
-IHdvcmtzLCBzbyBzb3JyeSBpZiB0aGlzIGlzCj4gYSBzaWxseSBxdWVzdGlvbi4KPgo+IF9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gbWVzYS1kZXYgbWFp
-bGluZyBsaXN0Cj4gbWVzYS1kZXZAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9tZXNhLWRldgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+--===============1813898956==
+Content-Type: multipart/alternative; boundary="0000000000009a29a5059fc49643"
+
+--0000000000009a29a5059fc49643
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+For Mesa, we could run CI only when Marge pushes, so that it's a strictly
+pre-merge CI.
+
+Marek
+
+On Sat., Feb. 29, 2020, 17:20 Nicolas Dufresne, <nicolas@ndufresne.ca>
+wrote:
+
+> Le samedi 29 f=C3=A9vrier 2020 =C3=A0 15:54 -0600, Jason Ekstrand a =C3=
+=A9crit :
+> > On Sat, Feb 29, 2020 at 3:47 PM Timur Krist=C3=B3f <timur.kristof@gmail=
+.com>
+> wrote:
+> > > On Sat, 2020-02-29 at 14:46 -0500, Nicolas Dufresne wrote:
+> > > > > 1. I think we should completely disable running the CI on MRs whi=
+ch
+> > > > > are
+> > > > > marked WIP. Speaking from personal experience, I usually make a l=
+ot
+> > > > > of
+> > > > > changes to my MRs before they are merged, so it is a waste of CI
+> > > > > resources.
+> > > >
+> > > > In the mean time, you can help by taking the habit to use:
+> > > >
+> > > >   git push -o ci.skip
+> > >
+> > > Thanks for the advice, I wasn't aware such an option exists. Does thi=
+s
+> > > also work on the mesa gitlab or is this a GStreamer only thing?
+> >
+> > Mesa is already set up so that it only runs on MRs and branches named
+> > ci-* (or maybe it's ci/*; I can't remember).
+> >
+> > > How hard would it be to make this the default?
+> >
+> > I strongly suggest looking at how Mesa does it and doing that in
+> > GStreamer if you can.  It seems to work pretty well in Mesa.
+>
+> You are right, they added CI_MERGE_REQUEST_SOURCE_BRANCH_NAME in 11.6
+> (we started our CI a while ago). But there is even better now, ou can
+> do:
+>
+>   only:
+>     refs:
+>       - merge_requests
+>
+> Thanks for the hint, I'll suggest that. I've lookup some of the backend
+> of mesa, I think it's really nice, though there is a lot of concept
+> that won't work in a multi-repo CI. Again, I need to refresh on what
+> was moved from the enterprise to the community version in this regard,
+>
+> >
+> > --Jason
+> >
+> >
+> > > > That's a much more difficult goal then it looks like. Let each
+> > > > projects
+> > > > manage their CI graph and content, as each case is unique. Running
+> > > > more
+> > > > tests, or building more code isn't the main issue as the CPU time i=
+s
+> > > > mostly sponsored. The data transfers between the cloud of gitlab an=
+d
+> > > > the runners (which are external), along to sending OS image to Lava
+> > > > labs is what is likely the most expensive.
+> > > >
+> > > > As it was already mention in the thread, what we are missing now, a=
+nd
+> > > > being worked on, is per group/project statistics that give us the
+> > > > hotspot so we can better target the optimization work.
+> > >
+> > > Yes, would be nice to know what the hotspot is, indeed.
+> > >
+> > > As far as I understand, the problem is not CI itself, but the bandwid=
+th
+> > > needed by the build artifacts, right? Would it be possible to not hos=
+t
+> > > the build artifacts on the gitlab, but rather only the place where th=
+e
+> > > build actually happened? Or at least, only transfer the build artifac=
+ts
+> > > on-demand?
+> > >
+> > > I'm not exactly familiar with how the system works, so sorry if this =
+is
+> > > a silly question.
+> > >
+> > > _______________________________________________
+> > > mesa-dev mailing list
+> > > mesa-dev@lists.freedesktop.org
+> > > https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+>
+> _______________________________________________
+> mesa-dev mailing list
+> mesa-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+>
+
+--0000000000009a29a5059fc49643
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">For Mesa, we could run CI only when Marge pushes, so that=
+ it&#39;s a strictly pre-merge CI.<div dir=3D"auto"><br></div><div dir=3D"a=
+uto">Marek</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Sat., Feb. 29, 2020, 17:20 Nicolas Dufresne, &lt;<a href=
+=3D"mailto:nicolas@ndufresne.ca">nicolas@ndufresne.ca</a>&gt; wrote:<br></d=
+iv><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left=
+:1px #ccc solid;padding-left:1ex">Le samedi 29 f=C3=A9vrier 2020 =C3=A0 15:=
+54 -0600, Jason Ekstrand a =C3=A9crit :<br>
+&gt; On Sat, Feb 29, 2020 at 3:47 PM Timur Krist=C3=B3f &lt;<a href=3D"mail=
+to:timur.kristof@gmail.com" target=3D"_blank" rel=3D"noreferrer">timur.kris=
+tof@gmail.com</a>&gt; wrote:<br>
+&gt; &gt; On Sat, 2020-02-29 at 14:46 -0500, Nicolas Dufresne wrote:<br>
+&gt; &gt; &gt; &gt; 1. I think we should completely disable running the CI =
+on MRs which<br>
+&gt; &gt; &gt; &gt; are<br>
+&gt; &gt; &gt; &gt; marked WIP. Speaking from personal experience, I usuall=
+y make a lot<br>
+&gt; &gt; &gt; &gt; of<br>
+&gt; &gt; &gt; &gt; changes to my MRs before they are merged, so it is a wa=
+ste of CI<br>
+&gt; &gt; &gt; &gt; resources.<br>
+&gt; &gt; &gt; <br>
+&gt; &gt; &gt; In the mean time, you can help by taking the habit to use:<b=
+r>
+&gt; &gt; &gt; <br>
+&gt; &gt; &gt;=C2=A0 =C2=A0git push -o ci.skip<br>
+&gt; &gt; <br>
+&gt; &gt; Thanks for the advice, I wasn&#39;t aware such an option exists. =
+Does this<br>
+&gt; &gt; also work on the mesa gitlab or is this a GStreamer only thing?<b=
+r>
+&gt; <br>
+&gt; Mesa is already set up so that it only runs on MRs and branches named<=
+br>
+&gt; ci-* (or maybe it&#39;s ci/*; I can&#39;t remember).<br>
+&gt; <br>
+&gt; &gt; How hard would it be to make this the default?<br>
+&gt; <br>
+&gt; I strongly suggest looking at how Mesa does it and doing that in<br>
+&gt; GStreamer if you can.=C2=A0 It seems to work pretty well in Mesa.<br>
+<br>
+You are right, they added CI_MERGE_REQUEST_SOURCE_BRANCH_NAME in 11.6<br>
+(we started our CI a while ago). But there is even better now, ou can<br>
+do:<br>
+<br>
+=C2=A0 only:<br>
+=C2=A0 =C2=A0 refs:<br>
+=C2=A0 =C2=A0 =C2=A0 - merge_requests<br>
+<br>
+Thanks for the hint, I&#39;ll suggest that. I&#39;ve lookup some of the bac=
+kend<br>
+of mesa, I think it&#39;s really nice, though there is a lot of concept<br>
+that won&#39;t work in a multi-repo CI. Again, I need to refresh on what<br=
+>
+was moved from the enterprise to the community version in this regard,<br>
+<br>
+&gt; <br>
+&gt; --Jason<br>
+&gt; <br>
+&gt; <br>
+&gt; &gt; &gt; That&#39;s a much more difficult goal then it looks like. Le=
+t each<br>
+&gt; &gt; &gt; projects<br>
+&gt; &gt; &gt; manage their CI graph and content, as each case is unique. R=
+unning<br>
+&gt; &gt; &gt; more<br>
+&gt; &gt; &gt; tests, or building more code isn&#39;t the main issue as the=
+ CPU time is<br>
+&gt; &gt; &gt; mostly sponsored. The data transfers between the cloud of gi=
+tlab and<br>
+&gt; &gt; &gt; the runners (which are external), along to sending OS image =
+to Lava<br>
+&gt; &gt; &gt; labs is what is likely the most expensive.<br>
+&gt; &gt; &gt; <br>
+&gt; &gt; &gt; As it was already mention in the thread, what we are missing=
+ now, and<br>
+&gt; &gt; &gt; being worked on, is per group/project statistics that give u=
+s the<br>
+&gt; &gt; &gt; hotspot so we can better target the optimization work.<br>
+&gt; &gt; <br>
+&gt; &gt; Yes, would be nice to know what the hotspot is, indeed.<br>
+&gt; &gt; <br>
+&gt; &gt; As far as I understand, the problem is not CI itself, but the ban=
+dwidth<br>
+&gt; &gt; needed by the build artifacts, right? Would it be possible to not=
+ host<br>
+&gt; &gt; the build artifacts on the gitlab, but rather only the place wher=
+e the<br>
+&gt; &gt; build actually happened? Or at least, only transfer the build art=
+ifacts<br>
+&gt; &gt; on-demand?<br>
+&gt; &gt; <br>
+&gt; &gt; I&#39;m not exactly familiar with how the system works, so sorry =
+if this is<br>
+&gt; &gt; a silly question.<br>
+&gt; &gt; <br>
+&gt; &gt; _______________________________________________<br>
+&gt; &gt; mesa-dev mailing list<br>
+&gt; &gt; <a href=3D"mailto:mesa-dev@lists.freedesktop.org" target=3D"_blan=
+k" rel=3D"noreferrer">mesa-dev@lists.freedesktop.org</a><br>
+&gt; &gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/mesa-de=
+v" rel=3D"noreferrer noreferrer" target=3D"_blank">https://lists.freedeskto=
+p.org/mailman/listinfo/mesa-dev</a><br>
+<br>
+_______________________________________________<br>
+mesa-dev mailing list<br>
+<a href=3D"mailto:mesa-dev@lists.freedesktop.org" target=3D"_blank" rel=3D"=
+noreferrer">mesa-dev@lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/mesa-dev" rel=3D"=
+noreferrer noreferrer" target=3D"_blank">https://lists.freedesktop.org/mail=
+man/listinfo/mesa-dev</a><br>
+</blockquote></div>
+
+--0000000000009a29a5059fc49643--
+
+--===============1813898956==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1813898956==--
