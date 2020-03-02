@@ -6,46 +6,46 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
 	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA0ACC3F2CD
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 18:43:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C425C3F2D7
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 18:43:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BFBB52072A
+	by mail.kernel.org (Postfix) with ESMTPS id E7CE32166E
 	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 18:43:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="sm6R1T0r"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BFBB52072A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="yfDuhi0s"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E7CE32166E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A8026E5D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B624A6E7DB;
 	Mon,  2 Mar 2020 18:43:37 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 668796E439
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Mar 2020 18:40:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22E126E439
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Mar 2020 18:42:01 +0000 (UTC)
 Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
  [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A5B6F21D56;
- Mon,  2 Mar 2020 18:40:54 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 86E522166E;
+ Mon,  2 Mar 2020 18:42:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1583174455;
- bh=3T+/ee4Wt8L4PUjtzfdQ0VqtUWqKv+uZZJEe6H/hdKs=;
+ s=default; t=1583174521;
+ bh=Y4j4n/J6VQDlNyMVXS4FrVaeOjmLifYVOHHO+jz5LLg=;
  h=Subject:To:Cc:From:Date:From;
- b=sm6R1T0rW9I+sj+ITaHAP4XFWDaSVnLOjlpNKXxPwRQQxpCewwv5vqaD6xtokFE2p
- don0sYsStZ3Qwzk+odCpRbGP2C4gVMISUxloQGP1FvhB/fOY1mQRMwLvcSjilFXuhF
- sr3FQWMC2FaZOZ2MYAbl88fTwYupAordvweKkOF0=
+ b=yfDuhi0sFno01NcTNfoYspwdmcsOfIOsxMNaTh74FUo67w+seq2E2cWuD8/d1a/kb
+ zviDfq9BNpap3r8AcYbAdznJXixhVJDwPsmu6Sk1qXSE/C2JvDGzOwd73sDYpjGjkf
+ 90IpaTBqPAA8favQyCIl5RVG1u4PI71VRMECUhEM=
 Subject: Patch "drm/radeon: Inline drm_get_pci_dev" has been added to the
- 5.4-stable tree
+ 5.5-stable tree
 To: David1.Zhou@amd.com, alexander.deucher@amd.com,
  amd-gfx@lists.freedesktop.org, christian.koenig@amd.com,
  daniel.vetter@ffwll.ch, daniel.vetter@intel.com, emil.velikov@collabora.com,
  gregkh@linuxfoundation.org
 From: <gregkh@linuxfoundation.org>
-Date: Mon, 02 Mar 2020 19:40:13 +0100
-Message-ID: <158317441222011@kroah.com>
+Date: Mon, 02 Mar 2020 19:40:36 +0100
+Message-ID: <1583174436345@kroah.com>
 MIME-Version: 1.0
 X-stable: commit
 X-Patchwork-Hint: ignore 
@@ -69,11 +69,11 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 ClRoaXMgaXMgYSBub3RlIHRvIGxldCB5b3Uga25vdyB0aGF0IEkndmUganVzdCBhZGRlZCB0aGUg
 cGF0Y2ggdGl0bGVkCgogICAgZHJtL3JhZGVvbjogSW5saW5lIGRybV9nZXRfcGNpX2RldgoKdG8g
-dGhlIDUuNC1zdGFibGUgdHJlZSB3aGljaCBjYW4gYmUgZm91bmQgYXQ6CiAgICBodHRwOi8vd3d3
+dGhlIDUuNS1zdGFibGUgdHJlZSB3aGljaCBjYW4gYmUgZm91bmQgYXQ6CiAgICBodHRwOi8vd3d3
 Lmtlcm5lbC5vcmcvZ2l0Lz9wPWxpbnV4L2tlcm5lbC9naXQvc3RhYmxlL3N0YWJsZS1xdWV1ZS5n
 aXQ7YT1zdW1tYXJ5CgpUaGUgZmlsZW5hbWUgb2YgdGhlIHBhdGNoIGlzOgogICAgIGRybS1yYWRl
 b24taW5saW5lLWRybV9nZXRfcGNpX2Rldi5wYXRjaAphbmQgaXQgY2FuIGJlIGZvdW5kIGluIHRo
-ZSBxdWV1ZS01LjQgc3ViZGlyZWN0b3J5LgoKSWYgeW91LCBvciBhbnlvbmUgZWxzZSwgZmVlbHMg
+ZSBxdWV1ZS01LjUgc3ViZGlyZWN0b3J5LgoKSWYgeW91LCBvciBhbnlvbmUgZWxzZSwgZmVlbHMg
 aXQgc2hvdWxkIG5vdCBiZSBhZGRlZCB0byB0aGUgc3RhYmxlIHRyZWUsCnBsZWFzZSBsZXQgPHN0
 YWJsZUB2Z2VyLmtlcm5lbC5vcmc+IGtub3cgYWJvdXQgaXQuCgoKRnJvbSBlYjEyYzk1NzczNWI1
 ODI2MDdlNTg0MmEwNmQxZjRjNjJlMTg1YzFkIE1vbiBTZXAgMTcgMDA6MDA6MDAgMjAwMQpGcm9t
@@ -127,8 +127,8 @@ Kwl9CisKKwlyZXQgPSBkcm1fZGV2X3JlZ2lzdGVyKGRldiwgZW50LT5kcml2ZXJfZGF0YSk7CisJ
 aWYgKHJldCkKKwkJZ290byBlcnJfYWdwOworCisJcmV0dXJuIDA7CisKK2Vycl9hZ3A6CisJaWYg
 KGRldi0+YWdwKQorCQlhcmNoX3BoeXNfd2NfZGVsKGRldi0+YWdwLT5hZ3BfbXRycik7CisJa2Zy
 ZWUoZGV2LT5hZ3ApOworCXBjaV9kaXNhYmxlX2RldmljZShwZGV2KTsKK2Vycl9mcmVlOgorCWRy
-bV9kZXZfcHV0KGRldik7CisJcmV0dXJuIHJldDsKIH0KIAogc3RhdGljIHZvaWQKQEAgLTU3OCw3
-ICs2MTcsNyBAQCByYWRlb25fZ2V0X2NydGNfc2Nhbm91dF9wb3NpdGlvbihzdHJ1Y3QKIAogc3Rh
+bV9kZXZfcHV0KGRldik7CisJcmV0dXJuIHJldDsKIH0KIAogc3RhdGljIHZvaWQKQEAgLTU3NSw3
+ICs2MTQsNyBAQCByYWRlb25fZ2V0X2NydGNfc2Nhbm91dF9wb3NpdGlvbihzdHJ1Y3QKIAogc3Rh
 dGljIHN0cnVjdCBkcm1fZHJpdmVyIGttc19kcml2ZXIgPSB7CiAJLmRyaXZlcl9mZWF0dXJlcyA9
 Ci0JICAgIERSSVZFUl9VU0VfQUdQIHwgRFJJVkVSX0dFTSB8IERSSVZFUl9SRU5ERVIsCisJICAg
 IERSSVZFUl9HRU0gfCBEUklWRVJfUkVOREVSLAogCS5sb2FkID0gcmFkZW9uX2RyaXZlcl9sb2Fk
@@ -144,8 +144,8 @@ dik7CiAJcmFkZW9uX2RldmljZV9maW5pKHJkZXYpOwogCisJaWYgKGRldi0+YWdwKQorCQlhcmNo
 X3BoeXNfd2NfZGVsKGRldi0+YWdwLT5hZ3BfbXRycik7CisJa2ZyZWUoZGV2LT5hZ3ApOworCWRl
 di0+YWdwID0gTlVMTDsKKwogZG9uZV9mcmVlOgogCWtmcmVlKHJkZXYpOwogCWRldi0+ZGV2X3By
 aXZhdGUgPSBOVUxMOwoKClBhdGNoZXMgY3VycmVudGx5IGluIHN0YWJsZS1xdWV1ZSB3aGljaCBt
-aWdodCBiZSBmcm9tIGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2ggYXJlCgpxdWV1ZS01LjQvZHJtLXJh
-ZGVvbi1pbmxpbmUtZHJtX2dldF9wY2lfZGV2LnBhdGNoCnF1ZXVlLTUuNC9kcm0tYW1kZ3B1LWRy
+aWdodCBiZSBmcm9tIGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2ggYXJlCgpxdWV1ZS01LjUvZHJtLXJh
+ZGVvbi1pbmxpbmUtZHJtX2dldF9wY2lfZGV2LnBhdGNoCnF1ZXVlLTUuNS9kcm0tYW1kZ3B1LWRy
 b3AtZHJpdmVyX3VzZV9hZ3AucGF0Y2gKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
 X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
 a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
