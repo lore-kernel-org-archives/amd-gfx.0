@@ -2,98 +2,108 @@ Return-Path: <SRS0=ZiRI=4T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 392E6C3F2CD
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 01:39:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2954DC3F2D1
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 01:57:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AE43624699
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 01:39:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EEE392468D
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 01:57:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="i2/+MOE4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE43624699
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="MV5cpKy3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EEE392468D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE1116E048;
-	Mon,  2 Mar 2020 01:39:50 +0000 (UTC)
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690073.outbound.protection.outlook.com [40.107.69.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AA656E048
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Mar 2020 01:39:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B606C6E048;
+	Mon,  2 Mar 2020 01:57:23 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2071.outbound.protection.outlook.com [40.107.92.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 609F26E048
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Mar 2020 01:57:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KIET01MR6cIGZyws9CLjxKwCNz0Vcbbzg/jWWS7XrGlSqXj7G1ew6NTEgqPuLoEfAM9sao54cCoTuaFvRa6hiwZ9QijjCGppCPH8OrS/42thKg05YVsOGuedwzdxuMjAsA3EPtybGXKmeyHNpvtrpRUyPa9xitZ4wse4wbiF0GHNz9tw2R6RSS4PXaXCInmseh1EA7lowCr+B+ReiIWnpEZFeLRH2Dy9hJWwgnGiMQEO9lT5EoPhsAt6QfS2GGM5XqpuUklU0W2ZBwqKEHQlbYqK0hgk+m/gIno/Eb6RUP7fTyztVctjJkEZhPiV3Lc81W/waBDkwup1MZ8PeM/EgQ==
+ b=Bhi6PraOPmQse50gQ8sf+w50/dxzCklP1LfILt5i4sOuWZ0eNKMObSPaAF6YjD3PEUDfNtOoBevc047IwVPigtsVQugfzVjSQrwJiv7smADSaHhwxOeu7NHfjNnQMnxehBvahAjeBgSBhdC229DLG2RzaIf2BDv7SgpuTS9A00iNfBqoctk6C3WKycsLpYECJDOqQQsy6M2CXQzz5I8z5FG9ju4it7O4W3l0PohisnHH/7kZJz7PlpALTDvdLGeFkSIpxtiK24ESA2vyYsMWWELn/xzlMEkcDHeGMKYFoC5YnGiwD7y3uPfDBgOiFaz7VIsR0n0juc3xiHpHGEPPEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HoPZ8BiU/Xghpt/1Ysu4dEx5J0EAW+nbwTfNoJ7g+B0=;
- b=aiB+oWSQQQGx+/ISMH5DTL6KCSXNCwWPKNSvUn4H6t2UHN7iJBq/Kd8sslrUZVvREOlGYfufRgkLgSR4iWCFUlV6/ARDkrJgbNs3yT3f44M3PIYTDE5sJTM0anz5ac8u6gbrJK/j8rJkZnzrFUINRge6z/TwSdWcnAJH0YSD496CEelXGi5cLAw771qgvlkoa4msfl5EyGzNtJYVEbKRE54R3a5bOma/92NZ5J6oBJE1wY9m/fnjCKG50fGAh0qs7rD/BW0ksJ5Oj9TonTkIgRsvHKhGu+ci55bhK+AFEXvHWW9pHnJoTVge1iLNWhPCUEy0n217ntvaY+vUBq/xCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=xS7eOUjyVI7ybfUwNLkuzSCae7dUVy0PPtLXbE43XEo=;
+ b=oNjJ2ch8VmdMPX7lCTWUQX3LZDn0FqlAfm7dCwE95wVruXZ7dbiDXuGd4UNarwZrCvlsMLJI8GPj0Zb0pjf97Z8D2stJEaHi4LZalmTrwCvUoyWWVlfvqe6HglMIAdfJcuoIuNHRVHx9KpjosluKoYVQ7T+B+K+QGN7uhqj+rxLrT/s1Tjn02l91SkVEJq1XZiRxcJaspIsEPWxX0rm3vlHmYsAdnLlOQEUuzxahN6tuoNoyPOxNyiUqSjEAQnv4IXNYoDLTVK5qny7O4+lb3jLHl1MBYcSG60dQFRSRcOo3lrT86VODlplnA/sjhma56llc6cmX/lRzK+NQdtmrgw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HoPZ8BiU/Xghpt/1Ysu4dEx5J0EAW+nbwTfNoJ7g+B0=;
- b=i2/+MOE4hyHfbC7oD8MCW1EvY9EDJc+NtCxuThETTFzW0fktBeYYiIPt68SG8aygc4hUwA7Pwrq7vMAYvG0H/Kn0W/9bhqs/+sTq1PZ5LN9Q7MmB+UymOvtBQ+qUEb15GijYbw24lqC1Zz1ZwiltPG7siHAvUAii5r/p8lrNpvQ=
-Received: from MN2PR12MB3933.namprd12.prod.outlook.com (2603:10b6:208:162::18)
- by MN2PR12MB3199.namprd12.prod.outlook.com (2603:10b6:208:ae::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15; Mon, 2 Mar
- 2020 01:39:48 +0000
-Received: from MN2PR12MB3933.namprd12.prod.outlook.com
- ([fe80::4905:91cf:ae95:6ffb]) by MN2PR12MB3933.namprd12.prod.outlook.com
- ([fe80::4905:91cf:ae95:6ffb%7]) with mapi id 15.20.2772.019; Mon, 2 Mar 2020
- 01:39:48 +0000
-From: "Liu, Monk" <Monk.Liu@amd.com>
-To: "Dhume, Samir" <Samir.Dhume@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: Rearm IRQ in Navi10 SR-IOV if IRQ lost
-Thread-Topic: [PATCH] drm/amdgpu: Rearm IRQ in Navi10 SR-IOV if IRQ lost
-Thread-Index: AQHV3SgKUffgTmaXsEKcG2UQUZKULag0q/gw
-Date: Mon, 2 Mar 2020 01:39:47 +0000
-Message-ID: <MN2PR12MB3933522A78B2044202C4713D84E70@MN2PR12MB3933.namprd12.prod.outlook.com>
-References: <20200206195935.36365-1-samir.dhume@amd.com>
-In-Reply-To: <20200206195935.36365-1-samir.dhume@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Monk.Liu@amd.com; 
-x-originating-ip: [180.167.199.182]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: d62cf453-d109-4aae-b73b-08d7be4a97df
-x-ms-traffictypediagnostic: MN2PR12MB3199:|MN2PR12MB3199:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB3199C0D1F5CA6952EA6384B584E70@MN2PR12MB3199.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1186;
-x-forefront-prvs: 033054F29A
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(396003)(376002)(346002)(39860400002)(366004)(189003)(199004)(2906002)(966005)(8936002)(9686003)(55016002)(81166006)(81156014)(8676002)(45080400002)(86362001)(478600001)(6506007)(7696005)(26005)(316002)(110136005)(186003)(33656002)(53546011)(52536014)(5660300002)(66946007)(76116006)(66446008)(64756008)(66556008)(66476007)(71200400001)(4326008)(21314003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3199;
- H:MN2PR12MB3933.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+ bh=xS7eOUjyVI7ybfUwNLkuzSCae7dUVy0PPtLXbE43XEo=;
+ b=MV5cpKy3euPGzVhj3ZEHhtT0RQeCdE04MbLq6TWkPZifa2RZq7s2LS4FTw2BtgDh0Q6Xu9HvPoTReiCCIXMgjSTRHlTPEgWVu8L9GVja2nxRQuJIVzkjIG0j6OaasblWi1cuJr426mdb1csZcBE0WB5MQWB09ahiVf4MHx2UUP0=
+Received: from MWHPR1601CA0011.namprd16.prod.outlook.com
+ (2603:10b6:300:da::21) by MN2PR12MB3520.namprd12.prod.outlook.com
+ (2603:10b6:208:100::28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.18; Mon, 2 Mar
+ 2020 01:57:19 +0000
+Received: from CO1NAM11FT011.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:da:cafe::22) by MWHPR1601CA0011.outlook.office365.com
+ (2603:10b6:300:da::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.16 via Frontend
+ Transport; Mon, 2 Mar 2020 01:57:19 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: euEh5T31aQ7HdxPwM8HrrSkaT7UEo3NCn3kajrojnG6Q9brwLb58x7Jaap4iHW6azyOA1mJ1xruWpVHKv0h3lzZ/zEovbN81QiIOVCQHYESJ5F+Mro3eD4LkCdfXgUVwlp1+IBFgH/id75p/+hvGPDKgncQXeQx0XXVIrvHgwAdAQq0wh9C+R5dHigspwD+4dXaWWV1S3eUguTLyik50ZekRox+ERyVj5HJx3jwWpMxx4Gca6SSDZ50OaeN6vxMMxCE6iAbLpWmfh9Ufk4GvquT6GdNlaHBcqxMH46edpVcfgcgDcF2op+YRXCYY1v4b/aoVCx4CFRp0r+zyWh7Uqo+OJhWHR+ae1S8sfW+jkdutuy8PusPoVLiWHEheKPFGbpry+bE0ppL1YUBPO0hpJLWayxWX9wFvuVziyJsJtf5LLsccS71sFnM7/TGVvB6B2mql0Pb67m0O/mg4Hd76Q1y88gTCc0WM+lKy3jCKUGfmGA5xKXU+if62HxCxidYV+3EvqIOSp4MEzcDpH8CawA==
-x-ms-exchange-antispam-messagedata: 7OhpsT9QbKygraSYFqz8G2jqfsv/gtpQppNM+vZ6JaTwvNrGM5KkC6Z0iEyM4kMYo/uttEHp/TGGknUcdCW0irKAyNYXSzjsxYinHg2wZ+lzkyiD7PetH6p3rN/KJiw02X0Hw4JU/nkQnVUvRPLPlA==
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT011.mail.protection.outlook.com (10.13.175.186) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2772.14 via Frontend Transport; Mon, 2 Mar 2020 01:57:19 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Sun, 1 Mar 2020
+ 19:57:18 -0600
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Sun, 1 Mar 2020
+ 19:57:17 -0600
+Received: from rico-code.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Sun, 1 Mar 2020 19:57:15 -0600
+From: Tianci Yin <tianci.yin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: disable 3D pipe 1 on Navi1x
+Date: Mon, 2 Mar 2020 09:57:13 +0800
+Message-ID: <20200302015713.14355-1-tianci.yin@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(136003)(376002)(346002)(39860400002)(428003)(199004)(189003)(7696005)(8936002)(6916009)(8676002)(70586007)(1076003)(5660300002)(81166006)(81156014)(70206006)(426003)(336012)(36756003)(478600001)(26005)(356004)(2616005)(316002)(54906003)(4326008)(2906002)(86362001)(186003)(44832011)(32563001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3520; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 98c89720-5032-4e7f-554f-08d7be4d0a60
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3520:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3520DB1DF0EB874C3F54A8A695E70@MN2PR12MB3520.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:758;
+X-Forefront-PRVS: 033054F29A
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: yrHnkUw1wRzG1sU9H+Ci2UWtIL4ZExeVBCDsh7/mCfALANMonTK4Ku8m9+1u28Ck6WzSmoIxAk7sLRsmZCBA4cZQql7i2fwzkTGyt4TJRQTvvj/2lRzwIHahnoj8VHXGqJlZkVS2fWYOT5QJWKhvW4pQfmI3Vy9BBsxCf6wk65FSFC9hZNEs/ncRD6IKYvKysXqZ4Ac/MlK9MHMo+KEqoXvuNz6ngkciuX7+Ntzb64rvE4/o0d3f4XxqdrEvH/FQ7uOs4Xb0a271KFXwulGuYKtPE5fYMkb1RC0lZiHsM2DimFVJ3pEgnZStQVry2vrOt1KQEfFInUXME7+ounLha/5LzhYWtfX/O3oGfZ+C/mMS6ifmg5S+fbAf5gdhVzQcmZWaUEZq2+XL0tJ8SkQvYohnjxawGB4HtfzwctR/BbM5oSdx8ptLeyJZN2Fjhc9mqMzg1Nk1SVrM9OtNe0wqW5CqoPX7hQUVv4SbzdyL1jkrc7WYCbiaVO/xV75loFPl
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d62cf453-d109-4aae-b73b-08d7be4a97df
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Mar 2020 01:39:48.0173 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eGmNLuKTPqms+gR7+MHiC/eXA1o2QLVeoo1tCG72JvP9m6RgqqB3R+PGA5d5IB48
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3199
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2020 01:57:19.0450 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98c89720-5032-4e7f-554f-08d7be4d0a60
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3520
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,111 +115,172 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Dhume, Samir" <Samir.Dhume@amd.com>
+Cc: Long Gang <Gang.Long@amd.com>, Pauline Li <pauline.li@amd.com>,
+ Feifei Xu <Feifei.Xu@amd.com>, Tianci Yin <tianci.yin@amd.com>,
+ Likun Gao <Likun.Gao@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Xiaojie Yuan <xiaojie.yuan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Samir
+From: "Tianci.Yin" <tianci.yin@amd.com>
 
-Looks it is your first upstream path, 
+[why]
+CP firmware decide to skip setting the state for 3D pipe 1 for Navi1x as there
+is no use case.
 
-The format of your description need to change:
+[how]
+Disable 3D pipe 1 on Navi1x.
 
-Modify:
-[PATCH] drm/amdgpu: Rearm IRQ in Navi10 SR-IOV if IRQ lost
-To:
-drm/amdgpu: Rearm IRQ in Navi10 SR-IOV if IRQ lost
-
-with that changed you can get my RB 
-(means you can put "Reviewed-by: Monk Liu <monk.liu@amd.com>" to the tail of your commit description)
-
-_____________________________________
-Monk Liu|GPU Virtualization Team |AMD
-
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Samir Dhume
-Sent: Friday, February 7, 2020 4:00 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Dhume, Samir <Samir.Dhume@amd.com>
-Subject: [PATCH] drm/amdgpu: Rearm IRQ in Navi10 SR-IOV if IRQ lost
-
-Ported from Vega10. SDMA stress tests sometimes see IRQ lost.
-
-Signed-off-by: Samir Dhume <samir.dhume@amd.com>
+Change-Id: I6898bdfe31d4e7908bd9bcfa82b6a75e118e8727
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 36 ++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 97 ++++++++++++++------------
+ 1 file changed, 51 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-index cf557a428298..e08245a446fc 100644
---- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-@@ -32,6 +32,7 @@
- #include "soc15_common.h"
- #include "navi10_ih.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 760fe2ebe799..f348512eb8c3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -52,7 +52,7 @@
+  * 1. Primary ring
+  * 2. Async ring
+  */
+-#define GFX10_NUM_GFX_RINGS	2
++#define GFX10_NUM_GFX_RINGS_NV1X	1
+ #define GFX10_MEC_HPD_SIZE	2048
  
-+#define MAX_REARM_RETRY 10
+ #define F32_CE_PROGRAM_RAM_SIZE		65536
+@@ -1305,7 +1305,7 @@ static int gfx_v10_0_sw_init(void *handle)
+ 	case CHIP_NAVI14:
+ 	case CHIP_NAVI12:
+ 		adev->gfx.me.num_me = 1;
+-		adev->gfx.me.num_pipe_per_me = 2;
++		adev->gfx.me.num_pipe_per_me = 1;
+ 		adev->gfx.me.num_queue_per_pipe = 1;
+ 		adev->gfx.mec.num_mec = 2;
+ 		adev->gfx.mec.num_pipe_per_mec = 4;
+@@ -2711,18 +2711,20 @@ static int gfx_v10_0_cp_gfx_start(struct amdgpu_device *adev)
+ 	amdgpu_ring_commit(ring);
  
- static void navi10_ih_set_interrupt_funcs(struct amdgpu_device *adev);
+ 	/* submit cs packet to copy state 0 to next available state */
+-	ring = &adev->gfx.gfx_ring[1];
+-	r = amdgpu_ring_alloc(ring, 2);
+-	if (r) {
+-		DRM_ERROR("amdgpu: cp failed to lock ring (%d).\n", r);
+-		return r;
+-	}
+-
+-	amdgpu_ring_write(ring, PACKET3(PACKET3_CLEAR_STATE, 0));
+-	amdgpu_ring_write(ring, 0);
++	if (adev->gfx.num_gfx_rings > 1) {
++		/* maximum supported gfx ring is 2 */
++		ring = &adev->gfx.gfx_ring[1];
++		r = amdgpu_ring_alloc(ring, 2);
++		if (r) {
++			DRM_ERROR("amdgpu: cp failed to lock ring (%d).\n", r);
++			return r;
++		}
  
-@@ -283,6 +284,38 @@ static void navi10_ih_decode_iv(struct amdgpu_device *adev,
- 	ih->rptr += 32;
+-	amdgpu_ring_commit(ring);
++		amdgpu_ring_write(ring, PACKET3(PACKET3_CLEAR_STATE, 0));
++		amdgpu_ring_write(ring, 0);
+ 
++		amdgpu_ring_commit(ring);
++	}
+ 	return 0;
  }
  
-+/**
-+ * navi10_ih_irq_rearm - rearm IRQ if lost
-+ *
-+ * @adev: amdgpu_device pointer
-+ *
-+ */
-+static void navi10_ih_irq_rearm(struct amdgpu_device *adev,
-+			       struct amdgpu_ih_ring *ih)
-+{
-+	uint32_t reg_rptr = 0;
-+	uint32_t v = 0;
-+	uint32_t i = 0;
+@@ -2819,39 +2821,41 @@ static int gfx_v10_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 	mutex_unlock(&adev->srbm_mutex);
+ 
+ 	/* Init gfx ring 1 for pipe 1 */
+-	mutex_lock(&adev->srbm_mutex);
+-	gfx_v10_0_cp_gfx_switch_pipe(adev, PIPE_ID1);
+-	ring = &adev->gfx.gfx_ring[1];
+-	rb_bufsz = order_base_2(ring->ring_size / 8);
+-	tmp = REG_SET_FIELD(0, CP_RB1_CNTL, RB_BUFSZ, rb_bufsz);
+-	tmp = REG_SET_FIELD(tmp, CP_RB1_CNTL, RB_BLKSZ, rb_bufsz - 2);
+-	WREG32_SOC15(GC, 0, mmCP_RB1_CNTL, tmp);
+-	/* Initialize the ring buffer's write pointers */
+-	ring->wptr = 0;
+-	WREG32_SOC15(GC, 0, mmCP_RB1_WPTR, lower_32_bits(ring->wptr));
+-	WREG32_SOC15(GC, 0, mmCP_RB1_WPTR_HI, upper_32_bits(ring->wptr));
+-	/* Set the wb address wether it's enabled or not */
+-	rptr_addr = adev->wb.gpu_addr + (ring->rptr_offs * 4);
+-	WREG32_SOC15(GC, 0, mmCP_RB1_RPTR_ADDR, lower_32_bits(rptr_addr));
+-	WREG32_SOC15(GC, 0, mmCP_RB1_RPTR_ADDR_HI, upper_32_bits(rptr_addr) &
+-		CP_RB1_RPTR_ADDR_HI__RB_RPTR_ADDR_HI_MASK);
+-	wptr_gpu_addr = adev->wb.gpu_addr + (ring->wptr_offs * 4);
+-	WREG32_SOC15(GC, 0, mmCP_RB_WPTR_POLL_ADDR_LO,
+-		lower_32_bits(wptr_gpu_addr));
+-	WREG32_SOC15(GC, 0, mmCP_RB_WPTR_POLL_ADDR_HI,
+-		upper_32_bits(wptr_gpu_addr));
+-
+-	mdelay(1);
+-	WREG32_SOC15(GC, 0, mmCP_RB1_CNTL, tmp);
+-
+-	rb_addr = ring->gpu_addr >> 8;
+-	WREG32_SOC15(GC, 0, mmCP_RB1_BASE, rb_addr);
+-	WREG32_SOC15(GC, 0, mmCP_RB1_BASE_HI, upper_32_bits(rb_addr));
+-	WREG32_SOC15(GC, 0, mmCP_RB1_ACTIVE, 1);
+-
+-	gfx_v10_0_cp_gfx_set_doorbell(adev, ring);
+-	mutex_unlock(&adev->srbm_mutex);
+-
++	if (adev->gfx.num_gfx_rings > 1) {
++		mutex_lock(&adev->srbm_mutex);
++		gfx_v10_0_cp_gfx_switch_pipe(adev, PIPE_ID1);
++		/* maximum supported gfx ring is 2 */
++		ring = &adev->gfx.gfx_ring[1];
++		rb_bufsz = order_base_2(ring->ring_size / 8);
++		tmp = REG_SET_FIELD(0, CP_RB1_CNTL, RB_BUFSZ, rb_bufsz);
++		tmp = REG_SET_FIELD(tmp, CP_RB1_CNTL, RB_BLKSZ, rb_bufsz - 2);
++		WREG32_SOC15(GC, 0, mmCP_RB1_CNTL, tmp);
++		/* Initialize the ring buffer's write pointers */
++		ring->wptr = 0;
++		WREG32_SOC15(GC, 0, mmCP_RB1_WPTR, lower_32_bits(ring->wptr));
++		WREG32_SOC15(GC, 0, mmCP_RB1_WPTR_HI, upper_32_bits(ring->wptr));
++		/* Set the wb address wether it's enabled or not */
++		rptr_addr = adev->wb.gpu_addr + (ring->rptr_offs * 4);
++		WREG32_SOC15(GC, 0, mmCP_RB1_RPTR_ADDR, lower_32_bits(rptr_addr));
++		WREG32_SOC15(GC, 0, mmCP_RB1_RPTR_ADDR_HI, upper_32_bits(rptr_addr) &
++			     CP_RB1_RPTR_ADDR_HI__RB_RPTR_ADDR_HI_MASK);
++		wptr_gpu_addr = adev->wb.gpu_addr + (ring->wptr_offs * 4);
++		WREG32_SOC15(GC, 0, mmCP_RB_WPTR_POLL_ADDR_LO,
++			     lower_32_bits(wptr_gpu_addr));
++		WREG32_SOC15(GC, 0, mmCP_RB_WPTR_POLL_ADDR_HI,
++			     upper_32_bits(wptr_gpu_addr));
 +
-+	if (ih == &adev->irq.ih)
-+		reg_rptr = SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_RPTR);
-+	else if (ih == &adev->irq.ih1)
-+		reg_rptr = SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_RPTR_RING1);
-+	else if (ih == &adev->irq.ih2)
-+		reg_rptr = SOC15_REG_OFFSET(OSSSYS, 0, mmIH_RB_RPTR_RING2);
-+	else
-+		return;
++		mdelay(1);
++		WREG32_SOC15(GC, 0, mmCP_RB1_CNTL, tmp);
 +
-+	/* Rearm IRQ / re-write doorbell if doorbell write is lost */
-+	for (i = 0; i < MAX_REARM_RETRY; i++) {
-+		v = RREG32_NO_KIQ(reg_rptr);
-+		if ((v < ih->ring_size) && (v != ih->rptr))
-+			WDOORBELL32(ih->doorbell_index, ih->rptr);
-+		else
-+			break;
++		rb_addr = ring->gpu_addr >> 8;
++		WREG32_SOC15(GC, 0, mmCP_RB1_BASE, rb_addr);
++		WREG32_SOC15(GC, 0, mmCP_RB1_BASE_HI, upper_32_bits(rb_addr));
++		WREG32_SOC15(GC, 0, mmCP_RB1_ACTIVE, 1);
++
++		gfx_v10_0_cp_gfx_set_doorbell(adev, ring);
++		mutex_unlock(&adev->srbm_mutex);
 +	}
-+}
+ 	/* Switch to pipe 0 */
+ 	mutex_lock(&adev->srbm_mutex);
+ 	gfx_v10_0_cp_gfx_switch_pipe(adev, PIPE_ID0);
+@@ -3967,7 +3971,8 @@ static int gfx_v10_0_early_init(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	adev->gfx.num_gfx_rings = GFX10_NUM_GFX_RINGS;
++	adev->gfx.num_gfx_rings = GFX10_NUM_GFX_RINGS_NV1X;
 +
- /**
-  * navi10_ih_set_rptr - set the IH ring buffer rptr
-  *
-@@ -297,6 +330,9 @@ static void navi10_ih_set_rptr(struct amdgpu_device *adev,
- 		/* XXX check if swapping is necessary on BE */
- 		*ih->rptr_cpu = ih->rptr;
- 		WDOORBELL32(ih->doorbell_index, ih->rptr);
-+
-+		if (amdgpu_sriov_vf(adev))
-+			navi10_ih_irq_rearm(adev, ih);
- 	} else
- 		WREG32_SOC15(OSSSYS, 0, mmIH_RB_RPTR, ih->rptr);  }
---
-2.20.1
+ 	adev->gfx.num_compute_rings = AMDGPU_MAX_COMPUTE_RINGS;
+ 
+ 	gfx_v10_0_set_kiq_pm4_funcs(adev);
+-- 
+2.17.1
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cmonk.liu%40amd.com%7Cd2e01b4b73cb4b75ae9f08d7ab3f27e1%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637166160122750193&amp;sdata=NtTwlzGVJWf8D%2BKWiaQKiAile9n03KlIW70mu8TkKXM%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
