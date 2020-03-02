@@ -2,106 +2,105 @@ Return-Path: <SRS0=ZiRI=4T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60DE8C3F2D2
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 13:57:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A8AAAC3F2D1
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 14:17:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2493F2166E
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 13:57:14 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6CE362173E
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 14:17:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Ru2PGQS3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2493F2166E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="dN9KFMs4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CE362173E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D487A89D5B;
-	Mon,  2 Mar 2020 13:57:13 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2053.outbound.protection.outlook.com [40.107.92.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EA4489D5B;
- Mon,  2 Mar 2020 13:57:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED34089D39;
+	Mon,  2 Mar 2020 14:17:45 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2088.outbound.protection.outlook.com [40.107.94.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B620389D39
+ for <amd-gfx@lists.freedesktop.org>; Mon,  2 Mar 2020 14:17:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EuA4ecMGBIiwd69FPusmuyS6e/MRXIuC8JgnMhpjXHpzmghHJBgzE8Wcxx4EaemRtzlIQDzS9SEvDOLKG8EQwr9T5nZgAb/rKNByM0zBaiJpqbQemYxsrstFvBJuOowSPRTzWcowAEgSr0SwpbopR/T777LL7S/zceqa013tc9WbO3uEqLzBxLmaJB4gN/F8oGWUIm0gn6G8mcAn17dkUJGk0RE0R3nUxDOQ98OYMxMAZ6yxKLu3qofothATsYAC8YhQUoV4olEWVcGf7S0Ef0mkcC9YIAu2BJE3LNLvakwGuhcjafLXRclTmj3xNGLb8pO9Sie7MViBG80ZdPNyuw==
+ b=lpiEEQO3aT7KBeuOpVZBZaB/GMgilNd8qEP/wmzwC4Vcw5CXkymzpzEtThhkKjnV7j4H6+3LkHc+JoSxh6brQTGyNMOeDrwja2UCClh/vrVAPf+KWabKJ/+rDrBs1BUInnxlkmh7hVaX3M0UBDujE/4/3nHVvA9FYy/hqB+oMxAU7FifyAgt+3FodZU95IdVsWoWl6pRnN7Y9BxOo3k+usfCtrpS5AeolYOAo4mpDqzzrDM0A3ayLCWPmxT/k+/Eh+1A9kKu8U/KCrtZL8D9yGU2Ee2OnHpAiy9Xr2JylmDKWDWYPK8EigTXEMeUaT+MjecSzt5TBwLWcCn2QMmcEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AhSspGmYZfsvLTb+dMpM3BKEXR6myvxU+jgvjkrT7+I=;
- b=Jys/tP3clWJMpC9rTv3j3bYEIfqp1WQ3jWu6GXsLKBzcJxvwj6EJxxd+U84DO+ygZnqXVIcti/QlVjbVSLYIfR5b6oiyGV2+vppwzlJy25HtNhYkzH8zP6vk43LkeZngUvqYiiM1UNA2z9+qsPecWnFGRFBxQKbl7xkC8kaNqifWdIwmV9vObmVUMws9Ns9ngWWLnAiCFOHsomJwJw/a75q+4suztWZQHw8hAwBAOSDX4JdSIPrYXWMdat2HBwiITG7Xcata3JiHzozrHop9BezCL/28qqV+JbRVUMYViASPkAHgKK9Q7vWyrxq5lPVvmh7WZl/CI91TXyvrdaAHlg==
+ bh=jACpTobjLEKIfU99nh34T6tcM5SE1yZ7Q/PoxnsPzSI=;
+ b=eQCT3Ws4wjMdla8uBKXl/dP4CUhQZWL4Kb3GVBcA2UIY1MnlmNiEFWq732oFQE/UBZR+tZ51LTPlpTXWXQ/EAu/XDlPTN8O/gMHwqKfFz0s0+2vYf1EkLhAgXj8l4zQD388+dEHXQfK5EeN9eRqA8d//6sm3PynJvLnIZ/COFhFsFaaJaLuWzfJtwt/JetzBCCq0VwmnBhXxi9dRrm2+9y6H4y0ynvw8O6zqN5lpJzkdI0CINhi255PcRNVRs8d9H6ub0H5mkF4FeJiHCoHNLhLPxwlVPYkEeprMqxiIlb6NyaScfR6QcL7whsqkbfKFWx4Sb0b6Ghs5sybn1oG6wA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AhSspGmYZfsvLTb+dMpM3BKEXR6myvxU+jgvjkrT7+I=;
- b=Ru2PGQS3SmoD1c5KlVTCiM0Vb3aXnkAE6Omjdw3HjRKtF9zJpiPErMyYhb9+kW204AyDg6KEnUVjm3gu6GWjTX3eueqZbgdOFJTcznSszpD17SdJKEh7BM7+HRhElRq/W7UVjFnLECnQTyAYgK049POJla/RVvJPVXnxdu6NCVI=
+ bh=jACpTobjLEKIfU99nh34T6tcM5SE1yZ7Q/PoxnsPzSI=;
+ b=dN9KFMs4wEtFE5Nl8AQiVflL8R9O1TOHv2qKRSJF+bvbzYgODJIOliuHoGTch6hsQqVBABXII7o6R9Qkb359ZReCgKJKP1E0pLYWiVmQacdccnCFGrU70cJ5C+jheu8J41bDY/7pMP0qnoJ4RFD7k+Zux/bS18mPZ0imqHgh1M4=
 Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Nicholas.Kazlauskas@amd.com; 
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
- by BYAPR12MB2742.namprd12.prod.outlook.com (2603:10b6:a03:6a::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.16; Mon, 2 Mar
- 2020 13:57:08 +0000
-Received: from BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::e8:c007:9a5:da4d]) by BYAPR12MB3560.namprd12.prod.outlook.com
- ([fe80::e8:c007:9a5:da4d%5]) with mapi id 15.20.2772.018; Mon, 2 Mar 2020
- 13:57:08 +0000
-Subject: Re: [PATCH] drm/amd/display: Fix pageflip event race condition for
- DCN.
-To: Mario Kleiner <mario.kleiner.de@gmail.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- sunpeng.li@amd.com
-References: <20200302061732.28577-1-mario.kleiner.de@gmail.com>
-From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Message-ID: <7c853b66-8747-3a7c-7a76-c2f418c0b101@amd.com>
-Date: Mon, 2 Mar 2020 08:57:05 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ smtp.mailfrom=Nirmoy.Das@amd.com; 
+Received: from DM5PR12MB2376.namprd12.prod.outlook.com (2603:10b6:4:b9::11) by
+ DM5PR12MB1689.namprd12.prod.outlook.com (2603:10b6:4:3::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2772.14; Mon, 2 Mar 2020 14:17:43 +0000
+Received: from DM5PR12MB2376.namprd12.prod.outlook.com
+ ([fe80::ac12:6413:cd14:4904]) by DM5PR12MB2376.namprd12.prod.outlook.com
+ ([fe80::ac12:6413:cd14:4904%4]) with mapi id 15.20.2772.019; Mon, 2 Mar 2020
+ 14:17:43 +0000
+Subject: Re: [PATCH v5 1/4] drm/amdgpu: set compute queue priority at mqd_init
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Nirmoy Das <nirmoy.aiemd@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20200302125836.56915-1-nirmoy.das@amd.com>
+ <10f79f2c-4baf-e004-d75b-68836ea2e5bc@amd.com>
+From: Nirmoy <nirmodas@amd.com>
+Message-ID: <e98f6ea5-bb79-3c8a-354a-33e1b7a53e4b@amd.com>
+Date: Mon, 2 Mar 2020 15:20:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.5.0
-In-Reply-To: <20200302061732.28577-1-mario.kleiner.de@gmail.com>
+In-Reply-To: <10f79f2c-4baf-e004-d75b-68836ea2e5bc@amd.com>
 Content-Language: en-US
-X-ClientProxiedBy: YTBPR01CA0008.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::21) To BYAPR12MB3560.namprd12.prod.outlook.com
- (2603:10b6:a03:ae::10)
+X-ClientProxiedBy: AM4PR07CA0021.eurprd07.prod.outlook.com
+ (2603:10a6:205:1::34) To DM5PR12MB2376.namprd12.prod.outlook.com
+ (2603:10b6:4:b9::11)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.29.1.94] (165.204.55.250) by
- YTBPR01CA0008.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::21) with Microsoft
+Received: from [192.168.178.76] (93.229.38.130) by
+ AM4PR07CA0021.eurprd07.prod.outlook.com (2603:10a6:205:1::34) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2772.14 via Frontend Transport; Mon, 2 Mar 2020 13:57:07 +0000
-X-Originating-IP: [165.204.55.250]
+ 15.20.2793.5 via Frontend Transport; Mon, 2 Mar 2020 14:17:42 +0000
+X-Originating-IP: [93.229.38.130]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d7a3fb4a-2665-49b6-d8d2-08d7beb198dd
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2742:|BYAPR12MB2742:
+X-MS-Office365-Filtering-Correlation-Id: 2ea129ba-65aa-406d-6d5d-08d7beb47940
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1689:|DM5PR12MB1689:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BYAPR12MB27422250D47E5DD0E7F980C8ECE70@BYAPR12MB2742.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <DM5PR12MB16893BF4CB61A103053800D18BE70@DM5PR12MB1689.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3383;
 X-Forefront-PRVS: 033054F29A
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(136003)(376002)(346002)(39860400002)(396003)(199004)(189003)(5660300002)(26005)(81166006)(81156014)(956004)(2616005)(8676002)(16526019)(186003)(6636002)(66946007)(66476007)(66556008)(31696002)(53546011)(316002)(16576012)(86362001)(478600001)(52116002)(6486002)(4326008)(31686004)(36756003)(8936002)(2906002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB2742;
- H:BYAPR12MB3560.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
+ SFS:(10009020)(4636009)(39860400002)(136003)(376002)(346002)(366004)(396003)(189003)(199004)(5660300002)(2906002)(36756003)(66556008)(316002)(31686004)(52116002)(6666004)(66476007)(66946007)(16576012)(478600001)(8936002)(26005)(186003)(16526019)(8676002)(31696002)(81166006)(4326008)(81156014)(6486002)(110136005)(53546011)(2616005)(956004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1689;
+ H:DM5PR12MB2376.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zPlqfxlYpizgkbbss+oDQntjuH3ASktsZA63jo2kwqxcezJKEGSGu92CkK9sqgH+9GpO9R1HOsqk4NUhykXCYCw+luHDg3nLr63pT7ye3AdLq19u+Y3UM8chKzjk0/fyLBk+ntJVL6TaiFAfJkFkpfbOfabwbsuzH+UD3SMIsrJmdM2hIkwL89pN7QChLChPVD97fmTZ0gF+oja7wBt8M9GQ0cTX2HDP1l/niL/ksSRhY8Ys9a9weuTxa7BWkHyXfag5hA6aeEMA7FaxT+SxdZQc0XvjCTCEhFkksekDwmmMXcbITMjD3d9Wj7ZEswjeKfWOamuW009V2cv4fzHihPVJlGWDiWd+oUR2Sq1D0C5G9VXNLtqZy2Uug6zzp34Jr3magPJ3JF8/bZ9vE4MacUYpX3ByWRT1SAy5Tv+t4IkKaJnrmqHwPRvTeFltqmkZ
-X-MS-Exchange-AntiSpam-MessageData: 06hdsSV4EEx1ik6dQh8fxKvzf26NHK1fYhgr1JCkTRTM69MF578Ntcqa6YbFTS39uD/aCXlS23ZKNrQq2JKmLkU4zGhKbJcbka30cm+JCE7NQE7AIsUlxy7FYSSmQU/x48ZdCZAwFU0mt6WZ9NkXAg==
+X-Microsoft-Antispam-Message-Info: Mk7MG0blRxvh0HHgpaSvuFwo/eesGG15I08VbesIYyydeGa/j/E1XzXYBKMURZVZwVMQD7pBn3o/ojLTkhN+zbI5RwRPYumMOpy6UXVZFz1BDEaYmulZ767mbcMp7Wd17xKA9Np+RzoSg9MqbN3UGEfb7EL4KYwvvPzlcWuFJvVcvTTp2aHov7wYkZ+Ge70xlaIC02wQ2q0lGPlD5XgFJRILsknuq0KyWhDeeyma4n/GPq2N2HY/vg4DR/Ye9fIaktO9WsbcZEIDI3cTdgDfD/HtL8krQ/lrOQ3CIaNfgEyL7V2Mm8i3/rfsZ2Equ0U+RCJeAKkzJOFxSxawx7wcz8MtNxwazca5d0SNp5LqnTaEjdJ1x+WcTddRibgiVgDtC7+L3WP3iRAZFXF5ZaqtENf2YwTpjsNt/4xqxs+Pzx9Rh1dcGI+AUHDUmyf6TSBR
+X-MS-Exchange-AntiSpam-MessageData: h2+MSoLGp4+vOMA1nViMjWrqtArbtU75VHaZV7Rj/tJoO1HhG6//sCOOBYK6N5RxgWWja1e8j51WSgK4D9QwEvQjN+CBXYkHKQOpG5cy66TKCdVPEu8c/SIz0r/KhMugr3LDFzBCvGzTYtS0KCCD/A==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7a3fb4a-2665-49b6-d8d2-08d7beb198dd
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2020 13:57:08.2327 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2ea129ba-65aa-406d-6d5d-08d7beb47940
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2020 14:17:43.5949 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +PHXNx7lameO92fEmgkQjUYeu4Sk7xGZ5UW1Tgjy0iaP2JUt7Jlv+ANG1v6RzZQaorkN56G2h/q1B66MsdKkvw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2742
+X-MS-Exchange-CrossTenant-UserPrincipalName: +q+s+yf/9AXB37ZfPDTiCGyhcP56gbqE43p8QVKv8gnFSXwQYRvF2ZBawtPctNvQPsGNmtEL/ACk10o05UlcSw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1689
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,137 +112,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, hwentlan@amd.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: alexander.deucher@amd.com, Ray.Huang@amd.com, nirmoy.das@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-03-02 1:17 a.m., Mario Kleiner wrote:
-> Commit '16f17eda8bad ("drm/amd/display: Send vblank and user
-> events at vsartup for DCN")' introduces a new way of pageflip
-> completion handling for DCN, and some trouble.
-> 
-> The current implementation introduces a race condition, which
-> can cause pageflip completion events to be sent out one vblank
-> too early, thereby confusing userspace and causing flicker:
-> 
-> prepare_flip_isr():
-> 
-> 1. Pageflip programming takes the ddev->event_lock.
-> 2. Sets acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED
-> 3. Releases ddev->event_lock.
-> 
-> --> Deadline for surface address regs double-buffering passes on
->      target pipe.
-> 
-> 4. dc_commit_updates_for_stream() MMIO programs the new pageflip
->     into hw, but too late for current vblank.
-> 
-> => pflip_status == AMDGPU_FLIP_SUBMITTED, but flip won't complete
->     in current vblank due to missing the double-buffering deadline
->     by a tiny bit.
-> 
-> 5. VSTARTUP trigger point in vblank is reached, VSTARTUP irq fires,
->     dm_dcn_crtc_high_irq() gets called.
-> 
-> 6. Detects pflip_status == AMDGPU_FLIP_SUBMITTED and assumes the
->     pageflip has been completed/will complete in this vblank and
->     sends out pageflip completion event to userspace and resets
->     pflip_status = AMDGPU_FLIP_NONE.
-> 
-> => Flip completion event sent out one vblank too early.
-> 
-> This behaviour has been observed during my testing with measurement
-> hardware a couple of time.
-> 
-> The commit message says that the extra flip event code was added to
-> dm_dcn_crtc_high_irq() to prevent missing to send out pageflip events
-> in case the pflip irq doesn't fire, because the "DCH HUBP" component
-> is clock gated and doesn't fire pflip irqs in that state. Also that
-> this clock gating may happen if no planes are active. This suggests
-> that the problem addressed by that commit can't happen if planes
-> are active.
-> 
-> The proposed solution is therefore to only execute the extra pflip
-> completion code iff the count of active planes is zero and otherwise
-> leave pflip completion handling to the pflip irq handler, for a
-> more race-free experience.
-> 
-> Note that i don't know if this fixes the problem the original commit
-> tried to address, as i don't know what the test scenario was. It
-> does fix the observed too early pageflip events though and points
-> out the problem introduced.
-
-This looks like a valid race condition that should be addressed.
-
-Unfortunately this also doesn't fix the problem the original commit was 
-trying to address.
-
-HUBP interrupts only trigger when it's not clock gated. But there are 
-cases (for example, PSR) where the HUBP can be clock gated but the 
-active plane count is greater than zero.
-
-The clock gating switch can typically happens outside of x86 control 
-flow so we're not really going to understand in advance whether or not 
-we'll be able to receive the pflip IRQ.
-
-While we do have plane status/flip pending bits available to check in 
-the VSTARTUP IRQ handler, this obviously doesn't work for resolving the 
-core of the issue - that we probably don't know whether or not the HUBP 
-will be on before sending out the event.
-
-Maybe we can guess based on what features are enabled.
-
-Regards,
-Nicholas Kazlauskas
-
-> 
-> Fixes: 16f17eda8bad ("drm/amd/display: Send vblank and user events at vsartup for DCN")
-> Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 18 +++++++++++++++---
->   1 file changed, 15 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 63e8a12a74bc..3502d6d52160 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -522,8 +522,9 @@ static void dm_dcn_crtc_high_irq(void *interrupt_params)
->   
->   	acrtc_state = to_dm_crtc_state(acrtc->base.state);
->   
-> -	DRM_DEBUG_DRIVER("crtc:%d, vupdate-vrr:%d\n", acrtc->crtc_id,
-> -				amdgpu_dm_vrr_active(acrtc_state));
-> +	DRM_DEBUG_DRIVER("crtc:%d, vupdate-vrr:%d, planes:%d\n", acrtc->crtc_id,
-> +			 amdgpu_dm_vrr_active(acrtc_state),
-> +			 acrtc_state->active_planes);
->   
->   	amdgpu_dm_crtc_handle_crc_irq(&acrtc->base);
->   	drm_crtc_handle_vblank(&acrtc->base);
-> @@ -543,7 +544,18 @@ static void dm_dcn_crtc_high_irq(void *interrupt_params)
->   			&acrtc_state->vrr_params.adjust);
->   	}
->   
-> -	if (acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED) {
-> +	/*
-> +	 * If there aren't any active_planes then DCH HUBP may be clock-gated.
-> +	 * In that case, pageflip completion interrupts won't fire and pageflip
-> +	 * completion events won't get delivered. Prevent this by sending
-> +	 * pending pageflip events from here if a flip is still pending.
-> +	 *
-> +	 * If any planes are enabled, use dm_pflip_high_irq() instead, to
-> +	 * avoid race conditions between flip programming and completion,
-> +	 * which could cause too early flip completion events.
-> +	 */
-> +	if (acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
-> +	    acrtc_state->active_planes == 0) {
->   		if (acrtc->event) {
->   			drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
->   			acrtc->event = NULL;
-> 
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGkgQ2hyaXN0aWFuCgpPbiAzLzIvMjAgMjoxMCBQTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToK
+Pgo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jp
+bmcuaCAKPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oCj4+IGlu
+ZGV4IDI0Y2FmZjA4NWQwMC4uMjAxYzZhYzdiZjlkIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5oCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9yaW5nLmgKPj4gQEAgLTIyMiw2ICsyMjIsNyBAQCBzdHJ1Y3QgYW1k
+Z3B1X3Jpbmcgewo+PiDCoMKgwqDCoMKgIHN0cnVjdCBtdXRleMKgwqDCoMKgwqDCoMKgIHByaW9y
+aXR5X211dGV4Owo+PiDCoMKgwqDCoMKgIC8qIHByb3RlY3RlZCBieSBwcmlvcml0eV9tdXRleCAq
+Lwo+PiDCoMKgwqDCoMKgIGludMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcHJpb3JpdHk7Cj4+ICvC
+oMKgwqAgYm9vbMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZ2Z4X3BpcGVfcHJpb3JpdHk7Cj4KPiBE
+aWRuJ3QgeW91IHdhbnRlZCB0byBtYWtlIHRoaXMgYW4gZW51bT8gT3Igd2FzIHRoYXQgYW5vdGhl
+ciBmaWVsZC4KClNoYWxsIEkgbW92ZSBnZnhfcGlwZV9wcmlvcml0eSB0byBhbWRncHVfcmluZy5o
+wqAgZnJvbSBhbWRncHVfZ2Z4LmgKCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9yaW5nLmgKQEAgLTM1LDYgKzM1LDEzIEBACiDCoCNkZWZpbmUgQU1ER1BVX01BWF9WQ0Vf
+UklOR1PCoMKgwqDCoMKgwqDCoMKgwqDCoCAzCiDCoCNkZWZpbmUgQU1ER1BVX01BWF9VVkRfRU5D
+X1JJTkdTwqDCoMKgwqDCoMKgIDIKCisvKiBnZnggcmluZydzIHBpcGUgcHJpb3JpdHkgKi8KK2Vu
+dW0gZ2Z4X3BpcGVfcHJpb3JpdHkgeworwqDCoMKgwqDCoMKgIEFNREdQVV9HRlhfUElQRV9QUklP
+X05PUk1BTCA9IDEsCivCoMKgwqDCoMKgwqAgQU1ER1BVX0dGWF9QSVBFX1BSSU9fSElHSCwKK8Kg
+wqDCoMKgwqDCoCBBTURHUFVfR0ZYX1BJUEVfUFJJT19NQVgKK307CgpvciBlbHNlCgpAQCAtMjIy
+LDcgKzIyOSw4IEBAIHN0cnVjdCBhbWRncHVfcmluZyB7CiDCoMKgwqDCoMKgwqDCoCBzdHJ1Y3Qg
+bXV0ZXjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHByaW9yaXR5X211dGV4OwogwqDCoMKgwqDCoMKg
+wqAgLyogcHJvdGVjdGVkIGJ5IHByaW9yaXR5X211dGV4ICovCiDCoMKgwqDCoMKgwqDCoCBpbnTC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHByaW9yaXR5OwotwqDCoMKg
+wqDCoMKgIGJvb2zCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnZnhfcGlw
+ZV9wcmlvcml0eTsKKworwqDCoMKgwqDCoMKgIGVudW0gZ2Z4X3BpcGVfcHJpb3JpdHnCoCBwaXBl
+X3ByaW9yaXR5OwoKZG9lc24ndCB3b3JrIGJlY2F1c2Ugb2YgY29tcGlsYXRpb24gZXJyb3I6ICIg
+ZmllbGQg4oCYcGlwZV9wcmlvcml0eeKAmSBoYXMgCmluY29tcGxldGUgdHlwZSIKClJlZ2FyZHMs
+CgpOaXJtb3kKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
