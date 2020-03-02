@@ -2,101 +2,72 @@ Return-Path: <SRS0=ZiRI=4T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C59E0C3F2D1
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 05:36:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CC78CC3F2D1
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 06:17:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 840E124697
-	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 05:36:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A293B24697
+	for <amd-gfx@archiver.kernel.org>; Mon,  2 Mar 2020 06:17:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wSZDajDb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 840E124697
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KigeuDhK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A293B24697
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 609356E049;
-	Mon,  2 Mar 2020 05:36:00 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680082.outbound.protection.outlook.com [40.107.68.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BCC96E049
- for <amd-gfx@lists.freedesktop.org>; Mon,  2 Mar 2020 05:35:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RqFCbllBoYa8N42hM8ZlAJr0SvNCZ4pfJ56dj6B5yCNJVrG2xWxkSRGzMQ+IwtbgMiQ2EhsY9U3+Pwb6/WF6FrugTwoLtvReeq51R5YPegIPsH5IM4csLsNYemuQqQJhp54+qyjuBCmDA6bonRFGrUFEbKL/P16lkB5MSUMq5GEog0UUS3nLtFPFq8JUqIsMPeOd8OZfC9yXoOSwnMfbmEoGYTwRaMPsOB7NyTubKduyqswbu1O/BLfSl02Xq7jC4IgLlezDKqeGLQgPPHw3kUk+qKh9NYqGrrF4cq/3hEm2b75bl1mw9yLHKxIPEXZ8qB8+d1aTflSO3539Q46oTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Ve1GG3g28AaXzgrrHqcqxpqY+n7PLv6OVleG+PzEOQ=;
- b=mjXQJ40eXJhcKbp6P41Z7gk7izaaqGqDoUrO3TJ6BdZXORy+rK1vnJ9FVWCsZJNJKgsTpGubgJzSbeOE6xFZ6VMMnNVGBEwkAduOplvxMMgwPNAysmz2n9WXMsESpNw8Z2oCqUXxp0l8qWh8jWGdQACoGdVfeuxsYZGZJBDzYzYLVUHrg22T5oChADdMA+v/S1yRYbYNJnjDHj08BFPVVOBZaLyheCMqYBLIdtoWWOC6Prk1094j+XfcQvmf9mAdNHe80dEHB5RztCvkUqe6370aLk6gBNwJTYv/akNv6ePJabOgWZHnBCNxXYake6epVVmMuATBdCHuUA73aelDGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3Ve1GG3g28AaXzgrrHqcqxpqY+n7PLv6OVleG+PzEOQ=;
- b=wSZDajDbN7qg5rj3VY9QhdydBeFPAz32TlJAauwbIoXjC1AbfmqOr0DTsaiZyVy/k0KTOI/oZHWwu0eLdnKvLb6f6ePdr7nU/sukktfcKlAFpxUG4tFIG5sL7JsMAsrempkRDo/C0lYyRc0VhFzXgH7NZWpH/t5k77ygQjf9g8E=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Jacob.He@amd.com; 
-Received: from MN2PR12MB3376.namprd12.prod.outlook.com (2603:10b6:208:c2::20)
- by MN2PR12MB3790.namprd12.prod.outlook.com (2603:10b6:208:164::31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15; Mon, 2 Mar
- 2020 05:35:57 +0000
-Received: from MN2PR12MB3376.namprd12.prod.outlook.com
- ([fe80::61bc:e52b:bdcf:4f9b]) by MN2PR12MB3376.namprd12.prod.outlook.com
- ([fe80::61bc:e52b:bdcf:4f9b%4]) with mapi id 15.20.2772.019; Mon, 2 Mar 2020
- 05:35:57 +0000
-From: Jacob He <jacob.he@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: Update SPM_VMID with the job's vmid when
- application reserves the vmid
-Date: Mon,  2 Mar 2020 13:35:29 +0800
-Message-Id: <20200302053529.5736-1-jacob.he@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: HK2PR02CA0221.apcprd02.prod.outlook.com
- (2603:1096:201:20::33) To MN2PR12MB3376.namprd12.prod.outlook.com
- (2603:10b6:208:c2::20)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E41F36E093;
+	Mon,  2 Mar 2020 06:17:49 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A30136E088;
+ Mon,  2 Mar 2020 06:17:48 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id z11so2189015wro.9;
+ Sun, 01 Mar 2020 22:17:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qZX6eNe5HkMmSChWzrmVKNVjKK3cthTERj6hrUH2bxY=;
+ b=KigeuDhKUMW2J6XPjus98AnmwZuNLDNXGGT1dEjoU8QERb0kLNtuer/wmBDD+lZzcb
+ Y9Jpr428hhjTxojAknLZErVi6RYwXpMZx5pYCKa1yo9PXg7xFE+7qjmqP11kSM83aMJh
+ aH6eMs8VUzqxmWI4SNIEOsW/l0oxODtAgjBqsArhZWfYPEGWuI0AtiuITSxVFuvB/rOr
+ SFat0Ccj9wIWEUjIMIwEo5ycJX5hERXvREdY+4IASeVxgfMmUhNv1zi4DFAcQ9t0LRHT
+ kiTYqB0o6AyewW30L5anuNy/OYOyddqveNiifu++uz8E3sv+lbil5wWZqljwx1mKntvf
+ Rgbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=qZX6eNe5HkMmSChWzrmVKNVjKK3cthTERj6hrUH2bxY=;
+ b=esVbNV8B81gKpWA2to/e0WE4ITUePqhYUKRK+9/Tb4buaeHDHaSZ8U2cgmQYPDuOa2
+ keiBGjF0/5cahHMU23d4L3hZ3PawUxPY68VTT098GdVI15wyCZWIJImF9h6iFdN7lSEP
+ UYhiXPuyCL0w+kcmakiP3VO7a67v7Ahl2RwZp8Lvkpwky1OLDgEpTsqvvWcn02Mei00b
+ LGFF6Gr3V7B4DbYSKSFwlHaUnptaZ53GlR8EndxCVMCjZM9CCLBBLQt08zxDReijLWlw
+ nAlzrZFqmJPQXhWr7PCQJx5ANLpsNMshQecVrJ6sGvyPaL5BsW5CvIZCh9aw9LMUWFcR
+ 8pXw==
+X-Gm-Message-State: ANhLgQ1YJ6M91O66fI81gfaBJlPgIIrrP2c+ulR2K5Q0RrEbCtYVAQv4
+ tQQ4Cueiua/PiMzNSv/kN1iMmnBI
+X-Google-Smtp-Source: ADFU+vsOO+F6kYklX3dCV0b4TqDUX7tKgm24kUcKVCRveKna2tUGSNW2BSwW5QPvB34mtHOIuJaI5g==
+X-Received: by 2002:a5d:638a:: with SMTP id p10mr2579994wru.42.1583129866908; 
+ Sun, 01 Mar 2020 22:17:46 -0800 (PST)
+Received: from groovy.localdomain (x4db66b9b.dyn.telefonica.de.
+ [77.182.107.155])
+ by smtp.gmail.com with ESMTPSA id t83sm7086194wmf.43.2020.03.01.22.17.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 01 Mar 2020 22:17:46 -0800 (PST)
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: Fix pageflip event race condition for DCN.
+Date: Mon,  2 Mar 2020 07:17:32 +0100
+Message-Id: <20200302061732.28577-1-mario.kleiner.de@gmail.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from jacob-Linux.amd.com (180.167.199.189) by
- HK2PR02CA0221.apcprd02.prod.outlook.com (2603:1096:201:20::33) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2772.16 via Frontend Transport; Mon, 2 Mar 2020 05:35:55 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [180.167.199.189]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f6455099-bf16-4c47-a6f7-08d7be6b9519
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3790:|MN2PR12MB3790:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3790EA72BD0BF66C36DA60229BE70@MN2PR12MB3790.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1923;
-X-Forefront-PRVS: 033054F29A
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(136003)(376002)(39860400002)(366004)(346002)(189003)(199004)(52116002)(316002)(7696005)(8936002)(6486002)(86362001)(44832011)(6666004)(36756003)(6916009)(81166006)(81156014)(1076003)(8676002)(5660300002)(2616005)(4326008)(16526019)(15650500001)(2906002)(186003)(956004)(478600001)(66476007)(26005)(66556008)(66946007);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3790;
- H:MN2PR12MB3376.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: H/nh2+5PmuGhZTcED0+NhFeQSr/eebi+aICXrPDt4eTl8ke8JIeANKAPx4sAG2AFgLRJ1tB+RdCkZ+SYqv2d7VLfSQtUGJKK3frWh7FMkVRe+HSPIA/n71gfvybxTzfc/mrM0ohQ8mvhqH9dW0eOXSy7ch7l8e1nkXRFKWSg2nPnam42tXdFdFQFo0mXKkXGJ+wyv1lRCqwdGY96Puaf7T46ILl9VEHfbKmDgDyhqlwv4eHb+43IUlFr3JMdUNduYf9+iHUOR6aIrkMXmWpU7q1DvUAdmYnAvYZeCBMyb+vETlxMTNG7HoW0tbjXx9rrsG+d2g3Zd1DGPCABwUJJU9xSxU51fOPv1nESccg75YbYIrgriJSegUthNqPXiZS9qEKlXYlZBNkHtLH3EkjaYVftf9MxLxzxg76r08JTCvCuyZ5SgQWo0P2i170ajzEC
-X-MS-Exchange-AntiSpam-MessageData: 6VG6rTXJy2BFXu87yMK89wGA3C8cqWkOj7nRikGkLBySqm0t0cmNilRNyBHeAJPV1MxJA8+z5NCxIq2r26RbSys01ccnwc0KngvZrOc/eqDpcD94Yt/trUJvbdI90dVY8aXiX6rn7iSBTPONqABUEA==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6455099-bf16-4c47-a6f7-08d7be6b9519
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Mar 2020 05:35:57.2296 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EfgCdVlLe6gmb3cVVk6ivkAkdEPlAyFM/VOz7sIM9crQTQ+0Zrg75ZpEZ2DfwxZX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3790
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,41 +79,112 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jacob He <jacob.he@amd.com>
+Cc: sunpeng.li@amd.com, alexander.deucher@amd.com, mario.kleiner.de@gmail.com,
+ hwentlan@amd.com, nicholas.kazlauskas@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SPM access the video memory according to SPM_VMID. It should be updated
-with the job's vmid right before the job is scheduled. SPM_VMID is a
-global resource
+Commit '16f17eda8bad ("drm/amd/display: Send vblank and user
+events at vsartup for DCN")' introduces a new way of pageflip
+completion handling for DCN, and some trouble.
 
-Change-Id: Id3881908960398f87e7c95026a54ff83ff826700
-Signed-off-by: Jacob He <jacob.he@amd.com>
+The current implementation introduces a race condition, which
+can cause pageflip completion events to be sent out one vblank
+too early, thereby confusing userspace and causing flicker:
+
+prepare_flip_isr():
+
+1. Pageflip programming takes the ddev->event_lock.
+2. Sets acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED
+3. Releases ddev->event_lock.
+
+--> Deadline for surface address regs double-buffering passes on
+    target pipe.
+
+4. dc_commit_updates_for_stream() MMIO programs the new pageflip
+   into hw, but too late for current vblank.
+
+=> pflip_status == AMDGPU_FLIP_SUBMITTED, but flip won't complete
+   in current vblank due to missing the double-buffering deadline
+   by a tiny bit.
+
+5. VSTARTUP trigger point in vblank is reached, VSTARTUP irq fires,
+   dm_dcn_crtc_high_irq() gets called.
+
+6. Detects pflip_status == AMDGPU_FLIP_SUBMITTED and assumes the
+   pageflip has been completed/will complete in this vblank and
+   sends out pageflip completion event to userspace and resets
+   pflip_status = AMDGPU_FLIP_NONE.
+
+=> Flip completion event sent out one vblank too early.
+
+This behaviour has been observed during my testing with measurement
+hardware a couple of time.
+
+The commit message says that the extra flip event code was added to
+dm_dcn_crtc_high_irq() to prevent missing to send out pageflip events
+in case the pflip irq doesn't fire, because the "DCH HUBP" component
+is clock gated and doesn't fire pflip irqs in that state. Also that
+this clock gating may happen if no planes are active. This suggests
+that the problem addressed by that commit can't happen if planes
+are active.
+
+The proposed solution is therefore to only execute the extra pflip
+completion code iff the count of active planes is zero and otherwise
+leave pflip completion handling to the pflip irq handler, for a
+more race-free experience.
+
+Note that i don't know if this fixes the problem the original commit
+tried to address, as i don't know what the test scenario was. It
+does fix the observed too early pageflip events though and points
+out the problem introduced.
+
+Fixes: 16f17eda8bad ("drm/amd/display: Send vblank and user events at vsartup for DCN")
+Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index c00696f3017e..c761d3a0b6e8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1080,8 +1080,12 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
- 	struct dma_fence *fence = NULL;
- 	bool pasid_mapping_needed = false;
- 	unsigned patch_offset = 0;
-+	bool update_spm_vmid_needed = (job->vm && (job->vm->reserved_vmid[vmhub] != NULL));
- 	int r;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 63e8a12a74bc..3502d6d52160 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -522,8 +522,9 @@ static void dm_dcn_crtc_high_irq(void *interrupt_params)
  
-+	if (update_spm_vmid_needed && adev->gfx.rlc.funcs->update_spm_vmid)
-+		adev->gfx.rlc.funcs->update_spm_vmid(adev, job->vmid);
-+
- 	if (amdgpu_vmid_had_gpu_reset(adev, id)) {
- 		gds_switch_needed = true;
- 		vm_flush_needed = true;
+ 	acrtc_state = to_dm_crtc_state(acrtc->base.state);
+ 
+-	DRM_DEBUG_DRIVER("crtc:%d, vupdate-vrr:%d\n", acrtc->crtc_id,
+-				amdgpu_dm_vrr_active(acrtc_state));
++	DRM_DEBUG_DRIVER("crtc:%d, vupdate-vrr:%d, planes:%d\n", acrtc->crtc_id,
++			 amdgpu_dm_vrr_active(acrtc_state),
++			 acrtc_state->active_planes);
+ 
+ 	amdgpu_dm_crtc_handle_crc_irq(&acrtc->base);
+ 	drm_crtc_handle_vblank(&acrtc->base);
+@@ -543,7 +544,18 @@ static void dm_dcn_crtc_high_irq(void *interrupt_params)
+ 			&acrtc_state->vrr_params.adjust);
+ 	}
+ 
+-	if (acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED) {
++	/*
++	 * If there aren't any active_planes then DCH HUBP may be clock-gated.
++	 * In that case, pageflip completion interrupts won't fire and pageflip
++	 * completion events won't get delivered. Prevent this by sending
++	 * pending pageflip events from here if a flip is still pending.
++	 *
++	 * If any planes are enabled, use dm_pflip_high_irq() instead, to
++	 * avoid race conditions between flip programming and completion,
++	 * which could cause too early flip completion events.
++	 */
++	if (acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
++	    acrtc_state->active_planes == 0) {
+ 		if (acrtc->event) {
+ 			drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
+ 			acrtc->event = NULL;
 -- 
-2.17.1
+2.20.1
 
 _______________________________________________
 amd-gfx mailing list
