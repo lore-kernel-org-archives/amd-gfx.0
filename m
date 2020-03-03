@@ -6,45 +6,45 @@ X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
 	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 01ECAC3F2D1
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2020 20:14:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2321C3F2C6
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2020 20:14:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C426E20CC7
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2020 20:14:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C5C5B20CC7
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2020 20:14:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="v1L/fDFD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C426E20CC7
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="YqLUnBvv"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C5C5B20CC7
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linuxfoundation.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94FC96E944;
-	Tue,  3 Mar 2020 20:14:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 798C66E946;
+	Tue,  3 Mar 2020 20:14:09 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F99E6E94A
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2020 17:48:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4992C6E93A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2020 17:55:26 +0000 (UTC)
 Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
  [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A0BA4208C3;
- Tue,  3 Mar 2020 17:48:17 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9C58D2072D;
+ Tue,  3 Mar 2020 17:55:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1583257698;
- bh=RoFfNCxuyBJAaBUVqc+Mkp2CuQkPRSxXZ6tfduI7cOw=;
+ s=default; t=1583258126;
+ bh=4tOmSmVMe3mvmllK6G1Y4slRC9SU/jQaGPx0xsYACAc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=v1L/fDFDy1hiWv7OzrhEDKSIbZLIheI1vnlFzjVBJ8ToJ+YwcdwaLcHtctZ1kbWbO
- ynozGn0nMgFAJruBqzHlR3P6ZHa8uNezv4IHe0/hqWNARXMjgS2q239eMcmQtrrRb4
- hm60NW8OEzK+wRxUXfq11OIIJhVYBtPHRAOC1JuQ=
+ b=YqLUnBvv6HYLLlkhZ78QE9kVYC3uJiUyKvcAgiGzzmeYfZYCALdZtLK5kluerNcga
+ ZMjIqGIkZhYsl7xL59bzxi2peo5JePRklkZ4xn3tM1njblFoh40QzfTaVOgItRtMKP
+ IuDqkPcJWlO50aDvhFLyYtjozK0DZ7P6OLsT+yS0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH 5.5 094/176] drm/radeon: Inline drm_get_pci_dev
-Date: Tue,  3 Mar 2020 18:42:38 +0100
-Message-Id: <20200303174315.693227994@linuxfoundation.org>
+Subject: [PATCH 5.4 080/152] drm/radeon: Inline drm_get_pci_dev
+Date: Tue,  3 Mar 2020 18:42:58 +0100
+Message-Id: <20200303174311.613425292@linuxfoundation.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200303174304.593872177@linuxfoundation.org>
-References: <20200303174304.593872177@linuxfoundation.org>
+In-Reply-To: <20200303174302.523080016@linuxfoundation.org>
+References: <20200303174302.523080016@linuxfoundation.org>
 User-Agent: quilt/0.66
 MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 03 Mar 2020 20:14:07 +0000
@@ -117,7 +117,7 @@ aXZlcl9kYXRhKTsKKwlpZiAocmV0KQorCQlnb3RvIGVycl9hZ3A7CisKKwlyZXR1cm4gMDsKKwor
 ZXJyX2FncDoKKwlpZiAoZGV2LT5hZ3ApCisJCWFyY2hfcGh5c193Y19kZWwoZGV2LT5hZ3AtPmFn
 cF9tdHJyKTsKKwlrZnJlZShkZXYtPmFncCk7CisJcGNpX2Rpc2FibGVfZGV2aWNlKHBkZXYpOwor
 ZXJyX2ZyZWU6CisJZHJtX2Rldl9wdXQoZGV2KTsKKwlyZXR1cm4gcmV0OwogfQogCiBzdGF0aWMg
-dm9pZApAQCAtNTc1LDcgKzYxNCw3IEBAIHJhZGVvbl9nZXRfY3J0Y19zY2Fub3V0X3Bvc2l0aW9u
+dm9pZApAQCAtNTc4LDcgKzYxNyw3IEBAIHJhZGVvbl9nZXRfY3J0Y19zY2Fub3V0X3Bvc2l0aW9u
 KHN0cnVjdAogCiBzdGF0aWMgc3RydWN0IGRybV9kcml2ZXIga21zX2RyaXZlciA9IHsKIAkuZHJp
 dmVyX2ZlYXR1cmVzID0KLQkgICAgRFJJVkVSX1VTRV9BR1AgfCBEUklWRVJfR0VNIHwgRFJJVkVS
 X1JFTkRFUiwKKwkgICAgRFJJVkVSX0dFTSB8IERSSVZFUl9SRU5ERVIsCiAJLmxvYWQgPSByYWRl
