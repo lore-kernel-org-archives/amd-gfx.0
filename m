@@ -2,50 +2,109 @@ Return-Path: <SRS0=6yRT=4U=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	FAKE_REPLY_C,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BBF88C3F2C6
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2020 14:45:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 097CFC3F2D1
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2020 15:03:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8F89A20838
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2020 14:45:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9BC8E20828
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2020 15:03:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="ymecdNsm"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8F89A20838
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="SZRalVA/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9BC8E20828
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 284306EA7C;
-	Tue,  3 Mar 2020 14:45:47 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8816C6EA7B
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2020 14:45:45 +0000 (UTC)
-Received: from localhost (173-25-83-245.client.mchsi.com [173.25.83.245])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E767E20838;
- Tue,  3 Mar 2020 14:38:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1583246309;
- bh=elj28SC1BBksBJDG9rtk+GAZOY8nGE3uwbpMfH0H8kE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=ymecdNsmzO/RdyoCzvt+ifRaflAViNZudlRJ82N84Ku2Mi4A7UPNdobvStDFNf1bo
- uw3JPwVfgbMGEagfkCy2/sO8sjc7hoQrXMDmH+fkc12ACTfVG6j1SwFwy/L+b5H72a
- PXlL/HL/CaD0J7a7HEKlPT48stIB0zU2Hi7FCN7E=
-Date: Tue, 3 Mar 2020 08:38:27 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Mikel Rychliski <mikel@mikelr.com>
-Subject: Re: [PATCH 2/4] PCI: Use ioremap, not phys_to_virt for platform rom
-Message-ID: <20200303143827.GA78253@google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D31C6EA87;
+	Tue,  3 Mar 2020 15:03:57 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on20614.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7eaa::614])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CAD516EA87
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2020 15:03:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=iISn5Rx9B33KxZT3smBnf6XtGAaMQWIxwt/5HQkAxMLlMHewd5K1ovkbQwIcXVY2uYF3hDHUw5P0KVYZOPjqzLk5vjm+8ygpaF/QbpqpJWI7SQi/KKJDpUV5Jmsa79C/GTyS+FlzLdddyqJ7jFXfRa5dGjju9POCScxAxFkjOLiJmIJWw880Uwm+SL0PMUUZp7LByWtUaZHzDWGiImC3r7pPtC/ZKy9xqG0OUWY/iwjrj1Swj78zvf1SdDB8RyWRMavZ+Vjfy0PZauMJvnJ5497EVs7L6gD0gDiAdOpYDpVDpPS6obyO0Xszs/4IxPCVgWd/4VBVGaYaLSWU29ORyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5GFYtvQCvaQkdweMwa1LxJtlHDf0kaOBjNiEqXFtqc4=;
+ b=fJFcsuHHwTdcCw2nH3M0pf8oapHRjWf335OLDK2/t8v8WzbUFQ/xme5PXX16nKY6mbOpe3rdGlE7TRGb2Zdxt3Bh3AhsP72UIADnlovH2Sj9BfgZlKQyrItVJtm+Byw46GuZOJ1Wdf1G77j58IAu3n87FpLYvI5MAqI10Mt5OTnfKmXjPqFK/89d5lks5GKD7/sOCpXZJ+egd6vGagdW50wplNJc5sx4nFJkbsJ5KQFHI01bx2pKJi+WCq4xZcvGrTXafHqNX5TQbJeV5ucNQqA3pwgoPwxFBxvPhE+nJ6ywHPf3D6zete2Ch99FSrDBuzCNasydc0QrlbsSYzG1jw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5GFYtvQCvaQkdweMwa1LxJtlHDf0kaOBjNiEqXFtqc4=;
+ b=SZRalVA/KI/2ESwvm3Fb3+3e90kV6X42jbf8WLc+Vt7lmY0rFW3sFh7X9fPYKS6adV3hMWsFuECUFp632+cKkGlLZiXoECzP7r7PPiW3hNKcA6dyBf+h2Ib4SVf9ux86o9/KyqDocJHQHUJ97Dkszsyw8aPCpSx9KyMtQu2o4fM=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Christian.Koenig@amd.com; 
+Received: from DM5PR12MB1705.namprd12.prod.outlook.com (2603:10b6:3:10c::22)
+ by DM5PR12MB1594.namprd12.prod.outlook.com (2603:10b6:4:e::18) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2772.14; Tue, 3 Mar 2020 15:03:54 +0000
+Received: from DM5PR12MB1705.namprd12.prod.outlook.com
+ ([fe80::d40e:7339:8605:bc92]) by DM5PR12MB1705.namprd12.prod.outlook.com
+ ([fe80::d40e:7339:8605:bc92%11]) with mapi id 15.20.2772.019; Tue, 3 Mar 2020
+ 15:03:54 +0000
+Subject: Re: [PATCH] drm/amdgpu: Update SPM_VMID with the job's vmid when
+ application reserves the vmid
+To: "He, Jacob" <Jacob.He@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20200302053529.5736-1-jacob.he@amd.com>
+ <0bbac128-473d-b8d1-9b5a-ceb25357c81c@gmail.com>
+ <MN2PR12MB3376C82E9294503F14F928A79BE40@MN2PR12MB3376.namprd12.prod.outlook.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <06d9d31f-87c5-b1f1-da93-992531dd57ad@amd.com>
+Date: Tue, 3 Mar 2020 16:03:47 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+In-Reply-To: <MN2PR12MB3376C82E9294503F14F928A79BE40@MN2PR12MB3376.namprd12.prod.outlook.com>
+Content-Language: en-US
+X-ClientProxiedBy: AM4PR0101CA0059.eurprd01.prod.exchangelabs.com
+ (2603:10a6:200:41::27) To DM5PR12MB1705.namprd12.prod.outlook.com
+ (2603:10b6:3:10c::22)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200303033457.12180-3-mikel@mikelr.com>
-User-Agent: Mutt/1.12.2 (2019-09-21)
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
+ AM4PR0101CA0059.eurprd01.prod.exchangelabs.com (2603:10a6:200:41::27) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.19 via Frontend
+ Transport; Tue, 3 Mar 2020 15:03:53 +0000
+X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 836d5ccc-55c8-427b-234f-08d7bf8416f0
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1594:|DM5PR12MB1594:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1594C8082FB62656CDB209EB83E40@DM5PR12MB1594.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2803;
+X-Forefront-PRVS: 03319F6FEF
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(366004)(189003)(199004)(110136005)(498600001)(2906002)(52116002)(86362001)(31686004)(31696002)(186003)(6666004)(5660300002)(16526019)(53546011)(81156014)(8676002)(81166006)(36756003)(2616005)(8936002)(66946007)(66556008)(66476007)(66574012)(6486002)(15650500001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1594;
+ H:DM5PR12MB1705.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: YvUND/gPZjcTO1jvx8ybdhdWWt2yWsM59aDpqI404iEqfbdBjAv3c+LEOgoD1fJBS4mdyYiltWzVy6qKIQTjymu2jahM2rzYORJHDhOnY7A/N/cASuSQmeNEmcEJOKErC/FdJaSNhqvFINZpYqkPEnci1FoX7WEJNmrhCVGEAJA/ruyGjA7lA1qd1Z+Hhz6ELAvLzMI4e1n6z9jjxhgEFNXKgtqfwFGmx6jXAX66Bjj9VRTG32aouJvbApXnCCzAFY/jXWStzUxRiYWBPaCl29Oo4sNzN0KyEF2dP5u85PqWyB1hQpVak/4vBSBqvTVFmx+mTGKrBReidSBd49hELJDZzLlj/NBafubIjVtOkU1YP/WYXIAxd+DyEYqrINYI1Jcv6cl3Ti97r+Dwz73X8uVc769Zr82blO6Fkh6R71PFFlK+M1bVeB2XocJR+HQS
+X-MS-Exchange-AntiSpam-MessageData: iSKTCjgFK+glf81aWwvJQQrkVrjzVlRMd3wE4ILM1KgRfJAC6kNoQsn02+KWKJIU02WYOAzZsMJK86Njd9O9IBAtckLYnEdjoTGAV0Y80R1m/VBIfNETQbZFkiztaC6fib+dKxL2wGAKK/5LPpPdFpGULExdxbKiRjxugZ7aZ5HY3ITXNOqWEso5jDWv+MdmkxNAT2VJaHH/5z7BCGQCfA==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 836d5ccc-55c8-427b-234f-08d7bf8416f0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2020 15:03:54.1597 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Xe8jrBWH4eNwRkFK4wzJEtA+eS5ohx3wKCFBayRHa6XNmi00e88MchGslBvqMPEp
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1594
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,122 +116,276 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>, linux-pci@vger.kernel.org,
- Matthew Garrett <matthewgarrett@google.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0350382127=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Cosmetics:
+--===============0350382127==
+Content-Type: multipart/alternative;
+ boundary="------------1C2AF555694E0F8C8C0669B6"
+Content-Language: en-US
 
-s/ioremap/ioremap()/ (also in commit log)
-s/phys_to_virt/phys_to_virt()/ (also in commit log)
-s/pci_platform_rom/pci_platform_rom()/ (commit log)
-s/rom/ROM/
+--------------1C2AF555694E0F8C8C0669B6
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Mar 02, 2020 at 10:34:55PM -0500, Mikel Rychliski wrote:
-> On some EFI systems, the video BIOS is provided by the EFI firmware.  The
-> boot stub code stores the physical address of the ROM image in pdev->rom.
-> Currently we attempt to access this pointer using phys_to_virt, which
-> doesn't work with CONFIG_HIGHMEM.
-> 
-> On these systems, attempting to load the radeon module on a x86_32 kernel
-> can result in the following:
-> 
->     BUG: unable to handle page fault for address: 3e8ed03c
->     #PF: supervisor read access in kernel mode
->     #PF: error_code(0x0000) - not-present page
->     *pde = 00000000
->     Oops: 0000 [#1] PREEMPT SMP
->     CPU: 0 PID: 317 Comm: systemd-udevd Not tainted 5.6.0-rc3-next-20200228 #2
->     Hardware name: Apple Computer, Inc. MacPro1,1/Mac-F4208DC8, BIOS     MP11.88Z.005C.B08.0707021221 07/02/07
->     EIP: radeon_get_bios+0x5ed/0xe50 [radeon]
->     Code: 00 00 84 c0 0f 85 12 fd ff ff c7 87 64 01 00 00 00 00 00 00 8b 47 08 8b 55 b0 e8 1e 83 e1 d6 85 c0 74 1a 8b 55 c0 85 d2 74 13 <80> 38 55 75 0e 80 78 01 aa 0f 84 a4 03 00 00 8d 74 26 00 68 dc 06
->     EAX: 3e8ed03c EBX: 00000000 ECX: 3e8ed03c EDX: 00010000
->     ESI: 00040000 EDI: eec04000 EBP: eef3fc60 ESP: eef3fbe0
->     DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010206
->     CR0: 80050033 CR2: 3e8ed03c CR3: 2ec77000 CR4: 000006d0
->     Call Trace:
->      ? register_client+0x34/0xe0
->      ? register_client+0xab/0xe0
->      r520_init+0x26/0x240 [radeon]
->      radeon_device_init+0x533/0xa50 [radeon]
->      radeon_driver_load_kms+0x80/0x220 [radeon]
->      drm_dev_register+0xa7/0x180 [drm]
->      radeon_pci_probe+0x10f/0x1a0 [radeon]
->      pci_device_probe+0xd4/0x140
->      really_probe+0x13d/0x3b0
->      driver_probe_device+0x56/0xd0
->      device_driver_attach+0x49/0x50
->      __driver_attach+0x79/0x130
->      ? device_driver_attach+0x50/0x50
->      bus_for_each_dev+0x5b/0xa0
->      driver_attach+0x19/0x20
->      ? device_driver_attach+0x50/0x50
->      bus_add_driver+0x117/0x1d0
->      ? pci_bus_num_vf+0x20/0x20
->      driver_register+0x66/0xb0
->      ? 0xf80f4000
->      __pci_register_driver+0x3d/0x40
->      radeon_init+0x82/0x1000 [radeon]
->      do_one_initcall+0x42/0x200
->      ? kvfree+0x25/0x30
->      ? __vunmap+0x206/0x230
->      ? kmem_cache_alloc_trace+0x16f/0x220
->      ? do_init_module+0x21/0x220
->      do_init_module+0x50/0x220
->      load_module+0x1f26/0x2200
->      sys_init_module+0x12d/0x160
->      do_fast_syscall_32+0x82/0x250
->      entry_SYSENTER_32+0xa5/0xf8
-> 
-> Fix the issue by using ioremap instead of phys_to_virt in pci_platform_rom.
-> 
-> Signed-off-by: Mikel Rychliski <mikel@mikelr.com>
-> ---
->  drivers/pci/rom.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/pci/rom.c b/drivers/pci/rom.c
-> index 137bf0cee897..e352798eed0c 100644
-> --- a/drivers/pci/rom.c
-> +++ b/drivers/pci/rom.c
-> @@ -197,8 +197,7 @@ void pci_unmap_rom(struct pci_dev *pdev, void __iomem *rom)
->  EXPORT_SYMBOL(pci_unmap_rom);
->  
->  /**
-> - * pci_platform_rom - provides a pointer to any ROM image provided by the
-> - * platform
-> + * pci_platform_rom - ioremap the ROM image provided by the platform
->   * @pdev: pointer to pci device struct
->   * @size: pointer to receive size of pci window over ROM
->   */
-> @@ -206,7 +205,7 @@ void __iomem *pci_platform_rom(struct pci_dev *pdev, size_t *size)
->  {
->  	if (pdev->rom && pdev->romlen) {
->  		*size = pdev->romlen;
-> -		return phys_to_virt((phys_addr_t)pdev->rom);
-> +		return ioremap(pdev->rom, pdev->romlen);
+Am 03.03.20 um 15:34 schrieb He, Jacob:
+>
+> [AMD Official Use Only - Internal Distribution Only]
+>
+>
+> /It would be better if we could do that asynchronously with a register
+> write on the ring.
+>
+> /
+>
+> Sorry, I don’t get your point. Could you please elaborate more?
+>
 
-This changes the interface of pci_platform_rom() (the caller is now
-responsible for doing an iounmap()).  That should be mentioned in the
-function comment, and I think the subsequent patches should be
-squashed into this one so the interface change and the caller changes
-are done simultaneously.
+You pass the ring from amdgpu_vm_flush() to the *_update_spm_vmid() 
+functions.
 
-Also, it looks like nvbios_platform.init() (platform_init()) needs a
-similar change?
+And then instead of using WREG32() you call amdgpu_ring_emit_wreg() to 
+make the write asynchronously on the ring buffer using a CP command.
 
->  	}
->  
->  	return NULL;
-> -- 
-> 2.13.7
-> 
+This way we avoid a bunch of trouble when one process drops the VMID 
+reservation and another one grabs it.
+
+Regards,
+Christian.
+
+> Thanks
+>
+> Jacob
+>
+> *From: *Christian König <mailto:ckoenig.leichtzumerken@gmail.com>
+> *Sent: *Tuesday, March 3, 2020 10:16 PM
+> *To: *He, Jacob <mailto:Jacob.He@amd.com>; 
+> amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+> *Subject: *Re: [PATCH] drm/amdgpu: Update SPM_VMID with the job's vmid 
+> when application reserves the vmid
+>
+> Am 02.03.20 um 06:35 schrieb Jacob He:
+> > SPM access the video memory according to SPM_VMID. It should be updated
+> > with the job's vmid right before the job is scheduled. SPM_VMID is a
+> > global resource
+> >
+> > Change-Id: Id3881908960398f87e7c95026a54ff83ff826700
+> > Signed-off-by: Jacob He <jacob.he@amd.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++++
+> >   1 file changed, 4 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > index c00696f3017e..c761d3a0b6e8 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -1080,8 +1080,12 @@ int amdgpu_vm_flush(struct amdgpu_ring *ring, 
+> struct amdgpu_job *job,
+> >        struct dma_fence *fence = NULL;
+> >        bool pasid_mapping_needed = false;
+> >        unsigned patch_offset = 0;
+> > +     bool update_spm_vmid_needed = (job->vm && 
+> (job->vm->reserved_vmid[vmhub] != NULL));
+> >        int r;
+> >
+> > +     if (update_spm_vmid_needed && 
+> adev->gfx.rlc.funcs->update_spm_vmid)
+> > + adev->gfx.rlc.funcs->update_spm_vmid(adev, job->vmid);
+> > +
+>
+> It would be better if we could do that asynchronously with a register
+> write on the ring.
+>
+> The alternative is that we block for the VM to be idle in
+> amdgpu_vm_ioctl() before unreserving the VMID.
+>
+> In other words lock the reservation object of the root PD and call
+> amdgpu_vm_wait_idle() before calling amdgpu_vmid_free_reserved().
+>
+> Regards,
+> Christian.
+>
+> >        if (amdgpu_vmid_had_gpu_reset(adev, id)) {
+> >                gds_switch_needed = true;
+> >                vm_flush_needed = true;
+>
+
+
+--------------1C2AF555694E0F8C8C0669B6
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <div class="moz-cite-prefix">Am 03.03.20 um 15:34 schrieb He, Jacob:<br>
+    </div>
+    <blockquote type="cite" cite="mid:MN2PR12MB3376C82E9294503F14F928A79BE40@MN2PR12MB3376.namprd12.prod.outlook.com">
+      
+      <meta name="Generator" content="Microsoft Word 15 (filtered
+        medium)">
+      <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Bookman Old Style";
+	panose-1:2 5 6 4 5 5 5 2 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style>
+      <p style="font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" align="Left">
+        [AMD Official Use Only - Internal Distribution Only]<br>
+      </p>
+      <br>
+      <div>
+        <div class="WordSection1">
+          <p class="MsoNormal"><i>It would be better if we could do that
+              asynchronously with a register
+              <br>
+              write on the ring.<br>
+              <br>
+            </i></p>
+          <p class="MsoNormal">Sorry, I don’t get your point. Could you
+            please elaborate more?
+          </p>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+    You pass the ring from amdgpu_vm_flush() to the *_update_spm_vmid()
+    functions.<br>
+    <br>
+    And then instead of using WREG32() you call amdgpu_ring_emit_wreg()
+    to make the write asynchronously on the ring buffer using a CP
+    command.<br>
+    <br>
+    This way we avoid a bunch of trouble when one process drops the VMID
+    reservation and another one grabs it.<br>
+    <br>
+    Regards,<br>
+    Christian.<br>
+    <br>
+    <blockquote type="cite" cite="mid:MN2PR12MB3376C82E9294503F14F928A79BE40@MN2PR12MB3376.namprd12.prod.outlook.com">
+      <div>
+        <div class="WordSection1">
+          <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+          <p class="MsoNormal"><span style="font-size:9.0pt;font-family:&quot;Bookman Old
+              Style&quot;,serif">Thanks<o:p></o:p></span></p>
+          <p class="MsoNormal"><span style="font-size:9.0pt;font-family:&quot;Bookman Old
+              Style&quot;,serif">Jacob<o:p></o:p></span></p>
+          <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+          <div style="mso-element:para-border-div;border:none;border-top:solid
+            #E1E1E1 1.0pt;padding:3.0pt 0in 0in 0in">
+            <p class="MsoNormal" style="border:none;padding:0in"><b>From:
+              </b><a href="mailto:ckoenig.leichtzumerken@gmail.com" moz-do-not-send="true">Christian König</a><br>
+              <b>Sent: </b>Tuesday, March 3, 2020 10:16 PM<br>
+              <b>To: </b><a href="mailto:Jacob.He@amd.com" moz-do-not-send="true">He, Jacob</a>; <a href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">
+                amd-gfx@lists.freedesktop.org</a><br>
+              <b>Subject: </b>Re: [PATCH] drm/amdgpu: Update SPM_VMID
+              with the job's vmid when application reserves the vmid</p>
+          </div>
+          <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+          <p class="MsoNormal" style="margin-bottom:12.0pt">Am 02.03.20
+            um 06:35 schrieb Jacob He:<br>
+            &gt; SPM access the video memory according to SPM_VMID. It
+            should be updated<br>
+            &gt; with the job's vmid right before the job is scheduled.
+            SPM_VMID is a<br>
+            &gt; global resource<br>
+            &gt;<br>
+            &gt; Change-Id: Id3881908960398f87e7c95026a54ff83ff826700<br>
+            &gt; Signed-off-by: Jacob He <a class="moz-txt-link-rfc2396E" href="mailto:jacob.he@amd.com">&lt;jacob.he@amd.com&gt;</a><br>
+            &gt; ---<br>
+            &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 &#43;&#43;&#43;&#43;<br>
+            &gt;&nbsp;&nbsp; 1 file changed, 4 insertions(&#43;)<br>
+            &gt;<br>
+            &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+            b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+            &gt; index c00696f3017e..c761d3a0b6e8 100644<br>
+            &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+            &gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<br>
+            &gt; @@ -1080,8 &#43;1080,12 @@ int amdgpu_vm_flush(struct
+            amdgpu_ring *ring, struct amdgpu_job *job,<br>
+            &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_fence *fence = NULL;<br>
+            &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool pasid_mapping_needed = false;<br>
+            &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned patch_offset = 0;<br>
+            &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bool update_spm_vmid_needed = (job-&gt;vm
+            &amp;&amp; (job-&gt;vm-&gt;reserved_vmid[vmhub] != NULL));<br>
+            &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
+            &gt;&nbsp;&nbsp; <br>
+            &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (update_spm_vmid_needed &amp;&amp;
+            adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid)<br>
+            &gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid(adev,
+            job-&gt;vmid);<br>
+            &gt; &#43;<br>
+            <br>
+            It would be better if we could do that asynchronously with a
+            register <br>
+            write on the ring.<br>
+            <br>
+            The alternative is that we block for the VM to be idle in <br>
+            amdgpu_vm_ioctl() before unreserving the VMID.<br>
+            <br>
+            In other words lock the reservation object of the root PD
+            and call <br>
+            amdgpu_vm_wait_idle() before calling
+            amdgpu_vmid_free_reserved().<br>
+            <br>
+            Regards,<br>
+            Christian.<br>
+            <br>
+            &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_vmid_had_gpu_reset(adev, id)) {<br>
+            &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gds_switch_needed = true;<br>
+            &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm_flush_needed = true;<o:p></o:p></p>
+          <p class="MsoNormal"><o:p>&nbsp;</o:p></p>
+        </div>
+      </div>
+    </blockquote>
+    <br>
+  </body>
+</html>
+
+--------------1C2AF555694E0F8C8C0669B6--
+
+--===============0350382127==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0350382127==--
