@@ -2,106 +2,103 @@ Return-Path: <SRS0=6yRT=4U=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AF82C3F2C6
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2020 23:14:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE31CC3F2C6
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2020 23:27:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 13AA520870
-	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2020 23:14:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AD26320716
+	for <amd-gfx@archiver.kernel.org>; Tue,  3 Mar 2020 23:27:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="edV6vwXE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 13AA520870
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="J1Qy/f+O"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD26320716
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2A546E97A;
-	Tue,  3 Mar 2020 23:14:24 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2071.outbound.protection.outlook.com [40.107.220.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A7586E97A
- for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2020 23:14:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6773D6E0CD;
+	Tue,  3 Mar 2020 23:27:38 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on20624.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e8a::624])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93A956E0A6
+ for <amd-gfx@lists.freedesktop.org>; Tue,  3 Mar 2020 23:27:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CqkM1fGY2AD1zr+8rgt5c2FjqkfVjomLUdA3+7+aLD57o6dnye0Nm1htmZPyhh+ecvEUoW3usueH476eU2HCDY3nlxJnNQptw8kko4IWiTHmz4H6UfbBtMa2kqRZUQIbOCCZkOAFJILaHb55SmoTNlwVKzhUi4qNYVDP+nFSCiLw5hmlthyqw+flKQZuaQJO8YqZsVXcF6tIA/PaDgGuLK533IWI8PcLck3DtmfxSYJTFwCIGAuOGI/7fFy2X7GphYz8JFPhjO+JArWeyF5vPvvj1r6AwQs2Bl0yW1N9ddyHPC5z5YI1x29jmcWH/m4hJAk7qCanNVzZs/Z1ktpbDQ==
+ b=XivxnT7cZOyXowKyXjr9/utU2M0BalQf7P1mn41tulRnqaSyrKvqQxOncIuHxRS5UZBGFZOLz/moR/J2W5LqMfNbp07DblXhLAGn5YNLw5TSLx3Q3BbCeW8hdIcGxKo1Wk4OHaFIRMG22rY2QYw44uia0kDRVzV4CehQNWv1MoAbBWfXMqSI9+k5rSiJIqo6iZGIX9ycmPZRMVKtb99SYEUndZUTKYKS3OfUNVnaCKQcQyhTy7La4OSTOUYFiYvKOUxGbIXIrcFpv52CMd6c0UHCW2RfUxK2gKzMs8Z5yEsYAeZbiBifdfO1N4YBlLNkQHAtq1CDgQhG2V5yWPsDRg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pgvWj24nLj9+knyEuuVbEMfwqIjgNwpbxGm9oVnqZrE=;
- b=MOhUoDDiGTnUMZkt2Y+RJXSugJ06ST/t8odYil3WB85HEwwRHFDr4l9oV6FMIG02kDuluwgQ78Z9ei2rYHQrvs2r8dHL2yqVcg8+4C5Rr2SmcFduOFf4OiwDGVaePFFSWWKiw+h/DLMs+gcbFwHEWKmemSkLYq0Zs0M/iTlGOPVk9cHNnC0OF+kzJJ3tZa3GT8CRfgfUPXztN4czt1ueO8Tc2ldw626TLT5/elHdua53QgGvkKkRXrvREeEbQ8bBRD9TOfDLou115rYwKothUVzaXpG6U341zE37fO3zCMTgXlJ/wJDo1/DkgcJFet0dlipMjgTVBqbF73VEQuHkqw==
+ bh=fntfUf9AiZ3tITZYR/+WD2/hvprVgdIG+Eoiar5j49E=;
+ b=Bs7LcG32PKzdzPDywmDj0qSz5Ye7v2Qxt9c8fK8rRAzRb5PboBK5YFikvLPMHrU12lpBg6Fz5/m1MFtk/olJywr4Vosc/8NjdE6PfB2FpG+WWhlTnwI0Ou4EKqIUJSYDLyalRz/HApCLW/570SCp+JKf+vF+CpwTLJD7L/IFZ4bXI1U1YFeCxHE1uiz7Xi6x067kH4AKFXd8/GUnqtR0iN5pVvgS0IcJloZ3Qw4XFWtERdCgcpFTZz4D6KZ0wHdprqM1lr+sjhUhzaUrOatCbF28fUcW/KM9kHX4XRdKesjU3nqwluUTdtmF5MP3Tq1b5R8gRvmmE32T5/gx3MQy1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pgvWj24nLj9+knyEuuVbEMfwqIjgNwpbxGm9oVnqZrE=;
- b=edV6vwXEGrntf16b3R/0TwfhY6ZqMzJEKVu5NiPpEVzXjni0BeBzgq2ePraSrLN+8DYKv9F/g6NilHiRS3ubDVSiT8Yk8BqQiaoVXJxhhyPvjz+xJ/u8IoLdEjUljUGVAgi6OxxYtJh9ON+kkgwFL7b0OYbtTvaChprwCWASakE=
+ bh=fntfUf9AiZ3tITZYR/+WD2/hvprVgdIG+Eoiar5j49E=;
+ b=J1Qy/f+ONqXd1ka5cliB6zIKxQsm1RDBRDKDZbEIb8rIc7k61gDoW3uLmxHqdcyJK0mMDeKQWhKRFnnrJDn0fEAjV5L9i7nXGttT5sv5mH1FZkQ6Cmso+ElHuwGnt0dr2Z0rZFZwYdRWlejq0XMQNuvUSBKaUiCnX2gzrwV70So=
 Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Luben.Tuikov@amd.com; 
-Received: from DM6PR12MB3355.namprd12.prod.outlook.com (2603:10b6:5:115::26)
- by DM6SPR01MB0031.namprd12.prod.outlook.com (2603:10b6:5:75::12) with
+ smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
+Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
+ by MW2PR12MB2441.namprd12.prod.outlook.com (2603:10b6:907:f::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14; Tue, 3 Mar
- 2020 23:14:20 +0000
-Received: from DM6PR12MB3355.namprd12.prod.outlook.com
- ([fe80::9505:d766:9ac9:2bfd]) by DM6PR12MB3355.namprd12.prod.outlook.com
- ([fe80::9505:d766:9ac9:2bfd%6]) with mapi id 15.20.2772.019; Tue, 3 Mar 2020
- 23:14:20 +0000
-Subject: Re: [PATCH v3 2/3] drm/amdgpu: Add USBC PD FW load to PSP 11
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <1583272929-1038-1-git-send-email-andrey.grodzovsky@amd.com>
- <1583272929-1038-3-git-send-email-andrey.grodzovsky@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-Message-ID: <10df5e71-716d-eb03-e6d5-1cfdee770286@amd.com>
-Date: Tue, 3 Mar 2020 18:14:18 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
-In-Reply-To: <1583272929-1038-3-git-send-email-andrey.grodzovsky@amd.com>
-Content-Language: en-CA
-X-ClientProxiedBy: YTXPR0101CA0054.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::31) To DM6PR12MB3355.namprd12.prod.outlook.com
- (2603:10b6:5:115::26)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15; Tue, 3 Mar
+ 2020 23:27:34 +0000
+Received: from MW2PR12MB2524.namprd12.prod.outlook.com
+ ([fe80::91a7:e6f7:b17a:bfa5]) by MW2PR12MB2524.namprd12.prod.outlook.com
+ ([fe80::91a7:e6f7:b17a:bfa5%6]) with mapi id 15.20.2772.019; Tue, 3 Mar 2020
+ 23:27:34 +0000
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 01/12] drm/amd/display: update soc bb for nv14
+Date: Tue,  3 Mar 2020 18:27:07 -0500
+Message-Id: <20200303232718.351364-2-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200303232718.351364-1-Rodrigo.Siqueira@amd.com>
+References: <20200303232718.351364-1-Rodrigo.Siqueira@amd.com>
+X-ClientProxiedBy: YTXPR0101CA0012.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00::25) To MW2PR12MB2524.namprd12.prod.outlook.com
+ (2603:10b6:907:9::27)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.252.35.64] (165.204.54.211) by
- YTXPR0101CA0054.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::31) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15 via Frontend
- Transport; Tue, 3 Mar 2020 23:14:20 +0000
-X-Originating-IP: [165.204.54.211]
+Received: from atma2.amd.com (165.204.55.250) by
+ YTXPR0101CA0012.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2772.14 via Frontend Transport; Tue, 3 Mar 2020 23:27:33 +0000
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [165.204.55.250]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 2001a84c-cfd2-45e0-5504-08d7bfc89ab6
-X-MS-TrafficTypeDiagnostic: DM6SPR01MB0031:|DM6SPR01MB0031:
+X-MS-Office365-Filtering-Correlation-Id: 7a2fbb7c-1999-4e43-ac4d-08d7bfca73cd
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2441:|MW2PR12MB2441:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6SPR01MB0031BAB6F37BEF26BE06C30399E40@DM6SPR01MB0031.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB2441A465FE0CE16D6A1D79B598E40@MW2PR12MB2441.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1824;
 X-Forefront-PRVS: 03319F6FEF
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(366004)(136003)(396003)(376002)(39860400002)(189003)(199004)(26005)(16526019)(186003)(2906002)(2616005)(8936002)(956004)(44832011)(316002)(478600001)(16576012)(52116002)(36756003)(81166006)(8676002)(81156014)(6486002)(31696002)(66556008)(66946007)(66476007)(5660300002)(53546011)(86362001)(4326008)(31686004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6SPR01MB0031;
- H:DM6PR12MB3355.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ SFS:(10009020)(4636009)(366004)(396003)(376002)(346002)(136003)(39860400002)(199004)(189003)(36756003)(6486002)(8936002)(54906003)(52116002)(7696005)(81166006)(81156014)(316002)(4326008)(6916009)(5660300002)(186003)(66476007)(956004)(66946007)(1076003)(478600001)(86362001)(2616005)(8676002)(6666004)(66556008)(26005)(16526019)(2906002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MW2PR12MB2441;
+ H:MW2PR12MB2524.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hzpatCg3yOgQQSOxS+beCHKUhRdPrSVeRAf6mC9pCnPCUAKP0+D53ufQEci1Wf4fl1czapXCFOZv9BFrKbBoeF0LPZfMUfhzdARxE+wxLFugvXKAY4dD2e0Ojh/Yc6a1tO9QcFwK6lLFPp90cHWIepf2Mt7iWaEV4g6eE0Ilrzh605CWa6K2GMnq0AXx9wxdB/r5EnbOygnSZgyZ6QWb/fa9Ax7xI43pmADCVNUrXntuFGqpN6lyXyJCW8GNF1VoAYonA/2RIlsou0FaBg0GjBeCiehKC1oHRalgF/Wm+yDAKy7qwcF0nAAuYun8F163qa0R2CZfzdyM7VHepIqBinJnIq7KUtC9D+VZVFG5s4XfY3BUkDF9W+VOXDPSrYXAPB+vEfdBCgkEs7CrotYMxEs02b+6XKuOo5L0CSDOVxMsYiJZKj5ImVR3wxjnecUa
-X-MS-Exchange-AntiSpam-MessageData: SAP0H8gSEGPZ3IBVqa+ZcJ0A6upGuokJQIlAEan4+hnPTWqy1RttBriGXfk8ekMewJP7U5xHagxdjYXZ7nb9RqybGTTC42lBHvh9JiG1brbhzvdr058iPk0wUcYsrkfKiNTDKTT/8j97i62uQO2mGQ==
+X-Microsoft-Antispam-Message-Info: rP3HVpQr2dLUiMJbbM1q3rFq19KntW1CVpcOXdqq2EECMXtJGIyJCouNYxACM6JNg9MIjLgQ+oNiP0TQ9QP9Ds79HtnpLp/+1N4RBrbeexaNYYQ2vhJz9H4cPuWLOeaA/Sw5xEatEO5WfzirnvyUEawoDRy9NQ+4eNcw0kqikwhSTQ3yFbxWXxG3XqYtVGkMPS62Y9vSyPcmF901N8pOGmOubikD9vIE4Y/L8t97TNy/tqWjuDs4WQziw96a51VBidP1ajCg9f6U6XeoMdH23zpCY+rctavf3A2S9QNxbNw7WemewqEnKYrwDCrIOeCw/+a/TjOLTbJDQtP7uBvzZ/1634UNdgQTw98dytynYOjRKjL/QIvjZMZ1Sc/ShKBhVbaaDHXWzLTTT1JGG9Bdx6I2GDij/PbJDHUEtg8R7eyEgXKMXuaL7HqZFy4KLZ86
+X-MS-Exchange-AntiSpam-MessageData: f+EXh9UUXTryaZjpsviwIg+awk+QzIiFpp3nrDnUAdVsvGfcJB5XMnjOemy/vc3n4JVKl2zx/+ZGfXRDWJAeUuuL7daJxFOJFC1jxTMSNCVUWb4qHd+X+nLe1K2YXiAnePfKtJnQhTph45hWryZcDQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2001a84c-cfd2-45e0-5504-08d7bfc89ab6
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2020 23:14:20.8068 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a2fbb7c-1999-4e43-ac4d-08d7bfca73cd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Mar 2020 23:27:34.6310 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XNRDTWgh+Az77jDnp3ZMT6AEvXbyV7+ZBNRSFZRKTPbiervTE0vcxFND3mLCk280
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6SPR01MB0031
+X-MS-Exchange-CrossTenant-UserPrincipalName: XwaKYIRhcjhJfl9fHicFtd3mCLbdSaqAnYoJYy/iAxsQVYtZczWBP/6YA8APnMw8vZDDI2MOusAhuPfsnXG5QQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2441
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,174 +110,164 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Slava.Abramov@amd.com
+Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
+ Martin Leung <martin.leung@amd.com>, Jun Lei <Jun.Lei@amd.com>,
+ Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-03-03 17:02, Andrey Grodzovsky wrote:
-> Add the programming sequence.
-> 
-> v2:
-> Change donwload wait loop to more efficient.
-> Move C2PMSG_CMD_GFX_USB_PD_FW_VER defintion
-> 
-> v3: Fix lack of loop counter increment typo
-> 
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h |  3 ++
->  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 82 +++++++++++++++++++++++++++++++++
->  2 files changed, 85 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-> index 36b6579..a44fd60 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-> @@ -31,6 +31,9 @@
->  #define GFX_CMD_RESERVED_MASK       0x7FF00000
->  #define GFX_CMD_RESPONSE_MASK       0x80000000
->  
-> +/* USBC PD FW version retrieval command */
-> +#define C2PMSG_CMD_GFX_USB_PD_FW_VER 0x2000000
-> +
->  /* TEE Gfx Command IDs for the register interface.
->  *  Command ID must be between 0x00010000 and 0x000F0000.
->  */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> index 8ab3bf3..3db1c0d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-> @@ -65,6 +65,9 @@ MODULE_FIRMWARE("amdgpu/arcturus_ta.bin");
->  /* memory training timeout define */
->  #define MEM_TRAIN_SEND_MSG_TIMEOUT_US	3000000
->  
-> +/* For large FW files the time to complete can be very long */
-> +#define USBC_PD_POLLING_LIMIT_S 240
-> +
->  static int psp_v11_0_init_microcode(struct psp_context *psp)
->  {
->  	struct amdgpu_device *adev = psp->adev;
-> @@ -1109,6 +1112,83 @@ static void psp_v11_0_ring_set_wptr(struct psp_context *psp, uint32_t value)
->  		WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_67, value);
->  }
->  
-> +static int psp_v11_0_load_usbc_pd_fw(struct psp_context *psp, dma_addr_t dma_addr)
-> +{
-> +	struct amdgpu_device *adev = psp->adev;
-> +	uint32_t reg_status;
-> +	int ret, i = 0;
-> +
-> +	/* Write lower 32-bit address of the PD Controller FW */
-> +	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36, lower_32_bits(dma_addr));
-> +	ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_35),
-> +			     0x80000000, 0x80000000, false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Fireup interrupt so PSP can pick up the lower address */
-> +	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_35, 0x800000);
-> +	ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_35),
-> +			     0x80000000, 0x80000000, false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	reg_status = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_35);
-> +
-> +	if ((reg_status & 0xFFFF) != 0) {
-> +		DRM_ERROR("Lower address load failed - MP0_SMN_C2PMSG_35.Bits [15:0] = %02x...\n",
-> +				reg_status & 0xFFFF);
-> +		return -EIO;
-> +	}
-> +
-> +	/* Write upper 32-bit address of the PD Controller FW */
-> +	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36, upper_32_bits(dma_addr));
-> +
-> +	ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_35),
-> +			     0x80000000, 0x80000000, false);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Fireup interrupt so PSP can pick up the upper address */
-> +	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_35, 0x4000000);
-> +
-> +	/* FW load takes very long time */
-> +	do {
-> +		msleep(1000);
-> +		reg_status = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_35);
-> +
-> +		if (reg_status & 0x80000000)
-> +			goto done;
-> +
-> +	} while(i++ < USBC_PD_POLLING_LIMIT_S);
+From: Martin Leung <martin.leung@amd.com>
 
-1. The LKCS wants a space after a keyword ("while") and before parenthesis "(".
+[why]
+nv14 previously inherited soc bb from generic dcn 2, did not match
+watermark values according to memory team
 
-2. In do-while loops, you want to pre-increment, in order to account for the
-   already executed iteration of the loop, since the check is done _after_
-   the loop executes, in contrast to "for" and "while" loops. So you'll need
-   to do this:
+[how]
+add nv14 specific soc bb: copy nv2 generic that it was
+using from before, but changed num channels to 8
 
-   } while (++i < USBC_PD_POLLING_LIMIT_S);
+Signed-off-by: Martin Leung <martin.leung@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c | 113 +++++++++++++++++-
+ 1 file changed, 112 insertions(+), 1 deletion(-)
 
-> +
-> +	return -ETIME;
-> +done:
-> +	reg_status = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_35);
-
-3. You had _just_ read the register, right before the goto jump.
-   You do not need to read it again. (Else a race would exist,
-   and you'd need to poll, _again_.) You shouldn't have to
-   read it again.
-
-> +
-> +	if ((reg_status & 0xFFFF) != 0) {
-> +		DRM_ERROR("Upper address load failed - MP0_SMN_C2PMSG_35.Bits [15:0] = x%04x\n",
-> +				reg_status & 0xFFFF);
-> +		return -EIO;
-> +	}
-
-With those fixed, this patch is,
-Reviewed-by: Luben Tuikov <luben.tuikov@amd.com>
-
-Regards,
-Luben
-
-
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int psp_v11_0_read_usbc_pd_fw(struct psp_context *psp, uint32_t *fw_ver)
-> +{
-> +	struct amdgpu_device *adev = psp->adev;
-> +	int ret;
-> +
-> +	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_35, C2PMSG_CMD_GFX_USB_PD_FW_VER);
-> +
-> +	ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_35),
-> +				     0x80000000, 0x80000000, false);
-> +	if (!ret)
-> +		*fw_ver = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36);
-> +
-> +	return ret;
-> +}
-> +
->  static const struct psp_funcs psp_v11_0_funcs = {
->  	.init_microcode = psp_v11_0_init_microcode,
->  	.bootloader_load_kdb = psp_v11_0_bootloader_load_kdb,
-> @@ -1133,6 +1213,8 @@ static const struct psp_funcs psp_v11_0_funcs = {
->  	.mem_training = psp_v11_0_memory_training,
->  	.ring_get_wptr = psp_v11_0_ring_get_wptr,
->  	.ring_set_wptr = psp_v11_0_ring_set_wptr,
-> +	.load_usbc_pd_fw = psp_v11_0_load_usbc_pd_fw,
-> +	.read_usbc_pd_fw = psp_v11_0_read_usbc_pd_fw
->  };
->  
->  void psp_v11_0_set_psp_funcs(struct psp_context *psp)
-> 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index c629a7b45f56..c8b85f62ae95 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -337,6 +337,117 @@ struct _vcs_dpi_soc_bounding_box_st dcn2_0_soc = {
+ 	.use_urgent_burst_bw = 0
+ };
+ 
++struct _vcs_dpi_soc_bounding_box_st dcn2_0_nv14_soc = {
++	.clock_limits = {
++			{
++				.state = 0,
++				.dcfclk_mhz = 560.0,
++				.fabricclk_mhz = 560.0,
++				.dispclk_mhz = 513.0,
++				.dppclk_mhz = 513.0,
++				.phyclk_mhz = 540.0,
++				.socclk_mhz = 560.0,
++				.dscclk_mhz = 171.0,
++				.dram_speed_mts = 8960.0,
++			},
++			{
++				.state = 1,
++				.dcfclk_mhz = 694.0,
++				.fabricclk_mhz = 694.0,
++				.dispclk_mhz = 642.0,
++				.dppclk_mhz = 642.0,
++				.phyclk_mhz = 600.0,
++				.socclk_mhz = 694.0,
++				.dscclk_mhz = 214.0,
++				.dram_speed_mts = 11104.0,
++			},
++			{
++				.state = 2,
++				.dcfclk_mhz = 875.0,
++				.fabricclk_mhz = 875.0,
++				.dispclk_mhz = 734.0,
++				.dppclk_mhz = 734.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 875.0,
++				.dscclk_mhz = 245.0,
++				.dram_speed_mts = 14000.0,
++			},
++			{
++				.state = 3,
++				.dcfclk_mhz = 1000.0,
++				.fabricclk_mhz = 1000.0,
++				.dispclk_mhz = 1100.0,
++				.dppclk_mhz = 1100.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 1000.0,
++				.dscclk_mhz = 367.0,
++				.dram_speed_mts = 16000.0,
++			},
++			{
++				.state = 4,
++				.dcfclk_mhz = 1200.0,
++				.fabricclk_mhz = 1200.0,
++				.dispclk_mhz = 1284.0,
++				.dppclk_mhz = 1284.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 1200.0,
++				.dscclk_mhz = 428.0,
++				.dram_speed_mts = 16000.0,
++			},
++			/*Extra state, no dispclk ramping*/
++			{
++				.state = 5,
++				.dcfclk_mhz = 1200.0,
++				.fabricclk_mhz = 1200.0,
++				.dispclk_mhz = 1284.0,
++				.dppclk_mhz = 1284.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 1200.0,
++				.dscclk_mhz = 428.0,
++				.dram_speed_mts = 16000.0,
++			},
++		},
++	.num_states = 5,
++	.sr_exit_time_us = 8.6,
++	.sr_enter_plus_exit_time_us = 10.9,
++	.urgent_latency_us = 4.0,
++	.urgent_latency_pixel_data_only_us = 4.0,
++	.urgent_latency_pixel_mixed_with_vm_data_us = 4.0,
++	.urgent_latency_vm_data_only_us = 4.0,
++	.urgent_out_of_order_return_per_channel_pixel_only_bytes = 4096,
++	.urgent_out_of_order_return_per_channel_pixel_and_vm_bytes = 4096,
++	.urgent_out_of_order_return_per_channel_vm_only_bytes = 4096,
++	.pct_ideal_dram_sdp_bw_after_urgent_pixel_only = 40.0,
++	.pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm = 40.0,
++	.pct_ideal_dram_sdp_bw_after_urgent_vm_only = 40.0,
++	.max_avg_sdp_bw_use_normal_percent = 40.0,
++	.max_avg_dram_bw_use_normal_percent = 40.0,
++	.writeback_latency_us = 12.0,
++	.ideal_dram_bw_after_urgent_percent = 40.0,
++	.max_request_size_bytes = 256,
++	.dram_channel_width_bytes = 2,
++	.fabric_datapath_to_dcn_data_return_bytes = 64,
++	.dcn_downspread_percent = 0.5,
++	.downspread_percent = 0.38,
++	.dram_page_open_time_ns = 50.0,
++	.dram_rw_turnaround_time_ns = 17.5,
++	.dram_return_buffer_per_channel_bytes = 8192,
++	.round_trip_ping_latency_dcfclk_cycles = 131,
++	.urgent_out_of_order_return_per_channel_bytes = 256,
++	.channel_interleave_bytes = 256,
++	.num_banks = 8,
++	.num_chans = 8,
++	.vmm_page_size_bytes = 4096,
++	.dram_clock_change_latency_us = 404.0,
++	.dummy_pstate_latency_us = 5.0,
++	.writeback_dram_clock_change_latency_us = 23.0,
++	.return_bus_width_bytes = 64,
++	.dispclk_dppclk_vco_speed_mhz = 3850,
++	.xfc_bus_transport_time_us = 20,
++	.xfc_xbuf_latency_tolerance_us = 4,
++	.use_urgent_burst_bw = 0
++};
++
+ struct _vcs_dpi_soc_bounding_box_st dcn2_0_nv12_soc = { 0 };
+ 
+ #ifndef mmDP0_DP_DPHY_INTERNAL_CTRL
+@@ -3298,7 +3409,7 @@ static struct _vcs_dpi_soc_bounding_box_st *get_asic_rev_soc_bb(
+ 	uint32_t hw_internal_rev)
+ {
+ 	if (ASICREV_IS_NAVI12_P(hw_internal_rev))
+-		return &dcn2_0_nv12_soc;
++		return &dcn2_0_nv14_soc;
+ 
+ 	return &dcn2_0_soc;
+ }
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
