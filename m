@@ -2,103 +2,112 @@ Return-Path: <SRS0=S/Du=4V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15712C3F2C6
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2020 02:57:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0EF2C3F2D1
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2020 03:04:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7CA2F2073B
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2020 02:57:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5534420838
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2020 03:04:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="c8apNk9v"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7CA2F2073B
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Tcd6AuTI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5534420838
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2727D6EAA5;
-	Wed,  4 Mar 2020 02:57:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDD4E6E99E;
+	Wed,  4 Mar 2020 03:04:49 +0000 (UTC)
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2060e.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::60e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E1976EAA5
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2020 02:57:00 +0000 (UTC)
+ (mail-dm6nam12on2086.outbound.protection.outlook.com [40.107.243.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 480426E99E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2020 03:04:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZaMMJJF1lvMkBj0cC8g5ekSs3oY1zwRK7afmDwXG6Zod56JuFpx0DcY0UxppPpu43PUFeoMEkvp71KQW1Fb3nahwgWMski7PLBJuidN5ZPO4L9Rf1S4biOqoVY9Xpaes1wx/G8VifQGuyX3UMEPXvMW3ADHBGadBcmXKrGsN7w12UU1iPlL9lQR3TISn+/iogkrpcYjGTksMqAd+bxHgQfnGsACPopshfDdvj8upn33Z/wbHvoz3EOGkECeAq3DEBF9gKxP7vZy9dWjt8m6r4c+Sve6xn7bz5+jjcrUiG18oGP8BSW40zR8PnEEk8hskiQJjgtfegTO/nFKBRuVIkg==
+ b=KkKUhv/Pjxk7qlyIXW5dzLOGAe2rzdoLiK6F1geP/IgNqznvZwdnLNqoC8PYmqSGnCO60SitXByU5VeQHYEumAsKpKnuLfARQPtV2RUJwOSThOhVmw2hyYA+yZ7BDKZJWb8auL2pCTZNim2g0+8oh7bFd7AkVi4cSryEBnFviSUckK3jowO6RyCWR9wHQRo8mniWgS3u0IgvNKfziQXUdRL7Ccs/SaZ5MLffkM9kJws9Mfs6ekvkg7cpd98zISgm1AhmU3gBf+2onNl5ohBqES0iIACjzxZUdJFH1ITogpw9nNjW0NM1nQjGExf/vULm2fx329slkEvR/UJRdTdhFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=72mR56VZ/B1s3Tqlw18EHUYuJkdbwRh/ZqpWhbQBnls=;
- b=fSDhkE6RtYYNrL7ZjH8Vz2kIcAprHsExnFE26yL/5bKrdB/q1sRowwK75hVYmYrvX8ON7PIoQ/nYdRUiDvfr5QeNUbxkjhO8IBWHYJsV5EDH/AsHE5z5yhplVi4XBBAetiydn/3ogdlFGC6yUOSR1zXyR9oXlC8y3nUzkeMAeb7SZVdtLkVIWShKe50DEIc1m8/QTpF3vr0fuWaOGYKzvBhztn6hphz3h5LayszlBlkW4qtFZ8lm0Xn5UeiyFB01KOm1xN9kpWqnNkmsS8LG7oOuoEE6XncXUo2UWpHkzCwNMhEyWc/38Gtw2KrhEnKMPMjageQYIkPbmult02U+Rw==
+ bh=lPDLzGjKSiMx6O77SfTGXY2H7OGYN28K8TUlxvBmIuI=;
+ b=OYbC4+LCDgZpxbuX7kaJNf06e93ZBRjYK9lKBArpQTloHnd3GxpBgr9UpB2Qt7QoC7hEBkaINEItXYJJUi5ZJGoagWOGTfvy7LXk+yrX2r2zdEvZZuXZ8m2U6dk2e4Hyvl7wNzGL6Yr0vkAVOu5zBDKQj0YZidLdbLJSPQQ24Ea97Owoglftk8cA6lseZ5b/auAI7bOungEylAeP7hTJsHH1bY27X4I10N2AUjIAsg57fF7i3/Uu80Uq8jde+ezGZOpcqtlt2Y651wbftm2SARwsBU/TcxDGuoNEN1hgynaIgIADyim2vOA40ltYypOParL2OnOBH9yrxIIfxuameA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=72mR56VZ/B1s3Tqlw18EHUYuJkdbwRh/ZqpWhbQBnls=;
- b=c8apNk9vc059AbfP/JXyli0tb2unO0ne7TwOaxxa7Vf6c8+veZyRZR56Ropqf5TP3Yhkjkry3pKEc0Pxg7O7JmqSrnhYhyJ+cyaoI+VIUm5lnnMeT3hsMPw0YVUh4p5ACEZJbYQE9VDB8VcagQlkaAL1rr5L8xIoqvkBDvxH+H8=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Prike.Liang@amd.com; 
-Received: from MN2PR12MB3536.namprd12.prod.outlook.com (2603:10b6:208:104::19)
- by MN2PR12MB3647.namprd12.prod.outlook.com (2603:10b6:208:c4::17)
+ bh=lPDLzGjKSiMx6O77SfTGXY2H7OGYN28K8TUlxvBmIuI=;
+ b=Tcd6AuTIU5c1loWdHe1q8q34nMyb2MYH3FbkQaE+EZYAcRw1uepueYlD7aasZ8CinO7FzQQT22Ny4BebhxmrhTX1L+HgEsj/H5bXy5nt6XLOrh6WCNPvMfUzbzRK+WCuUvNH8d51RC5sFgneYqJXqX1STzMIBSsHG8u6SH7eaEs=
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com (2603:10b6:208:c5::10)
+ by MN2PR12MB3551.namprd12.prod.outlook.com (2603:10b6:208:104::30)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.19; Wed, 4 Mar
- 2020 02:56:58 +0000
-Received: from MN2PR12MB3536.namprd12.prod.outlook.com
- ([fe80::424:4ce2:f779:d08b]) by MN2PR12MB3536.namprd12.prod.outlook.com
- ([fe80::424:4ce2:f779:d08b%4]) with mapi id 15.20.2772.019; Wed, 4 Mar 2020
- 02:56:57 +0000
-From: Prike Liang <Prike.Liang@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amd/powerplay: fix pre-check condition for setting
- clock range
-Date: Wed,  4 Mar 2020 10:55:37 +0800
-Message-Id: <1583290538-30426-1-git-send-email-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.7.4
-X-ClientProxiedBy: HK2PR0401CA0015.apcprd04.prod.outlook.com
- (2603:1096:202:2::25) To MN2PR12MB3536.namprd12.prod.outlook.com
- (2603:10b6:208:104::19)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from prike.amd.com (180.167.199.189) by
- HK2PR0401CA0015.apcprd04.prod.outlook.com (2603:1096:202:2::25) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.20.2772.15 via Frontend
- Transport; Wed, 4 Mar 2020 02:56:55 +0000
-X-Mailer: git-send-email 2.7.4
-X-Originating-IP: [180.167.199.189]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7a0b5b84-f8f8-43e6-90b5-08d7bfe7b3ad
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3647:|MN2PR12MB3647:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3647022B21F5025CD683A944FBE50@MN2PR12MB3647.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1284;
-X-Forefront-PRVS: 0332AACBC3
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(136003)(366004)(39860400002)(376002)(346002)(189003)(199004)(6916009)(478600001)(8936002)(16526019)(86362001)(7696005)(6666004)(52116002)(186003)(2906002)(5660300002)(26005)(316002)(36756003)(2616005)(8676002)(81166006)(66946007)(81156014)(4326008)(956004)(6486002)(66476007)(66556008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3647;
- H:MN2PR12MB3536.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.16; Wed, 4 Mar
+ 2020 03:04:45 +0000
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::69c7:b493:690:2173]) by MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::69c7:b493:690:2173%3]) with mapi id 15.20.2772.019; Wed, 4 Mar 2020
+ 03:04:45 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Wu, Hersen" <hersenxs.wu@amd.com>, Alex Deucher <alexdeucher@gmail.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu/display: navi1x copy dcn watermark clock
+ settings to smu resume from s3
+Thread-Topic: [PATCH 2/2] drm/amdgpu/display: navi1x copy dcn watermark clock
+ settings to smu resume from s3
+Thread-Index: AQHV7YYgrtvifOjtV0Ge4g/Lc3C3bKgv6n+wgAEucoCABEkwAIABf3KAgADmaYA=
+Date: Wed, 4 Mar 2020 03:04:44 +0000
+Message-ID: <MN2PR12MB3344F3D3020BB3A002274DA3E4E50@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20200227155349.10993-1-hersenxs.wu@amd.com>
+ <MN2PR12MB33448440496BD112CE52820BE4E80@MN2PR12MB3344.namprd12.prod.outlook.com>
+ <MN2PR12MB38404E1958870D36B236B217FDE80@MN2PR12MB3840.namprd12.prod.outlook.com>
+ <CADnq5_N3fn=oc=kWAfPThK0u9k8eNJv8EeiN0F8WTP_a6ChzNA@mail.gmail.com>
+ <CH2PR12MB3831A01E4623264573AEC041FDE40@CH2PR12MB3831.namprd12.prod.outlook.com>
+In-Reply-To: <CH2PR12MB3831A01E4623264573AEC041FDE40@CH2PR12MB3831.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-03T13:19:04Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=19868434-b776-42b3-ac33-000047dd914c;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Evan.Quan@amd.com; 
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 2eb3d544-4062-4ff8-cae6-08d7bfe8cab4
+x-ms-traffictypediagnostic: MN2PR12MB3551:|MN2PR12MB3551:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB35515E40495931A54754EF70E4E50@MN2PR12MB3551.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-forefront-prvs: 0332AACBC3
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10001)(10009020)(4636009)(136003)(366004)(376002)(346002)(39860400002)(396003)(199004)(189003)(9686003)(26005)(71200400001)(5660300002)(8676002)(81166006)(81156014)(55016002)(316002)(186003)(53546011)(66446008)(66946007)(54906003)(66476007)(76116006)(66556008)(64756008)(45080400002)(478600001)(86362001)(6506007)(7696005)(966005)(52536014)(4326008)(33656002)(8936002)(110136005)(2906002)(32563001)(357404004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3551;
+ H:MN2PR12MB3344.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zrlzkBDhBG42g8H1VKDxpIa23kN2NSZ48S/DvzC5Dq7km4UvEyD+r8RuHrXLBiJGGCVHor+BJpVqL00WOYzJWMz+bdMlstNho4gGvqfN4anngKmVCEiWQsNd+q9zRlZG65iVrWOawBPRRQnbgkiUnYx2cl8Y+EzZPNhJjCCv8xbBV0VsuvejhzJPM58yKFia3wSJ4ZUoqWVAx5di1/BvrqLuSXqnJWEwL6ikW8/JQYKCXpNvwq/vmCoGu4Ja4IXL2zSvgOlPP43EA9rbEHU7/z7yWE/f0u4tq2fPiw8X69GR6ndO5Mv0QX3QSvWclqe8jgXGT8AoRbfBrEMw6QBMHv+s+tooD66UbShGcbha9jJK0U+KG3o8RB3jWjqJow07kjx4R5NFRbNIXqcUaknCtI6SpbjEg2o6p/TBA3dISc6X/Iluah7Rcg9+xsVi92RH
-X-MS-Exchange-AntiSpam-MessageData: kFp2FP2j1tqf+VhXAQlbTl/wLemES+EXQQcHg5QcQtj/SOr4wSL6s2f0hy2tR4H447gdvXNfA28U4FpODU13BhiNadochkIA4xZWMu9XBD0wvZh+ei99NRzZG+cTq/MptoAtVGna8OSMhj1xHcIOYw==
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 5zp0X0FGqoHbHdwYfqWB6UpHA3UgQqyYLvU/32weA3MxVXvGg5lhhQeRM8S1GXK5xrOw5YXdX0MJnKiuUUmJUVk6OXQkzrCTR3F2jj+YhIPiy9UCNqXbO16NnDymWgcW+t1SrJtUYaWwNod3bdCQs0YBuehJ4PWHlS2m28rUj2CR7R4Xoh1f28qFKNhCc9RNFXxCwXVIgUkfyhdq39ajgn2RqidGMzxPtJXH4VnU4jW5rP/ZN638YvL6NAsrQvbvCNlJJpbKk7wvCKq9jYPuTIZEaakHS2iQKPgYI1JF/M/YvjvnS68CRLVi9ToYrlUcS6r8P3tFEAfkFoofkRm4hYCyJ6I34nkEiX/9R2/nUvdqRKvXUQ6Gl4phwTOckigJOsNa+if2v4a72V3isj5Qhr5E6w2hSX33WucdIRhQMxKKb3eVY7DyLrNo2bwCvfSFAM7T/gfUUqcOssujOiNyIEnbvL0xPC1vRmL7qViZSlS/E0z6RNgPwRNMCj3306MZZQp7qQM3Q0Ul9dQhqruG0C4F+n5Trh7k87IXrgkPk2IhVhyIs5h8J3ZUjNu/1gLsdFTZ8Cgr22IDu5dvloDAjqLT76k5BsxIWRUTqqksrOZ94awJL6UpCK214EBasbbC+xP+RYg3otqFBOZKPmqvzJOt8YhzhwTbGH0ydpzKRJxwgPI0jWJKyIXCLM0lnijQ3opBf3jUJYgtkWN0Q35HQQ==
+x-ms-exchange-antispam-messagedata: hKM8Btl3qOEEbDUGyx6o+MMbxaCgkk+ImgkkC1Mk5y4K//OeXZpwcHfXYlVesoMDrX3vYoOZDmxtBHApmnPwdezhT2Zo3vJz0hGHeXnFnqsmrz1iXBT+lxkOz+A+FyZQR4Yar+WRdDCnav+eA01BPQ==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a0b5b84-f8f8-43e6-90b5-08d7bfe7b3ad
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2020 02:56:57.8506 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q9Z6n3Tpsvb6Q72I/Z3ZW47WE24Bg3RC1d0oCRnjevVOJL8jnQ/ryL4vI9kfQo1/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3647
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2eb3d544-4062-4ff8-cae6-08d7bfe8cab4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Mar 2020 03:04:44.9359 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jBOXxTveQpY0EK2xzrxjuxJB/UhxCEuvXSGlzfSxzkr7pZeR77ba4/J+Ev1ByyRw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3551
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,57 +119,319 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Prike Liang <Prike.Liang@amd.com>, Evan.quan@amd.com, ray.huang@amd.com
+Cc: "Feng, Kenneth" <Kenneth.Feng@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This fix will handle some MP1 FW issue like as mclk dpm table in renoir has a reverse
-dpm clock layout and a zero frequency dpm level as following case.
+Sorry for miss this. With the Alex's comment addressed, the patch is reviewed-by: Evan Quan <evan.quan@amd.com>
 
-cat pp_dpm_mclk
-0: 1200Mhz
-1: 1200Mhz
-2: 800Mhz
-3: 0Mhz
+-----Original Message-----
+From: Wu, Hersen <hersenxs.wu@amd.com> 
+Sent: Tuesday, March 3, 2020 9:19 PM
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org; Feng, Kenneth <Kenneth.Feng@amd.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu/display: navi1x copy dcn watermark clock settings to smu resume from s3
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 2 +-
- drivers/gpu/drm/amd/powerplay/smu_v12_0.c  | 3 ---
- 2 files changed, 1 insertion(+), 4 deletions(-)
+[AMD Official Use Only - Internal Distribution Only]
 
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index e3398f9..d454493 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -214,7 +214,7 @@ int smu_set_soft_freq_range(struct smu_context *smu, enum smu_clk_type clk_type,
- {
- 	int ret = 0;
- 
--	if (min <= 0 && max <= 0)
-+	if (min < 0 && max < 0)
- 		return -EINVAL;
- 
- 	if (!smu_clk_dpm_is_enabled(smu, clk_type))
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-index 93b8558..d52e624 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-@@ -461,9 +461,6 @@ int smu_v12_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_
- {
- 	int ret = 0;
- 
--	if (max < min)
--		return -EINVAL;
--
- 	switch (clk_type) {
- 	case SMU_GFXCLK:
- 	case SMU_SCLK:
--- 
-2.7.4
+Hi Evan, Kenneth,
 
+Would you please help review this patch again?
+
+Thanks!
+Hersen
+
+
+-----Original Message-----
+From: Alex Deucher <alexdeucher@gmail.com>
+Sent: Monday, March 2, 2020 9:27 AM
+To: Wu, Hersen <hersenxs.wu@amd.com>
+Cc: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org; Feng, Kenneth <Kenneth.Feng@amd.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu/display: navi1x copy dcn watermark clock settings to smu resume from s3
+
+On Fri, Feb 28, 2020 at 3:59 PM Wu, Hersen <hersenxs.wu@amd.com> wrote:
+>
+> Follow Evan's review, add smu->mutex.
+>
+>
+> This interface is for dGPU Navi1x. Linux dc-pplib interface depends on 
+> window driver dc implementation.
+>
+>  For Navi1x, clock settings of dcn watermarks are fixed. the settings 
+> should be passed to smu during boot up and resume from s3.
+>  boot up: dc calculate dcn watermark clock settings within dc_create, 
+> dcn20_resource_construct, then call pplib functions below to pass  the 
+> settings to smu:
+>  smu_set_watermarks_for_clock_ranges
+>  smu_set_watermarks_table
+>  navi10_set_watermarks_table
+>  smu_write_watermarks_table
+>
+>  For Renoir, clock settings of dcn watermark are also fixed values.
+>  dc has implemented different flow for window driver:
+>  dc_hardware_init / dc_set_power_state  dcn10_init_hw notify_wm_ranges  
+> set_wm_ranges
+>
+>  For Linux
+>  smu_set_watermarks_for_clock_ranges
+>  renoir_set_watermarks_table
+>  smu_write_watermarks_table
+>
+>  dc_hardware_init -> amdgpu_dm_init
+>  dc_set_power_state --> dm_resume
+>
+>  therefore, linux dc-pplib interface of navi10/12/14 is different from 
+> that of Renoir.
+>
+> Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 68
+> +++++++++++++++++++
+>  1 file changed, 68 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 931cbd7b372e..1ee1d6ff2782 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -1435,6 +1435,72 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
+>   drm_kms_helper_hotplug_event(dev);
+>  }
+>
+> +static int amdgpu_dm_smu_write_watermarks_table(struct amdgpu_device
+> +*adev) {  struct smu_context *smu = &adev->smu;  int ret = 0;
+> +
+> + if (!is_support_sw_smu(adev))
+> + return 0;
+> +
+> + /* This interface is for dGPU Navi1x.Linux dc-pplib interface 
+> + depends
+> + * on window driver dc implementation.
+> + * For Navi1x, clock settings of dcn watermarks are fixed. the 
+> + settings
+> + * should be passed to smu during boot up and resume from s3.
+> + * boot up: dc calculate dcn watermark clock settings within 
+> + dc_create,
+> + * dcn20_resource_construct
+> + * then call pplib functions below to pass the settings to smu:
+> + * smu_set_watermarks_for_clock_ranges
+> + * smu_set_watermarks_table
+> + * navi10_set_watermarks_table
+> + * smu_write_watermarks_table
+> + *
+> + * For Renoir, clock settings of dcn watermark are also fixed values.
+> + * dc has implemented different flow for window driver:
+> + * dc_hardware_init / dc_set_power_state
+> + * dcn10_init_hw
+> + * notify_wm_ranges
+> + * set_wm_ranges
+> + * -- Linux
+> + * smu_set_watermarks_for_clock_ranges
+> + * renoir_set_watermarks_table
+> + * smu_write_watermarks_table
+> + *
+> + * For Linux,
+> + * dc_hardware_init -> amdgpu_dm_init
+> + * dc_set_power_state --> dm_resume
+> + *
+> + * therefore, this function apply to navi10/12/14 but not Renoir
+> + * *
+> + */
+> + switch(adev->asic_type) {
+> + case CHIP_NAVI10:
+> + case CHIP_NAVI14:
+> + case CHIP_NAVI12:
+> + break;
+> + default:
+> + return 0;
+> + }
+> +
+> + mutex_lock(&smu->mutex);
+> +
+> + /* pass data to smu controller */
+> + if ((smu->watermarks_bitmap & WATERMARKS_EXIST) && 
+> + !(smu->watermarks_bitmap & WATERMARKS_LOADED)) { ret = 
+> + smu_write_watermarks_table(smu);
+> +
+> + if (ret) {
+> + DRM_ERROR("Failed to update WMTABLE!\n"); return ret;
+
+You need to unlock the mutex here in the failure case.
+
+Alex
+
+> + }
+> + smu->watermarks_bitmap |= WATERMARKS_LOADED;
+> + }
+> +
+> + mutex_unlock(&smu->mutex);
+> +
+> + return 0;
+> +}
+> +
+>  /**
+>   * dm_hw_init() - Initialize DC device
+>   * @handle: The base driver device containing the amdgpu_dm device.
+> @@ -1713,6 +1779,8 @@ static int dm_resume(void *handle)
+>
+>   amdgpu_dm_irq_resume_late(adev);
+>
+> + amdgpu_dm_smu_write_watermarks_table(adev);
+> +
+>   return 0;
+>  }
+>
+> --
+> 2.17.1
+>
+> ________________________________
+> From: Quan, Evan <Evan.Quan@amd.com>
+> Sent: February 27, 2020 9:58 PM
+> To: Wu, Hersen <hersenxs.wu@amd.com>; amd-gfx@lists.freedesktop.org 
+> <amd-gfx@lists.freedesktop.org>
+> Cc: Feng, Kenneth <Kenneth.Feng@amd.com>; Wu, Hersen 
+> <hersenxs.wu@amd.com>
+> Subject: RE: [PATCH 2/2] drm/amdgpu/display: navi1x copy dcn watermark 
+> clock settings to smu resume from s3
+>
+> Thanks. But could you help to confirm whether this is correctly protected by "mutex_lock(&smu->mutex)"?
+>
+> -----Original Message-----
+> From: Hersen Wu <hersenxs.wu@amd.com>
+> Sent: Thursday, February 27, 2020 11:54 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Quan, Evan <Evan.Quan@amd.com>; Feng, Kenneth 
+> <Kenneth.Feng@amd.com>; Wu, Hersen <hersenxs.wu@amd.com>
+> Subject: [PATCH 2/2] drm/amdgpu/display: navi1x copy dcn watermark 
+> clock settings to smu resume from s3
+>
+>  This interface is for dGPU Navi1x. Linux dc-pplib interface depends  on window driver dc implementation.
+>
+>  For Navi1x, clock settings of dcn watermarks are fixed. the settings  should be passed to smu during boot up and resume from s3.
+>  boot up: dc calculate dcn watermark clock settings within dc_create,  dcn20_resource_construct, then call pplib functions below to pass  the settings to smu:
+>  smu_set_watermarks_for_clock_ranges
+>  smu_set_watermarks_table
+>  navi10_set_watermarks_table
+>  smu_write_watermarks_table
+>
+>  For Renoir, clock settings of dcn watermark are also fixed values.
+>  dc has implemented different flow for window driver:
+>  dc_hardware_init / dc_set_power_state  dcn10_init_hw notify_wm_ranges  
+> set_wm_ranges
+>
+>  For Linux
+>  smu_set_watermarks_for_clock_ranges
+>  renoir_set_watermarks_table
+>  smu_write_watermarks_table
+>
+>  dc_hardware_init -> amdgpu_dm_init
+>  dc_set_power_state --> dm_resume
+>
+>  therefore, linux dc-pplib interface of navi10/12/14 is different  from that of Renoir.
+>
+> Signed-off-by: Hersen Wu <hersenxs.wu@amd.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 64
+> +++++++++++++++++++
+>  1 file changed, 64 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 931cbd7b372e..c58c0e95735e 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -1435,6 +1435,68 @@ static void s3_handle_mst(struct drm_device *dev, bool suspend)
+>                  drm_kms_helper_hotplug_event(dev);
+>  }
+>
+> +static int amdgpu_dm_smu_write_watermarks_table(struct amdgpu_device
+> +*adev) {
+> +       struct smu_context *smu = &adev->smu;
+> +       int ret = 0;
+> +
+> +       if (!is_support_sw_smu(adev))
+> +               return 0;
+> +
+> +       /* This interface is for dGPU Navi1x.Linux dc-pplib interface depends
+> +        * on window driver dc implementation.
+> +        * For Navi1x, clock settings of dcn watermarks are fixed. the settings
+> +        * should be passed to smu during boot up and resume from s3.
+> +        * boot up: dc calculate dcn watermark clock settings within dc_create,
+> +        * dcn20_resource_construct
+> +        * then call pplib functions below to pass the settings to smu:
+> +        * smu_set_watermarks_for_clock_ranges
+> +        * smu_set_watermarks_table
+> +        * navi10_set_watermarks_table
+> +        * smu_write_watermarks_table
+> +        *
+> +        * For Renoir, clock settings of dcn watermark are also fixed values.
+> +        * dc has implemented different flow for window driver:
+> +        * dc_hardware_init / dc_set_power_state
+> +        * dcn10_init_hw
+> +        * notify_wm_ranges
+> +        * set_wm_ranges
+> +        * -- Linux
+> +        * smu_set_watermarks_for_clock_ranges
+> +        * renoir_set_watermarks_table
+> +        * smu_write_watermarks_table
+> +        *
+> +        * For Linux,
+> +        * dc_hardware_init -> amdgpu_dm_init
+> +        * dc_set_power_state --> dm_resume
+> +        *
+> +        * therefore, this function apply to navi10/12/14 but not Renoir
+> +        * *
+> +        */
+> +       switch(adev->asic_type) {
+> +       case CHIP_NAVI10:
+> +       case CHIP_NAVI14:
+> +       case CHIP_NAVI12:
+> +               break;
+> +       default:
+> +               return 0;
+> +       }
+> +
+> +       /* pass data to smu controller */
+> +       if ((smu->watermarks_bitmap & WATERMARKS_EXIST) &&
+> +                       !(smu->watermarks_bitmap & WATERMARKS_LOADED)) {
+> +               ret = smu_write_watermarks_table(smu);
+> +
+> +               if (ret) {
+> +                       DRM_ERROR("Failed to update WMTABLE!\n");
+> +                       return ret;
+> +               }
+> +               smu->watermarks_bitmap |= WATERMARKS_LOADED;
+> +       }
+> +
+> +       return 0;
+> +}
+> +
+>  /**
+>   * dm_hw_init() - Initialize DC device
+>   * @handle: The base driver device containing the amdgpu_dm device.
+> @@ -1713,6 +1775,8 @@ static int dm_resume(void *handle)
+>
+>          amdgpu_dm_irq_resume_late(adev);
+>
+> +       amdgpu_dm_smu_write_watermarks_table(adev);
+> +
+>          return 0;
+>  }
+>
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
+> s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Che
+> rsenxs.wu%40amd.com%7C4709bedf60fc41d1ae0508d7beb5c120%7C3dd8961fe4884
+> e608e11a82d994e183d%7C0%7C0%7C637187560164248086&amp;sdata=6wH59U4RtXQ
+> lL6Z2EcIKQWvBNfV0shDAUD05ARVs2MA%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
