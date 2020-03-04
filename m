@@ -2,105 +2,67 @@ Return-Path: <SRS0=S/Du=4V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+X-Spam-Status: No, score=-11.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55829C3F2D1
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2020 18:28:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 192E2C3F2D1
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2020 18:35:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2AC6D21775
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2020 18:28:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DB44C2166E
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2020 18:34:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QjGCHIMS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2AC6D21775
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K2zkK61c"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB44C2166E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6D616EB54;
-	Wed,  4 Mar 2020 18:28:58 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2063.outbound.protection.outlook.com [40.107.223.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C31576EB54
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2020 18:28:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=e28+L3RDyf25BF/zuzbZHxRtPKabZqY0sZGmrbI5l8LC9LKyhYOIRlR+ZOvHEuclSY+EPUk1i6Q2JWb3WcprNk48BSYg9hQtxxl7mnCd51VjgwMdcnCcZQ94zWVcN2eLfuxN/qwPSIvUiOlqJ0lcMoxed7YLrZwL5HlyxZ3cvoTD2oYSBWM5Hs3os3sUhHwdd5EdvEoseBDfTNLoR9M90sE3U5Qrfzw4m5hswxULbOMb2UA08HQ7A0bjlXRXqY4B+IfEGKfuJEAQ8dHw7io99NOTjcQLtLWZ3FXOt75G742S7Np6byGWXUb1236Fa+SP42Ona0o1g0oZ+kThUPgHLA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jrI4JrBNq7baqNS21LFTGIpUtvnP0ouZ8NkojarUe+U=;
- b=lL92N7KTpYoo7j2zRziIQ4hE27FF4eBgvun/p0Spt8ndg3bUYkPsTRhmxC5LnTMPm+9g7T0DAF39ZpIJXcQrfQOSwUSGvrfLXjGNM2PwJb8NuicB66I+Qgew4X2xN9KAyi8XbCTr+VbEJVEJeTzENtt69YeQ3pM95JFVJXPuR2lJ7BNcPUC4LGDYheWGAtf+J5zBN7+PSDUYk1ot91JYUKhELX+GfPu7Y4PxjEW7U6k2dq1GDCvQKRtsCtPu6JMJ4JR1lFTjIDuBCvnNjO9GhuOAPGftJ6nsbC9i6nEomCmgwPTNOzaT72d0GDZQtTX1KkgFAMtZWqKCjdAqBx1g1w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jrI4JrBNq7baqNS21LFTGIpUtvnP0ouZ8NkojarUe+U=;
- b=QjGCHIMSxJa3kaaiqlVIS7DRI4VYfrQp59SVJ9jlLphc3Btqoc9hFbdtHLoT2VD8aEx2X1m0dtKkyvJaR08cgJb0VExBpmfdz3ETioHl19JhjIbiskjjwIacdBPIxeLBnSTtsyOJoZmgNP9d4cu91PxfUxYzI4GK925YKYkqdY8=
-Received: from CH2PR12MB3912.namprd12.prod.outlook.com (2603:10b6:610:2c::22)
- by CH2PR12MB4326.namprd12.prod.outlook.com (2603:10b6:610:af::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14; Wed, 4 Mar
- 2020 18:28:56 +0000
-Received: from CH2PR12MB3912.namprd12.prod.outlook.com
- ([fe80::7921:a391:1d1b:5167]) by CH2PR12MB3912.namprd12.prod.outlook.com
- ([fe80::7921:a391:1d1b:5167%5]) with mapi id 15.20.2772.019; Wed, 4 Mar 2020
- 18:28:56 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: Wrap clflush_cache_range with x86 ifdef
-Thread-Topic: [PATCH] drm/amdgpu: Wrap clflush_cache_range with x86 ifdef
-Thread-Index: AQHV8k/upUVl/3Aqxka/JdRjHDBvqKg4wMQi
-Date: Wed, 4 Mar 2020 18:28:56 +0000
-Message-ID: <CH2PR12MB39122C988ECD75C7264EC088F7E50@CH2PR12MB3912.namprd12.prod.outlook.com>
-References: <1583345313-23137-1-git-send-email-andrey.grodzovsky@amd.com>
-In-Reply-To: <1583345313-23137-1-git-send-email-andrey.grodzovsky@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-03-04T18:28:56.159Z;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
- Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Alexander.Deucher@amd.com; 
-x-originating-ip: [71.219.40.23]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: aaaff663-4160-4fb2-1898-08d7c069e66b
-x-ms-traffictypediagnostic: CH2PR12MB4326:|CH2PR12MB4326:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB4326ED5EB9BCC05C58162F5FF7E50@CH2PR12MB4326.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2733;
-x-forefront-prvs: 0332AACBC3
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(366004)(346002)(376002)(136003)(39860400002)(199004)(189003)(52536014)(5660300002)(71200400001)(33656002)(2906002)(316002)(64756008)(66556008)(19627405001)(66946007)(66446008)(7696005)(6506007)(66476007)(76116006)(186003)(81166006)(86362001)(9686003)(478600001)(55016002)(8676002)(8936002)(26005)(53546011)(110136005)(81156014);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4326;
- H:CH2PR12MB3912.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: beTSr1ZQXqiCIR695ca0aLt7kO6ongGwRELTqkx2oGfM4RPTWbJQN4FJCWUE7iN41OoR6iGAJzwmlZbzsLGfRLTZjOlh7lowx34BHSgYvFgJlb1BHZg3RGyfEfVCLW+sphaWBMUMIOq1BmGT7kJDC+c0S9O4rWA5CwmxOwMg2FgeQBuKYFk4W4pLfjFyxVA/iR0wtK83zv1Ek1CKorqHmq5x0VFGEWN4jmk4dE6YEgWpeXqbVCsnsxQ7axmTjESQZR0bC0FSsc+YeHBaZx4TnRIxeAq9lX+zKAW8TlHB34wrnNfE2BFOWSiNP2Np6yk+bsP1bWDFnV+r6n3rS3PjS6TMSrcoIB7R26mLKPvqP7b35UWtFSglSckQGTlIzhoislq15wMZh/Nyi3QMkaWihSGjoMLCf9I6EFKJyro8vERhvtK8cyzHdTs78oDIJlbV
-x-ms-exchange-antispam-messagedata: nxRohyfm4bUK2T7CNuHTboNurXFxssIfUdcxgIAeSeuhhVijJoLiM8gSy/gt596DYXWwJt95tPlqq5bLqj8TdM5azaaG/JqwW4bVokXoQcs07mA9Fr/mwpPZoCzk/6/chhWM9AQlxkozrwjTzJoWNg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id A84276EB5A;
+	Wed,  4 Mar 2020 18:34:59 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7C746EB5A;
+ Wed,  4 Mar 2020 18:34:58 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id x3so170859wmj.1;
+ Wed, 04 Mar 2020 10:34:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=8DRq31dVT2gcFH3XXRtqpgig/7H0t/mX4ebDUqxQJAM=;
+ b=K2zkK61c2TNW7EUI2Xo/xumazBlU352yLQ8Je3IUqoaUeb9Fj5WXxGXfTelu0rxweA
+ ObkurjlXbq7kKvzJnlUaYK6MV23HpRq6o1fADQJq2vWs3oshVhduVquYNUyMlbMYahbR
+ PJNMcUIuLJjo0nH4eGvCiHgv9H88OuZBtXnHYx0c6QNe8ti5T6nUJumoJ+iaU1oYEtW/
+ 4XVPJyD7oyY/uIF7GI9fhE0iAysskUb+HW/wCTDhfvCkO9CtdEV+kJ3CdqWGoIK5RDyh
+ H9wNzAlUkJ+wFWngJvKmHcfSdLHeWE2EDmbaKbD+6zLEyJl9mQmr7XeO58/PNZ/OR9Y9
+ rjTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8DRq31dVT2gcFH3XXRtqpgig/7H0t/mX4ebDUqxQJAM=;
+ b=rv9OzcGJhuCXl+RXFAi5ebaCvYNAkMWECKWMRaWTbR1aZVefL3+I79ctLtSoq2vSb+
+ sqD8dJkSB00bQgYLZTWhpQpMAGbF7ZQOgBwZHB/pnQJLDLoDhPkZfgMmf/10zEnQGV2U
+ qHFbhg8tDba9vKgWuhwoLbStjEvoS9OuFM7aHxZ1eCjGAInq0Z/AgE0Cx2OWjJ5WxIM4
+ 6HnYYanUJ3CRRgF65xT3CJ3pyDDnBgUBw0EpwNdq1char3hdWiCSsW+ftxpPelSNP/DB
+ S4csECIjJFIp5dHjS4eVYk0y+fUVZy8RszMowSrFuZ2x3KskndqCvxwHddD6yOnvrVD0
+ 0d+w==
+X-Gm-Message-State: ANhLgQ0ClbLkRGFo7CjP6KzRSJOPXmwDYbWhe3Z8fj+/yan2l3cQj2v3
+ orrn23QIL842Wa6J0ZdRPBNjEl0WNftrg8DXa2U=
+X-Google-Smtp-Source: ADFU+vuqsD45qASCZnH8XxkPs5xXkVU9VR6SGpBNUzkMJaS9wuU7zXFDdGM4NqqOgbJGLMQvM56J9z4ljMWTDVqqPO4=
+X-Received: by 2002:a05:600c:286:: with SMTP id 6mr4934184wmk.56.1583346897405; 
+ Wed, 04 Mar 2020 10:34:57 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aaaff663-4160-4fb2-1898-08d7c069e66b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Mar 2020 18:28:56.5082 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: r61f8F1ofWLxHFmvZeo3IahonvXKtTppcVrbn1bMLFLkN6eeoWJOTzL7sqzVxLuzYN1uyz4+EBUST0vdZzyr2Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4326
+References: <20200302224217.22590-1-natechancellor@gmail.com>
+In-Reply-To: <20200302224217.22590-1-natechancellor@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 4 Mar 2020 13:34:46 -0500
+Message-ID: <CADnq5_Me3VGP=WfDuSfwC705b_XVENyn6q9SRU7=pXW-2xEdvg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Remove pointless NULL checks in
+ dmub_psr_copy_settings
+To: Nathan Chancellor <natechancellor@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,162 +74,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0431948822=="
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ clang-built-linux <clang-built-linux@googlegroups.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0431948822==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_CH2PR12MB39122C988ECD75C7264EC088F7E50CH2PR12MB3912namp_"
-
---_000_CH2PR12MB39122C988ECD75C7264EC088F7E50CH2PR12MB3912namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Public Use]
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-Sent: Wednesday, March 4, 2020 1:08 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Grodzovsky, Andrey <And=
-rey.Grodzovsky@amd.com>
-Subject: [PATCH] drm/amdgpu: Wrap clflush_cache_range with x86 ifdef
-
-To avoid compile errors on other platforms.
-
-Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c
-index cff0fd2..3836acc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1883,8 +1883,15 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct dev=
-ice *dev,
-
-         memcpy_toio(cpu_addr, usbc_pd_fw->data, usbc_pd_fw->size);
-
--       /*TODO Remove once PSP starts snooping CPU cache */
-+       /*
-+        * x86 specific workaround.
-+        * Without it the buffer is invisible in PSP.
-+        *
-+        * TODO Remove once PSP starts snooping CPU cache
-+        */
-+#ifdef CONFIG_X86
-         clflush_cache_range(cpu_addr, (usbc_pd_fw->size & ~(L1_CACHE_BYTES=
- - 1)));
-+#endif
-
-         mutex_lock(&adev->psp.mutex);
-         ret =3D psp_load_usbc_pd_fw(&adev->psp, dma_addr);
---
-2.7.4
-
-
---_000_CH2PR12MB39122C988ECD75C7264EC088F7E50CH2PR12MB3912namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Mon, Mar 2, 2020 at 5:43 PM Nathan Chancellor
+<natechancellor@gmail.com> wrote:
 >
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
-ign=3D"Left">
-[AMD Public Use]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Andrey Grodzovsky &lt=
-;andrey.grodzovsky@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, March 4, 2020 1:08 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Grodzovsky=
-, Andrey &lt;Andrey.Grodzovsky@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Wrap clflush_cache_range with x86 ifdef=
-</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">To avoid compile errors on other platforms.<br>
-<br>
-Signed-off-by: Andrey Grodzovsky &lt;andrey.grodzovsky@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 9 &#43;&#43;&#43;&#43;&#43;=
-&#43;&#43;&#43;-<br>
-&nbsp;1 file changed, 8 insertions(&#43;), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_psp.c<br>
-index cff0fd2..3836acc 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c<br>
-@@ -1883,8 &#43;1883,15 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct=
- device *dev,<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy_toio(cpu_addr, usbc=
-_pd_fw-&gt;data, usbc_pd_fw-&gt;size);<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*TODO Remove once PSP starts snoopin=
-g CPU cache */<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * x86 specific workaround.<=
-br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Without it the buffer is =
-invisible in PSP.<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * TODO Remove once PSP star=
-ts snooping CPU cache<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&#43;#ifdef CONFIG_X86<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clflush_cache_range(cpu_ad=
-dr, (usbc_pd_fw-&gt;size &amp; ~(L1_CACHE_BYTES - 1)));<br>
-&#43;#endif<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;p=
-sp.mutex);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D psp_load_usbc_pd_f=
-w(&amp;adev-&gt;psp, dma_addr);<br>
--- <br>
-2.7.4<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
+> Clang warns:
+>
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dmub_psr.c:147:31: warning:
+> address of 'pipe_ctx->plane_res' will always evaluate to 'true'
+> [-Wpointer-bool-conversion]
+>         if (!pipe_ctx || !&pipe_ctx->plane_res || !&pipe_ctx->stream_res)
+>                          ~ ~~~~~~~~~~^~~~~~~~~
+> drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dmub_psr.c:147:56: warning:
+> address of 'pipe_ctx->stream_res' will always evaluate to 'true'
+> [-Wpointer-bool-conversion]
+>         if (!pipe_ctx || !&pipe_ctx->plane_res || !&pipe_ctx->stream_res)
+>                                                   ~ ~~~~~~~~~~^~~~~~~~~~
+> 2 warnings generated.
+>
+> As long as pipe_ctx is not NULL, the address of members in this struct
+> cannot be NULL, which means these checks will always evaluate to false.
+>
+> Fixes: 4c1a1335dfe0 ("drm/amd/display: Driverside changes to support PSR in DMCUB")
+> Link: https://github.com/ClangBuiltLinux/linux/issues/915
+> Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
 
---_000_CH2PR12MB39122C988ECD75C7264EC088F7E50CH2PR12MB3912namp_--
+Applied.  Thanks!
 
---===============0431948822==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Alex
 
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+> index 2c932c29f1f9..a9e1c01e9d9b 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+> @@ -144,7 +144,7 @@ static bool dmub_psr_copy_settings(struct dmub_psr *dmub,
+>                 }
+>         }
+>
+> -       if (!pipe_ctx || !&pipe_ctx->plane_res || !&pipe_ctx->stream_res)
+> +       if (!pipe_ctx)
+>                 return false;
+>
+>         // First, set the psr version
+> --
+> 2.25.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0431948822==--
