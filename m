@@ -7,68 +7,66 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FD0FC3F2CD
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2020 14:14:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FABDC3F2D1
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2020 14:15:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 315DB2072A
-	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2020 14:14:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1FE592072A
+	for <amd-gfx@archiver.kernel.org>; Wed,  4 Mar 2020 14:15:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Go/5rOyB"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 315DB2072A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="f8iGLBoe"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1FE592072A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 036AE6E18F;
-	Wed,  4 Mar 2020 14:14:31 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760072.outbound.protection.outlook.com [40.107.76.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 83C116E18F
- for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2020 14:14:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEFEE6E198;
+	Wed,  4 Mar 2020 14:15:41 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2075.outbound.protection.outlook.com [40.107.244.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 444296E191
+ for <amd-gfx@lists.freedesktop.org>; Wed,  4 Mar 2020 14:15:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KU9O43WQO9y6DdOJXW6RZNd8EQxlswPgyMYYzGkS36zr9CdJmFONY4I11pzD1r2ZIV8/fosFbfDqjh8uDtBpkUYmD6YC/8EcbcdPp8w1BD/QxiCzRqzqJNwhMfo7NqwWZkUtw/2COcqEzjd2Ujj1YoK05OPP/Z7wMdaeMJE20wa6uuFROf4jBO8dlbq/F52zaMeLv7qg4GfWmYgfmDW70nHmOvrCxWY2uFaGoMtTMBLFK9ViIVXd6CT2rghO2q4vGB5HQVGZYt/TrpjpDvP/htXj4c+gpZCg47mRhhUx8cDTugZe55AobLWQIJ7VjNIF2+8N8+Bi8eMxKII4fmyMCQ==
+ b=c1v5DcMkyLHZZ4JKToV0isk9IKX8Gm/hO/Zii6e4gbXBcACuBhAyG6zboBZmox7rNYXbSmPMMf4YYSXAbnFRe9QlStC0HNRb61CYmykcNl7j8CkOG0FRHx6H9rPWijEwAzPjeWytICoU3+X/UGx+k1TIvYq1Dtx9HjHg0ACR5BXd4sp9F4pmtbqk8dZ2cNhqxjbF0zTsO3WmakLVLIL7zjFvCHJUP4fP4YRn/V1JNJTaK0yCdzY/FjyG28eA3tpk5+38F9dNQLBAAtPwboNoLojyK9EWEzC+3cpsHnB9qqON0Lz1SiiNHsTAkjGbur0xthhw3vdBDectdlhjKaggwg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2FZ37PpBiKQVe1lC0zYueIJVstytKuWcpdjDuEItiNA=;
- b=ftMCUJLJhmcaB6YOETJ5svuCPjl500drqtLWOmEwd/j17Jg1ZNoOvx1LPgR60uB3z2I83kOCQ349u53eO2uDkUj34C2T+5MeFbgLxbxBzPdTCQfKhBKDlA3dS1k5b7jo0tjbaFaNzYYl4XUA6w4XFnJLGBWjtqOJZEi5cye+h7Yb7+ckjQfadVmDSqx+BinNV0vLgMq9BWDzAj9V4JzUvgicVeGSXsBG4Esp9RyrB2T+ZD+fWKajsmWTyiSUoZO+IbYIXoSMHR66FTJISYkajYegxxIWNxKve45EAY95Lho5L02CtWZfXiphocTp6PlVPZIwUscpJQj5fRdQZHc/MQ==
+ bh=XPjyaqQ1ujbIo4bPFoihmFjY/ezH0MazgIvtSXdxyaU=;
+ b=RI4fDDWThReGcj0dOJzbBf/+Wk1s5MBSfSoRuBrWdxnqUGVCkqOqQy+Tg1+Yxi2DY8haUl9CJP8s9B3Cxmo6Ps4BjiOrE+GquZClO+d+7Xb+AxTHZLnUGW8ZDviMn7/XrCthSqg7gWhZ4Tla0rUx5Gv6fFXHmy94GT2PllAolSneFpg0dtvDXTq7Ge2yW64AcUB+UvKgXslWajw+wEPx04er9w4FzqBf5r3SWgGUNvjnICIFGz4+3sXPRwpMvo1CLx01yywaS03mLsNUIh2eWEPo6RtN9pLRS5sIUBQk5UlWFlXKiBEYa8hUJncvqF4t5lz1U5irw+djrJY4LkHNhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2FZ37PpBiKQVe1lC0zYueIJVstytKuWcpdjDuEItiNA=;
- b=Go/5rOyB00vgVGtl3XVOIwi8ypMSmN9UU7HOfLJfzDNJCG9OUyH5pC9WYtR5wzinviQ1cab0md1acCINxZiNJssV0/J5uONEA5Z12tLlcEL30YCsFErJuEOb8NlGJQVVhgk9+QEfRexcspoz/76UhCduEfLCBXRoScQiKt8FAb4=
+ bh=XPjyaqQ1ujbIo4bPFoihmFjY/ezH0MazgIvtSXdxyaU=;
+ b=f8iGLBoeeS3cdW9FUpnzNXrc04ANWSLENNlzK1ecnPbyo9HuRww4fC+oGqpGavJ6652roNMXcZkZhGib/FqnEBwo7TOdBCqeQx2bEhl+rf3ZhIweS/MJ4WLFeu69kvIEdwiJXSuNhsvNFXVfZ1Zcp4b8arcwTI1pyJ4tTBTRNFo=
 Received: from CH2PR12MB3912.namprd12.prod.outlook.com (2603:10b6:610:2c::22)
- by CH2PR12MB4039.namprd12.prod.outlook.com (2603:10b6:610:a8::11)
+ by CH2PR12MB3893.namprd12.prod.outlook.com (2603:10b6:610:21::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.18; Wed, 4 Mar
- 2020 14:14:28 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14; Wed, 4 Mar
+ 2020 14:15:39 +0000
 Received: from CH2PR12MB3912.namprd12.prod.outlook.com
  ([fe80::7921:a391:1d1b:5167]) by CH2PR12MB3912.namprd12.prod.outlook.com
  ([fe80::7921:a391:1d1b:5167%5]) with mapi id 15.20.2772.019; Wed, 4 Mar 2020
- 14:14:28 +0000
+ 14:15:39 +0000
 From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Zhao, Jiange" <Jiange.Zhao@amd.com>, "amd-gfx@lists.freedesktop.org"
+To: "Quan, Evan" <Evan.Quan@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu/sriov: Use VF-accessible register for
- gpu_clock_count
-Thread-Topic: [PATCH] drm/amdgpu/sriov: Use VF-accessible register for
- gpu_clock_count
-Thread-Index: AQHV8edGMPj0mDhAD0egWIKfKCKZO6g4ek3o
-Date: Wed, 4 Mar 2020 14:14:27 +0000
-Message-ID: <CH2PR12MB39126CF789D937733CD795AEF7E50@CH2PR12MB3912.namprd12.prod.outlook.com>
-References: <1583300351-3896-1-git-send-email-Jiange.Zhao@amd.com>
-In-Reply-To: <1583300351-3896-1-git-send-email-Jiange.Zhao@amd.com>
+Subject: Re: [PATCH] drm/amd/powerplay: honor the BACO setting from VBIOS
+Thread-Topic: [PATCH] drm/amd/powerplay: honor the BACO setting from VBIOS
+Thread-Index: AQHV8f2UafNhkB1I8Ue7YGYxZxAKt6g4eqaB
+Date: Wed, 4 Mar 2020 14:15:39 +0000
+Message-ID: <CH2PR12MB3912139F34120236A93B45F0F7E50@CH2PR12MB3912.namprd12.prod.outlook.com>
+References: <20200304081807.466-1-evan.quan@amd.com>
+In-Reply-To: <20200304081807.466-1-evan.quan@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-03-04T14:14:27.543Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-03-04T14:15:39.182Z;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
  Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
  MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
@@ -77,32 +75,32 @@ authentication-results: spf=none (sender IP is )
 x-originating-ip: [71.219.40.23]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: b37d46e2-ec51-4fa9-f534-08d7c04659b0
-x-ms-traffictypediagnostic: CH2PR12MB4039:|CH2PR12MB4039:
+x-ms-office365-filtering-correlation-id: cee659e6-552a-4c88-c6c6-08d7c046845e
+x-ms-traffictypediagnostic: CH2PR12MB3893:|CH2PR12MB3893:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB4039EA08F4A78C293E0901E6F7E50@CH2PR12MB4039.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:655;
+x-microsoft-antispam-prvs: <CH2PR12MB389311FCF75E8A686A77C9C7F7E50@CH2PR12MB3893.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:519;
 x-forefront-prvs: 0332AACBC3
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(366004)(39860400002)(376002)(396003)(346002)(189003)(199004)(66946007)(66476007)(2906002)(66556008)(64756008)(52536014)(66446008)(9686003)(4326008)(86362001)(76116006)(478600001)(71200400001)(55016002)(33656002)(54906003)(7696005)(6506007)(81156014)(81166006)(5660300002)(186003)(53546011)(19627405001)(8676002)(26005)(110136005)(316002)(8936002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4039;
+ SFS:(10009020)(4636009)(376002)(39860400002)(346002)(136003)(396003)(366004)(189003)(199004)(6506007)(45080400002)(478600001)(966005)(110136005)(2906002)(316002)(86362001)(7696005)(52536014)(66946007)(76116006)(5660300002)(186003)(53546011)(26005)(55016002)(71200400001)(33656002)(66446008)(81166006)(19627405001)(66476007)(66556008)(64756008)(8936002)(9686003)(8676002)(81156014);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB3893;
  H:CH2PR12MB3912.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 4v3znwOrm/e/MLxexD084ZsXyAPftu7gKof6rgKt5pLF91iUXs3fZgIRSYF2rNsDNOsx+THMmgMpDSia+BwgF4MWCHXpnMYns8Vm414lPCSK9k9DTcIdu2p8Yhze1rMiJovC77S+kLtGLJ2QwFiDx9i4kIKmmXO5cH1saG8e3+2pE/Nxkqxaxu7FLnwJTrqip/9sGP3+qtQ9sGh/lrjxWnREqoZkbJY7g1bNl0KMJH9kYDWF8c0QHHWBV4OGgcpvxAGKN4p0UJQMy79cj0KFsMl1LGVGmg7RHcam+ohu7TYutfMae758idgz8ygHhxXC9HTpfLBhXEOTs3mU4LWfZ/XQSX1jvyl76OWmsx8eGxDKOFwyvIpyVXSBnKJkHCiY7//ChBkzS5mTKcQJ3mJRg53bQwMgh12ghmaeNcGv1AuV7cOwjuA/mg59u6NA5mDQ
-x-ms-exchange-antispam-messagedata: +FeyoNttlG/6DtlRM085pHMLXG+wLixHvpF7bM07u65vUm06dO/ac6d1QwsCk72rH1KVx0/f+thA+lmz0EXh4M+lV4LNbqCgRilwarCEIPpkOFjv/t1YxgTu6Oqt+VTOIZFIhSqG09ScokQeCpF4JQ==
+x-microsoft-antispam-message-info: n5lYKpvA6O4Q7fDgaGYlG17dxKWj/pFmUuQfyfqupvmGrl9wI6XaXuSNY/jpxdivelF3WemvoxjCe9GcNFUdFETTEuroB/+eKIWREI9ZBOHNeEmcbzzp4QdjAu/ND+vOHxRc/8AyFz86ia7aKyOdjLRp37BDIBq6an0wQfKi3NG81pcfd3dY9/UkW6ImjODM9oTpvxeeA7RgHJ6xM5+Fb8kEeaKm8oVEStDdc0YeitBYJHORjscq8RZz/CFvM6oJqM0zMx9LGLpRwylx3rabYUNBOUCJGWVnJW+gG14qwi3t8ciag0iJ84CX2hPR2E0K+Iphl5xYM8sGq5sQLPcgW+dtfb5XFXTllmzjpsrnKrmD2VqNjeCA33ttXq4OtyNn6asTXzphBkPYrkUL1DbMAT/sO/Z8Fc34PJYvsnNioh8usAwd6oHLdaGj/kqclKfp2nWEp02lwCoL66LvrRBliCj0ayLvnOv2y/YgDcK7oxs=
+x-ms-exchange-antispam-messagedata: SDVAmqLrudV4iuztJ6euVxbbdhUzjlg6IVOrfo+cirwyZYcxM1dRw6q0dW/Pl2fMpT7809qnP9TwwdGrCeR9+mgL55dN0hhrp2ZUbJxiivVWbPcgICWmRV7ngkJI6xyuxkbPRo22su21IYnvO9ItAg==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b37d46e2-ec51-4fa9-f534-08d7c04659b0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Mar 2020 14:14:28.0098 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cee659e6-552a-4c88-c6c6-08d7c046845e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Mar 2020 14:15:39.5982 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: CTiPacP/S+teM4httcT1c6NXfBy+qzvOmiQfAooCj2PyEhT1Xkb2I7L8uRV37tMVxeIp6YRwrXfiF44PuIxugQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4039
+X-MS-Exchange-CrossTenant-userprincipalname: s9qSaZONazI+9+rgf88y1A4MxQZgww01AGbjCtRtVQbIXEFIEFcwCt1lUOheK/oOZBxsQQCZnbJ2eQMBdaCF4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3893
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,91 +112,75 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deng, Emily" <Emily.Deng@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>
-Content-Type: multipart/mixed; boundary="===============0546011357=="
+Content-Type: multipart/mixed; boundary="===============1655435939=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0546011357==
+--===============1655435939==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_CH2PR12MB39126CF789D937733CD795AEF7E50CH2PR12MB3912namp_"
+	boundary="_000_CH2PR12MB3912139F34120236A93B45F0F7E50CH2PR12MB3912namp_"
 
---_000_CH2PR12MB39126CF789D937733CD795AEF7E50CH2PR12MB3912namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_CH2PR12MB3912139F34120236A93B45F0F7E50CH2PR12MB3912namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Public Use]
 
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
 ________________________________
-From: Zhao, Jiange <Jiange.Zhao@amd.com>
-Sent: Wednesday, March 4, 2020 12:39 AM
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Evan Qua=
+n <evan.quan@amd.com>
+Sent: Wednesday, March 4, 2020 3:18 AM
 To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deng, Emily <Emily.Deng@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Deucher=
-, Alexander <Alexander.Deucher@amd.com>; Zhao, Jiange <Jiange.Zhao@amd.com>
-Subject: [PATCH] drm/amdgpu/sriov: Use VF-accessible register for gpu_clock=
-_count
+Cc: Quan, Evan <Evan.Quan@amd.com>
+Subject: [PATCH] drm/amd/powerplay: honor the BACO setting from VBIOS
 
-Navi12 VK CTS subtest timestamp.calibrated.dev_domain_test failed
-because mmRLC_CAPTURE_GPU_CLOCK_COUNT register cannot be
-written in VF due to security policy.
+Should not enable BACO always on Vega20. That will
+break the VBIOS setting.
 
-Solution: use a VF-accessible timestamp register pair
-mmGOLDEN_TSC_COUNT_LOWER/UPPER for SRIOV case.
-
-v2: according to Deucher Alexander's advice, switch to
-mmGOLDEN_TSC_COUNT_LOWER/UPPER for both bare metal and SRIOV.
-
-Signed-off-by: jianzh <Jiange.Zhao@amd.com>
+Change-Id: I2609fc3f86dc785d385d9320574446810b5b693d
+Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c
-index 03655c3..22a07ad 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -35,6 +35,8 @@
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+index 08b6ba39a6d7..eed4da1131d1 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c
+@@ -182,9 +182,6 @@ static int vega20_set_features_platform_caps(struct pp_=
+hwmgr *hwmgr)
+         phm_cap_set(hwmgr->platform_descriptor.platformCaps,
+                         PHM_PlatformCaps_TablelessHardwareInterface);
 
- #include "gc/gc_10_1_0_offset.h"
- #include "gc/gc_10_1_0_sh_mask.h"
-+#include "smuio/smuio_11_0_0_offset.h"
-+#include "smuio/smuio_11_0_0_sh_mask.h"
- #include "navi10_enum.h"
- #include "hdp/hdp_5_0_0_offset.h"
- #include "ivsrcid/gfx/irqsrcs_gfx_10_1.h"
-@@ -3925,9 +3927,8 @@ static uint64_t gfx_v10_0_get_gpu_clock_counter(struc=
-t amdgpu_device *adev)
+-       phm_cap_set(hwmgr->platform_descriptor.platformCaps,
+-                       PHM_PlatformCaps_BACO);
+-
+         phm_cap_set(hwmgr->platform_descriptor.platformCaps,
+                         PHM_PlatformCaps_EnableSMU7ThermalManagement);
 
-         amdgpu_gfx_off_ctrl(adev, false);
-         mutex_lock(&adev->gfx.gpu_clock_mutex);
--       WREG32_SOC15(GC, 0, mmRLC_CAPTURE_GPU_CLOCK_COUNT, 1);
--       clock =3D (uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUNT_LSB) =
-|
--               ((uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUNT_MSB) <=
-< 32ULL);
-+       clock =3D (uint64_t)RREG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COUNT_LOWER=
-) |
-+               ((uint64_t)RREG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COUNT_UPPER)=
- << 32ULL);
-         mutex_unlock(&adev->gfx.gpu_clock_mutex);
-         amdgpu_gfx_off_ctrl(adev, true);
-         return clock;
 --
-2.7.4
+2.25.1
 
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
+r.deucher%40amd.com%7C767116f089aa41e6365108d7c014a10a%7C3dd8961fe4884e608e=
+11a82d994e183d%7C0%7C0%7C637189067484709745&amp;sdata=3D3n6MKnuioG1XD9ACSC8=
+nVCyBbNsSUJCnqkzUdj3sLqo%3D&amp;reserved=3D0
 
---_000_CH2PR12MB39126CF789D937733CD795AEF7E50CH2PR12MB3912namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_CH2PR12MB3912139F34120236A93B45F0F7E50CH2PR12MB3912namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
 <style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
 ttom:0;} </style>
 </head>
@@ -214,93 +196,81 @@ ign=3D"Left">
 Acked-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
 </div>
 <div id=3D"appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11pt" face=
-=3D"Calibri, sans-serif" color=3D"#000000"><b>From:</b> Zhao, Jiange &lt;Ji=
-ange.Zhao@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, March 4, 2020 12:39 AM<br>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
+ounces@lists.freedesktop.org&gt; on behalf of Evan Quan &lt;evan.quan@amd.c=
+om&gt;<br>
+<b>Sent:</b> Wednesday, March 4, 2020 3:18 AM<br>
 <b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
 gt;<br>
-<b>Cc:</b> Deng, Emily &lt;Emily.Deng@amd.com&gt;; Liu, Monk &lt;Monk.Liu@a=
-md.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Zhao, Jia=
-nge &lt;Jiange.Zhao@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/sriov: Use VF-accessible register for gp=
-u_clock_count</font>
+<b>Cc:</b> Quan, Evan &lt;Evan.Quan@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amd/powerplay: honor the BACO setting from VBIO=
+S</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">Navi12 VK CTS subtest timestamp.calibrated.dev_dom=
-ain_test failed<br>
-because mmRLC_CAPTURE_GPU_CLOCK_COUNT register cannot be<br>
-written in VF due to security policy.<br>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Should not enable BACO always on Vega20. That will=
 <br>
-Solution: use a VF-accessible timestamp register pair<br>
-mmGOLDEN_TSC_COUNT_LOWER/UPPER for SRIOV case.<br>
+break the VBIOS setting.<br>
 <br>
-v2: according to Deucher Alexander's advice, switch to<br>
-mmGOLDEN_TSC_COUNT_LOWER/UPPER for both bare metal and SRIOV.<br>
-<br>
-Signed-off-by: jianzh &lt;Jiange.Zhao@amd.com&gt;<br>
+Change-Id: I2609fc3f86dc785d385d9320574446810b5b693d<br>
+Signed-off-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 7 &#43;&#43;&#43;&#43;---<br=
->
-&nbsp;1 file changed, 4 insertions(&#43;), 3 deletions(-)<br>
+&nbsp;drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c | 3 ---<br>
+&nbsp;1 file changed, 3 deletions(-)<br>
 <br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c<br>
-index 03655c3..22a07ad 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-@@ -35,6 &#43;35,8 @@<br>
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c b/drivers/g=
+pu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
+index 08b6ba39a6d7..eed4da1131d1 100644<br>
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/powerplay/hwmgr/vega20_hwmgr.c<br>
+@@ -182,9 &#43;182,6 @@ static int vega20_set_features_platform_caps(struct=
+ pp_hwmgr *hwmgr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phm_cap_set(hwmgr-&gt;plat=
+form_descriptor.platformCaps,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHM_P=
+latformCaps_TablelessHardwareInterface);<br>
 &nbsp;<br>
-&nbsp;#include &quot;gc/gc_10_1_0_offset.h&quot;<br>
-&nbsp;#include &quot;gc/gc_10_1_0_sh_mask.h&quot;<br>
-&#43;#include &quot;smuio/smuio_11_0_0_offset.h&quot;<br>
-&#43;#include &quot;smuio/smuio_11_0_0_sh_mask.h&quot;<br>
-&nbsp;#include &quot;navi10_enum.h&quot;<br>
-&nbsp;#include &quot;hdp/hdp_5_0_0_offset.h&quot;<br>
-&nbsp;#include &quot;ivsrcid/gfx/irqsrcs_gfx_10_1.h&quot;<br>
-@@ -3925,9 &#43;3927,8 @@ static uint64_t gfx_v10_0_get_gpu_clock_counter(s=
-truct amdgpu_device *adev)<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_off_ctrl(adev, =
-false);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;g=
-fx.gpu_clock_mutex);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; WREG32_SOC15(GC, 0, mmRLC_CAPTURE_GPU=
-_CLOCK_COUNT, 1);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock =3D (uint64_t)RREG32_SOC15(GC, =
-0, mmRLC_GPU_CLOCK_COUNT_LSB) |<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phm_cap_set(hwmgr-&gt;platform_descri=
+ptor.platformCaps,<br>
 -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; ((uint64_t)RREG32_SOC15(GC, 0, mmRLC_GPU_CLOCK_COUNT_MSB) &lt;&l=
-t; 32ULL);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clock =3D (uint64_t)RREG32_SOC15(=
-SMUIO, 0, mmGOLDEN_TSC_COUNT_LOWER) |<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; ((uint64_t)RREG32_SOC15(SMUIO, 0, mmGOLDEN_TSC_COUNT_UPPER) =
-&lt;&lt; 32ULL);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt=
-;gfx.gpu_clock_mutex);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gfx_off_ctrl(adev, =
-true);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return clock;<br>
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHM_PlatformCaps=
+_BACO);<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; phm_cap_set(hwmgr-&gt;plat=
+form_descriptor.platformCaps,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PHM_P=
+latformCaps_EnableSMU7ThermalManagement);<br>
+&nbsp;<br>
 -- <br>
-2.7.4<br>
+2.25.1<br>
 <br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+amd-gfx@lists.freedesktop.org<br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
+7C01%7Calexander.deucher%40amd.com%7C767116f089aa41e6365108d7c014a10a%7C3dd=
+8961fe4884e608e11a82d994e183d%7C0%7C0%7C637189067484709745&amp;amp;sdata=3D=
+3n6MKnuioG1XD9ACSC8nVCyBbNsSUJCnqkzUdj3sLqo%3D&amp;amp;reserved=3D0">https:=
+//nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedes=
+ktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexander.=
+deucher%40amd.com%7C767116f089aa41e6365108d7c014a10a%7C3dd8961fe4884e608e11=
+a82d994e183d%7C0%7C0%7C637189067484709745&amp;amp;sdata=3D3n6MKnuioG1XD9ACS=
+C8nVCyBbNsSUJCnqkzUdj3sLqo%3D&amp;amp;reserved=3D0</a><br>
 </div>
 </span></font></div>
 </div>
 </body>
 </html>
 
---_000_CH2PR12MB39126CF789D937733CD795AEF7E50CH2PR12MB3912namp_--
+--_000_CH2PR12MB3912139F34120236A93B45F0F7E50CH2PR12MB3912namp_--
 
---===============0546011357==
+--===============1655435939==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -311,4 +281,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0546011357==--
+--===============1655435939==--
