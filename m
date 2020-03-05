@@ -2,107 +2,87 @@ Return-Path: <SRS0=Sanp=4W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 298CCC3F2D2
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 16:16:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EF40C3F2D1
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 16:57:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EC2F2207FD
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 16:16:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D6D0920637
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 16:57:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kgyZaJkF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC2F2207FD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cvNaPJXC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6D0920637
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B370B6E34D;
-	Thu,  5 Mar 2020 16:16:52 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2052.outbound.protection.outlook.com [40.107.92.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD6CE6E34D
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2020 16:16:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BdM6RrlT8kGR0jzU3iOfG72J1mIJUHnMVQZqejT5n0tnlpkDC2MOP2hS/lDSFMyXybGDjSCvWtBz6ngf2QXcsEE6amFU4TeyGfH7jWOU6nyeiILdrDFh/VJr18uUkXjlL6igEpHrBT6FbBZtCFJCMvmBi+gvPjLiGYAC8Bz2+4VOTu6mKthBoQlCWHqOCdG33o0EPDXCU8JBFnfxh6WMCNLv6EFKP/YF9K+wphhx0d+X1YNI2HgtCllmziPr5eZuOPwdErEXrDAMgw054wwFwT+LdYF3s41VB+1iqfs+NRRP6b7VCII8RXvMUXgI58+F/LvcZPmPTypniSwWlaSUPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NsOSEw4cttqzfKfLUPuv4oFNgmdjLaTVImEyf2FqTRA=;
- b=LyPV3+4UspOvyEBONvbnv82V4P2dlbsVduO7hEQgLVDIdrQY+vo7BePP0FWRn0y36XC3HXPRi5JUJeZv/nCW/EnZpYPs3/o/FzW08ia89YZGUMmuo9qwxskceMb4R/EFDT156zXufXtd7CBVnG3Y9hI6CnMsBacRlTF9uSLCw9Z/GnnPV5wiuycOmk9Al+zwV758Dw+IzKyKBzyQ4TRyiCacAVPtMm7977V4GAnR0kbvIDMviiTWoxLEjOhunFkg3jzLITfEbGmgZiba6bZMuhC5Ql3D2Ra77FH9LhbtaC5bCI1Cu+Nwy18IgMiuQLlypBA/L9NqzAm0yjXHWh8+Ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NsOSEw4cttqzfKfLUPuv4oFNgmdjLaTVImEyf2FqTRA=;
- b=kgyZaJkF7ty1g7NLh2gafJl+ShWUJDVMSn8u+tmuDRJ7gyBvGgjZWG9lomISSbqynXIriQw7pXd0mOC6GYUxwi79WbPJtzUwSwxGYUiaIJ8xVbKwfqIOjYwPAJfV1DuBB3Ic/GsWsXXhdCxUXLs9GiKnFlWuPCRawYIgXSbtrdg=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Leo.Liu@amd.com; 
-Received: from DM6PR12MB3914.namprd12.prod.outlook.com (2603:10b6:5:1c9::32)
- by DM6PR12MB3131.namprd12.prod.outlook.com (2603:10b6:5:11d::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.15; Thu, 5 Mar
- 2020 16:16:50 +0000
-Received: from DM6PR12MB3914.namprd12.prod.outlook.com
- ([fe80::7c3d:1072:f9d8:8686]) by DM6PR12MB3914.namprd12.prod.outlook.com
- ([fe80::7c3d:1072:f9d8:8686%6]) with mapi id 15.20.2772.019; Thu, 5 Mar 2020
- 16:16:50 +0000
-Subject: Re: [enable VCN2.0 for NV12 SRIOV 6/6] drm/amdgpu: clear warning on
- unused var
-To: Monk Liu <Monk.Liu@amd.com>, amd-gfx@lists.freedesktop.org
-References: <1583415187-16594-1-git-send-email-Monk.Liu@amd.com>
- <1583415187-16594-6-git-send-email-Monk.Liu@amd.com>
-From: Leo Liu <leo.liu@amd.com>
-Message-ID: <e3f3d158-49bc-7412-6e11-7a6977b7d714@amd.com>
-Date: Thu, 5 Mar 2020 11:16:48 -0500
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B4296E347;
+	Thu,  5 Mar 2020 16:57:56 +0000 (UTC)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [205.139.110.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA6C06E347
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2020 16:41:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1583426471;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=1kIsvqWk31aJbz76bO7J59CH2eDqVdpvFmO7cKoNTj4=;
+ b=cvNaPJXCXMiD/e1bCsv1lIzb9XZFxK818+Oul+Amar1IIwluV7ztyJnki+3ZrbV2wcO4ZV
+ VfLZHBG8JSt+h7/1t1BUodvOvKJ1jLDNo0S6dh5Q1zzWZXZDkPPMLrXkIrASfGU/90sEM9
+ eL+xop+fxmIjLYcAaC6AcpQubne94Ws=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-238-dv2z772wNKuaDKAnwt2kNg-1; Thu, 05 Mar 2020 11:41:07 -0500
+X-MC-Unique: dv2z772wNKuaDKAnwt2kNg-1
+Received: by mail-wm1-f70.google.com with SMTP id w12so1798449wmc.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 Mar 2020 08:41:07 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=stJeKdSC+Wyig8nOc8URVbuDCJaVJQbI9Q0Eokb7KMg=;
+ b=Zhgz6YoZaRMQwQdbYS4UWlwTJylSZ9kiIIx3XNUfK01pFbFg5rCcsKh1X+J5sNqLNs
+ V7127OeFwB8sgYw4hhw1W2dI6ZPY0EA8BXrftud7F2IbfbKo/pKiUWwrKu1IYN3e1VvI
+ emTUVi5rg4O0KWzfq8N29tgx25MbNhpkCNyaP0nAPXjv3T/6DoM54FtfCyr8nzNShIJq
+ zlsyc3TSWS3Zk0W8YbsYYu6CFVy5is4tZpToeXbb1g8H7/eORp9GGiAq69CmTd5cZgfH
+ thIDfrYaCLawHRWXvCcgl3nFhYEHo/GOGzXDYuBFMf14mrBiGhqmeMiPANl2wVlbgxqn
+ Z7Vg==
+X-Gm-Message-State: ANhLgQ2eo8pSj2KYo8jKeN0X1U/uijGYL5ke5vWRN7dl8fN8vMGHN/ui
+ xKnhBODCtDLCkwl1kZzDBau2Zui893TmOo/N2MvxhW6VKOZBHhHDmrFGht6dH5OwEYpATJJBT7N
+ ffG5l+kY0u8NbtRWC6AzA+e1KfA==
+X-Received: by 2002:adf:aa9e:: with SMTP id h30mr11559469wrc.288.1583426466406; 
+ Thu, 05 Mar 2020 08:41:06 -0800 (PST)
+X-Google-Smtp-Source: ADFU+vvIRURKAgOSIvMEgAlaIX1+gfcD5nWklGx0bgkXynnCMfd09Tx4Bg7BqopFIY/UJQ2dyoc+DQ==
+X-Received: by 2002:adf:aa9e:: with SMTP id h30mr11559440wrc.288.1583426466108; 
+ Thu, 05 Mar 2020 08:41:06 -0800 (PST)
+Received: from x1.localdomain
+ (2001-1c00-0c0c-fe00-fc7e-fd47-85c1-1ab3.cable.dynamic.v6.ziggo.nl.
+ [2001:1c00:c0c:fe00:fc7e:fd47:85c1:1ab3])
+ by smtp.gmail.com with ESMTPSA id w8sm11151809wmm.0.2020.03.05.08.41.05
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Mar 2020 08:41:05 -0800 (PST)
+Subject: Re: [PATCH 0/3] drm/dp_mst: Fix bandwidth checking regressions from
+ DSC patches
+To: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org
+References: <20200304223614.312023-1-lyude@redhat.com>
+From: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <89275eb6-662d-73d1-a593-8271df5aadc0@redhat.com>
+Date: Thu, 5 Mar 2020 17:41:04 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-In-Reply-To: <1583415187-16594-6-git-send-email-Monk.Liu@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YTOPR0101CA0043.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:14::20) To DM6PR12MB3914.namprd12.prod.outlook.com
- (2603:10b6:5:1c9::32)
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:a200:445:917c:58ca:660b:c965]
- (2607:fea8:a200:445:917c:58ca:660b:c965) by
- YTOPR0101CA0043.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.15 via Frontend
- Transport; Thu, 5 Mar 2020 16:16:49 +0000
-X-Originating-IP: [2607:fea8:a200:445:917c:58ca:660b:c965]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: a36ac407-b7c5-4fc2-3b64-08d7c1209bf9
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3131:|DM6PR12MB3131:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB313141E35F93886DDB3E5679E5E20@DM6PR12MB3131.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:22;
-X-Forefront-PRVS: 03333C607F
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(396003)(346002)(136003)(376002)(366004)(189003)(199004)(5660300002)(2906002)(66556008)(66946007)(66476007)(36756003)(44832011)(2616005)(6486002)(81156014)(16526019)(8936002)(186003)(81166006)(8676002)(86362001)(53546011)(31696002)(316002)(478600001)(31686004)(52116002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3131;
- H:DM6PR12MB3914.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vHzcaz6txY3csqDzBxzo3vBy6C8rsteo998MNDnncHb/DIq609t4v2qOBlJIfclOn4+DH2vJkYy1H101wL69c/jFitjBQSE0mWAdpF4CInT34ANw1BB5Ak0+ipadinDfwGZ7/4Fr/3ATG3NRb9b4dAL5Qu2/1xISoAxMwcsN3QzBu+nft6zSbHHb41KEi06cnOiOdmyi391padUgJpyRBYNqaHQq5D7Bii6hECNwWsnhZCsRWdYIZsI4dUbq/gDKESvdT8cztth1MAME4iBD5bl88AZZ/FW/z4CQiT/xm68fthGfzBUDHAyWPoMWBU7LqAcmQB2JHvwT9ZsO31XsWD3Fds6DtQerfazQnI1cmYj2J39XsID/Ctq5CUJ15ihOiNHpuwzRp3H0FAbX236U9k/mp1/SYDCeNAjeUxTj2a0HNc5ecK9BE7k5dtsiVZVc
-X-MS-Exchange-AntiSpam-MessageData: HW1J4tzLG/jcAo2hLZeiXxCgtQSOKi0FD2QEuv4JvFnwVSPev+ir+sZVyYMOzXv40uxS473TdvAGk9v4PhJi80UIsRp1kpY9h6NlCteFR73plwCYWTgqqx76DxaRl/PGhTC1CF9eTdQWGnRXPXGDhH/DxxMSLanZGHYGIoegy/rNy5qFvpxadILxGbYPS7U6eQpblIUCMIX8KS5QeRkH7g==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a36ac407-b7c5-4fc2-3b64-08d7c1209bf9
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2020 16:16:50.2027 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rxLD2aZqO7IHXnGhKS8hRVtKPBDkFeDkPJdRaD3ICW1pJA9wPUGjecWBx11fpsjq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3131
+In-Reply-To: <20200304223614.312023-1-lyude@redhat.com>
+Content-Language: en-US
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+X-Mailman-Approved-At: Thu, 05 Mar 2020 16:57:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,40 +94,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Sean Paul <seanpaul@google.com>,
+ David Airlie <airlied@linux.ie>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Mikita Lipski <mikita.lipski@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Is this warning introduced by your patch 4?
-
-On 2020-03-05 8:33 a.m., Monk Liu wrote:
-> Signed-off-by: Monk Liu <Monk.Liu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c | 2 --
->   1 file changed, 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> index ae9754f..a41272f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c
-> @@ -493,7 +493,6 @@ static int amdgpu_vcn_dec_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
->   
->   int amdgpu_vcn_dec_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   {
-> -	struct amdgpu_device *adev = ring->adev;
->   	struct dma_fence *fence;
->   	long r;
->   
-> @@ -655,7 +654,6 @@ static int amdgpu_vcn_enc_get_destroy_msg(struct amdgpu_ring *ring, uint32_t han
->   
->   int amdgpu_vcn_enc_ring_test_ib(struct amdgpu_ring *ring, long timeout)
->   {
-> -	struct amdgpu_device *adev = ring->adev;
->   	struct dma_fence *fence = NULL;
->   	struct amdgpu_bo *bo = NULL;
->   	long r;
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGkgTHl1ZGUsCgpPbiAzLzQvMjAgMTE6MzYgUE0sIEx5dWRlIFBhdWwgd3JvdGU6Cj4gQU1EJ3Mg
+cGF0Y2ggc2VyaWVzIGZvciBhZGRpbmcgRFNDIHN1cHBvcnQgdG8gdGhlIE1TVCBoZWxwZXJzCj4g
+dW5mb3J0dW5hdGVseSBpbnRyb2R1Y2VkIGEgZmV3IHJlZ3Jlc3Npb25zIGludG8gdGhlIGtlcm5l
+bCB0aGF0IEkgZGlkbid0Cj4gZ2V0IGFyb3VuZCB0byBmaXhpbmcgdW50aWwganVzdCBub3cuIEkg
+d291bGQgaGF2ZSByZXZlcnRlZCB0aGUgY2hhbmdlcwo+IGVhcmxpZXIsIGJ1dCBzZWVpbmcgYXMg
+dGhhdCB3b3VsZCBoYXZlIHJldmVydGVkIGFsbCBvZiBhbWQncyBEU0Mgc3VwcG9ydAo+ICsgZXZl
+cnl0aGluZyB0aGF0IHdhcyBkb25lIG9uIHRvcCBvZiB0aGF0IEkgcmVhbGxsbGxseSB3YW50ZWQg
+dG8gYXZvaWQKPiBkb2luZyB0aGF0Lgo+IAo+IEFueXdheSwgdGhpcyBzaG91bGQgZml4IGV2ZXJ5
+dGhpbmcgYXMgZmFyIGFzIEkgY2FuIHRlbGwuIE5vdGUgdGhhdCBJCj4gZG9uJ3QgaGF2ZSBhbnkg
+RFNDIGRpc3BsYXlzIGxvY2FsbHkgeWV0LCBzbyBpZiBzb21lb25lIGZyb20gQU1EIGNvdWxkCj4g
+c2FuaXR5IGNoZWNrIHRoaXMgSSB3b3VsZCBhcHByZWNpYXRlIGl0IOKZpS4KClRoYW5rIHlvdSBm
+b3IgdHJ5aW5nIHRvIGZpeCB0aGlzLCB1bmZvcnR1bmF0ZWx5IGZvciBtZSB0aGlzIGlzIG5vdCBm
+aXhlZCwKd2l0aCB0aGlzIHNlcmllcy4gTXkgc2V0dXA6Cgo1LjYtcmM0ICsgeW91ciAzIHBhdGNo
+ZXMgKCsgc29tZSB1bnJlbGF0ZWQgcGF0Y2hlcyBvdXRzaWRlIG9mIGRybSkKCi1MZW5vdm8geDEg
+N3RoIGdlbiArCiAgTGVub3ZvIFRCMyBkb2NrIGdlbiAyICsKICAyIGV4dGVybmFsIDE5MjB4MTA4
+MEA2MCBtb25pdG9ycyBjb25uZWN0ZWQgdG8gdGhlIDIgSERNSSBpbnRlcmZhY2VzIG9uIHRoZSBk
+b2NrCi1TeXN0ZW0gYm9vdGVkIHdpdGggdGhlIExJRCBjbG9zZWQsIHNvIHRoYXQgdGhlIGZpcm13
+YXJlL0JJT1MgaGFzIGFscmVhZHkKICBpbml0aWFsaXplZCBib3RoIG1vbml0b3JzIHdoZW4gdGhl
+IGtlcm5lbCBib290cwoKVGhpcyBzaG91bGQgYmUgZmFpcmx5IGVhc3kgdG8gcmVwcm9kdWNlIG9u
+IGEgc2ltaWxhciBzZXR1cCwgb3RoZXIKdXNlcnMgYXJlIHNlZWluZyBzaW1pbGFyIHByb2JsZW1z
+IHdoZW4gY29ubmVjdGluZyBtb3JlIHRoZW4gMSBtb25pdG9yCnRvIERQLU1TVCBkb2Nrcywgc2Vl
+IGUuZy4gOgoKaHR0cHM6Ly9idWd6aWxsYS5yZWRoYXQuY29tL3Nob3dfYnVnLmNnaT9pZD0xODA5
+NjgxCmh0dHBzOi8vYnVnemlsbGEucmVkaGF0LmNvbS9zaG93X2J1Zy5jZ2k/aWQ9MTgxMDA3MAoK
+TGV0IG1lIGtub3cgaWYgeW91IHdhbnQgbWUgdG8gY29sbGVjdCBzb21lIGRybS5kZWJ1ZyBsb2dz
+LCBJIGd1ZXNzCmlmIHlvdSBkbywgeW91IHdhbnQgbWUgdG8gdXNlIGRybS5kZWJ1Zz0weDExNCA/
+CgpSZWdhcmRzLAoKSGFucwoKCgoKCj4gCj4gQ2M6IE1pa2l0YSBMaXBza2kgPG1pa2l0YS5saXBz
+a2lAYW1kLmNvbT4KPiBDYzogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29t
+Pgo+IENjOiBTZWFuIFBhdWwgPHNlYW5wYXVsQGdvb2dsZS5jb20+Cj4gQ2M6IEhhbnMgZGUgR29l
+ZGUgPGhkZWdvZWRlQHJlZGhhdC5jb20+Cj4gCj4gTHl1ZGUgUGF1bCAoMyk6Cj4gICAgZHJtL2Rw
+X21zdDogUmVuYW1lIGRybV9kcF9tc3RfaXNfZHBfbXN0X2VuZF9kZXZpY2UoKSB0byBiZSBsZXNz
+Cj4gICAgICByZWR1bmRhbnQKPiAgICBkcm0vZHBfbXN0OiBEb24ndCBzaG93IGNvbm5lY3RvcnMg
+YXMgY29ubmVjdGVkIGJlZm9yZSBwcm9iaW5nCj4gICAgICBhdmFpbGFibGUgUEJOCj4gICAgZHJt
+L2RwX21zdDogUmV3cml0ZSBhbmQgZml4IGJhbmR3aWR0aCBsaW1pdCBjaGVja3MKPiAKPiAgIGRy
+aXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMgfCAxMjQgKysrKysrKysrKysrKysr
+KysrKystLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA5NiBpbnNlcnRpb25zKCspLCAyOCBkZWxl
+dGlvbnMoLSkKPiAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0
+dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
