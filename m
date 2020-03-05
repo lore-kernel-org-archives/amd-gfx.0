@@ -2,43 +2,68 @@ Return-Path: <SRS0=Sanp=4W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40389C3F2D1
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 03:43:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 28AA9C3F2CD
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 05:22:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2005B2073B
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 03:43:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2005B2073B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=mikelr.com
+	by mail.kernel.org (Postfix) with ESMTPS id DFF7C2072D
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 05:22:38 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CysDEliH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DFF7C2072D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 328F26E471;
-	Thu,  5 Mar 2020 03:43:49 +0000 (UTC)
-Received: from yyz.mikelr.com (yyz.mikelr.com [170.75.163.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3E516E14A
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2020 03:41:45 +0000 (UTC)
-Received: from glidewell.ykf.mikelr.com (198-84-194-208.cpe.teksavvy.com
- [198.84.194.208])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (Client did not present a certificate)
- by yyz.mikelr.com (Postfix) with ESMTPSA id BD0943D089;
- Wed,  4 Mar 2020 22:41:44 -0500 (EST)
-From: Mikel Rychliski <mikel@mikelr.com>
-To: amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org,
- nouveau@lists.freedesktop.org
-Subject: [PATCH v2 2/2] PCI: Use ioremap(), not phys_to_virt() for platform ROM
-Date: Wed,  4 Mar 2020 22:41:26 -0500
-Message-Id: <20200305034126.6989-3-mikel@mikelr.com>
-X-Mailer: git-send-email 2.13.7
-In-Reply-To: <20200305034126.6989-1-mikel@mikelr.com>
-References: <20200305034126.6989-1-mikel@mikelr.com>
-X-Mailman-Approved-At: Thu, 05 Mar 2020 03:43:47 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F9EA6E14B;
+	Thu,  5 Mar 2020 05:22:38 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDB346E14B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2020 05:22:36 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id p9so4753679wmc.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 04 Mar 2020 21:22:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=KYpMU0kv9EaUAUU/bF8CenyvlizFkPUrWZ4XRi04Xg0=;
+ b=CysDEliHgT8HEcFT9h/n/QiakPaf8Rbt4HScg4wiJxNGUMloSU0pj3A2BZA/8as8/4
+ JurqYf8NKVVkkt0gT1ohAFfFeeODmRomZe80nHZF0RlGimz4LWCS0hzJxP8fTgMB64ZX
+ n8t1lIFl3nACa0or/atfQoUFbXYWHxl8edDmD46n3B+aqHs7vRIjwOVA7eg9QZM8UvSD
+ P/dsMHxqsT64v8C2GnPLWonzT/ftrOckpL3qOe45d7v2AQZVJvGSAZZ9P5SkwFxwB5hp
+ ABrBWgPPLtO3F6uD9H/BZ3ONPEFakzoF+7ViUbkPnlDlOFBCI82uATQnuac8H0rjQOjc
+ TTHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=KYpMU0kv9EaUAUU/bF8CenyvlizFkPUrWZ4XRi04Xg0=;
+ b=CscLRC9OizZYKmq+ORaA4nH6PV5zHshS4/qXAjPPNck5Wt7hoEv8CQqw9PINNWxsO4
+ XUP+RhcIFANFhdaD9Kgh+eKOjul2ooXDzhuWQUwn3mYR2AgI2ar5ERJvsLlc09/bRjpd
+ nR5nG+Flcdv7LR7oO+41AMeMtXHEcIYvZxpuJYaRAs8Ma0Nf6LHm0MvV7ATlySeW5Eop
+ 2sjLpfiytWL0qUrNY3TpCs9YA8pjoBQkyFw34++pUndjtpr3Y4GjmCBiCr4nskPsoQkw
+ 4m/4TccT6Sov77h3AC3dQKH9F2ftgECAwEZGjzF4KwImCTswbFwv2vL89sYl5pArri/9
+ D3gA==
+X-Gm-Message-State: ANhLgQ05MeXxkjthQ2UFkZQFvUL6jI9oH4PQQg3flwTe2DHDOlpQ06+1
+ gMpvVvLjZO10U95HZc4XTByYkFHGXKDgepYBamdynQ==
+X-Google-Smtp-Source: ADFU+vtFG+Dxp2px7+QBtT4+uVj7M6GbS6B+hLpwboebYtf9VKknjKyFFbCUfL7wjBSJXy5hgtyZ3PG7mAD5fAGaSTo=
+X-Received: by 2002:a1c:f009:: with SMTP id a9mr7241142wmb.73.1583385755187;
+ Wed, 04 Mar 2020 21:22:35 -0800 (PST)
+MIME-Version: 1.0
+References: <20191216171834.217251-1-alexander.deucher@amd.com>
+ <20191216171834.217251-3-alexander.deucher@amd.com>
+ <CADnq5_M5JvZuH1_GHyMvvi6Xi6AwLsoBSXhg9=7tPO_KVB8mqg@mail.gmail.com>
+In-Reply-To: <CADnq5_M5JvZuH1_GHyMvvi6Xi6AwLsoBSXhg9=7tPO_KVB8mqg@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 5 Mar 2020 00:22:23 -0500
+Message-ID: <CADnq5_Pd+ienAP3ZkLPZaGVeN3OyRgkQeVws6twfm5HsnsVhPQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu: Enter low power state if CRTC active.
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,167 +75,107 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Matthew Garrett <matthewgarrett@google.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Ben Skeggs <bskeggs@redhat.com>,
- Mikel Rychliski <mikel@mikelr.com>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-MIME-Version: 1.0
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On some EFI systems, the video BIOS is provided by the EFI firmware.  The
-boot stub code stores the physical address of the ROM image in pdev->rom.
-Currently we attempt to access this pointer using phys_to_virt(), which
-doesn't work with CONFIG_HIGHMEM.
+Ping?
 
-On these systems, attempting to load the radeon module on a x86_32 kernel
-can result in the following:
-
-    BUG: unable to handle page fault for address: 3e8ed03c
-    #PF: supervisor read access in kernel mode
-    #PF: error_code(0x0000) - not-present page
-    *pde = 00000000
-    Oops: 0000 [#1] PREEMPT SMP
-    CPU: 0 PID: 317 Comm: systemd-udevd Not tainted 5.6.0-rc3-next-20200228 #2
-    Hardware name: Apple Computer, Inc. MacPro1,1/Mac-F4208DC8, BIOS     MP11.88Z.005C.B08.0707021221 07/02/07
-    EIP: radeon_get_bios+0x5ed/0xe50 [radeon]
-    Code: 00 00 84 c0 0f 85 12 fd ff ff c7 87 64 01 00 00 00 00 00 00 8b 47 08 8b 55 b0 e8 1e 83 e1 d6 85 c0 74 1a 8b 55 c0 85 d2 74 13 <80> 38 55 75 0e 80 78 01 aa 0f 84 a4 03 00 00 8d 74 26 00 68 dc 06
-    EAX: 3e8ed03c EBX: 00000000 ECX: 3e8ed03c EDX: 00010000
-    ESI: 00040000 EDI: eec04000 EBP: eef3fc60 ESP: eef3fbe0
-    DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010206
-    CR0: 80050033 CR2: 3e8ed03c CR3: 2ec77000 CR4: 000006d0
-    Call Trace:
-     ? register_client+0x34/0xe0
-     ? register_client+0xab/0xe0
-     r520_init+0x26/0x240 [radeon]
-     radeon_device_init+0x533/0xa50 [radeon]
-     radeon_driver_load_kms+0x80/0x220 [radeon]
-     drm_dev_register+0xa7/0x180 [drm]
-     radeon_pci_probe+0x10f/0x1a0 [radeon]
-     pci_device_probe+0xd4/0x140
-     really_probe+0x13d/0x3b0
-     driver_probe_device+0x56/0xd0
-     device_driver_attach+0x49/0x50
-     __driver_attach+0x79/0x130
-     ? device_driver_attach+0x50/0x50
-     bus_for_each_dev+0x5b/0xa0
-     driver_attach+0x19/0x20
-     ? device_driver_attach+0x50/0x50
-     bus_add_driver+0x117/0x1d0
-     ? pci_bus_num_vf+0x20/0x20
-     driver_register+0x66/0xb0
-     ? 0xf80f4000
-     __pci_register_driver+0x3d/0x40
-     radeon_init+0x82/0x1000 [radeon]
-     do_one_initcall+0x42/0x200
-     ? kvfree+0x25/0x30
-     ? __vunmap+0x206/0x230
-     ? kmem_cache_alloc_trace+0x16f/0x220
-     ? do_init_module+0x21/0x220
-     do_init_module+0x50/0x220
-     load_module+0x1f26/0x2200
-     sys_init_module+0x12d/0x160
-     do_fast_syscall_32+0x82/0x250
-     entry_SYSENTER_32+0xa5/0xf8
-
-Fix the issue by using ioremap() instead of phys_to_virt() in
-pci_platform_rom().
-
-Now that pci_platform_rom() creates a new mapping to access the ROM
-image, update all callers to remove this mapping after extracting the
-BIOS.
-
-Signed-off-by: Mikel Rychliski <mikel@mikelr.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c             |  1 +
- drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c | 11 ++++++++++-
- drivers/gpu/drm/radeon/radeon_bios.c                 |  1 +
- drivers/pci/rom.c                                    |  9 ++++++---
- 4 files changed, 18 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-index 50dff69a0f6e..ea6a1fa98ad9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-@@ -207,6 +207,7 @@ static bool amdgpu_read_platform_bios(struct amdgpu_device *adev)
- 		return false;
- 
- 	memcpy_fromio(adev->bios, bios, size);
-+	iounmap(bios);
- 
- 	if (!check_atom_bios(adev->bios, size)) {
- 		kfree(adev->bios);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
-index 9b91da09dc5f..8a60a0db7b14 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
-@@ -111,11 +111,20 @@ platform_init(struct nvkm_bios *bios, const char *name)
- 	return ERR_PTR(ret);
- }
- 
-+static void
-+platform_fini(void *data)
-+{
-+	struct priv *priv = data;
-+
-+	iounmap(priv->rom);
-+	kfree(priv);
-+}
-+
- const struct nvbios_source
- nvbios_platform = {
- 	.name = "PLATFORM",
- 	.init = platform_init,
--	.fini = (void(*)(void *))kfree,
-+	.fini = platform_fini,
- 	.read = pcirom_read,
- 	.rw = true,
- };
-diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
-index c3ae4c92a115..712b88d88957 100644
---- a/drivers/gpu/drm/radeon/radeon_bios.c
-+++ b/drivers/gpu/drm/radeon/radeon_bios.c
-@@ -123,6 +123,7 @@ static bool radeon_read_platform_bios(struct radeon_device *rdev)
- 		return false;
- 
- 	memcpy_fromio(rdev->bios, bios, size);
-+	iounmap(bios);
- 
- 	if (size == 0 || rdev->bios[0] != 0x55 || rdev->bios[1] != 0xaa) {
- 		kfree(rdev->bios);
-diff --git a/drivers/pci/rom.c b/drivers/pci/rom.c
-index 137bf0cee897..b38257d23e6e 100644
---- a/drivers/pci/rom.c
-+++ b/drivers/pci/rom.c
-@@ -197,16 +197,19 @@ void pci_unmap_rom(struct pci_dev *pdev, void __iomem *rom)
- EXPORT_SYMBOL(pci_unmap_rom);
- 
- /**
-- * pci_platform_rom - provides a pointer to any ROM image provided by the
-- * platform
-+ * pci_platform_rom - ioremap() the ROM image provided by the platform
-  * @pdev: pointer to pci device struct
-  * @size: pointer to receive size of pci window over ROM
-+ *
-+ * Return: kernel virtual pointer to image of ROM
-+ *
-+ * The caller is responsible for removing the mapping with iounmap()
-  */
- void __iomem *pci_platform_rom(struct pci_dev *pdev, size_t *size)
- {
- 	if (pdev->rom && pdev->romlen) {
- 		*size = pdev->romlen;
--		return phys_to_virt((phys_addr_t)pdev->rom);
-+		return ioremap(pdev->rom, pdev->romlen);
- 	}
- 
- 	return NULL;
--- 
-2.13.7
-
+On Wed, Feb 19, 2020 at 11:25 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> On Mon, Dec 16, 2019 at 12:18 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> >
+> > From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> >
+> > CRTC in DPMS state off calls for low power state entry.
+> > Support both atomic mode setting and pre-atomic mode setting.
+> >
+> > v2: move comment
+> >
+> > Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+>
+> Ping?
+>
+> Alex
+>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 45 +++++++++++++++++++++----
+> >  1 file changed, 38 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > index 61dc26515c7e..e7f7463a0cbe 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> > @@ -1296,24 +1296,55 @@ static int amdgpu_pmops_runtime_idle(struct device *dev)
+> >  {
+> >         struct drm_device *drm_dev = dev_get_drvdata(dev);
+> >         struct amdgpu_device *adev = drm_dev->dev_private;
+> > -       struct drm_crtc *crtc;
+> > +       /* we don't want the main rpm_idle to call suspend - we want to autosuspend */
+> > +       int ret = 1;
+> >
+> >         if (!adev->runpm) {
+> >                 pm_runtime_forbid(dev);
+> >                 return -EBUSY;
+> >         }
+> >
+> > -       list_for_each_entry(crtc, &drm_dev->mode_config.crtc_list, head) {
+> > -               if (crtc->enabled) {
+> > -                       DRM_DEBUG_DRIVER("failing to power off - crtc active\n");
+> > -                       return -EBUSY;
+> > +       if (amdgpu_device_has_dc_support(adev)) {
+> > +               struct drm_crtc *crtc;
+> > +
+> > +               drm_modeset_lock_all(drm_dev);
+> > +
+> > +               drm_for_each_crtc(crtc, drm_dev) {
+> > +                       if (crtc->state->active) {
+> > +                               ret = -EBUSY;
+> > +                               break;
+> > +                       }
+> >                 }
+> > +
+> > +               drm_modeset_unlock_all(drm_dev);
+> > +
+> > +       } else {
+> > +               struct drm_connector *list_connector;
+> > +               struct drm_connector_list_iter iter;
+> > +
+> > +               mutex_lock(&drm_dev->mode_config.mutex);
+> > +               drm_modeset_lock(&drm_dev->mode_config.connection_mutex, NULL);
+> > +
+> > +               drm_connector_list_iter_begin(drm_dev, &iter);
+> > +               drm_for_each_connector_iter(list_connector, &iter) {
+> > +                       if (list_connector->dpms ==  DRM_MODE_DPMS_ON) {
+> > +                               ret = -EBUSY;
+> > +                               break;
+> > +                       }
+> > +               }
+> > +
+> > +               drm_connector_list_iter_end(&iter);
+> > +
+> > +               drm_modeset_unlock(&drm_dev->mode_config.connection_mutex);
+> > +               mutex_unlock(&drm_dev->mode_config.mutex);
+> >         }
+> >
+> > +       if (ret == -EBUSY)
+> > +               DRM_DEBUG_DRIVER("failing to power off - crtc active\n");
+> > +
+> >         pm_runtime_mark_last_busy(dev);
+> >         pm_runtime_autosuspend(dev);
+> > -       /* we don't want the main rpm_idle to call suspend - we want to autosuspend */
+> > -       return 1;
+> > +       return ret;
+> >  }
+> >
+> >  long amdgpu_drm_ioctl(struct file *filp,
+> > --
+> > 2.23.0
+> >
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
