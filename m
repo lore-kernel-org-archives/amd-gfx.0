@@ -6,47 +6,47 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0FB2C3F2DB
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 17:14:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88CC3C3F2D1
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 17:15:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B835920848
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 17:14:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5D462207FD
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 17:15:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="QW/vC0i7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B835920848
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="UvVQeF9I"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D462207FD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6FD76E347;
-	Thu,  5 Mar 2020 17:14:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18CBC6E347;
+	Thu,  5 Mar 2020 17:15:07 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D25316E36F;
- Thu,  5 Mar 2020 17:14:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 712F56E347;
+ Thu,  5 Mar 2020 17:15:06 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D379220870;
- Thu,  5 Mar 2020 17:14:04 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 760B621744;
+ Thu,  5 Mar 2020 17:15:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1583428445;
- bh=qWd20iwAOFru1dkdrmNhZZetuO5TaElp0urtUJVUjOk=;
+ s=default; t=1583428506;
+ bh=5+O+YWwnsvBINmW4iAXC6psifakgha+pK7uZe9OAMiw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=QW/vC0i71QL21BPfYO4tDVPWr4eSznLYsDGhGDmoSJdUj5+4ckzte+j1wrGIJpvXN
- 5SKa+rwfFqa6GCoq8hsgzs5oY26Bn8mY5E++nZdlEHWnVwOT8ZHz7Ro2YQGlYBE/Me
- fD2BqX8sjHd1lvTOnN8NhgCNF/2XCJ/7ogjPEF7Y=
+ b=UvVQeF9IMDOlakia11hIqh2+QXBJs30CmO+dkNki5q18x8CmaHQyIyxpT9HXxyfQU
+ p6nVLCNGlHr3tWdffbfCzVPx5SL1fSCHQu4Y103mc0CPvuIyCwWEwDvy+LN0D4H4DB
+ au4aO5h7w8BwbUQqVk5rQdxy4kZSyG0hDlPlPOGw=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.5 41/67] drm/amdgpu: fix memory leak during TDR
+Subject: [PATCH AUTOSEL 5.4 36/58] drm/amdgpu: fix memory leak during TDR
  test(v2)
-Date: Thu,  5 Mar 2020 12:12:42 -0500
-Message-Id: <20200305171309.29118-41-sashal@kernel.org>
+Date: Thu,  5 Mar 2020 12:13:57 -0500
+Message-Id: <20200305171420.29595-36-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200305171309.29118-1-sashal@kernel.org>
-References: <20200305171309.29118-1-sashal@kernel.org>
+In-Reply-To: <20200305171420.29595-1-sashal@kernel.org>
+References: <20200305171420.29595-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -87,10 +87,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index 8b13d18c6414c..e4149e6b68b39 100644
+index c5257ae3188a3..0922d9cd858a0 100644
 --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
 +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -948,8 +948,12 @@ int smu_v11_0_init_max_sustainable_clocks(struct smu_context *smu)
+@@ -988,8 +988,12 @@ static int smu_v11_0_init_max_sustainable_clocks(struct smu_context *smu)
  	struct smu_11_0_max_sustainable_clocks *max_sustainable_clocks;
  	int ret = 0;
  
