@@ -2,109 +2,87 @@ Return-Path: <SRS0=Sanp=4W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 783D4C3F2D7
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 18:51:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1D56C3F2D2
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 18:53:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 326CE207FD
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 18:51:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8AEDD20716
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 18:53:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="gUnN1x52"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 326CE207FD
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BJaj7X37"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8AEDD20716
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00D016E34E;
-	Thu,  5 Mar 2020 18:51:28 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2075.outbound.protection.outlook.com [40.107.243.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 485B06E397
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2020 18:51:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f7lezPuyUnODaJYb7yIzBSDlOOvTaUBFGGa3+MtfDkYDjmE796GgJ3JQfCs7p7OG51MOgW3FNVByn+zDWaVUK2mxyGDx7NQ4AEIUEqWZOXTZMAYn8g1owcRAapiX65+LgWEHzIsAoEU9zMRrG6WLfM4XTSGL98D2HZxo39dQZh5yY5sjeyv6x7qMRYEhf9AgQy5mD6RCkQ65bmXCtqFYkCtAx2+SCYuAHQ72GkHmIf4mXlk5jaXfN7IU4/1mVjnH1x5UrB+M3Qnj2D05qrNzB+XRwAJ2sKZxPo96fdj7+NT4GpXAXqObHr6KWNbscEmPKI2+rCEVCLowDsHei2TmmA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zXNT4UjW+e8KDrLDo1Aj5R8senoG/rne7iWAMI9s1qc=;
- b=AiVn07b3v/QWf7+wHxAFBh7rvW/2Xa8nW+X/lIm8TgkouTqnigxm641sb8nDSTg5CTBEcNWW+4oyX/0+dms7dhlOCujJud1J2xGFl2sTFteYrVqbbA56ZW3wB/D3xgYYLrkPAvQsi8XPOyod03K0gK07Rc6na1VU+r2uXXityaalSgNQA3UJpDPSvAxTH8/TOkm+ChSGXFH6eHd0b5FLK04tBlrAN1Tmy9uA4sBPYt5zxiUa7HgOXIY0kb0xpN/flsxXq8USACdlazMJaHD+75K8JGtXjAdHjKwhtccBOb5Bg+1cn0qtsnJ1dUIpTc69SVPkaYIuOHwHe/cyueZyPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zXNT4UjW+e8KDrLDo1Aj5R8senoG/rne7iWAMI9s1qc=;
- b=gUnN1x52E2eejDS/wa4uTxH2GELMiyx/scOgDcxRrw0iScbPHbBHjJfWZCgOtFO6iwar1GfGMi3hA6NjkxgHlGtA3QuxM15oOUrm0K03XkIquWte52fe70cfpvrt8tigDH6w5hvkHC9Ng128km7GYUD+OdMeins5I4tihh7Aq0A=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Luben.Tuikov@amd.com; 
-Received: from DM6PR12MB3355.namprd12.prod.outlook.com (2603:10b6:5:115::26)
- by DM6PR12MB3593.namprd12.prod.outlook.com (2603:10b6:5:11c::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.18; Thu, 5 Mar
- 2020 18:51:24 +0000
-Received: from DM6PR12MB3355.namprd12.prod.outlook.com
- ([fe80::9505:d766:9ac9:2bfd]) by DM6PR12MB3355.namprd12.prod.outlook.com
- ([fe80::9505:d766:9ac9:2bfd%6]) with mapi id 15.20.2772.019; Thu, 5 Mar 2020
- 18:51:24 +0000
-Subject: Re: [PATCH v4 3/4] drm/amdgpu: change hw sched list on ctx priority
- override
-To: Nirmoy <nirmodas@amd.com>, Nirmoy Das <nirmoy.aiemd@gmail.com>,
- amd-gfx@lists.freedesktop.org
-References: <20200303125039.53141-1-nirmoy.das@amd.com>
- <20200303125039.53141-3-nirmoy.das@amd.com>
- <64d19cfe-452c-fa85-3f3c-1953e3c800b0@amd.com>
- <232beb97-85ff-0ea7-c95e-f03ff3c76f9b@amd.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-Message-ID: <cb3a3cbd-8ab2-2f36-a5e8-4d53542289e8@amd.com>
-Date: Thu, 5 Mar 2020 13:51:21 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
-In-Reply-To: <232beb97-85ff-0ea7-c95e-f03ff3c76f9b@amd.com>
-Content-Language: en-CA
-X-ClientProxiedBy: YTOPR0101CA0068.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:14::45) To DM6PR12MB3355.namprd12.prod.outlook.com
- (2603:10b6:5:115::26)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1327A6EBF8;
+	Thu,  5 Mar 2020 18:53:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 827856E397
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2020 18:52:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1583434376;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=zTj2SstITt2uopEUfLgzf7yHTJH+TcssWR2vYV/JrmM=;
+ b=BJaj7X37nPOMjF3IsibbEbvbL6wjhYFdtG0JWMq6immWQB+qu4f2NccIcHkLjBL3iWI/zW
+ MYAxolbBEsIDL7BY6bw2w1pv0S9aoiWJvF89AVmQqZgH4nkLhVzK7poeVSo0spAcZt48LI
+ 8ko58mSYKmUv/Iah3oFWuVzTHmdI+n0=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-278-lWpQv9nHOg65jUW6_AuSPg-1; Thu, 05 Mar 2020 13:52:52 -0500
+X-MC-Unique: lWpQv9nHOg65jUW6_AuSPg-1
+Received: by mail-qk1-f199.google.com with SMTP id h6so4469180qkj.14
+ for <amd-gfx@lists.freedesktop.org>; Thu, 05 Mar 2020 10:52:52 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:organization:user-agent:mime-version
+ :content-transfer-encoding;
+ bh=RH9rmtOcZDthbsyDXEkU3rwq+PLEuDnB80nQoDiyIKk=;
+ b=ZAdWIH0pi1yG+jc7RD7oXyELsHr6YuS6/kJ3956yvuZgkB9q4VqUn31kCbBUeg1M7W
+ xTQnR0GeragCDHetbdeWtE5kPLCPNWVA5N8HmE95oFtc/valBobeto3sScqccTSKsMHW
+ sSbpQwEg5xrWwocoYDi3C6V3jFbC2yXSBJfHhKKkxX7P2hBCLUVUzmrIfb7HMhpqumiL
+ wTx5BxLE0kFZ+ZEQqlvk2wZGmaOXXNw7WVtHpuA896QL1n3r4siSgHXp7tbkeO8/2n4e
+ bKAZCykA/65RAFjqbEYVU9MJOdGnBZuL8GQwOxGUKZQAAU9BhgZ2yX9Z9ECTSRUNFjpP
+ CrAA==
+X-Gm-Message-State: ANhLgQ0Brm0Je0yU8ybXYmE9mnR/g1iRrtqhKgQEkm9Bvs1nftoyZtzZ
+ XQrx9zwnAU5x6ZQX1TZRXLGJKJ5Ygeit5JMJqorEhTpI216FzOk1C0P4EQ8R4vyFA0RWq/VeqkY
+ /fdAkYPdGNRAm1PzH+g0XBzbEVA==
+X-Received: by 2002:ac8:6f79:: with SMTP id u25mr109668qtv.180.1583434372234; 
+ Thu, 05 Mar 2020 10:52:52 -0800 (PST)
+X-Google-Smtp-Source: ADFU+vvJXz2ZSsIo3bYzKu/1CSKGSWGjbmWcq9syd6DB4n7dJrhaY4trWfVTG96f/HjSNPw356xESQ==
+X-Received: by 2002:ac8:6f79:: with SMTP id u25mr109650qtv.180.1583434371935; 
+ Thu, 05 Mar 2020 10:52:51 -0800 (PST)
+Received: from dhcp-10-20-1-196.bss.redhat.com ([144.121.20.162])
+ by smtp.gmail.com with ESMTPSA id b5sm6777932qkk.16.2020.03.05.10.52.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Mar 2020 10:52:51 -0800 (PST)
+Message-ID: <efe5fc9895eaab47200e813280873894c0f98c8b.camel@redhat.com>
+Subject: Re: [PATCH 2/3] drm/dp_mst: Don't show connectors as connected
+ before probing available PBN
+From: Lyude Paul <lyude@redhat.com>
+To: Ville =?ISO-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+Date: Thu, 05 Mar 2020 13:52:50 -0500
+In-Reply-To: <20200305182942.GP13686@intel.com>
+References: <20200304223614.312023-1-lyude@redhat.com>
+ <20200304223614.312023-3-lyude@redhat.com>
+ <20200305131119.GJ13686@intel.com>
+ <73f52c392431cd21a80a118dd2fd1986e2c535df.camel@redhat.com>
+ <20200305182942.GP13686@intel.com>
+Organization: Red Hat
+User-Agent: Evolution 3.34.4 (3.34.4-1.fc31)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.252.35.64] (165.204.54.211) by
- YTOPR0101CA0068.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::45) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.14 via Frontend
- Transport; Thu, 5 Mar 2020 18:51:23 +0000
-X-Originating-IP: [165.204.54.211]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 130d7468-9ea8-42a1-845e-08d7c13633fc
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3593:|DM6PR12MB3593:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3593C1771564107AB32664A299E20@DM6PR12MB3593.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-Forefront-PRVS: 03333C607F
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(346002)(39860400002)(366004)(396003)(376002)(189003)(199004)(316002)(478600001)(8936002)(31696002)(81166006)(8676002)(81156014)(44832011)(86362001)(31686004)(956004)(36756003)(2616005)(16576012)(16526019)(6486002)(110136005)(66476007)(53546011)(4326008)(26005)(5660300002)(52116002)(66556008)(66946007)(2906002)(186003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3593;
- H:DM6PR12MB3355.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: i0M4vLWXB9xxpGxkR2q6W7+Hd/JZB1clScqc6qWa46b86Qm7hrjEJAmlxNmbfJ+ZDIUddRSdPzZLAISZTFJg0WJZXJV6DnIb74LSdMyv+1loRxWfZQCCHCFI1IYFzfWPOKJR6yu4l2VfyePuR7nIXs7x4FaPlY8ry95LhgmiSJiNTYFhlU2xZyj7PJbFAC+14he1F327oEdJCmMP1AfJiv8QuSENqvLa7+uNaU5bcQGzFQ6ahb+w3VlWcggIdYLQyYjvNEEB5J1OGp9cbx0D9IO62iEe6Emoye0kw6NZ6nDUUhuo0f4xqdsv+fahfcvDLuop9bS5ZFStMi9yjwCcLg2qTI7CMGDDjW2ero5So9axuaOcXR7iu+SuFehWTVwbD38Ul+26PjV9OKuJCY4VOnoNMQpX2o+titkQlrstvLNnLx5VfPecVw8d/oxvGfoT
-X-MS-Exchange-AntiSpam-MessageData: M0kn/4Bx2l9tsjVxNHl7fhLKdTS+QrFOrPhHWCUrbPxSlWelckfq2ffJ2uL/psEpPrUiMokah1LOcXmoTdPWPFDQ7Qlj7Q96b2EQlDOadeMfOp9Oh68HsF4yER6YnSK8lk6RFUjjaszIiVFwQmbZug==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 130d7468-9ea8-42a1-845e-08d7c13633fc
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2020 18:51:24.2515 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sUNL+k/Mn0Ybs3TwmAQsJxjUjCkZpy5VzA77YFfZxRZdaWrSwM0B0WR5LXbHVKZN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3593
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,113 +94,118 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Ray.Huang@amd.com, nirmoy.das@amd.com,
- christian.koenig@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Sean Paul <seanpaul@google.com>, David Airlie <airlied@linux.ie>,
+ nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>,
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mikita Lipski <mikita.lipski@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-03-05 01:28, Nirmoy wrote:
-> 
-> On 3/4/20 11:25 PM, Luben Tuikov wrote:
->> On 2020-03-03 7:50 a.m., Nirmoy Das wrote:
->>> Switch to appropriate sched list for an entity on priority override.
->>>
->>> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 32 +++++++++++++++++++++----
->>>   1 file changed, 28 insertions(+), 4 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->>> index 8c52152e3a6e..a0bf14ab9d33 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
->>> @@ -522,6 +522,32 @@ struct dma_fence *amdgpu_ctx_get_fence(struct amdgpu_ctx *ctx,
->>>   	return fence;
->>>   }
->>>
->>> +static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
->>> +				   struct amdgpu_ctx_entity *aentity,
->>> +				   int hw_ip, enum drm_sched_priority priority)
->>> +{
->>> +	struct amdgpu_device *adev = ctx->adev;
->>> +	enum gfx_pipe_priority hw_prio;
->>> +	struct drm_gpu_scheduler **scheds = NULL;
->>> +	unsigned num_scheds;
->>> +
->>> +	/* set sw priority */
->>> +	drm_sched_entity_set_priority(&aentity->entity, priority);
->>> +
->>> +	/* set hw priority */
->>> +	switch (hw_ip) {
->>> +	case AMDGPU_HW_IP_COMPUTE:
->>> +		hw_prio = amdgpu_ctx_sched_prio_to_compute_prio(priority);
->>> +		scheds = adev->gfx.compute_prio_sched[hw_prio];
->>> +		num_scheds = adev->gfx.num_compute_sched[hw_prio];
->>> +		break;
->>> +	default:
->>> +		return;
->>> +	}
->>> +
->>> +	drm_sched_entity_modify_sched(&aentity->entity, scheds, num_scheds);
->>> +}
->> I'd rather this not be over-engineered (in expectations of more case labels,
->> and a simple if-else to do it. Over-engineering it "just in case" creates
->> difficult to maintain code. I believe there is a document about this somewhere
->> in Documentation/.
-> 
-> This switch is in expectation of extending it for VCN and GFX but I 
-> guess that can wait for now,.
-
-No, please, do not over-engineer. Don't make decisions on what the next
-programmer and implementation would be.
-
-If you search the LKML you'll see plenty of emails from Linus and
-other Linux leaders about the drawbacks of over-engineering.
-
-Just have an if statement as I wrote which you remove without
-adding "[snip]". Please add "[snip]" if you're removing content
-when you reply. Everyone does this. It's only common courtesy.
-
-Here it is again, because you removed it, conveniently:
-
-You don't need a break only to execute one statement, which you can pull
-into the case: label. If you did this you'll see that you just want to do:
-
-static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
-					   struct amdgpu_ctx_entity *aentity,
-					   int hw_ip, enum drm_sched_priority priority)
-{
-
-	...
-
-	/* Set software priority.
-	 */
-	drm_sched_entity_set_priority(&aentity->entity, priority);
-
-	/* Set hardware priority.
-	 */
-	if (hw_ip == AMDGPU_HW_IP_COMPUTE) {
-		hw_prio = s2p_prio_map(priority - 2);  ## or perhaps from a static inline from a header file, so we wouldn't care for the - 2 here
-		scheds = adev->gfx.compute_prio_sched[hw_prio];
-		num_scheds = adev->gfx.num_compute_sched[hw_prio];
-		drm_sched_entity_modify_sched(&aentity->entity, scheds, num_scheds);
-	}
-}
-
-Regards,
-Luben
-
-
-> 
-> 
-> thanks,
-> 
-> Nirmoy
-> 
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVGh1LCAyMDIwLTAzLTA1IGF0IDIwOjI5ICswMjAwLCBWaWxsZSBTeXJqw6Rsw6Qgd3JvdGU6
+Cj4gT24gVGh1LCBNYXIgMDUsIDIwMjAgYXQgMDE6MTM6MzZQTSAtMDUwMCwgTHl1ZGUgUGF1bCB3
+cm90ZToKPiA+IE9uIFRodSwgMjAyMC0wMy0wNSBhdCAxNToxMSArMDIwMCwgVmlsbGUgU3lyasOk
+bMOkIHdyb3RlOgo+ID4gPiBPbiBXZWQsIE1hciAwNCwgMjAyMCBhdCAwNTozNjoxMlBNIC0wNTAw
+LCBMeXVkZSBQYXVsIHdyb3RlOgo+ID4gPiA+IEl0J3MgbmV4dCB0byBpbXBvc3NpYmxlIGZvciB1
+cyB0byBkbyBjb25uZWN0b3IgcHJvYmluZyBvbiB0b3BvbG9naWVzCj4gPiA+ID4gd2l0aG91dCBv
+Y2Nhc2lvbmFsbHkgcmFjaW5nIHdpdGggdXNlcnNwYWNlLCBzaW5jZSBjcmVhdGluZyBhIGNvbm5l
+Y3Rvcgo+ID4gPiA+IGl0c2VsZiBjYXVzZXMgYSBob3RwbHVnIGV2ZW50IHdoaWNoIHdlIGhhdmUg
+dG8gc2VuZCBiZWZvcmUgcHJvYmluZyB0aGUKPiA+ID4gPiBhdmFpbGFibGUgUEJOIG9mIGEgY29u
+bmVjdG9yLiBFdmVuIGlmIHdlIGRpZG4ndCBoYXZlIHRoaXMgaG90cGx1Zwo+ID4gPiA+IGV2ZW50
+Cj4gPiA+ID4gc2VudCwgdGhlcmUncyBzdGlsbCBhbHdheXMgYSBjaGFuY2UgdGhhdCB1c2Vyc3Bh
+Y2Ugc3RhcnRlZCBwcm9iaW5nCj4gPiA+ID4gY29ubmVjdG9ycyBiZWZvcmUgd2UgZmluaXNoZWQg
+cHJvYmluZyB0aGUgdG9wb2xvZ3kuCj4gPiA+ID4gCj4gPiA+ID4gVGhpcyBjYW4gYmUgYSBwcm9i
+bGVtIHdoZW4gdmFsaWRhdGluZyBhIG5ldyBNU1Qgc3RhdGUgc2luY2UgdGhlCj4gPiA+ID4gY29u
+bmVjdG9yIHdpbGwgYmUgc2hvd24gYXMgY29ubmVjdGVkIGJyaWVmbHksIGJ1dCB3aXRob3V0IGFu
+eQo+ID4gPiA+IGF2YWlsYWJsZQo+ID4gPiA+IFBCTiAtIGNhdXNpbmcgYW55IGF0b21pYyBzdGF0
+ZSB3aGljaCB3b3VsZCBlbmFibGUgc2FpZCBjb25uZWN0b3IgdG8KPiA+ID4gPiBmYWlsCj4gPiA+
+ID4gd2l0aCAtRU5PU1BDLiBTbywgbGV0J3Mgc2ltcGx5IHdvcmthcm91bmQgdGhpcyBieSB0ZWxs
+aW5nIHVzZXJzcGFjZQo+ID4gPiA+IG5ldwo+ID4gPiA+IE1TVCBjb25uZWN0b3JzIGFyZSBkaXNj
+b25uZWN0ZWQgdW50aWwgd2UndmUgZmluaXNoZWQgcHJvYmluZyB0aGVpcgo+ID4gPiA+IFBCTi4K
+PiA+ID4gPiBTaW5jZSB3ZSBhbHdheXMgc2VuZCBhIGhvdHBsdWcgZXZlbnQgYXQgdGhlIGVuZCBv
+ZiB0aGUgbGluayBhZGRyZXNzCj4gPiA+ID4gcHJvYmluZyBwcm9jZXNzLCB1c2Vyc3BhY2Ugd2ls
+bCBzdGlsbCBrbm93IHRvIHJlcHJvYmUgdGhlIGNvbm5lY3Rvcgo+ID4gPiA+IHdoZW4KPiA+ID4g
+PiB3ZSdyZSByZWFkeS4KPiA+ID4gPiAKPiA+ID4gPiBTaWduZWQtb2ZmLWJ5OiBMeXVkZSBQYXVs
+IDxseXVkZUByZWRoYXQuY29tPgo+ID4gPiA+IEZpeGVzOiBjZDgyZDgyY2JjMDQgKCJkcm0vZHBf
+bXN0OiBBZGQgYnJhbmNoIGJhbmR3aWR0aCB2YWxpZGF0aW9uIHRvCj4gPiA+ID4gTVNUCj4gPiA+
+ID4gYXRvbWljIGNoZWNrIikKPiA+ID4gPiBDYzogTWlraXRhIExpcHNraSA8bWlraXRhLmxpcHNr
+aUBhbWQuY29tPgo+ID4gPiA+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
+ZC5jb20+Cj4gPiA+ID4gQ2M6IFNlYW4gUGF1bCA8c2VhbnBhdWxAZ29vZ2xlLmNvbT4KPiA+ID4g
+PiBDYzogSGFucyBkZSBHb2VkZSA8aGRlZ29lZGVAcmVkaGF0LmNvbT4KPiA+ID4gPiAtLS0KPiA+
+ID4gPiAgZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYyB8IDEzICsrKysrKysr
+KysrKysKPiA+ID4gPiAgMSBmaWxlIGNoYW5nZWQsIDEzIGluc2VydGlvbnMoKykKPiA+ID4gPiAK
+PiA+ID4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3ku
+Ywo+ID4gPiA+IGIvZHJpdmVycy9ncHUvZHJtL2RybV9kcF9tc3RfdG9wb2xvZ3kuYwo+ID4gPiA+
+IGluZGV4IDIwN2VlZjA4ZDEyYy4uN2IwZmYwY2ZmOTU0IDEwMDY0NAo+ID4gPiA+IC0tLSBhL2Ry
+aXZlcnMvZ3B1L2RybS9kcm1fZHBfbXN0X3RvcG9sb2d5LmMKPiA+ID4gPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vZHJtX2RwX21zdF90b3BvbG9neS5jCj4gPiA+ID4gQEAgLTQwMzMsNiArNDAzMywx
+OSBAQCBkcm1fZHBfbXN0X2RldGVjdF9wb3J0KHN0cnVjdCBkcm1fY29ubmVjdG9yCj4gPiA+ID4g
+KmNvbm5lY3RvciwKPiA+ID4gPiAgCQkJcmV0ID0gY29ubmVjdG9yX3N0YXR1c19jb25uZWN0ZWQ7
+Cj4gPiA+ID4gIAkJYnJlYWs7Cj4gPiA+ID4gIAl9Cj4gPiA+ID4gKwo+ID4gPiA+ICsJLyogV2Ug
+ZG9uJ3Qgd2FudCB0byB0ZWxsIHVzZXJzcGFjZSB0aGUgcG9ydCBpcyBhY3R1YWxseQo+ID4gPiA+
+IHBsdWdnZWQgaW50bwo+ID4gPiA+ICsJICogYW55dGhpbmcgdW50aWwgd2UndmUgZmluaXNoZWQg
+cHJvYmluZyBpdCdzIGF2YWlsYWJsZV9wYm4sCj4gPiA+ID4gb3RoZXJ3aXNlCj4gPiA+IAo+ID4g
+PiAiaXRzIgo+ID4gPiAKPiA+ID4gV2h5IGlzIHRoZSBjb25uZWN0b3IgZXZlbiByZWdpc3RlcmVk
+IGJlZm9yZSB3ZSd2ZSBmaW5pc2hlZCB0aGUgcHJvYmU/Cj4gPiA+IAo+ID4gT29wcywgSSdtIG5v
+dCBzdXJlIGhvdyBJIGRpZCB0aGlzIGJ5IGFjY2lkZW50IGJ1dCB0aGUgZXhwbGFuYXRpb24gSSBn
+YXZlCj4gPiBpbgo+ID4gdGhlIGNvbW1pdCBtZXNzYWdlIHdhcyB1aCwgY29tcGxldGVseSB3cm9u
+Zy4gSSBtdXN0IGhhdmUgZm9yZ290dGVuIHRoYXQgSQo+ID4gbWFkZQo+ID4gc3VyZSB3ZSBkaWRu
+J3QgZXhwb3NlIGNvbm5lY3RvcnMgYmVmb3JlIHByb2JpbmcgdGhlaXIgUEJOIGJhY2sgd2hlbiBJ
+Cj4gPiBzdGFydGVkCj4gPiBteSBNU1QgY2xlYW51cC4uLi4KPiA+IAo+ID4gU286IGRlc3BpdGUg
+d2hhdCBJIHNhaWQgYmVmb3JlIGl0J3Mgbm90IGFjdHVhbGx5IHdoZW4gbmV3IGNvbm5lY3RvcnMg
+YXJlCj4gPiBjcmVhdGVkLCBpdCdzIHdoZW4gZG93bnN0cmVhbSBob3RwbHVncyBoYXBwZW4gd2hp
+Y2ggbWVhbnMgdGhhdCB0aGUKPiA+IGNvbmVuY3RvcidzCj4gPiBhbHdheXMgZ29pbmcgdG8gYmUg
+dGhlcmUgYmVmb3JlIHdlIHByb2JlIHRoZSBhdmFpbGFibGVfcGJuLgo+IAo+IE5vdCBzdXJlIEkg
+dW5kZXJzdGFuZC4gWW91J3JlIHNheWluZyB0aGlzIGlzIGdvaW5nIHRvIGNoYW5nZSBmb3IgYWxy
+ZWFkeQo+IGV4aXN0aW5nIGNvbm5lY3RvcnMgd2hlbiBzb21ldGhpbmcgZWxzZSBnZXRzIHBsdWdn
+ZWQgaW4sIGFuZCBlaXRoZXIgd2UKPiB6ZXJvIGl0IG91dCBkdXJpbmcgdGhlIHByb2JlIG9yIGl0
+IGFsd2F5cyB3YXMgemVybyB0byBiZWdpbiB3aXRoIGZvcgo+IHdoYXRldmVyIHJlYXNvbj8KClNv
+OiB5b3UganVzdCBtYWRlIG1lIHJlYWxpemUgdGhhdCBJJ20gbm90IGFjdHVhbGx5IHN1cmUgd2hl
+dGhlciB0aGVyZSdzIGFueQpwb2ludCB0byB1cyBjbGVhcmluZyBwb3J0LT5hdmFpbGFibGVfcGJu
+IGhlcmUgc2luY2UgdGhlIGF2YWlsYWJsZV9wYm4gKGF0CmxlYXN0IHRoZSB2YWx1ZSB0aGF0IHdl
+IGNhY2hlIG9uIGluaXRpYWwgbGluayBhZGRyZXNzIHByb2JpbmcgZm9yIGJhbmR3aWR0aApjb25z
+dHJhaW50IGNoZWNraW5nKSBzaG91bGRuJ3QgYWN0dWFsbHkgY2hhbmdlIG9uIGEgcG9ydCBqdXN0
+IGJlY2F1c2Ugb2YgYQpob3RwbHVnLiBJIGJldCB0aGlzIGlzIHByb2JhYmx5IGNhdXNpbmcgbW9y
+ZSBwcm9ibGVtcyBvbiBpdCdzIG93biBhcyB3ZWxsLApzaW5jZSByZXByb2JpbmcgdGhlIGF2YWls
+YWJsZV9wYm4gbWlnaHQgYWN0dWFsbHkgZ2l2ZSB1cyBhIHZhbHVlIHRoYXQgcmVmbGVjdHMKYWxs
+b2NhdGlvbnMgb24gb3RoZXIgcG9ydHMgdGhhdCBhcmUgYWxyZWFkeSBpbiBwbGFjZS4KClNvOiBJ
+IHRoaW5rIHdoYXQgSSdtIGdvaW5nIHRvIGRvIGluc3RlYWQgaXMgbWFrZSBpdCBzbyB0aGF0IHdl
+IG5ldmVyIGNsZWFyCnBvcnQtPmF2YWlsYWJsZV9wYm47IG1haW5seSB0byBtYWtlIHRoaW5ncyBs
+ZXNzIGNvbXBsaWNhdGVkIGR1cmluZwpzdXNwZW5kL3Jlc3VtZSwgc2luY2Ugd2Ugd2FudCB0byBt
+YWtlIHN1cmUgdGhlcmUncyBhbHdheXMgc29tZSBzb3J0IG9mIFBCTgp2YWx1ZSBwb3B1bGF0ZWQg
+ZXZlbiBkdXJpbmcgdGhlIG1pZGRsZSBvZiByZXByb2JpbmcgdGhlIGxpbmsgYWRkcmVzcyBvbgpy
+ZXN1bWUuIFRoYXQgd2F5IHdlIGRvbid0IGhhdmUgdG8gcHJldGVuZCB0aGF0IGl0J3MgZXZlciBk
+aXNjb25uZWN0ZWQgZWl0aGVyLgpXaWxsIHNlbmQgYSByZXNwaW4gaW4gYSBiaXQuCgo+IAo+ID4g
+SSBkaWQganVzdCBub3RpY2UKPiA+IHRob3VnaCB0aGF0IHdlIHNlbmQgYSBob3RwbHVnIG9uIGNv
+bm5lY3Rpb24gc3RhdHVzIG5vdGlmaWNhdGlvbnMgZXZlbgo+ID4gYmVmb3JlCj4gPiB3ZSd2ZSBm
+aW5pc2hlZCB0aGUgUEJOIHByb2JlLCBzbyBJIG1pZ2h0IGJlIGFibGUgdG8gaW1wcm92ZSBvbiB0
+aGF0IGFzCj4gPiB3ZWxsLgo+ID4gV2Ugc3RpbGwgZGVmaW5pdGVseSB3YW50IHRvIHJlcG9ydCB0
+aGUgY29ubmVjdG9yIGFzIGRpc2Nvbm5lY3RlZCBiZWZvcmUgd2UKPiA+IGhhdmUgdGhlIGF2YWls
+YWJsZSBQQk4gdGhvdWdoLCBpbiBjYXNlIGFub3RoZXIgcHJvYmUgd2FzIGFscmVhZHkgZ29pbmcK
+PiA+IGJlZm9yZQo+ID4gd2UgZ290IHRoZSBjb25uZWN0aW9uIHN0YXR1cyBub3RpZmljYXRpb24u
+Cj4gPiAKPiA+IEknbGwgbWFrZSBzdXJlIHRvIGZpeHVwIHRoZSBleHBsYW5hdGlvbiBpbiB0aGUg
+Y29tbWl0IG1lc3NhZ2Ugb24gdGhlIG5leHQKPiA+IHJlc3Bpbgo+ID4gCj4gPiA+ID4gKwkgKiB1
+c2Vyc3BhY2Ugd2lsbCBzZWUgcmFjeSBhdG9taWMgY2hlY2sgZmFpbHVyZXMKPiA+ID4gPiArCSAq
+Cj4gPiA+ID4gKwkgKiBTaW5jZSB3ZSBhbHdheXMgc2VuZCBhIGhvdHBsdWcgYXQgdGhlIGVuZCBv
+ZiBwcm9iaW5nCj4gPiA+ID4gdG9wb2xvZ3kKPiA+ID4gPiArCSAqIHN0YXRlLCB3ZSBjYW4ganVz
+dCBsZXQgdXNlcnNwYWNlIHJlcHJvYmUgdGhpcyBjb25uZWN0b3IKPiA+ID4gPiBsYXRlci4KPiA+
+ID4gPiArCSAqLwo+ID4gPiA+ICsJaWYgKHJldCA9PSBjb25uZWN0b3Jfc3RhdHVzX2Nvbm5lY3Rl
+ZCAmJiAhcG9ydC0+YXZhaWxhYmxlX3BibikgCj4gPiA+ID4gewo+ID4gPiA+ICsJCURSTV9ERUJV
+R19LTVMoIltDT05ORUNUT1I6JWQ6JXNdIG5vdCByZWFkeSB5ZXQgKFBCTgo+ID4gPiA+IG5vdAo+
+ID4gPiA+IHByb2JlZClcbiIsCj4gPiA+ID4gKwkJCSAgICAgIGNvbm5lY3Rvci0+YmFzZS5pZCwg
+Y29ubmVjdG9yLT5uYW1lKTsKPiA+ID4gPiArCQlyZXQgPSBjb25uZWN0b3Jfc3RhdHVzX2Rpc2Nv
+bm5lY3RlZDsKPiA+ID4gPiArCX0KPiA+ID4gPiAgb3V0Ogo+ID4gPiA+ICAJZHJtX2RwX21zdF90
+b3BvbG9neV9wdXRfcG9ydChwb3J0KTsKPiA+ID4gPiAgCXJldHVybiByZXQ7Cj4gPiA+ID4gLS0g
+Cj4gPiA+ID4gMi4yNC4xCj4gPiA+ID4gCj4gPiA+ID4gX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KPiA+ID4gPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0Cj4g
+PiA+ID4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4gPiA+IGh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCj4gPiAtLSAKPiA+
+IENoZWVycywKPiA+IAlMeXVkZSBQYXVsIChzaGUvaGVyKQo+ID4gCUFzc29jaWF0ZSBTb2Z0d2Fy
+ZSBFbmdpbmVlciBhdCBSZWQgSGF0Ci0tIApDaGVlcnMsCglMeXVkZSBQYXVsIChzaGUvaGVyKQoJ
+QXNzb2NpYXRlIFNvZnR3YXJlIEVuZ2luZWVyIGF0IFJlZCBIYXQKCl9fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21h
+aWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
