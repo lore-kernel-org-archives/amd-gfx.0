@@ -2,51 +2,72 @@ Return-Path: <SRS0=Sanp=4W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EBA0C3F2D1
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 13:11:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E62FAC3F2CD
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 13:25:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7DE472072A
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 13:11:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DE472072A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B8A6820848
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 13:25:51 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="L5F2zA1s"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8A6820848
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 488886E1E0;
-	Thu,  5 Mar 2020 13:11:26 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C62A96E1E0;
- Thu,  5 Mar 2020 13:11:24 +0000 (UTC)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Mar 2020 05:11:24 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,518,1574150400"; d="scan'208";a="259178067"
-Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
- by orsmga002.jf.intel.com with SMTP; 05 Mar 2020 05:11:19 -0800
-Received: by stinkbox (sSMTP sendmail emulation);
- Thu, 05 Mar 2020 15:11:19 +0200
-Date: Thu, 5 Mar 2020 15:11:19 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: Lyude Paul <lyude@redhat.com>
-Subject: Re: [PATCH 2/3] drm/dp_mst: Don't show connectors as connected
- before probing available PBN
-Message-ID: <20200305131119.GJ13686@intel.com>
-References: <20200304223614.312023-1-lyude@redhat.com>
- <20200304223614.312023-3-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80BF26E326;
+	Thu,  5 Mar 2020 13:25:51 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2686E326;
+ Thu,  5 Mar 2020 13:25:50 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id 6so1579587wre.4;
+ Thu, 05 Mar 2020 05:25:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=hf57ZWbzGz0/ZA0CujT6ZtZrPpo0PWVJ7rLwbtjZR+Q=;
+ b=L5F2zA1sBpLo/s4BUjDbrvW8dKaffD5GngntuAyZT41ZQzOhcbNjeGYUMD+SR3v/nk
+ HV7W4S1Y3a2wF0zepuj73n7wDE/62OCL1PQoPFTWIVGmwjsHDz8yFSP2SRMoX5rDZPCa
+ ir0zbZqYklnY31KLL5yRBDmdqaWUaKafVWWe0GMvu97CzzNcse09OeXq4GU5otOXW1zv
+ zZ9q2fq3s79rb8JFxswxRfoRBwUzRdN9yle9K8bXutDwmjKA9NucqXbbJrjVjTl0zMl2
+ vwBjEEode07hVgtZCZbrU051BmcmJuQk7ffaXlmYCVUC2nbCKlIYiAWdMZ6vMmoZDjkk
+ v4Aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=hf57ZWbzGz0/ZA0CujT6ZtZrPpo0PWVJ7rLwbtjZR+Q=;
+ b=QhkmvkWx18GrDeXAw3Rwt+YjEHagwpz77NdKXQ4k2KnOvzYanMIcgRedYgsEmw53Mc
+ /tUdI9yyFGewJcQNWN7rUEK0edAV9r6jqzJhzDpV8MD8jwZU0Hucj94i2QG0+OZURMfm
+ wCfrrrJ2JnyBkU5fcOQGzOce2lHZbyWOHXgh+Dlgp5yptZF1vvJ8ef6Y+lKRUCokhzSh
+ HkmYmSKpzcPL8N8zh3JdYHTAJA5p54OIesgDVGSMTZfuaQDyhK1H5lpV7swwC+aj9oM3
+ jcI0vfNqnqIvTScBtcTJee9clWlImbsSzjfAeq2m+Lx6FJgEJtMHJf+z0sR17yhYJX9a
+ W47g==
+X-Gm-Message-State: ANhLgQ20KUT0Ajr6e5s5Wtu+GzKSxK06e51bLJDsL6qKz/+4pTdEWffU
+ +jGpBBEBoRdVCVjrnTFa1cI3s5Pv7LTAkQ==
+X-Google-Smtp-Source: ADFU+vvQA5DD9hCI0PRjtCPeFANo6q/s0XK1v6KExx3zPb5U0shGjlCVgKmOVT9bzkax+PRvZGwI4w==
+X-Received: by 2002:adf:fe84:: with SMTP id l4mr745727wrr.1.1583414748253;
+ Thu, 05 Mar 2020 05:25:48 -0800 (PST)
+Received: from brihaspati.fritz.box
+ (p200300C58F2EA5001F22CF19908511A1.dip0.t-ipconnect.de.
+ [2003:c5:8f2e:a500:1f22:cf19:9085:11a1])
+ by smtp.gmail.com with ESMTPSA id g14sm45424819wrv.58.2020.03.05.05.25.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Mar 2020 05:25:47 -0800 (PST)
+From: Nirmoy Das <nirmoy.aiemd@gmail.com>
+X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH v4 0/8] do not store GPU address in TTM
+Date: Thu,  5 Mar 2020 14:29:02 +0100
+Message-Id: <20200305132910.17515-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200304223614.312023-3-lyude@redhat.com>
-X-Patchwork-Hint: comment
-User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,93 +79,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sean Paul <seanpaul@google.com>, David Airlie <airlied@linux.ie>,
- nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Hans de Goede <hdegoede@redhat.com>,
- dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Mikita Lipski <mikita.lipski@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: David1.Zhou@amd.com, thellstrom@vmware.com, airlied@linux.ie,
+ kenny.ho@amd.com, brian.welty@intel.com, maarten.lankhorst@linux.intel.com,
+ amd-gfx@lists.freedesktop.org, nirmoy.das@amd.com,
+ linux-graphics-maintainer@vmware.com, bskeggs@redhat.com, daniel@ffwll.ch,
+ alexander.deucher@amd.com, sean@poorly.run, christian.koenig@amd.com,
+ kraxel@redhat.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 04, 2020 at 05:36:12PM -0500, Lyude Paul wrote:
-> It's next to impossible for us to do connector probing on topologies
-> without occasionally racing with userspace, since creating a connector
-> itself causes a hotplug event which we have to send before probing the
-> available PBN of a connector. Even if we didn't have this hotplug event
-> sent, there's still always a chance that userspace started probing
-> connectors before we finished probing the topology.
-> =
+With this patch series I am trying to remove GPU address dependency in
+TTM and moving GPU address calculation to individual drm drivers. This
+cleanup will simplify introduction of drm_mem_region/domain work started
+by Brian Welty[1].
 
-> This can be a problem when validating a new MST state since the
-> connector will be shown as connected briefly, but without any available
-> PBN - causing any atomic state which would enable said connector to fail
-> with -ENOSPC. So, let's simply workaround this by telling userspace new
-> MST connectors are disconnected until we've finished probing their PBN.
-> Since we always send a hotplug event at the end of the link address
-> probing process, userspace will still know to reprobe the connector when
-> we're ready.
-> =
 
-> Signed-off-by: Lyude Paul <lyude@redhat.com>
-> Fixes: cd82d82cbc04 ("drm/dp_mst: Add branch bandwidth validation to MST =
-atomic check")
-> Cc: Mikita Lipski <mikita.lipski@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Sean Paul <seanpaul@google.com>
-> Cc: Hans de Goede <hdegoede@redhat.com>
-> ---
->  drivers/gpu/drm/drm_dp_mst_topology.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
-> =
+It would be nice if someone test this for nouveau. Rest of the drivers
+are already tested.
 
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c b/drivers/gpu/drm/drm_=
-dp_mst_topology.c
-> index 207eef08d12c..7b0ff0cff954 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -4033,6 +4033,19 @@ drm_dp_mst_detect_port(struct drm_connector *conne=
-ctor,
->  			ret =3D connector_status_connected;
->  		break;
->  	}
-> +
-> +	/* We don't want to tell userspace the port is actually plugged into
-> +	 * anything until we've finished probing it's available_pbn, otherwise
+v2:
+* set bo->offset = 0 for drm/nouveau if bo->mem.mm_node == NULL
 
-"its"
+v3:
+* catch return value of drm_gem_vram_offset() in drm/bochs
+* introduce drm_gem_vram_pg_offset() in vram helper
+* improve nbo->offset calculation for nouveau
 
-Why is the connector even registered before we've finished the probe?
+v4:
+* minor coding style fixes in amdgpu and radeon
+* remove unnecessary kerneldoc for internal function
 
-> +	 * userspace will see racy atomic check failures
-> +	 *
-> +	 * Since we always send a hotplug at the end of probing topology
-> +	 * state, we can just let userspace reprobe this connector later.
-> +	 */
-> +	if (ret =3D=3D connector_status_connected && !port->available_pbn) {
-> +		DRM_DEBUG_KMS("[CONNECTOR:%d:%s] not ready yet (PBN not probed)\n",
-> +			      connector->base.id, connector->name);
-> +		ret =3D connector_status_disconnected;
-> +	}
->  out:
->  	drm_dp_mst_topology_put_port(port);
->  	return ret;
-> -- =
+Nirmoy Das (8):
+  drm/amdgpu: move ttm bo->offset to amdgpu_bo
+  drm/radeon: don't use ttm bo->offset
+  drm/vmwgfx: don't use ttm bo->offset
+  drm/nouveau: don't use ttm bo->offset v3
+  drm/qxl: don't use ttm bo->offset
+  drm/vram-helper: don't use ttm bo->offset v3
+  drm/bochs: use drm_gem_vram_offset to get bo offset v2
+  drm/ttm: do not keep GPU dependent addresses
 
-> 2.24.1
-> =
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 22 ++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 29 ++++++++++++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  1 +
+ drivers/gpu/drm/bochs/bochs_kms.c           |  7 ++++-
+ drivers/gpu/drm/drm_gem_vram_helper.c       |  9 ++++++-
+ drivers/gpu/drm/nouveau/dispnv04/crtc.c     |  6 ++---
+ drivers/gpu/drm/nouveau/dispnv04/disp.c     |  2 +-
+ drivers/gpu/drm/nouveau/dispnv04/overlay.c  |  6 ++---
+ drivers/gpu/drm/nouveau/dispnv50/base507c.c |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/core507d.c |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/ovly507e.c |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/wndw.c     |  2 +-
+ drivers/gpu/drm/nouveau/dispnv50/wndwc37e.c |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_abi16.c     |  8 +++---
+ drivers/gpu/drm/nouveau/nouveau_bo.c        |  8 ++++++
+ drivers/gpu/drm/nouveau/nouveau_bo.h        |  3 +++
+ drivers/gpu/drm/nouveau/nouveau_chan.c      |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_dmem.c      |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_fbcon.c     |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_gem.c       | 10 +++----
+ drivers/gpu/drm/qxl/qxl_drv.h               |  6 ++---
+ drivers/gpu/drm/qxl/qxl_kms.c               |  5 ++--
+ drivers/gpu/drm/qxl/qxl_object.h            |  5 ----
+ drivers/gpu/drm/qxl/qxl_ttm.c               |  9 -------
+ drivers/gpu/drm/radeon/radeon.h             |  1 +
+ drivers/gpu/drm/radeon/radeon_object.h      | 16 +++++++++++-
+ drivers/gpu/drm/radeon/radeon_ttm.c         |  4 +--
+ drivers/gpu/drm/ttm/ttm_bo.c                |  7 -----
+ drivers/gpu/drm/vmwgfx/vmwgfx_bo.c          |  4 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c     |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_fifo.c        |  2 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_ttm_buffer.c  |  2 --
+ include/drm/ttm/ttm_bo_api.h                |  2 --
+ include/drm/ttm/ttm_bo_driver.h             |  1 -
+ 35 files changed, 118 insertions(+), 76 deletions(-)
 
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+--
+2.25.0
 
--- =
-
-Ville Syrj=E4l=E4
-Intel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
