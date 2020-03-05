@@ -8,65 +8,65 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BCD6C3F2CD
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C0A2EC3F2D1
 	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 13:26:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E501D208C3
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 13:26:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 961B620848
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 13:26:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gA2yMMhG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E501D208C3
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ddqd5Q11"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 961B620848
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 950F16EBC2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE1886EBCE;
 	Thu,  5 Mar 2020 13:26:01 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27A6588F78;
- Thu,  5 Mar 2020 13:25:58 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id a132so6303453wme.1;
- Thu, 05 Mar 2020 05:25:58 -0800 (PST)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE3CA6EBC2;
+ Thu,  5 Mar 2020 13:26:00 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id y17so7008023wrn.6;
+ Thu, 05 Mar 2020 05:26:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Md/UmsVvn1WT1yvHxTnS83Gygc+yjMc1P93FIT0Spns=;
- b=gA2yMMhGaTtd6V/ppEuPmkiGe1yMNWZPoNDeOfGF41PIahEGMeoLg9L0KqmQO4HaEx
- noH8cBJkggIAdsrjvDKSRwSS798AVjmubfW5LFdNI12YcW9HUyPFVzfJLQ9nms7E3wb3
- DXu5dVfw6W2Ej8JGSw0+p0too5IpaJyXpTppfUO+pLwQBIf1m/WgejozVa20rqz2sV+V
- RWFEcW01UaqNu4YHm2aKrexhX1DllzS6UCKCAr618WbNTgfyxrfsZNzQJRsqu+4DnDR/
- C30j5Ktj+MpFws9B2/JRbFJjDY/AfU/62OXEB0A5yKP9/WCrBfWS+YtckzBrGQACkbp2
- JXqQ==
+ bh=PP44lrAkaX0DIfBXGQEfA+tUts+r+kqu9dRapbCoaRU=;
+ b=ddqd5Q11lr0pmolBFQYpCgiIHMk+7uXBndCBaTmVlTbV4OtM/hKchsl/fUsTV5FT7v
+ c6JpgqEUnVBVN1iRhxDSp3GiNOREuXsCPvolVWFckjeOWtAPIfSm3+Nh/xnC0anHiraQ
+ c9RX9EczpAPqnd7k1nEr+sN3wkbC6ucmHkSFXyYR6n1cuQ44e8sqW8GzMIxiOUspWWR9
+ 6F50NdbqW3NRkHwP+9Tvd6MqelZGh4pMn1AnWI0a/dPX8PZxnJsrdetFB8EdZqw+7Vkq
+ nSgPgYFfyBBCWnfw1Pa9fixOxrnwGTlIVcMPseMVaTumyHVRkeGxKbBBuNQrzY8ov4I6
+ OpOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Md/UmsVvn1WT1yvHxTnS83Gygc+yjMc1P93FIT0Spns=;
- b=UvNyIEMcu4vai3+7douEaM4xAkVFO0551ZDVBAGZP5zqWkHkRFw5zq1anUU68DCZ1Z
- NH81nrVwCI0SfAuebHsHcXgIzSYNT2WglvC/AIjqcXFFSIRNvRz27ksZGO4sb27L2Tug
- Vz76Nlcm/5E0PReTvq1IJ8hkniCNcj0UVr/fGbf0tkqVjBlScQz+uZM8sOzvD9glNZYu
- hfwxPx8XakIqqlZYpWNt+cgnHUyi+nij9DjbCyD90sskSt9Bx5ftWtCWaCpW0pEZdWCI
- lw7hPjk16IG2oh1Zwps6IYAXa/Zy1moMCv40J8hKeWA92wjJ9PYaZOcKY7i6KpK9YVlF
- O1SQ==
-X-Gm-Message-State: ANhLgQ0+c2ZnJvYWBUXKX5N9AhWsJB9jBG4tBaeOS4/W7SGHtZe/AmT4
- 6FF9EjInqI5nPZZFgjSqBVioKMuE6h60tw==
-X-Google-Smtp-Source: ADFU+vuI09P60NxfdpwB6n96dG8n+WpyE+Q5+n59TP1oZrP2lcLRheYx2OJozP/sR99qaEjCqKEDvg==
-X-Received: by 2002:a1c:6583:: with SMTP id z125mr6614213wmb.51.1583414756451; 
- Thu, 05 Mar 2020 05:25:56 -0800 (PST)
+ bh=PP44lrAkaX0DIfBXGQEfA+tUts+r+kqu9dRapbCoaRU=;
+ b=BWSgV/vA+4jq7c2NF3ND44csEsTEn+iWcreW3UuVNjmsNwrx5V7J7vIhE2Cm1C+O+8
+ XRAAnY+Dj32+Dx9H5wotpqT0CPe1viQGnAL3lTk+IA5OvZunZo8E6+3rhQIVD1bA7Hcz
+ ayoW74SmJK+xd8YKdL11ZDEQPULwu2cdgG8/fPigHodT+4NKlx+QZ/ZnF/uAgntp7ooG
+ dfOa1W5HRy8PUFwI619UCz0m9tiZuLJVjotaKbO328Zj+nGn0Xlp5OuCH4WfYg7V9/WB
+ 12el9k3EgCw9TNTY0k7xpjPv7iQENoFOoxFtAAOWzRKqJgr86p0MMgT4MP2+eAlXzEkL
+ zLLQ==
+X-Gm-Message-State: ANhLgQ3My6umN60AwOgdaSBZXNbSCGWiuY6IuaCFXbh4ik5wzRuMg5l7
+ APol+lMy3w9F88j6qO08AxQfuDa48lrCzQ==
+X-Google-Smtp-Source: ADFU+vvdIkv3TMmlnCGA3z/I8EZwlU9eiDfrQO/8uVXJ88LredMLgAAzbWEPhEDUIPP+EQAw8wDwFA==
+X-Received: by 2002:adf:e742:: with SMTP id c2mr10206295wrn.262.1583414759090; 
+ Thu, 05 Mar 2020 05:25:59 -0800 (PST)
 Received: from brihaspati.fritz.box
  (p200300C58F2EA5001F22CF19908511A1.dip0.t-ipconnect.de.
  [2003:c5:8f2e:a500:1f22:cf19:9085:11a1])
- by smtp.gmail.com with ESMTPSA id g14sm45424819wrv.58.2020.03.05.05.25.55
+ by smtp.gmail.com with ESMTPSA id g14sm45424819wrv.58.2020.03.05.05.25.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2020 05:25:55 -0800 (PST)
+ Thu, 05 Mar 2020 05:25:58 -0800 (PST)
 From: Nirmoy Das <nirmoy.aiemd@gmail.com>
 X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
 To: dri-devel@lists.freedesktop.org
-Subject: [PATCH 6/8] drm/vram-helper: don't use ttm bo->offset v3
-Date: Thu,  5 Mar 2020 14:29:08 +0100
-Message-Id: <20200305132910.17515-7-nirmoy.das@amd.com>
+Subject: [PATCH 8/8] drm/ttm: do not keep GPU dependent addresses
+Date: Thu,  5 Mar 2020 14:29:10 +0100
+Message-Id: <20200305132910.17515-9-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200305132910.17515-1-nirmoy.das@amd.com>
 References: <20200305132910.17515-1-nirmoy.das@amd.com>
@@ -86,50 +86,74 @@ Cc: David1.Zhou@amd.com, thellstrom@vmware.com, airlied@linux.ie,
  kenny.ho@amd.com, brian.welty@intel.com, maarten.lankhorst@linux.intel.com,
  amd-gfx@lists.freedesktop.org, nirmoy.das@amd.com,
  linux-graphics-maintainer@vmware.com, bskeggs@redhat.com, daniel@ffwll.ch,
- Daniel Vetter <daniel.vetter@ffwll.ch>, alexander.deucher@amd.com,
- sean@poorly.run, christian.koenig@amd.com, kraxel@redhat.com
+ alexander.deucher@amd.com, sean@poorly.run, christian.koenig@amd.com,
+ kraxel@redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Calculate GEM VRAM bo's offset within vram-helper without depending on
-bo->offset.
+GPU address handling is device specific and should be handle by its device
+driver.
 
 Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
-Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
 ---
- drivers/gpu/drm/drm_gem_vram_helper.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/ttm/ttm_bo.c    | 7 -------
+ include/drm/ttm/ttm_bo_api.h    | 2 --
+ include/drm/ttm/ttm_bo_driver.h | 1 -
+ 3 files changed, 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
-index 92a11bb42365..2749c2d25ac4 100644
---- a/drivers/gpu/drm/drm_gem_vram_helper.c
-+++ b/drivers/gpu/drm/drm_gem_vram_helper.c
-@@ -198,6 +198,13 @@ u64 drm_gem_vram_mmap_offset(struct drm_gem_vram_object *gbo)
- }
- EXPORT_SYMBOL(drm_gem_vram_mmap_offset);
-
-+static s64 drm_gem_vram_pg_offset(struct drm_gem_vram_object *gbo)
-+{
-+	if (WARN_ON_ONCE(!gbo->bo.mem.mm_node))
-+		return 0;
-+	return gbo->bo.mem.start;
-+}
-+
- /**
-  * drm_gem_vram_offset() - \
- 	Returns a GEM VRAM object's offset in video memory
-@@ -214,7 +221,7 @@ s64 drm_gem_vram_offset(struct drm_gem_vram_object *gbo)
- {
- 	if (WARN_ON_ONCE(!gbo->pin_count))
- 		return (s64)-ENODEV;
--	return gbo->bo.offset;
-+	return drm_gem_vram_pg_offset(gbo) << PAGE_SHIFT;
- }
- EXPORT_SYMBOL(drm_gem_vram_offset);
-
---
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 6d1e91be9c78..9f24fb287d71 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -85,7 +85,6 @@ static void ttm_mem_type_debug(struct ttm_bo_device *bdev, struct drm_printer *p
+ 	drm_printf(p, "    has_type: %d\n", man->has_type);
+ 	drm_printf(p, "    use_type: %d\n", man->use_type);
+ 	drm_printf(p, "    flags: 0x%08X\n", man->flags);
+-	drm_printf(p, "    gpu_offset: 0x%08llX\n", man->gpu_offset);
+ 	drm_printf(p, "    size: %llu\n", man->size);
+ 	drm_printf(p, "    available_caching: 0x%08X\n", man->available_caching);
+ 	drm_printf(p, "    default_caching: 0x%08X\n", man->default_caching);
+@@ -345,12 +344,6 @@ static int ttm_bo_handle_move_mem(struct ttm_buffer_object *bo,
+ moved:
+ 	bo->evicted = false;
+ 
+-	if (bo->mem.mm_node)
+-		bo->offset = (bo->mem.start << PAGE_SHIFT) +
+-		    bdev->man[bo->mem.mem_type].gpu_offset;
+-	else
+-		bo->offset = 0;
+-
+ 	ctx->bytes_moved += bo->num_pages << PAGE_SHIFT;
+ 	return 0;
+ 
+diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
+index b9bc1b00142e..d6f39ee5bf5d 100644
+--- a/include/drm/ttm/ttm_bo_api.h
++++ b/include/drm/ttm/ttm_bo_api.h
+@@ -213,8 +213,6 @@ struct ttm_buffer_object {
+ 	 * either of these locks held.
+ 	 */
+ 
+-	uint64_t offset; /* GPU address space is independent of CPU word size */
+-
+ 	struct sg_table *sg;
+ };
+ 
+diff --git a/include/drm/ttm/ttm_bo_driver.h b/include/drm/ttm/ttm_bo_driver.h
+index c9e0fd09f4b2..c8ce6c181abe 100644
+--- a/include/drm/ttm/ttm_bo_driver.h
++++ b/include/drm/ttm/ttm_bo_driver.h
+@@ -177,7 +177,6 @@ struct ttm_mem_type_manager {
+ 	bool has_type;
+ 	bool use_type;
+ 	uint32_t flags;
+-	uint64_t gpu_offset; /* GPU address space is independent of CPU word size */
+ 	uint64_t size;
+ 	uint32_t available_caching;
+ 	uint32_t default_caching;
+-- 
 2.25.0
 
 _______________________________________________
