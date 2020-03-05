@@ -2,104 +2,107 @@ Return-Path: <SRS0=Sanp=4W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43E5AC3F2D1
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 20:49:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2B40C3F2D1
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 20:55:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 143F92072D
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 20:49:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8A97320705
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 20:55:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="g0M9aRxJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 143F92072D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="aRf51PfZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8A97320705
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C58A96EBD6;
-	Thu,  5 Mar 2020 20:49:14 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2085.outbound.protection.outlook.com [40.107.223.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 775236EBD6
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2020 20:49:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 04AEC6EC12;
+	Thu,  5 Mar 2020 20:55:53 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770058.outbound.protection.outlook.com [40.107.77.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 782E26EC12
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2020 20:55:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EiBRLix1hth2iqRLZAlr6+vK8UwOVokw1kJeW+3vGPIjDs8GaWDGfrwWf43HTyRiKQyK626dHp9XvUzVbp8nMAa0wfrIFIplhoaTAmbe6sJDc744y9Pv44OkxE1PlNtHGjnOWpUZbNV9FjSW41JBVC6S7VNsVM6iqE11XJabXdzcyyFf/Ufr+LtsB8jqd4FnMVJWMaVCLoorWW4p5hqZFL0hV+P+RtLc5Bl2+5BaFaUYoPkRjwtz6aMkoizQEEtsjUxzrwvDAkG5TPrpVa95re7Ml+s4HyoOF7fQnTpZpUixchePrsbW6Kz9tmFR9a44D7SXCJFOaF/6V5lBgYf1Eg==
+ b=GwepBx6v1ZzZfH2ugXKFLNokmwmoU9Om0linjaFLvDYPhw6gZV/682h4c3fqkbd5CbhCb4eHYubDhcU4ozVWga04D1qstuDZzvVALQ2As0v7C37gkKJurVyjqW+WPXmi92yGmbqBAAg0ovLnZ6FNFf+dYOBbEQ1CR8xObHtIKcNDghAiSd6YPf+a/V9j/1r/OFvrztVUX4lNTj2bOuDhCVN3KLH1jAE4WEjzKF0BbhEOe1Qj8Cs96iDusXh6qjCw25pj2nqXWB7GBKzzw6kXaWKUSkRhRhnkings0sVsuM/EKtT20YbM4kqq98muApaZmLyPx0OSOb1lYDeMmDTxEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zyxC7uov1/cFGuja6+5mtpLf1t99sg+KRmxcpEOSAfQ=;
- b=ga5xVu0ZQki2iJy+XY7hZOxEzJLunZgIgJJXZfp0KILxmqCsBqLW3yFElQDGaqUv5hgjbVHh7T7nY/rg3uWcuVgt5u5ZRfuQGIsvb3+wyQ7NM8B/pSqjuzU3rMTX9JDItTKv8ONsl4UCN8F6tkk/iY5Wz8SVbVzqBmzXWXaYbC7AGFMVDqV1W3TxVUGk9asKA8F2T/7ACPhOq/YJ1l6Cr6hBNOJidtJmqT5QZVfub8YxgpUDSOQToq/fZGjb9AMZDgq5N6MzFLmyyQh3aYmaYJaD+HRk5CjhlZlf2PNxb+tfffGDumiN7rnLw3XUHHX2qm3eKh+obRsYj4NNQ/ESiA==
+ bh=xq9CpyZWugOUIh0ijGpR+C+G3L7D6Q/kPio2P9Y5gnw=;
+ b=RRxATuCTi5Vqob6Eb/66XQLbSRlkNZa4EbsE7wP8vOH22illMEVqzjPnq7/NaW3+y9ROiBBN9C5AM37UMQ5HW2nAlYuc5ILHsN6kxdqiq5dB15g1mLYNJ2iUOsJ3dpqTfi+w6aDwozQ6Kcfx7Ts9slGwLJ+6q3629pI7WkhOTce/irZuHIMZbvLTbi2BlR8kfFE+CHOrkUGz5dD29NpR52k7ebjV/y+MxO87Ct36qXdExXmuLNQr94QioKdxx3Z7HokDyI4uYZwN0yltlbn/4BWiRhK7WSk1yS0EsXC7FpFHVIcNzHihO7jnKB0aq3HjkQWP+cfjBqqUjckld/wAAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zyxC7uov1/cFGuja6+5mtpLf1t99sg+KRmxcpEOSAfQ=;
- b=g0M9aRxJb0Mv1kLVVucbdZwUqkUu7BE47Xkl8WoXHKbXZ30K9Ns/9PnLuKiUEqA6egZlK5wi5oiSL1d7HH1YnMoOCJLiYRjEzxAojD6S+alpfvFFkdGYLmx87W9wJTbAggeQg/vyMxrKvJ0JCsPfSoCqGjNXjflAXAnhFtCADMc=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Felix.Kuehling@amd.com; 
-Received: from DM5PR1201MB0090.namprd12.prod.outlook.com (2603:10b6:4:53::12)
- by DM5PR1201MB0169.namprd12.prod.outlook.com (2603:10b6:4:55::22)
+ bh=xq9CpyZWugOUIh0ijGpR+C+G3L7D6Q/kPio2P9Y5gnw=;
+ b=aRf51PfZuJkmtnSPaBhPL4P3YX7twpX8UYfg+xTEClkqTi1uwsHEVyGKpsT+inhTJZZXBo6R8/MFmrhet4ovcpGazH1pG79HSpmrNc+MwLYVDDWq1fv4suGUMeJXpzsmihKokPtRa59FOBKtSm5SQCFdEiS8Cy3nTEKXY6go6+k=
+Received: from CH2PR12MB3926.namprd12.prod.outlook.com (2603:10b6:610:27::30)
+ by CH2PR12MB4325.namprd12.prod.outlook.com (2603:10b6:610:a9::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.16; Thu, 5 Mar
- 2020 20:49:11 +0000
-Received: from DM5PR1201MB0090.namprd12.prod.outlook.com
- ([fe80::6c24:8172:ed3c:5a8a]) by DM5PR1201MB0090.namprd12.prod.outlook.com
- ([fe80::6c24:8172:ed3c:5a8a%6]) with mapi id 15.20.2772.019; Thu, 5 Mar 2020
- 20:49:11 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15; Thu, 5 Mar
+ 2020 20:55:49 +0000
+Received: from CH2PR12MB3926.namprd12.prod.outlook.com
+ ([fe80::8c06:4379:c755:dfe4]) by CH2PR12MB3926.namprd12.prod.outlook.com
+ ([fe80::8c06:4379:c755:dfe4%4]) with mapi id 15.20.2772.019; Thu, 5 Mar 2020
+ 20:55:49 +0000
+From: "Zhao, Yong" <Yong.Zhao@amd.com>
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Subject: Re: [PATCH] drm/amdkfd: Consolidate duplicated bo alloc flags
-To: amd-gfx@lists.freedesktop.org, Yong Zhao <yong.zhao@amd.com>
-References: <20200304202145.22021-1-Yong.Zhao@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-Message-ID: <48c5b228-99e3-2041-92c8-efc87de0586f@amd.com>
-Date: Thu, 5 Mar 2020 15:49:09 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-In-Reply-To: <20200304202145.22021-1-Yong.Zhao@amd.com>
+Thread-Topic: [PATCH] drm/amdkfd: Consolidate duplicated bo alloc flags
+Thread-Index: AQHV8mKNyMTOTpwoHUyzlVgZZhg7U6g6ekOAgAAAS7E=
+Date: Thu, 5 Mar 2020 20:55:49 +0000
+Message-ID: <CH2PR12MB3926C6062226E00D4626CC43F0E20@CH2PR12MB3926.namprd12.prod.outlook.com>
+References: <20200304202145.22021-1-Yong.Zhao@amd.com>,
+ <48c5b228-99e3-2041-92c8-efc87de0586f@amd.com>
+In-Reply-To: <48c5b228-99e3-2041-92c8-efc87de0586f@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-ClientProxiedBy: YTBPR01CA0027.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::40) To DM5PR1201MB0090.namprd12.prod.outlook.com
- (2603:10b6:4:53::12)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.27.226.80] (165.204.55.251) by
- YTBPR01CA0027.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::40) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2793.16 via Frontend Transport; Thu, 5 Mar 2020 20:49:11 +0000
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7c3f0212-9e99-412e-69d3-08d7c146a85c
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0169:|DM5PR1201MB0169:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB016901E8E4ED3E835084E80892E20@DM5PR1201MB0169.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-Forefront-PRVS: 03333C607F
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(346002)(376002)(366004)(39860400002)(396003)(189003)(199004)(6862004)(8936002)(52116002)(36916002)(26005)(2906002)(16576012)(37006003)(53546011)(316002)(66946007)(6636002)(36756003)(66556008)(66476007)(5660300002)(6486002)(81156014)(8676002)(81166006)(956004)(31696002)(2616005)(186003)(31686004)(44832011)(16526019)(86362001)(478600001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR1201MB0169;
- H:DM5PR1201MB0090.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-05T20:55:48.037Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Yong.Zhao@amd.com; 
+x-originating-ip: [99.252.169.159]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: b3afa003-9be9-4558-f5e2-08d7c14795f9
+x-ms-traffictypediagnostic: CH2PR12MB4325:|CH2PR12MB4325:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <CH2PR12MB432574AA11F80FA8C1E475D6F0E20@CH2PR12MB4325.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-forefront-prvs: 03333C607F
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(366004)(396003)(346002)(39860400002)(136003)(189003)(199004)(316002)(478600001)(110136005)(66446008)(6506007)(66556008)(66476007)(64756008)(81156014)(186003)(86362001)(81166006)(53546011)(2906002)(8676002)(8936002)(26005)(66946007)(33656002)(7696005)(9686003)(19627405001)(55016002)(76116006)(71200400001)(52536014)(5660300002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4325;
+ H:CH2PR12MB3926.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Fbwrp+xPJalNvLtDppFAwoRJ5epvf1wciHLAz40/8iHWna/fPmjy6I7vl0OWlSCkF5t1EEkl5iKfac0smojSE2aWbiMu0znE54Kj2DoZOOaUXr0y+PfIrZd2LGLt0oARQN0RD8QQ8w3MhGXoMEDcbkECH8rEmHZV7GcmPOQ+qHGlaHc0Vu2Ftn62VYul00d2vVQ3dqSC8GYMPezcibTf9ySkKttq2Yl4VcUzJw0DXagWXBjXL33s4mh0HjeEJJHGylMy33Oyjqbd38zT1AmTRJu5yrWaQRoceWyz8huYCVHUXfIXarwQ1FrFFihyPvbEgY7hpIOjhLYsl+naqPdDlVRNMYTcBNwwptK7CYo0mQe5ijEpmW3o33uP9ZpVSHuGGepIzfQeALIhe1GjZlhJl4EAiS5RP9vl+toz4eglEQNlcawayNE+QQ/y9VlDJnfv
-X-MS-Exchange-AntiSpam-MessageData: Ba2VoA8oDtx4XODq0kdjhsRgSXcnNeIzfltC9xvIaiy48h10c55EsUsbrPzWZ7ICoL+8Y4HQJYeFQ4YnflC5KH3nCXNe2fNNl6iwJMyG5vC82/9m/YxxoGbZnt9YVbKL7k8Uh3RoKuOaiwmMSdzL2w==
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 7G9okZQzyT8onYVMjJvlS6VngiQkQH/ZQgwFPyt8slGQwt7ooTcnyibO8LbGh1+hGa8sulgwaRvCWRsGOIcl+YQkHJrJYWBRQ2enrUdrero/Jibl41PDjVvLzFVPNMhIiu9uc0odMWJ+odzFUmVpJve5FDCdfFoiChseOrvgkZRrymWhWHsbX7af35sgPPlPwIkviQrRME5MKkJEeNFN6XnS1IDdHcMGaewovemv+Dts3PIK2v5ktx2uTuI4IZ8JteFedyJaOqFSpZ7YWiP0ButxqJ0rrjtRA5Gjqz+Ep2Il3Ut7SfN9fr04W+x2HjOsdazcscE8jswot5u2UmIRj6mv8hLNFIVsbzxj1WQN9hUFLZQCyjEzrjJOq7SPpwhqQksSyn6ILGITLS7kNkgXCETQ6Ji9uy75Mq2sRP8faqGAfO4XOls+DcRRWEovlDCQ
+x-ms-exchange-antispam-messagedata: Gsa3IKZLuuFljbI0fQrcfKmwEXP7O/n8s1ENQK/mUNrNObJ59ed1dDatj4sujliZU1U5RVIXsakqS1krmCeaVgFYqR5ml3VXq82teJpttd6rePDAVBNqPvaQJfRqShZkEA6l7J+towIA0pcQtHChdA==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c3f0212-9e99-412e-69d3-08d7c146a85c
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2020 20:49:11.5003 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P4LqCEuKAyW4u7XrYTLV2UwzQZh8wVWJJAbGRjwKxQxWcbXJNAQ/AeiB/+A8KQo/Q1leCxL/BQKa15uAtlurAw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0169
+X-MS-Exchange-CrossTenant-Network-Message-Id: b3afa003-9be9-4558-f5e2-08d7c14795f9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Mar 2020 20:55:49.7480 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 03Uc35FwE1kVdMfu+3uxgXs27Bud023VdDaTr1NN6AUlOL5I/fkpyuvZCdVFXmlB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4325
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,176 +114,724 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0937963505=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMC0wMy0wNCAzOjIxIHAubS4sIFlvbmcgWmhhbyB3cm90ZToKPiBBTExPQ19NRU1fRkxB
-R1NfKiB1c2VkIGFyZSB0aGUgc2FtZSBhcyB0aGUgS0ZEX0lPQ19BTExPQ19NRU1fRkxBR1NfKiwK
-PiBidXQgdGhleSBhcmUgaW50ZXJ3ZWF2ZWRseSB1c2VkIGluIGtlcm5lbCBkcml2ZXIsIHJlc3Vs
-dGluZyBpbiBiYWQKPiByZWFkYWJpbGl0eS4gRm9yIGV4YW1wbGUsIEtGRF9JT0NfQUxMT0NfTUVN
-X0ZMQUdTX0NPSEVSRU5UIGlzIHRvdGFsbHkKPiBub3QgcmVmZXJlbmNlZCBpbiBrZXJuZWwsIGFu
-ZCBpdCBmdW5jdGlvbnMgaW4gdGhlIGtlcm5lbCB0aHJvdWdoCj4gQUxMT0NfTUVNX0ZMQUdTX0NP
-SEVSRU5ULCBjYXVzaW5nIHVubmVjZXNzYXJ5IGNvbmZ1c2lvbi4KPgo+IFJlcGxhY2UgYWxsIG9j
-Y3VycmVuY2VzIG9mIEFMTE9DX01FTV9GTEFHU18qIGJ5Cj4gS0ZEX0lPQ19BTExPQ19NRU1fRkxB
-R1NfKiB0byBzb2x2ZSB0aGUgcHJvYmxlbS4KPgo+IENoYW5nZS1JZDogSWNlZDZlZDM2OTgxNjcy
-OTZjOTdiMTRlN2U0NTY5ODgzODU5ZDYxOWMKPiBTaWduZWQtb2ZmLWJ5OiBZb25nIFpoYW8gPFlv
-bmcuWmhhb0BhbWQuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2FtZGtmZC5jICAgIHwgIDkgKysrLS0KPiAgIC4uLi9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
-Z3B1X2FtZGtmZF9ncHV2bS5jICB8IDM4ICsrKysrKysrKysrLS0tLS0tLS0KPiAgIGRyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMgICAgICB8IDEzICsrKystLS0KPiAgIC4u
-Li9ncHUvZHJtL2FtZC9pbmNsdWRlL2tnZF9rZmRfaW50ZXJmYWNlLmggICB8IDIxIC0tLS0tLS0t
-LS0KPiAgIDQgZmlsZXMgY2hhbmdlZCwgMzYgaW5zZXJ0aW9ucygrKSwgNDUgZGVsZXRpb25zKC0p
-Cj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtm
-ZC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jCj4gaW5kZXgg
-NzI2YzkxYWI2NzYxLi5hZmZhYTBkNGI2MzYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtmZC5jCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X2FtZGtmZC5jCj4gQEAgLTI5LDYgKzI5LDcgQEAKPiAgICNpbmNsdWRlIDxs
-aW51eC9tb2R1bGUuaD4KPiAgICNpbmNsdWRlIDxsaW51eC9kbWEtYnVmLmg+Cj4gICAjaW5jbHVk
-ZSAiYW1kZ3B1X3hnbWkuaCIKPiArI2luY2x1ZGUgPHVhcGkvbGludXgva2ZkX2lvY3RsLmg+Cj4g
-ICAKPiAgIHN0YXRpYyBjb25zdCB1bnNpZ25lZCBpbnQgY29tcHV0ZV92bWlkX2JpdG1hcCA9IDB4
-RkYwMDsKPiAgIAo+IEBAIC01MDAsMTEgKzUwMSwxMyBAQCBpbnQgYW1kZ3B1X2FtZGtmZF9nZXRf
-ZG1hYnVmX2luZm8oc3RydWN0IGtnZF9kZXYgKmtnZCwgaW50IGRtYV9idWZfZmQsCj4gICAJCXIg
-PSBhbWRncHVfYm9fZ2V0X21ldGFkYXRhKGJvLCBtZXRhZGF0YV9idWZmZXIsIGJ1ZmZlcl9zaXpl
-LAo+ICAgCQkJCQkgICBtZXRhZGF0YV9zaXplLCAmbWV0YWRhdGFfZmxhZ3MpOwo+ICAgCWlmIChm
-bGFncykgewo+IC0JCSpmbGFncyA9IChiby0+cHJlZmVycmVkX2RvbWFpbnMgJiBBTURHUFVfR0VN
-X0RPTUFJTl9WUkFNKSA/Cj4gLQkJCUFMTE9DX01FTV9GTEFHU19WUkFNIDogQUxMT0NfTUVNX0ZM
-QUdTX0dUVDsKPiArCQlpZiAoYm8tPnByZWZlcnJlZF9kb21haW5zICYgQU1ER1BVX0dFTV9ET01B
-SU5fVlJBTSkKPiArCQkJKmZsYWdzID0gS0ZEX0lPQ19BTExPQ19NRU1fRkxBR1NfVlJBTTsKPiAr
-CQllbHNlCj4gKwkJCSpmbGFncyA9IEtGRF9JT0NfQUxMT0NfTUVNX0ZMQUdTX0dUVDsKCllvdSdy
-ZSBzbmVha2luZyBpbiBzb21lIHBlcnNvbmFsIHByZWZlcmVuY2UgKGNoYW5naW5nIHRoZSB0cmlu
-YXJ5IChjb25kIAo/IGEgOiBiKSBvcGVyYXRvciB0byBpZi1lbHNlKSB3aXRoIHRoZSByZW5hbWlu
-ZyBjaGFuZ2UuIFBlcnNvbmFsbHkgSSAKZmluZCB0aGUgdHJpbmFyeSBvcGVyYXRvciBqdXN0IGFz
-IHJlYWRhYmxlIGFuZCBtb3JlIGNvbmNpc2UuCgoKPiAgIAo+ICAgCQlpZiAoYm8tPmZsYWdzICYg
-QU1ER1BVX0dFTV9DUkVBVEVfQ1BVX0FDQ0VTU19SRVFVSVJFRCkKPiAtCQkJKmZsYWdzIHw9IEFM
-TE9DX01FTV9GTEFHU19QVUJMSUM7Cj4gKwkJCSpmbGFncyB8PSBLRkRfSU9DX0FMTE9DX01FTV9G
-TEFHU19QVUJMSUM7Cj4gICAJfQo+ICAgCj4gICBvdXRfcHV0Ogo+IGRpZmYgLS1naXQgYS9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMKPiBpbmRleCBlNDQ4MWNhZWQ2
-NDguLmM4MWZlNzAxMWU4OCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMKPiBAQCAtMjksNiArMjksNyBAQAo+ICAgI2luY2x1ZGUg
-ImFtZGdwdV92bS5oIgo+ICAgI2luY2x1ZGUgImFtZGdwdV9hbWRrZmQuaCIKPiAgICNpbmNsdWRl
-ICJhbWRncHVfZG1hX2J1Zi5oIgo+ICsjaW5jbHVkZSA8dWFwaS9saW51eC9rZmRfaW9jdGwuaD4K
-PiAgIAo+ICAgLyogQk8gZmxhZyB0byBpbmRpY2F0ZSBhIEtGRCB1c2VycHRyIEJPICovCj4gICAj
-ZGVmaW5lIEFNREdQVV9BTURLRkRfVVNFUlBUUl9CTyAoMVVMTCA8PCA2MykKPiBAQCAtNDAwLDE4
-ICs0MDEsMTggQEAgc3RhdGljIGludCB2bV91cGRhdGVfcGRzKHN0cnVjdCBhbWRncHVfdm0gKnZt
-LCBzdHJ1Y3QgYW1kZ3B1X3N5bmMgKnN5bmMpCj4gICBzdGF0aWMgdWludDY0X3QgZ2V0X3B0ZV9m
-bGFncyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGtnZF9tZW0gKm1lbSkKPiAg
-IHsKPiAgIAlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYm9fYWRldiA9IGFtZGdwdV90dG1fYWRldiht
-ZW0tPmJvLT50Ym8uYmRldik7Cj4gLQlib29sIGNvaGVyZW50ID0gbWVtLT5hbGxvY19mbGFncyAm
-IEFMTE9DX01FTV9GTEFHU19DT0hFUkVOVDsKPiArCWJvb2wgY29oZXJlbnQgPSBtZW0tPmFsbG9j
-X2ZsYWdzICYgS0ZEX0lPQ19BTExPQ19NRU1fRkxBR1NfQ09IRVJFTlQ7Cj4gICAJdWludDMyX3Qg
-bWFwcGluZ19mbGFnczsKPiAgIAo+ICAgCW1hcHBpbmdfZmxhZ3MgPSBBTURHUFVfVk1fUEFHRV9S
-RUFEQUJMRTsKPiAtCWlmIChtZW0tPmFsbG9jX2ZsYWdzICYgQUxMT0NfTUVNX0ZMQUdTX1dSSVRB
-QkxFKQo+ICsJaWYgKG1lbS0+YWxsb2NfZmxhZ3MgJiBLRkRfSU9DX0FMTE9DX01FTV9GTEFHU19X
-UklUQUJMRSkKPiAgIAkJbWFwcGluZ19mbGFncyB8PSBBTURHUFVfVk1fUEFHRV9XUklURUFCTEU7
-Cj4gLQlpZiAobWVtLT5hbGxvY19mbGFncyAmIEFMTE9DX01FTV9GTEFHU19FWEVDVVRBQkxFKQo+
-ICsJaWYgKG1lbS0+YWxsb2NfZmxhZ3MgJiBLRkRfSU9DX0FMTE9DX01FTV9GTEFHU19FWEVDVVRB
-QkxFKQo+ICAgCQltYXBwaW5nX2ZsYWdzIHw9IEFNREdQVV9WTV9QQUdFX0VYRUNVVEFCTEU7Cj4g
-ICAKPiAgIAlzd2l0Y2ggKGFkZXYtPmFzaWNfdHlwZSkgewo+ICAgCWNhc2UgQ0hJUF9BUkNUVVJV
-UzoKPiAtCQlpZiAobWVtLT5hbGxvY19mbGFncyAmIEFMTE9DX01FTV9GTEFHU19WUkFNKSB7Cj4g
-KwkJaWYgKG1lbS0+YWxsb2NfZmxhZ3MgJiBLRkRfSU9DX0FMTE9DX01FTV9GTEFHU19WUkFNKSB7
-Cj4gICAJCQlpZiAoYm9fYWRldiA9PSBhZGV2KQo+ICAgCQkJCW1hcHBpbmdfZmxhZ3MgfD0gY29o
-ZXJlbnQgPwo+ICAgCQkJCQlBTURHUFVfVk1fTVRZUEVfQ0MgOiBBTURHUFVfVk1fTVRZUEVfUlc7
-Cj4gQEAgLTExNjAsMjQgKzExNjEsMjQgQEAgaW50IGFtZGdwdV9hbWRrZmRfZ3B1dm1fYWxsb2Nf
-bWVtb3J5X29mX2dwdSgKPiAgIAkvKgo+ICAgCSAqIENoZWNrIG9uIHdoaWNoIGRvbWFpbiB0byBh
-bGxvY2F0ZSBCTwo+ICAgCSAqLwo+IC0JaWYgKGZsYWdzICYgQUxMT0NfTUVNX0ZMQUdTX1ZSQU0p
-IHsKPiArCWlmIChmbGFncyAmIEtGRF9JT0NfQUxMT0NfTUVNX0ZMQUdTX1ZSQU0pIHsKPiAgIAkJ
-ZG9tYWluID0gYWxsb2NfZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fVlJBTTsKPiAgIAkJYWxs
-b2NfZmxhZ3MgPSBBTURHUFVfR0VNX0NSRUFURV9WUkFNX1dJUEVfT05fUkVMRUFTRTsKPiAtCQlh
-bGxvY19mbGFncyB8PSAoZmxhZ3MgJiBBTExPQ19NRU1fRkxBR1NfUFVCTElDKSA/Cj4gKwkJYWxs
-b2NfZmxhZ3MgfD0gKGZsYWdzICYgS0ZEX0lPQ19BTExPQ19NRU1fRkxBR1NfUFVCTElDKSA/Cj4g
-ICAJCQlBTURHUFVfR0VNX0NSRUFURV9DUFVfQUNDRVNTX1JFUVVJUkVEIDoKPiAgIAkJCUFNREdQ
-VV9HRU1fQ1JFQVRFX05PX0NQVV9BQ0NFU1M7Cj4gLQl9IGVsc2UgaWYgKGZsYWdzICYgQUxMT0Nf
-TUVNX0ZMQUdTX0dUVCkgewo+ICsJfSBlbHNlIGlmIChmbGFncyAmIEtGRF9JT0NfQUxMT0NfTUVN
-X0ZMQUdTX0dUVCkgewo+ICAgCQlkb21haW4gPSBhbGxvY19kb21haW4gPSBBTURHUFVfR0VNX0RP
-TUFJTl9HVFQ7Cj4gICAJCWFsbG9jX2ZsYWdzID0gMDsKPiAtCX0gZWxzZSBpZiAoZmxhZ3MgJiBB
-TExPQ19NRU1fRkxBR1NfVVNFUlBUUikgewo+ICsJfSBlbHNlIGlmIChmbGFncyAmIEtGRF9JT0Nf
-QUxMT0NfTUVNX0ZMQUdTX1VTRVJQVFIpIHsKPiAgIAkJZG9tYWluID0gQU1ER1BVX0dFTV9ET01B
-SU5fR1RUOwo+ICAgCQlhbGxvY19kb21haW4gPSBBTURHUFVfR0VNX0RPTUFJTl9DUFU7Cj4gICAJ
-CWFsbG9jX2ZsYWdzID0gMDsKPiAgIAkJaWYgKCFvZmZzZXQgfHwgISpvZmZzZXQpCj4gICAJCQly
-ZXR1cm4gLUVJTlZBTDsKPiAgIAkJdXNlcl9hZGRyID0gdW50YWdnZWRfYWRkcigqb2Zmc2V0KTsK
-PiAtCX0gZWxzZSBpZiAoZmxhZ3MgJiAoQUxMT0NfTUVNX0ZMQUdTX0RPT1JCRUxMIHwKPiAtCQkJ
-QUxMT0NfTUVNX0ZMQUdTX01NSU9fUkVNQVApKSB7Cj4gKwl9IGVsc2UgaWYgKGZsYWdzICYgKEtG
-RF9JT0NfQUxMT0NfTUVNX0ZMQUdTX0RPT1JCRUxMIHwKPiArCQkJS0ZEX0lPQ19BTExPQ19NRU1f
-RkxBR1NfTU1JT19SRU1BUCkpIHsKPiAgIAkJZG9tYWluID0gQU1ER1BVX0dFTV9ET01BSU5fR1RU
-Owo+ICAgCQlhbGxvY19kb21haW4gPSBBTURHUFVfR0VNX0RPTUFJTl9DUFU7Cj4gICAJCWJvX3R5
-cGUgPSB0dG1fYm9fdHlwZV9zZzsKPiBAQCAtMTE5OCw3ICsxMTk5LDcgQEAgaW50IGFtZGdwdV9h
-bWRrZmRfZ3B1dm1fYWxsb2NfbWVtb3J5X29mX2dwdSgKPiAgIAl9Cj4gICAJSU5JVF9MSVNUX0hF
-QUQoJigqbWVtKS0+Ym9fdmFfbGlzdCk7Cj4gICAJbXV0ZXhfaW5pdCgmKCptZW0pLT5sb2NrKTsK
-PiAtCSgqbWVtKS0+YXFsX3F1ZXVlID0gISEoZmxhZ3MgJiBBTExPQ19NRU1fRkxBR1NfQVFMX1FV
-RVVFX01FTSk7Cj4gKwkoKm1lbSktPmFxbF9xdWV1ZSA9ICEhKGZsYWdzICYgS0ZEX0lPQ19BTExP
-Q19NRU1fRkxBR1NfQVFMX1FVRVVFX01FTSk7Cj4gICAKPiAgIAkvKiBXb3JrYXJvdW5kIGZvciBB
-UUwgcXVldWUgd3JhcGFyb3VuZCBidWcuIE1hcCB0aGUgc2FtZQo+ICAgCSAqIG1lbW9yeSB0d2lj
-ZS4gVGhhdCBtZWFucyB3ZSBvbmx5IGFjdHVhbGx5IGFsbG9jYXRlIGhhbGYKPiBAQCAtMTY1Miw2
-ICsxNjUzLDcgQEAgaW50IGFtZGdwdV9hbWRrZmRfZ3B1dm1faW1wb3J0X2RtYWJ1ZihzdHJ1Y3Qg
-a2dkX2RldiAqa2dkLAo+ICAgCXN0cnVjdCBkcm1fZ2VtX29iamVjdCAqb2JqOwo+ICAgCXN0cnVj
-dCBhbWRncHVfYm8gKmJvOwo+ICAgCXN0cnVjdCBhbWRncHVfdm0gKmF2bSA9IChzdHJ1Y3QgYW1k
-Z3B1X3ZtICopdm07Cj4gKwl1aW50MzJfdCBmbGFnczsKPiAgIAo+ICAgCWlmIChkbWFfYnVmLT5v
-cHMgIT0gJmFtZGdwdV9kbWFidWZfb3BzKQo+ICAgCQkvKiBDYW4ndCBoYW5kbGUgbm9uLWdyYXBo
-aWNzIGJ1ZmZlcnMgKi8KPiBAQCAtMTY4MCwxMCArMTY4MiwxNiBAQCBpbnQgYW1kZ3B1X2FtZGtm
-ZF9ncHV2bV9pbXBvcnRfZG1hYnVmKHN0cnVjdCBrZ2RfZGV2ICprZ2QsCj4gICAKPiAgIAlJTklU
-X0xJU1RfSEVBRCgmKCptZW0pLT5ib192YV9saXN0KTsKPiAgIAltdXRleF9pbml0KCYoKm1lbSkt
-PmxvY2spOwo+IC0JKCptZW0pLT5hbGxvY19mbGFncyA9Cj4gLQkJKChiby0+cHJlZmVycmVkX2Rv
-bWFpbnMgJiBBTURHUFVfR0VNX0RPTUFJTl9WUkFNKSA/Cj4gLQkJIEFMTE9DX01FTV9GTEFHU19W
-UkFNIDogQUxMT0NfTUVNX0ZMQUdTX0dUVCkgfAo+IC0JCUFMTE9DX01FTV9GTEFHU19XUklUQUJM
-RSB8IEFMTE9DX01FTV9GTEFHU19FWEVDVVRBQkxFOwo+ICsJCj4gKwlmbGFncyA9IEtGRF9JT0Nf
-QUxMT0NfTUVNX0ZMQUdTX1dSSVRBQkxFCj4gKwkJfCBLRkRfSU9DX0FMTE9DX01FTV9GTEFHU19F
-WEVDVVRBQkxFOwo+ICsKPiArCWlmIChiby0+cHJlZmVycmVkX2RvbWFpbnMgJiBBTURHUFVfR0VN
-X0RPTUFJTl9WUkFNKQo+ICsJCWZsYWdzIHw9IEtGRF9JT0NfQUxMT0NfTUVNX0ZMQUdTX1ZSQU07
-Cj4gKwllbHNlCj4gKwkJZmxhZ3MgfD0gS0ZEX0lPQ19BTExPQ19NRU1fRkxBR1NfR1RUOwo+ICsK
-PiArCSgqbWVtKS0+YWxsb2NfZmxhZ3MgPSBmbGFnczsKClNhbWUgYXMgYWJvdmUuIFRoZSBvcmln
-aW5hbCBjb2RlIHdhcyBvbmx5IDQgbGluZXMgYW5kIGEgc2luZ2xlIApzdGF0ZW1lbnQuIFlvdXIg
-Y29kZSBpcyA4IGxpbmVzLCBmb3VyIHN0YXRlbWVudHMsIHBsdXMgYW4gZXh0cmEgbG9jYWwgCnZh
-cmlhYmxlLiBJIGRvbid0IHNlZSBob3cgdGhpcyBpcyBhbiBpbXByb3ZlbWVudC4KClJlZ2FyZHMs
-CiDCoCBGZWxpeAoKCj4gICAKPiAgIAkoKm1lbSktPmJvID0gYW1kZ3B1X2JvX3JlZihibyk7Cj4g
-ICAJKCptZW0pLT52YSA9IHZhOwo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGtmZC9rZmRfcHJvY2Vzcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQva2ZkX3Byb2Nl
-c3MuYwo+IGluZGV4IDIyYWJkYmM2ZGZkNy4uMWM3YmZjODQyZjA2IDEwMDY0NAo+IC0tLSBhL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMKPiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jCj4gQEAgLTMyNywxMCArMzI3LDEwIEBAIHN0
-YXRpYyBpbnQga2ZkX3Byb2Nlc3NfYWxsb2NfZ3B1dm0oc3RydWN0IGtmZF9wcm9jZXNzX2Rldmlj
-ZSAqcGRkLAo+ICAgc3RhdGljIGludCBrZmRfcHJvY2Vzc19kZXZpY2VfcmVzZXJ2ZV9pYl9tZW0o
-c3RydWN0IGtmZF9wcm9jZXNzX2RldmljZSAqcGRkKQo+ICAgewo+ICAgCXN0cnVjdCBxY21fcHJv
-Y2Vzc19kZXZpY2UgKnFwZCA9ICZwZGQtPnFwZDsKPiAtCXVpbnQzMl90IGZsYWdzID0gQUxMT0Nf
-TUVNX0ZMQUdTX0dUVCB8Cj4gLQkJCSBBTExPQ19NRU1fRkxBR1NfTk9fU1VCU1RJVFVURSB8Cj4g
-LQkJCSBBTExPQ19NRU1fRkxBR1NfV1JJVEFCTEUgfAo+IC0JCQkgQUxMT0NfTUVNX0ZMQUdTX0VY
-RUNVVEFCTEU7Cj4gKwl1aW50MzJfdCBmbGFncyA9IEtGRF9JT0NfQUxMT0NfTUVNX0ZMQUdTX0dU
-VCB8Cj4gKwkJCUtGRF9JT0NfQUxMT0NfTUVNX0ZMQUdTX05PX1NVQlNUSVRVVEUgfAo+ICsJCQlL
-RkRfSU9DX0FMTE9DX01FTV9GTEFHU19XUklUQUJMRSB8Cj4gKwkJCUtGRF9JT0NfQUxMT0NfTUVN
-X0ZMQUdTX0VYRUNVVEFCTEU7Cj4gICAJdm9pZCAqa2FkZHI7Cj4gICAJaW50IHJldDsKPiAgIAo+
-IEBAIC02OTIsOCArNjkyLDkgQEAgc3RhdGljIGludCBrZmRfcHJvY2Vzc19kZXZpY2VfaW5pdF9j
-d3NyX2RncHUoc3RydWN0IGtmZF9wcm9jZXNzX2RldmljZSAqcGRkKQo+ICAgewo+ICAgCXN0cnVj
-dCBrZmRfZGV2ICpkZXYgPSBwZGQtPmRldjsKPiAgIAlzdHJ1Y3QgcWNtX3Byb2Nlc3NfZGV2aWNl
-ICpxcGQgPSAmcGRkLT5xcGQ7Cj4gLQl1aW50MzJfdCBmbGFncyA9IEFMTE9DX01FTV9GTEFHU19H
-VFQgfAo+IC0JCUFMTE9DX01FTV9GTEFHU19OT19TVUJTVElUVVRFIHwgQUxMT0NfTUVNX0ZMQUdT
-X0VYRUNVVEFCTEU7Cj4gKwl1aW50MzJfdCBmbGFncyA9IEtGRF9JT0NfQUxMT0NfTUVNX0ZMQUdT
-X0dUVAo+ICsJCQl8IEtGRF9JT0NfQUxMT0NfTUVNX0ZMQUdTX05PX1NVQlNUSVRVVEUKPiArCQkJ
-fCBLRkRfSU9DX0FMTE9DX01FTV9GTEFHU19FWEVDVVRBQkxFOwo+ICAgCXZvaWQgKmthZGRyOwo+
-ICAgCWludCByZXQ7Cj4gICAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNs
-dWRlL2tnZF9rZmRfaW50ZXJmYWNlLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUva2dk
-X2tmZF9pbnRlcmZhY2UuaAo+IGluZGV4IDBjZWU3OWQ1NjA3NS4uYTNjMjM4YzM5ZWY1IDEwMDY0
-NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9rZ2Rfa2ZkX2ludGVyZmFjZS5o
-Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9pbmNsdWRlL2tnZF9rZmRfaW50ZXJmYWNlLmgK
-PiBAQCAtMTY3LDI3ICsxNjcsNiBAQCBzdHJ1Y3QgdGlsZV9jb25maWcgewo+ICAgCj4gICAjZGVm
-aW5lIEtGRF9NQVhfTlVNX09GX1FVRVVFU19QRVJfREVWSUNFX0RFRkFVTFQgNDA5Ngo+ICAgCj4g
-LS8qCj4gLSAqIEFsbG9jYXRpb24gZmxhZyBkb21haW5zCj4gLSAqIE5PVEU6IFRoaXMgbXVzdCBt
-YXRjaCB0aGUgY29ycmVzcG9uZGluZyBkZWZpbml0aW9ucyBpbiBrZmRfaW9jdGwuaC4KPiAtICov
-Cj4gLSNkZWZpbmUgQUxMT0NfTUVNX0ZMQUdTX1ZSQU0JCSgxIDw8IDApCj4gLSNkZWZpbmUgQUxM
-T0NfTUVNX0ZMQUdTX0dUVAkJKDEgPDwgMSkKPiAtI2RlZmluZSBBTExPQ19NRU1fRkxBR1NfVVNF
-UlBUUgkJKDEgPDwgMikKPiAtI2RlZmluZSBBTExPQ19NRU1fRkxBR1NfRE9PUkJFTEwJKDEgPDwg
-MykKPiAtI2RlZmluZSBBTExPQ19NRU1fRkxBR1NfTU1JT19SRU1BUAkoMSA8PCA0KQo+IC0KPiAt
-LyoKPiAtICogQWxsb2NhdGlvbiBmbGFncyBhdHRyaWJ1dGVzL2FjY2VzcyBvcHRpb25zLgo+IC0g
-KiBOT1RFOiBUaGlzIG11c3QgbWF0Y2ggdGhlIGNvcnJlc3BvbmRpbmcgZGVmaW5pdGlvbnMgaW4g
-a2ZkX2lvY3RsLmguCj4gLSAqLwo+IC0jZGVmaW5lIEFMTE9DX01FTV9GTEFHU19XUklUQUJMRQko
-MSA8PCAzMSkKPiAtI2RlZmluZSBBTExPQ19NRU1fRkxBR1NfRVhFQ1VUQUJMRQkoMSA8PCAzMCkK
-PiAtI2RlZmluZSBBTExPQ19NRU1fRkxBR1NfUFVCTElDCQkoMSA8PCAyOSkKPiAtI2RlZmluZSBB
-TExPQ19NRU1fRkxBR1NfTk9fU1VCU1RJVFVURQkoMSA8PCAyOCkgLyogVE9ETyAqLwo+IC0jZGVm
-aW5lIEFMTE9DX01FTV9GTEFHU19BUUxfUVVFVUVfTUVNCSgxIDw8IDI3KQo+IC0jZGVmaW5lIEFM
-TE9DX01FTV9GTEFHU19DT0hFUkVOVAkoMSA8PCAyNikgLyogRm9yIEdGWHY5IG9yIGxhdGVyICov
-Cj4gLQo+ICAgLyoqCj4gICAgKiBzdHJ1Y3Qga2ZkMmtnZF9jYWxscwo+ICAgICoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
-c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
-cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+--===============0937963505==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_CH2PR12MB3926C6062226E00D4626CC43F0E20CH2PR12MB3926namp_"
+
+--_000_CH2PR12MB3926C6062226E00D4626CC43F0E20CH2PR12MB3926namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
+
+Okay, I will change back to its original format.
+
+Yong
+
+________________________________
+From: Kuehling, Felix <Felix.Kuehling@amd.com>
+Sent: Thursday, March 5, 2020 3:49 PM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Zhao, Yo=
+ng <Yong.Zhao@amd.com>
+Subject: Re: [PATCH] drm/amdkfd: Consolidate duplicated bo alloc flags
+
+On 2020-03-04 3:21 p.m., Yong Zhao wrote:
+> ALLOC_MEM_FLAGS_* used are the same as the KFD_IOC_ALLOC_MEM_FLAGS_*,
+> but they are interweavedly used in kernel driver, resulting in bad
+> readability. For example, KFD_IOC_ALLOC_MEM_FLAGS_COHERENT is totally
+> not referenced in kernel, and it functions in the kernel through
+> ALLOC_MEM_FLAGS_COHERENT, causing unnecessary confusion.
+>
+> Replace all occurrences of ALLOC_MEM_FLAGS_* by
+> KFD_IOC_ALLOC_MEM_FLAGS_* to solve the problem.
+>
+> Change-Id: Iced6ed3698167296c97b14e7e4569883859d619c
+> Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  9 +++--
+>   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 38 +++++++++++--------
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 13 ++++---
+>   .../gpu/drm/amd/include/kgd_kfd_interface.h   | 21 ----------
+>   4 files changed, 36 insertions(+), 45 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_amdkfd.c
+> index 726c91ab6761..affaa0d4b636 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -29,6 +29,7 @@
+>   #include <linux/module.h>
+>   #include <linux/dma-buf.h>
+>   #include "amdgpu_xgmi.h"
+> +#include <uapi/linux/kfd_ioctl.h>
+>
+>   static const unsigned int compute_vmid_bitmap =3D 0xFF00;
+>
+> @@ -500,11 +501,13 @@ int amdgpu_amdkfd_get_dmabuf_info(struct kgd_dev *k=
+gd, int dma_buf_fd,
+>                r =3D amdgpu_bo_get_metadata(bo, metadata_buffer, buffer_s=
+ize,
+>                                           metadata_size, &metadata_flags)=
+;
+>        if (flags) {
+> -             *flags =3D (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)=
+ ?
+> -                     ALLOC_MEM_FLAGS_VRAM : ALLOC_MEM_FLAGS_GTT;
+> +             if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)
+> +                     *flags =3D KFD_IOC_ALLOC_MEM_FLAGS_VRAM;
+> +             else
+> +                     *flags =3D KFD_IOC_ALLOC_MEM_FLAGS_GTT;
+
+You're sneaking in some personal preference (changing the trinary (cond
+? a : b) operator to if-else) with the renaming change. Personally I
+find the trinary operator just as readable and more concise.
+
+
+>
+>                if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
+> -                     *flags |=3D ALLOC_MEM_FLAGS_PUBLIC;
+> +                     *flags |=3D KFD_IOC_ALLOC_MEM_FLAGS_PUBLIC;
+>        }
+>
+>   out_put:
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/g=
+pu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index e4481caed648..c81fe7011e88 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -29,6 +29,7 @@
+>   #include "amdgpu_vm.h"
+>   #include "amdgpu_amdkfd.h"
+>   #include "amdgpu_dma_buf.h"
+> +#include <uapi/linux/kfd_ioctl.h>
+>
+>   /* BO flag to indicate a KFD userptr BO */
+>   #define AMDGPU_AMDKFD_USERPTR_BO (1ULL << 63)
+> @@ -400,18 +401,18 @@ static int vm_update_pds(struct amdgpu_vm *vm, stru=
+ct amdgpu_sync *sync)
+>   static uint64_t get_pte_flags(struct amdgpu_device *adev, struct kgd_me=
+m *mem)
+>   {
+>        struct amdgpu_device *bo_adev =3D amdgpu_ttm_adev(mem->bo->tbo.bde=
+v);
+> -     bool coherent =3D mem->alloc_flags & ALLOC_MEM_FLAGS_COHERENT;
+> +     bool coherent =3D mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_COHERE=
+NT;
+>        uint32_t mapping_flags;
+>
+>        mapping_flags =3D AMDGPU_VM_PAGE_READABLE;
+> -     if (mem->alloc_flags & ALLOC_MEM_FLAGS_WRITABLE)
+> +     if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE)
+>                mapping_flags |=3D AMDGPU_VM_PAGE_WRITEABLE;
+> -     if (mem->alloc_flags & ALLOC_MEM_FLAGS_EXECUTABLE)
+> +     if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE)
+>                mapping_flags |=3D AMDGPU_VM_PAGE_EXECUTABLE;
+>
+>        switch (adev->asic_type) {
+>        case CHIP_ARCTURUS:
+> -             if (mem->alloc_flags & ALLOC_MEM_FLAGS_VRAM) {
+> +             if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+>                        if (bo_adev =3D=3D adev)
+>                                mapping_flags |=3D coherent ?
+>                                        AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTY=
+PE_RW;
+> @@ -1160,24 +1161,24 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+>        /*
+>         * Check on which domain to allocate BO
+>         */
+> -     if (flags & ALLOC_MEM_FLAGS_VRAM) {
+> +     if (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
+>                domain =3D alloc_domain =3D AMDGPU_GEM_DOMAIN_VRAM;
+>                alloc_flags =3D AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
+> -             alloc_flags |=3D (flags & ALLOC_MEM_FLAGS_PUBLIC) ?
+> +             alloc_flags |=3D (flags & KFD_IOC_ALLOC_MEM_FLAGS_PUBLIC) ?
+>                        AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED :
+>                        AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
+> -     } else if (flags & ALLOC_MEM_FLAGS_GTT) {
+> +     } else if (flags & KFD_IOC_ALLOC_MEM_FLAGS_GTT) {
+>                domain =3D alloc_domain =3D AMDGPU_GEM_DOMAIN_GTT;
+>                alloc_flags =3D 0;
+> -     } else if (flags & ALLOC_MEM_FLAGS_USERPTR) {
+> +     } else if (flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
+>                domain =3D AMDGPU_GEM_DOMAIN_GTT;
+>                alloc_domain =3D AMDGPU_GEM_DOMAIN_CPU;
+>                alloc_flags =3D 0;
+>                if (!offset || !*offset)
+>                        return -EINVAL;
+>                user_addr =3D untagged_addr(*offset);
+> -     } else if (flags & (ALLOC_MEM_FLAGS_DOORBELL |
+> -                     ALLOC_MEM_FLAGS_MMIO_REMAP)) {
+> +     } else if (flags & (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
+> +                     KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) {
+>                domain =3D AMDGPU_GEM_DOMAIN_GTT;
+>                alloc_domain =3D AMDGPU_GEM_DOMAIN_CPU;
+>                bo_type =3D ttm_bo_type_sg;
+> @@ -1198,7 +1199,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+>        }
+>        INIT_LIST_HEAD(&(*mem)->bo_va_list);
+>        mutex_init(&(*mem)->lock);
+> -     (*mem)->aql_queue =3D !!(flags & ALLOC_MEM_FLAGS_AQL_QUEUE_MEM);
+> +     (*mem)->aql_queue =3D !!(flags & KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_=
+MEM);
+>
+>        /* Workaround for AQL queue wraparound bug. Map the same
+>         * memory twice. That means we only actually allocate half
+> @@ -1652,6 +1653,7 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct kgd_de=
+v *kgd,
+>        struct drm_gem_object *obj;
+>        struct amdgpu_bo *bo;
+>        struct amdgpu_vm *avm =3D (struct amdgpu_vm *)vm;
+> +     uint32_t flags;
+>
+>        if (dma_buf->ops !=3D &amdgpu_dmabuf_ops)
+>                /* Can't handle non-graphics buffers */
+> @@ -1680,10 +1682,16 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct kgd_=
+dev *kgd,
+>
+>        INIT_LIST_HEAD(&(*mem)->bo_va_list);
+>        mutex_init(&(*mem)->lock);
+> -     (*mem)->alloc_flags =3D
+> -             ((bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) ?
+> -              ALLOC_MEM_FLAGS_VRAM : ALLOC_MEM_FLAGS_GTT) |
+> -             ALLOC_MEM_FLAGS_WRITABLE | ALLOC_MEM_FLAGS_EXECUTABLE;
+> +
+> +     flags =3D KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE
+> +             | KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;
+> +
+> +     if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)
+> +             flags |=3D KFD_IOC_ALLOC_MEM_FLAGS_VRAM;
+> +     else
+> +             flags |=3D KFD_IOC_ALLOC_MEM_FLAGS_GTT;
+> +
+> +     (*mem)->alloc_flags =3D flags;
+
+Same as above. The original code was only 4 lines and a single
+statement. Your code is 8 lines, four statements, plus an extra local
+variable. I don't see how this is an improvement.
+
+Regards,
+   Felix
+
+
+>
+>        (*mem)->bo =3D amdgpu_bo_ref(bo);
+>        (*mem)->va =3D va;
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_process.c
+> index 22abdbc6dfd7..1c7bfc842f06 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -327,10 +327,10 @@ static int kfd_process_alloc_gpuvm(struct kfd_proce=
+ss_device *pdd,
+>   static int kfd_process_device_reserve_ib_mem(struct kfd_process_device =
+*pdd)
+>   {
+>        struct qcm_process_device *qpd =3D &pdd->qpd;
+> -     uint32_t flags =3D ALLOC_MEM_FLAGS_GTT |
+> -                      ALLOC_MEM_FLAGS_NO_SUBSTITUTE |
+> -                      ALLOC_MEM_FLAGS_WRITABLE |
+> -                      ALLOC_MEM_FLAGS_EXECUTABLE;
+> +     uint32_t flags =3D KFD_IOC_ALLOC_MEM_FLAGS_GTT |
+> +                     KFD_IOC_ALLOC_MEM_FLAGS_NO_SUBSTITUTE |
+> +                     KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
+> +                     KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;
+>        void *kaddr;
+>        int ret;
+>
+> @@ -692,8 +692,9 @@ static int kfd_process_device_init_cwsr_dgpu(struct k=
+fd_process_device *pdd)
+>   {
+>        struct kfd_dev *dev =3D pdd->dev;
+>        struct qcm_process_device *qpd =3D &pdd->qpd;
+> -     uint32_t flags =3D ALLOC_MEM_FLAGS_GTT |
+> -             ALLOC_MEM_FLAGS_NO_SUBSTITUTE | ALLOC_MEM_FLAGS_EXECUTABLE;
+> +     uint32_t flags =3D KFD_IOC_ALLOC_MEM_FLAGS_GTT
+> +                     | KFD_IOC_ALLOC_MEM_FLAGS_NO_SUBSTITUTE
+> +                     | KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;
+>        void *kaddr;
+>        int ret;
+>
+> diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gp=
+u/drm/amd/include/kgd_kfd_interface.h
+> index 0cee79d56075..a3c238c39ef5 100644
+> --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> +++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
+> @@ -167,27 +167,6 @@ struct tile_config {
+>
+>   #define KFD_MAX_NUM_OF_QUEUES_PER_DEVICE_DEFAULT 4096
+>
+> -/*
+> - * Allocation flag domains
+> - * NOTE: This must match the corresponding definitions in kfd_ioctl.h.
+> - */
+> -#define ALLOC_MEM_FLAGS_VRAM         (1 << 0)
+> -#define ALLOC_MEM_FLAGS_GTT          (1 << 1)
+> -#define ALLOC_MEM_FLAGS_USERPTR              (1 << 2)
+> -#define ALLOC_MEM_FLAGS_DOORBELL     (1 << 3)
+> -#define ALLOC_MEM_FLAGS_MMIO_REMAP   (1 << 4)
+> -
+> -/*
+> - * Allocation flags attributes/access options.
+> - * NOTE: This must match the corresponding definitions in kfd_ioctl.h.
+> - */
+> -#define ALLOC_MEM_FLAGS_WRITABLE     (1 << 31)
+> -#define ALLOC_MEM_FLAGS_EXECUTABLE   (1 << 30)
+> -#define ALLOC_MEM_FLAGS_PUBLIC               (1 << 29)
+> -#define ALLOC_MEM_FLAGS_NO_SUBSTITUTE        (1 << 28) /* TODO */
+> -#define ALLOC_MEM_FLAGS_AQL_QUEUE_MEM        (1 << 27)
+> -#define ALLOC_MEM_FLAGS_COHERENT     (1 << 26) /* For GFXv9 or later */
+> -
+>   /**
+>    * struct kfd2kgd_calls
+>    *
+
+--_000_CH2PR12MB3926C6062226E00D4626CC43F0E20CH2PR12MB3926namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Okay, I will change back to its original format.&nbsp;</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Yong</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+&nbsp;</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
+elix.Kuehling@amd.com&gt;<br>
+<b>Sent:</b> Thursday, March 5, 2020 3:49 PM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Zhao, Yong &lt;Yong.Zhao@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdkfd: Consolidate duplicated bo alloc fla=
+gs</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On 2020-03-04 3:21 p.m., Yong Zhao wrote:<br>
+&gt; ALLOC_MEM_FLAGS_* used are the same as the KFD_IOC_ALLOC_MEM_FLAGS_*,<=
+br>
+&gt; but they are interweavedly used in kernel driver, resulting in bad<br>
+&gt; readability. For example, KFD_IOC_ALLOC_MEM_FLAGS_COHERENT is totally<=
+br>
+&gt; not referenced in kernel, and it functions in the kernel through<br>
+&gt; ALLOC_MEM_FLAGS_COHERENT, causing unnecessary confusion.<br>
+&gt;<br>
+&gt; Replace all occurrences of ALLOC_MEM_FLAGS_* by<br>
+&gt; KFD_IOC_ALLOC_MEM_FLAGS_* to solve the problem.<br>
+&gt;<br>
+&gt; Change-Id: Iced6ed3698167296c97b14e7e4569883859d619c<br>
+&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c&nbsp;&nbsp;&nbs=
+p; |&nbsp; 9 &#43;&#43;&#43;--<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c&nbsp; | 38 &#=
+43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--------<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; | 13 &#43;&#43;&#43;&#43;---<br>
+&gt;&nbsp;&nbsp; .../gpu/drm/amd/include/kgd_kfd_interface.h&nbsp;&nbsp; | =
+21 ----------<br>
+&gt;&nbsp;&nbsp; 4 files changed, 36 insertions(&#43;), 45 deletions(-)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/=
+drm/amd/amdgpu/amdgpu_amdkfd.c<br>
+&gt; index 726c91ab6761..affaa0d4b636 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
+&gt; @@ -29,6 &#43;29,7 @@<br>
+&gt;&nbsp;&nbsp; #include &lt;linux/module.h&gt;<br>
+&gt;&nbsp;&nbsp; #include &lt;linux/dma-buf.h&gt;<br>
+&gt;&nbsp;&nbsp; #include &quot;amdgpu_xgmi.h&quot;<br>
+&gt; &#43;#include &lt;uapi/linux/kfd_ioctl.h&gt;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; static const unsigned int compute_vmid_bitmap =3D 0xFF00;<=
+br>
+&gt;&nbsp;&nbsp; <br>
+&gt; @@ -500,11 &#43;501,13 @@ int amdgpu_amdkfd_get_dmabuf_info(struct kgd=
+_dev *kgd, int dma_buf_fd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_get_metadata(bo, metadata_buffer, buffe=
+r_size,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; metadata_size, &amp;metadata_flags);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (flags) {<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; *flags =3D (bo-&gt;preferred_domains &amp; AMDGPU_GEM_DOMAIN_VRAM) ?<br=
+>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALLOC_MEM_FLAGS_VRAM : =
+ALLOC_MEM_FLAGS_GTT;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (bo-&gt;preferred_domains &amp; AMDGPU_GEM_DOMAIN_VRAM)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *flags =3D KFD_IOC_=
+ALLOC_MEM_FLAGS_VRAM;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; else<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *flags =3D KFD_IOC_=
+ALLOC_MEM_FLAGS_GTT;<br>
+<br>
+You're sneaking in some personal preference (changing the trinary (cond <br=
+>
+? a : b) operator to if-else) with the renaming change. Personally I <br>
+find the trinary operator just as readable and more concise.<br>
+<br>
+<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (bo-&gt;flags &amp; AMDGPU_GEM_CREATE_CPU_ACCESS_REQ=
+UIRED)<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *flags |=3D ALLOC_MEM_F=
+LAGS_PUBLIC;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *flags |=3D KFD_IOC=
+_ALLOC_MEM_FLAGS_PUBLIC;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; out_put:<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/driver=
+s/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
+&gt; index e4481caed648..c81fe7011e88 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
+&gt; @@ -29,6 &#43;29,7 @@<br>
+&gt;&nbsp;&nbsp; #include &quot;amdgpu_vm.h&quot;<br>
+&gt;&nbsp;&nbsp; #include &quot;amdgpu_amdkfd.h&quot;<br>
+&gt;&nbsp;&nbsp; #include &quot;amdgpu_dma_buf.h&quot;<br>
+&gt; &#43;#include &lt;uapi/linux/kfd_ioctl.h&gt;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; /* BO flag to indicate a KFD userptr BO */<br>
+&gt;&nbsp;&nbsp; #define AMDGPU_AMDKFD_USERPTR_BO (1ULL &lt;&lt; 63)<br>
+&gt; @@ -400,18 &#43;401,18 @@ static int vm_update_pds(struct amdgpu_vm *v=
+m, struct amdgpu_sync *sync)<br>
+&gt;&nbsp;&nbsp; static uint64_t get_pte_flags(struct amdgpu_device *adev, =
+struct kgd_mem *mem)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *bo_ade=
+v =3D amdgpu_ttm_adev(mem-&gt;bo-&gt;tbo.bdev);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; bool coherent =3D mem-&gt;alloc_flags &amp; =
+ALLOC_MEM_FLAGS_COHERENT;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bool coherent =3D mem-&gt;alloc_flags &a=
+mp; KFD_IOC_ALLOC_MEM_FLAGS_COHERENT;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t mapping_flags;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mapping_flags =3D AMDGPU_VM_=
+PAGE_READABLE;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (mem-&gt;alloc_flags &amp; ALLOC_MEM_FLAG=
+S_WRITABLE)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (mem-&gt;alloc_flags &amp; KFD_IOC_AL=
+LOC_MEM_FLAGS_WRITABLE)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; mapping_flags |=3D AMDGPU_VM_PAGE_WRITEABLE;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (mem-&gt;alloc_flags &amp; ALLOC_MEM_FLAG=
+S_EXECUTABLE)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (mem-&gt;alloc_flags &amp; KFD_IOC_AL=
+LOC_MEM_FLAGS_EXECUTABLE)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; mapping_flags |=3D AMDGPU_VM_PAGE_EXECUTABLE;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type) =
+{<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_ARCTURUS:<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; if (mem-&gt;alloc_flags &amp; ALLOC_MEM_FLAGS_VRAM) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; if (mem-&gt;alloc_flags &amp; KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bo_=
+adev =3D=3D adev)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mapping_flags |=3D coherent ?<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp; AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;<br>
+&gt; @@ -1160,24 &#43;1161,24 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gp=
+u(<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Check on which domai=
+n to allocate BO<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (flags &amp; ALLOC_MEM_FLAGS_VRAM) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (flags &amp; KFD_IOC_ALLOC_MEM_FLAGS_=
+VRAM) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; domain =3D alloc_domain =3D AMDGPU_GEM_DOMAIN_VRAM;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; alloc_flags =3D AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;=
+<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; alloc_flags |=3D (flags &amp; ALLOC_MEM_FLAGS_PUBLIC) ?<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; alloc_flags |=3D (flags &amp; KFD_IOC_ALLOC_MEM_FLAGS_PUBLIC) ?<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_=
+GEM_CREATE_CPU_ACCESS_REQUIRED :<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_=
+GEM_CREATE_NO_CPU_ACCESS;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; } else if (flags &amp; ALLOC_MEM_FLAGS_GTT) =
+{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else if (flags &amp; KFD_IOC_ALLOC_MEM=
+_FLAGS_GTT) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; domain =3D alloc_domain =3D AMDGPU_GEM_DOMAIN_GTT;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; alloc_flags =3D 0;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; } else if (flags &amp; ALLOC_MEM_FLAGS_USERP=
+TR) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else if (flags &amp; KFD_IOC_ALLOC_MEM=
+_FLAGS_USERPTR) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; domain =3D AMDGPU_GEM_DOMAIN_GTT;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; alloc_domain =3D AMDGPU_GEM_DOMAIN_CPU;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; alloc_flags =3D 0;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (!offset || !*offset)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+-EINVAL;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; user_addr =3D untagged_addr(*offset);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; } else if (flags &amp; (ALLOC_MEM_FLAGS_DOOR=
+BELL |<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALLOC_MEM_FLAGS_MMIO_RE=
+MAP)) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else if (flags &amp; (KFD_IOC_ALLOC_ME=
+M_FLAGS_DOORBELL |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_IOC_ALLOC_MEM_F=
+LAGS_MMIO_REMAP)) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; domain =3D AMDGPU_GEM_DOMAIN_GTT;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; alloc_domain =3D AMDGPU_GEM_DOMAIN_CPU;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; bo_type =3D ttm_bo_type_sg;<br>
+&gt; @@ -1198,7 &#43;1199,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;(*mem)-&=
+gt;bo_va_list);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;(*mem)-&gt;l=
+ock);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; (*mem)-&gt;aql_queue =3D !!(flags &amp; ALLO=
+C_MEM_FLAGS_AQL_QUEUE_MEM);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; (*mem)-&gt;aql_queue =3D !!(flags &amp; =
+KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_MEM);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Workaround for AQL queue =
+wraparound bug. Map the same<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * memory twice. That m=
+eans we only actually allocate half<br>
+&gt; @@ -1652,6 &#43;1653,7 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct=
+ kgd_dev *kgd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_gem_object *obj;<=
+br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *bo;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vm *avm =3D (s=
+truct amdgpu_vm *)vm;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dma_buf-&gt;ops !=3D &am=
+p;amdgpu_dmabuf_ops)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; /* Can't handle non-graphics buffers */<br>
+&gt; @@ -1680,10 &#43;1682,16 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(stru=
+ct kgd_dev *kgd,<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;(*mem)-&=
+gt;bo_va_list);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;(*mem)-&gt;l=
+ock);<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; (*mem)-&gt;alloc_flags =3D<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ((bo-&gt;preferred_domains &amp; AMDGPU_GEM_DOMAIN_VRAM) ?<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; ALLOC_MEM_FLAGS_VRAM : ALLOC_MEM_FLAGS_GTT) |<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ALLOC_MEM_FLAGS_WRITABLE | ALLOC_MEM_FLAGS_EXECUTABLE;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; flags =3D KFD_IOC_ALLOC_MEM_FLAGS_WRITAB=
+LE<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; | KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (bo-&gt;preferred_domains &amp; AMDGP=
+U_GEM_DOMAIN_VRAM)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; flags |=3D KFD_IOC_ALLOC_MEM_FLAGS_VRAM;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; flags |=3D KFD_IOC_ALLOC_MEM_FLAGS_GTT;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; (*mem)-&gt;alloc_flags =3D flags;<br>
+<br>
+Same as above. The original code was only 4 lines and a single <br>
+statement. Your code is 8 lines, four statements, plus an extra local <br>
+variable. I don't see how this is an improvement.<br>
+<br>
+Regards,<br>
+&nbsp;&nbsp; Felix<br>
+<br>
+<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*mem)-&gt;bo =3D amdgpu_bo_=
+ref(bo);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*mem)-&gt;va =3D va;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_process.c<br>
+&gt; index 22abdbc6dfd7..1c7bfc842f06 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
+&gt; @@ -327,10 &#43;327,10 @@ static int kfd_process_alloc_gpuvm(struct kf=
+d_process_device *pdd,<br>
+&gt;&nbsp;&nbsp; static int kfd_process_device_reserve_ib_mem(struct kfd_pr=
+ocess_device *pdd)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct qcm_process_device *q=
+pd =3D &amp;pdd-&gt;qpd;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags =3D ALLOC_MEM_FLAGS_GTT |<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALLOC_MEM_FLAGS_N=
+O_SUBSTITUTE |<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALLOC_MEM_FLAGS_W=
+RITABLE |<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALLOC_MEM_FLAGS_E=
+XECUTABLE;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags =3D KFD_IOC_ALLOC_MEM_FLA=
+GS_GTT |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_IOC_ALLOC_MEM_F=
+LAGS_NO_SUBSTITUTE |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_IOC_ALLOC_MEM_F=
+LAGS_WRITABLE |<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_IOC_ALLOC_MEM_F=
+LAGS_EXECUTABLE;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *kaddr;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; @@ -692,8 &#43;692,9 @@ static int kfd_process_device_init_cwsr_dgpu(s=
+truct kfd_process_device *pdd)<br>
+&gt;&nbsp;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_dev *dev =3D pdd-=
+&gt;dev;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct qcm_process_device *q=
+pd =3D &amp;pdd-&gt;qpd;<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags =3D ALLOC_MEM_FLAGS_GTT |<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; ALLOC_MEM_FLAGS_NO_SUBSTITUTE | ALLOC_MEM_FLAGS_EXECUTABLE;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags =3D KFD_IOC_ALLOC_MEM_FLA=
+GS_GTT<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | KFD_IOC_ALLOC_MEM=
+_FLAGS_NO_SUBSTITUTE<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | KFD_IOC_ALLOC_MEM=
+_FLAGS_EXECUTABLE;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *kaddr;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers=
+/gpu/drm/amd/include/kgd_kfd_interface.h<br>
+&gt; index 0cee79d56075..a3c238c39ef5 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h<br>
+&gt; @@ -167,27 &#43;167,6 @@ struct tile_config {<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; #define KFD_MAX_NUM_OF_QUEUES_PER_DEVICE_DEFAULT 4096<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; -/*<br>
+&gt; - * Allocation flag domains<br>
+&gt; - * NOTE: This must match the corresponding definitions in kfd_ioctl.h=
+.<br>
+&gt; - */<br>
+&gt; -#define ALLOC_MEM_FLAGS_VRAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; (1 &lt;&lt; 0)<br>
+&gt; -#define ALLOC_MEM_FLAGS_GTT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; (1 &lt;&lt; 1)<br>
+&gt; -#define ALLOC_MEM_FLAGS_USERPTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 2)<br>
+&gt; -#define ALLOC_MEM_FLAGS_DOORBELL&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; =
+3)<br>
+&gt; -#define ALLOC_MEM_FLAGS_MMIO_REMAP&nbsp;&nbsp; (1 &lt;&lt; 4)<br>
+&gt; -<br>
+&gt; -/*<br>
+&gt; - * Allocation flags attributes/access options.<br>
+&gt; - * NOTE: This must match the corresponding definitions in kfd_ioctl.h=
+.<br>
+&gt; - */<br>
+&gt; -#define ALLOC_MEM_FLAGS_WRITABLE&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; =
+31)<br>
+&gt; -#define ALLOC_MEM_FLAGS_EXECUTABLE&nbsp;&nbsp; (1 &lt;&lt; 30)<br>
+&gt; -#define ALLOC_MEM_FLAGS_PUBLIC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 29)<br>
+&gt; -#define ALLOC_MEM_FLAGS_NO_SUBSTITUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; (1 &lt;&lt; 28) /* TODO */<br>
+&gt; -#define ALLOC_MEM_FLAGS_AQL_QUEUE_MEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; (1 &lt;&lt; 27)<br>
+&gt; -#define ALLOC_MEM_FLAGS_COHERENT&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; =
+26) /* For GFXv9 or later */<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp; /**<br>
+&gt;&nbsp;&nbsp;&nbsp; * struct kfd2kgd_calls<br>
+&gt;&nbsp;&nbsp;&nbsp; *<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_CH2PR12MB3926C6062226E00D4626CC43F0E20CH2PR12MB3926namp_--
+
+--===============0937963505==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0937963505==--
