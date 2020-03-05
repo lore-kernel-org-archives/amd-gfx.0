@@ -4,101 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7A61C3F2CD
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 13:39:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3420AC3F2CD
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 14:08:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 714B32073D
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 13:39:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 025C9207FD
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 14:08:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1zFnP5Rg"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 714B32073D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fg+Dn4vg"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 025C9207FD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4430C89EAC;
-	Thu,  5 Mar 2020 13:39:10 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2049.outbound.protection.outlook.com [40.107.93.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 346E189EAC
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2020 13:39:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=joZsBiKERjKLe6iQNTvnY3+HSYkyMoQ7ziYnfqG6sNIsvZGcRH2IJGUXCz9GOINxRy8V0jmbIYPJEqXYXMsV9pDs/ka/M5oalLLmmOil7aDUatmg6+vRKsJGvRg0YjCjxIIEljGVziKS3F3a5Fu9AHd6nR7XCYoZyzszrBVFlUJtAZjEjzF3396AjxCrW0Qtd1uAO+YdzjFWYXe5BW9yGrqm/u+Rt+fkbqmP1M6SpA3k95hpKQ6LJxufGIFEBGdRgfS3dzKF/AyFhSrhs5bpArwETLzxKIC0hyKJBj7A5VlwIIb0qDjl5EHO1Dt/R30XFRgbLJd0A7MTJE8MmIABVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YIlbXkz9r33QdNIpnUNsFZB0IRxVr9XOzb5RF05lbHo=;
- b=BWJs5IVmb9k7XVrmgQz8UpDnrKPbY/sp50nyOHFcQho4eJxA5kQzREX1QW9+BqsOAHW0eqnCbsUN2siFmtkrfCoOjgQvaj0/dewO4nUPsxB3MY4YoTCmUXDRiiNqAR2IWdxedQoZo5zI/77rJppUdddN28k5bde8daMWXPs9Zvihm+Mk5wFN2llf2E98gQZoGvXI98a9audWZlswzaTaS3iKYvRZxFFnInIP2DTj7oIw/4PfHxen/6SejJwKylSn8abp+73bSGl47DHDxr/HsF3iVv/LyHA1pZtpC9f67Wv4f/5xQqj3zXytV0AO5uw+cmo494FRpTVuEaJytAePOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YIlbXkz9r33QdNIpnUNsFZB0IRxVr9XOzb5RF05lbHo=;
- b=1zFnP5Rgnp7ybo+4BMIBmNwZeNvOC5fDUVT+EoJQIDoL4jAoUhEK4qY2EiErPBkT/yPDekebaowV/iY6L7+T6de2kSXUonTu+Aqj/elmVpyC+LCw0B72hLFyMCMDkn2L+KsnOBCiC7/2hi111LEwu3neHkH8crJ63hPeMcUUPww=
-Received: from DM6PR12MB3931.namprd12.prod.outlook.com (2603:10b6:5:1cb::12)
- by DM6PR12MB3081.namprd12.prod.outlook.com (2603:10b6:5:38::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14; Thu, 5 Mar
- 2020 13:39:07 +0000
-Received: from DM6PR12MB3931.namprd12.prod.outlook.com
- ([fe80::c51d:4e6b:f0f1:b7a3]) by DM6PR12MB3931.namprd12.prod.outlook.com
- ([fe80::c51d:4e6b:f0f1:b7a3%7]) with mapi id 15.20.2772.019; Thu, 5 Mar 2020
- 13:39:06 +0000
-From: "Liu, Monk" <Monk.Liu@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [enable VCN2.0 for NV12 SRIOV 2/6] drm/amdgpu: disable jpeg block
- for SRIOV
-Thread-Topic: [enable VCN2.0 for NV12 SRIOV 2/6] drm/amdgpu: disable jpeg
- block for SRIOV
-Thread-Index: AQHV8vKlExVKHzDU60SHkxbu2XRac6g6AKQAgAAASDA=
-Date: Thu, 5 Mar 2020 13:39:06 +0000
-Message-ID: <DM6PR12MB3931DC79623D336FE09770BE84E20@DM6PR12MB3931.namprd12.prod.outlook.com>
-References: <1583415187-16594-1-git-send-email-Monk.Liu@amd.com>
- <1583415187-16594-2-git-send-email-Monk.Liu@amd.com>
- <32d7916b-c783-4762-b1ad-5627011ba6b4@gmail.com>
-In-Reply-To: <32d7916b-c783-4762-b1ad-5627011ba6b4@gmail.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Monk.Liu@amd.com; 
-x-originating-ip: [180.167.199.185]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 85d54c04-a092-4583-c6a7-08d7c10a93cd
-x-ms-traffictypediagnostic: DM6PR12MB3081:|DM6PR12MB3081:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB308102743C7104022509710E84E20@DM6PR12MB3081.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3968;
-x-forefront-prvs: 03333C607F
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(136003)(39860400002)(376002)(366004)(396003)(199004)(189003)(64756008)(6506007)(26005)(66446008)(76116006)(66946007)(110136005)(316002)(66476007)(66574012)(53546011)(7696005)(186003)(66556008)(52536014)(5660300002)(33656002)(2906002)(9686003)(55016002)(86362001)(478600001)(71200400001)(81156014)(81166006)(8936002)(8676002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3081;
- H:DM6PR12MB3931.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: b49UUdgUwhfKF6Q5vgh/X4OdaqhHk3zWWknaAdafr69wGjitpL3v21XB5sd2dV+UZ/mPXzDaJFy1hndDATuaopH5hP0Vl5EqzCuSBShdnrwIt3Z6kbVoNrXFo3l3JT7Yty6WiLNukxQOBw2tUm8DxyiIp6ku/RvOYhQ1IQg3l7oaVAp4jxn0Xoouz7zBySY2DdNgKYqDNQ0o1rmHmvKXZjZft7GWrbsHNTXxhUzy6e/8UACm6VRAv6UfEs0AQfGMyIDT6nlCu2GlI4Qn+pyYjPZYCBfNez9hectEv+10U1R0mDDS0DPnqdRzxO6kgM+3yHRVlrwWvhlR3H7Xtcbbkbw8eRv4sNMUxqzZIjzgFJ89N5HGRZsan0nK2BpMkIMkzzYFlminvgtOzsQt8KUj9eWaCqU7dHQQGu8OYWLPLNIXL0uT3aaWyNidKQrLF3xr
-x-ms-exchange-antispam-messagedata: CGsioXtlTQTtn2orAPqCVzgI19oRZmVCWamkm6DnzcXQ92/96YSeJZ1JYlEhz4gvK3zewLY+njq/RgHeNN5qT3yRHK1fYEKcawYHr9txa2O1kFaqu+mBnSxcy+q22v/iV1Xl278ESj3ADGwEEtFbVQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD066EBC9;
+	Thu,  5 Mar 2020 14:08:01 +0000 (UTC)
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [205.139.110.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA09C6EBC8
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2020 14:07:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1583417278;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=amwAeANA2kWzuZxMjerD2BSg8DaGPvp8qz0/0TVDee8=;
+ b=fg+Dn4vgOVkR/+tottX24YYCXhSiz8TcIefv7LxodAedugisX6fzQ1gaIme1u+314S2F4t
+ 3ZEbqVBW5+Io4nOO1qu+NWfgLwLvtjHXkOplcKBltdWdpKUcdCLGA7pwpix1+HPYeSpWHy
+ hQzUP59KmpeYYLQ7b9Nf/sBdfZkOvSs=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-412-3WvwQVYIN5mvzNRN1w4oEQ-1; Thu, 05 Mar 2020 09:07:55 -0500
+X-MC-Unique: 3WvwQVYIN5mvzNRN1w4oEQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+ [10.5.11.16])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 722C8800D54;
+ Thu,  5 Mar 2020 14:07:52 +0000 (UTC)
+Received: from sirius.home.kraxel.org (ovpn-116-150.ams2.redhat.com
+ [10.36.116.150])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 6D0C318213;
+ Thu,  5 Mar 2020 14:07:50 +0000 (UTC)
+Received: by sirius.home.kraxel.org (Postfix, from userid 1000)
+ id 39E6F17449; Thu,  5 Mar 2020 15:07:49 +0100 (CET)
+Date: Thu, 5 Mar 2020 15:07:49 +0100
+From: Gerd Hoffmann <kraxel@redhat.com>
+To: Nirmoy Das <nirmoy.aiemd@gmail.com>
+Subject: Re: [PATCH 6/8] drm/vram-helper: don't use ttm bo->offset v3
+Message-ID: <20200305140749.5oggp4gh6hozsh7j@sirius.home.kraxel.org>
+References: <20200305132910.17515-1-nirmoy.das@amd.com>
+ <20200305132910.17515-7-nirmoy.das@amd.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 85d54c04-a092-4583-c6a7-08d7c10a93cd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Mar 2020 13:39:06.7775 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: YI2AkC3COFrbTf8eJrRzQWyLmjxoWC+RjyAlaxRNafQ/mNt25NnXGqoisXULB6Tx
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3081
+In-Reply-To: <20200305132910.17515-7-nirmoy.das@amd.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,35 +75,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: David1.Zhou@amd.com, thellstrom@vmware.com, amd-gfx@lists.freedesktop.org,
+ airlied@linux.ie, kenny.ho@amd.com, brian.welty@intel.com,
+ maarten.lankhorst@linux.intel.com, dri-devel@lists.freedesktop.org,
+ nirmoy.das@amd.com, linux-graphics-maintainer@vmware.com, bskeggs@redhat.com,
+ daniel@ffwll.ch, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ alexander.deucher@amd.com, sean@poorly.run, christian.koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-VGhpcyBpcyBub3Qgc3VwcG9ydGVkIGJ5IE1NU0NIIEZXLi4uIA0KDQpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fDQpNb25rIExpdXxHUFUgVmlydHVhbGl6YXRpb24gVGVhbSB8
-QU1EDQoNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IENocmlzdGlhbiBLw7Zu
-aWcgPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiANClNlbnQ6IFRodXJzZGF5LCBN
-YXJjaCA1LCAyMDIwIDk6MzggUE0NClRvOiBMaXUsIE1vbmsgPE1vbmsuTGl1QGFtZC5jb20+OyBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KU3ViamVjdDogUmU6IFtlbmFibGUgVkNOMi4w
-IGZvciBOVjEyIFNSSU9WIDIvNl0gZHJtL2FtZGdwdTogZGlzYWJsZSBqcGVnIGJsb2NrIGZvciBT
-UklPVg0KDQpBIGNvbW1pdCBtZXNzYWdlIGV4cGxhaW5pbmcgd2h5IHdlIGRpc2FibGUgaXQgYW5k
-IGlmIGl0IGNvdWxkIGJlIGVuYWJsZWQgYWdhaW4gb3IgaWYgdGhpcyBpcyBwZXJtYW5lbnQgd291
-bGQgYmUgbmljZSB0byBoYXZlLg0KDQpDaHJpc3RpYW4uDQoNCkFtIDA1LjAzLjIwIHVtIDE0OjMz
-IHNjaHJpZWIgTW9uayBMaXU6DQo+IFNpZ25lZC1vZmYtYnk6IE1vbmsgTGl1IDxNb25rLkxpdUBh
-bWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9udi5jIHwgMyAr
-Ky0NCj4gICAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pDQo+
-DQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9udi5jIA0KPiBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L252LmMgaW5kZXggMmQxYmViZC4uMDMzY2JiYyAxMDA2
-NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbnYuYw0KPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9udi5jDQo+IEBAIC01MTYsNyArNTE2LDggQEAgaW50IG52
-X3NldF9pcF9ibG9ja3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpDQo+ICAgCQkgICAgIWFt
-ZGdwdV9zcmlvdl92ZihhZGV2KSkNCj4gICAJCQlhbWRncHVfZGV2aWNlX2lwX2Jsb2NrX2FkZChh
-ZGV2LCAmc211X3YxMV8wX2lwX2Jsb2NrKTsNCj4gICAJCWFtZGdwdV9kZXZpY2VfaXBfYmxvY2tf
-YWRkKGFkZXYsICZ2Y25fdjJfMF9pcF9ibG9jayk7DQo+IC0JCWFtZGdwdV9kZXZpY2VfaXBfYmxv
-Y2tfYWRkKGFkZXYsICZqcGVnX3YyXzBfaXBfYmxvY2spOw0KPiArCQlpZiAoIWFtZGdwdV9zcmlv
-dl92ZihhZGV2KSkNCj4gKwkJCWFtZGdwdV9kZXZpY2VfaXBfYmxvY2tfYWRkKGFkZXYsICZqcGVn
-X3YyXzBfaXBfYmxvY2spOw0KPiAgIAkJYnJlYWs7DQo+ICAgCWRlZmF1bHQ6DQo+ICAgCQlyZXR1
-cm4gLUVJTlZBTDsNCg0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Thu, Mar 05, 2020 at 02:29:08PM +0100, Nirmoy Das wrote:
+> Calculate GEM VRAM bo's offset within vram-helper without depending on
+> bo->offset.
+> 
+> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+> Reviewed-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+> ---
+>  drivers/gpu/drm/drm_gem_vram_helper.c | 9 ++++++++-
+>  1 file changed, 8 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/drm_gem_vram_helper.c b/drivers/gpu/drm/drm_gem_vram_helper.c
+> index 92a11bb42365..2749c2d25ac4 100644
+> --- a/drivers/gpu/drm/drm_gem_vram_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_vram_helper.c
+> @@ -198,6 +198,13 @@ u64 drm_gem_vram_mmap_offset(struct drm_gem_vram_object *gbo)
+>  }
+>  EXPORT_SYMBOL(drm_gem_vram_mmap_offset);
+> 
+> +static s64 drm_gem_vram_pg_offset(struct drm_gem_vram_object *gbo)
+> +{
+> +	if (WARN_ON_ONCE(!gbo->bo.mem.mm_node))
+> +		return 0;
+
+returns 0 on error.
+
+> +	return gbo->bo.mem.start;
+> +}
+> +
+>  /**
+>   * drm_gem_vram_offset() - \
+>  	Returns a GEM VRAM object's offset in video memory
+> @@ -214,7 +221,7 @@ s64 drm_gem_vram_offset(struct drm_gem_vram_object *gbo)
+>  {
+>  	if (WARN_ON_ONCE(!gbo->pin_count))
+>  		return (s64)-ENODEV;
+
+returns -errno on error.
+
+> -	return gbo->bo.offset;
+> +	return drm_gem_vram_pg_offset(gbo) << PAGE_SHIFT;
+
+And given that one calls the other behavior on error should better be
+consistent ...
+
+cheers,
+  Gerd
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
