@@ -2,107 +2,108 @@ Return-Path: <SRS0=Sanp=4W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=0.9 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C2B40C3F2D1
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 20:55:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A7B5BC3F2D1
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 21:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8A97320705
-	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 20:55:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5AACE207FD
+	for <amd-gfx@archiver.kernel.org>; Thu,  5 Mar 2020 21:09:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="aRf51PfZ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8A97320705
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Q0lhI7qT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5AACE207FD
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04AEC6EC12;
-	Thu,  5 Mar 2020 20:55:53 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770058.outbound.protection.outlook.com [40.107.77.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 782E26EC12
- for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2020 20:55:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3F346E3A8;
+	Thu,  5 Mar 2020 21:09:56 +0000 (UTC)
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr680069.outbound.protection.outlook.com [40.107.68.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1EEE56E3A8
+ for <amd-gfx@lists.freedesktop.org>; Thu,  5 Mar 2020 21:09:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GwepBx6v1ZzZfH2ugXKFLNokmwmoU9Om0linjaFLvDYPhw6gZV/682h4c3fqkbd5CbhCb4eHYubDhcU4ozVWga04D1qstuDZzvVALQ2As0v7C37gkKJurVyjqW+WPXmi92yGmbqBAAg0ovLnZ6FNFf+dYOBbEQ1CR8xObHtIKcNDghAiSd6YPf+a/V9j/1r/OFvrztVUX4lNTj2bOuDhCVN3KLH1jAE4WEjzKF0BbhEOe1Qj8Cs96iDusXh6qjCw25pj2nqXWB7GBKzzw6kXaWKUSkRhRhnkings0sVsuM/EKtT20YbM4kqq98muApaZmLyPx0OSOb1lYDeMmDTxEQ==
+ b=MpuneHAghee6fytKuoYmoyts0m9VNF9Hm1Cb4m/QVPrrqDJTQaZf+xxHT3IatLIM+ZxPtWNTw4khiTZFfNQOOKMykqyrRPK3QRFvkAeMdwkoYlighnP0171VMZ/hAL38HyX9mfhGuFTItMIo4QKDwIXOWHaOo4f5q8PE66jTvcgqJy9f132cRTefZZQQNCiseO1NuZHH1BBrr5AoqLXhDlgigBv6kojMZrPbH9subX8QFW6VgbrjULEOZ870RtVo+H+VXtEgB3PmQMGzrXoEXjIZ11xSbW3gDNhFgiw+i197x26JBtmpCH2P9BwAqvEJVTTbhm/TDwgj7jNzRbUVoA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xq9CpyZWugOUIh0ijGpR+C+G3L7D6Q/kPio2P9Y5gnw=;
- b=RRxATuCTi5Vqob6Eb/66XQLbSRlkNZa4EbsE7wP8vOH22illMEVqzjPnq7/NaW3+y9ROiBBN9C5AM37UMQ5HW2nAlYuc5ILHsN6kxdqiq5dB15g1mLYNJ2iUOsJ3dpqTfi+w6aDwozQ6Kcfx7Ts9slGwLJ+6q3629pI7WkhOTce/irZuHIMZbvLTbi2BlR8kfFE+CHOrkUGz5dD29NpR52k7ebjV/y+MxO87Ct36qXdExXmuLNQr94QioKdxx3Z7HokDyI4uYZwN0yltlbn/4BWiRhK7WSk1yS0EsXC7FpFHVIcNzHihO7jnKB0aq3HjkQWP+cfjBqqUjckld/wAAQ==
+ bh=BmmO4v63fsjxfKHlAmpia38F62Tph0X6+naAw/D4ah0=;
+ b=PdjkP2v8bEIg6oScYBfVoq6543x+ZmlMZ1433tSpPKM3YixjlDGFhx03v/ynD0xWbZ9CEiZ2VkSc997xooUNPSi65foODa5zLhW9DpEXcK1YvUsUaPiTcDU0FQpEsUaQ1QxDvr4U77eoFMVO5K7QLrdjJUBpj1ZFd1EvSDuzWgAguknMpC8J20QQMZZYby2bs96qEKiDrwo8Cg9znruxtk14dtFt2z5QIXylQVEpdjCtfC0antctP/1nv9Z/JAe6yiHYFWQXaqf6ug/72AsmGwKRSddOxzKbn9XjcZhzF+sXtkMRSALaGSS4J4N/80duox2QJDyxbcYW0hI2VH/VpA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xq9CpyZWugOUIh0ijGpR+C+G3L7D6Q/kPio2P9Y5gnw=;
- b=aRf51PfZuJkmtnSPaBhPL4P3YX7twpX8UYfg+xTEClkqTi1uwsHEVyGKpsT+inhTJZZXBo6R8/MFmrhet4ovcpGazH1pG79HSpmrNc+MwLYVDDWq1fv4suGUMeJXpzsmihKokPtRa59FOBKtSm5SQCFdEiS8Cy3nTEKXY6go6+k=
-Received: from CH2PR12MB3926.namprd12.prod.outlook.com (2603:10b6:610:27::30)
- by CH2PR12MB4325.namprd12.prod.outlook.com (2603:10b6:610:a9::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15; Thu, 5 Mar
- 2020 20:55:49 +0000
-Received: from CH2PR12MB3926.namprd12.prod.outlook.com
- ([fe80::8c06:4379:c755:dfe4]) by CH2PR12MB3926.namprd12.prod.outlook.com
- ([fe80::8c06:4379:c755:dfe4%4]) with mapi id 15.20.2772.019; Thu, 5 Mar 2020
- 20:55:49 +0000
-From: "Zhao, Yong" <Yong.Zhao@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdkfd: Consolidate duplicated bo alloc flags
-Thread-Topic: [PATCH] drm/amdkfd: Consolidate duplicated bo alloc flags
-Thread-Index: AQHV8mKNyMTOTpwoHUyzlVgZZhg7U6g6ekOAgAAAS7E=
-Date: Thu, 5 Mar 2020 20:55:49 +0000
-Message-ID: <CH2PR12MB3926C6062226E00D4626CC43F0E20@CH2PR12MB3926.namprd12.prod.outlook.com>
-References: <20200304202145.22021-1-Yong.Zhao@amd.com>,
- <48c5b228-99e3-2041-92c8-efc87de0586f@amd.com>
-In-Reply-To: <48c5b228-99e3-2041-92c8-efc87de0586f@amd.com>
-Accept-Language: en-US
+ bh=BmmO4v63fsjxfKHlAmpia38F62Tph0X6+naAw/D4ah0=;
+ b=Q0lhI7qTykZtIIYSbJ1yqMr1O5pDjaJFOKvkL1yrfqcixSj20/EloqQMOOjqjbCDFXBJ+bvxrNh3D/pqLyw3VMliv0JSDMs0iacMnrwZ9iSH+dKZ/opD39BeIyl8ymLY1OMvU9+CUF2bVBrQQ/beM3rPzZOKBrxyhPejMYiplbg=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Nirmoy.Das@amd.com; 
+Received: from DM5PR12MB2376.namprd12.prod.outlook.com (2603:10b6:4:b9::11) by
+ DM5PR12MB1209.namprd12.prod.outlook.com (2603:10b6:3:6f::12) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2793.16; Thu, 5 Mar 2020 21:09:53 +0000
+Received: from DM5PR12MB2376.namprd12.prod.outlook.com
+ ([fe80::ac12:6413:cd14:4904]) by DM5PR12MB2376.namprd12.prod.outlook.com
+ ([fe80::ac12:6413:cd14:4904%4]) with mapi id 15.20.2772.019; Thu, 5 Mar 2020
+ 21:09:53 +0000
+Subject: Re: [PATCH v6 1/1] drm/amdgpu: set compute queue priority at mqd_init
+To: Luben Tuikov <luben.tuikov@amd.com>, Nirmoy Das <nirmoy.aiemd@gmail.com>, 
+ amd-gfx@lists.freedesktop.org
+References: <20200303125039.53141-1-nirmoy.das@amd.com>
+ <2085216f-f82c-3d2e-8f91-b05c2cf76a50@amd.com>
+ <8a5a1348-79f7-f7a2-c686-df16726def9b@amd.com>
+ <96eb728e-e44a-0d95-0303-f24ec8620df2@amd.com>
+From: Nirmoy <nirmodas@amd.com>
+Message-ID: <f4cd66c7-6f7c-0049-27c8-5f70c1a4e999@amd.com>
+Date: Thu, 5 Mar 2020 22:13:18 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
+In-Reply-To: <96eb728e-e44a-0d95-0303-f24ec8620df2@amd.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-05T20:55:48.037Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Yong.Zhao@amd.com; 
-x-originating-ip: [99.252.169.159]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: b3afa003-9be9-4558-f5e2-08d7c14795f9
-x-ms-traffictypediagnostic: CH2PR12MB4325:|CH2PR12MB4325:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB432574AA11F80FA8C1E475D6F0E20@CH2PR12MB4325.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-forefront-prvs: 03333C607F
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(366004)(396003)(346002)(39860400002)(136003)(189003)(199004)(316002)(478600001)(110136005)(66446008)(6506007)(66556008)(66476007)(64756008)(81156014)(186003)(86362001)(81166006)(53546011)(2906002)(8676002)(8936002)(26005)(66946007)(33656002)(7696005)(9686003)(19627405001)(55016002)(76116006)(71200400001)(52536014)(5660300002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4325;
- H:CH2PR12MB3926.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 7G9okZQzyT8onYVMjJvlS6VngiQkQH/ZQgwFPyt8slGQwt7ooTcnyibO8LbGh1+hGa8sulgwaRvCWRsGOIcl+YQkHJrJYWBRQ2enrUdrero/Jibl41PDjVvLzFVPNMhIiu9uc0odMWJ+odzFUmVpJve5FDCdfFoiChseOrvgkZRrymWhWHsbX7af35sgPPlPwIkviQrRME5MKkJEeNFN6XnS1IDdHcMGaewovemv+Dts3PIK2v5ktx2uTuI4IZ8JteFedyJaOqFSpZ7YWiP0ButxqJ0rrjtRA5Gjqz+Ep2Il3Ut7SfN9fr04W+x2HjOsdazcscE8jswot5u2UmIRj6mv8hLNFIVsbzxj1WQN9hUFLZQCyjEzrjJOq7SPpwhqQksSyn6ILGITLS7kNkgXCETQ6Ji9uy75Mq2sRP8faqGAfO4XOls+DcRRWEovlDCQ
-x-ms-exchange-antispam-messagedata: Gsa3IKZLuuFljbI0fQrcfKmwEXP7O/n8s1ENQK/mUNrNObJ59ed1dDatj4sujliZU1U5RVIXsakqS1krmCeaVgFYqR5ml3VXq82teJpttd6rePDAVBNqPvaQJfRqShZkEA6l7J+towIA0pcQtHChdA==
+X-ClientProxiedBy: AM0PR02CA0003.eurprd02.prod.outlook.com
+ (2603:10a6:208:3e::16) To DM5PR12MB2376.namprd12.prod.outlook.com
+ (2603:10b6:4:b9::11)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2003:c5:8f2e:a500:1f22:cf19:9085:11a1]
+ (2003:c5:8f2e:a500:1f22:cf19:9085:11a1) by
+ AM0PR02CA0003.eurprd02.prod.outlook.com (2603:10a6:208:3e::16) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2793.11 via Frontend Transport; Thu, 5 Mar 2020 21:09:51 +0000
+X-Originating-IP: [2003:c5:8f2e:a500:1f22:cf19:9085:11a1]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: c794169b-1c0c-4906-5f48-08d7c1498c8b
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1209:|DM5PR12MB1209:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB1209ECA88078825B7D135E488BE20@DM5PR12MB1209.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Forefront-PRVS: 03333C607F
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(39860400002)(366004)(136003)(376002)(346002)(189003)(199004)(4326008)(8936002)(52116002)(110136005)(2906002)(33964004)(53546011)(6666004)(316002)(66946007)(36756003)(66476007)(5660300002)(6486002)(66556008)(81156014)(8676002)(81166006)(31696002)(21615005)(2616005)(31686004)(186003)(16526019)(478600001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1209;
+ H:DM5PR12MB2376.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 8IGRtBnezfht2W0e2/L81Ukc3VIZkE+329lG+ymXljWkp2CgkLbO/d1IDp9a8KrdKnDVWP8/wzkWSf643RHLuCtzqx7/vw32mgcsrpyti7vZg6OYHbKffLk2fPD5G/qHAvxAZPIWop3YsRNq7GBjXdX+ppml9Rzwl6H1DaSF8DNWt696AZ8k+R7ETVUfGCHPppf2s8pKm5nb8K/CXsP5xJFImybm3kwKkOoD1BPtNyVOaCJsST8D0RMjhuAl0fXXX1UqLdnPHGrzfJ11tUX19U7jKmaUrruiazZKo0js4maeb/DIsM6r5Ye1vYPn1E8kYQtPG/OKuVDVoPQiaIeB02WfRDLnyTuBCBQ/lC8bOxIXD9TR19jQTDmQiF3zYs8cyxd35/eY5lkvXYuXD72oRcr17fqkSu8El+p6eFIx9LA2h058L7/t2lmx0IqJuJ8exYZnovIujTo2BxMKxakVHTIi3Bj8QVF9enuwImZFDqTzn63rjlfkFUxU/A1qWs3BL9iu3EnjbH6fK5ygA+mb8Q==
+X-MS-Exchange-AntiSpam-MessageData: 50OJxJ+WOeUTIiMOrWjm/mUeCb6csE6+xhvf5uBryyrJn6CvhHQTkaBzuS7KYUaFbHim6Xg3HbB/zuwPy9rC6Ggg/keJsSrIxzXjZI3xDqoXQ0fIAC4LoX26S9WLPRBBnFfUHjmpHVWM9UapksBEPzSQ4zrvVslv9/Ax5mgcGUT1eRz2CqP6OkUmTOqNZq7y/jM8vDAikKS/NGrAWTufZw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b3afa003-9be9-4558-f5e2-08d7c14795f9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Mar 2020 20:55:49.7480 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 03Uc35FwE1kVdMfu+3uxgXs27Bud023VdDaTr1NN6AUlOL5I/fkpyuvZCdVFXmlB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4325
+X-MS-Exchange-CrossTenant-Network-Message-Id: c794169b-1c0c-4906-5f48-08d7c1498c8b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Mar 2020 21:09:53.3130 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TDy+x1649MxWmJ72X6cbZXrO0gaZ5qWIa2yx3741afzyjBbQxnY89ghw23Vf8qDb8wBco3JgeyQy1/Un5nrd3Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1209
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,716 +115,148 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0937963505=="
+Cc: alexander.deucher@amd.com, Ray.Huang@amd.com, nirmoy.das@amd.com,
+ christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============1840692970=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0937963505==
-Content-Language: en-US
+--===============1840692970==
 Content-Type: multipart/alternative;
-	boundary="_000_CH2PR12MB3926C6062226E00D4626CC43F0E20CH2PR12MB3926namp_"
+ boundary="------------58394B1AF8BA8565DEB681F5"
+Content-Language: en-US
 
---_000_CH2PR12MB3926C6062226E00D4626CC43F0E20CH2PR12MB3926namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Okay, I will change back to its original format.
-
-Yong
-
-________________________________
-From: Kuehling, Felix <Felix.Kuehling@amd.com>
-Sent: Thursday, March 5, 2020 3:49 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Zhao, Yo=
-ng <Yong.Zhao@amd.com>
-Subject: Re: [PATCH] drm/amdkfd: Consolidate duplicated bo alloc flags
-
-On 2020-03-04 3:21 p.m., Yong Zhao wrote:
-> ALLOC_MEM_FLAGS_* used are the same as the KFD_IOC_ALLOC_MEM_FLAGS_*,
-> but they are interweavedly used in kernel driver, resulting in bad
-> readability. For example, KFD_IOC_ALLOC_MEM_FLAGS_COHERENT is totally
-> not referenced in kernel, and it functions in the kernel through
-> ALLOC_MEM_FLAGS_COHERENT, causing unnecessary confusion.
->
-> Replace all occurrences of ALLOC_MEM_FLAGS_* by
-> KFD_IOC_ALLOC_MEM_FLAGS_* to solve the problem.
->
-> Change-Id: Iced6ed3698167296c97b14e7e4569883859d619c
-> Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    |  9 +++--
->   .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 38 +++++++++++--------
->   drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 13 ++++---
->   .../gpu/drm/amd/include/kgd_kfd_interface.h   | 21 ----------
->   4 files changed, 36 insertions(+), 45 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_amdkfd.c
-> index 726c91ab6761..affaa0d4b636 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-> @@ -29,6 +29,7 @@
->   #include <linux/module.h>
->   #include <linux/dma-buf.h>
->   #include "amdgpu_xgmi.h"
-> +#include <uapi/linux/kfd_ioctl.h>
->
->   static const unsigned int compute_vmid_bitmap =3D 0xFF00;
->
-> @@ -500,11 +501,13 @@ int amdgpu_amdkfd_get_dmabuf_info(struct kgd_dev *k=
-gd, int dma_buf_fd,
->                r =3D amdgpu_bo_get_metadata(bo, metadata_buffer, buffer_s=
-ize,
->                                           metadata_size, &metadata_flags)=
-;
->        if (flags) {
-> -             *flags =3D (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)=
- ?
-> -                     ALLOC_MEM_FLAGS_VRAM : ALLOC_MEM_FLAGS_GTT;
-> +             if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)
-> +                     *flags =3D KFD_IOC_ALLOC_MEM_FLAGS_VRAM;
-> +             else
-> +                     *flags =3D KFD_IOC_ALLOC_MEM_FLAGS_GTT;
-
-You're sneaking in some personal preference (changing the trinary (cond
-? a : b) operator to if-else) with the renaming change. Personally I
-find the trinary operator just as readable and more concise.
+--------------58394B1AF8BA8565DEB681F5
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
+On 3/5/20 7:42 PM, Luben Tuikov wrote:
 >
->                if (bo->flags & AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED)
-> -                     *flags |=3D ALLOC_MEM_FLAGS_PUBLIC;
-> +                     *flags |=3D KFD_IOC_ALLOC_MEM_FLAGS_PUBLIC;
->        }
->
->   out_put:
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index e4481caed648..c81fe7011e88 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -29,6 +29,7 @@
->   #include "amdgpu_vm.h"
->   #include "amdgpu_amdkfd.h"
->   #include "amdgpu_dma_buf.h"
-> +#include <uapi/linux/kfd_ioctl.h>
->
->   /* BO flag to indicate a KFD userptr BO */
->   #define AMDGPU_AMDKFD_USERPTR_BO (1ULL << 63)
-> @@ -400,18 +401,18 @@ static int vm_update_pds(struct amdgpu_vm *vm, stru=
-ct amdgpu_sync *sync)
->   static uint64_t get_pte_flags(struct amdgpu_device *adev, struct kgd_me=
-m *mem)
->   {
->        struct amdgpu_device *bo_adev =3D amdgpu_ttm_adev(mem->bo->tbo.bde=
-v);
-> -     bool coherent =3D mem->alloc_flags & ALLOC_MEM_FLAGS_COHERENT;
-> +     bool coherent =3D mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_COHERE=
-NT;
->        uint32_t mapping_flags;
->
->        mapping_flags =3D AMDGPU_VM_PAGE_READABLE;
-> -     if (mem->alloc_flags & ALLOC_MEM_FLAGS_WRITABLE)
-> +     if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE)
->                mapping_flags |=3D AMDGPU_VM_PAGE_WRITEABLE;
-> -     if (mem->alloc_flags & ALLOC_MEM_FLAGS_EXECUTABLE)
-> +     if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE)
->                mapping_flags |=3D AMDGPU_VM_PAGE_EXECUTABLE;
->
->        switch (adev->asic_type) {
->        case CHIP_ARCTURUS:
-> -             if (mem->alloc_flags & ALLOC_MEM_FLAGS_VRAM) {
-> +             if (mem->alloc_flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
->                        if (bo_adev =3D=3D adev)
->                                mapping_flags |=3D coherent ?
->                                        AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTY=
-PE_RW;
-> @@ -1160,24 +1161,24 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
->        /*
->         * Check on which domain to allocate BO
->         */
-> -     if (flags & ALLOC_MEM_FLAGS_VRAM) {
-> +     if (flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
->                domain =3D alloc_domain =3D AMDGPU_GEM_DOMAIN_VRAM;
->                alloc_flags =3D AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;
-> -             alloc_flags |=3D (flags & ALLOC_MEM_FLAGS_PUBLIC) ?
-> +             alloc_flags |=3D (flags & KFD_IOC_ALLOC_MEM_FLAGS_PUBLIC) ?
->                        AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED :
->                        AMDGPU_GEM_CREATE_NO_CPU_ACCESS;
-> -     } else if (flags & ALLOC_MEM_FLAGS_GTT) {
-> +     } else if (flags & KFD_IOC_ALLOC_MEM_FLAGS_GTT) {
->                domain =3D alloc_domain =3D AMDGPU_GEM_DOMAIN_GTT;
->                alloc_flags =3D 0;
-> -     } else if (flags & ALLOC_MEM_FLAGS_USERPTR) {
-> +     } else if (flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) {
->                domain =3D AMDGPU_GEM_DOMAIN_GTT;
->                alloc_domain =3D AMDGPU_GEM_DOMAIN_CPU;
->                alloc_flags =3D 0;
->                if (!offset || !*offset)
->                        return -EINVAL;
->                user_addr =3D untagged_addr(*offset);
-> -     } else if (flags & (ALLOC_MEM_FLAGS_DOORBELL |
-> -                     ALLOC_MEM_FLAGS_MMIO_REMAP)) {
-> +     } else if (flags & (KFD_IOC_ALLOC_MEM_FLAGS_DOORBELL |
-> +                     KFD_IOC_ALLOC_MEM_FLAGS_MMIO_REMAP)) {
->                domain =3D AMDGPU_GEM_DOMAIN_GTT;
->                alloc_domain =3D AMDGPU_GEM_DOMAIN_CPU;
->                bo_type =3D ttm_bo_type_sg;
-> @@ -1198,7 +1199,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
->        }
->        INIT_LIST_HEAD(&(*mem)->bo_va_list);
->        mutex_init(&(*mem)->lock);
-> -     (*mem)->aql_queue =3D !!(flags & ALLOC_MEM_FLAGS_AQL_QUEUE_MEM);
-> +     (*mem)->aql_queue =3D !!(flags & KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_=
-MEM);
->
->        /* Workaround for AQL queue wraparound bug. Map the same
->         * memory twice. That means we only actually allocate half
-> @@ -1652,6 +1653,7 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct kgd_de=
-v *kgd,
->        struct drm_gem_object *obj;
->        struct amdgpu_bo *bo;
->        struct amdgpu_vm *avm =3D (struct amdgpu_vm *)vm;
-> +     uint32_t flags;
->
->        if (dma_buf->ops !=3D &amdgpu_dmabuf_ops)
->                /* Can't handle non-graphics buffers */
-> @@ -1680,10 +1682,16 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct kgd_=
-dev *kgd,
->
->        INIT_LIST_HEAD(&(*mem)->bo_va_list);
->        mutex_init(&(*mem)->lock);
-> -     (*mem)->alloc_flags =3D
-> -             ((bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) ?
-> -              ALLOC_MEM_FLAGS_VRAM : ALLOC_MEM_FLAGS_GTT) |
-> -             ALLOC_MEM_FLAGS_WRITABLE | ALLOC_MEM_FLAGS_EXECUTABLE;
-> +
-> +     flags =3D KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE
-> +             | KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;
-> +
-> +     if (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM)
-> +             flags |=3D KFD_IOC_ALLOC_MEM_FLAGS_VRAM;
-> +     else
-> +             flags |=3D KFD_IOC_ALLOC_MEM_FLAGS_GTT;
-> +
-> +     (*mem)->alloc_flags =3D flags;
+>> A quick search leads me amdgpu_sched_ioctl() which is using
+>> DRM_SCHED_PRIORITY_INVALID
+>>
+>> to indicate a invalid value from userspace. I don't know much about drm
+>> api to suggest any useful
+>>
+>> changes regarding this. But again this isn't in the scope of this patch
+>> series.
+> I'm not asking you to eliminate "DRM_SCHED_PRIORITY_INVALID".
+> Oh wait! You forgot what I suggested in a previous review on
+> how to fix enum drm_sched_priority, did you? :-D Search
+> for that email.
 
-Same as above. The original code was only 4 lines and a single
-statement. Your code is 8 lines, four statements, plus an extra local
-variable. I don't see how this is an improvement.
+Let me quote[1]:
+
+"
+
+Also consider changing to this:
+
+
+enum drm_sched_priority {
+         DRM_SCHED_PRIORITY_UNSET,
+--------DRM_SCHED_PRIORITY_INVALID,--------<--- remove
+         DRM_SCHED_PRIORITY_MIN,
+         DRM_SCHED_PRIORITY_LOW = DRM_SCHED_PRIORITY_MIN,
+         DRM_SCHED_PRIORITY_NORMAL,
+         DRM_SCHED_PRIORITY_HIGH_SW,
+         DRM_SCHED_PRIORITY_HIGH_HW,
+         DRM_SCHED_PRIORITY_KERNEL,
+         DRM_SCHED_PRIORITY_MAX,
+};
+
+We should never have an "invalid priority", just ignored priority. :-)
+Second, having 0 as UNSET gives you easy priority when you set
+map[0] = normal_priority, as memory usually comes memset to 0.
+IOW, you'd not need to check against UNSET, and simply use
+the default [0] which you'd set to normal priority.
+
+"
+
+I guess understood it wrong.
+
+
+[1]https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg45621.html 
+<https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg45621.html>
+
 
 Regards,
-   Felix
+
+Nirmoy
 
 
->
->        (*mem)->bo =3D amdgpu_bo_ref(bo);
->        (*mem)->va =3D va;
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/a=
-md/amdkfd/kfd_process.c
-> index 22abdbc6dfd7..1c7bfc842f06 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -327,10 +327,10 @@ static int kfd_process_alloc_gpuvm(struct kfd_proce=
-ss_device *pdd,
->   static int kfd_process_device_reserve_ib_mem(struct kfd_process_device =
-*pdd)
->   {
->        struct qcm_process_device *qpd =3D &pdd->qpd;
-> -     uint32_t flags =3D ALLOC_MEM_FLAGS_GTT |
-> -                      ALLOC_MEM_FLAGS_NO_SUBSTITUTE |
-> -                      ALLOC_MEM_FLAGS_WRITABLE |
-> -                      ALLOC_MEM_FLAGS_EXECUTABLE;
-> +     uint32_t flags =3D KFD_IOC_ALLOC_MEM_FLAGS_GTT |
-> +                     KFD_IOC_ALLOC_MEM_FLAGS_NO_SUBSTITUTE |
-> +                     KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
-> +                     KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;
->        void *kaddr;
->        int ret;
->
-> @@ -692,8 +692,9 @@ static int kfd_process_device_init_cwsr_dgpu(struct k=
-fd_process_device *pdd)
->   {
->        struct kfd_dev *dev =3D pdd->dev;
->        struct qcm_process_device *qpd =3D &pdd->qpd;
-> -     uint32_t flags =3D ALLOC_MEM_FLAGS_GTT |
-> -             ALLOC_MEM_FLAGS_NO_SUBSTITUTE | ALLOC_MEM_FLAGS_EXECUTABLE;
-> +     uint32_t flags =3D KFD_IOC_ALLOC_MEM_FLAGS_GTT
-> +                     | KFD_IOC_ALLOC_MEM_FLAGS_NO_SUBSTITUTE
-> +                     | KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;
->        void *kaddr;
->        int ret;
->
-> diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gp=
-u/drm/amd/include/kgd_kfd_interface.h
-> index 0cee79d56075..a3c238c39ef5 100644
-> --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-> +++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-> @@ -167,27 +167,6 @@ struct tile_config {
->
->   #define KFD_MAX_NUM_OF_QUEUES_PER_DEVICE_DEFAULT 4096
->
-> -/*
-> - * Allocation flag domains
-> - * NOTE: This must match the corresponding definitions in kfd_ioctl.h.
-> - */
-> -#define ALLOC_MEM_FLAGS_VRAM         (1 << 0)
-> -#define ALLOC_MEM_FLAGS_GTT          (1 << 1)
-> -#define ALLOC_MEM_FLAGS_USERPTR              (1 << 2)
-> -#define ALLOC_MEM_FLAGS_DOORBELL     (1 << 3)
-> -#define ALLOC_MEM_FLAGS_MMIO_REMAP   (1 << 4)
-> -
-> -/*
-> - * Allocation flags attributes/access options.
-> - * NOTE: This must match the corresponding definitions in kfd_ioctl.h.
-> - */
-> -#define ALLOC_MEM_FLAGS_WRITABLE     (1 << 31)
-> -#define ALLOC_MEM_FLAGS_EXECUTABLE   (1 << 30)
-> -#define ALLOC_MEM_FLAGS_PUBLIC               (1 << 29)
-> -#define ALLOC_MEM_FLAGS_NO_SUBSTITUTE        (1 << 28) /* TODO */
-> -#define ALLOC_MEM_FLAGS_AQL_QUEUE_MEM        (1 << 27)
-> -#define ALLOC_MEM_FLAGS_COHERENT     (1 << 26) /* For GFXv9 or later */
-> -
->   /**
->    * struct kfd2kgd_calls
->    *
+--------------58394B1AF8BA8565DEB681F5
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
---_000_CH2PR12MB3926C6062226E00D4626CC43F0E20CH2PR12MB3926namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 3/5/20 7:42 PM, Luben Tuikov wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:96eb728e-e44a-0d95-0303-f24ec8620df2@amd.com"><br>
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">
+A quick search leads me amdgpu_sched_ioctl() which is using 
+DRM_SCHED_PRIORITY_INVALID
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Okay, I will change back to its original format.&nbsp;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Yong</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-&nbsp;</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Kuehling, Felix &lt;F=
-elix.Kuehling@amd.com&gt;<br>
-<b>Sent:</b> Thursday, March 5, 2020 3:49 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Zhao, Yong &lt;Yong.Zhao@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdkfd: Consolidate duplicated bo alloc fla=
-gs</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On 2020-03-04 3:21 p.m., Yong Zhao wrote:<br>
-&gt; ALLOC_MEM_FLAGS_* used are the same as the KFD_IOC_ALLOC_MEM_FLAGS_*,<=
-br>
-&gt; but they are interweavedly used in kernel driver, resulting in bad<br>
-&gt; readability. For example, KFD_IOC_ALLOC_MEM_FLAGS_COHERENT is totally<=
-br>
-&gt; not referenced in kernel, and it functions in the kernel through<br>
-&gt; ALLOC_MEM_FLAGS_COHERENT, causing unnecessary confusion.<br>
-&gt;<br>
-&gt; Replace all occurrences of ALLOC_MEM_FLAGS_* by<br>
-&gt; KFD_IOC_ALLOC_MEM_FLAGS_* to solve the problem.<br>
-&gt;<br>
-&gt; Change-Id: Iced6ed3698167296c97b14e7e4569883859d619c<br>
-&gt; Signed-off-by: Yong Zhao &lt;Yong.Zhao@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c&nbsp;&nbsp;&nbs=
-p; |&nbsp; 9 &#43;&#43;&#43;--<br>
-&gt;&nbsp;&nbsp; .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c&nbsp; | 38 &#=
-43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;--------<br>
-&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_process.c&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; | 13 &#43;&#43;&#43;&#43;---<br>
-&gt;&nbsp;&nbsp; .../gpu/drm/amd/include/kgd_kfd_interface.h&nbsp;&nbsp; | =
-21 ----------<br>
-&gt;&nbsp;&nbsp; 4 files changed, 36 insertions(&#43;), 45 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/=
-drm/amd/amdgpu/amdgpu_amdkfd.c<br>
-&gt; index 726c91ab6761..affaa0d4b636 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c<br>
-&gt; @@ -29,6 &#43;29,7 @@<br>
-&gt;&nbsp;&nbsp; #include &lt;linux/module.h&gt;<br>
-&gt;&nbsp;&nbsp; #include &lt;linux/dma-buf.h&gt;<br>
-&gt;&nbsp;&nbsp; #include &quot;amdgpu_xgmi.h&quot;<br>
-&gt; &#43;#include &lt;uapi/linux/kfd_ioctl.h&gt;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; static const unsigned int compute_vmid_bitmap =3D 0xFF00;<=
-br>
-&gt;&nbsp;&nbsp; <br>
-&gt; @@ -500,11 &#43;501,13 @@ int amdgpu_amdkfd_get_dmabuf_info(struct kgd=
-_dev *kgd, int dma_buf_fd,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_get_metadata(bo, metadata_buffer, buffe=
-r_size,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; metadata_size, &amp;metadata_flags);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (flags) {<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; *flags =3D (bo-&gt;preferred_domains &amp; AMDGPU_GEM_DOMAIN_VRAM) ?<br=
->
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALLOC_MEM_FLAGS_VRAM : =
-ALLOC_MEM_FLAGS_GTT;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (bo-&gt;preferred_domains &amp; AMDGPU_GEM_DOMAIN_VRAM)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *flags =3D KFD_IOC_=
-ALLOC_MEM_FLAGS_VRAM;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; else<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *flags =3D KFD_IOC_=
-ALLOC_MEM_FLAGS_GTT;<br>
-<br>
-You're sneaking in some personal preference (changing the trinary (cond <br=
->
-? a : b) operator to if-else) with the renaming change. Personally I <br>
-find the trinary operator just as readable and more concise.<br>
-<br>
-<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (bo-&gt;flags &amp; AMDGPU_GEM_CREATE_CPU_ACCESS_REQ=
-UIRED)<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *flags |=3D ALLOC_MEM_F=
-LAGS_PUBLIC;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *flags |=3D KFD_IOC=
-_ALLOC_MEM_FLAGS_PUBLIC;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; out_put:<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/driver=
-s/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
-&gt; index e4481caed648..c81fe7011e88 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c<br>
-&gt; @@ -29,6 &#43;29,7 @@<br>
-&gt;&nbsp;&nbsp; #include &quot;amdgpu_vm.h&quot;<br>
-&gt;&nbsp;&nbsp; #include &quot;amdgpu_amdkfd.h&quot;<br>
-&gt;&nbsp;&nbsp; #include &quot;amdgpu_dma_buf.h&quot;<br>
-&gt; &#43;#include &lt;uapi/linux/kfd_ioctl.h&gt;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; /* BO flag to indicate a KFD userptr BO */<br>
-&gt;&nbsp;&nbsp; #define AMDGPU_AMDKFD_USERPTR_BO (1ULL &lt;&lt; 63)<br>
-&gt; @@ -400,18 &#43;401,18 @@ static int vm_update_pds(struct amdgpu_vm *v=
-m, struct amdgpu_sync *sync)<br>
-&gt;&nbsp;&nbsp; static uint64_t get_pte_flags(struct amdgpu_device *adev, =
-struct kgd_mem *mem)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *bo_ade=
-v =3D amdgpu_ttm_adev(mem-&gt;bo-&gt;tbo.bdev);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; bool coherent =3D mem-&gt;alloc_flags &amp; =
-ALLOC_MEM_FLAGS_COHERENT;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; bool coherent =3D mem-&gt;alloc_flags &a=
-mp; KFD_IOC_ALLOC_MEM_FLAGS_COHERENT;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t mapping_flags;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mapping_flags =3D AMDGPU_VM_=
-PAGE_READABLE;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (mem-&gt;alloc_flags &amp; ALLOC_MEM_FLAG=
-S_WRITABLE)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (mem-&gt;alloc_flags &amp; KFD_IOC_AL=
-LOC_MEM_FLAGS_WRITABLE)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; mapping_flags |=3D AMDGPU_VM_PAGE_WRITEABLE;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (mem-&gt;alloc_flags &amp; ALLOC_MEM_FLAG=
-S_EXECUTABLE)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (mem-&gt;alloc_flags &amp; KFD_IOC_AL=
-LOC_MEM_FLAGS_EXECUTABLE)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; mapping_flags |=3D AMDGPU_VM_PAGE_EXECUTABLE;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (adev-&gt;asic_type) =
-{<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_ARCTURUS:<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; if (mem-&gt;alloc_flags &amp; ALLOC_MEM_FLAGS_VRAM) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; if (mem-&gt;alloc_flags &amp; KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (bo_=
-adev =3D=3D adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mapping_flags |=3D coherent ?<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; AMDGPU_VM_MTYPE_CC : AMDGPU_VM_MTYPE_RW;<br>
-&gt; @@ -1160,24 &#43;1161,24 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gp=
-u(<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Check on which domai=
-n to allocate BO<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (flags &amp; ALLOC_MEM_FLAGS_VRAM) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (flags &amp; KFD_IOC_ALLOC_MEM_FLAGS_=
-VRAM) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; domain =3D alloc_domain =3D AMDGPU_GEM_DOMAIN_VRAM;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; alloc_flags =3D AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE;=
-<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; alloc_flags |=3D (flags &amp; ALLOC_MEM_FLAGS_PUBLIC) ?<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; alloc_flags |=3D (flags &amp; KFD_IOC_ALLOC_MEM_FLAGS_PUBLIC) ?<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_=
-GEM_CREATE_CPU_ACCESS_REQUIRED :<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDGPU_=
-GEM_CREATE_NO_CPU_ACCESS;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; } else if (flags &amp; ALLOC_MEM_FLAGS_GTT) =
-{<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else if (flags &amp; KFD_IOC_ALLOC_MEM=
-_FLAGS_GTT) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; domain =3D alloc_domain =3D AMDGPU_GEM_DOMAIN_GTT;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; alloc_flags =3D 0;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; } else if (flags &amp; ALLOC_MEM_FLAGS_USERP=
-TR) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else if (flags &amp; KFD_IOC_ALLOC_MEM=
-_FLAGS_USERPTR) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; domain =3D AMDGPU_GEM_DOMAIN_GTT;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; alloc_domain =3D AMDGPU_GEM_DOMAIN_CPU;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; alloc_flags =3D 0;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (!offset || !*offset)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
--EINVAL;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; user_addr =3D untagged_addr(*offset);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; } else if (flags &amp; (ALLOC_MEM_FLAGS_DOOR=
-BELL |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALLOC_MEM_FLAGS_MMIO_RE=
-MAP)) {<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; } else if (flags &amp; (KFD_IOC_ALLOC_ME=
-M_FLAGS_DOORBELL |<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_IOC_ALLOC_MEM_F=
-LAGS_MMIO_REMAP)) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; domain =3D AMDGPU_GEM_DOMAIN_GTT;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; alloc_domain =3D AMDGPU_GEM_DOMAIN_CPU;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; bo_type =3D ttm_bo_type_sg;<br>
-&gt; @@ -1198,7 &#43;1199,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(=
-<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;(*mem)-&=
-gt;bo_va_list);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;(*mem)-&gt;l=
-ock);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; (*mem)-&gt;aql_queue =3D !!(flags &amp; ALLO=
-C_MEM_FLAGS_AQL_QUEUE_MEM);<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; (*mem)-&gt;aql_queue =3D !!(flags &amp; =
-KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_MEM);<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Workaround for AQL queue =
-wraparound bug. Map the same<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * memory twice. That m=
-eans we only actually allocate half<br>
-&gt; @@ -1652,6 &#43;1653,7 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(struct=
- kgd_dev *kgd,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_gem_object *obj;<=
-br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *bo;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_vm *avm =3D (s=
-truct amdgpu_vm *)vm;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dma_buf-&gt;ops !=3D &am=
-p;amdgpu_dmabuf_ops)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; /* Can't handle non-graphics buffers */<br>
-&gt; @@ -1680,10 &#43;1682,16 @@ int amdgpu_amdkfd_gpuvm_import_dmabuf(stru=
-ct kgd_dev *kgd,<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_LIST_HEAD(&amp;(*mem)-&=
-gt;bo_va_list);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;(*mem)-&gt;l=
-ock);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; (*mem)-&gt;alloc_flags =3D<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; ((bo-&gt;preferred_domains &amp; AMDGPU_GEM_DOMAIN_VRAM) ?<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; ALLOC_MEM_FLAGS_VRAM : ALLOC_MEM_FLAGS_GTT) |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; ALLOC_MEM_FLAGS_WRITABLE | ALLOC_MEM_FLAGS_EXECUTABLE;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; <br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; flags =3D KFD_IOC_ALLOC_MEM_FLAGS_WRITAB=
-LE<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; | KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (bo-&gt;preferred_domains &amp; AMDGP=
-U_GEM_DOMAIN_VRAM)<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; flags |=3D KFD_IOC_ALLOC_MEM_FLAGS_VRAM;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; flags |=3D KFD_IOC_ALLOC_MEM_FLAGS_GTT;<br>
-&gt; &#43;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; (*mem)-&gt;alloc_flags =3D flags;<br>
-<br>
-Same as above. The original code was only 4 lines and a single <br>
-statement. Your code is 8 lines, four statements, plus an extra local <br>
-variable. I don't see how this is an improvement.<br>
-<br>
-Regards,<br>
-&nbsp;&nbsp; Felix<br>
-<br>
-<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*mem)-&gt;bo =3D amdgpu_bo_=
-ref(bo);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (*mem)-&gt;va =3D va;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/dr=
-m/amd/amdkfd/kfd_process.c<br>
-&gt; index 22abdbc6dfd7..1c7bfc842f06 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
-&gt; @@ -327,10 &#43;327,10 @@ static int kfd_process_alloc_gpuvm(struct kf=
-d_process_device *pdd,<br>
-&gt;&nbsp;&nbsp; static int kfd_process_device_reserve_ib_mem(struct kfd_pr=
-ocess_device *pdd)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct qcm_process_device *q=
-pd =3D &amp;pdd-&gt;qpd;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags =3D ALLOC_MEM_FLAGS_GTT |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALLOC_MEM_FLAGS_N=
-O_SUBSTITUTE |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALLOC_MEM_FLAGS_W=
-RITABLE |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ALLOC_MEM_FLAGS_E=
-XECUTABLE;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags =3D KFD_IOC_ALLOC_MEM_FLA=
-GS_GTT |<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_IOC_ALLOC_MEM_F=
-LAGS_NO_SUBSTITUTE |<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_IOC_ALLOC_MEM_F=
-LAGS_WRITABLE |<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_IOC_ALLOC_MEM_F=
-LAGS_EXECUTABLE;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *kaddr;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; @@ -692,8 &#43;692,9 @@ static int kfd_process_device_init_cwsr_dgpu(s=
-truct kfd_process_device *pdd)<br>
-&gt;&nbsp;&nbsp; {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_dev *dev =3D pdd-=
-&gt;dev;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct qcm_process_device *q=
-pd =3D &amp;pdd-&gt;qpd;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags =3D ALLOC_MEM_FLAGS_GTT |<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; ALLOC_MEM_FLAGS_NO_SUBSTITUTE | ALLOC_MEM_FLAGS_EXECUTABLE;<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t flags =3D KFD_IOC_ALLOC_MEM_FLA=
-GS_GTT<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | KFD_IOC_ALLOC_MEM=
-_FLAGS_NO_SUBSTITUTE<br>
-&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | KFD_IOC_ALLOC_MEM=
-_FLAGS_EXECUTABLE;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *kaddr;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers=
-/gpu/drm/amd/include/kgd_kfd_interface.h<br>
-&gt; index 0cee79d56075..a3c238c39ef5 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h<br>
-&gt; @@ -167,27 &#43;167,6 @@ struct tile_config {<br>
-&gt;&nbsp;&nbsp; <br>
-&gt;&nbsp;&nbsp; #define KFD_MAX_NUM_OF_QUEUES_PER_DEVICE_DEFAULT 4096<br>
-&gt;&nbsp;&nbsp; <br>
-&gt; -/*<br>
-&gt; - * Allocation flag domains<br>
-&gt; - * NOTE: This must match the corresponding definitions in kfd_ioctl.h=
-.<br>
-&gt; - */<br>
-&gt; -#define ALLOC_MEM_FLAGS_VRAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp; (1 &lt;&lt; 0)<br>
-&gt; -#define ALLOC_MEM_FLAGS_GTT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; (1 &lt;&lt; 1)<br>
-&gt; -#define ALLOC_MEM_FLAGS_USERPTR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 2)<br>
-&gt; -#define ALLOC_MEM_FLAGS_DOORBELL&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; =
-3)<br>
-&gt; -#define ALLOC_MEM_FLAGS_MMIO_REMAP&nbsp;&nbsp; (1 &lt;&lt; 4)<br>
-&gt; -<br>
-&gt; -/*<br>
-&gt; - * Allocation flags attributes/access options.<br>
-&gt; - * NOTE: This must match the corresponding definitions in kfd_ioctl.h=
-.<br>
-&gt; - */<br>
-&gt; -#define ALLOC_MEM_FLAGS_WRITABLE&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; =
-31)<br>
-&gt; -#define ALLOC_MEM_FLAGS_EXECUTABLE&nbsp;&nbsp; (1 &lt;&lt; 30)<br>
-&gt; -#define ALLOC_MEM_FLAGS_PUBLIC&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; 29)<br>
-&gt; -#define ALLOC_MEM_FLAGS_NO_SUBSTITUTE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; (1 &lt;&lt; 28) /* TODO */<br>
-&gt; -#define ALLOC_MEM_FLAGS_AQL_QUEUE_MEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; (1 &lt;&lt; 27)<br>
-&gt; -#define ALLOC_MEM_FLAGS_COHERENT&nbsp;&nbsp;&nbsp;&nbsp; (1 &lt;&lt; =
-26) /* For GFXv9 or later */<br>
-&gt; -<br>
-&gt;&nbsp;&nbsp; /**<br>
-&gt;&nbsp;&nbsp;&nbsp; * struct kfd2kgd_calls<br>
-&gt;&nbsp;&nbsp;&nbsp; *<br>
-</div>
-</span></font></div>
-</div>
-</body>
+to indicate a invalid value from userspace. I don't know much about drm 
+api to suggest any useful
+
+changes regarding this. But again this isn't in the scope of this patch 
+series.
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+I'm not asking you to eliminate &quot;DRM_SCHED_PRIORITY_INVALID&quot;.
+Oh wait! You forgot what I suggested in a previous review on
+how to fix enum drm_sched_priority, did you? :-D Search
+for that email.</pre>
+    </blockquote>
+    <p>Let me quote[1]: <br>
+    </p>
+    <p>&quot;<br>
+    </p>
+    <p>Also consider changing to this:</p>
+    <br>
+    enum drm_sched_priority {<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_SCHED_PRIORITY_UNSET,<br>
+    --------DRM_SCHED_PRIORITY_INVALID,--------&lt;--- remove<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_SCHED_PRIORITY_MIN,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_SCHED_PRIORITY_LOW = DRM_SCHED_PRIORITY_MIN,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_SCHED_PRIORITY_NORMAL,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_SCHED_PRIORITY_HIGH_SW,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_SCHED_PRIORITY_HIGH_HW,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_SCHED_PRIORITY_KERNEL,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_SCHED_PRIORITY_MAX,<br>
+    };<br>
+    <br>
+    We should never have an &quot;invalid priority&quot;, just ignored priority.
+    :-)<br>
+    Second, having 0 as UNSET gives you easy priority when you set<br>
+    map[0] = normal_priority, as memory usually comes memset to 0.<br>
+    IOW, you'd not need to check against UNSET, and simply use<br>
+    the default [0] which you'd set to normal priority.<br>
+    <p>&quot;<br>
+    </p>
+    <p>I guess understood it wrong.</p>
+    <p><br>
+    </p>
+    <p><a href="https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg45621.html">[1]https://www.mail-archive.com/amd-gfx@lists.freedesktop.org/msg45621.html</a></p>
+    <p><br>
+    </p>
+    <p>Regards,</p>
+    <p>Nirmoy<br>
+    </p>
+  </body>
 </html>
 
---_000_CH2PR12MB3926C6062226E00D4626CC43F0E20CH2PR12MB3926namp_--
+--------------58394B1AF8BA8565DEB681F5--
 
---===============0937963505==
+--===============1840692970==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -834,4 +267,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0937963505==--
+--===============1840692970==--
