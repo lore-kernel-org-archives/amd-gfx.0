@@ -6,98 +6,115 @@ X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BFCFFC3F2D2
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2020 02:43:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 57AA3C3F2CE
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2020 03:31:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 92FDE20714
-	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2020 02:43:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E7FF820732
+	for <amd-gfx@archiver.kernel.org>; Fri,  6 Mar 2020 03:31:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="eZF2enoo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 92FDE20714
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QBRRKYCW"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E7FF820732
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CE9B6EC54;
-	Fri,  6 Mar 2020 02:43:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B62889CA0;
+	Fri,  6 Mar 2020 03:31:22 +0000 (UTC)
 Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2053.outbound.protection.outlook.com [40.107.93.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD40B6EC54
- for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2020 02:43:35 +0000 (UTC)
+ (mail-dm6nam10on2077.outbound.protection.outlook.com [40.107.93.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B13AD89CA0
+ for <amd-gfx@lists.freedesktop.org>; Fri,  6 Mar 2020 03:31:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gGUwPbUgxWViKgNeKQsE2gs2cnGi5qLBf/w3AJfn4md51hUu6lC+fS2RfEIuidW76KvZKRgTodeJIvnr1C4RNXH7+jwbjketuqy204UFdmsXjQ1ibU5nntI2tVSbYd0vffb7uFLuawSV9xs7CKx3aAYhiETBVpuj3/VDItQXasmooAwl2ckjc0/WIHtVLVG9GfXvPhgYEzdIgfoB626OogodYfG/l2PZqYf2N9npv1sQQqCv8gOuBMAbpP/3yxIg2+D32nMScFeo040KTeA3tBTwU71p1Y0r3yi2wunFsPu929z07pfy85R/vmu5Dc9z4qGFvfOqYa7gHwHnaWBBkg==
+ b=QoVt4fM2fNcYjcTaMbzI0qwvOlJ917rHsty/ny2Uau2aAT4VodfpBUfGBYElCt/Kr0/SBBmCtkzLPjIKoY5vOfbD7+ixU31BNwhlaQRoQUUix0AZVW+0lGIQMzMHe+2G7vIeYHRe/TtXlUAjeCXqX5bbVIDLSk1KiFT3gBGC1vchHNZqCRhA1aHAR/+LBLu1QmxhWigcS3bAyztZH1x7xX5aU1hYvUpQTvvZ/3EWhLetipXf/j091hRU0XOIPoY77f4dfoiofmiuZNIjH3UGshYBfPxkGrtsobYnOStQYS+M1FR6vr1pqFfJMqEh6uoy6wepEtmGeAtI26BBOyoplw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xtRbvMs3SAiA/lfmpDkglyvlqqBiDUqUC0mj6KoMUb0=;
- b=RSDNWq2X7lqbOy/Ja/ZnRcEjH+Ye2BEvm1nC8t72sL6ekqP1XFqUMnSqMwaFi//qHYQWJMHhahbezDO/oz1hQMGQI5tdXh8jfPb2Fp606FbKeMrD/12aN8sPZWXC04AdrhXNVkrbp8cgBlDnyG2V9coNUs+5EufkD4qovFn+yGvKxRQsv5NJN91rYR2XYIiYldOI036RL3NAMwiuFoPnxrQ7KQOvkC1ruCpVaIAdbnRcOV+YPojgSdId5OmG67dIDZNfBxsB+sjrin4lRbHSPHZu+T4riKIUlDbJhi+xgVnrU1bBgDri30ooEq2uoXd0CF6CKQHtzzuW1oCjDIuTHw==
+ bh=mP1zEffWQW9xaO8b9VY0LlPkga9V3pXMyg7x+1URysY=;
+ b=CjN+z7xaWmOIBhEOgResdUlVP2doLOQ6PdeM4o3/CaqXprNur22AxkFN6MDV1m8vaMRYa+3TA51X0nkULLuC8h186FVL+NgyrlwRFjJYQV98woharZgt4ySZAncufdc12nWPW9maB9RBHvUuI9CT+omUFd6tKt5RQOoK5BOa4p/rnv5jFuRN8Rdz7buLdaw/8GXRArocNW6lpTLtj9ey62ZAXdhHiSbuBTOonBZ8VTKGHwTb9ehVUp++u7rHCjKU/bJx/GBJvkXCG0lR8BHvpIDMKwRWIor81mmaHxt2vF6RJCA0SKBMw4G1tnq/RUO/8jhMvEN/oexUBc1sbbAUEQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xtRbvMs3SAiA/lfmpDkglyvlqqBiDUqUC0mj6KoMUb0=;
- b=eZF2enoo3m86iM2hMBGtIXSuAWjGh8Oan0ShPPJ+qFzgx3O1kXvP7LMRnPNBnNXfAVljEo7DemYqDv3FjKvLy+osAndw9fWOmdJM6YfXRvmW8e+ncKbcF2LRZ8OIVyEi/EGVR48fMjwAgUMtJAclRf4tw4n78hqkRxjdrAlq9ao=
-Received: from DM6PR12MB3931.namprd12.prod.outlook.com (2603:10b6:5:1cb::12)
- by DM6PR12MB3946.namprd12.prod.outlook.com (2603:10b6:5:1cb::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.14; Fri, 6 Mar
- 2020 02:43:34 +0000
-Received: from DM6PR12MB3931.namprd12.prod.outlook.com
- ([fe80::c51d:4e6b:f0f1:b7a3]) by DM6PR12MB3931.namprd12.prod.outlook.com
- ([fe80::c51d:4e6b:f0f1:b7a3%7]) with mapi id 15.20.2772.019; Fri, 6 Mar 2020
- 02:43:34 +0000
-From: "Liu, Monk" <Monk.Liu@amd.com>
-To: "Liu, Leo" <Leo.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=mP1zEffWQW9xaO8b9VY0LlPkga9V3pXMyg7x+1URysY=;
+ b=QBRRKYCWqhag2Vu5qsFI5hxQbTXY9BtRagDGkVeimYp0FoRtQ7uRy1wSWio3t0ZNQDCwDIYFljdQz7lVGDFA3qcqmczX9gpH7oVCn+pDcvX933UvcYGUOHY9086vuje68OD11p2JKz4nKiZzvOlxv7aOLFAmrHQbVJZuiCSdIQ4=
+Received: from MN2PR12MB2975.namprd12.prod.outlook.com (2603:10b6:208:ce::14)
+ by MN2PR12MB4206.namprd12.prod.outlook.com (2603:10b6:208:1d5::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.18; Fri, 6 Mar
+ 2020 03:31:14 +0000
+Received: from MN2PR12MB2975.namprd12.prod.outlook.com
+ ([fe80::8d41:5fd9:6b89:c593]) by MN2PR12MB2975.namprd12.prod.outlook.com
+ ([fe80::8d41:5fd9:6b89:c593%3]) with mapi id 15.20.2772.019; Fri, 6 Mar 2020
+ 03:31:13 +0000
+From: "Deng, Emily" <Emily.Deng@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Liu, Monk"
+ <Monk.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [enable VCN2.0 for NV12 SRIOV 3/6] drm/amdgpu: implement
- initialization part on VCN2.0 for SRIOV
-Thread-Topic: [enable VCN2.0 for NV12 SRIOV 3/6] drm/amdgpu: implement
- initialization part on VCN2.0 for SRIOV
-Thread-Index: AQHV8vKm/D4ThDjyA0yJaM2IammkRqg6KpKAgACxj1A=
-Date: Fri, 6 Mar 2020 02:43:34 +0000
-Message-ID: <DM6PR12MB3931E9DEB131BE289492E73084E30@DM6PR12MB3931.namprd12.prod.outlook.com>
+Subject: RE: [enable VCN2.0 for NV12 SRIOV 6/6] drm/amdgpu: clear warning on
+ unused var
+Thread-Topic: [enable VCN2.0 for NV12 SRIOV 6/6] drm/amdgpu: clear warning on
+ unused var
+Thread-Index: AQHV8vK+7KTdY7JPWkK9wD5RNlCIzKg6AGUAgADo2WA=
+Date: Fri, 6 Mar 2020 03:31:13 +0000
+Message-ID: <MN2PR12MB297596D3FD58CADAD059B50B8FE30@MN2PR12MB2975.namprd12.prod.outlook.com>
 References: <1583415187-16594-1-git-send-email-Monk.Liu@amd.com>
- <1583415187-16594-3-git-send-email-Monk.Liu@amd.com>
- <dd1f4dae-a48e-3d4f-0815-5b101810a794@amd.com>
-In-Reply-To: <dd1f4dae-a48e-3d4f-0815-5b101810a794@amd.com>
-Accept-Language: en-US, zh-CN
+ <1583415187-16594-6-git-send-email-Monk.Liu@amd.com>
+ <576079d2-c733-d13e-49f6-570311fd9573@gmail.com>
+In-Reply-To: <576079d2-c733-d13e-49f6-570311fd9573@gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-06T03:31:10Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=96edc305-e1cd-47ae-8de0-0000d169021d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-03-06T03:31:10Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 22d734ee-2f22-461f-8688-0000d6cb455e
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Monk.Liu@amd.com; 
-x-originating-ip: [180.167.199.185]
+ smtp.mailfrom=Emily.Deng@amd.com; 
+x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 313ea0ea-4b42-46eb-bc8c-08d7c1782a44
-x-ms-traffictypediagnostic: DM6PR12MB3946:|DM6PR12MB3946:
+x-ms-office365-filtering-correlation-id: 20626f39-ec61-4b6d-8d9f-08d7c17ed285
+x-ms-traffictypediagnostic: MN2PR12MB4206:|MN2PR12MB4206:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB39463FC30039CBDEFDEECA4884E30@DM6PR12MB3946.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3968;
+x-microsoft-antispam-prvs: <MN2PR12MB4206579D4A4771BC37DCBC708FE30@MN2PR12MB4206.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:73;
 x-forefront-prvs: 0334223192
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(39860400002)(136003)(376002)(366004)(396003)(189003)(199004)(52536014)(71200400001)(30864003)(2906002)(5660300002)(33656002)(76116006)(64756008)(66476007)(66556008)(316002)(7696005)(66446008)(6506007)(66946007)(81166006)(55016002)(8676002)(26005)(478600001)(186003)(86362001)(9686003)(8936002)(110136005)(81156014)(53546011);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3946;
- H:DM6PR12MB3931.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ SFS:(10009020)(4636009)(366004)(396003)(376002)(39860400002)(136003)(346002)(199004)(189003)(2906002)(186003)(9686003)(55016002)(26005)(478600001)(45080400002)(52536014)(71200400001)(5660300002)(33656002)(66574012)(66946007)(8936002)(110136005)(76116006)(316002)(7696005)(81156014)(66446008)(8676002)(66556008)(86362001)(81166006)(6506007)(66476007)(64756008);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4206;
+ H:MN2PR12MB2975.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ODOhEsIETUiwsJiwy8ArXtTQ4L/RQ8D3pr+Rq4LXq+8ZmdUDQ9ya6ZehsCSmnZ5sUemhukFJRN4vUmccO2Q4GXq3A4RZn7hyzB7vfeKJUpiPE+jl4twfXEWXdk7N0HvCL66m16JHfk1vN5jHVOZHhIdYqJJ4zKQV9bd+adM36PQgHxMy0pZWoL/b4Zo4S3V7sNf2cAtJ+st9FNDjVFy/E8lpHvtv9owWenMIMQRFAOwCrj6LnZ90ofJunaTLy1OY4ky8hmH5OMTmrgAsYgcueiJASL9cbI+/FU1WS+38JXEuLxVyWy2io/pwktMLEgJSUTkta2fGbvd07Ho8CeQBBPzLJ0v+fRLX0Eb1eQfyHcWfifCpa5VPhMg7n4vy+dD7G8PAuih7zeAKg1hH+pFPUyHzS9zj/FHibNhb1OnerM9V1Ai2KlftowEzhhzKQ8td
-x-ms-exchange-antispam-messagedata: tZ/peSTmmqPiqo+FvJKH62IlcE2WcpbydX4GKmJfTMpe5B21YDQg0RSFYaGi1irq0dnylnh8MwjT94sVYKIkGCPBNEOLbrYzsg5VsJrLsLo7JEnA0EwmLyGrRNpknq0bU45ORYAaMLpZievKyVdX6Q==
+x-microsoft-antispam-message-info: 0WM0kgcEoDdfw2hvMoXV99wwh+aBUtJ76VM4XeRmf3BE3onrm6eHl5aOWx8lL6xh0FqXNNwJWpxAii4IApDqqYQab0ZyMfsgF/IM6S9BwYGZOEpPYfo8yV0cM+k+od7CFeoB1mFPJp0lpvEKBsfBikBJBEPIokPX/CWnZnjrEXtyJ5Tp0uYUAwlzx/RkxwXYREYUBmbFsHlFLV5rOtAtw4qRWlmJ5IiyjIA412ptBswKW1TdHdKTSJS+hjvzz/Z8nLFhMrCuC6r8HMuxTPl1VWs/KWFx6+5qOFNpQsOV7SQ+vTQQKuERM5nwaj9iU/GSTVfR9ZqyU/HC6461xMlqHrSmAbTwpmFSEqf0EwxYxd7LpvLJaQSR0T7du8m4ci7y4/52r/NNqLQp6BNMMQsW2YdTIFDT/BvicmssJ+E8DaraGnA9jc8csjU/T6Jf5z5Elc89c+GiXJZvPVN0w4e04YFTY6tuq7Vdu/r1C0uJcT4=
+x-ms-exchange-antispam-messagedata: kf6wuG55yixM3/2lNyuA1eHWFoWacGdSyV9A383Sfn3ypudR0Fa5nWdMrZP+gXQCL87k24Kl2u1B7NbC3Pn6FkP+vLDLekWD0pmbL7QENCdub/bdqEI4I1FPEepf91vlrlcbVh7eAZH2CTMJd7oZLg==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 313ea0ea-4b42-46eb-bc8c-08d7c1782a44
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Mar 2020 02:43:34.4049 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20626f39-ec61-4b6d-8d9f-08d7c17ed285
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Mar 2020 03:31:13.6963 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xN0EpaA/6hT6/H7aXqoPxpkGiMbBcbStmgvSfKkzy2WgnfqP1sUMD6KUSVs+4Mk3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3946
+X-MS-Exchange-CrossTenant-userprincipalname: D4y7/B47WznDqgKDp44+ltmsqD//S+lZ5yeiOHLT/RySpeeYD+lGsVk6FVJavVU6
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4206
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,345 +126,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Okay, no problem 
-
-_____________________________________
-Monk Liu|GPU Virtualization Team |AMD
-
-
------Original Message-----
-From: Liu, Leo <Leo.Liu@amd.com> 
-Sent: Friday, March 6, 2020 12:08 AM
-To: Liu, Monk <Monk.Liu@amd.com>; amd-gfx@lists.freedesktop.org
-Subject: Re: [enable VCN2.0 for NV12 SRIOV 3/6] drm/amdgpu: implement initialization part on VCN2.0 for SRIOV
-
-
-On 2020-03-05 8:33 a.m., Monk Liu wrote:
-> one dec ring and one enc ring
-It seems more than that, you might add more messages.
-
-
->
-> Signed-off-by: Monk Liu <Monk.Liu@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c | 231 +++++++++++++++++++++++++++++++++-
->   1 file changed, 228 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c 
-> b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> index c387c81..421e5bf 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
-> @@ -29,6 +29,7 @@
->   #include "soc15d.h"
->   #include "amdgpu_pm.h"
->   #include "amdgpu_psp.h"
-> +#include "mmsch_v2_0.h"
->   
->   #include "vcn/vcn_2_0_0_offset.h"
->   #include "vcn/vcn_2_0_0_sh_mask.h"
-> @@ -54,7 +55,7 @@ static int vcn_v2_0_set_powergating_state(void *handle,
->   				enum amd_powergating_state state);
->   static int vcn_v2_0_pause_dpg_mode(struct amdgpu_device *adev,
->   				int inst_idx, struct dpg_pause_state *new_state);
-> -
-> +static int vcn_v2_0_start_sriov(struct amdgpu_device *adev);
-
-Please keep the empty line here.
-
-
->   /**
->    * vcn_v2_0_early_init - set function pointers
->    *
-> @@ -67,7 +68,10 @@ static int vcn_v2_0_early_init(void *handle)
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
->   	adev->vcn.num_vcn_inst = 1;
-> -	adev->vcn.num_enc_rings = 2;
-> +	if (amdgpu_sriov_vf(adev))
-> +		adev->vcn.num_enc_rings = 1;
-> +	else
-> +		adev->vcn.num_enc_rings = 2;
->   
->   	vcn_v2_0_set_dec_ring_funcs(adev);
->   	vcn_v2_0_set_enc_ring_funcs(adev);
-> @@ -154,7 +158,10 @@ static int vcn_v2_0_sw_init(void *handle)
->   	for (i = 0; i < adev->vcn.num_enc_rings; ++i) {
->   		ring = &adev->vcn.inst->ring_enc[i];
->   		ring->use_doorbell = true;
-> -		ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 2 + i;
-> +		if (!amdgpu_sriov_vf(adev))
-> +			ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 2 + i;
-> +		else
-> +			ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) 
-> ++ 1 + i;
->   		sprintf(ring->name, "vcn_enc%d", i);
->   		r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst->irq, 0);
->   		if (r)
-> @@ -163,6 +170,10 @@ static int vcn_v2_0_sw_init(void *handle)
->   
->   	adev->vcn.pause_dpg_mode = vcn_v2_0_pause_dpg_mode;
->   
-> +	r = amdgpu_virt_alloc_mm_table(adev);
-> +	if (r)
-> +		return r;
-> +
-
-This is not needed for bare metal.
-
-
->   	return 0;
->   }
->   
-> @@ -178,6 +189,8 @@ static int vcn_v2_0_sw_fini(void *handle)
->   	int r;
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->   
-> +	amdgpu_virt_free_mm_table(adev);
-> +
-
-same as above here.
-
-
-Regards,
-
-Leo
-
-
-
->   	r = amdgpu_vcn_suspend(adev);
->   	if (r)
->   		return r;
-> @@ -203,6 +216,9 @@ static int vcn_v2_0_hw_init(void *handle)
->   	adev->nbio.funcs->vcn_doorbell_range(adev, ring->use_doorbell,
->   					     ring->doorbell_index, 0);
->   
-> +	if (amdgpu_sriov_vf(adev))
-> +		vcn_v2_0_start_sriov(adev);
-> +
->   	r = amdgpu_ring_test_helper(ring);
->   	if (r)
->   		goto done;
-> @@ -1680,6 +1696,215 @@ static int vcn_v2_0_set_powergating_state(void *handle,
->   	return ret;
->   }
->   
-> +static int vcn_v2_0_start_mmsch(struct amdgpu_device *adev,
-> +				struct amdgpu_mm_table *table)
-> +{
-> +	uint32_t data = 0, loop;
-> +	uint64_t addr = table->gpu_addr;
-> +	struct mmsch_v2_0_init_header *header;
-> +	uint32_t size;
-> +	int i;
-> +
-> +	header = (struct mmsch_v2_0_init_header *)table->cpu_addr;
-> +	size = header->header_size + header->vcn_table_size;
-> +
-> +	/* 1, write to vce_mmsch_vf_ctx_addr_lo/hi register with GPU mc addr
-> +	 * of memory descriptor location
-> +	 */
-> +	WREG32_SOC15(UVD, 0, mmMMSCH_VF_CTX_ADDR_LO, lower_32_bits(addr));
-> +	WREG32_SOC15(UVD, 0, mmMMSCH_VF_CTX_ADDR_HI, upper_32_bits(addr));
-> +
-> +	/* 2, update vmid of descriptor */
-> +	data = RREG32_SOC15(UVD, 0, mmMMSCH_VF_VMID);
-> +	data &= ~MMSCH_VF_VMID__VF_CTX_VMID_MASK;
-> +	/* use domain0 for MM scheduler */
-> +	data |= (0 << MMSCH_VF_VMID__VF_CTX_VMID__SHIFT);
-> +	WREG32_SOC15(UVD, 0, mmMMSCH_VF_VMID, data);
-> +
-> +	/* 3, notify mmsch about the size of this descriptor */
-> +	WREG32_SOC15(UVD, 0, mmMMSCH_VF_CTX_SIZE, size);
-> +
-> +	/* 4, set resp to zero */
-> +	WREG32_SOC15(UVD, 0, mmMMSCH_VF_MAILBOX_RESP, 0);
-> +
-> +	adev->vcn.inst->ring_dec.wptr = 0;
-> +	adev->vcn.inst->ring_dec.wptr_old = 0;
-> +	vcn_v2_0_dec_ring_set_wptr(&adev->vcn.inst->ring_dec);
-> +
-> +	for (i = 0; i < adev->vcn.num_enc_rings; ++i) {
-> +		adev->vcn.inst->ring_enc[i].wptr = 0;
-> +		adev->vcn.inst->ring_enc[i].wptr_old = 0;
-> +		vcn_v2_0_enc_ring_set_wptr(&adev->vcn.inst->ring_enc[i]);
-> +	}
-> +
-> +	/* 5, kick off the initialization and wait until
-> +	 * VCE_MMSCH_VF_MAILBOX_RESP becomes non-zero
-> +	 */
-> +	WREG32_SOC15(UVD, 0, mmMMSCH_VF_MAILBOX_HOST, 0x10000001);
-> +
-> +	data = RREG32_SOC15(UVD, 0, mmMMSCH_VF_MAILBOX_RESP);
-> +	loop = 1000;
-> +	while ((data & 0x10000002) != 0x10000002) {
-> +		udelay(10);
-> +		data = RREG32_SOC15(UVD, 0, mmMMSCH_VF_MAILBOX_RESP);
-> +		loop--;
-> +		if (!loop)
-> +			break;
-> +	}
-> +
-> +	if (!loop) {
-> +		DRM_ERROR("failed to init MMSCH, " \
-> +			"mmMMSCH_VF_MAILBOX_RESP = 0x%08x\n", data);
-> +		return -EBUSY;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int vcn_v2_0_start_sriov(struct amdgpu_device *adev) {
-> +	int r;
-> +	uint32_t tmp;
-> +	struct amdgpu_ring *ring;
-> +	uint32_t offset, size;
-> +	uint32_t table_size = 0;
-> +	struct mmsch_v2_0_cmd_direct_write direct_wt = { {0} };
-> +	struct mmsch_v2_0_cmd_direct_read_modify_write direct_rd_mod_wt = { {0} };
-> +	struct mmsch_v2_0_cmd_direct_polling direct_poll = { {0} };
-> +	struct mmsch_v2_0_cmd_end end = { {0} };
-> +	struct mmsch_v2_0_init_header *header;
-> +	uint32_t *init_table = adev->virt.mm_table.cpu_addr;
-> +	uint8_t i = 0;
-> +
-> +	header = (struct mmsch_v2_0_init_header *)init_table;
-> +	direct_wt.cmd_header.command_type = MMSCH_COMMAND__DIRECT_REG_WRITE;
-> +	direct_rd_mod_wt.cmd_header.command_type =
-> +		MMSCH_COMMAND__DIRECT_REG_READ_MODIFY_WRITE;
-> +	direct_poll.cmd_header.command_type =
-> +		MMSCH_COMMAND__DIRECT_REG_POLLING;
-> +	end.cmd_header.command_type = MMSCH_COMMAND__END;
-> +
-> +	if (header->vcn_table_offset == 0 && header->vcn_table_size == 0) {
-> +		header->version = MMSCH_VERSION;
-> +		header->header_size = sizeof(struct mmsch_v2_0_init_header) >> 2;
-> +
-> +		header->vcn_table_offset = header->header_size;
-> +
-> +		init_table += header->vcn_table_offset;
-> +
-> +		size = AMDGPU_GPU_PAGE_ALIGN(adev->vcn.fw->size + 4);
-> +
-> +		MMSCH_V2_0_INSERT_DIRECT_RD_MOD_WT(
-> +			SOC15_REG_OFFSET(UVD, i, mmUVD_STATUS),
-> +			0xFFFFFFFF, 0x00000004);
-> +
-> +		/* mc resume*/
-> +		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
-> +			tmp = AMDGPU_UCODE_ID_VCN;
-> +			MMSCH_V2_0_INSERT_DIRECT_WT(
-> +				SOC15_REG_OFFSET(UVD, i,
-> +					mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW),
-> +				adev->firmware.ucode[tmp].tmr_mc_addr_lo);
-> +			MMSCH_V2_0_INSERT_DIRECT_WT(
-> +				SOC15_REG_OFFSET(UVD, i,
-> +					mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH),
-> +				adev->firmware.ucode[tmp].tmr_mc_addr_hi);
-> +			offset = 0;
-> +		} else {
-> +			MMSCH_V2_0_INSERT_DIRECT_WT(
-> +				SOC15_REG_OFFSET(UVD, i,
-> +					mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW),
-> +				lower_32_bits(adev->vcn.inst->gpu_addr));
-> +			MMSCH_V2_0_INSERT_DIRECT_WT(
-> +				SOC15_REG_OFFSET(UVD, i,
-> +					mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH),
-> +				upper_32_bits(adev->vcn.inst->gpu_addr));
-> +			offset = size;
-> +		}
-> +
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i, mmUVD_VCPU_CACHE_OFFSET0),
-> +			0);
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i, mmUVD_VCPU_CACHE_SIZE0),
-> +			size);
-> +
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i,
-> +				mmUVD_LMI_VCPU_CACHE1_64BIT_BAR_LOW),
-> +			lower_32_bits(adev->vcn.inst->gpu_addr + offset));
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i,
-> +				mmUVD_LMI_VCPU_CACHE1_64BIT_BAR_HIGH),
-> +			upper_32_bits(adev->vcn.inst->gpu_addr + offset));
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i, mmUVD_VCPU_CACHE_OFFSET1),
-> +			0);
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i, mmUVD_VCPU_CACHE_SIZE1),
-> +			AMDGPU_VCN_STACK_SIZE);
-> +
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i,
-> +				mmUVD_LMI_VCPU_CACHE2_64BIT_BAR_LOW),
-> +			lower_32_bits(adev->vcn.inst->gpu_addr + offset +
-> +				AMDGPU_VCN_STACK_SIZE));
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i,
-> +				mmUVD_LMI_VCPU_CACHE2_64BIT_BAR_HIGH),
-> +			upper_32_bits(adev->vcn.inst->gpu_addr + offset +
-> +				AMDGPU_VCN_STACK_SIZE));
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i, mmUVD_VCPU_CACHE_OFFSET2),
-> +			0);
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i, mmUVD_VCPU_CACHE_SIZE2),
-> +			AMDGPU_VCN_CONTEXT_SIZE);
-> +
-> +		for (r = 0; r < adev->vcn.num_enc_rings; ++r) {
-> +			ring = &adev->vcn.inst->ring_enc[r];
-> +			ring->wptr = 0;
-> +			MMSCH_V2_0_INSERT_DIRECT_WT(
-> +				SOC15_REG_OFFSET(UVD, i, mmUVD_RB_BASE_LO),
-> +				lower_32_bits(ring->gpu_addr));
-> +			MMSCH_V2_0_INSERT_DIRECT_WT(
-> +				SOC15_REG_OFFSET(UVD, i, mmUVD_RB_BASE_HI),
-> +				upper_32_bits(ring->gpu_addr));
-> +			MMSCH_V2_0_INSERT_DIRECT_WT(
-> +				SOC15_REG_OFFSET(UVD, i, mmUVD_RB_SIZE),
-> +				ring->ring_size / 4);
-> +		}
-> +
-> +		ring = &adev->vcn.inst->ring_dec;
-> +		ring->wptr = 0;
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i,
-> +				mmUVD_LMI_RBC_RB_64BIT_BAR_LOW),
-> +			lower_32_bits(ring->gpu_addr));
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i,
-> +				mmUVD_LMI_RBC_RB_64BIT_BAR_HIGH),
-> +			upper_32_bits(ring->gpu_addr));
-> +		/* force RBC into idle state */
-> +		tmp = order_base_2(ring->ring_size);
-> +		tmp = REG_SET_FIELD(0, UVD_RBC_RB_CNTL, RB_BUFSZ, tmp);
-> +		tmp = REG_SET_FIELD(tmp, UVD_RBC_RB_CNTL, RB_BLKSZ, 1);
-> +		tmp = REG_SET_FIELD(tmp, UVD_RBC_RB_CNTL, RB_NO_FETCH, 1);
-> +		tmp = REG_SET_FIELD(tmp, UVD_RBC_RB_CNTL, RB_NO_UPDATE, 1);
-> +		tmp = REG_SET_FIELD(tmp, UVD_RBC_RB_CNTL, RB_RPTR_WR_EN, 1);
-> +		MMSCH_V2_0_INSERT_DIRECT_WT(
-> +			SOC15_REG_OFFSET(UVD, i, mmUVD_RBC_RB_CNTL), tmp);
-> +
-> +		/* add end packet */
-> +		tmp = sizeof(struct mmsch_v2_0_cmd_end);
-> +		memcpy((void *)init_table, &end, tmp);
-> +		table_size += (tmp / 4);
-> +		header->vcn_table_size = table_size;
-> +
-> +	}
-> +	return vcn_v2_0_start_mmsch(adev, &adev->virt.mm_table); }
-> +
->   static const struct amd_ip_funcs vcn_v2_0_ip_funcs = {
->   	.name = "vcn_v2_0",
->   	.early_init = vcn_v2_0_early_init,
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQ0KDQpT
+ZXJpZXMgcmV2aWV3ZWQtYnk6IEVtaWx5IERlbmcgPEVtaWx5LkRlbmdAYW1kLmNvbT4NCg0KPi0t
+LS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+RnJvbTogYW1kLWdmeCA8YW1kLWdmeC1ib3VuY2Vz
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZz4gT24gQmVoYWxmIE9mDQo+Q2hyaXN0aWFuIEvDtm5pZw0K
+PlNlbnQ6IFRodXJzZGF5LCBNYXJjaCA1LCAyMDIwIDk6MzcgUE0NCj5UbzogTGl1LCBNb25rIDxN
+b25rLkxpdUBhbWQuY29tPjsgYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj5TdWJqZWN0
+OiBSZTogW2VuYWJsZSBWQ04yLjAgZm9yIE5WMTIgU1JJT1YgNi82XSBkcm0vYW1kZ3B1OiBjbGVh
+ciB3YXJuaW5nDQo+b24gdW51c2VkIHZhcg0KPg0KPkFtIDA1LjAzLjIwIHVtIDE0OjMzIHNjaHJp
+ZWIgTW9uayBMaXU6DQo+PiBTaWduZWQtb2ZmLWJ5OiBNb25rIExpdSA8TW9uay5MaXVAYW1kLmNv
+bT4NCj4NCj5BY2tlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
+Y29tPg0KPg0KPj4gLS0tDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92
+Y24uYyB8IDIgLS0NCj4+ICAgMSBmaWxlIGNoYW5nZWQsIDIgZGVsZXRpb25zKC0pDQo+Pg0KPj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uYw0KPmIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5jDQo+PiBpbmRleCBhZTk3NTRm
+Li5hNDEyNzJmIDEwMDY0NA0KPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3Zjbi5jDQo+PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNu
+LmMNCj4+IEBAIC00OTMsNyArNDkzLDYgQEAgc3RhdGljIGludCBhbWRncHVfdmNuX2RlY19nZXRf
+ZGVzdHJveV9tc2coc3RydWN0DQo+YW1kZ3B1X3JpbmcgKnJpbmcsIHVpbnQzMl90IGhhbg0KPj4N
+Cj4+ICAgaW50IGFtZGdwdV92Y25fZGVjX3JpbmdfdGVzdF9pYihzdHJ1Y3QgYW1kZ3B1X3Jpbmcg
+KnJpbmcsIGxvbmcgdGltZW91dCkNCj4+ICAgew0KPj4gLQlzdHJ1Y3QgYW1kZ3B1X2RldmljZSAq
+YWRldiA9IHJpbmctPmFkZXY7DQo+PiAgIAlzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZTsNCj4+ICAg
+CWxvbmcgcjsNCj4+DQo+PiBAQCAtNjU1LDcgKzY1NCw2IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3Zj
+bl9lbmNfZ2V0X2Rlc3Ryb3lfbXNnKHN0cnVjdA0KPmFtZGdwdV9yaW5nICpyaW5nLCB1aW50MzJf
+dCBoYW4NCj4+DQo+PiAgIGludCBhbWRncHVfdmNuX2VuY19yaW5nX3Rlc3RfaWIoc3RydWN0IGFt
+ZGdwdV9yaW5nICpyaW5nLCBsb25nIHRpbWVvdXQpDQo+PiAgIHsNCj4+IC0Jc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYgPSByaW5nLT5hZGV2Ow0KPj4gICAJc3RydWN0IGRtYV9mZW5jZSAqZmVu
+Y2UgPSBOVUxMOw0KPj4gICAJc3RydWN0IGFtZGdwdV9ibyAqYm8gPSBOVUxMOw0KPj4gICAJbG9u
+ZyByOw0KPg0KPl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+DQo+YW1kLWdmeCBtYWlsaW5nIGxpc3QNCj5hbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0K
+Pmh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRw
+cyUzQSUyRiUyRmxpc3RzLmZyDQo+ZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUy
+RmFtZC0NCj5nZngmYW1wO2RhdGE9MDIlN0MwMSU3Q0VtaWx5LkRlbmclNDBhbWQuY29tJTdDNjU1
+NTRhNzhkNDdjNDQzMTYNCj4zZWUwOGQ3YzEwYTRjMGQlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4
+MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjMNCj43MTkwMTIyMjkzNDMwODI2JmFtcDtzZGF0YT1EZWFE
+bWdyVUY5eXF6MWRUbmpvdklIVTZVY2pHWDRyRXk2bGN5Qw0KPmhIeGVBJTNEJmFtcDtyZXNlcnZl
+ZD0wDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
