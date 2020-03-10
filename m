@@ -8,65 +8,65 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 610FDC18E5A
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2020 11:24:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4757C10F27
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2020 11:24:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 36F6724692
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2020 11:24:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9A57524692
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2020 11:24:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pPi05+o2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 36F6724692
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C/bS9kLD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A57524692
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E951A6E160;
-	Tue, 10 Mar 2020 11:24:19 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ADE26E160
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2020 11:24:19 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id 25so939274wmk.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2020 04:24:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30ED66E1B7;
+	Tue, 10 Mar 2020 11:24:22 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAD5B6E1B9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2020 11:24:20 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id a132so947130wme.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2020 04:24:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=BQhpJ7MNeyUw9rUzOzev+aJevFWsy5vf5dq/09wDCA0=;
- b=pPi05+o2+y077AQVUR7oAl/tbXdheqc1mTTQx0Gz3e4Zx8S3FSvvvwNjrWXDPF7C95
- X6iV8lyGWBas38cCx84UjcQ4NuYtqYQxb4wMWXMSTIHoHhI41bvYrckORWy2fnzTqk9I
- qUQFdECNPGTDgnvPg1q89z/nUGRgpky3cfHlq/HSsuR7rFhJ2By0PDkfqoV9GzcYXmrq
- IMtHEUwRQi+tSoA6xg7u9c6FMNo8tcaQ0c7i8kDZT0o8X6nJv8SeXCSIWJjkNL/hNes8
- 5nKgPHj3flB+wiFjwmu8YV82fJns3Tkh3rkxpZWmDB5YjlqajZJpSwdJ4y59MJaWQaLG
- veDg==
+ bh=7yT3+OP4u57AqLIl11N15fckLmFG3NMULGi2jx1Jg7o=;
+ b=C/bS9kLDz7aZKh19KqA2o5P5czhFqbnLFf3vVh570JPMIylAO0Do55//Lt6cGP6gW+
+ 3wjlXlFE2CSypAEB23GSsBhSUNnQVOPUDttOmYUiZDnLdskXhIWcnvhZtbKzIpXQf+uK
+ j5+gWyR6oaufQHFEjBrKxo2JM7h0OINI0KeG8uUrzgCvQ90DYLeH4OVkGQaAUfIVsIBu
+ vtcL7ELhAqYEcw2cEYvq3W5PfMAc00IiJUAmXMe2WPGUMAZhIAzFM4F6ehKtm5ZdboVp
+ W9d/sBP7elSuzqF9cEysbxssVIMVx5PEzMSK5lAtWP+akZw6NaQFO7czuh2V4VHOy2XY
+ T/qw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=BQhpJ7MNeyUw9rUzOzev+aJevFWsy5vf5dq/09wDCA0=;
- b=TP5pm3hYZ3lIWlPwpLzT37BOgP2v2FT132tnAcqU/bDCDCB+gi1dSJduFbNEpz5Bb6
- x4nyDU+cLeZTZ8ZS1sYImHzXsUd5Y9b8dL66hZvEaCUP/c97rRzcLTppMJHOC6yfQ9ge
- AaXYDspGM4RdDlXY6TW5p4McjP83ddAWNlFf6qAyUfVfisrawA5IPNMAjw1Lqr20B8XZ
- Qt0wjB+RNSYDPjszg4rt4FEuxHCzScLpsK3S+61pR/gVG83nGrmmKTdnaC4L3FAK2uzF
- yppicSNk4ioOmvdpOkXkAhzRdXt6gS8KECcOaS1XhMVY9guythMIRsTwn6imPdadci48
- yoZA==
-X-Gm-Message-State: ANhLgQ22V3VdEKE0EdlDYT3OMhmfO/FNbL5BdRmAaQhH8PIs4koLXOVr
- SXgOzdnl/peGtCgf3s0QhiZ2Xs/ZAhZnvg==
-X-Google-Smtp-Source: ADFU+vtt89r2IUY3/nHYiUWES0vn/sJdlKPPTrMlhBcnSgD+oqeEH+LwcA3PQK2MFM8mEG64yPdf7A==
-X-Received: by 2002:a1c:2ed2:: with SMTP id u201mr1688867wmu.3.1583839457771; 
- Tue, 10 Mar 2020 04:24:17 -0700 (PDT)
+ bh=7yT3+OP4u57AqLIl11N15fckLmFG3NMULGi2jx1Jg7o=;
+ b=fQgCkHyFrideRYVSbUHVYRwybD8J5S+Oy+XuReZXg32trpkabhZkYX908ljgsxqVne
+ FzntWukj03GNEywTHD0rdeZ33Yzxm5dTqIojQ0A5z3LJIQgXvorD9mPgDLaUNcgxh10f
+ qj4mOD1mooD/xs01oGtIGfuQWprZpXX15u1lgr13MSruJIpPlzpzLKOIvUc1me8mmNZw
+ nqxMTw4w79KaI/ov0h5T17tSNgwj8CIP4wSd0KRcS7TLXWXYpN5H+Ji4z3fvIi9uc4y/
+ aTqKBrNQW5RCb1j89B85ywfiqTXWdiZwXstyZVVr3Bu+GvwV0CCjRHRPgee7qTyYtk6+
+ E0Sg==
+X-Gm-Message-State: ANhLgQ1EbF//9D1Wq6+c/aBwIYDr2UePYqdl/97u/ZuSNKEazXT1Fztb
+ H6vqyRNyk4Znk0n6Q0oSU4iFTXr4apOaQg==
+X-Google-Smtp-Source: ADFU+vt0LoEwow10jjpEznr6rRsvRZiBOUmoB7at/U6WMmN714ZggGVtoHcqZM6YkIHlVKC3Oh7pMQ==
+X-Received: by 2002:a1c:de82:: with SMTP id v124mr1715278wmg.70.1583839459056; 
+ Tue, 10 Mar 2020 04:24:19 -0700 (PDT)
 Received: from brihaspati.fritz.box
  (p200300C58F32A80070E0F409F1853DFD.dip0.t-ipconnect.de.
  [2003:c5:8f32:a800:70e0:f409:f185:3dfd])
- by smtp.gmail.com with ESMTPSA id i6sm611560wru.40.2020.03.10.04.24.16
+ by smtp.gmail.com with ESMTPSA id i6sm611560wru.40.2020.03.10.04.24.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Mar 2020 04:24:16 -0700 (PDT)
+ Tue, 10 Mar 2020 04:24:18 -0700 (PDT)
 From: Nirmoy Das <nirmoy.aiemd@gmail.com>
 X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amdgpu: do not set nil entry in compute_prio_sched
-Date: Tue, 10 Mar 2020 12:27:47 +0100
-Message-Id: <20200310112748.4899-2-nirmoy.das@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: fix assigning nil entry in compute_prio_sched
+Date: Tue, 10 Mar 2020 12:27:48 +0100
+Message-Id: <20200310112748.4899-3-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200310112748.4899-1-nirmoy.das@amd.com>
 References: <20200310112748.4899-1-nirmoy.das@amd.com>
@@ -89,7 +89,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If there are no high priority compute queues available then set normal
+If there is no high priority compute queue then set normal
 priority sched array to compute_prio_sched[AMDGPU_GFX_PIPE_PRIO_HIGH]
 
 Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
