@@ -1,119 +1,116 @@
 Return-Path: <SRS0=k5/X=43=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3611FC10DCE
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2020 06:33:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA0D1C10F27
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2020 08:41:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E960E2464B
-	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2020 06:33:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7CA50208E4
+	for <amd-gfx@archiver.kernel.org>; Tue, 10 Mar 2020 08:41:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DtYu12kq"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E960E2464B
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="fvBSo2SN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7CA50208E4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E6386E7D9;
-	Tue, 10 Mar 2020 06:33:50 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2080.outbound.protection.outlook.com [40.107.236.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE6E16E7D9
- for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2020 06:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3934B6E408;
+	Tue, 10 Mar 2020 08:41:50 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2049.outbound.protection.outlook.com [40.107.223.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF14D6E408
+ for <amd-gfx@lists.freedesktop.org>; Tue, 10 Mar 2020 08:41:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QS9QQVqoL8fhSDir9fidbdoWmomGSjyjSaAtaeIfK+4QS2HAYwts9Vd5ziKNu7zhPT3cOh3Sh59G4GRmD107GDZn7HZz/xk4lGeVlUPRTAjyqthpRyauON/3FfAqnEdkqZAEi/+LnUsg0u97mE74LofEi3dykAXmcd/wjF+VPuW2K6KS+AGXuMIX6BwsjLFr8NN4atiuJLWsbFK69/ZHgBKcn5Ci51vfzVbXmQ26GeQrZWVvBHMj0lkSi4oJcS7/pGAotfS7PTS2/axIIT6VgQIMINfDtQ79sf0ZCgST0pmkBUiu9r98m4gPN3ZaxWF0r1O1ECnS1m8loFAn5Xr+ow==
+ b=gc64g51BRtzkZhLo7qnTwMHBhX4nOLKDb5fCUpyRT3DtKm2sd6x30dxFfgwjH1Zogec1saIUNzqDBrEH0UO5/auAVzCDKuLhAsP5In+G1OdB2iiG4RNHhxxR1BRuMVFvr/P+3R40G7nyMlMDdkeEWF3zJqp2DzkruIJanSiGYodZo3EQHnJZDXYmGMLYpTIUqY8faNOorXsLsnF7vrqpF8+aI7NLm1ezt0I7Lku9FpSeoBkXuFqyR1ZZm2dfVHJs6+ucCqva9cO+ruzJ0qUZpeH2zyYctLETTS1btYILZHEcW4+GifAByvawO2WsMcAoNOp4f5YSbt80Tfmp+Kavvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ml4E2YCHwojeWj4RMcCEpROOLKSOvK0CXDuNmPt4qaQ=;
- b=nXpAoV/iRAwG75y0EMC27y9hQQkr2kBGxNiWPvBT2/BsCUURQQ5WYm1s7w8F4LjZZHyq70oSu/nUYewuwkoftD99ad9HktzJJH10E9+iXKMdYnnqE/aSNaRdRbGWl6FeexKFjeFWxVQ/fMCsKgtfosIDorCudPMBB41HN1jHDQZACTT69a2Ip4jj5fkFafkMHaJHdiUYcx71d7bhI/iUhcuTZBbF5Km8jhFjd7byWiuChX7M6q7TTPz+bb8RYj7TGYSA9ve9sX1jbb2OqzigiF4/Wk3vQQoHJokV0pFN0Abqp+r3gEGC7RocaQhRQMlfthuQMssQ9M38veXvhuzsmw==
+ bh=t0DMcnuf8i5Ud7USJI1OBRfCSPN6N0SUc9AoB+sVOGQ=;
+ b=mmdnyTTwtlW+axNbdDInaWxrWDQP0A2hYDTlqL4JidczoWqwWSyysoQ8G49W1pwMiq9yibux/CXrvM6FJJCILkQfVWyCYe9eJKR6L/pMQAyrvAoThqmgFHgIKPAY/qiEGIlYLl7u7Q+NmkgXEfuBVW5LYnrh8vmgMXq8bh6/CE5gBqR+yoLdUFB+6z5QE5zjPYKIjRlcsDKOVid2MGAO83lMAfrrxB62LeM8/Oh3dK39ArUuxdZXu7KlU2aVs2ZgP2Zh1sKq6jiQo6gc/ugwg6jkxrohwfLZCgAZUm61rWH7e2vlRWfYtJuflKDcoH8ysZav3ASkrAc0Bl3ZfpOSMQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ml4E2YCHwojeWj4RMcCEpROOLKSOvK0CXDuNmPt4qaQ=;
- b=DtYu12kqLCiBdik7V39ZAk1+mKIyuTksm+D1EYxNOr2GRaxloM1+0N5INE198pCNtCE5ZQ6q6taSwEaE3tRfJxSB/wkllbple2IGVeGdaZFocsfz3dTGQOlod+anngq1N1UlusCjeo/epw9oFjObBJaeg2mdIClT4Bb1Dd1UuBE=
-Received: from BYAPR12MB2806.namprd12.prod.outlook.com (2603:10b6:a03:70::20)
- by BYAPR12MB3016.namprd12.prod.outlook.com (2603:10b6:a03:dc::24)
+ bh=t0DMcnuf8i5Ud7USJI1OBRfCSPN6N0SUc9AoB+sVOGQ=;
+ b=fvBSo2SNGCo63jP2jPf38xgmNq0DBxOPRjhR9BuXUAS0ctK8k415JokX5o024RkOVRSJg3BAkJ7Stc0/dTKGwAqg291c1v71pDx2LK9bzFBy3SiiXQlZkQjtbf+xJIyVmj2uTV8awT9Hwz4JK9OfONNg/0BkEAj95PyV2l/UoOk=
+Received: from MN2PR12MB3663.namprd12.prod.outlook.com (2603:10b6:208:16e::22)
+ by MN2PR12MB3391.namprd12.prod.outlook.com (2603:10b6:208:c3::31)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.17; Tue, 10 Mar
- 2020 06:33:46 +0000
-Received: from BYAPR12MB2806.namprd12.prod.outlook.com
- ([fe80::5034:d0dc:246d:399f]) by BYAPR12MB2806.namprd12.prod.outlook.com
- ([fe80::5034:d0dc:246d:399f%7]) with mapi id 15.20.2793.013; Tue, 10 Mar 2020
- 06:33:46 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/2] drm/amdgpu: call ras_debugfs_create_all in
- debugfs_init
-Thread-Topic: [PATCH 2/2] drm/amdgpu: call ras_debugfs_create_all in
- debugfs_init
-Thread-Index: AQHV9fLbdxIrSy7yekesnjnJnnBtcag/+7fwgAAPswCAAVQyYA==
-Date: Tue, 10 Mar 2020 06:33:46 +0000
-Message-ID: <BYAPR12MB2806520C4DEF5CFF856D8255F1FF0@BYAPR12MB2806.namprd12.prod.outlook.com>
-References: <20200309091215.26768-1-Stanley.Yang@amd.com>
- <20200309091215.26768-2-Stanley.Yang@amd.com>
- <BYAPR12MB2806E9C6F7B8E2BEFF19B4F5F1FE0@BYAPR12MB2806.namprd12.prod.outlook.com>
- <MN2PR12MB305435876A1E6A162B974006B0FE0@MN2PR12MB3054.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB305435876A1E6A162B974006B0FE0@MN2PR12MB3054.namprd12.prod.outlook.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.16; Tue, 10 Mar
+ 2020 08:41:47 +0000
+Received: from MN2PR12MB3663.namprd12.prod.outlook.com
+ ([fe80::65dd:a977:c7a7:e9a7]) by MN2PR12MB3663.namprd12.prod.outlook.com
+ ([fe80::65dd:a977:c7a7:e9a7%7]) with mapi id 15.20.2793.013; Tue, 10 Mar 2020
+ 08:41:47 +0000
+From: "Clements, John" <John.Clements@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>, "Chen, Guchun" <Guchun.Chen@amd.com>, "Li,
+ Dennis" <Dennis.Li@amd.com>, "Li, Candice" <Candice.Li@amd.com>
+Subject: [PATCH] drm/amdgpu: resolve failed error inject msg
+Thread-Topic: [PATCH] drm/amdgpu: resolve failed error inject msg
+Thread-Index: AdX2t3DemT+t8diMQKysDPFlyWTrvA==
+Date: Tue, 10 Mar 2020 08:41:47 +0000
+Message-ID: <MN2PR12MB3663BFD340186E29FCDEC728FBFF0@MN2PR12MB3663.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
-X-MS-Has-Attach: 
+X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-03-09T09:19:20Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=14dd4b30-9321-4a3b-bfcb-00003ac7d245;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-03-10T06:33:45Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 60141b25-5629-4b78-926a-0000b30bfcf8
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-10T08:41:41Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=45fcbebf-95c0-46b9-b672-00001401a6ee;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-03-10T08:41:41Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 4293f1f3-2586-44bf-abf8-00008df4f604
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Guchun.Chen@amd.com; 
-x-originating-ip: [101.224.57.6]
+ smtp.mailfrom=John.Clements@amd.com; 
+x-originating-ip: [114.88.224.33]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: b2df4f82-c1d1-428f-90c7-08d7c4bcfca9
-x-ms-traffictypediagnostic: BYAPR12MB3016:|BYAPR12MB3016:
+x-ms-office365-filtering-correlation-id: 91c4f13b-2031-4aef-c4d0-08d7c4cedec6
+x-ms-traffictypediagnostic: MN2PR12MB3391:|MN2PR12MB3391:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BYAPR12MB3016A1F29C1F3CC34A85B665F1FF0@BYAPR12MB3016.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;
+x-microsoft-antispam-prvs: <MN2PR12MB339152677E5B610D1968F243FBFF0@MN2PR12MB3391.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
 x-forefront-prvs: 033857D0BD
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(199004)(189003)(4326008)(66946007)(186003)(86362001)(76116006)(71200400001)(110136005)(66556008)(66446008)(55016002)(66476007)(54906003)(64756008)(9686003)(498600001)(6506007)(7696005)(8676002)(8936002)(26005)(52536014)(33656002)(81166006)(81156014)(53546011)(5660300002)(2906002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BYAPR12MB3016;
- H:BYAPR12MB2806.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10009020)(4636009)(346002)(376002)(136003)(39850400004)(366004)(396003)(199004)(189003)(55016002)(9686003)(6636002)(71200400001)(52536014)(86362001)(66946007)(2906002)(186003)(81156014)(478600001)(81166006)(7696005)(8936002)(76116006)(26005)(316002)(5660300002)(558084003)(6506007)(66616009)(66476007)(8676002)(66556008)(64756008)(66446008)(110136005)(33656002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3391;
+ H:MN2PR12MB3663.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: dveRNd+RCxQwb1ByF50YNmZEeCPxXIqrxl0AgSOM6ggQi1xIlQLFR6YPXeL9d8MTYY3LEshsSl92h9uenRu7C+YThk9A7JYThzNS2v8IZNEw03O9ten4hdlaNj8n9hLX1M9p9s1gu3VN6ep2S3zP8Yd1vL8950CLRQUWCMx6tl5cKGR7QCCCwIRSvI0eZPxrojU1vcBa7naQJc3G5jZM2ejjXqagOVsL5yXiMv9rpdB5m7WrpvPKyhv1BnyRrweI8Tw0vVeJTThTeGDOXAFTN+e4hJvJCq89RA/dCfLnMSe1nR7QsbyUGWD/8vzRwaeV6PoZLM1SSHoZMaU5CjxlUojYmsoMFvJb22HzztoV8H+T+K7ISfJF/BvmbHeqEroUBh6kz557Di4xYLb/tD787E2GwTg5CvjzYD3Eql9YpVo+tK0Wf1Gz9OU+L2CGrm+n
-x-ms-exchange-antispam-messagedata: 2VUmYz9zJd/TAZhQCG+5wt397cMuyZ6XAXBG0XA1y7sYE74UhszdO9Dy/+NXIse0HKH1OBNgBO/NW1qw0Q7FurIMc/bRLfmVDFkXJ+mJNM3gTR6GPtLBNWxQ1uuuuKHcyRqe2545DA0X8DEYwCqhvw==
+x-microsoft-antispam-message-info: qakJ08UyUuOioXTSnKjnHHPljRrppS0XDn+uEaxscZ+59+9Cpox3heYQ+qVduRzh4Swp/Ap1Zm4M7rt0FKjJgzGCCB6B4eFeSTgRaocFGEpJ4qq5dc/jvrpKiLyGtZi6eGMuxjxaBrwlUYwcFDw5eta3Cjd4se8vqC32u++/dRyXlN+IfHD6r44HrtK8KpayP5lGRbDWqJZeept84aPjM3iGJ8qpvWNfz0rroniiplRjnswN5lQn1rkrqxtIhLi7GpZoFRk8XMZ3HrCBXA963HQ1cRTZVICoB9i7FVNTJKHQcZPMhKQm/ngH+kCma2MniR7T77DU2YOa5yF2vA2HrtCiXIQVkZ0pI/s/U69B4JYZ2jgRykkg5MfqHF1NRIo2UTKjfZvmirf8AYIVA4dwxliwMQyj87m6kD0NL5US/u309Yx6OuYTlKLfxXLfuF8N
+x-ms-exchange-antispam-messagedata: NuJgujY+W2GhM6w4nJA6j+5yMFPXcmyVqoD8kaI25R65WGSXv9879rK0eK7RwGeE3Bv8FP57PiPNbOzxnUaVjAS0G83qkg2IGDmxe9PEQ0CI9klJXkHJrL0y/omt2rYsVFYZHYe99cG8yUawx4PNPw==
+Content-Type: multipart/mixed;
+ boundary="_004_MN2PR12MB3663BFD340186E29FCDEC728FBFF0MN2PR12MB3663namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2df4f82-c1d1-428f-90c7-08d7c4bcfca9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Mar 2020 06:33:46.6072 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91c4f13b-2031-4aef-c4d0-08d7c4cedec6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Mar 2020 08:41:47.4341 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DhJa6J/wG0n8yOpiLfyzQviRciZwmmImKlujqJjcd3FNgdQp+Ixppe3uAyDfscLKN0CI4N4XeKRGeO3uoxQW8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3016
+X-MS-Exchange-CrossTenant-userprincipalname: b14CAydm68bxsX9lqQ7X7exXaWh/Wmzs9jCH4Z10ZZFEdUX3M7NEIxQR0ZikSN+tlIp+vMth8n4mCum3+Rkc+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3391
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,247 +122,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Yang,
- Stanley" <Stanley.Yang@amd.com>, "Clements, John" <John.Clements@amd.com>, "Li,
- Dennis" <Dennis.Li@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+--_004_MN2PR12MB3663BFD340186E29FCDEC728FBFF0MN2PR12MB3663namp_
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB3663BFD340186E29FCDEC728FBFF0MN2PR12MB3663namp_"
 
-That's fine. These two patches are:
+--_000_MN2PR12MB3663BFD340186E29FCDEC728FBFF0MN2PR12MB3663namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Guchun Chen <guchun.chen@amd.com>
+[AMD Official Use Only - Internal Distribution Only]
 
-Regards,
-Guchun
+Submitting patch to resolve issue where during a successful error inject in=
+voke the associated at_event interrupt causes a false negative and outputs =
+an error in the kernel message.
 
------Original Message-----
-From: Zhou1, Tao <Tao.Zhou1@amd.com> 
-Sent: Monday, March 9, 2020 6:15 PM
-To: Chen, Guchun <Guchun.Chen@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Clements, John <John.Clements@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdgpu: call ras_debugfs_create_all in debugfs_init
+Thank you,
+John Clements
 
-[AMD Public Use]
+--_000_MN2PR12MB3663BFD340186E29FCDEC728FBFF0MN2PR12MB3663namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-We already have amdgpu_ras_debugfs_remove and amdgpu_ras_debugfs_remove_all.
-In fact, amdgpu_debugfs_fini has been dropped in the patch below, and we are also planning to delete amdgpu_ras_debugfs_remove and amdgpu_ras_debugfs_remove_all.
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<p class=3D"msipheadera92e061b" align=3D"Left" style=3D"margin:0"><span sty=
+le=3D"font-size:10.0pt;font-family:Arial;color:#0078D7">[AMD Official Use O=
+nly - Internal Distribution Only]</span></p>
+<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Submitting patch to resolve issue where during a suc=
+cessful error inject invoke the associated at_event interrupt causes a fals=
+e negative and outputs an error in the kernel message.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thank you,<o:p></o:p></p>
+<p class=3D"MsoNormal">John Clements<o:p></o:p></p>
+</div>
+</body>
+</html>
 
-drm/amdgpu: no need to clean debugfs at amdgpu
+--_000_MN2PR12MB3663BFD340186E29FCDEC728FBFF0MN2PR12MB3663namp_--
 
-drm_minor_unregister will invoke drm_debugfs_cleanup to clean all the child node under primary minor node.
-We don't need to invoke amdgpu_debugfs_fini and amdgpu_debugfs_regs_cleanup to clean agian.
-Otherwise, it will raise the NULL pointer like below.
+--_004_MN2PR12MB3663BFD340186E29FCDEC728FBFF0MN2PR12MB3663namp_
+Content-Type: application/octet-stream;
+	name="0001-drm-amdgpu-resolve-failed-error-inject-msg.patch"
+Content-Description: 0001-drm-amdgpu-resolve-failed-error-inject-msg.patch
+Content-Disposition: attachment;
+	filename="0001-drm-amdgpu-resolve-failed-error-inject-msg.patch"; size=2467;
+	creation-date="Tue, 10 Mar 2020 08:39:00 GMT";
+	modification-date="Tue, 10 Mar 2020 08:39:00 GMT"
+Content-Transfer-Encoding: base64
 
-v2: remove all debugfs cleanup/fini code at amdgpu
+RnJvbSAxNWVmYTIyMTE1MmFlNmNhNTE0ZTVkNTFlNzRiMTQ1OWMzNTJhOGMxIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBKb2huIENsZW1lbnRzIDxqb2huLmNsZW1lbnRzQGFtZC5jb20+
+CkRhdGU6IFR1ZSwgMTAgTWFyIDIwMjAgMTY6MzY6NTcgKzA4MDAKU3ViamVjdDogW1BBVENIXSBk
+cm0vYW1kZ3B1OiByZXNvbHZlIGZhaWxlZCBlcnJvciBpbmplY3QgbXNnCgppbnZva2luZyBhbiBl
+cnJvciBpbmplY3Rpb24gc3VjY2VzZnVsbHkgd2lsbCBjYXVzZSBhbiBhdF9ldmVudCBpbnR0ZXJ1
+cHQgdGhhdAp3aWxsIG9jY3VyIGJlZm9yZSB0aGUgaW52b2tlIHNlcXVlbmNlIGNhbiBjb21wbGV0
+ZSBjYXVzaW5nIGFuIGludmFsaWQgZXJyb3IKCkNoYW5nZS1JZDogSWY2YjE0YjBlYzc2YTY1ODVm
+YTdmMDg0YTE2ZTUwZjllMjQwMDMyOWEKU2lnbmVkLW9mZi1ieTogSm9obiBDbGVtZW50cyA8am9o
+bi5jbGVtZW50c0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9wc3AuYyB8IDYgKysrKy0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9wc3BfdjExXzAu
+YyAgfCA2ICsrKysrKwogMiBmaWxlcyBjaGFuZ2VkLCAxMCBpbnNlcnRpb25zKCspLCAyIGRlbGV0
+aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9w
+c3AuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9wc3AuYwppbmRleCBhMTZj
+ODEwMWUyNTAuLjY0MjZkYmVjYmE5NSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X3BzcC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9wc3AuYwpAQCAtMTUwLDYgKzE1MCw3IEBAIHBzcF9jbWRfc3VibWl0X2J1ZihzdHJ1Y3QgcHNw
+X2NvbnRleHQgKnBzcCwKIAlpbnQgcmV0OwogCWludCBpbmRleDsKIAlpbnQgdGltZW91dCA9IDIw
+MDA7CisJYm9vbCByYXNfaW50ciA9IGZhbHNlOwogCiAJbXV0ZXhfbG9jaygmcHNwLT5tdXRleCk7
+CiAKQEAgLTE3NCw3ICsxNzUsOCBAQCBwc3BfY21kX3N1Ym1pdF9idWYoc3RydWN0IHBzcF9jb250
+ZXh0ICpwc3AsCiAJCSAqIGJlY2F1c2UgZ3B1IHJlc2V0IHRocmVhZCB0cmlnZ2VyZWQgYW5kIGxv
+Y2sgcmVzb3VyY2Ugc2hvdWxkCiAJCSAqIGJlIHJlbGVhc2VkIGZvciBwc3AgcmVzdW1lIHNlcXVl
+bmNlLgogCQkgKi8KLQkJaWYgKGFtZGdwdV9yYXNfaW50cl90cmlnZ2VyZWQoKSkKKwkJcmFzX2lu
+dHIgPSBhbWRncHVfcmFzX2ludHJfdHJpZ2dlcmVkKCk7CisJCWlmIChyYXNfaW50cikKIAkJCWJy
+ZWFrOwogCQltc2xlZXAoMSk7CiAJCWFtZGdwdV9hc2ljX2ludmFsaWRhdGVfaGRwKHBzcC0+YWRl
+diwgTlVMTCk7CkBAIC0xODcsNyArMTg5LDcgQEAgcHNwX2NtZF9zdWJtaXRfYnVmKHN0cnVjdCBw
+c3BfY29udGV4dCAqcHNwLAogCSAqIGR1cmluZyBwc3AgaW5pdGlhbGl6YXRpb24gdG8gYXZvaWQg
+YnJlYWtpbmcgaHdfaW5pdCBhbmQgaXQgZG9lc24ndAogCSAqIHJldHVybiAtRUlOVkFMLgogCSAq
+LwotCWlmIChwc3AtPmNtZF9idWZfbWVtLT5yZXNwLnN0YXR1cyB8fCAhdGltZW91dCkgeworCWlm
+ICgocHNwLT5jbWRfYnVmX21lbS0+cmVzcC5zdGF0dXMgfHwgIXRpbWVvdXQpICYmICFyYXNfaW50
+cikgewogCQlpZiAodWNvZGUpCiAJCQlEUk1fV0FSTigiZmFpbGVkIHRvIGxvYWQgdWNvZGUgaWQg
+KCVkKSAiLAogCQkJCSAgdWNvZGUtPnVjb2RlX2lkKTsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+cHNwX3YxMV8wLmMKaW5kZXggMDgyOTE4OGMxYTVjLi43Y2MxMmM2YWVmNzcgMTAwNjQ0Ci0tLSBh
+L2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFfMC5jCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L3BzcF92MTFfMC5jCkBAIC0yNiw2ICsyNiw3IEBACiAKICNpbmNsdWRl
+ICJhbWRncHUuaCIKICNpbmNsdWRlICJhbWRncHVfcHNwLmgiCisjaW5jbHVkZSAiYW1kZ3B1X3Jh
+cy5oIgogI2luY2x1ZGUgImFtZGdwdV91Y29kZS5oIgogI2luY2x1ZGUgInNvYzE1X2NvbW1vbi5o
+IgogI2luY2x1ZGUgInBzcF92MTFfMC5oIgpAQCAtODY0LDYgKzg2NSwxMSBAQCBzdGF0aWMgaW50
+IHBzcF92MTFfMF9yYXNfdHJpZ2dlcl9lcnJvcihzdHJ1Y3QgcHNwX2NvbnRleHQgKnBzcCwKIAlp
+ZiAocmV0KQogCQlyZXR1cm4gLUVJTlZBTDsKIAorCS8qIElmIGVycl9ldmVudF9hdGh1YiBvY2N1
+cnMgZXJyb3IgaW5qZWN0IHdhcyBzdWNjZXNzZnVsLCBob3dldmVyCisJICAgcmV0dXJuIHN0YXR1
+cyBmcm9tIFRBIGlzIG5vIGxvbmcgcmVsaWFibGUgKi8KKwlpZiAoYW1kZ3B1X3Jhc19pbnRyX3Ry
+aWdnZXJlZCgpKQorCQlyZXR1cm4gMDsKKwogCXJldHVybiByYXNfY21kLT5yYXNfc3RhdHVzOwog
+fQogCi0tIAoyLjE3LjEKCg==
 
-Signed-off-by: Yintian Tao <yttao@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+--_004_MN2PR12MB3663BFD340186E29FCDEC728FBFF0MN2PR12MB3663namp_
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-Regards,
-Tao
-
-> -----Original Message-----
-> From: Chen, Guchun <Guchun.Chen@amd.com>
-> Sent: 2020年3月9日 17:21
-> To: Yang, Stanley <Stanley.Yang@amd.com>; 
-> amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Dennis 
-> <Dennis.Li@amd.com>; Clements, John <John.Clements@amd.com>; Zhou1, 
-> Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>
-> Subject: RE: [PATCH 2/2] drm/amdgpu: call ras_debugfs_create_all in 
-> debugfs_init
-> 
-> [AMD Public Use]
-> 
-> Shall we need other codes to remove ras debugfs in debugfs_fini to 
-> avoid leak?
-> 
-> Regards,
-> Guchun
-> 
-> -----Original Message-----
-> From: Stanley.Yang <Stanley.Yang@amd.com>
-> Sent: Monday, March 9, 2020 5:12 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chen, Guchun 
-> <Guchun.Chen@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Clements, John 
-> <John.Clements@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley 
-> <Stanley.Yang@amd.com>
-> Subject: [PATCH 2/2] drm/amdgpu: call ras_debugfs_create_all in 
-> debugfs_init
-> 
-> From: Tao Zhou <tao.zhou1@amd.com>
-> 
-> and remove each ras IP's own debugfs creation
-> 
-> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
-> Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
-> Change-Id: If3d16862afa0d97abad183dd6e60478b34029e95
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 3 +++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c     | 1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c   | 1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c    | 1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c     | 5 -----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c    | 1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c     | 1 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c    | 1 -
->  8 files changed, 3 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index deca6343d0cc..1d513e4f9934 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -1315,6 +1315,7 @@ DEFINE_SIMPLE_ATTRIBUTE(fops_ib_preempt,
-> NULL,  DEFINE_SIMPLE_ATTRIBUTE(fops_sclk_set, NULL,
->  			amdgpu_debugfs_sclk_set, "%llu\n");
-> 
-> +extern void amdgpu_ras_debugfs_create_all(struct amdgpu_device 
-> +*adev);
->  int amdgpu_debugfs_init(struct amdgpu_device *adev)  {
->  	int r, i;
-> @@ -1387,6 +1388,8 @@ int amdgpu_debugfs_init(struct amdgpu_device
-> *adev)
->  		}
->  	}
-> 
-> +	amdgpu_ras_debugfs_create_all(adev);
-> +
->  	return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_list,
->  					ARRAY_SIZE(amdgpu_debugfs_list));  } diff --git 
-> a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> index 7403588684b3..d12bb4a35780 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -565,7 +565,6 @@ int amdgpu_gfx_ras_late_init(struct amdgpu_device
-> *adev)
->  	int r;
->  	struct ras_fs_if fs_info = {
->  		.sysfs_name = "gfx_err_count",
-> -		.debugfs_name = "gfx_err_inject",
->  	};
->  	struct ras_ih_if ih_info = {
->  		.cb = amdgpu_gfx_process_ras_data_cb, diff --git 
-> a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
-> index 676c48c02d77..ead3dc572ec5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mmhub.c
-> @@ -32,7 +32,6 @@ int amdgpu_mmhub_ras_late_init(struct amdgpu_device 
-> *adev)
->  	};
->  	struct ras_fs_if fs_info = {
->  		.sysfs_name = "mmhub_err_count",
-> -		.debugfs_name = "mmhub_err_inject",
->  	};
-> 
->  	if (!adev->mmhub.ras_if) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-> index 7d5c3a9de9ea..6201a5f4b4fa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.c
-> @@ -30,7 +30,6 @@ int amdgpu_nbio_ras_late_init(struct amdgpu_device
-> *adev)
->  	};
->  	struct ras_fs_if fs_info = {
->  		.sysfs_name = "pcie_bif_err_count",
-> -		.debugfs_name = "pcie_bif_err_inject",
->  	};
-> 
->  	if (!adev->nbio.ras_if) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> index 422cdd1ce3ad..57af4ea8fb58 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -1178,7 +1178,6 @@ static void
-> amdgpu_ras_debugfs_remove_all(struct amdgpu_device *adev)  static int 
-> amdgpu_ras_fs_init(struct amdgpu_device *adev)  {
->  	amdgpu_ras_sysfs_create_feature_node(adev);
-> -	amdgpu_ras_debugfs_create_ctrl_node(adev);
-> 
->  	return 0;
->  }
-> @@ -1882,8 +1881,6 @@ int amdgpu_ras_late_init(struct amdgpu_device 
-> *adev,
->  			goto interrupt;
->  	}
-> 
-> -	amdgpu_ras_debugfs_create(adev, fs_info);
-> -
->  	r = amdgpu_ras_sysfs_create(adev, fs_info);
->  	if (r)
->  		goto sysfs;
-> @@ -1892,7 +1889,6 @@ int amdgpu_ras_late_init(struct amdgpu_device 
-> *adev,
->  cleanup:
->  	amdgpu_ras_sysfs_remove(adev, ras_block);
->  sysfs:
-> -	amdgpu_ras_debugfs_remove(adev, ras_block);
->  	if (ih_info->cb)
->  		amdgpu_ras_interrupt_remove_handler(adev, ih_info);
->  interrupt:
-> @@ -1909,7 +1905,6 @@ void amdgpu_ras_late_fini(struct amdgpu_device 
-> *adev,
->  		return;
-> 
->  	amdgpu_ras_sysfs_remove(adev, ras_block);
-> -	amdgpu_ras_debugfs_remove(adev, ras_block);
->  	if (ih_info->cb)
->                  amdgpu_ras_interrupt_remove_handler(adev, ih_info);
->  	amdgpu_ras_feature_enable(adev, ras_block, 0); diff --git 
-> a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> index 7854c053e85d..250a309e4dee 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-> @@ -93,7 +93,6 @@ int amdgpu_sdma_ras_late_init(struct amdgpu_device 
-> *adev,
->  	struct ras_ih_if *ih_info = (struct ras_ih_if *)ras_ih_info;
->  	struct ras_fs_if fs_info = {
->  		.sysfs_name = "sdma_err_count",
-> -		.debugfs_name = "sdma_err_inject",
->  	};
-> 
->  	if (!ih_info)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> index f4d40855147b..9dd51f0d2c11 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-> @@ -28,7 +28,6 @@ int amdgpu_umc_ras_late_init(struct amdgpu_device
-> *adev)
->  	int r;
->  	struct ras_fs_if fs_info = {
->  		.sysfs_name = "umc_err_count",
-> -		.debugfs_name = "umc_err_inject",
->  	};
->  	struct ras_ih_if ih_info = {
->  		.cb = amdgpu_umc_process_ras_data_cb, diff --git 
-> a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> index a54ce398ed77..0837f872741b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
-> @@ -598,7 +598,6 @@ int amdgpu_xgmi_ras_late_init(struct amdgpu_device 
-> *adev)
->  	};
->  	struct ras_fs_if fs_info = {
->  		.sysfs_name = "xgmi_wafl_err_count",
-> -		.debugfs_name = "xgmi_wafl_err_inject",
->  	};
-> 
->  	if (!adev->gmc.xgmi.supported ||
-> --
-> 2.17.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--_004_MN2PR12MB3663BFD340186E29FCDEC728FBFF0MN2PR12MB3663namp_--
