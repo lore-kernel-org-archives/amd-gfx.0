@@ -4,50 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F7D5C10F27
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 08:36:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED12EC18E5C
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 08:36:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 61EA6208E4
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 08:36:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 61EA6208E4
+	by mail.kernel.org (Postfix) with ESMTPS id CE3B9208E4
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 08:36:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE3B9208E4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D70836E92F;
-	Wed, 11 Mar 2020 08:36:14 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0213.hostedemail.com
- [216.40.44.213])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8887F6E8F9
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 05:17:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 371766E935;
+	Wed, 11 Mar 2020 08:36:15 +0000 (UTC)
+X-Greylist: delayed 424 seconds by postgrey-1.36 at gabe;
+ Wed, 11 Mar 2020 05:13:44 UTC
+Received: from smtprelay.hostedemail.com (smtprelay0155.hostedemail.com
+ [216.40.44.155])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69F3A6E0D4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 05:13:44 +0000 (UTC)
 Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
  [10.5.19.251])
- by smtpgrave07.hostedemail.com (Postfix) with ESMTP id BD7A918075BE2
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 05:07:39 +0000 (UTC)
+ by smtpgrave08.hostedemail.com (Postfix) with ESMTP id 37B111802E2C2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 05:07:36 +0000 (UTC)
 Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
  [216.40.38.60])
- by smtprelay03.hostedemail.com (Postfix) with ESMTP id 611E4837F24F;
- Wed, 11 Mar 2020 05:07:37 +0000 (UTC)
+ by smtprelay06.hostedemail.com (Postfix) with ESMTP id 568831802E2B9;
+ Wed, 11 Mar 2020 05:07:35 +0000 (UTC)
 X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: boat02_253e30fb91c5c
-X-Filterd-Recvd-Size: 2387
+X-HE-Tag: bell19_24f02882e935b
+X-Filterd-Recvd-Size: 3579
 Received: from joe-laptop.perches.com (unknown [47.151.143.254])
  (Authenticated sender: joe@perches.com)
  by omf16.hostedemail.com (Postfix) with ESMTPA;
- Wed, 11 Mar 2020 05:07:35 +0000 (UTC)
+ Wed, 11 Mar 2020 05:07:33 +0000 (UTC)
 From: Joe Perches <joe@perches.com>
 To: linux-kernel@vger.kernel.org
-Subject: [PATCH -next 025/491] AMD POWERPLAY: Use fallthrough;
-Date: Tue, 10 Mar 2020 21:51:39 -0700
-Message-Id: <c9f6b726f857935502a4bfb026e27d9e6e5f7e72.1583896349.git.joe@perches.com>
+Subject: [PATCH -next 024/491] AMD DISPLAY CORE: Use fallthrough;
+Date: Tue, 10 Mar 2020 21:51:38 -0700
+Message-Id: <4ee79adcba4e5ea80b3ef6271caeef6df4bf8ca7.1583896349.git.joe@perches.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <cover.1583896344.git.joe@perches.com>
 References: <cover.1583896344.git.joe@perches.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 11 Mar 2020 08:36:14 +0000
+X-Mailman-Approved-At: Wed, 11 Mar 2020 08:36:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,9 +62,10 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
@@ -76,37 +79,59 @@ Link: https://lore.kernel.org/lkml/b56602fcf79f849e733e7b521bb0e17895d390fa.1582
 
 Signed-off-by: Joe Perches <joe@perches.com>
 ---
- drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 4 ++--
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c       | 2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c | 2 +-
+ 3 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-index bf04cf..fc5236c 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c
-@@ -1250,7 +1250,7 @@ static void smu7_set_dpm_event_sources(struct pp_hwmgr *hwmgr, uint32_t sources)
- 	switch (sources) {
- 	default:
- 		pr_err("Unknown throttling event sources.");
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 2f1c958..37fa7b 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -267,7 +267,7 @@ static struct atom_display_object_path_v2 *get_bios_object(
+ 					&& id.enum_id == obj_id.enum_id)
+ 				return &bp->object_info_tbl.v1_4->display_path[i];
+ 		}
 -		/* fall through */
 +		fallthrough;
- 	case 0:
- 		protection = false;
- 		/* src is unused */
-@@ -3698,12 +3698,12 @@ static int smu7_request_link_speed_change_before_state_change(
- 			data->force_pcie_gen = PP_PCIEGen2;
- 			if (current_link_speed == PP_PCIEGen2)
- 				break;
--			/* fall through */
-+			fallthrough;
- 		case PP_PCIEGen2:
- 			if (0 == amdgpu_acpi_pcie_performance_request(hwmgr->adev, PCIE_PERF_REQ_GEN2, false))
- 				break;
- #endif
--			/* fall through */
-+			fallthrough;
- 		default:
- 			data->force_pcie_gen = smu7_get_current_pcie_speed(hwmgr);
- 			break;
+ 	case OBJECT_TYPE_CONNECTOR:
+ 	case OBJECT_TYPE_GENERIC:
+ 		/* Both Generic and Connector Object ID
+@@ -280,7 +280,7 @@ static struct atom_display_object_path_v2 *get_bios_object(
+ 					&& id.enum_id == obj_id.enum_id)
+ 				return &bp->object_info_tbl.v1_4->display_path[i];
+ 		}
+-		/* fall through */
++		fallthrough;
+ 	default:
+ 		return NULL;
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
+index 68c4049..743042 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
+@@ -645,7 +645,7 @@ bool dce_aux_transfer_with_retries(struct ddc_service *ddc,
+ 			case AUX_TRANSACTION_REPLY_AUX_DEFER:
+ 			case AUX_TRANSACTION_REPLY_I2C_OVER_AUX_DEFER:
+ 				retry_on_defer = true;
+-				/* fall through */
++				fallthrough;
+ 			case AUX_TRANSACTION_REPLY_I2C_OVER_AUX_NACK:
+ 				if (++aux_defer_retries >= AUX_MAX_DEFER_RETRIES) {
+ 					goto fail;
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+index 8aa937f..51481e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c
+@@ -479,7 +479,7 @@ static void program_grph_pixel_format(
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ABGR16161616F:
+ 		sign = 1;
+ 		floating = 1;
+-		/* fall through */
++		fallthrough;
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616F: /* shouldn't this get float too? */
+ 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616:
+ 		grph_depth = 3;
 -- 
 2.24.0
 
