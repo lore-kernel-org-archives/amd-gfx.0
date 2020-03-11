@@ -8,65 +8,66 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 999C2C0044D
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 19:54:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C896C2BAEE
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 19:56:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8BF5020737
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 19:54:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2C37420737
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 19:56:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="toVa/Xek"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8BF5020737
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IqAQdPGN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C37420737
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF8AD6E9F3;
-	Wed, 11 Mar 2020 19:54:24 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EED616E9F0
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 19:54:23 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id p2so4265676wrw.7
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 12:54:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE1056E9F8;
+	Wed, 11 Mar 2020 19:56:56 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A28266E9F1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 19:56:55 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id 25so3477960wmk.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 12:56:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
+ h=from:to:cc:subject:date:message-id:reply-to:mime-version
  :content-transfer-encoding;
- bh=7t/ca/Cw71Dk+S4jZQnX/kH3L7nf43dvs0is9bTSWH0=;
- b=toVa/Xeko1Ox+862SrtjUJv7cyw1f30If/JG4rhu0EaEPcDnGzCMh1JlxbKkWSGm/r
- 5i+8EfQvT8sNv+DtPVduHFRIwMnTjP3n25s+mHdd0jfnm1EaxyEuYkwCH7WXX1/umGV4
- OjcqvHgCyXn/Gm2MtfC25ed2AHWVfJjP97Ioy5pUWHSzu/bj9gah7Qs3bD/LOuZ3BN9+
- uPc5qLDlesdwr0ecqytY+u67Uk8NOZ9pm4Wzcp8W/rMhu3ZmSbXw8cWR3zdFOBeJyQIo
- haP3nvObGOOx7r6JSYCQcAmyaaeDLRfDEKSBol+iqt+NQE980B1DtUSI5RKFz9VqQ8t/
- JkNw==
+ bh=g0ySXUraY2gdZNQiIVrb2mdX9XF2SK3zsJLAgLDMscw=;
+ b=IqAQdPGNYrr3Xxmwv/ZWzW7Sgkq/hpXWsrgQKcdCzfhvyDBb+01txVxLfFKClnm7IE
+ Hrz7y/ic5kJVbU8Co5sEjNNR8vocHDhi/qwSssRh37QVeFnly4N1JFsvyokq44eMIRTu
+ XKh4HRhym2vsEp/o9t5LAfv+MlXNaLwHSUfCTWN/RRJb6c0viFdi8hI+0bRb5qhbr8W0
+ G4PXXcknOAVXsPyy3LThr4kRyZCHiI2U/8Rmahhm1tb0kFO6lFADky7eadqhyg/DV7Wj
+ fmAL3MYi9sez0CpYtS21QhDU3xvnc1JZ/ynRfdd26JVVcISRrZjU1zVocmOCu7dZIQHj
+ L/DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=7t/ca/Cw71Dk+S4jZQnX/kH3L7nf43dvs0is9bTSWH0=;
- b=ZZDteYwTedLJLkswV87ykICYwa+a6s+XS1GwtQUuhEj77Q5TO5Wydq3Y0lbvipDgCx
- SIxSXI1wPPAAW8n2q4JanH0g4KpkhHqyILCUMXkyrMIch57gPJJouJE+xb73PBUKyv5r
- CVE+q1WkF1TKhz0JfmgEdsyqj9f+onHyJ8lYu6GIZrGZNM7ksE8xA/c8Cihl4F8sZ6Cz
- 1+Z4JL0EmK+HmsQc3jn+r5TiMiHVD+/K9bqYI9WHdwrhiT+dH71JAkNFAcHj/t59pp5G
- NOC0ZI0e5UV9xnq9cHQ5rM91A61OBvjaaetj7Xz8SoVfG/otUty5IAeVyH27gWxf64UX
- VBIw==
-X-Gm-Message-State: ANhLgQ1F9CLQ27DiB9m10TDjMDLC7FGyEJbePjVoVg6MkIUmiPfuw/m/
- 0u8Is7uyi2+5U4x9+heZC1u0eb0QcsSLhpKj
-X-Google-Smtp-Source: ADFU+vvOe6N54cfp+aD8GxLsRleb249wdU3/npXm/sK8vJRJTe/GcbpZ9xTRn0s5Vv3hRFYB53DjOw==
-X-Received: by 2002:adf:f00d:: with SMTP id j13mr6380272wro.207.1583956462129; 
- Wed, 11 Mar 2020 12:54:22 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :mime-version:content-transfer-encoding;
+ bh=g0ySXUraY2gdZNQiIVrb2mdX9XF2SK3zsJLAgLDMscw=;
+ b=E0pa8laQ05bX6EzLFpS/b2E5fHjd3HOHGv8zrBQETae1ZSrRRzQny7np3XdMtSrDaL
+ D6Z0sbhRT2Co3jdxny0rPswQAt3HH1GkQU+oHGX5DgY9gNU+NPffQhE4WUsBgSp4FtQT
+ HKNYvh0hpkZuFKANfS9srNJTei3TbHFbHQC/drUw2Ty6DHxe9w+AltwlafUGwXmdD6dv
+ 1sy4D9snNf7FZ5+bwK3n5eDWHJfY98UYdixjynSt0yd2TsWuZbCgdmyds7+Y0pkBA5XP
+ 377XFPWEgsMwi3FzWzHfBWSAU+HraMz2dNf7BaT1pjncHdpCGi/q4gjVUCotmlcmQfSs
+ gpcg==
+X-Gm-Message-State: ANhLgQ2DKviytg6l7hQ8Q+gHgtA63TANMKEl8NrEpuw7zJRfGll51jQ7
+ MIorjzNA6Rpita8E2VjP2yuZXOcOmW7RZlxW
+X-Google-Smtp-Source: ADFU+vuF7LOdQ6AIBUCTeo5wrwhhu7E/TC9NN0apdLGRZo6Mli9XA+8QJ0nqJ2iBlJaKgRfNPNjeKw==
+X-Received: by 2002:a05:600c:215:: with SMTP id
+ 21mr351466wmi.119.1583956613795; 
+ Wed, 11 Mar 2020 12:56:53 -0700 (PDT)
 Received: from brihaspati.fritz.box
  (p200300C58F28AE00BD65D97DC346E601.dip0.t-ipconnect.de.
  [2003:c5:8f28:ae00:bd65:d97d:c346:e601])
- by smtp.gmail.com with ESMTPSA id o9sm74643425wrw.20.2020.03.11.12.54.21
+ by smtp.gmail.com with ESMTPSA id l17sm10709107wmg.23.2020.03.11.12.56.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Mar 2020 12:54:21 -0700 (PDT)
+ Wed, 11 Mar 2020 12:56:53 -0700 (PDT)
 From: Nirmoy Das <nirmoy.aiemd@gmail.com>
 X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
 To: amd-gfx@lists.freedesktop.org
 Subject: [PATCH 1/1] drm/amdgpu: disable gpu_sched load balancer for vcn jobs
-Date: Wed, 11 Mar 2020 20:57:59 +0100
-Message-Id: <20200311195759.49332-1-nirmoy.das@amd.com>
+Date: Wed, 11 Mar 2020 21:00:32 +0100
+Message-Id: <20200311200032.50502-1-nirmoy.das@amd.com>
 X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -80,6 +81,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: 20200311195759.49332-1-nirmoy.das@amd.com
 Cc: Boyuan.Zhang@amd.com, nirmoy.das@amd.com, alexander.deucher@amd.com,
  James.Zhu@amd.com, Leo.Liu@amd.com, christian.koenig@amd.com
 Content-Type: text/plain; charset="us-ascii"
@@ -94,14 +96,14 @@ sched_list to a sched_list consist of only one drm scheduler.
 Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 ---
  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c   |  4 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c  | 14 ++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c  | 13 +++++++++++++
  drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h  |  1 +
  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c  |  3 +++
  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  1 +
  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c    |  2 ++
  drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c    |  2 ++
  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c    |  2 ++
- 8 files changed, 29 insertions(+)
+ 8 files changed, 28 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
 index 8304d0c87899..db0eef19c636 100644
@@ -126,10 +128,10 @@ index 8304d0c87899..db0eef19c636 100644
  
  	ttm_eu_fence_buffer_objects(&p->ticket, &p->validated, p->fence);
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index fa575bdc03c8..d699207d6266 100644
+index fa575bdc03c8..1127e8f77721 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -559,6 +559,20 @@ void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
+@@ -559,6 +559,19 @@ void amdgpu_ctx_priority_override(struct amdgpu_ctx *ctx,
  	}
  }
  
@@ -144,7 +146,6 @@ index fa575bdc03c8..d699207d6266 100644
 +	/* disable gpu_sched's job load balancer by assigning only one */
 +	/* drm scheduler to the entity */
 +	drm_sched_entity_modify_sched(entity, scheds, 1);
-+
 +}
 +
  int amdgpu_ctx_wait_prev_fence(struct amdgpu_ctx *ctx,
