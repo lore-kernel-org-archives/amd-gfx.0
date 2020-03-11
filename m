@@ -7,69 +7,70 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BC98C0044D
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 19:14:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 25F34C2BB1D
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 19:14:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F251820575
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 19:14:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0761220575
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 19:14:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="DwTEKicl"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F251820575
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="VUmp9gXg"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0761220575
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 877F26E9E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B14FD6E9EA;
 	Wed, 11 Mar 2020 19:14:39 +0000 (UTC)
-Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
- [IPv6:2607:f8b0:4864:20::f43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F13D6E9E1
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 18:35:18 +0000 (UTC)
-Received: by mail-qv1-xf43.google.com with SMTP id l17so1356669qvu.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 11:35:18 -0700 (PDT)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01AF46E9E3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 18:35:16 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id f198so3074245qke.11
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 11:35:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=V4LlS7crloThbv9GsTKnTI10IpHCEC6Nex/YosncVz8=;
- b=DwTEKiclhpQg0fNTYvqAuNy+heFBVQDSfpsXeRVFu0jDES6R+ZMeTr35f2e5N625FK
- NToJ+Fd3YnorvJ5CX+rlPDiHjGYo/nKZi9O2f3e7L+49kPt+8lcENKJ5g82DzDMVzbYQ
- B/OsMP99QPyNZ+fbnmeMkVwjuffPVwRi1xkGV4I8FGJpZH/UT89BW6LfgfUKESMIZV87
- ohDZTTRJdm5qYEKozQzdCvJ3Z7x2V6OG3XC9TNpEnREYKTtGMwA3lKn4rC7QZ+C7mL4/
- gwlfxffBMiHJVWrMbkz21Qx/6pE+4seQ24ZP6qSJckOZ3It/iBMOQoLOFMdzzsJV/PgL
- DFEw==
+ bh=uADmryRzUppwT0DoGC+vBgxjUH6ONtG4PbQCGFnnObM=;
+ b=VUmp9gXg3gFFyzdp3BYqvtlRiDQuHpwTyPbJtafqR5nqzevoh+CJyh9Tmk0l1rtePV
+ BQbOyou6HXXPi0MIBkFBd/nDlZ7zW6oaWhgYkg1746g6vTjLUc4zchtLbTk5u6rlJFcH
+ OqI/UsNrU0c1qnzSRe+90EsTnAep6Cxv9sDTgutpePZ2ftbb4+r2vBajlqvQ/FtfH2WQ
+ tcRgrS0PSKtpdfnaJFY1e10PVH+8BMdvSdmZ03GeCrZjItWXejdM+25Q9PumbjfaRSBO
+ Tl6c+VS+Z2ou82HkY5RIOvzff/ouDGE/WNAnF+hBwzsCmqGcMlKT5IZzkHUBtySUT505
+ m+6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=V4LlS7crloThbv9GsTKnTI10IpHCEC6Nex/YosncVz8=;
- b=gdVwXilSnCoW2RTVowNT6AV9z24IEGc5BNZRtFPaBqd9C8Ux5b2eTBuCefHv+lzL5u
- y/6g1L/E//IJRew7HnVMNXX+KHjeNzjR9Hnnp0LntP/ZbR20LO50W+zh12Ta+9wArpIa
- lW62FwJfDron/sT581T1oD9NhDCN4Teb2xn9zVuZL991OZkBb58fBr3zAkW1ezAYqK/o
- BSghMtiuiKrpR39uXZ9UVoOBH1nVt63DsQITf3MdiU93nj8cHIfvgzp4ZDX9SdGmC/Cd
- vdQnezS5ZsRdgdQZk07b5h1Re/ocdsti76C3crRPNwkpXmWFjrRaAmdYbr5Z6mLaRMGf
- Kltw==
-X-Gm-Message-State: ANhLgQ0UXn1wPEPMK9uq7+hlFWYxXET/uEIfTjy6DIbn4rm8Y0KJeuUQ
- nKoBihSsA1pB2na4dUMkq/n7WQ==
-X-Google-Smtp-Source: ADFU+vtiAnVo6RkgaCWxmSuBgPMtecLVlfoeqm0VtiCXRstC1SIEdwxVoTIzwmkXm1mF22wmi1C85w==
-X-Received: by 2002:ad4:4e73:: with SMTP id ec19mr3920755qvb.78.1583951717237; 
- Wed, 11 Mar 2020 11:35:17 -0700 (PDT)
+ bh=uADmryRzUppwT0DoGC+vBgxjUH6ONtG4PbQCGFnnObM=;
+ b=DGWIzx0B2ZhA4sOgkMh0C3FS1nsk7DGm44Ue8jNnikB8ciW6lcVt2UNhCzxOunwTsU
+ 9QBbXKqQWN/qN0/lRkXXunbUqFc4EqI+fd24m2Vv0uvvFPfUCD+mJ1rzkiEJt30w2I8Y
+ isZMHW6Jo+av7XL96g+gxXnacQwZrz7FyU9mpFWjW4U0geT1FjElwRkwHjcP7BWLHmqm
+ qEwwdSpgIt2Hhzcxt0/jAUBRzv2xc9v7Y3E6aOTUFL3p/OFZBU/KOG3QEYrpfLZYiWuN
+ fRQokKrezjuttWS5bLL7LJSdFt1vbi34m8SIJ0ueSxy2mC0Fg1+DsDCX/L3f2A3Im66A
+ VwKQ==
+X-Gm-Message-State: ANhLgQ0NLKFbv6+L1KCQFRv8fPZ+dXNIBftWDupuhPNIICvelvWX6HAj
+ 6VfuT+Z7/3rqfEariqN0f94QCQ==
+X-Google-Smtp-Source: ADFU+vu4pkafRt7ZpiQA2Qo9TSkli2LPgyls9Ykw3IxuaySmx8qfnahDqH8g+HMF46wNbf60JV5d8Q==
+X-Received: by 2002:a05:620a:11b3:: with SMTP id
+ c19mr4218673qkk.296.1583951715965; 
+ Wed, 11 Mar 2020 11:35:15 -0700 (PDT)
 Received: from ziepe.ca
  (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
  [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id p16sm4656758qkj.5.2020.03.11.11.35.15
+ by smtp.gmail.com with ESMTPSA id c40sm5273938qtk.18.2020.03.11.11.35.15
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 11 Mar 2020 11:35:16 -0700 (PDT)
+ Wed, 11 Mar 2020 11:35:15 -0700 (PDT)
 Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
  (envelope-from <jgg@ziepe.ca>)
- id 1jC6CJ-00016X-8Y; Wed, 11 Mar 2020 15:35:15 -0300
+ id 1jC6CJ-000168-0X; Wed, 11 Mar 2020 15:35:15 -0300
 From: Jason Gunthorpe <jgg@ziepe.ca>
 To: Jerome Glisse <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>,
  Felix.Kuehling@amd.com
-Subject: [PATCH hmm 5/8] mm/hmm: add missing call to hmm_range_need_fault()
- before returning EFAULT
-Date: Wed, 11 Mar 2020 15:35:03 -0300
-Message-Id: <20200311183506.3997-6-jgg@ziepe.ca>
+Subject: [PATCH hmm 1/8] mm/hmm: add missing unmaps of the ptep during
+ hmm_vma_handle_pte()
+Date: Wed, 11 Mar 2020 15:34:59 -0300
+Message-Id: <20200311183506.3997-2-jgg@ziepe.ca>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200311183506.3997-1-jgg@ziepe.ca>
 References: <20200311183506.3997-1-jgg@ziepe.ca>
@@ -97,57 +98,55 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jason Gunthorpe <jgg@mellanox.com>
 
-All return paths that do EFAULT must call hmm_range_need_fault() to
-determine if the user requires this page to be valid.
+Many of the direct returns of error skipped doing the pte_unmap(). All non
+zero exit paths must unmap the pte.
 
-If the page cannot be made valid if the user later requires it, due to vma
-flags in this case, then the return should be HMM_PFN_ERROR.
+The pte_unmap() is split unnaturally like this because some of the error
+exit paths trigger a sleep and must release the lock before sleeping.
 
-Fixes: a3e0d41c2b1f ("mm/hmm: improve driver API to work and wait over a range")
+Fixes: 992de9a8b751 ("mm/hmm: allow to mirror vma of a file on a DAX backed filesystem")
+Fixes: 53f5c3f489ec ("mm/hmm: factor out pte and pmd handling to simplify hmm_vma_walk_pmd()")
 Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 ---
- mm/hmm.c | 19 ++++++++-----------
- 1 file changed, 8 insertions(+), 11 deletions(-)
+ mm/hmm.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/mm/hmm.c b/mm/hmm.c
-index 5f5ccf13dd1e85..e10cd0adba7b37 100644
+index 72e5a6d9a41756..35f85424176d14 100644
 --- a/mm/hmm.c
 +++ b/mm/hmm.c
-@@ -582,18 +582,15 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
- 	struct vm_area_struct *vma = walk->vma;
+@@ -325,6 +325,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ 		}
  
- 	/*
--	 * Skip vma ranges that don't have struct page backing them or
--	 * map I/O devices directly.
--	 */
--	if (vma->vm_flags & (VM_IO | VM_PFNMAP | VM_MIXEDMAP))
--		return -EFAULT;
--
--	/*
-+	 * Skip vma ranges that don't have struct page backing them or map I/O
-+	 * devices directly.
-+	 *
- 	 * If the vma does not allow read access, then assume that it does not
--	 * allow write access either. HMM does not support architectures
--	 * that allow write without read.
-+	 * allow write access either. HMM does not support architectures that
-+	 * allow write without read.
- 	 */
--	if (!(vma->vm_flags & VM_READ)) {
-+	if ((vma->vm_flags & (VM_IO | VM_PFNMAP | VM_MIXEDMAP)) ||
-+	    !(vma->vm_flags & VM_READ)) {
- 		bool fault, write_fault;
- 
- 		/*
-@@ -607,7 +604,7 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
- 		if (fault || write_fault)
+ 		/* Report error for everything else */
++		pte_unmap(ptep);
+ 		*pfn = range->values[HMM_PFN_ERROR];
+ 		return -EFAULT;
+ 	} else {
+@@ -339,10 +340,13 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ 	if (pte_devmap(pte)) {
+ 		hmm_vma_walk->pgmap = get_dev_pagemap(pte_pfn(pte),
+ 					      hmm_vma_walk->pgmap);
+-		if (unlikely(!hmm_vma_walk->pgmap))
++		if (unlikely(!hmm_vma_walk->pgmap)) {
++			pte_unmap(ptep);
+ 			return -EBUSY;
++		}
+ 	} else if (IS_ENABLED(CONFIG_ARCH_HAS_PTE_SPECIAL) && pte_special(pte)) {
+ 		if (!is_zero_pfn(pte_pfn(pte))) {
++			pte_unmap(ptep);
+ 			*pfn = range->values[HMM_PFN_SPECIAL];
  			return -EFAULT;
+ 		}
+@@ -437,7 +441,7 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
  
--		hmm_pfns_fill(start, end, range, HMM_PFN_NONE);
-+		hmm_pfns_fill(start, end, range, HMM_PFN_ERROR);
- 		hmm_vma_walk->last = end;
- 
- 		/* Skip this vma and continue processing the next vma. */
+ 		r = hmm_vma_handle_pte(walk, addr, end, pmdp, ptep, &pfns[i]);
+ 		if (r) {
+-			/* hmm_vma_handle_pte() did unmap pte directory */
++			/* hmm_vma_handle_pte() did pte_unmap() */
+ 			hmm_vma_walk->last = addr;
+ 			return r;
+ 		}
 -- 
 2.25.1
 
