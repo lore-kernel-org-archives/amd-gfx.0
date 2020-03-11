@@ -2,101 +2,105 @@ Return-Path: <SRS0=Izb8=44=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B3F9EC10F25
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 05:55:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 052FEC10F25
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 05:57:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 85B37208C4
-	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 05:55:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CD1FC208C4
+	for <amd-gfx@archiver.kernel.org>; Wed, 11 Mar 2020 05:57:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="v3ltMzxW"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 85B37208C4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="OPkxRdhO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD1FC208C4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0BC56E41A;
-	Wed, 11 Mar 2020 05:55:00 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2084.outbound.protection.outlook.com [40.107.220.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 485786E41A
- for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 05:54:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8490C89EB1;
+	Wed, 11 Mar 2020 05:57:42 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690064.outbound.protection.outlook.com [40.107.69.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBC2089EA6
+ for <amd-gfx@lists.freedesktop.org>; Wed, 11 Mar 2020 05:57:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PiPEwYE5ELyLdTiDue1KumiQRZs0X7PHD3cdqE7++Yjg/Jf0/CDZBnGmBpFXhZ3hFM+PGidfyUCO7zyfIokwD4SEhqz1js9PZfOXBS0djMBw8dz0P4OcVOPuAv1aivUqVofqXxHyNk17pq/XmJ7KkJZ1a+oV/qer8Fs8eduZ3o0Yq+v2A7PJBbDs3IxYwsDX0GkFRNm/yt5EqJvPaKUeFlZskxojGvrMxuXQpu+LSxeVIDxR8sz4Nufz4ieYBvoGI5qI0tQITx2v+gm9L2zVDbuolr6/fwrlExZowedIGpLVdCiBhuv4HpiD7O2yNWKeNNLMd+dnsWp1yJofWmmVrw==
+ b=PU9WEj/lEvO9PpyH+RDmiZOwlfR6cv4ObxbtgTV3UfdVu0z1VwaIwoLmG0g0LnVnU5GI7D0SeQA0RLpHrZudjk1fjx5XWiTG4yKB6c8IvExfLd+T4uhVOrXg9mRG2HvYKElKwoFYhnn7ulS37VroeS2AjifCQiih2IgdS5ucP/QRm8gKc5HaSKr6wC3X1sL9NjiB+doOr86RtqcXdmbhyvcrUjlp8trzkH81Nkc8kqVI3gFIoHztF+5QZebrppvS7M67TihhN+eXC4BZalQqjcBG3VSj9b+fiQhnkcVyOgmcelUy/6KvLS92p7lCWrJFugYWy5sg7zsnfrFt3tqD+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xStYcWJxtHIpYtPEuQcutx+kCBOAOgzUo/BHtBBXQX8=;
- b=j9jXSFHotdVRm+Bf7kTfE58Tb1uwGPZcQ2HGgAp9FbvCIxbsO+776dfRP0AC//qxUOGeVRXAvX4meBlzug+q3SVdNGqUaaDYnLipt29CAYSQZWAKE2IDZ+eBKPF3E/d2L8WguCaRdM/ErYdBl7JQsqtyNbVZqorKmYVul2qotHI3WAkSmV4JKIXrphYVj46x+ekyPUgBVxXWS5omaRKIVdcnLEyUzu/D4q3RAolu1D/ftxVobY4swqP0aOTFEqJAJ/fYgFsv+IvGZ3ZuXNr3XwJ/hPzaruG3JAeljYvGso00giIvJSi4Sb4xq5Nz/KJYjTnCinrKrxAix8+V6ReF6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=OrHHTRaP7NrBzOx1X9nlZzJ+yrT1ADfkExeKOFq2+G4=;
+ b=I12J74ePh8eObqzaJTX0fDszjzVxqhTl7vFSxxVdFhUGIPj2Wn98j2JadRUL/0Lcj6e/FPToLaegg+7G4eF5dYtriOMBPmpBwowVM/UlHEGLnHYcM4GAEuT0HAsz++dDny1Ati4z9tkYuuav7iBjxC/tZVjumbVpfbiH/sbSGidvtD1V4/IoNW6svPj/Ve7G2ErDKrzTHWaQ1yXjmYHnqRX8HR5e3IWgf7EPbXUsYkdM4Nqumamlj3AQSgAYlAuHxFh4eMC+vrPUGCurwWUApB+VsMhtsJgxRn486oKWAdjt7TrFTbcpdzlvgWGggTdD6cj6DhZvPC0i02OGTazAsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xStYcWJxtHIpYtPEuQcutx+kCBOAOgzUo/BHtBBXQX8=;
- b=v3ltMzxWzYzNQiy4fUISuJMmQKCkW8cpLv5aJbB1oZDSYh9dnbgy+1QK3ppHDim8IsGEISrEOytanyy1wSh2lMB8JpuivY4ojTG0pxEPbBu81eHG7embv9rn7QA9O5w1XNjjk9yck7vAu7WWhrn264WGOUzD8TniN8/UKAOH+Ls=
-Received: from MN2PR12MB3933.namprd12.prod.outlook.com (2603:10b6:208:162::18)
- by MN2PR12MB4582.namprd12.prod.outlook.com (2603:10b6:208:26b::18)
+ bh=OrHHTRaP7NrBzOx1X9nlZzJ+yrT1ADfkExeKOFq2+G4=;
+ b=OPkxRdhOvPenfxpD+b5JqdbLEBrM0ls3B19eUQqa55JXjCm1vxO5Z118fFkwXgMtBwwdyMCqUZzb0wjdezrx1IF9dFG5Ur1Gung8Y7Sur0gpQ+tPZn3aC+mAh3JXhRYU5h2WtcOugQDoo7gvxWBZlYn8FmXPgLGY/Eb4o7p2rqk=
+Received: from MWHPR14CA0036.namprd14.prod.outlook.com (2603:10b6:300:12b::22)
+ by SN1PR12MB2591.namprd12.prod.outlook.com (2603:10b6:802:30::32)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.17; Wed, 11 Mar
- 2020 05:54:57 +0000
-Received: from MN2PR12MB3933.namprd12.prod.outlook.com
- ([fe80::3147:1ea1:8fcf:2cf4]) by MN2PR12MB3933.namprd12.prod.outlook.com
- ([fe80::3147:1ea1:8fcf:2cf4%7]) with mapi id 15.20.2793.018; Wed, 11 Mar 2020
- 05:54:57 +0000
-From: "Liu, Monk" <Monk.Liu@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Chen, Guchun" <Guchun.Chen@amd.com>,
- "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Clements, John" <John.Clements@amd.com>,
- "Li, Dennis" <Dennis.Li@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: check GFX RAS capability before reset counters
-Thread-Topic: [PATCH] drm/amdgpu: check GFX RAS capability before reset
- counters
-Thread-Index: AQHV92lWeFL65B1M902bCzGnVsQ2O6hC5Enw
-Date: Wed, 11 Mar 2020 05:54:57 +0000
-Message-ID: <MN2PR12MB3933C1EFF05C22B1E92DA1C884FC0@MN2PR12MB3933.namprd12.prod.outlook.com>
-References: <20200311055246.30089-1-Hawking.Zhang@amd.com>
-In-Reply-To: <20200311055246.30089-1-Hawking.Zhang@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Monk.Liu@amd.com; 
-x-originating-ip: [180.167.199.185]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 4f2b7293-b3dd-409e-8d24-08d7c580bab5
-x-ms-traffictypediagnostic: MN2PR12MB4582:|MN2PR12MB4582:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB4582EB8EB944F8853A3E8C6E84FC0@MN2PR12MB4582.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;
-x-forefront-prvs: 0339F89554
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(39860400002)(376002)(366004)(346002)(136003)(199004)(66476007)(64756008)(45080400002)(478600001)(66556008)(53546011)(8676002)(81166006)(66946007)(5660300002)(76116006)(71200400001)(8936002)(66446008)(9686003)(966005)(52536014)(6506007)(6636002)(2906002)(55016002)(4326008)(316002)(110136005)(81156014)(186003)(26005)(7696005)(86362001)(33656002)(921003)(1121003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4582;
- H:MN2PR12MB3933.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+ 2020 05:57:37 +0000
+Received: from CO1NAM11FT033.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:12b:cafe::f) by MWHPR14CA0036.outlook.office365.com
+ (2603:10b6:300:12b::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.15 via Frontend
+ Transport; Wed, 11 Mar 2020 05:57:36 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Afze92+R26NGQoyv5xrK/6mkctj5pe/WSYdg1IClCpMN2WKpXoTnikzVluiUm6VkRMvtJ0Ta1dEHmVdXS/sppToYswii8xegpwtRu4Kjd5Xy0LhSjgpULYW5cEjViSbH+sy4FneXCib64mPj/WQgEkriMbIiguqDUQ4xyLLz8Q7xDGsxc7o1d/PpQ8Z0vLhB6+rBdhoah+466p52eU46+l6FOFFwcgV80zv+HxUBR+ooDaFbn1Lguoh0sXVfOH60QRYk09Jds+fvXkWSocT5mkK+I+JvrjdHJeLU/MVyDRxbGcc9a9Yqe2S3ui5dhu9pVJRXsi7pYzub1/hWnS1YXQ5/LibBMPCMJcUnE3+bL978zTHdODSGgt0AlrmbzYDZlbobuhhRaLBJX4XCNJK+eFo8ce88sxrnKagFtd0QxUXmY20HI02XsQ7QqDljs9b0u8o9GJC4g/ur8f4cwfbrk3BMVstGL4iY482YWw3ay4wSykxPv+oUBLjodidKkFeLjVDr6wcFJyEJhbQcYmpQdkKj46FRx3t2ErneIekO6UyMZBavB7/GcVk6eJZ81Jp3ArGlUjwxRR3I8wMrMAthHg==
-x-ms-exchange-antispam-messagedata: zm3eIo309mzw5f9923yCvHXq6DEteV/wLHvWVjMAoN6mA5ZM0XvraHNNPLdrEby9mk/Uezxfb5qxA1yklFw3ep6G7RYihugNa1VszqWBMnYAUByUY8e4RNm7+oIsGiUpDylI+nU6J4+dk+jl40jXog==
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT033.mail.protection.outlook.com (10.13.174.247) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2814.13 via Frontend Transport; Wed, 11 Mar 2020 05:57:36 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 11 Mar
+ 2020 00:57:35 -0500
+Received: from monk-build.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Wed, 11 Mar 2020 00:57:34 -0500
+From: Monk Liu <Monk.Liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [refactor RLCG wreg path 1/2] drm/amdgpu: refactor RLCG access path
+ part 1
+Date: Wed, 11 Mar 2020 13:57:31 +0800
+Message-ID: <1583906252-618-1-git-send-email-Monk.Liu@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(136003)(376002)(346002)(39860400002)(428003)(199004)(36756003)(2616005)(86362001)(5660300002)(70206006)(426003)(316002)(70586007)(54906003)(186003)(26005)(7696005)(336012)(4326008)(8936002)(8676002)(81156014)(81166006)(2906002)(30864003)(478600001)(6916009)(356004)(6666004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SN1PR12MB2591; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f5aae59d-aeea-4026-0208-08d7c58119ab
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2591:
+X-Microsoft-Antispam-PRVS: <SN1PR12MB259194985F4BC22F6E167A2784FC0@SN1PR12MB2591.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-Forefront-PRVS: 0339F89554
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: cfwHLstY6yOVX89daayYedLSSksyD3IfyMYcoKDqlJeF3kkgHEemiyIkekWpgIO+yUpvqbsNpPAC24uJlIsOQ4di5O68eJt9ZTd16an9Dm0U3M9h4wLESouL0tx+oTJdCizYR3GFWo9CEjZa4k3TADVuZy1jc/bNdSx844VMalkgG2J02nuyCHCjaqym7vY+7VkWILRmYsqz2zPBXw+FVJekl6kPXdgLcIb50GZMjb9wpCIMpnlZtoBL8LLzZD44XHvA4JrID6u3i8mXTUf4IjtwM2X8vXv5/pd49Og7ZFxEQR4HyUz9YdSrqHYelKiqDMndTMw1/5c+eC4XNpA/z0oJHFeZEcPm4lNMHUOUp1JA2GOJ+2Gs/zkCW6HvV5tgWzL6PIYNuwUKftITCOwkmX1aKto4vANCWtMnJz/DmAmtByh3oC/l2LR/7s9bnk8K
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4f2b7293-b3dd-409e-8d24-08d7c580bab5
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Mar 2020 05:54:57.4690 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: C4MwqargZR8U/fs5d6lPCRmpzM0NsPdbxIVT5bKfpXi1EDWxQc6Wc+DgJPcjw9hj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4582
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2020 05:57:36.6726 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5aae59d-aeea-4026-0208-08d7c58119ab
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2591
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,64 +112,383 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: Monk Liu <Monk.Liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Monk Liu <monk.liu@amd.com>
+what changed:
+1)provide new implementation interface for the rlcg access path
+2)put SQ_CMD/SQ_IND_INDEX/SQ_IND_DATA to GFX9 RLCG path to align with
+SRIOV RLCG logic
 
-_____________________________________
-Monk Liu|GPU Virtualization Team |AMD
+background:
+we what to clear the code path for WREG32_RLC, to make it only covered
+and handled by amdgpu_mm_wreg() routine, this way we can let RLCG
+to serve the register access even through UMR (via debugfs interface)
+the current implementation cannot achieve that goal because it can only
+hardcode everywhere, but UMR only pass "offset" as varable to driver
 
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Hawking Zhang
-Sent: Wednesday, March 11, 2020 1:53 PM
-To: amd-gfx@lists.freedesktop.org; Chen, Guchun <Guchun.Chen@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John <John.Clements@amd.com>; Li, Dennis <Dennis.Li@amd.com>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: check GFX RAS capability before reset counters
-
-disallow the logical to be enabled on platforms that don't support gfx ras at this stage, like sriov skus, dgpu with legacy ras.etc
-
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+tested-by: Monk Liu <monk.liu@amd.com>
+tested-by: Zhou pengju <pengju.zhou@amd.com>
+Signed-off-by: Zhou pengju <pengju.zhou@amd.com>
+Signed-off-by: Monk Liu <Monk.Liu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 3 +++  drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c | 3 +++
- 2 files changed, 6 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h |   2 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  |  80 ++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   | 177 +++++++++++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/soc15.h      |   7 ++
+ 4 files changed, 264 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+index 52509c2..60bb3e8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h
+@@ -127,6 +127,8 @@ struct amdgpu_rlc_funcs {
+ 	void (*reset)(struct amdgpu_device *adev);
+ 	void (*start)(struct amdgpu_device *adev);
+ 	void (*update_spm_vmid)(struct amdgpu_device *adev, unsigned vmid);
++	void (*rlcg_wreg)(struct amdgpu_device *adev, u32 offset, u32 v);
++	bool (*is_rlcg_access_range)(struct amdgpu_device *adev, uint32_t reg);
+ };
+ 
+ struct amdgpu_rlc {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 82ef08d..3222cd3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -224,6 +224,56 @@ static const struct soc15_reg_golden golden_settings_gc_10_1_2[] =
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmUTCL1_CTRL, 0xffffffff, 0x00800000)
+ };
+ 
++static const struct soc15_reg_rlcg rlcg_access_gc_10_0[] = {
++	{SOC15_REG_ENTRY(GC, 0, mmRLC_CSIB_ADDR_HI)},
++	{SOC15_REG_ENTRY(GC, 0, mmRLC_CSIB_ADDR_LO)},
++	{SOC15_REG_ENTRY(GC, 0, mmRLC_CSIB_LENGTH)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_ME_CNTL)},
++};
++
++static void gfx_v10_rlcg_wreg(struct amdgpu_device *adev, u32 offset, u32 v)
++{
++	static void *scratch_reg0;
++	static void *scratch_reg1;
++	static void *scratch_reg2;
++	static void *scratch_reg3;
++	static void *spare_int;
++	static uint32_t grbm_cntl;
++	static uint32_t grbm_idx;
++	uint32_t i = 0;
++	uint32_t retries = 50000;
++
++	scratch_reg0 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG0_BASE_IDX] + mmSCRATCH_REG0)*4;
++	scratch_reg1 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG1_BASE_IDX] + mmSCRATCH_REG1)*4;
++	scratch_reg2 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG1_BASE_IDX] + mmSCRATCH_REG2)*4;
++	scratch_reg3 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG1_BASE_IDX] + mmSCRATCH_REG3)*4;
++	spare_int = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmRLC_SPARE_INT_BASE_IDX] + mmRLC_SPARE_INT)*4;
++
++	grbm_cntl = adev->reg_offset[GC_HWIP][0][mmGRBM_GFX_CNTL_BASE_IDX] + mmGRBM_GFX_CNTL;
++	grbm_idx = adev->reg_offset[GC_HWIP][0][mmGRBM_GFX_INDEX_BASE_IDX] + mmGRBM_GFX_INDEX;
++
++	if (amdgpu_sriov_runtime(adev)) {
++		pr_err("shoudn't call rlcg write register during runtime\n");
++		return;
++	}
++
++	writel(v, scratch_reg0);
++	writel(offset | 0x80000000, scratch_reg1);
++	writel(1, spare_int);
++	for (i = 0; i < retries; i++) {
++		u32 tmp;
++
++		tmp = readl(scratch_reg1);
++		if (!(tmp & 0x80000000))
++			break;
++
++		udelay(10);
++	}
++
++	if (i >= retries)
++		pr_err("timeout: rlcg program reg:0x%05x failed !\n", offset);
++}
++
+ static const struct soc15_reg_golden golden_settings_gc_10_1_nv14[] =
+ {
+ 	/* Pending on emulation bring up */
+@@ -4247,6 +4297,32 @@ static void gfx_v10_0_update_spm_vmid(struct amdgpu_device *adev, unsigned vmid)
+ 	WREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL, data);
+ }
+ 
++static bool gfx_v10_0_check_rlcg_range(struct amdgpu_device *adev,
++					uint32_t offset,
++					struct soc15_reg_rlcg *entries, int arr_size)
++{
++	int i;
++	uint32_t reg;
++
++	for (i = 0; i < arr_size; i++) {
++		const struct soc15_reg_rlcg *entry;
++
++		entry = &entries[i];
++		reg = adev->reg_offset[entry->hwip][entry->instance][entry->segment] + entry->reg;
++		if (offset == reg)
++			return true;
++	}
++
++	return false;
++}
++
++static bool gfx_v10_0_is_rlcg_access_range(struct amdgpu_device *adev, u32 offset)
++{
++	return gfx_v10_0_check_rlcg_range(adev, offset,
++					(void *)rlcg_access_gc_10_0,
++					ARRAY_SIZE(rlcg_access_gc_10_0));
++}
++
+ static const struct amdgpu_rlc_funcs gfx_v10_0_rlc_funcs = {
+ 	.is_rlc_enabled = gfx_v10_0_is_rlc_enabled,
+ 	.set_safe_mode = gfx_v10_0_set_safe_mode,
+@@ -4258,7 +4334,9 @@ static const struct amdgpu_rlc_funcs gfx_v10_0_rlc_funcs = {
+ 	.stop = gfx_v10_0_rlc_stop,
+ 	.reset = gfx_v10_0_rlc_reset,
+ 	.start = gfx_v10_0_rlc_start,
+-	.update_spm_vmid = gfx_v10_0_update_spm_vmid
++	.update_spm_vmid = gfx_v10_0_update_spm_vmid,
++	.rlcg_wreg = gfx_v10_rlcg_wreg,
++	.is_rlcg_access_range = gfx_v10_0_is_rlcg_access_range,
+ };
+ 
+ static int gfx_v10_0_set_powergating_state(void *handle,
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index efd52bcf8785..dd8e68fdbd90 100644
+index 87747b3..1fc430d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -6328,6 +6328,9 @@ static void gfx_v9_0_reset_ras_error_count(struct amdgpu_device *adev)  {
- 	int i, j, k;
+@@ -697,6 +697,96 @@ static const struct soc15_reg_golden golden_settings_gc_9_4_1_arct[] =
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmSQ_FIFO_SIZES, 0xffffffff, 0x00000f00),
+ };
  
-+	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
-+		return;
++static const struct soc15_reg_rlcg rlcg_access_gc_9_0[] = {
++	{SOC15_REG_ENTRY(GC, 0, mmGRBM_GFX_INDEX)},
++	{SOC15_REG_ENTRY(GC, 0, mmGRBM_GFX_CNTL)},
++	{SOC15_REG_ENTRY(GC, 0, mmSQ_IND_INDEX)},
++	{SOC15_REG_ENTRY(GC, 0, mmSQ_IND_DATA)},
++	{SOC15_REG_ENTRY(GC, 0, mmSQ_CMD)},
++	{SOC15_REG_ENTRY(GC, 0, mmGRBM_CNTL)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_MEC_CNTL)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_ME_CNTL)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_MQD_BASE_ADDR)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_MQD_BASE_ADDR_HI)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_MQD_CONTROL)},
++	{SOC15_REG_ENTRY(GC, 0, mmMC_VM_AGP_BASE)},
++	{SOC15_REG_ENTRY(GC, 0, mmMC_VM_AGP_BOT)},
++	{SOC15_REG_ENTRY(GC, 0, mmMC_VM_AGP_TOP)},
++	{SOC15_REG_ENTRY(GC, 0, mmMC_VM_FB_LOCATION_BASE)},
++	{SOC15_REG_ENTRY(GC, 0, mmMC_VM_FB_LOCATION_TOP)},
++	{SOC15_REG_ENTRY(GC, 0, mmMC_VM_MX_L1_TLB_CNTL)},
++	{SOC15_REG_ENTRY(GC, 0, mmMC_VM_SYSTEM_APERTURE_HIGH_ADDR)},
++	{SOC15_REG_ENTRY(GC, 0, mmMC_VM_SYSTEM_APERTURE_LOW_ADDR)},
++	{SOC15_REG_ENTRY(GC, 0, mmPA_SC_BINNER_EVENT_CNTL_3)},
++	{SOC15_REG_ENTRY(GC, 0, mmPA_SC_ENHANCE)},
++	{SOC15_REG_ENTRY(GC, 0, mmPA_SC_ENHANCE_1)},
++	{SOC15_REG_ENTRY(GC, 0, mmRLC_CP_SCHEDULERS)},
++	{SOC15_REG_ENTRY(GC, 0, mmRLC_CSIB_ADDR_HI)},
++	{SOC15_REG_ENTRY(GC, 0, mmRLC_CSIB_ADDR_LO)},
++	{SOC15_REG_ENTRY(GC, 0, mmRLC_CSIB_LENGTH)},
++	{SOC15_REG_ENTRY(GC, 0, mmSH_MEM_BASES)},
++	{SOC15_REG_ENTRY(GC, 0, mmSH_MEM_CONFIG)},
++	{SOC15_REG_ENTRY(GC, 0, mmVM_L2_CNTL)},
++	{SOC15_REG_ENTRY(GC, 0, mmVM_L2_CNTL2)},
++	{SOC15_REG_ENTRY(GC, 0, mmVM_L2_CNTL3)},
++	{SOC15_REG_ENTRY(GC, 0, mmVM_L2_CNTL4)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_DEQUEUE_REQUEST)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_EOP_BASE_ADDR)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_EOP_BASE_ADDR_HI)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_EOP_CONTROL)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_EOP_RPTR)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_IB_CONTROL)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_IQ_TIMER)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PERSISTENT_STATE)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PIPE_PRIORITY)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PQ_BASE)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PQ_BASE_HI)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PQ_CONTROL)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PQ_RPTR)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PQ_RPTR_REPORT_ADDR)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PQ_RPTR_REPORT_ADDR_HI)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PQ_WPTR_LO)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PQ_WPTR_HI)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_QUEUE_PRIORITY)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_VMID)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_ACTIVE)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_QUANTUM)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_IB_BASE_ADDR)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_IB_BASE_ADDR_HI)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_IB_RPTR)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_IQ_RPTR)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_DMA_OFFLOAD)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_OFFLOAD)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_SEMA_CMD)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_MSG_TYPE)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_ATOMIC0_PREOP_LO)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_ATOMIC0_PREOP_HI)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_ATOMIC1_PREOP_LO)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_ATOMIC1_PREOP_HI)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_HQ_SCHEDULER0)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_HQ_STATUS0)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_HQ_CONTROL0)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_HQ_SCHEDULER1)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_HQ_STATUS1)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_HQ_CONTROL1)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_EOP_WPTR)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_EOP_EVENTS)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_CTX_SAVE_BASE_ADDR_LO)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_CTX_SAVE_BASE_ADDR_HI)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_CTX_SAVE_CONTROL)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_CNTL_STACK_OFFSET)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_CNTL_STACK_SIZE)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_WG_STATE_OFFSET)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_CTX_SAVE_SIZE)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_GDS_RESOURCE_STATE)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_ERROR)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_EOP_WPTR_MEM)},
++	{SOC15_REG_ENTRY(GC, 0, mmCP_HQD_AQL_CONTROL)},
++};
 +
- 	/* read back registers to clear the counters */
- 	mutex_lock(&adev->grbm_idx_mutex);
- 	for (i = 0; i < ARRAY_SIZE(gfx_v9_0_edc_counter_regs); i++) { diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
-index 17f1e7b69a60..cceb46faf212 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
-@@ -897,6 +897,9 @@ void gfx_v9_4_reset_ras_error_count(struct amdgpu_device *adev)  {
- 	int i, j, k;
+ static const u32 GFX_RLC_SRM_INDEX_CNTL_ADDR_OFFSETS[] =
+ {
+ 	mmRLC_SRM_INDEX_CNTL_ADDR_0 - mmRLC_SRM_INDEX_CNTL_ADDR_0,
+@@ -721,6 +811,63 @@ static const u32 GFX_RLC_SRM_INDEX_CNTL_DATA_OFFSETS[] =
+ 	mmRLC_SRM_INDEX_CNTL_DATA_7 - mmRLC_SRM_INDEX_CNTL_DATA_0,
+ };
  
-+	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
-+		return;
++void gfx_v9_0_rlcg_wreg(struct amdgpu_device *adev, u32 offset, u32 v)
++{
++	static void *scratch_reg0;
++	static void *scratch_reg1;
++	static void *scratch_reg2;
++	static void *scratch_reg3;
++	static void *spare_int;
++	static uint32_t grbm_cntl;
++	static uint32_t grbm_idx;
++	bool shadow;
 +
- 	mutex_lock(&adev->grbm_idx_mutex);
- 	for (i = 0; i < ARRAY_SIZE(gfx_v9_4_edc_counter_regs); i++) {
- 		for (j = 0; j < gfx_v9_4_edc_counter_regs[i].se_num; j++) {
---
-2.17.1
++	scratch_reg0 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG0_BASE_IDX] + mmSCRATCH_REG0)*4;
++	scratch_reg1 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG1_BASE_IDX] + mmSCRATCH_REG1)*4;
++	scratch_reg2 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG1_BASE_IDX] + mmSCRATCH_REG2)*4;
++	scratch_reg3 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG1_BASE_IDX] + mmSCRATCH_REG3)*4;
++	spare_int = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmRLC_SPARE_INT_BASE_IDX] + mmRLC_SPARE_INT)*4;
++
++	grbm_cntl = adev->reg_offset[GC_HWIP][0][mmGRBM_GFX_CNTL_BASE_IDX] + mmGRBM_GFX_CNTL;
++	grbm_idx = adev->reg_offset[GC_HWIP][0][mmGRBM_GFX_INDEX_BASE_IDX] + mmGRBM_GFX_INDEX;
++
++	if (amdgpu_sriov_runtime(adev)) {
++		pr_err("shoudn't call rlcg write register during runtime\n");
++		return;
++	}
++
++	if (offset == grbm_cntl || offset == grbm_idx)
++		shadow = true;
++
++	if (shadow) {
++		if (offset  == grbm_cntl)
++			writel(v, scratch_reg2);
++		else if (offset == grbm_idx)
++			writel(v, scratch_reg3);
++
++		writel(v, ((void __iomem *)adev->rmmio) + (offset * 4));
++	} else {
++		uint32_t i = 0;
++		uint32_t retries = 50000;
++
++		writel(v, scratch_reg0);
++		writel(offset | 0x80000000, scratch_reg1);
++		writel(1, spare_int);
++		for (i = 0; i < retries; i++) {
++			u32 tmp;
++
++			tmp = readl(scratch_reg1);
++			if (!(tmp & 0x80000000))
++				break;
++
++			udelay(10);
++		}
++		if (i >= retries)
++			pr_err("timeout: rlcg program reg:0x%05x failed !\n", offset);
++	}
++
++}
++
+ #define VEGA10_GB_ADDR_CONFIG_GOLDEN 0x2a114042
+ #define VEGA12_GB_ADDR_CONFIG_GOLDEN 0x24104041
+ #define RAVEN_GB_ADDR_CONFIG_GOLDEN 0x24000042
+@@ -4783,6 +4930,32 @@ static void gfx_v9_0_update_spm_vmid(struct amdgpu_device *adev, unsigned vmid)
+ 	WREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL, data);
+ }
+ 
++static bool gfx_v9_0_check_rlcg_range(struct amdgpu_device *adev,
++					uint32_t offset,
++					struct soc15_reg_rlcg *entries, int arr_size)
++{
++	int i;
++	uint32_t reg;
++
++	for (i = 0; i < arr_size; i++) {
++		const struct soc15_reg_rlcg *entry;
++
++		entry = &entries[i];
++		reg = adev->reg_offset[entry->hwip][entry->instance][entry->segment] + entry->reg;
++		if (offset == reg)
++			return true;
++	}
++
++	return false;
++}
++
++static bool gfx_v9_0_is_rlcg_access_range(struct amdgpu_device *adev, u32 offset)
++{
++	return gfx_v9_0_check_rlcg_range(adev, offset,
++					(void *)rlcg_access_gc_9_0,
++					ARRAY_SIZE(rlcg_access_gc_9_0));
++}
++
+ static const struct amdgpu_rlc_funcs gfx_v9_0_rlc_funcs = {
+ 	.is_rlc_enabled = gfx_v9_0_is_rlc_enabled,
+ 	.set_safe_mode = gfx_v9_0_set_safe_mode,
+@@ -4795,7 +4968,9 @@ static const struct amdgpu_rlc_funcs gfx_v9_0_rlc_funcs = {
+ 	.stop = gfx_v9_0_rlc_stop,
+ 	.reset = gfx_v9_0_rlc_reset,
+ 	.start = gfx_v9_0_rlc_start,
+-	.update_spm_vmid = gfx_v9_0_update_spm_vmid
++	.update_spm_vmid = gfx_v9_0_update_spm_vmid,
++	.rlcg_wreg = gfx_v9_0_rlcg_wreg,
++	.is_rlcg_access_range = gfx_v9_0_is_rlcg_access_range,
+ };
+ 
+ static int gfx_v9_0_set_powergating_state(void *handle,
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.h b/drivers/gpu/drm/amd/amdgpu/soc15.h
+index d0fb7a6..b03f950 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.h
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.h
+@@ -42,6 +42,13 @@ struct soc15_reg_golden {
+ 	u32	or_mask;
+ };
+ 
++struct soc15_reg_rlcg {
++	u32	hwip;
++	u32	instance;
++	u32	segment;
++	u32	reg;
++};
++
+ struct soc15_reg_entry {
+ 	uint32_t hwip;
+ 	uint32_t inst;
+-- 
+2.7.4
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cmonk.liu%40amd.com%7C9bd134aae9bd4be2cc3408d7c580771f%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637195027861178518&amp;sdata=VzcSAVLQMOEvoZ%2FPBHx2FTx81OYUU0j0SnntXDAuFCw%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
