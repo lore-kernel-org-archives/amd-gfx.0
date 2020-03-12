@@ -2,104 +2,106 @@ Return-Path: <SRS0=KrIT=45=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D9DDC0044D
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 02:55:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8BD7FC0044D
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 03:08:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B0D0920735
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 02:55:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 77D9020735
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 03:08:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Ssvk19zn"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0D0920735
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IKcQDFiY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 77D9020735
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47E996EA13;
-	Thu, 12 Mar 2020 02:55:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90C026EA15;
+	Thu, 12 Mar 2020 03:08:56 +0000 (UTC)
 Received: from NAM12-BN8-obe.outbound.protection.outlook.com
  (mail-bn8nam12on2055.outbound.protection.outlook.com [40.107.237.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F2386EA13
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2020 02:55:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 059986EA15
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2020 03:08:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y5xDYl2+G1+FMwtwd5N9fBL/jv95INigwfQoSSnce/kUFebmo83Pqpb8gJBqE5kb1agYWi5kXk7jHwAfua98MZwAbL3CXIqJ2ef7h23TuDqGiiY+7+90/Q1rNLPoMWoYshb1cMxyCx6HULe3aYzSwEe4APSZhA+tEcXOuJH0aYR7QhdpEwx+RXtUPBUPXGE8n4gHcN9mLF6EoWg+rMawIIWTw0Y3I8ge5NsQEq3x5T73uAsM7msa07hNWX30v6FE+Mp1k/wDxncCEzDbgj9vw1JZ4w0lJUw3wyk/xgL4vooFtmXa1cPyHK3S/si/v9LicDbrJBASQGpd6RsdRhuxwQ==
+ b=XoWKxsCE/Y32O7lxt4nQGD/BAeygXPQQH4wvaUk4xcCGz6CBNoe1+Ts/06qeCiXU+UxxRMaO4Q0Q4tbhIZkKob7m+iG47o5FkocKLt5cLj46SjNCdLIA45dELCb0VUqr6vppTtZbhbiOH0uLSfSji9Iep/CXuBBnqjAt3SNs0wSIjnffmFokV1v4I5PZybMaEWgLCQO8NvN9sVwi6a7akkkIOybM6ugtF4tFmGlidgb7u8IWSzERRHMw4WCZzsvnx1dWhY79BxcglZF7NtFszYaTsAghIxFFOAae+4Yp3WJtOyTLRb1+0M/bujgF6q6cQPs2bmV0achWGALnY4FNtg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E4d96PLlzbtgVAepDJsay4Hi6cYfiaDf3eqwTh0FhlM=;
- b=KE+InYTpnQ3Lf1llQo/7bnJccILxsafUaehZSAJl0ub+B9Lo5p6E3hsQGhxqtwZ55Hw+NWwROxJGcmo8op3uLB6pgOrhXVVSK1JBqn5toJpssM80XdtWXqeQvxj4uMZL7PcG/IeSLYQKs0b9zhYlpPW55t5E888DMocvYv8qyfh+n18EoxbGDhjtU2YYqo4SuOqWFn48tsphfnLLK2gshUV8AoAWIr3f5yrWqgPps9n5rmlfgcg0Gr1O1yUg4VwxCKu+HmkpYz+lC970KiFMHnmeR5jzAE3HZmcEonS/ZApxu/8VxMzBEUoEDW1TArsP+2UmXlYe+34oqNObST/IzA==
+ bh=La6nXrVWVYzyp1XmwvuYVWaPtNKkcwI7uEIq+xpmIEI=;
+ b=RfZma6zaS2CY8cRIVF02TppvD1Nkk0CxOLHXot+8vvfoRM/QLSyFRmURzfqRLQ4bM9DjCIsVFbDMGH+hHFcEzktX6ja6a7J6h4wGPgoqov0MRZbtrVwhpq8fUjlvIRg75QkB6DuTeOvdreU1rAy/u4RBC7VRQyqWmJiFricSbfsVTsDuwTrjQTEs1mW5hrAuAz1lq4TbPLVaBp6AnbNUH5m2liOo94ZW6lucuqmOqy5DwB45At1qKTDtsPB9ky21tFCS2pDi54qYaK+D3fZ7GyupMTnuXUXKFwhZ6aMSGJHgMfoKBgdAh9P4V6yNJ1QWLjQjQi4mNrCzUCm9MaeYkg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E4d96PLlzbtgVAepDJsay4Hi6cYfiaDf3eqwTh0FhlM=;
- b=Ssvk19znKFGYWqK47iVDDzdq+jaQE69+y+GouLz6ylVVls0Sebgsji2UDpQ6QC79ObFvFNjwqyv+b4c3kdysB8tdLzn5f8xqD57t3zITMEWxYk1NBaEN1CuNRFPtsdqP2p78c34c/Q4OFmOkA94TohFqiUIl/YRMnUtzjYnzQqs=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Guchun.Chen@amd.com; 
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
- by CY4PR12MB1941.namprd12.prod.outlook.com (2603:10b6:903:11a::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2814.14; Thu, 12 Mar
- 2020 02:55:25 +0000
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::74d2:68e2:beee:e901]) by CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::74d2:68e2:beee:e901%11]) with mapi id 15.20.2793.018; Thu, 12 Mar
- 2020 02:55:25 +0000
-From: Guchun Chen <guchun.chen@amd.com>
-To: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, Dennis.Li@amd.com,
- Tao.Zhou1@amd.com, John.Clements@amd.com
-Subject: [PATCH 2/2] drm/amdgpu: remove mem ecc check for vega20 and arcturus
-Date: Thu, 12 Mar 2020 10:54:47 +0800
-Message-Id: <20200312025447.21000-2-guchun.chen@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200312025447.21000-1-guchun.chen@amd.com>
-References: <20200312025447.21000-1-guchun.chen@amd.com>
-X-ClientProxiedBy: HK0PR01CA0069.apcprd01.prod.exchangelabs.com
- (2603:1096:203:a6::33) To CY4PR12MB1287.namprd12.prod.outlook.com
- (2603:10b6:903:40::8)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from guchchen-System-Product-Name.amd.com (180.167.199.189) by
- HK0PR01CA0069.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::33) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.16 via Frontend
- Transport; Thu, 12 Mar 2020 02:55:21 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [180.167.199.189]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 6cecf843-61f5-41b9-83c7-08d7c630d008
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1941:|CY4PR12MB1941:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR12MB194151724C12A4AA9A0A33FEF1FD0@CY4PR12MB1941.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-Forefront-PRVS: 0340850FCD
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(366004)(346002)(136003)(39860400002)(376002)(199004)(7696005)(5660300002)(1076003)(52116002)(8936002)(81156014)(81166006)(86362001)(478600001)(66556008)(8676002)(66476007)(44832011)(66946007)(2906002)(36756003)(316002)(4326008)(6666004)(2616005)(186003)(6486002)(26005)(6636002)(16526019)(956004);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR12MB1941;
- H:CY4PR12MB1287.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ bh=La6nXrVWVYzyp1XmwvuYVWaPtNKkcwI7uEIq+xpmIEI=;
+ b=IKcQDFiYz3IKu5xCJ/5bzqYBQSrg3pmyLyR2enFRGz3ybT8DjBprE+XI/xA6eoV7oQ4AUCqakle6+4e59Pq8XKBbi1adTnlC1d1/o7ZThVUi4WGLD8WrbU+DrOzWd8z/v6R/KnKGiIrSzAyHYhDGXAahjw3yA667vz7GgTKKLME=
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com (2603:10b6:208:c5::10)
+ by MN2PR12MB4016.namprd12.prod.outlook.com (2603:10b6:208:16b::30)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.14; Thu, 12 Mar
+ 2020 03:08:54 +0000
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::69c7:b493:690:2173]) by MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::69c7:b493:690:2173%3]) with mapi id 15.20.2814.007; Thu, 12 Mar 2020
+ 03:08:54 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Yuan, Xiaojie" <Xiaojie.Yuan@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: add fbdev suspend/resume on gpu reset
+Thread-Topic: [PATCH] drm/amdgpu: add fbdev suspend/resume on gpu reset
+Thread-Index: AQHV932+83uWYBsNdkC971Snh6+a+qhDboAAgADZNUA=
+Date: Thu, 12 Mar 2020 03:08:54 +0000
+Message-ID: <MN2PR12MB334433E8444AC1964B95A610E4FD0@MN2PR12MB3344.namprd12.prod.outlook.com>
+References: <20200311081853.25274-1-evan.quan@amd.com>
+ <MN2PR12MB30878D358DE0914CD84EC7AC89FC0@MN2PR12MB3087.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB30878D358DE0914CD84EC7AC89FC0@MN2PR12MB3087.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-11T14:09:56.064Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Evan.Quan@amd.com; 
+x-originating-ip: [180.167.199.189]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 0733cdef-4d4e-4416-5fd9-08d7c632b2de
+x-ms-traffictypediagnostic: MN2PR12MB4016:|MN2PR12MB4016:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB40169119F10ABE33DDAFED5BE4FD0@MN2PR12MB4016.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-forefront-prvs: 0340850FCD
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(366004)(376002)(396003)(136003)(39860400002)(199004)(8936002)(6506007)(7696005)(9686003)(55016002)(66946007)(66446008)(76116006)(8676002)(81166006)(15650500001)(53546011)(66556008)(186003)(64756008)(52536014)(66476007)(26005)(86362001)(71200400001)(45080400002)(5660300002)(110136005)(478600001)(33656002)(316002)(966005)(2906002)(81156014);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4016;
+ H:MN2PR12MB3344.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: DaLs2lzCkOhzh4qEBSmIyxdzf9hT55fJoek0QZYwlXwWQshR8Ms2AIDaUe1ijf3IXER4rGotQXL0bCiCWvzSjVMZLuTHHp+2i4snUDg1XP+QLtHl7DH6t+V5dqRBeZLpWEatLGtlvbV4ikSVDCSspA9EVkPzBg/LCg/NvhEaEkPInIl52CrLEZINPgVFNAHE9oiEqGeL0gjqc5P7b0Cfvss+m0ZGUK1STifrrCH1mEeylhiyVYGnEtADb/vUhe2Gpcg00Db7lT44u4z8nV+36Zz/ep4HoXTKcNIrPozr02I6Bos88mZ28Fla0K6pfpo17MpL6cYJPpWLkDPWApkQ2kNgpiRld5XMaavGOKlk6Ed2Pa2dAuA8+u0H3695st5zFw14lvLQ7UowRMiSrvgwbJ5sUpdg/TGq7qRF8CPifSlL/s74Y2cKI8+e2uEiRA8x
-X-MS-Exchange-AntiSpam-MessageData: O4TYT31jhcwIQykf3goj3dHLjk4mBxE6iCQYY8kkPKV21CiONk3z9b0wPOK7bgZj5FFDdurEK647IMQRhUXWSaUYBaG6P7hjeBxEoxtg6GbPqnHhBII0BHYyOK9wrt8FCxdt5guMvtdurI1RP7HHcQ==
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ecmOuCwyDGGzvIWpuynOKKFMvNYTJSIpssvtJknvOrIlu4vM/7+9MQrlzWb/NGfrmtMLOUGqSRe1DFupkP20heJAOOqDjHD6ya9VXfimGi5lVQvrG+KlleYDkCnzdT+mAVOHcKQoWaWVXPdnjaISFkJ6PkCC4DL8u+0vf5EzM53/v1o5PbiBFoQudb76MZ5LVl1C5VNct/ceMSL7WsP8rq+9EYjaRUTgjRRD2rq6J3ClryOiWbxyR9xXnnGVjwi+CXygpu7Uo4GQ55FZMy1CmRHlsNTenA5AsG1yyzgQhkJbty9ePwKNpbwn25yT3tWOk47vaf2/4jYVjyJHzq3WboJ2dj2rN7P6jHj2sKlLSB5Cs2xPbyx+CD5BlhvP3b8u8T4cdZivNtl+lpi3jghpWpdb1qqb71ea9O5stMYBrWgARB1v4gLK0uUnV/wVUk/SwSA6nCq8MLrllfnUrnKT74MtT2ndEaNpmnRppSgtRsB+4nASDOzWSp1E00lKnCXCWiynKP/f8t/aZUc/LDnzqA==
+x-ms-exchange-antispam-messagedata: HhPdioByKp1j+2apEMQlHcP+lDERzwGp4HKek5nLHUpfp4NCRgMqUbAM+6njwrI2JPyg65zilhXDHXVHZzLneTU4vTbvffah2a+ZPdgeACVOpnAA5Y1YlqINUUercyxVcrnu8EKjzmqq2ZLNAXwKkA==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6cecf843-61f5-41b9-83c7-08d7c630d008
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2020 02:55:25.1521 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 91tfg3cG6ik4ClLtYYtGhLkeW5VCir1aEFqli7zuYAGUkHZfuy5y7E7q7+wiidtOxD/HRlmn8GG6sccgQmcBig==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1941
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0733cdef-4d4e-4416-5fd9-08d7c632b2de
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Mar 2020 03:08:54.6697 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: olSRJbFm5rXRr/lXZxXjPHMcsutw4QOQHua5wmHj+RXOt594ChacJbOcON5umtWC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4016
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,60 +113,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Memory ecc check including HBM and SRAM has been done
-in ras init function for vega20 and arcturus. So remove
-it from gmc module, only keep this check for vega10.
+Have not tried Navi14 yet. But likely it can fix that baco failure.
+At least it can fix the baco issue of Navi10 which is very similar as Navi14's.
 
-Suggested-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+Regards,
+Evan
+-----Original Message-----
+From: Yuan, Xiaojie <Xiaojie.Yuan@amd.com> 
+Sent: Wednesday, March 11, 2020 10:10 PM
+To: Quan, Evan <Evan.Quan@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amdgpu: add fbdev suspend/resume on gpu reset
+
+[AMD Official Use Only - Internal Distribution Only]
+
+Hi Evan,
+
+Does this patch also fix the baco failure on Navi14 with display connected?
+
+BR,
+Xiaojie
+
+________________________________________
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Evan Quan <evan.quan@amd.com>
+Sent: Wednesday, March 11, 2020 4:18 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Quan, Evan
+Subject: [PATCH] drm/amdgpu: add fbdev suspend/resume on gpu reset
+
+This can fix the baco reset failure seen on Navi10.
+And this should be a low risk fix as the same sequence is already used for system suspend/resume.
+
+Change-Id: Idb4d02c5fcbbd5b7817195ee04c7af34c346a053
+Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 14 +++-----------
- 1 file changed, 3 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 90216abf14a4..9bde66a6b432 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -887,28 +887,20 @@ static int gmc_v9_0_late_init(void *handle)
- 		return r;
- 	/* Check if ecc is available */
- 	if (!amdgpu_sriov_vf(adev)) {
--		switch (adev->asic_type) {
--		case CHIP_VEGA10:
--		case CHIP_VEGA20:
--		case CHIP_ARCTURUS:
-+		if (adev->asic_type == CHIP_VEGA10) {
- 			r = amdgpu_atomfirmware_mem_ecc_supported(adev);
- 			if (!r) {
- 				DRM_INFO("ECC is not present.\n");
- 				if (adev->df.funcs->enable_ecc_force_par_wr_rmw)
- 					adev->df.funcs->enable_ecc_force_par_wr_rmw(adev, false);
--			} else {
-+			} else
- 				DRM_INFO("ECC is active.\n");
--			}
- 
- 			r = amdgpu_atomfirmware_sram_ecc_supported(adev);
- 			if (!r) {
- 				DRM_INFO("SRAM ECC is not present.\n");
--			} else {
-+			} else
- 				DRM_INFO("SRAM ECC is active.\n");
--			}
--			break;
--		default:
--			break;
- 		}
- 	}
- 
--- 
-2.17.1
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 572eb6ea8eab..a35c89973614 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3935,6 +3935,8 @@ static int amdgpu_do_asic_reset(struct amdgpu_hive_info *hive,
+                                if (r)
+                                        goto out;
+
++                               amdgpu_fbdev_set_suspend(tmp_adev, 0);
++
+                                /* must succeed. */
+                                amdgpu_ras_resume(tmp_adev);
+
+@@ -4108,6 +4110,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+                 */
+                amdgpu_unregister_gpu_instance(tmp_adev);
+
++               amdgpu_fbdev_set_suspend(adev, 1);
++
+                /* disable ras on ALL IPs */
+                if (!(in_ras_intr && !use_baco) &&
+                      amdgpu_device_ip_need_full_reset(tmp_adev))
+--
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7CXiaojie.Yuan%40amd.com%7C3eace080fd0b4f67337e08d7c594e441%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637195115872403614&amp;sdata=%2B%2B3xRFOl2Ho%2BRe9VuzqHtZNoVZ3s%2BxIP7xTv6yG11LA%3D&amp;reserved=0
 
 _______________________________________________
 amd-gfx mailing list
