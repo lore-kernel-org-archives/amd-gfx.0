@@ -7,75 +7,66 @@ X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45E3DC10DCE
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 19:34:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5DD7C10DCE
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 23:50:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1A8BD206E2
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 19:34:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 79C18206F7
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 23:50:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="lRxPbdAS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A8BD206E2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="Yjw6gyMW"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79C18206F7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF7756EB30;
-	Thu, 12 Mar 2020 19:34:07 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 632F76EB30
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2020 19:33:12 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id f3so8325255qkh.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2020 12:33:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=is+aAM3kx5GKU9icuIhwFwERZb/T1GECd3Vc+iyHsrs=;
- b=lRxPbdASo0evc/F+Ip6xqFmx6SR5Ep4C+HmDXCsADxBM/3Ke9ZrSnd8OLI9/+Ba18R
- N5a2wgvLDNxgULstqz0noI6VPXtVwUu8JngxGZs1UC5YPlq2H93z9xSfSOPdldqeSa4/
- hatJPBEgZOOseMT1S7YUlHG2jZYe0YM1TmYEuk89SVmxTdNfqS3h8ICchbxaNu8Q/cAZ
- aEAKi7bYJ81g9JwKnY6ybmslylnp+c5JRQ3G98ykTev743ZLpqbGtV9REVg+YL86yupH
- DXUhmmzZuEPGZDN7VLByJzgabZZQxQjNYMoTm2pezJL4F/dgTXcrObPWfXS38ruNqv42
- nl8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=is+aAM3kx5GKU9icuIhwFwERZb/T1GECd3Vc+iyHsrs=;
- b=Ae7zrbY+sC26lE4Ct89DZLzogV4uYxo1BYVydw5PE+UObP1VyXzc58/FnABhpq6LUH
- Y/aQHAZhKizjhjHEkqe5joPg2cCrY0EHty3/UGlIl1oLPCV4ucP90EKb3mwz41oe8+lg
- VwR8+A5ihKJIn5eH9CADzIUa5Er0Il8ZcTWLUoE5bLKWXPSjVgj/4B/mcmxhty5U0U9o
- Eq2jVN1v9Oxm4DiHAr64sWGY/+JouqFNH1IZPa690oHl+pKYQ9F2VxmO+jQh7jJFqY6Y
- t0SWgqGEbPqG+XSQf0ZsaY8saakcod6HIjZh2mlZvII4ZTBpFvrjjukkAoqXz3ftbOhr
- Z8Ig==
-X-Gm-Message-State: ANhLgQ3T7Ydhk5+eE1DLXmHcyH4VEguqycVHutMJuTilSfyaesgFPRYc
- CNDApx1OKGKKWipGDcsy1g9uHg==
-X-Google-Smtp-Source: ADFU+vtXZiDTvpbqkqoe3aZfzQFFBVJratdXNcqXhW8TtJt9L1GxnDlVMfvoDpoJhcH5PsM3O8V7Jw==
-X-Received: by 2002:a37:5b81:: with SMTP id p123mr8518904qkb.284.1584041591327; 
- Thu, 12 Mar 2020 12:33:11 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id o16sm28188049qke.35.2020.03.12.12.33.10
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 12 Mar 2020 12:33:10 -0700 (PDT)
-Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
- (envelope-from <jgg@ziepe.ca>)
- id 1jCTZu-0000QR-65; Thu, 12 Mar 2020 16:33:10 -0300
-Date: Thu, 12 Mar 2020 16:33:10 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Jerome Glisse <jglisse@redhat.com>,
- Ralph Campbell <rcampbell@nvidia.com>, Felix.Kuehling@amd.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id A83CB6EB5D;
+	Thu, 12 Mar 2020 23:50:23 +0000 (UTC)
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+ [216.228.121.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCEF46EB5D;
+ Thu, 12 Mar 2020 23:50:22 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e6aca900000>; Thu, 12 Mar 2020 16:49:36 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Thu, 12 Mar 2020 16:50:22 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Thu, 12 Mar 2020 16:50:22 -0700
+Received: from rcampbell-dev.nvidia.com (172.20.13.39) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Thu, 12 Mar 2020 23:50:21 +0000
 Subject: Re: [PATCH hmm 9/8] mm/hmm: do not check pmd_protnone twice in
  hmm_vma_handle_pmd()
-Message-ID: <20200312193310.GA1190@ziepe.ca>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Jerome Glisse <jglisse@redhat.com>,
+ <Felix.Kuehling@amd.com>
 References: <20200311183506.3997-1-jgg@ziepe.ca>
+ <20200312193310.GA1190@ziepe.ca>
+X-Nvconfidentiality: public
+From: Ralph Campbell <rcampbell@nvidia.com>
+Message-ID: <e02e3adf-5320-0c9a-63d4-13d0d5dca086@nvidia.com>
+Date: Thu, 12 Mar 2020 16:50:21 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200311183506.3997-1-jgg@ziepe.ca>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Thu, 12 Mar 2020 19:34:06 +0000
+In-Reply-To: <20200312193310.GA1190@ziepe.ca>
+X-Originating-IP: [172.20.13.39]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1584056976; bh=aQ7MGcgWWA7Gw37+lSs7CbvLiWZTO8XM95c59ZBgdKg=;
+ h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
+ Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+ X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=Yjw6gyMW0BovQBnuixd3cn86pt/2gu0Ac7NS1EnrlfxR7BcgErUjUkaNBWBnWSs0C
+ 9F/zA30YH9bMAPNXu2Nr8PI3K9ZpeUmb5sbe4/Dc+V54R0Wv6WLNsx84vq7EJwran4
+ gcySY5TUcmBxxGCC3Dm79KkOwpO8r+SVf9oXVGcyPMffb5pUJUU8AwjqTPQ0KOmNsF
+ 8nccy22VR59NWO9vtEs5Uys8+6xnGlNvFd8ns+yqIJ7oor9dPe7QJG5pEmG0tR6IfW
+ ioJqV0YRdsx0vDGo+QtSjwzFKi7XEnibWrNKLL48QDZFzbTcjsPzlozJ46kwdQlcN8
+ hyqUxrvZOJYFw==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,41 +81,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: Philip Yang <Philip.Yang@amd.com>, John Hubbard <jhubbard@nvidia.com>,
  amd-gfx@lists.freedesktop.org, linux-mm@kvack.org,
  dri-devel@lists.freedesktop.org, Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-pmd_to_hmm_pfn_flags() already checks it and makes the cpu flags 0. If no
-fault is requested then the pfns should be returned with the not valid
-flags.
 
-It should not unconditionally fault if faulting is not requested.
+On 3/12/20 12:33 PM, Jason Gunthorpe wrote:
+> pmd_to_hmm_pfn_flags() already checks it and makes the cpu flags 0. If no
+> fault is requested then the pfns should be returned with the not valid
+> flags.
+> 
+> It should not unconditionally fault if faulting is not requested.
+> 
+> Fixes: 2aee09d8c116 ("mm/hmm: change hmm_vma_fault() to allow write fault on page basis")
+> Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 
-Fixes: 2aee09d8c116 ("mm/hmm: change hmm_vma_fault() to allow write fault on page basis")
-Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
----
- mm/hmm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Looks good to me.
+Reviewed-by: Ralph Campbell <rcampbell@nvidia.com>
 
-Bonus patch, this one got found after I made the series..
-
-diff --git a/mm/hmm.c b/mm/hmm.c
-index ca33d086bdc190..6d9da4b0f0a9f8 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -226,7 +226,7 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
- 	hmm_range_need_fault(hmm_vma_walk, pfns, npages, cpu_flags,
- 			     &fault, &write_fault);
- 
--	if (pmd_protnone(pmd) || fault || write_fault)
-+	if (fault || write_fault)
- 		return hmm_vma_walk_hole_(addr, end, fault, write_fault, walk);
- 
- 	pfn = pmd_pfn(pmd) + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
--- 
-2.25.1
-
+> ---
+>   mm/hmm.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> Bonus patch, this one got found after I made the series..
+> 
+> diff --git a/mm/hmm.c b/mm/hmm.c
+> index ca33d086bdc190..6d9da4b0f0a9f8 100644
+> --- a/mm/hmm.c
+> +++ b/mm/hmm.c
+> @@ -226,7 +226,7 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
+>   	hmm_range_need_fault(hmm_vma_walk, pfns, npages, cpu_flags,
+>   			     &fault, &write_fault);
+>   
+> -	if (pmd_protnone(pmd) || fault || write_fault)
+> +	if (fault || write_fault)
+>   		return hmm_vma_walk_hole_(addr, end, fault, write_fault, walk);
+>   
+>   	pfn = pmd_pfn(pmd) + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
