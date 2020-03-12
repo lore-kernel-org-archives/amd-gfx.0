@@ -2,66 +2,66 @@ Return-Path: <SRS0=KrIT=45=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3FD8C10DCE
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 14:15:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EF7CC10DCE
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 14:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BBBF220650
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 14:15:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 73EBB20650
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 14:21:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gat37HHk"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBBF220650
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k1GGPGY5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 73EBB20650
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A87C66EAD4;
-	Thu, 12 Mar 2020 14:15:38 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF78E6EAD2;
- Thu, 12 Mar 2020 14:15:36 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id n15so7650623wrw.13;
- Thu, 12 Mar 2020 07:15:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 443F86EAD0;
+	Thu, 12 Mar 2020 14:21:43 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1AED56EAD0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2020 14:21:42 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id l18so7678912wru.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2020 07:21:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=mrvIFthQhStRb0h9X0TVjnYAU7Y95l7BE/07Zs0KkmU=;
- b=Gat37HHk/IR5hOfp8StNrofQQOmpXRH6pEZ8csCcEb6VJBlyWEH/itLo+6rzB1x332
- 4T0hPPvhhrsd4lpchwum7yLB3GYsA83Rge2B0luyRVmm7x3C9IWWlbwJSLx4J/IkCtWc
- 3iq+9xvke8xefc2SiwEL5Zl86LRavFa8gCyUsBjsOLjrkbKK3+9GQJpDm9Sfo7Jyr8XS
- SjDczFadOF1FBblnHcM17/mvIME59SYg+fLvaow0pXNJh9aDETNsvVlH1MiFrSRBMF0G
- /yfpt4xMtixGAWXt9hjEzabm8ll+f31vjx6y9In21gFro8zXcB0/4ZrG8lHgnI4/vmjo
- CINQ==
+ :cc; bh=XJG/XwUiq1n4axSZ1ZF7zkNZoQCEEbC5EZjNTBUv+jc=;
+ b=k1GGPGY5/DNbDGMl3hFlWPe536Ta4D+hqwRNWxaKIWqzDzVKI9Suk16VDOLFcYBUqu
+ +w3LNEq2zhvvVT3jhVYgu2mi3tAH9iSjkrGdAd7ecJjhN1e01/JEsBz2z48JSiB2j2Yr
+ SiZq3QxR4qlcW3PaZktP0rqxWF8uzVCmH9dedAqYXJBmEf/BaV5BrwOCUIoD/HTZW9YX
+ 8hmpwDf8BRy1TKGaYOfcWBERQxdIgwmT050Qfdt6PnZRDhYUmGJ/t794trjGuwXmLrPC
+ pSexWoRk0+M8OIsvuuxUkEVBha8EYQAX7Ytq9Y/to/kfoNU3ZKGnNccHjACgFDwkGtgi
+ 0J8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=mrvIFthQhStRb0h9X0TVjnYAU7Y95l7BE/07Zs0KkmU=;
- b=XuobXfUffEYFkeKJiKdcJ+ea/DhOsmpHS3EmcMvVV0SuNT74cMhpYf/Fhx+6nElx7v
- rBxLnthrt738j+g/QFXs0VW92NhO7BOXRMjhdRyZHGmUXWWoRRSwDGKVjMxLA2+y8b6N
- NcXK4EXOYJndIweQSG9W13OVsVzKk6bZpggUk2kuxE4ERDQ7f8fTJf1QMzdEKUj0gW4V
- fu8SBK4Vx8WxJo0yyDa6pMH3vAfA4s9POiKjZYd+YAE49ivgotFMwff4+UoKJDWR0THT
- tt12Jm2t6dMCBfPNQ8MiqADVUIFWfgZvxpU1abuUOFMQaPfHlcd3EK/UD+Ms156ATZBy
- 00aQ==
-X-Gm-Message-State: ANhLgQ1C5FziLIjudIMp2SZLOUHPoo95P8lYzfEDRxP5xLy0Ylz6tCJH
- ZZ/mvekCWrA8ayK+5IJdRJgXtkEOB8q/oreGmi4=
-X-Google-Smtp-Source: ADFU+vunbIhUB+upr9tvSXIUy5Rsh6w6Y/X84qlyHVsfayqsdBwr5bi936oAu3SpuUu2YFjWpTDxR6kp0SMteWKw1ns=
-X-Received: by 2002:adf:f74b:: with SMTP id z11mr11805645wrp.124.1584022535408; 
- Thu, 12 Mar 2020 07:15:35 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=XJG/XwUiq1n4axSZ1ZF7zkNZoQCEEbC5EZjNTBUv+jc=;
+ b=RXEaXcyLNSZHadSn8K9/RxIMQlp1PtsFNAVDygiMhQiFLCoCEKrbzN86GDETvpr1Co
+ zxA14g/iFQ/CGRDXwEHGam7UkVidhUhHt1Abk6n4n7Bo3SqPEI/0ejEyw7qWlLc1Y9Y7
+ mXsfa20Eal/bfckyXgnjFuFr97/x+wTBXQFyRP/LzbBuPh0HMQ68EmHUtXsBOirKqS7f
+ sWModecDFX9GME16mWphd1f1U2Ergev3ELm7w0394YlvnDgKLbEGgEI1/ez52IBSEHW8
+ I0tttqMcRtU9JiodHzz7v0XPNNWpI89ZI8e15CWUbb312ejYKrfGE3yBmxjbUb+UZMAb
+ 7lsg==
+X-Gm-Message-State: ANhLgQ16eBK1l9COgHfVAyCVrdJDe3ZbIlNbJmfYtGx7cnzK/r6JpRJl
+ KRbkS8ezQ8DPgbrH2gspJLkHd2IjX3sDr6k2bQo=
+X-Google-Smtp-Source: ADFU+vs4nsgFtOGVuH12c8H+kSgKm+ZH6oPkKk7v/hngJMd62YHERJwnmbDbSOhCtMIS4LfxCObxTPc6wxOB84rkztQ=
+X-Received: by 2002:a5d:5446:: with SMTP id w6mr11767349wrv.419.1584022900733; 
+ Thu, 12 Mar 2020 07:21:40 -0700 (PDT)
 MIME-Version: 1.0
-References: <6c252c3d-5d0a-2a2f-4b8c-60d7622d1146@infradead.org>
-In-Reply-To: <6c252c3d-5d0a-2a2f-4b8c-60d7622d1146@infradead.org>
+References: <20200312113231.GD20562@mwanda>
+In-Reply-To: <20200312113231.GD20562@mwanda>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 12 Mar 2020 10:15:23 -0400
-Message-ID: <CADnq5_PcQW=qf4fNx7v7Q4coLAMr755ykx+YfoxoYchHxivk3Q@mail.gmail.com>
-Subject: Re: [PATCH] drm: amd/acp: fix broken menu structure
-To: Randy Dunlap <rdunlap@infradead.org>
+Date: Thu, 12 Mar 2020 10:21:29 -0400
+Message-ID: <CADnq5_O8CCdXR0LRfe5_Y_asydv0zDetWdYAteLt9=jw6DuVTg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: clean up a condition in
+ dmub_psr_copy_settings()
+To: Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,42 +74,67 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Maruthi Bayyavarapu <maruthi.bayyavarapu@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ kernel-janitors@vger.kernel.org, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Wyatt Wood <wyatt.wood@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Nathan Chancellor <natechancellor@gmail.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QXBwbGllZC4gIHRoYW5rcyEKCkFsZXgKCk9uIFRodSwgTWFyIDEyLCAyMDIwIGF0IDQ6MDkgQU0g
-UmFuZHkgRHVubGFwIDxyZHVubGFwQGluZnJhZGVhZC5vcmc+IHdyb3RlOgo+Cj4gRnJvbTogUmFu
-ZHkgRHVubGFwIDxyZHVubGFwQGluZnJhZGVhZC5vcmc+Cj4KPiBGaXggdGhlIEtjb25maWcgZGVw
-ZW5kZW5jaWVzIHNvIHRoYXQgdGhlIG1lbnUgaXMgcHJlc2VudGVkCj4gY29ycmVjdGx5IGJ5IGFk
-ZGluZyBhIGRlcGVuZGVuY3kgb24gRFJNX0FNREdQVSB0byB0aGUgIm1lbnUiCj4gS2NvbmZpZyBz
-dGF0ZW1lbnQuICBUaGlzIG1ha2VzIGEgY29udGludW91cyBkZXBlbmRlbmN5IG9uCj4gRFJNX0FN
-REdQVSBpbiB0aGUgRFJNIEFNRCBtZW51cyBhbmQgZWxpbWluYXRlcyBhIGJyb2tlbiBtZW51Cj4g
-c3RydWN0dXJlLgo+Cj4gRml4ZXM6IGE4ZmU1OGNlYzM1MSAoImRybS9hbWQ6IGFkZCBBQ1AgZHJp
-dmVyIHN1cHBvcnQiKQo+IFNpZ25lZC1vZmYtYnk6IFJhbmR5IER1bmxhcCA8cmR1bmxhcEBpbmZy
-YWRlYWQub3JnPgo+IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+
-Cj4gQ2M6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiBDYzog
-RGF2aWQgKENodW5NaW5nKSBaaG91IDxEYXZpZDEuWmhvdUBhbWQuY29tPgo+IENjOiBNYXJ1dGhp
-IEJheXlhdmFyYXB1IDxtYXJ1dGhpLmJheXlhdmFyYXB1QGFtZC5jb20+Cj4gQ2M6IGFtZC1nZnhA
-bGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gLS0tCj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYWNwL0tj
-b25maWcgfCAgICAxICsKPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCj4KPiAtLS0g
-bGludXgtbmV4dC5vcmlnL2RyaXZlcnMvZ3B1L2RybS9hbWQvYWNwL0tjb25maWcKPiArKysgbGlu
-dXgtbmV4dC9kcml2ZXJzL2dwdS9kcm0vYW1kL2FjcC9LY29uZmlnCj4gQEAgLTEsNSArMSw2IEBA
-Cj4gICMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IE1JVAo+ICBtZW51ICJBQ1AgKEF1ZGlvIENv
-UHJvY2Vzc29yKSBDb25maWd1cmF0aW9uIgo+ICsgICAgICAgZGVwZW5kcyBvbiBEUk1fQU1ER1BV
-Cj4KPiAgY29uZmlnIERSTV9BTURfQUNQCj4gICAgICAgICBib29sICJFbmFibGUgQU1EIEF1ZGlv
-IENvUHJvY2Vzc29yIElQIHN1cHBvcnQiCj4KPiBfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+On Thu, Mar 12, 2020 at 7:32 AM Dan Carpenter <dan.carpenter@oracle.com> wrote:
+>
+> We can remove the NULL check for "res_ctx" and
+> "res_ctx->pipe_ctx[i].stream->link".  Also it's nicer to align the
+> conditions using spaces so I re-indented a bit.
+>
+> Longer explanation: The "res_ctx" pointer points to an address in the
+> middle of a struct so it can't be NULL.  For
+> "res_ctx->pipe_ctx[i].stream->link" we know that it is equal to "link"
+> and "link" is non-NULL.
+>
+> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+
+Applied.  thanks!
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+> index 9c88a92bd96a..bc109d4fc6e6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+> @@ -134,11 +134,9 @@ static bool dmub_psr_copy_settings(struct dmub_psr *dmub,
+>         int i = 0;
+>
+>         for (i = 0; i < MAX_PIPES; i++) {
+> -               if (res_ctx &&
+> -                       res_ctx->pipe_ctx[i].stream &&
+> -                       res_ctx->pipe_ctx[i].stream->link &&
+> -                       res_ctx->pipe_ctx[i].stream->link == link &&
+> -                       res_ctx->pipe_ctx[i].stream->link->connector_signal == SIGNAL_TYPE_EDP) {
+> +               if (res_ctx->pipe_ctx[i].stream &&
+> +                   res_ctx->pipe_ctx[i].stream->link == link &&
+> +                   res_ctx->pipe_ctx[i].stream->link->connector_signal == SIGNAL_TYPE_EDP) {
+>                         pipe_ctx = &res_ctx->pipe_ctx[i];
+>                         break;
+>                 }
+> --
+> 2.20.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
