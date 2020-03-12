@@ -4,69 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9BB24C0044D
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 01:38:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BC65C0044D
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 01:44:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ACA7C20753
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 01:38:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5C7AA20739
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 01:44:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="fSpB6u5R"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ACA7C20753
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="TKd7C5wk"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C7AA20739
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F7AB89A5C;
-	Thu, 12 Mar 2020 01:38:11 +0000 (UTC)
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
- [216.228.121.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C8CD89A5C;
- Thu, 12 Mar 2020 01:38:10 +0000 (UTC)
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5e6992540000>; Wed, 11 Mar 2020 18:37:24 -0700
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CC506E029;
+	Thu, 12 Mar 2020 01:44:46 +0000 (UTC)
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CD786E029
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2020 01:44:44 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e69902a0000>; Wed, 11 Mar 2020 18:28:11 -0700
 Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Wed, 11 Mar 2020 18:38:09 -0700
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Wed, 11 Mar 2020 18:29:42 -0700
 X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Wed, 11 Mar 2020 18:38:09 -0700
+ by hqpgpgate101.nvidia.com on Wed, 11 Mar 2020 18:29:42 -0700
 Received: from rcampbell-dev.nvidia.com (172.20.13.39) by HQMAIL107.nvidia.com
  (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Thu, 12 Mar 2020 01:38:07 +0000
-Subject: Re: [PATCH hmm 8/8] mm/hmm: add missing call to hmm_pte_need_fault in
- HMM_PFN_SPECIAL handling
+ Thu, 12 Mar 2020 01:29:37 +0000
+Subject: Re: [PATCH hmm 2/8] mm/hmm: don't free the cached pgmap while scanning
 To: Jason Gunthorpe <jgg@ziepe.ca>, Jerome Glisse <jglisse@redhat.com>,
  <Felix.Kuehling@amd.com>
 References: <20200311183506.3997-1-jgg@ziepe.ca>
- <20200311183506.3997-9-jgg@ziepe.ca>
+ <20200311183506.3997-3-jgg@ziepe.ca>
 X-Nvconfidentiality: public
 From: Ralph Campbell <rcampbell@nvidia.com>
-Message-ID: <2feb1061-09b9-766d-3d0d-be17debedde8@nvidia.com>
-Date: Wed, 11 Mar 2020 18:38:07 -0700
+Message-ID: <b9e1d7d9-954f-c1ab-5c31-47f0db747984@nvidia.com>
+Date: Wed, 11 Mar 2020 18:29:37 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <20200311183506.3997-9-jgg@ziepe.ca>
+In-Reply-To: <20200311183506.3997-3-jgg@ziepe.ca>
 X-Originating-IP: [172.20.13.39]
 X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
  HQMAIL107.nvidia.com (172.20.187.13)
 Content-Language: en-US
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1583977044; bh=TeIeAHJ8Ep5pjoo7cziGM/eX3EFeJGJdqZCXIdNjLkY=;
+ t=1583976491; bh=vvQwvOjCh/DlYeQK6g90hZNrTaVRDvFsFH5OQm4yQEM=;
  h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
  Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
  X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
  Content-Transfer-Encoding;
- b=fSpB6u5RJxL5Ws6WRwyo0MDxd1wwB/p/tYs2GJJQ86w5OykymtKp01xcWGqBxKFyB
- EcwFhSJWy/Z3CzpI5sdXwxyqBy0Nmoqju318rE7SqcjIURSHLN8w5r//rf0Ut7qf+l
- hjUs/PEeQi2X01Dg2ygewCc/6EEGpOVlHnTxKQwzQviYIEkowxD/y3DPyQCwWVZBn4
- UuACQ2qhLoRf3aDxtQgZJS3mAj+Ul4Yd4tsx4LvogUBd0LC/hvtqtVEt6abck2uSix
- CTHhQit97LsJ0KJTuKnGbKPzZZwmZZ8kSdnLCn2f1AYCSSMwYdbJFj5Vni5zJ/XHny
- NRfZ8z0fhTNvA==
+ b=TKd7C5wkPf0VcULY3c+shsY/7ftoIUWajrvx66bKbgN/D0HM2HxNPyNfz4qZR2Jrv
+ cuzHFY3ATRsbAKtVMq6H0uLUIV3MU6oTt1zyeKQpoA02unkvmzjFNfF6mL8cOs1zX1
+ 47fRhhLEtThcvN3OahDysxVm32f44Jp8noOHHAwT+colYVNkk5ejbW2x3w1f2olsab
+ W1IHpqeIhqYuNR5JQCuh5kPc+SbAbrw+l/0kgyhUeIFSfW4CzAm8PUQed2CiJ2/aX/
+ FoEqE4v/GariLk9qmP8Pm3nkAy+0HaS+s6nVVkP3QuCIBJjDBWn7VMOf9ndoqe/fcg
+ bCR3A8WHN8B6g==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,15 +90,15 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On 3/11/20 11:35 AM, Jason Gunthorpe wrote:
 > From: Jason Gunthorpe <jgg@mellanox.com>
 > 
-> Currently if a special PTE is encountered hmm_range_fault() immediately
-> returns EFAULT and sets the HMM_PFN_SPECIAL error output (which nothing
-> uses).
+> The pgmap is held in the hmm_vma_walk variable in hope of speeding up
+> future get_dev_pagemap() calls by hitting the same pointer. The algorithm
+> doesn't actually care about how long the pgmap is held for.
 > 
-> EFAULT should only be returned after testing with hmm_pte_need_fault().
+> Move the put of the cached pgmap to after the walk is completed and delete
+> all the other now redundant puts.
 > 
-> Also pte_devmap() and pte_special() are exclusive, and there is no need to
-> check IS_ENABLED, pte_special() is stubbed out to return false on
-> unsupported architectures.
+> This solves a possible leak of the reference in hmm_vma_walk_pmd() if a
+> hmm_vma_handle_pte() fails while looping.
 > 
 > Fixes: 992de9a8b751 ("mm/hmm: allow to mirror vma of a file on a DAX backed filesystem")
 > Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
@@ -107,42 +106,83 @@ On 3/11/20 11:35 AM, Jason Gunthorpe wrote:
 Reviewed-by: Ralph Campbell <rcampbell@nvidia.com>
 
 > ---
->   mm/hmm.c | 19 ++++++++++++-------
->   1 file changed, 12 insertions(+), 7 deletions(-)
+>   mm/hmm.c | 31 +++++++++----------------------
+>   1 file changed, 9 insertions(+), 22 deletions(-)
+> 
+> We talked about just deleting this stuff, but I think it makes alot sense for
+> hmm_range_fault() to trigger fault on devmap pages that are not compatible
+> with the caller - so lets just fix the leak on error path for now.
 > 
 > diff --git a/mm/hmm.c b/mm/hmm.c
-> index f61fddf2ef6505..ca33d086bdc190 100644
+> index 35f85424176d14..9e8f68eb83287a 100644
 > --- a/mm/hmm.c
 > +++ b/mm/hmm.c
-> @@ -335,16 +335,21 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
->   			pte_unmap(ptep);
->   			return -EBUSY;
+> @@ -239,10 +239,6 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
 >   		}
-> -	} else if (IS_ENABLED(CONFIG_ARCH_HAS_PTE_SPECIAL) && pte_special(pte)) {
-> -		if (!is_zero_pfn(pte_pfn(pte))) {
-> +	}
-> +
-> +	/*
-> +	 * Since each architecture defines a struct page for the zero page, just
-> +	 * fall through and treat it like a normal page.
-> +	 */
-> +	if (pte_special(pte) && !is_zero_pfn(pte_pfn(pte))) {
-> +		hmm_pte_need_fault(hmm_vma_walk, orig_pfn, 0, &fault,
-> +				   &write_fault);
-> +		if (fault || write_fault) {
->   			pte_unmap(ptep);
-> -			*pfn = range->values[HMM_PFN_SPECIAL];
->   			return -EFAULT;
->   		}
-> -		/*
-> -		 * Since each architecture defines a struct page for the zero
-> -		 * page, just fall through and treat it like a normal page.
-> -		 */
-> +		*pfn = range->values[HMM_PFN_SPECIAL];
-> +		return 0;
+>   		pfns[i] = hmm_device_entry_from_pfn(range, pfn) | cpu_flags;
 >   	}
+> -	if (hmm_vma_walk->pgmap) {
+> -		put_dev_pagemap(hmm_vma_walk->pgmap);
+> -		hmm_vma_walk->pgmap = NULL;
+> -	}
+>   	hmm_vma_walk->last = end;
+>   	return 0;
+>   }
+> @@ -360,10 +356,6 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+>   	return 0;
 >   
->   	*pfn = hmm_device_entry_from_pfn(range, pte_pfn(pte)) | cpu_flags;
+>   fault:
+> -	if (hmm_vma_walk->pgmap) {
+> -		put_dev_pagemap(hmm_vma_walk->pgmap);
+> -		hmm_vma_walk->pgmap = NULL;
+> -	}
+>   	pte_unmap(ptep);
+>   	/* Fault any virtual address we were asked to fault */
+>   	return hmm_vma_walk_hole_(addr, end, fault, write_fault, walk);
+> @@ -446,16 +438,6 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+>   			return r;
+>   		}
+>   	}
+> -	if (hmm_vma_walk->pgmap) {
+> -		/*
+> -		 * We do put_dev_pagemap() here and not in hmm_vma_handle_pte()
+> -		 * so that we can leverage get_dev_pagemap() optimization which
+> -		 * will not re-take a reference on a pgmap if we already have
+> -		 * one.
+> -		 */
+> -		put_dev_pagemap(hmm_vma_walk->pgmap);
+> -		hmm_vma_walk->pgmap = NULL;
+> -	}
+>   	pte_unmap(ptep - 1);
+>   
+>   	hmm_vma_walk->last = addr;
+> @@ -529,10 +511,6 @@ static int hmm_vma_walk_pud(pud_t *pudp, unsigned long start, unsigned long end,
+>   			pfns[i] = hmm_device_entry_from_pfn(range, pfn) |
+>   				  cpu_flags;
+>   		}
+> -		if (hmm_vma_walk->pgmap) {
+> -			put_dev_pagemap(hmm_vma_walk->pgmap);
+> -			hmm_vma_walk->pgmap = NULL;
+> -		}
+>   		hmm_vma_walk->last = end;
+>   		goto out_unlock;
+>   	}
+> @@ -694,6 +672,15 @@ long hmm_range_fault(struct hmm_range *range, unsigned int flags)
+>   			return -EBUSY;
+>   		ret = walk_page_range(mm, hmm_vma_walk.last, range->end,
+>   				      &hmm_walk_ops, &hmm_vma_walk);
+> +		/*
+> +		 * A pgmap is kept cached in the hmm_vma_walk to avoid expensive
+> +		 * searching in the probably common case that the pgmap is the
+> +		 * same for the entire requested range.
+> +		 */
+> +		if (hmm_vma_walk.pgmap) {
+> +			put_dev_pagemap(hmm_vma_walk.pgmap);
+> +			hmm_vma_walk.pgmap = NULL;
+> +		}
+>   	} while (ret == -EBUSY);
+>   
+>   	if (ret)
 > 
 _______________________________________________
 amd-gfx mailing list
