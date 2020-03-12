@@ -2,66 +2,79 @@ Return-Path: <SRS0=KrIT=45=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E343C1975A
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 14:32:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CC991C10DCE
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 14:32:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 22DBA20663
-	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 14:32:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9B2E620663
+	for <amd-gfx@archiver.kernel.org>; Thu, 12 Mar 2020 14:32:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QyjfNTta"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22DBA20663
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="ZnSBL2bC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B2E620663
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD7396EAD9;
-	Thu, 12 Mar 2020 14:32:35 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B76236EAD9;
- Thu, 12 Mar 2020 14:32:34 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id v11so7761196wrm.9;
- Thu, 12 Mar 2020 07:32:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dIWecC2qsHuufnFdOiNu7e1oNFfZzq74BS3MK5M3+ZU=;
- b=QyjfNTtatthoJtE4xf+ijGz0ngzoMX9Lt9KWzZWkEirFlI6/Z3I5trl52oDjFaxj85
- b3mvg2Kfx1Vp5Tr9EUxLbUOMhjbi8rcM9FWTdft+b7/3pjHuhoQUtYdtvdppCBuYh3rH
- EfQ7KR9WohIBSwRzJg3l7O4LS93Q0REqsZLFhKurJVvbEJrz9ia2/GyrAO9U6YeAGEEa
- 0bxE6Sq/dx7SQRD/rBRIUi07vZ2JIBIQI0kxvWTieAldN0zdq5a5L0OQExYnie6KX+Wa
- 4mfZYpDaIB9MnohpF6OU7AxFri9GXdmYyWtpRSEIEz3ZEfu7/O1Zz8ZE7ppDY4pk9kOl
- 6txQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 661426EADE;
+	Thu, 12 Mar 2020 14:32:44 +0000 (UTC)
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 526096EAD0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2020 14:27:51 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id e16so6452143qkl.6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 12 Mar 2020 07:27:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=shRWHqs3Ts2qBzMB/5rL3DjA67/CpxM/q+E+CLvtZCE=;
+ b=ZnSBL2bCCP1DUi5JZ6itWwX0/LjmmIWz5msvQDRPn4+ACgobkUcU3+1tBcnk67QPLm
+ +wPJ7l1W8rwNFrfYMTS9XHgWsiZfXR8E+Dcud6RbQ8+ipHGZItAza0Y69Ab54R+DvI1K
+ iEeJ6hnU1FLyxFtH2oKziGx0r7qS0pQ6/dTNuUdSmWTncqoZYTJC27kb7tbCKCDRtvlD
+ qg3cpSjrqHQgIoEhXthaqvUuLgqDjsPgAKoanR+6wMHXlaJO9C+dVWpovs4DXflBUkGS
+ 49vvu+V2F4ZTONoJNcaxzLwndPbcjE/9gSSySRVyu1fHdeED4odW9RB+sWtNuRAgcp9c
+ h8YA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=dIWecC2qsHuufnFdOiNu7e1oNFfZzq74BS3MK5M3+ZU=;
- b=OwCRnDGRjGdnFcXI2863JgkmRDsqU/C2GM9dnqxdufnnQ0J7K1wF7fZTu3qndS5kZ5
- IopXtV/zhOIk3GErd7BoFps7G+1Gbxb39QbjpMZrnt3QNk0mgP2FVgJD/aIMh9wChpmj
- RqPjlOKpnmqwu5p8qLHDerfUITwMgW7EAgdJBe+aFNxQ7ynZj8V2PyrGgDDtWFJBbbsP
- p0/iLMQ5E+40c05cUxfSuVjxSYrbDpp15+deIWIWbQYh/VOTsJqdLX4Z+5yRstzum+lB
- 8a6qkETlVuqvqh/joPpLtIvEF0Xs0wvvda4yTM2IUBNdCsKMgZ/woNThIqMfxXLTod0w
- TzXw==
-X-Gm-Message-State: ANhLgQ2wRKbIHgJ4OgPPOcb8nSB0WTguPSoqzz+f5KiYuAQFq9kOwEJS
- /uq/djS3NU6ZCIvpM6w8IRqb2NQhtlQmLGNikB8=
-X-Google-Smtp-Source: ADFU+vukFr4D9wcaoe437zE9JuOOk8UFmZ+losoPpTXlbII0n/gnP0mvP2E8pjd6aJiH9CvcW7iA1pcq6ra7oFgQmfw=
-X-Received: by 2002:adf:c5c8:: with SMTP id v8mr7013076wrg.111.1584023553284; 
- Thu, 12 Mar 2020 07:32:33 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=shRWHqs3Ts2qBzMB/5rL3DjA67/CpxM/q+E+CLvtZCE=;
+ b=tMY1gygiH3tpXrBoAfqa2Wli2d8qqQ20+D5UBp+j55rqm5cFxVDw6d6kQIJJN7dEbw
+ EVzPPq8y4TB5O1Xkd90VvFrMjfcr3YPNW99FOS5XlO3gZ3zvgT1DeXgjMKefjQYfEA0F
+ CVhKKnCTaYR3RW+FIaTBjtW3lEaR2RrFvr1iXbVjjXvTbhg0p/9c2kICu5w4Hl0+P3dd
+ CZ031h2IZCm372XLMlkAvfdxF+0DGAcXRMzx81bb3sW/mnp3mPJwoAU1LmVDDrU1bklT
+ UzCw2pJDA1V8PHQ2cdQRrKiCv1va0djmRD/iKJaKlSOr23eSe4HctA40fwzqa2ioYYpx
+ hZMw==
+X-Gm-Message-State: ANhLgQ1FE2R6arhOKeR9bglGXdLFDuvWG/3v2shPq6s42fBMRss9qHlT
+ jxWgMhddl2Q2EvWXkeUr/xWeBg==
+X-Google-Smtp-Source: ADFU+vtmGnz7Df/Lq8bjKyIpX/Lw1bKk1mSMVmS71keV3l9f13WdimMkf7ZbhjXd3ag3VOfi7iAUwg==
+X-Received: by 2002:a37:2cc6:: with SMTP id s189mr8228780qkh.223.1584023270456; 
+ Thu, 12 Mar 2020 07:27:50 -0700 (PDT)
+Received: from ziepe.ca
+ (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.68.57.212])
+ by smtp.gmail.com with ESMTPSA id x22sm6012019qki.54.2020.03.12.07.27.49
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 12 Mar 2020 07:27:49 -0700 (PDT)
+Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
+ (envelope-from <jgg@ziepe.ca>)
+ id 1jCOoP-0006Z0-Fx; Thu, 12 Mar 2020 11:27:49 -0300
+Date: Thu, 12 Mar 2020 11:27:49 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Steven Price <steven.price@arm.com>
+Subject: Re: [PATCH] mm/hmm: Simplify hmm_vma_walk_pud slightly
+Message-ID: <20200312142749.GM31668@ziepe.ca>
+References: <5bd778fa-51e5-3e0c-d9bb-b38539b03c8d@arm.com>
+ <20200312102813.56699-1-steven.price@arm.com>
 MIME-Version: 1.0
-References: <20200305212044.3857-1-mario.kleiner.de@gmail.com>
-In-Reply-To: <20200305212044.3857-1-mario.kleiner.de@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 12 Mar 2020 10:32:22 -0400
-Message-ID: <CADnq5_PoEbgyQ1a+DMkSpTkN2QHHEpHie53Wxo7eRktsKxKs7Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix pageflip event race condition for
- DCN. (v2)
-To: Mario Kleiner <mario.kleiner.de@gmail.com>
+Content-Disposition: inline
+In-Reply-To: <20200312102813.56699-1-steven.price@arm.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Mailman-Approved-At: Thu, 12 Mar 2020 14:32:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,251 +86,175 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
- "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Cc: Philip Yang <Philip.Yang@amd.com>, Ralph Campbell <rcampbell@nvidia.com>,
+ John Hubbard <jhubbard@nvidia.com>, Felix.Kuehling@amd.com,
+ amd-gfx@lists.freedesktop.org, linux-mm@kvack.org,
+ Jerome Glisse <jglisse@redhat.com>, dri-devel@lists.freedesktop.org,
+ Christoph Hellwig <hch@lst.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 5, 2020 at 4:21 PM Mario Kleiner <mario.kleiner.de@gmail.com> wrote:
->
-> Commit '16f17eda8bad ("drm/amd/display: Send vblank and user
-> events at vsartup for DCN")' introduces a new way of pageflip
-> completion handling for DCN, and some trouble.
->
-> The current implementation introduces a race condition, which
-> can cause pageflip completion events to be sent out one vblank
-> too early, thereby confusing userspace and causing flicker:
->
-> prepare_flip_isr():
->
-> 1. Pageflip programming takes the ddev->event_lock.
-> 2. Sets acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED
-> 3. Releases ddev->event_lock.
->
-> --> Deadline for surface address regs double-buffering passes on
->     target pipe.
->
-> 4. dc_commit_updates_for_stream() MMIO programs the new pageflip
->    into hw, but too late for current vblank.
->
-> => pflip_status == AMDGPU_FLIP_SUBMITTED, but flip won't complete
->    in current vblank due to missing the double-buffering deadline
->    by a tiny bit.
->
-> 5. VSTARTUP trigger point in vblank is reached, VSTARTUP irq fires,
->    dm_dcn_crtc_high_irq() gets called.
->
-> 6. Detects pflip_status == AMDGPU_FLIP_SUBMITTED and assumes the
->    pageflip has been completed/will complete in this vblank and
->    sends out pageflip completion event to userspace and resets
->    pflip_status = AMDGPU_FLIP_NONE.
->
-> => Flip completion event sent out one vblank too early.
->
-> This behaviour has been observed during my testing with measurement
-> hardware a couple of time.
->
-> The commit message says that the extra flip event code was added to
-> dm_dcn_crtc_high_irq() to prevent missing to send out pageflip events
-> in case the pflip irq doesn't fire, because the "DCH HUBP" component
-> is clock gated and doesn't fire pflip irqs in that state. Also that
-> this clock gating may happen if no planes are active. According to
-> Nicholas, the clock gating can also happen if psr is active, and the
-> gating is controlled independently by the hardware, so difficult to
-> detect if and when the completion code in above commit is needed.
->
-> This patch tries the following solution: It only executes the extra pflip
-> completion code in dm_dcn_crtc_high_irq() iff the hardware reports
-> that there aren't any surface updated pending in the double-buffered
-> surface scanout address registers. Otherwise it leaves pflip completion
-> to the pflip irq handler, for a more race-free experience.
->
-> This would only guard against the order of events mentioned above.
-> If Step 5 (VSTARTUP trigger) happens before step 4 then this won't help
-> at all, because 1-3 + 5 might happen even without the hw being programmed
-> at all, ie. no surface update pending because none yet programmed into hw.
->
-> Therefore this patch also changes locking in amdgpu_dm_commit_planes(),
-> so that prepare_flip_isr() and dc_commit_updates_for_stream() are done
-> under event_lock protection within the same critical section.
->
-> v2: Take Nicholas comments into account, try a different solution.
->
-> Lightly tested on Polaris (locking) and Raven (the whole DCN stuff).
-> Seems to work without causing obvious new trouble.
-
-Nick, any comments on this?  Can we get this committed or do you think
-it needs additional rework?
-
-Thanks,
-
-Alex
-
->
-> Fixes: 16f17eda8bad ("drm/amd/display: Send vblank and user events at vsartup for DCN")
-> Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
+On Thu, Mar 12, 2020 at 10:28:13AM +0000, Steven Price wrote:
+> By refactoring to deal with the !pud_huge(pud) || !pud_devmap(pud)
+> condition early it's possible to remove the 'ret' variable and remove a
+> level of indentation from half the function making the code easier to
+> read.
+> 
+> No functional change.
+> 
+> Signed-off-by: Steven Price <steven.price@arm.com>
 > ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 80 ++++++++++++++++---
->  1 file changed, 67 insertions(+), 13 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index d7df1a85e72f..aa4e941b276f 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -287,6 +287,28 @@ static inline bool amdgpu_dm_vrr_active(struct dm_crtc_state *dm_state)
->                dm_state->freesync_config.state == VRR_STATE_ACTIVE_FIXED;
->  }
->
-> +/**
-> + * dm_crtc_is_flip_pending() - Is a pageflip pending on this crtc?
-> + *
-> + * Returns true if any plane on the crtc has a flip pending, false otherwise.
-> + */
-> +static bool dm_crtc_is_flip_pending(struct dm_crtc_state *acrtc_state)
-> +{
-> +       struct dc_stream_status *status = dc_stream_get_status(acrtc_state->stream);
-> +       const struct dc_plane_status *plane_status;
-> +       int i;
-> +       bool pending = false;
-> +
-> +       for (i = 0; i < status->plane_count; i++) {
-> +               plane_status = dc_plane_get_status(status->plane_states[i]);
-> +               pending |= plane_status->is_flip_pending;
-> +               DRM_DEBUG_DRIVER("plane:%d, flip_pending=%d\n",
-> +                                i, plane_status->is_flip_pending);
-> +       }
-> +
-> +       return pending;
-> +}
-> +
->  /**
->   * dm_pflip_high_irq() - Handle pageflip interrupt
->   * @interrupt_params: ignored
-> @@ -435,6 +457,11 @@ static void dm_vupdate_high_irq(void *interrupt_params)
->                                 spin_unlock_irqrestore(&adev->ddev->event_lock, flags);
->                         }
->                 }
-> +
-> +               if (acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED) {
-> +                       DRM_DEBUG_DRIVER("%s:crtc:%d, flip_pending=%d\n", __func__,
-> +                                           acrtc->crtc_id, dm_crtc_is_flip_pending(acrtc_state));
-> +               }
->         }
->  }
->
-> @@ -489,6 +516,11 @@ static void dm_crtc_high_irq(void *interrupt_params)
->                                 &acrtc_state->vrr_params.adjust);
->                         spin_unlock_irqrestore(&adev->ddev->event_lock, flags);
->                 }
-> +
-> +               if (acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED) {
-> +                       DRM_DEBUG_DRIVER("%s:crtc:%d, flip_pending=%d\n", __func__,
-> +                                        acrtc->crtc_id, dm_crtc_is_flip_pending(acrtc_state));
-> +               }
->         }
->  }
->
-> @@ -543,13 +575,29 @@ static void dm_dcn_crtc_high_irq(void *interrupt_params)
->                         &acrtc_state->vrr_params.adjust);
->         }
->
-> -       if (acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED) {
-> +       /*
-> +        * If there aren't any active_planes, or PSR is active, then DCH HUBP
-> +        * may be clock-gated. In that state, pageflip completion interrupts
-> +        * won't fire and pageflip completion events won't get delivered.
-> +        *
-> +        * Prevent this by sending pending pageflip events from here if a flip
-> +        * has been submitted, but is no longer pending in hw, ie. has already
-> +        * completed.
-> +        *
-> +        * If the flip is still pending in hw, then use dm_pflip_high_irq()
-> +        * instead, handling completion as usual by pflip irq.
-> +        */
-> +       if (acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
-> +           !dm_crtc_is_flip_pending(acrtc_state)) {
->                 if (acrtc->event) {
->                         drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
->                         acrtc->event = NULL;
->                         drm_crtc_vblank_put(&acrtc->base);
->                 }
->                 acrtc->pflip_status = AMDGPU_FLIP_NONE;
-> +
-> +               DRM_DEBUG_DRIVER("crtc:%d, pflip_stat:AMDGPU_FLIP_NONE\n",
-> +                                acrtc->crtc_id);
->         }
->
->         spin_unlock_irqrestore(&adev->ddev->event_lock, flags);
-> @@ -6325,7 +6373,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->                         to_dm_crtc_state(drm_atomic_get_old_crtc_state(state, pcrtc));
->         int planes_count = 0, vpos, hpos;
->         long r;
-> -       unsigned long flags;
-> +       unsigned long flags = 0;
->         struct amdgpu_bo *abo;
->         uint64_t tiling_flags;
->         uint32_t target_vblank, last_flip_vblank;
-> @@ -6513,17 +6561,6 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->                         usleep_range(1000, 1100);
->                 }
->
-> -               if (acrtc_attach->base.state->event) {
-> -                       drm_crtc_vblank_get(pcrtc);
-> -
-> -                       spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
-> -
-> -                       WARN_ON(acrtc_attach->pflip_status != AMDGPU_FLIP_NONE);
-> -                       prepare_flip_isr(acrtc_attach);
-> -
-> -                       spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
-> -               }
-> -
->                 if (acrtc_state->stream) {
->                         if (acrtc_state->freesync_vrr_info_changed)
->                                 bundle->stream_update.vrr_infopacket =
-> @@ -6575,6 +6612,15 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->                                 acrtc_state->stream->link->psr_allow_active)
->                         amdgpu_dm_psr_disable(acrtc_state->stream);
->
-> +               if (pflip_present && acrtc_attach->base.state->event) {
-> +                       drm_crtc_vblank_get(pcrtc);
-> +
-> +                       spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
-> +
-> +                       WARN_ON(acrtc_attach->pflip_status != AMDGPU_FLIP_NONE);
-> +                       prepare_flip_isr(acrtc_attach);
-> +               }
-> +
->                 dc_commit_updates_for_stream(dm->dc,
->                                                      bundle->surface_updates,
->                                                      planes_count,
-> @@ -6582,6 +6628,14 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->                                                      &bundle->stream_update,
->                                                      dc_state);
->
-> +               /*
-> +                * Must event_lock protect prepare_flip_isr() above and
-> +                * dc_commit_updates_for_stream within same critical section,
-> +                * or pageflip completion will suffer bad races on DCN.
-> +                */
-> +               if (pflip_present && acrtc_attach->pflip_status == AMDGPU_FLIP_SUBMITTED)
-> +                       spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
-> +
->                 if ((acrtc_state->update_type > UPDATE_TYPE_FAST) &&
->                                                 acrtc_state->stream->psr_version &&
->                                                 !acrtc_state->stream->link->psr_feature_enabled)
-> --
-> 2.20.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> Thanks to Jason's changes there were only two code paths left using
+> the out_unlock label so it seemed like a good opportunity to
+> refactor.
+
+Yes, I made something very similar, what do you think of this:
+
+https://github.com/jgunthorpe/linux/commit/93f0ed42ab3f9ceb27b58fb7c7c3ecaf60f16b36
+
+From 93f0ed42ab3f9ceb27b58fb7c7c3ecaf60f16b36 Mon Sep 17 00:00:00 2001
+From: Jason Gunthorpe <jgg@mellanox.com>
+Date: Wed, 4 Mar 2020 17:11:10 -0400
+Subject: [PATCH] mm/hmm: rework hmm_vma_walk_pud()
+
+At least since commit 3afc423632a1 ("mm: pagewalk: add p4d_entry() and
+pgd_entry()") this code has developed a number of strange control flows.
+
+The purpose of the routine is to copy the pfns of a huge devmap PUD into
+the pfns output array, without splitting the PUD. Everything that is not a
+huge devmap PUD should go back to the walker for splitting.
+
+Rework the logic to show this goal and remove redundant stuff:
+
+- If pud_trans_huge_lock returns !NULL then this is already
+  'pud_trans_huge() || pud_devmap()' and 'pud_huge() || pud_devmap()'
+  so some of the logic is redundant.
+
+- Hitting pud_none() is a race, treat it as such and return back to the
+  walker using ACTION_AGAIN
+
+- !pud_present() gives 0 cpu_flags, so the extra checks are redundant
+
+- Once the *pudp is read there is no need to continue holding the pud
+  lock, so drop it. The only thing the following code cares about is the
+  pfn from the devmap, and if there is racing then the notifiers will
+  resolve everything. Perhaps the unlocked READ_ONCE in an ealier version
+  was correct
+
+Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
+---
+ mm/hmm.c | 79 +++++++++++++++++++++++---------------------------------
+ 1 file changed, 33 insertions(+), 46 deletions(-)
+
+diff --git a/mm/hmm.c b/mm/hmm.c
+index 8fec801a33c9e2..87a376659b5ad4 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -455,66 +455,53 @@ static int hmm_vma_walk_pud(pud_t *pudp, unsigned long start, unsigned long end,
+ {
+ 	struct hmm_vma_walk *hmm_vma_walk = walk->private;
+ 	struct hmm_range *range = hmm_vma_walk->range;
+-	unsigned long addr = start;
++	unsigned long i, npages, pfn;
++	unsigned int required_fault;
++	uint64_t cpu_flags;
++	uint64_t *pfns;
++	spinlock_t *ptl;
+ 	pud_t pud;
+-	int ret = 0;
+-	spinlock_t *ptl = pud_trans_huge_lock(pudp, walk->vma);
+ 
++	/*
++	 * This only handles huge devmap pages, the default return is
++	 * ACTION_SUBTREE, so everything else is split by the walker and passed
++	 * to the other routines.
++	 */
++	ptl = pud_trans_huge_lock(pudp, walk->vma);
+ 	if (!ptl)
+ 		return 0;
++	pud = *pudp;
++	spin_unlock(ptl);
+ 
+-	/* Normally we don't want to split the huge page */
+-	walk->action = ACTION_CONTINUE;
+-
+-	pud = READ_ONCE(*pudp);
+ 	if (pud_none(pud)) {
+-		spin_unlock(ptl);
+-		return hmm_vma_walk_hole(start, end, -1, walk);
++		walk->action = ACTION_AGAIN;
++		return 0;
+ 	}
+ 
+-	if (pud_huge(pud) && pud_devmap(pud)) {
+-		unsigned long i, npages, pfn;
+-		unsigned int required_flags;
+-		uint64_t *pfns, cpu_flags;
+-
+-		if (!pud_present(pud)) {
+-			spin_unlock(ptl);
+-			return hmm_vma_walk_hole(start, end, -1, walk);
+-		}
+-
+-		i = (addr - range->start) >> PAGE_SHIFT;
+-		npages = (end - addr) >> PAGE_SHIFT;
+-		pfns = &range->pfns[i];
++	if (!pud_devmap(pud))
++		return 0;
+ 
+-		cpu_flags = pud_to_hmm_pfn_flags(range, pud);
++	pfns = &range->pfns[(start - range->start) >> PAGE_SHIFT];
++	cpu_flags = pud_to_hmm_pfn_flags(range, pud);
++	required_fault =
+ 		hmm_range_need_fault(hmm_vma_walk, pfns, npages, cpu_flags);
+-		if (required_flags) {
+-			spin_unlock(ptl);
+-			return hmm_vma_walk_hole_(addr, end, required_flags,
+-						  walk);
+-		}
++	if (required_fault)
++		return hmm_vma_walk_hole_(start, end, required_fault, walk);
+ 
+-		pfn = pud_pfn(pud) + ((addr & ~PUD_MASK) >> PAGE_SHIFT);
+-		for (i = 0; i < npages; ++i, ++pfn) {
+-			hmm_vma_walk->pgmap = get_dev_pagemap(pfn,
+-					      hmm_vma_walk->pgmap);
+-			if (unlikely(!hmm_vma_walk->pgmap)) {
+-				ret = -EBUSY;
+-				goto out_unlock;
+-			}
+-			pfns[i] = hmm_device_entry_from_pfn(range, pfn) |
+-				  cpu_flags;
+-		}
+-		hmm_vma_walk->last = end;
+-		goto out_unlock;
++	pfn = pud_pfn(pud) + ((start & ~PUD_MASK) >> PAGE_SHIFT);
++	npages = (end - start) >> PAGE_SHIFT;
++	for (i = 0; i < npages; ++i, ++pfn) {
++		hmm_vma_walk->pgmap = get_dev_pagemap(pfn, hmm_vma_walk->pgmap);
++		if (unlikely(!hmm_vma_walk->pgmap))
++			return -EBUSY;
++		pfns[i] = hmm_device_entry_from_pfn(range, pfn) | cpu_flags;
+ 	}
+ 
+-	/* Ask for the PUD to be split */
+-	walk->action = ACTION_SUBTREE;
++	hmm_vma_walk->last = end;
+ 
+-out_unlock:
+-	spin_unlock(ptl);
+-	return ret;
++	/* Do not split the pud */
++	walk->action = ACTION_CONTINUE;
++	return 0;
+ }
+ #else
+ #define hmm_vma_walk_pud	NULL
+-- 
+2.25.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
