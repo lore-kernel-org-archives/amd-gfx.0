@@ -2,103 +2,105 @@ Return-Path: <SRS0=NWgq=46=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE697C10DCE
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 13:39:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 015DCC10DCE
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 13:43:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9266A20409
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 13:39:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C55702073E
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 13:43:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="gYhwguy3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9266A20409
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="4gWa+SFw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C55702073E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5761D6E9B2;
-	Fri, 13 Mar 2020 13:39:11 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2061.outbound.protection.outlook.com [40.107.236.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1584E6E9B2
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2020 13:39:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FBB66E9C6;
+	Fri, 13 Mar 2020 13:43:10 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2056.outbound.protection.outlook.com [40.107.244.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92F286E9C6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2020 13:43:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dxC+jRD4MAcj/oOd7OUwGq3/7h00GOU3OrxUKp0H0bmXV2qsyyJd9J9Z21xKSZQ60VN0C10ruhG+VlFEgKU3PZ3GjxWBUA7MyRXRV+0jsmzXgso8fq62CfOpryM5A2f/ABIsP8NuYrEM83GaD+m33KaBeHYmX6erHk4jHmaHbRWxokESXgCNxgE/Tq3K3ClmUVvE6Tg1iY4rWqI0qVZ0mo6YCdL+wM7nKWMGdgJ7TFzovjyWsR7Rn26jeS5Xy1v9d8woaVhdzqSfYJrGz6mTNfM5MVLNyCjhOyRu6InhxGyuHpbxkzhtbqIUQL7KpsxBoX1g3FRxIskXQ1ntfGJHng==
+ b=G+1iFj04K8x/5KccO8VjfdS2lb5tiwhX5PH8NZw/4bAzxSvY+/CKuuwKwlZgiXgwAPDK9VO5yvggiUOvKMc0PsZqKsoHC9NnD6i25UbG3PFrwlrADdQODYZPCR28EDZktH0zwP1J9P00i8XO3t+FuDu9USs/iXMWszffGumMaMNWuYs8pnKYDk0P/8RrkHyFHcTOwkeMfj0Xf33E72Fn8Dgd4+nUGBaf/ossp1iuTyn9abaOzFeEuMJVAPc5luIUsuslpHVTqpEXzKnVmM1NRuJgjdrleD20FYFr/1wsgeMVnVBlmP2/x92m/DsiAeO7iWdyJOkoEZPI4/E+lRq7vw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9RmzgTN1/ipqMrskyQ7N+77Qot30l7pSY6TYfG/HpJs=;
- b=VJ8did9IG7bqUg6M3uV1b1bTKtbgVT8dVfOrbTzitvkqirgRB9oNtIk3ePuEO3v/6ENKepefJZTlRkskNBv0cxltLFxe+VAzH1D2XYtjsaFvgORkvXKZ8cC/c4Aug2eIZKLme+qs9P9th/vBqRPenA/yrj6p3nc3PPRGPU6v3QhVATQujgTgpy2IAEE20rWX7t36xJ8Hei3JOcpNLvsTWDxNHfsL4SuRfJEOwKfQ67FvC188wNcqyAAa0OgDLU6L7e5m5uV+pba9Jk4/D6PK7Ek6X+lIVukR6aY7WyMosIOJ8hecWPRjhWSSSTxS0CyoRq4oy9Ve+CWonPAh1rHEwQ==
+ bh=kT9TPm/Ug+ADSDKQAyH/NeWcFQJBgEwcuOZmhm4vyCc=;
+ b=NggVASs0eER6Rw7RLfg10uXk4K8Wi80Kzds92dMOylI+NPUQ++lIDUrPmrTfQq9ThDKN9tU/3+Viz0eekRBlVu+PTW4Ippoj9kCU/9UZlKHUcQH+OjzY8/0IXzVNLLTfVgII433izukRrR+qkeRLn12Ve9G6F3n34m7UIH1hbJj0joaLoTQnqSIl+1jvEEnlAA0ZOYWVDWUSGOUDRaTIHo4SSfzOqU4NsrPq+Lp0NHkTmsCM0l42v3Nk58bOQcSpyK6bsCylOK2PwfpkVFT2l/o6htg6wAAImuJtgOSKrjUgTJcuVIA25HdELNtUW9gr8yGCn1cODMeMfoRa9pfoEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9RmzgTN1/ipqMrskyQ7N+77Qot30l7pSY6TYfG/HpJs=;
- b=gYhwguy3VVlaOetESiHMW2f9DP3xWOmAaBTkC23bUStUeButWNGSrJzZk0rw7tzYw08etD4ek1Uoa379BuaHaUQODUWFKLXmhd62+5WdwwpnyLgF3WIis/WCRUuEZxA0w10WE23vnt4P6B/5hTPewnLyywZAzDXXzXJxstZ31mM=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Christian.Koenig@amd.com; 
-Received: from DM5PR12MB1578.namprd12.prod.outlook.com (2603:10b6:4:e::7) by
- DM5PR12MB1658.namprd12.prod.outlook.com (2603:10b6:4:5::8) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2793.17; Fri, 13 Mar 2020 13:39:08 +0000
-Received: from DM5PR12MB1578.namprd12.prod.outlook.com
- ([fe80::113e:3059:1470:c73c]) by DM5PR12MB1578.namprd12.prod.outlook.com
- ([fe80::113e:3059:1470:c73c%7]) with mapi id 15.20.2793.021; Fri, 13 Mar 2020
- 13:39:08 +0000
-Subject: Re: [PATCH 1/2] drm/sched: implement and export drm_sched_pick_best
-To: Nirmoy Das <nirmoy.aiemd@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20200313120508.36004-1-nirmoy.das@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <17bcfd9b-2540-ff00-925d-c6c4b8c4f820@amd.com>
-Date: Fri, 13 Mar 2020 14:39:02 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <20200313120508.36004-1-nirmoy.das@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: FRYP281CA0017.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::27)
- To DM5PR12MB1578.namprd12.prod.outlook.com
- (2603:10b6:4:e::7)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- FRYP281CA0017.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10::27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2814.18 via Frontend Transport; Fri, 13 Mar 2020 13:39:06 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c5e28e88-3fed-4273-47d1-08d7c753e7b0
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1658:|DM5PR12MB1658:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1658C0F2EC8321019202F24A83FA0@DM5PR12MB1658.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:323;
-X-Forefront-PRVS: 034119E4F6
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(39860400002)(346002)(396003)(136003)(366004)(199004)(66946007)(316002)(2906002)(66556008)(66476007)(36756003)(2616005)(8936002)(5660300002)(81156014)(52116002)(86362001)(31696002)(81166006)(31686004)(8676002)(186003)(16526019)(4326008)(6666004)(478600001)(6486002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1658;
- H:DM5PR12MB1578.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ bh=kT9TPm/Ug+ADSDKQAyH/NeWcFQJBgEwcuOZmhm4vyCc=;
+ b=4gWa+SFw7aqcRl8wlDUILuE+nvf5tLz4VzMtFE75qEBg/DpoQMlMPTU4bS6mF8Zklr1Dag4sPbQA6MYB60IZzKi06LT7bVXnVpAmz3gBNUfDnUvM+z+LxsdZVfpvGh7evEh+zAzX9N5KTQaQR17GfoioqfyRxSGV9Iry2uDLvJY=
+Received: from SN6PR12MB2800.namprd12.prod.outlook.com (2603:10b6:805:6c::10)
+ by SN6PR12MB2831.namprd12.prod.outlook.com (2603:10b6:805:ec::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.17; Fri, 13 Mar
+ 2020 13:43:03 +0000
+Received: from SN6PR12MB2800.namprd12.prod.outlook.com
+ ([fe80::f458:67f4:2379:b6da]) by SN6PR12MB2800.namprd12.prod.outlook.com
+ ([fe80::f458:67f4:2379:b6da%5]) with mapi id 15.20.2793.018; Fri, 13 Mar 2020
+ 13:43:03 +0000
+From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Koenig, 
+ Christian" <Christian.Koenig@amd.com>
+Subject: Re: [PATCH 1/2] drm//amdgpu: Add job fence to resv conditionally
+Thread-Topic: [PATCH 1/2] drm//amdgpu: Add job fence to resv conditionally
+Thread-Index: AQHV+S4ATH3sb2rsUUK6EyNaVWOphKhGhfEAgAABOwM=
+Date: Fri, 13 Mar 2020 13:43:03 +0000
+Message-ID: <SN6PR12MB2800ADC4C5ED7DDCAEA288E787FA0@SN6PR12MB2800.namprd12.prod.outlook.com>
+References: <20200313115305.32325-1-xinhui.pan@amd.com>,
+ <46ae936e-d255-bf37-6491-2ff25757eac3@amd.com>
+In-Reply-To: <46ae936e-d255-bf37-6491-2ff25757eac3@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-13T13:39:06.3494787Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Privileged
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Xinhui.Pan@amd.com; 
+x-originating-ip: [101.88.244.200]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: ee7b7a61-337e-4635-e458-08d7c75473ee
+x-ms-traffictypediagnostic: SN6PR12MB2831:|SN6PR12MB2831:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <SN6PR12MB28316862C96674D0CF0898B587FA0@SN6PR12MB2831.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2887;
+x-forefront-prvs: 034119E4F6
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(376002)(39860400002)(136003)(366004)(346002)(199004)(5660300002)(2906002)(53546011)(91956017)(6506007)(316002)(4326008)(76116006)(478600001)(81156014)(8936002)(8676002)(66446008)(66476007)(86362001)(66556008)(33656002)(64756008)(66946007)(81166006)(110136005)(66574012)(7696005)(26005)(54906003)(55016002)(186003)(71200400001)(9686003)(6636002)(52536014);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SN6PR12MB2831;
+ H:SN6PR12MB2800.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: z4H1Tn8/Foffdx8ePiobl77ZYfqZJgYX9fqIlpSrRL1OJNCIvRo5082mIhZnfSubaUoigkUhzzwzE8D4HNtL8W6VndIho4e8AthRlBOdoYcurTn8E+cAGzZXCPNvhfcNremPwLyWMTu6m6A2u4k9OUeQqn9uFidQthE5tEnjWaPEhY4KuZAOv1WPcbGE0rt024Vq0GQPlHG80tia3HxtoY+XQ5tEbcuwittDcOA9nRvy/xLfA8fSZ8NxOBaJZkLuk8QDRZcggnfEMv7MJ9oe4CqrjbXugIMHy129KVtqqqDom3c9ihEORChIHaVueutcqEnZVJAbJquiKl5GjfifCAj1cpBBlApCQt+51E0fFHLdQfSjZyYqeu8EKw083AFSbFe2oPb+STe/aIlFcXvFCwNOHGC4x/vbXGbNLIwMv+gMEquAazGvNqrRNN0OqYDZ
-X-MS-Exchange-AntiSpam-MessageData: 6Zt64TWHpq815S9olH/kQ0M5UUIOBAaOSToWoxlHYZ5T5tOb9YXC1Fg3o4MuZcqUZnYITYiH7KbFk5PEyfhE9yZcPIxLelXrjT5Niwx+aGXEDjyZduqa6B7eVBEli+S9THeVK5Et/dh2Z4GYN/Pj3KhVpFQpWhMwA4QK8tombzp8U3UapX3oZSA5Ge6GgEuJ6wR9KKmgs29QDxuY3MPGXA==
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 0Yq8dEwZkD9pe/UeMbFu7lZMxEGfasXValZ2lkTq6X2C3ClG/sXC4TcBKUFsrblIrRfvVESy7tiDClDOyoPRfJmY+D6jyH6brrK3zrCHc4grMhCOQXOoIgywRoZ9IA4PH5fTxqmOGqdKMxu224cicL+KCmhvuDeWq7/jzGJv7Yw0fK5d12mbtIKlxYVQyNiXUE0Eq5Vhe7BVxkHrqtQqZNJO40fJXScY/7AB/8+bNphQrdGOFQUmOdSju/sJvcKyFO9J3ZLNndGbeUbxWce82MjPvxcc5DqWASqCdIrpqzEkdtRI91uBxI0EdAE4Lj5NStb+tb2WFFGJ+vgUXdcKTQYerNohtTAGwZ1esZdAP3d4/K3RrO6/O+rkxbD1Dz1D9MmSoFjVLOKsG0Qf7vPNR5mTg5YNoTn2QLT4nXzxXDuO+OZyKApmlxwEwW2UCjwv
+x-ms-exchange-antispam-messagedata: Bu/ONcN43XEXuUkSsAhgjtN9KgcDVsc3ft6t2w6+QNr9va4yALoxM3UWeiycra28+lnAGCq268wX5kTiU0YKAQaz8CDQrgvz6NRjK23rvp3X0AAW5bpH1sqUXcgdCPFjsGpvwtQdj+/FyBWnVc1YyA==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5e28e88-3fed-4273-47d1-08d7c753e7b0
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2020 13:39:08.1356 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: X9kB2mgZd5d8uMncS2cghoa3b8YOGltIDf1BTpbkuGERaidVBaEzF4fOAx2Jd6ih
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1658
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee7b7a61-337e-4635-e458-08d7c75473ee
+X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2020 13:43:03.1681 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KzvX4tmMnIJi6K5MsRZTWSSieK+uEAJb9w8FEcgdUkPQ0Xeyhspy33MToV5+BIEG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2831
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,134 +112,260 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Boyuan.Zhang@amd.com, nirmoy.das@amd.com,
- Leo.Liu@amd.com, James.Zhu@amd.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>
+Content-Type: multipart/mixed; boundary="===============0007609112=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 13.03.20 um 13:05 schrieb Nirmoy Das:
-> Refactor drm_sched_entity_get_free_sched() to move the logic of picking
-> the least loaded drm scheduler from a drm scheduler list to implement
-> drm_sched_pick_best(). This patch also exports drm_sched_pick_best() so
-> that it can be utilized by other drm drivers.
->
-> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
-> ---
->   drivers/gpu/drm/scheduler/sched_entity.c | 20 +++-----------
->   drivers/gpu/drm/scheduler/sched_main.c   | 35 ++++++++++++++++++++++++
->   include/drm/gpu_scheduler.h              |  3 ++
->   3 files changed, 42 insertions(+), 16 deletions(-)
->
-> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
-> index d631521a9679..3f6397d60bff 100644
-> --- a/drivers/gpu/drm/scheduler/sched_entity.c
-> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
-> @@ -147,24 +147,12 @@ bool drm_sched_entity_is_ready(struct drm_sched_entity *entity)
->   static struct drm_sched_rq *
->   drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)
->   {
-> +	struct drm_gpu_scheduler *sched;
->   	struct drm_sched_rq *rq = NULL;
-> -	unsigned int min_jobs = UINT_MAX, num_jobs;
-> -	int i;
-> -
-> -	for (i = 0; i < entity->num_sched_list; ++i) {
-> -		struct drm_gpu_scheduler *sched = entity->sched_list[i];
->
-> -		if (!entity->sched_list[i]->ready) {
-> -			DRM_WARN("sched%s is not ready, skipping", sched->name);
-> -			continue;
-> -		}
-> -
-> -		num_jobs = atomic_read(&sched->num_jobs);
-> -		if (num_jobs < min_jobs) {
-> -			min_jobs = num_jobs;
-> -			rq = &entity->sched_list[i]->sched_rq[entity->priority];
-> -		}
-> -	}
-> +	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
-> +	if (sched)
-> +		rq = &sched->sched_rq[entity->priority];
+--===============0007609112==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_SN6PR12MB2800ADC4C5ED7DDCAEA288E787FA0SN6PR12MB2800namp_"
 
-Keeping the function just for the two lines doesn't make much sense. 
-IIRC it is called only once, just inline there.
+--_000_SN6PR12MB2800ADC4C5ED7DDCAEA288E787FA0SN6PR12MB2800namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
->
->   	return rq;
->   }
-> diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
-> index 3fad5876a13f..d640f4087795 100644
-> --- a/drivers/gpu/drm/scheduler/sched_main.c
-> +++ b/drivers/gpu/drm/scheduler/sched_main.c
-> @@ -705,6 +705,41 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
->   	return job;
->   }
->
-> +/**
-> + * drm_sched_pick_best - Get a drm sched from a sched_list with the least load
-> + * @sched_list: list of drm_gpu_schedulers
-> + * @num_sched_list: number of drm_gpu_schedulers in the sched_list
-> + *
-> + * Returns pointer of the sched with the least load or NULL if none of the
-> + * drm_gpu_schedulers are ready
-> + */
-> +struct drm_gpu_scheduler *
-> +drm_sched_pick_best(struct drm_gpu_scheduler **sched_list,
-> +	 	     unsigned int num_sched_list)
-> +{
-> +	struct drm_gpu_scheduler *sched, *picked_sched = NULL;
-> +	unsigned int min_jobs = UINT_MAX, num_jobs;
-> +	int i;
-> +
-> +	for (i = 0; i < num_sched_list; ++i) {
-> +		sched = sched_list[i];
-> +
-> +		if (!sched->ready) {
-> +			DRM_WARN("sched%s is not ready, skipping", sched->name);
+[AMD Official Use Only - Internal Distribution Only]
 
-There is a space missing here between "sched" and "%s". And maybe write 
-"scheduler" in the message.
+page table BOs share same resv.It should be ok using any of them, root bo r=
+esv or bo resv.
+I forgot to unref bos which cause problems. not good at rebasing...
 
-Apart from that looks good of hand,
+
+________________________________
+From: Koenig, Christian <Christian.Koenig@amd.com>
+Sent: Friday, March 13, 2020 9:34:42 PM
+To: Pan, Xinhui <Xinhui.Pan@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
+x@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix <Felix.=
+Kuehling@amd.com>
+Subject: Re: [PATCH 1/2] drm//amdgpu: Add job fence to resv conditionally
+
+Am 13.03.20 um 12:53 schrieb xinhui pan:
+> If a job need sync the bo resv, it is likely that bo need the job fence
+> to sync with others.
+
+That won't work because this is the wrong resv object :)
+
+You added the fence to the mapped BO and not the page table.
+
+No wonder that this doesn't work,
 Christian.
 
-> +			continue;
-> +		}
-> +
-> +		num_jobs = atomic_read(&sched->num_jobs);
-> +		if (num_jobs < min_jobs) {
-> +			min_jobs = num_jobs;
-> +			picked_sched = sched;
-> +		}
-> +	}
-> +
-> +	return picked_sched;
-> +}
-> +EXPORT_SYMBOL(drm_sched_pick_best);
-> +
->   /**
->    * drm_sched_blocked - check if the scheduler is blocked
->    *
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index ae39eacee250..ca6b8b01fac9 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -341,5 +341,8 @@ void drm_sched_fence_finished(struct drm_sched_fence *fence);
->   unsigned long drm_sched_suspend_timeout(struct drm_gpu_scheduler *sched);
->   void drm_sched_resume_timeout(struct drm_gpu_scheduler *sched,
->   		                unsigned long remaining);
-> +struct drm_gpu_scheduler *
-> +drm_sched_pick_best(struct drm_gpu_scheduler **sched_list,
-> +		    unsigned int num_sched_list);
 >
->   #endif
-> --
-> 2.25.0
+> Cc: Christian K=F6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Felix Kuehling <Felix.Kuehling@amd.com>
+> Suggested-by: Christian K=F6nig <christian.koenig@amd.com>
+> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h      | 5 +++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 9 +++++++++
+>   2 files changed, 14 insertions(+)
 >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.h
+> index b5705fcfc935..ca6021b4200b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+> @@ -226,6 +226,11 @@ struct amdgpu_vm_update_params {
+>         * @num_dw_left: number of dw left for the IB
+>         */
+>        unsigned int num_dw_left;
+> +
+> +     /**
+> +      * @resv: sync the resv and add job fence to it conditionally.
+> +      */
+> +     struct dma_resv *resv;
+>   };
+>
+>   struct amdgpu_vm_update_funcs {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_vm_sdma.c
+> index 4cc7881f438c..0cfac59bff36 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c
+> @@ -70,6 +70,8 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_vm_upda=
+te_params *p,
+>
+>        p->num_dw_left =3D ndw;
+>
+> +     p->resv =3D resv;
+> +
+>        if (!resv)
+>                return 0;
+>
+> @@ -111,6 +113,13 @@ static int amdgpu_vm_sdma_commit(struct amdgpu_vm_up=
+date_params *p,
+>                swap(p->vm->last_delayed, tmp);
+>        dma_fence_put(tmp);
+>
+> +     /* add job fence to resv.
+> +      * MM notifier path is an exception as we can not grab the
+> +      * resv lock.
+> +      */
+> +     if (!p->direct && p->resv)
+> +             dma_resv_add_shared_fence(p->resv, f);
+> +
+>        if (fence && !p->direct)
+>                swap(*fence, f);
+>        dma_fence_put(f);
+
+
+--_000_SN6PR12MB2800ADC4C5ED7DDCAEA288E787FA0SN6PR12MB2800namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+</head>
+<body>
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+page table BOs share same resv.It should be ok using any of them, root bo r=
+esv or bo resv.<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+I forgot to unref bos which cause problems. not good at rebasing...</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+<br>
+</div>
+<div id=3D"ms-outlook-mobile-signature" dir=3D"auto" style=3D"text-align: l=
+eft;">
+<div><br>
+</div>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
+;Christian.Koenig@amd.com&gt;<br>
+<b>Sent:</b> Friday, March 13, 2020 9:34:42 PM<br>
+<b>To:</b> Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;; amd-gfx@lists.freedeskto=
+p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Kuehling, =
+Felix &lt;Felix.Kuehling@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH 1/2] drm//amdgpu: Add job fence to resv conditio=
+nally</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Am 13.03.20 um 12:53 schrieb xinhui pan:<br>
+&gt; If a job need sync the bo resv, it is likely that bo need the job fenc=
+e<br>
+&gt; to sync with others.<br>
+<br>
+That won't work because this is the wrong resv object :)<br>
+<br>
+You added the fence to the mapped BO and not the page table.<br>
+<br>
+No wonder that this doesn't work,<br>
+Christian.<br>
+<br>
+&gt;<br>
+&gt; Cc: Christian K=F6nig &lt;christian.koenig@amd.com&gt;<br>
+&gt; Cc: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+&gt; Cc: Felix Kuehling &lt;Felix.Kuehling@amd.com&gt;<br>
+&gt; Suggested-by: Christian K=F6nig &lt;christian.koenig@amd.com&gt;<br>
+&gt; Signed-off-by: xinhui pan &lt;xinhui.pan@amd.com&gt;<br>
+&gt; ---<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; | 5 &#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c | 9 &#43;&#43;=
+&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp;&nbsp; 2 files changed, 14 insertions(&#43;)<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_vm.h<br>
+&gt; index b5705fcfc935..ca6021b4200b 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h<br>
+&gt; @@ -226,6 &#43;226,11 @@ struct amdgpu_vm_update_params {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * @num_dw_left: number=
+ of dw left for the IB<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int num_dw_left;<br=
+>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * @resv: sync the resv and add job=
+ fence to it conditionally.<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; struct dma_resv *resv;<br>
+&gt;&nbsp;&nbsp; };<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp; struct amdgpu_vm_update_funcs {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c b/drivers/gpu=
+/drm/amd/amdgpu/amdgpu_vm_sdma.c<br>
+&gt; index 4cc7881f438c..0cfac59bff36 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c<br>
+&gt; @@ -70,6 &#43;70,8 @@ static int amdgpu_vm_sdma_prepare(struct amdgpu_=
+vm_update_params *p,<br>
+&gt;&nbsp;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; p-&gt;num_dw_left =3D ndw;<b=
+r>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; p-&gt;resv =3D resv;<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!resv)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; @@ -111,6 &#43;113,13 @@ static int amdgpu_vm_sdma_commit(struct amdgp=
+u_vm_update_params *p,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; swap(p-&gt;vm-&gt;last_delayed, tmp);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dma_fence_put(tmp);<br>
+&gt;&nbsp;&nbsp; <br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; /* add job fence to resv.<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * MM notifier path is an exception=
+ as we can not grab the<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * resv lock.<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; if (!p-&gt;direct &amp;&amp; p-&gt;resv)=
+<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp; dma_resv_add_shared_fence(p-&gt;resv, f);<br>
+&gt; &#43;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (fence &amp;&amp; !p-&gt;=
+direct)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; swap(*fence, f);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dma_fence_put(f);<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_SN6PR12MB2800ADC4C5ED7DDCAEA288E787FA0SN6PR12MB2800namp_--
+
+--===============0007609112==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0007609112==--
