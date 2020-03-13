@@ -2,101 +2,44 @@ Return-Path: <SRS0=rOad=5B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10F9CC0044D
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 08:15:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A19F2C0044D
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 08:22:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BC90420674
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 08:15:05 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="sseVbwo2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BC90420674
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 715A520674
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 08:22:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 715A520674
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=mikelr.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 194A56E353;
-	Mon, 16 Mar 2020 08:15:05 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2076.outbound.protection.outlook.com [40.107.220.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD5A86E353
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2020 08:15:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mYdhRV1iowdQr1j2TvRWcUuBHrWCz8OKmVV7FKyIx6GSzj8+8dZEiovFMBDzD3xKZ2hbx0j7r5Ak3wiphCuIy7/xLae/WEpkTsOJD6x+y5tO3acVKJdykloG09nWVm4Lk50elwvidMEN9/NTlP0v8zrdEULt1oY3pf66DXBTnXBfDFN53+nRPHjjUW7YH/eRHDoVCqQL2JqySPV4GGtEbgf6qz7aQ/k7dGiaYyMa/ft9CzxeBrP9i7D8PBpxZV4gS4dTRXZfUJj8AYR4Y41Mfwl8q2vjZ52wdjxHq+hg5TsTN6waaeGUqZoPLCkff9fnqxFmvNIxd6G9QJ0FA421vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RBp9OaeVH8mav3/z5BLx94RPeSyCPBcTRCG39Q+QgvU=;
- b=V1mPr4Cvm6kMVEEzPSBkPn6/8JEnU9vtUJ7ei1bo1Qqj1nW0rIRLgNfJkzt0fRB6dnGqFfWTlktT9OdFjkok7fOZJtMsq9RJSL16H6+7UL2UeQBw+JQ1ZGBvWxVtj8seK1uNM8t7Bz41r04HFPaypZEjlhkwEvhpxz5j0RUTzb29iU47HNQdqtlLazp9E7/H3s2e7Gv8Nmc8AK277szM5gGzgVesOGOU3x7prI7u3Y+/bUYYsYnnvHVv2WRSLi4KWFpRIYKoZ1n579hA9cUWhOEZyb7X+RNkgiNTQa6GU5l+nX+kU8wuyijscV+BoaF7mxUgm0GmGReGFbxNZhzAaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RBp9OaeVH8mav3/z5BLx94RPeSyCPBcTRCG39Q+QgvU=;
- b=sseVbwo2NbosU2z0MqFXl5uDjV078YtsmI4zu6KJNLYPrPrwEKWiQKk5rVmUd5PSpk+b+JcNRJ+g2e8XpWjTlSOV6yKwn2VBxX8X2krkw4fOGcCi2IsckLjmjSE/impbVZjv4OZ01h9K86kAolTUG9wz0qqUMpuldry6E9h0PDM=
-Received: from BN8PR12MB3028.namprd12.prod.outlook.com (20.178.210.222) by
- BN8PR12MB3603.namprd12.prod.outlook.com (20.178.212.149) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2814.22; Mon, 16 Mar 2020 08:15:02 +0000
-Received: from BN8PR12MB3028.namprd12.prod.outlook.com
- ([fe80::e188:3bc2:798b:c5c4]) by BN8PR12MB3028.namprd12.prod.outlook.com
- ([fe80::e188:3bc2:798b:c5c4%3]) with mapi id 15.20.2814.021; Mon, 16 Mar 2020
- 08:15:02 +0000
-From: "Tao, Yintian" <Yintian.Tao@amd.com>
-To: "Pan, Xinhui" <Xinhui.Pan@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: RE: [PATCH v4 2/2] drm/amdgpu: unref pt bo after job submit
-Thread-Topic: [PATCH v4 2/2] drm/amdgpu: unref pt bo after job submit
-Thread-Index: AQHV+VHknPF80KNe0k6pHUOqgh5fY6hGyTCAgAAIQoCAAT62gIACz6gQ
-Date: Mon, 16 Mar 2020 08:15:01 +0000
-Message-ID: <BN8PR12MB30283F28DFFDCACA45B1FC5AE5F90@BN8PR12MB3028.namprd12.prod.outlook.com>
-References: <20200313160933.10394-1-xinhui.pan@amd.com>
- <20200313160933.10394-3-xinhui.pan@amd.com>
- <2b38aa48-40c1-2830-0005-2ddca7672535@amd.com>
- <0b809d9d-8e25-46c0-9799-09a36f15a37c@amd.com>
- <F3699385-BC6C-4C99-B058-802B567F9B51@amd.com>
-In-Reply-To: <F3699385-BC6C-4C99-B058-802B567F9B51@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Yintian.Tao@amd.com; 
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 8e12dc9c-e074-451e-1277-08d7c9822052
-x-ms-traffictypediagnostic: BN8PR12MB3603:|BN8PR12MB3603:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN8PR12MB360335C33B8A6DFBC789223DE5F90@BN8PR12MB3603.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
-x-forefront-prvs: 03449D5DD1
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(396003)(376002)(136003)(346002)(39860400002)(199004)(66574012)(76116006)(4326008)(2906002)(81156014)(66446008)(64756008)(66556008)(66476007)(81166006)(66946007)(71200400001)(110136005)(54906003)(33656002)(8676002)(53546011)(6506007)(8936002)(7696005)(186003)(6636002)(26005)(86362001)(45080400002)(9686003)(316002)(478600001)(52536014)(966005)(5660300002)(55016002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BN8PR12MB3603;
- H:BN8PR12MB3028.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: shgL4DlCg4PF81nOJZ/ReXyOOmLFRAxnU8y08nMpW3zqyBc6OCspviPmIwlppy1OP0KzeLgU+vicze3bTqdxXRiEF6hbhu2tymoKCIp4LYDGv8gH/Gy/47R3t606O597g0zq/roJo/CSL5FcxTWrXURQp3brocfDimxvsOxzZZfdsbPzmZ8VOU09iVBMT4xVbN7Ay6lyQt6mWiXAoImsaBFxlxF0FM8L8OSPEK27og5sjJBQf8eIVc5eQYBkGp15Jcy7HZqhm29obe2B7W+Z6BLLcfkYJetXxr1HP/lfIRbC2VXI7PXgUa/I/ZcFCY7AhLveNFfIeKdwGQjl44indJyJ7+XSEGUPVs5VjU87i7IdYaYbp6mqEDpaBK8DLzxruBpBj/EO/7wgs39lkrmIwLeEgc6C2u3S9EouNBf6jwtm7MDiicvxGzTbRffERkQgscQU7LPRm92Y6iRS1Lvc4U3lROBUXKRLYgqzVu821Q8=
-x-ms-exchange-antispam-messagedata: 6OzqqlT0spmE0fRDCGmzR+Cbx1E3TXTmtRyS+i1MBZ6nFMwKmNf3ubyibrA3nQxkNFROf2rJPu8N8BUnXolhP9zOS0AgJNnTUmFSRDi1gDvjxlJV/w9cWBVPNlJimcYahM8DCC5Iw3tSTWYWD8yzaw==
-MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e12dc9c-e074-451e-1277-08d7c9822052
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Mar 2020 08:15:02.0366 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: H0/JBBbNVCgvfzFURzF2tdThZ0PVddl4adt/8dNy1Nw8X7sG0LGbkO7HL+NS9Ikm
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3603
+	by gabe.freedesktop.org (Postfix) with ESMTP id 28C106E366;
+	Mon, 16 Mar 2020 08:22:03 +0000 (UTC)
+Received: from yyz.mikelr.com (unknown
+ [IPv6:2602:ffb6:2:0:f816:3eff:fe0d:377b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B3D646EC74;
+ Fri, 13 Mar 2020 22:23:09 +0000 (UTC)
+Received: from glidewell.ykf.mikelr.com (198-84-194-208.cpe.teksavvy.com
+ [198.84.194.208])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (Client did not present a certificate)
+ by yyz.mikelr.com (Postfix) with ESMTPSA id 77EF23D5C9;
+ Fri, 13 Mar 2020 18:23:08 -0400 (EDT)
+From: Mikel Rychliski <mikel@mikelr.com>
+To: amd-gfx@lists.freedesktop.org, linux-pci@vger.kernel.org,
+ nouveau@lists.freedesktop.org
+Subject: [PATCH RESEND v2 2/2] PCI: Use ioremap(),
+ not phys_to_virt() for platform ROM
+Date: Fri, 13 Mar 2020 18:22:58 -0400
+Message-Id: <20200313222258.15659-3-mikel@mikelr.com>
+X-Mailer: git-send-email 2.13.7
+In-Reply-To: <20200313222258.15659-1-mikel@mikelr.com>
+References: <20200313222258.15659-1-mikel@mikelr.com>
+X-Mailman-Approved-At: Mon, 16 Mar 2020 08:22:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,148 +51,168 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Matthew Garrett <matthewgarrett@google.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Mikel Rychliski <mikel@mikelr.com>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SGkgWGluaHVpDQoNCg0KSSBlbmNvdW50ZXIgdGhlIHNhbWUgcHJvYmxlbShwYWdlIGZhdWx0KSB3
-aGVuIHRlc3QgdmtfZXhhbXBsZSBiZW5jaG1hcmsuDQpJIHVzZSB5b3VyIGZpcnN0IG9wdGlvbiB3
-aGljaCBjYW4gZml4IHRoZSBwcm9ibGVtLiBDYW4geW91IGhlbHAgc3VibWl0IG9uZSBwYXRjaD8N
-Cg0KDQotICAgICAgIGlmIChmbGFncyAmIEFNREdQVV9QVEVfVkFMSUQpIHsNCi0gICAgICAgICAg
-ICAgICBzdHJ1Y3QgYW1kZ3B1X2JvICpyb290ID0gdm0tPnJvb3QuYmFzZS5ibzsNCi0gICAgICAg
-ICAgICAgICBpZiAoIWRtYV9mZW5jZV9pc19zaWduYWxlZCh2bS0+bGFzdF9kaXJlY3QpKQ0KLSAg
-ICAgICAgICAgICAgICAgICAgICAgYW1kZ3B1X2JvX2ZlbmNlKHJvb3QsIHZtLT5sYXN0X2RpcmVj
-dCwgdHJ1ZSk7DQorICAgICAgIGlmICghZG1hX2ZlbmNlX2lzX3NpZ25hbGVkKHZtLT5sYXN0X2Rp
-cmVjdCkpDQorICAgICAgICAgICAgICAgYW1kZ3B1X2JvX2ZlbmNlKHJvb3QsIHZtLT5sYXN0X2Rp
-cmVjdCwgdHJ1ZSk7DQogDQotICAgICAgICAgICAgICAgaWYgKCFkbWFfZmVuY2VfaXNfc2lnbmFs
-ZWQodm0tPmxhc3RfZGVsYXllZCkpDQotICAgICAgICAgICAgICAgICAgICAgICBhbWRncHVfYm9f
-ZmVuY2Uocm9vdCwgdm0tPmxhc3RfZGVsYXllZCwgdHJ1ZSk7DQotICAgICAgIH0NCisgICAgICAg
-aWYgKCFkbWFfZmVuY2VfaXNfc2lnbmFsZWQodm0tPmxhc3RfZGVsYXllZCkpDQorICAgICAgICAg
-ICAgICAgYW1kZ3B1X2JvX2ZlbmNlKHJvb3QsIHZtLT5sYXN0X2RlbGF5ZWQsIHRydWUpOw0KDQoN
-CkJlc3QgUmVnYXJkcw0KWWludGlhbiBUYW8NCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0N
-CkZyb206IGFtZC1nZnggPGFtZC1nZngtYm91bmNlc0BsaXN0cy5mcmVlZGVza3RvcC5vcmc+IE9u
-IEJlaGFsZiBPZiBQYW4sIFhpbmh1aQ0KU2VudDogMjAyMOW5tDPmnIgxNOaXpSAyMTowNw0KVG86
-IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQpDYzogRGV1Y2hl
-ciwgQWxleGFuZGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS3VlaGxpbmcsIEZlbGl4
-IDxGZWxpeC5LdWVobGluZ0BhbWQuY29tPjsgUGFuLCBYaW5odWkgPFhpbmh1aS5QYW5AYW1kLmNv
-bT47IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnDQpTdWJqZWN0OiBSZTogW1BBVENIIHY0
-IDIvMl0gZHJtL2FtZGdwdTogdW5yZWYgcHQgYm8gYWZ0ZXIgam9iIHN1Ym1pdA0KDQpoaSwgQWxs
-DQpJIHRoaW5rIEkgZm91bmQgdGhlIHJvb3QgY2F1c2UuIGhlcmUgaXMgd2hhdCBoYXBwZW5lZC4N
-Cg0KdXNlcjogYWxsb2MvbWFwcGluZyBtZW1vcnkNCgkgCWtlcm5lbDogdmFsaWRhdGUgbWVtb3J5
-IGFuZCB1cGRhdGUgdGhlIGJvIG1hcHBpbmcsIGFuZCB1cGRhdGUgdGhlIHBhZ2UgdGFibGUNCgkJ
-CS0+IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZw0KCQkJCS0+IGFtZGdwdV92bV91cGRhdGVf
-cHRlcw0KCQkJCQktPiBhbWRncHVfdm1fYWxsb2NfcHRzDQoJCQkJCQktPiBhbWRncHVfdm1fY2xl
-YXJfYm8gLy8gaXQgd2lsbCBzdWJtaXQgYSBqb2IgYW5kIHdlIGhhdmUgYSBmZW5jZS4gQlVUIGl0
-IGlzIE5PVCBhZGRlZCBpbiByZXN2Lg0KdXNlcjogZnJlZS91bm1hcHBpbmcgbWVtb3J5DQoJCWtl
-cm5lbDogdW5tYXBwaW5nIG1tZW9yeSBhbmQgdWRwYXRlIHRoZSBwYWdlIHRhYmxlDQoJCQktPiBh
-bWRncHVfdm1fYm9fdXBkYXRlX21hcHBpbmcNCgkJCXN5bmMgbGFzdF9kZWxheSBmZW5jZSBpZiBm
-bGFnICYgQU1ER1BVX1BURV9WQUxJRCAvLyBvZiBzb3VyY2Ugd2UgZGlkIG5vdCBzeW5jIGl0IGhl
-cmUsIGFzIHRoaXMgaXMgdW5tYXBwaW5nLg0KCQkJCS0+IGFtZGdwdV92bV91cGRhdGVfcHRlcw0K
-CQkJCQktPiBhbWRncHVfdm1fZnJlZV9wdHMgLy8gdW5yZWYgcGFnZSB0YWJsZSBiby4NCg0KU28g
-ZnJvbSB0aGUgc2VxdWVuY2UgYWJvdmUsIHdlIGtub3cgdGhlcmUgaXMgYSByYWNlIGJldHdlbiBi
-byByZWxlYXNpbmcgYW5kIGJvIGNsZWFyaW5nLg0KYm8gbWlnaHQgaGF2ZSBiZWVuIHJlbGVhc2Vk
-IGJlZm9yZSBqb2IgcnVubmluZy4NCg0Kd2UgY2FuIGZpeCBpdCBpbiBzZXZlcmFsIHdheXMsDQox
-KSBzeW5jIGxhc3RfZGVsYXkgaW4gYm90aCBtYXBwaW5nIGFuZCB1bm1hcHBpbmcgY2FzZS4NCiBD
-aHJpcywgeW91IGp1c3Qgc3luYyBsYXN0X2RlbGF5IGluIG1hcHBpbmcgY2FzZSwgc2hvdWxkIGl0
-IGJlIG9rIHRvIHN5bmMgaXQgYWxzbyBpbiB1bm1hcHBpbmcgY2FzZT8NCg0KMikgYWx3YXlzIGFk
-ZCBmZW5jZSB0byByZXN2IGFmdGVyIGNvbW1pdC4gDQogdGhpcyBpcyBkb25lIGJ5IHBhdGNoc2V0
-IHY0LiBBbmQgb25seSBuZWVkIHBhdGNoIDEuIG5vIG5lZWQgdG8gbW92ZSB1bnJlZiBibyBhZnRl
-ciBjb21taXQuDQoNCjMpIG1vdmUgdW5yZWYgYm8gYWZ0ZXIgY29tbWl0LCBhbmQgYWRkIHRoZSBs
-YXN0IGRlbGF5IGZlbmNlIHRvIHJlc3YuIA0KVGhpcyBpcyBkb25lIGJ5IHBhdGNoc2V0IFYxLiAN
-Cg0KDQphbnkgaWRlYXM/DQoNCnRoYW5rcw0KeGluaHVpDQoNCj4gMjAyMOW5tDPmnIgxNOaXpSAw
-MjowNe+8jEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4uS29lbmlnQGFtZC5jb20+IOWGmemB
-k++8mg0KPiANCj4gVGhlIHBhZ2UgdGFibGUgaXMgbm90IHVwZGF0ZWQgYW5kIHRoZW4gZnJlZWQu
-IEEgaGlnaGVyIGxldmVsIFBERSBpcyB1cGRhdGVkIGFuZCBiZWNhdXNlIG9mIHRoaXMgdGhlIGxv
-d2VyIGxldmVsIHBhZ2UgdGFibGVzIGlzIGZyZWVkLg0KPiANCj4gV2l0aG91dCB0aGlzIGl0IGNv
-dWxkIGJlIHRoYXQgdGhlIG1lbW9yeSBiYWNraW5nIHRoZSBmcmVlZCBwYWdlIHRhYmxlIGlzIHJl
-dXNlZCB3aGlsZSB0aGUgUERFIGlzIHN0aWxsIHBvaW50aW5nIHRvIGl0Lg0KPiANCj4gUmF0aGVy
-IHVubGlrZWx5IHRoYXQgdGhpcyBjYXVzZXMgcHJvYmxlbXMsIGJ1dCBiZXR0ZXIgc2F2ZSB0aGFu
-IHNvcnJ5Lg0KPiANCj4gUmVnYXJkcywNCj4gQ2hyaXN0aWFuLg0KPiANCj4gQW0gMTMuMDMuMjAg
-dW0gMTg6MzYgc2NocmllYiBGZWxpeCBLdWVobGluZzoNCj4+IFRoaXMgc2VlbXMgd2VpcmQuIFRo
-aXMgbWVhbnMgdGhhdCB3ZSB1cGRhdGUgYSBwYWdlIHRhYmxlLCBhbmQgdGhlbiBmcmVlIGl0IGlu
-IHRoZSBzYW1lIGFtZGdwdV92bV91cGRhdGVfcHRlcyBjYWxsPyBUaGF0IG1lYW5zIHRoZSB1cGRh
-dGUgaXMgcmVkdW5kYW50LiBDYW4gd2UgZWxpbWluYXRlIHRoZSByZWR1bmRhbnQgUFRFIHVwZGF0
-ZSBpZiB0aGUgcGFnZSB0YWJsZSBpcyBhYm91dCB0byBiZSBmcmVlZCBhbnl3YXk/DQo+PiANCj4+
-IFJlZ2FyZHMsDQo+PiAgIEZlbGl4DQo+PiANCj4+IE9uIDIwMjAtMDMtMTMgMTI6MDksIHhpbmh1
-aSBwYW4gd3JvdGU6DQo+Pj4gRnJlZSBwYWdlIHRhYmxlIGJvIGJlZm9yZSBqb2Igc3VibWl0IGlz
-IGluc2FuZS4NCj4+PiBXZSBtaWdodCB0b3VjaCBpbnZhbGlkIG1lbW9yeSB3aGlsZSBqb2IgaXMg
-cnVubmlnLg0KPj4+IA0KPj4+IHdlIG5vdyBoYXZlIGluZGl2aWR1YWxpemVkIGJvIHJlc3YgZHVy
-aW5nIGJvIHJlbGVhc2luZy4NCj4+PiBTbyBhbnkgZmVuY2VzIGFkZGVkIHRvIHJvb3QgUFQgYm8g
-aXMgYWN0dWFsbHkgdW50ZXN0ZWQgd2hlbiBhIG5vcm1hbCANCj4+PiBQVCBibyBpcyByZWxlYXNp
-bmcuDQo+Pj4gDQo+Pj4gV2UgbWlnaHQgaGl0IGdtYyBwYWdlIGZhdWx0IG9yIG1lbW9yeSBqdXN0
-IGdvdCBvdmVyd3JpdGVkLg0KPj4+IA0KPj4+IENjOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
-YW4ua29lbmlnQGFtZC5jb20+DQo+Pj4gQ2M6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNo
-ZXJAYW1kLmNvbT4NCj4+PiBDYzogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5j
-b20+DQo+Pj4gU2lnbmVkLW9mZi1ieTogeGluaHVpIHBhbiA8eGluaHVpLnBhbkBhbWQuY29tPg0K
-Pj4+IC0tLQ0KPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMgfCAy
-NCArKysrKysrKysrKysrKysrKysrKystLS0NCj4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5oIHwgIDMgKysrDQo+Pj4gICAyIGZpbGVzIGNoYW5nZWQsIDI0IGluc2Vy
-dGlvbnMoKyksIDMgZGVsZXRpb25zKC0pDQo+Pj4gDQo+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jIA0KPj4+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9hbWRncHUvYW1kZ3B1X3ZtLmMNCj4+PiBpbmRleCA3MzM5ODgzMTE5NmYuLjM0NmUyZjc1MzQ3
-NCAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0u
-Yw0KPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+Pj4g
-QEAgLTkzNyw2ICs5MzcsMjEgQEAgc3RhdGljIGludCBhbWRncHVfdm1fYWxsb2NfcHRzKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4+ICAgICAgIHJldHVybiByOw0KPj4+ICAgfQ0KPj4+
-ICAgK3N0YXRpYyB2b2lkIGFtZGdwdV92bV9mcmVlX3pvbWJpZV9ibyhzdHJ1Y3QgYW1kZ3B1X2Rl
-dmljZSAqYWRldiwNCj4+PiArICAgICAgICBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSkNCj4+PiArew0K
-Pj4+ICsgICAgc3RydWN0IGFtZGdwdV92bV9wdCAqZW50cnk7DQo+Pj4gKw0KPj4+ICsgICAgd2hp
-bGUgKCFsaXN0X2VtcHR5KCZ2bS0+em9tYmllcykpIHsNCj4+PiArICAgICAgICBlbnRyeSA9IGxp
-c3RfZmlyc3RfZW50cnkoJnZtLT56b21iaWVzLCBzdHJ1Y3QgYW1kZ3B1X3ZtX3B0LA0KPj4+ICsg
-ICAgICAgICAgICAgICAgYmFzZS52bV9zdGF0dXMpOw0KPj4+ICsgICAgICAgIGxpc3RfZGVsKCZl
-bnRyeS0+YmFzZS52bV9zdGF0dXMpOw0KPj4+ICsNCj4+PiArICAgICAgICBhbWRncHVfYm9fdW5y
-ZWYoJmVudHJ5LT5iYXNlLmJvLT5zaGFkb3cpOw0KPj4+ICsgICAgICAgIGFtZGdwdV9ib191bnJl
-ZigmZW50cnktPmJhc2UuYm8pOw0KPj4+ICsgICAgfQ0KPj4+ICt9DQo+Pj4gKw0KPj4+ICAgLyoq
-DQo+Pj4gICAgKiBhbWRncHVfdm1fZnJlZV90YWJsZSAtIGZyZSBvbmUgUEQvUFQNCj4+PiAgICAq
-DQo+Pj4gQEAgLTk0NSwxMCArOTYwLDkgQEAgc3RhdGljIGludCBhbWRncHVfdm1fYWxsb2NfcHRz
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4+ICAgc3RhdGljIHZvaWQgYW1kZ3B1X3Zt
-X2ZyZWVfdGFibGUoc3RydWN0IGFtZGdwdV92bV9wdCAqZW50cnkpDQo+Pj4gICB7DQo+Pj4gICAg
-ICAgaWYgKGVudHJ5LT5iYXNlLmJvKSB7DQo+Pj4gKyAgICAgICAgbGlzdF9tb3ZlKCZlbnRyeS0+
-YmFzZS52bV9zdGF0dXMsIA0KPj4+ICsgJmVudHJ5LT5iYXNlLmJvLT52bV9iby0+dm0tPnpvbWJp
-ZXMpOw0KPj4+ICAgICAgICAgICBlbnRyeS0+YmFzZS5iby0+dm1fYm8gPSBOVUxMOw0KPj4+IC0g
-ICAgICAgIGxpc3RfZGVsKCZlbnRyeS0+YmFzZS52bV9zdGF0dXMpOw0KPj4+IC0gICAgICAgIGFt
-ZGdwdV9ib191bnJlZigmZW50cnktPmJhc2UuYm8tPnNoYWRvdyk7DQo+Pj4gLSAgICAgICAgYW1k
-Z3B1X2JvX3VucmVmKCZlbnRyeS0+YmFzZS5ibyk7DQo+Pj4gICAgICAgfQ0KPj4+ICAgICAgIGt2
-ZnJlZShlbnRyeS0+ZW50cmllcyk7DQo+Pj4gICAgICAgZW50cnktPmVudHJpZXMgPSBOVUxMOw0K
-Pj4+IEBAIC0xNjI0LDYgKzE2MzgsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bV9ib191cGRhdGVf
-bWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4+PiAgICAgICByID0gdm0tPnVw
-ZGF0ZV9mdW5jcy0+Y29tbWl0KCZwYXJhbXMsIGZlbmNlKTsNCj4+PiAgICAgZXJyb3JfdW5sb2Nr
-Og0KPj4+ICsgICAgYW1kZ3B1X3ZtX2ZyZWVfem9tYmllX2JvKGFkZXYsIHZtKTsNCj4+PiAgICAg
-ICBhbWRncHVfdm1fZXZpY3Rpb25fdW5sb2NrKHZtKTsNCj4+PiAgICAgICByZXR1cm4gcjsNCj4+
-PiAgIH0NCj4+PiBAQCAtMjgwNyw2ICsyODIyLDcgQEAgaW50IGFtZGdwdV92bV9pbml0KHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwNCj4+PiAgICAgICBJ
-TklUX0xJU1RfSEVBRCgmdm0tPmludmFsaWRhdGVkKTsNCj4+PiAgICAgICBzcGluX2xvY2tfaW5p
-dCgmdm0tPmludmFsaWRhdGVkX2xvY2spOw0KPj4+ICAgICAgIElOSVRfTElTVF9IRUFEKCZ2bS0+
-ZnJlZWQpOw0KPj4+ICsgICAgSU5JVF9MSVNUX0hFQUQoJnZtLT56b21iaWVzKTsNCj4+PiAgICAg
-ICAgICAgLyogY3JlYXRlIHNjaGVkdWxlciBlbnRpdGllcyBmb3IgcGFnZSB0YWJsZSB1cGRhdGVz
-ICovIEBAIA0KPj4+IC0zMTE5LDYgKzMxMzUsOCBAQCB2b2lkIGFtZGdwdV92bV9maW5pKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LCBzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSkNCj4+PiAgICAgICB9
-DQo+Pj4gICAgICAgICBhbWRncHVfdm1fZnJlZV9wdHMoYWRldiwgdm0sIE5VTEwpOw0KPj4+ICsg
-ICAgYW1kZ3B1X3ZtX2ZyZWVfem9tYmllX2JvKGFkZXYsIHZtKTsNCj4+PiArDQo+Pj4gICAgICAg
-YW1kZ3B1X2JvX3VucmVzZXJ2ZShyb290KTsNCj4+PiAgICAgICBhbWRncHVfYm9fdW5yZWYoJnJv
-b3QpOw0KPj4+ICAgICAgIFdBUk5fT04odm0tPnJvb3QuYmFzZS5ibyk7DQo+Pj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5oIA0KPj4+IGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmgNCj4+PiBpbmRleCBiNTcwNWZjZmM5MzUu
-LjliYWY0NGZhMTZmMCAxMDA2NDQNCj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS9hbWRncHVfdm0uaA0KPj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
-dV92bS5oDQo+Pj4gQEAgLTI2OSw2ICsyNjksOSBAQCBzdHJ1Y3QgYW1kZ3B1X3ZtIHsNCj4+PiAg
-ICAgICAvKiBCTyBtYXBwaW5ncyBmcmVlZCwgYnV0IG5vdCB5ZXQgdXBkYXRlZCBpbiB0aGUgUFQg
-Ki8NCj4+PiAgICAgICBzdHJ1Y3QgbGlzdF9oZWFkICAgIGZyZWVkOw0KPj4+ICAgKyAgICAvKiBC
-TyB3aWxsIGJlIGZyZWVkIHNvb24gKi8NCj4+PiArICAgIHN0cnVjdCBsaXN0X2hlYWQgICAgem9t
-YmllczsNCj4+PiArDQo+Pj4gICAgICAgLyogY29udGFpbnMgdGhlIHBhZ2UgZGlyZWN0b3J5ICov
-DQo+Pj4gICAgICAgc3RydWN0IGFtZGdwdV92bV9wdCAgICAgcm9vdDsNCj4+PiAgICAgICBzdHJ1
-Y3QgZG1hX2ZlbmNlICAgICpsYXN0X3VwZGF0ZTsNCj4gDQoNCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fDQphbWQtZ2Z4IG1haWxpbmcgbGlzdA0KYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCmh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rp
-b24ub3V0bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmxpc3RzLmZyZWVkZXNrdG9wLm9yZyUy
-Rm1haWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1nZngmYW1wO2RhdGE9MDIlN0MwMSU3Q3lpbnRpYW4u
-dGFvJTQwYW1kLmNvbSU3QzU4MGM4ZWMxNWQ0ODRiZjU0NmIyMDhkN2M4MTg4Y2MyJTdDM2RkODk2
-MWZlNDg4NGU2MDhlMTFhODJkOTk0ZTE4M2QlN0MwJTdDMCU3QzYzNzE5Nzg4MDEyMDYxMTY3MSZh
-bXA7c2RhdGE9ZHFTTGFzeXVaaFFza0IzOEtpYjZnOGxRUjlpTW55eEZ4ZkhHWFhFTm9EYyUzRCZh
-bXA7cmVzZXJ2ZWQ9MA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
-aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On some EFI systems, the video BIOS is provided by the EFI firmware.  The
+boot stub code stores the physical address of the ROM image in pdev->rom.
+Currently we attempt to access this pointer using phys_to_virt(), which
+doesn't work with CONFIG_HIGHMEM.
+
+On these systems, attempting to load the radeon module on a x86_32 kernel
+can result in the following:
+
+    BUG: unable to handle page fault for address: 3e8ed03c
+    #PF: supervisor read access in kernel mode
+    #PF: error_code(0x0000) - not-present page
+    *pde = 00000000
+    Oops: 0000 [#1] PREEMPT SMP
+    CPU: 0 PID: 317 Comm: systemd-udevd Not tainted 5.6.0-rc3-next-20200228 #2
+    Hardware name: Apple Computer, Inc. MacPro1,1/Mac-F4208DC8, BIOS     MP11.88Z.005C.B08.0707021221 07/02/07
+    EIP: radeon_get_bios+0x5ed/0xe50 [radeon]
+    Code: 00 00 84 c0 0f 85 12 fd ff ff c7 87 64 01 00 00 00 00 00 00 8b 47 08 8b 55 b0 e8 1e 83 e1 d6 85 c0 74 1a 8b 55 c0 85 d2 74 13 <80> 38 55 75 0e 80 78 01 aa 0f 84 a4 03 00 00 8d 74 26 00 68 dc 06
+    EAX: 3e8ed03c EBX: 00000000 ECX: 3e8ed03c EDX: 00010000
+    ESI: 00040000 EDI: eec04000 EBP: eef3fc60 ESP: eef3fbe0
+    DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010206
+    CR0: 80050033 CR2: 3e8ed03c CR3: 2ec77000 CR4: 000006d0
+    Call Trace:
+     ? register_client+0x34/0xe0
+     ? register_client+0xab/0xe0
+     r520_init+0x26/0x240 [radeon]
+     radeon_device_init+0x533/0xa50 [radeon]
+     radeon_driver_load_kms+0x80/0x220 [radeon]
+     drm_dev_register+0xa7/0x180 [drm]
+     radeon_pci_probe+0x10f/0x1a0 [radeon]
+     pci_device_probe+0xd4/0x140
+     really_probe+0x13d/0x3b0
+     driver_probe_device+0x56/0xd0
+     device_driver_attach+0x49/0x50
+     __driver_attach+0x79/0x130
+     ? device_driver_attach+0x50/0x50
+     bus_for_each_dev+0x5b/0xa0
+     driver_attach+0x19/0x20
+     ? device_driver_attach+0x50/0x50
+     bus_add_driver+0x117/0x1d0
+     ? pci_bus_num_vf+0x20/0x20
+     driver_register+0x66/0xb0
+     ? 0xf80f4000
+     __pci_register_driver+0x3d/0x40
+     radeon_init+0x82/0x1000 [radeon]
+     do_one_initcall+0x42/0x200
+     ? kvfree+0x25/0x30
+     ? __vunmap+0x206/0x230
+     ? kmem_cache_alloc_trace+0x16f/0x220
+     ? do_init_module+0x21/0x220
+     do_init_module+0x50/0x220
+     load_module+0x1f26/0x2200
+     sys_init_module+0x12d/0x160
+     do_fast_syscall_32+0x82/0x250
+     entry_SYSENTER_32+0xa5/0xf8
+
+Fix the issue by using ioremap() instead of phys_to_virt() in
+pci_platform_rom().
+
+Now that pci_platform_rom() creates a new mapping to access the ROM
+image, update all callers to remove this mapping after extracting the
+BIOS.
+
+Signed-off-by: Mikel Rychliski <mikel@mikelr.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c             |  1 +
+ drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c | 11 ++++++++++-
+ drivers/gpu/drm/radeon/radeon_bios.c                 |  1 +
+ drivers/pci/rom.c                                    |  9 ++++++---
+ 4 files changed, 18 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+index 50dff69a0f6e..ea6a1fa98ad9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+@@ -207,6 +207,7 @@ static bool amdgpu_read_platform_bios(struct amdgpu_device *adev)
+ 		return false;
+ 
+ 	memcpy_fromio(adev->bios, bios, size);
++	iounmap(bios);
+ 
+ 	if (!check_atom_bios(adev->bios, size)) {
+ 		kfree(adev->bios);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
+index 9b91da09dc5f..8a60a0db7b14 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
+@@ -111,11 +111,20 @@ platform_init(struct nvkm_bios *bios, const char *name)
+ 	return ERR_PTR(ret);
+ }
+ 
++static void
++platform_fini(void *data)
++{
++	struct priv *priv = data;
++
++	iounmap(priv->rom);
++	kfree(priv);
++}
++
+ const struct nvbios_source
+ nvbios_platform = {
+ 	.name = "PLATFORM",
+ 	.init = platform_init,
+-	.fini = (void(*)(void *))kfree,
++	.fini = platform_fini,
+ 	.read = pcirom_read,
+ 	.rw = true,
+ };
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index c3ae4c92a115..712b88d88957 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -123,6 +123,7 @@ static bool radeon_read_platform_bios(struct radeon_device *rdev)
+ 		return false;
+ 
+ 	memcpy_fromio(rdev->bios, bios, size);
++	iounmap(bios);
+ 
+ 	if (size == 0 || rdev->bios[0] != 0x55 || rdev->bios[1] != 0xaa) {
+ 		kfree(rdev->bios);
+diff --git a/drivers/pci/rom.c b/drivers/pci/rom.c
+index 137bf0cee897..b38257d23e6e 100644
+--- a/drivers/pci/rom.c
++++ b/drivers/pci/rom.c
+@@ -197,16 +197,19 @@ void pci_unmap_rom(struct pci_dev *pdev, void __iomem *rom)
+ EXPORT_SYMBOL(pci_unmap_rom);
+ 
+ /**
+- * pci_platform_rom - provides a pointer to any ROM image provided by the
+- * platform
++ * pci_platform_rom - ioremap() the ROM image provided by the platform
+  * @pdev: pointer to pci device struct
+  * @size: pointer to receive size of pci window over ROM
++ *
++ * Return: kernel virtual pointer to image of ROM
++ *
++ * The caller is responsible for removing the mapping with iounmap()
+  */
+ void __iomem *pci_platform_rom(struct pci_dev *pdev, size_t *size)
+ {
+ 	if (pdev->rom && pdev->romlen) {
+ 		*size = pdev->romlen;
+-		return phys_to_virt((phys_addr_t)pdev->rom);
++		return ioremap(pdev->rom, pdev->romlen);
+ 	}
+ 
+ 	return NULL;
+-- 
+2.13.7
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
