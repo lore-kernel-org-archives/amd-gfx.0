@@ -2,102 +2,75 @@ Return-Path: <SRS0=NWgq=46=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F38D6C10DCE
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 14:31:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D66C1C10DCE
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 14:31:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C6F0A206B7
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 14:31:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AE6E7206B7
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 14:31:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="2Aa/WRtP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C6F0A206B7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TsjGZgu1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE6E7206B7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 998BD6EBDB;
-	Fri, 13 Mar 2020 14:31:01 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2060d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7eaa::60d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B114A6EBDB
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2020 14:31:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aSL1Ma0Kidt0th1/SkhGLnXKcg8fH8GrEN0c/IitQUnzpktoA/GwUpI4jiEErnBVCLFIUH3waxXN+eoalzdPe/STIJy7JSnnEBLoGD9tcIqzhYPuhzNcdCEWreQeRxFsdmUFlXjnVnTGDxFdbhi3kSvzVOOVh6N/I3I1iq0HhQCZ7/3NpZrkIaF0S0OBCLt4JURQKwW6jbiFryesBTeJFsDs6GgyrXTdWdiyM91wTbjjcCsgBi5UTrlX8R4MgdWetTwyJEbGJckbMtIa8uJLMWKfHIk6iRLimqgzmrMvYm9Jm+iV4t5wl9aE4+4AUT/rB9H2nlQxOnRdoUHEa022Wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pLZcLwTiK0pYRzqZTstE1OvFTMsv+D+uq/g+Z9huZno=;
- b=U/6LbtP8IEISljb7vuEPrgSgdpWYvF09BD3cC4YDA/If6s12X37tgBIEOSNRIGhgG1RCoEgsJl7e7sXbg/ANnLJcDjz2RkYn2D3qwuKtIALeO21nJBJsL0UEvNW8KW+14P5rw5Xz4wtbMn1HobPiIt/2X6To1Q7amA9k0PoUUAtB0oZ8VQ9Zg6kfIUhNurq728+kI30bFXL//ukvsZD4gutrRRMMoBx39DStiLay5OobymY0AurqeFDj2BFgWV+iSGUe4wySJZ6Z+lEMbnZSMbNAUdh1+SkG1s25f4jR6vPXIRqYryMbJ1fkiEUJ7wre3cK0351LsV73zB74Sp7SfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pLZcLwTiK0pYRzqZTstE1OvFTMsv+D+uq/g+Z9huZno=;
- b=2Aa/WRtPGOQGRAZBoZFsdhqNEl3bsfgOZWfq8H/oG3SnkGtbgxcBeF6MJ86/Z8FSigDZdYVkyFpOMbw5sTEb0AdFsHaidr9410AT8U68Xug2j9RtjKGVSwdH0ho/f85aQIDGgwmN2lqfo/5AUCjKpkXXAf7uN4DbCvtQdel3F5s=
-Received: from SN6PR12MB2800.namprd12.prod.outlook.com (2603:10b6:805:6c::10)
- by SN6PR12MB2685.namprd12.prod.outlook.com (2603:10b6:805:67::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.17; Fri, 13 Mar
- 2020 14:30:59 +0000
-Received: from SN6PR12MB2800.namprd12.prod.outlook.com
- ([fe80::f458:67f4:2379:b6da]) by SN6PR12MB2800.namprd12.prod.outlook.com
- ([fe80::f458:67f4:2379:b6da%5]) with mapi id 15.20.2793.018; Fri, 13 Mar 2020
- 14:30:59 +0000
-From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: Re: [PATCH v3 1/2] drm/amdgpu: Add job fence to resv conditionally
-Thread-Topic: [PATCH v3 1/2] drm/amdgpu: Add job fence to resv conditionally
-Thread-Index: AQHV+UDcdIYIWHpzx0WUgiAUBqhdF6hGkL0AgAAExoA=
-Date: Fri, 13 Mar 2020 14:30:59 +0000
-Message-ID: <22D45E8C-B495-4846-A90F-D2AA7A304131@amd.com>
-References: <20200313140758.6607-1-xinhui.pan@amd.com>
- <20200313140758.6607-2-xinhui.pan@amd.com>
- <3d604156-be87-9f74-69f0-d78f7a2c2879@amd.com>
-In-Reply-To: <3d604156-be87-9f74-69f0-d78f7a2c2879@amd.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Xinhui.Pan@amd.com; 
-x-originating-ip: [180.167.199.185]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: b00e456a-c4dd-49ed-4fa3-08d7c75b265d
-x-ms-traffictypediagnostic: SN6PR12MB2685:|SN6PR12MB2685:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SN6PR12MB26851DC2CA333DE281D58C1E87FA0@SN6PR12MB2685.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-forefront-prvs: 034119E4F6
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(199004)(66446008)(76116006)(66556008)(64756008)(2616005)(66476007)(8676002)(91956017)(6486002)(66946007)(86362001)(33656002)(4326008)(37006003)(36756003)(6636002)(66574012)(6512007)(8936002)(54906003)(186003)(6862004)(5660300002)(498600001)(26005)(71200400001)(2906002)(81156014)(81166006)(6506007);
- DIR:OUT; SFP:1101; SCL:1; SRVR:SN6PR12MB2685;
- H:SN6PR12MB2800.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: EU/rPtuUIFWnOYwZSMKfW34p/mPSm1c+shx4f0R1IYB+AJxUhleBGN2xXjeUzYHpDQJIgHgnwOr/u4IgguHZ1njsxAwJ+7BrXjhm3zBAy4S3bcSdU5IXTSmnOKFP3JI7ID6l4kQ1SPta+Hlp2rkmQUojZ5RjENV99pCIlOMkprsgqkelifs0mJRaIMJGhpDI9kcqfdwT1jK7dAj35e8w2LScaI78c0KPwsoos6f4CnY0vhbZrkwsB5fuJiX6xezBBUEQIV80CIJfsPdizDVvChSU8mdnury4eP9pnTnsFuHtVH1n821rRdI7MKUidxG6Gs4pNuopRONzxjZDz5kVVskQeVYBfJdFoZNgH/ygBCWhlSJOSYZhqoo7w53Mz8J0A1nr8MTtXhqetZkFPiUwigjfnKaXRHXBEQtVLDBSqPejQWeaGyMY9UF9qa0y7BwG
-x-ms-exchange-antispam-messagedata: 3CldMxktgTziF57hp/MYssKqxNFh1kZxEiSv7+I6Ikx2NSkJiBTzdL3gt8Wj0SXmQKS0OZzGDujzChSo4bOtoYn/JjXR4veR/Gmo1KB8lsoPu/e0OCUUyp9EN4fMwufHumIN2RJizTayX+p04hkSBQ==
-Content-ID: <7B51C5E501384E4981556B02EC612078@namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0468C89872;
+	Fri, 13 Mar 2020 14:31:04 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEDD26EBDD
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2020 14:31:02 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id g62so10541005wme.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2020 07:31:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=UHw9fLnZFrAHp0i2Ib5zMg7cDFiCTNPTdvY9OEX2o9Y=;
+ b=TsjGZgu1RRK7FS1wydj8r5Q1V1B7V0nj7bw4lBCF31VjsBvGSh5HQCZ0X9gBG91yUi
+ 8NL4CfdATA39nE1fC8j2F1lxNFRReKNlJ0AQzYmgDngud/+8zJ/NmKsGMKNt3LZRykCb
+ Z//PJlT0lobSKhKlC/7FhOfCIGE7BYNdLeE9Flbl+uAOBp1BKn7+Ks/qWNoIR7DMJz1G
+ cD7HawWJvt9eY9IdVDBnSv5dul+WkCaYj7IfA07OMeHe9AE9OdbsZKbfjzeLk3TH21zp
+ kqZnJfooF5nQXX02gan704SaWXXkeLwfjZwv7qHsVL3XS7hLcAPZOQv6UrLQAbZ76aEe
+ ZqFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=UHw9fLnZFrAHp0i2Ib5zMg7cDFiCTNPTdvY9OEX2o9Y=;
+ b=kRwvJZmmSSBv51IEKFH/LOur6v8rOd8ZWPXNBAtI8r4hdJ5oH5yLZ8wrOwu4Ahput5
+ sKEBVltQjjkPg33cUClF8elXdLLT07Zq3eOyNHv5uMPIanIuIfDZXmi/7aHN+gPXiZUd
+ hleDsBseu/gu2dxISESdF/LcnP948vRjw9k/raxpgI5jF0U5m+ipYajsuf4ug+DkkFjt
+ ZPrIxLtITGXf1raxFvwMAPAS80N/LH/W5V8uYfY0zVJf60oydPSNSwKBqaNxvuar/aFN
+ fcSw+VZq4gQSlH+NfOoH3YtnnCvPycoOoDDNJcI/32PlWI85d7LFyTmTGt0uwBZgRPSv
+ jAvA==
+X-Gm-Message-State: ANhLgQ2EJtE6QYsDz8iG7cafRUjiyauP6SiyPQdyA1P17cf3frvy/fVr
+ 93yv9friQqQs/5YjJYw1CVx8iJ6+Hrhui4eh
+X-Google-Smtp-Source: ADFU+vvhP7r8FvRJ8zSw2hTrnOZJx/fn3PSjqMAjHWaUOS/22lDF+cnQre6WGTCwCtxb13qIy9oNRA==
+X-Received: by 2002:a1c:a584:: with SMTP id o126mr11262555wme.49.1584109861106; 
+ Fri, 13 Mar 2020 07:31:01 -0700 (PDT)
+Received: from brihaspati.fritz.box
+ (p200300C58F29A900DB158106D933A960.dip0.t-ipconnect.de.
+ [2003:c5:8f29:a900:db15:8106:d933:a960])
+ by smtp.gmail.com with ESMTPSA id x17sm41638298wrt.31.2020.03.13.07.31.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2020 07:31:00 -0700 (PDT)
+From: Nirmoy Das <nirmoy.aiemd@gmail.com>
+X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH v3 2/3] drm/sched: implement and export drm_sched_pick_best
+Date: Fri, 13 Mar 2020 15:34:32 +0100
+Message-Id: <20200313143433.114437-2-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.25.0
+In-Reply-To: <20200313143433.114437-1-nirmoy.das@amd.com>
+References: <20200313143433.114437-1-nirmoy.das@amd.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b00e456a-c4dd-49ed-4fa3-08d7c75b265d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Mar 2020 14:30:59.4865 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OZqWIIFkcDkZiQeAzAu6CuEaIgfatS2wYCFsj8nBv60DHeXh/WoADiDd5FN9pqAj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2685
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,83 +82,150 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>, "Pan, Xinhui" <Xinhui.Pan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Boyuan.Zhang@amd.com, nirmoy.das@amd.com, alexander.deucher@amd.com,
+ James.Zhu@amd.com, Leo.Liu@amd.com, christian.koenig@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DQoNCj4gMjAyMOW5tDPmnIgxM+aXpSAyMjoxM++8jEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3Rp
-YW4uS29lbmlnQGFtZC5jb20+IOWGmemBk++8mg0KPiANCj4gQW0gMTMuMDMuMjAgdW0gMTU6MDcg
-c2NocmllYiB4aW5odWkgcGFuOg0KPj4gUHJvdmlkZSByZXN2IGFzIGEgcGFyYW1ldGVyIGZvciB2
-bSBzZG1hIGNvbW1pdC4NCj4+IEpvYiBmZW5jZSBvbiBwYWdlIHRhYmxlIHNob3VsZCBiZSBhIHNo
-YXJlZCBvbmUsIHNvIGFkZCBpdCB0byB0aGUgcmVzdi4NCj4+IA0KPj4gQ2M6IENocmlzdGlhbiBL
-w7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4NCj4+IENjOiBBbGV4IERldWNoZXIgPGFs
-ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+DQo+PiBDYzogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1
-ZWhsaW5nQGFtZC5jb20+DQo+PiBTdWdnZXN0ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlz
-dGlhbi5rb2VuaWdAYW1kLmNvbT4NCj4+IFNpZ25lZC1vZmYtYnk6IHhpbmh1aSBwYW4gPHhpbmh1
-aS5wYW5AYW1kLmNvbT4NCj4+IC0tLQ0KPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV92bS5jICAgICAgfCA0ICsrLS0NCj4+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
-bWRncHVfdm0uaCAgICAgIHwgNSArKysrKw0KPj4gIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
-L2FtZGdwdV92bV9zZG1hLmMgfCA3ICsrKysrKysNCj4+ICAzIGZpbGVzIGNoYW5nZWQsIDE0IGlu
-c2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pDQo+PiANCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L2FtZGdwdV92bS5jDQo+PiBpbmRleCA3MzM5ODgzMTE5NmYuLjgwOWNhNmU4ZjQwZiAxMDA2
-NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jDQo+PiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPj4gQEAgLTE1Nzks
-NiArMTU3OSw3IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X3ZtX2JvX3VwZGF0ZV9tYXBwaW5nKHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2LA0KPj4gIAkJCQkgICAgICAgZG1hX2FkZHJfdCAqcGFnZXNf
-YWRkciwNCj4+ICAJCQkJICAgICAgIHN0cnVjdCBkbWFfZmVuY2UgKipmZW5jZSkNCj4+ICB7DQo+
-PiArCXN0cnVjdCBhbWRncHVfYm8gKnJvb3QgPSB2bS0+cm9vdC5iYXNlLmJvOw0KPj4gIAlzdHJ1
-Y3QgYW1kZ3B1X3ZtX3VwZGF0ZV9wYXJhbXMgcGFyYW1zOw0KPj4gIAllbnVtIGFtZGdwdV9zeW5j
-X21vZGUgc3luY19tb2RlOw0KPj4gIAlpbnQgcjsNCj4+IEBAIC0xNjA0LDggKzE2MDUsNiBAQCBz
-dGF0aWMgaW50IGFtZGdwdV92bV9ib191cGRhdGVfbWFwcGluZyhzdHJ1Y3QgYW1kZ3B1X2Rldmlj
-ZSAqYWRldiwNCj4+ICAJfQ0KPj4gICAgCWlmIChmbGFncyAmIEFNREdQVV9QVEVfVkFMSUQpIHsN
-Cj4+IC0JCXN0cnVjdCBhbWRncHVfYm8gKnJvb3QgPSB2bS0+cm9vdC5iYXNlLmJvOw0KPj4gLQ0K
-Pj4gIAkJaWYgKCFkbWFfZmVuY2VfaXNfc2lnbmFsZWQodm0tPmxhc3RfZGlyZWN0KSkNCj4+ICAJ
-CQlhbWRncHVfYm9fZmVuY2Uocm9vdCwgdm0tPmxhc3RfZGlyZWN0LCB0cnVlKTsNCj4+ICBAQCAt
-MTYxMyw2ICsxNjEyLDcgQEAgc3RhdGljIGludCBhbWRncHVfdm1fYm9fdXBkYXRlX21hcHBpbmco
-c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+PiAgCQkJYW1kZ3B1X2JvX2ZlbmNlKHJvb3Qs
-IHZtLT5sYXN0X2RlbGF5ZWQsIHRydWUpOw0KPj4gIAl9DQo+PiAgKwlwYXJhbXMucmVzdiA9IHJv
-b3QtPnRiby5iYXNlLnJlc3Y7DQo+PiAgCXIgPSB2bS0+dXBkYXRlX2Z1bmNzLT5wcmVwYXJlKCZw
-YXJhbXMsIHJlc3YsIHN5bmNfbW9kZSk7DQo+PiAgCWlmIChyKQ0KPj4gIAkJZ290byBlcnJvcl91
-bmxvY2s7DQo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X3ZtLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaA0KPj4gaW5kZXgg
-YjU3MDVmY2ZjOTM1Li5jYTYwMjFiNDIwMGIgMTAwNjQ0DQo+PiAtLS0gYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uaA0KPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRncHUvYW1kZ3B1X3ZtLmgNCj4+IEBAIC0yMjYsNiArMjI2LDExIEBAIHN0cnVjdCBhbWRncHVf
-dm1fdXBkYXRlX3BhcmFtcyB7DQo+PiAgCSAqIEBudW1fZHdfbGVmdDogbnVtYmVyIG9mIGR3IGxl
-ZnQgZm9yIHRoZSBJQg0KPj4gIAkgKi8NCj4+ICAJdW5zaWduZWQgaW50IG51bV9kd19sZWZ0Ow0K
-Pj4gKw0KPj4gKwkvKioNCj4+ICsJICogQHJlc3Y6IHN5bmMgdGhlIHJlc3YgYW5kIGFkZCBqb2Ig
-ZmVuY2UgdG8gaXQgY29uZGl0aW9uYWxseS4NCj4+ICsJICovDQo+PiArCXN0cnVjdCBkbWFfcmVz
-diAqcmVzdjsNCj4+ICB9Ow0KPj4gICAgc3RydWN0IGFtZGdwdV92bV91cGRhdGVfZnVuY3Mgew0K
-Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bV9zZG1h
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm1fc2RtYS5jDQo+PiBpbmRl
-eCA0Y2M3ODgxZjQzOGMuLmExYjI3MGE0ZGE4ZSAxMDA2NDQNCj4+IC0tLSBhL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bV9zZG1hLmMNCj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV92bV9zZG1hLmMNCj4+IEBAIC0xMTEsNiArMTExLDEzIEBAIHN0
-YXRpYyBpbnQgYW1kZ3B1X3ZtX3NkbWFfY29tbWl0KHN0cnVjdCBhbWRncHVfdm1fdXBkYXRlX3Bh
-cmFtcyAqcCwNCj4+ICAJCXN3YXAocC0+dm0tPmxhc3RfZGVsYXllZCwgdG1wKTsNCj4+ICAJZG1h
-X2ZlbmNlX3B1dCh0bXApOw0KPj4gICsJLyogYWRkIGpvYiBmZW5jZSB0byByZXN2Lg0KPj4gKwkg
-KiBNTSBub3RpZmllciBwYXRoIGlzIGFuIGV4Y2VwdGlvbiBhcyB3ZSBjYW4gbm90IGdyYWIgdGhl
-DQo+PiArCSAqIHJlc3YgbG9jay4NCj4+ICsJICovDQo+PiArCWlmICghcC0+ZGlyZWN0ICYmIHAt
-PnJlc3YpDQo+IA0KPiBZb3UgY2FuIGp1c3QgdXNlIHAtPnZtLT5yb290LmJhc2UuYm8tPnRiby5i
-YXNlLnJlc3YgaGVyZSwgbm8gbmVlZCBmb3IgYSBuZXcgZmllbGQgaW4gdGhlIHBhcmFtYXRlciBz
-dHJ1Y3R1cmUuDQo+IA0KDQp5ZXAsIG1ha2Ugc2Vuc2UuDQoNCj4gQW5kIGl0IHdvdWxkIHByb2Jh
-Ymx5IGJlIGJlc3QgdG8gYWxzbyByZW1vdmUgdGhlIHZtLT5sYXN0X2RlbGF5ZWQgZmllbGQgZW50
-aXJlbHkuDQo+IA0KPiBJbiBvdGhlciB3b3JkcyB1c2Ugc29tZXRoaW5nIGxpa2UgdGhpcyBoZXJl
-DQo+IA0KPiBpZiAocC0+ZGlyZWN0KSB7DQo+ICAgICB0bXAgPSBkbWFfZmVuY2VfZ2V0KGYpOw0K
-PiAgICAgc3dhcChwLT52bS0+bGFzdF9kaXJlY3QsIHRtcCk7DQo+ICAgICBkbWFfZmVuY2VfcHV0
-KHRtcCk7DQo+IH0gZWxzZSB7DQo+IGRtYV9yZXN2X2FkZF9zaGFyZWRfZmVuY2UocC0+dm0tPnJv
-b3QuYmFzZS5iby0+dGJvLmJhc2UucmVzdiwgZik7DQo+IH0NCj4gDQoNCkkgdGhpbmsgd2Ugc3Rp
-bGwgbmVlZCB1ZHBhdGUgdGhlIGxhc3RfZGVsYXllZC4gbG9va3MgbGlrZSBldmljdGlvbiBhbmQg
-c29tZSBvdGhlciBpb2N0bHMgdGVzdCB0aGlzIGZpZWxkIHRvIGRldGVybWluZSAgdGhlIHZtIHN0
-YXRlLg0KdGhpcyBzaG91bGQgYmUgZG9uZSBieSBhIG5ldyBwYXRjaCBpZiBwb3NzaWJsZS4NCg0K
-PiBSZWdhcmRzLA0KPiBDaHJpc3RpYW4uDQo+IA0KPj4gKwkJZG1hX3Jlc3ZfYWRkX3NoYXJlZF9m
-ZW5jZShwLT5yZXN2LCBmKTsNCj4+ICsNCj4+ICAJaWYgKGZlbmNlICYmICFwLT5kaXJlY3QpDQo+
-PiAgCQlzd2FwKCpmZW5jZSwgZik7DQo+PiAgCWRtYV9mZW5jZV9wdXQoZik7DQo+IA0KDQpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
-bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
-ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+Remove drm_sched_entity_get_free_sched() and use the logic of picking
+the least loaded drm scheduler from a drm scheduler list to implement
+drm_sched_pick_best(). This patch also exports drm_sched_pick_best() so
+that it can be utilized by other drm drivers.
+
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/scheduler/sched_entity.c | 36 ++----------------------
+ drivers/gpu/drm/scheduler/sched_main.c   | 36 ++++++++++++++++++++++++
+ include/drm/gpu_scheduler.h              |  3 ++
+ 3 files changed, 42 insertions(+), 33 deletions(-)
+
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index d631521a9679..c803e14eed91 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -137,38 +137,6 @@ bool drm_sched_entity_is_ready(struct drm_sched_entity *entity)
+ 	return true;
+ }
+
+-/**
+- * drm_sched_entity_get_free_sched - Get the rq from rq_list with least load
+- *
+- * @entity: scheduler entity
+- *
+- * Return the pointer to the rq with least load.
+- */
+-static struct drm_sched_rq *
+-drm_sched_entity_get_free_sched(struct drm_sched_entity *entity)
+-{
+-	struct drm_sched_rq *rq = NULL;
+-	unsigned int min_jobs = UINT_MAX, num_jobs;
+-	int i;
+-
+-	for (i = 0; i < entity->num_sched_list; ++i) {
+-		struct drm_gpu_scheduler *sched = entity->sched_list[i];
+-
+-		if (!entity->sched_list[i]->ready) {
+-			DRM_WARN("sched%s is not ready, skipping", sched->name);
+-			continue;
+-		}
+-
+-		num_jobs = atomic_read(&sched->num_jobs);
+-		if (num_jobs < min_jobs) {
+-			min_jobs = num_jobs;
+-			rq = &entity->sched_list[i]->sched_rq[entity->priority];
+-		}
+-	}
+-
+-	return rq;
+-}
+-
+ /**
+  * drm_sched_entity_flush - Flush a context entity
+  *
+@@ -479,6 +447,7 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ {
+ 	struct dma_fence *fence;
++	struct drm_gpu_scheduler *sched;
+ 	struct drm_sched_rq *rq;
+
+ 	if (spsc_queue_count(&entity->job_queue) || entity->num_sched_list <= 1)
+@@ -489,7 +458,8 @@ void drm_sched_entity_select_rq(struct drm_sched_entity *entity)
+ 		return;
+
+ 	spin_lock(&entity->rq_lock);
+-	rq = drm_sched_entity_get_free_sched(entity);
++	sched = drm_sched_pick_best(entity->sched_list, entity->num_sched_list);
++	rq = sched ? &sched->sched_rq[entity->priority] : NULL;
+ 	if (rq != entity->rq) {
+ 		drm_sched_rq_remove_entity(entity->rq, entity);
+ 		entity->rq = rq;
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 3fad5876a13f..1dcafc8d14fc 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -705,6 +705,42 @@ drm_sched_get_cleanup_job(struct drm_gpu_scheduler *sched)
+ 	return job;
+ }
+
++/**
++ * drm_sched_pick_best - Get a drm sched from a sched_list with the least load
++ * @sched_list: list of drm_gpu_schedulers
++ * @num_sched_list: number of drm_gpu_schedulers in the sched_list
++ *
++ * Returns pointer of the sched with the least load or NULL if none of the
++ * drm_gpu_schedulers are ready
++ */
++struct drm_gpu_scheduler *
++drm_sched_pick_best(struct drm_gpu_scheduler **sched_list,
++		     unsigned int num_sched_list)
++{
++	struct drm_gpu_scheduler *sched, *picked_sched = NULL;
++	int i;
++	unsigned int min_jobs = UINT_MAX, num_jobs;
++
++	for (i = 0; i < num_sched_list; ++i) {
++		sched = sched_list[i];
++
++		if (!sched->ready) {
++			DRM_WARN("scheduler %s is not ready, skipping",
++				 sched->name);
++			continue;
++		}
++
++		num_jobs = atomic_read(&sched->num_jobs);
++		if (num_jobs < min_jobs) {
++			min_jobs = num_jobs;
++			picked_sched = sched;
++		}
++	}
++
++	return picked_sched;
++}
++EXPORT_SYMBOL(drm_sched_pick_best);
++
+ /**
+  * drm_sched_blocked - check if the scheduler is blocked
+  *
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index ae39eacee250..26b04ff62676 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -341,5 +341,8 @@ void drm_sched_fence_finished(struct drm_sched_fence *fence);
+ unsigned long drm_sched_suspend_timeout(struct drm_gpu_scheduler *sched);
+ void drm_sched_resume_timeout(struct drm_gpu_scheduler *sched,
+ 		                unsigned long remaining);
++struct drm_gpu_scheduler *
++drm_sched_pick_best(struct drm_gpu_scheduler **sched_list,
++		     unsigned int num_sched_list);
+
+ #endif
+--
+2.25.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
