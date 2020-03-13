@@ -2,84 +2,72 @@ Return-Path: <SRS0=NWgq=46=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-3.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1155FC2BB1D
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 20:05:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8266CC2BB1D
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 20:18:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D754D206E9
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 20:05:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5142120637
+	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 20:18:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="IaI1o/nb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D754D206E9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a14X4w4d"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5142120637
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 963686EC58;
-	Fri, 13 Mar 2020 20:05:22 +0000 (UTC)
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E52C06EC58
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2020 19:55:52 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id z25so9829633qkj.4
- for <amd-gfx@lists.freedesktop.org>; Fri, 13 Mar 2020 12:55:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=87KqPlDMHgw97GV/6GeuCjBWLsGckmaqH6kpwHETsV8=;
- b=IaI1o/nbI8tdis4U2kskwqLiVp3tR4CtvbFz8sA47teWHxd/T5+6rm/6ewRIdNlMNG
- 0qFcrsbYYRy46EZiPu9dOqWn8g1MSPdUt//XwpJkDstfCSFBcR9s8GzeyhpVhLMYMyqH
- e4J1IH2AgHUzFxDhv7qBaZ4eRP7VcZETgHSXyB/aFNpU28/xvYi6117lRd4gGfXTSfYo
- s5QHfQoIftvXr7dFPX5eXiIDE8mmykF2AKp9287JbXYoL88FgrIID9xBRWJWL181yTTJ
- iqrEkJUsIYkdTXlCVOM5TzemwgbQPUTBbIrd2sufHfgiJFUvSVxFfZTE2Tjfhkqr3HOs
- RR8w==
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3DDA6EC5C;
+	Fri, 13 Mar 2020 20:17:58 +0000 (UTC)
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 452336EC5C;
+ Fri, 13 Mar 2020 20:17:58 +0000 (UTC)
+Received: by mail-lj1-x242.google.com with SMTP id o10so11946701ljc.8;
+ Fri, 13 Mar 2020 13:17:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Y58XOkdziIOagbDJXaKPopb+GQlU9fbifw4eoZN3YIE=;
+ b=a14X4w4dS2yd7C/5VPno7i/nBzVNU5gbbv+Tld50flDKi1V2uj3T8h6/bqF56ixDIQ
+ epKRKteT7A80miLVVtDJi3lvb36JcaGYtUskmmoOqNaKJ1NhtEhyu2O2EAotEBWp0vT9
+ 9WxVBWDQZ3NOOOAnPnqFuwOoluVvfMrLSDkuPaw9WDbIK4blcU2ifQesuPyClX4FAKEs
+ 20CzvQQtSPOunxFWzyZAUq7Nt6KJj/ysnwxZsxhMBttkKp2bVYBC7zh8lFkV6nWVsRnn
+ cvQoH0PplvOPvD0k55tWiSo15BFZN0+ND6QYMNzWUr48SkzrTsb7gci8hvbjgK5znBXe
+ sG+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=87KqPlDMHgw97GV/6GeuCjBWLsGckmaqH6kpwHETsV8=;
- b=jiYDaHxFGqUG505j7eN6ovYF+KxS4D/2+MOwNmP+n61KV67ENhw1S/1ZM+skiYfCwV
- MlfkY7qEvyW32hZ7JIzD9YWi1vgIJynH1tfIhWvwynF6zYE9r72whycxKICSP7DplBMZ
- BUqVKdD3TKAdVOkbE5QJ1dpSaWL0S0Ib1+Fxi2sspWAsdO/g+nndae6fGvOuyHyTrpOT
- jeS33GmZyHSOeuNr+pFjft6ibE46+PiacKG1/BnIfwX0E3/5+t32Tl1MHk8qd7wPWpmJ
- VHnpmT836XZRlBJ03X5SADtiTN2bFEbgmJcgvVYkqVvmMokM6yNLswnLPRffNmwfluO5
- WI9A==
-X-Gm-Message-State: ANhLgQ0MRdaicbaNgh4hH+Kf1AqPcrcT8q3QsYEmk9/A//y15MuGKmUL
- g7OGO87SbcF7bQvWe3NwfMzRmQ==
-X-Google-Smtp-Source: ADFU+vszdQfTs7KFiVac4pruumYRzYTRQbmBVhPe56+YVviAN87wfdAZizQ3CSLbD8AmBkwABUoNLA==
-X-Received: by 2002:a37:591:: with SMTP id 139mr12437176qkf.281.1584129351908; 
- Fri, 13 Mar 2020 12:55:51 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id m92sm4067512qtd.94.2020.03.13.12.55.51
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 13 Mar 2020 12:55:51 -0700 (PDT)
-Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
- (envelope-from <jgg@ziepe.ca>)
- id 1jCqPO-0004gC-St; Fri, 13 Mar 2020 16:55:50 -0300
-Date: Fri, 13 Mar 2020 16:55:50 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Steven Price <steven.price@arm.com>, Matthew Wilcox <willy@infradead.org>
-Subject: Re: [PATCH] mm/hmm: Simplify hmm_vma_walk_pud slightly
-Message-ID: <20200313195550.GH31668@ziepe.ca>
-References: <5bd778fa-51e5-3e0c-d9bb-b38539b03c8d@arm.com>
- <20200312102813.56699-1-steven.price@arm.com>
- <20200312142749.GM31668@ziepe.ca>
- <58e296a6-d32b-bb37-28ce-ade0f784454d@arm.com>
- <20200312151113.GO31668@ziepe.ca>
- <689d3c56-3d19-4655-21f5-f9aeab3089df@arm.com>
- <20200312163734.GR31668@ziepe.ca>
- <bf9b38ae-edd5-115f-e1ca-d769872f994a@arm.com>
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=Y58XOkdziIOagbDJXaKPopb+GQlU9fbifw4eoZN3YIE=;
+ b=BduLWgnry8XXrAS1QotYZWE+bc2i/p2P6Wl/SAVoyWIB0ujZX6sPIiEPOldaLBQRih
+ piZut73jz/jzIs+g+9CGYolDeo0Tt14WdupBpmAGSzJOTcYlUqfDsbNXD8hHJ09w0jJN
+ ldnr7BwnkZuhddDHfn40AohXaw7Pm1DS2wC82XvzTh4ew0O1MaBylbE929UQpKaEltmE
+ SAP32KIMrsNXUqqfpisPiKPEh6iGEsgiAYv7CZW4g2xfb7h+Tru4ewxOfi0jtRrZKPq/
+ T8BjZ2At/mTasqDgLBbkkqhFATluIV0PUjHuL+g91XUVfS5FyFu4NWcBZ2WhcA7LEhOf
+ +V1Q==
+X-Gm-Message-State: ANhLgQ1fXi6srpkPe/mVEvpcemrRkOsv0asArAcoLPx26GX9FlNRF5YQ
+ amgkNSgngHbvRogl+heik2A=
+X-Google-Smtp-Source: ADFU+vuuP8eLGHs61Pn00F6kfLCzZYEGZpi+HoTitf53XYXkeT4pF7N73LFSnuUIomov7m47p3b2kA==
+X-Received: by 2002:a05:651c:1047:: with SMTP id
+ x7mr6683206ljm.246.1584130676487; 
+ Fri, 13 Mar 2020 13:17:56 -0700 (PDT)
+Received: from saturn.lan (18.158-248-194.customer.lyse.net. [158.248.194.18])
+ by smtp.gmail.com with ESMTPSA id
+ v10sm30774074lfb.61.2020.03.13.13.17.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 13 Mar 2020 13:17:55 -0700 (PDT)
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter <daniel@ffwll.ch>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH v1 0/3] drm: drm_encoder_init() => drm_encoder_init_funcs()
+Date: Fri, 13 Mar 2020 21:17:41 +0100
+Message-Id: <20200313201744.19773-1-sam@ravnborg.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <bf9b38ae-edd5-115f-e1ca-d769872f994a@arm.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Fri, 13 Mar 2020 20:05:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,80 +79,183 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, Ralph Campbell <rcampbell@nvidia.com>,
- John Hubbard <jhubbard@nvidia.com>,
- "Felix.Kuehling@amd.com" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, Jerome Glisse <jglisse@redhat.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Christoph Hellwig <hch@lst.de>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ David Airlie <airlied@linux.ie>, Jose Roberto de Souza <jose.souza@intel.com>,
+ virtualization@lists.linux-foundation.org, Gerd Hoffmann <kraxel@redhat.com>,
+ Sam Ravnborg <sam@ravnborg.org>, linux-stm32@st-md-mailman.stormreply.com,
+ Emil Velikov <emil.velikov@collabora.com>, linux-samsung-soc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ NXP Linux Team <linux-imx@nxp.com>, Dave Airlie <airlied@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, linux-mediatek@lists.infradead.org,
+ linux-tegra@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Boris Brezillon <bbrezillon@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ linux-renesas-soc@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 12, 2020 at 05:02:18PM +0000, Steven Price wrote:
-> On 12/03/2020 16:37, Jason Gunthorpe wrote:
-> > On Thu, Mar 12, 2020 at 04:16:33PM +0000, Steven Price wrote:
-> > > > Actually, while you are looking at this, do you think we should be
-> > > > adding at least READ_ONCE in the pagewalk.c walk_* functions? The
-> > > > multiple references of pmd, pud, etc without locking seems sketchy to
-> > > > me.
-> > > 
-> > > I agree it seems worrying. I'm not entirely sure whether the holding of
-> > > mmap_sem is sufficient,
-> > 
-> > I looked at this question, and at least for PMD, mmap_sem is not
-> > sufficient. I didn't easilly figure it out for the other ones
-> > 
-> > I'm guessing if PMD is not safe then none of them are.
-> > 
-> > > this isn't something that I changed so I've just
-> > > been hoping that it's sufficient since it seems to have been working
-> > > (whether that's by chance because the compiler didn't generate multiple
-> > > reads I've no idea). For walking the kernel's page tables the lack of
-> > > READ_ONCE is also not great, but at least for PTDUMP we don't care too much
-> > > about accuracy and it should be crash proof because there's no RCU grace
-> > > period. And again the code I was replacing didn't have any special
-> > > protection.
-> > > 
-> > > I can't see any harm in updating the code to include READ_ONCE and I'm happy
-> > > to review a patch.
-> > 
-> > The reason I ask is because hmm's walkers often have this pattern
-> > where they get the pointer and then de-ref it (again) then
-> > immediately have to recheck the 'again' conditions of the walker
-> > itself because the re-read may have given a different value.
-> > 
-> > Having the walker deref the pointer and pass the value it into the ops
-> > for use rather than repeatedly de-refing an unlocked value seems like
-> > a much safer design to me.
-> 
-> Yeah that sounds like a good idea.
+Thomas Zimmermann had made a nice patch-set that introduced
+drm_simple_encoder_init() which is already present in drm-misc-next.
 
-I'm looking at this now.. The PUD is also changing under the read
-mmap_sem - and I was able to think up some race conditiony bugs
-related to this. Have some patches now..
+While looking at this it was suddenly obvious to me that
+this was functionalty that really should be included in drm_encoder.c
+The case where the core could handle the callback is pretty
+common and not part of the simple pipe line.
 
-However, I haven't been able to understand why walk_page_range()
-doesn't check pud_present() or pmd_present() before calling
-pmd_offset_map() or pte_offset_map().
+So after some dialog on dri-devel the conclusion was to go for
+a change like this:
 
-As far as I can see a non-present entry has a swap entry encoded in
-it, and thus it seems like it is a bad idea to pass a non-present
-entry to the two map functions. I think those should only be called
-when the entry points to the next level in the page table  (so there
-is something to map?)
+    drm_encoder_init_funcs() for all users that specified a
+    drm_encoder_funcs to extend the functionality.
 
-I see you added !present tests for the !vma case, but why only there?
+    drm_encoder_init() for all users that did not
+    need to extend the basic functionality with
+    drm_encoder_funcs.
 
-Is this a bug? Do you know how it works?
+A similar approach with a _funcs() prefix is used elsewhere in drm/
 
-Is it something that was missed when people added non-present PUD and
-PMD's?
+This required a rename of the existing users, and
+a follow-up patch that moves drm_simple_encoder_init()
+to drm_encoder.c
 
-Thanks,
-Jason
+Patches 3 in this set demonstrate the use of drm_encoder_init().
+There are many more drivers that can be converted as Thomas
+has already demonstrated.
+
+This is all based on work done by Thomas Zimmermann,
+I just wanted to implement my suggestion so
+we could select the best way forward.
+
+Note: Daniel Vetter has hinted the approach implemented
+here smelled like middle-layer.
+IMO this is not so, it is just a way to handle cleanup
+for the simple cases.
+
+	Sam
+
+
+Sam Ravnborg (3):
+      drm: drm_encoder_init() => drm_encoder_init_funcs()
+      drm: drm_simple_encoder_init() => drm_encoder_init()
+      drm/atmel-hlcdc: Use drm_encoder_init()
+
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c             | 28 ++++++-------
+ drivers/gpu/drm/amd/amdgpu/dce_v11_0.c             | 28 ++++++-------
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c              | 28 ++++++-------
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c              | 28 ++++++-------
+ drivers/gpu/drm/amd/amdgpu/dce_virtual.c           |  4 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 10 ++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 10 ++---
+ drivers/gpu/drm/arc/arcpgu_hdmi.c                  |  4 +-
+ drivers/gpu/drm/arc/arcpgu_sim.c                   |  4 +-
+ drivers/gpu/drm/ast/ast_mode.c                     |  3 +-
+ drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_output.c   |  8 +---
+ drivers/gpu/drm/drm_encoder.c                      | 49 +++++++++++++++++++---
+ drivers/gpu/drm/drm_encoder_slave.c                |  2 +-
+ drivers/gpu/drm/drm_simple_kms_helper.c            | 45 +-------------------
+ drivers/gpu/drm/drm_writeback.c                    |  6 +--
+ drivers/gpu/drm/exynos/exynos_dp.c                 |  4 +-
+ drivers/gpu/drm/exynos/exynos_drm_dpi.c            |  4 +-
+ drivers/gpu/drm/exynos/exynos_drm_dsi.c            |  4 +-
+ drivers/gpu/drm/exynos/exynos_drm_vidi.c           |  4 +-
+ drivers/gpu/drm/exynos/exynos_hdmi.c               |  4 +-
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c          |  4 +-
+ drivers/gpu/drm/gma500/cdv_intel_crt.c             |  5 ++-
+ drivers/gpu/drm/gma500/cdv_intel_dp.c              |  4 +-
+ drivers/gpu/drm/gma500/cdv_intel_hdmi.c            |  4 +-
+ drivers/gpu/drm/gma500/cdv_intel_lvds.c            |  6 +--
+ drivers/gpu/drm/gma500/mdfld_dsi_dpi.c             |  7 ++--
+ drivers/gpu/drm/gma500/oaktrail_hdmi.c             |  6 +--
+ drivers/gpu/drm/gma500/oaktrail_lvds.c             |  4 +-
+ drivers/gpu/drm/gma500/psb_intel_lvds.c            |  6 +--
+ drivers/gpu/drm/gma500/psb_intel_sdvo.c            |  4 +-
+ drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_vdac.c   |  4 +-
+ drivers/gpu/drm/hisilicon/kirin/dw_drm_dsi.c       |  4 +-
+ drivers/gpu/drm/i2c/tda998x_drv.c                  |  5 ++-
+ drivers/gpu/drm/i915/display/icl_dsi.c             |  4 +-
+ drivers/gpu/drm/i915/display/intel_crt.c           |  5 ++-
+ drivers/gpu/drm/i915/display/intel_ddi.c           |  6 ++-
+ drivers/gpu/drm/i915/display/intel_dp.c            |  6 +--
+ drivers/gpu/drm/i915/display/intel_dp_mst.c        |  6 ++-
+ drivers/gpu/drm/i915/display/intel_dvo.c           |  6 +--
+ drivers/gpu/drm/i915/display/intel_hdmi.c          |  6 +--
+ drivers/gpu/drm/i915/display/intel_lvds.c          |  4 +-
+ drivers/gpu/drm/i915/display/intel_sdvo.c          |  6 +--
+ drivers/gpu/drm/i915/display/intel_tv.c            |  4 +-
+ drivers/gpu/drm/i915/display/vlv_dsi.c             |  5 ++-
+ drivers/gpu/drm/imx/dw_hdmi-imx.c                  |  4 +-
+ drivers/gpu/drm/imx/imx-ldb.c                      |  4 +-
+ drivers/gpu/drm/imx/imx-tve.c                      |  4 +-
+ drivers/gpu/drm/imx/parallel-display.c             |  4 +-
+ drivers/gpu/drm/ingenic/ingenic-drm.c              |  5 ++-
+ drivers/gpu/drm/mediatek/mtk_dpi.c                 |  5 ++-
+ drivers/gpu/drm/mediatek/mtk_dsi.c                 |  4 +-
+ drivers/gpu/drm/meson/meson_dw_hdmi.c              |  5 ++-
+ drivers/gpu/drm/meson/meson_venc_cvbs.c            |  5 ++-
+ drivers/gpu/drm/mgag200/mgag200_mode.c             |  7 +---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c        |  4 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_dsi_encoder.c   |  4 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_dtv_encoder.c   |  4 +-
+ drivers/gpu/drm/msm/disp/mdp4/mdp4_lcdc_encoder.c  |  4 +-
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_encoder.c       |  3 +-
+ drivers/gpu/drm/nouveau/dispnv04/dac.c             |  4 +-
+ drivers/gpu/drm/nouveau/dispnv04/dfp.c             |  3 +-
+ drivers/gpu/drm/nouveau/dispnv04/tvnv04.c          |  4 +-
+ drivers/gpu/drm/nouveau/dispnv04/tvnv17.c          |  4 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c            | 16 +++----
+ drivers/gpu/drm/omapdrm/omap_encoder.c             |  4 +-
+ drivers/gpu/drm/qxl/qxl_display.c                  |  7 +---
+ drivers/gpu/drm/radeon/atombios_encoders.c         | 40 +++++++++---------
+ drivers/gpu/drm/radeon/radeon_dp_mst.c             |  4 +-
+ drivers/gpu/drm/radeon/radeon_legacy_encoders.c    | 20 ++++-----
+ drivers/gpu/drm/rcar-du/rcar_du_encoder.c          |  4 +-
+ drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |  5 ++-
+ drivers/gpu/drm/rockchip/cdn-dp-core.c             |  4 +-
+ drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c    |  5 ++-
+ drivers/gpu/drm/rockchip/dw_hdmi-rockchip.c        |  4 +-
+ drivers/gpu/drm/rockchip/inno_hdmi.c               |  4 +-
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c             |  4 +-
+ drivers/gpu/drm/rockchip/rockchip_lvds.c           |  5 ++-
+ drivers/gpu/drm/rockchip/rockchip_rgb.c            |  5 ++-
+ drivers/gpu/drm/shmobile/shmob_drm_crtc.c          |  4 +-
+ drivers/gpu/drm/sti/sti_tvout.c                    | 16 +++----
+ drivers/gpu/drm/stm/ltdc.c                         |  4 +-
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c             | 10 ++---
+ drivers/gpu/drm/sun4i/sun4i_lvds.c                 | 10 ++---
+ drivers/gpu/drm/sun4i/sun4i_rgb.c                  | 10 ++---
+ drivers/gpu/drm/sun4i/sun4i_tv.c                   | 10 ++---
+ drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c             | 10 ++---
+ drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c              |  4 +-
+ drivers/gpu/drm/tegra/dsi.c                        |  6 +--
+ drivers/gpu/drm/tegra/hdmi.c                       |  5 ++-
+ drivers/gpu/drm/tegra/rgb.c                        |  4 +-
+ drivers/gpu/drm/tegra/sor.c                        |  4 +-
+ drivers/gpu/drm/tidss/tidss_encoder.c              |  4 +-
+ drivers/gpu/drm/tilcdc/tilcdc_external.c           |  8 ++--
+ drivers/gpu/drm/tilcdc/tilcdc_panel.c              |  4 +-
+ drivers/gpu/drm/vboxvideo/vbox_mode.c              |  4 +-
+ drivers/gpu/drm/vc4/vc4_dpi.c                      |  4 +-
+ drivers/gpu/drm/vc4/vc4_dsi.c                      |  4 +-
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     |  4 +-
+ drivers/gpu/drm/vc4/vc4_vec.c                      |  4 +-
+ drivers/gpu/drm/virtio/virtgpu_display.c           |  4 +-
+ drivers/gpu/drm/vkms/vkms_output.c                 |  4 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |  4 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |  5 ++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               |  4 +-
+ drivers/gpu/drm/zte/zx_hdmi.c                      |  4 +-
+ drivers/gpu/drm/zte/zx_tvenc.c                     |  4 +-
+ drivers/gpu/drm/zte/zx_vga.c                       |  4 +-
+ include/drm/drm_encoder.h                          |  9 ++--
+ include/drm/drm_simple_kms_helper.h                |  4 --
+ 109 files changed, 394 insertions(+), 395 deletions(-)
+
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
