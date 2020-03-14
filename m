@@ -1,70 +1,109 @@
-Return-Path: <SRS0=NWgq=46=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=+uvl=47=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 383EEC10DCE
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 21:53:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACF3CC10DCE
+	for <amd-gfx@archiver.kernel.org>; Sat, 14 Mar 2020 03:05:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 060A32074E
-	for <amd-gfx@archiver.kernel.org>; Fri, 13 Mar 2020 21:53:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6316E2074B
+	for <amd-gfx@archiver.kernel.org>; Sat, 14 Mar 2020 03:05:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AnFDMk78"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 060A32074E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="I3hPbVrD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6316E2074B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7ABF96E04B;
-	Fri, 13 Mar 2020 21:53:13 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DBC36E04B;
- Fri, 13 Mar 2020 21:53:12 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id 6so13954467wre.4;
- Fri, 13 Mar 2020 14:53:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=F1ggqG8zLpfklIUhtsKqqhmAK1SrCt0QqulQEoEWP5g=;
- b=AnFDMk782pNuCdpamDK3FbcquUHjgajeTbfyDydJi4bbkdcBXyjozJHZSoxk4gKGx0
- r70UO5pj7igzYLiBxKhUsEFhOn0jhdT9Tx2GiNe8wu617dANSrwaLvU/7rnKaBUt3raY
- HeOzthqGEdtrLGqBezym0vVJuzZateFipd6GnWZqh1SYg/DoAoUeGZbiOBK6Sm3XzdhO
- CQm2RsmJXDNJX46yBoQX4bCYmjbIE5KNUC4rMna16G0hoEKpHZG7Pt5nPz65+Kc9WXD6
- tyZjbW69jcbg8q3B+AzIMcdB32gvxu/XiCFE2x3eudvKZ+tyCNcJRRZFu5U0TbFqjnxm
- C98A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=F1ggqG8zLpfklIUhtsKqqhmAK1SrCt0QqulQEoEWP5g=;
- b=YhGmvwNG8qktqGQFwJmxzZmIlovAXRdELSD66qEWovAVEecsjXGEdaNwAKwuWwlFe1
- lMejxADJyqpvmv2zgAnspWMIG0K0SEG9CRxtc+We9karkOzFQL97FWXNqZCs9/RnIMkZ
- C4t0HgGZ+HW679dYyunxMBoBsu3OolLEwE/zgyBjSPi73FECf1w3VhlE+tDIju0DkECN
- /ib6PNzq9i8kudPGNZEvoLrL7hDGgkb7iIIeZCmg2v4xcL1D+v/OLirjDvkJhZJWd152
- 4RNoNfufNopCEHgawQlvMzLfSREuOPuQ4lzk0pc4dtqMAxQxjFsT6SMqFHlRDFs2BfMN
- tF9A==
-X-Gm-Message-State: ANhLgQ0S/3spGDZWVguF5PRkan1Jl9NvnQ7ehTn23oXQpPKuwmXhc6oM
- WA/m43RGcHPtXm9fvbQNuBNSsraYN7fE5gKW93u9NA==
-X-Google-Smtp-Source: ADFU+vu/Rfqh3OZs9grJOy4ux64pc/ZSQfz5oSjxV62odZ3LRQ9OEfomtYG3tE/gU8thbmwhJVTEWhLVytwROTVzzHQ=
-X-Received: by 2002:a5d:6146:: with SMTP id y6mr20163557wrt.107.1584136391311; 
- Fri, 13 Mar 2020 14:53:11 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F2C66EC7D;
+	Sat, 14 Mar 2020 03:05:44 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2078.outbound.protection.outlook.com [40.107.93.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77E2A6E0D8
+ for <amd-gfx@lists.freedesktop.org>; Sat, 14 Mar 2020 03:05:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=JoI0DJP4G4L+7EPOjb2Q3/v1S0ELFeCzvjBz/qMDNk097aklxgq6ienDj6k2RW2idS9uOXY4hvkJTrptF6im/5HZF+t2B4UFdEwFfe+A+km0S6wBSyeXP1HB8KZjD1sCnxrEFiurCx8/fZYpu6457FkOYLcSWAHkU14r9Z0xLoaxgLeiQlI6jGUcdXYg0WGBa4+Duq1m3nGwvKhF9lXyPA+QOQItq7mgsLmXHdsJKnqLbv/V2AO0/HT+96X22Hfist3AndKXOUX71odou+OwJLQ2Hih3+ueoIw1aC9qEXJZP5o3U4zOOG49Go74MMy0VQ208yrtUBTqfRcOSys/4HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I+Rgy5Df4xiGl3mM7y/lu+a5wT09sMuVQJMESvzshqo=;
+ b=YPPoK2FbnmolTus+pAfU6vFxS785yZ2ofNzBLUPK1MOJ2K7Iwo+Gh5rE94zXy9mM6cQTxF7vSGWgykQ7AsimahzgWCwRErDU7sJh3OlggHBSx6iNv9fwBzo2QLzaJJ+Tq5EWlgu0e+0pWGs9bUz9QnenAPtK4u6vrVH8APeJ2qJgLigHyK8gpwmrzk/ELi7cuftqSCeQI7NZQrx3zUusRdbU01iYS/Jh2Z7Zb/ArDFJmCHVuWfcbFASwecSLqSlHL838Xbdwlpn9ulnJKPu6/1sqk/DHQLM0HixQOTNombpBw7G/3vvEmah30URRrnCHN3zYd1MbWSv8vlFosrJTDw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I+Rgy5Df4xiGl3mM7y/lu+a5wT09sMuVQJMESvzshqo=;
+ b=I3hPbVrDehiX4Ba/nBbuDKClDDWYJ9KqJkf5JgYlTgh1hgZb0bbnjQQQuZoe5JXzKaI1+5Mps1DpReAt2/TD+m9NNbAQ6V0+HdDkn8Oz82s3cepnXO20uWQOowgVuRC82s9NFWxi/wHuQiqfb27nptpWB0jcsQrpa1By+5rroSM=
+Received: from DM5PR18CA0072.namprd18.prod.outlook.com (2603:10b6:3:22::34) by
+ BY5PR12MB3891.namprd12.prod.outlook.com (2603:10b6:a03:1a3::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2814.18; Sat, 14 Mar
+ 2020 03:05:40 +0000
+Received: from DM6NAM11FT029.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:22:cafe::a3) by DM5PR18CA0072.outlook.office365.com
+ (2603:10b6:3:22::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.15 via Frontend
+ Transport; Sat, 14 Mar 2020 03:05:40 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ DM6NAM11FT029.mail.protection.outlook.com (10.13.173.23) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2814.13 via Frontend Transport; Sat, 14 Mar 2020 03:05:39 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Mar
+ 2020 22:05:39 -0500
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 13 Mar
+ 2020 22:05:39 -0500
+Received: from agrodzovsky-All-Series.amd.com (10.180.168.240) by
+ SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Fri, 13 Mar 2020 22:05:38 -0500
+From: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3] drm/amdgpu: Move EEPROM I2C adapter to amdgpu_device
+Date: Fri, 13 Mar 2020 23:05:37 -0400
+Message-ID: <1584155137-9628-1-git-send-email-andrey.grodzovsky@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-References: <20200305212044.3857-1-mario.kleiner.de@gmail.com>
- <CADnq5_PoEbgyQ1a+DMkSpTkN2QHHEpHie53Wxo7eRktsKxKs7Q@mail.gmail.com>
- <cd4b7cfd-1fec-db5a-ded1-65e89b14ea35@amd.com>
- <41ab0520-e29a-b6ed-bf5e-fbdf1eec0ceb@daenzer.net>
-In-Reply-To: <41ab0520-e29a-b6ed-bf5e-fbdf1eec0ceb@daenzer.net>
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Date: Fri, 13 Mar 2020 22:52:59 +0100
-Message-ID: <CAEsyxyhzWFgqzWBC-==WUgbWtT4MAEVt_B0HmS=75_OJevm3tw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix pageflip event race condition for
- DCN. (v2)
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(376002)(136003)(346002)(39860400002)(428003)(199004)(46966005)(478600001)(36756003)(356004)(316002)(70586007)(70206006)(54906003)(6916009)(47076004)(26005)(5660300002)(4326008)(426003)(86362001)(8936002)(2906002)(81166006)(30864003)(44832011)(336012)(81156014)(186003)(7696005)(2616005)(8676002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BY5PR12MB3891; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: d0485a70-96fe-4210-c553-08d7c7c493a0
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3891:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB3891881B0B47FABE8052CEE3EAFB0@BY5PR12MB3891.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-Forefront-PRVS: 034215E98F
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 9dm81tz7tsmRyfLdaEJpr5ADs2Ko/7CW8ZVIvIBhABsTTQ4jzg+TzQB1JFeeNXJ/uBwJDcHQL4h6ELqxKYWnUlbpdA1b0nXV3iEfFjoEr0PoLya0UpAEPP0Ly+z0URDLIY9aw6vUVUQOXRUWhuykxA9PSnzX3pDFulpFowDBGQRQSAfIps2NJ8PjkAuoEash9kRk93M2xpKZtfg6ZJkoK0tb4DqrIdj/tVqGuAnGB43v/KsUTmY6Zb4KsQVAF5PahkozTAeDle7Y1GuHGPI7IqD+I0pe7DdNWYQCEsIHCPixyr8K9P73MR2GNcnRj1v2d77iScQkZDLSAXdzpVx4RzjXwYaqUZ7UaAml+kyLnY8k5LoJ2zTuXis6X5SZwOCail4WQfwjG9zHAptE7eu4IBujvjxGEvhAiVRJ0XKuB2L3taygEWXocaaevIiGA2i3b7JxzMf+fKWg85JkVGERq6r+62PuX0zE2/YmsJGS0haCdjMez/7S202stmgALV+I1dDvlx5wpVVj07mNciDR2A==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Mar 2020 03:05:39.9679 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0485a70-96fe-4210-c553-08d7c7c493a0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3891
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,394 +115,324 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexdeucher@gmail.com>, Harry Wentland <hwentlan@amd.com>,
- "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
-Content-Type: multipart/mixed; boundary="===============0016031117=="
+Cc: Alexander.Deucher@amd.com, Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Kent.Russell@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0016031117==
-Content-Type: multipart/alternative; boundary="000000000000e146a805a0c37e53"
+Puts the i2c adapter in common place for sharing by RAS
+and upcoming data read from FRU EEPROM feature.
 
---000000000000e146a805a0c37e53
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+v2:
+Move i2c adapter to amdgpu_pm and rename it.
 
-On Fri, Mar 13, 2020 at 5:02 PM Michel D=C3=A4nzer <michel@daenzer.net> wro=
-te:
+v3: Move i2c adapter init to ASIC specific code and get rid
+of the switch case in amdgpu_device
 
-> On 2020-03-13 1:35 p.m., Kazlauskas, Nicholas wrote:
-> > On 2020-03-12 10:32 a.m., Alex Deucher wrote:
-> >> On Thu, Mar 5, 2020 at 4:21 PM Mario Kleiner
-> >> <mario.kleiner.de@gmail.com> wrote:
-> >>>
-> >>> Commit '16f17eda8bad ("drm/amd/display: Send vblank and user
-> >>> events at vsartup for DCN")' introduces a new way of pageflip
-> >>> completion handling for DCN, and some trouble.
-> >>>
-> >>> The current implementation introduces a race condition, which
-> >>> can cause pageflip completion events to be sent out one vblank
-> >>> too early, thereby confusing userspace and causing flicker:
-> >>>
-> >>> prepare_flip_isr():
-> >>>
-> >>> 1. Pageflip programming takes the ddev->event_lock.
-> >>> 2. Sets acrtc->pflip_status =3D=3D AMDGPU_FLIP_SUBMITTED
-> >>> 3. Releases ddev->event_lock.
-> >>>
-> >>> --> Deadline for surface address regs double-buffering passes on
-> >>>      target pipe.
-> >>>
-> >>> 4. dc_commit_updates_for_stream() MMIO programs the new pageflip
-> >>>     into hw, but too late for current vblank.
-> >>>
-> >>> =3D> pflip_status =3D=3D AMDGPU_FLIP_SUBMITTED, but flip won't comple=
-te
-> >>>     in current vblank due to missing the double-buffering deadline
-> >>>     by a tiny bit.
-> >>>
-> >>> 5. VSTARTUP trigger point in vblank is reached, VSTARTUP irq fires,
-> >>>     dm_dcn_crtc_high_irq() gets called.
-> >>>
-> >>> 6. Detects pflip_status =3D=3D AMDGPU_FLIP_SUBMITTED and assumes the
-> >>>     pageflip has been completed/will complete in this vblank and
-> >>>     sends out pageflip completion event to userspace and resets
-> >>>     pflip_status =3D AMDGPU_FLIP_NONE.
-> >>>
-> >>> =3D> Flip completion event sent out one vblank too early.
-> >>>
-> >>> This behaviour has been observed during my testing with measurement
-> >>> hardware a couple of time.
-> >>>
-> >>> The commit message says that the extra flip event code was added to
-> >>> dm_dcn_crtc_high_irq() to prevent missing to send out pageflip events
-> >>> in case the pflip irq doesn't fire, because the "DCH HUBP" component
-> >>> is clock gated and doesn't fire pflip irqs in that state. Also that
-> >>> this clock gating may happen if no planes are active. According to
-> >>> Nicholas, the clock gating can also happen if psr is active, and the
-> >>> gating is controlled independently by the hardware, so difficult to
-> >>> detect if and when the completion code in above commit is needed.
-> >>>
-> >>> This patch tries the following solution: It only executes the extra
-> >>> pflip
-> >>> completion code in dm_dcn_crtc_high_irq() iff the hardware reports
-> >>> that there aren't any surface updated pending in the double-buffered
-> >>> surface scanout address registers. Otherwise it leaves pflip completi=
-on
-> >>> to the pflip irq handler, for a more race-free experience.
-> >>>
-> >>> This would only guard against the order of events mentioned above.
-> >>> If Step 5 (VSTARTUP trigger) happens before step 4 then this won't he=
-lp
-> >>> at all, because 1-3 + 5 might happen even without the hw being
-> >>> programmed
-> >>> at all, ie. no surface update pending because none yet programmed
-> >>> into hw.
-> >>>
-> >>> Therefore this patch also changes locking in amdgpu_dm_commit_planes(=
-),
-> >>> so that prepare_flip_isr() and dc_commit_updates_for_stream() are don=
-e
-> >>> under event_lock protection within the same critical section.
-> >>>
-> >>> v2: Take Nicholas comments into account, try a different solution.
-> >>>
-> >>> Lightly tested on Polaris (locking) and Raven (the whole DCN stuff).
-> >>> Seems to work without causing obvious new trouble.
-> >>
-> >> Nick, any comments on this?  Can we get this committed or do you think
-> >> it needs additional rework?
-> >>
-> >> Thanks,
-> >>
-> >> Alex
-> >
-> > Hi Alex, Mario,
-> >
-> > This might be a little strange, but if we want to get this in as a fix
-> > for regressions caused by the original vblank and user events at
-> > vstartup patch then I'm actually going to give my reviewed by on the
-> > *v1* of this patch (but not this v2):
-> >
-> > Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> >
-> > You can feel free to apply that one.
-> >
-> > Reason 1: After having thought about it some more I don't think we
-> > enable anything today that has hubp powered down at the same time we
-> > expect to be waiting for a flip - eg. DMCU powering down HUBP during PS=
-R
-> > entry. Static screen interrupt should happen after that flip finishes I
-> > think.
-> >
-> > The CRTC can still be powered on with zero planes, and I don't think an=
-y
-> > userspace explicitly asks for vblank events in this case but it doesn't
-> > hurt to have the check.
-> >
->
+Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h            |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     | 48 ++++------------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h     |  2 -
+ drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c         | 14 ++++---
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c         | 10 +++++
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c       |  4 +-
+ .../gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c   | 11 +++++
+ 7 files changed, 41 insertions(+), 50 deletions(-)
 
-Ok, so the original commit that causes the races currently solves a
-non-existing - but potential future - problem?
-
-I guess then my v1 patch makes sense for the moment and fixes the immediate
-problem for Linux 5.6-rc.
-
-Maybe there's a way to ask the hw if hubp is clock-gated and so if that
-code needs to run or not in the future?
-
-As mentioned before, it would be helpful at least for me to get a better
-overview about which hw events happen when in vblank, which irq's fire in
-response etc., how this relates to things like power management actions,
-psr, vrr / drr, etc. A lot has changed in the hw during the last 10 years,
-and my guideline are still the public pdf files with the DCE register specs
-for DCE-1'ish hw from sometime around the year 2007.
-
-> Reason 2: This new patch will need much more thorough testing from side
-> > to fully understand the consequences of locking the entire DC commit
-> > sequence. For just a page flip that sounds fine, but for anything more
-> > than (eg. full updates, modesets, etc) I don't think we want to be
-> > disabling interrupts for potentially many milliseconds.
->
-> Ah! I was wondering where the attached splat comes from, but I think
-> this explains it: With this patch amdgpu_dm_commit_planes keeps the
-> pcrtc->dev->event_lock spinlock locked while calling
-> dc_commit_updates_for_stream, which ends up calling
-> smu_set_display_count, which tries to lock a mutex.
->
->
-Yep, sorry about that. My most modern machine has Raven Ridge / DCN1, and
-that function only gets called on Navi /DCN2 afaics. All my testing is
-limited to Polaris / DCE11 and Raven DCN1, my most modern hw atm.
-
-thanks,
--mario
-
---=20
-> Earthling Michel D=C3=A4nzer               |               https://redhat=
-.com
-> Libre software enthusiast             |             Mesa and X developer
->
-
---000000000000e146a805a0c37e53
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Fri, Mar 13, 2020 at 5:02 PM Miche=
-l D=C3=A4nzer &lt;<a href=3D"mailto:michel@daenzer.net">michel@daenzer.net<=
-/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">O=
-n 2020-03-13 1:35 p.m., Kazlauskas, Nicholas wrote:<br>
-&gt; On 2020-03-12 10:32 a.m., Alex Deucher wrote:<br>
-&gt;&gt; On Thu, Mar 5, 2020 at 4:21 PM Mario Kleiner<br>
-&gt;&gt; &lt;<a href=3D"mailto:mario.kleiner.de@gmail.com" target=3D"_blank=
-">mario.kleiner.de@gmail.com</a>&gt; wrote:<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Commit &#39;16f17eda8bad (&quot;drm/amd/display: Send vblank a=
-nd user<br>
-&gt;&gt;&gt; events at vsartup for DCN&quot;)&#39; introduces a new way of =
-pageflip<br>
-&gt;&gt;&gt; completion handling for DCN, and some trouble.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; The current implementation introduces a race condition, which<=
-br>
-&gt;&gt;&gt; can cause pageflip completion events to be sent out one vblank=
-<br>
-&gt;&gt;&gt; too early, thereby confusing userspace and causing flicker:<br=
->
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; prepare_flip_isr():<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; 1. Pageflip programming takes the ddev-&gt;event_lock.<br>
-&gt;&gt;&gt; 2. Sets acrtc-&gt;pflip_status =3D=3D AMDGPU_FLIP_SUBMITTED<br=
->
-&gt;&gt;&gt; 3. Releases ddev-&gt;event_lock.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; --&gt; Deadline for surface address regs double-buffering pass=
-es on<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0=C2=A0 target pipe.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; 4. dc_commit_updates_for_stream() MMIO programs the new pagefl=
-ip<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0 into hw, but too late for current vblank.<b=
-r>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =3D&gt; pflip_status =3D=3D AMDGPU_FLIP_SUBMITTED, but flip wo=
-n&#39;t complete<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0 in current vblank due to missing the double=
--buffering deadline<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0 by a tiny bit.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; 5. VSTARTUP trigger point in vblank is reached, VSTARTUP irq f=
-ires,<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0 dm_dcn_crtc_high_irq() gets called.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; 6. Detects pflip_status =3D=3D AMDGPU_FLIP_SUBMITTED and assum=
-es the<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0 pageflip has been completed/will complete i=
-n this vblank and<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0 sends out pageflip completion event to user=
-space and resets<br>
-&gt;&gt;&gt; =C2=A0=C2=A0=C2=A0 pflip_status =3D AMDGPU_FLIP_NONE.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; =3D&gt; Flip completion event sent out one vblank too early.<b=
-r>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; This behaviour has been observed during my testing with measur=
-ement<br>
-&gt;&gt;&gt; hardware a couple of time.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; The commit message says that the extra flip event code was add=
-ed to<br>
-&gt;&gt;&gt; dm_dcn_crtc_high_irq() to prevent missing to send out pageflip=
- events<br>
-&gt;&gt;&gt; in case the pflip irq doesn&#39;t fire, because the &quot;DCH =
-HUBP&quot; component<br>
-&gt;&gt;&gt; is clock gated and doesn&#39;t fire pflip irqs in that state. =
-Also that<br>
-&gt;&gt;&gt; this clock gating may happen if no planes are active. Accordin=
-g to<br>
-&gt;&gt;&gt; Nicholas, the clock gating can also happen if psr is active, a=
-nd the<br>
-&gt;&gt;&gt; gating is controlled independently by the hardware, so difficu=
-lt to<br>
-&gt;&gt;&gt; detect if and when the completion code in above commit is need=
-ed.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; This patch tries the following solution: It only executes the =
-extra<br>
-&gt;&gt;&gt; pflip<br>
-&gt;&gt;&gt; completion code in dm_dcn_crtc_high_irq() iff the hardware rep=
-orts<br>
-&gt;&gt;&gt; that there aren&#39;t any surface updated pending in the doubl=
-e-buffered<br>
-&gt;&gt;&gt; surface scanout address registers. Otherwise it leaves pflip c=
-ompletion<br>
-&gt;&gt;&gt; to the pflip irq handler, for a more race-free experience.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; This would only guard against the order of events mentioned ab=
-ove.<br>
-&gt;&gt;&gt; If Step 5 (VSTARTUP trigger) happens before step 4 then this w=
-on&#39;t help<br>
-&gt;&gt;&gt; at all, because 1-3 + 5 might happen even without the hw being=
-<br>
-&gt;&gt;&gt; programmed<br>
-&gt;&gt;&gt; at all, ie. no surface update pending because none yet program=
-med<br>
-&gt;&gt;&gt; into hw.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Therefore this patch also changes locking in amdgpu_dm_commit_=
-planes(),<br>
-&gt;&gt;&gt; so that prepare_flip_isr() and dc_commit_updates_for_stream() =
-are done<br>
-&gt;&gt;&gt; under event_lock protection within the same critical section.<=
-br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; v2: Take Nicholas comments into account, try a different solut=
-ion.<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; Lightly tested on Polaris (locking) and Raven (the whole DCN s=
-tuff).<br>
-&gt;&gt;&gt; Seems to work without causing obvious new trouble.<br>
-&gt;&gt;<br>
-&gt;&gt; Nick, any comments on this?=C2=A0 Can we get this committed or do =
-you think<br>
-&gt;&gt; it needs additional rework?<br>
-&gt;&gt;<br>
-&gt;&gt; Thanks,<br>
-&gt;&gt;<br>
-&gt;&gt; Alex<br>
-&gt; <br>
-&gt; Hi Alex, Mario,<br>
-&gt; <br>
-&gt; This might be a little strange, but if we want to get this in as a fix=
-<br>
-&gt; for regressions caused by the original vblank and user events at<br>
-&gt; vstartup patch then I&#39;m actually going to give my reviewed by on t=
-he<br>
-&gt; *v1* of this patch (but not this v2):<br>
-&gt; <br>
-&gt; Reviewed-by: Nicholas Kazlauskas &lt;<a href=3D"mailto:nicholas.kazlau=
-skas@amd.com" target=3D"_blank">nicholas.kazlauskas@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; You can feel free to apply that one.<br>
-&gt; <br>
-&gt; Reason 1: After having thought about it some more I don&#39;t think we=
-<br>
-&gt; enable anything today that has hubp powered down at the same time we<b=
-r>
-&gt; expect to be waiting for a flip - eg. DMCU powering down HUBP during P=
-SR<br>
-&gt; entry. Static screen interrupt should happen after that flip finishes =
-I<br>
-&gt; think.<br>
-&gt; <br>
-&gt; The CRTC can still be powered on with zero planes, and I don&#39;t thi=
-nk any<br>
-&gt; userspace explicitly asks for vblank events in this case but it doesn&=
-#39;t<br>
-&gt; hurt to have the check.<br>
-&gt;<br></blockquote><div><br></div><div>Ok, so the original commit that ca=
-uses the races currently solves a non-existing - but potential future - pro=
-blem?<br></div><div>=C2=A0</div><div>I guess then my v1 patch makes sense f=
-or the moment and fixes the immediate problem for Linux 5.6-rc.<br></div><d=
-iv><br></div><div>Maybe there&#39;s a way to ask the hw if hubp is clock-ga=
-ted and so if that code needs to run or not in the future?</div><div><br></=
-div><div>As mentioned before, it would be helpful at least for me to get a =
-better overview about which hw events happen when in vblank, which irq&#39;=
-s fire in response etc., how this relates to things like power management a=
-ctions, psr, vrr / drr, etc. A lot has changed in the hw during the last 10=
- years, and my guideline are still the public pdf files with the DCE regist=
-er specs for DCE-1&#39;ish hw from sometime around the year 2007.<br></div>=
-<div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0p=
-x 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-&gt; Reason 2: This new patch will need much more thorough testing from sid=
-e<br>
-&gt; to fully understand the consequences of locking the entire DC commit<b=
-r>
-&gt; sequence. For just a page flip that sounds fine, but for anything more=
-<br>
-&gt; than (eg. full updates, modesets, etc) I don&#39;t think we want to be=
-<br>
-&gt; disabling interrupts for potentially many milliseconds.<br>
-<br>
-Ah! I was wondering where the attached splat comes from, but I think<br>
-this explains it: With this patch amdgpu_dm_commit_planes keeps the<br>
-pcrtc-&gt;dev-&gt;event_lock spinlock locked while calling<br>
-dc_commit_updates_for_stream, which ends up calling<br>
-smu_set_display_count, which tries to lock a mutex.<br>
-<br></blockquote><div><br></div><div>Yep, sorry about that. My most modern =
-machine has Raven Ridge / DCN1, and that function only gets called on Navi =
-/DCN2 afaics. All my testing is limited to Polaris / DCE11 and Raven DCN1, =
-my most modern hw atm.<br></div><div><br></div><div>thanks,<br></div><div>-=
-mario</div><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin=
-:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"=
->
--- <br>
-Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
-=3D"https://redhat.com" rel=3D"noreferrer" target=3D"_blank">https://redhat=
-.com</a><br>
-Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
-</blockquote></div></div>
-
---000000000000e146a805a0c37e53--
-
---===============0016031117==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
+index 1685794..936d85a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h
+@@ -448,6 +448,8 @@ struct amdgpu_pm {
+ 	/* powerplay feature */
+ 	uint32_t pp_feature;
+ 
++	/* Used for I2C access to various EEPROMs on relevant ASICs */
++	struct i2c_adapter smu_i2c;
+ };
+ 
+ #define R600_SSTU_DFLT                               0
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+index ed15b1f..c009609 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
+@@ -25,7 +25,6 @@
+ #include "amdgpu.h"
+ #include "amdgpu_ras.h"
+ #include <linux/bits.h>
+-#include "smu_v11_0_i2c.h"
+ #include "atom.h"
+ 
+ #define EEPROM_I2C_TARGET_ADDR_VEGA20    	0xA0
+@@ -124,6 +123,7 @@ static int __update_table_header(struct amdgpu_ras_eeprom_control *control,
+ 				 unsigned char *buff)
+ {
+ 	int ret = 0;
++	struct amdgpu_device *adev = to_amdgpu_device(control);
+ 	struct i2c_msg msg = {
+ 			.addr	= 0,
+ 			.flags	= 0,
+@@ -137,7 +137,7 @@ static int __update_table_header(struct amdgpu_ras_eeprom_control *control,
+ 
+ 	msg.addr = control->i2c_address;
+ 
+-	ret = i2c_transfer(&control->eeprom_accessor, &msg, 1);
++	ret = i2c_transfer(&adev->pm.smu_i2c, &msg, 1);
+ 	if (ret < 1)
+ 		DRM_ERROR("Failed to write EEPROM table header, ret:%d", ret);
+ 
+@@ -251,33 +251,18 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control)
+ 			.buf	= buff,
+ 	};
+ 
++	/* Verify i2c adapter is initialized */
++	if (!adev->pm.smu_i2c.algo)
++		return -ENOENT;
++
+ 	if (!__get_eeprom_i2c_addr(adev, &control->i2c_address))
+ 		return -EINVAL;
+ 
+ 	mutex_init(&control->tbl_mutex);
+ 
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA20:
+-		ret = smu_v11_0_i2c_eeprom_control_init(&control->eeprom_accessor);
+-		break;
+-
+-	case CHIP_ARCTURUS:
+-		ret = smu_i2c_eeprom_init(&adev->smu, &control->eeprom_accessor);
+-		break;
+-
+-	default:
+-		return 0;
+-	}
+-
+-	if (ret) {
+-		DRM_ERROR("Failed to init I2C controller, ret:%d", ret);
+-		return ret;
+-	}
+-
+ 	msg.addr = control->i2c_address;
+-
+ 	/* Read/Create table header from EEPROM address 0 */
+-	ret = i2c_transfer(&control->eeprom_accessor, &msg, 1);
++	ret = i2c_transfer(&adev->pm.smu_i2c, &msg, 1);
+ 	if (ret < 1) {
+ 		DRM_ERROR("Failed to read EEPROM table header, ret:%d", ret);
+ 		return ret;
+@@ -303,23 +288,6 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control)
+ 	return ret == 1 ? 0 : -EIO;
+ }
+ 
+-void amdgpu_ras_eeprom_fini(struct amdgpu_ras_eeprom_control *control)
+-{
+-	struct amdgpu_device *adev = to_amdgpu_device(control);
+-
+-	switch (adev->asic_type) {
+-	case CHIP_VEGA20:
+-		smu_v11_0_i2c_eeprom_control_fini(&control->eeprom_accessor);
+-		break;
+-	case CHIP_ARCTURUS:
+-		smu_i2c_eeprom_fini(&adev->smu, &control->eeprom_accessor);
+-		break;
+-
+-	default:
+-		return;
+-	}
+-}
+-
+ static void __encode_table_record_to_buff(struct amdgpu_ras_eeprom_control *control,
+ 					  struct eeprom_table_record *record,
+ 					  unsigned char *buff)
+@@ -476,7 +444,7 @@ int amdgpu_ras_eeprom_process_recods(struct amdgpu_ras_eeprom_control *control,
+ 		control->next_addr += EEPROM_TABLE_RECORD_SIZE;
+ 	}
+ 
+-	ret = i2c_transfer(&control->eeprom_accessor, msgs, num);
++	ret = i2c_transfer(&adev->pm.smu_i2c, msgs, num);
+ 	if (ret < 1) {
+ 		DRM_ERROR("Failed to process EEPROM table records, ret:%d", ret);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+index ca78f81..7e8647a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h
+@@ -44,7 +44,6 @@ struct amdgpu_ras_eeprom_table_header {
+ 
+ struct amdgpu_ras_eeprom_control {
+ 	struct amdgpu_ras_eeprom_table_header tbl_hdr;
+-	struct i2c_adapter eeprom_accessor;
+ 	uint32_t next_addr;
+ 	unsigned int num_recs;
+ 	struct mutex tbl_mutex;
+@@ -79,7 +78,6 @@ struct eeprom_table_record {
+ }__attribute__((__packed__));
+ 
+ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control);
+-void amdgpu_ras_eeprom_fini(struct amdgpu_ras_eeprom_control *control);
+ int amdgpu_ras_eeprom_reset_table(struct amdgpu_ras_eeprom_control *control);
+ 
+ int amdgpu_ras_eeprom_process_recods(struct amdgpu_ras_eeprom_control *control,
+diff --git a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
+index c902f26..9bffbab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
++++ b/drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c
+@@ -46,8 +46,7 @@
+ #define I2C_NO_STOP	1
+ #define I2C_RESTART	2
+ 
+-#define to_amdgpu_device(x) (container_of(x, struct amdgpu_ras, eeprom_control.eeprom_accessor))->adev
+-#define to_eeprom_control(x) container_of(x, struct amdgpu_ras_eeprom_control, eeprom_accessor)
++#define to_amdgpu_device(x) (container_of(x, struct amdgpu_device, pm.smu_i2c))
+ 
+ static void smu_v11_0_i2c_set_clock_gating(struct i2c_adapter *control, bool en)
+ {
+@@ -592,7 +591,8 @@ static uint32_t smu_v11_0_i2c_eeprom_write_data(struct i2c_adapter *control,
+ 
+ static void lock_bus(struct i2c_adapter *i2c, unsigned int flags)
+ {
+-	struct amdgpu_ras_eeprom_control *control = to_eeprom_control(i2c);
++	struct amdgpu_device *adev = to_amdgpu_device(i2c);
++	struct amdgpu_ras_eeprom_control *control = &adev->psp.ras.ras->eeprom_control;
+ 
+ 	if (!smu_v11_0_i2c_bus_lock(i2c)) {
+ 		DRM_ERROR("Failed to lock the bus from SMU");
+@@ -610,7 +610,8 @@ static int trylock_bus(struct i2c_adapter *i2c, unsigned int flags)
+ 
+ static void unlock_bus(struct i2c_adapter *i2c, unsigned int flags)
+ {
+-	struct amdgpu_ras_eeprom_control *control = to_eeprom_control(i2c);
++	struct amdgpu_device *adev = to_amdgpu_device(i2c);
++	struct amdgpu_ras_eeprom_control *control = &adev->psp.ras.ras->eeprom_control;
+ 
+ 	if (!smu_v11_0_i2c_bus_unlock(i2c)) {
+ 		DRM_ERROR("Failed to unlock the bus from SMU");
+@@ -630,7 +631,8 @@ static int smu_v11_0_i2c_eeprom_i2c_xfer(struct i2c_adapter *i2c_adap,
+ 			      struct i2c_msg *msgs, int num)
+ {
+ 	int i, ret;
+-	struct amdgpu_ras_eeprom_control *control = to_eeprom_control(i2c_adap);
++	struct amdgpu_device *adev = to_amdgpu_device(i2c_adap);
++	struct amdgpu_ras_eeprom_control *control = &adev->psp.ras.ras->eeprom_control;
+ 
+ 	if (!control->bus_locked) {
+ 		DRM_ERROR("I2C bus unlocked, stopping transaction!");
+@@ -679,7 +681,7 @@ int smu_v11_0_i2c_eeprom_control_init(struct i2c_adapter *control)
+ 	control->class = I2C_CLASS_SPD;
+ 	control->dev.parent = &adev->pdev->dev;
+ 	control->algo = &smu_v11_0_i2c_eeprom_i2c_algo;
+-	snprintf(control->name, sizeof(control->name), "RAS EEPROM");
++	snprintf(control->name, sizeof(control->name), "AMDGPU EEPROM");
+ 	control->lock_ops = &smu_v11_0_i2c_i2c_lock_ops;
+ 
+ 	res = i2c_add_adapter(control);
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+index 8de8436..0273c63 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -932,6 +932,13 @@ static int smu_sw_init(void *handle)
+ 		return ret;
+ 	}
+ 
++	if (adev->smu.ppt_funcs->i2c_eeprom_init) {
++		ret = smu_i2c_eeprom_init(smu, &adev->pm.smu_i2c);
++
++		if (ret)
++			return ret;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -941,6 +948,9 @@ static int smu_sw_fini(void *handle)
+ 	struct smu_context *smu = &adev->smu;
+ 	int ret;
+ 
++	if (adev->smu.ppt_funcs->i2c_eeprom_fini)
++		smu_i2c_eeprom_fini(smu, &adev->pm.smu_i2c);
++
+ 	kfree(smu->irq_source);
+ 	smu->irq_source = NULL;
+ 
+diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+index 61596e8..c6d3bef 100644
+--- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+@@ -41,7 +41,7 @@
+ #include <linux/pci.h>
+ #include "amdgpu_ras.h"
+ 
+-#define to_amdgpu_device(x) (container_of(x, struct amdgpu_ras, eeprom_control.eeprom_accessor))->adev
++#define to_amdgpu_device(x) (container_of(x, struct amdgpu_device, pm.smu_i2c))
+ 
+ #define CTF_OFFSET_EDGE			5
+ #define CTF_OFFSET_HOTSPOT		5
+@@ -2190,7 +2190,7 @@ static int arcturus_i2c_eeprom_control_init(struct i2c_adapter *control)
+ 	control->class = I2C_CLASS_SPD;
+ 	control->dev.parent = &adev->pdev->dev;
+ 	control->algo = &arcturus_i2c_eeprom_i2c_algo;
+-	snprintf(control->name, sizeof(control->name), "RAS EEPROM");
++	snprintf(control->name, sizeof(control->name), "AMDGPU EEPROM");
+ 
+ 	res = i2c_add_adapter(control);
+ 	if (res)
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
+index 49e5ef3..16aa171 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
+@@ -33,6 +33,8 @@
+ #include "smu7_smumgr.h"
+ #include "vega20_hwmgr.h"
+ 
++#include "smu_v11_0_i2c.h"
++
+ /* MP Apertures */
+ #define MP0_Public			0x03800000
+ #define MP0_SRAM			0x03900000
+@@ -406,6 +408,7 @@ static int vega20_smu_init(struct pp_hwmgr *hwmgr)
+ 	struct vega20_smumgr *priv;
+ 	unsigned long tools_size = 0x19000;
+ 	int ret = 0;
++	struct amdgpu_device *adev = hwmgr->adev;
+ 
+ 	struct cgs_firmware_info info = {0};
+ 
+@@ -505,6 +508,10 @@ static int vega20_smu_init(struct pp_hwmgr *hwmgr)
+ 	priv->smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].version = 0x01;
+ 	priv->smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].size = sizeof(DpmActivityMonitorCoeffInt_t);
+ 
++	ret = smu_v11_0_i2c_eeprom_control_init(&adev->pm.smu_i2c);
++	if (ret)
++		goto err4;
++
+ 	return 0;
+ 
+ err4:
+@@ -537,6 +544,9 @@ static int vega20_smu_fini(struct pp_hwmgr *hwmgr)
+ {
+ 	struct vega20_smumgr *priv =
+ 			(struct vega20_smumgr *)(hwmgr->smu_backend);
++	struct amdgpu_device *adev = hwmgr->adev;
++
++	smu_v11_0_i2c_eeprom_control_fini(&adev->pm.smu_i2c);
+ 
+ 	if (priv) {
+ 		amdgpu_bo_free_kernel(&priv->smu_tables.entry[TABLE_PPTABLE].handle,
+@@ -560,6 +570,7 @@ static int vega20_smu_fini(struct pp_hwmgr *hwmgr)
+ 		kfree(hwmgr->smu_backend);
+ 		hwmgr->smu_backend = NULL;
+ 	}
++
+ 	return 0;
+ }
+ 
+-- 
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0016031117==--
