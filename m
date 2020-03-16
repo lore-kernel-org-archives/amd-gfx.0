@@ -2,43 +2,41 @@ Return-Path: <SRS0=rOad=5B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3854BC3F2CE
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D11DDC0044D
 	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 13:07:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 17E4A205ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 13:07:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 17E4A205ED
+	by mail.kernel.org (Postfix) with ESMTPS id AB2D8205ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 13:07:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB2D8205ED
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 405FD6E438;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32A136E42C;
 	Mon, 16 Mar 2020 13:06:58 +0000 (UTC)
-X-Greylist: delayed 420 seconds by postgrey-1.36 at gabe;
- Mon, 16 Mar 2020 09:05:06 UTC
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00C676E394;
- Mon, 16 Mar 2020 09:05:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3A889E65;
+ Mon, 16 Mar 2020 09:06:18 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id C95BF68CFC; Mon, 16 Mar 2020 10:05:03 +0100 (CET)
-Date: Mon, 16 Mar 2020 10:05:03 +0100
+ id 41DA368CFC; Mon, 16 Mar 2020 10:06:16 +0100 (CET)
+Date: Mon, 16 Mar 2020 10:06:16 +0100
 From: Christoph Hellwig <hch@lst.de>
 To: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH  hmm 3/8] mm/hmm: do not call hmm_vma_walk_hole() while
- holding a spinlock
-Message-ID: <20200316090503.GC12439@lst.de>
+Subject: Re: [PATCH  hmm 4/8] mm/hmm: add missing pfns set to
+ hmm_vma_walk_pmd()
+Message-ID: <20200316090616.GD12439@lst.de>
 References: <20200311183506.3997-1-jgg@ziepe.ca>
- <20200311183506.3997-4-jgg@ziepe.ca>
+ <20200311183506.3997-5-jgg@ziepe.ca>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200311183506.3997-4-jgg@ziepe.ca>
+In-Reply-To: <20200311183506.3997-5-jgg@ziepe.ca>
 User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Mailman-Approved-At: Mon, 16 Mar 2020 13:06:56 +0000
+X-Mailman-Approved-At: Mon, 16 Mar 2020 13:06:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,28 +50,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Philip Yang <Philip.Yang@amd.com>, Ralph Campbell <rcampbell@nvidia.com>,
  John Hubbard <jhubbard@nvidia.com>, Felix.Kuehling@amd.com,
- dri-devel@lists.freedesktop.org, Steven Price <steven.price@arm.com>,
- linux-mm@kvack.org, Jerome Glisse <jglisse@redhat.com>,
- Jason Gunthorpe <jgg@mellanox.com>, amd-gfx@lists.freedesktop.org,
- Christoph Hellwig <hch@lst.de>
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ Jerome Glisse <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>,
+ amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@lst.de>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 11, 2020 at 03:35:01PM -0300, Jason Gunthorpe wrote:
+On Wed, Mar 11, 2020 at 03:35:02PM -0300, Jason Gunthorpe wrote:
 > From: Jason Gunthorpe <jgg@mellanox.com>
 > 
-> This eventually calls into handle_mm_fault() which is a sleeping function.
-> Release the lock first.
+> All success exit paths from the walker functions must set the pfns array.
 > 
-> hmm_vma_walk_hole() does not touch the contents of the PUD, so it does not
-> need the lock.
+> A migration entry with no required fault is a HMM_PFN_NONE return, just
+> like the pte case.
+> 
+> Fixes: d08faca018c4 ("mm/hmm: properly handle migration pmd")
+> Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 
-So how did this manage to not be noticed before?
-
-The fix looks fine assuming we want something backportable before
-starting the cleanups:
+Looks good,
 
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 _______________________________________________
