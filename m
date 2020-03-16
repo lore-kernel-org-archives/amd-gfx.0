@@ -2,41 +2,107 @@ Return-Path: <SRS0=rOad=5B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D11DDC0044D
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 13:07:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89E2DC18E5B
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 13:07:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB2D8205ED
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 13:07:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB2D8205ED
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 56FF4205ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 13:07:05 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=Mellanox.com header.i=@Mellanox.com header.b="N7Qzf6lf"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56FF4205ED
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=mellanox.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32A136E42C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BB256E43A;
 	Mon, 16 Mar 2020 13:06:58 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E3A889E65;
- Mon, 16 Mar 2020 09:06:18 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 41DA368CFC; Mon, 16 Mar 2020 10:06:16 +0100 (CET)
-Date: Mon, 16 Mar 2020 10:06:16 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH  hmm 4/8] mm/hmm: add missing pfns set to
- hmm_vma_walk_pmd()
-Message-ID: <20200316090616.GD12439@lst.de>
+Received: from EUR03-DB5-obe.outbound.protection.outlook.com
+ (mail-eopbgr40047.outbound.protection.outlook.com [40.107.4.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72B596E40B;
+ Mon, 16 Mar 2020 12:10:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=AgAxFjC189JT204FG4c39K0OyuAHhb/2Tviwaeh49Ssw/eP9uQ8UhdITjr3euntU74GFTvaTqJe253xgsHZDR2PTuWrMuhcC7pVQoqy1cYl9Sy7qgvygXdl7mARUFT+1rVhDEox35Vr4wv+Sxp4uafTpkW+sEM0AJTitFaJGkl4vLwm3MHiC68s1HdJWrJ3gOpS1207jxH7LSmjhHAvM+igopDTpCXjAh4XUTKkEf9SSeBPcPMNEbQU3/YF71KhYHThKabJcbnOeFb0Qvjxd9csqWi/1pBPZiqJ8E1bsM3EfUSPyuC8xWT7Xu18/NBxVRvB+3+zjAzLAU+MIBOFBHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tEGm9xpmWlZjTUrbcpnqPqZzNgAyx3iwzRQ8hYSfU5o=;
+ b=epMzz+wUaMnO295jlGkdmJOh1dLcMmtLMHcIoUOChFdvsiiCJtOkGcbAndt6shY6DMm9mT+tC4cAEgRSA3qYYVfG1SpLUQTsF0Ky/5tFCRvQgb9bUEbR4AOmbpftM6Ljo9vUeI0l6wVo6klOx82OmelfjkzD3hfXJR82tnAB5TUx0Px6soAqdQOxSJoNMMsMvTDhO0wOL/JzCK4qg3lhNxtLX8FXHNjcm34J09yZIZj0BpmGk3JS9aJS9dFbfLKNPYDH20nVGMVqVjmBvS9eMJW9pT2fbSeoz8LHoZ+wpB3D/rm62XZii3gofGRqSXjI6RhrNYK72x00C2/6HWE91A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mellanox.com; dmarc=pass action=none header.from=mellanox.com;
+ dkim=pass header.d=mellanox.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tEGm9xpmWlZjTUrbcpnqPqZzNgAyx3iwzRQ8hYSfU5o=;
+ b=N7Qzf6lfGq9hUMVOLPDxtlSPg9HkdKydPoDfOZEQnUpZcRbEDjfoWzfvcb/OxlGsK8dYG+fxdQ2biKoeBVMclHeG/MN27qmLNA8K/+Z3Koocc04er+FEtwthr+RsZ+Hbbt3fad34kv6PQnj2/cqDJDQvp9gg0SQb4M8ZLi1r3d4=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=jgg@mellanox.com; 
+Received: from VI1PR05MB4141.eurprd05.prod.outlook.com (52.133.14.15) by
+ VI1PR05MB6832.eurprd05.prod.outlook.com (10.186.162.85) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2814.18; Mon, 16 Mar 2020 12:10:57 +0000
+Received: from VI1PR05MB4141.eurprd05.prod.outlook.com
+ ([fe80::18d2:a9ea:519:add3]) by VI1PR05MB4141.eurprd05.prod.outlook.com
+ ([fe80::18d2:a9ea:519:add3%7]) with mapi id 15.20.2814.021; Mon, 16 Mar 2020
+ 12:10:57 +0000
+Date: Mon, 16 Mar 2020 09:10:53 -0300
+From: Jason Gunthorpe <jgg@mellanox.com>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH  hmm 8/8] mm/hmm: add missing call to hmm_pte_need_fault
+ in HMM_PFN_SPECIAL handling
+Message-ID: <20200316121053.GP13183@mellanox.com>
 References: <20200311183506.3997-1-jgg@ziepe.ca>
- <20200311183506.3997-5-jgg@ziepe.ca>
-MIME-Version: 1.0
+ <20200311183506.3997-9-jgg@ziepe.ca>
+ <20200316091347.GH12439@lst.de>
 Content-Disposition: inline
-In-Reply-To: <20200311183506.3997-5-jgg@ziepe.ca>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Mailman-Approved-At: Mon, 16 Mar 2020 13:06:57 +0000
+In-Reply-To: <20200316091347.GH12439@lst.de>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: MN2PR03CA0008.namprd03.prod.outlook.com
+ (2603:10b6:208:23a::13) To VI1PR05MB4141.eurprd05.prod.outlook.com
+ (2603:10a6:803:44::15)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (142.68.57.212) by
+ MN2PR03CA0008.namprd03.prod.outlook.com (2603:10b6:208:23a::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2814.18 via Frontend
+ Transport; Mon, 16 Mar 2020 12:10:56 +0000
+Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)	(envelope-from
+ <jgg@mellanox.com>)	id 1jDoa5-0003GT-7Z; Mon, 16 Mar 2020 09:10:53 -0300
+X-Originating-IP: [142.68.57.212]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 7a64ac4e-ec7e-425c-5948-08d7c9a3150b
+X-MS-TrafficTypeDiagnostic: VI1PR05MB6832:
+X-Microsoft-Antispam-PRVS: <VI1PR05MB6832FDFDE71978FC40798BA0CFF90@VI1PR05MB6832.eurprd05.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-Forefront-PRVS: 03449D5DD1
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(366004)(39860400002)(396003)(346002)(136003)(376002)(199004)(26005)(478600001)(86362001)(2906002)(1076003)(52116002)(4326008)(9746002)(9786002)(2616005)(6916009)(81166006)(81156014)(8676002)(186003)(5660300002)(36756003)(54906003)(316002)(8936002)(66556008)(66946007)(66476007)(33656002)(24400500001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR05MB6832;
+ H:VI1PR05MB4141.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; 
+Received-SPF: None (protection.outlook.com: mellanox.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Ty/widVq5bdhK0XNNgONW9DTCCXLLMlu4iXPRVJDP36+bYthywVvd3FCrBez/KC0eigseSXUBlMtwZ5JT0iLn3F1LMZPrFTalE+y02PwK0O1voboUWitBW/EyClpo5V3VQ+Hh2briKNyXW2vwFB8duqgIj5XHB9TKGrCS2U1Q+8PbyU/d/uYjwSsxSpU4s4Zr32xjApDIEexgzV8jhAXRcf1QvkCY8rLj2mabDTu+wntUCtiQsK/Lfp1om8zdjLhlsafNsKUP88lfXuzt8X7+csa7pc50QIBMbRkk2whYCf2qX5tcqs0AKnkqDqesVUyzj3wzvNzIuZJklcnTliK9aym8oEzHsjDHGgM4VjZtKSoSek79YthfueRiZ+7ESU4wYKEaJ27U7VBZw4qvajKk4DRlMDoM/u6M1dy8Y7Z8Y76tV7KGwVc/RFbNciSmxHDpYcBP/WdwTOK+y1XjUG9578eELP+C48iTqaHd43YE9QvGymXHPvricnRiJLltEh5
+X-MS-Exchange-AntiSpam-MessageData: sPR9tINNihZBVS7xRndJEGWeye4Q9lkCUs/YKZCDk83PgD8ykAEsksk/bpfV42zpfKQ3X2KixemFJrYJd9833bNlfAx0L3FOBI0Lr5euriD9vp7v36vhJOHzcyvQ9/iOE7y13/CBtj5FpeNbie/AJg==
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a64ac4e-ec7e-425c-5948-08d7c9a3150b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2020 12:10:56.9180 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yFPDpIoc/ejUF5ktrOgySYFV1MeFSIENdXj6Faf8FoaazpAUrBRW4qCuUahbJeRDFxZM65JANikBCvaNdu5W/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB6832
+X-Mailman-Approved-At: Mon, 16 Mar 2020 13:06:56 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,27 +117,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Cc: Philip Yang <Philip.Yang@amd.com>, Ralph Campbell <rcampbell@nvidia.com>,
  John Hubbard <jhubbard@nvidia.com>, Felix.Kuehling@amd.com,
  dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- Jerome Glisse <jglisse@redhat.com>, Jason Gunthorpe <jgg@mellanox.com>,
- amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@lst.de>
+ Jerome Glisse <jglisse@redhat.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 11, 2020 at 03:35:02PM -0300, Jason Gunthorpe wrote:
-> From: Jason Gunthorpe <jgg@mellanox.com>
+On Mon, Mar 16, 2020 at 10:13:47AM +0100, Christoph Hellwig wrote:
+> On Wed, Mar 11, 2020 at 03:35:06PM -0300, Jason Gunthorpe wrote:
+> > From: Jason Gunthorpe <jgg@mellanox.com>
+> > 
+> > Currently if a special PTE is encountered hmm_range_fault() immediately
+> > returns EFAULT and sets the HMM_PFN_SPECIAL error output (which nothing
+> > uses).
+> > 
+> > EFAULT should only be returned after testing with hmm_pte_need_fault().
+> > 
+> > Also pte_devmap() and pte_special() are exclusive, and there is no need to
+> > check IS_ENABLED, pte_special() is stubbed out to return false on
+> > unsupported architectures.
 > 
-> All success exit paths from the walker functions must set the pfns array.
-> 
-> A migration entry with no required fault is a HMM_PFN_NONE return, just
-> like the pte case.
-> 
-> Fixes: d08faca018c4 ("mm/hmm: properly handle migration pmd")
-> Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
+> I think the right fix is to just kill HMM_PFN_SPECIAL and treat any
+> fault on special ptes that aren't the zero page as an error.
+ 
+I have another series that is doing that - this change is to make the
+next series make sense and not introduce new control logic too.
 
-Looks good,
+Even when this is switched to ERROR it still needs to have the
+hmm_range_fault() logic this patch introduces.
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Thanks,
+Jason
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
