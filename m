@@ -2,79 +2,73 @@ Return-Path: <SRS0=rOad=5B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 47A55C0044D
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 18:37:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86DD9C0044D
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 18:42:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 15C6520679
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 18:37:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 562C920719
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 18:42:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="DCjng0Ea"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15C6520679
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="j4e7ucJv"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 562C920719
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF49A6E49F;
-	Mon, 16 Mar 2020 18:37:02 +0000 (UTC)
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 743B06E49F
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2020 18:25:42 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id e20so15118354qto.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2020 11:25:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=iJWE8TrI0ffeC3Sw+RcRtUnbRu8X59xIzG4mlob+7fY=;
- b=DCjng0Eaj6HsbWcNiFCJF+xC8Xk9BgVsXDx62rgE7yz5SfveIj38SorIiCEOoUa7js
- Q4IVmYevLv2UGcYf/mLcOQPXQR1t+P5y4tyU7bFUWKuRBb2vNiRnjus7GrAdRYxq1kjp
- B6J4OhOvN84SzJIorUukFE1+lOLMcgI5ZzqhXw4t5UP43h7gYy64UuehQbk65HUtIw/U
- nZKwNGJHtutDw5YNRYbjC+GLSeDNDgi86fScXxkugNWCbP/7BMGRkIuJUBUekRkN0TJK
- s75Fb2QVxt7azd3VwTD3WiKDxav8shUm08cY0MvWn1oEkMv5eKiwv2dZcqpCf8thyMpe
- qlMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=iJWE8TrI0ffeC3Sw+RcRtUnbRu8X59xIzG4mlob+7fY=;
- b=hpEsIFLX/ee90R6WSGcq420VM4EXSSl/RVreAVsbsKfrOePUFOsbiujnpAVKb0NhUc
- fSXUaRR+ZuJQQrgfapnoCf0qiymqTBxnRIyCbbD6BfBfYG4E1rRgAUUTRHmXKlA15ELB
- D5m8j0ayetQoD5tUeTdo27b8LaST+tvOx273qBc4LG/oXOLjnW+FnbSUAIsiT6q4ng+m
- sfxKa5X4tg58ExTWI63rfPY56c7Sm3aG4zi4uOwQuYGouyD/x9/JHbcfpvnP0jDIWzC9
- dgs/IMpsuLnNNsGQNB6SjSOSufs7D5R/8fXDspeqXZk40MOCX6P/rRCmwYgHBynvt8bR
- vI4Q==
-X-Gm-Message-State: ANhLgQ0XUeFbw59/y94871uAjkWpJLZNAQQ57l16iGEnrpRIvljEESlS
- xEOYM+QnNr/wGHKN1DU3YquOLw==
-X-Google-Smtp-Source: ADFU+vvfq4yHOpYtgjLPPUevf/Pne0zhXSDrRxuWoEydOpikvFwyL2cJYI4Bk8hFq8xZPBXAVYBn7A==
-X-Received: by 2002:ac8:1196:: with SMTP id d22mr1498877qtj.344.1584383141614; 
- Mon, 16 Mar 2020 11:25:41 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id q24sm361232qtk.45.2020.03.16.11.25.41
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 16 Mar 2020 11:25:41 -0700 (PDT)
-Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
- (envelope-from <jgg@ziepe.ca>)
- id 1jDuQm-0005aw-Bf; Mon, 16 Mar 2020 15:25:40 -0300
-Date: Mon, 16 Mar 2020 15:25:40 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Jerome Glisse <jglisse@redhat.com>,
- Ralph Campbell <rcampbell@nvidia.com>, Felix.Kuehling@amd.com
-Subject: Re: [PATCH  hmm 0/8] Various error case bug fixes for
- hmm_range_fault()
-Message-ID: <20200316182540.GA21434@ziepe.ca>
-References: <20200311183506.3997-1-jgg@ziepe.ca>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 834F76E492;
+	Mon, 16 Mar 2020 18:42:45 +0000 (UTC)
+Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
+ [216.228.121.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A110389FD4;
+ Mon, 16 Mar 2020 18:42:43 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate26.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e6fc8950001>; Mon, 16 Mar 2020 11:42:29 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Mon, 16 Mar 2020 11:42:42 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Mon, 16 Mar 2020 11:42:42 -0700
+Received: from rcampbell-dev.nvidia.com (172.20.13.39) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Mon, 16 Mar 2020 18:42:42 +0000
+Subject: Re: [PATCH 2/2] mm: remove device private page support from
+ hmm_range_fault
+To: Christoph Hellwig <hch@lst.de>, Jason Gunthorpe <jgg@ziepe.ca>, Dan
+ Williams <dan.j.williams@intel.com>, Bharata B Rao <bharata@linux.ibm.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Ben Skeggs
+ <bskeggs@redhat.com>
+References: <20200316175259.908713-1-hch@lst.de>
+ <20200316175259.908713-3-hch@lst.de>
+X-Nvconfidentiality: public
+From: Ralph Campbell <rcampbell@nvidia.com>
+Message-ID: <c099cc3c-c19f-9d61-4297-2e83df899ca4@nvidia.com>
+Date: Mon, 16 Mar 2020 11:42:19 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200311183506.3997-1-jgg@ziepe.ca>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Mon, 16 Mar 2020 18:37:01 +0000
+In-Reply-To: <20200316175259.908713-3-hch@lst.de>
+X-Originating-IP: [172.20.13.39]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1584384149; bh=B94TV8X7ko7Pix5Sd8galzczCBn2KhQ2ZY6X5Asx6X8=;
+ h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
+ Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+ X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=j4e7ucJv25vdvLHdnyJRo/nbNWu7R7E5t+GpT69/n/YRNYsFKNv6jPGbT9PDij1Yv
+ 32sPUxUPadDensRW6JTdPjtHyc0ZDNBTc/urNzfCIJD5uiF+nB39iIN6DJlyPSLK9k
+ BOAEBXVIx4Iuru7wnTT6qRjULqd2skJbh73AZjcQHiSv/eQO5aIlw9YbO8lKWY7eos
+ YUrv1eL/Ji/8ZfuUop+bKlpuwfRU7Mwt/qb3f45XaPKxdxmOYePs7XugFLt1ovcxeC
+ ZiY1XBR43/FSV3x/gGWSjIYVhU9YePPg5rFbTmgk7Bo1prHtDtCIRf/a/KYaZMt2jH
+ VyO1pKjAVdq2w==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,71 +80,195 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, John Hubbard <jhubbard@nvidia.com>,
- amd-gfx@lists.freedesktop.org, linux-mm@kvack.org,
- dri-devel@lists.freedesktop.org, Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="us-ascii"
+Cc: kvm-ppc@vger.kernel.org, nouveau@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ Jerome Glisse <jglisse@redhat.com>, amd-gfx@lists.freedesktop.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 11, 2020 at 03:34:58PM -0300, Jason Gunthorpe wrote:
-> From: Jason Gunthorpe <jgg@mellanox.com>
-> 
-> The hmm_range_fault() flow is fairly complicated. The scheme allows the
-> caller to specify if it needs a usable result for each page, or if it only
-> needs the current page table status filled in. This mixture of behavior is
-> useful for a caller that wants to build a 'prefetch around fault'
-> algorithm.
-> 
-> Although we have no in-tree users of this capability, I am working on
-> having RDMA ODP work in this manner, and removing these bugs from
-> hmm_range_fault() is a necessary step.
-> 
-> The basic principles are:
-> 
->  - If the caller did not ask for a VA to be valid then hmm_range_fault()
->    should not fail because of that VA
-> 
->  - If 0 is returned from hmm_range_fault() then the entire pfns array
->    contains valid data
-> 
->  - HMM_PFN_ERROR is set if faulting fails, or if asking for faulting
->    would fail
-> 
->  - A 0 return from hmm_range_fault() does not have HMM_PFN_ERROR in any
->    VA's the caller asked to be valid
-> 
-> This series does not get there completely, I have a followup series
-> closing some more complex cases.
-> 
-> I tested this series using Ralph's hmm tester he posted a while back,
-> other testing would be appreciated.
-> 
-> Jason Gunthorpe (8):
->   mm/hmm: add missing unmaps of the ptep during hmm_vma_handle_pte()
->   mm/hmm: do not call hmm_vma_walk_hole() while holding a spinlock
->   mm/hmm: add missing pfns set to hmm_vma_walk_pmd()
->   mm/hmm: add missing call to hmm_range_need_fault() before returning
->     EFAULT
->   mm/hmm: reorganize how !pte_present is handled in hmm_vma_handle_pte()
->   mm/hmm: return -EFAULT when setting HMM_PFN_ERROR on requested valid
->     pages
->   mm/hmm: add missing call to hmm_pte_need_fault in HMM_PFN_SPECIAL
->     handling
->   mm/hmm: do not check pmd_protnone twice in hmm_vma_handle_pmd()
 
-I moved these toward linux-next, if others have remarks or tags please
-feel free to continue.
+On 3/16/20 10:52 AM, Christoph Hellwig wrote:
+> No driver has actually used properly wire up and support this feature.
+> There is various code related to it in nouveau, but as far as I can tell
+> it never actually got turned on, and the only changes since the initial
+> commit are global cleanups.
 
->   mm/hmm: don't free the cached pgmap while scanning
+This is not actually true. OpenCL 2.x does support SVM with nouveau and
+device private memory via clEnqueueSVMMigrateMem().
+Also, Ben Skeggs has accepted a set of patches to map GPU memory after being
+migrated and this change would conflict with that.
 
-I will respin
 
-Thank you all for the reviews!
-
-Regards,
-Jason
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  1 -
+>   drivers/gpu/drm/nouveau/nouveau_dmem.c  | 37 -------------------------
+>   drivers/gpu/drm/nouveau/nouveau_dmem.h  |  2 --
+>   drivers/gpu/drm/nouveau/nouveau_svm.c   |  3 --
+>   include/linux/hmm.h                     |  2 --
+>   mm/hmm.c                                | 28 -------------------
+>   6 files changed, 73 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index dee446278417..90821ce5e6ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -776,7 +776,6 @@ struct amdgpu_ttm_tt {
+>   static const uint64_t hmm_range_flags[HMM_PFN_FLAG_MAX] = {
+>   	(1 << 0), /* HMM_PFN_VALID */
+>   	(1 << 1), /* HMM_PFN_WRITE */
+> -	0 /* HMM_PFN_DEVICE_PRIVATE */
+>   };
+>   
+>   static const uint64_t hmm_range_values[HMM_PFN_VALUE_MAX] = {
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+> index 7605c4c48985..42808efceaf2 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
+> @@ -671,40 +671,3 @@ nouveau_dmem_migrate_vma(struct nouveau_drm *drm,
+>   out:
+>   	return ret;
+>   }
+> -
+> -static inline bool
+> -nouveau_dmem_page(struct nouveau_drm *drm, struct page *page)
+> -{
+> -	return is_device_private_page(page) && drm->dmem == page_to_dmem(page);
+> -}
+> -
+> -void
+> -nouveau_dmem_convert_pfn(struct nouveau_drm *drm,
+> -			 struct hmm_range *range)
+> -{
+> -	unsigned long i, npages;
+> -
+> -	npages = (range->end - range->start) >> PAGE_SHIFT;
+> -	for (i = 0; i < npages; ++i) {
+> -		struct page *page;
+> -		uint64_t addr;
+> -
+> -		page = hmm_device_entry_to_page(range, range->pfns[i]);
+> -		if (page == NULL)
+> -			continue;
+> -
+> -		if (!(range->pfns[i] & range->flags[HMM_PFN_DEVICE_PRIVATE])) {
+> -			continue;
+> -		}
+> -
+> -		if (!nouveau_dmem_page(drm, page)) {
+> -			WARN(1, "Some unknown device memory !\n");
+> -			range->pfns[i] = 0;
+> -			continue;
+> -		}
+> -
+> -		addr = nouveau_dmem_page_addr(page);
+> -		range->pfns[i] &= ((1UL << range->pfn_shift) - 1);
+> -		range->pfns[i] |= (addr >> PAGE_SHIFT) << range->pfn_shift;
+> -	}
+> -}
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.h b/drivers/gpu/drm/nouveau/nouveau_dmem.h
+> index 92394be5d649..1ac620b3d4fb 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_dmem.h
+> +++ b/drivers/gpu/drm/nouveau/nouveau_dmem.h
+> @@ -38,8 +38,6 @@ int nouveau_dmem_migrate_vma(struct nouveau_drm *drm,
+>   			     unsigned long start,
+>   			     unsigned long end);
+>   
+> -void nouveau_dmem_convert_pfn(struct nouveau_drm *drm,
+> -			      struct hmm_range *range);
+>   #else /* IS_ENABLED(CONFIG_DRM_NOUVEAU_SVM) */
+>   static inline void nouveau_dmem_init(struct nouveau_drm *drm) {}
+>   static inline void nouveau_dmem_fini(struct nouveau_drm *drm) {}
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
+> index df9bf1fd1bc0..7e0376dca137 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_svm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
+> @@ -367,7 +367,6 @@ static const u64
+>   nouveau_svm_pfn_flags[HMM_PFN_FLAG_MAX] = {
+>   	[HMM_PFN_VALID         ] = NVIF_VMM_PFNMAP_V0_V,
+>   	[HMM_PFN_WRITE         ] = NVIF_VMM_PFNMAP_V0_W,
+> -	[HMM_PFN_DEVICE_PRIVATE] = NVIF_VMM_PFNMAP_V0_VRAM,
+>   };
+>   
+>   static const u64
+> @@ -558,8 +557,6 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
+>   		break;
+>   	}
+>   
+> -	nouveau_dmem_convert_pfn(drm, &range);
+> -
+>   	svmm->vmm->vmm.object.client->super = true;
+>   	ret = nvif_object_ioctl(&svmm->vmm->vmm.object, data, size, NULL);
+>   	svmm->vmm->vmm.object.client->super = false;
+> diff --git a/include/linux/hmm.h b/include/linux/hmm.h
+> index 4bf8d6997b12..5e6034f105c3 100644
+> --- a/include/linux/hmm.h
+> +++ b/include/linux/hmm.h
+> @@ -74,7 +74,6 @@
+>    * Flags:
+>    * HMM_PFN_VALID: pfn is valid. It has, at least, read permission.
+>    * HMM_PFN_WRITE: CPU page table has write permission set
+> - * HMM_PFN_DEVICE_PRIVATE: private device memory (ZONE_DEVICE)
+>    *
+>    * The driver provides a flags array for mapping page protections to device
+>    * PTE bits. If the driver valid bit for an entry is bit 3,
+> @@ -86,7 +85,6 @@
+>   enum hmm_pfn_flag_e {
+>   	HMM_PFN_VALID = 0,
+>   	HMM_PFN_WRITE,
+> -	HMM_PFN_DEVICE_PRIVATE,
+>   	HMM_PFN_FLAG_MAX
+>   };
+>   
+> diff --git a/mm/hmm.c b/mm/hmm.c
+> index 180e398170b0..3d10485bf323 100644
+> --- a/mm/hmm.c
+> +++ b/mm/hmm.c
+> @@ -118,15 +118,6 @@ static inline void hmm_pte_need_fault(const struct hmm_vma_walk *hmm_vma_walk,
+>   	/* We aren't ask to do anything ... */
+>   	if (!(pfns & range->flags[HMM_PFN_VALID]))
+>   		return;
+> -	/* If this is device memory then only fault if explicitly requested */
+> -	if ((cpu_flags & range->flags[HMM_PFN_DEVICE_PRIVATE])) {
+> -		/* Do we fault on device memory ? */
+> -		if (pfns & range->flags[HMM_PFN_DEVICE_PRIVATE]) {
+> -			*write_fault = pfns & range->flags[HMM_PFN_WRITE];
+> -			*fault = true;
+> -		}
+> -		return;
+> -	}
+>   
+>   	/* If CPU page table is not valid then we need to fault */
+>   	*fault = !(cpu_flags & range->flags[HMM_PFN_VALID]);
+> @@ -259,25 +250,6 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+>   	if (!pte_present(pte)) {
+>   		swp_entry_t entry = pte_to_swp_entry(pte);
+>   
+> -		/*
+> -		 * This is a special swap entry, ignore migration, use
+> -		 * device and report anything else as error.
+> -		 */
+> -		if (is_device_private_entry(entry)) {
+> -			cpu_flags = range->flags[HMM_PFN_VALID] |
+> -				range->flags[HMM_PFN_DEVICE_PRIVATE];
+> -			cpu_flags |= is_write_device_private_entry(entry) ?
+> -				range->flags[HMM_PFN_WRITE] : 0;
+> -			hmm_pte_need_fault(hmm_vma_walk, orig_pfn, cpu_flags,
+> -					   &fault, &write_fault);
+> -			if (fault || write_fault)
+> -				goto fault;
+> -			*pfn = hmm_device_entry_from_pfn(range,
+> -					    swp_offset(entry));
+> -			*pfn |= cpu_flags;
+> -			return 0;
+> -		}
+> -
+>   		hmm_pte_need_fault(hmm_vma_walk, orig_pfn, 0, &fault,
+>   				   &write_fault);
+>   		if (!fault && !write_fault)
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
