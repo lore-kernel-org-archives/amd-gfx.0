@@ -7,53 +7,54 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F3D8C0044D
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 19:36:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E338AC0044D
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 19:38:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 31D6820674
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 19:36:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B09F620769
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 19:38:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="oEHEcwlD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 31D6820674
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="t+WBqoMR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B09F620769
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5B346E4C9;
-	Mon, 16 Mar 2020 19:35:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 685736E40C;
+	Mon, 16 Mar 2020 19:38:06 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E0A56E214;
- Mon, 16 Mar 2020 19:32:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BC476E40C;
+ Mon, 16 Mar 2020 19:36:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=4gaTFJs/l9N8IeQMQi7DOyHD1CPLDY/nz5Zeu/uMNCU=; b=oEHEcwlD88rLBGohYprCQEAAgf
- HCglg57j6YbWxMQ22C8YyUXtRbsGd1W/FJ1f793/E+7o8EC3qy/ThsQ9MEqZTb9oL/KRVqjarX3o5
- VGJMJpnkyaCqfdcxcNDeqGKflR3tAaU4Mvz0Z7dXn4raeJeEz2Mu097skFYa2NmSkHL/Yb/UZeX/x
- dLst1Tr1iwFwkUj0h8I3nbwlnxyWkTyNyehKoWvsHFLSc6M73sLPL09j41pPjGNP3XofxH1N7AYVS
- puYeetoypX8PAC2xhtd239cqs6kbXSpXceIk27vNdraVVTe7pU9R3Uzmy/eUwcQ4Shv5Phg5NXgsN
- p8K8zWoA==;
-Received: from [2001:4bb8:188:30cd:8026:d98c:a056:3e33] (helo=localhost)
+ bh=Tabi3VaB35wO0dKz/HPf0fwGujEMouYj0SOz1efF65E=; b=t+WBqoMRGwN6Le048kH8FgJyJt
+ 1pbKsThDZHr+bZTpD+XEgFMA7wfDCUzMh6rn7JJNm+UgWPmBb8p8npStYC3/LGkaNUC5NFGa3tT4e
+ QXzA9stUoWtn7ijfUA0UVCW1I/HGTeTQg0XJ2djb+Oa2TBhMJoCBeFlV+lhIDoEkw9NBMwxD78eaw
+ f/u22FVYmTT21fH0p3mYHXmNTYCGHPFzjBCYxnHMRbpc2PY0vNmvnZK3dxuFFMuBK87TSzzyrqPNt
+ llVQnf4OND0EgSCrR8bDNJiYBqZ4edKPYdQqvtiRgp+t4mau45I5wB8l9bJMGJB1fN9PD6JmmwCiG
+ 7weWV6rw==;
+Received: from 089144202225.atnat0011.highway.a1.net ([89.144.202.225]
+ helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jDvTI-0003bC-LS; Mon, 16 Mar 2020 19:32:21 +0000
+ id 1jDvXd-0005Hn-OG; Mon, 16 Mar 2020 19:36:50 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jason Gunthorpe <jgg@ziepe.ca>, Dan Williams <dan.j.williams@intel.com>,
  Bharata B Rao <bharata@linux.ibm.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Ben Skeggs <bskeggs@redhat.com>
-Subject: [PATCH 1/4] memremap: add an owner field to struct dev_pagemap
-Date: Mon, 16 Mar 2020 20:32:13 +0100
-Message-Id: <20200316193216.920734-2-hch@lst.de>
+Subject: [PATCH 4/4] mm: check the device private page owner in hmm_range_fault
+Date: Mon, 16 Mar 2020 20:32:16 +0100
+Message-Id: <20200316193216.920734-5-hch@lst.de>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200316193216.920734-1-hch@lst.de>
 References: <20200316193216.920734-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Mailman-Approved-At: Mon, 16 Mar 2020 19:35:56 +0000
+X-Mailman-Approved-At: Mon, 16 Mar 2020 19:38:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,80 +74,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a new opaque owner field to struct dev_pagemap, which will allow
-the hmm and migrate_vma code to identify who owns ZONE_DEVICE memory,
-and refuse to work on mappings not owned by the calling entity.
+Hmm range fault will succeed for any kind of device private memory,
+even if it doesn't belong to the calling entity.  While nouveau
+has some crude checks for that, they are broken because they assume
+nouveau is the only user of device private memory.  Fix this by
+passing in an expected pgmap owner in the hmm_range_fault structure.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
+Fixes: 4ef589dc9b10 ("mm/hmm/devmem: device memory hotplug using ZONE_DEVICE")
 ---
- arch/powerpc/kvm/book3s_hv_uvmem.c     | 2 ++
- drivers/gpu/drm/nouveau/nouveau_dmem.c | 1 +
- include/linux/memremap.h               | 4 ++++
- mm/memremap.c                          | 4 ++++
- 4 files changed, 11 insertions(+)
+ drivers/gpu/drm/nouveau/nouveau_dmem.c | 12 ------------
+ include/linux/hmm.h                    |  2 ++
+ mm/hmm.c                               | 10 +++++++++-
+ 3 files changed, 11 insertions(+), 13 deletions(-)
 
-diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
-index 79b1202b1c62..67fefb03b9b7 100644
---- a/arch/powerpc/kvm/book3s_hv_uvmem.c
-+++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
-@@ -779,6 +779,8 @@ int kvmppc_uvmem_init(void)
- 	kvmppc_uvmem_pgmap.type = MEMORY_DEVICE_PRIVATE;
- 	kvmppc_uvmem_pgmap.res = *res;
- 	kvmppc_uvmem_pgmap.ops = &kvmppc_uvmem_ops;
-+	/* just one global instance: */
-+	kvmppc_uvmem_pgmap.owner = &kvmppc_uvmem_pgmap;
- 	addr = memremap_pages(&kvmppc_uvmem_pgmap, NUMA_NO_NODE);
- 	if (IS_ERR(addr)) {
- 		ret = PTR_ERR(addr);
 diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-index 0ad5d87b5a8e..a4682272586e 100644
+index edfd0805fba4..ad89e09a0be3 100644
 --- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
 +++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-@@ -526,6 +526,7 @@ nouveau_dmem_init(struct nouveau_drm *drm)
- 	drm->dmem->pagemap.type = MEMORY_DEVICE_PRIVATE;
- 	drm->dmem->pagemap.res = *res;
- 	drm->dmem->pagemap.ops = &nouveau_dmem_pagemap_ops;
-+	drm->dmem->pagemap.owner = drm->dev;
- 	if (IS_ERR(devm_memremap_pages(device, &drm->dmem->pagemap)))
- 		goto out_free;
+@@ -672,12 +672,6 @@ nouveau_dmem_migrate_vma(struct nouveau_drm *drm,
+ 	return ret;
+ }
  
-diff --git a/include/linux/memremap.h b/include/linux/memremap.h
-index 6fefb09af7c3..60d97e8fd3c0 100644
---- a/include/linux/memremap.h
-+++ b/include/linux/memremap.h
-@@ -103,6 +103,9 @@ struct dev_pagemap_ops {
-  * @type: memory type: see MEMORY_* in memory_hotplug.h
-  * @flags: PGMAP_* flags to specify defailed behavior
-  * @ops: method table
-+ * @owner: an opaque pointer identifying the entity that manages this
-+ *	instance.  Used by various helpers to make sure that no
-+ *	foreign ZONE_DEVICE memory is accessed.
+-static inline bool
+-nouveau_dmem_page(struct nouveau_drm *drm, struct page *page)
+-{
+-	return is_device_private_page(page) && drm->dmem == page_to_dmem(page);
+-}
+-
+ void
+ nouveau_dmem_convert_pfn(struct nouveau_drm *drm,
+ 			 struct hmm_range *range)
+@@ -696,12 +690,6 @@ nouveau_dmem_convert_pfn(struct nouveau_drm *drm,
+ 		if (!is_device_private_page(page))
+ 			continue;
+ 
+-		if (!nouveau_dmem_page(drm, page)) {
+-			WARN(1, "Some unknown device memory !\n");
+-			range->pfns[i] = 0;
+-			continue;
+-		}
+-
+ 		addr = nouveau_dmem_page_addr(page);
+ 		range->pfns[i] &= ((1UL << range->pfn_shift) - 1);
+ 		range->pfns[i] |= (addr >> PAGE_SHIFT) << range->pfn_shift;
+diff --git a/include/linux/hmm.h b/include/linux/hmm.h
+index 5e6034f105c3..bb6be4428633 100644
+--- a/include/linux/hmm.h
++++ b/include/linux/hmm.h
+@@ -132,6 +132,7 @@ enum hmm_pfn_value_e {
+  * @pfn_flags_mask: allows to mask pfn flags so that only default_flags matter
+  * @pfn_shifts: pfn shift value (should be <= PAGE_SHIFT)
+  * @valid: pfns array did not change since it has been fill by an HMM function
++ * @dev_private_owner: owner of device private pages
   */
- struct dev_pagemap {
- 	struct vmem_altmap altmap;
-@@ -113,6 +116,7 @@ struct dev_pagemap {
- 	enum memory_type type;
- 	unsigned int flags;
- 	const struct dev_pagemap_ops *ops;
-+	void *owner;
+ struct hmm_range {
+ 	struct mmu_interval_notifier *notifier;
+@@ -144,6 +145,7 @@ struct hmm_range {
+ 	uint64_t		default_flags;
+ 	uint64_t		pfn_flags_mask;
+ 	uint8_t			pfn_shift;
++	void			*dev_private_owner;
  };
  
- static inline struct vmem_altmap *pgmap_altmap(struct dev_pagemap *pgmap)
-diff --git a/mm/memremap.c b/mm/memremap.c
-index 09b5b7adc773..9b2c97ceb775 100644
---- a/mm/memremap.c
-+++ b/mm/memremap.c
-@@ -181,6 +181,10 @@ void *memremap_pages(struct dev_pagemap *pgmap, int nid)
- 			WARN(1, "Missing migrate_to_ram method\n");
- 			return ERR_PTR(-EINVAL);
- 		}
-+		if (!pgmap->owner) {
-+			WARN(1, "Missing owner\n");
-+			return ERR_PTR(-EINVAL);
-+		}
- 		break;
- 	case MEMORY_DEVICE_FS_DAX:
- 		if (!IS_ENABLED(CONFIG_ZONE_DEVICE) ||
+ /*
+diff --git a/mm/hmm.c b/mm/hmm.c
+index cfad65f6a67b..b75b3750e03d 100644
+--- a/mm/hmm.c
++++ b/mm/hmm.c
+@@ -216,6 +216,14 @@ int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
+ 		unsigned long end, uint64_t *pfns, pmd_t pmd);
+ #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
+ 
++static inline bool hmm_is_device_private_entry(struct hmm_range *range,
++		swp_entry_t entry)
++{
++	return is_device_private_entry(entry) &&
++		device_private_entry_to_page(entry)->pgmap->owner ==
++		range->dev_private_owner;
++}
++
+ static inline uint64_t pte_to_hmm_pfn_flags(struct hmm_range *range, pte_t pte)
+ {
+ 	if (pte_none(pte) || !pte_present(pte) || pte_protnone(pte))
+@@ -254,7 +262,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ 		 * Never fault in device private pages pages, but just report
+ 		 * the PFN even if not present.
+ 		 */
+-		if (is_device_private_entry(entry)) {
++		if (hmm_is_device_private_entry(range, entry)) {
+ 			*pfn = hmm_device_entry_from_pfn(range,
+ 					    swp_offset(entry));
+ 			*pfn |= range->flags[HMM_PFN_VALID];
 -- 
 2.24.1
 
