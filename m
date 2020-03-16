@@ -2,78 +2,41 @@ Return-Path: <SRS0=rOad=5B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 734B7C18E5B
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D93D5C0044D
 	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 18:18:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4525B20409
+	by mail.kernel.org (Postfix) with ESMTPS id B998D20409
 	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 18:18:03 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="I9kqfk62"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4525B20409
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B998D20409
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 035476E49D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A7FD6E49F;
 	Mon, 16 Mar 2020 18:18:03 +0000 (UTC)
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 870C06E49D
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2020 18:17:09 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id v15so15096667qto.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2020 11:17:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=AU4sqxSt8W/YsMvcQ8X78B/FW1vBaCpl1FUzRCmrWTk=;
- b=I9kqfk62E7dF323PFh8XunJgdu4qpFvAS1l8ZUCl9A3tutXPqvJqbKiNe+tj0C59gy
- UvZhzm6L+Jz5auSW0YMh4Vg0v7FYOXZVRAu/O8ObdMAqlJuBwg3DLVpLfshmoOUlVf7h
- cpQdspxu4AQfJGqhUDxSStM+eXObVvC/uIh29hn6KdWAl4c/T4zmpRf1yXWZ2dOFtWpH
- hP7CJ2DDVAigxfpsHWrpdwyo/lwkqS4ojrnmbxom8dGEOjRhtpaC8taoW6+yOvvHDlZq
- 4Jbtk6mowDdh1CCy3Nz3yEpp7X0Ml+vcVwbFmHaDPFmmHRa9qVw2l0UQ2c8gxyhWQGTb
- 8NBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=AU4sqxSt8W/YsMvcQ8X78B/FW1vBaCpl1FUzRCmrWTk=;
- b=qWGWVLyxk3kHvtBM29Eebqcl1HKl2WkdUdBpb4bvZz7zPztkQRCvX5ARMCgsQEg7OK
- 3u/+q7QeIdgD60nIb7G8TqNeTOVLray8edSJrbM+L1GXOMc2mcZtP+twBgI+5qpHyIjl
- 4wfnK49QqcFrf2smhw8Pn1M4XtsAfLfdUB+g2yGracW2s65DH2QdKFRucUeAvwr6mhrT
- d8LOJISubzs/DZB9Yl7nStvbE1Kobjaqg+36UJ72KIJTcd0Y2ebxCKJLZ9yIQt4d1x3p
- d5+JOtCPJgwxTMbCDos0I8ZweBGSyLZoo2YudhePhwj2vtsr6YIeqqR/gKR1wHFAUoB1
- AWww==
-X-Gm-Message-State: ANhLgQ0DEv2fAjzYaajSp77Dz7rUKfTcskCqwK4IMNwu03zdpyMpWwr2
- T42Q3CVyutpI9d9HKXP7i/hLdA==
-X-Google-Smtp-Source: ADFU+vufKXH4Rg2LSzA+eIE14Uk1GaxDUelHZyHwAwMBTplSLIhENSdd8YqSQW0Vquak3WGfZNoxUw==
-X-Received: by 2002:ac8:6d19:: with SMTP id o25mr1435634qtt.303.1584382628623; 
- Mon, 16 Mar 2020 11:17:08 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id l4sm297388qkc.26.2020.03.16.11.17.07
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 16 Mar 2020 11:17:08 -0700 (PDT)
-Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
- (envelope-from <jgg@ziepe.ca>)
- id 1jDuIV-0005TT-IP; Mon, 16 Mar 2020 15:17:07 -0300
-Date: Mon, 16 Mar 2020 15:17:07 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH 1/2] mm: handle multiple owners of device private pages
- in migrate_vma
-Message-ID: <20200316181707.GJ20941@ziepe.ca>
-References: <20200316175259.908713-1-hch@lst.de>
- <20200316175259.908713-2-hch@lst.de>
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D05AD6E210;
+ Mon, 16 Mar 2020 18:13:26 +0000 (UTC)
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id 63BBC68BFE; Mon, 16 Mar 2020 19:13:24 +0100 (CET)
+Date: Mon, 16 Mar 2020 19:13:24 +0100
+From: Christoph Hellwig <hch@lst.de>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Subject: Re: [PATCH  hmm 2/8] mm/hmm: don't free the cached pgmap while
+ scanning
+Message-ID: <20200316181324.GA24533@lst.de>
+References: <20200311183506.3997-1-jgg@ziepe.ca>
+ <20200311183506.3997-3-jgg@ziepe.ca> <20200316090250.GB12439@lst.de>
+ <20200316180713.GI20941@ziepe.ca>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200316175259.908713-2-hch@lst.de>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+In-Reply-To: <20200316180713.GI20941@ziepe.ca>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mailman-Approved-At: Mon, 16 Mar 2020 18:18:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,29 +49,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kvm-ppc@vger.kernel.org,
- Bharata B Rao <bharata@linux.ibm.com>, linux-mm@kvack.org,
- Jerome Glisse <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Philip Yang <Philip.Yang@amd.com>, Ralph Campbell <rcampbell@nvidia.com>,
+ John Hubbard <jhubbard@nvidia.com>, Felix.Kuehling@amd.com,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ Jerome Glisse <jglisse@redhat.com>, amd-gfx@lists.freedesktop.org,
+ Christoph Hellwig <hch@lst.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 16, 2020 at 06:52:58PM +0100, Christoph Hellwig wrote:
-> Add a new opaque owner field to struct dev_pagemap, which will allow
-> the hmm and migrate_vma code to identify who owns ZONE_DEVICE memory,
-> and refuse to work on mappings not owned by the calling entity.
-
-Using a pointer seems like a good solution to me.
-
-Is this a bug fix? What is the downside for migrate on pages it
-doesn't work? I'm not up to speed on migrate..
-
-Jason
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gTW9uLCBNYXIgMTYsIDIwMjAgYXQgMDM6MDc6MTNQTSAtMDMwMCwgSmFzb24gR3VudGhvcnBl
+IHdyb3RlOgo+IEkgY2hvc2UgdGhpcyB0byBiZSBzaW1wbGUgd2l0aG91dCBoYXZpbmcgdG8gZ290
+byB1bndpbmQgaXQuCj4gCj4gU28sIGluc3RlYWQgbGlrZSB0aGlzOgoKQXMg0ZVhaWQsIGFuZCBw
+ZXIgdGhlIHByZXZpb3VzIGRpc2N1c3Npb246ICBJIHRoaW5rIGp1c3QgcmVtb3ZpbmcgdGhlCnBn
+bWFwIGxvb2t1cCBpcyB0aGUgcmlnaHQgdGhpbmcgdG8gZG8gaGVyZS4gIFNvbWV0aGluZyBsaWtl
+IHRoaXMgcGF0Y2g6CgpkaWZmIC0tZ2l0IGEvbW0vaG1tLmMgYi9tbS9obW0uYwppbmRleCAzZDEw
+NDg1YmYzMjMuLjlmMTA0OTgxNWQ0NCAxMDA2NDQKLS0tIGEvbW0vaG1tLmMKKysrIGIvbW0vaG1t
+LmMKQEAgLTI4LDcgKzI4LDYgQEAKIAogc3RydWN0IGhtbV92bWFfd2FsayB7CiAJc3RydWN0IGht
+bV9yYW5nZQkqcmFuZ2U7Ci0Jc3RydWN0IGRldl9wYWdlbWFwCSpwZ21hcDsKIAl1bnNpZ25lZCBs
+b25nCQlsYXN0OwogCXVuc2lnbmVkIGludAkJZmxhZ3M7CiB9OwpAQCAtMTk4LDE1ICsxOTcsOCBA
+QCBzdGF0aWMgaW50IGhtbV92bWFfaGFuZGxlX3BtZChzdHJ1Y3QgbW1fd2FsayAqd2FsaywgdW5z
+aWduZWQgbG9uZyBhZGRyLAogCQlyZXR1cm4gaG1tX3ZtYV9mYXVsdChhZGRyLCBlbmQsIGZhdWx0
+LCB3cml0ZV9mYXVsdCwgd2Fsayk7CiAKIAlwZm4gPSBwbWRfcGZuKHBtZCkgKyAoKGFkZHIgJiB+
+UE1EX01BU0spID4+IFBBR0VfU0hJRlQpOwotCWZvciAoaSA9IDA7IGFkZHIgPCBlbmQ7IGFkZHIg
+Kz0gUEFHRV9TSVpFLCBpKyssIHBmbisrKSB7Ci0JCWlmIChwbWRfZGV2bWFwKHBtZCkpIHsKLQkJ
+CWhtbV92bWFfd2Fsay0+cGdtYXAgPSBnZXRfZGV2X3BhZ2VtYXAocGZuLAotCQkJCQkgICAgICBo
+bW1fdm1hX3dhbGstPnBnbWFwKTsKLQkJCWlmICh1bmxpa2VseSghaG1tX3ZtYV93YWxrLT5wZ21h
+cCkpCi0JCQkJcmV0dXJuIC1FQlVTWTsKLQkJfQorCWZvciAoaSA9IDA7IGFkZHIgPCBlbmQ7IGFk
+ZHIgKz0gUEFHRV9TSVpFLCBpKyssIHBmbisrKQogCQlwZm5zW2ldID0gaG1tX2RldmljZV9lbnRy
+eV9mcm9tX3BmbihyYW5nZSwgcGZuKSB8IGNwdV9mbGFnczsKLQl9CiAJaG1tX3ZtYV93YWxrLT5s
+YXN0ID0gZW5kOwogCXJldHVybiAwOwogfQpAQCAtMjc3LDE1ICsyNjksNiBAQCBzdGF0aWMgaW50
+IGhtbV92bWFfaGFuZGxlX3B0ZShzdHJ1Y3QgbW1fd2FsayAqd2FsaywgdW5zaWduZWQgbG9uZyBh
+ZGRyLAogCWlmIChmYXVsdCB8fCB3cml0ZV9mYXVsdCkKIAkJZ290byBmYXVsdDsKIAotCWlmIChw
+dGVfZGV2bWFwKHB0ZSkpIHsKLQkJaG1tX3ZtYV93YWxrLT5wZ21hcCA9IGdldF9kZXZfcGFnZW1h
+cChwdGVfcGZuKHB0ZSksCi0JCQkJCSAgICAgIGhtbV92bWFfd2Fsay0+cGdtYXApOwotCQlpZiAo
+dW5saWtlbHkoIWhtbV92bWFfd2Fsay0+cGdtYXApKSB7Ci0JCQlwdGVfdW5tYXAocHRlcCk7Ci0J
+CQlyZXR1cm4gLUVCVVNZOwotCQl9Ci0JfQotCiAJLyoKIAkgKiBTaW5jZSBlYWNoIGFyY2hpdGVj
+dHVyZSBkZWZpbmVzIGEgc3RydWN0IHBhZ2UgZm9yIHRoZSB6ZXJvIHBhZ2UsIGp1c3QKIAkgKiBm
+YWxsIHRocm91Z2ggYW5kIHRyZWF0IGl0IGxpa2UgYSBub3JtYWwgcGFnZS4KQEAgLTQ1NSwxMiAr
+NDM4LDYgQEAgc3RhdGljIGludCBobW1fdm1hX3dhbGtfcHVkKHB1ZF90ICpwdWRwLCB1bnNpZ25l
+ZCBsb25nIHN0YXJ0LCB1bnNpZ25lZCBsb25nIGVuZCwKIAogCQlwZm4gPSBwdWRfcGZuKHB1ZCkg
+KyAoKGFkZHIgJiB+UFVEX01BU0spID4+IFBBR0VfU0hJRlQpOwogCQlmb3IgKGkgPSAwOyBpIDwg
+bnBhZ2VzOyArK2ksICsrcGZuKSB7Ci0JCQlobW1fdm1hX3dhbGstPnBnbWFwID0gZ2V0X2Rldl9w
+YWdlbWFwKHBmbiwKLQkJCQkJICAgICAgaG1tX3ZtYV93YWxrLT5wZ21hcCk7Ci0JCQlpZiAodW5s
+aWtlbHkoIWhtbV92bWFfd2Fsay0+cGdtYXApKSB7Ci0JCQkJcmV0ID0gLUVCVVNZOwotCQkJCWdv
+dG8gb3V0X3VubG9jazsKLQkJCX0KIAkJCXBmbnNbaV0gPSBobW1fZGV2aWNlX2VudHJ5X2Zyb21f
+cGZuKHJhbmdlLCBwZm4pIHwKIAkJCQkgIGNwdV9mbGFnczsKIAkJfQpAQCAtNjE0LDE1ICs1OTEs
+NiBAQCBsb25nIGhtbV9yYW5nZV9mYXVsdChzdHJ1Y3QgaG1tX3JhbmdlICpyYW5nZSwgdW5zaWdu
+ZWQgaW50IGZsYWdzKQogCQkJcmV0dXJuIC1FQlVTWTsKIAkJcmV0ID0gd2Fsa19wYWdlX3Jhbmdl
+KG1tLCBobW1fdm1hX3dhbGsubGFzdCwgcmFuZ2UtPmVuZCwKIAkJCQkgICAgICAmaG1tX3dhbGtf
+b3BzLCAmaG1tX3ZtYV93YWxrKTsKLQkJLyoKLQkJICogQSBwZ21hcCBpcyBrZXB0IGNhY2hlZCBp
+biB0aGUgaG1tX3ZtYV93YWxrIHRvIGF2b2lkIGV4cGVuc2l2ZQotCQkgKiBzZWFyY2hpbmcgaW4g
+dGhlIHByb2JhYmx5IGNvbW1vbiBjYXNlIHRoYXQgdGhlIHBnbWFwIGlzIHRoZQotCQkgKiBzYW1l
+IGZvciB0aGUgZW50aXJlIHJlcXVlc3RlZCByYW5nZS4KLQkJICovCi0JCWlmIChobW1fdm1hX3dh
+bGsucGdtYXApIHsKLQkJCXB1dF9kZXZfcGFnZW1hcChobW1fdm1hX3dhbGsucGdtYXApOwotCQkJ
+aG1tX3ZtYV93YWxrLnBnbWFwID0gTlVMTDsKLQkJfQogCX0gd2hpbGUgKHJldCA9PSAtRUJVU1kp
+OwogCiAJaWYgKHJldCkKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcK
+aHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
