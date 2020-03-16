@@ -2,59 +2,71 @@ Return-Path: <SRS0=rOad=5B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-2.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E338AC0044D
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 19:38:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 70489C0044D
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 19:57:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B09F620769
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 19:38:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3935320781
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 19:57:01 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="t+WBqoMR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B09F620769
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="FWkXqqOo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3935320781
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 685736E40C;
-	Mon, 16 Mar 2020 19:38:06 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BC476E40C;
- Mon, 16 Mar 2020 19:36:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=Tabi3VaB35wO0dKz/HPf0fwGujEMouYj0SOz1efF65E=; b=t+WBqoMRGwN6Le048kH8FgJyJt
- 1pbKsThDZHr+bZTpD+XEgFMA7wfDCUzMh6rn7JJNm+UgWPmBb8p8npStYC3/LGkaNUC5NFGa3tT4e
- QXzA9stUoWtn7ijfUA0UVCW1I/HGTeTQg0XJ2djb+Oa2TBhMJoCBeFlV+lhIDoEkw9NBMwxD78eaw
- f/u22FVYmTT21fH0p3mYHXmNTYCGHPFzjBCYxnHMRbpc2PY0vNmvnZK3dxuFFMuBK87TSzzyrqPNt
- llVQnf4OND0EgSCrR8bDNJiYBqZ4edKPYdQqvtiRgp+t4mau45I5wB8l9bJMGJB1fN9PD6JmmwCiG
- 7weWV6rw==;
-Received: from 089144202225.atnat0011.highway.a1.net ([89.144.202.225]
- helo=localhost)
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jDvXd-0005Hn-OG; Mon, 16 Mar 2020 19:36:50 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Dan Williams <dan.j.williams@intel.com>,
- Bharata B Rao <bharata@linux.ibm.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Ben Skeggs <bskeggs@redhat.com>
-Subject: [PATCH 4/4] mm: check the device private page owner in hmm_range_fault
-Date: Mon, 16 Mar 2020 20:32:16 +0100
-Message-Id: <20200316193216.920734-5-hch@lst.de>
-X-Mailer: git-send-email 2.24.1
-In-Reply-To: <20200316193216.920734-1-hch@lst.de>
-References: <20200316193216.920734-1-hch@lst.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDF7F6E4E3;
+	Mon, 16 Mar 2020 19:57:00 +0000 (UTC)
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+ [216.228.121.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03F596E4CA;
+ Mon, 16 Mar 2020 19:56:59 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e6fd9db0000>; Mon, 16 Mar 2020 12:56:11 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Mon, 16 Mar 2020 12:56:59 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Mon, 16 Mar 2020 12:56:59 -0700
+Received: from rcampbell-dev.nvidia.com (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 16 Mar
+ 2020 19:56:59 +0000
+Subject: Re: [PATCH 2/2] mm: remove device private page support from
+ hmm_range_fault
+To: Christoph Hellwig <hch@lst.de>
+References: <20200316175259.908713-1-hch@lst.de>
+ <20200316175259.908713-3-hch@lst.de>
+ <c099cc3c-c19f-9d61-4297-2e83df899ca4@nvidia.com>
+ <20200316184935.GA25322@lst.de>
+X-Nvconfidentiality: public
+From: Ralph Campbell <rcampbell@nvidia.com>
+Message-ID: <7e9e22be-dea2-4862-1d05-5285bfc6c066@nvidia.com>
+Date: Mon, 16 Mar 2020 12:56:56 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Mailman-Approved-At: Mon, 16 Mar 2020 19:38:05 +0000
+In-Reply-To: <20200316184935.GA25322@lst.de>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1584388571; bh=hX1AWS8RbjQrpRYPPUApwzR7/6Orzl3RZ5t2Aw26Qm8=;
+ h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
+ Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+ X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=FWkXqqOomcKpXFpXokXAQN5N4mNXWyUHpZWFwwkjyvP4rXqR8SXCZY+hQqUPSOLVZ
+ lIwFVC/PnO6ZESSZGvb5N09xZelYetpUgXDLKuounPcdHpIMiNkjnBP3ymfYmbVkon
+ 6Xdvsp6ObAjmHrkBYcIH0f5lXfGrufLmg/ag3XzNL/XSgPLFXL3ZiyEr7thCnBXkVG
+ noZ7FBf2bxJTZ8/q2a33eRbxwmkWTCHEqGDdT1t9gxZjyeRISiDcKXcP/fRGAjazcp
+ /JQnegdK4OF5thEKhVwu3+T85PcM63IhaOKdEInsu0S44w6/F1TlhoRR/oapispC+p
+ 01vrqwl4yEjhw==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,109 +78,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm-ppc@vger.kernel.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- Jerome Glisse <jglisse@redhat.com>, amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: amd-gfx@lists.freedesktop.org, linux-mm@kvack.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kvm-ppc@vger.kernel.org, Bharata B Rao <bharata@linux.ibm.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Jerome Glisse <jglisse@redhat.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Dan Williams <dan.j.williams@intel.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hmm range fault will succeed for any kind of device private memory,
-even if it doesn't belong to the calling entity.  While nouveau
-has some crude checks for that, they are broken because they assume
-nouveau is the only user of device private memory.  Fix this by
-passing in an expected pgmap owner in the hmm_range_fault structure.
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Fixes: 4ef589dc9b10 ("mm/hmm/devmem: device memory hotplug using ZONE_DEVICE")
----
- drivers/gpu/drm/nouveau/nouveau_dmem.c | 12 ------------
- include/linux/hmm.h                    |  2 ++
- mm/hmm.c                               | 10 +++++++++-
- 3 files changed, 11 insertions(+), 13 deletions(-)
+On 3/16/20 11:49 AM, Christoph Hellwig wrote:
+> On Mon, Mar 16, 2020 at 11:42:19AM -0700, Ralph Campbell wrote:
+>>
+>> On 3/16/20 10:52 AM, Christoph Hellwig wrote:
+>>> No driver has actually used properly wire up and support this feature.
+>>> There is various code related to it in nouveau, but as far as I can tell
+>>> it never actually got turned on, and the only changes since the initial
+>>> commit are global cleanups.
+>>
+>> This is not actually true. OpenCL 2.x does support SVM with nouveau and
+>> device private memory via clEnqueueSVMMigrateMem().
+>> Also, Ben Skeggs has accepted a set of patches to map GPU memory after being
+>> migrated and this change would conflict with that.
+> 
+> Can you explain me how we actually invoke this code?
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-index edfd0805fba4..ad89e09a0be3 100644
---- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-@@ -672,12 +672,6 @@ nouveau_dmem_migrate_vma(struct nouveau_drm *drm,
- 	return ret;
- }
- 
--static inline bool
--nouveau_dmem_page(struct nouveau_drm *drm, struct page *page)
--{
--	return is_device_private_page(page) && drm->dmem == page_to_dmem(page);
--}
--
- void
- nouveau_dmem_convert_pfn(struct nouveau_drm *drm,
- 			 struct hmm_range *range)
-@@ -696,12 +690,6 @@ nouveau_dmem_convert_pfn(struct nouveau_drm *drm,
- 		if (!is_device_private_page(page))
- 			continue;
- 
--		if (!nouveau_dmem_page(drm, page)) {
--			WARN(1, "Some unknown device memory !\n");
--			range->pfns[i] = 0;
--			continue;
--		}
--
- 		addr = nouveau_dmem_page_addr(page);
- 		range->pfns[i] &= ((1UL << range->pfn_shift) - 1);
- 		range->pfns[i] |= (addr >> PAGE_SHIFT) << range->pfn_shift;
-diff --git a/include/linux/hmm.h b/include/linux/hmm.h
-index 5e6034f105c3..bb6be4428633 100644
---- a/include/linux/hmm.h
-+++ b/include/linux/hmm.h
-@@ -132,6 +132,7 @@ enum hmm_pfn_value_e {
-  * @pfn_flags_mask: allows to mask pfn flags so that only default_flags matter
-  * @pfn_shifts: pfn shift value (should be <= PAGE_SHIFT)
-  * @valid: pfns array did not change since it has been fill by an HMM function
-+ * @dev_private_owner: owner of device private pages
-  */
- struct hmm_range {
- 	struct mmu_interval_notifier *notifier;
-@@ -144,6 +145,7 @@ struct hmm_range {
- 	uint64_t		default_flags;
- 	uint64_t		pfn_flags_mask;
- 	uint8_t			pfn_shift;
-+	void			*dev_private_owner;
- };
- 
- /*
-diff --git a/mm/hmm.c b/mm/hmm.c
-index cfad65f6a67b..b75b3750e03d 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -216,6 +216,14 @@ int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
- 		unsigned long end, uint64_t *pfns, pmd_t pmd);
- #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
- 
-+static inline bool hmm_is_device_private_entry(struct hmm_range *range,
-+		swp_entry_t entry)
-+{
-+	return is_device_private_entry(entry) &&
-+		device_private_entry_to_page(entry)->pgmap->owner ==
-+		range->dev_private_owner;
-+}
-+
- static inline uint64_t pte_to_hmm_pfn_flags(struct hmm_range *range, pte_t pte)
- {
- 	if (pte_none(pte) || !pte_present(pte) || pte_protnone(pte))
-@@ -254,7 +262,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 		 * Never fault in device private pages pages, but just report
- 		 * the PFN even if not present.
- 		 */
--		if (is_device_private_entry(entry)) {
-+		if (hmm_is_device_private_entry(range, entry)) {
- 			*pfn = hmm_device_entry_from_pfn(range,
- 					    swp_offset(entry));
- 			*pfn |= range->flags[HMM_PFN_VALID];
--- 
-2.24.1
+GPU memory is allocated when the device private memory "struct page" is
+allocated. See where nouveau_dmem_chunk_alloc() calls nouveau_bo_new().
+Then when a page is migrated to the GPU, the GPU memory physical address
+is just the offset into the "fake" PFN range allocated by
+devm_request_free_mem_region().
 
+I'm looking into allocating GPU memory at the time of migration instead of when
+the device private memory struct pages are allocated but that is a future
+improvement.
+
+System memory is migrated to GPU memory:
+# mesa
+clEnqueueSVMMigrateMem()
+   svm_migrate_op()
+     q.svm_migrate()
+       pipe->svm_migrate() // really nvc0_svm_migrate()
+         drmCommandWrite() // in libdrm
+           drmIoctl()
+             ioctl()
+               nouveau_drm_ioctl() // nouveau_drm.c
+                 drm_ioctl()
+                   nouveau_svmm_bind()
+                     nouveau_dmem_migrate_vma()
+                       migrate_vma_setup()
+                       nouveau_dmem_migrate_chunk()
+                         nouveau_dmem_migrate_copy_one()
+                           // allocate device private struct page
+                           dpage = nouveau_dmem_page_alloc_locked()
+                             dpage = nouveau_dmem_pages_alloc()
+                             // Get GPU VRAM physical address
+                             nouveau_dmem_page_addr(dpage)
+                             // This does the DMA to GPU memory
+                             drm->dmem->migrate.copy_func()
+                       migrate_vma_pages()
+                       migrate_vma_finalize()
+
+Without my recent patch set, there is no GPU page table entry created for
+this migrated memory so there will be a GPU fault which is handled in a
+worker thread:
+nouveau_svm_fault()
+   // examine fault buffer entries and compute range of pages
+   nouveau_range_fault()
+     // This will fill in the pfns array with a device private entry PFN
+     hmm_range_fault()
+     // This sees the range->flags[HMM_PFN_DEVICE_PRIVATE] flag
+     // and converts the HMM PFN to a GPU physical address
+     nouveau_dmem_convert_pfn()
+     // This sets up the GPU page tables
+     nvif_object_ioctl()
+
+> For that we'd need HMM_PFN_DEVICE_PRIVATE NVIF_VMM_PFNMAP_V0_VRAM
+> set in ->pfns before calling hmm_range_fault, which isn't happening.
+> 
+
+It is set by hmm_range_fault() via the range->flags[HMM_PFN_DEVICE_PRIVATE] entry
+when hmm_range_fault() sees a device private struct page. The call to
+nouveau_dmem_convert_pfn() is just replacing the "fake" PFN with the real PFN
+but not clearing/changing the read/write or VRAM/system memory PTE bits.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
