@@ -4,70 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B037C3F2CE
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 20:55:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 168DDC18E5B
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 21:43:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F389B206C0
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 20:55:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D2C9A20658
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 21:43:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="DITaQRak"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F389B206C0
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="ROf8sz5I"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D2C9A20658
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C5506E4E3;
-	Mon, 16 Mar 2020 20:55:44 +0000 (UTC)
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8548F6E4DD;
- Mon, 16 Mar 2020 20:55:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A3AB6E047;
+	Mon, 16 Mar 2020 21:43:18 +0000 (UTC)
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F6026E047;
+ Mon, 16 Mar 2020 21:43:17 +0000 (UTC)
 Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5e6fe7c10000>; Mon, 16 Mar 2020 13:55:30 -0700
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e6ff2940000>; Mon, 16 Mar 2020 14:41:40 -0700
 Received: from hqmail.nvidia.com ([172.20.161.6])
  by hqpgpgate102.nvidia.com (PGP Universal service);
- Mon, 16 Mar 2020 13:55:43 -0700
+ Mon, 16 Mar 2020 14:43:16 -0700
 X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Mon, 16 Mar 2020 13:55:43 -0700
+ by hqpgpgate102.nvidia.com on Mon, 16 Mar 2020 14:43:16 -0700
 Received: from rcampbell-dev.nvidia.com (10.124.1.5) by HQMAIL107.nvidia.com
  (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 16 Mar
- 2020 20:55:42 +0000
-Subject: Re: [PATCH 1/4] memremap: add an owner field to struct dev_pagemap
+ 2020 21:43:16 +0000
+Subject: Re: [PATCH 2/4] mm: handle multiple owners of device private pages in
+ migrate_vma
 To: Christoph Hellwig <hch@lst.de>, Jason Gunthorpe <jgg@ziepe.ca>, Dan
  Williams <dan.j.williams@intel.com>, Bharata B Rao <bharata@linux.ibm.com>,
  =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Ben Skeggs
  <bskeggs@redhat.com>
 References: <20200316193216.920734-1-hch@lst.de>
- <20200316193216.920734-2-hch@lst.de>
+ <20200316193216.920734-3-hch@lst.de>
 X-Nvconfidentiality: public
 From: Ralph Campbell <rcampbell@nvidia.com>
-Message-ID: <afaadfde-94b1-5b7d-802b-812b0b448b78@nvidia.com>
-Date: Mon, 16 Mar 2020 13:55:40 -0700
+Message-ID: <6a110540-f954-9f0f-e785-7365135d2934@nvidia.com>
+Date: Mon, 16 Mar 2020 14:43:13 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <20200316193216.920734-2-hch@lst.de>
+In-Reply-To: <20200316193216.920734-3-hch@lst.de>
 X-Originating-IP: [10.124.1.5]
 X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
  HQMAIL107.nvidia.com (172.20.187.13)
 Content-Language: en-US
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1584392130; bh=0aYvPtJbjqch4ne24GuhOWD+PoFcLm231x6U+7kZWAs=;
+ t=1584394901; bh=5gIAZIz0tOHrgzJUJPnm6MszxAlVRJp8lo1DHWwjOqY=;
  h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
  Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
  X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
  Content-Transfer-Encoding;
- b=DITaQRakDsVSmGgSZKi1PGUUH+bPNs/QPdDH6im7uTaWf10+4t1ICJeKBx2iGGrjO
- D1Nm4+XFyD1CTkESpqEJCLF5vL6O6R9u4RqmGc6sQkE1lfAn0DcpTCCVa6soJ+nrXj
- 47qWJWoqGKXcox8VntW4qx/9NaOhfRYGMtzwQF5Bx3muX+BK1gGKH1b/mORuFsz1gw
- DSW+RtOQ7304OqeICUUdFZqcg71Na861f/VbjiE+o3bFI53V1SgzsCf1SDFF1jhxpH
- NyEgrQwVohlRMiOS7pNX9UKWoLGWUSQC4lnW9zknTBG9RsCtbJHttoiKllzaf6fRzH
- D4VSBo4TyProQ==
+ b=ROf8sz5I27AjSUkrFgjyEn1H5McZp5h0B2fxBONbGiYRWlNipqDBZIR19jzh7OCzU
+ LwCxryI8Gk7Vy8mZlgvJ/i43dEWhCVipx01YAqktTJVMwXXxq9huN0ibvtHZ0NrPf/
+ zF/GFDubfASot9xAAOFSbZUAWcuZrH1Yzp9/zc/icrtO8XBJeHbOdzmpIYVa4b4fmk
+ 5wmWE+8sBlPe6ft5PztnCns6d16mTSEGRPudndjL0+qpr2MhHH8dWljtmWE2E7nbdT
+ XDF4fGtdwVxXlwQX9lU2xoXn+VHsOc3M0mLeRPdOXH+PGlzepZkvNJgSXdig3TLKOU
+ LvHvMf9e22XSw==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,84 +90,120 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 3/16/20 12:32 PM, Christoph Hellwig wrote:
-> Add a new opaque owner field to struct dev_pagemap, which will allow
-> the hmm and migrate_vma code to identify who owns ZONE_DEVICE memory,
-> and refuse to work on mappings not owned by the calling entity.
+> Add a new src_owner field to struct migrate_vma.  If the field is set,
+> only device private pages with page->pgmap->owner equal to that field
+> are migrated.  If the field is not set only "normal" pages are migrated.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Fixes: df6ad69838fc ("mm/device-public-memory: device memory cache coherent with CPU")
 
-This looks like a reasonable approach to take.
+When migrating to device private memory, setting the src_owner lets the caller
+know about source pages that are already migrated and skips pages migrated to a
+different device similar to pages swapped out an actual swap device.
+But, it prevents normal pages from being migrated to device private memory.
+It can still be useful for the driver to know that a page is owned by a
+different device if it has a device to device way of migrating data.
+nouveau_dmem_migrate_vma() isn't setting args.src_owner so only normal pages
+will be migrated which I guess is OK for now since nouveau doesn't handle
+direct GPU to GPU migration currently.
+
+When migrating device private memory to system memory due to a CPU fault,
+the source page should be the device's device private struct page so if it
+isn't, then it does make sense to not migrate whatever normal page is there.
+nouveau_dmem_migrate_to_ram() sets src_owner so this case looks OK.
+
+Just had to think this through.
 Reviewed-by: Ralph Campbell <rcampbell@nvidia.com>
 
 > ---
->   arch/powerpc/kvm/book3s_hv_uvmem.c     | 2 ++
+>   arch/powerpc/kvm/book3s_hv_uvmem.c     | 1 +
 >   drivers/gpu/drm/nouveau/nouveau_dmem.c | 1 +
->   include/linux/memremap.h               | 4 ++++
->   mm/memremap.c                          | 4 ++++
->   4 files changed, 11 insertions(+)
+>   include/linux/migrate.h                | 8 ++++++++
+>   mm/migrate.c                           | 9 ++++++---
+>   4 files changed, 16 insertions(+), 3 deletions(-)
 > 
 > diff --git a/arch/powerpc/kvm/book3s_hv_uvmem.c b/arch/powerpc/kvm/book3s_hv_uvmem.c
-> index 79b1202b1c62..67fefb03b9b7 100644
+> index 67fefb03b9b7..f44f6b27950f 100644
 > --- a/arch/powerpc/kvm/book3s_hv_uvmem.c
 > +++ b/arch/powerpc/kvm/book3s_hv_uvmem.c
-> @@ -779,6 +779,8 @@ int kvmppc_uvmem_init(void)
->   	kvmppc_uvmem_pgmap.type = MEMORY_DEVICE_PRIVATE;
->   	kvmppc_uvmem_pgmap.res = *res;
->   	kvmppc_uvmem_pgmap.ops = &kvmppc_uvmem_ops;
-> +	/* just one global instance: */
-> +	kvmppc_uvmem_pgmap.owner = &kvmppc_uvmem_pgmap;
->   	addr = memremap_pages(&kvmppc_uvmem_pgmap, NUMA_NO_NODE);
->   	if (IS_ERR(addr)) {
->   		ret = PTR_ERR(addr);
+> @@ -563,6 +563,7 @@ kvmppc_svm_page_out(struct vm_area_struct *vma, unsigned long start,
+>   	mig.end = end;
+>   	mig.src = &src_pfn;
+>   	mig.dst = &dst_pfn;
+> +	mig.src_owner = &kvmppc_uvmem_pgmap;
+>   
+>   	mutex_lock(&kvm->arch.uvmem_lock);
+>   	/* The requested page is already paged-out, nothing to do */
 > diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> index 0ad5d87b5a8e..a4682272586e 100644
+> index a4682272586e..0e36345d395c 100644
 > --- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
 > +++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> @@ -526,6 +526,7 @@ nouveau_dmem_init(struct nouveau_drm *drm)
->   	drm->dmem->pagemap.type = MEMORY_DEVICE_PRIVATE;
->   	drm->dmem->pagemap.res = *res;
->   	drm->dmem->pagemap.ops = &nouveau_dmem_pagemap_ops;
-> +	drm->dmem->pagemap.owner = drm->dev;
->   	if (IS_ERR(devm_memremap_pages(device, &drm->dmem->pagemap)))
->   		goto out_free;
+> @@ -176,6 +176,7 @@ static vm_fault_t nouveau_dmem_migrate_to_ram(struct vm_fault *vmf)
+>   		.end		= vmf->address + PAGE_SIZE,
+>   		.src		= &src,
+>   		.dst		= &dst,
+> +		.src_owner	= drm->dev,
+>   	};
 >   
-> diff --git a/include/linux/memremap.h b/include/linux/memremap.h
-> index 6fefb09af7c3..60d97e8fd3c0 100644
-> --- a/include/linux/memremap.h
-> +++ b/include/linux/memremap.h
-> @@ -103,6 +103,9 @@ struct dev_pagemap_ops {
->    * @type: memory type: see MEMORY_* in memory_hotplug.h
->    * @flags: PGMAP_* flags to specify defailed behavior
->    * @ops: method table
-> + * @owner: an opaque pointer identifying the entity that manages this
-> + *	instance.  Used by various helpers to make sure that no
-> + *	foreign ZONE_DEVICE memory is accessed.
->    */
->   struct dev_pagemap {
->   	struct vmem_altmap altmap;
-> @@ -113,6 +116,7 @@ struct dev_pagemap {
->   	enum memory_type type;
->   	unsigned int flags;
->   	const struct dev_pagemap_ops *ops;
-> +	void *owner;
+>   	/*
+> diff --git a/include/linux/migrate.h b/include/linux/migrate.h
+> index 72120061b7d4..3e546cbf03dd 100644
+> --- a/include/linux/migrate.h
+> +++ b/include/linux/migrate.h
+> @@ -196,6 +196,14 @@ struct migrate_vma {
+>   	unsigned long		npages;
+>   	unsigned long		start;
+>   	unsigned long		end;
+> +
+> +	/*
+> +	 * Set to the owner value also stored in page->pgmap->owner for
+> +	 * migrating out of device private memory.  If set only device
+> +	 * private pages with this owner are migrated.  If not set
+> +	 * device private pages are not migrated at all.
+> +	 */
+> +	void			*src_owner;
 >   };
 >   
->   static inline struct vmem_altmap *pgmap_altmap(struct dev_pagemap *pgmap)
-> diff --git a/mm/memremap.c b/mm/memremap.c
-> index 09b5b7adc773..9b2c97ceb775 100644
-> --- a/mm/memremap.c
-> +++ b/mm/memremap.c
-> @@ -181,6 +181,10 @@ void *memremap_pages(struct dev_pagemap *pgmap, int nid)
->   			WARN(1, "Missing migrate_to_ram method\n");
->   			return ERR_PTR(-EINVAL);
+>   int migrate_vma_setup(struct migrate_vma *args);
+> diff --git a/mm/migrate.c b/mm/migrate.c
+> index b1092876e537..7605d2c23433 100644
+> --- a/mm/migrate.c
+> +++ b/mm/migrate.c
+> @@ -2241,7 +2241,7 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
+>   	arch_enter_lazy_mmu_mode();
+>   
+>   	for (; addr < end; addr += PAGE_SIZE, ptep++) {
+> -		unsigned long mpfn, pfn;
+> +		unsigned long mpfn = 0, pfn;
+>   		struct page *page;
+>   		swp_entry_t entry;
+>   		pte_t pte;
+> @@ -2255,8 +2255,6 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
 >   		}
-> +		if (!pgmap->owner) {
-> +			WARN(1, "Missing owner\n");
-> +			return ERR_PTR(-EINVAL);
-> +		}
->   		break;
->   	case MEMORY_DEVICE_FS_DAX:
->   		if (!IS_ENABLED(CONFIG_ZONE_DEVICE) ||
+>   
+>   		if (!pte_present(pte)) {
+> -			mpfn = 0;
+> -
+>   			/*
+>   			 * Only care about unaddressable device page special
+>   			 * page table entry. Other special swap entries are not
+> @@ -2267,11 +2265,16 @@ static int migrate_vma_collect_pmd(pmd_t *pmdp,
+>   				goto next;
+>   
+>   			page = device_private_entry_to_page(entry);
+> +			if (page->pgmap->owner != migrate->src_owner)
+> +				goto next;
+> +
+>   			mpfn = migrate_pfn(page_to_pfn(page)) |
+>   					MIGRATE_PFN_MIGRATE;
+>   			if (is_write_device_private_entry(entry))
+>   				mpfn |= MIGRATE_PFN_WRITE;
+>   		} else {
+> +			if (migrate->src_owner)
+> +				goto next;
+>   			pfn = pte_pfn(pte);
+>   			if (is_zero_pfn(pfn)) {
+>   				mpfn = MIGRATE_PFN_MIGRATE;
 > 
 _______________________________________________
 amd-gfx mailing list
