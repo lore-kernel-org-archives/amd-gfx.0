@@ -2,59 +2,80 @@ Return-Path: <SRS0=rOad=5B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-2.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BBFAC18E5B
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 17:59:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A41FC0044D
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 18:08:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1172720658
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 17:59:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2D7DE20674
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 18:08:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ECBBtrM0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1172720658
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="DKEnDkSO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D7DE20674
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFE1A6E49D;
-	Mon, 16 Mar 2020 17:59:01 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25D8289FE8;
- Mon, 16 Mar 2020 17:55:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=nobQ3uzm+JHEPydVrGYqwuRbQqPMygh1gwzX1tFiMsQ=; b=ECBBtrM0tmEz3A7OjDfk3rlIIj
- yoZOp41N3POGZrdfh/lg2q/V39z/vWovZ+bkhVUFr6SLYu/CEbssY+VzO5mXSlChLTOTh4boUxutf
- SDGeh22Q3F4NLjI+k8AQqWv/oGY7U+l5uffjcNiFVtxfhdCiI9klIkBtUZAfqRLhrs4Knk09j1lzV
- 3Vovt8y/pu/ELD/gZqF1jSIZ5fVcAWVLus+vph0U+MWg6ixMBrFgfzoOcTl5kixY3PcD8mx3snFFx
- xlpDt7NmWgCTCDIz80fqBqYeehcex0unzgIePezsdNl6Eky0kQOSIJfL24vMf0p2KsrhnJ9YHsRwf
- 2VL//lAg==;
-Received: from [2001:4bb8:188:30cd:8026:d98c:a056:3e33] (helo=localhost)
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jDtxP-0000yO-3q; Mon, 16 Mar 2020 17:55:19 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Dan Williams <dan.j.williams@intel.com>,
- Bharata B Rao <bharata@linux.ibm.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Ben Skeggs <bskeggs@redhat.com>
-Subject: [PATCH 2/2] mm: remove device private page support from
- hmm_range_fault
-Date: Mon, 16 Mar 2020 18:52:59 +0100
-Message-Id: <20200316175259.908713-3-hch@lst.de>
-X-Mailer: git-send-email 2.24.1
-In-Reply-To: <20200316175259.908713-1-hch@lst.de>
-References: <20200316175259.908713-1-hch@lst.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB2F86E210;
+	Mon, 16 Mar 2020 18:08:36 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8467E6E499
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2020 18:07:15 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id f3so27848618qkh.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 16 Mar 2020 11:07:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=BL4dn+rFA5hNgcpGIcpSUF3dGv9P3+nzjxB+rkZXdM4=;
+ b=DKEnDkSOlfzjpgSnrXBEjUC1923pN4NQuhu8yekYIb9Cl/gcjD29oe7Zwom9ayo1l6
+ ii/cMSB9TjmDtSmwKOfTrPDuuuDeMFvopq04LstsyTdRjPRJ3uMeZZgL6GohqV80EcBA
+ ckySb0cXjAfeZzaSxXhVL0vckuNrSqYx+CTuNhNhQ8glRsJSUgFoipt9jfreFxXj+wzr
+ +6+mSPQyLs/j+LIHlg/ZEFHwtEkLK/uwwz06tBZw7JOq2pDMUDodMqQ78UusyshS4ecy
+ 0YdLlpeOTbhQpt6Btu4zmOeR/h1+J13FplibFTzuwj/MzVZ3OTbxBvz9zD/JX6ulW387
+ iQvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=BL4dn+rFA5hNgcpGIcpSUF3dGv9P3+nzjxB+rkZXdM4=;
+ b=FS3zmq+kzDMEm2HnHtMqc+46OiLuqm+0wuIFpMuoevB7pZmY++RDM+1MmEy8/xTcG8
+ S8HWc4g+vcTSCht/NT4GCl5uQ7St7uoMx7/bSDH2PgjSw9AkJk7i9n7cqlJIgiWzfFlL
+ 9JqZA4KzvuUYcnD78Y2EeHqDkUzygSdOs97oQUTYKcIsLmNyYaSkAEFBB6sUYKANh8Te
+ MkxelIdEa5o4E5OmbHeD6Hu+gRPBlly7ETA8LoanxZu8Vicr9wu9ReLsuYygltRNeaOI
+ ni/VO+f62TXR6KoenWvtaC2LEnmCG5vdKmYox6bGnlBFRk5QbyIKYXZhnYJf+sp8+f19
+ 2IMA==
+X-Gm-Message-State: ANhLgQ0cfFjivpprivxrTyqPAmDehViZmNlyUVKy9VXzrQ+iGBSpkb/W
+ KikYwAyLT1MM5XArC5XZ0EH/AQ==
+X-Google-Smtp-Source: ADFU+vtIq8ax1/sBMUy0L6xn/rwaL8F9DxFBkYRulC2VO6q8JD8eKOdnZIYjW2re88h1P9q0ynL8UA==
+X-Received: by 2002:a37:9d8f:: with SMTP id g137mr902005qke.133.1584382034472; 
+ Mon, 16 Mar 2020 11:07:14 -0700 (PDT)
+Received: from ziepe.ca
+ (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.68.57.212])
+ by smtp.gmail.com with ESMTPSA id 68sm254723qkh.75.2020.03.16.11.07.13
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 16 Mar 2020 11:07:13 -0700 (PDT)
+Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
+ (envelope-from <jgg@ziepe.ca>)
+ id 1jDu8v-0005Nz-7D; Mon, 16 Mar 2020 15:07:13 -0300
+Date: Mon, 16 Mar 2020 15:07:13 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH  hmm 2/8] mm/hmm: don't free the cached pgmap while
+ scanning
+Message-ID: <20200316180713.GI20941@ziepe.ca>
+References: <20200311183506.3997-1-jgg@ziepe.ca>
+ <20200311183506.3997-3-jgg@ziepe.ca>
+ <20200316090250.GB12439@lst.de>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Mailman-Approved-At: Mon, 16 Mar 2020 17:59:00 +0000
+Content-Disposition: inline
+In-Reply-To: <20200316090250.GB12439@lst.de>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Mailman-Approved-At: Mon, 16 Mar 2020 18:08:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,7 +87,8 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm-ppc@vger.kernel.org, nouveau@lists.freedesktop.org,
+Cc: Philip Yang <Philip.Yang@amd.com>, Ralph Campbell <rcampbell@nvidia.com>,
+ John Hubbard <jhubbard@nvidia.com>, Felix.Kuehling@amd.com,
  dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
  Jerome Glisse <jglisse@redhat.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
@@ -74,181 +96,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No driver has actually used properly wire up and support this feature.
-There is various code related to it in nouveau, but as far as I can tell
-it never actually got turned on, and the only changes since the initial
-commit are global cleanups.
+On Mon, Mar 16, 2020 at 10:02:50AM +0100, Christoph Hellwig wrote:
+> On Wed, Mar 11, 2020 at 03:35:00PM -0300, Jason Gunthorpe wrote:
+> > @@ -694,6 +672,15 @@ long hmm_range_fault(struct hmm_range *range, unsigned int flags)
+> >  			return -EBUSY;
+> >  		ret = walk_page_range(mm, hmm_vma_walk.last, range->end,
+> >  				      &hmm_walk_ops, &hmm_vma_walk);
+> > +		/*
+> > +		 * A pgmap is kept cached in the hmm_vma_walk to avoid expensive
+> > +		 * searching in the probably common case that the pgmap is the
+> > +		 * same for the entire requested range.
+> > +		 */
+> > +		if (hmm_vma_walk.pgmap) {
+> > +			put_dev_pagemap(hmm_vma_walk.pgmap);
+> > +			hmm_vma_walk.pgmap = NULL;
+> > +		}
+> >  	} while (ret == -EBUSY);
+> 
+> In which case it should only be put on return, and not for every loop.
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  1 -
- drivers/gpu/drm/nouveau/nouveau_dmem.c  | 37 -------------------------
- drivers/gpu/drm/nouveau/nouveau_dmem.h  |  2 --
- drivers/gpu/drm/nouveau/nouveau_svm.c   |  3 --
- include/linux/hmm.h                     |  2 --
- mm/hmm.c                                | 28 -------------------
- 6 files changed, 73 deletions(-)
+I chose this to be simple without having to goto unwind it.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index dee446278417..90821ce5e6ca 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -776,7 +776,6 @@ struct amdgpu_ttm_tt {
- static const uint64_t hmm_range_flags[HMM_PFN_FLAG_MAX] = {
- 	(1 << 0), /* HMM_PFN_VALID */
- 	(1 << 1), /* HMM_PFN_WRITE */
--	0 /* HMM_PFN_DEVICE_PRIVATE */
- };
+So, instead like this:
+
+@@ -683,21 +661,33 @@ long hmm_range_fault(struct hmm_range *range, unsigned int flags)
+ 		.flags = flags,
+ 	};
+ 	struct mm_struct *mm = range->notifier->mm;
+-	int ret;
++	long ret;
  
- static const uint64_t hmm_range_values[HMM_PFN_VALUE_MAX] = {
-diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-index 7605c4c48985..42808efceaf2 100644
---- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-@@ -671,40 +671,3 @@ nouveau_dmem_migrate_vma(struct nouveau_drm *drm,
- out:
- 	return ret;
+ 	lockdep_assert_held(&mm->mmap_sem);
+ 
+ 	do {
+ 		/* If range is no longer valid force retry. */
+ 		if (mmu_interval_check_retry(range->notifier,
+-					     range->notifier_seq))
+-			return -EBUSY;
++					     range->notifier_seq)) {
++			ret = -EBUSY;
++			goto out;
++		}
+ 		ret = walk_page_range(mm, hmm_vma_walk.last, range->end,
+ 				      &hmm_walk_ops, &hmm_vma_walk);
+ 	} while (ret == -EBUSY);
+ 
+ 	if (ret)
+-		return ret;
+-	return (hmm_vma_walk.last - range->start) >> PAGE_SHIFT;
++		goto out;
++	ret = (hmm_vma_walk.last - range->start) >> PAGE_SHIFT;
++
++out:
++	/*
++	 * A pgmap is kept cached in the hmm_vma_walk to avoid expensive
++	 * searching in the probably common case that the pgmap is the
++	 * same for the entire requested range.
++	 */
++	if (hmm_vma_walk.pgmap)
++		put_dev_pagemap(hmm_vma_walk.pgmap);
++	return ret;
  }
--
--static inline bool
--nouveau_dmem_page(struct nouveau_drm *drm, struct page *page)
--{
--	return is_device_private_page(page) && drm->dmem == page_to_dmem(page);
--}
--
--void
--nouveau_dmem_convert_pfn(struct nouveau_drm *drm,
--			 struct hmm_range *range)
--{
--	unsigned long i, npages;
--
--	npages = (range->end - range->start) >> PAGE_SHIFT;
--	for (i = 0; i < npages; ++i) {
--		struct page *page;
--		uint64_t addr;
--
--		page = hmm_device_entry_to_page(range, range->pfns[i]);
--		if (page == NULL)
--			continue;
--
--		if (!(range->pfns[i] & range->flags[HMM_PFN_DEVICE_PRIVATE])) {
--			continue;
--		}
--
--		if (!nouveau_dmem_page(drm, page)) {
--			WARN(1, "Some unknown device memory !\n");
--			range->pfns[i] = 0;
--			continue;
--		}
--
--		addr = nouveau_dmem_page_addr(page);
--		range->pfns[i] &= ((1UL << range->pfn_shift) - 1);
--		range->pfns[i] |= (addr >> PAGE_SHIFT) << range->pfn_shift;
--	}
--}
-diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.h b/drivers/gpu/drm/nouveau/nouveau_dmem.h
-index 92394be5d649..1ac620b3d4fb 100644
---- a/drivers/gpu/drm/nouveau/nouveau_dmem.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_dmem.h
-@@ -38,8 +38,6 @@ int nouveau_dmem_migrate_vma(struct nouveau_drm *drm,
- 			     unsigned long start,
- 			     unsigned long end);
- 
--void nouveau_dmem_convert_pfn(struct nouveau_drm *drm,
--			      struct hmm_range *range);
- #else /* IS_ENABLED(CONFIG_DRM_NOUVEAU_SVM) */
- static inline void nouveau_dmem_init(struct nouveau_drm *drm) {}
- static inline void nouveau_dmem_fini(struct nouveau_drm *drm) {}
-diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-index df9bf1fd1bc0..7e0376dca137 100644
---- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-@@ -367,7 +367,6 @@ static const u64
- nouveau_svm_pfn_flags[HMM_PFN_FLAG_MAX] = {
- 	[HMM_PFN_VALID         ] = NVIF_VMM_PFNMAP_V0_V,
- 	[HMM_PFN_WRITE         ] = NVIF_VMM_PFNMAP_V0_W,
--	[HMM_PFN_DEVICE_PRIVATE] = NVIF_VMM_PFNMAP_V0_VRAM,
- };
- 
- static const u64
-@@ -558,8 +557,6 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
- 		break;
- 	}
- 
--	nouveau_dmem_convert_pfn(drm, &range);
--
- 	svmm->vmm->vmm.object.client->super = true;
- 	ret = nvif_object_ioctl(&svmm->vmm->vmm.object, data, size, NULL);
- 	svmm->vmm->vmm.object.client->super = false;
-diff --git a/include/linux/hmm.h b/include/linux/hmm.h
-index 4bf8d6997b12..5e6034f105c3 100644
---- a/include/linux/hmm.h
-+++ b/include/linux/hmm.h
-@@ -74,7 +74,6 @@
-  * Flags:
-  * HMM_PFN_VALID: pfn is valid. It has, at least, read permission.
-  * HMM_PFN_WRITE: CPU page table has write permission set
-- * HMM_PFN_DEVICE_PRIVATE: private device memory (ZONE_DEVICE)
-  *
-  * The driver provides a flags array for mapping page protections to device
-  * PTE bits. If the driver valid bit for an entry is bit 3,
-@@ -86,7 +85,6 @@
- enum hmm_pfn_flag_e {
- 	HMM_PFN_VALID = 0,
- 	HMM_PFN_WRITE,
--	HMM_PFN_DEVICE_PRIVATE,
- 	HMM_PFN_FLAG_MAX
- };
- 
-diff --git a/mm/hmm.c b/mm/hmm.c
-index 180e398170b0..3d10485bf323 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -118,15 +118,6 @@ static inline void hmm_pte_need_fault(const struct hmm_vma_walk *hmm_vma_walk,
- 	/* We aren't ask to do anything ... */
- 	if (!(pfns & range->flags[HMM_PFN_VALID]))
- 		return;
--	/* If this is device memory then only fault if explicitly requested */
--	if ((cpu_flags & range->flags[HMM_PFN_DEVICE_PRIVATE])) {
--		/* Do we fault on device memory ? */
--		if (pfns & range->flags[HMM_PFN_DEVICE_PRIVATE]) {
--			*write_fault = pfns & range->flags[HMM_PFN_WRITE];
--			*fault = true;
--		}
--		return;
--	}
- 
- 	/* If CPU page table is not valid then we need to fault */
- 	*fault = !(cpu_flags & range->flags[HMM_PFN_VALID]);
-@@ -259,25 +250,6 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 	if (!pte_present(pte)) {
- 		swp_entry_t entry = pte_to_swp_entry(pte);
- 
--		/*
--		 * This is a special swap entry, ignore migration, use
--		 * device and report anything else as error.
--		 */
--		if (is_device_private_entry(entry)) {
--			cpu_flags = range->flags[HMM_PFN_VALID] |
--				range->flags[HMM_PFN_DEVICE_PRIVATE];
--			cpu_flags |= is_write_device_private_entry(entry) ?
--				range->flags[HMM_PFN_WRITE] : 0;
--			hmm_pte_need_fault(hmm_vma_walk, orig_pfn, cpu_flags,
--					   &fault, &write_fault);
--			if (fault || write_fault)
--				goto fault;
--			*pfn = hmm_device_entry_from_pfn(range,
--					    swp_offset(entry));
--			*pfn |= cpu_flags;
--			return 0;
--		}
--
- 		hmm_pte_need_fault(hmm_vma_walk, orig_pfn, 0, &fault,
- 				   &write_fault);
- 		if (!fault && !write_fault)
--- 
-2.24.1
+ EXPORT_SYMBOL(hmm_range_fault);
 
+?
+
+> I still think the right fix is to just delete all the unused and broken
+> pgmap handling code.  If we ever need to add it back it can be added
+> in a proper understood and tested way.
+
+What I want to add is something like
+
+ if (pgmap != walk->required_pgmap)
+     cpu_flags = 0
+ hmm_range_need_fault(..., cpu_flags, ...)
+
+Which will fix a bug in nouveau where it blindly assumes any device
+pages are its own, IIRC.
+
+I think Ralph observed it needs to be here, because if the pgmap
+doesn't match then it should trigger migration, in a single call,
+rather than iterating.
+
+I'm mostly expecting to replace all the other pgmap code, but keep the
+pgmap caching. The existing pgmap stuff seems approx right, but
+useless..
+
+Jason
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
