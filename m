@@ -6,30 +6,30 @@ X-Spam-Status: No, score=-2.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 914C9C18E5B
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 13:07:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08FA2C3F2CE
+	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 13:07:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E8A4205ED
+	by mail.kernel.org (Postfix) with ESMTPS id DDBFA205ED
 	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 13:07:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E8A4205ED
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DDBFA205ED
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 536A36E44B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB8EA6E44C;
 	Mon, 16 Mar 2020 13:07:07 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DBB6D6E398;
- Mon, 16 Mar 2020 09:13:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA38089958;
+ Mon, 16 Mar 2020 12:51:09 +0000 (UTC)
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 0627068CEC; Mon, 16 Mar 2020 10:13:48 +0100 (CET)
-Date: Mon, 16 Mar 2020 10:13:47 +0100
+ id F227968CEC; Mon, 16 Mar 2020 13:51:07 +0100 (CET)
+Date: Mon, 16 Mar 2020 13:51:07 +0100
 From: Christoph Hellwig <hch@lst.de>
 To: Jason Gunthorpe <jgg@ziepe.ca>
 Subject: Re: [PATCH  hmm 8/8] mm/hmm: add missing call to
  hmm_pte_need_fault in HMM_PFN_SPECIAL handling
-Message-ID: <20200316091347.GH12439@lst.de>
+Message-ID: <20200316125107.GD17386@lst.de>
 References: <20200311183506.3997-1-jgg@ziepe.ca>
  <20200311183506.3997-9-jgg@ziepe.ca>
 MIME-Version: 1.0
@@ -71,8 +71,9 @@ On Wed, Mar 11, 2020 at 03:35:06PM -0300, Jason Gunthorpe wrote:
 > check IS_ENABLED, pte_special() is stubbed out to return false on
 > unsupported architectures.
 
-I think the right fix is to just kill HMM_PFN_SPECIAL and treat any
-fault on special ptes that aren't the zero page as an error.
+Looks good,
+
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
