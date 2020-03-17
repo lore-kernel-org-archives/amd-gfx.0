@@ -1,74 +1,87 @@
-Return-Path: <SRS0=rOad=5B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=ZDaT=5C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-2.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 68384C0044D
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 23:11:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6AE01C10F29
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2020 13:50:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 37FB620674
-	for <amd-gfx@archiver.kernel.org>; Mon, 16 Mar 2020 23:11:49 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="oVJEhRDK"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 37FB620674
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 463B720757
+	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2020 13:50:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 463B720757
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D91126E4D4;
-	Mon, 16 Mar 2020 23:11:48 +0000 (UTC)
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
- [216.228.121.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9151E89836;
- Mon, 16 Mar 2020 23:11:47 +0000 (UTC)
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5e7007820000>; Mon, 16 Mar 2020 16:10:59 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Mon, 16 Mar 2020 16:11:47 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Mon, 16 Mar 2020 16:11:47 -0700
-Received: from rcampbell-dev.nvidia.com (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 16 Mar
- 2020 23:11:46 +0000
-Subject: Re: [PATCH 4/4] mm: check the device private page owner in
- hmm_range_fault
-To: Christoph Hellwig <hch@lst.de>, Jason Gunthorpe <jgg@ziepe.ca>, Dan
- Williams <dan.j.williams@intel.com>, Bharata B Rao <bharata@linux.ibm.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Ben Skeggs
- <bskeggs@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67DDC6E139;
+	Tue, 17 Mar 2020 13:50:08 +0000 (UTC)
+X-Greylist: delayed 2409 seconds by postgrey-1.36 at gabe;
+ Tue, 17 Mar 2020 06:11:52 UTC
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 414B289F8B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2020 06:11:52 +0000 (UTC)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 02H5Ve8o003042
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2020 01:31:41 -0400
+Received: from e06smtp01.uk.ibm.com (e06smtp01.uk.ibm.com [195.75.94.97])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2ytb4ty0xa-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Tue, 17 Mar 2020 01:31:41 -0400
+Received: from localhost
+ by e06smtp01.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <amd-gfx@lists.freedesktop.org> from <bharata@linux.ibm.com>;
+ Tue, 17 Mar 2020 05:31:30 -0000
+Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
+ by e06smtp01.uk.ibm.com (192.168.101.131) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Tue, 17 Mar 2020 05:31:26 -0000
+Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
+ [9.149.105.59])
+ by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 02H5VPA557016414
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 17 Mar 2020 05:31:25 GMT
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 78A77A4059;
+ Tue, 17 Mar 2020 05:31:25 +0000 (GMT)
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8A39BA4051;
+ Tue, 17 Mar 2020 05:31:23 +0000 (GMT)
+Received: from in.ibm.com (unknown [9.199.32.136])
+ by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Tue, 17 Mar 2020 05:31:23 +0000 (GMT)
+Date: Tue, 17 Mar 2020 11:01:21 +0530
+From: Bharata B Rao <bharata@linux.ibm.com>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: ensure device private pages have an owner v2
 References: <20200316193216.920734-1-hch@lst.de>
- <20200316193216.920734-5-hch@lst.de>
-X-Nvconfidentiality: public
-From: Ralph Campbell <rcampbell@nvidia.com>
-Message-ID: <a2d0ab4c-2494-297c-3762-af6145a35b05@nvidia.com>
-Date: Mon, 16 Mar 2020 16:11:45 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <20200316193216.920734-5-hch@lst.de>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1584400259; bh=BFbOo6dxY6v+iqwVfEQYtbxUzYcXzSUMoMcJGktV+cc=;
- h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
- Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
- X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=oVJEhRDKOA0SvoatXQki0C4N9b/oEdW++EJZIqu0fbf16eblobj3Sl0IrkCYYAzv3
- 8rLH0K4H1TqGHS+SvhBvYWxDNtHZbX/tzvzsYfTyb9HZP1Js9A4Ru/dEaqcrhFGJgq
- rYA9wNa4sbvuRLr7k0cPoI8Y5MvDQd3z9JnWilpHVbaflORJ2r4WdGrNXgPr3wmRLL
- ihTtFqMmbaG4sfXzFJpul2eoGjwmZGvxs/v9TNACDOzuLLY09xQNnOfxTbzptrBQZx
- EyIed8o2SKpprI0fULtvysMh0Tuu5qFkYh0tI2Mo+PAmhg0SCSDKbFG/YOfdyDhJH0
- fpiMT9nKCEpGQ==
+Content-Disposition: inline
+In-Reply-To: <20200316193216.920734-1-hch@lst.de>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+X-TM-AS-GCONF: 00
+x-cbid: 20031705-4275-0000-0000-000003AD96C0
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 20031705-4276-0000-0000-000038C2BE9E
+Message-Id: <20200317053121.GA22538@in.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.645
+ definitions=2020-03-16_11:2020-03-12,
+ 2020-03-16 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 lowpriorityscore=0
+ bulkscore=0 adultscore=0 phishscore=0 priorityscore=1501 impostorscore=0
+ suspectscore=0 malwarescore=0 spamscore=0 clxscore=1011 mlxlogscore=955
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
+ definitions=main-2003170022
+X-Mailman-Approved-At: Tue, 17 Mar 2020 13:50:08 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,113 +93,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kvm-ppc@vger.kernel.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- Jerome Glisse <jglisse@redhat.com>, amd-gfx@lists.freedesktop.org
+Reply-To: bharata@linux.ibm.com
+Cc: amd-gfx@lists.freedesktop.org, linux-mm@kvack.org,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ kvm-ppc@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jerome Glisse <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Mon, Mar 16, 2020 at 08:32:12PM +0100, Christoph Hellwig wrote:
+> When acting on device private mappings a driver needs to know if the
+> device (or other entity in case of kvmppc) actually owns this private
+> mapping.  This series adds an owner field and converts the migrate_vma
+> code over to check it.  I looked into doing the same for
+> hmm_range_fault, but as far as I can tell that code has never been
+> wired up to actually work for device private memory, so instead of
+> trying to fix some unused code the second patch just remove the code.
+> We can add it back once we have a working and fully tested code, and
+> then should pass the expected owner in the hmm_range structure.
 
-On 3/16/20 12:32 PM, Christoph Hellwig wrote:
-> Hmm range fault will succeed for any kind of device private memory,
-> even if it doesn't belong to the calling entity.  While nouveau
-> has some crude checks for that, they are broken because they assume
-> nouveau is the only user of device private memory.  Fix this by
-> passing in an expected pgmap owner in the hmm_range_fault structure.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> Fixes: 4ef589dc9b10 ("mm/hmm/devmem: device memory hotplug using ZONE_DEVICE")
+Boot-tested a pseries secure guest with this change (1/4 and 2/4 only)
 
-Looks good.
-Reviewed-by: Ralph Campbell <rcampbell@nvidia.com>
+So Tested-by: Bharata B Rao <bharata@linux.ibm.com> for the above
+two patches.
 
-> ---
->   drivers/gpu/drm/nouveau/nouveau_dmem.c | 12 ------------
->   include/linux/hmm.h                    |  2 ++
->   mm/hmm.c                               | 10 +++++++++-
->   3 files changed, 11 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_dmem.c b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> index edfd0805fba4..ad89e09a0be3 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_dmem.c
-> @@ -672,12 +672,6 @@ nouveau_dmem_migrate_vma(struct nouveau_drm *drm,
->   	return ret;
->   }
->   
-> -static inline bool
-> -nouveau_dmem_page(struct nouveau_drm *drm, struct page *page)
-> -{
-> -	return is_device_private_page(page) && drm->dmem == page_to_dmem(page);
-> -}
-> -
->   void
->   nouveau_dmem_convert_pfn(struct nouveau_drm *drm,
->   			 struct hmm_range *range)
-> @@ -696,12 +690,6 @@ nouveau_dmem_convert_pfn(struct nouveau_drm *drm,
->   		if (!is_device_private_page(page))
->   			continue;
->   
-> -		if (!nouveau_dmem_page(drm, page)) {
-> -			WARN(1, "Some unknown device memory !\n");
-> -			range->pfns[i] = 0;
-> -			continue;
-> -		}
-> -
->   		addr = nouveau_dmem_page_addr(page);
->   		range->pfns[i] &= ((1UL << range->pfn_shift) - 1);
->   		range->pfns[i] |= (addr >> PAGE_SHIFT) << range->pfn_shift;
-> diff --git a/include/linux/hmm.h b/include/linux/hmm.h
-> index 5e6034f105c3..bb6be4428633 100644
-> --- a/include/linux/hmm.h
-> +++ b/include/linux/hmm.h
-> @@ -132,6 +132,7 @@ enum hmm_pfn_value_e {
->    * @pfn_flags_mask: allows to mask pfn flags so that only default_flags matter
->    * @pfn_shifts: pfn shift value (should be <= PAGE_SHIFT)
->    * @valid: pfns array did not change since it has been fill by an HMM function
-> + * @dev_private_owner: owner of device private pages
->    */
->   struct hmm_range {
->   	struct mmu_interval_notifier *notifier;
-> @@ -144,6 +145,7 @@ struct hmm_range {
->   	uint64_t		default_flags;
->   	uint64_t		pfn_flags_mask;
->   	uint8_t			pfn_shift;
-> +	void			*dev_private_owner;
->   };
->   
->   /*
-> diff --git a/mm/hmm.c b/mm/hmm.c
-> index cfad65f6a67b..b75b3750e03d 100644
-> --- a/mm/hmm.c
-> +++ b/mm/hmm.c
-> @@ -216,6 +216,14 @@ int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
->   		unsigned long end, uint64_t *pfns, pmd_t pmd);
->   #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
->   
-> +static inline bool hmm_is_device_private_entry(struct hmm_range *range,
-> +		swp_entry_t entry)
-> +{
-> +	return is_device_private_entry(entry) &&
-> +		device_private_entry_to_page(entry)->pgmap->owner ==
-> +		range->dev_private_owner;
-> +}
-> +
->   static inline uint64_t pte_to_hmm_pfn_flags(struct hmm_range *range, pte_t pte)
->   {
->   	if (pte_none(pte) || !pte_present(pte) || pte_protnone(pte))
-> @@ -254,7 +262,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
->   		 * Never fault in device private pages pages, but just report
->   		 * the PFN even if not present.
->   		 */
-> -		if (is_device_private_entry(entry)) {
-> +		if (hmm_is_device_private_entry(range, entry)) {
->   			*pfn = hmm_device_entry_from_pfn(range,
->   					    swp_offset(entry));
->   			*pfn |= range->flags[HMM_PFN_VALID];
-> 
+Regards,
+Bharata.
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
