@@ -2,68 +2,53 @@ Return-Path: <SRS0=EQAg=5D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E200AC4332E
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2020 20:52:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E1A50C4332D
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2020 20:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B488C20724
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2020 20:52:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B7E19208E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2020 20:54:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=google.com header.i=@google.com header.b="n/X1upys"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B488C20724
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="qziV+XYq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B7E19208E0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73D866E963;
-	Wed, 18 Mar 2020 20:52:54 +0000 (UTC)
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 454066E960
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2020 20:44:08 +0000 (UTC)
-Received: by mail-pf1-x444.google.com with SMTP id f206so100973pfa.10
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2020 13:44:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=suYHs9658zHP4xficEGq5WrBjqIzHfAOzaIFRECzM5Y=;
- b=n/X1upys3h4rJNYvIw5j6AOUliQjvpmhy+m+9DZtWbYDpENrMWU9gX5OfOPjZCHqCq
- 3N7EyTuBY29aXC98swHoyCoDuXnLG1HE/1H5jXDW/qG1EW1lh3uw7U7CfUWRbfjqOkcL
- hSX9Of+C0ataFtlnWTZFimXaINj+GxUPy1TZ1osPcSFYCZ/kscC0Ip/qBbdiSN6vpz8B
- PpgAdT3mzS/u+Sv9CKxeQP2Ut+/oAyg0LMSWhIbEHFuVBW/XOVLB2LgC/R2qCD140Jcm
- MxM0L8LtdKgiUYTUC3GZ3Oceg48BDmYiFzjjt+SlBqWpTOO5mU17+RKzxJjJStQpV7vw
- OnTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=suYHs9658zHP4xficEGq5WrBjqIzHfAOzaIFRECzM5Y=;
- b=VeMoI1B10rrZHd4W1FdGpyYh9w3QcLuI3DJy32YgxYqWx17B47s8xB+bukV50t06Fe
- GYBtV3bxA+N1/t32C56r8anjuGxMiHiACOTPp5kLml++GA2Oe1972z2cDe9db2sRbQP1
- O1dWVB/A+obxgPrY96k3OH2zbuJ3gTIEgs41oGGdHUhxH3uoQcpOaxQscmjIQYDY0QQP
- 4j9eoiVSOefbnRkr0oy8NpgXF3IGqHFUQaXowS9LGiAdO5puFTeHSKsMw+KNm2R87q/A
- U4CNDrjAOdH5BWU7Zga4/Nbf1DrRgdxPldk/4SjpSBum5glGmQtSlzaYXuJduM3ydNzV
- P+IA==
-X-Gm-Message-State: ANhLgQ1wSEQaoAVu2Oo/BOf/Vpzrojq3I301hn1lLzpZQsTT9dYPUjJf
- 80pqO4jcM0B6386b19dEr7SZ03v3D4q7ZMEi7T25sg==
-X-Google-Smtp-Source: ADFU+vvuYGfe5Sd8RCUOsHGVZHh0QkYvusq8LOKEvmO8g5PG8CN5UlQKq17NQMJwPUgG4KkltVfEVBtrogvoQJfagUE=
-X-Received: by 2002:aa7:8b54:: with SMTP id i20mr116252pfd.39.1584564247262;
- Wed, 18 Mar 2020 13:44:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 692566E966;
+	Wed, 18 Mar 2020 20:54:31 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7142F6E966;
+ Wed, 18 Mar 2020 20:54:30 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id CCF7220B1F;
+ Wed, 18 Mar 2020 20:54:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1584564869;
+ bh=Bz1KfbscorsoPHnKCfjR5ivUakflhm5VAIEiOcqHq3w=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=qziV+XYqD4NNSi8B50iSX51vVonS+cn4p3DaIbW48+KVpC4C1FGAzuHH1JTtXWh54
+ k8j7nDlivlvapM9+3RRpH6xsMyA4eGocBv7MlqHQB/xzNlwdLa+WdPeQo71xHDT/BG
+ Cstea8CWblYgKDJRAGRBbpdT90aui24hXiNm/AnY=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.4 41/73] drm/amd/display: update soc bb for nv14
+Date: Wed, 18 Mar 2020 16:53:05 -0400
+Message-Id: <20200318205337.16279-41-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200318205337.16279-1-sashal@kernel.org>
+References: <20200318205337.16279-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20200318002500.52471-1-natechancellor@gmail.com>
- <3a997f4ee640e607a171a19668f5f5484062116c.camel@perches.com>
-In-Reply-To: <3a997f4ee640e607a171a19668f5f5484062116c.camel@perches.com>
-From: Nick Desaulniers <ndesaulniers@google.com>
-Date: Wed, 18 Mar 2020 13:43:54 -0700
-Message-ID: <CAKwvOd=AA8NrqmOR=E7+e6dHEVo3DZwfSuK72DGzHG+X56pB7A@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Initialize shadow to false in
- gfx_v9_0_rlcg_wreg
-To: Joe Perches <joe@perches.com>
-X-Mailman-Approved-At: Wed, 18 Mar 2020 20:52:53 +0000
+X-stable: review
+X-Patchwork-Hint: Ignore
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,78 +60,171 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- LKML <linux-kernel@vger.kernel.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- clang-built-linux <clang-built-linux@googlegroups.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Nathan Chancellor <natechancellor@gmail.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Martin Leung <martin.leung@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Jun Lei <Jun.Lei@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Mar 18, 2020 at 1:28 PM Joe Perches <joe@perches.com> wrote:
->
-> On Tue, 2020-03-17 at 17:25 -0700, Nathan Chancellor wrote:
-> > clang warns:
-> >
-> > drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c:754:6: warning: variable 'shadow'
-> > is used uninitialized whenever 'if' condition is
-> > false [-Wsometimes-uninitialized]
-> >         if (offset == grbm_cntl || offset == grbm_idx)
-> >             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> > drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c:757:6: note: uninitialized use
-> > occurs here
-> >         if (shadow) {
-> >             ^~~~~~
->
-> Wouldn't it be better to get rid of the shadow variable completely?
+From: Martin Leung <martin.leung@amd.com>
 
-Yes, much better indeed. Seems it only has one use.
+[ Upstream commit d5349775c1726ce997b8eb4982cd85a01f1c8b42 ]
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 6 +-----
->  1 file changed, 1 insertion(+), 5 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> index 7bc248..496b9e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-> @@ -735,7 +735,6 @@ void gfx_v9_0_rlcg_wreg(struct amdgpu_device *adev, u32 offset, u32 v)
->         static void *spare_int;
->         static uint32_t grbm_cntl;
->         static uint32_t grbm_idx;
-> -       bool shadow;
->
->         scratch_reg0 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG0_BASE_IDX] + mmSCRATCH_REG0)*4;
->         scratch_reg1 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG1_BASE_IDX] + mmSCRATCH_REG1)*4;
-> @@ -751,10 +750,7 @@ void gfx_v9_0_rlcg_wreg(struct amdgpu_device *adev, u32 offset, u32 v)
->                 return;
->         }
->
-> -       if (offset == grbm_cntl || offset == grbm_idx)
-> -               shadow = true;
-> -
-> -       if (shadow) {
-> +       if (offset == grbm_cntl || offset == grbm_idx) {
->                 if (offset  == grbm_cntl)
->                         writel(v, scratch_reg2);
->                 else if (offset == grbm_idx)
->
->
-> --
-> You received this message because you are subscribed to the Google Groups "Clang Built Linux" group.
-> To unsubscribe from this group and stop receiving emails from it, send an email to clang-built-linux+unsubscribe@googlegroups.com.
-> To view this discussion on the web visit https://groups.google.com/d/msgid/clang-built-linux/3a997f4ee640e607a171a19668f5f5484062116c.camel%40perches.com.
+[why]
+nv14 previously inherited soc bb from generic dcn 2, did not match
+watermark values according to memory team
 
+[how]
+add nv14 specific soc bb: copy nv2 generic that it was
+using from before, but changed num channels to 8
 
+Signed-off-by: Martin Leung <martin.leung@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c | 114 ++++++++++++++++++
+ 1 file changed, 114 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index 3b7769a3e67e3..c13dce760098c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -269,6 +269,117 @@ struct _vcs_dpi_soc_bounding_box_st dcn2_0_soc = {
+ 	.use_urgent_burst_bw = 0
+ };
+ 
++struct _vcs_dpi_soc_bounding_box_st dcn2_0_nv14_soc = {
++	.clock_limits = {
++			{
++				.state = 0,
++				.dcfclk_mhz = 560.0,
++				.fabricclk_mhz = 560.0,
++				.dispclk_mhz = 513.0,
++				.dppclk_mhz = 513.0,
++				.phyclk_mhz = 540.0,
++				.socclk_mhz = 560.0,
++				.dscclk_mhz = 171.0,
++				.dram_speed_mts = 8960.0,
++			},
++			{
++				.state = 1,
++				.dcfclk_mhz = 694.0,
++				.fabricclk_mhz = 694.0,
++				.dispclk_mhz = 642.0,
++				.dppclk_mhz = 642.0,
++				.phyclk_mhz = 600.0,
++				.socclk_mhz = 694.0,
++				.dscclk_mhz = 214.0,
++				.dram_speed_mts = 11104.0,
++			},
++			{
++				.state = 2,
++				.dcfclk_mhz = 875.0,
++				.fabricclk_mhz = 875.0,
++				.dispclk_mhz = 734.0,
++				.dppclk_mhz = 734.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 875.0,
++				.dscclk_mhz = 245.0,
++				.dram_speed_mts = 14000.0,
++			},
++			{
++				.state = 3,
++				.dcfclk_mhz = 1000.0,
++				.fabricclk_mhz = 1000.0,
++				.dispclk_mhz = 1100.0,
++				.dppclk_mhz = 1100.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 1000.0,
++				.dscclk_mhz = 367.0,
++				.dram_speed_mts = 16000.0,
++			},
++			{
++				.state = 4,
++				.dcfclk_mhz = 1200.0,
++				.fabricclk_mhz = 1200.0,
++				.dispclk_mhz = 1284.0,
++				.dppclk_mhz = 1284.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 1200.0,
++				.dscclk_mhz = 428.0,
++				.dram_speed_mts = 16000.0,
++			},
++			/*Extra state, no dispclk ramping*/
++			{
++				.state = 5,
++				.dcfclk_mhz = 1200.0,
++				.fabricclk_mhz = 1200.0,
++				.dispclk_mhz = 1284.0,
++				.dppclk_mhz = 1284.0,
++				.phyclk_mhz = 810.0,
++				.socclk_mhz = 1200.0,
++				.dscclk_mhz = 428.0,
++				.dram_speed_mts = 16000.0,
++			},
++		},
++	.num_states = 5,
++	.sr_exit_time_us = 8.6,
++	.sr_enter_plus_exit_time_us = 10.9,
++	.urgent_latency_us = 4.0,
++	.urgent_latency_pixel_data_only_us = 4.0,
++	.urgent_latency_pixel_mixed_with_vm_data_us = 4.0,
++	.urgent_latency_vm_data_only_us = 4.0,
++	.urgent_out_of_order_return_per_channel_pixel_only_bytes = 4096,
++	.urgent_out_of_order_return_per_channel_pixel_and_vm_bytes = 4096,
++	.urgent_out_of_order_return_per_channel_vm_only_bytes = 4096,
++	.pct_ideal_dram_sdp_bw_after_urgent_pixel_only = 40.0,
++	.pct_ideal_dram_sdp_bw_after_urgent_pixel_and_vm = 40.0,
++	.pct_ideal_dram_sdp_bw_after_urgent_vm_only = 40.0,
++	.max_avg_sdp_bw_use_normal_percent = 40.0,
++	.max_avg_dram_bw_use_normal_percent = 40.0,
++	.writeback_latency_us = 12.0,
++	.ideal_dram_bw_after_urgent_percent = 40.0,
++	.max_request_size_bytes = 256,
++	.dram_channel_width_bytes = 2,
++	.fabric_datapath_to_dcn_data_return_bytes = 64,
++	.dcn_downspread_percent = 0.5,
++	.downspread_percent = 0.38,
++	.dram_page_open_time_ns = 50.0,
++	.dram_rw_turnaround_time_ns = 17.5,
++	.dram_return_buffer_per_channel_bytes = 8192,
++	.round_trip_ping_latency_dcfclk_cycles = 131,
++	.urgent_out_of_order_return_per_channel_bytes = 256,
++	.channel_interleave_bytes = 256,
++	.num_banks = 8,
++	.num_chans = 8,
++	.vmm_page_size_bytes = 4096,
++	.dram_clock_change_latency_us = 404.0,
++	.dummy_pstate_latency_us = 5.0,
++	.writeback_dram_clock_change_latency_us = 23.0,
++	.return_bus_width_bytes = 64,
++	.dispclk_dppclk_vco_speed_mhz = 3850,
++	.xfc_bus_transport_time_us = 20,
++	.xfc_xbuf_latency_tolerance_us = 4,
++	.use_urgent_burst_bw = 0
++};
++
+ struct _vcs_dpi_soc_bounding_box_st dcn2_0_nv12_soc = { 0 };
+ 
+ #ifndef mmDP0_DP_DPHY_INTERNAL_CTRL
+@@ -3135,6 +3246,9 @@ static void patch_bounding_box(struct dc *dc, struct _vcs_dpi_soc_bounding_box_s
+ static struct _vcs_dpi_soc_bounding_box_st *get_asic_rev_soc_bb(
+ 	uint32_t hw_internal_rev)
+ {
++	if (ASICREV_IS_NAVI14_M(hw_internal_rev))
++		return &dcn2_0_nv14_soc;
++
+ 	if (ASICREV_IS_NAVI12_P(hw_internal_rev))
+ 		return &dcn2_0_nv12_soc;
+ 
 -- 
-Thanks,
-~Nick Desaulniers
+2.20.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
