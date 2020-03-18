@@ -1,75 +1,107 @@
-Return-Path: <SRS0=ZDaT=5C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=EQAg=5D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AE3AC5ACD7
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2020 23:14:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C845C1975A
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2020 02:03:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D25462073E
-	for <amd-gfx@archiver.kernel.org>; Tue, 17 Mar 2020 23:14:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DC5F220724
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2020 02:03:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="P+4gKQey"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D25462073E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Jy/wGjjQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC5F220724
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A59A6E13C;
-	Tue, 17 Mar 2020 23:14:35 +0000 (UTC)
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A8986E02A;
- Tue, 17 Mar 2020 23:14:34 +0000 (UTC)
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5e7159790000>; Tue, 17 Mar 2020 16:12:57 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Tue, 17 Mar 2020 16:14:33 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Tue, 17 Mar 2020 16:14:33 -0700
-Received: from rcampbell-dev.nvidia.com (172.20.13.39) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Tue, 17 Mar 2020 23:14:33 +0000
-Subject: Re: [PATCH 3/4] mm: simplify device private page handling in
- hmm_range_fault
-To: Christoph Hellwig <hch@lst.de>, Jason Gunthorpe <jgg@ziepe.ca>
-References: <20200316193216.920734-1-hch@lst.de>
- <20200316193216.920734-4-hch@lst.de>
- <7256f88d-809e-4aba-3c46-a223bd8cc521@nvidia.com>
- <20200317121536.GQ20941@ziepe.ca> <20200317122445.GA11662@lst.de>
- <20200317122813.GA11866@lst.de> <20200317124755.GR20941@ziepe.ca>
- <20200317125955.GA12847@lst.de>
-From: Ralph Campbell <rcampbell@nvidia.com>
-X-Nvconfidentiality: public
-Message-ID: <24fca825-3b0f-188f-bcf2-fadcf3a9f05a@nvidia.com>
-Date: Tue, 17 Mar 2020 16:14:31 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
-MIME-Version: 1.0
-In-Reply-To: <20200317125955.GA12847@lst.de>
-X-Originating-IP: [172.20.13.39]
-X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Type: multipart/mixed; boundary="------------908CA79958BE6989593A4D80"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F3516E03A;
+	Wed, 18 Mar 2020 02:03:37 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 620C66E03A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2020 02:03:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Yj/1s1gGIi61tdd1OyH1XjQ0iORnl/p/aOJsp6FrZCNoXKLfEjKQSFPSR9LfgBqDc98SfDEpQFxto70uvU9vKcVdqEFBjMQUm/5clLQEgexOlOY+/5gmFH2kysa1zXtxkTVlCLXzqAF4vogXJXjWFj/amIQCxnO1HZ3FmVejyazRdzaZgaC82Ks8T5N2pt2Sw4OmL6xn7pkB0R0vk5J5+CIYz1aveqI/SGfXF6Xc82kKi/WyDHAlJEemLIPh2bWpSbsCyM9tyfMTKSHTj3ZxsA8zpwGjUXSupQyTTQAJ38TWYgD09kIngaaYcLPgwacXbebO4/feNgDrHivzMRZh4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NwozNj8+8WTAluBuEMEyDuPESc0pQJeePo/fmA9IlEw=;
+ b=XGIHUyGMAqSyThENEyEJPXsMlvyoFFPoAQUvODfbzBB6faHK69pGETTSsjGOmMQknAkl0ATk6GW7DNaKTAApMTIYaHfyKIxQQNQNt/O+mqa5CfzyNvdS21sSreHXuMIOvJEZwk6r5H5/H3Obl7SecNFEQ1zoMwDPVp6b+tLluwKmyuDLYyQTJbVFJErwigxG0zy74z211ms3IgBivfOfG8rUQbXbBRounSCAV6jfI2GNfEuLB1E6UE/uVjRPVFjXN6w7Qb+G7kpWChgU0t2YlfhAl7m3HZ2hEjV9E+vepeqM54vSXDZjK/0VDXhKw9M+VVJ2ZgGLvUZgWFv16HX9zQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NwozNj8+8WTAluBuEMEyDuPESc0pQJeePo/fmA9IlEw=;
+ b=Jy/wGjjQugfLKxUUycfit3u+g8sWxxGiBSTVfYCRshXokUxf3wN4J9mpgOfp52BN22Lw/KRcNtqcIXMBSpYI7oumYwt6zkGAKjoS5OZpgvmXzJ9+jECmKvuqTPYDbcwTChUonxRF4yFC9p5rBisYzdVEhDlyicf9Zdc6U+dliCY=
+Received: from BN8PR12MB3041.namprd12.prod.outlook.com (2603:10b6:408:46::11)
+ by BN8PR12MB3234.namprd12.prod.outlook.com (2603:10b6:408:95::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2814.22; Wed, 18 Mar
+ 2020 02:03:33 +0000
+Received: from BN8PR12MB3041.namprd12.prod.outlook.com
+ ([fe80::a421:2af7:645a:a051]) by BN8PR12MB3041.namprd12.prod.outlook.com
+ ([fe80::a421:2af7:645a:a051%6]) with mapi id 15.20.2814.021; Wed, 18 Mar 2020
+ 02:03:33 +0000
+From: "Lin, Amber" <Amber.Lin@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: Provide SMI events watch
+Thread-Topic: [PATCH] drm/amdkfd: Provide SMI events watch
+Thread-Index: AQHV/IV+uiLW6tS0eUypOVyYgbLFGahNJGcAgAB0h8I=
+Date: Wed, 18 Mar 2020 02:03:33 +0000
+Message-ID: <BN8PR12MB3041596444CC70FA247B3AB6E1F70@BN8PR12MB3041.namprd12.prod.outlook.com>
+References: <1584467823-31170-1-git-send-email-Amber.Lin@amd.com>,
+ <CADnq5_OgnVWdmc7PUXbT4Y2wqY7H=_LsTMYK3=2KunQjK0XU2w@mail.gmail.com>
+In-Reply-To: <CADnq5_OgnVWdmc7PUXbT4Y2wqY7H=_LsTMYK3=2KunQjK0XU2w@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1584486777; bh=zh+iT+c1CSRB1E3aQmzkpVWUdXlfl33aywkBJRIx6hw=;
- h=X-PGP-Universal:Subject:To:CC:References:From:X-Nvconfidentiality:
- Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
- X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language;
- b=P+4gKQeyvCznSFVdl01pSGWsmfDsK5KY9vNuGfBrMuC3iQui6kN7Nk6GDE3PLh7MI
- Hn8In94N7MJy3iPlg7GjmN6nzb8fWIpmEkeLoyI/Yt5vNIvJG+2IsHX0YLrMZcBMcO
- Cb3DYE6LhApkoRCKB9GUmEFy5ZHqd5P0D8U7BZBCpE8qCh4URAnoyB3KLb6kk0tyzn
- HOv1SktfY5CwUP/61SaYeNDsCj2EV6dyFSoBdyb8ia9CcmVyv7v3xa3dT7nuWN5YIP
- 0AZJs6u8jP9h4ZTkd2+WIYE1D0Is9GZRkV4LKru/LrX9HECirec8tj8c7iFfqzdQhf
- 82Wg6zyq9+qFw==
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-18T02:03:32.378Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Amber.Lin@amd.com; 
+x-originating-ip: [165.204.54.211]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 0780c376-0bc4-4ddc-7630-08d7cae08fe3
+x-ms-traffictypediagnostic: BN8PR12MB3234:
+x-microsoft-antispam-prvs: <BN8PR12MB32347D8A9010A8ED0BDC7296E1F70@BN8PR12MB3234.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:82;
+x-forefront-prvs: 03468CBA43
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(346002)(366004)(396003)(136003)(39860400002)(199004)(45080400002)(966005)(316002)(478600001)(76116006)(91956017)(66446008)(66556008)(64756008)(71200400001)(30864003)(66476007)(66946007)(33656002)(52536014)(5660300002)(26005)(186003)(2906002)(4326008)(7696005)(19627405001)(86362001)(8936002)(6916009)(81166006)(81156014)(8676002)(55016002)(9686003)(53546011)(6506007);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN8PR12MB3234;
+ H:BN8PR12MB3041.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: DLX8Es8EoNMDZNf5LddMfWqi5nKF1+ZN19GF60505XlVzi6yrFjAou5OV/APDKi+bMxB423Np1NNb5VncI+AQKnkraEKoaXmnGogfGGQwagL9JVbeLgZaeTD7D3lyk/4GaaklkNfOcnfDAa3gqfJs+yLiE6i+7+EK+BCMAPzt5tbQFYO/bSjL3/4HkR0/g53nBsiXFNe9orVUBusU0YxaQVed1GIHwj5RTNJncvBA6uzDXdeVpFT/rxi1ImpI6qzu8IGSFtWEDIG0vuPgai0oGypDwfc8mjHxU/2zWN6ZLjgGCISVu//fQpEDjWU872/ev+pUqQFjgzRAuMiDgQKOPJ/eoqSqnrkl52D14bw6kwwtGz7URWwUbHN8a0k5kxL8zAzEIoyQdKdCIle19io3L8zWm1vAyZM68laFH+b44dqsqpTsWxV2Xc+JdYX2yfsVuN45rdNfuFBeIxMFjqifQHAeF7NQV53jW9QEBr0OAYdoAjT882CEHaL8d4//oVQhmHM2jZYipc1zmdGWnU5Ew==
+x-ms-exchange-antispam-messagedata: 8UQaM9bXdjIOc6NHizRgZfgN8gKrPeq3QWR/bnjLn++qK7ivVyj4yWOyw8IncxmyC9NtGJ33/yAzS/CFxlWUpAbR+6Y8Ks9YnriKoKPuUYGV1pwgH2JFztG1QQNoBuMm0TQQ0v4pPc3qe13tVkDXDA==
+x-ms-exchange-transport-forked: True
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0780c376-0bc4-4ddc-7630-08d7cae08fe3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Mar 2020 02:03:33.0838 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dj1sO/Ce8x/5JfiJEGhK7OJK53zh2xjdkk2BJPDmsjsDmA5HhBbtG6kvyjc72sIs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3234
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,2940 +113,1305 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kvm-ppc@vger.kernel.org,
- Bharata B Rao <bharata@linux.ibm.com>, linux-mm@kvack.org,
- Jerome Glisse <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
- Dan Williams <dan.j.williams@intel.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============0482714895=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------908CA79958BE6989593A4D80
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+--===============0482714895==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_BN8PR12MB3041596444CC70FA247B3AB6E1F70BN8PR12MB3041namp_"
+
+--_000_BN8PR12MB3041596444CC70FA247B3AB6E1F70BN8PR12MB3041namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
 
 
-On 3/17/20 5:59 AM, Christoph Hellwig wrote:
-> On Tue, Mar 17, 2020 at 09:47:55AM -0300, Jason Gunthorpe wrote:
->> I've been using v7 of Ralph's tester and it is working well - it has
->> DEVICE_PRIVATE support so I think it can test this flow too. Ralph are
->> you able?
->>
->> This hunk seems trivial enough to me, can we include it now?
-> 
-> I can send a separate patch for it once the tester covers it.  I don't
-> want to add it to the original patch as it is a significant behavior
-> change compared to the existing code.
-> 
 
-Attached is an updated version of my HMM tests based on linux-5.6.0-rc6.
-I ran this OK with Jason's 8+1 HMM patches, Christoph's 1-5 misc HMM clean ups,
-and Christoph's 1-4 device private page changes applied.
+________________________________
+From: Alex Deucher <alexdeucher@gmail.com>
+Sent: Tuesday, March 17, 2020 3:03 PM
+To: Lin, Amber <Amber.Lin@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH] drm/amdkfd: Provide SMI events watch
 
-I'm working on getting my nouveau tests running again on a different test
-machine and will report on that when ready.
+On Tue, Mar 17, 2020 at 1:57 PM Amber Lin <Amber.Lin@amd.com> wrote:
+>
+> When the compute is malfunctioning or performance drops, the system admin
+> will use SMI (System Management Interface) tool to monitor/diagnostic wha=
+t
+> went wrong. This patch provides an event watch interface for the user
+> space to register events they are interested. After the event is
+> registered, the user can use annoymous file descriptor's pull function
+> with wait-time specified to wait for the event to happen. Once the event
+> happens, the user can use read() to retrieve information related to the
+> event.
+>
+> VM fault event is done in this patch.
+>
+> Signed-off-by: Amber Lin <Amber.Lin@amd.com>
 
---------------908CA79958BE6989593A4D80
-Content-Type: text/x-patch; charset="UTF-8";
-	name="0001-mm-hmm-test-add-self-tests-for-HMM.patch"
-Content-Transfer-Encoding: 8bit
-Content-Disposition: attachment;
-	filename="0001-mm-hmm-test-add-self-tests-for-HMM.patch"
+Can you provide a link to the userspace tools that make use of this interfa=
+ce?
 
-From d499fb343bfa9764695ecdcd759fb16bc1ca3c93 Mon Sep 17 00:00:00 2001
-From: Ralph Campbell <rcampbell@nvidia.com>
-Date: Tue, 17 Mar 2020 11:10:38 -0700
-Subject: [PATCH] mm/hmm/test: add self tests for HMM
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Thanks,
 
-Add some basic stand alone self tests for HMM.
+Alex
+=3D=3D=3D=3D=3D
+Hi Alex,
 
-Signed-off-by: Ralph Campbell <rcampbell@nvidia.com>
-Signed-off-by: Jérôme Glisse <jglisse@redhat.com>
----
- MAINTAINERS                            |    3 +
- include/uapi/linux/test_hmm.h          |   59 ++
- lib/Kconfig.debug                      |   12 +
- lib/Makefile                           |    1 +
- lib/test_hmm.c                         | 1210 +++++++++++++++++++++
- tools/testing/selftests/vm/.gitignore  |    1 +
- tools/testing/selftests/vm/Makefile    |    3 +
- tools/testing/selftests/vm/config      |    2 +
- tools/testing/selftests/vm/hmm-tests.c | 1353 ++++++++++++++++++++++++
- tools/testing/selftests/vm/run_vmtests |   16 +
- tools/testing/selftests/vm/test_hmm.sh |   97 ++
- 11 files changed, 2757 insertions(+)
- create mode 100644 include/uapi/linux/test_hmm.h
- create mode 100644 lib/test_hmm.c
- create mode 100644 tools/testing/selftests/vm/hmm-tests.c
- create mode 100755 tools/testing/selftests/vm/test_hmm.sh
+https://github.com/RadeonOpenCompute/rocm_smi_lib will use this interface. =
+Those functions will be added to this library:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc1d18cb5d18..98c80a589a52 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7608,7 +7608,10 @@ L:	linux-mm@kvack.org
- S:	Maintained
- F:	mm/hmm*
- F:	include/linux/hmm*
-+F:	include/uapi/linux/test_hmm*
- F:	Documentation/vm/hmm.rst
-+F:	lib/test_hmm*
-+F:	tools/testing/selftests/vm/*hmm*
- 
- HOST AP DRIVER
- M:	Jouni Malinen <j@w1.fi>
-diff --git a/include/uapi/linux/test_hmm.h b/include/uapi/linux/test_hmm.h
-new file mode 100644
-index 000000000000..8c5f70c160bf
---- /dev/null
-+++ b/include/uapi/linux/test_hmm.h
-@@ -0,0 +1,59 @@
-+/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-+/*
-+ * This is a module to test the HMM (Heterogeneous Memory Management) API
-+ * of the kernel. It allows a userspace program to expose its entire address
-+ * space through the HMM test module device file.
-+ */
-+#ifndef _UAPI_LINUX_HMM_DMIRROR_H
-+#define _UAPI_LINUX_HMM_DMIRROR_H
-+
-+#include <linux/types.h>
-+#include <linux/ioctl.h>
-+
-+/*
-+ * Structure to pass to the HMM test driver to mimic a device accessing
-+ * system memory and ZONE_DEVICE private memory through device page tables.
-+ *
-+ * @addr: (in) user address the device will read/write
-+ * @ptr: (in) user address where device data is copied to/from
-+ * @npages: (in) number of pages to read/write
-+ * @cpages: (out) number of pages copied
-+ * @faults: (out) number of device page faults seen
-+ */
-+struct hmm_dmirror_cmd {
-+	__u64		addr;
-+	__u64		ptr;
-+	__u64		npages;
-+	__u64		cpages;
-+	__u64		faults;
-+};
-+
-+/* Expose the address space of the calling process through hmm device file */
-+#define HMM_DMIRROR_READ		_IOWR('H', 0x00, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_WRITE		_IOWR('H', 0x01, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_MIGRATE		_IOWR('H', 0x02, struct hmm_dmirror_cmd)
-+#define HMM_DMIRROR_SNAPSHOT		_IOWR('H', 0x03, struct hmm_dmirror_cmd)
-+
-+/*
-+ * Values returned in hmm_dmirror_cmd.ptr for HMM_DMIRROR_SNAPSHOT.
-+ * HMM_DMIRROR_PROT_ERROR: no valid mirror PTE for this page
-+ * HMM_DMIRROR_PROT_NONE: unpopulated PTE or PTE with no access
-+ * HMM_DMIRROR_PROT_READ: read-only PTE
-+ * HMM_DMIRROR_PROT_WRITE: read/write PTE
-+ * HMM_DMIRROR_PROT_ZERO: special read-only zero page
-+ * HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL: Migrated device private page on the
-+ *					device the ioctl() is made
-+ * HMM_DMIRROR_PROT_DEV_PRIVATE_REMOTE: Migrated device private page on some
-+ *					other device
-+ */
-+enum {
-+	HMM_DMIRROR_PROT_ERROR			= 0xFF,
-+	HMM_DMIRROR_PROT_NONE			= 0x00,
-+	HMM_DMIRROR_PROT_READ			= 0x01,
-+	HMM_DMIRROR_PROT_WRITE			= 0x02,
-+	HMM_DMIRROR_PROT_ZERO			= 0x10,
-+	HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL	= 0x20,
-+	HMM_DMIRROR_PROT_DEV_PRIVATE_REMOTE	= 0x30,
-+};
-+
-+#endif /* _UAPI_LINUX_HMM_DMIRROR_H */
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 69def4a9df00..4d22ce7879a7 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2162,6 +2162,18 @@ config TEST_MEMINIT
- 
- 	  If unsure, say N.
- 
-+config TEST_HMM
-+	tristate "Test HMM (Heterogeneous Memory Management)"
-+	depends on DEVICE_PRIVATE
-+	select HMM_MIRROR
-+        select MMU_NOTIFIER
-+	help
-+	  This is a pseudo device driver solely for testing HMM.
-+	  Say M here if you want to build the HMM test module.
-+	  Doing so will allow you to run tools/testing/selftest/vm/hmm-tests.
-+
-+	  If unsure, say N.
-+
- endif # RUNTIME_TESTING_MENU
- 
- config MEMTEST
-diff --git a/lib/Makefile b/lib/Makefile
-index 611872c06926..c168bdc803dc 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -89,6 +89,7 @@ obj-$(CONFIG_TEST_OBJAGG) += test_objagg.o
- obj-$(CONFIG_TEST_STACKINIT) += test_stackinit.o
- obj-$(CONFIG_TEST_BLACKHOLE_DEV) += test_blackhole_dev.o
- obj-$(CONFIG_TEST_MEMINIT) += test_meminit.o
-+obj-$(CONFIG_TEST_HMM) += test_hmm.o
- 
- obj-$(CONFIG_TEST_LIVEPATCH) += livepatch/
- 
-diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-new file mode 100644
-index 000000000000..6ca953926dc1
---- /dev/null
-+++ b/lib/test_hmm.c
-@@ -0,0 +1,1210 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * This is a module to test the HMM (Heterogeneous Memory Management)
-+ * mirror and zone device private memory migration APIs of the kernel.
-+ * Userspace programs can register with the driver to mirror their own address
-+ * space and can use the device to read/write any valid virtual address.
-+ */
-+#include <linux/init.h>
-+#include <linux/fs.h>
-+#include <linux/mm.h>
-+#include <linux/module.h>
-+#include <linux/kernel.h>
-+#include <linux/cdev.h>
-+#include <linux/device.h>
-+#include <linux/mutex.h>
-+#include <linux/rwsem.h>
-+#include <linux/sched.h>
-+#include <linux/slab.h>
-+#include <linux/highmem.h>
-+#include <linux/delay.h>
-+#include <linux/pagemap.h>
-+#include <linux/hmm.h>
-+#include <linux/vmalloc.h>
-+#include <linux/swap.h>
-+#include <linux/swapops.h>
-+#include <linux/sched/mm.h>
-+#include <linux/platform_device.h>
-+
-+#include <uapi/linux/test_hmm.h>
-+
-+#define DMIRROR_NDEVICES		2
-+#define DMIRROR_RANGE_FAULT_TIMEOUT	1000
-+#define DEVMEM_CHUNK_SIZE		(256 * 1024 * 1024U)
-+#define DEVMEM_CHUNKS_RESERVE		16
-+
-+static const struct dev_pagemap_ops dmirror_devmem_ops;
-+static const struct mmu_interval_notifier_ops dmirror_min_ops;
-+static dev_t dmirror_dev;
-+static struct page *dmirror_zero_page;
-+
-+struct dmirror_device;
-+
-+struct dmirror_bounce {
-+	void			*ptr;
-+	unsigned long		size;
-+	unsigned long		addr;
-+	unsigned long		cpages;
-+};
-+
-+#define DPT_SHIFT PAGE_SHIFT
-+#define DPT_VALID (1UL << 0)
-+#define DPT_WRITE (1UL << 1)
-+
-+#define DPT_XA_TAG_WRITE 3UL
-+
-+static const uint64_t dmirror_hmm_flags[HMM_PFN_FLAG_MAX] = {
-+	[HMM_PFN_VALID] = DPT_VALID,
-+	[HMM_PFN_WRITE] = DPT_WRITE,
-+};
-+
-+static const uint64_t dmirror_hmm_values[HMM_PFN_VALUE_MAX] = {
-+	[HMM_PFN_NONE]    = 0,
-+	[HMM_PFN_ERROR]   = 0x10,
-+	[HMM_PFN_SPECIAL] = 0x10,
-+};
-+
-+/*
-+ * Data structure to track address ranges and register for mmu interval
-+ * notifier updates.
-+ */
-+struct dmirror_interval {
-+	struct mmu_interval_notifier	notifier;
-+	struct dmirror			*dmirror;
-+};
-+
-+/*
-+ * Data attached to the open device file.
-+ * Note that it might be shared after a fork().
-+ */
-+struct dmirror {
-+	struct mm_struct		*mm;
-+	struct dmirror_device		*mdevice;
-+	struct xarray			pt;
-+	struct mmu_interval_notifier	notifier;
-+	struct mutex			mutex;
-+};
-+
-+/*
-+ * ZONE_DEVICE pages for migration and simulating device memory.
-+ */
-+struct dmirror_chunk {
-+	struct dev_pagemap	pagemap;
-+	struct dmirror_device	*mdevice;
-+};
-+
-+/*
-+ * Per device data.
-+ */
-+struct dmirror_device {
-+	struct cdev		cdevice;
-+	struct hmm_devmem	*devmem;
-+
-+	unsigned int		devmem_capacity;
-+	unsigned int		devmem_count;
-+	struct dmirror_chunk	**devmem_chunks;
-+	struct mutex		devmem_lock;	/* protects the above */
-+
-+	unsigned long		calloc;
-+	unsigned long		cfree;
-+	struct page		*free_pages;
-+	spinlock_t		lock;		/* protects the above */
-+};
-+
-+static struct dmirror_device dmirror_devices[DMIRROR_NDEVICES];
-+
-+static int dmirror_bounce_init(struct dmirror_bounce *bounce,
-+			       unsigned long addr,
-+			       unsigned long size)
-+{
-+	bounce->addr = addr;
-+	bounce->size = size;
-+	bounce->cpages = 0;
-+	bounce->ptr = vmalloc(size);
-+	if (!bounce->ptr)
-+		return -ENOMEM;
-+	return 0;
-+}
-+
-+static void dmirror_bounce_fini(struct dmirror_bounce *bounce)
-+{
-+	vfree(bounce->ptr);
-+}
-+
-+static int dmirror_fops_open(struct inode *inode, struct file *filp)
-+{
-+	struct cdev *cdev = inode->i_cdev;
-+	struct dmirror *dmirror;
-+	int ret;
-+
-+	/* Mirror this process address space */
-+	dmirror = kzalloc(sizeof(*dmirror), GFP_KERNEL);
-+	if (dmirror == NULL)
-+		return -ENOMEM;
-+
-+	dmirror->mdevice = container_of(cdev, struct dmirror_device, cdevice);
-+	mutex_init(&dmirror->mutex);
-+	xa_init(&dmirror->pt);
-+
-+	ret = mmu_interval_notifier_insert(&dmirror->notifier, current->mm,
-+				0, ULONG_MAX & PAGE_MASK, &dmirror_min_ops);
-+	if (ret) {
-+		kfree(dmirror);
-+		return ret;
-+	}
-+
-+	/* Pairs with the mmdrop() in dmirror_fops_release(). */
-+	mmgrab(current->mm);
-+	dmirror->mm = current->mm;
-+
-+	/* Only the first open registers the address space. */
-+	filp->private_data = dmirror;
-+	return 0;
-+}
-+
-+static int dmirror_fops_release(struct inode *inode, struct file *filp)
-+{
-+	struct dmirror *dmirror = filp->private_data;
-+
-+	mmu_interval_notifier_remove(&dmirror->notifier);
-+	mmdrop(dmirror->mm);
-+	xa_destroy(&dmirror->pt);
-+	kfree(dmirror);
-+	return 0;
-+}
-+
-+static inline struct dmirror_device *dmirror_page_to_device(struct page *page)
-+
-+{
-+	struct dmirror_chunk *devmem;
-+
-+	devmem = container_of(page->pgmap, struct dmirror_chunk, pagemap);
-+	return devmem->mdevice;
-+}
-+
-+static bool dmirror_device_is_mine(struct dmirror_device *mdevice,
-+				   struct page *page)
-+{
-+	if (!is_zone_device_page(page))
-+		return false;
-+	return page->pgmap->ops == &dmirror_devmem_ops &&
-+		dmirror_page_to_device(page) == mdevice;
-+}
-+
-+static int dmirror_do_fault(struct dmirror *dmirror, struct hmm_range *range)
-+{
-+	uint64_t *pfns = range->pfns;
-+	unsigned long pfn;
-+
-+	for (pfn = (range->start >> PAGE_SHIFT);
-+	     pfn < (range->end >> PAGE_SHIFT);
-+	     pfn++, pfns++) {
-+		struct page *page;
-+		void *entry;
-+
-+		/*
-+		 * HMM_PFN_ERROR is returned if it is accessing invalid memory
-+		 * either because of memory error (hardware detected memory
-+		 * corruption) or more likely because of truncate on mmap
-+		 * file.
-+		 */
-+		if (*pfns == range->values[HMM_PFN_ERROR])
-+			return -EFAULT;
-+		if (!(*pfns & range->flags[HMM_PFN_VALID]))
-+			return -EFAULT;
-+		page = hmm_device_entry_to_page(range, *pfns);
-+		/* We asked for pages to be populated but check anyway. */
-+		if (!page)
-+			return -EFAULT;
-+		if (is_zone_device_page(page)) {
-+			/*
-+			 * TODO: need a way to ask HMM to fault foreign zone
-+			 * device private pages.
-+			 */
-+			if (!dmirror_device_is_mine(dmirror->mdevice, page))
-+				continue;
-+		}
-+		entry = page;
-+		if (*pfns & range->flags[HMM_PFN_WRITE])
-+			entry = xa_tag_pointer(entry, DPT_XA_TAG_WRITE);
-+		else if (range->default_flags & range->flags[HMM_PFN_WRITE])
-+			return -EFAULT;
-+		entry = xa_store(&dmirror->pt, pfn, entry, GFP_ATOMIC);
-+		if (xa_is_err(entry))
-+			return xa_err(entry);
-+	}
-+
-+	return 0;
-+}
-+
-+static void dmirror_do_update(struct dmirror *dmirror, unsigned long start,
-+			      unsigned long end)
-+{
-+	unsigned long pfn;
-+
-+	/*
-+	 * The XArray doesn't hold references to pages since it relies on
-+	 * the mmu notifier to clear page pointers when they become stale.
-+	 * Therefore, it is OK to just clear the entry.
-+	 */
-+	for (pfn = start >> PAGE_SHIFT; pfn < (end >> PAGE_SHIFT); pfn++)
-+		xa_erase(&dmirror->pt, pfn);
-+}
-+
-+static bool dmirror_interval_invalidate(struct mmu_interval_notifier *mni,
-+				const struct mmu_notifier_range *range,
-+				unsigned long cur_seq)
-+{
-+	struct dmirror *dmirror = container_of(mni, struct dmirror, notifier);
-+	struct mm_struct *mm = dmirror->mm;
-+
-+	/*
-+	 * If the process doesn't exist, we don't need to invalidate the
-+	 * device page table since the address space will be torn down.
-+	 */
-+	if (!mmget_not_zero(mm))
-+		return true;
-+
-+	if (mmu_notifier_range_blockable(range))
-+		mutex_lock(&dmirror->mutex);
-+	else if (!mutex_trylock(&dmirror->mutex))
-+		return false;
-+
-+	mmu_interval_set_seq(mni, cur_seq);
-+	dmirror_do_update(dmirror, range->start, range->end);
-+
-+	mutex_unlock(&dmirror->mutex);
-+	mmput(mm);
-+	return true;
-+}
-+
-+static const struct mmu_interval_notifier_ops dmirror_min_ops = {
-+	.invalidate = dmirror_interval_invalidate,
-+};
-+
-+static int dmirror_range_fault(struct dmirror *dmirror,
-+				struct hmm_range *range)
-+{
-+	struct mm_struct *mm = dmirror->mm;
-+	unsigned long timeout =
-+		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-+	int ret;
-+
-+	while (true) {
-+		long count;
-+
-+		if (time_after(jiffies, timeout)) {
-+			ret = -EBUSY;
-+			goto out;
-+		}
-+
-+		range->notifier_seq = mmu_interval_read_begin(range->notifier);
-+		down_read(&mm->mmap_sem);
-+		count = hmm_range_fault(range, 0);
-+		up_read(&mm->mmap_sem);
-+		if (count <= 0) {
-+			if (count == 0 || count == -EBUSY)
-+				continue;
-+			ret = count;
-+			goto out;
-+		}
-+
-+		mutex_lock(&dmirror->mutex);
-+		if (mmu_interval_read_retry(range->notifier,
-+					    range->notifier_seq)) {
-+			mutex_unlock(&dmirror->mutex);
-+			continue;
-+		}
-+		break;
-+	}
-+
-+	ret = dmirror_do_fault(dmirror, range);
-+
-+	mutex_unlock(&dmirror->mutex);
-+out:
-+	return ret;
-+}
-+
-+static int dmirror_fault(struct dmirror *dmirror, unsigned long start,
-+			 unsigned long end, bool write)
-+{
-+	struct mm_struct *mm = dmirror->mm;
-+	unsigned long addr;
-+	uint64_t pfns[64];
-+	struct hmm_range range = {
-+		.notifier = &dmirror->notifier,
-+		.pfns = pfns,
-+		.flags = dmirror_hmm_flags,
-+		.values = dmirror_hmm_values,
-+		.pfn_shift = DPT_SHIFT,
-+		.pfn_flags_mask = ~(dmirror_hmm_flags[HMM_PFN_VALID] |
-+				    dmirror_hmm_flags[HMM_PFN_WRITE]),
-+		.default_flags = dmirror_hmm_flags[HMM_PFN_VALID] |
-+				(write ? dmirror_hmm_flags[HMM_PFN_WRITE] : 0),
-+		.dev_private_owner = dmirror->mdevice,
-+	};
-+	int ret = 0;
-+
-+	/* Since the mm is for the mirrored process, get a reference first. */
-+	if (!mmget_not_zero(mm))
-+		return 0;
-+
-+	for (addr = start; addr < end; addr = range.end) {
-+		range.start = addr;
-+		range.end = min(addr + (ARRAY_SIZE(pfns) << PAGE_SHIFT), end);
-+
-+		ret = dmirror_range_fault(dmirror, &range);
-+		if (ret)
-+			break;
-+	}
-+
-+	mmput(mm);
-+	return ret;
-+}
-+
-+static int dmirror_do_read(struct dmirror *dmirror, unsigned long start,
-+			   unsigned long end, struct dmirror_bounce *bounce)
-+{
-+	unsigned long pfn;
-+	void *ptr;
-+
-+	ptr = bounce->ptr + ((start - bounce->addr) & PAGE_MASK);
-+
-+	for (pfn = start >> PAGE_SHIFT; pfn < (end >> PAGE_SHIFT); pfn++) {
-+		void *entry;
-+		struct page *page;
-+		void *tmp;
-+
-+		entry = xa_load(&dmirror->pt, pfn);
-+		page = xa_untag_pointer(entry);
-+		if (!page)
-+			return -ENOENT;
-+
-+		tmp = kmap(page);
-+		memcpy(ptr, tmp, PAGE_SIZE);
-+		kunmap(page);
-+
-+		ptr += PAGE_SIZE;
-+		bounce->cpages++;
-+	}
-+
-+	return 0;
-+}
-+
-+static int dmirror_read(struct dmirror *dmirror, struct hmm_dmirror_cmd *cmd)
-+{
-+	struct dmirror_bounce bounce;
-+	unsigned long start, end;
-+	unsigned long size = cmd->npages << PAGE_SHIFT;
-+	int ret;
-+
-+	start = cmd->addr;
-+	end = start + size;
-+	if (end < start)
-+		return -EINVAL;
-+
-+	ret = dmirror_bounce_init(&bounce, start, size);
-+	if (ret)
-+		return ret;
-+
-+again:
-+	mutex_lock(&dmirror->mutex);
-+	ret = dmirror_do_read(dmirror, start, end, &bounce);
-+	mutex_unlock(&dmirror->mutex);
-+	if (ret == 0)
-+		ret = copy_to_user((void __user *)cmd->ptr, bounce.ptr,
-+					bounce.size);
-+	else if (ret == -ENOENT) {
-+		start = cmd->addr + (bounce.cpages << PAGE_SHIFT);
-+		ret = dmirror_fault(dmirror, start, end, false);
-+		if (ret == 0) {
-+			cmd->faults++;
-+			goto again;
-+		}
-+	}
-+
-+	cmd->cpages = bounce.cpages;
-+	dmirror_bounce_fini(&bounce);
-+	return ret;
-+}
-+
-+static int dmirror_do_write(struct dmirror *dmirror, unsigned long start,
-+			    unsigned long end, struct dmirror_bounce *bounce)
-+{
-+	unsigned long pfn;
-+	void *ptr;
-+
-+	ptr = bounce->ptr + ((start - bounce->addr) & PAGE_MASK);
-+
-+	for (pfn = start >> PAGE_SHIFT; pfn < (end >> PAGE_SHIFT); pfn++) {
-+		void *entry;
-+		struct page *page;
-+		void *tmp;
-+
-+		entry = xa_load(&dmirror->pt, pfn);
-+		page = xa_untag_pointer(entry);
-+		if (!page || xa_pointer_tag(entry) != DPT_XA_TAG_WRITE)
-+			return -ENOENT;
-+
-+		tmp = kmap(page);
-+		memcpy(tmp, ptr, PAGE_SIZE);
-+		kunmap(page);
-+
-+		ptr += PAGE_SIZE;
-+		bounce->cpages++;
-+	}
-+
-+	return 0;
-+}
-+
-+static int dmirror_write(struct dmirror *dmirror, struct hmm_dmirror_cmd *cmd)
-+{
-+	struct dmirror_bounce bounce;
-+	unsigned long start, end;
-+	unsigned long size = cmd->npages << PAGE_SHIFT;
-+	int ret;
-+
-+	start = cmd->addr;
-+	end = start + size;
-+	if (end < start)
-+		return -EINVAL;
-+
-+	ret = dmirror_bounce_init(&bounce, start, size);
-+	if (ret)
-+		return ret;
-+	ret = copy_from_user(bounce.ptr, (void __user *)cmd->ptr,
-+				bounce.size);
-+	if (ret)
-+		return ret;
-+
-+again:
-+	mutex_lock(&dmirror->mutex);
-+	ret = dmirror_do_write(dmirror, start, end, &bounce);
-+	mutex_unlock(&dmirror->mutex);
-+	if (ret == -ENOENT) {
-+		start = cmd->addr + (bounce.cpages << PAGE_SHIFT);
-+		ret = dmirror_fault(dmirror, start, end, true);
-+		if (ret == 0) {
-+			cmd->faults++;
-+			goto again;
-+		}
-+	}
-+
-+	cmd->cpages = bounce.cpages;
-+	dmirror_bounce_fini(&bounce);
-+	return ret;
-+}
-+
-+static bool dmirror_allocate_chunk(struct dmirror_device *mdevice,
-+				   struct page **ppage)
-+{
-+	struct dmirror_chunk *devmem;
-+	struct resource *res;
-+	unsigned long pfn;
-+	unsigned long pfn_first;
-+	unsigned long pfn_last;
-+	void *ptr;
-+
-+	mutex_lock(&mdevice->devmem_lock);
-+
-+	if (mdevice->devmem_count == mdevice->devmem_capacity) {
-+		struct dmirror_chunk **new_chunks;
-+		unsigned int new_capacity;
-+
-+		new_capacity = mdevice->devmem_capacity +
-+				DEVMEM_CHUNKS_RESERVE;
-+		new_chunks = krealloc(mdevice->devmem_chunks,
-+				sizeof(new_chunks[0]) * new_capacity,
-+				GFP_KERNEL);
-+		if (!new_chunks)
-+			goto err;
-+		mdevice->devmem_capacity = new_capacity;
-+		mdevice->devmem_chunks = new_chunks;
-+	}
-+
-+	res = request_free_mem_region(&iomem_resource, DEVMEM_CHUNK_SIZE,
-+					"hmm_dmirror");
-+	if (IS_ERR(res))
-+		goto err;
-+
-+	devmem = kzalloc(sizeof(*devmem), GFP_KERNEL);
-+	if (!devmem)
-+		goto err;
-+
-+	devmem->pagemap.type = MEMORY_DEVICE_PRIVATE;
-+	devmem->pagemap.res = *res;
-+	devmem->pagemap.ops = &dmirror_devmem_ops;
-+	devmem->pagemap.owner = mdevice;
-+
-+	ptr = memremap_pages(&devmem->pagemap, numa_node_id());
-+	if (IS_ERR(ptr))
-+		goto err_free;
-+
-+	devmem->mdevice = mdevice;
-+	pfn_first = devmem->pagemap.res.start >> PAGE_SHIFT;
-+	pfn_last = pfn_first +
-+		(resource_size(&devmem->pagemap.res) >> PAGE_SHIFT);
-+	mdevice->devmem_chunks[mdevice->devmem_count++] = devmem;
-+
-+	mutex_unlock(&mdevice->devmem_lock);
-+
-+	pr_info("added new %u MB chunk (total %u chunks, %u MB) PFNs [0x%lx 0x%lx)\n",
-+		DEVMEM_CHUNK_SIZE / (1024 * 1024),
-+		mdevice->devmem_count,
-+		mdevice->devmem_count * (DEVMEM_CHUNK_SIZE / (1024 * 1024)),
-+		pfn_first, pfn_last);
-+
-+	spin_lock(&mdevice->lock);
-+	for (pfn = pfn_first; pfn < pfn_last; pfn++) {
-+		struct page *page = pfn_to_page(pfn);
-+
-+		page->zone_device_data = mdevice->free_pages;
-+		mdevice->free_pages = page;
-+	}
-+	if (ppage) {
-+		*ppage = mdevice->free_pages;
-+		mdevice->free_pages = (*ppage)->zone_device_data;
-+		mdevice->calloc++;
-+	}
-+	spin_unlock(&mdevice->lock);
-+
-+	return true;
-+
-+err_free:
-+	kfree(devmem);
-+err:
-+	mutex_unlock(&mdevice->devmem_lock);
-+	return false;
-+}
-+
-+static struct page *dmirror_devmem_alloc_page(struct dmirror_device *mdevice)
-+{
-+	struct page *dpage = NULL;
-+	struct page *rpage;
-+
-+	/*
-+	 * This is a fake device so we alloc real system memory to store
-+	 * our device memory.
-+	 */
-+	rpage = alloc_page(GFP_HIGHUSER);
-+	if (!rpage)
-+		return NULL;
-+
-+	spin_lock(&mdevice->lock);
-+
-+	if (mdevice->free_pages) {
-+		dpage = mdevice->free_pages;
-+		mdevice->free_pages = dpage->zone_device_data;
-+		mdevice->calloc++;
-+		spin_unlock(&mdevice->lock);
-+	} else {
-+		spin_unlock(&mdevice->lock);
-+		if (!dmirror_allocate_chunk(mdevice, &dpage))
-+			goto error;
-+	}
-+
-+	dpage->zone_device_data = rpage;
-+	get_page(dpage);
-+	lock_page(dpage);
-+	return dpage;
-+
-+error:
-+	__free_page(rpage);
-+	return NULL;
-+}
-+
-+static void dmirror_migrate_alloc_and_copy(struct migrate_vma *args,
-+					   struct dmirror *dmirror)
-+{
-+	struct dmirror_device *mdevice = dmirror->mdevice;
-+	const unsigned long *src = args->src;
-+	unsigned long *dst = args->dst;
-+	unsigned long addr;
-+
-+	for (addr = args->start; addr < args->end; addr += PAGE_SIZE,
-+						   src++, dst++) {
-+		struct page *spage;
-+		struct page *dpage;
-+		struct page *rpage;
-+
-+		if (!(*src & MIGRATE_PFN_MIGRATE))
-+			continue;
-+
-+		/*
-+		 * Note that spage might be NULL which is OK since it is an
-+		 * unallocated pte_none() or read-only zero page.
-+		 */
-+		spage = migrate_pfn_to_page(*src);
-+
-+		/*
-+		 * Don't migrate device private pages from our own driver or
-+		 * others. For our own we would do a device private memory copy
-+		 * not a migration and for others, we would need to fault the
-+		 * other device's page into system memory first.
-+		 */
-+		if (spage && is_zone_device_page(spage))
-+			continue;
-+
-+		dpage = dmirror_devmem_alloc_page(mdevice);
-+		if (!dpage)
-+			continue;
-+
-+		rpage = dpage->zone_device_data;
-+		if (spage)
-+			copy_highpage(rpage, spage);
-+		else
-+			clear_highpage(rpage);
-+
-+		/*
-+		 * Normally, a device would use the page->zone_device_data to
-+		 * point to the mirror but here we use it to hold the page for
-+		 * the simulated device memory and that page holds the pointer
-+		 * to the mirror.
-+		 */
-+		rpage->zone_device_data = dmirror;
-+
-+		*dst = migrate_pfn(page_to_pfn(dpage)) |
-+			    MIGRATE_PFN_LOCKED;
-+		if ((*src & MIGRATE_PFN_WRITE) ||
-+		    (!spage && args->vma->vm_flags & VM_WRITE))
-+			*dst |= MIGRATE_PFN_WRITE;
-+	}
-+}
-+
-+static int dmirror_migrate_finalize_and_map(struct migrate_vma *args,
-+					    struct dmirror *dmirror)
-+{
-+	unsigned long start = args->start;
-+	unsigned long end = args->end;
-+	const unsigned long *src = args->src;
-+	const unsigned long *dst = args->dst;
-+	unsigned long pfn;
-+
-+	/* Map the migrated pages into the device's page tables. */
-+	mutex_lock(&dmirror->mutex);
-+
-+	for (pfn = start >> PAGE_SHIFT; pfn < (end >> PAGE_SHIFT); pfn++,
-+								src++, dst++) {
-+		struct page *dpage;
-+		void *entry;
-+
-+		if (!(*src & MIGRATE_PFN_MIGRATE))
-+			continue;
-+
-+		dpage = migrate_pfn_to_page(*dst);
-+		if (!dpage)
-+			continue;
-+
-+		/*
-+		 * Store the page that holds the data so the page table
-+		 * doesn't have to deal with ZONE_DEVICE private pages.
-+		 */
-+		entry = dpage->zone_device_data;
-+		if (*dst & MIGRATE_PFN_WRITE)
-+			entry = xa_tag_pointer(entry, DPT_XA_TAG_WRITE);
-+		entry = xa_store(&dmirror->pt, pfn, entry, GFP_ATOMIC);
-+		if (xa_is_err(entry))
-+			return xa_err(entry);
-+	}
-+
-+	mutex_unlock(&dmirror->mutex);
-+	return 0;
-+}
-+
-+static int dmirror_migrate(struct dmirror *dmirror,
-+			   struct hmm_dmirror_cmd *cmd)
-+{
-+	unsigned long start, end, addr;
-+	unsigned long size = cmd->npages << PAGE_SHIFT;
-+	struct mm_struct *mm = dmirror->mm;
-+	struct vm_area_struct *vma;
-+	unsigned long src_pfns[64];
-+	unsigned long dst_pfns[64];
-+	struct dmirror_bounce bounce;
-+	struct migrate_vma args;
-+	unsigned long next;
-+	int ret;
-+
-+	start = cmd->addr;
-+	end = start + size;
-+	if (end < start)
-+		return -EINVAL;
-+
-+	/* Since the mm is for the mirrored process, get a reference first. */
-+	if (!mmget_not_zero(mm))
-+		return -EINVAL;
-+
-+	down_read(&mm->mmap_sem);
-+	for (addr = start; addr < end; addr = next) {
-+		vma = find_vma(mm, addr);
-+		if (!vma || addr < vma->vm_start) {
-+			ret = -EINVAL;
-+			goto out;
-+		}
-+		next = min(end, addr + (ARRAY_SIZE(src_pfns) << PAGE_SHIFT));
-+		if (next > vma->vm_end)
-+			next = vma->vm_end;
-+
-+		args.vma = vma;
-+		args.src = src_pfns;
-+		args.dst = dst_pfns;
-+		args.start = addr;
-+		args.end = next;
-+		args.src_owner = NULL;
-+		ret = migrate_vma_setup(&args);
-+		if (ret)
-+			goto out;
-+
-+		dmirror_migrate_alloc_and_copy(&args, dmirror);
-+		migrate_vma_pages(&args);
-+		dmirror_migrate_finalize_and_map(&args, dmirror);
-+		migrate_vma_finalize(&args);
-+	}
-+	up_read(&mm->mmap_sem);
-+	mmput(mm);
-+
-+	/* Return the migrated data for verification. */
-+	ret = dmirror_bounce_init(&bounce, start, size);
-+	if (ret)
-+		return ret;
-+	mutex_lock(&dmirror->mutex);
-+	ret = dmirror_do_read(dmirror, start, end, &bounce);
-+	mutex_unlock(&dmirror->mutex);
-+	if (ret == 0)
-+		ret = copy_to_user((void __user *)cmd->ptr, bounce.ptr,
-+					bounce.size);
-+	cmd->cpages = bounce.cpages;
-+	dmirror_bounce_fini(&bounce);
-+	return ret;
-+
-+out:
-+	up_read(&mm->mmap_sem);
-+	mmput(mm);
-+	return ret;
-+}
-+
-+static void dmirror_mkentry(struct dmirror *dmirror, struct hmm_range *range,
-+			    unsigned char *perm, uint64_t entry)
-+{
-+	struct page *page;
-+
-+	if (entry == range->values[HMM_PFN_ERROR]) {
-+		*perm = HMM_DMIRROR_PROT_ERROR;
-+		return;
-+	}
-+	page = hmm_device_entry_to_page(range, entry);
-+	if (!page) {
-+		*perm = HMM_DMIRROR_PROT_NONE;
-+		return;
-+	}
-+	if (is_device_private_page(page)) {
-+		/* Is the page migrated to this device or some other? */
-+		if (dmirror->mdevice == dmirror_page_to_device(page))
-+			*perm = HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL;
-+		else
-+			*perm = HMM_DMIRROR_PROT_DEV_PRIVATE_REMOTE;
-+	} else if (is_zero_pfn(page_to_pfn(page)))
-+		*perm = HMM_DMIRROR_PROT_ZERO;
-+	else
-+		*perm = HMM_DMIRROR_PROT_NONE;
-+	if (entry & range->flags[HMM_PFN_WRITE])
-+		*perm |= HMM_DMIRROR_PROT_WRITE;
-+	else
-+		*perm |= HMM_DMIRROR_PROT_READ;
-+}
-+
-+static bool dmirror_snapshot_invalidate(struct mmu_interval_notifier *mni,
-+				const struct mmu_notifier_range *range,
-+				unsigned long cur_seq)
-+{
-+	struct dmirror_interval *dmi =
-+		container_of(mni, struct dmirror_interval, notifier);
-+	struct dmirror *dmirror = dmi->dmirror;
-+
-+	if (mmu_notifier_range_blockable(range))
-+		mutex_lock(&dmirror->mutex);
-+	else if (!mutex_trylock(&dmirror->mutex))
-+		return false;
-+
-+	/*
-+	 * Snapshots only need to set the sequence number since any
-+	 * invalidation in the interval invalidates the whole snapshot.
-+	 */
-+	mmu_interval_set_seq(mni, cur_seq);
-+
-+	mutex_unlock(&dmirror->mutex);
-+	return true;
-+}
-+
-+static const struct mmu_interval_notifier_ops dmirror_mrn_ops = {
-+	.invalidate = dmirror_snapshot_invalidate,
-+};
-+
-+static int dmirror_range_snapshot(struct dmirror *dmirror,
-+				  struct hmm_range *range,
-+				  unsigned char *perm)
-+{
-+	struct mm_struct *mm = dmirror->mm;
-+	struct dmirror_interval notifier;
-+	unsigned long timeout =
-+		jiffies + msecs_to_jiffies(HMM_RANGE_DEFAULT_TIMEOUT);
-+	unsigned long i;
-+	unsigned long n;
-+	int ret = 0;
-+
-+	notifier.dmirror = dmirror;
-+	range->notifier = &notifier.notifier;
-+
-+	ret = mmu_interval_notifier_insert(range->notifier, mm,
-+			range->start, range->end - range->start,
-+			&dmirror_mrn_ops);
-+	if (ret)
-+		return ret;
-+
-+	while (true) {
-+		long count;
-+
-+		if (time_after(jiffies, timeout)) {
-+			ret = -EBUSY;
-+			goto out;
-+		}
-+
-+		range->notifier_seq = mmu_interval_read_begin(range->notifier);
-+
-+		down_read(&mm->mmap_sem);
-+		count = hmm_range_fault(range, HMM_FAULT_SNAPSHOT);
-+		up_read(&mm->mmap_sem);
-+		if (count <= 0) {
-+			if (count == 0 || count == -EBUSY)
-+				continue;
-+			ret = count;
-+			goto out;
-+		}
-+
-+		mutex_lock(&dmirror->mutex);
-+		if (mmu_interval_read_retry(range->notifier,
-+					    range->notifier_seq)) {
-+			mutex_unlock(&dmirror->mutex);
-+			continue;
-+		}
-+		break;
-+	}
-+
-+	n = (range->end - range->start) >> PAGE_SHIFT;
-+	for (i = 0; i < n; i++)
-+		dmirror_mkentry(dmirror, range, perm + i, range->pfns[i]);
-+
-+	mutex_unlock(&dmirror->mutex);
-+out:
-+	mmu_interval_notifier_remove(range->notifier);
-+	return ret;
-+}
-+
-+static int dmirror_snapshot(struct dmirror *dmirror,
-+			    struct hmm_dmirror_cmd *cmd)
-+{
-+	struct mm_struct *mm = dmirror->mm;
-+	unsigned long start, end;
-+	unsigned long size = cmd->npages << PAGE_SHIFT;
-+	unsigned long addr;
-+	unsigned long next;
-+	uint64_t pfns[64];
-+	unsigned char perm[64];
-+	char __user *uptr;
-+	struct hmm_range range = {
-+		.pfns = pfns,
-+		.flags = dmirror_hmm_flags,
-+		.values = dmirror_hmm_values,
-+		.pfn_shift = DPT_SHIFT,
-+		.pfn_flags_mask = ~0ULL,
-+		.dev_private_owner = dmirror->mdevice,
-+	};
-+	int ret = 0;
-+
-+	start = cmd->addr;
-+	end = start + size;
-+	if (end < start)
-+		return -EINVAL;
-+
-+	/* Since the mm is for the mirrored process, get a reference first. */
-+	if (!mmget_not_zero(mm))
-+		return -EINVAL;
-+
-+	/*
-+	 * Register a temporary notifier to detect invalidations even if it
-+	 * overlaps with other mmu_interval_notifiers.
-+	 */
-+	uptr = (void __user *)cmd->ptr;
-+	for (addr = start; addr < end; addr = next) {
-+		unsigned long n;
-+
-+		next = min(addr + (ARRAY_SIZE(pfns) << PAGE_SHIFT), end);
-+		range.start = addr;
-+		range.end = next;
-+
-+		ret = dmirror_range_snapshot(dmirror, &range, perm);
-+		if (ret)
-+			break;
-+
-+		n = (range.end - range.start) >> PAGE_SHIFT;
-+		ret = copy_to_user(uptr, perm, n);
-+		if (ret)
-+			break;
-+
-+		cmd->cpages += n;
-+		uptr += n;
-+	}
-+	mmput(mm);
-+
-+	return ret;
-+}
-+
-+static long dmirror_fops_unlocked_ioctl(struct file *filp,
-+					unsigned int command,
-+					unsigned long arg)
-+{
-+	void __user *uarg = (void __user *)arg;
-+	struct hmm_dmirror_cmd cmd;
-+	struct dmirror *dmirror;
-+	int ret;
-+
-+	dmirror = filp->private_data;
-+	if (!dmirror)
-+		return -EINVAL;
-+
-+	ret = copy_from_user(&cmd, uarg, sizeof(cmd));
-+	if (ret)
-+		return ret;
-+
-+	if (cmd.addr & ~PAGE_MASK)
-+		return -EINVAL;
-+	if (cmd.addr >= (cmd.addr + (cmd.npages << PAGE_SHIFT)))
-+		return -EINVAL;
-+
-+	cmd.cpages = 0;
-+	cmd.faults = 0;
-+
-+	switch (command) {
-+	case HMM_DMIRROR_READ:
-+		ret = dmirror_read(dmirror, &cmd);
-+		break;
-+
-+	case HMM_DMIRROR_WRITE:
-+		ret = dmirror_write(dmirror, &cmd);
-+		break;
-+
-+	case HMM_DMIRROR_MIGRATE:
-+		ret = dmirror_migrate(dmirror, &cmd);
-+		break;
-+
-+	case HMM_DMIRROR_SNAPSHOT:
-+		ret = dmirror_snapshot(dmirror, &cmd);
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+	if (ret)
-+		return ret;
-+
-+	return copy_to_user(uarg, &cmd, sizeof(cmd));
-+}
-+
-+static const struct file_operations dmirror_fops = {
-+	.open		= dmirror_fops_open,
-+	.release	= dmirror_fops_release,
-+	.unlocked_ioctl = dmirror_fops_unlocked_ioctl,
-+	.llseek		= default_llseek,
-+	.owner		= THIS_MODULE,
-+};
-+
-+static void dmirror_devmem_free(struct page *page)
-+{
-+	struct page *rpage = page->zone_device_data;
-+	struct dmirror_device *mdevice;
-+
-+	if (rpage)
-+		__free_page(rpage);
-+
-+	mdevice = dmirror_page_to_device(page);
-+
-+	spin_lock(&mdevice->lock);
-+	mdevice->cfree++;
-+	page->zone_device_data = mdevice->free_pages;
-+	mdevice->free_pages = page;
-+	spin_unlock(&mdevice->lock);
-+}
-+
-+static vm_fault_t dmirror_devmem_fault_alloc_and_copy(struct migrate_vma *args,
-+						struct dmirror_device *mdevice)
-+{
-+	struct vm_area_struct *vma = args->vma;
-+	const unsigned long *src = args->src;
-+	unsigned long *dst = args->dst;
-+	unsigned long start = args->start;
-+	unsigned long end = args->end;
-+	unsigned long addr;
-+
-+	for (addr = start; addr < end; addr += PAGE_SIZE,
-+				       src++, dst++) {
-+		struct page *dpage, *spage;
-+
-+		spage = migrate_pfn_to_page(*src);
-+		if (!spage || !(*src & MIGRATE_PFN_MIGRATE))
-+			continue;
-+		if (!dmirror_device_is_mine(mdevice, spage))
-+			continue;
-+		spage = spage->zone_device_data;
-+
-+		dpage = alloc_page_vma(GFP_HIGHUSER_MOVABLE, vma, addr);
-+		if (!dpage)
-+			continue;
-+
-+		lock_page(dpage);
-+		copy_highpage(dpage, spage);
-+		*dst = migrate_pfn(page_to_pfn(dpage)) | MIGRATE_PFN_LOCKED;
-+		if (*src & MIGRATE_PFN_WRITE)
-+			*dst |= MIGRATE_PFN_WRITE;
-+	}
-+	return 0;
-+}
-+
-+static void dmirror_devmem_fault_finalize_and_map(struct migrate_vma *args,
-+						  struct dmirror *dmirror)
-+{
-+	/* Invalidate the device's page table mapping. */
-+	mutex_lock(&dmirror->mutex);
-+	dmirror_do_update(dmirror, args->start, args->end);
-+	mutex_unlock(&dmirror->mutex);
-+}
-+
-+static vm_fault_t dmirror_devmem_fault(struct vm_fault *vmf)
-+{
-+	struct migrate_vma args;
-+	unsigned long src_pfns;
-+	unsigned long dst_pfns;
-+	struct page *rpage;
-+	struct dmirror *dmirror;
-+	vm_fault_t ret;
-+
-+	/*
-+	 * Normally, a device would use the page->zone_device_data to point to
-+	 * the mirror but here we use it to hold the page for the simulated
-+	 * device memory and that page holds the pointer to the mirror.
-+	 */
-+	rpage = vmf->page->zone_device_data;
-+	dmirror = rpage->zone_device_data;
-+
-+	/* FIXME demonstrate how we can adjust migrate range */
-+	args.vma = vmf->vma;
-+	args.start = vmf->address;
-+	args.end = args.start + PAGE_SIZE;
-+	args.src = &src_pfns;
-+	args.dst = &dst_pfns;
-+	args.src_owner = dmirror->mdevice;
-+
-+	if (migrate_vma_setup(&args))
-+		return VM_FAULT_SIGBUS;
-+
-+	ret = dmirror_devmem_fault_alloc_and_copy(&args, dmirror->mdevice);
-+	if (ret)
-+		return ret;
-+	migrate_vma_pages(&args);
-+	dmirror_devmem_fault_finalize_and_map(&args, dmirror);
-+	migrate_vma_finalize(&args);
-+	return 0;
-+}
-+
-+static const struct dev_pagemap_ops dmirror_devmem_ops = {
-+	.page_free	= dmirror_devmem_free,
-+	.migrate_to_ram	= dmirror_devmem_fault,
-+};
-+
-+static int dmirror_device_init(struct dmirror_device *mdevice, int id)
-+{
-+	dev_t dev;
-+	int ret;
-+
-+	dev = MKDEV(MAJOR(dmirror_dev), id);
-+	mutex_init(&mdevice->devmem_lock);
-+	spin_lock_init(&mdevice->lock);
-+
-+	cdev_init(&mdevice->cdevice, &dmirror_fops);
-+	ret = cdev_add(&mdevice->cdevice, dev, 1);
-+	if (ret)
-+		return ret;
-+
-+	/* Build a list of free ZONE_DEVICE private struct pages */
-+	dmirror_allocate_chunk(mdevice, NULL);
-+
-+	return 0;
-+}
-+
-+static void dmirror_device_remove(struct dmirror_device *mdevice)
-+{
-+	unsigned int i;
-+
-+	if (mdevice->devmem_chunks) {
-+		for (i = 0; i < mdevice->devmem_count; i++) {
-+			struct dmirror_chunk *devmem =
-+				mdevice->devmem_chunks[i];
-+
-+			memunmap_pages(&devmem->pagemap);
-+			kfree(devmem);
-+		}
-+		kfree(mdevice->devmem_chunks);
-+	}
-+
-+	cdev_del(&mdevice->cdevice);
-+}
-+
-+static int __init hmm_dmirror_init(void)
-+{
-+	int ret;
-+	int id;
-+
-+	ret = alloc_chrdev_region(&dmirror_dev, 0, DMIRROR_NDEVICES,
-+				  "HMM_DMIRROR");
-+	if (ret)
-+		goto err_unreg;
-+
-+	for (id = 0; id < DMIRROR_NDEVICES; id++) {
-+		ret = dmirror_device_init(dmirror_devices + id, id);
-+		if (ret)
-+			goto err_chrdev;
-+	}
-+
-+	/*
-+	 * Allocate a zero page to simulate a reserved page of device private
-+	 * memory which is always zero. The zero_pfn page isn't used just to
-+	 * make the code here simpler (i.e., we need a struct page for it).
-+	 */
-+	dmirror_zero_page = alloc_page(GFP_HIGHUSER | __GFP_ZERO);
-+	if (!dmirror_zero_page)
-+		goto err_chrdev;
-+
-+	pr_info("HMM test module loaded. This is only for testing HMM.\n");
-+	return 0;
-+
-+err_chrdev:
-+	while (--id >= 0)
-+		dmirror_device_remove(dmirror_devices + id);
-+	unregister_chrdev_region(dmirror_dev, DMIRROR_NDEVICES);
-+err_unreg:
-+	return ret;
-+}
-+
-+static void __exit hmm_dmirror_exit(void)
-+{
-+	int id;
-+
-+	if (dmirror_zero_page)
-+		__free_page(dmirror_zero_page);
-+	for (id = 0; id < DMIRROR_NDEVICES; id++)
-+		dmirror_device_remove(dmirror_devices + id);
-+	unregister_chrdev_region(dmirror_dev, DMIRROR_NDEVICES);
-+}
-+
-+module_init(hmm_dmirror_init);
-+module_exit(hmm_dmirror_exit);
-+MODULE_LICENSE("GPL");
-diff --git a/tools/testing/selftests/vm/.gitignore b/tools/testing/selftests/vm/.gitignore
-index 31b3c98b6d34..3054565b3f07 100644
---- a/tools/testing/selftests/vm/.gitignore
-+++ b/tools/testing/selftests/vm/.gitignore
-@@ -14,3 +14,4 @@ virtual_address_range
- gup_benchmark
- va_128TBswitch
- map_fixed_noreplace
-+hmm-tests
-diff --git a/tools/testing/selftests/vm/Makefile b/tools/testing/selftests/vm/Makefile
-index 7f9a8a8c31da..3fadab99d991 100644
---- a/tools/testing/selftests/vm/Makefile
-+++ b/tools/testing/selftests/vm/Makefile
-@@ -7,6 +7,7 @@ CFLAGS = -Wall -I ../../../../usr/include $(EXTRA_CFLAGS)
- LDLIBS = -lrt
- TEST_GEN_FILES = compaction_test
- TEST_GEN_FILES += gup_benchmark
-+TEST_GEN_FILES += hmm-tests
- TEST_GEN_FILES += hugepage-mmap
- TEST_GEN_FILES += hugepage-shm
- TEST_GEN_FILES += map_hugetlb
-@@ -31,6 +32,8 @@ TEST_FILES := test_vmalloc.sh
- KSFT_KHDR_INSTALL := 1
- include ../lib.mk
- 
-+$(OUTPUT)/hmm-tests: LDLIBS += -lhugetlbfs -lpthread
-+
- $(OUTPUT)/userfaultfd: LDLIBS += -lpthread
- 
- $(OUTPUT)/mlock-random-test: LDLIBS += -lcap
-diff --git a/tools/testing/selftests/vm/config b/tools/testing/selftests/vm/config
-index 93b90a9b1eeb..f6d0adad739f 100644
---- a/tools/testing/selftests/vm/config
-+++ b/tools/testing/selftests/vm/config
-@@ -1,3 +1,5 @@
- CONFIG_SYSVIPC=y
- CONFIG_USERFAULTFD=y
- CONFIG_TEST_VMALLOC=m
-+CONFIG_HMM_MIRROR=y
-+CONFIG_DEVICE_PRIVATE=y
-diff --git a/tools/testing/selftests/vm/hmm-tests.c b/tools/testing/selftests/vm/hmm-tests.c
-new file mode 100644
-index 000000000000..033a12c7ab5b
---- /dev/null
-+++ b/tools/testing/selftests/vm/hmm-tests.c
-@@ -0,0 +1,1353 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * HMM stands for Heterogeneous Memory Management, it is a helper layer inside
-+ * the linux kernel to help device drivers mirror a process address space in
-+ * the device. This allows the device to use the same address space which
-+ * makes communication and data exchange a lot easier.
-+ *
-+ * This framework's sole purpose is to exercise various code paths inside
-+ * the kernel to make sure that HMM performs as expected and to flush out any
-+ * bugs.
-+ */
-+
-+#include "../kselftest_harness.h"
-+
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <stdint.h>
-+#include <unistd.h>
-+#include <strings.h>
-+#include <time.h>
-+#include <pthread.h>
-+#include <hugetlbfs.h>
-+#include <sys/types.h>
-+#include <sys/stat.h>
-+#include <sys/mman.h>
-+#include <sys/ioctl.h>
-+#include <linux/test_hmm.h>
-+
-+struct hmm_buffer {
-+	void		*ptr;
-+	void		*mirror;
-+	unsigned long	size;
-+	int		fd;
-+	uint64_t	cpages;
-+	uint64_t	faults;
-+};
-+
-+#define TWOMEG		(1 << 21)
-+#define HMM_BUFFER_SIZE (1024 << 12)
-+#define HMM_PATH_MAX    64
-+#define NTIMES		256
-+
-+#define ALIGN(x, a) (((x) + (a - 1)) & (~((a) - 1)))
-+
-+FIXTURE(hmm)
-+{
-+	int		fd;
-+	unsigned int	page_size;
-+	unsigned int	page_shift;
-+};
-+
-+FIXTURE(hmm2)
-+{
-+	int		fd0;
-+	int		fd1;
-+	unsigned int	page_size;
-+	unsigned int	page_shift;
-+};
-+
-+static int hmm_open(int unit)
-+{
-+	char pathname[HMM_PATH_MAX];
-+	int fd;
-+
-+	snprintf(pathname, sizeof(pathname), "/dev/hmm_dmirror%d", unit);
-+	fd = open(pathname, O_RDWR, 0);
-+	if (fd < 0)
-+		fprintf(stderr, "could not open hmm dmirror driver (%s)\n",
-+			pathname);
-+	return fd;
-+}
-+
-+FIXTURE_SETUP(hmm)
-+{
-+	self->page_size = sysconf(_SC_PAGE_SIZE);
-+	self->page_shift = ffs(self->page_size) - 1;
-+
-+	self->fd = hmm_open(0);
-+	ASSERT_GE(self->fd, 0);
-+}
-+
-+FIXTURE_SETUP(hmm2)
-+{
-+	self->page_size = sysconf(_SC_PAGE_SIZE);
-+	self->page_shift = ffs(self->page_size) - 1;
-+
-+	self->fd0 = hmm_open(0);
-+	ASSERT_GE(self->fd0, 0);
-+	self->fd1 = hmm_open(1);
-+	ASSERT_GE(self->fd1, 0);
-+}
-+
-+FIXTURE_TEARDOWN(hmm)
-+{
-+	int ret = close(self->fd);
-+
-+	ASSERT_EQ(ret, 0);
-+	self->fd = -1;
-+}
-+
-+FIXTURE_TEARDOWN(hmm2)
-+{
-+	int ret = close(self->fd0);
-+
-+	ASSERT_EQ(ret, 0);
-+	self->fd0 = -1;
-+
-+	ret = close(self->fd1);
-+	ASSERT_EQ(ret, 0);
-+	self->fd1 = -1;
-+}
-+
-+static int hmm_dmirror_cmd(int fd,
-+			   unsigned long request,
-+			   struct hmm_buffer *buffer,
-+			   unsigned long npages)
-+{
-+	struct hmm_dmirror_cmd cmd;
-+	int ret;
-+
-+	/* Simulate a device reading system memory. */
-+	cmd.addr = (__u64)buffer->ptr;
-+	cmd.ptr = (__u64)buffer->mirror;
-+	cmd.npages = npages;
-+
-+	for (;;) {
-+		ret = ioctl(fd, request, &cmd);
-+		if (ret == 0)
-+			break;
-+		if (errno == EINTR)
-+			continue;
-+		return -errno;
-+	}
-+	buffer->cpages = cmd.cpages;
-+	buffer->faults = cmd.faults;
-+
-+	return 0;
-+}
-+
-+static void hmm_buffer_free(struct hmm_buffer *buffer)
-+{
-+	if (buffer == NULL)
-+		return;
-+
-+	if (buffer->ptr)
-+		munmap(buffer->ptr, buffer->size);
-+	free(buffer->mirror);
-+	free(buffer);
-+}
-+
-+/*
-+ * Create a temporary file that will be deleted on close.
-+ */
-+static int hmm_create_file(unsigned long size)
-+{
-+	char path[HMM_PATH_MAX];
-+	int fd;
-+
-+	strcpy(path, "/tmp");
-+	fd = open(path, O_TMPFILE | O_EXCL | O_RDWR, 0600);
-+	if (fd >= 0) {
-+		int r;
-+
-+		do {
-+			r = ftruncate(fd, size);
-+		} while (r == -1 && errno == EINTR);
-+		if (!r)
-+			return fd;
-+		close(fd);
-+	}
-+	return -1;
-+}
-+
-+/*
-+ * Return a random unsigned number.
-+ */
-+static unsigned int hmm_random(void)
-+{
-+	static int fd = -1;
-+	unsigned int r;
-+
-+	if (fd < 0) {
-+		fd = open("/dev/urandom", O_RDONLY);
-+		if (fd < 0) {
-+			fprintf(stderr, "%s:%d failed to open /dev/urandom\n",
-+					__FILE__, __LINE__);
-+			return ~0U;
-+		}
-+	}
-+	read(fd, &r, sizeof(r));
-+	return r;
-+}
-+
-+static void hmm_nanosleep(unsigned int n)
-+{
-+	struct timespec t;
-+
-+	t.tv_sec = 0;
-+	t.tv_nsec = n;
-+	nanosleep(&t, NULL);
-+}
-+
-+/*
-+ * Simple NULL test of device open/close.
-+ */
-+TEST_F(hmm, open_close)
-+{
-+}
-+
-+/*
-+ * Read private anonymous memory.
-+ */
-+TEST_F(hmm, anon_read)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+	int val;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/*
-+	 * Initialize buffer in system memory but leave the first two pages
-+	 * zero (pte_none and pfn_zero).
-+	 */
-+	i = 2 * self->page_size / sizeof(*ptr);
-+	for (ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Set buffer permission to read-only. */
-+	ret = mprotect(buffer->ptr, size, PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Populate the CPU page table with a special zero page. */
-+	val = *(int *)(buffer->ptr + self->page_size);
-+	ASSERT_EQ(val, 0);
-+
-+	/* Simulate a device reading system memory. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device read. */
-+	ptr = buffer->mirror;
-+	for (i = 0; i < 2 * self->page_size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], 0);
-+	for (; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Read private anonymous memory which has been protected with
-+ * mprotect() PROT_NONE.
-+ */
-+TEST_F(hmm, anon_read_prot)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Initialize mirror buffer so we can verify it isn't written. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = -i;
-+
-+	/* Protect buffer from reading. */
-+	ret = mprotect(buffer->ptr, size, PROT_NONE);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Simulate a device reading system memory. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ, buffer, npages);
-+	ASSERT_EQ(ret, -EFAULT);
-+
-+	/* Allow CPU to read the buffer so we can check it. */
-+	ret = mprotect(buffer->ptr, size, PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	/* Check what the device read. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], -i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Write private anonymous memory.
-+ */
-+TEST_F(hmm, anon_write)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Simulate a device writing system memory. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Write private anonymous memory which has been protected with
-+ * mprotect() PROT_READ.
-+ */
-+TEST_F(hmm, anon_write_prot)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Simulate a device reading a zero page of memory. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ, buffer, 1);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, 1);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Simulate a device writing system memory. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, -EPERM);
-+
-+	/* Check what the device wrote. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], 0);
-+
-+	/* Now allow writing and see that the zero page is replaced. */
-+	ret = mprotect(buffer->ptr, size, PROT_WRITE | PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Simulate a device writing system memory. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Check that a device writing an anonymous private mapping
-+ * will copy-on-write if a child process inherits the mapping.
-+ */
-+TEST_F(hmm, anon_write_child)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	pid_t pid;
-+	int child_fd;
-+	int ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer->ptr so we can tell if it is written. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = -i;
-+
-+	pid = fork();
-+	if (pid == -1)
-+		ASSERT_EQ(pid, 0);
-+	if (pid != 0) {
-+		waitpid(pid, &ret, 0);
-+		ASSERT_EQ(WIFEXITED(ret), 1);
-+
-+		/* Check that the parent's buffer did not change. */
-+		for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+			ASSERT_EQ(ptr[i], i);
-+		return;
-+	}
-+
-+	/* Check that we see the parent's values. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], -i);
-+
-+	/* The child process needs its own mirror to its own mm. */
-+	child_fd = hmm_open(0);
-+	ASSERT_GE(child_fd, 0);
-+
-+	/* Simulate a device writing system memory. */
-+	ret = hmm_dmirror_cmd(child_fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], -i);
-+
-+	close(child_fd);
-+	exit(0);
-+}
-+
-+/*
-+ * Check that a device writing an anonymous shared mapping
-+ * will not copy-on-write if a child process inherits the mapping.
-+ */
-+TEST_F(hmm, anon_write_child_shared)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	pid_t pid;
-+	int child_fd;
-+	int ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_SHARED | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer->ptr so we can tell if it is written. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = -i;
-+
-+	pid = fork();
-+	if (pid == -1)
-+		ASSERT_EQ(pid, 0);
-+	if (pid != 0) {
-+		waitpid(pid, &ret, 0);
-+		ASSERT_EQ(WIFEXITED(ret), 1);
-+
-+		/* Check that the parent's buffer did change. */
-+		for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+			ASSERT_EQ(ptr[i], -i);
-+		return;
-+	}
-+
-+	/* Check that we see the parent's values. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], -i);
-+
-+	/* The child process needs its own mirror to its own mm. */
-+	child_fd = hmm_open(0);
-+	ASSERT_GE(child_fd, 0);
-+
-+	/* Simulate a device writing system memory. */
-+	ret = hmm_dmirror_cmd(child_fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], -i);
-+
-+	close(child_fd);
-+	exit(0);
-+}
-+
-+/*
-+ * Write private anonymous huge page.
-+ */
-+TEST_F(hmm, anon_write_huge)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	void *old_ptr;
-+	void *map;
-+	int *ptr;
-+	int ret;
-+
-+	size = 2 * TWOMEG;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	size = TWOMEG;
-+	npages = size >> self->page_shift;
-+	map = (void *)ALIGN((uintptr_t)buffer->ptr, size);
-+	ret = madvise(map, size, MADV_HUGEPAGE);
-+	ASSERT_EQ(ret, 0);
-+	old_ptr = buffer->ptr;
-+	buffer->ptr = map;
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Simulate a device writing system memory. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	buffer->ptr = old_ptr;
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Write huge TLBFS page.
-+ */
-+TEST_F(hmm, anon_write_hugetlbfs)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+	long pagesizes[4];
-+	int n, idx;
-+
-+	/* Skip test if we can't allocate a hugetlbfs page. */
-+
-+	n = gethugepagesizes(pagesizes, 4);
-+	if (n <= 0)
-+		return;
-+	for (idx = 0; --n > 0; ) {
-+		if (pagesizes[n] < pagesizes[idx])
-+			idx = n;
-+	}
-+	size = ALIGN(TWOMEG, pagesizes[idx]);
-+	npages = size >> self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->ptr = get_hugepage_region(size, GHR_STRICT);
-+	if (buffer->ptr == NULL) {
-+		free(buffer);
-+		return;
-+	}
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Simulate a device writing system memory. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	free_hugepage_region(buffer->ptr);
-+	buffer->ptr = NULL;
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Read mmap'ed file memory.
-+ */
-+TEST_F(hmm, file_read)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+	int fd;
-+	ssize_t len;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	fd = hmm_create_file(size);
-+	ASSERT_GE(fd, 0);
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = fd;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	/* Write initial contents of the file. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+	len = pwrite(fd, buffer->mirror, size, 0);
-+	ASSERT_EQ(len, size);
-+	memset(buffer->mirror, 0, size);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ,
-+			   MAP_SHARED,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Simulate a device reading system memory. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device read. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Write mmap'ed file memory.
-+ */
-+TEST_F(hmm, file_write)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+	int fd;
-+	ssize_t len;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	fd = hmm_create_file(size);
-+	ASSERT_GE(fd, 0);
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = fd;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_SHARED,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize data that the device will write to buffer->ptr. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Simulate a device writing system memory. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_WRITE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device wrote. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	/* Check that the device also wrote the file. */
-+	len = pread(fd, buffer->mirror, size, 0);
-+	ASSERT_EQ(len, size);
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Migrate anonymous memory to device private memory.
-+ */
-+TEST_F(hmm, migrate)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Migrate memory to device. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+
-+	/* Check what the device read. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Migrate anonymous memory to device private memory and fault it back to system
-+ * memory.
-+ */
-+TEST_F(hmm, migrate_fault)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Migrate memory to device. */
-+	ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+
-+	/* Check what the device read. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	/* Fault pages back to system memory and check them. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Try to migrate various memory types to device private memory.
-+ */
-+TEST_F(hmm2, migrate_mixed)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	int *ptr;
-+	unsigned char *p;
-+	int ret;
-+	int val;
-+
-+	npages = 6;
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(size);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	/* Reserve a range of addresses. */
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_NONE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+	p = buffer->ptr;
-+
-+	/* Now try to migrate everything to device 1. */
-+	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, 6);
-+
-+	/* Punch a hole after the first page address. */
-+	ret = munmap(buffer->ptr + self->page_size, self->page_size);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* We expect an error if the vma doesn't cover the range. */
-+	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 3);
-+	ASSERT_EQ(ret, -EINVAL);
-+
-+	/* Page 2 will be a read-only zero page. */
-+	ret = mprotect(buffer->ptr + 2 * self->page_size, self->page_size,
-+				PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+	ptr = (int *)(buffer->ptr + 2 * self->page_size);
-+	val = *ptr + 3;
-+	ASSERT_EQ(val, 3);
-+
-+	/* Page 3 will be read-only. */
-+	ret = mprotect(buffer->ptr + 3 * self->page_size, self->page_size,
-+				PROT_READ | PROT_WRITE);
-+	ASSERT_EQ(ret, 0);
-+	ptr = (int *)(buffer->ptr + 3 * self->page_size);
-+	*ptr = val;
-+	ret = mprotect(buffer->ptr + 3 * self->page_size, self->page_size,
-+				PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Page 4 will be read-write. */
-+	ret = mprotect(buffer->ptr + 4 * self->page_size, self->page_size,
-+				PROT_READ | PROT_WRITE);
-+	ASSERT_EQ(ret, 0);
-+	ptr = (int *)(buffer->ptr + 4 * self->page_size);
-+	*ptr = val;
-+
-+	/* Page 5 won't be migrated to device 0 because it's on device 1. */
-+	buffer->ptr = p + 5 * self->page_size;
-+	ret = hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_MIGRATE, buffer, 1);
-+	ASSERT_EQ(ret, -ENOENT);
-+	buffer->ptr = p;
-+
-+	/* Now try to migrate pages 2-3 to device 1. */
-+	buffer->ptr = p + 2 * self->page_size;
-+	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 2);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, 2);
-+	buffer->ptr = p;
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Migrate anonymous memory to device private memory and fault it back to system
-+ * memory multiple times.
-+ */
-+TEST_F(hmm, migrate_multiple)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	unsigned long c;
-+	int *ptr;
-+	int ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	for (c = 0; c < NTIMES; c++) {
-+		buffer = malloc(sizeof(*buffer));
-+		ASSERT_NE(buffer, NULL);
-+
-+		buffer->fd = -1;
-+		buffer->size = size;
-+		buffer->mirror = malloc(size);
-+		ASSERT_NE(buffer->mirror, NULL);
-+
-+		buffer->ptr = mmap(NULL, size,
-+				   PROT_READ | PROT_WRITE,
-+				   MAP_PRIVATE | MAP_ANONYMOUS,
-+				   buffer->fd, 0);
-+		ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+		/* Initialize buffer in system memory. */
-+		for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+			ptr[i] = i;
-+
-+		/* Migrate memory to device. */
-+		ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_MIGRATE, buffer,
-+				      npages);
-+		ASSERT_EQ(ret, 0);
-+		ASSERT_EQ(buffer->cpages, npages);
-+
-+		/* Check what the device read. */
-+		for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+			ASSERT_EQ(ptr[i], i);
-+
-+		/* Fault pages back to system memory and check them. */
-+		for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+			ASSERT_EQ(ptr[i], i);
-+
-+		hmm_buffer_free(buffer);
-+	}
-+}
-+
-+/*
-+ * Read anonymous memory multiple times.
-+ */
-+TEST_F(hmm, anon_read_multiple)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	unsigned long c;
-+	int *ptr;
-+	int ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	for (c = 0; c < NTIMES; c++) {
-+		buffer = malloc(sizeof(*buffer));
-+		ASSERT_NE(buffer, NULL);
-+
-+		buffer->fd = -1;
-+		buffer->size = size;
-+		buffer->mirror = malloc(size);
-+		ASSERT_NE(buffer->mirror, NULL);
-+
-+		buffer->ptr = mmap(NULL, size,
-+				   PROT_READ | PROT_WRITE,
-+				   MAP_PRIVATE | MAP_ANONYMOUS,
-+				   buffer->fd, 0);
-+		ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+		/* Initialize buffer in system memory. */
-+		for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+			ptr[i] = i + c;
-+
-+		/* Simulate a device reading system memory. */
-+		ret = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ, buffer,
-+				      npages);
-+		ASSERT_EQ(ret, 0);
-+		ASSERT_EQ(buffer->cpages, npages);
-+		ASSERT_EQ(buffer->faults, 1);
-+
-+		/* Check what the device read. */
-+		for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+			ASSERT_EQ(ptr[i], i + c);
-+
-+		hmm_buffer_free(buffer);
-+	}
-+}
-+
-+void *unmap_buffer(void *p)
-+{
-+	struct hmm_buffer *buffer = p;
-+
-+	/* Delay for a bit and then unmap buffer while it is being read. */
-+	hmm_nanosleep(hmm_random() % 32000);
-+	munmap(buffer->ptr + buffer->size / 2, buffer->size / 2);
-+	buffer->ptr = NULL;
-+
-+	return NULL;
-+}
-+
-+/*
-+ * Try reading anonymous memory while it is being unmapped.
-+ */
-+TEST_F(hmm, anon_teardown)
-+{
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long c;
-+	void *ret;
-+
-+	npages = ALIGN(HMM_BUFFER_SIZE, self->page_size) >> self->page_shift;
-+	ASSERT_NE(npages, 0);
-+	size = npages << self->page_shift;
-+
-+	for (c = 0; c < NTIMES; ++c) {
-+		pthread_t thread;
-+		struct hmm_buffer *buffer;
-+		unsigned long i;
-+		int *ptr;
-+		int rc;
-+
-+		buffer = malloc(sizeof(*buffer));
-+		ASSERT_NE(buffer, NULL);
-+
-+		buffer->fd = -1;
-+		buffer->size = size;
-+		buffer->mirror = malloc(size);
-+		ASSERT_NE(buffer->mirror, NULL);
-+
-+		buffer->ptr = mmap(NULL, size,
-+				   PROT_READ | PROT_WRITE,
-+				   MAP_PRIVATE | MAP_ANONYMOUS,
-+				   buffer->fd, 0);
-+		ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+		/* Initialize buffer in system memory. */
-+		for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+			ptr[i] = i + c;
-+
-+		rc = pthread_create(&thread, NULL, unmap_buffer, buffer);
-+		ASSERT_EQ(rc, 0);
-+
-+		/* Simulate a device reading system memory. */
-+		rc = hmm_dmirror_cmd(self->fd, HMM_DMIRROR_READ, buffer,
-+				     npages);
-+		if (rc == 0) {
-+			ASSERT_EQ(buffer->cpages, npages);
-+			ASSERT_EQ(buffer->faults, 1);
-+
-+			/* Check what the device read. */
-+			for (i = 0, ptr = buffer->mirror;
-+			     i < size / sizeof(*ptr);
-+			     ++i)
-+				ASSERT_EQ(ptr[i], i + c);
-+		}
-+
-+		pthread_join(thread, &ret);
-+		hmm_buffer_free(buffer);
-+	}
-+}
-+
-+/*
-+ * Test memory snapshot without faulting in pages accessed by the device.
-+ */
-+TEST_F(hmm2, snapshot)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	int *ptr;
-+	unsigned char *p;
-+	unsigned char *m;
-+	int ret;
-+	int val;
-+
-+	npages = 7;
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(npages);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	/* Reserve a range of addresses. */
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_NONE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+	p = buffer->ptr;
-+
-+	/* Punch a hole after the first page address. */
-+	ret = munmap(buffer->ptr + self->page_size, self->page_size);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Page 2 will be read-only zero page. */
-+	ret = mprotect(buffer->ptr + 2 * self->page_size, self->page_size,
-+				PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+	ptr = (int *)(buffer->ptr + 2 * self->page_size);
-+	val = *ptr + 3;
-+	ASSERT_EQ(val, 3);
-+
-+	/* Page 3 will be read-only. */
-+	ret = mprotect(buffer->ptr + 3 * self->page_size, self->page_size,
-+				PROT_READ | PROT_WRITE);
-+	ASSERT_EQ(ret, 0);
-+	ptr = (int *)(buffer->ptr + 3 * self->page_size);
-+	*ptr = val;
-+	ret = mprotect(buffer->ptr + 3 * self->page_size, self->page_size,
-+				PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Page 4-6 will be read-write. */
-+	ret = mprotect(buffer->ptr + 4 * self->page_size, 3 * self->page_size,
-+				PROT_READ | PROT_WRITE);
-+	ASSERT_EQ(ret, 0);
-+	ptr = (int *)(buffer->ptr + 4 * self->page_size);
-+	*ptr = val;
-+
-+	/* Page 5 will be migrated to device 0. */
-+	buffer->ptr = p + 5 * self->page_size;
-+	ret = hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_MIGRATE, buffer, 1);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, 1);
-+
-+	/* Page 6 will be migrated to device 1. */
-+	buffer->ptr = p + 6 * self->page_size;
-+	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_MIGRATE, buffer, 1);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, 1);
-+
-+	/* Simulate a device snapshotting CPU pagetables. */
-+	buffer->ptr = p;
-+	ret = hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_SNAPSHOT, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+
-+	/* Check what the device saw. */
-+	m = buffer->mirror;
-+	ASSERT_EQ(m[0], HMM_DMIRROR_PROT_ERROR);
-+	ASSERT_EQ(m[1], HMM_DMIRROR_PROT_NONE);
-+	ASSERT_EQ(m[2], HMM_DMIRROR_PROT_ZERO | HMM_DMIRROR_PROT_READ);
-+	ASSERT_EQ(m[3], HMM_DMIRROR_PROT_READ);
-+	ASSERT_EQ(m[4], HMM_DMIRROR_PROT_WRITE);
-+	ASSERT_EQ(m[5], HMM_DMIRROR_PROT_DEV_PRIVATE_LOCAL |
-+			HMM_DMIRROR_PROT_WRITE);
-+	ASSERT_EQ(m[6], HMM_DMIRROR_PROT_NONE);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+/*
-+ * Test two devices reading the same memory (double mapped).
-+ */
-+TEST_F(hmm2, double_map)
-+{
-+	struct hmm_buffer *buffer;
-+	unsigned long npages;
-+	unsigned long size;
-+	unsigned long i;
-+	int *ptr;
-+	int ret;
-+
-+	npages = 6;
-+	size = npages << self->page_shift;
-+
-+	buffer = malloc(sizeof(*buffer));
-+	ASSERT_NE(buffer, NULL);
-+
-+	buffer->fd = -1;
-+	buffer->size = size;
-+	buffer->mirror = malloc(npages);
-+	ASSERT_NE(buffer->mirror, NULL);
-+
-+	/* Reserve a range of addresses. */
-+	buffer->ptr = mmap(NULL, size,
-+			   PROT_READ | PROT_WRITE,
-+			   MAP_PRIVATE | MAP_ANONYMOUS,
-+			   buffer->fd, 0);
-+	ASSERT_NE(buffer->ptr, MAP_FAILED);
-+
-+	/* Initialize buffer in system memory. */
-+	for (i = 0, ptr = buffer->ptr; i < size / sizeof(*ptr); ++i)
-+		ptr[i] = i;
-+
-+	/* Make region read-only. */
-+	ret = mprotect(buffer->ptr, size, PROT_READ);
-+	ASSERT_EQ(ret, 0);
-+
-+	/* Simulate device 0 reading system memory. */
-+	ret = hmm_dmirror_cmd(self->fd0, HMM_DMIRROR_READ, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device read. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	/* Simulate device 1 reading system memory. */
-+	ret = hmm_dmirror_cmd(self->fd1, HMM_DMIRROR_READ, buffer, npages);
-+	ASSERT_EQ(ret, 0);
-+	ASSERT_EQ(buffer->cpages, npages);
-+	ASSERT_EQ(buffer->faults, 1);
-+
-+	/* Check what the device read. */
-+	for (i = 0, ptr = buffer->mirror; i < size / sizeof(*ptr); ++i)
-+		ASSERT_EQ(ptr[i], i);
-+
-+	/* Punch a hole after the first page address. */
-+	ret = munmap(buffer->ptr + self->page_size, self->page_size);
-+	ASSERT_EQ(ret, 0);
-+
-+	hmm_buffer_free(buffer);
-+}
-+
-+TEST_HARNESS_MAIN
-diff --git a/tools/testing/selftests/vm/run_vmtests b/tools/testing/selftests/vm/run_vmtests
-index f33714843198..5e82b2574d54 100755
---- a/tools/testing/selftests/vm/run_vmtests
-+++ b/tools/testing/selftests/vm/run_vmtests
-@@ -270,4 +270,20 @@ else
- 	exitcode=1
- fi
- 
-+echo "------------------------------------"
-+echo "running HMM smoke test"
-+echo "------------------------------------"
-+./test_hmm.sh smoke
-+ret_val=$?
-+
-+if [ $ret_val -eq 0 ]; then
-+	echo "[PASS]"
-+elif [ $ret_val -eq $ksft_skip ]; then
-+	echo "[SKIP]"
-+	exitcode=$ksft_skip
-+else
-+	echo "[FAIL]"
-+	exitcode=1
-+fi
-+
- exit $exitcode
-diff --git a/tools/testing/selftests/vm/test_hmm.sh b/tools/testing/selftests/vm/test_hmm.sh
-new file mode 100755
-index 000000000000..461e4a99a362
---- /dev/null
-+++ b/tools/testing/selftests/vm/test_hmm.sh
-@@ -0,0 +1,97 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Copyright (C) 2018 Uladzislau Rezki (Sony) <urezki@gmail.com>
-+#
-+# This is a test script for the kernel test driver to analyse vmalloc
-+# allocator. Therefore it is just a kernel module loader. You can specify
-+# and pass different parameters in order to:
-+#     a) analyse performance of vmalloc allocations;
-+#     b) stressing and stability check of vmalloc subsystem.
-+
-+TEST_NAME="test_hmm"
-+DRIVER="test_hmm"
-+
-+# 1 if fails
-+exitcode=1
-+
-+# Kselftest framework requirement - SKIP code is 4.
-+ksft_skip=4
-+
-+check_test_requirements()
-+{
-+	uid=$(id -u)
-+	if [ $uid -ne 0 ]; then
-+		echo "$0: Must be run as root"
-+		exit $ksft_skip
-+	fi
-+
-+	if ! which modprobe > /dev/null 2>&1; then
-+		echo "$0: You need modprobe installed"
-+		exit $ksft_skip
-+	fi
-+
-+	if ! modinfo $DRIVER > /dev/null 2>&1; then
-+		echo "$0: You must have the following enabled in your kernel:"
-+		echo "CONFIG_TEST_HMM=m"
-+		exit $ksft_skip
-+	fi
-+}
-+
-+load_driver()
-+{
-+	modprobe $DRIVER > /dev/null 2>&1
-+	if [ $? == 0 ]; then
-+		major=$(awk "\$2==\"HMM_DMIRROR\" {print \$1}" /proc/devices)
-+		mknod /dev/hmm_dmirror0 c $major 0
-+		mknod /dev/hmm_dmirror1 c $major 1
-+	fi
-+}
-+
-+unload_driver()
-+{
-+	modprobe -r $DRIVER > /dev/null 2>&1
-+	rm -f /dev/hmm_dmirror?
-+}
-+
-+run_smoke()
-+{
-+	echo "Running smoke test. Note, this test provides basic coverage."
-+
-+	load_driver
-+	./hmm-tests
-+	unload_driver
-+}
-+
-+usage()
-+{
-+	echo -n "Usage: $0"
-+	echo
-+	echo "Example usage:"
-+	echo
-+	echo "# Shows help message"
-+	echo "./${TEST_NAME}.sh"
-+	echo
-+	echo "# Smoke testing"
-+	echo "./${TEST_NAME}.sh smoke"
-+	echo
-+	exit 0
-+}
-+
-+function run_test()
-+{
-+	if [ $# -eq 0 ]; then
-+		usage
-+	else
-+		if [ "$1" = "smoke" ]; then
-+			run_smoke
-+		else
-+			usage
-+		fi
-+	fi
-+}
-+
-+check_test_requirements
-+run_test $@
-+
-+exit 0
--- 
-2.23.0
+/* Get a handler for watching events */
+rsmi_status_t rsmi_event_init(rsmi_event_handle_t *handle);
+/* Register events for the device using the handler from init */
+rsmi_status_t rsmi_event_register(uint32_t dv_ind, uint32_t events,
+                                rsmi_event_handle_t *handle);
+/* Wait for events. If one of the events happens, a success is returned wit=
+h
+ * with details in data.
+ */
+rsmi_status_t rsmi_event_wait(rsmi_event_handle_t handle, uint32_t timeout_=
+ms,
+                                rsmi_event_data_t *data);
+/* Stop watching events */
+rsmi_status_t rsmi_event_free(rsmi_event_handle_t handle);
 
+Regards,
+Amber
 
---------------908CA79958BE6989593A4D80
+> ---
+>  drivers/gpu/drm/amd/amdkfd/Makefile              |   3 +-
+>  drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c |   2 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         |  38 ++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_device.c          |   1 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c  |   2 +
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h            |  10 ++
+>  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c      | 143 +++++++++++++++++=
+++++++
+>  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h      |  41 +++++++
+>  include/uapi/linux/kfd_ioctl.h                   |  27 ++++-
+>  9 files changed, 265 insertions(+), 2 deletions(-)
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+>  create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile b/drivers/gpu/drm/amd/am=
+dkfd/Makefile
+> index 6147462..cc98b4a 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/Makefile
+> +++ b/drivers/gpu/drm/amd/amdkfd/Makefile
+> @@ -53,7 +53,8 @@ AMDKFD_FILES  :=3D $(AMDKFD_PATH)/kfd_module.o \
+>                 $(AMDKFD_PATH)/kfd_int_process_v9.o \
+>                 $(AMDKFD_PATH)/kfd_dbgdev.o \
+>                 $(AMDKFD_PATH)/kfd_dbgmgr.o \
+> -               $(AMDKFD_PATH)/kfd_crat.o
+> +               $(AMDKFD_PATH)/kfd_crat.o \
+> +               $(AMDKFD_PATH)/kfd_smi_events.o
+>
+>  ifneq ($(CONFIG_AMD_IOMMU_V2),)
+>  AMDKFD_FILES +=3D $(AMDKFD_PATH)/kfd_iommu.o
+> diff --git a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c b/drivers/g=
+pu/drm/amd/amdkfd/cik_event_interrupt.c
+> index 9f59ba9..24b4717 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
+> @@ -24,6 +24,7 @@
+>  #include "kfd_events.h"
+>  #include "cik_int.h"
+>  #include "amdgpu_amdkfd.h"
+> +#include "kfd_smi_events.h"
+>
+>  static bool cik_event_interrupt_isr(struct kfd_dev *dev,
+>                                         const uint32_t *ih_ring_entry,
+> @@ -107,6 +108,7 @@ static void cik_event_interrupt_wq(struct kfd_dev *de=
+v,
+>                 ihre->source_id =3D=3D CIK_INTSRC_GFX_MEM_PROT_FAULT) {
+>                 struct kfd_vm_fault_info info;
+>
+> +               kfd_smi_event_update_vmfault(dev, pasid);
+>                 kfd_process_vm_fault(dev->dqm, pasid);
+>
+>                 memset(&info, 0, sizeof(info));
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/a=
+md/amdkfd/kfd_chardev.c
+> index f8fa03a..8e92956 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -39,6 +39,7 @@
+>  #include "kfd_device_queue_manager.h"
+>  #include "kfd_dbgmgr.h"
+>  #include "amdgpu_amdkfd.h"
+> +#include "kfd_smi_events.h"
+>
+>  static long kfd_ioctl(struct file *, unsigned int, unsigned long);
+>  static int kfd_open(struct inode *, struct file *);
+> @@ -1243,6 +1244,40 @@ static int kfd_ioctl_acquire_vm(struct file *filep=
+, struct kfd_process *p,
+>         return ret;
+>  }
+>
+> +/* Handle requests for watching SMI events */
+> +static int kfd_ioctl_smi_events(struct file *filep,
+> +                               struct kfd_process *p, void *data)
+> +{
+> +       struct kfd_ioctl_smi_events_args *args =3D data;
+> +       struct kfd_dev *dev;
+> +       int ret =3D 0;
+> +
+> +       dev =3D kfd_device_by_id(args->gpu_id);
+> +       if (!dev)
+> +               return -EINVAL;
+> +
+> +       switch (args->op) {
+> +       case KFD_SMI_EVENTS_REGISTER:
+> +               ret =3D kfd_smi_event_register(dev, args->events);
+> +               if (ret >=3D 0) {
+> +                       /* When the registration is successful, it return=
+s the
+> +                        * annoymous inode. Pass it to the user in data1
+> +                        */
+> +                       args->data1 =3D ret;
+> +                       ret =3D 0;
+> +               }
+> +               break;
+> +       case KFD_SMI_EVENTS_UNREGISTER:
+> +               kfd_smi_event_unregister(dev, args->events);
+> +               break;
+> +       default:
+> +               ret =3D -EINVAL;
+> +               break;
+> +       }
+> +
+> +       return ret;
+> +}
+> +
+>  bool kfd_dev_is_large_bar(struct kfd_dev *dev)
+>  {
+>         struct kfd_local_mem_info mem_info;
+> @@ -1827,6 +1862,9 @@ static const struct amdkfd_ioctl_desc amdkfd_ioctls=
+[] =3D {
+>
+>         AMDKFD_IOCTL_DEF(AMDKFD_IOC_ALLOC_QUEUE_GWS,
+>                         kfd_ioctl_alloc_queue_gws, 0),
+> +
+> +       AMDKFD_IOCTL_DEF(AMDKFD_IOC_SMI_EVENTS,
+> +                       kfd_ioctl_smi_events, 0),
+>  };
+>
+>  #define AMDKFD_CORE_IOCTL_COUNT        ARRAY_SIZE(amdkfd_ioctls)
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/am=
+d/amdkfd/kfd_device.c
+> index 7866cd06..450368c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+> @@ -532,6 +532,7 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd,
+>         kfd->device_info =3D device_info;
+>         kfd->pdev =3D pdev;
+>         kfd->init_complete =3D false;
+> +       kfd->smi_events.events =3D 0;
+>         kfd->kfd2kgd =3D f2g;
+>         atomic_set(&kfd->compute_profile, 0);
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gp=
+u/drm/amd/amdkfd/kfd_int_process_v9.c
+> index e05d75e..151e83e 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
+> @@ -24,6 +24,7 @@
+>  #include "kfd_events.h"
+>  #include "soc15_int.h"
+>  #include "kfd_device_queue_manager.h"
+> +#include "kfd_smi_events.h"
+>
+>  static bool event_interrupt_isr_v9(struct kfd_dev *dev,
+>                                         const uint32_t *ih_ring_entry,
+> @@ -117,6 +118,7 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev=
+,
+>                 info.prot_read  =3D ring_id & 0x10;
+>                 info.prot_write =3D ring_id & 0x20;
+>
+> +               kfd_smi_event_update_vmfault(dev, pasid);
+>                 kfd_process_vm_fault(dev->dqm, pasid);
+>                 kfd_signal_vm_fault_event(dev, pasid, &info);
+>         }
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/=
+amdkfd/kfd_priv.h
+> index 43b888b..fdb51de 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -223,6 +223,13 @@ struct kfd_vmid_info {
+>         uint32_t vmid_num_kfd;
+>  };
+>
+> +struct kfd_smi_events {
+> +       uint64_t events;
+> +       struct kfifo fifo;
+> +       wait_queue_head_t wait_queue;
+> +       uint32_t max_events;
+> +};
+> +
+>  struct kfd_dev {
+>         struct kgd_dev *kgd;
+>
+> @@ -309,6 +316,9 @@ struct kfd_dev {
+>
+>         /* Global GWS resource shared b/t processes*/
+>         void *gws;
+> +
+> +       /* if this device is in SMI events watch */
+> +       struct kfd_smi_events smi_events;
+>  };
+>
+>  enum kfd_mempool {
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_smi_events.c
+> new file mode 100644
+> index 0000000..ba9d036
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> @@ -0,0 +1,143 @@
+> +/*
+> + * Copyright 2020 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> + * copy of this software and associated documentation files (the "Softwa=
+re"),
+> + * to deal in the Software without restriction, including without limita=
+tion
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be includ=
+ed in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
+SS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
+TY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
+ALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
+ OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + */
+> +
+> +#include <linux/poll.h>
+> +#include <linux/wait.h>
+> +#include <linux/anon_inodes.h>
+> +#include <uapi/linux/kfd_ioctl.h>
+> +#include "amdgpu_vm.h"
+> +#include "kfd_priv.h"
+> +#include "kfd_smi_events.h"
+> +
+> +static DEFINE_MUTEX(kfd_smi_mutex);
+> +
+> +struct mutex *kfd_get_smi_mutex(void)
+> +{
+> +       return &kfd_smi_mutex;
+> +}
+> +
+> +static __poll_t kfd_smi_ev_poll(struct file *, struct poll_table_struct =
+*);
+> +static ssize_t kfd_smi_ev_read(struct file *, char __user *, size_t, lof=
+f_t *);
+> +static int kfd_smi_ev_release(struct inode *, struct file *);
+> +
+> +static const char kfd_smi_name[] =3D "kfd_smi_ev";
+> +
+> +static const struct file_operations kfd_smi_ev_fops =3D {
+> +       .owner =3D THIS_MODULE,
+> +       .poll =3D kfd_smi_ev_poll,
+> +       .read =3D kfd_smi_ev_read,
+> +       .release =3D kfd_smi_ev_release
+> +};
+> +
+> +static __poll_t kfd_smi_ev_poll(struct file *filep,
+> +                               struct poll_table_struct *wait)
+> +{
+> +       struct kfd_dev *dev =3D filep->private_data;
+> +       struct kfd_smi_events *ev =3D &dev->smi_events;
+> +
+> +       __poll_t mask =3D 0;
+> +
+> +       poll_wait(filep, &ev->wait_queue, wait);
+> +       mask |=3D !kfifo_is_empty(&ev->fifo) ? POLLIN | POLLRDNORM : mask=
+;
+> +
+> +       return mask;
+> +}
+> +
+> +static ssize_t kfd_smi_ev_read(struct file *filep, char __user *user,
+> +                              size_t size, loff_t *offset)
+> +{
+> +       int ret, copied =3D 0;
+> +       struct kfd_dev *dev =3D filep->private_data;
+> +
+> +       ret =3D kfifo_to_user(&dev->smi_events.fifo, user, size, &copied)=
+;
+> +       if (ret || !copied) {
+> +               pr_debug("kfd smi-events: Fail to read fd (%i) (%i)\n",
+> +                               ret, copied);
+> +               return ret ? ret : -EAGAIN;
+> +       }
+> +
+> +       return copied;
+> +}
+> +
+> +static int kfd_smi_ev_release(struct inode *inode, struct file *filep)
+> +{
+> +       struct kfd_dev *dev =3D filep->private_data;
+> +
+> +       kfifo_free(&dev->smi_events.fifo);
+> +       return 0;
+> +}
+> +
+> +void kfd_smi_event_update_vmfault(struct kfd_dev *kdev, uint16_t pasid)
+> +{
+> +       struct kfd_smi_vmfault_fifo fifo_out;
+> +       struct amdgpu_device *adev =3D (struct amdgpu_device *)kdev->kgd;
+> +       struct amdgpu_task_info task_info;
+> +
+> +       if (!kdev->smi_events.events)
+> +               return;
+> +
+> +       if (!(kdev->smi_events.events & KFD_SMI_EV_VMFAULT))
+> +               return;
+> +
+> +       memset(&task_info, 0, sizeof(struct amdgpu_task_info));
+> +       amdgpu_vm_get_task_info(adev, pasid, &task_info);
+> +
+> +       fifo_out.group =3D 0;
+> +       fifo_out.event =3D KFD_SMI_EV_VMFAULT;
+> +       fifo_out.gpu_id =3D kdev->id;
+> +       fifo_out.pid =3D task_info.pid;
+> +       strcpy(fifo_out.task_name, task_info.task_name);
+> +       kfifo_in(&kdev->smi_events.fifo, &fifo_out, sizeof(fifo_out));
+> +       wake_up_all(&kdev->smi_events.wait_queue);
+> +}
+> +
+> +void kfd_smi_event_unregister(struct kfd_dev *dev, uint64_t events)
+> +{
+> +       mutex_lock(kfd_get_smi_mutex());
+> +       dev->smi_events.events &=3D ~events;
+> +       mutex_unlock(kfd_get_smi_mutex());
+> +}
+> +
+> +int kfd_smi_event_register(struct kfd_dev *dev, uint64_t events)
+> +{
+> +       int ret;
+> +
+> +       mutex_lock(kfd_get_smi_mutex());
+> +       dev->smi_events.events |=3D events;
+> +       mutex_unlock(kfd_get_smi_mutex());
+> +
+> +       /* We use the lower 32 bits for now. Each bit represents one even=
+t. If
+> +        * featured events are increased to more than 32, we'll use the u=
+pper
+> +        * bits as groups so the total number of events can be up to 32*3=
+2.
+> +        */
+> +       dev->smi_events.max_events =3D 32;
+> +       ret =3D kfifo_alloc(&dev->smi_events.fifo, dev->smi_events.max_ev=
+ents,
+> +                        GFP_KERNEL);
+> +       if (ret) {
+> +               pr_err("fail to allocate kfifo\n");
+> +               return ret;
+> +       }
+> +       init_waitqueue_head(&dev->smi_events.wait_queue);
+> +
+> +       return anon_inode_getfd(kfd_smi_name, &kfd_smi_ev_fops,
+> +                               (void *)dev, 0);
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_smi_events.h
+> new file mode 100644
+> index 0000000..2e320d3
+> --- /dev/null
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
+> @@ -0,0 +1,41 @@
+> +/*
+> + * Copyright 2020 Advanced Micro Devices, Inc.
+> + *
+> + * Permission is hereby granted, free of charge, to any person obtaining=
+ a
+> + * copy of this software and associated documentation files (the "Softwa=
+re"),
+> + * to deal in the Software without restriction, including without limita=
+tion
+> + * the rights to use, copy, modify, merge, publish, distribute, sublicen=
+se,
+> + * and/or sell copies of the Software, and to permit persons to whom the
+> + * Software is furnished to do so, subject to the following conditions:
+> + *
+> + * The above copyright notice and this permission notice shall be includ=
+ed in
+> + * all copies or substantial portions of the Software.
+> + *
+> + * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRE=
+SS OR
+> + * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILI=
+TY,
+> + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SH=
+ALL
+> + * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES=
+ OR
+> + * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+> + * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> + * OTHER DEALINGS IN THE SOFTWARE.
+> + */
+> +
+> +#ifndef KFD_SMI_EVENTS_H_INCLUDED
+> +#define KFD_SMI_EVENTS_H_INCLUDED
+> +
+> +int kfd_smi_event_register(struct kfd_dev *dev, uint64_t events);
+> +void kfd_smi_event_unregister(struct kfd_dev *dev, uint64_t events);
+> +void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t pasid);
+> +
+> +/* All FIFO must start with "uint32_t group" and "uint32_t event" so the=
+ user
+> + * can read the first 8 bytes to determine the next read length.
+> + */
+> +struct kfd_smi_vmfault_fifo {
+> +       uint32_t group;
+> +       uint32_t event;
+> +       unsigned int gpu_id;
+> +       pid_t pid;
+> +       char task_name[TASK_COMM_LEN];
+> +};
+> +
+> +#endif
+> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioct=
+l.h
+> index 4f66764..6ce7c69 100644
+> --- a/include/uapi/linux/kfd_ioctl.h
+> +++ b/include/uapi/linux/kfd_ioctl.h
+> @@ -442,6 +442,28 @@ struct kfd_ioctl_import_dmabuf_args {
+>         __u32 dmabuf_fd;        /* to KFD */
+>  };
+>
+> +/*
+> + * KFD SMI(System Management Interface) events
+> + */
+> +enum kfd_smi_events_op {
+> +       KFD_SMI_EVENTS_REGISTER =3D 1,
+> +       KFD_SMI_EVENTS_UNREGISTER
+> +};
+> +
+> +/* Event ID (mask) */
+> +#define KFD_SMI_EV_VMFAULT     0x00000001
+> +
+> +struct kfd_ioctl_smi_events_args {
+> +       __u32 op;       /* to KFD */
+> +       /* upper 32 bits: group. lower 32 bits: event IDs */
+> +       __u64 events;   /* to KFD */
+> +       __u32 gpu_id;   /* to KFD */
+> +       pid_t pid;      /* to KFD */
+> +       __u32 data1;    /* from KFD */
+> +       __u32 data2;
+> +       __u32 data3;
+> +};
+> +
+>  /* Register offset inside the remapped mmio page
+>   */
+>  enum kfd_mmio_remap {
+> @@ -546,7 +568,10 @@ enum kfd_mmio_remap {
+>  #define AMDKFD_IOC_ALLOC_QUEUE_GWS             \
+>                 AMDKFD_IOWR(0x1E, struct kfd_ioctl_alloc_queue_gws_args)
+>
+> +#define AMDKFD_IOC_SMI_EVENTS                  \
+> +               AMDKFD_IOWR(0x1F, struct kfd_ioctl_smi_events_args)
+> +
+>  #define AMDKFD_COMMAND_START           0x01
+> -#define AMDKFD_COMMAND_END             0x1F
+> +#define AMDKFD_COMMAND_END             0x20
+>
+>  #endif
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists=
+.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7CAmber.=
+Lin%40amd.com%7C2f64059b66554d40898208d7caa5e374%7C3dd8961fe4884e608e11a82d=
+994e183d%7C0%7C0%7C637200686149934820&amp;sdata=3DvBpnnq1xhSxEMjEWffwSLVIcS=
+ymSemDQTiEoYXj5lEE%3D&amp;reserved=3D0
+
+--_000_BN8PR12MB3041596444CC70FA247B3AB6E1F70BN8PR12MB3041namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Alex Deucher &lt;alex=
+deucher@gmail.com&gt;<br>
+<b>Sent:</b> Tuesday, March 17, 2020 3:03 PM<br>
+<b>To:</b> Lin, Amber &lt;Amber.Lin@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdkfd: Provide SMI events watch</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">On Tue, Mar 17, 2020 at 1:57 PM Amber Lin &lt;Ambe=
+r.Lin@amd.com&gt; wrote:<br>
+&gt;<br>
+&gt; When the compute is malfunctioning or performance drops, the system ad=
+min<br>
+&gt; will use SMI (System Management Interface) tool to monitor/diagnostic =
+what<br>
+&gt; went wrong. This patch provides an event watch interface for the user<=
+br>
+&gt; space to register events they are interested. After the event is<br>
+&gt; registered, the user can use annoymous file descriptor's pull function=
+<br>
+&gt; with wait-time specified to wait for the event to happen. Once the eve=
+nt<br>
+&gt; happens, the user can use read() to retrieve information related to th=
+e<br>
+&gt; event.<br>
+&gt;<br>
+&gt; VM fault event is done in this patch.<br>
+&gt;<br>
+&gt; Signed-off-by: Amber Lin &lt;Amber.Lin@amd.com&gt;<br>
+<br>
+Can you provide a link to the userspace tools that make use of this interfa=
+ce?<br>
+<br>
+Thanks,<br>
+<br>
+Alex<br>
+=3D=3D=3D=3D=3D</div>
+<div class=3D"PlainText">Hi Alex,</div>
+<div class=3D"PlainText"><span><br>
+</span><span></span><span>https://github.com/RadeonOpenCompute/rocm_smi_lib=
+&nbsp;will use this interface. Those functions will be added to this librar=
+y:<br>
+</span>
+<div><br>
+</div>
+<div>/* Get a handler for watching events */<br>
+</div>
+<div>rsmi_status_t rsmi_event_init(rsmi_event_handle_t *handle);<br>
+</div>
+<div>/* Register events for the device using the handler from init */<br>
+</div>
+<div>rsmi_status_t rsmi_event_register(uint32_t dv_ind, uint32_t events,<br=
+>
+</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rsmi_event_handle_t *handle);<br>
+</div>
+<div>/* Wait for events. If one of the events happens, a success is returne=
+d with<br>
+</div>
+<div>&nbsp;* with details in data.<br>
+</div>
+<div>&nbsp;*/<br>
+</div>
+<div>rsmi_status_t rsmi_event_wait(rsmi_event_handle_t handle, uint32_t tim=
+eout_ms,<br>
+</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; =
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; rsmi_event_data_t *data);<br>
+</div>
+<div>/* Stop watching events */<br>
+</div>
+<div>rsmi_status_t rsmi_event_free(rsmi_event_handle_t handle);<br>
+</div>
+<div><br>
+</div>
+<span></span>Regards,</div>
+<div class=3D"PlainText">Amber</div>
+<div class=3D"PlainText"><br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdkfd/Makefile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 3 &#43;-<br=
+>
+&gt;&nbsp; drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c |&nbsp;&nbsp; 2=
+ &#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_chardev.c&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 38 &#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_device.c&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 1 &#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c&nbsp; |&nbsp;&nb=
+sp; 2 &#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 10 &#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; | 143 &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43=
+;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; |&nbsp; 41 &#43;&#43;&#43;&#43;&#43;&#43;&#43;<br>
+&gt;&nbsp; include/uapi/linux/kfd_ioctl.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
+|&nbsp; 27 &#43;&#43;&#43;&#43;-<br>
+&gt;&nbsp; 9 files changed, 265 insertions(&#43;), 2 deletions(-)<br>
+&gt;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c<b=
+r>
+&gt;&nbsp; create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h<b=
+r>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile b/drivers/gpu/drm/amd=
+/amdkfd/Makefile<br>
+&gt; index 6147462..cc98b4a 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/Makefile<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/Makefile<br>
+&gt; @@ -53,7 &#43;53,8 @@ AMDKFD_FILES&nbsp; :=3D $(AMDKFD_PATH)/kfd_modul=
+e.o \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; $(AMDKFD_PATH)/kfd_int_process_v9.o \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; $(AMDKFD_PATH)/kfd_dbgdev.o \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; $(AMDKFD_PATH)/kfd_dbgmgr.o \<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; $(AMDKFD_PATH)/kfd_crat.o<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; $(AMDKFD_PATH)/kfd_crat.o \<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; $(AMDKFD_PATH)/kfd_smi_events.o<br>
+&gt;<br>
+&gt;&nbsp; ifneq ($(CONFIG_AMD_IOMMU_V2),)<br>
+&gt;&nbsp; AMDKFD_FILES &#43;=3D $(AMDKFD_PATH)/kfd_iommu.o<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c b/driver=
+s/gpu/drm/amd/amdkfd/cik_event_interrupt.c<br>
+&gt; index 9f59ba9..24b4717 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c<br>
+&gt; @@ -24,6 &#43;24,7 @@<br>
+&gt;&nbsp; #include &quot;kfd_events.h&quot;<br>
+&gt;&nbsp; #include &quot;cik_int.h&quot;<br>
+&gt;&nbsp; #include &quot;amdgpu_amdkfd.h&quot;<br>
+&gt; &#43;#include &quot;kfd_smi_events.h&quot;<br>
+&gt;<br>
+&gt;&nbsp; static bool cik_event_interrupt_isr(struct kfd_dev *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; const uint32_t *ih_ring_entry,<br>
+&gt; @@ -107,6 &#43;108,7 @@ static void cik_event_interrupt_wq(struct kfd_=
+dev *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; ihre-&gt;source_id =3D=3D CIK_INTSRC_GFX_MEM_PROT=
+_FAULT) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_vm_fault_info info;<br>
+&gt;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; kfd_smi_event_update_vmfault(dev, pasid);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; kfd_process_vm_fault(dev-&gt;dqm, pasid);<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; memset(&amp;info, 0, sizeof(info));<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/dr=
+m/amd/amdkfd/kfd_chardev.c<br>
+&gt; index f8fa03a..8e92956 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c<br>
+&gt; @@ -39,6 &#43;39,7 @@<br>
+&gt;&nbsp; #include &quot;kfd_device_queue_manager.h&quot;<br>
+&gt;&nbsp; #include &quot;kfd_dbgmgr.h&quot;<br>
+&gt;&nbsp; #include &quot;amdgpu_amdkfd.h&quot;<br>
+&gt; &#43;#include &quot;kfd_smi_events.h&quot;<br>
+&gt;<br>
+&gt;&nbsp; static long kfd_ioctl(struct file *, unsigned int, unsigned long=
+);<br>
+&gt;&nbsp; static int kfd_open(struct inode *, struct file *);<br>
+&gt; @@ -1243,6 &#43;1244,40 @@ static int kfd_ioctl_acquire_vm(struct file=
+ *filep, struct kfd_process *p,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt;&nbsp; }<br>
+&gt;<br>
+&gt; &#43;/* Handle requests for watching SMI events */<br>
+&gt; &#43;static int kfd_ioctl_smi_events(struct file *filep,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process *p, void *data)=
+<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_ioctl_smi_events_=
+args *args =3D data;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_dev *dev;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev =3D kfd_device_by_id(arg=
+s-&gt;gpu_id);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!dev)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; switch (args-&gt;op) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case KFD_SMI_EVENTS_REGISTER=
+:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; ret =3D kfd_smi_event_register(dev, args-&gt;events);<b=
+r>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (ret &gt;=3D 0) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* When=
+ the registration is successful, it returns the<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *=
+ annoymous inode. Pass it to the user in data1<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *=
+/<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; args-&g=
+t;data1 =3D ret;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D=
+ 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case KFD_SMI_EVENTS_UNREGIST=
+ER:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; kfd_smi_event_unregister(dev, args-&gt;events);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; default:<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; ret =3D -EINVAL;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; break;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt;&nbsp; bool kfd_dev_is_large_bar(struct kfd_dev *dev)<br>
+&gt;&nbsp; {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_local_mem_i=
+nfo mem_info;<br>
+&gt; @@ -1827,6 &#43;1862,9 @@ static const struct amdkfd_ioctl_desc amdkfd=
+_ioctls[] =3D {<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IOCTL_DEF(AMDKF=
+D_IOC_ALLOC_QUEUE_GWS,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; k=
+fd_ioctl_alloc_queue_gws, 0),<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IOCTL_DEF(AMDKFD_IOC_=
+SMI_EVENTS,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd_ioc=
+tl_smi_events, 0),<br>
+&gt;&nbsp; };<br>
+&gt;<br>
+&gt;&nbsp; #define AMDKFD_CORE_IOCTL_COUNT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; ARRAY_SIZE(amdkfd_ioctls)<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm=
+/amd/amdkfd/kfd_device.c<br>
+&gt; index 7866cd06..450368c 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_device.c<br>
+&gt; @@ -532,6 &#43;532,7 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *=
+kgd,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;device_info =
+=3D device_info;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;pdev =3D pdev;=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;init_complete =
+=3D false;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;smi_events.events =
+=3D 0;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd-&gt;kfd2kgd =3D f2=
+g;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic_set(&amp;kfd-&g=
+t;compute_profile, 0);<br>
+&gt;<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers=
+/gpu/drm/amd/amdkfd/kfd_int_process_v9.c<br>
+&gt; index e05d75e..151e83e 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c<br>
+&gt; @@ -24,6 &#43;24,7 @@<br>
+&gt;&nbsp; #include &quot;kfd_events.h&quot;<br>
+&gt;&nbsp; #include &quot;soc15_int.h&quot;<br>
+&gt;&nbsp; #include &quot;kfd_device_queue_manager.h&quot;<br>
+&gt; &#43;#include &quot;kfd_smi_events.h&quot;<br>
+&gt;<br>
+&gt;&nbsp; static bool event_interrupt_isr_v9(struct kfd_dev *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; const uint32_t *ih_ring_entry,<br>
+&gt; @@ -117,6 &#43;118,7 @@ static void event_interrupt_wq_v9(struct kfd_d=
+ev *dev,<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; info.prot_read&nbsp; =3D ring_id &amp; 0x10;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; info.prot_write =3D ring_id &amp; 0x20;<br>
+&gt;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; kfd_smi_event_update_vmfault(dev, pasid);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; kfd_process_vm_fault(dev-&gt;dqm, pasid);<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; kfd_signal_vm_fault_event(dev, pasid, &amp;info);=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/a=
+md/amdkfd/kfd_priv.h<br>
+&gt; index 43b888b..fdb51de 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+&gt; @@ -223,6 &#43;223,13 @@ struct kfd_vmid_info {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t vmid_num_kfd;=
+<br>
+&gt;&nbsp; };<br>
+&gt;<br>
+&gt; &#43;struct kfd_smi_events {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t events;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfifo fifo;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wait_queue_head_t wait_queue=
+;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t max_events;<br>
+&gt; &#43;};<br>
+&gt; &#43;<br>
+&gt;&nbsp; struct kfd_dev {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kgd_dev *kgd;<b=
+r>
+&gt;<br>
+&gt; @@ -309,6 &#43;316,9 @@ struct kfd_dev {<br>
+&gt;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Global GWS resource=
+ shared b/t processes*/<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *gws;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* if this device is in SMI =
+events watch */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_smi_events smi_ev=
+ents;<br>
+&gt;&nbsp; };<br>
+&gt;<br>
+&gt;&nbsp; enum kfd_mempool {<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu=
+/drm/amd/amdkfd/kfd_smi_events.c<br>
+&gt; new file mode 100644<br>
+&gt; index 0000000..ba9d036<br>
+&gt; --- /dev/null<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c<br>
+&gt; @@ -0,0 &#43;1,143 @@<br>
+&gt; &#43;/*<br>
+&gt; &#43; * Copyright 2020 Advanced Micro Devices, Inc.<br>
+&gt; &#43; *<br>
+&gt; &#43; * Permission is hereby granted, free of charge, to any person ob=
+taining a<br>
+&gt; &#43; * copy of this software and associated documentation files (the =
+&quot;Software&quot;),<br>
+&gt; &#43; * to deal in the Software without restriction, including without=
+ limitation<br>
+&gt; &#43; * the rights to use, copy, modify, merge, publish, distribute, s=
+ublicense,<br>
+&gt; &#43; * and/or sell copies of the Software, and to permit persons to w=
+hom the<br>
+&gt; &#43; * Software is furnished to do so, subject to the following condi=
+tions:<br>
+&gt; &#43; *<br>
+&gt; &#43; * The above copyright notice and this permission notice shall be=
+ included in<br>
+&gt; &#43; * all copies or substantial portions of the Software.<br>
+&gt; &#43; *<br>
+&gt; &#43; * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY O=
+F ANY KIND, EXPRESS OR<br>
+&gt; &#43; * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHA=
+NTABILITY,<br>
+&gt; &#43; * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.&nbsp; IN=
+ NO EVENT SHALL<br>
+&gt; &#43; * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, =
+DAMAGES OR<br>
+&gt; &#43; * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH=
+ERWISE,<br>
+&gt; &#43; * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE=
+ USE OR<br>
+&gt; &#43; * OTHER DEALINGS IN THE SOFTWARE.<br>
+&gt; &#43; */<br>
+&gt; &#43;<br>
+&gt; &#43;#include &lt;linux/poll.h&gt;<br>
+&gt; &#43;#include &lt;linux/wait.h&gt;<br>
+&gt; &#43;#include &lt;linux/anon_inodes.h&gt;<br>
+&gt; &#43;#include &lt;uapi/linux/kfd_ioctl.h&gt;<br>
+&gt; &#43;#include &quot;amdgpu_vm.h&quot;<br>
+&gt; &#43;#include &quot;kfd_priv.h&quot;<br>
+&gt; &#43;#include &quot;kfd_smi_events.h&quot;<br>
+&gt; &#43;<br>
+&gt; &#43;static DEFINE_MUTEX(kfd_smi_mutex);<br>
+&gt; &#43;<br>
+&gt; &#43;struct mutex *kfd_get_smi_mutex(void)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return &amp;kfd_smi_mutex;<b=
+r>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt; &#43;static __poll_t kfd_smi_ev_poll(struct file *, struct poll_table_=
+struct *);<br>
+&gt; &#43;static ssize_t kfd_smi_ev_read(struct file *, char __user *, size=
+_t, loff_t *);<br>
+&gt; &#43;static int kfd_smi_ev_release(struct inode *, struct file *);<br>
+&gt; &#43;<br>
+&gt; &#43;static const char kfd_smi_name[] =3D &quot;kfd_smi_ev&quot;;<br>
+&gt; &#43;<br>
+&gt; &#43;static const struct file_operations kfd_smi_ev_fops =3D {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .owner =3D THIS_MODULE,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .poll =3D kfd_smi_ev_poll,<b=
+r>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .read =3D kfd_smi_ev_read,<b=
+r>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .release =3D kfd_smi_ev_rele=
+ase<br>
+&gt; &#43;};<br>
+&gt; &#43;<br>
+&gt; &#43;static __poll_t kfd_smi_ev_poll(struct file *filep,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct poll_table_struct *wait)<br=
+>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_dev *dev =3D file=
+p-&gt;private_data;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_smi_events *ev =
+=3D &amp;dev-&gt;smi_events;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __poll_t mask =3D 0;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; poll_wait(filep, &amp;ev-&gt=
+;wait_queue, wait);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mask |=3D !kfifo_is_empty(&a=
+mp;ev-&gt;fifo) ? POLLIN | POLLRDNORM : mask;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return mask;<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt; &#43;static ssize_t kfd_smi_ev_read(struct file *filep, char __user *u=
+ser,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size_t size, loff_t *offset)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret, copied =3D 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_dev *dev =3D file=
+p-&gt;private_data;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D kfifo_to_user(&amp;d=
+ev-&gt;smi_events.fifo, user, size, &amp;copied);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret || !copied) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pr_debug(&quot;kfd smi-events: Fail to read fd (%i) (%i=
+)\n&quot;,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret, copied);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return ret ? ret : -EAGAIN;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return copied;<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt; &#43;static int kfd_smi_ev_release(struct inode *inode, struct file *f=
+ilep)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_dev *dev =3D file=
+p-&gt;private_data;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfifo_free(&amp;dev-&gt;smi_=
+events.fifo);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt; &#43;void kfd_smi_event_update_vmfault(struct kfd_dev *kdev, uint16_t =
+pasid)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_smi_vmfault_fifo =
+fifo_out;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
+=3D (struct amdgpu_device *)kdev-&gt;kgd;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_task_info task=
+_info;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!kdev-&gt;smi_events.eve=
+nts)<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!(kdev-&gt;smi_events.ev=
+ents &amp; KFD_SMI_EV_VMFAULT))<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(&amp;task_info, 0, si=
+zeof(struct amdgpu_task_info));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_vm_get_task_info(adev=
+, pasid, &amp;task_info);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fifo_out.group =3D 0;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fifo_out.event =3D KFD_SMI_E=
+V_VMFAULT;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fifo_out.gpu_id =3D kdev-&gt=
+;id;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fifo_out.pid =3D task_info.p=
+id;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; strcpy(fifo_out.task_name, t=
+ask_info.task_name);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfifo_in(&amp;kdev-&gt;smi_e=
+vents.fifo, &amp;fifo_out, sizeof(fifo_out));<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wake_up_all(&amp;kdev-&gt;sm=
+i_events.wait_queue);<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt; &#43;void kfd_smi_event_unregister(struct kfd_dev *dev, uint64_t event=
+s)<br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(kfd_get_smi_mutex=
+());<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev-&gt;smi_events.events &a=
+mp;=3D ~events;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(kfd_get_smi_mut=
+ex());<br>
+&gt; &#43;}<br>
+&gt; &#43;<br>
+&gt; &#43;int kfd_smi_event_register(struct kfd_dev *dev, uint64_t events)<=
+br>
+&gt; &#43;{<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(kfd_get_smi_mutex=
+());<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev-&gt;smi_events.events |=
+=3D events;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(kfd_get_smi_mut=
+ex());<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* We use the lower 32 bits =
+for now. Each bit represents one event. If<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * featured events are =
+increased to more than 32, we'll use the upper<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * bits as groups so th=
+e total number of events can be up to 32*32.<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev-&gt;smi_events.max_event=
+s =3D 32;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D kfifo_alloc(&amp;dev=
+-&gt;smi_events.fifo, dev-&gt;smi_events.max_events,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; G=
+FP_KERNEL);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pr_err(&quot;fail to allocate kfifo\n&quot;);<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return ret;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; init_waitqueue_head(&amp;dev=
+-&gt;smi_events.wait_queue);<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return anon_inode_getfd(kfd_=
+smi_name, &amp;kfd_smi_ev_fops,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (void *)dev, 0);<br>
+&gt; &#43;}<br>
+&gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h b/drivers/gpu=
+/drm/amd/amdkfd/kfd_smi_events.h<br>
+&gt; new file mode 100644<br>
+&gt; index 0000000..2e320d3<br>
+&gt; --- /dev/null<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h<br>
+&gt; @@ -0,0 &#43;1,41 @@<br>
+&gt; &#43;/*<br>
+&gt; &#43; * Copyright 2020 Advanced Micro Devices, Inc.<br>
+&gt; &#43; *<br>
+&gt; &#43; * Permission is hereby granted, free of charge, to any person ob=
+taining a<br>
+&gt; &#43; * copy of this software and associated documentation files (the =
+&quot;Software&quot;),<br>
+&gt; &#43; * to deal in the Software without restriction, including without=
+ limitation<br>
+&gt; &#43; * the rights to use, copy, modify, merge, publish, distribute, s=
+ublicense,<br>
+&gt; &#43; * and/or sell copies of the Software, and to permit persons to w=
+hom the<br>
+&gt; &#43; * Software is furnished to do so, subject to the following condi=
+tions:<br>
+&gt; &#43; *<br>
+&gt; &#43; * The above copyright notice and this permission notice shall be=
+ included in<br>
+&gt; &#43; * all copies or substantial portions of the Software.<br>
+&gt; &#43; *<br>
+&gt; &#43; * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY O=
+F ANY KIND, EXPRESS OR<br>
+&gt; &#43; * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHA=
+NTABILITY,<br>
+&gt; &#43; * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.&nbsp; IN=
+ NO EVENT SHALL<br>
+&gt; &#43; * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, =
+DAMAGES OR<br>
+&gt; &#43; * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTH=
+ERWISE,<br>
+&gt; &#43; * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE=
+ USE OR<br>
+&gt; &#43; * OTHER DEALINGS IN THE SOFTWARE.<br>
+&gt; &#43; */<br>
+&gt; &#43;<br>
+&gt; &#43;#ifndef KFD_SMI_EVENTS_H_INCLUDED<br>
+&gt; &#43;#define KFD_SMI_EVENTS_H_INCLUDED<br>
+&gt; &#43;<br>
+&gt; &#43;int kfd_smi_event_register(struct kfd_dev *dev, uint64_t events);=
+<br>
+&gt; &#43;void kfd_smi_event_unregister(struct kfd_dev *dev, uint64_t event=
+s);<br>
+&gt; &#43;void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t p=
+asid);<br>
+&gt; &#43;<br>
+&gt; &#43;/* All FIFO must start with &quot;uint32_t group&quot; and &quot;=
+uint32_t event&quot; so the user<br>
+&gt; &#43; * can read the first 8 bytes to determine the next read length.<=
+br>
+&gt; &#43; */<br>
+&gt; &#43;struct kfd_smi_vmfault_fifo {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t group;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t event;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned int gpu_id;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pid_t pid;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char task_name[TASK_COMM_LEN=
+];<br>
+&gt; &#43;};<br>
+&gt; &#43;<br>
+&gt; &#43;#endif<br>
+&gt; diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_i=
+octl.h<br>
+&gt; index 4f66764..6ce7c69 100644<br>
+&gt; --- a/include/uapi/linux/kfd_ioctl.h<br>
+&gt; &#43;&#43;&#43; b/include/uapi/linux/kfd_ioctl.h<br>
+&gt; @@ -442,6 &#43;442,28 @@ struct kfd_ioctl_import_dmabuf_args {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 dmabuf_fd;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* to KFD */<br>
+&gt;&nbsp; };<br>
+&gt;<br>
+&gt; &#43;/*<br>
+&gt; &#43; * KFD SMI(System Management Interface) events<br>
+&gt; &#43; */<br>
+&gt; &#43;enum kfd_smi_events_op {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_SMI_EVENTS_REGISTER =3D =
+1,<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; KFD_SMI_EVENTS_UNREGISTER<br=
+>
+&gt; &#43;};<br>
+&gt; &#43;<br>
+&gt; &#43;/* Event ID (mask) */<br>
+&gt; &#43;#define KFD_SMI_EV_VMFAULT&nbsp;&nbsp;&nbsp;&nbsp; 0x00000001<br>
+&gt; &#43;<br>
+&gt; &#43;struct kfd_ioctl_smi_events_args {<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 op;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp; /* to KFD */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* upper 32 bits: group. low=
+er 32 bits: event IDs */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u64 events;&nbsp;&nbsp; /*=
+ to KFD */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 gpu_id;&nbsp;&nbsp; /*=
+ to KFD */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pid_t pid;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; /* to KFD */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 data1;&nbsp;&nbsp;&nbs=
+p; /* from KFD */<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 data2;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __u32 data3;<br>
+&gt; &#43;};<br>
+&gt; &#43;<br>
+&gt;&nbsp; /* Register offset inside the remapped mmio page<br>
+&gt;&nbsp;&nbsp; */<br>
+&gt;&nbsp; enum kfd_mmio_remap {<br>
+&gt; @@ -546,7 &#43;568,10 @@ enum kfd_mmio_remap {<br>
+&gt;&nbsp; #define AMDKFD_IOC_ALLOC_QUEUE_GWS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IOWR(0x1E, struct kfd_ioctl_alloc_queue_gw=
+s_args)<br>
+&gt;<br>
+&gt; &#43;#define AMDKFD_IOC_SMI_EVENTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; AMDKFD_IOWR(0x1F, struct kfd_ioctl_smi_events_args)<br>
+&gt; &#43;<br>
+&gt;&nbsp; #define AMDKFD_COMMAND_START&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp; 0x01<br>
+&gt; -#define AMDKFD_COMMAND_END&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x1F<br>
+&gt; &#43;#define AMDKFD_COMMAND_END&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x20<br>
+&gt;<br>
+&gt;&nbsp; #endif<br>
+&gt; --<br>
+&gt; 2.7.4<br>
+&gt;<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; amd-gfx@lists.freedesktop.org<br>
+&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps=
+%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=
+=3D02%7C01%7CAmber.Lin%40amd.com%7C2f64059b66554d40898208d7caa5e374%7C3dd89=
+61fe4884e608e11a82d994e183d%7C0%7C0%7C637200686149934820&amp;amp;sdata=3DvB=
+pnnq1xhSxEMjEWffwSLVIcSymSemDQTiEoYXj5lEE%3D&amp;amp;reserved=3D0">
+https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
+reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7CAmbe=
+r.Lin%40amd.com%7C2f64059b66554d40898208d7caa5e374%7C3dd8961fe4884e608e11a8=
+2d994e183d%7C0%7C0%7C637200686149934820&amp;amp;sdata=3DvBpnnq1xhSxEMjEWffw=
+SLVIcSymSemDQTiEoYXj5lEE%3D&amp;amp;reserved=3D0</a><br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_BN8PR12MB3041596444CC70FA247B3AB6E1F70BN8PR12MB3041namp_--
+
+--===============0482714895==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -3025,4 +1422,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---------------908CA79958BE6989593A4D80--
+--===============0482714895==--
