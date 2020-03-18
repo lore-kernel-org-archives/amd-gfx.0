@@ -2,73 +2,43 @@ Return-Path: <SRS0=EQAg=5D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 78830C5ACD7
-	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2020 08:24:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CE3DC10DCE
+	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2020 08:24:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E5932076C
+	by mail.kernel.org (Postfix) with ESMTPS id D8A0D2076C
 	for <amd-gfx@archiver.kernel.org>; Wed, 18 Mar 2020 08:24:51 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nYKHpY6n"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E5932076C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8A0D2076C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=mikelr.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8B086E882;
-	Wed, 18 Mar 2020 08:24:40 +0000 (UTC)
-Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
- [IPv6:2607:f8b0:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B59E89198;
- Wed, 18 Mar 2020 00:25:13 +0000 (UTC)
-Received: by mail-ot1-x343.google.com with SMTP id r2so8347654otn.6;
- Tue, 17 Mar 2020 17:25:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=RthWSSAwfQ1m/fIyaMgHoqmV5M148uMDMgR2Z75pZn8=;
- b=nYKHpY6nByhG0uRCsowUHUQJDn8lvAmj1r6pTXxO+446VW4lMe+YgRICjtX4GAia1C
- niVY8FgXbE31dNwHG5RfG1MjyEthgGJTIdiuHqLgzLyfjtmtr8WqehWj1A/7hbst7MvT
- TxuNCCpWqcMTj3ehMffTAne8xCq1PVAGU3OpM/AuUmCRblWQHrtl+9BLgz8VdKDHSMeS
- GTnKkvg+dZHvUevq3Bv8Rsx5l7r4PDB5ZKT8kO72UvOF3UhK+DkJF5nH+C4ffxUeimVt
- 2iAkONfQ+6AmNmy3q0v1aR2mp+UJyCK3F2P/Ey32/jCril3wDx3aMfDdNeaRcfwgipZ4
- qYUA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=RthWSSAwfQ1m/fIyaMgHoqmV5M148uMDMgR2Z75pZn8=;
- b=fgNPp07XNI9ILimm4Ap7V3Qdo0Xvop2jOa49veCn1T1EBgCK/95kngfKVkI8rumZ+E
- fXDwAMlVKjhEBHxDouvdHOn36zsvoEEAEA93t53NX/tp/YFG5FkSSEAD41Muap+B5tEp
- r4V3Yzisvj5pnwr6uTSbSdVradvFx3cggoPhwu1axY8CEbHSHz7EEqr2/xZ8sceoY1lo
- FeR2/MpdEirdZiLjFKWAaXKVPwreE4kPFAQPlL5tpOmHwbflcoE2vgRikebWZBOT5vQe
- 2qSU5nCjvBkxM7hz95V9K2lRlVz1Ve/6Xpb70YoyYM/MfYPcyc+fXKpA0lYPxLJRl4bj
- P1Jg==
-X-Gm-Message-State: ANhLgQ0MD78DaZxQ+F0AYemjl3BlwHcHYBcO5ATLKcGaIS12hxGNf7aE
- 84JSlPYotecJ4g17peZRd6U=
-X-Google-Smtp-Source: ADFU+vtt2GDTqaDqobRqfbJiRXx+3kKCoi5fhOgvoNclVJWr5EiPhuO5Az9mcy0rzvDzM8NfX7xUGA==
-X-Received: by 2002:a9d:53c2:: with SMTP id i2mr1714115oth.11.1584491112227;
- Tue, 17 Mar 2020 17:25:12 -0700 (PDT)
-Received: from localhost.localdomain ([2604:1380:4111:8b00::1])
- by smtp.gmail.com with ESMTPSA id b26sm1569129oti.3.2020.03.17.17.25.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Mar 2020 17:25:11 -0700 (PDT)
-From: Nathan Chancellor <natechancellor@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "David (ChunMing) Zhou" <David1.Zhou@amd.com>
-Subject: [PATCH] drm/amdgpu: Initialize shadow to false in gfx_v9_0_rlcg_wreg
-Date: Tue, 17 Mar 2020 17:25:00 -0700
-Message-Id: <20200318002500.52471-1-natechancellor@gmail.com>
-X-Mailer: git-send-email 2.26.0.rc1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34F9B6E884;
+	Wed, 18 Mar 2020 08:24:41 +0000 (UTC)
+Received: from yyz.mikelr.com (yyz.mikelr.com [170.75.163.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44CEB89AC0;
+ Wed, 18 Mar 2020 01:34:35 +0000 (UTC)
+Received: from glidewell.localnet (198-84-194-208.cpe.teksavvy.com
+ [198.84.194.208])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by yyz.mikelr.com (Postfix) with ESMTPSA id 12BC73D9E7;
+ Tue, 17 Mar 2020 21:34:34 -0400 (EDT)
+From: Mikel Rychliski <mikel@mikelr.com>
+To: Christoph Hellwig <hch@infradead.org>
+Subject: Re: [PATCH RESEND v2 2/2] PCI: Use ioremap(),
+ not phys_to_virt() for platform ROM
+Date: Tue, 17 Mar 2020 21:34:33 -0400
+Message-ID: <49518530.5kixuQOrMm@glidewell>
+In-Reply-To: <20200317144731.GG23471@infradead.org>
+References: <20200313222258.15659-1-mikel@mikelr.com>
+ <20200313222258.15659-3-mikel@mikelr.com>
+ <20200317144731.GG23471@infradead.org>
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
 X-Mailman-Approved-At: Wed, 18 Mar 2020 08:24:39 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,63 +51,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: clang-built-linux@googlegroups.com,
- Nathan Chancellor <natechancellor@gmail.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>, linux-pci@vger.kernel.org,
+ Matthew Garrett <matthewgarrett@google.com>, amd-gfx@lists.freedesktop.org,
+ Bjorn Helgaas <bhelgaas@google.com>, Ben Skeggs <bskeggs@redhat.com>,
+ nouveau@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-clang warns:
-
-drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c:754:6: warning: variable 'shadow'
-is used uninitialized whenever 'if' condition is
-false [-Wsometimes-uninitialized]
-        if (offset == grbm_cntl || offset == grbm_idx)
-            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c:757:6: note: uninitialized use
-occurs here
-        if (shadow) {
-            ^~~~~~
-drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c:754:2: note: remove the 'if' if
-its condition is always true
-        if (offset == grbm_cntl || offset == grbm_idx)
-        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c:738:13: note: initialize the
-variable 'shadow' to silence this warning
-        bool shadow;
-                   ^
-                    = 0
-1 warning generated.
-
-It is not wrong so initialize shadow to false to ensure shadow is always
-used initialized.
-
-Fixes: 2e0cc4d48b91 ("drm/amdgpu: revise RLCG access path")
-Link: https://github.com/ClangBuiltLinux/linux/issues/936
-Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 7bc2486167e7..affbff76758c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -735,7 +735,7 @@ void gfx_v9_0_rlcg_wreg(struct amdgpu_device *adev, u32 offset, u32 v)
- 	static void *spare_int;
- 	static uint32_t grbm_cntl;
- 	static uint32_t grbm_idx;
--	bool shadow;
-+	bool shadow = false;
- 
- 	scratch_reg0 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG0_BASE_IDX] + mmSCRATCH_REG0)*4;
- 	scratch_reg1 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG1_BASE_IDX] + mmSCRATCH_REG1)*4;
--- 
-2.26.0.rc1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGkgQ2hyaXN0b3BoLAoKVGhhbmtzIGZvciB5b3VyIGNvbW1lbnRzLiBJJ20gYWxzbyByZXBseWlu
+ZyBoZXJlIHRvIHlvdXIgY29tbWVudHMgb24gdGhlIApwcmV2aW91cyBzZXJpZXMuCgpPbiBUdWVz
+ZGF5LCBNYXJjaCAxNywgMjAyMCAxMDoyODozNSBBTSBFRFQgQ2hyaXN0b3BoIEhlbGx3aWcgd3Jv
+dGU6Cj4gQW55IHJlYXNvbiBkcml2ZXJzIGNhbid0IGp1c3QgdXNlIHBjaV9tYXBfcm9tIGluc3Rl
+YWThvIUgd2hpY2ggYWxyZWFkeQo+IGRvZXMgdGhlIHJpZ2h0IHRoaW5nPwoKU29tZSBtYWNoaW5l
+cyBkb24ndCBleHBvc2UgdGhlIHZpZGVvIEJJT1MgaW4gdGhlIFBDSSBCQVIgYW5kIGluc3RlYWQg
+b25seSBtYWtlIAppdCBhdmFpbGFibGUgdmlhIEVGSSBib290IHNlcnZpY2VzIGNhbGxzLiBTbyBk
+cml2ZXJzIG5lZWQgdG8gYmUgYWJsZSB0byB1c2UgCnRoZSBST00gcHJvdmlkZWQgYnkgRUZJIGNh
+bGxzLCBidXQgb25seSBpZiB0aGV5IGNhbid0IGZpbmQgYSB2YWxpZCBvbmUgYW55d2hlcmUgCmVs
+c2UuCgpBdCBvbmUgcG9pbnQsIHRoZSBFRkkgcHJvdmlkZWQgUk9NIGluIHBkZXYtPnJvbSAqd2Fz
+KiBleHBvc2VkIHZpYSAKcGNpX21hcF9yb20oKS4gSG93ZXZlciBpdCBoYWQgdG8gYmUgc3BsaXQg
+b3V0IGludG8gYSBzZXBhcmF0ZSBmdW5jdGlvbiBzbyB0aGF0IApkcml2ZXJzIGNvdWxkIGhhdmUg
+bW9yZSBjb250cm9sIG92ZXIgd2hpY2ggc291cmNlcyB3ZXJlIHByZWZlcnJlZC4KCk9uIFR1ZXNk
+YXksIE1hcmNoIDE3LCAyMDIwIDEwOjI5OjEzIEFNIEVEVCBDaHJpc3RvcGggSGVsbHdpZyB3cm90
+ZToKPiBUaGlzIGFuZCB0aGUgbmV4dCBwYXRjaCByZWFsbHkgbmVlZCB0byBiZSBmb2xkZWQgaW50
+byB0aGUgcHJldmlvdXMKPiBvbmUgdG8gYXZvaWQgcmVncmVzc2lvbnMgKGFzc3VtaW5nIG15IG90
+aGVyIHN1Z2dlc3Rpb24gZG9lc24ndCB3b3JrCj4gZm9yIHNvbWUgcmVhc29uKS4KCkFkZHJlc3Nl
+ZCBpbiB2MgoKT24gVHVlc2RheSwgTWFyY2ggMTcsIDIwMjAgMTA6NDc6MzEgQU0gRURUIENocmlz
+dG9waCBIZWxsd2lnIHdyb3RlOgo+IFdoYXQgaXMgdGhlIHZhbHVlIG9mIHRoaXMgaGVscGVyIG92
+ZXIganVzdCBvcGVuIGNvZGluZyBhbiBpb3JlbWFwCj4gb2YgcGRldi0+cm9tIGluIHRoZSBjYWxs
+ZXJzPwoKSSB0aGluayB0aGUgZGlyZWN0IGFjY2VzcyB0byBwZGV2LT5yb20geW91IHN1Z2dlc3Qg
+bWFrZXMgc2Vuc2UsIGVzcGVjaWFsbHkgCmJlY2F1c2UgdXNlcnMgb2YgdGhlIHBjaV9wbGF0Zm9y
+bV9yb20oKSBhcmUgZXhwb3NlZCB0byB0aGUgZmFjdCB0aGF0IGl0IGp1c3QgCmNhbGxzIGlvcmVt
+YXAoKS4KCkkgZGVjaWRlZCBhZ2FpbnN0IHdyYXBwaW5nIHRoZSBpb3VubWFwKCkgd2l0aCBhIHBj
+aV91bm1hcF9wbGF0Zm9ybV9yb20oKSwgYnV0IApJIGRpZG4ndCBhcHBseSB0aGUgc2FtZSBjb25z
+aWRlcmF0aW9uIHRvIHRoZSBleGlzdGluZyBmdW5jdGlvbi4KCkhvdyBhYm91dCBzb21ldGhpbmcg
+bGlrZSB0aGlzICh3aXRoIHBjaV9wbGF0Zm9ybV9yb20oKSByZW1vdmVkKT8KCnN0YXRpYyBib29s
+IHJhZGVvbl9yZWFkX3BsYXRmb3JtX2Jpb3Moc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYpCnsK
+CXBoeXNfYWRkcl90IHJvbSA9IHJkZXYtPnBkZXYtPnJvbTsKCXNpemVfdCByb21sZW4gPSByZGV2
+LT5wZGV2LT5yb21sZW47Cgl2b2lkIF9faW9tZW0gKmJpb3M7CgoJcmRldi0+YmlvcyA9IE5VTEw7
+CgoJaWYgKCFyb20gfHwgcm9tbGVuID09IDApCgkJcmV0dXJuIGZhbHNlOwoKCXJkZXYtPmJpb3Mg
+PSBremFsbG9jKHJvbWxlbiwgR0ZQX0tFUk5FTCk7CglpZiAoIXJkZXYtPmJpb3MpCgkJcmV0dXJu
+IGZhbHNlOwoKCWJpb3MgPSBpb3JlbWFwKHJvbSwgcm9tbGVuKTsKCWlmICghYmlvcykKCQlnb3Rv
+IGZyZWVfYmlvczsKCgltZW1jcHlfZnJvbWlvKHJkZXYtPmJpb3MsIGJpb3MsIHJvbWxlbik7Cglp
+b3VubWFwKGJpb3MpOwoKCWlmIChyZGV2LT5iaW9zWzBdICE9IDB4NTUgfHwgcmRldi0+Ymlvc1sx
+XSAhPSAweGFhKQoJCWdvdG8gZnJlZV9iaW9zOwoKCXJldHVybiB0cnVlOwpmcmVlX2Jpb3M6Cglr
+ZnJlZShyZGV2LT5iaW9zKTsKCXJldHVybiBmYWxzZTsKfQoKSWYgdGhpcyBpcyBwcmVmZXJyZWQs
+IEknbGwgc2VuZCBhbiB1cGRhdGVkIHNlcmllcy4gSSdtIGFzc3VtaW5nIHRoYXQgdGhlIApyZW1v
+dmFsIG9mIHBjaV9wbGF0Zm9ybV9yb20oKSBhbmQgdXBkYXRpbmcgb2YgYWxsIHRoZSBjYWxsZXJz
+IHNob3VsZCBiZSAKY29tYmluZWQgaW50byB0aGlzIHBhdGNoLgoKVGhhbmtzLApNaWtlbApfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxp
+bmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVk
+ZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
