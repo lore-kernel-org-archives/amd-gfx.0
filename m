@@ -2,103 +2,51 @@ Return-Path: <SRS0=hs5v=5E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77349C4332B
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 15:35:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2B4FC4332E
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 17:12:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 30D3A20775
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 15:35:16 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="JdnGXYwR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 30D3A20775
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 81575207FC
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 17:12:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81575207FC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F41E6E178;
-	Thu, 19 Mar 2020 15:35:15 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2050.outbound.protection.outlook.com [40.107.92.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D07E36E178
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2020 15:35:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=It63OcVNb16Cx3pPuKLUt3lVc7U3jFsGfbNNy5qS2Tsd/PHHi82OKJWGlgHrK6DiDybs9j9mHUBPqc06ONu/93NRQPJepQclt+9YglDdh122wqLERBSaa1LIcBQPD6LZI60Gmzh5mFMZIp8uEZiSofC+UZMod5CKWOPYAzhk4q4FtfYxc6OiWeXC5C0uc6y5FF/eh/TjbGRxomJoQfiS5HrSCA4XcKaHzyXcQHW32++hMGtugxHb9KxnpnctnKR3UBOl57rrK203aU4MaC1s20yNf+MUHmzGJGbHp8l54VnNA46F6Q6pBB4sSQWHLWbthWvPZjPM85xr4c4SJoyCYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BG3mXYxt7gZAjlw0amFEcmO7Q4VyXewtyworzF16B6c=;
- b=i+wTiJmfd/euL1ZO6++favr54CfD4wRMrdB2H2TcmleL3uYmNkKn51wWYwF6UJ0DZTIlbVW50cqcULjQNr3cWsrPbdGtquxzAIJY801TTtWyIODrcQuHQNFe/CHuWa0cECZgBE/+7RaftH0m4oKucr6N0B0h2inCAYdATKr5VZ2oQ0QHxmAderB9QlOvzEPrVDuC9rX1Gme2KelVyld7HIl/blixWMkx+Hkeyqht3uIHt4EUuZm8HdVx7bEngiyOn3zd1iZK9So3bSFuEde/PDULI8bKs6fg4Oi1CpstgcwcLrSHeiD7PqzYpRsXyT+bUdkjWNIWxk7nPtzQomLdhQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BG3mXYxt7gZAjlw0amFEcmO7Q4VyXewtyworzF16B6c=;
- b=JdnGXYwRQwfM7wwriH/BaLmMpEOJcolInH5+/+Rd3Q3pZPq/RRei/+ENHunRCN+VmWl3YXO9h43yDKHO26undWlh1XWHOwMfEG88wR3d8GwsclUkLcYlGUn5FK8YoV0PChcUBpwA+nxTuFxR4UKwJPrTPvq3utjmH8n83JvJfis=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Philip.Yang@amd.com; 
-Received: from MN2PR12MB4030.namprd12.prod.outlook.com (2603:10b6:208:159::25)
- by MN2PR12MB4192.namprd12.prod.outlook.com (2603:10b6:208:1d5::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.20; Thu, 19 Mar
- 2020 15:35:07 +0000
-Received: from MN2PR12MB4030.namprd12.prod.outlook.com
- ([fe80::e4c2:1335:df65:2dbf]) by MN2PR12MB4030.namprd12.prod.outlook.com
- ([fe80::e4c2:1335:df65:2dbf%3]) with mapi id 15.20.2814.021; Thu, 19 Mar 2020
- 15:35:07 +0000
-Subject: Re: [PATCH 1/2] drm/amdgpu: infinite retries fix from UTLC1 RB SDMA
-To: Alex Sierra <alex.sierra@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200318233801.11866-1-alex.sierra@amd.com>
-From: philip yang <yangp@amd.com>
-Message-ID: <1bc46651-ff1f-fcd0-cd9a-bdd01fcf75c7@amd.com>
-Date: Thu, 19 Mar 2020 11:34:55 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-In-Reply-To: <20200318233801.11866-1-alex.sierra@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YTBPR01CA0036.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::49) To MN2PR12MB4030.namprd12.prod.outlook.com
- (2603:10b6:208:159::25)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A8E89718;
+	Thu, 19 Mar 2020 17:12:59 +0000 (UTC)
+X-Greylist: delayed 446 seconds by postgrey-1.36 at gabe;
+ Thu, 19 Mar 2020 17:12:57 UTC
+Received: from asavdk3.altibox.net (asavdk3.altibox.net [109.247.116.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6ED989718
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2020 17:12:57 +0000 (UTC)
+Received: from ravnborg.org (unknown [158.248.194.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk3.altibox.net (Postfix) with ESMTPS id 1AAD32002D;
+ Thu, 19 Mar 2020 18:05:24 +0100 (CET)
+Date: Thu, 19 Mar 2020 18:05:22 +0100
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter <daniel@ffwll.ch>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v1 0/3] drm: drm_encoder_init() => drm_encoder_init_funcs()
+Message-ID: <20200319170522.GA29213@ravnborg.org>
+References: <20200313201744.19773-1-sam@ravnborg.org>
+ <20200319141954.GA25036@ravnborg.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.27.226.38] (165.204.55.251) by
- YTBPR01CA0036.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::49) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2835.18 via Frontend Transport; Thu, 19 Mar 2020 15:35:06 +0000
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 0047076a-d3a3-4306-91b4-08d7cc1b1a05
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4192:|MN2PR12MB4192:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB41922E8064AAF64CD8BCB723E6F40@MN2PR12MB4192.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
-X-Forefront-PRVS: 0347410860
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(366004)(396003)(376002)(346002)(39860400002)(199004)(956004)(53546011)(52116002)(6486002)(81166006)(8936002)(16576012)(66556008)(8676002)(66946007)(81156014)(31696002)(31686004)(66476007)(316002)(2906002)(36756003)(2616005)(26005)(186003)(16526019)(6666004)(5660300002)(478600001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4192;
- H:MN2PR12MB4030.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 58Nqwvs/66bPZfJc6uTH/ChwiyPAmoBssvB8N0Y2OMQzFehbMNjmyeozH6nQ5wld1edB+11RyzX9aX8kRh5O28azjTZUUpMDhwFiiS+fMEVjuiCrEk5qnUACFvhUCmE1mww1H0+kWtCDaOupA2X50vsSzAKMbehQkYJNIakiKH5tLnQRTPJCH+rk/NLcaVumJJDhgR1CIvGLhRla9UkemiRwfBhw1zBfZvdRtMMW2EpOjWi2jn7KWpHnEp2wvwJEYEiwWbXaRav+J9SXoSzwEp+JnujCuTZQD3UpwPLJ/T7eqzg5mmR3UpFnG5LuP0ifx1PbtY1w6SgZ4mkhRmI+KsJT9oO5OnSuRch3LHWZhm6zaZhDKm0UxHqu4FoNY782/YFSP5Z4WuDnuIYATVXclC/1S07KJALofJ1rBjolrZSlTMAnlxK14Lg7+HPHckpj
-X-MS-Exchange-AntiSpam-MessageData: B8VwhlyrAFF/CO02p7moh/h3d//P2MS5Mheju8f4vGSX3vrdXIaCxrbf54ZVBmio4eTAxcAaf9hxRnq/A0vYZ8uU3RJzfMT767B8K14OpSJZfzSEwiCxLvv6GsAdwVQWrmKWeNxUnF9+qOnuBAzoyQ==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0047076a-d3a3-4306-91b4-08d7cc1b1a05
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2020 15:35:07.2288 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TobC2tbLvAsLJrhO8qnzyZL2e8nHlO6D7hoBBu96l0FuzKWNbMVTv7sRqoTXZPmN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4192
+Content-Disposition: inline
+In-Reply-To: <20200319141954.GA25036@ravnborg.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=eMA9ckh1 c=1 sm=1 tr=0
+ a=UWs3HLbX/2nnQ3s7vZ42gw==:117 a=UWs3HLbX/2nnQ3s7vZ42gw==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=e5mUnYsNAAAA:8
+ a=9MVmhzcSsuuJt3ktV8oA:9 a=CjuIK1q_8ugA:10 a=Vxmtnl_E_bksehYqCbjh:22
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,78 +58,78 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-samsung-soc@vger.kernel.org, Emil Velikov <emil.velikov@collabora.com>,
+ Boris Brezillon <bbrezillon@kernel.org>, David Airlie <airlied@linux.ie>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Jose Roberto de Souza <jose.souza@intel.com>,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ linux-mediatek@lists.infradead.org, NXP Linux Team <linux-imx@nxp.com>,
+ Dave Airlie <airlied@redhat.com>, linux-tegra@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, virtualization@lists.linux-foundation.org,
+ amd-gfx@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, Gerd Hoffmann <kraxel@redhat.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Can we do similar setting for vg10 to fix infinite retry?
+On Thu, Mar 19, 2020 at 03:19:54PM +0100, Sam Ravnborg wrote:
+> On Fri, Mar 13, 2020 at 09:17:41PM +0100, Sam Ravnborg wrote:
+> > Thomas Zimmermann had made a nice patch-set that introduced
+> > drm_simple_encoder_init() which is already present in drm-misc-next.
+> > 
+> > While looking at this it was suddenly obvious to me that
+> > this was functionalty that really should be included in drm_encoder.c
+> > The case where the core could handle the callback is pretty
+> > common and not part of the simple pipe line.
+> > 
+> > So after some dialog on dri-devel the conclusion was to go for
+> > a change like this:
+> > 
+> >     drm_encoder_init_funcs() for all users that specified a
+> >     drm_encoder_funcs to extend the functionality.
+> > 
+> >     drm_encoder_init() for all users that did not
+> >     need to extend the basic functionality with
+> >     drm_encoder_funcs.
+> > 
+> > A similar approach with a _funcs() prefix is used elsewhere in drm/
+> > 
+> > This required a rename of the existing users, and
+> > a follow-up patch that moves drm_simple_encoder_init()
+> > to drm_encoder.c
+> > 
+> > Patches 3 in this set demonstrate the use of drm_encoder_init().
+> > There are many more drivers that can be converted as Thomas
+> > has already demonstrated.
+> > 
+> > This is all based on work done by Thomas Zimmermann,
+> > I just wanted to implement my suggestion so
+> > we could select the best way forward.
+> > 
+> > Note: Daniel Vetter has hinted the approach implemented
+> > here smelled like middle-layer.
+> > IMO this is not so, it is just a way to handle cleanup
+> > for the simple cases.
+> 
+> We discussed this patch-set briefly on irc.
+Just to clarify, we in this context was Daniel Vetter & me.
 
-Philip
+	Sam
 
-On 2020-03-18 7:38 p.m., Alex Sierra wrote:
-> [Why]
-> Previously these registers were set to 0. This was causing an
-> infinite retry on the UTCL1 RB, preventing higher priority RB such as paging RB.
->
-> [How]
-> Set to one the SDMAx_UTLC1_TIMEOUT registers for all SDMAs on Arcturus.
->
-> Change-Id: I8a6d9b89ea115fb51ff694493c88b8972d6248a5
-> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 11 +++++++++--
->   1 file changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> index fc664ec6b5fd..94328162b6f3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> @@ -222,27 +222,35 @@ static const struct soc15_reg_golden golden_settings_sdma_arct[] =
->   	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
->   	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
->   	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
-> +	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
->   	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
->   	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
->   	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
-> +	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
->   	SOC15_REG_GOLDEN_VALUE(SDMA2, 0, mmSDMA2_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
->   	SOC15_REG_GOLDEN_VALUE(SDMA2, 0, mmSDMA2_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
->   	SOC15_REG_GOLDEN_VALUE(SDMA2, 0, mmSDMA2_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
-> +	SOC15_REG_GOLDEN_VALUE(SDMA2, 0, mmSDMA2_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
->   	SOC15_REG_GOLDEN_VALUE(SDMA3, 0, mmSDMA3_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
->   	SOC15_REG_GOLDEN_VALUE(SDMA3, 0, mmSDMA3_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
->   	SOC15_REG_GOLDEN_VALUE(SDMA3, 0, mmSDMA3_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
-> +	SOC15_REG_GOLDEN_VALUE(SDMA3, 0, mmSDMA3_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
->   	SOC15_REG_GOLDEN_VALUE(SDMA4, 0, mmSDMA4_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
->   	SOC15_REG_GOLDEN_VALUE(SDMA4, 0, mmSDMA4_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
->   	SOC15_REG_GOLDEN_VALUE(SDMA4, 0, mmSDMA4_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
-> +	SOC15_REG_GOLDEN_VALUE(SDMA4, 0, mmSDMA4_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
->   	SOC15_REG_GOLDEN_VALUE(SDMA5, 0, mmSDMA5_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
->   	SOC15_REG_GOLDEN_VALUE(SDMA5, 0, mmSDMA5_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
->   	SOC15_REG_GOLDEN_VALUE(SDMA5, 0, mmSDMA5_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
-> +	SOC15_REG_GOLDEN_VALUE(SDMA5, 0, mmSDMA5_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
->   	SOC15_REG_GOLDEN_VALUE(SDMA6, 0, mmSDMA6_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
->   	SOC15_REG_GOLDEN_VALUE(SDMA6, 0, mmSDMA6_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
->   	SOC15_REG_GOLDEN_VALUE(SDMA6, 0, mmSDMA6_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
-> +	SOC15_REG_GOLDEN_VALUE(SDMA6, 0, mmSDMA6_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
->   	SOC15_REG_GOLDEN_VALUE(SDMA7, 0, mmSDMA7_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
->   	SOC15_REG_GOLDEN_VALUE(SDMA7, 0, mmSDMA7_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
-> -	SOC15_REG_GOLDEN_VALUE(SDMA7, 0, mmSDMA7_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002)
-> +	SOC15_REG_GOLDEN_VALUE(SDMA7, 0, mmSDMA7_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
-> +	SOC15_REG_GOLDEN_VALUE(SDMA7, 0, mmSDMA7_UTCL1_TIMEOUT, 0xffffffff, 0x00010001)
->   };
->   
->   static const struct soc15_reg_golden golden_settings_sdma_4_3[] = {
-> @@ -2011,7 +2019,6 @@ static int sdma_v4_0_process_trap_irq(struct amdgpu_device *adev,
->   				      struct amdgpu_iv_entry *entry)
->   {
->   	uint32_t instance;
-> -
->   	DRM_DEBUG("IH: SDMA trap\n");
->   	instance = sdma_v4_0_irq_id_to_seq(entry->client_id);
->   	switch (entry->ring_id) {
+> With the upcoming drmm_ changes and such this is bad timing..
+> And in the end this may be pointless code-chrunch.
+> 
+> Patch-set shelfed for now - may re-visit it later.
+> 
+> 	Sam
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
