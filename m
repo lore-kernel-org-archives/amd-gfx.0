@@ -7,96 +7,96 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 184B0C4332D
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 14:13:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73E49C4332D
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 14:16:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D34D8214DB
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 14:13:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 46F7D2080C
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 14:16:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="2+/fYV6b"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D34D8214DB
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="RPz7A3q0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 46F7D2080C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F82D6EA0C;
-	Thu, 19 Mar 2020 14:13:20 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2055.outbound.protection.outlook.com [40.107.93.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2933C6EA0C
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2020 14:13:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E86F98914D;
+	Thu, 19 Mar 2020 14:16:12 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690081.outbound.protection.outlook.com [40.107.69.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD12088E56
+ for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2020 14:16:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LJ49LkNM7CLJUEM5pXdFa9I2UfLBKw///H1+/UR9n2IQXBoQhVqlTrfifWEcpgPUa3pP/+XJ1IBD+TKPqnZuQxtpjudZwuShGAKn9iDiR0ZlvtPGBYV4DUbEVrRvNci71N6N+J5G6TT31xsB+75kc5efhuQHgNb/aEunJS1smgAYRSBnUU4tU2rWxJ+T5N+7LBJDEnf9rAaUSr79oZHrt90lPW0Ky4dga+5taUTosiPLk3klq7kDvyYfeBrQL2L4xLdGw7PKF1dJGsBPD4kNMFP10VVnXgolmI8yeqMiDesYVfkKK2MW9ptZsciY1fVJKJEDcZa8jvCWT5kEpoUKqw==
+ b=GQoGQU4UTXE6wIZFNWPH5JVYdt+ABrw+hFRekYmhmHIkDNlVC+ZXg4PpBAaBTTgLuWqhStDUnCEkWbUY1olIVSa5kjrBl9sgXuoMPTaEIBK39ldOHzDJiuxv4gRLJGBpJbzFkIEqClKlXjHbmLf/ry+KtYFXhD9I3WvAcvWLXpd3ySUNPvyETeQuvUTVyBnN2XsPhpIK+EYZXPW6Zy6xN6nxQt43ovFiXEhaBQVQbpKhJytKFxDj0DuKbLuUK8yMy0N7/mS7TJq8cnlBIun3wxJDTPlnYvdX0En25lCKnzfJE5Zh/1gYMdUa2YQVDmpUAFCdQXSGz+tTTvrgUolyyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E033HV0R0Ts5I/jAzzcqoKm6w4TTNG1vB4kW/sfkJbc=;
- b=ACQnsqY+DZZc/tl721jXGSbp9tmgv1LShhxo+bUF+GPbKcCJqO9JkZJJ1YUnziiUCR2/Qnx/hP6l/LYEJcbqfzo4tiWWKgP7W4e9a+ebd4p5yAlSJaHNWAkfQ2U89SWz8vMx8OKEALJljNM06x+CkdICdM3vBgv2Zzm8Hh3GVx7nOX0Brx8Te9178T+h7S4hb21wzFcPXbJ3LZ5xVkrqNgjvBXoXDsdNQvJaex8fd3LblfmwMlvvGqfpHRs0pLRF8nPa2rwg9/OrdFkblGHC/Ibs8Z7XgIv/KQa/62Qo/ph2FiaBbzAZUQjQc/bk6itlO5F+vyHulozrPvBWPwSadg==
+ bh=2DNCUVrpdCtuGN0FHCp+1aBB7vIP3Qb5Sn6UephOgV4=;
+ b=SL4CWQNwtXXrb5I/KXaeoGDgweI1hM/MEGFJuC0XoJTiacva/eJIp/bEvgrAfbP9+cheVFVayVYN879OfW7vPdb7Vj7jemFAgiqiRrpJtwhboe9yqEXRFT4CZ/h3F5If8q2WMghMPRVTmhW3NJWJTU8oD1IxsK8/agT3jLjovSKVhGPFw85mFxTs5gV1G+962ifgno/2Z0WHVjcGLB94e6xPFWmEdhqgH1JCVPwg3oErm4OOblDeCWADKr+UWD9DiTCIsV5Bh5aMQonF/ayQhDZrc7ts0dj6Ib0b1VrAyBuffCjTEcKkQE9RhgP7oljRCLVeul52c+R9sYa3RQKasg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E033HV0R0Ts5I/jAzzcqoKm6w4TTNG1vB4kW/sfkJbc=;
- b=2+/fYV6bp6iRZF+uxUg2giyrMDs9K7iglLN3meBivNUU2yIJndqgIUPqJ4ZLQer+1kaUIvueoOXGCmj1k00kTwVWuBGYDlagzkV05rwlCDT2IpMtweNFUNwUs506XC8os/HXZVrGSStI9JOeQGy6E/sB295Sp2QNzQOgR8J3JW4=
+ bh=2DNCUVrpdCtuGN0FHCp+1aBB7vIP3Qb5Sn6UephOgV4=;
+ b=RPz7A3q0/EUZXE2NUOpUmV/GHlOJDl1n1/axziKbKtXMP6fQ/eblkz1i/tyJJHkF9FZtm5tlKw7qmNgTCViSY3kT8nKwp9k8yZAOsTFjrXOFYiPdsnZ6JeEAkF1ZYxCyJKcnCdKb91cIddhHvxH3ueNLO5TeFYmwlyua2IrcfTk=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Kent.Russell@amd.com; 
 Received: from DM6PR12MB3721.namprd12.prod.outlook.com (2603:10b6:5:1c2::18)
- by DM6PR12MB4235.namprd12.prod.outlook.com (2603:10b6:5:220::12) with
+ by DM6PR12MB4204.namprd12.prod.outlook.com (2603:10b6:5:212::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2814.14; Thu, 19 Mar
- 2020 14:13:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2814.18; Thu, 19 Mar
+ 2020 14:16:10 +0000
 Received: from DM6PR12MB3721.namprd12.prod.outlook.com
  ([fe80::f8bd:4765:eb5b:a7a5]) by DM6PR12MB3721.namprd12.prod.outlook.com
  ([fe80::f8bd:4765:eb5b:a7a5%2]) with mapi id 15.20.2814.021; Thu, 19 Mar 2020
- 14:13:17 +0000
+ 14:16:10 +0000
 From: Kent Russell <kent.russell@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] Enable reading FRU chip via I2C v2
-Date: Thu, 19 Mar 2020 10:13:08 -0400
-Message-Id: <20200319141308.29741-1-kent.russell@amd.com>
+Subject: [PATCH] Enable reading FRU chip via I2C v3
+Date: Thu, 19 Mar 2020 10:16:00 -0400
+Message-Id: <20200319141600.29898-1-kent.russell@amd.com>
 X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: YTOPR0101CA0042.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:14::19) To DM6PR12MB3721.namprd12.prod.outlook.com
+X-ClientProxiedBy: YTOPR0101CA0033.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:15::46) To DM6PR12MB3721.namprd12.prod.outlook.com
  (2603:10b6:5:1c2::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from krussell.amd.com (165.204.55.251) by
- YTOPR0101CA0042.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::19) with
+ YTOPR0101CA0033.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::46) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.19 via Frontend
- Transport; Thu, 19 Mar 2020 14:13:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.17 via Frontend
+ Transport; Thu, 19 Mar 2020 14:16:09 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [165.204.55.251]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 96cbbbfc-a788-4506-e890-08d7cc0fabd4
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4235:|DM6PR12MB4235:
+X-MS-Office365-Filtering-Correlation-Id: 8ac67289-c993-47bd-77f8-08d7cc101282
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4204:|DM6PR12MB4204:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB42351903433013F62733122E85F40@DM6PR12MB4235.namprd12.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4204A05C5A88E2F98E48893885F40@DM6PR12MB4204.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-Forefront-PRVS: 0347410860
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(136003)(366004)(376002)(346002)(396003)(199004)(81166006)(16526019)(2616005)(26005)(186003)(44832011)(6486002)(956004)(86362001)(7696005)(6916009)(52116002)(6666004)(36756003)(66476007)(478600001)(2906002)(66556008)(81156014)(8676002)(8936002)(1076003)(4326008)(66946007)(30864003)(316002)(5660300002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB4235;
+ SFS:(10009020)(4636009)(396003)(136003)(366004)(376002)(39860400002)(346002)(199004)(1076003)(52116002)(66946007)(316002)(66476007)(66556008)(4326008)(86362001)(8936002)(7696005)(6666004)(2906002)(6486002)(478600001)(2616005)(44832011)(956004)(36756003)(8676002)(16526019)(186003)(6916009)(5660300002)(26005)(30864003)(81166006)(81156014);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB4204;
  H:DM6PR12MB3721.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BUMC+uIp8UqoXqs3SxIyCijwyHmPqx2AgwjUXdcekNs1zI2/gjVJYXP1bPIpoTPWHOhB+Um/Gher8B4Fgk3oRmgfp2L+hIJyo8B8Dry0iDSueKcNDd/pEcwlEyR7dVMb5TdzZo25kWZyDuJjxDPsAJCkvJBibWO9p4VH8qnVAk8UnruwrFL3uXJMQ63n9Lm424ItAOtPdqfX6jNjkOYuP+leD9j6EavTcH2s4DK8H9fWaZgB5JakQxM6fIj2VrxXzFguiPUrWrF5k5JyAMYRDjaoBGOMXKLXUaAS3j2wqfWL/mNL4cDuq6pKNcnjSkgMcLNXbVidDVHxbD5EvvMfxKm/1yEsPphXgKK1aQzcgvEM7ybZwIu2ylc7WAyxbJZm9/FLmV1zFFzW6bUr+uMx7djtix+wwHQcB3Kt82ftpdcrzsqNCA7eK6Oaho9q9xIs
-X-MS-Exchange-AntiSpam-MessageData: Qw4hXPO44IGmGNPg1PPqDhDzicIsK/1O0XHJsyco5h93Jd0NtzyGwH9Y8uQt5OTc/uPvZKYZPreH7ENSOak0SBTYy1llnpizOn9ylHo9dv/X2QXfxaYvn67ikQAZmY9mbd0yfaKKjGb+SXpYf0+Htg==
+X-Microsoft-Antispam-Message-Info: 9jDK5tos8edmB15ZZAb0dY71TLQyqard3x4WZadH3KQL10fzAnR2gqV8rglnUYCpHW6JlTH5oTKG93Kytr+0K4TSeJo6QF77e91zTD6rasSt3wts5mv/ipEHyJNlAsst3fvK9FHJnoapXLGt3GyZgrg3DaINepFvkeHoK2njE8K7nit9K0JIP+gBF7cW3z40jqMCJpkpNNPADluapAx8TIMfqxqwdk+N2zQFI1Guq4ubQIk3X59GrRbOb3rFqOhqlwoWmq4Mx7+ErxQ6m35Vg59MgstkzXb6/SrUy0AGgr0Po8wuat2+iYX2gbMI6dqh6F/WxAdFjebBsDEshaBHK6yGQcTywCx5BR4iaSNyvR/9ZAfSCGBaT4BuyEKoz/r/CNMrqKBR/gV2E0SnOdk6pj8AQXZV5WQLUhk00KEo3c497fTjhY7dyZeBBZStGvlW
+X-MS-Exchange-AntiSpam-MessageData: wHQa3HSaszXBhEM4c7Zv8b5gxKYp+JOcnWr5KgIo7xGJobpXxPKTPA9L0nhZr45qUzCNgWL/tmSYQNpT46UqhwlYZ9eC62VhEAoa3KcZmt3EmQN1HVIgiIhKHyHrojR3vUfkfRF7ZrtXg1bkHBt2oQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96cbbbfc-a788-4506-e890-08d7cc0fabd4
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2020 14:13:17.8935 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ac67289-c993-47bd-77f8-08d7cc101282
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2020 14:16:10.2175 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ETj6N23LLK1glwcdtviKrs/TfD5QwMBS+AUDKA9jsvAGB8KMVqZ/Hns4Nua+k3FOZy0LJ46eYWP2qdej0VByRg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4235
+X-MS-Exchange-CrossTenant-UserPrincipalName: dvsGVVgdDw5vSU6YoXhCLIDTvVbec1jIZDo/v5/mj1SF59AqivcYkyalsj/QTg9EkmqcTxeTP8BEbv/sXBfv+w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4204
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,6 +122,7 @@ contains this information.
 
 v2: Add documentation to amdgpu.rst, add helper functions,
     rename functions for consistency, fix bad starting offset
+v3: Remove testing definitions
 
 Signed-off-by: Kent Russell <kent.russell@amd.com>
 ---
@@ -129,9 +130,9 @@ Signed-off-by: Kent Russell <kent.russell@amd.com>
  drivers/gpu/drm/amd/amdgpu/Makefile           |   2 +-
  drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   5 +
  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  90 +++++++++++
- .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 145 ++++++++++++++++++
+ .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 143 ++++++++++++++++++
  .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h    |  29 ++++
- 6 files changed, 294 insertions(+), 1 deletion(-)
+ 6 files changed, 292 insertions(+), 1 deletion(-)
  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
  create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.h
 
@@ -327,10 +328,10 @@ index 729565f79cfe..80a654326190 100644
  	if (amdgpu_discovery && adev->asic_type >= CHIP_NAVI10)
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
 new file mode 100644
-index 000000000000..f620a8b50ecc
+index 000000000000..990dee6e22d5
 --- /dev/null
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-@@ -0,0 +1,145 @@
+@@ -0,0 +1,143 @@
 +/*
 + * Copyright 2019 Advanced Micro Devices, Inc.
 + *
@@ -358,18 +359,16 @@ index 000000000000..f620a8b50ecc
 +#include "smu_v11_0_i2c.h"
 +#include "atom.h"
 +
-+#define I2C_PRODUCT_INFO_ADDR_VEGA20		0xAC
-+//#define I2C_PRODUCT_INFO_ADDR_ARCTURUS_D342	0xAC
-+//#define I2C_PRODUCT_INFO_ADDR_ARCTURUS		0xB4
-+#define I2C_PRODUCT_INFO_ADDR_SIZE		0x2
-+#define I2C_PRODUCT_INFO_OFFSET			0xC0
++#define I2C_PRODUCT_INFO_ADDR		0xAC
++#define I2C_PRODUCT_INFO_ADDR_SIZE	0x2
++#define I2C_PRODUCT_INFO_OFFSET		0xC0
 +
 +int amdgpu_fru_read_eeprom(struct amdgpu_device *adev, uint32_t addrptr,
 +			   unsigned char *buff)
 +{
 +	int ret, size;
 +	struct i2c_msg msg = {
-+			.addr   = I2C_PRODUCT_INFO_ADDR_VEGA20,
++			.addr   = I2C_PRODUCT_INFO_ADDR,
 +			.flags  = I2C_M_RD,
 +			.buf    = buff,
 +	};
