@@ -2,77 +2,72 @@ Return-Path: <SRS0=hs5v=5E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0032BC4332B
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 01:42:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A46BC4332D
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 02:11:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C3C4620767
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 01:42:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0939720767
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 02:11:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="a9OAhtzp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3C4620767
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xsw5hZvS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0939720767
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 728446E0A6;
-	Thu, 19 Mar 2020 01:42:16 +0000 (UTC)
-Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
- [IPv6:2607:f8b0:4864:20::f41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE1AC6E9A3
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2020 00:28:51 +0000 (UTC)
-Received: by mail-qv1-xf41.google.com with SMTP id v38so118480qvf.6
- for <amd-gfx@lists.freedesktop.org>; Wed, 18 Mar 2020 17:28:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=DIzPGl46tibPTC4Nr1Fne3idEkZVxe0vRVzC9BmYyk8=;
- b=a9OAhtzpaqy8M7ZOiBkM5EuSVHd4yNecpRtC8dRP+l2pPqyfnSd8K92zu0TfGABk1Q
- hYEfZ+7acI2k/zKRdQldlZU6QmFtX2HRogB/BKnbdEtsKAhQeU6fd+MnUlz8ghM8TEw4
- 4FSfDydFj/Zz5Td34FIN8pCf7ZG9IBYZHl9AGTNXWI1pvNTxE9cBf86JQxD+vBXs5Fu+
- P3YN0S0cijWwxtWJa0nTOxVZ/FIsv/TFStTBQI0wKucqAubr3tyWjsrl2pHJSEDRw/1M
- 2hLIJPL3HFVUmwFiwQrI21J4bRRmujEiUZiEYQWN4CJhod6KqfASdjQsItMOv/RwHOO/
- 50tA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id B69D86E056;
+	Thu, 19 Mar 2020 02:11:27 +0000 (UTC)
+Received: from mail-qv1-xf36.google.com (mail-qv1-xf36.google.com
+ [IPv6:2607:f8b0:4864:20::f36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86D786E89F;
+ Thu, 19 Mar 2020 02:11:26 +0000 (UTC)
+Received: by mail-qv1-xf36.google.com with SMTP id n1so227501qvz.4;
+ Wed, 18 Mar 2020 19:11:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zyNDjcIUtk2mj1zn3x1BNcAPFDNTmNPp6P9iZk4jj0s=;
+ b=Xsw5hZvS3v02YO/zu+M1nPMjmrMXf3rX5CViiRIjRyRmLMoaRCizJfGTYfYoXrVl+d
+ 5U012/QacH7K/CSRX9F8/1Dcuo8B2YnKq9o3GBHJ+Qh+8+Q7pMEr7+KbukEmyS4q38Bu
+ uTJ5FB+tpuh/jTV8AVvJef6UyB0JV8/tPIxUlxnERnxIZOcM1CyLpbbQ4tHgPLNh1j7q
+ TRKwPZAhLhPyxHmb07gtoyho4AO/FH+kj7ja7Nn+uK7r1voTa284Ub86mIZ6tD2J1tJx
+ M+oV6Zca9zWeuhOXSt5Ht49ThXJ1FRq2k+pXSsaTJRWYlSvYqgwaV+PzdusPDTHjrCHS
+ KE5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=DIzPGl46tibPTC4Nr1Fne3idEkZVxe0vRVzC9BmYyk8=;
- b=hl2mOVVicEDFsbvAL2p0YHFcn6kLN0onMVczXRXRVmKPDvMq/a+Wnm+DvpGJS04q8u
- ll3Pc2NOWbwQGhagRNhURpRgFOGeH8QF0h9HKM8Y3egj1ZtQmZiYMUcHSFgPN04bMKQB
- YUrVaZbIgCaej4y1TTKgZDDbEsh4lduq2mcgc/bpUzeUgjygqWnAaj7LqaQUU6fmyLRZ
- BTEzj3kpdTOuobTkcSU7qYsuqGvKrSE0OkosdCNk6dSpm8Wc0wzyme04P6WLes//ksiK
- 9Y0X5LNXnNmu3JGfesX/q9EV/WLvXFFsk3OzdwjAvOH2m6lVVlV+XsJmuK32n/4/6FdD
- iqRg==
-X-Gm-Message-State: ANhLgQ1yx2IRBsowpcSk9dnz6eWIKjIVAfbQNGLsRrovO35b5SmItZoU
- awJEwcLpEjaEbO3Xa3rEQpFF9A==
-X-Google-Smtp-Source: ADFU+vvSjLkx34MB68Vj6dW6PS73cWO5A0gn+n/cmS/y+KLQ6+BjGr0q6lYXU7A7Xm/H0ApV84kRRw==
-X-Received: by 2002:a0c:e7c3:: with SMTP id c3mr620345qvo.62.1584577730703;
- Wed, 18 Mar 2020 17:28:50 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id u123sm433965qkf.77.2020.03.18.17.28.50
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 18 Mar 2020 17:28:50 -0700 (PDT)
-Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
- (envelope-from <jgg@ziepe.ca>)
- id 1jEj3J-000273-Ln; Wed, 18 Mar 2020 21:28:49 -0300
-Date: Wed, 18 Mar 2020 21:28:49 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christoph Hellwig <hch@lst.de>
-Subject: Re: ensure device private pages have an owner v2
-Message-ID: <20200319002849.GG20941@ziepe.ca>
-References: <20200316193216.920734-1-hch@lst.de>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zyNDjcIUtk2mj1zn3x1BNcAPFDNTmNPp6P9iZk4jj0s=;
+ b=WVP5rrgp5SR3UnaSFBJH2ajebcnQ3Z+GAhHnCkHTIIuj4JHz0z+V/QK35yoZXWZmJ/
+ 1v+FeIhOsN7L3evBG6g2sjklFv2qbhls8q/FA1J5Nwaia+0kO4mDYnaqvyZjs1tRV2iF
+ jEfb1qEXTlFMUtItKl5DdYqbWeMGuRC0ZsycbiIW6W1awalFHS/UWX7eLO1A8uv9d4le
+ JtWWCBqfmK3rGnLyd9mu2M2x5HM1ny7DSl+NeOiV6iUIzL9pAr+ozMnCTRw4sViTt6Vf
+ NGt3yA06zxhrQwuAyhJr6bw8YBEzBIL7+LX8O+HabSpm1z3f3TserVedvgBd9AO1pMD3
+ ZdZw==
+X-Gm-Message-State: ANhLgQ3zZKukit2bjgsGJiSuJak4ZLvBemJY8CJRNEJtMRWo6Mb0meqd
+ hBqfzfIkPzq+3B9rtLur/j9w86mz
+X-Google-Smtp-Source: ADFU+vvAB4HDyTS2PCD54j7mI+G1mpWaO64NU85Y0iJVcsYJSUT++ybcE4gh8gFBigu4PNMUO0Zl/A==
+X-Received: by 2002:a0c:b203:: with SMTP id x3mr854958qvd.197.1584583885325;
+ Wed, 18 Mar 2020 19:11:25 -0700 (PDT)
+Received: from localhost.localdomain ([71.219.40.23])
+ by smtp.gmail.com with ESMTPSA id z23sm627192qkg.21.2020.03.18.19.11.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Mar 2020 19:11:24 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu 5.6 fixes
+Date: Wed, 18 Mar 2020 22:10:45 -0400
+Message-Id: <20200319021045.4071-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200316193216.920734-1-hch@lst.de>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Thu, 19 Mar 2020 01:42:15 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,39 +79,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, kvm-ppc@vger.kernel.org,
- Bharata B Rao <bharata@linux.ibm.com>, linux-mm@kvack.org,
- Jerome Glisse <jglisse@redhat.com>, Ben Skeggs <bskeggs@redhat.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 16, 2020 at 08:32:12PM +0100, Christoph Hellwig wrote:
-> When acting on device private mappings a driver needs to know if the
-> device (or other entity in case of kvmppc) actually owns this private
-> mapping.  This series adds an owner field and converts the migrate_vma
-> code over to check it.  I looked into doing the same for
-> hmm_range_fault, but as far as I can tell that code has never been
-> wired up to actually work for device private memory, so instead of
-> trying to fix some unused code the second patch just remove the code.
-> We can add it back once we have a working and fully tested code, and
-> then should pass the expected owner in the hmm_range structure.
-> 
-> Changes since v1:
->  - split out the pgmap->owner addition into a separate patch
->  - check pgmap->owner is set for device private mappings
->  - rename the dev_private_owner field in struct migrate_vma to src_owner
->  - refuse to migrate private pages if src_owner is not set
->  - keep the non-fault device private handling in hmm_range_fault
+Hi Dave, Daniel,
 
-I'm happy enough to take this, did you have plans for a v3?
+Fixes for 5.6.
 
-Thanks,
-Jason
+The following changes since commit 16b78f052d0129cd2998305480da6c4e3ac220a8:
+
+  Merge tag 'topic/mst-bw-check-fixes-for-airlied-2020-03-12-2' of git://anongit.freedesktop.org/drm/drm-misc into drm-fixes (2020-03-13 10:38:25 +1000)
+
+are available in the Git repository at:
+
+  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.6-2020-03-18
+
+for you to fetch changes up to a3c33e7a4a116f8715c0ef0e668e6aeff009c762:
+
+  drm/amdgpu: fix typo for vcn2.5/jpeg2.5 idle check (2020-03-18 18:21:57 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-5.6-2020-03-18:
+
+amdgpu:
+- VCN clockgating fixes
+- GPR debugfs fix for umr
+- GPU reset fix
+- eDP fix for MBP
+- DCN2.x fix
+
+----------------------------------------------------------------
+Evan Quan (1):
+      drm/amdgpu: add fbdev suspend/resume on gpu reset
+
+James Zhu (3):
+      drm/amdgpu: fix typo for vcn1 idle check
+      drm/amdgpu: fix typo for vcn2/jpeg2 idle check
+      drm/amdgpu: fix typo for vcn2.5/jpeg2.5 idle check
+
+Mario Kleiner (1):
+      drm/amd/display: Add link_rate quirk for Apple 15" MBP 2017
+
+Stanley.Yang (1):
+      drm/amd/display: fix typos for dcn20_funcs and dcn21_funcs struct
+
+Tom St Denis (1):
+      drm/amd/amdgpu: Fix GPR read from debugfs (v2)
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c       |  6 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c        |  4 ++++
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c            |  2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c            |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c             |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c             |  2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c             |  2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c  | 11 +++++++++++
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c |  1 -
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c |  1 -
+ 10 files changed, 23 insertions(+), 10 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
