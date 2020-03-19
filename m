@@ -2,51 +2,73 @@ Return-Path: <SRS0=hs5v=5E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+X-Spam-Status: No, score=-13.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2B4FC4332E
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 17:12:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1B18C4332B
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 17:54:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 81575207FC
-	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 17:12:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81575207FC
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
+	by mail.kernel.org (Postfix) with ESMTPS id C397520787
+	for <amd-gfx@archiver.kernel.org>; Thu, 19 Mar 2020 17:54:43 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LXRNHnTL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C397520787
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45A8E89718;
-	Thu, 19 Mar 2020 17:12:59 +0000 (UTC)
-X-Greylist: delayed 446 seconds by postgrey-1.36 at gabe;
- Thu, 19 Mar 2020 17:12:57 UTC
-Received: from asavdk3.altibox.net (asavdk3.altibox.net [109.247.116.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6ED989718
- for <amd-gfx@lists.freedesktop.org>; Thu, 19 Mar 2020 17:12:57 +0000 (UTC)
-Received: from ravnborg.org (unknown [158.248.194.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by asavdk3.altibox.net (Postfix) with ESMTPS id 1AAD32002D;
- Thu, 19 Mar 2020 18:05:24 +0100 (CET)
-Date: Thu, 19 Mar 2020 18:05:22 +0100
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>, Daniel Vetter <daniel@ffwll.ch>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v1 0/3] drm: drm_encoder_init() => drm_encoder_init_funcs()
-Message-ID: <20200319170522.GA29213@ravnborg.org>
-References: <20200313201744.19773-1-sam@ravnborg.org>
- <20200319141954.GA25036@ravnborg.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91D656EA45;
+	Thu, 19 Mar 2020 17:54:42 +0000 (UTC)
+Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
+ [IPv6:2607:f8b0:4864:20::62e])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA8696EA45;
+ Thu, 19 Mar 2020 17:54:41 +0000 (UTC)
+Received: by mail-pl1-x62e.google.com with SMTP id a23so1385574plm.1;
+ Thu, 19 Mar 2020 10:54:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DW03TKxNfUXb5qdqLQrUX4+j16qkVQ3MLi+SIKV61lg=;
+ b=LXRNHnTL4lP/SnMnOr7ENn13RWIuNDiP92Lp7ZUp+hfyFpFatYAaAF1pkEW1ajGefB
+ 8qHMAAM54zgoae09lpz/TKE7DHIf9aJLBmXG+36hLMrkvSZFFyFtUn3/P37/k52mDJQT
+ OV/OFz4o9sNs4bk6DB1xEELk6RXcbeqntNLdG6Q49ds2ZHxuO4cEImTYk7WbRhU/BiNs
+ 8g/Y9L/UuLGk01w1Bi2eXnxG3W70XoTzppgFhN8cUsh0zAgKPQYIQ6Sk1Y4iVWa2+YVt
+ r26d8l1fBVx43onByRMiuPzG/JGPbJrrjmBTDHm8QABRx1+PVnXKNAwBlFLNqZCrQfgJ
+ o6aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=DW03TKxNfUXb5qdqLQrUX4+j16qkVQ3MLi+SIKV61lg=;
+ b=Vwdp4gtob8z5Bu+E4lcO3s3UNrAaymVXhEFCaP8zmjpPVtHvcSpbBQnsZxLCNwnwRw
+ Hfx4WVIBk25QPhqaYWiKHWnJ46+bdUofDUk01YcMiX1XwD1SaHv7vg2Bpom/3Y93xtM9
+ mqbpuCDOA93KGs+qde+9PNb14b9mg/njcv0dl4iumLOztum6fnWFiKTbOI4z57/gHXZU
+ JmH60gNyHgcazImrozDaVFHuqqRYQwEPBJDSXxJSyc0R4W8A43agJXd8aGbDvZTo1b4F
+ MQfqwsTIlxcF85fEREI2ajx6O5PhV0sxMQudowK7MJ0QvnuhgOkKoiq71ScpkJzaaszm
+ 2vBw==
+X-Gm-Message-State: ANhLgQ3GWRHp7Ica8zo5LYRQAcbMODHLkJVc84knffM97CO3wmDtDPiJ
+ GI9qyK5exoL6jkmjzL8cUuE6r/Is
+X-Google-Smtp-Source: ADFU+vtvvr/WXYLLq8jJ5zMkTwHcyxzX59Ql2Wn3k13jtAoM8AoTbPP4gxb5el+WTuTaxjm6dANMTw==
+X-Received: by 2002:a17:902:a612:: with SMTP id
+ u18mr4726577plq.1.1584640480255; 
+ Thu, 19 Mar 2020 10:54:40 -0700 (PDT)
+Received: from localhost.localdomain ([71.219.40.23])
+ by smtp.gmail.com with ESMTPSA id w6sm3034723pfn.104.2020.03.19.10.54.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Mar 2020 10:54:39 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu, scheduler drm-next-5.7
+Date: Thu, 19 Mar 2020 13:54:18 -0400
+Message-Id: <20200319175418.4237-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200319141954.GA25036@ravnborg.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.3 cv=eMA9ckh1 c=1 sm=1 tr=0
- a=UWs3HLbX/2nnQ3s7vZ42gw==:117 a=UWs3HLbX/2nnQ3s7vZ42gw==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=e5mUnYsNAAAA:8
- a=9MVmhzcSsuuJt3ktV8oA:9 a=CjuIK1q_8ugA:10 a=Vxmtnl_E_bksehYqCbjh:22
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,78 +80,271 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-samsung-soc@vger.kernel.org, Emil Velikov <emil.velikov@collabora.com>,
- Boris Brezillon <bbrezillon@kernel.org>, David Airlie <airlied@linux.ie>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Jose Roberto de Souza <jose.souza@intel.com>,
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- linux-mediatek@lists.infradead.org, NXP Linux Team <linux-imx@nxp.com>,
- Dave Airlie <airlied@redhat.com>, linux-tegra@vger.kernel.org,
- linux-amlogic@lists.infradead.org, virtualization@lists.linux-foundation.org,
- amd-gfx@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, Gerd Hoffmann <kraxel@redhat.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 19, 2020 at 03:19:54PM +0100, Sam Ravnborg wrote:
-> On Fri, Mar 13, 2020 at 09:17:41PM +0100, Sam Ravnborg wrote:
-> > Thomas Zimmermann had made a nice patch-set that introduced
-> > drm_simple_encoder_init() which is already present in drm-misc-next.
-> > 
-> > While looking at this it was suddenly obvious to me that
-> > this was functionalty that really should be included in drm_encoder.c
-> > The case where the core could handle the callback is pretty
-> > common and not part of the simple pipe line.
-> > 
-> > So after some dialog on dri-devel the conclusion was to go for
-> > a change like this:
-> > 
-> >     drm_encoder_init_funcs() for all users that specified a
-> >     drm_encoder_funcs to extend the functionality.
-> > 
-> >     drm_encoder_init() for all users that did not
-> >     need to extend the basic functionality with
-> >     drm_encoder_funcs.
-> > 
-> > A similar approach with a _funcs() prefix is used elsewhere in drm/
-> > 
-> > This required a rename of the existing users, and
-> > a follow-up patch that moves drm_simple_encoder_init()
-> > to drm_encoder.c
-> > 
-> > Patches 3 in this set demonstrate the use of drm_encoder_init().
-> > There are many more drivers that can be converted as Thomas
-> > has already demonstrated.
-> > 
-> > This is all based on work done by Thomas Zimmermann,
-> > I just wanted to implement my suggestion so
-> > we could select the best way forward.
-> > 
-> > Note: Daniel Vetter has hinted the approach implemented
-> > here smelled like middle-layer.
-> > IMO this is not so, it is just a way to handle cleanup
-> > for the simple cases.
-> 
-> We discussed this patch-set briefly on irc.
-Just to clarify, we in this context was Daniel Vetter & me.
+Hi Dave, Daniel,
 
-	Sam
+Last round of stuff for 5.7.  Mostly bug fixes.
 
-> With the upcoming drmm_ changes and such this is bad timing..
-> And in the end this may be pointless code-chrunch.
-> 
-> Patch-set shelfed for now - may re-visit it later.
-> 
-> 	Sam
-> _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+The following changes since commit 69ddce0970d9d1de63bed9c24eefa0814db29a5a:
+
+  Merge tag 'amd-drm-next-5.7-2020-03-10' of git://people.freedesktop.org/~agd5f/linux into drm-next (2020-03-13 09:09:11 +1000)
+
+are available in the Git repository at:
+
+  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-next-5.7-2020-03-19
+
+for you to fetch changes up to 8cd296082cd9c2adfa5c772154780b21e990a92a:
+
+  drm: amd: fix spelling mistake "shoudn't" -> "shouldn't" (2020-03-19 00:03:05 -0400)
+
+----------------------------------------------------------------
+amd-drm-next-5.7-2020-03-19:
+
+amdgpu:
+- SR-IOV fixes
+- RAS fixes
+- Fallthrough cleanups
+- Kconfig fix for ACP
+- Fix load balancing with VCN
+- DC fixes
+- GPU reset fixes
+- Various cleanups
+
+scheduler:
+- Revert job distribution optimization
+- Add a helper to pick the least loaded scheduler
+
+----------------------------------------------------------------
+Andrey Grodzovsky (1):
+      drm/amdgpu: Move EEPROM I2C adapter to amdgpu_device
+
+Charlene Liu (1):
+      drm/amd/display: guard DPPHY_Internal_ctrl
+
+Colin Ian King (1):
+      drm: amd: fix spelling mistake "shoudn't" -> "shouldn't"
+
+Dan Carpenter (3):
+      drm/amd/display: clean up a condition in dmub_psr_copy_settings()
+      drm/amdgpu/display: clean up some indenting
+      drm/amd/display: Possible divide by zero in set_speed()
+
+Dennis Li (1):
+      drm/amdgpu: add codes to clear AccVGPR for arcturus
+
+Dmytro Laktyushkin (2):
+      drm/amd/display: fix split threshold w/a to work with mpo
+      drm/amd/display: add on demand pipe merge logic for dcn2+
+
+Evan Quan (1):
+      drm/amdgpu: add fbdev suspend/resume on gpu reset
+
+Guchun Chen (1):
+      drm/amdgpu: update ras capability's query based on mem ecc configuration
+
+Hawking Zhang (1):
+      drm/amdgpu: check GFX RAS capability before reset counters
+
+Hersen Wu (1):
+      drm/amd/display: update connector->display_info after read edid
+
+Isabel Zhang (1):
+      drm/amd/display: Remove redundant hdcp display state
+
+Jack Zhang (1):
+      drm/amdgpu/sriov refine vcn_v2_5_early_init func
+
+James Zhu (3):
+      drm/amdgpu: fix typo for vcn1 idle check
+      drm/amdgpu: fix typo for vcn2/jpeg2 idle check
+      drm/amdgpu: fix typo for vcn2.5/jpeg2.5 idle check
+
+Jerry (Fangzhi) Zuo (1):
+      drm/amd/display: Fix test pattern color space inconsistency for Linux
+
+Joe Perches (4):
+      AMD DISPLAY CORE: Use fallthrough;
+      AMD POWERPLAY: Use fallthrough;
+      drm/amd/powerplay: Move fallthrough; into containing #ifdef/#endif
+      AMD KFD: Use fallthrough;
+
+John Clements (2):
+      drm/amdgpu: resolve failed error inject msg
+      amd/powerplay: arcturus baco reset disable all features
+
+Kevin Wang (1):
+      drm/amdgpu/swsmu: clean up unused header in swsmu
+
+Lucas Stach (1):
+      drm/scheduler: fix inconsistent locking of job_list_lock
+
+Lyude Paul (1):
+      drm/amdgpu: Stop using the DRIVER debugging flag for vblank debugging messages
+
+Mario Kleiner (1):
+      drm/amd/display: Add link_rate quirk for Apple 15" MBP 2017
+
+Martin Tsai (1):
+      drm/amd/display: differentiate vsc sdp colorimetry use criteria between MST and SST
+
+Monk Liu (1):
+      drm/amdgpu: revise RLCG access path
+
+Nathan Chancellor (1):
+      drm/amdgpu: Remove unnecessary variable shadow in gfx_v9_0_rlcg_wreg
+
+Nicholas Kazlauskas (2):
+      drm/amd/display: Pass triplebuffer surface flip flags down to plane state
+      drm/amd/display: Explicitly disable triplebuffer flips
+
+Nikola Cornij (1):
+      drm/amd/display: Remove connect DIG FE to its BE during timing programming
+
+Nirmoy Das (3):
+      drm/amdgpu: fix switch-case indentation
+      drm/sched: implement and export drm_sched_pick_best
+      drm/amdgpu: disable gpu_sched load balancer for vcn jobs
+
+Randy Dunlap (1):
+      drm: amd/acp: fix broken menu structure
+
+Robert Beckett (1):
+      drm/sched: add run job trace
+
+Roman Li (1):
+      drm/amd/display: Remove PSR dependency on swizzle mode
+
+Stanley.Yang (3):
+      drm/amdgpu: use amdgpu_ras.h in amdgpu_debugfs.c
+      drm/amd/display: fix typos for dcn20_funcs and dcn21_funcs struct
+      drm/amdgpu: fix warning in ras_debugfs_create_all()
+
+Sung Lee (2):
+      drm/amd/display: Revert "DCN2.x Do not program DPPCLK if same value"
+      drm/amd/display: Program self refresh control register on boot
+
+Tom St Denis (1):
+      drm/amd/amdgpu: Fix GPR read from debugfs (v2)
+
+Wenjing Liu (1):
+      drm/amd/display: remove magic numbers in hdcp_ddc
+
+Wyatt Wood (3):
+      drm/amd/display: Set disable_dmcu flag properly per asic
+      drm/amd/display: Fallback to dmcub for psr when dmcu is disabled
+      drm/amd/display: Allocate scratch space for DMUB CW7
+
+Yintian Tao (1):
+      drm/amdgpu: miss PRT case when bo update
+
+Yongqiang Sun (3):
+      drm/amd/display: workaround for HDMI hotplug in DPMSOFF state
+      drm/amd/display: combine watermark change and clock change for update clocks.
+      drm/amd/display: DPP DTO isn't update properly.
+
+Zhigang Luo (1):
+      drm/amdgpu: add CAP fw loading
+
+changzhu (1):
+      Revert "drm/scheduler: improve job distribution with multiple queues"
+
+xinhui pan (1):
+      drm_amdgpu: Add job fence to resv conditionally
+
+ drivers/gpu/drm/amd/acp/Kconfig                    |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   2 +
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c    |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c            |  86 ++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        |  10 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  54 +++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h            |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  15 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h            |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            |  31 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c     |  48 +----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.h     |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_rlc.h            |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h          |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h           |   3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  22 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |   1 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c        |  11 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  74 ++++++-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              | 237 ++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c              |   3 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |  38 ++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c             |   2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c             |   2 +-
+ drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h            |   1 +
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c             |   6 +
+ drivers/gpu/drm/amd/amdgpu/psp_v3_1.c              |  24 +++
+ drivers/gpu/drm/amd/amdgpu/smu_v11_0_i2c.c         |  14 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.h                 |   7 +
+ drivers/gpu/drm/amd/amdgpu/soc15_common.h          |   5 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c              |   2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c              |   2 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c              |  37 ++--
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c       |   2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  58 ++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   3 +
+ .../drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c  |  14 ++
+ drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c |   4 +-
+ .../amd/display/dc/clk_mgr/dcn20/dcn20_clk_mgr.c   |   5 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           |  15 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c      |  11 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  20 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c |   2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |   7 +-
+ drivers/gpu/drm/amd/display/dc/dc.h                |   5 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c       |   2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c    |  23 +-
+ drivers/gpu/drm/amd/display/dc/dce/dce_mem_input.c |   2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c      |   8 +-
+ .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  |   7 +-
+ .../drm/amd/display/dc/dcn10/dcn10_link_encoder.h  |   2 +-
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_resource.c  |   4 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_dccg.c  |   2 +
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c |  10 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c  |   1 -
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |  99 +++++----
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.h  |   9 +-
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c |  22 ++
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.h |   3 +
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c  |   2 +-
+ .../gpu/drm/amd/display/dc/dcn21/dcn21_resource.c  |   6 +-
+ drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h    |   1 -
+ drivers/gpu/drm/amd/display/dc/inc/hw/dccg.h       |   3 +-
+ .../drm/amd/display/dc/inc/hw_sequencer_private.h  |   2 +
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_srv.h    |   3 +-
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c    |  17 +-
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c    |   5 +-
+ drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h    |  28 +--
+ .../drm/amd/display/modules/hdcp/hdcp1_execution.c |   2 +-
+ .../drm/amd/display/modules/hdcp/hdcp2_execution.c |   2 +-
+ .../gpu/drm/amd/display/modules/hdcp/hdcp_ddc.c    |  12 +-
+ .../gpu/drm/amd/display/modules/hdcp/hdcp_psp.c    |  37 ++--
+ drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h |   1 -
+ .../drm/amd/display/modules/inc/mod_info_packet.h  |   3 +-
+ .../amd/display/modules/info_packet/info_packet.c  |  20 +-
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c         |  34 ++-
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c       |   5 +-
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu7_hwmgr.c   |   6 +-
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c         |   2 -
+ drivers/gpu/drm/amd/powerplay/renoir_ppt.c         |   1 -
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c          |   1 -
+ drivers/gpu/drm/amd/powerplay/smu_v12_0.c          |   1 -
+ .../gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c   |  11 +
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c         |   1 -
+ drivers/gpu/drm/scheduler/gpu_scheduler_trace.h    |  27 +++
+ drivers/gpu/drm/scheduler/sched_entity.c           |  38 +---
+ drivers/gpu/drm/scheduler/sched_main.c             |  86 +++++---
+ include/drm/gpu_scheduler.h                        |   9 +-
+ 88 files changed, 955 insertions(+), 503 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
