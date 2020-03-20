@@ -2,105 +2,70 @@ Return-Path: <SRS0=S2wj=5F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3ADE9C4332D
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 20:15:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 88B43C4332B
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 21:46:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F011A2072C
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 20:15:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 53C5520637
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 21:46:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=Mellanox.com header.i=@Mellanox.com header.b="pDItW6AD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F011A2072C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=mellanox.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="ktMIhEZR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53C5520637
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 817076EB6D;
-	Fri, 20 Mar 2020 20:15:55 +0000 (UTC)
-Received: from EUR02-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr10046.outbound.protection.outlook.com [40.107.1.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 19B316EB58;
- Fri, 20 Mar 2020 18:55:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Yp1DbsReGQKyRXP/9PI4nfgyBjWWVmV3+Xs1OVV3dQ94jNNrvvuyYYQnS1D4MtRalxma/7UUO1K9m6G1SqR5Z+Z/maX0DRLDLgBMeuwFWN+/+zFTvbronWHIbiuWI95Vla9SkAbh+za+9XuQJLElN5PAgCGw+oZ2C1xFI5n8aier2gDyF3GVe5QpCcJtEZ4v2Q7H5UvkinhLqJWQFAJEI6bdvdySb4YweacKvPHRPs11l1/8s4PGdJsmK7ecEyN5OmzQ8lW+6X3H2uGdBjEaIzzKwZ0W5ZCgGs0vogWbxUxqEt3cwb63nMCidDNxLtf9u8zcMtmEi7hHhZ2Vo5MNIg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iljs5PLfR/zwDLb4uGNINnowXyqZ0GWg5emQx5NfmrM=;
- b=f5nvTuuG4xhrefZXy441ra2HJtusSKVOH3Sne83BVLWOhhwj4G7kIZLA++X8O/T01PiXAbjtyGAGY/SYs60ezbyccNACicf8aLieRg8z/KEkGeddjLJxz31dYRIUs3Ro+PdfJrWpyBaYsoKF2/cxvKK+fHnxJNdt9YFr1gqN7E3zd6oMfetkXpdnyqbmIfmR6K0F5wHBdXTxNgonVmnyWTY23ziIu/aDi3H3tRZllkLh0sZ8ekerEJ0lHWTiZZXVAGhJFRqt3P+8DeooqK9z6yJ4oAqoAD0K8itxA3s+BAbv+mB4K4QxX1sUUWYWkMQ/FOOuJSVfwFkP73uqdrwgsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=mellanox.com; dmarc=pass action=none header.from=mellanox.com;
- dkim=pass header.d=mellanox.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iljs5PLfR/zwDLb4uGNINnowXyqZ0GWg5emQx5NfmrM=;
- b=pDItW6ADQBcuwRydLEw7vQx/wFtlNmBfwcetzzmwSrchdReA/v6oDehoIVr7YaIks0rnyXatVWkme04K1Vl12MoSuvHNQd06UhJMGDqqa3MCQq5J8LBjA2LW0yZXiEDxMhqu5fixVMFf/0o42dLomJ5iH7avX79tD4gPPeTo4aM=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=jgg@mellanox.com; 
-Received: from VI1PR05MB4141.eurprd05.prod.outlook.com (52.133.14.15) by
- VI1PR05MB6077.eurprd05.prod.outlook.com (20.178.126.13) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2835.18; Fri, 20 Mar 2020 18:55:36 +0000
-Received: from VI1PR05MB4141.eurprd05.prod.outlook.com
- ([fe80::18d2:a9ea:519:add3]) by VI1PR05MB4141.eurprd05.prod.outlook.com
- ([fe80::18d2:a9ea:519:add3%7]) with mapi id 15.20.2814.025; Fri, 20 Mar 2020
- 18:55:36 +0000
-Date: Fri, 20 Mar 2020 15:55:32 -0300
-From: Jason Gunthorpe <jgg@mellanox.com>
-To: Ralph Campbell <rcampbell@nvidia.com>
-Subject: Re: [PATCH hmm 0/6] Small hmm_range_fault() cleanups
-Message-ID: <20200320185532.GM13183@mellanox.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E929F89F07;
+	Fri, 20 Mar 2020 21:46:15 +0000 (UTC)
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+ [216.228.121.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFE9F89F07;
+ Fri, 20 Mar 2020 21:46:14 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e7539730003>; Fri, 20 Mar 2020 14:45:23 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Fri, 20 Mar 2020 14:46:14 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Fri, 20 Mar 2020 14:46:14 -0700
+Received: from rcampbell-dev.nvidia.com (172.20.13.39) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Fri, 20 Mar 2020 21:46:12 +0000
+Subject: Re: [PATCH hmm 3/6] mm/hmm: remove unused code and tidy comments
+To: Jason Gunthorpe <jgg@ziepe.ca>, Jerome Glisse <jglisse@redhat.com>,
+ <Felix.Kuehling@amd.com>
 References: <20200320164905.21722-1-jgg@ziepe.ca>
- <030773be-3ea0-033e-051e-a3c0a13ef709@nvidia.com>
-Content-Disposition: inline
-In-Reply-To: <030773be-3ea0-033e-051e-a3c0a13ef709@nvidia.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-ClientProxiedBy: MN2PR19CA0060.namprd19.prod.outlook.com
- (2603:10b6:208:19b::37) To VI1PR05MB4141.eurprd05.prod.outlook.com
- (2603:10a6:803:44::15)
+ <20200320164905.21722-4-jgg@ziepe.ca>
+X-Nvconfidentiality: public
+From: Ralph Campbell <rcampbell@nvidia.com>
+Message-ID: <7d7e5bad-8956-775b-1a4c-c927b2464459@nvidia.com>
+Date: Fri, 20 Mar 2020 14:46:09 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from mlx.ziepe.ca (142.68.57.212) by
- MN2PR19CA0060.namprd19.prod.outlook.com (2603:10b6:208:19b::37) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.15 via Frontend
- Transport; Fri, 20 Mar 2020 18:55:36 +0000
-Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)	(envelope-from
- <jgg@mellanox.com>)	id 1jFMns-0006QJ-S8; Fri, 20 Mar 2020 15:55:32 -0300
-X-Originating-IP: [142.68.57.212]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 34d375bf-5c1c-452f-5b78-08d7cd0046b0
-X-MS-TrafficTypeDiagnostic: VI1PR05MB6077:
-X-Microsoft-Antispam-PRVS: <VI1PR05MB6077B9FEC801E0A027A3F75FCFF50@VI1PR05MB6077.eurprd05.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3968;
-X-Forefront-PRVS: 03484C0ABF
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(366004)(396003)(39860400002)(346002)(376002)(199004)(1076003)(9786002)(5660300002)(9746002)(2906002)(66556008)(66476007)(2616005)(86362001)(66946007)(8936002)(478600001)(26005)(33656002)(6916009)(54906003)(53546011)(186003)(8676002)(4326008)(52116002)(81156014)(81166006)(966005)(36756003)(4744005)(316002)(24400500001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR05MB6077;
- H:VI1PR05MB4141.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; 
-Received-SPF: None (protection.outlook.com: mellanox.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: e6VIAJNEBb3OLJ2G8y4dnOz17ToQisnt04U0LNzQ0rLPZM3z1/dqshOJTV7/KGtaMIMwEHtEhPpJ4aZowVKaHryTArIJwapju8Ch5+XgTxfR8wQ8lO83dHecH5qwkPLHGzOjM2McQHByCv+MJaVaBBPvJifX3MvFNVjZAnGtq+nVvjsRjIrHBMlQ0sAFOLea2HOeg+STbsR4chZbff5lofJ17o+x//ycJK2EBFswRy9wKVShesd8FdVCWrqC7Lu+sTiW4fYU0NbJFCPFb4LAcY0H6nFzJoujnjW1Qr/59iZ/Bl8eJToKNVxBcdyizQhK01lVYWrgbjy6UTfHaeMjgB6nj7pec6QgeAzaL+VDhyQEOhVXmizx409AqS8IhTrWy7BL7oNsngVqo7EOjI0XNfxQAuKBtpZtY89oJqyLQkvGlTy78eEQZLzQY7OZKmMnNC9h6uG0VjUxiR8wPXsWZynPIdbI2ovidiSKPGvKE8SHnCRJ4FlKNTTApOSMMroyyiW18kl/fAC4ga29SmPYObPxswTl9tDjq2IEBNGDFMu1Xwp6yulfmeOF0w2cP5gyxxu1jNoOKBgRMaHMIR97gg==
-X-MS-Exchange-AntiSpam-MessageData: MvVEWNc4WHnKQN0wDmWFKRqdFIJUQrWfzbBtgDMTiwOLZaQBJX42kPH7WdpQK2pQMo/C/3ve0TyvnbxURkOwvEFv5D/E32IKIqi7c01oqsF3ZnkrHR5xap2ZYIbwVpkLex/ueKnmbTO2o8rn7dY+Gw==
-X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34d375bf-5c1c-452f-5b78-08d7cd0046b0
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2020 18:55:36.7700 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: a652971c-7d2e-4d9b-a6a4-d149256f461b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8CojhxnjGAz9YVvxZbtxgd11L+34c09e2be4CnJ9F8L308YjesTSxCP16Kc0ub1sX+NVq0/eE1bvFM4JLdSrSg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB6077
-X-Mailman-Approved-At: Fri, 20 Mar 2020 20:15:54 +0000
+In-Reply-To: <20200320164905.21722-4-jgg@ziepe.ca>
+X-Originating-IP: [172.20.13.39]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1584740724; bh=+X1JGG4+QMXK6G9/IAxJDpgA8uR55yF4OsGYSCBJdFQ=;
+ h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
+ Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+ X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=ktMIhEZRV7Nhp96Xmyyq8bdJDe638gC4klq7PflP6NiRhM/teulzQa0IpAp0Lrp2h
+ +Q5OEwusEXrxkbtU1hadGh73+wku0//yzkHIPjyST++/MleaCT+jBDc2C3Mi6dRmNW
+ d4PIvhpDc8zPfNWvBLvqOfp2FDFyaCQ4yjdNdDFkddPCKPd55ffZl4TYwSKOOwzDF+
+ 2IEihBxWwAke7G7DogpOK1htMg8kfKqnkxRevcVpC28swpXekssUahC2ry+Ja3op+j
+ FXT2FriabKuUiKWN9Q/p2AAMha4tDzFi6TjoelBxLCHazhlQ2o3xhiDsMD8zalAVjc
+ xbFd0aH+sGU4Q==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,34 +78,133 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Philip Yang <Philip.Yang@amd.com>, John Hubbard <jhubbard@nvidia.com>,
- Felix.Kuehling@amd.com, amd-gfx@lists.freedesktop.org, linux-mm@kvack.org,
- Jerome Glisse <jglisse@redhat.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-mm@kvack.org,
+ Jason Gunthorpe <jgg@mellanox.com>, dri-devel@lists.freedesktop.org,
  Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Mar 20, 2020 at 11:51:47AM -0700, Ralph Campbell wrote:
+
+On 3/20/20 9:49 AM, Jason Gunthorpe wrote:
+> From: Jason Gunthorpe <jgg@mellanox.com>
 > 
-> On 3/20/20 9:48 AM, Jason Gunthorpe wrote:
-> > From: Jason Gunthorpe <jgg@mellanox.com>
-> > 
-> > I've had these in my work queue for a bit, nothing profound here, just some
-> > small edits for clarity.
+> Delete several functions that are never called, fix some desync between
+> comments and structure content, remove an unused ret, and move one
+> function only used by hmm.c into hmm.c
 > 
-> The hmm tester changes are clear enough but I'm having a bit of trouble figuring out
-> what this series applies cleanly to since I'm trying to apply it on top of the
-> other patches you and Christoph have sent out.
-> Is there a private git tree/branch where everything is applied?
+> Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 
-I accumulate everything here:
+Reviewed-by: Ralph Campbell <rcampbell@nvidia.com>
 
-https://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma.git/log/?h=hmm
+> ---
+>   include/linux/hmm.h | 50 ---------------------------------------------
+>   mm/hmm.c            | 12 +++++++++++
+>   2 files changed, 12 insertions(+), 50 deletions(-)
+> 
+> diff --git a/include/linux/hmm.h b/include/linux/hmm.h
+> index bb6be4428633a8..184a8633260f9d 100644
+> --- a/include/linux/hmm.h
+> +++ b/include/linux/hmm.h
+> @@ -120,9 +120,6 @@ enum hmm_pfn_value_e {
+>    *
+>    * @notifier: a mmu_interval_notifier that includes the start/end
+>    * @notifier_seq: result of mmu_interval_read_begin()
+> - * @hmm: the core HMM structure this range is active against
+> - * @vma: the vm area struct for the range
+> - * @list: all range lock are on a list
+>    * @start: range virtual start address (inclusive)
+>    * @end: range virtual end address (exclusive)
+>    * @pfns: array of pfns (big enough for the range)
+> @@ -131,7 +128,6 @@ enum hmm_pfn_value_e {
+>    * @default_flags: default flags for the range (write, read, ... see hmm doc)
+>    * @pfn_flags_mask: allows to mask pfn flags so that only default_flags matter
+>    * @pfn_shifts: pfn shift value (should be <= PAGE_SHIFT)
 
-The patches should apply on top of that
+s/pfn_shifts/pfn_shift
 
-Jason
+> - * @valid: pfns array did not change since it has been fill by an HMM function
+>    * @dev_private_owner: owner of device private pages
+>    */
+>   struct hmm_range {
+> @@ -171,52 +167,6 @@ static inline struct page *hmm_device_entry_to_page(const struct hmm_range *rang
+>   	return pfn_to_page(entry >> range->pfn_shift);
+>   }
+>   
+> -/*
+> - * hmm_device_entry_to_pfn() - return pfn value store in a device entry
+> - * @range: range use to decode device entry value
+> - * @entry: device entry to extract pfn from
+> - * Return: pfn value if device entry is valid, -1UL otherwise
+> - */
+> -static inline unsigned long
+> -hmm_device_entry_to_pfn(const struct hmm_range *range, uint64_t pfn)
+> -{
+> -	if (pfn == range->values[HMM_PFN_NONE])
+> -		return -1UL;
+> -	if (pfn == range->values[HMM_PFN_ERROR])
+> -		return -1UL;
+> -	if (pfn == range->values[HMM_PFN_SPECIAL])
+> -		return -1UL;
+> -	if (!(pfn & range->flags[HMM_PFN_VALID]))
+> -		return -1UL;
+> -	return (pfn >> range->pfn_shift);
+> -}
+> -
+> -/*
+> - * hmm_device_entry_from_page() - create a valid device entry for a page
+> - * @range: range use to encode HMM pfn value
+> - * @page: page for which to create the device entry
+> - * Return: valid device entry for the page
+> - */
+> -static inline uint64_t hmm_device_entry_from_page(const struct hmm_range *range,
+> -						  struct page *page)
+> -{
+> -	return (page_to_pfn(page) << range->pfn_shift) |
+> -		range->flags[HMM_PFN_VALID];
+> -}
+> -
+> -/*
+> - * hmm_device_entry_from_pfn() - create a valid device entry value from pfn
+> - * @range: range use to encode HMM pfn value
+> - * @pfn: pfn value for which to create the device entry
+> - * Return: valid device entry for the pfn
+> - */
+> -static inline uint64_t hmm_device_entry_from_pfn(const struct hmm_range *range,
+> -						 unsigned long pfn)
+> -{
+> -	return (pfn << range->pfn_shift) |
+> -		range->flags[HMM_PFN_VALID];
+> -}
+> -
+>   /* Don't fault in missing PTEs, just snapshot the current state. */
+>   #define HMM_FAULT_SNAPSHOT		(1 << 1)
+>   
+> diff --git a/mm/hmm.c b/mm/hmm.c
+> index b4f662eadb7a7c..687d21c675ee60 100644
+> --- a/mm/hmm.c
+> +++ b/mm/hmm.c
+> @@ -37,6 +37,18 @@ enum {
+>   	NEED_WRITE_FAULT = 1 << 1,
+>   };
+>   
+> +/*
+> + * hmm_device_entry_from_pfn() - create a valid device entry value from pfn
+> + * @range: range use to encode HMM pfn value
+> + * @pfn: pfn value for which to create the device entry
+> + * Return: valid device entry for the pfn
+> + */
+> +static uint64_t hmm_device_entry_from_pfn(const struct hmm_range *range,
+> +					  unsigned long pfn)
+> +{
+> +	return (pfn << range->pfn_shift) | range->flags[HMM_PFN_VALID];
+> +}
+> +
+>   static int hmm_pfns_fill(unsigned long addr, unsigned long end,
+>   		struct hmm_range *range, enum hmm_pfn_value_e value)
+>   {
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
