@@ -8,64 +8,66 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8466CC4332D
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4721C4332E
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5D08220767
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A0B4320767
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m59Wa9OX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D08220767
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O9WyQq+i"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0B4320767
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E0FE6EB5C;
-	Fri, 20 Mar 2020 18:27:52 +0000 (UTC)
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 266806EB48
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 18:27:51 +0000 (UTC)
-Received: by mail-pg1-x542.google.com with SMTP id d17so2935864pgo.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 11:27:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 593756EB48;
+	Fri, 20 Mar 2020 18:27:53 +0000 (UTC)
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 973326EB5E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 18:27:52 +0000 (UTC)
+Received: by mail-pf1-x444.google.com with SMTP id 23so3735169pfj.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 11:27:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Hl8dBoKRKHEgUBGqdOBVKbo+anx261TFHiMTTazQpos=;
- b=m59Wa9OXsDx4l9J9Dg1MAOcm7KWXSbQYWSEJpVMsmwAhzMKaTNHYrwUkqmDWJ6ISYD
- iIdB8w2Rg5MlcTbqEQR3WEXlkAoAyhCXyLeFgP/hV1aZeAeMyE9445L1ohn8WsYVv1R1
- 3uqSE/Nmv9RAqIxlHO9Qg1la5Hw0QpOAudN06cutkdhTpqFKnqjjLSpxweBSj01OinoE
- XeZGIFg0eKaQZZpcFGZ4liNSv0kMLZadiwSkk57oixHm+C1qnOMqHurEoSUV8QIsC4FN
- 8ok8CTa1VmXubgg1M+Wq0aCIi1kD20UZ2biTcSwcEJFWMxc6dpWOo08dj4R3ggXCw+hM
- JNDA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=p0Nmk8bt6ORcqF1ozmG3Vgk759IcO7q91Amith9+chg=;
+ b=O9WyQq+irOyIZFIx/S4Pft7oMiZ15iwrvHRJrVETi08YnW6QSZLMrPgW4rB1e+0Oav
+ +kEhCv6FDlvxbJ9NGBB/nRJsMIeAGb339CbYJnDtftaMHB8IlNuR0XdQdo6Pz1fLfDg7
+ c27uxLz5O6i3DPfuHedqKwo/OObj2rpImurizBcyhPjFQAl0X/poPxzD6dlZLG7uDHtu
+ OySdO6wj1ncbFsMEsJ5Q911uWRtvTP0cjyXCIV8O1guBmxrVlrHfbcdcCv7sbmqFlP2T
+ XbXmEY60GL9oB/oGs2z6IS6tWUXB247G0NMlQl2rj+yy1DnU8Vnp8eGFbHzKyNRxhMWS
+ UKTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Hl8dBoKRKHEgUBGqdOBVKbo+anx261TFHiMTTazQpos=;
- b=rVqeJAffkNb36YKSjl1g7D/B8wGLLzNoNMDo5Wg30TQ6+rHtEye502OsZrK2dJPS4Z
- f6zekmMY92dctf2yZAXfdi95nA8pGG8ker3DyFg0VX3NUTTvD6ua07ce1qruEoQWlrOZ
- I5MjshHcwrvngBERx6D9QNiYpoYyAmjbsMWL6iQFfehAkoMzu8XqYRZNHuXRIZ+T2Iq+
- HE6yyDpX3tZyitv0UEwj13Pkt4Nt8ZoX78+kAQoqnLWqP0ajpBuoBLz2sQnT3aIQhfhE
- IXMZcPUiTFFcQnR6u4BE/OUNA2v/YIqUfZFEw8DEJ8+EMaB5l+0q6DJ7BqIhIShKTfaU
- IPxA==
-X-Gm-Message-State: ANhLgQ2CWgT8HvWxoZ/swWt+W2+C1Xo0ty47aTR2D9zoIa1R2lU3HGWs
- 88oneAEgsisxUtI8Hx13llmUx0OZ
-X-Google-Smtp-Source: ADFU+vsDfgMKU13ONWK7Ae1frrwPnk7KDO2N+jVx+MVEkZ4LN4zkfv9ACN+zhs/zjDkbVZH/h2LHbA==
-X-Received: by 2002:a65:428a:: with SMTP id j10mr6579290pgp.272.1584728870509; 
- Fri, 20 Mar 2020 11:27:50 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=p0Nmk8bt6ORcqF1ozmG3Vgk759IcO7q91Amith9+chg=;
+ b=n9oejdI/ZN9Aaf8qxlPlQUSY7C1r85alYo9WHWCEYe16OwCmWY2G/cATXUNoXqj5ux
+ mUieJ/px2CsGi0J+ikmmnA6AlYn0LU1cvNJreeiEpaG+4XYt7rZOzRz0YV/czpavb4yU
+ OOoeUjtBhcvIhTV6k9EIR0oE3P/9to6BAjB3pSSwUUONvGC9O2C2qEKjCCWQMzDH6drx
+ iAhXfPW8aLe0TXcvzXL21deR2QYIFVkK1/1N/tKS++44M4swNALAIx5RQaVmW6ObUjPu
+ dUziXMWLXAtg81a6j8gmCXSZE/B71bQjb6eLuE7vgmLuujKg0HTvuA6AB6b20qZhAfNp
+ FbRA==
+X-Gm-Message-State: ANhLgQ07OLjSYXdteu4S8pudBaePbTKJvnp+Z3ExSkOPlL5E+5D3Ccqg
+ sFHvXc2j1HuYj5LsI08p/a4N/2IG
+X-Google-Smtp-Source: ADFU+vt1xv4OsR8POs/bh6ZrwEi+3Wa5INDFGCLLLVqWkdRYiSig6Hdd8v4gFQnEi69m3tjzmOlNCA==
+X-Received: by 2002:a63:714:: with SMTP id 20mr10365425pgh.271.1584728871870; 
+ Fri, 20 Mar 2020 11:27:51 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.40.23])
- by smtp.gmail.com with ESMTPSA id v185sm6233850pfv.32.2020.03.20.11.27.49
+ by smtp.gmail.com with ESMTPSA id v185sm6233850pfv.32.2020.03.20.11.27.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Mar 2020 11:27:49 -0700 (PDT)
+ Fri, 20 Mar 2020 11:27:51 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/8] drm/amd/swSMU: add callback to set AC/DC power source
-Date: Fri, 20 Mar 2020 14:27:20 -0400
-Message-Id: <20200320182727.3805-1-alexander.deucher@amd.com>
+Subject: [PATCH 2/8] drm/amdgpu/smu11: add a helper to set the power source
+Date: Fri, 20 Mar 2020 14:27:21 -0400
+Message-Id: <20200320182727.3805-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200320182727.3805-1-alexander.deucher@amd.com>
+References: <20200320182727.3805-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,50 +80,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, mcoffin13@gmail.com,
- Evan Quan <evan.quan@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, mcoffin13@gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Evan Quan <evan.quan@amd.com>
+Add a common smu11 helper to set the AC/DC power source.
 
-This is needed to tell the SMU firmware what state is in
-in certain cases.  DC mode does not allow overclocking
-for example.
-
-Signed-off-by: Evan Quan <evan.quan@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h | 1 +
- drivers/gpu/drm/amd/powerplay/smu_internal.h   | 3 +++
- 2 files changed, 4 insertions(+)
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  3 +++
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 15 +++++++++++++++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-index 657a6f17e91f..323e7e61493b 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -570,6 +570,7 @@ struct pptable_funcs {
- 	int (*override_pcie_parameters)(struct smu_context *smu);
- 	uint32_t (*get_pptable_power_limit)(struct smu_context *smu);
- 	int (*disable_umc_cdr_12gbps_workaround)(struct smu_context *smu);
-+	int (*set_power_source)(struct smu_context *smu, enum smu_power_src_type power_src);
- };
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+index 1c88219fe403..674e426ed59b 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+@@ -267,4 +267,7 @@ uint32_t smu_v11_0_get_max_power_limit(struct smu_context *smu);
+ int smu_v11_0_set_performance_level(struct smu_context *smu,
+ 				    enum amd_dpm_forced_level level);
  
- int smu_load_microcode(struct smu_context *smu);
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-index 6900877de845..40c35bcc5a0a 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
-+++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-@@ -211,4 +211,7 @@ static inline int smu_send_smc_msg(struct smu_context *smu, enum smu_message_typ
- #define smu_disable_umc_cdr_12gbps_workaround(smu) \
- 	((smu)->ppt_funcs->disable_umc_cdr_12gbps_workaround ? (smu)->ppt_funcs->disable_umc_cdr_12gbps_workaround((smu)) : 0)
- 
-+#define smu_set_power_source(smu, power_src) \
-+	((smu)->ppt_funcs->set_power_source ? (smu)->ppt_funcs->set_power_source((smu), (power_src)) : 0)
++int smu_v11_0_set_power_source(struct smu_context *smu,
++			       enum smu_power_src_type power_src);
 +
  #endif
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+index 4fd77c7cfc80..20174bed11ce 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+@@ -1939,3 +1939,18 @@ int smu_v11_0_set_performance_level(struct smu_context *smu,
+ 	return ret;
+ }
+ 
++int smu_v11_0_set_power_source(struct smu_context *smu,
++			       enum smu_power_src_type power_src)
++{
++	int pwr_source;
++
++	pwr_source = smu_power_get_index(smu, (uint32_t)power_src);
++	if (pwr_source < 0)
++		return -EINVAL;
++
++	return smu_send_smc_msg_with_param(smu,
++					SMU_MSG_NotifyPowerSource,
++					pwr_source,
++					NULL);
++}
++
 -- 
 2.25.1
 
