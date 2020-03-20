@@ -2,79 +2,77 @@ Return-Path: <SRS0=S2wj=5F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 716F8C10DCE
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 17:21:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DA718C4332D
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4A04720709
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 17:21:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B0B7F20767
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="WmQkIo8w"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A04720709
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TRcBt7WN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0B7F20767
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F5336E1D8;
-	Fri, 20 Mar 2020 17:21:30 +0000 (UTC)
-Received: from mail-vs1-xe43.google.com (mail-vs1-xe43.google.com
- [IPv6:2607:f8b0:4864:20::e43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6611E6E1A4
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 16:59:28 +0000 (UTC)
-Received: by mail-vs1-xe43.google.com with SMTP id o25so696270vsp.7
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 09:59:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=xRjX7T7eft/qC+6bf7FfyU/mPCvn6DuztC5RzuHCyVc=;
- b=WmQkIo8wgTcT+49UEOC761MjUtOoLumkxcQrNLGTV5XIF/8lT1bx+3pCSL8T9xMdZY
- cWLs8vQSQKBV1VXMxQM5NR78QAl2OuRSqAVNbbPsuMvJzg/GjnWpmqSoglfFIAkV31+z
- MP+DUTjrCLJ6J7p5c6jvdGCaDAE5JuorkDPWMCl3cc8f1/br3nbePeINlV2no2Zpv0lA
- x996mvxPsYAJubp73Du4S2nS/wtnN/9QxMhJQCWR+gg4WbHEtK82IFnTkGk0BMjclTq/
- UasFQVqNKpkfmX/un/MPsIzZfDYZXMiTwx9ovm8X8Wk5Xzm8VVcGiy4D9LEPu/vagLD/
- G03A==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71BCC6EB60;
+	Fri, 20 Mar 2020 18:27:49 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D2626E0DF
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 18:27:48 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id h4so8765296wru.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 11:27:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=SWYdA8Gs7J51OhiGl1EEANQQ2xKQWx3/7m76fwCheSs=;
+ b=TRcBt7WN+Z9dyj/wH/9jCfaX5jDWfLv4WhM5W/wjyeKexkatmFV8rQssudE30FFifL
+ BxxSRUXwWw8aIxzQnKSKf+aAIfuOpliLYqYAbiFwJf9toBDAQ8CnJxM4RFSWdsZh5o1e
+ 4xXe1dUlwyLOpHH1lwMn59oxgHUWshpiVnnzaJPlGSaDiG8b2ltBjesQFYNu13NUhwpM
+ 9jovB2JSVG8kcuqyBoX316r9DrRheOerYHo6u1x/60g/p5IUJ991ox1q1uO38mBKlG8C
+ dZOQBK/QFsFFaNsNn5MJsjXiSun2AHhGOLkeV+qdjsf+Acwu7zQbBkLhzqKQxAj9cGDg
+ vbCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=xRjX7T7eft/qC+6bf7FfyU/mPCvn6DuztC5RzuHCyVc=;
- b=GpbKT5M1GQo+67NxUaSJjWjsLUFETtrQjQB2Vj9V9L1ynwY3EhUOflWlkDgmAVYb8u
- a7ydNfpIwEzVO+V4rCgVEcrqVFRN3uABiJg8i2/w3fBJ12pO/+iqvTWePN6B7HuvIWkI
- 6otcjhaH9Zu0tw6JM6hSNQ3w9wjK3/qhIgpRFe5D+BBkhlASzke6dJV+CXvEEieemy0a
- PZQaZ/bU/8wt1LF7rvCpfubXQ+8dDjLLewOO+LAWqKqC3IbgI9cr2ZdCB6zhd149eBzp
- DQwYB1ptMFZKYNBH406XUnJR3r3qS1weOo2l2suv986fsfruW40OgAD/X78YtoBvCp89
- E0ew==
-X-Gm-Message-State: ANhLgQ2xolOAnW7wTqWhKEO2XD2TRPARYyPFomv0p+bH2ecJxw4KGk9w
- 4codlZQmz2K6tUAWk7LmEcueKF1w9I+PLw==
-X-Google-Smtp-Source: ADFU+vtbRR/MYq87zJZvXdzKsxYqiR4x6njtZJXIu9qf6nhgSPf391EA27m+Q0Bt/DeLj3EN/58FoA==
-X-Received: by 2002:a05:6214:12c7:: with SMTP id
- s7mr9363766qvv.218.1584723027380; 
- Fri, 20 Mar 2020 09:50:27 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id e2sm4452824qkg.63.2020.03.20.09.50.24
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 20 Mar 2020 09:50:24 -0700 (PDT)
-Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
- (envelope-from <jgg@ziepe.ca>)
- id 1jFKql-0005kU-FT; Fri, 20 Mar 2020 13:50:23 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Jerome Glisse <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>,
- Felix.Kuehling@amd.com
-Subject: [PATCH hmm 6/6] mm/hmm: use device_private_entry_to_pfn()
-Date: Fri, 20 Mar 2020 13:49:05 -0300
-Message-Id: <20200320164905.21722-7-jgg@ziepe.ca>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200320164905.21722-1-jgg@ziepe.ca>
-References: <20200320164905.21722-1-jgg@ziepe.ca>
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=SWYdA8Gs7J51OhiGl1EEANQQ2xKQWx3/7m76fwCheSs=;
+ b=pSM3wxoDh7NNuli5xm46l3ibIZMLC7Cwu7+HFKpvbzmQcCe/mqTVDte//1BYxH3HCI
+ ZCEEMSTsfyrxB71tjnlH2JY5uWr+MYE34LsaxeMOywz+0RMnjmuQSAUPxGelER9pslF5
+ uw/zykvhf/OpsfFBsSjTIcz1i7c/MzN/xBpc+tq/oQfRYTzaAP8Ey7nj1zk2w09dORSh
+ MpgzOPJsmMQ+iKx/CcfRx/ZKlSyz55P5mY1Ljjpycf6MklrWv1J/ihFseq/9KYz0TouL
+ vWj0TpBoz9rTYGHNYllpjLSSK6kmnYqu9WGOB2U2Ehwk0kywub/5OaxsG0yfLPiNzkLf
+ Fb9w==
+X-Gm-Message-State: ANhLgQ1L3UUxR5VopmBrAaX9uaQDEul3jPLN91MQJtQmS8mHfLzxK7gk
+ FdKy1AcR7Pvu5oMuPaNdicRgGJ87
+X-Google-Smtp-Source: ADFU+vt85veOUOwfTBA923ZNO+9Umz8VIAJtWLNFSUrIacJLb187DdAcwF7MEW8oo92EO5QpJgAfZA==
+X-Received: by 2002:a5d:56cd:: with SMTP id m13mr12414541wrw.236.1584728866839; 
+ Fri, 20 Mar 2020 11:27:46 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id d21sm9272037wrb.51.2020.03.20.11.27.45
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 20 Mar 2020 11:27:46 -0700 (PDT)
+Subject: Re: [PATCH] drm/amdgpu: fix size validation failure in large buffer
+ creation
+To: Tianci Yin <tianci.yin@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20200320094615.5524-1-tianci.yin@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <cb153afb-1e3c-e512-7775-ae144db9aff9@gmail.com>
+Date: Fri, 20 Mar 2020 19:27:44 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-Mailman-Approved-At: Fri, 20 Mar 2020 17:21:22 +0000
+In-Reply-To: <20200320094615.5524-1-tianci.yin@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,43 +84,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, John Hubbard <jhubbard@nvidia.com>,
- amd-gfx@lists.freedesktop.org, linux-mm@kvack.org,
- Jason Gunthorpe <jgg@mellanox.com>, dri-devel@lists.freedesktop.org,
- Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: christian.koenig@amd.com
+Cc: Feifei Xu <Feifei.Xu@amd.com>, Pauline Li <pauline.li@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Long Gang <Gang.Long@amd.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jason Gunthorpe <jgg@mellanox.com>
+Am 20.03.20 um 10:46 schrieb Tianci Yin:
+> From: "Tianci.Yin" <tianci.yin@amd.com>
+>
+> [why]
+> When GTT domain size is smaller than VRAM, if APP apply a very large
+> buffer whose size is larger than GTT but smaller than VRAM, the size
+> validation will fail.
+>
+> [how]
+> Validate VRAM domain size at first place, then GTT domain.
 
-swp_offset() should not be called directly, the wrappers are supposed to
-abstract away the encoding of the device_private specific information in
-the swap entry.
+NAK, this is intended behavior. VRAM allocations larger than GTT 
+allocations are illegal and can crash the memory management.
 
-Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
----
- mm/hmm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Regards,
+Christian.
 
-diff --git a/mm/hmm.c b/mm/hmm.c
-index a09b4908e9c81a..fd9ee2b5fd9989 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -259,8 +259,8 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 		 * the PFN even if not present.
- 		 */
- 		if (hmm_is_device_private_entry(range, entry)) {
--			*pfn = hmm_device_entry_from_pfn(range,
--					    swp_offset(entry));
-+			*pfn = hmm_device_entry_from_pfn(
-+				range, device_private_entry_to_pfn(entry));
- 			*pfn |= range->flags[HMM_PFN_VALID];
- 			if (is_write_device_private_entry(entry))
- 				*pfn |= range->flags[HMM_PFN_WRITE];
--- 
-2.25.1
+>
+> Change-Id: Ic1d31b9b0a4939e6bba0241ff79ae9aa2225ee05
+> Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 18 +++++++++---------
+>   1 file changed, 9 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> index 84745f9e7408..bab134b6369f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+> @@ -464,21 +464,21 @@ static bool amdgpu_bo_validate_size(struct amdgpu_device *adev,
+>   {
+>   	struct ttm_mem_type_manager *man = NULL;
+>   
+> -	/*
+> -	 * If GTT is part of requested domains the check must succeed to
+> -	 * allow fall back to GTT
+> -	 */
+> -	if (domain & AMDGPU_GEM_DOMAIN_GTT) {
+> -		man = &adev->mman.bdev.man[TTM_PL_TT];
+> +	if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
+> +		man = &adev->mman.bdev.man[TTM_PL_VRAM];
+>   
+>   		if (size < (man->size << PAGE_SHIFT))
+>   			return true;
+> -		else
+> +		else if (!(domain & AMDGPU_GEM_DOMAIN_GTT))
+>   			goto fail;
+>   	}
+>   
+> -	if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
+> -		man = &adev->mman.bdev.man[TTM_PL_VRAM];
+> +	/*
+> +	 * If GTT is part of requested domains the check must succeed to
+> +	 * allow fall back to GTT
+> +	 */
+> +	if (domain & AMDGPU_GEM_DOMAIN_GTT) {
+> +		man = &adev->mman.bdev.man[TTM_PL_TT];
+>   
+>   		if (size < (man->size << PAGE_SHIFT))
+>   			return true;
 
 _______________________________________________
 amd-gfx mailing list
