@@ -2,77 +2,71 @@ Return-Path: <SRS0=S2wj=5F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA718C4332D
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8466CC4332D
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B0B7F20767
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5D08220767
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:52 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TRcBt7WN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0B7F20767
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m59Wa9OX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D08220767
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71BCC6EB60;
-	Fri, 20 Mar 2020 18:27:49 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D2626E0DF
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 18:27:48 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id h4so8765296wru.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 11:27:48 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E0FE6EB5C;
+	Fri, 20 Mar 2020 18:27:52 +0000 (UTC)
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 266806EB48
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 18:27:51 +0000 (UTC)
+Received: by mail-pg1-x542.google.com with SMTP id d17so2935864pgo.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 11:27:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=SWYdA8Gs7J51OhiGl1EEANQQ2xKQWx3/7m76fwCheSs=;
- b=TRcBt7WN+Z9dyj/wH/9jCfaX5jDWfLv4WhM5W/wjyeKexkatmFV8rQssudE30FFifL
- BxxSRUXwWw8aIxzQnKSKf+aAIfuOpliLYqYAbiFwJf9toBDAQ8CnJxM4RFSWdsZh5o1e
- 4xXe1dUlwyLOpHH1lwMn59oxgHUWshpiVnnzaJPlGSaDiG8b2ltBjesQFYNu13NUhwpM
- 9jovB2JSVG8kcuqyBoX316r9DrRheOerYHo6u1x/60g/p5IUJ991ox1q1uO38mBKlG8C
- dZOQBK/QFsFFaNsNn5MJsjXiSun2AHhGOLkeV+qdjsf+Acwu7zQbBkLhzqKQxAj9cGDg
- vbCw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Hl8dBoKRKHEgUBGqdOBVKbo+anx261TFHiMTTazQpos=;
+ b=m59Wa9OXsDx4l9J9Dg1MAOcm7KWXSbQYWSEJpVMsmwAhzMKaTNHYrwUkqmDWJ6ISYD
+ iIdB8w2Rg5MlcTbqEQR3WEXlkAoAyhCXyLeFgP/hV1aZeAeMyE9445L1ohn8WsYVv1R1
+ 3uqSE/Nmv9RAqIxlHO9Qg1la5Hw0QpOAudN06cutkdhTpqFKnqjjLSpxweBSj01OinoE
+ XeZGIFg0eKaQZZpcFGZ4liNSv0kMLZadiwSkk57oixHm+C1qnOMqHurEoSUV8QIsC4FN
+ 8ok8CTa1VmXubgg1M+Wq0aCIi1kD20UZ2biTcSwcEJFWMxc6dpWOo08dj4R3ggXCw+hM
+ JNDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=SWYdA8Gs7J51OhiGl1EEANQQ2xKQWx3/7m76fwCheSs=;
- b=pSM3wxoDh7NNuli5xm46l3ibIZMLC7Cwu7+HFKpvbzmQcCe/mqTVDte//1BYxH3HCI
- ZCEEMSTsfyrxB71tjnlH2JY5uWr+MYE34LsaxeMOywz+0RMnjmuQSAUPxGelER9pslF5
- uw/zykvhf/OpsfFBsSjTIcz1i7c/MzN/xBpc+tq/oQfRYTzaAP8Ey7nj1zk2w09dORSh
- MpgzOPJsmMQ+iKx/CcfRx/ZKlSyz55P5mY1Ljjpycf6MklrWv1J/ihFseq/9KYz0TouL
- vWj0TpBoz9rTYGHNYllpjLSSK6kmnYqu9WGOB2U2Ehwk0kywub/5OaxsG0yfLPiNzkLf
- Fb9w==
-X-Gm-Message-State: ANhLgQ1L3UUxR5VopmBrAaX9uaQDEul3jPLN91MQJtQmS8mHfLzxK7gk
- FdKy1AcR7Pvu5oMuPaNdicRgGJ87
-X-Google-Smtp-Source: ADFU+vt85veOUOwfTBA923ZNO+9Umz8VIAJtWLNFSUrIacJLb187DdAcwF7MEW8oo92EO5QpJgAfZA==
-X-Received: by 2002:a5d:56cd:: with SMTP id m13mr12414541wrw.236.1584728866839; 
- Fri, 20 Mar 2020 11:27:46 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id d21sm9272037wrb.51.2020.03.20.11.27.45
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 20 Mar 2020 11:27:46 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: fix size validation failure in large buffer
- creation
-To: Tianci Yin <tianci.yin@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200320094615.5524-1-tianci.yin@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <cb153afb-1e3c-e512-7775-ae144db9aff9@gmail.com>
-Date: Fri, 20 Mar 2020 19:27:44 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Hl8dBoKRKHEgUBGqdOBVKbo+anx261TFHiMTTazQpos=;
+ b=rVqeJAffkNb36YKSjl1g7D/B8wGLLzNoNMDo5Wg30TQ6+rHtEye502OsZrK2dJPS4Z
+ f6zekmMY92dctf2yZAXfdi95nA8pGG8ker3DyFg0VX3NUTTvD6ua07ce1qruEoQWlrOZ
+ I5MjshHcwrvngBERx6D9QNiYpoYyAmjbsMWL6iQFfehAkoMzu8XqYRZNHuXRIZ+T2Iq+
+ HE6yyDpX3tZyitv0UEwj13Pkt4Nt8ZoX78+kAQoqnLWqP0ajpBuoBLz2sQnT3aIQhfhE
+ IXMZcPUiTFFcQnR6u4BE/OUNA2v/YIqUfZFEw8DEJ8+EMaB5l+0q6DJ7BqIhIShKTfaU
+ IPxA==
+X-Gm-Message-State: ANhLgQ2CWgT8HvWxoZ/swWt+W2+C1Xo0ty47aTR2D9zoIa1R2lU3HGWs
+ 88oneAEgsisxUtI8Hx13llmUx0OZ
+X-Google-Smtp-Source: ADFU+vsDfgMKU13ONWK7Ae1frrwPnk7KDO2N+jVx+MVEkZ4LN4zkfv9ACN+zhs/zjDkbVZH/h2LHbA==
+X-Received: by 2002:a65:428a:: with SMTP id j10mr6579290pgp.272.1584728870509; 
+ Fri, 20 Mar 2020 11:27:50 -0700 (PDT)
+Received: from localhost.localdomain ([71.219.40.23])
+ by smtp.gmail.com with ESMTPSA id v185sm6233850pfv.32.2020.03.20.11.27.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Mar 2020 11:27:49 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/8] drm/amd/swSMU: add callback to set AC/DC power source
+Date: Fri, 20 Mar 2020 14:27:20 -0400
+Message-Id: <20200320182727.3805-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20200320094615.5524-1-tianci.yin@amd.com>
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,73 +78,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: Feifei Xu <Feifei.Xu@amd.com>, Pauline Li <pauline.li@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>, Long Gang <Gang.Long@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, mcoffin13@gmail.com,
+ Evan Quan <evan.quan@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.03.20 um 10:46 schrieb Tianci Yin:
-> From: "Tianci.Yin" <tianci.yin@amd.com>
->
-> [why]
-> When GTT domain size is smaller than VRAM, if APP apply a very large
-> buffer whose size is larger than GTT but smaller than VRAM, the size
-> validation will fail.
->
-> [how]
-> Validate VRAM domain size at first place, then GTT domain.
+From: Evan Quan <evan.quan@amd.com>
 
-NAK, this is intended behavior. VRAM allocations larger than GTT 
-allocations are illegal and can crash the memory management.
+This is needed to tell the SMU firmware what state is in
+in certain cases.  DC mode does not allow overclocking
+for example.
 
-Regards,
-Christian.
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h | 1 +
+ drivers/gpu/drm/amd/powerplay/smu_internal.h   | 3 +++
+ 2 files changed, 4 insertions(+)
 
->
-> Change-Id: Ic1d31b9b0a4939e6bba0241ff79ae9aa2225ee05
-> Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 18 +++++++++---------
->   1 file changed, 9 insertions(+), 9 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 84745f9e7408..bab134b6369f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -464,21 +464,21 @@ static bool amdgpu_bo_validate_size(struct amdgpu_device *adev,
->   {
->   	struct ttm_mem_type_manager *man = NULL;
->   
-> -	/*
-> -	 * If GTT is part of requested domains the check must succeed to
-> -	 * allow fall back to GTT
-> -	 */
-> -	if (domain & AMDGPU_GEM_DOMAIN_GTT) {
-> -		man = &adev->mman.bdev.man[TTM_PL_TT];
-> +	if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
-> +		man = &adev->mman.bdev.man[TTM_PL_VRAM];
->   
->   		if (size < (man->size << PAGE_SHIFT))
->   			return true;
-> -		else
-> +		else if (!(domain & AMDGPU_GEM_DOMAIN_GTT))
->   			goto fail;
->   	}
->   
-> -	if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
-> -		man = &adev->mman.bdev.man[TTM_PL_VRAM];
-> +	/*
-> +	 * If GTT is part of requested domains the check must succeed to
-> +	 * allow fall back to GTT
-> +	 */
-> +	if (domain & AMDGPU_GEM_DOMAIN_GTT) {
-> +		man = &adev->mman.bdev.man[TTM_PL_TT];
->   
->   		if (size < (man->size << PAGE_SHIFT))
->   			return true;
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+index 657a6f17e91f..323e7e61493b 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+@@ -570,6 +570,7 @@ struct pptable_funcs {
+ 	int (*override_pcie_parameters)(struct smu_context *smu);
+ 	uint32_t (*get_pptable_power_limit)(struct smu_context *smu);
+ 	int (*disable_umc_cdr_12gbps_workaround)(struct smu_context *smu);
++	int (*set_power_source)(struct smu_context *smu, enum smu_power_src_type power_src);
+ };
+ 
+ int smu_load_microcode(struct smu_context *smu);
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+index 6900877de845..40c35bcc5a0a 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
++++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+@@ -211,4 +211,7 @@ static inline int smu_send_smc_msg(struct smu_context *smu, enum smu_message_typ
+ #define smu_disable_umc_cdr_12gbps_workaround(smu) \
+ 	((smu)->ppt_funcs->disable_umc_cdr_12gbps_workaround ? (smu)->ppt_funcs->disable_umc_cdr_12gbps_workaround((smu)) : 0)
+ 
++#define smu_set_power_source(smu, power_src) \
++	((smu)->ppt_funcs->set_power_source ? (smu)->ppt_funcs->set_power_source((smu), (power_src)) : 0)
++
+ #endif
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
