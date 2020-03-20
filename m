@@ -2,104 +2,117 @@ Return-Path: <SRS0=S2wj=5F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D9B6C4332B
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 15:12:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E8BAEC4332E
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 16:09:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 038C72072C
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 15:12:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B2BFD20739
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 16:09:01 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="09vDrSz6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 038C72072C
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DdI+nU4X"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B2BFD20739
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98A986E176;
-	Fri, 20 Mar 2020 15:12:02 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770082.outbound.protection.outlook.com [40.107.77.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 504D16E196
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 15:11:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 851EE6E195;
+	Fri, 20 Mar 2020 16:09:01 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2054.outbound.protection.outlook.com [40.107.220.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1C2A6E195
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 16:09:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=S4sfVWUQGw1jYCDFVaIuhVRQz2L6uPH1+1R5TydAo4sw+/aOhLZ7K08QYboLP/ie8s/BbgRKwc8Pa/oaBwDMqPHxVDlu3eY6pEj7yFcStHTMK1gMeT0wxNQ+ZV/aqAa1TX1tXEa0hDwkylxK6v9U9BOnuWs8A4pKBuEESI6cqYFzbhcrNLPv2IVHTsWenG87AZdA/9kI9J1VpyErZYvgW3nqWtHqrJnTcoN1fYA3IqfgleURbim9AlfVXcnovYQklR5fSzOim6tBtwXDEz/7Stw11VhDB9T8r7/+7NQUGCDclSADMSJ+t5KaizvC6U9sAdrcQb4XZGMjDx79O8NT+A==
+ b=aullVTL3ohQ0cOyTysz+QTknu8QqaDZFY3xwYbr0HDeuBy1pBc/emitXQfkKSRNoDP0cb9igF63bDWIHZzQ+RMLtNK956eTGG1wSZ8La8Xifv0AfFoCrmMP1cnBbqtnaoG7wHEIPREsKR5Eibea7GtKVkWyF7pGbYd9azpk6UgbmfROPjgThgDEBzIOM11AQz1R/8ILnjOrABqw/Ua+iP2pMU81sT90saDoZn+a3sTjEX+3Nz9QtAX3/ykH1yO5og+C8JdSu+rR4u3tz8FLwgK8vadYd8+KN9pElgJbE9pu62G6XByXAcu7vgR0jAVfN9bcwo6JfqgZc8uUHpJiYuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YamA3EZKLqki1IOmJpSZ14noWesS3sVW5msMN0KhKjs=;
- b=AayjoSj1b8OG7YyS+4nwt68og0JBJWCtT/0CwCPZhDgBbElizyj2qdAcouQPRPGgR/jNc3aAqPIpW1fW1kklkzhLX+ck5+ZVW2+1L9VPJMKhTDU4lgxT7YtU+Htfxj3xXkstAdGNU9XJuGq7qi1rwVzFe600AWodSUB+Yeg71ghRAnLyTdRiJpYJjsLeE9HrqfYdW4i2KApGSRgZKzLmHG5uRj8ZUs25K2fE+cy4hSr0HzzT28KgBlmLq/iFVpbshxEYRyOGi+NaOUUKgePp+1+BQ9UfPNg1KRG3SXWxf27idNgYwDEE7Gzj11Ers9BVw3ZDWRK8jydFdQTEuqW57w==
+ bh=QC9HvXFSUPR2+4VF9zG0OcjVu141tDdnOe2aumok/qk=;
+ b=X/XVtydcCPElDXzlZv+7JBcuV7KfgRlvuQA+YUIi8//RNezDfXp1NNUXXAECVN6Gq0ZexecR+Zelpg2eSn9peAa3Izwfwj4KRB4uH6lu6K+Vl38LcxqXv9e90zSngeQEJwMbxSbgQL3Dp48ML57Vgf1v6Bsuwhgbl7SzTmi8nVdM4Y7Hu3M+g3X4vd0/Qi7KAhSsgZkYQKA4hku/NvK9go76IdgVCdAvwHUJXp3VSabqqBPG5gsqhOg0rlpGfMtLRzYLRdyinp6hGR3J/4hjZmYSSNQGTvKOmOXYunsZERMz3Qx9UuRUNwiQE+2UtqmMNhpwZN+aSzjx238H691nVA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YamA3EZKLqki1IOmJpSZ14noWesS3sVW5msMN0KhKjs=;
- b=09vDrSz61WKlculjxPbUVMyHW0l3Yoj1K/KtW1gqvpIBCClCA7VdkxwHwH9ls0rXfl3bYk+0YpfZRgS5r4xYZ/wqq/Vv5RbJA/IxhclXE7TPigZVlEUJWcjFe5J0JNI9SZaEHERPuscysk1nNucYTP1twAPPNWyH8KkIpj74sT4=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
-Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
- by MW2PR12MB2572.namprd12.prod.outlook.com (2603:10b6:907:6::27) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=QC9HvXFSUPR2+4VF9zG0OcjVu141tDdnOe2aumok/qk=;
+ b=DdI+nU4X8J56vI7Ml0sIwMbvuKuuqhLYqy3twgVer+aJgRmzEqLNb0ezha2Dm3WN6UfWMnmP3nxluWl7+cxPbiSbsTxJN+7x68lxOQvZtz2DlvjSn93mG2h2nCYbydqouuAoRc0b5HZxKWi5TscRbpbmIu9DIIAV8QGY2wq1GWA=
+Received: from SA0PR12MB4576.namprd12.prod.outlook.com (2603:10b6:806:93::13)
+ by SA0PR12MB4591.namprd12.prod.outlook.com (2603:10b6:806:9d::23)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.18; Fri, 20 Mar
- 2020 15:11:56 +0000
-Received: from MW2PR12MB2524.namprd12.prod.outlook.com
- ([fe80::91a7:e6f7:b17a:bfa5]) by MW2PR12MB2524.namprd12.prod.outlook.com
- ([fe80::91a7:e6f7:b17a:bfa5%6]) with mapi id 15.20.2814.021; Fri, 20 Mar 2020
- 15:11:55 +0000
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 11/12] drm/amd/display: Enable BT2020 in COLOR_ENCODING
- property
-Date: Fri, 20 Mar 2020 11:11:27 -0400
-Message-Id: <20200320151128.2039940-12-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.25.2
-In-Reply-To: <20200320151128.2039940-1-Rodrigo.Siqueira@amd.com>
-References: <20200320151128.2039940-1-Rodrigo.Siqueira@amd.com>
-X-ClientProxiedBy: YTXPR0101CA0055.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::32) To MW2PR12MB2524.namprd12.prod.outlook.com
- (2603:10b6:907:9::27)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::4) by
- YTXPR0101CA0055.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::32) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.18 via Frontend
- Transport; Fri, 20 Mar 2020 15:11:55 +0000
-X-Mailer: git-send-email 2.25.2
-X-Originating-IP: [2607:fea8:56a0:11a1::4]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: a6aa8f06-0914-42e0-e90b-08d7cce10732
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2572:|MW2PR12MB2572:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB25720F3DAE07EF7B8A32A91198F50@MW2PR12MB2572.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
-X-Forefront-PRVS: 03484C0ABF
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(366004)(39860400002)(376002)(396003)(136003)(199004)(81156014)(66556008)(6506007)(54906003)(4326008)(16526019)(2906002)(8936002)(186003)(81166006)(52116002)(2616005)(1076003)(8676002)(86362001)(66476007)(316002)(66946007)(6666004)(6486002)(36756003)(5660300002)(6512007)(6916009)(478600001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MW2PR12MB2572;
- H:MW2PR12MB2524.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ 2020 16:08:58 +0000
+Received: from SA0PR12MB4576.namprd12.prod.outlook.com
+ ([fe80::8d47:3ca5:5a7c:c047]) by SA0PR12MB4576.namprd12.prod.outlook.com
+ ([fe80::8d47:3ca5:5a7c:c047%7]) with mapi id 15.20.2835.017; Fri, 20 Mar 2020
+ 16:08:58 +0000
+From: "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra@amd.com>
+To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/6] drm/amdgpu: ih doorbell size of range changed for
+ nbio v7.4
+Thread-Topic: [PATCH 1/6] drm/amdgpu: ih doorbell size of range changed for
+ nbio v7.4
+Thread-Index: AQHV/k30SQE8lee6zU6Y6SzxiB+fTKhRjYmAgAAZH7A=
+Date: Fri, 20 Mar 2020 16:08:58 +0000
+Message-ID: <SA0PR12MB457651A2AFB664A8BF69B417FDF50@SA0PR12MB4576.namprd12.prod.outlook.com>
+References: <20200320002421.14984-1-alex.sierra@amd.com>
+ <5e11d408-bb69-9b84-20d3-50c72d8967c7@amd.com>
+In-Reply-To: <5e11d408-bb69-9b84-20d3-50c72d8967c7@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-20T16:08:56Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=a974c70b-8fbc-4d4d-bd3c-00002395886f;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-03-20T16:08:56Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 293dd489-696a-40eb-ade3-00001c75decc
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Alex.Sierra@amd.com; 
+x-originating-ip: [165.204.77.1]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 8d209c17-be9b-46a4-51b4-08d7cce8ff6f
+x-ms-traffictypediagnostic: SA0PR12MB4591:|SA0PR12MB4591:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <SA0PR12MB4591D71FB174ED563788BDBAFDF50@SA0PR12MB4591.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3383;
+x-forefront-prvs: 03484C0ABF
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(39860400002)(136003)(396003)(346002)(366004)(199004)(53546011)(9686003)(66946007)(55016002)(71200400001)(76116006)(186003)(26005)(64756008)(66476007)(66446008)(33656002)(66556008)(6506007)(7696005)(8936002)(110136005)(5660300002)(478600001)(8676002)(81156014)(52536014)(2906002)(81166006)(316002)(86362001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SA0PR12MB4591;
+ H:SA0PR12MB4576.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: x6hCy/pr9PKo+tEuwCxYxYjNo+nYDkq/R7XAz2rDSWyoR6+/gWG9Z8mSDiZydDwsIRGTPze8mdCkfIe2TggniPpaHsjOA2bdd8p3KjRrOFqx2vMWWteoWs+4SLl9fojvjLfzqXTfC1UGGl1scfQe9ntbs5O9UK49oZxycoxwBtPxTA6637Ko/HAJ2UyZAXcw1kASnaV9ArhKlTOR1e9KqJVvDyC8a8WkQD+EGirzFjzQZ1IxzoQZMyUQ9KyJ4YkJzfRzeCQrihSAdtSVC0cTC/qfJU/7VwuELPoz+N1MWmJFgug+fykrDJlL8L62h6UXt64+Oe3IVsxOv0dDSkd6x+4hKsY4rBA5FDOz2Vjj/uS2xMI2/RwAiPXNBym8qP98Zv13sTwP/xVpSCtgazgYOxpVvPl82O6isgrzOXwG4LnHnDkIBgIvTQqWBoKjER00
-X-MS-Exchange-AntiSpam-MessageData: fsJToq2CO3s9/dj69ht50odQdwhlFVGFcZm/70/sUME2FQSEqUATkeM1kzGv2pYA+d0JdCG3fq67jvJgavp8Vrmet0dEEdg9YhxdOa1zrDNY/yb25zka5a4JSTR4KCHlNjDtwIlV5agfwN/OrrNtuMCokVAMoTOrzsYPWPdoCbg=
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: rHs2uy5crmhoHhKjWKtvNxrGkQe76ejajYV8zPgsDgqDue/ZyBx6zHJsSnfwycOu42wgfGUfm1ov4oQ+5Hn+CmxSfNr1aoXCb/hhzQA3vvQvDI30A2vGYRvT9j+E+elxephW8ou9zKiO/SsKvOzGBhFOg02RRxDGNQWjv6v5gAkpHDWF7g/6x4+yQ5WBWzKfD+SHOR4+9CVOVRN0XVNPWeijqh+x6BnV8mXfFGQBHdkEqtxkDsqHBV3TCmndcF5wmABSWsIAICR+KmqFlh9AeDIZJMyA3B2d6oiYT+QoT/BSNYlkx7Ka2Hkg+MW+G7Gpbg6HAOQ8FkVjufM4CQi943e0+G0I4adi46aO56z5SbRI5m3iqIIcXsK3T2uda4w2K0dv2wLv3WPgsIIaVgrOHWDIOhAc/YKmL/rmUrQu4d88z8MV99SThnWJwPYEPRdV
+x-ms-exchange-antispam-messagedata: ohdYqsagPJwvtFKiD9bsUNjyTDfb4hmnY6A6oHqYrfed7jy36nwQAKhIA44QlQmvIcCI4Vtu21i5vGuW+TpYVMrNJl2+J+9cT6DJP8wMwrQygpcM1FzvpR//IQJNWBlf/EenOJomiS0g0muoDq/jTw==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6aa8f06-0914-42e0-e90b-08d7cce10732
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2020 15:11:55.8178 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2xS/P1OMotjxGUIsq0fM4c3wJvG+PqUeLEPZ0hl6gxSV879AT8m8qTwQEtzY0rGC0vgaIfbjMKhLgXWnYDgyTA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2572
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d209c17-be9b-46a4-51b4-08d7cce8ff6f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Mar 2020 16:08:58.5332 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dzhWOC2qV79r83cl3qOBHVzB2k+ThE4iDISmrJ1Kn9D23Mb++XE6UXSalQDeix7Zr12NJdOtUYw/T+oT2jOi2w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4591
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,55 +124,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com,
- Stylon Wang <stylon.wang@amd.com>, Harry.Wentland@amd.com,
- Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Stylon Wang <stylon.wang@amd.com>
+[AMD Official Use Only - Internal Distribution Only]
 
-[Why]
-BT2020 is not supported in COLOR_ENCODING property of planes.  Only
-BT601 and BT709 was available.
+My bad, please ignore this.
+I re-sent this in a separate one patch.
 
-[How]
-Allow BT2020 as legit value in setting COLOR_ENCODING property.
+Alejandro S
 
-Signed-off-by: Stylon Wang <stylon.wang@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+-----Original Message-----
+From: Kuehling, Felix <Felix.Kuehling@amd.com> 
+Sent: Friday, March 20, 2020 9:37 AM
+To: Sierra Guiza, Alejandro (Alex) <Alex.Sierra@amd.com>; amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH 1/6] drm/amdgpu: ih doorbell size of range changed for nbio v7.4
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 32d946fa7d89..4f58810e770f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5674,12 +5674,15 @@ static int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
- 	}
- 
- 	if (plane->type == DRM_PLANE_TYPE_PRIMARY &&
--	    plane_cap && plane_cap->pixel_format_support.nv12) {
-+	    plane_cap &&
-+	    (plane_cap->pixel_format_support.nv12 ||
-+	     plane_cap->pixel_format_support.p010)) {
- 		/* This only affects YUV formats. */
- 		drm_plane_create_color_properties(
- 			plane,
- 			BIT(DRM_COLOR_YCBCR_BT601) |
--			BIT(DRM_COLOR_YCBCR_BT709),
-+			BIT(DRM_COLOR_YCBCR_BT709) |
-+			BIT(DRM_COLOR_YCBCR_BT2020),
- 			BIT(DRM_COLOR_YCBCR_LIMITED_RANGE) |
- 			BIT(DRM_COLOR_YCBCR_FULL_RANGE),
- 			DRM_COLOR_YCBCR_BT709, DRM_COLOR_YCBCR_LIMITED_RANGE);
--- 
-2.25.2
+On 2020-03-19 20:24, Alex Sierra wrote:
+> [Why]
+> nbio v7.4 size of ih doorbell range is 64 bit. This requires 2 DWords per register.
+>
+> [How]
+> Change ih doorbell size from 2 to 4. This means two Dwords per ring.
+> Current configuration uses two ih rings.
+>
+> Signed-off-by: Alex Sierra <alex.sierra@amd.com>
 
+Why is the subject "PATCH 1/6"? It makes me wonder, what are the other 5 patches. Anyway, this patch is
+
+Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
+> ---
+>   drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c 
+> b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+> index 149d386590df..263dbb1f92ee 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+> @@ -185,7 +185,7 @@ static void nbio_v7_4_ih_doorbell_range(struct 
+> amdgpu_device *adev,
+>   
+>   	if (use_doorbell) {
+>   		ih_doorbell_range = REG_SET_FIELD(ih_doorbell_range, BIF_IH_DOORBELL_RANGE, OFFSET, doorbell_index);
+> -		ih_doorbell_range = REG_SET_FIELD(ih_doorbell_range, BIF_IH_DOORBELL_RANGE, SIZE, 2);
+> +		ih_doorbell_range = REG_SET_FIELD(ih_doorbell_range, 
+> +BIF_IH_DOORBELL_RANGE, SIZE, 4);
+>   	} else
+>   		ih_doorbell_range = REG_SET_FIELD(ih_doorbell_range, 
+> BIF_IH_DOORBELL_RANGE, SIZE, 0);
+>   
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
