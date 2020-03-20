@@ -2,102 +2,81 @@ Return-Path: <SRS0=S2wj=5F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FC48C4332B
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 13:24:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08AFFC4332B
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 13:24:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E99862076E
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 13:24:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D09272076E
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 13:24:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="UiRk31G6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E99862076E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="X1ySJpdd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D09272076E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CA156EB37;
-	Fri, 20 Mar 2020 13:24:30 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2049.outbound.protection.outlook.com [40.107.236.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2214E6EB34
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 13:24:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VcwmkeQWWp4LA0f9Uhd9ZrmK6vOXgw9age0tn69IDg+lbheCb/iVYz2bjt1+yCHTIasQacblBATNRghUAdvGgNvZT/dAyBAc7iOwcfa617dM0O3KEY1LIudB328FcnZRV9IE/Rigqs6/pti7B4F+FLxpsU3F7DCX9ZFcpfWY2pNpYZqdhsOjz848lbieg3pwDuBq63FxOX/Vk8GQS35T+Mrb9Y2N1DnaylyFIaj+13B6NA1K/VMdKrp2a5owWGAeMlo+fUHG6pGa/2uptvUm14bLlxwJkG0ZUF15LdrLOcYkAur3GbuMBXBjc8jIGy99Qo/J0eJC4QBMRaqAIzsCiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tIDimZOGEd2akL1y/wNhi2ZpVi4XHBAY1blJr2eqL3A=;
- b=SnDGq+wjWTaKXDjnD8y5y3i+Q6gRKFOIyZl6q9FbdHam7QbF0uV5mN8UliRM4gcEzXCnBKq6PLe0etmMs7BsHZzUbbU2T3hGc5d92FR6LpSUPWImhtTG2NF2AFLEHw6GPoNsrn1SdMe3oHC5zG/L1FYzDxrJLkVWmm90/zJ4Olcke471ns/Qsh+2s3CeyuoGbsDPlClq5XjUQ9+8Q5fyg7F1ResQN7MVVMngegmKSr9IOimeB0pj0rmGuGtsxzyybCQ8ecUsuYTVAsZUPzo5gmjwsP/YXYMZFZm7QvpwZ5msW+dUoeo+shmc7Xr5Twn1MbWz8NlHboSt1vZC4SqPnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tIDimZOGEd2akL1y/wNhi2ZpVi4XHBAY1blJr2eqL3A=;
- b=UiRk31G6bwRRac7bW6YKZ/++Xo090gxvT1wfoTX0UXnU5apg0/JJ7NbMchFdOu1Io+4SY8n6JQ7ukCojoVYU3GdtKqKPTMne6QSQQSywI6luq8DqbL4avYvk4tVRvsh0ZCFT2VTcRPeRde5OZGok0/CT+N5ZEpusIuSubzu42J0=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Kent.Russell@amd.com; 
-Received: from DM6PR12MB3721.namprd12.prod.outlook.com (2603:10b6:5:1c2::18)
- by DM6PR12MB3178.namprd12.prod.outlook.com (2603:10b6:5:18d::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.20; Fri, 20 Mar
- 2020 13:24:27 +0000
-Received: from DM6PR12MB3721.namprd12.prod.outlook.com
- ([fe80::f8bd:4765:eb5b:a7a5]) by DM6PR12MB3721.namprd12.prod.outlook.com
- ([fe80::f8bd:4765:eb5b:a7a5%2]) with mapi id 15.20.2814.025; Fri, 20 Mar 2020
- 13:24:27 +0000
-From: Kent Russell <kent.russell@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/3] drm/amdgpu: Add documentation for unique_id
-Date: Fri, 20 Mar 2020 09:24:07 -0400
-Message-Id: <20200320132407.9902-3-kent.russell@amd.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200320132407.9902-1-kent.russell@amd.com>
-References: <20200320132407.9902-1-kent.russell@amd.com>
-X-ClientProxiedBy: YT1PR01CA0003.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::16)
- To DM6PR12MB3721.namprd12.prod.outlook.com
- (2603:10b6:5:1c2::18)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D5636EB43;
+	Fri, 20 Mar 2020 13:24:33 +0000 (UTC)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B3336EB35;
+ Fri, 20 Mar 2020 13:24:30 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 02KDCwZC105650;
+ Fri, 20 Mar 2020 13:24:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=u0KZuf+9m0m/E60UGkL8aJbHcpHOlb9fS0Q1zxBIOWc=;
+ b=X1ySJpddyykxgSZ8hd8zg7um8DUEXyV+aD1zThMG7+Pr00hGD+8KU5fmwoJ4bP3YKI+M
+ XNHaCDBbMJSJTqsOcv5UQobkSXx7Xc2vzFOiYdKUhSgZn178rV40LPts3ZAKzlsDXp5c
+ 9Bq0Opi8rt/ZDDAOig/C6NuUU20NYSiiQdr/lsa6KKWgs3gSXnrFo6O+MBxovZEi+wgw
+ zf+SBsWdGZN2EbWX6769wZUtZkNocPHDLMaR4nyOpcHbKgH/fLLSSDoAq9p9r+2s+iL0
+ qzei2znYgzpXwaA9vasWt4XFUwU5KS/k2eWjAis53/WYuGEw7sy6h77bzmqXEKoTepRP mw== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2130.oracle.com with ESMTP id 2yrpprnptu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 20 Mar 2020 13:24:25 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 02KDL1sg088210;
+ Fri, 20 Mar 2020 13:24:24 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by aserp3030.oracle.com with ESMTP id 2ys8ty373j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 20 Mar 2020 13:24:24 +0000
+Received: from abhmp0019.oracle.com (abhmp0019.oracle.com [141.146.116.25])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 02KDOMRP023535;
+ Fri, 20 Mar 2020 13:24:22 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Fri, 20 Mar 2020 06:24:21 -0700
+Date: Fri, 20 Mar 2020 16:24:11 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Alex Deucher <alexander.deucher@amd.com>, Monk Liu <Monk.Liu@amd.com>
+Subject: [PATCH net-next] drm/amdgpu: Uninitialized variable in
+ gfx_v9_0_rlcg_wreg()
+Message-ID: <20200320132411.GD95012@mwanda>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from krussell.amd.com (165.204.55.251) by
- YT1PR01CA0003.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2835.17 via Frontend Transport; Fri, 20 Mar 2020 13:24:27 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 8c96fe24-af0f-4925-3325-08d7ccd203c3
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3178:|DM6PR12MB3178:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3178B0FE58C7781E3E9DC06085F50@DM6PR12MB3178.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
-X-Forefront-PRVS: 03484C0ABF
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(366004)(39860400002)(376002)(396003)(346002)(199004)(44832011)(16526019)(2906002)(26005)(66476007)(52116002)(316002)(7696005)(956004)(36756003)(2616005)(5660300002)(186003)(66946007)(66556008)(8936002)(4744005)(1076003)(6486002)(8676002)(6666004)(81166006)(81156014)(6916009)(478600001)(4326008)(86362001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3178;
- H:DM6PR12MB3721.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wLAquVESvwSUnNovmgWP62x7cMnVBAZ4L7ENUqc83uJ6F5ypdz6o5s6MnsOd4pm1IudZBj3/qCCNlR3vq2Vod60HuitGbZFg73T8ifKG37o4WwOUVxckf1D1r2kjzxs0u5KE7auoHYt0L2VdAoeIfeawYGBQcqLSOomYV8b1z6gNMo6yA6Hx4Q9oKrmwQzTAUGJdvZOkETkXKRK0Zo/credkqkF0mnOGGD/FFMERurlIKXlqUC36Bu8HF6nPj6EM8Ybn6PNTSW5Z0A+er/QdxD5aOWqvx60eV0F+MxCY4HfHUSUYDl9A6lBOSN5vQUJK6ssCh5/CpBnHwxTMVPeZT8C8rZPBHqAxNKNCJfytqMv5GLKFtCsWoD1e70HP+e4yVfmftvOnE7/pGpIbuuBrHFKEBkIPKGaJbvG9/EYzr3htCdIucBvMgvQRj2bzAYXP
-X-MS-Exchange-AntiSpam-MessageData: 1Iwtef2MBwwv14Ip4gPywxzTkc0y1s6Slrbg50T8oVwv6iaLSieOn0RZ6jgPnIZEfv1e2labO9vlJnGbZjvj/huNfA/8GDey2LaABzliLJrpUvLM4L51zudOEVLZ3n4vmz+MjkeYgsJKVXb5+VFyxg==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8c96fe24-af0f-4925-3325-08d7ccd203c3
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Mar 2020 13:24:27.6416 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SsLaK5bh1UmF/o2UN9GR26kuVoQEmgTSAj43HN6LM1wktplJMVs7ycimABNN0fFhHPJFrO9pjz77FlfoPCvtPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3178
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9565
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ phishscore=0 mlxscore=0
+ malwarescore=0 suspectscore=0 mlxlogscore=999 spamscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
+ definitions=main-2003200057
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9565
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ bulkscore=0
+ suspectscore=0 lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1011
+ impostorscore=0 priorityscore=1501 spamscore=0 mlxlogscore=999 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
+ definitions=main-2003200057
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,38 +88,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kent Russell <kent.russell@amd.com>
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Emily Deng <Emily.Deng@amd.com>, David Airlie <airlied@linux.ie>,
+ Marek =?utf-8?B?T2zFocOhaw==?= <marek.olsak@amd.com>,
+ Tao Zhou <tao.zhou1@amd.com>, kernel-janitors@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Le Ma <le.ma@amd.com>,
+ Huang Rui <ray.huang@amd.com>, dri-devel@lists.freedesktop.org,
+ Daniel Vetter <daniel@ffwll.ch>, James Zhu <James.Zhu@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Dennis Li <Dennis.Li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the amdgpu.rst tie-ins for the unique_id documentation
+The "shadow" variable was never set to false.
 
-Signed-off-by: Kent Russell <kent.russell@amd.com>
+There is a quirk in current versions of GCC where it will sometimes set
+it to false and not warn about the uninitiliazed variable.  That means
+that this bug wouldn't have been discovered in normal testing.
+
+Fixes: 2e0cc4d48b91 ("drm/amdgpu: revise RLCG access path")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
 ---
- Documentation/gpu/amdgpu.rst | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu.rst
-index 9afcc30e0f42..4cc74325bf91 100644
---- a/Documentation/gpu/amdgpu.rst
-+++ b/Documentation/gpu/amdgpu.rst
-@@ -227,6 +227,12 @@ serial_number
- .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-    :doc: serial_number
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 7bc2486167e7..affbff76758c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -735,7 +735,7 @@ void gfx_v9_0_rlcg_wreg(struct amdgpu_device *adev, u32 offset, u32 v)
+ 	static void *spare_int;
+ 	static uint32_t grbm_cntl;
+ 	static uint32_t grbm_idx;
+-	bool shadow;
++	bool shadow = false;
  
-+unique_id
-+---------
-+
-+.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+   :doc: unique_id
-+
- GPU Memory Usage Information
- ============================
- 
+ 	scratch_reg0 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG0_BASE_IDX] + mmSCRATCH_REG0)*4;
+ 	scratch_reg1 = adev->rmmio + (adev->reg_offset[GC_HWIP][0][mmSCRATCH_REG1_BASE_IDX] + mmSCRATCH_REG1)*4;
 -- 
-2.17.1
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
