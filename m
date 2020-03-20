@@ -2,78 +2,67 @@ Return-Path: <SRS0=S2wj=5F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-2.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D3443C43333
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 17:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF81CC4332D
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 17:21:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A949B20709
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 17:21:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9B91720709
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 17:21:28 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="LNxEfQC6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A949B20709
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pY5eGQ0/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B91720709
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D62B36E1CE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E91136E1D2;
 	Fri, 20 Mar 2020 17:21:23 +0000 (UTC)
-Received: from mail-vs1-xe41.google.com (mail-vs1-xe41.google.com
- [IPv6:2607:f8b0:4864:20::e41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EA266E1A3
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 17:00:13 +0000 (UTC)
-Received: by mail-vs1-xe41.google.com with SMTP id x82so4384524vsc.12
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 10:00:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=QfKkZBnQUXMbgR4f8R4xfhu6bSLBDWJchBJ45k6w/Gs=;
- b=LNxEfQC64b3jC76fcXKgvtSCR4fzjMtcUpvtpsK8q4LD9AtnfXoN4QNK13HeIV+anL
- nNLLy7NJ09/dO6aq9zF0bBZSyQAM26cPstSzeQZ8svB6cQQk8FxLUXzq7fLPQf/xinKT
- uofO33zYheKdUEelBMm0FujVreucBBxbigjUrJzEq7rTXHOu7y68SatzTartv+AJ9CFW
- ym9tIBIE8o0CYEy3G/S9V67xIWKwJ+XBNi8/ZwdhAjMlEi6RVCsM7/MX4DDvS5Urgx64
- +6fbcT5BqvrROCRZUQ6bX9jEpPpYxO+g0PriTru5vss2tC9oBmFHINe8plJ7hA79gDjS
- DSoQ==
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3205089650
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 15:21:29 +0000 (UTC)
+Received: by mail-io1-xd30.google.com with SMTP id h8so6349480iob.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 08:21:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=oHe2EPIf9l8Ynr628oSDUTLbngyd2BsgIH02FtuZ6ME=;
+ b=pY5eGQ0/lF+jndw9zrKS7VekA4qVf3vUE9QsU+MX1ZSHW+QeOsLEIrsodZzvZE5FVI
+ qZr/zvQSWmvB63e5QAZUCzU+SPbDKGvy9LD0kvYwdKl/OwF+/2WyWb45tkn4SvxEFujA
+ SIlTFySLxZQLkyZTiVTZZcNXy4gZDD3KMLfEveD6Dv7Yudb9op5IANyKBETqp7t9NaWr
+ ZcG3AGMvRIMdX7sCmzhRRGl5DWzqRpW+BzNsAaBWCU5w2DOdP5pT+xYTgN8jcDZojYT+
+ kb6XPCijW80DmZtYpI0gIXPfcRAiCs3XBigJ8HgtSESOV+QWUXEts35ZjuffV5dRC0A8
+ l/3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=QfKkZBnQUXMbgR4f8R4xfhu6bSLBDWJchBJ45k6w/Gs=;
- b=GWRo9jz+QSFP+Kk1RD5CXekbk+nBzDzQyywrcXi5ytC6CX72zJ+SvosSkRJlXJd0iJ
- cVOrkp5DBIEi4KpvTDYyIPnUy5plRAC+Xd1oLMk2zK0oAX/rFpftPJN4jBa0m24Ua00y
- bEiU//Si7XvTsubC114DrdXijYTziovHpmjEFKn0AQMxawLFK7JPSzwk8rayr768WGQq
- BXUMTmZOlSGh1zqh2Jd+HSD9bkI3IaMUT86EWjpBm05DNd3KURCHhQ9k8sRoeUYbAqyj
- +4WFK+jYYzTV3Df6pL4rFAlY9Mn64H2PzHurZSRPesJYlg2NjGOEQJzOVHbwtKoA1zVO
- mU2g==
-X-Gm-Message-State: ANhLgQ2Pfr3qo7WujT7EjHAwQB/c7fEeFmHkg9TNffewdTj2Xtmk4wwD
- 098KRO6S0FHF+0r7H9zM1BUyiLa9CJjn8A==
-X-Google-Smtp-Source: ADFU+vsHZRjag+P2fuJIiFKNb4fd+uVwmgwhrUo1SYflZzrZ61HO0TNyRHDWaxWmaqgUP+ahj6sgeA==
-X-Received: by 2002:a05:6214:16d1:: with SMTP id
- d17mr9051379qvz.56.1584723025712; 
- Fri, 20 Mar 2020 09:50:25 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id k66sm4665995qke.10.2020.03.20.09.50.23
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 20 Mar 2020 09:50:24 -0700 (PDT)
-Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
- (envelope-from <jgg@ziepe.ca>)
- id 1jFKql-0005jn-73; Fri, 20 Mar 2020 13:50:23 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Jerome Glisse <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>,
- Felix.Kuehling@amd.com
-Subject: [PATCH hmm 1/6] mm/hmm: remove pgmap checking for devmap pages
-Date: Fri, 20 Mar 2020 13:49:00 -0300
-Message-Id: <20200320164905.21722-2-jgg@ziepe.ca>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200320164905.21722-1-jgg@ziepe.ca>
-References: <20200320164905.21722-1-jgg@ziepe.ca>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=oHe2EPIf9l8Ynr628oSDUTLbngyd2BsgIH02FtuZ6ME=;
+ b=G8TmqYqPSBRoecEwPBlzGFPUXE1hsz/exmqPuxk/VEx760jVQAC4k6C3E0yDg+y4dE
+ pyj/9LSb+w9Hl45r2tWdNDwkUmKLqaRy+kn/p615nslc5azqPz/lM37mKpJxa7/4IkA3
+ lPFgoy4LulqBKXRDgxvG+ZZorzfGixU70sCYBYuwT1vte6LDEPpnKN3gg2ydJIkrGbdV
+ wcNa2WbnzOHoN0ZkrtdR6vFzqB3Z5kOLiInWSYcWM9Rh412zwZkU6MpaFyNnhQ7uQ5IG
+ z8BfCG0ump8i+PzxkiYs/jAd4kQV6KG3+9wFD7kfv0Wyn//EAsaNpIZ8fLYuprVMv9yP
+ eqgg==
+X-Gm-Message-State: ANhLgQ31k/AJl0GDvrtVQHW3FpXMlr+ifMNf+FMk2FOQEkxemUzyK3Vz
+ GGgT6ywB9edEgfry95YIeb07IIrjEzbPAFGLA0c=
+X-Google-Smtp-Source: ADFU+vuXDicWC8OWd0xrrKcdYutAD6kkivAvEisP/dT59Fdz/nGwJpT9D/ztXsBO/Jp3NXwA2hO6OW7PLm0zSNY+mFI=
+X-Received: by 2002:a5d:8744:: with SMTP id k4mr8006890iol.106.1584717688590; 
+ Fri, 20 Mar 2020 08:21:28 -0700 (PDT)
 MIME-Version: 1.0
+References: <CAETxV2a+OdyQ_tB0jFHA6n1Ci7kPH6ATBSuHNo4Uq_AuZEFEqg@mail.gmail.com>
+ <CADnq5_PryLuSMHW_NuJHq7RKDxNR5-8+qEdK7WfxAg-1YNSE5w@mail.gmail.com>
+In-Reply-To: <CADnq5_PryLuSMHW_NuJHq7RKDxNR5-8+qEdK7WfxAg-1YNSE5w@mail.gmail.com>
+From: Tristan Vroom <tristan.a.vroom@gmail.com>
+Date: Fri, 20 Mar 2020 11:21:18 -0400
+Message-ID: <CAETxV2bUaxGJbrx9NjSBG3FUJu0BMJS_wVrVL+vMQ5ng+HsvHw@mail.gmail.com>
+Subject: Re: amdgpu kernel oops?
+To: Alex Deucher <alexdeucher@gmail.com>
 X-Mailman-Approved-At: Fri, 20 Mar 2020 17:21:22 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,130 +75,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, John Hubbard <jhubbard@nvidia.com>,
- amd-gfx@lists.freedesktop.org, linux-mm@kvack.org,
- Jason Gunthorpe <jgg@mellanox.com>, dri-devel@lists.freedesktop.org,
- Christoph Hellwig <hch@lst.de>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============1784838465=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jason Gunthorpe <jgg@mellanox.com>
+--===============1784838465==
+Content-Type: multipart/alternative; boundary="000000000000e5d4a105a14ad621"
 
-The checking boils down to some racy check if the pagemap is still
-available or not. Instead of checking this, rely entirely on the
-notifiers, if a pagemap is destroyed then all pages that belong to it must
-be removed from the tables and the notifiers triggered.
+--000000000000e5d4a105a14ad621
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
----
- mm/hmm.c | 50 ++------------------------------------------------
- 1 file changed, 2 insertions(+), 48 deletions(-)
+Yes, it worked.
 
-diff --git a/mm/hmm.c b/mm/hmm.c
-index a491d9aaafe45d..3a2610e0713329 100644
---- a/mm/hmm.c
-+++ b/mm/hmm.c
-@@ -28,7 +28,6 @@
- 
- struct hmm_vma_walk {
- 	struct hmm_range	*range;
--	struct dev_pagemap	*pgmap;
- 	unsigned long		last;
- 	unsigned int		flags;
- };
-@@ -196,19 +195,8 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
- 		return hmm_vma_fault(addr, end, fault, write_fault, walk);
- 
- 	pfn = pmd_pfn(pmd) + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
--	for (i = 0; addr < end; addr += PAGE_SIZE, i++, pfn++) {
--		if (pmd_devmap(pmd)) {
--			hmm_vma_walk->pgmap = get_dev_pagemap(pfn,
--					      hmm_vma_walk->pgmap);
--			if (unlikely(!hmm_vma_walk->pgmap))
--				return -EBUSY;
--		}
-+	for (i = 0; addr < end; addr += PAGE_SIZE, i++, pfn++)
- 		pfns[i] = hmm_device_entry_from_pfn(range, pfn) | cpu_flags;
--	}
--	if (hmm_vma_walk->pgmap) {
--		put_dev_pagemap(hmm_vma_walk->pgmap);
--		hmm_vma_walk->pgmap = NULL;
--	}
- 	hmm_vma_walk->last = end;
- 	return 0;
- }
-@@ -300,15 +288,6 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 	if (fault || write_fault)
- 		goto fault;
- 
--	if (pte_devmap(pte)) {
--		hmm_vma_walk->pgmap = get_dev_pagemap(pte_pfn(pte),
--					      hmm_vma_walk->pgmap);
--		if (unlikely(!hmm_vma_walk->pgmap)) {
--			pte_unmap(ptep);
--			return -EBUSY;
--		}
--	}
--
- 	/*
- 	 * Since each architecture defines a struct page for the zero page, just
- 	 * fall through and treat it like a normal page.
-@@ -328,10 +307,6 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 	return 0;
- 
- fault:
--	if (hmm_vma_walk->pgmap) {
--		put_dev_pagemap(hmm_vma_walk->pgmap);
--		hmm_vma_walk->pgmap = NULL;
--	}
- 	pte_unmap(ptep);
- 	/* Fault any virtual address we were asked to fault */
- 	return hmm_vma_fault(addr, end, fault, write_fault, walk);
-@@ -418,16 +393,6 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
- 			return r;
- 		}
- 	}
--	if (hmm_vma_walk->pgmap) {
--		/*
--		 * We do put_dev_pagemap() here and not in hmm_vma_handle_pte()
--		 * so that we can leverage get_dev_pagemap() optimization which
--		 * will not re-take a reference on a pgmap if we already have
--		 * one.
--		 */
--		put_dev_pagemap(hmm_vma_walk->pgmap);
--		hmm_vma_walk->pgmap = NULL;
--	}
- 	pte_unmap(ptep - 1);
- 
- 	hmm_vma_walk->last = addr;
-@@ -491,20 +456,9 @@ static int hmm_vma_walk_pud(pud_t *pudp, unsigned long start, unsigned long end,
- 		}
- 
- 		pfn = pud_pfn(pud) + ((addr & ~PUD_MASK) >> PAGE_SHIFT);
--		for (i = 0; i < npages; ++i, ++pfn) {
--			hmm_vma_walk->pgmap = get_dev_pagemap(pfn,
--					      hmm_vma_walk->pgmap);
--			if (unlikely(!hmm_vma_walk->pgmap)) {
--				ret = -EBUSY;
--				goto out_unlock;
--			}
-+		for (i = 0; i < npages; ++i, ++pfn)
- 			pfns[i] = hmm_device_entry_from_pfn(range, pfn) |
- 				  cpu_flags;
--		}
--		if (hmm_vma_walk->pgmap) {
--			put_dev_pagemap(hmm_vma_walk->pgmap);
--			hmm_vma_walk->pgmap = NULL;
--		}
- 		hmm_vma_walk->last = end;
- 		goto out_unlock;
- 	}
--- 
-2.25.1
+Thanks!
+
+Tristan
+
+On Wed, Mar 18, 2020 at 9:53 AM Alex Deucher <alexdeucher@gmail.com> wrote:
+
+> On Tue, Mar 17, 2020 at 6:24 PM Tristan Vroom <tristan.a.vroom@gmail.com>
+> wrote:
+> >
+> > I don't have a lot of experience reading kernel logs, so I apologize if
+> I misread something, but it seems like I'm having some trouble with amdgpu
+> in kernel 5.5.9.
+> >
+> > Here's the gist of the bug.
+>
+> Does this patch fix the issue?
+>
+> https://cgit.freedesktop.org/~agd5f/linux/commit/?h=drm-next&id=6c62ce8073daf27ae3fd03b6929d6cea3887eeb2
+>
+> Alex
+>
+> >
+> > Thank you for your help.
+> >
+> > Tristan
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--000000000000e5d4a105a14ad621
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Yes, it worked.=C2=A0<br><div><br></div><div>Thanks!</div>=
+<div><br></div><div>Tristan</div></div><br><div class=3D"gmail_quote"><div =
+dir=3D"ltr" class=3D"gmail_attr">On Wed, Mar 18, 2020 at 9:53 AM Alex Deuch=
+er &lt;<a href=3D"mailto:alexdeucher@gmail.com">alexdeucher@gmail.com</a>&g=
+t; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0p=
+x 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Tue=
+, Mar 17, 2020 at 6:24 PM Tristan Vroom &lt;<a href=3D"mailto:tristan.a.vro=
+om@gmail.com" target=3D"_blank">tristan.a.vroom@gmail.com</a>&gt; wrote:<br=
+>
+&gt;<br>
+&gt; I don&#39;t have a lot of experience reading kernel logs, so I apologi=
+ze if I misread something, but it seems like I&#39;m having some trouble wi=
+th amdgpu in kernel 5.5.9.<br>
+&gt;<br>
+&gt; Here&#39;s the gist of the bug.<br>
+<br>
+Does this patch fix the issue?<br>
+<a href=3D"https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Ddrm-next&a=
+mp;id=3D6c62ce8073daf27ae3fd03b6929d6cea3887eeb2" rel=3D"noreferrer" target=
+=3D"_blank">https://cgit.freedesktop.org/~agd5f/linux/commit/?h=3Ddrm-next&=
+amp;id=3D6c62ce8073daf27ae3fd03b6929d6cea3887eeb2</a><br>
+<br>
+Alex<br>
+<br>
+&gt;<br>
+&gt; Thank you for your help.<br>
+&gt;<br>
+&gt; Tristan<br>
+&gt; _______________________________________________<br>
+&gt; amd-gfx mailing list<br>
+&gt; <a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd=
+-gfx@lists.freedesktop.org</a><br>
+&gt; <a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=
+=3D"noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/lis=
+tinfo/amd-gfx</a><br>
+</blockquote></div>
+
+--000000000000e5d4a105a14ad621--
+
+--===============1784838465==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1784838465==--
