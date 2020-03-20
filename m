@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4721C4332E
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12876C4332D
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A0B4320767
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DD32720767
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 18:27:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O9WyQq+i"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0B4320767
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B14X64iz"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD32720767
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 593756EB48;
-	Fri, 20 Mar 2020 18:27:53 +0000 (UTC)
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 973326EB5E
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 18:27:52 +0000 (UTC)
-Received: by mail-pf1-x444.google.com with SMTP id 23so3735169pfj.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 11:27:52 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F76E6E1F9;
+	Fri, 20 Mar 2020 18:27:55 +0000 (UTC)
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1AAE6EB62
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 18:27:53 +0000 (UTC)
+Received: by mail-pf1-x443.google.com with SMTP id c19so3701877pfo.13
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 11:27:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=p0Nmk8bt6ORcqF1ozmG3Vgk759IcO7q91Amith9+chg=;
- b=O9WyQq+irOyIZFIx/S4Pft7oMiZ15iwrvHRJrVETi08YnW6QSZLMrPgW4rB1e+0Oav
- +kEhCv6FDlvxbJ9NGBB/nRJsMIeAGb339CbYJnDtftaMHB8IlNuR0XdQdo6Pz1fLfDg7
- c27uxLz5O6i3DPfuHedqKwo/OObj2rpImurizBcyhPjFQAl0X/poPxzD6dlZLG7uDHtu
- OySdO6wj1ncbFsMEsJ5Q911uWRtvTP0cjyXCIV8O1guBmxrVlrHfbcdcCv7sbmqFlP2T
- XbXmEY60GL9oB/oGs2z6IS6tWUXB247G0NMlQl2rj+yy1DnU8Vnp8eGFbHzKyNRxhMWS
- UKTw==
+ bh=kI+Q6FfWWu87tcsu4oGbduYzIzLf+nyR/LbQw11ZgHM=;
+ b=B14X64izSDUPeiLy6UkRWlg8+o3q4b2F3UbBSzBJnIyoCxK8iJacizVaT9sMlOA5hE
+ U9tARtQcYtWzeag/K9eTVVb0bJAnbay8c0cKJ+xQetGokrUGV+1rFb/SgJeoDiCZAYmI
+ 1mPhAUorTJqnAQ7r6OO08NdjUu1c5hEn8NjSBjCohijMGLAUgnlvHusaX8vYc+vmKzAo
+ fgAaPROg6PMRZUsZAVmUcUsgXRmRjRBCG4Rf30tafymku1li3TOTvgEKXrC5mqssHCan
+ ciInfx8sfYQfzbQcvMhyWZzXu+wKnYkfSsQ3qJBk1B33kLuKtLGP7xoI8GjQzQQjE2Iw
+ JEaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=p0Nmk8bt6ORcqF1ozmG3Vgk759IcO7q91Amith9+chg=;
- b=n9oejdI/ZN9Aaf8qxlPlQUSY7C1r85alYo9WHWCEYe16OwCmWY2G/cATXUNoXqj5ux
- mUieJ/px2CsGi0J+ikmmnA6AlYn0LU1cvNJreeiEpaG+4XYt7rZOzRz0YV/czpavb4yU
- OOoeUjtBhcvIhTV6k9EIR0oE3P/9to6BAjB3pSSwUUONvGC9O2C2qEKjCCWQMzDH6drx
- iAhXfPW8aLe0TXcvzXL21deR2QYIFVkK1/1N/tKS++44M4swNALAIx5RQaVmW6ObUjPu
- dUziXMWLXAtg81a6j8gmCXSZE/B71bQjb6eLuE7vgmLuujKg0HTvuA6AB6b20qZhAfNp
- FbRA==
-X-Gm-Message-State: ANhLgQ07OLjSYXdteu4S8pudBaePbTKJvnp+Z3ExSkOPlL5E+5D3Ccqg
- sFHvXc2j1HuYj5LsI08p/a4N/2IG
-X-Google-Smtp-Source: ADFU+vt1xv4OsR8POs/bh6ZrwEi+3Wa5INDFGCLLLVqWkdRYiSig6Hdd8v4gFQnEi69m3tjzmOlNCA==
-X-Received: by 2002:a63:714:: with SMTP id 20mr10365425pgh.271.1584728871870; 
- Fri, 20 Mar 2020 11:27:51 -0700 (PDT)
+ bh=kI+Q6FfWWu87tcsu4oGbduYzIzLf+nyR/LbQw11ZgHM=;
+ b=nwZclkDxZHItILhzT7v2XjTQOIv0U3VwfY2o0P0XF6xEOFJ0SWHsq+o1/ilow7boa1
+ DQBK0Br8JSsq5A7UpC/1bF/61uczWo47kwhHvU4SNOCRhzSTnxyF2q3hxF5GLdZ5cG8T
+ udKiqPpDwGMeoqyUCAV0I1WyZTwyF0MZtuvOPFfOhmfxzgaPip8P+zLkf5qjhqhy8H4v
+ 35bzPLyfsmjq/ptzTYt5kA4spwUlnLSiS+LMwOdVIItKQ0613Ao551zYqr29vfl/04eW
+ fz2bJaQouZiHh94vD77Ij66vB2S7F5p4eLl82qvU9sCsyF0dawwtB2FdzyJQMTgIrNdp
+ WuRQ==
+X-Gm-Message-State: ANhLgQ2RpXao0sH4OjbcKIijAtdb2VRQjDO/6YeGooMs/x35XUA1ZoOr
+ ILSpm0XtE+yLbNDVjMwfS2khXnQa
+X-Google-Smtp-Source: ADFU+vuEShCUle12dhKcVt0p9PhIwv2PEJfNjtez0eAdbseud4X6LI2h6pTGV/qKrx8H/8G1eGI4TA==
+X-Received: by 2002:aa7:8610:: with SMTP id p16mr5136047pfn.11.1584728873277; 
+ Fri, 20 Mar 2020 11:27:53 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.40.23])
- by smtp.gmail.com with ESMTPSA id v185sm6233850pfv.32.2020.03.20.11.27.50
+ by smtp.gmail.com with ESMTPSA id v185sm6233850pfv.32.2020.03.20.11.27.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 20 Mar 2020 11:27:51 -0700 (PDT)
+ Fri, 20 Mar 2020 11:27:52 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/8] drm/amdgpu/smu11: add a helper to set the power source
-Date: Fri, 20 Mar 2020 14:27:21 -0400
-Message-Id: <20200320182727.3805-2-alexander.deucher@amd.com>
+Subject: [PATCH 3/8] drm/amdgpu/swSMU: use the smu11 power source helper for
+ navi1x
+Date: Fri, 20 Mar 2020 14:27:22 -0400
+Message-Id: <20200320182727.3805-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200320182727.3805-1-alexander.deucher@amd.com>
 References: <20200320182727.3805-1-alexander.deucher@amd.com>
@@ -86,49 +87,25 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a common smu11 helper to set the AC/DC power source.
+The smu_v11_0 version works for navi1x.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  3 +++
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 15 +++++++++++++++
- 2 files changed, 18 insertions(+)
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-index 1c88219fe403..674e426ed59b 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-@@ -267,4 +267,7 @@ uint32_t smu_v11_0_get_max_power_limit(struct smu_context *smu);
- int smu_v11_0_set_performance_level(struct smu_context *smu,
- 				    enum amd_dpm_forced_level level);
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+index d66dfa7410b6..a23eaac28095 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -2369,6 +2369,7 @@ static const struct pptable_funcs navi10_ppt_funcs = {
+ 	.get_pptable_power_limit = navi10_get_pptable_power_limit,
+ 	.run_btc = navi10_run_btc,
+ 	.disable_umc_cdr_12gbps_workaround = navi10_disable_umc_cdr_12gbps_workaround,
++	.set_power_source = smu_v11_0_set_power_source,
+ };
  
-+int smu_v11_0_set_power_source(struct smu_context *smu,
-+			       enum smu_power_src_type power_src);
-+
- #endif
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index 4fd77c7cfc80..20174bed11ce 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -1939,3 +1939,18 @@ int smu_v11_0_set_performance_level(struct smu_context *smu,
- 	return ret;
- }
- 
-+int smu_v11_0_set_power_source(struct smu_context *smu,
-+			       enum smu_power_src_type power_src)
-+{
-+	int pwr_source;
-+
-+	pwr_source = smu_power_get_index(smu, (uint32_t)power_src);
-+	if (pwr_source < 0)
-+		return -EINVAL;
-+
-+	return smu_send_smc_msg_with_param(smu,
-+					SMU_MSG_NotifyPowerSource,
-+					pwr_source,
-+					NULL);
-+}
-+
+ void navi10_set_ppt_funcs(struct smu_context *smu)
 -- 
 2.25.1
 
