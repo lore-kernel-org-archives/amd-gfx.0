@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 90437C4332E
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 17:21:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 716F8C10DCE
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 17:21:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 68FFC20709
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 17:21:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4A04720709
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 17:21:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="YntWPst0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 68FFC20709
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="WmQkIo8w"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A04720709
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8360D6E1ED;
-	Fri, 20 Mar 2020 17:21:28 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D09B36E1A4
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 17:00:30 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id i9so4871263qtw.7
- for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 10:00:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F5336E1D8;
+	Fri, 20 Mar 2020 17:21:30 +0000 (UTC)
+Received: from mail-vs1-xe43.google.com (mail-vs1-xe43.google.com
+ [IPv6:2607:f8b0:4864:20::e43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6611E6E1A4
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 16:59:28 +0000 (UTC)
+Received: by mail-vs1-xe43.google.com with SMTP id o25so696270vsp.7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 09:59:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=QUocKGblQb2o2HFawCMp9Ld437bYJFvJgxJJBk7FIc4=;
- b=YntWPst0Bm7GqdqydwDPVPh011j6Lp9KcXvBtgIr9yGF3uuqLumDqHdiKD5YwJlwfL
- lW2XHPMTnoxwS2MertMZQQFfC3UCl0LR+pvNIRNPdT8RvAzcraDuwRlIHm5NffT5dD4v
- 5oQ3tsMUsB0uRC3JL/mPG9xXs3zOAeyxfgvbrzFcXjjaL98sR+oUX3ef5BaN8+9pJdJm
- BKstP+/1WLzBvBn1pq9PZ2QcfPaMVrB0tO+aSG7pYUuyBxB+8XaufyLrcNrcoMqi7TPF
- MrzrW0GAFjobUQICorGpUtMk9tj58wZf+SBtb9JVTMrTgmBY5/P2aVNyoFemJt+xJePd
- us6A==
+ bh=xRjX7T7eft/qC+6bf7FfyU/mPCvn6DuztC5RzuHCyVc=;
+ b=WmQkIo8wgTcT+49UEOC761MjUtOoLumkxcQrNLGTV5XIF/8lT1bx+3pCSL8T9xMdZY
+ cWLs8vQSQKBV1VXMxQM5NR78QAl2OuRSqAVNbbPsuMvJzg/GjnWpmqSoglfFIAkV31+z
+ MP+DUTjrCLJ6J7p5c6jvdGCaDAE5JuorkDPWMCl3cc8f1/br3nbePeINlV2no2Zpv0lA
+ x996mvxPsYAJubp73Du4S2nS/wtnN/9QxMhJQCWR+gg4WbHEtK82IFnTkGk0BMjclTq/
+ UasFQVqNKpkfmX/un/MPsIzZfDYZXMiTwx9ovm8X8Wk5Xzm8VVcGiy4D9LEPu/vagLD/
+ G03A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=QUocKGblQb2o2HFawCMp9Ld437bYJFvJgxJJBk7FIc4=;
- b=R2EyOCqJ8Cljfoxo4h+/wc2jEpwIztTUDlUudURcxi6d2POakA0vijOeH3qZeyHnl/
- WxA7bGGpcjSAaSegJivzEZjPgOZZd/Rhs5Voo120QyoLTamHWxElzjljibZ/2Xrr9VCz
- jw3j70NDCdSbgE40X0CbFFObDNREwEM5pwazLHga/Vu+X3+uRp4OaJoCUT6/Cln9Q8nJ
- z2AOjT3KYSzKnrcxvCVqZp033VkmjWgp8E9AKf3wUApNrdw7zyrffA9wyEPg2Ovj8mF1
- zSr1AkZ7AiUielESmhUGwxaDR9VXk9nej0ZXFVXDK3508oS6F5/CfyHR/G31qHjdCzQr
- xD/A==
-X-Gm-Message-State: ANhLgQ18lfNJLzgAlUgn7mSeH7/IG+x8SmWXteYEmyto6x+/nJ+o6NJE
- C/buB0Cr03sUzDfJiJZBTAODTFei+HQwJw==
-X-Google-Smtp-Source: ADFU+vsA7VjEQHoh/wxAGR7V+aaNfS2RnIkoq04zcGb+pjCRPYSK7O2+s9r+eM4YcA2K+jR1obAW6g==
-X-Received: by 2002:aed:39c9:: with SMTP id m67mr9438609qte.107.1584723026546; 
- Fri, 20 Mar 2020 09:50:26 -0700 (PDT)
+ bh=xRjX7T7eft/qC+6bf7FfyU/mPCvn6DuztC5RzuHCyVc=;
+ b=GpbKT5M1GQo+67NxUaSJjWjsLUFETtrQjQB2Vj9V9L1ynwY3EhUOflWlkDgmAVYb8u
+ a7ydNfpIwEzVO+V4rCgVEcrqVFRN3uABiJg8i2/w3fBJ12pO/+iqvTWePN6B7HuvIWkI
+ 6otcjhaH9Zu0tw6JM6hSNQ3w9wjK3/qhIgpRFe5D+BBkhlASzke6dJV+CXvEEieemy0a
+ PZQaZ/bU/8wt1LF7rvCpfubXQ+8dDjLLewOO+LAWqKqC3IbgI9cr2ZdCB6zhd149eBzp
+ DQwYB1ptMFZKYNBH406XUnJR3r3qS1weOo2l2suv986fsfruW40OgAD/X78YtoBvCp89
+ E0ew==
+X-Gm-Message-State: ANhLgQ2xolOAnW7wTqWhKEO2XD2TRPARYyPFomv0p+bH2ecJxw4KGk9w
+ 4codlZQmz2K6tUAWk7LmEcueKF1w9I+PLw==
+X-Google-Smtp-Source: ADFU+vtbRR/MYq87zJZvXdzKsxYqiR4x6njtZJXIu9qf6nhgSPf391EA27m+Q0Bt/DeLj3EN/58FoA==
+X-Received: by 2002:a05:6214:12c7:: with SMTP id
+ s7mr9363766qvv.218.1584723027380; 
+ Fri, 20 Mar 2020 09:50:27 -0700 (PDT)
 Received: from ziepe.ca
  (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
  [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id h11sm2171811qtr.38.2020.03.20.09.50.23
+ by smtp.gmail.com with ESMTPSA id e2sm4452824qkg.63.2020.03.20.09.50.24
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
  Fri, 20 Mar 2020 09:50:24 -0700 (PDT)
 Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
  (envelope-from <jgg@ziepe.ca>)
- id 1jFKql-0005kI-BT; Fri, 20 Mar 2020 13:50:23 -0300
+ id 1jFKql-0005kU-FT; Fri, 20 Mar 2020 13:50:23 -0300
 From: Jason Gunthorpe <jgg@ziepe.ca>
 To: Jerome Glisse <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>,
  Felix.Kuehling@amd.com
-Subject: [PATCH hmm 4/6] mm/hmm: remove HMM_FAULT_SNAPSHOT
-Date: Fri, 20 Mar 2020 13:49:03 -0300
-Message-Id: <20200320164905.21722-5-jgg@ziepe.ca>
+Subject: [PATCH hmm 6/6] mm/hmm: use device_private_entry_to_pfn()
+Date: Fri, 20 Mar 2020 13:49:05 -0300
+Message-Id: <20200320164905.21722-7-jgg@ziepe.ca>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200320164905.21722-1-jgg@ziepe.ca>
 References: <20200320164905.21722-1-jgg@ziepe.ca>
@@ -96,167 +97,30 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jason Gunthorpe <jgg@mellanox.com>
 
-Now that flags are handled on a fine-grained per-page basis this global
-flag is redundant and has a confusing overlap with the pfn_flags_mask and
-default_flags.
-
-Normalize the HMM_FAULT_SNAPSHOT behavior into one place. Callers needing
-the SNAPSHOT behavior should set a pfn_flags_mask and default_flags that
-always results in a cleared HMM_PFN_REQ_FAULT. Then no pages will be
-faulted, and HMM_FAULT_SNAPSHOT is not a special flow that overrides the
-masking mechanism.
-
-As this is the last flag, also remove the flags argument. If future flags
-are needed they can be part of the struct hmm_range function arguments.
+swp_offset() should not be called directly, the wrappers are supposed to
+abstract away the encoding of the device_private specific information in
+the swap entry.
 
 Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 ---
- Documentation/vm/hmm.rst                | 12 +++++-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  2 +-
- drivers/gpu/drm/nouveau/nouveau_svm.c   |  2 +-
- include/linux/hmm.h                     |  5 +----
- mm/hmm.c                                | 17 +++++++++--------
- 5 files changed, 17 insertions(+), 21 deletions(-)
+ mm/hmm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/vm/hmm.rst b/Documentation/vm/hmm.rst
-index 95fec596836262..4e3e9362afeb10 100644
---- a/Documentation/vm/hmm.rst
-+++ b/Documentation/vm/hmm.rst
-@@ -161,13 +161,11 @@ device must complete the update before the driver callback returns.
- When the device driver wants to populate a range of virtual addresses, it can
- use::
- 
--  long hmm_range_fault(struct hmm_range *range, unsigned int flags);
-+  long hmm_range_fault(struct hmm_range *range);
- 
--With the HMM_RANGE_SNAPSHOT flag, it will only fetch present CPU page table
--entries and will not trigger a page fault on missing or non-present entries.
--Without that flag, it does trigger a page fault on missing or read-only entries
--if write access is requested (see below). Page faults use the generic mm page
--fault code path just like a CPU page fault.
-+It will trigger a page fault on missing or read-only entries if write access is
-+requested (see below). Page faults use the generic mm page fault code path just
-+like a CPU page fault.
- 
- Both functions copy CPU page table entries into their pfns array argument. Each
- entry in that array corresponds to an address in the virtual range. HMM
-@@ -197,7 +195,7 @@ The usage pattern is::
-  again:
-       range.notifier_seq = mmu_interval_read_begin(&interval_sub);
-       down_read(&mm->mmap_sem);
--      ret = hmm_range_fault(&range, HMM_RANGE_SNAPSHOT);
-+      ret = hmm_range_fault(&range);
-       if (ret) {
-           up_read(&mm->mmap_sem);
-           if (ret == -EBUSY)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 90821ce5e6cad0..c520290709371b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -856,7 +856,7 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
- 	range->notifier_seq = mmu_interval_read_begin(&bo->notifier);
- 
- 	down_read(&mm->mmap_sem);
--	r = hmm_range_fault(range, 0);
-+	r = hmm_range_fault(range);
- 	up_read(&mm->mmap_sem);
- 	if (unlikely(r <= 0)) {
- 		/*
-diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-index 39c731a99937c6..e3797b2d4d1759 100644
---- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-@@ -540,7 +540,7 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
- 		range.default_flags = 0;
- 		range.pfn_flags_mask = -1UL;
- 		down_read(&mm->mmap_sem);
--		ret = hmm_range_fault(&range, 0);
-+		ret = hmm_range_fault(&range);
- 		up_read(&mm->mmap_sem);
- 		if (ret <= 0) {
- 			if (ret == 0 || ret == -EBUSY)
-diff --git a/include/linux/hmm.h b/include/linux/hmm.h
-index 184a8633260f9d..6b4004905aac89 100644
---- a/include/linux/hmm.h
-+++ b/include/linux/hmm.h
-@@ -167,13 +167,10 @@ static inline struct page *hmm_device_entry_to_page(const struct hmm_range *rang
- 	return pfn_to_page(entry >> range->pfn_shift);
- }
- 
--/* Don't fault in missing PTEs, just snapshot the current state. */
--#define HMM_FAULT_SNAPSHOT		(1 << 1)
--
- /*
-  * Please see Documentation/vm/hmm.rst for how to use the range API.
-  */
--long hmm_range_fault(struct hmm_range *range, unsigned int flags);
-+long hmm_range_fault(struct hmm_range *range);
- 
- /*
-  * HMM_RANGE_DEFAULT_TIMEOUT - default timeout (ms) when waiting for a range
 diff --git a/mm/hmm.c b/mm/hmm.c
-index 687d21c675ee60..7f77fb6e35cf78 100644
+index a09b4908e9c81a..fd9ee2b5fd9989 100644
 --- a/mm/hmm.c
 +++ b/mm/hmm.c
-@@ -29,7 +29,6 @@
- struct hmm_vma_walk {
- 	struct hmm_range	*range;
- 	unsigned long		last;
--	unsigned int		flags;
- };
- 
- enum {
-@@ -111,9 +110,6 @@ static unsigned int hmm_pte_need_fault(const struct hmm_vma_walk *hmm_vma_walk,
- {
- 	struct hmm_range *range = hmm_vma_walk->range;
- 
--	if (hmm_vma_walk->flags & HMM_FAULT_SNAPSHOT)
--		return 0;
--
- 	/*
- 	 * So we not only consider the individual per page request we also
- 	 * consider the default flags requested for the range. The API can
-@@ -146,10 +142,17 @@ hmm_range_need_fault(const struct hmm_vma_walk *hmm_vma_walk,
- 		     const uint64_t *pfns, unsigned long npages,
- 		     uint64_t cpu_flags)
- {
-+	struct hmm_range *range = hmm_vma_walk->range;
- 	unsigned int required_fault = 0;
- 	unsigned long i;
- 
--	if (hmm_vma_walk->flags & HMM_FAULT_SNAPSHOT)
-+	/*
-+	 * If there is no way for valid to be set in hmm_pte_need_fault() then
-+	 * don't bother to call it.
-+	 */
-+	if (!(((range->flags[HMM_PFN_VALID] & range->pfn_flags_mask) |
-+	       range->default_flags) &
-+	      range->flags[HMM_PFN_VALID]))
- 		return 0;
- 
- 	for (i = 0; i < npages; ++i) {
-@@ -559,7 +562,6 @@ static const struct mm_walk_ops hmm_walk_ops = {
- /**
-  * hmm_range_fault - try to fault some address in a virtual address range
-  * @range:	range being faulted
-- * @flags:	HMM_FAULT_* flags
-  *
-  * Return: the number of valid pages in range->pfns[] (from range start
-  * address), which may be zero.  On error one of the following status codes
-@@ -583,12 +585,11 @@ static const struct mm_walk_ops hmm_walk_ops = {
-  * On error, for one virtual address in the range, the function will mark the
-  * corresponding HMM pfn entry with an error flag.
-  */
--long hmm_range_fault(struct hmm_range *range, unsigned int flags)
-+long hmm_range_fault(struct hmm_range *range)
- {
- 	struct hmm_vma_walk hmm_vma_walk = {
- 		.range = range,
- 		.last = range->start,
--		.flags = flags,
- 	};
- 	struct mm_struct *mm = range->notifier->mm;
- 	int ret;
+@@ -259,8 +259,8 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ 		 * the PFN even if not present.
+ 		 */
+ 		if (hmm_is_device_private_entry(range, entry)) {
+-			*pfn = hmm_device_entry_from_pfn(range,
+-					    swp_offset(entry));
++			*pfn = hmm_device_entry_from_pfn(
++				range, device_private_entry_to_pfn(entry));
+ 			*pfn |= range->flags[HMM_PFN_VALID];
+ 			if (is_write_device_private_entry(entry))
+ 				*pfn |= range->flags[HMM_PFN_WRITE];
 -- 
 2.25.1
 
