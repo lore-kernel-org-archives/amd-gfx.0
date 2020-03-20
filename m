@@ -2,68 +2,72 @@ Return-Path: <SRS0=S2wj=5F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1D2CAC4332D
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 21:48:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E158C4332B
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 22:03:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E283820637
-	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 21:48:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6E06B2078C
+	for <amd-gfx@archiver.kernel.org>; Fri, 20 Mar 2020 22:03:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="Bd/LYbF4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E283820637
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="t6Oe7ste"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E06B2078C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A137C89F07;
-	Fri, 20 Mar 2020 21:48:05 +0000 (UTC)
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E60E889F07;
- Fri, 20 Mar 2020 21:48:04 +0000 (UTC)
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5e753a070001>; Fri, 20 Mar 2020 14:47:51 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Fri, 20 Mar 2020 14:48:04 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Fri, 20 Mar 2020 14:48:04 -0700
-Received: from rcampbell-dev.nvidia.com (172.20.13.39) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Fri, 20 Mar 2020 21:48:02 +0000
-Subject: Re: [PATCH hmm 0/6] Small hmm_range_fault() cleanups
-To: Jason Gunthorpe <jgg@ziepe.ca>, Jerome Glisse <jglisse@redhat.com>,
- <Felix.Kuehling@amd.com>
-References: <20200320164905.21722-1-jgg@ziepe.ca>
-X-Nvconfidentiality: public
-From: Ralph Campbell <rcampbell@nvidia.com>
-Message-ID: <70d2adde-4f70-de17-fccc-d422eb994d08@nvidia.com>
-Date: Fri, 20 Mar 2020 14:47:59 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FE596EB72;
+	Fri, 20 Mar 2020 22:03:10 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15A4A6EB72
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 22:03:09 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id j4so8668449qkc.11
+ for <amd-gfx@lists.freedesktop.org>; Fri, 20 Mar 2020 15:03:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=S1Rp6jxDEfO+zeYEZ/1d9nBsj3M0sAX6dK5xSwMnqzs=;
+ b=t6Oe7stela0gX6MAPCVoZbuFf+WyASrL+HY/7a/VianWNIeHuK6uJX6jGK91EMiGK+
+ rImijmGcNHbsrdXtKT0Eg1DdT1+BU57ZRTt2BWtsI/AqaeJPD6JAPiaqAINndpi1rWWA
+ QLQfp5udiEr9WiWIN1MbecExBylqufHEaolxQXrg3c4w6Y7OAbPbJw/qqGImmUpLM315
+ K724AWUPfluVXkyVdbL88j6fu382bueVZ26tUPa+WhLO3NFiT9DsGr4TUgxnmBTEDrU0
+ lOUhhJO38z2o8KTmI3eBKADy9r9rc7Q3aTrxx70SKR2uyGOche65U38pTcFdlUiRYBQo
+ x1cg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=S1Rp6jxDEfO+zeYEZ/1d9nBsj3M0sAX6dK5xSwMnqzs=;
+ b=hrhGBXhTtWIBTOvHBYNjRFTUtIedWYLT3McZSR5TkhF4uUXtWeX4AAFLG9+4fIJ43o
+ tmMbdhmv1YrxCFcaGwKJpAQzc7unZNEM2ulOZXwTUoHbHhQM+ioUWp/cmZ9GNGLbYqi+
+ Ofwnp9JsSZe3rbXUSlKGZuB1hCYZFnivwa0l7ZZcuq49LI/YA8yctY2Wirul/1rKOs9O
+ bIeBvwuVHeixJrI3aH+UlUj2sMNQ2Tr/YrH63vRd/RqMQIRo6u38mxwF3EQo2lcVggrb
+ s9onEE+w2s/d/5oyUpwjCyuyScmflv1mVhwipiinFS1KL70p9tNCWeZVC90KbHorfROh
+ R9wg==
+X-Gm-Message-State: ANhLgQ1krI3wTiRtrVbDD0QXJktCyXOgjVP9j1WGCMeTTphDgkIL/yk5
+ /p52cjpYR3cxKi1wW7uja1oNC4Nv
+X-Google-Smtp-Source: ADFU+vtqBsWAJfjTCn7nL/hNVEZBxF7j81hxKPP6GWo7k1u1CXMjMczuY6rDKWisPOGSBsj2bsPUxg==
+X-Received: by 2002:a37:702:: with SMTP id 2mr10195728qkh.134.1584741787827;
+ Fri, 20 Mar 2020 15:03:07 -0700 (PDT)
+Received: from localhost.localdomain ([71.219.40.23])
+ by smtp.gmail.com with ESMTPSA id r10sm5099919qkm.23.2020.03.20.15.03.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 20 Mar 2020 15:03:07 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 5/8] drm/amdgpu/swSMU: set AC/DC mode based on the current
+ system state (v2)
+Date: Fri, 20 Mar 2020 18:02:48 -0400
+Message-Id: <20200320220248.22501-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-In-Reply-To: <20200320164905.21722-1-jgg@ziepe.ca>
-X-Originating-IP: [172.20.13.39]
-X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1584740871; bh=PKGdsKNTkrFA0tPTeWZ+wBPsvoEb1fR+GjOQG6/RL7E=;
- h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
- Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
- X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=Bd/LYbF47QbOI1HqX00s4RZqs2tgtjKDUDamrYDvhrWMWTDXgiKFti2yiE6ODETPw
- Z7Ii+W6kMuOeZ2U3NPm2ks6k3q4sUj0RaPMxEGoEpDXFrrE7Qjslqn2W5oyN8SMAsS
- dtHpnaxUfTuhlQQsjIcIDWAy74TUH+H0pwxmrin3yFRCSf8r7maZRRXS1z8FtDJoTw
- xzeoIiUrnIwnboUjst6k8TFTYmnAlCnJkAN8XzaA4zEYfRXKTQ0GY8Kkgm5rBkEn3U
- 7HNfPL9GwVjdJwDTKWQ3UNWXomUofIwHAEC+XA0tzzrO2EXCzbs/b5Q6mf3bWTEDLu
- jg1URNhwEnaew==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,85 +79,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Philip Yang <Philip.Yang@amd.com>, John Hubbard <jhubbard@nvidia.com>,
- amd-gfx@lists.freedesktop.org, linux-mm@kvack.org,
- Jason Gunthorpe <jgg@mellanox.com>, dri-devel@lists.freedesktop.org,
- Christoph Hellwig <hch@lst.de>
+Cc: Alex Deucher <alexander.deucher@amd.com>, mcoffin13@gmail.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Check of the pointer exists and we are actually on AC power.
 
-On 3/20/20 9:48 AM, Jason Gunthorpe wrote:
-> From: Jason Gunthorpe <jgg@mellanox.com>
-> 
-> I've had these in my work queue for a bit, nothing profound here, just some
-> small edits for clarity.
-> 
-> Ralph's hmm tester will need a small diff to work after this - which
-> illustrates how setting default_flags == 0 is the same as what was called
-> SNAPSHOT:
-> 
-> diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-> index 6ca953926dc13f..5f31f5b3e64cb9 100644
-> --- a/lib/test_hmm.c
-> +++ b/lib/test_hmm.c
-> @@ -300,7 +300,7 @@ static int dmirror_range_fault(struct dmirror *dmirror,
->   
->   		range->notifier_seq = mmu_interval_read_begin(range->notifier);
->   		down_read(&mm->mmap_sem);
-> -		count = hmm_range_fault(range, 0);
-> +		count = hmm_range_fault(range);
->   		up_read(&mm->mmap_sem);
->   		if (count <= 0) {
->   			if (count == 0 || count == -EBUSY)
-> @@ -337,8 +337,7 @@ static int dmirror_fault(struct dmirror *dmirror, unsigned long start,
->   		.flags = dmirror_hmm_flags,
->   		.values = dmirror_hmm_values,
->   		.pfn_shift = DPT_SHIFT,
-> -		.pfn_flags_mask = ~(dmirror_hmm_flags[HMM_PFN_VALID] |
-> -				    dmirror_hmm_flags[HMM_PFN_WRITE]),
-> +		.pfn_flags_mask = 0,
->   		.default_flags = dmirror_hmm_flags[HMM_PFN_VALID] |
->   				(write ? dmirror_hmm_flags[HMM_PFN_WRITE] : 0),
->   		.dev_private_owner = dmirror->mdevice,
-> @@ -872,7 +871,7 @@ static int dmirror_range_snapshot(struct dmirror *dmirror,
->   		range->notifier_seq = mmu_interval_read_begin(range->notifier);
->   
->   		down_read(&mm->mmap_sem);
-> -		count = hmm_range_fault(range, HMM_FAULT_SNAPSHOT);
-> +		count = hmm_range_fault(range);
->   		up_read(&mm->mmap_sem);
->   		if (count <= 0) {
->   			if (count == 0 || count == -EBUSY)
-> @@ -916,7 +915,7 @@ static int dmirror_snapshot(struct dmirror *dmirror,
->   		.flags = dmirror_hmm_flags,
->   		.values = dmirror_hmm_values,
->   		.pfn_shift = DPT_SHIFT,
-> -		.pfn_flags_mask = ~0ULL,
-> +		.pfn_flags_mask = 0,
->   		.dev_private_owner = dmirror->mdevice,
->   	};
->   	int ret = 0;
-> 
-> Jason Gunthorpe (6):
->    mm/hmm: remove pgmap checking for devmap pages
->    mm/hmm: return the fault type from hmm_pte_need_fault()
->    mm/hmm: remove unused code and tidy comments
->    mm/hmm: remove HMM_FAULT_SNAPSHOT
->    mm/hmm: remove the CONFIG_TRANSPARENT_HUGEPAGE #ifdef
->    mm/hmm: use device_private_entry_to_pfn()
-> 
->   Documentation/vm/hmm.rst                |  12 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |   2 +-
->   drivers/gpu/drm/nouveau/nouveau_svm.c   |   2 +-
->   include/linux/hmm.h                     |  55 +-----
->   mm/hmm.c                                | 238 +++++++++---------------
->   5 files changed, 98 insertions(+), 211 deletions(-)
-> 
-The series looks good to me so,
-Reviewed-by: Ralph Campbell <rcampbell@nvidia.com>
+v2: fix error message to reflect AC/DC mode.
+
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+index 2cfb911ab370..9a9eb23d8540 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -1155,17 +1155,17 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
+ 			}
+ 		}
+ 
+-		if (adev->asic_type >= CHIP_NAVI10 &&
+-		    adev->asic_type <= CHIP_NAVI12) {
++		if (smu->ppt_funcs->set_power_source) {
+ 			/*
+ 			 * For Navi1X, manually switch it to AC mode as PMFW
+ 			 * may boot it with DC mode.
+-			 * TODO: should check whether we are indeed under AC
+-			 * mode before doing this.
+ 			 */
+-			ret = smu_set_power_source(smu, SMU_POWER_SOURCE_AC);
++			if (adev->pm.ac_power)
++				ret = smu_set_power_source(smu, SMU_POWER_SOURCE_AC);
++			else
++				ret = smu_set_power_source(smu, SMU_POWER_SOURCE_DC);
+ 			if (ret) {
+-				pr_err("Failed to switch to AC mode!\n");
++				pr_err("Failed to switch to %s mode!\n", adev->pm.ac_power ? "AC" : "DC");
+ 				return ret;
+ 			}
+ 		}
+-- 
+2.25.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
