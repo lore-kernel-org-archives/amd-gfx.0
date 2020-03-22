@@ -2,119 +2,100 @@ Return-Path: <SRS0=k9Mm=5H=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DF77C54FCF
-	for <amd-gfx@archiver.kernel.org>; Sun, 22 Mar 2020 19:55:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37D3DC1975A
+	for <amd-gfx@archiver.kernel.org>; Sun, 22 Mar 2020 21:48:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 34CBE20719
-	for <amd-gfx@archiver.kernel.org>; Sun, 22 Mar 2020 19:55:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E1C1F206F8
+	for <amd-gfx@archiver.kernel.org>; Sun, 22 Mar 2020 21:48:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="o0lyIFxC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 34CBE20719
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="0Ay4B2M+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1C1F206F8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B39FA89F47;
-	Sun, 22 Mar 2020 19:55:22 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2089.outbound.protection.outlook.com [40.107.94.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D6EA889F47
- for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2020 19:55:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 836356E104;
+	Sun, 22 Mar 2020 21:48:46 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2081.outbound.protection.outlook.com [40.107.236.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 712D46E10D
+ for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2020 21:48:44 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OBMhS1Z7TL2LbVZJhSfdpmaDva+C3DjKcK5becUAF4ysrCnK7nNJKKB+Xg1RUToc05mtG4s4RfU079XKgVmwG6lMjmsW05vfX0Lru/4pajxhVlRULrvbC7deSb8gGuOwU/sQhZbYP/aIQZWII4an7dlNQlu/QwCNMCMiTdF2oKmbxR8F1FYVzC/naWJ4MWF/Nwww8j3+3WQ6nRMuDhBtE3w8MfcMXjCfCxjjKtwsEaeuf70hSSZdrL407mhxliO2m/9ij5/yoJVLa43WZ/I0yNjRsNMVTh8UZA0ciMcUsH3hpvLf0OuqLP+dDihn6Rij24B2b+UXGl3ExTIU5oXbXQ==
+ b=MaJuFGXZ+i+c5XZYZZ2FKNLZaaOuAkddQnkjmDKaLOZymIrJTh5/Ny4DXhQxliiigmWltIKyk0bKFyxwAzbAS1QDwFfpTNv4SIZhRRXA/S0O7N05TL1b0PL0eiZ+Ps2s1QiY9FBrB69eZgobn/McDhHLMlMsBW1Xjig8d+3b+oeb+896QWuUVtw48SdQxWSdfG07hW/MIEtBIvx+2kY2UNOWYO4WAVUOVYDJtbM7EvjUQl5i5hr0eNYuOco80F9RzKhF+KiJ5LLi4p2mQOOc6dy8lp1lEbTCER4SKiyVwJzWA67LJHc8e9gPO0SCHjIWEkyb0j+J2NInocUJ+O0xhw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=abGlNjfity4M74yreT8PQPhvWVyUbVL4Q4ds4zopxL4=;
- b=E2OgxRHY67q+ZZsdnJbk6Vt7aOXo1hsXWg6+RwgfkUDyOrZ0hZnAXNFtSQ/F7WgZK6bqG4VsLp+ZBLezkuM9miuXa59V6UoT/RH+YJOfY2393fZbJ7kLWHbhSdzezGyP46Sku8EIe30VSYDZngJLwyUw0K68PNRaZJjokhmLykyK13AU0DfIlT6s255L3m5n14v3p62EcfzIwPaQOyx/3fJGXoTv2M5rsVSvYqTIjKzqKuZK0G3udFmVuRmuXdLZyJVGu99TTGZ5h6c7SmFIO7uk7LHUbQkKf3FzfYGMhTds9QrGeKm4CjNIMs7X2ObohKnXeS/qSsl0+EldqeWuAA==
+ bh=lD1vtzzVer9v9CMmYVHypDX7Nk1BelZ9jTZ/asf+gE4=;
+ b=S3sEyks5NfCOwDwsO0B8bdGxk3SUhxqPLufhFpQBeTzIuX1rnpxHd7HlZSUQlcrBxvv4Dlf2SBXrjT8lWVruaqZoTscd9H0twLYHdqQwfr/jai7UHsyypGk2KqhjPkt9zrVexulmhf9v88X5ygHHGaOxAqBvSS8XMsHRxs4+tV9LR+KAHkyNqNKICrLw6J0V5kvD1Pu38I8N+Wp2otE+g/TXNPUnAp2Qe2l6JOAO2us0z76OPhU1w6b3nwI1r4KVpjQa5+9Fk2d1Mvms/lRX7MP4nb5aIvMnM/YWtiLRPo3ovnsdySdHAjY6sRwoj5FARtKHeagQygHmEMDArNDG1w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=abGlNjfity4M74yreT8PQPhvWVyUbVL4Q4ds4zopxL4=;
- b=o0lyIFxC2ZXpxoeaIcuHeOl4MptgoU1Is64OSraBOAbqJzZzE/K6HFfMznje0TME26516sGaWiH3X5u2wu7xfVfE+QmCY4nkV11HdvogR3lX7VEle/38JJU+heB5tFfFYiLFqBJ9dDinEfOo0ByAXH9qs0JbxCWtnFB7LejPDHQ=
+ bh=lD1vtzzVer9v9CMmYVHypDX7Nk1BelZ9jTZ/asf+gE4=;
+ b=0Ay4B2M+ngvdrgM1HLb3BjSKXotQDcEde2jCROmz9L91vaXU9VJ3PvtGP/3xkiDMWFhGF8cs5lRJPKfuxK4/RO+tOA5zMUzgCtt2QVne63A99wnoXGuW4Amlp2MLR9hY/ABSlztaOfw0581XulLDOzk5UNdniZAx/IruBrviA+o=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Alex.Sierra@amd.com; 
 Received: from SA0PR12MB4576.namprd12.prod.outlook.com (2603:10b6:806:93::13)
- by SA0PR12MB4462.namprd12.prod.outlook.com (2603:10b6:806:95::22)
+ by SA0PR12MB4381.namprd12.prod.outlook.com (2603:10b6:806:70::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.19; Sun, 22 Mar
- 2020 19:55:18 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.22; Sun, 22 Mar
+ 2020 21:48:42 +0000
 Received: from SA0PR12MB4576.namprd12.prod.outlook.com
  ([fe80::8d47:3ca5:5a7c:c047]) by SA0PR12MB4576.namprd12.prod.outlook.com
  ([fe80::8d47:3ca5:5a7c:c047%7]) with mapi id 15.20.2835.021; Sun, 22 Mar 2020
- 19:55:18 +0000
-From: "Sierra Guiza, Alejandro (Alex)" <Alex.Sierra@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 2/4] drm/amdgpu: add macro to get proper ih ring register
- offset
-Thread-Topic: [PATCH 2/4] drm/amdgpu: add macro to get proper ih ring register
- offset
-Thread-Index: AQHV/k3M1UVmHe6RLkewHd7Jx2qpkqhRi66AgANwRmA=
-Date: Sun, 22 Mar 2020 19:55:17 +0000
-Message-ID: <SA0PR12MB4576670DDDFFCD564E76491EFDF30@SA0PR12MB4576.namprd12.prod.outlook.com>
-References: <20200320002245.14932-1-alex.sierra@amd.com>
- <20200320002245.14932-2-alex.sierra@amd.com>
- <07bf8db6-f94a-f863-e4cc-074883227a66@amd.com>
-In-Reply-To: <07bf8db6-f94a-f863-e4cc-074883227a66@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-22T19:55:16Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=3a41032d-bf07-44e5-b7d7-0000b229df8d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-03-22T19:55:16Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 73de6279-2fe2-4b5f-95e7-000070104cdd
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Alex.Sierra@amd.com; 
-x-originating-ip: [136.49.240.9]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 3ae8b29f-9370-4e93-6b4a-08d7ce9af23b
-x-ms-traffictypediagnostic: SA0PR12MB4462:|SA0PR12MB4462:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SA0PR12MB44620DC0F9D12E02BEA93E2EFDF30@SA0PR12MB4462.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1417;
-x-forefront-prvs: 0350D7A55D
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(366004)(136003)(396003)(39840400004)(376002)(199004)(66946007)(76116006)(71200400001)(110136005)(64756008)(316002)(66446008)(66476007)(478600001)(66556008)(5660300002)(52536014)(7696005)(55016002)(6506007)(53546011)(2906002)(9686003)(81166006)(8676002)(81156014)(8936002)(33656002)(26005)(86362001)(186003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:SA0PR12MB4462;
+ 21:48:42 +0000
+From: Alex Sierra <alex.sierra@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: infinite retries fix from UTLC1 RB SDMA
+Date: Sun, 22 Mar 2020 16:48:15 -0500
+Message-Id: <20200322214815.9771-1-alex.sierra@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: DM5PR13CA0001.namprd13.prod.outlook.com
+ (2603:10b6:3:23::11) To SA0PR12MB4576.namprd12.prod.outlook.com
+ (2603:10b6:806:93::13)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from alex-MS-7B09.amd.com (165.204.78.1) by
+ DM5PR13CA0001.namprd13.prod.outlook.com (2603:10b6:3:23::11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2856.12 via Frontend Transport; Sun, 22 Mar 2020 21:48:42 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.78.1]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 1c22cf8f-4f1b-4d17-5fdb-08d7ceaac9fd
+X-MS-TrafficTypeDiagnostic: SA0PR12MB4381:|SA0PR12MB4381:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SA0PR12MB43817FEC255FFE6D68CD5392FDF30@SA0PR12MB4381.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-Forefront-PRVS: 0350D7A55D
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(136003)(396003)(39850400004)(366004)(376002)(346002)(199004)(66946007)(66476007)(66556008)(4326008)(52116002)(7696005)(1076003)(316002)(478600001)(5660300002)(2906002)(6486002)(6916009)(86362001)(26005)(36756003)(81156014)(8676002)(8936002)(6666004)(16526019)(81166006)(186003)(956004)(2616005)(44832011);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SA0PR12MB4381;
  H:SA0PR12MB4576.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CLU6HI5tbKVoqSSec2M/DaCfv1GUqNqWHSMvbaTsn/9Bia8+rGnSXUYIqPdeKd2e/8p6xgrG7L8kZLxs+gQC5z5N4yIgCy91LDdLyVJDmUYNqL3MC7HE79/REKESPur4xyDcXRfCzDqrR5jSk5dGsprSh6yES0Y2bRlmflcmYy9doHq5FgJIoh+agrJZ+KrvVO02uYVKtCp1/K8THsSUR0b7wBBSuqvEjX3zQLzV69MA9ruGDFt0Hc3dBoiZa3vWUXcXULtabSXXAZJGrBiWlevgqZCjccZVmwMNL0cffxxRzgEiRbhpRSAdd/EOYDcXq4fnKS3AD6BQQvGhpwL6UqvFdiNOZIo6PZdZTWQC4uEpaF6Y1EP45GQ4C/g1cfA2pVYlmjtWLLoZdI9Y+QYwB5dpODTQmTDxYcYWQwt3zDI+WzHeAKbCRCmuYHbX6UYS
-x-ms-exchange-antispam-messagedata: LclSzDB40+wwj8Sr3JfW8MrnGHOlUh1Nzh4NnNqAqEzZvmtLiqUSHz57MkZ9fQC7l3OIYvqpxVly5elFBLncHkrVBZvhfubb1LyARYqmS1bULr2PYNKxXRVjNza9rR6Ofy+NY2LFp8cN3QK8N/skwA==
-MIME-Version: 1.0
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7iXCgZy8CuRRCfpAEtOeZDaozuXk8bhypaMPcEBkTCuCaSDgY5VmQ+DXtx9dY8OdI5eozBjzYZo2BZn+OnVq1vdbwahrmYt4/xo1mAXH0FJ3IVRhVZM0iqif3dvcUD1CqqWYehI3iDTWrEWQOv7695W9IUcJvR1qRleL14jIjLKZRIWvl9zDM2GQPU1aSVvTqI9UQ8FOD5nIqbRPsRT8f2MLQziwQH2zqU2H9NALRLgl+Gjonvz2o/abBeKN8oUIWp+ORT34LONeEQOIiiLWf0YnZQWrEyYiSkbKoNC4BEScwLq6U/b+I1G5IvpPxhhBJOgWvwA5zJOMyzp3dtDInvhNG7xWq/epv89H6iTANDn7nNaVE71EqjN5q9ChYGu050L0U1Q2yCwCZfd7B0d1mJdo2X+99a2t0/R0prZa+XkVzhMr/PrLRHit8+lGT+J/
+X-MS-Exchange-AntiSpam-MessageData: rPIT7BBLXdWwsToIQjRE9uaI+dIlydL2zw41RrciVjOjFNbPICQvUc8dOJlxgU2ImDnelcHhZrx/Xf/vo5++Hd2oOPClNitbORh6sumNAFU8HCcVKpv9v9UfuhZWaoMxFml++xipSmdytXZnripCUQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3ae8b29f-9370-4e93-6b4a-08d7ce9af23b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Mar 2020 19:55:18.0002 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8n+WESqDcfi5mvAaVbrZUzjgJJvSKXsWpQoPkmH3cV87qSZeKTZJBb2iI89nymx5UYRKox1bY4cc5GapY44/xA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4462
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c22cf8f-4f1b-4d17-5fdb-08d7ceaac9fd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2020 21:48:42.6544 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Cq/gFg1hcZDp1uuqVGbSfP71+AEityKwLl/0WuVLeG9U9x1pwwW9MNXF7CYvL8kQ2ZLsJ7c2Di/gOQU0LmzzbQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4381
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,51 +107,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Alex Sierra <alex.sierra@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQ0KDQpJ
-bmxpbmUgcmVzcG9uc2UNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEt1ZWhs
-aW5nLCBGZWxpeCA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4gDQpTZW50OiBGcmlkYXksIE1hcmNo
-IDIwLCAyMDIwIDk6MzEgQU0NClRvOiBTaWVycmEgR3VpemEsIEFsZWphbmRybyAoQWxleCkgPEFs
-ZXguU2llcnJhQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KU3ViamVj
-dDogUmU6IFtQQVRDSCAyLzRdIGRybS9hbWRncHU6IGFkZCBtYWNybyB0byBnZXQgcHJvcGVyIGlo
-IHJpbmcgcmVnaXN0ZXIgb2Zmc2V0DQoNCk9uIDIwMjAtMDMtMTkgMjA6MjIsIEFsZXggU2llcnJh
-IHdyb3RlOg0KPj4gVGhpcyBtYWNybyBjYWxjdWxhdGVzIHRoZSBJSCByaW5nIHJlZ2lzdGVyIG9m
-ZnNldCBiYXNlZCBvbiB0aGUgdGhyZWUgDQo+PiByaW5nIG51bWJlcnMgYW5kIGFzaWMgdHlwZS4N
-Cj4+IFRoZSBwYXJhbWV0ZXJzIG5lZWRlZCBhcmUgdGhlIHJlZ2lzdGVyJ3MgbmFtZSB3aXRob3V0
-IHRoZSBwcmVmaXggbW1JSCANCj4+IGFuZCB0aGUgcmluZyBudW1iZXIgdGFrZW4gZnJvbSBSSU5H
-MCwgUklORzEgb3IgUklORzIgbWFjcm9zLg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IEFsZXggU2ll
-cnJhIDxhbGV4LnNpZXJyYUBhbWQuY29tPg0KPj4gLS0tDQo+PiAgIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L3ZlZ2ExMF9paC5jIHwgNSArKysrKw0KPj4gICAxIGZpbGUgY2hhbmdlZCwgNSBp
-bnNlcnRpb25zKCspDQo+Pg0KPj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
-Z3B1L3ZlZ2ExMF9paC5jIA0KPj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMTBf
-aWguYw0KPj4gaW5kZXggNDA3YzYwOTNjMmVjLi41YmQ5YmMzN2ZhZGYgMTAwNjQ0DQo+PiAtLS0g
-YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMTBfaWguYw0KPj4gKysrIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9hbWRncHUvdmVnYTEwX2loLmMNCj4+IEBAIC0zNCw2ICszNCwxMSBAQA0K
-Pj4gICAjaW5jbHVkZSAidmVnYTEwX2loLmgiDQo+PiAgIA0KPj4gICAjZGVmaW5lIE1BWF9SRUFS
-TV9SRVRSWSAxMA0KPj4gKyNkZWZpbmUgUklORzAgMA0KPj4gKyNkZWZpbmUgUklORzEgKFJJTkcw
-ICsgNCkNCj4+ICsjZGVmaW5lIFJJTkcyIChSSU5HMSArIDQpDQo+PiArDQo+PiArI2RlZmluZSBt
-bUlIX1JJTkdfUkVHKHJlZywgcmluZykgKFNPQzE1X1JFR19PRkZTRVQoT1NTU1lTLCAwLCANCj4+
-ICttbUlIXyMjcmVnKSArIChyaW5nKSAqIGFkZXYtPmlycS5yaW5nX3N0cmlkZSkNCj4NCj4gSSBk
-b24ndCB0aGluayB5b3UgbmVlZCB0aGUgUklOR3ggZGVmaW5pdGlvbnMuIEp1c3QgdXNlIG51bWJl
-cnMgMC0yLiBUaGUgcmluZ19zdHJpZGUgc2hvdWxkIGJlIHRoZSBudW1iZXIgb2YgcmVnaXN0ZXJz
-IHRvIHNraXAgZnJvbSBvbmUgcmluZyB0byB0aGUgbmV4dCwgd2hpY2ggY2FuIGJlIGRpZmZlcmVu
-dCBmb3IgZGlmZmVyZW50IEFTSUNzLiBFLmcuIA0KPiAobW1JSF9SQl9DTlRMX1JJTkcxIC0gbW1J
-SF9SQl9DTlRMKS4gSXQncyA4IG9uIFZlZ2EsIDEyIG9uIEFyY3R1cnVzLg0KWW91J3JlIHJpZ2h0
-LiBUaGlzIHdhcyBhIGRpZmZlcmVudCBhcHByb2FjaCB3aGVyZSBJIHdhcyB1c2luZyB0aGUgYWN0
-dWFsIHJlZ2lzdGVycyBhbmQgYWRkaW5nIHRoZSBwcm9wZXIgb2Zmc2V0IGJhc2VkIG9uIHRoZSBS
-SU5HIG9mZnNldCBhbmQgcmluZ19zdHJpZGUgYXMgZW5hYmxlci4NCkV4Lg0KVmVnYTEwDQpyaW5n
-X3N0cmlkZXIgPSAwDQpSSU5HMSA9IDENCm1tSUhfUkJfUlBUUl9SSU5HMSA9IDB4OGIgPSBtbUlI
-X1JCX1JQVFJfUklORzEgKyAoUklORzEgKiByaW5nX3N0cmlkZXIpDQpBcmN0dXJ1cw0KcmluZ19z
-dHJpZGVyID0gMQ0KUklORzEgPSA0DQptbUlIX1JCX1JQVFJfUklORzEgPSAweDhmID0gbW1JSF9S
-Ql9SUFRSX1JJTkcxICsgKFJJTkcxICogcmluZ19zdHJpZGVyKQ0KWW91ciBzb2x1dGlvbiBsb29r
-cyBlYXNpZXIgdG8gcmVhZC4NCj4NCj4gSSdkIHNxdWFzaCBwYXRjaGVzIDEgYW5kIDIgdG8gbWFr
-ZSB0aGlzIG1vcmUgb2J2aW91cy4NCj4NCj5SZWdhcmRzLA0KPsKgIEZlbGl4DQo+DQo+PiAgIA0K
-Pj4gICBzdGF0aWMgdm9pZCB2ZWdhMTBfaWhfc2V0X2ludGVycnVwdF9mdW5jcyhzdHJ1Y3QgYW1k
-Z3B1X2RldmljZSANCj4+ICphZGV2KTsNCj4+ICAgDQpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+[Why]
+Previously these registers were set to 0. This was causing an
+infinite retry on the UTCL1 RB, preventing higher priority RB such as paging RB.
+
+[How]
+Set to one the SDMAx_UTLC1_TIMEOUT registers for all SDMAs on Vega10, Vega12,
+Vega20 and Arcturus.
+
+Signed-off-by: Alex Sierra <alex.sierra@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index fc664ec6b5fd..a425eecc7e04 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -115,17 +115,21 @@ static const struct soc15_reg_golden golden_settings_sdma_4[] = {
+ static const struct soc15_reg_golden golden_settings_sdma_vg10[] = {
+ 	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_GB_ADDR_CONFIG, 0x0018773f, 0x00104002),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_GB_ADDR_CONFIG_READ, 0x0018773f, 0x00104002),
++	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_CHICKEN_BITS, 0xfe931f07, 0x02831d07),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_GB_ADDR_CONFIG, 0x0018773f, 0x00104002),
+-	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_GB_ADDR_CONFIG_READ, 0x0018773f, 0x00104002)
++	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_GB_ADDR_CONFIG_READ, 0x0018773f, 0x00104002),
++	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ };
+ 
+ static const struct soc15_reg_golden golden_settings_sdma_vg12[] = {
+ 	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_GB_ADDR_CONFIG, 0x0018773f, 0x00104001),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_GB_ADDR_CONFIG_READ, 0x0018773f, 0x00104001),
++	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_CHICKEN_BITS, 0xfe931f07, 0x02831d07),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_GB_ADDR_CONFIG, 0x0018773f, 0x00104001),
+-	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_GB_ADDR_CONFIG_READ, 0x0018773f, 0x00104001)
++	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_GB_ADDR_CONFIG_READ, 0x0018773f, 0x00104001),
++	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ };
+ 
+ static const struct soc15_reg_golden golden_settings_sdma_4_1[] = {
+@@ -174,6 +178,7 @@ static const struct soc15_reg_golden golden_settings_sdma0_4_2[] =
+ 	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_RLC7_RB_RPTR_ADDR_LO, 0xfffffffd, 0x00000001),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_RLC7_RB_WPTR_POLL_CNTL, 0xfffffff7, 0x00403000),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_UTCL1_PAGE, 0x000003ff, 0x000003c0),
++	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ };
+ 
+ static const struct soc15_reg_golden golden_settings_sdma1_4_2[] = {
+@@ -203,6 +208,7 @@ static const struct soc15_reg_golden golden_settings_sdma1_4_2[] = {
+ 	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_RLC7_RB_RPTR_ADDR_LO, 0xfffffffd, 0x00000001),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_RLC7_RB_WPTR_POLL_CNTL, 0xfffffff7, 0x00403000),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_UTCL1_PAGE, 0x000003ff, 0x000003c0),
++	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ };
+ 
+ static const struct soc15_reg_golden golden_settings_sdma_rv1[] =
+@@ -222,27 +228,35 @@ static const struct soc15_reg_golden golden_settings_sdma_arct[] =
+ 	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
++	SOC15_REG_GOLDEN_VALUE(SDMA0, 0, mmSDMA0_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
++	SOC15_REG_GOLDEN_VALUE(SDMA1, 0, mmSDMA1_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA2, 0, mmSDMA2_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA2, 0, mmSDMA2_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA2, 0, mmSDMA2_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
++	SOC15_REG_GOLDEN_VALUE(SDMA2, 0, mmSDMA2_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA3, 0, mmSDMA3_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA3, 0, mmSDMA3_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA3, 0, mmSDMA3_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
++	SOC15_REG_GOLDEN_VALUE(SDMA3, 0, mmSDMA3_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA4, 0, mmSDMA4_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA4, 0, mmSDMA4_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA4, 0, mmSDMA4_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
++	SOC15_REG_GOLDEN_VALUE(SDMA4, 0, mmSDMA4_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA5, 0, mmSDMA5_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA5, 0, mmSDMA5_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA5, 0, mmSDMA5_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
++	SOC15_REG_GOLDEN_VALUE(SDMA5, 0, mmSDMA5_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA6, 0, mmSDMA6_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA6, 0, mmSDMA6_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA6, 0, mmSDMA6_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
++	SOC15_REG_GOLDEN_VALUE(SDMA6, 0, mmSDMA6_UTCL1_TIMEOUT, 0xffffffff, 0x00010001),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA7, 0, mmSDMA7_CHICKEN_BITS, 0xfe931f07, 0x02831f07),
+ 	SOC15_REG_GOLDEN_VALUE(SDMA7, 0, mmSDMA7_GB_ADDR_CONFIG, 0x0000773f, 0x00004002),
+-	SOC15_REG_GOLDEN_VALUE(SDMA7, 0, mmSDMA7_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002)
++	SOC15_REG_GOLDEN_VALUE(SDMA7, 0, mmSDMA7_GB_ADDR_CONFIG_READ, 0x0000773f, 0x00004002),
++	SOC15_REG_GOLDEN_VALUE(SDMA7, 0, mmSDMA7_UTCL1_TIMEOUT, 0xffffffff, 0x00010001)
+ };
+ 
+ static const struct soc15_reg_golden golden_settings_sdma_4_3[] = {
+-- 
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
