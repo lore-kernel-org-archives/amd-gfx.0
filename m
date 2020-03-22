@@ -2,102 +2,76 @@ Return-Path: <SRS0=k9Mm=5H=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 857DCC43332
-	for <amd-gfx@archiver.kernel.org>; Sun, 22 Mar 2020 08:33:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DBC60C4332E
+	for <amd-gfx@archiver.kernel.org>; Sun, 22 Mar 2020 15:48:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E49CF206F8
-	for <amd-gfx@archiver.kernel.org>; Sun, 22 Mar 2020 08:33:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AE2AC20722
+	for <amd-gfx@archiver.kernel.org>; Sun, 22 Mar 2020 15:48:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="foI4byh/"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E49CF206F8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n5FKR1K7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE2AC20722
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D4A36E060;
-	Sun, 22 Mar 2020 08:33:15 +0000 (UTC)
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690051.outbound.protection.outlook.com [40.107.69.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 66F936E060
- for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2020 08:33:14 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=T+LUaZkfS+AeIpsCF8aNk0VsOSOKI7FBAcBmEP5ml9riceGtgcuqt8QP/0EHGV2eatODWPLYfr0ILjWVzXJ7vRcyAr/6NMfCzPzpRGM3o0Mk/ttiKt17aZ0U5fh5qyrwEB47AuLsWzfI3IIJQ799XFDjKhb/uSdg8BkIsk1/xN4ju3Y8uHYqIpUHVlKtLkiFVpSpjkX4Xk/KBr2lJFqYOI4YfNvE+m3ZIJPGhydyIuXwW/QfUQGKZq+NZsl6vOLdN1btsZNJrcXARDWcVQpMdd+1WMm6h1+dIxMNE5JIELoMeLTmaxbLkxMK3puCx06d1rAMmQauQfhNEf8z+jEe+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=82EZUbPPkgqCGNO4lUipW42Xdngn98mk8utBGot1fuQ=;
- b=j0KNvIk0DoHtZUuBmI2d8tjlVNRctoY9fnzP5ok2QnjTi3GMnndCj6uK3+FlaQbWtEEbjMXLo1yf1H19Hq64g0S17RbHDGtB/gvVphQyBHtpMrRoPyDPaJHy4GbXnPQBnAZ5yXj7CAhfLEaGSvIdDTZn9ejbQqTpz4go9EM22+NaX5FFVj1ddBbGGkQ3jiaGgFzfWB4axF03k/2dCcpKg8kspN8FZP9qDE0w79AbaTg0CpGfo4u2pWwBSbtiBtCAMwEG9hmzDrjJoxpRPwdlcqrgTQGO7zO3Oh+j91kgboV7eqBgbVFQiBFIEW1Tf7qypwnU98p+ZBq1qef62ON0Iw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=82EZUbPPkgqCGNO4lUipW42Xdngn98mk8utBGot1fuQ=;
- b=foI4byh/TF/wmXawtWQ1ISl7BzxSMeAn3D3/d2M7j1Dj0u5qzIb98+IwNG1+p9sFmsSwaog5EdMYm3Jy6sgPrNJx0ufV2uySLnRxh17SUoJqQ34i4uwfRBwtJQvldbCnkrJGl2qBopd9neZKlRIYUb6VUK8G+D0rrTDXhHMa/EY=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Guchun.Chen@amd.com; 
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
- by CY4PR12MB1653.namprd12.prod.outlook.com (2603:10b6:910:f::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.18; Sun, 22 Mar
- 2020 08:33:11 +0000
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::74d2:68e2:beee:e901]) by CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::74d2:68e2:beee:e901%11]) with mapi id 15.20.2835.021; Sun, 22 Mar
- 2020 08:33:11 +0000
-From: Guchun Chen <guchun.chen@amd.com>
-To: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, Dennis.Li@amd.com,
- Tao.Zhou1@amd.com, John.Clements@amd.com, alexander.deucher@amd.com
-Subject: [PATCH] drm/amdgpu: record correct sram correctable error count on
- arcturus
-Date: Sun, 22 Mar 2020 16:32:49 +0800
-Message-Id: <20200322083249.25573-1-guchun.chen@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: HK2PR06CA0016.apcprd06.prod.outlook.com
- (2603:1096:202:2e::28) To CY4PR12MB1287.namprd12.prod.outlook.com
- (2603:10b6:903:40::8)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 369696E0CB;
+	Sun, 22 Mar 2020 15:48:40 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DE176E0CF
+ for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2020 15:48:39 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id d5so1188990wrn.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 22 Mar 2020 08:48:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+ :content-transfer-encoding;
+ bh=svWu57RMCKaJKbTuIqGGqATPcEzG5f3YXDcv7uYzpS8=;
+ b=n5FKR1K7MBkO3F3iLhMi1lB5r8B9rUfhhdfgyqA+I1Je+m48Gi7fZcG1qPN6UF+0AW
+ usstSc+SeMIUPBJziAO8VWe5pFNKGaV6LaWpTXAw0bYIg5/9GbgaArW8hApqV2GBIA1X
+ nSl2AZE7ULuNJKyx020bphu0coVSsl2F4HWE7G8CL2ICnzw+YGMPUQKQgdrUpOAcKDaU
+ 2/G4i1po+rSgitN1ILepgXlyvYXa2p9SOJFCgTpjSLY5t5z1cWnZqzYUIzH3WHyR95dB
+ 49zqHO4mRW6BjX994kdt/SDNhWD+LmB3LK7sKF2LHZaBwNPZGQ6YHryq7Gpaa2S3HGsh
+ YQLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=svWu57RMCKaJKbTuIqGGqATPcEzG5f3YXDcv7uYzpS8=;
+ b=mxroAjXgLj+P1h/7zmbbFV0TNsrCUELU1IwY7NGpFFXsgCtWddwk1DjS2D+Rm86Afp
+ sJ1HnXmv4SmK1FBriy04LxPH7+8/wy+xs/uitjgfAOwXivjPXK2JlIzb1sAq1ue1oW2k
+ t8OPWWeZfQNFjAosOg48AX5bUqyYFDi4TE6A1ptWmzKZH9GGU2r60JmX3KctnlF6nRWV
+ C+/g7uOsWaiaBSzjvb4ByOcFoVtgPFD4bkOKX2VBdV3zpbYZma2fB9W2DG6mz3tTo9S7
+ vqwpCQxwyYvgVNtjoCIMoy8cgwMWaVPLH9K3tdXtp0ESZrkyEHI+THctgY42ZK9PE+W9
+ lOLA==
+X-Gm-Message-State: ANhLgQ0frbNXB5Oi4HoAx6fbb3U3sZDFmCE29nN9m9mc5TZQf9AxxPzm
+ PDXUvxZ5Na1ngcEgJnyzNaGd0r45
+X-Google-Smtp-Source: ADFU+vurmbdqO9zIIp7tLg83RHImNqj/aAliHNmW3+9sx8Gzzxz20JBenx40X7xPlyFojIAZS6Cr0g==
+X-Received: by 2002:a5d:468c:: with SMTP id u12mr9306926wrq.394.1584892117931; 
+ Sun, 22 Mar 2020 08:48:37 -0700 (PDT)
+Received: from baker.fritz.box ([2a02:908:1252:fb60:30b8:db04:7ef1:ff43])
+ by smtp.gmail.com with ESMTPSA id i12sm19450368wro.46.2020.03.22.08.48.37
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 22 Mar 2020 08:48:37 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org,
+	Felix.Kuehling@amd.com
+Subject: [PATCH 2/2] drm/amdgpu: add full TMZ support into
+ amdgpu_ttm_map_buffer v2
+Date: Sun, 22 Mar 2020 16:48:35 +0100
+Message-Id: <20200322154835.2702-2-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.14.1
+In-Reply-To: <20200322154835.2702-1-christian.koenig@amd.com>
+References: <20200322154835.2702-1-christian.koenig@amd.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from guchchen-System-Product-Name.amd.com (180.167.199.189) by
- HK2PR06CA0016.apcprd06.prod.outlook.com (2603:1096:202:2e::28) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2835.19 via Frontend Transport; Sun, 22 Mar 2020 08:33:08 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [180.167.199.189]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 6fff77a5-d7ef-4602-1340-08d7ce3ba79b
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1653:|CY4PR12MB1653:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR12MB1653277128576535785755AEF1F30@CY4PR12MB1653.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2512;
-X-Forefront-PRVS: 0350D7A55D
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(136003)(366004)(346002)(376002)(396003)(199004)(478600001)(6636002)(6486002)(66946007)(44832011)(316002)(26005)(36756003)(86362001)(1076003)(66556008)(66476007)(4326008)(956004)(16526019)(7696005)(52116002)(186003)(6666004)(81156014)(8936002)(5660300002)(2616005)(2906002)(8676002)(81166006);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CY4PR12MB1653;
- H:CY4PR12MB1287.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NfjgswFjS9FlOuZNqFmPvnqJKrTWB2pl1+5k2Whs++lRJgfKEmWNKqfN/oCSGs5ahtBpv/6G/Sgj26Q1i2pztKHU7jvwGPlJiSe97pihGkWo6uh4Ti8udFMpUjOaTv9UqzUf7PHZ/lHnRelQc1F7kGEJf5YClCUB0aYGhxoZ+qj//THt2me9ZyHNHAgwDGqYRKRX5IE7xmlhy13xHYbByLtBfwCl0lNJCYF1/UnzNdKuxYQNfw1osIGL3w3WKlf0NFsSb52cJq0HepGuiBT1srb3ND4l9iKvswyp3naEkjOB5J2fmUgyQagePaEsrWY89YbO8oH/HAfKUcdVV6R5wGg5HBZbN5RRpFnQRosAE6V58ugr8r2R/JnuH2ZDwPDhZfIbFC/EU1DP7tyiPT41zwzGGYJE9KbCxpw3aA/9Joshsegy+P6pZhjtFDq3QJQG
-X-MS-Exchange-AntiSpam-MessageData: TyUvTHLoJeB276kMmJHstiZ87fjObqwrL+6fKQmm6PkmFz1Dw6bNvwNIFF2XPUnVvdkq6VZ1PGY50T+8zMoFqGbKnbiiX8IYFGCNVM+73nH7euvvI7PGQ0wXF3ssVciXuqhIB/ebwmbI4EY8MjYu3g==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fff77a5-d7ef-4602-1340-08d7ce3ba79b
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Mar 2020 08:33:10.9373 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c74C4bQbj/fo/eTNAoc+1bcJZ2tTGbceKB/2oGQ+T2HultrqY4RW5m0uwWQAsdC6x1+TODGeygZDExYIf7OpRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1653
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,54 +83,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Candice.Li@amd.com, Guchun Chen <guchun.chen@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On arcturus, only sram correctable error is stable after correctable
-error injection, so reduce check conditions to record hardware status.
-
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/umc_v6_1.c | 19 +++++++++++++++----
- 1 file changed, 15 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-index 77122a7282e7..57e8f72cc96d 100644
---- a/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/umc_v6_1.c
-@@ -138,10 +138,21 @@ static void umc_v6_1_query_correctable_error_count(struct amdgpu_device *adev,
- 	/* check for SRAM correctable error
- 	  MCUMC_STATUS is a 64 bit register */
- 	mc_umc_status = RREG64_PCIE((mc_umc_status_addr + umc_reg_offset) * 4);
--	if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, ErrorCodeExt) == 6 &&
--	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
--	    REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1)
--		*error_count += 1;
-+	if (REG_GET_FIELD(mc_umc_status,
-+		MCA_UMC_UMC0_MCUMC_STATUST0, Val) == 1 &&
-+		REG_GET_FIELD(mc_umc_status,
-+		MCA_UMC_UMC0_MCUMC_STATUST0, CECC) == 1) {
-+		/*
-+		 * On arcturus, only sram correctable error is stable after
-+		 * error injection, so bypass the check of ErrorCodeExt bit
-+		 * field in MCUMC_STATUS register to record correct status.
-+		 */
-+		if (adev->asic_type == CHIP_ARCTURUS)
-+			*error_count += 1;
-+		else if (REG_GET_FIELD(mc_umc_status, MCA_UMC_UMC0_MCUMC_STATUST0,
-+				ErrorCodeExt) == 6)
-+			*error_count += 1;
-+	}
- }
- 
- static void umc_v6_1_querry_uncorrectable_error_count(struct amdgpu_device *adev,
--- 
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VGhpcyBzaG91bGQgYWxsb3cgdXMgdG8gYWxzbyBzdXBwb3J0IFZSQU0tPkdUVCBtb3Zlcy4KCnYy
+OiBmaXggbWlzc2luZyB2cmFtX2Jhc2VfYWRqdXN0bWVudAoKU2lnbmVkLW9mZi1ieTogQ2hyaXN0
+aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyB8IDM4ICsrKysrKysrKysrKysrKysrKysrKysrKysr
+LS0tLS0tLQogMSBmaWxlIGNoYW5nZWQsIDMwIGluc2VydGlvbnMoKyksIDggZGVsZXRpb25zKC0p
+CgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jIGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCmluZGV4IDUzZGU5OWRiYWVh
+ZC4uZTE1YTM0M2E5NDRiIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfdHRtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5j
+CkBAIC0zMDksMjEgKzMwOSwyMSBAQCBzdGF0aWMgaW50IGFtZGdwdV90dG1fbWFwX2J1ZmZlcihz
+dHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJvLAogCQkJCSB1bnNpZ25lZCB3aW5kb3csIHN0cnVj
+dCBhbWRncHVfcmluZyAqcmluZywKIAkJCQkgYm9vbCB0bXosIHVpbnQ2NF90ICphZGRyKQogewot
+CXN0cnVjdCB0dG1fZG1hX3R0ICpkbWEgPSBjb250YWluZXJfb2YoYm8tPnR0bSwgc3RydWN0IHR0
+bV9kbWFfdHQsIHR0bSk7CiAJc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYgPSByaW5nLT5hZGV2
+OwogCXN0cnVjdCBhbWRncHVfam9iICpqb2I7CiAJdW5zaWduZWQgbnVtX2R3LCBudW1fYnl0ZXM7
+Ci0JZG1hX2FkZHJfdCAqZG1hX2FkZHJlc3M7CiAJc3RydWN0IGRtYV9mZW5jZSAqZmVuY2U7CiAJ
+dWludDY0X3Qgc3JjX2FkZHIsIGRzdF9hZGRyOworCXZvaWQgKmNwdV9hZGRyOwogCXVpbnQ2NF90
+IGZsYWdzOworCXVuc2lnbmVkIGludCBpOwogCWludCByOwogCiAJQlVHX09OKGFkZXYtPm1tYW4u
+YnVmZmVyX2Z1bmNzLT5jb3B5X21heF9ieXRlcyA8CiAJICAgICAgIEFNREdQVV9HVFRfTUFYX1RS
+QU5TRkVSX1NJWkUgKiA4KTsKIAogCS8qIE1hcCBvbmx5IHdoYXQgY2FuJ3QgYmUgYWNjZXNzZWQg
+ZGlyZWN0bHkgKi8KLQlpZiAobWVtLT5zdGFydCAhPSBBTURHUFVfQk9fSU5WQUxJRF9PRkZTRVQp
+IHsKKwlpZiAoIXRteiAmJiBtZW0tPnN0YXJ0ICE9IEFNREdQVV9CT19JTlZBTElEX09GRlNFVCkg
+ewogCQkqYWRkciA9IGFtZGdwdV9tbV9ub2RlX2FkZHIoYm8sIG1tX25vZGUsIG1lbSkgKyBvZmZz
+ZXQ7CiAJCXJldHVybiAwOwogCX0KQEAgLTM1MSwxNSArMzUxLDM3IEBAIHN0YXRpYyBpbnQgYW1k
+Z3B1X3R0bV9tYXBfYnVmZmVyKHN0cnVjdCB0dG1fYnVmZmVyX29iamVjdCAqYm8sCiAJYW1kZ3B1
+X3JpbmdfcGFkX2liKHJpbmcsICZqb2ItPmlic1swXSk7CiAJV0FSTl9PTihqb2ItPmlic1swXS5s
+ZW5ndGhfZHcgPiBudW1fZHcpOwogCi0JZG1hX2FkZHJlc3MgPSAmZG1hLT5kbWFfYWRkcmVzc1tv
+ZmZzZXQgPj4gUEFHRV9TSElGVF07CiAJZmxhZ3MgPSBhbWRncHVfdHRtX3R0X3B0ZV9mbGFncyhh
+ZGV2LCBiby0+dHRtLCBtZW0pOwogCWlmICh0bXopCiAJCWZsYWdzIHw9IEFNREdQVV9QVEVfVE1a
+OwogCi0JciA9IGFtZGdwdV9nYXJ0X21hcChhZGV2LCAwLCBudW1fcGFnZXMsIGRtYV9hZGRyZXNz
+LCBmbGFncywKLQkJCSAgICAmam9iLT5pYnNbMF0ucHRyW251bV9kd10pOwotCWlmIChyKQotCQln
+b3RvIGVycm9yX2ZyZWU7CisJY3B1X2FkZHIgPSAmam9iLT5pYnNbMF0ucHRyW251bV9kd107CisK
+KwlpZiAobWVtLT5tZW1fdHlwZSA9PSBUVE1fUExfVFQpIHsKKwkJc3RydWN0IHR0bV9kbWFfdHQg
+KmRtYTsKKwkJZG1hX2FkZHJfdCAqZG1hX2FkZHJlc3M7CisKKwkJZG1hID0gY29udGFpbmVyX29m
+KGJvLT50dG0sIHN0cnVjdCB0dG1fZG1hX3R0LCB0dG0pOworCQlkbWFfYWRkcmVzcyA9ICZkbWEt
+PmRtYV9hZGRyZXNzW29mZnNldCA+PiBQQUdFX1NISUZUXTsKKwkJciA9IGFtZGdwdV9nYXJ0X21h
+cChhZGV2LCAwLCBudW1fcGFnZXMsIGRtYV9hZGRyZXNzLCBmbGFncywKKwkJCQkgICAgY3B1X2Fk
+ZHIpOworCQlpZiAocikKKwkJCWdvdG8gZXJyb3JfZnJlZTsKKwl9IGVsc2UgeworCQlkbWFfYWRk
+cl90IGRtYV9hZGRyZXNzOworCisJCWRtYV9hZGRyZXNzID0gKG1tX25vZGUtPnN0YXJ0IDw8IFBB
+R0VfU0hJRlQpICsgb2Zmc2V0OworCQlkbWFfYWRkcmVzcyArPSBhZGV2LT52bV9tYW5hZ2VyLnZy
+YW1fYmFzZV9vZmZzZXQ7CisKKwkJZm9yIChpID0gMDsgaSA8IG51bV9wYWdlczsgKytpKSB7CisJ
+CQlyID0gYW1kZ3B1X2dhcnRfbWFwKGFkZXYsIGkgPDwgUEFHRV9TSElGVCwgMSwKKwkJCQkJICAg
+ICZkbWFfYWRkcmVzcywgZmxhZ3MsIGNwdV9hZGRyKTsKKwkJCWlmIChyKQorCQkJCWdvdG8gZXJy
+b3JfZnJlZTsKKworCQkJZG1hX2FkZHJlc3MgKz0gUEFHRV9TSVpFOworCQl9CisJfQogCiAJciA9
+IGFtZGdwdV9qb2Jfc3VibWl0KGpvYiwgJmFkZXYtPm1tYW4uZW50aXR5LAogCQkJICAgICAgQU1E
+R1BVX0ZFTkNFX09XTkVSX1VOREVGSU5FRCwgJmZlbmNlKTsKLS0gCjIuMTQuMQoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
