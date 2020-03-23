@@ -2,105 +2,106 @@ Return-Path: <SRS0=zf+m=5I=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 41E5FC54EEB
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2020 17:35:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B5F25C3F2CD
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2020 17:47:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E98D20714
-	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2020 17:35:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8D85020722
+	for <amd-gfx@archiver.kernel.org>; Mon, 23 Mar 2020 17:47:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=Mellanox.com header.i=@Mellanox.com header.b="BhKqX+ta"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E98D20714
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=Mellanox.com header.i=@Mellanox.com header.b="t8NTd9RM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D85020722
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=mellanox.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8F106E39E;
-	Mon, 23 Mar 2020 17:35:00 +0000 (UTC)
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr20077.outbound.protection.outlook.com [40.107.2.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E5DA6E388;
- Mon, 23 Mar 2020 17:24:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 371E189D64;
+	Mon, 23 Mar 2020 17:47:15 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2047.outbound.protection.outlook.com [40.107.22.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A4C86E394;
+ Mon, 23 Mar 2020 17:44:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=BF+FvWWg7baxIez2CjaOvP0rE51kWuKNOa3vA5Cpq8qMp1bHNbZMS5CWtMdIz7Wvsz+fVtSiWS2CELbadasDn17ZCsQavukd6vqg01XbH2fznSIUqy/BpQdQRjeCa3lf1+0iSqFXQB3ArS2h38eKpN9g+ItVnGtthq/887HryrkrI4zU9xHTpYS4tjxrPDUDagN8XRcb7MG1CmUVDXRLQX8a6kmkBxrUWZcri2n9jycBeFRJ5YMeMXzutdRVsoVAm7B1+rSB/35Q1Yd9c+bzMS1RcQKvsZQgMDLoVYEQglM+Cg7BiucFHRnsq+FXqiQ509Cche/+nABh/Zbekp/tFg==
+ b=WLDo65F41jzRRosNB9M+tAwu945PZJN3n8StiI4R78I10wqXc94RYoDZBQ/aZc36/9al5TRoWhoJmzCdhxQjodTPwkCBrEY2gcZHJb8u2B5QnBGlu5ueiARcdV5gLpwzhC0jJWof6dwNqzP1kAELs6cDno+42+orvmMGlp2Ao5pSf3nxrJveVNUBEloqSOayG98xPl9o9/jaPcSPmq5RGHEEKkV0H85V1jgamGagBnOpIgbPF02WzjsSn5oC9R/8FJcriaatpkdnF8oMuDdHu7ZpNsq5ZXaYKEQg7g75znyCHlRqHtdp49W7+D7NRpJtbtgKUiTh8vIe8OPeLwr8Wg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2aYGZtgxLWnMS9+t8vXikz+DnCYM/pEgWjcDgeOIR9I=;
- b=IQEK1KPP893f9aoX+yxhZm+YMdvKIVlvm4eoi/H7Fg5kVoq8ad9+plQCLMNkrewwCtEDuzA7RJelbKA/HQ+UKIhInGNpwND1FXbT6ZkBvNPMUZbfoUSsvYafQ7CG6aRA55/f1x8HnBvcccu8fAgCl6hUeIGZVopisYkEoWfhQCQF60oerKG7QfRv1ygV3W3uS+1scKivb8j/jOf5KLIiAZDQPsipt38szq8vvaCKlJIY7+S+MGGPcfD7WQmlH9/Qpb4AAnHBCSUgrtBfwMOMVPwtEl0oswOuQ9TK5fsTDi/FSN8IjRl9pMV6dU8hh8k+oFe8sML7ZpzQrSYr5i99+g==
+ bh=FAL8vzgYjFTghvLv+4uYrXBxDxq28m64SizePBNQAW8=;
+ b=e2MtvVgJy8MCyEle3CoqACO9NdvzKE1jbLbZhPwf6NRCtP3+Gm0LWbrVIQVrvXsPqLXh3wiaB7X593jGVFZptUhYKZi/6bejew51/GipHcrmqnSQ4D5eclw5FEVW5wxxNgYvLtSWlAzVY8UMrxHrvSIss+HqDz/eC4k5+u3bwrrp8SDYomRQTGVp2/DC2Pg20xXucuBg2lYLnJnrjuEp8IteCr6L2mWQsDl2Dce8IFQ5BbZ55RIyhjr7nWyG4kPTnfbWyb5tNM7ds25jmePWMLzq0YhLmdm8wxH5f6vnTBXsMdJ8wIpHdRaGF+A2WBt2UQ5mxGY+0hFe76mRnvo55Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=mellanox.com; dmarc=pass action=none header.from=mellanox.com;
  dkim=pass header.d=mellanox.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2aYGZtgxLWnMS9+t8vXikz+DnCYM/pEgWjcDgeOIR9I=;
- b=BhKqX+tahxRFzcFFialwwWvqXgIylQ65GxEeEDpdbU2tjldgeq6s6l1TfTKXOhorHNmQxul1APSMrhmB1Nd4Rkh5fclPB0PUU7sRx4KC9ZL2z6FGR27Gu0bdC4l4B9rf7GyCd/J2l4dUXr/ybW96XMkHS5Mp7K5+3FwmK36Ms0Q=
+ bh=FAL8vzgYjFTghvLv+4uYrXBxDxq28m64SizePBNQAW8=;
+ b=t8NTd9RM/dyANqXCgEUTHFcXyCkM1h1LWjHrEXqgwdpRZ3BOMLBPPjTjHyyPddGlu3ZejY8eVX8NpKiKzYt+QTtmEGASRtm4+Zt/otE7iQtf3Qw4Lsl1SeOOspEHOhyVFAaovfEc9TVsqq7PMHLKPPuMC2w+JKncKRMfX/GUTjQ=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=jgg@mellanox.com; 
 Received: from VI1PR05MB4141.eurprd05.prod.outlook.com (52.133.14.15) by
- VI1PR05MB4975.eurprd05.prod.outlook.com (20.177.51.33) with Microsoft SMTP
+ VI1PR05MB4895.eurprd05.prod.outlook.com (20.177.51.16) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2835.19; Mon, 23 Mar 2020 17:24:31 +0000
+ 15.20.2835.22; Mon, 23 Mar 2020 17:44:27 +0000
 Received: from VI1PR05MB4141.eurprd05.prod.outlook.com
  ([fe80::18d2:a9ea:519:add3]) by VI1PR05MB4141.eurprd05.prod.outlook.com
  ([fe80::18d2:a9ea:519:add3%7]) with mapi id 15.20.2835.021; Mon, 23 Mar 2020
- 17:24:30 +0000
-Date: Mon, 23 Mar 2020 14:24:27 -0300
+ 17:44:27 +0000
+Date: Mon, 23 Mar 2020 14:44:23 -0300
 From: Jason Gunthorpe <jgg@mellanox.com>
 To: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH hmm 3/6] mm/hmm: remove unused code and tidy comments
-Message-ID: <20200323172427.GZ13183@mellanox.com>
+Subject: Re: [PATCH hmm 6/6] mm/hmm: use device_private_entry_to_pfn()
+Message-ID: <20200323174423.GC13183@mellanox.com>
 References: <20200320164905.21722-1-jgg@ziepe.ca>
- <20200320164905.21722-4-jgg@ziepe.ca>
- <20200321083902.GC28695@lst.de>
+ <20200320164905.21722-7-jgg@ziepe.ca>
+ <20200321084347.GF28695@lst.de>
 Content-Disposition: inline
-In-Reply-To: <20200321083902.GC28695@lst.de>
+In-Reply-To: <20200321084347.GF28695@lst.de>
 User-Agent: Mutt/1.9.4 (2018-02-28)
-X-ClientProxiedBy: BL0PR0102CA0007.prod.exchangelabs.com
- (2603:10b6:207:18::20) To VI1PR05MB4141.eurprd05.prod.outlook.com
+X-ClientProxiedBy: MN2PR06CA0008.namprd06.prod.outlook.com
+ (2603:10b6:208:23d::13) To VI1PR05MB4141.eurprd05.prod.outlook.com
  (2603:10a6:803:44::15)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from mlx.ziepe.ca (142.68.57.212) by
- BL0PR0102CA0007.prod.exchangelabs.com (2603:10b6:207:18::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2835.15 via Frontend Transport; Mon, 23 Mar 2020 17:24:30 +0000
+ MN2PR06CA0008.namprd06.prod.outlook.com (2603:10b6:208:23d::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.18 via Frontend
+ Transport; Mon, 23 Mar 2020 17:44:27 +0000
 Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)	(envelope-from
- <jgg@mellanox.com>)	id 1jGQoN-0006bW-2j; Mon, 23 Mar 2020 14:24:27 -0300
+ <jgg@mellanox.com>)	id 1jGR7f-0007CQ-Na; Mon, 23 Mar 2020 14:44:23 -0300
 X-Originating-IP: [142.68.57.212]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ec563947-3605-4a87-f07f-08d7cf4f0bfc
-X-MS-TrafficTypeDiagnostic: VI1PR05MB4975:
-X-Microsoft-Antispam-PRVS: <VI1PR05MB49752C5808723D5C4B5A038FCFF00@VI1PR05MB4975.eurprd05.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
+X-MS-Office365-Filtering-Correlation-Id: 40317a86-7202-4755-60a2-08d7cf51d516
+X-MS-TrafficTypeDiagnostic: VI1PR05MB4895:
+X-Microsoft-Antispam-PRVS: <VI1PR05MB489568BD58B4E6CB3FAE39C5CFF00@VI1PR05MB4895.eurprd05.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-Forefront-PRVS: 0351D213B3
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(39860400002)(366004)(346002)(396003)(136003)(199004)(2616005)(52116002)(66556008)(66946007)(66476007)(186003)(26005)(86362001)(4326008)(1076003)(2906002)(36756003)(5660300002)(6916009)(81166006)(81156014)(8676002)(9786002)(9746002)(8936002)(478600001)(33656002)(4744005)(54906003)(316002)(24400500001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR05MB4975;
+ SFS:(10009020)(4636009)(136003)(396003)(346002)(366004)(376002)(39860400002)(199004)(52116002)(5660300002)(8936002)(2906002)(33656002)(81166006)(81156014)(8676002)(6916009)(4326008)(54906003)(316002)(86362001)(66946007)(66556008)(66476007)(478600001)(2616005)(26005)(186003)(36756003)(9786002)(9746002)(1076003)(24400500001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR05MB4895;
  H:VI1PR05MB4141.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; A:1; 
 Received-SPF: None (protection.outlook.com: mellanox.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: bOFiHOrM8NQmECJ2EKP3GCMUVKBl7til0THfn8XCrprvWVP4hsTOY4FmISkTIizkNDMedvZyinG2rX6602gNlEzV8gO9T/9thP85Mk1ooo7h2LRaFNThynX0OIvBHxIYzE+2bsVodD2IUqqPqGjWxmckt41t6ZtvlR5vZ6tks7FfAmMgqEq+2okUY0DIFushKzDVbEJD/dmjdfVeFW6Em9Mzy56N+wveyk7blczfpyuo92syU+A/5iTmxDpcti0iUoe8ME6ragWiCl3vT0E9g8zbDO5qKi6OnXafMuA66ubDZ6TCAV3wKP1E/6XdMLt0g55jJGrqJOWpBOvA8U2mEqgPSoAU8CPyjB5a/QpdyClvsdVFAqAhGB8LgppcBiCVcT+lJoB/dczcxvhLedn0l6t2+Kv7u5uAQ4TZZeeQGJqpckLh8w3YbPxd41rSSeLvwxJSmP+gKlU3AAMJ5J+FBetIwdtLePq+8O/XkbIjJnsXrWhJhRfVRlmS5WkPMtEO
-X-MS-Exchange-AntiSpam-MessageData: PhjtyFT8N4JaK77KxdbDI3TiM+SnSAlw3iDyhdK9lekggkJP4Ro/b7cbGzX/X5ld8/ZzLQDtbUIVN61SRqOCUduguKsyDJDsMmQEwUD4oLam/ULLWrynb1Zbc7h21qfRovHkWyCdcrTu/mbTFRLsWw==
+X-Microsoft-Antispam-Message-Info: sh5jcsRyK+ZyYKucTE1C2t8/esc+jJ1kCXwO2yrGhFTXYiRKmqA6xJOfX13faPISDJEFfDfUFLwr9XkufTLvnaTH2PpPcrkKGSkS2HGz4lykvpyq8TAIvZZR+wcbhm7FwNDoy0cMIEl2aHk18b9eswmwswl8E1tidGZNZy5EGxM3eLJi1FPoR5NWpVgztIpPF+RDRm/mHNW62OCC7RCCG8uapb0cIn7Ix4KVaRToX3GkH/krOrAaVqWUmpOk5Cq8ebEGIyOy1rua+mrbz8R/7fSh++wedl0sODwCkBP2vEtijRJiHo94ZP3CFIhQGgHKIcPHDhJm6WEvyzeGRpbHtL3DPwGf4zMG9xcbzPVp8pYf7Eb9IpEnSa6KzkDllILEJeCCj6mU3s/lqNfEtGLYmG6/Alai2S2WwXaHJIm/sREFFgk7l5Ox6PMi2fLqKHZlrH84YOFMtIBOnCGXGyTJ/Hsg1FdM8/b31zp5xtMLElNGfqEuY93RYKXip8Oa2ltx
+X-MS-Exchange-AntiSpam-MessageData: j5BfDv0oYef3dHodcP9nBaRpJKCpAwkXsX1YEH5YWYWMQG354js7NAecAuvU50oAfIATTaRUfJDTR0OUSLrnmjjlU33mF0YEgntGo69fWm96ihGtNQbXVT2Txncki/5t9001Bwm5/lFRSUznwz8y8g==
 X-OriginatorOrg: Mellanox.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec563947-3605-4a87-f07f-08d7cf4f0bfc
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2020 17:24:30.8585 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 40317a86-7202-4755-60a2-08d7cf51d516
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Mar 2020 17:44:27.1688 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: a652971c-7d2e-4d9b-a6a4-d149256f461b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QoeIR6lpz8lEM6qZKwhsi5RjiLkLmt/9lOg/80PaSDhKDdkOoqoK1g0uc+XCYTAizPLRxFKgvucCThTmESgAgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB4975
-X-Mailman-Approved-At: Mon, 23 Mar 2020 17:34:57 +0000
+X-MS-Exchange-CrossTenant-UserPrincipalName: XcR1hhe787yDKWV+X2ZjghNtvCMY6/jyA8v/391/1DzNh7lvqTmBk3zA6G/fKkXu+23m+xUFcp9SYYB81a8SMQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB4895
+X-Mailman-Approved-At: Mon, 23 Mar 2020 17:47:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,27 +122,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Mar 21, 2020 at 09:39:02AM +0100, Christoph Hellwig wrote:
-> On Fri, Mar 20, 2020 at 01:49:02PM -0300, Jason Gunthorpe wrote:
+On Sat, Mar 21, 2020 at 09:43:47AM +0100, Christoph Hellwig wrote:
+> On Fri, Mar 20, 2020 at 01:49:05PM -0300, Jason Gunthorpe wrote:
 > > From: Jason Gunthorpe <jgg@mellanox.com>
 > > 
-> > Delete several functions that are never called, fix some desync between
-> > comments and structure content, remove an unused ret, and move one
-> > function only used by hmm.c into hmm.c
+> > swp_offset() should not be called directly, the wrappers are supposed to
+> > abstract away the encoding of the device_private specific information in
+> > the swap entry.
+> > 
+> > Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
+> >  mm/hmm.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/mm/hmm.c b/mm/hmm.c
+> > index a09b4908e9c81a..fd9ee2b5fd9989 100644
+> > +++ b/mm/hmm.c
+> > @@ -259,8 +259,8 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+> >  		 * the PFN even if not present.
+> >  		 */
+> >  		if (hmm_is_device_private_entry(range, entry)) {
+> > -			*pfn = hmm_device_entry_from_pfn(range,
+> > -					    swp_offset(entry));
+> > +			*pfn = hmm_device_entry_from_pfn(
+> > +				range, device_private_entry_to_pfn(entry));
 > 
-> This looks good:
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> The range parameter can stay on the first line..
 
-You mean Reviewed-by?
- 
-> Btw, the top of file comment in include/linux/hmm.h really needs some
-> work as well.  In fact I think it should be mostly removed with any
-> remaining useful bit moved to Documentation/vm/hmm.rst.
-
-Okay, in v2 I'll just deleted the top, the only thing in this file now
-is hmm_range_fault() and it can be adaquately described by its
-kdoc comments.
+Done. Makes the diff smaller.
 
 Thanks,
 Jason
