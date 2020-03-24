@@ -7,59 +7,59 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EB70C43331
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 15:33:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FC21C43331
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 15:34:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 219F920774
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 15:33:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D7DDC20714
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 15:34:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dyognYiv"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 219F920774
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sJrXL/iY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7DDC20714
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF97B6E4A7;
-	Tue, 24 Mar 2020 15:33:44 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD4006E3B8
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2020 15:33:43 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id c81so3681218wmd.4
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2020 08:33:43 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A01DD8991A;
+	Tue, 24 Mar 2020 15:34:37 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED7D68991A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2020 15:34:36 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id c81so3684646wmd.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2020 08:34:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=h+ZmBvB5YPBKJHAn07y97A+XZTnhRvog8Arxmsec/AU=;
- b=dyognYivrq0bBUbioJLb35m3M0LtqHcEIaNvzc6loF65fJM1WX/QylgLKUQODy1fuJ
- kJyXqjLtk9cKtfe6wLnZPPxaNo2J71Tv7xJlNEo6m33Z2/29aQ5lmRzP+XMI439jHodL
- IDS5o1xTFO1auekkHPPldAEurLS6QAR/qhoqdEUVSsUtXqPhf/+C685ar3kh0Tog88Ww
- N/0ocI6yXiEbpIgIgabMrjHTZLnF4ly4xDqAIA4/opBayOOzYhHoudx6MoFqR5da7jc/
- ITLGoIbd3K9I5Hn8LPtj7ySOnNEgbJAszzO1bOGqWn3h7CBxNCLfQM6oFvT89lty7Jx6
- 3i8g==
+ :cc; bh=FjQmjMPBA1WBkja8A6wE980z3EM+394AlsY3fidYN+k=;
+ b=sJrXL/iYFbz/uAFUrghwnql3WGl8O28mUh4PctrHB6c1evCMcwpeyoXq1yySn+9nkQ
+ /zXtz61o2c/cT+NmTT5zBppL/Jzs59FDeSXUOa96YrnPYfGDmeZUfk+zpK/8hnFpZkBF
+ h+zEgts36JbQBNqn+MA1uwwXycR37B6IEtlDqhswcwVp7Srz6lQL/Go1ZS7mTia3vKva
+ 6rslOmYmEtRTRLAY7E7O6lQfdDicunXleC74+5+vnlN+rZPOnlqzroRpdCKfqqyRxygW
+ 4VwVW/jbxT9divxv3JQb4DCNNP+eaoMVYdwDXjqaNXjMJY2CVrVUHqiTyXmEg78iKmFg
+ jRww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=h+ZmBvB5YPBKJHAn07y97A+XZTnhRvog8Arxmsec/AU=;
- b=nMD/UovWaRh2bZOBpLnJ6mSkA86WXiGVe4ksfbkKDl2LPld2e9eKtXflki02jQZ/T4
- s+75d/6ove7UhH3ScbERa3nyhRE1KujipQQQlfNjSufEW/dX/ZfPHZPR61BlNsem/MLG
- 0dRkNHHtkHkqK7Q4b6d8+uJ+AfpP9fVQc9WIk+lO5y2+Dtv3u1v0+i8Hxg6ZqRpktmqE
- 3f1QVxp4zGPrm6TXhfLzKp5RwCiIbCsFlAWtWSsRvHPsVFReFjCVQTlwmM8+AulNQWeo
- M/F3ljh/0yYwzSq+Rn2sUZWOBSYLc/KzKybZWTn5FbxeQf9dI9rC2nLDk8hFPRbRcqSY
- oc9Q==
-X-Gm-Message-State: ANhLgQ0Gr5WIz2AERFkr7NZZ2FRXGKjtEOzmfIRsdHobp/hpPii0BAA0
- ToZLJ9StAuebgPv3xs29OM6sIuaq/HrV1OKPeXr5zg==
-X-Google-Smtp-Source: ADFU+vs5wufOe+VDK+9Am28pE+YRQ3MuqPoFCCclzBOeWBlio7gDsowqkHTM5c4ulu7BqEhzjRSumrhoJq7ArpFjZgs=
-X-Received: by 2002:a1c:de82:: with SMTP id v124mr6168131wmg.70.1585064021447; 
- Tue, 24 Mar 2020 08:33:41 -0700 (PDT)
+ bh=FjQmjMPBA1WBkja8A6wE980z3EM+394AlsY3fidYN+k=;
+ b=LHHiuWaVGPmkHQsqs5R5FTdDw09rA4GRkilJkEWFF64fXUbUYyNVU9ORv+tP7e9Z3H
+ 2kLixr+TkbMMDhJBnNvhMP2h1q4UsV962CsfvxtcFnH7zXDFz+/EnIslazad15zPJaw8
+ w/sZUr+POYXibNEW6iyQN6KUA5L7mPFBAbxBK6f6m1FGW1svoa69pHJKVbsLO2WZvfTG
+ pywH8WL6qSDnD5WHDZtMU00pkb7LTsIfZrtax6axWuV3UaMCfWesEzZIQzB7FgmcxK/J
+ TavE4Kqhb3NpiTHgXreCGqsPh1BgFAVnUWYTnhr0myUhCxbTxauaT1U7eWmq0R6Hzkjl
+ 9z/A==
+X-Gm-Message-State: ANhLgQ2EY0BO6RQALgTRUllJgAX9c1CQ7tHPOhbnSYdFsrsi+VEZCAoR
+ B90GYTc+2AuaYlBt0mJJxi3E9LOZCQiMvCDQ3b+xTg==
+X-Google-Smtp-Source: ADFU+vunpEm+ILiHl4QZbCuyjcUGZUm1GBXHClxmfoYzVtwKEg8EHzE8pj22s32RFKHbBGnTqlkj5+01lAbSmAGSKk0=
+X-Received: by 2002:a05:600c:286:: with SMTP id 6mr6446595wmk.56.1585064075657; 
+ Tue, 24 Mar 2020 08:34:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200324114159.23131-1-kent.russell@amd.com>
-In-Reply-To: <20200324114159.23131-1-kent.russell@amd.com>
+References: <20200324114937.23299-1-kent.russell@amd.com>
+In-Reply-To: <20200324114937.23299-1-kent.russell@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 24 Mar 2020 11:33:30 -0400
-Message-ID: <CADnq5_PChCqJs6p8QpZnrt2AcrqBqKYfZfQ+ULUb7Q=-qQQjoQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Expose TA FW version in fw_version file
+Date: Tue, 24 Mar 2020 11:34:24 -0400
+Message-ID: <CADnq5_PnQVcx-bzVkK-yWSJ_J4OR0TgpNZxL4B24jiPcg68vug@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix FRU data checking
 To: Kent Russell <kent.russell@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,35 +78,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Mar 24, 2020 at 7:42 AM Kent Russell <kent.russell@amd.com> wrote:
+On Tue, Mar 24, 2020 at 7:49 AM Kent Russell <kent.russell@amd.com> wrote:
 >
-> Reporting the fw_version just returns 0, the actual version is kept as
-> ta_*_ucode_version. This is the same as the feature reported in
-> the amdgpu_firmware_info debugfs file.
+> Ensure that when we memcpy, we don't end up copying more data than
+> the struct supports. For now, this is 16 characters for product number
+> and serial number, and 32 chars for product name
 >
 > Signed-off-by: Kent Russell <kent.russell@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 21 +++++++++++++++++++
+>  1 file changed, 21 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> index 9ef312428231..65bb25e31d45 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c
-> @@ -403,8 +403,8 @@ FW_VERSION_ATTR(mec_fw_version, 0444, gfx.mec_fw_version);
->  FW_VERSION_ATTR(mec2_fw_version, 0444, gfx.mec2_fw_version);
->  FW_VERSION_ATTR(sos_fw_version, 0444, psp.sos_fw_version);
->  FW_VERSION_ATTR(asd_fw_version, 0444, psp.asd_fw_version);
-> -FW_VERSION_ATTR(ta_ras_fw_version, 0444, psp.ta_fw_version);
-> -FW_VERSION_ATTR(ta_xgmi_fw_version, 0444, psp.ta_fw_version);
-> +FW_VERSION_ATTR(ta_ras_fw_version, 0444, psp.ta_ras_ucode_version);
-> +FW_VERSION_ATTR(ta_xgmi_fw_version, 0444, psp.ta_xgmi_ucode_version);
->  FW_VERSION_ATTR(smc_fw_version, 0444, pm.fw_version);
->  FW_VERSION_ATTR(sdma_fw_version, 0444, sdma.instance[0].fw_version);
->  FW_VERSION_ATTR(sdma2_fw_version, 0444, sdma.instance[1].fw_version);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+> index 6f5e98fda181..bfe4259f9508 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+> @@ -116,6 +116,13 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+>                 return size;
+>         }
+>
+> +       /* Product name should only be 32 characters. Any more,
+> +        * and something could be wrong. Cap it at 32 to be safe
+> +        */
+> +       if (size > 32) {
+> +               DRM_WARN("FRU Product Number is larger than 32 characters. This is likely a mistake");
+> +               size = 32;
+> +       }
+>         /* Start at 2 due to buff using fields 0 and 1 for the address */
+>         memcpy(adev->product_name, &buff[2], size);
+>         adev->product_name[size] = '\0';
+> @@ -127,6 +134,13 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+>                 return size;
+>         }
+>
+> +       /* Product number should only be 16 characters. Any more,
+> +        * and something could be wrong. Cap it at 16 to be safe
+> +        */
+> +       if (size > 16) {
+> +               DRM_WARN("FRU Product Number is larger than 16 characters. This is likely a mistake");
+> +               size = 16;
+> +       }
+>         memcpy(adev->product_number, &buff[2], size);
+>         adev->product_number[size] = '\0';
+>
+> @@ -146,6 +160,13 @@ int amdgpu_fru_get_product_info(struct amdgpu_device *adev)
+>                 return size;
+>         }
+>
+> +       /* Serial number should only be 16 characters. Any more,
+> +        * and something could be wrong. Cap it at 16 to be safe
+> +        */
+> +       if (size > 16) {
+> +               DRM_WARN("FRU Serial Number is larger than 16 characters. This is likely a mistake");
+> +               size = 16;
+> +       }
+>         memcpy(adev->serial, &buff[2], size);
+>         adev->serial[size] = '\0';
+>
 > --
 > 2.17.1
 >
