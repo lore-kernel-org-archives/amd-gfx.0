@@ -2,110 +2,73 @@ Return-Path: <SRS0=Ny8F=5J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 71DD9C4332B
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 10:59:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C39C0C4332B
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 11:36:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A96520786
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 10:59:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 96C992080C
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 11:36:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Tuw9s+IT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A96520786
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o8KOfWMj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96C992080C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B89889D2F;
-	Tue, 24 Mar 2020 10:59:06 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2065.outbound.protection.outlook.com [40.107.220.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 332F68987C
- for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2020 10:59:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QgfTrwmMeNVRDN0GXQgIySirHa2mcWO+hHMKX++32lgFIFPcebEPuc/gVoP/N4Z35/9gaHLGVB82G0jRgRQ91+B791PcPW6ic1fkNe0TaqbKvBggX/lHSX85o7LhVYmyut8gSeidJWDZ0WPaohh79XlojpdsXNHtjkIs9q1lodPk4X5f9d9WN7hnP+pIXACr0tTwNHwnnIuOmzSctFuCwVka6CI6wmTVw9jT9AV9gtJ8ewkqlK/h+exQHBUZS1UzVKWVQcjwAgLA9VOtBFAGFw630+4CLs5PuMVEt6H6847Ro2mOEz56vs6yD7aCpOMR9OvK1uTz5ieURF/fYW94Yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JQsilcrJoRED9/q/DtRfvsxheyhewPQxs0uJw7xKz04=;
- b=RQzU+jBjrdotjFQ+cW2s85BSYr7Jz/EorsLadd7CE/ikQpmWHCtWuh/RGtne8GrKGzBNiQ7wthMNlBdYThmxCNg7xEgqKc/YgPvhCf8Sxve6NrlGUEfxE81VJvrB1STIT3TzrB3fjLZxThr9ZsRlalgQxdirD7BoYb6AAZO70GJh5QGx3GAmfEmbbBzEWXOcd6NpbKC8+bHHfUIr5xk0bt7wKi4ZUGoCM6BzQLM+97gwOmWCEsfhueLQl57BdUxrIk1cZ1g62ct/gu/1bsKf+Tv/2EBtmXxj1Eg/bUtXGa7vdYE5m79pnojg/hWDo+nReXSs8S0ElhfGW1VnB9Prvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JQsilcrJoRED9/q/DtRfvsxheyhewPQxs0uJw7xKz04=;
- b=Tuw9s+ITcIM7BhGHQLTmdU3QLiT0uleuVH4193r5aruAXGIoQwCWPrqhWSw8pSdPEAeP5FsKMOi8HwaokGti1F24rH7GvmEG94iqTw9XJRjbXNIZjEtQOAR+99tuA72277RQLJuBwr5ulfFeFzmZStRkTSDE9UK5g9+25Q4U7Ec=
-Received: from MWHPR11CA0028.namprd11.prod.outlook.com (2603:10b6:300:115::14)
- by DM5PR12MB1241.namprd12.prod.outlook.com (2603:10b6:3:72::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.22; Tue, 24 Mar
- 2020 10:59:01 +0000
-Received: from CO1NAM11FT058.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:115:cafe::20) by MWHPR11CA0028.outlook.office365.com
- (2603:10b6:300:115::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.18 via Frontend
- Transport; Tue, 24 Mar 2020 10:59:01 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- CO1NAM11FT058.mail.protection.outlook.com (10.13.174.164) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2814.13 via Frontend Transport; Tue, 24 Mar 2020 10:59:00 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 24 Mar
- 2020 05:58:59 -0500
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 24 Mar
- 2020 05:58:59 -0500
-Received: from monk-build.amd.com (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Tue, 24 Mar 2020 05:58:58 -0500
-From: Monk Liu <Monk.Liu@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 4/4] drm/amdgpu: cleanup all virtualization detection routine
-Date: Tue, 24 Mar 2020 18:58:53 +0800
-Message-ID: <1585047533-10966-4-git-send-email-Monk.Liu@amd.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1585047533-10966-1-git-send-email-Monk.Liu@amd.com>
-References: <1585047533-10966-1-git-send-email-Monk.Liu@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D93489C61;
+	Tue, 24 Mar 2020 11:36:10 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C67989C61
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2020 11:36:09 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id 31so14952279wrs.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2020 04:36:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iQscCZpw0PC1ZYZZWIHZDjsWP9gx8GlEpdar4uq7vJA=;
+ b=o8KOfWMj7LgEd9Zx7dSygE+82fm6sYVKYbv9bHvCilF3buXE8F4XJo4MCEEWaCl9gy
+ 6bjanCgnDLO8JpfQZJ3sYjVegS2EOlYxd7DIap8UR9/1oWPYNzDyCy/BRk/WgrCfdaCP
+ bXvTahA8cBw7MIMOEcz0HdVK8SJXUhxP14KUsXqIz94fpkftZzBShBFknEjINy9dkfoR
+ lZPkzmeP7qz+Dt9oLZuqEzB84nXqw3lk706FZ3t5NAJskSWaAS1RAzJ76CJ8huG5oOZi
+ 6wanUACLSszi6zYpfh319Ta0zf3yF5HlQBinhQuc+KpV6a3fSQ/11tMEAZYV0fP159nN
+ xG5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=iQscCZpw0PC1ZYZZWIHZDjsWP9gx8GlEpdar4uq7vJA=;
+ b=oVIMLxAzMsD/llwsG73X3ue+MzO2uaYofvlJOvSBM1YUA9DrLN4JG/32gSGV9+WIwO
+ aNO74YOjGk07uB882c8MniMHB2T0Tjq0T5Dn52xGflZhkmNhLRQ2ai2tGRaDsms1rMQM
+ sIjJ3clZg1bznGiKOqEzxKy6oVbFXftQ7WELlsJxMi9lSknEYFZAcVrZy/ffGNci7Esg
+ oswEFOC6O/EaNJuc8Cng4bYK9IQ0CjaVxaR1ovlO1MIC8ntI/Mx8e0BjKrSsEBi82225
+ GJWNRb5s96fBT2o/ElFjV4vi98yaxNthiw5Bk5LThJej/JxEIqMEkeNlUOqS7MXgVfuO
+ fCcA==
+X-Gm-Message-State: ANhLgQ2T9Smx00seQMLUidtIybtw6Lclkxvh/SLty/SU7SLrc+6qIQRZ
+ 2lAhYn2uB5e6x4SFcE8o39ewolecLXw=
+X-Google-Smtp-Source: ADFU+vvk/BhRP2SO9uQFQHPrCcHWmyMiXw3nnRxBHomo/tPEg+7tnoFDxcJyq6sKP6//4tG2aLBDBA==
+X-Received: by 2002:adf:82b0:: with SMTP id 45mr35780105wrc.120.1585049766741; 
+ Tue, 24 Mar 2020 04:36:06 -0700 (PDT)
+Received: from brihaspati.fritz.box
+ (p200300C58F321800632BCCE71B67A266.dip0.t-ipconnect.de.
+ [2003:c5:8f32:1800:632b:cce7:1b67:a266])
+ by smtp.gmail.com with ESMTPSA id f9sm29274092wro.47.2020.03.24.04.36.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Mar 2020 04:36:06 -0700 (PDT)
+From: Nirmoy Das <nirmoy.aiemd@gmail.com>
+X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [RFC PATCH 1/1] drm/amdgpu: rework sched_list generation
+Date: Tue, 24 Mar 2020 12:40:10 +0100
+Message-Id: <20200324114010.104796-1-nirmoy.das@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(376002)(346002)(39860400002)(396003)(428003)(46966005)(8936002)(8676002)(70206006)(70586007)(81166006)(81156014)(86362001)(36756003)(7696005)(47076004)(4326008)(26005)(2616005)(2906002)(6916009)(30864003)(336012)(426003)(6666004)(356004)(186003)(5660300002)(478600001)(316002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1241; H:SATLEXMB01.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1c82fa6e-5ab9-4594-8e4a-08d7cfe25c07
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1241:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB1241838FB4C9FC50D3BA042684F10@DM5PR12MB1241.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
-X-Forefront-PRVS: 03524FBD26
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tZWlluUEqsMBy6H0sZco9V04oPItjgfBQgSTCNn/+gCrL/3JuXte5eWT69+5BIE7WGM34AILVCvI8SIcIsOjZ141v7XXrW7ndoyfWFBc1MxixNUM7qeCBL/J+6WgpwSiHV36yi9FT39KxH7rX55Dp+zuCEbk5BE/Swqt8SdAZFVnLQV1kGDAGOT52e9rBBrlGFBVOkFsLXUgLSg4KBMklvJgSlxXqa7dtNcqr51wcWsD8rEt/XIEvCPbgr6GldyuYEbnFzHm9HZQRUwpmkG/iIxLeVmEEGRuSv9AiJqRjmxXvCjYfX9GFk48pzbYmhFK0m3StcohHbmMcNYIbAfRqOQj9QXN45GtXHEhqbOoAUxZBaqOmpr3dhYh8se/wMyyxcexiXA//xc1JACKZMR/wLba3chxj5eefNodGpZh2XuyaDAkgQQ2H0fkABzX1PfEzyNCvXKhEaUTzdZeRHL8PxZUBO1kk1YB+C/STGJ/nGgXVSvS5iMb5p+aGIbFw/IUVX3IzlNEGMZoEtQeZRYGXQ==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2020 10:59:00.8083 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c82fa6e-5ab9-4594-8e4a-08d7cfe25c07
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1241
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,428 +80,969 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Monk Liu <Monk.Liu@amd.com>
+Cc: alexander.deucher@amd.com, ray.huang@amd.com, nirmoy.das@amd.com,
+ christian.koenig@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-we need to move virt detection much earlier because:
-1) HW team confirms us that RCC_IOV_FUNC_IDENTIFIER will always
-be at DE5 (dw) mmio offset from vega10, this way there is no
-need to implement detect_hw_virt() routine in each nbio/chip file.
-for VI SRIOV chip (tonga & fiji), the BIF_IOV_FUNC_IDENTIFIER is at
-0x1503
+Generate HW IP's sched_list in amdgpu_ring_init() instead of
+amdgpu_ctx.c. This makes amdgpu_ctx_init_compute_sched(),
+ring.has_high_prio and amdgpu_ctx_init_sched() unnecessary.
+This patch also stores sched_list for all HW IPs in one big
+array in struct amdgpu_device which makes amdgpu_ctx_init_entity()
+much more leaner.
 
-2) we need to acknowledged we are SRIOV VF before we do IP discovery because
-the IP discovery content will be updated by host everytime after it recieved
-a new coming "REQ_GPU_INIT_DATA" request from guest (there will be patches
-for this new handshake soon).
-
-Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  3 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h           |  1 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           | 33 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h           |  6 ++++
- drivers/gpu/drm/amd/amdgpu/cik.c                   |  8 ------
- drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c             | 18 ------------
- drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c             | 18 ------------
- drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c             |  7 -----
- drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c             | 18 ------------
- drivers/gpu/drm/amd/amdgpu/nv.c                    |  2 --
- drivers/gpu/drm/amd/amdgpu/si.c                    |  8 ------
- drivers/gpu/drm/amd/amdgpu/soc15.c                 |  1 -
- drivers/gpu/drm/amd/amdgpu/vi.c                    | 24 ----------------
- .../amd/include/asic_reg/nbif/nbif_6_1_offset.h    |  2 ++
- .../amd/include/asic_reg/nbio/nbio_7_0_offset.h    |  2 ++
- .../amd/include/asic_reg/nbio/nbio_7_4_offset.h    |  2 ++
- 16 files changed, 48 insertions(+), 105 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c    | 148 ++++-----------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h    |   3 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h    |   5 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h   |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c   |  11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h   |  28 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h   |   2 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h    |   4 -
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c      |   3 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c     |  13 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c      |   5 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c      |   5 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c      |  11 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c      |  13 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c     |   3 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c     |   3 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c     |   3 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c     |   3 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c     |   3 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c     |   6 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c     |   3 +-
+ drivers/gpu/drm/amd/amdgpu/si_dma.c        |   3 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c      |   3 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c      |   3 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c      |   7 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c      |   6 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v2_0.c      |   2 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c      |   3 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v4_0.c      |   3 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c      |   6 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c      |   6 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c      |   6 +-
+ 35 files changed, 131 insertions(+), 203 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 7dd74253e7b6..ac2ab2933e12 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -984,6 +984,10 @@ struct amdgpu_device {
+ 	char				product_number[16];
+ 	char				product_name[32];
+ 	char				serial[16];
++
++	/* drm scheduler list */
++	struct drm_gpu_scheduler	*ctx_scheds[AMDGPU_HW_IP_NUM][AMDGPU_RING_PRIO_MAX][AMDGPU_MAX_COMPUTE_RINGS];
++	uint32_t			ctx_num_scheds[AMDGPU_HW_IP_NUM][AMDGPU_RING_PRIO_MAX];
+ };
+ 
+ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+index 6ed36a2c5f73..24e98d674570 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+@@ -72,6 +72,15 @@ static enum gfx_pipe_priority amdgpu_ctx_sched_prio_to_compute_prio(enum drm_sch
+ 	}
+ }
+ 
++static unsigned int amdgpu_ctx_sched_prio_to_hw_prio(enum drm_sched_priority prio,
++						     const int hw_ip)
++{
++	if (hw_ip == AMDGPU_HW_IP_COMPUTE)
++		return amdgpu_ctx_sched_prio_to_compute_prio(prio);
++
++	return AMDGPU_RING_PRIO_DEFAULT;
++}
++
+ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, const u32 hw_ip, const u32 ring)
+ {
+ 	struct amdgpu_device *adev = ctx->adev;
+@@ -90,52 +99,19 @@ static int amdgpu_ctx_init_entity(struct amdgpu_ctx *ctx, const u32 hw_ip, const
+ 	entity->sequence = 1;
+ 	priority = (ctx->override_priority == DRM_SCHED_PRIORITY_UNSET) ?
+ 				ctx->init_priority : ctx->override_priority;
+-	switch (hw_ip) {
+-	case AMDGPU_HW_IP_GFX:
+-		sched = &adev->gfx.gfx_ring[0].sched;
+-		scheds = &sched;
+-		num_scheds = 1;
+-		break;
+-	case AMDGPU_HW_IP_COMPUTE:
+-		hw_prio = amdgpu_ctx_sched_prio_to_compute_prio(priority);
+-		scheds = adev->gfx.compute_prio_sched[hw_prio];
+-		num_scheds = adev->gfx.num_compute_sched[hw_prio];
+-		break;
+-	case AMDGPU_HW_IP_DMA:
+-		scheds = adev->sdma.sdma_sched;
+-		num_scheds = adev->sdma.num_sdma_sched;
+-		break;
+-	case AMDGPU_HW_IP_UVD:
+-		sched = &adev->uvd.inst[0].ring.sched;
+-		scheds = &sched;
+-		num_scheds = 1;
+-		break;
+-	case AMDGPU_HW_IP_VCE:
+-		sched = &adev->vce.ring[0].sched;
+-		scheds = &sched;
+-		num_scheds = 1;
+-		break;
+-	case AMDGPU_HW_IP_UVD_ENC:
+-		sched = &adev->uvd.inst[0].ring_enc[0].sched;
+-		scheds = &sched;
+-		num_scheds = 1;
+-		break;
+-	case AMDGPU_HW_IP_VCN_DEC:
+-		sched = drm_sched_pick_best(adev->vcn.vcn_dec_sched,
+-					    adev->vcn.num_vcn_dec_sched);
+-		scheds = &sched;
+-		num_scheds = 1;
+-		break;
+-	case AMDGPU_HW_IP_VCN_ENC:
+-		sched = drm_sched_pick_best(adev->vcn.vcn_enc_sched,
+-					    adev->vcn.num_vcn_enc_sched);
++	hw_prio = amdgpu_ctx_sched_prio_to_hw_prio(priority, hw_ip);
++	/* set to default prio if sched_list is NULL */
++	if (!adev->ctx_scheds[hw_ip][hw_prio][0]) {
++		hw_prio = AMDGPU_RING_PRIO_DEFAULT;
++	}
++
++	scheds = adev->ctx_scheds[hw_ip][hw_prio];
++	num_scheds = adev->ctx_num_scheds[hw_ip][hw_prio];
++
++	if (hw_ip == AMDGPU_HW_IP_VCN_ENC || hw_ip == AMDGPU_HW_IP_VCN_DEC) {
++		sched = drm_sched_pick_best(scheds, num_scheds);
+ 		scheds = &sched;
+ 		num_scheds = 1;
+-		break;
+-	case AMDGPU_HW_IP_VCN_JPEG:
+-		scheds = adev->jpeg.jpeg_sched;
+-		num_scheds =  adev->jpeg.num_jpeg_sched;
+-		break;
+ 	}
+ 
+ 	r = drm_sched_entity_init(&entity->entity, priority, scheds, num_scheds,
+@@ -178,7 +154,6 @@ static int amdgpu_ctx_init(struct amdgpu_device *adev,
+ 	ctx->override_priority = DRM_SCHED_PRIORITY_UNSET;
+ 
+ 	return 0;
+-
+ }
+ 
+ static void amdgpu_ctx_fini_entity(struct amdgpu_ctx_entity *entity)
+@@ -535,8 +510,12 @@ static void amdgpu_ctx_set_entity_priority(struct amdgpu_ctx *ctx,
+ 	/* set hw priority */
+ 	if (hw_ip == AMDGPU_HW_IP_COMPUTE) {
+ 		hw_prio = amdgpu_ctx_sched_prio_to_compute_prio(priority);
+-		scheds = adev->gfx.compute_prio_sched[hw_prio];
+-		num_scheds = adev->gfx.num_compute_sched[hw_prio];
++		/* set to default prio if sched_list is NULL */
++		if (!adev->ctx_scheds[hw_ip][hw_prio][0]) {
++			hw_prio = AMDGPU_RING_PRIO_DEFAULT;
++		}
++		scheds = adev->ctx_scheds[hw_ip][hw_prio];
++		num_scheds = adev->ctx_num_scheds[hw_ip][hw_prio];
+ 		drm_sched_entity_modify_sched(&aentity->entity, scheds,
+ 					      num_scheds);
+ 	}
+@@ -665,78 +644,3 @@ void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr *mgr)
+ 	idr_destroy(&mgr->ctx_handles);
+ 	mutex_destroy(&mgr->lock);
+ }
+-
+-
+-static void amdgpu_ctx_init_compute_sched(struct amdgpu_device *adev)
+-{
+-	int num_compute_sched_normal = 0;
+-	int num_compute_sched_high = AMDGPU_MAX_COMPUTE_RINGS - 1;
+-	int i;
+-
+-	/* use one drm sched array, gfx.compute_sched to store both high and
+-	 * normal priority drm compute schedulers */
+-	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+-		if (!adev->gfx.compute_ring[i].has_high_prio)
+-			adev->gfx.compute_sched[num_compute_sched_normal++] =
+-				&adev->gfx.compute_ring[i].sched;
+-		else
+-			adev->gfx.compute_sched[num_compute_sched_high--] =
+-				&adev->gfx.compute_ring[i].sched;
+-	}
+-
+-	/* compute ring only has two priority for now */
+-	i = AMDGPU_GFX_PIPE_PRIO_NORMAL;
+-	adev->gfx.compute_prio_sched[i] = &adev->gfx.compute_sched[0];
+-	adev->gfx.num_compute_sched[i] = num_compute_sched_normal;
+-
+-	i = AMDGPU_GFX_PIPE_PRIO_HIGH;
+-	if (num_compute_sched_high == (AMDGPU_MAX_COMPUTE_RINGS - 1)) {
+-		/* When compute has no high priority rings then use */
+-		/* normal priority sched array */
+-		adev->gfx.compute_prio_sched[i] = &adev->gfx.compute_sched[0];
+-		adev->gfx.num_compute_sched[i] = num_compute_sched_normal;
+-	} else {
+-		adev->gfx.compute_prio_sched[i] =
+-			&adev->gfx.compute_sched[num_compute_sched_high - 1];
+-		adev->gfx.num_compute_sched[i] =
+-			adev->gfx.num_compute_rings - num_compute_sched_normal;
+-	}
+-}
+-
+-void amdgpu_ctx_init_sched(struct amdgpu_device *adev)
+-{
+-	int i, j;
+-
+-	amdgpu_ctx_init_compute_sched(adev);
+-	for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
+-		adev->gfx.gfx_sched[i] = &adev->gfx.gfx_ring[i].sched;
+-		adev->gfx.num_gfx_sched++;
+-	}
+-
+-	for (i = 0; i < adev->sdma.num_instances; i++) {
+-		adev->sdma.sdma_sched[i] = &adev->sdma.instance[i].ring.sched;
+-		adev->sdma.num_sdma_sched++;
+-	}
+-
+-	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+-		if (adev->vcn.harvest_config & (1 << i))
+-			continue;
+-		adev->vcn.vcn_dec_sched[adev->vcn.num_vcn_dec_sched++] =
+-			&adev->vcn.inst[i].ring_dec.sched;
+-	}
+-
+-	for (i = 0; i < adev->vcn.num_vcn_inst; ++i) {
+-		if (adev->vcn.harvest_config & (1 << i))
+-			continue;
+-		for (j = 0; j < adev->vcn.num_enc_rings; ++j)
+-			adev->vcn.vcn_enc_sched[adev->vcn.num_vcn_enc_sched++] =
+-				&adev->vcn.inst[i].ring_enc[j].sched;
+-	}
+-
+-	for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
+-		if (adev->jpeg.harvest_config & (1 << i))
+-			continue;
+-		adev->jpeg.jpeg_sched[adev->jpeg.num_jpeg_sched++] =
+-			&adev->jpeg.inst[i].ring_dec.sched;
+-	}
+-}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+index de490f183af2..f54e10314661 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.h
+@@ -88,7 +88,4 @@ void amdgpu_ctx_mgr_entity_fini(struct amdgpu_ctx_mgr *mgr);
+ long amdgpu_ctx_mgr_entity_flush(struct amdgpu_ctx_mgr *mgr, long timeout);
+ void amdgpu_ctx_mgr_fini(struct amdgpu_ctx_mgr *mgr);
+ 
+-void amdgpu_ctx_init_sched(struct amdgpu_device *adev);
+-
+-
+ #endif
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index e55dbcd..ca609b6 100644
+index e55dbcd18b95..85bc1875be37 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3057,6 +3057,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
- 	if (amdgpu_mes && adev->asic_type >= CHIP_NAVI10)
- 		adev->enable_mes = true;
+@@ -3188,8 +3188,6 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 			adev->gfx.config.max_cu_per_sh,
+ 			adev->gfx.cu_info.number);
  
-+	/* detect hw virtualization here */
-+	amdgpu_detect_virtualization(adev);
+-	amdgpu_ctx_init_sched(adev);
+-
+ 	adev->accel_working = true;
+ 
+ 	amdgpu_vm_check_compute_bug(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 6b9c9193cdfa..92f2e59056c9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -320,7 +320,8 @@ int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev,
+ 	ring->eop_gpu_addr = kiq->eop_gpu_addr;
+ 	sprintf(ring->name, "kiq_%d.%d.%d", ring->me, ring->pipe, ring->queue);
+ 	r = amdgpu_ring_init(adev, ring, 1024,
+-			     irq, AMDGPU_CP_KIQ_IRQ_DRIVER0);
++			     irq, AMDGPU_CP_KIQ_IRQ_DRIVER0,
++			     AMDGPU_RING_PRIO_DEFAULT);
+ 	if (r)
+ 		dev_warn(adev->dev, "(%d) failed to init kiq ring\n", r);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 5825692d07e4..634746829024 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -286,13 +286,8 @@ struct amdgpu_gfx {
+ 	bool				me_fw_write_wait;
+ 	bool				cp_fw_write_wait;
+ 	struct amdgpu_ring		gfx_ring[AMDGPU_MAX_GFX_RINGS];
+-	struct drm_gpu_scheduler	*gfx_sched[AMDGPU_MAX_GFX_RINGS];
+-	uint32_t			num_gfx_sched;
+ 	unsigned			num_gfx_rings;
+ 	struct amdgpu_ring		compute_ring[AMDGPU_MAX_COMPUTE_RINGS];
+-	struct drm_gpu_scheduler        **compute_prio_sched[AMDGPU_GFX_PIPE_PRIO_MAX];
+-	struct drm_gpu_scheduler	*compute_sched[AMDGPU_MAX_COMPUTE_RINGS];
+-	uint32_t                        num_compute_sched[AMDGPU_GFX_PIPE_PRIO_MAX];
+ 	unsigned			num_compute_rings;
+ 	struct amdgpu_irq_src		eop_irq;
+ 	struct amdgpu_irq_src		priv_reg_irq;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
+index bd9ef9cc86de..5131a0a1bc8a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
+@@ -43,8 +43,6 @@ struct amdgpu_jpeg {
+ 	uint8_t	num_jpeg_inst;
+ 	struct amdgpu_jpeg_inst inst[AMDGPU_MAX_JPEG_INSTANCES];
+ 	struct amdgpu_jpeg_reg internal;
+-	struct drm_gpu_scheduler *jpeg_sched[AMDGPU_MAX_JPEG_INSTANCES];
+-	uint32_t num_jpeg_sched;
+ 	unsigned harvest_config;
+ 	struct delayed_work idle_work;
+ 	enum amd_powergating_state cur_state;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+index a7e1d0425ed0..e2d4478b28b7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
+@@ -162,11 +162,12 @@ void amdgpu_ring_undo(struct amdgpu_ring *ring)
+  * Returns 0 on success, error on failure.
+  */
+ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+-		     unsigned max_dw, struct amdgpu_irq_src *irq_src,
+-		     unsigned irq_type)
++		     unsigned int max_dw, struct amdgpu_irq_src *irq_src,
++		     unsigned int irq_type, unsigned int hw_prio)
+ {
+ 	int r, i;
+ 	int sched_hw_submission = amdgpu_sched_hw_submission;
++	int *num_sched;
+ 
+ 	/* Set the hw submission limit higher for KIQ because
+ 	 * it's used for a number of gfx/compute tasks by both
+@@ -258,6 +259,12 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+ 	ring->priority = DRM_SCHED_PRIORITY_NORMAL;
+ 	mutex_init(&ring->priority_mutex);
+ 
++	if (ring->funcs->type != AMDGPU_RING_TYPE_KIQ) {
++		num_sched = &adev->ctx_num_scheds[ring->funcs->type][hw_prio];
++		adev->ctx_scheds[ring->funcs->type][hw_prio][(*num_sched)++] =
++			&ring->sched;
++	}
 +
- 	if (amdgpu_discovery && adev->asic_type >= CHIP_NAVI10) {
- 		r = amdgpu_discovery_init(adev);
- 		if (r) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-index 919bd56..edaac24 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
-@@ -77,7 +77,6 @@ struct amdgpu_nbio_funcs {
- 				      u32 *flags);
- 	void (*ih_control)(struct amdgpu_device *adev);
- 	void (*init_registers)(struct amdgpu_device *adev);
--	void (*detect_hw_virt)(struct amdgpu_device *adev);
- 	void (*remap_hdp_registers)(struct amdgpu_device *adev);
- 	void (*handle_ras_controller_intr_no_bifring)(struct amdgpu_device *adev);
- 	void (*handle_ras_err_event_athub_intr_no_bifring)(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index adc813c..43a1ee3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -287,3 +287,36 @@ void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
+ 	for (i = 0; i < DRM_SCHED_PRIORITY_MAX; ++i)
+ 		atomic_set(&ring->num_jobs[i], 0);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+index 448c76cbf3ed..b45cc204a906 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+@@ -35,6 +35,9 @@
+ #define AMDGPU_MAX_VCE_RINGS		3
+ #define AMDGPU_MAX_UVD_ENC_RINGS	2
+ 
++#define AMDGPU_RING_PRIO_DEFAULT	1
++#define AMDGPU_RING_PRIO_MAX		AMDGPU_GFX_PIPE_PRIO_MAX
++
+ /* some special values for the owner field */
+ #define AMDGPU_FENCE_OWNER_UNDEFINED	((void *)0ul)
+ #define AMDGPU_FENCE_OWNER_VM		((void *)1ul)
+@@ -47,16 +50,16 @@
+ #define to_amdgpu_ring(s) container_of((s), struct amdgpu_ring, sched)
+ 
+ enum amdgpu_ring_type {
+-	AMDGPU_RING_TYPE_GFX,
+-	AMDGPU_RING_TYPE_COMPUTE,
+-	AMDGPU_RING_TYPE_SDMA,
+-	AMDGPU_RING_TYPE_UVD,
+-	AMDGPU_RING_TYPE_VCE,
+-	AMDGPU_RING_TYPE_KIQ,
+-	AMDGPU_RING_TYPE_UVD_ENC,
+-	AMDGPU_RING_TYPE_VCN_DEC,
+-	AMDGPU_RING_TYPE_VCN_ENC,
+-	AMDGPU_RING_TYPE_VCN_JPEG
++	AMDGPU_RING_TYPE_GFX      = AMDGPU_HW_IP_GFX,
++	AMDGPU_RING_TYPE_COMPUTE  = AMDGPU_HW_IP_COMPUTE,
++	AMDGPU_RING_TYPE_SDMA     = AMDGPU_HW_IP_DMA,
++	AMDGPU_RING_TYPE_UVD      = AMDGPU_HW_IP_UVD,
++	AMDGPU_RING_TYPE_VCE      = AMDGPU_HW_IP_VCE,
++	AMDGPU_RING_TYPE_UVD_ENC  = AMDGPU_HW_IP_UVD_ENC,
++	AMDGPU_RING_TYPE_VCN_DEC  = AMDGPU_HW_IP_VCN_DEC,
++	AMDGPU_RING_TYPE_VCN_ENC  = AMDGPU_HW_IP_VCN_ENC,
++	AMDGPU_RING_TYPE_VCN_JPEG = AMDGPU_HW_IP_VCN_JPEG,
++	AMDGPU_RING_TYPE_KIQ
+ };
+ 
+ struct amdgpu_device;
+@@ -220,7 +223,6 @@ struct amdgpu_ring {
+ 	struct mutex		priority_mutex;
+ 	/* protected by priority_mutex */
+ 	int			priority;
+-	bool			has_high_prio;
+ 
+ #if defined(CONFIG_DEBUG_FS)
+ 	struct dentry *ent;
+@@ -258,8 +260,8 @@ void amdgpu_ring_generic_pad_ib(struct amdgpu_ring *ring, struct amdgpu_ib *ib);
+ void amdgpu_ring_commit(struct amdgpu_ring *ring);
+ void amdgpu_ring_undo(struct amdgpu_ring *ring);
+ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
+-		     unsigned ring_size, struct amdgpu_irq_src *irq_src,
+-		     unsigned irq_type);
++		     unsigned int ring_size, struct amdgpu_irq_src *irq_src,
++		     unsigned int irq_type, unsigned int prio);
+ void amdgpu_ring_fini(struct amdgpu_ring *ring);
+ void amdgpu_ring_emit_reg_write_reg_wait_helper(struct amdgpu_ring *ring,
+ 						uint32_t reg0, uint32_t val0,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+index 2f4412e030a4..e5b8fb8e75c5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
+@@ -61,8 +61,6 @@ struct amdgpu_sdma_ras_funcs {
+ 
+ struct amdgpu_sdma {
+ 	struct amdgpu_sdma_instance instance[AMDGPU_MAX_SDMA_INSTANCES];
+-	struct drm_gpu_scheduler    *sdma_sched[AMDGPU_MAX_SDMA_INSTANCES];
+-	uint32_t		    num_sdma_sched;
+ 	struct amdgpu_irq_src	trap_irq;
+ 	struct amdgpu_irq_src	illegal_inst_irq;
+ 	struct amdgpu_irq_src	ecc_irq;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+index 6fe057329de2..2d0633d5515f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h
+@@ -196,10 +196,6 @@ struct amdgpu_vcn {
+ 	uint8_t	num_vcn_inst;
+ 	struct amdgpu_vcn_inst	 inst[AMDGPU_MAX_VCN_INSTANCES];
+ 	struct amdgpu_vcn_reg	 internal;
+-	struct drm_gpu_scheduler *vcn_enc_sched[AMDGPU_MAX_VCN_ENC_RINGS];
+-	struct drm_gpu_scheduler *vcn_dec_sched[AMDGPU_MAX_VCN_INSTANCES];
+-	uint32_t		 num_vcn_enc_sched;
+-	uint32_t		 num_vcn_dec_sched;
+ 
+ 	unsigned	harvest_config;
+ 	int (*pause_dpg_mode)(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+index 4274ccf765de..e9d3c18812bf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik_sdma.c
+@@ -980,7 +980,8 @@ static int cik_sdma_sw_init(void *handle)
+ 				     &adev->sdma.trap_irq,
+ 				     (i == 0) ?
+ 				     AMDGPU_SDMA_IRQ_INSTANCE0 :
+-				     AMDGPU_SDMA_IRQ_INSTANCE1);
++				     AMDGPU_SDMA_IRQ_INSTANCE1,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 7f9ac1a14e6f..b43c13acc77d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -1298,7 +1298,7 @@ static int gfx_v10_0_gfx_ring_init(struct amdgpu_device *adev, int ring_id,
+ 
+ 	irq_type = AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP + ring->pipe;
+ 	r = amdgpu_ring_init(adev, ring, 1024,
+-			     &adev->gfx.eop_irq, irq_type);
++			     &adev->gfx.eop_irq, irq_type, AMDGPU_RING_PRIO_DEFAULT);
+ 	if (r)
+ 		return r;
+ 	return 0;
+@@ -1309,7 +1309,8 @@ static int gfx_v10_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
+ {
+ 	int r;
+ 	unsigned irq_type;
+-	struct amdgpu_ring *ring = &adev->gfx.compute_ring[ring_id];
++	struct amdgpu_ring *ring;
++	int hw_prio;
+ 
+ 	ring = &adev->gfx.compute_ring[ring_id];
+ 
+@@ -1328,10 +1329,11 @@ static int gfx_v10_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
+ 	irq_type = AMDGPU_CP_IRQ_COMPUTE_MEC1_PIPE0_EOP
+ 		+ ((ring->me - 1) * adev->gfx.mec.num_pipe_per_mec)
+ 		+ ring->pipe;
+-
++	hw_prio = amdgpu_gfx_is_high_priority_compute_queue(adev, ring->queue) ?
++			AMDGPU_GFX_PIPE_PRIO_HIGH : AMDGPU_GFX_PIPE_PRIO_NORMAL;
+ 	/* type-2 packets are deprecated on MEC, use type-3 instead */
+ 	r = amdgpu_ring_init(adev, ring, 1024,
+-			     &adev->gfx.eop_irq, irq_type);
++			     &adev->gfx.eop_irq, irq_type, hw_prio);
+ 	if (r)
+ 		return r;
+ 
+@@ -3268,11 +3270,8 @@ static void gfx_v10_0_compute_mqd_set_priority(struct amdgpu_ring *ring, struct
+ 	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
+ 		if (amdgpu_gfx_is_high_priority_compute_queue(adev, ring->queue)) {
+ 			mqd->cp_hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_HIGH;
+-			ring->has_high_prio = true;
+ 			mqd->cp_hqd_queue_priority =
+ 				AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM;
+-		} else {
+-			ring->has_high_prio = false;
  		}
  	}
  }
-+
-+void amdgpu_detect_virtualization(struct amdgpu_device *adev)
-+{
-+	uint32_t reg;
-+
-+	switch (adev->asic_type) {
-+	case CHIP_TONGA:
-+	case CHIP_FIJI:
-+		reg = RREG32(mmBIF_IOV_FUNC_IDENTIFIER);
-+		break;
-+	case CHIP_VEGA10:
-+	case CHIP_VEGA20:
-+	case CHIP_NAVI10:
-+	case CHIP_NAVI12:
-+	case CHIP_ARCTURUS:
-+		reg = RREG32(mmRCC_IOV_FUNC_IDENTIFIER);
-+		break;
-+	default: /* other chip doesn't support SRIOV */
-+		reg = 0;
-+		break;
-+	}
-+
-+	if (reg & 1)
-+		adev->virt.caps |= AMDGPU_SRIOV_CAPS_IS_VF;
-+
-+	if (reg & 0x80000000)
-+		adev->virt.caps |= AMDGPU_SRIOV_CAPS_ENABLE_IOV;
-+
-+	if (!reg) {
-+		if (is_virtual_machine())	/* passthrough mode exclus sriov mod */
-+			adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
-+	}
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-index 0a95b13..74f9843 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -30,6 +30,11 @@
- #define AMDGPU_PASSTHROUGH_MODE        (1 << 3) /* thw whole GPU is pass through for VM */
- #define AMDGPU_SRIOV_CAPS_RUNTIME      (1 << 4) /* is out of full access mode */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+index 31f44d05e606..652fe562bccb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
+@@ -3114,7 +3114,8 @@ static int gfx_v6_0_sw_init(void *handle)
+ 		ring->ring_obj = NULL;
+ 		sprintf(ring->name, "gfx");
+ 		r = amdgpu_ring_init(adev, ring, 1024,
+-				     &adev->gfx.eop_irq, AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP);
++				     &adev->gfx.eop_irq, AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+@@ -3136,7 +3137,7 @@ static int gfx_v6_0_sw_init(void *handle)
+ 		sprintf(ring->name, "comp_%d.%d.%d", ring->me, ring->pipe, ring->queue);
+ 		irq_type = AMDGPU_CP_IRQ_COMPUTE_MEC1_PIPE0_EOP + ring->pipe;
+ 		r = amdgpu_ring_init(adev, ring, 1024,
+-				     &adev->gfx.eop_irq, irq_type);
++				     &adev->gfx.eop_irq, irq_type, AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+index 733d398c61cc..9869ad6286b5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+@@ -4439,7 +4439,7 @@ static int gfx_v7_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
  
-+/* all asic after AI use this offset */
-+#define mmRCC_IOV_FUNC_IDENTIFIER 0xDE5
-+/* tonga/fiji use this offset */
-+#define mmBIF_IOV_FUNC_IDENTIFIER 0x1503
-+
- struct amdgpu_mm_table {
- 	struct amdgpu_bo	*bo;
- 	uint32_t		*cpu_addr;
-@@ -305,4 +310,5 @@ int amdgpu_virt_fw_reserve_get_checksum(void *obj, unsigned long obj_size,
- 					unsigned int key,
- 					unsigned int chksum);
- void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev);
-+void amdgpu_detect_virtualization(struct amdgpu_device *adev);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-index 006f21e..db68ffa 100644
---- a/drivers/gpu/drm/amd/amdgpu/cik.c
-+++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-@@ -1811,12 +1811,6 @@ static uint32_t cik_get_rev_id(struct amdgpu_device *adev)
- 		>> CC_DRM_ID_STRAPS__ATI_REV_ID__SHIFT;
+ 	/* type-2 packets are deprecated on MEC, use type-3 instead */
+ 	r = amdgpu_ring_init(adev, ring, 1024,
+-			&adev->gfx.eop_irq, irq_type);
++			&adev->gfx.eop_irq, irq_type, AMDGPU_RING_PRIO_DEFAULT);
+ 	if (r)
+ 		return r;
+ 
+@@ -4511,7 +4511,8 @@ static int gfx_v7_0_sw_init(void *handle)
+ 		ring->ring_obj = NULL;
+ 		sprintf(ring->name, "gfx");
+ 		r = amdgpu_ring_init(adev, ring, 1024,
+-				     &adev->gfx.eop_irq, AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP);
++				     &adev->gfx.eop_irq, AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index fc32586ef80b..9a6a9e64b4b3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -1892,6 +1892,7 @@ static int gfx_v8_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
+ 	int r;
+ 	unsigned irq_type;
+ 	struct amdgpu_ring *ring = &adev->gfx.compute_ring[ring_id];
++	int hw_prio;
+ 
+ 	ring = &adev->gfx.compute_ring[ring_id];
+ 
+@@ -1911,9 +1912,11 @@ static int gfx_v8_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
+ 		+ ((ring->me - 1) * adev->gfx.mec.num_pipe_per_mec)
+ 		+ ring->pipe;
+ 
++	hw_prio = amdgpu_gfx_is_high_priority_compute_queue(adev, ring->queue) ?
++			AMDGPU_GFX_PIPE_PRIO_HIGH : AMDGPU_RING_PRIO_DEFAULT;
+ 	/* type-2 packets are deprecated on MEC, use type-3 instead */
+ 	r = amdgpu_ring_init(adev, ring, 1024,
+-			&adev->gfx.eop_irq, irq_type);
++			&adev->gfx.eop_irq, irq_type, hw_prio);
+ 	if (r)
+ 		return r;
+ 
+@@ -2017,7 +2020,8 @@ static int gfx_v8_0_sw_init(void *handle)
+ 		}
+ 
+ 		r = amdgpu_ring_init(adev, ring, 1024, &adev->gfx.eop_irq,
+-				     AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP);
++				     AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+@@ -4437,11 +4441,8 @@ static void gfx_v8_0_mqd_set_priority(struct amdgpu_ring *ring, struct vi_mqd *m
+ 	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
+ 		if (amdgpu_gfx_is_high_priority_compute_queue(adev, ring->queue)) {
+ 			mqd->cp_hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_HIGH;
+-			ring->has_high_prio = true;
+ 			mqd->cp_hqd_queue_priority =
+ 				AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM;
+-		} else {
+-			ring->has_high_prio = false;
+ 		}
+ 	}
  }
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index fb567cf5671b..6d5596199c09 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -2193,6 +2193,7 @@ static int gfx_v9_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
+ 	int r;
+ 	unsigned irq_type;
+ 	struct amdgpu_ring *ring = &adev->gfx.compute_ring[ring_id];
++	int hw_prio;
  
--static void cik_detect_hw_virtualization(struct amdgpu_device *adev)
--{
--	if (is_virtual_machine()) /* passthrough mode */
--		adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
--}
--
- static void cik_flush_hdp(struct amdgpu_device *adev, struct amdgpu_ring *ring)
- {
- 	if (!ring || !ring->funcs->emit_wreg) {
-@@ -2179,8 +2173,6 @@ static const struct amdgpu_ip_block_version cik_common_ip_block =
+ 	ring = &adev->gfx.compute_ring[ring_id];
  
- int cik_set_ip_blocks(struct amdgpu_device *adev)
- {
--	cik_detect_hw_virtualization(adev);
+@@ -2211,10 +2212,11 @@ static int gfx_v9_0_compute_ring_init(struct amdgpu_device *adev, int ring_id,
+ 	irq_type = AMDGPU_CP_IRQ_COMPUTE_MEC1_PIPE0_EOP
+ 		+ ((ring->me - 1) * adev->gfx.mec.num_pipe_per_mec)
+ 		+ ring->pipe;
 -
- 	switch (adev->asic_type) {
- 	case CHIP_BONAIRE:
- 		amdgpu_device_ip_block_add(adev, &cik_common_ip_block);
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-index f3a3fe7..cbcf045 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-@@ -290,23 +290,6 @@ const struct nbio_hdp_flush_reg nbio_v2_3_hdp_flush_reg = {
- 	.ref_and_mask_sdma1 = BIF_BX_PF_GPU_HDP_FLUSH_DONE__SDMA1_MASK,
- };
++	hw_prio = amdgpu_gfx_is_high_priority_compute_queue(adev, ring->queue) ?
++			AMDGPU_GFX_PIPE_PRIO_HIGH : AMDGPU_GFX_PIPE_PRIO_NORMAL;
+ 	/* type-2 packets are deprecated on MEC, use type-3 instead */
+ 	r = amdgpu_ring_init(adev, ring, 1024,
+-			     &adev->gfx.eop_irq, irq_type);
++			     &adev->gfx.eop_irq, irq_type, hw_prio);
+ 	if (r)
+ 		return r;
  
--static void nbio_v2_3_detect_hw_virt(struct amdgpu_device *adev)
--{
--	uint32_t reg;
--
--	reg = RREG32_SOC15(NBIO, 0, mmRCC_DEV0_EPF0_RCC_IOV_FUNC_IDENTIFIER);
--	if (reg & 1)
--		adev->virt.caps |= AMDGPU_SRIOV_CAPS_IS_VF;
--
--	if (reg & 0x80000000)
--		adev->virt.caps |= AMDGPU_SRIOV_CAPS_ENABLE_IOV;
--
--	if (!reg) {
--		if (is_virtual_machine())	/* passthrough mode exclus sriov mod */
--			adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
--	}
--}
--
- static void nbio_v2_3_init_registers(struct amdgpu_device *adev)
- {
- 	uint32_t def, data;
-@@ -338,6 +321,5 @@ const struct amdgpu_nbio_funcs nbio_v2_3_funcs = {
- 	.get_clockgating_state = nbio_v2_3_get_clockgating_state,
- 	.ih_control = nbio_v2_3_ih_control,
- 	.init_registers = nbio_v2_3_init_registers,
--	.detect_hw_virt = nbio_v2_3_detect_hw_virt,
- 	.remap_hdp_registers = nbio_v2_3_remap_hdp_registers,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-index 635d9e1..7b2fb05 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
-@@ -241,23 +241,6 @@ const struct nbio_hdp_flush_reg nbio_v6_1_hdp_flush_reg = {
- 	.ref_and_mask_sdma1 = BIF_BX_PF0_GPU_HDP_FLUSH_DONE__SDMA1_MASK
- };
- 
--static void nbio_v6_1_detect_hw_virt(struct amdgpu_device *adev)
--{
--	uint32_t reg;
--
--	reg = RREG32_SOC15(NBIO, 0, mmRCC_PF_0_0_RCC_IOV_FUNC_IDENTIFIER);
--	if (reg & 1)
--		adev->virt.caps |= AMDGPU_SRIOV_CAPS_IS_VF;
--
--	if (reg & 0x80000000)
--		adev->virt.caps |= AMDGPU_SRIOV_CAPS_ENABLE_IOV;
--
--	if (!reg) {
--		if (is_virtual_machine())	/* passthrough mode exclus sriov mod */
--			adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
--	}
--}
--
- static void nbio_v6_1_init_registers(struct amdgpu_device *adev)
- {
- 	uint32_t def, data;
-@@ -294,5 +277,4 @@ const struct amdgpu_nbio_funcs nbio_v6_1_funcs = {
- 	.get_clockgating_state = nbio_v6_1_get_clockgating_state,
- 	.ih_control = nbio_v6_1_ih_control,
- 	.init_registers = nbio_v6_1_init_registers,
--	.detect_hw_virt = nbio_v6_1_detect_hw_virt,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-index d6cbf26..d34628e 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
-@@ -280,12 +280,6 @@ const struct nbio_hdp_flush_reg nbio_v7_0_hdp_flush_reg = {
- 	.ref_and_mask_sdma1 = GPU_HDP_FLUSH_DONE__SDMA1_MASK,
- };
- 
--static void nbio_v7_0_detect_hw_virt(struct amdgpu_device *adev)
--{
--	if (is_virtual_machine())	/* passthrough mode exclus sriov mod */
--		adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
--}
--
- static void nbio_v7_0_init_registers(struct amdgpu_device *adev)
- {
- 
-@@ -310,6 +304,5 @@ const struct amdgpu_nbio_funcs nbio_v7_0_funcs = {
- 	.get_clockgating_state = nbio_v7_0_get_clockgating_state,
- 	.ih_control = nbio_v7_0_ih_control,
- 	.init_registers = nbio_v7_0_init_registers,
--	.detect_hw_virt = nbio_v7_0_detect_hw_virt,
- 	.remap_hdp_registers = nbio_v7_0_remap_hdp_registers,
- };
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-index 149d386..41c53c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
-@@ -292,23 +292,6 @@ const struct nbio_hdp_flush_reg nbio_v7_4_hdp_flush_reg = {
- 	.ref_and_mask_sdma7 = GPU_HDP_FLUSH_DONE__RSVD_ENG5_MASK,
- };
- 
--static void nbio_v7_4_detect_hw_virt(struct amdgpu_device *adev)
--{
--	uint32_t reg;
--
--	reg = RREG32_SOC15(NBIO, 0, mmRCC_IOV_FUNC_IDENTIFIER);
--	if (reg & 1)
--		adev->virt.caps |= AMDGPU_SRIOV_CAPS_IS_VF;
--
--	if (reg & 0x80000000)
--		adev->virt.caps |= AMDGPU_SRIOV_CAPS_ENABLE_IOV;
--
--	if (!reg) {
--		if (is_virtual_machine())	/* passthrough mode exclus sriov mod */
--			adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
--	}
--}
--
- static void nbio_v7_4_init_registers(struct amdgpu_device *adev)
- {
- 
-@@ -561,7 +544,6 @@ const struct amdgpu_nbio_funcs nbio_v7_4_funcs = {
- 	.get_clockgating_state = nbio_v7_4_get_clockgating_state,
- 	.ih_control = nbio_v7_4_ih_control,
- 	.init_registers = nbio_v7_4_init_registers,
--	.detect_hw_virt = nbio_v7_4_detect_hw_virt,
- 	.remap_hdp_registers = nbio_v7_4_remap_hdp_registers,
- 	.handle_ras_controller_intr_no_bifring = nbio_v7_4_handle_ras_controller_intr_no_bifring,
- 	.handle_ras_err_event_athub_intr_no_bifring = nbio_v7_4_handle_ras_err_event_athub_intr_no_bifring,
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 033cbbc..a67d78d 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -465,8 +465,6 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
- 	adev->nbio.funcs = &nbio_v2_3_funcs;
- 	adev->nbio.hdp_flush_reg = &nbio_v2_3_hdp_flush_reg;
- 
--	adev->nbio.funcs->detect_hw_virt(adev);
--
- 	if (amdgpu_sriov_vf(adev))
- 		adev->virt.ops = &xgpu_nv_virt_ops;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
-index 4d415bf..153db3f 100644
---- a/drivers/gpu/drm/amd/amdgpu/si.c
-+++ b/drivers/gpu/drm/amd/amdgpu/si.c
-@@ -1249,12 +1249,6 @@ static int si_set_uvd_clocks(struct amdgpu_device *adev, u32 vclk, u32 dclk)
- 	return 0;
+@@ -2308,7 +2310,9 @@ static int gfx_v9_0_sw_init(void *handle)
+ 		ring->use_doorbell = true;
+ 		ring->doorbell_index = adev->doorbell_index.gfx_ring0 << 1;
+ 		r = amdgpu_ring_init(adev, ring, 1024,
+-				     &adev->gfx.eop_irq, AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP);
++				     &adev->gfx.eop_irq,
++				     AMDGPU_CP_IRQ_GFX_ME0_PIPE0_EOP,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+@@ -3381,11 +3385,8 @@ static void gfx_v9_0_mqd_set_priority(struct amdgpu_ring *ring, struct v9_mqd *m
+ 	if (ring->funcs->type == AMDGPU_RING_TYPE_COMPUTE) {
+ 		if (amdgpu_gfx_is_high_priority_compute_queue(adev, ring->queue)) {
+ 			mqd->cp_hqd_pipe_priority = AMDGPU_GFX_PIPE_PRIO_HIGH;
+-			ring->has_high_prio = true;
+ 			mqd->cp_hqd_queue_priority =
+ 				AMDGPU_GFX_QUEUE_PRIORITY_MAXIMUM;
+-		} else {
+-			ring->has_high_prio = false;
+ 		}
+ 	}
  }
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+index 0debfd9f428c..0105519a856f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v1_0.c
+@@ -480,7 +480,8 @@ int jpeg_v1_0_sw_init(void *handle)
  
--static void si_detect_hw_virtualization(struct amdgpu_device *adev)
--{
--	if (is_virtual_machine()) /* passthrough mode */
--		adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
--}
--
- static void si_flush_hdp(struct amdgpu_device *adev, struct amdgpu_ring *ring)
- {
- 	if (!ring || !ring->funcs->emit_wreg) {
-@@ -2165,8 +2159,6 @@ static const struct amdgpu_ip_block_version si_common_ip_block =
+ 	ring = &adev->jpeg.inst->ring_dec;
+ 	sprintf(ring->name, "jpeg_dec");
+-	r = amdgpu_ring_init(adev, ring, 512, &adev->jpeg.inst->irq, 0);
++	r = amdgpu_ring_init(adev, ring, 512, &adev->jpeg.inst->irq, 0,
++			     AMDGPU_RING_PRIO_DEFAULT);
+ 	if (r)
+ 		return r;
  
- int si_set_ip_blocks(struct amdgpu_device *adev)
- {
--	si_detect_hw_virtualization(adev);
--
- 	switch (adev->asic_type) {
- 	case CHIP_VERDE:
- 	case CHIP_TAHITI:
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index a40499d..a8c90d8 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -712,7 +712,6 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
- 		adev->df.funcs = &df_v1_7_funcs;
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+index 6173951db7b4..ff759beac775 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c
+@@ -106,7 +106,8 @@ static int jpeg_v2_0_sw_init(void *handle)
+ 	ring->use_doorbell = true;
+ 	ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 1;
+ 	sprintf(ring->name, "jpeg_dec");
+-	r = amdgpu_ring_init(adev, ring, 512, &adev->jpeg.inst->irq, 0);
++	r = amdgpu_ring_init(adev, ring, 512, &adev->jpeg.inst->irq, 0,
++			     AMDGPU_RING_PRIO_DEFAULT);
+ 	if (r)
+ 		return r;
  
- 	adev->rev_id = soc15_get_rev_id(adev);
--	adev->nbio.funcs->detect_hw_virt(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
+index c04c2078a7c1..54f66926f0d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c
+@@ -118,7 +118,8 @@ static int jpeg_v2_5_sw_init(void *handle)
+ 		ring->use_doorbell = true;
+ 		ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 1 + 8 * i;
+ 		sprintf(ring->name, "jpeg_dec_%d", i);
+-		r = amdgpu_ring_init(adev, ring, 512, &adev->jpeg.inst[i].irq, 0);
++		r = amdgpu_ring_init(adev, ring, 512, &adev->jpeg.inst[i].irq, 0,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
  
- 	if (amdgpu_sriov_vf(adev))
- 		adev->virt.ops = &xgpu_ai_virt_ops;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-index 78b3590..0a90c29 100644
---- a/drivers/gpu/drm/amd/amdgpu/vi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-@@ -448,27 +448,6 @@ static bool vi_read_bios_from_rom(struct amdgpu_device *adev,
- 	return true;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+index fd7fa6082563..3d498ce02f48 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c
+@@ -874,7 +874,8 @@ static int sdma_v2_4_sw_init(void *handle)
+ 				     &adev->sdma.trap_irq,
+ 				     (i == 0) ?
+ 				     AMDGPU_SDMA_IRQ_INSTANCE0 :
+-				     AMDGPU_SDMA_IRQ_INSTANCE1);
++				     AMDGPU_SDMA_IRQ_INSTANCE1,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+index 4a8a7f0f3a9c..40a011145c5b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c
+@@ -1158,7 +1158,8 @@ static int sdma_v3_0_sw_init(void *handle)
+ 				     &adev->sdma.trap_irq,
+ 				     (i == 0) ?
+ 				     AMDGPU_SDMA_IRQ_INSTANCE0 :
+-				     AMDGPU_SDMA_IRQ_INSTANCE1);
++				     AMDGPU_SDMA_IRQ_INSTANCE1,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index fc664ec6b5fd..6a3d3f88d766 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -1848,7 +1848,8 @@ static int sdma_v4_0_sw_init(void *handle)
  
--static void vi_detect_hw_virtualization(struct amdgpu_device *adev)
--{
--	uint32_t reg = 0;
--
--	if (adev->asic_type == CHIP_TONGA ||
--	    adev->asic_type == CHIP_FIJI) {
--	       reg = RREG32(mmBIF_IOV_FUNC_IDENTIFIER);
--	       /* bit0: 0 means pf and 1 means vf */
--	       if (REG_GET_FIELD(reg, BIF_IOV_FUNC_IDENTIFIER, FUNC_IDENTIFIER))
--		       adev->virt.caps |= AMDGPU_SRIOV_CAPS_IS_VF;
--	       /* bit31: 0 means disable IOV and 1 means enable */
--	       if (REG_GET_FIELD(reg, BIF_IOV_FUNC_IDENTIFIER, IOV_ENABLE))
--		       adev->virt.caps |= AMDGPU_SRIOV_CAPS_ENABLE_IOV;
--	}
--
--	if (reg == 0) {
--		if (is_virtual_machine()) /* passthrough mode exclus sr-iov mode */
--			adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
--	}
--}
--
- static const struct amdgpu_allowed_register_entry vi_allowed_read_registers[] = {
- 	{mmGRBM_STATUS},
- 	{mmGRBM_STATUS2},
-@@ -1730,9 +1709,6 @@ static const struct amdgpu_ip_block_version vi_common_ip_block =
+ 		sprintf(ring->name, "sdma%d", i);
+ 		r = amdgpu_ring_init(adev, ring, 1024, &adev->sdma.trap_irq,
+-				     AMDGPU_SDMA_IRQ_INSTANCE0 + i);
++				     AMDGPU_SDMA_IRQ_INSTANCE0 + i,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
  
- int vi_set_ip_blocks(struct amdgpu_device *adev)
- {
--	/* in early init stage, vbios code won't work */
--	vi_detect_hw_virtualization(adev);
--
- 	if (amdgpu_sriov_vf(adev))
- 		adev->virt.ops = &xgpu_vi_virt_ops;
+@@ -1866,7 +1867,8 @@ static int sdma_v4_0_sw_init(void *handle)
+ 			sprintf(ring->name, "page%d", i);
+ 			r = amdgpu_ring_init(adev, ring, 1024,
+ 					     &adev->sdma.trap_irq,
+-					     AMDGPU_SDMA_IRQ_INSTANCE0 + i);
++					     AMDGPU_SDMA_IRQ_INSTANCE0 + i,
++					     AMDGPU_RING_PRIO_DEFAULT);
+ 			if (r)
+ 				return r;
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index 013e9c05bba5..346cde366600 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -1236,7 +1236,8 @@ static int sdma_v5_0_sw_init(void *handle)
+ 				     &adev->sdma.trap_irq,
+ 				     (i == 0) ?
+ 				     AMDGPU_SDMA_IRQ_INSTANCE0 :
+-				     AMDGPU_SDMA_IRQ_INSTANCE1);
++				     AMDGPU_SDMA_IRQ_INSTANCE1,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dma.c b/drivers/gpu/drm/amd/amdgpu/si_dma.c
+index 7f64d73043cf..90fb8c4ec13c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si_dma.c
++++ b/drivers/gpu/drm/amd/amdgpu/si_dma.c
+@@ -504,7 +504,8 @@ static int si_dma_sw_init(void *handle)
+ 				     &adev->sdma.trap_irq,
+ 				     (i == 0) ?
+ 				     AMDGPU_SDMA_IRQ_INSTANCE0 :
+-				     AMDGPU_SDMA_IRQ_INSTANCE1);
++				     AMDGPU_SDMA_IRQ_INSTANCE1,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+index 82abd8e728ab..489062e020a2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
+@@ -118,7 +118,8 @@ static int uvd_v4_2_sw_init(void *handle)
  
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_6_1_offset.h b/drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_6_1_offset.h
-index 68d0ffa..92fd27c 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_6_1_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_6_1_offset.h
-@@ -1162,8 +1162,10 @@
- #define mmRCC_CONFIG_MEMSIZE_BASE_IDX                                                                  0
- #define mmRCC_CONFIG_RESERVED                                                                          0x0de4 // duplicate 
- #define mmRCC_CONFIG_RESERVED_BASE_IDX                                                                 0
-+#ifndef mmRCC_IOV_FUNC_IDENTIFIER
- #define mmRCC_IOV_FUNC_IDENTIFIER                                                                      0x0de5 // duplicate 
- #define mmRCC_IOV_FUNC_IDENTIFIER_BASE_IDX                                                             0
-+#endif
+ 	ring = &adev->uvd.inst->ring;
+ 	sprintf(ring->name, "uvd");
+-	r = amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst->irq, 0);
++	r = amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst->irq, 0,
++			     AMDGPU_RING_PRIO_DEFAULT);
+ 	if (r)
+ 		return r;
  
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+index 0fa8aae2d78e..6385734eb902 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
+@@ -116,7 +116,8 @@ static int uvd_v5_0_sw_init(void *handle)
  
- // addressBlock: syshub_mmreg_ind_syshubdec
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_offset.h
-index 4354622..a7cd760 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_offset.h
-@@ -4251,8 +4251,10 @@
- #define mmRCC_CONFIG_MEMSIZE_BASE_IDX                                                                  2
- #define mmRCC_CONFIG_RESERVED                                                                          0x00c4
- #define mmRCC_CONFIG_RESERVED_BASE_IDX                                                                 2
-+#ifndef mmRCC_IOV_FUNC_IDENTIFIER
- #define mmRCC_IOV_FUNC_IDENTIFIER                                                                      0x00c5
- #define mmRCC_IOV_FUNC_IDENTIFIER_BASE_IDX                                                             2
-+#endif
+ 	ring = &adev->uvd.inst->ring;
+ 	sprintf(ring->name, "uvd");
+-	r = amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst->irq, 0);
++	r = amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst->irq, 0,
++			     AMDGPU_RING_PRIO_DEFAULT);
+ 	if (r)
+ 		return r;
  
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+index e0aadcaf6c8b..df5c22b18f85 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c
+@@ -416,7 +416,8 @@ static int uvd_v6_0_sw_init(void *handle)
  
- // addressBlock: nbio_nbif0_rcc_dev0_BIFDEC1
-diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_offset.h b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_offset.h
-index ce5830e..0c5a08b 100644
---- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_offset.h
-+++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_offset.h
-@@ -2687,8 +2687,10 @@
- #define mmRCC_CONFIG_MEMSIZE_BASE_IDX                                                                  2
- #define mmRCC_CONFIG_RESERVED                                                                          0x00c4
- #define mmRCC_CONFIG_RESERVED_BASE_IDX                                                                 2
-+#ifndef mmRCC_IOV_FUNC_IDENTIFIER
- #define mmRCC_IOV_FUNC_IDENTIFIER                                                                      0x00c5
- #define mmRCC_IOV_FUNC_IDENTIFIER_BASE_IDX                                                             2
-+#endif
+ 	ring = &adev->uvd.inst->ring;
+ 	sprintf(ring->name, "uvd");
+-	r = amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst->irq, 0);
++	r = amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst->irq, 0,
++			     AMDGPU_RING_PRIO_DEFAULT);
+ 	if (r)
+ 		return r;
  
+@@ -428,7 +429,9 @@ static int uvd_v6_0_sw_init(void *handle)
+ 		for (i = 0; i < adev->uvd.num_enc_rings; ++i) {
+ 			ring = &adev->uvd.inst->ring_enc[i];
+ 			sprintf(ring->name, "uvd_enc%d", i);
+-			r = amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst->irq, 0);
++			r = amdgpu_ring_init(adev, ring, 512,
++					     &adev->uvd.inst->irq, 0,
++					     AMDGPU_RING_PRIO_DEFAULT);
+ 			if (r)
+ 				return r;
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+index 0995378d8263..52ab47edf891 100644
+--- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
+@@ -450,7 +450,8 @@ static int uvd_v7_0_sw_init(void *handle)
+ 		if (!amdgpu_sriov_vf(adev)) {
+ 			ring = &adev->uvd.inst[j].ring;
+ 			sprintf(ring->name, "uvd_%d", ring->me);
+-			r = amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst[j].irq, 0);
++			r = amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst[j].irq, 0,
++					     AMDGPU_RING_PRIO_DEFAULT);
+ 			if (r)
+ 				return r;
+ 		}
+@@ -469,7 +470,8 @@ static int uvd_v7_0_sw_init(void *handle)
+ 				else
+ 					ring->doorbell_index = adev->doorbell_index.uvd_vce.uvd_ring2_3 * 2 + 1;
+ 			}
+-			r = amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst[j].irq, 0);
++			r = amdgpu_ring_init(adev, ring, 512, &adev->uvd.inst[j].irq, 0,
++					     AMDGPU_RING_PRIO_DEFAULT);
+ 			if (r)
+ 				return r;
+ 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+index b6837fcfdba7..74c9f567bcd6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v2_0.c
+@@ -434,7 +434,7 @@ static int vce_v2_0_sw_init(void *handle)
+ 		ring = &adev->vce.ring[i];
+ 		sprintf(ring->name, "vce%d", i);
+ 		r = amdgpu_ring_init(adev, ring, 512,
+-				     &adev->vce.irq, 0);
++				     &adev->vce.irq, 0, AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+index 217db187207c..6d9108fa22e0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
+@@ -442,7 +442,8 @@ static int vce_v3_0_sw_init(void *handle)
+ 	for (i = 0; i < adev->vce.num_rings; i++) {
+ 		ring = &adev->vce.ring[i];
+ 		sprintf(ring->name, "vce%d", i);
+-		r = amdgpu_ring_init(adev, ring, 512, &adev->vce.irq, 0);
++		r = amdgpu_ring_init(adev, ring, 512, &adev->vce.irq, 0,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+index 3fd102efb7af..188d4d98c9b7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
+@@ -476,7 +476,8 @@ static int vce_v4_0_sw_init(void *handle)
+ 			else
+ 				ring->doorbell_index = adev->doorbell_index.uvd_vce.vce_ring2_3 * 2 + 1;
+ 		}
+-		r = amdgpu_ring_init(adev, ring, 512, &adev->vce.irq, 0);
++		r = amdgpu_ring_init(adev, ring, 512, &adev->vce.irq, 0,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+index 09b0572b838d..ba54b5b9b9de 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
+@@ -127,7 +127,8 @@ static int vcn_v1_0_sw_init(void *handle)
  
- // addressBlock: nbio_nbif0_rcc_dev0_BIFDEC1
+ 	ring = &adev->vcn.inst->ring_dec;
+ 	sprintf(ring->name, "vcn_dec");
+-	r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst->irq, 0);
++	r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst->irq, 0,
++			     AMDGPU_RING_PRIO_DEFAULT);
+ 	if (r)
+ 		return r;
+ 
+@@ -145,7 +146,8 @@ static int vcn_v1_0_sw_init(void *handle)
+ 	for (i = 0; i < adev->vcn.num_enc_rings; ++i) {
+ 		ring = &adev->vcn.inst->ring_enc[i];
+ 		sprintf(ring->name, "vcn_enc%d", i);
+-		r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst->irq, 0);
++		r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst->irq, 0,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+index ec8091a661df..11d4d559328a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c
+@@ -133,7 +133,8 @@ static int vcn_v2_0_sw_init(void *handle)
+ 	ring->doorbell_index = adev->doorbell_index.vcn.vcn_ring0_1 << 1;
+ 
+ 	sprintf(ring->name, "vcn_dec");
+-	r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst->irq, 0);
++	r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst->irq, 0,
++			     AMDGPU_RING_PRIO_DEFAULT);
+ 	if (r)
+ 		return r;
+ 
+@@ -163,7 +164,8 @@ static int vcn_v2_0_sw_init(void *handle)
+ 		else
+ 			ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 1 + i;
+ 		sprintf(ring->name, "vcn_enc%d", i);
+-		r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst->irq, 0);
++		r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst->irq, 0,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+index c6363f5ad564..aeefee796cd1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c
+@@ -191,7 +191,8 @@ static int vcn_v2_5_sw_init(void *handle)
+ 		ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
+ 				(amdgpu_sriov_vf(adev) ? 2*j : 8*j);
+ 		sprintf(ring->name, "vcn_dec_%d", j);
+-		r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[j].irq, 0);
++		r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[j].irq, 0,
++				     AMDGPU_RING_PRIO_DEFAULT);
+ 		if (r)
+ 			return r;
+ 
+@@ -203,7 +204,8 @@ static int vcn_v2_5_sw_init(void *handle)
+ 					(amdgpu_sriov_vf(adev) ? (1 + i + 2*j) : (2 + i + 8*j));
+ 
+ 			sprintf(ring->name, "vcn_enc_%d.%d", j, i);
+-			r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[j].irq, 0);
++			r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[j].irq, 0,
++					     AMDGPU_RING_PRIO_DEFAULT);
+ 			if (r)
+ 				return r;
+ 		}
 -- 
-2.7.4
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
