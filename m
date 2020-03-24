@@ -2,67 +2,107 @@ Return-Path: <SRS0=Ny8F=5J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E8C73C43331
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 18:49:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38CC2C43331
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 18:59:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD5C82076E
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 18:49:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0E09420714
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 18:59:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RNFkkhe8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD5C82076E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=Mellanox.com header.i=@Mellanox.com header.b="L/NPMw5C"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0E09420714
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=mellanox.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29AC46E513;
-	Tue, 24 Mar 2020 18:49:42 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A28306E512;
- Tue, 24 Mar 2020 18:49:40 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id c81so4426002wmd.4;
- Tue, 24 Mar 2020 11:49:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+Bn2txemVnNW3tHUFGp2WOb1jH3UpeSV6hCDyIGrExc=;
- b=RNFkkhe84ZEGayHB8baD92NZqRNYMXvMXE6mRhmjiQa6+aEXFVM7MbYvmyJIdKpcyL
- P0Kt/3R2vW84P4s/9DAgLdNeg35C5fOZkjEhyT13/ZCUR+gG626E0DClz8eIGUTN4nKh
- kPtmyz2MZ8OtHGbxKYWz0+VZ3mQ3xF5qLTcUcbUjDvhp3hca4DAJ/qNdW2MiOi5eR3i0
- RLCdb2fIDqmg5ainr8H58LNrwP4j2Jnrr8FDHiGROvKA7RIu/LOsoSvLChS7sTz6LFpj
- ywjdBuh7EW9/2VFW49Duuk5GS0Htz5fgT9QzmpTW7cYC62W0m/UhGfP0tDnBfRz2EzUV
- K6dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+Bn2txemVnNW3tHUFGp2WOb1jH3UpeSV6hCDyIGrExc=;
- b=qSQOkQ4bVIHR9pxJeX60tGZcBmrWB2g/Jj/CDGmtunhmmPfYaTiGdtESwmrnqjD7pK
- xcrqy59kLklvJi9ByZP4A7nKc/TsyO3C0hw892o3a3maN0BIsTQNP/SQA6ghtDjIhTsR
- 8lFv2Qv9zD1zLu7dhMbKzppOBfOxH12BrEHGOe24uZJmr6QtDZkPgmk9uLD6H8EAANLk
- lHNyFZKBJP8kq2cDY4OSqBUxLnfM6P9zyWG/9X1aQivRLxRywPNtv+qSZec/tiU1M1ag
- 1CVOFAdgcjpUAdE7jlJ2AsCV/VHImzkc/bJQDHPCaX7/S08CGGr2cfvYsW7cg01HHKzB
- o8xA==
-X-Gm-Message-State: ANhLgQ2kMGRquWugJByp3okZpou/hdfyyy6RK+kTew9crjnmXHHIGyJb
- O/LBj5femAHvbz4o7kRZYTHZ3mMPzyMd1x6y1fU=
-X-Google-Smtp-Source: ADFU+vty6Yk31S5LF9YuvRPGLvF8AD8PNX2XXzN0Pdgf/WbZp30NoFPvgvWxHl9AOuzF24qwOvjqBS8ND5KRrr4tzUk=
-X-Received: by 2002:a7b:c386:: with SMTP id s6mr7501165wmj.104.1585075779201; 
- Tue, 24 Mar 2020 11:49:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC24089B62;
+	Tue, 24 Mar 2020 18:59:29 +0000 (UTC)
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+ (mail-db5eur01on0611.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe02::611])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72C3189B62;
+ Tue, 24 Mar 2020 18:58:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Rn0atL2fElw6s0azaj0G72fD9AWyC8mj3XcwQTWykkaD7A4jobUB7hhc7fmWQKwqRiznMsq9r/vGJWFNt6+n9tYZZlwZouojREJdH8FnySx9VeH2CVlFQLSPphEn9jVnAn1ZVZfyepL9yi6jjWUHGOKhbWvwmFQhAOKHLjywehjYW5P6ZK9MbdWSK/fzRdYbbaAgPaJGMHiOlxqQHOxLj+ghs7V2ly61qytDq2QKHT1ZNg6DU10Fhku1wKlO47cIrgfDfs7SBEiLisrBWIdYEDH4DBNdK4quuTO8DWrBxa2j8XiLCgXHg36+yBnnmnNoZ2w39etx5oPmR1bx3iRzGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gOK7NdaHlpJm86hqi8G0umHaichNTYS/UUeFe89nhpg=;
+ b=PFxTSekukv4FepzFw+ZmoKNLNf3aGWYsgTyQQ28JEelB1ubTdFXjPdrbB3fH8Xqf6CKb95U+83fgpLSGhOSV7/3LEFliwiPLo6KTbTDsXgwVTcsNIJCWQ4e/p0rnyIGOIqlJ3ICDUGnYdgg6qyQqlXna5E1Yz/OHDXsMkqTs+Snwy4JY1zSjWTWLtccVVoMvy++7BtV3QJEdNjhPn5OUjjdD0PH90iP6/bQ1wpqLJ66Ky7XEv1QMOUqaVBpNYUlWZNKtyoyRe0Xr8ys18KfxS6SfLNuzaKfGkBvEvCKPMOLNHuSyHD18oLk+dGtyIH1SE5si0jNwUeYvvALb7Abuvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mellanox.com; dmarc=pass action=none header.from=mellanox.com;
+ dkim=pass header.d=mellanox.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Mellanox.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gOK7NdaHlpJm86hqi8G0umHaichNTYS/UUeFe89nhpg=;
+ b=L/NPMw5CTYISXSVn6zQ3JdkTQNszYqbb1hKsswcAEQrdfyHIDDvOh3RsPhhjyElZMPpVCjEcmS/zijzd7Oh6zB8K39FA4fArjG8bhtZiCpybMdHrZvRoakiVAdhIEJa3fRJzEjcr7vx0LeAPMEOuXciHHjBupoLWHHO3pqKDWoo=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=jgg@mellanox.com; 
+Received: from VI1PR05MB4141.eurprd05.prod.outlook.com (52.133.14.15) by
+ VI1PR05MB4734.eurprd05.prod.outlook.com (20.176.7.147) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2835.22; Tue, 24 Mar 2020 18:58:15 +0000
+Received: from VI1PR05MB4141.eurprd05.prod.outlook.com
+ ([fe80::18d2:a9ea:519:add3]) by VI1PR05MB4141.eurprd05.prod.outlook.com
+ ([fe80::18d2:a9ea:519:add3%7]) with mapi id 15.20.2835.023; Tue, 24 Mar 2020
+ 18:58:15 +0000
+Date: Tue, 24 Mar 2020 15:58:07 -0300
+From: Jason Gunthorpe <jgg@mellanox.com>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH v2 hmm 2/9] mm/hmm: return the fault type from
+ hmm_pte_need_fault()
+Message-ID: <20200324185807.GN13183@mellanox.com>
+References: <20200324011457.2817-1-jgg@ziepe.ca>
+ <20200324011457.2817-3-jgg@ziepe.ca>
+ <20200324072712.GA23447@lst.de>
+Content-Disposition: inline
+In-Reply-To: <20200324072712.GA23447@lst.de>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: BL0PR05CA0025.namprd05.prod.outlook.com
+ (2603:10b6:208:91::35) To VI1PR05MB4141.eurprd05.prod.outlook.com
+ (2603:10a6:803:44::15)
 MIME-Version: 1.0
-References: <20200226190152.16131-1-Kenny.Ho@amd.com>
- <CAOWid-eyMGZfOyfEQikwCmPnKxx6MnTm17pBvPeNpgKWi0xN-w@mail.gmail.com>
- <20200324184633.GH162390@mtj.duckdns.org>
-In-Reply-To: <20200324184633.GH162390@mtj.duckdns.org>
-From: Kenny Ho <y2kenny@gmail.com>
-Date: Tue, 24 Mar 2020 14:49:27 -0400
-Message-ID: <CAOWid-cS-5YkFBLACotkZZCH0RSjHH94_r3VFH8vEPOubzSpPA@mail.gmail.com>
-Subject: Re: [PATCH v2 00/11] new cgroup controller for gpu/drm subsystem
-To: Tejun Heo <tj@kernel.org>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from mlx.ziepe.ca (142.68.57.212) by
+ BL0PR05CA0025.namprd05.prod.outlook.com (2603:10b6:208:91::35) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2856.12 via Frontend Transport; Tue, 24 Mar 2020 18:58:14 +0000
+Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)	(envelope-from
+ <jgg@mellanox.com>)	id 1jGokZ-0007tt-RT; Tue, 24 Mar 2020 15:58:07 -0300
+X-Originating-IP: [142.68.57.212]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 2fddc5c4-9032-4b3b-5196-08d7d0254ec0
+X-MS-TrafficTypeDiagnostic: VI1PR05MB4734:
+X-Microsoft-Antispam-PRVS: <VI1PR05MB4734106363915F30B7AD6592CFF10@VI1PR05MB4734.eurprd05.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Forefront-PRVS: 03524FBD26
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(366004)(346002)(376002)(136003)(39860400002)(2616005)(4744005)(33656002)(4326008)(36756003)(5660300002)(1076003)(316002)(8936002)(54906003)(478600001)(86362001)(6916009)(26005)(186003)(66946007)(2906002)(52116002)(9746002)(8676002)(66556008)(66476007)(9786002)(81166006)(81156014)(24400500001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR05MB4734;
+ H:VI1PR05MB4141.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; 
+Received-SPF: None (protection.outlook.com: mellanox.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: H3hEFsHLi81imPltmJoiN25lcMBOiKGvdJYMttAo0LgCj+qDvDUyUnh+GdtPtvVidYEheuuFWO5LIr/8N2wsoDt65ciYzm4Zza/nMB0VxWMUCd2YWdlfyJg9ng6nKgeAVzjaYazgh20au26X4Sio5CEKtxLM6Dcyq06Hgimu+VSUms3USco79+CYfBMBQKmkP38uf4ykN6Ah3vVjgbTRMqtuae34aQR4S/MX2WAbpB+wA+0p1WwkeavX3dMe2RsvUy/0GHDkMFHHzlanri1ZKMHZRH4BImphZ4COJDoo5p7lw/UJhDFabVz70tL1m6H7KoKFIvHf1/8z7mOAzWAX0CH7llJKpuUbnOpXtNNxZ3ODjhh/JVEHUBmmkZbLFmZSVr6Eec6F49i0mEFdpWf9dvlnrZ7WA8VcHnaWll/efNwP7s04NNYB/nWEDU2TgJ3czSfeZb5Ni8NvVtxqFaCwLAkkhxyY0FCX/IPIqZ8vDzj5gb4xnLMQqs7sHF/cOcEU
+X-MS-Exchange-AntiSpam-MessageData: AD0IwTgRYuC/K6/KToIx9Zs1s2W6U2CCBhv0xO5fZ6p5jDUKD7RnXSS2WBZj3pHtereBSMP6GP442hVzoYbcHWTf3M4qW9QIqUxoBrWtAoh5fxX6sjCNGhdC8nMACq4HHt1PbWE53abo3LazK3SASQ==
+X-OriginatorOrg: Mellanox.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2fddc5c4-9032-4b3b-5196-08d7d0254ec0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2020 18:58:15.2237 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: a652971c-7d2e-4d9b-a6a4-d149256f461b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JJdFZhD3aR4PxI4VUhlRkTgVCFtZ3voOMPkb6C+iYTx6WJ5WUUdeqsOA00BBYnU39BakpLTiKvaZBMi0+z8dxQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB4734
+X-Mailman-Approved-At: Tue, 24 Mar 2020 18:59:28 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,36 +114,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>,
- jsparks@cray.com, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, "Greathouse,
- Joseph" <joseph.greathouse@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- cgroups@vger.kernel.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Philip Yang <Philip.Yang@amd.com>, Ralph Campbell <rcampbell@nvidia.com>,
+ John Hubbard <jhubbard@nvidia.com>, Felix.Kuehling@amd.com,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ Jerome Glisse <jglisse@redhat.com>, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Tejun,
+On Tue, Mar 24, 2020 at 08:27:12AM +0100, Christoph Hellwig wrote:
+> On Mon, Mar 23, 2020 at 10:14:50PM -0300, Jason Gunthorpe wrote:
+> > +enum {
+> > +	HMM_NEED_FAULT = 1 << 0,
+> > +	HMM_NEED_WRITE_FAULT = HMM_NEED_FAULT | (1 << 1),
+> > +	HMM_NEED_ALL_BITS = HMM_NEED_FAULT | HMM_NEED_WRITE_FAULT,
+> 
+> I have to say I find the compound version of HMM_NEED_WRITE_FAULT
+> way harder to understand than the logic in the previous version,
+> and would refer keeping separate bits here.
+> 
+> Mostly beccause of statements like this:
+> 
+> > +	if ((required_fault & HMM_NEED_WRITE_FAULT) == HMM_NEED_WRITE_FAULT) {
+> 
+> which seems rather weird.
 
-Can you elaborate more on what are the missing pieces?
+Okay, I checked it over, and there is one weird statement above but
+only one place that |'s them together, so it is overall simpler to
+split the enum.
 
-Regards,
-Kenny
+I'll keep the HMM_NEED_ALL_BITS, I think that purpose is clear enough.
 
-On Tue, Mar 24, 2020 at 2:46 PM Tejun Heo <tj@kernel.org> wrote:
->
-> On Tue, Mar 17, 2020 at 12:03:20PM -0400, Kenny Ho wrote:
-> > What's your thoughts on this latest series?
->
-> My overall impression is that the feedbacks aren't being incorporated throughly
-> / sufficiently.
->
-> Thanks.
->
-> --
-> tejun
+Thanks,
+Jason
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
