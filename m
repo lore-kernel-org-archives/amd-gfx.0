@@ -7,69 +7,69 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E85AC54FCF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8B2BC4332B
 	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 08:14:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E57E020409
-	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 08:14:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8EB6120409
+	for <amd-gfx@archiver.kernel.org>; Tue, 24 Mar 2020 08:14:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="j2Fj9mGG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E57E020409
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="HhKFH+h9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8EB6120409
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61BCC6E466;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 893B56E46B;
 	Tue, 24 Mar 2020 08:14:18 +0000 (UTC)
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C73196E43B
+Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
+ [IPv6:2607:f8b0:4864:20::842])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 745A189E35
  for <amd-gfx@lists.freedesktop.org>; Tue, 24 Mar 2020 01:15:14 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id l25so12845031qki.7
+Received: by mail-qt1-x842.google.com with SMTP id 10so13715419qtp.1
  for <amd-gfx@lists.freedesktop.org>; Mon, 23 Mar 2020 18:15:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=BtjvXIRl7JvjxGCCwhwKty2zmKTxYCK8uhb2/phXd0E=;
- b=j2Fj9mGGXkb0s5jfx+PaOyQglxSKvi9DzQ14cmVcTgbF31/1q+wroCRgzrwp6o0lQ/
- PMrHTYwMUGlLwsiNJF2XuxvJX4Aj6pKrULOtMy1PyM1vypcNPVUYzBmwCBJNESpWOsyS
- JOkIyj3fbVfemR9nxyftNMco7DJxkZ6NYasYiV3jSGP2jWoKOaqJekhfAVS0HndDoMRY
- sEKvbkkAiciWAwNov/v7Qg1GYL8sIHnYstAwrJO22Txcxgv2IyW8RiB5s9/XVFJogf6L
- DJNCkbc11+nvZK7Tq18ykvSovfN4GbCtjxmOr3RGIWx/7vmJWd3LSencrwufu6ElenGz
- CxPw==
+ bh=8z+Ak8LJ4cusnv639Xm98KV9Wso4IbiTcHYELSH/G24=;
+ b=HhKFH+h9dsFIf1c+y5ZAjNcHJkLfL/7TByr8KqLLVhFohTYKwWhXx2XiETLziarPtW
+ HmC89Ua/ZfOQ53NE5bjqh2YkzI3VjXOn9sjDenilAjM2tgLtIs+v5bMY3AnTgGPB6sBY
+ b1oed859g52WVKLkm7EBX27mr9X3LBNTceG4ymOTF3BxLJp8wDGWq+wXPMW1orpJA3y1
+ o4TLZlvcbSHFVCu7RdAGl/h2z1hO8vJNXGZX6OIQ3uwn+EpAbkt+7b1ZXGgMMqMoOzpy
+ FqJ5FKyR0qY7mwkSGi6gaRmlHxT/E4dqGkJiaugNvgjpT+6iFBJR1xYGeMw1Je2MPBe6
+ BQXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=BtjvXIRl7JvjxGCCwhwKty2zmKTxYCK8uhb2/phXd0E=;
- b=UX5jlsBVXuNSUB30a+jGY2nlRJZJPZLv8Q1pterIkk1AWadt6hadHqDQy73+6e88nO
- zLCHfHjjY8zZa4H5uSnf490rpJD5g9l1aho5941Aw3/CK6mQGxI0sv3/XzT2QjmZtyq0
- xhV0a6zPucpze7hGNTcDJ3KiGkYwbTPSTQlXi7gBNCg8acNiw0LsT6VK+1fpdE1b4oDp
- t7MBfGNgNFWMPe8YQ0lGDOFZ8uWswfxaZYOEeqNkkU+5vSCeZfr8hV8ODqZRWXCqanwq
- r8v8Dl/FNmuQFME+BN2ut62xMebbFfTmAuuxuo4A8C+pMV6jso9IFGYrFFOxJ3MrgDUH
- iZGA==
-X-Gm-Message-State: ANhLgQ3XwiRiUc6+Pk7G/txY25eUJG5NuUBYrsIPu1tFmTghf7jTdoqy
- FrIN1tTO+9lGIZNW2GVxErFYCQ==
-X-Google-Smtp-Source: ADFU+vuqtjILT193yy1E1b2Co21btJLxUdSeIXs67XJc39y6GefW1zq10kzN67rE1jTtVo2ZUkW7VA==
-X-Received: by 2002:a37:9a81:: with SMTP id
- c123mr18495488qke.176.1585012513991; 
+ bh=8z+Ak8LJ4cusnv639Xm98KV9Wso4IbiTcHYELSH/G24=;
+ b=eeWwQg8NH5O5TLrz0VGfLLL8x+J8iYem/FHjtKN30+yFtfBwjFbtVh8CRGBIrrN881
+ pIfpSnqqaiTHRUlKa+Ll2SklnYetqOpcRKhCCIDZ9WHMQiJKwTCMBou2NENxlNdo987H
+ 3i4C+tzlYqvCp1JuLBSu/tHD2io1cllqk7aL5mYf3Fx6k8Yl+rnb+loZtWsTV2f7vNnJ
+ ZwqG/cljSDg4V5+k0jGEBHCkJ0o/2FQl8Zy5AtFyp6sC0onVLO+v5T78OjIVnIE/m+s2
+ r+ZgzpfBFsCloXDVb/Ke5tHDns9G3JvaiCZXmRmlcRgR9zRX2gNKL12y7/xYJwTTJnCD
+ 8FYA==
+X-Gm-Message-State: ANhLgQ22Pg1PrR6bghpSplqWRQa11QwhLOxSk4aHcso0dA0UYrUObX4l
+ yHrgDLdANpAeUhJpARlr0eTa9w==
+X-Google-Smtp-Source: ADFU+vtZbGElVq6NnluuIoEaJ5hmkuMgLimt1kzM3fgd1S4xdMrXicEqcrH3LtFkdjgiw9dY0n+5gA==
+X-Received: by 2002:ac8:3105:: with SMTP id g5mr3662259qtb.358.1585012513624; 
  Mon, 23 Mar 2020 18:15:13 -0700 (PDT)
 Received: from ziepe.ca
  (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
  [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id 199sm12325170qkm.7.2020.03.23.18.15.10
+ by smtp.gmail.com with ESMTPSA id l13sm12025440qke.116.2020.03.23.18.15.10
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
  Mon, 23 Mar 2020 18:15:11 -0700 (PDT)
 Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
  (envelope-from <jgg@ziepe.ca>)
- id 1jGY9u-0000rI-Aa; Mon, 23 Mar 2020 22:15:10 -0300
+ id 1jGY9u-0000rC-9H; Mon, 23 Mar 2020 22:15:10 -0300
 From: Jason Gunthorpe <jgg@ziepe.ca>
 To: Jerome Glisse <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>,
  Felix.Kuehling@amd.com
-Subject: [PATCH v2 hmm 6/9] mm/hmm: use device_private_entry_to_pfn()
-Date: Mon, 23 Mar 2020 22:14:54 -0300
-Message-Id: <20200324011457.2817-7-jgg@ziepe.ca>
+Subject: [PATCH v2 hmm 5/9] mm/hmm: remove the CONFIG_TRANSPARENT_HUGEPAGE
+ #ifdef
+Date: Mon, 23 Mar 2020 22:14:53 -0300
+Message-Id: <20200324011457.2817-6-jgg@ziepe.ca>
 X-Mailer: git-send-email 2.25.2
 In-Reply-To: <20200324011457.2817-1-jgg@ziepe.ca>
 References: <20200324011457.2817-1-jgg@ziepe.ca>
@@ -97,29 +97,46 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jason Gunthorpe <jgg@mellanox.com>
 
-swp_offset() should not be called directly, the wrappers are supposed to
-abstract away the encoding of the device_private specific information in
-the swap entry.
+This code can be compiled when CONFIG_TRANSPARENT_HUGEPAGE is off, so
+remove the ifdef.
+
+The function is only ever called under
+
+   if (pmd_devmap(pmd) || pmd_trans_huge(pmd))
+
+Which is statically false if !CONFIG_TRANSPARENT_HUGEPAGE, so the compiler
+reliably eliminates all of this code.
 
 Reviewed-by: Ralph Campbell <rcampbell@nvidia.com>
 Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 ---
- mm/hmm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/hmm.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
 diff --git a/mm/hmm.c b/mm/hmm.c
-index f59e59fb303e95..e114110ad498a2 100644
+index 43d107a4d9dec6..f59e59fb303e95 100644
 --- a/mm/hmm.c
 +++ b/mm/hmm.c
-@@ -266,7 +266,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 		 */
- 		if (hmm_is_device_private_entry(range, entry)) {
- 			*pfn = hmm_device_entry_from_pfn(range,
--					    swp_offset(entry));
-+				device_private_entry_to_pfn(entry));
- 			*pfn |= range->flags[HMM_PFN_VALID];
- 			if (is_write_device_private_entry(entry))
- 				*pfn |= range->flags[HMM_PFN_WRITE];
+@@ -198,7 +198,6 @@ static inline uint64_t pmd_to_hmm_pfn_flags(struct hmm_range *range, pmd_t pmd)
+ 				range->flags[HMM_PFN_VALID];
+ }
+ 
+-#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+ static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
+ 		unsigned long end, uint64_t *pfns, pmd_t pmd)
+ {
+@@ -221,11 +220,6 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
+ 	hmm_vma_walk->last = end;
+ 	return 0;
+ }
+-#else /* CONFIG_TRANSPARENT_HUGEPAGE */
+-/* stub to allow the code below to compile */
+-int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
+-		unsigned long end, uint64_t *pfns, pmd_t pmd);
+-#endif /* CONFIG_TRANSPARENT_HUGEPAGE */
+ 
+ static inline bool hmm_is_device_private_entry(struct hmm_range *range,
+ 		swp_entry_t entry)
 -- 
 2.25.2
 
