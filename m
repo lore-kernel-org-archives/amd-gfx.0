@@ -2,107 +2,106 @@ Return-Path: <SRS0=Seja=5K=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EB16C43331
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 14:30:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74279C54FCF
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 14:54:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4BBA82070A
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 14:30:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4600F20722
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 14:54:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="FoXbOgT9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4BBA82070A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="yhmenU18"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4600F20722
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15D226E86A;
-	Wed, 25 Mar 2020 14:30:45 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2054.outbound.protection.outlook.com [40.107.93.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 850266E86A
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 14:30:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2EBF689467;
+	Wed, 25 Mar 2020 14:54:54 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690046.outbound.protection.outlook.com [40.107.69.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CE1989467
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 14:54:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gi3L+tebDkQeq+4ow8lfjlZuybgolM7Kq0xJhiPRE7tx3Z3ocYDCWUTseMeS6aG2gD4GgQcdKa48S9HsbfHYDeaXtIEWY4jCgD/X45wuyMxMXeAQCs1JVMqrd7aZZGnUYxRT2WhHsbEfvM1RhhUmE6cgmNaeb1jGyc4c3CPRGJ9dUJwmJ9ktqUDYRWbHVGYr4i2cWdvB7FnY78Izh042Tywb2uPhP1lYSE9rLhc8osg4bU1NzkwIT4Zd1nCkuuN/x1dAj7af24TuenMakiedWV8fykXD0YdS4CWYNmpSD7xJ3ADHYHyjjlvA6qJvwvtJTY5WEtT0/QiQtVC2nJAwtA==
+ b=LNDk3TDQPGDt9XvFMjDhGalvuWzjgUbTuUXeWQnHjgqbOSLgNb9iU99Vp6YgcGxOB9ofbBmCtdohZceugjV6rzZRlOWJGK22IXkOvw6TdY7EQMEu+YeqrI70lQt5QDNm9mo8+u2640fipN6veGwsgPWv5dJrgb0eYoFkZgL4CO6gqXbJt7AluTgGCtWnDC5ubGMn99UcDUxpCfXjblVtsjI8bMSH9+J2Qp9Tw41sJ1r7FOap3LPNs/4Y2TLKqnOBVHdRwk0kwuadSmQz3gHNEOPHRgVzllxusuuX4NAThpa9qEpg7oDKW5sIJldJcEXmIgAAQnjIz5vny8hxFOpPvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5fmY9fPCRFv13U62+x28Tif6ho4Z255C3/E7i7rjEpQ=;
- b=KiHGPCsttVIH4X2Nl5ptwSjTJQjWYCovvXR7RxBKN4r+SBENkLntKCy3ytf69wKiKG8RAkZaGUBm8MzOjOimQ7tR6AOAs1eKO1OeRhnSvXttz3LerKn1tQHNORxC0WN/z8zNG/9Zt7f61pYyYQlm1BR+TjelPAuT9bHFkYlfVLJC0A67fwbD/25VzzJbMkpWzBNy3GIOowdlAHOIsuS2qAGeu9YUfyHZU25gMiWz63SECazLBpctyO3OgQuITlXScOFFizE/v6g5h20hB8QZZLeNlMGI3ZButD0HCTr7JnNC7NaQDRn2HvTLjjsxf18W7505P/K94dS++jZJTYgi5g==
+ bh=5cec22nAeKTzVtKs6d3TZCMmfyFbDrSqPWGAvQCHDr8=;
+ b=WLFmNU4KcBZDc6bDEJsM2A90mut8vCMqclzrOOtzTqFUWkWZunwzqhzXplQlCvd/5fID7UrNRwdT19/t1V5a9C/uKiVIHJ/RWQskRiSu8QZXva9XxoAHmtsjhe5QhxnE9jyYzY1vrgFZ5ba0A1SH/LunJQU54c4MmocdwoHSXudGy12ewXqdqRC7pC3myBN4VVKX6Rt2+SF9InKT9AD/yXlS//wY4BPnO2E+yInw1+31xutJ+CnIoTCx1uZQON/Cfj0iehCm73H2DHDbJMayVhN1fHLVmQAOgbOsotSZA7yv/sDmgAI0KJwPsMGgAVfJPTZTmIKE19kieUV86BjvkQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5fmY9fPCRFv13U62+x28Tif6ho4Z255C3/E7i7rjEpQ=;
- b=FoXbOgT9Pgtr0dLF1y+RtvJUefMQ7qVLm/Hex5opZFAV40ZEhyID2xkq8UGDvbhBQcUox0ccV3E43FSPh30+XtcgDf2XL/S7hP/lyt7nBwxYVRmjmLQn2Gk8lDi5Fja8iBdBAAS9FORcDrSLLmjELcKY06x1R7bVephY8vgqN5Q=
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
- by MN2PR12MB4581.namprd12.prod.outlook.com (2603:10b6:208:260::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.19; Wed, 25 Mar
- 2020 14:30:39 +0000
-Received: from MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::5868:c9cf:2687:6e03]) by MN2PR12MB4488.namprd12.prod.outlook.com
- ([fe80::5868:c9cf:2687:6e03%2]) with mapi id 15.20.2835.021; Wed, 25 Mar 2020
- 14:30:39 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: fix hpd bo size calculation error
-Thread-Topic: [PATCH] drm/amdgpu: fix hpd bo size calculation error
-Thread-Index: AQHWAo7kiyq/fjPcyUCcrFMcrnGVs6hZGyoAgAAEXgCAAD8hpQ==
-Date: Wed, 25 Mar 2020 14:30:39 +0000
-Message-ID: <MN2PR12MB4488C9BAA9CF0906E4F8C178F7CE0@MN2PR12MB4488.namprd12.prod.outlook.com>
-References: <20200325101848.8524-1-kevin1.wang@amd.com>,
- <ddf95fc7-daa7-4df4-8610-bc6b1f5b6125@email.android.com>,
- <BN8PR12MB3283615631DFCA853AB574E4A2CE0@BN8PR12MB3283.namprd12.prod.outlook.com>
-In-Reply-To: <BN8PR12MB3283615631DFCA853AB574E4A2CE0@BN8PR12MB3283.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-03-25T14:30:38.536Z;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
- Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Alexander.Deucher@amd.com; 
-x-originating-ip: [71.219.40.23]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: a330e6fe-2cb3-4e85-7b23-08d7d0c91746
-x-ms-traffictypediagnostic: MN2PR12MB4581:|MN2PR12MB4581:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB45815AA9DD5B160D5687E20DF7CE0@MN2PR12MB4581.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1107;
-x-forefront-prvs: 0353563E2B
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(366004)(396003)(346002)(136003)(39860400002)(316002)(55016002)(33656002)(86362001)(8676002)(8936002)(186003)(71200400001)(26005)(81166006)(81156014)(478600001)(6506007)(19627405001)(66946007)(2906002)(76116006)(7696005)(53546011)(9686003)(110136005)(4326008)(5660300002)(52536014)(6636002)(66556008)(64756008)(66446008)(66476007);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4581;
- H:MN2PR12MB4488.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: CYqPkvTeACtuBFX9WFMIkGjhYuty8dDJfoSi5fBK8YSYpSn1ndeR3eDfCu50hFh2kAesrcGcZV7Xey5b/B53jHxJR+bFA8NnkaSy+8pVZXyiN1n0IClc5zmSPpyeJNRog6/NGMgdMVRh2eQo1sNwp9gAIt+ZIMc2hmQxooN+Leaw6Kaio0+eZCksAmZGV1un3uyfZ1XvBI1krAjvRLqRm+8+TSdVUc5fEGXV6Nood8LQ00Qg1JKXaQ3sX7jmZIMVz6e3kBloCKFS5D+Pq6WzNa1shfb9OB0/qI2ieuUyHPZFTlHZS6yQaNhB55GdHURmq8f7f5ysh/8eWI2DroHxJYcDeZPyhMuMSgnaczI6Z58Pm1K1jzcNFoDjllgfqYcyf3OYI6gAryZMYj3r3KPfFnRtUPa3J2RDdb7KjbzPmWswBDLHcWpulqespCXndTML
-x-ms-exchange-antispam-messagedata: a40G8oeYPfRqj8sOb4vbhIzAKT/yH5Xv74QjnC2/Gfwf7JmsQrXC05GZ8XPtcFv76INhobHYY2WtNXxiaUvLJj3GsU+Tbr0xnMV7q9Qyf16olN4sBX0bTvb/x9MCLpgZLafLYsrHN3B0orip0CVybg==
+ bh=5cec22nAeKTzVtKs6d3TZCMmfyFbDrSqPWGAvQCHDr8=;
+ b=yhmenU18YBY5a2Z86yq2owz0aTYA9hjLN51n7AiVcbXsQM4EkLtYSRliSRh1mFwfRtHzj/y824FNlJUzOW9romdn/6jqSprFySdMqzymdD0ZE6U8o6mUxuq0HzQm0Z2SOvR1vcS1GbIror4bRxA/VmGsxTSNiMT2K5dYYMEj0cM=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Luben.Tuikov@amd.com; 
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com (2603:10b6:5:115::26)
+ by DM6PR12MB3147.namprd12.prod.outlook.com (2603:10b6:5:11d::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.18; Wed, 25 Mar
+ 2020 14:54:52 +0000
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::9505:d766:9ac9:2bfd]) by DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::9505:d766:9ac9:2bfd%6]) with mapi id 15.20.2835.023; Wed, 25 Mar 2020
+ 14:54:52 +0000
+Subject: Re: [PATCH 2/4] drm/amdgpu: Add AQUIRE_MEM PACKET3 fields defintion
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ amd-gfx@lists.freedesktop.org
+References: <1585146580-27143-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1585146580-27143-3-git-send-email-andrey.grodzovsky@amd.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+Message-ID: <c7d9c801-87d7-f15b-9148-e52d4a2ed7fe@amd.com>
+Date: Wed, 25 Mar 2020 10:54:54 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
+In-Reply-To: <1585146580-27143-3-git-send-email-andrey.grodzovsky@amd.com>
+Content-Language: en-CA
+X-ClientProxiedBy: YTXPR0101CA0057.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::34) To DM6PR12MB3355.namprd12.prod.outlook.com
+ (2603:10b6:5:115::26)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.1.4] (108.162.131.176) by
+ YTXPR0101CA0057.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::34) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.18 via Frontend
+ Transport; Wed, 25 Mar 2020 14:54:50 +0000
+X-Originating-IP: [108.162.131.176]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 98beea06-6c06-4ce5-307b-08d7d0cc78ce
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3147:|DM6PR12MB3147:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3147C481110A9303F6A61E8399CE0@DM6PR12MB3147.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-Forefront-PRVS: 0353563E2B
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(366004)(136003)(396003)(39860400002)(346002)(376002)(31686004)(26005)(16526019)(66476007)(66946007)(956004)(2616005)(44832011)(31696002)(186003)(5660300002)(66556008)(86362001)(316002)(4326008)(16576012)(81156014)(81166006)(8936002)(6486002)(478600001)(2906002)(36756003)(52116002)(53546011)(55236004)(8676002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3147;
+ H:DM6PR12MB3355.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: Md0Rtx+TJVkgarke4NW3qm1ub2GDl7Dv5g2sPHSF3uQdirfNozi79U97arRYe5DrD+LZyKcveetX3Nrpsu+AEqTg2Bgil30bfS/R4d3y+LEM8TKhIBuEbxF2eQXG658sRNYjKEEXvu9dR+EIMf/GH+0bOztD2BeD+fmiKLp3/De/VAGysMqYjLkHs9I80HB2K0hdsVqwCp5VbH0kRctzWmjUn7k7ZGVIP2ujCBDZQ5YlaJBSCwCHyl+SltAF78Pf/VBuU5YRst7TVFcxgE9KeSJvz6cVl2Wd+fMY8OmKrr8RAznPvVn3LH7sic0ynQOtqzVIO/3sHwYpjSi0RRNZ0O09WHGqF/uU3wiLZQdQbjbjDbSaClD5ARZ3DLnuaSjNadecxchimXQ01N4jJRqtTu3isK+aMED3lETdPUZ3JP4fM7iujpmhXm1mE5f6g2NE
+X-MS-Exchange-AntiSpam-MessageData: 9r8CRPWij3nDHOiJE5X4BHtWi3j06DuC0bKX6qfcCUQ16JgKe/ugBOdeFI4+MCiKjPLZ/okvkExsi2zl9DrjF+Trz5by8Hg6rZ1LeJgnuMK3yDyGmsAqfDBksuk4Sm3oyTECQxQ55aTiNMj8+80Zow==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a330e6fe-2cb3-4e85-7b23-08d7d0c91746
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2020 14:30:39.1294 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0RZP2LLlSOKK7jC3bZEEmYNXzCPDRueuTQ9WWE+3zLL9OgkYyH6J9YCk9uYnsrrDW4U0KUlp+p6LN4HpAegxgQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4581
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98beea06-6c06-4ce5-307b-08d7d0cc78ce
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2020 14:54:51.9536 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RVUpIv/OjALEYIOpCA+ZJ3ybEO1v0vH17ncRoR7f2PfaoQv+Wl8+gBNw6TzLkLY/
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3147
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,284 +113,147 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1271019108=="
+Cc: Ken.Qiao@amd.com, Marek.Olsak@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1271019108==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_MN2PR12MB4488C9BAA9CF0906E4F8C178F7CE0MN2PR12MB4488namp_"
+On 2020-03-25 10:29, Andrey Grodzovsky wrote:
+> Add this for gfx10 and gfx9.
+> 
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/nvd.h    | 48 +++++++++++++++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/soc15d.h | 25 ++++++++++++++++++-
+>  2 files changed, 72 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nvd.h b/drivers/gpu/drm/amd/amdgpu/nvd.h
+> index f3d8771..7785ea5 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nvd.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/nvd.h
+> @@ -256,6 +256,54 @@
+>  #define	PACKET3_BLK_CNTX_UPDATE				0x53
+>  #define	PACKET3_INCR_UPDT_STATE				0x55
+>  #define	PACKET3_ACQUIRE_MEM				0x58
+> +/* 1.  HEADER
+> + * 2.  COHER_CNTL [30:0]
+> + * 2.1 ENGINE_SEL [31:31]
+> + * 2.  COHER_SIZE [31:0]
+> + * 3.  COHER_SIZE_HI [7:0]
+> + * 4.  COHER_BASE_LO [31:0]
+> + * 5.  COHER_BASE_HI [23:0]
+> + * 7.  POLL_INTERVAL [15:0]
+> + * 8.  GCR_CNTL [18:0]
+> + */
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GLI_INV(x) ((x) << 0)
 
---_000_MN2PR12MB4488C9BAA9CF0906E4F8C178F7CE0MN2PR12MB4488namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+I think it's visually better to not break up the "#" and "define" and
+to not bunch up "define" and the macro name, to intead look like this:
 
-[AMD Public Use]
+#define 	PACKET3_ACQUIRE_MEM_GCR_CNTL_GLI_INV(x)        ((x) << 0)
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
-Sent: Wednesday, March 25, 2020 6:44 AM
-To: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexa=
-nder.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: fix hpd bo size calculation error
+Which creates visual cadence, for the eyes to follow. It also creates
+a vertical visual separation (reading down) since then the left column
+is not just white space reading down, but breaks at the definition of
+each register field. (once changed for all, you'll see it)
+
+> +		/*
+> +		 * 0:NOP
+> +		 * 1:ALL
+> +		 * 2:RANGE
+> +		 * 3:FIRST_LAST
+> +		 */
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GL1_RANGE(x) ((x) << 2)
+> +		/*
+> +		 * 0:ALL
+> +		 * 1:reserved
+> +		 * 2:RANGE
+> +		 * 3:FIRST_LAST
+> +		 */
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GLM_WB(x) ((x) << 4)
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GLM_INV(x) ((x) << 5)
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GLK_WB(x) ((x) << 6)
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GLK_INV(x) ((x) << 7)
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GLV_INV(x) ((x) << 8)
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GL1_INV(x) ((x) << 9)
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GL2_US(x) ((x) << 10)
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GL2_RANGE(x) ((x) << 11)
+> +		/*
+> +		 * 0:ALL
+> +		 * 1:VOL
+> +		 * 2:RANGE
+> +		 * 3:FIRST_LAST
+> +		 */
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GL2_DISCARD(x)  ((x) << 13)
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GL2_INV(x) ((x) << 14)
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_GL2_WB(x) ((x) << 15)
+> +#              define PACKET3_ACQUIRE_MEM_GCR_CNTL_SEQ(x) ((x) << 16)
+> +		/*
+> +		 * 0: PARALLEL
+> +		 * 1: FORWARD
+> +		 * 2: REVERSE
+> +		 */
+> +#              define PACKET3_ACQUIRE_MEM_GCR_RANGE_IS_PA  (1 << 18)
+>  #define	PACKET3_REWIND					0x59
+>  #define	PACKET3_INTERRUPT				0x5A
+>  #define	PACKET3_GEN_PDEPTE				0x5B
+> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15d.h b/drivers/gpu/drm/amd/amdgpu/soc15d.h
+> index 295d68c..8983871 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/soc15d.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/soc15d.h
+> @@ -253,7 +253,30 @@
+>  #              define PACKET3_DMA_DATA_CMD_SAIC    (1 << 28)
+>  #              define PACKET3_DMA_DATA_CMD_DAIC    (1 << 29)
+>  #              define PACKET3_DMA_DATA_CMD_RAW_WAIT  (1 << 30)
+> -#define	PACKET3_AQUIRE_MEM				0x58
+> +#define	PACKET3_ACQUIRE_MEM				0x58
+> +/* 1.  HEADER
+> + * 2.  COHER_CNTL [30:0]
+> + * 2.1 ENGINE_SEL [31:31]
+> + * 3.  COHER_SIZE [31:0]
+> + * 4.  COHER_SIZE_HI [7:0]
+> + * 5.  COHER_BASE_LO [31:0]
+> + * 6.  COHER_BASE_HI [23:0]
+> + * 7.  POLL_INTERVAL [15:0]
+> + */
+> +/* COHER_CNTL fields for CP_COHER_CNTL */
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_TC_NC_ACTION_ENA(x) ((x) << 3)
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_TC_WC_ACTION_ENA(x) ((x) << 4)
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_TC_INV_METADATA_ACTION_ENA(x) ((x) << 5)
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_TCL1_VOL_ACTION_ENA(x) ((x) << 15)
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_TC_WB_ACTION_ENA(x) ((x) << 18)
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_TCL1_ACTION_ENA(x) ((x) << 22)
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_TC_ACTION_ENA(x) ((x) << 23)
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_CB_ACTION_ENA(x) ((x) << 25)
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_DB_ACTION_ENA(x) ((x) << 26)
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_SH_KCACHE_ACTION_ENA(x) ((x) << 27)
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_SH_KCACHE_VOL_ACTION_ENA(x) ((x) << 28)
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_SH_ICACHE_ACTION_ENA(x) ((x) << 29)
+> +#              define PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_SH_KCACHE_WB_ACTION_ENA(x) ((x) << 30)
+
+The same sentiment here. There is no reason to break the "#" and the "define",
+which is usually seen as "#define" by the language. Instead keeping
+the "#" and the "define" together and then white-space to the macro name would
+make for a better and move familiar visual cadence. Like,
+
+#define		PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_TC_NC_ACTION_ENA(x)           ((x) << 3)
+#define		PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_TC_WC_ACTION_ENA(x)           ((x) << 4)
+#define		PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_TC_INV_METADATA_ACTION_ENA(x) ((x) << 5)
+#define		PACKET3_ACQUIRE_MEM_CP_COHER_CNTL_TCL1_VOL_ACTION_ENA(x)        ((x) << 15)
+...
 
 
-[AMD Official Use Only - Internal Distribution Only]
+>  #define	PACKET3_REWIND					0x59
+>  #define	PACKET3_LOAD_UCONFIG_REG			0x5E
+>  #define	PACKET3_LOAD_SH_REG				0x5F
 
-thanks chris.
+Like it is done here ^.
 
-@Deucher, Alexander<mailto:Alexander.Deucher@amd.com> @Zhang, Hawking<mailt=
-o:Hawking.Zhang@amd.com>
-from the view of driver, could you help me review it, then give me a RB.
-thanks.
-
-Best Regards,
-Kevin
-
-________________________________
-From: Koenig, Christian <Christian.Koenig@amd.com>
-Sent: Wednesday, March 25, 2020 6:28 PM
-To: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Feng, Ke=
-nneth <Kenneth.Feng@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com=
->
-Subject: Re: [PATCH] drm/amdgpu: fix hpd bo size calculation error
-
-Good catch! mem.size is actually the backing store size (usually in pages).
-
-Patch is Acked-by: Christian K=F6nig <Christian.Koenig@amd.com>
-
-Am 25.03.2020 11:19 schrieb "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>:
-the HPD bo size calculation error.
-the "mem.size" can't present actual BO size all time.
-
-Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c  | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c
-index 7f9ac1a14e6f..91c82383b016 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -1113,7 +1113,7 @@ static int gfx_v10_0_mec_init(struct amdgpu_device *a=
-dev)
-                 return r;
-         }
-
--       memset(hpd, 0, adev->gfx.mec.hpd_eop_obj->tbo.mem.size);
-+       memset(hpd, 0, mec_hpd_size);
-
-         amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
-         amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c
-index fb567cf5671b..01b22dad52fd 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -1946,7 +1946,7 @@ static int gfx_v9_0_mec_init(struct amdgpu_device *ad=
-ev)
-                 return r;
-         }
-
--       memset(hpd, 0, adev->gfx.mec.hpd_eop_obj->tbo.mem.size);
-+       memset(hpd, 0, mec_hpd_size);
-
-         amdgpu_bo_kunmap(adev->gfx.mec.hpd_eop_obj);
-         amdgpu_bo_unreserve(adev->gfx.mec.hpd_eop_obj);
---
-2.17.1
-
-
---_000_MN2PR12MB4488C9BAA9CF0906E4F8C178F7CE0MN2PR12MB4488namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
-ign=3D"Left">
-[AMD Public Use]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Wang, Kevin(Yang) &lt=
-;Kevin1.Wang@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, March 25, 2020 6:44 AM<br>
-<b>To:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Deucher, Ale=
-xander &lt;Alexander.Deucher@amd.com&gt;; Zhang, Hawking &lt;Hawking.Zhang@=
-amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: fix hpd bo size calculation error</=
-font>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#0078D7=
-; margin:15pt">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-thanks chris.</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<a id=3D"OWAAM471300" class=3D"x__1OtrSZdhKXVv3UhaivrdJ4 x_mention x_ms-bgc=
--nlr x_ms-fcl-b" href=3D"mailto:Alexander.Deucher@amd.com">@Deucher, Alexan=
-der</a>&nbsp;<a id=3D"OWAAM172244" class=3D"x__1OtrSZdhKXVv3UhaivrdJ4 x_men=
-tion x_ms-bgc-nlr x_ms-fcl-b" href=3D"mailto:Hawking.Zhang@amd.com">@Zhang,
- Hawking</a></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-from the view of driver, could you help me review it, then give me a RB.</d=
-iv>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-thanks.</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Best Regards,<br>
-Kevin</div>
-<div id=3D"x_appendonsend"></div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian &=
-lt;Christian.Koenig@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, March 25, 2020 6:28 PM<br>
-<b>To:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;; Deucher, Alexander &lt;Ale=
-xander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/amdgpu: fix hpd bo size calculation error</=
-font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div>
-<div dir=3D"auto">Good catch! mem.size is actually the backing store size (=
-usually in pages).
-<div dir=3D"auto"><br>
-</div>
-<div dir=3D"auto">Patch is Acked-by: Christian K=F6nig &lt;Christian.Koenig=
-@amd.com&gt;</div>
-</div>
-<div class=3D"x_x_x_gmail_extra"><br>
-<div class=3D"x_x_x_gmail_quote">Am 25.03.2020 11:19 schrieb &quot;Wang, Ke=
-vin(Yang)&quot; &lt;Kevin1.Wang@amd.com&gt;:<br type=3D"attribution">
-</div>
-</div>
-</div>
-<font size=3D"2"><span style=3D"font-size:11pt">
-<div class=3D"x_x_PlainText">the HPD bo size calculation error.<br>
-the &quot;mem.size&quot; can't present actual BO size all time.<br>
-<br>
-Signed-off-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 2 &#43;-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c&nbsp; | 2 &#43;-<br>
-&nbsp;2 files changed, 2 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/gfx_v10_0.c<br>
-index 7f9ac1a14e6f..91c82383b016 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c<br>
-@@ -1113,7 &#43;1113,7 @@ static int gfx_v10_0_mec_init(struct amdgpu_devic=
-e *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(hpd, 0, adev-&gt;gfx.mec.hpd_e=
-op_obj-&gt;tbo.mem.size);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(hpd, 0, mec_hpd_size);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(adev-&gt;=
-gfx.mec.hpd_eop_obj);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(adev-&=
-gt;gfx.mec.hpd_eop_obj);<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c<br>
-index fb567cf5671b..01b22dad52fd 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<br>
-@@ -1946,7 &#43;1946,7 @@ static int gfx_v9_0_mec_init(struct amdgpu_device=
- *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(hpd, 0, adev-&gt;gfx.mec.hpd_e=
-op_obj-&gt;tbo.mem.size);<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memset(hpd, 0, mec_hpd_size);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(adev-&gt;=
-gfx.mec.hpd_eop_obj);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(adev-&=
-gt;gfx.mec.hpd_eop_obj);<br>
--- <br>
-2.17.1<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_MN2PR12MB4488C9BAA9CF0906E4F8C178F7CE0MN2PR12MB4488namp_--
-
---===============1271019108==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Regards,
+Luben
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1271019108==--
