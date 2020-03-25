@@ -2,118 +2,108 @@ Return-Path: <SRS0=Seja=5K=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DB740C54FCF
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 03:12:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 87FCAC54FCF
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 03:58:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 99DA720719
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 03:12:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 26C7B206F6
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 03:58:51 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QD4NY9FN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 99DA720719
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="W6wzBXUU"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26C7B206F6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC2A889F53;
-	Wed, 25 Mar 2020 03:12:09 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750085.outbound.protection.outlook.com [40.107.75.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7258C89F53
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 03:12:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9BFDF6E030;
+	Wed, 25 Mar 2020 03:58:50 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2072.outbound.protection.outlook.com [40.107.94.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 25FBC6E030
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 03:58:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=c/sD1UXF7JQlV6EDRsu+lT6W0qH7W3sz0FwyfW5sTJG3abvHFFItC7DDwjdvrNu23Xwlw38DmHUx6ie7IQZP3rtiOJG47GAREeDtixiDlz57ojV6gxzohv2GV5/LuvTb/b0/mKdiHxYufme1qas5qHfSx7eYo+1BmQoeXpLvK2hQVdv73MEvKB2raSilWscZFwptJnVyeaqECcV+2oN7vdHbw4ssMBMVI1JjLd71v7HbbDt3NQPYiuMSuxwBypwGGk/ZvJ1IuoHvXKeRp6j4T2enukcjMvH3K358kOAhBRRO71ehY/Knjp7Dyu/TTLRWtkbONEAgFsz9eiYpolUYeA==
+ b=XdSIHEhB67wwQxUDZyBkoVsJC6/D+ctVjslwarZeT7HiTM2Esr+qJUnIrWfmWZxOjmBp56IhW7vcwzmWVdUxHkPpxsIwZjg3VZRqgWHklz0+O0rN1f3lFstrxAKdHhHP0zW8NYqypH7KuON+KdtNipLVeoKS2LYZ3n8VhCcENxFEexk3JhbG1vty3BDHIjZbd5+TZjr1COe4Ts5cDYl/W+C5eSlvB0zacAuUmPXJY/LsM9sQSM/zXjAOQwosupfTdqt+EA9+w+t83t8Gk6MbT+eMHJzM1AoFRJpYmRjbjpMgk3YQ2pPZa4ciBNBH/O7WwjuOq1Q0Lb/p1mbZRUcwlA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LwcpZTsWNPOFuNEM+h7z03+R/RgoSJB6fdiNfqPa0L8=;
- b=XztH6DO6IGD4QXgUPhA/omnfZAWTR/dWhIq5cPIrq5z+wLWBZcEk9hPC+G5HEkhEvqyjFT868eFEuy2nuBiCALupXHySrhm3ztWBP2pLOiWegvzivhm7YwdrJhYDX8rZxuWLdl3hXLC2wO/F6OO5mjQvc05npqX8UUZkmseJ8wcl8/yp61WtcIydmOO76GtFsE7XwqikuMyNhyRVbACEI8BNMLfvAPgr+zM/yrEdONUfzXBOjgMVp2EBc1jOPseSscCo2sqhb1BvLpKDgIH6+nOsHHKHAFtYrLn8T764MOCt6hzwcVJ0YlkV/lQJ05wa/EVTWVhiDm71raVwkwI5SQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=8aOUyIddsp0knSU4NLkeFz+OgVMcaI3n6qzFG6i86mg=;
+ b=mDvT2AGc4iB2Sj9qO6jgxzNqDMTZ8SKygQu7g5ENcsJVEV6fFV2H+hVHDc0Z7nao8/PGVQ0fhHAE139RITzJ4Zgz+WNFm5jEMfHQKYIHUbjrRG8vQOB6NLj+T8cauOE79IWikBJ48I+WdQSKTvGwkMrPnh6hMdRkCWYpwrchPj9WmA3050CFVkHB+5fowZfJ9P6gq/0tUssHZCUb/0YEkBk7J4hJR4eJGrh6eTIjSX4NZ0LL2zKV3BcIW9oPMTjjricrJE9x12NsgtJ6PseeQ/40NdFiXFVsc9opk0I2xaWj4BO2ALDwB6snKC5UynXp9SEdiK42A5t91kad5/eBvA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LwcpZTsWNPOFuNEM+h7z03+R/RgoSJB6fdiNfqPa0L8=;
- b=QD4NY9FN0AF0JMvuMxWXfj1YP4YhSgxPW0JsA1OXjivtJ4MsK5VmJOCSU4i807zCRi0IB5aL/77DHtNWzpul41jz3v1P/P0wbkkIxe2qa+gFdxaW86bc2w5fNyamQjakNKQsORY/HUyjqOvZCMeJGHHv6rHyN/9aEU+O9LzqT9k=
-Received: from MN2PR12MB2975.namprd12.prod.outlook.com (2603:10b6:208:ce::14)
- by MN2PR12MB4408.namprd12.prod.outlook.com (2603:10b6:208:26c::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.20; Wed, 25 Mar
- 2020 03:12:06 +0000
-Received: from MN2PR12MB2975.namprd12.prod.outlook.com
- ([fe80::3504:685f:e9ac:7028]) by MN2PR12MB2975.namprd12.prod.outlook.com
- ([fe80::3504:685f:e9ac:7028%3]) with mapi id 15.20.2835.021; Wed, 25 Mar 2020
- 03:12:06 +0000
-From: "Deng, Emily" <Emily.Deng@amd.com>
-To: "Liu, Monk" <Monk.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 4/4] drm/amdgpu: cleanup all virtualization detection
- routine
-Thread-Topic: [PATCH 4/4] drm/amdgpu: cleanup all virtualization detection
- routine
-Thread-Index: AQHWAcs/0cl2ccG4tUu/Ba48oDV2Z6hYopTA
-Date: Wed, 25 Mar 2020 03:12:06 +0000
-Message-ID: <MN2PR12MB29754BAD15039EF64C43CF658FCE0@MN2PR12MB2975.namprd12.prod.outlook.com>
-References: <1585047533-10966-1-git-send-email-Monk.Liu@amd.com>
- <1585047533-10966-4-git-send-email-Monk.Liu@amd.com>
-In-Reply-To: <1585047533-10966-4-git-send-email-Monk.Liu@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-25T03:12:03Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=dfe622f5-0564-4297-9a2e-00000faefee5;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-03-25T03:12:03Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: f1b41ebd-443f-4521-abb9-0000d8e535cc
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Emily.Deng@amd.com; 
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: a5980ac3-8fa2-4ded-c14e-08d7d06a4c78
-x-ms-traffictypediagnostic: MN2PR12MB4408:|MN2PR12MB4408:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB4408ACFB043CCAA61ECAD3738FCE0@MN2PR12MB4408.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4941;
-x-forefront-prvs: 0353563E2B
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(376002)(346002)(366004)(136003)(39860400002)(33656002)(6506007)(81166006)(26005)(5660300002)(81156014)(52536014)(71200400001)(86362001)(8676002)(8936002)(9686003)(7696005)(55016002)(76116006)(66446008)(186003)(66946007)(4326008)(2906002)(45080400002)(110136005)(66556008)(478600001)(64756008)(30864003)(316002)(66476007);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4408;
- H:MN2PR12MB2975.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+ bh=8aOUyIddsp0knSU4NLkeFz+OgVMcaI3n6qzFG6i86mg=;
+ b=W6wzBXUUSIsSrOiLRm1/U1LQYcJ6+U3EwpGqZ9fctMoojdVHSIzdJ0IcEbBUPwfbgqWs02pUFVeUH2Q6tOU/PEbYPVLBOzSmPcPvRSHjClVqa2TMIenPYq89MvWSwyb0TC7tr1IftILgahQ0f5tMPMjG0D3xpWK7mweWFeZLIxk=
+Received: from BL0PR0102CA0021.prod.exchangelabs.com (2603:10b6:207:18::34) by
+ SN1PR12MB2432.namprd12.prod.outlook.com (2603:10b6:802:29::13) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2835.22; Wed, 25 Mar 2020 03:58:48 +0000
+Received: from BN8NAM11FT056.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:207:18:cafe::d9) by BL0PR0102CA0021.outlook.office365.com
+ (2603:10b6:207:18::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.20 via Frontend
+ Transport; Wed, 25 Mar 2020 03:58:48 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: lM+KDNal569iOdlsbD/iwVhvlJyecuJo7I7rrJf+SeBR/qmw6NQRdGrN7uhSqHDtwCwkkCcv/+tFvkQRoYIS4G1KCsOCyFqIjyUv5vpKa7ycq2+tg1hO6aMo/QMaIw3pAY0UDNqf6INHtnM7lazrTBCd7XzyK/vCZCIv/v/XVlzvb78gb9YDzuGBYS862Jl+1+OG/upKM6lBesFhiODJNoIddoSj22l6VQvvjlrpGiGTW/KGbcA/9FALP8w6lbytBm8g6RFad4zTR7AC8GClaz/8VtHDXja1yvr0lUPtBJwpOqm2hp6CJdNWXXzIjP7Bjjc1hhrT4H4T3BDgN1qovHdXB611C5+MNhdn8OamnrDfDOY6J6z0fXR7IO3PKfYx47Snm8rWP9N0FrbLLKvR9oDLyAuHjXcUZGKUad0WgNLqdratH8xaMIjneP1kruWUoaVerVMVGyHaUbCvht4bkZ9kcGHJs5t7kwQqku4bTvY=
-x-ms-exchange-antispam-messagedata: HTRt5FVE1x3AcaAaJfX6zVsQPDwXiFy1QUm4TCpzoBFZ2ybrlBx9lxR0SaqG2G8elA7dw6HHQCdGcnDfLbRBtb2QagEkQAM6epZRuKijZsAcAaoaDzjsugwCD1ryTDNItSIYMB7UAscslUH3wpW2bQ==
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT056.mail.protection.outlook.com (10.13.177.26) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2814.13 via Frontend Transport; Wed, 25 Mar 2020 03:58:47 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 24 Mar
+ 2020 22:58:47 -0500
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 24 Mar
+ 2020 22:58:46 -0500
+Received: from monk-build.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Tue, 24 Mar 2020 22:58:46 -0500
+From: Monk Liu <Monk.Liu@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/7] drm/amdgpu: cleanup idh event/req for NV headers
+Date: Wed, 25 Mar 2020 11:58:36 +0800
+Message-ID: <1585108722-19098-1-git-send-email-Monk.Liu@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(376002)(136003)(396003)(39860400002)(428003)(46966005)(478600001)(6916009)(47076004)(7696005)(186003)(5660300002)(4326008)(26005)(2906002)(336012)(2616005)(36756003)(82740400003)(426003)(6666004)(86362001)(8936002)(356004)(316002)(70586007)(81166006)(81156014)(8676002)(70206006);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:SN1PR12MB2432; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 4dcf28ea-93b2-498d-b8ae-08d7d070d215
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2432:
+X-Microsoft-Antispam-PRVS: <SN1PR12MB243284230B848E2B24F3ACCC84CE0@SN1PR12MB2432.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-Forefront-PRVS: 0353563E2B
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OHIYK7ouRDUZ2/VUF2EO/2X58swqQLnZmZhs1ofgO4L7KjrK/oKkPj4JTKyF+5h1oyMvDLo4x2eU8eetVUWp/36sh1fX3OYn48QHpTwOxm6EgXkZpWsUIFT3ZO5/n8oyNmGupT9il4hHQfrsOQUQzZj/HPb/F2Qiq1JFuf16104alUDWEDZ/5KlfSVXpbPn9LM06BpBOxCXj6ONzhb3tLpeMVlvKeXMVkwgOXy4FQbOBViCEIfZzjf1Xz1sDws3zcbuhdSM0bbnirEaqUeZfc7sx5pdNY1ItnQKXPAYcYOV3pG83UYd7UJonvqzvgrBMm5PlTTdb13t5hWZm83djb6/rEBaZlKmOemjZ2ztSWQaWcyEWiqKWxKNuoJBVa1YcAtnf8qSM65TxDIcPy/fmc7L0DIfk/sACdw83NKWcotTIbhONgCmXcmxzvJ7NW7Rw8226UMoQzXoxtsWJqszvKB9sS76wWUpoEHy4/VoFOFtGYTu9pvJx9Tz/yChF7/SozsA3HzZ6/CKqAzW25JpX+g==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5980ac3-8fa2-4ded-c14e-08d7d06a4c78
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2020 03:12:06.1739 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JarGLdDE413L/UjAmKxCSda7wZ8mNPRzH+dYst6O0yYhsIXcSJliuHF2Vd5V7lZE
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4408
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2020 03:58:47.5318 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4dcf28ea-93b2-498d-b8ae-08d7d070d215
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2432
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,487 +115,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Liu, Monk" <Monk.Liu@amd.com>
+Cc: Monk Liu <Monk.Liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+1) drop the headers from AI in mxgpu_nv.c, should refer to mxgpu_nv.h
 
-Series Reviewed-by: Emily Deng <Emily.Deng@amd.com>
+2) the IDH_EVENT_MAX is not used and not aligned with host side
+   so drop it
+3) the IDH_TEXT_MESSAG was provided in host but not defined in guest
 
->-----Original Message-----
->From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Monk Liu
->Sent: Tuesday, March 24, 2020 6:59 PM
->To: amd-gfx@lists.freedesktop.org
->Cc: Liu, Monk <Monk.Liu@amd.com>
->Subject: [PATCH 4/4] drm/amdgpu: cleanup all virtualization detection routine
->
->we need to move virt detection much earlier because:
->1) HW team confirms us that RCC_IOV_FUNC_IDENTIFIER will always be at DE5
->(dw) mmio offset from vega10, this way there is no need to implement
->detect_hw_virt() routine in each nbio/chip file.
->for VI SRIOV chip (tonga & fiji), the BIF_IOV_FUNC_IDENTIFIER is at
->0x1503
->
->2) we need to acknowledged we are SRIOV VF before we do IP discovery because
->the IP discovery content will be updated by host everytime after it recieved a
->new coming "REQ_GPU_INIT_DATA" request from guest (there will be patches
->for this new handshake soon).
->
->Signed-off-by: Monk Liu <Monk.Liu@amd.com>
->---
-> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  3 ++
-> drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h           |  1 -
-> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c           | 33
->++++++++++++++++++++++
-> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h           |  6 ++++
-> drivers/gpu/drm/amd/amdgpu/cik.c                   |  8 ------
-> drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c             | 18 ------------
-> drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c             | 18 ------------
-> drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c             |  7 -----
-> drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c             | 18 ------------
-> drivers/gpu/drm/amd/amdgpu/nv.c                    |  2 --
-> drivers/gpu/drm/amd/amdgpu/si.c                    |  8 ------
-> drivers/gpu/drm/amd/amdgpu/soc15.c                 |  1 -
-> drivers/gpu/drm/amd/amdgpu/vi.c                    | 24 ----------------
-> .../amd/include/asic_reg/nbif/nbif_6_1_offset.h    |  2 ++
-> .../amd/include/asic_reg/nbio/nbio_7_0_offset.h    |  2 ++
-> .../amd/include/asic_reg/nbio/nbio_7_4_offset.h    |  2 ++
-> 16 files changed, 48 insertions(+), 105 deletions(-)
->
->diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->index e55dbcd..ca609b6 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->@@ -3057,6 +3057,9 @@ int amdgpu_device_init(struct amdgpu_device *adev,
-> 	if (amdgpu_mes && adev->asic_type >= CHIP_NAVI10)
-> 		adev->enable_mes = true;
->
->+	/* detect hw virtualization here */
->+	amdgpu_detect_virtualization(adev);
->+
-> 	if (amdgpu_discovery && adev->asic_type >= CHIP_NAVI10) {
-> 		r = amdgpu_discovery_init(adev);
-> 		if (r) {
->diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
->b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
->index 919bd56..edaac24 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_nbio.h
->@@ -77,7 +77,6 @@ struct amdgpu_nbio_funcs {
-> 				      u32 *flags);
-> 	void (*ih_control)(struct amdgpu_device *adev);
-> 	void (*init_registers)(struct amdgpu_device *adev);
->-	void (*detect_hw_virt)(struct amdgpu_device *adev);
-> 	void (*remap_hdp_registers)(struct amdgpu_device *adev);
-> 	void (*handle_ras_controller_intr_no_bifring)(struct amdgpu_device
->*adev);
-> 	void (*handle_ras_err_event_athub_intr_no_bifring)(struct
->amdgpu_device *adev); diff --git
->a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
->b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
->index adc813c..43a1ee3 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
->@@ -287,3 +287,36 @@ void amdgpu_virt_init_data_exchange(struct
->amdgpu_device *adev)
-> 		}
-> 	}
-> }
->+
->+void amdgpu_detect_virtualization(struct amdgpu_device *adev) {
->+	uint32_t reg;
->+
->+	switch (adev->asic_type) {
->+	case CHIP_TONGA:
->+	case CHIP_FIJI:
->+		reg = RREG32(mmBIF_IOV_FUNC_IDENTIFIER);
->+		break;
->+	case CHIP_VEGA10:
->+	case CHIP_VEGA20:
->+	case CHIP_NAVI10:
->+	case CHIP_NAVI12:
->+	case CHIP_ARCTURUS:
->+		reg = RREG32(mmRCC_IOV_FUNC_IDENTIFIER);
->+		break;
->+	default: /* other chip doesn't support SRIOV */
->+		reg = 0;
->+		break;
->+	}
->+
->+	if (reg & 1)
->+		adev->virt.caps |= AMDGPU_SRIOV_CAPS_IS_VF;
->+
->+	if (reg & 0x80000000)
->+		adev->virt.caps |= AMDGPU_SRIOV_CAPS_ENABLE_IOV;
->+
->+	if (!reg) {
->+		if (is_virtual_machine())	/* passthrough mode exclus sriov mod
->*/
->+			adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
->+	}
->+}
->diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->index 0a95b13..74f9843 100644
->--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
->@@ -30,6 +30,11 @@
-> #define AMDGPU_PASSTHROUGH_MODE        (1 << 3) /* thw whole GPU is pass
->through for VM */
-> #define AMDGPU_SRIOV_CAPS_RUNTIME      (1 << 4) /* is out of full access
->mode */
->
->+/* all asic after AI use this offset */ #define
->+mmRCC_IOV_FUNC_IDENTIFIER 0xDE5
->+/* tonga/fiji use this offset */
->+#define mmBIF_IOV_FUNC_IDENTIFIER 0x1503
->+
-> struct amdgpu_mm_table {
-> 	struct amdgpu_bo	*bo;
-> 	uint32_t		*cpu_addr;
->@@ -305,4 +310,5 @@ int amdgpu_virt_fw_reserve_get_checksum(void *obj,
->unsigned long obj_size,
-> 					unsigned int key,
-> 					unsigned int chksum);
-> void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev);
->+void amdgpu_detect_virtualization(struct amdgpu_device *adev);
-> #endif
->diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c
->b/drivers/gpu/drm/amd/amdgpu/cik.c
->index 006f21e..db68ffa 100644
->--- a/drivers/gpu/drm/amd/amdgpu/cik.c
->+++ b/drivers/gpu/drm/amd/amdgpu/cik.c
->@@ -1811,12 +1811,6 @@ static uint32_t cik_get_rev_id(struct amdgpu_device
->*adev)
-> 		>> CC_DRM_ID_STRAPS__ATI_REV_ID__SHIFT;
-> }
->
->-static void cik_detect_hw_virtualization(struct amdgpu_device *adev) -{
->-	if (is_virtual_machine()) /* passthrough mode */
->-		adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
->-}
->-
-> static void cik_flush_hdp(struct amdgpu_device *adev, struct amdgpu_ring
->*ring)  {
-> 	if (!ring || !ring->funcs->emit_wreg) { @@ -2179,8 +2173,6 @@ static
->const struct amdgpu_ip_block_version cik_common_ip_block =
->
-> int cik_set_ip_blocks(struct amdgpu_device *adev)  {
->-	cik_detect_hw_virtualization(adev);
->-
-> 	switch (adev->asic_type) {
-> 	case CHIP_BONAIRE:
-> 		amdgpu_device_ip_block_add(adev, &cik_common_ip_block);
->diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
->b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
->index f3a3fe7..cbcf045 100644
->--- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
->+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
->@@ -290,23 +290,6 @@ const struct nbio_hdp_flush_reg
->nbio_v2_3_hdp_flush_reg = {
-> 	.ref_and_mask_sdma1 =
->BIF_BX_PF_GPU_HDP_FLUSH_DONE__SDMA1_MASK,
-> };
->
->-static void nbio_v2_3_detect_hw_virt(struct amdgpu_device *adev) -{
->-	uint32_t reg;
->-
->-	reg = RREG32_SOC15(NBIO, 0,
->mmRCC_DEV0_EPF0_RCC_IOV_FUNC_IDENTIFIER);
->-	if (reg & 1)
->-		adev->virt.caps |= AMDGPU_SRIOV_CAPS_IS_VF;
->-
->-	if (reg & 0x80000000)
->-		adev->virt.caps |= AMDGPU_SRIOV_CAPS_ENABLE_IOV;
->-
->-	if (!reg) {
->-		if (is_virtual_machine())	/* passthrough mode exclus sriov mod
->*/
->-			adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
->-	}
->-}
->-
-> static void nbio_v2_3_init_registers(struct amdgpu_device *adev)  {
-> 	uint32_t def, data;
->@@ -338,6 +321,5 @@ const struct amdgpu_nbio_funcs nbio_v2_3_funcs = {
-> 	.get_clockgating_state = nbio_v2_3_get_clockgating_state,
-> 	.ih_control = nbio_v2_3_ih_control,
-> 	.init_registers = nbio_v2_3_init_registers,
->-	.detect_hw_virt = nbio_v2_3_detect_hw_virt,
-> 	.remap_hdp_registers = nbio_v2_3_remap_hdp_registers,  }; diff --git
->a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
->b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
->index 635d9e1..7b2fb05 100644
->--- a/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
->+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v6_1.c
->@@ -241,23 +241,6 @@ const struct nbio_hdp_flush_reg
->nbio_v6_1_hdp_flush_reg = {
-> 	.ref_and_mask_sdma1 =
->BIF_BX_PF0_GPU_HDP_FLUSH_DONE__SDMA1_MASK
-> };
->
->-static void nbio_v6_1_detect_hw_virt(struct amdgpu_device *adev) -{
->-	uint32_t reg;
->-
->-	reg = RREG32_SOC15(NBIO, 0,
->mmRCC_PF_0_0_RCC_IOV_FUNC_IDENTIFIER);
->-	if (reg & 1)
->-		adev->virt.caps |= AMDGPU_SRIOV_CAPS_IS_VF;
->-
->-	if (reg & 0x80000000)
->-		adev->virt.caps |= AMDGPU_SRIOV_CAPS_ENABLE_IOV;
->-
->-	if (!reg) {
->-		if (is_virtual_machine())	/* passthrough mode exclus sriov mod
->*/
->-			adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
->-	}
->-}
->-
-> static void nbio_v6_1_init_registers(struct amdgpu_device *adev)  {
-> 	uint32_t def, data;
->@@ -294,5 +277,4 @@ const struct amdgpu_nbio_funcs nbio_v6_1_funcs = {
-> 	.get_clockgating_state = nbio_v6_1_get_clockgating_state,
-> 	.ih_control = nbio_v6_1_ih_control,
-> 	.init_registers = nbio_v6_1_init_registers,
->-	.detect_hw_virt = nbio_v6_1_detect_hw_virt,
-> };
->diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
->b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
->index d6cbf26..d34628e 100644
->--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
->+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_0.c
->@@ -280,12 +280,6 @@ const struct nbio_hdp_flush_reg
->nbio_v7_0_hdp_flush_reg = {
-> 	.ref_and_mask_sdma1 = GPU_HDP_FLUSH_DONE__SDMA1_MASK,  };
->
->-static void nbio_v7_0_detect_hw_virt(struct amdgpu_device *adev) -{
->-	if (is_virtual_machine())	/* passthrough mode exclus sriov mod */
->-		adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
->-}
->-
-> static void nbio_v7_0_init_registers(struct amdgpu_device *adev)  {
->
->@@ -310,6 +304,5 @@ const struct amdgpu_nbio_funcs nbio_v7_0_funcs = {
-> 	.get_clockgating_state = nbio_v7_0_get_clockgating_state,
-> 	.ih_control = nbio_v7_0_ih_control,
-> 	.init_registers = nbio_v7_0_init_registers,
->-	.detect_hw_virt = nbio_v7_0_detect_hw_virt,
-> 	.remap_hdp_registers = nbio_v7_0_remap_hdp_registers,  }; diff --git
->a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
->b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
->index 149d386..41c53c1 100644
->--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
->+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
->@@ -292,23 +292,6 @@ const struct nbio_hdp_flush_reg
->nbio_v7_4_hdp_flush_reg = {
-> 	.ref_and_mask_sdma7 = GPU_HDP_FLUSH_DONE__RSVD_ENG5_MASK,
-> };
->
->-static void nbio_v7_4_detect_hw_virt(struct amdgpu_device *adev) -{
->-	uint32_t reg;
->-
->-	reg = RREG32_SOC15(NBIO, 0, mmRCC_IOV_FUNC_IDENTIFIER);
->-	if (reg & 1)
->-		adev->virt.caps |= AMDGPU_SRIOV_CAPS_IS_VF;
->-
->-	if (reg & 0x80000000)
->-		adev->virt.caps |= AMDGPU_SRIOV_CAPS_ENABLE_IOV;
->-
->-	if (!reg) {
->-		if (is_virtual_machine())	/* passthrough mode exclus sriov mod
->*/
->-			adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
->-	}
->-}
->-
-> static void nbio_v7_4_init_registers(struct amdgpu_device *adev)  {
->
->@@ -561,7 +544,6 @@ const struct amdgpu_nbio_funcs nbio_v7_4_funcs = {
-> 	.get_clockgating_state = nbio_v7_4_get_clockgating_state,
-> 	.ih_control = nbio_v7_4_ih_control,
-> 	.init_registers = nbio_v7_4_init_registers,
->-	.detect_hw_virt = nbio_v7_4_detect_hw_virt,
-> 	.remap_hdp_registers = nbio_v7_4_remap_hdp_registers,
-> 	.handle_ras_controller_intr_no_bifring =
->nbio_v7_4_handle_ras_controller_intr_no_bifring,
-> 	.handle_ras_err_event_athub_intr_no_bifring =
->nbio_v7_4_handle_ras_err_event_athub_intr_no_bifring,
->diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c
->b/drivers/gpu/drm/amd/amdgpu/nv.c index 033cbbc..a67d78d 100644
->--- a/drivers/gpu/drm/amd/amdgpu/nv.c
->+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
->@@ -465,8 +465,6 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
-> 	adev->nbio.funcs = &nbio_v2_3_funcs;
-> 	adev->nbio.hdp_flush_reg = &nbio_v2_3_hdp_flush_reg;
->
->-	adev->nbio.funcs->detect_hw_virt(adev);
->-
-> 	if (amdgpu_sriov_vf(adev))
-> 		adev->virt.ops = &xgpu_nv_virt_ops;
->
->diff --git a/drivers/gpu/drm/amd/amdgpu/si.c
->b/drivers/gpu/drm/amd/amdgpu/si.c index 4d415bf..153db3f 100644
->--- a/drivers/gpu/drm/amd/amdgpu/si.c
->+++ b/drivers/gpu/drm/amd/amdgpu/si.c
->@@ -1249,12 +1249,6 @@ static int si_set_uvd_clocks(struct amdgpu_device
->*adev, u32 vclk, u32 dclk)
-> 	return 0;
-> }
->
->-static void si_detect_hw_virtualization(struct amdgpu_device *adev) -{
->-	if (is_virtual_machine()) /* passthrough mode */
->-		adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
->-}
->-
-> static void si_flush_hdp(struct amdgpu_device *adev, struct amdgpu_ring *ring)
->{
-> 	if (!ring || !ring->funcs->emit_wreg) { @@ -2165,8 +2159,6 @@ static
->const struct amdgpu_ip_block_version si_common_ip_block =
->
-> int si_set_ip_blocks(struct amdgpu_device *adev)  {
->-	si_detect_hw_virtualization(adev);
->-
-> 	switch (adev->asic_type) {
-> 	case CHIP_VERDE:
-> 	case CHIP_TAHITI:
->diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c
->b/drivers/gpu/drm/amd/amdgpu/soc15.c
->index a40499d..a8c90d8 100644
->--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
->+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
->@@ -712,7 +712,6 @@ int soc15_set_ip_blocks(struct amdgpu_device *adev)
-> 		adev->df.funcs = &df_v1_7_funcs;
->
-> 	adev->rev_id = soc15_get_rev_id(adev);
->-	adev->nbio.funcs->detect_hw_virt(adev);
->
-> 	if (amdgpu_sriov_vf(adev))
-> 		adev->virt.ops = &xgpu_ai_virt_ops;
->diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c
->b/drivers/gpu/drm/amd/amdgpu/vi.c index 78b3590..0a90c29 100644
->--- a/drivers/gpu/drm/amd/amdgpu/vi.c
->+++ b/drivers/gpu/drm/amd/amdgpu/vi.c
->@@ -448,27 +448,6 @@ static bool vi_read_bios_from_rom(struct
->amdgpu_device *adev,
-> 	return true;
-> }
->
->-static void vi_detect_hw_virtualization(struct amdgpu_device *adev) -{
->-	uint32_t reg = 0;
->-
->-	if (adev->asic_type == CHIP_TONGA ||
->-	    adev->asic_type == CHIP_FIJI) {
->-	       reg = RREG32(mmBIF_IOV_FUNC_IDENTIFIER);
->-	       /* bit0: 0 means pf and 1 means vf */
->-	       if (REG_GET_FIELD(reg, BIF_IOV_FUNC_IDENTIFIER,
->FUNC_IDENTIFIER))
->-		       adev->virt.caps |= AMDGPU_SRIOV_CAPS_IS_VF;
->-	       /* bit31: 0 means disable IOV and 1 means enable */
->-	       if (REG_GET_FIELD(reg, BIF_IOV_FUNC_IDENTIFIER, IOV_ENABLE))
->-		       adev->virt.caps |= AMDGPU_SRIOV_CAPS_ENABLE_IOV;
->-	}
->-
->-	if (reg == 0) {
->-		if (is_virtual_machine()) /* passthrough mode exclus sr-iov
->mode */
->-			adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
->-	}
->-}
->-
-> static const struct amdgpu_allowed_register_entry vi_allowed_read_registers[]
->= {
-> 	{mmGRBM_STATUS},
-> 	{mmGRBM_STATUS2},
->@@ -1730,9 +1709,6 @@ static const struct amdgpu_ip_block_version
->vi_common_ip_block =
->
-> int vi_set_ip_blocks(struct amdgpu_device *adev)  {
->-	/* in early init stage, vbios code won't work */
->-	vi_detect_hw_virtualization(adev);
->-
-> 	if (amdgpu_sriov_vf(adev))
-> 		adev->virt.ops = &xgpu_vi_virt_ops;
->
->diff --git a/drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_6_1_offset.h
->b/drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_6_1_offset.h
->index 68d0ffa..92fd27c 100644
->--- a/drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_6_1_offset.h
->+++ b/drivers/gpu/drm/amd/include/asic_reg/nbif/nbif_6_1_offset.h
->@@ -1162,8 +1162,10 @@
-> #define mmRCC_CONFIG_MEMSIZE_BASE_IDX
->0
-> #define mmRCC_CONFIG_RESERVED
->0x0de4 // duplicate
-> #define mmRCC_CONFIG_RESERVED_BASE_IDX
->0
->+#ifndef mmRCC_IOV_FUNC_IDENTIFIER
-> #define mmRCC_IOV_FUNC_IDENTIFIER
->0x0de5 // duplicate
-> #define mmRCC_IOV_FUNC_IDENTIFIER_BASE_IDX
->0
->+#endif
->
->
-> // addressBlock: syshub_mmreg_ind_syshubdec diff --git
->a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_offset.h
->b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_offset.h
->index 4354622..a7cd760 100644
->--- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_offset.h
->+++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_0_offset.h
->@@ -4251,8 +4251,10 @@
-> #define mmRCC_CONFIG_MEMSIZE_BASE_IDX
->2
-> #define mmRCC_CONFIG_RESERVED
->0x00c4
-> #define mmRCC_CONFIG_RESERVED_BASE_IDX
->2
->+#ifndef mmRCC_IOV_FUNC_IDENTIFIER
-> #define mmRCC_IOV_FUNC_IDENTIFIER
->0x00c5
-> #define mmRCC_IOV_FUNC_IDENTIFIER_BASE_IDX
->2
->+#endif
->
->
-> // addressBlock: nbio_nbif0_rcc_dev0_BIFDEC1 diff --git
->a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_offset.h
->b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_offset.h
->index ce5830e..0c5a08b 100644
->--- a/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_offset.h
->+++ b/drivers/gpu/drm/amd/include/asic_reg/nbio/nbio_7_4_offset.h
->@@ -2687,8 +2687,10 @@
-> #define mmRCC_CONFIG_MEMSIZE_BASE_IDX
->2
-> #define mmRCC_CONFIG_RESERVED
->0x00c4
-> #define mmRCC_CONFIG_RESERVED_BASE_IDX
->2
->+#ifndef mmRCC_IOV_FUNC_IDENTIFIER
-> #define mmRCC_IOV_FUNC_IDENTIFIER
->0x00c5
-> #define mmRCC_IOV_FUNC_IDENTIFIER_BASE_IDX
->2
->+#endif
->
->
-> // addressBlock: nbio_nbif0_rcc_dev0_BIFDEC1
->--
->2.7.4
->
->_______________________________________________
->amd-gfx mailing list
->amd-gfx@lists.freedesktop.org
->https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.free
->desktop.org%2Fmailman%2Flistinfo%2Famd-
->gfx&amp;data=02%7C01%7CEmily.Deng%40amd.com%7C64add81ea4424478f6
->9c08d7cfe2600a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637
->206443506465121&amp;sdata=b6lgg%2FYLEShzYGiCxvHzS2%2FhBBsggfvYo1LoI
->H7IOIk%3D&amp;reserved=0
+Signed-off-by: Monk Liu <Monk.Liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h |  3 ++-
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c |  1 -
+ drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h | 22 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/mxgpu_vi.h |  3 ++-
+ 4 files changed, 26 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
+index 37dbe0f..52a6975 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_ai.h
+@@ -46,7 +46,8 @@ enum idh_event {
+ 	IDH_SUCCESS,
+ 	IDH_FAIL,
+ 	IDH_QUERY_ALIVE,
+-	IDH_EVENT_MAX
++
++	IDH_TEXT_MESSAGE = 255,
+ };
+ 
+ extern const struct amdgpu_virt_ops xgpu_ai_virt_ops;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+index 237fa5e..d9ce12c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.c
+@@ -30,7 +30,6 @@
+ #include "navi10_ih.h"
+ #include "soc15_common.h"
+ #include "mxgpu_nv.h"
+-#include "mxgpu_ai.h"
+ 
+ static void xgpu_nv_mailbox_send_ack(struct amdgpu_device *adev)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
+index 99b15f6..c80bbc7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_nv.h
+@@ -28,6 +28,28 @@
+ #define NV_MAILBOX_POLL_MSG_TIMEDOUT	12000
+ #define NV_MAILBOX_POLL_FLR_TIMEDOUT	500
+ 
++enum idh_request {
++	IDH_REQ_GPU_INIT_ACCESS = 1,
++	IDH_REL_GPU_INIT_ACCESS,
++	IDH_REQ_GPU_FINI_ACCESS,
++	IDH_REL_GPU_FINI_ACCESS,
++	IDH_REQ_GPU_RESET_ACCESS,
++
++	IDH_LOG_VF_ERROR       = 200,
++};
++
++enum idh_event {
++	IDH_CLR_MSG_BUF	= 0,
++	IDH_READY_TO_ACCESS_GPU,
++	IDH_FLR_NOTIFICATION,
++	IDH_FLR_NOTIFICATION_CMPL,
++	IDH_SUCCESS,
++	IDH_FAIL,
++	IDH_QUERY_ALIVE,
++
++	IDH_TEXT_MESSAGE = 255,
++};
++
+ extern const struct amdgpu_virt_ops xgpu_nv_virt_ops;
+ 
+ void xgpu_nv_mailbox_set_irq_funcs(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.h b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.h
+index f13dc6c..713ee66 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.h
++++ b/drivers/gpu/drm/amd/amdgpu/mxgpu_vi.h
+@@ -43,7 +43,8 @@ enum idh_event {
+ 	IDH_READY_TO_ACCESS_GPU,
+ 	IDH_FLR_NOTIFICATION,
+ 	IDH_FLR_NOTIFICATION_CMPL,
+-	IDH_EVENT_MAX
++
++	IDH_TEXT_MESSAGE = 255
+ };
+ 
+ extern const struct amdgpu_virt_ops xgpu_vi_virt_ops;
+-- 
+2.7.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
