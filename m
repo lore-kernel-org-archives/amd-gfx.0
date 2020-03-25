@@ -2,73 +2,105 @@ Return-Path: <SRS0=Seja=5K=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 52C8FC1975A
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 15:20:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36154C54FD3
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 15:22:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 21F912076A
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 15:20:24 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0C3DE20772
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 15:22:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Po5MnDKd"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 21F912076A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="UGz6lCUB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0C3DE20772
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6FE56E879;
-	Wed, 25 Mar 2020 15:20:23 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1D2F6E879
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 15:20:22 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id c81so2895558wmd.4
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 08:20:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SWqbPGWK93FlJzuUBlN43kKP46R8Axekrd2GqBO2O58=;
- b=Po5MnDKdRq1kV5FfQ2+NogsK/AiDLVqTymuDKDY7bTVvDisbZzBAXC8hkJiqfNoAmX
- EYXmODAt7Px4nGzESMEFwKXnhb5hlggLjryWS5rw+ZJcbNVr634rl9a9yj/QJadbbpRQ
- n4ntx8xkXux9b8thb420gxIMwCwzM/7yomDA3Up+0ieXmRvcoupqgYl89iDB5oZg5x3C
- 34AvoAXLADJZjKilfiNLUFd4cFMK8vqstvtKxEaTcFT+oj+8EqvRoaHCXGBTtc1OQlQ6
- kLtUJcij+q4faVLaBYdJntP6xBTbKrytnkpm4ZIPEEXJ/P+IXXBBTo6FtSKmjA1k+JuX
- CV/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SWqbPGWK93FlJzuUBlN43kKP46R8Axekrd2GqBO2O58=;
- b=gqZL0VPAAkADOg4Q0U/xxX2WThJRp9DpwsRhQPxkGsM0FZsDx0j+cYMLFT89ijaumX
- MCVjaWp0RUcsuOuAymcUEINg5wbTtS/nv1DlfBoaszPv5ZJSiQV1IsQI/qNcbkCZ/pJ5
- jvC7gCSqwfgaFvtZDv9ixN0a4H7RS7vxklthd7bniw+v8xPGly1plOJlwFikwhhI4RUX
- gF5tN/tqBycA8+OMqSHkwD1vE/BG2oeE5dUfP0AqQP6rj4x2hBjRSSHxy06VUeAWnl1L
- SnOBkHjJFYE7uVLjzNjyPg1XB1Z42StYucyC3TdufOQsiUbrqrBhpfwJpWYmo0LzAZDe
- OWxg==
-X-Gm-Message-State: ANhLgQ0PjmByTWLUyYLXfPHqchaHqEARPfos4EAoVFdaMfx4apbHQA4j
- 9fNvw2VwSFUqhCaIjI6JuFKa1n2h
-X-Google-Smtp-Source: ADFU+vtk2U66vgbBBkx0HIBT5WXhObjaAzXplvDP6W3rFcHNw3npoTx27iMP4CI6F4to25QYWmGCzA==
-X-Received: by 2002:a7b:c0d7:: with SMTP id s23mr3972031wmh.104.1585149620886; 
- Wed, 25 Mar 2020 08:20:20 -0700 (PDT)
-Received: from brihaspati.fritz.box
- (p200300C58F2F7F00F7F461FB9D1716C0.dip0.t-ipconnect.de.
- [2003:c5:8f2f:7f00:f7f4:61fb:9d17:16c0])
- by smtp.gmail.com with ESMTPSA id r3sm35150794wrm.35.2020.03.25.08.20.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Mar 2020 08:20:19 -0700 (PDT)
-From: Nirmoy Das <nirmoy.aiemd@gmail.com>
-X-Google-Original-From: Nirmoy Das <nirmoy.das@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/1] drm/amdgpu: add missing if clause guard
-Date: Wed, 25 Mar 2020 16:24:25 +0100
-Message-Id: <20200325152425.43179-1-nirmoy.das@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3F0A89F45;
+	Wed, 25 Mar 2020 15:22:31 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2089.outbound.protection.outlook.com [40.107.223.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BF206E15D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 15:22:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=GKpF9RKoMuThAVOZ4jDRx0hSyxeXcSCR1T9kIR3CY+2Pg0qDYZzKh+4oER/RylgTYTFo7rozb7ZyWdOlHTIDLMc2prTdiMnJYqmFrfl9mvyVNul5W2qUpM55HnwtCpVMnDVE4Lgk/IrVYa4eY03vBGx9cMJmNszzPMzSMUNWDcFUQfqMzLKCkvmF5SbMehbQA6JkxlZXFYMDAbLLvm4HjoLgDfo+B3OXLpcr6XIYiov17F2wCnRqoRsyAmO0fewX+tHNdVezR7MqhezYg4Yl2bVGnmHA8LiPJ+CAcdZ9/AxfzK/4SW5CRY2QfgWzrmiMgYksYTbRnPt5//J4nvNzrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wKHT5aoUoW9DBbko6Kpw7ZEB9H324vD/QkfMBc26SQY=;
+ b=d6KWo3sMgyO9KBrDc+Ie+8plOmfHZTsBtNjKJK2JlmtfR2cR7VGWlkHjB9REIgKkhvHlhnL7ZzfOzElJzVY3ms6ewDpDIKBa/VgMwy0gwRAJkttjaeaWDTo0rhj9DXoVvvBJeQ+Pdvq9+bOvgJrEAh/RHl0+x5ZKC9JBb/PZEa9DRZLkjBE0oZHMjspAuxLK8ONt8roOw61XsXViZ2cWFX/ym3MAATNTFj8+qBgb5fbwzkgjHq+rJ8kzmC5Dp8sBd/Mu+DNeoTWeabj6SPzxSym3PRflyFCGoxxWGCAIF9pdrLUkFt2/EIKrC05ZQi8znq0NqBgDHDRMrZ5wKukNaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wKHT5aoUoW9DBbko6Kpw7ZEB9H324vD/QkfMBc26SQY=;
+ b=UGz6lCUBqytZ4qbidHyMi508Nr9owcLFnhUdgQsgcJ21fP1WIVaCJn4AnGr2zLIf0MbazqW310ut14C+QQXFqviWUCaLRCKlrZuKKFIWK1bZfPbVRbfH2RerqOmca+1yWULCZ32oj47IX3c5J1/SZTjtgjsB655NYSrA38GxppM=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by MN2PR12MB4288.namprd12.prod.outlook.com (2603:10b6:208:1d2::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.19; Wed, 25 Mar
+ 2020 15:22:28 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::5868:c9cf:2687:6e03]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::5868:c9cf:2687:6e03%2]) with mapi id 15.20.2835.021; Wed, 25 Mar 2020
+ 15:22:28 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: Nirmoy Das <nirmoy.aiemd@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 1/1] drm/amdgpu: add missing if clause guard
+Thread-Topic: [PATCH 1/1] drm/amdgpu: add missing if clause guard
+Thread-Index: AQHWArjoELyDngXCpEqZ0x9zx9MmsahZbNgL
+Date: Wed, 25 Mar 2020 15:22:28 +0000
+Message-ID: <MN2PR12MB44887719B1FA99655886B08CF7CE0@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20200325152425.43179-1-nirmoy.das@amd.com>
+In-Reply-To: <20200325152425.43179-1-nirmoy.das@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-03-25T15:22:27.753Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
+ Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Alexander.Deucher@amd.com; 
+x-originating-ip: [71.219.40.23]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: f51386d3-687c-4e2a-46fc-08d7d0d0546f
+x-ms-traffictypediagnostic: MN2PR12MB4288:|MN2PR12MB4288:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB4288D97A1D0DE97B9822B0B9F7CE0@MN2PR12MB4288.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5236;
+x-forefront-prvs: 0353563E2B
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(136003)(376002)(366004)(396003)(39860400002)(346002)(81166006)(478600001)(81156014)(52536014)(110136005)(7696005)(53546011)(6506007)(66946007)(66446008)(66556008)(66476007)(86362001)(76116006)(8676002)(33656002)(64756008)(26005)(54906003)(8936002)(5660300002)(186003)(55016002)(316002)(19627405001)(4326008)(71200400001)(9686003)(2906002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4288;
+ H:MN2PR12MB4488.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: pJBA4/Y/iiOAjsrV2SDydQmnOkZQtgzcn24QpjDreT/XYKhu5pd9LrBWEaVWIFg6B4rkesLdBxFdS0nMvjAf6ZtwTamfZh4+QK/qIGiKdA7cP37ZwcePa7gSKxeEANMqOvLJMWkgVjAQ4todLNEA2fYg69FlB44m4Of+amN3MLOyF7sm7QkCjEM4PRRUwH//MEd4Zn/JjybOM6IYgDjxz+dSewrzKV+uqEsjHD3YeqBkOxI9JD/vV0PcJ241167MQQeBXFZGibbBS9oawpX8NK5vJYfeXYPPWvKEpdvtaofRqHtRamdZ5MwnUHE34ED8aVx3O6Q5L0YveuVmheYHbeXBRC4tMdHdgBDAT9d2tQq5KHc7iuI9KaVxDjioY6l+kThABOB4FgCzP9qBThpFaEzc4FovZFQTAzdDPuuzp+gPWvI/phAAI/Rn2FxR/Vzz
+x-ms-exchange-antispam-messagedata: ToUR2pE8rd8SK0sHE0RsK3VXkckPCaQ+CBoYZck272RAopUVtl6tOLtCEb/dTVxeG8ZM5tF9AQI8Pq+L7zmxamCFWs2VSCVtn5jqMzaMUT27FYdl6RwKvdfLDqB7NvIXJEAW9xcBqFF9ew37+mJilQ==
 MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f51386d3-687c-4e2a-46fc-08d7d0d0546f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2020 15:22:28.3045 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: X0LO2xI2DS/EuuDjZEFHuu6b1mb7BKGgiNwRjsZL+kSjoS6ZsBZvgASmkikSO5af6NJFYXf34Z7jxqhx/uhM0g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4288
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,34 +112,171 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, nirmoy.das@amd.com, christian.koenig@amd.com,
- Monk.Liu@amd.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Das, Nirmoy" <Nirmoy.Das@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>, "Liu, Monk" <Monk.Liu@amd.com>
+Content-Type: multipart/mixed; boundary="===============0346046962=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rml4ZXM6IDYzNWYzNzkwYWM5NjQgKGRybS9hbWRncHU6IGRvbid0IHRyeSB0byByZXNlcnZlIHRy
-YWluaW5nIGJvIGZvciBzcmlvdikKCmNvbXBpbGF0aW9uIHdhcm5pbmc6CmRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYzogSW4gZnVuY3Rpb24g4oCYYW1kZ3B1X3R0bV9pbml0
-4oCZOgpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmM6MTg2MjoyOiB3YXJu
-aW5nOiB0aGlzIOKAmGlm4oCZIGNsYXVzZSBkb2VzIG5vdCBndWFyZC4uLiBbLVdtaXNsZWFkaW5n
-LWluZGVudGF0aW9uXQogMTg2MiB8ICBpZiAoIWFtZGdwdV9zcmlvdl92ZihhZGV2KSkKClNpZ25l
-ZC1vZmYtYnk6IE5pcm1veSBEYXMgPG5pcm1veS5kYXNAYW1kLmNvbT4KLS0tCiBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdHRtLmMgfCAzICsrLQogMSBmaWxlIGNoYW5nZWQsIDIg
-aW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV90dG0uYwppbmRleCA1NGNmYTNhMTIxMzUuLmUxOTI1NTdkYjQyMSAxMDA2NDQKLS0tIGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCisrKyBiL2RyaXZlcnMvZ3B1
-L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwpAQCAtMTg1OSwxMCArMTg1OSwxMSBAQCBpbnQg
-YW1kZ3B1X3R0bV9pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQogCSAqVGhlIHJlc2Vy
-dmVkIHZyYW0gZm9yIG1lbW9yeSB0cmFpbmluZyBtdXN0IGJlIHBpbm5lZCB0byB0aGUgc3BlY2lm
-aWVkCiAJICpwbGFjZSBvbiB0aGUgVlJBTSwgc28gcmVzZXJ2ZSBpdCBlYXJseS4KIAkgKi8KLQlp
-ZiAoIWFtZGdwdV9zcmlvdl92ZihhZGV2KSkKKwlpZiAoIWFtZGdwdV9zcmlvdl92ZihhZGV2KSkg
-ewogCQlyID0gYW1kZ3B1X3R0bV90cmFpbmluZ19yZXNlcnZlX3ZyYW1faW5pdChhZGV2KTsKIAkJ
-aWYgKHIpCiAJCQlyZXR1cm4gcjsKKwl9CiAKIAkvKiBhbGxvY2F0ZSBtZW1vcnkgYXMgcmVxdWly
-ZWQgZm9yIFZHQQogCSAqIFRoaXMgaXMgdXNlZCBmb3IgVkdBIGVtdWxhdGlvbiBhbmQgcHJlLU9T
-IHNjYW5vdXQgYnVmZmVycyB0bwotLSAKMi4yNS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
-LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2FtZC1nZngK
+--===============0346046962==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_MN2PR12MB44887719B1FA99655886B08CF7CE0MN2PR12MB4488namp_"
+
+--_000_MN2PR12MB44887719B1FA99655886B08CF7CE0MN2PR12MB4488namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Public Use]
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+________________________________
+From: Nirmoy Das <nirmoy.aiemd@gmail.com>
+Sent: Wednesday, March 25, 2020 11:24 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Liu, Monk <Monk.Liu@amd.com>; Koenig, Christian <Christian.Koenig@amd.c=
+om>; Deucher, Alexander <Alexander.Deucher@amd.com>; Das, Nirmoy <Nirmoy.Da=
+s@amd.com>
+Subject: [PATCH 1/1] drm/amdgpu: add missing if clause guard
+
+Fixes: 635f3790ac964 (drm/amdgpu: don't try to reserve training bo for srio=
+v)
+
+compilation warning:
+drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c: In function =91amdgpu_ttm_init=92:
+drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:1862:2: warning: this =91if=92 clau=
+se does not guard... [-Wmisleading-indentation]
+ 1862 |  if (!amdgpu_sriov_vf(adev))
+
+Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ttm.c
+index 54cfa3a12135..e192557db421 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1859,10 +1859,11 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+          *The reserved vram for memory training must be pinned to the spec=
+ified
+          *place on the VRAM, so reserve it early.
+          */
+-       if (!amdgpu_sriov_vf(adev))
++       if (!amdgpu_sriov_vf(adev)) {
+                 r =3D amdgpu_ttm_training_reserve_vram_init(adev);
+                 if (r)
+                         return r;
++       }
+
+         /* allocate memory as required for VGA
+          * This is used for VGA emulation and pre-OS scanout buffers to
+--
+2.25.1
+
+
+--_000_MN2PR12MB44887719B1FA99655886B08CF7CE0MN2PR12MB4488namp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
+ign=3D"Left">
+[AMD Public Use]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Nirmoy Das &lt;nirmoy=
+.aiemd@gmail.com&gt;<br>
+<b>Sent:</b> Wednesday, March 25, 2020 11:24 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Liu, Monk &lt;Monk.Liu@amd.com&gt;; Koenig, Christian &lt;Christ=
+ian.Koenig@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt=
+;; Das, Nirmoy &lt;Nirmoy.Das@amd.com&gt;<br>
+<b>Subject:</b> [PATCH 1/1] drm/amdgpu: add missing if clause guard</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Fixes: 635f3790ac964 (drm/amdgpu: don't try to res=
+erve training bo for sriov)<br>
+<br>
+compilation warning:<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c: In function =91amdgpu_ttm_init=92:=
+<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c:1862:2: warning: this =91if=92 clau=
+se does not guard... [-Wmisleading-indentation]<br>
+&nbsp;1862 |&nbsp; if (!amdgpu_sriov_vf(adev))<br>
+<br>
+Signed-off-by: Nirmoy Das &lt;nirmoy.das@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 3 &#43;&#43;-<br>
+&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ttm.c<br>
+index 54cfa3a12135..e192557db421 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c<br>
+@@ -1859,10 &#43;1859,11 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)=
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *The reserved vram f=
+or memory training must be pinned to the specified<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *place on the VRAM, =
+so reserve it early.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev))<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_sriov_vf(adev)) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ttm_training_reserve_vram_init(adev);<br=
+>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (r)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retur=
+n r;<br>
+&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* allocate memory as requ=
+ired for VGA<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * This is used for V=
+GA emulation and pre-OS scanout buffers to<br>
+-- <br>
+2.25.1<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MN2PR12MB44887719B1FA99655886B08CF7CE0MN2PR12MB4488namp_--
+
+--===============0346046962==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0346046962==--
