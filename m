@@ -8,60 +8,60 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A869C1975A
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 15:18:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CFD1EC1975A
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 15:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 172AA2076A
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 15:18:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A0D122076A
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 15:19:52 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mQd8KHjI"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 172AA2076A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="daMI5R6P"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0D122076A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D995E6E876;
-	Wed, 25 Mar 2020 15:18:24 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 564B46E876
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 15:18:23 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id g62so3158062wme.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 08:18:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 516366E876;
+	Wed, 25 Mar 2020 15:19:52 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A82C6E876
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 15:19:51 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id l20so3133403wmi.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 08:19:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=VV/qlS8w6RxJGoEbVU9s9Lx8hpGtMMGRX1WyaN9pPYk=;
- b=mQd8KHjIzoovJgCG372Jg113m45iDQp2RLFqqYsQXEhD+FU9EZof/i0EQpb6nkBbUt
- 2xxaxOm4KGg3g/3AGRDg+17mDJXLS1XE5Q9v0XQLIKJu8K1EJdblHQvncXCKNuyGvtvE
- kcdsAbYs4asBkuzPDOFrNF1C5oRZeOVZPv6roFe/agFw0NHsIYRyxd9mV3OQGt4M7+k1
- Rst26qY764qquB7fiileemv5h9ES4D++Tqh0Zb+LH5m0/DgsgjyndEqOe/x27cR9Pzhb
- d09dMjMrFfx5apzzzcUJE+EnEezrvR6FUPyTQev19DYG4/4tqdf0nAgw9xWRAPKp861C
- pfUQ==
+ :cc; bh=qIHUREPZ/jeILcDXTfKttieiXKcDTT3o0kzsYp+/7cA=;
+ b=daMI5R6PXK2HQOUZ5Vkyam/7w1RbPDD1imgihQTrY2CoRDhcMuxEs4XEHOu2BKK4MA
+ b78mhEGbO/HQ+67YFmiN0nmZtJggHje67jiK1equZocpJGcccpHOhgyW4wbyO47CcMAo
+ CgQJYjfOeVSFkO8IxXHnd7TwAZRQocyswfPaFdtkzdfiJeQbKhDXFLwbs/ySBopddH/z
+ kEYWXW1hA2+ehD9MVc8KnfJ3iqWUhDoU10sX3oM8+b4mPRNVi2WMuzr2gZ8+WDODZ68c
+ ls4cFpAQS86kJUjSOjIIl23cyoCb1aB7JY/y3h6+9nJx7KKSadwj1DtI4G8nBoSWNGhm
+ zUwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=VV/qlS8w6RxJGoEbVU9s9Lx8hpGtMMGRX1WyaN9pPYk=;
- b=ftiToYeAS5NwG5UUdUeZKTp34Rttf/VWEH39IWE4szoqnRp7fmhYBu2BM88cSCSUtQ
- cQ22nLC+zEN5Y9ea6sWZcLATtrc0N6nUbfUOe0OvsNSTDv22zbbqhwHNKlgXnmwQeOir
- hznmU4s0fxi8PQOcjUMo7XXyj90ZvqiiD+vdF6DOWsK5TTkDBXGkFl13uJh71F8/N4C8
- DKAR7sju5tKAHbZ/qkuXyLtCGpJEw3B1s9GugD/Nqrc/Bz793g2x/g2qfFbcZjtsOmnU
- fbML07i0DCHeYlmeo8Pb7l09dQo7Kt8x84tFsEfiGk+PiYFwce3UNidal0Pd9ccz2PR3
- uPTQ==
-X-Gm-Message-State: ANhLgQ1v7fXDpXIdhAXAuwt5vHMnRJT4gVfFqs5tQ1GV/1eopIjOybOb
- 1AKwKyVX2hhny4SJ2xFbrmUjqMolGAk2Wf4fF95DI1+q
-X-Google-Smtp-Source: ADFU+vs7uFQ9XrP5TQmfNoxbQvbjUV1/i03B34b7qSx7Q+fgneTZnHkTVuWc/qma5va88sFtX86EY8qXnpuNnGcaZlo=
-X-Received: by 2002:a1c:de82:: with SMTP id v124mr3872706wmg.70.1585149501987; 
- Wed, 25 Mar 2020 08:18:21 -0700 (PDT)
+ bh=qIHUREPZ/jeILcDXTfKttieiXKcDTT3o0kzsYp+/7cA=;
+ b=sRZPdn+bQg1GzH7oXB7g8S+YmWqTJrZlJ9tTqKyBC8rzxQ3u8pZEkiewq8QdYHMnLu
+ K9A/j74kMZFFxfGb5mFqEXVbmecdghTafRbFY9cpKrM09KosNlFbTkhLrwLlNXhv1Wac
+ XQUVmOX2W0ptrQTB5oHjBUy70MsRZ2a5V4v3RBpjx5qdUs4uEgE2cLZJnb5hS1aj7BXQ
+ X2kL0mgNSfFQM2NsX9hADw7YtPK4ey92eBsYVPzydVv2E6mBtR30la/wZi+grXjZWRB2
+ OxcrzxyNVfuGMqTsZBnwyR/t1Vt+Wv5QgmNeiyWp44G4NaGj0ZiRIaDdbtXxQfOVD4Ku
+ w4/A==
+X-Gm-Message-State: ANhLgQ1eoAPZk6u0KyxPg23y9N2198up231GOOYX0yUM5SF5HntUgmcT
+ S0+JMjSfj/mX+gr8C34RHF3cs0Q4q6nUz7D853z9HG8T
+X-Google-Smtp-Source: ADFU+vv5z+MZYms5V3pEBvWdOGJg0UY20rBYt9wCplwteAiUXX7wNdoHBGkWfdUj3ilboyfCKAtwasZENkNK2JRzN3Y=
+X-Received: by 2002:a1c:2842:: with SMTP id o63mr3956192wmo.73.1585149589892; 
+ Wed, 25 Mar 2020 08:19:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <1585125181-14195-1-git-send-email-Emily.Deng@amd.com>
- <1585125181-14195-2-git-send-email-Emily.Deng@amd.com>
-In-Reply-To: <1585125181-14195-2-git-send-email-Emily.Deng@amd.com>
+ <1585125181-14195-3-git-send-email-Emily.Deng@amd.com>
+In-Reply-To: <1585125181-14195-3-git-send-email-Emily.Deng@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 25 Mar 2020 11:18:11 -0400
-Message-ID: <CADnq5_MNfq8wCd8xWXTudYO0n9z-22ePHMX-ObpV1S7D8KJG5A@mail.gmail.com>
-Subject: Re: [PATCH 3/4] SWDEV-227979 - Add 4k resolution for virtual display
+Date: Wed, 25 Mar 2020 11:19:38 -0400
+Message-ID: <CADnq5_NdxJLBMqeHGdThvJbdzDLBGyMFLfohcqVNUtiffRy-uQ@mail.gmail.com>
+Subject: Re: [PATCH 4/4] SWDEV-226663 - Ignore the not supported error from psp
 To: Emily Deng <Emily.Deng@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,7 +82,10 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Wed, Mar 25, 2020 at 4:33 AM Emily Deng <Emily.Deng@amd.com> wrote:
 >
-> Add 4k resolution for virtual connector.
+> As the VCN firmware will not use
+> vf vmr now. And new psp policy won't support set tmr
+> now.
+> For driver compatible issue, ignore the not support error.
 >
 > Signed-off-by: Emily Deng <Emily.Deng@amd.com>
 
@@ -90,39 +93,40 @@ Please fix the patch title.  With that fixed:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/amdgpu/dce_virtual.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-> index 3c9f2d2..8656cb7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-> @@ -281,7 +281,7 @@ static int dce_virtual_get_modes(struct drm_connector *connector)
->         static const struct mode_size {
->                 int w;
->                 int h;
-> -       } common_modes[17] = {
-> +       } common_modes[21] = {
->                 { 640,  480},
->                 { 720,  480},
->                 { 800,  600},
-> @@ -298,10 +298,14 @@ static int dce_virtual_get_modes(struct drm_connector *connector)
->                 {1680, 1050},
->                 {1600, 1200},
->                 {1920, 1080},
-> -               {1920, 1200}
-> +               {1920, 1200},
-> +               {4096, 3112},
-> +               {3656, 2664},
-> +               {3840, 2160},
-> +               {4096, 2160},
->         };
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index c2bf2d9..1a46050 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -205,6 +205,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>         int index;
+>         int timeout = 2000;
+>         bool ras_intr = false;
+> +       bool skip_unsupport = false;
 >
-> -       for (i = 0; i < 17; i++) {
-> +       for (i = 0; i < 21; i++) {
->                 mode = drm_cvt_mode(dev, common_modes[i].w, common_modes[i].h, 60, false, false, false);
->                 drm_mode_probed_add(connector, mode);
+>         mutex_lock(&psp->mutex);
+>
+> @@ -236,6 +237,9 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>                 amdgpu_asic_invalidate_hdp(psp->adev, NULL);
 >         }
+>
+> +       /* We allow TEE_ERROR_NOT_SUPPORTED for VMR command in SRIOV */
+> +       skip_unsupport = (psp->cmd_buf_mem->resp.status == 0xffff000a) && amdgpu_sriov_vf(psp->adev);
+> +
+>         /* In some cases, psp response status is not 0 even there is no
+>          * problem while the command is submitted. Some version of PSP FW
+>          * doesn't write 0 to that field.
+> @@ -243,7 +247,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>          * during psp initialization to avoid breaking hw_init and it doesn't
+>          * return -EINVAL.
+>          */
+> -       if ((psp->cmd_buf_mem->resp.status || !timeout) && !ras_intr) {
+> +       if (!skip_unsupport && (psp->cmd_buf_mem->resp.status || !timeout) && !ras_intr) {
+>                 if (ucode)
+>                         DRM_WARN("failed to load ucode id (%d) ",
+>                                   ucode->ucode_id);
 > --
 > 2.7.4
 >
