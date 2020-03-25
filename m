@@ -2,42 +2,100 @@ Return-Path: <SRS0=Seja=5K=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=3.0 tests=DATE_IN_PAST_06_12,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B4264C2D0E6
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 19:20:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 28BE0C2D0E7
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 19:22:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8EBFF206F6
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 19:20:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8EBFF206F6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=earthlink.net
+	by mail.kernel.org (Postfix) with ESMTPS id 00CA8206F6
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 19:22:31 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Wc68lzpa"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00CA8206F6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4585389C61;
-	Wed, 25 Mar 2020 19:20:07 +0000 (UTC)
-Received: from elasmtp-kukur.atl.sa.earthlink.net
- (elasmtp-kukur.atl.sa.earthlink.net [209.86.89.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 982CB89C61
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 19:20:06 +0000 (UTC)
-Received: from [104.136.253.32] (helo=[192.168.0.11])
- by elasmtp-kukur.atl.sa.earthlink.net with esmtpa (Exim 4)
- (envelope-from <mrmazda@earthlink.net>) id 1jH2We-0001rM-M7
- for amd-gfx@lists.freedesktop.org; Wed, 25 Mar 2020 05:40:40 -0400
+	by gabe.freedesktop.org (Postfix) with ESMTP id A41756E434;
+	Wed, 25 Mar 2020 19:22:31 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2052.outbound.protection.outlook.com [40.107.93.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6F5E6E434
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 19:22:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UdD85oZmDQW5P5vvw4qDNqw1e3T8PMF6QZK8KXNLjaWUtXnb6XuEvQJBtqiULh1FsjuJ2FsiKKn4kwTQ9YdWIfRA4zn4eg/rcN+YFmN++sJwrX5RaQoA44scl/m+ATjzUHiWLmszDoH+I8Gh6xt7upOA5WonoMrRqKlJU1T+F5C4jfAaCeafLg9dTv54neiePJgjrWPQlH6M3srjpuf9tGKUa7oko657tas7O399J7mbNo+zl7gltxgrt+UfveQ/qaPJoQ8TDoRoXyp6W/7eouTcZo1eaxfusoRo+5cZhscLVzSFD7XOTISn+zkjqoT73wPn8Oy2jCzDs0e545UoyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aVNniJQ7IKEo++gLuuT1bygP9QU8s/4HPRQweEt7NA0=;
+ b=hY+HDnXcK2PlG99uyxd2wBAtssctcCpFklPD/+A/gln0lYbdXEefekGYdVrc/QZFszQe9lkqIXsuE3TZCQ7AF9/j4H+Ww54cKIDht91zRYMu7QpdHLd6bGS7mVz06fYF1GQ2WKIdz9uGGpCzPES/WygcDX4kbtYM1/hzNl9A6HZRAWrlE0lukdH8B23GWQr/8oSzhPZD7qP/RQnThVpv6hAo+zNpPWYx2BCzB/uGTEa0jpyfiRyWqD1gz+4cxA7wTUeXnp/Kt2zkR08ZAEBxZliLL0b1oGXUS4J1L1c23q6CdEzEdlTCG7LmqZ3lGg35+AyjZNMPoojJqqPM/SQiRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aVNniJQ7IKEo++gLuuT1bygP9QU8s/4HPRQweEt7NA0=;
+ b=Wc68lzpaviNeK7fRWAjOtvhHiLktWQG++cxxYPTPljVU9JPspowogsO7+ThQ3v2+mK0gOMI7isC87kRF9u+Z0a3aNMfOKelreRpXJte0OwabCNPHnjOeYxriSo4zWBVQ/ki9zOY6XCMrk+JGYOViPe++RcMiDkyu8cKEdpd//0E=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Tom.StDenis@amd.com; 
+Received: from DM5PR12MB1674.namprd12.prod.outlook.com (2603:10b6:4:11::15) by
+ DM5PR12MB2424.namprd12.prod.outlook.com (2603:10b6:4:b7::34) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2835.18; Wed, 25 Mar 2020 19:22:29 +0000
+Received: from DM5PR12MB1674.namprd12.prod.outlook.com
+ ([fe80::c0af:ab9b:b8de:7c4d]) by DM5PR12MB1674.namprd12.prod.outlook.com
+ ([fe80::c0af:ab9b:b8de:7c4d%4]) with mapi id 15.20.2835.023; Wed, 25 Mar 2020
+ 19:22:29 +0000
+From: Tom St Denis <tom.stdenis@amd.com>
 To: amd-gfx@lists.freedesktop.org
-From: Felix Miata <mrmazda@earthlink.net>
-Subject: rv200 video corruption caused by what? kernel? Xserver? DDX? Mesa?
-Organization: less than infinite
-Message-ID: <08b2d969-67e4-336c-1fce-3b5f24157ee4@earthlink.net>
-Date: Wed, 25 Mar 2020 05:40:40 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- SeaMonkey/2.49.5
+Subject: [PATCH] drm/amd/amdgpu: Fix SMUIO/PWR Confusion (v2)
+Date: Wed, 25 Mar 2020 15:22:21 -0400
+Message-Id: <20200325192221.717578-1-tom.stdenis@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-ClientProxiedBy: BN6PR17CA0036.namprd17.prod.outlook.com
+ (2603:10b6:405:75::25) To DM5PR12MB1674.namprd12.prod.outlook.com
+ (2603:10b6:4:11::15)
 MIME-Version: 1.0
-X-ELNK-Trace: 7235c9a3853724b974bf435c0eb9d478486f62d0a25b55cb25ca934dbac66878b9bdbca6983c9fcb350badd9bab72f9c350badd9bab72f9c350badd9bab72f9c
-X-Originating-IP: 104.136.253.32
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from localhost.localdomain.amd.com (165.204.84.11) by
+ BN6PR17CA0036.namprd17.prod.outlook.com (2603:10b6:405:75::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2856.18 via Frontend Transport; Wed, 25 Mar 2020 19:22:28 +0000
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [165.204.84.11]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 7c2a4cbc-5bfe-42a4-7584-08d7d0f1dc09
+X-MS-TrafficTypeDiagnostic: DM5PR12MB2424:|DM5PR12MB2424:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM5PR12MB2424B3FB861C2DFF70DEFF5BF7CE0@DM5PR12MB2424.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1284;
+X-Forefront-PRVS: 0353563E2B
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(366004)(376002)(346002)(136003)(39860400002)(6486002)(2616005)(956004)(16526019)(6916009)(186003)(66946007)(66476007)(6666004)(1076003)(66556008)(5660300002)(26005)(4326008)(478600001)(86362001)(52116002)(7696005)(8936002)(8676002)(81166006)(316002)(81156014)(36756003)(2906002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB2424;
+ H:DM5PR12MB1674.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: FdMdsbRYmjwpbQgWbcnglLq8Vds25UuFBA332BaPMhIwZcsDvFP+S/V73uwc+WRam6XRrYXtsNiU0znf/5TrlVT46a5NLX0Z4nLz+IwzNEbsk8dvaR4U+2CPxaJc9cq2z8ozlW2YWLy9G4m+EMx5oSaj9Ap1QaVlzTiKJOY1yGF1z2lIcOMHs8kdFEAtROSWV+bI9vEFeWNWyscO7vrB4swX/lNruahf3vYSYDW46gmVQ2yqgQ+3Daz/Lj9ZFaBiTk2GRPBeGLb0E5s+k7OvQl0qYrY6hUSFCMWroISqPSw5VuXpgqW7WAmyFsSboUv7rnSw5QR46I38AdHwcJlHo9SqoA4RyyMTgw2eL76h0HJlj8gYvrEjuS6dPGjJe4XnGj5zvbAKZvuwLwFaEkaKeBV271S0XKkP4JKVLR9IHoi0QJTQ6/iCo32qX8nyQaaF
+X-MS-Exchange-AntiSpam-MessageData: WHC9vd3UPwXDgV9GF+U0/bFzXumYjCESg7yzwFMePnPDttGv4OVOKx9d7K0lEGKQ1GmarGSY/y2LPvKbAtihX0Dw8f5SzKFdGU5bObs3b+hvjYoxXBaxHHkXRVamtjNRbhH2G+tIWCuzESY/Vj+v9g==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c2a4cbc-5bfe-42a4-7584-08d7d0f1dc09
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2020 19:22:29.6186 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jm2YHoTXRwmhuw8I/uRcTziCCiR2pXG/c7p3HNeWfYedI8JxL5g25c2Oeqa1hKR7WSSOBglCz4c9U9kF8spF8A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB2424
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,78 +107,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Tom St Denis <tom.stdenis@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-01:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] RV200 [Radeon 7500/7500 LE] [1002:5157]
+The PWR block was merged into the SMUIO block by revision 12 so we add
+that to the smuio_12_0_0 headers.
 
-Debian Buster and Mageia 7 are OK, but with Fedora 30 and Tumbleweed with
-kernels newer than 5.3.x, solid background and mouse pointer are all that
-paint properly: http://fm.no-ip.com/SS/rv200corrupt.png
+(v2): Drop nonsensical smuio_10_0_0 header
 
-Is this a known problem? If not, whose bug tracker do I file this on, and
-which component?
+Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+---
+ .../gpu/drm/amd/include/asic_reg/smuio/smuio_12_0_0_offset.h | 3 +++
+ .../drm/amd/include/asic_reg/smuio/smuio_12_0_0_sh_mask.h    | 5 +++++
+ 2 files changed, 8 insertions(+)
 
-# Debian 10 Buster
-ii libdrm-amdgpu1:i386       2.4.97-1        i386
-ii libdrm-common             2.4.97-1        all 
-ii libdrm-radeon1:i386       2.4.97-1        i386
-ii libdrm2:i386              2.4.97-1        i386
-ii libgl1-mesa-dri:i386     18.3.6-2+deb10u1 i386
-ii libva-drm2:i386           2.4.0-1         i386
-ii libdrm-radeon1:i386       2.4.97-1        i386
-ii xserver-xorg-core         2:1.20.4-1      i386
-ii xserver-xorg-video-radeon 1:19.0.1-1      i386
-ii linux-image-4.19.0-8-686  4.19.98-1       i386  # OK Xorg video
-# Mageia 7
-libdricore1-9.2.4-1.mga4
-libdri-drivers-20.0.1-1.mga7
-libdrm2-2.4.100-1.mga7
-libdrm_amdgpu1-2.4.100-1.mga7
-libdrm_radeon1-2.4.100-1.mga7
-libmesaegl1-20.0.1-1.mga7
-libmesagl1-20.0.1-1.mga7
-libmesaglu1-9.0.0-8.mga7
-mesa-20.0.1-1.mga7
-radeontool-1.6.3-9.mga7
-x11-driver-video-ati-19.1.0-1.mga7
-x11-server-xorg-1.20.7-1.mga7
-kernel-desktop-5.3.13-2.mga7-1-1.mga7	# OK
-kernel-desktop-5.4.17-1.mga7-1-1.mga7	# OK Xorg video
-# Fedora 30
-libdrm-2.4.100-1.fc30.i686
-mesa-dri-drivers-19.1.8-1.fc30.i686
-mesa-libEGL-19.1.8-1.fc30.i686
-mesa-libgbm-19.1.8-1.fc30.i686
-mesa-libGL-19.1.8-1.fc30.i686
-mesa-libglapi-19.1.8-1.fc30.i686
-mesa-libGLU-9.0.0-17.fc30.i686
-xorg-x11-drv-ati-19.0.1-2.fc30.i686
-xorg-x11-server-Xorg-1.20.6-1.fc30.i686
-kernel-core-5.3.7-200.fc30.i686		# OK
-kernel-core-5.4.19-100.fc30.i686	# Corrupt Xorg video
-# openSUSE Tumbleweed 2020030322
-Mesa-20.0.1-245.1.i586
-Mesa-dri-20.0.1-245.1.i586
-Mesa-gallium-20.0.1-245.1.i586
-Mesa-libEGL1-20.0.1-245.1.i586
-Mesa-libGL1-20.0.1-245.1.i586
-Mesa-libglapi0-20.0.1-245.1.i586
-libdrm2-2.4.100-2.2.i586
-libdrm_amdgpu1-2.4.100-2.2.i586
-libdrm_radeon1-2.4.100-2.2.i586
-xf86-video-ati-19.1.0-2.2.i586
-xorg-x11-server-1.20.7+0-3.1.i586
-kernel-default-5.3.12-2.2.i586		# OK
-kernel-default-5.4.14-2.1.i586		# corrupt Xorg video
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_12_0_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_12_0_0_offset.h
+index 327b4d09f66d..9bf73284ad73 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_12_0_0_offset.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_12_0_0_offset.h
+@@ -24,4 +24,7 @@
+ #define mmSMUIO_GFX_MISC_CNTL                                                                          0x00c8
+ #define mmSMUIO_GFX_MISC_CNTL_BASE_IDX                                                                 0
+ 
++#define mmPWR_MISC_CNTL_STATUS                                                                         0x0183
++#define mmPWR_MISC_CNTL_STATUS_BASE_IDX                                                                1
++
+ #endif
+diff --git a/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_12_0_0_sh_mask.h b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_12_0_0_sh_mask.h
+index d815452cfd15..26556fa3d054 100644
+--- a/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_12_0_0_sh_mask.h
++++ b/drivers/gpu/drm/amd/include/asic_reg/smuio/smuio_12_0_0_sh_mask.h
+@@ -24,5 +24,10 @@
+ //SMUIO_GFX_MISC_CNTL
+ #define SMUIO_GFX_MISC_CNTL__PWR_GFXOFF_STATUS_MASK                                                           0x00000006L
+ #define SMUIO_GFX_MISC_CNTL__PWR_GFXOFF_STATUS__SHIFT                                                         0x1
++//PWR_MISC_CNTL_STATUS
++#define PWR_MISC_CNTL_STATUS__PWR_GFX_RLC_CGPG_EN__SHIFT                                                      0x0
++#define PWR_MISC_CNTL_STATUS__PWR_GFXOFF_STATUS__SHIFT                                                        0x1
++#define PWR_MISC_CNTL_STATUS__PWR_GFX_RLC_CGPG_EN_MASK                                                        0x00000001L
++#define PWR_MISC_CNTL_STATUS__PWR_GFXOFF_STATUS_MASK                                                          0x00000006L
+ 
+ #endif
 -- 
-Evolution as taught in public schools is religion, not science.
+2.25.1
 
- Team OS/2 ** Reg. Linux User #211409 ** a11y rocks!
-
-Felix Miata  ***  http://fm.no-ip.com/
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
