@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2CA1C18E5B
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 08:33:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 21C03C1975A
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 08:33:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A661D20409
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 08:33:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E9C0220409
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 08:33:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="NmTUnvt9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A661D20409
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="pX+1CxeZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E9C0220409
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FACB6E5B9;
-	Wed, 25 Mar 2020 08:33:50 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2063.outbound.protection.outlook.com [40.107.237.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DEBD6E5B9
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 08:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B0576E5A4;
+	Wed, 25 Mar 2020 08:33:54 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2041.outbound.protection.outlook.com [40.107.220.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F13C6E5A4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 08:33:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KLhkevl+78BrF5VBGvx71iDaIU2cKrkXpq8uqlWHK7fKtvaGWR6bUOgVexH/vZG+p7NF9K5A3N24sYLuaYa/zIqPxzqH0ntWLtIuyj384rsx5AegdGJe7u1egiiucSJWfD1a1z6RLFOCVQesrj9SI0ShJ6SQ5Vv1Y2yMmTS2ClaxsQaBMN7gZX7C+coP58MLU1SjbvQNRSG1QBMWT5t4tviLM88JvXMTeIj1pX4T/57D1fPS/TPneUTmVeB9bRARP64rl4wZ6x/iUqeLt71lMhE8taA0np8viUzvrSdZXE5NrGRtMixcn+gx8ceLQ8NpcOosBSXixoumt1kSKhTEtQ==
+ b=DRpXRkXXIiG5UqmOQWVsnmaX2krWwKuLM3+fplt8sHLPpjp3B0IYC3lx9ndp4F7lfJnOZL+DAXXFVB1HhxQI+RD05qybK0tddZwoUe86WfUnxoFvjuOmWH4/wm2LtK3kysRayis9DnGwlLSgjjNF7KlUgNe0GPA/3iT9vmUvvAPi1JorGcavJMvpH45FDbTry+XhGn0nWvHoGALT87PEh+OgYoLUPV79QtwenWoEORDZZGZ7aKyqSZVn2sQPdBKf/LVC7mXYOZCT+D95WM7SB9jHlk9L6GE60q4XTnW+xgjQqmNpvZaa3YsmT4Pip/CwhIu+x0n6ojS68CTXIF35Ow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HzMI0czdjAVw3lYYsQrA8JX3O2Xv5zmwTLd1orkfoCU=;
- b=bznO62AX8wrZGotsl/U8KmelQkpSxCfACWK2SyFCRiYXJjyFPykrRDduez9TZCCvkb5WFQpmiWWrZSLO0z6IqHGMKHKXQHMg0tHnm3KXF8742hxYhtpoTnZNPB4qnJ3jwRm4qNwwbZOrYI5SFRbEAnDK3pKb3rFhpEuEk8Ijpcvzy4wx1OBpmtjCfhFp9m8gOqWSRgZXIu58hUIW2hUvDjAYPuygSAfGOwLeywODS9aPLM63UW+Re3HYVchkPHHHLw4azsEbKItvaB+IAAIdsx/G0c5FxhxdaZZNiwbnv9Nh+tbNXqw/PRudUKxcNQ/YNoaI36JUtqpnn0l/Nnx+Rg==
+ bh=o9CR0vhwlm8niT0XKCaZo2Nif+7rZc/enFcNLJiFAcs=;
+ b=YgXqY0MWtDdAims7uc1o0/yMtd1i+D5epqAx0l4CintNO9FeHiaLFTaFl8lqulKyDeu1N16pNmlVOqCqXhSBR8YF/bxn8fZzXbw3LKTKm1w75j5dPhCIVI+4vOL64uHxSXq7OOl3ubibCR0OgHsNR+BZf0SPdDQdtOxQZVYls1Fc7ldqah6q3je8BZEJsv0VPnCfP2bd+QQn+gij9dUHsif237A0W0CIFkfiPWjVQ4bQrEJQd1K+hBc4S2l5f41biNtvQpq0PAcUdLU2kn2/6MG44giDRWAoEQa3v4kC8DsRoDPAtaX+s1rrUVqgz27oom22WJAiqMq7xFOhHU8PRA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HzMI0czdjAVw3lYYsQrA8JX3O2Xv5zmwTLd1orkfoCU=;
- b=NmTUnvt9jJX1F2jC8czrWnqNr+c939UvF6iAlrRliXyT1I/zbh4SzR2znoU9cuknjqsMwurgwRHz23F/u5apgXX92f2+HKNSEWabh0FBUoRH/ymQxu/XSiTVQdK7TGaCGWTFt8ttO0nK3DFrCb55NUKDmvbPQOx+ZY2zAa6wV8U=
-Received: from BN6PR13CA0029.namprd13.prod.outlook.com (2603:10b6:404:13e::15)
- by DM6PR12MB3707.namprd12.prod.outlook.com (2603:10b6:5:1c1::28) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=o9CR0vhwlm8niT0XKCaZo2Nif+7rZc/enFcNLJiFAcs=;
+ b=pX+1CxeZtt+p+2oDeLxjQPyvJgbLZvkukm4761go/CqeGEGYdQvoXCPNsqhjXI0sQ3opr1boy0HZS4/8w35udTVSJlkHImoJ1GI3zzmN2hxDJKwQVQqka1MSyqvTSOFVN6xa2HQASpQR97BfEox93x64S7eQBMMRDOPo200kdD0=
+Received: from BN8PR15CA0036.namprd15.prod.outlook.com (2603:10b6:408:c0::49)
+ by BY5PR12MB3763.namprd12.prod.outlook.com (2603:10b6:a03:1a8::24)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.22; Wed, 25 Mar
- 2020 08:33:46 +0000
-Received: from BN8NAM11FT051.eop-nam11.prod.protection.outlook.com
- (2603:10b6:404:13e:cafe::3a) by BN6PR13CA0029.outlook.office365.com
- (2603:10b6:404:13e::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.12 via Frontend
- Transport; Wed, 25 Mar 2020 08:33:46 +0000
+ 2020 08:33:49 +0000
+Received: from BN8NAM11FT067.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:c0:cafe::92) by BN8PR15CA0036.outlook.office365.com
+ (2603:10b6:408:c0::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.19 via Frontend
+ Transport; Wed, 25 Mar 2020 08:33:49 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -59,21 +59,21 @@ Authentication-Results: spf=none (sender IP is 165.204.84.17)
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
- BN8NAM11FT051.mail.protection.outlook.com (10.13.177.66) with Microsoft SMTP
+ BN8NAM11FT067.mail.protection.outlook.com (10.13.177.159) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2814.13 via Frontend Transport; Wed, 25 Mar 2020 08:33:45 +0000
+ 15.20.2814.13 via Frontend Transport; Wed, 25 Mar 2020 08:33:48 +0000
 Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 25 Mar
- 2020 03:33:45 -0500
+ 2020 03:33:48 -0500
 Received: from emily-build-machine.amd.com (10.180.168.240) by
  SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Wed, 25 Mar 2020 03:33:44 -0500
+ via Frontend Transport; Wed, 25 Mar 2020 03:33:47 -0500
 From: Emily Deng <Emily.Deng@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 3/4] SWDEV-227979 - Add 4k resolution for virtual display
-Date: Wed, 25 Mar 2020 16:33:00 +0800
-Message-ID: <1585125181-14195-2-git-send-email-Emily.Deng@amd.com>
+Subject: [PATCH 4/4] SWDEV-226663 - Ignore the not supported error from psp
+Date: Wed, 25 Mar 2020 16:33:01 +0800
+Message-ID: <1585125181-14195-3-git-send-email-Emily.Deng@amd.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1585125181-14195-1-git-send-email-Emily.Deng@amd.com>
 References: <1585125181-14195-1-git-send-email-Emily.Deng@amd.com>
@@ -82,26 +82,26 @@ X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
  SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(376002)(346002)(39860400002)(136003)(428003)(46966005)(36756003)(8936002)(316002)(81166006)(81156014)(26005)(6916009)(8676002)(82740400003)(356004)(6666004)(186003)(70586007)(7696005)(336012)(478600001)(47076004)(70206006)(2906002)(5660300002)(426003)(2616005)(86362001)(4326008);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3707; H:SATLEXMB02.amd.com; FPR:;
+ SFS:(10009020)(4636009)(136003)(396003)(346002)(39860400002)(376002)(428003)(46966005)(6916009)(70206006)(36756003)(70586007)(4326008)(2906002)(8676002)(47076004)(8936002)(7696005)(6666004)(82740400003)(2616005)(5660300002)(426003)(316002)(86362001)(81166006)(186003)(26005)(81156014)(336012)(478600001)(356004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BY5PR12MB3763; H:SATLEXMB02.amd.com; FPR:;
  SPF:None; LANG:en; PTR:InfoDomainNonexistent; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 277a5ada-019f-49dd-1f4e-08d7d0973bc1
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3707:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB37076E033FE16321C9818EB78FCE0@DM6PR12MB3707.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:843;
+X-MS-Office365-Filtering-Correlation-Id: d198cbc2-437d-42e1-acae-08d7d0973db1
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3763:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB37635FFD5311FEF8687CA5B68FCE0@BY5PR12MB3763.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-Forefront-PRVS: 0353563E2B
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Vg7y9kUc+m8ZG7vbUoVopvPNxo9aTwsfJPLd//OU33rTrzqKzmGJguX/EMtOvZvw+rLCMq+XhZPBvdm0g/ONe2UrZSn9vPsSOJJH98d760Fq993x7Abs5FRoCwhq70klpwg5nUR+rJHU+5F9wMkUoxZNcJ6zGqgwTbIyT5+Fv+PSquzrELijqazYzZ99nDJQQv29frCTSWv9MVJ4jh2F9cGTP3Ze2GBMsoQ7SYK/uXxxzNTLFYNYVQOJz0DBMXo2ZRh7xVqFHgyLtSKwcpQ5hbCOe7iQ3UglqmBVskHz7bx6nzRtzo+q8q5GyX25lyHT+xhcbiBfCZexZO4Num8jgwT/tqF87ZR611NeV7LkIA8JvObjEibQqC9FvWc8E//NJbtYPhCf7fE0OFk7kH3wBAMIkV9ESjoY9EQI0R+MZzrHgHoGv/JmnjaKZINGGFEUMPUpDMkFd3M5VYyZypOuTqVQJ1eZZil57lURGMjH/HVXwPzn1lJ32+1D317pf7o8RoXeTFPgFK5vEeOKMWcq4w==
+X-Microsoft-Antispam-Message-Info: ZAF73zatxD9Mq+tqaIOP3e8obt0s1O12U+R5NxD6orDM14BKsSgSs7oEsR8f2qZp0j46kJ+SR3y7S76oZ54C8RFEzLkFrlXlmJULrjP0NZ9PiHe7JFDTum0jQqTPh9TSNDEgByg2hK5mzLuDP3H4qhP0F3PFeCmV8QPHOtvegON7Lu94fKw78Dqe8RlU/1R0nqWzqWHmcBpnxPQxDT9qplAnhP8oCWiSMLwsZpS6J92+SLga3JbT4wK++hsJVJLImKRyVJERSypsO5D1q2PGoYCqI1uPxJy1HeY0eZkTEnTr/NIfFr012SmqKyN7JDS/hR+69WNN4Fl2U1ch9bWIUsB3wnm4GvME/k5ukObx09DaRmtGaCjzzCRaZse1Yyh6R4dDrTHky6r4oCEf7aCyoPGI2PS7eilemI4Ec9rZVmxI2yd1LIGD5wTmp9m3g3IdS7BaPATbMrnp4CRNaZZ6X5aqsJ8qshY1pvmEjyw6MS2XRIKxK/e9q9T8Bu9vKcuR
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2020 08:33:45.6926 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 277a5ada-019f-49dd-1f4e-08d7d0973bc1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2020 08:33:48.9478 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d198cbc2-437d-42e1-acae-08d7d0973db1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3707
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3763
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,43 +119,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add 4k resolution for virtual connector.
+As the VCN firmware will not use
+vf vmr now. And new psp policy won't support set tmr
+now.
+For driver compatible issue, ignore the not support error.
 
 Signed-off-by: Emily Deng <Emily.Deng@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/dce_virtual.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-index 3c9f2d2..8656cb7 100644
---- a/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-+++ b/drivers/gpu/drm/amd/amdgpu/dce_virtual.c
-@@ -281,7 +281,7 @@ static int dce_virtual_get_modes(struct drm_connector *connector)
- 	static const struct mode_size {
- 		int w;
- 		int h;
--	} common_modes[17] = {
-+	} common_modes[21] = {
- 		{ 640,  480},
- 		{ 720,  480},
- 		{ 800,  600},
-@@ -298,10 +298,14 @@ static int dce_virtual_get_modes(struct drm_connector *connector)
- 		{1680, 1050},
- 		{1600, 1200},
- 		{1920, 1080},
--		{1920, 1200}
-+		{1920, 1200},
-+		{4096, 3112},
-+		{3656, 2664},
-+		{3840, 2160},
-+		{4096, 2160},
- 	};
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index c2bf2d9..1a46050 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -205,6 +205,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 	int index;
+ 	int timeout = 2000;
+ 	bool ras_intr = false;
++	bool skip_unsupport = false;
  
--	for (i = 0; i < 17; i++) {
-+	for (i = 0; i < 21; i++) {
- 		mode = drm_cvt_mode(dev, common_modes[i].w, common_modes[i].h, 60, false, false, false);
- 		drm_mode_probed_add(connector, mode);
+ 	mutex_lock(&psp->mutex);
+ 
+@@ -236,6 +237,9 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 		amdgpu_asic_invalidate_hdp(psp->adev, NULL);
  	}
+ 
++	/* We allow TEE_ERROR_NOT_SUPPORTED for VMR command in SRIOV */
++	skip_unsupport = (psp->cmd_buf_mem->resp.status == 0xffff000a) && amdgpu_sriov_vf(psp->adev);
++
+ 	/* In some cases, psp response status is not 0 even there is no
+ 	 * problem while the command is submitted. Some version of PSP FW
+ 	 * doesn't write 0 to that field.
+@@ -243,7 +247,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
+ 	 * during psp initialization to avoid breaking hw_init and it doesn't
+ 	 * return -EINVAL.
+ 	 */
+-	if ((psp->cmd_buf_mem->resp.status || !timeout) && !ras_intr) {
++	if (!skip_unsupport && (psp->cmd_buf_mem->resp.status || !timeout) && !ras_intr) {
+ 		if (ucode)
+ 			DRM_WARN("failed to load ucode id (%d) ",
+ 				  ucode->ucode_id);
 -- 
 2.7.4
 
