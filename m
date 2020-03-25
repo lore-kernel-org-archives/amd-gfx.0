@@ -6,89 +6,91 @@ X-Spam-Status: No, score=2.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ABA3CC1975A
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 06:59:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AAA0FC1975A
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 07:01:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E2EB2074D
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 06:59:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7DEDD20409
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 07:01:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1s2pAWC7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E2EB2074D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="m5Xyjy0Q"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DEDD20409
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A34B96E111;
-	Wed, 25 Mar 2020 06:59:09 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2045.outbound.protection.outlook.com [40.107.93.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DCE76E111
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 06:59:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CCD06E111;
+	Wed, 25 Mar 2020 07:01:06 +0000 (UTC)
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr680064.outbound.protection.outlook.com [40.107.68.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84FA86E111
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 07:01:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nhDxiSxbvAJze0iA/Uk+EWVg/wT1dknKlvNOegJItdpy6xSZ8COZxplk/J2xcJLOjtByzF2zKBuQvqqi5YBKK+jCUZhY3ZHBvCwk7YKteNWh0VvmLZmGoqRWDVus4Liv6ey3o9hR/12CvPwwTgkECQ89BaE6dhdRBylSwJ5KzgCIXEU5jsOKWy55wQaaR0TpCJ0kfkDTwLXAluaWy1dz2P136C5VQL5s/Ody7mtIw5gKTJDqePeCttNcZ9GMnme7Ui9VGweFb/CxQI1cw1a+1Nhy+56C2EX3/2F3mGQi+eibHHcsu89/BxlW/QD9G54bev+xhDf0+7+NYtYyqozIJw==
+ b=BFQw3bbKA4D5t5fl2SmQLmLap17MfT8xGddWZEFZkUFn9Hiz/1N5twE/aVxn5GCp2f4vfGD19tIHGxwKTFnpcamrPV752tpzL2IkzPVcLeUjuK9bfRC7HW07krQ91NMCtIZyfqnoBOfVS5n5wxtAN62scnDw5z3mYeEJqo1WoEfUXhcTUd44Mg6/MgauN1RMLSiOZiAW1nMhGCtCmaZzstcblynIr80gAj7K3RYQz8QEdyIwr807Va6m82kAvCO0HAEoT3L6aXmZJLlAsb/n3NRXMb+GdHGbChG2FSbCLCMqCW6ZLiL6MFVpw82YfpiTUvlcP13WI++sc/7XAJf60Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=76YFKCR3Gu9VuclamNrA+yG9r1iw4sFmSlSakKhIO9I=;
- b=QRZEYGL87wQBz8AMUhkCn6+oe3A8WaU3UnG/7f4Tuif9aiUDF64Lf4aw7iVR/QGUi5CDinV3eqCCE4F4anVoQPqUM+5xcRstIf9/XQK3YlsV5WQYbkmi/8iQBXn7CrJa+4J4fjNueGfzutHJD1RNdf31IaZK1a5S0pyXlCbaWwo/6jt+qLh89N5ciJn9UsOkfvy+Pp3b7aYmqKER8psuH8NZc2p7LbxtbnGJFaMUyNdaGelr9rnCfIT+wZ/CgS37DFvGF9GklsDTaAnRSFhz5AyTDAFElqruTc4ssZxFmjspCdIRH0aMRxvg1Hu/F+mwvyEIi4vJWyHx4yuiDnYv+Q==
+ bh=131hBsOobhgukyUN5XbXbDzehqgcXHhmQ9OKtoPnRdg=;
+ b=Sj8to6iA/7aQRTg0PraExPNOzQHNGk0wPgR5h9ji+SZ0nm9MROE56XxgucFKhapbzQX8VlwQYWPxEYvVkwn1EJUAFz1rEii/vKabvdB9BN0sDRW0D8FDITrLOihvOpJrA/plZJjDiRn7UZGbuy21zDX9bqRSCZ8KzFaIYGWQdR4PAUhcbLwR30I6RHOJgP/qWEh7ugr4wORavblYElUMINR5mCTkL4cfi48lm9Sl+5SRcxlbl9RFGbQrUOM3cBk0+rVO56s35P4+QqM6krhnuoNalFAZ3BujjiONxn+QNOSRTsMsVx4GM3dupd9GcWYs43XrzPShJWyNfeJUhrVWAg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=76YFKCR3Gu9VuclamNrA+yG9r1iw4sFmSlSakKhIO9I=;
- b=1s2pAWC77I0c4ocBkinS0VePHCzpuDrNNXiiG0+ADXhAnKF5c6NhSNXDaHZFo/xJP7bSYEsZM4b7LEuUdEp6yuRfDagTqG3OG+7kaMjao0Kex21efu+obj+v/+jaofTkcdZWuD2fXzO2gMtS4XU2WlIqsqHZ632YpLg3vMk+fWs=
+ bh=131hBsOobhgukyUN5XbXbDzehqgcXHhmQ9OKtoPnRdg=;
+ b=m5Xyjy0QZ5o0ca71b3NhF1Ih/TisGDbJ9kzusafXaYD7GjnK8iOalol6ike1Jd995+P/Nan1aIgH+b4Nc3hTtFAwE7xRB1OjPoyLUOThEHfhpFeggnJWM29Y2Ay2a6qc+i5T6LPmgahkYu1utYU/jUbYhJ27+bOSLbIsXCEANeI=
 Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
  DM6PR12MB2988.namprd12.prod.outlook.com (2603:10b6:5:3d::23) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2835.15; Wed, 25 Mar 2020 06:59:06 +0000
+ 15.20.2835.15; Wed, 25 Mar 2020 07:01:01 +0000
 Received: from DM6PR12MB4075.namprd12.prod.outlook.com
  ([fe80::796f:dc4e:4661:5273]) by DM6PR12MB4075.namprd12.prod.outlook.com
  ([fe80::796f:dc4e:4661:5273%6]) with mapi id 15.20.2835.023; Wed, 25 Mar 2020
- 06:59:06 +0000
+ 07:01:01 +0000
 From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
 To: "Clements, John" <John.Clements@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: added xgmi ras error reset sequence
-Thread-Topic: [PATCH] drm/amdgpu: added xgmi ras error reset sequence
-Thread-Index: AdYCcZGVr5OtLNxCSJCJvH1jNKE/ugAAS0YA
-Date: Wed, 25 Mar 2020 06:59:06 +0000
-Message-ID: <DM6PR12MB4075B27C81390723D7324D5DFCCE0@DM6PR12MB4075.namprd12.prod.outlook.com>
-References: <MN2PR12MB3663ABDAD735500B548C76F5FBCE0@MN2PR12MB3663.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB3663ABDAD735500B548C76F5FBCE0@MN2PR12MB3663.namprd12.prod.outlook.com>
+Subject: RE: [PATCH] drm/amdgpu: disable ras query and injection during gpu
+ reset
+Thread-Topic: [PATCH] drm/amdgpu: disable ras query and injection during gpu
+ reset
+Thread-Index: AdYCca+yLm66Szs8TCqzfYFWysHyiQAAWklg
+Date: Wed, 25 Mar 2020 07:01:01 +0000
+Message-ID: <DM6PR12MB40752544CAA5F185CAA53192FCCE0@DM6PR12MB4075.namprd12.prod.outlook.com>
+References: <MN2PR12MB366349FEEF93758FA0BB32F6FBCE0@MN2PR12MB3663.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB366349FEEF93758FA0BB32F6FBCE0@MN2PR12MB3663.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-25T06:50:20Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-25T06:51:07Z; 
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
  Unrestricted;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=468a059a-eee5-4623-a6fd-0000bdd9150b;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=f1142338-ed98-4387-bbaf-0000a88a82b9;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-03-25T06:59:03Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-03-25T07:00:58Z
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
  Unrestricted
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 4b6d5af1-12bc-4ee3-9eef-000058538808
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: e3328680-026f-4949-a5d4-000053aeb5e4
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
 authentication-results: spf=none (sender IP is )
  smtp.mailfrom=Hawking.Zhang@amd.com; 
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 6c58c210-c58b-4acb-1990-08d7d08a02b6
+x-ms-office365-filtering-correlation-id: bd2ecd7a-dda0-459a-6d26-08d7d08a475a
 x-ms-traffictypediagnostic: DM6PR12MB2988:|DM6PR12MB2988:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB29882018CBFFF8F5CB91D394FCCE0@DM6PR12MB2988.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4714;
+x-microsoft-antispam-prvs: <DM6PR12MB2988521222B859EF076D165DFCCE0@DM6PR12MB2988.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3826;
 x-forefront-prvs: 0353563E2B
 x-forefront-antispam-report: SFV:NSPM;
  SFS:(10009020)(4636009)(366004)(346002)(396003)(376002)(39860400002)(136003)(4744005)(2906002)(5660300002)(8676002)(478600001)(76116006)(9686003)(81166006)(81156014)(66446008)(66556008)(8936002)(52536014)(26005)(33656002)(186003)(66946007)(66476007)(6506007)(86362001)(53546011)(64756008)(55016002)(71200400001)(110136005)(316002)(7696005);
@@ -99,16 +101,16 @@ received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: yigj5cXWucG00iA8Bgw1WVREQa26zE/5sAvtUR4w+rvYfvq7C5FTHGaoW/qZjgE9x251zvjQ3wB2fiT1Utwugs+8JWGHiuGHannof+a4PbKXeWZuB2ii+nLOAPD/gu0xwYpJzaL56V/e8/WBwUc/91cmrFwnLNbX1Ibj1Ljftmw2NYFETD4eg0tz3uzo59MZOkk9lAAuKFuxtIWwxC3TfcUaXK4fxgvA3U6ntvl2SVYoSN9+FhWplAS2SfisEjmQqEJfRwHu/kvs189pxuT5ONLmG5qdKOLt+FFWD2+U7AcO2WSIF3MF8Lq31nUsp8TmzBBKr4mb6cN4H8LbvR3wuSmGIPW8wIKFI677rd3h61sOn7kRoWDjuCgf/FG1QY2H4Zp9GM0/LApzcuAza9xFP5c4bu4IaGDuOb25QnnPIjaNiLmtwsdA3gIbPZQ5cYBK
-x-ms-exchange-antispam-messagedata: U9rATmLiipeF3Gu0BDamg60cRscywU/D47KzQKQjJTBcUtY8XNMGSNzt49VzrhjBBjn7n50JFR+n7K2AtFhBR09/XS2mZTk6IXK3x9tlew2kzf77VuM16nnHxx9Njm0mlCpwjxzEhILhlWvXdyO+Fg==
+x-microsoft-antispam-message-info: CPZiJ3+Xtid/uZNpKiCo7V6YHflN73azakWqUGiXuGDiYzexxYFKv8Y2cG2lnkf/4rAhimG6jWPvGHMGn6ehExUsrzB/Psaeqzwl8z0n3+AibM2YGdl0cuFBNQ6V4dCkCku2xocmGhaE/+IOMOqmqOk7DCFmbnFa9pgJmnriZ/LrhyxH+LnIXpwDUBzQ0HTHmYOC4VA+klvryXm+L2juWakLWuFNtks88tJ9aFRRIcitFCsf+qB1+tVeMPEDhKlKtPedNAYG5553ZLZilHNNXhgghTW0Abbu0V3lP+WM+aUX1bFn+B94WeUVxdhMNfDK76qbgmuYQQ05x76zAIJcU6ZwYd9iPfUYNAKKWYNz15n6fkclDQ3Vw8ETQ748Fb4TiUPRgawpNdTuFB1kOEgMfA/4AnhKRays6bEqAFNnrG/1A/0VxvF0UeWBJ6+FTmrO
+x-ms-exchange-antispam-messagedata: upxN6eQhz9sMzgo4X18TpzZLh84GC+NjBswSfaRH3SSXoMVaOgkUckDXzh8enMBzJdqGu9oK775ugZbE+pVkgxt/OxuHx/Fr7IoyzucK13z7JorHD23Pw9ay4rdQCDcYsP3o1lwyArS2LOrS+4cxqg==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c58c210-c58b-4acb-1990-08d7d08a02b6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2020 06:59:06.4542 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd2ecd7a-dda0-459a-6d26-08d7d08a475a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2020 07:01:01.6222 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: /st2/agqP8R6OeytMu2Ef8ujdpLeFEJLydOoGDFoOmTQjDmiVOPiQqGdO4CNNT5xOnzP2vfNlqV7erjgDhu+lQ==
+X-MS-Exchange-CrossTenant-userprincipalname: EYPgiCLgOrD3IhSJUdrvplnokGALAKr5Lc4m7BWFrIWAV3QiOsz0StQ8mXSzz0EW6SWEajJ/5gWUiDnTSvuFIA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2988
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -121,41 +123,38 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0570983407=="
+Content-Type: multipart/mixed; boundary="===============0402804294=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0570983407==
+--===============0402804294==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB4075B27C81390723D7324D5DFCCE0DM6PR12MB4075namp_"
+	boundary="_000_DM6PR12MB40752544CAA5F185CAA53192FCCE0DM6PR12MB4075namp_"
 
---_000_DM6PR12MB4075B27C81390723D7324D5DFCCE0DM6PR12MB4075namp_
+--_000_DM6PR12MB40752544CAA5F185CAA53192FCCE0DM6PR12MB4075namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 [AMD Official Use Only - Internal Distribution Only]
-
-+             case CHIP_VEGA20:
-+             default:
-
-I'd suggest do nothing for default case. Other than that the patch is
 
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
 Regards,
 Hawking
 From: Clements, John <John.Clements@amd.com>
-Sent: Wednesday, March 25, 2020 14:50
+Sent: Wednesday, March 25, 2020 14:51
 To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: added xgmi ras error reset sequence
+Subject: [PATCH] drm/amdgpu: disable ras query and injection during gpu res=
+et
 
 
 [AMD Official Use Only - Internal Distribution Only]
 
-Submitting patch to clear xgmi ras error counters inbetween ras error query
+Submitting patch to disable ras debugfs features during the entire GPU rese=
+t cycle
 
---_000_DM6PR12MB4075B27C81390723D7324D5DFCCE0DM6PR12MB4075namp_
+--_000_DM6PR12MB40752544CAA5F185CAA53192FCCE0DM6PR12MB4075namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -221,14 +220,6 @@ div.WordSection1
 lor:#0078D7">[AMD Official Use Only - Internal Distribution Only]</span><o:=
 p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; case CHIP_VEGA20:<o:p></o:p></p>
-<p class=3D"MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; default:<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">I&#8217;d suggest do nothing for default case. Other=
- than that the patch is<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Reviewed-by: Hawking Zhang &lt;Hawking.Zhang@amd.com=
 &gt;<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
@@ -239,11 +230,11 @@ Hawking<o:p></o:p></p>
 0in 0in">
 <p class=3D"MsoNormal"><b>From:</b> Clements, John &lt;John.Clements@amd.co=
 m&gt; <br>
-<b>Sent:</b> Wednesday, March 25, 2020 14:50<br>
+<b>Sent:</b> Wednesday, March 25, 2020 14:51<br>
 <b>To:</b> amd-gfx@lists.freedesktop.org; Zhang, Hawking &lt;Hawking.Zhang@=
 amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: added xgmi ras error reset sequence<o:p=
-></o:p></p>
+<b>Subject:</b> [PATCH] drm/amdgpu: disable ras query and injection during =
+gpu reset<o:p></o:p></p>
 </div>
 </div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
@@ -252,15 +243,15 @@ amd.com&gt;<br>
 lor:#0078D7">[AMD Official Use Only - Internal Distribution Only]</span><o:=
 p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Submitting patch to clear xgmi ras error counters in=
-between ras error query<o:p></o:p></p>
+<p class=3D"MsoNormal">Submitting patch to disable ras debugfs features dur=
+ing the entire GPU reset cycle<o:p></o:p></p>
 </div>
 </body>
 </html>
 
---_000_DM6PR12MB4075B27C81390723D7324D5DFCCE0DM6PR12MB4075namp_--
+--_000_DM6PR12MB40752544CAA5F185CAA53192FCCE0DM6PR12MB4075namp_--
 
---===============0570983407==
+--===============0402804294==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -271,4 +262,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0570983407==--
+--===============0402804294==--
