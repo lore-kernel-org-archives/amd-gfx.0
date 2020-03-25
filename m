@@ -7,92 +7,103 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F363C43331
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 10:28:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4CA7DC43331
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 10:44:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F2FB920714
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 10:28:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F3326206F6
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 10:44:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="eyRbXgNk"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2FB920714
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="KF8FWZBi"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F3326206F6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF0B96E7D9;
-	Wed, 25 Mar 2020 10:28:39 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750083.outbound.protection.outlook.com [40.107.75.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 536B36E7D9
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 10:28:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A80496E7DC;
+	Wed, 25 Mar 2020 10:44:18 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2078.outbound.protection.outlook.com [40.107.243.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 459996E7DC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 10:44:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hMCKuQfLzlnkoDiVQzHLe0TmVgBVu7wngoA41aGrFcNt7Fj9SwU99AWGj70zwGS3SDOCcpOgxLHRKHijX0JrfS2btXk/53NasQvYfLGbPnbyoLfS20GXprEEBn6WXSVYdgF+0ZTsslP/sO33f6liHrKYpSUfW+U+sm7o5DCAZEgKdBRmO9v+4Y9ln3VZET/2IyzTsp6LC9l9AVGUiG4iRg6OWlbt44GuBET5Gij/BNATKmwWvG6vAwodzIfTd2XoaiGIs3DvZ7EHaHSQGhlpnfPVGJz8pOt0kKvgFyaiTJveIX0Z+RVRbs9S+l7BmSLt8gkM4Yrtk11njQ2v8MikNw==
+ b=BBndTNoTJchN2LtQSOZVHowBakokYa4lwQYQAy6OkLYMgiMkbaI4HyXlTnrhHL27hC+/fXdDxFjDeC1FG9yuMzaKNvZOYfMPPjLbuJxfpvE4AocSI6dVD+o4Be6dmS2NIbMBV9UCFH6cNO6wQJKsztJII7ChJc0UoF5srVTx9Jic42GOMTocfwDdycKJgCEMonb7GWhm4QCfJdXkp/xY5o97yGccR0jyT4ca5UstN4kRbvGH+AsU5VtAsWuxewdT7j61cq+WEeRsvrAWrxpBB3lP5QrN9N73qUECHd1Idoa/tmhGkS1Uc8OS0wtrk4i9VeStAFKbZVsoh2Dob2FwIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CoKBNv6/62snGQa8cONZQzR/ecfrznqFxBEro8HD5+I=;
- b=SkKnRLjPrhGZ7gIrare2BsHPHKwmPJSqBJVFAvm8Zx5b+sZKSsLGC5Nz57+Kd6RMwX12gg6FpmbZiw/79dQN6lISofsLEmHcU3/2RKBfQI4ZOLh17kcK3I7v7TeLvBH8XE5ZKXcucxOhdLA/+TtsFZYo7BuUYpqCK8SpDzYag9Qg1mgIaetVcVLYdVTN0ocEp89aABk2RpuRCLg+p6mVN1c26Dqga2BNENo5rrbuj8Yi7ptwzRZ7WsBqNa8dfEBhvm3spj1VRDY1L9niB+8P37bqfirMbCzvegZKC4/VNe5DSM8JLexG1EXapLWPxCh9cSSDKX++4+t2i22Hl1MR/g==
+ bh=0DZejPogMgiH8PIRrWCF4ANqisT8BsoDdMNXD2VANOM=;
+ b=mpfVP0hJeh+1WRHw1cX71GBUF0FufxX/pmtXjySQgVtuwwq1w32fenPJPgINQ6vfUTZiKLcdeSuv803cRyvee9es0O1tyJ7vjAS9OVN00eOedbjItGzvKX+fNisQPUb5ZhZcWISy5rVcUn0wq3kSx9NmbRkMiBBeASEYmOY1GCs7U3qJPwsRw8rCPSSI9khiDvwdoBCjD7ZRDhSbd5VVKK7XJhaAhC+m32O4Zp6PUJZ+9fcW1u4ZnnANFrhBilPXxInIuJ2S5cMCVzBLZHJTKwNu89emr773aFqUNw3mcnNs1ZmrnQhjpeVD4jQJpkUnqWQ8aVCKjNQxESOZKBr/OA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CoKBNv6/62snGQa8cONZQzR/ecfrznqFxBEro8HD5+I=;
- b=eyRbXgNk4vjCwPZpod/N5LJ1lVMUybP5PuS+ZDLTgHT03mh5CsQVhndihjx5jcHTKHu4OTGz/YEKFWN7cIpxiqWg3uonzONRKuHR0UotAw37syA0X80rBAh8jjTlN8enBGWOYpjLHd0OLiUe/7pSHV7uoKRGIVUrYl7E0/sx3rg=
-Received: from DM5PR12MB1578.namprd12.prod.outlook.com (2603:10b6:4:e::7) by
- DM5PR12MB1595.namprd12.prod.outlook.com (2603:10b6:4:3::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2835.22; Wed, 25 Mar 2020 10:28:36 +0000
-Received: from DM5PR12MB1578.namprd12.prod.outlook.com
- ([fe80::50f0:a148:4f52:701f]) by DM5PR12MB1578.namprd12.prod.outlook.com
- ([fe80::50f0:a148:4f52:701f%11]) with mapi id 15.20.2835.023; Wed, 25 Mar
- 2020 10:28:36 +0000
-From: "Koenig, Christian" <Christian.Koenig@amd.com>
-To: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
+ bh=0DZejPogMgiH8PIRrWCF4ANqisT8BsoDdMNXD2VANOM=;
+ b=KF8FWZBiCLpdwL1YFbVpy9BbJWU78J8991H1ES7Cm0ZrcMxSrPfco5MfoTOSIC+CP6cFejUBAovPOs91bacyWJUflRBir/bHOuKM9f+K8aoY8liMJsYS/TL8xjQtOaHsV1sAKc51LDdh8JK30yHeIznvqHNp8t0wQ6PU71UpbWM=
+Received: from BN8PR12MB3283.namprd12.prod.outlook.com (2603:10b6:408:9f::28)
+ by BN8PR12MB3073.namprd12.prod.outlook.com (2603:10b6:408:66::33)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.22; Wed, 25 Mar
+ 2020 10:44:14 +0000
+Received: from BN8PR12MB3283.namprd12.prod.outlook.com
+ ([fe80::f4b1:f244:5157:d457]) by BN8PR12MB3283.namprd12.prod.outlook.com
+ ([fe80::f4b1:f244:5157:d457%6]) with mapi id 15.20.2835.023; Wed, 25 Mar 2020
+ 10:44:14 +0000
+From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
 Subject: Re: [PATCH] drm/amdgpu: fix hpd bo size calculation error
 Thread-Topic: [PATCH] drm/amdgpu: fix hpd bo size calculation error
-Thread-Index: AQHWAo7kCHU6oOQtcUmVFGnvDldr2KhZGytm
-Date: Wed, 25 Mar 2020 10:28:36 +0000
-Message-ID: <ddf95fc7-daa7-4df4-8610-bc6b1f5b6125@email.android.com>
-References: <20200325101848.8524-1-kevin1.wang@amd.com>
-In-Reply-To: <20200325101848.8524-1-kevin1.wang@amd.com>
-Accept-Language: de-DE, en-US
-Content-Language: de-DE
+Thread-Index: AQHWAo7jo42vHHVMjkCC3oWE5+0s7ahZGyoAgAADlLM=
+Date: Wed, 25 Mar 2020 10:44:14 +0000
+Message-ID: <BN8PR12MB3283615631DFCA853AB574E4A2CE0@BN8PR12MB3283.namprd12.prod.outlook.com>
+References: <20200325101848.8524-1-kevin1.wang@amd.com>,
+ <ddf95fc7-daa7-4df4-8610-bc6b1f5b6125@email.android.com>
+In-Reply-To: <ddf95fc7-daa7-4df4-8610-bc6b1f5b6125@email.android.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-Mentions: Alexander.Deucher@amd.com,Hawking.Zhang@amd.com
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-03-25T10:44:09.973Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Christian.Koenig@amd.com; 
-x-originating-ip: [2a02:908:1252:fb60:dc49:624f:5fe9:21c1]
+ smtp.mailfrom=Kevin1.Wang@amd.com; 
+x-originating-ip: [180.167.199.182]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 4de7d913-d6bf-4afb-7ac3-08d7d0a74728
-x-ms-traffictypediagnostic: DM5PR12MB1595:|DM5PR12MB1595:
+x-ms-office365-filtering-correlation-id: 5a8f8c2c-3d71-4fd0-2ee0-08d7d0a97622
+x-ms-traffictypediagnostic: BN8PR12MB3073:|BN8PR12MB3073:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR12MB15956800FE23C31C37E2DD3083CE0@DM5PR12MB1595.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3044;
+x-microsoft-antispam-prvs: <BN8PR12MB307344D441415449778BB9B5A2CE0@BN8PR12MB3073.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3383;
 x-forefront-prvs: 0353563E2B
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(396003)(366004)(346002)(376002)(136003)(4326008)(5660300002)(186003)(316002)(6636002)(6862004)(31696002)(6506007)(478600001)(86362001)(31686004)(64756008)(66946007)(91956017)(6512007)(66556008)(71200400001)(9686003)(66476007)(76116006)(6486002)(81166006)(66446008)(54906003)(8676002)(81156014)(8936002)(2906002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1595;
- H:DM5PR12MB1578.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10009020)(4636009)(136003)(396003)(366004)(39860400002)(346002)(376002)(186003)(55016002)(478600001)(4326008)(86362001)(5660300002)(316002)(2906002)(81166006)(6506007)(26005)(52536014)(110136005)(33656002)(8936002)(76116006)(8676002)(9686003)(7696005)(6636002)(66556008)(64756008)(66446008)(66946007)(66476007)(53546011)(81156014)(71200400001)(91956017)(19627405001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN8PR12MB3073;
+ H:BN8PR12MB3283.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 2KCzKUKXNUT4Mov/bMseUGsC0EuKgqypMvYkiXa8mvQOF6tmF6TFLe/XhHB72QxH4S3Tcpfrn3RNKoqk8eo1T/1Ohgq5464egUIbjLQ3vXET/8lUgcwIg2bKrUW8ciVal2EQf8er25226lXHdznQUNrfXY33uy7BNS3FqwIqLU7BjxbjxtOcnSzy8qX8ByW0+25KY1ekWhExNPeD/Pf/ri/JhsFP3c6ShUySxBKvHlIeFEloqZw3DsQhk8MfOXduzvCxI2KChLsGQFIHdfhv2rLybM2XY+eIv25W/k2acsmE2iPfAe3jVd2JTPkc8btc4ggcO+PMnuJLRIFJ+m8R9p3W/9ohu5JBD+QoFjWZARvmpjVPkE2+nJRL42ZyNUclJiBSXvM9gnkZ9g7YX2yl3zXsdS+DMVSFHOcr0x+rwN5vup7tTNu1VNZXxudcpHfZ
-x-ms-exchange-antispam-messagedata: F+FFqI7dt1Pdt6xAkhVg8uk4L0eLvE57KGH1ppq8AxKrqCOWSpY2LnYA73H3Dnf+wMyeMe2CIVIe/mhvr92OFliPgxnSfBgm+I2S8xFLLB/janbTS1mI7tTOD6yh7enKwOIwvJ5uzUAKl0da7ltRRAD6TfJBv+2B2FkmXa5zAe/0zqsekOzX3g4Gdh+ACHr6rbC4dhci7sTCi9Jt9yVIjw==
+x-microsoft-antispam-message-info: 1Cdo/yCbqrNS9Q0OMzpomW8hEzJ7pt5dYot91+wdtU7aV4OAwYQc5B0kyLFZuLoRSVY33TdBJVD/EybNUebXfSlI155/xuPgSo6CgUd51aXdOqrZ7uXQJZv2Bp1LElmfRjxajMfhATo+n4TW9BSGWUpe29bimzWYGNoNTaoB0OyTBzuaKpUBZyZA6FxBE6OBFHCwTmfPhb1N+zO7u/ZuT4l86wOOOA9sL2HMoipme0OukSRC4wcDAKwVEbryMbrpGpJE5kwfVSMBm5IvY5KEZZm80k+KLYc/s1TFfp+nZ3Uy8vzPqQFnru+9usSj4rqmVNq37QPjOUn/df/F89pbByYDDhF+A5sCccbZlqcwvlbVnFObmdlQpfqEQtsjzngsx3V+4zo2RMIf6Pw9qLZOZaCfKrfT1rrrvdrnjeREYVpo/OiUrf/wx7+f6BJCnAbL
+x-ms-exchange-antispam-messagedata: qj2ZSvCLJ1jZsUG4fqpTyNhorlya2Cp9ibJFTkG/Fc1gI0XtBwhoI1gilffiCjKv1JogHjFv8+NPMJ5Dw+KvLRz892ZuvDpD081x2wRdMKRGIh6+1Ji7ZNNw+mcSkaOeCxYgF6ofhGwYXEZTv4HMRA==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4de7d913-d6bf-4afb-7ac3-08d7d0a74728
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2020 10:28:36.6486 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a8f8c2c-3d71-4fd0-2ee0-08d7d0a97622
+X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2020 10:44:14.4567 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fajt1jOL79UDkrnCH2y2NZDSjrCO222Ah00NnymZHuZirJQlaFQiSRsnW4Z+lYvo
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1595
+X-MS-Exchange-CrossTenant-userprincipalname: HhTr3Fdsb3UQ9evnLmIBrQ9lpVU5QbbKfkELYmvQgWEAQwd6gUcEODWSHsLz/s8B
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3073
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,21 +115,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Feng,
- Kenneth" <Kenneth.Feng@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============2028025240=="
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============1342294297=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============2028025240==
-Content-Language: de-DE
+--===============1342294297==
+Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_ddf95fc7daa74df48610bc6b1f5b6125emailandroidcom_"
+	boundary="_000_BN8PR12MB3283615631DFCA853AB574E4A2CE0BN8PR12MB3283namp_"
 
---_000_ddf95fc7daa74df48610bc6b1f5b6125emailandroidcom_
+--_000_BN8PR12MB3283615631DFCA853AB574E4A2CE0BN8PR12MB3283namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
+
+thanks chris.
+
+@Deucher, Alexander<mailto:Alexander.Deucher@amd.com> @Zhang, Hawking<mailt=
+o:Hawking.Zhang@amd.com>
+from the view of driver, could you help me review it, then give me a RB.
+thanks.
+
+Best Regards,
+Kevin
+
+________________________________
+From: Koenig, Christian <Christian.Koenig@amd.com>
+Sent: Wednesday, March 25, 2020 6:28 PM
+To: Wang, Kevin(Yang) <Kevin1.Wang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Feng, Ke=
+nneth <Kenneth.Feng@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com=
+>
+Subject: Re: [PATCH] drm/amdgpu: fix hpd bo size calculation error
 
 Good catch! mem.size is actually the backing store size (usually in pages).
 
@@ -168,7 +198,7 @@ ev)
 2.17.1
 
 
---_000_ddf95fc7daa74df48610bc6b1f5b6125emailandroidcom_
+--_000_BN8PR12MB3283615631DFCA853AB574E4A2CE0BN8PR12MB3283namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -176,11 +206,64 @@ Content-Transfer-Encoding: quoted-printable
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
 1">
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
-ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+thanks chris.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<a id=3D"OWAAM471300" class=3D"_1OtrSZdhKXVv3UhaivrdJ4 mention ms-bgc-nlr m=
+s-fcl-b" href=3D"mailto:Alexander.Deucher@amd.com">@Deucher, Alexander</a>&=
+nbsp;<a id=3D"OWAAM172244" class=3D"_1OtrSZdhKXVv3UhaivrdJ4 mention ms-bgc-=
+nlr ms-fcl-b" href=3D"mailto:Hawking.Zhang@amd.com">@Zhang,
+ Hawking</a></div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+from the view of driver, could you help me review it, then give me a RB.</d=
+iv>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+thanks.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Best Regards,<br>
+Kevin</div>
+<div id=3D"appendonsend"></div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
+lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian &lt=
+;Christian.Koenig@amd.com&gt;<br>
+<b>Sent:</b> Wednesday, March 25, 2020 6:28 PM<br>
+<b>To:</b> Wang, Kevin(Yang) &lt;Kevin1.Wang@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Feng, Kenneth &lt;Kenneth.Feng@amd.com&gt;; Deucher, Alexander &lt;Ale=
+xander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: fix hpd bo size calculation error</=
+font>
+<div>&nbsp;</div>
+</div>
+<div>
 <div>
 <div dir=3D"auto">Good catch! mem.size is actually the backing store size (=
 usually in pages).
@@ -189,14 +272,14 @@ usually in pages).
 <div dir=3D"auto">Patch is Acked-by: Christian K=F6nig &lt;Christian.Koenig=
 @amd.com&gt;</div>
 </div>
-<div class=3D"x_gmail_extra"><br>
-<div class=3D"x_gmail_quote">Am 25.03.2020 11:19 schrieb &quot;Wang, Kevin(=
-Yang)&quot; &lt;Kevin1.Wang@amd.com&gt;:<br type=3D"attribution">
+<div class=3D"x_x_gmail_extra"><br>
+<div class=3D"x_x_gmail_quote">Am 25.03.2020 11:19 schrieb &quot;Wang, Kevi=
+n(Yang)&quot; &lt;Kevin1.Wang@amd.com&gt;:<br type=3D"attribution">
 </div>
 </div>
 </div>
-<font size=3D"2"><span style=3D"font-size:11pt;">
-<div class=3D"PlainText">the HPD bo size calculation error.<br>
+<font size=3D"2"><span style=3D"font-size:11pt">
+<div class=3D"x_PlainText">the HPD bo size calculation error.<br>
 the &quot;mem.size&quot; can't present actual BO size all time.<br>
 <br>
 Signed-off-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;<br>
@@ -247,13 +330,14 @@ gt;gfx.mec.hpd_eop_obj);<br>
 2.17.1<br>
 <br>
 </div>
-</span></font>
+</span></font></div>
+</div>
 </body>
 </html>
 
---_000_ddf95fc7daa74df48610bc6b1f5b6125emailandroidcom_--
+--_000_BN8PR12MB3283615631DFCA853AB574E4A2CE0BN8PR12MB3283namp_--
 
---===============2028025240==
+--===============1342294297==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -264,4 +348,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============2028025240==--
+--===============1342294297==--
