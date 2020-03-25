@@ -2,100 +2,104 @@ Return-Path: <SRS0=Seja=5K=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6194CC54FD0
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 15:40:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40530C1975A
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 15:41:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3CF4C2073E
-	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 15:40:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 162562073E
+	for <amd-gfx@archiver.kernel.org>; Wed, 25 Mar 2020 15:41:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="mV4LAOKN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3CF4C2073E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="t4QqsNdI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 162562073E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01D1B6E87A;
-	Wed, 25 Mar 2020 15:40:15 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2080.outbound.protection.outlook.com [40.107.94.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F206B6E87A
- for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 15:40:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C853D89BD4;
+	Wed, 25 Mar 2020 15:41:26 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2063.outbound.protection.outlook.com [40.107.93.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3B41A89BD4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 25 Mar 2020 15:41:26 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k/VWCbsTY6HQEmimk2JVcmkvtWXhj2ZlIlI+2cXlRq4XVnqmWIwTRdQpr4ddlZAzNOzRnh/eeQTkX8aGofcGeMJqFuzU0ImgG343TVV0FJ51lrAxzn5CnNt6z0zW4pJ2JKMqQveV0VOCh03hydikkTEhekT3L2e++7cZtOm931goG2RRELDsbuJDu6LV+xujM6y4FfghXjrhNg823TdlUEMyXz7dycfjE2w0Wnyzsc+lWqOEFI6AVQGaAHmVwWqaHC2AB0f4dfIJjtZ6v0ym1LbJYGkudp1PDIRZVuYo+oROPyD+R3+OwNLtXolcK3moGexvjJzwXhbQLj+vVS45kg==
+ b=XjONOTU7pX+QlwRfvjDFdWmyV9Lv91wnV2nS+/cdaIhbrn9SOzIq128+n/lTLUzSn09AXKeWIVUlDfNHY9wNTiJaKF8lb6VoGzSEbL1zAZoACfZdR2k5DYmdfqZktq7iytWLP5JO+P01vJa7oT1HTr/8sl6lDMRmrPLlaV1Iwjb7atH9B860nJgf/hmc2xbyO8PkcWI0eeQlKsdCquXgVW7746icdC7Cp7mCILD2mT/r2FM/evTX42pWfuazKaTjxuTlvk6+oYqW7VroseyItlsc8rwNZbP5HKdUL3Efv/RhIqBqAgGxZUKVYBZZdLmUSAd6IWxzJkfitoOgtvnZBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jBZCWllE1Vvdely/5hVet4F6SvG53upgfvIQ6lZn5Mw=;
- b=JgnTJeSUT/NHQ19LeKK4+AK3J669tVmaB1TKpzVBufM4LKisq9pXwQMrcEZmzEDNbImk4NFiNNaq7BHvPxDhNMfZTBNMEtK2uAq+xgi9nH1fiFZPFyKB9y7MnLmAvKy7PKL9skpScsXYnQ7NhKAcdfZPgXVIFUjywGsjGAYxwABm+8OLNLLUpBdAdbiNoRYJ945ZTsqMGhqrWsYzmsW6TLsjYvW2pnuMT2DdIxzObRSlD4BSvvKFuGeR9PPjvl/lfDMPFr0E3/zKy82ZMFFsXC+KFGmtbl54qclxe3sWyLLUBovh25V2nsyoNa2V6Zfnc7x9H9R1CazgT3mFP/4t6Q==
+ bh=G5Q4rf7o+raDyMH14XJSaHmkSwMzFKrk8b8ilrjaaz8=;
+ b=dGq3FLr9XWjHY7xGrsnaJSsEJ99BbBi+EpI3nd45D5wWUCY0yPIJ/VJh7GBMbcBMYNB9QEEBnHp5BYnWChNxsWbW29BmzvvehH3QNjs591pGUBSI5tdZYe65iThxHCr7Rh2b1gFB3sGGXlwxJ7Q54vqBK0lTs6ImSUtfj+0kZh4WsdNf9Ftl767AoHv9+lixL5/4eLdG3KgD+g0WHYmfGPzgHn/Wq1rrhrepfFbveWSKed+zzsE935PomO4hpH3W4h9ZmpZC3S6C5QoHHcvjvZw5EevFVmx7HR/ZETSGXZmtWULIm5xwbmV6EOuT9tmuqE8vB2jBiNq/2ns0xxHrow==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jBZCWllE1Vvdely/5hVet4F6SvG53upgfvIQ6lZn5Mw=;
- b=mV4LAOKN1bLLiP8ry40eTV8/WUlYWjD2Fmt1u25+DfOAA6rMzwJ0traaEJIXAwvxNJv9Tet7sFnSblRIoGj3OfQysrnwzfLVtpuhY6n5g8q7rStTYo7j7ZmrwwfZF1Pivo2QeA9tpM6OnUcztzRHEf8tvTNiww4dc1BacUSNOAU=
+ bh=G5Q4rf7o+raDyMH14XJSaHmkSwMzFKrk8b8ilrjaaz8=;
+ b=t4QqsNdIIuNRG6XPFj1WRNxoio3K6/GTnLbZvAJq9fK2r+yoEMJtxxBAmbpe2zv9QUnsl/DhuyiLpMcvzYmc0tTNztsB5V4vCCSrH634WsQpdzJ6JaUFjsHBWRvCKKQ42qNCBwEAQ9DzUBRMKg7/CwWVkfIdv/wCpHSmpTna3U4=
 Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Ray.Huang@amd.com; 
-Received: from MN2PR12MB3309.namprd12.prod.outlook.com (2603:10b6:208:106::29)
- by MN2PR12MB4358.namprd12.prod.outlook.com (2603:10b6:208:24f::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.22; Wed, 25 Mar
- 2020 15:40:12 +0000
-Received: from MN2PR12MB3309.namprd12.prod.outlook.com
- ([fe80::6417:7247:12ed:1d7b]) by MN2PR12MB3309.namprd12.prod.outlook.com
- ([fe80::6417:7247:12ed:1d7b%5]) with mapi id 15.20.2835.023; Wed, 25 Mar 2020
- 15:40:12 +0000
-From: Huang Rui <ray.huang@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: fix the missing braces
-Date: Wed, 25 Mar 2020 23:39:56 +0800
-Message-Id: <1585150796-21160-1-git-send-email-ray.huang@amd.com>
-X-Mailer: git-send-email 2.7.4
-X-ClientProxiedBy: HK2PR04CA0085.apcprd04.prod.outlook.com
- (2603:1096:202:15::29) To MN2PR12MB3309.namprd12.prod.outlook.com
- (2603:10b6:208:106::29)
+ smtp.mailfrom=Luben.Tuikov@amd.com; 
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com (2603:10b6:5:115::26)
+ by DM6PR12MB4188.namprd12.prod.outlook.com (2603:10b6:5:215::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.19; Wed, 25 Mar
+ 2020 15:41:22 +0000
+Received: from DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::9505:d766:9ac9:2bfd]) by DM6PR12MB3355.namprd12.prod.outlook.com
+ ([fe80::9505:d766:9ac9:2bfd%6]) with mapi id 15.20.2835.023; Wed, 25 Mar 2020
+ 15:41:22 +0000
+Subject: Re: [PATCH 4/4] SWDEV-226663 - Ignore the not supported error from psp
+To: Emily Deng <Emily.Deng@amd.com>, amd-gfx@lists.freedesktop.org
+References: <1585125181-14195-1-git-send-email-Emily.Deng@amd.com>
+ <1585125181-14195-3-git-send-email-Emily.Deng@amd.com>
+From: Luben Tuikov <luben.tuikov@amd.com>
+Message-ID: <96bb94f5-dc6c-5580-f1a8-65f28ed697c8@amd.com>
+Date: Wed, 25 Mar 2020 11:41:18 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
+In-Reply-To: <1585125181-14195-3-git-send-email-Emily.Deng@amd.com>
+Content-Language: en-CA
+X-ClientProxiedBy: YT1PR01CA0030.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::43)
+ To DM6PR12MB3355.namprd12.prod.outlook.com
+ (2603:10b6:5:115::26)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from hr-intel.amd.com (180.167.199.188) by
- HK2PR04CA0085.apcprd04.prod.outlook.com (2603:1096:202:15::29) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.2835.19 via Frontend Transport; Wed, 25 Mar 2020 15:40:11 +0000
-X-Mailer: git-send-email 2.7.4
-X-Originating-IP: [180.167.199.188]
+Received: from [10.252.35.64] (165.204.54.211) by
+ YT1PR01CA0030.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01::43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2835.19 via Frontend Transport; Wed, 25 Mar 2020 15:41:21 +0000
+X-Originating-IP: [165.204.54.211]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e6680eb9-713c-480b-0f5d-08d7d0d2ce8e
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4358:|MN2PR12MB4358:
+X-MS-Office365-Filtering-Correlation-Id: ba91d5d6-8d1a-4224-5c95-08d7d0d2f859
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4188:|DM6PR12MB4188:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB43589F0EC7F842F31334BB18ECCE0@MN2PR12MB4358.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4188A3BD54B718DE08E6967899CE0@DM6PR12MB4188.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
 X-Forefront-PRVS: 0353563E2B
 X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(376002)(346002)(39860400002)(366004)(136003)(36756003)(52116002)(66556008)(7696005)(66476007)(316002)(8676002)(6486002)(4326008)(8936002)(2906002)(66946007)(5660300002)(81166006)(81156014)(186003)(6916009)(956004)(6666004)(26005)(2616005)(16526019)(86362001)(4744005)(478600001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB4358;
- H:MN2PR12MB3309.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10009020)(4636009)(366004)(39860400002)(396003)(376002)(346002)(136003)(316002)(2616005)(956004)(44832011)(6486002)(31696002)(86362001)(8676002)(8936002)(186003)(26005)(81156014)(6666004)(81166006)(16526019)(478600001)(66946007)(16576012)(2906002)(52116002)(53546011)(36756003)(31686004)(5660300002)(66556008)(66476007);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB4188;
+ H:DM6PR12MB3355.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: mEtccDoVkYac/RuQjXEN2DIgJE/11YsAJLHM0nKasY+TJ7T39vNxsX25Rnw7fHCqjx98JKghDFwWCRCkkXSvVTx2FDkwwxNm0P0mDHpTHIo5h/HAY79vOkigwc0m1l6B4IBw4JMD7G20FUjRhVx5Dknxd0aiViUT7UcYDvQy/mrTFWhqPsHWabDTNzy9/3lHDJR6E8XJP4KT9ASX5eJpn3LqENlat4OgGIaDDcBk0XZUjJr4CBVPhecaCCtvVMu4M8PokUqUdDl8K3G/EOjKln8jK++ApuZjyI9Elhg7qRytL4ZjfuDBLaNJskuMkml85N9gWO4w7+07nGQwiAaf1umWssvjlLgSrP9L4YkDbv2YoywCnm898iPh1ejX9l/7B3LE77jMcTNd0T1V1pg76SEUcXw0GWSpxkkzD2QZ0XO+uVeBrFW9Bc+W64HEZaEx
-X-MS-Exchange-AntiSpam-MessageData: Ho2Qc6FUbNoCgVOzvhCYCul/plhpYFdfZMUVCO+mH4XZgV4Q7hImcD8jPMP+J0PJdMDXwQQulHCnmUZe97eiEMfU4Ie5twofw5xtGIIaG8MHyZuqX6BZ3BhoxySxiUYvO559P5y7MPhIigeEZ8efqQ==
+X-Microsoft-Antispam-Message-Info: piOoj3vqC92DOKVrYNuaOuKYZ6rfYYtFSXdA0sRhiK7URjlLRV0PXqNxQOYIqEugi9vzvbooF43nmEEDinuXmmzcwvUC7C+864F1JirARjPGmN7uEOZSd3JLbZb+6v6tvemsqXOOAvlJGzZO4znkop3vqg055oAniSTagf47sQeB7HVJaeC7sCJ/UN8cjAqcVmg8vXhoGfdjRxCj1zuBEQRw7Y/dakL6FihnhEphjK/u4jIHfRoNCsoC8zITDGLCaiICkwWBUN1zT9zvRyQSTk6wV3/A0zj4JhgRRObNW8RoluS2+SsD1Z7ylT9trYJaRdqXXadrq1S8emgDvAmDj+yyi9Kn5rkgEugm2BVW6sWSg4mwwa9WeE2LxG8TW+QEvZcKOErNARMdnkAAAvi0FPH01dIt71Zbcu8nZ/th3oucfn4F3QlyfZs6sIbACMu7
+X-MS-Exchange-AntiSpam-MessageData: w+Iqdx0/dzYaebkYnxvI9XD3xePyyaSK7J1ByDF2uSU9fZEQ2mwfhyPzZZcnBXPQK6rzgpqIM97tf0ZHnM84uAoPZy1X/RdVkQOKK6eBEQ0KtOGFFU3Z4UnJt1cFlPNaKaqt3K7RAVMjXHiC+xfvGA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6680eb9-713c-480b-0f5d-08d7d0d2ce8e
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2020 15:40:12.7947 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ba91d5d6-8d1a-4224-5c95-08d7d0d2f859
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2020 15:41:22.6049 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EHrNdwG2KS2a8PXxREHw1AKvpAlEEY3XbcC/sSEb25E4xYa//VIsuygyqyw4oJhWlLiAezlemtTG7ty3qif+Gw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4358
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8kNNsfBAWGL3DC3LTlXB+ppq3xjt1FceBn0nSJsZg66LnDKmXp2em2Kf28tDJiYn
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4188
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,38 +111,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Huang Rui <ray.huang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The braces are missed around amdgpu_ttm_training_reserve_vram_init().
+On 2020-03-25 04:33, Emily Deng wrote:
+> As the VCN firmware will not use
+> vf vmr now. And new psp policy won't support set tmr
+> now.
+> For driver compatible issue, ignore the not support error.
 
-Signed-off-by: Huang Rui <ray.huang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+The line wrap is a bit off here.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index b397148..8afe62a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1938,10 +1938,11 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 	 *The reserved vram for memory training must be pinned to the specified
- 	 *place on the VRAM, so reserve it early.
- 	 */
--	if (!amdgpu_sriov_vf(adev))
-+	if (!amdgpu_sriov_vf(adev)) {
- 		r = amdgpu_ttm_training_reserve_vram_init(adev);
- 		if (r)
- 			return r;
-+	}
- 
- 	/* allocate memory as required for VGA
- 	 * This is used for VGA emulation and pre-OS scanout buffers to
--- 
-2.7.4
+> 
+> Signed-off-by: Emily Deng <Emily.Deng@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> index c2bf2d9..1a46050 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+> @@ -205,6 +205,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>  	int index;
+>  	int timeout = 2000;
+>  	bool ras_intr = false;
+> +	bool skip_unsupport = false;
+
+I'd name this "skip_unsupported", or "skip_unsupp".
+
+You shouldn't have to initialize "skip_unsupport" to a value.
+Leave it uninitialized. You want the compiler to warn you
+if you're using it uninitialized, and show you the path(s)
+where this happens, so you can check the logic of the patch.
+
+>  
+>  	mutex_lock(&psp->mutex);
+>  
+> @@ -236,6 +237,9 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>  		amdgpu_asic_invalidate_hdp(psp->adev, NULL);
+>  	}
+>  
+> +	/* We allow TEE_ERROR_NOT_SUPPORTED for VMR command in SRIOV */
+> +	skip_unsupport = (psp->cmd_buf_mem->resp.status == 0xffff000a) && amdgpu_sriov_vf(psp->adev);
+> +
+
+It's unconditionally set here, so you don't need to initialize it when you define it.
+
+Regards,
+Luben
+
+>  	/* In some cases, psp response status is not 0 even there is no
+>  	 * problem while the command is submitted. Some version of PSP FW
+>  	 * doesn't write 0 to that field.
+> @@ -243,7 +247,7 @@ psp_cmd_submit_buf(struct psp_context *psp,
+>  	 * during psp initialization to avoid breaking hw_init and it doesn't
+>  	 * return -EINVAL.
+>  	 */
+> -	if ((psp->cmd_buf_mem->resp.status || !timeout) && !ras_intr) {
+> +	if (!skip_unsupport && (psp->cmd_buf_mem->resp.status || !timeout) && !ras_intr) {
+>  		if (ucode)
+>  			DRM_WARN("failed to load ucode id (%d) ",
+>  				  ucode->ucode_id);
+> 
 
 _______________________________________________
 amd-gfx mailing list
