@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 89570C2D0E5
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 20:24:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 35B20C2D0EE
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 20:24:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6376120716
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 20:24:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1056120716
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 20:24:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="B8VIl8Cs"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6376120716
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="mnfkrC9j"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1056120716
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8FCE6EA7C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8EBA6EA7B;
 	Fri, 27 Mar 2020 20:24:51 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 605186E0F2
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2020 20:00:29 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id v7so12236729qkc.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2020 13:00:29 -0700 (PDT)
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2078A6EA73
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2020 20:00:30 +0000 (UTC)
+Received: by mail-qv1-xf44.google.com with SMTP id v38so5551082qvf.6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2020 13:00:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=l6FSIJA11GUWp0iQEXEKmA47YraWhMsGW7mGBig6TKg=;
- b=B8VIl8CsE0i+yz5ktETkDbP6oCOwB9jFF8uCJ5FsWSqFmwjzIX+ImPVf858PHxOngZ
- ar1UKDakP5k672+PK0UTM50jgjlop3Up/AAzRr6TcXWAf6PymK/aYrFCVX+YRsLSHbWm
- BWMdTTu4lzuUPsSXRrv1YIzdXO6RBckMWW+1LFkz/8bclf6GpGihBt3R+5ir6kcwRwT4
- waTAzWqFFB7r/KeILUCDs+8sdRcwDLOUFMQx+DnVqZcxVqd475UoFYlunnDoT7OUmUWp
- 4FXzV+aeAYANqWe0j4RUopm83PCyP3jcmVpMUqI/YhPVOy6WF4QHlKb3XvRoKGBXj7kS
- E7sQ==
+ bh=0YwvFUjpXmbDvkZKNjbfujorytQMVs2tZT8OA9dQSF8=;
+ b=mnfkrC9jyg4WaIQ779ig/zpj/klGfASY58WPazK78dL6/L9j0dM8LoArrmhGY6hNCW
+ lPnRXcLdic1Pg+h7moGy18icvpcDp3Vdm0s1rq5HeRIJN9EcdUO/cu+co11JpoLrN4qL
+ bBHI8AGZyTfnUTwrsVFc8uctNW7ix9eQCONaIedTp9BNTFhNh1EZyXYoel4HYfcRY8fw
+ LQnPSoYQG3lmTytyBJMIt2zxl6duN/WkpaQwOOPuKfTg+pln0nPKRe46xyyeOCl2jNsw
+ F64wdb95HRMI5lsN23ls+CRwYXLCXqbVVixTp0hUCTtYyIqfegAdfesSO2XZetjZvnNA
+ JZFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=l6FSIJA11GUWp0iQEXEKmA47YraWhMsGW7mGBig6TKg=;
- b=VwEMv8zirYY9Si1WRgGL3pwSZ1CmNOQFXI4EypsbqpioTowk4jt0Aeg2ctlwzzoLDK
- 3rb9Nk6PUXsHNUdTlew/tnL6IH+XpvRmO5SpwqvnDB0cJik9TbG8+KBkGpDMgAxPMtD7
- O8sgEYcVjTpt4e3NtDCmmnfEDadr81izJFjWGEGY2Inui8Q3UHbrRPdz7JapQTlKdqCW
- YbXDoUKN/NjCbi8cdFnWBwy1jfvM1386pnFV8l47C3TymME21QX4VmQYTTF6Gb3bK5uG
- q6l6CxVz/GPei3oFyWPrghTZgKHTQlIdlmMk7nIGy9tr3k9CxdC12U8OmOak11gWeRBy
- bB8Q==
-X-Gm-Message-State: ANhLgQ1/tq8pd54cg46ERAL4qwGllnbHdNdEoO/8ItAZWiNIkZBbogUV
- GvdQB6pPh2vP2SL2ysLpeU9NRg==
-X-Google-Smtp-Source: ADFU+vvf5lpmfE6Vv1KUN24OJu+znyEDbu+4t7Aq/PDfqWm3EIcAZ1pXP806ufmPt/PEbjgcavPE0g==
-X-Received: by 2002:a37:aec2:: with SMTP id x185mr1076168qke.45.1585339228406; 
- Fri, 27 Mar 2020 13:00:28 -0700 (PDT)
+ bh=0YwvFUjpXmbDvkZKNjbfujorytQMVs2tZT8OA9dQSF8=;
+ b=VMtWjgzEg0hK7SV5eivi+PVvRFp7d+o3AN5zoQBw+T6C0fUcAOiKWDo9fAtHFIuJ5G
+ pKglzcLiJBBP9sLoeSIbhArRPJsSWc8IJgN4qZdkld/Gk6QK2FOTQCHhSHdHT+h1RhMZ
+ 5YV75ir5Ki+cf37gpvqJY1DIhDv9+FsNL8T/ZXhvBPiYoNNKtxprWXv6QoNAGN2IGE4y
+ hanf9P2C6MCUzDRGdjfRBLEYl0zukbMdNpKuIJFpA5O0FApAau55HeyL43RzCqo6JVVC
+ by8RpvoxXD8UzviffO46oldlKf7t4LEJMl9su+ENB+9yFamW1rNmpx/I3SfjZn5d4bkj
+ /X9w==
+X-Gm-Message-State: ANhLgQ2bW/c2QCZ4NvmD3vaPqDaC5vXF7pdf2sRGDkGa1DhbTkNXmVKX
+ 1gpe7mF3Dc0k64xKycWrI2mXAw==
+X-Google-Smtp-Source: ADFU+vt3s0+lgv+iGRoTEkFt1ejwwiJRwUACnIjhsRxuQ+gcOw0zEySY+f1/M+LS9aENWkWVffV11A==
+X-Received: by 2002:ad4:4431:: with SMTP id e17mr992254qvt.64.1585339229040;
+ Fri, 27 Mar 2020 13:00:29 -0700 (PDT)
 Received: from ziepe.ca
  (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
  [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id j6sm4681752qti.25.2020.03.27.13.00.25
+ by smtp.gmail.com with ESMTPSA id s36sm4794732qtb.28.2020.03.27.13.00.25
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
  Fri, 27 Mar 2020 13:00:25 -0700 (PDT)
 Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
  (envelope-from <jgg@ziepe.ca>)
- id 1jHv9U-0007fT-UC; Fri, 27 Mar 2020 17:00:24 -0300
+ id 1jHv9V-0007fl-32; Fri, 27 Mar 2020 17:00:25 -0300
 From: Jason Gunthorpe <jgg@ziepe.ca>
 To: Jerome Glisse <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>,
  Felix.Kuehling@amd.com
-Subject: [PATCH v2 hmm 1/9] mm/hmm: remove pgmap checking for devmap pages
-Date: Fri, 27 Mar 2020 17:00:13 -0300
-Message-Id: <20200327200021.29372-2-jgg@ziepe.ca>
+Subject: [PATCH v2 hmm 4/9] mm/hmm: remove HMM_FAULT_SNAPSHOT
+Date: Fri, 27 Mar 2020 17:00:16 -0300
+Message-Id: <20200327200021.29372-5-jgg@ziepe.ca>
 X-Mailer: git-send-email 2.25.2
 In-Reply-To: <20200327200021.29372-1-jgg@ziepe.ca>
 References: <20200327200021.29372-1-jgg@ziepe.ca>
@@ -96,118 +96,167 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jason Gunthorpe <jgg@mellanox.com>
 
-The checking boils down to some racy check if the pagemap is still
-available or not. Instead of checking this, rely entirely on the
-notifiers, if a pagemap is destroyed then all pages that belong to it must
-be removed from the tables and the notifiers triggered.
+Now that flags are handled on a fine-grained per-page basis this global
+flag is redundant and has a confusing overlap with the pfn_flags_mask and
+default_flags.
 
-Reviewed-by: Ralph Campbell <rcampbell@nvidia.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Tested-by: Ralph Campbell <rcampbell@nvidia.com>
+Normalize the HMM_FAULT_SNAPSHOT behavior into one place. Callers needing
+the SNAPSHOT behavior should set a pfn_flags_mask and default_flags that
+always results in a cleared HMM_PFN_VALID. Then no pages will be faulted,
+and HMM_FAULT_SNAPSHOT is not a special flow that overrides the masking
+mechanism.
+
+As this is the last flag, also remove the flags argument. If future flags
+are needed they can be part of the struct hmm_range function arguments.
+
 Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 ---
- mm/hmm.c | 50 ++------------------------------------------------
- 1 file changed, 2 insertions(+), 48 deletions(-)
+ Documentation/vm/hmm.rst                | 12 +++++-------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_svm.c   |  2 +-
+ include/linux/hmm.h                     |  5 +----
+ mm/hmm.c                                | 17 +++++++++--------
+ 5 files changed, 17 insertions(+), 21 deletions(-)
 
+diff --git a/Documentation/vm/hmm.rst b/Documentation/vm/hmm.rst
+index 95fec596836262..4e3e9362afeb10 100644
+--- a/Documentation/vm/hmm.rst
++++ b/Documentation/vm/hmm.rst
+@@ -161,13 +161,11 @@ device must complete the update before the driver callback returns.
+ When the device driver wants to populate a range of virtual addresses, it can
+ use::
+ 
+-  long hmm_range_fault(struct hmm_range *range, unsigned int flags);
++  long hmm_range_fault(struct hmm_range *range);
+ 
+-With the HMM_RANGE_SNAPSHOT flag, it will only fetch present CPU page table
+-entries and will not trigger a page fault on missing or non-present entries.
+-Without that flag, it does trigger a page fault on missing or read-only entries
+-if write access is requested (see below). Page faults use the generic mm page
+-fault code path just like a CPU page fault.
++It will trigger a page fault on missing or read-only entries if write access is
++requested (see below). Page faults use the generic mm page fault code path just
++like a CPU page fault.
+ 
+ Both functions copy CPU page table entries into their pfns array argument. Each
+ entry in that array corresponds to an address in the virtual range. HMM
+@@ -197,7 +195,7 @@ The usage pattern is::
+  again:
+       range.notifier_seq = mmu_interval_read_begin(&interval_sub);
+       down_read(&mm->mmap_sem);
+-      ret = hmm_range_fault(&range, HMM_RANGE_SNAPSHOT);
++      ret = hmm_range_fault(&range);
+       if (ret) {
+           up_read(&mm->mmap_sem);
+           if (ret == -EBUSY)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 90821ce5e6cad0..c520290709371b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -856,7 +856,7 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
+ 	range->notifier_seq = mmu_interval_read_begin(&bo->notifier);
+ 
+ 	down_read(&mm->mmap_sem);
+-	r = hmm_range_fault(range, 0);
++	r = hmm_range_fault(range);
+ 	up_read(&mm->mmap_sem);
+ 	if (unlikely(r <= 0)) {
+ 		/*
+diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
+index 39c731a99937c6..e3797b2d4d1759 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_svm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
+@@ -540,7 +540,7 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
+ 		range.default_flags = 0;
+ 		range.pfn_flags_mask = -1UL;
+ 		down_read(&mm->mmap_sem);
+-		ret = hmm_range_fault(&range, 0);
++		ret = hmm_range_fault(&range);
+ 		up_read(&mm->mmap_sem);
+ 		if (ret <= 0) {
+ 			if (ret == 0 || ret == -EBUSY)
+diff --git a/include/linux/hmm.h b/include/linux/hmm.h
+index daee6508a3f609..7475051100c782 100644
+--- a/include/linux/hmm.h
++++ b/include/linux/hmm.h
+@@ -117,13 +117,10 @@ static inline struct page *hmm_device_entry_to_page(const struct hmm_range *rang
+ 	return pfn_to_page(entry >> range->pfn_shift);
+ }
+ 
+-/* Don't fault in missing PTEs, just snapshot the current state. */
+-#define HMM_FAULT_SNAPSHOT		(1 << 1)
+-
+ /*
+  * Please see Documentation/vm/hmm.rst for how to use the range API.
+  */
+-long hmm_range_fault(struct hmm_range *range, unsigned int flags);
++long hmm_range_fault(struct hmm_range *range);
+ 
+ /*
+  * HMM_RANGE_DEFAULT_TIMEOUT - default timeout (ms) when waiting for a range
 diff --git a/mm/hmm.c b/mm/hmm.c
-index a491d9aaafe45d..3a2610e0713329 100644
+index 136de474221d77..8dbd9e1d0308b4 100644
 --- a/mm/hmm.c
 +++ b/mm/hmm.c
-@@ -28,7 +28,6 @@
- 
+@@ -29,7 +29,6 @@
  struct hmm_vma_walk {
  	struct hmm_range	*range;
--	struct dev_pagemap	*pgmap;
  	unsigned long		last;
- 	unsigned int		flags;
+-	unsigned int		flags;
  };
-@@ -196,19 +195,8 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
- 		return hmm_vma_fault(addr, end, fault, write_fault, walk);
  
- 	pfn = pmd_pfn(pmd) + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
--	for (i = 0; addr < end; addr += PAGE_SIZE, i++, pfn++) {
--		if (pmd_devmap(pmd)) {
--			hmm_vma_walk->pgmap = get_dev_pagemap(pfn,
--					      hmm_vma_walk->pgmap);
--			if (unlikely(!hmm_vma_walk->pgmap))
--				return -EBUSY;
--		}
-+	for (i = 0; addr < end; addr += PAGE_SIZE, i++, pfn++)
- 		pfns[i] = hmm_device_entry_from_pfn(range, pfn) | cpu_flags;
--	}
--	if (hmm_vma_walk->pgmap) {
--		put_dev_pagemap(hmm_vma_walk->pgmap);
--		hmm_vma_walk->pgmap = NULL;
--	}
- 	hmm_vma_walk->last = end;
- 	return 0;
- }
-@@ -300,15 +288,6 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 	if (fault || write_fault)
- 		goto fault;
+ enum {
+@@ -112,9 +111,6 @@ static unsigned int hmm_pte_need_fault(const struct hmm_vma_walk *hmm_vma_walk,
+ {
+ 	struct hmm_range *range = hmm_vma_walk->range;
  
--	if (pte_devmap(pte)) {
--		hmm_vma_walk->pgmap = get_dev_pagemap(pte_pfn(pte),
--					      hmm_vma_walk->pgmap);
--		if (unlikely(!hmm_vma_walk->pgmap)) {
--			pte_unmap(ptep);
--			return -EBUSY;
--		}
--	}
+-	if (hmm_vma_walk->flags & HMM_FAULT_SNAPSHOT)
+-		return 0;
 -
  	/*
- 	 * Since each architecture defines a struct page for the zero page, just
- 	 * fall through and treat it like a normal page.
-@@ -328,10 +307,6 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
- 	return 0;
+ 	 * So we not only consider the individual per page request we also
+ 	 * consider the default flags requested for the range. The API can
+@@ -147,10 +143,17 @@ hmm_range_need_fault(const struct hmm_vma_walk *hmm_vma_walk,
+ 		     const uint64_t *pfns, unsigned long npages,
+ 		     uint64_t cpu_flags)
+ {
++	struct hmm_range *range = hmm_vma_walk->range;
+ 	unsigned int required_fault = 0;
+ 	unsigned long i;
  
- fault:
--	if (hmm_vma_walk->pgmap) {
--		put_dev_pagemap(hmm_vma_walk->pgmap);
--		hmm_vma_walk->pgmap = NULL;
--	}
- 	pte_unmap(ptep);
- 	/* Fault any virtual address we were asked to fault */
- 	return hmm_vma_fault(addr, end, fault, write_fault, walk);
-@@ -418,16 +393,6 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
- 			return r;
- 		}
- 	}
--	if (hmm_vma_walk->pgmap) {
--		/*
--		 * We do put_dev_pagemap() here and not in hmm_vma_handle_pte()
--		 * so that we can leverage get_dev_pagemap() optimization which
--		 * will not re-take a reference on a pgmap if we already have
--		 * one.
--		 */
--		put_dev_pagemap(hmm_vma_walk->pgmap);
--		hmm_vma_walk->pgmap = NULL;
--	}
- 	pte_unmap(ptep - 1);
+-	if (hmm_vma_walk->flags & HMM_FAULT_SNAPSHOT)
++	/*
++	 * If the default flags do not request to fault pages, and the mask does
++	 * not allow for individual pages to be faulted, then
++	 * hmm_pte_need_fault() will always return 0.
++	 */
++	if (!((range->default_flags | range->pfn_flags_mask) &
++	      range->flags[HMM_PFN_VALID]))
+ 		return 0;
  
- 	hmm_vma_walk->last = addr;
-@@ -491,20 +456,9 @@ static int hmm_vma_walk_pud(pud_t *pudp, unsigned long start, unsigned long end,
- 		}
- 
- 		pfn = pud_pfn(pud) + ((addr & ~PUD_MASK) >> PAGE_SHIFT);
--		for (i = 0; i < npages; ++i, ++pfn) {
--			hmm_vma_walk->pgmap = get_dev_pagemap(pfn,
--					      hmm_vma_walk->pgmap);
--			if (unlikely(!hmm_vma_walk->pgmap)) {
--				ret = -EBUSY;
--				goto out_unlock;
--			}
-+		for (i = 0; i < npages; ++i, ++pfn)
- 			pfns[i] = hmm_device_entry_from_pfn(range, pfn) |
- 				  cpu_flags;
--		}
--		if (hmm_vma_walk->pgmap) {
--			put_dev_pagemap(hmm_vma_walk->pgmap);
--			hmm_vma_walk->pgmap = NULL;
--		}
- 		hmm_vma_walk->last = end;
- 		goto out_unlock;
- 	}
+ 	for (i = 0; i < npages; ++i) {
+@@ -557,7 +560,6 @@ static const struct mm_walk_ops hmm_walk_ops = {
+ /**
+  * hmm_range_fault - try to fault some address in a virtual address range
+  * @range:	argument structure
+- * @flags:	HMM_FAULT_* flags
+  *
+  * Return: the number of valid pages in range->pfns[] (from range start
+  * address), which may be zero.  On error one of the following status codes
+@@ -579,12 +581,11 @@ static const struct mm_walk_ops hmm_walk_ops = {
+  * On error, for one virtual address in the range, the function will mark the
+  * corresponding HMM pfn entry with an error flag.
+  */
+-long hmm_range_fault(struct hmm_range *range, unsigned int flags)
++long hmm_range_fault(struct hmm_range *range)
+ {
+ 	struct hmm_vma_walk hmm_vma_walk = {
+ 		.range = range,
+ 		.last = range->start,
+-		.flags = flags,
+ 	};
+ 	struct mm_struct *mm = range->notifier->mm;
+ 	int ret;
 -- 
 2.25.2
 
