@@ -7,69 +7,69 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D5F0C43331
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 20:24:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8EB82C43331
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 20:24:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1978F20716
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 20:24:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 611D820716
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 20:24:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="LO8u6Sf1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1978F20716
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="H1W0eveT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 611D820716
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8327A6EA75;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9F5E6EA77;
 	Fri, 27 Mar 2020 20:24:44 +0000 (UTC)
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C9F56EA75
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2020 20:00:33 +0000 (UTC)
-Received: by mail-qk1-x742.google.com with SMTP id v7so12236976qkc.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2020 13:00:33 -0700 (PDT)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 181A96EA72
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2020 20:00:29 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id e14so9705286qts.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2020 13:00:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=w7HT384dLquXkifrMSaPZlakZIt6uG6pSy8/vMIPtTg=;
- b=LO8u6Sf1tFMYHfFgs/mRngqSax2KnXlZcJO3p0Dc+bnFdWQ3mFI2oTFey6thDTmmaF
- 6vQSVW9hkX0MF2gHtADWhz2PG6//81Sy+koWSRmlUtdE4JkEDlbi+Hl7e9/fJkqBDQ1W
- wZGR9Wj/y9vVjDnX6QH2oWytEcLS1b2oPoz2PvXkTnw7cdsqRkzHAarbUERdJ7ThoQ/X
- cjfSJj6agzko8pFrT99pB+ejxChHQOTwCS/jnyQVX3vj5kkIgnEKBBVdjZ6Uyg+MCpb7
- McioaeQ1NszNr6YE8lMUcEsAudEty68BJWZfarn6H3IuArhauChB9pgs+awHkyiMwPkH
- VdsQ==
+ bh=q0OsabNYqQz9XezfUAjPoyuspZFWQcrY4Mhi6eg0HzY=;
+ b=H1W0eveTDYFp9Me6A7/gA4rO/fywX4Lkj9lBPMfHlCm+QsCrBoc31mD4j7V3cQcAXh
+ QOlQIvesfCTUyHo4J/1oAR4ksHK6O8H3SiXtz4NlIC/TQGNktGUOdjWIBn5JmLTTYgoN
+ eTRYLQJRFW7bBXZ7IZ9KtyUBg60ZAYHc/jJn2QTkGvwjGIJQCfiBpnHRcbfyCeuXBqnx
+ L+HxsN697K3iOPQWULz54HPHfQrAnVGG2YSoD1aJBkGpYxGqMJvLAJXPbTyYQGQFPobh
+ J4uQhJF9Kk+QVN+wrbqTw0cj/TtOGyv71hmd15wH5Evbq7IdTyhDfza2i1rCJ/aRLHZv
+ 1GTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=w7HT384dLquXkifrMSaPZlakZIt6uG6pSy8/vMIPtTg=;
- b=uNZtqeXRak1bJHZ00W76p/9wlWZUxA2eLjMC/KoWmJ0Y6D82Q2EWTOG8NJDCRLBoRp
- kRxRDWVM4LTz2F0efvsaSg2hyQ/LpfxG+41XNGvmLGB0ZNOMHIBlrGtG+eSQcQr82dfh
- REtQHr5X/82DSSudOd1erurX/VlAKX4wA3eoVRf+auye4V7lDoI9rij8spse21sLR+tU
- sooN4DCA79O1eTevKowU5XyP4IlGGbIQMzISLkUG8ieo+x9Lsf5DHv8MPK25mLIwZY0x
- ih7IPYhWVBcb3IOOlQYeIMPxFGWuMoWFXDNHyzp5VqQP31Bcgwox05R+eQcdNklvpyZW
- eWwQ==
-X-Gm-Message-State: ANhLgQ3fjG3xujmwyHk+VWeKKy7cz1hSICDSgvdY5CwpmX2OutNhC/4s
- GkzFwOFVKel5GB43fxMaCk35gPPWqdp4Hw==
-X-Google-Smtp-Source: ADFU+vsV4R08VNgi3U0EcEDSpq36V0bb1XOE53WhiumJ5wLNMq9YlKH0bNPjhSJsWggFm8HqFwZeRw==
-X-Received: by 2002:a37:86c4:: with SMTP id i187mr1090284qkd.110.1585339232485; 
- Fri, 27 Mar 2020 13:00:32 -0700 (PDT)
+ bh=q0OsabNYqQz9XezfUAjPoyuspZFWQcrY4Mhi6eg0HzY=;
+ b=bybuNu8gKWpXNXTDdqn9IqEunqcu/moHy/X8RXS8vLdy40vqmhhC8c8SvNMmZImkTO
+ HzFmCRjg3jHoaNkM9q0OVPN52EUKOUkSUGcvcuI0mJxXZFcXsxJcczeW9VqmmCHac2Ag
+ PSxPByBgEXQM4UCeqkXcJ6Feh7dH7azmqOO/5qhoFqIddca211tB5owmoLWQetQoBJL/
+ sv9eHPZWY3Nxor2GPlVDBlNx3/KAK2gDTATWMqcZ/jnShgAYoeZGh+1ePbe3sXQ5yzaM
+ EmEUzFew0UVid1ADhFpcMNYDyR21QBrGE4RnjnX9lmamH8gqHXqvHtt+yi9Er3DkOxVp
+ CYOQ==
+X-Gm-Message-State: ANhLgQ0WxgbicBtQBlTd5+f8ubVNsVtzd3ExAsVLn32Vqb3q5yWAAGd3
+ /7qF7LTBSpGQxMH/Flb9nQ8k2g==
+X-Google-Smtp-Source: ADFU+vv1KEJUNoOTFPYi7PUdKmoRKZ930ogjB3Gxy2qwLSxuhnLwJkV54eLdQAnPUsAEMzUP3D5Ziw==
+X-Received: by 2002:ac8:4d06:: with SMTP id w6mr956299qtv.287.1585339227895;
+ Fri, 27 Mar 2020 13:00:27 -0700 (PDT)
 Received: from ziepe.ca
  (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
  [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id n64sm4367174qkf.23.2020.03.27.13.00.25
+ by smtp.gmail.com with ESMTPSA id m67sm4357086qke.101.2020.03.27.13.00.25
  (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
  Fri, 27 Mar 2020 13:00:25 -0700 (PDT)
 Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
  (envelope-from <jgg@ziepe.ca>)
- id 1jHv9V-0007g4-98; Fri, 27 Mar 2020 17:00:25 -0300
+ id 1jHv9V-0007fZ-0I; Fri, 27 Mar 2020 17:00:25 -0300
 From: Jason Gunthorpe <jgg@ziepe.ca>
 To: Jerome Glisse <jglisse@redhat.com>, Ralph Campbell <rcampbell@nvidia.com>,
  Felix.Kuehling@amd.com
-Subject: [PATCH v2 hmm 7/9] mm/hmm: do not unconditionally set pfns when
- returning EBUSY
-Date: Fri, 27 Mar 2020 17:00:19 -0300
-Message-Id: <20200327200021.29372-8-jgg@ziepe.ca>
+Subject: [PATCH v2 hmm 2/9] mm/hmm: return the fault type from
+ hmm_pte_need_fault()
+Date: Fri, 27 Mar 2020 17:00:14 -0300
+Message-Id: <20200327200021.29372-3-jgg@ziepe.ca>
 X-Mailer: git-send-email 2.25.2
 In-Reply-To: <20200327200021.29372-1-jgg@ziepe.ca>
 References: <20200327200021.29372-1-jgg@ziepe.ca>
@@ -97,60 +97,405 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jason Gunthorpe <jgg@mellanox.com>
 
-In hmm_vma_handle_pte() and hmm_vma_walk_hugetlb_entry() if fault happens
-then -EBUSY will be returned and the pfns input flags will have been
-destroyed.
+Using two bools instead of flags return is not necessary and leads to
+bugs. Returning a value is easier for the compiler to check and easier to
+pass around the code flow.
 
-For hmm_vma_handle_pte() set HMM_PFN_NONE only on the success returns that
-don't otherwise store to pfns.
+Convert the two bools into flags and push the change to all callers.
 
-For hmm_vma_walk_hugetlb_entry() all exit paths already set pfns, so
-remove the redundant store.
-
-Fixes: 2aee09d8c116 ("mm/hmm: change hmm_vma_fault() to allow write fault on page basis")
-Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 ---
- mm/hmm.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ mm/hmm.c | 183 ++++++++++++++++++++++++-------------------------------
+ 1 file changed, 81 insertions(+), 102 deletions(-)
 
 diff --git a/mm/hmm.c b/mm/hmm.c
-index 3303686bf16d24..dc826898979bc5 100644
+index 3a2610e0713329..d208ddd351066f 100644
 --- a/mm/hmm.c
 +++ b/mm/hmm.c
-@@ -244,11 +244,11 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+@@ -32,6 +32,12 @@ struct hmm_vma_walk {
+ 	unsigned int		flags;
+ };
+ 
++enum {
++	HMM_NEED_FAULT = 1 << 0,
++	HMM_NEED_WRITE_FAULT = 1 << 1,
++	HMM_NEED_ALL_BITS = HMM_NEED_FAULT | HMM_NEED_WRITE_FAULT,
++};
++
+ static int hmm_pfns_fill(unsigned long addr, unsigned long end,
+ 		struct hmm_range *range, enum hmm_pfn_value_e value)
+ {
+@@ -49,8 +55,7 @@ static int hmm_pfns_fill(unsigned long addr, unsigned long end,
+  * hmm_vma_fault() - fault in a range lacking valid pmd or pte(s)
+  * @addr: range virtual start address (inclusive)
+  * @end: range virtual end address (exclusive)
+- * @fault: should we fault or not ?
+- * @write_fault: write fault ?
++ * @required_fault: HMM_NEED_* flags
+  * @walk: mm_walk structure
+  * Return: -EBUSY after page fault, or page fault error
+  *
+@@ -58,8 +63,7 @@ static int hmm_pfns_fill(unsigned long addr, unsigned long end,
+  * or whenever there is no page directory covering the virtual address range.
+  */
+ static int hmm_vma_fault(unsigned long addr, unsigned long end,
+-			      bool fault, bool write_fault,
+-			      struct mm_walk *walk)
++			 unsigned int required_fault, struct mm_walk *walk)
+ {
+ 	struct hmm_vma_walk *hmm_vma_walk = walk->private;
+ 	struct hmm_range *range = hmm_vma_walk->range;
+@@ -68,13 +72,13 @@ static int hmm_vma_fault(unsigned long addr, unsigned long end,
+ 	unsigned long i = (addr - range->start) >> PAGE_SHIFT;
+ 	unsigned int fault_flags = FAULT_FLAG_REMOTE;
+ 
+-	WARN_ON_ONCE(!fault && !write_fault);
++	WARN_ON_ONCE(!required_fault);
+ 	hmm_vma_walk->last = addr;
+ 
+ 	if (!vma)
+ 		goto out_error;
+ 
+-	if (write_fault) {
++	if (required_fault & HMM_NEED_WRITE_FAULT) {
+ 		if (!(vma->vm_flags & VM_WRITE))
+ 			return -EPERM;
+ 		fault_flags |= FAULT_FLAG_WRITE;
+@@ -91,14 +95,13 @@ static int hmm_vma_fault(unsigned long addr, unsigned long end,
+ 	return -EFAULT;
+ }
+ 
+-static inline void hmm_pte_need_fault(const struct hmm_vma_walk *hmm_vma_walk,
+-				      uint64_t pfns, uint64_t cpu_flags,
+-				      bool *fault, bool *write_fault)
++static unsigned int hmm_pte_need_fault(const struct hmm_vma_walk *hmm_vma_walk,
++				       uint64_t pfns, uint64_t cpu_flags)
+ {
+ 	struct hmm_range *range = hmm_vma_walk->range;
+ 
+ 	if (hmm_vma_walk->flags & HMM_FAULT_SNAPSHOT)
+-		return;
++		return 0;
+ 
+ 	/*
+ 	 * So we not only consider the individual per page request we also
+@@ -114,37 +117,37 @@ static inline void hmm_pte_need_fault(const struct hmm_vma_walk *hmm_vma_walk,
+ 
+ 	/* We aren't ask to do anything ... */
+ 	if (!(pfns & range->flags[HMM_PFN_VALID]))
+-		return;
++		return 0;
+ 
+-	/* If CPU page table is not valid then we need to fault */
+-	*fault = !(cpu_flags & range->flags[HMM_PFN_VALID]);
+ 	/* Need to write fault ? */
+ 	if ((pfns & range->flags[HMM_PFN_WRITE]) &&
+-	    !(cpu_flags & range->flags[HMM_PFN_WRITE])) {
+-		*write_fault = true;
+-		*fault = true;
+-	}
++	    !(cpu_flags & range->flags[HMM_PFN_WRITE]))
++		return HMM_NEED_FAULT | HMM_NEED_WRITE_FAULT;
++
++	/* If CPU page table is not valid then we need to fault */
++	if (!(cpu_flags & range->flags[HMM_PFN_VALID]))
++		return HMM_NEED_FAULT;
++	return 0;
+ }
+ 
+-static void hmm_range_need_fault(const struct hmm_vma_walk *hmm_vma_walk,
+-				 const uint64_t *pfns, unsigned long npages,
+-				 uint64_t cpu_flags, bool *fault,
+-				 bool *write_fault)
++static unsigned int
++hmm_range_need_fault(const struct hmm_vma_walk *hmm_vma_walk,
++		     const uint64_t *pfns, unsigned long npages,
++		     uint64_t cpu_flags)
+ {
++	unsigned int required_fault = 0;
+ 	unsigned long i;
+ 
+-	if (hmm_vma_walk->flags & HMM_FAULT_SNAPSHOT) {
+-		*fault = *write_fault = false;
+-		return;
+-	}
++	if (hmm_vma_walk->flags & HMM_FAULT_SNAPSHOT)
++		return 0;
+ 
+-	*fault = *write_fault = false;
+ 	for (i = 0; i < npages; ++i) {
+-		hmm_pte_need_fault(hmm_vma_walk, pfns[i], cpu_flags,
+-				   fault, write_fault);
+-		if ((*write_fault))
+-			return;
++		required_fault |=
++			hmm_pte_need_fault(hmm_vma_walk, pfns[i], cpu_flags);
++		if (required_fault == HMM_NEED_ALL_BITS)
++			return required_fault;
+ 	}
++	return required_fault;
+ }
+ 
+ static int hmm_vma_walk_hole(unsigned long addr, unsigned long end,
+@@ -152,17 +155,16 @@ static int hmm_vma_walk_hole(unsigned long addr, unsigned long end,
+ {
+ 	struct hmm_vma_walk *hmm_vma_walk = walk->private;
+ 	struct hmm_range *range = hmm_vma_walk->range;
+-	bool fault, write_fault;
++	unsigned int required_fault;
+ 	unsigned long i, npages;
+ 	uint64_t *pfns;
+ 
+ 	i = (addr - range->start) >> PAGE_SHIFT;
+ 	npages = (end - addr) >> PAGE_SHIFT;
+ 	pfns = &range->pfns[i];
+-	hmm_range_need_fault(hmm_vma_walk, pfns, npages,
+-			     0, &fault, &write_fault);
+-	if (fault || write_fault)
+-		return hmm_vma_fault(addr, end, fault, write_fault, walk);
++	required_fault = hmm_range_need_fault(hmm_vma_walk, pfns, npages, 0);
++	if (required_fault)
++		return hmm_vma_fault(addr, end, required_fault, walk);
+ 	hmm_vma_walk->last = addr;
+ 	return hmm_pfns_fill(addr, end, range, HMM_PFN_NONE);
+ }
+@@ -183,16 +185,15 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
+ 	struct hmm_vma_walk *hmm_vma_walk = walk->private;
+ 	struct hmm_range *range = hmm_vma_walk->range;
+ 	unsigned long pfn, npages, i;
+-	bool fault, write_fault;
++	unsigned int required_fault;
+ 	uint64_t cpu_flags;
+ 
+ 	npages = (end - addr) >> PAGE_SHIFT;
+ 	cpu_flags = pmd_to_hmm_pfn_flags(range, pmd);
+-	hmm_range_need_fault(hmm_vma_walk, pfns, npages, cpu_flags,
+-			     &fault, &write_fault);
+-
+-	if (fault || write_fault)
+-		return hmm_vma_fault(addr, end, fault, write_fault, walk);
++	required_fault =
++		hmm_range_need_fault(hmm_vma_walk, pfns, npages, cpu_flags);
++	if (required_fault)
++		return hmm_vma_fault(addr, end, required_fault, walk);
+ 
+ 	pfn = pmd_pfn(pmd) + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
+ 	for (i = 0; addr < end; addr += PAGE_SIZE, i++, pfn++)
+@@ -229,18 +230,15 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ {
+ 	struct hmm_vma_walk *hmm_vma_walk = walk->private;
+ 	struct hmm_range *range = hmm_vma_walk->range;
+-	bool fault, write_fault;
++	unsigned int required_fault;
+ 	uint64_t cpu_flags;
  	pte_t pte = *ptep;
  	uint64_t orig_pfn = *pfn;
  
--	*pfn = range->values[HMM_PFN_NONE];
+ 	*pfn = range->values[HMM_PFN_NONE];
+-	fault = write_fault = false;
+-
  	if (pte_none(pte)) {
- 		required_fault = hmm_pte_need_fault(hmm_vma_walk, orig_pfn, 0);
- 		if (required_fault)
+-		hmm_pte_need_fault(hmm_vma_walk, orig_pfn, 0,
+-				   &fault, &write_fault);
+-		if (fault || write_fault)
++		required_fault = hmm_pte_need_fault(hmm_vma_walk, orig_pfn, 0);
++		if (required_fault)
  			goto fault;
-+		*pfn = range->values[HMM_PFN_NONE];
  		return 0;
  	}
- 
-@@ -269,8 +269,10 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+@@ -261,9 +259,8 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ 			return 0;
  		}
  
- 		required_fault = hmm_pte_need_fault(hmm_vma_walk, orig_pfn, 0);
--		if (!required_fault)
-+		if (!required_fault) {
-+			*pfn = range->values[HMM_PFN_NONE];
+-		hmm_pte_need_fault(hmm_vma_walk, orig_pfn, 0, &fault,
+-				   &write_fault);
+-		if (!fault && !write_fault)
++		required_fault = hmm_pte_need_fault(hmm_vma_walk, orig_pfn, 0);
++		if (!required_fault)
  			return 0;
-+		}
  
  		if (!non_swap_entry(entry))
- 			goto fault;
-@@ -488,7 +490,6 @@ static int hmm_vma_walk_hugetlb_entry(pte_t *pte, unsigned long hmask,
+@@ -283,9 +280,8 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ 	}
  
- 	i = (start - range->start) >> PAGE_SHIFT;
+ 	cpu_flags = pte_to_hmm_pfn_flags(range, pte);
+-	hmm_pte_need_fault(hmm_vma_walk, orig_pfn, cpu_flags, &fault,
+-			   &write_fault);
+-	if (fault || write_fault)
++	required_fault = hmm_pte_need_fault(hmm_vma_walk, orig_pfn, cpu_flags);
++	if (required_fault)
+ 		goto fault;
+ 
+ 	/*
+@@ -293,9 +289,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ 	 * fall through and treat it like a normal page.
+ 	 */
+ 	if (pte_special(pte) && !is_zero_pfn(pte_pfn(pte))) {
+-		hmm_pte_need_fault(hmm_vma_walk, orig_pfn, 0, &fault,
+-				   &write_fault);
+-		if (fault || write_fault) {
++		if (hmm_pte_need_fault(hmm_vma_walk, orig_pfn, 0)) {
+ 			pte_unmap(ptep);
+ 			return -EFAULT;
+ 		}
+@@ -309,7 +303,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ fault:
+ 	pte_unmap(ptep);
+ 	/* Fault any virtual address we were asked to fault */
+-	return hmm_vma_fault(addr, end, fault, write_fault, walk);
++	return hmm_vma_fault(addr, end, required_fault, walk);
+ }
+ 
+ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+@@ -322,7 +316,6 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+ 	uint64_t *pfns = &range->pfns[(start - range->start) >> PAGE_SHIFT];
+ 	unsigned long npages = (end - start) >> PAGE_SHIFT;
+ 	unsigned long addr = start;
+-	bool fault, write_fault;
+ 	pte_t *ptep;
+ 	pmd_t pmd;
+ 
+@@ -332,9 +325,7 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+ 		return hmm_vma_walk_hole(start, end, -1, walk);
+ 
+ 	if (thp_migration_supported() && is_pmd_migration_entry(pmd)) {
+-		hmm_range_need_fault(hmm_vma_walk, pfns, npages,
+-				     0, &fault, &write_fault);
+-		if (fault || write_fault) {
++		if (hmm_range_need_fault(hmm_vma_walk, pfns, npages, 0)) {
+ 			hmm_vma_walk->last = addr;
+ 			pmd_migration_entry_wait(walk->mm, pmdp);
+ 			return -EBUSY;
+@@ -343,9 +334,7 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+ 	}
+ 
+ 	if (!pmd_present(pmd)) {
+-		hmm_range_need_fault(hmm_vma_walk, pfns, npages, 0, &fault,
+-				     &write_fault);
+-		if (fault || write_fault)
++		if (hmm_range_need_fault(hmm_vma_walk, pfns, npages, 0))
+ 			return -EFAULT;
+ 		return hmm_pfns_fill(start, end, range, HMM_PFN_ERROR);
+ 	}
+@@ -375,9 +364,7 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
+ 	 * recover.
+ 	 */
+ 	if (pmd_bad(pmd)) {
+-		hmm_range_need_fault(hmm_vma_walk, pfns, npages, 0, &fault,
+-				     &write_fault);
+-		if (fault || write_fault)
++		if (hmm_range_need_fault(hmm_vma_walk, pfns, npages, 0))
+ 			return -EFAULT;
+ 		return hmm_pfns_fill(start, end, range, HMM_PFN_ERROR);
+ 	}
+@@ -434,8 +421,8 @@ static int hmm_vma_walk_pud(pud_t *pudp, unsigned long start, unsigned long end,
+ 
+ 	if (pud_huge(pud) && pud_devmap(pud)) {
+ 		unsigned long i, npages, pfn;
++		unsigned int required_fault;
+ 		uint64_t *pfns, cpu_flags;
+-		bool fault, write_fault;
+ 
+ 		if (!pud_present(pud)) {
+ 			spin_unlock(ptl);
+@@ -447,12 +434,11 @@ static int hmm_vma_walk_pud(pud_t *pudp, unsigned long start, unsigned long end,
+ 		pfns = &range->pfns[i];
+ 
+ 		cpu_flags = pud_to_hmm_pfn_flags(range, pud);
+-		hmm_range_need_fault(hmm_vma_walk, pfns, npages,
+-				     cpu_flags, &fault, &write_fault);
+-		if (fault || write_fault) {
++		required_fault = hmm_range_need_fault(hmm_vma_walk, pfns,
++						      npages, cpu_flags);
++		if (required_fault) {
+ 			spin_unlock(ptl);
+-			return hmm_vma_fault(addr, end, fault, write_fault,
+-						  walk);
++			return hmm_vma_fault(addr, end, required_fault, walk);
+ 		}
+ 
+ 		pfn = pud_pfn(pud) + ((addr & ~PUD_MASK) >> PAGE_SHIFT);
+@@ -484,7 +470,7 @@ static int hmm_vma_walk_hugetlb_entry(pte_t *pte, unsigned long hmask,
+ 	struct hmm_range *range = hmm_vma_walk->range;
+ 	struct vm_area_struct *vma = walk->vma;
+ 	uint64_t orig_pfn, cpu_flags;
+-	bool fault, write_fault;
++	unsigned int required_fault;
+ 	spinlock_t *ptl;
+ 	pte_t entry;
+ 
+@@ -495,12 +481,10 @@ static int hmm_vma_walk_hugetlb_entry(pte_t *pte, unsigned long hmask,
  	orig_pfn = range->pfns[i];
--	range->pfns[i] = range->values[HMM_PFN_NONE];
+ 	range->pfns[i] = range->values[HMM_PFN_NONE];
  	cpu_flags = pte_to_hmm_pfn_flags(range, entry);
- 	required_fault = hmm_pte_need_fault(hmm_vma_walk, orig_pfn, cpu_flags);
- 	if (required_fault) {
+-	fault = write_fault = false;
+-	hmm_pte_need_fault(hmm_vma_walk, orig_pfn, cpu_flags,
+-			   &fault, &write_fault);
+-	if (fault || write_fault) {
++	required_fault = hmm_pte_need_fault(hmm_vma_walk, orig_pfn, cpu_flags);
++	if (required_fault) {
+ 		spin_unlock(ptl);
+-		return hmm_vma_fault(addr, end, fault, write_fault, walk);
++		return hmm_vma_fault(addr, end, required_fault, walk);
+ 	}
+ 
+ 	pfn = pte_pfn(entry) + ((start & ~hmask) >> PAGE_SHIFT);
+@@ -522,37 +506,32 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
+ 	struct hmm_range *range = hmm_vma_walk->range;
+ 	struct vm_area_struct *vma = walk->vma;
+ 
++	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP | VM_MIXEDMAP)) &&
++	    vma->vm_flags & VM_READ)
++		return 0;
++
+ 	/*
+-	 * Skip vma ranges that don't have struct page backing them or map I/O
+-	 * devices directly.
++	 * vma ranges that don't have struct page backing them or map I/O
++	 * devices directly cannot be handled by hmm_range_fault().
+ 	 *
+ 	 * If the vma does not allow read access, then assume that it does not
+ 	 * allow write access either. HMM does not support architectures that
+ 	 * allow write without read.
++	 *
++	 * If a fault is requested for an unsupported range then it is a hard
++	 * failure.
+ 	 */
+-	if ((vma->vm_flags & (VM_IO | VM_PFNMAP | VM_MIXEDMAP)) ||
+-	    !(vma->vm_flags & VM_READ)) {
+-		bool fault, write_fault;
+-
+-		/*
+-		 * Check to see if a fault is requested for any page in the
+-		 * range.
+-		 */
+-		hmm_range_need_fault(hmm_vma_walk, range->pfns +
+-					((start - range->start) >> PAGE_SHIFT),
+-					(end - start) >> PAGE_SHIFT,
+-					0, &fault, &write_fault);
+-		if (fault || write_fault)
+-			return -EFAULT;
+-
+-		hmm_pfns_fill(start, end, range, HMM_PFN_ERROR);
+-		hmm_vma_walk->last = end;
++	if (hmm_range_need_fault(hmm_vma_walk,
++				 range->pfns +
++					 ((start - range->start) >> PAGE_SHIFT),
++				 (end - start) >> PAGE_SHIFT, 0))
++		return -EFAULT;
+ 
+-		/* Skip this vma and continue processing the next vma. */
+-		return 1;
+-	}
++	hmm_pfns_fill(start, end, range, HMM_PFN_ERROR);
++	hmm_vma_walk->last = end;
+ 
+-	return 0;
++	/* Skip this vma and continue processing the next vma. */
++	return 1;
+ }
+ 
+ static const struct mm_walk_ops hmm_walk_ops = {
 -- 
 2.25.2
 
