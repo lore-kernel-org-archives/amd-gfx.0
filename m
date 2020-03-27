@@ -2,68 +2,50 @@ Return-Path: <SRS0=Hz3R=5M=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C49F0C43331
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 14:25:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3480C43331
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 15:25:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9CB292073B
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 14:25:34 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="StriVB/9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9CB292073B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9325120774
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 15:25:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9325120774
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 759486EA3F;
-	Fri, 27 Mar 2020 14:25:30 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 389906EA3D;
- Fri, 27 Mar 2020 14:25:29 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id t7so11577846wrw.12;
- Fri, 27 Mar 2020 07:25:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=peP7S2GwPuZ1IKo8FYOZ1jeo4ELir9xxjxU6GqZTgX4=;
- b=StriVB/9TjnZWqc9kH0lHNwEqOCxpb0m9aQdojCVw1TQU0oy/QZmPbaIfR9bNuuDue
- 7QSZAxlsnLBkfPYxxgTtuTR7SG4++YVzHqCtUdty6s6uiOdYYad77k+0Xw9ASLhjFAAm
- ay5WyECrlMw2Zm2a/hdNBiz8O01W0fYEyoGhfJ8zJLc35IS25jRq/W8EnoIxlLXuIgiW
- V1SW9UcztB62fpCyNNq7iXdVJh4K+Zc68m3LvFEQECRHDZzeIjsZiGDE2NW0a6PXcRRq
- OCYALWXPpOprqJaK8D3HOoOH8pGbJ6wveEo4cTPqYtePW5d1v4IWdsTgpPwJCfJidDUl
- 5JTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=peP7S2GwPuZ1IKo8FYOZ1jeo4ELir9xxjxU6GqZTgX4=;
- b=fgtSv/mi8xhmUmgS7TVdk/n8+rJCLkJ1RJUzWIuGJWB+x+PT9wlgOpJh1O9HBfptxC
- qV8G1EoHWZ9qmvGSDbKpLkKXYjLQgZCJsVW+qjT/MteEvnkrMReetEvAtM+lufld0CeO
- OXvRqfDHmqaSb4IloPc1LGwEohZZMlsRQHR+7347tqBsZO/3mWkPkh3dxCm5oBXQdmSL
- MrY9KDyKrWfN9Qem8bxwm2bonsNm6ET7IuD5IPevSqv9BMj1yVn7ag5lbqGiilWSq05U
- 6GgIuQakNoWfL5LwuuuwIwvRK0cIrENsuv1TIcWEdX+FIR0rMIy8h5U3ZCUXh0FlPdv1
- Mlpw==
-X-Gm-Message-State: ANhLgQ0fUR9OkWwOJNbnTkG5BSQFKdfxDQ4RUCKZnyXlWQyZzYXAOKq8
- vmZUKcpEVfju8Iy179Jl9RVmRaxLWkAzKBBcSrhnyA==
-X-Google-Smtp-Source: ADFU+vsXiZ0/Ce9a1O/msDlNwkE/7qgqmUo4B7/lmX8Z7cLom/fYyI4rkhFAI0E0S/gHRNqEyYdwzjZyyssYophWnCs=
-X-Received: by 2002:a05:6000:111:: with SMTP id
- o17mr15146245wrx.111.1585319127768; 
- Fri, 27 Mar 2020 07:25:27 -0700 (PDT)
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77FEF6EA47;
+	Fri, 27 Mar 2020 15:25:43 +0000 (UTC)
+Received: from asavdk4.altibox.net (asavdk4.altibox.net [109.247.116.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 827F46EA4B;
+ Fri, 27 Mar 2020 15:25:41 +0000 (UTC)
+Received: from ravnborg.org (unknown [158.248.194.18])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by asavdk4.altibox.net (Postfix) with ESMTPS id 7C19D8054E;
+ Fri, 27 Mar 2020 16:25:36 +0100 (CET)
+Date: Fri, 27 Mar 2020 16:25:35 +0100
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 6/6] drm/radeon: convert to use i2c_new_client_device()
+Message-ID: <20200327152535.GA2191@ravnborg.org>
 References: <20200326211005.13301-1-wsa+renesas@sang-engineering.com>
  <20200326211005.13301-7-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20200326211005.13301-7-wsa+renesas@sang-engineering.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 27 Mar 2020 10:25:16 -0400
-Message-ID: <CADnq5_P07b-A-VawLTgiTMSdifxMbWS5kgQV_+0Bw2x_DQHATQ@mail.gmail.com>
-Subject: Re: [PATCH 6/6] drm/radeon: convert to use i2c_new_client_device()
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+ <CADnq5_P07b-A-VawLTgiTMSdifxMbWS5kgQV_+0Bw2x_DQHATQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CADnq5_P07b-A-VawLTgiTMSdifxMbWS5kgQV_+0Bw2x_DQHATQ@mail.gmail.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-CMAE-Score: 0
+X-CMAE-Analysis: v=2.3 cv=XpTUx2N9 c=1 sm=1 tr=0
+ a=UWs3HLbX/2nnQ3s7vZ42gw==:117 a=UWs3HLbX/2nnQ3s7vZ42gw==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=kj9zAlcOel0A:10 a=LDBv8-xUAAAA:8
+ a=zd2uoN0lAAAA:8 a=e5mUnYsNAAAA:8 a=np1NKRlxnyeI6rDnu7wA:9
+ a=CjuIK1q_8ugA:10 a=DZeXCJrVpAJBw65Qk4Ds:22 a=Vxmtnl_E_bksehYqCbjh:22
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,79 +57,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>,
- David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
+Cc: David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
  Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Linux I2C <linux-i2c@vger.kernel.org>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Linux I2C <linux-i2c@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Mar 26, 2020 at 5:35 PM Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
->
-> Move away from the deprecated API.
->
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+On Fri, Mar 27, 2020 at 10:25:16AM -0400, Alex Deucher wrote:
+> On Thu, Mar 26, 2020 at 5:35 PM Wolfram Sang
+> <wsa+renesas@sang-engineering.com> wrote:
+> >
+> > Move away from the deprecated API.
+> >
+> > Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> 
+> patches 1,6, are:
+> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Should we commit all to drm-misc-next?
 
-patches 1,6, are:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+	Sam
 
-> ---
->  drivers/gpu/drm/radeon/radeon_atombios.c | 4 ++--
->  drivers/gpu/drm/radeon/radeon_combios.c  | 4 ++--
->  2 files changed, 4 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
-> index 848ef68d9086..5d2591725189 100644
-> --- a/drivers/gpu/drm/radeon/radeon_atombios.c
-> +++ b/drivers/gpu/drm/radeon/radeon_atombios.c
-> @@ -2111,7 +2111,7 @@ static int radeon_atombios_parse_power_table_1_3(struct radeon_device *rdev)
->                                                                     ucOverdriveThermalController];
->                         info.addr = power_info->info.ucOverdriveControllerAddress >> 1;
->                         strlcpy(info.type, name, sizeof(info.type));
-> -                       i2c_new_device(&rdev->pm.i2c_bus->adapter, &info);
-> +                       i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
->                 }
->         }
->         num_modes = power_info->info.ucNumOfPowerModeEntries;
-> @@ -2351,7 +2351,7 @@ static void radeon_atombios_add_pplib_thermal_controller(struct radeon_device *r
->                                 const char *name = pp_lib_thermal_controller_names[controller->ucType];
->                                 info.addr = controller->ucI2cAddress >> 1;
->                                 strlcpy(info.type, name, sizeof(info.type));
-> -                               i2c_new_device(&rdev->pm.i2c_bus->adapter, &info);
-> +                               i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
->                         }
->                 } else {
->                         DRM_INFO("Unknown thermal controller type %d at 0x%02x %s fan control\n",
-> diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
-> index c3e49c973812..d3c04df7e75d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_combios.c
-> +++ b/drivers/gpu/drm/radeon/radeon_combios.c
-> @@ -2704,7 +2704,7 @@ void radeon_combios_get_power_modes(struct radeon_device *rdev)
->                                 const char *name = thermal_controller_names[thermal_controller];
->                                 info.addr = i2c_addr >> 1;
->                                 strlcpy(info.type, name, sizeof(info.type));
-> -                               i2c_new_device(&rdev->pm.i2c_bus->adapter, &info);
-> +                               i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
->                         }
->                 }
->         } else {
-> @@ -2721,7 +2721,7 @@ void radeon_combios_get_power_modes(struct radeon_device *rdev)
->                                 const char *name = "f75375";
->                                 info.addr = 0x28;
->                                 strlcpy(info.type, name, sizeof(info.type));
-> -                               i2c_new_device(&rdev->pm.i2c_bus->adapter, &info);
-> +                               i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
->                                 DRM_INFO("Possible %s thermal controller at 0x%02x\n",
->                                          name, info.addr);
->                         }
-> --
-> 2.20.1
->
+
+> 
+> > ---
+> >  drivers/gpu/drm/radeon/radeon_atombios.c | 4 ++--
+> >  drivers/gpu/drm/radeon/radeon_combios.c  | 4 ++--
+> >  2 files changed, 4 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/radeon/radeon_atombios.c b/drivers/gpu/drm/radeon/radeon_atombios.c
+> > index 848ef68d9086..5d2591725189 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_atombios.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_atombios.c
+> > @@ -2111,7 +2111,7 @@ static int radeon_atombios_parse_power_table_1_3(struct radeon_device *rdev)
+> >                                                                     ucOverdriveThermalController];
+> >                         info.addr = power_info->info.ucOverdriveControllerAddress >> 1;
+> >                         strlcpy(info.type, name, sizeof(info.type));
+> > -                       i2c_new_device(&rdev->pm.i2c_bus->adapter, &info);
+> > +                       i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
+> >                 }
+> >         }
+> >         num_modes = power_info->info.ucNumOfPowerModeEntries;
+> > @@ -2351,7 +2351,7 @@ static void radeon_atombios_add_pplib_thermal_controller(struct radeon_device *r
+> >                                 const char *name = pp_lib_thermal_controller_names[controller->ucType];
+> >                                 info.addr = controller->ucI2cAddress >> 1;
+> >                                 strlcpy(info.type, name, sizeof(info.type));
+> > -                               i2c_new_device(&rdev->pm.i2c_bus->adapter, &info);
+> > +                               i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
+> >                         }
+> >                 } else {
+> >                         DRM_INFO("Unknown thermal controller type %d at 0x%02x %s fan control\n",
+> > diff --git a/drivers/gpu/drm/radeon/radeon_combios.c b/drivers/gpu/drm/radeon/radeon_combios.c
+> > index c3e49c973812..d3c04df7e75d 100644
+> > --- a/drivers/gpu/drm/radeon/radeon_combios.c
+> > +++ b/drivers/gpu/drm/radeon/radeon_combios.c
+> > @@ -2704,7 +2704,7 @@ void radeon_combios_get_power_modes(struct radeon_device *rdev)
+> >                                 const char *name = thermal_controller_names[thermal_controller];
+> >                                 info.addr = i2c_addr >> 1;
+> >                                 strlcpy(info.type, name, sizeof(info.type));
+> > -                               i2c_new_device(&rdev->pm.i2c_bus->adapter, &info);
+> > +                               i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
+> >                         }
+> >                 }
+> >         } else {
+> > @@ -2721,7 +2721,7 @@ void radeon_combios_get_power_modes(struct radeon_device *rdev)
+> >                                 const char *name = "f75375";
+> >                                 info.addr = 0x28;
+> >                                 strlcpy(info.type, name, sizeof(info.type));
+> > -                               i2c_new_device(&rdev->pm.i2c_bus->adapter, &info);
+> > +                               i2c_new_client_device(&rdev->pm.i2c_bus->adapter, &info);
+> >                                 DRM_INFO("Possible %s thermal controller at 0x%02x\n",
+> >                                          name, info.addr);
+> >                         }
+> > --
+> > 2.20.1
+> >
+> > _______________________________________________
+> > dri-devel mailing list
+> > dri-devel@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/dri-devel
 > _______________________________________________
 > dri-devel mailing list
 > dri-devel@lists.freedesktop.org
