@@ -7,57 +7,57 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57337C43331
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 03:42:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 84361C43331
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 03:43:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2BCFD206DB
-	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 03:42:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 55119206DB
+	for <amd-gfx@archiver.kernel.org>; Fri, 27 Mar 2020 03:43:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="bHFw1OPO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2BCFD206DB
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="q8XJkF32"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55119206DB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB7AB6E32D;
-	Fri, 27 Mar 2020 03:42:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26B8F6E369;
+	Fri, 27 Mar 2020 03:43:02 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2079.outbound.protection.outlook.com [40.107.223.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 915936E235
- for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2020 03:42:57 +0000 (UTC)
+ (mail-dm6nam11on2053.outbound.protection.outlook.com [40.107.223.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B6F76E369
+ for <amd-gfx@lists.freedesktop.org>; Fri, 27 Mar 2020 03:43:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=W5Bk4cZiemOBwocnQmCJ4oZolz5xJqf7/EsLdd+jVlZ3DfomOsXPPR3z4Zp0K7pJWBAiucFAyhHW4vaAYDjRc9mlOqKdTWYERdNsfw+QLLR7Akw39kfVDg2QlzwLWfd5uXNDbScfo8Ref10C5tS02SHY7JVZEFOPzu0D07ODq5bmbI1v/ybxldFC/QsbJBqC/yduomD3Bb38ftHANjwIkEPQsWgOAY4mNuDEhjOZeeLMVaLJSFdaGDEQa6JPC172FH3cfyxuHHIFWUe6mUPZ5hPApVzh8ORU3p4QK+5aUFJlA1mrlM2WFJ2ryl6kEDa4UmOEP4UTKa7oetklVt8pXw==
+ b=jTq0pUm5UDnBQCDP7V4eJvmfSQhzcC68pOuD3RBFTUSaH2Dvu2EkWYIwwrAUZp3T5n4iMPlrbrCE1TKBJKdBwXSOdEw7Pk5B/mp4GGhzRp3ZiJjuv5DXOz22zK6GeAnXdGQGjGNcd3xYnVGV0bJW5fLTfNXb3q2Yy6aSoePoq6NHStA226ksJNdUZhgfLjEbP+qb9rkYxZuy2UxTarGdDRfTMB84RH2OVu5/6BlQTRyDc27x3HKsAHirbxxWsXJcrf8kJtYIVDNU87uzcmXuiEdfvrQjsQaAWpoIqOeKBbcyXAa6gVq1yXHiCJywZf9+uHJSR8MnglmE2AHEgXcOOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KtvxfTBuVrrMPKuwR2mcpo4Tdlt+5x62VoRS5NvUb9E=;
- b=HZti7XMYIT96enK9XiJABNrYyva9+tElErECJx1+pK+UM6PKOvxGhFb91DcAeEW59u2bfKTWbxSxX0ys39UNZXTR3vZPTX27vxq9fIO85lt3jcen2hwZPQGYXqbkNm9g5ZmnLIKT6Pbzix/leUoY7/ZqeuBPIHrOmbfCL9snYtnVsm+AxzwrkK4RqEw8Z9eOGA2Sk3CyrJN/+P1Rk3TaR6Ve+gVtUYPUlGhsRNIsjIPMktRP19OpyypcDUURRYqwoqc4oJUrga3jRA6B7LBuh2qwmDuWg00oOBLhlEwFGYa2RtsjG+RIgCAaiwTvqdPmXnk+8ODwOTwJzVZfrlza/A==
+ bh=jNM0xviasaFvj1POjlatgjnYR72qDbFK/l37Nu61C2o=;
+ b=cO9ldPcuyzeXQn8X4LusVXsVr1Xi7vTETsCn6doDTnOmEbYlabMGSfTdEO/EPQtlosTzEqgZ6lZXB1vky5n1Pc8pMk4cNuW3xZtApj/SQcP4VOzGKSGwnWCkIetNnovbLtwzdKNwZ39HvenTE4AzDUUAFcrt/m67/V8fFQGX4ZVtnxnLme9ChcxFJmYR9QipT8UHgxMkD4r2X7AvUEtUIiE6ocgBOO9do3KLj9gaf+/niZuVZuZNR9qB0LBZAWYvACvmO/Y2+Wgndo827n360h8GMBOSf25t9wZqU2wyk8aAgRhtdl2SgCdVJn+RrqOXYCkqeu1Qa3aZhwPPulymew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KtvxfTBuVrrMPKuwR2mcpo4Tdlt+5x62VoRS5NvUb9E=;
- b=bHFw1OPO90ImjKZo8fsTy1G3jJevvdigsVldd7BiHT2FwQQM9oGkU/nFVfqpFdnBTQmWj8bHnaIP0GVj1b8YoCaooMYx8EQjxBD+DAI3592o3hm+0quWBx/AUtu8pJfElwBkhsbRM8HxrRuMKQSKA0x7bruO6TWClp3RvKh6aPE=
+ bh=jNM0xviasaFvj1POjlatgjnYR72qDbFK/l37Nu61C2o=;
+ b=q8XJkF32hxtWnRTlWPMvw/HZ4pBlsBvZ6lYHCF+3TXdrlVTIR114+cekdpLFR5c5L2Zop6tOf2H3v9coLKScw4Af1whcQdscfs4AudTgjULnPCBOaMstQ/2BcL5UvA3tpGmwXMGDXKHg3cApue31KKgGZuZSEYAs8AV5NN1qQxU=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Evan.Quan@amd.com; 
 Received: from MN2PR12MB3344.namprd12.prod.outlook.com (2603:10b6:208:c5::10)
  by MN2PR12MB4373.namprd12.prod.outlook.com (2603:10b6:208:261::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.19; Fri, 27 Mar
- 2020 03:42:56 +0000
+ 2020 03:42:59 +0000
 Received: from MN2PR12MB3344.namprd12.prod.outlook.com
  ([fe80::69c7:b493:690:2173]) by MN2PR12MB3344.namprd12.prod.outlook.com
  ([fe80::69c7:b493:690:2173%3]) with mapi id 15.20.2835.021; Fri, 27 Mar 2020
- 03:42:56 +0000
+ 03:42:59 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 6/9] drm/amd/powerplay: avoid calling SMU10 specific SMU
+Subject: [PATCH 7/9] drm/amd/powerplay: avoid calling Vega20 specific SMU
  message implemention
-Date: Fri, 27 Mar 2020 11:41:35 +0800
-Message-Id: <20200327034138.7653-6-evan.quan@amd.com>
+Date: Fri, 27 Mar 2020 11:41:36 +0800
+Message-Id: <20200327034138.7653-7-evan.quan@amd.com>
 X-Mailer: git-send-email 2.26.0
 In-Reply-To: <20200327034138.7653-1-evan.quan@amd.com>
 References: <20200327034138.7653-1-evan.quan@amd.com>
@@ -70,15 +70,15 @@ Received: from equan-buildpc.amd.com (180.167.199.189) by
  HK0PR01CA0063.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::27) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.20 via Frontend
- Transport; Fri, 27 Mar 2020 03:42:54 +0000
+ Transport; Fri, 27 Mar 2020 03:42:58 +0000
 X-Mailer: git-send-email 2.26.0
 X-Originating-IP: [180.167.199.189]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7c010d28-bf2f-4878-aa56-08d7d200efbb
+X-MS-Office365-Filtering-Correlation-Id: 61d152f3-f650-4c38-4b09-08d7d200f1c4
 X-MS-TrafficTypeDiagnostic: MN2PR12MB4373:|MN2PR12MB4373:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB43738EC01BF80E5DA9C08CE9E4CC0@MN2PR12MB4373.namprd12.prod.outlook.com>
+X-Microsoft-Antispam-PRVS: <MN2PR12MB437355F06FB47B6EF0E4EA9BE4CC0@MN2PR12MB4373.namprd12.prod.outlook.com>
 X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
 X-Forefront-PRVS: 0355F3A3AE
 X-Forefront-Antispam-Report: SFV:NSPM;
@@ -90,15 +90,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZTShdoL5EYKa1om3tvN4j8aXHZO8lEn9HyHT7kCK9B2V+PUzd0y6A56KRQiLJ6axAMgY3uVKcE/Q0GT6i1Gr5YTZfd1ji6mWMPry7Cg1B5ty8ROyMZmTWJO2OT4J/DDWB4A4mmlyj7Rfkom0iBRLLnlCTrium78OFuj+HurmkTjtZvmZA+yqLAKoHW9snqyKuVzBqFkgRoeP1QBTLWRBOoABWutx/qH3KrfPOeWTuk0lAntVcF+p2vm6vi3GA0PcBDdk9L/bPjQK7M0Q1ZK5uNBIFbEcvO03XyN5cZIJiBkfdkGtNcVvuEMg4+3MDH59ZBOTFGrG0kPCsq6z4rpTDl9EgnN9EAXTqtAbl8L1t4W+04G7eV/wCP2SZppQ8HGyQDbif5NndX8lSx34dCvWA0h0GV2IBoVrn+5rLVYVMicRH7gCqaoMAdJrbyLJB9Pj
-X-MS-Exchange-AntiSpam-MessageData: B+EFzexikxZA32HgW6PDsLfRYn/r8+7QXccI0JK+WI1ezPxH7lMnkO1l/jKGj8Adffr8F3ovzZJlBNnn3vrBG6XR7L15WkEsmmUI299I4LQekqNSdehp6uB/+vJTp5lBpiM0Gcgo4CxMzzkYvDDiMA==
+X-Microsoft-Antispam-Message-Info: U4Pizb62UYiCPekSpLM9ptOpTO0dtJZ0/3ELd/oLCXNaTsC7T5Zfagcp/GCMoCc/8YWp2Gbzz1faCutCAGuPGNfywLeRgSvEpYsczDdIy1prcbRAKhlXH8Yuy7cYkonxBwhpESN39LoQOOJ59yoJ54H+ZO68vrKIwgzx82bBbIcWDNy4z8NmbQQCk7gRLQ35jQaefrRdi9UOXHu1OAwkwH9NGYO1zmzaxoqXhmmAot8Sx//n/geZ0vNtIB6dtTm4j3ituGeX3weU8AffQTY1BcN1rpNc1gq3wKJ/0B4CReLh0g+DPEtxuNWWJdLMw9M0goOh98whf2YJ94kMFoDFbCW+WGOVY9c2nTZTw8lWT0s18ZWsdoIKNYi8j8UuR8w2YudbqlEC4TlZM/8IJ0biMfZQo2ZWmzen6ik6L8IOfb4ViZjjj7Sj5F2QhO1GnQSY
+X-MS-Exchange-AntiSpam-MessageData: DT9tNvY+hz/yCPixq9ZtUO9gdSoSLz8gNPYdIvbmdghyw+8LfGX3WO5cOxGx/ePit2L3vxTD7JfOdALq3MWcSmgVNh99vbLp5py8T+ukWbC8/ElWzUFfmiQ+K1fJ8DIM9Amy0E4gT2dSJr10jRmrZQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c010d28-bf2f-4878-aa56-08d7d200efbb
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2020 03:42:56.2829 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61d152f3-f650-4c38-4b09-08d7d200f1c4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Mar 2020 03:42:59.7348 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4R5wDQ44GnDbGqhk6frZbl5Wu0u+jAXACRfcyZGfTiwFdLgikhxlucafCdgfN6CZ
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7/f0NB9WBqZC2z18Ao7xvxNf2XNhOdNDZrwYWzh2OJFLlDA9pH7OHkJYgh9AXfRs
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4373
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,71 +119,175 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Prepare for coming lock protection for SMU message issuing.
 
-Change-Id: I05ec712b05dcb2831c948a1df26695619ba8014a
+Change-Id: Ie5656cdc036cc21c6cc079bce2a43b05f3e167a8
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- .../drm/amd/powerplay/smumgr/smu10_smumgr.c    | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ .../drm/amd/powerplay/smumgr/vega20_smumgr.c  | 48 +++++++++----------
+ 1 file changed, 24 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
-index 2319400a3fcb..d652673b244f 100644
---- a/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
-+++ b/drivers/gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c
-@@ -126,13 +126,13 @@ static int smu10_copy_table_from_smc(struct pp_hwmgr *hwmgr,
- 			"Invalid SMU Table version!", return -EINVAL;);
+diff --git a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
+index 16aa171971d3..2a9bf78e32bd 100644
+--- a/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
++++ b/drivers/gpu/drm/amd/powerplay/smumgr/vega20_smumgr.c
+@@ -175,17 +175,17 @@ static int vega20_copy_table_from_smc(struct pp_hwmgr *hwmgr,
  	PP_ASSERT_WITH_CODE(priv->smu_tables.entry[table_id].size != 0,
- 			"Invalid SMU Table Length!", return -EINVAL;);
--	smu10_send_msg_to_smc_with_parameter(hwmgr,
-+	smum_send_msg_to_smc_with_parameter(hwmgr,
- 			PPSMC_MSG_SetDriverDramAddrHigh,
- 			upper_32_bits(priv->smu_tables.entry[table_id].mc_addr));
--	smu10_send_msg_to_smc_with_parameter(hwmgr,
-+	smum_send_msg_to_smc_with_parameter(hwmgr,
- 			PPSMC_MSG_SetDriverDramAddrLow,
- 			lower_32_bits(priv->smu_tables.entry[table_id].mc_addr));
--	smu10_send_msg_to_smc_with_parameter(hwmgr,
-+	smum_send_msg_to_smc_with_parameter(hwmgr,
- 			PPSMC_MSG_TransferTableSmu2Dram,
- 			priv->smu_tables.entry[table_id].table_id);
+ 			"Invalid SMU Table Length!", return -EINVAL);
  
-@@ -164,13 +164,13 @@ static int smu10_copy_table_to_smc(struct pp_hwmgr *hwmgr,
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			PPSMC_MSG_SetDriverDramAddrHigh,
+ 			upper_32_bits(priv->smu_tables.entry[table_id].mc_addr))) == 0,
+ 			"[CopyTableFromSMC] Attempt to Set Dram Addr High Failed!",
+ 			return ret);
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			PPSMC_MSG_SetDriverDramAddrLow,
+ 			lower_32_bits(priv->smu_tables.entry[table_id].mc_addr))) == 0,
+ 			"[CopyTableFromSMC] Attempt to Set Dram Addr Low Failed!",
+ 			return ret);
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			PPSMC_MSG_TransferTableSmu2Dram, table_id)) == 0,
+ 			"[CopyTableFromSMC] Attempt to Transfer Table From SMU Failed!",
+ 			return ret);
+@@ -224,17 +224,17 @@ static int vega20_copy_table_to_smc(struct pp_hwmgr *hwmgr,
  
  	amdgpu_asic_flush_hdp(adev, NULL);
  
--	smu10_send_msg_to_smc_with_parameter(hwmgr,
-+	smum_send_msg_to_smc_with_parameter(hwmgr,
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
  			PPSMC_MSG_SetDriverDramAddrHigh,
- 			upper_32_bits(priv->smu_tables.entry[table_id].mc_addr));
--	smu10_send_msg_to_smc_with_parameter(hwmgr,
-+	smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			upper_32_bits(priv->smu_tables.entry[table_id].mc_addr))) == 0,
+ 			"[CopyTableToSMC] Attempt to Set Dram Addr High Failed!",
+ 			return ret);
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
  			PPSMC_MSG_SetDriverDramAddrLow,
- 			lower_32_bits(priv->smu_tables.entry[table_id].mc_addr));
--	smu10_send_msg_to_smc_with_parameter(hwmgr,
-+	smum_send_msg_to_smc_with_parameter(hwmgr,
- 			PPSMC_MSG_TransferTableDram2Smu,
- 			priv->smu_tables.entry[table_id].table_id);
+ 			lower_32_bits(priv->smu_tables.entry[table_id].mc_addr))) == 0,
+ 			"[CopyTableToSMC] Attempt to Set Dram Addr Low Failed!",
+ 			return ret);
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			PPSMC_MSG_TransferTableDram2Smu, table_id)) == 0,
+ 			"[CopyTableToSMC] Attempt to Transfer Table To SMU Failed!",
+ 			return ret);
+@@ -255,17 +255,17 @@ int vega20_set_activity_monitor_coeff(struct pp_hwmgr *hwmgr,
  
-@@ -181,9 +181,9 @@ static int smu10_verify_smc_interface(struct pp_hwmgr *hwmgr)
- {
- 	uint32_t smc_driver_if_version;
+ 	amdgpu_asic_flush_hdp(adev, NULL);
  
--	smu10_send_msg_to_smc(hwmgr,
-+	smum_send_msg_to_smc(hwmgr,
- 			PPSMC_MSG_GetDriverIfVersion);
--	smc_driver_if_version = smu10_read_arg_from_smc(hwmgr);
-+	smc_driver_if_version = smum_get_argument(hwmgr);
- 
- 	if ((smc_driver_if_version != SMU10_DRIVER_IF_VERSION) &&
- 	    (smc_driver_if_version != SMU10_DRIVER_IF_VERSION + 1)) {
-@@ -218,7 +218,7 @@ static int smu10_start_smu(struct pp_hwmgr *hwmgr)
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			PPSMC_MSG_SetDriverDramAddrHigh,
+ 			upper_32_bits(priv->smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].mc_addr))) == 0,
+ 			"[SetActivityMonitor] Attempt to Set Dram Addr High Failed!",
+ 			return ret);
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			PPSMC_MSG_SetDriverDramAddrLow,
+ 			lower_32_bits(priv->smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].mc_addr))) == 0,
+ 			"[SetActivityMonitor] Attempt to Set Dram Addr Low Failed!",
+ 			return ret);
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			PPSMC_MSG_TransferTableDram2Smu, TABLE_ACTIVITY_MONITOR_COEFF | (workload_type << 16))) == 0,
+ 			"[SetActivityMonitor] Attempt to Transfer Table To SMU Failed!",
+ 			return ret);
+@@ -281,17 +281,17 @@ int vega20_get_activity_monitor_coeff(struct pp_hwmgr *hwmgr,
  	struct amdgpu_device *adev = hwmgr->adev;
+ 	int ret = 0;
  
- 	smum_send_msg_to_smc(hwmgr, PPSMC_MSG_GetSmuVersion);
--	hwmgr->smu_version = smu10_read_arg_from_smc(hwmgr);
-+	hwmgr->smu_version = smum_get_argument(hwmgr);
- 	adev->pm.fw_version = hwmgr->smu_version >> 8;
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			PPSMC_MSG_SetDriverDramAddrHigh,
+ 			upper_32_bits(priv->smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].mc_addr))) == 0,
+ 			"[GetActivityMonitor] Attempt to Set Dram Addr High Failed!",
+ 			return ret);
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			PPSMC_MSG_SetDriverDramAddrLow,
+ 			lower_32_bits(priv->smu_tables.entry[TABLE_ACTIVITY_MONITOR_COEFF].mc_addr))) == 0,
+ 			"[GetActivityMonitor] Attempt to Set Dram Addr Low Failed!",
+ 			return ret);
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			PPSMC_MSG_TransferTableSmu2Dram,
+ 			TABLE_ACTIVITY_MONITOR_COEFF | (workload_type << 16))) == 0,
+ 			"[GetActivityMonitor] Attempt to Transfer Table From SMU Failed!",
+@@ -316,20 +316,20 @@ int vega20_enable_smc_features(struct pp_hwmgr *hwmgr,
+ 	smu_features_high = (uint32_t)((feature_mask & SMU_FEATURES_HIGH_MASK) >> SMU_FEATURES_HIGH_SHIFT);
  
- 	if (adev->rev_id < 0x8 && adev->pdev->device != 0x15d8 &&
+ 	if (enable) {
+-		PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++		PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 				PPSMC_MSG_EnableSmuFeaturesLow, smu_features_low)) == 0,
+ 				"[EnableDisableSMCFeatures] Attempt to enable SMU features Low failed!",
+ 				return ret);
+-		PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++		PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 				PPSMC_MSG_EnableSmuFeaturesHigh, smu_features_high)) == 0,
+ 				"[EnableDisableSMCFeatures] Attempt to enable SMU features High failed!",
+ 				return ret);
+ 	} else {
+-		PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++		PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 				PPSMC_MSG_DisableSmuFeaturesLow, smu_features_low)) == 0,
+ 				"[EnableDisableSMCFeatures] Attempt to disable SMU features Low failed!",
+ 				return ret);
+-		PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++		PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 				PPSMC_MSG_DisableSmuFeaturesHigh, smu_features_high)) == 0,
+ 				"[EnableDisableSMCFeatures] Attempt to disable SMU features High failed!",
+ 				return ret);
+@@ -347,16 +347,16 @@ int vega20_get_enabled_smc_features(struct pp_hwmgr *hwmgr,
+ 	if (features_enabled == NULL)
+ 		return -EINVAL;
+ 
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc(hwmgr,
+ 			PPSMC_MSG_GetEnabledSmuFeaturesLow)) == 0,
+ 			"[GetEnabledSMCFeatures] Attempt to get SMU features Low failed!",
+ 			return ret);
+-	smc_features_low = vega20_get_argument(hwmgr);
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc(hwmgr,
++	smc_features_low = smum_get_argument(hwmgr);
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc(hwmgr,
+ 			PPSMC_MSG_GetEnabledSmuFeaturesHigh)) == 0,
+ 			"[GetEnabledSMCFeatures] Attempt to get SMU features High failed!",
+ 			return ret);
+-	smc_features_high = vega20_get_argument(hwmgr);
++	smc_features_high = smum_get_argument(hwmgr);
+ 
+ 	*features_enabled = ((((uint64_t)smc_features_low << SMU_FEATURES_LOW_SHIFT) & SMU_FEATURES_LOW_MASK) |
+ 			(((uint64_t)smc_features_high << SMU_FEATURES_HIGH_SHIFT) & SMU_FEATURES_HIGH_MASK));
+@@ -371,11 +371,11 @@ static int vega20_set_tools_address(struct pp_hwmgr *hwmgr)
+ 	int ret = 0;
+ 
+ 	if (priv->smu_tables.entry[TABLE_PMSTATUSLOG].mc_addr) {
+-		ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++		ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 				PPSMC_MSG_SetToolsDramAddrHigh,
+ 				upper_32_bits(priv->smu_tables.entry[TABLE_PMSTATUSLOG].mc_addr));
+ 		if (!ret)
+-			ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++			ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 					PPSMC_MSG_SetToolsDramAddrLow,
+ 					lower_32_bits(priv->smu_tables.entry[TABLE_PMSTATUSLOG].mc_addr));
+ 	}
+@@ -389,12 +389,12 @@ int vega20_set_pptable_driver_address(struct pp_hwmgr *hwmgr)
+ 			(struct vega20_smumgr *)(hwmgr->smu_backend);
+ 	int ret = 0;
+ 
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			PPSMC_MSG_SetDriverDramAddrHigh,
+ 			upper_32_bits(priv->smu_tables.entry[TABLE_PPTABLE].mc_addr))) == 0,
+ 			"[SetPPtabeDriverAddress] Attempt to Set Dram Addr High Failed!",
+ 			return ret);
+-	PP_ASSERT_WITH_CODE((ret = vega20_send_msg_to_smc_with_parameter(hwmgr,
++	PP_ASSERT_WITH_CODE((ret = smum_send_msg_to_smc_with_parameter(hwmgr,
+ 			PPSMC_MSG_SetDriverDramAddrLow,
+ 			lower_32_bits(priv->smu_tables.entry[TABLE_PPTABLE].mc_addr))) == 0,
+ 			"[SetPPtabeDriverAddress] Attempt to Set Dram Addr Low Failed!",
 -- 
 2.26.0
 
