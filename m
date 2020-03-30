@@ -2,43 +2,74 @@ Return-Path: <SRS0=xvO7=5P=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C2309C43331
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2020 09:32:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 29144C43331
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2020 10:50:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8AAB520714
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2020 09:32:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EE7D2205ED
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2020 10:50:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=emersion.fr header.i=@emersion.fr header.b="fuAyP8sx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8AAB520714
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kE6uRyh8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE7D2205ED
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2243489CB9;
-	Mon, 30 Mar 2020 09:32:05 +0000 (UTC)
-X-Greylist: delayed 514 seconds by postgrey-1.36 at gabe;
- Mon, 30 Mar 2020 09:32:03 UTC
-Received: from mail2.protonmail.ch (mail2.protonmail.ch [185.70.40.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7024289CB9
- for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2020 09:32:03 +0000 (UTC)
-Date: Mon, 30 Mar 2020 09:23:21 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail; t=1585560207;
- bh=Tt5NAl7EafYN3BIveIzxcsnNrI9b/KT7w8HFCd7yRaI=;
- h=Date:To:From:Cc:Reply-To:Subject:From;
- b=fuAyP8sxhj8aavTwvhsdmFvz/mwBubykgzomCsq+L7G99q2pCP4QjA8epob+2Mgo0
- x5GovpBz5jZk/Ya2bi/l/FCupayL3/AvtcGwAa5GKfObyPizN+Lpwe9Ew0CKFVcELA
- 01fyUYQRzX1ZlPwEX/VmAy9czO8HRx30p3gc1ieg=
-To: amd-gfx@lists.freedesktop.org
-From: Simon Ser <contact@emersion.fr>
-Subject: [PATCH] drm/amd/display: add basic atomic check for cursor plane
-Message-ID: <67AgM0yylniATabNxt8ct_5KATDTAwvscoDJBJxA3cm0vb0LJvyUM9VAX4r6Ib5Vxykoy9AN0G1uyZO8q00_RvTwmaimmGNQ3hZYoWKXZAo=@emersion.fr>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA0D96E11D;
+	Mon, 30 Mar 2020 10:50:39 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4DCD6E11D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2020 10:50:38 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id u10so20999365wro.7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2020 03:50:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+ :content-transfer-encoding;
+ bh=EybpGQhcwTEzZW/sLd148FJ1boM3MavSaWmk2rf0G/c=;
+ b=kE6uRyh8ubZy3z+Q2wncEfSDaQE2lT2Qjn2hMi7JuBG9YuU63boC0K8SGunaMftP9f
+ P2/XK6GvpTm/qerIA30pd9pvIPeYQGE1hyHvOmxtJ6uMbKPZW/smE9XVNTwIEsTJE/mx
+ csNClr8JkSrSERI+X1kLRInQ3gs7h5oeS3uOibrdJjMag9Lfcii6W+lIAsNW4gbgOsP3
+ r9EqZQDzkjWmAelb56YmQCNb0Jzp2mCPYrtIdkiK0dqiYHQ2pIOUQMghyOADF870cxDN
+ NbZfjXW6ZFPJdguAIDa1P1/PmpVHJ9axNf8e7ydtL5fpyUFiUp4rQZube4tEDr8CY5ZN
+ zv3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=EybpGQhcwTEzZW/sLd148FJ1boM3MavSaWmk2rf0G/c=;
+ b=i3ipMOQWZYkV/fQgPa9uxzOLt8KOd1r/RSgdv2NmrV5ESYUr7q8IM/kk5ybZGytyBM
+ sRP+4FJMvmP9hUkQhXCIcpZxMfw8jzhSZjAy0fqwfEeAScOjCzKel6uamFZJKMzGOV1j
+ pcleXI086u6ATLhNbiU4plMnlp65GtLlyiLQUH5+fSd1GPi1Oh/HqZkO4saJXpNCDez3
+ 4G0zF93qbc9o3ZyWfDD57YrrqRe0yuJd9Y7WaijVMP/MfuXlXWzruL0G5jsa/BF+iNFn
+ mvjENHMftxkeSwS/gRWS2iFYWqjzmSayC7z5bMJQaXM4rvGx3+n+1XsSOSPGc/n/Zvbt
+ fPRA==
+X-Gm-Message-State: ANhLgQ2FtZPIb8q1T2+HFydBIIKHPrnP5SrihnQYCZ8dEzA5KsGwFkcu
+ 9mhw48IL0lXjKertNtBxTnmkXAiu
+X-Google-Smtp-Source: ADFU+vs8DCaB0D9zeG+3Y2mjFDkzZnva6kN2BghPNmxQbfR6/X3NRkFhxHQqNwY7HkdZPoKEtqRfYg==
+X-Received: by 2002:a5d:518b:: with SMTP id k11mr13955663wrv.256.1585565437476; 
+ Mon, 30 Mar 2020 03:50:37 -0700 (PDT)
+Received: from abel.fritz.box ([2a02:908:1252:fb60:cdad:b6f9:8132:4b7c])
+ by smtp.gmail.com with ESMTPSA id g186sm21665028wmg.36.2020.03.30.03.50.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 30 Mar 2020 03:50:37 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: Xinhui.Pan@amd.com,
+	amd-gfx@lists.freedesktop.org
+Subject: [PATCH 2/2] drm/amdgpu: partial revert VM sync changes
+Date: Mon, 30 Mar 2020 12:50:35 +0200
+Message-Id: <20200330105035.105045-2-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200330105035.105045-1-christian.koenig@amd.com>
+References: <20200330105035.105045-1-christian.koenig@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,79 +82,27 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Simon Ser <contact@emersion.fr>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
- Roman Gilg <subdiff@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch adds a basic cursor check when an atomic test-only commit is
-performed. The position and size of the cursor plane is checked.
-
-This should fix user-space relying on atomic checks to assign buffers to
-planes.
-
-Signed-off-by: Simon Ser <contact@emersion.fr>
-Reported-by: Roman Gilg <subdiff@gmail.com>
-References: https://github.com/emersion/libliftoff/issues/46
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <hwentlan@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 26 +++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f6b0b9a121fd..e1b084318ad6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7843,6 +7843,7 @@ static int dm_update_plane_state(struct dc *dc,
- 	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
- 	struct dm_crtc_state *dm_new_crtc_state, *dm_old_crtc_state;
- 	struct dm_plane_state *dm_new_plane_state, *dm_old_plane_state;
-+	struct amdgpu_crtc *new_acrtc;
- 	bool needs_reset;
- 	int ret = 0;
-
-@@ -7852,9 +7853,30 @@ static int dm_update_plane_state(struct dc *dc,
- 	dm_new_plane_state = to_dm_plane_state(new_plane_state);
- 	dm_old_plane_state = to_dm_plane_state(old_plane_state);
-
--	/*TODO Implement atomic check for cursor plane */
--	if (plane->type == DRM_PLANE_TYPE_CURSOR)
-+	/*TODO Implement better atomic check for cursor plane */
-+	if (plane->type == DRM_PLANE_TYPE_CURSOR) {
-+		if (!enable || !new_plane_crtc ||
-+			drm_atomic_plane_disabling(plane->state, new_plane_state))
-+			return 0;
-+
-+		new_acrtc = to_amdgpu_crtc(new_plane_crtc);
-+
-+		if ((new_plane_state->crtc_w > new_acrtc->max_cursor_width) ||
-+			(new_plane_state->crtc_h > new_acrtc->max_cursor_height)) {
-+			DRM_DEBUG_ATOMIC("Bad cursor size %d x %d\n",
-+							 new_plane_state->crtc_w, new_plane_state->crtc_h);
-+			return -EINVAL;
-+		}
-+
-+		if (new_plane_state->crtc_x <= -new_acrtc->max_cursor_width ||
-+			new_plane_state->crtc_y <= -new_acrtc->max_cursor_height) {
-+			DRM_DEBUG_ATOMIC("Bad cursor position %d, %d\n",
-+							 new_plane_state->crtc_x, new_plane_state->crtc_y);
-+			return -EINVAL;
-+		}
-+
- 		return 0;
-+	}
-
- 	needs_reset = should_reset_plane(state, plane, old_plane_state,
- 					 new_plane_state);
---
-2.26.0
-
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+V2Ugc3RpbGwgbmVlZCB0byBhZGQgdGhlIFZNIHVwZGF0ZSBmZW5jZXMgdG8gdGhlIHJvb3QgUEQu
+CgpTbyBtYWtlIHN1cmUgdG8gbmV2ZXIgc3luYyB0byB0aG9zZSBpbXBsaWNpdGVseS4KClNpZ25l
+ZC1vZmYtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0t
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc3luYy5jIHwgNSArKysrKwogMSBm
+aWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9zeW5jLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfc3luYy5jCmluZGV4IGI4NjM5MjI1MzY5Ni4uYjg3Y2ExNzE5ODZhIDEwMDY0NAotLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc3luYy5jCisrKyBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zeW5jLmMKQEAgLTI0OSw2ICsyNDksMTEgQEAgaW50
+IGFtZGdwdV9zeW5jX3Jlc3Yoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIHN0cnVjdCBhbWRn
+cHVfc3luYyAqc3luYywKIAkJICAgIG93bmVyICE9IEFNREdQVV9GRU5DRV9PV05FUl9VTkRFRklO
+RUQpCiAJCQljb250aW51ZTsKIAorCQkvKiBOZXZlciBzeW5jIHRvIFZNIHVwZGF0ZXMgZWl0aGVy
+LiAqLworCQlpZiAoZmVuY2Vfb3duZXIgPT0gQU1ER1BVX0ZFTkNFX09XTkVSX1ZNICYmCisJCSAg
+ICBvd25lciAhPSBBTURHUFVfRkVOQ0VfT1dORVJfVU5ERUZJTkVEKQorCQkJY29udGludWU7CisK
+IAkJLyogSWdub3JlIGZlbmNlcyBkZXBlbmRpbmcgb24gdGhlIHN5bmMgbW9kZSAqLwogCQlzd2l0
+Y2ggKG1vZGUpIHsKIAkJY2FzZSBBTURHUFVfU1lOQ19BTFdBWVM6Ci0tIAoyLjE3LjEKCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
