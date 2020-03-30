@@ -2,50 +2,108 @@ Return-Path: <SRS0=xvO7=5P=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	FAKE_REPLY_C,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0741C43331
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2020 14:57:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 21194C43331
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2020 15:18:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AE96220780
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2020 14:57:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E2145206F5
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2020 15:18:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="eCAPS1vR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE96220780
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="SMuX/hrE"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E2145206F5
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6845D89E5F;
-	Mon, 30 Mar 2020 14:57:43 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C84CC89E5F;
- Mon, 30 Mar 2020 14:57:42 +0000 (UTC)
-Received: from localhost (mobile-166-175-186-165.mycingular.net
- [166.175.186.165])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 47FD52072E;
- Mon, 30 Mar 2020 14:57:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1585580262;
- bh=fp7X8PKWJqCpUMB9hru06AQiMJOquTtJwuf8n5ceuM8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=eCAPS1vRQoMYc8LjLmYu6taMzr9TQ6NCzZoLBTu0SC1i/lYUf2uyvQ0goWF2cQmt6
- j6FIYHgMyHpjZNsrAt4/Vr9jrfTohg/16cNYrsE+19yybYR3RTGhnu/rNQuOnlfFx4
- CbnmAuhFwOky3+E7sdET5hhE46jY7mXhaUaOR1w4=
-Date: Mon, 30 Mar 2020 09:57:40 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH v3] PCI: Use ioremap(), not phys_to_virt() for platform ROM
-Message-ID: <20200330145740.GA40619@google.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B34B6E41F;
+	Mon, 30 Mar 2020 15:18:24 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2073.outbound.protection.outlook.com [40.107.223.73])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F8996E41F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 30 Mar 2020 15:18:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=mJ+L6t99e54cRFIDTsOdQSVUsXAE5QaGp2x6xW2UgT8PKy2k6SkOTJj3FNByBdhbJUMPe81f3/q91s7usUElI1/x8ZVTZ2Ga9W6YQMpPr8n8TGazbwU2DkM3Fhd363x2MQ4Xz+Y57alXpF9oX2DjTx8IQKrsj93cN1zal5p3EZj0jbsPAeIClLY9oRXG4pSEj19hYaINCv5ydIoUFMq5DFs1KBp6ccwZnIaM1UWWZrEbHfEBwXR2oN5826xi81nPEK2ST+m9JiUlUzJZCnB0SQQMzryJFkNnIh0XE2kbFYSrIjfPdzV8af1G855W1jqTj2r+3q4JV2X+kWmIX1LECA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eBiRjMpHM+JMtHHb6dmX6CSuK/U/+XpGq/PUiCIlt8w=;
+ b=DevANv9e8gAQheXduJrsoCNoyc7paeEjLz2Dy6Rxd7LKq4vsptm24cNio2eyxWj10iSOdegAwnLMcry/UscUcU9EDY/igM3jFPc/wWQoIFNacs8L4uP7/8KHwSDmQEKFdOBbsQwocnM44LFU1+LwIi5ygLN/adHOi7wJUYJpSfV1d2ffT6ibC2X4aQhe+T1VQjbBSndtRkLxO0D0dqO5Rx9EZtptrhC7VrJgLblAQieCABdIQ5dWU2ChGU1kjV5gXfAe+NpcgMB0W0BaefMrMHHLfKdUGr/JgW97Ghi2xQdClYXK/SkHPpE80i807fSiJqBoRNOw/FkrMTmct/b8aQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eBiRjMpHM+JMtHHb6dmX6CSuK/U/+XpGq/PUiCIlt8w=;
+ b=SMuX/hrE58u+BAakdSZk+U8svGwuKxBr2FRfuoKJiqGUukjxALjlkwaUfe/g9GoQ3baRhy0BcU0jvHev21jjCRjuv1g+pZRNg3dFdfOH22eRYkE/ukVqsNrhuNGv/MN/fO/ASfBhhJexubVKpQ12IE57R2WSnRUDOg6UbSlZCnI=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Nicholas.Kazlauskas@amd.com; 
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
+ by BYAPR12MB3559.namprd12.prod.outlook.com (2603:10b6:a03:d9::29)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2835.23; Mon, 30 Mar
+ 2020 15:18:22 +0000
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::e8:c007:9a5:da4d]) by BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::e8:c007:9a5:da4d%5]) with mapi id 15.20.2835.023; Mon, 30 Mar 2020
+ 15:18:22 +0000
+Subject: Re: [PATCH] drm/amd/display: add basic atomic check for cursor plane
+To: Simon Ser <contact@emersion.fr>
+References: <67AgM0yylniATabNxt8ct_5KATDTAwvscoDJBJxA3cm0vb0LJvyUM9VAX4r6Ib5Vxykoy9AN0G1uyZO8q00_RvTwmaimmGNQ3hZYoWKXZAo=@emersion.fr>
+ <83db678a-a5d2-cf64-65f0-8fece62b2fbd@amd.com>
+ <7EkixViMkOWZ8AEOpjSPCtfus4Fq2LWBmsk71_0nAC00BVKDIg7iao_0I2PIQp9Z3_jrQ5cglhuYKkq5CQnuLRunzg4pirlkY6hH3At1gww=@emersion.fr>
+ <8d67af72-a3c0-65a7-2115-5f068ccbfc23@amd.com>
+ <B9sWqLzmtdeSGNQnGEhg8RkGpHRGD0eRxKboCjMgkhR5ZVtLdlEIzoKBWfFnnX0p4Dvl8Chdd68eKpXTtccnAA4a2xeHq2cnHHqg0sv6zGc=@emersion.fr>
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Message-ID: <c35a8999-f46d-f410-729f-249646d1e36c@amd.com>
+Date: Mon, 30 Mar 2020 11:18:18 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
+In-Reply-To: <B9sWqLzmtdeSGNQnGEhg8RkGpHRGD0eRxKboCjMgkhR5ZVtLdlEIzoKBWfFnnX0p4Dvl8Chdd68eKpXTtccnAA4a2xeHq2cnHHqg0sv6zGc=@emersion.fr>
+Content-Language: en-US
+X-ClientProxiedBy: YTXPR0101CA0071.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:1::48) To BYAPR12MB3560.namprd12.prod.outlook.com
+ (2603:10b6:a03:ae::10)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <MN2PR12MB4488EE5C6D38690716D658C6F7CB0@MN2PR12MB4488.namprd12.prod.outlook.com>
-User-Agent: Mutt/1.12.2 (2019-09-21)
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [172.31.148.234] (165.204.55.211) by
+ YTXPR0101CA0071.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::48) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.19 via Frontend
+ Transport; Mon, 30 Mar 2020 15:18:20 +0000
+X-Originating-IP: [165.204.55.211]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: fab84859-a2c7-4478-f801-08d7d4bd9563
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3559:|BYAPR12MB3559:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BYAPR12MB355905D1EFEF7E3D7D992573ECCB0@BYAPR12MB3559.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-Forefront-PRVS: 0358535363
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(376002)(39860400002)(346002)(136003)(366004)(396003)(6916009)(31696002)(2616005)(86362001)(26005)(4326008)(31686004)(2906002)(54906003)(186003)(478600001)(16526019)(52116002)(956004)(316002)(5660300002)(81156014)(36756003)(8936002)(6486002)(66946007)(16576012)(53546011)(81166006)(66476007)(8676002)(66556008);
+ DIR:OUT; SFP:1101; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: V/8xqQRnF/ZwD5zjfkGs7tpFOkzsO7+ej+jg6KyqMzL8HjU+T1rdkzT69/G6iGXYzvRZBtFZY1fr85XwL5vfrU7OEj3NsY0Yzjm+sMsZCi7FMiEIjw+xgXBeRT3+WNT1rnkdysAAC4lNqjmpCdhZTDgeAhWpf+r0rcyPXkDd1NTePwGdWCt3OMK8yqhsU1SdKGhUUedK5NCPJiCbjmCNnOjogeEq1lQ4Wm/YmgcPt+NbkGMKuG68HSxsDwu+5D76bWgRawgxG3TzoxoKp6JkRIUNb/5uRDKUr+Obbqw3nrpwVk7ri4UPDcBa4YAe5QGawUlaECq5/tn8Mlhu+sqmstTSp0QImSjn/klTR9CBpzoOy+oDyV04ougmB81E3NTEiCmoHdP6VtnzlP24nyaABaYeUWzkPpbSpjKM5VttSqLzQK/0u9kLK3Dp+y2MqpM7
+X-MS-Exchange-AntiSpam-MessageData: /XHkowGB++Jo2AIWtXL9IBsoQoY1J/tIedyRJ2bcWpE1U53XaQ0OGBI2gfoCO0+ld37tGWLuSl6eydYPNM0YC3VToG+dWY37vHQvlI+r41I1XHpWU8pGjB9C0RLa3iuP5xFa2u0SdtjEftqqjkwO9g==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fab84859-a2c7-4478-f801-08d7d4bd9563
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Mar 2020 15:18:21.9287 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VsfZa67+SJ7R6VmiDA3uw82UVn2Aan4QI5f3jpp1hmCrNepuDx2xwNQhyCbSmsur9G7UPRXrvYFY+T8Tj5qQiA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3559
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,335 +115,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
- "nouveau@lists.freedesktop.org" <nouveau@lists.freedesktop.org>,
- Mikel Rychliski <mikel@mikelr.com>,
- Matthew Garrett <matthewgarrett@google.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Christoph Hellwig <hch@lst.de>, Ben Skeggs <bskeggs@redhat.com>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
+ Roman Gilg <subdiff@gmail.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2020 at 01:54:33PM +0000, Deucher, Alexander wrote:
-> > -----Original Message-----
-> > From: Bjorn Helgaas <helgaas@kernel.org>
-> > Sent: Saturday, March 28, 2020 4:19 PM
-> > To: Mikel Rychliski <mikel@mikelr.com>
-> > Cc: amd-gfx@lists.freedesktop.org; linux-pci@vger.kernel.org;
-> > nouveau@lists.freedesktop.org; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Koenig, Christian
-> > <Christian.Koenig@amd.com>; Zhou, David(ChunMing)
-> > <David1.Zhou@amd.com>; Matthew Garrett
-> > <matthewgarrett@google.com>; Ben Skeggs <bskeggs@redhat.com>;
-> > Christoph Hellwig <hch@lst.de>
-> > Subject: Re: [PATCH v3] PCI: Use ioremap(), not phys_to_virt() for platform
-> > ROM
-> > 
-> > On Wed, Mar 18, 2020 at 10:16:23PM -0400, Mikel Rychliski wrote:
-> > > On some EFI systems, the video BIOS is provided by the EFI firmware.
-> > > The boot stub code stores the physical address of the ROM image in pdev-
-> > >rom.
-> > > Currently we attempt to access this pointer using phys_to_virt(),
-> > > which doesn't work with CONFIG_HIGHMEM.
-> > >
-> > > On these systems, attempting to load the radeon module on a x86_32
-> > > kernel can result in the following:
-> > >
-> > >     BUG: unable to handle page fault for address: 3e8ed03c
-> > >     #PF: supervisor read access in kernel mode
-> > >     #PF: error_code(0x0000) - not-present page
-> > >     *pde = 00000000
-> > >     Oops: 0000 [#1] PREEMPT SMP
-> > >     CPU: 0 PID: 317 Comm: systemd-udevd Not tainted 5.6.0-rc3-next-
-> > 20200228 #2
-> > >     Hardware name: Apple Computer, Inc. MacPro1,1/Mac-F4208DC8, BIOS
-> > MP11.88Z.005C.B08.0707021221 07/02/07
-> > >     EIP: radeon_get_bios+0x5ed/0xe50 [radeon]
-> > >     Code: 00 00 84 c0 0f 85 12 fd ff ff c7 87 64 01 00 00 00 00 00 00 8b 47 08 8b
-> > 55 b0 e8 1e 83 e1 d6 85 c0 74 1a 8b 55 c0 85 d2 74 13 <80> 38 55 75 0e 80 78 01
-> > aa 0f 84 a4 03 00 00 8d 74 26 00 68 dc 06
-> > >     EAX: 3e8ed03c EBX: 00000000 ECX: 3e8ed03c EDX: 00010000
-> > >     ESI: 00040000 EDI: eec04000 EBP: eef3fc60 ESP: eef3fbe0
-> > >     DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010206
-> > >     CR0: 80050033 CR2: 3e8ed03c CR3: 2ec77000 CR4: 000006d0
-> > >     Call Trace:
-> > >      ? register_client+0x34/0xe0
-> > >      ? register_client+0xab/0xe0
-> > >      r520_init+0x26/0x240 [radeon]
-> > >      radeon_device_init+0x533/0xa50 [radeon]
-> > >      radeon_driver_load_kms+0x80/0x220 [radeon]
-> > >      drm_dev_register+0xa7/0x180 [drm]
-> > >      radeon_pci_probe+0x10f/0x1a0 [radeon]
-> > >      pci_device_probe+0xd4/0x140
-> > >      really_probe+0x13d/0x3b0
-> > >      driver_probe_device+0x56/0xd0
-> > >      device_driver_attach+0x49/0x50
-> > >      __driver_attach+0x79/0x130
-> > >      ? device_driver_attach+0x50/0x50
-> > >      bus_for_each_dev+0x5b/0xa0
-> > >      driver_attach+0x19/0x20
-> > >      ? device_driver_attach+0x50/0x50
-> > >      bus_add_driver+0x117/0x1d0
-> > >      ? pci_bus_num_vf+0x20/0x20
-> > >      driver_register+0x66/0xb0
-> > >      ? 0xf80f4000
-> > >      __pci_register_driver+0x3d/0x40
-> > >      radeon_init+0x82/0x1000 [radeon]
-> > >      do_one_initcall+0x42/0x200
-> > >      ? kvfree+0x25/0x30
-> > >      ? __vunmap+0x206/0x230
-> > >      ? kmem_cache_alloc_trace+0x16f/0x220
-> > >      ? do_init_module+0x21/0x220
-> > >      do_init_module+0x50/0x220
-> > >      load_module+0x1f26/0x2200
-> > >      sys_init_module+0x12d/0x160
-> > >      do_fast_syscall_32+0x82/0x250
-> > >      entry_SYSENTER_32+0xa5/0xf8
-> > >
-> > > Fix the issue by updating all drivers which can access a platform
-> > > provided ROM. Instead of calling the helper function
-> > > pci_platform_rom() which uses phys_to_virt(), call ioremap() directly on
-> > the pdev->rom.
-> > >
-> > > radeon_read_platform_bios() previously directly accessed an __iomem
-> > > pointer. Avoid this by calling memcpy_fromio() instead of kmemdup().
-> > >
-> > > pci_platform_rom() now has no remaining callers, so remove it.
-> > >
-> > > Signed-off-by: Mikel Rychliski <mikel@mikelr.com>
-> > 
-> > I applied this to pci/resource for v5.7.  I would feel better if some of the
-> > graphics guys chimed in, or even applied it via the DRM tree since most of the
-> > changes are actually in drivers/gpu.
+On 2020-03-30 9:13 a.m., Simon Ser wrote:
+> On Monday, March 30, 2020 3:11 PM, Kazlauskas, Nicholas <nicholas.kazlauskas@amd.com> wrote:
 > 
-> Feel free to take it through the PCI tree.  These areas of radeon and amdgpu don't really change much at all so, I'm not too concerned about a conflict.
+>> On 2020-03-30 9:02 a.m., Simon Ser wrote:
+>>
+>>> On Monday, March 30, 2020 2:59 PM, Kazlauskas, Nicholas nicholas.kazlauskas@amd.com wrote:
+>>>
+>>>> We've been doing these checks for position before but I don't think we
+>>>> really need them. DC should be disabling the cursor when we ask for a
+>>>> position completely off the screen.
+>>>> I think that's better than rejecting the commit entirely at least.
+>>>
+>>> I agree DC should be disabling the cursor in this case, however that's
+>>> not yet implemented right? I think implementing this feature is
+>>> orthogonal and should be done in a separate patch.
+>>> This patch simply copies over the cursor checks in the atomic check
+>>> function.
+>>
+>> It's implemented on DCN but I don't remember if we're doing it on DCE.
+>>
+>> I guess the drop can be in a separate patch.
+>>
+>> Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 > 
-> Acked-by: Alex Deucher <alexander.deucher@amd.com>
+> Thanks for the review. I'll try to figure out whether we can drop this
+> check (from both the atomic check and the other existing check).
+> 
 
-Thanks, I added your ack, and this is queued up for v5.7.
+Oh, this was actually the checks for crtc_w/crtc_h. Not the x/y, my bad.
 
-> > Feel free to add my
-> > 
-> >   Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-> > 
-> > and let me know if you do that.
-> > 
-> > > ---
-> > >
-> > > Tested on a MacPro 1,1 with a Radeon X1900 XT card and 32-bit kernel.
-> > >
-> > > Changes in v3:
-> > >  - Inline pci_platform_rom()
-> > >
-> > > Changes in v2:
-> > >  - Add iounmap() call in nouveau
-> > >  - Update function comment for pci_platform_rom()
-> > >  - Minor changes to commit messages
-> > >
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c           | 31
-> > +++++++++++++---------
-> > >  .../gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c   | 17 ++++++++++-
-> > -
-> > >  drivers/gpu/drm/radeon/radeon_bios.c               | 30 +++++++++++++-------
-> > -
-> > >  drivers/pci/rom.c                                  | 17 ------------
-> > >  include/linux/pci.h                                |  1 -
-> > >  5 files changed, 52 insertions(+), 44 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> > > index 50dff69a0f6e..b1172d93c99c 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-> > > @@ -192,30 +192,35 @@ static bool amdgpu_read_bios_from_rom(struct
-> > > amdgpu_device *adev)
-> > >
-> > >  static bool amdgpu_read_platform_bios(struct amdgpu_device *adev)  {
-> > > -	uint8_t __iomem *bios;
-> > > -	size_t size;
-> > > +	phys_addr_t rom = adev->pdev->rom;
-> > > +	size_t romlen = adev->pdev->romlen;
-> > > +	void __iomem *bios;
-> > >
-> > >  	adev->bios = NULL;
-> > >
-> > > -	bios = pci_platform_rom(adev->pdev, &size);
-> > > -	if (!bios) {
-> > > +	if (!rom || romlen == 0)
-> > >  		return false;
-> > > -	}
-> > >
-> > > -	adev->bios = kzalloc(size, GFP_KERNEL);
-> > > -	if (adev->bios == NULL)
-> > > +	adev->bios = kzalloc(romlen, GFP_KERNEL);
-> > > +	if (!adev->bios)
-> > >  		return false;
-> > >
-> > > -	memcpy_fromio(adev->bios, bios, size);
-> > > +	bios = ioremap(rom, romlen);
-> > > +	if (!bios)
-> > > +		goto free_bios;
-> > >
-> > > -	if (!check_atom_bios(adev->bios, size)) {
-> > > -		kfree(adev->bios);
-> > > -		return false;
-> > > -	}
-> > > +	memcpy_fromio(adev->bios, bios, romlen);
-> > > +	iounmap(bios);
-> > >
-> > > -	adev->bios_size = size;
-> > > +	if (!check_atom_bios(adev->bios, romlen))
-> > > +		goto free_bios;
-> > > +
-> > > +	adev->bios_size = romlen;
-> > >
-> > >  	return true;
-> > > +free_bios:
-> > > +	kfree(adev->bios);
-> > > +	return false;
-> > >  }
-> > >
-> > >  #ifdef CONFIG_ACPI
-> > > diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
-> > > b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
-> > > index 9b91da09dc5f..8d9812a51ef6 100644
-> > > --- a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
-> > > +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
-> > > @@ -101,9 +101,13 @@ platform_init(struct nvkm_bios *bios, const char
-> > *name)
-> > >  	else
-> > >  		return ERR_PTR(-ENODEV);
-> > >
-> > > +	if (!pdev->rom || pdev->romlen == 0)
-> > > +		return ERR_PTR(-ENODEV);
-> > > +
-> > >  	if ((priv = kmalloc(sizeof(*priv), GFP_KERNEL))) {
-> > > +		priv->size = pdev->romlen;
-> > >  		if (ret = -ENODEV,
-> > > -		    (priv->rom = pci_platform_rom(pdev, &priv->size)))
-> > > +		    (priv->rom = ioremap(pdev->rom, pdev->romlen)))
-> > >  			return priv;
-> > >  		kfree(priv);
-> > >  	}
-> > > @@ -111,11 +115,20 @@ platform_init(struct nvkm_bios *bios, const char
-> > *name)
-> > >  	return ERR_PTR(ret);
-> > >  }
-> > >
-> > > +static void
-> > > +platform_fini(void *data)
-> > > +{
-> > > +	struct priv *priv = data;
-> > > +
-> > > +	iounmap(priv->rom);
-> > > +	kfree(priv);
-> > > +}
-> > > +
-> > >  const struct nvbios_source
-> > >  nvbios_platform = {
-> > >  	.name = "PLATFORM",
-> > >  	.init = platform_init,
-> > > -	.fini = (void(*)(void *))kfree,
-> > > +	.fini = platform_fini,
-> > >  	.read = pcirom_read,
-> > >  	.rw = true,
-> > >  };
-> > > diff --git a/drivers/gpu/drm/radeon/radeon_bios.c
-> > > b/drivers/gpu/drm/radeon/radeon_bios.c
-> > > index c42f73fad3e3..bb29cf02974d 100644
-> > > --- a/drivers/gpu/drm/radeon/radeon_bios.c
-> > > +++ b/drivers/gpu/drm/radeon/radeon_bios.c
-> > > @@ -108,25 +108,33 @@ static bool radeon_read_bios(struct
-> > > radeon_device *rdev)
-> > >
-> > >  static bool radeon_read_platform_bios(struct radeon_device *rdev)  {
-> > > -	uint8_t __iomem *bios;
-> > > -	size_t size;
-> > > +	phys_addr_t rom = rdev->pdev->rom;
-> > > +	size_t romlen = rdev->pdev->romlen;
-> > > +	void __iomem *bios;
-> > >
-> > >  	rdev->bios = NULL;
-> > >
-> > > -	bios = pci_platform_rom(rdev->pdev, &size);
-> > > -	if (!bios) {
-> > > +	if (!rom || romlen == 0)
-> > >  		return false;
-> > > -	}
-> > >
-> > > -	if (size == 0 || bios[0] != 0x55 || bios[1] != 0xaa) {
-> > > +	rdev->bios = kzalloc(romlen, GFP_KERNEL);
-> > > +	if (!rdev->bios)
-> > >  		return false;
-> > > -	}
-> > > -	rdev->bios = kmemdup(bios, size, GFP_KERNEL);
-> > > -	if (rdev->bios == NULL) {
-> > > -		return false;
-> > > -	}
-> > > +
-> > > +	bios = ioremap(rom, romlen);
-> > > +	if (!bios)
-> > > +		goto free_bios;
-> > > +
-> > > +	memcpy_fromio(rdev->bios, bios, romlen);
-> > > +	iounmap(bios);
-> > > +
-> > > +	if (rdev->bios[0] != 0x55 || rdev->bios[1] != 0xaa)
-> > > +		goto free_bios;
-> > >
-> > >  	return true;
-> > > +free_bios:
-> > > +	kfree(rdev->bios);
-> > > +	return false;
-> > >  }
-> > >
-> > >  #ifdef CONFIG_ACPI
-> > > diff --git a/drivers/pci/rom.c b/drivers/pci/rom.c index
-> > > 137bf0cee897..8fc9a4e911e3 100644
-> > > --- a/drivers/pci/rom.c
-> > > +++ b/drivers/pci/rom.c
-> > > @@ -195,20 +195,3 @@ void pci_unmap_rom(struct pci_dev *pdev, void
-> > __iomem *rom)
-> > >  		pci_disable_rom(pdev);
-> > >  }
-> > >  EXPORT_SYMBOL(pci_unmap_rom);
-> > > -
-> > > -/**
-> > > - * pci_platform_rom - provides a pointer to any ROM image provided by
-> > > the
-> > > - * platform
-> > > - * @pdev: pointer to pci device struct
-> > > - * @size: pointer to receive size of pci window over ROM
-> > > - */
-> > > -void __iomem *pci_platform_rom(struct pci_dev *pdev, size_t *size) -{
-> > > -	if (pdev->rom && pdev->romlen) {
-> > > -		*size = pdev->romlen;
-> > > -		return phys_to_virt((phys_addr_t)pdev->rom);
-> > > -	}
-> > > -
-> > > -	return NULL;
-> > > -}
-> > > -EXPORT_SYMBOL(pci_platform_rom);
-> > > diff --git a/include/linux/pci.h b/include/linux/pci.h index
-> > > 3840a541a9de..7268dcf1f23e 100644
-> > > --- a/include/linux/pci.h
-> > > +++ b/include/linux/pci.h
-> > > @@ -1214,7 +1214,6 @@ int pci_enable_rom(struct pci_dev *pdev);  void
-> > > pci_disable_rom(struct pci_dev *pdev);  void __iomem __must_check
-> > > *pci_map_rom(struct pci_dev *pdev, size_t *size);  void
-> > > pci_unmap_rom(struct pci_dev *pdev, void __iomem *rom); -void
-> > __iomem
-> > > __must_check *pci_platform_rom(struct pci_dev *pdev, size_t *size);
-> > >
-> > >  /* Power management related routines */  int pci_save_state(struct
-> > > pci_dev *dev);
-> > > --
-> > > 2.13.7
-> > >
+We probably can't drop this from here, but we can drop it from 
+get_cursor_position after this patch - since it's now in the atomic check.
+
+Thanks,
+Nicholas Kazlauskas
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
