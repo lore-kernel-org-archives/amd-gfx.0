@@ -8,65 +8,65 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6505C2D0EE
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2020 13:55:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EC0CC43331
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2020 13:55:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7DBA9206CC
-	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2020 13:55:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 25876206CC
+	for <amd-gfx@archiver.kernel.org>; Mon, 30 Mar 2020 13:55:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ukD1GMur"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DBA9206CC
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l3+HdNQM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 25876206CC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3FE156E395;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8946D6E39C;
 	Mon, 30 Mar 2020 13:55:43 +0000 (UTC)
 Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
  [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0B9B6E39C;
- Mon, 30 Mar 2020 13:55:42 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id h9so21715168wrc.8;
- Mon, 30 Mar 2020 06:55:42 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 404836E391;
+ Mon, 30 Mar 2020 13:55:40 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id w10so21805258wrm.4;
+ Mon, 30 Mar 2020 06:55:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:subject:date:message-id:in-reply-to:references:mime-version
  :content-transfer-encoding;
- bh=flGhpt37sp9XD/VKJktequW1z/Op/EL2iIAVEZzSQBY=;
- b=ukD1GMur4S+QTAoLF74CoIO1QIAlOXbes+YwAQgkkrnSRcEsyI3+k4LVHMo6Wf9gO+
- r8ePkc5xHo9Ai+wVWG15g+w7uZhvkhxpoAFKO6Hd0EzcBmnup0sFzPOSXUPpiDIHQ3i7
- OOryRgQa8ncZf683e9LoFy2Zq6/oh9uJYtvkxJgZDkmDs4p1w6Vk3QKMWw7zvuckVSKs
- tGPTT2PofymB/CtXzigsthqMHYEqP3nC1uDRK0JNfoVMYtzl1C7edM5AkcmbwdSS8qvB
- xIs/82L97m9LGJz84/C7G3Vej2rGfmAXziFpheIQ2NdVuGCxjarBCUv88RPJS1Ut5ikC
- B1MQ==
+ bh=EdSiddoWJSbLr+HoD/rzQuDxDnh96tXalnlSTnjDyNk=;
+ b=l3+HdNQM8KOBL4+BQ0/ZA8SPXSICm4rLXynvef3cSzENnkbpooxCU7lzs5/aPaAKTc
+ CIy8DhjFXJ2vbi+57h+hCmwrI9iW5Ka0n7rEwgaA5fQk4AXZlCrt5nWyeWITJpYnl/Mr
+ /huXAByyWhIgOUxJILXl49ITCm81M3Qh1z4ryvpjgngHx9pKhEuCDHZtuUv5BedgHL+I
+ cl0kUGNNOY/tm7/mwipJHasjGqWChbmegoSOY24gJ7BOArzmmGCmcEqOEdiwHXvr0OkW
+ E8a9dNKMX5wiRx30Me667daqvhiTjAEu4daLgoJBc5H83ufFl5GpyJ/R3XVWgjBsmu1/
+ D5oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=flGhpt37sp9XD/VKJktequW1z/Op/EL2iIAVEZzSQBY=;
- b=imffyoDZ1MA3insYWImDYesSoEK72FflCXhtU1DXc/55Yz+pkKIWE1Ktxgv0ubFobE
- pBaYll2nSl7jIdK4bt2MqvPf0OJAUPen/vCk27d19pMYRbNH1MQ+CLhsMusiaNTj/gap
- VZM5A0Q8Ebwv7WP6vEvMvEOTfwfZjoPVI88ftCVdChdlS3dhY/esAZ74nWCVjlm9e63A
- 7Rf0uXy6mI1uNpAfYtOkdsemka9P7HRqWKai73LH0raGbszp9mhevK7CS+8wLm8KpcTD
- ugfdeWBiBHQeRQFadF7+0/mRAUBTsjQ459UDwaW6q9rzEDpXpwvK13oyJPWshtaq6h/Q
- 6I9Q==
-X-Gm-Message-State: ANhLgQ0oInvMqvJikQg2Bo6KgMojZsVnlP2PWZ/wD3XHTTZc8Udy310w
- 56Csdzmtb+DoHlDSB0prJF7QKeyL
-X-Google-Smtp-Source: ADFU+vtlYfEqAjI36K3qJBBMU3B5Z7OVQPlDIw+hWEBkANe8Q+PCMFNPsizZ5Ych+K/fj5ik3qzfCQ==
-X-Received: by 2002:a5d:6ca7:: with SMTP id a7mr16350429wra.157.1585576541175; 
- Mon, 30 Mar 2020 06:55:41 -0700 (PDT)
+ bh=EdSiddoWJSbLr+HoD/rzQuDxDnh96tXalnlSTnjDyNk=;
+ b=hu7ujMwQfOLVAtG6AUOtEP7g97Kfp6IEtRf3n1+3/DTKVAnkkiNUFNoOcU4KmOB8iB
+ jRahONRtzZ2hMSvGn4Q7bsCF8f3ZqP+ZkXrKMbdtEV3eyTOBkpzFjS0nElItBZUdNvRR
+ D0L6isgGouUgLEikJyr+8oD1kAYDwKlT/4Irh6Hii1cXQUQhbHFSCVzwkINc/81WYya6
+ zpfkl5MpRAPaiQpETEMxl0MDfpqLh/H64sBg3tQYSf+R0l1AzmDJAip8lNiWPeJSvpZL
+ 1LXWu0Cu7t9GyS+1N9fNxGkNcpMACUq0YYBLQiLEdaIBhIOdrmgvv8nL9n+rIZl3Gn5Q
+ 9c+Q==
+X-Gm-Message-State: ANhLgQ0jZURV2R5Aj7j9u0rX+KRI+p95+baG+198NFvYTOS2uo2+wjjj
+ h6LIL2lDUpXNQHHCAVQUNs1B8tsZ
+X-Google-Smtp-Source: ADFU+vvO0yYRajU2wnE5wh9U/t37IlY1BuHmMDnNO6Yjq6An9UxsoaauhbR9y1pGuUew9w2/V+koBg==
+X-Received: by 2002:adf:904a:: with SMTP id h68mr14131311wrh.291.1585576538791; 
+ Mon, 30 Mar 2020 06:55:38 -0700 (PDT)
 Received: from abel.fritz.box ([2a02:908:1252:fb60:f999:5819:bfe0:10e8])
- by smtp.gmail.com with ESMTPSA id z16sm22267660wrr.56.2020.03.30.06.55.40
+ by smtp.gmail.com with ESMTPSA id z16sm22267660wrr.56.2020.03.30.06.55.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 30 Mar 2020 06:55:40 -0700 (PDT)
+ Mon, 30 Mar 2020 06:55:38 -0700 (PDT)
 From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
 X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
  <christian.koenig@amd.com>
 To: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
  daniel@ffwll.ch
-Subject: [PATCH 6/6] drm/amdgpu: improve amdgpu_gem_info debugfs file
-Date: Mon, 30 Mar 2020 15:55:36 +0200
-Message-Id: <20200330135536.2997-6-christian.koenig@amd.com>
+Subject: [PATCH 3/6] drm/amdgpu: note that we can handle peer2peer DMA-buf
+Date: Mon, 30 Mar 2020 15:55:33 +0200
+Message-Id: <20200330135536.2997-3-christian.koenig@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200330135536.2997-1-christian.koenig@amd.com>
 References: <20200330135536.2997-1-christian.koenig@amd.com>
@@ -87,24 +87,18 @@ Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Tm90ZSBpZiBhIGJ1ZmZlciB3YXMgaW1wb3J0ZWQgdXNpbmcgcGVlcjJwZWVyLgoKU2lnbmVkLW9m
-Zi1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYyB8IDQgKysrLQogMSBmaWxlIGNo
-YW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV9nZW0uYwppbmRleCA0Mjc3MTI1YTc5ZWUuLmU0MjYwODExNWM5OSAxMDA2
-NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dlbS5jCisrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0uYwpAQCAtMjksNiArMjksNyBAQAog
-I2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgogI2luY2x1ZGUgPGxpbnV4L3BhZ2VtYXAuaD4KICNp
-bmNsdWRlIDxsaW51eC9wY2kuaD4KKyNpbmNsdWRlIDxsaW51eC9kbWEtYnVmLmg+CiAKICNpbmNs
-dWRlIDxkcm0vYW1kZ3B1X2RybS5oPgogI2luY2x1ZGUgPGRybS9kcm1fZGVidWdmcy5oPgpAQCAt
-ODU0LDcgKzg1NSw4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RlYnVnZnNfZ2VtX2JvX2luZm8oaW50
-IGlkLCB2b2lkICpwdHIsIHZvaWQgKmRhdGEpCiAJYXR0YWNobWVudCA9IFJFQURfT05DRShiby0+
-dGJvLmJhc2UuaW1wb3J0X2F0dGFjaCk7CiAKIAlpZiAoYXR0YWNobWVudCkKLQkJc2VxX3ByaW50
-ZihtLCAiIGltcG9ydGVkIGZyb20gJXAiLCBkbWFfYnVmKTsKKwkJc2VxX3ByaW50ZihtLCAiIGlt
-cG9ydGVkIGZyb20gJXAlcyIsIGRtYV9idWYsCisJCQkgICBhdHRhY2htZW50LT5wZWVyMnBlZXIg
-PyAiIFAyUCIgOiAiIik7CiAJZWxzZSBpZiAoZG1hX2J1ZikKIAkJc2VxX3ByaW50ZihtLCAiIGV4
-cG9ydGVkIGFzICVwIiwgZG1hX2J1Zik7CiAKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+SW1wb3J0aW5nIHNob3VsZCB3b3JrIG91dCBvZiB0aGUgYm94LgoKU2lnbmVkLW9mZi1ieTogQ2hy
+aXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgotLS0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmMgfCAxICsKIDEgZmlsZSBjaGFuZ2VkLCAx
+IGluc2VydGlvbigrKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
+ZGdwdV9kbWFfYnVmLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG1hX2J1
+Zi5jCmluZGV4IGZmZWIyMGYxMWMwNy4uYWVmMTJlZTJmMWUzIDEwMDY0NAotLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG1hX2J1Zi5jCisrKyBiL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmMKQEAgLTUxNCw2ICs1MTQsNyBAQCBhbWRncHVf
+ZG1hX2J1Zl9tb3ZlX25vdGlmeShzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gpCiB9
+CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2hfb3BzIGFtZGdwdV9kbWFfYnVm
+X2F0dGFjaF9vcHMgPSB7CisJLmFsbG93X3BlZXIycGVlciA9IHRydWUsCiAJLm1vdmVfbm90aWZ5
+ID0gYW1kZ3B1X2RtYV9idWZfbW92ZV9ub3RpZnkKIH07CiAKLS0gCjIuMTcuMQoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3Rv
+cC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
