@@ -2,66 +2,105 @@ Return-Path: <SRS0=/bSq=5R=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 65A0FC43331
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 02:39:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72D91C43331
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 05:29:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D88F20678
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 02:39:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2F4792074D
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 05:29:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Nq/iPOHj"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D88F20678
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="1bM22y+u"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F4792074D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A51B6E8CB;
-	Wed,  1 Apr 2020 02:39:41 +0000 (UTC)
-Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
- [IPv6:2607:f8b0:4864:20::244])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED2F56E8CB
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2020 02:39:40 +0000 (UTC)
-Received: by mail-oi1-x244.google.com with SMTP id y71so20887487oia.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2020 19:39:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kzYWdS8ptvsQ51liRTuryFlYrkP2okzYwHKGEN31ccs=;
- b=Nq/iPOHjbrKHhHEg7yVZnvLxEKMFf/820C3C/aFENCC3Ud4sWUiWOSY1n+dd9o4ImW
- 1VsfUnNc5H+/vhMsWgYq43Xsj6dRYzFob0jJBEbfF5Rpx9KfWIr121QrPrxUQOwjthhI
- LTj7ZuHPx1L9SDjBXg/RBqCccpV5+LfRy9YamUA2oZphtH2M2iCHSb+/MJ856eNWLvQo
- mbOQD0bbtqJLWBFy0K6g4NZ5w2eAMk8XNNV36pwq6Ev5rpml94OFfmCm3l2u31bAmkcP
- f6qj9BTkLmdXlaHUv+asusvU8nbNDhLz6OkUaWNKNIC3trkgtSeCecxUnIBSK9mQ552A
- 7Xdg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=kzYWdS8ptvsQ51liRTuryFlYrkP2okzYwHKGEN31ccs=;
- b=bsPCwI0qbWg72RIoD43+wiUBLXou+lmKi//EyB+sDEUc01BOC1vJr8EmoIx/nRPIvQ
- HvD+OqM6Wi2exnbolf5fPJi06abDQiJgn7tnAGrupoZZMeGIGcc6pjtiaV29zCWm1adx
- +075O5+OOV2cEqOXA7zt0C7pAzYQWA4QymZcWJ42w0/frRTXa4FPDB4t4+2FXflPtsX0
- 3KCI+b6wXFXuTDPeB4RSxrR1tumniibqawIoplMQ201KKkbocAge4QmxatZlUfC3fuMj
- pHj5GRyn9D+BrxstH+HgiwJxAJNpD56RWhKwNGInGjjVlxP8FwaZH5UILKwWgCGcY67i
- +rQw==
-X-Gm-Message-State: AGi0Puau0jFtcfiW1Ux04YCEcV8z7wHWEXz5eZJR5YhbyyvaTcR/QZfr
- WpIhZZ/cs5X1mWUtvETK5zH6olt+BxGk5Ukt3oy5HA==
-X-Google-Smtp-Source: APiQypJ37iA4gNTyxVHb8JZchKlLqQ6xkw/Kwg0hme+Z8Pc4V9uPmDR3EZEriMGOb37UUNSz6Qs6z6Tk9hZ1EOBLl+g=
-X-Received: by 2002:aca:4c1:: with SMTP id 184mr1373103oie.76.1585708780047;
- Tue, 31 Mar 2020 19:39:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA9196E8D4;
+	Wed,  1 Apr 2020 05:29:24 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2043.outbound.protection.outlook.com [40.107.220.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 367E56E8D4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2020 05:29:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KUkynCrqympM85tmSc9ARgs4Jc+OXUV16Gfp0XtGfdldvIenxvEfnDXVQoVJCOScUFthWqpcyI3hGKex/94ex5k/PrRBCovJfS+9mcBWfBsJF5ZlAjf69ogNgyJyOmb7HXfu7dpFZ1nI10QTsxMI23xvusFQYbML+LQZohQex8FO+qE4G37HSpqxyjiMyj2S8Hj1wrfB2EeMA24VJHJx3EN1JgxJOwgDLBMDiqWw1P7g6lwLtL/oH+D5g+jx6nHttRjPlfq7KdAjKQ3x7ejoxsJCRVdyasQQlhVDwMGjASUa5Kppl7geELgfsTL5fk4GV594sepzgn/ILaSvEeBjvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dZuujkKWa1Na2gsJcvuJi+aDB+VOFlw7IzigH9V0tjk=;
+ b=PjwyiYjs9vWNMlAypVt0zcfaVzw6pS6G/87GxN9bTp4iE18ybKkVb7WLI0AxAfgdIVHemsh6uz+YUQ4erB7Lh5bGMsC/IqEuNWDTI5JMKuFrdlOdxQH8EqlVIxwl187+4sGvanZ1I82C0IVC9boVUEZXq3ZCnk6bMjuHSxY2zx6GlNgrxJ5TMwHg9jtRKUnC0ghe2jUjaN+VrAob6r/LRfS8V9WtkBW4vYfzerUs5zx64XKwvoRxop+BB4u5W5bgeqhaBZABnURlFiEws1SuSRytWH0b4+/JWXD0SfrsGmC2+g0789TKvWxIKmAxFbidDU7961Cxj8qT++37kHvOkw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dZuujkKWa1Na2gsJcvuJi+aDB+VOFlw7IzigH9V0tjk=;
+ b=1bM22y+ulxzYDw+UAGdYp6tqD40gXLN9DtNZ/NMEIeAXQT5nnHcKPNLX0NZnLCGy04jLZv14DwO9X+j3mmNACavOUC99jZoIGq4817st6ibvZdkHOw+GyDyjPINPGV7Xd4zmSWlKPR92tns8rAWLEL+xJASm42DUeUR5HJRE4Hs=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Ray.Huang@amd.com; 
+Received: from MN2PR12MB3309.namprd12.prod.outlook.com (2603:10b6:208:106::29)
+ by MN2PR12MB4095.namprd12.prod.outlook.com (2603:10b6:208:1d1::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.20; Wed, 1 Apr
+ 2020 05:29:20 +0000
+Received: from MN2PR12MB3309.namprd12.prod.outlook.com
+ ([fe80::6417:7247:12ed:1d7b]) by MN2PR12MB3309.namprd12.prod.outlook.com
+ ([fe80::6417:7247:12ed:1d7b%5]) with mapi id 15.20.2856.019; Wed, 1 Apr 2020
+ 05:29:20 +0000
+Date: Wed, 1 Apr 2020 13:29:11 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: Yuxian Dai <Yuxian.Dai@amd.com>, Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/powerplay: using the FCLK DPM table to set
+ the MCLK for DPM states consist of three entities :FCLK, UCLK, MEMCLK all
+ these three clk change together , MEMCLK from FCLK.
+Message-ID: <20200401052910.GA30750@jenkins-Celadon-RN>
+References: <20200331101016.2960-1-Yuxian.Dai@amd.com>
+ <CADnq5_OfZKpAxCPQ5jJ3Xq=4vJYaq7OnpBHpocODOmAYE+9Lhw@mail.gmail.com>
+Content-Disposition: inline
+In-Reply-To: <CADnq5_OfZKpAxCPQ5jJ3Xq=4vJYaq7OnpBHpocODOmAYE+9Lhw@mail.gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: HKAPR04CA0017.apcprd04.prod.outlook.com
+ (2603:1096:203:d0::27) To MN2PR12MB3309.namprd12.prod.outlook.com
+ (2603:10b6:208:106::29)
 MIME-Version: 1.0
-References: <20200330135536.2997-1-christian.koenig@amd.com>
- <20200331084602.GJ2363188@phenom.ffwll.local>
-In-Reply-To: <20200331084602.GJ2363188@phenom.ffwll.local>
-From: Sumit Semwal <sumit.semwal@linaro.org>
-Date: Wed, 1 Apr 2020 08:09:27 +0530
-Message-ID: <CAO_48GGs4U_cAOMfAQ7qDwTciv+b28uYXjCdPXhYpAv5Um9GHg@mail.gmail.com>
-Subject: Re: [PATCH 1/6] dma-buf: add peer2peer flag
-To: Daniel Vetter <daniel@ffwll.ch>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from jenkins-Celadon-RN (180.167.199.189) by
+ HKAPR04CA0017.apcprd04.prod.outlook.com (2603:1096:203:d0::27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2878.15 via Frontend Transport; Wed, 1 Apr 2020 05:29:18 +0000
+X-Originating-IP: [180.167.199.189]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 0075b551-5433-4c92-e307-08d7d5fda0dd
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4095:|MN2PR12MB4095:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB4095D5B8227B11F85A79556EECC90@MN2PR12MB4095.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:400;
+X-Forefront-PRVS: 03607C04F0
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3309.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(39860400002)(136003)(376002)(366004)(396003)(346002)(110136005)(186003)(966005)(316002)(9686003)(6496006)(5660300002)(55016002)(54906003)(45080400002)(86362001)(478600001)(52116002)(4326008)(66556008)(26005)(53546011)(66476007)(956004)(66946007)(1076003)(33656002)(81156014)(81166006)(8676002)(8936002)(16526019)(33716001)(6666004)(2906002);
+ DIR:OUT; SFP:1101; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: mFa150iu9iC4X08u7THKKC01NP8ZVsz1iUue4wpoKDQluea1l/jG7FmC/NIpaKMa8AryG+xPsRliM2k8z4OOdRb+BSrA85+w7XWKXeDq4wZWIX71xaRsT56D9jyd3u36RtGBYxYS6eHLT6BuJrwE9Hco4vyOCUC5rEYE7Cv7K33Fwtgu6zOqkkcr6SDnHlJSva5Dru9Q5CqJWixtifMu6D+ZrZo7iefTg5grhrNcXQ2FnhvtAglgJy8gwStfNg19B9nRenNqq8wKy2L/47K6UDeOqpx+XpkG7+uJtnxMHKyl2idpfTmipm3XTulNB+YNswU4hW+AEQaSCpRCOZvruiuPm5XIymWN0stRmpiX1n21TIshaCZRwigeZjQonECPe4j+JCBHgRymjtip9y+7QpODJUo9ZcOqHYnu9blwLc3Hybg/ux5BJF4GOtbYa5ZhHkugD2wrulALH7s4Qiv/v0RRU/KqBhuI20y/1Qjsbss=
+X-MS-Exchange-AntiSpam-MessageData: Nsbk2tSDZtRTNpJI4NjoOTQ+RF8JalD50GqUqnBj7XuEDeemm4rNkSajcu+wVu1s9KRQHfocuJKoO+WqWe5bk6zZxqCHoSSlAbjGLltIUO8Ov/WIyiL77d6BcaOQ3T54kpih58tVby44VsPERWOR+Q==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0075b551-5433-4c92-e307-08d7d5fda0dd
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2020 05:29:20.1990 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /clvYxJQDphjBDpOJj0/xgD+PasdPYwfMxq/OOLSAsc9QB6GXeVMpiNZ1xp9Jper3sO/rJKIu7GpIbmNYF0RGA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4095
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,228 +112,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
- dri-devel@lists.freedesktop.org, amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0576968068=="
+Cc: "yuxiadai@amd.com" <yuxiadai@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, Yuxian Dai <Yuxian.Dai@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0576968068==
-Content-Type: multipart/alternative; boundary="0000000000008d63c605a231983f"
-
---0000000000008d63c605a231983f
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Christian,
-
-On Tue, 31 Mar 2020, 14:16 Daniel Vetter, <daniel@ffwll.ch> wrote:
-
-> On Mon, Mar 30, 2020 at 03:55:31PM +0200, Christian K=C3=B6nig wrote:
-> > Add a peer2peer flag noting that the importer can deal with device
-> > resources which are not backed by pages.
+On Tue, Mar 31, 2020 at 09:41:44AM -0400, Alex Deucher wrote:
+> On Tue, Mar 31, 2020 at 6:10 AM Yuxian Dai <Yuxian.Dai@amd.com> wrote:
 > >
-> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> On the series:
->
-> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
->
-Fwiw, for the series,
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+> > From: "yuxiadai@amd.com" <yuxiadai@amd.com>
+> 
+> Your patch title is too long; it is basically the whole patch
+> description rather than just a title.  Please split it up between the
+> title and descriptions.  E.g.,
+> 
+> drm/amdgpu/powerplay: fix MCLK DPM handling for renoir
+> 
+> Using the FCLK DPM table to set the MCLK for DPM states consist of
+> three entities:
+> FCLK
+> UCLK
+> MEMCLK
+> All these three clk change together, MEMCLK from FCLK, so use the fclk
+> frequency.
+> 
+> With that fixed, patch is:
+> Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> 
 
-> ---
-> >  drivers/dma-buf/dma-buf.c |  2 ++
-> >  include/linux/dma-buf.h   | 10 ++++++++++
-> >  2 files changed, 12 insertions(+)
+Yes, and usually, we don't leave the commit message as empty. David, you need
+describe the detailed info in the commit not the title.
+
+Thanks,
+Ray
+
 > >
-> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> > index ccc9eda1bc28..570c923023e6 100644
-> > --- a/drivers/dma-buf/dma-buf.c
-> > +++ b/drivers/dma-buf/dma-buf.c
-> > @@ -690,6 +690,8 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf,
-> struct device *dev,
+> > Change-Id: Ia45f3069fc7ae56db495cb5a3865e2c50c550774
+> > Signed-off-by: Yuxian Dai <Yuxian.Dai@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/powerplay/renoir_ppt.h | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
 > >
-> >       attach->dev =3D dev;
-> >       attach->dmabuf =3D dmabuf;
-> > +     if (importer_ops)
-> > +             attach->peer2peer =3D importer_ops->allow_peer2peer;
-> >       attach->importer_ops =3D importer_ops;
-> >       attach->importer_priv =3D importer_priv;
-> >
-> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> > index 1ade486fc2bb..82e0a4a64601 100644
-> > --- a/include/linux/dma-buf.h
-> > +++ b/include/linux/dma-buf.h
-> > @@ -334,6 +334,14 @@ struct dma_buf {
-> >   * Attachment operations implemented by the importer.
-> >   */
-> >  struct dma_buf_attach_ops {
-> > +     /**
-> > +      * @allow_peer2peer:
-> > +      *
-> > +      * If this is set to true the importer must be able to handle pee=
-r
-> > +      * resources without struct pages.
-> > +      */
-> > +     bool allow_peer2peer;
-> > +
-> >       /**
-> >        * @move_notify
-> >        *
-> > @@ -362,6 +370,7 @@ struct dma_buf_attach_ops {
-> >   * @node: list of dma_buf_attachment, protected by dma_resv lock of th=
-e
-> dmabuf.
-> >   * @sgt: cached mapping.
-> >   * @dir: direction of cached mapping.
-> > + * @peer2peer: true if the importer can handle peer resources without
-> pages.
-> >   * @priv: exporter specific attachment data.
-> >   * @importer_ops: importer operations for this attachment, if provided
-> >   * dma_buf_map/unmap_attachment() must be called with the dma_resv loc=
-k
-> held.
-> > @@ -382,6 +391,7 @@ struct dma_buf_attachment {
-> >       struct list_head node;
-> >       struct sg_table *sgt;
-> >       enum dma_data_direction dir;
-> > +     bool peer2peer;
-> >       const struct dma_buf_attach_ops *importer_ops;
-> >       void *importer_priv;
-> >       void *priv;
+> > diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.h b/drivers/gpu/drm/amd/powerplay/renoir_ppt.h
+> > index 2a390ddd37dd..89cd6da118a3 100644
+> > --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.h
+> > +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.h
+> > @@ -37,7 +37,7 @@ extern void renoir_set_ppt_funcs(struct smu_context *smu);
+> >                         freq = table->SocClocks[dpm_level].Freq;        \
+> >                         break;                                          \
+> >                 case SMU_MCLK:                                          \
+> > -                       freq = table->MemClocks[dpm_level].Freq;        \
+> > +                       freq = table->FClocks[dpm_level].Freq;  \
+> >                         break;                                          \
+> >                 case SMU_DCEFCLK:                                       \
+> >                         freq = table->DcfClocks[dpm_level].Freq;        \
 > > --
 > > 2.17.1
 > >
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> http://blog.ffwll.ch
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cray.huang%40amd.com%7C541f2e15da804d81c5b508d7d57949d2%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637212590166168794&amp;sdata=7x4pBWEPuVHbb8ro%2Fpy5%2BgiJhrxWbLrxGqHSro9KUV8%3D&amp;reserved=0
 > _______________________________________________
-> dri-devel mailing list
-> dri-devel@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/dri-devel
->
-
---0000000000008d63c605a231983f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div>Hi Christian,<br><br><div class=3D"gmail_quote"><div=
- dir=3D"ltr" class=3D"gmail_attr">On Tue, 31 Mar 2020, 14:16 Daniel Vetter,=
- &lt;<a href=3D"mailto:daniel@ffwll.ch">daniel@ffwll.ch</a>&gt; wrote:<br><=
-/div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
-ft:1px #ccc solid;padding-left:1ex">On Mon, Mar 30, 2020 at 03:55:31PM +020=
-0, Christian K=C3=B6nig wrote:<br>
-&gt; Add a peer2peer flag noting that the importer can deal with device<br>
-&gt; resources which are not backed by pages.<br>
-&gt; <br>
-&gt; Signed-off-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.ko=
-enig@amd.com" target=3D"_blank" rel=3D"noreferrer">christian.koenig@amd.com=
-</a>&gt;<br>
-<br>
-On the series:<br>
-<br>
-Acked-by: Daniel Vetter &lt;<a href=3D"mailto:daniel.vetter@ffwll.ch" targe=
-t=3D"_blank" rel=3D"noreferrer">daniel.vetter@ffwll.ch</a>&gt;<br></blockqu=
-ote></div></div><div dir=3D"auto">Fwiw, for the series,</div><div dir=3D"au=
-to">Acked-by: Sumit Semwal &lt;<a href=3D"mailto:sumit.semwal@linaro.org">s=
-umit.semwal@linaro.org</a>&gt;</div><div dir=3D"auto"><br></div><div dir=3D=
-"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=
-=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
-&gt; ---<br>
-&gt;=C2=A0 drivers/dma-buf/dma-buf.c |=C2=A0 2 ++<br>
-&gt;=C2=A0 include/linux/dma-buf.h=C2=A0 =C2=A0| 10 ++++++++++<br>
-&gt;=C2=A0 2 files changed, 12 insertions(+)<br>
-&gt; <br>
-&gt; diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c<br>
-&gt; index ccc9eda1bc28..570c923023e6 100644<br>
-&gt; --- a/drivers/dma-buf/dma-buf.c<br>
-&gt; +++ b/drivers/dma-buf/dma-buf.c<br>
-&gt; @@ -690,6 +690,8 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, str=
-uct device *dev,<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0attach-&gt;dev =3D dev;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0attach-&gt;dmabuf =3D dmabuf;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (importer_ops)<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0attach-&gt;peer2peer =
-=3D importer_ops-&gt;allow_peer2peer;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0attach-&gt;importer_ops =3D importer_ops;<br=
->
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0attach-&gt;importer_priv =3D importer_priv;<=
-br>
-&gt;=C2=A0 <br>
-&gt; diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h<br>
-&gt; index 1ade486fc2bb..82e0a4a64601 100644<br>
-&gt; --- a/include/linux/dma-buf.h<br>
-&gt; +++ b/include/linux/dma-buf.h<br>
-&gt; @@ -334,6 +334,14 @@ struct dma_buf {<br>
-&gt;=C2=A0 =C2=A0* Attachment operations implemented by the importer.<br>
-&gt;=C2=A0 =C2=A0*/<br>
-&gt;=C2=A0 struct dma_buf_attach_ops {<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0/**<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * @allow_peer2peer:<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 *<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * If this is set to true the importer must be ab=
-le to handle peer<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 * resources without struct pages.<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0bool allow_peer2peer;<br>
-&gt; +<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/**<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 * @move_notify<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 *<br>
-&gt; @@ -362,6 +370,7 @@ struct dma_buf_attach_ops {<br>
-&gt;=C2=A0 =C2=A0* @node: list of dma_buf_attachment, protected by dma_resv=
- lock of the dmabuf.<br>
-&gt;=C2=A0 =C2=A0* @sgt: cached mapping.<br>
-&gt;=C2=A0 =C2=A0* @dir: direction of cached mapping.<br>
-&gt; + * @peer2peer: true if the importer can handle peer resources without=
- pages.<br>
-&gt;=C2=A0 =C2=A0* @priv: exporter specific attachment data.<br>
-&gt;=C2=A0 =C2=A0* @importer_ops: importer operations for this attachment, =
-if provided<br>
-&gt;=C2=A0 =C2=A0* dma_buf_map/unmap_attachment() must be called with the d=
-ma_resv lock held.<br>
-&gt; @@ -382,6 +391,7 @@ struct dma_buf_attachment {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct list_head node;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct sg_table *sgt;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0enum dma_data_direction dir;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0bool peer2peer;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0const struct dma_buf_attach_ops *importer_op=
-s;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0void *importer_priv;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0void *priv;<br>
-&gt; -- <br>
-&gt; 2.17.1<br>
-&gt; <br>
-<br>
--- <br>
-Daniel Vetter<br>
-Software Engineer, Intel Corporation<br>
-<a href=3D"http://blog.ffwll.ch" rel=3D"noreferrer noreferrer" target=3D"_b=
-lank">http://blog.ffwll.ch</a><br>
-_______________________________________________<br>
-dri-devel mailing list<br>
-<a href=3D"mailto:dri-devel@lists.freedesktop.org" target=3D"_blank" rel=3D=
-"noreferrer">dri-devel@lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-devel" rel=3D=
-"noreferrer noreferrer" target=3D"_blank">https://lists.freedesktop.org/mai=
-lman/listinfo/dri-devel</a><br>
-</blockquote></div></div></div>
-
---0000000000008d63c605a231983f--
-
---===============0576968068==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cray.huang%40amd.com%7C541f2e15da804d81c5b508d7d57949d2%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637212590166168794&amp;sdata=7x4pBWEPuVHbb8ro%2Fpy5%2BgiJhrxWbLrxGqHSro9KUV8%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0576968068==--
