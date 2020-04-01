@@ -2,73 +2,105 @@ Return-Path: <SRS0=/bSq=5R=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DD97AC43331
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 19:46:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03768C43331
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 19:57:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AEE4F20737
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 19:46:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A9EB2206F6
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 19:57:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PIoJ+ybe"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AEE4F20737
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qWViv8Jz"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A9EB2206F6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4852F6E998;
-	Wed,  1 Apr 2020 19:46:33 +0000 (UTC)
-Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
- [IPv6:2607:f8b0:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 056C86E998;
- Wed,  1 Apr 2020 19:46:31 +0000 (UTC)
-Received: by mail-pl1-x62b.google.com with SMTP id g2so390429plo.3;
- Wed, 01 Apr 2020 12:46:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=39ipV2O3rr3FBtmBygY0WKVMtey2G9312dcajPORw6s=;
- b=PIoJ+ybePB7qfESkeCojyVERn+eBjmilbtGTnAFb+uDFyNEk5lCYgx1U4b7W8XoO85
- bVdcBwe/MJYng2rZIeVmZIUkhQx3xXcRrFKT194ilxTZa8q14uNXws6oMPURoKvTD79w
- K9rManS2c4Eo6mP4pNDNXua1ftiguA8wv1l2T1WRHlfLx3ekmAnwN046Fe7ThlfNTWZC
- sTIszly6onV2EtclfQA/PPpHoMFqSBSG0nOYGFJb35Y2+UsydL/PoPt7g4TwetEtJ8sn
- JSynTAg5dQTBKfpnAPLe1ZFQDwF+Xx4s88i3As4C7rBJeAceuaefP9+HLU6CqgEDyVZY
- k1Dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=39ipV2O3rr3FBtmBygY0WKVMtey2G9312dcajPORw6s=;
- b=VskJ/dLcv10FoRyxVdd3P3aTBNLfvEPthFoH0i4ajtuWXa05+TeDOl7d+HhZOEXJ70
- W2ZlO/lfblbmPfM+Es25128iM1XPSR39Nti+mZZbPVaEwZyQ9kQOMs3Iq8c4EZ5OsIDM
- FARhI1tK6sOc+QbGU6HIrCZPFPpohxnZ8HA9FP5hm0u6fDmE/6mRvrSIaJO3wdrCFPW/
- 9LlRdA9V78eKhA3Sj0Q/EKQVyN3IiOpoFOszv0Lm4oi6iQSHam1Q9pKcC5+2eFSh0hB+
- CuwnyHCQv0OFuRbryirp81nX2B6w9iirJDUkRFY3JU9r7uPTaKh/uJPfw5yaCPdt3OZI
- TvCg==
-X-Gm-Message-State: AGi0PuZUUKrsSVT0Wg/BuLNrJLXVjD0o7oJDNVi+dXExPovkKL0/eEYx
- MlxVEkl5qVufw19/u+azxlfroSRE
-X-Google-Smtp-Source: APiQypKuG9xnSiokEzirl8JqM1CoxFOJ0sAoEddkgR8O8N0QyQ1dVecIbV7+bOXy7ZXJhKHOzu0+yw==
-X-Received: by 2002:a17:90a:cb87:: with SMTP id
- a7mr7011555pju.80.1585770391301; 
- Wed, 01 Apr 2020 12:46:31 -0700 (PDT)
-Received: from localhost.localdomain ([71.219.40.23])
- by smtp.gmail.com with ESMTPSA id 11sm2141736pfv.43.2020.04.01.12.46.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Apr 2020 12:46:30 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniel.vetter@ffwll.ch
-Subject: [pull] amdgpu, amdkfd drm-next-5.7
-Date: Wed,  1 Apr 2020 15:46:19 -0400
-Message-Id: <20200401194619.4217-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BDEB6E999;
+	Wed,  1 Apr 2020 19:57:06 +0000 (UTC)
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr680087.outbound.protection.outlook.com [40.107.68.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDD036E999
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2020 19:57:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SFqjg8m4rKmySIpZLx8Qc+8m51N6yR1LTtWpfFS4bf4tb6e1qB8zImzYOtm7bimRLPftrLrwwjPHRNgmn/r1zgSQZTLaRHGDeMYFqwYj1VAZ2OzezoQMzXBcij3DAQuQa73icPb5UpCf+8fxGuLYnlqNXW7fO2+k6BLikFk0GvVaKDQeme8Jc9rwOBJ/bPHW9wLn72dyDB6nmYXD0sHvKE58yN6e07C94X3Pu9QcRWnxIGFCxIIzxGYeWdTYhk0vjNq9cqzr2O2uwhOnv6oGSITE/aO716Qsa2farChcAHm+TSPPJ0N7LHkKooReziDhtkCx/asnooURmEhyR6tiNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rLqFXkv6te0hhOVLKmLAmMEdKE7MoiiEm+XpyfOc40k=;
+ b=ZePsPT3lbOVzXoG0ZHYmvxwfRuCPcUHZMMgoaCh5SLu08NfLh+aZGGbSSYaOMmkiUEEZXiyeOXQ5DGIr4NlNsdWcCWcXYLCiCpbKUCUurYicfPIbvN3pxn/PkRKO2XsII7wJovH/K9K/iwrqDmSiDD+dE0PJnx7562lyHI9atFOC1hlpw5/EzJQCTZyAqNnMFrsTNJ9cMKrJKjHg1iGfwm6S9JEt/BTweoo5hw8gRhfNiZp8zKraVVc5y8TCcrfQThmtUP4JELm7G2v2faa2zohuBEhY3Tqjl6ZNMkWuSvTDded+jiD8CiDFe0m3ao5tsglfsDTY5BUT45eWqn/4Fg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rLqFXkv6te0hhOVLKmLAmMEdKE7MoiiEm+XpyfOc40k=;
+ b=qWViv8JzJBvE9qRUq7qIzq4bRre2MPJnfeCT0hLhKrfitgvB5ZxrfoybqwHVP5k7X0qH1Eyzc+5nJuziPBKD8BOdPhO4ufdksbKbffO+Unvz0G2neq4p8CeQuNhdXbp26h97tbCqY2MydDZt1RrM9+BjJUE4cGU8x2TyC+I1woE=
+Received: from BN8PR16CA0010.namprd16.prod.outlook.com (2603:10b6:408:4c::23)
+ by DM5PR12MB1769.namprd12.prod.outlook.com (2603:10b6:3:10f::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.20; Wed, 1 Apr
+ 2020 19:56:54 +0000
+Received: from BN8NAM11FT056.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:408:4c:cafe::b) by BN8PR16CA0010.outlook.office365.com
+ (2603:10b6:408:4c::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.15 via Frontend
+ Transport; Wed, 1 Apr 2020 19:56:54 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ BN8NAM11FT056.mail.protection.outlook.com (10.13.177.26) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2878.15 via Frontend Transport; Wed, 1 Apr 2020 19:56:54 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 1 Apr 2020
+ 14:56:54 -0500
+Received: from blakha.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Wed, 1 Apr 2020 14:56:53 -0500
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/display: remove
+ mod_hdcp_hdcp2_get_link_encryption_status()
+Date: Wed, 1 Apr 2020 15:56:31 -0400
+Message-ID: <20200401195631.15067-1-Bhawanpreet.Lakha@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(346002)(376002)(39860400002)(396003)(136003)(428003)(46966005)(8676002)(186003)(336012)(70586007)(81166006)(8936002)(26005)(6916009)(426003)(81156014)(2616005)(86362001)(5660300002)(70206006)(1076003)(4326008)(47076004)(54906003)(316002)(6666004)(478600001)(356004)(82740400003)(7696005)(2906002)(36756003);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 57ca9709-d478-4733-ed8d-08d7d676d3cb
+X-MS-TrafficTypeDiagnostic: DM5PR12MB1769:
+X-Microsoft-Antispam-PRVS: <DM5PR12MB176917E22992B80C75E9CC39F9C90@DM5PR12MB1769.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:302;
+X-Forefront-PRVS: 03607C04F0
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DCKSwRnnDfNcMZnq30e6sdcuhuRPpTyK+TCK1v8bPRS5a/lt0GZWyhmDN8wVXbQNn5LaGVgxYY4CpIqmD2ikg8WzpKLObYKtIoF5/GuMWw8ciVi9XGlBY6CZe15X0Kcln5c0yprEFnAySlrw41f3eHLqF4IlOvdp5m8Y/rwS+PMfrATYr/0ALI9pZyJdYi2cC2ciuZ1dPWvoAn3EbASxGCtf/YGIaGrUdaWONqlf6X+mAw5sGbsQEcd8iThaEr8CK25wUrcfFAXUJjE1wYEVosiA+MwJLoCIfFpJd2e2lpLETILeXKp5GPCw2PpMT9MFeZtcTcJIsCJW1Jd4GgZ9CiDkojm5xN4F403A1/Ws1nWin5CCDdh5JTG1uCOpkxTkOtfbqVkIuxjxicxBuqzrUPzKgul3bs0cWrjYBlYxi1QVjMzRvC536RC5FL/0UI326RbmV/OLar4GCWFA8V0o1vAIW+2wvGczi6Opk0rzYXSRlPVuygAgW4sUoahKIc5GXD+Kt4NEAs6F4kcOTfWp/A==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2020 19:56:54.3606 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 57ca9709-d478-4733-ed8d-08d7d676d3cb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1769
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,107 +112,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>, harry.wentland@amd.com,
+ nicholas.kazlauskas@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+It is not being used, so remove it
 
-Fixes for 5.7.
+Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+---
+ .../gpu/drm/amd/display/modules/hdcp/hdcp.h   |  2 --
+ .../drm/amd/display/modules/hdcp/hdcp_psp.c   | 29 -------------------
+ 2 files changed, 31 deletions(-)
 
-The following changes since commit 59e7a8cc2dcf335116d500d684bfb34d1d97a6fe:
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
+index 5cb4546be0ef..8e8a26dd46fc 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
+@@ -357,8 +357,6 @@ enum mod_hdcp_status mod_hdcp_hdcp2_prepare_stream_management(
+ 		struct mod_hdcp *hdcp);
+ enum mod_hdcp_status mod_hdcp_hdcp2_validate_stream_ready(
+ 		struct mod_hdcp *hdcp);
+-enum mod_hdcp_status mod_hdcp_hdcp2_get_link_encryption_status(struct mod_hdcp *hdcp,
+-							       enum mod_hdcp_encryption_status *encryption_status);
+ 
+ /* ddc functions */
+ enum mod_hdcp_status mod_hdcp_read_bksv(struct mod_hdcp *hdcp);
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+index aa147e171557..95a9c8bfbef6 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+@@ -917,32 +917,3 @@ enum mod_hdcp_status mod_hdcp_hdcp2_validate_stream_ready(struct mod_hdcp *hdcp)
+ 	return status;
+ }
+ 
+-enum mod_hdcp_status mod_hdcp_hdcp2_get_link_encryption_status(struct mod_hdcp *hdcp,
+-							       enum mod_hdcp_encryption_status *encryption_status)
+-{
+-	struct psp_context *psp = hdcp->config.psp.handle;
+-	struct ta_hdcp_shared_memory *hdcp_cmd;
+-
+-	hdcp_cmd = (struct ta_hdcp_shared_memory *)psp->hdcp_context.hdcp_shared_buf;
+-
+-	memset(hdcp_cmd, 0, sizeof(struct ta_hdcp_shared_memory));
+-
+-	hdcp_cmd->in_msg.hdcp2_get_encryption_status.session_handle = hdcp->auth.id;
+-	hdcp_cmd->out_msg.hdcp2_get_encryption_status.protection_level = 0;
+-	hdcp_cmd->cmd_id = TA_HDCP_COMMAND__HDCP2_GET_ENCRYPTION_STATUS;
+-	*encryption_status = MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF;
+-
+-	psp_hdcp_invoke(psp, hdcp_cmd->cmd_id);
+-
+-	if (hdcp_cmd->hdcp_status != TA_HDCP_STATUS__SUCCESS)
+-		return MOD_HDCP_STATUS_FAILURE;
+-
+-	if (hdcp_cmd->out_msg.hdcp2_get_encryption_status.protection_level == 1) {
+-		if (hdcp_cmd->out_msg.hdcp2_get_encryption_status.hdcp2_type == TA_HDCP2_CONTENT_TYPE__TYPE1)
+-			*encryption_status = MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE1_ON;
+-		else
+-			*encryption_status = MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE0_ON;
+-	}
+-
+-	return MOD_HDCP_STATUS_SUCCESS;
+-}
+-- 
+2.17.1
 
-  Merge tag 'drm-msm-next-2020-03-22' of https://gitlab.freedesktop.org/drm/msm into drm-next (2020-03-31 16:34:55 +1000)
-
-are available in the Git repository at:
-
-  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-next-5.7-2020-04-01
-
-for you to fetch changes up to 3148a6a0ef3cf93570f30a477292768f7eb5d3c3:
-
-  drm/amdkfd: kfree the wrong pointer (2020-04-01 14:44:22 -0400)
-
-----------------------------------------------------------------
-amd-drm-next-5.7-2020-04-01:
-
-amdgpu:
-- HDCP fixes
-- gfx10 fix
-- Misc display fixes
-- BACO fixes
-
-amdkfd:
-- Fix memory leak
-
-----------------------------------------------------------------
-Aric Cyr (1):
-      drm/amd/display: LFC not working on 2.0x range monitors (v2)
-
-Bhawanpreet Lakha (3):
-      drm/amd/display: Don't try hdcp1.4 when content_type is set to type1
-      drm/amd/display: Correctly cancel future watchdog and callback events
-      drm/amd/display: increase HDCP authentication delay
-
-Dmytro Laktyushkin (1):
-      drm/amd/display: Fix dcn21 num_states
-
-Eric Bernstein (1):
-      drm/amd/display: Update function to get optimal number of taps
-
-Evan Quan (2):
-      drm/amd/powerplay: drop redundant BIF doorbell interrupt operations
-      drm/amd/powerplay: move the ASIC specific nbio operation out of smu_v11_0.c
-
-Isabel Zhang (1):
-      drm/amd/display: Revert change to HDCP display states
-
-Jack Zhang (1):
-      drm/amdkfd: kfree the wrong pointer
-
-Kevin Wang (1):
-      drm/amdgpu: fix hpd bo size calculation error
-
-Nicholas Kazlauskas (1):
-      drm/amd/display: Use double buffered DRR timing update by default
-
-Stylon Wang (3):
-      drm/amd/display: Support P010 pixel format
-      drm/amd/display: Support plane level CTM
-      drm/amd/display: Enable BT2020 in COLOR_ENCODING property
-
-Yongqiang Sun (1):
-      drm/amd/display: Not doing optimize bandwidth if flip pending.
-
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             |  2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_device.c            |  4 +--
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 12 +++++--
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 14 +++++---
- drivers/gpu/drm/amd/display/dc/core/dc.c           | 33 +++++++++++++++++-
- drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  1 +
- drivers/gpu/drm/amd/display/dc/dc.h                |  3 ++
- .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  |  6 ++++
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c  | 18 ++++++++++
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.h  |  3 ++
- .../gpu/drm/amd/display/dc/dcn10/dcn10_resource.c  |  3 +-
- .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  |  5 +--
- .../gpu/drm/amd/display/dc/dcn21/dcn21_resource.c  | 40 ++++++++--------------
- drivers/gpu/drm/amd/display/dc/dml/dc_features.h   |  2 +-
- .../drm/amd/display/dc/dml/display_mode_structs.h  |  7 ++--
- .../drm/amd/display/modules/freesync/freesync.c    | 34 ++++++++++--------
- drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c    |  5 ++-
- drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h    | 28 +++++++++++----
- .../drm/amd/display/modules/hdcp/hdcp1_execution.c |  2 +-
- .../drm/amd/display/modules/hdcp/hdcp2_execution.c |  2 +-
- .../gpu/drm/amd/display/modules/hdcp/hdcp_psp.c    | 39 ++++++++++++---------
- drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h |  1 +
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c       | 15 +++++++-
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c         | 18 ++++++++--
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c          | 24 +------------
- drivers/gpu/drm/amd/powerplay/vega20_ppt.c         | 14 +++++++-
- 27 files changed, 223 insertions(+), 114 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
