@@ -2,70 +2,104 @@ Return-Path: <SRS0=/bSq=5R=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B81C3C43331
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 11:34:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08F19C43331
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 11:41:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 40B9520776
-	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 11:34:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9E80220776
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 11:41:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="DRe039WL"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 40B9520776
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QsEJVNQG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E80220776
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE73E6E098;
-	Wed,  1 Apr 2020 11:34:51 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B88A6E098
- for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2020 11:34:51 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id d202so2775542wmd.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 01 Apr 2020 04:34:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=xK3tzxTxkQTfR5JDzqj+R7wEUare7PE5wvI/fahlZE8=;
- b=DRe039WLYQ92YUtWRXBSErdQGEz4CQYstR1pRztgJR9DoJyiZqEZceAq4NOzxiruIs
- g/I+A0/+Hc+TyQs4xlaAV3F5fKCEGbQtGhVqRwgIYD2+CDMdfCKmnZFWC7woGu2GTnQD
- Lqx6l8rSmUI0VWIfRYRcwr07JRAvvYVRqIx4U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=xK3tzxTxkQTfR5JDzqj+R7wEUare7PE5wvI/fahlZE8=;
- b=NsvDu0qcyoMNQJOgg/rv/bp0caDmumSWq6aRhca17MQmXlDrWUESdEnobt8K9+LIdg
- NTj86Twil4fgwgcQImTtAqKH/jV1D2yjqNzDsxkbXQOAVhSygHJ22qT9yzt4i0IHgj6j
- xwNPoZ6yK9a8yJkF+mk8h6VMQhyxUBDwt5TTOI5eho1jK171u4mPFYVDe3dtFaM91nte
- oGTiDp+cE6s3qgHFyZ5hoHfrMu4F9A7mb9I9L8ZH2fEq4ZXDyYUCNQAOVBo5hVJj6XYd
- 5kqSrns9EKSxkTxQULBkhh73rZH/GY1sxgcditR4uwqRGqgk16mxIj3aSpya/yphevNq
- flIw==
-X-Gm-Message-State: AGi0PuZjhZuKHc72/h/+SpjAfNPpz0mdfcDanl5hcUf6gnCSX7prYLM8
- v/FyYmfGmvm2BQPe4SD3cEiXcg==
-X-Google-Smtp-Source: APiQypIVkMzxuQ369w0EeEgZu+WSVp2DXTahoWIRSBVN2PT86iPiBQ19N6nWHISZG+Uqnw6gIyj9pw==
-X-Received: by 2002:a1c:2285:: with SMTP id i127mr4153494wmi.152.1585740890038; 
- Wed, 01 Apr 2020 04:34:50 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id w66sm2392664wma.38.2020.04.01.04.34.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 01 Apr 2020 04:34:49 -0700 (PDT)
-Date: Wed, 1 Apr 2020 13:34:46 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: Re: [PATCH 1/6] dma-buf: add peer2peer flag
-Message-ID: <20200401113446.GR2363188@phenom.ffwll.local>
-References: <20200330135536.2997-1-christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45E786E098;
+	Wed,  1 Apr 2020 11:41:21 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700079.outbound.protection.outlook.com [40.107.70.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6315C6E098
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2020 11:41:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VLwMfewq0daQV99XB8hGJ1u+NhjNkHYJCco3ER7CbQj+fqT1jmTdySP5Hfydt+f2LiLeQXUVAN3f/OsXIVPx9gfEZK+57bv5y+62IiG4EOw+C7BALfAmXtMzjBpBmZTjY33iJNSDNWSeTp/GKfnAWo1BT7jMEErVhUyu4uVZvj+2B6LhXT5Fw6ybVDmLmNYE3X2umk9TzL1sZ1/hEQZpNyGlBidsC1iYbWcVuRhn7XbWzf3/xf+0N5hcd1k3z4dsPWirwSUt+/jsh/SVxKahlUPvZ505Jj4ccxYFz5YAaWjVhLQmlVTbUoPJoXeiWwK4XF5v1Plnb45nWvIFhblIdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Iq8kHDza4yOPkensh8WtSlCdAqHNfZ9oaC7ojOBDkGI=;
+ b=aT8fH6beDBeTPKoJYeLcIAbFRVi3eWekDYuSFfsbg3/DUFImWg767S1E2nCASK4PTw1cff8H9hjGOFADkUPJgq7pz2Td2hBvANTohqSRC5OHXWKsOrtEwg3VKoNLVjgmcnC6OE4ckSppj63Kv7nTCLNfZzxhIPK2sN0qzE9l13i99f90BOENEsul0QN+BSJQi4a6wQUr7aLM8+Ji2AijRImDuAXtF3d8+e7ga9OMI14dOCEVjsKlXfT+xHYAZs98M6PlVr0XUkX4Q2/gvRgCOXbC7e0kqcwmgu7RCQbi2aHs/q/ZA9yEwXzdeOJ57NG6QlAiwEyXvEAOn9EsSRl4dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Iq8kHDza4yOPkensh8WtSlCdAqHNfZ9oaC7ojOBDkGI=;
+ b=QsEJVNQGyHfdppuBs48J1578tKuFdd1PbnKESXyIs/MIY3TQqIysop0WA3UebVhkSc/EtNMd9RVtbeVuC3fRsNXo61qI/V2cAuo/slmuAr4/OsSGFLpw2w/vjhPHTpdNdPe1T0PnC99YWeq9lrdE9lNp7uQZkSCAC7H/qXTuKYg=
+Received: from DM6PR02CA0096.namprd02.prod.outlook.com (2603:10b6:5:1f4::37)
+ by SN6PR12MB2685.namprd12.prod.outlook.com (2603:10b6:805:67::33) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.20; Wed, 1 Apr
+ 2020 11:41:17 +0000
+Received: from DM6NAM11FT062.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:1f4:cafe::bd) by DM6PR02CA0096.outlook.office365.com
+ (2603:10b6:5:1f4::37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.20 via Frontend
+ Transport; Wed, 1 Apr 2020 11:41:17 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ DM6NAM11FT062.mail.protection.outlook.com (10.13.173.40) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2878.15 via Frontend Transport; Wed, 1 Apr 2020 11:41:17 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 1 Apr 2020
+ 06:41:16 -0500
+Received: from jenkins.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Wed, 1 Apr 2020 06:41:15 -0500
+From: Yuxian Dai <Yuxian.Dai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu/powerplay: using the FCLK DPM table to set the MCLK
+Date: Wed, 1 Apr 2020 19:41:12 +0800
+Message-ID: <20200401114112.8372-1-Yuxian.Dai@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200330135536.2997-1-christian.koenig@amd.com>
-X-Operating-System: Linux phenom 5.3.0-3-amd64 
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(136003)(376002)(39860400002)(346002)(396003)(428003)(46966005)(5660300002)(4326008)(70586007)(81166006)(86362001)(8676002)(81156014)(7696005)(8936002)(186003)(6916009)(1076003)(316002)(6666004)(26005)(356004)(426003)(2906002)(36756003)(336012)(47076004)(82740400003)(478600001)(70206006)(2616005);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: f1a7cf31-421b-4938-a6ad-08d7d6319721
+X-MS-TrafficTypeDiagnostic: SN6PR12MB2685:
+X-Microsoft-Antispam-PRVS: <SN6PR12MB26856CB09FBE2E63A8AA97268DC90@SN6PR12MB2685.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
+X-Forefront-PRVS: 03607C04F0
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 4JffsyWAXWRXkPE+2iPgCgZmxsd1rZHV7pUFW5h2g9xjrGsMa/JXxCUJpr3+nUSLuYykmkgPBcX/kIA6Bp6k/GfoaNxnT8EGrfsGScgt7VzEk9B69KEXwn+Hz6z0Rc6gU/RFrZb02028hgbONzeY1zWQ/Os4ke/dsydTWXpniIJ58i5r8rU49r40WaCCv/RIKDQx56GZ9c3eMtsOCh7P1Qb5f/7l+bpqJ31uLdTmlbEvgBNNbkfRTQYPA11lL7rxhbKzq5JXs5CNGtMwL0RaSoVF66sou7Whw33HF0Xec7jEqyqj6RpzrQHDrJs2CW/q5d3jyr/Q2ax+i4rdVDMpFeJe7cqUkVEanhT72IIo+J/9iVYjiE7704tDflM8t3F+dAYQPL4TysMRMmhv3lRWpySbQQOD6xL31XYzn998gM7Lb034AaoaLnTR4/mFYNjMhmyyqQr3otYC7ZXQIUe4Yr6205Vkr6h1PE98/GWWCz7sIOHzsNDIw6TbHZwdxcFB74FF9M8PTOn+Ej1VBIorpw==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Apr 2020 11:41:17.2621 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1a7cf31-421b-4938-a6ad-08d7d6319721
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2685
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,106 +111,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: daniel@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: Yuxian Dai <Yuxian.Dai@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2020 at 03:55:31PM +0200, Christian K=F6nig wrote:
-> Add a peer2peer flag noting that the importer can deal with device
-> resources which are not backed by pages.
-> =
+1.Using the FCLK DPM table to set the MCLK for DPM states consist of
+three entities:
+ FCLK
+ UCLK
+ MEMCLK
+All these three clk change together, MEMCLK from FCLK, so use the fclk
+frequency.
+2.we should show the current working clock freqency from clock table metric
 
-> Signed-off-by: Christian K=F6nig <christian.koenig@amd.com>
-> ---
->  drivers/dma-buf/dma-buf.c |  2 ++
->  include/linux/dma-buf.h   | 10 ++++++++++
->  2 files changed, 12 insertions(+)
-> =
+Signed-off-by: Yuxian Dai <Yuxian.Dai@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Huang Rui <ray.huang@amd.com>
+Reviewed-by: Kevin Wang <Kevin1.Wang@amd.com>
+---
+ drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 6 ++++++
+ drivers/gpu/drm/amd/powerplay/renoir_ppt.h | 2 +-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
 
-> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-> index ccc9eda1bc28..570c923023e6 100644
-> --- a/drivers/dma-buf/dma-buf.c
-> +++ b/drivers/dma-buf/dma-buf.c
-> @@ -690,6 +690,8 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, struct=
- device *dev,
->  =
+diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+index 7bf52ecba01d..c6b39a7026a8 100644
+--- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+@@ -239,6 +239,7 @@ static int renoir_print_clk_levels(struct smu_context *smu,
+ 	uint32_t cur_value = 0, value = 0, count = 0, min = 0, max = 0;
+ 	DpmClocks_t *clk_table = smu->smu_table.clocks_table;
+ 	SmuMetrics_t metrics;
++	bool cur_value_match_level = false;
+ 
+ 	if (!clk_table || clk_type >= SMU_CLK_COUNT)
+ 		return -EINVAL;
+@@ -297,8 +298,13 @@ static int renoir_print_clk_levels(struct smu_context *smu,
+ 		GET_DPM_CUR_FREQ(clk_table, clk_type, i, value);
+ 		size += sprintf(buf + size, "%d: %uMhz %s\n", i, value,
+ 				cur_value == value ? "*" : "");
++		if (cur_value == value)
++			cur_value_match_level = true;
+ 	}
+ 
++	if (!cur_value_match_level)
++		size += sprintf(buf + size, "   %uMhz *\n", cur_value);
++
+ 	return size;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.h b/drivers/gpu/drm/amd/powerplay/renoir_ppt.h
+index 2a390ddd37dd..89cd6da118a3 100644
+--- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.h
++++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.h
+@@ -37,7 +37,7 @@ extern void renoir_set_ppt_funcs(struct smu_context *smu);
+ 			freq = table->SocClocks[dpm_level].Freq;	\
+ 			break;						\
+ 		case SMU_MCLK:						\
+-			freq = table->MemClocks[dpm_level].Freq;	\
++			freq = table->FClocks[dpm_level].Freq;	\
+ 			break;						\
+ 		case SMU_DCEFCLK:					\
+ 			freq = table->DcfClocks[dpm_level].Freq;	\
+-- 
+2.17.1
 
->  	attach->dev =3D dev;
->  	attach->dmabuf =3D dmabuf;
-> +	if (importer_ops)
-> +		attach->peer2peer =3D importer_ops->allow_peer2peer;
-
-So an idea that crossed my mind to validate this, since we need quite some
-bad amounts of bad luck if someone accidentally introduces and access to
-struct_page in sg lists in some slowpath.
-
-On map_sg, if ->peer2peer is set, we could mangle the struct_page
-pointers, e.g. swap high bits for low bits (so that NULL stays NULL). On
-unmap_sg we obviously need to undo that, in case the exporter needs those
-pointers for its own book-keeping for some reason. I was also pondering
-just setting them all to NULL, but that might break some exporters. With
-the pointer mangling trick (especially if we flip high for low bits on 64
-where this should result in invalid addresses in almost all cases) we
-should be able to catch buggy p2p importers quite quickly.
-
-Thoughts? Maybe add as a follow-up patch for testing?
--Daniel
->  	attach->importer_ops =3D importer_ops;
->  	attach->importer_priv =3D importer_priv;
->  =
-
-> diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-> index 1ade486fc2bb..82e0a4a64601 100644
-> --- a/include/linux/dma-buf.h
-> +++ b/include/linux/dma-buf.h
-> @@ -334,6 +334,14 @@ struct dma_buf {
->   * Attachment operations implemented by the importer.
->   */
->  struct dma_buf_attach_ops {
-> +	/**
-> +	 * @allow_peer2peer:
-> +	 *
-> +	 * If this is set to true the importer must be able to handle peer
-> +	 * resources without struct pages.
-> +	 */
-> +	bool allow_peer2peer;
-> +
->  	/**
->  	 * @move_notify
->  	 *
-> @@ -362,6 +370,7 @@ struct dma_buf_attach_ops {
->   * @node: list of dma_buf_attachment, protected by dma_resv lock of the =
-dmabuf.
->   * @sgt: cached mapping.
->   * @dir: direction of cached mapping.
-> + * @peer2peer: true if the importer can handle peer resources without pa=
-ges.
->   * @priv: exporter specific attachment data.
->   * @importer_ops: importer operations for this attachment, if provided
->   * dma_buf_map/unmap_attachment() must be called with the dma_resv lock =
-held.
-> @@ -382,6 +391,7 @@ struct dma_buf_attachment {
->  	struct list_head node;
->  	struct sg_table *sgt;
->  	enum dma_data_direction dir;
-> +	bool peer2peer;
->  	const struct dma_buf_attach_ops *importer_ops;
->  	void *importer_priv;
->  	void *priv;
-> -- =
-
-> 2.17.1
-> =
-
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
