@@ -1,62 +1,67 @@
-Return-Path: <SRS0=uap9=5Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=/bSq=5R=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 600A9C2D0F3
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2020 21:22:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65A0FC43331
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 02:39:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 368BA2080C
-	for <amd-gfx@archiver.kernel.org>; Tue, 31 Mar 2020 21:22:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2D88F20678
+	for <amd-gfx@archiver.kernel.org>; Wed,  1 Apr 2020 02:39:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MFisECZh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 368BA2080C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Nq/iPOHj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D88F20678
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8E1D6E892;
-	Tue, 31 Mar 2020 21:22:53 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C68456E88D
- for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2020 21:22:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1585689770;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=9RtJAS2utlkXsWNeESZnCO0nEPegoqsF+a6F9yXKmSk=;
- b=MFisECZhOG19AVb956j23UtyW9+R97CNUMLIAyoRrMord2aa4cFFjuiIrxSLE52CurwgmP
- 9LvPU088ZsmE4yhQQqAszwVcYiTI7jqEptlx0KaNiZs36IyY0531SwGNFcXEreGhFIeOkh
- CVWjZOgI2L2kysHOf93/4O4EQUTMKj0=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-267-TKFEF2VHO8uuSDVoyeGJ3Q-1; Tue, 31 Mar 2020 17:22:47 -0400
-X-MC-Unique: TKFEF2VHO8uuSDVoyeGJ3Q-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
- [10.5.11.16])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 01E0D800D5B;
- Tue, 31 Mar 2020 21:22:45 +0000 (UTC)
-Received: from Ruby.redhat.com (ovpn-113-88.rdu2.redhat.com [10.10.113.88])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 84BE15C1C5;
- Tue, 31 Mar 2020 21:22:43 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/2] drm/amd/dc: Kill dc_conn_log_hex_linux()
-Date: Tue, 31 Mar 2020 17:22:24 -0400
-Message-Id: <20200331212228.139219-3-lyude@redhat.com>
-In-Reply-To: <20200331212228.139219-1-lyude@redhat.com>
-References: <20200331212228.139219-1-lyude@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A51B6E8CB;
+	Wed,  1 Apr 2020 02:39:41 +0000 (UTC)
+Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
+ [IPv6:2607:f8b0:4864:20::244])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED2F56E8CB
+ for <amd-gfx@lists.freedesktop.org>; Wed,  1 Apr 2020 02:39:40 +0000 (UTC)
+Received: by mail-oi1-x244.google.com with SMTP id y71so20887487oia.7
+ for <amd-gfx@lists.freedesktop.org>; Tue, 31 Mar 2020 19:39:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=kzYWdS8ptvsQ51liRTuryFlYrkP2okzYwHKGEN31ccs=;
+ b=Nq/iPOHjbrKHhHEg7yVZnvLxEKMFf/820C3C/aFENCC3Ud4sWUiWOSY1n+dd9o4ImW
+ 1VsfUnNc5H+/vhMsWgYq43Xsj6dRYzFob0jJBEbfF5Rpx9KfWIr121QrPrxUQOwjthhI
+ LTj7ZuHPx1L9SDjBXg/RBqCccpV5+LfRy9YamUA2oZphtH2M2iCHSb+/MJ856eNWLvQo
+ mbOQD0bbtqJLWBFy0K6g4NZ5w2eAMk8XNNV36pwq6Ev5rpml94OFfmCm3l2u31bAmkcP
+ f6qj9BTkLmdXlaHUv+asusvU8nbNDhLz6OkUaWNKNIC3trkgtSeCecxUnIBSK9mQ552A
+ 7Xdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=kzYWdS8ptvsQ51liRTuryFlYrkP2okzYwHKGEN31ccs=;
+ b=bsPCwI0qbWg72RIoD43+wiUBLXou+lmKi//EyB+sDEUc01BOC1vJr8EmoIx/nRPIvQ
+ HvD+OqM6Wi2exnbolf5fPJi06abDQiJgn7tnAGrupoZZMeGIGcc6pjtiaV29zCWm1adx
+ +075O5+OOV2cEqOXA7zt0C7pAzYQWA4QymZcWJ42w0/frRTXa4FPDB4t4+2FXflPtsX0
+ 3KCI+b6wXFXuTDPeB4RSxrR1tumniibqawIoplMQ201KKkbocAge4QmxatZlUfC3fuMj
+ pHj5GRyn9D+BrxstH+HgiwJxAJNpD56RWhKwNGInGjjVlxP8FwaZH5UILKwWgCGcY67i
+ +rQw==
+X-Gm-Message-State: AGi0Puau0jFtcfiW1Ux04YCEcV8z7wHWEXz5eZJR5YhbyyvaTcR/QZfr
+ WpIhZZ/cs5X1mWUtvETK5zH6olt+BxGk5Ukt3oy5HA==
+X-Google-Smtp-Source: APiQypJ37iA4gNTyxVHb8JZchKlLqQ6xkw/Kwg0hme+Z8Pc4V9uPmDR3EZEriMGOb37UUNSz6Qs6z6Tk9hZ1EOBLl+g=
+X-Received: by 2002:aca:4c1:: with SMTP id 184mr1373103oie.76.1585708780047;
+ Tue, 31 Mar 2020 19:39:40 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+References: <20200330135536.2997-1-christian.koenig@amd.com>
+ <20200331084602.GJ2363188@phenom.ffwll.local>
+In-Reply-To: <20200331084602.GJ2363188@phenom.ffwll.local>
+From: Sumit Semwal <sumit.semwal@linaro.org>
+Date: Wed, 1 Apr 2020 08:09:27 +0530
+Message-ID: <CAO_48GGs4U_cAOMfAQ7qDwTciv+b28uYXjCdPXhYpAv5Um9GHg@mail.gmail.com>
+Subject: Re: [PATCH 1/6] dma-buf: add peer2peer flag
+To: Daniel Vetter <daniel@ffwll.ch>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,122 +73,228 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Aric Cyr <Aric.Cyr@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Anthony Koo <Anthony.Koo@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Wyatt Wood <wyatt.wood@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============0576968068=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-DRM already supports tracing DPCD transactions, there's no reason for
-the existence of this function. Also, it prints one byte per-line which
-is way too loud. So, just remove it.
+--===============0576968068==
+Content-Type: multipart/alternative; boundary="0000000000008d63c605a231983f"
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- .../gpu/drm/amd/display/dc/basics/Makefile    |  3 +-
- .../drm/amd/display/dc/basics/log_helpers.c   | 39 -------------------
- .../amd/display/include/logger_interface.h    |  4 --
- 3 files changed, 1 insertion(+), 45 deletions(-)
- delete mode 100644 drivers/gpu/drm/amd/display/dc/basics/log_helpers.c
+--0000000000008d63c605a231983f
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/drivers/gpu/drm/amd/display/dc/basics/Makefile b/drivers/gpu/drm/amd/display/dc/basics/Makefile
-index 7ad0cad0f4ef..01b99e0d788e 100644
---- a/drivers/gpu/drm/amd/display/dc/basics/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/basics/Makefile
-@@ -24,8 +24,7 @@
- # It provides the general basic services required by other DAL
- # subcomponents.
- 
--BASICS = conversion.o fixpt31_32.o \
--	log_helpers.o vector.o dc_common.o
-+BASICS = conversion.o fixpt31_32.o vector.o dc_common.o
- 
- AMD_DAL_BASICS = $(addprefix $(AMDDALPATH)/dc/basics/,$(BASICS))
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/basics/log_helpers.c b/drivers/gpu/drm/amd/display/dc/basics/log_helpers.c
-deleted file mode 100644
-index 26583f346c39..000000000000
---- a/drivers/gpu/drm/amd/display/dc/basics/log_helpers.c
-+++ /dev/null
-@@ -1,39 +0,0 @@
--/*
-- * Copyright 2012-16 Advanced Micro Devices, Inc.
-- *
-- * Permission is hereby granted, free of charge, to any person obtaining a
-- * copy of this software and associated documentation files (the "Software"),
-- * to deal in the Software without restriction, including without limitation
-- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-- * and/or sell copies of the Software, and to permit persons to whom the
-- * Software is furnished to do so, subject to the following conditions:
-- *
-- * The above copyright notice and this permission notice shall be included in
-- * all copies or substantial portions of the Software.
-- *
-- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-- * OTHER DEALINGS IN THE SOFTWARE.
-- *
-- * Authors: AMD
-- *
-- */
--
--#include "core_types.h"
--#include "logger.h"
--#include "include/logger_interface.h"
--#include "dm_helpers.h"
--
--void dc_conn_log_hex_linux(const uint8_t *hex_data, int hex_data_count)
--{
--	int i;
--
--	if (hex_data)
--		for (i = 0; i < hex_data_count; i++)
--			DC_LOG_DEBUG("%2.2X ", hex_data[i]);
--}
--
-diff --git a/drivers/gpu/drm/amd/display/include/logger_interface.h b/drivers/gpu/drm/amd/display/include/logger_interface.h
-index 6e008de25629..02c23b04d34b 100644
---- a/drivers/gpu/drm/amd/display/include/logger_interface.h
-+++ b/drivers/gpu/drm/amd/display/include/logger_interface.h
-@@ -40,8 +40,6 @@ struct dc_state;
-  *
-  */
- 
--void dc_conn_log_hex_linux(const uint8_t *hex_data, int hex_data_count);
--
- void pre_surface_trace(
- 		struct dc *dc,
- 		const struct dc_plane_state *const *plane_states,
-@@ -102,14 +100,12 @@ void context_clock_trace(
- #define CONN_DATA_DETECT(link, hex_data, hex_len, ...) \
- 		do { \
- 			(void)(link); \
--			dc_conn_log_hex_linux(hex_data, hex_len); \
- 			DC_LOG_EVENT_DETECTION(__VA_ARGS__); \
- 		} while (0)
- 
- #define CONN_DATA_LINK_LOSS(link, hex_data, hex_len, ...) \
- 		do { \
- 			(void)(link); \
--			dc_conn_log_hex_linux(hex_data, hex_len); \
- 			DC_LOG_EVENT_LINK_LOSS(__VA_ARGS__); \
- 		} while (0)
- 
--- 
-2.25.1
+Hi Christian,
+
+On Tue, 31 Mar 2020, 14:16 Daniel Vetter, <daniel@ffwll.ch> wrote:
+
+> On Mon, Mar 30, 2020 at 03:55:31PM +0200, Christian K=C3=B6nig wrote:
+> > Add a peer2peer flag noting that the importer can deal with device
+> > resources which are not backed by pages.
+> >
+> > Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+>
+> On the series:
+>
+> Acked-by: Daniel Vetter <daniel.vetter@ffwll.ch>
+>
+Fwiw, for the series,
+Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+
+> ---
+> >  drivers/dma-buf/dma-buf.c |  2 ++
+> >  include/linux/dma-buf.h   | 10 ++++++++++
+> >  2 files changed, 12 insertions(+)
+> >
+> > diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+> > index ccc9eda1bc28..570c923023e6 100644
+> > --- a/drivers/dma-buf/dma-buf.c
+> > +++ b/drivers/dma-buf/dma-buf.c
+> > @@ -690,6 +690,8 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf,
+> struct device *dev,
+> >
+> >       attach->dev =3D dev;
+> >       attach->dmabuf =3D dmabuf;
+> > +     if (importer_ops)
+> > +             attach->peer2peer =3D importer_ops->allow_peer2peer;
+> >       attach->importer_ops =3D importer_ops;
+> >       attach->importer_priv =3D importer_priv;
+> >
+> > diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
+> > index 1ade486fc2bb..82e0a4a64601 100644
+> > --- a/include/linux/dma-buf.h
+> > +++ b/include/linux/dma-buf.h
+> > @@ -334,6 +334,14 @@ struct dma_buf {
+> >   * Attachment operations implemented by the importer.
+> >   */
+> >  struct dma_buf_attach_ops {
+> > +     /**
+> > +      * @allow_peer2peer:
+> > +      *
+> > +      * If this is set to true the importer must be able to handle pee=
+r
+> > +      * resources without struct pages.
+> > +      */
+> > +     bool allow_peer2peer;
+> > +
+> >       /**
+> >        * @move_notify
+> >        *
+> > @@ -362,6 +370,7 @@ struct dma_buf_attach_ops {
+> >   * @node: list of dma_buf_attachment, protected by dma_resv lock of th=
+e
+> dmabuf.
+> >   * @sgt: cached mapping.
+> >   * @dir: direction of cached mapping.
+> > + * @peer2peer: true if the importer can handle peer resources without
+> pages.
+> >   * @priv: exporter specific attachment data.
+> >   * @importer_ops: importer operations for this attachment, if provided
+> >   * dma_buf_map/unmap_attachment() must be called with the dma_resv loc=
+k
+> held.
+> > @@ -382,6 +391,7 @@ struct dma_buf_attachment {
+> >       struct list_head node;
+> >       struct sg_table *sgt;
+> >       enum dma_data_direction dir;
+> > +     bool peer2peer;
+> >       const struct dma_buf_attach_ops *importer_ops;
+> >       void *importer_priv;
+> >       void *priv;
+> > --
+> > 2.17.1
+> >
+>
+> --
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
+>
+
+--0000000000008d63c605a231983f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto"><div>Hi Christian,<br><br><div class=3D"gmail_quote"><div=
+ dir=3D"ltr" class=3D"gmail_attr">On Tue, 31 Mar 2020, 14:16 Daniel Vetter,=
+ &lt;<a href=3D"mailto:daniel@ffwll.ch">daniel@ffwll.ch</a>&gt; wrote:<br><=
+/div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-le=
+ft:1px #ccc solid;padding-left:1ex">On Mon, Mar 30, 2020 at 03:55:31PM +020=
+0, Christian K=C3=B6nig wrote:<br>
+&gt; Add a peer2peer flag noting that the importer can deal with device<br>
+&gt; resources which are not backed by pages.<br>
+&gt; <br>
+&gt; Signed-off-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.ko=
+enig@amd.com" target=3D"_blank" rel=3D"noreferrer">christian.koenig@amd.com=
+</a>&gt;<br>
+<br>
+On the series:<br>
+<br>
+Acked-by: Daniel Vetter &lt;<a href=3D"mailto:daniel.vetter@ffwll.ch" targe=
+t=3D"_blank" rel=3D"noreferrer">daniel.vetter@ffwll.ch</a>&gt;<br></blockqu=
+ote></div></div><div dir=3D"auto">Fwiw, for the series,</div><div dir=3D"au=
+to">Acked-by: Sumit Semwal &lt;<a href=3D"mailto:sumit.semwal@linaro.org">s=
+umit.semwal@linaro.org</a>&gt;</div><div dir=3D"auto"><br></div><div dir=3D=
+"auto"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quote" style=
+=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
+&gt; ---<br>
+&gt;=C2=A0 drivers/dma-buf/dma-buf.c |=C2=A0 2 ++<br>
+&gt;=C2=A0 include/linux/dma-buf.h=C2=A0 =C2=A0| 10 ++++++++++<br>
+&gt;=C2=A0 2 files changed, 12 insertions(+)<br>
+&gt; <br>
+&gt; diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c<br>
+&gt; index ccc9eda1bc28..570c923023e6 100644<br>
+&gt; --- a/drivers/dma-buf/dma-buf.c<br>
+&gt; +++ b/drivers/dma-buf/dma-buf.c<br>
+&gt; @@ -690,6 +690,8 @@ dma_buf_dynamic_attach(struct dma_buf *dmabuf, str=
+uct device *dev,<br>
+&gt;=C2=A0 <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0attach-&gt;dev =3D dev;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0attach-&gt;dmabuf =3D dmabuf;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0if (importer_ops)<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0attach-&gt;peer2peer =
+=3D importer_ops-&gt;allow_peer2peer;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0attach-&gt;importer_ops =3D importer_ops;<br=
+>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0attach-&gt;importer_priv =3D importer_priv;<=
+br>
+&gt;=C2=A0 <br>
+&gt; diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h<br>
+&gt; index 1ade486fc2bb..82e0a4a64601 100644<br>
+&gt; --- a/include/linux/dma-buf.h<br>
+&gt; +++ b/include/linux/dma-buf.h<br>
+&gt; @@ -334,6 +334,14 @@ struct dma_buf {<br>
+&gt;=C2=A0 =C2=A0* Attachment operations implemented by the importer.<br>
+&gt;=C2=A0 =C2=A0*/<br>
+&gt;=C2=A0 struct dma_buf_attach_ops {<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0/**<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * @allow_peer2peer:<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 *<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * If this is set to true the importer must be ab=
+le to handle peer<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 * resources without struct pages.<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0bool allow_peer2peer;<br>
+&gt; +<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/**<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 * @move_notify<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 *<br>
+&gt; @@ -362,6 +370,7 @@ struct dma_buf_attach_ops {<br>
+&gt;=C2=A0 =C2=A0* @node: list of dma_buf_attachment, protected by dma_resv=
+ lock of the dmabuf.<br>
+&gt;=C2=A0 =C2=A0* @sgt: cached mapping.<br>
+&gt;=C2=A0 =C2=A0* @dir: direction of cached mapping.<br>
+&gt; + * @peer2peer: true if the importer can handle peer resources without=
+ pages.<br>
+&gt;=C2=A0 =C2=A0* @priv: exporter specific attachment data.<br>
+&gt;=C2=A0 =C2=A0* @importer_ops: importer operations for this attachment, =
+if provided<br>
+&gt;=C2=A0 =C2=A0* dma_buf_map/unmap_attachment() must be called with the d=
+ma_resv lock held.<br>
+&gt; @@ -382,6 +391,7 @@ struct dma_buf_attachment {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct list_head node;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct sg_table *sgt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0enum dma_data_direction dir;<br>
+&gt; +=C2=A0 =C2=A0 =C2=A0bool peer2peer;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0const struct dma_buf_attach_ops *importer_op=
+s;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0void *importer_priv;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0void *priv;<br>
+&gt; -- <br>
+&gt; 2.17.1<br>
+&gt; <br>
+<br>
+-- <br>
+Daniel Vetter<br>
+Software Engineer, Intel Corporation<br>
+<a href=3D"http://blog.ffwll.ch" rel=3D"noreferrer noreferrer" target=3D"_b=
+lank">http://blog.ffwll.ch</a><br>
+_______________________________________________<br>
+dri-devel mailing list<br>
+<a href=3D"mailto:dri-devel@lists.freedesktop.org" target=3D"_blank" rel=3D=
+"noreferrer">dri-devel@lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/dri-devel" rel=3D=
+"noreferrer noreferrer" target=3D"_blank">https://lists.freedesktop.org/mai=
+lman/listinfo/dri-devel</a><br>
+</blockquote></div></div></div>
+
+--0000000000008d63c605a231983f--
+
+--===============0576968068==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0576968068==--
