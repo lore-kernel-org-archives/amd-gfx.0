@@ -2,68 +2,70 @@ Return-Path: <SRS0=ZYFY=5S=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0234C43331
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2020 14:12:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EE7FCC2BA12
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2020 15:05:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C29F2206F5
-	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2020 14:12:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C2F132072E
+	for <amd-gfx@archiver.kernel.org>; Thu,  2 Apr 2020 15:05:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hOkdHO/y"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C29F2206F5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=google.com header.i=@google.com header.b="arhfmja5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C2F132072E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7888E6EA95;
-	Thu,  2 Apr 2020 14:12:13 +0000 (UTC)
-Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
- [IPv6:2607:f8b0:4864:20::62b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E36D6EA95
- for <amd-gfx@lists.freedesktop.org>; Thu,  2 Apr 2020 14:12:12 +0000 (UTC)
-Received: by mail-pl1-x62b.google.com with SMTP id w3so1383637plz.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 02 Apr 2020 07:12:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 008A86EAB7;
+	Thu,  2 Apr 2020 15:05:55 +0000 (UTC)
+Received: from mail-lj1-x230.google.com (mail-lj1-x230.google.com
+ [IPv6:2a00:1450:4864:20::230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C56B6EAB0
+ for <amd-gfx@lists.freedesktop.org>; Thu,  2 Apr 2020 14:50:47 +0000 (UTC)
+Received: by mail-lj1-x230.google.com with SMTP id r7so3479164ljg.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 02 Apr 2020 07:50:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=Oyb2vXydKfkbdy3JahkXd6y1f9JKCUunVrxrutuAJzU=;
- b=hOkdHO/ysTA3CAps7AMcQFpPny0FKxPv2PRL1oX5v4ctAuyxMoVq1tDxELJb7oZ7I1
- xUREjhD0FhMaaM6tSf93Fwg8Zyb9HpPoNz2VbUe4q9A6PXYck3kHKNIX0lRJi58uyEXG
- MT8IoZR5Uq2h/Z3iZh12z/iGLavzthbaWKHOwMxqMQ/NuhprjKx1+lhfUN8zErOW84Jy
- uYPzQK0dggEyh1rFgqMF/9My5dnI2rBnxu7pu7s5r1pSO212nJrIttrhk8RnvR3n33jt
- G8EVszMs8PSt+z4ukLri3EBjdMK5J8Qgu6k0DPJKMfXAS313UsQ/k9aIXUzQNLd3gNuk
- qzrA==
+ :cc:content-transfer-encoding;
+ bh=0qdeGekIQvzSZQ/bchGHqOPc0D8b8p/R5z9ULmhHISQ=;
+ b=arhfmja5XpBIHDuFu7oNorGl4wxrU0DpZmvk3vHpL0QOXMDs1U44LN6ygn3MBJ/eR3
+ 3wLXRbPkBU+NCWdir2hE0fYj+xCGAf31wkRp7hNMxDnwTg3711UfFAbMQIBv8rl0gnzS
+ 6zF+2Rbql09DPKB+8obYRkfmSPme12s2Kds2gbdUQxcs6t0y0mRwoEjxEm0rTT/uX5kR
+ NNRtmJkZuVEVGSLeq191W5Hbi2hNkc/+mLCYkevKLXtKekdZt6pKC3QFksb7rD6s4dE6
+ v2wHRLKK3slv+B7Va2Jr0nwgP5poY2NSI6ZEJmImTZ9gAcKu3XNK9O+8dChhnTt63LcN
+ UFxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:content-transfer-encoding;
- bh=Oyb2vXydKfkbdy3JahkXd6y1f9JKCUunVrxrutuAJzU=;
- b=nRTCN3vJKVOwdXlOAp/AJAectSLvq4PJH4ggPSTYPCibWnDqfVwA6xlYbOZPrXOUNq
- Dvd0myZOyjl4LpnkplEA3g3LM6BcQHXzCLcit1ZHDEVhhbq0raChl8jlg0TK+/KemnqQ
- xwuoLXPulmq0/K/EVZYq02KeiHMCrVtSuX1aZrZEHc+yxreeCn73eEkpr9CtnTnDbBb6
- fKpditdGVEyuGOWMN+uzFJGiWTGuUYaWdqSIYATCc+ErIa9oYjb7uguFku2Qb8Wv4H08
- ldROHpc9jqjGziVc7KMBcLfR+tmlZpYO2gdeGd64ri6AGXJ72YZfY01jmqgXPXJ87rjv
- Uk+Q==
-X-Gm-Message-State: AGi0PubbjKKaOK7NTl7Wz9XHTK/FrJmsjJZDokDFDseUeIlRQKTVAglu
- boCO42ITndtzSns2ZwQvUnGJRxzeZL0YrhLVRGY=
-X-Google-Smtp-Source: APiQypLBSmvBfS0wkegVY/dg2R++sfjfmD6Tt7EJV1fSRmwaS3yKGVRSBstJh6AMAtrBBHlrxqXa4Sb/mc1CrnimWno=
-X-Received: by 2002:a17:902:7082:: with SMTP id
- z2mr3168169plk.43.1585836731282; 
- Thu, 02 Apr 2020 07:12:11 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=0qdeGekIQvzSZQ/bchGHqOPc0D8b8p/R5z9ULmhHISQ=;
+ b=ON+3ZXQQqeQP7cm4AYo24DjDqLCr4QUkQTwTuvDvqhjqMokm6x4+H5zISDN8au0/cC
+ xqcteXH5+VN0x1aTt4cGlw3lGFTiMJdP2EntU8oZK1/Y/yZrAiPka2U+lMYxFYgS9Mnl
+ XkewcOiEauPoYYvgOMaA4HU8w6x39Eb9kTCVlAXDdTsGCXbDqLNHVrvqk6RGpkbGPf6+
+ rRjtMP2Q9FkvBGkSZvEZ0FSQ5CwLMjRxQt9KynICQlJ4cv7Bbw6bBvSJ+x3ZtjzJK4Zg
+ KjxUHJcfTuoCfvJDxY5qnlRvsOmXrfVQug3GNqVjF9yYufGDTiv5bkm7AyqNZUzgxqyt
+ HQlw==
+X-Gm-Message-State: AGi0Pua2HU7WHDyLmpYhsNIXspLyztVpFanA5cUTb4To0ggDzEysPK0c
+ Gf1CVL7nPsRxfXM+v0yTuW3Lb5o6t+F7TuGx0grHxg==
+X-Google-Smtp-Source: APiQypK+T2KMF7eZlc/bzKtEy+1N95v/ZTucX9SRvM+kNdBq97blBB+uE/UoYTni754wd6YAZlQUSWnSxRjy3C1jCUk=
+X-Received: by 2002:a2e:5048:: with SMTP id v8mr2060638ljd.99.1585839045709;
+ Thu, 02 Apr 2020 07:50:45 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAE6bd30xsbCNyyV6bjc7u-4cfLi5Zr4yCWGH=XeX31GKvz_9_Q@mail.gmail.com>
-In-Reply-To: <CAE6bd30xsbCNyyV6bjc7u-4cfLi5Zr4yCWGH=XeX31GKvz_9_Q@mail.gmail.com>
-From: Clemens Eisserer <linuxhippy@gmail.com>
-Date: Thu, 2 Apr 2020 16:12:00 +0200
-Message-ID: <CAFvQSYRiYxEOmyxhx726fFNGKy9KX=sE=vmdraW0_PyQvSwq9g@mail.gmail.com>
-Subject: Re: Possibility of RX570 responsible for spontaneous reboots (MCE)
- with Ryzen 3700x?
-To: someguy108@gmail.com, amd-gfx@lists.freedesktop.org
+References: <CAG48ez2Sx4ELkM94aD_h_J7K7KBOeuGmvZLKRkg3n_f2WoZ_cg@mail.gmail.com>
+ <4c5fe55d-9db9-2f61-59b2-1fb2e1b45ed0@amd.com>
+ <CAG48ez1nHt2BRApHPp2S6rd4kr3P2kFsgHvStUsW7rqHSJprgg@mail.gmail.com>
+ <87k12yns9z.fsf@nanos.tec.linutronix.de>
+In-Reply-To: <87k12yns9z.fsf@nanos.tec.linutronix.de>
+From: Jann Horn <jannh@google.com>
+Date: Thu, 2 Apr 2020 16:50:19 +0200
+Message-ID: <CAG48ez1esuROQU1J1L4Zrt91vRX4GYwzrfAs+K5mr-_TLq3saQ@mail.gmail.com>
+Subject: Re: AMD DC graphics display code enables -mhard-float, -msse, -msse2
+ without any visible FPU state protection
+To: Thomas Gleixner <tglx@linutronix.de>
+X-Mailman-Approved-At: Thu, 02 Apr 2020 15:05:53 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,71 +77,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Josh Poimboeuf <jpoimboe@redhat.com>, Leo Li <sunpeng.li@amd.com>,
+ the arch/x86 maintainers <x86@kernel.org>,
+ kernel list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Andy Lutomirski <luto@kernel.org>, "H. Peter Anvin" <hpa@zytor.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Someguy,
-
-Your findings sound very familiar, my machine is also rock-solid
-running Windows-10 - most of the MCEs happened for me with low-load
-situations but firefox playing youtube in background.
-First I didn't care that much - but now having experienced corrupted
-firefox profiles and lost spreadsheet work it starts to get annoying.
-
-I've filed a kernel bug regarding this issue:
-https://bugzilla.kernel.org/show_bug.cgi?id=206903
-I would appreciate if you could report your findings there to give the
-issue more data / weight.
-
-Thanks, Clemens
-
-Am Do., 2. Apr. 2020 um 15:11 Uhr schrieb someguy108 <someguy108@gmail.com>:
->
-> Hello! I saw Clemens Eisserer email regarding MCE errors with his RX 570 and 3700x, and I like to add to that list of MCE spontaneous reboots as well.
-> This is my configuration:
-> -Ryzen 3900x + Noctua D15
-> -MSI X570 Unify (latest agesa as of writing)
-> -DDR4 3200mhz 32GB kit
-> -Sapphire Pulse 5700 XT
-> -Corsair RMX 850 Watt
-> -Arch Linux with kernel 5.5.13
-> -Mesa 20.0.3
-> -Early KMS enabled
->
-> I've had this system up and running since November 2019 but initially with a Nvidia 1060 and Windows 10. Everything was running smoothly. About a month ago I switched back over to Linux after purchasing my 5700 XT as my initial plan was to go back to Linux. Since returning I've experienced multiple spontaneous MCE reboots. All happened while I was playing one particular game, Warcraft 3 Reforged. The MCE event is the following:
->
-> kernel: mce: [Hardware Error]: Machine check events logged
-> kernel: mce: [Hardware Error]: CPU 1: Machine Check: 0 Bank 5: bea0000000000108
-> kernel: mce: [Hardware Error]: TSC 0 ADDR 1ffffad66d6fe MISC d012000100000000 SYND 4d000000 IPID 500b000000000
-> kernel: mce: [Hardware Error]: PROCESSOR 2:870f10 TIME 1585120217 SOCKET 0 APIC 2 microcode 8701013
-> kernel: #2 #3 #4 #5 #6 #7 #8 #9 #10 #11 #12 #13 #14 #15
-> kernel: mce: [Hardware Error]: Machine check events logged
-> kernel: mce: [Hardware Error]: CPU 15: Machine Check: 0 Bank 5: bea0000000000108
-> kernel: mce: [Hardware Error]: TSC 0 ADDR 1ffffc1196eb6 MISC d012000100000000 SYND 4d000000 IPID 500b000000000
-> kernel: mce: [Hardware Error]: PROCESSOR 2:870f10 TIME 1585120217 SOCKET 0 APIC 9 microcode 8701013
-> kernel: #16 #17 #18 #19 #20 #21 #22 #23
->
-> Initially I figured it could be ram so I performed the usual test with no problems. Also tested with standard JEDEC as well and eventually received a MCE during Warcraft 3 reforged. After consulting with a few friends I decided to try a different power supply to no avail. I then bit the bullet and bought a brand new 3900x. I also cleared CMOS before getting my new 3900x and after. All cpu values are on auto with no PBO or manual overclocking. The only fancy is the ram. Yesterday, after owning the new 3900x for three days, I had a MCE while I was playing Warcraft 3 Reforged. I have tested other games but none of them caused a MCE or any crashes / freezes for that matter. World of Warcraft, The Outer Worlds, Stellaris, and Counter-Strike: Global Offensive.
->
-> As the same with Clemens, using the same decoder he used, MCE-Ryzen-Decoder, from github, it reports the MCE to be the following:
-> Bank: Execution Unit (EX)
-> Error: Watchdog Timeout error (WDT 0x0)
->
-> One thing to note is I haven't received it during desktop usage. Only in Warcraft 3. I do have desktop compositing in both Xfce and KDE disabled and always have. Both of which used, tested, and received the MCE's during those sessions. I have noticed a pattern with the MCE crashes with Warcraft 3. They always happen during a GPU load drop off or increase transition. By that I mean when exiting a match to return to the lobby, or loading a map and when it switches from the loading screen to the match itself is when these MCE's happen. The entire screen quickly turns black, everything is hard locked, and then after about a minute or so the machine reboots on its own. It hasn't happened yet while in a middle of a match session, sitting in the lobby or at the main menu screen. Its consistently been during a transition. My theory is that this could possibly be a GPU hang from switching from one power state to another power state. With the GPU hanging, causes the CPU to stall, and thus a 
- MCE. The GPU hanging could explain the quick solid black screen as well as all output is stopped. But I'm really just assuming here form my own observations from my limited understanding. Possible reason why this triggers in Warcraft is because the other games have few moments of switching power states heavily. The Outer Worlds, World of Warcraft, Stellaris, and Counter-Strike Global Offensive all keep a constant high load on the GPU and the match sessions are long.
->
-> From what its worth, I've had no major issues in Windows 10. The only quirks where initially a few TDR's that recovered from alt tabing out of most games with Google Chrome running. Disabling hardware acceleration in Chrome fixed those TDR's while alt-tabing out of games.
->
-> From searching, the way I found this mailing list report, I've found quite a few reports of people talking about receiving MCE's that isn't the typical first generation MCE's reports from 2017 involving Ryzen.Where those where fixed by disabling c-states, ram, and changing power supply current from low to typical. These ones within the past year appear to all have a AMD GPU in common. I did notice a few with Intel CPU's as well paired up with a AMD GPU.
->
-> Any feedback would be greatly appreciated.
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVGh1LCBBcHIgMiwgMjAyMCBhdCAxMTozNiBBTSBUaG9tYXMgR2xlaXhuZXIgPHRnbHhAbGlu
+dXRyb25peC5kZT4gd3JvdGU6Cj4gSmFubiBIb3JuIDxqYW5uaEBnb29nbGUuY29tPiB3cml0ZXM6
+Cj4gPiBPbiBUaHUsIEFwciAyLCAyMDIwIGF0IDk6MzQgQU0gQ2hyaXN0aWFuIEvDtm5pZyA8Y2hy
+aXN0aWFuLmtvZW5pZ0BhbWQuY29tPiB3cm90ZToKPiA+PiBBbSAwMi4wNC4yMCB1bSAwNDozNCBz
+Y2hyaWViIEphbm4gSG9ybjoKPiA+PiA+IFt4ODYgZm9sa3MgaW4gQ0Mgc28gdGhhdCB0aGV5IGNh
+biBjaGltZSBpbiBvbiB0aGUgcHJlY2lzZSBydWxlcyBmb3IKPiA+PiA+IHRoaXMgc3R1ZmZdCj4K
+PiBUaGV5IGFyZSBwcmV0dHkgc2ltcGxlLgo+Cj4gQW55IGNvZGUgdXNpbmcgRlBVIG5lZWRzIHRv
+IGJlIGNvbXBsZXRlbHkgaXNvbGF0ZWQgZnJvbSByZWd1bGFyIGNvZGUKPiBlaXRoZXIgYnkgdXNp
+bmcgaW5saW5lIGFzbSBvciBieSBtb3ZpbmcgaXQgdG8gYSBkaWZmZXJlbnQgY29tcGlsYXRpb24K
+PiB1bml0LiBUaGUgaW52b2NhdGlvbnMgbmVlZCBmcHVfYmVnaW4vZW5kKCkgb2YgY291cnNlLgpb
+Li4uXQo+IFdlIHJlYWxseSBuZWVkIG9ianRvb2wgc3VwcG9ydCB0byB2YWxpZGF0ZSB0aGF0Lgo+
+Cj4gUGV0ZXIsIG5vdyB0aGF0IHdlIGtub3cgaG93IHRvIGRvIGl0IChub2luc3RyLCBjbGFjL3N0
+YWMpIHdlIGNhbiBlbWl0Cj4gYW5ub3RhdGlvbnMgKHNlZSBwYXRjaCBiZWxvdykgYW5kIHZhbGlk
+YXRlIHRoYXQgYW55IEZQVSBpbnN0cnVjdGlvbiBpcwo+IGluc2lkZSBhIHNhZmUgcmVnaW9uLiBI
+bW0/CgpPbmUgYW5ub3lpbmcgYXNwZWN0IGlzIHRoYXQgZm9yIHRoZSAibW92ZSBpdCB0byBhIGRp
+ZmZlcmVudApjb21waWxhdGlvbiB1bml0IiBtZXRob2QsIG9ianRvb2wgbmVlZHMgdG8ga25vdyBh
+dCBjb21waWxlIHRpbWUKKGJlZm9yZSBsaW5raW5nKSB3aGljaCBmdW5jdGlvbnMgYXJlIGluIEZQ
+VS1lbmFibGVkIG9iamVjdCBmaWxlcywKcmlnaHQ/IFNvIHdlJ2QgbmVlZCB0byBoYXZlIHNvbWUg
+c29ydCBvZiBmdW5jdGlvbiBhbm5vdGF0aW9uIHRoYXQgZ2V0cwpwbHVtYmVkIGZyb20gdGhlIGZ1
+bmN0aW9uIGRlY2xhcmF0aW9uIGluIGEgaGVhZGVyIGZpbGUgdGhyb3VnaCB0aGUKY29tcGlsZXIg
+aW50byB0aGUgRUxGIGZpbGUsIGFuZCB0aGVuIGxldCBvYmp0b29sIHZlcmlmeSB0aGF0IGNhbGxz
+IHRvCkZQVS1lbmFibGVkIG1ldGhvZHMgb2NjdXIgb25seSB3aGVuIHRoZSBGUFUgaXMgYXZhaWxh
+YmxlPyAoSWRlYWxseQpzb21ldGhpbmcgdGhhdCBjb3ZlcnMgaW5kaXJlY3QgY2FsbHMuLi4gYnV0
+IHRoaXMgd291bGQgcHJvYmFibHkgZ2V0CnJlYWxseSBjb21wbGljYXRlZCB1bmxlc3Mgd2UgY2Fu
+IGdldCB0aGUgY29tcGlsZXIgdG8gaW5jbHVkZSB0aGF0CmFubm90YXRpb24gaW4gaXRzIHR5cGUg
+Y2hlY2tpbmcuKQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRw
+czovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
