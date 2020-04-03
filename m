@@ -1,85 +1,130 @@
 Return-Path: <SRS0=w0EQ=5V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.7 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8947FC2BA17
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12064C2D0F4
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 38B9920672
+	by mail.kernel.org (Postfix) with ESMTPS id C141B20672
 	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=gmx.net header.i=@gmx.net header.b="VMMDMk6T"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 38B9920672
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=gmx.net
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=fb.com header.i=@fb.com header.b="pIsRWgso";
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com header.b="AeFC5Hyd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C141B20672
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=fb.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B232B6E28E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF5396E291;
 	Sun,  5 Apr 2020 13:54:44 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12FA56E222;
- Sat,  4 Apr 2020 13:55:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1586008543;
- bh=EtLjZbkZvUJ4TUi1cb0SFS01/z7Ls5VvvG8RavCWlVE=;
- h=X-UI-Sender-Class:References:In-Reply-To:From:Date:Subject:To:Cc;
- b=VMMDMk6TJq3Q8s4s5zLGxi8DqboNquFzilysfcrJX7mu8d+HgVN1nkzOssvlCUUhh
- jHQrVCqgWt36M3BaUdyjLeMf0U05uQ61QpGHZwF6e/21lRaJ5akU+7rcU2rCtZDOq+
- /qyK/VRb4dw7CX9fvECWhPFwF1nqzkFRY8+QFTCk=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from mail-yb1-f171.google.com ([209.85.219.171]) by mail.gmx.com
- (mrgmx004 [212.227.17.190]) with ESMTPSA (Nemesis) id
- 1MdvmO-1in3970gzO-00azwk; Sat, 04 Apr 2020 15:55:43 +0200
-Received: by mail-yb1-f171.google.com with SMTP id g6so5959190ybh.12;
- Sat, 04 Apr 2020 06:55:42 -0700 (PDT)
-X-Gm-Message-State: AGi0PuZNhrw8MY8GaJlJel/0GfRLVpJNAr0O9SmCsqkLA8e64cLMwORl
- SeWSRxa1nm1RtZcyphj6b9TbhRSVLuU3W68mOzA=
-X-Google-Smtp-Source: APiQypL18jvzEVqhv+aWV1i9xpxQ6vs/zCiw23fcCZ1wAJGnmzp80hWH7WbvtKMl6RPqXo19QhpiwgsD6YK0q9CbuRs=
-X-Received: by 2002:a25:c643:: with SMTP id k64mr21656006ybf.194.1586008541471; 
- Sat, 04 Apr 2020 06:55:41 -0700 (PDT)
+X-Greylist: delayed 2846 seconds by postgrey-1.36 at gabe;
+ Fri, 03 Apr 2020 23:24:43 UTC
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F8FF6ECC1
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 23:24:43 +0000 (UTC)
+Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 033MV5Ab022207; Fri, 3 Apr 2020 15:37:13 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=date : from : to : cc :
+ subject : message-id : references : content-type : in-reply-to :
+ mime-version; s=facebook; bh=orVTRiVunI3muYjWiUhSjohyYMfn4ykT064MFswaZ7k=;
+ b=pIsRWgso+tw0W/eVTxNm9b+Y8ztUl78s8dkeZlQ4Szknny2Cv8W+Wcibm9Fh3CAww57n
+ 0nrs9mh2KN2Taey07JRKjgfXegpuzjx35WbEeSsQbmxMkq3VWPa8iv6uKFnb4b1yEZV8
+ NwK8TGkqqnOtu1D5WyEvUxtHv/riI7EvDt8= 
+Received: from maileast.thefacebook.com ([163.114.130.16])
+ by mx0a-00082601.pphosted.com with ESMTP id 30671528nq-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 03 Apr 2020 15:37:12 -0700
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (100.104.31.183)
+ by o365-in.thefacebook.com (100.104.35.175) with Microsoft SMTP
+ Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1847.3; Fri, 3 Apr 2020 15:37:10 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=IojIATX1K9TXVV2LCBvB4ykFawUrS7+FrxMne4Ys9643vdo8LiLbKM8YiFgCCN3Dri0KISudhsjqm/MdpRuez0W3A/Ft1Wka/1+jyNnIaCHIDRoCbaiJE3zEviQO6I1HFtszETBY7qA0gNElTQzQbuL9Yr+3mwPTR2w1Z7RvLcKYvSMrnGk9pH2qXQ8Hq73L14rYfbT5Yyjxop9EmFbXBs6PJsPzOinAAmMHNRSB80qguhf/b57Bb91nuf51B4dKeCWHoKOx9xC3RvPBG/UQ5h9fVQqElEQK+VVmU4/9za1PQ7aJHsFiBdemW4CS2tAulAqj+oByeeUCWhKcEZGjHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=orVTRiVunI3muYjWiUhSjohyYMfn4ykT064MFswaZ7k=;
+ b=DWE8snAEMH+yxy/+L+8CUyBTyGm9NgmyvNG3ZWDa83tLgSC8Ec/7pAyMklD7fNuYYWFxxLqYX6QOv5oF3T51sdY1Le//3W9RhFZDLcbrpp8dZheyjADGstZ7xMaUmIPa6NkYaXRhp2m41Zmi9y88KrZjoovRxj7ORg9AWoofEs1FKE1zaONGmBJm5M5lkaaqXO5rN05pYz4KqaGDBlBoaSv4oovi4BN5SfInCn3OETN0OP6ThpGMQSYb8ELSUiZJDPZO6M7Og5XsB5KJgSj8He4VD/jh9tviDGvLk9FIQhpWYuDkF7P+F1vU5kmUGxMBDtpJoUEJ95elCbJU+RXJPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com; dkim=pass
+ header.d=fb.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector2-fb-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=orVTRiVunI3muYjWiUhSjohyYMfn4ykT064MFswaZ7k=;
+ b=AeFC5HydC2rMv/8IRToJj53O1u6zL1hRNZ5Z90MgzjxX/9X3am84SvdSzd/3tAWPXgcdNTUrF9lWCbCtm7fcBUIunjMNTrgF0WZXEIx908nFYRcHJlCKL/XSd2C/MPbE0fhtMjxZAxOFpKCXwsVYTOG+xUCZNtFX+uamQCr1J04=
+Received: from BYAPR15MB4136.namprd15.prod.outlook.com (20.177.229.24) by
+ BYAPR15MB2887.namprd15.prod.outlook.com (20.178.237.209) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2878.19; Fri, 3 Apr 2020 22:37:09 +0000
+Received: from BYAPR15MB4136.namprd15.prod.outlook.com
+ ([fe80::bdf9:6577:1d2a:a275]) by BYAPR15MB4136.namprd15.prod.outlook.com
+ ([fe80::bdf9:6577:1d2a:a275%7]) with mapi id 15.20.2856.019; Fri, 3 Apr 2020
+ 22:37:09 +0000
+Date: Fri, 3 Apr 2020 15:37:04 -0700
+From: Roman Gushchin <guro@fb.com>
+To: Odin Ugedal <odin@ugedal.com>
+Subject: Re: [PATCH] device_cgroup: Cleanup cgroup eBPF device filter code
+Message-ID: <20200403223704.GA306670@carbon.dhcp.thefacebook.com>
+References: <20200403175528.225990-1-odin@ugedal.com>
+Content-Disposition: inline
+In-Reply-To: <20200403175528.225990-1-odin@ugedal.com>
+X-ClientProxiedBy: CO2PR04CA0152.namprd04.prod.outlook.com (2603:10b6:104::30)
+ To BYAPR15MB4136.namprd15.prod.outlook.com
+ (2603:10b6:a03:96::24)
 MIME-Version: 1.0
-References: <CAKMK7uHHK2SsCfpmZwEUyTJJHsoccKoadoko3cEBOoYDFkmeAw@mail.gmail.com>
- <CAPM=9txcGPvFdSzMtYZXyqLKnWyacSMuHdoXdV63M53fLFVFpw@mail.gmail.com>
- <CAPj87rM76W9y_76WUHR35NS3V4_-RFi9ZM3GA=aED3dD3hWYkg@mail.gmail.com>
- <CAPM=9txN-RKGwinzsSPrmT_xFjS2J_XUhXVsRQ2pSSe529wpEA@mail.gmail.com>
- <CADaigPUjYZ-Mqd91eyR3Luo=PxLHratUhvodJmCJHf__MnPozA@mail.gmail.com>
-In-Reply-To: <CADaigPUjYZ-Mqd91eyR3Luo=PxLHratUhvodJmCJHf__MnPozA@mail.gmail.com>
-From: Andreas Bergmeier <abergmeier@gmx.net>
-Date: Sat, 4 Apr 2020 15:55:30 +0200
-X-Gmail-Original-Message-ID: <CABfF9mMwcTL3qx=F_Ep0X0Zh-pb_ZKxrhEwWP-wc3jkVHDaAMg@mail.gmail.com>
-Message-ID: <CABfF9mMwcTL3qx=F_Ep0X0Zh-pb_ZKxrhEwWP-wc3jkVHDaAMg@mail.gmail.com>
-Subject: Re: [Mesa-dev] [Intel-gfx] gitlab.fd.o financial situation and impact
- on services
-To: Eric Anholt <eric@anholt.net>
-X-Provags-ID: V03:K1:DK6ByxLXdGDADickGSSqJpzSkqcWRJK+CQzXnMDW3/MD5CXyFKh
- b6pyBszGhQoqgO/AwIneUff7D1MA+m+E0lwEvvGuHvzmf9hWtOlqyZSgWSRAn8/S59yKJ6a
- X/ESxP1qjwG52gJoUoLYRY5FAFH6Ekwqdm3OStwOZZkvLZkwiud1WdhrZYI/OMHoax/GCXq
- ilhZW9uw8x17ztkdzn8lA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:xG6+chRmIDs=:Fy/8w3VPlsw4eOYFeeoqWX
- J746U/hu0Ws3bHH8HvPu/PmK+RzvJuXvuT8qAx18ac9yNomBerWt12RU+aO0YO4be8mbSEDIG
- pr/H/cEyWyLVFMKg/viCiLKsnQcRnLhJQ5QJ1JB+mbusLiXyp90ErIunJAmHDuL0xfu1s5CmU
- fRsWyy7FgDcCnPWmWOvMGiXN/K8x1m/GTHG9vll0Paz3XRbUsWpMKKyMiAO4DyGkG/HtWgWHx
- 5trHZoIsVnLJ0z3GEIKIWRE+b23u7mlYwcG8ZSrc06Vc1vQbYQgPY8nFvdsqQ28ubkaN0jUpa
- o9oqE+LeZgVFmtfd5dPzQXygs/fHUfv2+hm6B+x97W3I+JEJqRZHYmkX7DiaqJ9sA60Uh/RB+
- +ubOcQ54c9bSFV8w2SHWPUKkRv2E/echHuwx+oKGBQgIEB3mmly9aBwtIMTcLBXFPj9xK8fPQ
- 3V7K1+xTDJjRdSCox5CM2nbukFpsW1e/rgX8RbuxfDTScU3aUjX6vEX6Fg3lnsRisl78Pf5GM
- STBfpKPBRJ40P5PFx8BgW/zMMqgjcwCsRlf8CKH/aHsYA+a2XJ9Cx0dPXzvUm6HyPcmwOGBUO
- gx7Gc8F7cQjJw2RkJnU6OJ60C3xbsnIIWq88CSVDMYqoBbXLfk/W/HAtVeoSwhfxqaiX7O+/5
- UxtKPuQhqF6Kh6CylucGuiOmcN7gwwljfubVbV2t865N3gb+vWSwaNoKO0905xtB2CTNIssuy
- ivSKNYVKS2U4spFikQ8Fs9qP3YBKmQZPtb9COInMeysAagfcRZ0yonugfHqhVG/7lRxYvRwdI
- lzoRWgdTOTexqFMA/96aAIgd1KgS/Ze0zLKFBtY1gd4Txkrc7vI209eEeD6WT1SciQ2bVotz5
- xqBk0ibNypCAZ9idKdnSaCmeyJeHyqwT0LRtoiNrXTNu7aw64kKKR4CD1xtBE9VLqZDwDSAjM
- DdXgTn/d4s0taj3z9PmGzOIklBq5AmVnszs7n2Gf3Y6uMsDfYHECJJdz32IQlGL2hxVVqpIWE
- rVUNifvf0B2d4IXolPWaUY1PvTvohhQ6I9NZfHfCZz3fXCw4NKRR4GgHM6UepdqUwkcoxQjW9
- JpE7+cZGfx6wnIAJoD/OrwQv9OmsCszYjkrIodOTexbLqXKUqNYVjFXZeJA+xHrA4ENxch2L5
- YBIe76erNNnIxTKQwVs1MlMBzXCYLtvvtV2DxckVOn0FV2F5qK5l05ZIfXg7q/9TBJih7ORqR
- hSGA97G1jRoeODRtj
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from carbon.dhcp.thefacebook.com (2620:10d:c090:400::5:71d6) by
+ CO2PR04CA0152.namprd04.prod.outlook.com (2603:10b6:104::30) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2878.15 via Frontend Transport; Fri, 3 Apr 2020 22:37:08 +0000
+X-Originating-IP: [2620:10d:c090:400::5:71d6]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: dd6d0a80-23b9-4f07-37d7-08d7d81f8b5e
+X-MS-TrafficTypeDiagnostic: BYAPR15MB2887:
+X-Microsoft-Antispam-PRVS: <BYAPR15MB2887E8AD37FE718C555ACEE1BEC70@BYAPR15MB2887.namprd15.prod.outlook.com>
+X-FB-Source: Internal
+X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
+X-Forefront-PRVS: 0362BF9FDB
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR15MB4136.namprd15.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10019020)(366004)(346002)(136003)(376002)(39860400002)(396003)(81166006)(478600001)(66946007)(86362001)(6916009)(52116002)(6506007)(2906002)(7696005)(66476007)(66556008)(316002)(81156014)(55016002)(5660300002)(4326008)(9686003)(6666004)(186003)(8936002)(8676002)(33656002)(16526019)(1076003)(4744005);
+ DIR:OUT; SFP:1102; 
+Received-SPF: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: I2gzfofFl/6VmFzQlEgVA+ey0W7Zn3/ie8CrZlVOPtZDO6GS3UttuWLpM6g8XNzGAEyswiI70KpYq/6rXGobWpbeh/GjoCTCryWGTnkxRQtWcbQrkpUIbiKtFGMVizOIVtJjd2AbzVpBJOroqVtHuBpHXFi+8o/X4P3noJv57jgYte0eyjY3jCAguGJOxAilP5PSps/OqbEaYHiTP9s35JU+fbMlSp5Ov8vdVdkZgZyjAz46QEVzOQ/8lIzgae6yF77WY7IZ+uS6ZkNTqpCy4O5+XIMBHkq35YjGOvcQdDA1csIFnCzKz+DBDGJlxiIOenhPooktK/2l08LXoYkhHvFK+xwjNpaRSVzQcf091SQuT/LjuwN88rlQRaXqelv51LPz0A9e4TFJjXCXZbQE0AfztNfEfr1nEjVlKfhb9P7uY71x6pgSI2dW3U0ui7oh
+X-MS-Exchange-AntiSpam-MessageData: zPnNOeLuXvygXAsutdLup0oQbXCvwQHRi8I+CeC7lFFgLmD779VOeXOikCX7S+nVCT7K3vRgRSV5fQ9qHF7jWqrpee1h0suG+DiPpH4t4RJ+SlgaRnUMAnIFe12QMgL3tuGpY9TwNsGnY9SclMHVkOPJsIcKjdzXiCv0/NPqRKPcBjN8VqR30x3S1g8//t7Y
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd6d0a80-23b9-4f07-37d7-08d7d81f8b5e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2020 22:37:09.2076 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: B7jJ36HbcgBEBVnE9nVGIG/eySBgjBIu15HNpzPHEseQ1d3+sI0hWOJ0sAYUgquR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR15MB2887
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-03_19:2020-04-03,
+ 2020-04-03 signatures=0
+X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
+ mlxlogscore=953
+ spamscore=0 clxscore=1011 phishscore=0 mlxscore=0 impostorscore=0
+ adultscore=0 lowpriorityscore=0 suspectscore=1 malwarescore=0
+ priorityscore=1501 bulkscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2003020000 definitions=main-2004030173
+X-FB-Internal: deliver
 X-Mailman-Approved-At: Sun, 05 Apr 2020 13:54:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,284 +137,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- "X.Org development" <xorg-devel@lists.x.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- wayland <wayland-devel@lists.freedesktop.org>,
- "X.Org Foundation Board" <board@foundation.x.org>,
- Xorg Members List <members@x.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Mesa Dev <mesa-dev@lists.freedesktop.org>, Dave Airlie <airlied@gmail.com>,
- gstreamer-devel@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0187344243=="
+Cc: Harish.Kasiviswanathan@amd.com, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, linux-security-module@vger.kernel.org,
+ tj@kernel.org, bpf@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0187344243==
-Content-Type: multipart/alternative; boundary="000000000000b9a91a05a2776337"
+On Fri, Apr 03, 2020 at 07:55:28PM +0200, Odin Ugedal wrote:
+> Original cgroup v2 eBPF code for filtering device access made it
+> possible to compile with CONFIG_CGROUP_DEVICE=n and still use the eBPF
+> filtering. Change 
+> commit 4b7d4d453fc4 ("device_cgroup: Export devcgroup_check_permission")
+> reverted this, making it required to set it to y.
+> 
+> Since the device filtering (and all the docs) for cgroup v2 is no longer
+> a "device controller" like it was in v1, someone might compile their
+> kernel with CONFIG_CGROUP_DEVICE=n. Then (for linux 5.5+) the eBPF
+> filter will not be invoked, and all processes will be allowed access
+> to all devices, no matter what the eBPF filter says.
+> 
+> Signed-off-by: Odin Ugedal <odin@ugedal.com>
 
---000000000000b9a91a05a2776337
-Content-Type: text/plain; charset="UTF-8"
+Hello, Odin!
 
-The problem of data transfer costs is not new in Cloud environments. At
-work we usually just opt for paying for it since dev time is scarser. For
-private projects though, I opt for aggressive (remote) caching.
-So you can setup a global cache in Google Cloud Storage and more local
-caches wherever your executors are (reduces egress as much as possible).
-This setup works great with Bazel and Pants among others. Note that these
-systems are pretty hermetic in contrast to Meson.
-IIRC Eric by now works at Google. They internally use Blaze which AFAIK
-does aggressive caching, too.
-So maybe using any of these systems would be a way of not having to
-sacrifice any of the current functionality.
-Downside is that you have lower a bit of dev productivity since you cannot
-eyeball your build definitions anymore.
+The patch makes perfect sense to me.
 
-ym2c
+Acked-by: Roman Gushchin <guro@fb.com>
 
-
-On Fri, 28 Feb 2020 at 20:34, Eric Anholt <eric@anholt.net> wrote:
-
-> On Fri, Feb 28, 2020 at 12:48 AM Dave Airlie <airlied@gmail.com> wrote:
-> >
-> > On Fri, 28 Feb 2020 at 18:18, Daniel Stone <daniel@fooishbar.org> wrote:
-> > >
-> > > On Fri, 28 Feb 2020 at 03:38, Dave Airlie <airlied@gmail.com> wrote:
-> > > > b) we probably need to take a large step back here.
-> > > >
-> > > > Look at this from a sponsor POV, why would I give X.org/fd.o
-> > > > sponsorship money that they are just giving straight to google to pay
-> > > > for hosting credits? Google are profiting in some minor way from
-> these
-> > > > hosting credits being bought by us, and I assume we aren't getting
-> any
-> > > > sort of discounts here. Having google sponsor the credits costs
-> google
-> > > > substantially less than having any other company give us money to do
-> > > > it.
-> > >
-> > > The last I looked, Google GCP / Amazon AWS / Azure were all pretty
-> > > comparable in terms of what you get and what you pay for them.
-> > > Obviously providers like Packet and Digital Ocean who offer bare-metal
-> > > services are cheaper, but then you need to find someone who is going
-> > > to properly administer the various machines, install decent
-> > > monitoring, make sure that more storage is provisioned when we need
-> > > more storage (which is basically all the time), make sure that the
-> > > hardware is maintained in decent shape (pretty sure one of the fd.o
-> > > machines has had a drive in imminent-failure state for the last few
-> > > months), etc.
-> > >
-> > > Given the size of our service, that's a much better plan (IMO) than
-> > > relying on someone who a) isn't an admin by trade, b) has a million
-> > > other things to do, and c) hasn't wanted to do it for the past several
-> > > years. But as long as that's the resources we have, then we're paying
-> > > the cloud tradeoff, where we pay more money in exchange for fewer
-> > > problems.
-> >
-> > Admin for gitlab and CI is a full time role anyways. The system is
-> > definitely not self sustaining without time being put in by you and
-> > anholt still. If we have $75k to burn on credits, and it was diverted
-> > to just pay an admin to admin the real hw + gitlab/CI would that not
-> > be a better use of the money? I didn't know if we can afford $75k for
-> > an admin, but suddenly we can afford it for gitlab credits?
->
-> As I think about the time that I've spent at google in less than a
-> year on trying to keep the lights on for CI and optimize our
-> infrastructure in the current cloud environment, that's more than the
-> entire yearly budget you're talking about here.  Saying "let's just
-> pay for people to do more work instead of paying for full-service
-> cloud" is not a cost optimization.
->
->
-> > > Yes, we could federate everything back out so everyone runs their own
-> > > builds and executes those. Tinderbox did something really similar to
-> > > that IIRC; not sure if Buildbot does as well. Probably rules out
-> > > pre-merge testing, mind.
-> >
-> > Why? does gitlab not support the model? having builds done in parallel
-> > on runners closer to the test runners seems like it should be a thing.
-> > I guess artifact transfer would cost less then as a result.
->
-> Let's do some napkin math.  The biggest artifacts cost we have in Mesa
-> is probably meson-arm64/meson-arm (60MB zipped from meson-arm64,
-> downloaded by 4 freedreno and 6ish lava, about 100 pipelines/day,
-> makes ~1.8TB/month ($180 or so).  We could build a local storage next
-> to the lava dispatcher so that the artifacts didn't have to contain
-> the rootfs that came from the container (~2/3 of the insides of the
-> zip file), but that's another service to build and maintain.  Building
-> the drivers once locally and storing it would save downloading the
-> other ~1/3 of the inside of the zip file, but that requires a big
-> enough system to do builds in time.
->
-> I'm planning on doing a local filestore for google's lava lab, since I
-> need to be able to move our xml files off of the lava DUTs to get the
-> xml results we've become accustomed to, but this would not bubble up
-> to being a priority for my time if I wasn't doing it anyway.  If it
-> takes me a single day to set all this up (I estimate a couple of
-> weeks), that costs my employer a lot more than sponsoring the costs of
-> the inefficiencies of the system that has accumulated.
-> _______________________________________________
-> mesa-dev mailing list
-> mesa-dev@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
->
-
---000000000000b9a91a05a2776337
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">The problem of data transfer costs is not new in Cloud env=
-ironments. At work we usually just opt for paying for it since dev time is =
-scarser. For private projects though, I opt for aggressive (remote) caching=
-.<div>So you can setup a global cache in Google Cloud Storage and more loca=
-l caches wherever your executors are (reduces egress as much as possible).<=
-/div><div>This setup works great with Bazel and Pants among others. Note th=
-at these systems are pretty hermetic in contrast to Meson.</div><div>IIRC E=
-ric by now works at Google. They internally use Blaze which AFAIK does aggr=
-essive caching, too.</div><div>So maybe using any of these systems would be=
- a way of not having to sacrifice any of the current functionality.</div><d=
-iv>Downside is that you have lower a bit of dev productivity since you cann=
-ot eyeball your build definitions anymore.</div><div><br></div><div>ym2c</d=
-iv><div><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" cla=
-ss=3D"gmail_attr">On Fri, 28 Feb 2020 at 20:34, Eric Anholt &lt;<a href=3D"=
-mailto:eric@anholt.net">eric@anholt.net</a>&gt; wrote:<br></div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex">On Fri, Feb 28, 2020 at 12:48 AM Dav=
-e Airlie &lt;<a href=3D"mailto:airlied@gmail.com" target=3D"_blank">airlied=
-@gmail.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; On Fri, 28 Feb 2020 at 18:18, Daniel Stone &lt;<a href=3D"mailto:danie=
-l@fooishbar.org" target=3D"_blank">daniel@fooishbar.org</a>&gt; wrote:<br>
-&gt; &gt;<br>
-&gt; &gt; On Fri, 28 Feb 2020 at 03:38, Dave Airlie &lt;<a href=3D"mailto:a=
-irlied@gmail.com" target=3D"_blank">airlied@gmail.com</a>&gt; wrote:<br>
-&gt; &gt; &gt; b) we probably need to take a large step back here.<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Look at this from a sponsor POV, why would I give X.org/fd.o=
-<br>
-&gt; &gt; &gt; sponsorship money that they are just giving straight to goog=
-le to pay<br>
-&gt; &gt; &gt; for hosting credits? Google are profiting in some minor way =
-from these<br>
-&gt; &gt; &gt; hosting credits being bought by us, and I assume we aren&#39=
-;t getting any<br>
-&gt; &gt; &gt; sort of discounts here. Having google sponsor the credits co=
-sts google<br>
-&gt; &gt; &gt; substantially less than having any other company give us mon=
-ey to do<br>
-&gt; &gt; &gt; it.<br>
-&gt; &gt;<br>
-&gt; &gt; The last I looked, Google GCP / Amazon AWS / Azure were all prett=
-y<br>
-&gt; &gt; comparable in terms of what you get and what you pay for them.<br=
->
-&gt; &gt; Obviously providers like Packet and Digital Ocean who offer bare-=
-metal<br>
-&gt; &gt; services are cheaper, but then you need to find someone who is go=
-ing<br>
-&gt; &gt; to properly administer the various machines, install decent<br>
-&gt; &gt; monitoring, make sure that more storage is provisioned when we ne=
-ed<br>
-&gt; &gt; more storage (which is basically all the time), make sure that th=
-e<br>
-&gt; &gt; hardware is maintained in decent shape (pretty sure one of the fd=
-.o<br>
-&gt; &gt; machines has had a drive in imminent-failure state for the last f=
-ew<br>
-&gt; &gt; months), etc.<br>
-&gt; &gt;<br>
-&gt; &gt; Given the size of our service, that&#39;s a much better plan (IMO=
-) than<br>
-&gt; &gt; relying on someone who a) isn&#39;t an admin by trade, b) has a m=
-illion<br>
-&gt; &gt; other things to do, and c) hasn&#39;t wanted to do it for the pas=
-t several<br>
-&gt; &gt; years. But as long as that&#39;s the resources we have, then we&#=
-39;re paying<br>
-&gt; &gt; the cloud tradeoff, where we pay more money in exchange for fewer=
-<br>
-&gt; &gt; problems.<br>
-&gt;<br>
-&gt; Admin for gitlab and CI is a full time role anyways. The system is<br>
-&gt; definitely not self sustaining without time being put in by you and<br=
->
-&gt; anholt still. If we have $75k to burn on credits, and it was diverted<=
-br>
-&gt; to just pay an admin to admin the real hw + gitlab/CI would that not<b=
-r>
-&gt; be a better use of the money? I didn&#39;t know if we can afford $75k =
-for<br>
-&gt; an admin, but suddenly we can afford it for gitlab credits?<br>
-<br>
-As I think about the time that I&#39;ve spent at google in less than a<br>
-year on trying to keep the lights on for CI and optimize our<br>
-infrastructure in the current cloud environment, that&#39;s more than the<b=
-r>
-entire yearly budget you&#39;re talking about here.=C2=A0 Saying &quot;let&=
-#39;s just<br>
-pay for people to do more work instead of paying for full-service<br>
-cloud&quot; is not a cost optimization.<br>
-<br>
-<br>
-&gt; &gt; Yes, we could federate everything back out so everyone runs their=
- own<br>
-&gt; &gt; builds and executes those. Tinderbox did something really similar=
- to<br>
-&gt; &gt; that IIRC; not sure if Buildbot does as well. Probably rules out<=
-br>
-&gt; &gt; pre-merge testing, mind.<br>
-&gt;<br>
-&gt; Why? does gitlab not support the model? having builds done in parallel=
-<br>
-&gt; on runners closer to the test runners seems like it should be a thing.=
-<br>
-&gt; I guess artifact transfer would cost less then as a result.<br>
-<br>
-Let&#39;s do some napkin math.=C2=A0 The biggest artifacts cost we have in =
-Mesa<br>
-is probably meson-arm64/meson-arm (60MB zipped from meson-arm64,<br>
-downloaded by 4 freedreno and 6ish lava, about 100 pipelines/day,<br>
-makes ~1.8TB/month ($180 or so).=C2=A0 We could build a local storage next<=
-br>
-to the lava dispatcher so that the artifacts didn&#39;t have to contain<br>
-the rootfs that came from the container (~2/3 of the insides of the<br>
-zip file), but that&#39;s another service to build and maintain.=C2=A0 Buil=
-ding<br>
-the drivers once locally and storing it would save downloading the<br>
-other ~1/3 of the inside of the zip file, but that requires a big<br>
-enough system to do builds in time.<br>
-<br>
-I&#39;m planning on doing a local filestore for google&#39;s lava lab, sinc=
-e I<br>
-need to be able to move our xml files off of the lava DUTs to get the<br>
-xml results we&#39;ve become accustomed to, but this would not bubble up<br=
->
-to being a priority for my time if I wasn&#39;t doing it anyway.=C2=A0 If i=
-t<br>
-takes me a single day to set all this up (I estimate a couple of<br>
-weeks), that costs my employer a lot more than sponsoring the costs of<br>
-the inefficiencies of the system that has accumulated.<br>
-_______________________________________________<br>
-mesa-dev mailing list<br>
-<a href=3D"mailto:mesa-dev@lists.freedesktop.org" target=3D"_blank">mesa-de=
-v@lists.freedesktop.org</a><br>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/mesa-dev" rel=3D"=
-noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinf=
-o/mesa-dev</a><br>
-</blockquote></div>
-
---000000000000b9a91a05a2776337--
-
---===============0187344243==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Thanks!
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0187344243==--
