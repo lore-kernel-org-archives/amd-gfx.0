@@ -2,102 +2,104 @@ Return-Path: <SRS0=u9ZA=5T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72A2EC43331
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 07:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9050EC43331
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 07:14:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 44FE92063A
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 07:03:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 427B1206F6
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 07:14:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="NXpbQMBa"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 44FE92063A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="iOg2un57"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 427B1206F6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC8DF6EB11;
-	Fri,  3 Apr 2020 07:03:52 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2071.outbound.protection.outlook.com [40.107.220.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1BDB6EB11
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 07:03:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1ECF6EB11;
+	Fri,  3 Apr 2020 07:14:53 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2068.outbound.protection.outlook.com [40.107.237.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6BB86EB11
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 07:14:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GVh1wHqYu+LP8bfWbl/qv89NADcpqt0je9YWsMKzV0OTHZSKh6pkf1kZdQe5iTUlusMYlrpeOp1Z7ikGf7apuY+Y6ZU2vaXONOBThPoYfkp7E6zqYRC/gH4mhy6t9hFXjOZm9sn+AJROj2ltKRm4HjVgdHAmJqe/m+NFLX+OaYqc8WJrmlM1gIDiYuJ9NhUvVCKJAX/hCYxYNMXv6Qkbv5hnbSMJZpuA2lLorymNV2UwnRuxVBLKT156N9UvGzIQ/z5PXXnJTMmMH+CC5iG5oikWE4RQYP6V+V0pwjqgJ4Z/K1GZDrIsvxX/7Zp8geNI5P9jzTCQ29+O/S6X/qJdsA==
+ b=niXjz0XLeJdyHfjFLH9YKCs6B0WH1voZRMps5DeynQ6Muo50kVwtK8uozulLS3/j4tTYKZMuTy2BQvVMAtamuFfCX6uLpoDSCtAUSmLu4bXVILoVaT3q/R7wTCL8Vp6zjZt2fiqsgje45QqKsivnzJGiCzEX/vzw9Cq3bUhJB1HPVP15gTJl9fWUyBt2AED9+O2ZaZxwfVHSEhw03vH+7pA5cbWd1TSh3AEys9MGVl2YLMnWqZsNbMIEbRkggJG5LeRFj6xPYS1NExcRP2mQPMcSlP7CXrWhKPtaK6aciuR0HSyQMndqW7MuO6+GcnORxhrSEzTUpbjvAq51sArm2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eJpaQ+HVUjUAuCCH2yX4w0WM2/DboS3gARTSSyiN91Q=;
- b=To35GutVyzkiyxcLsmfBKjUZ16XBxxcydzADvRIpy8q0O18htpuyAKZv3BWT3pMqBNMQ2TX6xKAsTFjgw21Hb3dpKRIpv6tK+ttTCsTAz2OTL5ynuuLtlnCGL7aoGzo5kzi2VbmZmJ4gxjaUQ9hGv4eT97HsQZ0XOG7ZZw0JEU7l7kDc+7SqlwxWOpbRjkjPVGbNMQhdEQPYkomxbmm/U5zOqYKekY0cWovwV6GrIDOlGf5XVMMmKuBSc9LI9WC12cQlTSELfAx7vgAeKmhnOV6g8s7F/leuQeU76awjNVso+NxRQDLtA7Fib7uTxHs61pNE03I/co2X4cXR2hOpvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=H8A1IhWPeHy9Pezk2zuMdX2OGO0EW+vWLFHnqmtAlUs=;
+ b=L1saJm9FfMi1y3H9n+iU7B4B9JE2T+kgPhwAb/0gpYTtTK+lF7Z00SNfQGcR78IG+hxzuD6fbQVYBfOJUP1XJrBtl1YePduf6WEnF3vBO7dC853GoQuPYirQNIbasWUevgWWftYsv+YQgq46c/99o7w9D+J6oXt5V0mCvSrajApOEvEuamA08ul2r4apV0bO01qQLBPivOME8eWhDAsAun/kQsCT1jPNnhioMyIst0cfzo9qsHtkbyywFGm9fh7VwwOnGsl1/uefarVNIl/DFkmO6yx0yLswaB0RyIaBNLClCtdKMxJMrXgbjY6WhHH6Cqc1Lt269fqf5onPPr6oqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eJpaQ+HVUjUAuCCH2yX4w0WM2/DboS3gARTSSyiN91Q=;
- b=NXpbQMBairmMrrKSM7xEu69NVeSbAcT6y5QPr7S7EmwppGbpIQDBO9rJ9VNXnMMd0aRY7g+qVH8gx4w5h82u4+th83T6tUsWDLi7/I8N4xOjxWsbTv8vya1Zq+fzxeGoESoAZ4VqM72tLqKr8k7R51HxiS8aq/0QMcvEKE/LDBI=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Evan.Quan@amd.com; 
-Received: from MN2PR12MB3344.namprd12.prod.outlook.com (2603:10b6:208:c5::10)
- by MN2PR12MB4240.namprd12.prod.outlook.com (2603:10b6:208:1d3::14)
+ bh=H8A1IhWPeHy9Pezk2zuMdX2OGO0EW+vWLFHnqmtAlUs=;
+ b=iOg2un57kQDa8/rpWAs2rGwzeusxfMdSO7iuKDcNaeJF8lvD++6x5zp8zopcPPtcjVkOpyd64Nw3VLJytKQKSzkML77Zw/OIMEaDIlmcenXpcb0V3oXqNb409nYm9whnNptl7NTolH2yks7eED8vjn6WeC05e4E6CmuSnqJ7OjM=
+Received: from MWHPR13CA0024.namprd13.prod.outlook.com (2603:10b6:300:16::34)
+ by BN6PR12MB1844.namprd12.prod.outlook.com (2603:10b6:404:fc::23)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.19; Fri, 3 Apr
- 2020 07:03:48 +0000
-Received: from MN2PR12MB3344.namprd12.prod.outlook.com
- ([fe80::69c7:b493:690:2173]) by MN2PR12MB3344.namprd12.prod.outlook.com
- ([fe80::69c7:b493:690:2173%3]) with mapi id 15.20.2878.016; Fri, 3 Apr 2020
- 07:03:48 +0000
-From: Evan Quan <evan.quan@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/powerplay: error out on forcing clock setting not
- supported
-Date: Fri,  3 Apr 2020 15:03:19 +0800
-Message-Id: <20200403070319.10190-1-evan.quan@amd.com>
-X-Mailer: git-send-email 2.26.0
-X-ClientProxiedBy: HK0PR01CA0072.apcprd01.prod.exchangelabs.com
- (2603:1096:203:a6::36) To MN2PR12MB3344.namprd12.prod.outlook.com
- (2603:10b6:208:c5::10)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from equan-buildpc.amd.com (180.167.199.189) by
- HK0PR01CA0072.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::36) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.15 via Frontend
- Transport; Fri, 3 Apr 2020 07:03:46 +0000
-X-Mailer: git-send-email 2.26.0
-X-Originating-IP: [180.167.199.189]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 25e37989-60cc-4ec1-d761-08d7d79d2806
-X-MS-TrafficTypeDiagnostic: MN2PR12MB4240:|MN2PR12MB4240:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB4240A182CFADB91EFDFA3674E4C70@MN2PR12MB4240.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
-X-Forefront-PRVS: 0362BF9FDB
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3344.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(376002)(346002)(366004)(136003)(39860400002)(396003)(956004)(2616005)(44832011)(36756003)(8676002)(81156014)(81166006)(8936002)(26005)(86362001)(478600001)(4326008)(186003)(316002)(16526019)(6916009)(66556008)(6486002)(7696005)(52116002)(66946007)(1076003)(6666004)(5660300002)(66476007)(2906002);
- DIR:OUT; SFP:1101; 
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.19; Fri, 3 Apr
+ 2020 07:14:50 +0000
+Received: from CO1NAM11FT043.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:16:cafe::c3) by MWHPR13CA0024.outlook.office365.com
+ (2603:10b6:300:16::34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.5 via Frontend
+ Transport; Fri, 3 Apr 2020 07:14:50 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT043.mail.protection.outlook.com (10.13.174.193) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2878.15 via Frontend Transport; Fri, 3 Apr 2020 07:14:49 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 3 Apr 2020
+ 02:14:48 -0500
+Received: from gc-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Fri, 3 Apr 2020 02:14:46 -0500
+From: Chengming Gui <Jack.Gui@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amd/amdgpu: Correct gfx10's CG sequence
+Date: Fri, 3 Apr 2020 15:13:33 +0800
+Message-ID: <1585898013-7972-1-git-send-email-Jack.Gui@amd.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(39860400002)(396003)(376002)(346002)(136003)(428003)(46966005)(70586007)(4326008)(81166006)(356004)(86362001)(8936002)(336012)(6666004)(6916009)(47076004)(81156014)(82740400003)(70206006)(7696005)(2906002)(186003)(8676002)(316002)(36756003)(2616005)(478600001)(5660300002)(26005)(54906003)(426003);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 6375c755-3a5a-4342-5bc4-08d7d79eb2bc
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1844:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB184453CD72A0ADE897A98EB18BC70@BN6PR12MB1844.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
+X-Forefront-PRVS: 0362BF9FDB
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7oeORwC0fP6rzCMi8zlq/z318M1X7+Z6XViOmpmkZvFlyB3qwTdjeCwOn3RC8zMFS/M4dmb20T/DccBwGmYbQJ6ArMJ/OPewiRml/faImpa/3t5+dP3Nr5HLkTWb9gScS3FiSMN00jQyboFeZVkzp93QIHsk5sdYKM0KUIgxklF9Vg9ieij3hUb/rMRwy0dnC5s5tqLM1+eR4O6MCy+OzoPAOHZaHKpPcre35q1EotS5D7bcAoM5M3Oo/8izHXUXZ9KwbNclU+aByX1QN/6kNiMrcihBT1kFvAerUPONGup5p6aCnqUOYNajoznEn2l4f2UNdUPb/b11hmGE1/pV62LdRVc84W3iC6tU4j3MfTTwe5997rONSgD2gwslcR7UCohNg773NgKL00BkddlW8KiPAFMvdiBQ5DWhIJ84w5hjp+ugyyQ+xgOAolMvFtTi
-X-MS-Exchange-AntiSpam-MessageData: PngplN5W+01pWJUZ+hwcavN2DjvagmaqlHZjOWv0K+0srLjVV2vCOTjQ8HWr0hg1iktHMdUfIR3cxQotDSijOm44pq9pBVDohia7zEJH1l170ZhXTAhZP8wpw28uxK7NxWVlKf4lSiBp2rFVe2G70g==
+X-Microsoft-Antispam-Message-Info: vMKGrgL2QDKxDiPyOtAwx0i9/Xk+coUsaVbA3PVTCxwwf9xrK4xpO0446SsdSj9Y92mJ+TvlRKMRCs1PGC3UdiUpksyXzeKRBoubILAPR3660Q27tL1mytbMtDoD6Uq4fbBD3XOD35JysePrn5dv45UxyyJU0hey6s9JYhgKjt74/RnAz4rP8gaIzYj/BLUn2A01hNm07OUSmNGXC3DoiSJlOAlyuPqUGnP//F4MMu1ndAFiOi0aNzlRvhKcq8FZ87ehhxs56G4D3f/C+EqctnmT2zUzm1NASOdkBcYxOhh5sGAJ39CmQB5ejWG9uQtRrzROdTzo6B04Xmbns6oHZVsZFCdFgyf3e6eW70+GbTcTPZvyy86fNhihKyY6EZbmxlOk1oG1jmxPkaFYJaCBNYOhwcFXo+GA2SPFUWLhJFHiNhRMIoGYSB91KtkPNo9a0hFasfbA33bonU8SMu8OECJDney8PcIPERpIKteGYs2T2nOHFNnuniphyX0d3f4Y+qDW6SPf6sJjvXlblalsrg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 25e37989-60cc-4ec1-d761-08d7d79d2806
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2020 07:03:48.1776 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2020 07:14:49.7988 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6375c755-3a5a-4342-5bc4-08d7d79eb2bc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3/ZwJ+Wz+yUULVOWb/gIe3rBkzktLCTmVB7nOWUbtbRthlzYWhPYPnuIiHFrn6sV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4240
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1844
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,101 +111,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>,
- Kent.Russell@amd.com
+Cc: Chengming Gui <Jack.Gui@amd.com>, Feifei.Xu@amd.com, Tianci.Yin@amd.com,
+ Evan.Quan@amd.com, Kenneth.Feng@amd.com, Hawking.Zhang@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For Arcturus, forcing clock to some specific level is not supported
-with 54.18 and onwards SMU firmware. As according to firmware team,
-they adopt new gfx dpm tuned parameters which can cover all the use
-case in a much smooth way. Thus setting through driver interface
-is not needed and maybe do a disservice.
+Incorrect CG sequence will cause gfx timedout,
+if we keep switching power profile mode
+(enter profile mod such as PEAK will disable CG,
+exit profile mode EXIT will enable CG)
+when run Vulkan test case(case used for test: vkexample).
 
-Change-Id: Ibffdb157639809707aa71049a935e53d1b4d06eb
-Signed-off-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Chengming Gui <Jack.Gui@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c | 47 +++++++++++++++++++-
- 1 file changed, 46 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-index 5db8c56066ee..1ef0923f7190 100644
---- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-@@ -794,8 +794,21 @@ static int arcturus_force_clk_levels(struct smu_context *smu,
- 	struct arcturus_dpm_table *dpm_table;
- 	struct arcturus_single_dpm_table *single_dpm_table;
- 	uint32_t soft_min_level, soft_max_level;
-+	uint32_t smu_version;
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 51be7aa..1439dd9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4097,6 +4097,12 @@ static void gfx_v10_0_update_medium_grain_clock_gating(struct amdgpu_device *ade
  
-+	ret = smu_get_smc_version(smu, NULL, &smu_version);
-+	if (ret) {
-+		pr_err("Failed to get smu version!\n");
-+		return ret;
-+	}
+ 	/* It is disabled by HW by default */
+ 	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_MGCG)) {
++		/* 0 - Disable some blocks' MGCG */
++		WREG32_SOC15(GC, 0, mmGRBM_GFX_INDEX, 0xe0000000);
++		WREG32_SOC15(GC, 0, mmCGTT_WD_CLK_CTRL, 0xff000000);
++		WREG32_SOC15(GC, 0, mmCGTT_VGT_CLK_CTRL, 0xff000000);
++		WREG32_SOC15(GC, 0, mmCGTT_IA_CLK_CTRL, 0xff000000);
 +
-+	if (smu_version >= 0x361200) {
-+		pr_err("Forcing clock level is not supported with "
-+		       "54.18 and onwards SMU firmwares\n");
-+		return -EOPNOTSUPP;
-+	}
-+
- 	soft_min_level = mask ? (ffs(mask) - 1) : 0;
- 	soft_max_level = mask ? (fls(mask) - 1) : 0;
+ 		/* 1 - RLC_CGTT_MGCG_OVERRIDE */
+ 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
+ 		data &= ~(RLC_CGTT_MGCG_OVERRIDE__GRBM_CGTT_SCLK_OVERRIDE_MASK |
+@@ -4136,19 +4142,20 @@ static void gfx_v10_0_update_medium_grain_clock_gating(struct amdgpu_device *ade
+ 		if (def != data)
+ 			WREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE, data);
  
-@@ -1512,6 +1525,38 @@ static int arcturus_set_power_profile_mode(struct smu_context *smu,
- 	return 0;
+-		/* 2 - disable MGLS in RLC */
++		/* 2 - disable MGLS in CP */
++		data = RREG32_SOC15(GC, 0, mmCP_MEM_SLP_CNTL);
++		if (data & CP_MEM_SLP_CNTL__CP_MEM_LS_EN_MASK) {
++			data &= ~CP_MEM_SLP_CNTL__CP_MEM_LS_EN_MASK;
++			WREG32_SOC15(GC, 0, mmCP_MEM_SLP_CNTL, data);
++		}
++
++		/* 3 - disable MGLS in RLC */
+ 		data = RREG32_SOC15(GC, 0, mmRLC_MEM_SLP_CNTL);
+ 		if (data & RLC_MEM_SLP_CNTL__RLC_MEM_LS_EN_MASK) {
+ 			data &= ~RLC_MEM_SLP_CNTL__RLC_MEM_LS_EN_MASK;
+ 			WREG32_SOC15(GC, 0, mmRLC_MEM_SLP_CNTL, data);
+ 		}
+ 
+-		/* 3 - disable MGLS in CP */
+-		data = RREG32_SOC15(GC, 0, mmCP_MEM_SLP_CNTL);
+-		if (data & CP_MEM_SLP_CNTL__CP_MEM_LS_EN_MASK) {
+-			data &= ~CP_MEM_SLP_CNTL__CP_MEM_LS_EN_MASK;
+-			WREG32_SOC15(GC, 0, mmCP_MEM_SLP_CNTL, data);
+-		}
+ 	}
  }
  
-+static int arcturus_set_performance_level(struct smu_context *smu,
-+					  enum amd_dpm_forced_level level)
-+{
-+	uint32_t smu_version;
-+	int ret;
-+
-+	ret = smu_get_smc_version(smu, NULL, &smu_version);
-+	if (ret) {
-+		pr_err("Failed to get smu version!\n");
-+		return ret;
-+	}
-+
-+	switch (level) {
-+	case AMD_DPM_FORCED_LEVEL_HIGH:
-+	case AMD_DPM_FORCED_LEVEL_LOW:
-+	case AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD:
-+	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK:
-+	case AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK:
-+	case AMD_DPM_FORCED_LEVEL_PROFILE_PEAK:
-+		if (smu_version >= 0x361200) {
-+			pr_err("Forcing clock level is not supported with "
-+			       "54.18 and onwards SMU firmwares\n");
-+			return -EOPNOTSUPP;
-+		}
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return smu_v11_0_set_performance_level(smu, level);
-+}
-+
- static void arcturus_dump_pptable(struct smu_context *smu)
- {
- 	struct smu_table_context *table_context = &smu->smu_table;
-@@ -2285,7 +2330,7 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
- 	.get_profiling_clk_mask = arcturus_get_profiling_clk_mask,
- 	.get_power_profile_mode = arcturus_get_power_profile_mode,
- 	.set_power_profile_mode = arcturus_set_power_profile_mode,
--	.set_performance_level = smu_v11_0_set_performance_level,
-+	.set_performance_level = arcturus_set_performance_level,
- 	/* debug (internal used) */
- 	.dump_pptable = arcturus_dump_pptable,
- 	.get_power_limit = arcturus_get_power_limit,
+@@ -4259,7 +4266,7 @@ static int gfx_v10_0_update_gfx_clock_gating(struct amdgpu_device *adev,
+ 		/* ===  CGCG /CGLS for GFX 3D Only === */
+ 		gfx_v10_0_update_3d_clock_gating(adev, enable);
+ 		/* ===  MGCG + MGLS === */
+-		gfx_v10_0_update_medium_grain_clock_gating(adev, enable);
++		/* gfx_v10_0_update_medium_grain_clock_gating(adev, enable); */
+ 	}
+ 
+ 	if (adev->cg_flags &
 -- 
-2.26.0
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
