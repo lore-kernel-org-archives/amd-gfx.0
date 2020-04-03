@@ -3,51 +3,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-8.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 263ABC43331
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 05:28:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F5F9C43331
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 05:30:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA9F520787
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 05:28:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2019220757
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 05:30:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="OEDc37n9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA9F520787
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="BeRkdOuN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2019220757
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F0006E1B3;
-	Fri,  3 Apr 2020 05:28:46 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B3CA6E1B3
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 05:28:45 +0000 (UTC)
-Received: from devnote2 (NE2965lan1.rev.em-net.ne.jp [210.141.244.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 53D07206F6;
- Fri,  3 Apr 2020 05:28:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1585891724;
- bh=EZ0M4SPtoTE8eiZ1+2JEq7kKHUJQeJE1EpKcg0I1tbc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=OEDc37n9WTGFlFdyaB/UooDyH3XkKqPS9KQdd8ZBX/gBLQR4AVoY00EVAyZrNL/Fp
- QfKW/8rNvcmbCX+MtWS5guzBw36eBNIY3WlKEarFlzWwKO4S7m1Y6edAn+RcHODr6k
- taoMgT/A6hf6GBudw4ETWxnmTDE6ZTo3NubWEgjM=
-Date: Fri, 3 Apr 2020 14:28:37 +0900
-From: Masami Hiramatsu <mhiramat@kernel.org>
-To: Peter Zijlstra <peterz@infradead.org>
-Subject: Re: AMD DC graphics display code enables -mhard-float, -msse,
- -msse2 without any visible FPU state protection
-Message-Id: <20200403142837.f61a18d7bd32fd73777479ad@kernel.org>
-In-Reply-To: <20200402141308.GB20730@hirez.programming.kicks-ass.net>
-References: <CAG48ez2Sx4ELkM94aD_h_J7K7KBOeuGmvZLKRkg3n_f2WoZ_cg@mail.gmail.com>
- <4c5fe55d-9db9-2f61-59b2-1fb2e1b45ed0@amd.com>
- <20200402141308.GB20730@hirez.programming.kicks-ass.net>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C40C36E1B4;
+	Fri,  3 Apr 2020 05:30:09 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2080.outbound.protection.outlook.com [40.107.243.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED5E36E1B3
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 05:30:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CTbRX/gAVd/BlrXYFnBkRmq+Xgl4RhwcyFDW97PFCIUEai49475gjnyVn0vuoS6ydSs7bOMrLlOxZgltOZ9Mt3mlG3Rfn48DmrsGQ7eHBQPog8Dcm8+4obqDkFjo00KZfTr/OKUNcyuXJY1/wx6rtq+gfIdejTTYcnJTIl+1Eg2m59lpa+73hiMAr2mBhC0PNPaE4Q3pew72yigbCF8kGTxTf/4LD3Mza5lroTfriJbk/2vfhy2O+kHmU5dlGjJXSOlnIV0Aw/pkZPkq1TneW2emODXVhWqV/m/6oaraWcDwB2DkFDFJvUf4vRe54yn7KAZnWAd0ahs9CP5oXFQpzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WVhnq3Yjq4iKKjRxjmM+6jqWwM8/MksHfDkWWivSBjQ=;
+ b=Hv6blgppaGf8bP2DxM8mLvcoItoKVvzfi+TP6aukhqXCr1HTgkJu5uiyECVaFvPN7DDwzLT/1R08NSTWJ0uF2H2zkx12v949rhz2T2CEk3afjIhjZJj63Qs5qTqdhaf1UUETkE6BRsD9dHw62cz5ELkR4d7J5bIz6raONh/JXUF5lESbccq0gSLjZ9vvkur7EJS4UFtnM6ZDnVu3Sre14VPHMXDqatl4HGOt3RUWtBwFHTi8QIImwv8mtAZ3vfG7Y3tmg0Y06KRLFosbDq0lQMltkkWwFRsBb2uYYFBawy9pqgEqm+wawiV8nMtsB3zvO/hXpVUoTjzVR6ATEnihCQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WVhnq3Yjq4iKKjRxjmM+6jqWwM8/MksHfDkWWivSBjQ=;
+ b=BeRkdOuN/oQNkyF85U3Vdq1QZIC7fneilICWlud7lgYye8jbi5Hy7cjgdWGtR/DfrCEKMVTFWt7+Srdm4RvRcG8Soy0RBfQRpoI3U3ExB+lvVDJd7ygvEpqwhr9iAhdswcfN09rAT6QQ+Bm7rE3Hzi8ygXF3FNxYvJKXkzusBjY=
+Received: from DM5PR19CA0035.namprd19.prod.outlook.com (2603:10b6:3:9a::21) by
+ BY5PR12MB3762.namprd12.prod.outlook.com (2603:10b6:a03:196::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.19; Fri, 3 Apr
+ 2020 05:29:55 +0000
+Received: from DM6NAM11FT040.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:9a:cafe::82) by DM5PR19CA0035.outlook.office365.com
+ (2603:10b6:3:9a::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.16 via Frontend
+ Transport; Fri, 3 Apr 2020 05:29:54 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ DM6NAM11FT040.mail.protection.outlook.com (10.13.173.133) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2878.15 via Frontend Transport; Fri, 3 Apr 2020 05:29:54 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 3 Apr 2020
+ 00:29:54 -0500
+Received: from rico-code.amd.com (10.180.168.240) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Fri, 3 Apr 2020 00:29:52 -0500
+From: Tianci Yin <tianci.yin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: add SPM golden settings for Navi10
+Date: Fri, 3 Apr 2020 13:29:48 +0800
+Message-ID: <20200403052948.23664-1-tianci.yin@amd.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(396003)(39860400002)(376002)(346002)(136003)(428003)(46966005)(47076004)(70586007)(70206006)(6916009)(478600001)(82740400003)(7696005)(54906003)(2906002)(86362001)(316002)(26005)(5660300002)(4326008)(81166006)(186003)(44832011)(2616005)(36756003)(8936002)(356004)(6666004)(426003)(8676002)(336012)(30864003)(81156014)(1076003)(579004)(559001);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: eabd5ca0-6a0c-4f14-fc71-08d7d7900a88
+X-MS-TrafficTypeDiagnostic: BY5PR12MB3762:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB3762FA92BDE080603AF2FF3B95C70@BY5PR12MB3762.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:404;
+X-Forefront-PRVS: 0362BF9FDB
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ErxqsVdzxU5GcGpKtvM929T6w4pHEKvrdW+A7fkqbBDnCKyvCotk+kewppYqkR5aznhC4KXVY4zNLnc+fQ8f7JFNbDA117LyxGV+XmoAJ4nOCLE3PX9rO++/4wB2rfrWqm58NBzvvC6VVtrm4V3z2Z6TIDSumVWicU/48G5CxLewV4z2IRU7W1qMGDqDpaNv0irh+ZxJMLIhz63wt9xzkeXtqX/Qj3r0aU5ox+udxcoNDFReaRLLO0pNVavACAVxNTKgtS2UMYhVhCFeHUiNjpH/b7Qc7aGLPfD2aYuy7ze2SuqWIVh9uJRNHfga0LxRcPEwRwwbjEtPx86Eb9WflFTgXzKEzXBJ6nbd7rMtlZHBUyAoqqWyG29107h2Tp4TtF3zL1isrCcgI07LEWHp3AZE0ftagfbygQHBwoyZhgLs8Gum+xRAwLUSnCJazI/EN3/2Cs5TwaIKiMYr7Ec910pWpp26HPH60K52wZERNR7SwYyd6IPu7+E1QfoQNy1IDDVOwCvTJGthzIkim43iZA==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2020 05:29:54.7317 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: eabd5ca0-6a0c-4f14-fc71-08d7d7900a88
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3762
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,264 +111,1128 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Josh Poimboeuf <jpoimboe@redhat.com>, Jann Horn <jannh@google.com>,
- Leo Li <sunpeng.li@amd.com>, the arch/x86 maintainers <x86@kernel.org>,
- kernel list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Andy Lutomirski <luto@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
- Thomas Gleixner <tglx@linutronix.de>, Harry Wentland <harry.wentland@amd.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, mhiramat@kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Deucher Alexander <Alexander.Deucher@amd.com>,
+ Feifei Xu <Feifei.Xu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Tianci Yin <tianci.yin@amd.com>, Hesik Christopher <Christopher.Hesik@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVGh1LCAyIEFwciAyMDIwIDE2OjEzOjA4ICswMjAwClBldGVyIFppamxzdHJhIDxwZXRlcnpA
-aW5mcmFkZWFkLm9yZz4gd3JvdGU6Cgo+IE9uIFRodSwgQXByIDAyLCAyMDIwIGF0IDA5OjMzOjU0
-QU0gKzAyMDAsIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4gPiBIaSBKYW5uLAo+ID4gCj4gPiBB
-bSAwMi4wNC4yMCB1bSAwNDozNCBzY2hyaWViIEphbm4gSG9ybjoKPiA+ID4gW3g4NiBmb2xrcyBp
-biBDQyBzbyB0aGF0IHRoZXkgY2FuIGNoaW1lIGluIG9uIHRoZSBwcmVjaXNlIHJ1bGVzIGZvciB0
-aGlzIHN0dWZmXQo+ID4gPiAKPiA+ID4gSGkhCj4gPiA+IAo+ID4gPiBJIG5vdGljZWQgdGhhdCBz
-ZXZlcmFsIG1ha2VmaWxlcyB1bmRlciBkcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvCj4g
-PiA+IHR1cm4gb24gZmxvYXRpbmctcG9pbnQgaW5zdHJ1Y3Rpb25zIGluIHRoZSBjb21waWxlciBm
-bGFncwo+ID4gPiAoLW1oYXJkLWZsb2F0LCAtbXNzZSBhbmQgLW1zc2UyKSBpbiBvcmRlciB0byBt
-YWtlIHRoZSAiZmxvYXQiIGFuZAo+ID4gPiAiZG91YmxlIiB0eXBlcyB1c2FibGUgZnJvbSBDIGNv
-ZGUgd2l0aG91dCByZXF1aXJpbmcgaGVscGVyIGZ1bmN0aW9ucy4KPiA+ID4gCj4gPiA+IEhvd2V2
-ZXIsIGFzIGZhciBhcyBJIGtub3csIGNvZGUgcnVubmluZyBpbiBub3JtYWwga2VybmVsIGNvbnRl
-eHQgaXNuJ3QKPiA+ID4gYWxsb3dlZCB0byB1c2UgZmxvYXRpbmctcG9pbnQgcmVnaXN0ZXJzIHdp
-dGhvdXQgc3BlY2lhbCBwcm90ZWN0aW9uCj4gPiA+IHVzaW5nIGhlbHBlcnMgbGlrZSBrZXJuZWxf
-ZnB1X2JlZ2luKCkgYW5kIGtlcm5lbF9mcHVfZW5kKCkgKHdoaWNoIGFsc28KPiA+ID4gcmVxdWly
-ZSB0aGF0IHRoZSBwcm90ZWN0ZWQgY29kZSBuZXZlciBibG9ja3MpLiBJZiB5b3UgdmlvbGF0ZSB0
-aGF0Cj4gPiA+IHJ1bGUsIHRoYXQgY2FuIGxlYWQgdG8gdmFyaW91cyBpc3N1ZXMgLSBhbW9uZyBv
-dGhlciB0aGluZ3MsIEkgdGhpbmsKPiA+ID4gdGhlIGtlcm5lbCB3aWxsIGNsb2JiZXIgdXNlcnNw
-YWNlIEZQVSByZWdpc3RlciBzdGF0ZSwgYW5kIEkgdGhpbmsgdGhlCj4gPiA+IGtlcm5lbCBjb2Rl
-IGNhbiBibG93IHVwIGlmIGEgY29udGV4dCBzd2l0Y2ggaGFwcGVucyBhdCB0aGUgd3JvbmcgdGlt
-ZSwKPiA+ID4gc2luY2UgaW4ta2VybmVsIHRhc2sgc3dpdGNoZXMgZG9uJ3QgcHJlc2VydmUgRlBV
-IHN0YXRlLgo+ID4gPiAKPiA+ID4gSXMgdGhlcmUgc29tZSBoaWRkZW4gdHJpY2sgSSdtIG1pc3Np
-bmcgdGhhdCBtYWtlcyBpdCBva2F5IHRvIHVzZSBGUFUKPiA+ID4gcmVnaXN0ZXJzIGhlcmU/Cj4g
-PiA+IAo+ID4gPiBJIHdvdWxkIHRyeSB0ZXN0aW5nIHRoaXMsIGJ1dCB1bmZvcnR1bmF0ZWx5IG5v
-bmUgb2YgdGhlIEFNRCBkZXZpY2VzIEkKPiA+ID4gaGF2ZSBoZXJlIGhhdmUgdGhlIGFwcHJvcHJp
-YXRlIGdyYXBoaWNzIGhhcmR3YXJlLi4uCj4gPiAKPiA+IHllcywgdXNpbmcgdGhlIGZsb2F0aW5n
-IHBvaW50IGNhbGN1bGF0aW9ucyBpbiB0aGUgZGlzcGxheSBjb2RlIGhhcyBiZWVuIGEKPiA+IHNv
-dXJjZSBvZiBudW1lcm91cyBwcm9ibGVtcyBhbmQgY29uZnVzaW9uIGluIHRoZSBwYXN0Lgo+ID4g
-Cj4gPiBUaGUgY2FsbHMgdG8ga2VybmVsX2ZwdV9iZWdpbigpIGFuZCBrZXJuZWxfZnB1X2VuZCgp
-IGFyZSBoaWRkZW4gYmVoaW5kIHRoZQo+ID4gRENfRlBfU1RBUlQoKSBhbmQgRENfRlBfRU5EKCkg
-bWFjcm9zIHdoaWNoIGFyZSBzdXBwb3NlZCB0byBoaWRlIHRoZQo+ID4gYXJjaGl0ZWN0dXJlIGRl
-cGVuZCBoYW5kbGluZyBmb3IgeDg2IGFuZCBQUEM2NC4KPiA+IAo+ID4gVGhpcyBvcmlnaW5hdGVk
-IGZyb20gdGhlIGdyYXBoaWNzIGJsb2NrIGludGVncmF0ZWQgaW50byBBTUQgQ1BVICh3aGVyZSB3
-ZQo+ID4ga25ldyB3aGljaCBmcCB1bml0IHdlIGhhZCksIGJ1dCBhcyBmYXIgYXMgSSBrbm93IGlz
-IG5vdyBhbHNvIHVzZWQgZm9yCj4gPiBkZWRpY2F0ZWQgQU1EIEdQVXMgYXMgd2VsbC4KPiA+IAo+
-ID4gSSdtIG5vdCByZWFsbHkgYSBmYW4gb2YgdGhpcyBlaXRoZXIsIGJ1dCBzbyBmYXIgd2Ugd2Vy
-ZW4ndCBhYmxlIHRvIGNvbnZpbmNlCj4gPiB0aGUgaGFyZHdhcmUgZW5naW5lZXJzIHRvIG5vdCB1
-c2UgZmxvYXRpbmcgcG9pbnQgY2FsY3VsYXRpb25zIGZvciB0aGUKPiA+IGRpc3BsYXkgc3R1ZmYu
-Cj4gCj4gTWlnaHQgSSBjb21wbGFpbiB0aGF0Ogo+IAo+IAltYWtlIE89YWxsbW9kY29uZmlnLWJ1
-aWxkIGRyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy8KPiAKPiBkb2VzIG5vdCBpbiBmYWN0
-IHdvcms/Cj4gCj4gQW55d2F5LCBob3cgZG8gcGVvcGxlIGZlZWwgYWJvdXQgc29tZXRoaW5nIGxp
-a2UgdGhlIGJlbG93Pwo+IAo+IE1hc2FtaSwgQm9yaXMsIGlzIHRoZXJlIGFueSBzZW1pLXNhbmUg
-d2F5IHdlIGNhbiBoYXZlIGluc25faXNfZnB1KCkgPwo+IFdoaWxlIGRpZ2dpbmcgdGhyb3VnaCB2
-YXJpb3VzIG9wY29kZSBtYW51YWxzIGlzIG9mIGNvdXJzZSBmb3JldmVyIGZ1biwgSQo+IGRvIGZl
-ZWwgbGlrZSBpdCBtaWdodCBub3QgYmUgdGhlIGJlc3Qgd2F5LgoKWWVzLCBpdCBpcyBwb3NzaWJs
-ZSB0byBhZGQgSU5BVF9GUFUgYW5kIGluc25faXNfZnB1KCkuCkJ1dCBpdCBzZWVtcyB0aGF0IHRo
-ZSBiZWxvdyBwYXRjaCBuZWVkcyBtb3JlIGNsYXNzaWZpY2F0aW9uIGJhc2VkIG9uCm5tZW1vbmlj
-IG9yIG9wY29kZXMuCgpJTUhPLCBpdCBpcyB0aGUgdGltZSB0byBleHBhbmQgZ2VuLWluc24tYXR0
-ci5hd2sgb3IgY2xvbmUgaXQgdG8KZ2VuZXJhdGUgYW5vdGhlciBvcGNvZGUgbWFwLCBzbyB0aGF0
-IHVzZXIgd2lsbCBlYXNpbHkgZXh0ZW5kIHRoZQppbnNuIGluZnJhc3RydWN0dXJlLgooZS5nLiBJ
-IGhhZCBtYWRlIGFuIGluLWtlcm5lbCBkaXNhc3NlbWJsZXIsIHdoaWNoIGdlbmVyYXRlcyBhIG1u
-ZW1vbmljCiBtYXBzIGZyb20geDg2LW9wY29kZS1tYXAudHh0KQogaHR0cHM6Ly9naXRodWIuY29t
-L21oaXJhbWF0L2xpbnV4L2NvbW1pdHMvaW5rZXJuZWwtZGlzYXNtLTIwMTMwNDE0CgpUaGFuayB5
-b3UsCgo+IAo+IC0tLQo+ICBhcmNoL3g4Ni9pbmNsdWRlL2FzbS9mcHUvYXBpLmggICAgICB8ICA3
-ICsrKysKPiAgYXJjaC94ODYvaW5jbHVkZS9hc20vZnB1L2ludGVybmFsLmggfCAxMSArKysrKysK
-PiAgYXJjaC94ODYva2VybmVsL2ZwdS9pbml0LmMgICAgICAgICAgfCAgNSArKysKPiAgdG9vbHMv
-b2JqdG9vbC9hcmNoLmggICAgICAgICAgICAgICAgfCAgMSArCj4gIHRvb2xzL29ianRvb2wvYXJj
-aC94ODYvZGVjb2RlLmMgICAgIHwgNzEgKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0t
-LS0tLQo+ICB0b29scy9vYmp0b29sL2NoZWNrLmMgICAgICAgICAgICAgICB8IDU4ICsrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKwo+ICB0b29scy9vYmp0b29sL2NoZWNrLmggICAgICAgICAg
-ICAgICB8ICAzICstCj4gIDcgZmlsZXMgY2hhbmdlZCwgMTM0IGluc2VydGlvbnMoKyksIDIyIGRl
-bGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9mcHUvYXBp
-LmggYi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9mcHUvYXBpLmgKPiBpbmRleCBiNzc0YzUyZTU0MTEu
-LmI5YmNhMWNkYzg3NSAxMDA2NDQKPiAtLS0gYS9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9mcHUvYXBp
-LmgKPiArKysgYi9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9mcHUvYXBpLmgKPiBAQCAtMTIsNiArMTIs
-MTMgQEAKPiAgI2RlZmluZSBfQVNNX1g4Nl9GUFVfQVBJX0gKPiAgI2luY2x1ZGUgPGxpbnV4L2Jv
-dHRvbV9oYWxmLmg+Cj4gIAo+ICsjZGVmaW5lIGFubm90YXRlX2ZwdSgpICh7CQkJCQkJXAo+ICsJ
-YXNtIHZvbGF0aWxlKCIlYzA6XG5cdCIJCQkJCQlcCj4gKwkJICAgICAiLnB1c2hzZWN0aW9uIC5k
-aXNjYXJkLmZwdV9zYWZlXG5cdCIJCVwKPiArCQkgICAgICIubG9uZyAlYzBiIC0gLlxuXHQiCQkJ
-CVwKPiArCQkgICAgICIucG9wc2VjdGlvblxuXHQiIDogOiAiaSIgKF9fQ09VTlRFUl9fKSk7CQlc
-Cj4gK30pCj4gKwo+ICAvKgo+ICAgKiBVc2Uga2VybmVsX2ZwdV9iZWdpbi9lbmQoKSBpZiB5b3Ug
-aW50ZW5kIHRvIHVzZSBGUFUgaW4ga2VybmVsIGNvbnRleHQuIEl0Cj4gICAqIGRpc2FibGVzIHBy
-ZWVtcHRpb24gc28gYmUgY2FyZWZ1bCBpZiB5b3UgaW50ZW5kIHRvIHVzZSBpdCBmb3IgbG9uZyBw
-ZXJpb2RzCj4gZGlmZiAtLWdpdCBhL2FyY2gveDg2L2luY2x1ZGUvYXNtL2ZwdS9pbnRlcm5hbC5o
-IGIvYXJjaC94ODYvaW5jbHVkZS9hc20vZnB1L2ludGVybmFsLmgKPiBpbmRleCA0NGM0OGUzNGQ3
-OTkuLmJjNDM2MjEzYTBkNCAxMDA2NDQKPiAtLS0gYS9hcmNoL3g4Ni9pbmNsdWRlL2FzbS9mcHUv
-aW50ZXJuYWwuaAo+ICsrKyBiL2FyY2gveDg2L2luY2x1ZGUvYXNtL2ZwdS9pbnRlcm5hbC5oCj4g
-QEAgLTEwMiw2ICsxMDIsMTEgQEAgc3RhdGljIGlubGluZSB2b2lkIGZwc3RhdGVfaW5pdF9meHN0
-YXRlKHN0cnVjdCBmeHJlZ3Nfc3RhdGUgKmZ4KQo+ICB9Cj4gIGV4dGVybiB2b2lkIGZwc3RhdGVf
-c2FuaXRpemVfeHN0YXRlKHN0cnVjdCBmcHUgKmZwdSk7Cj4gIAo+ICsjZGVmaW5lIF9BU01fQU5O
-T1RBVEVfRlBVKGF0KQkJCQkJCVwKPiArCQkgICAgICIucHVzaHNlY3Rpb24gLmRpc2NhcmQuZnB1
-X3NhZmVcbiIJCQlcCj4gKwkJICAgICAiLmxvbmcgIiAjYXQgIiAtIC5cbiIJCQkJXAo+ICsJCSAg
-ICAgIi5wb3BzZWN0aW9uXG4iCQkJCQlcCj4gKwo+ICAjZGVmaW5lIHVzZXJfaW5zbihpbnNuLCBv
-dXRwdXQsIGlucHV0Li4uKQkJCQlcCj4gICh7CQkJCQkJCQkJXAo+ICAJaW50IGVycjsJCQkJCQkJ
-XAo+IEBAIC0xMTYsNiArMTIxLDcgQEAgZXh0ZXJuIHZvaWQgZnBzdGF0ZV9zYW5pdGl6ZV94c3Rh
-dGUoc3RydWN0IGZwdSAqZnB1KTsKPiAgCQkgICAgICIgICAgam1wICAyYlxuIgkJCQkJXAo+ICAJ
-CSAgICAgIi5wcmV2aW91c1xuIgkJCQkJXAo+ICAJCSAgICAgX0FTTV9FWFRBQkxFKDFiLCAzYikJ
-CQkJXAo+ICsJCSAgICAgX0FTTV9BTk5PVEFURV9GUFUoMWIpCQkJCVwKPiAgCQkgICAgIDogW2Vy
-cl0gIj1yIiAoZXJyKSwgb3V0cHV0CQkJCVwKPiAgCQkgICAgIDogIjAiKDApLCBpbnB1dCk7CQkJ
-CQlcCj4gIAllcnI7CQkJCQkJCQlcCj4gQEAgLTEzMSw2ICsxMzcsNyBAQCBleHRlcm4gdm9pZCBm
-cHN0YXRlX3Nhbml0aXplX3hzdGF0ZShzdHJ1Y3QgZnB1ICpmcHUpOwo+ICAJCSAgICAgIiAgICBq
-bXAgIDJiXG4iCQkJCQlcCj4gIAkJICAgICAiLnByZXZpb3VzXG4iCQkJCQlcCj4gIAkJICAgICBf
-QVNNX0VYVEFCTEUoMWIsIDNiKQkJCQlcCj4gKwkJICAgICBfQVNNX0FOTk9UQVRFX0ZQVSgxYikJ
-CQkJXAo+ICAJCSAgICAgOiBbZXJyXSAiPXIiIChlcnIpLCBvdXRwdXQJCQkJXAo+ICAJCSAgICAg
-OiAiMCIoMCksIGlucHV0KTsJCQkJCVwKPiAgCWVycjsJCQkJCQkJCVwKPiBAQCAtMTQwLDYgKzE0
-Nyw3IEBAIGV4dGVybiB2b2lkIGZwc3RhdGVfc2FuaXRpemVfeHN0YXRlKHN0cnVjdCBmcHUgKmZw
-dSk7Cj4gIAlhc20gdm9sYXRpbGUoIjE6IiAjaW5zbiAiXG5cdCIJCQkJCVwKPiAgCQkgICAgICIy
-OlxuIgkJCQkJCVwKPiAgCQkgICAgIF9BU01fRVhUQUJMRV9IQU5ETEUoMWIsIDJiLCBleF9oYW5k
-bGVyX2ZwcmVzdG9yZSkJXAo+ICsJCSAgICAgX0FTTV9BTk5PVEFURV9GUFUoMWIpCQkJCVwKPiAg
-CQkgICAgIDogb3V0cHV0IDogaW5wdXQpCj4gIAo+ICBzdGF0aWMgaW5saW5lIGludCBjb3B5X2Zy
-ZWdzX3RvX3VzZXIoc3RydWN0IGZyZWdzX3N0YXRlIF9fdXNlciAqZngpCj4gQEAgLTE5Nyw2ICsy
-MDUsNyBAQCBzdGF0aWMgaW5saW5lIGludCBjb3B5X3VzZXJfdG9fZnJlZ3Moc3RydWN0IGZyZWdz
-X3N0YXRlIF9fdXNlciAqZngpCj4gIAo+ICBzdGF0aWMgaW5saW5lIHZvaWQgY29weV9meHJlZ3Nf
-dG9fa2VybmVsKHN0cnVjdCBmcHUgKmZwdSkKPiAgewo+ICsJYW5ub3RhdGVfZnB1KCk7Cj4gIAlp
-ZiAoSVNfRU5BQkxFRChDT05GSUdfWDg2XzMyKSkKPiAgCQlhc20gdm9sYXRpbGUoICJmeHNhdmUg
-JVtmeF0iIDogW2Z4XSAiPW0iIChmcHUtPnN0YXRlLmZ4c2F2ZSkpOwo+ICAJZWxzZQo+IEBAIC00
-MzcsNiArNDQ2LDcgQEAgc3RhdGljIGlubGluZSBpbnQgY29weV9mcHJlZ3NfdG9fZnBzdGF0ZShz
-dHJ1Y3QgZnB1ICpmcHUpCj4gIAkgKiBMZWdhY3kgRlBVIHJlZ2lzdGVyIHNhdmluZywgRk5TQVZF
-IGFsd2F5cyBjbGVhcnMgRlBVIHJlZ2lzdGVycywKPiAgCSAqIHNvIHdlIGhhdmUgdG8gbWFyayB0
-aGVtIGluYWN0aXZlOgo+ICAJICovCj4gKwlhbm5vdGF0ZV9mcHUoKTsKPiAgCWFzbSB2b2xhdGls
-ZSgiZm5zYXZlICVbZnBdOyBmd2FpdCIgOiBbZnBdICI9bSIgKGZwdS0+c3RhdGUuZnNhdmUpKTsK
-PiAgCj4gIAlyZXR1cm4gMDsKPiBAQCAtNDYyLDYgKzQ3Miw3IEBAIHN0YXRpYyBpbmxpbmUgdm9p
-ZCBjb3B5X2tlcm5lbF90b19mcHJlZ3ModW5pb24gZnByZWdzX3N0YXRlICpmcHN0YXRlKQo+ICAJ
-ICogIm0iIGlzIGEgcmFuZG9tIHZhcmlhYmxlIHRoYXQgc2hvdWxkIGJlIGluIEwxLgo+ICAJICov
-Cj4gIAlpZiAodW5saWtlbHkoc3RhdGljX2NwdV9oYXNfYnVnKFg4Nl9CVUdfRlhTQVZFX0xFQUsp
-KSkgewo+ICsJCWFubm90YXRlX2ZwdSgpOwo+ICAJCWFzbSB2b2xhdGlsZSgKPiAgCQkJImZuY2xl
-eFxuXHQiCj4gIAkJCSJlbW1zXG5cdCIKPiBkaWZmIC0tZ2l0IGEvYXJjaC94ODYva2VybmVsL2Zw
-dS9pbml0LmMgYi9hcmNoL3g4Ni9rZXJuZWwvZnB1L2luaXQuYwo+IGluZGV4IDZjZTdlMGEyMzI2
-OC4uY2E3ODkwYmQxOTdjIDEwMDY0NAo+IC0tLSBhL2FyY2gveDg2L2tlcm5lbC9mcHUvaW5pdC5j
-Cj4gKysrIGIvYXJjaC94ODYva2VybmVsL2ZwdS9pbml0LmMKPiBAQCAtMzgsNyArMzgsMTAgQEAg
-c3RhdGljIHZvaWQgZnB1X19pbml0X2NwdV9nZW5lcmljKHZvaWQpCj4gIAkJZnBzdGF0ZV9pbml0
-X3NvZnQoJmN1cnJlbnQtPnRocmVhZC5mcHUuc3RhdGUuc29mdCk7Cj4gIAllbHNlCj4gICNlbmRp
-Zgo+ICsJewo+ICsJCWFubm90YXRlX2ZwdSgpOwo+ICAJCWFzbSB2b2xhdGlsZSAoImZuaW5pdCIp
-Owo+ICsJfQo+ICB9Cj4gIAo+ICAvKgo+IEBAIC02MSw2ICs2NCw3IEBAIHN0YXRpYyBib29sIGZw
-dV9fcHJvYmVfd2l0aG91dF9jcHVpZCh2b2lkKQo+ICAJY3IwICY9IH4oWDg2X0NSMF9UUyB8IFg4
-Nl9DUjBfRU0pOwo+ICAJd3JpdGVfY3IwKGNyMCk7Cj4gIAo+ICsJYW5ub3RhdGVfZnB1KCk7Cj4g
-IAlhc20gdm9sYXRpbGUoImZuaW5pdCA7IGZuc3RzdyAlMCA7IGZuc3RjdyAlMSIgOiAiK20iIChm
-c3cpLCAiK20iIChmY3cpKTsKPiAgCj4gIAlwcl9pbmZvKCJ4ODYvZnB1OiBQcm9iaW5nIGZvciBG
-UFU6IEZTVz0weCUwNGh4IEZDVz0weCUwNGh4XG4iLCBmc3csIGZjdyk7Cj4gQEAgLTEwMSw2ICsx
-MDUsNyBAQCBzdGF0aWMgdm9pZCBfX2luaXQgZnB1X19pbml0X3N5c3RlbV9teGNzcih2b2lkKQo+
-ICAJCS8qIFN0YXRpYyBiZWNhdXNlIEdDQyBkb2VzIG5vdCBnZXQgMTYtYnl0ZSBzdGFjayBhbGln
-bm1lbnQgcmlnaHQ6ICovCj4gIAkJc3RhdGljIHN0cnVjdCBmeHJlZ3Nfc3RhdGUgZnhyZWdzIF9f
-aW5pdGRhdGE7Cj4gIAo+ICsJCWFubm90YXRlX2ZwdSgpOwo+ICAJCWFzbSB2b2xhdGlsZSgiZnhz
-YXZlICUwIiA6ICIrbSIgKGZ4cmVncykpOwo+ICAKPiAgCQltYXNrID0gZnhyZWdzLm14Y3NyX21h
-c2s7Cj4gZGlmZiAtLWdpdCBhL3Rvb2xzL29ianRvb2wvYXJjaC5oIGIvdG9vbHMvb2JqdG9vbC9h
-cmNoLmgKPiBpbmRleCBjZWQzNzY1YzRmNDQuLmU3NDhkZGM5Mjk1OCAxMDA2NDQKPiAtLS0gYS90
-b29scy9vYmp0b29sL2FyY2guaAo+ICsrKyBiL3Rvb2xzL29ianRvb2wvYXJjaC5oCj4gQEAgLTI3
-LDYgKzI3LDcgQEAgZW51bSBpbnNuX3R5cGUgewo+ICAJSU5TTl9DTEFDLAo+ICAJSU5TTl9TVEQs
-Cj4gIAlJTlNOX0NMRCwKPiArCUlOU05fRlBVLAo+ICAJSU5TTl9PVEhFUiwKPiAgfTsKPiAgCj4g
-ZGlmZiAtLWdpdCBhL3Rvb2xzL29ianRvb2wvYXJjaC94ODYvZGVjb2RlLmMgYi90b29scy9vYmp0
-b29sL2FyY2gveDg2L2RlY29kZS5jCj4gaW5kZXggYTYyZTAzMjg2M2E4Li43YmU2ZTEzODRlZmIg
-MTAwNjQ0Cj4gLS0tIGEvdG9vbHMvb2JqdG9vbC9hcmNoL3g4Ni9kZWNvZGUuYwo+ICsrKyBiL3Rv
-b2xzL29ianRvb2wvYXJjaC94ODYvZGVjb2RlLmMKPiBAQCAtOTIsOCArOTIsMTAgQEAgaW50IGFy
-Y2hfZGVjb2RlX2luc3RydWN0aW9uKHN0cnVjdCBlbGYgKmVsZiwgc3RydWN0IHNlY3Rpb24gKnNl
-YywKPiAgCSpsZW4gPSBpbnNuLmxlbmd0aDsKPiAgCSp0eXBlID0gSU5TTl9PVEhFUjsKPiAgCj4g
-LQlpZiAoaW5zbi52ZXhfcHJlZml4Lm5ieXRlcykKPiArCWlmIChpbnNuLnZleF9wcmVmaXgubmJ5
-dGVzKSB7Cj4gKwkJKnR5cGUgPSBJTlNOX0ZQVTsKPiAgCQlyZXR1cm4gMDsKPiArCX0KPiAgCj4g
-IAlvcDEgPSBpbnNuLm9wY29kZS5ieXRlc1swXTsKPiAgCW9wMiA9IGluc24ub3Bjb2RlLmJ5dGVz
-WzFdOwo+IEBAIC0zNTcsNDggKzM1OSw3MSBAQCBpbnQgYXJjaF9kZWNvZGVfaW5zdHJ1Y3Rpb24o
-c3RydWN0IGVsZiAqZWxmLCBzdHJ1Y3Qgc2VjdGlvbiAqc2VjLAo+ICAKPiAgCWNhc2UgMHgwZjoK
-PiAgCj4gLQkJaWYgKG9wMiA9PSAweDAxKSB7Cj4gLQo+ICsJCXN3aXRjaCAob3AyKSB7Cj4gKwkJ
-Y2FzZSAweDAxOgo+ICAJCQlpZiAobW9kcm0gPT0gMHhjYSkKPiAgCQkJCSp0eXBlID0gSU5TTl9D
-TEFDOwo+ICAJCQllbHNlIGlmIChtb2RybSA9PSAweGNiKQo+ICAJCQkJKnR5cGUgPSBJTlNOX1NU
-QUM7Cj4gKwkJCWJyZWFrOwo+ICAKPiAtCQl9IGVsc2UgaWYgKG9wMiA+PSAweDgwICYmIG9wMiA8
-PSAweDhmKSB7Cj4gLQo+ICsJCWNhc2UgMHg4MCAuLi4gMHg4ZjogLyogSmNjICovCj4gIAkJCSp0
-eXBlID0gSU5TTl9KVU1QX0NPTkRJVElPTkFMOwo+ICsJCQlicmVhazsKPiAgCj4gLQkJfSBlbHNl
-IGlmIChvcDIgPT0gMHgwNSB8fCBvcDIgPT0gMHgwNyB8fCBvcDIgPT0gMHgzNCB8fAo+IC0JCQkg
-ICBvcDIgPT0gMHgzNSkgewo+IC0KPiAtCQkJLyogc3lzZW50ZXIsIHN5c3JldCAqLwo+ICsJCWNh
-c2UgMHgwNTogLyogc3lzY2FsbCAqLwo+ICsJCWNhc2UgMHgwNzogLyogc3lzcmV0ICovCj4gKwkJ
-Y2FzZSAweDM0OiAvKiBzeXNlbnRlciAqLwo+ICsJCWNhc2UgMHgzNTogLyogc3lzZXhpdCAqLwo+
-ICAJCQkqdHlwZSA9IElOU05fQ09OVEVYVF9TV0lUQ0g7Cj4gKwkJCWJyZWFrOwo+ICAKPiAtCQl9
-IGVsc2UgaWYgKG9wMiA9PSAweDBiIHx8IG9wMiA9PSAweGI5KSB7Cj4gLQo+IC0JCQkvKiB1ZDIg
-Ki8KPiArCQljYXNlIDB4MGI6IC8qIHVkMiAqLwo+ICsJCWNhc2UgMHhiOTogLyogdWQxICovCj4g
-IAkJCSp0eXBlID0gSU5TTl9CVUc7Cj4gKwkJCWJyZWFrOwo+ICAKPiAtCQl9IGVsc2UgaWYgKG9w
-MiA9PSAweDBkIHx8IG9wMiA9PSAweDFmKSB7Cj4gLQo+ICsJCWNhc2UgMHgwZDoKPiArCQljYXNl
-IDB4MWY6Cj4gIAkJCS8qIG5vcGwvbm9wdyAqLwo+ICAJCQkqdHlwZSA9IElOU05fTk9QOwo+ICsJ
-CQlicmVhazsKPiAgCj4gLQkJfSBlbHNlIGlmIChvcDIgPT0gMHhhMCB8fCBvcDIgPT0gMHhhOCkg
-ewo+IC0KPiAtCQkJLyogcHVzaCBmcy9ncyAqLwo+ICsJCWNhc2UgMHhhMDogLyogcHVzaCBmcyAq
-Lwo+ICsJCWNhc2UgMHhhODogLyogcHVzaCBncyAqLwo+ICAJCQkqdHlwZSA9IElOU05fU1RBQ0s7
-Cj4gIAkJCW9wLT5zcmMudHlwZSA9IE9QX1NSQ19DT05TVDsKPiAgCQkJb3AtPmRlc3QudHlwZSA9
-IE9QX0RFU1RfUFVTSDsKPiArCQkJYnJlYWs7Cj4gIAo+IC0JCX0gZWxzZSBpZiAob3AyID09IDB4
-YTEgfHwgb3AyID09IDB4YTkpIHsKPiAtCj4gLQkJCS8qIHBvcCBmcy9ncyAqLwo+ICsJCWNhc2Ug
-MHhhMTogLyogcG9wIGZzICovCj4gKwkJY2FzZSAweGE5OiAvKiBwb3AgZ3MgKi8KPiAgCQkJKnR5
-cGUgPSBJTlNOX1NUQUNLOwo+ICAJCQlvcC0+c3JjLnR5cGUgPSBPUF9TUkNfUE9QOwo+ICAJCQlv
-cC0+ZGVzdC50eXBlID0gT1BfREVTVF9NRU07Cj4gLQkJfQo+ICsJCQlicmVhazsKPiArCj4gKwkJ
-Y2FzZSAweGFlOgo+ICsJCQkvKiBpbnNhbmUhISAqLwo+ICsJCQlpZiAoKG1vZHJtX3JlZyA+PSAw
-ICYmIG1vZHJtX3JlZyA8PSAzKSAmJiBtb2RybV9tb2QgIT0gMyAmJiAhaW5zbi5wcmVmaXhlcy5u
-Ynl0ZXMpCj4gKwkJCQkqdHlwZSA9IElOU05fRlBVOwo+ICsJCQlicmVhazsKPiAgCj4gKwkJY2Fz
-ZSAweDEwIC4uLiAweDE3Ogo+ICsJCWNhc2UgMHgyOCAuLi4gMHgyZjoKPiArCQljYXNlIDB4M2E6
-Cj4gKwkJY2FzZSAweDUwIC4uLiAweDc3Ogo+ICsJCWNhc2UgMHg3YSAuLi4gMHg3ZjoKPiArCQlj
-YXNlIDB4YzI6Cj4gKwkJY2FzZSAweGM0IC4uLiAweGM2Ogo+ICsJCWNhc2UgMHhkMCAuLi4gMHhm
-ZjoKPiArCQkJLyogTU1YLCBTU0UsIFZNWCAqLwo+ICsJCQkqdHlwZSA9IElOU05fRlBVOwo+ICsJ
-CQlicmVhazsKPiArCj4gKwkJZGVmYXVsdDoKPiArCQkJYnJlYWs7Cj4gKwkJfQo+ICAJCWJyZWFr
-Owo+ICAKPiAgCWNhc2UgMHhjOToKPiBAQCAtNDE0LDYgKzQzOSwxMCBAQCBpbnQgYXJjaF9kZWNv
-ZGVfaW5zdHJ1Y3Rpb24oc3RydWN0IGVsZiAqZWxmLCBzdHJ1Y3Qgc2VjdGlvbiAqc2VjLAo+ICAK
-PiAgCQlicmVhazsKPiAgCj4gKwljYXNlIDB4ZDggLi4uIDB4ZGY6IC8qIHg4NyBGUFUgcmFuZ2Ug
-Ki8KPiArCQkqdHlwZSA9IElOU05fRlBVOwo+ICsJCWJyZWFrOwo+ICsKPiAgCWNhc2UgMHhlMzoK
-PiAgCQkvKiBqZWN4ei9qcmN4eiAqLwo+ICAJCSp0eXBlID0gSU5TTl9KVU1QX0NPTkRJVElPTkFM
-Owo+IGRpZmYgLS1naXQgYS90b29scy9vYmp0b29sL2NoZWNrLmMgYi90b29scy9vYmp0b29sL2No
-ZWNrLmMKPiBpbmRleCBlM2JiNzYzNTgxNDguLmFmNmJlNTg0ZjZhNSAxMDA2NDQKPiAtLS0gYS90
-b29scy9vYmp0b29sL2NoZWNrLmMKPiArKysgYi90b29scy9vYmp0b29sL2NoZWNrLmMKPiBAQCAt
-MTMxNiw2ICsxMzE2LDQzIEBAIHN0YXRpYyBpbnQgcmVhZF91bndpbmRfaGludHMoc3RydWN0IG9i
-anRvb2xfZmlsZSAqZmlsZSkKPiAgCXJldHVybiAwOwo+ICB9Cj4gIAo+ICtzdGF0aWMgaW50IHJl
-YWRfZnB1X2hpbnRzKHN0cnVjdCBvYmp0b29sX2ZpbGUgKmZpbGUpCj4gK3sKPiArCXN0cnVjdCBz
-ZWN0aW9uICpzZWM7Cj4gKwlzdHJ1Y3QgaW5zdHJ1Y3Rpb24gKmluc247Cj4gKwlzdHJ1Y3QgcmVs
-YSAqcmVsYTsKPiArCj4gKwlzZWMgPSBmaW5kX3NlY3Rpb25fYnlfbmFtZShmaWxlLT5lbGYsICIu
-cmVsYS5kaXNjYXJkLmZwdV9zYWZlIik7Cj4gKwlpZiAoIXNlYykKPiArCQlyZXR1cm4gMDsKPiAr
-Cj4gKwlsaXN0X2Zvcl9lYWNoX2VudHJ5KHJlbGEsICZzZWMtPnJlbGFfbGlzdCwgbGlzdCkgewo+
-ICsJCWlmIChyZWxhLT5zeW0tPnR5cGUgIT0gU1RUX1NFQ1RJT04pIHsKPiArCQkJV0FSTigidW5l
-eHBlY3RlZCByZWxvY2F0aW9uIHN5bWJvbCB0eXBlIGluICVzIiwgc2VjLT5uYW1lKTsKPiArCQkJ
-cmV0dXJuIC0xOwo+ICsJCX0KPiArCj4gKwkJaW5zbiA9IGZpbmRfaW5zbihmaWxlLCByZWxhLT5z
-eW0tPnNlYywgcmVsYS0+YWRkZW5kKTsKPiArCQlpZiAoIWluc24pIHsKPiArCQkJV0FSTigiYmFk
-IC5kaXNjYXJkLmZwdV9zYWZlIGVudHJ5Iik7Cj4gKwkJCXJldHVybiAtMTsKPiArCQl9Cj4gKwo+
-ICsJCWlmIChpbnNuLT50eXBlICE9IElOU05fRlBVKSB7Cj4gKwkJCVdBUk5fRlVOQygiZnB1X3Nh
-ZmUgaGludCBub3QgYW4gRlBVIGluc3RydWN0aW9uIiwKPiArCQkJCSAgaW5zbi0+c2VjLCBpbnNu
-LT5vZmZzZXQpOwo+ICsvLwkJCXJldHVybiAtMTsKPiArCQl9Cj4gKwo+ICsJCXdoaWxlIChpbnNu
-ICYmIGluc24tPnR5cGUgPT0gSU5TTl9GUFUpIHsKPiArCQkJaW5zbi0+ZnB1X3NhZmUgPSB0cnVl
-Owo+ICsJCQlpbnNuID0gbmV4dF9pbnNuX3NhbWVfZnVuYyhmaWxlLCBpbnNuKTsKPiArCQl9Cj4g
-Kwl9Cj4gKwo+ICsJcmV0dXJuIDA7Cj4gK30KPiArCj4gIHN0YXRpYyBpbnQgcmVhZF9yZXRwb2xp
-bmVfaGludHMoc3RydWN0IG9ianRvb2xfZmlsZSAqZmlsZSkKPiAgewo+ICAJc3RydWN0IHNlY3Rp
-b24gKnNlYzsKPiBAQCAtMTQyMiw2ICsxNDU5LDEwIEBAIHN0YXRpYyBpbnQgZGVjb2RlX3NlY3Rp
-b25zKHN0cnVjdCBvYmp0b29sX2ZpbGUgKmZpbGUpCj4gIAlpZiAocmV0KQo+ICAJCXJldHVybiBy
-ZXQ7Cj4gIAo+ICsJcmV0ID0gcmVhZF9mcHVfaGludHMoZmlsZSk7Cj4gKwlpZiAocmV0KQo+ICsJ
-CXJldHVybiByZXQ7Cj4gKwo+ICAJcmV0dXJuIDA7Cj4gIH0KPiAgCj4gQEAgLTIxNjcsNiArMjIw
-OCwxNiBAQCBzdGF0aWMgaW50IHZhbGlkYXRlX2JyYW5jaChzdHJ1Y3Qgb2JqdG9vbF9maWxlICpm
-aWxlLCBzdHJ1Y3Qgc3ltYm9sICpmdW5jLAo+ICAJCQlpZiAoZGVhZF9lbmRfZnVuY3Rpb24oZmls
-ZSwgaW5zbi0+Y2FsbF9kZXN0KSkKPiAgCQkJCXJldHVybiAwOwo+ICAKPiArCQkJaWYgKGluc24t
-PmNhbGxfZGVzdCkgewo+ICsJCQkJaWYgKCFzdHJjbXAoaW5zbi0+Y2FsbF9kZXN0LT5uYW1lLCAi
-a2VybmVsX2ZwdV9iZWdpbiIpIHx8Cj4gKwkJCQkgICAgIXN0cmNtcChpbnNuLT5jYWxsX2Rlc3Qt
-Pm5hbWUsICJlbXVsYXRvcl9nZXRfZnB1IikpCj4gKwkJCQkJc3RhdGUuZnB1ID0gdHJ1ZTsKPiAr
-Cj4gKwkJCQlpZiAoIXN0cmNtcChpbnNuLT5jYWxsX2Rlc3QtPm5hbWUsICJrZXJuZWxfZnB1X2Vu
-ZCIpIHx8Cj4gKwkJCQkgICAgIXN0cmNtcChpbnNuLT5jYWxsX2Rlc3QtPm5hbWUsICJlbXVsYXRv
-cl9wdXRfZnB1IikpCj4gKwkJCQkJc3RhdGUuZnB1ID0gZmFsc2U7Cj4gKwkJCX0KPiArCj4gIAkJ
-CWJyZWFrOwo+ICAKPiAgCQljYXNlIElOU05fSlVNUF9DT05ESVRJT05BTDoKPiBAQCAtMjI3NSw2
-ICsyMzI2LDEzIEBAIHN0YXRpYyBpbnQgdmFsaWRhdGVfYnJhbmNoKHN0cnVjdCBvYmp0b29sX2Zp
-bGUgKmZpbGUsIHN0cnVjdCBzeW1ib2wgKmZ1bmMsCj4gIAkJCXN0YXRlLmRmID0gZmFsc2U7Cj4g
-IAkJCWJyZWFrOwo+ICAKPiArCQljYXNlIElOU05fRlBVOgo+ICsJCQlpZiAoIXN0YXRlLmZwdSAm
-JiAhaW5zbi0+ZnB1X3NhZmUpIHsKPiArCQkJCVdBUk5fRlVOQygiRlBVIGluc3RydWN0aW9uIG91
-dHNpZGUgb2Yga2VybmVsX2ZwdV97YmVnaW4sZW5kfSgpIiwgc2VjLCBpbnNuLT5vZmZzZXQpOwo+
-ICsJCQkJcmV0dXJuIDE7Cj4gKwkJCX0KPiArCQkJYnJlYWs7Cj4gKwo+ICAJCWRlZmF1bHQ6Cj4g
-IAkJCWJyZWFrOwo+ICAJCX0KPiBkaWZmIC0tZ2l0IGEvdG9vbHMvb2JqdG9vbC9jaGVjay5oIGIv
-dG9vbHMvb2JqdG9vbC9jaGVjay5oCj4gaW5kZXggZjBjZThmZmU3MTM1Li44OWMyMmJjZGM2NGYg
-MTAwNjQ0Cj4gLS0tIGEvdG9vbHMvb2JqdG9vbC9jaGVjay5oCj4gKysrIGIvdG9vbHMvb2JqdG9v
-bC9jaGVjay5oCj4gQEAgLTIwLDYgKzIwLDcgQEAgc3RydWN0IGluc25fc3RhdGUgewo+ICAJdW5z
-aWduZWQgY2hhciB0eXBlOwo+ICAJYm9vbCBicF9zY3JhdGNoOwo+ICAJYm9vbCBkcmFwLCBlbmQs
-IHVhY2Nlc3MsIGRmOwo+ICsJYm9vbCBmcHU7Cj4gIAl1bnNpZ25lZCBpbnQgdWFjY2Vzc19zdGFj
-azsKPiAgCWludCBkcmFwX3JlZywgZHJhcF9vZmZzZXQ7Cj4gIAlzdHJ1Y3QgY2ZpX3JlZyB2YWxz
-W0NGSV9OVU1fUkVHU107Cj4gQEAgLTM0LDcgKzM1LDcgQEAgc3RydWN0IGluc3RydWN0aW9uIHsK
-PiAgCWVudW0gaW5zbl90eXBlIHR5cGU7Cj4gIAl1bnNpZ25lZCBsb25nIGltbWVkaWF0ZTsKPiAg
-CWJvb2wgYWx0X2dyb3VwLCBkZWFkX2VuZCwgaWdub3JlLCBoaW50LCBzYXZlLCByZXN0b3JlLCBp
-Z25vcmVfYWx0czsKPiAtCWJvb2wgcmV0cG9saW5lX3NhZmU7Cj4gKwlib29sIHJldHBvbGluZV9z
-YWZlLCBmcHVfc2FmZTsKPiAgCXU4IHZpc2l0ZWQ7Cj4gIAlzdHJ1Y3Qgc3ltYm9sICpjYWxsX2Rl
-c3Q7Cj4gIAlzdHJ1Y3QgaW5zdHJ1Y3Rpb24gKmp1bXBfZGVzdDsKCgotLSAKTWFzYW1pIEhpcmFt
-YXRzdSA8bWhpcmFtYXRAa2VybmVsLm9yZz4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVl
-ZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbWQtZ2Z4Cg==
+From: "Tianci.Yin" <tianci.yin@amd.com>
+
+Add RLC_SPM golden settings
+
+Change-Id: I616e127171293d915cb3a05dee02f51cec8d8f6f
+Signed-off-by: Tianci.Yin <tianci.yin@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        |    9 +
+ .../gpu/drm/amd/amdgpu/golden_gc_spm_10_1_0.h | 1058 +++++++++++++++++
+ 2 files changed, 1067 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/golden_gc_spm_10_1_0.h
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 70edbbf84338..7c96a894ad37 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -48,6 +48,7 @@
+ #include "v10_structs.h"
+ #include "gfx_v10_0.h"
+ #include "nbio_v2_3.h"
++#include "golden_gc_spm_10_1_0.h"
+ 
+ /**
+  * Navi10 has two graphic rings to share each graphic pipe.
+@@ -138,6 +139,11 @@ static const struct soc15_reg_golden golden_settings_gc_10_0_nv10[] =
+ 	/* Pending on emulation bring up */
+ };
+ 
++static const struct soc15_reg_golden golden_settings_gc_rlc_spm_10_0_nv10[] =
++{
++	GOLDEN_GC_SPM_10_1_0
++};
++
+ static const struct soc15_reg_golden golden_settings_gc_10_1_1[] =
+ {
+ 	SOC15_REG_GOLDEN_VALUE(GC, 0, mmCB_HW_CONTROL_4, 0xffffffff, 0x003c0014),
+@@ -388,6 +394,9 @@ static void gfx_v10_0_init_golden_registers(struct amdgpu_device *adev)
+ 		soc15_program_register_sequence(adev,
+ 						golden_settings_gc_10_0_nv10,
+ 						(const u32)ARRAY_SIZE(golden_settings_gc_10_0_nv10));
++		soc15_program_register_sequence(adev,
++						golden_settings_gc_rlc_spm_10_0_nv10,
++						(const u32)ARRAY_SIZE(golden_settings_gc_rlc_spm_10_0_nv10));
+ 		break;
+ 	case CHIP_NAVI14:
+ 		soc15_program_register_sequence(adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/golden_gc_spm_10_1_0.h b/drivers/gpu/drm/amd/amdgpu/golden_gc_spm_10_1_0.h
+new file mode 100644
+index 000000000000..e65af4a6fcdd
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdgpu/golden_gc_spm_10_1_0.h
+@@ -0,0 +1,1058 @@
++#ifndef __GOLDEN_GC_SPM_10_1_0_H__
++#define __GOLDEN_GC_SPM_10_1_0_H__
++
++#define GOLDEN_GC_SPM_10_1_0 \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xe0000000, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x28), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x9), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1b), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1b), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x20), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xc8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xcc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xd0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xd4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x24), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x24), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x11), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x11), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x19), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x19), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x88), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x8c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xb0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x6), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xb4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x6), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xb8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xbc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xc0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xc4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x90), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x94), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x98), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x6), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x9c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x6), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xa0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xa4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xa8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x6), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xac), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x9), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xb), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x38), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x3c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x40), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x44), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x48), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x5), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x4c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x9), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x70), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x9), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x74), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x9), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x78), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xb), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x7c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xd), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x80), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x84), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xb), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x50), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x7), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x54), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x5), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x58), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x9), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x5c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x60), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xb), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x64), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x9), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x68), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x9), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x6c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xb), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x1c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x3), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x20), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x20), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x24), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x24), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x28), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x28), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x2c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1b), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x2c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1b), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x30), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x30), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x34), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x34), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x38), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x38), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x3c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1a), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x3c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1a), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x19), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x19), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x50), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x50), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x54), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x54), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x58), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x58), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x5c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x5c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1d), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1d), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x48), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1a), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x48), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1a), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x4c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1a), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x4c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1a), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x40), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x40), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x44), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1b), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x44), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1b), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x17), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x17), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x60), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x60), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x64), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x64), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x70), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x16), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x70), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x16), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x74), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x74), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x68), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x68), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x6c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x6c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x78), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xd), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x78), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xd), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x7c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x7c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x88), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x88), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x8c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x8c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x80), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x80), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x84), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x84), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x90), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x90), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x94), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x94), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xa0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x6), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xa0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x6), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xa4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x3), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xa4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x3), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x98), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x98), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x9c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x9c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xa8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xa8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xac), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xac), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xb8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x13), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xb8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x13), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xbc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xbc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xb0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xb0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xb4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xb4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xc0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xc0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xc4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xc4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xd0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xb), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xd0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xb), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xd4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x6), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xd4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x6), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xc8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xc8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xcc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xb), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xcc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xb), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xe8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xe8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xec), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xec), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xf0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xf0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xf4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x19), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xf4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x19), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xf8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xf8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xfc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xfc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x100), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x100), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x12), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x104), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x104), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xe0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x13), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xe0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x13), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x118), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x13), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x118), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x13), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x11c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x13), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x11c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x13), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x120), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x13), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x120), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x13), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x124), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x13), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x124), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x13), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xdc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1b), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xdc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1b), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x110), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x110), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x114), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x114), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x108), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x108), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x10c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x10c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x18), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xd8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x17), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0xd8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x17), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x128), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x128), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x12c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x12c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x138), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x138), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x13c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x13c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x130), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x130), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x10), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x134), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x134), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x140), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x140), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x144), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x7), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x144), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x7), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x150), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x150), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x154), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x7), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x154), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x7), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x148), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x148), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x14c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x7), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x14c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x7), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x158), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x5), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x158), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x5), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x15c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x2), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x15c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x2), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x168), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x168), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x16c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x16c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x160), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x160), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x164), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x2), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x164), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x2), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x170), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x11), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x170), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x11), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x174), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xd), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x174), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xd), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x180), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x180), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xf), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x184), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x184), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xc), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x178), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x11), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x178), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x11), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x17c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xd), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x17c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xd), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x188), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x188), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x18c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x18c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x198), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x9), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x198), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x9), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x19c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x3), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x19c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x3), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x190), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x190), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x194), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x194), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x8), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x30), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x11), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x34), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xe), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1d), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1d), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1f), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x4), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0x1f), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_ADDR, 0xFFFFFFFF, 0x2c), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLB_SAMPLEDELAY_IND_DATA, 0xFFFFFFFF, 0xb), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLOBALS_SAMPLE_SKEW, 0x000000FF, 0x19), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_GLOBALS_MUXSEL_SKEW, 0x000000FF, 0x20), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLE_SKEW, 0x000000FF, 0x5), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_SAMPLE_SKEW, 0x000000FF, 0xa), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_MUXSEL_SKEW, 0x000000FF, 0x14), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x10000), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_SE_MUXSEL_SKEW, 0x000000FF, 0x19), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xffffff, 0x0), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmRLC_SPM_DESER_START_SKEW, 0x000000FF, 0x33), \
++SOC15_REG_GOLDEN_VALUE(GC, 0, mmGRBM_GFX_INDEX, 0xFFFFFFFF, 0xe0000000)
++
++#endif
+-- 
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
