@@ -2,71 +2,65 @@ Return-Path: <SRS0=u9ZA=5T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E0F01C43331
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 16:33:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B28DC43331
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 16:36:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B0432206F8
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 16:33:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0B28B206F8
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 16:36:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RAXLDpr1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B0432206F8
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h0LgrT0M"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0B28B206F8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79DAB6E15F;
-	Fri,  3 Apr 2020 16:33:48 +0000 (UTC)
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC2506E15F
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 16:33:47 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id k13so8650730qki.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 03 Apr 2020 09:33:47 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A81876E15F;
+	Fri,  3 Apr 2020 16:36:29 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 030466E15F
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 16:36:29 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id g3so6978105wrx.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 Apr 2020 09:36:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=24AofGgMVjMoBqVQBXAUX35c9dFVVqllrDLSvBQYdY0=;
- b=RAXLDpr1qerzOlg1nKowHehv3nhU9YBVIuL+qjq+zZsBxYHOSYP1kPzNK2nx7quoT0
- 4cejkx0AzmKnv4IrAvNKg4uosiwBIV/jVK+LjEMwPRf2Ezfj/jMLOS3S5c7DYwVs80Rn
- MyN8gKYYtRmdK8XLVQ84KXk8TDi0kVPu3MmumLzvXddFQY+0UZ9gf5YYCIStdEZpgyXU
- jaYH5n3m/cgMliamL6KjmS7pmYN4J6hlM1t8u5cb+cWew5tehNZ/zIdyYXa2Rf6qbuNH
- Z26zo30CkGobhmmBM/1+9gBWuq31zYW5Zhak1qGYsWB7tn1tIp/pHeK0ROVB84WddSuq
- DQLA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=vRK7D6XRv4qzF88vfUoq8jXuhP4RkRq2ayitougv+xM=;
+ b=h0LgrT0ML/+Z8k4GI6u296BnA9OD7zzm5s5dZd22rmFb68BtCjtUpFFiFnCKB0ZkC6
+ zEd8YReNl4/f8rVH7/Q1GCEXHG2fiGS4mQrtBVTswr2J6RndbsIfBndFx3LpBjPac8aC
+ cjmwWVg8IfX4lvUfm6Q9EdXeY405R7nIK1fmfBdf6Ipx4FinLrOZgV7eQSjaKQVYV0nq
+ DkyRPGgtRG1EGIH9Ax5gF0lMUseEyRzuBO/oKL5rj0kYk4BW8PC8udkP0OlxSBPhz4+f
+ Fwu+uAy4v0g4qaMV7Bj7uccUsGqjAnxdpXUzM9CGoGQsCYVHMfMSxG8zPdlHiZ0T4P5N
+ 6bCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=24AofGgMVjMoBqVQBXAUX35c9dFVVqllrDLSvBQYdY0=;
- b=aYK9w67+l19pqmrdH76SKTkDYztrmKBR3uPvEk1F+gKslzbfWKraUfS1NkNuEH+Nkv
- knzgjfvbmkvjBMqZCYmZwC6JP48ZZ4k+mLnvBmBER391iteqx/maA4y04QKWk/Y7V19s
- JoozN8Je9I+EuKoZ0cCkfXpRAkMqxQWw5q1VPlLjK/lOL2K1MaS2c7B5Ha9Vzuc88uPI
- /eQ5LCj3SFAFBv8HnnBFcUydQD6mKc1p/LyAC0+aN0Ln4bmFQHNyXaQi8VgSCCki1tbn
- ChIGyFr3/pBR/g1a9RE4JrvGagZE921L0EmCp+TFbm2Jwos1SLIoIbbJRHIChlUg0bDn
- WUgw==
-X-Gm-Message-State: AGi0PuZHeRG3yQ1Izp2oKRFVtPlhhbXdrwNHRuQZkOIA7DVenn2fx/9s
- G4xkOEjpkPJi5mPGM/J9AohpcVLK
-X-Google-Smtp-Source: APiQypKLLb/4nraqpgALgpKd8iz+vfQ7JAfsPWpwM0n08nz7L2d9WISmLI5wtJ2WNVQsMW2lezl6Cw==
-X-Received: by 2002:a37:5b82:: with SMTP id p124mr9950209qkb.130.1585931626693; 
- Fri, 03 Apr 2020 09:33:46 -0700 (PDT)
-Received: from localhost.localdomain ([71.219.40.23])
- by smtp.gmail.com with ESMTPSA id x6sm6583134qke.43.2020.04.03.09.33.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Apr 2020 09:33:46 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/psp: dont warn on missing optional TA's
-Date: Fri,  3 Apr 2020 12:32:39 -0400
-Message-Id: <20200403163239.63400-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=vRK7D6XRv4qzF88vfUoq8jXuhP4RkRq2ayitougv+xM=;
+ b=NCAizyExr4kTrY6dHzrmEXEiZ6tnvKpfVNUMMOnHmseRd9W7PcztknYUUstqGxpSw6
+ eBMOOs+26w+bIbvYnMX0O/2zIPCFWz2gRUGjh8EuF/vlx5N1uBUuG9a8BdLP3aoqOVAP
+ CWJi2uY7n/JMIj1heudnACRLQ8EcmfcQI3I6cicMlv0//TqanoggLKJrRqHmt8YvPPwy
+ YtwFkyxRoqAGvIpGUX/tpC93Lzj+f03cK1gmtb+Et+u1pYZ1KQPa4/9D1VzJgyDg8qh4
+ jAZUlNmd76wjKJ9lwmqpYBA3xS5RqwO/vT/x5tCawt9aYxYVxxB56TZ8uflRlrSLdm17
+ tG4Q==
+X-Gm-Message-State: AGi0Pub/2SFk++76D1bEKj9dK95aJwZLQ2UVWG7YnAoDnf2WQGJSR1Dt
+ EqlV4RjZWsOqe9jWKDuuAdJuf2Wl+Qdn6Wu+rHw=
+X-Google-Smtp-Source: APiQypKBh4u6mJ6lcWT4KmiZ5bAzYYqMxNcHpBmd/7rR+nLC1s23uqRm9Vyxwio3xfZzVjS4BpJcQKUmTq87ya5f4DI=
+X-Received: by 2002:a5d:45d1:: with SMTP id b17mr9827888wrs.111.1585931787674; 
+ Fri, 03 Apr 2020 09:36:27 -0700 (PDT)
 MIME-Version: 1.0
+References: <20200403163035.19177-1-kent.russell@amd.com>
+In-Reply-To: <20200403163035.19177-1-kent.russell@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 3 Apr 2020 12:36:16 -0400
+Message-ID: <CADnq5_MXO7sGC4ThC=5xxxvOUTEo3c1d5h-zipQrC9UPaYg+kg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Re-enable FRU check for most models
+To: Kent Russell <kent.russell@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,57 +72,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace dev_warn() with dev_info() and note that they are
-optional to avoid confusing users.
+On Fri, Apr 3, 2020 at 12:30 PM Kent Russell <kent.russell@amd.com> wrote:
+>
+> There are 2 VG20 SKUs that do not have the FRU on there, and trying to read
+> that will cause a hang. For now, check for the gaming SKU until a proper
+> fix can be implemented. This re-enables serial number reporting for
+> server cards
+>
+> Signed-off-by: Kent Russell <kent.russell@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c | 16 ++++++++++++++--
+>  1 file changed, 14 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+> index bfe4259f9508..9582469a70cb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
+> @@ -31,9 +31,21 @@
+>
+>  bool is_fru_eeprom_supported(struct amdgpu_device *adev)
+>  {
+> -       /* TODO: Resolve supported ASIC type */
+> +       struct atom_context *atom_ctx = adev->mode_info.atom_context;
+>
+> -       return false;
+> +       if (!atom_ctx)
+> +               return false;
+> +
+> +       /* TODO: Gaming SKUs don't have the FRU EEPROM.
+> +        * Use this to address hangs on modprobe on gaming SKUs
+> +        * until a proper solution can be implemented
+> +        */
+> +       if (adev->asic_type == CHIP_VEGA20)
+> +               if (strnstr(atom_ctx->vbios_version, "D360",
+> +                               sizeof(atom_ctx->vbios_version)))
+> +                       return false;
+> +
+> +       return true;
 
-The RAS TAs only exist on server boards and the HDCP and DTM
-TAs only exist on client boards.  They are optional either way.
+I think you want to default to false and only return true if it's a
+vega20 and it's the right vbios version otherwise we'll try to fetch
+the info on all asics.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index dbaeffc4431e..5d67b1838951 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -822,7 +822,7 @@ static int psp_ras_initialize(struct psp_context *psp)
- 
- 	if (!psp->adev->psp.ta_ras_ucode_size ||
- 	    !psp->adev->psp.ta_ras_start_addr) {
--		dev_warn(psp->adev->dev, "RAS: ras ta ucode is not available\n");
-+		dev_info(psp->adev->dev, "RAS: optional ras ta ucode is not available\n");
- 		return 0;
- 	}
- 
-@@ -906,7 +906,7 @@ static int psp_hdcp_initialize(struct psp_context *psp)
- 
- 	if (!psp->adev->psp.ta_hdcp_ucode_size ||
- 	    !psp->adev->psp.ta_hdcp_start_addr) {
--		dev_warn(psp->adev->dev, "HDCP: hdcp ta ucode is not available\n");
-+		dev_info(psp->adev->dev, "HDCP: optional hdcp ta ucode is not available\n");
- 		return 0;
- 	}
- 
-@@ -1052,7 +1052,7 @@ static int psp_dtm_initialize(struct psp_context *psp)
- 
- 	if (!psp->adev->psp.ta_dtm_ucode_size ||
- 	    !psp->adev->psp.ta_dtm_start_addr) {
--		dev_warn(psp->adev->dev, "DTM: dtm ta ucode is not available\n");
-+		dev_info(psp->adev->dev, "DTM: optional dtm ta ucode is not available\n");
- 		return 0;
- 	}
- 
--- 
-2.25.1
-
+>  }
+>
+>  int amdgpu_fru_read_eeprom(struct amdgpu_device *adev, uint32_t addrptr,
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
