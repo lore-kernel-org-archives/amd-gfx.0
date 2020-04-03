@@ -7,102 +7,114 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B19DC43331
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 07:32:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 039A5C43331
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 07:59:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5D752206E9
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 07:32:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C609B2073B
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 07:59:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Xzphowlx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D752206E9
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="RujRK4Aw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C609B2073B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C0976EB17;
-	Fri,  3 Apr 2020 07:32:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C2D46EB1C;
+	Fri,  3 Apr 2020 07:59:05 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2072.outbound.protection.outlook.com [40.107.220.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D7926EB17
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 07:32:54 +0000 (UTC)
+ (mail-co1nam11on2074.outbound.protection.outlook.com [40.107.220.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9DAD6EB1C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 07:59:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=X+uajwgKgHndjduKzLQx/+qQFg7Rx/7wQXlAiDHDcVXsB7oRlH0WWe0AJ3ndkNS4eIhaz+PCvT38Y024ghaT2+aaryV2KfPjF8RumFEqA699iWRNTqj0IrvuKWRc3yH7CevXjnUrVsDPCIcBQEH+hiirLMLNCYxsxkBR5tyzhKJ8kbGyrPSINWso968S4GIUXX+jO/iJFqWys900JBTtj4504ycotzu13dMzNdJVPyuBVyiDbl1CBzFD3C5YsbL00o5tFHIIwj7n8nyV6aDO1VXvFovRzdkos0OICt3uZgk+Q6sJ8B1D4+Am3G2meH5n6x2qG8vZA0J1mv/YCbvA6Q==
+ b=O8O2TaMUlMrTSmrnKwTyICrjn2kPOmnw5x668TPXnCcno5/55XYtYLpmuiOfDuoQY1/oYPHDLgpm9GTTEqJ0BzmgmKjft6IAdrCIJ+JNTmXEZTNVoagMsE7IXMtUGD0KICj8gSYgAs3cih9KCfpLesb62WBH8G1sTTdia6Y6IC0ulTIRVzZINq5qkdvFY7Lf0YQ7Lk2X9DUrTZFktG16QGWfskZePX2PWe45vgbwtvwr2+q6UEXj/fSgsXlB3/JcTF6Bk5V0gyzUQCp3sk+HftTGShLa0i5lddmsY6UZJl5TDUhouAcbS3BMax0Z/4yTEJl7TzfLgpGBlG0KwNcYvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=awmL/ZLRHRNVvgsCqWL+CAlzgZFWmPez/SZhcL92rw4=;
- b=GXJpF/d3e2X0j9e9aVFRMnoTLEKdoRe9NQSvpi3C1nZq4xNiI2MMP+kcRktnYsUzX+dp7Qv66E+Lo6tNdeAmWd7Yoea4+pvFJ1Fetz80FHEdRb/dBVMlt/0FYDjeMFRd+Mgdx3vAyyOgbYKqX4kDLwrx8IuohoHz1LTlLHjWp6wSbRGzehTDruOjdj7yt9y47o8llWvsVwhhf9+GaD9ZcMWU5MVQWp0CrGyjnmfTleP8XyRX+ituIZk8N0eLYFk7iekJ9L6ixe5yHZKyZuh7TyGXDUQjc/iXMW8xkx5xSztHHx7412nNcPtsxXpkOkX42Kvojf9UUWo/lCv6aSuRlw==
+ bh=MsDDtN8sh8/Mt1Kkc04pV5iJkWqAF6mWIoj8ctmSIzA=;
+ b=NpKnESz9piefr3wWpw5hNkdKXWoLeR4O8Jl7b6UKJv0WCBg9p6j1VjJsGGyhrDWZ5vRjz6Rio8FlAzn0jKjiWb4NufSllbhJQliXzrseR57ejuhfm8mzpFlV8L2uWIWjA85NJNX1mZaPJi87IA/MVS3vmEC+NqsQ51B2sM94T+cQ9H43Ixx70zMkit0uhqe+HzYzQLA3afCKfvnqZzmcGWdF6E9/1QRraHJywVEBHQ5UDg6ggzJmiQlismhU9/VdU6f+MMJKP59VcZTZYAm/hUGmnJ74Sia2/uqXI19vF1sJs6pHZCDh+QNhCy03xSU6xrUvS6PSPvjt6yJf5DD8Ag==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=awmL/ZLRHRNVvgsCqWL+CAlzgZFWmPez/SZhcL92rw4=;
- b=XzphowlxcYe6pifVXNgazHsybC4+8KRbYaUQJbR0XhO0sAVL9QeHGYMdXUbsupgcPoo2AwIhvU2MdpSOa1j8/HVAYc7laBSeSMLrXsh8pF+AMeyFdJpmVBWKmtZy1u2jcAgclDtgqJYJ5gBcGtIrZVSVfa6L8fjy8UPPhCTjimk=
-Received: from MN2PR12MB3344.namprd12.prod.outlook.com (2603:10b6:208:c5::10)
- by MN2PR12MB4341.namprd12.prod.outlook.com (2603:10b6:208:262::24)
+ bh=MsDDtN8sh8/Mt1Kkc04pV5iJkWqAF6mWIoj8ctmSIzA=;
+ b=RujRK4Awy718hwMhQSSfV/zgAgzUrvfqUWGani2nwGzYnLqQSF6LrcYhv/4b+5r+JaBrIYxOKFxnrwNAm803A04VO5FN5eTOCaFZHxz1Wyin8YPjuTW2S6wvTjXzU6xmO+sjEiV4HD8XfAbiUTmcSKKl8+mqju2Bijtyn1RReVI=
+Received: from BY5PR12MB4115.namprd12.prod.outlook.com (2603:10b6:a03:20f::20)
+ by BY5PR12MB3985.namprd12.prod.outlook.com (2603:10b6:a03:196::32)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.19; Fri, 3 Apr
- 2020 07:32:51 +0000
-Received: from MN2PR12MB3344.namprd12.prod.outlook.com
- ([fe80::69c7:b493:690:2173]) by MN2PR12MB3344.namprd12.prod.outlook.com
- ([fe80::69c7:b493:690:2173%3]) with mapi id 15.20.2878.016; Fri, 3 Apr 2020
- 07:32:51 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Gui, Jack" <Jack.Gui@amd.com>, "amd-gfx@lists.freedesktop.org"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.16; Fri, 3 Apr
+ 2020 07:59:02 +0000
+Received: from BY5PR12MB4115.namprd12.prod.outlook.com
+ ([fe80::405b:93fe:202d:123b]) by BY5PR12MB4115.namprd12.prod.outlook.com
+ ([fe80::405b:93fe:202d:123b%4]) with mapi id 15.20.2878.016; Fri, 3 Apr 2020
+ 07:59:02 +0000
+From: "Deng, Emily" <Emily.Deng@amd.com>
+To: "Zhou, Tiecheng" <Tiecheng.Zhou@amd.com>, "Zhou, Tiecheng"
+ <Tiecheng.Zhou@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/amdgpu: Correct gfx10's CG sequence
-Thread-Topic: [PATCH] drm/amd/amdgpu: Correct gfx10's CG sequence
-Thread-Index: AQHWCYeRFAUaZK6mtUisSDP40g6Aa6hnAQHA
-Date: Fri, 3 Apr 2020 07:32:51 +0000
-Message-ID: <MN2PR12MB334481AD5BA7E42A0F1A61F3E4C70@MN2PR12MB3344.namprd12.prod.outlook.com>
-References: <1585898013-7972-1-git-send-email-Jack.Gui@amd.com>
-In-Reply-To: <1585898013-7972-1-git-send-email-Jack.Gui@amd.com>
-Accept-Language: en-US, zh-CN
+Subject: RE: [PATCH] drm/amd/powerplay: avoid using pm_en before it is
+ initialized
+Thread-Topic: [PATCH] drm/amd/powerplay: avoid using pm_en before it is
+ initialized
+Thread-Index: AQHWCNE+hTzuefFabE+InlbYjviFN6hm0tCAgAA27AA=
+Date: Fri, 3 Apr 2020 07:59:02 +0000
+Message-ID: <BY5PR12MB4115D4E1FFA9C90D109A9E508FC70@BY5PR12MB4115.namprd12.prod.outlook.com>
+References: <20200402092833.30558-1-Tiecheng.Zhou@amd.com>
+ <MN2PR12MB377583766525C1130B8FD895E4C70@MN2PR12MB3775.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB377583766525C1130B8FD895E4C70@MN2PR12MB3775.namprd12.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=1cab8ab0-18f7-42e7-b0d4-00006a907c95;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-04-03T04:42:01Z; 
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-04-03T07:32:31Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=36746590-739e-4baa-b77f-00001b8b7407;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-04-03T07:58:59Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 58830a10-ffaf-4408-8361-00006abefe01
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Evan.Quan@amd.com; 
+ smtp.mailfrom=Emily.Deng@amd.com; 
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: d546c4f4-8a7f-42bf-2095-08d7d7a13757
-x-ms-traffictypediagnostic: MN2PR12MB4341:|MN2PR12MB4341:
+x-ms-office365-filtering-correlation-id: 95567af9-f260-4f32-2ead-08d7d7a4dfaf
+x-ms-traffictypediagnostic: BY5PR12MB3985:|BY5PR12MB3985:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <MN2PR12MB434121F2568E4D857B6578B0E4C70@MN2PR12MB4341.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2733;
+x-microsoft-antispam-prvs: <BY5PR12MB398521481B090FDD24176C078FC70@BY5PR12MB3985.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5516;
 x-forefront-prvs: 0362BF9FDB
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3344.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:BY5PR12MB4115.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(396003)(136003)(366004)(346002)(376002)(39860400002)(66446008)(54906003)(71200400001)(33656002)(26005)(316002)(55016002)(478600001)(4326008)(186003)(9686003)(6506007)(2906002)(53546011)(5660300002)(66556008)(8676002)(7696005)(86362001)(110136005)(64756008)(8936002)(81166006)(52536014)(81156014)(66946007)(66476007)(76116006);
+ SFS:(10009020)(4636009)(346002)(39860400002)(376002)(366004)(396003)(136003)(8676002)(2906002)(5660300002)(110136005)(9686003)(81166006)(26005)(81156014)(478600001)(186003)(52536014)(45080400002)(86362001)(33656002)(8936002)(64756008)(66476007)(55016002)(7696005)(66946007)(66556008)(66446008)(76116006)(4326008)(316002)(71200400001)(6506007);
  DIR:OUT; SFP:1101; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: LMNWh/kCxQTyNUBq7Xl12XnS74QJEmb2HnLQQVqCoWBM8fuMGmyy5C5qLEyvwUuNOYI65tKo36uCiTpQeue9iTP3Fu+nGxdA9EXKiSKB/v6xOUDERIimrExw4IBvRWVVg26VJAmQ3z7FskxCjBP5zTpx8lMUuv8yY+o8g8f3pmcnqUfye54rc5vEJtypnfcwkZ8295QZukZVk8FhPuqOthSuHEbL2K40vzdi5bgpmUpGjcAts+lp692Sr7/YwZ30XfX7NJrQbOfZ59tKrDEjIz9ejm52Z88uxr73dBeL2KzgF0wHIu70ZBo2zgk3g1+ZYHG/XgL65lJlizy3jo/Pcyi+iW1ozCgarmo73zdtxDhcvu2MD3iuH/3IqZsQXrH6yuOzXACz1QkOmjKe92w+PZaDqKuezKDcQ7CcxJltYad2Mst93GiUbieIYHI+l66t
-x-ms-exchange-antispam-messagedata: auwLGgySYrh3rkWVIdpKKy9ET0GamU5ujW+LV4NkJdxAL+8rORJIGksDRxpECWiir6t0LbMR4SFw07zZtqMe/w1tkc91/YqjHi4uaTUe0V5utEcibdKJFpVPuo5Aie3ojligm97OcbYVJlP1CD//uw==
+x-microsoft-antispam-message-info: xw0IHyGUIewI88032ANoUSeAOcUOQ/WjY+Xeyd5OMD+7wPFnGg2CzUEM52cCErzxpsrpBaJpbe/p18nvlWGUiFRr7s+oIjtIYaZ2Nmqk57Hj4yQZq+Sox0gdxKraDqvhw1QIH5VSMDSPlFDRicbIFCcBeQ5ErvNjBoBf4kWEE0MX/9OMvsLvsFE7svlHoCmFuJb2+oVffMbyicG8Id/1qVQIw8urcYcP/U5jxeqYKvOvmgh3U6SXLlQKttiXyYhd3OjZjvpCSLceu8660uJFiM+K95yIN5cxy4ti/JNyF0Iesj7wnlbatjB3tEHhZb3ybNnF850WgG6lwmdFYxoVgOacCplVEaj5FbqRwKCgqvzCRT9GFSLDNTgP9Vc4ZmIFJ4trhA42sac7gLviHnkViPvOuZdwV3nbYVultmrWCM2ySf7ofTtYcKLxlC7HBNlydIKEGeOUsPM1OfPTJbFrZ1ZP7vPk5Kz7wf8by7LmJMg=
+x-ms-exchange-antispam-messagedata: kNz1D+fV3MCugdO8/SRZUsDxaWOK4hB98XUWYDjEuH8t2SYttkBZrjAKvWJY4aoRdtTfr0hnZR3QknBHcwgg8VcHDGTisIOzVQpwuTKMwigN/BN2RQJ4A6NRrvcLMDQlW/n4szJPTGLTXPalGm/ARA==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d546c4f4-8a7f-42bf-2095-08d7d7a13757
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2020 07:32:51.3468 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95567af9-f260-4f32-2ead-08d7d7a4dfaf
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Apr 2020 07:59:02.1711 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WjMGGzDyGkph2f1yGm8DfMTNQGL5FaFQcwQUgEHDK4fE0h/p41Jcfif7iZPbajs2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4341
+X-MS-Exchange-CrossTenant-userprincipalname: aUVghv9Yuj3XSvFEmf0f/GqnjGDE5/8V5BVpQzPzBWue9fK634ksIQO5Kyj4Uskw
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3985
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,91 +126,79 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Xu, Feifei" <Feifei.Xu@amd.com>, "Yin,
- Tianci \(Rico\)" <Tianci.Yin@amd.com>, "Feng, Kenneth" <Kenneth.Feng@amd.com>,
- "Gui, Jack" <Jack.Gui@amd.com>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
+Cc: "Tao, Yintian" <Yintian.Tao@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Evan Quan <evan.quan@amd.com>
+[AMD Official Use Only - Internal Distribution Only]
 
------Original Message-----
-From: Chengming Gui <Jack.Gui@amd.com> 
-Sent: Friday, April 3, 2020 3:14 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Quan, Evan <Evan.Quan@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; Yin, Tianci (Rico) <Tianci.Yin@amd.com>; Xu, Feifei <Feifei.Xu@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; Gui, Jack <Jack.Gui@amd.com>
-Subject: [PATCH] drm/amd/amdgpu: Correct gfx10's CG sequence
+Reviewed-by: Emily Deng <Emily.Deng@amd.com>
 
-Incorrect CG sequence will cause gfx timedout,
-if we keep switching power profile mode
-(enter profile mod such as PEAK will disable CG,
-exit profile mode EXIT will enable CG)
-when run Vulkan test case(case used for test: vkexample).
-
-Signed-off-by: Chengming Gui <Jack.Gui@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 51be7aa..1439dd9 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4097,6 +4097,12 @@ static void gfx_v10_0_update_medium_grain_clock_gating(struct amdgpu_device *ade
- 
- 	/* It is disabled by HW by default */
- 	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_MGCG)) {
-+		/* 0 - Disable some blocks' MGCG */
-+		WREG32_SOC15(GC, 0, mmGRBM_GFX_INDEX, 0xe0000000);
-+		WREG32_SOC15(GC, 0, mmCGTT_WD_CLK_CTRL, 0xff000000);
-+		WREG32_SOC15(GC, 0, mmCGTT_VGT_CLK_CTRL, 0xff000000);
-+		WREG32_SOC15(GC, 0, mmCGTT_IA_CLK_CTRL, 0xff000000);
-+
- 		/* 1 - RLC_CGTT_MGCG_OVERRIDE */
- 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
- 		data &= ~(RLC_CGTT_MGCG_OVERRIDE__GRBM_CGTT_SCLK_OVERRIDE_MASK |
-@@ -4136,19 +4142,20 @@ static void gfx_v10_0_update_medium_grain_clock_gating(struct amdgpu_device *ade
- 		if (def != data)
- 			WREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE, data);
- 
--		/* 2 - disable MGLS in RLC */
-+		/* 2 - disable MGLS in CP */
-+		data = RREG32_SOC15(GC, 0, mmCP_MEM_SLP_CNTL);
-+		if (data & CP_MEM_SLP_CNTL__CP_MEM_LS_EN_MASK) {
-+			data &= ~CP_MEM_SLP_CNTL__CP_MEM_LS_EN_MASK;
-+			WREG32_SOC15(GC, 0, mmCP_MEM_SLP_CNTL, data);
-+		}
-+
-+		/* 3 - disable MGLS in RLC */
- 		data = RREG32_SOC15(GC, 0, mmRLC_MEM_SLP_CNTL);
- 		if (data & RLC_MEM_SLP_CNTL__RLC_MEM_LS_EN_MASK) {
- 			data &= ~RLC_MEM_SLP_CNTL__RLC_MEM_LS_EN_MASK;
- 			WREG32_SOC15(GC, 0, mmRLC_MEM_SLP_CNTL, data);
- 		}
- 
--		/* 3 - disable MGLS in CP */
--		data = RREG32_SOC15(GC, 0, mmCP_MEM_SLP_CNTL);
--		if (data & CP_MEM_SLP_CNTL__CP_MEM_LS_EN_MASK) {
--			data &= ~CP_MEM_SLP_CNTL__CP_MEM_LS_EN_MASK;
--			WREG32_SOC15(GC, 0, mmCP_MEM_SLP_CNTL, data);
--		}
- 	}
- }
- 
-@@ -4259,7 +4266,7 @@ static int gfx_v10_0_update_gfx_clock_gating(struct amdgpu_device *adev,
- 		/* ===  CGCG /CGLS for GFX 3D Only === */
- 		gfx_v10_0_update_3d_clock_gating(adev, enable);
- 		/* ===  MGCG + MGLS === */
--		gfx_v10_0_update_medium_grain_clock_gating(adev, enable);
-+		/* gfx_v10_0_update_medium_grain_clock_gating(adev, enable); */
- 	}
- 
- 	if (adev->cg_flags &
--- 
-2.7.4
-
+>-----Original Message-----
+>From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Zhou,
+>Tiecheng
+>Sent: Friday, April 3, 2020 12:42 PM
+>To: Zhou, Tiecheng <Tiecheng.Zhou@amd.com>; amd-
+>gfx@lists.freedesktop.org
+>Cc: Tao, Yintian <Yintian.Tao@amd.com>
+>Subject: RE: [PATCH] drm/amd/powerplay: avoid using pm_en before it is
+>initialized
+>
+>[AMD Official Use Only - Internal Distribution Only]
+>
+>Ping...
+>
+>-----Original Message-----
+>From: Tiecheng Zhou <Tiecheng.Zhou@amd.com>
+>Sent: Thursday, April 2, 2020 5:29 PM
+>To: amd-gfx@lists.freedesktop.org
+>Cc: Zhou, Tiecheng <Tiecheng.Zhou@amd.com>; Tao, Yintian
+><Yintian.Tao@amd.com>
+>Subject: [PATCH] drm/amd/powerplay: avoid using pm_en before it is
+>initialized
+>
+>hwmgr->pm_en is initialized at hwmgr_hw_init.
+>during amdgpu_device_init, there is amdgpu_asic_reset that calls to
+>pp_get_asic_baco_capability, while hwmgr->pm_en has not yet been
+>initialized.
+>
+>so avoid using pm_en in pp_get_asic_baco_capability.
+>
+>Signed-off-by: Tiecheng Zhou <Tiecheng.Zhou@amd.com>
+>Signed-off-by: Yintian Tao <yttao@amd.com>
+>---
+> drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 3 ++-
+> 1 file changed, 2 insertions(+), 1 deletion(-)
+>
+>diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+>b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+>index 71b843f542d8..fdff3e1c5e95 100644
+>--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+>+++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+>@@ -1455,7 +1455,8 @@ static int pp_get_asic_baco_state(void *handle, int
+>*state)
+> 	if (!hwmgr)
+> 		return -EINVAL;
+>
+>-	if (!hwmgr->pm_en || !hwmgr->hwmgr_func->get_asic_baco_state)
+>+	if (!(hwmgr->not_vf && amdgpu_dpm) ||
+>+		!hwmgr->hwmgr_func->get_asic_baco_state)
+> 		return 0;
+>
+> 	mutex_lock(&hwmgr->smu_lock);
+>--
+>2.17.1
+>_______________________________________________
+>amd-gfx mailing list
+>amd-gfx@lists.freedesktop.org
+>https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.fre
+>edesktop.org%2Fmailman%2Flistinfo%2Famd-
+>gfx&amp;data=02%7C01%7CEmily.Deng%40amd.com%7Cfc7cc02f1db043b393
+>1108d7d7895f4d%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637
+>214857946885870&amp;sdata=J8iQUQc8phHtblO1gn9TkoI%2BJ%2BehvD4RVfi
+>7MybTuCQ%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
