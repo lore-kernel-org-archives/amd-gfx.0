@@ -2,100 +2,72 @@ Return-Path: <SRS0=u9ZA=5T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AFCBFC43331
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 17:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27C99C43331
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 18:00:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 423C2206F6
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 17:09:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DFA8E206F5
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 18:00:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="SOnPshTP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 423C2206F6
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ugedal.com header.i=@ugedal.com header.b="JYtJwflt"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DFA8E206F5
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ugedal.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08F516EC2D;
-	Fri,  3 Apr 2020 17:09:11 +0000 (UTC)
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690051.outbound.protection.outlook.com [40.107.69.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B8866EC2D
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 17:09:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O0pUSzTYqtK+XeP6C9PXXiR8b1gklyvXaXvmJY40tKxD2UG2uiAgyKJULRmf2iqdx2YmcGhFz6CRH23/OEnhZP6I6gXzD5Dqs9poW1C9TiAaF9Q8dXnYWq8OWdU61+8PhCVhhX+ch9y0kEdBQ7pDMsHZ04UwCp8qqdqXqnaj5R9aj1jhp5LzieuHpY4IpqLbEJE7N/BmsuD7vvWRup2yZ7m+zEmQgHLNuj57Ix6m4Sxi57H14SWfeRdewTRDmikH/GZ+i4oIO5rDthlzY4H3yap28dfjUTQf9meRMmBW+ViCg2Y92jyiMFP+i5q5r1MCVWWHS9lVi5JkOoWk2tzHrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LJfoHxu8AUtSut1FyLGtPbGSQHJ02EmfFYEHkslm0LE=;
- b=G/A1E5r4W4HeJxfCAbshu8kew/uSeS36+6401N1fE0U66k5vPCNEpyZjCXNqtS1oyshu/145RGulopiRTzxazeutbVhx2k4WdFh30mkuInkOZUdfX2TRQmn7+GYTz5xJKPxQKMjecCWVtx5uePqXeucDl8KpaXIymUOL/DRRG0GzDl3K17DcgXLDnn2D18aGvfKyFjqeNpUgQU+JchhqJFSFhTz4wkv0W2gLW5Dr5V9vg7209og37p7nl2bUW5UwDFW+gplRvcY5T3sU9VVIPYOAzCRaDr0sLWIEQzYhc+XewrpM48Ga3fGPzveJYzu3vp7pDLwRHFP8Y5H6p1/IbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LJfoHxu8AUtSut1FyLGtPbGSQHJ02EmfFYEHkslm0LE=;
- b=SOnPshTPjGIhpC129dBEH8dgmVKAVTPFq+h3/WuJaDZNn213MO8ZjPuXb5FFZlHiT4s61RdU9Z1fzSWQTwH/a3qDGVHqU/+53PoJrxCSFYDde0x7PfKtX/hPXFd5JFUS4apxJfdqRixZaPJN1eZDaqmB0iAc9vKwiQADsei+Sew=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Kent.Russell@amd.com; 
-Received: from DM6PR12MB3721.namprd12.prod.outlook.com (2603:10b6:5:1c2::18)
- by DM6PR12MB4314.namprd12.prod.outlook.com (2603:10b6:5:211::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2856.19; Fri, 3 Apr
- 2020 17:09:08 +0000
-Received: from DM6PR12MB3721.namprd12.prod.outlook.com
- ([fe80::f8bd:4765:eb5b:a7a5]) by DM6PR12MB3721.namprd12.prod.outlook.com
- ([fe80::f8bd:4765:eb5b:a7a5%2]) with mapi id 15.20.2878.018; Fri, 3 Apr 2020
- 17:09:08 +0000
-From: Kent Russell <kent.russell@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: Re-enable FRU check for most models v3
-Date: Fri,  3 Apr 2020 13:08:56 -0400
-Message-Id: <20200403170856.7397-1-kent.russell@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: YTBPR01CA0011.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::24) To DM6PR12MB3721.namprd12.prod.outlook.com
- (2603:10b6:5:1c2::18)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAC476EC5A;
+	Fri,  3 Apr 2020 18:00:26 +0000 (UTC)
+Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
+ [IPv6:2a00:1450:4864:20::244])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 75D756EC55
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 17:55:40 +0000 (UTC)
+Received: by mail-lj1-x244.google.com with SMTP id t17so7829727ljc.12
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 Apr 2020 10:55:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugedal.com; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=FPIH9Cepkvfx+qnRWFWOtOody6sfKssdMr1NGqEz4tY=;
+ b=JYtJwfltQr8Gy7OcS6GPL1nxZiPr6yZsZVksURjdfhhaIOMAvowZok4L/vE6sJ1+KT
+ ux3maGBK7iXLCNElB/EPonnQYhUDwD1FjJ86tQSvKoVL98kTwWToj4VlflIvYTKUKd/L
+ f3tuRC18LMu25zYYrYN1dU84yP41jsHanLBa/5k/P9nxOV/rM/vPmEgo0IulFCcHhwWG
+ /rN4xbDZ2Wk7p6qik4ctf/3NBqy4Z0ee5iUPBwltKmFKYIh8ZCvsOszFGnWyv8aamKTU
+ kXD0uwh5+NQCLnwXLupvvY/Ed3v+zQlkBHRVCntRbvdtBCpmaoe7nAtUh1AwNqKr8WZx
+ UQFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=FPIH9Cepkvfx+qnRWFWOtOody6sfKssdMr1NGqEz4tY=;
+ b=Ji/yi8ufv5oLlxlOK/eb7Gv314469zAyrEZS6Kt0Lwvmc/ZxtBLUwPko8HHgG0dmmf
+ pTcAPx8jdDoRVbK5ax9KkhKpgkrnp2zINGJcKw2nwpIwPWigrYUU4buieHd4HVTVPOj1
+ vKnftkpMV7CRK3obNP8FFvLt/19BYLQAcQ1HNIwdaJZhx308QB5Me3EUof6YSCjYwSLB
+ l1ByLGt8OaSwhdQDf0lDi8yDB1ucqnnNNu827vAV0a8TcUPaS1dokuedaYVHT2xLmcWX
+ 3divcMbmAqWy4e4xTp4WJpbULKRRHZVgPNw5XefzX5rU5qdP+Clzcn4ecfygYiNbKR15
+ O9bQ==
+X-Gm-Message-State: AGi0PuYzn+Ca+hscOYN6SwH1LP2Nuu8WqnleTu8IsaxL9E/3uO6V5uVX
+ 75rc0fwmTQy7+kU3g4c6S2y5+w==
+X-Google-Smtp-Source: APiQypLCS+GwPGR8/cw+HpaBaDNdQMQ2twj7URTyHCsJPzGMMY5IVfeNWB6r16JXEq/68SuRQcA+bA==
+X-Received: by 2002:a2e:8612:: with SMTP id a18mr5165463lji.250.1585936538737; 
+ Fri, 03 Apr 2020 10:55:38 -0700 (PDT)
+Received: from xps13.lan (238.89-10-169.nextgentel.com. [89.10.169.238])
+ by smtp.gmail.com with ESMTPSA id q20sm5267600ljj.66.2020.04.03.10.55.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Apr 2020 10:55:37 -0700 (PDT)
+From: Odin Ugedal <odin@ugedal.com>
+To: bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tj@kernel.org,
+ Harish.Kasiviswanathan@amd.com, guro@fb.com, amd-gfx@lists.freedesktop.org
+Subject: [PATCH] device_cgroup: Cleanup cgroup eBPF device filter code
+Date: Fri,  3 Apr 2020 19:55:28 +0200
+Message-Id: <20200403175528.225990-1-odin@ugedal.com>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from krussell.amd.com (165.204.55.251) by
- YTBPR01CA0011.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2878.15 via Frontend Transport; Fri, 3 Apr 2020 17:09:07 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 616b9039-2aa4-4d23-dba4-08d7d7f1b876
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4314:|DM6PR12MB4314:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB431410483AB9DAF41D8AE8F785C70@DM6PR12MB4314.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-Forefront-PRVS: 0362BF9FDB
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3721.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(39860400002)(136003)(376002)(396003)(366004)(346002)(52116002)(8936002)(44832011)(956004)(81166006)(4326008)(81156014)(316002)(16526019)(186003)(2616005)(8676002)(6666004)(6916009)(6486002)(2906002)(36756003)(5660300002)(66946007)(7696005)(66556008)(66476007)(26005)(478600001)(1076003)(86362001);
- DIR:OUT; SFP:1101; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Fj+NBTRodIw6Vcp484a0q2gDnrUixNDI8GX7St69760g+Etz0aUVdcN3Fq90KACFLzeyaKU69dyb55/a+ESn21OIF0A7hupuepm6p5dLRgISNrRAKK9lexklBzauWE+tAUpMJ21h87TpkghUkHZZT/6Ggm0Iv7fRdKaQE3W9HoaVFCO7yIJA1jUKjCKMo3uQNpHaP/TjI1nb9kBVO936DRORvNkpHwnf0p4kJV6mHjxtdTgRLoHmKh43Nsn3VY6TPQ5SY8hQLcof0p5PgI4zs9LCqnq0eet0pQJKrjb02dJAzZC+Vb2yP11dBPD4PLWRkKV95c2SQoxz/XArJQI85TkVgTRj191fioCj3AovUH9tVG+DdhsHopZfZ00Sgb8JGZcN+3PCGyJQymtGzHvqVlwZmgwlOROb2zbxzOMsiAHqIcnRY3PmCIhMINf4YpGQ
-X-MS-Exchange-AntiSpam-MessageData: cRCYum1D9/45mFbFOoPk98txAPc/xO6VUZRnDjKYdX+TCZtdoIKd/B31a9OWvXriYAYZuxv5kDZ7gKAclBeQvLt0/cMBRJoi7YUBNQ+MxEm77+UGUcMRk/AC/+CrUEeOUw2XPGAhn+EZ0sYRa78xCw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 616b9039-2aa4-4d23-dba4-08d7d7f1b876
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2020 17:09:08.0170 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WTVsBkU3leBGUD+jUJzgl6V+vh6iQNygAvJkDAfzsVUO8BNOeT9xfc3R8O/LQn8aVduosppmhgNvANynBrTDrA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4314
+X-Mailman-Approved-At: Fri, 03 Apr 2020 18:00:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,61 +79,157 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kent Russell <kent.russell@amd.com>
+Cc: Odin Ugedal <odin@ugedal.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are 2 VG20 SKUs that do not have the FRU on there, and trying to read
-that will cause a hang. For now, check for the gaming SKU until a proper
-fix can be implemented. This re-enables serial number reporting for
-server cards
+Original cgroup v2 eBPF code for filtering device access made it
+possible to compile with CONFIG_CGROUP_DEVICE=n and still use the eBPF
+filtering. Change 
+commit 4b7d4d453fc4 ("device_cgroup: Export devcgroup_check_permission")
+reverted this, making it required to set it to y.
 
-v2: Add ASIC check
-v3: Don't default to true for pre-VG10
+Since the device filtering (and all the docs) for cgroup v2 is no longer
+a "device controller" like it was in v1, someone might compile their
+kernel with CONFIG_CGROUP_DEVICE=n. Then (for linux 5.5+) the eBPF
+filter will not be invoked, and all processes will be allowed access
+to all devices, no matter what the eBPF filter says.
 
-Signed-off-by: Kent Russell <kent.russell@amd.com>
+Signed-off-by: Odin Ugedal <odin@ugedal.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c    | 22 +++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h |  2 +-
+ include/linux/device_cgroup.h         | 14 +++++---------
+ security/Makefile                     |  2 +-
+ security/device_cgroup.c              | 19 ++++++++++++++++---
+ 4 files changed, 23 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-index bfe4259f9508..508906177cad 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fru_eeprom.c
-@@ -31,9 +31,27 @@
- 
- bool is_fru_eeprom_supported(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 4a3049841086..c24cad3c64ed 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -1050,7 +1050,7 @@ void kfd_dec_compute_active(struct kfd_dev *dev);
+ /* Check with device cgroup if @kfd device is accessible */
+ static inline int kfd_devcgroup_check_permission(struct kfd_dev *kfd)
  {
--	/* TODO: Resolve supported ASIC type */
-+	struct atom_context *atom_ctx = adev->mode_info.atom_context;
+-#if defined(CONFIG_CGROUP_DEVICE)
++#if defined(CONFIG_CGROUP_DEVICE) || defined(CONFIG_CGROUP_BPF)
+ 	struct drm_device *ddev = kfd->ddev;
  
--	return false;
-+	if (!atom_ctx)
-+		return false;
-+
-+	/* TODO: Gaming SKUs don't have the FRU EEPROM.
-+	 * Use this to address hangs on modprobe on gaming SKUs
-+	 * until a proper solution can be implemented
-+	 */
-+	switch (adev->asic_type) {
-+	case CHIP_VEGA20:
-+		if (strnstr(atom_ctx->vbios_version, "D360",
-+				sizeof(atom_ctx->vbios_version)))
-+			return false;
-+		return true;
-+	case CHIP_ARCTURUS:
-+		/* There are no gaming Arcturus SKUs */
-+		return true;
-+	default:
-+		return false;
-+	}
+ 	return devcgroup_check_permission(DEVCG_DEV_CHAR, ddev->driver->major,
+diff --git a/include/linux/device_cgroup.h b/include/linux/device_cgroup.h
+index fa35b52e0002..9a72214496e5 100644
+--- a/include/linux/device_cgroup.h
++++ b/include/linux/device_cgroup.h
+@@ -1,6 +1,5 @@
+ /* SPDX-License-Identifier: GPL-2.0 */
+ #include <linux/fs.h>
+-#include <linux/bpf-cgroup.h>
+ 
+ #define DEVCG_ACC_MKNOD 1
+ #define DEVCG_ACC_READ  2
+@@ -11,16 +10,10 @@
+ #define DEVCG_DEV_CHAR  2
+ #define DEVCG_DEV_ALL   4  /* this represents all devices */
+ 
+-#ifdef CONFIG_CGROUP_DEVICE
+-int devcgroup_check_permission(short type, u32 major, u32 minor,
+-			       short access);
+-#else
+-static inline int devcgroup_check_permission(short type, u32 major, u32 minor,
+-					     short access)
+-{ return 0; }
+-#endif
+ 
+ #if defined(CONFIG_CGROUP_DEVICE) || defined(CONFIG_CGROUP_BPF)
++int devcgroup_check_permission(short type, u32 major, u32 minor,
++			       short access);
+ static inline int devcgroup_inode_permission(struct inode *inode, int mask)
+ {
+ 	short type, access = 0;
+@@ -61,6 +54,9 @@ static inline int devcgroup_inode_mknod(int mode, dev_t dev)
  }
  
- int amdgpu_fru_read_eeprom(struct amdgpu_device *adev, uint32_t addrptr,
+ #else
++static inline int devcgroup_check_permission(short type, u32 major, u32 minor,
++			       short access)
++{ return 0; }
+ static inline int devcgroup_inode_permission(struct inode *inode, int mask)
+ { return 0; }
+ static inline int devcgroup_inode_mknod(int mode, dev_t dev)
+diff --git a/security/Makefile b/security/Makefile
+index 22e73a3482bd..3baf435de541 100644
+--- a/security/Makefile
++++ b/security/Makefile
+@@ -30,7 +30,7 @@ obj-$(CONFIG_SECURITY_YAMA)		+= yama/
+ obj-$(CONFIG_SECURITY_LOADPIN)		+= loadpin/
+ obj-$(CONFIG_SECURITY_SAFESETID)       += safesetid/
+ obj-$(CONFIG_SECURITY_LOCKDOWN_LSM)	+= lockdown/
+-obj-$(CONFIG_CGROUP_DEVICE)		+= device_cgroup.o
++obj-$(CONFIG_CGROUPS)			+= device_cgroup.o
+ obj-$(CONFIG_BPF_LSM)			+= bpf/
+ 
+ # Object integrity file lists
+diff --git a/security/device_cgroup.c b/security/device_cgroup.c
+index 7d0f8f7431ff..43ab0ad45c1b 100644
+--- a/security/device_cgroup.c
++++ b/security/device_cgroup.c
+@@ -15,6 +15,8 @@
+ #include <linux/rcupdate.h>
+ #include <linux/mutex.h>
+ 
++#ifdef CONFIG_CGROUP_DEVICE
++
+ static DEFINE_MUTEX(devcgroup_mutex);
+ 
+ enum devcg_behavior {
+@@ -792,7 +794,7 @@ struct cgroup_subsys devices_cgrp_subsys = {
+ };
+ 
+ /**
+- * __devcgroup_check_permission - checks if an inode operation is permitted
++ * devcgroup_legacy_check_permission - checks if an inode operation is permitted
+  * @dev_cgroup: the dev cgroup to be tested against
+  * @type: device type
+  * @major: device major number
+@@ -801,7 +803,7 @@ struct cgroup_subsys devices_cgrp_subsys = {
+  *
+  * returns 0 on success, -EPERM case the operation is not permitted
+  */
+-static int __devcgroup_check_permission(short type, u32 major, u32 minor,
++static int devcgroup_legacy_check_permission(short type, u32 major, u32 minor,
+ 					short access)
+ {
+ 	struct dev_cgroup *dev_cgroup;
+@@ -825,6 +827,10 @@ static int __devcgroup_check_permission(short type, u32 major, u32 minor,
+ 	return 0;
+ }
+ 
++#endif /* CONFIG_CGROUP_DEVICE */
++
++#if defined(CONFIG_CGROUP_DEVICE) || defined(CONFIG_CGROUP_BPF)
++
+ int devcgroup_check_permission(short type, u32 major, u32 minor, short access)
+ {
+ 	int rc = BPF_CGROUP_RUN_PROG_DEVICE_CGROUP(type, major, minor, access);
+@@ -832,6 +838,13 @@ int devcgroup_check_permission(short type, u32 major, u32 minor, short access)
+ 	if (rc)
+ 		return -EPERM;
+ 
+-	return __devcgroup_check_permission(type, major, minor, access);
++	#ifdef CONFIG_CGROUP_DEVICE
++	return devcgroup_legacy_check_permission(type, major, minor, access);
++
++	#else /* CONFIG_CGROUP_DEVICE */
++	return 0;
++
++	#endif /* CONFIG_CGROUP_DEVICE */
+ }
+ EXPORT_SYMBOL(devcgroup_check_permission);
++#endif /* defined(CONFIG_CGROUP_DEVICE) || defined(CONFIG_CGROUP_BPF) */
 -- 
-2.17.1
+2.26.0
 
 _______________________________________________
 amd-gfx mailing list
