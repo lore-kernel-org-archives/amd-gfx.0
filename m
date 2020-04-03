@@ -2,66 +2,72 @@ Return-Path: <SRS0=u9ZA=5T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2CD27C43331
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 15:18:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8299DC43331
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 15:21:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F265420678
-	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 15:18:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 555E3206A3
+	for <amd-gfx@archiver.kernel.org>; Fri,  3 Apr 2020 15:21:51 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="xoxqCrbB"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F265420678
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QQmrV83s"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 555E3206A3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFDCD6E158;
-	Fri,  3 Apr 2020 15:18:43 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org
- [IPv6:2001:8b0:10b:1231::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69A4F6EB71
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 11:21:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=Xf4j8+2qvSkoJeupk2bcPoSbCSUjVqAszySE+PCmsjY=; b=xoxqCrbBcGuj9CmtG2xpCSMoH3
- QMpy0mHxSvnD8tScX1dLuaWF7CwCNNfqqeUbGj1T/EWps6Ptc26fO/O4MW+rt2HmjW4PQfCYdR53n
- kGtzWOa00Vdki/TCJJMoQwXnW5scr2Wwga7P8+ABxZ6QgRAyg+6ebA9uN153YYX4nEbV2z3Xpmpll
- 3zvLgs9uMshpe/JM1/OwsESkcF/wNwTBVxT00b695fbmpAz226mYEbzXasbOY48EeWz4e6BuA0qHl
- +Xht1LDRUL2UMitxBu003FBe4lOzkgJl2vp7v4evXNnLBXjIbEg6vzXsU34wlZDibRyQXoNQsTh9d
- HRJQxCaQ==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jKKNw-0005FU-DJ; Fri, 03 Apr 2020 11:21:16 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 47DDD30477A;
- Fri,  3 Apr 2020 13:21:13 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 31AC12B122108; Fri,  3 Apr 2020 13:21:13 +0200 (CEST)
-Date: Fri, 3 Apr 2020 13:21:13 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Subject: Re: AMD DC graphics display code enables -mhard-float, -msse, -msse2
- without any visible FPU state protection
-Message-ID: <20200403112113.GN20730@hirez.programming.kicks-ass.net>
-References: <CAG48ez2Sx4ELkM94aD_h_J7K7KBOeuGmvZLKRkg3n_f2WoZ_cg@mail.gmail.com>
- <4c5fe55d-9db9-2f61-59b2-1fb2e1b45ed0@amd.com>
- <20200402141308.GB20730@hirez.programming.kicks-ass.net>
- <20200403142837.f61a18d7bd32fd73777479ad@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CB706E159;
+	Fri,  3 Apr 2020 15:21:51 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2A06E159
+ for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 15:21:50 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id d77so7550784wmd.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 03 Apr 2020 08:21:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=EfXCOuTLg1+MluS/N/oSWoIlYQttdhidQaMCI2QdZrE=;
+ b=QQmrV83s9Ddz8Q1SdmQP76ctDYo8k2g3AYeSLQVW2X+gMPJWZ/NaL9s0DlWhA5nE+V
+ aW6r6pWmilmqQu0JRJ3rRk7BpCXLKZILqG9lf7/w36OR8WKAA3fAGC3YDa5dPOsOkaa8
+ Yx1qxONGWexOhnsgTMiEVA7iPL9dfEzkwjxtnd5ejOjUKPlqNlZk/5b4bcWw9TWxircd
+ 8lwnwnFoJrJNfS2NoTqs7jjT7K4IbCVVt6nlIbPiipgihP4ICcJkya+GzqYorSN1pWLP
+ x3RnP1OAN5SB3fOBcAuGw3Y/UfAi+ktBPe7Adm5aHM3iT8mR6KwJxWO4hktPtkB97kbv
+ jypA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=EfXCOuTLg1+MluS/N/oSWoIlYQttdhidQaMCI2QdZrE=;
+ b=ReOZK7i2hnQ2aHb1h805ITAr3dYiJSwMBdGhbOkMMIBZwHsHBMQSOAiyUe3ioa9axi
+ LGpidZwGckTW6Beg5pu60rGNDqEcQ6o8A0QGzPVc7VZ4Mj1wcGRRl6THbV1cFF5Vq0Nz
+ PKZyvkoiMA8svK197XkSW3I/iXgMxhLV9xbfjqLXNb6TO5tuwXmdkKCO6YTCHKvxSHDc
+ fFXHmfiAnhl4ZzaABGmeArOwW2lm24lpcMTmQxt9ZEdccPaeA7P1qRNZPzvBroKkOLni
+ SPk+YelxNpOSG3r0eJBN/bCTOh/9Fp4JKOjLCf76IqeoSLxEiyB+9aDD+S5pKOgr3nX0
+ aLGA==
+X-Gm-Message-State: AGi0PuZb9su6RK0nOVHKl8PHtJ68rAZ0LBrYvfg+8P6P8ek3NhgkBPIE
+ wy6JgLOpg9XDJroYntcQF3ojwKQq
+X-Google-Smtp-Source: APiQypIPrjAad39CGK1eJ0HKXBU102/a00qb3dl82pUhVjr21GtGrwa9JYzEibimcMjEntxx5dFhUA==
+X-Received: by 2002:a1c:2d10:: with SMTP id t16mr6503026wmt.155.1585927308362; 
+ Fri, 03 Apr 2020 08:21:48 -0700 (PDT)
+Received: from abel.fritz.box ([2a02:908:1252:fb60:7478:da75:f9d6:e948])
+ by smtp.gmail.com with ESMTPSA id 138sm11774900wmb.21.2020.04.03.08.21.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 03 Apr 2020 08:21:47 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: fix size calculation in amdgpu_ttm_copy_mem_to_mem
+Date: Fri,  3 Apr 2020 17:21:47 +0200
+Message-Id: <20200403152147.1485-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200403142837.f61a18d7bd32fd73777479ad@kernel.org>
-X-Mailman-Approved-At: Fri, 03 Apr 2020 15:18:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,480 +79,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Josh Poimboeuf <jpoimboe@redhat.com>, Jann Horn <jannh@google.com>,
- Leo Li <sunpeng.li@amd.com>, the arch/x86 maintainers <x86@kernel.org>,
- kernel list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Andy Lutomirski <luto@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
- Thomas Gleixner <tglx@linutronix.de>, Harry Wentland <harry.wentland@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Felix.Kuehling@amd.com, Candice.Li@amd.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 03, 2020 at 02:28:37PM +0900, Masami Hiramatsu wrote:
-> On Thu, 2 Apr 2020 16:13:08 +0200
-> Peter Zijlstra <peterz@infradead.org> wrote:
-
-> > Masami, Boris, is there any semi-sane way we can have insn_is_fpu() ?
-> > While digging through various opcode manuals is of course forever fun, I
-> > do feel like it might not be the best way.
-> 
-> Yes, it is possible to add INAT_FPU and insn_is_fpu().
-> But it seems that the below patch needs more classification based on
-> nmemonic or opcodes.
-
-I went with opcode, and I think I did a fairly decent job, but I did
-find a few problems on a second look at things.
-
-I don't think nmemonic are going to help, the x86 nmemonics are a mess
-(much like its opcode tables), there's no way to sanely detect what
-registers are effected by an instruction based on name.
-
-The best I came up with is operand class, see below.
-
-> IMHO, it is the time to expand gen-insn-attr.awk or clone it to
-> generate another opcode map, so that user will easily extend the
-> insn infrastructure.
-> (e.g. I had made an in-kernel disassembler, which generates a mnemonic
->  maps from x86-opcode-map.txt)
->  https://github.com/mhiramat/linux/commits/inkernel-disasm-20130414
-
-Cute, and I'm thinking we might want that eventually, people have been
-asking for a kernel specific objdump, one that knows about and shows all
-the magical things the kernel does, like alternative, jump-labels and
-soon the static_call stuff, but also things like the exception handling.
-
-Objtool actually knows about much of that, and pairing it with your
-disassembler could print it.
-
-> > +	if (insn.vex_prefix.nbytes) {
-> > +		*type = INSN_FPU;
-> >  		return 0;
-> > +	}
-
-So that's the AVX nonsense dealt with; right until they stick an integer
-instruction in the AVX space I suppose :/ Please tell me they didn't
-already do that..
-
-> >  
-> >  	op1 = insn.opcode.bytes[0];
-> >  	op2 = insn.opcode.bytes[1];
-> > @@ -357,48 +359,71 @@ int arch_decode_instruction(struct elf *elf, struct section *sec,
-> >  
-> >  	case 0x0f:
-> >  
-> > +		switch (op2) {
-
-> > +		case 0xae:
-> > +			/* insane!! */
-> > +			if ((modrm_reg >= 0 && modrm_reg <= 3) && modrm_mod != 3 && !insn.prefixes.nbytes)
-> > +				*type = INSN_FPU;
-> > +			break;
-
-This is crazy, but I was trying to get at the x86 FPU control
-instructions:
-
-  FXSAVE, FXRSTOR, LDMXCSR and STMXCSR
-
-Which are in Grp15
-
-Now arguably, I could skip them, the compiler should never emit those,
-and the newer, fancier, XSAV family isn't marked as FPU either, even
-though it will save/restore the FPU/MMX/SSE/AVX states too.
-
-So I think I'll remove this part, it'll also make the fpu_safe
-annotations easier.
-
-> > +		case 0x10 ... 0x17:
-> > +		case 0x28 ... 0x2f:
-> > +		case 0x3a:
-> > +		case 0x50 ... 0x77:
-> > +		case 0x7a ... 0x7f:
-> > +		case 0xc2:
-> > +		case 0xc4 ... 0xc6:
-> > +		case 0xd0 ... 0xff:
-> > +			/* MMX, SSE, VMX */
-
-So afaict these are the MMX and SSE instruction (clearly the VMX is my
-brain loosing it).
-
-I went with the coder64 opcode tables, but our x86-opcode-map.txt seems
-to agree, mostly.
-
-I now see that 0f 3a is not all mmx/sse, it also includes RORX which is
-an integer instruction. Also, may I state that the opcode map is a
-sodding disgrace? Why is an integer instruction stuck in the middle of
-SSE instructions like that ?!?!
-
-And I should shorten the last range to 0xd0 ... 0xfe, as 0f ff is UD0.
-
-Other than that I think this is pretty accurate.
-
-> > +			*type = INSN_FPU;
-> > +			break;
-> > +
-> > +		default:
-> > +			break;
-> > +		}
-> >  		break;
-> >  
-> >  	case 0xc9:
-> > @@ -414,6 +439,10 @@ int arch_decode_instruction(struct elf *elf, struct section *sec,
-> >  
-> >  		break;
-> >  
-> > +	case 0xd8 ... 0xdf: /* x87 FPU range */
-> > +		*type = INSN_FPU;
-> > +		break;
-
-Our x86-opcode-map.txt lists that as ESC, but doesn't have an escape
-table for it. Per:
-
-  http://ref.x86asm.net/coder64.html
-
-these are all the traditional x87 FPU ops.
-
-
-> > +
-> >  	case 0xe3:
-> >  		/* jecxz/jrcxz */
-> >  		*type = INSN_JUMP_CONDITIONAL;
-
-
-Now; I suppose I need our x86-opcode-map.txt extended in at least two
-ways:
-
- - all those x87 FPU instructions need adding
- - a way of detecting the affected register set
-
-Now, I suspect we can do that latter by the instruction operands that
-are already there, although I've not managed to untangle them fully
-(hint, we really should improve the comments on top). Operands seem to
-have one capital that denotes the class:
-
- - I: immediate
- - G: general purpose
- - E
- - P,Q: MMX
- - V,M,W,H: SSE
-
-So if we can extend the awk magic to provide operand classes for each
-decoded instruction, then that would simplify this lots.
-
-New version below...
-
----
---- a/arch/x86/include/asm/fpu/api.h
-+++ b/arch/x86/include/asm/fpu/api.h
-@@ -12,6 +12,13 @@
- #define _ASM_X86_FPU_API_H
- #include <linux/bottom_half.h>
- 
-+#define annotate_fpu() ({						\
-+	asm volatile("%c0:\n\t"						\
-+		     ".pushsection .discard.fpu_safe\n\t"		\
-+		     ".long %c0b - .\n\t"				\
-+		     ".popsection\n\t" : : "i" (__COUNTER__));		\
-+})
-+
- /*
-  * Use kernel_fpu_begin/end() if you intend to use FPU in kernel context. It
-  * disables preemption so be careful if you intend to use it for long periods
---- a/arch/x86/include/asm/fpu/internal.h
-+++ b/arch/x86/include/asm/fpu/internal.h
-@@ -437,6 +437,7 @@ static inline int copy_fpregs_to_fpstate
- 	 * Legacy FPU register saving, FNSAVE always clears FPU registers,
- 	 * so we have to mark them inactive:
- 	 */
-+	annotate_fpu();
- 	asm volatile("fnsave %[fp]; fwait" : [fp] "=m" (fpu->state.fsave));
- 
- 	return 0;
-@@ -462,6 +463,7 @@ static inline void copy_kernel_to_fpregs
- 	 * "m" is a random variable that should be in L1.
- 	 */
- 	if (unlikely(static_cpu_has_bug(X86_BUG_FXSAVE_LEAK))) {
-+		annotate_fpu();
- 		asm volatile(
- 			"fnclex\n\t"
- 			"emms\n\t"
---- a/arch/x86/kernel/fpu/init.c
-+++ b/arch/x86/kernel/fpu/init.c
-@@ -38,7 +38,10 @@ static void fpu__init_cpu_generic(void)
- 		fpstate_init_soft(&current->thread.fpu.state.soft);
- 	else
- #endif
-+	{
-+		annotate_fpu();
- 		asm volatile ("fninit");
-+	}
- }
- 
- /*
-@@ -61,6 +64,7 @@ static bool fpu__probe_without_cpuid(voi
- 	cr0 &= ~(X86_CR0_TS | X86_CR0_EM);
- 	write_cr0(cr0);
- 
-+	annotate_fpu();
- 	asm volatile("fninit ; fnstsw %0 ; fnstcw %1" : "+m" (fsw), "+m" (fcw));
- 
- 	pr_info("x86/fpu: Probing for FPU: FSW=0x%04hx FCW=0x%04hx\n", fsw, fcw);
---- a/tools/objtool/arch.h
-+++ b/tools/objtool/arch.h
-@@ -27,6 +27,7 @@ enum insn_type {
- 	INSN_CLAC,
- 	INSN_STD,
- 	INSN_CLD,
-+	INSN_FPU,
- 	INSN_OTHER,
- };
- 
---- a/tools/objtool/arch/x86/decode.c
-+++ b/tools/objtool/arch/x86/decode.c
-@@ -73,7 +73,7 @@ int arch_decode_instruction(struct elf *
- {
- 	struct insn insn;
- 	int x86_64, sign;
--	unsigned char op1, op2, rex = 0, rex_b = 0, rex_r = 0, rex_w = 0,
-+	unsigned char op1, op2, op3, rex = 0, rex_b = 0, rex_r = 0, rex_w = 0,
- 		      rex_x = 0, modrm = 0, modrm_mod = 0, modrm_rm = 0,
- 		      modrm_reg = 0, sib = 0;
- 
-@@ -92,11 +92,14 @@ int arch_decode_instruction(struct elf *
- 	*len = insn.length;
- 	*type = INSN_OTHER;
- 
--	if (insn.vex_prefix.nbytes)
-+	if (insn.vex_prefix.nbytes) {
-+		*type = INSN_FPU; /* AVX */
- 		return 0;
-+	}
- 
- 	op1 = insn.opcode.bytes[0];
- 	op2 = insn.opcode.bytes[1];
-+	op3 = insn.opcode.bytes[2];
- 
- 	if (insn.rex_prefix.nbytes) {
- 		rex = insn.rex_prefix.bytes[0];
-@@ -357,48 +360,75 @@ int arch_decode_instruction(struct elf *
- 
- 	case 0x0f:
- 
--		if (op2 == 0x01) {
--
-+		switch (op2) {
-+		case 0x01:
- 			if (modrm == 0xca)
- 				*type = INSN_CLAC;
- 			else if (modrm == 0xcb)
- 				*type = INSN_STAC;
-+			break;
- 
--		} else if (op2 >= 0x80 && op2 <= 0x8f) {
--
-+		case 0x80 ... 0x8f: /* Jcc */
- 			*type = INSN_JUMP_CONDITIONAL;
-+			break;
- 
--		} else if (op2 == 0x05 || op2 == 0x07 || op2 == 0x34 ||
--			   op2 == 0x35) {
--
--			/* sysenter, sysret */
-+		case 0x05: /* syscall */
-+		case 0x07: /* sysret */
-+		case 0x34: /* sysenter */
-+		case 0x35: /* sysexit */
- 			*type = INSN_CONTEXT_SWITCH;
-+			break;
- 
--		} else if (op2 == 0x0b || op2 == 0xb9) {
--
--			/* ud2 */
-+		case 0xff: /* ud0 */
-+		case 0xb9: /* ud1 */
-+		case 0x0b: /* ud2 */
- 			*type = INSN_BUG;
-+			break;
- 
--		} else if (op2 == 0x0d || op2 == 0x1f) {
--
-+		case 0x0d:
-+		case 0x1f:
- 			/* nopl/nopw */
- 			*type = INSN_NOP;
-+			break;
- 
--		} else if (op2 == 0xa0 || op2 == 0xa8) {
--
--			/* push fs/gs */
-+		case 0xa0: /* push fs */
-+		case 0xa8: /* push gs */
- 			*type = INSN_STACK;
- 			op->src.type = OP_SRC_CONST;
- 			op->dest.type = OP_DEST_PUSH;
-+			break;
- 
--		} else if (op2 == 0xa1 || op2 == 0xa9) {
--
--			/* pop fs/gs */
-+		case 0xa1: /* pop fs */
-+		case 0xa9: /* pop gs */
- 			*type = INSN_STACK;
- 			op->src.type = OP_SRC_POP;
- 			op->dest.type = OP_DEST_MEM;
--		}
-+			break;
-+
-+		case 0x3a:
-+			/* 3 byte escape 0f 3a; SSE4 */
-+			switch (op3) {
-+			case 0xf0: break; /* exclude RORX */
-+			default:
-+				 *type = INSN_FPU;
-+				 break;
-+			}
-+			break;
- 
-+		case 0x10 ... 0x17: /* SSE */
-+		case 0x28 ... 0x2f: /* SSE */
-+		case 0x50 ... 0x5f: /* SSE */
-+		case 0x60 ... 0x77: /* MMX */
-+		case 0x7a ... 0x7f: /* MMX */
-+		case 0xc2:	    /* SSE */
-+		case 0xc4 ... 0xc6: /* SSE */
-+		case 0xd0 ... 0xfe: /* MMX */
-+			*type = INSN_FPU;
-+			break;
-+
-+		default:
-+			break;
-+		}
- 		break;
- 
- 	case 0xc9:
-@@ -414,6 +444,10 @@ int arch_decode_instruction(struct elf *
- 
- 		break;
- 
-+	case 0xd8 ... 0xdf: /* x87 FPU range */
-+		*type = INSN_FPU;
-+		break;
-+
- 	case 0xe3:
- 		/* jecxz/jrcxz */
- 		*type = INSN_JUMP_CONDITIONAL;
---- a/tools/objtool/check.c
-+++ b/tools/objtool/check.c
-@@ -1316,6 +1316,43 @@ static int read_unwind_hints(struct objt
- 	return 0;
- }
- 
-+static int read_fpu_hints(struct objtool_file *file)
-+{
-+	struct section *sec;
-+	struct instruction *insn;
-+	struct rela *rela;
-+
-+	sec = find_section_by_name(file->elf, ".rela.discard.fpu_safe");
-+	if (!sec)
-+		return 0;
-+
-+	list_for_each_entry(rela, &sec->rela_list, list) {
-+		if (rela->sym->type != STT_SECTION) {
-+			WARN("unexpected relocation symbol type in %s", sec->name);
-+			return -1;
-+		}
-+
-+		insn = find_insn(file, rela->sym->sec, rela->addend);
-+		if (!insn) {
-+			WARN("bad .discard.fpu_safe entry");
-+			return -1;
-+		}
-+
-+		if (insn->type != INSN_FPU) {
-+			WARN_FUNC("fpu_safe hint not an FPU instruction",
-+				  insn->sec, insn->offset);
-+//			return -1;
-+		}
-+
-+		while (insn && insn->type == INSN_FPU) {
-+			insn->fpu_safe = true;
-+			insn = next_insn_same_func(file, insn);
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int read_retpoline_hints(struct objtool_file *file)
- {
- 	struct section *sec;
-@@ -1422,6 +1459,10 @@ static int decode_sections(struct objtoo
- 	if (ret)
- 		return ret;
- 
-+	ret = read_fpu_hints(file);
-+	if (ret)
-+		return ret;
-+
- 	return 0;
- }
- 
-@@ -2167,6 +2208,16 @@ static int validate_branch(struct objtoo
- 			if (dead_end_function(file, insn->call_dest))
- 				return 0;
- 
-+			if (insn->call_dest) {
-+				if (!strcmp(insn->call_dest->name, "kernel_fpu_begin") ||
-+				    !strcmp(insn->call_dest->name, "emulator_get_fpu"))
-+					state.fpu = true;
-+
-+				if (!strcmp(insn->call_dest->name, "kernel_fpu_end") ||
-+				    !strcmp(insn->call_dest->name, "emulator_put_fpu"))
-+					state.fpu = false;
-+			}
-+
- 			break;
- 
- 		case INSN_JUMP_CONDITIONAL:
-@@ -2275,6 +2326,13 @@ static int validate_branch(struct objtoo
- 			state.df = false;
- 			break;
- 
-+		case INSN_FPU:
-+			if (!state.fpu && !insn->fpu_safe) {
-+				WARN_FUNC("FPU instruction outside of kernel_fpu_{begin,end}()", sec, insn->offset);
-+				return 1;
-+			}
-+			break;
-+
- 		default:
- 			break;
- 		}
---- a/tools/objtool/check.h
-+++ b/tools/objtool/check.h
-@@ -20,6 +20,7 @@ struct insn_state {
- 	unsigned char type;
- 	bool bp_scratch;
- 	bool drap, end, uaccess, df;
-+	bool fpu;
- 	unsigned int uaccess_stack;
- 	int drap_reg, drap_offset;
- 	struct cfi_reg vals[CFI_NUM_REGS];
-@@ -34,7 +35,7 @@ struct instruction {
- 	enum insn_type type;
- 	unsigned long immediate;
- 	bool alt_group, dead_end, ignore, hint, save, restore, ignore_alts;
--	bool retpoline_safe;
-+	bool retpoline_safe, fpu_safe;
- 	u8 visited;
- 	struct symbol *call_dest;
- 	struct instruction *jump_dest;
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+V2hlbiB0aGUgbm9kZSBpcyBsYXJnZXIgdGhhbiA0R0Igd2Ugb3ZlcnJ1biB0aGUgc2l6ZSBjYWxj
+dWxhdGlvbi4KCkZpeCB0aGlzIGJ5IGNvcnJlY3RseSBsaW1pdGluZyB0aGUgc2l6ZSB0byB0aGUg
+d2luZG93IGFzIHdlbGwuCgpTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3Rp
+YW4ua29lbmlnQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3R0bS5jIHwgNiArKystLS0KIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDMgZGVs
+ZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3R0bS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jCmluZGV4IDAy
+OWI2NjFmYWVmNi4uMWI2NThlOTA1NjIwIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9hbWRncHVfdHRtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X3R0bS5jCkBAIC00NTQsOSArNDU0LDkgQEAgaW50IGFtZGdwdV90dG1fY29weV9tZW1fdG9f
+bWVtKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LAogCQkvKiBDb3B5IHNpemUgY2Fubm90IGV4
+Y2VlZCBHVFRfTUFYX0JZVEVTLiBTbyBpZiBzcmMgb3IgZHN0CiAJCSAqIGJlZ2lucyBhdCBhbiBv
+ZmZzZXQsIHRoZW4gYWRqdXN0IHRoZSBzaXplIGFjY29yZGluZ2x5CiAJCSAqLwotCQljdXJfc2l6
+ZSA9IG1pbjMoc3JjX25vZGVfc2l6ZSwgZHN0X25vZGVfc2l6ZSwgc2l6ZSk7Ci0JCWN1cl9zaXpl
+ID0gbWluKEdUVF9NQVhfQllURVMgLSBzcmNfcGFnZV9vZmZzZXQsIGN1cl9zaXplKTsKLQkJY3Vy
+X3NpemUgPSBtaW4oR1RUX01BWF9CWVRFUyAtIGRzdF9wYWdlX29mZnNldCwgY3VyX3NpemUpOwor
+CQljdXJfc2l6ZSA9IG1heChzcmNfcGFnZV9vZmZzZXQsIGRzdF9wYWdlX29mZnNldCk7CisJCWN1
+cl9zaXplID0gbWluKG1pbjMoc3JjX25vZGVfc2l6ZSwgZHN0X25vZGVfc2l6ZSwgc2l6ZSksCisJ
+CQkgICAgICAgKHVpbnQ2NF90KShHVFRfTUFYX0JZVEVTIC0gY3VyX3NpemUpKTsKIAogCQkvKiBN
+YXAgc3JjIHRvIHdpbmRvdyAwIGFuZCBkc3QgdG8gd2luZG93IDEuICovCiAJCXIgPSBhbWRncHVf
+dHRtX21hcF9idWZmZXIoc3JjLT5ibywgc3JjLT5tZW0sIHNyY19tbSwKLS0gCjIuMTcuMQoKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
