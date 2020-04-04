@@ -2,94 +2,56 @@ Return-Path: <SRS0=w0EQ=5V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 55419C2BABC
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FC6FC2BA1E
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 26FF520672
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 32D4920672
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=who-t.net header.i=@who-t.net header.b="EVVMcqxm";
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="o5MeFQdR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26FF520672
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=who-t.net
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="E5rDDKMw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32D4920672
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 215336E297;
-	Sun,  5 Apr 2020 13:54:45 +0000 (UTC)
-X-Greylist: delayed 416 seconds by postgrey-1.36 at gabe;
- Sat, 04 Apr 2020 23:39:16 UTC
-Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
- [66.111.4.230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E73316E19C;
- Sat,  4 Apr 2020 23:39:16 +0000 (UTC)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailnew.nyi.internal (Postfix) with ESMTP id 2CD1D5801BA;
- Sat,  4 Apr 2020 19:39:16 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Sat, 04 Apr 2020 19:39:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=who-t.net; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:content-transfer-encoding:in-reply-to; s=fm2; bh=I
- 1xgjHIrdP7gWVcIk6tpZAzehfuF8c3q2+/HFVsfr78=; b=EVVMcqxmFizMuCHz1
- uG+C3oTHsHZBty0POVPcC4Zk6dsZ3G55wY2PFgf8BvucQ5oFPKSl/jBcaBY7jQvQ
- Q/IbHGRoH5BVQMJjrfexwJJDKgSU5DbdSzXHAgikc6+ZneztxwFaZCaH5DafZzVi
- y1HTbLD/OWsVC44QbECv1oh7VgecyVfu7OjNkVvuAs5Xzv4h0MznkQ6ttk5p53jK
- xYskvTadqNKe4LUrWQ2LTBB41m1p0hBikRk4J0fPYFh/p01iPYpdpGCuoty435JK
- pkVqQGHIruQ9+ovWHK3lhO2bCF2Ezimqjf4+gjWTfL4S620plKSk3CM+ERAPOFTy
- /jlfA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=I1xgjHIrdP7gWVcIk6tpZAzehfuF8c3q2+/HFVsfr
- 78=; b=o5MeFQdRyfgOf1KPpIMCDK+P0vQ2JXQs/Gnkwfn4Y/mSnmA9ad13s+xs8
- FR+RGktcsUz2zHGvbBGvL3a0T9CQ0NlBufaql+NXwHPc1bTlyqLwd1jHmFmwSTQg
- zED4RzfIMln7pfuls/VJc+pWLHkKqHPdeW3g5hIGcKzcDuKIwQDr/JVmS8QH1qhv
- iO0pIj5zO5mZ2ls9zb/pRkqN/RYTdHvdgeM8o6aTCtd9bKU3GGEJXicWDwiR6fYK
- IBbEH5hM5uwsWKeqcVAfM52scInH1Co+BvbsJXVS3ejrMfEguc7vCY3SIin02P61
- KfcnpXZtsv1rM4CtC8+NhXK3fqIEg==
-X-ME-Sender: <xms:oxqJXrL0TTz_LW4_Z1WTV4KBcp0E3_oyNnerlJLGo-VZMRhpaq8VrA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrtdelgddvgecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggugfgjsehtkeertddttdejnecuhfhrohhmpefrvghtvghr
- ucfjuhhtthgvrhgvrhcuoehpvghtvghrrdhhuhhtthgvrhgvrhesfihhohdqthdrnhgvth
- eqnecuffhomhgrihhnpehfrhgvvgguvghskhhtohhprdhorhhgnecukfhppeduudejrddv
- tddrjedurddutdelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
- hfrhhomhepphgvthgvrhdrhhhuthhtvghrvghrseifhhhoqdhtrdhnvght
-X-ME-Proxy: <xmx:oxqJXrcIzGgukO-gkKGagXRE1RkBjP0XkB47BWy7t0ELrQgvM9UgvA>
- <xmx:oxqJXmcpZ7hnz2KjjRIyTscQl-Zm7wv8rfH0-InV_8GDIEzfOSjMNg>
- <xmx:oxqJXmPKpog3XZBehp-b8SXYoEzJZlzhxblonWadIZh7TjXJtbeyjA>
- <xmx:pBqJXsqtn0_4IYXOaAWNb1f1MH9Rsh5FhcAMzcHlaZgKIdAKJDfU1Q>
-Received: from jelly (117-20-71-109.751447.bne.nbn.aussiebb.net
- [117.20.71.109])
- by mail.messagingengine.com (Postfix) with ESMTPA id 6B7CA306D19F;
- Sat,  4 Apr 2020 19:39:10 -0400 (EDT)
-Date: Sun, 5 Apr 2020 09:39:06 +1000
-From: Peter Hutterer <peter.hutterer@who-t.net>
-To: Rob Clark <robdclark@gmail.com>
-Subject: Re: [Mesa-dev] [Intel-gfx] gitlab.fd.o financial situation and
- impact on services
-Message-ID: <20200404233906.GC1918409@jelly>
-References: <59f4ea1f13a9a9d37f7801b93061b4ae7dd595e2.camel@gmail.com>
- <d0ef47e45c83b342494e6781b808b4831a008836.camel@ndufresne.ca>
- <d9dca12759fd6a549dc4cd71b5f210a4dced01cd.camel@gmail.com>
- <CAOFGe96WqRTagf=Lhp6j9aMnB6hxwog7t93t=4r6QE_4f+HpeQ@mail.gmail.com>
- <5551426acf99f73d3ce8234c14c176c1c7a1fe44.camel@ndufresne.ca>
- <CAAxE2A5zSy7Rh6xyPW8NCqj3q0_8F7yw8tAXx=_z8+mJ-u2uWw@mail.gmail.com>
- <3cddf1aa-5072-af7c-c51e-c16039176f6c@daenzer.net>
- <CAF6AEGuNTtHfNm_nRhPFX5wPRmKkjnFEKqTdTSBDjpLkaiN8Fw@mail.gmail.com>
- <3e5bc9f9416c3f8b2ec52436b40b82cafb717586.camel@ndufresne.ca>
- <CAF6AEGuVzvO_wkrsuxahme-9AHOH7D+2yXJXiuRh_e825t_K6w@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF36A6E293;
+	Sun,  5 Apr 2020 13:54:44 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D95996E081;
+ Sat,  4 Apr 2020 09:41:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=FjP6zoayZ1fjLTQ5J40k73xEcDLUAFsLpp9ITbvNuIc=; b=E5rDDKMwWfrap1JfG6yNklw4O2
+ GNgNgDdFmbxfo1fUVp5J1gaGFscM2Apu4SX2zjRhB1+YnuUkrq4wHrSoK6KStx9kPDNIH/ANmeneN
+ wQ02zm0tKQ1R6ebfTq6wzZkFEMzwXBcqrmfyGf8xA5tZRYW83fb+mtQ8J+8dagGuRpquxFp/Q68nq
+ FW1kAC2RNliuc7Tp/7ADj02HUyYGYkHXUO6rqnrjgGwA1crPkLp/2s+nq7pS6OYTuy64eguvFMaLD
+ xOAvUjLwiu/DrMQZbyP3jl7d3qekyjoqtsaLSBWrrQVdwUV+JywA4azyO0oEnsF6xvSa20P+kDcLL
+ Ntn9iIgQ==;
+Received: from [2001:4bb8:180:7914:2ca6:9476:bbfa:a4d0] (helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1jKfIc-0002d1-GL; Sat, 04 Apr 2020 09:41:11 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 2/6] i915/gvt/kvm: a NULL ->mm does not mean a thread is a
+ kthread
+Date: Sat,  4 Apr 2020 11:40:57 +0200
+Message-Id: <20200404094101.672954-3-hch@lst.de>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200404094101.672954-1-hch@lst.de>
+References: <20200404094101.672954-1-hch@lst.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAF6AEGuVzvO_wkrsuxahme-9AHOH7D+2yXJXiuRh_e825t_K6w@mail.gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Sun, 05 Apr 2020 13:54:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,72 +64,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Erik Faye-Lund <erik.faye-lund@collabora.com>,
- Marek =?utf-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
- Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>,
- Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>,
- "X.Org development" <xorg-devel@lists.x.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Nicolas Dufresne <nicolas@ndufresne.ca>,
- "X.Org Foundation Board" <board@foundation.x.org>,
- Xorg Members List <members@x.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Jason Ekstrand <jason@jlekstrand.net>,
- Mesa Dev <mesa-dev@lists.freedesktop.org>,
- Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
- wayland <wayland-devel@lists.freedesktop.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Discussion of the development of and with GStreamer
- <gstreamer-devel@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
+ amd-gfx@lists.freedesktop.org, "Michael S. Tsirkin" <mst@redhat.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, linux-usb@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Zhenyu Wang <zhenyuw@linux.intel.com>,
+ virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
+ intel-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ intel-gvt-dev@lists.freedesktop.org, Jason Wang <jasowang@redhat.com>,
+ Zhi Wang <zhi.a.wang@intel.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gU2F0LCBBcHIgMDQsIDIwMjAgYXQgMTE6MTY6MDhBTSAtMDcwMCwgUm9iIENsYXJrIHdyb3Rl
-Ogo+IE9uIFNhdCwgQXByIDQsIDIwMjAgYXQgMTA6NDcgQU0gTmljb2xhcyBEdWZyZXNuZSA8bmlj
-b2xhc0BuZHVmcmVzbmUuY2E+IHdyb3RlOgo+ID4KPiA+IExlIHNhbWVkaSAwNCBhdnJpbCAyMDIw
-IMOgIDA4OjExIC0wNzAwLCBSb2IgQ2xhcmsgYSDDqWNyaXQgOgo+ID4gPiBPbiBGcmksIEFwciAz
-LCAyMDIwIGF0IDc6MTIgQU0gTWljaGVsIETDpG56ZXIgPG1pY2hlbEBkYWVuemVyLm5ldD4gd3Jv
-dGU6Cj4gPiA+ID4gT24gMjAyMC0wMy0wMSA2OjQ2IGEubS4sIE1hcmVrIE9sxaHDoWsgd3JvdGU6
-Cj4gPiA+ID4gPiBGb3IgTWVzYSwgd2UgY291bGQgcnVuIENJIG9ubHkgd2hlbiBNYXJnZSBwdXNo
-ZXMsIHNvIHRoYXQgaXQncyBhIHN0cmljdGx5Cj4gPiA+ID4gPiBwcmUtbWVyZ2UgQ0kuCj4gPiA+
-ID4KPiA+ID4gPiBUaGFua3MgZm9yIHRoZSBzdWdnZXN0aW9uISBJIGltcGxlbWVudGVkIHNvbWV0
-aGluZyBsaWtlIHRoaXMgZm9yIE1lc2E6Cj4gPiA+ID4KPiA+ID4gPiBodHRwczovL2dpdGxhYi5m
-cmVlZGVza3RvcC5vcmcvbWVzYS9tZXNhLy0vbWVyZ2VfcmVxdWVzdHMvNDQzMgo+ID4gPiA+Cj4g
-PiA+Cj4gPiA+IEkgd291bGRuJ3QgbWluZCBtYW51YWxseSB0cmlnZ2VyaW5nIHBpcGVsaW5lcywg
-YnV0IHVubGVzcyB0aGVyZSBpcwo+ID4gPiBzb21lIHRyaWNrIEknbSBub3QgcmVhbGl6aW5nLCBp
-dCBpcyBzdXBlciBjdW1iZXJzb21lLiAgSWUuIHlvdSBoYXZlIHRvCj4gPiA+IGNsaWNrIGZpcnN0
-IHRoZSBjb250YWluZXIgam9icy4uIHRoZW4gd2FpdC4uIHRoZW4gdGhlIGJ1aWxkIGpvYnMuLgo+
-ID4gPiB0aGVuIHdhaXQgc29tZSBtb3JlLi4gYW5kIHRoZW4gZmluYWxseSB0aGUgYWN0dWFsIHJ1
-bm5lcnMuICBUaGF0IHdvdWxkCj4gPiA+IGJlIGEgcmVhbCBzdGVwIGJhY2sgaW4gdGVybXMgb2Yg
-dXNlZnVsbmVzcyBvZiBDSS4uIG9uZSBtaWdodCBjYWxsIGl0IGEKPiA+ID4gcmVncmVzc2lvbiA6
-LSgKPiA+Cj4gPiBPbiBHU3RyZWFtZXIgc2lkZSB3ZSBoYXZlIG1vdmVkIHNvbWUgZXhpc3Rpbmcg
-cGlwZWxpbmUgdG8gbWFudWFsIG1vZGUuCj4gPiBBcyB3ZSB1c2UgbmVlZHM6IGJldHdlZW4gam9i
-cywgd2UgY291bGQgc2ltcGx5IHNldCB0aGUgZmlyc3Qgam9iIHRvCj4gPiBtYW51YWwgKGluIG91
-ciBjYXNlIGl0J3MgYSBzaW5nbGUgam9iIGNhbGxlZCBtYW5pZmVzdCBpbiB5b3VyIGNhc2UgaXQK
-PiA+IHdvdWxkIGJlIHRoZSBOIGNvbnRhaW5lciBqb2JzKS4gVGhpcyB3YXkgeW91IGNhbiBoYXZl
-IGEgbWFudWFsIHBpcGVsaW5lCj4gPiB0aGF0IGlzIHRyaWdnZXJlZCBpbiBzaW5nbGUgKG9yIGZl
-d2VyKSBjbGlja3MuIEhlcmUncyBhbiBleGFtcGxlOgo+ID4KPiA+IGh0dHBzOi8vZ2l0bGFiLmZy
-ZWVkZXNrdG9wLm9yZy9nc3RyZWFtZXIvZ3N0cmVhbWVyL3BpcGVsaW5lcy8xMjgyOTIKPiA+Cj4g
-PiBUaGF0IG91ciBwb3N0LW1lcmdlIHBpcGVsaW5lcywgd2Ugb25seSB0cmlnZ2VyIHRoZW4gaWYg
-d2Ugc3VzcGVjdCBhCj4gPiBwcm9ibGVtLgo+ID4KPiAKPiBJJ20gbm90IHN1cmUgdGhhdCB3b3Vs
-ZCB3b3JrIGZvciBtZXNhIHNpbmNlIHRoZSBoaWVyYXJjaHkgb2Ygam9icwo+IGJyYW5jaGVzIG91
-dCBwcmV0dHkgZmFyLi4gaWUuIGlmIEkganVzdCBjbGlja2VkIHRoZSBhcm02NCBidWlsZCArIHRl
-c3QKPiBjb250YWluZXIgam9icywgYW5kIGV2ZXJ5dGhpbmcgZWxzZSByYW4gYXV0b21hdGljYWxs
-eSBhZnRlciB0aGF0LCBpdAo+IHdvdWxkIGVuZCB1cCBydW5uaW5nIGFsbCB0aGUgQ0kgam9icyBm
-b3IgYWxsIHRoZSBhcm0gZGV2aWNlcyAob3IgYXQKPiBsZWFzdCBhbGwgdGhlIDY0YiBvbmVzKQoK
-Z2VuZXJhdGUgeW91ciBnaXRsYWItY2kgZnJvbSBhIHRlbXBsYXRlIHNvIGVhY2ggcGlwZWxpbmUg
-aGFzIGl0cyBvd24gam9iCmRlcGVuZGVuY3kuIFRoZSBkdXBsaWNhdGlvbiB3b24ndCBodXJ0IHlv
-dSBpZiBpdCdzIGV4cGFuZGVkIHRocm91Z2gKdGVtcGxhdGluZyBhbmQgaXQgZ2l2ZXMgeW91IGZp
-bmUtZ3JhaW5lZCBydW5uaW5nIG9mIHRoZSBtYW51YWwgam9icy4KCldlJ3JlIHVzaW5nIHRoaXMg
-aW4gY2ktdGVtcGxhdGVzL2xpYmV2ZGV2L2xpYmlucHV0IGZvciB0aGUgdmFyaW91cwpkaXN0cmli
-dXRpb25zIGFuZCB0aGVpciB2ZXJzaW9ucyBzbyBlYWNoIGRpc3RyaWJ1dGlvbit2ZXJzaW9uIGlz
-IGVmZmVjdGl2ZWx5Cml0cyBvd24gcGlwZWxpbmUuIEJ1dCB3ZSBvbmx5IG5lZWQgdG8gbWFpbnRh
-aW4gb25lIGpvYiBpbiB0aGUgYWN0dWFsCnRlbXBsYXRlIGZpbGUuCgpodHRwczovL2ZyZWVkZXNr
-dG9wLnBhZ2VzLmZyZWVkZXNrdG9wLm9yZy9jaS10ZW1wbGF0ZXMvY2ktZmFpcnkuaHRtbCN0ZW1w
-bGF0aW5nLWdpdGxhYi1jaS15bWwKCkNoZWVycywKICAgUGV0ZXIKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Use the proper API instead.
+
+Fixes: f440c8a572d7 ("drm/i915/gvt/kvmgt: read/write GPA via KVM API")
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ drivers/gpu/drm/i915/gvt/kvmgt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+index 074c4efb58eb..5848400620b4 100644
+--- a/drivers/gpu/drm/i915/gvt/kvmgt.c
++++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+@@ -2037,7 +2037,7 @@ static int kvmgt_rw_gpa(unsigned long handle, unsigned long gpa,
+ 	struct kvmgt_guest_info *info;
+ 	struct kvm *kvm;
+ 	int idx, ret;
+-	bool kthread = current->mm == NULL;
++	bool kthread = (current->flags & PF_KTHREAD);
+ 
+ 	if (!handle_valid(handle))
+ 		return -ESRCH;
+-- 
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
