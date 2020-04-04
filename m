@@ -2,55 +2,80 @@ Return-Path: <SRS0=w0EQ=5V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3747C2BA1E
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85A97C2BA1B
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9B2F520672
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 47BCB20672
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="CThSaAil"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B2F520672
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=cogentembedded-com.20150623.gappssmtp.com header.i=@cogentembedded-com.20150623.gappssmtp.com header.b="aTi0ATN9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47BCB20672
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=cogentembedded.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 536C16E27C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 54D136E284;
 	Sun,  5 Apr 2020 13:54:44 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 370C16E08C;
- Sat,  4 Apr 2020 09:41:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=/tDvMcpQEBI9S68wHOZLUB3dDI6IS68bO71B9/9EwUE=; b=CThSaAilR3ovdk8YHEBYWt5Ywb
- +Ig6dXA4SCkBKlwyH+dnd9gAgLYDklih2fs3Sb/j0+a+tRF+2om4l+ZEMhYbZmkdlBtdFVjiOQh6i
- rsAU0NmW5zgW+9jcbnYb4/kuzcl5lzPPmnD2sruNcp/WjLsPVH8LEVgHKSxKPKtGQYFGDWE4qpe1/
- DN2i1aQV0nYWQyrfC3Q3YeHvjhe4lq6+1lGucDhrbtE0PvUI/PauoxgjTggfvH5eWTsh+88FTmiYE
- czENSm+bnFheaetCcE3kGE4wi0mZP4UK4qBRnn/gHR5USuqGiVuvVJn8j4hTaI6SxpNERUEcH8AUT
- 3r99EnWQ==;
-Received: from [2001:4bb8:180:7914:2ca6:9476:bbfa:a4d0] (helo=localhost)
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jKfIf-0002dK-G0; Sat, 04 Apr 2020 09:41:14 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92C3C6E0F8
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 Apr 2020 10:05:59 +0000 (UTC)
+Received: by mail-lj1-x242.google.com with SMTP id k21so9570378ljh.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 04 Apr 2020 03:05:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cogentembedded-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=f5WeYVcExZ58viobGo5xENBYY/7iA5WtiHNaBP74Ohk=;
+ b=aTi0ATN9MaY24407laRnBef6LfGPpOgdRBwSwCQz2c3RW4Gj/WkUSmsjFupt1+Si1I
+ /jw0cOt3bzoZ1L8XI8Cd7xl4uND//yB9GJHWzUv8WZWdrs2vMEb5P/6AngfEuXPZiSGf
+ XPfLEX+uHTRcYFmBj3aEbcKNRHtdDgUwBBnViuTIu3RWq8uVF0MXaSq7dRYUFOEfUxag
+ Me75vpJfK3iUGksokG2xHslbFjKJVBBYOFEjoY7PYPAXlsjqaldQ3YKyfSNa7FMzpHkn
+ t+K46duTvK6NW20LFcqGjElqmIe9KQb5vJm4zg6VH9x14j7uPUY0uawotq+psxvUvGUB
+ UXxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=f5WeYVcExZ58viobGo5xENBYY/7iA5WtiHNaBP74Ohk=;
+ b=fYfng7bV4qJiar3IqIiCza3EVfqLiIFZW5h05XBinObQNZhmmGl5S5hWYX95J2O283
+ vyQ+MQAAxrDRz1IdAk+BetMnQSZpFGrpf0i2WsANbWm5zun1ZcDEUpWENhNkc9aH3+H6
+ UF8g81ZxFOvyD+wwiGtVGA8YIfxpW6mg0lv6/n4SaOHUNmLkEgJI16gNBdtZQ88obUCh
+ ZyC25lMw8LiH58dpi0nkzcR1VK00G+0fmXl3CV2hLFBIkAXNJhcrpWUyNZL/73TT826k
+ 8HcAx3+TnmuourzNRB9JEs7WccsZVD4o4Ee9DNSwBjcP8/xahYViinJlanbl5K1g0piY
+ AI/A==
+X-Gm-Message-State: AGi0PuaO4jJMyk3vl3LjuasqAxS3aC5o1dQMW0ZehhwlV4hSqi/ab9FS
+ cXHqMH0iw+I+ZZhWZgxbWdYN5Q==
+X-Google-Smtp-Source: APiQypJgK3TXAPv85OfJ7vCTcz4u4tUzYYbvpr+INBxhiypWT+murLDDhRYYaeJT38bk35encw/Ldg==
+X-Received: by 2002:a2e:818e:: with SMTP id e14mr7232769ljg.225.1585994757852; 
+ Sat, 04 Apr 2020 03:05:57 -0700 (PDT)
+Received: from ?IPv6:2a00:1fa0:6f0:5f98:6c2c:3527:3946:ae?
+ ([2a00:1fa0:6f0:5f98:6c2c:3527:3946:ae])
+ by smtp.gmail.com with ESMTPSA id p21sm6378055ljg.5.2020.04.04.03.05.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 04 Apr 2020 03:05:57 -0700 (PDT)
+Subject: Re: [PATCH 2/6] i915/gvt/kvm: a NULL ->mm does not mean a thread is a
+ kthread
+To: Christoph Hellwig <hch@lst.de>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
  Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 3/6] i915/gvt: remove unused xen bits
-Date: Sat,  4 Apr 2020 11:40:58 +0200
-Message-Id: <20200404094101.672954-4-hch@lst.de>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200404094101.672954-1-hch@lst.de>
 References: <20200404094101.672954-1-hch@lst.de>
+ <20200404094101.672954-3-hch@lst.de>
+From: Sergei Shtylyov <sergei.shtylyov@cogentembedded.com>
+Message-ID: <0fb3cce8-fa3d-5c97-1eba-0f359797eea2@cogentembedded.com>
+Date: Sat, 4 Apr 2020 13:05:52 +0300
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20200404094101.672954-3-hch@lst.de>
+Content-Language: en-US
 X-Mailman-Approved-At: Sun, 05 Apr 2020 13:54:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -73,46 +98,39 @@ Cc: Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
  intel-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  intel-gvt-dev@lists.freedesktop.org, Jason Wang <jasowang@redhat.com>,
  Zhi Wang <zhi.a.wang@intel.com>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-No Xen support anywhere here.  Remove a dead declaration and an unused
-include.
+Hello!
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/gpu/drm/i915/gvt/gvt.c       | 1 -
- drivers/gpu/drm/i915/gvt/hypercall.h | 2 --
- 2 files changed, 3 deletions(-)
+On 04.04.2020 12:40, Christoph Hellwig wrote:
 
-diff --git a/drivers/gpu/drm/i915/gvt/gvt.c b/drivers/gpu/drm/i915/gvt/gvt.c
-index 9e1787867894..c7c561237883 100644
---- a/drivers/gpu/drm/i915/gvt/gvt.c
-+++ b/drivers/gpu/drm/i915/gvt/gvt.c
-@@ -31,7 +31,6 @@
-  */
- 
- #include <linux/types.h>
--#include <xen/xen.h>
- #include <linux/kthread.h>
- 
- #include "i915_drv.h"
-diff --git a/drivers/gpu/drm/i915/gvt/hypercall.h b/drivers/gpu/drm/i915/gvt/hypercall.h
-index b17c4a1599cd..b79da5124f83 100644
---- a/drivers/gpu/drm/i915/gvt/hypercall.h
-+++ b/drivers/gpu/drm/i915/gvt/hypercall.h
-@@ -79,6 +79,4 @@ struct intel_gvt_mpt {
- 	bool (*is_valid_gfn)(unsigned long handle, unsigned long gfn);
- };
- 
--extern struct intel_gvt_mpt xengt_mpt;
--
- #endif /* _GVT_HYPERCALL_H_ */
--- 
-2.25.1
+> Use the proper API instead.
+> 
+> Fixes: f440c8a572d7 ("drm/i915/gvt/kvmgt: read/write GPA via KVM API")
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>   drivers/gpu/drm/i915/gvt/kvmgt.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> index 074c4efb58eb..5848400620b4 100644
+> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
+> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> @@ -2037,7 +2037,7 @@ static int kvmgt_rw_gpa(unsigned long handle, unsigned long gpa,
+>   	struct kvmgt_guest_info *info;
+>   	struct kvm *kvm;
+>   	int idx, ret;
+> -	bool kthread = current->mm == NULL;
+> +	bool kthread = (current->flags & PF_KTHREAD);
 
+    Don't need the parens.
+
+[...]
+
+MBR, Sergei
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
