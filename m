@@ -1,56 +1,85 @@
 Return-Path: <SRS0=w0EQ=5V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+X-Spam-Level: **
+X-Spam-Status: No, score=2.7 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF61EC2BA80
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8947FC2BA17
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B681820672
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 38B9920672
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="EnjlznyT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B681820672
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=gmx.net header.i=@gmx.net header.b="VMMDMk6T"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 38B9920672
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=gmx.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A89656E28B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B232B6E28E;
 	Sun,  5 Apr 2020 13:54:44 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A19366E0DA;
- Sat,  4 Apr 2020 09:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
- MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
- :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=L4k367lz9ZR25gN2kYKg7ydUq9PF8rtgOzuec3oaq5I=; b=EnjlznyTr2/l7nAuHqFMHvK6b7
- lhW300pxY46mKuXToj3sSXy93SRwkRJAzgCtA3in7pHlkHNRWNrbFehEUFfpCVp5TaSg+87JjNiCP
- X+zQul7TSmArDjIkfnRfHTcpN3yRK6v0go7vmhFahU8SiMXoMm1xLOpS5cl5AmBPzvFPh8fDKqUOY
- H9BcMacgvVQ/8RovB/LosctguYeHd4yLfPm1ITO5uiTEAzQDmaA1t89x7sxn2mcDaIi+MaLZgGypt
- /ylCvvzHmQ1Lrdo4WeKU/3/nyKkSg2b1zbBfUmyKBBLRCONJVhkXDooUUhoLfcIfSxE8rY56cNm3I
- 3FN27cxA==;
-Received: from [2001:4bb8:180:7914:2ca6:9476:bbfa:a4d0] (helo=localhost)
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jKfIi-0002db-De; Sat, 04 Apr 2020 09:41:17 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Linus Torvalds <torvalds@linux-foundation.org>,
- Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 4/6] kernel: move use_mm/unuse_mm to kthread.c
-Date: Sat,  4 Apr 2020 11:40:59 +0200
-Message-Id: <20200404094101.672954-5-hch@lst.de>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200404094101.672954-1-hch@lst.de>
-References: <20200404094101.672954-1-hch@lst.de>
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12FA56E222;
+ Sat,  4 Apr 2020 13:55:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1586008543;
+ bh=EtLjZbkZvUJ4TUi1cb0SFS01/z7Ls5VvvG8RavCWlVE=;
+ h=X-UI-Sender-Class:References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=VMMDMk6TJq3Q8s4s5zLGxi8DqboNquFzilysfcrJX7mu8d+HgVN1nkzOssvlCUUhh
+ jHQrVCqgWt36M3BaUdyjLeMf0U05uQ61QpGHZwF6e/21lRaJ5akU+7rcU2rCtZDOq+
+ /qyK/VRb4dw7CX9fvECWhPFwF1nqzkFRY8+QFTCk=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from mail-yb1-f171.google.com ([209.85.219.171]) by mail.gmx.com
+ (mrgmx004 [212.227.17.190]) with ESMTPSA (Nemesis) id
+ 1MdvmO-1in3970gzO-00azwk; Sat, 04 Apr 2020 15:55:43 +0200
+Received: by mail-yb1-f171.google.com with SMTP id g6so5959190ybh.12;
+ Sat, 04 Apr 2020 06:55:42 -0700 (PDT)
+X-Gm-Message-State: AGi0PuZNhrw8MY8GaJlJel/0GfRLVpJNAr0O9SmCsqkLA8e64cLMwORl
+ SeWSRxa1nm1RtZcyphj6b9TbhRSVLuU3W68mOzA=
+X-Google-Smtp-Source: APiQypL18jvzEVqhv+aWV1i9xpxQ6vs/zCiw23fcCZ1wAJGnmzp80hWH7WbvtKMl6RPqXo19QhpiwgsD6YK0q9CbuRs=
+X-Received: by 2002:a25:c643:: with SMTP id k64mr21656006ybf.194.1586008541471; 
+ Sat, 04 Apr 2020 06:55:41 -0700 (PDT)
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+References: <CAKMK7uHHK2SsCfpmZwEUyTJJHsoccKoadoko3cEBOoYDFkmeAw@mail.gmail.com>
+ <CAPM=9txcGPvFdSzMtYZXyqLKnWyacSMuHdoXdV63M53fLFVFpw@mail.gmail.com>
+ <CAPj87rM76W9y_76WUHR35NS3V4_-RFi9ZM3GA=aED3dD3hWYkg@mail.gmail.com>
+ <CAPM=9txN-RKGwinzsSPrmT_xFjS2J_XUhXVsRQ2pSSe529wpEA@mail.gmail.com>
+ <CADaigPUjYZ-Mqd91eyR3Luo=PxLHratUhvodJmCJHf__MnPozA@mail.gmail.com>
+In-Reply-To: <CADaigPUjYZ-Mqd91eyR3Luo=PxLHratUhvodJmCJHf__MnPozA@mail.gmail.com>
+From: Andreas Bergmeier <abergmeier@gmx.net>
+Date: Sat, 4 Apr 2020 15:55:30 +0200
+X-Gmail-Original-Message-ID: <CABfF9mMwcTL3qx=F_Ep0X0Zh-pb_ZKxrhEwWP-wc3jkVHDaAMg@mail.gmail.com>
+Message-ID: <CABfF9mMwcTL3qx=F_Ep0X0Zh-pb_ZKxrhEwWP-wc3jkVHDaAMg@mail.gmail.com>
+Subject: Re: [Mesa-dev] [Intel-gfx] gitlab.fd.o financial situation and impact
+ on services
+To: Eric Anholt <eric@anholt.net>
+X-Provags-ID: V03:K1:DK6ByxLXdGDADickGSSqJpzSkqcWRJK+CQzXnMDW3/MD5CXyFKh
+ b6pyBszGhQoqgO/AwIneUff7D1MA+m+E0lwEvvGuHvzmf9hWtOlqyZSgWSRAn8/S59yKJ6a
+ X/ESxP1qjwG52gJoUoLYRY5FAFH6Ekwqdm3OStwOZZkvLZkwiud1WdhrZYI/OMHoax/GCXq
+ ilhZW9uw8x17ztkdzn8lA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:xG6+chRmIDs=:Fy/8w3VPlsw4eOYFeeoqWX
+ J746U/hu0Ws3bHH8HvPu/PmK+RzvJuXvuT8qAx18ac9yNomBerWt12RU+aO0YO4be8mbSEDIG
+ pr/H/cEyWyLVFMKg/viCiLKsnQcRnLhJQ5QJ1JB+mbusLiXyp90ErIunJAmHDuL0xfu1s5CmU
+ fRsWyy7FgDcCnPWmWOvMGiXN/K8x1m/GTHG9vll0Paz3XRbUsWpMKKyMiAO4DyGkG/HtWgWHx
+ 5trHZoIsVnLJ0z3GEIKIWRE+b23u7mlYwcG8ZSrc06Vc1vQbYQgPY8nFvdsqQ28ubkaN0jUpa
+ o9oqE+LeZgVFmtfd5dPzQXygs/fHUfv2+hm6B+x97W3I+JEJqRZHYmkX7DiaqJ9sA60Uh/RB+
+ +ubOcQ54c9bSFV8w2SHWPUKkRv2E/echHuwx+oKGBQgIEB3mmly9aBwtIMTcLBXFPj9xK8fPQ
+ 3V7K1+xTDJjRdSCox5CM2nbukFpsW1e/rgX8RbuxfDTScU3aUjX6vEX6Fg3lnsRisl78Pf5GM
+ STBfpKPBRJ40P5PFx8BgW/zMMqgjcwCsRlf8CKH/aHsYA+a2XJ9Cx0dPXzvUm6HyPcmwOGBUO
+ gx7Gc8F7cQjJw2RkJnU6OJ60C3xbsnIIWq88CSVDMYqoBbXLfk/W/HAtVeoSwhfxqaiX7O+/5
+ UxtKPuQhqF6Kh6CylucGuiOmcN7gwwljfubVbV2t865N3gb+vWSwaNoKO0905xtB2CTNIssuy
+ ivSKNYVKS2U4spFikQ8Fs9qP3YBKmQZPtb9COInMeysAagfcRZ0yonugfHqhVG/7lRxYvRwdI
+ lzoRWgdTOTexqFMA/96aAIgd1KgS/Ze0zLKFBtY1gd4Txkrc7vI209eEeD6WT1SciQ2bVotz5
+ xqBk0ibNypCAZ9idKdnSaCmeyJeHyqwT0LRtoiNrXTNu7aw64kKKR4CD1xtBE9VLqZDwDSAjM
+ DdXgTn/d4s0taj3z9PmGzOIklBq5AmVnszs7n2Gf3Y6uMsDfYHECJJdz32IQlGL2hxVVqpIWE
+ rVUNifvf0B2d4IXolPWaUY1PvTvohhQ6I9NZfHfCZz3fXCw4NKRR4GgHM6UepdqUwkcoxQjW9
+ JpE7+cZGfx6wnIAJoD/OrwQv9OmsCszYjkrIodOTexbLqXKUqNYVjFXZeJA+xHrA4ENxch2L5
+ YBIe76erNNnIxTKQwVs1MlMBzXCYLtvvtV2DxckVOn0FV2F5qK5l05ZIfXg7q/9TBJih7ORqR
+ hSGA97G1jRoeODRtj
 X-Mailman-Approved-At: Sun, 05 Apr 2020 13:54:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,425 +92,284 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
- amd-gfx@lists.freedesktop.org, "Michael S. Tsirkin" <mst@redhat.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, linux-usb@vger.kernel.org,
- io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
- Zhenyu Wang <zhenyuw@linux.intel.com>,
- virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
- intel-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- intel-gvt-dev@lists.freedesktop.org, Jason Wang <jasowang@redhat.com>,
- Zhi Wang <zhi.a.wang@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Daniel Vetter <daniel.vetter@ffwll.ch>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "X.Org development" <xorg-devel@lists.x.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ wayland <wayland-devel@lists.freedesktop.org>,
+ "X.Org Foundation Board" <board@foundation.x.org>,
+ Xorg Members List <members@x.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Mesa Dev <mesa-dev@lists.freedesktop.org>, Dave Airlie <airlied@gmail.com>,
+ gstreamer-devel@lists.freedesktop.org
+Content-Type: multipart/mixed; boundary="===============0187344243=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-These helpers are only for use with kernel threads, and I will tie them
-more into the kthread infrastructure going forward.  Also move the
-prototypes to kthread.h - mmu_context.h was a little weird to start with
-as it otherwise contains very low-level MM bits.
+--===============0187344243==
+Content-Type: multipart/alternative; boundary="000000000000b9a91a05a2776337"
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  1 +
- .../drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c   |  1 -
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    |  1 -
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c |  2 -
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c |  2 -
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  2 -
- drivers/gpu/drm/i915/gvt/kvmgt.c              |  2 +-
- drivers/usb/gadget/function/f_fs.c            |  2 +-
- drivers/usb/gadget/legacy/inode.c             |  2 +-
- drivers/vhost/vhost.c                         |  1 -
- fs/aio.c                                      |  1 -
- fs/io-wq.c                                    |  1 -
- fs/io_uring.c                                 |  1 -
- include/linux/kthread.h                       |  5 ++
- include/linux/mmu_context.h                   |  5 --
- kernel/kthread.c                              | 56 ++++++++++++++++
- mm/Makefile                                   |  2 +-
- mm/mmu_context.c                              | 64 -------------------
- 18 files changed, 66 insertions(+), 85 deletions(-)
- delete mode 100644 mm/mmu_context.c
+--000000000000b9a91a05a2776337
+Content-Type: text/plain; charset="UTF-8"
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 4db143c19dcc..bce5e93fefc8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -27,6 +27,7 @@
- 
- #include <linux/types.h>
- #include <linux/mm.h>
-+#include <linux/kthread.h>
- #include <linux/workqueue.h>
- #include <kgd_kfd_interface.h>
- #include <drm/ttm/ttm_execbuf_util.h>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-index 6529caca88fe..35d4a5ab0228 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_arcturus.c
-@@ -22,7 +22,6 @@
- #include <linux/module.h>
- #include <linux/fdtable.h>
- #include <linux/uaccess.h>
--#include <linux/mmu_context.h>
- #include <linux/firmware.h>
- #include "amdgpu.h"
- #include "amdgpu_amdkfd.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-index 4ec6d0c03201..b1655054b919 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-@@ -19,7 +19,6 @@
-  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-  * OTHER DEALINGS IN THE SOFTWARE.
-  */
--#include <linux/mmu_context.h>
- #include "amdgpu.h"
- #include "amdgpu_amdkfd.h"
- #include "gc/gc_10_1_0_offset.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
-index 0b7e78748540..7d01420c0c85 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v7.c
-@@ -20,8 +20,6 @@
-  * OTHER DEALINGS IN THE SOFTWARE.
-  */
- 
--#include <linux/mmu_context.h>
--
- #include "amdgpu.h"
- #include "amdgpu_amdkfd.h"
- #include "cikd.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
-index ccd635b812b5..635cd1a26bed 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v8.c
-@@ -20,8 +20,6 @@
-  * OTHER DEALINGS IN THE SOFTWARE.
-  */
- 
--#include <linux/mmu_context.h>
--
- #include "amdgpu.h"
- #include "amdgpu_amdkfd.h"
- #include "gfx_v8_0.h"
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index df841c2ac5e7..c7fd0c47b254 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -19,8 +19,6 @@
-  * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-  * OTHER DEALINGS IN THE SOFTWARE.
-  */
--#include <linux/mmu_context.h>
--
- #include "amdgpu.h"
- #include "amdgpu_amdkfd.h"
- #include "gc/gc_9_0_offset.h"
-diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-index 5848400620b4..dee01c371bf5 100644
---- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-+++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-@@ -31,7 +31,7 @@
- #include <linux/init.h>
- #include <linux/device.h>
- #include <linux/mm.h>
--#include <linux/mmu_context.h>
-+#include <linux/kthread.h>
- #include <linux/sched/mm.h>
- #include <linux/types.h>
- #include <linux/list.h>
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index c81023b195c3..c57b1b2507c6 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -32,7 +32,7 @@
- #include <linux/usb/functionfs.h>
- 
- #include <linux/aio.h>
--#include <linux/mmu_context.h>
-+#include <linux/kthread.h>
- #include <linux/poll.h>
- #include <linux/eventfd.h>
- 
-diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-index aa0de9e35afa..8b5233888bf8 100644
---- a/drivers/usb/gadget/legacy/inode.c
-+++ b/drivers/usb/gadget/legacy/inode.c
-@@ -21,7 +21,7 @@
- #include <linux/sched.h>
- #include <linux/slab.h>
- #include <linux/poll.h>
--#include <linux/mmu_context.h>
-+#include <linux/kthread.h>
- #include <linux/aio.h>
- #include <linux/uio.h>
- #include <linux/refcount.h>
-diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
-index f44340b41494..4e9ce54869af 100644
---- a/drivers/vhost/vhost.c
-+++ b/drivers/vhost/vhost.c
-@@ -14,7 +14,6 @@
- #include <linux/vhost.h>
- #include <linux/uio.h>
- #include <linux/mm.h>
--#include <linux/mmu_context.h>
- #include <linux/miscdevice.h>
- #include <linux/mutex.h>
- #include <linux/poll.h>
-diff --git a/fs/aio.c b/fs/aio.c
-index 5f3d3d814928..328829f0343b 100644
---- a/fs/aio.c
-+++ b/fs/aio.c
-@@ -27,7 +27,6 @@
- #include <linux/file.h>
- #include <linux/mm.h>
- #include <linux/mman.h>
--#include <linux/mmu_context.h>
- #include <linux/percpu.h>
- #include <linux/slab.h>
- #include <linux/timer.h>
-diff --git a/fs/io-wq.c b/fs/io-wq.c
-index cc5cf2209fb0..c49c2bdbafb5 100644
---- a/fs/io-wq.c
-+++ b/fs/io-wq.c
-@@ -10,7 +10,6 @@
- #include <linux/errno.h>
- #include <linux/sched/signal.h>
- #include <linux/mm.h>
--#include <linux/mmu_context.h>
- #include <linux/sched/mm.h>
- #include <linux/percpu.h>
- #include <linux/slab.h>
-diff --git a/fs/io_uring.c b/fs/io_uring.c
-index 358f97be9c7b..27a4ecb724ca 100644
---- a/fs/io_uring.c
-+++ b/fs/io_uring.c
-@@ -55,7 +55,6 @@
- #include <linux/fdtable.h>
- #include <linux/mm.h>
- #include <linux/mman.h>
--#include <linux/mmu_context.h>
- #include <linux/percpu.h>
- #include <linux/slab.h>
- #include <linux/kthread.h>
-diff --git a/include/linux/kthread.h b/include/linux/kthread.h
-index 8bbcaad7ef0f..c2d40c9672d6 100644
---- a/include/linux/kthread.h
-+++ b/include/linux/kthread.h
-@@ -5,6 +5,8 @@
- #include <linux/err.h>
- #include <linux/sched.h>
- 
-+struct mm_struct;
-+
- __printf(4, 5)
- struct task_struct *kthread_create_on_node(int (*threadfn)(void *data),
- 					   void *data,
-@@ -198,6 +200,9 @@ bool kthread_cancel_delayed_work_sync(struct kthread_delayed_work *work);
- 
- void kthread_destroy_worker(struct kthread_worker *worker);
- 
-+void use_mm(struct mm_struct *mm);
-+void unuse_mm(struct mm_struct *mm);
-+
- struct cgroup_subsys_state;
- 
- #ifdef CONFIG_BLK_CGROUP
-diff --git a/include/linux/mmu_context.h b/include/linux/mmu_context.h
-index d9a543a9e1cc..c51a84132d7c 100644
---- a/include/linux/mmu_context.h
-+++ b/include/linux/mmu_context.h
-@@ -4,11 +4,6 @@
- 
- #include <asm/mmu_context.h>
- 
--struct mm_struct;
--
--void use_mm(struct mm_struct *mm);
--void unuse_mm(struct mm_struct *mm);
--
- /* Architectures that care about IRQ state in switch_mm can override this. */
- #ifndef switch_mm_irqs_off
- # define switch_mm_irqs_off switch_mm
-diff --git a/kernel/kthread.c b/kernel/kthread.c
-index bfbfa481be3a..ce4610316377 100644
---- a/kernel/kthread.c
-+++ b/kernel/kthread.c
-@@ -1,13 +1,17 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /* Kernel thread helper functions.
-  *   Copyright (C) 2004 IBM Corporation, Rusty Russell.
-+ *   Copyright (C) 2009 Red Hat, Inc.
-  *
-  * Creation is done via kthreadd, so that we get a clean environment
-  * even if we're invoked from userspace (think modprobe, hotplug cpu,
-  * etc.).
-  */
- #include <uapi/linux/sched/types.h>
-+#include <linux/mm.h>
-+#include <linux/mmu_context.h>
- #include <linux/sched.h>
-+#include <linux/sched/mm.h>
- #include <linux/sched/task.h>
- #include <linux/kthread.h>
- #include <linux/completion.h>
-@@ -25,6 +29,7 @@
- #include <linux/numa.h>
- #include <trace/events/sched.h>
- 
-+
- static DEFINE_SPINLOCK(kthread_create_lock);
- static LIST_HEAD(kthread_create_list);
- struct task_struct *kthreadd_task;
-@@ -1203,6 +1208,57 @@ void kthread_destroy_worker(struct kthread_worker *worker)
- }
- EXPORT_SYMBOL(kthread_destroy_worker);
- 
-+/*
-+ * use_mm
-+ *	Makes the calling kernel thread take on the specified
-+ *	mm context.
-+ *	(Note: this routine is intended to be called only
-+ *	from a kernel thread context)
-+ */
-+void use_mm(struct mm_struct *mm)
-+{
-+	struct mm_struct *active_mm;
-+	struct task_struct *tsk = current;
-+
-+	task_lock(tsk);
-+	active_mm = tsk->active_mm;
-+	if (active_mm != mm) {
-+		mmgrab(mm);
-+		tsk->active_mm = mm;
-+	}
-+	tsk->mm = mm;
-+	switch_mm(active_mm, mm, tsk);
-+	task_unlock(tsk);
-+#ifdef finish_arch_post_lock_switch
-+	finish_arch_post_lock_switch();
-+#endif
-+
-+	if (active_mm != mm)
-+		mmdrop(active_mm);
-+}
-+EXPORT_SYMBOL_GPL(use_mm);
-+
-+/*
-+ * unuse_mm
-+ *	Reverses the effect of use_mm, i.e. releases the
-+ *	specified mm context which was earlier taken on
-+ *	by the calling kernel thread
-+ *	(Note: this routine is intended to be called only
-+ *	from a kernel thread context)
-+ */
-+void unuse_mm(struct mm_struct *mm)
-+{
-+	struct task_struct *tsk = current;
-+
-+	task_lock(tsk);
-+	sync_mm_rss(mm);
-+	tsk->mm = NULL;
-+	/* active_mm is still 'mm' */
-+	enter_lazy_tlb(mm, tsk);
-+	task_unlock(tsk);
-+}
-+EXPORT_SYMBOL_GPL(unuse_mm);
-+
- #ifdef CONFIG_BLK_CGROUP
- /**
-  * kthread_associate_blkcg - associate blkcg to current kthread
-diff --git a/mm/Makefile b/mm/Makefile
-index dbc8346d16ca..0af4ee81aed2 100644
---- a/mm/Makefile
-+++ b/mm/Makefile
-@@ -41,7 +41,7 @@ obj-y			:= filemap.o mempool.o oom_kill.o fadvise.o \
- 			   maccess.o page-writeback.o \
- 			   readahead.o swap.o truncate.o vmscan.o shmem.o \
- 			   util.o mmzone.o vmstat.o backing-dev.o \
--			   mm_init.o mmu_context.o percpu.o slab_common.o \
-+			   mm_init.o percpu.o slab_common.o \
- 			   compaction.o vmacache.o \
- 			   interval_tree.o list_lru.o workingset.o \
- 			   debug.o gup.o $(mmu-y)
-diff --git a/mm/mmu_context.c b/mm/mmu_context.c
-deleted file mode 100644
-index 3e612ae748e9..000000000000
---- a/mm/mmu_context.c
-+++ /dev/null
-@@ -1,64 +0,0 @@
--/* Copyright (C) 2009 Red Hat, Inc.
-- *
-- * See ../COPYING for licensing terms.
-- */
--
--#include <linux/mm.h>
--#include <linux/sched.h>
--#include <linux/sched/mm.h>
--#include <linux/sched/task.h>
--#include <linux/mmu_context.h>
--#include <linux/export.h>
--
--#include <asm/mmu_context.h>
--
--/*
-- * use_mm
-- *	Makes the calling kernel thread take on the specified
-- *	mm context.
-- *	(Note: this routine is intended to be called only
-- *	from a kernel thread context)
-- */
--void use_mm(struct mm_struct *mm)
--{
--	struct mm_struct *active_mm;
--	struct task_struct *tsk = current;
--
--	task_lock(tsk);
--	active_mm = tsk->active_mm;
--	if (active_mm != mm) {
--		mmgrab(mm);
--		tsk->active_mm = mm;
--	}
--	tsk->mm = mm;
--	switch_mm(active_mm, mm, tsk);
--	task_unlock(tsk);
--#ifdef finish_arch_post_lock_switch
--	finish_arch_post_lock_switch();
--#endif
--
--	if (active_mm != mm)
--		mmdrop(active_mm);
--}
--EXPORT_SYMBOL_GPL(use_mm);
--
--/*
-- * unuse_mm
-- *	Reverses the effect of use_mm, i.e. releases the
-- *	specified mm context which was earlier taken on
-- *	by the calling kernel thread
-- *	(Note: this routine is intended to be called only
-- *	from a kernel thread context)
-- */
--void unuse_mm(struct mm_struct *mm)
--{
--	struct task_struct *tsk = current;
--
--	task_lock(tsk);
--	sync_mm_rss(mm);
--	tsk->mm = NULL;
--	/* active_mm is still 'mm' */
--	enter_lazy_tlb(mm, tsk);
--	task_unlock(tsk);
--}
--EXPORT_SYMBOL_GPL(unuse_mm);
--- 
-2.25.1
+The problem of data transfer costs is not new in Cloud environments. At
+work we usually just opt for paying for it since dev time is scarser. For
+private projects though, I opt for aggressive (remote) caching.
+So you can setup a global cache in Google Cloud Storage and more local
+caches wherever your executors are (reduces egress as much as possible).
+This setup works great with Bazel and Pants among others. Note that these
+systems are pretty hermetic in contrast to Meson.
+IIRC Eric by now works at Google. They internally use Blaze which AFAIK
+does aggressive caching, too.
+So maybe using any of these systems would be a way of not having to
+sacrifice any of the current functionality.
+Downside is that you have lower a bit of dev productivity since you cannot
+eyeball your build definitions anymore.
+
+ym2c
+
+
+On Fri, 28 Feb 2020 at 20:34, Eric Anholt <eric@anholt.net> wrote:
+
+> On Fri, Feb 28, 2020 at 12:48 AM Dave Airlie <airlied@gmail.com> wrote:
+> >
+> > On Fri, 28 Feb 2020 at 18:18, Daniel Stone <daniel@fooishbar.org> wrote:
+> > >
+> > > On Fri, 28 Feb 2020 at 03:38, Dave Airlie <airlied@gmail.com> wrote:
+> > > > b) we probably need to take a large step back here.
+> > > >
+> > > > Look at this from a sponsor POV, why would I give X.org/fd.o
+> > > > sponsorship money that they are just giving straight to google to pay
+> > > > for hosting credits? Google are profiting in some minor way from
+> these
+> > > > hosting credits being bought by us, and I assume we aren't getting
+> any
+> > > > sort of discounts here. Having google sponsor the credits costs
+> google
+> > > > substantially less than having any other company give us money to do
+> > > > it.
+> > >
+> > > The last I looked, Google GCP / Amazon AWS / Azure were all pretty
+> > > comparable in terms of what you get and what you pay for them.
+> > > Obviously providers like Packet and Digital Ocean who offer bare-metal
+> > > services are cheaper, but then you need to find someone who is going
+> > > to properly administer the various machines, install decent
+> > > monitoring, make sure that more storage is provisioned when we need
+> > > more storage (which is basically all the time), make sure that the
+> > > hardware is maintained in decent shape (pretty sure one of the fd.o
+> > > machines has had a drive in imminent-failure state for the last few
+> > > months), etc.
+> > >
+> > > Given the size of our service, that's a much better plan (IMO) than
+> > > relying on someone who a) isn't an admin by trade, b) has a million
+> > > other things to do, and c) hasn't wanted to do it for the past several
+> > > years. But as long as that's the resources we have, then we're paying
+> > > the cloud tradeoff, where we pay more money in exchange for fewer
+> > > problems.
+> >
+> > Admin for gitlab and CI is a full time role anyways. The system is
+> > definitely not self sustaining without time being put in by you and
+> > anholt still. If we have $75k to burn on credits, and it was diverted
+> > to just pay an admin to admin the real hw + gitlab/CI would that not
+> > be a better use of the money? I didn't know if we can afford $75k for
+> > an admin, but suddenly we can afford it for gitlab credits?
+>
+> As I think about the time that I've spent at google in less than a
+> year on trying to keep the lights on for CI and optimize our
+> infrastructure in the current cloud environment, that's more than the
+> entire yearly budget you're talking about here.  Saying "let's just
+> pay for people to do more work instead of paying for full-service
+> cloud" is not a cost optimization.
+>
+>
+> > > Yes, we could federate everything back out so everyone runs their own
+> > > builds and executes those. Tinderbox did something really similar to
+> > > that IIRC; not sure if Buildbot does as well. Probably rules out
+> > > pre-merge testing, mind.
+> >
+> > Why? does gitlab not support the model? having builds done in parallel
+> > on runners closer to the test runners seems like it should be a thing.
+> > I guess artifact transfer would cost less then as a result.
+>
+> Let's do some napkin math.  The biggest artifacts cost we have in Mesa
+> is probably meson-arm64/meson-arm (60MB zipped from meson-arm64,
+> downloaded by 4 freedreno and 6ish lava, about 100 pipelines/day,
+> makes ~1.8TB/month ($180 or so).  We could build a local storage next
+> to the lava dispatcher so that the artifacts didn't have to contain
+> the rootfs that came from the container (~2/3 of the insides of the
+> zip file), but that's another service to build and maintain.  Building
+> the drivers once locally and storing it would save downloading the
+> other ~1/3 of the inside of the zip file, but that requires a big
+> enough system to do builds in time.
+>
+> I'm planning on doing a local filestore for google's lava lab, since I
+> need to be able to move our xml files off of the lava DUTs to get the
+> xml results we've become accustomed to, but this would not bubble up
+> to being a priority for my time if I wasn't doing it anyway.  If it
+> takes me a single day to set all this up (I estimate a couple of
+> weeks), that costs my employer a lot more than sponsoring the costs of
+> the inefficiencies of the system that has accumulated.
+> _______________________________________________
+> mesa-dev mailing list
+> mesa-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/mesa-dev
+>
+
+--000000000000b9a91a05a2776337
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">The problem of data transfer costs is not new in Cloud env=
+ironments. At work we usually just opt for paying for it since dev time is =
+scarser. For private projects though, I opt for aggressive (remote) caching=
+.<div>So you can setup a global cache in Google Cloud Storage and more loca=
+l caches wherever your executors are (reduces egress as much as possible).<=
+/div><div>This setup works great with Bazel and Pants among others. Note th=
+at these systems are pretty hermetic in contrast to Meson.</div><div>IIRC E=
+ric by now works at Google. They internally use Blaze which AFAIK does aggr=
+essive caching, too.</div><div>So maybe using any of these systems would be=
+ a way of not having to sacrifice any of the current functionality.</div><d=
+iv>Downside is that you have lower a bit of dev productivity since you cann=
+ot eyeball your build definitions anymore.</div><div><br></div><div>ym2c</d=
+iv><div><br></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" cla=
+ss=3D"gmail_attr">On Fri, 28 Feb 2020 at 20:34, Eric Anholt &lt;<a href=3D"=
+mailto:eric@anholt.net">eric@anholt.net</a>&gt; wrote:<br></div><blockquote=
+ class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
+lid rgb(204,204,204);padding-left:1ex">On Fri, Feb 28, 2020 at 12:48 AM Dav=
+e Airlie &lt;<a href=3D"mailto:airlied@gmail.com" target=3D"_blank">airlied=
+@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; On Fri, 28 Feb 2020 at 18:18, Daniel Stone &lt;<a href=3D"mailto:danie=
+l@fooishbar.org" target=3D"_blank">daniel@fooishbar.org</a>&gt; wrote:<br>
+&gt; &gt;<br>
+&gt; &gt; On Fri, 28 Feb 2020 at 03:38, Dave Airlie &lt;<a href=3D"mailto:a=
+irlied@gmail.com" target=3D"_blank">airlied@gmail.com</a>&gt; wrote:<br>
+&gt; &gt; &gt; b) we probably need to take a large step back here.<br>
+&gt; &gt; &gt;<br>
+&gt; &gt; &gt; Look at this from a sponsor POV, why would I give X.org/fd.o=
+<br>
+&gt; &gt; &gt; sponsorship money that they are just giving straight to goog=
+le to pay<br>
+&gt; &gt; &gt; for hosting credits? Google are profiting in some minor way =
+from these<br>
+&gt; &gt; &gt; hosting credits being bought by us, and I assume we aren&#39=
+;t getting any<br>
+&gt; &gt; &gt; sort of discounts here. Having google sponsor the credits co=
+sts google<br>
+&gt; &gt; &gt; substantially less than having any other company give us mon=
+ey to do<br>
+&gt; &gt; &gt; it.<br>
+&gt; &gt;<br>
+&gt; &gt; The last I looked, Google GCP / Amazon AWS / Azure were all prett=
+y<br>
+&gt; &gt; comparable in terms of what you get and what you pay for them.<br=
+>
+&gt; &gt; Obviously providers like Packet and Digital Ocean who offer bare-=
+metal<br>
+&gt; &gt; services are cheaper, but then you need to find someone who is go=
+ing<br>
+&gt; &gt; to properly administer the various machines, install decent<br>
+&gt; &gt; monitoring, make sure that more storage is provisioned when we ne=
+ed<br>
+&gt; &gt; more storage (which is basically all the time), make sure that th=
+e<br>
+&gt; &gt; hardware is maintained in decent shape (pretty sure one of the fd=
+.o<br>
+&gt; &gt; machines has had a drive in imminent-failure state for the last f=
+ew<br>
+&gt; &gt; months), etc.<br>
+&gt; &gt;<br>
+&gt; &gt; Given the size of our service, that&#39;s a much better plan (IMO=
+) than<br>
+&gt; &gt; relying on someone who a) isn&#39;t an admin by trade, b) has a m=
+illion<br>
+&gt; &gt; other things to do, and c) hasn&#39;t wanted to do it for the pas=
+t several<br>
+&gt; &gt; years. But as long as that&#39;s the resources we have, then we&#=
+39;re paying<br>
+&gt; &gt; the cloud tradeoff, where we pay more money in exchange for fewer=
+<br>
+&gt; &gt; problems.<br>
+&gt;<br>
+&gt; Admin for gitlab and CI is a full time role anyways. The system is<br>
+&gt; definitely not self sustaining without time being put in by you and<br=
+>
+&gt; anholt still. If we have $75k to burn on credits, and it was diverted<=
+br>
+&gt; to just pay an admin to admin the real hw + gitlab/CI would that not<b=
+r>
+&gt; be a better use of the money? I didn&#39;t know if we can afford $75k =
+for<br>
+&gt; an admin, but suddenly we can afford it for gitlab credits?<br>
+<br>
+As I think about the time that I&#39;ve spent at google in less than a<br>
+year on trying to keep the lights on for CI and optimize our<br>
+infrastructure in the current cloud environment, that&#39;s more than the<b=
+r>
+entire yearly budget you&#39;re talking about here.=C2=A0 Saying &quot;let&=
+#39;s just<br>
+pay for people to do more work instead of paying for full-service<br>
+cloud&quot; is not a cost optimization.<br>
+<br>
+<br>
+&gt; &gt; Yes, we could federate everything back out so everyone runs their=
+ own<br>
+&gt; &gt; builds and executes those. Tinderbox did something really similar=
+ to<br>
+&gt; &gt; that IIRC; not sure if Buildbot does as well. Probably rules out<=
+br>
+&gt; &gt; pre-merge testing, mind.<br>
+&gt;<br>
+&gt; Why? does gitlab not support the model? having builds done in parallel=
+<br>
+&gt; on runners closer to the test runners seems like it should be a thing.=
+<br>
+&gt; I guess artifact transfer would cost less then as a result.<br>
+<br>
+Let&#39;s do some napkin math.=C2=A0 The biggest artifacts cost we have in =
+Mesa<br>
+is probably meson-arm64/meson-arm (60MB zipped from meson-arm64,<br>
+downloaded by 4 freedreno and 6ish lava, about 100 pipelines/day,<br>
+makes ~1.8TB/month ($180 or so).=C2=A0 We could build a local storage next<=
+br>
+to the lava dispatcher so that the artifacts didn&#39;t have to contain<br>
+the rootfs that came from the container (~2/3 of the insides of the<br>
+zip file), but that&#39;s another service to build and maintain.=C2=A0 Buil=
+ding<br>
+the drivers once locally and storing it would save downloading the<br>
+other ~1/3 of the inside of the zip file, but that requires a big<br>
+enough system to do builds in time.<br>
+<br>
+I&#39;m planning on doing a local filestore for google&#39;s lava lab, sinc=
+e I<br>
+need to be able to move our xml files off of the lava DUTs to get the<br>
+xml results we&#39;ve become accustomed to, but this would not bubble up<br=
+>
+to being a priority for my time if I wasn&#39;t doing it anyway.=C2=A0 If i=
+t<br>
+takes me a single day to set all this up (I estimate a couple of<br>
+weeks), that costs my employer a lot more than sponsoring the costs of<br>
+the inefficiencies of the system that has accumulated.<br>
+_______________________________________________<br>
+mesa-dev mailing list<br>
+<a href=3D"mailto:mesa-dev@lists.freedesktop.org" target=3D"_blank">mesa-de=
+v@lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/mesa-dev" rel=3D"=
+noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinf=
+o/mesa-dev</a><br>
+</blockquote></div>
+
+--000000000000b9a91a05a2776337--
+
+--===============0187344243==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0187344243==--
