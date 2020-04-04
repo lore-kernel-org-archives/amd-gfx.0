@@ -2,129 +2,92 @@ Return-Path: <SRS0=w0EQ=5V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12064C2D0F4
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EEDB2C2BA1B
 	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C141B20672
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AC82F20672
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=fb.com header.i=@fb.com header.b="pIsRWgso";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com header.b="AeFC5Hyd"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C141B20672
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=fb.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=who-t.net header.i=@who-t.net header.b="qeTrQ6wC";
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LdK3ty/2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AC82F20672
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=who-t.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF5396E291;
-	Sun,  5 Apr 2020 13:54:44 +0000 (UTC)
-X-Greylist: delayed 2846 seconds by postgrey-1.36 at gabe;
- Fri, 03 Apr 2020 23:24:43 UTC
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F8FF6ECC1
- for <amd-gfx@lists.freedesktop.org>; Fri,  3 Apr 2020 23:24:43 +0000 (UTC)
-Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 033MV5Ab022207; Fri, 3 Apr 2020 15:37:13 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=date : from : to : cc :
- subject : message-id : references : content-type : in-reply-to :
- mime-version; s=facebook; bh=orVTRiVunI3muYjWiUhSjohyYMfn4ykT064MFswaZ7k=;
- b=pIsRWgso+tw0W/eVTxNm9b+Y8ztUl78s8dkeZlQ4Szknny2Cv8W+Wcibm9Fh3CAww57n
- 0nrs9mh2KN2Taey07JRKjgfXegpuzjx35WbEeSsQbmxMkq3VWPa8iv6uKFnb4b1yEZV8
- NwK8TGkqqnOtu1D5WyEvUxtHv/riI7EvDt8= 
-Received: from maileast.thefacebook.com ([163.114.130.16])
- by mx0a-00082601.pphosted.com with ESMTP id 30671528nq-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 03 Apr 2020 15:37:12 -0700
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (100.104.31.183)
- by o365-in.thefacebook.com (100.104.35.175) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1847.3; Fri, 3 Apr 2020 15:37:10 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IojIATX1K9TXVV2LCBvB4ykFawUrS7+FrxMne4Ys9643vdo8LiLbKM8YiFgCCN3Dri0KISudhsjqm/MdpRuez0W3A/Ft1Wka/1+jyNnIaCHIDRoCbaiJE3zEviQO6I1HFtszETBY7qA0gNElTQzQbuL9Yr+3mwPTR2w1Z7RvLcKYvSMrnGk9pH2qXQ8Hq73L14rYfbT5Yyjxop9EmFbXBs6PJsPzOinAAmMHNRSB80qguhf/b57Bb91nuf51B4dKeCWHoKOx9xC3RvPBG/UQ5h9fVQqElEQK+VVmU4/9za1PQ7aJHsFiBdemW4CS2tAulAqj+oByeeUCWhKcEZGjHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=orVTRiVunI3muYjWiUhSjohyYMfn4ykT064MFswaZ7k=;
- b=DWE8snAEMH+yxy/+L+8CUyBTyGm9NgmyvNG3ZWDa83tLgSC8Ec/7pAyMklD7fNuYYWFxxLqYX6QOv5oF3T51sdY1Le//3W9RhFZDLcbrpp8dZheyjADGstZ7xMaUmIPa6NkYaXRhp2m41Zmi9y88KrZjoovRxj7ORg9AWoofEs1FKE1zaONGmBJm5M5lkaaqXO5rN05pYz4KqaGDBlBoaSv4oovi4BN5SfInCn3OETN0OP6ThpGMQSYb8ELSUiZJDPZO6M7Og5XsB5KJgSj8He4VD/jh9tviDGvLk9FIQhpWYuDkF7P+F1vU5kmUGxMBDtpJoUEJ95elCbJU+RXJPg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com; dkim=pass
- header.d=fb.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector2-fb-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=orVTRiVunI3muYjWiUhSjohyYMfn4ykT064MFswaZ7k=;
- b=AeFC5HydC2rMv/8IRToJj53O1u6zL1hRNZ5Z90MgzjxX/9X3am84SvdSzd/3tAWPXgcdNTUrF9lWCbCtm7fcBUIunjMNTrgF0WZXEIx908nFYRcHJlCKL/XSd2C/MPbE0fhtMjxZAxOFpKCXwsVYTOG+xUCZNtFX+uamQCr1J04=
-Received: from BYAPR15MB4136.namprd15.prod.outlook.com (20.177.229.24) by
- BYAPR15MB2887.namprd15.prod.outlook.com (20.178.237.209) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2878.19; Fri, 3 Apr 2020 22:37:09 +0000
-Received: from BYAPR15MB4136.namprd15.prod.outlook.com
- ([fe80::bdf9:6577:1d2a:a275]) by BYAPR15MB4136.namprd15.prod.outlook.com
- ([fe80::bdf9:6577:1d2a:a275%7]) with mapi id 15.20.2856.019; Fri, 3 Apr 2020
- 22:37:09 +0000
-Date: Fri, 3 Apr 2020 15:37:04 -0700
-From: Roman Gushchin <guro@fb.com>
-To: Odin Ugedal <odin@ugedal.com>
-Subject: Re: [PATCH] device_cgroup: Cleanup cgroup eBPF device filter code
-Message-ID: <20200403223704.GA306670@carbon.dhcp.thefacebook.com>
-References: <20200403175528.225990-1-odin@ugedal.com>
-Content-Disposition: inline
-In-Reply-To: <20200403175528.225990-1-odin@ugedal.com>
-X-ClientProxiedBy: CO2PR04CA0152.namprd04.prod.outlook.com (2603:10b6:104::30)
- To BYAPR15MB4136.namprd15.prod.outlook.com
- (2603:10b6:a03:96::24)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08B126E296;
+	Sun,  5 Apr 2020 13:54:45 +0000 (UTC)
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0BCC89711;
+ Sat,  4 Apr 2020 23:41:19 +0000 (UTC)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailnew.nyi.internal (Postfix) with ESMTP id EBF9E5800A0;
+ Sat,  4 Apr 2020 19:32:17 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Sat, 04 Apr 2020 19:32:17 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=who-t.net; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:content-transfer-encoding:in-reply-to; s=fm2; bh=j
+ dfJvDEFzwSWkXsBOVJY/3uTXHjNncUN7vGjeLJ2Gr0=; b=qeTrQ6wCtfH8pB6fu
+ Ud/7b+uqLr1lWqWuB91/+3cfltqAjmja9IFhXH7/7iDVkvaYpFnn/weH2xomw0E2
+ tmyiNNUeeOyiQI4LruZ2EpX0VIIK61eVlOfwegMiuSU/wdGqpV7sJhTDpZAZbNBW
+ PbM1sVtslmm3ZJSROTBEgo9S4un4TmNS9oCgwB27BX/VLJXgHwxMJHb4/OiX9Ns4
+ cdKu6fFfrYG3KkgmMXu6owZ/Bt3vkuYn9l9/1js19PkIN/PHpnE2LszPIcjExq3W
+ bVKV5ApSGIOEv5ZykMRkmjMIkv17w7JE+3/yBAeAtvyI800eH/NDJEsih7sQmSbY
+ fJ1hw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=jdfJvDEFzwSWkXsBOVJY/3uTXHjNncUN7vGjeLJ2G
+ r0=; b=LdK3ty/2Q6McNCRc4w9aNlZOa95n8mPWKhv2Ua69UC55swhedVX4LVJ8l
+ B31zUth8pyjDOVyqQjKh34asvpMQDw7bFvM4z/0W5+mvEL57B+1TVVKFW2mUPBkY
+ p9wNcZj/r2S9nbTy7ixNr9fkysACMWpCrGaohKQ0OE2fGgNv5Ctm+V6sKeLmUwRY
+ 1wkHYDjDCDVCco8RM4O6YPoVaN+eMz7vR8OS78ls0Homm3fsUO0oShhl5aSZoc9i
+ 6AZGsyni5y5IGB9A+1U9L0YjU2JQx/1JVvxK0hQIx4royT9wz4OZRo6jQXHrvKiv
+ I1V7tExfeTjo12KKDRGKAGBP3qcuw==
+X-ME-Sender: <xms:_hiJXgT8uolYJoZtuunAxO-xDNQC2SPKifZkBAFDWWA0SQl4QE8Yuw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrtdelgddvfecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggugfgjsehtkeertddttdejnecuhfhrohhmpefrvghtvghr
+ ucfjuhhtthgvrhgvrhcuoehpvghtvghrrdhhuhhtthgvrhgvrhesfihhohdqthdrnhgvth
+ eqnecuffhomhgrihhnpehfrhgvvgguvghskhhtohhprdhorhhgnecukfhppeduudejrddv
+ tddrjedurddutdelnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ hfrhhomhepphgvthgvrhdrhhhuthhtvghrvghrseifhhhoqdhtrdhnvght
+X-ME-Proxy: <xmx:_hiJXu843Ku2bK7a4M8X6C6C6Qpp1xGnVUctgMGO6_2eUlcegxS8Tg>
+ <xmx:_hiJXuTh-arvOP8fdoUTzXNUzHYUWwB0PoWff4dO4TaxU47ZFAldHA>
+ <xmx:_hiJXtaJ07-yQWYOozagMLoKHzN4vhski4KK1bQqlNpcVgBo-OrurA>
+ <xmx:ARmJXr_EER4Vk-5hGsiD700U6PW2qZPIVxSe0P3WkAgVA5tdBrGmdQ>
+Received: from jelly (117-20-71-109.751447.bne.nbn.aussiebb.net
+ [117.20.71.109])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 55560306D19B;
+ Sat,  4 Apr 2020 19:32:09 -0400 (EDT)
+Date: Sun, 5 Apr 2020 09:32:04 +1000
+From: Peter Hutterer <peter.hutterer@who-t.net>
+To: Rob Clark <robdclark@gmail.com>
+Subject: Re: [Mesa-dev] [Intel-gfx] gitlab.fd.o financial situation and
+ impact on services
+Message-ID: <20200404233204.GB1918409@jelly>
+References: <6d2ec570f957b4504fb70e0b1f0632712a99dc0c.camel@collabora.com>
+ <CAPj87rO7BuKQj2Kei3T7RdkFq5=TiuShBvtrPU2sn0iqMfXSTg@mail.gmail.com>
+ <59f4ea1f13a9a9d37f7801b93061b4ae7dd595e2.camel@gmail.com>
+ <d0ef47e45c83b342494e6781b808b4831a008836.camel@ndufresne.ca>
+ <d9dca12759fd6a549dc4cd71b5f210a4dced01cd.camel@gmail.com>
+ <CAOFGe96WqRTagf=Lhp6j9aMnB6hxwog7t93t=4r6QE_4f+HpeQ@mail.gmail.com>
+ <5551426acf99f73d3ce8234c14c176c1c7a1fe44.camel@ndufresne.ca>
+ <CAAxE2A5zSy7Rh6xyPW8NCqj3q0_8F7yw8tAXx=_z8+mJ-u2uWw@mail.gmail.com>
+ <3cddf1aa-5072-af7c-c51e-c16039176f6c@daenzer.net>
+ <CAF6AEGuNTtHfNm_nRhPFX5wPRmKkjnFEKqTdTSBDjpLkaiN8Fw@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from carbon.dhcp.thefacebook.com (2620:10d:c090:400::5:71d6) by
- CO2PR04CA0152.namprd04.prod.outlook.com (2603:10b6:104::30) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2878.15 via Frontend Transport; Fri, 3 Apr 2020 22:37:08 +0000
-X-Originating-IP: [2620:10d:c090:400::5:71d6]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: dd6d0a80-23b9-4f07-37d7-08d7d81f8b5e
-X-MS-TrafficTypeDiagnostic: BYAPR15MB2887:
-X-Microsoft-Antispam-PRVS: <BYAPR15MB2887E8AD37FE718C555ACEE1BEC70@BYAPR15MB2887.namprd15.prod.outlook.com>
-X-FB-Source: Internal
-X-MS-Oob-TLC-OOBClassifiers: OLM:1227;
-X-Forefront-PRVS: 0362BF9FDB
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BYAPR15MB4136.namprd15.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10019020)(366004)(346002)(136003)(376002)(39860400002)(396003)(81166006)(478600001)(66946007)(86362001)(6916009)(52116002)(6506007)(2906002)(7696005)(66476007)(66556008)(316002)(81156014)(55016002)(5660300002)(4326008)(9686003)(6666004)(186003)(8936002)(8676002)(33656002)(16526019)(1076003)(4744005);
- DIR:OUT; SFP:1102; 
-Received-SPF: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: I2gzfofFl/6VmFzQlEgVA+ey0W7Zn3/ie8CrZlVOPtZDO6GS3UttuWLpM6g8XNzGAEyswiI70KpYq/6rXGobWpbeh/GjoCTCryWGTnkxRQtWcbQrkpUIbiKtFGMVizOIVtJjd2AbzVpBJOroqVtHuBpHXFi+8o/X4P3noJv57jgYte0eyjY3jCAguGJOxAilP5PSps/OqbEaYHiTP9s35JU+fbMlSp5Ov8vdVdkZgZyjAz46QEVzOQ/8lIzgae6yF77WY7IZ+uS6ZkNTqpCy4O5+XIMBHkq35YjGOvcQdDA1csIFnCzKz+DBDGJlxiIOenhPooktK/2l08LXoYkhHvFK+xwjNpaRSVzQcf091SQuT/LjuwN88rlQRaXqelv51LPz0A9e4TFJjXCXZbQE0AfztNfEfr1nEjVlKfhb9P7uY71x6pgSI2dW3U0ui7oh
-X-MS-Exchange-AntiSpam-MessageData: zPnNOeLuXvygXAsutdLup0oQbXCvwQHRi8I+CeC7lFFgLmD779VOeXOikCX7S+nVCT7K3vRgRSV5fQ9qHF7jWqrpee1h0suG+DiPpH4t4RJ+SlgaRnUMAnIFe12QMgL3tuGpY9TwNsGnY9SclMHVkOPJsIcKjdzXiCv0/NPqRKPcBjN8VqR30x3S1g8//t7Y
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd6d0a80-23b9-4f07-37d7-08d7d81f8b5e
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Apr 2020 22:37:09.2076 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B7jJ36HbcgBEBVnE9nVGIG/eySBgjBIu15HNpzPHEseQ1d3+sI0hWOJ0sAYUgquR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR15MB2887
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-03_19:2020-04-03,
- 2020-04-03 signatures=0
-X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
- mlxlogscore=953
- spamscore=0 clxscore=1011 phishscore=0 mlxscore=0 impostorscore=0
- adultscore=0 lowpriorityscore=0 suspectscore=1 malwarescore=0
- priorityscore=1501 bulkscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2003020000 definitions=main-2004030173
-X-FB-Internal: deliver
+Content-Disposition: inline
+In-Reply-To: <CAF6AEGuNTtHfNm_nRhPFX5wPRmKkjnFEKqTdTSBDjpLkaiN8Fw@mail.gmail.com>
 X-Mailman-Approved-At: Sun, 05 Apr 2020 13:54:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,37 +100,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Harish.Kasiviswanathan@amd.com, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-security-module@vger.kernel.org,
- tj@kernel.org, bpf@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Erik Faye-Lund <erik.faye-lund@collabora.com>,
+ Marek =?utf-8?B?T2zFocOhaw==?= <maraeo@gmail.com>,
+ Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>,
+ "X.Org development" <xorg-devel@lists.x.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Nicolas Dufresne <nicolas@ndufresne.ca>,
+ "X.Org Foundation Board" <board@foundation.x.org>,
+ Xorg Members List <members@x.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Jason Ekstrand <jason@jlekstrand.net>,
+ Mesa Dev <mesa-dev@lists.freedesktop.org>,
+ Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+ wayland <wayland-devel@lists.freedesktop.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Discussion of the development of and with GStreamer
+ <gstreamer-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 03, 2020 at 07:55:28PM +0200, Odin Ugedal wrote:
-> Original cgroup v2 eBPF code for filtering device access made it
-> possible to compile with CONFIG_CGROUP_DEVICE=n and still use the eBPF
-> filtering. Change 
-> commit 4b7d4d453fc4 ("device_cgroup: Export devcgroup_check_permission")
-> reverted this, making it required to set it to y.
-> 
-> Since the device filtering (and all the docs) for cgroup v2 is no longer
-> a "device controller" like it was in v1, someone might compile their
-> kernel with CONFIG_CGROUP_DEVICE=n. Then (for linux 5.5+) the eBPF
-> filter will not be invoked, and all processes will be allowed access
-> to all devices, no matter what the eBPF filter says.
-> 
-> Signed-off-by: Odin Ugedal <odin@ugedal.com>
-
-Hello, Odin!
-
-The patch makes perfect sense to me.
-
-Acked-by: Roman Gushchin <guro@fb.com>
-
-Thanks!
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gU2F0LCBBcHIgMDQsIDIwMjAgYXQgMDg6MTE6MjNBTSAtMDcwMCwgUm9iIENsYXJrIHdyb3Rl
+Ogo+IE9uIEZyaSwgQXByIDMsIDIwMjAgYXQgNzoxMiBBTSBNaWNoZWwgRMOkbnplciA8bWljaGVs
+QGRhZW56ZXIubmV0PiB3cm90ZToKPiA+Cj4gPiBPbiAyMDIwLTAzLTAxIDY6NDYgYS5tLiwgTWFy
+ZWsgT2zFocOhayB3cm90ZToKPiA+ID4gRm9yIE1lc2EsIHdlIGNvdWxkIHJ1biBDSSBvbmx5IHdo
+ZW4gTWFyZ2UgcHVzaGVzLCBzbyB0aGF0IGl0J3MgYSBzdHJpY3RseQo+ID4gPiBwcmUtbWVyZ2Ug
+Q0kuCj4gPgo+ID4gVGhhbmtzIGZvciB0aGUgc3VnZ2VzdGlvbiEgSSBpbXBsZW1lbnRlZCBzb21l
+dGhpbmcgbGlrZSB0aGlzIGZvciBNZXNhOgo+ID4KPiA+IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNr
+dG9wLm9yZy9tZXNhL21lc2EvLS9tZXJnZV9yZXF1ZXN0cy80NDMyCj4gPgo+IAo+IEkgd291bGRu
+J3QgbWluZCBtYW51YWxseSB0cmlnZ2VyaW5nIHBpcGVsaW5lcywgYnV0IHVubGVzcyB0aGVyZSBp
+cwo+IHNvbWUgdHJpY2sgSSdtIG5vdCByZWFsaXppbmcsIGl0IGlzIHN1cGVyIGN1bWJlcnNvbWUu
+ICBJZS4geW91IGhhdmUgdG8KPiBjbGljayBmaXJzdCB0aGUgY29udGFpbmVyIGpvYnMuLiB0aGVu
+IHdhaXQuLiB0aGVuIHRoZSBidWlsZCBqb2JzLi4KPiB0aGVuIHdhaXQgc29tZSBtb3JlLi4gYW5k
+IHRoZW4gZmluYWxseSB0aGUgYWN0dWFsIHJ1bm5lcnMuICBUaGF0IHdvdWxkCj4gYmUgYSByZWFs
+IHN0ZXAgYmFjayBpbiB0ZXJtcyBvZiB1c2VmdWxuZXNzIG9mIENJLi4gb25lIG1pZ2h0IGNhbGwg
+aXQgYQo+IHJlZ3Jlc3Npb24gOi0oCgpJICp0aGluayogdGhpcyBzaG91bGQgd29yayB0aG91Z2gg
+aWYgeW91IHNldCB1cCB0aGUgcmlnaHQgam9iIGRlcGVuZGVuY2llcy4KdmVyeSBzaW1wbGUgZXhh
+bXBsZToKaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL3dob3QvY2ktcGxheWdyb3VuZC9w
+aXBlbGluZXMvMTI4NjAxCgpqb2IxIGlzICJ3aGVuOm1hbnVhbCIsIGpvYjIgaGFzICJuZWVkczog
+am9iMSIsIGpvYjMgaGFzICJuZWVkczogam9iMiIuCk5vdGhpbmcgcnVucyBhdCBmaXJzdCwgaWYg
+eW91IHRyaWdnZXIgam9iMSBpdCdsbCBjYXNjYWRlIGRvd24gdG8gam9iIDIgYW5kCjMuCgpUaGUg
+bWFpbiBsaW1pdCB5b3UgaGF2ZSBoZXJlIGFyZSB0aGUgc3RhZ2VzIC0gd2hlcmUgYSBqb2IgaXMg
+cGFydCBvZiBhIHN0YWdlCmJ1dCBkb2VzIG5vdCBoYXZlIGFuIGV4cGxpY2l0ICJuZWVkczoiIGl0
+IHdpbGwgd2FpdCBmb3IgdGhlIHByZXZpb3VzIHN0YWdlCnRvIGNvbXBsZXRlLiBUaGF0IHdpbGwg
+bmV2ZXIgaGFwcGVuIGlmIG9uZSBqb2IgaW4gdGhhdCBzdGFnZSBoYXMgYSBtYW51YWwKZGVwZW5k
+ZW5jeS4gU2VlIHRoaXMgcGlwZWxpbmUgYXMgYW4gZXhhbXBsZToKaHR0cHM6Ly9naXRsYWIuZnJl
+ZWRlc2t0b3Aub3JnL3dob3QvY2ktcGxheWdyb3VuZC9waXBlbGluZXMvMTI4NjA1CgpTbyBiYXNp
+Y2FsbHk6IGlmIHlvdSBzZXQgdXAgYWxsIHlvdXIgam9icyB3aXRoIHRoZSBjb3JyZWN0ICJuZWVk
+cyIgeW91IGNvdWxkCmV2ZW4gaGF2ZSBhIG5vb3Agc3RhZ2UgZm9yIHVzZXIgaW50ZXJmYWNlIHB1
+cnBvc2VzLiBIZXJlJ3MgYW4gZXhhbXBsZToKaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3Jn
+L3dob3QvY2ktcGxheWdyb3VuZC9waXBlbGluZXMvMTI4NjA2CgpJdCBoYXMgYSBVSSBzdGFnZSB3
+aXRoICJ0ZXN0LWFybSIgYW5kICJ0ZXN0LXg4NiIgbWFudWFsIGpvYnMuIEl0IGhhcyBvdGhlcgpz
+dGFnZXMgd2l0aCBkZXBlbmRlbnQgam9icyBvbiB0aG9zZSAoY2FzY2FkaW5nIGRvd24pIGJ1dCBp
+dCBhbHNvIGhhcyAKYSBzZXQgb2YgYXV0b3J1biBqb2JzIHRoYXQgcnVuIGluZGVwZW5kZW50IG9m
+IHRoZSBtYW51YWwgdHJpZ2dlcnMuIFdoZW4geW91CnB1c2gsIHRoZSBhdXRvcnVuIGpvYnMgcnVu
+LiBXaGVuIHlvdSB0cmlnZ2VyICJ0ZXN0LWFybSIgbWFudWFsbHksIGl0CnRyaWdnZXJzIHRoZSB2
+YXJpb3VzIGRlcGVuZGVudCBqb2JzLgoKU28gSSB0aGluayB3aGF0IHlvdSB3YW50IHRvIGRvIGlz
+IHBvc3NpYmxlLCBpdCBqdXN0IHJlcXVpcmVzIHNvbWUgdHdlYWtpbmcKb2YgdGhlICJuZWVkcyIg
+ZW50cmllcy4KCkNoZWVycywKICAgUGV0ZXIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGlu
+Zm8vYW1kLWdmeAo=
