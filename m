@@ -2,61 +2,86 @@ Return-Path: <SRS0=w0EQ=5V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E1AACC2BA17
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4875C2BA1E
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B2A0A20672
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A561820672
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="zuv5E7Nj"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B2A0A20672
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ndufresne-ca.20150623.gappssmtp.com header.i=@ndufresne-ca.20150623.gappssmtp.com header.b="LtlTRbpO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A561820672
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ndufresne.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 861C16E249;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 834A06E23F;
 	Sun,  5 Apr 2020 13:54:43 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org
- [IPv6:2001:8b0:10b:1231::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4735A6E09C
- for <amd-gfx@lists.freedesktop.org>; Sat,  4 Apr 2020 14:32:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=dBfBsCmH+Eo1IEVIov38NE0cr2dP5E/BRHhdQtoIDak=; b=zuv5E7NjreiQ5XBFzn1PjCMVNV
- 5jlV9xfeyuYdiFQDdIRKMCVcHcR7OrMF8OAi/cb5kWg2eHOLySIleDucXovsfjveBE5dBEfeOnEJ5
- xsf/mpIZYKRsNwcAOBoysY7X4sjUDDX9+F1Drp9vz/ft02QfFO3C9Ava5WHPWQtbN1a2u6VWKpHh+
- IOUVxvbxQkUagwelFrXW1GOjQ8vB6FFg+A7tRCvITwxk0ajpOTFj7oBMN6LBb8gEL8901GSrdKqD9
- tR8vLwcHLqSSFTZCIFQDgCsmVr9OAeBqyoB/7oykglpseUcht3wj4PGhIdxS5Q/elLYDQJmY0t62n
- ACn+msaA==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=worktop.programming.kicks-ass.net)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jKjqV-0000fy-P3; Sat, 04 Apr 2020 14:32:28 +0000
-Received: by worktop.programming.kicks-ass.net (Postfix, from userid 1000)
- id 5AE919834EB; Sat,  4 Apr 2020 16:32:24 +0200 (CEST)
-Date: Sat, 4 Apr 2020 16:32:24 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Subject: Re: AMD DC graphics display code enables -mhard-float, -msse, -msse2
- without any visible FPU state protection
-Message-ID: <20200404143224.GL2452@worktop.programming.kicks-ass.net>
-References: <CAG48ez2Sx4ELkM94aD_h_J7K7KBOeuGmvZLKRkg3n_f2WoZ_cg@mail.gmail.com>
- <4c5fe55d-9db9-2f61-59b2-1fb2e1b45ed0@amd.com>
- <20200402141308.GB20730@hirez.programming.kicks-ass.net>
- <20200403142837.f61a18d7bd32fd73777479ad@kernel.org>
- <20200403112113.GN20730@hirez.programming.kicks-ass.net>
- <20200404120808.05e9aa61500265be2e031bd6@kernel.org>
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74F0A6E177
+ for <amd-gfx@lists.freedesktop.org>; Sat,  4 Apr 2020 17:47:58 +0000 (UTC)
+Received: by mail-qv1-xf44.google.com with SMTP id n1so5338339qvz.4
+ for <amd-gfx@lists.freedesktop.org>; Sat, 04 Apr 2020 10:47:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ndufresne-ca.20150623.gappssmtp.com; s=20150623;
+ h=message-id:subject:from:to:cc:date:in-reply-to:references
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=Gp8A21M9co1Wrfg+dpxrWLW8fB04eqMFGxHjZaALidM=;
+ b=LtlTRbpOBKHmy3HszgPVl1vUauawEZDef6CoHM6HP9lFqrwSJlcKdu+0/H4E1vtsOh
+ 9cxILap+OhoWQQGrN1bd3soG+wgO2Xp4EJU1FReqjufp5xSkTXysYHeoT4NofZ1YEDFr
+ nGRtZQS1iqkFQ3768vHXN00FVgXg8GFbU0bvAGmdbdAS9gST/izzxn/XujjyL7HGkwoY
+ 4ZUlIbrT6bxpH+AIkpF3gIfjrsKaZNNH9WazgYyP7mHMNag3NdZMo1YJE/wjFPUrmY/Y
+ 6epc/fa1nStCKMnwXsB/MV4uSAg5F5oDzpviD39yYdHf9K1xTAdESwJEcE+o4Lgifk63
+ Z70A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:user-agent:mime-version:content-transfer-encoding;
+ bh=Gp8A21M9co1Wrfg+dpxrWLW8fB04eqMFGxHjZaALidM=;
+ b=DdTl0/GPJHijqPxwGycvylSsU6lmFsBMoY5FVC2PmT1FQa+eP+onX/BfG7+/IA/Uq0
+ 7d1sq2/XnLTMXCTiDbWDId7ILYEsMOpD6N9tSOcDb9qskDa0NJVEHjGYZBY3Ceuv6KCi
+ M9dJuiLi2yMZem4KR74ra94GcZSw/pxxP4jYLfd3Ncre6M0vgNriFHf0Ln4tVbLuDOsc
+ 8IXjWjyJeowcVfd0JQ8N+S/a0BJ8Zen8z4acX9CFn1pAAsKJNJVrxYwIiOKxQgzzj6ru
+ Up6uM8H+R2cZo2HhoywCoUx+S1RH6u56aRTLUhjm/4/6Z50ds8XOy1PgV/K5vLKqipwv
+ /9wQ==
+X-Gm-Message-State: AGi0PubHeO8FsplkvTFn/erUvBcNYL/cCVQFeytU9y/8DNFk7lD4ZqLs
+ lPNoMAA6rbzu6G5Jl/8mBmUh3g==
+X-Google-Smtp-Source: APiQypK3+LR2/7/2n1voE+NaOiL2DcMvLblA5hSmACUKKbp8+wnP54+P7oPjsfvK43U0gi1CJBrwyA==
+X-Received: by 2002:a0c:bd99:: with SMTP id n25mr13945300qvg.149.1586022477193; 
+ Sat, 04 Apr 2020 10:47:57 -0700 (PDT)
+Received: from skullcanyon ([192.222.193.21])
+ by smtp.gmail.com with ESMTPSA id c6sm10097011qtd.4.2020.04.04.10.47.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 04 Apr 2020 10:47:56 -0700 (PDT)
+Message-ID: <3e5bc9f9416c3f8b2ec52436b40b82cafb717586.camel@ndufresne.ca>
+Subject: Re: [Mesa-dev] [Intel-gfx] gitlab.fd.o financial situation and
+ impact on services
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Rob Clark <robdclark@gmail.com>, Michel =?ISO-8859-1?Q?D=E4nzer?=
+ <michel@daenzer.net>
+Date: Sat, 04 Apr 2020 13:47:54 -0400
+In-Reply-To: <CAF6AEGuNTtHfNm_nRhPFX5wPRmKkjnFEKqTdTSBDjpLkaiN8Fw@mail.gmail.com>
+References: <CAKMK7uHHK2SsCfpmZwEUyTJJHsoccKoadoko3cEBOoYDFkmeAw@mail.gmail.com>
+ <CAPM=9txcGPvFdSzMtYZXyqLKnWyacSMuHdoXdV63M53fLFVFpw@mail.gmail.com>
+ <b398161ff7d0268454413058dc6c194cf93f5990.camel@collabora.com>
+ <ece8ebe3-40ec-2457-02da-4fef19cbe8f6@intel.com>
+ <6d2ec570f957b4504fb70e0b1f0632712a99dc0c.camel@collabora.com>
+ <CAPj87rO7BuKQj2Kei3T7RdkFq5=TiuShBvtrPU2sn0iqMfXSTg@mail.gmail.com>
+ <59f4ea1f13a9a9d37f7801b93061b4ae7dd595e2.camel@gmail.com>
+ <d0ef47e45c83b342494e6781b808b4831a008836.camel@ndufresne.ca>
+ <d9dca12759fd6a549dc4cd71b5f210a4dced01cd.camel@gmail.com>
+ <CAOFGe96WqRTagf=Lhp6j9aMnB6hxwog7t93t=4r6QE_4f+HpeQ@mail.gmail.com>
+ <5551426acf99f73d3ce8234c14c176c1c7a1fe44.camel@ndufresne.ca>
+ <CAAxE2A5zSy7Rh6xyPW8NCqj3q0_8F7yw8tAXx=_z8+mJ-u2uWw@mail.gmail.com>
+ <3cddf1aa-5072-af7c-c51e-c16039176f6c@daenzer.net>
+ <CAF6AEGuNTtHfNm_nRhPFX5wPRmKkjnFEKqTdTSBDjpLkaiN8Fw@mail.gmail.com>
+User-Agent: Evolution 3.34.4 (3.34.4-1.fc31) 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200404120808.05e9aa61500265be2e031bd6@kernel.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
 X-Mailman-Approved-At: Sun, 05 Apr 2020 13:54:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,93 +94,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Josh Poimboeuf <jpoimboe@redhat.com>, Jann Horn <jannh@google.com>,
- Leo Li <sunpeng.li@amd.com>, the arch/x86 maintainers <x86@kernel.org>,
- kernel list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Andy Lutomirski <luto@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
- Thomas Gleixner <tglx@linutronix.de>, Harry Wentland <harry.wentland@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Erik Faye-Lund <erik.faye-lund@collabora.com>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Marek =?UTF-8?Q?Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
+ Timur =?ISO-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ "X.Org development" <xorg-devel@lists.x.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ wayland <wayland-devel@lists.freedesktop.org>,
+ "X.Org Foundation Board" <board@foundation.x.org>,
+ Xorg Members List <members@x.org>,
+ Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+ Jason Ekstrand <jason@jlekstrand.net>,
+ Mesa Dev <mesa-dev@lists.freedesktop.org>,
+ Discussion of the development of and with GStreamer
+ <gstreamer-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Apr 04, 2020 at 12:08:08PM +0900, Masami Hiramatsu wrote:
-> From c609be0b6403245612503fca1087628655bab96c Mon Sep 17 00:00:00 2001
-> From: Masami Hiramatsu <mhiramat@kernel.org>
-> Date: Fri, 3 Apr 2020 16:58:22 +0900
-> Subject: [PATCH] x86: insn: Add insn_is_fpu()
-> 
-> Add insn_is_fpu(insn) which tells that the insn is
-> whether touch the MMX/XMM/YMM register or the instruction
-> of FP coprocessor.
-
-Looks good, although I changed it a little like so:
-
---- a/arch/x86/include/asm/insn.h
-+++ b/arch/x86/include/asm/insn.h
-@@ -133,11 +133,12 @@ static inline int insn_is_fpu(struct ins
- {
- 	if (!insn->opcode.got)
- 		insn_get_opcode(insn);
--	if (inat_is_fpu(insn->attr)) {
-+	if (inat_is_fpu(insn->attr)) {
- 		if (insn->attr & INAT_FPUIFVEX)
- 			return insn_is_avx(insn);
- 		return 1;
- 	}
-+	return 0;
- }
- 
- static inline int insn_has_emulate_prefix(struct insn *insn)
---- a/arch/x86/lib/x86-opcode-map.txt
-+++ b/arch/x86/lib/x86-opcode-map.txt
-@@ -269,14 +269,14 @@ d4: AAM Ib (i64)
- d5: AAD Ib (i64)
- d6:
- d7: XLAT/XLATB
--d8: ESC
--d9: ESC
--da: ESC
--db: ESC
--dc: ESC
--dd: ESC
--de: ESC
--df: ESC
-+d8: FPU
-+d9: FPU
-+da: FPU
-+db: FPU
-+dc: FPU
-+dd: FPU
-+de: FPU
-+df: FPU
- # 0xe0 - 0xef
- # Note: "forced64" is Intel CPU behavior: they ignore 0x66 prefix
- # in 64-bit mode. AMD CPUs accept 0x66 prefix, it causes RIP truncation
---- a/arch/x86/tools/gen-insn-attr-x86.awk
-+++ b/arch/x86/tools/gen-insn-attr-x86.awk
-@@ -65,10 +65,11 @@ BEGIN {
- 	modrm_expr = "^([CDEGMNPQRSUVW/][a-z]+|NTA|T[012])"
- 	force64_expr = "\\([df]64\\)"
- 	rex_expr = "^REX(\\.[XRWB]+)*"
--	mmxreg_expr = "^[HLNPQUVW][a-z]+"
--	mmx_expr = "^\\((emms|fxsave|fxrstor|ldmxcsr|stmxcsr)\\)"
--	mmxifvex_expr = "^CMOV" # CMOV is non-vex non-mmx
--	fpu_expr = "^ESC"
-+
-+	mmxreg_expr = "^[HLNPQUVW][a-z]+" # MMX/SSE register operands
-+	mmx_expr = "^\\(emms\\)"	  # MMX/SSE nmemonics lacking operands
-+	mmxifvex_expr = "^CMOV"		  # nmemonics NOT an AVX
-+	fpu_expr = "^FPU"
- 
- 	lprefix1_expr = "\\((66|!F3)\\)"
- 	lprefix2_expr = "\\(F3\\)"
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+TGUgc2FtZWRpIDA0IGF2cmlsIDIwMjAgw6AgMDg6MTEgLTA3MDAsIFJvYiBDbGFyayBhIMOpY3Jp
+dCA6Cj4gT24gRnJpLCBBcHIgMywgMjAyMCBhdCA3OjEyIEFNIE1pY2hlbCBEw6RuemVyIDxtaWNo
+ZWxAZGFlbnplci5uZXQ+IHdyb3RlOgo+ID4gT24gMjAyMC0wMy0wMSA2OjQ2IGEubS4sIE1hcmVr
+IE9sxaHDoWsgd3JvdGU6Cj4gPiA+IEZvciBNZXNhLCB3ZSBjb3VsZCBydW4gQ0kgb25seSB3aGVu
+IE1hcmdlIHB1c2hlcywgc28gdGhhdCBpdCdzIGEgc3RyaWN0bHkKPiA+ID4gcHJlLW1lcmdlIENJ
+Lgo+ID4gCj4gPiBUaGFua3MgZm9yIHRoZSBzdWdnZXN0aW9uISBJIGltcGxlbWVudGVkIHNvbWV0
+aGluZyBsaWtlIHRoaXMgZm9yIE1lc2E6Cj4gPiAKPiA+IGh0dHBzOi8vZ2l0bGFiLmZyZWVkZXNr
+dG9wLm9yZy9tZXNhL21lc2EvLS9tZXJnZV9yZXF1ZXN0cy80NDMyCj4gPiAKPiAKPiBJIHdvdWxk
+bid0IG1pbmQgbWFudWFsbHkgdHJpZ2dlcmluZyBwaXBlbGluZXMsIGJ1dCB1bmxlc3MgdGhlcmUg
+aXMKPiBzb21lIHRyaWNrIEknbSBub3QgcmVhbGl6aW5nLCBpdCBpcyBzdXBlciBjdW1iZXJzb21l
+LiAgSWUuIHlvdSBoYXZlIHRvCj4gY2xpY2sgZmlyc3QgdGhlIGNvbnRhaW5lciBqb2JzLi4gdGhl
+biB3YWl0Li4gdGhlbiB0aGUgYnVpbGQgam9icy4uCj4gdGhlbiB3YWl0IHNvbWUgbW9yZS4uIGFu
+ZCB0aGVuIGZpbmFsbHkgdGhlIGFjdHVhbCBydW5uZXJzLiAgVGhhdCB3b3VsZAo+IGJlIGEgcmVh
+bCBzdGVwIGJhY2sgaW4gdGVybXMgb2YgdXNlZnVsbmVzcyBvZiBDSS4uIG9uZSBtaWdodCBjYWxs
+IGl0IGEKPiByZWdyZXNzaW9uIDotKAoKT24gR1N0cmVhbWVyIHNpZGUgd2UgaGF2ZSBtb3ZlZCBz
+b21lIGV4aXN0aW5nIHBpcGVsaW5lIHRvIG1hbnVhbCBtb2RlLgpBcyB3ZSB1c2UgbmVlZHM6IGJl
+dHdlZW4gam9icywgd2UgY291bGQgc2ltcGx5IHNldCB0aGUgZmlyc3Qgam9iIHRvCm1hbnVhbCAo
+aW4gb3VyIGNhc2UgaXQncyBhIHNpbmdsZSBqb2IgY2FsbGVkIG1hbmlmZXN0IGluIHlvdXIgY2Fz
+ZSBpdAp3b3VsZCBiZSB0aGUgTiBjb250YWluZXIgam9icykuIFRoaXMgd2F5IHlvdSBjYW4gaGF2
+ZSBhIG1hbnVhbCBwaXBlbGluZQp0aGF0IGlzIHRyaWdnZXJlZCBpbiBzaW5nbGUgKG9yIGZld2Vy
+KSBjbGlja3MuIEhlcmUncyBhbiBleGFtcGxlOgoKaHR0cHM6Ly9naXRsYWIuZnJlZWRlc2t0b3Au
+b3JnL2dzdHJlYW1lci9nc3RyZWFtZXIvcGlwZWxpbmVzLzEyODI5MgoKVGhhdCBvdXIgcG9zdC1t
+ZXJnZSBwaXBlbGluZXMsIHdlIG9ubHkgdHJpZ2dlciB0aGVuIGlmIHdlIHN1c3BlY3QgYQpwcm9i
+bGVtLgoKPiAKPiBJcyB0aGVyZSBhIHBvc3NpYmxlIG1pZGRsZSBncm91bmQgd2hlcmUgcHJlLW1h
+cmdlIHBpcGVsaW5lcyB0aGF0IHRvdWNoCj4gYSBwYXJ0aWN1bGFyIGRyaXZlciB0cmlnZ2VyIHRo
+YXQgZHJpdmVyJ3MgQ0kgam9icywgYnV0IE1ScyB0aGF0IGRvbid0Cj4gdG91Y2ggdGhhdCBkcml2
+ZXIgYnV0IGRvIHRvdWNoIHNoYXJlZCBjb2RlIGRvbid0IHVudGlsIHRyaWdnZXJlZCBieQo+IG1h
+cmdlPyAgSWUuIGlmIEkgaGF2ZSBhIE1SIHRoYXQgb25seSB0b3VjaGVzIG5pciwgaXQncyBwcm9i
+YWJseSBvayB0bwo+IG5vdCBydW4gZnJlZWRyZW5vIGpvYnMgdW50aWwgbWFyZ2UgdHJpZ2dlcnMg
+aXQuICBCdXQgaWYgSSBoYXZlIGEgTVIKPiB0aGF0IGlzIHRvdWNoaW5nIGZyZWVkcmVubywgSSdk
+IHJlYWxseSByYXRoZXIgbm90IGhhdmUgdG8gd2FpdCB1bnRpbAo+IG1hcmdlIHRyaWdnZXJzIHRo
+ZSBmcmVlZHJlbm8gQ0kgam9icy4KPiAKPiBCdHcsIEkgd2FzIHVuZGVyIHRoZSBpbXByZXNzaW9u
+IChmcm9tIHBlcmlvZGljYWxseSBza2ltbWluZyB0aGUgbG9ncwo+IGluICNmcmVlZGVza3RvcCwg
+c28gSSBjb3VsZCB3ZWxsIGJlIG1pc3Npbmcgb3IgbWlzdW5kZXJzdGFuZGluZwo+IHNvbWV0aGlu
+ZykgdGhhdCBjYWNoaW5nL2V0YyBoYWQgYmVlbiBpbXByb3ZlZCBhbmQgbWVzYSdzIHBhcnQgb2Yg
+dGhlCj4gZWdyZXNzIHdhc24ndCB0aGUgYmlnZ2VyIGlzc3VlIGF0IHRoaXMgcG9pbnQ/Cj4gCj4g
+QlIsCj4gLVIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBz
+Oi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
