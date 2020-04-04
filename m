@@ -2,121 +2,55 @@ Return-Path: <SRS0=w0EQ=5V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 864E6C2BA1B
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DEF42C2BA2B
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5E5B820672
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B5FA020672
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 13:54:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dri6mJYt"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E5B820672
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="V91+pfIB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5FA020672
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E18776E25B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAF296E24E;
 	Sun,  5 Apr 2020 13:54:43 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EDD4B6E0A1;
- Sat,  4 Apr 2020 13:08:35 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id c195so4185835wme.1;
- Sat, 04 Apr 2020 06:08:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=to:cc:references:from:autocrypt:subject:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=g0lhfmepuqxhkSzHeSEIiTb4vyevQh1xR17a67PwJQQ=;
- b=dri6mJYtciFG4/ZrwuqQCU7c4IS9vONkv8q4vmhBQEpUdqKGcpRPW/npcbLU1edukx
- yiBxoc3c+BjEFjYpu5MBAEWNGYlm96JrWvx7bgShueCqpuG/I22f565wbJO+P+em0K3W
- 6hqruMAWMS6niWUvgYJ1F9Rs6PGC2wzAauiMSE8+L7CHoh9OjsESG7lEhCvEjdZwopB0
- qwRveLIJ9agq47IsCnLHWAoyuREzPAwbygJyAFKVbrZwc+eXe9dnQhIFRUTFJFA2QOYE
- EEk25wlmEpjI7NCUggZJgRo3e8iFbc0QZJDlmNsGXUdAQjzLhLGUQUaQ9fhGkDsweY1/
- oxOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:to:cc:references:from:autocrypt:subject
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=g0lhfmepuqxhkSzHeSEIiTb4vyevQh1xR17a67PwJQQ=;
- b=FL6lEizUiuCExtwt4bDW/n+4s6XUQJuETk3I1bREsrLcGckAHwEB75i9Mc40932ZUQ
- qfUHUp+Y379cSi6lbJE/N/L1SdzIMxGAqkfzVRR9Cpsb34MagTDyyMChwiv8dpLOG9UT
- O7owiyE911mZr5Pdo7GeZalDWoP7E+RVf9TQa7kyX0pRgqJQKi/OZH2C1TJEO3bsSMh9
- F7zryPkfdXMtl49XJS4h/KcfOGmmqFE4q/q4BIR0wf7xh62ic8R3Ajk6nHH351ZQa363
- kFm6LhY8s7qGyhlaShHZiEWwLc7NjHQOZtn9vgXx2av9oD7lfdgNBLOinXBqLPF03raj
- ioCw==
-X-Gm-Message-State: AGi0PubSpaSJONp77b71NTa0rssbYwaVvorvB7y3HP+M8s6DPJ9eaCHC
- tSP28aqa5eBSnY5DCqzQWWA=
-X-Google-Smtp-Source: APiQypI6hvMZkNwvsVxpYR5i02eTANSRy4tAI7LcYtYqoPJlBQhAQ1XfVNnuj0VEh0Xt5PF6ZJvYNw==
-X-Received: by 2002:a1c:9c15:: with SMTP id f21mr13348654wme.18.1586005714207; 
- Sat, 04 Apr 2020 06:08:34 -0700 (PDT)
-Received: from [192.168.43.88] ([109.126.129.227])
- by smtp.gmail.com with ESMTPSA id w81sm16009467wmg.19.2020.04.04.06.08.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 04 Apr 2020 06:08:33 -0700 (PDT)
-To: Christoph Hellwig <hch@lst.de>,
- Linus Torvalds <torvalds@linux-foundation.org>,
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70A816E0E7;
+ Sat,  4 Apr 2020 09:41:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=AqMtuIfKhyb9qBOeLF2ngCbDbTkgWPlfw5hjLkqb7k0=; b=V91+pfIB+e0EjxYrdGBz6mZLeU
+ b6sl/kba8YztMoKxFixyGrWr2+p6+TfA0D2AjbbjkY2bZIGjyOrkiEGXkydG/usWfjQAgQeph03/p
+ IWY4AL97ClQJOz6TWS+xW7Q5iK9baeejsY4mWXxok+AnXwWf653d3wli0gWSTPPlZ6KaOgRSwSOl5
+ ZU06lYY6VKTEueQ24UaKOf1HYDEX1xNZgSOexOSURxirYAwMPmyD5kygFhpOgyfR/W1FL0cGLBzUE
+ 0gBw5EZWuSLQPZ/XjtACPARRjtV8sgcPjEmiku93dzKae7Y9qUh6wCDy895raR0m7+CLsUAZ0uQnk
+ j8K7x5+A==;
+Received: from [2001:4bb8:180:7914:2ca6:9476:bbfa:a4d0] (helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1jKfIo-0002e8-4W; Sat, 04 Apr 2020 09:41:22 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
  Andrew Morton <akpm@linux-foundation.org>
+Subject: [PATCH 6/6] kernel: set USER_DS in kthread_use_mm
+Date: Sat,  4 Apr 2020 11:41:01 +0200
+Message-Id: <20200404094101.672954-7-hch@lst.de>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200404094101.672954-1-hch@lst.de>
 References: <20200404094101.672954-1-hch@lst.de>
- <20200404094101.672954-6-hch@lst.de>
-From: Pavel Begunkov <asml.silence@gmail.com>
-Autocrypt: addr=asml.silence@gmail.com; prefer-encrypt=mutual; keydata=
- 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 bA==
-Subject: Re: [Intel-gfx] [PATCH 5/6] kernel: better document the
- use_mm/unuse_mm API contract
-Message-ID: <8c1e6600-bee3-d074-28e6-813a6dbf5fd0@gmail.com>
-Date: Sat, 4 Apr 2020 16:07:31 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
 MIME-Version: 1.0
-In-Reply-To: <20200404094101.672954-6-hch@lst.de>
-Content-Language: en-US
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mailman-Approved-At: Sun, 05 Apr 2020 13:54:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -130,53 +64,171 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- intel-gvt-dev@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, Al Viro <viro@zeniv.linux.org.uk>,
- linux-fsdevel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- intel-gfx@lists.freedesktop.org, io-uring@vger.kernel.org
+ amd-gfx@lists.freedesktop.org, "Michael S. Tsirkin" <mst@redhat.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, linux-usb@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Zhenyu Wang <zhenyuw@linux.intel.com>,
+ virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
+ intel-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ intel-gvt-dev@lists.freedesktop.org, Jason Wang <jasowang@redhat.com>,
+ Zhi Wang <zhi.a.wang@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 04/04/2020 12:41, Christoph Hellwig wrote:
-> Switch the function documentation to kerneldoc comments, and add
-> WARN_ON_ONCE asserts that the calling thread is a kernel thread and
-> does not have ->mm set (or has ->mm set in the case of unuse_mm).
-> 
-> Also give the functions a kthread_ prefix to better document the
-> use case.
-> 
+Some architectures like arm64 and s390 require USER_DS to be set for
+kernel threads to access user address space, which is the whole purpose
+of kthread_use_mm, but other like x86 don't.  That has lead to a huge
+mess where some callers are fixed up once they are tested on said
+architectures, while others linger around and yet other like io_uring
+try to do "clever" optimizations for what usually is just a trivial
+asignment to a member in the thread_struct for most architectures.
 
-io_uring and io-wq bits LGTM.
+Make kthread_use_mm set USER_DS, and kthread_unuse_mm restore to the
+previous value instead.
 
-> --- a/include/linux/kthread.h
-> +++ b/include/linux/kthread.h
-...
-> -/*
-> - * unuse_mm
-> - *	Reverses the effect of use_mm, i.e. releases the
-> - *	specified mm context which was earlier taken on
-> - *	by the calling kernel thread
-> - *	(Note: this routine is intended to be called only
-> - *	from a kernel thread context)
-> +/**
-> + * kthread_use_mm - reverse the effect of kthread_use_mm()
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ drivers/usb/gadget/function/f_fs.c | 4 ----
+ drivers/vhost/vhost.c              | 3 ---
+ fs/io-wq.c                         | 8 ++------
+ fs/io_uring.c                      | 4 ----
+ kernel/kthread.c                   | 6 ++++++
+ 5 files changed, 8 insertions(+), 17 deletions(-)
 
-s/kthread_use_mm/kthread_unuse_mm/
-for the first one
-
-> + * @mm: address space to operate on
->   */
-> -void unuse_mm(struct mm_struct *mm)
-> +void kthread_unuse_mm(struct mm_struct *mm)
->  {
-
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index d9e48bd7c692..a1198f4c527c 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -824,13 +824,9 @@ static void ffs_user_copy_worker(struct work_struct *work)
+ 	bool kiocb_has_eventfd = io_data->kiocb->ki_flags & IOCB_EVENTFD;
+ 
+ 	if (io_data->read && ret > 0) {
+-		mm_segment_t oldfs = get_fs();
+-
+-		set_fs(USER_DS);
+ 		kthread_use_mm(io_data->mm);
+ 		ret = ffs_copy_to_iter(io_data->buf, ret, &io_data->data);
+ 		kthread_unuse_mm(io_data->mm);
+-		set_fs(oldfs);
+ 	}
+ 
+ 	io_data->kiocb->ki_complete(io_data->kiocb, ret, ret);
+diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
+index 1787d426a956..b5229ae01d3b 100644
+--- a/drivers/vhost/vhost.c
++++ b/drivers/vhost/vhost.c
+@@ -333,9 +333,7 @@ static int vhost_worker(void *data)
+ 	struct vhost_dev *dev = data;
+ 	struct vhost_work *work, *work_next;
+ 	struct llist_node *node;
+-	mm_segment_t oldfs = get_fs();
+ 
+-	set_fs(USER_DS);
+ 	kthread_use_mm(dev->mm);
+ 
+ 	for (;;) {
+@@ -365,7 +363,6 @@ static int vhost_worker(void *data)
+ 		}
+ 	}
+ 	kthread_unuse_mm(dev->mm);
+-	set_fs(oldfs);
+ 	return 0;
+ }
+ 
+diff --git a/fs/io-wq.c b/fs/io-wq.c
+index 83c2868eff2a..75cc2f31816d 100644
+--- a/fs/io-wq.c
++++ b/fs/io-wq.c
+@@ -168,7 +168,6 @@ static bool __io_worker_unuse(struct io_wqe *wqe, struct io_worker *worker)
+ 			dropped_lock = true;
+ 		}
+ 		__set_current_state(TASK_RUNNING);
+-		set_fs(KERNEL_DS);
+ 		kthread_unuse_mm(worker->mm);
+ 		mmput(worker->mm);
+ 		worker->mm = NULL;
+@@ -420,14 +419,11 @@ static void io_wq_switch_mm(struct io_worker *worker, struct io_wq_work *work)
+ 		mmput(worker->mm);
+ 		worker->mm = NULL;
+ 	}
+-	if (!work->mm) {
+-		set_fs(KERNEL_DS);
++	if (!work->mm)
+ 		return;
+-	}
++
+ 	if (mmget_not_zero(work->mm)) {
+ 		kthread_use_mm(work->mm);
+-		if (!worker->mm)
+-			set_fs(USER_DS);
+ 		worker->mm = work->mm;
+ 		/* hang on to this mm */
+ 		work->mm = NULL;
+diff --git a/fs/io_uring.c b/fs/io_uring.c
+index 367406381044..c332a34e8b34 100644
+--- a/fs/io_uring.c
++++ b/fs/io_uring.c
+@@ -5871,15 +5871,12 @@ static int io_sq_thread(void *data)
+ 	struct io_ring_ctx *ctx = data;
+ 	struct mm_struct *cur_mm = NULL;
+ 	const struct cred *old_cred;
+-	mm_segment_t old_fs;
+ 	DEFINE_WAIT(wait);
+ 	unsigned long timeout;
+ 	int ret = 0;
+ 
+ 	complete(&ctx->completions[1]);
+ 
+-	old_fs = get_fs();
+-	set_fs(USER_DS);
+ 	old_cred = override_creds(ctx->creds);
+ 
+ 	timeout = jiffies + ctx->sq_thread_idle;
+@@ -5985,7 +5982,6 @@ static int io_sq_thread(void *data)
+ 	if (current->task_works)
+ 		task_work_run();
+ 
+-	set_fs(old_fs);
+ 	if (cur_mm) {
+ 		kthread_unuse_mm(cur_mm);
+ 		mmput(cur_mm);
+diff --git a/kernel/kthread.c b/kernel/kthread.c
+index 316db17f6b4f..9e27d01b6d78 100644
+--- a/kernel/kthread.c
++++ b/kernel/kthread.c
+@@ -52,6 +52,7 @@ struct kthread {
+ 	unsigned long flags;
+ 	unsigned int cpu;
+ 	void *data;
++	mm_segment_t oldfs;
+ 	struct completion parked;
+ 	struct completion exited;
+ #ifdef CONFIG_BLK_CGROUP
+@@ -1235,6 +1236,9 @@ void kthread_use_mm(struct mm_struct *mm)
+ 
+ 	if (active_mm != mm)
+ 		mmdrop(active_mm);
++
++	to_kthread(tsk)->oldfs = get_fs();
++	set_fs(USER_DS);
+ }
+ EXPORT_SYMBOL_GPL(kthread_use_mm);
+ 
+@@ -1249,6 +1253,8 @@ void kthread_unuse_mm(struct mm_struct *mm)
+ 	WARN_ON_ONCE(!(tsk->flags & PF_KTHREAD));
+ 	WARN_ON_ONCE(!tsk->mm);
+ 
++	set_fs(to_kthread(tsk)->oldfs);
++
+ 	task_lock(tsk);
+ 	sync_mm_rss(mm);
+ 	tsk->mm = NULL;
 -- 
-Pavel Begunkov
+2.25.1
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
