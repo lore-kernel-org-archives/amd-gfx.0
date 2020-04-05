@@ -7,57 +7,57 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E472FC2BABC
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 20:41:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 51E9AC2BA80
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 20:42:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B7C2C20644
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 20:41:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 26A6B20644
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 20:42:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DKuFCaMN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B7C2C20644
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DDiMSqQP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26A6B20644
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FBBB6E2AF;
-	Sun,  5 Apr 2020 20:41:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E50189FED;
+	Sun,  5 Apr 2020 20:41:59 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2049.outbound.protection.outlook.com [40.107.236.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 921E46E2AF
- for <amd-gfx@lists.freedesktop.org>; Sun,  5 Apr 2020 20:41:56 +0000 (UTC)
+ (mail-bn8nam11on2042.outbound.protection.outlook.com [40.107.236.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CDBF89FED
+ for <amd-gfx@lists.freedesktop.org>; Sun,  5 Apr 2020 20:41:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jPAWUFPKf1C2SR1/rpAvqaI9mFesQIwFubhmiob9u+2S7Il07+nDjvHucQ7XmVErbHIWiOZ3cajNJtQU1+KucBHYwoZP5ufGdjTPkFRv571xh8vvIhnCh2v1ChTj4Fy5ZcWhiMzPpiM63AutNj/TtlgWtQpq/Pw99xRP4b1txF6XEI1zPxYhF8SrvG8WYsGRsVICmTPZmeqFiJk5ZyQ4KCtfW++RJ/6XfkpXDEVV+vIhfFAkATg9ZmfhWl2fkloHE8sfXBBpMVgci51dbaZqBIwVXG05K1EZP7ktBrET1MK07vcv4SHetymYW7Y42cBkjkCTBkeCVoNuEMhV3VYRng==
+ b=TOpwFxbkV/XsPEeZdKP4hyGXKlv++nLwLdFSsCBHlBXroX+d1EvwHMBdKPt8/DUROhpxTahZK9u4XkXblXMQVgjZ8+07Ieclg+/apiVgQPV+Iqv0M9XTmV1RT0Spf0IquA7+fa//6S8o089SzgaC7g/ami+BQ4hJho+4tJXrovXnGaAXO5BqXxCXunJMjd8XK7pdUTt3l9zsJEQDbP8rG3+BTEinmDBAPq/GLaTbTY6XV9sviJq6OJEab/asZOU+MTFZIhzjrU0X7hoNX5qP5J19sP8kf/8g1nfmPqgZYKN0xdbLaYi0nnMTc1fbbQnxglCFaq1LsEuP5PYfovau4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yezMiLRYgR/B3OmOUEvHOE06xvqqsaKrMh5XZYK1Huo=;
- b=kBMGmzVxKazgCiGpvpu4tyLFLIp8TgBiLBeG/FMuLNKjxd73BN6JcTWlNT5M1+Xs77McZOrF1zT72d1vBYs6Lm5EXY1gIMd2RjHT2DcE6NVKulttP6r5wWbDD0aCFuZ6bv1lp6hultWxcm4WwT5d+apsv34WHgJNb1SkAfusiayIYBNMqG1ICWVhuZA18vpK7iV6HdrboALchfhpxTRNxwS9yjzCNExJhOdOCv7wQa3thwekqDCF1gq1/DQvsTSxYhkqcPc1n+tXK59M0dXG7eDCVgWylrV7mB2MYRoSWyTp44xZGUXCAOVN34icthGolGMZPpMrMwI8q6fRDMR0sw==
+ bh=GBruFr9EQB8alZQ1Tlj/Bk7rFDlPk0PUZU2SBw5q8LY=;
+ b=UhMme8KwYmvDVfhp/fVsBXlN6IjposkoWC4ARFnNve9HbtC+IAAir9hywYNx0rcJjJNF1N50rPIxhADdtNhfrEhh0MTHjcI7pFDXO2QDX6PInQCyjkupz9onfVGVWhHgB+uUZf728VJkV3hS4u1JXJrZ0Cu9E1rJQ6PEFS5ATGBofe+FZARuk4X0ZkHMthtj3lrafKNTCAuMlqBwAxwPgEY85749t0vK17DP+HKeAkiubq58dD31uIaYUSE1m7jjp2Y/fYKmKGQq/tSb8UY8sDPDr8dmPk8K+aDlCB/R1MkEvc8P1H9R4IbQyXakaTM//5g0no9gxzPyTW+uwhoxkw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yezMiLRYgR/B3OmOUEvHOE06xvqqsaKrMh5XZYK1Huo=;
- b=DKuFCaMNp8IhLVOWXl6fXlukNpTkJgEWk59cUVALZqd0zxaGLuehUtbKpPIIZiazc9Q3IadmQPO9vKMxc/9Oth1KAY2iToSkEppHp3N9bStmcQAlKLYTiwlRgzxV6jD873WxplDbp2Zhu4I71bzgBXUHc61Xd4VmVbskEUfKtt8=
+ bh=GBruFr9EQB8alZQ1Tlj/Bk7rFDlPk0PUZU2SBw5q8LY=;
+ b=DDiMSqQPTpImo1PIPO3tWZ/blf3eazA3nxHuqBODgKtSUvgBLXmlIT45FU6lyY2hIuijgK6exeAKWTW8b+6fGGtt7y4yS2uYqA+j7uS5vPpaZFf1R2jWZ717h1Cb7omhBx1rtkTRMRiyEMfZwfsCe9LKF4DmlN1r+U/pCUctKx8=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
  by MW2PR12MB2555.namprd12.prod.outlook.com (2603:10b6:907:b::24) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.15; Sun, 5 Apr
- 2020 20:41:56 +0000
+ 2020 20:41:57 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::91a7:e6f7:b17a:bfa5]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::91a7:e6f7:b17a:bfa5%6]) with mapi id 15.20.2878.018; Sun, 5 Apr 2020
  20:41:56 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 17/36] drm/amd/display: Program viewport when source pos
- changes for DCN20 hw seq
-Date: Sun,  5 Apr 2020 16:40:56 -0400
-Message-Id: <20200405204115.683559-18-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 18/36] drm/amd/display: Calculate scaling ratios on every
+ medium/full update
+Date: Sun,  5 Apr 2020 16:40:57 -0400
+Message-Id: <20200405204115.683559-19-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.26.0
 In-Reply-To: <20200405204115.683559-1-Rodrigo.Siqueira@amd.com>
 References: <20200405204115.683559-1-Rodrigo.Siqueira@amd.com>
@@ -70,35 +70,35 @@ Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::4) by
  YTXPR0101CA0049.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::26) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.16 via Frontend
- Transport; Sun, 5 Apr 2020 20:41:55 +0000
+ Transport; Sun, 5 Apr 2020 20:41:56 +0000
 X-Mailer: git-send-email 2.26.0
 X-Originating-IP: [2607:fea8:56a0:11a1::4]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: de4a8d95-7925-43d5-85cc-08d7d9a1c784
+X-MS-Office365-Filtering-Correlation-Id: bf2d3a44-67ab-4567-90a6-08d7d9a1c81c
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2555:|MW2PR12MB2555:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB25554A7C9B9E6E405608EBA398C50@MW2PR12MB2555.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1360;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB25550943DBD27CFBB58FB96B98C50@MW2PR12MB2555.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1247;
 X-Forefront-PRVS: 03648EFF89
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW2PR12MB2524.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(376002)(396003)(39860400002)(366004)(346002)(136003)(1076003)(8676002)(6916009)(8936002)(6486002)(81156014)(81166006)(16526019)(52116002)(36756003)(2906002)(6512007)(186003)(86362001)(316002)(54906003)(6506007)(66556008)(66476007)(2616005)(66946007)(478600001)(4326008)(5660300002);
+ SFS:(10009020)(4636009)(376002)(396003)(39860400002)(366004)(346002)(136003)(1076003)(15650500001)(8676002)(6916009)(8936002)(6486002)(81156014)(81166006)(16526019)(52116002)(36756003)(2906002)(6512007)(186003)(86362001)(316002)(54906003)(6506007)(66556008)(66476007)(2616005)(66946007)(478600001)(4326008)(5660300002);
  DIR:OUT; SFP:1101; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: AwlNW7HDJKxKA6TmJHje80ClLKW3ZeSmtjH3aZGedvzFjpb8ZEJcRgvn09IhoDpOO78xGu96m4FYOjtFp3vW6zODe+Nsx2fd6bL8vDtMt21LDGu5yIz6vV7/UUFUxo/Zk2zKBoCKzfqfCGYxHqrH8M+OcFGLstK/q1ZBE2VcdNTCfOoJjZI/EpgsOM43ZGsuVC1yIOS7u4fN+6tpO8wMxV5MQFMjytKJlLwN+TYA6LqAwmnl4CUF6UgWuRYtAnAasf8D5YBqxXTm+aPfU5WsM0ujkBMGEI+69P81S5SyyXcn6pV5LmhTUiVTi3Sez1X6TSL6XW+zSK4NNO++PlaBvyUfXlQGaWCu/AUodSRu0A7pHF8/XDP/NdburCTegAsRQZGp01cVtfT/rxcrn7CiL6mNzNHidbEoUNZSNN4/RwHwP3WpIjShDj4NuIBiKl99
-X-MS-Exchange-AntiSpam-MessageData: 4KAn0iqRnr7W0zhPcCEWATh5D670z9EfTtACF8xxqeQ/cXgLxH4xIl+J2q3hL6L/dWc8KncYa9gX9fA7RtIWo8uFe4OxinXQ7lFqPt3shwSfIaeT5gFEp1fGM1S3oyUcwzjhIJL4PPod/KyzjxYvuo8XBVDGmUsDT27wLXioPBo=
+X-Microsoft-Antispam-Message-Info: P73JzMzdBOVKdjVP8r/DAtMdyGqWOceBgKDd4SdlwLcTRxNIjdpGhPG5eN7Z36br7BJgebk07PYDe0WnyzCKulC364LnQXZo7RdOjjEDs0xSqU4Nuqqg1y/Uj4qISbFwTjhWweFh5uShPVXyHA6z4bYfAPon5KLmZ4R0ZBv0z68aaXtt5aZdOrI95inS+1tc0QVnqHs/TBvE9tEv+bmwy8q7QXoJId91VMXCsNIgSdFEk9TxdhFsa0n8L4vIcD8dmVcOp54vPoilGd7Z2N5P72n9HnWbn4QQRb8yOFQK8qgg+CIb1wCMWchzXKbY6BALCyxLhXrJvTeSnRQn3qsuEoDs0qZ5Pdye4A9+uPY2OKW4nq/SPE0ZU8zwDiZLxEiaZUSnBlmcswm13B4ixjajcyoIXp8Tq96WksAaaLjKHypOAnG4GupI+t3pIyioZfrH
+X-MS-Exchange-AntiSpam-MessageData: yT8SCPvND8iw9zBrW8+N9KFVRagKR2gBLx9rfVUJ8w5/AIZSp/tOZa2fvk50+654MO/noF7YYJfY96rjlplUtd71/Y3SEf0RcBTD+8A5rno3gBhvQeQCbRtpGTmvfjeBstLYImoizU6o0VUGJ4ryKX8Jio4cdY6dmHaslap8oEA=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: de4a8d95-7925-43d5-85cc-08d7d9a1c784
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2020 20:41:55.8636 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bf2d3a44-67ab-4567-90a6-08d7d9a1c81c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2020 20:41:56.8360 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JjTraKAO56+E32aV4NR41n4Njv617ipKhK7uKvVqKYy2K1Qe24KwR4YqVH2Bo8J0zQ4QI9Xseia0dPzjK+nz9Q==
+X-MS-Exchange-CrossTenant-UserPrincipalName: T6SK0GFWgnv1oA9wVkdPAloowZ2EeLjYP2gz2oY93ltu7Y9RkS51NbriAOe2G2PTvwXIEBDlXpS5jUWmgiA6RA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2555
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,7 +111,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Zhan Liu <Zhan.Liu@amd.com>,
+Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Aric Cyr <Aric.Cyr@amd.com>,
  Harry.Wentland@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
@@ -121,39 +121,60 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
 [Why]
-For medium updates that change nothing but the source rect position
-the viewport doesn't change on DCN20.
+If a plane isn't being actively enabled or disabled then DC won't
+always recalculate scaling rects and ratios for the primary plane.
 
-We're missing the check for the position update bit that was there in
-the DCN10 hardware sequencer.
+This results in only a partial or corrupted rect being displayed on
+the screen instead of scaling to fit the screen.
 
 [How]
-Check the position bit along with the scaling bit like we were doing
-with DCN20.
+Add back the logic to recalculate the scaling rects into
+dc_commit_updates_for_stream since this is the expected place to
+do it in DC.
 
-We shouldn't actually hit a case where context != current_state in
-our programming/commit model but guard against it anyway since it was
-guarded for the other bits.
+This was previously removed a few years ago to fix an underscan issue
+but underscan is still functional now with this change - and it should
+be, since this is only updating to the latest plane state getting passed
+in.
 
 Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Zhan Liu <Zhan.Liu@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index 674e4b8abdfb..7e65c774c800 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -1373,6 +1373,7 @@ static void dcn20_update_dchubp_dpp(
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index f21bbb295ad3..6379cf71d9d5 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2462,7 +2462,7 @@ void dc_commit_updates_for_stream(struct dc *dc,
+ 	enum surface_update_type update_type;
+ 	struct dc_state *context;
+ 	struct dc_context *dc_ctx = dc->ctx;
+-	int i;
++	int i, j;
+ 
+ 	stream_status = dc_stream_get_status(stream);
+ 	context = dc->current_state;
+@@ -2500,6 +2500,17 @@ void dc_commit_updates_for_stream(struct dc *dc,
+ 
+ 		copy_surface_update_to_plane(surface, &srf_updates[i]);
+ 
++		if (update_type >= UPDATE_TYPE_MED) {
++			for (j = 0; j < dc->res_pool->pipe_count; j++) {
++				struct pipe_ctx *pipe_ctx =
++					&context->res_ctx.pipe_ctx[j];
++
++				if (pipe_ctx->plane_state != surface)
++					continue;
++
++				resource_build_scaling_params(pipe_ctx);
++			}
++		}
  	}
  
- 	if (pipe_ctx->update_flags.bits.viewport ||
-+			(context == dc->current_state && plane_state->update_flags.bits.position_change) ||
- 			(context == dc->current_state && plane_state->update_flags.bits.scaling_change) ||
- 			(context == dc->current_state && pipe_ctx->stream->update_flags.bits.scaling)) {
- 
+ 	copy_stream_update_to_stream(dc, context, stream, stream_update);
 -- 
 2.26.0
 
