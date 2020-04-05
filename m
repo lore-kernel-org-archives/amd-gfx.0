@@ -2,62 +2,64 @@ Return-Path: <SRS0=w0EQ=5V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CCB35C2BA19
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 26990C2BA1B
 	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 20:41:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A143120644
-	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 20:41:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EE5A620644
+	for <amd-gfx@archiver.kernel.org>; Sun,  5 Apr 2020 20:41:52 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="OchvE+16"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A143120644
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="FWLa6vSM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE5A620644
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 132066E20F;
-	Sun,  5 Apr 2020 20:41:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D322989FE8;
+	Sun,  5 Apr 2020 20:41:47 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2057.outbound.protection.outlook.com [40.107.236.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53B8189EB1
+ (mail-bn8nam11on2070.outbound.protection.outlook.com [40.107.236.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 369B789EA6
  for <amd-gfx@lists.freedesktop.org>; Sun,  5 Apr 2020 20:41:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hHLNJj5cIlkttuheQL1RbXcfj5BQyT3+sb/YS/612Kee5HvPU72ZCz8dWQ4Ufpjr1GphOLPrtkeEAqeoTMwj/p5cnxgDxQ0x6krW3livSvpHn/e6G6PppVrwYZpFv+3Pvd68KJ7Cpa7+yHYqbZrqva0TT7jF45QmaL4P50nqwDgxn+FYy2hd8jw1l//KDHOxsbDR5XOm67uNoQqfMEkqDGDlmg2RNOElSKzyIHuCAMGgwaDi3Ieg2H4R0QxaHJNHxnXUSgmVkes791JK5YBJW4DZMp4+huYP4EhkQyZva0m1LykP1DmVEldV7T9xdxLAdkbm6V0pZ626J12zNvugPg==
+ b=nAc0StDz9Tqdbp/HZt0bHzrd/fWdXThTiKh8Pk7s0q3gKRaaaDm/AaHu6YNiizPSoo5My/G1T7VSqEcckvmh5n9fa6cxlfLk77q3PcqBIjir8OuIEXsApblYggMfFva/E0GKAwOWzLwMEUJvyaTBdafXSuQgPC/GtoHAi/qw0s9IrcqwHuU6HhOPGlDdoID6uSXo0V1QpMJuK8WXJHrXbBPFct+B7YUy8/xG/KBcRws7dV+s7nNRkkSC9tmPW7vgOjNC8eMyS3vXh9a8mhYeTLewfJp3HoTIuN9BgwqkXDl7WwktOJtW3hXkBN0e9UBwQID6Fwm8m8bCdiiznONiWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LZh8+kksyPJJs51H6CSCPBsYYvTx5tTkYexqMidl4dQ=;
- b=Ylw6/f63Yl1U8/B7ThmHfaDtPQY6hAiMJ1PX7DaKNrpZdZJbdmxPDhJhxT3ymInFgMjSW9Rgt4WxaF8Y5yuhAWBaa7hgs0MszYPhVs4OLZHl/GcUo16fOtIIOnip4mdl8fNcM95GG7SOVD0cf1YlJuQCGT3ofyw/eQqmCPftkVz92GcsY8QxvSI/XMmpI4FCQpI7K/ce7qfDIyPNewfaB56gUF/sM7PYN70NtuL4SDIlgmD/EDK6DFQvpd7VjCIu2KA1+xEj7OntM9/oC96pXz95fBRvoEizEz8LunkEvH4Flvr/IJSiaqh4pRiUqHRVS4FUtRbITnDQ9EykLYN3aw==
+ bh=eY6kGJzED/j8YdJ7iaR7/bh02/NkzoZgZKXag93Wtlg=;
+ b=VLTz4mH7dr5dAGvzMpfyIrM3NGNF7G0YtglEOLwNywmr4ruWAI78I/vEN9QH8+NeZAiwdf2IrtctmrlqmDeu+9ewClG7TI4ODv/qut3a81ZwpubWKsk4ngTm60aanxyS/uOvsKn5WklG2RjbzYgJYNYrZ+X5l33RKvKaZu5NfRHaMmjR+2eCfbgAO5w+d4usei01j9U8eHcs0ZPqSCtaQVbJRtF+f574fqEnImhr5IjU9XacUQeOQa2iOFELY7YQVfPq8Ea7/h6RtZrhEBt3w2q4r6T+yWRDsao3HZRB0yrTo5p2v9VfgqweQShuMmDHtcV3GkCwQ0Uz3BGV9sQIBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LZh8+kksyPJJs51H6CSCPBsYYvTx5tTkYexqMidl4dQ=;
- b=OchvE+16uSituIKYoPW1qtonA6Q7rRKAgtbON0Ep6r0MkLIQAJzmKYrcxmINhzL5W63AbkwAotk54FnJgew/B//rQfI4EHN4MyLNe/RVK8dvR8cNKf+zBiTxvdyCuYlZRyFG5yUi9SCtIN5n3xDwnLrU9rXkFvwIA2UtsbeWBOw=
+ bh=eY6kGJzED/j8YdJ7iaR7/bh02/NkzoZgZKXag93Wtlg=;
+ b=FWLa6vSMSaOVBI8TXq7hJ0DfyY4GamQJm0nevz8SPx7Nc0XGZbiv7zxiHDTJEhwQGS3nzE2hQYCLGF9J2wNSmJsnmYp0WpQJRfaKfkuRaE1fcxfQcDJTpB+kUoRfZEEjpWamP2aKXv/qt5PJxZLHCTHnSvRGQ8ZC0/BAX/sLizM=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
  by MW2PR12MB2555.namprd12.prod.outlook.com (2603:10b6:907:b::24) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.15; Sun, 5 Apr
- 2020 20:41:39 +0000
+ 2020 20:41:43 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::91a7:e6f7:b17a:bfa5]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::91a7:e6f7:b17a:bfa5%6]) with mapi id 15.20.2878.018; Sun, 5 Apr 2020
- 20:41:38 +0000
+ 20:41:43 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 00/36] DC Patches April 5, 2020
-Date: Sun,  5 Apr 2020 16:40:39 -0400
-Message-Id: <20200405204115.683559-1-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 05/36] drm/amd/display: Remove hdcp display state with mst fix
+Date: Sun,  5 Apr 2020 16:40:44 -0400
+Message-Id: <20200405204115.683559-6-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.26.0
+In-Reply-To: <20200405204115.683559-1-Rodrigo.Siqueira@amd.com>
+References: <20200405204115.683559-1-Rodrigo.Siqueira@amd.com>
 X-ClientProxiedBy: YTXPR0101CA0049.CANPRD01.PROD.OUTLOOK.COM
  (2603:10b6:b00:1::26) To MW2PR12MB2524.namprd12.prod.outlook.com
  (2603:10b6:907:9::27)
@@ -67,35 +69,35 @@ Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::4) by
  YTXPR0101CA0049.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::26) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.16 via Frontend
- Transport; Sun, 5 Apr 2020 20:41:37 +0000
+ Transport; Sun, 5 Apr 2020 20:41:42 +0000
 X-Mailer: git-send-email 2.26.0
 X-Originating-IP: [2607:fea8:56a0:11a1::4]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f2c8d3d1-0eb8-4cc5-0c22-08d7d9a1bd13
+X-MS-Office365-Filtering-Correlation-Id: 65dc49d4-3314-4329-b445-08d7d9a1c038
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2555:|MW2PR12MB2555:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2555E4B6A2C199F22F98660698C50@MW2PR12MB2555.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB2555B8EC03C255A0F240B16398C50@MW2PR12MB2555.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:169;
 X-Forefront-PRVS: 03648EFF89
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW2PR12MB2524.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(376002)(396003)(39860400002)(366004)(346002)(136003)(1076003)(8676002)(6916009)(8936002)(6486002)(81156014)(81166006)(16526019)(52116002)(36756003)(2906002)(6512007)(186003)(86362001)(316002)(6506007)(66556008)(66476007)(2616005)(66946007)(478600001)(4326008)(5660300002);
+ SFS:(10009020)(4636009)(376002)(396003)(39860400002)(366004)(346002)(136003)(1076003)(8676002)(6916009)(8936002)(6486002)(81156014)(81166006)(30864003)(16526019)(52116002)(36756003)(2906002)(6512007)(186003)(86362001)(316002)(54906003)(6506007)(66556008)(66476007)(2616005)(66946007)(478600001)(4326008)(5660300002);
  DIR:OUT; SFP:1101; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YHkX63FLDSZzMihDA9nhTMLajtefS0KtqaWG3exRsoAdrW1wIYUt1UF7GGInONQg484SAOvpFLJGEpQ5R+7l+Q1cWJE1lxtpMvQWVHLfIV+t/uhZKuJA3EFy0HnFKOmtU6RIhU3j/3/Q7OvlSrVpH5y8918frEpxpZl78hs3ZT3RI34MQ2kUEnW/YhapZQxE06yMR2JOp1wELhoN0ucoTdFtkG0/MLJOgk7EaQljHJpSGwpgjjViPI4vW5HD921dpgtoZQFw2x4WRHoEGxpZ4I+8idBrBcF/IyDF+GUiwOzbrfbAp3rS3LpDFURqwNZSXYZBCWKXEvX04TeyAK0/SKinMd+2moPOJQSBPt8WTmJLx4UTa9e+hZjbVi6cSYQOcPdHrfATc8SmE6RSOdLo9OAHoWH6S6j88qqh631HmSXA2xW2qeueCIWaFUG9tS6Z
-X-MS-Exchange-AntiSpam-MessageData: QQXQjdQ/pcdQG5Brg1hIh9eNqXHgOORYwwjrRnSzJz0xfRHXwvpQOeQ1o/+KjxfKdLNvtC6nyGQQKmZUDD7JGXNgyIPnGNYDLMfGagYk9pM9EpUiyq3t76MLOizqchUtKr5RErMQ98eEidU4I1tYKifp4T7Xbai94WJPJl2eBL8=
+X-Microsoft-Antispam-Message-Info: +bITeBTNGGSx3Gr8/U/hQV6vl5uvK/NOpqjpXSSsN3vz8Xtk1wbjk17HJvAbA998s0KKLsBa8ncliCoVj3U2owhJ3Sgz9FQIFshLOVFci+NMgK/UwV4UuBxYDX2Xtx2wpTZYctkRJFUv1R3fm9KZZySoRJZJKKMm2tlezFKAXQy2bll3Pgm856lQSgUPvFV5hsKm9mk8AGs63aBdiEcvjxLV0wgyWabA6FsLsS2XsYnVMpQLeDqFRF+5TJZ+NVUM6D2clHsx8VxTN/bOjAN5FHr7XsKITDR6NqQAfVkfjtpbzT4LrBbw5E23CM0SfyaMjQlopVdYZ6sATSFUUdN6wYUX7iwSUJH/OlWP/tnNDsIUVRNG5QDoPjsetnGXkEX/lMwlCMCMzUXtTz7HDElW7IRDbT+EdBMTUz9CJBxB0lUag4m/VVL26U5HWGJMuSFT
+X-MS-Exchange-AntiSpam-MessageData: 9tmP3ZlGG307tvMga/Rj/8DDWFHBxtM/0evj9LXnyTMWA2DpzcUBbwRU1WdSbE1bEMYSTm5pHEyiQnawKVYhy5HsBVwhduwlZbbZCpFTLwZtCt1q45uN3h7S1Kct/N4FBiXpcfth9LOpmM4CsBWix6Y+AgoATlyNUnkRHE+wmEE=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2c8d3d1-0eb8-4cc5-0c22-08d7d9a1bd13
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2020 20:41:38.6715 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65dc49d4-3314-4329-b445-08d7d9a1c038
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Apr 2020 20:41:43.5967 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8ixYOdaDdh6Z9ct11lmAMPggWqWD7yZWMtQDb43efQy6PkDHgLaZKnuxQsh9tSvEmPxMb2v/ipIwDnTLEftpkA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: AGsw+t20Z49CORH3K9lkJ4z0L7c5rM4r3DD9V5ODaBwjV+E0X81sixCQQbwo7JxPtISWewFf1RsVOWjQwZfzrQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2555
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,149 +110,297 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Harry.Wentland@amd.com
+Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Harry.Wentland@amd.com,
+ Wenjing Liu <Wenjing.Liu@amd.com>, Isabel Zhang <isabel.zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This DC patchset brings improvements in multiple areas. In summary, we
-highlight:
- 
-* Properly map audio to engine on NV14
-* Improvements on DMCUB and DML
-* Fixes on MST and DP
+From: Isabel Zhang <isabel.zhang@amd.com>
 
-Alvin Lee (1):
-  drm/amd/display: Revert to old formula in set_vtg_params
+[Why]
+Due to previous code changes, displays transition from active to active
+and added state immediately, making it redundant to have both display
+states. Previous change to fix this caused HDCP to get into a bad state
+when monitor is connected to MST hub, this change fixes that issue.
 
-Aric Cyr (3):
-  drm/amd/display: 3.2.78
-  drm/amd/display: 3.2.79
-  drm/amd/display: 3.2.80
+[How]
+Change code behavior so when a device is added successfully the state
+remains as active and when addition is unsuccessful change state to
+inactive. This removes need for added and active state.
 
-Charlene Liu (2):
-  drm/amd/display: initialize get_max_link_cap
-  drm/amd/display: Properly map audio to engine on NV14
-
-Dale Zhao (1):
-  drm/amd/display: Don't verify DP caps again
-
-Dmytro Laktyushkin (1):
-  drm/amd/display: fix dml pipe merge logic
-
-Eric Yang (1):
-  drm/amd/display: change default pipe_split policy for DCN1
-
-Isabel Zhang (2):
-  drm/amd/display: Remove hdcp display state with mst fix
-  drm/amd/display: Update stream adjust in dc_stream_adjust_vmin_vmax
-
-Jaehyun Chung (1):
-  drm/amd/display: Update DRAM watermark before checking to update TTU
-
-Jerry (Fangzhi) Zuo (1):
-  drm/amd/display: Avoid create MST prop after registration
-
-Joseph Gravenor (1):
-  drm/amd/display: fix typo
-
-Joshua Aberback (1):
-  drm/amd/display: Acknowledge wm_optimized_required
-
-Josip Pavic (1):
-  drm/amd/display: prevent loop from occuring in pipe list
-
-Martin Leung (1):
-  drm/amd/display: Properly map audio to engine on NV14
-
-Michael Strauss (1):
-  drm/amd/display: Check for null fclk voltage when parsing clock table
-
-Nicholas Kazlauskas (7):
-  drm/amd/display: Don't change mpcc tree for medium updates on DCN20
-    hwseq
-  drm/amd/display: Translate cursor position by source rect
-  drm/amd/display: Fix incorrect cursor pos on scaled primary plane
-  drm/amd/display: Program viewport when source pos changes for DCN20 hw
-    seq
-  drm/amd/display: Calculate scaling ratios on every medium/full update
-  drm/amd/display: Make cursor source translation adjustment optional
-  drm/amd/display: Make DMCUB bss/data firmware blob optional
-
-Nikola Cornij (1):
-  drm/amd/display: Program DSC before enabling link
-
-Stylon Wang (1):
-  drm/amd/display: Refactor color management to take dm plane state
-
-Sung Lee (2):
-  drm/amd/display: Power down hw blocks on boot
-  drm/amd/display: Check power_down functions exist before calling
-
-Wenjing Liu (1):
-  drm/amd/display: determine USB C DP2 mode only when USB DP Alt is
-    enabled
-
-Wyatt Wood (4):
-  drm/amd/display: Implement abm config table copy to dmcub
-  drm/amd/display: Use config flag to disable dmcu obj creation
-  drm/amd/display: Fix ABM config copy for dmcub
-  drm/amd/display: Remove unused defines
-
-Xiaodong Yan (2):
-  drm/amd/display: blank dp stream before power off receiver
-  drm/amd/display: only blank dp stream which will be powered off
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 47 +++++-----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  3 +-
- .../display/amdgpu_dm/amdgpu_dm_mst_types.c   |  8 ++
- .../amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c |  2 +-
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 20 ++++-
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 35 +++++---
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 15 +---
- .../gpu/drm/amd/display/dc/core/dc_resource.c |  8 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |  4 +-
- drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |  2 +
- drivers/gpu/drm/amd/display/dc/dce/dce_abm.c  |  2 +-
- .../drm/amd/display/dc/dce/dce_link_encoder.c | 20 ++++-
- .../drm/amd/display/dc/dce/dce_link_encoder.h |  3 +
- drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c | 25 +++++-
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c |  3 -
- .../display/dc/dce110/dce110_hw_sequencer.c   | 17 ++++
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 89 ++++++++++++++++++-
- .../amd/display/dc/dcn10/dcn10_link_encoder.c | 20 ++++-
- .../amd/display/dc/dcn10/dcn10_link_encoder.h |  3 +
- .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.c |  6 +-
- .../drm/amd/display/dc/dcn10/dcn10_resource.c |  2 +-
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  7 ++
- .../amd/display/dc/dcn20/dcn20_link_encoder.c | 40 +++++++++
- .../amd/display/dc/dcn20/dcn20_link_encoder.h |  4 +
- .../drm/amd/display/dc/dcn20/dcn20_resource.c | 12 +--
- .../gpu/drm/amd/display/dc/dcn21/dcn21_init.c |  1 +
- .../amd/display/dc/dcn21/dcn21_link_encoder.c | 27 +-----
- .../drm/amd/display/dc/dcn21/dcn21_resource.c |  8 +-
- .../dc/dml/dcn20/display_mode_vba_20v2.c      |  3 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/abm.h   |  3 +-
- .../gpu/drm/amd/display/dc/inc/hw/transform.h |  2 +
- .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  4 +
- .../display/dc/virtual/virtual_link_encoder.c |  9 ++
- .../drm/amd/display/dmub/inc/dmub_cmd_dal.h   | 14 ++-
- .../gpu/drm/amd/display/dmub/inc/dmub_srv.h   | 11 +++
- .../gpu/drm/amd/display/dmub/src/dmub_dcn20.c | 24 +++--
- .../gpu/drm/amd/display/dmub/src/dmub_srv.c   | 25 ++++--
- .../gpu/drm/amd/display/modules/hdcp/hdcp.c   |  5 +-
- .../gpu/drm/amd/display/modules/hdcp/hdcp.h   | 28 ++----
+Signed-off-by: Isabel Zhang <isabel.zhang@amd.com>
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ .../gpu/drm/amd/display/modules/hdcp/hdcp.c   |  5 ++-
+ .../gpu/drm/amd/display/modules/hdcp/hdcp.h   | 28 +++----------
  .../display/modules/hdcp/hdcp1_execution.c    |  2 +-
  .../display/modules/hdcp/hdcp2_execution.c    |  2 +-
- .../drm/amd/display/modules/hdcp/hdcp_log.c   |  8 +-
- .../drm/amd/display/modules/hdcp/hdcp_psp.c   | 44 +++++----
- .../drm/amd/display/modules/inc/mod_hdcp.h    |  5 +-
- .../amd/display/modules/power/power_helpers.c | 30 ++++---
- .../amd/display/modules/power/power_helpers.h |  3 +
- 47 files changed, 455 insertions(+), 202 deletions(-)
+ .../drm/amd/display/modules/hdcp/hdcp_psp.c   | 40 +++++++++----------
+ .../drm/amd/display/modules/inc/mod_hdcp.h    |  1 -
+ 6 files changed, 29 insertions(+), 49 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c
+index cc1d3f470b99..e9fbd94f8635 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.c
+@@ -328,7 +328,8 @@ enum mod_hdcp_status mod_hdcp_add_display(struct mod_hdcp *hdcp,
+ 	/* add display to connection */
+ 	hdcp->connection.link = *link;
+ 	*display_container = *display;
+-	status = mod_hdcp_add_display_to_topology(hdcp, display->index);
++	status = mod_hdcp_add_display_to_topology(hdcp, display_container);
++
+ 	if (status != MOD_HDCP_STATUS_SUCCESS)
+ 		goto out;
+ 
+@@ -374,7 +375,7 @@ enum mod_hdcp_status mod_hdcp_remove_display(struct mod_hdcp *hdcp,
+ 	status = mod_hdcp_remove_display_from_topology(hdcp, index);
+ 	if (status != MOD_HDCP_STATUS_SUCCESS)
+ 		goto out;
+-	display->state = MOD_HDCP_DISPLAY_INACTIVE;
++	memset(display, 0, sizeof(struct mod_hdcp_display));
+ 
+ 	/* request authentication when connection is not reset */
+ 	if (current_state(hdcp) != HDCP_UNINITIALIZED)
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
+index 5cb4546be0ef..60ff1a0028ac 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp.h
+@@ -328,7 +328,7 @@ void mod_hdcp_dump_binary_message(uint8_t *msg, uint32_t msg_size,
+ 
+ /* psp functions */
+ enum mod_hdcp_status mod_hdcp_add_display_to_topology(
+-		struct mod_hdcp *hdcp, uint8_t index);
++		struct mod_hdcp *hdcp, struct mod_hdcp_display *display);
+ enum mod_hdcp_status mod_hdcp_remove_display_from_topology(
+ 		struct mod_hdcp *hdcp, uint8_t index);
+ enum mod_hdcp_status mod_hdcp_hdcp1_create_session(struct mod_hdcp *hdcp);
+@@ -503,11 +503,6 @@ static inline uint8_t is_display_active(struct mod_hdcp_display *display)
+ 	return display->state >= MOD_HDCP_DISPLAY_ACTIVE;
+ }
+ 
+-static inline uint8_t is_display_added(struct mod_hdcp_display *display)
+-{
+-	return display->state >= MOD_HDCP_DISPLAY_ACTIVE_AND_ADDED;
+-}
+-
+ static inline uint8_t is_display_encryption_enabled(struct mod_hdcp_display *display)
+ {
+ 	return display->state >= MOD_HDCP_DISPLAY_ENCRYPTION_ENABLED;
+@@ -515,34 +510,23 @@ static inline uint8_t is_display_encryption_enabled(struct mod_hdcp_display *dis
+ 
+ static inline uint8_t get_active_display_count(struct mod_hdcp *hdcp)
+ {
+-	uint8_t added_count = 0;
++	uint8_t active_count = 0;
+ 	uint8_t i;
+ 
+ 	for (i = 0; i < MAX_NUM_OF_DISPLAYS; i++)
+ 		if (is_display_active(&hdcp->displays[i]))
+-			added_count++;
+-	return added_count;
+-}
+-
+-static inline uint8_t get_added_display_count(struct mod_hdcp *hdcp)
+-{
+-	uint8_t added_count = 0;
+-	uint8_t i;
+-
+-	for (i = 0; i < MAX_NUM_OF_DISPLAYS; i++)
+-		if (is_display_added(&hdcp->displays[i]))
+-			added_count++;
+-	return added_count;
++			active_count++;
++	return active_count;
+ }
+ 
+-static inline struct mod_hdcp_display *get_first_added_display(
++static inline struct mod_hdcp_display *get_first_active_display(
+ 		struct mod_hdcp *hdcp)
+ {
+ 	uint8_t i;
+ 	struct mod_hdcp_display *display = NULL;
+ 
+ 	for (i = 0; i < MAX_NUM_OF_DISPLAYS; i++)
+-		if (is_display_added(&hdcp->displays[i])) {
++		if (is_display_active(&hdcp->displays[i])) {
+ 			display = &hdcp->displays[i];
+ 			break;
+ 		}
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+index 37c8c05497d6..f244b72e74e0 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp1_execution.c
+@@ -129,7 +129,7 @@ static inline uint8_t get_device_count(struct mod_hdcp *hdcp)
+ static inline enum mod_hdcp_status check_device_count(struct mod_hdcp *hdcp)
+ {
+ 	/* device count must be greater than or equal to tracked hdcp displays */
+-	return (get_device_count(hdcp) < get_added_display_count(hdcp)) ?
++	return (get_device_count(hdcp) < get_active_display_count(hdcp)) ?
+ 			MOD_HDCP_STATUS_HDCP1_DEVICE_COUNT_MISMATCH_FAILURE :
+ 			MOD_HDCP_STATUS_SUCCESS;
+ }
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
+index 491c00f48026..549c113abcf7 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp2_execution.c
+@@ -208,7 +208,7 @@ static inline uint8_t get_device_count(struct mod_hdcp *hdcp)
+ static enum mod_hdcp_status check_device_count(struct mod_hdcp *hdcp)
+ {
+ 	/* device count must be greater than or equal to tracked hdcp displays */
+-	return (get_device_count(hdcp) < get_added_display_count(hdcp)) ?
++	return (get_device_count(hdcp) < get_active_display_count(hdcp)) ?
+ 			MOD_HDCP_STATUS_HDCP2_DEVICE_COUNT_MISMATCH_FAILURE :
+ 			MOD_HDCP_STATUS_SUCCESS;
+ }
+diff --git a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+index c2929815c3ee..1b54f169392a 100644
+--- a/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
++++ b/drivers/gpu/drm/amd/display/modules/hdcp/hdcp_psp.c
+@@ -54,7 +54,7 @@ enum mod_hdcp_status mod_hdcp_remove_display_from_topology(
+ 
+ 	dtm_cmd = (struct ta_dtm_shared_memory *)psp->dtm_context.dtm_shared_buf;
+ 
+-	if (!display || !is_display_added(display))
++	if (!display || !is_display_active(display))
+ 		return MOD_HDCP_STATUS_DISPLAY_NOT_FOUND;
+ 
+ 	memset(dtm_cmd, 0, sizeof(struct ta_dtm_shared_memory));
+@@ -75,23 +75,19 @@ enum mod_hdcp_status mod_hdcp_remove_display_from_topology(
+  	return MOD_HDCP_STATUS_SUCCESS;
+  
+ }
+-enum mod_hdcp_status mod_hdcp_add_display_to_topology(struct mod_hdcp *hdcp,
+-						      uint8_t index)
++enum mod_hdcp_status mod_hdcp_add_display_to_topology(
++			struct mod_hdcp *hdcp, struct mod_hdcp_display *display)
+ {
+ 	struct psp_context *psp = hdcp->config.psp.handle;
+ 	struct ta_dtm_shared_memory *dtm_cmd;
+-	struct mod_hdcp_display *display =
+-			get_active_display_at_index(hdcp, index);
+ 	struct mod_hdcp_link *link = &hdcp->connection.link;
+ 
+ 	if (!psp->dtm_context.dtm_initialized) {
+ 		DRM_ERROR("Failed to add display topology, DTM TA is not initialized.");
++		display->state = MOD_HDCP_DISPLAY_INACTIVE;
+ 		return MOD_HDCP_STATUS_FAILURE;
+ 	}
+ 
+-	if (!display || is_display_added(display))
+-		return MOD_HDCP_STATUS_UPDATE_TOPOLOGY_FAILURE;
+-
+ 	dtm_cmd = (struct ta_dtm_shared_memory *)psp->dtm_context.dtm_shared_buf;
+ 
+ 	memset(dtm_cmd, 0, sizeof(struct ta_dtm_shared_memory));
+@@ -113,10 +109,11 @@ enum mod_hdcp_status mod_hdcp_add_display_to_topology(struct mod_hdcp *hdcp,
+ 
+ 	psp_dtm_invoke(psp, dtm_cmd->cmd_id);
+ 
+-	if (dtm_cmd->dtm_status != TA_DTM_STATUS__SUCCESS)
++	if (dtm_cmd->dtm_status != TA_DTM_STATUS__SUCCESS) {
++		display->state = MOD_HDCP_DISPLAY_INACTIVE;
+ 		return MOD_HDCP_STATUS_UPDATE_TOPOLOGY_FAILURE;
++	}
+ 
+-	display->state = MOD_HDCP_DISPLAY_ACTIVE_AND_ADDED;
+ 	HDCP_TOP_ADD_DISPLAY_TRACE(hdcp, display->index);
+ 
+ 	return MOD_HDCP_STATUS_SUCCESS;
+@@ -126,7 +123,7 @@ enum mod_hdcp_status mod_hdcp_hdcp1_create_session(struct mod_hdcp *hdcp)
+ {
+ 
+ 	struct psp_context *psp = hdcp->config.psp.handle;
+-	struct mod_hdcp_display *display = get_first_added_display(hdcp);
++	struct mod_hdcp_display *display = get_first_active_display(hdcp);
+ 	struct ta_hdcp_shared_memory *hdcp_cmd;
+ 
+ 	if (!psp->hdcp_context.hdcp_initialized) {
+@@ -179,7 +176,7 @@ enum mod_hdcp_status mod_hdcp_hdcp1_destroy_session(struct mod_hdcp *hdcp)
+ 		if (is_display_encryption_enabled(
+ 				&hdcp->displays[i])) {
+ 			hdcp->displays[i].state =
+-					MOD_HDCP_DISPLAY_ACTIVE_AND_ADDED;
++								MOD_HDCP_DISPLAY_ACTIVE;
+ 			HDCP_HDCP1_DISABLED_TRACE(hdcp,
+ 					hdcp->displays[i].index);
+ 		}
+@@ -231,7 +228,7 @@ enum mod_hdcp_status mod_hdcp_hdcp1_enable_encryption(struct mod_hdcp *hdcp)
+ {
+ 	struct psp_context *psp = hdcp->config.psp.handle;
+ 	struct ta_hdcp_shared_memory *hdcp_cmd;
+-	struct mod_hdcp_display *display = get_first_added_display(hdcp);
++	struct mod_hdcp_display *display = get_first_active_display(hdcp);
+ 
+ 	hdcp_cmd = (struct ta_hdcp_shared_memory *)psp->hdcp_context.hdcp_shared_buf;
+ 	memset(hdcp_cmd, 0, sizeof(struct ta_hdcp_shared_memory));
+@@ -301,9 +298,8 @@ enum mod_hdcp_status mod_hdcp_hdcp1_enable_dp_stream_encryption(struct mod_hdcp
+ 
+ 	for (i = 0; i < MAX_NUM_OF_DISPLAYS; i++) {
+ 
+-		if (hdcp->displays[i].state != MOD_HDCP_DISPLAY_ACTIVE_AND_ADDED ||
+-		    hdcp->displays[i].adjust.disable)
+-			continue;
++		if (hdcp->displays[i].adjust.disable || hdcp->displays[i].state != MOD_HDCP_DISPLAY_ACTIVE)
++				continue;
+ 
+ 		memset(hdcp_cmd, 0, sizeof(struct ta_hdcp_shared_memory));
+ 
+@@ -364,7 +360,7 @@ enum mod_hdcp_status mod_hdcp_hdcp2_create_session(struct mod_hdcp *hdcp)
+ {
+ 	struct psp_context *psp = hdcp->config.psp.handle;
+ 	struct ta_hdcp_shared_memory *hdcp_cmd;
+-	struct mod_hdcp_display *display = get_first_added_display(hdcp);
++	struct mod_hdcp_display *display = get_first_active_display(hdcp);
+ 
+ 	if (!psp->hdcp_context.hdcp_initialized) {
+ 		DRM_ERROR("Failed to create hdcp session, HDCP TA is not initialized");
+@@ -423,7 +419,7 @@ enum mod_hdcp_status mod_hdcp_hdcp2_destroy_session(struct mod_hdcp *hdcp)
+ 		if (is_display_encryption_enabled(
+ 				&hdcp->displays[i])) {
+ 			hdcp->displays[i].state =
+-					MOD_HDCP_DISPLAY_ACTIVE_AND_ADDED;
++								MOD_HDCP_DISPLAY_ACTIVE;
+ 			HDCP_HDCP2_DISABLED_TRACE(hdcp,
+ 					hdcp->displays[i].index);
+ 		}
+@@ -662,7 +658,7 @@ enum mod_hdcp_status mod_hdcp_hdcp2_enable_encryption(struct mod_hdcp *hdcp)
+ {
+ 	struct psp_context *psp = hdcp->config.psp.handle;
+ 	struct ta_hdcp_shared_memory *hdcp_cmd;
+-	struct mod_hdcp_display *display = get_first_added_display(hdcp);
++	struct mod_hdcp_display *display = get_first_active_display(hdcp);
+ 
+ 	hdcp_cmd = (struct ta_hdcp_shared_memory *)psp->hdcp_context.hdcp_shared_buf;
+ 	memset(hdcp_cmd, 0, sizeof(struct ta_hdcp_shared_memory));
+@@ -747,9 +743,9 @@ enum mod_hdcp_status mod_hdcp_hdcp2_enable_dp_stream_encryption(struct mod_hdcp
+ 
+ 
+ 	for (i = 0; i < MAX_NUM_OF_DISPLAYS; i++) {
+-		if (hdcp->displays[i].state != MOD_HDCP_DISPLAY_ACTIVE_AND_ADDED ||
+-		    hdcp->displays[i].adjust.disable)
+-			continue;
++		if (hdcp->displays[i].adjust.disable || hdcp->displays[i].state != MOD_HDCP_DISPLAY_ACTIVE)
++				continue;
++
+ 		hdcp_cmd->in_msg.hdcp2_enable_dp_stream_encryption.display_handle = hdcp->displays[i].index;
+ 		hdcp_cmd->in_msg.hdcp2_enable_dp_stream_encryption.session_handle = hdcp->auth.id;
+ 
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
+index c088602bc1a0..eae9309cfb24 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_hdcp.h
+@@ -117,7 +117,6 @@ enum mod_hdcp_operation_mode {
+ enum mod_hdcp_display_state {
+ 	MOD_HDCP_DISPLAY_INACTIVE = 0,
+ 	MOD_HDCP_DISPLAY_ACTIVE,
+-	MOD_HDCP_DISPLAY_ACTIVE_AND_ADDED,
+ 	MOD_HDCP_DISPLAY_ENCRYPTION_ENABLED
+ };
+ 
 -- 
 2.26.0
 
