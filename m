@@ -2,69 +2,66 @@ Return-Path: <SRS0=+i0l=5W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E9FEC2BA19
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2020 13:45:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 805B3C2BA19
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2020 14:00:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03A1821D7A
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2020 13:45:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5010C20768
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2020 14:00:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="khIynogh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03A1821D7A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jD45tYIH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5010C20768
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F9BC6E3C4;
-	Mon,  6 Apr 2020 13:45:13 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B429A894C5
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Apr 2020 10:21:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=7HULiCo0Bk8vmaxX5+hLzxEjatTFSFqcDu3M2RLxE0M=; b=khIynoghPES657egNG6RavBCQC
- g0vTyhMcvOu4TkmVd9hzcTMNEavXGh+2Esr5OzLIfDBBVQ05gx3M5skhWs2CVMrO1uWlw+dlXEBpc
- IjlYMHepOP2o0LJ1JYhHWueYOcc0AmySRO8krfidzLJU+NaPmg6zMuVbjSlK94ejoOih3XQlmQihf
- NgzctzBhJUgqdHlb+AVMlomUbdd7lSTjpDGf4xe6ApsNLVx8IKJARdKSaQtsGI54GNOYPQcu+WX0j
- zfe9MlsewwrbD0of6LJ3CpoBpukZejEyxeHjfMb/KfoR5Xa03QZR52mbXiTVVnGNtzNGgXx8SIiEQ
- A83P1FGw==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jLOsR-00056x-7X; Mon, 06 Apr 2020 10:21:11 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id BB1493025C3;
- Mon,  6 Apr 2020 12:21:07 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id A3B1B2B155621; Mon,  6 Apr 2020 12:21:07 +0200 (CEST)
-Date: Mon, 6 Apr 2020 12:21:07 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Subject: Re: AMD DC graphics display code enables -mhard-float, -msse, -msse2
- without any visible FPU state protection
-Message-ID: <20200406102107.GI20730@hirez.programming.kicks-ass.net>
-References: <CAG48ez2Sx4ELkM94aD_h_J7K7KBOeuGmvZLKRkg3n_f2WoZ_cg@mail.gmail.com>
- <4c5fe55d-9db9-2f61-59b2-1fb2e1b45ed0@amd.com>
- <20200402141308.GB20730@hirez.programming.kicks-ass.net>
- <20200403142837.f61a18d7bd32fd73777479ad@kernel.org>
- <20200403112113.GN20730@hirez.programming.kicks-ass.net>
- <20200404120808.05e9aa61500265be2e031bd6@kernel.org>
- <20200404143224.GL2452@worktop.programming.kicks-ass.net>
- <20200405121930.e3ea3e7acc7588102de483e2@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECA376E3D6;
+	Mon,  6 Apr 2020 14:00:05 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B9CA6E3D6
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Apr 2020 14:00:04 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id h9so17592504wrc.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Apr 2020 07:00:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=V0NhZ2671y89RQkupyycZ9PT8u4TWqrmfo36mc64zVo=;
+ b=jD45tYIHdMtM/Tc65fXwg/uvEWoklKRNPciwkxAvuKOFM1M59wxD9P4Zw/cvG4dZ8/
+ UoZ3+K6kTOwnx6dE3bcqgjSG+zVmQG8LRwrKp+Jc63dtyIMiyZbaQzIu4QIast3yFW1Q
+ HaD3VS8K1yjb8Wm63DzXmdtsaOlTiIuKd+RbKtfn9XxHQDlvNLtvdFbW6xsDtJ/0DKQY
+ OJ7x+VdVzocT7LdAYIGSXV9eoqAzvUI6uiFedNQp7hB0ETeW3IdCpdeF4b1rQn7h8NtR
+ szc+FE71ng2z9/Lz6uA6fMiiGXhH1Nik9CD+sEesMPQ5BDOvKDXqTajwoT2H+BYBaXYM
+ IvtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=V0NhZ2671y89RQkupyycZ9PT8u4TWqrmfo36mc64zVo=;
+ b=ft+9L2rS9e6PGuCZ128l8q+dz1yu5XtpWTAiyilGU7luYNhZhjq1cGRzMfBNdLLv0P
+ Xi+hP8WzRkf3NFKEcNE2XdkcOmaUTUwTddEPn8lIBy1D0cI3DUFhVkAu4C3zBHDok4xZ
+ 5siuuByFo+JmFHkIUjJJ0a4ChLE6CR9f8fY15+G+qMkopjLKhqZ20h+1/aNAnsG+uXbm
+ 0rxVkfUvQuzxD70hqf0zVZwDJa540zURSWt0URL84QPba3RBO9Q0C96P8xxra+GhTT3b
+ MA3zY1BkaOJHYF6yVl9Q+JdHAkzY3G8QMt3MMK1osv/Nj5geUtlstooUZD/mq4Ds69P8
+ VJtA==
+X-Gm-Message-State: AGi0PuaNlbbi7LMVj8GGj0NO3bo+QO5tyQs0L17ixYP9MRF0XO5cOBah
+ hr+lvAKyWmbtzNYBDYzm8SDqDqRTQS0gFNInM1M=
+X-Google-Smtp-Source: APiQypKQ9xi/Tv+xlOJ0GWUtLvpOj97O0xhYKCC/xQ9si/Jy4UEOKp2G85hm+CnsCHDt88TGGyEtuZN0S+VxVyxNIYQ=
+X-Received: by 2002:a5d:4e4e:: with SMTP id r14mr4937083wrt.362.1586181602974; 
+ Mon, 06 Apr 2020 07:00:02 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200405121930.e3ea3e7acc7588102de483e2@kernel.org>
-X-Mailman-Approved-At: Mon, 06 Apr 2020 13:45:12 +0000
+References: <20200406081254.22246-1-nirmoy.das@amd.com>
+In-Reply-To: <20200406081254.22246-1-nirmoy.das@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 6 Apr 2020 09:59:51 -0400
+Message-ID: <CADnq5_Pc9imJgmuEWgEU=VN4vRMDS3723V50+A=tUB+76yKT4Q@mail.gmail.com>
+Subject: Re: [PATCH 1/1] drm/amd/powerplay: fix a typo
+To: Nirmoy Das <nirmoy.aiemd@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,166 +73,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Josh Poimboeuf <jpoimboe@redhat.com>, Jann Horn <jannh@google.com>,
- Leo Li <sunpeng.li@amd.com>, the arch/x86 maintainers <x86@kernel.org>,
- kernel list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Andy Lutomirski <luto@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
- Thomas Gleixner <tglx@linutronix.de>, Harry Wentland <harry.wentland@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Prike Liang <Prike.Liang@amd.com>, Nirmoy Das <nirmoy.das@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Apr 05, 2020 at 12:19:30PM +0900, Masami Hiramatsu wrote:
+On Mon, Apr 6, 2020 at 4:08 AM Nirmoy Das <nirmoy.aiemd@gmail.com> wrote:
+>
+> Util -> Until
+> Fixes: 720de5122254e86 (drm/amd/powerplay: implement the is_dpm_running())
+>
+> Signed-off-by: Nirmoy Das <nirmoy.das@amd.com>
 
-> > @@ -269,14 +269,14 @@ d4: AAM Ib (i64)
-> >  d5: AAD Ib (i64)
-> >  d6:
-> >  d7: XLAT/XLATB
-> > -d8: ESC
-> > -d9: ESC
-> > -da: ESC
-> > -db: ESC
-> > -dc: ESC
-> > -dd: ESC
-> > -de: ESC
-> > -df: ESC
-> > +d8: FPU
-> > +d9: FPU
-> > +da: FPU
-> > +db: FPU
-> > +dc: FPU
-> > +dd: FPU
-> > +de: FPU
-> > +df: FPU
-> 
-> I don't want to use FPU since Intel SDM is still using ESC because it
-> is co-processor escape code.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-But we all know that co-processor is x87. Can we then perhaps put in
-'x87' as an escape code instead of 'ESC' ?
-
-> Here is the new patch. 
-> 
-> From d7eca4946ab3f0d08ad1268f49418f8655aaf57c Mon Sep 17 00:00:00 2001
-> From: Masami Hiramatsu <mhiramat@kernel.org>
-> Date: Fri, 3 Apr 2020 16:58:22 +0900
-> Subject: [PATCH] x86: insn: Add insn_is_fpu()
-> 
-> Add insn_is_fpu(insn) which tells that the insn is
-> whether touch the MMX/XMM/YMM register or the instruction
-> of FP coprocessor.
-> 
-> Signed-off-by: Masami Hiramatsu <mhiramat@kernel.org>
-
-arch/x86/mm/extable.o: warning: objtool: ex_handler_fprestore()+0x8b: fpu_safe hint not an FPU instruction
-008b  36b:      48 0f ae 0d 00 00 00    fxrstor64 0x0(%rip)        # 373 <ex_handler_fprestore+0x93>
-
-arch/x86/kvm/x86.o: warning: objtool: kvm_load_guest_fpu.isra.0()+0x1fa: fpu_safe hint not an FPU instruction
-01fa    1d2fa:  48 0f ae 4b 40          fxrstor64 0x40(%rbx)
-
-
-
-Also, all the VMX bits seems to qualify as FPU (I can't remember seeing
-that previously):
-
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_apic_eoi_induced()+0x20: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_apic_write()+0x20: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_invlpg()+0x20: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_interrupt_shadow()+0x1c: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_decache_cr4_guest_bits()+0x5a: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_decache_cr0_guest_bits()+0x5a: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_io()+0x24: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_apic_access()+0x39: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_idt()+0x57: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_exit_info()+0x58: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_gdt()+0x57: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_guest_apic_has_interrupt()+0xf8: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_nmi_allowed()+0x98: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_handle_exit_irqoff()+0xb3: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_nmi_mask()+0x8a: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_rflags()+0x99: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_ept_misconfig()+0x22: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_interrupt_allowed()+0x8d: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_write_pml_buffer()+0x1c5: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_invpcid()+0x26a: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_read_guest_seg_ar()+0x9b: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_read_guest_seg_selector()+0x96: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_read_guest_seg_base()+0x9b: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_segment()+0x2da: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmwrite_error()+0x161: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: exec_controls_set.isra.0()+0x5a: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_dr()+0x1bc: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: update_exception_bitmap()+0x136: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_interrupt_shadow()+0x8b: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: skip_emulated_instruction()+0xe9: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_exception_nmi()+0x674: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_clear_hlt.isra.0()+0xe5: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_idt()+0x65: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_gdt()+0x65: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: seg_setup()+0x125: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_nmi_mask()+0x11c: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: __vmx_complete_interrupts()+0x167: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_task_switch()+0x34d: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_dr7()+0x1e: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: update_cr8_intercept()+0x1a2: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_hwapic_isr_update()+0x8a: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_rvi()+0x87: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_load_eoi_exitmap()+0x107: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_rflags()+0x20f: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: fix_rmode_seg()+0x1de: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_segment()+0x28b: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: enter_pmode()+0x1ad: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: enter_rmode()+0x27e: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_write_l1_tsc_offset()+0x11b: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_pml_full()+0x138: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_cancel_injection()+0x5d: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_queue_exception()+0x10d: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_inject_nmi()+0xd1: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_inject_irq()+0x127: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_ept_violation()+0x13e: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: enable_irq_window()+0x71: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_interrupt_window()+0x71: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_nmi_window()+0x92: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_sync_dirty_debug_regs()+0x203: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: enable_nmi_window()+0xca: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: clear_atomic_switch_msr()+0x2ba: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: add_atomic_switch_msr.constprop.0()+0x314: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_vcpu_run()+0xc16: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_host_fs_gs()+0x1f9: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_vcpu_load_vmcs()+0x404: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_cr4()+0x240: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_msr()+0x49d: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_cpuid_update()+0xc89: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: ept_save_pdptrs()+0x176: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_cache_reg()+0xe3: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_cr3()+0x47: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_apic_access_page_addr()+0x9f: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_efer()+0x22f: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_cr0()+0x15e: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_cr()+0xe1d: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_vcpu_reset()+0x1a98: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_virtual_apic_mode()+0x216: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_refresh_apicv_exec_ctrl()+0x2e0: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_msr()+0xf26: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_constant_host_state()+0x364: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: set_cr4_guest_host_mask()+0xda: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: init_vmcs()+0x1705: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: dump_vmcs.cold()+0x193c: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_handle_exit()+0xcfc: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_update_host_rsp()+0x65: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_dump_dtsel()+0x5d: FPU instruction outside of kernel_fpu_{begin,end}()
-arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_dump_sel()+0xda: FPU instruction outside of kernel_fpu_{begin,end}()
-
-
-./objdump-func.sh defconfig-build/arch/x86/kvm/vmx/vmx.o ept_save_pdptrs | grep 176
-0176    1d436:  41 0f 78 c4             vmread %rax,%r12
-
-
+> ---
+>  drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+> index ff73a735b888..95eb44515e36 100644
+> --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+> @@ -896,7 +896,7 @@ static int renoir_read_sensor(struct smu_context *smu,
+>  static bool renoir_is_dpm_running(struct smu_context *smu)
+>  {
+>         /*
+> -        * Util now, the pmfw hasn't exported the interface of SMU
+> +        * Until now, the pmfw hasn't exported the interface of SMU
+>          * feature mask to APU SKU so just force on all the feature
+>          * at early initial stage.
+>          */
+> --
+> 2.26.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
