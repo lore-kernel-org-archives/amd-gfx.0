@@ -2,101 +2,82 @@ Return-Path: <SRS0=+i0l=5W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 797D7C2BA1A
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2020 21:39:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3496AC2BA1A
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2020 23:08:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2439D206C3
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2020 21:39:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ED52220768
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2020 23:08:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Kiz9KyXT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2439D206C3
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IlLvIB3M"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED52220768
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD6F06E09E;
-	Mon,  6 Apr 2020 21:39:28 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2085.outbound.protection.outlook.com [40.107.223.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B2DA6E09E
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Apr 2020 21:39:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bNrEhEm+upe5ClTOXAMe9QgYjhwq/y0guNBxV3Hl0E6gNy/YZsTox0ByUo9r+uQtqh1774zxqzPCkSFqWuaiphglgxd0uM17QZ+GVIvO4oSUODZQDcrX2HeGC0sxNdXhz811uCjLkgGnz0BkLKibRg2PQFaiEVVucAkLp9OLoTj97/zOmooM8Ak+/tPm5FL89//s9f9OuNB5XU0QRCJUz4t7y9Y70PL6YmfnMCSmHzOtH2Zhba6bNkw901qrRqUUv0LyIfAA4jxlXbOM7uGof+kDZ0DstUkSO7XRGFo0QoopwJHe8NV4LRNpwCbj/IOdwCVkWr9eWEunmKV6ohX4vQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xUtChbCEjfwFUVbD8w0Khiqtpcuz2RP/rPGsp/LF6wc=;
- b=DviBrxktpv2iBqUK9Lw/G/V66P0Y5FxipxmZSZpjD+nXALS8b44hMEEQpgLfq1ChqBlg9AMXwirS3D+2IOTHyQRFaFZcnoI7rSR5SwfTPda12Jn4W+hmyvITZKYPbp9LUbBtILYRcYL+V1uLuSKwEipqg74aqi+1aphr0YBw3MdGGDMmhrdpDB+zoxwHERjAR86L4b9qGKjoh3sPDw6WRF6RJWaUF1sN+gvwq2E+EKMrzJ6UHTNXUgo8n7abilX333ZKigo50IlyAue65F5jFcYSyiAdUIGqAsjHPc6B2OfanpkqEKAnbuRxZ/0GfbCq3lavceIKZay7+GZIKhgASQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xUtChbCEjfwFUVbD8w0Khiqtpcuz2RP/rPGsp/LF6wc=;
- b=Kiz9KyXTNm+7SxEPQgcSxMkAgl5x9EGi+ylba3ZHZt1ZMkIxbJBOjzw8CHUF+X5Q1kOWg+NBbJBDaFZS3FbEQ/X0Mucqad90VZq+JQLd4Mk32f32Ng3vnCY21uY4EHHqGVOPKYmspKonYf3B7+0GhDgJTXOSLrxU21ZUpVsnM9w=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Amber.Lin@amd.com; 
-Received: from BN8PR12MB3041.namprd12.prod.outlook.com (2603:10b6:408:46::11)
- by BN8PR12MB3620.namprd12.prod.outlook.com (2603:10b6:408:49::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.21; Mon, 6 Apr
- 2020 21:39:24 +0000
-Received: from BN8PR12MB3041.namprd12.prod.outlook.com
- ([fe80::a421:2af7:645a:a051]) by BN8PR12MB3041.namprd12.prod.outlook.com
- ([fe80::a421:2af7:645a:a051%6]) with mapi id 15.20.2878.018; Mon, 6 Apr 2020
- 21:39:24 +0000
-From: Amber Lin <Amber.Lin@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v3] drm/amdkfd: Provide SMI events watch
-Date: Mon,  6 Apr 2020 17:39:08 -0400
-Message-Id: <1586209148-18123-1-git-send-email-Amber.Lin@amd.com>
-X-Mailer: git-send-email 2.7.4
-X-ClientProxiedBy: YTOPR0101CA0061.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:14::38) To BN8PR12MB3041.namprd12.prod.outlook.com
- (2603:10b6:408:46::11)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7D146E4EC;
+	Mon,  6 Apr 2020 23:08:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D10D6E448
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Apr 2020 21:49:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1586209782;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=u5SWgl8zk71PwxPlmcjKsJSCMep7OVdR5coFmBqc/+Y=;
+ b=IlLvIB3MZGs0UPzkNLhEUr0Iwu6xUMr6SOsxA+Timk9m3pfzuch3wYqMML/X3JAN0nSODl
+ sBtaoYR8Lf+e3LAcmOfXWxPqdZAuJT4HkTW/+b90YGNxcnQ1VOr5RJANMXyKJuWpTID8BG
+ cDcREKMqUgv5EyNotH/eaUfqdziF5uQ=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-235--lEzRBGfO0O-m3CwB9GEiA-1; Mon, 06 Apr 2020 17:49:40 -0400
+X-MC-Unique: -lEzRBGfO0O-m3CwB9GEiA-1
+Received: by mail-wr1-f69.google.com with SMTP id o10so599250wrj.7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 06 Apr 2020 14:49:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=kIXDxUjS2HMskB+mPSwuv3yFtOM4CbvksE2h37nZI78=;
+ b=TDb0GcrnEnhhMDVvTSrVnC4YwvaPXgqfud7FM9aO/2tJxmjqWKMF/A/AtxdiD0XxZx
+ i3jdxqkYeMIItmCXlPHYrFGNdA6VUIZsui66j41zK4wKeJ814i8Wb6XlrDQRivKmHIez
+ 59n8b8Lsz5i/4svtnfsaL9qRsaGdTbXaxRpyZi7s1MvxrpWUoVMd4F3vT0+YKYPa5vnS
+ 4D54as3JmpNmVHTBJTrmWuqDorxIJJpHdfmJ95KJ8j/F4Tg2cDQOeQ/Ka8jGXokxfzM0
+ G6MeQEgTafMl71wMVVBVPUpEqj/uaFnvSfCTgK6OCC8qVfRvKXH0HG8huj1ERfqpcz6y
+ z5MQ==
+X-Gm-Message-State: AGi0PuZMbN3uAzYteIbNiXUNJXS8CLBLRZOdYoeI2b5in4aYNkYyIOWn
+ 7KQZDs2KVEYohYKfcLoEAddo4axnw4minmomqll9AMc5sBFk8Pk6+jJecNyG3GuNUmzxMZfBKI2
+ cxXkOKQopC60AeUuaivxwWOad2A==
+X-Received: by 2002:a5d:5230:: with SMTP id i16mr1340792wra.15.1586209779344; 
+ Mon, 06 Apr 2020 14:49:39 -0700 (PDT)
+X-Google-Smtp-Source: APiQypJNgJ7eiNVOi5WqhYdhc42FjdejCWO6/Y8fkLNs2CGrGBsCWnbC9H2zd2UGSvXrNhDXRVbxFQ==
+X-Received: by 2002:a5d:5230:: with SMTP id i16mr1340765wra.15.1586209779132; 
+ Mon, 06 Apr 2020 14:49:39 -0700 (PDT)
+Received: from redhat.com (bzq-79-176-51-222.red.bezeqint.net. [79.176.51.222])
+ by smtp.gmail.com with ESMTPSA id n6sm1057944wmc.28.2020.04.06.14.49.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Apr 2020 14:49:38 -0700 (PDT)
+Date: Mon, 6 Apr 2020 17:49:34 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 6/6] kernel: set USER_DS in kthread_use_mm
+Message-ID: <20200406174917-mutt-send-email-mst@kernel.org>
+References: <20200404094101.672954-1-hch@lst.de>
+ <20200404094101.672954-7-hch@lst.de>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from alin.amd.com (165.204.55.251) by
- YTOPR0101CA0061.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::38) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.20.2878.15 via Frontend
- Transport; Mon, 6 Apr 2020 21:39:24 +0000
-X-Mailer: git-send-email 2.7.4
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c16347dc-63ad-46dc-0a07-08d7da72f97e
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3620:|BN8PR12MB3620:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN8PR12MB3620E2D0F8E2F0974E0CCA7AE1C20@BN8PR12MB3620.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
-X-Forefront-PRVS: 0365C0E14B
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN8PR12MB3041.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(366004)(396003)(346002)(39850400004)(136003)(376002)(81156014)(36756003)(81166006)(8676002)(4326008)(26005)(956004)(186003)(16526019)(7696005)(52116002)(2906002)(316002)(86362001)(2616005)(6486002)(478600001)(8936002)(5660300002)(30864003)(6666004)(6916009)(66476007)(66556008)(66946007);
- DIR:OUT; SFP:1101; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: linb9cOFUCWR6Kc7HQMDHN2XfCnkNQREL/xIuz+Feq3wOy9YbXzIzl/mBreApdq+JBIe8Oo2B4Qgj9Ii8UnkhEc6qGLKsRoR+gpoQtCHnCaM0btMtSZGqjPP1HSbYX45LGeUsAqWbhrSUGgV4UExj/4izkDmS8qwBAwL1csV9w3tFvl/JJo378ewnr/NvgCWHcCx4b+tvBttnYNkHPOxeOeg2iM1Qs44RER2JyLTbDp8/SUjCgiD9Uww/0q84xUb/E1GsnO/iWybHYXl1FjKueN8pyetfGny4Wuj9lmYbhj9UJiOsLTbsIQ6ic0b+jf5CzBf/rfPjuR/Bg1peC+eh0Si3TX3FcpPyeRFQjaAVi5WPZPLpbv7pLMYB0jhPBWhENlrPUIXDi1zPd7APXBdDHu40ZOZ2+HClnKowuIIWn+hnittPYohFHj3W3F45vW7
-X-MS-Exchange-AntiSpam-MessageData: h0tE7SxZujXNwaCNpo2w7p8nfccT0bHn0kNzNS0u262lxw3yKOc86Q3E1c3wB5Zic6em+XTKbIiySUK2esA/7py5cGEc3TlUO3BRDB/k3dMphu9e+Og+pbT7x/jBRGf+8BhaUApN384LSSZYn9fmQw==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c16347dc-63ad-46dc-0a07-08d7da72f97e
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Apr 2020 21:39:24.5217 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Wo1IltoIoFXSJuF7evLHaKcoCDh83aLi/O+nH8PUsBZtwSTtOF0frW1NvEA3PGjp
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3620
+In-Reply-To: <20200404094101.672954-7-hch@lst.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
+X-Mailman-Approved-At: Mon, 06 Apr 2020 23:08:09 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,473 +89,178 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Amber Lin <Amber.Lin@amd.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
+ amd-gfx@lists.freedesktop.org, linux-mm@kvack.org,
+ intel-gvt-dev@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ linux-usb@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Zhenyu Wang <zhenyuw@linux.intel.com>,
+ virtualization@lists.linux-foundation.org, linux-fsdevel@vger.kernel.org,
+ Al Viro <viro@zeniv.linux.org.uk>, intel-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Jason Wang <jasowang@redhat.com>, Zhi Wang <zhi.a.wang@intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When the compute is malfunctioning or performance drops, the system admin
-will use SMI (System Management Interface) tool to monitor/diagnostic what
-went wrong. This patch provides an event watch interface for the user
-space to register events they are interested. After the event is
-registered, the user can use annoymous file descriptor's poll function
-with wait-time specified to wait for the event to happen. Once the event
-happens, the user can use read() to retrieve information related to the
-event.
+On Sat, Apr 04, 2020 at 11:41:01AM +0200, Christoph Hellwig wrote:
+> Some architectures like arm64 and s390 require USER_DS to be set for
+> kernel threads to access user address space, which is the whole purpose
+> of kthread_use_mm, but other like x86 don't.  That has lead to a huge
+> mess where some callers are fixed up once they are tested on said
+> architectures, while others linger around and yet other like io_uring
+> try to do "clever" optimizations for what usually is just a trivial
+> asignment to a member in the thread_struct for most architectures.
+> 
+> Make kthread_use_mm set USER_DS, and kthread_unuse_mm restore to the
+> previous value instead.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-VM fault event is done in this patch.
+I'm ok with vhost bits:
 
-v2: - remove UNREGISTER and add event ENABLE/DISABLE
-    - correct kfifo usage
-    - move event message API to kfd_ioctl.h
-v3: send the event msg in text than in binary
+Acked-by: Michael S. Tsirkin <mst@redhat.com>
 
-Signed-off-by: Amber Lin <Amber.Lin@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/Makefile              |   1 +
- drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c         |  30 ++++
- drivers/gpu/drm/amd/amdkfd/kfd_device.c          |   1 +
- drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c  |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h            |  13 ++
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c      | 174 +++++++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h      |  42 ++++++
- include/uapi/linux/kfd_ioctl.h                   |  32 ++++-
- 9 files changed, 296 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
- create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile b/drivers/gpu/drm/amd/amdkfd/Makefile
-index 6147462..e1e4115 100644
---- a/drivers/gpu/drm/amd/amdkfd/Makefile
-+++ b/drivers/gpu/drm/amd/amdkfd/Makefile
-@@ -53,6 +53,7 @@ AMDKFD_FILES	:= $(AMDKFD_PATH)/kfd_module.o \
- 		$(AMDKFD_PATH)/kfd_int_process_v9.o \
- 		$(AMDKFD_PATH)/kfd_dbgdev.o \
- 		$(AMDKFD_PATH)/kfd_dbgmgr.o \
-+		$(AMDKFD_PATH)/kfd_smi_events.o \
- 		$(AMDKFD_PATH)/kfd_crat.o
- 
- ifneq ($(CONFIG_AMD_IOMMU_V2),)
-diff --git a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
-index 9f59ba9..24b4717 100644
---- a/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
-+++ b/drivers/gpu/drm/amd/amdkfd/cik_event_interrupt.c
-@@ -24,6 +24,7 @@
- #include "kfd_events.h"
- #include "cik_int.h"
- #include "amdgpu_amdkfd.h"
-+#include "kfd_smi_events.h"
- 
- static bool cik_event_interrupt_isr(struct kfd_dev *dev,
- 					const uint32_t *ih_ring_entry,
-@@ -107,6 +108,7 @@ static void cik_event_interrupt_wq(struct kfd_dev *dev,
- 		ihre->source_id == CIK_INTSRC_GFX_MEM_PROT_FAULT) {
- 		struct kfd_vm_fault_info info;
- 
-+		kfd_smi_event_update_vmfault(dev, pasid);
- 		kfd_process_vm_fault(dev->dqm, pasid);
- 
- 		memset(&info, 0, sizeof(info));
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index f8fa03a..591ac28 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -39,6 +39,7 @@
- #include "kfd_device_queue_manager.h"
- #include "kfd_dbgmgr.h"
- #include "amdgpu_amdkfd.h"
-+#include "kfd_smi_events.h"
- 
- static long kfd_ioctl(struct file *, unsigned int, unsigned long);
- static int kfd_open(struct inode *, struct file *);
-@@ -1243,6 +1244,32 @@ static int kfd_ioctl_acquire_vm(struct file *filep, struct kfd_process *p,
- 	return ret;
- }
- 
-+/* Handle requests for watching SMI events */
-+static int kfd_ioctl_smi_events(struct file *filep,
-+				struct kfd_process *p, void *data)
-+{
-+	struct kfd_ioctl_smi_events_args *args = data;
-+	struct kfd_dev *dev;
-+
-+	dev = kfd_device_by_id(args->gpu_id);
-+	if (!dev)
-+		return -EINVAL;
-+
-+	switch (args->op) {
-+	case KFD_SMI_EVENTS_REGISTER:
-+		/* register the device */
-+		return kfd_smi_event_register(dev, &args->data);
-+	case KFD_SMI_EVENTS_ENABLE:
-+		/* subscribe events to the device */
-+		return kfd_smi_event_enable(dev, args->events);
-+	case KFD_SMI_EVENTS_DISABLE:
-+		/* unsubscribe events */
-+		return kfd_smi_event_disable(dev, args->events);
-+	}
-+
-+	return -EINVAL;
-+}
-+
- bool kfd_dev_is_large_bar(struct kfd_dev *dev)
- {
- 	struct kfd_local_mem_info mem_info;
-@@ -1827,6 +1854,9 @@ static const struct amdkfd_ioctl_desc amdkfd_ioctls[] = {
- 
- 	AMDKFD_IOCTL_DEF(AMDKFD_IOC_ALLOC_QUEUE_GWS,
- 			kfd_ioctl_alloc_queue_gws, 0),
-+
-+	AMDKFD_IOCTL_DEF(AMDKFD_IOC_SMI_EVENTS,
-+			kfd_ioctl_smi_events, 0),
- };
- 
- #define AMDKFD_CORE_IOCTL_COUNT	ARRAY_SIZE(amdkfd_ioctls)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 0491ab2..6ac6f31 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -532,6 +532,7 @@ struct kfd_dev *kgd2kfd_probe(struct kgd_dev *kgd,
- 	kfd->device_info = device_info;
- 	kfd->pdev = pdev;
- 	kfd->init_complete = false;
-+	kfd->smi_events.registered = false;
- 	kfd->kfd2kgd = f2g;
- 	atomic_set(&kfd->compute_profile, 0);
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-index e05d75e..151e83e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -24,6 +24,7 @@
- #include "kfd_events.h"
- #include "soc15_int.h"
- #include "kfd_device_queue_manager.h"
-+#include "kfd_smi_events.h"
- 
- static bool event_interrupt_isr_v9(struct kfd_dev *dev,
- 					const uint32_t *ih_ring_entry,
-@@ -117,6 +118,7 @@ static void event_interrupt_wq_v9(struct kfd_dev *dev,
- 		info.prot_read  = ring_id & 0x10;
- 		info.prot_write = ring_id & 0x20;
- 
-+		kfd_smi_event_update_vmfault(dev, pasid);
- 		kfd_process_vm_fault(dev->dqm, pasid);
- 		kfd_signal_vm_fault_event(dev, pasid, &info);
- 	}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 43b888b..790783d 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -223,6 +223,16 @@ struct kfd_vmid_info {
- 	uint32_t vmid_num_kfd;
- };
- 
-+struct kfd_smi_events {
-+	struct mutex smi_mutex;
-+	/* device is registered to watch events */
-+	bool registered;
-+	/* events enabled */
-+	uint64_t events;
-+	struct kfifo fifo;
-+	wait_queue_head_t wait_queue;
-+};
-+
- struct kfd_dev {
- 	struct kgd_dev *kgd;
- 
-@@ -309,6 +319,9 @@ struct kfd_dev {
- 
- 	/* Global GWS resource shared b/t processes*/
- 	void *gws;
-+
-+	/* if this device is in SMI events watch */
-+	struct kfd_smi_events smi_events;
- };
- 
- enum kfd_mempool {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-new file mode 100644
-index 0000000..e5cb75c
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
-@@ -0,0 +1,174 @@
-+/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ */
-+
-+#include <linux/poll.h>
-+#include <linux/wait.h>
-+#include <linux/anon_inodes.h>
-+#include <uapi/linux/kfd_ioctl.h>
-+#include "amdgpu_vm.h"
-+#include "kfd_priv.h"
-+#include "kfd_smi_events.h"
-+
-+static __poll_t kfd_smi_ev_poll(struct file *, struct poll_table_struct *);
-+static ssize_t kfd_smi_ev_read(struct file *, char __user *, size_t, loff_t *);
-+static int kfd_smi_ev_release(struct inode *, struct file *);
-+
-+static const char kfd_smi_name[] = "kfd_smi_ev";
-+
-+static const struct file_operations kfd_smi_ev_fops = {
-+	.owner = THIS_MODULE,
-+	.poll = kfd_smi_ev_poll,
-+	.read = kfd_smi_ev_read,
-+	.release = kfd_smi_ev_release
-+};
-+
-+static __poll_t kfd_smi_ev_poll(struct file *filep,
-+				struct poll_table_struct *wait)
-+{
-+	__poll_t mask;
-+	struct kfd_dev *dev = filep->private_data;
-+
-+	poll_wait(filep, &dev->smi_events.wait_queue, wait);
-+	mutex_lock(&dev->smi_events.smi_mutex);
-+	mask = kfifo_is_empty(&dev->smi_events.fifo) ? 0: POLLIN | POLLRDNORM;
-+	mutex_unlock(&dev->smi_events.smi_mutex);
-+
-+	return mask;
-+}
-+
-+static ssize_t kfd_smi_ev_read(struct file *filep, char __user *user,
-+			       size_t size, loff_t *offset)
-+{
-+	int ret, copied = 0;
-+	struct kfd_dev *dev = filep->private_data;
-+
-+	mutex_lock(&dev->smi_events.smi_mutex);
-+	ret = kfifo_to_user(&dev->smi_events.fifo, user, size, &copied);
-+	mutex_unlock(&dev->smi_events.smi_mutex);
-+	if (ret || !copied) {
-+		pr_debug("smi-events: fail to send msg (%i) (%i)\n",
-+			ret, copied);
-+		return ret ? ret : -EAGAIN;
-+	}
-+
-+	return copied;
-+}
-+
-+static int kfd_smi_ev_release(struct inode *inode, struct file *filep)
-+{
-+	struct kfd_dev *dev = filep->private_data;
-+
-+	mutex_lock(&dev->smi_events.smi_mutex);
-+
-+	dev->smi_events.events = 0;
-+	kfifo_free(&dev->smi_events.fifo);
-+	dev->smi_events.registered = false;
-+
-+	mutex_unlock(&dev->smi_events.smi_mutex);
-+
-+	return 0;
-+}
-+
-+void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t pasid)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)dev->kgd;
-+	struct amdgpu_task_info task_info;
-+	/* VmFault msg = (hex)uint32_pid(8) + space(1) + task name(16) = 25 */
-+	/* 16 bytes event + 1 byte space + 25 bytes msg + 1 byte \n = 43 */
-+	char fifo_in[43];
-+
-+	mutex_lock(&dev->smi_events.smi_mutex);
-+
-+	if (!(dev->smi_events.events & KFD_SMI_EVENT_VMFAULT)) {
-+		mutex_unlock(&dev->smi_events.smi_mutex);
-+		return;
-+	}
-+
-+	if (kfifo_avail(&dev->smi_events.fifo) < 43) {
-+		pr_err("smi_event: no space left for vmfault event\n");
-+		mutex_unlock(&dev->smi_events.smi_mutex);
-+		return;
-+	}
-+
-+	amdgpu_vm_get_task_info(adev, pasid, &task_info);
-+	snprintf(fifo_in, 43, "%x %x %s\n",
-+		KFD_SMI_EVENT_VMFAULT, task_info.pid, task_info.task_name);
-+	kfifo_in(&dev->smi_events.fifo, fifo_in, sizeof(fifo_in));
-+
-+	mutex_unlock(&dev->smi_events.smi_mutex);
-+
-+	wake_up_all(&dev->smi_events.wait_queue);
-+}
-+
-+int kfd_smi_event_disable(struct kfd_dev *dev, uint64_t events)
-+{
-+	mutex_lock(&dev->smi_events.smi_mutex);
-+	dev->smi_events.events &= ~events;
-+	mutex_unlock(&dev->smi_events.smi_mutex);
-+
-+	return 0;
-+}
-+
-+int kfd_smi_event_enable(struct kfd_dev *dev, uint64_t events)
-+{
-+	/* If the user didn't register SMI events for this device, kfifo is not
-+	 * created to report events.
-+	 */
-+	if (!dev->smi_events.registered)
-+		return -EINVAL;
-+
-+	mutex_lock(&dev->smi_events.smi_mutex);
-+	dev->smi_events.events |= events;
-+	mutex_unlock(&dev->smi_events.smi_mutex);
-+
-+	return 0;
-+}
-+
-+int kfd_smi_event_register(struct kfd_dev *dev, int *fd)
-+{
-+	int ret = 0;
-+
-+	mutex_lock(&dev->smi_events.smi_mutex);
-+
-+	if (dev->smi_events.registered) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
-+
-+	ret = kfifo_alloc(&dev->smi_events.fifo, KFD_SMI_MAX_EVENT_MSG * 8,
-+			GFP_KERNEL);
-+	if (ret) {
-+		pr_err("smi_event: fail to allocate kfifo\n");
-+		goto out;
-+	}
-+	init_waitqueue_head(&dev->smi_events.wait_queue);
-+	dev->smi_events.events = 0;
-+	dev->smi_events.registered = true;
-+
-+	ret = anon_inode_getfd(kfd_smi_name, &kfd_smi_ev_fops,
-+				(void *)dev, 0);
-+	*fd = ret;
-+out:
-+	mutex_unlock(&dev->smi_events.smi_mutex);
-+
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-new file mode 100644
-index 0000000..be3efb6
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.h
-@@ -0,0 +1,42 @@
-+/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ */
-+
-+#ifndef KFD_SMI_EVENTS_H_INCLUDED
-+#define KFD_SMI_EVENTS_H_INCLUDED
-+
-+#if 0
-+struct kfd_smi_events {
-+	/* device is registered to watch events */
-+	bool registered;
-+	/* events enabled */
-+	uint64_t events;
-+	struct kfifo fifo;
-+	wait_queue_head_t wait_queue;
-+};
-+#endif
-+
-+int kfd_smi_event_register(struct kfd_dev *dev, int *fd);
-+int kfd_smi_event_enable(struct kfd_dev *dev, uint64_t events);
-+int kfd_smi_event_disable(struct kfd_dev *dev, uint64_t events);
-+void kfd_smi_event_update_vmfault(struct kfd_dev *dev, uint16_t pasid);
-+
-+#endif
-diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-index 4f66764..1abacf1 100644
---- a/include/uapi/linux/kfd_ioctl.h
-+++ b/include/uapi/linux/kfd_ioctl.h
-@@ -442,6 +442,33 @@ struct kfd_ioctl_import_dmabuf_args {
- 	__u32 dmabuf_fd;	/* to KFD */
- };
- 
-+/*
-+ * KFD SMI(System Management Interface) events
-+ */
-+enum kfd_smi_events_op {
-+	KFD_SMI_EVENTS_REGISTER = 1,
-+	KFD_SMI_EVENTS_ENABLE,
-+	KFD_SMI_EVENTS_DISABLE
-+};
-+
-+/* Event type (defined by bitmask) */
-+#define KFD_SMI_EVENT_VMFAULT     0x0000000000000001
-+
-+struct kfd_ioctl_smi_events_args {
-+	__u32 op;       /* to KFD */
-+	__u64 events;   /* to KFD */
-+	__u32 gpu_id;   /* to KFD */
-+	__u32 data;    /* from KFD */
-+};
-+
-+/* 1. All messages must start with (hex)uint64_event(16) + space(1) =  17 bytes
-+ * 2. VmFault msg = (hex)uint32_pid(8) + space(1) + task name(16) = 25
-+ *    When a new event msg uses more memory, change the calculation here.
-+ * 3. End with \n(1)
-+ * 17 + 25 + 1 = 43
-+ */
-+#define KFD_SMI_MAX_EVENT_MSG 43
-+
- /* Register offset inside the remapped mmio page
-  */
- enum kfd_mmio_remap {
-@@ -546,7 +573,10 @@ enum kfd_mmio_remap {
- #define AMDKFD_IOC_ALLOC_QUEUE_GWS		\
- 		AMDKFD_IOWR(0x1E, struct kfd_ioctl_alloc_queue_gws_args)
- 
-+#define AMDKFD_IOC_SMI_EVENTS			\
-+		AMDKFD_IOWR(0x1F, struct kfd_ioctl_smi_events_args)
-+
- #define AMDKFD_COMMAND_START		0x01
--#define AMDKFD_COMMAND_END		0x1F
-+#define AMDKFD_COMMAND_END		0x20
- 
- #endif
--- 
-2.7.4
+> ---
+>  drivers/usb/gadget/function/f_fs.c | 4 ----
+>  drivers/vhost/vhost.c              | 3 ---
+>  fs/io-wq.c                         | 8 ++------
+>  fs/io_uring.c                      | 4 ----
+>  kernel/kthread.c                   | 6 ++++++
+>  5 files changed, 8 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+> index d9e48bd7c692..a1198f4c527c 100644
+> --- a/drivers/usb/gadget/function/f_fs.c
+> +++ b/drivers/usb/gadget/function/f_fs.c
+> @@ -824,13 +824,9 @@ static void ffs_user_copy_worker(struct work_struct *work)
+>  	bool kiocb_has_eventfd = io_data->kiocb->ki_flags & IOCB_EVENTFD;
+>  
+>  	if (io_data->read && ret > 0) {
+> -		mm_segment_t oldfs = get_fs();
+> -
+> -		set_fs(USER_DS);
+>  		kthread_use_mm(io_data->mm);
+>  		ret = ffs_copy_to_iter(io_data->buf, ret, &io_data->data);
+>  		kthread_unuse_mm(io_data->mm);
+> -		set_fs(oldfs);
+>  	}
+>  
+>  	io_data->kiocb->ki_complete(io_data->kiocb, ret, ret);
+> diff --git a/drivers/vhost/vhost.c b/drivers/vhost/vhost.c
+> index 1787d426a956..b5229ae01d3b 100644
+> --- a/drivers/vhost/vhost.c
+> +++ b/drivers/vhost/vhost.c
+> @@ -333,9 +333,7 @@ static int vhost_worker(void *data)
+>  	struct vhost_dev *dev = data;
+>  	struct vhost_work *work, *work_next;
+>  	struct llist_node *node;
+> -	mm_segment_t oldfs = get_fs();
+>  
+> -	set_fs(USER_DS);
+>  	kthread_use_mm(dev->mm);
+>  
+>  	for (;;) {
+> @@ -365,7 +363,6 @@ static int vhost_worker(void *data)
+>  		}
+>  	}
+>  	kthread_unuse_mm(dev->mm);
+> -	set_fs(oldfs);
+>  	return 0;
+>  }
+>  
+> diff --git a/fs/io-wq.c b/fs/io-wq.c
+> index 83c2868eff2a..75cc2f31816d 100644
+> --- a/fs/io-wq.c
+> +++ b/fs/io-wq.c
+> @@ -168,7 +168,6 @@ static bool __io_worker_unuse(struct io_wqe *wqe, struct io_worker *worker)
+>  			dropped_lock = true;
+>  		}
+>  		__set_current_state(TASK_RUNNING);
+> -		set_fs(KERNEL_DS);
+>  		kthread_unuse_mm(worker->mm);
+>  		mmput(worker->mm);
+>  		worker->mm = NULL;
+> @@ -420,14 +419,11 @@ static void io_wq_switch_mm(struct io_worker *worker, struct io_wq_work *work)
+>  		mmput(worker->mm);
+>  		worker->mm = NULL;
+>  	}
+> -	if (!work->mm) {
+> -		set_fs(KERNEL_DS);
+> +	if (!work->mm)
+>  		return;
+> -	}
+> +
+>  	if (mmget_not_zero(work->mm)) {
+>  		kthread_use_mm(work->mm);
+> -		if (!worker->mm)
+> -			set_fs(USER_DS);
+>  		worker->mm = work->mm;
+>  		/* hang on to this mm */
+>  		work->mm = NULL;
+> diff --git a/fs/io_uring.c b/fs/io_uring.c
+> index 367406381044..c332a34e8b34 100644
+> --- a/fs/io_uring.c
+> +++ b/fs/io_uring.c
+> @@ -5871,15 +5871,12 @@ static int io_sq_thread(void *data)
+>  	struct io_ring_ctx *ctx = data;
+>  	struct mm_struct *cur_mm = NULL;
+>  	const struct cred *old_cred;
+> -	mm_segment_t old_fs;
+>  	DEFINE_WAIT(wait);
+>  	unsigned long timeout;
+>  	int ret = 0;
+>  
+>  	complete(&ctx->completions[1]);
+>  
+> -	old_fs = get_fs();
+> -	set_fs(USER_DS);
+>  	old_cred = override_creds(ctx->creds);
+>  
+>  	timeout = jiffies + ctx->sq_thread_idle;
+> @@ -5985,7 +5982,6 @@ static int io_sq_thread(void *data)
+>  	if (current->task_works)
+>  		task_work_run();
+>  
+> -	set_fs(old_fs);
+>  	if (cur_mm) {
+>  		kthread_unuse_mm(cur_mm);
+>  		mmput(cur_mm);
+> diff --git a/kernel/kthread.c b/kernel/kthread.c
+> index 316db17f6b4f..9e27d01b6d78 100644
+> --- a/kernel/kthread.c
+> +++ b/kernel/kthread.c
+> @@ -52,6 +52,7 @@ struct kthread {
+>  	unsigned long flags;
+>  	unsigned int cpu;
+>  	void *data;
+> +	mm_segment_t oldfs;
+>  	struct completion parked;
+>  	struct completion exited;
+>  #ifdef CONFIG_BLK_CGROUP
+> @@ -1235,6 +1236,9 @@ void kthread_use_mm(struct mm_struct *mm)
+>  
+>  	if (active_mm != mm)
+>  		mmdrop(active_mm);
+> +
+> +	to_kthread(tsk)->oldfs = get_fs();
+> +	set_fs(USER_DS);
+>  }
+>  EXPORT_SYMBOL_GPL(kthread_use_mm);
+>  
+> @@ -1249,6 +1253,8 @@ void kthread_unuse_mm(struct mm_struct *mm)
+>  	WARN_ON_ONCE(!(tsk->flags & PF_KTHREAD));
+>  	WARN_ON_ONCE(!tsk->mm);
+>  
+> +	set_fs(to_kthread(tsk)->oldfs);
+> +
+>  	task_lock(tsk);
+>  	sync_mm_rss(mm);
+>  	tsk->mm = NULL;
+> -- 
+> 2.25.1
 
 _______________________________________________
 amd-gfx mailing list
