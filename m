@@ -2,82 +2,69 @@ Return-Path: <SRS0=+i0l=5W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F89BC2BA19
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2020 12:40:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E9FEC2BA19
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2020 13:45:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E5DFB2075E
-	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2020 12:40:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 03A1821D7A
+	for <amd-gfx@archiver.kernel.org>; Mon,  6 Apr 2020 13:45:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sjRnQ0fz"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5DFB2075E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="khIynogh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03A1821D7A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 897B16E3AA;
-	Mon,  6 Apr 2020 12:40:03 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4530B6E3AA
- for <amd-gfx@lists.freedesktop.org>; Mon,  6 Apr 2020 12:40:03 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id i19so15672713wmb.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 06 Apr 2020 05:40:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=YR20MHMkqspuOgBU7bFniDbW6AoI1XFbpHH872LvReQ=;
- b=sjRnQ0fzzsyYaawxlAHyuO1J5CLibR1PHydTR43rpAm4EnrBlQNkVW0wFqLg9wTeN5
- mHzn/dSawxYXZ8uP7poVQOCdq6Lct3xpy5znO2g4+iUwUZpC6styfI2kezag46CQ4nYf
- aer56z0O1IAAOCCq21JsZ/5MdAtrQ+DA+dWAAfInw4b/mK6GN5S5AT3e9ZQ09orXd8Fw
- JlbcdReofEnIhDOExJAb5sHlgj8KysQuOq2MBgXrIaPVnECYhHx2gVs1AoE6o73NuqId
- SLoPluyaVm5Mno/tsjz5NpT4o/BmOMXLTOqh0xn4nT6eGoUumELpfCc9Pfm5ZLBnbs8E
- E/rw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=YR20MHMkqspuOgBU7bFniDbW6AoI1XFbpHH872LvReQ=;
- b=JbwUslgAD2NwHT6Ew/T3WR0MV3AEPvQfPv4WxTu7DE1sn5DeILnWR/EJM4/s7+/llv
- mMow3k7yOidaenFw4DcwkIfZbA4QVqeFFEN8bjEXVtCNq4gI8LtZxwrZ4AM15t1OmHrP
- M1I15EO5wXio3zEbqgIgD9xXkLHNcTuFpeQ9aj8GPrDvyIs4wfXcdsPJjPf73hv2n1WG
- vUH1KnBV9eb/1K9RbdwSCn1GEtWz+ZatIBb7uKmp7dSH5V92s9FX+B/yz6kmhjm04VF2
- jjeX7ajnvZ2sV1gL2ytH6iKGXmM6ezmNpDMm6NEoLvCVUj3Mf/l9qlRcVKf2ryG5QXH1
- RWyw==
-X-Gm-Message-State: AGi0PuazwnBAzmxGCmnJolY6Xnjk2gXgW47posOOm7XF1xlFdzbYUzd7
- r/2EDD5hwfFchyetyG2W1NaL9zX1
-X-Google-Smtp-Source: APiQypKXs8U7xcnAwr5gqbUguKk2xXZhuG7Wg3piFzXXN+s3F0VM35Divi1XUuLW1Z97yRY7OImrkg==
-X-Received: by 2002:a1c:8008:: with SMTP id b8mr21833118wmd.43.1586176801578; 
- Mon, 06 Apr 2020 05:40:01 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id d6sm26532985wrw.10.2020.04.06.05.40.00
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 06 Apr 2020 05:40:01 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu/vcn: add shared menory restore after wake up
- from sleep.
-To: James Zhu <jamesz@amd.com>, christian.koenig@amd.com,
- Alex Deucher <alexdeucher@gmail.com>, James Zhu <James.Zhu@amd.com>
-References: <1585918324-16780-1-git-send-email-James.Zhu@amd.com>
- <CADnq5_OwEiyjtfoy4ri+wMt9KTL7cZirrKJFhsQmYncPHSeH-g@mail.gmail.com>
- <62cc4dea-88aa-15cc-cc54-9f5fc5fdea38@amd.com>
- <fd093239-d748-a232-8f96-666753f99a82@gmail.com>
- <faa6f7fd-b173-da00-4af2-c894932e795d@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <d3602e60-11d1-9281-7a9e-6279cba2ff28@gmail.com>
-Date: Mon, 6 Apr 2020 14:40:00 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F9BC6E3C4;
+	Mon,  6 Apr 2020 13:45:13 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B429A894C5
+ for <amd-gfx@lists.freedesktop.org>; Mon,  6 Apr 2020 10:21:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=7HULiCo0Bk8vmaxX5+hLzxEjatTFSFqcDu3M2RLxE0M=; b=khIynoghPES657egNG6RavBCQC
+ g0vTyhMcvOu4TkmVd9hzcTMNEavXGh+2Esr5OzLIfDBBVQ05gx3M5skhWs2CVMrO1uWlw+dlXEBpc
+ IjlYMHepOP2o0LJ1JYhHWueYOcc0AmySRO8krfidzLJU+NaPmg6zMuVbjSlK94ejoOih3XQlmQihf
+ NgzctzBhJUgqdHlb+AVMlomUbdd7lSTjpDGf4xe6ApsNLVx8IKJARdKSaQtsGI54GNOYPQcu+WX0j
+ zfe9MlsewwrbD0of6LJ3CpoBpukZejEyxeHjfMb/KfoR5Xa03QZR52mbXiTVVnGNtzNGgXx8SIiEQ
+ A83P1FGw==;
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+ helo=noisy.programming.kicks-ass.net)
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1jLOsR-00056x-7X; Mon, 06 Apr 2020 10:21:11 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id BB1493025C3;
+ Mon,  6 Apr 2020 12:21:07 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id A3B1B2B155621; Mon,  6 Apr 2020 12:21:07 +0200 (CEST)
+Date: Mon, 6 Apr 2020 12:21:07 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Masami Hiramatsu <mhiramat@kernel.org>
+Subject: Re: AMD DC graphics display code enables -mhard-float, -msse, -msse2
+ without any visible FPU state protection
+Message-ID: <20200406102107.GI20730@hirez.programming.kicks-ass.net>
+References: <CAG48ez2Sx4ELkM94aD_h_J7K7KBOeuGmvZLKRkg3n_f2WoZ_cg@mail.gmail.com>
+ <4c5fe55d-9db9-2f61-59b2-1fb2e1b45ed0@amd.com>
+ <20200402141308.GB20730@hirez.programming.kicks-ass.net>
+ <20200403142837.f61a18d7bd32fd73777479ad@kernel.org>
+ <20200403112113.GN20730@hirez.programming.kicks-ass.net>
+ <20200404120808.05e9aa61500265be2e031bd6@kernel.org>
+ <20200404143224.GL2452@worktop.programming.kicks-ass.net>
+ <20200405121930.e3ea3e7acc7588102de483e2@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <faa6f7fd-b173-da00-4af2-c894932e795d@amd.com>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <20200405121930.e3ea3e7acc7588102de483e2@kernel.org>
+X-Mailman-Approved-At: Mon, 06 Apr 2020 13:45:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,128 +76,167 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: "Li, Pauline" <Pauline.Li@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Josh Poimboeuf <jpoimboe@redhat.com>, Jann Horn <jannh@google.com>,
+ Leo Li <sunpeng.li@amd.com>, the arch/x86 maintainers <x86@kernel.org>,
+ kernel list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Andy Lutomirski <luto@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Harry Wentland <harry.wentland@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDYuMDQuMjAgdW0gMTQ6MzEgc2NocmllYiBKYW1lcyBaaHU6Cj4KPiBPbiAyMDIwLTA0LTA2
-IDM6MDMgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0gMDMuMDQuMjAgdW0gMTc6
-NTQgc2NocmllYiBKYW1lcyBaaHU6Cj4+Pgo+Pj4gT24gMjAyMC0wNC0wMyAxMTozNyBhLm0uLCBB
-bGV4IERldWNoZXIgd3JvdGU6Cj4+Pj4gT24gRnJpLCBBcHIgMywgMjAyMCBhdCA4OjUyIEFNIEph
-bWVzIFpodSA8SmFtZXMuWmh1QGFtZC5jb20+IHdyb3RlOgo+Pj4+PiBWQ04gc2hhcmVkIG1lbW9y
-eSBuZWVkcyByZXN0b3JlIGFmdGVyIHdha2UgdXAgZHVyaW5nIFMzIHRlc3QuCj4+Pj4gSG93IGJp
-ZyBpcyB0aGUgc2hhcmVkIG1lbW9yeT/CoCBJdCBtaWdodCBiZSBiZXR0ZXIgdG8gYWxsb2NhdGUg
-dGhlCj4+Pj4gbWVtb3J5IG9uY2UgYXQgc3dfaW5pdCBhbmQgdGhlbiBmcmVlIGl0IGluIHN3X2Zp
-bmkgcmF0aGVyIHRoYW4KPj4+PiBhbGxvY2F0aW5nIGFuZCBmcmVlaW5nIGluIGV2ZXJ5IHN1c3Bl
-bmQvcmVzdW1lLgo+Pj4KPj4+IEhpIEFsZXgsCj4+Pgo+Pj4gQWZ0ZXIgYWxpZ25tZW50LCBpdCBp
-cyBvbmx5IDRrLiBJIGNhbiBjaGFuZ2UgaXQgYXMgeW91IHN1Z2dlc3QuCj4+Cj4+IERvZXMgdGhp
-cyBuZWVkcyB0byBzdGF5IGF0IHRoZSBzYW1lIHBsYWNlIGFmdGVyIGEgc3VzcGVuZC9yZXN1bWU/
-Cj4+Cj4+IFNlZSB3ZSBvbmx5IGJhY2t1cCB0aGUgZmlybXdhcmUgbWFudWFsbHkgYmVjYXVzZSB3
-ZSBvdGhlcndpc2UgY2FuJ3QgCj4+IGd1YXJhbnRlZSB0aGF0IGl0IHdpbGwgYmUgbW92ZWQgYmFj
-ayB0byB0aGUgc2FtZSBwbGFjZSBhZnRlciByZXN1bWUuCj4gWWVzLCB0aGlzIGlzIHRoZSBjYXNl
-Li4gRlcgcmVxdWVzdCB0aGUgc2FtZSBmb3IgdGhlaXIgcmVzdW1lIHByb2Nlc3NpbmcuCj4+IElm
-IHRoYXQgaXNuJ3QgYW4gaXNzdWUgZm9yIHRoZSBzaGFyZWQgYm8gd2UgY291bGQganVzdCB1bnBp
-biBpdCBvbiAKPj4gc3VzcGVuZCBhbmQgcGluIGl0IGFnYWluIG9uIHJlc3VtZS4KPj4KPj4gQlRX
-OiBXaGF0IGlzIHRoYXQgdXNlZCBmb3IgYW5kIHdoeSBjYW4ndCBpdCBiZSBwYXJ0IG9mIHRoZSBW
-Q04gCj4+IGZpcm13YXJlIEJPPwo+Cj4gTG9naWNhbGx5IGl0IGlzIHVzZWQgZm9yIEZXIGFuZCBk
-cml2ZXIgc2hhcmluZyBzb21lIHNldHRpbmdzIAo+IGNvbnZlbmllbnRseS4gSWYgeW91IHN1Z2dl
-c3QgaXQgY2FuIGJlIGFkZGVkIGludG8gVkNOIEJPLCB0aGVuIGl0IHdpbGwgCj4gc2ltcGx5IHRo
-ZSBpbXBsZW1lbnRhdGlvbi4KCkFzIGxvbmcgYXMgdGhpcyBpcyBvbmx5IHVzZWQgYnkgdGhlIGtl
-cm5lbCBkcml2ZXIgaXQgc291bmRzIGxpa2UgaXQgaXMgCmJlc3QgcHV0IGludG8gdGhlIFZDTiBC
-TyBhcyB3ZWxsLCB5ZXMuCgpSZWdhcmRzLApDaHJpc3RpYW4uCgo+Cj4gVGhhbmtzIGFuZCBCZXN0
-IFJlZ2FyZHMhCj4KPiBKYW1lcyBaaHUKPgo+Pgo+PiBUaGFua3MsCj4+IENocmlzdGlhbi4KPj4K
-Pj4+Cj4+PiBCZXN0IFJlZ2FyZHMhCj4+Pgo+Pj4gSmFtZXMKPj4+Cj4+Pj4KPj4+PiBBbGV4Cj4+
-Pj4KPj4+Pj4gU2lnbmVkLW9mZi1ieTogSmFtZXMgWmh1IDxKYW1lcy5aaHVAYW1kLmNvbT4KPj4+
-Pj4gLS0tCj4+Pj4+IMKgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uYyB8
-IDI2IAo+Pj4+PiArKysrKysrKysrKysrKysrKysrKysrKysrKwo+Pj4+PiDCoCBkcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNuLmggfMKgIDEgKwo+Pj4+PiDCoCAyIGZpbGVzIGNo
-YW5nZWQsIDI3IGluc2VydGlvbnMoKykKPj4+Pj4KPj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uYyAKPj4+Pj4gYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2FtZGdwdS9hbWRncHVfdmNuLmMKPj4+Pj4gaW5kZXggZDY1M2ExOC4uNTg5MTM5MCAxMDA2
-NDQKPj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5jCj4+
-Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92Y24uYwo+Pj4+PiBA
-QCAtMjA1LDYgKzIwNSw3IEBAIGludCBhbWRncHVfdmNuX3N3X2Zpbmkoc3RydWN0IGFtZGdwdV9k
-ZXZpY2UgCj4+Pj4+ICphZGV2KQo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oCBpZiAoYWRldi0+dmNuLmhhcnZlc3RfY29uZmlnICYgKDEgPDwgaikpCj4+Pj4+IMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb250aW51ZTsKPj4+Pj4K
-Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAga3ZmcmVlKGFkZXYtPnZjbi5pbnN0
-W2pdLnNhdmVkX3NobV9ibyk7Cj4+Pj4+IGFtZGdwdV9ib19mcmVlX2tlcm5lbCgmYWRldi0+dmNu
-Lmluc3Rbal0uZndfc2hhcmVkX2JvLAo+Pj4+PiAmYWRldi0+dmNuLmluc3Rbal0uZndfc2hhcmVk
-X2dwdV9hZGRyLAo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgKHZvaWQgCj4+Pj4+
-ICoqKSZhZGV2LT52Y24uaW5zdFtqXS5md19zaGFyZWRfY3B1X2FkZHIpOwo+Pj4+PiBAQCAtMjU0
-LDYgKzI1NSwxOCBAQCBpbnQgYW1kZ3B1X3Zjbl9zdXNwZW5kKHN0cnVjdCBhbWRncHVfZGV2aWNl
-IAo+Pj4+PiAqYWRldikKPj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgIHJldHVybiAtRU5PTUVNOwo+Pj4+Pgo+Pj4+PiBtZW1jcHlfZnJvbWlvKGFk
-ZXYtPnZjbi5pbnN0W2ldLnNhdmVkX2JvLCBwdHIsIHNpemUpOwo+Pj4+PiArCj4+Pj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChhZGV2LT52Y24uaW5zdFtpXS5md19zaGFyZWRf
-Ym8gPT0gTlVMTCkKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIHJldHVybiAwOwo+Pj4+PiArCj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIHNpemUgPSAKPj4+Pj4gYW1kZ3B1X2JvX3NpemUoYWRldi0+dmNuLmluc3RbaV0uZndfc2hh
-cmVkX2JvKTsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcHRyID0gYWRldi0+
-dmNuLmluc3RbaV0uZndfc2hhcmVkX2NwdV9hZGRyOwo+Pj4+PiArCj4+Pj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIGFkZXYtPnZjbi5pbnN0W2ldLnNhdmVkX3NobV9ibyA9IGt2bWFs
-bG9jKHNpemUsIAo+Pj4+PiBHRlBfS0VSTkVMKTsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgaWYgKCFhZGV2LT52Y24uaW5zdFtpXS5zYXZlZF9zaG1fYm8pCj4+Pj4+ICvCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT01FTTsK
-Pj4+Pj4gKwo+Pj4+PiArIG1lbWNweV9mcm9taW8oYWRldi0+dmNuLmluc3RbaV0uc2F2ZWRfc2ht
-X2JvLCBwdHIsIHNpemUpOwo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgIH0KPj4+Pj4gwqDCoMKgwqDC
-oMKgwqDCoCByZXR1cm4gMDsKPj4+Pj4gwqAgfQo+Pj4+PiBAQCAtMjkxLDYgKzMwNCwxOSBAQCBp
-bnQgYW1kZ3B1X3Zjbl9yZXN1bWUoc3RydWN0IGFtZGdwdV9kZXZpY2UgCj4+Pj4+ICphZGV2KQo+
-Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfQo+
-Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbWVt
-c2V0X2lvKHB0ciwgMCwgc2l6ZSk7Cj4+Pj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIH0KPj4+Pj4gKwo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoYWRl
-di0+dmNuLmluc3RbaV0uZndfc2hhcmVkX2JvID09IE5VTEwpCj4+Pj4+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVJTlZBTDsKPj4+Pj4gKwo+
-Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzaXplID0gCj4+Pj4+IGFtZGdwdV9i
-b19zaXplKGFkZXYtPnZjbi5pbnN0W2ldLmZ3X3NoYXJlZF9ibyk7Cj4+Pj4+ICvCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIHB0ciA9IGFkZXYtPnZjbi5pbnN0W2ldLmZ3X3NoYXJlZF9jcHVf
-YWRkcjsKPj4+Pj4gKwo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAoYWRl
-di0+dmNuLmluc3RbaV0uc2F2ZWRfc2htX2JvICE9IE5VTEwpIHsKPj4+Pj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG1lbWNweV90b2lvKHB0ciwgCj4+Pj4+
-IGFkZXYtPnZjbi5pbnN0W2ldLnNhdmVkX3NobV9ibywgc2l6ZSk7Cj4+Pj4+ICsga3ZmcmVlKGFk
-ZXYtPnZjbi5pbnN0W2ldLnNhdmVkX3NobV9ibyk7Cj4+Pj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBhZGV2LT52Y24uaW5zdFtpXS5zYXZlZF9zaG1fYm8g
-PSBOVUxMOwo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9IGVsc2UKPj4+Pj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG1lbXNldF9pbyhw
-dHIsIDAsIHNpemUpOwo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgIH0KPj4+Pj4gwqDCoMKgwqDCoMKg
-wqDCoCByZXR1cm4gMDsKPj4+Pj4gwqAgfQo+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5oIAo+Pj4+PiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-YW1kZ3B1L2FtZGdwdV92Y24uaAo+Pj4+PiBpbmRleCBmNzM5ZTFhLi5iZDc3ZGFlIDEwMDY0NAo+
-Pj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmNuLmgKPj4+Pj4g
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Zjbi5oCj4+Pj4+IEBAIC0x
-OTQsNiArMTk0LDcgQEAgc3RydWN0IGFtZGdwdV92Y25faW5zdCB7Cj4+Pj4+IMKgwqDCoMKgwqDC
-oMKgwqAgYXRvbWljX3TCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgZHBnX2VuY19zdWJt
-aXNzaW9uX2NudDsKPj4+Pj4gwqDCoMKgwqDCoMKgwqDCoCB2b2lkwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgKmZ3X3NoYXJlZF9jcHVfYWRkcjsKPj4+Pj4gwqDCoMKgwqDC
-oMKgwqDCoCB1aW50NjRfdMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBmd19zaGFyZWRf
-Z3B1X2FkZHI7Cj4+Pj4+ICvCoMKgwqDCoMKgwqAgdm9pZMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgICpzYXZlZF9zaG1fYm87Cj4+Pj4+IMKgIH07Cj4+Pj4+Cj4+Pj4+IMKg
-IHN0cnVjdCBhbWRncHVfdmNuIHsKPj4+Pj4gLS0gCj4+Pj4+IDIuNy40Cj4+Pj4+Cj4+Pj4+IF9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+Pj4+IGFtZC1n
-ZnggbWFpbGluZyBsaXN0Cj4+Pj4+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4+Pj4+
-IGh0dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRw
-cyUzQSUyRiUyRmxpc3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUyRmFt
-ZC1nZngmYW1wO2RhdGE9MDIlN0MwMSU3Q0phbWVzLlpodSU0MGFtZC5jb20lN0NjZjAwZDhiZTJl
-OTk0ZTcxMzgxODA4ZDdkOWY4YTBkNyU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNk
-JTdDMCU3QzAlN0M2MzcyMTc1MzQxODQ2NDM5MTEmYW1wO3NkYXRhPXBqSXF0V1pLTzU3NjhIbUJP
-akgxZmhqWk1QU2N1eUJVZyUyRnByeEgyUVdjNCUzRCZhbXA7cmVzZXJ2ZWQ9MCAKPj4+Pj4KPj4+
-IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+PiBhbWQt
-Z2Z4IG1haWxpbmcgbGlzdAo+Pj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPj4+IGh0
-dHBzOi8vbmFtMTEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0bG9vay5jb20vP3VybD1odHRwcyUz
-QSUyRiUyRmxpc3RzLmZyZWVkZXNrdG9wLm9yZyUyRm1haWxtYW4lMkZsaXN0aW5mbyUyRmFtZC1n
-ZngmYW1wO2RhdGE9MDIlN0MwMSU3Q0phbWVzLlpodSU0MGFtZC5jb20lN0NjZjAwZDhiZTJlOTk0
-ZTcxMzgxODA4ZDdkOWY4YTBkNyU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdD
-MCU3QzAlN0M2MzcyMTc1MzQxODQ2NDM5MTEmYW1wO3NkYXRhPXBqSXF0V1pLTzU3NjhIbUJPakgx
-ZmhqWk1QU2N1eUJVZyUyRnByeEgyUVdjNCUzRCZhbXA7cmVzZXJ2ZWQ9MCAKPj4+Cj4+Cj4gX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Sun, Apr 05, 2020 at 12:19:30PM +0900, Masami Hiramatsu wrote:
+
+> > @@ -269,14 +269,14 @@ d4: AAM Ib (i64)
+> >  d5: AAD Ib (i64)
+> >  d6:
+> >  d7: XLAT/XLATB
+> > -d8: ESC
+> > -d9: ESC
+> > -da: ESC
+> > -db: ESC
+> > -dc: ESC
+> > -dd: ESC
+> > -de: ESC
+> > -df: ESC
+> > +d8: FPU
+> > +d9: FPU
+> > +da: FPU
+> > +db: FPU
+> > +dc: FPU
+> > +dd: FPU
+> > +de: FPU
+> > +df: FPU
+> 
+> I don't want to use FPU since Intel SDM is still using ESC because it
+> is co-processor escape code.
+
+But we all know that co-processor is x87. Can we then perhaps put in
+'x87' as an escape code instead of 'ESC' ?
+
+> Here is the new patch. 
+> 
+> From d7eca4946ab3f0d08ad1268f49418f8655aaf57c Mon Sep 17 00:00:00 2001
+> From: Masami Hiramatsu <mhiramat@kernel.org>
+> Date: Fri, 3 Apr 2020 16:58:22 +0900
+> Subject: [PATCH] x86: insn: Add insn_is_fpu()
+> 
+> Add insn_is_fpu(insn) which tells that the insn is
+> whether touch the MMX/XMM/YMM register or the instruction
+> of FP coprocessor.
+> 
+> Signed-off-by: Masami Hiramatsu <mhiramat@kernel.org>
+
+arch/x86/mm/extable.o: warning: objtool: ex_handler_fprestore()+0x8b: fpu_safe hint not an FPU instruction
+008b  36b:      48 0f ae 0d 00 00 00    fxrstor64 0x0(%rip)        # 373 <ex_handler_fprestore+0x93>
+
+arch/x86/kvm/x86.o: warning: objtool: kvm_load_guest_fpu.isra.0()+0x1fa: fpu_safe hint not an FPU instruction
+01fa    1d2fa:  48 0f ae 4b 40          fxrstor64 0x40(%rbx)
+
+
+
+Also, all the VMX bits seems to qualify as FPU (I can't remember seeing
+that previously):
+
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_apic_eoi_induced()+0x20: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_apic_write()+0x20: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_invlpg()+0x20: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_interrupt_shadow()+0x1c: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_decache_cr4_guest_bits()+0x5a: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_decache_cr0_guest_bits()+0x5a: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_io()+0x24: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_apic_access()+0x39: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_idt()+0x57: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_exit_info()+0x58: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_gdt()+0x57: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_guest_apic_has_interrupt()+0xf8: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_nmi_allowed()+0x98: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_handle_exit_irqoff()+0xb3: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_nmi_mask()+0x8a: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_rflags()+0x99: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_ept_misconfig()+0x22: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_interrupt_allowed()+0x8d: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_write_pml_buffer()+0x1c5: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_invpcid()+0x26a: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_read_guest_seg_ar()+0x9b: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_read_guest_seg_selector()+0x96: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_read_guest_seg_base()+0x9b: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_segment()+0x2da: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmwrite_error()+0x161: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: exec_controls_set.isra.0()+0x5a: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_dr()+0x1bc: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: update_exception_bitmap()+0x136: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_interrupt_shadow()+0x8b: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: skip_emulated_instruction()+0xe9: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_exception_nmi()+0x674: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_clear_hlt.isra.0()+0xe5: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_idt()+0x65: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_gdt()+0x65: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: seg_setup()+0x125: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_nmi_mask()+0x11c: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: __vmx_complete_interrupts()+0x167: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_task_switch()+0x34d: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_dr7()+0x1e: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: update_cr8_intercept()+0x1a2: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_hwapic_isr_update()+0x8a: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_rvi()+0x87: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_load_eoi_exitmap()+0x107: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_rflags()+0x20f: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: fix_rmode_seg()+0x1de: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_segment()+0x28b: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: enter_pmode()+0x1ad: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: enter_rmode()+0x27e: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_write_l1_tsc_offset()+0x11b: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_pml_full()+0x138: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_cancel_injection()+0x5d: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_queue_exception()+0x10d: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_inject_nmi()+0xd1: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_inject_irq()+0x127: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_ept_violation()+0x13e: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: enable_irq_window()+0x71: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_interrupt_window()+0x71: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_nmi_window()+0x92: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_sync_dirty_debug_regs()+0x203: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: enable_nmi_window()+0xca: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: clear_atomic_switch_msr()+0x2ba: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: add_atomic_switch_msr.constprop.0()+0x314: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_vcpu_run()+0xc16: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_host_fs_gs()+0x1f9: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_vcpu_load_vmcs()+0x404: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_cr4()+0x240: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_get_msr()+0x49d: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_cpuid_update()+0xc89: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: ept_save_pdptrs()+0x176: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_cache_reg()+0xe3: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_cr3()+0x47: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_apic_access_page_addr()+0x9f: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_efer()+0x22f: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_cr0()+0x15e: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: handle_cr()+0xe1d: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_vcpu_reset()+0x1a98: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_virtual_apic_mode()+0x216: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_refresh_apicv_exec_ctrl()+0x2e0: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_msr()+0xf26: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_set_constant_host_state()+0x364: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: set_cr4_guest_host_mask()+0xda: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: init_vmcs()+0x1705: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: dump_vmcs.cold()+0x193c: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_handle_exit()+0xcfc: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_update_host_rsp()+0x65: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_dump_dtsel()+0x5d: FPU instruction outside of kernel_fpu_{begin,end}()
+arch/x86/kvm/vmx/vmx.o: warning: objtool: vmx_dump_sel()+0xda: FPU instruction outside of kernel_fpu_{begin,end}()
+
+
+./objdump-func.sh defconfig-build/arch/x86/kvm/vmx/vmx.o ept_save_pdptrs | grep 176
+0176    1d436:  41 0f 78 c4             vmread %rax,%r12
+
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
