@@ -2,104 +2,54 @@ Return-Path: <SRS0=Z8oe=5X=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+X-Spam-Status: No, score=-13.2 required=3.0
+	tests=HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 52DDAC2BA16
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 08:06:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76FD3C2BA1B
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 08:10:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 28F66206F7
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 08:06:48 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="2bKtUIzb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28F66206F7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 58BA8206F7
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 08:10:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 58BA8206F7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AF1A89DBA;
-	Tue,  7 Apr 2020 08:06:45 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2074.outbound.protection.outlook.com [40.107.93.74])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8489F89D5F;
- Tue,  7 Apr 2020 08:06:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OkAPQrDMGtax1MJjnAFGH+Yt1u9CiWAJ91rfX/Rwb/IONbIhm51sVmH7x66KS+ZGm2JxG6EUhMBH04XpakOYs8z+/RsvIgQB+iIsQ4fm1QTexkoOBkgzbtHwgrcwbQv9uIyKTq12TwGCD3hEVM+timtoKNq/5b+ZVYP8vVRfYh496EqWx+mQqWtKe4Y+YCnNfehf35o4vJrTYeIpUTZB1A9FzuXuhVnYOk6z5UMIlxx2s7FxNjyi4lPOcx97ShIFBeouVQ95F4bfM5ShkmULxZTpAZKJM4aeKqOSejQGdjWi6L643AC+JcJSUiPxtctgZnvDqfKpH6b213aIv8+YQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MkaVg5kRMeMkZzyy++SucmTdE5xcoKwRr88lUny2Orw=;
- b=cqq+jNw5xOu/UL6GPOvneSBSuCcSmQMTSWAi8gggBlMWir4Ukyfa1a9zm39ev1PF9HCZEZWDmRr8LcIAcw0hLVuFWxWyiPlcOnYqutywhGzQVrdutZULxOs029fbPf/cprS6sKCwQNmsqu883NSP62p9XeQQFECWPS+TX5QRrWH+6BvNlLqylcOWBvpMBpoi6yX/qK1PItokgP6qcGbkr/7jSPBXxiI4elYY7S/6U8xkvACbr2kZO6tETlNU2OItItFP2VnOwNy8ORbSw2cbIbf70/G3VHRGWxwauHfc51631eFqMCHu4nY13klZ8uVCxEFTeA02kXRQaTRekCPUaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MkaVg5kRMeMkZzyy++SucmTdE5xcoKwRr88lUny2Orw=;
- b=2bKtUIzbJRdX2tEO8m5gjLiKZTZFR1fjnCBCHN097ECQp22lUxZFL5m+xtMXkLyHGU6+B3luNBB7+qIMnkwkrxR/nCsXyTmoGKdAMLJjK0TywLug4YnQ4hoVa1InWG9NKZioh0t/v7dkCiaLwKydksBtMjG69oVdrjG1pr4OIac=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Ray.Huang@amd.com; 
-Received: from MN2PR12MB3309.namprd12.prod.outlook.com (2603:10b6:208:106::29)
- by MN2PR12MB3344.namprd12.prod.outlook.com (2603:10b6:208:c5::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.16; Tue, 7 Apr
- 2020 08:06:42 +0000
-Received: from MN2PR12MB3309.namprd12.prod.outlook.com
- ([fe80::6417:7247:12ed:1d7b]) by MN2PR12MB3309.namprd12.prod.outlook.com
- ([fe80::6417:7247:12ed:1d7b%5]) with mapi id 15.20.2878.018; Tue, 7 Apr 2020
- 08:06:42 +0000
-Date: Tue, 7 Apr 2020 16:06:34 +0800
-From: Huang Rui <ray.huang@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: Re: [PATCH 1/2] drm/ttm: clean up
- ttm_trace_dma_map/ttm_trace_dma_unmap
-Message-ID: <20200407080633.GB27094@jenkins-Celadon-RN>
-References: <1586241885-25422-1-git-send-email-ray.huang@amd.com>
- <19af654b-ca0b-3077-01bb-939c56b440b6@amd.com>
-Content-Disposition: inline
-In-Reply-To: <19af654b-ca0b-3077-01bb-939c56b440b6@amd.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-ClientProxiedBy: HK2PR02CA0212.apcprd02.prod.outlook.com
- (2603:1096:201:20::24) To MN2PR12MB3309.namprd12.prod.outlook.com
- (2603:10b6:208:106::29)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 520F36E591;
+	Tue,  7 Apr 2020 08:10:08 +0000 (UTC)
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E173C6E101;
+ Tue,  7 Apr 2020 03:18:26 +0000 (UTC)
+IronPort-SDR: bu8mygwZuwuLESVDNmToX8go+QQOhw6/ETfjTMDLXVVAs0LvCxkMXHeT6FCEV85dV0EJ0NmTfZ
+ bXCg9bOwDbWQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Apr 2020 20:18:26 -0700
+IronPort-SDR: 2xR9uCM5BCNi15KKmsOhl436RFPRAMt47uVHr0POCE9sbZmZYVeBcv4l84JGJCChQ2Yo+l3GPc
+ XmGUNL+cWKeg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,353,1580803200"; d="scan'208";a="451069613"
+Received: from joy-optiplex-7040.sh.intel.com (HELO joy-OptiPlex-7040)
+ ([10.239.13.16])
+ by fmsmga005.fm.intel.com with ESMTP; 06 Apr 2020 20:18:21 -0700
+Date: Mon, 6 Apr 2020 23:08:46 -0400
+From: Yan Zhao <yan.y.zhao@intel.com>
+To: Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH 2/6] i915/gvt/kvm: a NULL ->mm does not mean a thread is
+ a kthread
+Message-ID: <20200407030845.GA10586@joy-OptiPlex-7040>
+References: <20200404094101.672954-1-hch@lst.de>
+ <20200404094101.672954-3-hch@lst.de>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from jenkins-Celadon-RN (180.167.199.189) by
- HK2PR02CA0212.apcprd02.prod.outlook.com (2603:1096:201:20::24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2878.15 via Frontend Transport; Tue, 7 Apr 2020 08:06:41 +0000
-X-Originating-IP: [180.167.199.189]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 78c5a7d0-3ead-4689-a15a-08d7daca9b9c
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3344:|MN2PR12MB3344:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3344599D665281246E996FD1ECC30@MN2PR12MB3344.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-Forefront-PRVS: 036614DD9C
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3309.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(376002)(136003)(366004)(346002)(39860400002)(396003)(54906003)(6636002)(16526019)(26005)(81156014)(9686003)(86362001)(316002)(5660300002)(186003)(478600001)(33716001)(2906002)(33656002)(8676002)(66556008)(55016002)(8936002)(81166006)(1076003)(4326008)(52116002)(450100002)(6666004)(66946007)(66476007)(6862004)(6496006)(956004);
- DIR:OUT; SFP:1101; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GQ1IhHhVdT4rsc9Oe5pFg3mrQd/1iLZUGTRjCbXygnHnK/FM+eSRc5KYIrlg6rla1F4Eim04+Ra+WJJO5I68k4XYkx2g4tc/SR7wEs9eECzZWXTHhmNqqjgSxsBUuU1WeKGcnbbIk21f1xlJk3KVgPGOuW5V4vkHsUn0hsPy+rM7uq0FjYx36E0D9JHL3kLIeZUrjfMvwUJIO9iLBp9d3df35huZpGqTj5uUqJoBq1i37AXyU6QJcp9Yx4oiK9tPDvNfPeF7Cv7ujMRy9Ixp1y578FBl8EkfZmFz9cXoTSJodgs0pXFOqVVDfvQ8tJPkS20qfTAdfJ3QdYjHrlgoSdEmu2LaIHTjT2ERdqhKlrfVp8po9fnp5zuzcYGfsIubMcmB2lgjKGCSFjXlRu3wa6FhuXU/HqY5Y1wtSsiuvJhn2wMlbA47f96JjbgHKn1+
-X-MS-Exchange-AntiSpam-MessageData: iLNKbedgc7+b5Ni/OalqZKQIPbCCxZS9JZ9IQ9IOh4An86/Gz1+53r6QB4aAHia4KhJ29r+m69pRmgA+SPAduSaaLUCIS0/j5Y4mOuQv9tLlE6VTgZQISQWb0JkiwvblA0OpuxtOQW40yz+528/Z/Q==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78c5a7d0-3ead-4689-a15a-08d7daca9b9c
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2020 08:06:42.8275 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C+dFBnSExJsUMrAjtjT/sGfQ7ohH91jkIicgKgPNnr3R1phKNlP3mpQnPBXW/d+SomrGgRbouO0ZAoTzOCiOtg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3344
+Content-Disposition: inline
+In-Reply-To: <20200404094101.672954-3-hch@lst.de>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Mailman-Approved-At: Tue, 07 Apr 2020 08:10:07 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,51 +61,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Reply-To: Yan Zhao <yan.y.zhao@intel.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ intel-gvt-dev@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, Zhenyu Wang <zhenyuw@linux.intel.com>,
+ intel-gfx@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Linus Torvalds <torvalds@linux-foundation.org>, io-uring@vger.kernel.org,
+ Zhi Wang <zhi.a.wang@intel.com>, Al Viro <viro@zeniv.linux.org.uk>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 07, 2020 at 03:06:01PM +0800, Koenig, Christian wrote:
-> Am 07.04.20 um 08:44 schrieb Huang Rui:
-> > ttm_trace_dma_map/ttm_trace_dma_unmap is never used anymore. Move the pr_fmt
-> > prefix into this header.
-> >
-> > Signed-off-by: Huang Rui <ray.huang@amd.com>
-> > ---
-> >   include/drm/ttm/ttm_debug.h | 4 ++--
-> >   1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/include/drm/ttm/ttm_debug.h b/include/drm/ttm/ttm_debug.h
-> > index b5e460f..bd7cf37 100644
-> > --- a/include/drm/ttm/ttm_debug.h
-> > +++ b/include/drm/ttm/ttm_debug.h
-> > @@ -27,5 +27,5 @@
-> >   /*
-> >    * Authors: Tom St Denis <tom.stdenis@amd.com>
-> >    */
-> > -extern void ttm_trace_dma_map(struct device *dev, struct ttm_dma_tt *tt);
-> > -extern void ttm_trace_dma_unmap(struct device *dev, struct ttm_dma_tt *tt);
+On Sat, Apr 04, 2020 at 11:40:57AM +0200, Christoph Hellwig wrote:
+> Use the proper API instead.
 > 
-> I would just completely remove the file since it isn't used any more.
+> Fixes: f440c8a572d7 ("drm/i915/gvt/kvmgt: read/write GPA via KVM API")
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  drivers/gpu/drm/i915/gvt/kvmgt.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> > +
-> > +#define pr_fmt(fmt) "[TTM] " fmt
-> 
-> Oh, that is most likely not a good idea. The pr_fmt define should be set 
-> for each file individually or otherwise we could accidentally include 
-> the file in a driver.
-> 
+> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> index 074c4efb58eb..5848400620b4 100644
+> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
+> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
+> @@ -2037,7 +2037,7 @@ static int kvmgt_rw_gpa(unsigned long handle, unsigned long gpa,
+>  	struct kvmgt_guest_info *info;
+>  	struct kvm *kvm;
+>  	int idx, ret;
+> -	bool kthread = current->mm == NULL;
+> +	bool kthread = (current->flags & PF_KTHREAD);
+>  
+>  	if (!handle_valid(handle))
+>  		return -ESRCH;
+> -- 
+> 2.25.1
+>
+hi
+we were removing this code. see
+https://lore.kernel.org/kvm/20200313031109.7989-1-yan.y.zhao@intel.com/
 
-OK. I will modify the patch to remove the header completely.
+The implementation of vfio_dma_rw() has been in vfio next tree.
+https://github.com/awilliam/linux-vfio/commit/8d46c0cca5f4dc0538173d62cd36b1119b5105bc
 
-Thanks,
-Ray
+in vfio_dma_rw(),  we still use
+bool kthread = current->mm == NULL.
+because if current->mm != NULL and current->flags & PF_KTHREAD, instead
+of calling use_mm(), we first check if (current->mm == mm) and allow copy_to_user() if it's true.
 
-> Regards,
-> Christian.
+Do you think it's all right?
+
+Thanks
+Yan
+
+
+
+> _______________________________________________
+> intel-gvt-dev mailing list
+> intel-gvt-dev@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/intel-gvt-dev
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
