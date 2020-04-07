@@ -2,109 +2,108 @@ Return-Path: <SRS0=Z8oe=5X=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	FUZZY_PRICES,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B003DC2BA16
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 08:01:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59117C2BA16
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 08:03:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 80A7B2064A
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 08:01:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2B5E82064A
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 08:03:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="lb0gRm1/"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80A7B2064A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="byLnzSVM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2B5E82064A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 446AB6E588;
-	Tue,  7 Apr 2020 08:01:38 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760077.outbound.protection.outlook.com [40.107.76.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BF286E588
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2020 08:01:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F104A6E588;
+	Tue,  7 Apr 2020 08:03:13 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2050.outbound.protection.outlook.com [40.107.94.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5CDC6E588
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2020 08:03:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NTNDv52SrjZuAKHHzp0Lm1laJzApH/YeTPyLxojXVSF3fG1VF0eGt4eTnfZtvd8i6XZp0ggqApM8YR4uLJA8wdriX43y9+PLpurR/Bz6Zwb5Zx9y85np6dAzDIr7JpbWp009aUPAsEW1aKnlqp9Wvjyt7klJeT5JGvy2Ie5NMjuFInlu7FGTAnVqWCrd4VFGVHUiwKATcBy3bwB4D+s/qnjNF2k0xyfIVqp6HJ6KEpSUFFAVPGdFgxbJ+j8DX2mEc8LkTz2duGdNYT8ylCRs7Lw92PGXlt6DjAlSH1xwyN+eE89jCyL4j6P7OlP5sXB+zM/AJMu4Be2Q3Gp4eGtsIA==
+ b=N9I/QcZbtQIg03FwEfYwxXswZos0cUB16glpnDB77j/B6t4/WZ87Zs2GsmG9ptZA+ZJwjScVFs5K3/WQTxpoqZfzNXpzbmlU8schWDCbNQg8UwsRN3DDI0I3zPjANYQJVWbaSaK8GBlilHMDN7HXSG6A826lZVcJqu/KX0rHYAwSmRBhSBoKKqNQs8nvrXvHsUc+64LyRO1EO+yOVAGjFEIlo+/Xl4AGtqGK2XUOGxH1Q1KXjMv5SYxY+n76a2+ycsdHklqByeFFi8IHJ+eFtoitxxX5ZDPyV5svl0tCoJG/BQAuyCbrxhdcnl/ypkpSmgBwPKopRZ8rZVzBF++2pA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MARmmQ4HZeY4UHHDp49jBgQSO2CkGBOPIvrjpE39B8A=;
- b=l+AXF0e/rb1HckPm2WTCKRriNr3gxw14t8kpT0sFshsu9xiK+IINCpAUqEL1eGSB3OvTYYru+NcwZuJHEF7fY4eE7K10LR9qRQ9aqUGZSmPkLWSEnVu4wYD5vzTkxfyqBTDV5qL7+ukwybivl9Ny7Asl3s0BYN4OoCezwkb1bqUcxqoLhJnNFgoyEpt2DgnFH/e656AHafa61db852Jq9yFq/+3nvUYCiim6vf43ksM2gfvOTLQJcph+ZLhejQdojqzdsC+9RSqeGbG6LCWLQA1moNDKaWiS2qsVrD1AyrHzuSI+1f3rZ27uOz+3HERSI7PrFhAcColP7nEBDv73Bg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
+ bh=dEFDt43+6BzFvg/6uH6WxtMqmbsYlxq7EyuUzAhmvqs=;
+ b=eSQBLyCrPvKnJMhfunAn5lW82dPpO6Pm5XrRQqlODz5d7CMvPCbZWbtQ3ll0T3vtEh6YWm8g0VzKkopUFF/pu2VpB6VJLXxtWndn94NI2BHw8ae6yLHHs/9IY92htaMoa80rfqayxsaUql9CQgZTKuX3nr/Ns2333Zroz7u8eKyf7RAXd2U3MnX443BoGAt/84ED5QoHdOZD4hQ2eEaqkTt6ajSTwXkPuVCDe0VM4yFh36rvAuGyyEaYwt09D2qF2A2r2f02ChEkMwHelLG9snUNkt9vauLS8a+nmCeJGrryO8SpE5x3VNwAdqXa1XUWwpmExwYtviFjVVS3dwU6ng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MARmmQ4HZeY4UHHDp49jBgQSO2CkGBOPIvrjpE39B8A=;
- b=lb0gRm1/qia+bCHndwKeTq//DXyyeEh+AAwC754g1JkqO/tWX+YkvWNsx9JJNOP/uXpaM2kYRyR1+3QmCm6REdXAQqxZI6tSssNfScTMQddrxhlyuHK8/uCdfSfe6NtkDy9PnWQTFdCVPrGZlOFDcZjrwDvAO82DT6y1urV5VYc=
-Received: from BN4PR12CA0018.namprd12.prod.outlook.com (2603:10b6:403:2::28)
- by DM5PR12MB1641.namprd12.prod.outlook.com (2603:10b6:4:10::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.20; Tue, 7 Apr
- 2020 08:01:35 +0000
-Received: from BN8NAM11FT056.eop-nam11.prod.protection.outlook.com
- (2603:10b6:403:2:cafe::f3) by BN4PR12CA0018.outlook.office365.com
- (2603:10b6:403:2::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.17 via Frontend
- Transport; Tue, 7 Apr 2020 08:01:35 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
+ bh=dEFDt43+6BzFvg/6uH6WxtMqmbsYlxq7EyuUzAhmvqs=;
+ b=byLnzSVMgDwxd7LGwIQxiQ+pH9TkaKOSQGBpHeH8prPk/x2DCsSWjllujNXS7y3vRuycOWd/9SIORo/wXMf+vebuNOHPu7/i08Yyc22ANHXc6Vi0ZbltoqmvVtMT9Gy3SNctNxfLIkbcSgeA/29vBMY61GrULqtGUtCH4Am3Uvk=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Ray.Huang@amd.com; 
+Received: from MN2PR12MB3309.namprd12.prod.outlook.com (2603:10b6:208:106::29)
+ by MN2PR12MB3344.namprd12.prod.outlook.com (2603:10b6:208:c5::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.16; Tue, 7 Apr
+ 2020 08:03:11 +0000
+Received: from MN2PR12MB3309.namprd12.prod.outlook.com
+ ([fe80::6417:7247:12ed:1d7b]) by MN2PR12MB3309.namprd12.prod.outlook.com
+ ([fe80::6417:7247:12ed:1d7b%5]) with mapi id 15.20.2878.018; Tue, 7 Apr 2020
+ 08:03:11 +0000
+Date: Tue, 7 Apr 2020 16:03:01 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: "Liang, Prike" <Prike.Liang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: fix gfx hang during suspend with video
+ playback
+Message-ID: <20200407080300.GA27094@jenkins-Celadon-RN>
+References: <1585886873-22825-1-git-send-email-Prike.Liang@amd.com>
+ <20200403062642.GA9191@jenkins-Celadon-RN>
+ <MN2PR12MB3536631520E378DE4DAACCAAFBC70@MN2PR12MB3536.namprd12.prod.outlook.com>
+ <20200403100554.GA9721@jenkins-Celadon-RN>
+ <20200403102832.GB9721@jenkins-Celadon-RN>
+ <MN2PR12MB3536428C0B9FE390FC01C74CFBC30@MN2PR12MB3536.namprd12.prod.outlook.com>
+Content-Disposition: inline
+In-Reply-To: <MN2PR12MB3536428C0B9FE390FC01C74CFBC30@MN2PR12MB3536.namprd12.prod.outlook.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: HK2PR06CA0013.apcprd06.prod.outlook.com
+ (2603:1096:202:2e::25) To MN2PR12MB3309.namprd12.prod.outlook.com
+ (2603:10b6:208:106::29)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from jenkins-Celadon-RN (180.167.199.189) by
+ HK2PR06CA0013.apcprd06.prod.outlook.com (2603:1096:202:2e::25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2878.16 via Frontend Transport; Tue, 7 Apr 2020 08:03:08 +0000
+X-Originating-IP: [180.167.199.189]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 9ab80e14-f145-4dfa-5ca5-08d7daca1d34
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3344:|MN2PR12MB3344:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3344070FE5DA690BBD6C7DC9ECC30@MN2PR12MB3344.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Forefront-PRVS: 036614DD9C
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3309.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(376002)(136003)(366004)(346002)(39860400002)(396003)(54906003)(15650500001)(6636002)(16526019)(26005)(81156014)(9686003)(86362001)(316002)(5660300002)(186003)(45080400002)(478600001)(33716001)(2906002)(33656002)(8676002)(966005)(66556008)(55016002)(8936002)(81166006)(1076003)(4326008)(52116002)(6666004)(66946007)(53546011)(66476007)(6862004)(6496006)(956004);
+ DIR:OUT; SFP:1101; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT056.mail.protection.outlook.com (10.13.177.26) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2878.15 via Frontend Transport; Tue, 7 Apr 2020 08:01:35 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 7 Apr 2020
- 03:01:34 -0500
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 7 Apr 2020
- 03:01:34 -0500
-Received: from ubuntu.amd.com (10.180.168.240) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Tue, 7 Apr 2020 03:01:33 -0500
-From: Jack Zhang <Jack.Zhang1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 1/3] Revert "drm/amdgpu/sriov add amdgpu_amdkfd_pre_reset in
- gpu reset"
-Date: Tue, 7 Apr 2020 16:01:31 +0800
-Message-ID: <1586246491-31865-1-git-send-email-Jack.Zhang1@amd.com>
-X-Mailer: git-send-email 2.7.4
-MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(376002)(396003)(39860400002)(346002)(136003)(428003)(46966005)(70586007)(4326008)(81166006)(8936002)(6916009)(478600001)(2906002)(36756003)(426003)(86362001)(5660300002)(7696005)(26005)(82740400003)(2616005)(336012)(186003)(47076004)(356004)(81156014)(70206006)(316002)(8676002);
- DIR:OUT; SFP:1101; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: def1942b-0730-4815-c04b-08d7dac9e45a
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1641:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB16416F1CE0547B1372F8779ABBC30@DM5PR12MB1641.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:158;
-X-Forefront-PRVS: 036614DD9C
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZxKKTa3v95egwpay3ab+hbHVBTt+jd2uoiYGhPWLjTPRxrJ5GO9QdlPoavyCz3CxZmOyNk3eOPuxYQ9wIlt2iZaN++aKgqEc52cHxBUO3jJ1t2m44yuPgOaHPClvND8wbQcViDf4oQvbeSlQd0lsudcPNczDroCwvmzzPN981X5ZjwIGqTqQoW3JnrsTc235P0jPRQlvYtYvv/pakNyyE6rQQ6lWJW/dmcXCJ8FTeg91FXCs5adoMVg6WdZp14uHPQSI/35P5fDd3BL1jmqhDBWCAENqhy8SxkgxJaP/QwglUkOJb1nntcb9N2J8vY7wl26M5y3Evhyb4onN2X7jDwTCurDtyiDhdP+Nb+Js5QzWs/FQg/53vX7rLu2MsgDBpwycDP651NhY2ZyDg22EkI5r6T4pw4n6t53lMAFMq6FI0KznE6ofG2T5Ewlz9dzxVsw+L67s668XYcEfWznSFNVl9U92qTz7T8f9fSJNTqPT2kfaEdE3TQgT12kBFFnYHGb761RNrLyXoYarUwibhw==
+X-Microsoft-Antispam-Message-Info: 6lmJ1SFZgg0herjTnrKdg5ZncM+xZTBc6Ddvi0DCPLVi9TsTuxWNMvU40oTvBRvGFMkyyN8OsPrqBvWfrDlamHfrUlvPI9ORcXYQtMFWS2mgQNqSe2sjjdwObuYC2E40pxYfBNHnaZwdQU0w/ztkaGrr4aLyYpy39MHr+UCb5VG6y51wyVl7ZIn1gBk5oMrSs6bTBAJI/9LxSmPjww/fI5wlZba5ClqM0lninGX41/CH1LuG0DEmt59dfvv0I2R7VJo6EKL2+TCjHQd+/0BnkC9TvXd7YujcKtGBoCV8+DqI3KaEYkY0IuseNjPXd3lnfkiPZI8MKg7odPxkhW4uoVYII8S232b2kOvv8ybFb6VxaS4J5seNuCwptbfkhnfwC5CcfwTTflcXl/i1IjAZzVTadgltaRuGgPk/fXbRQzqKfRp8r1VdfIvp9sQGu5bNkIDFQErQ3saQHOn01cxyyYQ5NrcRM/SXhHTSKmIaTbGhhTgffYOCrCJtfLYLlAgiiPVLzZQUHPsPTfeOw9Ucbg==
+X-MS-Exchange-AntiSpam-MessageData: yZKPZGfOlk2Par/6nK1VAI/CRohAyCha0kWUYUF/9s0s+mx4aHthNo+albNTRKxqoGERarMSHQse6tvSzFcxeolpOaC8Tv/L7z0bvK23mQpC1iVCHTWmorwxvBew462K6dt05Q0wpgUuiJlb1zH4pQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2020 08:01:35.0219 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: def1942b-0730-4815-c04b-08d7dac9e45a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ab80e14-f145-4dfa-5ca5-08d7daca1d34
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2020 08:03:10.9341 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1641
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hg68pnAdL13mL5669V9yjTVQWjGmQRVjfl8r5XDN4PjOdfgunjbMSQQrHnMcH7maqAIzvoHgWfRFxUKj5gvpyg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3344
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,69 +115,245 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Zhang <Jack.Zhang1@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 8a468ab2d75a6b0bacfb5da6a9036642436fc666.
+On Tue, Apr 07, 2020 at 01:49:43PM +0800, Liang, Prike wrote:
+> 
+> > -----Original Message-----
+> > From: Huang, Ray <Ray.Huang@amd.com>
+> > Sent: Friday, April 3, 2020 6:29 PM
+> > To: Liang, Prike <Prike.Liang@amd.com>
+> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix
+> > <Felix.Kuehling@amd.com>; Quan, Evan <Evan.Quan@amd.com>; amd-
+> > gfx@lists.freedesktop.org
+> > Subject: Re: [PATCH] drm/amdgpu: fix gfx hang during suspend with video
+> > playback
+> > 
+> > On Fri, Apr 03, 2020 at 06:05:55PM +0800, Huang Rui wrote:
+> > > On Fri, Apr 03, 2020 at 05:22:28PM +0800, Liang, Prike wrote:
+> > > >
+> > > > > -----Original Message-----
+> > > > > From: Huang, Ray <Ray.Huang@amd.com>
+> > > > > Sent: Friday, April 3, 2020 2:27 PM
+> > > > > To: Liang, Prike <Prike.Liang@amd.com>
+> > > > > Cc: amd-gfx@lists.freedesktop.org; Quan, Evan
+> > <Evan.Quan@amd.com>;
+> > > > > Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix
+> > > > > <Felix.Kuehling@amd.com>
+> > > > > Subject: Re: [PATCH] drm/amdgpu: fix gfx hang during suspend with
+> > > > > video playback
+> > > > >
+> > > > > (+ Felix)
+> > > > >
+> > > > > On Fri, Apr 03, 2020 at 12:07:53PM +0800, Liang, Prike wrote:
+> > > > > > The system will be hang up during S3 as SMU is pending at GC not
+> > > > > > respose the register CP_HQD_ACTIVE access request and this issue
+> > > > > > can be fixed by adding RLC safe mode guard before each HQD
+> > > > > > map/unmap retrive opt.
+> > > > >
+> > > > > We need more information for the issue, does the map/unmap is
+> > > > > required for MAP_QUEUES/UNMAP_QUEUES packets or writing with
+> > MMIO or both?
+> > > > >
+> > > > [Prike]  The issue hang up at MP1 was trying to read register
+> > > > RSMU_RESIDENCY_COUNTER_GC but did not get response from GFX,
+> > since GFX was busy at reading register CP_HQD_ACTIVE.
+> > > > Moreover, when disabled GFXOFF this issue also can't see so there is
+> > > > likely to perform register accessed at GFXOFF CGPG/CGCG enter stage.
+> > > > As for only  this issue, that seems just MMIO  access failed case which
+> > occurred under QUEUE map/unmap status check.
+> > > >
+> > >
+> > > While we start to do S3, we will disable gfxoff at start of suspend.
+> > > Then in this point, the gfx should be always in "on" state.
+> > >
+> > > > > From your patch, you just protect the kernel kiq and user queue.
+> > > > > What about other kernel compute queues? HIQ?
+> > > > >
+> > > > [Prike] So far just find the KIQ/CPQ/DIQ map/unmap will inquire the
+> > > > CP_HQD_ACTIVE status by MMIO accessing, therefore just guard the KIQ
+> > and some type user queue now. Regarding HIQ map and ummap which used
+> > the method of submitting configuration packet.
+> > > >
+> > >
+> > > KIQ itself init/unit should be always under gfx on state. Can you give
+> > > a check the result if not add enter/exit rlc safe mode around it?
+> > 
+> > Wait... In your case, the system didn't load any user queues because no
+> > ROCm based application is running. So the issue is probably caused by KIQ
+> > itself init/unit, can you confirm?
+> [Prike]  This  improper register access is under performing MQD destroy
+> during amdkfd suspend period. For the KIQ UNI process may not need the RLC
+> guard as GFX CGPG has been disabled at the early suspend period.  
 
-[Reason]:
-Revert this patch in order to split it into two
-different patches, and this will make it easier to understand.
+How about move below gfxoff/cgpg disabling ahead of amdgpu_amdkfd_suspend?
 
-Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c | 3 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c  | 3 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 2 --
- 3 files changed, 8 deletions(-)
+        amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
+        amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-index bdc1f5a..4ec6d0c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-@@ -543,9 +543,6 @@ static int kgd_hqd_destroy(struct kgd_dev *kgd, void *mqd,
- 	uint32_t temp;
- 	struct v10_compute_mqd *m = get_mqd(mqd);
- 
--	if (amdgpu_sriov_vf(adev) && adev->in_gpu_reset)
--		return 0;
--
- #if 0
- 	unsigned long flags;
- 	int retry;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index c2562d6..df841c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -541,9 +541,6 @@ int kgd_gfx_v9_hqd_destroy(struct kgd_dev *kgd, void *mqd,
- 	uint32_t temp;
- 	struct v9_mqd *m = get_mqd(mqd);
- 
--	if (amdgpu_sriov_vf(adev) && adev->in_gpu_reset)
--		return 0;
--
- 	if (adev->in_gpu_reset)
- 		return -EIO;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 2e1f955..d94eff9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3852,8 +3852,6 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
- 	if (r)
- 		return r;
- 
--	amdgpu_amdkfd_pre_reset(adev);
--
- 	/* Resume IP prior to SMC */
- 	r = amdgpu_device_ip_reinit_early_sriov(adev);
- 	if (r)
--- 
-2.7.4
+        amdgpu_amdkfd_suspend(adev, !fbcon);
 
+We should disable the gfxoff/cgpg at first to avoid mmio access.
+
+Thanks,
+Ray
+
+> 
+> If have concern the other case over guard will send a patch for simplify it.
+> > 
+> > Thanks,
+> > Ray
+> > 
+> > >
+> > > Hi Felix, maybe we need to use packets with kiq to map all user queues.
+> > >
+> > > Thanks,
+> > > Ray
+> > >
+> > > > > Thanks,
+> > > > > Ray
+> > > > >
+> > > > > >
+> > > > > > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> > > > > > Tested-by: Mengbing Wang <Mengbing.Wang@amd.com>
+> > > > > > ---
+> > > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c | 6
+> > ++++++
+> > > > > >  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c             | 4 ++++
+> > > > > >  2 files changed, 10 insertions(+)
+> > > > > >
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> > > > > > index df841c2..e265063 100644
+> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+> > > > > > @@ -232,6 +232,7 @@ int kgd_gfx_v9_hqd_load(struct kgd_dev *kgd,
+> > > > > > void
+> > > > > *mqd, uint32_t pipe_id,
+> > > > > >  	uint32_t *mqd_hqd;
+> > > > > >  	uint32_t reg, hqd_base, data;
+> > > > > >
+> > > > > > +	amdgpu_gfx_rlc_enter_safe_mode(adev);
+> > > > > >  	m = get_mqd(mqd);
+> > > > > >
+> > > > > >  	acquire_queue(kgd, pipe_id, queue_id); @@ -299,6 +300,7 @@ int
+> > > > > > kgd_gfx_v9_hqd_load(struct kgd_dev *kgd, void *mqd, uint32_t
+> > > > > > pipe_id,
+> > > > > >
+> > > > > >  	release_queue(kgd);
+> > > > > >
+> > > > > > +	amdgpu_gfx_rlc_exit_safe_mode(adev);
+> > > > > >  	return 0;
+> > > > > >  }
+> > > > > >
+> > > > > > @@ -497,6 +499,7 @@ bool kgd_gfx_v9_hqd_is_occupied(struct
+> > > > > > kgd_dev
+> > > > > *kgd, uint64_t queue_address,
+> > > > > >  	bool retval = false;
+> > > > > >  	uint32_t low, high;
+> > > > > >
+> > > > > > +	amdgpu_gfx_rlc_enter_safe_mode(adev);
+> > > > > >  	acquire_queue(kgd, pipe_id, queue_id);
+> > > > > >  	act = RREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_ACTIVE));
+> > > > > >  	if (act) {
+> > > > > > @@ -508,6 +511,7 @@ bool kgd_gfx_v9_hqd_is_occupied(struct
+> > > > > > kgd_dev
+> > > > > *kgd, uint64_t queue_address,
+> > > > > >  			retval = true;
+> > > > > >  	}
+> > > > > >  	release_queue(kgd);
+> > > > > > +	amdgpu_gfx_rlc_exit_safe_mode(adev);
+> > > > > >  	return retval;
+> > > > > >  }
+> > > > > >
+> > > > > > @@ -541,6 +545,7 @@ int kgd_gfx_v9_hqd_destroy(struct kgd_dev
+> > > > > > *kgd,
+> > > > > void *mqd,
+> > > > > >  	uint32_t temp;
+> > > > > >  	struct v9_mqd *m = get_mqd(mqd);
+> > > > > >
+> > > > > > +	amdgpu_gfx_rlc_enter_safe_mode(adev);
+> > > > > >  	if (adev->in_gpu_reset)
+> > > > > >  		return -EIO;
+> > > > > >
+> > > > > > @@ -577,6 +582,7 @@ int kgd_gfx_v9_hqd_destroy(struct kgd_dev
+> > > > > > *kgd,
+> > > > > void *mqd,
+> > > > > >  	}
+> > > > > >
+> > > > > >  	release_queue(kgd);
+> > > > > > +	amdgpu_gfx_rlc_exit_safe_mode(adev);
+> > > > > >  	return 0;
+> > > > > >  }
+> > > > > >
+> > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > > > > b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > > > > index 1fea077..ee107d9 100644
+> > > > > > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> > > > > > @@ -3533,6 +3533,7 @@ static int
+> > > > > > gfx_v9_0_kiq_init_register(struct
+> > > > > amdgpu_ring *ring)
+> > > > > >  	struct v9_mqd *mqd = ring->mqd_ptr;
+> > > > > >  	int j;
+> > > > > >
+> > > > > > +	amdgpu_gfx_rlc_enter_safe_mode(adev);
+> > > > > >  	/* disable wptr polling */
+> > > > > >  	WREG32_FIELD15(GC, 0, CP_PQ_WPTR_POLL_CNTL, EN, 0);
+> > > > > >
+> > > > > > @@ -3629,6 +3630,7 @@ static int
+> > > > > > gfx_v9_0_kiq_init_register(struct
+> > > > > amdgpu_ring *ring)
+> > > > > >  	if (ring->use_doorbell)
+> > > > > >  		WREG32_FIELD15(GC, 0, CP_PQ_STATUS, DOORBELL_ENABLE,
+> > > > > 1);
+> > > > > >
+> > > > > > +	amdgpu_gfx_rlc_exit_safe_mode(adev);
+> > > > > >  	return 0;
+> > > > > >  }
+> > > > > >
+> > > > > > @@ -3637,6 +3639,7 @@ static int
+> > > > > > gfx_v9_0_kiq_fini_register(struct
+> > > > > amdgpu_ring *ring)
+> > > > > >  	struct amdgpu_device *adev = ring->adev;
+> > > > > >  	int j;
+> > > > > >
+> > > > > > +	amdgpu_gfx_rlc_enter_safe_mode(adev);
+> > > > > >  	/* disable the queue if it's active */
+> > > > > >  	if (RREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE) & 1) {
+> > > > > >
+> > > > > > @@ -3668,6 +3671,7 @@ static int
+> > > > > > gfx_v9_0_kiq_fini_register(struct
+> > > > > amdgpu_ring *ring)
+> > > > > >  	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_WPTR_HI, 0);
+> > > > > >  	WREG32_SOC15_RLC(GC, 0, mmCP_HQD_PQ_WPTR_LO, 0);
+> > > > > >
+> > > > > > +	amdgpu_gfx_rlc_exit_safe_mode(adev);
+> > > > > >  	return 0;
+> > > > > >  }
+> > > > > >
+> > > > > > --
+> > > > > > 2.7.4
+> > > > > >
+> > > _______________________________________________
+> > > amd-gfx mailing list
+> > > amd-gfx@lists.freedesktop.org
+> > > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
+> > > s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-
+> > gfx&amp;data=02%7C01%7Cra
+> > >
+> > y.huang%40amd.com%7C040563ff26374383ec6108d7d7b6a2bb%7C3dd8961
+> > fe4884e6
+> > >
+> > 08e11a82d994e183d%7C0%7C0%7C637215053543776633&amp;sdata=COMv
+> > G7W4%2Fl7
+> > > aKDAV8Qgbl%2F3myW0HCSz7qk014OLUzrY%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
