@@ -2,71 +2,71 @@ Return-Path: <SRS0=Z8oe=5X=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 57C03C2BA80
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 16:39:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37353C2BA1A
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 18:30:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2EA9B214D8
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 16:39:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0079720768
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 18:30:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="u5kSqJxd"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2EA9B214D8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=aurabindo.in header.i=@aurabindo.in header.b="YtVBKm45"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0079720768
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=aurabindo.in
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAFBB6E113;
-	Tue,  7 Apr 2020 16:39:55 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1C9F89C55
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2020 15:54:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=evMROeiOPSEkTnQc1NkJrMpIxagj6DaDwYzvXfWtXk0=; b=u5kSqJxduuO9fYXZ3frJ35LDTQ
- u4TE3Sro3SU6PZZxQlQijr/vWMx/RVh4apLfQxiRt2B8MtVSYq3CD1UHyLgyy7L0RGU6PMVPXvMh7
- TqE0Jg5bc2seVALXHMZGoGQ1REQBZ8ZL1F4mEHW9hZC2HKFLvsXR2qzOpkevZTklYKQ/frNhDOc42
- xOkgD7i1RFuljZNlpUkagNBwD8pmh0lAkVRYHTR8N+CvdjuU7GnnfnrSlA00fDxfP8Mgsh0bVSA1x
- I7xicMeSV1OJaxTbzJvsmJdTaag12QxQhTFtGQSwsG1h/UFn3QkIqKn9P7NM6kwSMxq28mmMgBl3g
- FhDGxsCw==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jLqYv-0002Jv-Kr; Tue, 07 Apr 2020 15:54:53 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id F0B023010C8;
- Tue,  7 Apr 2020 17:54:49 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id D96D62B99BB3E; Tue,  7 Apr 2020 17:54:49 +0200 (CEST)
-Date: Tue, 7 Apr 2020 17:54:49 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Masami Hiramatsu <mhiramat@kernel.org>
-Subject: Re: AMD DC graphics display code enables -mhard-float, -msse, -msse2
- without any visible FPU state protection
-Message-ID: <20200407155449.GF20730@hirez.programming.kicks-ass.net>
-References: <20200402141308.GB20730@hirez.programming.kicks-ass.net>
- <20200403142837.f61a18d7bd32fd73777479ad@kernel.org>
- <20200403112113.GN20730@hirez.programming.kicks-ass.net>
- <20200404120808.05e9aa61500265be2e031bd6@kernel.org>
- <20200404143224.GL2452@worktop.programming.kicks-ass.net>
- <20200405121930.e3ea3e7acc7588102de483e2@kernel.org>
- <20200406102107.GI20730@hirez.programming.kicks-ass.net>
- <20200407185008.c819005f0174cae76c44a135@kernel.org>
- <20200407111535.GT20730@hirez.programming.kicks-ass.net>
- <20200408004111.3dd597f2a7c6172b4c71a9ba@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EFF26E8CC;
+	Tue,  7 Apr 2020 18:30:02 +0000 (UTC)
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10E7B89F38
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2020 18:26:24 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id i186so428028qke.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 07 Apr 2020 11:26:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aurabindo.in; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tIzZDxt4owy5jO/YbfXWS31RiPx2ETthbOiAb1EV9P4=;
+ b=YtVBKm457AxFLluMcN6Nh5lxMwkhKLfQcFmIzF16UjpYwbi574i9IUsdKd+i1y8jEZ
+ QO7YgInPHWArXiIBcjFTESZaFPpm/XZUbS9LyoPsfi1H5/izGjt26qENa5Ffhy2rpsAf
+ kRbqe9ODSQeEpnL+6EleAyr9WmqvD6gXi++mPr+wsYADbd9cXnt4oPEXFO3pqcvfrQ3x
+ X6hUV8VWzIz1RB8h0egnBjFrOPNp5ewI4jMMUYtXnxzdx1hqS4quXLMc1USlubqy7332
+ HSu19PvLsoWcJkcu6IrFEeYVF9yuwTMSCOnTnl7maeVFD3V58yJZBio0R7w8JP8TRr3Y
+ NOuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=tIzZDxt4owy5jO/YbfXWS31RiPx2ETthbOiAb1EV9P4=;
+ b=PTQrIcnNaGG0hPn3bs03dtX9ljR9WgnLMZRk8+9CwNeSf6hPnJHlrZd/R8+8J84WzL
+ rlXQY8d5mvXcH5TqN1bbSGNGzhtonuXejKQakbfsNc2y3ILdoCMkTB38t9VatFG3ktcw
+ 3IxHnoTgziFVdIPe+0EbRt/48VWiBcKCMFwiFlfOqT0TO6PooWwzUwRQKKmtlrx+vqaP
+ zFjygfgUMuXhDpcabyGMXDE+23d9bH8nltw1SpyJ3mYm7UL63KeGul9YlNxdUC2IOb4a
+ s40TT+Rm/qUu1XY0bL59slhnIw3TBJ14nzXjExhw4M68O7377MgIBa7Qegj4vXEyZXfY
+ lj+g==
+X-Gm-Message-State: AGi0PubhVd3BAN9ootTcvZWHbgSdaUJroUnZpgWwN3Uo0+9lwC6A7Zzz
+ Rh+gvcZJh0IsEu138gH1CnSPbw==
+X-Google-Smtp-Source: APiQypI8YWAgQPWSYcS57KN14S6Q6DPtZWqlj+0qOHI2e6co5FZjn/hZaZ4asuloc3R4ftyLEEuEsA==
+X-Received: by 2002:a37:6356:: with SMTP id x83mr3757099qkb.339.1586283984192; 
+ Tue, 07 Apr 2020 11:26:24 -0700 (PDT)
+Received: from localhost.localdomain (135-23-249-169.cpe.pppoe.ca.
+ [135.23.249.169])
+ by smtp.gmail.com with ESMTPSA id f1sm16232830qkl.72.2020.04.07.11.26.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 07 Apr 2020 11:26:21 -0700 (PDT)
+From: Aurabindo Pillai <mail@aurabindo.in>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com
+Subject: [PATCH] amdgpu_kms: Remove unnecessary condition check
+Date: Tue,  7 Apr 2020 14:26:18 -0400
+Message-Id: <20200407182618.2488-1-mail@aurabindo.in>
+X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200408004111.3dd597f2a7c6172b4c71a9ba@kernel.org>
-X-Mailman-Approved-At: Tue, 07 Apr 2020 16:39:54 +0000
+X-Mailman-Approved-At: Tue, 07 Apr 2020 18:30:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,100 +78,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Josh Poimboeuf <jpoimboe@redhat.com>, Jann Horn <jannh@google.com>,
- Leo Li <sunpeng.li@amd.com>, the arch/x86 maintainers <x86@kernel.org>,
- kernel list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Arnaldo Carvalho de Melo <acme@kernel.org>, Andy Lutomirski <luto@kernel.org>,
- "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
- Thomas Gleixner <tglx@linutronix.de>, Harry Wentland <harry.wentland@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: airlied@linux.ie, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 08, 2020 at 12:41:11AM +0900, Masami Hiramatsu wrote:
-> On Tue, 7 Apr 2020 13:15:35 +0200
-> Peter Zijlstra <peterz@infradead.org> wrote:
+Execution will only reach here if the asserted condition is true.
+Hence there is no need for the additional check.
 
-> > > > Also, all the VMX bits seems to qualify as FPU (I can't remember seeing
-> > > > that previously):
-> > > 
-> > > Oops, let me check it.
-> > 
-> > I just send you another patch that could do with insn_is_vmx()
-> > (sorry!!!)
-> 
-> Hmm, it is hard to find out the vmx insns. Maybe we need to clarify it by
-> opcode pattern. (like "VM.*")
-
-Yeah, I know. Maybe I should just keep it as I have for now.
-
-One thing I thought of is we could perhaps add manual markers in
-x86-opcode-map.txt. The '{','}' characters appear unused so far, we
-perhaps we can use them to classify things.
-
-That could maybe replace "mmx_expr" as well. That is, something like so:
-
+Signed-off-by: Aurabindo Pillai <mail@aurabindo.in>
 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/arch/x86/lib/x86-opcode-map.txt b/arch/x86/lib/x86-opcode-map.txt
-index ec31f5b60323..e01b76e0a294 100644
---- a/arch/x86/lib/x86-opcode-map.txt
-+++ b/arch/x86/lib/x86-opcode-map.txt
-@@ -462,9 +462,9 @@ AVXcode: 1
- 75: pcmpeqw Pq,Qq | vpcmpeqw Vx,Hx,Wx (66),(v1)
- 76: pcmpeqd Pq,Qq | vpcmpeqd Vx,Hx,Wx (66),(v1)
- # Note: Remove (v), because vzeroall and vzeroupper becomes emms without VEX.
--77: emms | vzeroupper | vzeroall
--78: VMREAD Ey,Gy | vcvttps2udq/pd2udq Vx,Wpd (evo) | vcvttsd2usi Gv,Wx (F2),(ev) | vcvttss2usi Gv,Wx (F3),(ev) | vcvttps2uqq/pd2uqq Vx,Wx (66),(ev)
--79: VMWRITE Gy,Ey | vcvtps2udq/pd2udq Vx,Wpd (evo) | vcvtsd2usi Gv,Wx (F2),(ev) | vcvtss2usi Gv,Wx (F3),(ev) | vcvtps2uqq/pd2uqq Vx,Wx (66),(ev)
-+77: emms {FPU} | vzeroupper | vzeroall
-+78: VMREAD Ey,Gy {VMX} | vcvttps2udq/pd2udq Vx,Wpd (evo) | vcvttsd2usi Gv,Wx (F2),(ev) | vcvttss2usi Gv,Wx (F3),(ev) | vcvttps2uqq/pd2uqq Vx,Wx (66),(ev)
-+79: VMWRITE Gy,Ey {VMX} | vcvtps2udq/pd2udq Vx,Wpd (evo) | vcvtsd2usi Gv,Wx (F2),(ev) | vcvtss2usi Gv,Wx (F3),(ev) | vcvtps2uqq/pd2uqq Vx,Wx (66),(ev)
- 7a: vcvtudq2pd/uqq2pd Vpd,Wx (F3),(ev) | vcvtudq2ps/uqq2ps Vpd,Wx (F2),(ev) | vcvttps2qq/pd2qq Vx,Wx (66),(ev)
- 7b: vcvtusi2sd Vpd,Hpd,Ev (F2),(ev) | vcvtusi2ss Vps,Hps,Ev (F3),(ev) | vcvtps2qq/pd2qq Vx,Wx (66),(ev)
- 7c: vhaddpd Vpd,Hpd,Wpd (66) | vhaddps Vps,Hps,Wps (F2)
-@@ -965,9 +965,9 @@ GrpTable: Grp6
- EndTable
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 60591dbc2..9fedfa531 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -179,12 +179,10 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
+ 	/* Call ACPI methods: require modeset init
+ 	 * but failure is not fatal
+ 	 */
+-	if (!r) {
+-		acpi_status = amdgpu_acpi_init(adev);
+-		if (acpi_status)
+-			dev_dbg(&dev->pdev->dev,
+-				"Error during ACPI methods call\n");
+-	}
++
++	acpi_status = amdgpu_acpi_init(adev);
++	if (acpi_status)
++		dev_dbg(&dev->pdev->dev, "Error during ACPI methods call\n");
  
- GrpTable: Grp7
--0: SGDT Ms | VMCALL (001),(11B) | VMLAUNCH (010),(11B) | VMRESUME (011),(11B) | VMXOFF (100),(11B) | PCONFIG (101),(11B) | ENCLV (000),(11B)
-+0: SGDT Ms | VMCALL (001),(11B) {VMX} | VMLAUNCH (010),(11B) {VMX} | VMRESUME (011),(11B) {VMX} | VMXOFF (100),(11B) {VMX} | PCONFIG (101),(11B) | ENCLV (000),(11B)
- 1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B)
--2: LGDT Ms | XGETBV (000),(11B) | XSETBV (001),(11B) | VMFUNC (100),(11B) | XEND (101)(11B) | XTEST (110)(11B) | ENCLU (111),(11B)
-+2: LGDT Ms | XGETBV (000),(11B) | XSETBV (001),(11B) | VMFUNC (100),(11B) {VMX} | XEND (101)(11B) | XTEST (110)(11B) | ENCLU (111),(11B)
- 3: LIDT Ms
- 4: SMSW Mw/Rv
- 5: rdpkru (110),(11B) | wrpkru (111),(11B) | SAVEPREVSSP (F3),(010),(11B) | RSTORSSP Mq (F3) | SETSSBSY (F3),(000),(11B)
-@@ -987,8 +987,8 @@ GrpTable: Grp9
- 3: xrstors
- 4: xsavec
- 5: xsaves
--6: VMPTRLD Mq | VMCLEAR Mq (66) | VMXON Mq (F3) | RDRAND Rv (11B)
--7: VMPTRST Mq | VMPTRST Mq (F3) | RDSEED Rv (11B)
-+6: VMPTRLD Mq {VMX} | VMCLEAR Mq (66) {VMX} | VMXON Mq (F3) {VMX} | RDRAND Rv (11B)
-+7: VMPTRST Mq {VMX} | VMPTRST Mq (F3) {VMX} | RDSEED Rv (11B)
- EndTable
- 
- GrpTable: Grp10
-@@ -1036,10 +1036,10 @@ GrpTable: Grp14
- EndTable
- 
- GrpTable: Grp15
--0: fxsave | RDFSBASE Ry (F3),(11B)
--1: fxstor | RDGSBASE Ry (F3),(11B)
--2: vldmxcsr Md (v1) | WRFSBASE Ry (F3),(11B)
--3: vstmxcsr Md (v1) | WRGSBASE Ry (F3),(11B)
-+0: fxsave {FPU} | RDFSBASE Ry (F3),(11B)
-+1: fxrstor {FPU} | RDGSBASE Ry (F3),(11B)
-+2: ldmxcsr {FPU} | vldmxcsr Md (v1) | WRFSBASE Ry (F3),(11B)
-+3: stmxcsr {FPU} | vstmxcsr Md (v1) | WRGSBASE Ry (F3),(11B)
- 4: XSAVE | ptwrite Ey (F3),(11B)
- 5: XRSTOR | lfence (11B) | INCSSPD/Q Ry (F3),(11B)
- 6: XSAVEOPT | clwb (66) | mfence (11B) | TPAUSE Rd (66),(11B) | UMONITOR Rv (F3),(11B) | UMWAIT Rd (F2),(11B) | CLRSSBSY Mq (F3)
+ 	if (adev->runpm) {
+ 		dev_pm_set_driver_flags(dev->dev, DPM_FLAG_NEVER_SKIP);
+-- 
+2.26.0
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
