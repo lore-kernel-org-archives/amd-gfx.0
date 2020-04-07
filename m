@@ -2,54 +2,104 @@ Return-Path: <SRS0=Z8oe=5X=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.2 required=3.0
-	tests=HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76FD3C2BA1B
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 08:10:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14E98C2BA16
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 08:14:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 58BA8206F7
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 08:10:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 58BA8206F7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id A5A9C206F7
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 08:14:03 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kz5wcyKF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A5A9C206F7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 520F36E591;
-	Tue,  7 Apr 2020 08:10:08 +0000 (UTC)
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E173C6E101;
- Tue,  7 Apr 2020 03:18:26 +0000 (UTC)
-IronPort-SDR: bu8mygwZuwuLESVDNmToX8go+QQOhw6/ETfjTMDLXVVAs0LvCxkMXHeT6FCEV85dV0EJ0NmTfZ
- bXCg9bOwDbWQ==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Apr 2020 20:18:26 -0700
-IronPort-SDR: 2xR9uCM5BCNi15KKmsOhl436RFPRAMt47uVHr0POCE9sbZmZYVeBcv4l84JGJCChQ2Yo+l3GPc
- XmGUNL+cWKeg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.72,353,1580803200"; d="scan'208";a="451069613"
-Received: from joy-optiplex-7040.sh.intel.com (HELO joy-OptiPlex-7040)
- ([10.239.13.16])
- by fmsmga005.fm.intel.com with ESMTP; 06 Apr 2020 20:18:21 -0700
-Date: Mon, 6 Apr 2020 23:08:46 -0400
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: Christoph Hellwig <hch@lst.de>
-Subject: Re: [PATCH 2/6] i915/gvt/kvm: a NULL ->mm does not mean a thread is
- a kthread
-Message-ID: <20200407030845.GA10586@joy-OptiPlex-7040>
-References: <20200404094101.672954-1-hch@lst.de>
- <20200404094101.672954-3-hch@lst.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 745976E5C6;
+	Tue,  7 Apr 2020 08:14:03 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2087.outbound.protection.outlook.com [40.107.94.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 190C26E5C6
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2020 08:14:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=e5Cr2ylu6V9VvERMJVqrPtvxsQgrn8rP9eAwC2IFsrIABmelB/FgotAhvUy6PdCidZD1O+HLio9GSNbjnrthqmlGwPVlKkeR6UDPsai7/QAwgjuKR1CkdBAh/6uRocophyQD3XvVdgbIKGHEgPYQTC33Q9FCrIRvLc9N2iA248Sqwe0xKJED8+sx+OE4ejRXS8OfRRrtWdDxdCabl96IUu8OjW6smL+qwuHWl0xGUiEwlw/IXmLDfNClzpgK/cibAPbt1SprNb5m90ZBDoLA06B2GOdLehd2Hn/9d2eKknQQuC7vBiWcgqzr16mJSCSUNxlGXrIo8M0pFAVW9XtySg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iyCFn3/9aJhwEDUeVu86aRiSlzmPQLgpgDqgHE3d3p4=;
+ b=j8UF5UzASf5+GiolX7p+iHIUcq0MeYZciIr+YzgrzKPUrK4G31GYfNI/3jRQTRDrn+oCguJej6LvG42mjLjE2XRkNBCSYr+IYL1nPFjMQijQCWDJqgAkTcWmLgBa3DVKGpxfmAAHwCKgk/17/WFgbrFeq4nsE37rPtH2jdVeBLHkX6FEESzKqqpj8/fkugFl/igLkiz6Z1SnB7WiX36PAwouyg8P13xabK3sdQBIVfk2CVTJskK4oFuQ5+FebUBnor68/jy0S50jYnv/vLOygfbHf1eDWLOXC/ckqKICAEiP7r0QUkdcvkk6mwW//8Ta1uJ9JlzcJTxfqFy1v7DTFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iyCFn3/9aJhwEDUeVu86aRiSlzmPQLgpgDqgHE3d3p4=;
+ b=kz5wcyKFfQpqHdQRaHLCtfWxIpC2dFxKhmav0P+5K3GT7vnXLKfZuzwpP7wcRhlonPnvzVOhGw7Y5fcVV4H/siqgOGs9IwUswut3h7MoKLca4UlSg/+HTkOW/OvD+vhWvb+WvPiFP976HaVeaulFHhFKkoTwbq/YBD9GYGlhgE8=
+Received: from BL0PR02CA0068.namprd02.prod.outlook.com (2603:10b6:207:3d::45)
+ by BL0PR12MB2436.namprd12.prod.outlook.com (2603:10b6:207:42::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.19; Tue, 7 Apr
+ 2020 08:14:00 +0000
+Received: from BN8NAM11FT037.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:207:3d:cafe::fb) by BL0PR02CA0068.outlook.office365.com
+ (2603:10b6:207:3d::45) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.17 via Frontend
+ Transport; Tue, 7 Apr 2020 08:14:00 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ BN8NAM11FT037.mail.protection.outlook.com (10.13.177.182) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2878.15 via Frontend Transport; Tue, 7 Apr 2020 08:14:00 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 7 Apr 2020
+ 03:14:00 -0500
+Received: from ubuntu.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Tue, 7 Apr 2020 03:13:58 -0500
+From: Jack Zhang <Jack.Zhang1@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH 1/2] drm/amdkfd Avoid destroy hqd when GPU is on reset
+Date: Tue, 7 Apr 2020 16:13:55 +0800
+Message-ID: <1586247235-778-1-git-send-email-Jack.Zhang1@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200404094101.672954-3-hch@lst.de>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Tue, 07 Apr 2020 08:10:07 +0000
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(396003)(39860400002)(346002)(136003)(376002)(428003)(46966005)(86362001)(7696005)(2616005)(316002)(186003)(6916009)(82740400003)(2906002)(70586007)(6666004)(356004)(26005)(70206006)(8936002)(81166006)(5660300002)(4326008)(81156014)(478600001)(426003)(36756003)(336012)(47076004)(8676002);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 807ed050-3a2b-407a-caee-08d7dacba0cc
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2436:
+X-Microsoft-Antispam-PRVS: <BL0PR12MB2436F2CC336F06653CDC9345BBC30@BL0PR12MB2436.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:172;
+X-Forefront-PRVS: 036614DD9C
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: fFx0zmbgOSpA3jJSYYVP/xGUip8PpNGtEkRhfnxl1wbtXz1NQt2lHrypn8gYEVf+kdmx827LT3oir37j7qR2vKuDD0VOW3V6dFSuuBZ7eD3IZjU6ML8h0Sb/P92wRWkHHlCn2xvuX1kcAbApHtDoqv8+chCitoi9Gc1hXyNssLXzB3HSXNeGh2IMzXQGSouPE0oVkt+x0INR3bjBW8Jm/4f11y7XTtZqIqgWyAt//cxn4fobpM0CqMdg6I+oPQAZsLb8FVc7zcqzxkYQcpUZNV2hBTJNAOAN4YNWnHYqQXAfi1MQNYdBQ/g9BhYjIAHRUVpPewbbBFXN806Z3EbLhaxAEBv7dnPbVSoKuRIrsbbRIoZywbEZc4fEI+C38LZBM1dRaHqy59NWEgsyFZj8PLvNb1iyPJzeStSE0rkIZIYC/JGRq6wzMDRzXo3VjAF1yfW6OerPht9xKUwjDb5VrBjTDVNNjLyGRt8Fa78HymR5DFOZnZt8B1jKOyB5fH1L+OgGJ8nDYFujm2PrANz/Uw==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2020 08:14:00.6756 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 807ed050-3a2b-407a-caee-08d7dacba0cc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2436
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,71 +111,74 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Yan Zhao <yan.y.zhao@intel.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- intel-gvt-dev@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, Zhenyu Wang <zhenyuw@linux.intel.com>,
- intel-gfx@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Linus Torvalds <torvalds@linux-foundation.org>, io-uring@vger.kernel.org,
- Zhi Wang <zhi.a.wang@intel.com>, Al Viro <viro@zeniv.linux.org.uk>
+Cc: Jack Zhang <Jack.Zhang1@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Apr 04, 2020 at 11:40:57AM +0200, Christoph Hellwig wrote:
-> Use the proper API instead.
-> 
-> Fixes: f440c8a572d7 ("drm/i915/gvt/kvmgt: read/write GPA via KVM API")
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  drivers/gpu/drm/i915/gvt/kvmgt.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/i915/gvt/kvmgt.c b/drivers/gpu/drm/i915/gvt/kvmgt.c
-> index 074c4efb58eb..5848400620b4 100644
-> --- a/drivers/gpu/drm/i915/gvt/kvmgt.c
-> +++ b/drivers/gpu/drm/i915/gvt/kvmgt.c
-> @@ -2037,7 +2037,7 @@ static int kvmgt_rw_gpa(unsigned long handle, unsigned long gpa,
->  	struct kvmgt_guest_info *info;
->  	struct kvm *kvm;
->  	int idx, ret;
-> -	bool kthread = current->mm == NULL;
-> +	bool kthread = (current->flags & PF_KTHREAD);
->  
->  	if (!handle_valid(handle))
->  		return -ESRCH;
-> -- 
-> 2.25.1
->
-hi
-we were removing this code. see
-https://lore.kernel.org/kvm/20200313031109.7989-1-yan.y.zhao@intel.com/
+This reverts commit 8a468ab2d in order to split it into two
+different patches, and this will make it easier to understand.
 
-The implementation of vfio_dma_rw() has been in vfio next tree.
-https://github.com/awilliam/linux-vfio/commit/8d46c0cca5f4dc0538173d62cd36b1119b5105bc
+[PATCH 1/2]
+porting to gfx10 from
+commit 1b0bfcff463f390c4032ebe36a4d5fb777c00a4c
 
-in vfio_dma_rw(),  we still use
-bool kthread = current->mm == NULL.
-because if current->mm != NULL and current->flags & PF_KTHREAD, instead
-of calling use_mm(), we first check if (current->mm == mm) and allow copy_to_user() if it's true.
+Originally, MEC is touched
+without GPU initialized first.
 
-Do you think it's all right?
+Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c | 4 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c  | 3 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 2 --
+ 3 files changed, 2 insertions(+), 7 deletions(-)
 
-Thanks
-Yan
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+index bdc1f5a..691c897 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+@@ -543,8 +543,8 @@ static int kgd_hqd_destroy(struct kgd_dev *kgd, void *mqd,
+ 	uint32_t temp;
+ 	struct v10_compute_mqd *m = get_mqd(mqd);
+ 
+-	if (amdgpu_sriov_vf(adev) && adev->in_gpu_reset)
+-		return 0;
++	if (adev->in_gpu_reset)
++		return -EIO;
+ 
+ #if 0
+ 	unsigned long flags;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+index c2562d6..df841c2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+@@ -541,9 +541,6 @@ int kgd_gfx_v9_hqd_destroy(struct kgd_dev *kgd, void *mqd,
+ 	uint32_t temp;
+ 	struct v9_mqd *m = get_mqd(mqd);
+ 
+-	if (amdgpu_sriov_vf(adev) && adev->in_gpu_reset)
+-		return 0;
+-
+ 	if (adev->in_gpu_reset)
+ 		return -EIO;
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 2e1f955..d94eff9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3852,8 +3852,6 @@ static int amdgpu_device_reset_sriov(struct amdgpu_device *adev,
+ 	if (r)
+ 		return r;
+ 
+-	amdgpu_amdkfd_pre_reset(adev);
+-
+ 	/* Resume IP prior to SMC */
+ 	r = amdgpu_device_ip_reinit_early_sriov(adev);
+ 	if (r)
+-- 
+2.7.4
 
-
-
-> _______________________________________________
-> intel-gvt-dev mailing list
-> intel-gvt-dev@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/intel-gvt-dev
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
