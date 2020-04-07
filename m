@@ -7,95 +7,95 @@ X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8F69C2BA80
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 01:16:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB3F0C2BB1D
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 01:17:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9D2422076E
-	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 01:16:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8B4B1207FF
+	for <amd-gfx@archiver.kernel.org>; Tue,  7 Apr 2020 01:17:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="KXfL7BjF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D2422076E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="KWIfPthZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B4B1207FF
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6461C89B9E;
-	Tue,  7 Apr 2020 01:16:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 599446E506;
+	Tue,  7 Apr 2020 01:17:15 +0000 (UTC)
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2050.outbound.protection.outlook.com [40.107.243.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 703D189B9E
- for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2020 01:16:39 +0000 (UTC)
+ (mail-dm6nam12on2066.outbound.protection.outlook.com [40.107.243.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBB426E506
+ for <amd-gfx@lists.freedesktop.org>; Tue,  7 Apr 2020 01:17:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CiSUJ2cPCjkoJW6GMl5UCPmAaoUb1b5mAjnuMByNZKG1o0c+nrBM/sHgnP1Wdxmn8eV80iqyj/z68bFJAyP+6GszR+mgw3Vl6BGepixvHS58Gt31jImUNOVfiw/vuRa/WclOg62FBMiABcshLurGcOEvSNY2oJYDUy7a1qBNgxWmUFeXtRrR5Vc17pS3He7DMp7ES0l72fJoQxF4aCKywIhqJKI+E4ShAmmk76wYrdpEr3WhctYEMzdf2Q2EEhtW64zmItYUTMFsxFmGoAVSNCHniwqU0iGZjcHnipdO88qT/NBdMBtbYqn82AR+fcVDsHXOQziY1GVBfgtHRvJOxg==
+ b=f2fF5l36O2YU3SzFFr7oQdL6hVgNkegtgH7X++RE/hJypGB6YVhm+QtUaIVOST+pdTwwibQv1q9ixLiEz9tGTQVo8frMX6VCaeGJMXJFErNqRWvbd1Mx8dtx6cLHuNV4xV84nmgGUA59QiCwY0zBymLCBEleAxAu8/UU0odtZ8e2yo0/GuKAxOPk76GFl9E9/FgKqfc19jJ1Cqoeroh3YveQA0uMXDLFae1Jc6qu/3H6iIGBOF6eltBBYV07wyo2QZr4DDB7gsXv/uqGjjuWzthDJKAW96axumkZQiwAC0PWNE69s0Os2nEDm7KW85eyllDYpfk1Rb2BC9WsfugJvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P3ka9oMo+XL/39m/YvDCU+bJ57bKpqFvYMWiMPZ5Uj8=;
- b=fH3+14Lh1TprYb2yA63E2tZg3Cc5ziJ9PSx6GE11uwZFLMUrD7oE46u2qjN8EH0rBq5PfXMox8IVHT8bIbktdODeF9tGRyXiRbz6/SBAScZg2lu6TGzDChiME5rhaO2G6T9dcN10RKpVxyRFlmKOSIjl/isHJMmwxmGdwYJ3Oq9oJ1RLYH5z0ryO2z8cKwMl3rkfEoPHoUNLZo/csxiT3Jmc5ug23kM+N+C5V0/eR6AWDCngGyNQgjds41XBVJgzajKrDzrSCIlKqG0ILV3qdupoJZlwg8/ImK9bbalW3vinMcBcp7Mj0JccYJ+RfmGtZ9PIidj26Kf03wkZUOgpJA==
+ bh=gT4ipUdQublE2kHqCqEHTCuiQWZ7t8EQxtmojRlPSSo=;
+ b=Lv4sZNbUyfaL8a7xYyO1aRUwbknesEsnqhvnOezUj+yvwzHfFSoLsFx7FbwzdmjE/eSrywj3CjhZyCczOlgauXwbfFp43zeKbPa66A/CcR5e8Vj9UGnXt6QZdvj90q/4akEmz4KJcHQxQkxM598OqYtaqf37GcGLCJaX3KaJml8FSAIl/Bzuyq1GVi6O1OrRdllTShhMRHZSYUfwNBFEKs1dDVwR9KJpvmTbRHlOBN9Ggpl+x1o83A2Z3ylmK5RVBFi7dEteasJMUwHVqZ2bXlB3dQ7bpf8jHkV8YrGFMGSnJil3SmMTYQZgoub09z7tu0ILJ+KehtK6jVKT6mxW5w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=P3ka9oMo+XL/39m/YvDCU+bJ57bKpqFvYMWiMPZ5Uj8=;
- b=KXfL7BjFsl1G2axtYozIVPw7h/ay2Of2RoAKzgdW12ukDzrTmiVSKY/BDG2NocHvgLUgla6XcWQgmhRbrSxDtAIUfJy/tKmfWwwtp2EdoSapn0akbclyZgGFuhNWRnHaKxCwWAvJwtcCR8N7qp/UEiJQDeZaKbvrzytdQvKJQiY=
+ bh=gT4ipUdQublE2kHqCqEHTCuiQWZ7t8EQxtmojRlPSSo=;
+ b=KWIfPthZq48KGSSBR4Rtfmy8aOaWesTgADWuFtrsD4/6Of4KdH4o3Z/DlMQyCc/dncgQF9/J5B2OQzZnldnIfoQylvFK4oTfYCeJuwfek7H/02Ea1Iogl/LyPeXFzBJwyxfUHw8j85DLvhIGDr1AQLVa+FCzeN1xUqD9WpnuCj4=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
  by MW2PR12MB2441.namprd12.prod.outlook.com (2603:10b6:907:f::10) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.15; Tue, 7 Apr
- 2020 01:16:37 +0000
+ 2020 01:17:13 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::91a7:e6f7:b17a:bfa5]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::91a7:e6f7:b17a:bfa5%6]) with mapi id 15.20.2878.018; Tue, 7 Apr 2020
- 01:16:37 +0000
-Date: Mon, 6 Apr 2020 21:16:33 -0400
+ 01:17:13 +0000
+Date: Mon, 6 Apr 2020 21:17:09 -0400
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Subject: Re: [PATCH 1/2] drm/amd/display: query hdcp capability during link
- detect
-Message-ID: <20200407011633.63h2o4pdzhbnzvjd@outlook.office365.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: add HDCP caps debugfs
+Message-ID: <20200407011709.g2n6upythhicvny2@outlook.office365.com>
 References: <20200401210031.23220-1-Bhawanpreet.Lakha@amd.com>
-In-Reply-To: <20200401210031.23220-1-Bhawanpreet.Lakha@amd.com>
-X-ClientProxiedBy: BN8PR04CA0011.namprd04.prod.outlook.com
- (2603:10b6:408:70::24) To MW2PR12MB2524.namprd12.prod.outlook.com
+ <20200401210031.23220-2-Bhawanpreet.Lakha@amd.com>
+In-Reply-To: <20200401210031.23220-2-Bhawanpreet.Lakha@amd.com>
+X-ClientProxiedBy: BN6PR03CA0017.namprd03.prod.outlook.com
+ (2603:10b6:404:23::27) To MW2PR12MB2524.namprd12.prod.outlook.com
  (2603:10b6:907:9::27)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from outlook.office365.com (2607:fea8:56a0:11a1::4) by
- BN8PR04CA0011.namprd04.prod.outlook.com (2603:10b6:408:70::24) with Microsoft
+ BN6PR03CA0017.namprd03.prod.outlook.com (2603:10b6:404:23::27) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2878.15 via Frontend Transport; Tue, 7 Apr 2020 01:16:36 +0000
+ 15.20.2878.16 via Frontend Transport; Tue, 7 Apr 2020 01:17:12 +0000
 X-Originating-IP: [2607:fea8:56a0:11a1::4]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 42911553-92fa-4040-3cce-08d7da91516f
+X-MS-Office365-Filtering-Correlation-Id: f42238b0-5539-42c5-e892-08d7da916717
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2441:|MW2PR12MB2441:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB24419942A2C8039E4593F80A98C30@MW2PR12MB2441.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB24418828BCFC186BF19B648898C30@MW2PR12MB2441.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
 X-Forefront-PRVS: 036614DD9C
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW2PR12MB2524.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(366004)(39850400004)(376002)(346002)(136003)(396003)(66556008)(8676002)(86362001)(9686003)(66946007)(6862004)(1076003)(16526019)(55016002)(21480400003)(5660300002)(6666004)(478600001)(316002)(81166006)(52116002)(30864003)(81156014)(66476007)(7696005)(45080400002)(186003)(6506007)(4326008)(8936002)(966005)(6636002)(2906002)(44144004)(2700100001);
+ SFS:(10009020)(4636009)(366004)(39850400004)(376002)(346002)(136003)(396003)(66556008)(8676002)(86362001)(9686003)(66946007)(6862004)(1076003)(16526019)(55016002)(21480400003)(5660300002)(6666004)(478600001)(316002)(81166006)(52116002)(81156014)(66476007)(7696005)(45080400002)(186003)(6506007)(4326008)(8936002)(966005)(6636002)(2906002)(44144004)(2700100001);
  DIR:OUT; SFP:1101; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3IcYw1bDKdmjIF7JI2Kv9fZAHL0v0unHhTdkNYEIpHA3wa6I9BjWpEV34RFpU4UEl62cS9iAKC/RCa3clE3UdTMqgbjs4SPojF/+1Ba1q1P53Szgryl3+0K1LoC6bMjEiGU16zv5K4GPKHpc7FB15BqdSLWxyUURtOWiBU+EPtenR7mA7GTb5xoFgVzX9/9e6/OZ6v2BRDcLxwsbBbVQ0hndQyUNiRMKLbWCjXJJasPPRqnIK4Eq+n4Ya9HA/2Q3w6AC/rtS3sEHC1TfpXByNtkHi3DwRC+/ObIgH2Pf4gGOYGMZ9mr2jt6IZsDE+vjJk+BBS/OfzltUELVI7gvL38M1svZSvfSZFF2lKrYS97MY1Oa5vGy+GXgZSDFhebqYnd6C7kPD+5cuG2zhHvkDunBmx++oRqJG7knyzO3zuiToGhwj+45L5H1Gr+J8BjmZxYZsGI6kqFgZzeNQEZSURVDUOLhdXDMHppzSD+qvD50hYIYbBUNNuTLF0fUmlUY2xSaQiJ6hIoTXZXo+vLJSahYdX1Dkut0k5FGvVPBq9c7Adba4jsATHiS+O2UqGq3V
-X-MS-Exchange-AntiSpam-MessageData: MtZUnw4ed4V+hRmp6J3p4BJ8jzpuy+edXaqqh6PHiFiRcEgLmxO/b/D+cjQtOqntZj6242lTKRKU1c8lXuhI0o9BvwbWHEX73g39+Hk9+nS+nr8M3B3PilwVUc7tfigXYEEtp2c+Da4NVtEW4bZcDdiPCygloxd1HSJvGvE4RMg=
+X-Microsoft-Antispam-Message-Info: +Oli7W5EmbISqleVpw+T/ALOU30JVS2Sd1Qk7fkQMWsn9J8ixpEsEDponXeJFhSc0QkMTRijatequ1tj6i2nB1HVfXnPW6GJYxbECJrhsxncfrLMUTwDRzpqyKcp5wb0SFg6V4zHk+/jHZRuoTbkhf1kVXf6351RAB5aP0KMcTul/aQTWS7BXLNnmQm/aJI7Owh9MWTNIrPsdnBhKcZ+QkbnNVRu5CXZJRytIObV+1fu2mboMRgJ0yJgWYxaQCPAIcYfHyB+pesfdZoV4ZIV0yLWdxKj3GDkX3CrxDrNH5VtNZb+iwFghZ2oVChxwDV6i86OFhYT/5cMiDKXDg+35PXUmXur2yVX68PJNwy215sznmLKkhrGi8QTDi5WWfEzwsNkWxLjaRzT5fMzd5z18PIGlHZS34jEKEjzuAai1nBcT4GgC1BlpTXMLG9xFAibCsG3vExzYIWeS4S8alMmFRWAH/pbC9wBwqZC6EuKofvzCmkPNws3KaDwmSe7qlhM96QnZ2tm4d9gZeahBj02JWqRRD0AvhPvDgDhWdMK0rV1DSRGMUjSDJDGfZBT7RTn
+X-MS-Exchange-AntiSpam-MessageData: 3/SIz4zxdZu5n2HF4ZSRNAmPAY/aU7ZkF3rWAYysUhtUDVfhS10Sd6oLdbWq+dQhV+ghEKEGv7ArBOw8A0QM9Z5UBmO9LkiRY1Xz+0uo1WQUxkQQEZy8kXOg6KPh/IjPnagO7OL0rAoRcR0E4g6W9gCvsKA1iof6enpt8rHINko=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42911553-92fa-4040-3cce-08d7da91516f
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2020 01:16:37.1190 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f42238b0-5539-42c5-e892-08d7da916717
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Apr 2020 01:17:13.5015 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: e07r8+TJZAa8N8RGmATpYrD4azpqeYaHmr1uH7lI9ithGm8WsDXbCFYP8TIfuSlOo3+Z/MhaBXkyTrAKJ7WDSg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: LykviHb67gXI3GcVBNPFcLrqPS1OmBshfMjZIzu8OrTF50tVS7NS4IWNbPdMk+eXe2Ql8F8qxHC2XU55k11TSw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2441
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,16 +110,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: harry.wentland@amd.com, nicholas.kazlauskas@amd.com,
  amd-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0666841873=="
+Content-Type: multipart/mixed; boundary="===============0929361490=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0666841873==
+--===============0929361490==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2hwpbkujgs2oauo6"
+	protocol="application/pgp-signature"; boundary="qakqye2kqbl4kvrg"
 Content-Disposition: inline
 
---2hwpbkujgs2oauo6
+--qakqye2kqbl4kvrg
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
@@ -127,328 +127,206 @@ Content-Transfer-Encoding: quoted-printable
 Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
 On 04/01, Bhawanpreet Lakha wrote:
-> [Why]
-> Query the hdcp caps of a link, it is useful and can be reported to the us=
-er
+> Add debugfs to get HDCP capability. This is also useful for
+> kms_content_protection igt test.
 >=20
-> [How]
-> Create a query function and call it during link detect
+> Use:
+> 	cat /sys/kernel/debug/dri/0/DP-1/hdcp_sink_capability
+> 	cat /sys/kernel/debug/dri/0/HDMI-A-1/hdcp_sink_capability
 >=20
 > Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 > ---
->  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 56 ++++++++++++
->  drivers/gpu/drm/amd/display/dc/dc.h           | 41 +++++++++
->  drivers/gpu/drm/amd/display/dc/dc_link.h      |  3 +
->  .../gpu/drm/amd/display/dc/hdcp/hdcp_msg.c    | 89 +++++++++++++++++++
->  .../gpu/drm/amd/display/include/hdcp_types.h  |  7 ++
->  5 files changed, 196 insertions(+)
+>  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 61 +++++++++++++++++++
+>  drivers/gpu/drm/amd/display/dc/core/dc_link.c | 47 ++++++++++++++
+>  drivers/gpu/drm/amd/display/dc/dc_link.h      |  4 ++
+>  3 files changed, 112 insertions(+)
 >=20
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/=
-drm/amd/display/dc/core/dc_link.c
-> index a93997ff0419..49c63e27dfe9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-> @@ -514,6 +514,50 @@ static void link_disconnect_remap(struct dc_sink *pr=
-ev_sink, struct dc_link *lin
->  	link->local_sink =3D prev_sink;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/=
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> index 0461fecd68db..4b695f6a80c6 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> @@ -838,6 +838,44 @@ static int vrr_range_show(struct seq_file *m, void *=
+data)
+>  	return 0;
 >  }
 > =20
-> +#if defined(CONFIG_DRM_AMD_DC_HDCP)
-> +static void query_hdcp_capability(enum signal_type signal, struct dc_lin=
-k *link)
+> +#ifdef CONFIG_DRM_AMD_DC_HDCP
+> +/*
+> + * Returns the HDCP capability of the Display (1.4 for now).
+> + *
+> + * NOTE* Not all HDMI displays report their HDCP caps even when they are=
+ capable.
+> + * Since its rare for a display to not be HDCP 1.4 capable, we set HDMI =
+as always capable.
+> + *
+> + * Example usage: cat /sys/kernel/debug/dri/0/DP-1/hdcp_sink_capability
+> + *		or cat /sys/kernel/debug/dri/0/HDMI-A-1/hdcp_sink_capability
+> + */
+> +static int hdcp_sink_capability_show(struct seq_file *m, void *data)
 > +{
-> +	struct hdcp_protection_message msg22;
-> +	struct hdcp_protection_message msg14;
+> +	struct drm_connector *connector =3D m->private;
+> +	struct amdgpu_dm_connector *aconnector =3D to_amdgpu_dm_connector(conne=
+ctor);
+> +	bool hdcp_cap, hdcp2_cap;
 > +
-> +	memset(&msg22, 0, sizeof(struct hdcp_protection_message));
-> +	memset(&msg14, 0, sizeof(struct hdcp_protection_message));
-> +	memset(link->hdcp_caps.rx_caps.raw, 0,
-> +		sizeof(link->hdcp_caps.rx_caps.raw));
+> +	if (connector->status !=3D connector_status_connected)
+> +		return -ENODEV;
 > +
-> +	if ((link->connector_signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT &&
-> +			link->ddc->transaction_type =3D=3D
-> +			DDC_TRANSACTION_TYPE_I2C_OVER_AUX) ||
-> +			link->connector_signal =3D=3D SIGNAL_TYPE_EDP) {
-> +		msg22.data =3D link->hdcp_caps.rx_caps.raw;
-> +		msg22.length =3D sizeof(link->hdcp_caps.rx_caps.raw);
-> +		msg22.msg_id =3D HDCP_MESSAGE_ID_RX_CAPS;
-> +	} else {
-> +		msg22.data =3D &link->hdcp_caps.rx_caps.fields.version;
-> +		msg22.length =3D sizeof(link->hdcp_caps.rx_caps.fields.version);
-> +		msg22.msg_id =3D HDCP_MESSAGE_ID_HDCP2VERSION;
-> +	}
-> +	msg22.version =3D HDCP_VERSION_22;
-> +	msg22.link =3D HDCP_LINK_PRIMARY;
-> +	msg22.max_retries =3D 5;
-> +	dc_process_hdcp_msg(signal, link, &msg22);
+> +	seq_printf(m, "%s:%d HDCP version: ", connector->name, connector->base.=
+id);
 > +
-> +	if (signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT || signal =3D=3D SIGNAL_TYPE=
-_DISPLAY_PORT_MST) {
-> +		enum hdcp_message_status status =3D HDCP_MESSAGE_UNSUPPORTED;
+> +	hdcp_cap =3D dc_link_is_hdcp14(aconnector->dc_link);
+> +	hdcp2_cap =3D dc_link_is_hdcp22(aconnector->dc_link);
 > +
-> +		msg14.data =3D &link->hdcp_caps.bcaps.raw;
-> +		msg14.length =3D sizeof(link->hdcp_caps.bcaps.raw);
-> +		msg14.msg_id =3D HDCP_MESSAGE_ID_READ_BCAPS;
-> +		msg14.version =3D HDCP_VERSION_14;
-> +		msg14.link =3D HDCP_LINK_PRIMARY;
-> +		msg14.max_retries =3D 5;
 > +
-> +		status =3D dc_process_hdcp_msg(signal, link, &msg14);
-> +	}
+> +	if (hdcp_cap)
+> +		seq_printf(m, "%s ", "HDCP1.4");
+> +	if (hdcp2_cap)
+> +		seq_printf(m, "%s ", "HDCP2.2");
 > +
+> +	if (!hdcp_cap && !hdcp2_cap)
+> +		seq_printf(m, "%s ", "None");
+> +
+> +	seq_puts(m, "\n");
+> +
+> +	return 0;
 > +}
 > +#endif
-> +
->  static void read_current_link_settings_on_detect(struct dc_link *link)
->  {
->  	union lane_count_set lane_count_set =3D { {0} };
-> @@ -606,6 +650,12 @@ static bool detect_dp(struct dc_link *link,
->  			dal_ddc_service_set_transaction_type(link->ddc,
->  							     sink_caps->transaction_type);
-> =20
-> +#if defined(CONFIG_DRM_AMD_DC_HDCP)
-> +			/* In case of fallback to SST when topology discovery below fails
-> +			 * HDCP caps will be querried again later by the upper layer (caller
-> +			 * of this function). */
-> +			query_hdcp_capability(SIGNAL_TYPE_DISPLAY_PORT_MST, link);
-> +#endif
->  			/*
->  			 * This call will initiate MST topology discovery. Which
->  			 * will detect MST ports and add new DRM connector DRM
-> @@ -975,6 +1025,9 @@ static bool dc_link_detect_helper(struct dc_link *li=
-nk,
->  			 * TODO debug why Dell 2413 doesn't like
->  			 *  two link trainings
->  			 */
-> +#if defined(CONFIG_DRM_AMD_DC_HDCP)
-> +			query_hdcp_capability(sink->sink_signal, link);
+>  /* function description
+>   *
+>   * generic SDP message access for testing
+> @@ -964,6 +1002,9 @@ DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
+>  DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
+>  DEFINE_SHOW_ATTRIBUTE(output_bpc);
+>  DEFINE_SHOW_ATTRIBUTE(vrr_range);
+> +#ifdef CONFIG_DRM_AMD_DC_HDCP
+> +DEFINE_SHOW_ATTRIBUTE(hdcp_sink_capability);
 > +#endif
 > =20
->  			// verify link cap for SST non-seamless boot
->  			if (!perform_dp_seamless_boot)
-> @@ -988,6 +1041,9 @@ static bool dc_link_detect_helper(struct dc_link *li=
-nk,
->  				sink =3D prev_sink;
->  				prev_sink =3D NULL;
->  			}
-> +#if defined(CONFIG_DRM_AMD_DC_HDCP)
-> +			query_hdcp_capability(sink->sink_signal, link);
+>  static const struct file_operations dp_link_settings_debugfs_fops =3D {
+>  	.owner =3D THIS_MODULE,
+> @@ -1019,12 +1060,23 @@ static const struct {
+>  		{"test_pattern", &dp_phy_test_pattern_fops},
+>  		{"output_bpc", &output_bpc_fops},
+>  		{"vrr_range", &vrr_range_fops},
+> +#ifdef CONFIG_DRM_AMD_DC_HDCP
+> +		{"hdcp_sink_capability", &hdcp_sink_capability_fops},
 > +#endif
->  		}
-> =20
->  		/* HDMI-DVI Dongle */
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/di=
-splay/dc/dc.h
-> index 92123b0d1196..9235d04c32dc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-> @@ -29,6 +29,9 @@
->  #include "dc_types.h"
->  #include "grph_object_defs.h"
->  #include "logger_types.h"
-> +#if defined(CONFIG_DRM_AMD_DC_HDCP)
-> +#include "hdcp_types.h"
-> +#endif
->  #include "gpio_types.h"
->  #include "link_service_types.h"
->  #include "grph_object_ctrl_defs.h"
-> @@ -1004,6 +1007,35 @@ union dpcd_sink_ext_caps {
->  	uint8_t raw;
+>  		{"sdp_message", &sdp_message_fops},
+>  		{"aux_dpcd_address", &dp_dpcd_address_debugfs_fops},
+>  		{"aux_dpcd_size", &dp_dpcd_size_debugfs_fops},
+>  		{"aux_dpcd_data", &dp_dpcd_data_debugfs_fops}
 >  };
 > =20
-> +#if defined(CONFIG_DRM_AMD_DC_HDCP)
-> +union hdcp_rx_caps {
-> +	struct {
-> +		uint8_t version;
-> +		uint8_t reserved;
-> +		struct {
-> +			uint8_t repeater	: 1;
-> +			uint8_t hdcp_capable	: 1;
-> +			uint8_t reserved	: 6;
-> +		} byte0;
-> +	} fields;
-> +	uint8_t raw[3];
-> +};
-> +
-> +union hdcp_bcaps {
-> +	struct {
-> +		uint8_t HDCP_CAPABLE:1;
-> +		uint8_t REPEATER:1;
-> +		uint8_t RESERVED:6;
-> +	} bits;
-> +	uint8_t raw;
-> +};
-> +
-> +struct hdcp_caps {
-> +	union hdcp_rx_caps rx_caps;
-> +	union hdcp_bcaps bcaps;
+> +#ifdef CONFIG_DRM_AMD_DC_HDCP
+> +static const struct {
+> +	char *name;
+> +	const struct file_operations *fops;
+> +} hdmi_debugfs_entries[] =3D {
+> +		{"hdcp_sink_capability", &hdcp_sink_capability_fops}
 > +};
 > +#endif
-> +
->  #include "dc_link.h"
+>  /*
+>   * Force YUV420 output if available from the given mode
+>   */
+> @@ -1093,6 +1145,15 @@ void connector_debugfs_init(struct amdgpu_dm_conne=
+ctor *connector)
+>  	connector->debugfs_dpcd_address =3D 0;
+>  	connector->debugfs_dpcd_size =3D 0;
 > =20
->  /***********************************************************************=
-********
-> @@ -1107,6 +1139,15 @@ void dc_resume(struct dc *dc);
->  unsigned int dc_get_current_backlight_pwm(struct dc *dc);
->  unsigned int dc_get_target_backlight_pwm(struct dc *dc);
-> =20
-> +#if defined(CONFIG_DRM_AMD_DC_HDCP)
-> +/*
-> + * HDCP Interfaces
-> + */
-> +enum hdcp_message_status dc_process_hdcp_msg(
-> +		enum signal_type signal,
-> +		struct dc_link *link,
-> +		struct hdcp_protection_message *message_info);
+> +#ifdef CONFIG_DRM_AMD_DC_HDCP
+> +	if (connector->base.connector_type =3D=3D DRM_MODE_CONNECTOR_HDMIA) {
+> +		for (i =3D 0; i < ARRAY_SIZE(hdmi_debugfs_entries); i++) {
+> +			debugfs_create_file(hdmi_debugfs_entries[i].name,
+> +					    0644, dir, connector,
+> +					    hdmi_debugfs_entries[i].fops);
+> +		}
+> +	}
 > +#endif
->  bool dc_is_dmcu_initialized(struct dc *dc);
+>  }
 > =20
->  enum dc_status dc_set_clock(struct dc *dc, enum dc_clock_type clock_type=
-, uint32_t clk_khz, uint32_t stepping);
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/a=
-md/display/dc/dc_link.h
-> index 00ff5e98278c..0077f9dcd07c 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-> @@ -126,6 +126,9 @@ struct dc_link {
->  	uint32_t dongle_max_pix_clk;
->  	unsigned short chip_caps;
->  	unsigned int dpcd_sink_count;
-> +#if defined(CONFIG_DRM_AMD_DC_HDCP)
-> +	struct hdcp_caps hdcp_caps;
-> +#endif
->  	enum edp_revision edp_revision;
->  	bool psr_feature_enabled;
->  	bool psr_allow_active;
-> diff --git a/drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c b/drivers/gpu=
-/drm/amd/display/dc/hdcp/hdcp_msg.c
-> index 6f730b5bfe42..5e384a8a83dc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c
-> +++ b/drivers/gpu/drm/amd/display/dc/hdcp/hdcp_msg.c
-> @@ -322,3 +322,92 @@ static const struct protection_properties dp_11_prot=
-ection =3D {
->  	.process_transaction =3D dp_11_process_transaction
->  };
+>  /*
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/=
+drm/amd/display/dc/core/dc_link.c
+> index 49c63e27dfe9..e8b5d7a22ce7 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+> @@ -515,6 +515,53 @@ static void link_disconnect_remap(struct dc_sink *pr=
+ev_sink, struct dc_link *lin
+>  }
 > =20
-> +static const struct protection_properties *get_protection_properties_by_=
-signal(
-> +	struct dc_link *link,
-> +	enum signal_type st,
-> +	enum hdcp_version version)
+>  #if defined(CONFIG_DRM_AMD_DC_HDCP)
+> +bool dc_link_is_hdcp14(struct dc_link *link)
 > +{
-> +	switch (version) {
-> +	case HDCP_VERSION_14:
-> +		switch (st) {
-> +		case SIGNAL_TYPE_DVI_SINGLE_LINK:
-> +		case SIGNAL_TYPE_DVI_DUAL_LINK:
-> +		case SIGNAL_TYPE_HDMI_TYPE_A:
-> +			return &hdmi_14_protection;
-> +		case SIGNAL_TYPE_DISPLAY_PORT:
-> +			if (link &&
-> +				(link->dpcd_caps.dongle_type =3D=3D DISPLAY_DONGLE_DP_VGA_CONVERTER =
-||
-> +				link->dpcd_caps.dongle_caps.dongle_type =3D=3D DISPLAY_DONGLE_DP_VGA=
-_CONVERTER)) {
-> +				return &non_supported_protection;
-> +			}
-> +			return &dp_11_protection;
-> +		case SIGNAL_TYPE_DISPLAY_PORT_MST:
-> +		case SIGNAL_TYPE_EDP:
-> +			return &dp_11_protection;
-> +		default:
-> +			return &non_supported_protection;
-> +		}
+> +	bool ret =3D false;
+> +
+> +	switch (link->connector_signal)	{
+> +	case SIGNAL_TYPE_DISPLAY_PORT:
+> +	case SIGNAL_TYPE_DISPLAY_PORT_MST:
+> +		ret =3D link->hdcp_caps.bcaps.bits.HDCP_CAPABLE;
 > +		break;
-> +	case HDCP_VERSION_22:
-> +		switch (st) {
-> +		case SIGNAL_TYPE_DVI_SINGLE_LINK:
-> +		case SIGNAL_TYPE_DVI_DUAL_LINK:
-> +		case SIGNAL_TYPE_HDMI_TYPE_A:
-> +			return &hdmi_14_protection; //todo version2.2
-> +		case SIGNAL_TYPE_DISPLAY_PORT:
-> +		case SIGNAL_TYPE_DISPLAY_PORT_MST:
-> +		case SIGNAL_TYPE_EDP:
-> +			return &dp_11_protection;  //todo version2.2
-> +		default:
-> +			return &non_supported_protection;
-> +		}
+> +	case SIGNAL_TYPE_DVI_SINGLE_LINK:
+> +	case SIGNAL_TYPE_DVI_DUAL_LINK:
+> +	case SIGNAL_TYPE_HDMI_TYPE_A:
+> +	/* HDMI doesn't tell us its HDCP(1.4) capability, so assume to always b=
+e capable,
+> +	 * we can poll for bksv but some displays have an issue with this. Sinc=
+e its so rare
+> +	 * for a display to not be 1.4 capable, this assumtion is ok
+> +	 */
+> +		ret =3D true;
 > +		break;
 > +	default:
-> +		return &non_supported_protection;
+> +		break;
 > +	}
+> +	return ret;
 > +}
 > +
-> +enum hdcp_message_status dc_process_hdcp_msg(
-> +	enum signal_type signal,
-> +	struct dc_link *link,
-> +	struct hdcp_protection_message *message_info)
+> +bool dc_link_is_hdcp22(struct dc_link *link)
 > +{
-> +	enum hdcp_message_status status =3D HDCP_MESSAGE_FAILURE;
-> +	uint32_t i =3D 0;
+> +	bool ret =3D false;
 > +
-> +	const struct protection_properties *protection_props;
-> +
-> +	if (!message_info)
-> +		return HDCP_MESSAGE_UNSUPPORTED;
-> +
-> +	if (message_info->msg_id < HDCP_MESSAGE_ID_READ_BKSV ||
-> +		message_info->msg_id >=3D HDCP_MESSAGE_ID_MAX)
-> +		return HDCP_MESSAGE_UNSUPPORTED;
-> +
-> +	protection_props =3D
-> +		get_protection_properties_by_signal(
-> +			link,
-> +			signal,
-> +			message_info->version);
-> +
-> +	if (!protection_props->supported)
-> +		return HDCP_MESSAGE_UNSUPPORTED;
-> +
-> +	if (protection_props->process_transaction(
-> +		link,
-> +		message_info)) {
-> +		status =3D HDCP_MESSAGE_SUCCESS;
-> +	} else {
-> +		for (i =3D 0; i < message_info->max_retries; i++) {
-> +			if (protection_props->process_transaction(
-> +						link,
-> +						message_info)) {
-> +				status =3D HDCP_MESSAGE_SUCCESS;
-> +				break;
-> +			}
-> +		}
+> +	switch (link->connector_signal)	{
+> +	case SIGNAL_TYPE_DISPLAY_PORT:
+> +	case SIGNAL_TYPE_DISPLAY_PORT_MST:
+> +		ret =3D (link->hdcp_caps.bcaps.bits.HDCP_CAPABLE &&
+> +				link->hdcp_caps.rx_caps.fields.byte0.hdcp_capable &&
+> +				(link->hdcp_caps.rx_caps.fields.version =3D=3D 0x2)) ? 1 : 0;
+> +		break;
+> +	case SIGNAL_TYPE_DVI_SINGLE_LINK:
+> +	case SIGNAL_TYPE_DVI_DUAL_LINK:
+> +	case SIGNAL_TYPE_HDMI_TYPE_A:
+> +		ret =3D (link->hdcp_caps.rx_caps.fields.version =3D=3D 0x4) ? 1:0;
+> +		break;
+> +	default:
+> +		break;
 > +	}
 > +
-> +	return status;
+> +	return ret;
 > +}
 > +
-> diff --git a/drivers/gpu/drm/amd/display/include/hdcp_types.h b/drivers/g=
-pu/drm/amd/display/include/hdcp_types.h
-> index f31e6befc8d6..42229b4effdc 100644
-> --- a/drivers/gpu/drm/amd/display/include/hdcp_types.h
-> +++ b/drivers/gpu/drm/amd/display/include/hdcp_types.h
-> @@ -83,6 +83,12 @@ enum hdcp_link {
->  	HDCP_LINK_SECONDARY
->  };
+>  static void query_hdcp_capability(enum signal_type signal, struct dc_lin=
+k *link)
+>  {
+>  	struct hdcp_protection_message msg22;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/a=
+md/display/dc/dc_link.h
+> index 0077f9dcd07c..e131dc99f283 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc_link.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
+> @@ -293,6 +293,10 @@ bool dc_link_detect_sink(struct dc_link *link, enum =
+dc_connection_type *type);
+>   * DPCD access interfaces
+>   */
 > =20
-> +enum hdcp_message_status {
-> +	HDCP_MESSAGE_SUCCESS,
-> +	HDCP_MESSAGE_FAILURE,
-> +	HDCP_MESSAGE_UNSUPPORTED
-> +};
-> +
->  struct hdcp_protection_message {
->  	enum hdcp_version version;
->  	/* relevant only for DVI */
-> @@ -91,6 +97,7 @@ struct hdcp_protection_message {
->  	uint32_t length;
->  	uint8_t max_retries;
->  	uint8_t *data;
-> +	enum hdcp_message_status status;
->  };
-> =20
->  #endif
+> +#ifdef CONFIG_DRM_AMD_DC_HDCP
+> +bool dc_link_is_hdcp14(struct dc_link *link);
+> +bool dc_link_is_hdcp22(struct dc_link *link);
+> +#endif
+>  void dc_link_set_drive_settings(struct dc *dc,
+>  				struct link_training_settings *lt_settings,
+>  				const struct dc_link *link);
 > --=20
 > 2.17.1
 >=20
@@ -457,37 +335,37 @@ pu/drm/amd/display/include/hdcp_types.h
 > amd-gfx@lists.freedesktop.org
 > https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists=
 =2Efreedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7CRodr=
-igo.Siqueira%40amd.com%7Ce8a57ef23ebe48f69c0c08d7d67fbe52%7C3dd8961fe4884e6=
-08e11a82d994e183d%7C0%7C0%7C637213717153022133&amp;sdata=3DvWM8bqK2w7d24uom=
-K2JRZS9kbYsZPalZVdEb5HA%2F0yM%3D&amp;reserved=3D0
+igo.Siqueira%40amd.com%7C65148394294a472bef0308d7d67fc0fe%7C3dd8961fe4884e6=
+08e11a82d994e183d%7C0%7C0%7C637213717417008756&amp;sdata=3DMxtKij4XoDo%2BhF=
+uzNOqzer3MEbtk9eF9gMcRNgFMSFo%3D&amp;reserved=3D0
 
 --=20
 Rodrigo Siqueira
 https://siqueira.tech
 
---2hwpbkujgs2oauo6
+--qakqye2kqbl4kvrg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl6L1G0ACgkQWJzP/com
-vP/Raw//cF//hv3L9eqlwGzACTo44kS/sxp2OmrgTvJvb/+WfgYweNmwbfHikmhc
-kuOsePJ+8Vl4GEsgGeunG/SCZ3DnU6RduiOvc4IPDFUI4gvXUWHRgIKwlXkN1Klc
-Yab3Vs4zmn07IgUuyX5hrFcr0Rt4Q/d6i3ECvnwx6q8a5i1VarC2Q8rlqwdddZp+
-84605kwUyaPyl3dpWxNeeUdqhb24okzjOeJTs7vkqEdGRGAEaxTiyLbHbYhL8Qvm
-ybu7S+wYocjb0I0ZR240aYdCTurtROl+VcJqQvkxNe54T3wgBqhx0eRpki/LNsM/
-Pv8gFcVvTiVbRLEqqtd5VPxkIhRhUfSGuuexCsbUC68rAaJ5LRAlRAKumAjMR82j
-8NcsnkMwg2FTW9b5CWIXFaawz/BpFiPWXoQgB2bA9z138Bj03mmbmMsV+uiSsAEi
-YsXBRrQiBaHl9DtPrnaw3Uccjw7ht3owdDd5eVTVTJzPWgPXfo6BEZy5lO2hbR+s
-tyeDD+q4WbRdjXH0ECYvg+0VZgthiKrWa5VhTdn/vwDDtc3oxBd+EPgvc7LZyq4w
-rO0vPCI8/yA8G5eBzQNxd0v9DL4DBPSp77W28Lk2Q9N/UHE+kcC7pIl1/RoSPSXb
-lf9GUfIu6hNKSi74bYz1PbDGSYXEBB0FAPtzijqtWts/BJs0K28=
-=L549
+iQIzBAABCgAdFiEE4tZ+ii1mjMCMQbfkWJzP/comvP8FAl6L1JUACgkQWJzP/com
+vP8hpBAAm8bs9Xh4dGyV8WqFYftFbJt3BKt3lvo3FfPP9Tk3/lGQ2nI4A28eHA6m
+zxNO11/0/r8F7P9F+0RjV2pT0Ts7k5GacBLOfESyjvBi3CE4mR1bUjsmJSiUnPXh
+oQOC/+aggP3n/RmIqLJVNmq+g7tsCXfBU3pPbIDhlvnKNRZGzQGdgQp0C1tT4UAr
+rKz0X4hgw1wEUTRSo3KhKYaA8lU3nCjgVkz0L7pB3ZLH118UdnvDs+0cIZtREczf
+7oLRQhF4rJ3Z7fxKYBdU8n0Oo5/y8W1cu6ExAgAuyLuf7hIkWRCCkvypd05LoBA5
+Im4NMeUy2yXKzotqQz1RGTKWsE9xPGAs6nmJDQyM0cid/AJCXovCamK4VO/q1yLv
+Z83ZLJvERgkZL8IdhjP3/S9hDUUs7gc8dm0doaAHRVb93DIFT4yto4uoFs983vij
+EF6TIJzKv0ENhm62FGCMqWk5tS2/dREXFSXdHefh9AWG2n9runxGThy8qD0xSDVJ
+E0DHbmM80E3bPgiz1am3+RkeKWIJOQZML/P9IzlUS89cf4rGmKNVYaDdOz1QMHqT
+WMcxlbt2zonlm5vyG+erCBphpC0f8JW+2DhH0jBBz2XBNNR+e6QlcBqfSMxIG5x3
+1zGDKCh59ZphR9jxkpJgj6k5Oa8b7Gf3jh8qWLoU8nvy8/JDgiI=
+=QfLw
 -----END PGP SIGNATURE-----
 
---2hwpbkujgs2oauo6--
+--qakqye2kqbl4kvrg--
 
---===============0666841873==
+--===============0929361490==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -498,4 +376,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0666841873==--
+--===============0929361490==--
