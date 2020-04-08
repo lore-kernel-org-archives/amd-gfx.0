@@ -2,86 +2,60 @@ Return-Path: <SRS0=b+Zp=5Y=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C5F34C2D0EC
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2020 00:29:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 512CEC2BB54
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2020 00:31:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9B1BC20678
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2020 00:29:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2942720747
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2020 00:31:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dJqOLfyc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9B1BC20678
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/oCs0Vr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2942720747
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BCE56E05A;
-	Wed,  8 Apr 2020 00:29:43 +0000 (UTC)
-Received: from us-smtp-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA756E05A
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2020 00:29:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1586305780;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=tUaMFl6VOupQh7UxmlQdV+KauWU8dk0fEOX3vcNpHB4=;
- b=dJqOLfycA0xgk07wEm0g/K7sx4v2XWBZl8G2vLiwk7+qpqbq3nJ0filXZfnWFLDZw1YaO0
- BuuVGus5APABt6847W72xIDPY2SWXW8doqLJWyRmSwmxymyrj+OYJIjVz623aWvUsi5e2F
- m8W/24W2BXNZ1w3s8SGZMPr114jI0bg=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-481-HoyvQxo0Obim6C8KnLIwGg-1; Tue, 07 Apr 2020 20:29:39 -0400
-X-MC-Unique: HoyvQxo0Obim6C8KnLIwGg-1
-Received: by mail-qt1-f198.google.com with SMTP id v49so4820266qtc.20
- for <amd-gfx@lists.freedesktop.org>; Tue, 07 Apr 2020 17:29:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
- :references:organization:user-agent:mime-version
- :content-transfer-encoding;
- bh=tUaMFl6VOupQh7UxmlQdV+KauWU8dk0fEOX3vcNpHB4=;
- b=Ak/epFHbAdjI9oVKGQqlrQu3QEhcPaD+EbtJ5+l5zi0cRjMX8IoKBqhF0MydErY+Ss
- 2OmFHlBZFJYlm63f9/wourdUrCxNmM40EH1qh6bQwo1grsZfGXDfWiUdhzp1HB+pyGYz
- rPGGYRvdYc25ABj8faUdaKj1br628Kqg5l9JQrmnYKZu6pB/NG691gBYh5pyRICHVhze
- 6wM3bdtw2UbBMmd6PtlNl71g8ZSbwiYRNTIESgPFOjfbbvfgnNNLYdGk/21ntPkGsQJM
- 6jiVu70qGeAVy+rJpQVpQSemeEArdZXur7S386woEQN6b6zLOMcdCH69oJAQNiq5wMfP
- 3q1g==
-X-Gm-Message-State: AGi0PuZOQDALnqMHVNwRFsRL0inkCahxuzbRKbRJh8HFexSX49DaZm/N
- nH9+GslWhyitSzXimv4eboDk1oNfiCSOLUCWf39OSaDDetIZgGN8sn+s5jaKoO29+Tf5VOJp9ze
- Z6NL90OEWrp0os7mT21+8E2Y0Rg==
-X-Received: by 2002:a05:620a:91d:: with SMTP id
- v29mr4932434qkv.424.1586305778412; 
- Tue, 07 Apr 2020 17:29:38 -0700 (PDT)
-X-Google-Smtp-Source: APiQypIlVgpRT2Lw3SajwdlxtCzLF2X4end/IWmlCSzOGeKBN33ZJvHZrJrYh4WLb/ryv5HN3uPTuw==
-X-Received: by 2002:a05:620a:91d:: with SMTP id
- v29mr4932419qkv.424.1586305778146; 
- Tue, 07 Apr 2020 17:29:38 -0700 (PDT)
-Received: from Ruby.lyude.net (static-173-76-190-23.bstnma.ftas.verizon.net.
- [173.76.190.23])
- by smtp.gmail.com with ESMTPSA id g21sm12696744qtq.26.2020.04.07.17.29.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 07 Apr 2020 17:29:37 -0700 (PDT)
-Message-ID: <2f8f0ff07b39681ca07a054e74b59d14c955a7b7.camel@redhat.com>
-Subject: Re: [PATCH] drm/dp_mst: Zero assigned PBN when releasing VCPI slots
-From: Lyude Paul <lyude@redhat.com>
-To: mikita.lipski@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Date: Tue, 07 Apr 2020 20:29:36 -0400
-In-Reply-To: <20200407160717.27976-1-mikita.lipski@amd.com>
-References: <20200407160717.27976-1-mikita.lipski@amd.com>
-Organization: Red Hat
-User-Agent: Evolution 3.34.4 (3.34.4-1.fc31)
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+	by gabe.freedesktop.org (Postfix) with ESMTP id C30DE6E05A;
+	Wed,  8 Apr 2020 00:31:33 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC5346E05A
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2020 00:31:31 +0000 (UTC)
+Received: from devnote2 (NE2965lan1.rev.em-net.ne.jp [210.141.244.193])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id DEF13206A1;
+ Wed,  8 Apr 2020 00:31:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1586305891;
+ bh=WsjIuMs+r8j5CIgkQfdEKX2Lo83nk1oWM2PwfANG5B8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=R/oCs0VrCOzDtTN3moNRl4KxOPreOOqCksl3xwW/Ugp3nWLm8aEHTQOIMeBsyUdIo
+ +1OVmr1wM786UYNGbelt60YMMNh+AM3ogeu+29Y0uFcBPz51dsVwxuyrcOurgkNrkh
+ TOhjHuDQYJEMxbmjaokLgseYbIfTStXR6F0E6lo0=
+Date: Wed, 8 Apr 2020 09:31:25 +0900
+From: Masami Hiramatsu <mhiramat@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>
+Subject: Re: AMD DC graphics display code enables -mhard-float, -msse,
+ -msse2 without any visible FPU state protection
+Message-Id: <20200408093125.8b2e17e8e10aa8afa52c4753@kernel.org>
+In-Reply-To: <20200407155449.GF20730@hirez.programming.kicks-ass.net>
+References: <20200402141308.GB20730@hirez.programming.kicks-ass.net>
+ <20200403142837.f61a18d7bd32fd73777479ad@kernel.org>
+ <20200403112113.GN20730@hirez.programming.kicks-ass.net>
+ <20200404120808.05e9aa61500265be2e031bd6@kernel.org>
+ <20200404143224.GL2452@worktop.programming.kicks-ass.net>
+ <20200405121930.e3ea3e7acc7588102de483e2@kernel.org>
+ <20200406102107.GI20730@hirez.programming.kicks-ass.net>
+ <20200407185008.c819005f0174cae76c44a135@kernel.org>
+ <20200407111535.GT20730@hirez.programming.kicks-ass.net>
+ <20200408004111.3dd597f2a7c6172b4c71a9ba@kernel.org>
+ <20200407155449.GF20730@hirez.programming.kicks-ass.net>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,46 +67,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, harry.wentland@amd.com
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Josh Poimboeuf <jpoimboe@redhat.com>, Jann Horn <jannh@google.com>,
+ Leo Li <sunpeng.li@amd.com>, the arch/x86 maintainers <x86@kernel.org>,
+ kernel list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Andy Lutomirski <luto@kernel.org>,
+ "H. Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Harry Wentland <harry.wentland@amd.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey - didn't get a chance to take a look at this today but I will review asap!
+On Tue, 7 Apr 2020 17:54:49 +0200
+Peter Zijlstra <peterz@infradead.org> wrote:
 
-On Tue, 2020-04-07 at 12:07 -0400, mikita.lipski@amd.com wrote:
-> From: Mikita Lipski <mikita.lipski@amd.com>
+> On Wed, Apr 08, 2020 at 12:41:11AM +0900, Masami Hiramatsu wrote:
+> > On Tue, 7 Apr 2020 13:15:35 +0200
+> > Peter Zijlstra <peterz@infradead.org> wrote:
 > 
-> Zero Port's PBN together with VCPI slots when releasing
-> allocated VCPI slots. That way when disabling the connector
-> it will not cause issues in drm_dp_mst_atomic_check verifying
-> branch bw limit.
+> > > > > Also, all the VMX bits seems to qualify as FPU (I can't remember seeing
+> > > > > that previously):
+> > > > 
+> > > > Oops, let me check it.
+> > > 
+> > > I just send you another patch that could do with insn_is_vmx()
+> > > (sorry!!!)
+> > 
+> > Hmm, it is hard to find out the vmx insns. Maybe we need to clarify it by
+> > opcode pattern. (like "VM.*")
 > 
-> Signed-off-by: Mikita Lipski <mikita.lipski@amd.com>
+> Yeah, I know. Maybe I should just keep it as I have for now.
+> 
+> One thing I thought of is we could perhaps add manual markers in
+> x86-opcode-map.txt. The '{','}' characters appear unused so far, we
+> perhaps we can use them to classify things.
+> 
+> That could maybe replace "mmx_expr" as well. That is, something like so:
+
+Thanks for the good suggestion!
+Maybe this is much better than the fragile mnemonic pattern matching :)
+
+BTW, I would like to use {VIRT} instead of {VMX} because some
+instructions are for SVM.
+
+Thank you!
+
+> 
 > ---
->  drivers/gpu/drm/drm_dp_mst_topology.c | 1 +
->  1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/gpu/drm/drm_dp_mst_topology.c
-> b/drivers/gpu/drm/drm_dp_mst_topology.c
-> index 38bf111e5f9b..ed109dd15df6 100644
-> --- a/drivers/gpu/drm/drm_dp_mst_topology.c
-> +++ b/drivers/gpu/drm/drm_dp_mst_topology.c
-> @@ -4276,6 +4276,7 @@ int drm_dp_atomic_release_vcpi_slots(struct
-> drm_atomic_state *state,
->  	if (pos->vcpi) {
->  		drm_dp_mst_put_port_malloc(port);
->  		pos->vcpi = 0;
-> +		pos->pbn = 0;
->  	}
+> diff --git a/arch/x86/lib/x86-opcode-map.txt b/arch/x86/lib/x86-opcode-map.txt
+> index ec31f5b60323..e01b76e0a294 100644
+> --- a/arch/x86/lib/x86-opcode-map.txt
+> +++ b/arch/x86/lib/x86-opcode-map.txt
+> @@ -462,9 +462,9 @@ AVXcode: 1
+>  75: pcmpeqw Pq,Qq | vpcmpeqw Vx,Hx,Wx (66),(v1)
+>  76: pcmpeqd Pq,Qq | vpcmpeqd Vx,Hx,Wx (66),(v1)
+>  # Note: Remove (v), because vzeroall and vzeroupper becomes emms without VEX.
+> -77: emms | vzeroupper | vzeroall
+> -78: VMREAD Ey,Gy | vcvttps2udq/pd2udq Vx,Wpd (evo) | vcvttsd2usi Gv,Wx (F2),(ev) | vcvttss2usi Gv,Wx (F3),(ev) | vcvttps2uqq/pd2uqq Vx,Wx (66),(ev)
+> -79: VMWRITE Gy,Ey | vcvtps2udq/pd2udq Vx,Wpd (evo) | vcvtsd2usi Gv,Wx (F2),(ev) | vcvtss2usi Gv,Wx (F3),(ev) | vcvtps2uqq/pd2uqq Vx,Wx (66),(ev)
+> +77: emms {FPU} | vzeroupper | vzeroall
+> +78: VMREAD Ey,Gy {VMX} | vcvttps2udq/pd2udq Vx,Wpd (evo) | vcvttsd2usi Gv,Wx (F2),(ev) | vcvttss2usi Gv,Wx (F3),(ev) | vcvttps2uqq/pd2uqq Vx,Wx (66),(ev)
+> +79: VMWRITE Gy,Ey {VMX} | vcvtps2udq/pd2udq Vx,Wpd (evo) | vcvtsd2usi Gv,Wx (F2),(ev) | vcvtss2usi Gv,Wx (F3),(ev) | vcvtps2uqq/pd2uqq Vx,Wx (66),(ev)
+>  7a: vcvtudq2pd/uqq2pd Vpd,Wx (F3),(ev) | vcvtudq2ps/uqq2ps Vpd,Wx (F2),(ev) | vcvttps2qq/pd2qq Vx,Wx (66),(ev)
+>  7b: vcvtusi2sd Vpd,Hpd,Ev (F2),(ev) | vcvtusi2ss Vps,Hps,Ev (F3),(ev) | vcvtps2qq/pd2qq Vx,Wx (66),(ev)
+>  7c: vhaddpd Vpd,Hpd,Wpd (66) | vhaddps Vps,Hps,Wps (F2)
+> @@ -965,9 +965,9 @@ GrpTable: Grp6
+>  EndTable
 >  
->  	return 0;
--- 
-Cheers,
-	Lyude Paul (she/her)
-	Associate Software Engineer at Red Hat
+>  GrpTable: Grp7
+> -0: SGDT Ms | VMCALL (001),(11B) | VMLAUNCH (010),(11B) | VMRESUME (011),(11B) | VMXOFF (100),(11B) | PCONFIG (101),(11B) | ENCLV (000),(11B)
+> +0: SGDT Ms | VMCALL (001),(11B) {VMX} | VMLAUNCH (010),(11B) {VMX} | VMRESUME (011),(11B) {VMX} | VMXOFF (100),(11B) {VMX} | PCONFIG (101),(11B) | ENCLV (000),(11B)
+>  1: SIDT Ms | MONITOR (000),(11B) | MWAIT (001),(11B) | CLAC (010),(11B) | STAC (011),(11B) | ENCLS (111),(11B)
+> -2: LGDT Ms | XGETBV (000),(11B) | XSETBV (001),(11B) | VMFUNC (100),(11B) | XEND (101)(11B) | XTEST (110)(11B) | ENCLU (111),(11B)
+> +2: LGDT Ms | XGETBV (000),(11B) | XSETBV (001),(11B) | VMFUNC (100),(11B) {VMX} | XEND (101)(11B) | XTEST (110)(11B) | ENCLU (111),(11B)
+>  3: LIDT Ms
+>  4: SMSW Mw/Rv
+>  5: rdpkru (110),(11B) | wrpkru (111),(11B) | SAVEPREVSSP (F3),(010),(11B) | RSTORSSP Mq (F3) | SETSSBSY (F3),(000),(11B)
+> @@ -987,8 +987,8 @@ GrpTable: Grp9
+>  3: xrstors
+>  4: xsavec
+>  5: xsaves
+> -6: VMPTRLD Mq | VMCLEAR Mq (66) | VMXON Mq (F3) | RDRAND Rv (11B)
+> -7: VMPTRST Mq | VMPTRST Mq (F3) | RDSEED Rv (11B)
+> +6: VMPTRLD Mq {VMX} | VMCLEAR Mq (66) {VMX} | VMXON Mq (F3) {VMX} | RDRAND Rv (11B)
+> +7: VMPTRST Mq {VMX} | VMPTRST Mq (F3) {VMX} | RDSEED Rv (11B)
+>  EndTable
+>  
+>  GrpTable: Grp10
+> @@ -1036,10 +1036,10 @@ GrpTable: Grp14
+>  EndTable
+>  
+>  GrpTable: Grp15
+> -0: fxsave | RDFSBASE Ry (F3),(11B)
+> -1: fxstor | RDGSBASE Ry (F3),(11B)
+> -2: vldmxcsr Md (v1) | WRFSBASE Ry (F3),(11B)
+> -3: vstmxcsr Md (v1) | WRGSBASE Ry (F3),(11B)
+> +0: fxsave {FPU} | RDFSBASE Ry (F3),(11B)
+> +1: fxrstor {FPU} | RDGSBASE Ry (F3),(11B)
+> +2: ldmxcsr {FPU} | vldmxcsr Md (v1) | WRFSBASE Ry (F3),(11B)
+> +3: stmxcsr {FPU} | vstmxcsr Md (v1) | WRGSBASE Ry (F3),(11B)
+>  4: XSAVE | ptwrite Ey (F3),(11B)
+>  5: XRSTOR | lfence (11B) | INCSSPD/Q Ry (F3),(11B)
+>  6: XSAVEOPT | clwb (66) | mfence (11B) | TPAUSE Rd (66),(11B) | UMONITOR Rv (F3),(11B) | UMWAIT Rd (F2),(11B) | CLRSSBSY Mq (F3)
 
+
+-- 
+Masami Hiramatsu <mhiramat@kernel.org>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
