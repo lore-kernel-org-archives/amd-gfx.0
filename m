@@ -2,66 +2,102 @@ Return-Path: <SRS0=b+Zp=5Y=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5928DC2D0EA
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2020 07:38:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 403ADC2D0EA
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2020 09:13:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 398D4206A1
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2020 07:38:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 398D4206A1
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
+	by mail.kernel.org (Postfix) with ESMTPS id 12DC42074F
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2020 09:13:03 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="HEBEq9RD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 12DC42074F
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECA146E986;
-	Wed,  8 Apr 2020 07:38:26 +0000 (UTC)
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12CA66E985;
- Wed,  8 Apr 2020 07:38:26 +0000 (UTC)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 1B907AC92;
- Wed,  8 Apr 2020 07:38:24 +0000 (UTC)
-Subject: Re: [PATCH 00/15] amdgpu: remove load and unload callbacks (v3)
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20200207195058.2354-1-alexander.deucher@amd.com>
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- mQENBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAG0J1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPokBVAQTAQgAPhYh
- BHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLCdg62AmR
- irxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6PXo
- clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7
- mneMC5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6i
- KupZstMxstPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8os
- Bv6pnSn7eAq5AQ0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRH
- UE9eosYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgT
- RjP+qbU63Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+R
- dhgATnWWGKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zb
- ehDda8lvhFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r
- 12+lqdsAEQEAAYkBPAQYAQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkD
- wmcAAAoJEGgNwR1TC3ojpfcIAInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2
- h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxU
- n+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uI
- aMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBW
- HE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8CtirPdPWu/VXNRYAl/lat7lSI
- 3H26qrE=
-Message-ID: <76de444d-529d-cce7-8c1a-97053686029c@suse.de>
-Date: Wed, 8 Apr 2020 09:38:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7F8F6E9DF;
+	Wed,  8 Apr 2020 09:13:02 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2085.outbound.protection.outlook.com [40.107.93.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D69036E9DF
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2020 09:13:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=e03Z36VccMHZjwmQszr8NRfknI8QaSpiuhR8vQCr7gaSAisd578dIkGfNaqTz+xoOEo7aSjqFeDXWqrIDL8W1sp1eMrI5astctO7/mQquUUIr5SzUCpksMM2imDB6JsmUmTZngqyB9vIz2XRLgmAwenby/Ek12Z4fyrXYjMnhydjafDW1dDdNK8coO0qvnGl9eIaDmIzD+CCQ+F+cd6y6mGeBhbefC3X5PEk30S3l5Io3L6MjqsCULp3HiFkxTOnHx8EVP4QOL9feuVhnYk/TGvkxYka54wCTDY7EbPzBn2E24208u3Ww6CyaG4RT6NY2EoqZ3/xjlsqmt7cHdX/sA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FNoXUzkfC9hjEq90oLU9oI5bFfqYyHYJN3T9FgVY5aI=;
+ b=j2q5OmlolGurFqyd4VOkwwYwzcCT9IhzEgLwdrN1bU75syDYuE4lccghF5eDLAyGwEKtAPGmewgj9pWrmv5nefpAcWdjWkl1q3JB/dLj8V97N8UU2e8sNdtN89DAJ71F+yq2XeAZUbjRHIs/ipjvxl1gasdZhlsdWBXPkhJqfULFqZSTukF69ndb9+HIzz+8Y45VA20JZpghSUvHk21NFmJOcVb9ozRK1LTYzZ9t0l0mxEcpRy/zjPpIME2JT+w2O0uMJiDgfm/9qVoROaXMiz0zx2uwpt3ljiRYoituZb/SRjxzFrNq5uz/qzhfFCBx3XLX6AzS4jJ3BUSUTomASQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FNoXUzkfC9hjEq90oLU9oI5bFfqYyHYJN3T9FgVY5aI=;
+ b=HEBEq9RDnqYqHteqiRTeYms45K8ei7hyWyuz45cArm7qRnmvHny6ZXi7c9vA6EPwlOGlayNkNLry/2gZz1tm9+WSoECYAXvFLBB9qZ+cnEBoW0NRwSNX1VR1RymbJo89T36tjHI79eTRbKBXdkpVVb80YA2Q7kcZkpX9yuv9e60=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Ray.Huang@amd.com; 
+Received: from MN2PR12MB3309.namprd12.prod.outlook.com (2603:10b6:208:106::29)
+ by MN2PR12MB4190.namprd12.prod.outlook.com (2603:10b6:208:1dd::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.17; Wed, 8 Apr
+ 2020 09:12:59 +0000
+Received: from MN2PR12MB3309.namprd12.prod.outlook.com
+ ([fe80::6417:7247:12ed:1d7b]) by MN2PR12MB3309.namprd12.prod.outlook.com
+ ([fe80::6417:7247:12ed:1d7b%5]) with mapi id 15.20.2878.018; Wed, 8 Apr 2020
+ 09:12:59 +0000
+Date: Wed, 8 Apr 2020 17:12:50 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: "Liu, Aaron" <Aaron.Liu@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: unify fw_write_wait for new gfx9 asics
+Message-ID: <20200408091249.GA31327@jenkins-Celadon-RN>
+References: <20200408064548.857-1-aaron.liu@amd.com>
+Content-Disposition: inline
+In-Reply-To: <20200408064548.857-1-aaron.liu@amd.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: HK2PR06CA0001.apcprd06.prod.outlook.com
+ (2603:1096:202:2e::13) To MN2PR12MB3309.namprd12.prod.outlook.com
+ (2603:10b6:208:106::29)
 MIME-Version: 1.0
-In-Reply-To: <20200207195058.2354-1-alexander.deucher@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from jenkins-Celadon-RN (180.167.199.189) by
+ HK2PR06CA0001.apcprd06.prod.outlook.com (2603:1096:202:2e::13) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2900.15 via Frontend Transport; Wed, 8 Apr 2020 09:12:57 +0000
+X-Originating-IP: [180.167.199.189]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 1c090721-7055-4a21-5e66-08d7db9d0810
+X-MS-TrafficTypeDiagnostic: MN2PR12MB4190:|MN2PR12MB4190:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB41906700CFD3A0571B134F5EECC00@MN2PR12MB4190.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:883;
+X-Forefront-PRVS: 0367A50BB1
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3309.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(39860400002)(396003)(366004)(376002)(136003)(346002)(5660300002)(2906002)(26005)(16526019)(186003)(86362001)(316002)(81166007)(33656002)(6636002)(55016002)(66946007)(478600001)(956004)(6862004)(6666004)(8676002)(1076003)(52116002)(66476007)(4326008)(54906003)(66556008)(9686003)(33716001)(81156014)(6496006)(4744005)(8936002);
+ DIR:OUT; SFP:1101; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: kXOueMTQ3JVvvloU5Ud3jlEQmWhcE3o/EALtbcQTbTH2DLqmAN8FiZ7K4HK+nNXJYlG0DiZeJVcxFO4RGWEx9wiwkdyrGhOCWVW4xl8PzObTrMhBud6A0Qg3pjG9tB7/ne/q+CrUIIcqwdq0WK8EcS4kmBRJ5QnYR4KDm+cyJtl80FHJ1ECWm6vrtjVnz2OAvGTPtLqSxgrsQ35bljv4t/StFH6V4hfDrnWKRQX78TCMjr4F+fVeumpaNycrVqbuqJHcMueyFEjxEjLHmj2TwxAUphB/vm2HiY1MREvBEoaXF8zXvAuDWLKNdbxa8uPkBTEP51COqthk3O0WGCnumyPO6llfRk55BNd++3Xy5lLXGEn1Df+vHB3OMP6lQYxmGL71an+2ksIqYw1CUG9GkRI1m2eUjnsKDouS2/UfImjQlnbRVWq5OzUthe84VerY
+X-MS-Exchange-AntiSpam-MessageData: 7JNRtBynH04MYeVyOfmcC0B/PX+qHBn9425kdc1inGh/Ef0j241WXxA0xg2DVYZ4Y3/msNdQh8wt3d9iaNQ8Q17+WL2LAi2FonjujrILxKp6eSqQ6Hh/InM2i8DHxRVI4yQpQO9Z4JonAb7G4geghg==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c090721-7055-4a21-5e66-08d7db9d0810
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Apr 2020 09:12:58.9882 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xN33DFTWz3v5BgKoybLn+bfWk++ZySUb5Tjtmt+qGx/AdBDeWYNUrgcj3rsGVgSleUXsZyLsxGeyCgFBbq5/bQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4190
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,133 +109,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: multipart/mixed; boundary="===============1009141962=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Dai,
+ Yuxian \(David\)" <Yuxian.Dai@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============1009141962==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="2Hw7BZdPJTZd4IbpOUWWvhglowajcKms3"
+On Wed, Apr 08, 2020 at 02:45:48PM +0800, Liu, Aaron wrote:
+> Make the fw_write_wait default case true since presumably all new
+> gfx9 asics will have updated firmware. That is using unique WAIT_REG_MEM
+> packet with opration=1.
+> 
+> Signed-off-by: Aaron Liu <aaron.liu@amd.com>
+> ---
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---2Hw7BZdPJTZd4IbpOUWWvhglowajcKms3
-Content-Type: multipart/mixed; boundary="Vpi5XvpQjLrmadTFODaU4ScWgJC1LYuEm";
- protected-headers="v1"
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Message-ID: <76de444d-529d-cce7-8c1a-97053686029c@suse.de>
-Subject: Re: [PATCH 00/15] amdgpu: remove load and unload callbacks (v3)
-References: <20200207195058.2354-1-alexander.deucher@amd.com>
-In-Reply-To: <20200207195058.2354-1-alexander.deucher@amd.com>
+Acked-by: Huang Rui <ray.huang@amd.com>
 
---Vpi5XvpQjLrmadTFODaU4ScWgJC1LYuEm
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: quoted-printable
-
-Hi Alex
-
-Am 07.02.20 um 20:50 schrieb Alex Deucher:
-> These are deprecated and the drm will soon start warning when drivers s=
-till
-> use them.  It was a long and twisty road, but seems to work.
-
-Are you going to convert radeon as well? It's the only remaining KMS
-driver that uses load.
-
-Best regards
-Thomas
-
->=20
-> v2: Add additional patch (13/15) which should fix the crash reported by=
-
-> Thomas Zimmermann.
-> v3: Fix dp aux registration harder, add missing kconfig guard
->=20
-> Alex Deucher (15):
->   drm/amdgpu: rename amdgpu_debugfs_preempt_cleanup
->   drm/amdgpu/ttm: move debugfs init into core amdgpu debugfs
->   drm/amdgpu/pm: move debugfs init into core amdgpu debugfs
->   drm/amdgpu/sa: move debugfs init into core amdgpu debugfs
->   drm/amdgpu/fence: move debugfs init into core amdgpu debugfs
->   drm/amdgpu/gem: move debugfs init into core amdgpu debugfs
->   drm/amdgpu/regs: move debugfs init into core amdgpu debugfs
->   drm/amdgpu/firmware: move debugfs init into core amdgpu debugfs
->   drm/amdgpu: don't call drm_connector_register for non-MST ports
->   drm/amdgpu/display: move debugfs init into core amdgpu debugfs (v2)
->   drm/amd/display: move dpcd debugfs members setup
->   drm/amdgpu/display: add a late register connector callback
->   drm/amdgpu/display: split dp connector registration (v2)
->   drm/amdgpu/ring: move debugfs init into core amdgpu debugfs
->   drm/amdgpu: drop legacy drm load and unload callbacks
->=20
->  .../gpu/drm/amd/amdgpu/amdgpu_connectors.c    | 17 ++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   | 69 ++++++++++++++++++-=
-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h   |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 17 -----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       | 13 +++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |  3 -
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c        |  7 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        |  9 +--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.h        |  2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c      | 15 +---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h      |  4 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 14 +---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  3 +
->  drivers/gpu/drm/amd/amdgpu/atombios_dp.c      | 10 +--
->  drivers/gpu/drm/amd/amdgpu/dce_virtual.c      |  1 -
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 26 +++----
->  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |  3 +
->  .../display/amdgpu_dm/amdgpu_dm_mst_types.c   | 13 ++--
->  19 files changed, 140 insertions(+), 89 deletions(-)
->=20
-
---=20
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
-(HRB 36809, AG N=C3=BCrnberg)
-Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
-
-
---Vpi5XvpQjLrmadTFODaU4ScWgJC1LYuEm--
-
---2Hw7BZdPJTZd4IbpOUWWvhglowajcKms3
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl6Nf2wACgkQaA3BHVML
-eiMLCwf+PH5FE852QyaPDcVnR5QP7n6XKnT8LI6jCVXa8pJr4vpCiSFAttsJeLbr
-tdM2NGJjwDIhOHdL1Wy7WpEEAgaqTxzpPaOpRtL6CP5M80MNmGNrweHZHlC+LvAo
-B01HjaS/uDsskeUC+lgBMLhwtaipLOHgTvaGFf/2iuq37tlaPDzt4IzVyUhNzLV1
-yidxupVqU4diIX8mdWxJwvag1J/LU2Yw0G+lhsBUWjPKe8Bkz6EbLP5czZvgxGkv
-V/2YMj44y+eefKFPat+OHkXT4n6DDTeP7iI+4vnxnJKhqod6O6pgWV1AdGVghesJ
-wx5KCVcl0WmYefPfW2zYJgb0KWEooQ==
-=yHNS
------END PGP SIGNATURE-----
-
---2Hw7BZdPJTZd4IbpOUWWvhglowajcKms3--
-
---===============1009141962==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> index 2d56b06722bc..1d18447129b1 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+> @@ -1214,6 +1214,8 @@ static void gfx_v9_0_check_fw_write_wait(struct amdgpu_device *adev)
+>  			adev->gfx.mec_fw_write_wait = true;
+>  		break;
+>  	default:
+> +		adev->gfx.me_fw_write_wait = true;
+> +		adev->gfx.mec_fw_write_wait = true;
+>  		break;
+>  	}
+>  }
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1009141962==--
