@@ -2,60 +2,72 @@ Return-Path: <SRS0=b+Zp=5Y=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D299BC2D0F4
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2020 19:27:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 97AD5C2BA16
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2020 22:23:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AAFB92072F
-	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2020 19:27:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AAFB92072F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=arndb.de
+	by mail.kernel.org (Postfix) with ESMTPS id 6BAFD20753
+	for <amd-gfx@archiver.kernel.org>; Wed,  8 Apr 2020 22:23:03 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HrdXC1rJ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6BAFD20753
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78F2F6EAC1;
-	Wed,  8 Apr 2020 19:27:43 +0000 (UTC)
-X-Greylist: delayed 767 seconds by postgrey-1.36 at gabe;
- Wed, 08 Apr 2020 19:25:58 UTC
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 274B46EAC1
- for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2020 19:25:57 +0000 (UTC)
-Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
- (mreue109 [212.227.15.145]) with ESMTPA (Nemesis) id
- 1MirfG-1iqWM210J2-00es0G; Wed, 08 Apr 2020 21:13:06 +0200
-From: Arnd Bergmann <arnd@arndb.de>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "David (ChunMing) Zhou" <David1.Zhou@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [PATCH] drm/amdgpu/display: avoid unused-variable warning
-Date: Wed,  8 Apr 2020 21:12:46 +0200
-Message-Id: <20200408191305.1179310-1-arnd@arndb.de>
-X-Mailer: git-send-email 2.26.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9F1E6EB0D;
+	Wed,  8 Apr 2020 22:22:59 +0000 (UTC)
+Received: from mail-qv1-xf2b.google.com (mail-qv1-xf2b.google.com
+ [IPv6:2607:f8b0:4864:20::f2b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D38956E062;
+ Wed,  8 Apr 2020 22:22:57 +0000 (UTC)
+Received: by mail-qv1-xf2b.google.com with SMTP id q73so4576332qvq.2;
+ Wed, 08 Apr 2020 15:22:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=L81ln5oXJbeXyAF5yWJrG2bGIx1HQKbTu9eVwydnDvE=;
+ b=HrdXC1rJGt57H+lKojEsG5VxA4pCy6MIS9ia7KcPKaV54P2+Fv9ScUgoteN8tuHn8J
+ 2rCFDPq2nsg3EmG3m0z38ZQ33/sQhPnPpi/A+bqAG7qX4r/dHzOe5jwcTDs6kB/5q+on
+ z7riWhuy+pVXHqgWM6JZZLomU1cVea5TxMBoR/SH0DrozgXht0GmUFwkYIu9ZeT87ZN3
+ aCDUzPK1cVINs4ag+xGEeMU2Ao1/ahp6F8+AAGRraX6amHQgHgK7q8/Ti/xRdHqb0977
+ 9DNfW5nVrXlZ2r1Q39JiTzuMGUtm8aDcmZlR1kI28OweQmM2SF5wWVZdSJ3F4Cu+RLH4
+ 6s1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=L81ln5oXJbeXyAF5yWJrG2bGIx1HQKbTu9eVwydnDvE=;
+ b=e7dUO0TfAiCokF2XQBF3YoROHYu9qlWBiLAXeLdvPdNxUATyMbcl823CG8G03cfKe1
+ VhxmjLxsQ3CDb6cFX0CAnobFwBFEMf8V5fKZ7mDlfav9VOyewbqU4ESi7vj/NVeDU1CR
+ ilpHgqqEekKuuMWWbEjHXg1FhrBrLPpbskDPKFgaALm8MeJYk21OGlQYt2R7t3PpExRd
+ HpBZVk00actSoWATnv5QGnuarja16Dd8jNfCaPVQWAMkG2/+v6J07pSNfdSGoaPVsjlb
+ 4fYTBeCYXHrDCrZqFG/3V1GsvMTAhRv/v8sTOdELfwS4ZGGqZ+vHxjVnHMzPSBJeI52h
+ qw/w==
+X-Gm-Message-State: AGi0PubEASgmIfQqd83ulbwylqGc3NQAvCwkXXEYWsp5myhLPfgVjVQE
+ SbQRv6Dt2L2QbA1XQMeLTR/nMFqq
+X-Google-Smtp-Source: APiQypJ4dsWBiOQk2bSbfUEcWCxFDbDprJmTUWY5PV6WKXahEeuipPfgOR5h+onoZLBmoTTVTRLSkA==
+X-Received: by 2002:a0c:cc90:: with SMTP id f16mr9902002qvl.236.1586384576650; 
+ Wed, 08 Apr 2020 15:22:56 -0700 (PDT)
+Received: from localhost.localdomain ([71.219.40.23])
+ by smtp.gmail.com with ESMTPSA id c8sm4170378qtp.31.2020.04.08.15.22.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Apr 2020 15:22:55 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu drm-fixes-5.7
+Date: Wed,  8 Apr 2020 18:22:40 -0400
+Message-Id: <20200408222240.3942-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.2
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:Hy3BKs9II3tOW07ZNAGp8CLbYOcHoW2PZhpkKmnkAWBjgtzXcnZ
- GrpGlVQEy43nUw6umYZpAwb8VQbjG+Nw1zkXIIAf20xcGD1u+J2Ojm0A0deCH+DfMNYPzVy
- eGoterPP18DDEKX5fN6riyV+w6An/VDD/gLRj1Mz19Dhum4hxWbMrk/3Q0fre++Dr2Wgyhk
- iBFRYQxl3ZW4CPmkUJaTQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:7Xyhk2ZObg4=:lmZnPAzUIgwm/7rzlxsEQu
- /8r4m+re0r3CB2GwtEDM6OcyQ2aAWvPb1plVlczBIOdvux/12b/HiJIFscA7qXxr8Yk7Rir5f
- 5iIMoRWB3i49MJ/W+cVF47nuxDGA2PwQjCkOTlOa1gb5w6sqbtq4uJx9uK6gsDh1Aef5v+mKL
- 5IsMdf7ghETgk9TPJS5TQOTckl1Oq2g2mbtofdyXFv1yBXzqkAMJAc3DYjDTyPsAkVjOVKBZN
- NnRXYkMUBfBsOK+2o+02xvSVzZNivialXnW5ZeQ4/fNkImUjMqu4roTUvCTEKb75HiKdrDbEx
- XSTDcpWK+RAQZ1R1eiPJQGPxo/D4Kc3H+tkl83bVo9UOsvLei/sJ3o6a/KQxPT3p1DO6SR66/
- Vit2txlrddBcYPGqBMrKMdnyFoMchw2EPa2DmA5Y4L9p25oCdAenirHQU68POH26luX47HUGb
- MIJqacpOqJwHhOg/Iv7wYsqBelqQhRPhIzKlS28t3vKC3CW5QaYc7Fx7cH3KEDsiVEmQwHeZW
- 9uaiWzfXQPckTj1mNObJN4WgsQn5t6iVcSGvZRc1aPhqc8rRgCvzwjDyg1H8zFtHsCfmZhYFY
- PS4l+xzYF5cRFW2qFV1mZZDl5blOyzO/JU+QBu26glB3kyEuHIua9ARVmbJH84LAogb/3inQ+
- uJ0YWlwYbO4n4dqganx0rW0uRoJJTTzjzZKt6dL1JQ04XNu92rRI6+HdOoYuF5j430ASlcvsh
- Vjt4rrQJpu1rrHXtsLtoNsNE4mGhxUMs1uu6xDfaKThj735uKHkmuOdlCFftx2fstF+yvwJyq
- qAbO/XixdJey4BDITQ7LC9W65DPoa2D6bWYkLCt64eKBhedxf0=
-X-Mailman-Approved-At: Wed, 08 Apr 2020 19:27:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,62 +79,121 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Arnd Bergmann <arnd@arndb.de>, Roman Li <roman.li@amd.com>,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Mikita Lipski <mikita.lipski@amd.com>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Without CONFIG_DEBUG_FS, this newly added function causes a harmless
-warning:
+Hi Dave, Daniel,
 
-amdgpu_dm/amdgpu_dm.c: In function 'amdgpu_dm_connector_late_register':
-amdgpu_dm/amdgpu_dm.c:4723:30: error: unused variable 'amdgpu_dm_connector' [-Werror=unused-variable]
- 4723 |  struct amdgpu_dm_connector *amdgpu_dm_connector =
-      |                              ^~~~~~~~~~~~~~~~~~~
+Fixes for 5.7.
 
-Use an IS_ENABLED() check instead to let the compiler see what
-is going on.
+The following changes since commit 3148a6a0ef3cf93570f30a477292768f7eb5d3c3:
 
-Fixes: 14f04fa4834a ("drm/amdgpu/display: add a late register connector callback")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+  drm/amdkfd: kfree the wrong pointer (2020-04-01 14:44:22 -0400)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d3674d805a0a..8ab23fe98059 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -51,9 +51,7 @@
- #include "amdgpu_dm_irq.h"
- #include "dm_helpers.h"
- #include "amdgpu_dm_mst_types.h"
--#if defined(CONFIG_DEBUG_FS)
- #include "amdgpu_dm_debugfs.h"
--#endif
- 
- #include "ivsrcid/ivsrcid_vislands30.h"
- 
-@@ -4723,9 +4721,8 @@ amdgpu_dm_connector_late_register(struct drm_connector *connector)
- 	struct amdgpu_dm_connector *amdgpu_dm_connector =
- 		to_amdgpu_dm_connector(connector);
- 
--#if defined(CONFIG_DEBUG_FS)
--	connector_debugfs_init(amdgpu_dm_connector);
--#endif
-+	if (IS_ENABLED(CONFIG_DEBUG_FS))
-+		connector_debugfs_init(amdgpu_dm_connector);
- 
- 	return 0;
- }
--- 
-2.26.0
+are available in the Git repository at:
 
+  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.7-2020-04-08
+
+for you to fetch changes up to 7e7ea24f0b46cd3078bc9af29d1c1aced89d1c8e:
+
+  drm/amdgpu/display: fix warning when compiling without debugfs (2020-04-08 17:53:11 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-5.7-2020-04-08:
+
+amdgpu:
+- Various Renoir fixes
+- Fix gfx clockgating sequence on gfx10
+- RAS fixes
+- Avoid MST property creation after registration
+- Various cursor/viewport fixes
+- Fix a confusing log message about optional firmwares
+
+----------------------------------------------------------------
+Aaron Liu (1):
+      drm/amdgpu: unify fw_write_wait for new gfx9 asics
+
+Aaron Ma (1):
+      drm/amdgpu: Fix oops when pp_funcs is unset in ACPI event
+
+Alex Deucher (2):
+      drm/amdgpu/psp: dont warn on missing optional TA's
+      drm/amdgpu/display: fix warning when compiling without debugfs
+
+Chengming Gui (1):
+      drm/amd/amdgpu: Correct gfx10's CG sequence
+
+Eric Yang (1):
+      drm/amd/display: change default pipe_split policy for DCN1
+
+Evan Quan (1):
+      drm/amd/powerplay: error out on forcing clock setting not supported
+
+Isabel Zhang (1):
+      drm/amd/display: Update stream adjust in dc_stream_adjust_vmin_vmax
+
+Jerry (Fangzhi) Zuo (1):
+      drm/amd/display: Avoid create MST prop after registration
+
+John Clements (2):
+      drm/amdgpu: resolve mGPU RAS query instability
+      drm/amdgpu: update RAS related dmesg print
+
+Joshua Aberback (1):
+      drm/amd/display: Acknowledge wm_optimized_required
+
+Likun Gao (1):
+      drm/amdgpu: change SH MEM alignment mode for gfx10
+
+Michael Strauss (1):
+      drm/amd/display: Check for null fclk voltage when parsing clock table
+
+Nicholas Kazlauskas (5):
+      drm/amd/display: Translate cursor position by source rect
+      drm/amd/display: Fix incorrect cursor pos on scaled primary plane
+      drm/amd/display: Program viewport when source pos changes for DCN20 hw seq
+      drm/amd/display: Calculate scaling ratios on every medium/full update
+      drm/amd/display: Make cursor source translation adjustment optional
+
+Prike Liang (2):
+      drm/amd/powerplay: implement the is_dpm_running()
+      drm/amdgpu: fix gfx hang during suspend with video playback (v2)
+
+Shirish S (1):
+      drm/amd/display: re-order asic declarations
+
+Tiecheng Zhou (1):
+      drm/amd/powerplay: avoid using pm_en before it is initialized
+
+Yuxian Dai (1):
+      drm/amdgpu/powerplay: using the FCLK DPM table to set the MCLK
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  5 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c             |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  6 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c            | 20 ++++++---
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c             | 25 +++++++-----
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  2 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c              |  6 ++-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c            | 13 +++---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 17 ++++----
+ .../amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  8 ++++
+ .../drm/amd/display/dc/clk_mgr/dcn21/rn_clk_mgr.c  |  2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc.c           | 20 +++++++--
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h       |  2 +
+ .../amd/display/dc/dce110/dce110_hw_sequencer.c    | 17 ++++++++
+ .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  | 40 +++++++++++++++++-
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_resource.c  |  2 +-
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c |  1 +
+ drivers/gpu/drm/amd/display/include/dal_asic_id.h  |  6 ++-
+ drivers/gpu/drm/amd/powerplay/amd_powerplay.c      |  3 +-
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c       | 47 +++++++++++++++++++++-
+ drivers/gpu/drm/amd/powerplay/renoir_ppt.c         | 18 +++++++++
+ drivers/gpu/drm/amd/powerplay/renoir_ppt.h         |  2 +-
+ 22 files changed, 217 insertions(+), 48 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
