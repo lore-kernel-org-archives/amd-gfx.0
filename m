@@ -2,72 +2,65 @@ Return-Path: <SRS0=3NI5=5Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F84BC2BA80
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 01:42:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 28887C2BA2B
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 01:42:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 367B12085B
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 01:42:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F2F4C20787
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 01:42:48 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=aurabindo.in header.i=@aurabindo.in header.b="IdhsTx1X"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 367B12085B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=aurabindo.in header.i=@aurabindo.in header.b="RR3inxHN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F2F4C20787
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=aurabindo.in
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B98116EB33;
-	Thu,  9 Apr 2020 01:42:46 +0000 (UTC)
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9985B6EB33
- for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2020 01:28:25 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id z90so1272918qtd.10
- for <amd-gfx@lists.freedesktop.org>; Wed, 08 Apr 2020 18:28:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 729DB6EB36;
+	Thu,  9 Apr 2020 01:42:47 +0000 (UTC)
+Received: from mail-il1-x143.google.com (mail-il1-x143.google.com
+ [IPv6:2607:f8b0:4864:20::143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 472806EB12
+ for <amd-gfx@lists.freedesktop.org>; Wed,  8 Apr 2020 23:18:56 +0000 (UTC)
+Received: by mail-il1-x143.google.com with SMTP id a6so8529635ilr.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Apr 2020 16:18:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aurabindo.in; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=n5kw2Wbvm+jeuA0TKaixDRv8+MULXqVay3QBIHkyklY=;
- b=IdhsTx1X7K+gu0qszXrpQefgwGzG8CB0RvoL1PoE6xMluCGUybvuH1Y1hDU0yhH3lb
- S7ZxnE671zW/V5dVCMIOgpJYyC6qX5dEi8rT9ldP5rLRXGT846mhZ4uTxSNMgJq8hgiy
- DVf+/oXW92XTx+Ke/57DO0CfcC3ryfBU3gwHz3BbjYvxCYPFGah+zYcwZG7q8cWAt+Bn
- VIcoN22EpwE9vvdtIKTtUjvSq0zQv4hHLEppbWzfwOwGFjYq+r3btl1GVxJzPRz8Otf/
- qDz08PtlqeYREFn5SzmohAt6B1fCFjcFdODvQ8szTdoaDTK7sYBdq6qNVFfqbhUZsGdf
- gcXw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=xIQm6fd8XzuEF+zm8pOL7pNaI9rUwGZpiWPVM8H1bSE=;
+ b=RR3inxHNUItmUkfN6BIANFJr5kU1yf5GC8vhL8B+NMY7ovOMiXXmaF3Og/C7qSnUzt
+ YKfEmLLfMm8RLstk1uRScsR279J+7GPXncEpu3UrO6NEGN+m0bPVlcdRQnQlfOk674qo
+ +JMnVpY4lYtYwUq3+rAqxr9kPhTKkH6ROO/jQ1rCh2Wj1r+c4rL3GuT7c0mDqzVYmrCh
+ FnbrrIH7DkAcNOlqSwgSm8RQKxoTvpOB2wmA1JoK9zlbRcw0O16NMd68q1pvmuguFjU0
+ 09wHePpXkryGQ8UZFezGovxC+hWSNPz0dC83e92HLT+RkNsVHc8Z2M8atHdycjYmcqyx
+ afbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=n5kw2Wbvm+jeuA0TKaixDRv8+MULXqVay3QBIHkyklY=;
- b=AbJJqP0sqqET9vBNeaQYlwsI7w6Ga0akOnMX+Rd2EZ+Us9M39CJv60ocQ6kdjgozor
- 4ngXCgNQcExnFvlQl/KKiknJe2P/ohV+5Fwd6g2jdOAt7PTVocI/qSVObAdezHi75huU
- rtUgDdXPMe3+sJFV0tpd/NUpwmVZlHULjOHaOIr1m2wO0s3aqyLMpjtpO07jINS4wgFk
- 0CdezGFomDT4GjJnpkAGmYlQvFK1YVViqn0Og1q7SW2e34F9smZVSapkHQQaeJISXDPw
- AXEPoXTSm7nbds5wjr6cMIKIJKMiWbfDDA/3s1hPWofamygELcKswwuZf+dNu7K7BgLq
- 3f1w==
-X-Gm-Message-State: AGi0Pua6bIK6W/uEraH4Ng3exLlWw5WoNns/yZq9Hh5OeOESwWWrDZpc
- CjuqsrZqUMa7iehsyTejkNxWfYGVXa1dJfzzOCo=
-X-Google-Smtp-Source: APiQypKkLtyEqv2exCrhc0LFffwP7h8eu9YlvpRilNhQ13nMJibLG+kUqVy7Zkjty2jLqU3zF9iILA==
-X-Received: by 2002:ac8:6719:: with SMTP id e25mr10113060qtp.367.1586395704610; 
- Wed, 08 Apr 2020 18:28:24 -0700 (PDT)
-Received: from localhost.localdomain (135-23-249-169.cpe.pppoe.ca.
- [135.23.249.169])
- by smtp.gmail.com with ESMTPSA id h13sm11710186qkj.21.2020.04.08.18.28.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Apr 2020 18:28:24 -0700 (PDT)
-From: Aurabindo Pillai <mail@aurabindo.in>
-To: christian.koenig@amd.com, alexander.deucher@amd.com, David1.Zhou@amd.com
-Subject: [PATCH v2 3/3] drm/amd/amdgpu: remove hardcoded module name in prints
-Date: Wed,  8 Apr 2020 21:28:15 -0400
-Message-Id: <20200409012815.22309-4-mail@aurabindo.in>
-X-Mailer: git-send-email 2.26.0
-In-Reply-To: <20200409012815.22309-1-mail@aurabindo.in>
-References: <20200409012815.22309-1-mail@aurabindo.in>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=xIQm6fd8XzuEF+zm8pOL7pNaI9rUwGZpiWPVM8H1bSE=;
+ b=Shp8Tf58YzCeViDF4aT6UiESyTSYWSjBcp66CIskaG7/wZS65t+Gxy5n53I0B9geN/
+ hOHp5CSG3ay1jlDqpHFlpqV+3FlDciJ3U7nrIuTazQsszCJgQ/eaIs1sRTTaZ8c+CfdD
+ WkLC28XlwMfEPP3TEeoh4njilzylJiwemykUIAykIlndykX0Gt3KGF4ksqjhimhTyGQH
+ +NuWDsTox9vJJkjvMf+/T7jc/kASbUSb4FykeoyFTqZvgP2rHrNmxlNGbfQNDwikBbcD
+ Q3voaeN0tJBaWLTC3KhAxAcTsFFrG5Q/O8DVqyGQZ9dguN/OFMiiWgTZpyobDLV1lNrO
+ MAIA==
+X-Gm-Message-State: AGi0PuaH5eHAEbZTqV+hKqEpxejLAFAz3nX7YdvptfNc5DgM7he29F8e
+ vvIz+rc29s8der6ieWGPWiPA7q13X0tILYYkfPsKQQ==
+X-Google-Smtp-Source: APiQypKEwbFd6R9kEli2dzEGIji7GKMCjLR71i+SQ8NDaynvVQfLOCGvH4kxXequfugwVmVUaRoYsPr0x4OsopRMnPk=
+X-Received: by 2002:a92:5e14:: with SMTP id s20mr10401973ilb.210.1586387935478; 
+ Wed, 08 Apr 2020 16:18:55 -0700 (PDT)
 MIME-Version: 1.0
+References: <20200408133735.7679-1-mail@aurabindo.in>
+ <bfa1a07f6f2046d5edac80d282cc710328d84d72.camel@perches.com>
+In-Reply-To: <bfa1a07f6f2046d5edac80d282cc710328d84d72.camel@perches.com>
+From: Aurabindo Pillai <mail@aurabindo.in>
+Date: Wed, 8 Apr 2020 19:18:44 -0400
+Message-ID: <CAMu4TMv5DuAW3WtDOFx2xoQc_EYURZjnF722QA9mMCdUFGkBBg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: add prefix for pr_* prints
+To: Joe Perches <joe@perches.com>
 X-Mailman-Approved-At: Thu, 09 Apr 2020 01:42:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,133 +73,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, Felix.Kuehling@amd.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- daniel@ffwll.ch
+Cc: David1.Zhou@amd.com, David Airlie <airlied@linux.ie>,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ alexander.deucher@amd.com, christian.koenig@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Let format prefixes take care of printing the module name
-through pr_fmt and dev_fmt definitions.
+Hi Joe,
 
-Signed-off-by: Aurabindo Pillai <mail@aurabindo.in>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 6 +++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c       | 4 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c          | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c            | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c            | 2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c            | 2 +-
- 6 files changed, 9 insertions(+), 9 deletions(-)
+On Wed, Apr 8, 2020 at 11:37 AM Joe Perches <joe@perches.com> wrote:
+>
+> All the embedded uses of "amdgpu:" in logging
+> messages should also be deleted.
+>
+> $ git grep -P '(?:dev_|pr_).*"amdgpu:' drivers/gpu/drm/amd/amdgpu/
+> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:               pr_err("amdgpu: failed to validate PT BOs\n");
+> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:               pr_err("amdgpu: failed to validate PD\n");
+> drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c:                       pr_err("amdgpu: failed to kmap PD, ret=%d\n", ret);
+> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:             pr_info("amdgpu: switched on\n");
+> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:             pr_info("amdgpu: switched off\n");
+> drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c:                        dev_dbg(adev->dev, "amdgpu: using MSI/MSI-X.\n");
+> drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c:          dev_warn(adev->dev, "amdgpu: No suitable DMA available.\n");
+> drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c:          pr_warn("amdgpu: No suitable DMA available\n");
+> drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c:          pr_warn("amdgpu: No suitable DMA available\n");
+>
+>
+>
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index fa8ac9d19..4afd4ef54 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -325,13 +325,13 @@ static int vm_validate_pt_pd_bos(struct amdgpu_vm *vm)
- 	ret = amdgpu_vm_validate_pt_bos(adev, vm, amdgpu_amdkfd_validate,
- 					&param);
- 	if (ret) {
--		pr_err("amdgpu: failed to validate PT BOs\n");
-+		pr_err("failed to validate PT BOs\n");
- 		return ret;
- 	}
- 
- 	ret = amdgpu_amdkfd_validate(&param, pd);
- 	if (ret) {
--		pr_err("amdgpu: failed to validate PD\n");
-+		pr_err("failed to validate PD\n");
- 		return ret;
- 	}
- 
-@@ -340,7 +340,7 @@ static int vm_validate_pt_pd_bos(struct amdgpu_vm *vm)
- 	if (vm->use_cpu_for_update) {
- 		ret = amdgpu_bo_kmap(pd, NULL);
- 		if (ret) {
--			pr_err("amdgpu: failed to kmap PD, ret=%d\n", ret);
-+			pr_err("failed to kmap PD, ret=%d\n", ret);
- 			return ret;
- 		}
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index b8975857d..0a8c4a266 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1092,7 +1092,7 @@ static void amdgpu_switcheroo_set_state(struct pci_dev *pdev, enum vga_switchero
- 		return;
- 
- 	if (state == VGA_SWITCHEROO_ON) {
--		pr_info("amdgpu: switched on\n");
-+		pr_info("switched on\n");
- 		/* don't suspend or resume card normally */
- 		dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
- 
-@@ -1106,7 +1106,7 @@ static void amdgpu_switcheroo_set_state(struct pci_dev *pdev, enum vga_switchero
- 		dev->switch_power_state = DRM_SWITCH_POWER_ON;
- 		drm_kms_helper_poll_enable(dev);
- 	} else {
--		pr_info("amdgpu: switched off\n");
-+		pr_info("switched off\n");
- 		drm_kms_helper_poll_disable(dev);
- 		dev->switch_power_state = DRM_SWITCH_POWER_CHANGING;
- 		amdgpu_device_suspend(dev, true);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-index 5ed4227f3..0cc4c67f9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-@@ -260,7 +260,7 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
- 		nvec = pci_alloc_irq_vectors(adev->pdev, 1, 1, flags);
- 		if (nvec > 0) {
- 			adev->irq.msi_enabled = true;
--			dev_dbg(adev->dev, "amdgpu: using MSI/MSI-X.\n");
-+			dev_dbg(adev->dev, "using MSI/MSI-X.\n");
- 		}
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index b20503935..c1a530dbe 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -858,7 +858,7 @@ static int gmc_v6_0_sw_init(void *handle)
- 
- 	r = dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(44));
- 	if (r) {
--		dev_warn(adev->dev, "amdgpu: No suitable DMA available.\n");
-+		dev_warn(adev->dev, "No suitable DMA available.\n");
- 		return r;
- 	}
- 	adev->need_swiotlb = drm_need_swiotlb(44);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index 9da9596a3..e8529e244 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -1019,7 +1019,7 @@ static int gmc_v7_0_sw_init(void *handle)
- 
- 	r = dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(40));
- 	if (r) {
--		pr_warn("amdgpu: No suitable DMA available\n");
-+		pr_warn("No suitable DMA available\n");
- 		return r;
- 	}
- 	adev->need_swiotlb = drm_need_swiotlb(40);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 27d83204f..0aa5b8280 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -1144,7 +1144,7 @@ static int gmc_v8_0_sw_init(void *handle)
- 
- 	r = dma_set_mask_and_coherent(adev->dev, DMA_BIT_MASK(40));
- 	if (r) {
--		pr_warn("amdgpu: No suitable DMA available\n");
-+		pr_warn("No suitable DMA available\n");
- 		return r;
- 	}
- 	adev->need_swiotlb = drm_need_swiotlb(40);
+Thanks for the heads up, I shall submit another set with those changes
+you suggested.
+
 -- 
-2.26.0
 
+Thanks and Regards,
+
+Aurabindo J Pillai
+https://aurabindo.in
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
