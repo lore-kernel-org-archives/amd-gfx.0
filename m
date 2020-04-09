@@ -3,111 +3,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB0A0C2BA2B
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 14:24:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BA618C2BA2B
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 14:33:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1F1AD20771
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 14:24:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8B1FD215A4
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 14:33:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="GF0RyQZJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1F1AD20771
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="S/yHYzN/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B1FD215A4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC00C6E215;
-	Thu,  9 Apr 2020 14:24:14 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700043.outbound.protection.outlook.com [40.107.70.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 03F646E215;
- Thu,  9 Apr 2020 14:24:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VbsO4c9wPVgCMSdj2aDUwACVyoVA42ww3K9FRpQ4IIFiXBtYbtggwWQqHmOCIZc2CF36rvSCGQEdq+4OqxqBGgtLBAUZmbJmdge2RkZVvrwEAncVKKqDTc4j5W/kvzgsGbD+jahs2oFCQi2ELNHwnwAdT6v1lh/3m6jeQWghYwAt4MWT+N1VmVytF8fMECXh1kEapQhvJgS1pz8wkK8HF+pDYRkNWUCZNaMuLZ3Q2IQh4cTmh6TlsH0EcKrHvEP+ZDfzdKEfTtVoY/gelPbnqRGXMK/KHZuZus695Fgkw9AmeabCJ4fOROjjQBgreKweiIa1CuVmZhT0w6NFsx3pzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1dl+NlhmaVjdoxlH9Pc5CfnR8dgHbsyEoYyhTmAS9ho=;
- b=OAIqJ7RPLgxubD+F9I1eA1EtRieXGTOPlkaq/d0tvyCusgdQy5gIeTvuEg3GSJkrlv/lSyUESpImw7SrwV8O0nhPXz+n8QfvlaosapHliqxKE1+peoUQWpHw1bwkMigFI2yaEWiBJLQEk8cibitkfPKNuTFe0qoF9vwJZIOrQZjJvvGtxmhiXUx1G18f00t0XU8RZqtfP/upnFl/9/FcKWehrI2/8pxkqgcpwhpstGUPrxH/kYZrZEUy8qeza8Ybwkonv1Xbw3meiJtheWm9TX2zHUsbd8H4hreaIygek91RI/CZfpKVyM6Ew9wXs9LPnv/Q6fZVuWitf1hxX/QhDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1dl+NlhmaVjdoxlH9Pc5CfnR8dgHbsyEoYyhTmAS9ho=;
- b=GF0RyQZJ6gGUJ2FwSFS0AsqNHAj5H/1606Ko/KEUzEcCFpzlBYzMGXDguT7P0l1GYGQuhkQxky6mBZlZVqBGHa+T0hO2mHyq662YOIo2qtsKJ7anEbnmvKOI+XOuYr11dOFDEv1Tihj3TguW2RcWrmqW5Yn8BGem465itUZMSgs=
-Received: from BL0PR12MB2547.namprd12.prod.outlook.com (2603:10b6:207:3e::10)
- by BL0PR12MB2561.namprd12.prod.outlook.com (2603:10b6:207:3e::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.17; Thu, 9 Apr
- 2020 14:24:12 +0000
-Received: from BL0PR12MB2547.namprd12.prod.outlook.com
- ([fe80::f4bc:85f1:49eb:4925]) by BL0PR12MB2547.namprd12.prod.outlook.com
- ([fe80::f4bc:85f1:49eb:4925%7]) with mapi id 15.20.2878.016; Thu, 9 Apr 2020
- 14:24:12 +0000
-From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-To: Lucas Stach <l.stach@pengutronix.de>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: Re: [PATCH] drm/ttm: Schedule out if possibe in bo delayed delete
- worker
-Thread-Topic: [PATCH] drm/ttm: Schedule out if possibe in bo delayed delete
- worker
-Thread-Index: AQHWDg7Emk3p0W+6c0quMUa8b5xmnKhwuoAAgAAOIoCAAAOIAIAABspegAABUgmAAAQvsg==
-Date: Thu, 9 Apr 2020 14:24:12 +0000
-Message-ID: <BL0PR12MB2547BF609F21C48B17A402A087C10@BL0PR12MB2547.namprd12.prod.outlook.com>
-References: <20200409013148.4219-1-xinhui.pan@amd.com>
- <7ebd6025-a563-30d1-8c84-cb031bfef0c1@amd.com>
- <d80c89fe353a114df786e75563d434c496b8140d.camel@pengutronix.de>,
- <8b634370-1771-4aa4-8725-74b5d807db4b@amd.com>,
- <BL0PR12MB254767C8A1AFAE0D52685A1F87C10@BL0PR12MB2547.namprd12.prod.outlook.com>,
- <BL0PR12MB254789981840471CD72EBFD487C10@BL0PR12MB2547.namprd12.prod.outlook.com>
-In-Reply-To: <BL0PR12MB254789981840471CD72EBFD487C10@BL0PR12MB2547.namprd12.prod.outlook.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-04-09T14:02:41.0143287Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Privileged
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Xinhui.Pan@amd.com; 
-x-originating-ip: [101.88.212.202]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: f04a9267-c433-4be3-cc46-08d7dc91acf0
-x-ms-traffictypediagnostic: BL0PR12MB2561:|BL0PR12MB2561:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BL0PR12MB2561F0603FB8999AECAB3C2B87C10@BL0PR12MB2561.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 0368E78B5B
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2547.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(376002)(366004)(396003)(346002)(136003)(39860400002)(2940100002)(66574012)(71200400001)(478600001)(4326008)(66446008)(64756008)(91956017)(55016002)(966005)(76116006)(45080400002)(66556008)(66476007)(9686003)(2906002)(66946007)(110136005)(316002)(53546011)(6506007)(7696005)(33656002)(81156014)(5660300002)(52536014)(86362001)(8676002)(8936002)(81166007)(26005)(6636002)(186003);
- DIR:OUT; SFP:1101; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: hZxs7z3Ygd1Kfn4fdG2h+9BUsFmAct4soD5sbKrwLXHcLB+x2LT/kcmLOPKP/kfOtEzhBosnPGzQN2aFBcAawaxKJJNmWB26r/b3fZBUz9WDcRtfEm/XaekkQopHiEK14/bcUtN5weMhMVCqe3hvFJSOTpig+zTjKP3pTWAHk+8NwRK+/pphQs6dI4aNWZ8yy8gp7A4pv321PUx6pTbEPCOV0knvop/o4TyJswBiikgpx3WAILwEDV9fbvyrrIOCJ1YpGH8j0R/im9PcMU22h+zpmNxAVpc1xWJxAir8pnASIzzNW9ioSCo0tOlVPGNy2UKKcMR1dvpa97mcCfsg7krSzLgbsxny3pVRqn3uZthHhJP/P2vv3P8o5ukxGRLVzWyn634Pt3wiuGqFch0UbMzB4ZVzqabFgC/hhnAB+CBpxuvnmE60fN9QGaPzljMy49AODOF6gqbet7prmOG8zW4XHyWxneyyCuzIM4kqrAgrZ3oF0S82FByH8egUk6nw2bu4gcks0lawNvxQBUTWmA==
-x-ms-exchange-antispam-messagedata: nn9I/aZzDXnHCu8q427eiUxQlU4s7SvyvXj4foQykj35a7X0352K24C8EpheemIiy4Wr3Ff1iEicHaXy/kPvKx5Qha0C4MU6LtdhQJdUZMPKv+mZaQ5GGf1ovGXBm3NSSvo0qrftY4GkQAiXABNhnA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C5BF6E222;
+	Thu,  9 Apr 2020 14:33:24 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C52766E222
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2020 14:32:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=Cek1JPKBY7wOsIzhQYQVdn8n+IKcetIj9PBwUwI8zUQ=; b=S/yHYzN/QmYNh6Jx5SKM+j2DDS
+ VNNzYgF+FTyUYeT21cye7O8KkO46LRqbgExLOUhryqYvXj9PddsgQmYkXIiyk9LUIKF3/E5H8YckW
+ kAd27TVxtTvfpNK+K6KyLJOqIJ88fp9O3s/j6uuJTwzBIpLvG8rXIukRGIQ8Y+vLbS4ysD629L8zc
+ 2a42M6Qd+Y/H0fRCrhdJSQ++DfiTlWAn6uP2V/uAkRx5YJ2/Sbm/QaG5Tx2ENnaX6bR4zl9jU+eG7
+ aVvxZ9Aow5oR2bJwISyFUDV00YJOA1JSo0E3RiOe5ucjarubLHUTmfFv+hiDGkPPG0O/51nTYa9jF
+ iobVz3ig==;
+Received: from j217100.upc-j.chello.nl ([24.132.217.100]
+ helo=noisy.programming.kicks-ass.net)
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1jMYE3-0008G2-C1; Thu, 09 Apr 2020 14:32:15 +0000
+Received: from hirez.programming.kicks-ass.net
+ (hirez.programming.kicks-ass.net [192.168.1.225])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id D32253012D8;
+ Thu,  9 Apr 2020 16:32:12 +0200 (CEST)
+Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
+ id BA64B2B0BDA4F; Thu,  9 Apr 2020 16:32:12 +0200 (CEST)
+Date: Thu, 9 Apr 2020 16:32:12 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Masami Hiramatsu <mhiramat@kernel.org>
+Subject: Re: [PATCH v2] x86: insn: Add insn_is_fpu()
+Message-ID: <20200409143212.GW20696@hirez.programming.kicks-ass.net>
+References: <20200407155449.GF20730@hirez.programming.kicks-ass.net>
+ <158636215075.6641.10786116450376715657.stgit@devnote2>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f04a9267-c433-4be3-cc46-08d7dc91acf0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Apr 2020 14:24:12.5155 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UZSC8qORKAj0ZJ0Im/pUiUBOjzOaUtvsS6uBKCSX3eP4t3hsLIMv1mG6hqtXticF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB2561
+Content-Disposition: inline
+In-Reply-To: <158636215075.6641.10786116450376715657.stgit@devnote2>
+X-Mailman-Approved-At: Thu, 09 Apr 2020 14:33:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,329 +69,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1634778351=="
+Cc: David Zhou <David1.Zhou@amd.com>, Josh Poimboeuf <jpoimboe@redhat.com>,
+ Jann Horn <jannh@google.com>, Leo Li <sunpeng.li@amd.com>,
+ the arch/x86 maintainers <x86@kernel.org>,
+ kernel list <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Andy Lutomirski <luto@kernel.org>,
+ "H . Peter Anvin" <hpa@zytor.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Harry Wentland <harry.wentland@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1634778351==
-Content-Language: zh-CN
-Content-Type: multipart/alternative;
-	boundary="_000_BL0PR12MB2547BF609F21C48B17A402A087C10BL0PR12MB2547namp_"
+On Thu, Apr 09, 2020 at 01:09:11AM +0900, Masami Hiramatsu wrote:
+> Add insn_is_fpu(insn) which tells that the insn is
+> whether touch the FPU/SSE/MMX register or the instruction
+> of FP coprocessor.
+> 
+> Signed-off-by: Masami Hiramatsu <mhiramat@kernel.org>
+> ---
 
---_000_BL0PR12MB2547BF609F21C48B17A402A087C10BL0PR12MB2547namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Sadly, it turns out I need "FWAIT" too, which I tried adding like the
+below, but that comes apart most mighty :/
 
-https://elixir.bootlin.com/linux/latest/source/mm/slab.c#L4026
+The trouble is that FWAIT doesn't take a MODRM, so the previous
+assumption that INAT_FPU implied INAT_MODRM needs to be broken, and I
+think that ripples through somewhere.
 
-This is another example of the usage of  cond_sched.
-________________________________
-From: Pan, Xinhui <Xinhui.Pan@amd.com>
-Sent: Thursday, April 9, 2020 10:11:08 PM
-To: Lucas Stach <l.stach@pengutronix.de>; amd-gfx@lists.freedesktop.org <am=
-d-gfx@lists.freedesktop.org>; Koenig, Christian <Christian.Koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/ttm: Schedule out if possibe in bo delayed delete =
-worker
+(also, your patch adds some whitespace to convert_operands(), not sure
+that was intended)
 
-I think it doesn't matter if workitem schedule out. Even we did not schedul=
-e out, the workqueue itself will schedule out later.
-So it did not break anything with this patch I think.
-________________________________
-From: Pan, Xinhui <Xinhui.Pan@amd.com>
-Sent: Thursday, April 9, 2020 10:07:09 PM
-To: Lucas Stach <l.stach@pengutronix.de>; amd-gfx@lists.freedesktop.org <am=
-d-gfx@lists.freedesktop.org>; Koenig, Christian <Christian.Koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/ttm: Schedule out if possibe in bo delayed delete =
-worker
-
-Why we break out the loops when there are pending bos to be released?
-
-And I just checked the process_one_work. Right after the work item callback=
- is called,  the workqueue itself will call cond_resched. So I think
-________________________________
-From: Koenig, Christian <Christian.Koenig@amd.com>
-Sent: Thursday, April 9, 2020 9:38:24 PM
-To: Lucas Stach <l.stach@pengutronix.de>; Pan, Xinhui <Xinhui.Pan@amd.com>;=
- amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/ttm: Schedule out if possibe in bo delayed delete =
-worker
-
-Am 09.04.20 um 15:25 schrieb Lucas Stach:
-> Am Donnerstag, den 09.04.2020, 14:35 +0200 schrieb Christian K=F6nig:
->> Am 09.04.20 um 03:31 schrieb xinhui pan:
->>> The delayed delete list is per device which might be very huge. And in
->>> a heavy workload test, the list might always not be empty. That will
->>> trigger any RCU stall warnings or softlockups in non-preemptible kernel=
-s
->>> Lets do schedule out if possible in that case.
->> Mhm, I'm not sure if that is actually allowed. This is called from a
->> work item and those are not really supposed to be scheduled away.
-> Huh? Workitems can schedule out just fine, otherwise they would be
-> horribly broken when it comes to sleeping locks.
-
-Let me refine the sentence: Work items are not really supposed to be
-scheduled purposely. E.g. you shouldn't call schedule() or
-cond_resched() like in the case here.
-
-Getting scheduled away because we wait for a lock is of course perfectly
-fine.
-
->   The workqueue code
-> even has measures to keep the workqueues at the expected concurrency
-> level by starting other workitems when one of them goes to sleep.
-
-Yeah, and exactly that's what I would say we should avoid here :)
-
-In other words work items can be scheduled away, but they should not if
-not really necessary (e.g. waiting for a lock).
-
-Otherwise as you said new threads for work item processing are started
-up and I don't think we want that.
-
-Just returning from the work item and waiting for the next cycle is most
-likely the better option.
-
-Regards,
-Christian.
-
->
-> Regards,
-> Lucas
->
->> Maybe rather change the while into while (!list_empty(&bdev->ddestroy)
->> && !should_reschedule(0)).
->>
->> Christian.
->>
->>> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
->>> ---
->>>    drivers/gpu/drm/ttm/ttm_bo.c | 1 +
->>>    1 file changed, 1 insertion(+)
->>>
->>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.=
-c
->>> index 9e07c3f75156..b8d853cab33b 100644
->>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
->>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
->>> @@ -541,6 +541,7 @@ static bool ttm_bo_delayed_delete(struct ttm_bo_dev=
-ice *bdev, bool remove_all)
->>>              }
->>>
->>>              ttm_bo_put(bo);
->>> +           cond_resched();
->>>              spin_lock(&glob->lru_lock);
->>>      }
->>>      list_splice_tail(&removed, &bdev->ddestroy);
->> _______________________________________________
->> dri-devel mailing list
->> dri-devel@lists.freedesktop.org
->> https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flist=
-s.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=3D02%7C01%7Cchr=
-istian.koenig%40amd.com%7C0a47486676a74702f05408d7dc89839c%7C3dd8961fe4884e=
-608e11a82d994e183d%7C0%7C0%7C637220355504145868&amp;sdata=3DwbRkYBPI6mYuZjK=
-BtQN3AGLDOwqJlWY3XUtwwSiUQHg%3D&amp;reserved=3D0
-
-
---_000_BL0PR12MB2547BF609F21C48B17A402A087C10BL0PR12MB2547namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-</head>
-<body>
-<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
-ly: sans-serif; font-size: 11pt; color: black; ">
-https://elixir.bootlin.com/linux/latest/source/mm/slab.c#L4026<br>
-<br>
-</div>
-<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
-ly: sans-serif; font-size: 11pt; color: black; ">
-This is another example of the usage of&nbsp; cond_sched.</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Pan, Xinhui &lt;Xinhu=
-i.Pan@amd.com&gt;<br>
-<b>Sent:</b> Thursday, April 9, 2020 10:11:08 PM<br>
-<b>To:</b> Lucas Stach &lt;l.stach@pengutronix.de&gt;; amd-gfx@lists.freede=
-sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;; Koenig, Christian &lt;Chri=
-stian.Koenig@amd.com&gt;<br>
-<b>Cc:</b> dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.=
-org&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/ttm: Schedule out if possibe in bo delayed =
-delete worker</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-I think it doesn't matter if workitem schedule out. Even we did not schedul=
-e out, the workqueue itself will schedule out later.<br>
-</div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-So it did not break anything with this patch I think.</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Pan, Xinhui &lt;Xin=
-hui.Pan@amd.com&gt;<br>
-<b>Sent:</b> Thursday, April 9, 2020 10:07:09 PM<br>
-<b>To:</b> Lucas Stach &lt;l.stach@pengutronix.de&gt;; amd-gfx@lists.freede=
-sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;; Koenig, Christian &lt;Chri=
-stian.Koenig@amd.com&gt;<br>
-<b>Cc:</b> dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.=
-org&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/ttm: Schedule out if possibe in bo delayed =
-delete worker</font>
-<div>&nbsp;</div>
-</div>
-<div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-Why we break out the loops when there are pending bos to be released?<br>
-<br>
-</div>
-<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
-sans-serif; font-size:11pt; color:black">
-And I just checked the process_one_work. Right after the work item callback=
- is called,&nbsp; the workqueue itself will call cond_resched. So I think
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif=
-" color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Koenig, Christian=
- &lt;Christian.Koenig@amd.com&gt;<br>
-<b>Sent:</b> Thursday, April 9, 2020 9:38:24 PM<br>
-<b>To:</b> Lucas Stach &lt;l.stach@pengutronix.de&gt;; Pan, Xinhui &lt;Xinh=
-ui.Pan@amd.com&gt;; amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedes=
-ktop.org&gt;<br>
-<b>Cc:</b> dri-devel@lists.freedesktop.org &lt;dri-devel@lists.freedesktop.=
-org&gt;<br>
-<b>Subject:</b> Re: [PATCH] drm/ttm: Schedule out if possibe in bo delayed =
-delete worker</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_x_BodyFragment"><font size=3D"2"><span style=3D"font-size:1=
-1pt">
-<div class=3D"x_x_PlainText">Am 09.04.20 um 15:25 schrieb Lucas Stach:<br>
-&gt; Am Donnerstag, den 09.04.2020, 14:35 &#43;0200 schrieb Christian K=F6n=
-ig:<br>
-&gt;&gt; Am 09.04.20 um 03:31 schrieb xinhui pan:<br>
-&gt;&gt;&gt; The delayed delete list is per device which might be very huge=
-. And in<br>
-&gt;&gt;&gt; a heavy workload test, the list might always not be empty. Tha=
-t will<br>
-&gt;&gt;&gt; trigger any RCU stall warnings or softlockups in non-preemptib=
-le kernels<br>
-&gt;&gt;&gt; Lets do schedule out if possible in that case.<br>
-&gt;&gt; Mhm, I'm not sure if that is actually allowed. This is called from=
- a<br>
-&gt;&gt; work item and those are not really supposed to be scheduled away.<=
-br>
-&gt; Huh? Workitems can schedule out just fine, otherwise they would be<br>
-&gt; horribly broken when it comes to sleeping locks.<br>
-<br>
-Let me refine the sentence: Work items are not really supposed to be <br>
-scheduled purposely. E.g. you shouldn't call schedule() or <br>
-cond_resched() like in the case here.<br>
-<br>
-Getting scheduled away because we wait for a lock is of course perfectly <b=
-r>
-fine.<br>
-<br>
-&gt;&nbsp;&nbsp; The workqueue code<br>
-&gt; even has measures to keep the workqueues at the expected concurrency<b=
-r>
-&gt; level by starting other workitems when one of them goes to sleep.<br>
-<br>
-Yeah, and exactly that's what I would say we should avoid here :)<br>
-<br>
-In other words work items can be scheduled away, but they should not if <br=
->
-not really necessary (e.g. waiting for a lock).<br>
-<br>
-Otherwise as you said new threads for work item processing are started <br>
-up and I don't think we want that.<br>
-<br>
-Just returning from the work item and waiting for the next cycle is most <b=
-r>
-likely the better option.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-&gt;<br>
-&gt; Regards,<br>
-&gt; Lucas<br>
-&gt;<br>
-&gt;&gt; Maybe rather change the while into while (!list_empty(&amp;bdev-&g=
-t;ddestroy)<br>
-&gt;&gt; &amp;&amp; !should_reschedule(0)).<br>
-&gt;&gt;<br>
-&gt;&gt; Christian.<br>
-&gt;&gt;<br>
-&gt;&gt;&gt; Signed-off-by: xinhui pan &lt;xinhui.pan@amd.com&gt;<br>
-&gt;&gt;&gt; ---<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/ttm/ttm_bo.c | 1 &#43;<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; 1 file changed, 1 insertion(&#43;)<br>
-&gt;&gt;&gt;<br>
-&gt;&gt;&gt; diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/tt=
-m/ttm_bo.c<br>
-&gt;&gt;&gt; index 9e07c3f75156..b8d853cab33b 100644<br>
-&gt;&gt;&gt; --- a/drivers/gpu/drm/ttm/ttm_bo.c<br>
-&gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/ttm/ttm_bo.c<br>
-&gt;&gt;&gt; @@ -541,6 &#43;541,7 @@ static bool ttm_bo_delayed_delete(stru=
-ct ttm_bo_device *bdev, bool remove_all)<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp; <br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; ttm_bo_put(bo);<br>
-&gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; cond_resched();<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; spin_lock(&amp;glob-&gt;lru_lock);<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_splice_tail(&amp;removed, &=
-amp;bdev-&gt;ddestroy);<br>
-&gt;&gt; _______________________________________________<br>
-&gt;&gt; dri-devel mailing list<br>
-&gt;&gt; dri-devel@lists.freedesktop.org<br>
-&gt;&gt; <a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dh=
-ttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;amp=
-;data=3D02%7C01%7Cchristian.koenig%40amd.com%7C0a47486676a74702f05408d7dc89=
-839c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637220355504145868&amp;am=
-p;sdata=3DwbRkYBPI6mYuZjKBtQN3AGLDOwqJlWY3XUtwwSiUQHg%3D&amp;amp;reserved=
-=3D0">
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;amp;data=3D02%7C01%7Cch=
-ristian.koenig%40amd.com%7C0a47486676a74702f05408d7dc89839c%7C3dd8961fe4884=
-e608e11a82d994e183d%7C0%7C0%7C637220355504145868&amp;amp;sdata=3DwbRkYBPI6m=
-YuZjKBtQN3AGLDOwqJlWY3XUtwwSiUQHg%3D&amp;amp;reserved=3D0</a><br>
-<br>
-</div>
-</span></font></div>
-</div>
-</div>
-</body>
-</html>
-
---_000_BL0PR12MB2547BF609F21C48B17A402A087C10BL0PR12MB2547namp_--
-
---===============1634778351==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+--- a/arch/x86/lib/x86-opcode-map.txt
++++ b/arch/x86/lib/x86-opcode-map.txt
+@@ -206,7 +206,7 @@ Table: one byte opcode
+ 98: CBW/CWDE/CDQE
+ 99: CWD/CDQ/CQO
+ 9a: CALLF Ap (i64)
+-9b: FWAIT/WAIT
++9b: FWAIT/WAIT {FPU}
+ 9c: PUSHF/D/Q Fv (d64)
+ 9d: POPF/D/Q Fv (d64)
+ 9e: SAHF
+--- a/arch/x86/tools/gen-insn-attr-x86.awk
++++ b/arch/x86/tools/gen-insn-attr-x86.awk
+@@ -331,9 +331,13 @@ function convert_operands(count,opnd,
+ 		if (match(opcode, rex_expr))
+ 			flags = add_flags(flags, "INAT_MAKE_PREFIX(INAT_PFX_REX)")
+ 
++		# check coprocessor escape
++		if (match(ext, "^ESC"))
++			flags = add_flags(flags, "INAT_MODRM")
++
+ 		# check FPU/MMX/SSE superscripts
+ 		if (match(ext, fpu_expr))
+-			flags = add_flags(flags, "INAT_MODRM | INAT_FPU")
++			flags = add_flags(flags, "INAT_FPU")
+ 
+ 		# check VEX codes
+ 		if (match(ext, evexonly_expr))
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1634778351==--
