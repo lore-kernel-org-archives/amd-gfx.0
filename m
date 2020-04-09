@@ -2,100 +2,73 @@ Return-Path: <SRS0=3NI5=5Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FCAAC2BA2B
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 01:32:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE1ADC2BA2B
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 01:42:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0BFC820757
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 01:32:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9BDDF20787
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 01:42:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IKGsER7m"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0BFC820757
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=aurabindo.in header.i=@aurabindo.in header.b="NlMqSZt8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9BDDF20787
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=aurabindo.in
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B86FE89D64;
-	Thu,  9 Apr 2020 01:32:48 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2049.outbound.protection.outlook.com [40.107.243.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE17989D64;
- Thu,  9 Apr 2020 01:32:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=KMnKRzDbmJr6tqFdFQKKA3Yr+hd5okqIrj/IHKaaA/cj8BLlT9lY0qvRdSlQvsQS5gWbGiogYLji2lafL4l1BY1oTPcTkZyQyi7hCLnxIEvJZcJJ1LHXB1CK0WEAAQ7owpcAovEaT3/GxkCqrjW5PdsfV+8wsR5M+cM6Ue2Q1+YHj1GTea+t+VCabry7snwGS0MiTDEd+pXM1atdTVgTbp89P/VCo0K5XbscQJGe+Zd/kd3kf7asL32cQyhKD+fj02md/+aIOIUOpl66YH7cXhvrklj9whGbBx3DAGRWfE+FUrYre7GNbKLrT3LahQ3vETMgjce6BHxZfCD07bNujA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OQ1bbuLvKGjyJxOw4LZTxXXk3b0NfnxSqOUpzZWImHI=;
- b=PatWNMkLkBNy5Y4pWuWCutZ331+IZsR8VsdEhShWElQltqBXjFyiMuuebRREmuBMRef1Jf7Z+keWFutjPOPAklFj+vblbcE1op/1Gwy1loby9OT5m32Hm52RMycLNCccNjehuBEFQB9+Nh27wpTAqQ3Goxes/soowOVBwNE73vbnl6FAFHbiLM72sX75OPURtraLefY+X2UNGr2R+RU1WJDL3EvxYLyvJcQZ5IbDWJXUUiyabEPQYfulmm1er27zO9uN/vXFwqs3T7iBpGLFrEYmAi+l8v0VaNK521wWmZiCXaxZ2RImgPw8rezq6MJEuAzNeClvF9juFQtI3CuaYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OQ1bbuLvKGjyJxOw4LZTxXXk3b0NfnxSqOUpzZWImHI=;
- b=IKGsER7m3AwGqR0G/2KBD+xBvE0QSxYrqcFUAYyhiDtjrfBecYsaGi8GNpMwgwwAMFOivYqdtfHbb8iBMnoaTXIWKplaMAxO+5eEf1d0ZrVzzMK83jD2IumMn502cU8XHjIpQzpvH1q2yXNe2kSGwUZqmgxAo2aYr405xm1S15w=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Xinhui.Pan@amd.com; 
-Received: from SN1PR12MB2558.namprd12.prod.outlook.com (2603:10b6:802:2b::18)
- by SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.20; Thu, 9 Apr
- 2020 01:32:45 +0000
-Received: from SN1PR12MB2558.namprd12.prod.outlook.com
- ([fe80::8815:8e06:d0f2:c41e]) by SN1PR12MB2558.namprd12.prod.outlook.com
- ([fe80::8815:8e06:d0f2:c41e%3]) with mapi id 15.20.2878.022; Thu, 9 Apr 2020
- 01:32:45 +0000
-From: xinhui pan <xinhui.pan@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/ttm: Schedule out if possibe in bo delayed delete worker
-Date: Thu,  9 Apr 2020 09:31:48 +0800
-Message-Id: <20200409013148.4219-1-xinhui.pan@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: HK0PR03CA0102.apcprd03.prod.outlook.com
- (2603:1096:203:b0::18) To SN1PR12MB2558.namprd12.prod.outlook.com
- (2603:10b6:802:2b::18)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 528A46EB32;
+	Thu,  9 Apr 2020 01:42:46 +0000 (UTC)
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67AC86EB2D
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2020 01:28:21 +0000 (UTC)
+Received: by mail-qv1-xf44.google.com with SMTP id g4so4742100qvo.12
+ for <amd-gfx@lists.freedesktop.org>; Wed, 08 Apr 2020 18:28:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aurabindo.in; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=a8mBf/x6tKmxXEyAN6VSKYHc9JSU+mIaA50Z6TnFau4=;
+ b=NlMqSZt8QFI8sd/DDnRRiuydXjaYLzxItlei1QSWHbiyShTaKKSGURBOkhrkk91CxW
+ /X+Qgb5kT/Tps0tzjntpYhBtxqSIyEiUAJrD28KSW+Ak6UERz5KiIAuFmidnFOXF3saq
+ y5hxwSo82HWB2DKzD+N3OLxUlzmHRmC7x9lEqr/VOOaWRmBSLLr5JZ1o1m2bcGFp2N8K
+ CMMceFTqTpBOdT8lUa6F6lNm7O38kfcGVYWCp2tJIxAZHD7mDG/r8vp2SL6SxRNJ0j6b
+ ewLTd/FthX6hcv+JmkjXbKfzvZNfibmvWUqRC0qmB1IZrqJkjbZSCFgDsIDSquzFIxOR
+ J1KQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=a8mBf/x6tKmxXEyAN6VSKYHc9JSU+mIaA50Z6TnFau4=;
+ b=qVw5HOd5Vwj3KJkZV4fJo00MODsjX1CSiDqOIhDOvt4pN7tq0caWUPU9yy8FFV419p
+ iFahmilhRyYN70c1FbhqG2UhcFTvahhnr3W6b6Nfn2Un2MIEcDR59Ay17P0Rnme3iT08
+ xcQDQQLVWJVuLYVsPULlpMfvGuICXe3HEKnlHkqs2LkC7Pdgl1tr14G9RZg+MrpPuPUa
+ oYtpIN+a0Fzzyi9B2JdFhQDxk5aLrlpnzwTaua3bihaj3MiYwaYL/bfTPUJF/DCbdRUR
+ 2eoN/zBE864rcUQBNE77bSBEjOZy3P1tFK3NzpE6jufRBpnu8IvtY7oHzBmReyOEXgNm
+ S5dA==
+X-Gm-Message-State: AGi0PubmvRmSM5t7cKaj/T88vUo9KzKVNSfJt5mtrGhY1YgScP66LOGx
+ m479DgLfRXWivLyARov4Unlsaw==
+X-Google-Smtp-Source: APiQypLHyltpW2woM041SGTay/GRNOYCz+x3AjvXnaurPcRm5EFzWLaZMasX8iJ0rPqFFM0GH+KX3Q==
+X-Received: by 2002:a0c:bd99:: with SMTP id n25mr10491345qvg.149.1586395700553; 
+ Wed, 08 Apr 2020 18:28:20 -0700 (PDT)
+Received: from localhost.localdomain (135-23-249-169.cpe.pppoe.ca.
+ [135.23.249.169])
+ by smtp.gmail.com with ESMTPSA id h13sm11710186qkj.21.2020.04.08.18.28.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Apr 2020 18:28:20 -0700 (PDT)
+From: Aurabindo Pillai <mail@aurabindo.in>
+To: christian.koenig@amd.com, alexander.deucher@amd.com, David1.Zhou@amd.com
+Subject: [PATCH v2 1/3] drm/amd/amdgpu: add prefix for pr_* prints
+Date: Wed,  8 Apr 2020 21:28:13 -0400
+Message-Id: <20200409012815.22309-2-mail@aurabindo.in>
+X-Mailer: git-send-email 2.26.0
+In-Reply-To: <20200409012815.22309-1-mail@aurabindo.in>
+References: <20200409012815.22309-1-mail@aurabindo.in>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from pp-server-two.amd.com (180.167.199.189) by
- HK0PR03CA0102.apcprd03.prod.outlook.com (2603:1096:203:b0::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2900.15 via Frontend Transport; Thu, 9 Apr 2020 01:32:43 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [180.167.199.189]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 0937499e-2888-459a-cd6c-08d7dc25e747
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2414:|SN1PR12MB2414:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB2414B681AEBBA6EDA0FB0C5C87C10@SN1PR12MB2414.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
-X-Forefront-PRVS: 0368E78B5B
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN1PR12MB2558.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(376002)(366004)(39860400002)(396003)(346002)(136003)(16526019)(81156014)(66946007)(66556008)(8936002)(4326008)(6916009)(8676002)(478600001)(86362001)(316002)(52116002)(450100002)(7696005)(36756003)(4744005)(66476007)(81166007)(2906002)(186003)(26005)(5660300002)(2616005)(956004)(1076003)(6486002);
- DIR:OUT; SFP:1101; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Yt2kpOfFDWO+hRPZSmI+vtnUBlkd0l+R70MAQ4oeb5YFfQTW4B++7TuPIo9ypsDRk1pp1liKMNA80xDROKCwax2wk7qQc+fc9BSPcVri5RFm7oVsBnpHSYP/iqQKThSwT937nADQEV0dmQLaxjuyPHzoA5G48uWy/2FqtXUvXSbNpBqA1ZjoaQxGZv06UUpHyAoxLp6HaTE/8UWUqGzHEyZ57O/3RtOmCtu1xCE7uHr9YqyJtq3fR2VX0zhHXVwNpHA2k2UVDTW77odyz9BJL8ygbBU5RGz/S/+bop2kZbSF8SXMSpd9vf9G63gOG36j+2+p/yw0dv9LfjLtzP0TFslZ3TVZkJUfd81PNbggwhQ+UsNzGep4UWPaLvf3lJADQRgOtX0oYeq3QXRq+Fic6uVxcAHamgzwBF6YKl1I4KAdL4+puAcHNXs0MS7VwMwF
-X-MS-Exchange-AntiSpam-MessageData: WXEEQsf3j3hlhCZ2Qh55e8/pcQLB1/uuQZ0zbnUZ3nVlt7aopPR8AgqZ8DOzlNk6LJkBbBXX+ZVeZb3WNQSpwdBFvKU06KTybwlCbTKdBWc1ZBrV2tnPEHRjVM5X8EAffDN0/dWRNovX0r/xeyyAxA==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0937499e-2888-459a-cd6c-08d7dc25e747
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2020 01:32:45.2275 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: naBczMxh2EpFcNQgOXvpNC0zTF/tM2QdGrRI01GqMHhM6AUinHtJubwtH+PyIdVi
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2414
+X-Mailman-Approved-At: Thu, 09 Apr 2020 01:42:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,37 +80,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: xinhui pan <xinhui.pan@amd.com>, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org
+Cc: airlied@linux.ie, Felix.Kuehling@amd.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ daniel@ffwll.ch
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The delayed delete list is per device which might be very huge. And in
-a heavy workload test, the list might always not be empty. That will
-trigger any RCU stall warnings or softlockups in non-preemptible kernels
-Lets do schedule out if possible in that case.
+amdgpu uses lots of pr_* calls for printing error messages.
+With this prefix, errors shall be more obvious to the end
+use regarding its origin, and may help debugging.
 
-Signed-off-by: xinhui pan <xinhui.pan@amd.com>
+Prefix format:
+
+[xxx.xxxxx] amdgpu: ...
+
+Signed-off-by: Aurabindo Pillai <mail@aurabindo.in>
 ---
- drivers/gpu/drm/ttm/ttm_bo.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 9e07c3f75156..b8d853cab33b 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -541,6 +541,7 @@ static bool ttm_bo_delayed_delete(struct ttm_bo_device *bdev, bool remove_all)
- 		}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index da3bcff61..67d654a89 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -28,6 +28,12 @@
+ #ifndef __AMDGPU_H__
+ #define __AMDGPU_H__
  
- 		ttm_bo_put(bo);
-+		cond_resched();
- 		spin_lock(&glob->lru_lock);
- 	}
- 	list_splice_tail(&removed, &bdev->ddestroy);
++#ifdef pr_fmt
++#undef pr_fmt
++#endif
++
++#define pr_fmt(fmt) "amdgpu: " fmt
++
+ #include "amdgpu_ctx.h"
+ 
+ #include <linux/atomic.h>
 -- 
-2.17.1
+2.26.0
 
 _______________________________________________
 amd-gfx mailing list
