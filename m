@@ -2,113 +2,66 @@ Return-Path: <SRS0=3NI5=5Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D6826C2BA2B
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 14:59:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 53E30C2BB55
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 15:21:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9454C20678
-	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 14:59:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EE88B2074F
+	for <amd-gfx@archiver.kernel.org>; Thu,  9 Apr 2020 15:21:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kPAnbvjb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9454C20678
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="vZSwFUdy"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE88B2074F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC396EBCF;
-	Thu,  9 Apr 2020 14:59:34 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2071.outbound.protection.outlook.com [40.107.237.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B31D16EBCF;
- Thu,  9 Apr 2020 14:59:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mimO9DXFlLqMHVRVWdLX3XkqOF394RV4MB+/zKVPfD9fbLMW1FQdTwelML0XtkHOBZZ2+qH6ZLgBS8lFBV8hBKlf1RXo5uIKPDODf+zdFcVOe5UOj7+ihFfAfyCDUFDGMGalQdodBTMQIZfYdB+B/ugZz0QX7yNCH/N4igXx5Wh/YxiK6gnaZTV/bPmJPQPz5nWIK16Z/oGRfyaajNZconQr7kbIje576d9OjW5z/CoQMLTG1/nLkPm2dKQlEC2MRRtPw/JExEkGT8OEwsdjQsYBCwT1mlopWeAF37wlv8ecS0nsMNZFNJSyGf/Aefqy+/Fd2zlUMPXwO37FTm/mjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZD7PGjivl3xtawGnHm7pfKNsRPjKtfFg61vOpse1dUc=;
- b=cWEcbnBV9pE7zbl+bUGhaqEoY/HgTLFq+z6nxuRZgPN1nuF1ur1EnVuFfEUPoF1t5n5tTfnURubgkz37UJFj1/MRhqsTc50vr/tHsl6zM8EMIvWxh31W1gqev+gpVN3gT8YVYmdPt9Rzo9osjfGANhjCoyYRpsDcI7rw71ESP7YpdgwSsJmcF+kn24rJ3ViQdXGRiI9Va98UR2aLQZhPP3Eeuly1GK68Nveze7qUZdzqSMIzTn2libtJtaFmzJWVPO32QU+ReuoHGT+47fbTQUffwn6j3kttibLsI5ojtfYAVDo+6LuWPvloRGwLgDTGx7RvBTekIO7gnZVK2DN9LA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZD7PGjivl3xtawGnHm7pfKNsRPjKtfFg61vOpse1dUc=;
- b=kPAnbvjbpBp5AZTRY1l7tHzSHbuw73KYLcJtuUBwPvBFg+CF0LBAF1PlGurepXJvU0PGe3xwyLxNQeNRc8iSI7YYCjiXPMWQaMIoGyoraXvyvhoyKW8tqgKtOxPAtQ/LYn2vN4C0MwAAP7MeJM4NMdcMUIXYulxHASVRSuxdayA=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Christian.Koenig@amd.com; 
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
- by DM6PR12MB3051.namprd12.prod.outlook.com (2603:10b6:5:119::29) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.19; Thu, 9 Apr
- 2020 14:59:30 +0000
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::f164:85c4:1b51:14d2]) by DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::f164:85c4:1b51:14d2%4]) with mapi id 15.20.2878.022; Thu, 9 Apr 2020
- 14:59:30 +0000
-Subject: Re: [PATCH] drm/ttm: Schedule out if possibe in bo delayed delete
- worker
-To: "Pan, Xinhui" <Xinhui.Pan@amd.com>, Lucas Stach <l.stach@pengutronix.de>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20200409013148.4219-1-xinhui.pan@amd.com>
- <7ebd6025-a563-30d1-8c84-cb031bfef0c1@amd.com>
- <d80c89fe353a114df786e75563d434c496b8140d.camel@pengutronix.de>
- <8b634370-1771-4aa4-8725-74b5d807db4b@amd.com>
- <BL0PR12MB254767C8A1AFAE0D52685A1F87C10@BL0PR12MB2547.namprd12.prod.outlook.com>
- <BL0PR12MB254789981840471CD72EBFD487C10@BL0PR12MB2547.namprd12.prod.outlook.com>
- <BL0PR12MB2547BF609F21C48B17A402A087C10@BL0PR12MB2547.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <64928371-a0e1-be53-f650-a9a365a6b2af@amd.com>
-Date: Thu, 9 Apr 2020 16:59:23 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <BL0PR12MB2547BF609F21C48B17A402A087C10@BL0PR12MB2547.namprd12.prod.outlook.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM5PR0201CA0007.eurprd02.prod.outlook.com
- (2603:10a6:203:3d::17) To DM6PR12MB4401.namprd12.prod.outlook.com
- (2603:10b6:5:2a9::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8F1A6EBE1;
+	Thu,  9 Apr 2020 15:21:16 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E60D86EBE1
+ for <amd-gfx@lists.freedesktop.org>; Thu,  9 Apr 2020 15:21:14 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id v5so12347567wrp.12
+ for <amd-gfx@lists.freedesktop.org>; Thu, 09 Apr 2020 08:21:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=iatm4g+lhsFd4XCzTwkDLd6jOsKF6ax5cfsoVf3UF4A=;
+ b=vZSwFUdyVg0BllJbL8cR/U3pdopcaR4M3c5gy4ljf/9FwK6bCtxACKVhxLArMuvAIV
+ kWbO/jXY4sXQ6vBsIUPfXg2iT82sBtbLjffnmS9AMA/ObTCduev7HaztMU3SdMknJn7k
+ BGzg1oJUdqPC8mA1LBEzEjFWU/oWGTBz2LW+0/O7dqgEQ2En5SJFOsssNWvSo1xR3uHd
+ ryGTcrlmpeHXnFKChm/tR+vgvqrcHU1k6IgMIUDnqPImjwv8gdqjNyhBcWTR6m6ulHrM
+ 8nEOOfwvBLNUR+Iy+SOx+EYWl1WVfRQbZOnSM8A2YONi5Ye5Ly8YccbxZSOSyKP1/mJt
+ kquA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=iatm4g+lhsFd4XCzTwkDLd6jOsKF6ax5cfsoVf3UF4A=;
+ b=NBXIe2gqmt7R6wzNF/RDj98E1iYaxTeIfZPMan0iK9JCUVEDAHU/QBa+5VJdSshvv7
+ jrufvd9+WIobA8zhdGn5ZpoASIFhuvalPQ4SY1fHwanW8oePqWQtobLLcxqR9Ztda6Kl
+ ver+ISbiLP1WCzclhZ9R3HyvtX1fcQISWYkx7Egx7lGBuEoJDgsPxfJjK04jcmaNY/YX
+ Iv4Ju/x9cEZlMofu0WMPtA77Ur6fWZ/oOKijY/xJ3iG07HlyX8T83oGiG1vmFnszCt7U
+ zG6Z4ZO6poYr7INEWfYwssgPWL7XUP2S1HF068yiVHcqomemZUhVzu/mQJ0BggklBjpt
+ LhnA==
+X-Gm-Message-State: AGi0Pua8CRAuzldxo92JsVrsg7ZDXIxC7rjsIScV6iU2hiiDgEIOU3YX
+ QMLdql3KebcJR/RCPOGyKgJs/u6REw0TypwGc4COvnRh
+X-Google-Smtp-Source: APiQypLAIkm03DsMrZEy36oSSlEjK/Bwz8O3GegBXsbTFOGMBQ048luqRK1n8THzRcTEAjJ2z6R/RHnD3+OPsnUCWcU=
+X-Received: by 2002:adf:cd8c:: with SMTP id q12mr292865wrj.419.1586445673396; 
+ Thu, 09 Apr 2020 08:21:13 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM5PR0201CA0007.eurprd02.prod.outlook.com (2603:10a6:203:3d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.17 via Frontend
- Transport; Thu, 9 Apr 2020 14:59:28 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7ecf9229-b287-4f02-d11e-08d7dc969ac1
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3051:|DM6PR12MB3051:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3051B8A2650C080002DDE7B283C10@DM6PR12MB3051.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-Forefront-PRVS: 0368E78B5B
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(346002)(39860400002)(376002)(136003)(366004)(396003)(52116002)(53546011)(8936002)(2906002)(16526019)(30864003)(31686004)(316002)(4326008)(33964004)(2616005)(110136005)(81156014)(186003)(6486002)(45080400002)(66574012)(5660300002)(6666004)(966005)(86362001)(66476007)(478600001)(36756003)(81166007)(31696002)(66946007)(8676002)(66556008);
- DIR:OUT; SFP:1101; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: /jCssFRQsHTKRFlFVbDJPMiaI8+UKS9Fb6mbe/uS6J5QoKxv9gZOd2labjmJ/hSvrFlDJ6XTWtkq/NzUxfnAViab8qgmaNpQT8HR6okPfEuYHDnakFriY/ZQl4TfED6pLJdUeBlWTTmGkQsCvaqd7YdWD13MSu1DTyCJ6vB9cdj3h5wNPdujGH/xdsiILk/8Zmqc24tzzZjdC0j7tOfFOTYzbpVvUJn09GqbQEuemnodvhsyQJiR6peCH9uKKItTvGEGlFhXAOMlvSyZZVQMF6lV0fWVnM7kUV5kWbzPb+4EACNqq1uNowvLqpvTIJaPPGgjZbXhFBGrhATRnMCX01xpwQImxSthgy2Y7KyGr80BY8dM2HqOKcRR5Ny5Mvxh2BXH2yyajRmuxWqKXNFCutasdo4KSDEPQ6z+lyjam33UKNOW1LP+zNc+HlYSXBVA3XB5mVczJi5thp7luTIyr9wfRcdFxKH6RNLGE0RdgHvU5uqYpIGSgZBG9VWGtU+hddOd0SHFUBivgfg12WSPIA==
-X-MS-Exchange-AntiSpam-MessageData: C0+Mk3LwJvtNEsIkccbW5dp25HZPVdf0WKPeqR+qEhLE8/eNabo/tTojCzHuQOUNzM/dDuhZ74Lmd0Jiw1ci81NYGlI0wurUcXmoskQtM5UtkwiaEbGb/sjBv6DbD+4Lcm3vuAOTmKcCw2azFH+3mU2Q3d9Wde3cYzdTDT9aOaB9I1aRcqNc1ZG+UCHDkvIXkU3n6wIMzyARmb3h9PdCOg==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ecf9229-b287-4f02-d11e-08d7dc969ac1
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Apr 2020 14:59:29.9725 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TjBoGTEDwym9T6f6wx+Yf4m1TgOnb06tLQPLkKd21T5N1KztX4Bw24uRkf943wb4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3051
+References: <20200409145415.6837-1-yttao@amd.com>
+In-Reply-To: <20200409145415.6837-1-yttao@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Thu, 9 Apr 2020 11:21:02 -0400
+Message-ID: <CADnq5_Nydi5rJOyamULk_5vKuy6gK8DKZJ9aTSOND2T_acjeVA@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: restrict debugfs register access under SR-IOV
+To: Yintian Tao <yttao@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,415 +73,446 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1428036979=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1428036979==
-Content-Type: multipart/alternative;
- boundary="------------31E295AB4B94C1AD5E9E81EE"
-Content-Language: en-US
-
---------------31E295AB4B94C1AD5E9E81EE
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-> Why we break out the loops when there are pending bos to be released?
-
-We do this anyway if we can't acquire the necessary locks. Freeing 
-already deleted BOs is just a very lazy background work.
-
-> So it did not break anything with this patch I think.
-
-Oh, the patch will certainly work. I'm just not sure if it's the ideal 
-behavior.
-
-> https://elixir.bootlin.com/linux/latest/source/mm/slab.c#L4026
+On Thu, Apr 9, 2020 at 10:54 AM Yintian Tao <yttao@amd.com> wrote:
 >
-> This is another example of the usage of  cond_sched.
-
-Yes, and that is also a good example of what I mean here:
-
-> 	if  (!mutex_trylock 
-> <https://elixir.bootlin.com/linux/latest/ident/mutex_trylock>(&slab_mutex 
-> <https://elixir.bootlin.com/linux/latest/ident/slab_mutex>))
-> 		/* Give up. Setup the next iteration. */
-> 		goto  out;
-
-If the function can't acquire the lock immediately it gives up and waits 
-for the next iteration.
-
-I think it would be better if we do this in TTM as well if we spend to 
-much time cleaning up old BOs.
-
-On the other hand you are right that cond_resched() has the advantage 
-that we could spend more time on cleaning up old BOs if there is nothing 
-else for the CPU TODO.
-
-Regards,
-Christian.
-
-Am 09.04.20 um 16:24 schrieb Pan, Xinhui:
-> https://elixir.bootlin.com/linux/latest/source/mm/slab.c#L4026
+> Under bare metal, there is no more else to take
+> care of the GPU register access through MMIO.
+> Under Virtualization, to access GPU register is
+> implemented through KIQ during run-time due to
+> world-switch.
 >
-> This is another example of the usage of  cond_sched.
-> ------------------------------------------------------------------------
-> *From:* Pan, Xinhui <Xinhui.Pan@amd.com>
-> *Sent:* Thursday, April 9, 2020 10:11:08 PM
-> *To:* Lucas Stach <l.stach@pengutronix.de>; 
-> amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Koenig, 
-> Christian <Christian.Koenig@amd.com>
-> *Cc:* dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>
-> *Subject:* Re: [PATCH] drm/ttm: Schedule out if possibe in bo delayed 
-> delete worker
-> I think it doesn't matter if workitem schedule out. Even we did not 
-> schedule out, the workqueue itself will schedule out later.
-> So it did not break anything with this patch I think.
-> ------------------------------------------------------------------------
-> *From:* Pan, Xinhui <Xinhui.Pan@amd.com>
-> *Sent:* Thursday, April 9, 2020 10:07:09 PM
-> *To:* Lucas Stach <l.stach@pengutronix.de>; 
-> amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Koenig, 
-> Christian <Christian.Koenig@amd.com>
-> *Cc:* dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>
-> *Subject:* Re: [PATCH] drm/ttm: Schedule out if possibe in bo delayed 
-> delete worker
-> Why we break out the loops when there are pending bos to be released?
+> Therefore, under SR-IOV user can only access
+> debugfs to r/w GPU registers when meets all
+> three conditions below.
+> - amdgpu_gpu_recovery=0
+> - TDR happened
+> - in_gpu_reset=0
 >
-> And I just checked the process_one_work. Right after the work item 
-> callback is called,  the workqueue itself will call cond_resched. So I 
-> think
-> ------------------------------------------------------------------------
-> *From:* Koenig, Christian <Christian.Koenig@amd.com>
-> *Sent:* Thursday, April 9, 2020 9:38:24 PM
-> *To:* Lucas Stach <l.stach@pengutronix.de>; Pan, Xinhui 
-> <Xinhui.Pan@amd.com>; amd-gfx@lists.freedesktop.org 
-> <amd-gfx@lists.freedesktop.org>
-> *Cc:* dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>
-> *Subject:* Re: [PATCH] drm/ttm: Schedule out if possibe in bo delayed 
-> delete worker
-> Am 09.04.20 um 15:25 schrieb Lucas Stach:
-> > Am Donnerstag, den 09.04.2020, 14:35 +0200 schrieb Christian König:
-> >> Am 09.04.20 um 03:31 schrieb xinhui pan:
-> >>> The delayed delete list is per device which might be very huge. And in
-> >>> a heavy workload test, the list might always not be empty. That will
-> >>> trigger any RCU stall warnings or softlockups in non-preemptible 
-> kernels
-> >>> Lets do schedule out if possible in that case.
-> >> Mhm, I'm not sure if that is actually allowed. This is called from a
-> >> work item and those are not really supposed to be scheduled away.
-> > Huh? Workitems can schedule out just fine, otherwise they would be
-> > horribly broken when it comes to sleeping locks.
+> v2: merge amdgpu_virt_can_access_debugfs() into
+>     amdgpu_virt_enable_access_debugfs()
 >
-> Let me refine the sentence: Work items are not really supposed to be
-> scheduled purposely. E.g. you shouldn't call schedule() or
-> cond_resched() like in the case here.
+> Signed-off-by: Yintian Tao <yttao@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 73 +++++++++++++++++++--
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |  8 ++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c    | 26 ++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h    |  7 ++
+>  4 files changed, 108 insertions(+), 6 deletions(-)
 >
-> Getting scheduled away because we wait for a lock is of course perfectly
-> fine.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> index c0f9a651dc06..1a4894fa3693 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+> @@ -152,11 +152,16 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
+>         if (r < 0)
+>                 return r;
 >
-> >   The workqueue code
-> > even has measures to keep the workqueues at the expected concurrency
-> > level by starting other workitems when one of them goes to sleep.
+> +       r = amdgpu_virt_enable_access_debugfs(adev);
+> +       if (r < 0)
+> +               return r;
+> +
+>         if (use_bank) {
+>                 if ((sh_bank != 0xFFFFFFFF && sh_bank >= adev->gfx.config.max_sh_per_se) ||
+>                     (se_bank != 0xFFFFFFFF && se_bank >= adev->gfx.config.max_shader_engines)) {
+>                         pm_runtime_mark_last_busy(adev->ddev->dev);
+>                         pm_runtime_put_autosuspend(adev->ddev->dev);
+> +                       amdgpu_virt_disable_access_debugfs(adev);
+>                         return -EINVAL;
+>                 }
+>                 mutex_lock(&adev->grbm_idx_mutex);
+> @@ -207,6 +212,7 @@ static int  amdgpu_debugfs_process_reg_op(bool read, struct file *f,
+>         pm_runtime_mark_last_busy(adev->ddev->dev);
+>         pm_runtime_put_autosuspend(adev->ddev->dev);
 >
-> Yeah, and exactly that's what I would say we should avoid here :)
+> +       amdgpu_virt_disable_access_debugfs(adev);
+>         return result;
+>  }
 >
-> In other words work items can be scheduled away, but they should not if
-> not really necessary (e.g. waiting for a lock).
+> @@ -255,6 +261,10 @@ static ssize_t amdgpu_debugfs_regs_pcie_read(struct file *f, char __user *buf,
+>         if (r < 0)
+>                 return r;
 >
-> Otherwise as you said new threads for work item processing are started
-> up and I don't think we want that.
+> +       r = amdgpu_virt_enable_access_debugfs(adev);
+> +       if (r < 0)
+> +               return r;
+> +
+>         while (size) {
+>                 uint32_t value;
 >
-> Just returning from the work item and waiting for the next cycle is most
-> likely the better option.
+> @@ -263,6 +273,7 @@ static ssize_t amdgpu_debugfs_regs_pcie_read(struct file *f, char __user *buf,
+>                 if (r) {
+>                         pm_runtime_mark_last_busy(adev->ddev->dev);
+>                         pm_runtime_put_autosuspend(adev->ddev->dev);
+> +                       amdgpu_virt_disable_access_debugfs(adev);
+>                         return r;
+>                 }
 >
-> Regards,
-> Christian.
+> @@ -275,6 +286,7 @@ static ssize_t amdgpu_debugfs_regs_pcie_read(struct file *f, char __user *buf,
+>         pm_runtime_mark_last_busy(adev->ddev->dev);
+>         pm_runtime_put_autosuspend(adev->ddev->dev);
 >
-> >
-> > Regards,
-> > Lucas
-> >
-> >> Maybe rather change the while into while (!list_empty(&bdev->ddestroy)
-> >> && !should_reschedule(0)).
-> >>
-> >> Christian.
-> >>
-> >>> Signed-off-by: xinhui pan <xinhui.pan@amd.com>
-> >>> ---
-> >>>    drivers/gpu/drm/ttm/ttm_bo.c | 1 +
-> >>>    1 file changed, 1 insertion(+)
-> >>>
-> >>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c 
-> b/drivers/gpu/drm/ttm/ttm_bo.c
-> >>> index 9e07c3f75156..b8d853cab33b 100644
-> >>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> >>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> >>> @@ -541,6 +541,7 @@ static bool ttm_bo_delayed_delete(struct 
-> ttm_bo_device *bdev, bool remove_all)
-> >>>              }
-> >>>
-> >>>              ttm_bo_put(bo);
-> >>> +           cond_resched();
-> >>> spin_lock(&glob->lru_lock);
-> >>>      }
-> >>>      list_splice_tail(&removed, &bdev->ddestroy);
-> >> _______________________________________________
-> >> dri-devel mailing list
-> >> dri-devel@lists.freedesktop.org
-> >> 
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;data=02%7C01%7Cchristian.koenig%40amd.com%7C0a47486676a74702f05408d7dc89839c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637220355504145868&amp;sdata=wbRkYBPI6mYuZjKBtQN3AGLDOwqJlWY3XUtwwSiUQHg%3D&amp;reserved=0
+> +       amdgpu_virt_disable_access_debugfs(adev);
+>         return result;
+>  }
 >
+> @@ -304,6 +316,10 @@ static ssize_t amdgpu_debugfs_regs_pcie_write(struct file *f, const char __user
+>         if (r < 0)
+>                 return r;
+>
+> +       r = amdgpu_virt_enable_access_debugfs(adev);
+> +       if (r < 0)
+> +               return r;
+> +
+>         while (size) {
+>                 uint32_t value;
+>
+> @@ -311,6 +327,7 @@ static ssize_t amdgpu_debugfs_regs_pcie_write(struct file *f, const char __user
+>                 if (r) {
+>                         pm_runtime_mark_last_busy(adev->ddev->dev);
+>                         pm_runtime_put_autosuspend(adev->ddev->dev);
+> +                       amdgpu_virt_disable_access_debugfs(adev);
+>                         return r;
+>                 }
+>
+> @@ -325,6 +342,7 @@ static ssize_t amdgpu_debugfs_regs_pcie_write(struct file *f, const char __user
+>         pm_runtime_mark_last_busy(adev->ddev->dev);
+>         pm_runtime_put_autosuspend(adev->ddev->dev);
+>
+> +       amdgpu_virt_disable_access_debugfs(adev);
+>         return result;
+>  }
+>
+> @@ -354,6 +372,10 @@ static ssize_t amdgpu_debugfs_regs_didt_read(struct file *f, char __user *buf,
+>         if (r < 0)
+>                 return r;
+>
+> +       r = amdgpu_virt_enable_access_debugfs(adev);
+> +       if (r < 0)
+> +               return r;
+> +
+>         while (size) {
+>                 uint32_t value;
+>
+> @@ -362,6 +384,7 @@ static ssize_t amdgpu_debugfs_regs_didt_read(struct file *f, char __user *buf,
+>                 if (r) {
+>                         pm_runtime_mark_last_busy(adev->ddev->dev);
+>                         pm_runtime_put_autosuspend(adev->ddev->dev);
+> +                       amdgpu_virt_disable_access_debugfs(adev);
+>                         return r;
+>                 }
+>
+> @@ -374,6 +397,7 @@ static ssize_t amdgpu_debugfs_regs_didt_read(struct file *f, char __user *buf,
+>         pm_runtime_mark_last_busy(adev->ddev->dev);
+>         pm_runtime_put_autosuspend(adev->ddev->dev);
+>
+> +       amdgpu_virt_disable_access_debugfs(adev);
+>         return result;
+>  }
+>
+> @@ -403,6 +427,10 @@ static ssize_t amdgpu_debugfs_regs_didt_write(struct file *f, const char __user
+>         if (r < 0)
+>                 return r;
+>
+> +       r = amdgpu_virt_enable_access_debugfs(adev);
+> +       if (r < 0)
+> +               return r;
+> +
+>         while (size) {
+>                 uint32_t value;
+>
+> @@ -410,6 +438,7 @@ static ssize_t amdgpu_debugfs_regs_didt_write(struct file *f, const char __user
+>                 if (r) {
+>                         pm_runtime_mark_last_busy(adev->ddev->dev);
+>                         pm_runtime_put_autosuspend(adev->ddev->dev);
+> +                       amdgpu_virt_disable_access_debugfs(adev);
+>                         return r;
+>                 }
+>
+> @@ -424,6 +453,7 @@ static ssize_t amdgpu_debugfs_regs_didt_write(struct file *f, const char __user
+>         pm_runtime_mark_last_busy(adev->ddev->dev);
+>         pm_runtime_put_autosuspend(adev->ddev->dev);
+>
+> +       amdgpu_virt_disable_access_debugfs(adev);
+>         return result;
+>  }
+>
+> @@ -453,6 +483,10 @@ static ssize_t amdgpu_debugfs_regs_smc_read(struct file *f, char __user *buf,
+>         if (r < 0)
+>                 return r;
+>
+> +       r = amdgpu_virt_enable_access_debugfs(adev);
+> +       if (r < 0)
+> +               return r;
+> +
+>         while (size) {
+>                 uint32_t value;
+>
+> @@ -461,6 +495,7 @@ static ssize_t amdgpu_debugfs_regs_smc_read(struct file *f, char __user *buf,
+>                 if (r) {
+>                         pm_runtime_mark_last_busy(adev->ddev->dev);
+>                         pm_runtime_put_autosuspend(adev->ddev->dev);
+> +                       amdgpu_virt_disable_access_debugfs(adev);
+>                         return r;
+>                 }
+>
+> @@ -473,6 +508,7 @@ static ssize_t amdgpu_debugfs_regs_smc_read(struct file *f, char __user *buf,
+>         pm_runtime_mark_last_busy(adev->ddev->dev);
+>         pm_runtime_put_autosuspend(adev->ddev->dev);
+>
+> +       amdgpu_virt_disable_access_debugfs(adev);
+>         return result;
+>  }
+>
+> @@ -502,6 +538,10 @@ static ssize_t amdgpu_debugfs_regs_smc_write(struct file *f, const char __user *
+>         if (r < 0)
+>                 return r;
+>
+> +       r = amdgpu_virt_enable_access_debugfs(adev);
+> +       if (r < 0)
+> +               return r;
+> +
+>         while (size) {
+>                 uint32_t value;
+>
+> @@ -509,6 +549,7 @@ static ssize_t amdgpu_debugfs_regs_smc_write(struct file *f, const char __user *
+>                 if (r) {
+>                         pm_runtime_mark_last_busy(adev->ddev->dev);
+>                         pm_runtime_put_autosuspend(adev->ddev->dev);
+> +                       amdgpu_virt_disable_access_debugfs(adev);
+>                         return r;
+>                 }
+>
+> @@ -523,6 +564,7 @@ static ssize_t amdgpu_debugfs_regs_smc_write(struct file *f, const char __user *
+>         pm_runtime_mark_last_busy(adev->ddev->dev);
+>         pm_runtime_put_autosuspend(adev->ddev->dev);
+>
+> +       amdgpu_virt_disable_access_debugfs(adev);
+>         return result;
+>  }
+>
+> @@ -651,16 +693,24 @@ static ssize_t amdgpu_debugfs_sensor_read(struct file *f, char __user *buf,
+>         if (r < 0)
+>                 return r;
+>
+> +       r = amdgpu_virt_enable_access_debugfs(adev);
+> +       if (r < 0)
+> +               return r;
+> +
+>         r = amdgpu_dpm_read_sensor(adev, idx, &values[0], &valuesize);
+>
+>         pm_runtime_mark_last_busy(adev->ddev->dev);
+>         pm_runtime_put_autosuspend(adev->ddev->dev);
+>
+> -       if (r)
+> +       if (r) {
+> +               amdgpu_virt_disable_access_debugfs(adev);
+>                 return r;
+> +       }
+>
+> -       if (size > valuesize)
+> +       if (size > valuesize) {
+> +               amdgpu_virt_disable_access_debugfs(adev);
+>                 return -EINVAL;
+> +       }
+>
+>         outsize = 0;
+>         x = 0;
+> @@ -673,6 +723,7 @@ static ssize_t amdgpu_debugfs_sensor_read(struct file *f, char __user *buf,
+>                 }
+>         }
+>
+> +       amdgpu_virt_disable_access_debugfs(adev);
+>         return !r ? outsize : r;
+>  }
+>
+> @@ -720,6 +771,10 @@ static ssize_t amdgpu_debugfs_wave_read(struct file *f, char __user *buf,
+>         if (r < 0)
+>                 return r;
+>
+> +       r = amdgpu_virt_enable_access_debugfs(adev);
+> +       if (r < 0)
+> +               return r;
+> +
+>         /* switch to the specific se/sh/cu */
+>         mutex_lock(&adev->grbm_idx_mutex);
+>         amdgpu_gfx_select_se_sh(adev, se, sh, cu);
+> @@ -734,16 +789,20 @@ static ssize_t amdgpu_debugfs_wave_read(struct file *f, char __user *buf,
+>         pm_runtime_mark_last_busy(adev->ddev->dev);
+>         pm_runtime_put_autosuspend(adev->ddev->dev);
+>
+> -       if (!x)
+> +       if (!x) {
+> +               amdgpu_virt_disable_access_debugfs(adev);
+>                 return -EINVAL;
+> +       }
+>
+>         while (size && (offset < x * 4)) {
+>                 uint32_t value;
+>
+>                 value = data[offset >> 2];
+>                 r = put_user(value, (uint32_t *)buf);
+> -               if (r)
+> +               if (r) {
+> +                       amdgpu_virt_disable_access_debugfs(adev);
+>                         return r;
+> +               }
+>
+>                 result += 4;
+>                 buf += 4;
+> @@ -751,6 +810,7 @@ static ssize_t amdgpu_debugfs_wave_read(struct file *f, char __user *buf,
+>                 size -= 4;
+>         }
+>
+> +       amdgpu_virt_disable_access_debugfs(adev);
+>         return result;
+>  }
+>
+> @@ -805,6 +865,10 @@ static ssize_t amdgpu_debugfs_gpr_read(struct file *f, char __user *buf,
+>         if (r < 0)
+>                 return r;
+>
+> +       r = amdgpu_virt_enable_access_debugfs(adev);
+> +       if (r < 0)
+> +               return r;
+> +
+>         /* switch to the specific se/sh/cu */
+>         mutex_lock(&adev->grbm_idx_mutex);
+>         amdgpu_gfx_select_se_sh(adev, se, sh, cu);
+> @@ -840,6 +904,7 @@ static ssize_t amdgpu_debugfs_gpr_read(struct file *f, char __user *buf,
+>
+>  err:
+>         kfree(data);
+> +       amdgpu_virt_disable_access_debugfs(adev);
+>         return result;
+>  }
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> index 2b99f5952375..35c381ec0423 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+> @@ -33,6 +33,7 @@ static void amdgpu_job_timedout(struct drm_sched_job *s_job)
+>         struct amdgpu_ring *ring = to_amdgpu_ring(s_job->sched);
+>         struct amdgpu_job *job = to_amdgpu_job(s_job);
+>         struct amdgpu_task_info ti;
+> +       struct amdgpu_device *adev = ring->adev;
+>
+>         memset(&ti, 0, sizeof(struct amdgpu_task_info));
+>
+> @@ -49,10 +50,13 @@ static void amdgpu_job_timedout(struct drm_sched_job *s_job)
+>         DRM_ERROR("Process information: process %s pid %d thread %s pid %d\n",
+>                   ti.process_name, ti.tgid, ti.task_name, ti.pid);
+>
+> -       if (amdgpu_device_should_recover_gpu(ring->adev))
+> +       if (amdgpu_device_should_recover_gpu(ring->adev)) {
+>                 amdgpu_device_gpu_recover(ring->adev, job);
+> -       else
+> +       } else {
+>                 drm_sched_suspend_timeout(&ring->sched);
+> +               if (amdgpu_sriov_vf(adev))
+> +                       adev->virt.tdr_debug = true;
+> +       }
+>  }
+>
+>  int amdgpu_job_alloc(struct amdgpu_device *adev, unsigned num_ibs,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> index 4d06c79065bf..e8266847675b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -334,3 +334,29 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+>                         adev->virt.caps |= AMDGPU_PASSTHROUGH_MODE;
+>         }
+>  }
+> +
+> +bool amdgpu_virt_can_access_debugfs(struct amdgpu_device *adev)
+> +{
+> +       return amdgpu_sriov_is_debug(adev) ? true : false;
+> +}
+> +
+> +int amdgpu_virt_enable_access_debugfs(struct amdgpu_device *adev)
+> +{
+> +       int ret = 0;
+> +
+> +       if (!amdgpu_sriov_vf(adev))
+> +               return ret;
+> +
+> +       if (amdgpu_virt_can_access_debugfs(adev))
+> +               adev->virt.caps &= ~AMDGPU_SRIOV_CAPS_RUNTIME;
+> +       else
+> +               ret = -EPERM;
+> +
+> +       return ret;
 
+You can drop the ret variable in this function and just return
+constants for each case.  E.g.,
 
---------------31E295AB4B94C1AD5E9E81EE
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
+> +       if (!amdgpu_sriov_vf(adev))
+> +               return 0;
+> +
+> +       if (amdgpu_virt_can_access_debugfs(adev))
+> +               adev->virt.caps &= ~AMDGPU_SRIOV_CAPS_RUNTIME;
+> +       else
+> +               return -EPERM;
+> +
+> +       return 0;
 
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">
-      <blockquote type="cite">
-        Why we break out the loops when there are pending bos to be
-        released?</blockquote>
-      <br>
-      We do this anyway if we can't acquire the necessary locks. Freeing
-      already deleted BOs is just a very lazy background work.<br>
-      <br>
-      <blockquote type="cite">
-        So it did not break anything with this patch I think.</blockquote>
-      <br>
-      Oh, the patch will certainly work. I'm just not sure if it's the
-      ideal behavior.<br>
-      <br>
-      <blockquote type="cite">
-        <div dir="auto" style="direction: ltr; margin: 0; padding: 0;
-          font-family: sans-serif; font-size: 11pt; color: black; ">
-          <a class="moz-txt-link-freetext" href="https://elixir.bootlin.com/linux/latest/source/mm/slab.c#L4026">https://elixir.bootlin.com/linux/latest/source/mm/slab.c#L4026</a><br>
-          <br>
-        </div>
-        <div dir="auto" style="direction: ltr; margin: 0; padding: 0;
-          font-family: sans-serif; font-size: 11pt; color: black; ">
-          This is another example of the usage of&nbsp; cond_sched.</div>
-      </blockquote>
-      <br>
-      Yes, and that is also a good example of what I mean here:<br>
-      <br>
-      <blockquote type="cite">
-        <pre>	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n"><a href="https://elixir.bootlin.com/linux/latest/ident/mutex_trylock">mutex_trylock</a></span><span class="p">(</span><span class="o">&amp;</span><span class="n"><a href="https://elixir.bootlin.com/linux/latest/ident/slab_mutex">slab_mutex</a></span><span class="p">))</span>
-		<span class="cm">/* Give up. Setup the next iteration. */</span>
-		<span class="k">goto</span> <span class="n">out</span><span class="p">;</span></pre>
-      </blockquote>
-      <br>
-      If the function can't acquire the lock immediately it gives up and
-      waits for the next iteration.<br>
-      <br>
-      I think it would be better if we do this in TTM as well if we
-      spend to much time cleaning up old BOs.<br>
-      <br>
-      On the other hand you are right that cond_resched() has the
-      advantage that we could spend more time on cleaning up old BOs if
-      there is nothing else for the CPU TODO.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 09.04.20 um 16:24 schrieb Pan, Xinhui:<br>
-    </div>
-    <blockquote type="cite" cite="mid:BL0PR12MB2547BF609F21C48B17A402A087C10@BL0PR12MB2547.namprd12.prod.outlook.com">
-      
-      <div dir="auto" style="direction: ltr; margin: 0; padding: 0;
-        font-family: sans-serif; font-size: 11pt; color: black; ">
-        <a class="moz-txt-link-freetext" href="https://elixir.bootlin.com/linux/latest/source/mm/slab.c#L4026">https://elixir.bootlin.com/linux/latest/source/mm/slab.c#L4026</a><br>
-        <br>
-      </div>
-      <div dir="auto" style="direction: ltr; margin: 0; padding: 0;
-        font-family: sans-serif; font-size: 11pt; color: black; ">
-        This is another example of the usage of&nbsp; cond_sched.</div>
-      <hr style="display:inline-block;width:98%" tabindex="-1">
-      <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b> Pan,
-          Xinhui <a class="moz-txt-link-rfc2396E" href="mailto:Xinhui.Pan@amd.com">&lt;Xinhui.Pan@amd.com&gt;</a><br>
-          <b>Sent:</b> Thursday, April 9, 2020 10:11:08 PM<br>
-          <b>To:</b> Lucas Stach <a class="moz-txt-link-rfc2396E" href="mailto:l.stach@pengutronix.de">&lt;l.stach@pengutronix.de&gt;</a>;
-          <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-          <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Koenig, Christian
-          <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a><br>
-          <b>Cc:</b> <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a>
-          <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel@lists.freedesktop.org">&lt;dri-devel@lists.freedesktop.org&gt;</a><br>
-          <b>Subject:</b> Re: [PATCH] drm/ttm: Schedule out if possibe
-          in bo delayed delete worker</font>
-        <div>&nbsp;</div>
-      </div>
-      <div>
-        <div dir="auto" style="direction:ltr; margin:0; padding:0;
-          font-family:sans-serif; font-size:11pt; color:black">
-          I think it doesn't matter if workitem schedule out. Even we
-          did not schedule out, the workqueue itself will schedule out
-          later.<br>
-        </div>
-        <div dir="auto" style="direction:ltr; margin:0; padding:0;
-          font-family:sans-serif; font-size:11pt; color:black">
-          So it did not break anything with this patch I think.</div>
-        <hr tabindex="-1" style="display:inline-block; width:98%">
-        <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b> Pan,
-            Xinhui <a class="moz-txt-link-rfc2396E" href="mailto:Xinhui.Pan@amd.com">&lt;Xinhui.Pan@amd.com&gt;</a><br>
-            <b>Sent:</b> Thursday, April 9, 2020 10:07:09 PM<br>
-            <b>To:</b> Lucas Stach <a class="moz-txt-link-rfc2396E" href="mailto:l.stach@pengutronix.de">&lt;l.stach@pengutronix.de&gt;</a>;
-            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a>; Koenig, Christian
-            <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a><br>
-            <b>Cc:</b> <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel@lists.freedesktop.org">&lt;dri-devel@lists.freedesktop.org&gt;</a><br>
-            <b>Subject:</b> Re: [PATCH] drm/ttm: Schedule out if possibe
-            in bo delayed delete worker</font>
-          <div>&nbsp;</div>
-        </div>
-        <div>
-          <div dir="auto" style="direction:ltr; margin:0; padding:0;
-            font-family:sans-serif; font-size:11pt; color:black">
-            Why we break out the loops when there are pending bos to be
-            released?<br>
-            <br>
-          </div>
-          <div dir="auto" style="direction:ltr; margin:0; padding:0;
-            font-family:sans-serif; font-size:11pt; color:black">
-            And I just checked the process_one_work. Right after the
-            work item callback is called,&nbsp; the workqueue itself will
-            call cond_resched. So I think
-          </div>
-          <hr tabindex="-1" style="display:inline-block; width:98%">
-          <div id="x_x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b> Koenig, Christian
-              <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a><br>
-              <b>Sent:</b> Thursday, April 9, 2020 9:38:24 PM<br>
-              <b>To:</b> Lucas Stach <a class="moz-txt-link-rfc2396E" href="mailto:l.stach@pengutronix.de">&lt;l.stach@pengutronix.de&gt;</a>;
-              Pan, Xinhui <a class="moz-txt-link-rfc2396E" href="mailto:Xinhui.Pan@amd.com">&lt;Xinhui.Pan@amd.com&gt;</a>;
-              <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-              <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-              <b>Cc:</b> <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a>
-              <a class="moz-txt-link-rfc2396E" href="mailto:dri-devel@lists.freedesktop.org">&lt;dri-devel@lists.freedesktop.org&gt;</a><br>
-              <b>Subject:</b> Re: [PATCH] drm/ttm: Schedule out if
-              possibe in bo delayed delete worker</font>
-            <div>&nbsp;</div>
-          </div>
-          <div class="x_x_BodyFragment"><font size="2"><span style="font-size:11pt">
-                <div class="x_x_PlainText">Am 09.04.20 um 15:25 schrieb
-                  Lucas Stach:<br>
-                  &gt; Am Donnerstag, den 09.04.2020, 14:35 &#43;0200
-                  schrieb Christian König:<br>
-                  &gt;&gt; Am 09.04.20 um 03:31 schrieb xinhui pan:<br>
-                  &gt;&gt;&gt; The delayed delete list is per device
-                  which might be very huge. And in<br>
-                  &gt;&gt;&gt; a heavy workload test, the list might
-                  always not be empty. That will<br>
-                  &gt;&gt;&gt; trigger any RCU stall warnings or
-                  softlockups in non-preemptible kernels<br>
-                  &gt;&gt;&gt; Lets do schedule out if possible in that
-                  case.<br>
-                  &gt;&gt; Mhm, I'm not sure if that is actually
-                  allowed. This is called from a<br>
-                  &gt;&gt; work item and those are not really supposed
-                  to be scheduled away.<br>
-                  &gt; Huh? Workitems can schedule out just fine,
-                  otherwise they would be<br>
-                  &gt; horribly broken when it comes to sleeping locks.<br>
-                  <br>
-                  Let me refine the sentence: Work items are not really
-                  supposed to be <br>
-                  scheduled purposely. E.g. you shouldn't call
-                  schedule() or <br>
-                  cond_resched() like in the case here.<br>
-                  <br>
-                  Getting scheduled away because we wait for a lock is
-                  of course perfectly <br>
-                  fine.<br>
-                  <br>
-                  &gt;&nbsp;&nbsp; The workqueue code<br>
-                  &gt; even has measures to keep the workqueues at the
-                  expected concurrency<br>
-                  &gt; level by starting other workitems when one of
-                  them goes to sleep.<br>
-                  <br>
-                  Yeah, and exactly that's what I would say we should
-                  avoid here :)<br>
-                  <br>
-                  In other words work items can be scheduled away, but
-                  they should not if <br>
-                  not really necessary (e.g. waiting for a lock).<br>
-                  <br>
-                  Otherwise as you said new threads for work item
-                  processing are started <br>
-                  up and I don't think we want that.<br>
-                  <br>
-                  Just returning from the work item and waiting for the
-                  next cycle is most <br>
-                  likely the better option.<br>
-                  <br>
-                  Regards,<br>
-                  Christian.<br>
-                  <br>
-                  &gt;<br>
-                  &gt; Regards,<br>
-                  &gt; Lucas<br>
-                  &gt;<br>
-                  &gt;&gt; Maybe rather change the while into while
-                  (!list_empty(&amp;bdev-&gt;ddestroy)<br>
-                  &gt;&gt; &amp;&amp; !should_reschedule(0)).<br>
-                  &gt;&gt;<br>
-                  &gt;&gt; Christian.<br>
-                  &gt;&gt;<br>
-                  &gt;&gt;&gt; Signed-off-by: xinhui pan
-                  <a class="moz-txt-link-rfc2396E" href="mailto:xinhui.pan@amd.com">&lt;xinhui.pan@amd.com&gt;</a><br>
-                  &gt;&gt;&gt; ---<br>
-                  &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; drivers/gpu/drm/ttm/ttm_bo.c | 1 &#43;<br>
-                  &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; 1 file changed, 1 insertion(&#43;)<br>
-                  &gt;&gt;&gt;<br>
-                  &gt;&gt;&gt; diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
-                  b/drivers/gpu/drm/ttm/ttm_bo.c<br>
-                  &gt;&gt;&gt; index 9e07c3f75156..b8d853cab33b 100644<br>
-                  &gt;&gt;&gt; --- a/drivers/gpu/drm/ttm/ttm_bo.c<br>
-                  &gt;&gt;&gt; &#43;&#43;&#43; b/drivers/gpu/drm/ttm/ttm_bo.c<br>
-                  &gt;&gt;&gt; @@ -541,6 &#43;541,7 @@ static bool
-                  ttm_bo_delayed_delete(struct ttm_bo_device *bdev, bool
-                  remove_all)<br>
-                  &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-                  &gt;&gt;&gt;&nbsp;&nbsp;&nbsp; <br>
-                  &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ttm_bo_put(bo);<br>
-                  &gt;&gt;&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cond_resched();<br>
-                  &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                  spin_lock(&amp;glob-&gt;lru_lock);<br>
-                  &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-                  &gt;&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_splice_tail(&amp;removed,
-                  &amp;bdev-&gt;ddestroy);<br>
-                  &gt;&gt;
-                  _______________________________________________<br>
-                  &gt;&gt; dri-devel mailing list<br>
-                  &gt;&gt; <a class="moz-txt-link-abbreviated" href="mailto:dri-devel@lists.freedesktop.org">dri-devel@lists.freedesktop.org</a><br>
-                  &gt;&gt; <a href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;amp;data=02%7C01%7Cchristian.koenig%40amd.com%7C0a47486676a74702f05408d7dc89839c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637220355504145868&amp;amp;sdata=wbRkYBPI6mYuZjKBtQN3AGLDOwqJlWY3XUtwwSiUQHg%3D&amp;amp;reserved=0" moz-do-not-send="true">
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Fdri-devel&amp;amp;data=02%7C01%7Cchristian.koenig%40amd.com%7C0a47486676a74702f05408d7dc89839c%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637220355504145868&amp;amp;sdata=wbRkYBPI6mYuZjKBtQN3AGLDOwqJlWY3XUtwwSiUQHg%3D&amp;amp;reserved=0</a><br>
-                  <br>
-                </div>
-              </span></font></div>
-        </div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
+Other than that the patch looks good to me.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
---------------31E295AB4B94C1AD5E9E81EE--
+Alex
 
---===============1428036979==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> +}
+> +
+> +void amdgpu_virt_disable_access_debugfs(struct amdgpu_device *adev)
+> +{
+> +       if (amdgpu_sriov_vf(adev))
+> +               adev->virt.caps |= AMDGPU_SRIOV_CAPS_RUNTIME;
+> +}
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> index f6ae3c656304..8f20e6dbd7a9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -265,6 +265,7 @@ struct amdgpu_virt {
+>         uint32_t gim_feature;
+>         uint32_t reg_access_mode;
+>         int req_init_data_ver;
+> +       bool tdr_debug;
+>  };
+>
+>  #define amdgpu_sriov_enabled(adev) \
+> @@ -296,6 +297,8 @@ static inline bool is_virtual_machine(void)
+>
+>  #define amdgpu_sriov_is_pp_one_vf(adev) \
+>         ((adev)->virt.gim_feature & AMDGIM_FEATURE_PP_ONE_VF)
+> +#define amdgpu_sriov_is_debug(adev) \
+> +       ((!adev->in_gpu_reset) && adev->virt.tdr_debug)
+>
+>  bool amdgpu_virt_mmio_blocked(struct amdgpu_device *adev);
+>  void amdgpu_virt_init_setting(struct amdgpu_device *adev);
+> @@ -314,4 +317,8 @@ int amdgpu_virt_fw_reserve_get_checksum(void *obj, unsigned long obj_size,
+>                                         unsigned int chksum);
+>  void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev);
+>  void amdgpu_detect_virtualization(struct amdgpu_device *adev);
+> +
+> +bool amdgpu_virt_can_access_debugfs(struct amdgpu_device *adev);
+> +int amdgpu_virt_enable_access_debugfs(struct amdgpu_device *adev);
+> +void amdgpu_virt_disable_access_debugfs(struct amdgpu_device *adev);
+>  #endif
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1428036979==--
