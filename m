@@ -2,119 +2,100 @@ Return-Path: <SRS0=F+/f=52=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 711B5C2BA2B
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 08:00:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AFA93C2BA2B
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 08:02:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3FD6320753
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 08:00:37 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7E55820753
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 08:02:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="FcJULItO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3FD6320753
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="lz66R2qX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7E55820753
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 002116EC87;
-	Fri, 10 Apr 2020 08:00:36 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D816C6EC87
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2020 08:00:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22D626EC8C;
+	Fri, 10 Apr 2020 08:02:00 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2078.outbound.protection.outlook.com [40.107.220.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B82096EC8C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2020 08:01:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oEIdmRPvY7JZ59J0SdrHIJqs71TrWHKRm5hPeAcNAJ+NtOy7h8CZMZtMkXxzE68rnZguFVbrkUG7t4Xq37Hsjg6r9qH6rQZQ46TckJGp7Pf71pYEQKxVHAkw1FDFSOavtTZlAvW2eS19C6IFcD9r3VKVTqy9KqH7TZdh7W4caULw/Ski8f1PWVsJkLUG/FRD5F81G1oQtiU9CKFHWpmfiE4l0SLc85rpw4kC/+qpA3VJ7zOH/yA20MLQikXSyWA8TYiIHYylexKuB8p7nUtct0QmRhKYhY/f8a1RdoPndMVjJ7K6kKoFrXwQGPrDySQc+9OGg791eR2CwfSz8BFtwQ==
+ b=SFeKAi04NkJXN0GBeG5xzwn3sutk/er5rlIz3nA6s7GLMh8UkYt1/mhSrZUe2PS6u4qcZIDCqAR7ufNdt9Yodvsnw9o93HesscYPAxf1k9iyNexKUF51Nvx5uUt9zzhhapwHYMEMZD/IgjubEksu1wdyHpgdnnGR6OmFQuTTKuc/c/u1I4rRAI/a4CRW0a2OrYg6jMtNgbMQmWRqnFNzxzMtt9RCF1C4p1rYqQVnqFzeJ5jFeBBfRKIqQRFJyj01sbFcrRF0oo8a6imNgi3uXtl9GVFY3oMSz7Re6ANI8cYuKy3BuQaIOn6iCeBxzJxg6QVKwsr55oCP9z1B5e/B5w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wKoaQoBJkSelzFqXbpOJfvzMO1s6w7tXa5HS/QVDZmI=;
- b=m17SZZM31/mwG67oBMLHlMEFcXqajoD82TMUzwlVVg5IRjUyOOFwVw5B8S64ip9IQD4uhA4LAXUCR2uIw+smVf4ZwyFjiRgmRywUBZ6S2gw9Uxqk8RgaY2iYnfqXK6o+1iB3q3NibXrCn0g53cyjzguzBTODCr080/U32aoZs9gsLpIpoMk+arwGiPVRDVFa8XzcR5Cf6kz2mUWa9hSYff94jnxnYUL2WMZhaMDy8B/nlSHiRfgWAHmE+ZZWpHvdu1hZGm7zb3aXLT6/CBd4OWS8k7AsWtdTlv1gheR9ajNnw6soEIQJG/BlJitqTrXdo4RU8dpge0U+neTvcC+jPQ==
+ bh=UOWWgjwXqnVSVnAZGmQqsj9sQnzv5ElFlgD3XjrrAGA=;
+ b=O9jP6xDw4bAqDYH2O5PFiz6qjACqtKSCFiWXFU3i/NrSKLZhrFFD4E15vT/wsH3M7GutkU76zSfIFDpuoYphERXjscO+6UZwodtn63HyvtKdWUYRWW2qCaCt4ApJheoGKs0XmBjNdX+0pPEkPXjfkVPxM1wjm54BeL8cAVMk3jt9Ry1wTkJNUaIic/HsfG5z2qVYM0rYb5vV+b8E4p0IapM2pmXe+1SXGKyUGhPw9bsE85d+fwEcFFSox1gfb7CDYU1iJQ6SXjJEtTSssFMIJJYY8IaHzOudBeBAwsZD0q2ulBVfOjtbfB0OHq4+vrCG5kHXxlG2tkNXlQoFkA5E7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wKoaQoBJkSelzFqXbpOJfvzMO1s6w7tXa5HS/QVDZmI=;
- b=FcJULItOvYcQOdoXJpELXoPaaC5ZBmuv54Jo20LwVsXjZwqC+12GotRAQGpeo/lOqsi3tIp+4FRm3VlhscY+dAm3Ok1xm2BKzjlgqqPXT1D10Qa/a6txna0eSdsyALmc62fwWkoOTbyge5MaVpTxAKP7yL5+2+7krEJKPqEeTeI=
-Received: from BN6PR12MB1283.namprd12.prod.outlook.com (2603:10b6:404:19::8)
- by BN6PR12MB1524.namprd12.prod.outlook.com (2603:10b6:405:4::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.15; Fri, 10 Apr
- 2020 08:00:33 +0000
-Received: from BN6PR12MB1283.namprd12.prod.outlook.com
- ([fe80::60b6:8e56:2853:614a]) by BN6PR12MB1283.namprd12.prod.outlook.com
- ([fe80::60b6:8e56:2853:614a%5]) with mapi id 15.20.2878.022; Fri, 10 Apr 2020
- 08:00:33 +0000
-From: "Chen, Guchun" <Guchun.Chen@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Li, Dennis" <Dennis.Li@amd.com>, "Zhou1, 
- Tao" <Tao.Zhou1@amd.com>, "Clements, John" <John.Clements@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: add uncorrectable error count print in UMC
- ecc irq cb
-Thread-Topic: [PATCH] drm/amdgpu: add uncorrectable error count print in UMC
- ecc irq cb
-Thread-Index: AQHWDuvqsSAWGrZhHEW++nfZhlP1CqhxywAAgAACPACAAACuAIAAMCxQ
-Date: Fri, 10 Apr 2020 08:00:33 +0000
-Message-ID: <BN6PR12MB12832AE86B47DCBCA2C94F26F1DE0@BN6PR12MB1283.namprd12.prod.outlook.com>
-References: <20200410035528.27347-1-guchun.chen@amd.com>
- <DM6PR12MB4075902286A10D35E42015D1FCDE0@DM6PR12MB4075.namprd12.prod.outlook.com>
- <DM6PR12MB4075841B0C5015B48AF45EA8FCDE0@DM6PR12MB4075.namprd12.prod.outlook.com>
- <DM6PR12MB407589D518D861C2479E77BAFCDE0@DM6PR12MB4075.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB407589D518D861C2479E77BAFCDE0@DM6PR12MB4075.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-04-10T08:00:07Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=f09b79d7-7e47-4c0b-bf46-0000c91d3e3f;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-04-10T08:00:30Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 19bede26-08a7-48a6-827b-000002d10d39
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Guchun.Chen@amd.com; 
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 1c314256-870a-417f-380b-08d7dd253f19
-x-ms-traffictypediagnostic: BN6PR12MB1524:|BN6PR12MB1524:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN6PR12MB152414B2DECD9D81D4A339BBF1DE0@BN6PR12MB1524.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 0369E8196C
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN6PR12MB1283.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(346002)(376002)(39860400002)(136003)(396003)(366004)(64756008)(76116006)(66946007)(66556008)(81156014)(5660300002)(8936002)(6506007)(2906002)(66476007)(52536014)(66446008)(86362001)(186003)(110136005)(55016002)(7696005)(6636002)(316002)(9686003)(478600001)(71200400001)(8676002)(33656002)(966005)(30864003)(26005);
- DIR:OUT; SFP:1101; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: x9/7MoJqRnEu2hdHgFabvzGXlnlOyvVHA27Y/ZeSjyjbjdbJ27hMiy+Mr/5+2fReqH1R1IUqpOmkU83hWksOTvxsDADib1fHdPTGMwcr+cjNHMoLKJ2AdlKnQbadI6fSWdMnc4efkDSpWisQw8Sj8g7Vsh3RnE0bV+kcSWFxbxVGiiNr73ESp2YNOBXbXlh040etID6FFwXv6P2UIrLppLfHiW0eID+hFkCJG4QjhKyYVpeNseIAM1Mr7ZfTPYZ0e2NRRbk9ZeOmrD8siD4uZlHfunHgsmRo5TVXRnSRu2bRcqG3y3u0e5oL7w3JxojC7EvLbcQaiXNMhVLhc2CPYLiu0IponI8lG7Tzzrlvo2URV9Gbjtey2BvPszlB54/cybIIRWLLUbu2NhHaq9N+5R+YZCNpo+zRcuJKCMveperFrIx6ug+vhd8MLljMe2BA
-x-ms-exchange-antispam-messagedata: TWp//07O7/GA0Za2Aqpn3MpghZRcr6eDveSD/AcmONgSMwzHLYwFtoYeRaXZpDr+Dg+5i/5QVddaJrpVosG+LP2eSLYHPZvUjHKadQnvLfnW4xpAkLkmR0ylyNG0TEbKQduvdg/Gfr7MGoaafY3NAA==
+ bh=UOWWgjwXqnVSVnAZGmQqsj9sQnzv5ElFlgD3XjrrAGA=;
+ b=lz66R2qXDfm+klsWv0K1bZ6W1g480i+M0uXgBcmeljbor8JvbTNEJ3GgiIOtchWB27FNB7+41vhs7hbEF2Mlu+ol5uX1O/lzoKE7Rdy8TtVgjam/6KvU78JrpQGLOWG1NGpBGwrmiQ91r9VYGcBk+5OtymK8NK53t3u8iJdTyoY=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Evan.Quan@amd.com; 
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com (2603:10b6:208:c5::10)
+ by MN2PR12MB3791.namprd12.prod.outlook.com (2603:10b6:208:167::32)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.15; Fri, 10 Apr
+ 2020 08:01:56 +0000
+Received: from MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::2cda:a290:a058:bdd8]) by MN2PR12MB3344.namprd12.prod.outlook.com
+ ([fe80::2cda:a290:a058:bdd8%4]) with mapi id 15.20.2900.015; Fri, 10 Apr 2020
+ 08:01:56 +0000
+From: Evan Quan <evan.quan@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: fix wrong vram lost counter increment
+Date: Fri, 10 Apr 2020 16:01:36 +0800
+Message-Id: <20200410080136.29119-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.26.0
+X-ClientProxiedBy: HK2PR02CA0202.apcprd02.prod.outlook.com
+ (2603:1096:201:20::14) To MN2PR12MB3344.namprd12.prod.outlook.com
+ (2603:10b6:208:c5::10)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from equan-buildpc.amd.com (180.167.199.189) by
+ HK2PR02CA0202.apcprd02.prod.outlook.com (2603:1096:201:20::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2900.15 via Frontend Transport; Fri, 10 Apr 2020 08:01:54 +0000
+X-Mailer: git-send-email 2.26.0
+X-Originating-IP: [180.167.199.189]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: c3def6ef-f7c4-4885-6a87-08d7dd257020
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3791:|MN2PR12MB3791:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3791BA7CF517005F15F5A050E4DE0@MN2PR12MB3791.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
+X-Forefront-PRVS: 0369E8196C
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3344.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(376002)(39860400002)(136003)(396003)(366004)(346002)(8936002)(2906002)(4326008)(26005)(36756003)(2616005)(16526019)(186003)(52116002)(7696005)(956004)(6916009)(8676002)(81156014)(478600001)(1076003)(44832011)(5660300002)(66946007)(6486002)(66556008)(6666004)(316002)(86362001)(66476007)(309714004);
+ DIR:OUT; SFP:1101; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: oona3SCpKTUa8BxExMpdCxKM98u9AqnBX94h+cdzX/xS5QqHFc077Lg9hKO6e6hkas3TVzt99/K6OH2CHWVvbGrV6hITqrSb/7qNjkgy2fkUMl+uP8Aw6qI/f+7GyxLTjchrJJsgsy9b7JCtNfD7s47CJvOgfx1jeVLFbbK2mhiprOjImI+FP6HQl4YwnUtOWS5e+9AikS3BdvakzHpIqfXvMEgXKQPeCy8M3OxwO3IA5dmm6pqoZ2iN6E5njtFSznAvscrSaAoaTUpT79H9ERf1ae8soMHWlQOz0X1EfbrI46L9u+uocNQFmBNTGln1Uol3cI5fgt6vJmMWGGkXK2iOjvN9zIgApArORljPSs/PKBQ0Afvu18qtkNA51elKPonxI4lL4I5NCrTMYhgre3lLp8kk24CfKTfHHoxq1jFnFTP+84lMrWP0B+UgNPTgzPzJlyknkeEUk+F4YkYuDp2ceKrlTZVhOqxaeXDoPx4/jjBGKTlZBsSDQ99YmG9L
+X-MS-Exchange-AntiSpam-MessageData: Chpp3NtL15+kZqxvjGmpLR/tfHJ2OSfwlVT2/bjLUkzDNFHVmIAzIBa0aUoosZWYl8DPPkAQ2GXXSgzmXdOOyQ6OPSovguqjXHt2cp2NF6DgtAG9qIpfPnbe74HBPakx6YruHdVZE6I5pnJH7j7Grw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1c314256-870a-417f-380b-08d7dd253f19
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Apr 2020 08:00:33.5541 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WuAHg+bH7zItTwIx+Mie4t6Nz07za4ROpOeabS1HAcXmjeq1hzadskZnDFmsCQNxEcCLxTv05hlpScIJD1o4mg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1524
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3def6ef-f7c4-4885-6a87-08d7dd257020
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2020 08:01:56.2734 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zuv9nUuZppc/dEDYOZs7h3WZzbl+FqIgfmDsbPVSy6qKxjSUx0iJCYb5MpHwH2wx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3791
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,446 +107,142 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1191506750=="
+Cc: alexander.deucher@amd.com, Evan Quan <evan.quan@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1191506750==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BN6PR12MB12832AE86B47DCBCA2C94F26F1DE0BN6PR12MB1283namp_"
+Vram lost counter is wrongly increased by two during baco reset.
 
---_000_BN6PR12MB12832AE86B47DCBCA2C94F26F1DE0BN6PR12MB1283namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Public Use]
-
-Hi Hawking,
-
-I submitted one new patch to address these rules just now. Please review.
-
-Regards,
-Guchun
-
-_____________________________________________
-From: Zhang, Hawking <Hawking.Zhang@amd.com>
-Sent: Friday, April 10, 2020 1:07 PM
-To: Chen, Guchun <Guchun.Chen@amd.com>; amd-gfx@lists.freedesktop.org; Li, =
-Dennis <Dennis.Li@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Clements, John =
-<John.Clements@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: add uncorrectable error count print in UMC=
- ecc irq cb
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Hi Guchun,
-
-I put all the rules together. Please make the patch accordingly.
-
-1). Use "correctable/uncorrectable *hardware* error", instead of just "corr=
-ectable/uncorrectable error" in all callback functions that prints RAS erro=
-r counters
-2). Add wording "no user action necessary" for all the "correctable error" =
-related kernel messages
-3). For the sync flood interrupt, let's not just indicate ATHUB_ERROR_EVENT=
- type, but also "uncorrectable hardware error (ERREVENT_ATHUB_INT) detected=
-". And so does the BIF interrupt for the UE.
-4). Replace DRM_INFO with dev_info for all the RAS related kernel messaging=
-.
-
-Regards,
-Hawking
-
------Original Message-----
-From: Zhang, Hawking
-Sent: Friday, April 10, 2020 13:05
-To: Chen, Guchun <Guchun.Chen@amd.com<mailto:Guchun.Chen@amd.com>>; 'amd-gf=
-x@lists.freedesktop.org' <amd-gfx@lists.freedesktop.org<mailto:amd-gfx@list=
-s.freedesktop.org>>; Li, Dennis <Dennis.Li@amd.com<mailto:Dennis.Li@amd.com=
->>; Zhou1, Tao <Tao.Zhou1@amd.com<mailto:Tao.Zhou1@amd.com>>; Clements, Joh=
-n <John.Clements@amd.com<mailto:John.Clements@amd.com>>
-Subject: RE: [PATCH] drm/amdgpu: add uncorrectable error count print in UMC=
- ecc irq cb
-
-[AMD Official Use Only - Internal Distribution Only]
-
-And some more rules in RAS wording in kernel message.
-
-1). Use "correctable/uncorrectable *hardware* error", instead of just "corr=
-ectable/uncorrectable error" in all callback functions that prints RAS erro=
-r counters 2). Add wording "no user action necessary" for all the "correcta=
-ble error" related kernel messages 3). For the sync flood interrupt, let's =
-not just indicate ATHUB_ERROR_EVENT type, but also "uncorrectable hardware =
-error (ERREVENT_ATHUB_INT) detected". And so does the BIF interrupt for the=
- ue.
-
-Regards,
-Hawking
-
------Original Message-----
-From: Zhang, Hawking
-Sent: Friday, April 10, 2020 12:57
-To: Chen, Guchun <Guchun.Chen@amd.com<mailto:Guchun.Chen@amd.com>>; amd-gfx=
-@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>; Li, Dennis <D=
-ennis.Li@amd.com<mailto:Dennis.Li@amd.com>>; Zhou1, Tao <Tao.Zhou1@amd.com<=
-mailto:Tao.Zhou1@amd.com>>; Clements, John <John.Clements@amd.com<mailto:Jo=
-hn.Clements@amd.com>>
-Subject: RE: [PATCH] drm/amdgpu: add uncorrectable error count print in UMC=
- ecc irq cb
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Hello Guchun,
-
-Besides this, could you please also make a patch to replace DRM_INFO with d=
-ev_info in amdgpu_ras_check_supported. Basically, we'd prefer to have devic=
-e bdf as the prefix in RAS related wording in kernel message, instead of DR=
-M pre-fix.
-
-Please also have a review again on the other RAS wording in case there is s=
-till use DRM_INFO for the print out message. We shall let user know exactly=
- gpu device for any RAS error information.
-
-Regards,
-Hawking
------Original Message-----
-From: Chen, Guchun <Guchun.Chen@amd.com<mailto:Guchun.Chen@amd.com>>
-Sent: Friday, April 10, 2020 11:55
-To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>; Zh=
-ang, Hawking <Hawking.Zhang@amd.com<mailto:Hawking.Zhang@amd.com>>; Li, Den=
-nis <Dennis.Li@amd.com<mailto:Dennis.Li@amd.com>>; Zhou1, Tao <Tao.Zhou1@am=
-d.com<mailto:Tao.Zhou1@amd.com>>; Clements, John <John.Clements@amd.com<mai=
-lto:John.Clements@amd.com>>
-Cc: Chen, Guchun <Guchun.Chen@amd.com<mailto:Guchun.Chen@amd.com>>
-Subject: [PATCH] drm/amdgpu: add uncorrectable error count print in UMC ecc=
- irq cb
-
-Uncorrectable error count printing is missed when issuing UMC UE injection.=
- When going to the error count log function in GPU recover work thread, the=
-re is no chance to get correct error count value by last error injection an=
-d print, because the error status register is automatically cleared after r=
-eading in UMC ecc irq callback. So add such message printing in UMC ecc irq=
- cb to be consistent with other RAS error interrupt cases.
-
-Signed-off-by: Guchun Chen <guchun.chen@amd.com<mailto:guchun.chen@amd.com>=
->
+Change-Id: I8b9959a5d1632abc774ba07d56cf295bdd8288eb
+Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 36 ++++++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/cik.c           |  2 --
+ drivers/gpu/drm/amd/amdgpu/nv.c            |  4 ---
+ drivers/gpu/drm/amd/amdgpu/soc15.c         |  4 ---
+ drivers/gpu/drm/amd/amdgpu/vi.c            |  2 --
+ 5 files changed, 34 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_umc.c
-index f4d40855147b..267f7c30f4dd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
-@@ -121,6 +121,9 @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_device=
- *adev,
-
-        /* only uncorrectable error needs gpu reset */
-        if (err_data->ue_count) {
-+               dev_info(adev->dev, "%ld uncorrectable errors detected in U=
-MC block\n",
-+                       err_data->ue_count);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index a2a4e4b28d00..c9317975c46e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2087,8 +2087,40 @@ static void amdgpu_device_fill_reset_magic(struct amdgpu_device *adev)
+  */
+ static bool amdgpu_device_check_vram_lost(struct amdgpu_device *adev)
+ {
+-	return !!memcmp(adev->gart.ptr, adev->reset_magic,
+-			AMDGPU_RESET_MAGIC_NUM);
++	if (memcmp(adev->gart.ptr, adev->reset_magic,
++			AMDGPU_RESET_MAGIC_NUM))
++		return true;
 +
-                if (err_data->err_addr_cnt &&
-                    amdgpu_ras_add_bad_pages(adev, err_data->err_addr,
-                                                err_data->err_addr_cnt))
---
-2.17.1
-
-
---_000_BN6PR12MB12832AE86B47DCBCA2C94F26F1DE0BN6PR12MB1283namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
-<!-- converted from rtf -->
-<style><!-- .EmailQuote { margin-left: 1pt; padding-left: 4pt; border-left:=
- #800000 2px solid; } --></style>
-</head>
-<body>
-<font face=3D"Times New Roman" size=3D"3"><span style=3D"font-size:12pt;"><=
-a name=3D"_msipheader87abd423"></a>
-<div><font face=3D"Arial" size=3D"2" color=3D"#317100"><span style=3D"font-=
-size:10pt;">[AMD Public Use]<br>
-
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Hi H=
-awking,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">I su=
-bmitted one new patch to address these rules just now. Please review.</span=
-></font></div>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">&nbsp;</span></font><=
-/div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Rega=
-rds,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Guch=
-un</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"DengXian" size=3D"2"><span style=3D"font-size:11pt;">___=
-__________________________________________<br>
-
-<b>From:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt; <br>
-
-<b>Sent:</b> Friday, April 10, 2020 1:07 PM<br>
-
-<b>To:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;; amd-gfx@lists.freedesk=
-top.org; Li, Dennis &lt;Dennis.Li@amd.com&gt;; Zhou1, Tao &lt;Tao.Zhou1@amd=
-.com&gt;; Clements, John &lt;John.Clements@amd.com&gt;<br>
-
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: add uncorrectable error count print=
- in UMC ecc irq cb</span></font></div>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">&nbsp;</span></font><=
-/div>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">&nbsp;</span></font><=
-/div>
-<a name=3D"_msipheadera92e061b"></a>
-<div><font face=3D"Arial" size=3D"2" color=3D"#0078D7"><span style=3D"font-=
-size:10pt;">[AMD Official Use Only - Internal Distribution Only]<br>
-
-</span></font></div>
-<div><font face=3D"Calibri" size=3D"2" color=3D"#2F5496"><span style=3D"fon=
-t-size:11pt;">Hi Guchun,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2" color=3D"#2F5496"><span style=3D"fon=
-t-size:11pt;">&nbsp;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2" color=3D"#2F5496"><span style=3D"fon=
-t-size:11pt;">I put all the rules together. Please make the patch according=
-ly.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2" color=3D"#2F5496"><span style=3D"fon=
-t-size:11pt;">&nbsp;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2" color=3D"#2F5496"><span style=3D"fon=
-t-size:11pt;">1). Use &quot;correctable/uncorrectable *hardware* error&quot=
-;, instead of just &quot;correctable/uncorrectable error&quot; in all callb=
-ack functions that prints RAS error counters</span></font></div>
-<div><font face=3D"Calibri" size=3D"2" color=3D"#2F5496"><span style=3D"fon=
-t-size:11pt;">2). Add wording &quot;no user action necessary&quot; for all =
-the &quot;correctable error&quot; related kernel messages</span></font></di=
-v>
-<div><font face=3D"Calibri" size=3D"2" color=3D"#2F5496"><span style=3D"fon=
-t-size:11pt;">3). For the sync flood interrupt, let's not just indicate ATH=
-UB_ERROR_EVENT type, but also &quot;uncorrectable hardware error (ERREVENT_=
-ATHUB_INT) detected&quot;. And so does the BIF interrupt
-for the UE.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2" color=3D"#2F5496"><span style=3D"fon=
-t-size:11pt;">4). Replace DRM_INFO with dev_info for all the RAS related ke=
-rnel messaging.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2" color=3D"#2F5496"><span style=3D"fon=
-t-size:11pt;">&nbsp;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2" color=3D"#2F5496"><span style=3D"fon=
-t-size:11pt;">Regards,<br>
-
-Hawking</span></font></div>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">&nbsp;</span></font><=
-/div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">----=
--Original Message-----<br>
-
-From: Zhang, Hawking <br>
-
-Sent: Friday, April 10, 2020 13:05<br>
-
-To: Chen, Guchun &lt;<a href=3D"mailto:Guchun.Chen@amd.com"><font color=3D"=
-#0563C1"><u>Guchun.Chen@amd.com</u></font></a>&gt;; 'amd-gfx@lists.freedesk=
-top.org' &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org"><font color=
-=3D"#0563C1"><u>amd-gfx@lists.freedesktop.org</u></font></a>&gt;;
-Li, Dennis &lt;<a href=3D"mailto:Dennis.Li@amd.com"><font color=3D"#0563C1"=
-><u>Dennis.Li@amd.com</u></font></a>&gt;; Zhou1, Tao &lt;<a href=3D"mailto:=
-Tao.Zhou1@amd.com"><font color=3D"#0563C1"><u>Tao.Zhou1@amd.com</u></font><=
-/a>&gt;; Clements, John &lt;<a href=3D"mailto:John.Clements@amd.com"><font =
-color=3D"#0563C1"><u>John.Clements@amd.com</u></font></a>&gt;<br>
-
-Subject: RE: [PATCH] drm/amdgpu: add uncorrectable error count print in UMC=
- ecc irq cb</span></font></div>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">&nbsp;</span></font><=
-/div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">[AMD=
- Official Use Only - Internal Distribution Only]</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">And =
-some more rules in RAS wording in kernel message.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">1). =
-Use &quot;correctable/uncorrectable *hardware* error&quot;, instead of just=
- &quot;correctable/uncorrectable error&quot; in all callback functions that=
- prints RAS error counters 2). Add wording &quot;no user action
-necessary&quot; for all the &quot;correctable error&quot; related kernel me=
-ssages 3). For the sync flood interrupt, let's not just indicate ATHUB_ERRO=
-R_EVENT type, but also &quot;uncorrectable hardware error (ERREVENT_ATHUB_I=
-NT) detected&quot;. And so does the BIF interrupt for the
-ue.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Rega=
-rds,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Hawk=
-ing</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">----=
--Original Message-----</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">From=
-: Zhang, Hawking</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Sent=
-: Friday, April 10, 2020 12:57</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">To: =
-Chen, Guchun &lt;<a href=3D"mailto:Guchun.Chen@amd.com">Guchun.Chen@amd.com=
-</a>&gt;; <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.fr=
-eedesktop.org</a>; Li, Dennis &lt;<a href=3D"mailto:Dennis.Li@amd.com">Denn=
-is.Li@amd.com</a>&gt;;
-Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.com">Tao.Zhou1@amd.com</a>&g=
-t;; Clements, John &lt;<a href=3D"mailto:John.Clements@amd.com">John.Clemen=
-ts@amd.com</a>&gt;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Subj=
-ect: RE: [PATCH] drm/amdgpu: add uncorrectable error count print in UMC ecc=
- irq cb</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">[AMD=
- Official Use Only - Internal Distribution Only]</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Hell=
-o Guchun,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Besi=
-des this, could you please also make a patch to replace DRM_INFO with dev_i=
-nfo in amdgpu_ras_check_supported. Basically, we'd prefer to have device bd=
-f as the prefix in RAS related wording
-in kernel message, instead of DRM pre-fix.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Plea=
-se also have a review again on the other RAS wording in case there is still=
- use DRM_INFO for the print out message. We shall let user know exactly gpu=
- device for any RAS error information.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Rega=
-rds,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Hawk=
-ing</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">----=
--Original Message-----</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">From=
-: Chen, Guchun &lt;<a href=3D"mailto:Guchun.Chen@amd.com">Guchun.Chen@amd.c=
-om</a>&gt;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Sent=
-: Friday, April 10, 2020 11:55</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">To: =
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a>; Zhang, Hawking &lt;<a href=3D"mailto:Hawking.Zhang@amd.com">Hawkin=
-g.Zhang@amd.com</a>&gt;; Li, Dennis &lt;<a href=3D"mailto:Dennis.Li@amd.com=
-">Dennis.Li@amd.com</a>&gt;;
-Zhou1, Tao &lt;<a href=3D"mailto:Tao.Zhou1@amd.com">Tao.Zhou1@amd.com</a>&g=
-t;; Clements, John &lt;<a href=3D"mailto:John.Clements@amd.com">John.Clemen=
-ts@amd.com</a>&gt;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Cc: =
-Chen, Guchun &lt;<a href=3D"mailto:Guchun.Chen@amd.com">Guchun.Chen@amd.com=
-</a>&gt;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Subj=
-ect: [PATCH] drm/amdgpu: add uncorrectable error count print in UMC ecc irq=
- cb</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Unco=
-rrectable error count printing is missed when issuing UMC UE injection. Whe=
-n going to the error count log function in GPU recover work thread, there i=
-s no chance to get correct error count
-value by last error injection and print, because the error status register =
-is automatically cleared after reading in UMC ecc irq callback. So add such=
- message printing in UMC ecc irq cb to be consistent with other RAS error i=
-nterrupt cases.</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">Sign=
-ed-off-by: Guchun Chen &lt;<a href=3D"mailto:guchun.chen@amd.com">guchun.ch=
-en@amd.com</a>&gt;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">---<=
-/span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> dri=
-vers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 3 &#43;&#43;&#43;</span></font></div=
->
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;"> 1 f=
-ile changed, 3 insertions(&#43;)</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">diff=
- --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdg=
-pu/amdgpu_umc.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">inde=
-x f4d40855147b..267f7c30f4dd 100644</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--- =
-a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&#43=
-;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">@@ -=
-121,6 &#43;121,9 @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_device=
- *adev,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* only uncorrectable error ne=
-eds gpu reset */</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (err_data-&gt;ue_count) {</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&#43=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; dev_info(adev-&gt;dev, &quot;%ld uncorrectable errors detected i=
-n UMC block\n&quot;,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&#43=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err_data-&gt;ue_=
-count);</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&#43=
-;</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp; if (err_data-&gt;err_addr_cnt &amp;&amp;</span></font></d=
-iv>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ras_add_bad_pages(adev, er=
-r_data-&gt;err_addr,</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; err_data-&gt;er=
-r_addr_cnt))</span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">--</=
-span></font></div>
-<div><font face=3D"Calibri" size=3D"2"><span style=3D"font-size:11pt;">2.17=
-.1</span></font></div>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">&nbsp;</span></font><=
-/div>
-</span></font>
-</body>
-</html>
-
---_000_BN6PR12MB12832AE86B47DCBCA2C94F26F1DE0BN6PR12MB1283namp_--
-
---===============1191506750==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
++	if (!adev->in_gpu_reset)
++		return false;
++
++	/*
++	 * For all ASICs with baco reset, the VRAM is assumed to be
++	 * lost.
++	 * For SOC15 and NV ASICs with mode1 reset, the VRAM is also
++	 * assumed to be lost.
++	 */
++	switch (amdgpu_asic_reset_method(adev)) {
++	case AMD_RESET_METHOD_BACO:
++		return true;
++	case AMD_RESET_METHOD_MODE1:
++		switch (adev->asic_type) {
++		case CHIP_VEGA10:
++		case CHIP_VEGA12:
++		case CHIP_VEGA20:
++		case CHIP_RAVEN:
++		case CHIP_ARCTURUS:
++		case CHIP_RENOIR:
++		case CHIP_NAVI10:
++		case CHIP_NAVI14:
++		case CHIP_NAVI12:
++			return true;
++		default:
++			return false;
++		}
++	default:
++		return false;
++	}
+ }
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
+index db68ffa27984..fe306d0f73f7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+@@ -1358,8 +1358,6 @@ static int cik_asic_reset(struct amdgpu_device *adev)
+ 	int r;
+ 
+ 	if (cik_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
+-		if (!adev->in_suspend)
+-			amdgpu_inc_vram_lost(adev);
+ 		r = amdgpu_dpm_baco_reset(adev);
+ 	} else {
+ 		r = cik_asic_pci_config_reset(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 7768880fcccf..995bdec9fa7d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -351,8 +351,6 @@ static int nv_asic_reset(struct amdgpu_device *adev)
+ 	struct smu_context *smu = &adev->smu;
+ 
+ 	if (nv_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
+-		if (!adev->in_suspend)
+-			amdgpu_inc_vram_lost(adev);
+ 		ret = smu_baco_enter(smu);
+ 		if (ret)
+ 			return ret;
+@@ -360,8 +358,6 @@ static int nv_asic_reset(struct amdgpu_device *adev)
+ 		if (ret)
+ 			return ret;
+ 	} else {
+-		if (!adev->in_suspend)
+-			amdgpu_inc_vram_lost(adev);
+ 		ret = nv_asic_mode1_reset(adev);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index a597ad22b675..58a440a15525 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -569,14 +569,10 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
+ 
+ 	switch (soc15_asic_reset_method(adev)) {
+ 		case AMD_RESET_METHOD_BACO:
+-			if (!adev->in_suspend)
+-				amdgpu_inc_vram_lost(adev);
+ 			return soc15_asic_baco_reset(adev);
+ 		case AMD_RESET_METHOD_MODE2:
+ 			return amdgpu_dpm_mode2_reset(adev);
+ 		default:
+-			if (!adev->in_suspend)
+-				amdgpu_inc_vram_lost(adev);
+ 			return soc15_asic_mode1_reset(adev);
+ 	}
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index 0a90c296409b..af8986a55354 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -744,8 +744,6 @@ static int vi_asic_reset(struct amdgpu_device *adev)
+ 	int r;
+ 
+ 	if (vi_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
+-		if (!adev->in_suspend)
+-			amdgpu_inc_vram_lost(adev);
+ 		r = amdgpu_dpm_baco_reset(adev);
+ 	} else {
+ 		r = vi_asic_pci_config_reset(adev);
+-- 
+2.26.0
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1191506750==--
