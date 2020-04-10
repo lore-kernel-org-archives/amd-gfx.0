@@ -2,65 +2,72 @@ Return-Path: <SRS0=F+/f=52=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0942CC2BA2B
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 12:45:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 66E91C2BA2B
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 12:49:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C9CDE20769
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 12:45:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 37B8720769
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 12:49:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V+sD+VLP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9CDE20769
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SE9i7u1J"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 37B8720769
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4804B6ECD5;
-	Fri, 10 Apr 2020 12:45:06 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE7B56ECD5
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2020 12:45:04 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id f13so2145713wrm.13
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2020 05:45:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03A6A6ECD7;
+	Fri, 10 Apr 2020 12:49:07 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7FA876ECD7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2020 12:49:05 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id y3so1937259qky.8
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2020 05:49:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fEQEwHMVyhNAcg7gJd+uq6NCjAzRsC9nV/zxI3Ftbok=;
- b=V+sD+VLPjhW1wINZHp106IpcUhzmpJvGrXDb/n29ByJosohTmyLyjq2mLiCMmn6t7e
- D07MzUzR+7ryagOoNG3cFiRP4Zaz3XRi0ke9dH7FdjsNvxvKMgE0X6QrBwTVqKjPr8W7
- KQjahR7NJB3qb4mK7HNpA/Y33VuQuXCsEFdSgIvsjTb9Wzb3NCyE3mmlV9lvuwTDnN8n
- Haa8AD9S4Jh2+wu5Sih6irUvFr8W19ubQqnEWrl45v+4ltYK+6TubmTx+M+4KycwPg63
- aKSJ2YEDF55bM6NXlJYMbAWGaOZoEAOtr7gTmP/EB+zbyNbyCtmbzN/XJMH+Tqr6Ll+P
- cmMw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=62i642G32AoepjE2d/7vJclJfahRwn3gyW7q/317duY=;
+ b=SE9i7u1JEHdZt31Soizhwq6nxdyKJcAwnqW/j6vJ+FsWUEOhRkLYhsVSbn8VMlMzKg
+ Rt2MbvA4bd7JQkKMl+rSVFET6ukGDisGghUGapjdIR3XL32oj7Y6XtvuDuekD9CkPT5h
+ 5ild65qhI0cPDOKqXyDYRoyKJTfNgCx2fS1ShYA344BhnEj/cLOpvSo2qJxmMMXvS7Xf
+ UnhEjqEyZX74xseaehMKqTj0/w5QkVRaBqBn8Lqd8WmB14vvBDx6ZdE04S0kypVp3gPr
+ SD4vc3fDs4OOlwx63xbsdKj740zKEkNW8OpmABk/sukkLeqkGR84TY1wTJv4RmdUAkfq
+ 1bFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=fEQEwHMVyhNAcg7gJd+uq6NCjAzRsC9nV/zxI3Ftbok=;
- b=JzK4Yb/7+bVUfqi44m7c1l7Cx6BI01Y0Tzm/Q15fLIRzmRWsGpRCb/T8EpXAQC+DsX
- ATxaz7TjTPvVSnkV+9uIHd5JeIAmRfKp364HYt6nN7bVPtMRvCe97xjY8cEBlNNe1/Gp
- bYPvI1kqkuSmWC/jFq9vvtjrtfB65uas2UHeKZ/jxnexo6T3jgWbLuI9vaEb/1VdEnTV
- 3YvI4UgwBfdqMZVIwRR637mrDi425Bs8XYhroGxHT6gvGMfxyLbGQkeesAZK2SWMbjWD
- lej37b16CyTz9G0081FYyYWc/9fZo2OQZEwcJQsLgbJfp1IJFIHtLJfHeCVDyzWOu1UO
- a0Ww==
-X-Gm-Message-State: AGi0PuY+R0MsXyAeFu9JDRrmchnaFknGdFB2Nyd4pHwuX3cvlXLmLjEM
- ivpa/RM+on/AbQnxiEKDKNqWuGjdzZT27MLSGVowpg==
-X-Google-Smtp-Source: APiQypI1oWhKlBNOCuTtQeGeyvp+JROb1ycRHxetExCmR4S8G2j7/siGDCKfgfWcdHLqrGFaJGPlLNO8zqEz0eoQvcE=
-X-Received: by 2002:a5d:6742:: with SMTP id l2mr4780540wrw.124.1586522703458; 
- Fri, 10 Apr 2020 05:45:03 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200410080136.29119-1-evan.quan@amd.com>
-In-Reply-To: <20200410080136.29119-1-evan.quan@amd.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=62i642G32AoepjE2d/7vJclJfahRwn3gyW7q/317duY=;
+ b=XgKBHpTEmaBR+PkFKZpMqhp22EIqKs1VISKwaLaUJEoENR0a4SvOzk7sG3GPF2w5kJ
+ ftooimIJF/opTdeP6RXuwX//fquDh6RV421uA27YtUNgd7MNyZvzj2YsoydM5WnFqwaG
+ WVukENIMP1CTCpUKYfDIpHHcHFIoNA/Oh7zPhmFerEq3s2h8kBexudXy9hfb3QMrCSpc
+ J2MjfdMSMm15Pqx2Mxdn/xihnYVEwc/jAXNmFLdxXCFLvlJdpuQL+fl0VoRwNk81sqHR
+ rS7Plz8392ZnTh0C5GeAXmTTLGmQpPlLbEbl1V+lJbVgpsYMfrBgWcxn5FxWBeyjbHjA
+ FdSg==
+X-Gm-Message-State: AGi0Puau3hE34SICmy40f45IfAulzCQV+L3ud4Z+FNdcfA6MN03oi+lu
+ 7gNPNpF96NW3PUfePU858T/wYT3j
+X-Google-Smtp-Source: APiQypILoRci371qbXxMloouvUBf8Rzu3d9/P9IQZBbh1Ysa9Y+NlyjJMaAailZ1dDWukGOqb88ZYQ==
+X-Received: by 2002:a05:620a:1676:: with SMTP id
+ d22mr3900076qko.217.1586522944313; 
+ Fri, 10 Apr 2020 05:49:04 -0700 (PDT)
+Received: from localhost.localdomain ([71.219.40.23])
+ by smtp.gmail.com with ESMTPSA id i18sm1446807qtp.8.2020.04.10.05.49.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 10 Apr 2020 05:49:03 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 10 Apr 2020 08:44:52 -0400
-Message-ID: <CADnq5_NtxmN68VVKadomSSZ_vRcYZvCDJm6mhX269S2kKM2yiA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix wrong vram lost counter increment
-To: Evan Quan <evan.quan@amd.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu/powerplay: get SMC FW size to a flexible way
+Date: Fri, 10 Apr 2020 08:46:44 -0400
+Message-Id: <20200410124644.1489253-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.2
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,155 +79,65 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
+ Evan Quan <evan.quan@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Kevin Wang <kevin1.wang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 10, 2020 at 4:02 AM Evan Quan <evan.quan@amd.com> wrote:
->
-> Vram lost counter is wrongly increased by two during baco reset.
->
-> Change-Id: I8b9959a5d1632abc774ba07d56cf295bdd8288eb
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 36 ++++++++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/cik.c           |  2 --
->  drivers/gpu/drm/amd/amdgpu/nv.c            |  4 ---
->  drivers/gpu/drm/amd/amdgpu/soc15.c         |  4 ---
->  drivers/gpu/drm/amd/amdgpu/vi.c            |  2 --
->  5 files changed, 34 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index a2a4e4b28d00..c9317975c46e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -2087,8 +2087,40 @@ static void amdgpu_device_fill_reset_magic(struct amdgpu_device *adev)
->   */
->  static bool amdgpu_device_check_vram_lost(struct amdgpu_device *adev)
->  {
-> -       return !!memcmp(adev->gart.ptr, adev->reset_magic,
-> -                       AMDGPU_RESET_MAGIC_NUM);
-> +       if (memcmp(adev->gart.ptr, adev->reset_magic,
-> +                       AMDGPU_RESET_MAGIC_NUM))
-> +               return true;
-> +
-> +       if (!adev->in_gpu_reset)
-> +               return false;
-> +
-> +       /*
-> +        * For all ASICs with baco reset, the VRAM is assumed to be
-> +        * lost.
-> +        * For SOC15 and NV ASICs with mode1 reset, the VRAM is also
-> +        * assumed to be lost.
-> +        */
-> +       switch (amdgpu_asic_reset_method(adev)) {
-> +       case AMD_RESET_METHOD_BACO:
-> +               return true;
-> +       case AMD_RESET_METHOD_MODE1:
-> +               switch (adev->asic_type) {
-> +               case CHIP_VEGA10:
-> +               case CHIP_VEGA12:
-> +               case CHIP_VEGA20:
-> +               case CHIP_RAVEN:
-> +               case CHIP_ARCTURUS:
-> +               case CHIP_RENOIR:
-> +               case CHIP_NAVI10:
-> +               case CHIP_NAVI14:
-> +               case CHIP_NAVI12:
+From: Likun Gao <Likun.Gao@amd.com>
 
-I think we can probably just drop the asic check and always return
-true for MODE1 reset.  The UMC block gets reset is memory is not
-reliable.
+Get SMC fw size before backdoor loading instead of giving an
+certain value, as it may different for different ASIC.
 
-Alex
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Evan Quan <evan.quan@amd.com>
+Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h | 1 -
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 4 +++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-> +                       return true;
-> +               default:
-> +                       return false;
-> +               }
-> +       default:
-> +               return false;
-> +       }
->  }
->
->  /**
-> diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
-> index db68ffa27984..fe306d0f73f7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/cik.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/cik.c
-> @@ -1358,8 +1358,6 @@ static int cik_asic_reset(struct amdgpu_device *adev)
->         int r;
->
->         if (cik_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
-> -               if (!adev->in_suspend)
-> -                       amdgpu_inc_vram_lost(adev);
->                 r = amdgpu_dpm_baco_reset(adev);
->         } else {
->                 r = cik_asic_pci_config_reset(adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-> index 7768880fcccf..995bdec9fa7d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -351,8 +351,6 @@ static int nv_asic_reset(struct amdgpu_device *adev)
->         struct smu_context *smu = &adev->smu;
->
->         if (nv_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
-> -               if (!adev->in_suspend)
-> -                       amdgpu_inc_vram_lost(adev);
->                 ret = smu_baco_enter(smu);
->                 if (ret)
->                         return ret;
-> @@ -360,8 +358,6 @@ static int nv_asic_reset(struct amdgpu_device *adev)
->                 if (ret)
->                         return ret;
->         } else {
-> -               if (!adev->in_suspend)
-> -                       amdgpu_inc_vram_lost(adev);
->                 ret = nv_asic_mode1_reset(adev);
->         }
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> index a597ad22b675..58a440a15525 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-> @@ -569,14 +569,10 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
->
->         switch (soc15_asic_reset_method(adev)) {
->                 case AMD_RESET_METHOD_BACO:
-> -                       if (!adev->in_suspend)
-> -                               amdgpu_inc_vram_lost(adev);
->                         return soc15_asic_baco_reset(adev);
->                 case AMD_RESET_METHOD_MODE2:
->                         return amdgpu_dpm_mode2_reset(adev);
->                 default:
-> -                       if (!adev->in_suspend)
-> -                               amdgpu_inc_vram_lost(adev);
->                         return soc15_asic_mode1_reset(adev);
->         }
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
-> index 0a90c296409b..af8986a55354 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-> @@ -744,8 +744,6 @@ static int vi_asic_reset(struct amdgpu_device *adev)
->         int r;
->
->         if (vi_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
-> -               if (!adev->in_suspend)
-> -                       amdgpu_inc_vram_lost(adev);
->                 r = amdgpu_dpm_baco_reset(adev);
->         } else {
->                 r = vi_asic_pci_config_reset(adev);
-> --
-> 2.26.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+index 674e426ed59b..10ad10b906bb 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+@@ -37,7 +37,6 @@
+ #define MP0_SRAM			0x03900000
+ #define MP1_Public			0x03b00000
+ #define MP1_SRAM			0x03c00004
+-#define MP1_SMC_SIZE		0x40000
+ 
+ /* address block */
+ #define smnMP1_FIRMWARE_FLAGS		0x3010024
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+index 655ba4fb05dc..205611b9d552 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+@@ -201,13 +201,15 @@ int smu_v11_0_load_microcode(struct smu_context *smu)
+ 	const struct smc_firmware_header_v1_0 *hdr;
+ 	uint32_t addr_start = MP1_SRAM;
+ 	uint32_t i;
++	uint32_t smc_fw_size;
+ 	uint32_t mp1_fw_flags;
+ 
+ 	hdr = (const struct smc_firmware_header_v1_0 *) adev->pm.fw->data;
+ 	src = (const uint32_t *)(adev->pm.fw->data +
+ 		le32_to_cpu(hdr->header.ucode_array_offset_bytes));
++	smc_fw_size = hdr->header.ucode_size_bytes;
+ 
+-	for (i = 1; i < MP1_SMC_SIZE/4 - 1; i++) {
++	for (i = 1; i < smc_fw_size/4 - 1; i++) {
+ 		WREG32_PCIE(addr_start, src[i]);
+ 		addr_start += 4;
+ 	}
+-- 
+2.25.2
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
