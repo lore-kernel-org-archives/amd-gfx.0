@@ -2,101 +2,65 @@ Return-Path: <SRS0=F+/f=52=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D8C61C2D0EC
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 17:29:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5211BC2BB85
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 19:52:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4FBC02078E
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 17:29:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2E30C2083E
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 19:52:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="cfwlhSwo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4FBC02078E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bNT17xUu"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E30C2083E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 031776ED1E;
-	Fri, 10 Apr 2020 17:29:17 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760049.outbound.protection.outlook.com [40.107.76.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 805706ED1E
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2020 17:29:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q3zaERwD2CM0SnS/A4BPVb3DpZGQiwPwVLynnRJf2DRiWugcDAKrD8oC2HAluOYGLH0eGuncg6j4a6MzmqU+ONfpAULBDEHnLHnuVLOrjlueMLub07FqDN7mA0cILI4aN27832iihY58EjNzor4N+8JqtyJH34I+/F5D1sUfZ54R5ZGzxEAkwAKNoLwajsqg/95aQr81bH8dDuJJ2FZNoJAruY0WKqI/eITF7pFg1Tbk3hzhCRjk/Hn6T2mLsao/C8+amz0T1dogfU5zPD+b9uiyXBLYiHw5dlp7VeO+djl1qGwIEm/ucTxJmixlf0Vtp7tvG/+j7BHCvq8a85h8Dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RkDAUXPgQPoevvD9ZH6Bwef3oB2FuAd9gMubHiS5kNU=;
- b=cCNsvmzJLPoq+BhljwBJP9RZrrUGVl5Rdc8CtS4GXlfBafqi8lL0TLk2CRzetQz180bH14MVqgDAzxYihnkysllT98+f5QCRb/vONdjs38B1Z9eGLGsZe/PD9O6T26P3sSzCMgExmjj/dqJ5u5nEBc1IOwtLqLZ71xoKmyC6e9Qp+XYXTbRcXaXXSKKcprE+pam443TdDn9HY/onoUoqdnw4HRBPOZdNlGcuCB81cVvIqZN+CLymH6dASYVkFtJ87FwkL2bKNzQ9OYcw/1TiBeqYRnFbhQddFqcB1LwVqwH3hZTBWUR0tp5eUaFm1N3Qi5ZlVpN9B5E6SDZ/7TxySg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RkDAUXPgQPoevvD9ZH6Bwef3oB2FuAd9gMubHiS5kNU=;
- b=cfwlhSwowR+yl3+7PjOYd9SKEoAFoqyiZgI1BhGQlwNQJATwolV24fyM4/+gBRPGUpSsvMVM6hJEQnFwmrb1gpWCE+lPlywDvuyNZtZ2VixcVXf6n9ISo3IfivN3QIDkxcozyvEXncAEixYgeURXPa4qlV+2gI/67mxwSOEcrVQ=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Alex.Sierra@amd.com; 
-Received: from DM6PR12MB3418.namprd12.prod.outlook.com (2603:10b6:5:116::31)
- by DM6PR12MB3593.namprd12.prod.outlook.com (2603:10b6:5:11c::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.15; Fri, 10 Apr
- 2020 17:29:13 +0000
-Received: from DM6PR12MB3418.namprd12.prod.outlook.com
- ([fe80::5064:5b9b:a52b:ab69]) by DM6PR12MB3418.namprd12.prod.outlook.com
- ([fe80::5064:5b9b:a52b:ab69%4]) with mapi id 15.20.2878.018; Fri, 10 Apr 2020
- 17:29:13 +0000
-From: Alex Sierra <alex.sierra@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: pass unlocked flag to params at
- amdgpu_vm_bo_update_mapping
-Date: Fri, 10 Apr 2020 12:28:29 -0500
-Message-Id: <20200410172829.8481-1-alex.sierra@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: DM5PR21CA0041.namprd21.prod.outlook.com
- (2603:10b6:3:ed::27) To DM6PR12MB3418.namprd12.prod.outlook.com
- (2603:10b6:5:116::31)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33BAC6ED41;
+	Fri, 10 Apr 2020 19:52:01 +0000 (UTC)
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D50076ED3D;
+ Fri, 10 Apr 2020 19:51:59 +0000 (UTC)
+Received: by mail-io1-xd44.google.com with SMTP id f3so2880804ioj.1;
+ Fri, 10 Apr 2020 12:51:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=QeIu0nBH2w6lmp41iXG53bGhVpbraC4KJVd4JGc3z+I=;
+ b=bNT17xUuUKeGG3lFwb8tjYEUCdXSphISqnjWiU9319OOU8IcuESv9kCf1EXThaLVyh
+ QSc7zrm33Wb3/7dSH+GL1miEk1CyU54yTYWtcQA/nFVwTb4gXtUG5GI7apVD2xDBIybv
+ K7hwiVUoE2G+LwDrHZLiNHVFtP3vmn/kWStldyWEpeKF+Ljwo8XFyKb5wMwgWuRNcHxC
+ AOfQlYNANPNaKJUeIYJ/tNNKTDfxIIpGVRySK8l7ACd4b4Krns0bxwg2UhJcybrcD38T
+ ny+Gx0y/oHHBD+bVHzNEbB1enRxEkIblGvjsnK/Vv38Nz3yBW5BSiPE+0WIdRpSH6D/N
+ DmbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=QeIu0nBH2w6lmp41iXG53bGhVpbraC4KJVd4JGc3z+I=;
+ b=GeiHn5bnkBuHZuU3cmnd0WgF7DC6n7DB2DpBkYwz9CpLAvY6+Qmq+QyW8n/FdwS8WD
+ SXAQogBmVt29q3cMzJcrwrfIQCO3l5x3/drUSkEaYxhd22tPq/YzK0LbPPU6cYJXj5fD
+ rxADZnC943NDXM4JIrMp4eBQfnVOGbRl9xZHKLzC7XGHKz66c+KayvvCPE2iI/dQqqj5
+ J25LrmF7EK9QGnLUE618eO6KU+XyvGtaIv/kKZsmfd+/8TctZ8ERHJlKSj7T0xS8mHJg
+ xbJNNTiGKIPr8TL03CjHmM2tzu3E5fJy20bmtXNeHuhXk1vXhOXtYOw3Kg0HhabAvZ/C
+ NlUQ==
+X-Gm-Message-State: AGi0PuaMx1w6kOt2n1nXdqLEW1H3Ee67mlHG3B1dcA1chy+qcR4iahgA
+ br90EMU6R+4wmICoc3n4G9B7jsyahPIq3eX4SHDLf3Qd5L4=
+X-Google-Smtp-Source: APiQypKTmZIwDBIGnT34zKo1s9IZHsvMPjtJMNZTaCve4AomuVNGvWzeRoxR7ceokDyX4Il8xJTBmbygQd1sUQ2BPek=
+X-Received: by 2002:a02:603:: with SMTP id 3mr6105672jav.132.1586548318795;
+ Fri, 10 Apr 2020 12:51:58 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from alex-MS-7B09.amd.com (165.204.78.1) by
- DM5PR21CA0041.namprd21.prod.outlook.com (2603:10b6:3:ed::27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2921.10 via Frontend Transport; Fri, 10 Apr 2020 17:29:13 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.78.1]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 821d006c-275c-454a-8daa-08d7dd74b006
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3593:|DM6PR12MB3593:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB359378808DD34564263A3D70FDDE0@DM6PR12MB3593.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
-X-Forefront-PRVS: 0369E8196C
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3418.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(376002)(396003)(136003)(39860400002)(366004)(346002)(316002)(6916009)(8936002)(1076003)(8676002)(81156014)(36756003)(956004)(44832011)(2616005)(478600001)(66946007)(7696005)(6666004)(186003)(86362001)(5660300002)(66476007)(4326008)(26005)(52116002)(2906002)(6486002)(4744005)(16526019)(66556008);
- DIR:OUT; SFP:1101; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OEH/Il21pijoRVNFXg37eqgG1Odqim/4vhaYRwDqVgmwk9G82i/iBseXoRbXyBn8z2pzVBPP2H9cZVTatwLvVFDBq3l3nUEGqn8eU+oF0Clq1xV1dmHSis+Eq3/0mt7v2oXNAcyGsxAutC9wcBsrIcz6yW0KwTBxB57G1z7hx/RzhR1cUTq+OvpxKZ79iH8IEScQJ6OJ5KheBnSvvctXkl+07PSRR4y1cOPVLX+oHJwWA2Mcpsqy2hCyu68IvPT5BJGwoueEaRWNGoS4q3Zl+LAZ84js0d6E1UT4ExABd3mgnKTiYatgwvNVRNwPvLMOpLvE9+Ol70KF4tlA7Fr5jJuUfXlXBmZRtVyI6dfITYo/aajMad0n8RIzP2I20qwOkrTLW40fJCOiUHcK/nKeH2lYlzVEVk2tNlJOXTEdjTH6RB4f0Z3GsS8NTyg9dgoZ
-X-MS-Exchange-AntiSpam-MessageData: m6kzfeMth2V1x2lGRa2SygIqT9otazjjHj5qe1bw4uyO7fY2HSK9ywAhi+VgMyCv0jIBvv811s8yn+V8M7waDXEeiRQMo6yGRkNJBxYyGPldIHi+mfx6a35GzX12mvyv4ePc8GocfXY152QQJQ/6fg==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 821d006c-275c-454a-8daa-08d7dd74b006
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2020 17:29:13.8017 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w98kkbE6gEEO/qR6iKjSEZ7viGov7uGAuPE92eV0X2zykdZlspI8xDkRySjDmwNKoXh9yJ20v5FcubQaKCntKA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3593
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Sat, 11 Apr 2020 00:51:48 +0500
+Message-ID: <CABXGCsN=SNp7Ub3KHmsGrg+5R1g13HMea2+Jw+hTer3g74q21Q@mail.gmail.com>
+Subject: BUG: kernel NULL pointer dereference, address: 0000000000000026 after
+ switching to 5.7 kernel
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>, 
+ dri-devel <dri-devel@lists.freedesktop.org>, 
+ Linux List Kernel Mailing <linux-kernel@vger.kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,35 +72,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Sierra <alex.sierra@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Pass unlocked flag value to amdgpu_vm_update_params.unlocked
-struct member at amdgpu_vm_bo_update_mapping.
+Hi folks.
+After upgrade kernel to 5.7 I see every boot in kernel log following
+error messages:
 
-Signed-off-by: Alex Sierra <alex.sierra@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 1 +
- 1 file changed, 1 insertion(+)
+[    2.569513] [drm] Found UVD firmware ENC: 1.2 DEC: .43 Family ID: 19
+[    2.569538] [drm] PSP loading UVD firmware
+[    2.570038] BUG: kernel NULL pointer dereference, address: 0000000000000026
+[    2.570045] #PF: supervisor read access in kernel mode
+[    2.570050] #PF: error_code(0x0000) - not-present page
+[    2.570055] PGD 0 P4D 0
+[    2.570060] Oops: 0000 [#1] SMP NOPTI
+[    2.570065] CPU: 5 PID: 667 Comm: uvd_enc_1.1 Not tainted
+5.7.0-0.rc0.git6.1.2.fc33.x86_64 #1
+[    2.570072] Hardware name: System manufacturer System Product
+Name/ROG STRIX X570-I GAMING, BIOS 1405 11/19/2019
+[    2.570085] RIP: 0010:__kthread_should_park+0x5/0x30
+[    2.570090] Code: 00 e9 fe fe ff ff e8 ca 3a 08 00 e9 49 fe ff ff
+48 89 df e8 dd 38 08 00 84 c0 0f 84 6a ff ff ff e9 a6 fe ff ff 0f 1f
+44 00 00 <f6> 47 26 20 74 12 48 8b 87 88 09 00 00 48 8b 00 48 c1 e8 02
+83 e0
+[    2.570103] RSP: 0018:ffffad8141723e50 EFLAGS: 00010246
+[    2.570107] RAX: 7fffffffffffffff RBX: ffff8a8d1d116ed8 RCX: 0000000000000000
+[    2.570112] RDX: 0000000000000000 RSI: 00000000ffffffff RDI: 0000000000000000
+[    2.570116] RBP: ffff8a8d28c11300 R08: 0000000000000000 R09: 0000000000000000
+[    2.570120] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8a8d1d152e40
+[    2.570125] R13: ffff8a8d1d117280 R14: ffff8a8d1d116ed8 R15: ffff8a8d1ca68000
+[    2.570131] FS:  0000000000000000(0000) GS:ffff8a8d3aa00000(0000)
+knlGS:0000000000000000
+[    2.570137] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    2.570142] CR2: 0000000000000026 CR3: 00000007e3dc6000 CR4: 00000000003406e0
+[    2.570147] Call Trace:
+[    2.570157]  drm_sched_get_cleanup_job+0x42/0x130 [gpu_sched]
+[    2.570166]  drm_sched_main+0x6f/0x530 [gpu_sched]
+[    2.570173]  ? lockdep_hardirqs_on+0x11e/0x1b0
+[    2.570179]  ? drm_sched_get_cleanup_job+0x130/0x130 [gpu_sched]
+[    2.570185]  kthread+0x131/0x150
+[    2.570189]  ? __kthread_bind_mask+0x60/0x60
+[    2.570196]  ret_from_fork+0x27/0x50
+[    2.570203] Modules linked in: fjes(-) amdgpu(+) amd_iommu_v2
+gpu_sched ttm drm_kms_helper drm crc32c_intel igb nvme nvme_core dca
+i2c_algo_bit wmi pinctrl_amd br_netfilter bridge stp llc fuse
+[    2.570223] CR2: 0000000000000026
+[    2.570228] ---[ end trace 80c25d326e1e0d7c ]---
+[    2.570233] RIP: 0010:__kthread_should_park+0x5/0x30
+[    2.570238] Code: 00 e9 fe fe ff ff e8 ca 3a 08 00 e9 49 fe ff ff
+48 89 df e8 dd 38 08 00 84 c0 0f 84 6a ff ff ff e9 a6 fe ff ff 0f 1f
+44 00 00 <f6> 47 26 20 74 12 48 8b 87 88 09 00 00 48 8b 00 48 c1 e8 02
+83 e0
+[    2.570250] RSP: 0018:ffffad8141723e50 EFLAGS: 00010246
+[    2.570255] RAX: 7fffffffffffffff RBX: ffff8a8d1d116ed8 RCX: 0000000000000000
+[    2.570260] RDX: 0000000000000000 RSI: 00000000ffffffff RDI: 0000000000000000
+[    2.570265] RBP: ffff8a8d28c11300 R08: 0000000000000000 R09: 0000000000000000
+[    2.570271] R10: 0000000000000000 R11: 0000000000000000 R12: ffff8a8d1d152e40
+[    2.570276] R13: ffff8a8d1d117280 R14: ffff8a8d1d116ed8 R15: ffff8a8d1ca68000
+[    2.570281] FS:  0000000000000000(0000) GS:ffff8a8d3aa00000(0000)
+knlGS:0000000000000000
+[    2.570287] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[    2.570292] CR2: 0000000000000026 CR3: 00000007e3dc6000 CR4: 00000000003406e0
+[    2.570299] BUG: sleeping function called from invalid context at
+include/linux/percpu-rwsem.h:49
+[    2.570306] in_atomic(): 0, irqs_disabled(): 1, non_block: 0, pid:
+667, name: uvd_enc_1.1
+[    2.570311] INFO: lockdep is turned off.
+[    2.570315] irq event stamp: 14
+[    2.570319] hardirqs last  enabled at (13): [<ffffffffb1b8c976>]
+_raw_spin_unlock_irqrestore+0x46/0x60
+[    2.570330] hardirqs last disabled at (14): [<ffffffffb1004932>]
+trace_hardirqs_off_thunk+0x1a/0x1c
+[    2.570338] softirqs last  enabled at (0): [<ffffffffb10e04f6>]
+copy_process+0x706/0x1bc0
+[    2.570345] softirqs last disabled at (0): [<0000000000000000>] 0x0
+[    2.570351] CPU: 5 PID: 667 Comm: uvd_enc_1.1 Tainted: G      D
+      5.7.0-0.rc0.git6.1.2.fc33.x86_64 #1
+[    2.570358] Hardware name: System manufacturer System Product
+Name/ROG STRIX X570-I GAMING, BIOS 1405 11/19/2019
+[    2.570365] Call Trace:
+[    2.570373]  dump_stack+0x8b/0xc8
+[    2.570380]  ___might_sleep.cold+0xb6/0xc6
+[    2.570385]  exit_signals+0x1c/0x2d0
+[    2.570390]  do_exit+0xb1/0xc30
+[    2.570395]  ? kthread+0x131/0x150
+[    2.570400]  rewind_stack_do_exit+0x17/0x20
+[    2.570559] [drm] Found VCE firmware Version: 57.6 Binary ID: 4
+[    2.570572] [drm] PSP loading VCE firmware
+[    3.146462] [drm] reserve 0x400000 from 0x83fe800000 for PSP TMR
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 4ca4f61b34ca..accbb34ea670 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1593,6 +1593,7 @@ static int amdgpu_vm_bo_update_mapping(struct amdgpu_device *adev,
- 	params.vm = vm;
- 	params.immediate = immediate;
- 	params.pages_addr = pages_addr;
-+	params.unlocked = unlocked;
- 
- 	/* Implicitly sync to command submissions in the same VM before
- 	 * unmapping. Sync to moving fences before mapping.
--- 
-2.17.1
+$ /usr/src/kernels/`uname -r`/scripts/faddr2line
+/lib/debug/lib/modules/`uname -r`/vmlinux __kthread_should_park+0x5
+__kthread_should_park+0x5/0x30:
+to_kthread at kernel/kthread.c:75
+(inlined by) __kthread_should_park at kernel/kthread.c:109
 
+I think this issue related to amdgpu driver.
+Can anyone look into it?
+
+Thanks.
+
+Full kernel log here:
+https://pastebin.com/RrSp6KYL
+
+--
+Best Regards,
+Mike Gavrilov.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
