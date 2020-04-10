@@ -2,72 +2,102 @@ Return-Path: <SRS0=F+/f=52=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00C68C2BA2B
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 06:55:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F46AC2BA2B
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 07:59:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD14B20757
-	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 06:55:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1EA8C206E9
+	for <amd-gfx@archiver.kernel.org>; Fri, 10 Apr 2020 07:59:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CcoTMR1Q"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD14B20757
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="EN5Fvb+W"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1EA8C206E9
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 215C96EC6B;
-	Fri, 10 Apr 2020 06:55:43 +0000 (UTC)
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [IPv6:2607:f8b0:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 184046EC6B
- for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2020 06:55:42 +0000 (UTC)
-Received: by mail-pl1-x62e.google.com with SMTP id ay1so405229plb.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 09 Apr 2020 23:55:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=2dGegw6ltTfsirqxbkTLKKLb9AV3EyHBXirKOMv7eu4=;
- b=CcoTMR1QcQud19G4GwLdCeIgShb2s+FPkcZ7XfnvGnPA/R83zP0cRztMAuZTIZlSeG
- TFWjTKptOpqwXU5Tu630hqdocRYArw3QhEaQncnTn3CFdev2kU/yD2PXCGOXa8EPWRYv
- 0Ww2h8R41B6D3um6rqBmiaD2RGfHiBJSoCkOyKrek5lUmZOmGe7S7OOfwpciDjTxa0wZ
- r+cEhJ0bIdeYrlTvwypFrSnDVIgCu05ZCcW4YvWQ1kNvwEnu1xfIOoP69I+VXA98rwDN
- XiyGt4CgFBySUP0GUGgRRXwPD9V4SbGMmYyWhy5zisGapj4f2/SoV7/h5BeG68+IVhv8
- viIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=2dGegw6ltTfsirqxbkTLKKLb9AV3EyHBXirKOMv7eu4=;
- b=lV+cHVWgs3mzma+60cSGhc01AO7l7xpVCoAPe4aasl6Skrk5hQyLYTWNYlTzH96FVe
- 5I9QI4HHzRMgD0Df/IKPpOcEO6nH7D2zizYCyKcrpSfZ3ERtj6eDSSijFpObwW3ySQ7Q
- waCRrOU1HKWUhoMV98xotJMd85yybjB2XHUcni/mSGFkRs4RmI97invJe1hb1KuDEuwx
- mUK0T3d2VHLJUCttaS+/cD79KFit1AoOVNOZD8y3bcPrnos2UxDh+VSuadZ/DdzVLK83
- E6SFhiRGXAauQVN/br4V3u8ycLyGBDe2aBvvlYg4Qb5jBi7B+1J/MLGNvFYys1DEAy4r
- iY/w==
-X-Gm-Message-State: AGi0Pub13nted8sn5vgPYyXvJ6aqt5k2dhq2tpNmV7rheJml69j7PzJi
- 6dl2U7L/UieGOWht4AF5uCQcCeCvvf8QJaOd6cuv8OEh
-X-Google-Smtp-Source: APiQypJTjFX74K6t2bvqEtNagU3tJfOIgLHLJ1vqfoEUEyz5u9zUym5B/gBMSi+vmzgYehzWzo1wO1giXYa6zHveaCA=
-X-Received: by 2002:a17:90a:368d:: with SMTP id
- t13mr3581714pjb.175.1586501741332; 
- Thu, 09 Apr 2020 23:55:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B17946EC84;
+	Fri, 10 Apr 2020 07:59:32 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2052.outbound.protection.outlook.com [40.107.94.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC38B6EC84
+ for <amd-gfx@lists.freedesktop.org>; Fri, 10 Apr 2020 07:59:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NOsfxdj/vyDsgUWEC/fTIlgyF52oOTZ2MD9Uc7LQADm8ddu8Ty+UZu1v1DpJ2dAO6A8rex+WGMPdcXk6h2OZiEkuHqzc9IVWx4ltAQAxuPd/WKzhESU5QDRZys4L2HhmBEWSb3CJ0dsg4XLiirhaQmTXowxup/j/Fk+1irjuhgkqb9wPc/QOgrcBw1YoJxUPwkqB9ujKVdDinDj96DfTCLqqVMFkoAv2y7LT7um8Vkf2CWgXltayvicfRRMlT7AMwIkUoR89gcnH0pQV63iIFNrKNl1vOditXcpZo8EPMiIMjB52IdoboLbHzSFN01IxJKQF61uoPLBn684tb0IHMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k0sLPkxKvvBzz3Atr20hE+dhh1AWtT4kTf1+H/exh3A=;
+ b=lxGmqdn23lxpwtH+RDdq7MNB6Kqt1lq9ULPdqTMOCl8AGfYgcLotwNuj2kwQoDx16MBQbiGDQU8E7oH9a7l6FaxxGqfBBuw0PGqklS++MgFrBsmlfHM/4qJ475ZLZ8cj/qZeTTULH1yFqOFUEY1aPuvaYkJGM4ENTAoxY+TCFF9Spui8BHZw+qbs69SNdk0m2QzRbvUecW+/hk6fiChNqsJRR0x9Czo6QOU1qYuFdNQMxvzbNAFWMdS5lb2i6N24sHVFI8Ny8kGDzfT2YiH0vczuEwH4v5kA/I3qriTmOJz13y69r/h809N+BzB0MzGTWZGP2VCRQmwK0zYK/qKRWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=k0sLPkxKvvBzz3Atr20hE+dhh1AWtT4kTf1+H/exh3A=;
+ b=EN5Fvb+WbyGny9mcZiHSfzHy1En4VHshIVnVaMA3A21GZ/1ajK00ueksGM7rzvx4uoQDo17Fcjftvet/4IVFFUo/tZKg6g/eaYavPEXUhG3U3oXYONDBprgYfG++OFH9Zzc2Ypt4pp3PHhZmHOMeXi4IbkYybScYw4xTmbYaPf0=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Guchun.Chen@amd.com; 
+Received: from BN6PR12MB1283.namprd12.prod.outlook.com (2603:10b6:404:19::8)
+ by BN6PR12MB1524.namprd12.prod.outlook.com (2603:10b6:405:4::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.15; Fri, 10 Apr
+ 2020 07:59:27 +0000
+Received: from BN6PR12MB1283.namprd12.prod.outlook.com
+ ([fe80::60b6:8e56:2853:614a]) by BN6PR12MB1283.namprd12.prod.outlook.com
+ ([fe80::60b6:8e56:2853:614a%5]) with mapi id 15.20.2878.022; Fri, 10 Apr 2020
+ 07:59:27 +0000
+From: Guchun Chen <guchun.chen@amd.com>
+To: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, Dennis.Li@amd.com,
+ Tao.Zhou1@amd.com, John.Clements@amd.com
+Subject: [PATCH] drm/amdgpu: refine ras related message print
+Date: Fri, 10 Apr 2020 15:59:09 +0800
+Message-Id: <20200410075909.4610-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: HK2PR0401CA0006.apcprd04.prod.outlook.com
+ (2603:1096:202:2::16) To BN6PR12MB1283.namprd12.prod.outlook.com
+ (2603:10b6:404:19::8)
 MIME-Version: 1.0
-References: <CAE6bd30xsbCNyyV6bjc7u-4cfLi5Zr4yCWGH=XeX31GKvz_9_Q@mail.gmail.com>
- <CAFvQSYRiYxEOmyxhx726fFNGKy9KX=sE=vmdraW0_PyQvSwq9g@mail.gmail.com>
- <CAE6bd33O_ivJa9kQHAnp-_GZDagena==FZgfYs=_nYJc6m56CQ@mail.gmail.com>
- <CAFvQSYRnfAKCU0MHqwstHqgA4YTWvfCQ1SrsURbee=kEuP7a2g@mail.gmail.com>
- <CAE6bd32OwckMGcKLZvX5StOFqOFNx9nUGdNAJvbSzgUHkjma3g@mail.gmail.com>
-In-Reply-To: <CAE6bd32OwckMGcKLZvX5StOFqOFNx9nUGdNAJvbSzgUHkjma3g@mail.gmail.com>
-From: Clemens Eisserer <linuxhippy@gmail.com>
-Date: Fri, 10 Apr 2020 08:55:29 +0200
-Message-ID: <CAFvQSYTXiEPCHFGZhMm_cUF1Tix2bQt45eoW+BT=v2R4QS1Dhw@mail.gmail.com>
-Subject: Re: Possibility of RX570 responsible for spontaneous reboots (MCE)
- with Ryzen 3700x?
-To: someguy108@gmail.com, amd-gfx@lists.freedesktop.org
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from guchchen-System-Product-Name.amd.com (180.167.199.189) by
+ HK2PR0401CA0006.apcprd04.prod.outlook.com (2603:1096:202:2::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.15 via Frontend
+ Transport; Fri, 10 Apr 2020 07:59:25 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [180.167.199.189]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 1a7218c9-17e3-4dfd-316e-08d7dd251752
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1524:|BN6PR12MB1524:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BN6PR12MB152423DA734E9BA0DD21A76CF1DE0@BN6PR12MB1524.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+X-Forefront-PRVS: 0369E8196C
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN6PR12MB1283.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(346002)(376002)(39860400002)(136003)(396003)(366004)(16526019)(66946007)(66556008)(81156014)(2616005)(956004)(5660300002)(8936002)(2906002)(66476007)(86362001)(186003)(15650500001)(6666004)(7696005)(6636002)(316002)(478600001)(8676002)(52116002)(4326008)(1076003)(44832011)(36756003)(6486002)(26005);
+ DIR:OUT; SFP:1101; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: OR2E58CKxsytGeNhB+wu8ad5wjUBYZsajNiRpVXjukkfy6n7YlXE/ue6ZHwE0R/2Rq8ns+6+EaWSiuZa7oL+C/nQoaIVw3tKiIKM72F2SFWT/fc5NT5u61+wMxR8RxS7XH/QH1GnLTBE5S/4DrQea351ioRChnfk3INe66HdIhLwUU7wPkCeUzSzBQsZnMmkoadIzJSfpqfvKBmpOyGSfZR1JbP+qo918QnLZIxAV4sFsjbl9OptXnoj/o0O0XWFqxc1wjnx4lb9KhTRTvxE3Et2d1SOBxH9RYArbQb0EoflRok1v6BvuTyLkdgn4P8LnkemWTOdJ29A7DTbUlK1UblFmzfAsfWr+qrxRPG4IxpSeRKpKwZz/7P1YWnZ7t7k9lZRhPn4FxSi1lSVhmTLI8h+Xz7iUud95Kh/CAK7Y6eKUxZw3tVaKvrsd+JPfnyo
+X-MS-Exchange-AntiSpam-MessageData: j0MMExXi4Sg/9Wn337k7Ecu3/5RLQ4A79DILFcZBPMoF21dw6uBLuNoI/8LgTh8teEK64V2ahxh4HZ82rSqEraP0QgL4bdHPOLQSWpQCvKRLUnpoYnBOUvURFwx0XpP69EoUeA76MAaqEs6jS57gew==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a7218c9-17e3-4dfd-316e-08d7dd251752
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Apr 2020 07:59:27.3854 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MTAjs21QPcU3zrSAWh0FXilcb3iQUxq2Y0FLqv8aYlx5pMyQl5dr1mmuwCz9cSGA/9wO2zKuXg3jKHrIYn/y2g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1524
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,147 +109,253 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Bridgman, John" <John.Bridgman@amd.com>
+Cc: Guchun Chen <guchun.chen@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Someguy,
+Prefix ras related kernel message logging with PCI
+device info by replacing DRM_INFO/WARN/ERROR with
+dev_info/warn/err. This can clearly tell user about
+GPU device information where ras is on. And add some
+other RAS information printing to make it more clear
+and friendly as well.
 
-I've been running with accelmethod=none and llvmpipe for opengl now
-for over a week (more or less using only the display engine of my
-rx570) and haven't experienced a single MCE during that period.
-However, statistically, it will take 1-2 additional weeks to be sure
-this is not a coincidence.
+Suggested-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 51 +++++++++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 10 +++--
+ drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c  | 16 +++++---
+ 3 files changed, 48 insertions(+), 29 deletions(-)
 
-This seems to confirm your observations (as well as the reports in the
-reddit thread) that the GPU seems to play at least some role when it
-comes to the MCE caused reboots.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index b0aa4e1ed4df..73ae913aee26 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -296,7 +296,8 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct file *f, const char __user *
+ 	int ret = 0;
+ 
+ 	if (!amdgpu_ras_get_error_query_ready(adev)) {
+-		DRM_WARN("RAS WARN: error injection currently inaccessible\n");
++		dev_warn(adev->dev, "RAS WARN: error injection "
++				"currently inaccessible\n");
+ 		return size;
+ 	}
+ 
+@@ -324,7 +325,8 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct file *f, const char __user *
+ 		/* umc ce/ue error injection for a bad page is not allowed */
+ 		if ((data.head.block == AMDGPU_RAS_BLOCK__UMC) &&
+ 		    amdgpu_ras_check_bad_page(adev, data.inject.address)) {
+-			DRM_WARN("RAS WARN: 0x%llx has been marked as bad before error injection!\n",
++			dev_warn(adev->dev, "RAS WARN: 0x%llx has been marked "
++					"as bad before error injection!\n",
+ 					data.inject.address);
+ 			break;
+ 		}
+@@ -590,7 +592,8 @@ int amdgpu_ras_feature_enable(struct amdgpu_device *adev,
+ 	if (!amdgpu_ras_intr_triggered()) {
+ 		ret = psp_ras_enable_features(&adev->psp, &info, enable);
+ 		if (ret) {
+-			DRM_ERROR("RAS ERROR: %s %s feature failed ret %d\n",
++			dev_err(adev->dev, "RAS ERROR: %s %s feature "
++					"failed ret %d\n",
+ 					enable ? "enable":"disable",
+ 					ras_block_str(head->block),
+ 					ret);
+@@ -632,7 +635,8 @@ int amdgpu_ras_feature_enable_on_boot(struct amdgpu_device *adev,
+ 			if (ret == -EINVAL) {
+ 				ret = __amdgpu_ras_feature_enable(adev, head, 1);
+ 				if (!ret)
+-					DRM_INFO("RAS INFO: %s setup object\n",
++					dev_info(adev->dev,
++						"RAS INFO: %s setup object\n",
+ 						ras_block_str(head->block));
+ 			}
+ 		} else {
+@@ -758,12 +762,17 @@ int amdgpu_ras_error_query(struct amdgpu_device *adev,
+ 	info->ce_count = obj->err_data.ce_count;
+ 
+ 	if (err_data.ce_count) {
+-		dev_info(adev->dev, "%ld correctable errors detected in %s block\n",
+-			 obj->err_data.ce_count, ras_block_str(info->head.block));
++		dev_info(adev->dev, "%ld correctable hardware errors "
++					"detected in %s block, no user "
++					"action is needed.\n",
++					obj->err_data.ce_count,
++					ras_block_str(info->head.block));
+ 	}
+ 	if (err_data.ue_count) {
+-		dev_info(adev->dev, "%ld uncorrectable errors detected in %s block\n",
+-			 obj->err_data.ue_count, ras_block_str(info->head.block));
++		dev_info(adev->dev, "%ld uncorrectable hardware errors "
++					"detected in %s block\n",
++					obj->err_data.ue_count,
++					ras_block_str(info->head.block));
+ 	}
+ 
+ 	return 0;
+@@ -807,13 +816,13 @@ int amdgpu_ras_error_inject(struct amdgpu_device *adev,
+ 		ret = psp_ras_trigger_error(&adev->psp, &block_info);
+ 		break;
+ 	default:
+-		DRM_INFO("%s error injection is not supported yet\n",
++		dev_info(adev->dev, "%s error injection is not supported yet\n",
+ 			 ras_block_str(info->head.block));
+ 		ret = -EINVAL;
+ 	}
+ 
+ 	if (ret)
+-		DRM_ERROR("RAS ERROR: inject %s error failed ret %d\n",
++		dev_err(adev->dev, "RAS ERROR: inject %s error failed ret %d\n",
+ 				ras_block_str(info->head.block),
+ 				ret);
+ 
+@@ -1549,7 +1558,7 @@ static int amdgpu_ras_save_bad_pages(struct amdgpu_device *adev)
+ 							&data->bps[control->num_recs],
+ 							true,
+ 							save_count)) {
+-			DRM_ERROR("Failed to save EEPROM table data!");
++			dev_err(adev->dev, "Failed to save EEPROM table data!");
+ 			return -EIO;
+ 		}
+ 
+@@ -1577,7 +1586,7 @@ static int amdgpu_ras_load_bad_pages(struct amdgpu_device *adev)
+ 
+ 	if (amdgpu_ras_eeprom_process_recods(control, bps, false,
+ 		control->num_recs)) {
+-		DRM_ERROR("Failed to load EEPROM table records!");
++		dev_err(adev->dev, "Failed to load EEPROM table records!");
+ 		ret = -EIO;
+ 		goto out;
+ 	}
+@@ -1651,7 +1660,8 @@ int amdgpu_ras_reserve_bad_pages(struct amdgpu_device *adev)
+ 					       AMDGPU_GPU_PAGE_SIZE,
+ 					       AMDGPU_GEM_DOMAIN_VRAM,
+ 					       &bo, NULL))
+-			DRM_WARN("RAS WARN: reserve vram for retired page %llx fail\n", bp);
++			dev_warn(adev->dev, "RAS WARN: reserve vram for "
++					"retired page %llx fail\n", bp);
+ 
+ 		data->bps_bo[i] = bo;
+ 		data->last_reserved = i + 1;
+@@ -1739,7 +1749,7 @@ int amdgpu_ras_recovery_init(struct amdgpu_device *adev)
+ 	kfree(*data);
+ 	con->eh_data = NULL;
+ out:
+-	DRM_WARN("Failed to initialize ras recovery!\n");
++	dev_warn(adev->dev, "Failed to initialize ras recovery!\n");
+ 
+ 	return ret;
+ }
+@@ -1801,18 +1811,18 @@ static void amdgpu_ras_check_supported(struct amdgpu_device *adev,
+ 		return;
+ 
+ 	if (amdgpu_atomfirmware_mem_ecc_supported(adev)) {
+-		DRM_INFO("HBM ECC is active.\n");
++		dev_info(adev->dev, "HBM ECC is active.\n");
+ 		*hw_supported |= (1 << AMDGPU_RAS_BLOCK__UMC |
+ 				1 << AMDGPU_RAS_BLOCK__DF);
+ 	} else
+-		DRM_INFO("HBM ECC is not presented.\n");
++		dev_info(adev->dev, "HBM ECC is not presented.\n");
+ 
+ 	if (amdgpu_atomfirmware_sram_ecc_supported(adev)) {
+-		DRM_INFO("SRAM ECC is active.\n");
++		dev_info(adev->dev, "SRAM ECC is active.\n");
+ 		*hw_supported |= ~(1 << AMDGPU_RAS_BLOCK__UMC |
+ 				1 << AMDGPU_RAS_BLOCK__DF);
+ 	} else
+-		DRM_INFO("SRAM ECC is not presented.\n");
++		dev_info(adev->dev, "SRAM ECC is not presented.\n");
+ 
+ 	/* hw_supported needs to be aligned with RAS block mask. */
+ 	*hw_supported &= AMDGPU_RAS_BLOCK_MASK;
+@@ -1869,7 +1879,7 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
+ 	if (amdgpu_ras_fs_init(adev))
+ 		goto fs_out;
+ 
+-	DRM_INFO("RAS INFO: ras initialized successfully, "
++	dev_info(adev->dev, "RAS INFO: ras initialized successfully, "
+ 			"hardware ability[%x] ras_mask[%x]\n",
+ 			con->hw_supported, con->supported);
+ 	return 0;
+@@ -2055,7 +2065,8 @@ void amdgpu_ras_global_ras_isr(struct amdgpu_device *adev)
+ 		return;
+ 
+ 	if (atomic_cmpxchg(&amdgpu_ras_in_intr, 0, 1) == 0) {
+-		DRM_WARN("RAS event of type ERREVENT_ATHUB_INTERRUPT detected!\n");
++		dev_info(adev->dev, "uncorrectable hardware error"
++			"(ERREVENT_ATHUB_INTERRUPT) detected!\n");
+ 
+ 		amdgpu_ras_reset_gpu(adev);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+index 8ffa015bc1dc..af1b1ccf613c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+@@ -110,7 +110,8 @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_device *adev,
+ 		 * even NOMEM error is encountered
+ 		 */
+ 		if(!err_data->err_addr)
+-			DRM_WARN("Failed to alloc memory for umc error address record!\n");
++			dev_warn(adev->dev, "Failed to alloc memory for "
++					"umc error address record!\n");
+ 
+ 		/* umc query_ras_error_address is also responsible for clearing
+ 		 * error status
+@@ -120,13 +121,14 @@ int amdgpu_umc_process_ras_data_cb(struct amdgpu_device *adev,
+ 
+ 	/* only uncorrectable error needs gpu reset */
+ 	if (err_data->ue_count) {
+-		dev_info(adev->dev, "%ld uncorrectable errors detected in UMC block\n",
+-			err_data->ue_count);
++		dev_info(adev->dev, "%ld uncorrectable hardware errors "
++				"detected in UMC block\n",
++				err_data->ue_count);
+ 
+ 		if (err_data->err_addr_cnt &&
+ 		    amdgpu_ras_add_bad_pages(adev, err_data->err_addr,
+ 						err_data->err_addr_cnt))
+-			DRM_WARN("Failed to add ras bad page!\n");
++			dev_warn(adev->dev, "Failed to add ras bad page!\n");
+ 
+ 		amdgpu_ras_reset_gpu(adev);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+index 72bdd06ed508..e629156173d3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_4.c
+@@ -323,14 +323,20 @@ static void nbio_v7_4_handle_ras_controller_intr_no_bifring(struct amdgpu_device
+ 		obj->err_data.ce_count += err_data.ce_count;
+ 
+ 		if (err_data.ce_count)
+-			DRM_INFO("%ld correctable errors detected in %s block\n",
+-				obj->err_data.ce_count, adev->nbio.ras_if->name);
++			dev_info(adev->dev, "%ld correctable hardware "
++					"errors detected in %s block, "
++					"no user action is needed.\n",
++					obj->err_data.ce_count,
++					adev->nbio.ras_if->name);
+ 
+ 		if (err_data.ue_count)
+-			DRM_INFO("%ld uncorrectable errors detected in %s block\n",
+-				obj->err_data.ue_count, adev->nbio.ras_if->name);
++			dev_info(adev->dev, "%ld uncorrectable hardware "
++					"errors detected in %s block\n",
++					obj->err_data.ue_count,
++					adev->nbio.ras_if->name);
+ 
+-		DRM_WARN("RAS controller interrupt triggered by NBIF error\n");
++		dev_info(adev->dev, "RAS controller interrupt triggered "
++					"by NBIF error\n");
+ 
+ 		/* ras_controller_int is dedicated for nbif ras error,
+ 		 * not the global interrupt for sync flood
+-- 
+2.17.1
 
-@John: Could it be the 3rd gen ryzen has some issues which are covered
-by windows driver workarounds?
-Are CPU errata data sheets publicly available?
-
-Best regards, Clemens
-
-PS: While it does seem to solve the reboot issue, it causes degraded
-desktop performance as well as tearing when playing videos.
-So I still hope I don't have to live with this forever.
-
-PS2: AMD support respond after some delay stating the MCE actually is
-caused by the watchdog timer.
-
-Am So., 5. Apr. 2020 um 04:41 Uhr schrieb someguy108 <someguy108@gmail.com>:
->
-> How has it been going since you limited hardware acceleration? Any improvement?
->
-> On Thu, Apr 2, 2020, 11:13 PM Clemens Eisserer <linuxhippy@gmail.com> wrote:
->>
->> Hi,
->>
->> I also had the impression this issue triggered by power-state changes.
->> First I suspected CPU power state transitions, but now more and more
->> reports pop up mentinioning exchanging the GPU solved the issue (or in
->> your case it started when switching to an AMD gpu).
->> However I've already tried to limit power-states using the
->> /sys/-Interface as well as custom feature masks provided suggested on
->> the kernel bug report.
->>
->> Your theory regarding firefox and compositing might be right, so this
->> is what I did:
->> - Switch from Glamor to "none" acceleration for Xorg (glamor
->> translates 2d drawing commands to OpenGL)
->> - Switch Firefox from WebRender to Software-Rendering
->> - Disable KDE composition manager
->>
->> Only time will tell...
->>
->> Best regards, Clemens
->>
->>
->> Am Fr., 3. Apr. 2020 um 03:39 Uhr schrieb someguy108 <someguy108@gmail.com>:
->> >
->> > Hi Cemens, I responded to that bugs report about my findings! I do
->> > wonder since yours is happening at desktop, do you have compositing
->> > enabled with your window manager? If my theory, as noted just based
->> > off my limited understanding and observations, is correct about it
->> > revolving around power states, having Firefox playing a video with
->> > hardware acceleration enabled and desktop compositing could be causing
->> > back and forth swings with power states. Which could be the culprit
->> > with the hangs.
->> >
->> > I also formed some of my theory from the long debacle of AMD's Windows
->> > driver quality. As these hangs sound awfully similar to what Windows
->> > users have been enduring for almost all of 2019 and some parts of
->> > 2020. As noted with me, I had TDR's in Windows while alt-tabbing with
->> > games until I disabled hardware acceleration in Google Chrome. And for
->> > good measure I disabled most animations and compositing effects with
->> > Windows UI. As I like to play most of my games in a Window. Like no
->> > more shadows under windows and such. Though I do know some are Navi
->> > specific.
->> >
->> > On Thu, Apr 2, 2020 at 7:12 AM Clemens Eisserer <linuxhippy@gmail.com> wrote:
->> > >
->> > > Hi Someguy,
->> > >
->> > > Your findings sound very familiar, my machine is also rock-solid
->> > > running Windows-10 - most of the MCEs happened for me with low-load
->> > > situations but firefox playing youtube in background.
->> > > First I didn't care that much - but now having experienced corrupted
->> > > firefox profiles and lost spreadsheet work it starts to get annoying.
->> > >
->> > > I've filed a kernel bug regarding this issue:
->> > > https://bugzilla.kernel.org/show_bug.cgi?id=206903
->> > > I would appreciate if you could report your findings there to give the
->> > > issue more data / weight.
->> > >
->> > > Thanks, Clemens
->> > >
->> > > Am Do., 2. Apr. 2020 um 15:11 Uhr schrieb someguy108 <someguy108@gmail.com>:
->> > > >
->> > > > Hello! I saw Clemens Eisserer email regarding MCE errors with his RX 570 and 3700x, and I like to add to that list of MCE spontaneous reboots as well.
->> > > > This is my configuration:
->> > > > -Ryzen 3900x + Noctua D15
->> > > > -MSI X570 Unify (latest agesa as of writing)
->> > > > -DDR4 3200mhz 32GB kit
->> > > > -Sapphire Pulse 5700 XT
->> > > > -Corsair RMX 850 Watt
->> > > > -Arch Linux with kernel 5.5.13
->> > > > -Mesa 20.0.3
->> > > > -Early KMS enabled
->> > > >
->> > > > I've had this system up and running since November 2019 but initially with a Nvidia 1060 and Windows 10. Everything was running smoothly. About a month ago I switched back over to Linux after purchasing my 5700 XT as my initial plan was to go back to Linux. Since returning I've experienced multiple spontaneous MCE reboots. All happened while I was playing one particular game, Warcraft 3 Reforged. The MCE event is the following:
->> > > >
->> > > > kernel: mce: [Hardware Error]: Machine check events logged
->> > > > kernel: mce: [Hardware Error]: CPU 1: Machine Check: 0 Bank 5: bea0000000000108
->> > > > kernel: mce: [Hardware Error]: TSC 0 ADDR 1ffffad66d6fe MISC d012000100000000 SYND 4d000000 IPID 500b000000000
->> > > > kernel: mce: [Hardware Error]: PROCESSOR 2:870f10 TIME 1585120217 SOCKET 0 APIC 2 microcode 8701013
->> > > > kernel: #2 #3 #4 #5 #6 #7 #8 #9 #10 #11 #12 #13 #14 #15
->> > > > kernel: mce: [Hardware Error]: Machine check events logged
->> > > > kernel: mce: [Hardware Error]: CPU 15: Machine Check: 0 Bank 5: bea0000000000108
->> > > > kernel: mce: [Hardware Error]: TSC 0 ADDR 1ffffc1196eb6 MISC d012000100000000 SYND 4d000000 IPID 500b000000000
->> > > > kernel: mce: [Hardware Error]: PROCESSOR 2:870f10 TIME 1585120217 SOCKET 0 APIC 9 microcode 8701013
->> > > > kernel: #16 #17 #18 #19 #20 #21 #22 #23
->> > > >
->> > > > Initially I figured it could be ram so I performed the usual test with no problems. Also tested with standard JEDEC as well and eventually received a MCE during Warcraft 3 reforged. After consulting with a few friends I decided to try a different power supply to no avail. I then bit the bullet and bought a brand new 3900x. I also cleared CMOS before getting my new 3900x and after. All cpu values are on auto with no PBO or manual overclocking. The only fancy is the ram. Yesterday, after owning the new 3900x for three days, I had a MCE while I was playing Warcraft 3 Reforged. I have tested other games but none of them caused a MCE or any crashes / freezes for that matter. World of Warcraft, The Outer Worlds, Stellaris, and Counter-Strike: Global Offensive.
->> > > >
->> > > > As the same with Clemens, using the same decoder he used, MCE-Ryzen-Decoder, from github, it reports the MCE to be the following:
->> > > > Bank: Execution Unit (EX)
->> > > > Error: Watchdog Timeout error (WDT 0x0)
->> > > >
->> > > > One thing to note is I haven't received it during desktop usage. Only in Warcraft 3. I do have desktop compositing in both Xfce and KDE disabled and always have. Both of which used, tested, and received the MCE's during those sessions. I have noticed a pattern with the MCE crashes with Warcraft 3. They always happen during a GPU load drop off or increase transition. By that I mean when exiting a match to return to the lobby, or loading a map and when it switches from the loading screen to the match itself is when these MCE's happen. The entire screen quickly turns black, everything is hard locked, and then after about a minute or so the machine reboots on its own. It hasn't happened yet while in a middle of a match session, sitting in the lobby or at the main menu screen. Its consistently been during a transition. My theory is that this could possibly be a GPU hang from switching from one power state to another power state. With the GPU hanging, causes the CPU to stall, and 
- thus a MCE. The GPU hanging could explain the quick solid black screen as well as all output is stopped. But I'm really just assuming here form my own observations from my limited understanding. Possible reason why this triggers in Warcraft is because the other games have few moments of switching power states heavily. The Outer Worlds, World of Warcraft, Stellaris, and Counter-Strike Global Offensive all keep a constant high load on the GPU and the match sessions are long.
->> > > >
->> > > > From what its worth, I've had no major issues in Windows 10. The only quirks where initially a few TDR's that recovered from alt tabing out of most games with Google Chrome running. Disabling hardware acceleration in Chrome fixed those TDR's while alt-tabing out of games.
->> > > >
->> > > > From searching, the way I found this mailing list report, I've found quite a few reports of people talking about receiving MCE's that isn't the typical first generation MCE's reports from 2017 involving Ryzen.Where those where fixed by disabling c-states, ram, and changing power supply current from low to typical. These ones within the past year appear to all have a AMD GPU in common. I did notice a few with Intel CPU's as well paired up with a AMD GPU.
->> > > >
->> > > > Any feedback would be greatly appreciated.
->> > > > _______________________________________________
->> > > > amd-gfx mailing list
->> > > > amd-gfx@lists.freedesktop.org
->> > > > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
