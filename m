@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1EDC8C2BBC7
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:11:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A5A82C2BA19
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E58852166E
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:11:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7A440215A4
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:11:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="lKl3PKc0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E58852166E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="R+F9mD/q"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A440215A4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 785766E3A8;
-	Sat, 11 Apr 2020 23:11:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B26C6E201;
+	Sat, 11 Apr 2020 23:11:59 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F9016E3A6;
- Sat, 11 Apr 2020 23:11:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A2D326E071;
+ Sat, 11 Apr 2020 23:11:58 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 038A32192A;
- Sat, 11 Apr 2020 23:10:59 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 8351C2173E;
+ Sat, 11 Apr 2020 23:11:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586646661;
- bh=gxcoV2qpI5IWHpmQs+fyevwYN5HNxlyLXon5O6O47ZQ=;
+ s=default; t=1586646718;
+ bh=9AgB5xU8/OmGvwSeCAS7bDIEocxLDpLkEL0FnpXfADc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lKl3PKc0kchAvaYBJ1gjdx/i2Apl9VTFPV8pgEOtk5VrdzmGr0gGWf8mU0eaMqFUQ
- MkhnWPc3x6giA8Sp/btfkxq0zxvkVn/KeN+nQmcWeDx/0wOljFtywrWixF/qinWX4l
- e+gFoGSu2efIKX8UtBK0tZhwCW0RO0/gPB/E3lHg=
+ b=R+F9mD/qczaZGiS1T5/esUPAS0+EewNPwc9mJxY9dvLwr4Wgd5c+HTGIp3jJVp/QJ
+ fMZ47FmwDl0TUOwGDICVps4WGJUdsf7QQ7SVdBgSXdtSXNfD4x/6FvQnkzOVDdPXev
+ 2f40oxhthB+CTQYkL/N7CZNLXS0lTs+LcC+WUslE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 062/108] drm/amd/display: System crashes when
- add_ptb_to_table() gets called
-Date: Sat, 11 Apr 2020 19:08:57 -0400
-Message-Id: <20200411230943.24951-62-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 108/108] PCI: Use ioremap(),
+ not phys_to_virt() for platform ROM
+Date: Sat, 11 Apr 2020 19:09:43 -0400
+Message-Id: <20200411230943.24951-108-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200411230943.24951-1-sashal@kernel.org>
 References: <20200411230943.24951-1-sashal@kernel.org>
@@ -61,86 +61,250 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Aric Cyr <Aric.Cyr@amd.com>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Peikang Zhang <peikang.zhang@amd.com>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, nouveau@lists.freedesktop.org,
+ linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Mikel Rychliski <mikel@mikelr.com>, Bjorn Helgaas <bhelgaas@google.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Peikang Zhang <peikang.zhang@amd.com>
+From: Mikel Rychliski <mikel@mikelr.com>
 
-[ Upstream commit 0062972b9d9f888d0273c6496769d02e8f509135 ]
+[ Upstream commit 72e0ef0e5f067fd991f702f0b2635d911d0cf208 ]
 
-[Why]
-Unused VMIDs were not evicted correctly
+On some EFI systems, the video BIOS is provided by the EFI firmware.  The
+boot stub code stores the physical address of the ROM image in pdev->rom.
+Currently we attempt to access this pointer using phys_to_virt(), which
+doesn't work with CONFIG_HIGHMEM.
 
-[How]
-1. evict_vmids() logic was fixed;
-2. Added boundary check for add_ptb_to_table() and
-   clear_entry_from_vmid_table() to avoid crash caused by array out of
-   boundary;
-3. For mod_vmid_get_for_ptb(), vimd is changed from unsigned to signed
-   due to vimd is signed.
+On these systems, attempting to load the radeon module on a x86_32 kernel
+can result in the following:
 
-Signed-off-by: Peikang Zhang <peikang.zhang@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Acked-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+  BUG: unable to handle page fault for address: 3e8ed03c
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  *pde = 00000000
+  Oops: 0000 [#1] PREEMPT SMP
+  CPU: 0 PID: 317 Comm: systemd-udevd Not tainted 5.6.0-rc3-next-20200228 #2
+  Hardware name: Apple Computer, Inc. MacPro1,1/Mac-F4208DC8, BIOS     MP11.88Z.005C.B08.0707021221 07/02/07
+  EIP: radeon_get_bios+0x5ed/0xe50 [radeon]
+  Code: 00 00 84 c0 0f 85 12 fd ff ff c7 87 64 01 00 00 00 00 00 00 8b 47 08 8b 55 b0 e8 1e 83 e1 d6 85 c0 74 1a 8b 55 c0 85 d2 74 13 <80> 38 55 75 0e 80 78 01 aa 0f 84 a4 03 00 00 8d 74 26 00 68 dc 06
+  EAX: 3e8ed03c EBX: 00000000 ECX: 3e8ed03c EDX: 00010000
+  ESI: 00040000 EDI: eec04000 EBP: eef3fc60 ESP: eef3fbe0
+  DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010206
+  CR0: 80050033 CR2: 3e8ed03c CR3: 2ec77000 CR4: 000006d0
+  Call Trace:
+   r520_init+0x26/0x240 [radeon]
+   radeon_device_init+0x533/0xa50 [radeon]
+   radeon_driver_load_kms+0x80/0x220 [radeon]
+   drm_dev_register+0xa7/0x180 [drm]
+   radeon_pci_probe+0x10f/0x1a0 [radeon]
+   pci_device_probe+0xd4/0x140
+
+Fix the issue by updating all drivers which can access a platform provided
+ROM. Instead of calling the helper function pci_platform_rom() which uses
+phys_to_virt(), call ioremap() directly on the pdev->rom.
+
+radeon_read_platform_bios() previously directly accessed an __iomem
+pointer. Avoid this by calling memcpy_fromio() instead of kmemdup().
+
+pci_platform_rom() now has no remaining callers, so remove it.
+
+Link: https://lore.kernel.org/r/20200319021623.5426-1-mikel@mikelr.com
+Signed-off-by: Mikel Rychliski <mikel@mikelr.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/modules/vmid/vmid.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c      | 31 +++++++++++--------
+ .../drm/nouveau/nvkm/subdev/bios/shadowpci.c  | 17 ++++++++--
+ drivers/gpu/drm/radeon/radeon_bios.c          | 30 +++++++++++-------
+ drivers/pci/rom.c                             | 17 ----------
+ include/linux/pci.h                           |  1 -
+ 5 files changed, 52 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/modules/vmid/vmid.c b/drivers/gpu/drm/amd/display/modules/vmid/vmid.c
-index f0a153704f6e0..00f132f8ad55d 100644
---- a/drivers/gpu/drm/amd/display/modules/vmid/vmid.c
-+++ b/drivers/gpu/drm/amd/display/modules/vmid/vmid.c
-@@ -40,14 +40,18 @@ struct core_vmid {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+index 50dff69a0f6e3..b1172d93c99c3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+@@ -192,30 +192,35 @@ static bool amdgpu_read_bios_from_rom(struct amdgpu_device *adev)
  
- static void add_ptb_to_table(struct core_vmid *core_vmid, unsigned int vmid, uint64_t ptb)
+ static bool amdgpu_read_platform_bios(struct amdgpu_device *adev)
  {
--	core_vmid->ptb_assigned_to_vmid[vmid] = ptb;
--	core_vmid->num_vmids_available--;
-+	if (vmid < MAX_VMID) {
-+		core_vmid->ptb_assigned_to_vmid[vmid] = ptb;
-+		core_vmid->num_vmids_available--;
-+	}
+-	uint8_t __iomem *bios;
+-	size_t size;
++	phys_addr_t rom = adev->pdev->rom;
++	size_t romlen = adev->pdev->romlen;
++	void __iomem *bios;
+ 
+ 	adev->bios = NULL;
+ 
+-	bios = pci_platform_rom(adev->pdev, &size);
+-	if (!bios) {
++	if (!rom || romlen == 0)
+ 		return false;
+-	}
+ 
+-	adev->bios = kzalloc(size, GFP_KERNEL);
+-	if (adev->bios == NULL)
++	adev->bios = kzalloc(romlen, GFP_KERNEL);
++	if (!adev->bios)
+ 		return false;
+ 
+-	memcpy_fromio(adev->bios, bios, size);
++	bios = ioremap(rom, romlen);
++	if (!bios)
++		goto free_bios;
+ 
+-	if (!check_atom_bios(adev->bios, size)) {
+-		kfree(adev->bios);
+-		return false;
+-	}
++	memcpy_fromio(adev->bios, bios, romlen);
++	iounmap(bios);
+ 
+-	adev->bios_size = size;
++	if (!check_atom_bios(adev->bios, romlen))
++		goto free_bios;
++
++	adev->bios_size = romlen;
+ 
+ 	return true;
++free_bios:
++	kfree(adev->bios);
++	return false;
  }
  
- static void clear_entry_from_vmid_table(struct core_vmid *core_vmid, unsigned int vmid)
- {
--	core_vmid->ptb_assigned_to_vmid[vmid] = 0;
--	core_vmid->num_vmids_available++;
-+	if (vmid < MAX_VMID) {
-+		core_vmid->ptb_assigned_to_vmid[vmid] = 0;
-+		core_vmid->num_vmids_available++;
-+	}
- }
+ #ifdef CONFIG_ACPI
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
+index 9b91da09dc5f8..8d9812a51ef63 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
+@@ -101,9 +101,13 @@ platform_init(struct nvkm_bios *bios, const char *name)
+ 	else
+ 		return ERR_PTR(-ENODEV);
  
- static void evict_vmids(struct core_vmid *core_vmid)
-@@ -57,7 +61,7 @@ static void evict_vmids(struct core_vmid *core_vmid)
- 
- 	// At this point any positions with value 0 are unused vmids, evict them
- 	for (i = 1; i < core_vmid->num_vmid; i++) {
--		if (ord & (1u << i))
-+		if (!(ord & (1u << i)))
- 			clear_entry_from_vmid_table(core_vmid, i);
++	if (!pdev->rom || pdev->romlen == 0)
++		return ERR_PTR(-ENODEV);
++
+ 	if ((priv = kmalloc(sizeof(*priv), GFP_KERNEL))) {
++		priv->size = pdev->romlen;
+ 		if (ret = -ENODEV,
+-		    (priv->rom = pci_platform_rom(pdev, &priv->size)))
++		    (priv->rom = ioremap(pdev->rom, pdev->romlen)))
+ 			return priv;
+ 		kfree(priv);
  	}
+@@ -111,11 +115,20 @@ platform_init(struct nvkm_bios *bios, const char *name)
+ 	return ERR_PTR(ret);
  }
-@@ -91,7 +95,7 @@ static int get_next_available_vmid(struct core_vmid *core_vmid)
- uint8_t mod_vmid_get_for_ptb(struct mod_vmid *mod_vmid, uint64_t ptb)
- {
- 	struct core_vmid *core_vmid = MOD_VMID_TO_CORE(mod_vmid);
--	unsigned int vmid = 0;
-+	int vmid = 0;
  
- 	// Physical address gets vmid 0
- 	if (ptb == 0)
++static void
++platform_fini(void *data)
++{
++	struct priv *priv = data;
++
++	iounmap(priv->rom);
++	kfree(priv);
++}
++
+ const struct nvbios_source
+ nvbios_platform = {
+ 	.name = "PLATFORM",
+ 	.init = platform_init,
+-	.fini = (void(*)(void *))kfree,
++	.fini = platform_fini,
+ 	.read = pcirom_read,
+ 	.rw = true,
+ };
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index 4d1490fbb0750..756a50e8aff20 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -108,25 +108,33 @@ static bool radeon_read_bios(struct radeon_device *rdev)
+ 
+ static bool radeon_read_platform_bios(struct radeon_device *rdev)
+ {
+-	uint8_t __iomem *bios;
+-	size_t size;
++	phys_addr_t rom = rdev->pdev->rom;
++	size_t romlen = rdev->pdev->romlen;
++	void __iomem *bios;
+ 
+ 	rdev->bios = NULL;
+ 
+-	bios = pci_platform_rom(rdev->pdev, &size);
+-	if (!bios) {
++	if (!rom || romlen == 0)
+ 		return false;
+-	}
+ 
+-	if (size == 0 || bios[0] != 0x55 || bios[1] != 0xaa) {
++	rdev->bios = kzalloc(romlen, GFP_KERNEL);
++	if (!rdev->bios)
+ 		return false;
+-	}
+-	rdev->bios = kmemdup(bios, size, GFP_KERNEL);
+-	if (rdev->bios == NULL) {
+-		return false;
+-	}
++
++	bios = ioremap(rom, romlen);
++	if (!bios)
++		goto free_bios;
++
++	memcpy_fromio(rdev->bios, bios, romlen);
++	iounmap(bios);
++
++	if (rdev->bios[0] != 0x55 || rdev->bios[1] != 0xaa)
++		goto free_bios;
+ 
+ 	return true;
++free_bios:
++	kfree(rdev->bios);
++	return false;
+ }
+ 
+ #ifdef CONFIG_ACPI
+diff --git a/drivers/pci/rom.c b/drivers/pci/rom.c
+index 137bf0cee897c..8fc9a4e911e3a 100644
+--- a/drivers/pci/rom.c
++++ b/drivers/pci/rom.c
+@@ -195,20 +195,3 @@ void pci_unmap_rom(struct pci_dev *pdev, void __iomem *rom)
+ 		pci_disable_rom(pdev);
+ }
+ EXPORT_SYMBOL(pci_unmap_rom);
+-
+-/**
+- * pci_platform_rom - provides a pointer to any ROM image provided by the
+- * platform
+- * @pdev: pointer to pci device struct
+- * @size: pointer to receive size of pci window over ROM
+- */
+-void __iomem *pci_platform_rom(struct pci_dev *pdev, size_t *size)
+-{
+-	if (pdev->rom && pdev->romlen) {
+-		*size = pdev->romlen;
+-		return phys_to_virt((phys_addr_t)pdev->rom);
+-	}
+-
+-	return NULL;
+-}
+-EXPORT_SYMBOL(pci_platform_rom);
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index f39f22f9ee474..e92bd9b32f369 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -1216,7 +1216,6 @@ int pci_enable_rom(struct pci_dev *pdev);
+ void pci_disable_rom(struct pci_dev *pdev);
+ void __iomem __must_check *pci_map_rom(struct pci_dev *pdev, size_t *size);
+ void pci_unmap_rom(struct pci_dev *pdev, void __iomem *rom);
+-void __iomem __must_check *pci_platform_rom(struct pci_dev *pdev, size_t *size);
+ 
+ /* Power management related routines */
+ int pci_save_state(struct pci_dev *dev);
 -- 
 2.20.1
 
