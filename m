@@ -6,47 +6,47 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5A82C2BA19
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:11:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02A24C352B6
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:12:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A440215A4
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:11:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CCDA820787
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:12:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="R+F9mD/q"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A440215A4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="Em24RYyC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCDA820787
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B26C6E201;
-	Sat, 11 Apr 2020 23:11:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 609966E3A0;
+	Sat, 11 Apr 2020 23:12:23 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2D326E071;
- Sat, 11 Apr 2020 23:11:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDE936E3A0;
+ Sat, 11 Apr 2020 23:12:21 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8351C2173E;
- Sat, 11 Apr 2020 23:11:57 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 0613020708;
+ Sat, 11 Apr 2020 23:12:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586646718;
- bh=9AgB5xU8/OmGvwSeCAS7bDIEocxLDpLkEL0FnpXfADc=;
+ s=default; t=1586646741;
+ bh=D4cdTpA6rsE79PwC2CgwPR/tNR/kDAVMTSKkxf/Lk+Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=R+F9mD/qczaZGiS1T5/esUPAS0+EewNPwc9mJxY9dvLwr4Wgd5c+HTGIp3jJVp/QJ
- fMZ47FmwDl0TUOwGDICVps4WGJUdsf7QQ7SVdBgSXdtSXNfD4x/6FvQnkzOVDdPXev
- 2f40oxhthB+CTQYkL/N7CZNLXS0lTs+LcC+WUslE=
+ b=Em24RYyCcLVlsRdpXo3h6N6+MQt/DmZAMTREpzHZM3zGkF17vG86P3JoxTKzqyo2D
+ FRaI8HJZwh4wLDe7/YT6q2a58HTPmDWIj4Q8t7RCYMLZRxznG4iuBIuK1x3KJExUrx
+ 8s9fQYLpE+hQm2syFJF1PQ10j5XwuVfmy8w9LKlI=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 108/108] PCI: Use ioremap(),
- not phys_to_virt() for platform ROM
-Date: Sat, 11 Apr 2020 19:09:43 -0400
-Message-Id: <20200411230943.24951-108-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 15/66] drm/amd/display: Stop if retimer is not
+ available
+Date: Sat, 11 Apr 2020 19:11:12 -0400
+Message-Id: <20200411231203.25933-15-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200411230943.24951-1-sashal@kernel.org>
-References: <20200411230943.24951-1-sashal@kernel.org>
+In-Reply-To: <20200411231203.25933-1-sashal@kernel.org>
+References: <20200411231203.25933-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -61,250 +61,358 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, nouveau@lists.freedesktop.org,
- linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- Mikel Rychliski <mikel@mikelr.com>, Bjorn Helgaas <bhelgaas@google.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, dri-devel@lists.freedesktop.org,
+ Hersen Wu <hersenxs.wu@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mikel Rychliski <mikel@mikelr.com>
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-[ Upstream commit 72e0ef0e5f067fd991f702f0b2635d911d0cf208 ]
+[ Upstream commit a0e40018dcc3f59a10ca21d58f8ea8ceb1b035ac ]
 
-On some EFI systems, the video BIOS is provided by the EFI firmware.  The
-boot stub code stores the physical address of the ROM image in pdev->rom.
-Currently we attempt to access this pointer using phys_to_virt(), which
-doesn't work with CONFIG_HIGHMEM.
+Raven provides retimer feature support that requires i2c interaction in
+order to make it work well, all settings required for this configuration
+are loaded from the Atom bios which include the i2c address. If the
+retimer feature is not available, we should abort the attempt to set
+this feature, otherwise, it makes the following line return
+I2C_CHANNEL_OPERATION_NO_RESPONSE:
 
-On these systems, attempting to load the radeon module on a x86_32 kernel
-can result in the following:
+ i2c_success = i2c_write(pipe_ctx, slave_address, buffer, sizeof(buffer));
+ ...
+ if (!i2c_success)
+   ASSERT(i2c_success);
 
-  BUG: unable to handle page fault for address: 3e8ed03c
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  *pde = 00000000
-  Oops: 0000 [#1] PREEMPT SMP
-  CPU: 0 PID: 317 Comm: systemd-udevd Not tainted 5.6.0-rc3-next-20200228 #2
-  Hardware name: Apple Computer, Inc. MacPro1,1/Mac-F4208DC8, BIOS     MP11.88Z.005C.B08.0707021221 07/02/07
-  EIP: radeon_get_bios+0x5ed/0xe50 [radeon]
-  Code: 00 00 84 c0 0f 85 12 fd ff ff c7 87 64 01 00 00 00 00 00 00 8b 47 08 8b 55 b0 e8 1e 83 e1 d6 85 c0 74 1a 8b 55 c0 85 d2 74 13 <80> 38 55 75 0e 80 78 01 aa 0f 84 a4 03 00 00 8d 74 26 00 68 dc 06
-  EAX: 3e8ed03c EBX: 00000000 ECX: 3e8ed03c EDX: 00010000
-  ESI: 00040000 EDI: eec04000 EBP: eef3fc60 ESP: eef3fbe0
-  DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010206
-  CR0: 80050033 CR2: 3e8ed03c CR3: 2ec77000 CR4: 000006d0
-  Call Trace:
-   r520_init+0x26/0x240 [radeon]
-   radeon_device_init+0x533/0xa50 [radeon]
-   radeon_driver_load_kms+0x80/0x220 [radeon]
-   drm_dev_register+0xa7/0x180 [drm]
-   radeon_pci_probe+0x10f/0x1a0 [radeon]
-   pci_device_probe+0xd4/0x140
+This ends up causing problems with hotplugging HDMI displays on Raven,
+and causes retimer settings to warn like so:
 
-Fix the issue by updating all drivers which can access a platform provided
-ROM. Instead of calling the helper function pci_platform_rom() which uses
-phys_to_virt(), call ioremap() directly on the pdev->rom.
+WARNING: CPU: 1 PID: 429 at
+drivers/gpu/drm/amd/amdgpu/../dal/dc/core/dc_link.c:1998
+write_i2c_retimer_setting+0xc2/0x3c0 [amdgpu] Modules linked in:
+edac_mce_amd ccp kvm irqbypass binfmt_misc crct10dif_pclmul crc32_pclmul
+ghash_clmulni_intel snd_hda_codec_realtek snd_hda_codec_generic
+ledtrig_audio snd_hda_codec_hdmi snd_hda_intel amdgpu(+) snd_hda_codec
+snd_hda_core snd_hwdep snd_pcm snd_seq_midi snd_seq_midi_event
+snd_rawmidi aesni_intel snd_seq amd_iommu_v2 gpu_sched aes_x86_64
+crypto_simd cryptd glue_helper snd_seq_device ttm drm_kms_helper
+snd_timer eeepc_wmi wmi_bmof asus_wmi sparse_keymap drm mxm_wmi snd
+k10temp fb_sys_fops syscopyarea sysfillrect sysimgblt soundcore joydev
+input_leds mac_hid sch_fq_codel parport_pc ppdev lp parport ip_tables
+x_tables autofs4 igb i2c_algo_bit hid_generic usbhid i2c_piix4 dca ahci
+hid libahci video wmi gpio_amdpt gpio_generic CPU: 1 PID: 429 Comm:
+systemd-udevd Tainted: G        W         5.2.0-rc1sept162019+ #1
+Hardware name: System manufacturer System Product Name/ROG STRIX B450-F
+GAMING, BIOS 2605 08/06/2019
+RIP: 0010:write_i2c_retimer_setting+0xc2/0x3c0 [amdgpu]
+Code: ff 0f b6 4d ce 44 0f b6 45 cf 44 0f b6 c8 45 89 cf 44 89 e2 48 c7
+c6 f0 34 bc c0 bf 04 00 00 00 e8 63 b0 90 ff 45 84 ff 75 02 <0f> 0b 42
+0f b6 04 73 8d 50 f6 80 fa 02 77 8c 3c 0a 0f 85 c8 00 00 RSP:
+0018:ffffa99d02726fd0 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffffa99d02727035 RCX: 0000000000000006
+RDX: 0000000000000000 RSI: 0000000000000002 RDI: ffff976acc857440
+RBP: ffffa99d02727018 R08: 0000000000000002 R09: 000000000002a600
+R10: ffffe90610193680 R11: 00000000000005e3 R12: 000000000000005d
+R13: ffff976ac4b201b8 R14: 0000000000000001 R15: 0000000000000000
+FS:  00007f14f99e1680(0000) GS:ffff976acc840000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fdf212843b8 CR3: 0000000408906000 CR4: 00000000003406e0
+Call Trace:
+ core_link_enable_stream+0x626/0x680 [amdgpu]
+ dce110_apply_ctx_to_hw+0x414/0x4e0 [amdgpu]
+ dc_commit_state+0x331/0x5e0 [amdgpu]
+ ? drm_calc_timestamping_constants+0xf9/0x150 [drm]
+ amdgpu_dm_atomic_commit_tail+0x395/0x1e00 [amdgpu]
+ ? dm_plane_helper_prepare_fb+0x20c/0x280 [amdgpu]
+ commit_tail+0x42/0x70 [drm_kms_helper]
+ drm_atomic_helper_commit+0x10c/0x120 [drm_kms_helper]
+ amdgpu_dm_atomic_commit+0x95/0xa0 [amdgpu]
+ drm_atomic_commit+0x4a/0x50 [drm]
+ restore_fbdev_mode_atomic+0x1c0/0x1e0 [drm_kms_helper]
+ restore_fbdev_mode+0x4c/0x160 [drm_kms_helper]
+ ? _cond_resched+0x19/0x40
+ drm_fb_helper_restore_fbdev_mode_unlocked+0x4e/0xa0 [drm_kms_helper]
+ drm_fb_helper_set_par+0x2d/0x50 [drm_kms_helper]
+ fbcon_init+0x471/0x630
+ visual_init+0xd5/0x130
+ do_bind_con_driver+0x20a/0x430
+ do_take_over_console+0x7d/0x1b0
+ do_fbcon_takeover+0x5c/0xb0
+ fbcon_event_notify+0x6cd/0x8a0
+ notifier_call_chain+0x4c/0x70
+ blocking_notifier_call_chain+0x43/0x60
+ fb_notifier_call_chain+0x1b/0x20
+ register_framebuffer+0x254/0x360
+ __drm_fb_helper_initial_config_and_unlock+0x2c5/0x510 [drm_kms_helper]
+ drm_fb_helper_initial_config+0x35/0x40 [drm_kms_helper]
+ amdgpu_fbdev_init+0xcd/0x100 [amdgpu]
+ amdgpu_device_init+0x1156/0x1930 [amdgpu]
+ amdgpu_driver_load_kms+0x8d/0x2e0 [amdgpu]
+ drm_dev_register+0x12b/0x1c0 [drm]
+ amdgpu_pci_probe+0xd3/0x160 [amdgpu]
+ local_pci_probe+0x47/0xa0
+ pci_device_probe+0x142/0x1b0
+ really_probe+0xf5/0x3d0
+ driver_probe_device+0x11b/0x130
+ device_driver_attach+0x58/0x60
+ __driver_attach+0xa3/0x140
+ ? device_driver_attach+0x60/0x60
+ ? device_driver_attach+0x60/0x60
+ bus_for_each_dev+0x74/0xb0
+ ? kmem_cache_alloc_trace+0x1a3/0x1c0
+ driver_attach+0x1e/0x20
+ bus_add_driver+0x147/0x220
+ ? 0xffffffffc0cb9000
+ driver_register+0x60/0x100
+ ? 0xffffffffc0cb9000
+ __pci_register_driver+0x5a/0x60
+ amdgpu_init+0x74/0x83 [amdgpu]
+ do_one_initcall+0x4a/0x1fa
+ ? _cond_resched+0x19/0x40
+ ? kmem_cache_alloc_trace+0x3f/0x1c0
+ ? __vunmap+0x1cc/0x200
+ do_init_module+0x5f/0x227
+ load_module+0x2330/0x2b40
+ __do_sys_finit_module+0xfc/0x120
+ ? __do_sys_finit_module+0xfc/0x120
+ __x64_sys_finit_module+0x1a/0x20
+ do_syscall_64+0x5a/0x130
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+RIP: 0033:0x7f14f9500839
+Code: 00 f3 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 48 89 f8 48 89
+f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01
+f0 ff ff 73 01 c3 48 8b 0d 1f f6 2c 00 f7 d8 64 89 01 48
+RSP: 002b:00007fff9bc4f5a8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+RAX: ffffffffffffffda RBX: 000055afb5abce30 RCX: 00007f14f9500839
+RDX: 0000000000000000 RSI: 000055afb5ace0f0 RDI: 0000000000000017
+RBP: 000055afb5ace0f0 R08: 0000000000000000 R09: 000000000000000a
+R10: 0000000000000017 R11: 0000000000000246 R12: 0000000000000000
+R13: 000055afb5aad800 R14: 0000000000020000 R15: 0000000000000000
+---[ end trace c286e96563966f08 ]---
 
-radeon_read_platform_bios() previously directly accessed an __iomem
-pointer. Avoid this by calling memcpy_fromio() instead of kmemdup().
+This commit reworks the way that we handle i2c write for retimer in the
+way that we abort this configuration if the feature is not available in
+the device. For debug sake, we kept a simple log message in case the
+retimer is not available.
 
-pci_platform_rom() now has no remaining callers, so remove it.
-
-Link: https://lore.kernel.org/r/20200319021623.5426-1-mikel@mikelr.com
-Signed-off-by: Mikel Rychliski <mikel@mikelr.com>
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c      | 31 +++++++++++--------
- .../drm/nouveau/nvkm/subdev/bios/shadowpci.c  | 17 ++++++++--
- drivers/gpu/drm/radeon/radeon_bios.c          | 30 +++++++++++-------
- drivers/pci/rom.c                             | 17 ----------
- include/linux/pci.h                           |  1 -
- 5 files changed, 52 insertions(+), 44 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 67 ++++++++-----------
+ 1 file changed, 29 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-index 50dff69a0f6e3..b1172d93c99c3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
-@@ -192,30 +192,35 @@ static bool amdgpu_read_bios_from_rom(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index 3abc0294c05f5..2fb2c683ad54b 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -1576,8 +1576,7 @@ static void write_i2c_retimer_setting(
+ 						buffer, sizeof(buffer));
  
- static bool amdgpu_read_platform_bios(struct amdgpu_device *adev)
- {
--	uint8_t __iomem *bios;
--	size_t size;
-+	phys_addr_t rom = adev->pdev->rom;
-+	size_t romlen = adev->pdev->romlen;
-+	void __iomem *bios;
+ 			if (!i2c_success)
+-				/* Write failure */
+-				ASSERT(i2c_success);
++				goto i2c_write_fail;
  
- 	adev->bios = NULL;
+ 			/* Based on DP159 specs, APPLY_RX_TX_CHANGE bit in 0x0A
+ 			 * needs to be set to 1 on every 0xA-0xC write.
+@@ -1595,8 +1594,7 @@ static void write_i2c_retimer_setting(
+ 						pipe_ctx->stream->sink->link->ddc,
+ 						slave_address, &offset, 1, &value, 1);
+ 					if (!i2c_success)
+-						/* Write failure */
+-						ASSERT(i2c_success);
++						goto i2c_write_fail;
+ 				}
  
--	bios = pci_platform_rom(adev->pdev, &size);
--	if (!bios) {
-+	if (!rom || romlen == 0)
- 		return false;
--	}
- 
--	adev->bios = kzalloc(size, GFP_KERNEL);
--	if (adev->bios == NULL)
-+	adev->bios = kzalloc(romlen, GFP_KERNEL);
-+	if (!adev->bios)
- 		return false;
- 
--	memcpy_fromio(adev->bios, bios, size);
-+	bios = ioremap(rom, romlen);
-+	if (!bios)
-+		goto free_bios;
- 
--	if (!check_atom_bios(adev->bios, size)) {
--		kfree(adev->bios);
--		return false;
--	}
-+	memcpy_fromio(adev->bios, bios, romlen);
-+	iounmap(bios);
- 
--	adev->bios_size = size;
-+	if (!check_atom_bios(adev->bios, romlen))
-+		goto free_bios;
-+
-+	adev->bios_size = romlen;
- 
- 	return true;
-+free_bios:
-+	kfree(adev->bios);
-+	return false;
- }
- 
- #ifdef CONFIG_ACPI
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
-index 9b91da09dc5f8..8d9812a51ef63 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
-@@ -101,9 +101,13 @@ platform_init(struct nvkm_bios *bios, const char *name)
- 	else
- 		return ERR_PTR(-ENODEV);
- 
-+	if (!pdev->rom || pdev->romlen == 0)
-+		return ERR_PTR(-ENODEV);
-+
- 	if ((priv = kmalloc(sizeof(*priv), GFP_KERNEL))) {
-+		priv->size = pdev->romlen;
- 		if (ret = -ENODEV,
--		    (priv->rom = pci_platform_rom(pdev, &priv->size)))
-+		    (priv->rom = ioremap(pdev->rom, pdev->romlen)))
- 			return priv;
- 		kfree(priv);
+ 				buffer[0] = offset;
+@@ -1605,8 +1603,7 @@ static void write_i2c_retimer_setting(
+ 				i2c_success = i2c_write(pipe_ctx, slave_address,
+ 						buffer, sizeof(buffer));
+ 				if (!i2c_success)
+-					/* Write failure */
+-					ASSERT(i2c_success);
++					goto i2c_write_fail;
+ 			}
+ 		}
  	}
-@@ -111,11 +115,20 @@ platform_init(struct nvkm_bios *bios, const char *name)
- 	return ERR_PTR(ret);
+@@ -1623,8 +1620,7 @@ static void write_i2c_retimer_setting(
+ 							buffer, sizeof(buffer));
+ 
+ 				if (!i2c_success)
+-					/* Write failure */
+-					ASSERT(i2c_success);
++					goto i2c_write_fail;
+ 
+ 				/* Based on DP159 specs, APPLY_RX_TX_CHANGE bit in 0x0A
+ 				 * needs to be set to 1 on every 0xA-0xC write.
+@@ -1642,8 +1638,7 @@ static void write_i2c_retimer_setting(
+ 								pipe_ctx->stream->sink->link->ddc,
+ 								slave_address, &offset, 1, &value, 1);
+ 						if (!i2c_success)
+-							/* Write failure */
+-							ASSERT(i2c_success);
++							goto i2c_write_fail;
+ 					}
+ 
+ 					buffer[0] = offset;
+@@ -1652,8 +1647,7 @@ static void write_i2c_retimer_setting(
+ 					i2c_success = i2c_write(pipe_ctx, slave_address,
+ 							buffer, sizeof(buffer));
+ 					if (!i2c_success)
+-						/* Write failure */
+-						ASSERT(i2c_success);
++						goto i2c_write_fail;
+ 				}
+ 			}
+ 		}
+@@ -1668,8 +1662,7 @@ static void write_i2c_retimer_setting(
+ 		i2c_success = i2c_write(pipe_ctx, slave_address,
+ 				buffer, sizeof(buffer));
+ 		if (!i2c_success)
+-			/* Write failure */
+-			ASSERT(i2c_success);
++			goto i2c_write_fail;
+ 
+ 		/* Write offset 0x00 to 0x23 */
+ 		buffer[0] = 0x00;
+@@ -1677,8 +1670,7 @@ static void write_i2c_retimer_setting(
+ 		i2c_success = i2c_write(pipe_ctx, slave_address,
+ 				buffer, sizeof(buffer));
+ 		if (!i2c_success)
+-			/* Write failure */
+-			ASSERT(i2c_success);
++			goto i2c_write_fail;
+ 
+ 		/* Write offset 0xff to 0x00 */
+ 		buffer[0] = 0xff;
+@@ -1686,10 +1678,14 @@ static void write_i2c_retimer_setting(
+ 		i2c_success = i2c_write(pipe_ctx, slave_address,
+ 				buffer, sizeof(buffer));
+ 		if (!i2c_success)
+-			/* Write failure */
+-			ASSERT(i2c_success);
++			goto i2c_write_fail;
+ 
+ 	}
++
++	return;
++
++i2c_write_fail:
++	DC_LOG_DEBUG("Set retimer failed");
  }
  
-+static void
-+platform_fini(void *data)
-+{
-+	struct priv *priv = data;
-+
-+	iounmap(priv->rom);
-+	kfree(priv);
-+}
-+
- const struct nvbios_source
- nvbios_platform = {
- 	.name = "PLATFORM",
- 	.init = platform_init,
--	.fini = (void(*)(void *))kfree,
-+	.fini = platform_fini,
- 	.read = pcirom_read,
- 	.rw = true,
- };
-diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
-index 4d1490fbb0750..756a50e8aff20 100644
---- a/drivers/gpu/drm/radeon/radeon_bios.c
-+++ b/drivers/gpu/drm/radeon/radeon_bios.c
-@@ -108,25 +108,33 @@ static bool radeon_read_bios(struct radeon_device *rdev)
+ static void write_i2c_default_retimer_setting(
+@@ -1710,8 +1706,7 @@ static void write_i2c_default_retimer_setting(
+ 	i2c_success = i2c_write(pipe_ctx, slave_address,
+ 			buffer, sizeof(buffer));
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		goto i2c_write_fail;
  
- static bool radeon_read_platform_bios(struct radeon_device *rdev)
- {
--	uint8_t __iomem *bios;
--	size_t size;
-+	phys_addr_t rom = rdev->pdev->rom;
-+	size_t romlen = rdev->pdev->romlen;
-+	void __iomem *bios;
+ 	/* Write offset 0x0A to 0x17 */
+ 	buffer[0] = 0x0A;
+@@ -1719,8 +1714,7 @@ static void write_i2c_default_retimer_setting(
+ 	i2c_success = i2c_write(pipe_ctx, slave_address,
+ 			buffer, sizeof(buffer));
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		goto i2c_write_fail;
  
- 	rdev->bios = NULL;
+ 	/* Write offset 0x0B to 0xDA or 0xD8 */
+ 	buffer[0] = 0x0B;
+@@ -1728,8 +1722,7 @@ static void write_i2c_default_retimer_setting(
+ 	i2c_success = i2c_write(pipe_ctx, slave_address,
+ 			buffer, sizeof(buffer));
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		goto i2c_write_fail;
  
--	bios = pci_platform_rom(rdev->pdev, &size);
--	if (!bios) {
-+	if (!rom || romlen == 0)
- 		return false;
--	}
+ 	/* Write offset 0x0A to 0x17 */
+ 	buffer[0] = 0x0A;
+@@ -1737,8 +1730,7 @@ static void write_i2c_default_retimer_setting(
+ 	i2c_success = i2c_write(pipe_ctx, slave_address,
+ 			buffer, sizeof(buffer));
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		goto i2c_write_fail;
  
--	if (size == 0 || bios[0] != 0x55 || bios[1] != 0xaa) {
-+	rdev->bios = kzalloc(romlen, GFP_KERNEL);
-+	if (!rdev->bios)
- 		return false;
--	}
--	rdev->bios = kmemdup(bios, size, GFP_KERNEL);
--	if (rdev->bios == NULL) {
--		return false;
--	}
+ 	/* Write offset 0x0C to 0x1D or 0x91 */
+ 	buffer[0] = 0x0C;
+@@ -1746,8 +1738,7 @@ static void write_i2c_default_retimer_setting(
+ 	i2c_success = i2c_write(pipe_ctx, slave_address,
+ 			buffer, sizeof(buffer));
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		goto i2c_write_fail;
+ 
+ 	/* Write offset 0x0A to 0x17 */
+ 	buffer[0] = 0x0A;
+@@ -1755,8 +1746,7 @@ static void write_i2c_default_retimer_setting(
+ 	i2c_success = i2c_write(pipe_ctx, slave_address,
+ 			buffer, sizeof(buffer));
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		goto i2c_write_fail;
+ 
+ 
+ 	if (is_vga_mode) {
+@@ -1768,8 +1758,7 @@ static void write_i2c_default_retimer_setting(
+ 		i2c_success = i2c_write(pipe_ctx, slave_address,
+ 				buffer, sizeof(buffer));
+ 		if (!i2c_success)
+-			/* Write failure */
+-			ASSERT(i2c_success);
++			goto i2c_write_fail;
+ 
+ 		/* Write offset 0x00 to 0x23 */
+ 		buffer[0] = 0x00;
+@@ -1777,8 +1766,7 @@ static void write_i2c_default_retimer_setting(
+ 		i2c_success = i2c_write(pipe_ctx, slave_address,
+ 				buffer, sizeof(buffer));
+ 		if (!i2c_success)
+-			/* Write failure */
+-			ASSERT(i2c_success);
++			goto i2c_write_fail;
+ 
+ 		/* Write offset 0xff to 0x00 */
+ 		buffer[0] = 0xff;
+@@ -1786,9 +1774,13 @@ static void write_i2c_default_retimer_setting(
+ 		i2c_success = i2c_write(pipe_ctx, slave_address,
+ 				buffer, sizeof(buffer));
+ 		if (!i2c_success)
+-			/* Write failure */
+-			ASSERT(i2c_success);
++			goto i2c_write_fail;
+ 	}
 +
-+	bios = ioremap(rom, romlen);
-+	if (!bios)
-+		goto free_bios;
++	return;
 +
-+	memcpy_fromio(rdev->bios, bios, romlen);
-+	iounmap(bios);
-+
-+	if (rdev->bios[0] != 0x55 || rdev->bios[1] != 0xaa)
-+		goto free_bios;
- 
- 	return true;
-+free_bios:
-+	kfree(rdev->bios);
-+	return false;
++i2c_write_fail:
++	DC_LOG_DEBUG("Set default retimer failed");
  }
  
- #ifdef CONFIG_ACPI
-diff --git a/drivers/pci/rom.c b/drivers/pci/rom.c
-index 137bf0cee897c..8fc9a4e911e3a 100644
---- a/drivers/pci/rom.c
-+++ b/drivers/pci/rom.c
-@@ -195,20 +195,3 @@ void pci_unmap_rom(struct pci_dev *pdev, void __iomem *rom)
- 		pci_disable_rom(pdev);
- }
- EXPORT_SYMBOL(pci_unmap_rom);
--
--/**
-- * pci_platform_rom - provides a pointer to any ROM image provided by the
-- * platform
-- * @pdev: pointer to pci device struct
-- * @size: pointer to receive size of pci window over ROM
-- */
--void __iomem *pci_platform_rom(struct pci_dev *pdev, size_t *size)
--{
--	if (pdev->rom && pdev->romlen) {
--		*size = pdev->romlen;
--		return phys_to_virt((phys_addr_t)pdev->rom);
--	}
--
--	return NULL;
--}
--EXPORT_SYMBOL(pci_platform_rom);
-diff --git a/include/linux/pci.h b/include/linux/pci.h
-index f39f22f9ee474..e92bd9b32f369 100644
---- a/include/linux/pci.h
-+++ b/include/linux/pci.h
-@@ -1216,7 +1216,6 @@ int pci_enable_rom(struct pci_dev *pdev);
- void pci_disable_rom(struct pci_dev *pdev);
- void __iomem __must_check *pci_map_rom(struct pci_dev *pdev, size_t *size);
- void pci_unmap_rom(struct pci_dev *pdev, void __iomem *rom);
--void __iomem __must_check *pci_platform_rom(struct pci_dev *pdev, size_t *size);
+ static void write_i2c_redriver_setting(
+@@ -1811,8 +1803,7 @@ static void write_i2c_redriver_setting(
+ 					buffer, sizeof(buffer));
  
- /* Power management related routines */
- int pci_save_state(struct pci_dev *dev);
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		DC_LOG_DEBUG("Set redriver failed");
+ }
+ 
+ static void enable_link_hdmi(struct pipe_ctx *pipe_ctx)
 -- 
 2.20.1
 
