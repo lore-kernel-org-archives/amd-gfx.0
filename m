@@ -2,49 +2,48 @@ Return-Path: <SRS0=mFKL=53=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	UPPERCASE_50_75,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 917F9C2BB86
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:12:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 468CDC2BA19
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:12:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 682DA20757
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:12:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 19B0420787
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:12:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="ElxkJ1ck"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 682DA20757
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="OWAGjjo9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19B0420787
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 261A06E3BB;
-	Sat, 11 Apr 2020 23:12:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEE326E3C6;
+	Sat, 11 Apr 2020 23:12:52 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 060076E3B5;
- Sat, 11 Apr 2020 23:12:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07C9D6E3C6;
+ Sat, 11 Apr 2020 23:12:51 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0158F20708;
- Sat, 11 Apr 2020 23:12:26 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E6F4721841;
+ Sat, 11 Apr 2020 23:12:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586646747;
- bh=Sg+AeYwlWAaR4CNzrnLx9RnsqgcJVfc9GzSfFoFeZyA=;
+ s=default; t=1586646770;
+ bh=0LJGZBnlKyTbrb6WTN4LcFXLTqTu1DZR3oWb3ykYops=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ElxkJ1ckrbbUP4EJJUcGbvopkr0g+YHfjm8L0g5YyRKb3JQOM8s4n4zNyWh67Q/6S
- WUlKybre0jRyQB83HEkvCom139Mfj/Nt47PiMZNahu890DcUZXrLKqEeqHsXuqRqvZ
- YA3bBlMqAOUyU+B7wa1kF/RDEomJegQNYbL6o1jc=
+ b=OWAGjjo9VeRo+PSg+1bXRl89IuTMDBIlmD2jYCzpgDxMAoOgC7QmD/k1Sm+MW+Ih1
+ K/U6XV5uqi4TIr0Pvabo5erHylGb7FH0V9YmbquCxtDaDPUqbYNEtpRd7Ts56rsRXa
+ fXBW0hCwjorjjpJV1xBP+t00pdO/g85d7QCUEMC4=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 20/66] drm/amd/display: Fix default logger mask
- definition
-Date: Sat, 11 Apr 2020 19:11:17 -0400
-Message-Id: <20200411231203.25933-20-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 39/66] drm/amd/display:
+ dal_ddc_i2c_payloads_create can fail causing panic
+Date: Sat, 11 Apr 2020 19:11:36 -0400
+Message-Id: <20200411231203.25933-39-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200411231203.25933-1-sashal@kernel.org>
 References: <20200411231203.25933-1-sashal@kernel.org>
@@ -62,109 +61,137 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>,
- Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Eric Bernstein <eric.bernstein@amd.com>, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Joshua Aberback <Joshua.Aberback@amd.com>,
+ Aric Cyr <aric.cyr@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Eric Bernstein <eric.bernstein@amd.com>
+From: Aric Cyr <aric.cyr@amd.com>
 
-[ Upstream commit ccb6af1e25830e5601b6beacc698390f0245316f ]
+[ Upstream commit 6a6c4a4d459ecacc9013c45dcbf2bc9747fdbdbd ]
 
 [Why]
-Logger mask was updated to uint64_t, however default mask definition was
-not updated for unsigned long long
+Since the i2c payload allocation can fail need to check return codes
 
 [How]
-Update DC_DEFAULT_LOG_MASK to support uint64_t type
+Clean up i2c payload allocations and check for errors
 
-Signed-off-by: Eric Bernstein <eric.bernstein@amd.com>
-Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Signed-off-by: Aric Cyr <aric.cyr@amd.com>
+Reviewed-by: Joshua Aberback <Joshua.Aberback@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Acked-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/display/include/logger_types.h    | 63 ++++++++++---------
- 1 file changed, 32 insertions(+), 31 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_link_ddc.c | 52 +++++++++----------
+ 1 file changed, 25 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/include/logger_types.h b/drivers/gpu/drm/amd/display/include/logger_types.h
-index ad3695e67b76f..dbc5a4d6d2e3f 100644
---- a/drivers/gpu/drm/amd/display/include/logger_types.h
-+++ b/drivers/gpu/drm/amd/display/include/logger_types.h
-@@ -106,36 +106,37 @@ enum dc_log_type {
- #define DC_MIN_LOG_MASK ((1 << LOG_ERROR) | \
- 		(1 << LOG_DETECTION_EDID_PARSER))
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+index 46c9cb47a96e5..145af3bb2dfcb 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+@@ -127,22 +127,16 @@ struct aux_payloads {
+ 	struct vector payloads;
+ };
  
--#define DC_DEFAULT_LOG_MASK ((1 << LOG_ERROR) | \
--		(1 << LOG_WARNING) | \
--		(1 << LOG_EVENT_MODE_SET) | \
--		(1 << LOG_EVENT_DETECTION) | \
--		(1 << LOG_EVENT_LINK_TRAINING) | \
--		(1 << LOG_EVENT_LINK_LOSS) | \
--		(1 << LOG_EVENT_UNDERFLOW) | \
--		(1 << LOG_RESOURCE) | \
--		(1 << LOG_FEATURE_OVERRIDE) | \
--		(1 << LOG_DETECTION_EDID_PARSER) | \
--		(1 << LOG_DC) | \
--		(1 << LOG_HW_HOTPLUG) | \
--		(1 << LOG_HW_SET_MODE) | \
--		(1 << LOG_HW_RESUME_S3) | \
--		(1 << LOG_HW_HPD_IRQ) | \
--		(1 << LOG_SYNC) | \
--		(1 << LOG_BANDWIDTH_VALIDATION) | \
--		(1 << LOG_MST) | \
--		(1 << LOG_DETECTION_DP_CAPS) | \
--		(1 << LOG_BACKLIGHT)) | \
--		(1 << LOG_I2C_AUX) | \
--		(1 << LOG_IF_TRACE) | \
--		(1 << LOG_DTN) /* | \
--		(1 << LOG_DEBUG) | \
--		(1 << LOG_BIOS) | \
--		(1 << LOG_SURFACE) | \
--		(1 << LOG_SCALER) | \
--		(1 << LOG_DML) | \
--		(1 << LOG_HW_LINK_TRAINING) | \
--		(1 << LOG_HW_AUDIO)| \
--		(1 << LOG_BANDWIDTH_CALCS)*/
-+#define DC_DEFAULT_LOG_MASK ((1ULL << LOG_ERROR) | \
-+		(1ULL << LOG_WARNING) | \
-+		(1ULL << LOG_EVENT_MODE_SET) | \
-+		(1ULL << LOG_EVENT_DETECTION) | \
-+		(1ULL << LOG_EVENT_LINK_TRAINING) | \
-+		(1ULL << LOG_EVENT_LINK_LOSS) | \
-+		(1ULL << LOG_EVENT_UNDERFLOW) | \
-+		(1ULL << LOG_RESOURCE) | \
-+		(1ULL << LOG_FEATURE_OVERRIDE) | \
-+		(1ULL << LOG_DETECTION_EDID_PARSER) | \
-+		(1ULL << LOG_DC) | \
-+		(1ULL << LOG_HW_HOTPLUG) | \
-+		(1ULL << LOG_HW_SET_MODE) | \
-+		(1ULL << LOG_HW_RESUME_S3) | \
-+		(1ULL << LOG_HW_HPD_IRQ) | \
-+		(1ULL << LOG_SYNC) | \
-+		(1ULL << LOG_BANDWIDTH_VALIDATION) | \
-+		(1ULL << LOG_MST) | \
-+		(1ULL << LOG_DETECTION_DP_CAPS) | \
-+		(1ULL << LOG_BACKLIGHT)) | \
-+		(1ULL << LOG_I2C_AUX) | \
-+		(1ULL << LOG_IF_TRACE) | \
-+		(1ULL << LOG_HDMI_FRL) | \
-+		(1ULL << LOG_DTN) /* | \
-+		(1ULL << LOG_DEBUG) | \
-+		(1ULL << LOG_BIOS) | \
-+		(1ULL << LOG_SURFACE) | \
-+		(1ULL << LOG_SCALER) | \
-+		(1ULL << LOG_DML) | \
-+		(1ULL << LOG_HW_LINK_TRAINING) | \
-+		(1ULL << LOG_HW_AUDIO)| \
-+		(1ULL << LOG_BANDWIDTH_CALCS)*/
+-static struct i2c_payloads *dal_ddc_i2c_payloads_create(struct dc_context *ctx, uint32_t count)
++static bool dal_ddc_i2c_payloads_create(
++		struct dc_context *ctx,
++		struct i2c_payloads *payloads,
++		uint32_t count)
+ {
+-	struct i2c_payloads *payloads;
+-
+-	payloads = kzalloc(sizeof(struct i2c_payloads), GFP_KERNEL);
+-
+-	if (!payloads)
+-		return NULL;
+-
+ 	if (dal_vector_construct(
+ 		&payloads->payloads, ctx, count, sizeof(struct i2c_payload)))
+-		return payloads;
+-
+-	kfree(payloads);
+-	return NULL;
++		return true;
  
- #endif /* __DAL_LOGGER_TYPES_H__ */
++	return false;
+ }
+ 
+ static struct i2c_payload *dal_ddc_i2c_payloads_get(struct i2c_payloads *p)
+@@ -155,14 +149,12 @@ static uint32_t dal_ddc_i2c_payloads_get_count(struct i2c_payloads *p)
+ 	return p->payloads.count;
+ }
+ 
+-static void dal_ddc_i2c_payloads_destroy(struct i2c_payloads **p)
++static void dal_ddc_i2c_payloads_destroy(struct i2c_payloads *p)
+ {
+-	if (!p || !*p)
++	if (!p)
+ 		return;
+-	dal_vector_destruct(&(*p)->payloads);
+-	kfree(*p);
+-	*p = NULL;
+ 
++	dal_vector_destruct(&p->payloads);
+ }
+ 
+ static struct aux_payloads *dal_ddc_aux_payloads_create(struct dc_context *ctx, uint32_t count)
+@@ -580,9 +572,13 @@ bool dal_ddc_service_query_ddc_data(
+ 
+ 	uint32_t payloads_num = write_payloads + read_payloads;
+ 
++
+ 	if (write_size > EDID_SEGMENT_SIZE || read_size > EDID_SEGMENT_SIZE)
+ 		return false;
+ 
++	if (!payloads_num)
++		return false;
++
+ 	/*TODO: len of payload data for i2c and aux is uint8!!!!,
+ 	 *  but we want to read 256 over i2c!!!!*/
+ 	if (dal_ddc_service_is_in_aux_transaction_mode(ddc)) {
+@@ -613,23 +609,25 @@ bool dal_ddc_service_query_ddc_data(
+ 		dal_ddc_aux_payloads_destroy(&payloads);
+ 
+ 	} else {
+-		struct i2c_payloads *payloads =
+-			dal_ddc_i2c_payloads_create(ddc->ctx, payloads_num);
++		struct i2c_command command = {0};
++		struct i2c_payloads payloads;
+ 
+-		struct i2c_command command = {
+-			.payloads = dal_ddc_i2c_payloads_get(payloads),
+-			.number_of_payloads = 0,
+-			.engine = DDC_I2C_COMMAND_ENGINE,
+-			.speed = ddc->ctx->dc->caps.i2c_speed_in_khz };
++		if (!dal_ddc_i2c_payloads_create(ddc->ctx, &payloads, payloads_num))
++			return false;
++
++		command.payloads = dal_ddc_i2c_payloads_get(&payloads);
++		command.number_of_payloads = 0;
++		command.engine = DDC_I2C_COMMAND_ENGINE;
++		command.speed = ddc->ctx->dc->caps.i2c_speed_in_khz;
+ 
+ 		dal_ddc_i2c_payloads_add(
+-			payloads, address, write_size, write_buf, true);
++			&payloads, address, write_size, write_buf, true);
+ 
+ 		dal_ddc_i2c_payloads_add(
+-			payloads, address, read_size, read_buf, false);
++			&payloads, address, read_size, read_buf, false);
+ 
+ 		command.number_of_payloads =
+-			dal_ddc_i2c_payloads_get_count(payloads);
++			dal_ddc_i2c_payloads_get_count(&payloads);
+ 
+ 		ret = dm_helpers_submit_i2c(
+ 				ddc->ctx,
 -- 
 2.20.1
 
