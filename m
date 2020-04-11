@@ -2,45 +2,54 @@ Return-Path: <SRS0=mFKL=53=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 057EEC2BB86
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 12:55:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A188FC2BB86
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:04:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BF40C2084D
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 12:54:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF40C2084D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4FFF621835
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:04:04 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="x2TWd87K"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4FFF621835
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87C736E312;
-	Sat, 11 Apr 2020 12:54:59 +0000 (UTC)
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 657616E20F;
- Fri, 10 Apr 2020 22:58:00 +0000 (UTC)
-Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <colin.king@canonical.com>)
- id 1jN2az-00083H-Mj; Fri, 10 Apr 2020 22:57:57 +0000
-From: Colin King <colin.king@canonical.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, John Clements <john.clements@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: ensure device_list is initialised before calling
- list_add_tail
-Date: Fri, 10 Apr 2020 23:57:57 +0100
-Message-Id: <20200410225757.97473-1-colin.king@canonical.com>
-X-Mailer: git-send-email 2.25.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABA576E046;
+	Sat, 11 Apr 2020 23:04:03 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F1EE6E046;
+ Sat, 11 Apr 2020 23:04:02 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3F2D3214D8;
+ Sat, 11 Apr 2020 23:04:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1586646241;
+ bh=Q99g52Fta1ZERSHsYKSqKAe6lrAJVypTbK5kyGjfU20=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=x2TWd87KqSaWTitxTQn12h6DfN2PavhYEvKc9ZW/3SDVaGAqCQAX1Kfoc5w4CjeUm
+ W+r3z2CRH9no5qBfdEIO2jcwjBGDORYNQLZrtt1r9jY/AlIxPayPJYxB35pgM3UbxH
+ 7w84O2rP2+KZUfJMBcPxZoVraLw5P824rmPbQTJQ=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.6 010/149] drm/amd/display: differentiate vsc sdp
+ colorimetry use criteria between MST and SST
+Date: Sat, 11 Apr 2020 19:01:27 -0400
+Message-Id: <20200411230347.22371-10-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200411230347.22371-1-sashal@kernel.org>
+References: <20200411230347.22371-1-sashal@kernel.org>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Sat, 11 Apr 2020 12:54:57 +0000
+X-stable: review
+X-Patchwork-Hint: Ignore
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,39 +61,149 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>, Martin Tsai <martin.tsai@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, Wenjing Liu <Wenjing.Liu@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Colin Ian King <colin.king@canonical.com>
+From: Martin Tsai <martin.tsai@amd.com>
 
-Currently the call to list_add_tail will access an the uninitalised
-device_list.prev. Fix this by ensuring device_list is initialized before
-adding items to it.
+[ Upstream commit c38cc6770fd5f78a0918ed0b01af14de31aba5cb ]
 
-Addresses-Coverity: ("Uninitialized pointer read")
-Fixes: b3dbd6d3ec49 ("drm/amdgpu: resolve mGPU RAS query instability")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
+[Why]
+We should check MST BU support capability on output port before building
+vsc info packet.
+
+[How]
+Add a new definition for port and sink capability check.
+
+Signed-off-by: Martin Tsai <martin.tsai@amd.com>
+Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 +++++++++++++++---
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 ++
+ .../amd/display/modules/inc/mod_info_packet.h |  3 +--
+ .../display/modules/info_packet/info_packet.c | 20 +++----------------
+ 4 files changed, 22 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index b0aa4e1ed4df..caa4969bd46f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1447,6 +1447,7 @@ static void amdgpu_ras_do_recovery(struct work_struct *work)
- 	if  (hive && adev->gmc.xgmi.num_physical_nodes > 1) {
- 		device_list_handle = &hive->device_list;
- 	} else {
-+		INIT_LIST_HEAD(&device_list);
- 		list_add_tail(&adev->gmc.xgmi.head, &device_list);
- 		device_list_handle = &device_list;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 6240259b3a937..b9853fd724d60 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -4200,9 +4200,22 @@ create_stream_for_sink(struct amdgpu_dm_connector *aconnector,
+ 			struct dmcu *dmcu = core_dc->res_pool->dmcu;
+ 
+ 			stream->psr_version = dmcu->dmcu_version.psr_version;
+-			mod_build_vsc_infopacket(stream,
+-					&stream->vsc_infopacket,
+-					&stream->use_vsc_sdp_for_colorimetry);
++
++			//
++			// should decide stream support vsc sdp colorimetry capability
++			// before building vsc info packet
++			//
++			stream->use_vsc_sdp_for_colorimetry = false;
++			if (aconnector->dc_sink->sink_signal == SIGNAL_TYPE_DISPLAY_PORT_MST) {
++				stream->use_vsc_sdp_for_colorimetry =
++					aconnector->dc_sink->is_vsc_sdp_colorimetry_supported;
++			} else {
++				if (stream->link->dpcd_caps.dpcd_rev.raw >= 0x14 &&
++					stream->link->dpcd_caps.dprx_feature.bits.VSC_SDP_COLORIMETRY_SUPPORTED) {
++					stream->use_vsc_sdp_for_colorimetry = true;
++				}
++			}
++			mod_build_vsc_infopacket(stream, &stream->vsc_infopacket);
+ 		}
  	}
+ finish:
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 8ff25b5dd2f6d..4afe33c6aeb5b 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1019,6 +1019,8 @@ struct dc_sink {
+ 
+ 	struct dc_sink_dsc_caps sink_dsc_caps;
+ 
++	bool is_vsc_sdp_colorimetry_supported;
++
+ 	/* private to DC core */
+ 	struct dc_link *link;
+ 	struct dc_context *ctx;
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+index 42cbeffac6402..13c57ff2abdce 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+@@ -34,8 +34,7 @@ struct dc_info_packet;
+ struct mod_vrr_params;
+ 
+ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+-		struct dc_info_packet *info_packet,
+-		bool *use_vsc_sdp_for_colorimetry);
++		struct dc_info_packet *info_packet);
+ 
+ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
+ 		struct dc_info_packet *info_packet, int ALLMEnabled, int ALLMValue);
+diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+index 6a8a056424b85..cff3ab15fc0cc 100644
+--- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
++++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+@@ -130,8 +130,7 @@ enum ColorimetryYCCDP {
+ };
+ 
+ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+-		struct dc_info_packet *info_packet,
+-		bool *use_vsc_sdp_for_colorimetry)
++		struct dc_info_packet *info_packet)
+ {
+ 	unsigned int vsc_packet_revision = vsc_packet_undefined;
+ 	unsigned int i;
+@@ -139,11 +138,6 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+ 	unsigned int colorimetryFormat = 0;
+ 	bool stereo3dSupport = false;
+ 
+-	/* Initialize first, later if infopacket is valid determine if VSC SDP
+-	 * should be used to signal colorimetry format and pixel encoding.
+-	 */
+-	*use_vsc_sdp_for_colorimetry = false;
+-
+ 	if (stream->timing.timing_3d_format != TIMING_3D_FORMAT_NONE && stream->view_format != VIEW_3D_FORMAT_NONE) {
+ 		vsc_packet_revision = vsc_packet_rev1;
+ 		stereo3dSupport = true;
+@@ -153,9 +147,8 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+ 	if (stream->psr_version != 0)
+ 		vsc_packet_revision = vsc_packet_rev2;
+ 
+-	/* Update to revision 5 for extended colorimetry support for DPCD 1.4+ */
+-	if (stream->link->dpcd_caps.dpcd_rev.raw >= 0x14 &&
+-			stream->link->dpcd_caps.dprx_feature.bits.VSC_SDP_COLORIMETRY_SUPPORTED)
++	/* Update to revision 5 for extended colorimetry support */
++	if (stream->use_vsc_sdp_for_colorimetry)
+ 		vsc_packet_revision = vsc_packet_rev5;
+ 
+ 	/* VSC packet not needed based on the features
+@@ -269,13 +262,6 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+ 
+ 		info_packet->valid = true;
+ 
+-		/* If we are using VSC SDP revision 05h, use this to signal for
+-		 * colorimetry format and pixel encoding. HW should later be
+-		 * programmed to set MSA MISC1 bit 6 to indicate ignore
+-		 * colorimetry format and pixel encoding in the MSA.
+-		 */
+-		*use_vsc_sdp_for_colorimetry = true;
+-
+ 		/* Set VSC SDP fields for pixel encoding and colorimetry format from DP 1.3 specs
+ 		 * Data Bytes DB 18~16
+ 		 * Bits 3:0 (Colorimetry Format)        |  Bits 7:4 (Pixel Encoding)
 -- 
-2.25.1
+2.20.1
 
 _______________________________________________
 amd-gfx mailing list
