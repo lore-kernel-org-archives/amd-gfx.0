@@ -7,44 +7,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DE0A1C2BBFD
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:05:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 192C6C38A29
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:05:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B2F702166E
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:05:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E293F20787
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:05:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="dZxz3G+1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B2F702166E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="a773GCsQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E293F20787
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C96176E342;
-	Sat, 11 Apr 2020 23:05:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7289A6E347;
+	Sat, 11 Apr 2020 23:05:40 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D1006E046;
- Sat, 11 Apr 2020 23:05:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D39FF6E343;
+ Sat, 11 Apr 2020 23:05:37 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4DA5321835;
- Sat, 11 Apr 2020 23:05:35 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B9B2720787;
+ Sat, 11 Apr 2020 23:05:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586646336;
- bh=vqZt/R4WXAM/m2lpLTkGB8OPfcd/fgDe3x/TvWkAJI4=;
+ s=default; t=1586646337;
+ bh=gxcoV2qpI5IWHpmQs+fyevwYN5HNxlyLXon5O6O47ZQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dZxz3G+1mrP0QRxDcqahmApXHOjb9XST9olYPfpOnJkn7N579v5sYlUedC8IKwk/m
- suro5/46KtZSxbnS454sKGH3MVux0K6his1YXiM72RkYJZA3DEWoQcz28OqtfIIch3
- gbJmqvx+9SU9cCKk8Z7B6hHvJ/KH+syMZwmcUDe4=
+ b=a773GCsQbuJC+UxgyJ3kVLc4wghiNWzKDMulc6UGI0HxvmvYH1bfjdY1lxEwlljTL
+ GPGgiqgMe520WZr1dOt6ExvWNPkiFGICofE2+jAvihD1ukN7w1Vx+8iQbzAEhPnQDk
+ WU43FYqz50QGESc7PGuLd+hvZpR/IipSzEJ8byGk=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 087/149] drm/amd/display:
- dal_ddc_i2c_payloads_create can fail causing panic
-Date: Sat, 11 Apr 2020 19:02:44 -0400
-Message-Id: <20200411230347.22371-87-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.6 088/149] drm/amd/display: System crashes when
+ add_ptb_to_table() gets called
+Date: Sat, 11 Apr 2020 19:02:45 -0400
+Message-Id: <20200411230347.22371-88-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200411230347.22371-1-sashal@kernel.org>
 References: <20200411230347.22371-1-sashal@kernel.org>
@@ -62,9 +62,9 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Joshua Aberback <Joshua.Aberback@amd.com>,
- Aric Cyr <aric.cyr@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+Cc: Sasha Levin <sashal@kernel.org>, Aric Cyr <Aric.Cyr@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ Peikang Zhang <peikang.zhang@amd.com>, dri-devel@lists.freedesktop.org,
  Alex Deucher <alexander.deucher@amd.com>,
  Harry Wentland <harry.wentland@amd.com>
 Content-Type: text/plain; charset="us-ascii"
@@ -72,127 +72,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+From: Peikang Zhang <peikang.zhang@amd.com>
 
-[ Upstream commit 6a6c4a4d459ecacc9013c45dcbf2bc9747fdbdbd ]
+[ Upstream commit 0062972b9d9f888d0273c6496769d02e8f509135 ]
 
 [Why]
-Since the i2c payload allocation can fail need to check return codes
+Unused VMIDs were not evicted correctly
 
 [How]
-Clean up i2c payload allocations and check for errors
+1. evict_vmids() logic was fixed;
+2. Added boundary check for add_ptb_to_table() and
+   clear_entry_from_vmid_table() to avoid crash caused by array out of
+   boundary;
+3. For mod_vmid_get_for_ptb(), vimd is changed from unsigned to signed
+   due to vimd is signed.
 
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
-Reviewed-by: Joshua Aberback <Joshua.Aberback@amd.com>
+Signed-off-by: Peikang Zhang <peikang.zhang@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Acked-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/core/dc_link_ddc.c | 52 +++++++++----------
- 1 file changed, 25 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/amd/display/modules/vmid/vmid.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-index a49c10d5df26b..2d0524f677c7c 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-@@ -126,22 +126,16 @@ struct aux_payloads {
- 	struct vector payloads;
- };
+diff --git a/drivers/gpu/drm/amd/display/modules/vmid/vmid.c b/drivers/gpu/drm/amd/display/modules/vmid/vmid.c
+index f0a153704f6e0..00f132f8ad55d 100644
+--- a/drivers/gpu/drm/amd/display/modules/vmid/vmid.c
++++ b/drivers/gpu/drm/amd/display/modules/vmid/vmid.c
+@@ -40,14 +40,18 @@ struct core_vmid {
  
--static struct i2c_payloads *dal_ddc_i2c_payloads_create(struct dc_context *ctx, uint32_t count)
-+static bool dal_ddc_i2c_payloads_create(
-+		struct dc_context *ctx,
-+		struct i2c_payloads *payloads,
-+		uint32_t count)
+ static void add_ptb_to_table(struct core_vmid *core_vmid, unsigned int vmid, uint64_t ptb)
  {
--	struct i2c_payloads *payloads;
--
--	payloads = kzalloc(sizeof(struct i2c_payloads), GFP_KERNEL);
--
--	if (!payloads)
--		return NULL;
--
- 	if (dal_vector_construct(
- 		&payloads->payloads, ctx, count, sizeof(struct i2c_payload)))
--		return payloads;
--
--	kfree(payloads);
--	return NULL;
-+		return true;
- 
-+	return false;
+-	core_vmid->ptb_assigned_to_vmid[vmid] = ptb;
+-	core_vmid->num_vmids_available--;
++	if (vmid < MAX_VMID) {
++		core_vmid->ptb_assigned_to_vmid[vmid] = ptb;
++		core_vmid->num_vmids_available--;
++	}
  }
  
- static struct i2c_payload *dal_ddc_i2c_payloads_get(struct i2c_payloads *p)
-@@ -154,14 +148,12 @@ static uint32_t dal_ddc_i2c_payloads_get_count(struct i2c_payloads *p)
- 	return p->payloads.count;
- }
- 
--static void dal_ddc_i2c_payloads_destroy(struct i2c_payloads **p)
-+static void dal_ddc_i2c_payloads_destroy(struct i2c_payloads *p)
+ static void clear_entry_from_vmid_table(struct core_vmid *core_vmid, unsigned int vmid)
  {
--	if (!p || !*p)
-+	if (!p)
- 		return;
--	dal_vector_destruct(&(*p)->payloads);
--	kfree(*p);
--	*p = NULL;
- 
-+	dal_vector_destruct(&p->payloads);
+-	core_vmid->ptb_assigned_to_vmid[vmid] = 0;
+-	core_vmid->num_vmids_available++;
++	if (vmid < MAX_VMID) {
++		core_vmid->ptb_assigned_to_vmid[vmid] = 0;
++		core_vmid->num_vmids_available++;
++	}
  }
  
- #define DDC_MIN(a, b) (((a) < (b)) ? (a) : (b))
-@@ -524,9 +516,13 @@ bool dal_ddc_service_query_ddc_data(
+ static void evict_vmids(struct core_vmid *core_vmid)
+@@ -57,7 +61,7 @@ static void evict_vmids(struct core_vmid *core_vmid)
  
- 	uint32_t payloads_num = write_payloads + read_payloads;
+ 	// At this point any positions with value 0 are unused vmids, evict them
+ 	for (i = 1; i < core_vmid->num_vmid; i++) {
+-		if (ord & (1u << i))
++		if (!(ord & (1u << i)))
+ 			clear_entry_from_vmid_table(core_vmid, i);
+ 	}
+ }
+@@ -91,7 +95,7 @@ static int get_next_available_vmid(struct core_vmid *core_vmid)
+ uint8_t mod_vmid_get_for_ptb(struct mod_vmid *mod_vmid, uint64_t ptb)
+ {
+ 	struct core_vmid *core_vmid = MOD_VMID_TO_CORE(mod_vmid);
+-	unsigned int vmid = 0;
++	int vmid = 0;
  
-+
- 	if (write_size > EDID_SEGMENT_SIZE || read_size > EDID_SEGMENT_SIZE)
- 		return false;
- 
-+	if (!payloads_num)
-+		return false;
-+
- 	/*TODO: len of payload data for i2c and aux is uint8!!!!,
- 	 *  but we want to read 256 over i2c!!!!*/
- 	if (dal_ddc_service_is_in_aux_transaction_mode(ddc)) {
-@@ -557,23 +553,25 @@ bool dal_ddc_service_query_ddc_data(
- 			ret = dal_ddc_submit_aux_command(ddc, &payload);
- 		}
- 	} else {
--		struct i2c_payloads *payloads =
--			dal_ddc_i2c_payloads_create(ddc->ctx, payloads_num);
-+		struct i2c_command command = {0};
-+		struct i2c_payloads payloads;
-+
-+		if (!dal_ddc_i2c_payloads_create(ddc->ctx, &payloads, payloads_num))
-+			return false;
- 
--		struct i2c_command command = {
--			.payloads = dal_ddc_i2c_payloads_get(payloads),
--			.number_of_payloads = 0,
--			.engine = DDC_I2C_COMMAND_ENGINE,
--			.speed = ddc->ctx->dc->caps.i2c_speed_in_khz };
-+		command.payloads = dal_ddc_i2c_payloads_get(&payloads);
-+		command.number_of_payloads = 0;
-+		command.engine = DDC_I2C_COMMAND_ENGINE;
-+		command.speed = ddc->ctx->dc->caps.i2c_speed_in_khz;
- 
- 		dal_ddc_i2c_payloads_add(
--			payloads, address, write_size, write_buf, true);
-+			&payloads, address, write_size, write_buf, true);
- 
- 		dal_ddc_i2c_payloads_add(
--			payloads, address, read_size, read_buf, false);
-+			&payloads, address, read_size, read_buf, false);
- 
- 		command.number_of_payloads =
--			dal_ddc_i2c_payloads_get_count(payloads);
-+			dal_ddc_i2c_payloads_get_count(&payloads);
- 
- 		ret = dm_helpers_submit_i2c(
- 				ddc->ctx,
+ 	// Physical address gets vmid 0
+ 	if (ptb == 0)
 -- 
 2.20.1
 
