@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88C5FC2BBC7
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:04:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 46D41C2BA19
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:04:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5898B20CC7
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:04:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1D42820708
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:04:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="cVIYHio2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5898B20CC7
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="hmxb2ZFT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1D42820708
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6426A6E15D;
-	Sat, 11 Apr 2020 23:04:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C84306E19C;
+	Sat, 11 Apr 2020 23:04:29 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C932F6E156;
- Sat, 11 Apr 2020 23:04:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D67396E1AA;
+ Sat, 11 Apr 2020 23:04:28 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id D8315214D8;
- Sat, 11 Apr 2020 23:04:15 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E524120CC7;
+ Sat, 11 Apr 2020 23:04:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586646256;
- bh=b9PSEA+YG/1WY21aDwSoSP7Lj/mwh9DIxAkoaspyNac=;
+ s=default; t=1586646268;
+ bh=gUbdnvbMS+kNXJyfP7Z1C0mRD2+TeSbo/Ok2TrQzlfM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cVIYHio23RN4BzYBpS9VtpxCDtuSlMVnIDGUz1V2B8PouGi3q4w2ZmdY2+CM361RB
- +VRyIHFPRiQvsUE6j0gXo/of6n4w7bQCLiXdC2B3iVoBVOBFywdwJ3tR98SiFvPu3/
- dGqCBNl5tw4soaBdCo+l1unDZ/Eq64nXNjhcdgsg=
+ b=hmxb2ZFTASf8DoAqfF7cf71bLcgvVL9TtMpryOiVSKmUynmDmNPHpf6OUqwa2KKKN
+ l9CYgOORB+rlcbDDFR0Sk/t6uMzOUeIIoI4koRV18IegAdPyHydBPgAcOYm+R50t8C
+ Zj4ZM0zGYkb5w676aC5kNQvfQqNMho/tC9MP6/zg=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 023/149] drm/amdgpu: check GFX RAS capability
- before reset counters
-Date: Sat, 11 Apr 2020 19:01:40 -0400
-Message-Id: <20200411230347.22371-23-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.6 033/149] drm/amd/display: Stop if retimer is not
+ available
+Date: Sat, 11 Apr 2020 19:01:50 -0400
+Message-Id: <20200411230347.22371-33-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200411230347.22371-1-sashal@kernel.org>
 References: <20200411230347.22371-1-sashal@kernel.org>
@@ -61,59 +61,358 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- Monk Liu <monk.liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, dri-devel@lists.freedesktop.org,
+ Hersen Wu <hersenxs.wu@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Hawking Zhang <Hawking.Zhang@amd.com>
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 
-[ Upstream commit 06dcd7eb83ee65382305ce48686e3dadaad42088 ]
+[ Upstream commit a0e40018dcc3f59a10ca21d58f8ea8ceb1b035ac ]
 
-disallow the logical to be enabled on platforms that
-don't support gfx ras at this stage, like sriov skus,
-dgpu with legacy ras.etc
+Raven provides retimer feature support that requires i2c interaction in
+order to make it work well, all settings required for this configuration
+are loaded from the Atom bios which include the i2c address. If the
+retimer feature is not available, we should abort the attempt to set
+this feature, otherwise, it makes the following line return
+I2C_CHANNEL_OPERATION_NO_RESPONSE:
 
-Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Reviewed-by: Monk Liu <monk.liu@amd.com>
+ i2c_success = i2c_write(pipe_ctx, slave_address, buffer, sizeof(buffer));
+ ...
+ if (!i2c_success)
+   ASSERT(i2c_success);
+
+This ends up causing problems with hotplugging HDMI displays on Raven,
+and causes retimer settings to warn like so:
+
+WARNING: CPU: 1 PID: 429 at
+drivers/gpu/drm/amd/amdgpu/../dal/dc/core/dc_link.c:1998
+write_i2c_retimer_setting+0xc2/0x3c0 [amdgpu] Modules linked in:
+edac_mce_amd ccp kvm irqbypass binfmt_misc crct10dif_pclmul crc32_pclmul
+ghash_clmulni_intel snd_hda_codec_realtek snd_hda_codec_generic
+ledtrig_audio snd_hda_codec_hdmi snd_hda_intel amdgpu(+) snd_hda_codec
+snd_hda_core snd_hwdep snd_pcm snd_seq_midi snd_seq_midi_event
+snd_rawmidi aesni_intel snd_seq amd_iommu_v2 gpu_sched aes_x86_64
+crypto_simd cryptd glue_helper snd_seq_device ttm drm_kms_helper
+snd_timer eeepc_wmi wmi_bmof asus_wmi sparse_keymap drm mxm_wmi snd
+k10temp fb_sys_fops syscopyarea sysfillrect sysimgblt soundcore joydev
+input_leds mac_hid sch_fq_codel parport_pc ppdev lp parport ip_tables
+x_tables autofs4 igb i2c_algo_bit hid_generic usbhid i2c_piix4 dca ahci
+hid libahci video wmi gpio_amdpt gpio_generic CPU: 1 PID: 429 Comm:
+systemd-udevd Tainted: G        W         5.2.0-rc1sept162019+ #1
+Hardware name: System manufacturer System Product Name/ROG STRIX B450-F
+GAMING, BIOS 2605 08/06/2019
+RIP: 0010:write_i2c_retimer_setting+0xc2/0x3c0 [amdgpu]
+Code: ff 0f b6 4d ce 44 0f b6 45 cf 44 0f b6 c8 45 89 cf 44 89 e2 48 c7
+c6 f0 34 bc c0 bf 04 00 00 00 e8 63 b0 90 ff 45 84 ff 75 02 <0f> 0b 42
+0f b6 04 73 8d 50 f6 80 fa 02 77 8c 3c 0a 0f 85 c8 00 00 RSP:
+0018:ffffa99d02726fd0 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffffa99d02727035 RCX: 0000000000000006
+RDX: 0000000000000000 RSI: 0000000000000002 RDI: ffff976acc857440
+RBP: ffffa99d02727018 R08: 0000000000000002 R09: 000000000002a600
+R10: ffffe90610193680 R11: 00000000000005e3 R12: 000000000000005d
+R13: ffff976ac4b201b8 R14: 0000000000000001 R15: 0000000000000000
+FS:  00007f14f99e1680(0000) GS:ffff976acc840000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fdf212843b8 CR3: 0000000408906000 CR4: 00000000003406e0
+Call Trace:
+ core_link_enable_stream+0x626/0x680 [amdgpu]
+ dce110_apply_ctx_to_hw+0x414/0x4e0 [amdgpu]
+ dc_commit_state+0x331/0x5e0 [amdgpu]
+ ? drm_calc_timestamping_constants+0xf9/0x150 [drm]
+ amdgpu_dm_atomic_commit_tail+0x395/0x1e00 [amdgpu]
+ ? dm_plane_helper_prepare_fb+0x20c/0x280 [amdgpu]
+ commit_tail+0x42/0x70 [drm_kms_helper]
+ drm_atomic_helper_commit+0x10c/0x120 [drm_kms_helper]
+ amdgpu_dm_atomic_commit+0x95/0xa0 [amdgpu]
+ drm_atomic_commit+0x4a/0x50 [drm]
+ restore_fbdev_mode_atomic+0x1c0/0x1e0 [drm_kms_helper]
+ restore_fbdev_mode+0x4c/0x160 [drm_kms_helper]
+ ? _cond_resched+0x19/0x40
+ drm_fb_helper_restore_fbdev_mode_unlocked+0x4e/0xa0 [drm_kms_helper]
+ drm_fb_helper_set_par+0x2d/0x50 [drm_kms_helper]
+ fbcon_init+0x471/0x630
+ visual_init+0xd5/0x130
+ do_bind_con_driver+0x20a/0x430
+ do_take_over_console+0x7d/0x1b0
+ do_fbcon_takeover+0x5c/0xb0
+ fbcon_event_notify+0x6cd/0x8a0
+ notifier_call_chain+0x4c/0x70
+ blocking_notifier_call_chain+0x43/0x60
+ fb_notifier_call_chain+0x1b/0x20
+ register_framebuffer+0x254/0x360
+ __drm_fb_helper_initial_config_and_unlock+0x2c5/0x510 [drm_kms_helper]
+ drm_fb_helper_initial_config+0x35/0x40 [drm_kms_helper]
+ amdgpu_fbdev_init+0xcd/0x100 [amdgpu]
+ amdgpu_device_init+0x1156/0x1930 [amdgpu]
+ amdgpu_driver_load_kms+0x8d/0x2e0 [amdgpu]
+ drm_dev_register+0x12b/0x1c0 [drm]
+ amdgpu_pci_probe+0xd3/0x160 [amdgpu]
+ local_pci_probe+0x47/0xa0
+ pci_device_probe+0x142/0x1b0
+ really_probe+0xf5/0x3d0
+ driver_probe_device+0x11b/0x130
+ device_driver_attach+0x58/0x60
+ __driver_attach+0xa3/0x140
+ ? device_driver_attach+0x60/0x60
+ ? device_driver_attach+0x60/0x60
+ bus_for_each_dev+0x74/0xb0
+ ? kmem_cache_alloc_trace+0x1a3/0x1c0
+ driver_attach+0x1e/0x20
+ bus_add_driver+0x147/0x220
+ ? 0xffffffffc0cb9000
+ driver_register+0x60/0x100
+ ? 0xffffffffc0cb9000
+ __pci_register_driver+0x5a/0x60
+ amdgpu_init+0x74/0x83 [amdgpu]
+ do_one_initcall+0x4a/0x1fa
+ ? _cond_resched+0x19/0x40
+ ? kmem_cache_alloc_trace+0x3f/0x1c0
+ ? __vunmap+0x1cc/0x200
+ do_init_module+0x5f/0x227
+ load_module+0x2330/0x2b40
+ __do_sys_finit_module+0xfc/0x120
+ ? __do_sys_finit_module+0xfc/0x120
+ __x64_sys_finit_module+0x1a/0x20
+ do_syscall_64+0x5a/0x130
+ entry_SYSCALL_64_after_hwframe+0x44/0xa9
+RIP: 0033:0x7f14f9500839
+Code: 00 f3 c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 00 48 89 f8 48 89
+f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01
+f0 ff ff 73 01 c3 48 8b 0d 1f f6 2c 00 f7 d8 64 89 01 48
+RSP: 002b:00007fff9bc4f5a8 EFLAGS: 00000246 ORIG_RAX: 0000000000000139
+RAX: ffffffffffffffda RBX: 000055afb5abce30 RCX: 00007f14f9500839
+RDX: 0000000000000000 RSI: 000055afb5ace0f0 RDI: 0000000000000017
+RBP: 000055afb5ace0f0 R08: 0000000000000000 R09: 000000000000000a
+R10: 0000000000000017 R11: 0000000000000246 R12: 0000000000000000
+R13: 000055afb5aad800 R14: 0000000000020000 R15: 0000000000000000
+---[ end trace c286e96563966f08 ]---
+
+This commit reworks the way that we handle i2c write for retimer in the
+way that we abort this configuration if the feature is not available in
+the device. For debug sake, we kept a simple log message in case the
+retimer is not available.
+
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Reviewed-by: Hersen Wu <hersenxs.wu@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 3 +++
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c | 3 +++
- 2 files changed, 6 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 67 ++++++++-----------
+ 1 file changed, 29 insertions(+), 38 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 889154a78c4a8..beba9c596c493 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -6326,6 +6326,9 @@ static void gfx_v9_0_clear_ras_edc_counter(struct amdgpu_device *adev)
- {
- 	int i, j, k;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index a09119c10d7c9..ee0be0119bf4f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -1733,8 +1733,7 @@ static void write_i2c_retimer_setting(
+ 				slave_address, buffer[0], buffer[1], i2c_success?1:0);
  
-+	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
-+		return;
-+
- 	/* read back registers to clear the counters */
- 	mutex_lock(&adev->grbm_idx_mutex);
- 	for (i = 0; i < ARRAY_SIZE(gfx_v9_0_edc_counter_regs); i++) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
-index f099f13d7f1e9..9955532345ec0 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4.c
-@@ -897,6 +897,9 @@ void gfx_v9_4_clear_ras_edc_counter(struct amdgpu_device *adev)
- {
- 	int i, j, k;
+ 			if (!i2c_success)
+-				/* Write failure */
+-				ASSERT(i2c_success);
++				goto i2c_write_fail;
  
-+	if (!amdgpu_ras_is_supported(adev, AMDGPU_RAS_BLOCK__GFX))
-+		return;
+ 			/* Based on DP159 specs, APPLY_RX_TX_CHANGE bit in 0x0A
+ 			 * needs to be set to 1 on every 0xA-0xC write.
+@@ -1752,8 +1751,7 @@ static void write_i2c_retimer_setting(
+ 						pipe_ctx->stream->link->ddc,
+ 						slave_address, &offset, 1, &value, 1);
+ 					if (!i2c_success)
+-						/* Write failure */
+-						ASSERT(i2c_success);
++						goto i2c_write_fail;
+ 				}
+ 
+ 				buffer[0] = offset;
+@@ -1765,8 +1763,7 @@ static void write_i2c_retimer_setting(
+ 					offset = 0x%x, reg_val = 0x%x, i2c_success = %d\n",
+ 					slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 				if (!i2c_success)
+-					/* Write failure */
+-					ASSERT(i2c_success);
++					goto i2c_write_fail;
+ 			}
+ 		}
+ 	}
+@@ -1786,8 +1783,7 @@ static void write_i2c_retimer_setting(
+ 					slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 
+ 				if (!i2c_success)
+-					/* Write failure */
+-					ASSERT(i2c_success);
++					goto i2c_write_fail;
+ 
+ 				/* Based on DP159 specs, APPLY_RX_TX_CHANGE bit in 0x0A
+ 				 * needs to be set to 1 on every 0xA-0xC write.
+@@ -1805,8 +1801,7 @@ static void write_i2c_retimer_setting(
+ 								pipe_ctx->stream->link->ddc,
+ 								slave_address, &offset, 1, &value, 1);
+ 						if (!i2c_success)
+-							/* Write failure */
+-							ASSERT(i2c_success);
++							goto i2c_write_fail;
+ 					}
+ 
+ 					buffer[0] = offset;
+@@ -1818,8 +1813,7 @@ static void write_i2c_retimer_setting(
+ 						offset = 0x%x, reg_val = 0x%x, i2c_success = %d\n",
+ 						slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 					if (!i2c_success)
+-						/* Write failure */
+-						ASSERT(i2c_success);
++						goto i2c_write_fail;
+ 				}
+ 			}
+ 		}
+@@ -1837,8 +1831,7 @@ static void write_i2c_retimer_setting(
+ 				offset = 0x%x, reg_val = 0x%x, i2c_success = %d\n",
+ 				slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 		if (!i2c_success)
+-			/* Write failure */
+-			ASSERT(i2c_success);
++			goto i2c_write_fail;
+ 
+ 		/* Write offset 0x00 to 0x23 */
+ 		buffer[0] = 0x00;
+@@ -1849,8 +1842,7 @@ static void write_i2c_retimer_setting(
+ 			offset = 0x%x, reg_val = 0x%x, i2c_success = %d\n",
+ 			slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 		if (!i2c_success)
+-			/* Write failure */
+-			ASSERT(i2c_success);
++			goto i2c_write_fail;
+ 
+ 		/* Write offset 0xff to 0x00 */
+ 		buffer[0] = 0xff;
+@@ -1861,10 +1853,14 @@ static void write_i2c_retimer_setting(
+ 			offset = 0x%x, reg_val = 0x%x, i2c_success = %d\n",
+ 			slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 		if (!i2c_success)
+-			/* Write failure */
+-			ASSERT(i2c_success);
++			goto i2c_write_fail;
+ 
+ 	}
 +
- 	mutex_lock(&adev->grbm_idx_mutex);
- 	for (i = 0; i < ARRAY_SIZE(gfx_v9_4_edc_counter_regs); i++) {
- 		for (j = 0; j < gfx_v9_4_edc_counter_regs[i].se_num; j++) {
++	return;
++
++i2c_write_fail:
++	DC_LOG_DEBUG("Set retimer failed");
+ }
+ 
+ static void write_i2c_default_retimer_setting(
+@@ -1889,8 +1885,7 @@ static void write_i2c_default_retimer_setting(
+ 		offset = 0x%x, reg_val = 0x%x, i2c_success = %d\n",
+ 		slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		goto i2c_write_fail;
+ 
+ 	/* Write offset 0x0A to 0x17 */
+ 	buffer[0] = 0x0A;
+@@ -1901,8 +1896,7 @@ static void write_i2c_default_retimer_setting(
+ 		offset = 0x%x, reg_val = 0x%x, i2c_success = %d\n",
+ 		slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		goto i2c_write_fail;
+ 
+ 	/* Write offset 0x0B to 0xDA or 0xD8 */
+ 	buffer[0] = 0x0B;
+@@ -1913,8 +1907,7 @@ static void write_i2c_default_retimer_setting(
+ 		offset = 0x%x, reg_val = 0x%x, i2c_success = %d\n",
+ 		slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		goto i2c_write_fail;
+ 
+ 	/* Write offset 0x0A to 0x17 */
+ 	buffer[0] = 0x0A;
+@@ -1925,8 +1918,7 @@ static void write_i2c_default_retimer_setting(
+ 		offset = 0x%x, reg_val= 0x%x, i2c_success = %d\n",
+ 		slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		goto i2c_write_fail;
+ 
+ 	/* Write offset 0x0C to 0x1D or 0x91 */
+ 	buffer[0] = 0x0C;
+@@ -1937,8 +1929,7 @@ static void write_i2c_default_retimer_setting(
+ 		offset = 0x%x, reg_val = 0x%x, i2c_success = %d\n",
+ 		slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		goto i2c_write_fail;
+ 
+ 	/* Write offset 0x0A to 0x17 */
+ 	buffer[0] = 0x0A;
+@@ -1949,8 +1940,7 @@ static void write_i2c_default_retimer_setting(
+ 		offset = 0x%x, reg_val = 0x%x, i2c_success = %d\n",
+ 		slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		goto i2c_write_fail;
+ 
+ 
+ 	if (is_vga_mode) {
+@@ -1965,8 +1955,7 @@ static void write_i2c_default_retimer_setting(
+ 			offset = 0x%x, reg_val = 0x%x, i2c_success = %d\n",
+ 			slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 		if (!i2c_success)
+-			/* Write failure */
+-			ASSERT(i2c_success);
++			goto i2c_write_fail;
+ 
+ 		/* Write offset 0x00 to 0x23 */
+ 		buffer[0] = 0x00;
+@@ -1977,8 +1966,7 @@ static void write_i2c_default_retimer_setting(
+ 			offset = 0x%x, reg_val= 0x%x, i2c_success = %d\n",
+ 			slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 		if (!i2c_success)
+-			/* Write failure */
+-			ASSERT(i2c_success);
++			goto i2c_write_fail;
+ 
+ 		/* Write offset 0xff to 0x00 */
+ 		buffer[0] = 0xff;
+@@ -1989,9 +1977,13 @@ static void write_i2c_default_retimer_setting(
+ 			offset = 0x%x, reg_val= 0x%x, i2c_success = %d end here\n",
+ 			slave_address, buffer[0], buffer[1], i2c_success?1:0);
+ 		if (!i2c_success)
+-			/* Write failure */
+-			ASSERT(i2c_success);
++			goto i2c_write_fail;
+ 	}
++
++	return;
++
++i2c_write_fail:
++	DC_LOG_DEBUG("Set default retimer failed");
+ }
+ 
+ static void write_i2c_redriver_setting(
+@@ -2020,8 +2012,7 @@ static void write_i2c_redriver_setting(
+ 		slave_address, buffer[3], buffer[4], buffer[5], buffer[6], i2c_success?1:0);
+ 
+ 	if (!i2c_success)
+-		/* Write failure */
+-		ASSERT(i2c_success);
++		DC_LOG_DEBUG("Set redriver failed");
+ }
+ 
+ static void disable_link(struct dc_link *link, enum signal_type signal)
 -- 
 2.20.1
 
