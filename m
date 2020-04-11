@@ -6,44 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 468CDC2BA19
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:12:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 81CA3C2BBFD
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:13:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 19B0420787
-	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:12:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 568B220708
+	for <amd-gfx@archiver.kernel.org>; Sat, 11 Apr 2020 23:13:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="OWAGjjo9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 19B0420787
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="h+5wiaO0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 568B220708
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AEE326E3C6;
-	Sat, 11 Apr 2020 23:12:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02E1E6E3CE;
+	Sat, 11 Apr 2020 23:13:26 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07C9D6E3C6;
- Sat, 11 Apr 2020 23:12:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C1626E3A0;
+ Sat, 11 Apr 2020 23:13:24 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E6F4721841;
- Sat, 11 Apr 2020 23:12:49 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7FC6B20757;
+ Sat, 11 Apr 2020 23:13:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586646770;
- bh=0LJGZBnlKyTbrb6WTN4LcFXLTqTu1DZR3oWb3ykYops=;
+ s=default; t=1586646804;
+ bh=VN1tik0rdM6XxLfL2lSm6cGNyAaPvCAp/XAjCQ4mijk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OWAGjjo9VeRo+PSg+1bXRl89IuTMDBIlmD2jYCzpgDxMAoOgC7QmD/k1Sm+MW+Ih1
- K/U6XV5uqi4TIr0Pvabo5erHylGb7FH0V9YmbquCxtDaDPUqbYNEtpRd7Ts56rsRXa
- fXBW0hCwjorjjpJV1xBP+t00pdO/g85d7QCUEMC4=
+ b=h+5wiaO0OTpNWNtUz7GLnv274Xk9Jz06UUs4iVlun9geuvOTFBhd3IzJz7mxftmc1
+ Fcr7OzqNSSoC1eE18nPEPOTNwDnpzXr0cBkCZgh9PWhdo8Zf5OlBwXY4esljdXBlWK
+ gsPhH8q8xD9l/UO1YMXPbgTYYCg8CDZN7hjxIuxI=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 39/66] drm/amd/display:
- dal_ddc_i2c_payloads_create can fail causing panic
-Date: Sat, 11 Apr 2020 19:11:36 -0400
-Message-Id: <20200411231203.25933-39-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.19 66/66] PCI: Use ioremap(),
+ not phys_to_virt() for platform ROM
+Date: Sat, 11 Apr 2020 19:12:03 -0400
+Message-Id: <20200411231203.25933-66-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200411231203.25933-1-sashal@kernel.org>
 References: <20200411231203.25933-1-sashal@kernel.org>
@@ -61,137 +61,250 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Joshua Aberback <Joshua.Aberback@amd.com>,
- Aric Cyr <aric.cyr@amd.com>, Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, nouveau@lists.freedesktop.org,
+ linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Mikel Rychliski <mikel@mikelr.com>, Bjorn Helgaas <bhelgaas@google.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Aric Cyr <aric.cyr@amd.com>
+From: Mikel Rychliski <mikel@mikelr.com>
 
-[ Upstream commit 6a6c4a4d459ecacc9013c45dcbf2bc9747fdbdbd ]
+[ Upstream commit 72e0ef0e5f067fd991f702f0b2635d911d0cf208 ]
 
-[Why]
-Since the i2c payload allocation can fail need to check return codes
+On some EFI systems, the video BIOS is provided by the EFI firmware.  The
+boot stub code stores the physical address of the ROM image in pdev->rom.
+Currently we attempt to access this pointer using phys_to_virt(), which
+doesn't work with CONFIG_HIGHMEM.
 
-[How]
-Clean up i2c payload allocations and check for errors
+On these systems, attempting to load the radeon module on a x86_32 kernel
+can result in the following:
 
-Signed-off-by: Aric Cyr <aric.cyr@amd.com>
-Reviewed-by: Joshua Aberback <Joshua.Aberback@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Acked-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+  BUG: unable to handle page fault for address: 3e8ed03c
+  #PF: supervisor read access in kernel mode
+  #PF: error_code(0x0000) - not-present page
+  *pde = 00000000
+  Oops: 0000 [#1] PREEMPT SMP
+  CPU: 0 PID: 317 Comm: systemd-udevd Not tainted 5.6.0-rc3-next-20200228 #2
+  Hardware name: Apple Computer, Inc. MacPro1,1/Mac-F4208DC8, BIOS     MP11.88Z.005C.B08.0707021221 07/02/07
+  EIP: radeon_get_bios+0x5ed/0xe50 [radeon]
+  Code: 00 00 84 c0 0f 85 12 fd ff ff c7 87 64 01 00 00 00 00 00 00 8b 47 08 8b 55 b0 e8 1e 83 e1 d6 85 c0 74 1a 8b 55 c0 85 d2 74 13 <80> 38 55 75 0e 80 78 01 aa 0f 84 a4 03 00 00 8d 74 26 00 68 dc 06
+  EAX: 3e8ed03c EBX: 00000000 ECX: 3e8ed03c EDX: 00010000
+  ESI: 00040000 EDI: eec04000 EBP: eef3fc60 ESP: eef3fbe0
+  DS: 007b ES: 007b FS: 00d8 GS: 00e0 SS: 0068 EFLAGS: 00010206
+  CR0: 80050033 CR2: 3e8ed03c CR3: 2ec77000 CR4: 000006d0
+  Call Trace:
+   r520_init+0x26/0x240 [radeon]
+   radeon_device_init+0x533/0xa50 [radeon]
+   radeon_driver_load_kms+0x80/0x220 [radeon]
+   drm_dev_register+0xa7/0x180 [drm]
+   radeon_pci_probe+0x10f/0x1a0 [radeon]
+   pci_device_probe+0xd4/0x140
+
+Fix the issue by updating all drivers which can access a platform provided
+ROM. Instead of calling the helper function pci_platform_rom() which uses
+phys_to_virt(), call ioremap() directly on the pdev->rom.
+
+radeon_read_platform_bios() previously directly accessed an __iomem
+pointer. Avoid this by calling memcpy_fromio() instead of kmemdup().
+
+pci_platform_rom() now has no remaining callers, so remove it.
+
+Link: https://lore.kernel.org/r/20200319021623.5426-1-mikel@mikelr.com
+Signed-off-by: Mikel Rychliski <mikel@mikelr.com>
+Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/core/dc_link_ddc.c | 52 +++++++++----------
- 1 file changed, 25 insertions(+), 27 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c      | 31 +++++++++++--------
+ .../drm/nouveau/nvkm/subdev/bios/shadowpci.c  | 17 ++++++++--
+ drivers/gpu/drm/radeon/radeon_bios.c          | 30 +++++++++++-------
+ drivers/pci/rom.c                             | 17 ----------
+ include/linux/pci.h                           |  1 -
+ 5 files changed, 52 insertions(+), 44 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-index 46c9cb47a96e5..145af3bb2dfcb 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-@@ -127,22 +127,16 @@ struct aux_payloads {
- 	struct vector payloads;
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+index a5df80d50d447..6cf3dd5edffda 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+@@ -191,30 +191,35 @@ static bool amdgpu_read_bios_from_rom(struct amdgpu_device *adev)
  
--static struct i2c_payloads *dal_ddc_i2c_payloads_create(struct dc_context *ctx, uint32_t count)
-+static bool dal_ddc_i2c_payloads_create(
-+		struct dc_context *ctx,
-+		struct i2c_payloads *payloads,
-+		uint32_t count)
+ static bool amdgpu_read_platform_bios(struct amdgpu_device *adev)
  {
--	struct i2c_payloads *payloads;
--
--	payloads = kzalloc(sizeof(struct i2c_payloads), GFP_KERNEL);
--
--	if (!payloads)
--		return NULL;
--
- 	if (dal_vector_construct(
- 		&payloads->payloads, ctx, count, sizeof(struct i2c_payload)))
--		return payloads;
--
--	kfree(payloads);
--	return NULL;
-+		return true;
+-	uint8_t __iomem *bios;
+-	size_t size;
++	phys_addr_t rom = adev->pdev->rom;
++	size_t romlen = adev->pdev->romlen;
++	void __iomem *bios;
  
+ 	adev->bios = NULL;
+ 
+-	bios = pci_platform_rom(adev->pdev, &size);
+-	if (!bios) {
++	if (!rom || romlen == 0)
+ 		return false;
+-	}
+ 
+-	adev->bios = kzalloc(size, GFP_KERNEL);
+-	if (adev->bios == NULL)
++	adev->bios = kzalloc(romlen, GFP_KERNEL);
++	if (!adev->bios)
+ 		return false;
+ 
+-	memcpy_fromio(adev->bios, bios, size);
++	bios = ioremap(rom, romlen);
++	if (!bios)
++		goto free_bios;
+ 
+-	if (!check_atom_bios(adev->bios, size)) {
+-		kfree(adev->bios);
+-		return false;
+-	}
++	memcpy_fromio(adev->bios, bios, romlen);
++	iounmap(bios);
+ 
+-	adev->bios_size = size;
++	if (!check_atom_bios(adev->bios, romlen))
++		goto free_bios;
++
++	adev->bios_size = romlen;
+ 
+ 	return true;
++free_bios:
++	kfree(adev->bios);
 +	return false;
  }
  
- static struct i2c_payload *dal_ddc_i2c_payloads_get(struct i2c_payloads *p)
-@@ -155,14 +149,12 @@ static uint32_t dal_ddc_i2c_payloads_get_count(struct i2c_payloads *p)
- 	return p->payloads.count;
+ #ifdef CONFIG_ACPI
+diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
+index 9b91da09dc5f8..8d9812a51ef63 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
++++ b/drivers/gpu/drm/nouveau/nvkm/subdev/bios/shadowpci.c
+@@ -101,9 +101,13 @@ platform_init(struct nvkm_bios *bios, const char *name)
+ 	else
+ 		return ERR_PTR(-ENODEV);
+ 
++	if (!pdev->rom || pdev->romlen == 0)
++		return ERR_PTR(-ENODEV);
++
+ 	if ((priv = kmalloc(sizeof(*priv), GFP_KERNEL))) {
++		priv->size = pdev->romlen;
+ 		if (ret = -ENODEV,
+-		    (priv->rom = pci_platform_rom(pdev, &priv->size)))
++		    (priv->rom = ioremap(pdev->rom, pdev->romlen)))
+ 			return priv;
+ 		kfree(priv);
+ 	}
+@@ -111,11 +115,20 @@ platform_init(struct nvkm_bios *bios, const char *name)
+ 	return ERR_PTR(ret);
  }
  
--static void dal_ddc_i2c_payloads_destroy(struct i2c_payloads **p)
-+static void dal_ddc_i2c_payloads_destroy(struct i2c_payloads *p)
++static void
++platform_fini(void *data)
++{
++	struct priv *priv = data;
++
++	iounmap(priv->rom);
++	kfree(priv);
++}
++
+ const struct nvbios_source
+ nvbios_platform = {
+ 	.name = "PLATFORM",
+ 	.init = platform_init,
+-	.fini = (void(*)(void *))kfree,
++	.fini = platform_fini,
+ 	.read = pcirom_read,
+ 	.rw = true,
+ };
+diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeon/radeon_bios.c
+index 04c0ed41374f1..dd0528cf98183 100644
+--- a/drivers/gpu/drm/radeon/radeon_bios.c
++++ b/drivers/gpu/drm/radeon/radeon_bios.c
+@@ -104,25 +104,33 @@ static bool radeon_read_bios(struct radeon_device *rdev)
+ 
+ static bool radeon_read_platform_bios(struct radeon_device *rdev)
  {
--	if (!p || !*p)
-+	if (!p)
- 		return;
--	dal_vector_destruct(&(*p)->payloads);
--	kfree(*p);
--	*p = NULL;
+-	uint8_t __iomem *bios;
+-	size_t size;
++	phys_addr_t rom = rdev->pdev->rom;
++	size_t romlen = rdev->pdev->romlen;
++	void __iomem *bios;
  
-+	dal_vector_destruct(&p->payloads);
+ 	rdev->bios = NULL;
+ 
+-	bios = pci_platform_rom(rdev->pdev, &size);
+-	if (!bios) {
++	if (!rom || romlen == 0)
+ 		return false;
+-	}
+ 
+-	if (size == 0 || bios[0] != 0x55 || bios[1] != 0xaa) {
++	rdev->bios = kzalloc(romlen, GFP_KERNEL);
++	if (!rdev->bios)
+ 		return false;
+-	}
+-	rdev->bios = kmemdup(bios, size, GFP_KERNEL);
+-	if (rdev->bios == NULL) {
+-		return false;
+-	}
++
++	bios = ioremap(rom, romlen);
++	if (!bios)
++		goto free_bios;
++
++	memcpy_fromio(rdev->bios, bios, romlen);
++	iounmap(bios);
++
++	if (rdev->bios[0] != 0x55 || rdev->bios[1] != 0xaa)
++		goto free_bios;
+ 
+ 	return true;
++free_bios:
++	kfree(rdev->bios);
++	return false;
  }
  
- static struct aux_payloads *dal_ddc_aux_payloads_create(struct dc_context *ctx, uint32_t count)
-@@ -580,9 +572,13 @@ bool dal_ddc_service_query_ddc_data(
+ #ifdef CONFIG_ACPI
+diff --git a/drivers/pci/rom.c b/drivers/pci/rom.c
+index 137bf0cee897c..8fc9a4e911e3a 100644
+--- a/drivers/pci/rom.c
++++ b/drivers/pci/rom.c
+@@ -195,20 +195,3 @@ void pci_unmap_rom(struct pci_dev *pdev, void __iomem *rom)
+ 		pci_disable_rom(pdev);
+ }
+ EXPORT_SYMBOL(pci_unmap_rom);
+-
+-/**
+- * pci_platform_rom - provides a pointer to any ROM image provided by the
+- * platform
+- * @pdev: pointer to pci device struct
+- * @size: pointer to receive size of pci window over ROM
+- */
+-void __iomem *pci_platform_rom(struct pci_dev *pdev, size_t *size)
+-{
+-	if (pdev->rom && pdev->romlen) {
+-		*size = pdev->romlen;
+-		return phys_to_virt((phys_addr_t)pdev->rom);
+-	}
+-
+-	return NULL;
+-}
+-EXPORT_SYMBOL(pci_platform_rom);
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index b1f297f4b7b0b..993051f60a009 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -1141,7 +1141,6 @@ int pci_enable_rom(struct pci_dev *pdev);
+ void pci_disable_rom(struct pci_dev *pdev);
+ void __iomem __must_check *pci_map_rom(struct pci_dev *pdev, size_t *size);
+ void pci_unmap_rom(struct pci_dev *pdev, void __iomem *rom);
+-void __iomem __must_check *pci_platform_rom(struct pci_dev *pdev, size_t *size);
  
- 	uint32_t payloads_num = write_payloads + read_payloads;
- 
-+
- 	if (write_size > EDID_SEGMENT_SIZE || read_size > EDID_SEGMENT_SIZE)
- 		return false;
- 
-+	if (!payloads_num)
-+		return false;
-+
- 	/*TODO: len of payload data for i2c and aux is uint8!!!!,
- 	 *  but we want to read 256 over i2c!!!!*/
- 	if (dal_ddc_service_is_in_aux_transaction_mode(ddc)) {
-@@ -613,23 +609,25 @@ bool dal_ddc_service_query_ddc_data(
- 		dal_ddc_aux_payloads_destroy(&payloads);
- 
- 	} else {
--		struct i2c_payloads *payloads =
--			dal_ddc_i2c_payloads_create(ddc->ctx, payloads_num);
-+		struct i2c_command command = {0};
-+		struct i2c_payloads payloads;
- 
--		struct i2c_command command = {
--			.payloads = dal_ddc_i2c_payloads_get(payloads),
--			.number_of_payloads = 0,
--			.engine = DDC_I2C_COMMAND_ENGINE,
--			.speed = ddc->ctx->dc->caps.i2c_speed_in_khz };
-+		if (!dal_ddc_i2c_payloads_create(ddc->ctx, &payloads, payloads_num))
-+			return false;
-+
-+		command.payloads = dal_ddc_i2c_payloads_get(&payloads);
-+		command.number_of_payloads = 0;
-+		command.engine = DDC_I2C_COMMAND_ENGINE;
-+		command.speed = ddc->ctx->dc->caps.i2c_speed_in_khz;
- 
- 		dal_ddc_i2c_payloads_add(
--			payloads, address, write_size, write_buf, true);
-+			&payloads, address, write_size, write_buf, true);
- 
- 		dal_ddc_i2c_payloads_add(
--			payloads, address, read_size, read_buf, false);
-+			&payloads, address, read_size, read_buf, false);
- 
- 		command.number_of_payloads =
--			dal_ddc_i2c_payloads_get_count(payloads);
-+			dal_ddc_i2c_payloads_get_count(&payloads);
- 
- 		ret = dm_helpers_submit_i2c(
- 				ddc->ctx,
+ /* Power management related routines */
+ int pci_save_state(struct pci_dev *dev);
 -- 
 2.20.1
 
