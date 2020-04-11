@@ -2,50 +2,44 @@ Return-Path: <SRS0=jv7P=54=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 82E7AC2BA2B
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Apr 2020 10:22:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BE8EC2BA2B
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Apr 2020 15:24:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A65D20708
-	for <amd-gfx@archiver.kernel.org>; Sun, 12 Apr 2020 10:21:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A65D20708
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=datenkhaos.de
+	by mail.kernel.org (Postfix) with ESMTPS id D6BAD20663
+	for <amd-gfx@archiver.kernel.org>; Sun, 12 Apr 2020 15:24:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6BAD20663
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=wanadoo.fr
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7794A6E3F4;
-	Sun, 12 Apr 2020 10:21:59 +0000 (UTC)
-Received: from freki.datenkhaos.de (freki.datenkhaos.de [81.7.17.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B12866E3F4
- for <amd-gfx@lists.freedesktop.org>; Sun, 12 Apr 2020 10:21:57 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by freki.datenkhaos.de (Postfix) with ESMTP id B5C72275D647;
- Sun, 12 Apr 2020 12:21:55 +0200 (CEST)
-Received: from freki.datenkhaos.de ([127.0.0.1])
- by localhost (freki.datenkhaos.de [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id j6_NwkkZfRCf; Sun, 12 Apr 2020 12:21:52 +0200 (CEST)
-Received: from latitude (vpn189.rz.tu-ilmenau.de [141.24.172.189])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by freki.datenkhaos.de (Postfix) with ESMTPSA;
- Sun, 12 Apr 2020 12:21:52 +0200 (CEST)
-Date: Sun, 12 Apr 2020 12:21:46 +0200
-From: Johannes Hirte <johannes.hirte@datenkhaos.de>
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Subject: Re: [PATCH v2] drm/amdgpu: fix gfx hang during suspend with video
- playback (v2)
-Message-ID: <20200412102124.GA13908@latitude>
-References: <1586265256-8824-1-git-send-email-Prike.Liang@amd.com>
- <20200411235534.GA1930@latitude>
- <BY5PR12MB4307451314528C7285E49C60FBDC0@BY5PR12MB4307.namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 749EC6E0DC;
+	Sun, 12 Apr 2020 15:24:15 +0000 (UTC)
+Received: from smtp.smtpout.orange.fr (smtp06.smtpout.orange.fr
+ [80.12.242.128])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC14E6E32B
+ for <amd-gfx@lists.freedesktop.org>; Sat, 11 Apr 2020 14:04:02 +0000 (UTC)
+Received: from localhost.localdomain ([90.126.162.40]) by mwinf5d41 with ME
+ id RS3y2200H0scBcy03S3yw4; Sat, 11 Apr 2020 16:04:00 +0200
+X-ME-Helo: localhost.localdomain
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sat, 11 Apr 2020 16:04:00 +0200
+X-ME-IP: 90.126.162.40
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, David1.Zhou@amd.com,
+ airlied@linux.ie, daniel@ffwll.ch, Hawking.Zhang@amd.com,
+ evan.quan@amd.com, andrey.grodzovsky@amd.com, Monk.Liu@amd.com,
+ kent.russell@amd.com, le.ma@amd.com
+Subject: [PATCH] drm/amdgpu: Add missing '\n' in log messages
+Date: Sat, 11 Apr 2020 16:03:56 +0200
+Message-Id: <20200411140356.28211-1-christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <BY5PR12MB4307451314528C7285E49C60FBDC0@BY5PR12MB4307.namprd12.prod.outlook.com>
+X-Mailman-Approved-At: Sun, 12 Apr 2020 15:24:13 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,59 +51,85 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Huang,
- Ray" <Ray.Huang@amd.com>, "Quan, Evan" <Evan.Quan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ kernel-janitors@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020 Apr 12, Liang, Prike wrote:
-> Thanks update and verify. Could you give more detail information and error log message   
-> about you observed issue? 
-> 
-> Thanks,
-> Prike
+Message logged by 'dev_xxx()' or 'pr_xxx()' should end with a '\n'.
 
-There is no error log, the system just doesn't poweroff/reboot. 
+While at it, split some long lines that where not that far.
 
-lspci:
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+Most of them have been added in commit bd607166af7f ("drm/amdgpu: Enable reading FRU chip via I2C v3")
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-00:00.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 Root Complex
-00:00.2 IOMMU: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 IOMMU
-00:01.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
-00:01.2 PCI bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 PCIe GPP Bridge [6:0]
-00:01.3 PCI bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 PCIe GPP Bridge [6:0]
-00:01.4 PCI bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 PCIe GPP Bridge [6:0]
-00:08.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 00h-1fh) PCIe Dummy Host Bridge
-00:08.1 PCI bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 Internal PCIe GPP Bridge 0 to Bus A
-00:08.2 PCI bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 Internal PCIe GPP Bridge 0 to Bus B
-00:14.0 SMBus: Advanced Micro Devices, Inc. [AMD] FCH SMBus Controller (rev 61)
-00:14.3 ISA bridge: Advanced Micro Devices, Inc. [AMD] FCH LPC Bridge (rev 51)
-00:18.0 Host bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 Device 24: Function 0
-00:18.1 Host bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 Device 24: Function 1
-00:18.2 Host bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 Device 24: Function 2
-00:18.3 Host bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 Device 24: Function 3
-00:18.4 Host bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 Device 24: Function 4
-00:18.5 Host bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 Device 24: Function 5
-00:18.6 Host bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 Device 24: Function 6
-00:18.7 Host bridge: Advanced Micro Devices, Inc. [AMD] Raven/Raven2 Device 24: Function 7
-01:00.0 Network controller: Qualcomm Atheros QCA6174 802.11ac Wireless Network Adapter (rev 32)
-02:00.0 Ethernet controller: Broadcom Inc. and subsidiaries NetXtreme BCM5762 Gigabit Ethernet PCIe (rev 10)
-03:00.0 Unassigned class [ff00]: Realtek Semiconductor Co., Ltd. RTS525A PCI Express Card Reader (rev 01)
-04:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Raven Ridge [Radeon Vega Series / Radeon Vega Mobile Series] (rev d1)
-04:00.1 Audio device: Advanced Micro Devices, Inc. [AMD/ATI] Raven/Raven2/Fenghuang HDMI/DP Audio Controller
-04:00.2 Encryption controller: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 10h-1fh) Platform Security Processor
-04:00.3 USB controller: Advanced Micro Devices, Inc. [AMD] Raven USB 3.1
-04:00.4 USB controller: Advanced Micro Devices, Inc. [AMD] Raven USB 3.1
-04:00.6 Audio device: Advanced Micro Devices, Inc. [AMD] Family 17h (Models 10h-1fh) HD Audio Controller
-04:00.7 Non-VGA unclassified device: Advanced Micro Devices, Inc. [AMD] Raven/Raven2/Renoir Non-Sensor Fusion Hub KMDF driver
-05:00.0 SATA controller: Advanced Micro Devices, Inc. [AMD] FCH SATA Controller [AHCI mode] (rev 61)
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 87f7c129c8ce..3d0a50e8c36b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3249,25 +3249,25 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 
+ 	r = device_create_file(adev->dev, &dev_attr_pcie_replay_count);
+ 	if (r) {
+-		dev_err(adev->dev, "Could not create pcie_replay_count");
++		dev_err(adev->dev, "Could not create pcie_replay_count\n");
+ 		return r;
+ 	}
+ 
+ 	r = device_create_file(adev->dev, &dev_attr_product_name);
+ 	if (r) {
+-		dev_err(adev->dev, "Could not create product_name");
++		dev_err(adev->dev, "Could not create product_name\n");
+ 		return r;
+ 	}
+ 
+ 	r = device_create_file(adev->dev, &dev_attr_product_number);
+ 	if (r) {
+-		dev_err(adev->dev, "Could not create product_number");
++		dev_err(adev->dev, "Could not create product_number\n");
+ 		return r;
+ 	}
+ 
+ 	r = device_create_file(adev->dev, &dev_attr_serial_number);
+ 	if (r) {
+-		dev_err(adev->dev, "Could not create serial_number");
++		dev_err(adev->dev, "Could not create serial_number\n");
+ 		return r;
+ 	}
+ 
+@@ -4270,7 +4270,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 		job_signaled = true;
+ 
+ 	if (job_signaled) {
+-		dev_info(adev->dev, "Guilty job already signaled, skipping HW reset");
++		dev_info(adev->dev, "Guilty job already signaled, skipping HW reset\n");
+ 		goto skip_hw_reset;
+ 	}
+ 
+@@ -4339,10 +4339,12 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 
+ 		if (r) {
+ 			/* bad news, how to tell it to userspace ? */
+-			dev_info(tmp_adev->dev, "GPU reset(%d) failed\n", atomic_read(&tmp_adev->gpu_reset_counter));
++			dev_info(tmp_adev->dev, "GPU reset(%d) failed\n",
++				 atomic_read(&tmp_adev->gpu_reset_counter));
+ 			amdgpu_vf_error_put(tmp_adev, AMDGIM_ERROR_VF_GPU_RESET_FAIL, 0, r);
+ 		} else {
+-			dev_info(tmp_adev->dev, "GPU reset(%d) succeeded!\n", atomic_read(&tmp_adev->gpu_reset_counter));
++			dev_info(tmp_adev->dev, "GPU reset(%d) succeeded!\n",
++				 atomic_read(&tmp_adev->gpu_reset_counter));
+ 		}
+ 	}
+ 
 -- 
-Regards,
-  Johannes Hirte
+2.20.1
 
 _______________________________________________
 amd-gfx mailing list
