@@ -2,75 +2,71 @@ Return-Path: <SRS0=ysjs=55=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69082C2BA2B
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 20:54:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38341C2BB86
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 21:40:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3807820644
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 20:54:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0AF68206DA
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 21:40:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LgJ7itCw"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3807820644
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JJPXaMUM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0AF68206DA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED2B489C55;
-	Mon, 13 Apr 2020 20:54:39 +0000 (UTC)
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEE1489C55;
- Mon, 13 Apr 2020 20:54:39 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id c63so11045315qke.2;
- Mon, 13 Apr 2020 13:54:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 880B889ECB;
+	Mon, 13 Apr 2020 21:40:46 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA9D489ECB;
+ Mon, 13 Apr 2020 21:40:45 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id o81so5217894wmo.2;
+ Mon, 13 Apr 2020 14:40:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=CmUANt0t5HRisX+1yPc7U3xIxP+RuSCBBQhcshkOJkc=;
- b=LgJ7itCwDGKAQT06oAw2BcDstgGiPHC+qPyVPTx9ybSe4VOwbRJeEOlzNb6BvxDnOS
- 2XgnpPZo/PeMNgs33VZjEjjFJrCjGMLq/LDmBeEoVsKRa/gYhqhVzdX6VpfV5c1WsdDb
- Aj/WTeawW/z2ZzlbQH+vu4WT9XoEiCbO8uKImj8xGcjacv4TtRF4ScJAKY19KIYAgdVo
- PzASu8J/wr4PPFlUFA8LHZ5GbuMxFN4sTCClw8xS9AlN9OrB6/B2YVsSXV7ZmardGUYh
- klTTzpuooyIxMkIHHmp5P1OpDDxjTJ/JG4/ujOLdOK9dYQLDp7enbLCZJhkbgUDfWnOG
- ENYw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=O3TzEoMtIfUdNB8j5+48orQwp7L+4a4BtPUMG6Pa9Qs=;
+ b=JJPXaMUMVrsrFSqVXlhblXhpVdyvyU1hImwu8WoU8B2TfGosdDZS3BTkSPdwtBM3aW
+ YKmrxwFbUw9GDetYjYLgNvG3ssHyU7RxH9cLyKRMfyXowPCRYtusXu/fS3S6XhCizpF2
+ Uojh6woCNv7Q/tz6Z0gTY+LbuIAN45HA8KGXBCpJBhAUTr9JdEtY5V0yoO9DpWXkuVt0
+ r+E/qJVorbUAwxCz3D9gYe4ZrXP2G72jPanfh6r7R1UsmxWDRL5b065ilJyDREYQj2aG
+ u3t+f91ZDlqBbA1t1sd7y5uaOpjCSurFyTCr0NhvXqLd+BFTjyN5fdA/Hza/FDYtnxqB
+ rpVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to;
- bh=CmUANt0t5HRisX+1yPc7U3xIxP+RuSCBBQhcshkOJkc=;
- b=J/pbAzBOSmalU7/32AYxtS0mlQva5y8GqDU0aYojAzaIaOKQYwy8nc/5rATouswA5R
- jKolLenqCYUglPxaGHnqBbyuRsomESI1EolEyc+w1FLmR/iwC9WE8JljrNyGJtZa2/8W
- Mu0PPWVJYDM1scTbI6i6YjgaDRzwnt6fhlQ2argMEMKaP2nB26b4dJY7suYCgrlcVkOp
- dXeHJG+LOA1soU7PBO0inGWFI+r1QsjaVohUZs8Xa43yuiPaLya1yanQKuy/AVNOpAmv
- EWLk43zpMhaYa00dRfTBho0Dm1eOXBbab025hY0Fx/Ui47EQR8TqNyALbOSnnBQcom10
- H/lw==
-X-Gm-Message-State: AGi0PuY6l74+NO7fMIGSwlVPWvYt8HSRVzvH9v7m1M0GEaHRkkyu1VOx
- nNfK3+sD2JRTpFYt2ld136AYTzOk3Nw=
-X-Google-Smtp-Source: APiQypIzzvZjRh+3uEsHBjkSiUmc3sI7rqlM0eWsVdJZctdk3taqOja42xDBh77J66TwtQR7pssH5Q==
-X-Received: by 2002:a37:9145:: with SMTP id t66mr17886337qkd.314.1586811278746; 
- Mon, 13 Apr 2020 13:54:38 -0700 (PDT)
-Received: from localhost ([199.96.181.106])
- by smtp.gmail.com with ESMTPSA id d23sm8987665qtj.9.2020.04.13.13.54.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Apr 2020 13:54:37 -0700 (PDT)
-Date: Mon, 13 Apr 2020 16:54:36 -0400
-From: Tejun Heo <tj@kernel.org>
-To: Kenny Ho <y2kenny@gmail.com>
-Subject: Re: [PATCH v2 00/11] new cgroup controller for gpu/drm subsystem
-Message-ID: <20200413205436.GM60335@mtj.duckdns.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=O3TzEoMtIfUdNB8j5+48orQwp7L+4a4BtPUMG6Pa9Qs=;
+ b=CbWW0Ov8LZWs/mFKEMX5KLWlAY3YSkjE94l0CIXtOYos+pQESlUFO7wvQHnKe5oEW5
+ 3rhfFtPyFdLcNf024rtzKegdZ4yEDpfdsBadLy+1j7Rf2NL3Ubf7+29FEiuYv6DpmzKz
+ 8KvUllG053Bh940UJJ3V59tK05ZaylSILRwGPM8kDobVMBoa+JXG5xu8dH9yXH1xIjDP
+ UFPaoGP2fgzp9wbfzcgzEtEbFNYl0AKa7ZNPxQPm+kW/b+Ou6CLouFQlZ32DadwN1UJK
+ ZpRJY9e3Uj1giqGRbq/MfECKhWPI9TZBpWm2mlKT/FtFbi5hLqtPPBf7oRGxuHnp76fx
+ ET0w==
+X-Gm-Message-State: AGi0PuanC8taHgYiX3oiarO129WCJNnsKPb3t+CUezG9yFE5R5K82DMz
+ NSydig7ynAO5cB0M+XnZtKL+GVteu1DduOGFPOQ=
+X-Google-Smtp-Source: APiQypJmnmVsSa7P0w3YlJaIQlNVKj0BXQzYdCbxJ0pspOdO6devQKrfwNYWhioym4arvY5qHfuSaRUNuaj1xhhrKS4=
+X-Received: by 2002:a1c:bd08:: with SMTP id n8mr20023708wmf.23.1586814044460; 
+ Mon, 13 Apr 2020 14:40:44 -0700 (PDT)
+MIME-Version: 1.0
 References: <20200226190152.16131-1-Kenny.Ho@amd.com>
  <CAOWid-eyMGZfOyfEQikwCmPnKxx6MnTm17pBvPeNpgKWi0xN-w@mail.gmail.com>
  <20200324184633.GH162390@mtj.duckdns.org>
  <CAOWid-cS-5YkFBLACotkZZCH0RSjHH94_r3VFH8vEPOubzSpPA@mail.gmail.com>
  <20200413191136.GI60335@mtj.duckdns.org>
  <CAOWid-dM=38faGOF9=-Pq=sxssaL+gm2umctyGVQWVx2etShyQ@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAOWid-dM=38faGOF9=-Pq=sxssaL+gm2umctyGVQWVx2etShyQ@mail.gmail.com>
+ <20200413205436.GM60335@mtj.duckdns.org>
+In-Reply-To: <20200413205436.GM60335@mtj.duckdns.org>
+From: Kenny Ho <y2kenny@gmail.com>
+Date: Mon, 13 Apr 2020 17:40:32 -0400
+Message-ID: <CAOWid-fvmxSXtGUtQSZ4Ow1fK+wR8hbnUe5PcsM56EZMOMwb6g@mail.gmail.com>
+Subject: Re: [PATCH v2 00/11] new cgroup controller for gpu/drm subsystem
+To: Tejun Heo <tj@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,76 +83,48 @@ Cc: Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>,
  lkaplan@cray.com, dri-devel <dri-devel@lists.freedesktop.org>, "Greathouse,
  Joseph" <joseph.greathouse@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
  cgroups@vger.kernel.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Hi,
 
-On Mon, Apr 13, 2020 at 04:17:14PM -0400, Kenny Ho wrote:
-> Perhaps we can even narrow things down to just
-> gpu.weight/gpu.compute.weight as a start?  In this aspect, is the key
+On Mon, Apr 13, 2020 at 4:54 PM Tejun Heo <tj@kernel.org> wrote:
+>
+> Allocations definitely are acceptable and it's not a pre-requisite to have
+> work-conserving control first either. Here, given the lack of consensus in
+> terms of what even constitute resource units, I don't think it'd be a good
+> idea to commit to the proposed interface and believe it'd be beneficial to
+> work on interface-wise simpler work conserving controls.
+>
+...
+> I hope the rationales are clear now. What I'm objecting is inclusion of
+> premature interface, which is a lot easier and more tempting to do for
+> hardware-specific limits and the proposals up until now have been showing
+> ample signs of that. I don't think my position has changed much since the
+> beginning - do the difficult-to-implement but easy-to-use weights first and
+> then you and everyone would have a better idea of what hard-limit or
+> allocation interfaces and mechanisms should look like, or even whether they're
+> needed.
 
-That sounds great to me.
+By lack of consense, do you mean Intel's assertion that a standard is
+not a standard until Intel implements it? (That was in the context of
+OpenCL language standard with the concept of SubDevice.)  I thought
+the discussion so far has established that the concept of a compute
+unit, while named differently (AMD's CUs, ARM's SCs, Intel's EUs,
+Nvidia's SMs, Qualcomm's SPs), is cross vendor.  While an AMD CU is
+not the same as an Intel EU or Nvidia SM, the same can be said for CPU
+cores.  If cpuset is acceptable for a diversity of CPU core designs
+and arrangements, I don't understand why an interface derived from GPU
+SubDevice is considered premature.
 
-> objection to the current implementation of gpu.compute.weight the
-> work-conserving bit?  This work-conserving requirement is probably
-> what I have missed for the last two years (and hence going in circle.)
-> 
-> If this is the case, can you clarify/confirm the followings?
-> 
-> 1) Is resource scheduling goal of cgroup purely for the purpose of
-> throughput?  (at the expense of other scheduling goals such as
-> latency.)
+If a decade-old language standard is not considered a consenses, can
+you elaborate on what might consitute a consenses?
 
-It's not; however, work-conserving mechanisms are the easiest to use (cuz you
-don't lose anything) while usually challenging to implement. It tends to
-clarify how control mechanisms should be structured - even what resources are.
-
-> 2) If 1) is true, under what circumstances will the "Allocations"
-> resource distribution model (as defined in the cgroup-v2) be
-> acceptable?
-
-Allocations definitely are acceptable and it's not a pre-requisite to have
-work-conserving control first either. Here, given the lack of consensus in
-terms of what even constitute resource units, I don't think it'd be a good
-idea to commit to the proposed interface and believe it'd be beneficial to
-work on interface-wise simpler work conserving controls.
-
-> 3) If 1) is true, are things like cpuset from cgroup v1 no longer
-> acceptable going forward?
-
-Again, they're acceptable.
-
-> To be clear, while some have framed this (time sharing vs spatial
-> sharing) as a partisan issue, it is in fact a technical one.  I have
-> implemented the gpu cgroup support this way because we have a class of
-> users that value low latency/low jitter/predictability/synchronicity.
-> For example, they would like 4 tasks to share a GPU and they would
-> like the tasks to start and finish at the same time.
-> 
-> What is the rationale behind picking the Weight model over Allocations
-> as the first acceptable implementation?  Can't we have both
-> work-conserving and non-work-conserving ways of distributing GPU
-> resources?  If we can, why not allow non-work-conserving
-> implementation first, especially when we have users asking for such
-> functionality?
-
-I hope the rationales are clear now. What I'm objecting is inclusion of
-premature interface, which is a lot easier and more tempting to do for
-hardware-specific limits and the proposals up until now have been showing
-ample signs of that. I don't think my position has changed much since the
-beginning - do the difficult-to-implement but easy-to-use weights first and
-then you and everyone would have a better idea of what hard-limit or
-allocation interfaces and mechanisms should look like, or even whether they're
-needed.
-
-Thanks.
-
--- 
-tejun
+Regards,
+Kenny
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
