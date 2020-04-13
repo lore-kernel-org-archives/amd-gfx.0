@@ -2,47 +2,101 @@ Return-Path: <SRS0=ysjs=55=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8480FC2BA19
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 09:31:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FACAC2BA19
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 10:57:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5AB8720692
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 09:31:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5AB8720692
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
+	by mail.kernel.org (Postfix) with ESMTPS id CCDE020692
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 10:57:06 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="BQR/8hAA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCDE020692
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EE0589F53;
-	Mon, 13 Apr 2020 09:31:28 +0000 (UTC)
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECE016E1B2;
- Mon, 13 Apr 2020 07:56:32 +0000 (UTC)
-Received: from DGGEMS406-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id ED46456310CE144570DA;
- Mon, 13 Apr 2020 15:56:26 +0800 (CST)
-Received: from huawei.com (10.175.124.28) by DGGEMS406-HUB.china.huawei.com
- (10.3.19.206) with Microsoft SMTP Server id 14.3.487.0; Mon, 13 Apr 2020
- 15:56:20 +0800
-From: Jason Yan <yanaijie@huawei.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <Tony.Cheng@amd.com>, <Anthony.Koo@amd.com>, <yanaijie@huawei.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH] drm/amd/display: code clean up in dce80_hw_sequencer.c
-Date: Mon, 13 Apr 2020 16:22:49 +0800
-Message-ID: <20200413082249.23271-1-yanaijie@huawei.com>
-X-Mailer: git-send-email 2.21.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75E5D89BBE;
+	Mon, 13 Apr 2020 10:57:06 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2058.outbound.protection.outlook.com [40.107.220.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3E2689BBE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2020 10:57:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=MBaxhOBZ2GAgj9oscnWF+UOaNRqvlRIPt36lBvJ3HSAr2NnrM3r2kTXqUaSfNquh0R3++eVhNt27Il7/bsXGgCRXbakMEDXhswbvQ9TUm0bKn4ZxsafgeVaGiJMsbT2pDIf4vK56qOVto6J9pA5mtjqn66kj2vQ4QHn5MoUEvxg288WwiwNZZpaMVok0NHyyjdAUkL0K6Ew4JJFSSI7pgQIouLm6YH8XWyGhf4E4GIeHqJvaQPlro2Qv/w6p9W4yvu3oOI/Nsw9zYWsZlKf7/7kZtJhtqyyXLFHt1ukoVOCqLuBp6TUZ/apwvGSnpcEod9G//k1SsGhZaFRo9jXCKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pJqd5rP5xA393PWkH/17tMQY3T66a5NR4nL1yclO3dc=;
+ b=OAepZpXfvSWSYwQuz3kcJJdGPDQo+24/yZCjgQcXmrx6kib2FMijFRhgoQf+rFmdgzmIeU5UD6DtKzJEV31yudEbQlmhaN57RO2gz2w9AHasNRPV44r0SzE4QAxa9wDVd1seMbrIO4lVRBBqZeFdGBfg09B93+HmoIIJqoFd1WnHpaURS3MiAwqUo1DPsVSofub9ZlHuk/gHZzcZYzs7gbEXmyMKSg0C/XKRStNulwbnwjvOc2BwAtv/jW7InBcdm0/uLo7KMsVYHdbKsUX1s+j74e8JKnGtiRy86Qj6ceru6+Xm+JSTL3vhlHPat5XuiCFZd6bPEoyPjdAtuYbP7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pJqd5rP5xA393PWkH/17tMQY3T66a5NR4nL1yclO3dc=;
+ b=BQR/8hAAsbb53X1ZN2AzPAGUyaKDS2iP3aV65u71fsyfIo4sJRqKxOWXD2FikaRlqB2RpqoZF3/FJiO3hLVcjYOBdOj38HtsZbXUTYlTR56orw+wmBd/KASM8H7NVGP6+X6IzE0zxyhQbNRG4yU/+aXUUvWmdQwp4lDVYctuKkk=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Evan.Quan@amd.com; 
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM6PR12MB2844.namprd12.prod.outlook.com (2603:10b6:5:45::32) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2900.28; Mon, 13 Apr 2020 10:57:01 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::5c27:185c:be20:1fb6]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::5c27:185c:be20:1fb6%5]) with mapi id 15.20.2900.028; Mon, 13 Apr 2020
+ 10:57:01 +0000
+From: Evan Quan <evan.quan@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amd/powerplay: update Arcturus smu-driver if header
+Date: Mon, 13 Apr 2020 18:56:41 +0800
+Message-Id: <20200413105641.15276-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.26.0
+X-ClientProxiedBy: HK2PR0401CA0021.apcprd04.prod.outlook.com
+ (2603:1096:202:2::31) To DM6PR12MB2619.namprd12.prod.outlook.com
+ (2603:10b6:5:45::18)
 MIME-Version: 1.0
-X-Originating-IP: [10.175.124.28]
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Mon, 13 Apr 2020 09:31:27 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from equan-buildpc.amd.com (180.167.199.189) by
+ HK2PR0401CA0021.apcprd04.prod.outlook.com (2603:1096:202:2::31) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.15 via Frontend
+ Transport; Mon, 13 Apr 2020 10:56:59 +0000
+X-Mailer: git-send-email 2.26.0
+X-Originating-IP: [180.167.199.189]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: b877c4f0-a9d8-4ce2-ccf7-08d7df99648c
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2844:|DM6PR12MB2844:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB284487B9D6E400616A6C64CEE4DD0@DM6PR12MB2844.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:361;
+X-Forefront-PRVS: 037291602B
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(346002)(376002)(396003)(136003)(366004)(39860400002)(66556008)(66476007)(5660300002)(1076003)(2906002)(66946007)(44832011)(956004)(316002)(6666004)(6486002)(2616005)(86362001)(8676002)(4326008)(81156014)(26005)(36756003)(8936002)(186003)(16526019)(52116002)(478600001)(7696005)(6916009);
+ DIR:OUT; SFP:1101; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: PElkPUN8XIMvrMkCZTrOPboXJ3ew4oqOjnl66euxXYFKb0b8KTaVYwBDBKh+bAd5ya9aUujg7UQeb6yxqNUDakLqsWpUrSCyPqqptq02uA0I6G1KpoSvRD1hJhtRaSuyOd5LZEi6e8sapc+iMW5uZ/3I5b/JB9noaIF99v8XcS89jEe3Snup4aex3x6axOUv916UPINhet/Gi5iroIkgKqCDlrq4orHaH/gtSmx2Y4eRCirCiRmUq1L65qGMs8sNTT3k+sL/LDhNS3HAy81eDnZCQeRTG1BeV8HKrO6CxXiEMTSUVh/P8S0Pw8uy+yZymdGk1tfuMBzm7l8EWWLbjnU+Ah6957+JyBYyUj1K9+QCuPjGnnTJmNs3p/rQuMJoCqxY5je/lBx/EIHg0dxZsMaysrCYJQ1ohZK4b1inj/aMI2/ySF/73TRWzw58Mom0
+X-MS-Exchange-AntiSpam-MessageData: LctqmhBa2CGMzuCDMEdvCaxcEkGIXFyqrTwiH4KYYXzcBkSDvg1x15ACj4MT5jfz2kIghxRllZNblQ1M2Myl0rpEyBGuFwVsXAnB+W9kEgkKaPFzRxqe6vmLTQta7S5l8El5ZAkhlCeUrQV3wG8lvw==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b877c4f0-a9d8-4ce2-ccf7-08d7df99648c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2020 10:57:01.0341 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9zvHB1jgWD/55DoqCMv6bL3YcBz9XsHbboNSJtHTnHbLMgeoduXf1RdyF5OW0sXf
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2844
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,42 +108,87 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Hulk Robot <hulkci@huawei.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Evan Quan <evan.quan@amd.com>, kenneth.feng@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rml4IHRoZSBmb2xsb3dpbmcgZ2NjIHdhcm5pbmc6Cgpkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdw
-dS8uLi9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX2h3X3NlcXVlbmNlci5jOjQzOjQ2Ogp3YXJuaW5n
-OiDigJhyZWdfb2Zmc2V0c+KAmSBkZWZpbmVkIGJ1dCBub3QgdXNlZCBbLVd1bnVzZWQtY29uc3Qt
-dmFyaWFibGU9XQogc3RhdGljIGNvbnN0IHN0cnVjdCBkY2U4MF9od19zZXFfcmVnX29mZnNldHMg
-cmVnX29mZnNldHNbXSA9IHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIF5+fn5+fn5+fn5+CgpSZXBvcnRlZC1ieTogSHVsayBSb2JvdCA8aHVsa2NpQGh1YXdl
-aS5jb20+ClNpZ25lZC1vZmYtYnk6IEphc29uIFlhbiA8eWFuYWlqaWVAaHVhd2VpLmNvbT4KLS0t
-CiAuLi4vYW1kL2Rpc3BsYXkvZGMvZGNlODAvZGNlODBfaHdfc2VxdWVuY2VyLmMgfCAyOCAtLS0t
-LS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMjggZGVsZXRpb25zKC0pCgpkaWZmIC0t
-Z2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX2h3X3NlcXVl
-bmNlci5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX2h3X3Nl
-cXVlbmNlci5jCmluZGV4IDg5MzI2MWM4MTg1NC4uZDJjZWViZGJkZjUxIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNlODAvZGNlODBfaHdfc2VxdWVuY2VyLmMK
-KysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjZTgwL2RjZTgwX2h3X3NlcXVl
-bmNlci5jCkBAIC0zNiwzNCArMzYsNiBAQAogI2luY2x1ZGUgImRjZS9kY2VfOF8wX2QuaCIKICNp
-bmNsdWRlICJkY2UvZGNlXzhfMF9zaF9tYXNrLmgiCiAKLXN0cnVjdCBkY2U4MF9od19zZXFfcmVn
-X29mZnNldHMgewotCXVpbnQzMl90IGNydGM7Ci19OwotCi1zdGF0aWMgY29uc3Qgc3RydWN0IGRj
-ZTgwX2h3X3NlcV9yZWdfb2Zmc2V0cyByZWdfb2Zmc2V0c1tdID0gewotewotCS5jcnRjID0gKG1t
-Q1JUQzBfQ1JUQ19HU0xfQ09OVFJPTCAtIG1tQ1JUQ19HU0xfQ09OVFJPTCksCi19LAotewotCS5j
-cnRjID0gKG1tQ1JUQzFfQ1JUQ19HU0xfQ09OVFJPTCAtIG1tQ1JUQ19HU0xfQ09OVFJPTCksCi19
-LAotewotCS5jcnRjID0gKG1tQ1JUQzJfQ1JUQ19HU0xfQ09OVFJPTCAtIG1tQ1JUQ19HU0xfQ09O
-VFJPTCksCi19LAotewotCS5jcnRjID0gKG1tQ1JUQzNfQ1JUQ19HU0xfQ09OVFJPTCAtIG1tQ1JU
-Q19HU0xfQ09OVFJPTCksCi19LAotewotCS5jcnRjID0gKG1tQ1JUQzRfQ1JUQ19HU0xfQ09OVFJP
-TCAtIG1tQ1JUQ19HU0xfQ09OVFJPTCksCi19LAotewotCS5jcnRjID0gKG1tQ1JUQzVfQ1JUQ19H
-U0xfQ09OVFJPTCAtIG1tQ1JUQ19HU0xfQ09OVFJPTCksCi19Ci19OwotCi0jZGVmaW5lIEhXX1JF
-R19DUlRDKHJlZywgaWQpXAotCShyZWcgKyByZWdfb2Zmc2V0c1tpZF0uY3J0YykKLQogLyoqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioKICAqIFByaXZhdGUgZGVmaW5pdGlvbnMKICAqKioqKioqKioqKioq
-KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
-KioqKioqKiovCi0tIAoyLjIxLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1k
-LWdmeAo=
+To fit the latest PMFW.
+
+Change-Id: I1ebc5a4c3386e07a9fed73e4bec2c5d1ab8d4b23
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+---
+ .../amd/powerplay/inc/smu11_driver_if_arcturus.h  | 15 +++++++++++++--
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h     |  2 +-
+ 2 files changed, 14 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h
+index ce5b5011c122..8b82059d97e7 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_arcturus.h
+@@ -82,8 +82,8 @@
+ // Other
+ #define FEATURE_OUT_OF_BAND_MONITOR_BIT 24
+ #define FEATURE_TEMP_DEPENDENT_VMIN_BIT 25
++#define FEATURE_PER_PART_VMIN_BIT       26
+ 
+-#define FEATURE_SPARE_26_BIT            26
+ #define FEATURE_SPARE_27_BIT            27
+ #define FEATURE_SPARE_28_BIT            28
+ #define FEATURE_SPARE_29_BIT            29
+@@ -154,6 +154,7 @@
+ 
+ #define FEATURE_OUT_OF_BAND_MONITOR_MASK  (1 << FEATURE_OUT_OF_BAND_MONITOR_BIT   )
+ #define FEATURE_TEMP_DEPENDENT_VMIN_MASK  (1 << FEATURE_TEMP_DEPENDENT_VMIN_BIT )
++#define FEATURE_PER_PART_VMIN_MASK        (1 << FEATURE_PER_PART_VMIN_BIT        )
+ 
+ 
+ //FIXME need updating
+@@ -628,8 +629,14 @@ typedef struct {
+   uint16_t BasePerformanceFrequencyCap;   //In Mhz
+   uint16_t MaxPerformanceFrequencyCap;    //In Mhz
+ 
++  // Per-Part Vmin
++  uint16_t VDDGFX_VminLow;        // mv Q2
++  uint16_t VDDGFX_TVminLow;       //Celcius
++  uint16_t VDDGFX_VminLow_HiTemp; // mv Q2
++  uint16_t VDDGFX_VminLow_LoTemp; // mv Q2
++
+   // SECTION: Reserved
+-  uint32_t     Reserved[9];
++  uint32_t     Reserved[7];
+ 
+   // SECTION: BOARD PARAMETERS
+ 
+@@ -869,6 +876,10 @@ typedef struct {
+   uint8_t   Mem_DownHystLimit;
+   uint16_t  Mem_Fps;
+ 
++  uint32_t  BusyThreshold;                  // Q16
++  uint32_t  BusyHyst;
++  uint32_t  IdleHyst;
++
+   uint32_t  MmHubPadding[8]; // SMU internal use
+ } DpmActivityMonitorCoeffInt_t;
+ 
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+index e786d63b1e79..464d40983de9 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+@@ -27,7 +27,7 @@
+ 
+ #define SMU11_DRIVER_IF_VERSION_INV 0xFFFFFFFF
+ #define SMU11_DRIVER_IF_VERSION_VG20 0x13
+-#define SMU11_DRIVER_IF_VERSION_ARCT 0x12
++#define SMU11_DRIVER_IF_VERSION_ARCT 0x14
+ #define SMU11_DRIVER_IF_VERSION_NV10 0x36
+ #define SMU11_DRIVER_IF_VERSION_NV12 0x33
+ #define SMU11_DRIVER_IF_VERSION_NV14 0x36
+-- 
+2.26.0
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
