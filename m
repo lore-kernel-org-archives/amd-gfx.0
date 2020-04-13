@@ -2,111 +2,100 @@ Return-Path: <SRS0=ysjs=55=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ADE9FC2BB85
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 02:50:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E9DC2C2BB55
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 03:08:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 76C7620705
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 02:50:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9244220678
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 03:08:48 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="H3DqDbhR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 76C7620705
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IscPivKs"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9244220678
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B50656E054;
-	Mon, 13 Apr 2020 02:50:12 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2088.outbound.protection.outlook.com [40.107.236.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 30A0189DA4;
- Mon, 13 Apr 2020 02:50:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E3B989EAC;
+	Mon, 13 Apr 2020 03:08:48 +0000 (UTC)
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr690063.outbound.protection.outlook.com [40.107.69.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0598089EAC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2020 03:08:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=a2/BpQT+NBixYEUp3p5nNetsehpKsv7epICOb9/zg2t2UJU/QE4pIfjG9fpdQHQ8AfPaVjtR3RUotdQSGO6vw9LxjezXkwWqlnsRuxWSKEzknSMgysKB6JoaQTPQpLbKVV0DI8md4bQh1BBP6FcpEuqGifPCR348rOKTnMkLRtzl/FQaBrVGE4mTxXZVIddN5g+RlnvQbND47FY7rfgAo7ORGOQon+nnpFLqRHI8WYwuI3FctWy6HOtsMDC4mLO9lWzOupVtFMAlrBvcdkPPKCrvl92kN3MW/sXEo3QgpYWonnGWc5bWzBPRDaYkPQmY72u6FJR57EceeqQq7J22rw==
+ b=cM6BYVaPDnWs+uNWrEfxnIhk5uHRUUP92PcfmcXS+M+CJcg4C7/Yf1FpoG4dGuwNVCOoa+n3QZbY/fiLrTQZZcJzXpcGPvEx+CI/XQWqh9ZT4n+JWPQpbcHpk5G+Ou6ygy82VSbkyDiA1jqWjZMRauDn2lsb/F4eM0ygbaC7vnOkJ3sREaBv9QmG6QToDou/mX6f6jtSsXWZTwuJJ+kyTJv9zULwfds1weXxQH5nSTcoLFzBkh/03Pf2jaWaCffWfsitmn91AN20P3EuU/Bp0/+f/CNJAY60giMySPOiktfDQUdQA03ycG1D1r04ku0g7Flcn8pCaLH6xIoAZ+XGIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gi3z6D7LI1jyYn0qGYcdPriGslYwAbsq3EWVtQMA9ZY=;
- b=WuU58Y5rNcHBROTblJcMpMXjNOPofBGmnRF8mLIHPTuXfv/TQmhSeljmqOYfJrcihzkgiDSzj7OOIS8o+R6vwYDgxFJFo+ugr9lqEJUghNCr6BD9GI3tXK6cfsFJrRikC2RHUo2xCWJdcVFXsm+U6dFd2K92yTXR3SM4AOOn6Ai9Poc1wTm4yHDoSTl4tghTXHKbHEEY/Qmqut6DyP6gIXWg4251+5cTEl3nz7H15iSIoV+pcfWcNc5xJ/E1SBz0BXxL8DdGUviXAn/2WHQ4SeIQDpoiLgykQVCqk9q4DYFPCRCvmvv8kdYt+xxqzZquccyWpF9c9C30346fkI/eiw==
+ bh=vG9KQhfqvQbP48e/C/RTEX5MwtMj7IVA28XZqPyJJcQ=;
+ b=lxsnpIgo16F9qW2fKATF2K485aqBTFG6MsrY2bgYUMwkoQVPNJJe7yy81+fJys/fY9u12Hrq8XC6KJwcZF6U6J5Do+tVJuqxR82tqeIFddi7yCqIbVYp8mY3GOsWOCpCmbousRTLGE4uLNW3EQWIil9QJV38p1gW3zWyZBtyZ9zs1uOguPyYZuTRGR6NJraK6/lYaihD4Xtl6aqTl98K5VkI+c8PPhPXJuMsSxrma6fjJGcrsDbzyXE/uNC5DsQ9SIL3rGZyE28Yv2jXd38cPjUovxXSYpUySb6e//EBJJiD7Z7uozlELoWKlDsq6AsLnkoOOjdCTj77i6xQDVlwEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gi3z6D7LI1jyYn0qGYcdPriGslYwAbsq3EWVtQMA9ZY=;
- b=H3DqDbhRw5+Up7Jl45w8YfVToshtZbs8zO+rkOrTtWCmf5rKvBhIBaiXxuywkwEWtAfJ9duc1NDiyKv1M5OZrK2Os9gYJAnAJldcLKkTEtcymgLIVPAFfYXCXO8ghv2rpNzAc7gtYk+aWAfn34E5gmzjGEg9SMSrE434XoI/9XA=
+ bh=vG9KQhfqvQbP48e/C/RTEX5MwtMj7IVA28XZqPyJJcQ=;
+ b=IscPivKs+NNYF/+JNsXZd91+L+Q90R/FkP2ppSVOy5nz931HIO9aTArypgPN30Prz01tmKzx3sFGb9uM167pz5thJ5igHyxnudiJqLYYwTb9+cdSok/j44bQ7VDgS+sC0FJdciTDpU2vO/Q68H3LVV2OWqMVN0bMVD2+pyU91GA=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Evan.Quan@amd.com; 
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB3915.namprd12.prod.outlook.com (2603:10b6:5:1c4::20) with
+ DM6PR12MB2811.namprd12.prod.outlook.com (2603:10b6:5:45::28) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2900.26; Mon, 13 Apr 2020 02:50:09 +0000
+ 15.20.2900.26; Mon, 13 Apr 2020 03:08:42 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::5c27:185c:be20:1fb6]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::5c27:185c:be20:1fb6%5]) with mapi id 15.20.2878.022; Mon, 13 Apr 2020
- 02:50:09 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Zhou, David(ChunMing)" <David1.Zhou@amd.com>, "airlied@linux.ie"
- <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>, "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>,
- "Liu, Monk" <Monk.Liu@amd.com>, "Russell, Kent" <Kent.Russell@amd.com>, "Ma,
- Le" <Le.Ma@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Add missing '\n' in log messages
-Thread-Topic: [PATCH] drm/amdgpu: Add missing '\n' in log messages
-Thread-Index: AQHWEAoQdASoACOpX0iyhRsgnE8QdKh2XEiA
-Date: Mon, 13 Apr 2020 02:50:08 +0000
-Message-ID: <DM6PR12MB26190847ADE19FC3BC5BBD56E4DD0@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20200411140356.28211-1-christophe.jaillet@wanadoo.fr>
-In-Reply-To: <20200411140356.28211-1-christophe.jaillet@wanadoo.fr>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=2c42595f-1e44-4d72-a3f0-00002f97f841;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-04-13T02:49:42Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Evan.Quan@amd.com; 
-x-originating-ip: [180.167.199.189]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: a4ba2bde-aeca-4796-38ed-08d7df55611d
-x-ms-traffictypediagnostic: DM6PR12MB3915:|DM6PR12MB3915:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB3915B58C6479831090EB4F3BE4DD0@DM6PR12MB3915.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:619;
-x-forefront-prvs: 037291602B
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ 03:08:42 +0000
+From: Evan Quan <evan.quan@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: fix wrong vram lost counter increment V2
+Date: Mon, 13 Apr 2020 11:08:23 +0800
+Message-Id: <20200413030823.3506-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.26.0
+X-ClientProxiedBy: HK2P15301CA0002.APCP153.PROD.OUTLOOK.COM
+ (2603:1096:202:1::12) To DM6PR12MB2619.namprd12.prod.outlook.com
+ (2603:10b6:5:45::18)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from equan-buildpc.amd.com (180.167.199.189) by
+ HK2P15301CA0002.APCP153.PROD.OUTLOOK.COM (2603:1096:202:1::12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2937.5 via Frontend Transport; Mon, 13 Apr 2020 03:08:40 +0000
+X-Mailer: git-send-email 2.26.0
+X-Originating-IP: [180.167.199.189]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 76b83bd2-453c-42a9-3022-08d7df57f847
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2811:|DM6PR12MB2811:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB28118C7ACE0282E870462860E4DD0@DM6PR12MB2811.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
+X-Forefront-PRVS: 037291602B
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(376002)(136003)(366004)(396003)(39860400002)(346002)(76116006)(316002)(6636002)(6506007)(26005)(86362001)(64756008)(66446008)(478600001)(66556008)(81156014)(66946007)(53546011)(4326008)(110136005)(33656002)(8676002)(71200400001)(8936002)(7696005)(186003)(15650500001)(54906003)(66476007)(9686003)(5660300002)(2906002)(52536014)(55016002)(921003)(21314003)(1121003);
+ SFS:(10009020)(4636009)(396003)(376002)(136003)(366004)(346002)(39860400002)(8936002)(4326008)(5660300002)(316002)(1076003)(2616005)(956004)(36756003)(478600001)(86362001)(44832011)(81156014)(8676002)(2906002)(16526019)(7696005)(186003)(52116002)(66476007)(66946007)(66556008)(6916009)(6486002)(26005)(6666004)(309714004);
  DIR:OUT; SFP:1101; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 6MOFRRZzYGuUkNsFy46ictYesbxAYFLebIoZTVT5zNVZVQNPC+KPZfCjhHMt09U1Mk3oHFGjOSmmLBUKkGUGhY8IngYYr8TI3q3HC5U7gihGg3GDU8Enq3R1o5RwzFBSDjntxWjEByzh+YfOEO2kZRvxbtoHHYmb8+kwt2OCdS349vgeF6GSWpRh+FfJqe0uaxYHvfO7VYo07WKeuHBajkxFaTarOpOCInmC+C4jqU3iVBq5t9TSamYxT0CMKmrmy824ochUWcsbAoVOYaryrHeK72oGohueWt1x3E4XTuRmkwFqR81QqNpaF0z53ih/9xDPRE1/dST6L6sBn6XH3udiQpiV5AV258YVminRe1me2AoCyTXvyrPso6DUohQ3RNi5TLcxZcPZUMaS79nzCGt0TZLF3nmwq0U7MwOs9lUWCiArPdyYpbgxABvYm7H86c5va+mtjPwqKFpV0nmSBKrP69J1i0Jf22GXBso8TQwNRPeBMTOGVxR2VHxgG20vcz93oQuDL2ztjag8nJJQfg==
-x-ms-exchange-antispam-messagedata: AKbkIEBHTy1KNg8QhMJ0/b7Lbt0657TrSUk35v6FMBPtQvE6SXKSIE4AWn0MZ2/V7LL1zdQXpslZh42yaiBOKBSboV62HqoqwuBGoFbTkvLdJQF0nH6NahVjzG5SK1R5lZn4w+qttIRHNZfinr7czQ==
-MIME-Version: 1.0
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: U0cczkrawHXEkzPgkkiC9rPEvKY/h1+VdcAXnFHXHj3VMsHdmo7eEbsi1WqWb+23JKLUJsMzu8dEFWzxZLoRRs70Ys3eKUb/d2pNWM+vKo2D78ViYYQMkZX3AtK4yD5tYWMJb69lnEaBcWK06eZpvS0SAaAtiK6ugjRiYo6PdLdwsLPx4UxWPJeOZngVpMd42zU9r2dC7qiIqF0yudna9YwR8re/uYiiR4x004kwLxS7tPHwbuHSwg2IlDkBm0yEbrxsnMJ2ZrcOGejYzxk/Abn/VSmc6RCrpLbeO0UiF2ygYEn1jqOyuCchM2sli6GvZwP51A9rFYnLBUDHHbx3YeLlc2m+me+A3X9ctB3zkDHoNa1jSGpj/xkQv+1OO2Kx6XZMR5zX11oXYpvbPEOpGpxQxAwyaO56dl77mQOuCnQVQZGqemZ/zZ9N4nW7CzNSkVmWCp14YYRo36DBpuUgs6BhWeT8inrC8F0JAU/PlmYn15tO3K2s1JRqvaMxBDnJ
+X-MS-Exchange-AntiSpam-MessageData: ihShddapUZKfYC+0e+AkGC5cEuouRXggKXBDEU/5kipboYoO7tq6f6NhlFwm2oMHhAfJeRX3dtpszyEUy1uNu0sNGBXGwTIGrctBOBYvl5A8qcpIVkcJrdsUmZtbzqfstD2rzdoVYgEMFx4j3ptWSg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a4ba2bde-aeca-4796-38ed-08d7df55611d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Apr 2020 02:50:08.9590 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: fhqJj1T+d7TOTp3VzoBeVe4XDDehkCrqwbnFBuJTAklGe0y95JBlrqrFzJVCcY3g
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3915
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76b83bd2-453c-42a9-3022-08d7df57f847
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Apr 2020 03:08:41.9413 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Iyrm4jJTyTbcVrTSniY1lzsKActWgu8F5iASqkKQx0okPOg0vI13FRcXYnfqJ8qa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2811
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,95 +107,126 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Evan Quan <evan.quan@amd.com>
+Vram lost counter is wrongly increased by two during baco reset.
 
------Original Message-----
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr> 
-Sent: Saturday, April 11, 2020 10:04 PM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>; Zhou, David(ChunMing) <David1.Zhou@amd.com>; airlied@linux.ie; daniel@ffwll.ch; Zhang, Hawking <Hawking.Zhang@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Grodzovsky, Andrey <Andrey.Grodzovsky@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Russell, Kent <Kent.Russell@amd.com>; Ma, Le <Le.Ma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; linux-kernel@vger.kernel.org; kernel-janitors@vger.kernel.org; Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Subject: [PATCH] drm/amdgpu: Add missing '\n' in log messages
+V2: assumed vram lost for mode1 reset on all ASICs
 
-Message logged by 'dev_xxx()' or 'pr_xxx()' should end with a '\n'.
-
-While at it, split some long lines that where not that far.
-
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Change-Id: I8b9959a5d1632abc774ba07d56cf295bdd8288eb
+Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
-Most of them have been added in commit bd607166af7f ("drm/amdgpu: Enable reading FRU chip via I2C v3")
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 20 ++++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/cik.c           |  2 --
+ drivers/gpu/drm/amd/amdgpu/nv.c            |  4 ----
+ drivers/gpu/drm/amd/amdgpu/soc15.c         |  4 ----
+ drivers/gpu/drm/amd/amdgpu/vi.c            |  2 --
+ 5 files changed, 18 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 87f7c129c8ce..3d0a50e8c36b 100644
+index a2a4e4b28d00..8f479a918f0d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3249,25 +3249,25 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+@@ -2087,8 +2087,24 @@ static void amdgpu_device_fill_reset_magic(struct amdgpu_device *adev)
+  */
+ static bool amdgpu_device_check_vram_lost(struct amdgpu_device *adev)
+ {
+-	return !!memcmp(adev->gart.ptr, adev->reset_magic,
+-			AMDGPU_RESET_MAGIC_NUM);
++	if (memcmp(adev->gart.ptr, adev->reset_magic,
++			AMDGPU_RESET_MAGIC_NUM))
++		return true;
++
++	if (!adev->in_gpu_reset)
++		return false;
++
++	/*
++	 * For all ASICs with baco/mode1 reset, the VRAM is
++	 * always assumed to be lost.
++	 */
++	switch (amdgpu_asic_reset_method(adev)) {
++	case AMD_RESET_METHOD_BACO:
++	case AMD_RESET_METHOD_MODE1:
++		return true;
++	default:
++		return false;
++	}
+ }
  
- 	r = device_create_file(adev->dev, &dev_attr_pcie_replay_count);
- 	if (r) {
--		dev_err(adev->dev, "Could not create pcie_replay_count");
-+		dev_err(adev->dev, "Could not create pcie_replay_count\n");
- 		return r;
+ /**
+diff --git a/drivers/gpu/drm/amd/amdgpu/cik.c b/drivers/gpu/drm/amd/amdgpu/cik.c
+index db68ffa27984..fe306d0f73f7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/cik.c
++++ b/drivers/gpu/drm/amd/amdgpu/cik.c
+@@ -1358,8 +1358,6 @@ static int cik_asic_reset(struct amdgpu_device *adev)
+ 	int r;
+ 
+ 	if (cik_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
+-		if (!adev->in_suspend)
+-			amdgpu_inc_vram_lost(adev);
+ 		r = amdgpu_dpm_baco_reset(adev);
+ 	} else {
+ 		r = cik_asic_pci_config_reset(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 7768880fcccf..995bdec9fa7d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -351,8 +351,6 @@ static int nv_asic_reset(struct amdgpu_device *adev)
+ 	struct smu_context *smu = &adev->smu;
+ 
+ 	if (nv_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
+-		if (!adev->in_suspend)
+-			amdgpu_inc_vram_lost(adev);
+ 		ret = smu_baco_enter(smu);
+ 		if (ret)
+ 			return ret;
+@@ -360,8 +358,6 @@ static int nv_asic_reset(struct amdgpu_device *adev)
+ 		if (ret)
+ 			return ret;
+ 	} else {
+-		if (!adev->in_suspend)
+-			amdgpu_inc_vram_lost(adev);
+ 		ret = nv_asic_mode1_reset(adev);
  	}
  
- 	r = device_create_file(adev->dev, &dev_attr_product_name);
- 	if (r) {
--		dev_err(adev->dev, "Could not create product_name");
-+		dev_err(adev->dev, "Could not create product_name\n");
- 		return r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
+index a597ad22b675..58a440a15525 100644
+--- a/drivers/gpu/drm/amd/amdgpu/soc15.c
++++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
+@@ -569,14 +569,10 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
+ 
+ 	switch (soc15_asic_reset_method(adev)) {
+ 		case AMD_RESET_METHOD_BACO:
+-			if (!adev->in_suspend)
+-				amdgpu_inc_vram_lost(adev);
+ 			return soc15_asic_baco_reset(adev);
+ 		case AMD_RESET_METHOD_MODE2:
+ 			return amdgpu_dpm_mode2_reset(adev);
+ 		default:
+-			if (!adev->in_suspend)
+-				amdgpu_inc_vram_lost(adev);
+ 			return soc15_asic_mode1_reset(adev);
  	}
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu/vi.c
+index 0a90c296409b..af8986a55354 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vi.c
++++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+@@ -744,8 +744,6 @@ static int vi_asic_reset(struct amdgpu_device *adev)
+ 	int r;
  
- 	r = device_create_file(adev->dev, &dev_attr_product_number);
- 	if (r) {
--		dev_err(adev->dev, "Could not create product_number");
-+		dev_err(adev->dev, "Could not create product_number\n");
- 		return r;
- 	}
- 
- 	r = device_create_file(adev->dev, &dev_attr_serial_number);
- 	if (r) {
--		dev_err(adev->dev, "Could not create serial_number");
-+		dev_err(adev->dev, "Could not create serial_number\n");
- 		return r;
- 	}
- 
-@@ -4270,7 +4270,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 		job_signaled = true;
- 
- 	if (job_signaled) {
--		dev_info(adev->dev, "Guilty job already signaled, skipping HW reset");
-+		dev_info(adev->dev, "Guilty job already signaled, skipping HW reset\n");
- 		goto skip_hw_reset;
- 	}
- 
-@@ -4339,10 +4339,12 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 
- 		if (r) {
- 			/* bad news, how to tell it to userspace ? */
--			dev_info(tmp_adev->dev, "GPU reset(%d) failed\n", atomic_read(&tmp_adev->gpu_reset_counter));
-+			dev_info(tmp_adev->dev, "GPU reset(%d) failed\n",
-+				 atomic_read(&tmp_adev->gpu_reset_counter));
- 			amdgpu_vf_error_put(tmp_adev, AMDGIM_ERROR_VF_GPU_RESET_FAIL, 0, r);
- 		} else {
--			dev_info(tmp_adev->dev, "GPU reset(%d) succeeded!\n", atomic_read(&tmp_adev->gpu_reset_counter));
-+			dev_info(tmp_adev->dev, "GPU reset(%d) succeeded!\n",
-+				 atomic_read(&tmp_adev->gpu_reset_counter));
- 		}
- 	}
- 
+ 	if (vi_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) {
+-		if (!adev->in_suspend)
+-			amdgpu_inc_vram_lost(adev);
+ 		r = amdgpu_dpm_baco_reset(adev);
+ 	} else {
+ 		r = vi_asic_pci_config_reset(adev);
 -- 
-2.20.1
+2.26.0
 
 _______________________________________________
 amd-gfx mailing list
