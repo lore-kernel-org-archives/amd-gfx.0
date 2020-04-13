@@ -2,42 +2,46 @@ Return-Path: <SRS0=ysjs=55=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 54702C2BA19
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 13:35:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BFBB5C2BA19
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 14:06:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 320852073E
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 13:35:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 320852073E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 9CAF520732
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 14:06:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9CAF520732
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E07178982F;
-	Mon, 13 Apr 2020 13:35:31 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E330089F41;
- Mon, 13 Apr 2020 13:27:33 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id AEBD868BEB; Mon, 13 Apr 2020 15:27:30 +0200 (CEST)
-Date: Mon, 13 Apr 2020 15:27:30 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Yan Zhao <yan.y.zhao@intel.com>
-Subject: Re: [PATCH 2/6] i915/gvt/kvm: a NULL ->mm does not mean a thread
- is a kthread
-Message-ID: <20200413132730.GB14455@lst.de>
-References: <20200404094101.672954-1-hch@lst.de>
- <20200404094101.672954-3-hch@lst.de>
- <20200407030845.GA10586@joy-OptiPlex-7040>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4929B89C1C;
+	Mon, 13 Apr 2020 14:06:45 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B4B389F01;
+ Mon, 13 Apr 2020 14:06:16 +0000 (UTC)
+Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 94F0C48F6690EAB73C69;
+ Mon, 13 Apr 2020 22:06:14 +0800 (CST)
+Received: from huawei.com (10.175.124.28) by DGGEMS407-HUB.china.huawei.com
+ (10.3.19.207) with Microsoft SMTP Server id 14.3.487.0; Mon, 13 Apr 2020
+ 22:06:07 +0800
+From: Jason Yan <yanaijie@huawei.com>
+To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <yanaijie@huawei.com>, <sam@ravnborg.org>, <y.oudjana@protonmail.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH] drm/amdgpu: remove dead code in si_dpm.c
+Date: Mon, 13 Apr 2020 22:32:35 +0800
+Message-ID: <20200413143235.22945-1-yanaijie@huawei.com>
+X-Mailer: git-send-email 2.21.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200407030845.GA10586@joy-OptiPlex-7040>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Mailman-Approved-At: Mon, 13 Apr 2020 13:35:30 +0000
+X-Originating-IP: [10.175.124.28]
+X-CFilter-Loop: Reflected
+X-Mailman-Approved-At: Mon, 13 Apr 2020 14:06:45 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,44 +53,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- intel-gvt-dev@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, io-uring@vger.kernel.org, linux-mm@kvack.org,
- Zhenyu Wang <zhenyuw@linux.intel.com>, intel-gfx@lists.freedesktop.org,
- linux-fsdevel@vger.kernel.org, Alex Deucher <alexander.deucher@amd.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- virtualization@lists.linux-foundation.org,
- Linus Torvalds <torvalds@linux-foundation.org>, Christoph Hellwig <hch@lst.de>,
- Zhi Wang <zhi.a.wang@intel.com>, Al Viro <viro@zeniv.linux.org.uk>
+Cc: Hulk Robot <hulkci@huawei.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Apr 06, 2020 at 11:08:46PM -0400, Yan Zhao wrote:
-> hi
-> we were removing this code. see
-> https://lore.kernel.org/kvm/20200313031109.7989-1-yan.y.zhao@intel.com/
+This code is dead, let's remove it.
 
-This didn't make 5.7-rc1.
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Jason Yan <yanaijie@huawei.com>
+---
+ drivers/gpu/drm/amd/amdgpu/si_dpm.c | 20 --------------------
+ 1 file changed, 20 deletions(-)
 
-> The implementation of vfio_dma_rw() has been in vfio next tree.
-> https://github.com/awilliam/linux-vfio/commit/8d46c0cca5f4dc0538173d62cd36b1119b5105bc
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.c b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+index 0860e85a2d35..c00ba4b23c9a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si_dpm.c
++++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.c
+@@ -345,26 +345,6 @@ static const struct si_dte_data dte_data_tahiti =
+ 	false
+ };
+ 
+-#if 0
+-static const struct si_dte_data dte_data_tahiti_le =
+-{
+-	{ 0x1E8480, 0x7A1200, 0x2160EC0, 0x3938700, 0 },
+-	{ 0x7D, 0x7D, 0x4E4, 0xB00, 0 },
+-	0x5,
+-	0xAFC8,
+-	0x64,
+-	0x32,
+-	1,
+-	0,
+-	0x10,
+-	{ 0x78, 0x7C, 0x82, 0x88, 0x8E, 0x94, 0x9A, 0xA0, 0xA6, 0xAC, 0xB0, 0xB4, 0xB8, 0xBC, 0xC0, 0xC4 },
+-	{ 0x3938700, 0x3938700, 0x3938700, 0x3938700, 0x3938700, 0x3938700, 0x3938700, 0x3938700, 0x3938700, 0x3938700, 0x3938700, 0x3938700, 0x3938700, 0x3938700, 0x3938700, 0x3938700 },
+-	{ 0x2AF8, 0x2AF8, 0x29BB, 0x27F9, 0x2637, 0x2475, 0x22B3, 0x20F1, 0x1F2F, 0x1D6D, 0x1734, 0x1414, 0x10F4, 0xDD4, 0xAB4, 0x794 },
+-	85,
+-	true
+-};
+-#endif
+-
+ static const struct si_dte_data dte_data_tahiti_pro =
+ {
+ 	{ 0x1E8480, 0x3D0900, 0x989680, 0x2625A00, 0x0 },
+-- 
+2.21.1
 
-
-This made 5.7-rc1, so I'll update the series to take it into account.
-
-T
-> in vfio_dma_rw(),  we still use
-> bool kthread = current->mm == NULL.
-> because if current->mm != NULL and current->flags & PF_KTHREAD, instead
-> of calling use_mm(), we first check if (current->mm == mm) and allow copy_to_user() if it's true.
-> 
-> Do you think it's all right?
-
-I can't think of another way for a kernel thread to have a mm indeed.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
