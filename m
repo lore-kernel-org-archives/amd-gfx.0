@@ -2,69 +2,75 @@ Return-Path: <SRS0=ysjs=55=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94910C2BA2B
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 20:32:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69082C2BA2B
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 20:54:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 59F7520663
-	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 20:32:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3807820644
+	for <amd-gfx@archiver.kernel.org>; Mon, 13 Apr 2020 20:54:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y4XmIB4S"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 59F7520663
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LgJ7itCw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3807820644
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F210589017;
-	Mon, 13 Apr 2020 20:32:58 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C544089017
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2020 20:32:57 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id g12so3565045wmh.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 13 Apr 2020 13:32:57 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED2B489C55;
+	Mon, 13 Apr 2020 20:54:39 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEE1489C55;
+ Mon, 13 Apr 2020 20:54:39 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id c63so11045315qke.2;
+ Mon, 13 Apr 2020 13:54:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=VHyZiYA676dJWadtk//Gbi2JxqtYLwKnni1xJSRLYtc=;
- b=Y4XmIB4Skh5rQCuoGrzPfIDpo8/lkDlsHJwV8/ea+oHgL55qWVnbJ2qCUzUaYRVlrP
- GE4ApqMzuVpLcl7Xv4qrVHtVopWEgV6SKujXO+B2g4NmVndv68/TfMzlwLQ/aORI+uQL
- rzrtzD7C5qLaeGExDjzmY2nivbFXS0HLNJASclnO+qoHC6rDJjT4wXHFsgDJt8wUECLR
- /ByCLJgK7Dxk8I1LzyHqxSvzKp5dJsrDC0rHePc8vb5qaRbc391pf6Y/PEpBoGpMlhh1
- zHPxPtVYGrB/oxHuAadymxQqghpDXdRiL4w7zsoXqqW0roxDikGFwNUQ2CSf+D4ccJ4F
- dAxw==
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=CmUANt0t5HRisX+1yPc7U3xIxP+RuSCBBQhcshkOJkc=;
+ b=LgJ7itCwDGKAQT06oAw2BcDstgGiPHC+qPyVPTx9ybSe4VOwbRJeEOlzNb6BvxDnOS
+ 2XgnpPZo/PeMNgs33VZjEjjFJrCjGMLq/LDmBeEoVsKRa/gYhqhVzdX6VpfV5c1WsdDb
+ Aj/WTeawW/z2ZzlbQH+vu4WT9XoEiCbO8uKImj8xGcjacv4TtRF4ScJAKY19KIYAgdVo
+ PzASu8J/wr4PPFlUFA8LHZ5GbuMxFN4sTCClw8xS9AlN9OrB6/B2YVsSXV7ZmardGUYh
+ klTTzpuooyIxMkIHHmp5P1OpDDxjTJ/JG4/ujOLdOK9dYQLDp7enbLCZJhkbgUDfWnOG
+ ENYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=VHyZiYA676dJWadtk//Gbi2JxqtYLwKnni1xJSRLYtc=;
- b=hnTQZTQWBfZ0CjoQiomZxLcS65TDXr8rJARMp7plxDxZr8p6Pw291gMUZhN16ARLAG
- JDZns/tAH5mpvCuzNyo7tHXoSVKZmlWqJAdvwviaYY6bSbmlqhAcklru88Ij1IZWbyIx
- njluewiXktRvgLyN4y6+FTYvImLEseGB73bgu8joS7viKMBYJnUcpQkxDS8gvX/xoQ2g
- bXDkUxdAuor2g7v6bkcPi7m+0/j4vJEQAqDilLN6er+pRpy9XSTg/s7Bzj328QfxMkQx
- vE71e2e80gtPvBPiOrEVWjG+EBqTrCjzr4Co4HxLxFS/aOjXjWkPOojiFDuY8EkHEzPx
- rgaQ==
-X-Gm-Message-State: AGi0Pub+HzQn62w/1SEJDjr7qAnswfyBd+nqAv8OGmYrD1P2zrLn0Apx
- yQNI6e5yC8wNjkHwAqJcFlkQuP7lWK4618YdIjTyfP+T
-X-Google-Smtp-Source: APiQypIqwPKAJmC47Kck5tH0aRh73SFRq16jrQyMMAYqqx9uo611xhXWsooP3EhcZLmi7PCh6VKehDvQeQD81n71o1g=
-X-Received: by 2002:a1c:9d8c:: with SMTP id g134mr20887708wme.79.1586809976441; 
- Mon, 13 Apr 2020 13:32:56 -0700 (PDT)
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to;
+ bh=CmUANt0t5HRisX+1yPc7U3xIxP+RuSCBBQhcshkOJkc=;
+ b=J/pbAzBOSmalU7/32AYxtS0mlQva5y8GqDU0aYojAzaIaOKQYwy8nc/5rATouswA5R
+ jKolLenqCYUglPxaGHnqBbyuRsomESI1EolEyc+w1FLmR/iwC9WE8JljrNyGJtZa2/8W
+ Mu0PPWVJYDM1scTbI6i6YjgaDRzwnt6fhlQ2argMEMKaP2nB26b4dJY7suYCgrlcVkOp
+ dXeHJG+LOA1soU7PBO0inGWFI+r1QsjaVohUZs8Xa43yuiPaLya1yanQKuy/AVNOpAmv
+ EWLk43zpMhaYa00dRfTBho0Dm1eOXBbab025hY0Fx/Ui47EQR8TqNyALbOSnnBQcom10
+ H/lw==
+X-Gm-Message-State: AGi0PuY6l74+NO7fMIGSwlVPWvYt8HSRVzvH9v7m1M0GEaHRkkyu1VOx
+ nNfK3+sD2JRTpFYt2ld136AYTzOk3Nw=
+X-Google-Smtp-Source: APiQypIzzvZjRh+3uEsHBjkSiUmc3sI7rqlM0eWsVdJZctdk3taqOja42xDBh77J66TwtQR7pssH5Q==
+X-Received: by 2002:a37:9145:: with SMTP id t66mr17886337qkd.314.1586811278746; 
+ Mon, 13 Apr 2020 13:54:38 -0700 (PDT)
+Received: from localhost ([199.96.181.106])
+ by smtp.gmail.com with ESMTPSA id d23sm8987665qtj.9.2020.04.13.13.54.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 13 Apr 2020 13:54:37 -0700 (PDT)
+Date: Mon, 13 Apr 2020 16:54:36 -0400
+From: Tejun Heo <tj@kernel.org>
+To: Kenny Ho <y2kenny@gmail.com>
+Subject: Re: [PATCH v2 00/11] new cgroup controller for gpu/drm subsystem
+Message-ID: <20200413205436.GM60335@mtj.duckdns.org>
+References: <20200226190152.16131-1-Kenny.Ho@amd.com>
+ <CAOWid-eyMGZfOyfEQikwCmPnKxx6MnTm17pBvPeNpgKWi0xN-w@mail.gmail.com>
+ <20200324184633.GH162390@mtj.duckdns.org>
+ <CAOWid-cS-5YkFBLACotkZZCH0RSjHH94_r3VFH8vEPOubzSpPA@mail.gmail.com>
+ <20200413191136.GI60335@mtj.duckdns.org>
+ <CAOWid-dM=38faGOF9=-Pq=sxssaL+gm2umctyGVQWVx2etShyQ@mail.gmail.com>
 MIME-Version: 1.0
-References: <1586790530-19464-1-git-send-email-Prike.Liang@amd.com>
- <CADnq5_Os9ePu+u0cmroyKRVyXroYD9Bggyy0Do1mWW18m5-Pbg@mail.gmail.com>
- <1dce548a-c6ea-183c-4c33-6b8f6bc3c6c8@molgen.mpg.de>
-In-Reply-To: <1dce548a-c6ea-183c-4c33-6b8f6bc3c6c8@molgen.mpg.de>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 13 Apr 2020 16:32:45 -0400
-Message-ID: <CADnq5_PSiUFG1uYYhFPs_-ukydHG=ErkBdg3sf6LcMNimY-zQg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix the hw hang during perform system reboot
- and reset
-To: Paul Menzel <pmenzel+amd-gfx@molgen.mpg.de>
+Content-Disposition: inline
+In-Reply-To: <CAOWid-dM=38faGOF9=-Pq=sxssaL+gm2umctyGVQWVx2etShyQ@mail.gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,59 +82,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Johannes Hirte <johannes.hirte@datenkhaos.de>,
- Xinhui Pan <Xinhui.Pan@amd.com>, Rahul Kumar <Rahul.Kumar1@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Prike Liang <Prike.Liang@amd.com>, Huang Rui <ray.huang@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>,
+ jsparks@cray.com, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ lkaplan@cray.com, dri-devel <dri-devel@lists.freedesktop.org>, "Greathouse,
+ Joseph" <joseph.greathouse@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ cgroups@vger.kernel.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gTW9uLCBBcHIgMTMsIDIwMjAgYXQgMjoxNyBQTSBQYXVsIE1lbnplbAo8cG1lbnplbCthbWQt
-Z2Z4QG1vbGdlbi5tcGcuZGU+IHdyb3RlOgo+Cj4gRGVhciBBbGV4LCBkZWFyIFByaWtlLAo+Cj4K
-PiBBbSAxMy4wNC4yMCB1bSAxNzoxNCBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiA+IE9uIE1vbiwg
-QXByIDEzLCAyMDIwIGF0IDExOjA5IEFNIFByaWtlIExpYW5nIDxQcmlrZS5MaWFuZ0BhbWQuY29t
-PiB3cm90ZToKPiA+Pgo+ID4+IFVuaWZ5IHNldCBkZXZpY2UgQ0dQRyB0byB1bmdhdGUgc3RhdGUg
-YmVmb3JlIGVudGVyIHBvd2Vyb2ZmIG9yIHJlc2V0Lgo+ID4+Cj4gPj4gU2lnbmVkLW9mZi1ieTog
-UHJpa2UgTGlhbmcgPFByaWtlLkxpYW5nQGFtZC5jb20+Cj4gPj4gVGVzdGVkLWJ5OiBNZW5nYmlu
-ZyBXYW5nIDxNZW5nYmluZy5XYW5nQGFtZC5jb20+Cj4gPgo+ID4gQWNrZWQtYnk6IEFsZXggRGV1
-Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KPgo+IEZpcnN0Ogo+Cj4gVGVzdGVkLWJ5
-OiBQYXVsIE1lbnplbCA8cG1lbnplbEBtb2xnZW4ubXBnLmRlPiAoTVNJIEIzNTBNIE1PUlRBUgo+
-IChNUy03QTM3KSB3aXRoIGFuIEFNRCBSeXplbiAzIDIyMDBHKQo+Cj4gU2Vjb25kLCBJIGFtIGhh
-dmluZyB0cm91YmxlIHRvIHVuZGVyc3RhbmQsIGhvdyB5b3UgY2FuIGFkZCB5b3VyIEFja2VkLWJ5
-Cj4gdGFnIHRvIGEgY29tbWl0IHdpdGggc3VjaCBhIGNvbW1pdCBtZXNzYWdlPwo+Cj4gVGhlIHBy
-b2JsZW0gaXMgbm90IGRlc2NyaWJlZCAoYXBwYXJlbnRseSBpdCBvbmx5IGFmZmVjdGVkIGNlcnRh
-aW4KPiBkZXZpY2VzKSwgaXQgaXMgbm90IG1lbnRpb25lZCB0aGF0IGl04oCZcyBhIHJlZ3Jlc3Np
-b24gKEZpeGVzOiB0YWcvbGluZSBpcwo+IG1pc3NpbmcpLCBhbmQgSSBhbSBoYXZpbmcgYSBoYXJk
-IHRpbWUgdG8gdW5kZXJzdGFuZCB0aGUgY29tbWl0IG1lc3NhZ2UKPiBhdCBhbGwgKGFuZCB0aGUg
-b25lIGZyb20gdGhlIGNvbW1pdCBpbnRyb2R1Y2luZyB0aGUgcmVncmVzc2lvbikuIFdoeSBpcwo+
-IGl0IG1vcmUgb3IgbGVzcyByZXZlcnRpbmcgcGFydCBvZiB0aGUgb3RoZXIgY29tbWl0LCB3aGls
-ZSB0aGUgaXNzdWUgd2FzCj4gbm90IHJlcHJvZHVjaWJsZSBvbiBQcmlrZeKAmXMgc3lzdGVtPwoK
-VGhlIG9yaWdpbmFsIGlzc3VlIHdhcyB0aGF0IHdlIHdlcmUgbm90IHByb3Blcmx5IHVuZ2F0aW5n
-IHNvbWUgb2YgdGhlCmh3IGJsb2NrcyBpbiB0aGUgcmlnaHQgb3JkZXIgZm9yIFMzIHN1c3BlbmQg
-b24gcmVub2lyLiAgU28gdGhlIGZpeCB3YXMKdG8gYWRkIHVuZ2F0ZSBjYWxscyB0byBhbWRncHVf
-ZGV2aWNlX3N1c3BlbmQoKSB0byBoYW5kbGUgdGhhdCBjYXNlLgpIb3dldmVyLCB0aGUgb3JpZ2lu
-YWwgZml4IHNob3VsZCBub3QgaGF2ZSByZW1vdmVkIHRoZSBjYWxscyBmcm9tCmFtZGdwdV9kZXZp
-Y2VfaXBfc3VzcGVuZF9waGFzZTEoKSBzaW5jZSB0aGF0IGlzIGNhbGxlZCBzZXBhcmF0ZWx5IGZv
-cgpzb21lIG90aGVyIHVzZSBjYXNlcyAoZS5nLiwgcGNpIHNodXRkb3duKS4gIEl0IGRpZG4ndCBt
-YXR0ZXIgZm9yIHNvbWUKYXNpY3MgYXMgdGhleSBkb24ndCBoYXZlIGRpZmZlcmVudCBsZXZlbHMg
-b2YgcG93ZXJnYXRpbmcKZnVuY3Rpb25hbGl0eS4gIEknbGwgYWRkIHRoZSBmaXhlcyB0YWcgYmVm
-b3JlIHRoZSBwYXRjaCBnb2VzIHVwc3RyZWFtLgoKQWxleAoKPgo+ID4+IC0tLQo+ID4+ICAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jIHwgMiArKwo+ID4+ICAgMSBm
-aWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQo+ID4+Cj4gPj4gZGlmZiAtLWdpdCBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2UuYwo+ID4+IGluZGV4IDg3ZjdjMTIuLmJiZTA5MGEgMTAw
-NjQ0Cj4gPj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5j
-Cj4gPj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RldmljZS5jCj4g
-Pj4gQEAgLTI0MTMsNiArMjQxMyw4IEBAIHN0YXRpYyBpbnQgYW1kZ3B1X2RldmljZV9pcF9zdXNw
-ZW5kX3BoYXNlMShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikKPiA+PiAgIHsKPiA+PiAgICAg
-ICAgICBpbnQgaSwgcjsKPiA+Pgo+ID4+ICsgICAgICAgYW1kZ3B1X2RldmljZV9zZXRfcGdfc3Rh
-dGUoYWRldiwgQU1EX1BHX1NUQVRFX1VOR0FURSk7Cj4gPj4gKyAgICAgICBhbWRncHVfZGV2aWNl
-X3NldF9jZ19zdGF0ZShhZGV2LCBBTURfQ0dfU1RBVEVfVU5HQVRFKTsKPiA+Pgo+ID4+ICAgICAg
-ICAgIGZvciAoaSA9IGFkZXYtPm51bV9pcF9ibG9ja3MgLSAxOyBpID49IDA7IGktLSkgewo+ID4+
-ICAgICAgICAgICAgICAgICAgaWYgKCFhZGV2LT5pcF9ibG9ja3NbaV0uc3RhdHVzLnZhbGlkKQo+
-ID4+IC0tCj4gPj4gMi43LjQKPgo+IEtpbmQgcmVnYXJkcywKPgo+IFBhdWwKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QK
-YW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+Hello,
+
+On Mon, Apr 13, 2020 at 04:17:14PM -0400, Kenny Ho wrote:
+> Perhaps we can even narrow things down to just
+> gpu.weight/gpu.compute.weight as a start?  In this aspect, is the key
+
+That sounds great to me.
+
+> objection to the current implementation of gpu.compute.weight the
+> work-conserving bit?  This work-conserving requirement is probably
+> what I have missed for the last two years (and hence going in circle.)
+> 
+> If this is the case, can you clarify/confirm the followings?
+> 
+> 1) Is resource scheduling goal of cgroup purely for the purpose of
+> throughput?  (at the expense of other scheduling goals such as
+> latency.)
+
+It's not; however, work-conserving mechanisms are the easiest to use (cuz you
+don't lose anything) while usually challenging to implement. It tends to
+clarify how control mechanisms should be structured - even what resources are.
+
+> 2) If 1) is true, under what circumstances will the "Allocations"
+> resource distribution model (as defined in the cgroup-v2) be
+> acceptable?
+
+Allocations definitely are acceptable and it's not a pre-requisite to have
+work-conserving control first either. Here, given the lack of consensus in
+terms of what even constitute resource units, I don't think it'd be a good
+idea to commit to the proposed interface and believe it'd be beneficial to
+work on interface-wise simpler work conserving controls.
+
+> 3) If 1) is true, are things like cpuset from cgroup v1 no longer
+> acceptable going forward?
+
+Again, they're acceptable.
+
+> To be clear, while some have framed this (time sharing vs spatial
+> sharing) as a partisan issue, it is in fact a technical one.  I have
+> implemented the gpu cgroup support this way because we have a class of
+> users that value low latency/low jitter/predictability/synchronicity.
+> For example, they would like 4 tasks to share a GPU and they would
+> like the tasks to start and finish at the same time.
+> 
+> What is the rationale behind picking the Weight model over Allocations
+> as the first acceptable implementation?  Can't we have both
+> work-conserving and non-work-conserving ways of distributing GPU
+> resources?  If we can, why not allow non-work-conserving
+> implementation first, especially when we have users asking for such
+> functionality?
+
+I hope the rationales are clear now. What I'm objecting is inclusion of
+premature interface, which is a lot easier and more tempting to do for
+hardware-specific limits and the proposals up until now have been showing
+ample signs of that. I don't think my position has changed much since the
+beginning - do the difficult-to-implement but easy-to-use weights first and
+then you and everyone would have a better idea of what hard-limit or
+allocation interfaces and mechanisms should look like, or even whether they're
+needed.
+
+Thanks.
+
+-- 
+tejun
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
