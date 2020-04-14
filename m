@@ -6,102 +6,102 @@ X-Spam-Status: No, score=2.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ED8E4C2BA19
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 08:12:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12496C2BA19
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 08:16:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8B1CC2072D
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 08:12:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D807C206E9
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 08:16:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="yz55F2su"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B1CC2072D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="rKpusi/E"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D807C206E9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F18188E56;
-	Tue, 14 Apr 2020 08:12:44 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB82D88E56
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2020 08:12:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E2F389CDD;
+	Tue, 14 Apr 2020 08:16:04 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2088.outbound.protection.outlook.com [40.107.236.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 037A389CDD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2020 08:16:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GZAnMX6GnqWi15610GFp1TBjxJrLj6xfpb77c+MdRh4ktHMqirJBPqIqmWuw4NMhujccr1vqtx4okNRwR5tB/OQa0CEE01JRwOETxvJLqgyygFSh7y85LkcIvkeYAjbNbd4vH3GvZVhaYFOCUhKT8Sm/D5P5hyPa6RUlobK+rWIlT3hbi+JDA43zrDldmtFeBhbgMZZdPN25d4ggnffo+ZDTdQXFJsIdvwJG4q2Q/dRCRxJGv4C8TNZzjP2iP4KOtZ0v5pElMU6H1yLZqLh4DqFvUur74Sc69Y4WkUMiqR+LtUT0L4lP5CAtf9gvpSRNNkLzYqPybo9bKth4ZEuS+Q==
+ b=gtRoRrmO2+N3SOzaYkmJAmU2lJnXA4GtuSuOl3HiRbWUx4W79LxXJuxD/Zqltrxk6sgW/gPtljHirzerF+d3WcMMKVW/x9+hJJILcqKpAB1kayEP1uRm5aKPCNdcUYdQy7pAX+sd4NpD264pEHexbRSrfnYMGqhXGay4KYKYuR8NB0YEYA8S0rnzTWTl3gAlb8bos4XTN2gcW8dN/92SajT8t4SOnXu5BsjdWWkCMXXx+6Tlt2R8PsqUviJ0ubgiwZmIVBEatg9yZFl87IcxrgC5lxJ7UAVjKOuzbsuA4eNOYidX01rTAqzJw3Ues6jxcTTD5rqjsh9sEy+moCK4Tw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yEJyeHsh7rLNuyMsge8cei9WQ1kfuaHUmKrCRf5fMro=;
- b=Cz8A8IKYJNwHzD+kSQZQmM6EwFt6PBCNDezlmCUyg/6yMGnu5gZs3qJP+fCo69lejtWosfxguhrn7tZk/KU5yeEMAHF3uudQDKwm09nAzL9uN8Ierl8WEQEKxjxxFgUXDI+mGej21Crm6fJYqLTS8zbW22lqcBHaN7XO94DxRb9JJxhs14uod3C7URm6yqoVjeW4UcHovoCe0mPx1qblcSSBEexFgOj0umNCJHRP55HsZAxZxt0xD3VzxXgDeSpVgReusD8M+R4oOpRz0iX5aH+14Enx4PVo4LcUop6BGH/hO9MyTv7buqPVc7xrbEKgVFfXB5dAUyiegBNuLIF+/A==
+ bh=rJviFdp52Ucy2WKnpq7CEAM/LRT/Wdw73b/GnUDqs1k=;
+ b=IA60471W2ZoMD6+y11OzNeDUs9Dkg3WPJohRbEEzUar++vjyS9bk3NI9ouLCKqIS+OvoH4ckDTr1Gbshk+JXk7F48FCAVHsI+pTvlmaEwXQWpId6L+xRroRt/y+0Kj6wppZtzD7PI96EOBtLOoRd3oD8fPYdSHIDOF9yOZhVNn6BHl3OE8nfnJuQucuokH/P7czJdgTYBnazCpUFo2uX6BD1sFf2ycNtOAuNhYIeTVd/wrox1asS1hSSGpuTtKoUoAb3a+RqxSn5MzcavOaLXwZWrMN5Y/jVEHpV8tyjYZPeZZnSP/mCiaenpR6WrCztf0OH5359CbJ6P3m120VBNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yEJyeHsh7rLNuyMsge8cei9WQ1kfuaHUmKrCRf5fMro=;
- b=yz55F2su1K5IWscZvteBr6RZUca4UeQxRV95pDs0SVY/rqM+sSCadW4UePwiN6jETxcaJeXEO8+DR4COWXqSScBsVdzewma/sjMTrkrasrfcAqnLwLJtZh0342OtTRrqgbg7JB51vIpFf2p7xMSXmzV+vN5+dM5iOb5ZQ6ldxbI=
+ bh=rJviFdp52Ucy2WKnpq7CEAM/LRT/Wdw73b/GnUDqs1k=;
+ b=rKpusi/EmHHX9P7XtohP8namZ4XxYKl6pdjnnfFduEVlBJI+fZUrihpxQDmYkyJZBSrHd1qCgjTnSPUQ47zJGf3aBaze/pi5gz65TdCYkaXbyeQ6dZUWPLUY/GnhWTeJ0dyvAnwva9U71qEH5moG5sYMR3IvqjDT8DdZOVDrr/k=
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB3497.namprd12.prod.outlook.com (2603:10b6:5:3c::20) with
+ DM6PR12MB3658.namprd12.prod.outlook.com (2603:10b6:5:1c8::24) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2900.28; Tue, 14 Apr 2020 08:12:38 +0000
+ 15.20.2900.28; Tue, 14 Apr 2020 08:15:59 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::5c27:185c:be20:1fb6]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::5c27:185c:be20:1fb6%5]) with mapi id 15.20.2900.028; Tue, 14 Apr 2020
- 08:12:38 +0000
+ 08:15:59 +0000
 From: "Quan, Evan" <Evan.Quan@amd.com>
 To: "Clements, John" <John.Clements@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] series to refactor psp np fw loading
-Thread-Topic: [PATCH] series to refactor psp np fw loading
-Thread-Index: AdYSKyW3wSp/rB5lSkSFu9kz/7eu5AACPzww
-Date: Tue, 14 Apr 2020 08:12:38 +0000
-Message-ID: <DM6PR12MB2619773ED4F30336AE244DE5E4DA0@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <MN2PR12MB4032D3C0EC3E363471268799FBDA0@MN2PR12MB4032.namprd12.prod.outlook.com>
-In-Reply-To: <MN2PR12MB4032D3C0EC3E363471268799FBDA0@MN2PR12MB4032.namprd12.prod.outlook.com>
+Subject: RE: [PATCH] drm/amdgpu: cache smu fw version info
+Thread-Topic: [PATCH] drm/amdgpu: cache smu fw version info
+Thread-Index: AdYSMcqAXw33BUFrS0SxAhKaAVYnawAAxMQw
+Date: Tue, 14 Apr 2020 08:15:59 +0000
+Message-ID: <DM6PR12MB2619E27829985E545B01AD33E4DA0@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <MN2PR12MB4032D32E4A4E55CF7DA771F7FBDA0@MN2PR12MB4032.namprd12.prod.outlook.com>
+In-Reply-To: <MN2PR12MB4032D32E4A4E55CF7DA771F7FBDA0@MN2PR12MB4032.namprd12.prod.outlook.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-04-14T07:06:10Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-04-14T07:54:25Z; 
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
  Unrestricted;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=2bca3f23-3bab-4646-920e-0000b1718afc;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=7fa29d7b-11e3-4e1c-b36a-0000e2a49d4e;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
 authentication-results: spf=none (sender IP is )
  smtp.mailfrom=Evan.Quan@amd.com; 
 x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: fad3fe4e-96f6-4686-5d63-08d7e04b988f
-x-ms-traffictypediagnostic: DM6PR12MB3497:|DM6PR12MB3497:
+x-ms-office365-filtering-correlation-id: 614a0d81-05e3-487e-c86c-08d7e04c108c
+x-ms-traffictypediagnostic: DM6PR12MB3658:|DM6PR12MB3658:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB349783F18D919413DCBA29F5E4DA0@DM6PR12MB3497.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-microsoft-antispam-prvs: <DM6PR12MB36581AADD08FE4FC0628E823E4DA0@DM6PR12MB3658.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4941;
 x-forefront-prvs: 0373D94D15
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(136003)(39860400002)(346002)(396003)(376002)(366004)(9686003)(7696005)(8936002)(6636002)(2906002)(5660300002)(6506007)(53546011)(9326002)(86362001)(316002)(478600001)(8676002)(55016002)(81156014)(186003)(71200400001)(110136005)(76116006)(33656002)(66476007)(66946007)(66446008)(64756008)(52536014)(4744005)(66556008)(26005);
+ SFS:(10009020)(4636009)(136003)(396003)(376002)(346002)(39860400002)(366004)(66946007)(8676002)(76116006)(71200400001)(26005)(66476007)(8936002)(55016002)(86362001)(81156014)(33656002)(5660300002)(2906002)(186003)(66446008)(316002)(9686003)(7696005)(6636002)(110136005)(66556008)(64756008)(53546011)(6506007)(4744005)(478600001)(52536014);
  DIR:OUT; SFP:1101; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Mt+e8vW6QDs0Ah0KO1oXywpnkw9BUtFsx0RzNwA/7qxgfsLyRTtgWfmfCGPdCY50NYOGSfJOXaWZXNvgTFrl1PPa6ujr4wWfcgwnV67Zr7kRGC7XDnzyqnkBv+vAsFI2ha5kBWAMxs6aQsS9d5zbgsHal7upeeLbfTKOyE6+7NNsCXqI7Wnz+28vTpQVyYTugkh4hJWkYvksFnqJ21IviqoXT+zh0iiEiS3gOgE2X8+6vkA/c4pQKQdJJ1/DSWjf/fkojX+Krm+NeF9N/UiZY5YQfk9I/FjhoA7Vkt/Tvd17YdkHE1CmrHuPKnSKmd27ShYn1Xg3XMQ+42xFF60bRxP0GoPMYinDzNEqnaA52GHMX/KxdBPqyGWcLE2gk8dbaX0phBBeToR1RtXSsyg74jY/R1/HmrbUbcyQj62CzQW7rJDwyRdD2lnOoOl0fSsT
-x-ms-exchange-antispam-messagedata: a3ZAXthGqxV6iRSgJg2KP8fexNTL244LLSO8Usx0qsD51o4bAeiBLvDSp3/sa7e+tcWc6Bn3A3ZWb7GbSHOQtuYCoaW521h5bwPZPQOA1MUMWVOew2fQcOnmFSfA1BxE2bBOWqie4sm3UMFCbPVmTA==
+x-microsoft-antispam-message-info: pmaNRqt8o7HFfWLHuoeyy7Nu9pZp5tT2Nqr6Vf9XEhJmkm6Onjf6R4aQ5wN7dJqhLCQdtQc8dL82eiHhQ2kbIqPtViqTuIchihzwthMgkg9DbEyeEufYLc0hpbVhnGK//H1YB9femNhSUpFny3tK2qaTyPOEF/a4Lyim3OgPMVLey/d56hH/yAHj6v3qcNTG5UrNQlBs1F1UvOP5zzFO0O1+L4i9tSMQFnr2gTm8LlRRsxIFf85W1B1+GMRPaAMre7iz+uc+z2LMJJvwuX9acaEtDiz1Dtv+4ba6BHlcTzryIBJWCbUi91mSH5LcVbYgtaMYpTj1rtE41BKUysGuLBK4K5WqwgKKAJRQ4MZPhJ/mlNLvrPdIo7bmyOkP/+SBUi7mKFgcdOabWShdO/TZ7REb2Ve7KB8qqpmS/KHw8fyD/FLoofE5nH7zfNasQmGj
+x-ms-exchange-antispam-messagedata: jDKL72w8IGQ1BFCAyRp1FGjTiys4RyQFZp8zKz0ZkObgDiz4lSZJBczRjwyBDMVS4IQ4DNGdgLTGYwPywFUdr5wXSPBjRaSQUy1JF8t8VP1stOWjedPxo/1wTPV8FBcNoVmPalpSGkBVdEXYTBbiDw==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fad3fe4e-96f6-4686-5d63-08d7e04b988f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2020 08:12:38.1466 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 614a0d81-05e3-487e-c86c-08d7e04c108c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2020 08:15:59.5043 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: aHs03qWMgZAwAWVKX6qTIUaYGtB1OmpXR2VBkL/6UhTmuHx1qtTBlj55hZwX5hrd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3497
+X-MS-Exchange-CrossTenant-userprincipalname: tNBGx7WvBZEL8opWUylYBXWbQV3Tbqf6uzxKLZDNbjks8oyVHAJPqZboinIMVy2S
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3658
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,43 +113,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0345370266=="
+Content-Type: multipart/mixed; boundary="===============2112084207=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0345370266==
+--===============2112084207==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB2619773ED4F30336AE244DE5E4DA0DM6PR12MB2619namp_"
+	boundary="_000_DM6PR12MB2619E27829985E545B01AD33E4DA0DM6PR12MB2619namp_"
 
---_000_DM6PR12MB2619773ED4F30336AE244DE5E4DA0DM6PR12MB2619namp_
+--_000_DM6PR12MB2619E27829985E545B01AD33E4DA0DM6PR12MB2619namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-Hi John,
+Reviewed-by: Evan Quan <evan.quan@amd.com>
 
-Please limit this to RAS triggered gpu reset only.
-if (adev->in_gpu_reset) {
-As for non-RAS triggered gpu reset, smu fw reloading is not needed.
-
-Regards,
-Evan
 From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Clements=
 , John
-Sent: Tuesday, April 14, 2020 3:06 PM
+Sent: Tuesday, April 14, 2020 3:54 PM
 To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] series to refactor psp np fw loading
+Subject: [PATCH] drm/amdgpu: cache smu fw version info
 
 
 [AMD Official Use Only - Internal Distribution Only]
 
-Submitting patch series to refactor psp np fw loading sequence and set MP1 =
-state to unload in preparation for SMU FW loading during a GPU reset
+Submitting patch to save smu fw version in local smu context to avoid multi=
+ple erroneous submissions to smu when requesting smu version info
 
 Thank you,
 John Clements
 
---_000_DM6PR12MB2619773ED4F30336AE244DE5E4DA0DM6PR12MB2619namp_
+--_000_DM6PR12MB2619E27829985E545B01AD33E4DA0DM6PR12MB2619namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -206,16 +200,9 @@ div.WordSection1
 </head>
 <body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
 <div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi John,<o:p></o:p></p>
+<p class=3D"MsoNormal">Reviewed-by: Evan Quan &lt;evan.quan@amd.com&gt;<o:p=
+></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Please limit this to RAS triggered gpu reset only.<o=
-:p></o:p></p>
-<p class=3D"MsoNormal">if (adev-&gt;in_gpu_reset) {<o:p></o:p></p>
-<p class=3D"MsoNormal">As for non-RAS triggered gpu reset, smu fw reloading=
- is not needed.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<o:p></o:p></p>
-<p class=3D"MsoNormal">Evan<o:p></o:p></p>
 <div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
 4.0pt">
 <div>
@@ -224,10 +211,11 @@ div.WordSection1
 <p class=3D"MsoNormal"><b>From:</b> amd-gfx &lt;amd-gfx-bounces@lists.freed=
 esktop.org&gt;
 <b>On Behalf Of </b>Clements, John<br>
-<b>Sent:</b> Tuesday, April 14, 2020 3:06 PM<br>
+<b>Sent:</b> Tuesday, April 14, 2020 3:54 PM<br>
 <b>To:</b> amd-gfx@lists.freedesktop.org; Zhang, Hawking &lt;Hawking.Zhang@=
 amd.com&gt;<br>
-<b>Subject:</b> [PATCH] series to refactor psp np fw loading<o:p></o:p></p>
+<b>Subject:</b> [PATCH] drm/amdgpu: cache smu fw version info<o:p></o:p></p=
+>
 </div>
 </div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
@@ -236,9 +224,9 @@ amd.com&gt;<br>
 lor:#0078D7">[AMD Official Use Only - Internal Distribution Only]</span><o:=
 p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Submitting patch series to refactor psp np fw loadin=
-g sequence and set MP1 state to unload in preparation for SMU FW loading du=
-ring a GPU reset<o:p></o:p></p>
+<p class=3D"MsoNormal">Submitting patch to save smu fw version in local smu=
+ context to avoid multiple erroneous submissions to smu when requesting smu=
+ version info<o:p></o:p></p>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <p class=3D"MsoNormal">Thank you,<o:p></o:p></p>
 <p class=3D"MsoNormal">John Clements<o:p></o:p></p>
@@ -247,9 +235,9 @@ ring a GPU reset<o:p></o:p></p>
 </body>
 </html>
 
---_000_DM6PR12MB2619773ED4F30336AE244DE5E4DA0DM6PR12MB2619namp_--
+--_000_DM6PR12MB2619E27829985E545B01AD33E4DA0DM6PR12MB2619namp_--
 
---===============0345370266==
+--===============2112084207==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -260,4 +248,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0345370266==--
+--===============2112084207==--
