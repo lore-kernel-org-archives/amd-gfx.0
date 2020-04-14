@@ -2,103 +2,157 @@ Return-Path: <SRS0=Gn/P=56=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 59832C38A29
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 23:04:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5780EC352BE
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 23:33:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03FFD2051A
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 23:04:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2AB672064A
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 23:33:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="o7c5vPMY"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03FFD2051A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m3WSjvlw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2AB672064A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94FDE6E5CA;
-	Tue, 14 Apr 2020 23:04:04 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2080.outbound.protection.outlook.com [40.107.220.80])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A63176E5C6
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2020 23:04:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=l6IReYWnwa1TIiXE49TyQNsCGbGoRkMSLvTfc00ZRvppeI/TRcmb/D+/Gyv/XtBzefDZoeBZkZKcrlH6rWtWaDX6KqpSwhdRCpzEq9+n4Di35adCrfdaBMdh63PtoLOT1fHM7PCo7W3avEdH0Eyby7DFDk840D6JpYCJhmGvLgKiO+qTrdt3PwRbAJ7hwp6lOLUQfDAkj1s1rKs+t79A8bh17RHsDaOglazoY0rBbKZ0UtXn1AdAzIdsXiIFwzxkgGrjCWzHJE/xqSxmp6ktEBPc/brfAKLbdHlq5MSbOCHASSf73YRBN1Txm9deXVCmeYlYGdOA1xbHyzFCqzCPQA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uu5sMIHTlQ+Sg3k+nNJOR++BnKCR7Oeh7LFIPDcbL4Y=;
- b=i214fUrEAvmJ7C/2u3mbWzV1KdFCfSHhZY/1e2MDoW8KiliDK6/mdfThVexlLNupHYRlJwD2CpgJO6cUbMitarXg38o2Gg7HSbuXUPWKtL1XcPM7VHaB9fsUbvICTy5irE/Ka4P4Ix7DaliknHmMvq5efHuK2Ku+ubI06RUmaanb1ssksnSokJWIQ90Os68QgvJLxXhRJ1hfr7HJF4VS8rS6bseL+x+6pwvc/StlXbzCXAJp+jnETOYewHa0FnzLGCDAZXL6SLTYRL2gqPoQ4vB9pBwQM3nb6ZkEhBwkutq82MnnMwTmi4zTt47++Gqf3Dw1aN+7JoEr0H5gl+gPXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uu5sMIHTlQ+Sg3k+nNJOR++BnKCR7Oeh7LFIPDcbL4Y=;
- b=o7c5vPMY1z9wTgD817IqTYgeIA7pCEe3+WY04efccBq3EZUOyZXKtSuemQBZY1yu6ZXHwtGbWG+IC7NLfRXu4hztDGtce2gYxhzjKbLh4PHMAJzk+vZrBzf2yCagk1cMxrVM1gbEKtw7FW3ItqcdRJInZkEy+ZYX8jFP8LcGGko=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Felix.Kuehling@amd.com; 
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
- by SN1PR12MB2544.namprd12.prod.outlook.com (2603:10b6:802:2b::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.24; Tue, 14 Apr
- 2020 23:04:02 +0000
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::38ef:1510:9525:f806]) by SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::38ef:1510:9525:f806%7]) with mapi id 15.20.2900.028; Tue, 14 Apr 2020
- 23:04:02 +0000
-Subject: Re: [PATCH v4] drm/amdkfd: Provide SMI events watch
-To: Amber Lin <Amber.Lin@amd.com>, amd-gfx@lists.freedesktop.org
-References: <1586899842-28131-1-git-send-email-Amber.Lin@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <46d5b0c3-2fb3-932e-2ec7-216d693a63d4@amd.com>
-Date: Tue, 14 Apr 2020 19:04:00 -0400
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C2E06E5D3;
+	Tue, 14 Apr 2020 23:32:59 +0000 (UTC)
+Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
+ [IPv6:2607:f8b0:4864:20::d41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 986B66E5D1;
+ Tue, 14 Apr 2020 23:32:57 +0000 (UTC)
+Received: by mail-io1-xd41.google.com with SMTP id m4so15145344ioq.6;
+ Tue, 14 Apr 2020 16:32:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=0XPAv2wA57PRgntCm2PREtgm1vPjHrzyWpJ64Nmr+VA=;
+ b=m3WSjvlwGNy0/ZZ1kMe7WDNesCHE6RkfhSf7wFT3wbBVesWyX1LR6WpW4CpK186p89
+ 097yfgwidbpGFeLcbrBUxZAuzYvtqqbX7VM+Ii9zWFKu2Lwx1CcLbEJpluStpKow091C
+ G2K9/Ki2KM6kz3ad6S+kwbL+3KAo0iPXu08+hQUZdt01TH5MkHXI+e+DlhXsoZ9jGNOk
+ YwZ/NVfy2oSCiwFUfcOgrke2PIp5SS/SoQt3V66DgxRVwJCvqQjAHtKloFkTlwCnWzEl
+ JbQ3g1quyDLpUkftP3ivo+pPIKjlM9t0cKNHVmkDZ6hn/37tTMoQyU2MoI2AWqfxwyLO
+ V4Uw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:autocrypt
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=0XPAv2wA57PRgntCm2PREtgm1vPjHrzyWpJ64Nmr+VA=;
+ b=mGs70hvh6onKM1Q5C1VXJ1uQuOZkjZyAivDi7l1lhOSnWpzaAbILKkP0qV/p5Eg2zH
+ 9h39Em+IgPLJwrAibPlQWAmtJ2XRaT4/mGuAZt26nwQdqsmCWCwB/wYZMLyqlfmpZuW4
+ dBRm0QmBnlH4GkIGoE1XQacW+5UITfGfpWnpjtF46GE18+7+GvIL/tB0OCXAn51FQrxE
+ EiSQRsTcTA2vrrtwMQQlfSLBNbUl8EreXol/+1pZEVf+yfFtMnrKxs622qzX17dtVPFF
+ 8o6l4KRz8aFDhHHwS/hATi3hWdkXnaa5cpAaJnlDm2nvtUu7JgoTNItmmw0jswfKiKTM
+ d+VA==
+X-Gm-Message-State: AGi0Pub6lMKwG5LFPixi7+DqBJkBrskE5UEjVQbzYeT/5O+hy8Ogfd1l
+ KAK9YsAyB1ZZ9yyPOs3Sz1oiWv31F1k=
+X-Google-Smtp-Source: APiQypLZL32BOumzQ6zXlYUtNS96o0KdCwY9H7KZyl7HkG5IcF7fbB2pHgfvHfZ8uzJ1mzhHI/W2yQ==
+X-Received: by 2002:a5d:8152:: with SMTP id f18mr23956427ioo.74.1586907176597; 
+ Tue, 14 Apr 2020 16:32:56 -0700 (PDT)
+Received: from ?IPv6:2602:47:da86:c000:6d4:c4ff:fe4a:ea6b?
+ ([2602:47:da86:c000:6d4:c4ff:fe4a:ea6b])
+ by smtp.gmail.com with ESMTPSA id j5sm4829879iom.22.2020.04.14.16.32.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Apr 2020 16:32:55 -0700 (PDT)
+Subject: Re: [PATCH] drm/amd/display: Fix pageflip event race condition for
+ DCN. (v2)
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>,
+ Mario Kleiner <mario.kleiner.de@gmail.com>
+References: <20200305212044.3857-1-mario.kleiner.de@gmail.com>
+ <CADnq5_PoEbgyQ1a+DMkSpTkN2QHHEpHie53Wxo7eRktsKxKs7Q@mail.gmail.com>
+ <cd4b7cfd-1fec-db5a-ded1-65e89b14ea35@amd.com>
+ <41ab0520-e29a-b6ed-bf5e-fbdf1eec0ceb@daenzer.net>
+From: Matt Coffin <mcoffin13@gmail.com>
+Autocrypt: addr=mcoffin13@gmail.com; keydata=
+ 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
+ tuwClJVHcEqY1gkUE/HKR1MQFfXl979G/1Ql1g==
+Message-ID: <ec27e398-d40a-1abd-cd24-7d84ddb7ca85@gmail.com>
+Date: Tue, 14 Apr 2020 17:32:53 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-In-Reply-To: <1586899842-28131-1-git-send-email-Amber.Lin@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YQBPR01CA0046.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:2::18) To SN1PR12MB2414.namprd12.prod.outlook.com
- (2603:10b6:802:2e::31)
+ Thunderbird/68.6.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.116.63.128) by
- YQBPR01CA0046.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c01:2::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2921.25 via Frontend Transport; Tue, 14 Apr 2020 23:04:01 +0000
-X-Originating-IP: [142.116.63.128]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 938aff9e-33dc-4ba0-d55a-08d7e0c81f65
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2544:|SN1PR12MB2544:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB25440CFF5AA99A1971CD9C5F92DA0@SN1PR12MB2544.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-Forefront-PRVS: 0373D94D15
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10009020)(4636009)(396003)(376002)(366004)(39850400004)(136003)(346002)(956004)(5660300002)(186003)(31686004)(2616005)(81156014)(16526019)(2906002)(8936002)(478600001)(86362001)(8676002)(16576012)(31696002)(66476007)(66556008)(66946007)(36756003)(52116002)(33964004)(26005)(6486002)(316002)(44832011);
- DIR:OUT; SFP:1101; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RAPIRuxfFz+yL0KIie008umVy3VUGf2QAPO8NiWXHbtTSGu4K10fOYIuxgW+war3KzcgvgHP2tjwEYerxeLVN9UJ0IA/z9ePc9C8nC+YMqu3L/+IoNxgQunQViYmIp08SdBSurCfcl5KSFoAzh76bMx4c+xj1WmCDVFUjIh6spLnFUGhruH+53R3qqI/pCRzT5eNTuQmafpEC2nF/4Qt3N5mMR4YLJK9durBl6lyooxiun0x4rgd/suQEQicmcZ8NkxugbP/u+6gXhXBIlbUfA71IoVUG1diH7rhPuBnpan85+88HcLc6Bl6bKe1LLpYF+QRXcw9I4Fks7cmYwpXN5lcg3OJe/u0JiegpZ8si7Xc0tCczp+JVdGYzbx6NtqQR4WEnT+hBBjB3gzyzb/zNldTaF7KUhMTdPrOBXNuBaM81R1mh+Wv+1mpmQasdwtY
-X-MS-Exchange-AntiSpam-MessageData: jb5ImsfYnBusYzvxQDJ124TEvMwAmVZKBfzTUcE4POaNVzsSfGtJ6oNG0SEaxifPkJqawsf2ClUPzsi+3SyySqfpKtE1h7boL3PWyQLJPKrT21sTSwXmxEvHlyLNIkUr191rCEw3MbJ0Obg+54Ivng==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 938aff9e-33dc-4ba0-d55a-08d7e0c81f65
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2020 23:04:02.2572 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LwwCemqR5t6BGpoEkSyTKLZSxOd62wiNSKW/BLfqr/28Bho1laFmTniXCQqSL63kOxgXV7fa2/kvN7IRJ6K43A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2544
+In-Reply-To: <41ab0520-e29a-b6ed-bf5e-fbdf1eec0ceb@daenzer.net>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,295 +164,124 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0473942473=="
+Cc: "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0473942473==
-Content-Type: multipart/alternative;
- boundary="------------A67FD94487E380C0F0202119"
-Content-Language: en-US
-
---------------A67FD94487E380C0F0202119
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-Hi Amber,
-
-Some general remarks about the multi-client support. You added a global
-client id that's separate from the file descriptor. That's problematic
-for two reasons:
-
- 1. A process could change a different process' event mask
- 2. The FD should already be unique per process, no need to invent
-    another ID
-
-If we want to allow one process to register for events multiple times
-(multiple FDs per process), then the list of clients should be per
-process. Each process should only be allowed to change the event masks
-of its own clients. The client could be identified by its FD. No need
-for another client ID.
-
-But you could also simplify it further by allowing only one event client
-per process. Then you don't need the client ID lookup at all. Just have
-a single event client in the kfd_process.
-
-Another approach would be to make enable/disable functions of the event
-FD, rather than the KFD FD ioctl. It could be an ioctl of the event FD,
-or even simpler, you could use the write file-operation to write an
-event mask (of arbitrary length if you want to enable growth in the
-future). That way everything would be neatly encapsulated in the event
-FD private data.
-
-Two more comments inline ...
-
-
-Am 2020-04-14 um 5:30 p.m. schrieb Amber Lin:
-> When the compute is malfunctioning or performance drops, the system admin
-> will use SMI (System Management Interface) tool to monitor/diagnostic what
-> went wrong. This patch provides an event watch interface for the user
-> space to register devices and subscribe events they are interested. After
-> registered, the user can use annoymous file descriptor's poll function
-> with wait-time specified and wait for events to happen. Once an event
-> happens, the user can use read() to retrieve information related to the
-> event.
->
-> VM fault event is done in this patch.
->
-> v2: - remove UNREGISTER and add event ENABLE/DISABLE
->     - correct kfifo usage
->     - move event message API to kfd_ioctl.h
-> v3: send the event msg in text than in binary
-> v4: support multiple clients
->
-> Signed-off-by: Amber Lin <Amber.Lin@amd.com>
-
-[snip]
-
-> diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-> index 4f66764..8146437 100644
-> --- a/include/uapi/linux/kfd_ioctl.h
-> +++ b/include/uapi/linux/kfd_ioctl.h
-> @@ -442,6 +442,36 @@ struct kfd_ioctl_import_dmabuf_args {
->  	__u32 dmabuf_fd;	/* to KFD */
->  };
->  
-> +/*
-> + * KFD SMI(System Management Interface) events
-> + */
-> +enum kfd_smi_events_op {
-> +	KFD_SMI_EVENTS_REGISTER = 1,
-> +	KFD_SMI_EVENTS_ENABLE,
-> +	KFD_SMI_EVENTS_DISABLE
-> +};
-> +
-> +/* Event type (defined by bitmask) */
-> +#define KFD_SMI_EVENT_VMFAULT     0x0000000000000001
-> +
-> +struct kfd_ioctl_smi_events_args {
-> +	__u32 op;		/* to KFD */
-> +	__u64 events;		/* to KFD */
-
-The binary layout of the ioctl args structure should be the same on
-32/64-bit. That means the 64-bit members should be 64-bit aligned. The
-best way to ensure this is to put all the 64-bit members first.
-
-
-> +	__u64 gpuids_array_ptr;	/* to KFD */
-> +	__u32 num_gpuids;	/* to KFD */
-> +	__u32 anon_fd;		/* from KFD */
-> +	__u32 client_id;	/* to/from KFD */
-> +};
-> +
-> +/* 1. All messages must start with (hex)uint64_event(16) + space(1) +
-> + *    (hex)gpuid(8) + space(1) =  26 bytes
-> + * 2. VmFault msg = (hex)uint32_pid(8) + space(1) + task name(16) = 25
-> + *    When a new event msg uses more memory, change the calculation here.
-> + * 3. End with \n(1)
-> + * 26 + 25 + 1 = 52
-> + */
-> +#define KFD_SMI_MAX_EVENT_MSG 52
-
-If you define the maximum message length here, clients may start
-depending on it, and it gets harder to change it later. I'd not define
-this in the API header. It's not necessary to write correct clients. And
-if used badly, it may encourage writing incorrect clients that break
-with longer messages in the future.
-
-Regards,
-  Felix
-
-
-> +
->  /* Register offset inside the remapped mmio page
->   */
->  enum kfd_mmio_remap {
-> @@ -546,7 +576,10 @@ enum kfd_mmio_remap {
->  #define AMDKFD_IOC_ALLOC_QUEUE_GWS		\
->  		AMDKFD_IOWR(0x1E, struct kfd_ioctl_alloc_queue_gws_args)
->  
-> +#define AMDKFD_IOC_SMI_EVENTS			\
-> +		AMDKFD_IOWR(0x1F, struct kfd_ioctl_smi_events_args)
-> +
->  #define AMDKFD_COMMAND_START		0x01
-> -#define AMDKFD_COMMAND_END		0x1F
-> +#define AMDKFD_COMMAND_END		0x20
->  
->  #endif
-
---------------A67FD94487E380C0F0202119
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p>Hi Amber,</p>
-    <p>Some general remarks about the multi-client support. You added a
-      global client id that's separate from the file descriptor. That's
-      problematic for two reasons:</p>
-    <ol>
-      <li>A process could change a different process' event mask</li>
-      <li>The FD should already be unique per process, no need to invent
-        another ID</li>
-    </ol>
-    <p>If we want to allow one process to register for events multiple
-      times (multiple FDs per process), then the list of clients should
-      be per process. Each process should only be allowed to change the
-      event masks of its own clients. The client could be identified by
-      its FD. No need for another client ID.</p>
-    <p>But you could also simplify it further by allowing only one event
-      client per process. Then you don't need the client ID lookup at
-      all. Just have a single event client in the kfd_process.</p>
-    <p>Another approach would be to make enable/disable functions of the
-      event FD, rather than the KFD FD ioctl. It could be an ioctl of
-      the event FD, or even simpler, you could use the write
-      file-operation to write an event mask (of arbitrary length if you
-      want to enable growth in the future). That way everything would be
-      neatly encapsulated in the event FD private data.<br>
-    </p>
-    <p>Two more comments inline ...<br>
-    </p>
-    <p><br>
-    </p>
-    <div class="moz-cite-prefix">Am 2020-04-14 um 5:30 p.m. schrieb
-      Amber Lin:<br>
-    </div>
-    <blockquote type="cite" cite="mid:1586899842-28131-1-git-send-email-Amber.Lin@amd.com">
-      <pre class="moz-quote-pre" wrap="">When the compute is malfunctioning or performance drops, the system admin
-will use SMI (System Management Interface) tool to monitor/diagnostic what
-went wrong. This patch provides an event watch interface for the user
-space to register devices and subscribe events they are interested. After
-registered, the user can use annoymous file descriptor's poll function
-with wait-time specified and wait for events to happen. Once an event
-happens, the user can use read() to retrieve information related to the
-event.
-
-VM fault event is done in this patch.
-
-v2: - remove UNREGISTER and add event ENABLE/DISABLE
-    - correct kfifo usage
-    - move event message API to kfd_ioctl.h
-v3: send the event msg in text than in binary
-v4: support multiple clients
-
-Signed-off-by: Amber Lin <a class="moz-txt-link-rfc2396E" href="mailto:Amber.Lin@amd.com">&lt;Amber.Lin@amd.com&gt;</a>
-</pre>
-    </blockquote>
-    <p>[snip]</p>
-    <blockquote type="cite" cite="mid:1586899842-28131-1-git-send-email-Amber.Lin@amd.com">
-      <pre class="moz-quote-pre" wrap="">diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
-index 4f66764..8146437 100644
---- a/include/uapi/linux/kfd_ioctl.h
-&#43;&#43;&#43; b/include/uapi/linux/kfd_ioctl.h
-@@ -442,6 &#43;442,36 @@ struct kfd_ioctl_import_dmabuf_args {
- 	__u32 dmabuf_fd;	/* to KFD */
- };
- 
-&#43;/*
-&#43; * KFD SMI(System Management Interface) events
-&#43; */
-&#43;enum kfd_smi_events_op {
-&#43;	KFD_SMI_EVENTS_REGISTER = 1,
-&#43;	KFD_SMI_EVENTS_ENABLE,
-&#43;	KFD_SMI_EVENTS_DISABLE
-&#43;};
-&#43;
-&#43;/* Event type (defined by bitmask) */
-&#43;#define KFD_SMI_EVENT_VMFAULT     0x0000000000000001
-&#43;
-&#43;struct kfd_ioctl_smi_events_args {
-&#43;	__u32 op;		/* to KFD */
-&#43;	__u64 events;		/* to KFD */</pre>
-    </blockquote>
-    <p>The binary layout of the ioctl args structure should be the same
-      on 32/64-bit. That means the 64-bit members should be 64-bit
-      aligned. The best way to ensure this is to put all the 64-bit
-      members first.<br>
-    </p>
-    <br>
-    <blockquote type="cite" cite="mid:1586899842-28131-1-git-send-email-Amber.Lin@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-&#43;	__u64 gpuids_array_ptr;	/* to KFD */
-&#43;	__u32 num_gpuids;	/* to KFD */
-&#43;	__u32 anon_fd;		/* from KFD */
-&#43;	__u32 client_id;	/* to/from KFD */
-&#43;};
-&#43;
-&#43;/* 1. All messages must start with (hex)uint64_event(16) &#43; space(1) &#43;
-&#43; *    (hex)gpuid(8) &#43; space(1) =  26 bytes
-&#43; * 2. VmFault msg = (hex)uint32_pid(8) &#43; space(1) &#43; task name(16) = 25
-&#43; *    When a new event msg uses more memory, change the calculation here.
-&#43; * 3. End with \n(1)
-&#43; * 26 &#43; 25 &#43; 1 = 52
-&#43; */
-&#43;#define KFD_SMI_MAX_EVENT_MSG 52</pre>
-    </blockquote>
-    <p>If you define the maximum message length here, clients may start
-      depending on it, and it gets harder to change it later. I'd not
-      define this in the API header. It's not necessary to write correct
-      clients. And if used badly, it may encourage writing incorrect
-      clients that break with longer messages in the future.<br>
-    </p>
-    <p>Regards,<br>
-      &nbsp; Felix</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:1586899842-28131-1-git-send-email-Amber.Lin@amd.com">
-      <pre class="moz-quote-pre" wrap="">
-&#43;
- /* Register offset inside the remapped mmio page
-  */
- enum kfd_mmio_remap {
-@@ -546,7 &#43;576,10 @@ enum kfd_mmio_remap {
- #define AMDKFD_IOC_ALLOC_QUEUE_GWS		\
- 		AMDKFD_IOWR(0x1E, struct kfd_ioctl_alloc_queue_gws_args)
- 
-&#43;#define AMDKFD_IOC_SMI_EVENTS			\
-&#43;		AMDKFD_IOWR(0x1F, struct kfd_ioctl_smi_events_args)
-&#43;
- #define AMDKFD_COMMAND_START		0x01
--#define AMDKFD_COMMAND_END		0x1F
-&#43;#define AMDKFD_COMMAND_END		0x20
- 
- #endif
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------A67FD94487E380C0F0202119--
-
---===============0473942473==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0473942473==--
+SGV5IGV2ZXJ5b25lLAoKVGhpcyBwYXRjaCBicm9rZSB2YXJpYWJsZSByZWZyZXNoIHJhdGUgaW4g
+Z2FtZXMgKGFsbCB0aGF0IEkndmUgdHJpZWQgc28KZmFyLi4uIFByb2plY3QgQ0FSUyAyLCBEaVJU
+IFJhbGx5IDIuMCwgQXNzZXR0byBDb3JzYSBDb21wZXRpemlvbmUpIGFzCndlbGwgYXMgYSBzaW1w
+bGUgZnJlZXN5bmMgdGVzdGVyIGFwcGxpY2F0aW9uLgoKRnJlZVN5bmMgdGVzdGVyIEkndmUgYmVl
+biB1c2luZzogaHR0cHM6Ly9naXRodWIuY29tL05peG9sYS9WUlJUZXN0CgpJJ20gbm90IGF0IGFs
+bCBmYW1pbGlhciB3aXRoIHRoZSBwYWdlIGZsaXBwaW5nIGNvZGUsIHNvIGl0IHdvdWxkIHRha2Ug
+bWUKYSBsb25nIHRpbWUgdG8gZmluZCB0aGUgKnJpZ2h0KiB3YXkgdG8gZml4IGl0LCBidXQgZG9l
+cyBzb21lb25lIGVsc2Ugc2VlCndoeSBpdCB3b3VsZCBkbyB0aGF0PwoKVGhlIHN5bXB0b20gaXMg
+dGhhdCB0aGUgcmVmcmVzaCByYXRlIG9mIHRoZSBkaXNwbGF5IGNvbnN0YW50bHkgYm91bmNlcwpi
+ZXR3ZWVuIHRoZSB0d28gZW5kcyBvZiB0aGUgRnJlZVN5bmMgcmFuZ2UgKGZvciBtZSA0MCAtPiAx
+NDQpLCBhbmQgdGhlCmdhbWUgc3R1dHRlcnMgbGlrZSBhIG1hZG1hbi4KCkFueSBoZWxwIG9uIHdo
+ZXJlIHRvIHN0YXJ0LCBpZGVhcyBvbiBob3cgdG8gZml4IGl0IChvdGhlciB0aGFuIGp1c3QKcmV2
+ZXJ0IHRoaXMgY29tbWl0LCB3aGljaCBJJ3ZlIGRvbmUgaW4gdGhlIGludGVyaW0pLCBvciBhbHRl
+cm5hdGl2ZQpwYXRjaGVzIHdvdWxkIGJlIGFwcHJlY2lhdGVkLgoKVGhhbmtzIGluIGFkdmFuY2Ug
+Zm9yIHRoZSB3b3JrL2hlbHAsCk1hdHQKCk9uIDMvMTMvMjAgODo0MiBBTSwgTWljaGVsIETDpG56
+ZXIgd3JvdGU6Cj4gT24gMjAyMC0wMy0xMyAxOjM1IHAubS4sIEthemxhdXNrYXMsIE5pY2hvbGFz
+IHdyb3RlOgo+PiBPbiAyMDIwLTAzLTEyIDEwOjMyIGEubS4sIEFsZXggRGV1Y2hlciB3cm90ZToK
+Pj4+IE9uIFRodSwgTWFyIDUsIDIwMjAgYXQgNDoyMSBQTSBNYXJpbyBLbGVpbmVyCj4+PiA8bWFy
+aW8ua2xlaW5lci5kZUBnbWFpbC5jb20+IHdyb3RlOgo+Pj4+Cj4+Pj4gQ29tbWl0ICcxNmYxN2Vk
+YThiYWQgKCJkcm0vYW1kL2Rpc3BsYXk6IFNlbmQgdmJsYW5rIGFuZCB1c2VyCj4+Pj4gZXZlbnRz
+IGF0IHZzYXJ0dXAgZm9yIERDTiIpJyBpbnRyb2R1Y2VzIGEgbmV3IHdheSBvZiBwYWdlZmxpcAo+
+Pj4+IGNvbXBsZXRpb24gaGFuZGxpbmcgZm9yIERDTiwgYW5kIHNvbWUgdHJvdWJsZS4KPj4+Pgo+
+Pj4+IFRoZSBjdXJyZW50IGltcGxlbWVudGF0aW9uIGludHJvZHVjZXMgYSByYWNlIGNvbmRpdGlv
+biwgd2hpY2gKPj4+PiBjYW4gY2F1c2UgcGFnZWZsaXAgY29tcGxldGlvbiBldmVudHMgdG8gYmUg
+c2VudCBvdXQgb25lIHZibGFuawo+Pj4+IHRvbyBlYXJseSwgdGhlcmVieSBjb25mdXNpbmcgdXNl
+cnNwYWNlIGFuZCBjYXVzaW5nIGZsaWNrZXI6Cj4+Pj4KPj4+PiBwcmVwYXJlX2ZsaXBfaXNyKCk6
+Cj4+Pj4KPj4+PiAxLiBQYWdlZmxpcCBwcm9ncmFtbWluZyB0YWtlcyB0aGUgZGRldi0+ZXZlbnRf
+bG9jay4KPj4+PiAyLiBTZXRzIGFjcnRjLT5wZmxpcF9zdGF0dXMgPT0gQU1ER1BVX0ZMSVBfU1VC
+TUlUVEVECj4+Pj4gMy4gUmVsZWFzZXMgZGRldi0+ZXZlbnRfbG9jay4KPj4+Pgo+Pj4+IC0tPiBE
+ZWFkbGluZSBmb3Igc3VyZmFjZSBhZGRyZXNzIHJlZ3MgZG91YmxlLWJ1ZmZlcmluZyBwYXNzZXMg
+b24KPj4+PiDCoMKgwqDCoCB0YXJnZXQgcGlwZS4KPj4+Pgo+Pj4+IDQuIGRjX2NvbW1pdF91cGRh
+dGVzX2Zvcl9zdHJlYW0oKSBNTUlPIHByb2dyYW1zIHRoZSBuZXcgcGFnZWZsaXAKPj4+PiDCoMKg
+wqAgaW50byBodywgYnV0IHRvbyBsYXRlIGZvciBjdXJyZW50IHZibGFuay4KPj4+Pgo+Pj4+ID0+
+IHBmbGlwX3N0YXR1cyA9PSBBTURHUFVfRkxJUF9TVUJNSVRURUQsIGJ1dCBmbGlwIHdvbid0IGNv
+bXBsZXRlCj4+Pj4gwqDCoMKgIGluIGN1cnJlbnQgdmJsYW5rIGR1ZSB0byBtaXNzaW5nIHRoZSBk
+b3VibGUtYnVmZmVyaW5nIGRlYWRsaW5lCj4+Pj4gwqDCoMKgIGJ5IGEgdGlueSBiaXQuCj4+Pj4K
+Pj4+PiA1LiBWU1RBUlRVUCB0cmlnZ2VyIHBvaW50IGluIHZibGFuayBpcyByZWFjaGVkLCBWU1RB
+UlRVUCBpcnEgZmlyZXMsCj4+Pj4gwqDCoMKgIGRtX2Rjbl9jcnRjX2hpZ2hfaXJxKCkgZ2V0cyBj
+YWxsZWQuCj4+Pj4KPj4+PiA2LiBEZXRlY3RzIHBmbGlwX3N0YXR1cyA9PSBBTURHUFVfRkxJUF9T
+VUJNSVRURUQgYW5kIGFzc3VtZXMgdGhlCj4+Pj4gwqDCoMKgIHBhZ2VmbGlwIGhhcyBiZWVuIGNv
+bXBsZXRlZC93aWxsIGNvbXBsZXRlIGluIHRoaXMgdmJsYW5rIGFuZAo+Pj4+IMKgwqDCoCBzZW5k
+cyBvdXQgcGFnZWZsaXAgY29tcGxldGlvbiBldmVudCB0byB1c2Vyc3BhY2UgYW5kIHJlc2V0cwo+
+Pj4+IMKgwqDCoCBwZmxpcF9zdGF0dXMgPSBBTURHUFVfRkxJUF9OT05FLgo+Pj4+Cj4+Pj4gPT4g
+RmxpcCBjb21wbGV0aW9uIGV2ZW50IHNlbnQgb3V0IG9uZSB2YmxhbmsgdG9vIGVhcmx5Lgo+Pj4+
+Cj4+Pj4gVGhpcyBiZWhhdmlvdXIgaGFzIGJlZW4gb2JzZXJ2ZWQgZHVyaW5nIG15IHRlc3Rpbmcg
+d2l0aCBtZWFzdXJlbWVudAo+Pj4+IGhhcmR3YXJlIGEgY291cGxlIG9mIHRpbWUuCj4+Pj4KPj4+
+PiBUaGUgY29tbWl0IG1lc3NhZ2Ugc2F5cyB0aGF0IHRoZSBleHRyYSBmbGlwIGV2ZW50IGNvZGUg
+d2FzIGFkZGVkIHRvCj4+Pj4gZG1fZGNuX2NydGNfaGlnaF9pcnEoKSB0byBwcmV2ZW50IG1pc3Np
+bmcgdG8gc2VuZCBvdXQgcGFnZWZsaXAgZXZlbnRzCj4+Pj4gaW4gY2FzZSB0aGUgcGZsaXAgaXJx
+IGRvZXNuJ3QgZmlyZSwgYmVjYXVzZSB0aGUgIkRDSCBIVUJQIiBjb21wb25lbnQKPj4+PiBpcyBj
+bG9jayBnYXRlZCBhbmQgZG9lc24ndCBmaXJlIHBmbGlwIGlycXMgaW4gdGhhdCBzdGF0ZS4gQWxz
+byB0aGF0Cj4+Pj4gdGhpcyBjbG9jayBnYXRpbmcgbWF5IGhhcHBlbiBpZiBubyBwbGFuZXMgYXJl
+IGFjdGl2ZS4gQWNjb3JkaW5nIHRvCj4+Pj4gTmljaG9sYXMsIHRoZSBjbG9jayBnYXRpbmcgY2Fu
+IGFsc28gaGFwcGVuIGlmIHBzciBpcyBhY3RpdmUsIGFuZCB0aGUKPj4+PiBnYXRpbmcgaXMgY29u
+dHJvbGxlZCBpbmRlcGVuZGVudGx5IGJ5IHRoZSBoYXJkd2FyZSwgc28gZGlmZmljdWx0IHRvCj4+
+Pj4gZGV0ZWN0IGlmIGFuZCB3aGVuIHRoZSBjb21wbGV0aW9uIGNvZGUgaW4gYWJvdmUgY29tbWl0
+IGlzIG5lZWRlZC4KPj4+Pgo+Pj4+IFRoaXMgcGF0Y2ggdHJpZXMgdGhlIGZvbGxvd2luZyBzb2x1
+dGlvbjogSXQgb25seSBleGVjdXRlcyB0aGUgZXh0cmEKPj4+PiBwZmxpcAo+Pj4+IGNvbXBsZXRp
+b24gY29kZSBpbiBkbV9kY25fY3J0Y19oaWdoX2lycSgpIGlmZiB0aGUgaGFyZHdhcmUgcmVwb3J0
+cwo+Pj4+IHRoYXQgdGhlcmUgYXJlbid0IGFueSBzdXJmYWNlIHVwZGF0ZWQgcGVuZGluZyBpbiB0
+aGUgZG91YmxlLWJ1ZmZlcmVkCj4+Pj4gc3VyZmFjZSBzY2Fub3V0IGFkZHJlc3MgcmVnaXN0ZXJz
+LiBPdGhlcndpc2UgaXQgbGVhdmVzIHBmbGlwIGNvbXBsZXRpb24KPj4+PiB0byB0aGUgcGZsaXAg
+aXJxIGhhbmRsZXIsIGZvciBhIG1vcmUgcmFjZS1mcmVlIGV4cGVyaWVuY2UuCj4+Pj4KPj4+PiBU
+aGlzIHdvdWxkIG9ubHkgZ3VhcmQgYWdhaW5zdCB0aGUgb3JkZXIgb2YgZXZlbnRzIG1lbnRpb25l
+ZCBhYm92ZS4KPj4+PiBJZiBTdGVwIDUgKFZTVEFSVFVQIHRyaWdnZXIpIGhhcHBlbnMgYmVmb3Jl
+IHN0ZXAgNCB0aGVuIHRoaXMgd29uJ3QgaGVscAo+Pj4+IGF0IGFsbCwgYmVjYXVzZSAxLTMgKyA1
+IG1pZ2h0IGhhcHBlbiBldmVuIHdpdGhvdXQgdGhlIGh3IGJlaW5nCj4+Pj4gcHJvZ3JhbW1lZAo+
+Pj4+IGF0IGFsbCwgaWUuIG5vIHN1cmZhY2UgdXBkYXRlIHBlbmRpbmcgYmVjYXVzZSBub25lIHll
+dCBwcm9ncmFtbWVkCj4+Pj4gaW50byBody4KPj4+Pgo+Pj4+IFRoZXJlZm9yZSB0aGlzIHBhdGNo
+IGFsc28gY2hhbmdlcyBsb2NraW5nIGluIGFtZGdwdV9kbV9jb21taXRfcGxhbmVzKCksCj4+Pj4g
+c28gdGhhdCBwcmVwYXJlX2ZsaXBfaXNyKCkgYW5kIGRjX2NvbW1pdF91cGRhdGVzX2Zvcl9zdHJl
+YW0oKSBhcmUgZG9uZQo+Pj4+IHVuZGVyIGV2ZW50X2xvY2sgcHJvdGVjdGlvbiB3aXRoaW4gdGhl
+IHNhbWUgY3JpdGljYWwgc2VjdGlvbi4KPj4+Pgo+Pj4+IHYyOiBUYWtlIE5pY2hvbGFzIGNvbW1l
+bnRzIGludG8gYWNjb3VudCwgdHJ5IGEgZGlmZmVyZW50IHNvbHV0aW9uLgo+Pj4+Cj4+Pj4gTGln
+aHRseSB0ZXN0ZWQgb24gUG9sYXJpcyAobG9ja2luZykgYW5kIFJhdmVuICh0aGUgd2hvbGUgRENO
+IHN0dWZmKS4KPj4+PiBTZWVtcyB0byB3b3JrIHdpdGhvdXQgY2F1c2luZyBvYnZpb3VzIG5ldyB0
+cm91YmxlLgo+Pj4KPj4+IE5pY2ssIGFueSBjb21tZW50cyBvbiB0aGlzP8KgIENhbiB3ZSBnZXQg
+dGhpcyBjb21taXR0ZWQgb3IgZG8geW91IHRoaW5rCj4+PiBpdCBuZWVkcyBhZGRpdGlvbmFsIHJl
+d29yaz8KPj4+Cj4+PiBUaGFua3MsCj4+Pgo+Pj4gQWxleAo+Pgo+PiBIaSBBbGV4LCBNYXJpbywK
+Pj4KPj4gVGhpcyBtaWdodCBiZSBhIGxpdHRsZSBzdHJhbmdlLCBidXQgaWYgd2Ugd2FudCB0byBn
+ZXQgdGhpcyBpbiBhcyBhIGZpeAo+PiBmb3IgcmVncmVzc2lvbnMgY2F1c2VkIGJ5IHRoZSBvcmln
+aW5hbCB2YmxhbmsgYW5kIHVzZXIgZXZlbnRzIGF0Cj4+IHZzdGFydHVwIHBhdGNoIHRoZW4gSSdt
+IGFjdHVhbGx5IGdvaW5nIHRvIGdpdmUgbXkgcmV2aWV3ZWQgYnkgb24gdGhlCj4+ICp2MSogb2Yg
+dGhpcyBwYXRjaCAoYnV0IG5vdCB0aGlzIHYyKToKPj4KPj4gUmV2aWV3ZWQtYnk6IE5pY2hvbGFz
+IEthemxhdXNrYXMgPG5pY2hvbGFzLmthemxhdXNrYXNAYW1kLmNvbT4KPj4KPj4gWW91IGNhbiBm
+ZWVsIGZyZWUgdG8gYXBwbHkgdGhhdCBvbmUuCj4+Cj4+IFJlYXNvbiAxOiBBZnRlciBoYXZpbmcg
+dGhvdWdodCBhYm91dCBpdCBzb21lIG1vcmUgSSBkb24ndCB0aGluayB3ZQo+PiBlbmFibGUgYW55
+dGhpbmcgdG9kYXkgdGhhdCBoYXMgaHVicCBwb3dlcmVkIGRvd24gYXQgdGhlIHNhbWUgdGltZSB3
+ZQo+PiBleHBlY3QgdG8gYmUgd2FpdGluZyBmb3IgYSBmbGlwIC0gZWcuIERNQ1UgcG93ZXJpbmcg
+ZG93biBIVUJQIGR1cmluZyBQU1IKPj4gZW50cnkuIFN0YXRpYyBzY3JlZW4gaW50ZXJydXB0IHNo
+b3VsZCBoYXBwZW4gYWZ0ZXIgdGhhdCBmbGlwIGZpbmlzaGVzIEkKPj4gdGhpbmsuCj4+Cj4+IFRo
+ZSBDUlRDIGNhbiBzdGlsbCBiZSBwb3dlcmVkIG9uIHdpdGggemVybyBwbGFuZXMsIGFuZCBJIGRv
+bid0IHRoaW5rIGFueQo+PiB1c2Vyc3BhY2UgZXhwbGljaXRseSBhc2tzIGZvciB2YmxhbmsgZXZl
+bnRzIGluIHRoaXMgY2FzZSBidXQgaXQgZG9lc24ndAo+PiBodXJ0IHRvIGhhdmUgdGhlIGNoZWNr
+Lgo+Pgo+PiBSZWFzb24gMjogVGhpcyBuZXcgcGF0Y2ggd2lsbCBuZWVkIG11Y2ggbW9yZSB0aG9y
+b3VnaCB0ZXN0aW5nIGZyb20gc2lkZQo+PiB0byBmdWxseSB1bmRlcnN0YW5kIHRoZSBjb25zZXF1
+ZW5jZXMgb2YgbG9ja2luZyB0aGUgZW50aXJlIERDIGNvbW1pdAo+PiBzZXF1ZW5jZS4gRm9yIGp1
+c3QgYSBwYWdlIGZsaXAgdGhhdCBzb3VuZHMgZmluZSwgYnV0IGZvciBhbnl0aGluZyBtb3JlCj4+
+IHRoYW4gKGVnLiBmdWxsIHVwZGF0ZXMsIG1vZGVzZXRzLCBldGMpIEkgZG9uJ3QgdGhpbmsgd2Ug
+d2FudCB0byBiZQo+PiBkaXNhYmxpbmcgaW50ZXJydXB0cyBmb3IgcG90ZW50aWFsbHkgbWFueSBt
+aWxsaXNlY29uZHMuCj4gCj4gQWghIEkgd2FzIHdvbmRlcmluZyB3aGVyZSB0aGUgYXR0YWNoZWQg
+c3BsYXQgY29tZXMgZnJvbSwgYnV0IEkgdGhpbmsKPiB0aGlzIGV4cGxhaW5zIGl0OiBXaXRoIHRo
+aXMgcGF0Y2ggYW1kZ3B1X2RtX2NvbW1pdF9wbGFuZXMga2VlcHMgdGhlCj4gcGNydGMtPmRldi0+
+ZXZlbnRfbG9jayBzcGlubG9jayBsb2NrZWQgd2hpbGUgY2FsbGluZwo+IGRjX2NvbW1pdF91cGRh
+dGVzX2Zvcl9zdHJlYW0sIHdoaWNoIGVuZHMgdXAgY2FsbGluZwo+IHNtdV9zZXRfZGlzcGxheV9j
+b3VudCwgd2hpY2ggdHJpZXMgdG8gbG9jayBhIG11dGV4Lgo+IAo+IAo+IAo+IF9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxp
+c3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo+IApfX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4
+QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWls
+bWFuL2xpc3RpbmZvL2FtZC1nZngK
