@@ -2,67 +2,87 @@ Return-Path: <SRS0=Gn/P=56=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75750C2BB86
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 12:52:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99357C2BBC7
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 13:05:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B64A206A2
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 12:52:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 54EF82078B
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 13:05:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="AysPXwu5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B64A206A2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="rKYrGrZi";
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="X5upAqVG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 54EF82078B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=kroah.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD9E36E199;
-	Tue, 14 Apr 2020 12:52:25 +0000 (UTC)
-Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
- [IPv6:2607:f8b0:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 977C86E13B
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2020 12:52:24 +0000 (UTC)
-Received: by mail-ot1-x341.google.com with SMTP id i27so9705019ota.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2020 05:52:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=idICXkJz74c7neHkFNePvVgcEywM92lHIYRxNNra+ik=;
- b=AysPXwu5jTUfa1VDz4/pasjtYQL4Ei1kOikX9A30tHaFk0XOjuonU//xrGlAiIcEPD
- CNktfG9lG9AnPftdTGEvxz5fY7N6jEWlt2I3stICIfIhscN2XWUwmiE5JBDtgAE+9nlG
- CEZFC/EdJVU2uAGihdcQvkCAuc3FFtMCuQUqI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=idICXkJz74c7neHkFNePvVgcEywM92lHIYRxNNra+ik=;
- b=n9zYJqUVM+S/jrWmjyqBg3PhApO8m3ZXbDxA5798CfrL5fsgYeZmjm6lRZ6yys8GBY
- oFyYbVE+SHOW6+V/BzCeTM/qw2ffhSmpJjAOVecxznHHndJM7cCSZSRa27RRfPR4wZ2h
- EtKrULwoE6ybWvsXWaeMq6nodLHy7dQdhoXpPy6MaLnN7gNkAqkbELxPeFesmFxryAd5
- v+3t+f3qDJ8ISZ//IzqoVceb0EcjzGCQaCBqwDXoNbSEdXKjrR1xZhFBhb1ZDun/E3ym
- gOehTsZyqzUbVUF/qqZeFHVpQs1EUJgnHMrkhTQqRqZjCStJoyWtSdAOZTANK92Q2U7n
- lg7w==
-X-Gm-Message-State: AGi0PuapVSZaZ4Zp4iCGyDvNLuuvlBIkW1hzgqOrGoZQVZlHiHeJ9oyA
- FFB9LVHd1EqDYbi3IzBM3BfmLnqgqReaCgGzbsw7dw==
-X-Google-Smtp-Source: APiQypIRhavDU8SB9YPvvZ0Vo+SQlCg+mOyD0qnxtqXhdtlpLUrrl6Hgm8wTyMthv444nZmNp8f+5IWiEIqgv4zy4Qc=
-X-Received: by 2002:a9d:2056:: with SMTP id n80mr19284790ota.281.1586868743794; 
- Tue, 14 Apr 2020 05:52:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 100C56E4CA;
+	Tue, 14 Apr 2020 13:05:06 +0000 (UTC)
+X-Greylist: delayed 552 seconds by postgrey-1.36 at gabe;
+ Tue, 14 Apr 2020 08:31:06 UTC
+Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
+ [66.111.4.224])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D275F6E492
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2020 08:31:06 +0000 (UTC)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailnew.nyi.internal (Postfix) with ESMTP id D102D5800F6;
+ Tue, 14 Apr 2020 04:21:53 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Tue, 14 Apr 2020 04:21:53 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:content-transfer-encoding:in-reply-to; s=fm3; bh=K
+ 9NNGyZC3pe81UCb1QBdT9lxusbIOSuDYCMZGd3QvZY=; b=rKYrGrZiQ+j6FJO52
+ iSkryG9dNJ5xdrkn96G/3EeAN0q/9nIeBIKScyX/bjUSuP5RharNdU2JBgX3V13h
+ dGm5DPjvouo3d/VtMmg/Rs9OnOfXNmzvby9b+vwD+fxFcpe0P8TEwfUY/ThhO9u7
+ thz3jiX0LJyCjcmH48jR2z5Xv+6lCR7FfjeGHmyum2MhREQotT+EmcAzXR2T04Af
+ EgRWsOtRQ7UW1n/F4UtJTOvomJXkvIRpYqeHoKkFjR/TJvv1QNnWLRybCh6As6bk
+ gqE3ZFnqqDcpX46s2OUZM5nQj0slUVojKaBDlXWgzhnatdiqnxrW8T7LIs/jHanB
+ vAbjg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=K9NNGyZC3pe81UCb1QBdT9lxusbIOSuDYCMZGd3Qv
+ ZY=; b=X5upAqVGP/jJNnDVewMt9pXltZ5l5C4o0uzAROA3hdKyE/2GPyX52DbLV
+ ydvcDHWHvlYIY/TvderSu4Ne0OXuUOWgTUitW+PbgBquuOEpihu8LD4eyKEKyte3
+ jswqjCQerHgV2wprahLFBYMBRPgo9S8cmpOMVBnXeUkB9HiOVFF0QiNWktAM3RMw
+ 9qZOQJe8E8hzbmJbUhPmXugmvxHT6uzetsmIKPSOcAIiRwIfmTXK/YWESLTVMLG4
+ lHUBvN2z736+/VYel2cSnypzlhlmwXC7WLclG99se3rnsCDMcwuC/KFaTXv4DUtS
+ x2zT4fzyvwBPC8pewzyEuTu0Y2n7Q==
+X-ME-Sender: <xms:oHKVXusMLZbM2B0tIBqUesHKVf4dc-FOZqXPNcGnO4bWi0Cr92dTfQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrfedugddtvdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggugfgjsehtkeertddttdejnecuhfhrohhmpefirhgvghcu
+ mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucffohhmrghinhepfhhrvggvuggvsh
+ hkthhophdrohhrghenucfkphepkeefrdekiedrkeelrddutdejnecuvehluhhsthgvrhfu
+ ihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepghhrvghgsehkrhhorghhrdgtoh
+ hm
+X-ME-Proxy: <xmx:oHKVXvAt5ALrBjpPUj6IRVOnCzS0lw4tpvWLLN5CQ2wnYGXqcAAULQ>
+ <xmx:oHKVXhk48uBc81zn02KWktBSC8r4-MsUDClwkdLMkRHog2vIcVartQ>
+ <xmx:oHKVXggTM2EuAuvvsJhYJFn13DuF0Ma3tVjwio0EMfT-YqB2tUuisQ>
+ <xmx:oXKVXvmtBT2B6gQqJaARzl1tNz6065WPfpkTfcxvX1ODSkL1esYTiA>
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A0A2D3060060;
+ Tue, 14 Apr 2020 04:21:51 -0400 (EDT)
+Date: Tue, 14 Apr 2020 10:21:50 +0200
+From: Greg KH <greg@kroah.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [regression 5.7-rc1] System does not power off, just halts
+Message-ID: <20200414082150.GD4149624@kroah.com>
+References: <f4eaf0ca-6cd6-c224-9205-bf64ca533ff5@molgen.mpg.de>
+ <dcc4851e-0ab5-683a-2cf2-687d64a3c9da@molgen.mpg.de>
+ <CADnq5_OXdpEebFY3+kyQb-WEw0Rb6cqoOFKGqgxaigU5hean1g@mail.gmail.com>
 MIME-Version: 1.0
-References: <20200226190152.16131-1-Kenny.Ho@amd.com>
- <CAOWid-eyMGZfOyfEQikwCmPnKxx6MnTm17pBvPeNpgKWi0xN-w@mail.gmail.com>
- <20200324184633.GH162390@mtj.duckdns.org>
- <CAOWid-cS-5YkFBLACotkZZCH0RSjHH94_r3VFH8vEPOubzSpPA@mail.gmail.com>
- <20200413191136.GI60335@mtj.duckdns.org>
- <20200414122015.GR3456981@phenom.ffwll.local>
- <CAOWid-f-XWyg0o3znH28xYndZ0OMzWfv3OOuWw08iJDKjrqFGA@mail.gmail.com>
-In-Reply-To: <CAOWid-f-XWyg0o3znH28xYndZ0OMzWfv3OOuWw08iJDKjrqFGA@mail.gmail.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Tue, 14 Apr 2020 14:52:12 +0200
-Message-ID: <CAKMK7uEs5QvUrxKcTFksO30D+x=XJnV+_TA-ebawcihtLqDG0Q@mail.gmail.com>
-Subject: Re: [PATCH v2 00/11] new cgroup controller for gpu/drm subsystem
-To: Kenny Ho <y2kenny@gmail.com>
+Content-Disposition: inline
+In-Reply-To: <CADnq5_OXdpEebFY3+kyQb-WEw0Rb6cqoOFKGqgxaigU5hean1g@mail.gmail.com>
+X-Mailman-Approved-At: Tue, 14 Apr 2020 13:05:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,39 +94,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>,
- jsparks@cray.com, dri-devel <dri-devel@lists.freedesktop.org>,
- lkaplan@cray.com, Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Greathouse,
- Joseph" <joseph.greathouse@amd.com>, Tejun Heo <tj@kernel.org>,
- cgroups@vger.kernel.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ X86 ML <x86@kernel.org>, Huang Rui <ray.huang@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Prike Liang <Prike.Liang@amd.com>, regressions@leemhuis.info,
+ "for 3.8" <stable@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mengbing Wang <Mengbing.Wang@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 14, 2020 at 2:47 PM Kenny Ho <y2kenny@gmail.com> wrote:
-> On Tue, Apr 14, 2020 at 8:20 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > My understanding from talking with a few other folks is that
-> > the cpumask-style CU-weight thing is not something any other gpu can
-> > reasonably support (and we have about 6+ of those in-tree)
->
-> How does Intel plan to support the SubDevice API as described in your
-> own spec here:
-> https://spec.oneapi.com/versions/0.7/oneL0/core/INTRO.html#subdevice-support
-
-I can't talk about whether future products might or might not support
-stuff and in what form exactly they might support stuff or not support
-stuff. Or why exactly that's even in the spec there or not.
-
-Geez
--Daniel
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gTW9uLCBBcHIgMTMsIDIwMjAgYXQgMDE6NDg6NThQTSAtMDQwMCwgQWxleCBEZXVjaGVyIHdy
+b3RlOgo+IE9uIE1vbiwgQXByIDEzLCAyMDIwIGF0IDE6NDcgUE0gUGF1bCBNZW56ZWwgPHBtZW56
+ZWxAbW9sZ2VuLm1wZy5kZT4gd3JvdGU6Cj4gPgo+ID4gRGVhciBQcmlrZSwgZGVhciBBbGV4LCBk
+ZWFyIExpbnV4IGZvbGtzLAo+ID4KPiA+Cj4gPiBBbSAxMy4wNC4yMCB1bSAxMDo0NCBzY2hyaWVi
+IFBhdWwgTWVuemVsOgo+ID4KPiA+ID4gQSByZWdyZXNzaW9uIGJldHdlZW4gY2F1c2VzIGEgc3lz
+dGVtIHdpdGggdGhlIEFNRCBib2FyZCBNU0kgQjM1ME0gTU9SVEFSCj4gPiA+IChNUy03QTM3KSB3
+aXRoIGFuIEFNRCBSeXplbiAzIDIyMDBHIG5vdCB0byBwb3dlciBvZmYgYW55IG1vcmUgYnV0IGp1
+c3QKPiA+ID4gdG8gaGFsdC4KPiA+ID4KPiA+ID4gVGhlIHJlZ3Jlc3Npb24gaXMgaW50cm9kdWNl
+ZCBpbiA5ZWJlNTQyMmFkNmMuLmIwMzIyMjdjNjI5My4gSSBhbSBpbiB0aGUKPiA+ID4gcHJvY2Vz
+cyB0byBiaXNlY3QgdGhpcywgYnV0IG1heWJlIHNvbWVib2R5IGFscmVhZHkgaGFzIGFuIGlkZWEu
+Cj4gPgo+ID4gSSBmb3VuZCB0aGUgRWFzdGVyIGVnZzoKPiA+Cj4gPiA+IGNvbW1pdCA0ODdlY2Ex
+MWEzMjFlZjMzYmNmNGNhNWFkYjNjMGM0OTU0ZGIxYjU4Cj4gPiA+IEF1dGhvcjogUHJpa2UgTGlh
+bmcgPFByaWtlLkxpYW5nQGFtZC5jb20+Cj4gPiA+IERhdGU6ICAgVHVlIEFwciA3IDIwOjIxOjI2
+IDIwMjAgKzA4MDAKPiA+ID4KPiA+ID4gICAgIGRybS9hbWRncHU6IGZpeCBnZnggaGFuZyBkdXJp
+bmcgc3VzcGVuZCB3aXRoIHZpZGVvIHBsYXliYWNrICh2MikKPiA+ID4KPiA+ID4gICAgIFRoZSBz
+eXN0ZW0gd2lsbCBiZSBoYW5nIHVwIGR1cmluZyBTMyBzdXNwZW5kIGJlY2F1c2Ugb2YgU01VIGlz
+IHBlbmRpbmcKPiA+ID4gICAgIGZvciBHQyBub3QgcmVzcG9zZSB0aGUgcmVnaXN0ZXIgQ1BfSFFE
+X0FDVElWRSBhY2Nlc3MgcmVxdWVzdC5UaGlzIGlzc3VlCj4gPiA+ICAgICByb290IGNhdXNlIG9m
+IGFjY2Vzc2luZyB0aGUgR0MgcmVnaXN0ZXIgdW5kZXIgZW50ZXIgR0ZYIENHR1BHIGFuZCBjYW4K
+PiA+ID4gICAgIGJlIGZpeGVkIGJ5IGRpc2FibGUgR0ZYIENHUEcgYmVmb3JlIHBlcmZvcm0gc3Vz
+cGVuZC4KPiA+ID4KPiA+ID4gICAgIHYyOiBVc2UgZGlzYWJsZSB0aGUgR0ZYIENHUEcgaW5zdGVh
+ZCBvZiBSTEMgc2FmZSBtb2RlIGd1YXJkLgo+ID4gPgo+ID4gPiAgICAgU2lnbmVkLW9mZi1ieTog
+UHJpa2UgTGlhbmcgPFByaWtlLkxpYW5nQGFtZC5jb20+Cj4gPiA+ICAgICBUZXN0ZWQtYnk6IE1l
+bmdiaW5nIFdhbmcgPE1lbmdiaW5nLldhbmdAYW1kLmNvbT4KPiA+ID4gICAgIFJldmlld2VkLWJ5
+OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+ID4gPiAgICAgU2lnbmVkLW9mZi1ieTog
+QWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+ID4gPiAgICAgQ2M6IHN0
+YWJsZUB2Z2VyLmtlcm5lbC5vcmcKPiA+Cj4gPiBJdCByZXZlcnRzIGNsZWFubHkgb24gdG9wIG9m
+IDUuNy1yYzEsIGFuZCB0aGlzIGZpeGVzIHRoZSBpc3N1ZS4KPiA+Cj4gPiBHcmVnLCBwbGVhc2Ug
+ZG8gbm90IGFwcGx5IHRoaXMgdG8gdGhlIHN0YWJsZSBzZXJpZXMuIFRoZSBjb21taXQgbWVzc2Fn
+ZQo+ID4gZG9lc27igJl0IGV2ZW4gcmVmZXJlbmNlIGEgaXNzdWUvYnVnIHJlcG9ydCwgYW5kIGRv
+ZXNu4oCZdCBnaXZlIGEgZGV0YWlsZWQKPiA+IHByb2JsZW0gZGVzY3JpcHRpb24uIFdoYXQgc3lz
+dGVtIGlzIGl0Pwo+ID4KPiA+IERhdmUsIEFsZXgsIGhvdyB0byBwcm9jZWVkPyBSZXZlcnQ/IEkg
+Y3JlYXRlZCBpc3N1ZSAxMDk0IFsxXS4KPiAKPiBBbHJlYWR5IGZpeGVkOgo+IGh0dHBzOi8vcGF0
+Y2h3b3JrLmZyZWVkZXNrdG9wLm9yZy9wYXRjaC8zNjExOTUvCgpBbnkgcmVhc29uIHRoYXQgZG9l
+c24ndCBoYXZlIGEgY2M6IHN0YWJsZSB0YWcgb24gaXQ/CgpBbmQgaXMgaXQgY29tbWl0dGVkIHRv
+IGFueSB0cmVlIGF0IHRoZSBtb21lbnQ/Cgp0aGFua3MsCgpncmVnIGstaApfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
