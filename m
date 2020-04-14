@@ -2,75 +2,77 @@ Return-Path: <SRS0=Gn/P=56=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DCB8DC2BA19
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 13:51:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4320C2BA19
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 13:51:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ABFD520768
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 13:51:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B7FF120644
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 13:51:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZrpzyggD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ABFD520768
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JGW0TPdp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B7FF120644
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 573866E132;
-	Tue, 14 Apr 2020 13:50:58 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1398689DBC;
- Tue, 14 Apr 2020 13:50:57 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id x4so13057554wmj.1;
- Tue, 14 Apr 2020 06:50:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DB9D89B8F;
+	Tue, 14 Apr 2020 13:51:36 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C08F189B8F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2020 13:51:34 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id f13so14389322wrm.13
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2020 06:51:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=XR6wXNItEYNWu6o1RZxk9MH20aHAx2gBzummh9jAxy4=;
- b=ZrpzyggDbOUgs2Vgs3Y6ZtNLBDX/4xYt+cQgeSVGNVIDl/di2F5DvK8yArZ92Z4MQQ
- cGGXfCSSQvk+GXf6GXxu4B6N63LxxmRg9KgQ2O08nEz4ThJbIRf/VqXwKgtFKp2zhWrk
- f0sV1TzSB0zu57pnSjWxQh+hchbAXt/6fsuAP9iI+6qPgJNqiLZGkJLztyDHiW3dqNI/
- NyCXODjBwwzNFcdv59tOT/4PQOr0wIKEk4XISFv2o1i4cjdwDNny0w4HVet4dkAnpWqQ
- RcOQ7w5emujykLdANHBPsDtIreQUkkeA/V3hUrr5irJPkZpCXGlO4Ed3WeMMpv/mJXyG
- 26cw==
+ h=reply-to:subject:to:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=U9gaYK6tgIZGBzgMfnyEPBxlxkEavNGJ5Rgvqk+Bk1M=;
+ b=JGW0TPdpdLJ8P704goQKku10zP1e0y8/hu1xzXNGa/aIqDMZWByqjGUr4rDBewzaSf
+ qbyi+cyL3lQX7becPx85g+fJAzVLKZnCzlMaGvsPTF8q5nx+p4K7HgUs2xM1p0yQBBGO
+ wyHhxqh0awbjFuZSmGF3o4lFpbgjYFQLqsPNQe3IGtlIJt/y7t2GKj6yZWHa8y3ORyZP
+ YcFS9TUa2RMQHS37Uw92wSJJJPhrlS849dx5h0vfaifX6VOUJ/8W6TR6rKV9/qqV1K/m
+ fbGkgX0ryAtIPUQ2YmRXZFnqYlcww3myrWsmkoGzC5LfqACD8hBz0qg+u1Okid/nEKT3
+ aajA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=XR6wXNItEYNWu6o1RZxk9MH20aHAx2gBzummh9jAxy4=;
- b=LaGB7gMcGvR0BsZ0TNU0BI+ZgQvEHCGfjSMnkmJzHpSOpaUN1Jm2MewfgiIxlhHyGt
- uz+arP6kCkjfSMK8ejIvlAM1KOhCIqyrozrLHbn9dRqmDnYVzxbs3+lxkNULLZiZEEMi
- QNGEHLF9QAPaRl0e2hcgCFvCk+MiivnfsLzRFVW+ZnvQAoA9287x+36FWMiwlgJRj1uY
- ApQvn16XYVNjY/pDPYtMyLS3KY64kxw4gJwiXMs9OBfdzYveiokx33UL8xh6NyAcYNhD
- Rj0tZDZS/fgwLfjF27rxrWaiMe6jVf3nI7n0WAwKt1P3WO1UgsIA5KJk1xA/i1TrvZLF
- 206w==
-X-Gm-Message-State: AGi0Pubb52Q2ry35vaZ8lhnt1i24WIrXANV4gdPGHesWSKc3Eupk6Wdp
- TzMh6w84FeaAf5p6cA8A5wqfKkT+sMUK9RhomtiSyQBfKVVCWQ==
-X-Google-Smtp-Source: APiQypJ/MIb8WScQ8OMCaoQIIUZSWESIr/e/wptylz7IRNlW+x9Eqtr/+JcBFI1U3aLByWYhQA7DCphcxSKw3tp3EQI=
-X-Received: by 2002:a1c:9a87:: with SMTP id
- c129mr22431150wme.149.1586872255522; 
- Tue, 14 Apr 2020 06:50:55 -0700 (PDT)
+ h=x-gm-message-state:reply-to:subject:to:references:from:message-id
+ :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=U9gaYK6tgIZGBzgMfnyEPBxlxkEavNGJ5Rgvqk+Bk1M=;
+ b=n6GWZdckaBAcHUxDLSPRvDYUX2CoKXJm3HwBuXsh3E3Te5qQCXcTj7yt57ikHh24Ir
+ D8F5GjzpGSyUFqGn8s+QzSiVHhg8me/xWMpM1QFor789hQtrjBNk+rHPxUKQ4B1J/rQb
+ 1cDhwrWmjj1xgJiVXrpeZNxFMkoiOj+Aa49Q6AoQYuF3HkeESoTLm0u4OIe0CvrPV97I
+ kSA926NryxICsO2VSU+FadH/CBxDw0IahCYmPrBUCvA44qKmp32x4KG+6lmfwtwXhxzt
+ ca/oXGa4b+/sVPD1f5RyDh0UCvIX+23GOU8ur7MKUBBGS+6a+yuxAd4C7ty5PYFI2sJr
+ Iu6A==
+X-Gm-Message-State: AGi0Pua2+cmRAf5tXH3CGONReaaTep29ajsSemMfKyuJF7iGPiJKzULY
+ 3KMK8JPyQjXxs144Y86fB0QUdz2H
+X-Google-Smtp-Source: APiQypJu4pzo8w395MxJF2mFL+GWPAcsGq1mi/SfMCP0W4xNqeXgm8WkI1PhyzRB+on2AndPlUGBBw==
+X-Received: by 2002:a5d:4a84:: with SMTP id o4mr25774931wrq.57.1586872293229; 
+ Tue, 14 Apr 2020 06:51:33 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id q4sm20372582wmj.1.2020.04.14.06.51.32
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 14 Apr 2020 06:51:32 -0700 (PDT)
+Subject: Re: [PATCH] Revert "drm/amdgpu: use the BAR if possible in
+ amdgpu_device_vram_access v2"
+To: Kent Russell <kent.russell@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20200413182026.2561-1-kent.russell@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <85fcb568-b0d8-b6c9-4e62-3866aa2da0c9@gmail.com>
+Date: Tue, 14 Apr 2020 15:51:31 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-References: <20200226190152.16131-1-Kenny.Ho@amd.com>
- <CAOWid-eyMGZfOyfEQikwCmPnKxx6MnTm17pBvPeNpgKWi0xN-w@mail.gmail.com>
- <20200324184633.GH162390@mtj.duckdns.org>
- <CAOWid-cS-5YkFBLACotkZZCH0RSjHH94_r3VFH8vEPOubzSpPA@mail.gmail.com>
- <20200413191136.GI60335@mtj.duckdns.org>
- <20200414122015.GR3456981@phenom.ffwll.local>
- <CAOWid-f-XWyg0o3znH28xYndZ0OMzWfv3OOuWw08iJDKjrqFGA@mail.gmail.com>
- <CAKMK7uEs5QvUrxKcTFksO30D+x=XJnV+_TA-ebawcihtLqDG0Q@mail.gmail.com>
- <CAOWid-fwEOk+4CvUAumo=byWpq4vVUoCiwW1N6F-0aEd6G7d4A@mail.gmail.com>
- <CAKMK7uHwX9NbGb1ptnP=CAwxDayfM_z9kvFMMb=YiH+ynjNqKQ@mail.gmail.com>
-In-Reply-To: <CAKMK7uHwX9NbGb1ptnP=CAwxDayfM_z9kvFMMb=YiH+ynjNqKQ@mail.gmail.com>
-From: Kenny Ho <y2kenny@gmail.com>
-Date: Tue, 14 Apr 2020 09:50:44 -0400
-Message-ID: <CAOWid-dJckd8kV57MKNA_W83SN4OHnOGPURL7oOm-SqoYRLX=w@mail.gmail.com>
-Subject: Re: [PATCH v2 00/11] new cgroup controller for gpu/drm subsystem
-To: Daniel Vetter <daniel@ffwll.ch>
+In-Reply-To: <20200413182026.2561-1-kent.russell@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,130 +84,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>,
- jsparks@cray.com, dri-devel <dri-devel@lists.freedesktop.org>,
- lkaplan@cray.com, Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Greathouse,
- Joseph" <joseph.greathouse@amd.com>, Tejun Heo <tj@kernel.org>,
- cgroups@vger.kernel.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: christian.koenig@amd.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Daniel,
-
-I appreciate many of your review so far and I much prefer keeping
-things technical but that is very difficult to do when I get Intel
-developers calling my implementation "most AMD-specific solution
-possible" and objecting to an implementation because their hardware
-cannot support it.  Can you help me with a more charitable
-interpretation of what has been happening?
-
-Perhaps the following questions can help keep the discussion technical:
-1)  Is it possible to implement non-work-conserving distribution of
-GPU without spatial sharing?  (If yes, I'd love to hear a suggestion,
-if not...question 2.)
-2)  If spatial sharing is required to support GPU HPC use cases, what
-would you implement if you have the hardware support today?
-
-Regards,
-Kenny
-
-On Tue, Apr 14, 2020 at 9:26 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> On Tue, Apr 14, 2020 at 3:14 PM Kenny Ho <y2kenny@gmail.com> wrote:
-> >
-> > Ok.  I was hoping you can clarify the contradiction between the
-> > existance of the spec below and your "not something any other gpu can
-> > reasonably support" statement.  I mean, OneAPI is Intel's spec and
-> > doesn't that at least make SubDevice support "reasonable" for one more
-> > vendor?
-> >
-> > Partisanship aside, as a drm co-maintainer, do you really not see the
-> > need for non-work-conserving way of distributing GPU as a resource?
-> > You recognized the latencies involved (although that's really just
-> > part of the story... time sharing is never going to be good enough
-> > even if your switching cost is zero.)  As a drm co-maintainer, are you
-> > suggesting GPU has no place in the HPC use case?
->
->  So I did chat with people and my understanding for how this subdevice
-> stuff works is roughly, from least to most fine grained support:
-> - Not possible at all, hw doesn't have any such support
-> - The hw is actually not a single gpu, but a bunch of chips behind a
-> magic bridge/interconnect, and there's a scheduler load-balancing
-> stuff and you can't actually run on all "cores" in parallel with one
-> compute/3d job. So subdevices just give you some of these cores, but
-> from client api pov they're exactly as powerful as the full device. So
-> this kinda works like assigning an entire NUMA node, including all the
-> cpu cores and memory bandwidth and everything.
-> - Hw has multiple "engines" which share resources (like compute cores
-> or whatever) behind the scenes. There's no control over how this
-> sharing works really, and whether you have guarantees about minimal
-> execution resources or not. This kinda works like hyperthreading.
-> - Then finally we have the CU mask thing amdgpu has. Which works like
-> what you're proposing, works on amd.
->
-> So this isn't something that I think we should standardize in a
-> resource management framework like cgroups. Because it's a complete
-> mess. Note that _all_ the above things (including the "no subdevices"
-> one) are valid implementations of "subdevices" in the various specs.
->
-> Now on your question on "why was this added to various standards?"
-> because opencl has that too (and the rocm thing, and everything else
-> it seems). What I heard is that a few people pushed really hard, and
-> no one objected hard enough (because not having subdevices is a
-> standards compliant implementation), so that's why it happened. Just
-> because it's in various standards doesn't mean that a) it's actually
-> standardized in a useful fashion and b) something we should just
-> blindly adopt.
->
-> Also like where exactly did you understand that I'm against gpus in
-> HPC uses cases. Approaching this in a slightly less tribal way would
-> really, really help to get something landed (which I'd like to see
-> happen, personally). Always spinning this as an Intel vs AMD thing
-> like you do here with every reply really doesn't help moving this in.
->
-> So yeah stricter isolation is something customers want, it's just not
-> something we can really give out right now at a level below the
-> device.
-> -Daniel
->
-> >
-> > Regards,
-> > Kenny
-> >
-> > On Tue, Apr 14, 2020 at 8:52 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > >
-> > > On Tue, Apr 14, 2020 at 2:47 PM Kenny Ho <y2kenny@gmail.com> wrote:
-> > > > On Tue, Apr 14, 2020 at 8:20 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > > > My understanding from talking with a few other folks is that
-> > > > > the cpumask-style CU-weight thing is not something any other gpu can
-> > > > > reasonably support (and we have about 6+ of those in-tree)
-> > > >
-> > > > How does Intel plan to support the SubDevice API as described in your
-> > > > own spec here:
-> > > > https://spec.oneapi.com/versions/0.7/oneL0/core/INTRO.html#subdevice-support
-> > >
-> > > I can't talk about whether future products might or might not support
-> > > stuff and in what form exactly they might support stuff or not support
-> > > stuff. Or why exactly that's even in the spec there or not.
-> > >
-> > > Geez
-> > > -Daniel
-> > > --
-> > > Daniel Vetter
-> > > Software Engineer, Intel Corporation
-> > > +41 (0) 79 365 57 48 - http://blog.ffwll.ch
->
->
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> +41 (0) 79 365 57 48 - http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMTMuMDQuMjAgdW0gMjA6MjAgc2NocmllYiBLZW50IFJ1c3NlbGw6Cj4gVGhpcyByZXZlcnRz
+IGNvbW1pdCBjMTJiODRkNmUwZDcwZjExODVlNmRhZGRmZDEyYWZiNjcxNzkxYjZlLgo+IFRoZSBv
+cmlnaW5hbCBwYXRjaCBjYXVzZXMgYSBSQVMgZXZlbnQgYW5kIHN1YnNlcXVlbnQga2VybmVsIGhh
+cmQtaGFuZwo+IHdoZW4gcnVubmluZyB0aGUgS0ZETWVtb3J5VGVzdC5QdHJhY2VBY2Nlc3NJbnZp
+c2libGVWcmFtIG9uIFZHMjAgYW5kCj4gQXJjdHVydXMKPgo+IGRtZXNnIG91dHB1dCBhdCBoYW5n
+IHRpbWU6Cj4gW2RybV0gUkFTIGV2ZW50IG9mIHR5cGUgRVJSRVZFTlRfQVRIVUJfSU5URVJSVVBU
+IGRldGVjdGVkIQo+IGFtZGdwdSAwMDAwOjY3OjAwLjA6IEdQVSByZXNldCBiZWdpbiEKPiBFdmlj
+dGluZyBQQVNJRCAweDgwMDAgcXVldWVzCj4gU3RhcnRlZCBldmljdGluZyBwYXNpZCAweDgwMDAK
+PiBxY20gZmVuY2Ugd2FpdCBsb29wIHRpbWVvdXQgZXhwaXJlZAo+IFRoZSBjcCBtaWdodCBiZSBp
+biBhbiB1bnJlY292ZXJhYmxlIHN0YXRlIGR1ZSB0byBhbiB1bnN1Y2Nlc3NmdWwgcXVldWVzIHBy
+ZWVtcHRpb24KPiBGYWlsZWQgdG8gZXZpY3QgcHJvY2VzcyBxdWV1ZXMKPiBGYWlsZWQgdG8gc3Vz
+cGVuZCBwcm9jZXNzIDB4ODAwMAo+IEZpbmlzaGVkIGV2aWN0aW5nIHBhc2lkIDB4ODAwMAo+IFN0
+YXJ0ZWQgcmVzdG9yaW5nIHBhc2lkIDB4ODAwMAo+IEZpbmlzaGVkIHJlc3RvcmluZyBwYXNpZCAw
+eDgwMDAKPiBbZHJtXSBVVkQgVkNQVSBzdGF0ZSBtYXkgbG9zdCBkdWUgdG8gUkFTIEVSUkVWRU5U
+X0FUSFVCX0lOVEVSUlVQVAo+IGFtZGdwdTogW3Bvd2VycGxheV0gRmFpbGVkIHRvIHNlbmQgbWVz
+c2FnZSAweDI2LCByZXNwb25zZSAweDAKPiBhbWRncHU6IFtwb3dlcnBsYXldIEZhaWxlZCB0byBz
+ZXQgc29mdCBtaW4gZ2Z4Y2xrICEKPiBhbWRncHU6IFtwb3dlcnBsYXldIEZhaWxlZCB0byB1cGxv
+YWQgRFBNIEJvb3R1cCBMZXZlbHMhCj4gYW1kZ3B1OiBbcG93ZXJwbGF5XSBGYWlsZWQgdG8gc2Vu
+ZCBtZXNzYWdlIDB4NywgcmVzcG9uc2UgMHgwCj4gYW1kZ3B1OiBbcG93ZXJwbGF5XSBbRGlzYWJs
+ZUFsbFNNVUZlYXR1cmVzXSBGYWlsZWQgdG8gZGlzYWJsZSBhbGwgc211IGZlYXR1cmVzIQo+IGFt
+ZGdwdTogW3Bvd2VycGxheV0gW0Rpc2FibGVEcG1UYXNrc10gRmFpbGVkIHRvIGRpc2FibGUgYWxs
+IHNtdSBmZWF0dXJlcyEKPiBhbWRncHU6IFtwb3dlcnBsYXldIFtQb3dlck9mZkFzaWNdIEZhaWxl
+ZCB0byBkaXNhYmxlIERQTSEKPiBbZHJtOmFtZGdwdV9kZXZpY2VfaXBfc3VzcGVuZF9waGFzZTIg
+W2FtZGdwdV1dICpFUlJPUiogc3VzcGVuZCBvZiBJUCBibG9jayA8cG93ZXJwbGF5PiBmYWlsZWQg
+LTUKCkRvIHlvdSBoYXZlIG1vcmUgaW5mb3JtYXRpb24gb24gd2hhdCdzIGdvaW5nIHdyb25nIGhl
+cmUgc2luY2UgdGhpcyBpcyBhIApyZWFsbHkgaW1wb3J0YW50IHBhdGNoIGZvciBLRkQgZGVidWdn
+aW5nLgoKPgo+IFNpZ25lZC1vZmYtYnk6IEtlbnQgUnVzc2VsbCA8a2VudC5ydXNzZWxsQGFtZC5j
+b20+CgpSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQu
+Y29tPgoKPiAtLS0KPiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
+YyB8IDI2IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAyNiBkZWxl
+dGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfZGV2aWNlLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMK
+PiBpbmRleCBjZjVkNmU1ODU2MzQuLmEzZjk5N2Y4NDAyMCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfZGV2aWNlLmMKPiBAQCAtMjU0LDMyICsyNTQsNiBAQCB2b2lk
+IGFtZGdwdV9kZXZpY2VfdnJhbV9hY2Nlc3Moc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsIGxv
+ZmZfdCBwb3MsCj4gICAJdWludDMyX3QgaGkgPSB+MDsKPiAgIAl1aW50NjRfdCBsYXN0Owo+ICAg
+Cj4gLQo+IC0jaWZkZWYgQ09ORklHXzY0QklUCj4gLQlsYXN0ID0gbWluKHBvcyArIHNpemUsIGFk
+ZXYtPmdtYy52aXNpYmxlX3ZyYW1fc2l6ZSk7Cj4gLQlpZiAobGFzdCA+IHBvcykgewo+IC0JCXZv
+aWQgX19pb21lbSAqYWRkciA9IGFkZXYtPm1tYW4uYXBlcl9iYXNlX2thZGRyICsgcG9zOwo+IC0J
+CXNpemVfdCBjb3VudCA9IGxhc3QgLSBwb3M7Cj4gLQo+IC0JCWlmICh3cml0ZSkgewo+IC0JCQlt
+ZW1jcHlfdG9pbyhhZGRyLCBidWYsIGNvdW50KTsKPiAtCQkJbWIoKTsKPiAtCQkJYW1kZ3B1X2Fz
+aWNfZmx1c2hfaGRwKGFkZXYsIE5VTEwpOwo+IC0JCX0gZWxzZSB7Cj4gLQkJCWFtZGdwdV9hc2lj
+X2ludmFsaWRhdGVfaGRwKGFkZXYsIE5VTEwpOwo+IC0JCQltYigpOwo+IC0JCQltZW1jcHlfZnJv
+bWlvKGJ1ZiwgYWRkciwgY291bnQpOwo+IC0JCX0KPiAtCj4gLQkJaWYgKGNvdW50ID09IHNpemUp
+Cj4gLQkJCXJldHVybjsKPiAtCj4gLQkJcG9zICs9IGNvdW50Owo+IC0JCWJ1ZiArPSBjb3VudCAv
+IDQ7Cj4gLQkJc2l6ZSAtPSBjb3VudDsKPiAtCX0KPiAtI2VuZGlmCj4gLQo+ICAgCXNwaW5fbG9j
+a19pcnFzYXZlKCZhZGV2LT5tbWlvX2lkeF9sb2NrLCBmbGFncyk7Cj4gICAJZm9yIChsYXN0ID0g
+cG9zICsgc2l6ZTsgcG9zIDwgbGFzdDsgcG9zICs9IDQpIHsKPiAgIAkJdWludDMyX3QgdG1wID0g
+cG9zID4+IDMxOwoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
