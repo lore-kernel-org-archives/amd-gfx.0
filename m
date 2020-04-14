@@ -2,55 +2,69 @@ Return-Path: <SRS0=Gn/P=56=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76C8EC2BB86
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 13:05:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F0B7C2BBC7
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 13:08:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3E1DC2084D
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 13:05:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3E1DC2084D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=vivo.com
+	by mail.kernel.org (Postfix) with ESMTPS id D8F942087E
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 13:08:06 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="doeIn3Si"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8F942087E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D48B6E4CB;
-	Tue, 14 Apr 2020 13:05:06 +0000 (UTC)
-X-Greylist: delayed 383 seconds by postgrey-1.36 at gabe;
- Tue, 14 Apr 2020 11:41:50 UTC
-Received: from m17618.mail.qiye.163.com (m17618.mail.qiye.163.com
- [59.111.176.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 745AE89A0E;
- Tue, 14 Apr 2020 11:41:50 +0000 (UTC)
-Received: from ubuntu.localdomain (unknown [157.0.31.122])
- by m17618.mail.qiye.163.com (Hmail) with ESMTPA id 8F71F4E1434;
- Tue, 14 Apr 2020 19:35:23 +0800 (CST)
-From: Bernard Zhao <bernard@vivo.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "David (ChunMing) Zhou" <David1.Zhou@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Bernard Zhao <bernard@vivo.com>,
- Xiaojie Yuan <xiaojie.yuan@amd.com>, Oak Zeng <Oak.Zeng@amd.com>,
- Sam Ravnborg <sam@ravnborg.org>, Alex Sierra <alex.sierra@amd.com>,
- Huang Rui <ray.huang@amd.com>, Kent Russell <kent.russell@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] Optimized division operation to shift operation
-Date: Tue, 14 Apr 2020 04:35:08 -0700
-Message-Id: <1586864113-30682-1-git-send-email-bernard@vivo.com>
-X-Mailer: git-send-email 2.7.4
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZT1VOS01LS0tLT0pCTUpNTFlXWShZQU
- hPN1dZLVlBSVdZCQ4XHghZQVk1NCk2OjckKS43PlkG
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6Nxw6Ajo*Tjg1TwoNNAg1Fz4v
- Lk0KFDJVSlVKTkNNQ01PSklIQk5OVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
- S1VISlVKSUlZV1kIAVlBT0NPSTcG
-X-HM-Tid: 0a717878efd19376kuws8f71f4e1434
-X-Mailman-Approved-At: Tue, 14 Apr 2020 13:05:05 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6F706E4C9;
+	Tue, 14 Apr 2020 13:08:02 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9AC036E4C7;
+ Tue, 14 Apr 2020 13:08:01 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id a201so13493045wme.1;
+ Tue, 14 Apr 2020 06:08:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=NTg88EBEg4qOXVBL74JDWDn01n0VKUHWmo8g8ottwjk=;
+ b=doeIn3Si97S/MngUsuOx9N4xLfiWQ81AHOxJsgpJhSAaWdJ2Vx25UzrTmv1oMFjUT5
+ 2QrtYy8fiNH4Kn3zuur6CtddJ+sA9PjIDuvapuo+7hezmgeX1gCLq8q/cvM0dqtWRJ+s
+ RRbl7AO5mYAqbZIYfFOfsLhszvuoM1XdzCh6gHiYb2MIgUpFnlvCr3wmp+TG3kxnoWi2
+ KTfOQAqt+s4VSLVL7pdljX4nIVsSCXJW1iUCV2XueyHuhYle+s3TZXZVNctwVQ/UWr18
+ WrkPmWYC/UlioNHys+m0chulDlp4tIJTjsliPfReuZdcpT6juGkIrPquN6zRthwd3wzu
+ 0ZSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=NTg88EBEg4qOXVBL74JDWDn01n0VKUHWmo8g8ottwjk=;
+ b=a4OXyMo6MvgVHmeZoB0IZNGk8AdVJI9PvYbItiMN7PC1e9J9tqAs2dbaoCvXgI9Sd/
+ 3mHzTB3mpZK3GIgJlaHjfoGON1i6bUVT5WU0X65XOxEnGwloYebqiSXVdXUlEv8g1t6j
+ g7HKSixR6RRJpa+05EVRK3aK0r2khnFRME3k0gmXJFwDUrtsQ6IziwNa/XcSEMY6Zh0Q
+ xZ9EEM5BvfbYnzTVPgq39OmGH39MYxxJR/C0Fys4P+kuLyDkNbUKZnWpF80cBIpTxn6L
+ 3QbNatLcIy9BOLAXmZOK45ADSOCCtzBE2q8CEfm7SIRBtsQKQj2SPBcouAQSfgAi5zaa
+ u8Tg==
+X-Gm-Message-State: AGi0PubljUJcKK+UKeol5NlvKSAgDuxNmPUlfY6n42aUwmJs0HE/8Aps
+ uxmkZ0cy55CcklZpTglBPyxm/E5o84EJONiDXdM=
+X-Google-Smtp-Source: APiQypLRdOptdfBucYqQMnGBtfQiQYTTSA5SWpTYFLPJ+tWQQHwbFT4r0uERcCDlgiqUc8evR7fd9G2UXxUjtwOwvAI=
+X-Received: by 2002:a7b:cc8e:: with SMTP id p14mr23079662wma.70.1586869680226; 
+ Tue, 14 Apr 2020 06:08:00 -0700 (PDT)
+MIME-Version: 1.0
+References: <f4eaf0ca-6cd6-c224-9205-bf64ca533ff5@molgen.mpg.de>
+ <dcc4851e-0ab5-683a-2cf2-687d64a3c9da@molgen.mpg.de>
+ <CADnq5_OXdpEebFY3+kyQb-WEw0Rb6cqoOFKGqgxaigU5hean1g@mail.gmail.com>
+ <20200414082150.GD4149624@kroah.com>
+In-Reply-To: <20200414082150.GD4149624@kroah.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 14 Apr 2020 09:07:49 -0400
+Message-ID: <CADnq5_NCnHFO9kZY-8L34B3uVX5aghXO8+gXNC_cPMOnP7UGAg@mail.gmail.com>
+Subject: Re: [regression 5.7-rc1] System does not power off, just halts
+To: Greg KH <greg@kroah.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,80 +76,60 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel@vivo.com
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, David Airlie <airlied@linux.ie>,
+ X86 ML <x86@kernel.org>, Huang Rui <ray.huang@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Prike Liang <Prike.Liang@amd.com>, regressions@leemhuis.info,
+ "for 3.8" <stable@vger.kernel.org>, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Mengbing Wang <Mengbing.Wang@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On some processors, the / operate will call the compiler`s div lib,
-which is low efficient, We can replace the / operation with shift,
-so that we can replace the call of the division library with one
-shift assembly instruction.
-
-Signed-off-by: Bernard Zhao <bernard@vivo.com>
----
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 4 ++--
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 4 ++--
- 3 files changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-index b205039..66cd078 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
-@@ -175,10 +175,10 @@ static int gmc_v6_0_mc_load_microcode(struct amdgpu_device *adev)
- 	amdgpu_ucode_print_mc_hdr(&hdr->header);
- 
- 	adev->gmc.fw_version = le32_to_cpu(hdr->header.ucode_version);
--	regs_size = le32_to_cpu(hdr->io_debug_size_bytes) / (4 * 2);
-+	regs_size = le32_to_cpu(hdr->io_debug_size_bytes) >> 3;
- 	new_io_mc_regs = (const __le32 *)
- 		(adev->gmc.fw->data + le32_to_cpu(hdr->io_debug_array_offset_bytes));
--	ucode_size = le32_to_cpu(hdr->header.ucode_size_bytes) / 4;
-+	ucode_size = le32_to_cpu(hdr->header.ucode_size_bytes) >> 2;
- 	new_fw_data = (const __le32 *)
- 		(adev->gmc.fw->data + le32_to_cpu(hdr->header.ucode_array_offset_bytes));
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-index 9da9596..ca26d63 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
-@@ -193,10 +193,10 @@ static int gmc_v7_0_mc_load_microcode(struct amdgpu_device *adev)
- 	amdgpu_ucode_print_mc_hdr(&hdr->header);
- 
- 	adev->gmc.fw_version = le32_to_cpu(hdr->header.ucode_version);
--	regs_size = le32_to_cpu(hdr->io_debug_size_bytes) / (4 * 2);
-+	regs_size = le32_to_cpu(hdr->io_debug_size_bytes) >> 3;
- 	io_mc_regs = (const __le32 *)
- 		(adev->gmc.fw->data + le32_to_cpu(hdr->io_debug_array_offset_bytes));
--	ucode_size = le32_to_cpu(hdr->header.ucode_size_bytes) / 4;
-+	ucode_size = le32_to_cpu(hdr->header.ucode_size_bytes) >> 2;
- 	fw_data = (const __le32 *)
- 		(adev->gmc.fw->data + le32_to_cpu(hdr->header.ucode_array_offset_bytes));
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-index 27d83204..295039c 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
-@@ -318,10 +318,10 @@ static int gmc_v8_0_tonga_mc_load_microcode(struct amdgpu_device *adev)
- 	amdgpu_ucode_print_mc_hdr(&hdr->header);
- 
- 	adev->gmc.fw_version = le32_to_cpu(hdr->header.ucode_version);
--	regs_size = le32_to_cpu(hdr->io_debug_size_bytes) / (4 * 2);
-+	regs_size = le32_to_cpu(hdr->io_debug_size_bytes) >> 3;
- 	io_mc_regs = (const __le32 *)
- 		(adev->gmc.fw->data + le32_to_cpu(hdr->io_debug_array_offset_bytes));
--	ucode_size = le32_to_cpu(hdr->header.ucode_size_bytes) / 4;
-+	ucode_size = le32_to_cpu(hdr->header.ucode_size_bytes) >> 2;
- 	fw_data = (const __le32 *)
- 		(adev->gmc.fw->data + le32_to_cpu(hdr->header.ucode_array_offset_bytes));
- 
--- 
-2.7.4
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVHVlLCBBcHIgMTQsIDIwMjAgYXQgNDoyMSBBTSBHcmVnIEtIIDxncmVnQGtyb2FoLmNvbT4g
+d3JvdGU6Cj4KPiBPbiBNb24sIEFwciAxMywgMjAyMCBhdCAwMTo0ODo1OFBNIC0wNDAwLCBBbGV4
+IERldWNoZXIgd3JvdGU6Cj4gPiBPbiBNb24sIEFwciAxMywgMjAyMCBhdCAxOjQ3IFBNIFBhdWwg
+TWVuemVsIDxwbWVuemVsQG1vbGdlbi5tcGcuZGU+IHdyb3RlOgo+ID4gPgo+ID4gPiBEZWFyIFBy
+aWtlLCBkZWFyIEFsZXgsIGRlYXIgTGludXggZm9sa3MsCj4gPiA+Cj4gPiA+Cj4gPiA+IEFtIDEz
+LjA0LjIwIHVtIDEwOjQ0IHNjaHJpZWIgUGF1bCBNZW56ZWw6Cj4gPiA+Cj4gPiA+ID4gQSByZWdy
+ZXNzaW9uIGJldHdlZW4gY2F1c2VzIGEgc3lzdGVtIHdpdGggdGhlIEFNRCBib2FyZCBNU0kgQjM1
+ME0gTU9SVEFSCj4gPiA+ID4gKE1TLTdBMzcpIHdpdGggYW4gQU1EIFJ5emVuIDMgMjIwMEcgbm90
+IHRvIHBvd2VyIG9mZiBhbnkgbW9yZSBidXQganVzdAo+ID4gPiA+IHRvIGhhbHQuCj4gPiA+ID4K
+PiA+ID4gPiBUaGUgcmVncmVzc2lvbiBpcyBpbnRyb2R1Y2VkIGluIDllYmU1NDIyYWQ2Yy4uYjAz
+MjIyN2M2MjkzLiBJIGFtIGluIHRoZQo+ID4gPiA+IHByb2Nlc3MgdG8gYmlzZWN0IHRoaXMsIGJ1
+dCBtYXliZSBzb21lYm9keSBhbHJlYWR5IGhhcyBhbiBpZGVhLgo+ID4gPgo+ID4gPiBJIGZvdW5k
+IHRoZSBFYXN0ZXIgZWdnOgo+ID4gPgo+ID4gPiA+IGNvbW1pdCA0ODdlY2ExMWEzMjFlZjMzYmNm
+NGNhNWFkYjNjMGM0OTU0ZGIxYjU4Cj4gPiA+ID4gQXV0aG9yOiBQcmlrZSBMaWFuZyA8UHJpa2Uu
+TGlhbmdAYW1kLmNvbT4KPiA+ID4gPiBEYXRlOiAgIFR1ZSBBcHIgNyAyMDoyMToyNiAyMDIwICsw
+ODAwCj4gPiA+ID4KPiA+ID4gPiAgICAgZHJtL2FtZGdwdTogZml4IGdmeCBoYW5nIGR1cmluZyBz
+dXNwZW5kIHdpdGggdmlkZW8gcGxheWJhY2sgKHYyKQo+ID4gPiA+Cj4gPiA+ID4gICAgIFRoZSBz
+eXN0ZW0gd2lsbCBiZSBoYW5nIHVwIGR1cmluZyBTMyBzdXNwZW5kIGJlY2F1c2Ugb2YgU01VIGlz
+IHBlbmRpbmcKPiA+ID4gPiAgICAgZm9yIEdDIG5vdCByZXNwb3NlIHRoZSByZWdpc3RlciBDUF9I
+UURfQUNUSVZFIGFjY2VzcyByZXF1ZXN0LlRoaXMgaXNzdWUKPiA+ID4gPiAgICAgcm9vdCBjYXVz
+ZSBvZiBhY2Nlc3NpbmcgdGhlIEdDIHJlZ2lzdGVyIHVuZGVyIGVudGVyIEdGWCBDR0dQRyBhbmQg
+Y2FuCj4gPiA+ID4gICAgIGJlIGZpeGVkIGJ5IGRpc2FibGUgR0ZYIENHUEcgYmVmb3JlIHBlcmZv
+cm0gc3VzcGVuZC4KPiA+ID4gPgo+ID4gPiA+ICAgICB2MjogVXNlIGRpc2FibGUgdGhlIEdGWCBD
+R1BHIGluc3RlYWQgb2YgUkxDIHNhZmUgbW9kZSBndWFyZC4KPiA+ID4gPgo+ID4gPiA+ICAgICBT
+aWduZWQtb2ZmLWJ5OiBQcmlrZSBMaWFuZyA8UHJpa2UuTGlhbmdAYW1kLmNvbT4KPiA+ID4gPiAg
+ICAgVGVzdGVkLWJ5OiBNZW5nYmluZyBXYW5nIDxNZW5nYmluZy5XYW5nQGFtZC5jb20+Cj4gPiA+
+ID4gICAgIFJldmlld2VkLWJ5OiBIdWFuZyBSdWkgPHJheS5odWFuZ0BhbWQuY29tPgo+ID4gPiA+
+ICAgICBTaWduZWQtb2ZmLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5j
+b20+Cj4gPiA+ID4gICAgIENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4gPiA+Cj4gPiA+IEl0
+IHJldmVydHMgY2xlYW5seSBvbiB0b3Agb2YgNS43LXJjMSwgYW5kIHRoaXMgZml4ZXMgdGhlIGlz
+c3VlLgo+ID4gPgo+ID4gPiBHcmVnLCBwbGVhc2UgZG8gbm90IGFwcGx5IHRoaXMgdG8gdGhlIHN0
+YWJsZSBzZXJpZXMuIFRoZSBjb21taXQgbWVzc2FnZQo+ID4gPiBkb2VzbuKAmXQgZXZlbiByZWZl
+cmVuY2UgYSBpc3N1ZS9idWcgcmVwb3J0LCBhbmQgZG9lc27igJl0IGdpdmUgYSBkZXRhaWxlZAo+
+ID4gPiBwcm9ibGVtIGRlc2NyaXB0aW9uLiBXaGF0IHN5c3RlbSBpcyBpdD8KPiA+ID4KPiA+ID4g
+RGF2ZSwgQWxleCwgaG93IHRvIHByb2NlZWQ/IFJldmVydD8gSSBjcmVhdGVkIGlzc3VlIDEwOTQg
+WzFdLgo+ID4KPiA+IEFscmVhZHkgZml4ZWQ6Cj4gPiBodHRwczovL3BhdGNod29yay5mcmVlZGVz
+a3RvcC5vcmcvcGF0Y2gvMzYxMTk1Lwo+Cj4gQW55IHJlYXNvbiB0aGF0IGRvZXNuJ3QgaGF2ZSBh
+IGNjOiBzdGFibGUgdGFnIG9uIGl0Pwo+Cj4gQW5kIGlzIGl0IGNvbW1pdHRlZCB0byBhbnkgdHJl
+ZSBhdCB0aGUgbW9tZW50PwoKSXQncyBnb2luZyBvdXQgaW4gbXkgLWZpeGVzIHB1bGwgdGhpcyB3
+ZWVrIHdpdGggYSBzdGFibGUgdGFnLgoKQWxleAoKPgo+IHRoYW5rcywKPgo+IGdyZWcgay1oCl9f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFp
+bGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
