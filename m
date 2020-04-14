@@ -2,76 +2,104 @@ Return-Path: <SRS0=Gn/P=56=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 890AFC2BA19
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 14:29:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B82BC2BA19
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 14:33:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5B71A2075E
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 14:29:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F38DB2064A
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 14:33:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kd5qfu8Y"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5B71A2075E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZKUXMvFv"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F38DB2064A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEBEA6E1BE;
-	Tue, 14 Apr 2020 14:29:38 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0538A6E17C;
- Tue, 14 Apr 2020 14:29:37 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id k11so13951442wrp.5;
- Tue, 14 Apr 2020 07:29:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=NN/N/vC8yy9yn1dSzJq7yVqBlSa2o6+uOJvDXpLTAQU=;
- b=kd5qfu8YUtzzvDO+htmr4EI98+O8OO7zGM3RPGd2gNW/ICIyQ73uMilQJ4V+vubY+b
- DgX4ujHO4brJz1ZQspIqqP8BW6M1hx0UBPI3IpAKVyOlhdkTXd+KZ0NoTlHZvfmkKInA
- kdrqtVCm9qDKuIK3VwTYrfc+mdHLe3WBVSjR62ulMId/gIwFtT3/OFtAcct19h/9/CND
- KDPCImWv+1J8YMiu25vHssP+R79lHFR1MJAstmHLphbTdC38L4bg5gdN1RvmjAc9y/SQ
- XoLFD6f4b6hnr6ZAarf8MqaJSNIhGllnWgZcafYnMjhvRb9fKcf5fryRxD+Tcu0gj8yt
- HOCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=NN/N/vC8yy9yn1dSzJq7yVqBlSa2o6+uOJvDXpLTAQU=;
- b=RafvfOhZ7NSI2NXYCDcFp/8iqFFQMMieUoHvWD4pyMXr1+ZSdfNqvYU6v1V6clGorZ
- tARwsiuOjDRl247PdMTGJtHSkyKgPsQtC7XRt+eoLwx3wP+HTN6EdJPC0ovA/A/kxhma
- ke2zPryzicGX7rJa0y4NlWP42JbnB9W7n1optE0XhsaHAdCSyMgZQwk7ESJECZjb792K
- eYDCfziUq9rwKPuitsWOJQyrgwmZbjv+dAzwR9KQ8yc3Vs6FIxZ3Ev15wmuFGnd9havT
- FM8AHZvnEF5sfDz5+EjNsSLvxutMGPUJx95NUsE6BvOS2n0ErCMotWqNoL4ea+MVIsUD
- EaUA==
-X-Gm-Message-State: AGi0PuY5bKjDVcBIZf/uVOMCaOhzLuvN48yxMId33mqzKNPHK5McOJr2
- GBUrg25LaVVU0jb0GIYFp7noURzTaqzSb2AkKUs=
-X-Google-Smtp-Source: APiQypK7DVeTHvRVNA7KWmL1h/VYKQr9zjeXnI1NBaki6BszL6NTZkquqm2KSKdABHLA0JjFyUi7Zz3UL1kRuKfcT24=
-X-Received: by 2002:a5d:50c9:: with SMTP id f9mr5299226wrt.191.1586874575556; 
- Tue, 14 Apr 2020 07:29:35 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C0076E165;
+	Tue, 14 Apr 2020 14:33:34 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760042.outbound.protection.outlook.com [40.107.76.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 411616E165
+ for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2020 14:33:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YkiTeaFkf3kLpZx59W4w1Rd6ZDEZ/d5tIqNIBSa6l9bSLV+I4B0BZH2wuvcIgvXEqDOqW1dWJHI3FGL6Y2DQ4OGJwx8sTNkc32dNeoRNZwSrhJZb7s0nYYEBobQYRFnFIPffHf1GZdiJAu3lxcdXBffI1QLP0IB4l8CsmxoyMWZNfPglS1vuVDD3uCxgJIojvBSODu0Po85ULOMZ+PjDZD4qHvrvzj2u/MwygA5cJjXAnS++A9Wvoaftn58EO0xzKY2vHStJgO9yEKLqK/4/p/Zog48DcyOyj6NithhVDZhib0oNUdiLHZqVNfYCHUctbQfkRK270rceTcCq3gtj4Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AkLa0bw+hhRAjwi8Z+vaTJpUZNiuymus5mWdPRUePnI=;
+ b=lc6n2Jm1noWB4ggb40YWJ+DHWyN7vP2RLvBD098mFss3INKX0JeWJxAlcdQl/sKOJnPOLw7+guEkZ+qNeAwcNZYQkArOFijj6a8a5BW0umMfU54RSW466ebIAP0aBn1V3f6Rs2PRSqZE9S7Y26MPLtuKSyRBYy4PDHjbI+kbMXM5PHoupj6QEFr9lpG8i1KRWfEjsOauRQXy+I9OtrZRzBRPkNBrT3+3TJrZIX9FpkeglJbXQKIXNMnxwnkQdGz2P9U8nPbseGjqwqcaWAuo/tv4bndQIMP8BZKG/AOb+UgXJyPw6Tx3pqE8wEUVfBjEg1Ksa7gcdJyPz9iXX5OFwg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=AkLa0bw+hhRAjwi8Z+vaTJpUZNiuymus5mWdPRUePnI=;
+ b=ZKUXMvFvQOAFy7xd2fnhBscYYDWXWzfpQLs8P7LxjSDVrr5Iry36mFCKg1vlJZKkrrJ6CDXp5YMT47wsThQtRceruGs4qa2m4q9m7PQFZlNJrKrN3y7+6rFxCcdX5107iKm1zH9arUnxM2wjOwK3DY6pjB7zyHM8H2TPuvDl6e8=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Andrey.Grodzovsky@amd.com; 
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com (2603:10b6:5:2a8::7) by
+ DM6PR12MB2988.namprd12.prod.outlook.com (2603:10b6:5:3d::23) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2900.26; Tue, 14 Apr 2020 14:33:32 +0000
+Received: from DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::943d:4dcf:f18e:5df]) by DM6PR12MB4340.namprd12.prod.outlook.com
+ ([fe80::943d:4dcf:f18e:5df%2]) with mapi id 15.20.2900.028; Tue, 14 Apr 2020
+ 14:33:32 +0000
+Subject: Re: [PATCH] drm/scheduler: fix drm_sched_get_cleanup_job
+To: Kent Russell <kent.russell@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20200414142217.5736-1-kent.russell@amd.com>
+From: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
+Message-ID: <404ae73e-fb1c-bbcf-5037-4afbc2f66410@amd.com>
+Date: Tue, 14 Apr 2020 10:33:29 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
+In-Reply-To: <20200414142217.5736-1-kent.russell@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: YTOPR0101CA0067.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::44) To DM6PR12MB4340.namprd12.prod.outlook.com
+ (2603:10b6:5:2a8::7)
 MIME-Version: 1.0
-References: <20200226190152.16131-1-Kenny.Ho@amd.com>
- <CAOWid-eyMGZfOyfEQikwCmPnKxx6MnTm17pBvPeNpgKWi0xN-w@mail.gmail.com>
- <20200324184633.GH162390@mtj.duckdns.org>
- <CAOWid-cS-5YkFBLACotkZZCH0RSjHH94_r3VFH8vEPOubzSpPA@mail.gmail.com>
- <20200413191136.GI60335@mtj.duckdns.org>
- <20200414122015.GR3456981@phenom.ffwll.local>
- <CAOWid-f-XWyg0o3znH28xYndZ0OMzWfv3OOuWw08iJDKjrqFGA@mail.gmail.com>
- <CAKMK7uEs5QvUrxKcTFksO30D+x=XJnV+_TA-ebawcihtLqDG0Q@mail.gmail.com>
- <CAOWid-fwEOk+4CvUAumo=byWpq4vVUoCiwW1N6F-0aEd6G7d4A@mail.gmail.com>
- <CAKMK7uHwX9NbGb1ptnP=CAwxDayfM_z9kvFMMb=YiH+ynjNqKQ@mail.gmail.com>
- <CAOWid-dJckd8kV57MKNA_W83SN4OHnOGPURL7oOm-SqoYRLX=w@mail.gmail.com>
- <CAKMK7uGWxE-gDa25mi4EtLqPKZZfacm0VhTem=StHAQABRAkUQ@mail.gmail.com>
-In-Reply-To: <CAKMK7uGWxE-gDa25mi4EtLqPKZZfacm0VhTem=StHAQABRAkUQ@mail.gmail.com>
-From: Kenny Ho <y2kenny@gmail.com>
-Date: Tue, 14 Apr 2020 10:29:24 -0400
-Message-ID: <CAOWid-eaASFFdA5zLxaLO72OGsUVz_BgM-sGP2OQykXCzizmnw@mail.gmail.com>
-Subject: Re: [PATCH v2 00/11] new cgroup controller for gpu/drm subsystem
-To: Daniel Vetter <daniel@ffwll.ch>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.0.10] (99.228.232.87) by
+ YTOPR0101CA0067.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::44) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.15 via Frontend
+ Transport; Tue, 14 Apr 2020 14:33:31 +0000
+X-Originating-IP: [99.228.232.87]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: e3ea95cc-e48d-4936-d78b-08d7e080ce34
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2988:|DM6PR12MB2988:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB298836E4C7C5773BBC696D28EADA0@DM6PR12MB2988.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:283;
+X-Forefront-PRVS: 0373D94D15
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4340.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(366004)(39860400002)(396003)(376002)(136003)(346002)(956004)(478600001)(6486002)(2906002)(186003)(31696002)(16526019)(31686004)(316002)(16576012)(36756003)(86362001)(66476007)(66574012)(8676002)(8936002)(81156014)(52116002)(53546011)(4326008)(4744005)(26005)(2616005)(5660300002)(66556008)(66946007);
+ DIR:OUT; SFP:1101; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: oYVeeLPBwbgum6SUmt8jV3kiR2M6NNg6qxPMpdX3b5SUge0HiukUOnsZDSE1JdmfGPD7WXrF9sG1qcv4bcoj+vKY7qDxYbCzQpA0yRwGD3Vy9ZMAbnA+nWM5JwTMo4DbxPsHpXSblsZz9GhFTMKDDO4LjX+zFSgJLo/ZkjeE1kze8xFfybCbUac85pqe3/Qo8yJ3leS9sATwpFpX+xDNcLK2MGjF+0HIGgvW/HTa1ccdTV6bGoX2v8aM+7xAICgKZfEQ/hlmgwkBQZ7P+R2xxKX4wX7orEbDzbGVXVlM+xeFwQYWNwF+pddOAukJbW4WPx1iaWxXu+Ch46XzVOj0NVPriQf52b9v2GeTTHesa/GTvh837Zs608vyRNXNeHvjzlGuoUHnIW7FTzQACEAZZ4xtej51oZyBFXNk78tFEwhvdHZU4P83BimNoxZNbtvK
+X-MS-Exchange-AntiSpam-MessageData: YKLBDIJtQE6OCgPSdZ+7qJrhFt+qZG5MOQaSBMfo8H8saUsomeGqcGkO8n7SYdnUYPbctyhz/avYKD95At0LpFB1U7m6w1hqz6ePj1bsi90H+zQ6/625dE4ZBdP3xY8QBnD//VTgSwaeIZuDtny0QQ==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e3ea95cc-e48d-4936-d78b-08d7e080ce34
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Apr 2020 14:33:31.9445 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mNcU2ffJOi0+STQLa83Y78oJHEdwzZBYMhdLeGj0GPrqUPOozsbyvJPhZYdZcKSwRep2ZCf0UR4XQ2WqteeWPQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2988
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,159 +111,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>,
- jsparks@cray.com, dri-devel <dri-devel@lists.freedesktop.org>,
- lkaplan@cray.com, Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Greathouse,
- Joseph" <joseph.greathouse@amd.com>, Tejun Heo <tj@kernel.org>,
- cgroups@vger.kernel.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 14, 2020 at 10:04 AM Daniel Vetter <daniel@ffwll.ch> wrote:
->
-> This has _nothing_ to do with Intel (I think over the past 25 years or
-> so intel has implemented all 4 versions of gpu splitting that I
-> listed, but not entirely sure).
->
-> So again pls less tribal fighting, more collaboration. If you can't do
-> that, let's pick nouveau/nvidia as arbitrary neutral ground.
-
-So are you saying Intel has implemented a form of masking before?  I
-don't think we need to just pick a vendor as a neutral ground.  The
-idea of spatial sharing vs time sharing is not vendor specific... it's
-not even GPU specific.  This is why I asked the two questions below.
-
-> > Perhaps the following questions can help keep the discussion technical:
-> > 1)  Is it possible to implement non-work-conserving distribution of
-> > GPU without spatial sharing?  (If yes, I'd love to hear a suggestion,
-> > if not...question 2.)
-> > 2)  If spatial sharing is required to support GPU HPC use cases, what
-> > would you implement if you have the hardware support today?
->
-> The thing we can currently do in upstream (from how I'm understanding
-> hw) is assign entire PCI devices to containers, so essentially only
-> the entire /dev/dri/* cdev. That works, and it works across all
-> drivers we have in upstream right now.
->
-> Anything more fine-grained I don't think is currently possible,
-> because everyone has a different idea of how to split up gpus. It
-> would be nice to have it, but in upstream, cross-vendor, I'm just not
-> seeing it happen right now.
-
-I understand the reality, but what would you implement to support the
-concept (GPU in HPC, which you said you are not against) if you have
-the hw support today?  How would you support low-jitter/low-latency
-sharing of a single GPU if you have whatever hardware support you need
-today?
-
-Regards,
-Kenny
-
-
-> > On Tue, Apr 14, 2020 at 9:26 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > >
-> > > On Tue, Apr 14, 2020 at 3:14 PM Kenny Ho <y2kenny@gmail.com> wrote:
-> > > >
-> > > > Ok.  I was hoping you can clarify the contradiction between the
-> > > > existance of the spec below and your "not something any other gpu can
-> > > > reasonably support" statement.  I mean, OneAPI is Intel's spec and
-> > > > doesn't that at least make SubDevice support "reasonable" for one more
-> > > > vendor?
-> > > >
-> > > > Partisanship aside, as a drm co-maintainer, do you really not see the
-> > > > need for non-work-conserving way of distributing GPU as a resource?
-> > > > You recognized the latencies involved (although that's really just
-> > > > part of the story... time sharing is never going to be good enough
-> > > > even if your switching cost is zero.)  As a drm co-maintainer, are you
-> > > > suggesting GPU has no place in the HPC use case?
-> > >
-> > >  So I did chat with people and my understanding for how this subdevice
-> > > stuff works is roughly, from least to most fine grained support:
-> > > - Not possible at all, hw doesn't have any such support
-> > > - The hw is actually not a single gpu, but a bunch of chips behind a
-> > > magic bridge/interconnect, and there's a scheduler load-balancing
-> > > stuff and you can't actually run on all "cores" in parallel with one
-> > > compute/3d job. So subdevices just give you some of these cores, but
-> > > from client api pov they're exactly as powerful as the full device. So
-> > > this kinda works like assigning an entire NUMA node, including all the
-> > > cpu cores and memory bandwidth and everything.
-> > > - Hw has multiple "engines" which share resources (like compute cores
-> > > or whatever) behind the scenes. There's no control over how this
-> > > sharing works really, and whether you have guarantees about minimal
-> > > execution resources or not. This kinda works like hyperthreading.
-> > > - Then finally we have the CU mask thing amdgpu has. Which works like
-> > > what you're proposing, works on amd.
-> > >
-> > > So this isn't something that I think we should standardize in a
-> > > resource management framework like cgroups. Because it's a complete
-> > > mess. Note that _all_ the above things (including the "no subdevices"
-> > > one) are valid implementations of "subdevices" in the various specs.
-> > >
-> > > Now on your question on "why was this added to various standards?"
-> > > because opencl has that too (and the rocm thing, and everything else
-> > > it seems). What I heard is that a few people pushed really hard, and
-> > > no one objected hard enough (because not having subdevices is a
-> > > standards compliant implementation), so that's why it happened. Just
-> > > because it's in various standards doesn't mean that a) it's actually
-> > > standardized in a useful fashion and b) something we should just
-> > > blindly adopt.
-> > >
-> > > Also like where exactly did you understand that I'm against gpus in
-> > > HPC uses cases. Approaching this in a slightly less tribal way would
-> > > really, really help to get something landed (which I'd like to see
-> > > happen, personally). Always spinning this as an Intel vs AMD thing
-> > > like you do here with every reply really doesn't help moving this in.
-> > >
-> > > So yeah stricter isolation is something customers want, it's just not
-> > > something we can really give out right now at a level below the
-> > > device.
-> > > -Daniel
-> > >
-> > > >
-> > > > Regards,
-> > > > Kenny
-> > > >
-> > > > On Tue, Apr 14, 2020 at 8:52 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > > >
-> > > > > On Tue, Apr 14, 2020 at 2:47 PM Kenny Ho <y2kenny@gmail.com> wrote:
-> > > > > > On Tue, Apr 14, 2020 at 8:20 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > > > > > My understanding from talking with a few other folks is that
-> > > > > > > the cpumask-style CU-weight thing is not something any other gpu can
-> > > > > > > reasonably support (and we have about 6+ of those in-tree)
-> > > > > >
-> > > > > > How does Intel plan to support the SubDevice API as described in your
-> > > > > > own spec here:
-> > > > > > https://spec.oneapi.com/versions/0.7/oneL0/core/INTRO.html#subdevice-support
-> > > > >
-> > > > > I can't talk about whether future products might or might not support
-> > > > > stuff and in what form exactly they might support stuff or not support
-> > > > > stuff. Or why exactly that's even in the spec there or not.
-> > > > >
-> > > > > Geez
-> > > > > -Daniel
-> > > > > --
-> > > > > Daniel Vetter
-> > > > > Software Engineer, Intel Corporation
-> > > > > +41 (0) 79 365 57 48 - http://blog.ffwll.ch
-> > >
-> > >
-> > >
-> > > --
-> > > Daniel Vetter
-> > > Software Engineer, Intel Corporation
-> > > +41 (0) 79 365 57 48 - http://blog.ffwll.ch
->
->
->
-> --
-> Daniel Vetter
-> Software Engineer, Intel Corporation
-> +41 (0) 79 365 57 48 - http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+UmV2aWV3ZWQtYnk6IEFuZHJleSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29t
+PgoKQW5kcmV5CgpPbiA0LzE0LzIwIDEwOjIyIEFNLCBLZW50IFJ1c3NlbGwgd3JvdGU6Cj4gRnJv
+bTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+Cj4gV2UgYXJl
+IHJhY2luZyB0byBpbml0aWFsaXplIHNjaGVkLT50aHJlYWQgaGVyZSwganVzdCBhbHdheXMgY2hl
+Y2sgdGhlCj4gY3VycmVudCB0aHJlYWQuCj4KPiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS29l
+bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gUmV2aWV3ZWQtYnk6IEtlbnQgUnVzc2Vs
+bCA8a2VudC5ydXNzZWxsQGFtZC5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vc2NoZWR1
+bGVyL3NjaGVkX21haW4uYyB8IDIgKy0KPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigr
+KSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9zY2hlZHVs
+ZXIvc2NoZWRfbWFpbi5jIGIvZHJpdmVycy9ncHUvZHJtL3NjaGVkdWxlci9zY2hlZF9tYWluLmMK
+PiBpbmRleCA4ZTczMWVkMGQ5ZDkuLjJmMzE5MTAyYWU5ZiAxMDA2NDQKPiAtLS0gYS9kcml2ZXJz
+L2dwdS9kcm0vc2NoZWR1bGVyL3NjaGVkX21haW4uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9z
+Y2hlZHVsZXIvc2NoZWRfbWFpbi5jCj4gQEAgLTY3Niw3ICs2NzYsNyBAQCBkcm1fc2NoZWRfZ2V0
+X2NsZWFudXBfam9iKHN0cnVjdCBkcm1fZ3B1X3NjaGVkdWxlciAqc2NoZWQpCj4gICAJICovCj4g
+ICAJaWYgKChzY2hlZC0+dGltZW91dCAhPSBNQVhfU0NIRURVTEVfVElNRU9VVCAmJgo+ICAgCSAg
+ICAhY2FuY2VsX2RlbGF5ZWRfd29yaygmc2NoZWQtPndvcmtfdGRyKSkgfHwKPiAtCSAgICBfX2t0
+aHJlYWRfc2hvdWxkX3Bhcmsoc2NoZWQtPnRocmVhZCkpCj4gKwkgICAga3RocmVhZF9zaG91bGRf
+cGFyaygpKQo+ICAgCQlyZXR1cm4gTlVMTDsKPiAgIAo+ICAgCXNwaW5fbG9jaygmc2NoZWQtPmpv
+Yl9saXN0X2xvY2spOwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpo
+dHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
