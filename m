@@ -2,74 +2,65 @@ Return-Path: <SRS0=Gn/P=56=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7362C2BA19
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 15:01:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D00EFC2BA19
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 18:15:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7382C20768
-	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 15:01:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9D6B720767
+	for <amd-gfx@archiver.kernel.org>; Tue, 14 Apr 2020 18:15:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Uo45K4TI"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7382C20768
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PsNiBJat"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9D6B720767
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21B9689B70;
-	Tue, 14 Apr 2020 15:01:26 +0000 (UTC)
-Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
- [IPv6:2607:f8b0:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 115DD89B70
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2020 15:01:25 +0000 (UTC)
-Received: by mail-ot1-x344.google.com with SMTP id l21so7492989otd.9
- for <amd-gfx@lists.freedesktop.org>; Tue, 14 Apr 2020 08:01:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 114FF6E243;
+	Tue, 14 Apr 2020 18:15:17 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E93C6E113;
+ Tue, 14 Apr 2020 18:15:16 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id d77so14124782wmd.3;
+ Tue, 14 Apr 2020 11:15:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=87uEDRgYBCTZ9ZGhNXT345rhZUziBXz/6VeMrHYuaGA=;
- b=Uo45K4TIq0I/2MTkOMo7tBXwHslmlFNCEPrwQOGU6huiC2UfFPZm8/aA9fEfDGKGPJ
- aoh+PoIHZQ7b/H4Wcg1X0FXPFh9MFmmW92cStC9UklR9JxawoMK043lyrJdNOU4lpVT0
- UDU5qR9LNOuY7628tO8avdsttXnWgVppmtnag=
+ :cc; bh=VclBjPf0G+5Fbq0gaSlTkJ1trKfc494vLUCcFmtZb4c=;
+ b=PsNiBJat77NUlKls3n38NeJLDYLaxdO6QQ6kNr7NquUmAWTr4Xr/gyZ+hbFWU/eXM7
+ 2RULAsbItfI/aUioDQWzlNzU9OwRPaWk6JkOzaTreyYLviOdSSY453B7dw+PDBDHSt5F
+ x+ojvn8taK7Eh5VzTxRhgWytqULvg+MjLbTb5qPvwe3GT/SM9ICpx465II+ZHxlvDEu6
+ EdZu5PKeyOnl92lAJp0VvmNLIhz/DfFnnJXqACQ6ap+4a4nM1nzV/2vePaF6OLLpoPp6
+ VhB8C6nOdPPLhz3JyOYIeW/DRBlSu3OAR06M2NqGsi/j9hp5y8zxBDFL/blKkRX+TQ3S
+ +mhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=87uEDRgYBCTZ9ZGhNXT345rhZUziBXz/6VeMrHYuaGA=;
- b=HhlgOo50WfC7jqt49hrMj5M1Bq8f9EnU2DI0epT0Z10wiMmorvbGLLgzo1MmamQko1
- 61o0baeSNlO6sjdtzkMagqzJcjuJB1vX9/RnLLR+M+9OdcxrRarNvy5zgFfP2StOTCxJ
- R3dZ/y5KIMoR0+DUvrDxX5dBDQ7KCsw75/uiTzq40NQzdO+wl0s6dfs5AQp6CZWpypW6
- AAeh6d0fwOJn9I2Oku7kHmdbPbcTg/csNwoQ0fPHIJOVDskXuKUlFufOMFKMlp8niusy
- 61RZ7SjvAcsQL/5VFUJLxu22YD2mwW3I2Rfk+CB6QSN9EFH4SPJVuYjoUYn5dthIoSKr
- sOSA==
-X-Gm-Message-State: AGi0PuZSoNq7s+7ISrH5UnalBvnAk78ZBaflqY8BizbNorCGvG3oEgMk
- Ez9rfyC4gsPvkN2GUfzMFhONGIcaEkKFyDozGA4v2Q==
-X-Google-Smtp-Source: APiQypLsDckd5C3Ayxm+9gczcKu0ywgbnwPMo0nORZ4NSEMvE7h1rdKcs+sMfl8JmNGvl1EKI0yjchpM+qcVdBJqtOc=
-X-Received: by 2002:a05:6830:1599:: with SMTP id
- i25mr9950851otr.188.1586876483890; 
- Tue, 14 Apr 2020 08:01:23 -0700 (PDT)
+ bh=VclBjPf0G+5Fbq0gaSlTkJ1trKfc494vLUCcFmtZb4c=;
+ b=Yx8E+ShgZQLK9PpUzrQKZkYGhq51wlrufg0w33zTD9CtEEEFMLCpsJtBQ1Uq7ywPwe
+ /J/FgDZXCQx4n84ffzBVptTKK3fbjv6Tlh9BroREUL5TJgYRYbnfjuI7DibHc7hvU64c
+ p4HaTr5XSs/hVSPnAqtjNFmVg4nZ4IovdvPaX1Fgdwi8cd0can2buZUIjeE9Zmb97zTM
+ vrwOEH/p1/1Nu00SECihqy+YhZ+XzHQzHz6CjbgI8hHWxmv9KXfvOZ6yfHVV+n2Y7o3L
+ auk8EyGAP7JcOhmiF7jNppT21wlKdKm3hvtG+4QVr93E6TtyePbO47ZbOxKIdZUFxmN/
+ IsKg==
+X-Gm-Message-State: AGi0PuYvVJS98k9ob3We9e8YwtsMW1nxeXxnBA8+F3i68y598zR7eTvz
+ Q4vd4KcZ2hjBMkq/7cI9pOU+RaIBKQV9EYB6aiw=
+X-Google-Smtp-Source: APiQypLEf8jmLLVAWrEjgPnl0rCghmXeebEJ0OPl3F3M89wXZj0sFLn3oBx6ZCBDgzxk4rui1NHBjDA+ZFAHFVN+3TA=
+X-Received: by 2002:a1c:6344:: with SMTP id x65mr1101168wmb.56.1586888114753; 
+ Tue, 14 Apr 2020 11:15:14 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200226190152.16131-1-Kenny.Ho@amd.com>
- <CAOWid-eyMGZfOyfEQikwCmPnKxx6MnTm17pBvPeNpgKWi0xN-w@mail.gmail.com>
- <20200324184633.GH162390@mtj.duckdns.org>
- <CAOWid-cS-5YkFBLACotkZZCH0RSjHH94_r3VFH8vEPOubzSpPA@mail.gmail.com>
- <20200413191136.GI60335@mtj.duckdns.org>
- <20200414122015.GR3456981@phenom.ffwll.local>
- <CAOWid-f-XWyg0o3znH28xYndZ0OMzWfv3OOuWw08iJDKjrqFGA@mail.gmail.com>
- <CAKMK7uEs5QvUrxKcTFksO30D+x=XJnV+_TA-ebawcihtLqDG0Q@mail.gmail.com>
- <CAOWid-fwEOk+4CvUAumo=byWpq4vVUoCiwW1N6F-0aEd6G7d4A@mail.gmail.com>
- <CAKMK7uHwX9NbGb1ptnP=CAwxDayfM_z9kvFMMb=YiH+ynjNqKQ@mail.gmail.com>
- <CAOWid-dJckd8kV57MKNA_W83SN4OHnOGPURL7oOm-SqoYRLX=w@mail.gmail.com>
- <CAKMK7uGWxE-gDa25mi4EtLqPKZZfacm0VhTem=StHAQABRAkUQ@mail.gmail.com>
- <CAOWid-eaASFFdA5zLxaLO72OGsUVz_BgM-sGP2OQykXCzizmnw@mail.gmail.com>
-In-Reply-To: <CAOWid-eaASFFdA5zLxaLO72OGsUVz_BgM-sGP2OQykXCzizmnw@mail.gmail.com>
-From: Daniel Vetter <daniel@ffwll.ch>
-Date: Tue, 14 Apr 2020 17:01:12 +0200
-Message-ID: <CAKMK7uFhKf+OTDccATmB7UU2DBgGjVThCkaXR09YTjjyMOUbQw@mail.gmail.com>
-Subject: Re: [PATCH v2 00/11] new cgroup controller for gpu/drm subsystem
-To: Kenny Ho <y2kenny@gmail.com>
+References: <1586864113-30682-1-git-send-email-bernard@vivo.com>
+In-Reply-To: <1586864113-30682-1-git-send-email-bernard@vivo.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 14 Apr 2020 14:15:03 -0400
+Message-ID: <CADnq5_Phca3L-HGOQz0DPBoARHgwcJRK_a7-WmeFMPkrPWeOeg@mail.gmail.com>
+Subject: Re: [PATCH] Optimized division operation to shift operation
+To: Bernard Zhao <bernard@vivo.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,207 +72,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Kenny Ho <Kenny.Ho@amd.com>, "Kuehling, Felix" <felix.kuehling@amd.com>,
- jsparks@cray.com, dri-devel <dri-devel@lists.freedesktop.org>,
- lkaplan@cray.com, Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Greathouse,
- Joseph" <joseph.greathouse@amd.com>, Tejun Heo <tj@kernel.org>,
- cgroups@vger.kernel.org,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Sierra <alex.sierra@amd.com>,
+ "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>, Oak Zeng <Oak.Zeng@amd.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ David Airlie <airlied@linux.ie>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, kernel@vivo.com,
+ Huang Rui <ray.huang@amd.com>, Kent Russell <kent.russell@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Sam Ravnborg <sam@ravnborg.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Xiaojie Yuan <xiaojie.yuan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 14, 2020 at 4:29 PM Kenny Ho <y2kenny@gmail.com> wrote:
+On Tue, Apr 14, 2020 at 9:05 AM Bernard Zhao <bernard@vivo.com> wrote:
 >
-> On Tue, Apr 14, 2020 at 10:04 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> >
-> > This has _nothing_ to do with Intel (I think over the past 25 years or
-> > so intel has implemented all 4 versions of gpu splitting that I
-> > listed, but not entirely sure).
-> >
-> > So again pls less tribal fighting, more collaboration. If you can't do
-> > that, let's pick nouveau/nvidia as arbitrary neutral ground.
+> On some processors, the / operate will call the compiler`s div lib,
+> which is low efficient, We can replace the / operation with shift,
+> so that we can replace the call of the division library with one
+> shift assembly instruction.
 >
-> So are you saying Intel has implemented a form of masking before?  I
-> don't think we need to just pick a vendor as a neutral ground.  The
-> idea of spatial sharing vs time sharing is not vendor specific... it's
-> not even GPU specific.  This is why I asked the two questions below.
+> Signed-off-by: Bernard Zhao <bernard@vivo.com>
+
+Applied.  thanks.
+
+Alex
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c | 4 ++--
+>  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c | 4 ++--
+>  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c | 4 ++--
+>  3 files changed, 6 insertions(+), 6 deletions(-)
 >
-> > > Perhaps the following questions can help keep the discussion technical:
-> > > 1)  Is it possible to implement non-work-conserving distribution of
-> > > GPU without spatial sharing?  (If yes, I'd love to hear a suggestion,
-> > > if not...question 2.)
-> > > 2)  If spatial sharing is required to support GPU HPC use cases, what
-> > > would you implement if you have the hardware support today?
-> >
-> > The thing we can currently do in upstream (from how I'm understanding
-> > hw) is assign entire PCI devices to containers, so essentially only
-> > the entire /dev/dri/* cdev. That works, and it works across all
-> > drivers we have in upstream right now.
-> >
-> > Anything more fine-grained I don't think is currently possible,
-> > because everyone has a different idea of how to split up gpus. It
-> > would be nice to have it, but in upstream, cross-vendor, I'm just not
-> > seeing it happen right now.
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> index b205039..66cd078 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+> @@ -175,10 +175,10 @@ static int gmc_v6_0_mc_load_microcode(struct amdgpu_device *adev)
+>         amdgpu_ucode_print_mc_hdr(&hdr->header);
 >
-> I understand the reality, but what would you implement to support the
-> concept (GPU in HPC, which you said you are not against) if you have
-> the hw support today?  How would you support low-jitter/low-latency
-> sharing of a single GPU if you have whatever hardware support you need
-> today?
-
-Whatever works on my gpu.
-
-But there's a huge difference between what I can do for Intel, with my
-Intel hat on, and ship that on some random intel-only repo or DKMS.
-And what makes sense to push to upstream, because on upstream it needs
-to be cross vendor and have reasonably clear semantics so that admins
-understand it no matter whether you plug in an amd, nvidia or whatever
-else gpu.
-
-Yes this sucks, but as long as all the hw vendors insist on
-differentiating here there's not much we can do. Maybe in the future
-the VF stuff might help, but I'm not super hopeful that's actually
-going to happen all that well. And the VF stuff at least works the
-same way as what we currently can do already, with assigning an entire
-/dev/dri/render* node to a container.
-
-If you want more fine-grained then you (as a user) need to have
-containers for amd, and different container isolation for nvidia, and
-different container isolation for intel, and different container
-isolation for $next_vendor, and so on. We can't just wish that there's
-a standard way to manage this when there isn't. And merging
-non-standard ways to split up gpus with cgroups, one for each gpu
-vendor (generation maybe even?) just isn't going to work in upstream.
-
-And really that's not a huge deal, because on the userspace side for
-HPC it's the exact same sorry state of affairs, with cuda, rocm and
-the oneapie effort from intel (not counting a bunch of things various
-vendors tried to pull off on the soc side of things, there's even more
-fun there). Standardizing the kernel management while you still need
-to have different container images (these userspace generally have a
-really hard time co-existing) isn't solving any real-world user
-problems.
-
-So yeah it sucks if you're a gpu compute user in some kind of server
-setting :-/ And there's not really much I can do to fix this, except
-tell vendors that everyone doing their own thing wont work (in
-upstream, it'll work totally in all the vendor driver trees and
-stacks, can't stop that).
--Daniel
-
-> Regards,
-> Kenny
+>         adev->gmc.fw_version = le32_to_cpu(hdr->header.ucode_version);
+> -       regs_size = le32_to_cpu(hdr->io_debug_size_bytes) / (4 * 2);
+> +       regs_size = le32_to_cpu(hdr->io_debug_size_bytes) >> 3;
+>         new_io_mc_regs = (const __le32 *)
+>                 (adev->gmc.fw->data + le32_to_cpu(hdr->io_debug_array_offset_bytes));
+> -       ucode_size = le32_to_cpu(hdr->header.ucode_size_bytes) / 4;
+> +       ucode_size = le32_to_cpu(hdr->header.ucode_size_bytes) >> 2;
+>         new_fw_data = (const __le32 *)
+>                 (adev->gmc.fw->data + le32_to_cpu(hdr->header.ucode_array_offset_bytes));
 >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> index 9da9596..ca26d63 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+> @@ -193,10 +193,10 @@ static int gmc_v7_0_mc_load_microcode(struct amdgpu_device *adev)
+>         amdgpu_ucode_print_mc_hdr(&hdr->header);
 >
-> > > On Tue, Apr 14, 2020 at 9:26 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > >
-> > > > On Tue, Apr 14, 2020 at 3:14 PM Kenny Ho <y2kenny@gmail.com> wrote:
-> > > > >
-> > > > > Ok.  I was hoping you can clarify the contradiction between the
-> > > > > existance of the spec below and your "not something any other gpu can
-> > > > > reasonably support" statement.  I mean, OneAPI is Intel's spec and
-> > > > > doesn't that at least make SubDevice support "reasonable" for one more
-> > > > > vendor?
-> > > > >
-> > > > > Partisanship aside, as a drm co-maintainer, do you really not see the
-> > > > > need for non-work-conserving way of distributing GPU as a resource?
-> > > > > You recognized the latencies involved (although that's really just
-> > > > > part of the story... time sharing is never going to be good enough
-> > > > > even if your switching cost is zero.)  As a drm co-maintainer, are you
-> > > > > suggesting GPU has no place in the HPC use case?
-> > > >
-> > > >  So I did chat with people and my understanding for how this subdevice
-> > > > stuff works is roughly, from least to most fine grained support:
-> > > > - Not possible at all, hw doesn't have any such support
-> > > > - The hw is actually not a single gpu, but a bunch of chips behind a
-> > > > magic bridge/interconnect, and there's a scheduler load-balancing
-> > > > stuff and you can't actually run on all "cores" in parallel with one
-> > > > compute/3d job. So subdevices just give you some of these cores, but
-> > > > from client api pov they're exactly as powerful as the full device. So
-> > > > this kinda works like assigning an entire NUMA node, including all the
-> > > > cpu cores and memory bandwidth and everything.
-> > > > - Hw has multiple "engines" which share resources (like compute cores
-> > > > or whatever) behind the scenes. There's no control over how this
-> > > > sharing works really, and whether you have guarantees about minimal
-> > > > execution resources or not. This kinda works like hyperthreading.
-> > > > - Then finally we have the CU mask thing amdgpu has. Which works like
-> > > > what you're proposing, works on amd.
-> > > >
-> > > > So this isn't something that I think we should standardize in a
-> > > > resource management framework like cgroups. Because it's a complete
-> > > > mess. Note that _all_ the above things (including the "no subdevices"
-> > > > one) are valid implementations of "subdevices" in the various specs.
-> > > >
-> > > > Now on your question on "why was this added to various standards?"
-> > > > because opencl has that too (and the rocm thing, and everything else
-> > > > it seems). What I heard is that a few people pushed really hard, and
-> > > > no one objected hard enough (because not having subdevices is a
-> > > > standards compliant implementation), so that's why it happened. Just
-> > > > because it's in various standards doesn't mean that a) it's actually
-> > > > standardized in a useful fashion and b) something we should just
-> > > > blindly adopt.
-> > > >
-> > > > Also like where exactly did you understand that I'm against gpus in
-> > > > HPC uses cases. Approaching this in a slightly less tribal way would
-> > > > really, really help to get something landed (which I'd like to see
-> > > > happen, personally). Always spinning this as an Intel vs AMD thing
-> > > > like you do here with every reply really doesn't help moving this in.
-> > > >
-> > > > So yeah stricter isolation is something customers want, it's just not
-> > > > something we can really give out right now at a level below the
-> > > > device.
-> > > > -Daniel
-> > > >
-> > > > >
-> > > > > Regards,
-> > > > > Kenny
-> > > > >
-> > > > > On Tue, Apr 14, 2020 at 8:52 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > > > >
-> > > > > > On Tue, Apr 14, 2020 at 2:47 PM Kenny Ho <y2kenny@gmail.com> wrote:
-> > > > > > > On Tue, Apr 14, 2020 at 8:20 AM Daniel Vetter <daniel@ffwll.ch> wrote:
-> > > > > > > > My understanding from talking with a few other folks is that
-> > > > > > > > the cpumask-style CU-weight thing is not something any other gpu can
-> > > > > > > > reasonably support (and we have about 6+ of those in-tree)
-> > > > > > >
-> > > > > > > How does Intel plan to support the SubDevice API as described in your
-> > > > > > > own spec here:
-> > > > > > > https://spec.oneapi.com/versions/0.7/oneL0/core/INTRO.html#subdevice-support
-> > > > > >
-> > > > > > I can't talk about whether future products might or might not support
-> > > > > > stuff and in what form exactly they might support stuff or not support
-> > > > > > stuff. Or why exactly that's even in the spec there or not.
-> > > > > >
-> > > > > > Geez
-> > > > > > -Daniel
-> > > > > > --
-> > > > > > Daniel Vetter
-> > > > > > Software Engineer, Intel Corporation
-> > > > > > +41 (0) 79 365 57 48 - http://blog.ffwll.ch
-> > > >
-> > > >
-> > > >
-> > > > --
-> > > > Daniel Vetter
-> > > > Software Engineer, Intel Corporation
-> > > > +41 (0) 79 365 57 48 - http://blog.ffwll.ch
-> >
-> >
-> >
-> > --
-> > Daniel Vetter
-> > Software Engineer, Intel Corporation
-> > +41 (0) 79 365 57 48 - http://blog.ffwll.ch
-
-
-
--- 
-Daniel Vetter
-Software Engineer, Intel Corporation
-+41 (0) 79 365 57 48 - http://blog.ffwll.ch
+>         adev->gmc.fw_version = le32_to_cpu(hdr->header.ucode_version);
+> -       regs_size = le32_to_cpu(hdr->io_debug_size_bytes) / (4 * 2);
+> +       regs_size = le32_to_cpu(hdr->io_debug_size_bytes) >> 3;
+>         io_mc_regs = (const __le32 *)
+>                 (adev->gmc.fw->data + le32_to_cpu(hdr->io_debug_array_offset_bytes));
+> -       ucode_size = le32_to_cpu(hdr->header.ucode_size_bytes) / 4;
+> +       ucode_size = le32_to_cpu(hdr->header.ucode_size_bytes) >> 2;
+>         fw_data = (const __le32 *)
+>                 (adev->gmc.fw->data + le32_to_cpu(hdr->header.ucode_array_offset_bytes));
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> index 27d83204..295039c 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+> @@ -318,10 +318,10 @@ static int gmc_v8_0_tonga_mc_load_microcode(struct amdgpu_device *adev)
+>         amdgpu_ucode_print_mc_hdr(&hdr->header);
+>
+>         adev->gmc.fw_version = le32_to_cpu(hdr->header.ucode_version);
+> -       regs_size = le32_to_cpu(hdr->io_debug_size_bytes) / (4 * 2);
+> +       regs_size = le32_to_cpu(hdr->io_debug_size_bytes) >> 3;
+>         io_mc_regs = (const __le32 *)
+>                 (adev->gmc.fw->data + le32_to_cpu(hdr->io_debug_array_offset_bytes));
+> -       ucode_size = le32_to_cpu(hdr->header.ucode_size_bytes) / 4;
+> +       ucode_size = le32_to_cpu(hdr->header.ucode_size_bytes) >> 2;
+>         fw_data = (const __le32 *)
+>                 (adev->gmc.fw->data + le32_to_cpu(hdr->header.ucode_array_offset_bytes));
+>
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
