@@ -2,118 +2,112 @@ Return-Path: <SRS0=+yFv=57=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.4 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-4.9 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,T_KAM_HTML_FONT_INVALID
-	autolearn=no autolearn_force=no version=3.4.0
+	MIME_HTML_MOSTLY,MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ED1D6C2BA19
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2020 15:02:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AA07EC2BA19
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2020 15:26:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 946AE2076A
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2020 15:02:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 79BFA2076A
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2020 15:26:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="09HEj6Gz"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 946AE2076A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="CG+vYNcT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79BFA2076A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37BD96E9FC;
-	Wed, 15 Apr 2020 15:02:08 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750049.outbound.protection.outlook.com [40.107.75.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 273186E9E8
- for <amd-gfx@lists.freedesktop.org>; Wed, 15 Apr 2020 15:02:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FB896E0EE;
+	Wed, 15 Apr 2020 15:26:42 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2072.outbound.protection.outlook.com [40.107.94.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6220E6E0EE
+ for <amd-gfx@lists.freedesktop.org>; Wed, 15 Apr 2020 15:26:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G5yaH5sv7mBeM9N8uS354k0fATgxVotE1kKh2ZnCxZqG6SfZFOVbYaXniISZAEB47fL4IL/GMKSWBmtqTS0dNUMwUHT6MgoLnfpw7MvfnNayr2XSz+MOoY9RzqH0ocWrFrdqYkqlrUTSaRU6l8dinpcH4sdGolgb8pzCODqKQY9zS62wk2zi3lZ01AYKVaIvlSx+r4+PdEYAFxf2xPqM7LYWY5Ha4861dhdAY3JrM5IQR5JIIHLB75a04m8HlG4uey+FR5PfYJdADxJh160ob7j2NJ2o1G2Pc+hBDwk8qRqNlX4+lWdld+BOy0/uwfAKGU7M95R57RAPKfw+oVguKQ==
+ b=MiJcmbrecEgecvWPokMpY6TErE/oQ6f5MzoBshjflGT9ELqELxQ+uE0dIyLxpOXQbZjGQv+AyFRIQQGfvIhmQqLReRY/Tcz1BY+Sc+dF9LXt3xyRCjCloA/VQb96idko/ayVA8Myt0DHs2ImU2a3nB+ar73diYRGDIWwZkbWjDbBIPEJUbOZMDp2ZjIig2+cuOU4139Kwspq1dPEwUCtBw05ZEXlLkoxwAmxF5tFtCyp0PBn3EOBZ7I6TVNN9EtOnEv+TGhIlX3ma4NIB+9hcPtXcOFoK/Qyamd7GGmEpQTgngubj5yCezUFArLsgoobAPgeTSk9EQ9rg+/mFpZ3bA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YojnLLuTX5RW1k1BOYVby+gH43rlk12E/siX68XeX/M=;
- b=ELtgzFaEm5Sez/mgoI8tVTMcs97iOvGVIKrggBjL4MfRp9k/wBaCB0mrxPg0MTFTGPhZZ+pu1RMI+jJOK2bIJeAfYw5B6WWiDncw4hcbRmrscf3hKvKOPtCaxRW9hxDv3wYaWJO83fygbEBbUC/6Og7jYPqmvAWHGQHOQ+4/0a6jPiozBEgyWEmS/WUK2+KULokuYDbsgiax3+7YqElodCLMzYZrveYNBFuSoxRtkElVn2V2MYflD82FdnSil4QW8dnotyRibH1ShKituWxUtG2PzLZCPnwsf361egL7eeA0SDscOoXUu8jURebJP1xz8AE1t3XeUd1HaF5TTvrSsw==
+ bh=K+V4WQsevsR3sR3OJc2rr+ZR1nSIYb6ORXY76NHaf0k=;
+ b=lTSx60lmTrme+iTqjkLJtFdzFByDaycZzjU573nivn6Yj1hAfK5eeNK3MBHVTTPrPZqdn2L+mE42PRzBLqOo+X3vQ/ORkRoKaHpc9gs0t7h28alITJxahRz/U7EuVJWpKD7cjPc0q1k5syWzoXlvxsTrnfST1kavTxkruAjOyR3/XUASEow5oDI8DWJ7LDeXIE0bKghGOmNhsypp68xgRhaxTCsWBEPY+JdW+lJjKjmlsm560GyJbwTvDbauiN0sQx2M+Cd47IpY9ZGxTtvcAOxOIHLaETWRYx6zWrIpkvTnh2V+ODHziK976KF4sHLij5i2QSK3DS49ZBBbG6QOxQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YojnLLuTX5RW1k1BOYVby+gH43rlk12E/siX68XeX/M=;
- b=09HEj6GzsWPPA+EshEC3aysDspXtiXRsxE0M6PDmBpBRBawBGoiw67uKHjfpiof6ly5N6VbCZap78akid+axIy9Vxu/JDnXAYQOZQV8G7bwJ0KGn7HdkuhbJrXlK8HwRF2TB+dMAtmfrEq6SSA6/N1SC9M20MXxa/7YL9p9Vw4Y=
+ bh=K+V4WQsevsR3sR3OJc2rr+ZR1nSIYb6ORXY76NHaf0k=;
+ b=CG+vYNcTkq+OOw1lBO3ZXwu9OABMQTYlq3sn3Q0hkfqCo1BmuKX2nI7PyFho0W6DEz1gFCP6Vfew+bk1FRbkyAHFlJhRDsR45YTEVi9TFsPmGq5ZRSxjZFmpthCDAbsQnwTP3kfFEya1ONaJ+Bb89tsqwRPEeubSVglDzUudf+I=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Felix.Kuehling@amd.com; 
 Received: from SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
- by SN1PR12MB2573.namprd12.prod.outlook.com (2603:10b6:802:2b::21)
+ by SN1PR12MB2493.namprd12.prod.outlook.com (2603:10b6:802:2d::30)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.24; Wed, 15 Apr
- 2020 15:02:04 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.25; Wed, 15 Apr
+ 2020 15:26:40 +0000
 Received: from SN1PR12MB2414.namprd12.prod.outlook.com
  ([fe80::38ef:1510:9525:f806]) by SN1PR12MB2414.namprd12.prod.outlook.com
  ([fe80::38ef:1510:9525:f806%7]) with mapi id 15.20.2900.028; Wed, 15 Apr 2020
- 15:02:04 +0000
-From: "Kuehling, Felix" <Felix.Kuehling@amd.com>
-To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Kim, Jonathan"
- <Jonathan.Kim@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH] Revert "drm/amdgpu: use the BAR if possible in
- amdgpu_device_vram_access v2"
-Thread-Topic: [PATCH] Revert "drm/amdgpu: use the BAR if possible in
- amdgpu_device_vram_access v2"
-Thread-Index: AQHWEcBDjmf7bCaARkqoSlxoZNmgcKh4pBqAgAAHvgCAAASbgIAAAxkAgAABSwCAAD2WgIAAIQaAgADD5YCAABtygIAAE0sAgABAjf8=
-Date: Wed, 15 Apr 2020 15:02:04 +0000
-Message-ID: <SN1PR12MB2414C7A4F1A0133BB0AE3A4492DB0@SN1PR12MB2414.namprd12.prod.outlook.com>
-References: <20200413182026.2561-1-kent.russell@amd.com>
- <85fcb568-b0d8-b6c9-4e62-3866aa2da0c9@gmail.com>
- <DM6PR12MB3721FDB775B65C22B91D564585DA0@DM6PR12MB3721.namprd12.prod.outlook.com>
- <MN2PR12MB4488C1D9BF9C0A693860B1C1F7DA0@MN2PR12MB4488.namprd12.prod.outlook.com>
- <146d9570-724e-423d-931e-24c96821aaae@email.android.com>
- <MN2PR12MB451836BC6F9C0F002EE1C3D685DA0@MN2PR12MB4518.namprd12.prod.outlook.com>
- <e69b430e-f4e3-c4a0-82f0-dae527cccf3d@amd.com>
- <MN2PR12MB4518A3D9746674DA688AD34885DA0@MN2PR12MB4518.namprd12.prod.outlook.com>
- <f99378af-9352-9d85-57d6-d4980484ce12@amd.com>
- <MN2PR12MB4518963F186CF8528A620A7D85DB0@MN2PR12MB4518.namprd12.prod.outlook.com>,
- <ff3cbf9d-0c8b-b7c5-2077-01c3d48ff09c@amd.com>
-In-Reply-To: <ff3cbf9d-0c8b-b7c5-2077-01c3d48ff09c@amd.com>
-Accept-Language: en-US
+ 15:26:40 +0000
+Subject: Re: [PATCH v4] drm/amdkfd: Provide SMI events watch
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Lin, Amber" <Amber.Lin@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <1586899842-28131-1-git-send-email-Amber.Lin@amd.com>
+ <46d5b0c3-2fb3-932e-2ec7-216d693a63d4@amd.com>
+ <BN8PR12MB30418878CCC5D2FE5103248DE1DB0@BN8PR12MB3041.namprd12.prod.outlook.com>
+ <7442ee3e-9d91-d886-af22-cf00f9ab23a4@amd.com>
+ <MN2PR12MB4488B378A20AB052F3A93564F7DB0@MN2PR12MB4488.namprd12.prod.outlook.com>
+ <04d21092-3366-99fa-c792-291b1a7a859a@amd.com>
+ <MN2PR12MB44886F41E8D3FCDFD7DED107F7DB0@MN2PR12MB4488.namprd12.prod.outlook.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <ae81b04d-1611-25eb-62b6-a32d3420c2cc@amd.com>
+Date: Wed, 15 Apr 2020 11:26:37 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+In-Reply-To: <MN2PR12MB44886F41E8D3FCDFD7DED107F7DB0@MN2PR12MB4488.namprd12.prod.outlook.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-04-15T15:02:03.752Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Felix.Kuehling@amd.com; 
-x-originating-ip: [142.116.63.128]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 58e86874-d345-42fc-a790-08d7e14df5af
-x-ms-traffictypediagnostic: SN1PR12MB2573:|SN1PR12MB2573:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SN1PR12MB2573D86BB6538A87E9C42F9C92DB0@SN1PR12MB2573.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 0374433C81
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+X-ClientProxiedBy: YQXPR0101CA0062.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c00:14::39) To SN1PR12MB2414.namprd12.prod.outlook.com
+ (2603:10b6:802:2e::31)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.116.63.128) by
+ YQXPR0101CA0062.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c00:14::39) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.25 via Frontend
+ Transport; Wed, 15 Apr 2020 15:26:39 +0000
+X-Originating-IP: [142.116.63.128]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: d7076e92-411e-429e-24f9-08d7e15164d1
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2493:|SN1PR12MB2493:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SN1PR12MB2493F286014E5CB769D242EC92DB0@SN1PR12MB2493.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Forefront-PRVS: 0374433C81
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(396003)(376002)(346002)(366004)(136003)(39860400002)(966005)(4326008)(66476007)(86362001)(186003)(19627405001)(19627235002)(66946007)(110136005)(478600001)(55016002)(30864003)(64756008)(71200400001)(54906003)(5660300002)(316002)(45080400002)(66574012)(66446008)(66556008)(9686003)(6636002)(53546011)(8936002)(7696005)(33656002)(52536014)(6506007)(76116006)(8676002)(81156014)(2906002)(26005)(579004)(559001);
+ SFS:(10009020)(4636009)(39860400002)(376002)(136003)(396003)(346002)(366004)(16526019)(478600001)(2616005)(5660300002)(6486002)(19627405001)(186003)(956004)(966005)(31696002)(30864003)(2906002)(86362001)(52116002)(53546011)(26005)(110136005)(16576012)(66556008)(36756003)(8676002)(19627235002)(81156014)(8936002)(31686004)(316002)(44832011)(21615005)(66476007)(66946007);
  DIR:OUT; SFP:1101; 
-received-spf: None (protection.outlook.com: amd.com does not designate
+Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Q/KMG/1Y5CprmYWxsq2Dq7PKHBOD9a+1XqYUpKfvkpTNrzRzTbuddI9RhldAU4XN5m9RYcbDwHNyfQno4ItnIJGrFa1liXU65tikxFEQ8Ao1OX2W1ilR+v9vdbtvuF4Lo/p0cpk5HOQD5Wfd+xwvYkYz1QQYp0qtOCEAv+duwVAdDWUSPPfBEkqr0F1fgtZ2bxPh6tricqUBlfR5JXXeJenTK5NWiVcruW2oZdhZfXePkWtef6IooT6TiCPdzGbMwCGh8O/qRn7UxtrcjzW0jBqliBp43wHHvaPopvM7FuVU2zzvnVViEEezuyARTdvjyopKckFKq+asBgrPyGUVK/0LJdOXc14kttKW/86Ha/666Qu3W2z+dQIaKWhhem/f6kn65bt0/XfPia7mjjXUZszeyxhXHigInv0PsLJVcPas/ySWEnW3YnuyAEsOK99QeERffOzhomqHVZKXwQIEUe9fTwXW+/ycLMJGWZZikPM=
-x-ms-exchange-antispam-messagedata: VVHj/80e9zZJjjGfP2GvZlNJhjB2iPUZ9lVpYFAtcLcfJTQr0ynahJ/GZ5r2yxW5Zav3yVVuL95F0Fhq5nrIngraif1c+zw5m+a5wfhS4fWlSaH8C8qnrbCZ2sm2n94tb1ULZYlx6k9bL0/dOoDfPQ==
-MIME-Version: 1.0
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: KqrXM/9fRhdjFlDySGK1XZHWVGzoXOi4bDj3aZCEt3+vwOsoFv2Y9LSxDDreYLNG4t2jTPpeGf6f06RtRH4QI3YZeLHb122lG4u15NIQgp5cGGSnV5BkUn4jcvjuDv72xe1zJpm5tboFPWOfIKrRRQdPUicSV1qYab82H5KJAAXpRpQ5CrmfGdzH2ReM8UlK8utEwl7KA2sjjtrr0X2G01seRA/K6/m0X0HLeYhj8C6Ft9JmsAVvzh3FHV22eAx8devTv4GRiSaudBYk3RBozEogmIRjopktzZyva+o0PjiTsLwdPyrpJTo6EIhSxCa3I+QaoPTuZmWkL504XEI9Stn9f7sGyyFyzvF4JdDnB4OFkRoWlKLMMtaJqusfz1sBjJzN9OZ4X4r5m1+DGWT+vHP9VIQXc8GCYFlnMRj2ySmE5butoNL1UGLaio7cESfZyIY+EHUMl55FB2Qo98qTWXIbgiNKOm9IcjwcU9Pxx1nNIItOwVP4RWKoC3fVJMKibR/Rvuisk0xQc+4BRT0Q5g==
+X-MS-Exchange-AntiSpam-MessageData: fqRDfOD+Wh1RtCHaKizHKuFilrtdFPKf4g5aa8ZHjmuuhBxtE31/m4L2rfWit1XcAw7PzvoF5zFHTlgSsQ8GPb9MGp4gWDWQYD/x87wH3OLc5c3oIgs/YJDysBLDXmD88dxNio4TMRaVRH3oFK0HNA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58e86874-d345-42fc-a790-08d7e14df5af
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Apr 2020 15:02:04.5266 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6TaGlqjY4u/PgFMsb3TUnzhi2d/g5TxxI7PMdCE/Wfd21xTeVnFk3MOhYZFHrkE49XWh0qW5h2VjStwvH4kJWw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2573
+X-MS-Exchange-CrossTenant-Network-Message-Id: d7076e92-411e-429e-24f9-08d7e15164d1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Apr 2020 15:26:39.8751 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sWaBndOz3OUejikD16p+G/FoaLHIVKOwN0TbT+mOq2aYE+lQ+xw48tPfB1pBCee1bbXF8E0wHcIVfTcyME1ojg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2493
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,2406 +119,801 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Russell, Kent" <Kent.Russell@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1112019713=="
+Content-Type: multipart/mixed; boundary="===============1990085857=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1112019713==
-Content-Language: en-US
+--===============1990085857==
 Content-Type: multipart/alternative;
-	boundary="_000_SN1PR12MB2414C7A4F1A0133BB0AE3A4492DB0SN1PR12MB2414namp_"
+ boundary="------------D74223D6B1EFF019E0F7FCB3"
+Content-Language: en-US
 
---_000_SN1PR12MB2414C7A4F1A0133BB0AE3A4492DB0SN1PR12MB2414namp_
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-The test does not access outside of the allocated memory. But it deliberate=
-ly crosses a boundary where memory can be allocated non-contiguously. This =
-is meant to catch problems where the access function doesn't handle non-con=
-tiguous VRAM allocations correctly. However, the way that VRAM allocation h=
-as been optimized, I expect that most allocations are contiguous nowadays. =
-However, the more interesting aspect of the test is, that it performs misal=
-igned memory accesses. The MMIO method of accessing VRAM explicitly handles=
- misaligned accesses and breaks them down into dword aligned accesses with =
-proper masking and shifting.
-
-Could the unaligned nature of the memory access have something to do with h=
-itting RAS errors? That's something unique to this test that we wouldn't se=
-e on a normal page table update or memory eviction.
-
-Regards,
-  Felix
-
-________________________________
-From: Koenig, Christian <Christian.Koenig@amd.com>
-Sent: Wednesday, April 15, 2020 6:58 AM
-To: Kim, Jonathan <Jonathan.Kim@amd.com>; Kuehling, Felix <Felix.Kuehling@a=
-md.com>; Deucher, Alexander <Alexander.Deucher@amd.com>
-Cc: Russell, Kent <Kent.Russell@amd.com>; amd-gfx@lists.freedesktop.org <am=
-d-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] Revert "drm/amdgpu: use the BAR if possible in amdgpu_=
-device_vram_access v2"
+--------------D74223D6B1EFF019E0F7FCB3
+Content-Type: text/plain; charset=windows-1252
+Content-Transfer-Encoding: 8bit
 
 
-To elaborate on the PTRACE test, we PEEK 2 DWORDs inside thunk allocated ma=
-pped memory and 2 DWORDS outside that boundary (it=92s only about 4MB to th=
-e boundary).  Then we POKE to swap the DWORD positions across the boundary.=
-  The RAS event on the single failing machine happens on the out of boundar=
-y PEEK.
+Am 2020-04-15 um 9:48 a.m. schrieb Deucher, Alexander:
+>
+> [AMD Public Use]
+>
+>
+> We use the drm major/minor in all cases.  Bump  KMS_DRIVER_MINOR in
+> amdgpu_drv.c and add a note about what was added in the comment.
 
-Well when you access outside of an allocated buffer I would expect that we =
-never get as far as even touching the hardware because the kernel should bl=
-ock the access with an -EPERM or -EFAULT. So sounds like I'm not understand=
-ing something correctly here.
-
-Apart from that I completely agree that we need to sort out any other RAS e=
-vent first to make sure that the system is simply not failing randomly.
-
-Regards,
-Christian.
-
-Am 15.04.20 um 11:49 schrieb Kim, Jonathan:
-
-[AMD Public Use]
+The KFD ioctl API has its own major and minor version defined in
+include/uapi/linux/kfd_ioctl.h. Thunk clients can query that version
+with hsaKmtGetVersion. We haven't been good at updating that version
+when we make API changes. Currently two versions are in use:
 
 
+Upstream: 1.1
 
-Hi Christian,
-
-
-
-That could potentially be it.  With additional testing, 2 of 3 Vega20 machi=
-nes never hit error over BAR access with the PTRACE test.  3 of 3 machines =
-(from the same pool) always hit error with CWSR.
-
-To elaborate on the PTRACE test, we PEEK 2 DWORDs inside thunk allocated ma=
-pped memory and 2 DWORDS outside that boundary (it=92s only about 4MB to th=
-e boundary).  Then we POKE to swap the DWORD positions across the boundary.=
-  The RAS event on the single failing machine happens on the out of boundar=
-y PEEK.
+DKMS: 1.2
 
 
-
-Felix mentioned we don=92t hit errors over general HDP access but that may =
-not true.  An Arcturus failure sys logs posted (which wasn=92t tested by me=
-) shows someone launched rocm bandwidth test, hit a VM fault and a RAS even=
-t ensued during evictions (I can point the internal ticket or log snippet o=
-ffline if interested).  Whether the RAS event is BAR access triggered or th=
-e result of HW instability is beyond me since I don=92t have access to the =
-machine.
-
+I think this would be a good time to start a habit of bumping the KFD
+ioctl minor version every time we change the upstream KFD ioctl API. We
+should skip version 1.2, since that is in use by the DKMS driver. We
+should also add a comment block above the version definition that
+explains the changes in each future API version update.
 
 
 Thanks,
+  Felix
 
 
-
-Jon
-
-
-
-From: Koenig, Christian <Christian.Koenig@amd.com><mailto:Christian.Koenig@=
-amd.com>
-Sent: Wednesday, April 15, 2020 4:11 AM
-To: Kim, Jonathan <Jonathan.Kim@amd.com><mailto:Jonathan.Kim@amd.com>; Kueh=
-ling, Felix <Felix.Kuehling@amd.com><mailto:Felix.Kuehling@amd.com>; Deuche=
-r, Alexander <Alexander.Deucher@amd.com><mailto:Alexander.Deucher@amd.com>
-Cc: Russell, Kent <Kent.Russell@amd.com><mailto:Kent.Russell@amd.com>; amd-=
-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] Revert "drm/amdgpu: use the BAR if possible in amdgpu_=
-device_vram_access v2"
-
-
-
-Hi Jon,
-
-
-Also cwsr tests fail on Vega20 with or without the revert with the same RAS=
- error.
-
-That sounds like the system/setup has a more general problem.
-
-Could it be that we are seeing RAS errors because there really is some hard=
-ware failure, but with the MM path we don't trigger a RAS interrupt?
-
-Thanks,
-Christian.
-
-Am 14.04.20 um 22:30 schrieb Kim, Jonathan:
-
-[AMD Official Use Only - Internal Distribution Only]
-
-
-
-If we=92re passing the test on the revert, then the only thing that=92s dif=
-ferent is we=92re not invalidating HDP and doing a copy to host anymore in =
-amdgpu_device_vram_access since the function is still called in ttm access_=
-memory with BAR.
-
-
-
-Also cwsr tests fail on Vega20 with or without the revert with the same RAS=
- error.
-
-
-
-Thanks,
-
-
-
-Jon
-
-
-
-From: Kuehling, Felix <Felix.Kuehling@amd.com><mailto:Felix.Kuehling@amd.co=
-m>
-Sent: Tuesday, April 14, 2020 2:32 PM
-To: Kim, Jonathan <Jonathan.Kim@amd.com><mailto:Jonathan.Kim@amd.com>; Koen=
-ig, Christian <Christian.Koenig@amd.com><mailto:Christian.Koenig@amd.com>; =
-Deucher, Alexander <Alexander.Deucher@amd.com><mailto:Alexander.Deucher@amd=
-.com>
-Cc: Russell, Kent <Kent.Russell@amd.com><mailto:Kent.Russell@amd.com>; amd-=
-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] Revert "drm/amdgpu: use the BAR if possible in amdgpu_=
-device_vram_access v2"
-
-
-
-I wouldn't call it premature. Revert is a usual practice when there is a se=
-rious regression that isn't fully understood or root-caused. As far as I ca=
-n tell, the problem has been reproduced on multiple systems, different GPUs=
-, and clearly regressed to Christian's commit. I think that justifies rever=
-ting it for now.
-
-I agree with Christian that a general HDP memory access problem causing RAS=
- errors would potentially cause problems in other tests as well. For exampl=
-e common operations like GART table updates, and GPUVM page table updates a=
-nd PCIe peer2peer accesses in ROCm applications use HDP. But we're not seei=
-ng obvious problems from those. So we need to understand what's special abo=
-ut this test. I asked questions to that effect on our other email thread.
-
-Regards,
-  Felix
-
-Am 2020-04-14 um 10:51 a.m. schrieb Kim, Jonathan:
-
-[AMD Official Use Only - Internal Distribution Only]
-
-
-
-I think it=92s premature to push this revert.
-
-
-
-With more testing, I=92m getting failures from different tests or sometimes=
- none at all on my machine.
-
-
-
-Kent, let=92s continue the discussion on the original thread.
-
-
-
-Thanks,
-
-
-
-Jon
-
-
-
-From: Koenig, Christian <Christian.Koenig@amd.com><mailto:Christian.Koenig@=
-amd.com>
-Sent: Tuesday, April 14, 2020 10:47 AM
-To: Deucher, Alexander <Alexander.Deucher@amd.com><mailto:Alexander.Deucher=
-@amd.com>
-Cc: Russell, Kent <Kent.Russell@amd.com><mailto:Kent.Russell@amd.com>; amd-=
-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>; Kuehling, =
-Felix <Felix.Kuehling@amd.com><mailto:Felix.Kuehling@amd.com>; Kim, Jonatha=
-n <Jonathan.Kim@amd.com><mailto:Jonathan.Kim@amd.com>
-Subject: Re: [PATCH] Revert "drm/amdgpu: use the BAR if possible in amdgpu_=
-device_vram_access v2"
-
-
-
-That's exactly my concern as well.
-
-
-
-This looks a bit like the test creates erroneous data somehow, but there do=
-esn't seems to be a RAS check in the MM data path.
-
-
-
-And now that we use the BAR path it goes up in flames.
-
-
-
-I just don't see how we can create erroneous data in a test case?
-
-
-
-Christian.
-
-
-
-Am 14.04.2020 16:35 schrieb "Deucher, Alexander" <Alexander.Deucher@amd.com=
-<mailto:Alexander.Deucher@amd.com>>:
-
-[AMD Public Use]
-
-
-
-If this causes an issue, any access to vram via the BAR could cause an issu=
-e.
-
-
-
-Alex
-
-________________________________
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Russell, Kent <Kent.Russell@amd.com<m=
-ailto:Kent.Russell@amd.com>>
-Sent: Tuesday, April 14, 2020 10:19 AM
-To: Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd=
-.com>>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>=
- <amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Kuehling, Felix <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>=
-; Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>
-Subject: RE: [PATCH] Revert "drm/amdgpu: use the BAR if possible in amdgpu_=
-device_vram_access v2"
-
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-On VG20 or MI100, as soon as we run the subtest, we get the dmesg output be=
-low, and then the kernel ends up hanging. I don't know enough about the tes=
-t itself to know why this is occurring, but Jon Kim and Felix were discussi=
-ng it on a separate thread when the issue was first reported, so they can h=
-opefully provide some additional information.
-
- Kent
-
-> -----Original Message-----
-> From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com<mailto:ckoenig.=
-leichtzumerken@gmail.com>>
-> Sent: Tuesday, April 14, 2020 9:52 AM
-> To: Russell, Kent <Kent.Russell@amd.com<mailto:Kent.Russell@amd.com>>; am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH] Revert "drm/amdgpu: use the BAR if possible in
-> amdgpu_device_vram_access v2"
 >
-> Am 13.04.20 um 20:20 schrieb Kent Russell:
-> > This reverts commit c12b84d6e0d70f1185e6daddfd12afb671791b6e.
-> > The original patch causes a RAS event and subsequent kernel hard-hang
-> > when running the KFDMemoryTest.PtraceAccessInvisibleVram on VG20 and
-> > Arcturus
-> >
-> > dmesg output at hang time:
-> > [drm] RAS event of type ERREVENT_ATHUB_INTERRUPT detected!
-> > amdgpu 0000:67:00.0: GPU reset begin!
-> > Evicting PASID 0x8000 queues
-> > Started evicting pasid 0x8000
-> > qcm fence wait loop timeout expired
-> > The cp might be in an unrecoverable state due to an unsuccessful
-> > queues preemption Failed to evict process queues Failed to suspend
-> > process 0x8000 Finished evicting pasid 0x8000 Started restoring pasid
-> > 0x8000 Finished restoring pasid 0x8000 [drm] UVD VCPU state may lost
-> > due to RAS ERREVENT_ATHUB_INTERRUPT
-> > amdgpu: [powerplay] Failed to send message 0x26, response 0x0
-> > amdgpu: [powerplay] Failed to set soft min gfxclk !
-> > amdgpu: [powerplay] Failed to upload DPM Bootup Levels!
-> > amdgpu: [powerplay] Failed to send message 0x7, response 0x0
-> > amdgpu: [powerplay] [DisableAllSMUFeatures] Failed to disable all smu
-> features!
-> > amdgpu: [powerplay] [DisableDpmTasks] Failed to disable all smu feature=
-s!
-> > amdgpu: [powerplay] [PowerOffAsic] Failed to disable DPM!
-> > [drm:amdgpu_device_ip_suspend_phase2 [amdgpu]] *ERROR* suspend of IP
-> > block <powerplay> failed -5
+> Alex
+> ------------------------------------------------------------------------
+> *From:* Lin, Amber <Amber.Lin@amd.com>
+> *Sent:* Wednesday, April 15, 2020 9:36 AM
+> *To:* Deucher, Alexander <Alexander.Deucher@amd.com>; Kuehling, Felix
+> <Felix.Kuehling@amd.com>; amd-gfx@lists.freedesktop.org
+> <amd-gfx@lists.freedesktop.org>
+> *Subject:* Re: [PATCH v4] drm/amdkfd: Provide SMI events watch
+>  
+> Thank you Felix. Now I understand the problem of global client ID is
+> leaking a hole for potential attackers. I didn't take that into
+> consideration. I'll change that following your advice below.
 >
-> Do you have more information on what's going wrong here since this is a r=
-eally
-> important patch for KFD debugging.
+> Hi Alex,
 >
-> >
-> > Signed-off-by: Kent Russell <kent.russell@amd.com<mailto:kent.russell@a=
-md.com>>
+> Thank you for the link. It's helpful. I have a question regarding the
+> versioning. One topic in the article talks about how the userspace can
+> figure out if the new ioctl is supported in a given kernel. Is it
+> correct that with dkms driver, we use the driver version coming from
+> AMDGPU_VERSION in amdgpu_drv.c, and in upstream kernel we use the
+> kernel version?
 >
-> Reviewed-by: Christian K=F6nig <christian.koenig@amd.com<mailto:christian=
-.koenig@amd.com>>
+> Thanks.
 >
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 ---------------------=
--
-> >   1 file changed, 26 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index cf5d6e585634..a3f997f84020 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -254,32 +254,6 @@ void amdgpu_device_vram_access(struct
-> amdgpu_device *adev, loff_t pos,
-> >      uint32_t hi =3D ~0;
-> >      uint64_t last;
-> >
-> > -
-> > -#ifdef CONFIG_64BIT
-> > -   last =3D min(pos + size, adev->gmc.visible_vram_size);
-> > -   if (last > pos) {
-> > -           void __iomem *addr =3D adev->mman.aper_base_kaddr + pos;
-> > -           size_t count =3D last - pos;
-> > -
-> > -           if (write) {
-> > -                   memcpy_toio(addr, buf, count);
-> > -                   mb();
-> > -                   amdgpu_asic_flush_hdp(adev, NULL);
-> > -           } else {
-> > -                   amdgpu_asic_invalidate_hdp(adev, NULL);
-> > -                   mb();
-> > -                   memcpy_fromio(buf, addr, count);
-> > -           }
-> > -
-> > -           if (count =3D=3D size)
-> > -                   return;
-> > -
-> > -           pos +=3D count;
-> > -           buf +=3D count / 4;
-> > -           size -=3D count;
-> > -   }
-> > -#endif
-> > -
-> >      spin_lock_irqsave(&adev->mmio_idx_lock, flags);
-> >      for (last =3D pos + size; pos < last; pos +=3D 4) {
-> >              uint32_t tmp =3D pos >> 31;
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637224707637289768&amp;sdata=3DttNOHJt0IwywpOIWahK=
-jjuC6OkT1jxduc6iMzYzndpg%3D&amp;reserved=3D0
-
-
-
-
-
-Am 14.04.2020 16:35 schrieb "Deucher, Alexander" <Alexander.Deucher@amd.com=
-<mailto:Alexander.Deucher@amd.com>>:
-
-[AMD Public Use]
-
-
-
-If this causes an issue, any access to vram via the BAR could cause an issu=
-e.
-
-
-
-Alex
-
-________________________________
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Russell, Kent <Kent.Russell@amd.com<m=
-ailto:Kent.Russell@amd.com>>
-Sent: Tuesday, April 14, 2020 10:19 AM
-To: Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd=
-.com>>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>=
- <amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Kuehling, Felix <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>=
-; Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>
-Subject: RE: [PATCH] Revert "drm/amdgpu: use the BAR if possible in amdgpu_=
-device_vram_access v2"
-
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-On VG20 or MI100, as soon as we run the subtest, we get the dmesg output be=
-low, and then the kernel ends up hanging. I don't know enough about the tes=
-t itself to know why this is occurring, but Jon Kim and Felix were discussi=
-ng it on a separate thread when the issue was first reported, so they can h=
-opefully provide some additional information.
-
- Kent
-
-> -----Original Message-----
-> From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com<mailto:ckoenig.=
-leichtzumerken@gmail.com>>
-> Sent: Tuesday, April 14, 2020 9:52 AM
-> To: Russell, Kent <Kent.Russell@amd.com<mailto:Kent.Russell@amd.com>>; am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH] Revert "drm/amdgpu: use the BAR if possible in
-> amdgpu_device_vram_access v2"
+> Amber
 >
-> Am 13.04.20 um 20:20 schrieb Kent Russell:
-> > This reverts commit c12b84d6e0d70f1185e6daddfd12afb671791b6e.
-> > The original patch causes a RAS event and subsequent kernel hard-hang
-> > when running the KFDMemoryTest.PtraceAccessInvisibleVram on VG20 and
-> > Arcturus
-> >
-> > dmesg output at hang time:
-> > [drm] RAS event of type ERREVENT_ATHUB_INTERRUPT detected!
-> > amdgpu 0000:67:00.0: GPU reset begin!
-> > Evicting PASID 0x8000 queues
-> > Started evicting pasid 0x8000
-> > qcm fence wait loop timeout expired
-> > The cp might be in an unrecoverable state due to an unsuccessful
-> > queues preemption Failed to evict process queues Failed to suspend
-> > process 0x8000 Finished evicting pasid 0x8000 Started restoring pasid
-> > 0x8000 Finished restoring pasid 0x8000 [drm] UVD VCPU state may lost
-> > due to RAS ERREVENT_ATHUB_INTERRUPT
-> > amdgpu: [powerplay] Failed to send message 0x26, response 0x0
-> > amdgpu: [powerplay] Failed to set soft min gfxclk !
-> > amdgpu: [powerplay] Failed to upload DPM Bootup Levels!
-> > amdgpu: [powerplay] Failed to send message 0x7, response 0x0
-> > amdgpu: [powerplay] [DisableAllSMUFeatures] Failed to disable all smu
-> features!
-> > amdgpu: [powerplay] [DisableDpmTasks] Failed to disable all smu feature=
-s!
-> > amdgpu: [powerplay] [PowerOffAsic] Failed to disable DPM!
-> > [drm:amdgpu_device_ip_suspend_phase2 [amdgpu]] *ERROR* suspend of IP
-> > block <powerplay> failed -5
+> On 2020-04-14 11:03 p.m., Deucher, Alexander wrote:
+>>
+>> [AMD Public Use]
+>>
+>>
+>> Some good advice on getting ioctls right:
+>> https://www.kernel.org/doc/html/v5.4-preprc-cpu/ioctl/botching-up-ioctls.html
+>>
+>> Alex
+>>
+>> ------------------------------------------------------------------------
+>> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org>
+>> <mailto:amd-gfx-bounces@lists.freedesktop.org> on behalf of Felix
+>> Kuehling <felix.kuehling@amd.com> <mailto:felix.kuehling@amd.com>
+>> *Sent:* Tuesday, April 14, 2020 10:40 PM
+>> *To:* Lin, Amber <Amber.Lin@amd.com> <mailto:Amber.Lin@amd.com>;
+>> amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>> <amd-gfx@lists.freedesktop.org> <mailto:amd-gfx@lists.freedesktop.org>
+>> *Subject:* Re: [PATCH v4] drm/amdkfd: Provide SMI events watch
+>>  
+>>
+>> Hi Amber,
+>>
+>> I understand that different processes can get the same FD. My
+>> statement about FD being unique is relative to one process.
+>>
+>> The main problem with the global client ID is, that it allows process
+>> A to change the event mask of process B just by specifying process
+>> B's client ID. That can lead to denial of service attacks where
+>> process A can cause events not to be delivered to B or can flood
+>> process B with frequent events that it's not prepared to handle.
+>>
+>> Therefore you must make the lookup of the client from the client ID
+>> not from a global list, but from a per-process list. That way process
+>> A can only change event masks of process A clients, and not those of
+>> any other process.
+>>
+>> But if the client list is process-specific, you can use the FD as a
+>> unique identifier of the client within the process, so you don't need
+>> a separate client ID.
+>>
+>> Regards,
+>>   Felix
+>>
+>> Am 2020-04-14 um 8:09 p.m. schrieb Lin, Amber:
+>>>
+>>> [AMD Official Use Only - Internal Distribution Only]
+>>>
+>>>  
+>>>
+>>> Hi Felix,
+>>>
+>>>  
+>>>
+>>> That was my assumption too that each registration will get different
+>>> file descriptor, but it turns out not. When I started two process
+>>> and both register gpu0 and gpu1, they both got fd=15. If I have
+>>> process A register gpu0+gpu1, and process B only register gpu0,
+>>> process A gets fd=15 and process B gets fd=9. That’s why I added
+>>> client ID.
+>>>
+>>>  
+>>>
+>>> By multiple clients, I mean multiple processes. The ask is users
+>>> want to have multiple tools and those different tools can use rsmi
+>>> lib to watch events at the same time. Due to the reason above that
+>>> two processes can actually get the same fd and I need to add client
+>>> ID to distinguish the registration, I don’t see the point of
+>>> limiting one registration per process unless I use pid to
+>>> distinguish the client instead, which was in my consideration too
+>>> when I was writing the code. But second thought is why adding this
+>>> restriction when client ID can allow the tool to watch different
+>>> events on different devices if they want to. Maybe client ID is a
+>>> bad term and it misleads you. I should call it register ID.
+>>>
+>>>  
+>>>
+>>> Regards,
+>>>
+>>> Amber
+>>>
+>>>  
+>>>
+>>> *From:* Kuehling, Felix <Felix.Kuehling@amd.com>
+>>> <mailto:Felix.Kuehling@amd.com>
+>>> *Sent:* Tuesday, April 14, 2020 7:04 PM
+>>> *To:* Lin, Amber <Amber.Lin@amd.com> <mailto:Amber.Lin@amd.com>;
+>>> amd-gfx@lists.freedesktop.org <mailto:amd-gfx@lists.freedesktop.org>
+>>> *Subject:* Re: [PATCH v4] drm/amdkfd: Provide SMI events watch
+>>>
+>>>  
+>>>
+>>> Hi Amber,
+>>>
+>>> Some general remarks about the multi-client support. You added a
+>>> global client id that's separate from the file descriptor. That's
+>>> problematic for two reasons:
+>>>
+>>>  1. A process could change a different process' event mask
+>>>  2. The FD should already be unique per process, no need to invent
+>>>     another ID
+>>>
+>>> If we want to allow one process to register for events multiple
+>>> times (multiple FDs per process), then the list of clients should be
+>>> per process. Each process should only be allowed to change the event
+>>> masks of its own clients. The client could be identified by its FD.
+>>> No need for another client ID.
+>>>
+>>> But you could also simplify it further by allowing only one event
+>>> client per process. Then you don't need the client ID lookup at all.
+>>> Just have a single event client in the kfd_process.
+>>>
+>>> Another approach would be to make enable/disable functions of the
+>>> event FD, rather than the KFD FD ioctl. It could be an ioctl of the
+>>> event FD, or even simpler, you could use the write file-operation to
+>>> write an event mask (of arbitrary length if you want to enable
+>>> growth in the future). That way everything would be neatly
+>>> encapsulated in the event FD private data.
+>>>
+>>> Two more comments inline ...
+>>>
+>>>  
+>>>
+>>> Am 2020-04-14 um 5:30 p.m. schrieb Amber Lin:
+>>>
+>>>     When the compute is malfunctioning or performance drops, the system admin
+>>>
+>>>     will use SMI (System Management Interface) tool to monitor/diagnostic what
+>>>
+>>>     went wrong. This patch provides an event watch interface for the user
+>>>
+>>>     space to register devices and subscribe events they are interested. After
+>>>
+>>>     registered, the user can use annoymous file descriptor's poll function
+>>>
+>>>     with wait-time specified and wait for events to happen. Once an event
+>>>
+>>>     happens, the user can use read() to retrieve information related to the
+>>>
+>>>     event.
+>>>
+>>>      
+>>>
+>>>     VM fault event is done in this patch.
+>>>
+>>>      
+>>>
+>>>     v2: - remove UNREGISTER and add event ENABLE/DISABLE
+>>>
+>>>         - correct kfifo usage
+>>>
+>>>         - move event message API to kfd_ioctl.h
+>>>
+>>>     v3: send the event msg in text than in binary
+>>>
+>>>     v4: support multiple clients
+>>>
+>>>      
+>>>
+>>>     Signed-off-by: Amber Lin <Amber.Lin@amd.com> <mailto:Amber.Lin@amd.com>
+>>>
+>>> [snip]
+>>>
+>>>     diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h
+>>>
+>>>     index 4f66764..8146437 100644
+>>>
+>>>     --- a/include/uapi/linux/kfd_ioctl.h
+>>>
+>>>     +++ b/include/uapi/linux/kfd_ioctl.h
+>>>
+>>>     @@ -442,6 +442,36 @@ struct kfd_ioctl_import_dmabuf_args {
+>>>
+>>>       __u32 dmabuf_fd;       /* to KFD */
+>>>
+>>>      };
+>>>
+>>>      
+>>>
+>>>     +/*
+>>>
+>>>     + * KFD SMI(System Management Interface) events
+>>>
+>>>     + */
+>>>
+>>>     +enum kfd_smi_events_op {
+>>>
+>>>     + KFD_SMI_EVENTS_REGISTER = 1,
+>>>
+>>>     + KFD_SMI_EVENTS_ENABLE,
+>>>
+>>>     + KFD_SMI_EVENTS_DISABLE
+>>>
+>>>     +};
+>>>
+>>>     +
+>>>
+>>>     +/* Event type (defined by bitmask) */
+>>>
+>>>     +#define KFD_SMI_EVENT_VMFAULT     0x0000000000000001
+>>>
+>>>     +
+>>>
+>>>     +struct kfd_ioctl_smi_events_args {
+>>>
+>>>     + __u32 op;              /* to KFD */
+>>>
+>>>     + __u64 events;          /* to KFD */
+>>>
+>>> The binary layout of the ioctl args structure should be the same on
+>>> 32/64-bit. That means the 64-bit members should be 64-bit aligned.
+>>> The best way to ensure this is to put all the 64-bit members first.
+>>>
+>>>  
+>>>
+>>>      
+>>>
+>>>     + __u64 gpuids_array_ptr;        /* to KFD */
+>>>
+>>>     + __u32 num_gpuids;      /* to KFD */
+>>>
+>>>     + __u32 anon_fd;         /* from KFD */
+>>>
+>>>     + __u32 client_id;       /* to/from KFD */
+>>>
+>>>     +};
+>>>
+>>>     +
+>>>
+>>>     +/* 1. All messages must start with (hex)uint64_event(16) + space(1) +
+>>>
+>>>     + *    (hex)gpuid(8) + space(1) =  26 bytes
+>>>
+>>>     + * 2. VmFault msg = (hex)uint32_pid(8) + space(1) + task name(16) = 25
+>>>
+>>>     + *    When a new event msg uses more memory, change the calculation here.
+>>>
+>>>     + * 3. End with \n(1)
+>>>
+>>>     + * 26 + 25 + 1 = 52
+>>>
+>>>     + */
+>>>
+>>>     +#define KFD_SMI_MAX_EVENT_MSG 52
+>>>
+>>> If you define the maximum message length here, clients may start
+>>> depending on it, and it gets harder to change it later. I'd not
+>>> define this in the API header. It's not necessary to write correct
+>>> clients. And if used badly, it may encourage writing incorrect
+>>> clients that break with longer messages in the future.
+>>>
+>>> Regards,
+>>>   Felix
+>>>
+>>>  
+>>>
+>>>      
+>>>
+>>>     +
+>>>
+>>>      /* Register offset inside the remapped mmio page
+>>>
+>>>       */
+>>>
+>>>      enum kfd_mmio_remap {
+>>>
+>>>     @@ -546,7 +576,10 @@ enum kfd_mmio_remap {
+>>>
+>>>      #define AMDKFD_IOC_ALLOC_QUEUE_GWS            \
+>>>
+>>>              AMDKFD_IOWR(0x1E, struct kfd_ioctl_alloc_queue_gws_args)
+>>>
+>>>      
+>>>
+>>>     +#define AMDKFD_IOC_SMI_EVENTS                 \
+>>>
+>>>     +        AMDKFD_IOWR(0x1F, struct kfd_ioctl_smi_events_args)
+>>>
+>>>     +
+>>>
+>>>      #define AMDKFD_COMMAND_START           0x01
+>>>
+>>>     -#define AMDKFD_COMMAND_END             0x1F
+>>>
+>>>     +#define AMDKFD_COMMAND_END             0x20
+>>>
+>>>      
+>>>
+>>>      #endif
+>>>
 >
-> Do you have more information on what's going wrong here since this is a r=
-eally
-> important patch for KFD debugging.
->
-> >
-> > Signed-off-by: Kent Russell <kent.russell@amd.com<mailto:kent.russell@a=
-md.com>>
->
-> Reviewed-by: Christian K=F6nig <christian.koenig@amd.com<mailto:christian=
-.koenig@amd.com>>
->
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 ---------------------=
--
-> >   1 file changed, 26 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index cf5d6e585634..a3f997f84020 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -254,32 +254,6 @@ void amdgpu_device_vram_access(struct
-> amdgpu_device *adev, loff_t pos,
-> >      uint32_t hi =3D ~0;
-> >      uint64_t last;
-> >
-> > -
-> > -#ifdef CONFIG_64BIT
-> > -   last =3D min(pos + size, adev->gmc.visible_vram_size);
-> > -   if (last > pos) {
-> > -           void __iomem *addr =3D adev->mman.aper_base_kaddr + pos;
-> > -           size_t count =3D last - pos;
-> > -
-> > -           if (write) {
-> > -                   memcpy_toio(addr, buf, count);
-> > -                   mb();
-> > -                   amdgpu_asic_flush_hdp(adev, NULL);
-> > -           } else {
-> > -                   amdgpu_asic_invalidate_hdp(adev, NULL);
-> > -                   mb();
-> > -                   memcpy_fromio(buf, addr, count);
-> > -           }
-> > -
-> > -           if (count =3D=3D size)
-> > -                   return;
-> > -
-> > -           pos +=3D count;
-> > -           buf +=3D count / 4;
-> > -           size -=3D count;
-> > -   }
-> > -#endif
-> > -
-> >      spin_lock_irqsave(&adev->mmio_idx_lock, flags);
-> >      for (last =3D pos + size; pos < last; pos +=3D 4) {
-> >              uint32_t tmp =3D pos >> 31;
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637224707637289768&amp;sdata=3DttNOHJt0IwywpOIWahK=
-jjuC6OkT1jxduc6iMzYzndpg%3D&amp;reserved=3D0
 
-
-
-
-
-Am 14.04.2020 16:35 schrieb "Deucher, Alexander" <Alexander.Deucher@amd.com=
-<mailto:Alexander.Deucher@amd.com>>:
-
-[AMD Public Use]
-
-
-
-If this causes an issue, any access to vram via the BAR could cause an issu=
-e.
-
-
-
-Alex
-
-________________________________
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Russell, Kent <Kent.Russell@amd.com<m=
-ailto:Kent.Russell@amd.com>>
-Sent: Tuesday, April 14, 2020 10:19 AM
-To: Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd=
-.com>>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>=
- <amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Kuehling, Felix <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>=
-; Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>
-Subject: RE: [PATCH] Revert "drm/amdgpu: use the BAR if possible in amdgpu_=
-device_vram_access v2"
-
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-On VG20 or MI100, as soon as we run the subtest, we get the dmesg output be=
-low, and then the kernel ends up hanging. I don't know enough about the tes=
-t itself to know why this is occurring, but Jon Kim and Felix were discussi=
-ng it on a separate thread when the issue was first reported, so they can h=
-opefully provide some additional information.
-
- Kent
-
-> -----Original Message-----
-> From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com<mailto:ckoenig.=
-leichtzumerken@gmail.com>>
-> Sent: Tuesday, April 14, 2020 9:52 AM
-> To: Russell, Kent <Kent.Russell@amd.com<mailto:Kent.Russell@amd.com>>; am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH] Revert "drm/amdgpu: use the BAR if possible in
-> amdgpu_device_vram_access v2"
->
-> Am 13.04.20 um 20:20 schrieb Kent Russell:
-> > This reverts commit c12b84d6e0d70f1185e6daddfd12afb671791b6e.
-> > The original patch causes a RAS event and subsequent kernel hard-hang
-> > when running the KFDMemoryTest.PtraceAccessInvisibleVram on VG20 and
-> > Arcturus
-> >
-> > dmesg output at hang time:
-> > [drm] RAS event of type ERREVENT_ATHUB_INTERRUPT detected!
-> > amdgpu 0000:67:00.0: GPU reset begin!
-> > Evicting PASID 0x8000 queues
-> > Started evicting pasid 0x8000
-> > qcm fence wait loop timeout expired
-> > The cp might be in an unrecoverable state due to an unsuccessful
-> > queues preemption Failed to evict process queues Failed to suspend
-> > process 0x8000 Finished evicting pasid 0x8000 Started restoring pasid
-> > 0x8000 Finished restoring pasid 0x8000 [drm] UVD VCPU state may lost
-> > due to RAS ERREVENT_ATHUB_INTERRUPT
-> > amdgpu: [powerplay] Failed to send message 0x26, response 0x0
-> > amdgpu: [powerplay] Failed to set soft min gfxclk !
-> > amdgpu: [powerplay] Failed to upload DPM Bootup Levels!
-> > amdgpu: [powerplay] Failed to send message 0x7, response 0x0
-> > amdgpu: [powerplay] [DisableAllSMUFeatures] Failed to disable all smu
-> features!
-> > amdgpu: [powerplay] [DisableDpmTasks] Failed to disable all smu feature=
-s!
-> > amdgpu: [powerplay] [PowerOffAsic] Failed to disable DPM!
-> > [drm:amdgpu_device_ip_suspend_phase2 [amdgpu]] *ERROR* suspend of IP
-> > block <powerplay> failed -5
->
-> Do you have more information on what's going wrong here since this is a r=
-eally
-> important patch for KFD debugging.
->
-> >
-> > Signed-off-by: Kent Russell <kent.russell@amd.com<mailto:kent.russell@a=
-md.com>>
->
-> Reviewed-by: Christian K=F6nig <christian.koenig@amd.com<mailto:christian=
-.koenig@amd.com>>
->
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 ---------------------=
--
-> >   1 file changed, 26 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index cf5d6e585634..a3f997f84020 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -254,32 +254,6 @@ void amdgpu_device_vram_access(struct
-> amdgpu_device *adev, loff_t pos,
-> >      uint32_t hi =3D ~0;
-> >      uint64_t last;
-> >
-> > -
-> > -#ifdef CONFIG_64BIT
-> > -   last =3D min(pos + size, adev->gmc.visible_vram_size);
-> > -   if (last > pos) {
-> > -           void __iomem *addr =3D adev->mman.aper_base_kaddr + pos;
-> > -           size_t count =3D last - pos;
-> > -
-> > -           if (write) {
-> > -                   memcpy_toio(addr, buf, count);
-> > -                   mb();
-> > -                   amdgpu_asic_flush_hdp(adev, NULL);
-> > -           } else {
-> > -                   amdgpu_asic_invalidate_hdp(adev, NULL);
-> > -                   mb();
-> > -                   memcpy_fromio(buf, addr, count);
-> > -           }
-> > -
-> > -           if (count =3D=3D size)
-> > -                   return;
-> > -
-> > -           pos +=3D count;
-> > -           buf +=3D count / 4;
-> > -           size -=3D count;
-> > -   }
-> > -#endif
-> > -
-> >      spin_lock_irqsave(&adev->mmio_idx_lock, flags);
-> >      for (last =3D pos + size; pos < last; pos +=3D 4) {
-> >              uint32_t tmp =3D pos >> 31;
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637224707637289768&amp;sdata=3DttNOHJt0IwywpOIWahK=
-jjuC6OkT1jxduc6iMzYzndpg%3D&amp;reserved=3D0
-
-
-
-
-
-Am 14.04.2020 16:35 schrieb "Deucher, Alexander" <Alexander.Deucher@amd.com=
-<mailto:Alexander.Deucher@amd.com>>:
-
-[AMD Public Use]
-
-
-
-If this causes an issue, any access to vram via the BAR could cause an issu=
-e.
-
-
-
-Alex
-
-________________________________
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Russell, Kent <Kent.Russell@amd.com<m=
-ailto:Kent.Russell@amd.com>>
-Sent: Tuesday, April 14, 2020 10:19 AM
-To: Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd=
-.com>>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>=
- <amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Kuehling, Felix <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>=
-; Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>
-Subject: RE: [PATCH] Revert "drm/amdgpu: use the BAR if possible in amdgpu_=
-device_vram_access v2"
-
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-On VG20 or MI100, as soon as we run the subtest, we get the dmesg output be=
-low, and then the kernel ends up hanging. I don't know enough about the tes=
-t itself to know why this is occurring, but Jon Kim and Felix were discussi=
-ng it on a separate thread when the issue was first reported, so they can h=
-opefully provide some additional information.
-
- Kent
-
-> -----Original Message-----
-> From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com<mailto:ckoenig.=
-leichtzumerken@gmail.com>>
-> Sent: Tuesday, April 14, 2020 9:52 AM
-> To: Russell, Kent <Kent.Russell@amd.com<mailto:Kent.Russell@amd.com>>; am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH] Revert "drm/amdgpu: use the BAR if possible in
-> amdgpu_device_vram_access v2"
->
-> Am 13.04.20 um 20:20 schrieb Kent Russell:
-> > This reverts commit c12b84d6e0d70f1185e6daddfd12afb671791b6e.
-> > The original patch causes a RAS event and subsequent kernel hard-hang
-> > when running the KFDMemoryTest.PtraceAccessInvisibleVram on VG20 and
-> > Arcturus
-> >
-> > dmesg output at hang time:
-> > [drm] RAS event of type ERREVENT_ATHUB_INTERRUPT detected!
-> > amdgpu 0000:67:00.0: GPU reset begin!
-> > Evicting PASID 0x8000 queues
-> > Started evicting pasid 0x8000
-> > qcm fence wait loop timeout expired
-> > The cp might be in an unrecoverable state due to an unsuccessful
-> > queues preemption Failed to evict process queues Failed to suspend
-> > process 0x8000 Finished evicting pasid 0x8000 Started restoring pasid
-> > 0x8000 Finished restoring pasid 0x8000 [drm] UVD VCPU state may lost
-> > due to RAS ERREVENT_ATHUB_INTERRUPT
-> > amdgpu: [powerplay] Failed to send message 0x26, response 0x0
-> > amdgpu: [powerplay] Failed to set soft min gfxclk !
-> > amdgpu: [powerplay] Failed to upload DPM Bootup Levels!
-> > amdgpu: [powerplay] Failed to send message 0x7, response 0x0
-> > amdgpu: [powerplay] [DisableAllSMUFeatures] Failed to disable all smu
-> features!
-> > amdgpu: [powerplay] [DisableDpmTasks] Failed to disable all smu feature=
-s!
-> > amdgpu: [powerplay] [PowerOffAsic] Failed to disable DPM!
-> > [drm:amdgpu_device_ip_suspend_phase2 [amdgpu]] *ERROR* suspend of IP
-> > block <powerplay> failed -5
->
-> Do you have more information on what's going wrong here since this is a r=
-eally
-> important patch for KFD debugging.
->
-> >
-> > Signed-off-by: Kent Russell <kent.russell@amd.com<mailto:kent.russell@a=
-md.com>>
->
-> Reviewed-by: Christian K=F6nig <christian.koenig@amd.com<mailto:christian=
-.koenig@amd.com>>
->
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 ---------------------=
--
-> >   1 file changed, 26 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index cf5d6e585634..a3f997f84020 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -254,32 +254,6 @@ void amdgpu_device_vram_access(struct
-> amdgpu_device *adev, loff_t pos,
-> >      uint32_t hi =3D ~0;
-> >      uint64_t last;
-> >
-> > -
-> > -#ifdef CONFIG_64BIT
-> > -   last =3D min(pos + size, adev->gmc.visible_vram_size);
-> > -   if (last > pos) {
-> > -           void __iomem *addr =3D adev->mman.aper_base_kaddr + pos;
-> > -           size_t count =3D last - pos;
-> > -
-> > -           if (write) {
-> > -                   memcpy_toio(addr, buf, count);
-> > -                   mb();
-> > -                   amdgpu_asic_flush_hdp(adev, NULL);
-> > -           } else {
-> > -                   amdgpu_asic_invalidate_hdp(adev, NULL);
-> > -                   mb();
-> > -                   memcpy_fromio(buf, addr, count);
-> > -           }
-> > -
-> > -           if (count =3D=3D size)
-> > -                   return;
-> > -
-> > -           pos +=3D count;
-> > -           buf +=3D count / 4;
-> > -           size -=3D count;
-> > -   }
-> > -#endif
-> > -
-> >      spin_lock_irqsave(&adev->mmio_idx_lock, flags);
-> >      for (last =3D pos + size; pos < last; pos +=3D 4) {
-> >              uint32_t tmp =3D pos >> 31;
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637224707637289768&amp;sdata=3DttNOHJt0IwywpOIWahK=
-jjuC6OkT1jxduc6iMzYzndpg%3D&amp;reserved=3D0
-
-
-
-
-
-Am 14.04.2020 16:35 schrieb "Deucher, Alexander" <Alexander.Deucher@amd.com=
-<mailto:Alexander.Deucher@amd.com>>:
-
-[AMD Public Use]
-
-
-
-If this causes an issue, any access to vram via the BAR could cause an issu=
-e.
-
-
-
-Alex
-
-________________________________
-
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org<mailto:amd-gfx-bounces=
-@lists.freedesktop.org>> on behalf of Russell, Kent <Kent.Russell@amd.com<m=
-ailto:Kent.Russell@amd.com>>
-Sent: Tuesday, April 14, 2020 10:19 AM
-To: Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd=
-.com>>; amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>=
- <amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
-Cc: Kuehling, Felix <Felix.Kuehling@amd.com<mailto:Felix.Kuehling@amd.com>>=
-; Kim, Jonathan <Jonathan.Kim@amd.com<mailto:Jonathan.Kim@amd.com>>
-Subject: RE: [PATCH] Revert "drm/amdgpu: use the BAR if possible in amdgpu_=
-device_vram_access v2"
-
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-On VG20 or MI100, as soon as we run the subtest, we get the dmesg output be=
-low, and then the kernel ends up hanging. I don't know enough about the tes=
-t itself to know why this is occurring, but Jon Kim and Felix were discussi=
-ng it on a separate thread when the issue was first reported, so they can h=
-opefully provide some additional information.
-
- Kent
-
-> -----Original Message-----
-> From: Christian K=F6nig <ckoenig.leichtzumerken@gmail.com<mailto:ckoenig.=
-leichtzumerken@gmail.com>>
-> Sent: Tuesday, April 14, 2020 9:52 AM
-> To: Russell, Kent <Kent.Russell@amd.com<mailto:Kent.Russell@amd.com>>; am=
-d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH] Revert "drm/amdgpu: use the BAR if possible in
-> amdgpu_device_vram_access v2"
->
-> Am 13.04.20 um 20:20 schrieb Kent Russell:
-> > This reverts commit c12b84d6e0d70f1185e6daddfd12afb671791b6e.
-> > The original patch causes a RAS event and subsequent kernel hard-hang
-> > when running the KFDMemoryTest.PtraceAccessInvisibleVram on VG20 and
-> > Arcturus
-> >
-> > dmesg output at hang time:
-> > [drm] RAS event of type ERREVENT_ATHUB_INTERRUPT detected!
-> > amdgpu 0000:67:00.0: GPU reset begin!
-> > Evicting PASID 0x8000 queues
-> > Started evicting pasid 0x8000
-> > qcm fence wait loop timeout expired
-> > The cp might be in an unrecoverable state due to an unsuccessful
-> > queues preemption Failed to evict process queues Failed to suspend
-> > process 0x8000 Finished evicting pasid 0x8000 Started restoring pasid
-> > 0x8000 Finished restoring pasid 0x8000 [drm] UVD VCPU state may lost
-> > due to RAS ERREVENT_ATHUB_INTERRUPT
-> > amdgpu: [powerplay] Failed to send message 0x26, response 0x0
-> > amdgpu: [powerplay] Failed to set soft min gfxclk !
-> > amdgpu: [powerplay] Failed to upload DPM Bootup Levels!
-> > amdgpu: [powerplay] Failed to send message 0x7, response 0x0
-> > amdgpu: [powerplay] [DisableAllSMUFeatures] Failed to disable all smu
-> features!
-> > amdgpu: [powerplay] [DisableDpmTasks] Failed to disable all smu feature=
-s!
-> > amdgpu: [powerplay] [PowerOffAsic] Failed to disable DPM!
-> > [drm:amdgpu_device_ip_suspend_phase2 [amdgpu]] *ERROR* suspend of IP
-> > block <powerplay> failed -5
->
-> Do you have more information on what's going wrong here since this is a r=
-eally
-> important patch for KFD debugging.
->
-> >
-> > Signed-off-by: Kent Russell <kent.russell@amd.com<mailto:kent.russell@a=
-md.com>>
->
-> Reviewed-by: Christian K=F6nig <christian.koenig@amd.com<mailto:christian=
-.koenig@amd.com>>
->
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 ---------------------=
--
-> >   1 file changed, 26 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index cf5d6e585634..a3f997f84020 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -254,32 +254,6 @@ void amdgpu_device_vram_access(struct
-> amdgpu_device *adev, loff_t pos,
-> >      uint32_t hi =3D ~0;
-> >      uint64_t last;
-> >
-> > -
-> > -#ifdef CONFIG_64BIT
-> > -   last =3D min(pos + size, adev->gmc.visible_vram_size);
-> > -   if (last > pos) {
-> > -           void __iomem *addr =3D adev->mman.aper_base_kaddr + pos;
-> > -           size_t count =3D last - pos;
-> > -
-> > -           if (write) {
-> > -                   memcpy_toio(addr, buf, count);
-> > -                   mb();
-> > -                   amdgpu_asic_flush_hdp(adev, NULL);
-> > -           } else {
-> > -                   amdgpu_asic_invalidate_hdp(adev, NULL);
-> > -                   mb();
-> > -                   memcpy_fromio(buf, addr, count);
-> > -           }
-> > -
-> > -           if (count =3D=3D size)
-> > -                   return;
-> > -
-> > -           pos +=3D count;
-> > -           buf +=3D count / 4;
-> > -           size -=3D count;
-> > -   }
-> > -#endif
-> > -
-> >      spin_lock_irqsave(&adev->mmio_idx_lock, flags);
-> >      for (last =3D pos + size; pos < last; pos +=3D 4) {
-> >              uint32_t tmp =3D pos >> 31;
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Calexande=
-r.deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd8961fe4884e608e=
-11a82d994e183d%7C0%7C0%7C637224707637289768&amp;sdata=3DttNOHJt0IwywpOIWahK=
-jjuC6OkT1jxduc6iMzYzndpg%3D&amp;reserved=3D0
-
-
-
-
---_000_SN1PR12MB2414C7A4F1A0133BB0AE3A4492DB0SN1PR12MB2414namp_
-Content-Type: text/html; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-The test does not access outside of the allocated memory. But it deliberate=
-ly crosses a boundary where memory can be allocated non-contiguously. This =
-is meant to catch problems where the access function doesn't handle non-con=
-tiguous VRAM allocations correctly.
- However, the way that VRAM allocation has been optimized, I expect that mo=
-st allocations are contiguous nowadays. However, the more interesting aspec=
-t of the test is, that it performs misaligned memory accesses. The MMIO met=
-hod of accessing VRAM explicitly
- handles misaligned accesses and breaks them down into dword aligned access=
-es with proper masking and shifting.<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Could the unaligned nature of the memory access have something to do with h=
-itting RAS errors? That's something unique to this test that we wouldn't se=
-e on a normal page table update or memory eviction.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Regards,<br>
-&nbsp; Felix</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Koenig, Christian &lt=
-;Christian.Koenig@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, April 15, 2020 6:58 AM<br>
-<b>To:</b> Kim, Jonathan &lt;Jonathan.Kim@amd.com&gt;; Kuehling, Felix &lt;=
-Felix.Kuehling@amd.com&gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.co=
-m&gt;<br>
-<b>Cc:</b> Russell, Kent &lt;Kent.Russell@amd.com&gt;; amd-gfx@lists.freede=
-sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Subject:</b> Re: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possibl=
-e in amdgpu_device_vram_access v2&quot;</font>
-<div>&nbsp;</div>
-</div>
-<div style=3D"background-color:#FFFFFF">
-<div class=3D"x_moz-cite-prefix">
-<blockquote type=3D"cite">
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">To elaborate on t=
-he PTRACE test, we PEEK 2 DWORDs inside thunk allocated mapped memory and 2=
- DWORDS outside that boundary (it=92s only about 4MB to the boundary).&nbsp=
-; Then we POKE to swap the DWORD positions
- across the boundary.&nbsp; The RAS event on the single failing machine hap=
-pens on the out of boundary PEEK.</span></p>
-<span style=3D"color:windowtext"></span></blockquote>
-<br>
-Well when you access outside of an allocated buffer I would expect that we =
-never get as far as even touching the hardware because the kernel should bl=
-ock the access with an -EPERM or -EFAULT. So sounds like I'm not understand=
-ing something correctly here.<br>
-<br>
-Apart from that I completely agree that we need to sort out any other RAS e=
-vent first to make sure that the system is simply not failing randomly.<br>
-<br>
-Regards,<br>
-Christian.<br>
-<br>
-Am 15.04.20 um 11:49 schrieb Kim, Jonathan:<br>
-</div>
-<blockquote type=3D"cite">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered
-        medium)">
-<style>
+--------------D74223D6B1EFF019E0F7FCB3
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=Windows-1252">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">Am 2020-04-15 um 9:48 a.m. schrieb
+      Deucher, Alexander:<br>
+    </div>
+    <blockquote type="cite" cite="mid:MN2PR12MB44886F41E8D3FCDFD7DED107F7DB0@MN2PR12MB4488.namprd12.prod.outlook.com">
+      
+      <style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
+      <p style="font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" align="Left">
+        [AMD Public Use]<br>
+      </p>
+      <br>
+      <div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          We use the drm major/minor in all cases.&nbsp; Bump&nbsp;
+          KMS_DRIVER_MINOR in amdgpu_drv.c and add a note about what was
+          added in the comment.<br>
+        </div>
+      </div>
+    </blockquote>
+    <p>The KFD ioctl API has its own major and minor version defined in
+      include/uapi/linux/kfd_ioctl.h. Thunk clients can query that
+      version with hsaKmtGetVersion. We haven't been good at updating
+      that version when we make API changes. Currently two versions are
+      in use:</p>
+    <p><br>
+    </p>
+    <p>Upstream: 1.1<br>
+    </p>
+    <p>DKMS: 1.2</p>
+    <p><br>
+    </p>
+    <p>I think this would be a good time to start a habit of bumping the
+      KFD ioctl minor version every time we change the upstream KFD
+      ioctl API. We should skip version 1.2, since that is in use by the
+      DKMS driver. We should also add a comment block above the version
+      definition that explains the changes in each future API version
+      update.<br>
+    </p>
+    <p><br>
+    </p>
+    <p>Thanks,<br>
+      &nbsp; Felix<br>
+    </p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:MN2PR12MB44886F41E8D3FCDFD7DED107F7DB0@MN2PR12MB4488.namprd12.prod.outlook.com">
+      <div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+        </div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          <br>
+        </div>
+        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
+          font-size: 12pt; color: rgb(0, 0, 0);">
+          Alex<br>
+        </div>
+        <hr style="display:inline-block;width:98%" tabindex="-1">
+        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b> Lin,
+            Amber <a class="moz-txt-link-rfc2396E" href="mailto:Amber.Lin@amd.com">&lt;Amber.Lin@amd.com&gt;</a><br>
+            <b>Sent:</b> Wednesday, April 15, 2020 9:36 AM<br>
+            <b>To:</b> Deucher, Alexander
+            <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Kuehling, Felix
+            <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>;
+            <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
+            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
+            <b>Subject:</b> Re: [PATCH v4] drm/amdkfd: Provide SMI
+            events watch</font>
+          <div>&nbsp;</div>
+        </div>
+        <div><font size="&#43;1"><tt>Thank you Felix. Now I understand the
+              problem of global client ID is leaking a hole for
+              potential attackers. I didn't take that into
+              consideration. I'll change that following your advice
+              below.<br>
+              <br>
+              Hi Alex,<br>
+              <br>
+              Thank you for the link. It's helpful. I have a question
+              regarding the versioning. One topic in the article talks
+              about how the userspace can figure out if the new ioctl is
+              supported in a given kernel. Is it correct that with dkms
+              driver, we use the driver version coming from
+              AMDGPU_VERSION in amdgpu_drv.c, and in upstream kernel we
+              use the kernel version?<br>
+              <br>
+              Thanks.<br>
+              <br>
+              Amber<br>
+            </tt></font><br>
+          <div class="x_moz-cite-prefix">On 2020-04-14 11:03 p.m.,
+            Deucher, Alexander wrote:<br>
+          </div>
+          <blockquote type="cite">
+            <style type="text/css" style="display:none">
 <!--
+p
+	{margin-top:0;
+	margin-bottom:0}
+-->
+</style>
+            <p style="font-family:Arial; font-size:10pt; color:#317100;
+              margin:15pt" align="Left">
+              [AMD Public Use]<br>
+            </p>
+            <br>
+            <div>
+              <div style="font-family:Calibri,Arial,Helvetica,sans-serif;
+                font-size:12pt; color:rgb(0,0,0)">
+                Some good advice on getting ioctls right:</div>
+              <div style="font-family:Calibri,Arial,Helvetica,sans-serif;
+                font-size:12pt; color:rgb(0,0,0)">
+                <a href="https://www.kernel.org/doc/html/v5.4-preprc-cpu/ioctl/botching-up-ioctls.html" id="LPNoLP568680" moz-do-not-send="true">https://www.kernel.org/doc/html/v5.4-preprc-cpu/ioctl/botching-up-ioctls.html</a></div>
+              <div style="font-family:Calibri,Arial,Helvetica,sans-serif;
+                font-size:12pt; color:rgb(0,0,0)">
+                <br>
+              </div>
+              <div style="font-family:Calibri,Arial,Helvetica,sans-serif;
+                font-size:12pt; color:rgb(0,0,0)">
+                Alex<br>
+              </div>
+              <div style="font-family:Calibri,Arial,Helvetica,sans-serif;
+                font-size:12pt; color:rgb(0,0,0)">
+                <br>
+              </div>
+              <hr tabindex="-1" style="display:inline-block; width:98%">
+              <div id="x_divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b> amd-gfx
+                  <a class="x_moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org" moz-do-not-send="true">
+                    &lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> on
+                  behalf of Felix Kuehling <a class="x_moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com" moz-do-not-send="true">
+                    &lt;felix.kuehling@amd.com&gt;</a><br>
+                  <b>Sent:</b> Tuesday, April 14, 2020 10:40 PM<br>
+                  <b>To:</b> Lin, Amber <a class="x_moz-txt-link-rfc2396E" href="mailto:Amber.Lin@amd.com" moz-do-not-send="true">
+                    &lt;Amber.Lin@amd.com&gt;</a>; <a class="x_moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">
+                    amd-gfx@lists.freedesktop.org</a> <a class="x_moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">
+                    &lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
+                  <b>Subject:</b> Re: [PATCH v4] drm/amdkfd: Provide SMI
+                  events watch</font>
+                <div>&nbsp;</div>
+              </div>
+              <div>
+                <p>Hi Amber,</p>
+                <p>I understand that different processes can get the
+                  same FD. My statement about FD being unique is
+                  relative to one process.</p>
+                <p>The main problem with the global client ID is, that
+                  it allows process A to change the event mask of
+                  process B just by specifying process B's client ID.
+                  That can lead to denial of service attacks where
+                  process A can cause events not to be delivered to B or
+                  can flood process B with frequent events that it's not
+                  prepared to handle.</p>
+                <p>Therefore you must make the lookup of the client from
+                  the client ID not from a global list, but from a
+                  per-process list. That way process A can only change
+                  event masks of process A clients, and not those of any
+                  other process.</p>
+                <p>But if the client list is process-specific, you can
+                  use the FD as a unique identifier of the client within
+                  the process, so you don't need a separate client ID.</p>
+                <p>Regards,<br>
+                  &nbsp; Felix<br>
+                </p>
+                <div class="x_x_moz-cite-prefix">Am 2020-04-14 um 8:09
+                  p.m. schrieb Lin, Amber:<br>
+                </div>
+                <blockquote type="cite">
+                  <meta name="Generator" content="Microsoft Word 15
+                    (filtered medium)">
+                  <style>
+<!--
+@font-face
+	{font-family:PMingLiU}
 @font-face
 	{font-family:"Cambria Math"}
 @font-face
 	{font-family:Calibri}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+@font-face
+	{font-family:Consolas}
+p.x_x_MsoNormal, li.x_x_MsoNormal, div.x_x_MsoNormal
 	{margin:0in;
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	color:black}
-a:link, span.x_MsoHyperlink
+	font-family:"Calibri",sans-serif}
+a:link, span.x_x_MsoHyperlink
 	{color:blue;
 	text-decoration:underline}
-p.x_msipheader4d0fcdd7, li.x_msipheader4d0fcdd7, div.x_msipheader4d0fcdd7
-	{margin-right:0in;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	color:black}
-p.x_msipheader87abd423, li.x_msipheader87abd423, div.x_msipheader87abd423
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New"}
+span.x_x_HTMLPreformattedChar
+	{font-family:Consolas}
+p.x_x_msipheader4d0fcdd7, li.x_x_msipheader4d0fcdd7, div.x_x_msipheader4d0fcdd7
 	{margin-right:0in;
 	margin-left:0in;
 	font-size:11.0pt;
 	font-family:"Calibri",sans-serif}
-span.x_EmailStyle21
+span.x_x_EmailStyle22
 	{font-family:"Arial",sans-serif;
-	color:#317100}
-.x_MsoChpDefault
+	color:#0078D7}
+.x_x_MsoChpDefault
 	{font-size:10.0pt}
 @page WordSection1
 	{margin:1.0in 1.0in 1.0in 1.0in}
-div.x_WordSection1
-	{}
+ol
+	{margin-bottom:0in}
+ul
+	{margin-bottom:0in}
 -->
 </style>
-<div class=3D"x_WordSection1">
-<p class=3D"x_msipheader87abd423" style=3D"margin:0in; margin-bottom:.0001p=
-t"><span style=3D"font-size:10.0pt; font-family:&quot;Arial&quot;,sans-seri=
-f; color:#317100">[AMD Public Use]</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">Hi Christian,</sp=
-an></p>
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">That could potent=
-ially be it. &nbsp;With additional testing, 2 of 3 Vega20 machines never hi=
-t error over BAR access with the PTRACE test.&nbsp; 3 of 3 machines (from t=
-he same pool) always hit error with CWSR.</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">To elaborate on t=
-he PTRACE test, we PEEK 2 DWORDs inside thunk allocated mapped memory and 2=
- DWORDS outside that boundary (it=92s only about 4MB to the boundary).&nbsp=
-; Then we POKE to swap the DWORD positions
- across the boundary.&nbsp; The RAS event on the single failing machine hap=
-pens on the out of boundary PEEK.</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">Felix mentioned w=
-e don=92t hit errors over general HDP access but that may not true.&nbsp; A=
-n Arcturus failure sys logs posted (which wasn=92t tested by me) shows some=
-one launched rocm bandwidth test, hit a VM fault
- and a RAS event ensued during evictions (I can point the internal ticket o=
-r log snippet offline if interested).&nbsp; Whether the RAS event is BAR ac=
-cess triggered or the result of HW instability is beyond me since I don=92t=
- have access to the machine.</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">Thanks,</span></p=
->
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">Jon</span></p>
-<p class=3D"x_MsoNormal"><span style=3D"color:windowtext">&nbsp;</span></p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1
-            1.0pt; padding:3.0pt 0in 0in 0in">
-<p class=3D"x_MsoNormal"><b><span style=3D"color:windowtext">From:</span></=
-b><span style=3D"color:windowtext"> Koenig, Christian
-<a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailto:Christian.Koenig@amd.co=
-m">&lt;Christian.Koenig@amd.com&gt;</a>
-<br>
-<b>Sent:</b> Wednesday, April 15, 2020 4:11 AM<br>
-<b>To:</b> Kim, Jonathan <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailt=
-o:Jonathan.Kim@amd.com">
-&lt;Jonathan.Kim@amd.com&gt;</a>; Kuehling, Felix <a class=3D"x_moz-txt-lin=
-k-rfc2396E" href=3D"mailto:Felix.Kuehling@amd.com">
-&lt;Felix.Kuehling@amd.com&gt;</a>; Deucher, Alexander <a class=3D"x_moz-tx=
-t-link-rfc2396E" href=3D"mailto:Alexander.Deucher@amd.com">
-&lt;Alexander.Deucher@amd.com&gt;</a><br>
-<b>Cc:</b> Russell, Kent <a class=3D"x_moz-txt-link-rfc2396E" href=3D"mailt=
-o:Kent.Russell@amd.com">
-&lt;Kent.Russell@amd.com&gt;</a>; <a class=3D"x_moz-txt-link-abbreviated" h=
-ref=3D"mailto:amd-gfx@lists.freedesktop.org">
-amd-gfx@lists.freedesktop.org</a><br>
-<b>Subject:</b> Re: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possibl=
-e in amdgpu_device_vram_access v2&quot;</span></p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<p class=3D"x_MsoNormal" style=3D"margin-bottom:12.0pt">Hi Jon,<br>
-<br>
-</p>
-<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
-<p class=3D"x_MsoNormal">Also cwsr tests fail on Vega20 with or without the=
- revert with the same RAS error.</p>
-</blockquote>
-<p class=3D"x_MsoNormal"><br>
-That sounds like the system/setup has a more general problem.<br>
-<br>
-Could it be that we are seeing RAS errors because there really is some hard=
-ware failure, but with the MM path we don't trigger a RAS interrupt?<br>
-<br>
-Thanks,<br>
-Christian.<br>
-<br>
-Am 14.04.20 um 22:30 schrieb Kim, Jonathan:</p>
-</div>
-<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
-<p class=3D"x_msipheader4d0fcdd7" style=3D"margin:0in; margin-bottom:.0001p=
-t"><span style=3D"font-size:10.0pt; font-family:&quot;Arial&quot;,sans-seri=
-f; color:#0078D7">[AMD Official Use Only - Internal Distribution Only]</spa=
-n></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">If we=92re passing the test on the revert, then th=
-e only thing that=92s different is we=92re not invalidating HDP and doing a=
- copy to host anymore in amdgpu_device_vram_access since the function is st=
-ill called in ttm access_memory with BAR.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Also cwsr tests fail on Vega20 with or without the=
- revert with the same RAS error.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Thanks,</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Jon</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1
-              1.0pt; padding:3.0pt 0in 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Kuehling, Felix <a href=3D"mailto:Fel=
-ix.Kuehling@amd.com">
-&lt;Felix.Kuehling@amd.com&gt;</a> <br>
-<b>Sent:</b> Tuesday, April 14, 2020 2:32 PM<br>
-<b>To:</b> Kim, Jonathan <a href=3D"mailto:Jonathan.Kim@amd.com">&lt;Jonath=
-an.Kim@amd.com&gt;</a>; Koenig, Christian
-<a href=3D"mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt=
-;</a>; Deucher, Alexander
-<a href=3D"mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&=
-gt;</a><br>
-<b>Cc:</b> Russell, Kent <a href=3D"mailto:Kent.Russell@amd.com">&lt;Kent.R=
-ussell@amd.com&gt;</a>;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-<b>Subject:</b> Re: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possibl=
-e in amdgpu_device_vram_access v2&quot;</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p>I wouldn't call it premature. Revert is a usual practice when there is a=
- serious regression that isn't fully understood or root-caused. As far as I=
- can tell, the problem has been reproduced on multiple systems, different G=
-PUs, and clearly regressed to Christian's
- commit. I think that justifies reverting it for now.</p>
-<p>I agree with Christian that a general HDP memory access problem causing =
-RAS errors would potentially cause problems in other tests as well. For exa=
-mple common operations like GART table updates, and GPUVM page table update=
-s and PCIe peer2peer accesses in
- ROCm applications use HDP. But we're not seeing obvious problems from thos=
-e. So we need to understand what's special about this test. I asked questio=
-ns to that effect on our other email thread.</p>
-<p>Regards,<br>
-&nbsp; Felix</p>
-<div>
-<p class=3D"x_MsoNormal">Am 2020-04-14 um 10:51 a.m. schrieb Kim, Jonathan:=
-</p>
-</div>
-<blockquote style=3D"margin-top:5.0pt; margin-bottom:5.0pt">
-<p class=3D"x_msipheader4d0fcdd7" style=3D"margin:0in; margin-bottom:.0001p=
-t"><span style=3D"font-size:10.0pt; font-family:&quot;Arial&quot;,sans-seri=
-f; color:#0078D7">[AMD Official Use Only - Internal Distribution Only]</spa=
-n></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">I think it=92s premature to push this revert.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">With more testing, I=92m getting failures from dif=
-ferent tests or sometimes none at all on my machine.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Kent, let=92s continue the discussion on the origi=
-nal thread.</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Thanks,</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">Jon</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div style=3D"border:none; border-top:solid #E1E1E1
-                1.0pt; padding:3.0pt 0in 0in 0in">
-<p class=3D"x_MsoNormal"><b>From:</b> Koenig, Christian <a href=3D"mailto:C=
-hristian.Koenig@amd.com">
-&lt;Christian.Koenig@amd.com&gt;</a> <br>
-<b>Sent:</b> Tuesday, April 14, 2020 10:47 AM<br>
-<b>To:</b> Deucher, Alexander <a href=3D"mailto:Alexander.Deucher@amd.com">=
-&lt;Alexander.Deucher@amd.com&gt;</a><br>
-<b>Cc:</b> Russell, Kent <a href=3D"mailto:Kent.Russell@amd.com">&lt;Kent.R=
-ussell@amd.com&gt;</a>;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a>; Kuehling, Felix
-<a href=3D"mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a=
->; Kim, Jonathan
-<a href=3D"mailto:Jonathan.Kim@amd.com">&lt;Jonathan.Kim@amd.com&gt;</a><br=
->
-<b>Subject:</b> Re: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possibl=
-e in amdgpu_device_vram_access v2&quot;</p>
-</div>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div>
-<div>
-<div>
-<div>
-<p class=3D"x_MsoNormal">That's exactly my concern as well. </p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">This looks a bit like the test creates erroneous d=
-ata somehow, but there doesn't seems to be a RAS check in the MM data path.=
-</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">And now that we use the BAR path it goes up in fla=
-mes.</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">I just don't see how we can create erroneous data =
-in a test case?</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-<div>
-<p class=3D"x_MsoNormal">Christian.</p>
-</div>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<p class=3D"x_MsoNormal">Am 14.04.2020 16:35 schrieb &quot;Deucher, Alexand=
-er&quot; &lt;<a href=3D"mailto:Alexander.Deucher@amd.com">Alexander.Deucher=
-@amd.com</a>&gt;:</p>
-<blockquote style=3D"border:none; border-left:solid
-                          #CCCCCC 1.0pt; padding:0in 0in 0in
-6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; margin-bottom=
-:5.0pt">
-<div>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
-ot;Arial&quot;,sans-serif; color:#317100">[AMD Public Use]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">If this causes an=
- issue, any access to vram via the BAR could cause an issue.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">Alex</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr width=3D"98%" size=3D"2" align=3D"center">
-</div>
-<div>
-<p class=3D"x_MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx=
--bounces@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&g=
-t; on behalf of Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">K=
-ent.Russell@amd.com</a>&gt;<br>
-<b>Sent:</b> Tuesday, April 14, 2020 10:19 AM<br>
-<b>To:</b> Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com=
-">Christian.Koenig@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Kuehling, Felix &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Fe=
-lix.Kuehling@amd.com</a>&gt;; Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.=
-Kim@amd.com">Jonathan.Kim@amd.com</a>&gt;<br>
-<b>Subject:</b> RE: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possibl=
-e in amdgpu_device_vram_access v2&quot;
-</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal">[AMD Official Use Only - Internal Distribution Onl=
-y]<br>
-<br>
-On VG20 or MI100, as soon as we run the subtest, we get the dmesg output be=
-low, and then the kernel ends up hanging. I don't know enough about the tes=
-t itself to know why this is occurring, but Jon Kim and Felix were discussi=
-ng it on a separate thread when
- the issue was first reported, so they can hopefully provide some additiona=
-l information.<br>
-<br>
-&nbsp;Kent<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Christian K=F6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@g=
-mail.com">ckoenig.leichtzumerken@gmail.com</a>&gt;<br>
-&gt; Sent: Tuesday, April 14, 2020 9:52 AM<br>
-&gt; To: Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">Kent.Rus=
-sell@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-&gt; Subject: Re: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possible =
-in<br>
-&gt; amdgpu_device_vram_access v2&quot;<br>
-&gt; <br>
-&gt; Am 13.04.20 um 20:20 schrieb Kent Russell:<br>
-&gt; &gt; This reverts commit c12b84d6e0d70f1185e6daddfd12afb671791b6e.<br>
-&gt; &gt; The original patch causes a RAS event and subsequent kernel hard-=
-hang<br>
-&gt; &gt; when running the KFDMemoryTest.PtraceAccessInvisibleVram on VG20 =
-and<br>
-&gt; &gt; Arcturus<br>
-&gt; &gt;<br>
-&gt; &gt; dmesg output at hang time:<br>
-&gt; &gt; [drm] RAS event of type ERREVENT_ATHUB_INTERRUPT detected!<br>
-&gt; &gt; amdgpu 0000:67:00.0: GPU reset begin!<br>
-&gt; &gt; Evicting PASID 0x8000 queues<br>
-&gt; &gt; Started evicting pasid 0x8000<br>
-&gt; &gt; qcm fence wait loop timeout expired<br>
-&gt; &gt; The cp might be in an unrecoverable state due to an unsuccessful<=
-br>
-&gt; &gt; queues preemption Failed to evict process queues Failed to suspen=
-d<br>
-&gt; &gt; process 0x8000 Finished evicting pasid 0x8000 Started restoring p=
-asid<br>
-&gt; &gt; 0x8000 Finished restoring pasid 0x8000 [drm] UVD VCPU state may l=
-ost<br>
-&gt; &gt; due to RAS ERREVENT_ATHUB_INTERRUPT<br>
-&gt; &gt; amdgpu: [powerplay] Failed to send message 0x26, response 0x0<br>
-&gt; &gt; amdgpu: [powerplay] Failed to set soft min gfxclk !<br>
-&gt; &gt; amdgpu: [powerplay] Failed to upload DPM Bootup Levels!<br>
-&gt; &gt; amdgpu: [powerplay] Failed to send message 0x7, response 0x0<br>
-&gt; &gt; amdgpu: [powerplay] [DisableAllSMUFeatures] Failed to disable all=
- smu<br>
-&gt; features!<br>
-&gt; &gt; amdgpu: [powerplay] [DisableDpmTasks] Failed to disable all smu f=
-eatures!<br>
-&gt; &gt; amdgpu: [powerplay] [PowerOffAsic] Failed to disable DPM!<br>
-&gt; &gt; [drm:amdgpu_device_ip_suspend_phase2 [amdgpu]] *ERROR* suspend of=
- IP<br>
-&gt; &gt; block &lt;powerplay&gt; failed -5<br>
-&gt; <br>
-&gt; Do you have more information on what's going wrong here since this is =
-a really<br>
-&gt; important patch for KFD debugging.<br>
-&gt; <br>
-&gt; &gt;<br>
-&gt; &gt; Signed-off-by: Kent Russell &lt;<a href=3D"mailto:kent.russell@am=
-d.com">kent.russell@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; Reviewed-by: Christian K=F6nig &lt;<a href=3D"mailto:christian.koenig@=
-amd.com">christian.koenig@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; &gt; ---<br>
-&gt; &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 -----=
------------------<br>
-&gt; &gt;&nbsp;&nbsp; 1 file changed, 26 deletions(-)<br>
-&gt; &gt;<br>
-&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; index cf5d6e585634..a3f997f84020 100644<br>
-&gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; @@ -254,32 &#43;254,6 @@ void amdgpu_device_vram_access(struct<br=
->
-&gt; amdgpu_device *adev, loff_t pos,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t hi =3D ~0;<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t last;<br>
-&gt; &gt;<br>
-&gt; &gt; -<br>
-&gt; &gt; -#ifdef CONFIG_64BIT<br>
-&gt; &gt; -&nbsp;&nbsp; last =3D min(pos &#43; size, adev-&gt;gmc.visible_v=
-ram_size);<br>
-&gt; &gt; -&nbsp;&nbsp; if (last &gt; pos) {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; voi=
-d __iomem *addr =3D adev-&gt;mman.aper_base_kaddr &#43; pos;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; siz=
-e_t count =3D last - pos;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(write) {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy_toio(addr, buf, count);=
-<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mb();<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_asic_flush_hdp(adev, NU=
-LL);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } e=
-lse {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_asic_invalidate_hdp(ade=
-v, NULL);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mb();<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy_fromio(buf, addr, count=
-);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<b=
-r>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(count =3D=3D size)<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pos=
- &#43;=3D count;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf=
- &#43;=3D count / 4;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; siz=
-e -=3D count;<br>
-&gt; &gt; -&nbsp;&nbsp; }<br>
-&gt; &gt; -#endif<br>
-&gt; &gt; -<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock_irqsave(&amp;adev-&gt;mmi=
-o_idx_lock, flags);<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (last =3D pos &#43; size; pos &=
-lt; last; pos &#43;=3D 4) {<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; uint32_t tmp =3D pos &gt;&gt; 31;<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Calexander.deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637224707637289768&amp;amp;sdata=3D=
-ttNOHJt0IwywpOIWahKjjuC6OkT1jxduc6iMzYzndpg%3D&amp;amp;reserved=3D0">https:=
-//nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedes=
-ktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexander.=
-deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd8961fe4884e608e11=
-a82d994e183d%7C0%7C0%7C637224707637289768&amp;amp;sdata=3DttNOHJt0IwywpOIWa=
-hKjjuC6OkT1jxduc6iMzYzndpg%3D&amp;amp;reserved=3D0</a></p>
-</div>
-</div>
-</div>
-</div>
-</blockquote>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<p class=3D"x_MsoNormal">Am 14.04.2020 16:35 schrieb &quot;Deucher, Alexand=
-er&quot; &lt;<a href=3D"mailto:Alexander.Deucher@amd.com">Alexander.Deucher=
-@amd.com</a>&gt;:</p>
-<blockquote style=3D"border:none; border-left:solid
-                        #CCCCCC 1.0pt; padding:0in 0in 0in
-6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; margin-bottom=
-:5.0pt">
-<div>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
-ot;Arial&quot;,sans-serif; color:#317100">[AMD Public Use]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">If this causes an=
- issue, any access to vram via the BAR could cause an issue.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">Alex</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr width=3D"98%" size=3D"2" align=3D"center">
-</div>
-<div>
-<p class=3D"x_MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx=
--bounces@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&g=
-t; on behalf of Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">K=
-ent.Russell@amd.com</a>&gt;<br>
-<b>Sent:</b> Tuesday, April 14, 2020 10:19 AM<br>
-<b>To:</b> Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com=
-">Christian.Koenig@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Kuehling, Felix &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Fe=
-lix.Kuehling@amd.com</a>&gt;; Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.=
-Kim@amd.com">Jonathan.Kim@amd.com</a>&gt;<br>
-<b>Subject:</b> RE: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possibl=
-e in amdgpu_device_vram_access v2&quot;
-</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal">[AMD Official Use Only - Internal Distribution Onl=
-y]<br>
-<br>
-On VG20 or MI100, as soon as we run the subtest, we get the dmesg output be=
-low, and then the kernel ends up hanging. I don't know enough about the tes=
-t itself to know why this is occurring, but Jon Kim and Felix were discussi=
-ng it on a separate thread when
- the issue was first reported, so they can hopefully provide some additiona=
-l information.<br>
-<br>
-&nbsp;Kent<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Christian K=F6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@g=
-mail.com">ckoenig.leichtzumerken@gmail.com</a>&gt;<br>
-&gt; Sent: Tuesday, April 14, 2020 9:52 AM<br>
-&gt; To: Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">Kent.Rus=
-sell@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-&gt; Subject: Re: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possible =
-in<br>
-&gt; amdgpu_device_vram_access v2&quot;<br>
-&gt; <br>
-&gt; Am 13.04.20 um 20:20 schrieb Kent Russell:<br>
-&gt; &gt; This reverts commit c12b84d6e0d70f1185e6daddfd12afb671791b6e.<br>
-&gt; &gt; The original patch causes a RAS event and subsequent kernel hard-=
-hang<br>
-&gt; &gt; when running the KFDMemoryTest.PtraceAccessInvisibleVram on VG20 =
-and<br>
-&gt; &gt; Arcturus<br>
-&gt; &gt;<br>
-&gt; &gt; dmesg output at hang time:<br>
-&gt; &gt; [drm] RAS event of type ERREVENT_ATHUB_INTERRUPT detected!<br>
-&gt; &gt; amdgpu 0000:67:00.0: GPU reset begin!<br>
-&gt; &gt; Evicting PASID 0x8000 queues<br>
-&gt; &gt; Started evicting pasid 0x8000<br>
-&gt; &gt; qcm fence wait loop timeout expired<br>
-&gt; &gt; The cp might be in an unrecoverable state due to an unsuccessful<=
-br>
-&gt; &gt; queues preemption Failed to evict process queues Failed to suspen=
-d<br>
-&gt; &gt; process 0x8000 Finished evicting pasid 0x8000 Started restoring p=
-asid<br>
-&gt; &gt; 0x8000 Finished restoring pasid 0x8000 [drm] UVD VCPU state may l=
-ost<br>
-&gt; &gt; due to RAS ERREVENT_ATHUB_INTERRUPT<br>
-&gt; &gt; amdgpu: [powerplay] Failed to send message 0x26, response 0x0<br>
-&gt; &gt; amdgpu: [powerplay] Failed to set soft min gfxclk !<br>
-&gt; &gt; amdgpu: [powerplay] Failed to upload DPM Bootup Levels!<br>
-&gt; &gt; amdgpu: [powerplay] Failed to send message 0x7, response 0x0<br>
-&gt; &gt; amdgpu: [powerplay] [DisableAllSMUFeatures] Failed to disable all=
- smu<br>
-&gt; features!<br>
-&gt; &gt; amdgpu: [powerplay] [DisableDpmTasks] Failed to disable all smu f=
-eatures!<br>
-&gt; &gt; amdgpu: [powerplay] [PowerOffAsic] Failed to disable DPM!<br>
-&gt; &gt; [drm:amdgpu_device_ip_suspend_phase2 [amdgpu]] *ERROR* suspend of=
- IP<br>
-&gt; &gt; block &lt;powerplay&gt; failed -5<br>
-&gt; <br>
-&gt; Do you have more information on what's going wrong here since this is =
-a really<br>
-&gt; important patch for KFD debugging.<br>
-&gt; <br>
-&gt; &gt;<br>
-&gt; &gt; Signed-off-by: Kent Russell &lt;<a href=3D"mailto:kent.russell@am=
-d.com">kent.russell@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; Reviewed-by: Christian K=F6nig &lt;<a href=3D"mailto:christian.koenig@=
-amd.com">christian.koenig@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; &gt; ---<br>
-&gt; &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 -----=
------------------<br>
-&gt; &gt;&nbsp;&nbsp; 1 file changed, 26 deletions(-)<br>
-&gt; &gt;<br>
-&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; index cf5d6e585634..a3f997f84020 100644<br>
-&gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; @@ -254,32 &#43;254,6 @@ void amdgpu_device_vram_access(struct<br=
->
-&gt; amdgpu_device *adev, loff_t pos,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t hi =3D ~0;<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t last;<br>
-&gt; &gt;<br>
-&gt; &gt; -<br>
-&gt; &gt; -#ifdef CONFIG_64BIT<br>
-&gt; &gt; -&nbsp;&nbsp; last =3D min(pos &#43; size, adev-&gt;gmc.visible_v=
-ram_size);<br>
-&gt; &gt; -&nbsp;&nbsp; if (last &gt; pos) {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; voi=
-d __iomem *addr =3D adev-&gt;mman.aper_base_kaddr &#43; pos;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; siz=
-e_t count =3D last - pos;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(write) {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy_toio(addr, buf, count);=
-<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mb();<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_asic_flush_hdp(adev, NU=
-LL);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } e=
-lse {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_asic_invalidate_hdp(ade=
-v, NULL);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mb();<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy_fromio(buf, addr, count=
-);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<b=
-r>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(count =3D=3D size)<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pos=
- &#43;=3D count;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf=
- &#43;=3D count / 4;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; siz=
-e -=3D count;<br>
-&gt; &gt; -&nbsp;&nbsp; }<br>
-&gt; &gt; -#endif<br>
-&gt; &gt; -<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock_irqsave(&amp;adev-&gt;mmi=
-o_idx_lock, flags);<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (last =3D pos &#43; size; pos &=
-lt; last; pos &#43;=3D 4) {<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; uint32_t tmp =3D pos &gt;&gt; 31;<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Calexander.deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637224707637289768&amp;amp;sdata=3D=
-ttNOHJt0IwywpOIWahKjjuC6OkT1jxduc6iMzYzndpg%3D&amp;amp;reserved=3D0">https:=
-//nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedes=
-ktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexander.=
-deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd8961fe4884e608e11=
-a82d994e183d%7C0%7C0%7C637224707637289768&amp;amp;sdata=3DttNOHJt0IwywpOIWa=
-hKjjuC6OkT1jxduc6iMzYzndpg%3D&amp;amp;reserved=3D0</a></p>
-</div>
-</div>
-</div>
-</div>
-</blockquote>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<p class=3D"x_MsoNormal">Am 14.04.2020 16:35 schrieb &quot;Deucher, Alexand=
-er&quot; &lt;<a href=3D"mailto:Alexander.Deucher@amd.com">Alexander.Deucher=
-@amd.com</a>&gt;:</p>
-<blockquote style=3D"border:none; border-left:solid
-                      #CCCCCC 1.0pt; padding:0in 0in 0in
-6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; margin-bottom=
-:5.0pt">
-<div>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
-ot;Arial&quot;,sans-serif; color:#317100">[AMD Public Use]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">If this causes an=
- issue, any access to vram via the BAR could cause an issue.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">Alex</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr width=3D"98%" size=3D"2" align=3D"center">
-</div>
-<div>
-<p class=3D"x_MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx=
--bounces@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&g=
-t; on behalf of Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">K=
-ent.Russell@amd.com</a>&gt;<br>
-<b>Sent:</b> Tuesday, April 14, 2020 10:19 AM<br>
-<b>To:</b> Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com=
-">Christian.Koenig@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Kuehling, Felix &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Fe=
-lix.Kuehling@amd.com</a>&gt;; Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.=
-Kim@amd.com">Jonathan.Kim@amd.com</a>&gt;<br>
-<b>Subject:</b> RE: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possibl=
-e in amdgpu_device_vram_access v2&quot;
-</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal">[AMD Official Use Only - Internal Distribution Onl=
-y]<br>
-<br>
-On VG20 or MI100, as soon as we run the subtest, we get the dmesg output be=
-low, and then the kernel ends up hanging. I don't know enough about the tes=
-t itself to know why this is occurring, but Jon Kim and Felix were discussi=
-ng it on a separate thread when
- the issue was first reported, so they can hopefully provide some additiona=
-l information.<br>
-<br>
-&nbsp;Kent<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Christian K=F6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@g=
-mail.com">ckoenig.leichtzumerken@gmail.com</a>&gt;<br>
-&gt; Sent: Tuesday, April 14, 2020 9:52 AM<br>
-&gt; To: Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">Kent.Rus=
-sell@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-&gt; Subject: Re: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possible =
-in<br>
-&gt; amdgpu_device_vram_access v2&quot;<br>
-&gt; <br>
-&gt; Am 13.04.20 um 20:20 schrieb Kent Russell:<br>
-&gt; &gt; This reverts commit c12b84d6e0d70f1185e6daddfd12afb671791b6e.<br>
-&gt; &gt; The original patch causes a RAS event and subsequent kernel hard-=
-hang<br>
-&gt; &gt; when running the KFDMemoryTest.PtraceAccessInvisibleVram on VG20 =
-and<br>
-&gt; &gt; Arcturus<br>
-&gt; &gt;<br>
-&gt; &gt; dmesg output at hang time:<br>
-&gt; &gt; [drm] RAS event of type ERREVENT_ATHUB_INTERRUPT detected!<br>
-&gt; &gt; amdgpu 0000:67:00.0: GPU reset begin!<br>
-&gt; &gt; Evicting PASID 0x8000 queues<br>
-&gt; &gt; Started evicting pasid 0x8000<br>
-&gt; &gt; qcm fence wait loop timeout expired<br>
-&gt; &gt; The cp might be in an unrecoverable state due to an unsuccessful<=
-br>
-&gt; &gt; queues preemption Failed to evict process queues Failed to suspen=
-d<br>
-&gt; &gt; process 0x8000 Finished evicting pasid 0x8000 Started restoring p=
-asid<br>
-&gt; &gt; 0x8000 Finished restoring pasid 0x8000 [drm] UVD VCPU state may l=
-ost<br>
-&gt; &gt; due to RAS ERREVENT_ATHUB_INTERRUPT<br>
-&gt; &gt; amdgpu: [powerplay] Failed to send message 0x26, response 0x0<br>
-&gt; &gt; amdgpu: [powerplay] Failed to set soft min gfxclk !<br>
-&gt; &gt; amdgpu: [powerplay] Failed to upload DPM Bootup Levels!<br>
-&gt; &gt; amdgpu: [powerplay] Failed to send message 0x7, response 0x0<br>
-&gt; &gt; amdgpu: [powerplay] [DisableAllSMUFeatures] Failed to disable all=
- smu<br>
-&gt; features!<br>
-&gt; &gt; amdgpu: [powerplay] [DisableDpmTasks] Failed to disable all smu f=
-eatures!<br>
-&gt; &gt; amdgpu: [powerplay] [PowerOffAsic] Failed to disable DPM!<br>
-&gt; &gt; [drm:amdgpu_device_ip_suspend_phase2 [amdgpu]] *ERROR* suspend of=
- IP<br>
-&gt; &gt; block &lt;powerplay&gt; failed -5<br>
-&gt; <br>
-&gt; Do you have more information on what's going wrong here since this is =
-a really<br>
-&gt; important patch for KFD debugging.<br>
-&gt; <br>
-&gt; &gt;<br>
-&gt; &gt; Signed-off-by: Kent Russell &lt;<a href=3D"mailto:kent.russell@am=
-d.com">kent.russell@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; Reviewed-by: Christian K=F6nig &lt;<a href=3D"mailto:christian.koenig@=
-amd.com">christian.koenig@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; &gt; ---<br>
-&gt; &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 -----=
------------------<br>
-&gt; &gt;&nbsp;&nbsp; 1 file changed, 26 deletions(-)<br>
-&gt; &gt;<br>
-&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; index cf5d6e585634..a3f997f84020 100644<br>
-&gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; @@ -254,32 &#43;254,6 @@ void amdgpu_device_vram_access(struct<br=
->
-&gt; amdgpu_device *adev, loff_t pos,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t hi =3D ~0;<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t last;<br>
-&gt; &gt;<br>
-&gt; &gt; -<br>
-&gt; &gt; -#ifdef CONFIG_64BIT<br>
-&gt; &gt; -&nbsp;&nbsp; last =3D min(pos &#43; size, adev-&gt;gmc.visible_v=
-ram_size);<br>
-&gt; &gt; -&nbsp;&nbsp; if (last &gt; pos) {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; voi=
-d __iomem *addr =3D adev-&gt;mman.aper_base_kaddr &#43; pos;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; siz=
-e_t count =3D last - pos;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(write) {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy_toio(addr, buf, count);=
-<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mb();<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_asic_flush_hdp(adev, NU=
-LL);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } e=
-lse {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_asic_invalidate_hdp(ade=
-v, NULL);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mb();<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy_fromio(buf, addr, count=
-);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<b=
-r>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(count =3D=3D size)<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pos=
- &#43;=3D count;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf=
- &#43;=3D count / 4;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; siz=
-e -=3D count;<br>
-&gt; &gt; -&nbsp;&nbsp; }<br>
-&gt; &gt; -#endif<br>
-&gt; &gt; -<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock_irqsave(&amp;adev-&gt;mmi=
-o_idx_lock, flags);<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (last =3D pos &#43; size; pos &=
-lt; last; pos &#43;=3D 4) {<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; uint32_t tmp =3D pos &gt;&gt; 31;<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Calexander.deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637224707637289768&amp;amp;sdata=3D=
-ttNOHJt0IwywpOIWahKjjuC6OkT1jxduc6iMzYzndpg%3D&amp;amp;reserved=3D0">https:=
-//nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedes=
-ktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexander.=
-deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd8961fe4884e608e11=
-a82d994e183d%7C0%7C0%7C637224707637289768&amp;amp;sdata=3DttNOHJt0IwywpOIWa=
-hKjjuC6OkT1jxduc6iMzYzndpg%3D&amp;amp;reserved=3D0</a></p>
-</div>
-</div>
-</div>
-</div>
-</blockquote>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<p class=3D"x_MsoNormal">Am 14.04.2020 16:35 schrieb &quot;Deucher, Alexand=
-er&quot; &lt;<a href=3D"mailto:Alexander.Deucher@amd.com">Alexander.Deucher=
-@amd.com</a>&gt;:</p>
-<blockquote style=3D"border:none; border-left:solid
-                    #CCCCCC 1.0pt; padding:0in 0in 0in
-6.0pt; margin-left:4.8pt; margin-top:5.0pt; margin-right:0in; margin-bottom=
-:5.0pt">
-<div>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
-ot;Arial&quot;,sans-serif; color:#317100">[AMD Public Use]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">If this causes an=
- issue, any access to vram via the BAR could cause an issue.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">Alex</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr width=3D"98%" size=3D"2" align=3D"center">
-</div>
-<div>
-<p class=3D"x_MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx=
--bounces@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&g=
-t; on behalf of Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">K=
-ent.Russell@amd.com</a>&gt;<br>
-<b>Sent:</b> Tuesday, April 14, 2020 10:19 AM<br>
-<b>To:</b> Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com=
-">Christian.Koenig@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Kuehling, Felix &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Fe=
-lix.Kuehling@amd.com</a>&gt;; Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.=
-Kim@amd.com">Jonathan.Kim@amd.com</a>&gt;<br>
-<b>Subject:</b> RE: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possibl=
-e in amdgpu_device_vram_access v2&quot;
-</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal">[AMD Official Use Only - Internal Distribution Onl=
-y]<br>
-<br>
-On VG20 or MI100, as soon as we run the subtest, we get the dmesg output be=
-low, and then the kernel ends up hanging. I don't know enough about the tes=
-t itself to know why this is occurring, but Jon Kim and Felix were discussi=
-ng it on a separate thread when
- the issue was first reported, so they can hopefully provide some additiona=
-l information.<br>
-<br>
-&nbsp;Kent<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Christian K=F6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@g=
-mail.com">ckoenig.leichtzumerken@gmail.com</a>&gt;<br>
-&gt; Sent: Tuesday, April 14, 2020 9:52 AM<br>
-&gt; To: Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">Kent.Rus=
-sell@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-&gt; Subject: Re: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possible =
-in<br>
-&gt; amdgpu_device_vram_access v2&quot;<br>
-&gt; <br>
-&gt; Am 13.04.20 um 20:20 schrieb Kent Russell:<br>
-&gt; &gt; This reverts commit c12b84d6e0d70f1185e6daddfd12afb671791b6e.<br>
-&gt; &gt; The original patch causes a RAS event and subsequent kernel hard-=
-hang<br>
-&gt; &gt; when running the KFDMemoryTest.PtraceAccessInvisibleVram on VG20 =
-and<br>
-&gt; &gt; Arcturus<br>
-&gt; &gt;<br>
-&gt; &gt; dmesg output at hang time:<br>
-&gt; &gt; [drm] RAS event of type ERREVENT_ATHUB_INTERRUPT detected!<br>
-&gt; &gt; amdgpu 0000:67:00.0: GPU reset begin!<br>
-&gt; &gt; Evicting PASID 0x8000 queues<br>
-&gt; &gt; Started evicting pasid 0x8000<br>
-&gt; &gt; qcm fence wait loop timeout expired<br>
-&gt; &gt; The cp might be in an unrecoverable state due to an unsuccessful<=
-br>
-&gt; &gt; queues preemption Failed to evict process queues Failed to suspen=
-d<br>
-&gt; &gt; process 0x8000 Finished evicting pasid 0x8000 Started restoring p=
-asid<br>
-&gt; &gt; 0x8000 Finished restoring pasid 0x8000 [drm] UVD VCPU state may l=
-ost<br>
-&gt; &gt; due to RAS ERREVENT_ATHUB_INTERRUPT<br>
-&gt; &gt; amdgpu: [powerplay] Failed to send message 0x26, response 0x0<br>
-&gt; &gt; amdgpu: [powerplay] Failed to set soft min gfxclk !<br>
-&gt; &gt; amdgpu: [powerplay] Failed to upload DPM Bootup Levels!<br>
-&gt; &gt; amdgpu: [powerplay] Failed to send message 0x7, response 0x0<br>
-&gt; &gt; amdgpu: [powerplay] [DisableAllSMUFeatures] Failed to disable all=
- smu<br>
-&gt; features!<br>
-&gt; &gt; amdgpu: [powerplay] [DisableDpmTasks] Failed to disable all smu f=
-eatures!<br>
-&gt; &gt; amdgpu: [powerplay] [PowerOffAsic] Failed to disable DPM!<br>
-&gt; &gt; [drm:amdgpu_device_ip_suspend_phase2 [amdgpu]] *ERROR* suspend of=
- IP<br>
-&gt; &gt; block &lt;powerplay&gt; failed -5<br>
-&gt; <br>
-&gt; Do you have more information on what's going wrong here since this is =
-a really<br>
-&gt; important patch for KFD debugging.<br>
-&gt; <br>
-&gt; &gt;<br>
-&gt; &gt; Signed-off-by: Kent Russell &lt;<a href=3D"mailto:kent.russell@am=
-d.com">kent.russell@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; Reviewed-by: Christian K=F6nig &lt;<a href=3D"mailto:christian.koenig@=
-amd.com">christian.koenig@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; &gt; ---<br>
-&gt; &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 -----=
------------------<br>
-&gt; &gt;&nbsp;&nbsp; 1 file changed, 26 deletions(-)<br>
-&gt; &gt;<br>
-&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; index cf5d6e585634..a3f997f84020 100644<br>
-&gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; @@ -254,32 &#43;254,6 @@ void amdgpu_device_vram_access(struct<br=
->
-&gt; amdgpu_device *adev, loff_t pos,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t hi =3D ~0;<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t last;<br>
-&gt; &gt;<br>
-&gt; &gt; -<br>
-&gt; &gt; -#ifdef CONFIG_64BIT<br>
-&gt; &gt; -&nbsp;&nbsp; last =3D min(pos &#43; size, adev-&gt;gmc.visible_v=
-ram_size);<br>
-&gt; &gt; -&nbsp;&nbsp; if (last &gt; pos) {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; voi=
-d __iomem *addr =3D adev-&gt;mman.aper_base_kaddr &#43; pos;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; siz=
-e_t count =3D last - pos;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(write) {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy_toio(addr, buf, count);=
-<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mb();<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_asic_flush_hdp(adev, NU=
-LL);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } e=
-lse {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_asic_invalidate_hdp(ade=
-v, NULL);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mb();<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy_fromio(buf, addr, count=
-);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<b=
-r>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(count =3D=3D size)<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pos=
- &#43;=3D count;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf=
- &#43;=3D count / 4;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; siz=
-e -=3D count;<br>
-&gt; &gt; -&nbsp;&nbsp; }<br>
-&gt; &gt; -#endif<br>
-&gt; &gt; -<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock_irqsave(&amp;adev-&gt;mmi=
-o_idx_lock, flags);<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (last =3D pos &#43; size; pos &=
-lt; last; pos &#43;=3D 4) {<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; uint32_t tmp =3D pos &gt;&gt; 31;<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Calexander.deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637224707637289768&amp;amp;sdata=3D=
-ttNOHJt0IwywpOIWahKjjuC6OkT1jxduc6iMzYzndpg%3D&amp;amp;reserved=3D0">https:=
-//nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedes=
-ktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexander.=
-deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd8961fe4884e608e11=
-a82d994e183d%7C0%7C0%7C637224707637289768&amp;amp;sdata=3DttNOHJt0IwywpOIWa=
-hKjjuC6OkT1jxduc6iMzYzndpg%3D&amp;amp;reserved=3D0</a></p>
-</div>
-</div>
-</div>
-</div>
-</blockquote>
-</div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<p class=3D"x_MsoNormal">Am 14.04.2020 16:35 schrieb &quot;Deucher, Alexand=
-er&quot; &lt;<a href=3D"mailto:Alexander.Deucher@amd.com">Alexander.Deucher=
-@amd.com</a>&gt;:</p>
-</div>
-</div>
-<div>
-<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt; font-family:&qu=
-ot;Arial&quot;,sans-serif; color:#317100">[AMD Public Use]</span></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">If this causes an=
- issue, any access to vram via the BAR could cause an issue.</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">&nbsp;</span></p>
-</div>
-<div>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt">Alex</span></p>
-</div>
-<div class=3D"x_MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr width=3D"98%" size=3D"2" align=3D"center">
-</div>
-<div id=3D"x_divRplyFwdMsg">
-<p class=3D"x_MsoNormal"><b>From:</b> amd-gfx &lt;<a href=3D"mailto:amd-gfx=
--bounces@lists.freedesktop.org">amd-gfx-bounces@lists.freedesktop.org</a>&g=
-t; on behalf of Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">K=
-ent.Russell@amd.com</a>&gt;<br>
-<b>Sent:</b> Tuesday, April 14, 2020 10:19 AM<br>
-<b>To:</b> Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.com=
-">Christian.Koenig@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.=
-freedesktop.org</a>&gt;<br>
-<b>Cc:</b> Kuehling, Felix &lt;<a href=3D"mailto:Felix.Kuehling@amd.com">Fe=
-lix.Kuehling@amd.com</a>&gt;; Kim, Jonathan &lt;<a href=3D"mailto:Jonathan.=
-Kim@amd.com">Jonathan.Kim@amd.com</a>&gt;<br>
-<b>Subject:</b> RE: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possibl=
-e in amdgpu_device_vram_access v2&quot;
-</p>
-<div>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</div>
-<div>
-<div>
-<p class=3D"x_MsoNormal">[AMD Official Use Only - Internal Distribution Onl=
-y]<br>
-<br>
-On VG20 or MI100, as soon as we run the subtest, we get the dmesg output be=
-low, and then the kernel ends up hanging. I don't know enough about the tes=
-t itself to know why this is occurring, but Jon Kim and Felix were discussi=
-ng it on a separate thread when
- the issue was first reported, so they can hopefully provide some additiona=
-l information.<br>
-<br>
-&nbsp;Kent<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Christian K=F6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@g=
-mail.com">ckoenig.leichtzumerken@gmail.com</a>&gt;<br>
-&gt; Sent: Tuesday, April 14, 2020 9:52 AM<br>
-&gt; To: Russell, Kent &lt;<a href=3D"mailto:Kent.Russell@amd.com">Kent.Rus=
-sell@amd.com</a>&gt;;
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-&gt; Subject: Re: [PATCH] Revert &quot;drm/amdgpu: use the BAR if possible =
-in<br>
-&gt; amdgpu_device_vram_access v2&quot;<br>
-&gt; <br>
-&gt; Am 13.04.20 um 20:20 schrieb Kent Russell:<br>
-&gt; &gt; This reverts commit c12b84d6e0d70f1185e6daddfd12afb671791b6e.<br>
-&gt; &gt; The original patch causes a RAS event and subsequent kernel hard-=
-hang<br>
-&gt; &gt; when running the KFDMemoryTest.PtraceAccessInvisibleVram on VG20 =
-and<br>
-&gt; &gt; Arcturus<br>
-&gt; &gt;<br>
-&gt; &gt; dmesg output at hang time:<br>
-&gt; &gt; [drm] RAS event of type ERREVENT_ATHUB_INTERRUPT detected!<br>
-&gt; &gt; amdgpu 0000:67:00.0: GPU reset begin!<br>
-&gt; &gt; Evicting PASID 0x8000 queues<br>
-&gt; &gt; Started evicting pasid 0x8000<br>
-&gt; &gt; qcm fence wait loop timeout expired<br>
-&gt; &gt; The cp might be in an unrecoverable state due to an unsuccessful<=
-br>
-&gt; &gt; queues preemption Failed to evict process queues Failed to suspen=
-d<br>
-&gt; &gt; process 0x8000 Finished evicting pasid 0x8000 Started restoring p=
-asid<br>
-&gt; &gt; 0x8000 Finished restoring pasid 0x8000 [drm] UVD VCPU state may l=
-ost<br>
-&gt; &gt; due to RAS ERREVENT_ATHUB_INTERRUPT<br>
-&gt; &gt; amdgpu: [powerplay] Failed to send message 0x26, response 0x0<br>
-&gt; &gt; amdgpu: [powerplay] Failed to set soft min gfxclk !<br>
-&gt; &gt; amdgpu: [powerplay] Failed to upload DPM Bootup Levels!<br>
-&gt; &gt; amdgpu: [powerplay] Failed to send message 0x7, response 0x0<br>
-&gt; &gt; amdgpu: [powerplay] [DisableAllSMUFeatures] Failed to disable all=
- smu<br>
-&gt; features!<br>
-&gt; &gt; amdgpu: [powerplay] [DisableDpmTasks] Failed to disable all smu f=
-eatures!<br>
-&gt; &gt; amdgpu: [powerplay] [PowerOffAsic] Failed to disable DPM!<br>
-&gt; &gt; [drm:amdgpu_device_ip_suspend_phase2 [amdgpu]] *ERROR* suspend of=
- IP<br>
-&gt; &gt; block &lt;powerplay&gt; failed -5<br>
-&gt; <br>
-&gt; Do you have more information on what's going wrong here since this is =
-a really<br>
-&gt; important patch for KFD debugging.<br>
-&gt; <br>
-&gt; &gt;<br>
-&gt; &gt; Signed-off-by: Kent Russell &lt;<a href=3D"mailto:kent.russell@am=
-d.com">kent.russell@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; Reviewed-by: Christian K=F6nig &lt;<a href=3D"mailto:christian.koenig@=
-amd.com">christian.koenig@amd.com</a>&gt;<br>
-&gt; <br>
-&gt; &gt; ---<br>
-&gt; &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 26 -----=
------------------<br>
-&gt; &gt;&nbsp;&nbsp; 1 file changed, 26 deletions(-)<br>
-&gt; &gt;<br>
-&gt; &gt; diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; index cf5d6e585634..a3f997f84020 100644<br>
-&gt; &gt; --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-&gt; &gt; @@ -254,32 &#43;254,6 @@ void amdgpu_device_vram_access(struct<br=
->
-&gt; amdgpu_device *adev, loff_t pos,<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t hi =3D ~0;<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t last;<br>
-&gt; &gt;<br>
-&gt; &gt; -<br>
-&gt; &gt; -#ifdef CONFIG_64BIT<br>
-&gt; &gt; -&nbsp;&nbsp; last =3D min(pos &#43; size, adev-&gt;gmc.visible_v=
-ram_size);<br>
-&gt; &gt; -&nbsp;&nbsp; if (last &gt; pos) {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; voi=
-d __iomem *addr =3D adev-&gt;mman.aper_base_kaddr &#43; pos;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; siz=
-e_t count =3D last - pos;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(write) {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy_toio(addr, buf, count);=
-<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mb();<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_asic_flush_hdp(adev, NU=
-LL);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } e=
-lse {<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_asic_invalidate_hdp(ade=
-v, NULL);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mb();<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy_fromio(buf, addr, count=
-);<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<b=
-r>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if =
-(count =3D=3D size)<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-&gt; &gt; -<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pos=
- &#43;=3D count;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf=
- &#43;=3D count / 4;<br>
-&gt; &gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; siz=
-e -=3D count;<br>
-&gt; &gt; -&nbsp;&nbsp; }<br>
-&gt; &gt; -#endif<br>
-&gt; &gt; -<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; spin_lock_irqsave(&amp;adev-&gt;mmi=
-o_idx_lock, flags);<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (last =3D pos &#43; size; pos &=
-lt; last; pos &#43;=3D 4) {<br>
-&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; uint32_t tmp =3D pos &gt;&gt; 31;<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
-org</a><br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7Calexander.deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd=
-8961fe4884e608e11a82d994e183d%7C0%7C0%7C637224707637289768&amp;amp;sdata=3D=
-ttNOHJt0IwywpOIWahKjjuC6OkT1jxduc6iMzYzndpg%3D&amp;amp;reserved=3D0">https:=
-//nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedes=
-ktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7Calexander.=
-deucher%40amd.com%7C68e0bfea2a5f4a909ab108d7e07ed164%7C3dd8961fe4884e608e11=
-a82d994e183d%7C0%7C0%7C637224707637289768&amp;amp;sdata=3DttNOHJt0IwywpOIWa=
-hKjjuC6OkT1jxduc6iMzYzndpg%3D&amp;amp;reserved=3D0</a></p>
-</div>
-</div>
-</div>
-</div>
-</blockquote>
-</blockquote>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-</div>
-</blockquote>
-<br>
-</div>
-</div>
-</body>
+                  <div class="x_x_WordSection1">
+                    <p class="x_x_msipheader4d0fcdd7" style="margin:0in;
+                      margin-bottom:.0001pt"><span style="font-size:10.0pt;
+                        font-family:&quot;Arial&quot;,sans-serif;
+                        color:#0078D7">[AMD Official Use Only - Internal
+                        Distribution Only]</span></p>
+                    <p class="x_x_MsoNormal">&nbsp;</p>
+                    <p class="x_x_MsoNormal">Hi Felix,</p>
+                    <p class="x_x_MsoNormal">&nbsp;</p>
+                    <p class="x_x_MsoNormal">That was my assumption too
+                      that each registration will get different file
+                      descriptor, but it turns out not. When I started
+                      two process and both register gpu0 and gpu1, they
+                      both got fd=15. If I have process A register
+                      gpu0&#43;gpu1, and process B only register gpu0,
+                      process A gets fd=15 and process B gets fd=9.
+                      That’s why I added client ID.</p>
+                    <p class="x_x_MsoNormal">&nbsp;</p>
+                    <p class="x_x_MsoNormal">By multiple clients, I mean
+                      multiple processes. The ask is users want to have
+                      multiple tools and those different tools can use
+                      rsmi lib to watch events at the same time. Due to
+                      the reason above that two processes can actually
+                      get the same fd and I need to add client ID to
+                      distinguish the registration, I don’t see the
+                      point of limiting one registration per process
+                      unless I use pid to distinguish the client
+                      instead, which was in my consideration too when I
+                      was writing the code. But second thought is why
+                      adding this restriction when client ID can allow
+                      the tool to watch different events on different
+                      devices if they want to. Maybe client ID is a bad
+                      term and it misleads you. I should call it
+                      register ID.</p>
+                    <p class="x_x_MsoNormal">&nbsp;</p>
+                    <div>
+                      <p class="x_x_MsoNormal">Regards,</p>
+                      <p class="x_x_MsoNormal">Amber</p>
+                    </div>
+                    <p class="x_x_MsoNormal">&nbsp;</p>
+                    <div>
+                      <div style="border:none; border-top:solid #E1E1E1
+                        1.0pt; padding:3.0pt 0in 0in 0in">
+                        <p class="x_x_MsoNormal"><b>From:</b> Kuehling,
+                          Felix <a class="x_x_moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com" moz-do-not-send="true">
+                            &lt;Felix.Kuehling@amd.com&gt;</a> <br>
+                          <b>Sent:</b> Tuesday, April 14, 2020 7:04 PM<br>
+                          <b>To:</b> Lin, Amber <a class="x_x_moz-txt-link-rfc2396E" href="mailto:Amber.Lin@amd.com" moz-do-not-send="true">
+                            &lt;Amber.Lin@amd.com&gt;</a>; <a class="x_x_moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">
+                            amd-gfx@lists.freedesktop.org</a><br>
+                          <b>Subject:</b> Re: [PATCH v4] drm/amdkfd:
+                          Provide SMI events watch</p>
+                      </div>
+                    </div>
+                    <p class="x_x_MsoNormal">&nbsp;</p>
+                    <p>Hi Amber,</p>
+                    <p>Some general remarks about the multi-client
+                      support. You added a global client id that's
+                      separate from the file descriptor. That's
+                      problematic for two reasons:</p>
+                    <ol type="1" start="1">
+                      <li class="x_x_MsoNormal" style="">A process could
+                        change a different process' event mask</li>
+                      <li class="x_x_MsoNormal" style="">The FD should
+                        already be unique per process, no need to invent
+                        another ID</li>
+                    </ol>
+                    <p>If we want to allow one process to register for
+                      events multiple times (multiple FDs per process),
+                      then the list of clients should be per process.
+                      Each process should only be allowed to change the
+                      event masks of its own clients. The client could
+                      be identified by its FD. No need for another
+                      client ID.</p>
+                    <p>But you could also simplify it further by
+                      allowing only one event client per process. Then
+                      you don't need the client ID lookup at all. Just
+                      have a single event client in the kfd_process.</p>
+                    <p>Another approach would be to make enable/disable
+                      functions of the event FD, rather than the KFD FD
+                      ioctl. It could be an ioctl of the event FD, or
+                      even simpler, you could use the write
+                      file-operation to write an event mask (of
+                      arbitrary length if you want to enable growth in
+                      the future). That way everything would be neatly
+                      encapsulated in the event FD private data.</p>
+                    <p>Two more comments inline ...</p>
+                    <p>&nbsp;</p>
+                    <div>
+                      <p class="x_x_MsoNormal">Am 2020-04-14 um 5:30
+                        p.m. schrieb Amber Lin:</p>
+                    </div>
+                    <blockquote style="margin-top:5.0pt;
+                      margin-bottom:5.0pt">
+                      <pre>When the compute is malfunctioning or performance drops, the system admin</pre>
+                      <pre>will use SMI (System Management Interface) tool to monitor/diagnostic what</pre>
+                      <pre>went wrong. This patch provides an event watch interface for the user</pre>
+                      <pre>space to register devices and subscribe events they are interested. After</pre>
+                      <pre>registered, the user can use annoymous file descriptor's poll function</pre>
+                      <pre>with wait-time specified and wait for events to happen. Once an event</pre>
+                      <pre>happens, the user can use read() to retrieve information related to the</pre>
+                      <pre>event.</pre>
+                      <pre>&nbsp;</pre>
+                      <pre>VM fault event is done in this patch.</pre>
+                      <pre>&nbsp;</pre>
+                      <pre>v2: - remove UNREGISTER and add event ENABLE/DISABLE</pre>
+                      <pre>&nbsp;&nbsp;&nbsp; - correct kfifo usage</pre>
+                      <pre>&nbsp;&nbsp;&nbsp; - move event message API to kfd_ioctl.h</pre>
+                      <pre>v3: send the event msg in text than in binary</pre>
+                      <pre>v4: support multiple clients</pre>
+                      <pre>&nbsp;</pre>
+                      <pre>Signed-off-by: Amber Lin <a href="mailto:Amber.Lin@amd.com" moz-do-not-send="true">&lt;Amber.Lin@amd.com&gt;</a></pre>
+                    </blockquote>
+                    <p>[snip]</p>
+                    <blockquote style="margin-top:5.0pt;
+                      margin-bottom:5.0pt">
+                      <pre>diff --git a/include/uapi/linux/kfd_ioctl.h b/include/uapi/linux/kfd_ioctl.h</pre>
+                      <pre>index 4f66764..8146437 100644</pre>
+                      <pre>--- a/include/uapi/linux/kfd_ioctl.h</pre>
+                      <pre>&#43;&#43;&#43; b/include/uapi/linux/kfd_ioctl.h</pre>
+                      <pre>@@ -442,6 &#43;442,36 @@ struct kfd_ioctl_import_dmabuf_args {</pre>
+                      <pre>&nbsp; __u32 dmabuf_fd;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* to KFD */</pre>
+                      <pre> };</pre>
+                      <pre> </pre>
+                      <pre>&#43;/*</pre>
+                      <pre>&#43; * KFD SMI(System Management Interface) events</pre>
+                      <pre>&#43; */</pre>
+                      <pre>&#43;enum kfd_smi_events_op {</pre>
+                      <pre>&#43; KFD_SMI_EVENTS_REGISTER = 1,</pre>
+                      <pre>&#43; KFD_SMI_EVENTS_ENABLE,</pre>
+                      <pre>&#43; KFD_SMI_EVENTS_DISABLE</pre>
+                      <pre>&#43;};</pre>
+                      <pre>&#43;</pre>
+                      <pre>&#43;/* Event type (defined by bitmask) */</pre>
+                      <pre>&#43;#define KFD_SMI_EVENT_VMFAULT&nbsp;&nbsp;&nbsp;&nbsp; 0x0000000000000001</pre>
+                      <pre>&#43;</pre>
+                      <pre>&#43;struct kfd_ioctl_smi_events_args {</pre>
+                      <pre>&#43; __u32 op;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* to KFD */</pre>
+                      <pre>&#43; __u64 events;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* to KFD */</pre>
+                    </blockquote>
+                    <p>The binary layout of the ioctl args structure
+                      should be the same on 32/64-bit. That means the
+                      64-bit members should be 64-bit aligned. The best
+                      way to ensure this is to put all the 64-bit
+                      members first.</p>
+                    <p class="x_x_MsoNormal" style="margin-bottom:12.0pt">&nbsp;</p>
+                    <blockquote style="margin-top:5.0pt;
+                      margin-bottom:5.0pt">
+                      <pre>&nbsp;</pre>
+                      <pre>&#43; __u64 gpuids_array_ptr;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* to KFD */</pre>
+                      <pre>&#43; __u32 num_gpuids;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* to KFD */</pre>
+                      <pre>&#43; __u32 anon_fd;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* from KFD */</pre>
+                      <pre>&#43; __u32 client_id;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* to/from KFD */</pre>
+                      <pre>&#43;};</pre>
+                      <pre>&#43;</pre>
+                      <pre>&#43;/* 1. All messages must start with (hex)uint64_event(16) &#43; space(1) &#43;</pre>
+                      <pre>&#43; *&nbsp;&nbsp;&nbsp; (hex)gpuid(8) &#43; space(1) =&nbsp; 26 bytes</pre>
+                      <pre>&#43; * 2. VmFault msg = (hex)uint32_pid(8) &#43; space(1) &#43; task name(16) = 25</pre>
+                      <pre>&#43; *&nbsp;&nbsp;&nbsp; When a new event msg uses more memory, change the calculation here.</pre>
+                      <pre>&#43; * 3. End with \n(1)</pre>
+                      <pre>&#43; * 26 &#43; 25 &#43; 1 = 52</pre>
+                      <pre>&#43; */</pre>
+                      <pre>&#43;#define KFD_SMI_MAX_EVENT_MSG 52</pre>
+                    </blockquote>
+                    <p>If you define the maximum message length here,
+                      clients may start depending on it, and it gets
+                      harder to change it later. I'd not define this in
+                      the API header. It's not necessary to write
+                      correct clients. And if used badly, it may
+                      encourage writing incorrect clients that break
+                      with longer messages in the future.</p>
+                    <p>Regards,<br>
+                      &nbsp; Felix</p>
+                    <p>&nbsp;</p>
+                    <blockquote style="margin-top:5.0pt;
+                      margin-bottom:5.0pt">
+                      <pre>&nbsp;</pre>
+                      <pre>&#43;</pre>
+                      <pre> /* Register offset inside the remapped mmio page</pre>
+                      <pre>&nbsp; */</pre>
+                      <pre> enum kfd_mmio_remap {</pre>
+                      <pre>@@ -546,7 &#43;576,10 @@ enum kfd_mmio_remap {</pre>
+                      <pre> #define AMDKFD_IOC_ALLOC_QUEUE_GWS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \</pre>
+                      <pre> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IOWR(0x1E, struct kfd_ioctl_alloc_queue_gws_args)</pre>
+                      <pre> </pre>
+                      <pre>&#43;#define AMDKFD_IOC_SMI_EVENTS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; \</pre>
+                      <pre>&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AMDKFD_IOWR(0x1F, struct kfd_ioctl_smi_events_args)</pre>
+                      <pre>&#43;</pre>
+                      <pre> #define AMDKFD_COMMAND_START&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x01</pre>
+                      <pre>-#define AMDKFD_COMMAND_END&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x1F</pre>
+                      <pre>&#43;#define AMDKFD_COMMAND_END&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0x20</pre>
+                      <pre> </pre>
+                      <pre>&nbsp;#endif</pre>
+                    </blockquote>
+                  </div>
+                </blockquote>
+              </div>
+            </div>
+          </blockquote>
+          <br>
+        </div>
+      </div>
+    </blockquote>
+  </body>
 </html>
 
---_000_SN1PR12MB2414C7A4F1A0133BB0AE3A4492DB0SN1PR12MB2414namp_--
+--------------D74223D6B1EFF019E0F7FCB3--
 
---===============1112019713==
+--===============1990085857==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -2535,4 +924,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1112019713==--
+--===============1990085857==--
