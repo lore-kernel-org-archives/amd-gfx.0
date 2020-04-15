@@ -6,46 +6,46 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D44FC3815B
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2020 11:46:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB651C38A29
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2020 11:47:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 752BA214D8
-	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2020 11:46:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C255A20732
+	for <amd-gfx@archiver.kernel.org>; Wed, 15 Apr 2020 11:47:41 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dd9A9e+q"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 752BA214D8
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="HdWBFMlD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C255A20732
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38ADE6E9A6;
-	Wed, 15 Apr 2020 11:46:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 751FC6E9AD;
+	Wed, 15 Apr 2020 11:47:41 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36EEE6E9A7;
- Wed, 15 Apr 2020 11:46:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEC7B6E9AA;
+ Wed, 15 Apr 2020 11:47:39 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 487F721569;
- Wed, 15 Apr 2020 11:46:56 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id E122421582;
+ Wed, 15 Apr 2020 11:47:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1586951217;
- bh=1ftGPW7s24C2jbr6ck2vAVvoAxyuPjtTL4lXJBW5RAc=;
+ s=default; t=1586951259;
+ bh=f5sXH50ovBTDYKJ5G08mWzS6k9zbA0nqGBjSKTcdi+Q=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Dd9A9e+qiXkN4JwU28Hd+wxqBN2Zvxtu+beIgiaZzGuMJ05xhCGSQOtvGIzR2Ol4i
- Ungtls93eYm7SRig04uDVnClTIIQoqReRhAs7qVTbW8oFFXx//ptoCCtlokm4hTBPF
- UjBPQmqXeo2PsdADQO4gZiv5cuBLhGGK9HDJOaxc=
+ b=HdWBFMlDvzB9mvAoEJjVfYPaiOb2nVUmnHEpLIxUfP9gvpZbE7SFGi7MqVtie845/
+ XJYWxsr2+VEyYTdiKpqmtMo54+UOLVIrphs0QrS0b/DwceNYRUGVRu5Xo2Q6wMWe/k
+ xwoAwmivm3+d2dNN4s6kVTw9D58MCppDSFe4YRqI=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 28/40] drm/amdkfd: kfree the wrong pointer
-Date: Wed, 15 Apr 2020 07:46:11 -0400
-Message-Id: <20200415114623.14972-28-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 4.14 23/30] drm/amdkfd: kfree the wrong pointer
+Date: Wed, 15 Apr 2020 07:47:04 -0400
+Message-Id: <20200415114711.15381-23-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200415114623.14972-1-sashal@kernel.org>
-References: <20200415114623.14972-1-sashal@kernel.org>
+In-Reply-To: <20200415114711.15381-1-sashal@kernel.org>
+References: <20200415114711.15381-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -84,10 +84,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 938d0053a8208..28022d1cb0f07 100644
+index 61fff25b4ce7d..ecd4eba221c0a 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -921,9 +921,9 @@ int kfd_gtt_sa_allocate(struct kfd_dev *kfd, unsigned int size,
+@@ -550,9 +550,9 @@ int kfd_gtt_sa_allocate(struct kfd_dev *kfd, unsigned int size,
  	return 0;
  
  kfd_gtt_no_free_chunk:
