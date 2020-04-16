@@ -2,128 +2,103 @@ Return-Path: <SRS0=B7jy=6A=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C0B5EC2BA2B
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 20:34:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 768EFC2BA2B
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 23:41:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 57E48206A2
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 20:34:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3AA2F21841
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 23:41:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wQJEVAQh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 57E48206A2
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="xcSJUlGb"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3AA2F21841
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 078336EB62;
-	Thu, 16 Apr 2020 20:34:01 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700059.outbound.protection.outlook.com [40.107.70.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA2556EB62
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 20:33:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD84B6E0D4;
+	Thu, 16 Apr 2020 23:41:14 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2081.outbound.protection.outlook.com [40.107.243.81])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECC376E0EC
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 23:41:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=XnfY+NS0yaIP7YiVW0U88SOoqCTCO95IlylKUKHYy7Z9PlJCoUrD+9aF2bjfD/HE52n87R1C7OT3WdTh1kaNpB0ms39+JS3ylwn2jEqhdSa+kR/ApN5KEAUsX4iTR/wDyU5npy95as567u54V5+1QAWyUTiMDeHzQklT3Uw5vlr/vOtU+qRbcpdSs90c9NZ0BQmn8hUmEKPXe68MSeUX3+1sj6kDsbXfOHUi19r2MD3f/Vp5VRHuvHqqAD1teKlVGjNjUGDl69DMBu8JUsr3P8+ubASziBmh+exiNb3Qbpx+gFIPfKysdVMJ6pE0oEhzS+AtMjF9CpjTnSXzMvSECQ==
+ b=JNpfFAdKdCZnq3CibNp705uKpFDcqTuig7DDLPuf0ScTUvjIUynDWy5gb5WaBNWZ3dwcDOOMa52/CljfPkpGChwbrFTuwItMUCS5jiT8pyxBe3w7iNrEbnutnCe/MIbaIuGm31N9rBU7HUQFxntGUMRxCoookWVOXvTeK09aIHExQvAf2bCtofnj8qHua5p5njmjCcUtzpzMZmAsC2i7SnjvHfYEJVfgwpK+7XkxDA2tMdLSqrzmft4dz7NyXoVkzDKKPu+6qc1saf8BxZrDf5D8M0OeUvgqrollGXdwVm9c6OxKr6NRYnCltEcQkzu/WPIOo295EQZgsr9s2dWbMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mvd0qqcnIikRUWfjtq4XDfqSmYPltDo+BDYBYals4Cw=;
- b=jC9rV34QjAek5iZLqGa4gXuI5CPbZxyt4goVdVZw+WMM+CNsduhp5vQCbpN9bsz0PEEDkyM1KWIaY5yP9yJa464UI4rmpBVCfglRODgGoixV87Yzk+zq/tsy+v/qytVUiPQ88Y+cMjcPU34oMULfjGlKkBbpyg78coyO/r0REJ8i0wYf0d5EGIzCixhBEYOcv2r6awO83ZmtUW2iiLDkcvEQHhAxT+u22AoixbOKvmvaGpiuf8i70JqUf3W65Vexa4jjiHWY9tknTVw5Utga8x7o7pmuulIB4sP9T3VJskMECsgKOjSokZoGEKnUyjznYtZvWCDo1PyLiUvezOE8Ww==
+ bh=9HdjFn3PKFEyXwGkxeNi80dymCxToG2dSrtoDI3JKyI=;
+ b=ZMUaztClM0u98WD4QF99Wo2ua2n06+NlfgMdrjarrXAGOrYXsENr8hPhb/p4xuqcZHI7wpj/7YYr7fgrRUzx+HqgMcJDs7OrEDoTTEhw3dJBuKuLt4yntcyF8IM5mTYeNa+bPXTTrXXachpSFvsO+3XxtSPOjX8Yhpr95KCTSZPzKNk6fkTgxs2botP6SNRxH52RH4wnmixOpnCJrnjBJNKSLK7UPcuu4py2GjgqputcPTEBAMoy1SAN+uOwMWK9kTX33U2PwEEj6SNUZhCBZp6c1DUXRn0w9dOFnrYTvmEoFUNuxL7cqrpNVPDIJia7mRSvg3m94J06UfKPBrk45Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Mvd0qqcnIikRUWfjtq4XDfqSmYPltDo+BDYBYals4Cw=;
- b=wQJEVAQhbaq1jQQ92M6VESbR4nUEp1mBHhz/7rvppnxApp16hURXZrDNN6WNVPfMb8U7j+BLpKgfTavv/nsErWJOZUFnHSd4obS8S4iPWEXo4WeQPd5kWKsnTOtjwAWKqiYhOiPNnidZ8oO8umj10TO+urb9xrkb9H0kaT5BAk4=
+ bh=9HdjFn3PKFEyXwGkxeNi80dymCxToG2dSrtoDI3JKyI=;
+ b=xcSJUlGbe7iBL9Ftt5e9A1IbqCm1j8ZeLvZ8FUSSu2I+qF47B66dRikPit5ow2vIc138SrvSNriEmlKdzQP1La68pFOwasd1CkHmK5I/JNRje1M74El6QaEHX9qOodiG7gKKH29CoJIJrCnlDLzmb7GWCw5ujFtrekSnZLEHmTU=
 Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Harry.Wentland@amd.com; 
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11)
- by MW3PR12MB4507.namprd12.prod.outlook.com (2603:10b6:303:2c::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.25; Thu, 16 Apr
- 2020 20:33:57 +0000
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::f4d7:424e:e4c8:e875]) by MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::f4d7:424e:e4c8:e875%9]) with mapi id 15.20.2900.028; Thu, 16 Apr 2020
- 20:33:57 +0000
-Subject: Re: [PATCH 2/2] drm/amdgpu/display: give aux i2c buses more
- meaningful names
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20200416194325.21755-1-alexander.deucher@amd.com>
- <20200416194325.21755-2-alexander.deucher@amd.com>
-From: Harry Wentland <hwentlan@amd.com>
-Autocrypt: addr=hwentlan@amd.com; keydata=
- mQENBFhb4C8BCADhHHUNoBQ7K7LupCP0FsUb443Vuqq+dH0uo4A3lnPkMF6FJmGcJ9Sbx1C6
- cd4PbVAaTFZUEmjqfpm+wCRBe11eF55hW3GJ273wvfH69Q/zmAxwO8yk+i5ZWWl8Hns5h69K
- D9QURHLpXxrcwnfHFah0DwV23TrD1KGB7vowCZyJOw93U/GzAlXKESy0FM7ZOYIJH83X7qhh
- Q9KX94iTEYTeH86Wy8hwHtqM6ySviwEz0g+UegpG8ebbz0w3b5QmdKCAg+eZTmBekP5o77YE
- BKqR+Miiwo9+tzm2N5GiF9HDeI2pVe/egOLa5UcmsgdF4Y5FKoMnBbAHNaA6Fev8PHlNABEB
- AAG0J0hhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPokBNwQTAQgAIQUC
- WFvgLwIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRAtWBXJjBS24xUlCAC9MqAlIbZO
- /a37s41h+MQ+D20C6/hVErWO+RA06nA+jFDPUWrDJKYdn6EDQWdLY3ATeAq3X8GIeOTXGrPD
- b2OXD6kOViW/RNvlXdrIsnIDacdr39aoAlY1b+bhTzZVz4pto4l+K1PZb5jlMgTk/ks9HesL
- RfYVq5wOy3qIpocdjdlXnSUKn0WOkGBBd8Nv3o0OI18tiJ1S/QwLBBfZoVvfGinoB2p4j/wO
- kJxpi3F9TaOtLGcdrgfghg31Fb48DP+6kodZ4ircerp4hyAp0U2iKtsrQ/sVWR4mbe3eTfcn
- YjBxGd2JOVdNQZa2VTNf9GshIDMD8IIQK6jN0LfY8Py2uQENBFhb4C8BCAC/0KWY3pIbU2cy
- i7GMj3gqB6h0jGqRuMpMRoSNDoAUIuSh17w+bawuOF6XZPdK3D4lC9cOXMwP3aP9tTJOori2
- 8vMH8KW9jp9lAYnGWYhSqLdjzIACquMqi96EBtawJDct1e9pVgp+d4JXHlgIrl11ITJo8rCP
- dEqjro2bCBWxijsIncdCzMjf57+nR7u86SBtGSFcXKapS7YJeWcvM6MzFYgIkxHxxBDvBBvm
- U2/mAXiL72kwmlV1BNrabQxX2UnIb3xt3UovYJehrnDUMdYjxJgSPRBx27wQ/D05xAlhkmmL
- FJ01ZYc412CRCC6gjgFPfUi2y7YJTrQHS79WSyANABEBAAGJAR8EGAEIAAkFAlhb4C8CGwwA
- CgkQLVgVyYwUtuM72Qf+J6JOQ/27pWf5Ulde9GS0BigA1kV9CNfIq396TgvQzeyixHMvgPdq
- Z36x89zZi0otjMZv6ypIdEg5co1Bvz0wFaKbCiNbTjpnA1VAbQVLSFjCZLQiu0vc+BZ1yKDV
- T5ASJ97G4XvQNO+XXGY55MrmhoNqMaeIa/3Jas54fPVd5olcnUAyDty29/VWXNllUq38iBCX
- /0tTF7oav1lzPGfeW2c6B700FFZMTR4YBVSGE8jPIzu2Fj0E8EkDmsgS+nibqSvWXfo1v231
- 410h35CjbYDlYQO7Z1YD7asqbaOnF0As+rckyRMweQ9CxZn5+YBijtPJA3x5ldbCfQ9rWiTu XQ==
-Message-ID: <0c270366-1d76-d66f-86af-b668905f2e04@amd.com>
-Date: Thu, 16 Apr 2020 16:33:53 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-In-Reply-To: <20200416194325.21755-2-alexander.deucher@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: BN6PR08CA0080.namprd08.prod.outlook.com
- (2603:10b6:404:b6::18) To MW3PR12MB4379.namprd12.prod.outlook.com
- (2603:10b6:303:5e::11)
+ smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
+Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
+ by MW2PR12MB2459.namprd12.prod.outlook.com (2603:10b6:907:c::24) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.15; Thu, 16 Apr
+ 2020 23:41:10 +0000
+Received: from MW2PR12MB2524.namprd12.prod.outlook.com
+ ([fe80::91a7:e6f7:b17a:bfa5]) by MW2PR12MB2524.namprd12.prod.outlook.com
+ ([fe80::91a7:e6f7:b17a:bfa5%6]) with mapi id 15.20.2921.027; Thu, 16 Apr 2020
+ 23:41:09 +0000
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 01/35] drm/amd/display: Correct updating logic of dcn21's pipe
+ VM flags
+Date: Thu, 16 Apr 2020 19:40:10 -0400
+Message-Id: <20200416234044.2082886-2-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.26.0
+In-Reply-To: <20200416234044.2082886-1-Rodrigo.Siqueira@amd.com>
+References: <20200416234044.2082886-1-Rodrigo.Siqueira@amd.com>
+X-ClientProxiedBy: BN8PR12CA0012.namprd12.prod.outlook.com
+ (2603:10b6:408:60::25) To MW2PR12MB2524.namprd12.prod.outlook.com
+ (2603:10b6:907:9::27)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:9240:c66::7] (2607:fea8:9240:c66::7) by
- BN6PR08CA0080.namprd08.prod.outlook.com (2603:10b6:404:b6::18) with Microsoft
+Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::2) by
+ BN8PR12CA0012.namprd12.prod.outlook.com (2603:10b6:408:60::25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2921.25 via Frontend Transport; Thu, 16 Apr 2020 20:33:56 +0000
-X-Originating-IP: [2607:fea8:9240:c66::7]
+ 15.20.2921.25 via Frontend Transport; Thu, 16 Apr 2020 23:41:08 +0000
+X-Mailer: git-send-email 2.26.0
+X-Originating-IP: [2607:fea8:56a0:11a1::2]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 5aa573ae-4566-4fa0-b942-08d7e2457c9f
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4507:|MW3PR12MB4507:
+X-MS-Office365-Filtering-Correlation-Id: 3841d4f6-d933-4e7d-17f5-08d7e25fa3aa
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2459:|MW2PR12MB2459:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW3PR12MB4507CF025D9844810BEF10EC8CD80@MW3PR12MB4507.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:93;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB2459282A4E873C0ACFA3C85898D80@MW2PR12MB2459.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2276;
 X-Forefront-PRVS: 0375972289
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR12MB4379.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:MW2PR12MB2524.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(376002)(39860400002)(396003)(346002)(136003)(366004)(5660300002)(6486002)(31696002)(2906002)(66476007)(66556008)(31686004)(4326008)(478600001)(66946007)(8936002)(81156014)(8676002)(53546011)(16526019)(2616005)(6666004)(52116002)(36756003)(186003)(316002);
+ SFS:(10009020)(4636009)(346002)(136003)(376002)(396003)(366004)(39860400002)(316002)(2906002)(54906003)(36756003)(6916009)(6486002)(1076003)(478600001)(6666004)(86362001)(81156014)(8676002)(8936002)(6512007)(66476007)(66556008)(66946007)(2616005)(5660300002)(16526019)(186003)(6506007)(4326008)(52116002);
  DIR:OUT; SFP:1101; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: XXoE+4v4Ynkxu0CrIcm0KsaS+voaJQG6HVqtcPsNcHm1eb+Xs4moWE7gqxGbB8IMAJFgI2FaYaB3HkIQ+aBkRztZHZToN5uuQ/xuLRPxgCMFhzO2m0FnL7Dm8eNfuBIOu7SMnsLKCDMr/DFkvRrrZslRa+uPiD0z2JH+XVkSee9heoLUmYppTiDpqVb4jxMjIkO4lGCRhhgKatqd35d6uJ/spsDgkESizS8KTeJ0+0crgL1UH8Sw6/BMrFP90f0BLLDpsNUPhzV7/E5TMWdecw6inyLw7ZOQlOE2uwFhzaZLmE1UqLfxn2eywabu3GR+R9iQfU/mREQrFsmGaAxbPFfTQChUCvaWYBN1kk8jRCfp0glcH6dL/UqaV3hYBeBtir2xpfJz5GXeokgJwhpiM14wkSOs4Pkea3QWtSFPJqeTVY5x+cReZzi4tCsQqgk1
-X-MS-Exchange-AntiSpam-MessageData: HtfKyDpKEo+kK5UEtp4GnOoD1kQ5P5qm9H6cZVyW/fdW9XgOjOxn6w2IXsw3JGKDVnarUppgJF50E3A/FJqr0XJujMukNOx2zZXKOLj8ljSTJlMqZbA73nvKDSozHfNCgeI1pJaDJDbhM9b0ThLYakxQTfIEu7C6WiuG5Bcc7pY=
+X-Microsoft-Antispam-Message-Info: 7URxSH4ojb0rg8WI7/8rfxQeODdzyHKpXIJvKZZ9LnOiFKvXuMyuwvBabtzJr8h4vVUYVYk3dU4DWvrM+kPKyYzUYpymTlNUiTLgJXy/9F19nE13QpIB5yLanjgohd2gJlvqtOfAUPkXdlYyCR4hDT7SL/nQ9X/gA+5JXPGvVw2UQDyiF3MyNhuwrmMT6fcBwTPFMTyhDgA7Kn3lmk1SXbbXDnnTt4L41Q6SKa2Xdb8RpyOU6ehfIBw29i8NASzKzP31leBHNWoMRXqImrnTNooSMIg8F7dMzhSHUmVWsUSM51ovKB6VVgu/zdr2fqjPkYSD7FXPmqLx4OEBBl6QNjPmX6wiYHF89Ia8mTTp4j8HUTYXE+y+8STQhkH/zoHmCYyu9nVfcFAgvhlTRHE5mNaVZtrSZ+iLZKzWvsPx7H8l6yyQZgS94t72CA6hkSc5
+X-MS-Exchange-AntiSpam-MessageData: vrnEdkkSxbYPzvD4EVI7OOD9qR74u6Whp6nnQRcRePYIIqsI0CqNy9jUnxLO/0oDrKcsLQT/sWR/IYTZofyZ8szGEhGsWASMsORftxfKRMHaRruBIiBIJw35ienQzWxkk8g8QBvdhQkFrqIe5aaZqHbQYNpynKJUyGOqUT+SoL8=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5aa573ae-4566-4fa0-b942-08d7e2457c9f
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2020 20:33:57.0993 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3841d4f6-d933-4e7d-17f5-08d7e25fa3aa
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2020 23:41:09.5236 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IVCzNs3NHt0ZTPno1s/YBXG5jx+E01GCsD0TRwwpJYWalBSzx1pTevewZxTB7Dc1k01StRt5tSidudP/AMK1Pw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4507
+X-MS-Exchange-CrossTenant-UserPrincipalName: EWFbVNQp5MYjTIXHLzzgbz0PNWMTVR72RvxSY0GVS4vKcmbletZQe8I5p56sLgOWFm9DqmcEzt6lp0NQHszCpg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2459
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,83 +110,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Sung Lee <sung.lee@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Dale Zhao <dale.zhao@amd.com>, Rodrigo.Siqueira@amd.com,
+ Yongqiang Sun <yongqiang.sun@amd.com>, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-04-16 3:43 p.m., Alex Deucher wrote:
-> Mirror what we do for i2c display buses.
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+From: Dale Zhao <dale.zhao@amd.com>
 
-Series is
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+[Why]:
+Renoir's pipe VM flags are not correctly updated if pipe strategy has
+changed during some scenarios. It will result in watermarks mistakenly
+calculation, thus underflow and garbage appear.
 
-Harry
+[How]:
+Correctly update pipe VM flags to pipes which have been populated.
 
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c          | 3 ++-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 7 +++++--
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h    | 3 ++-
->  3 files changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index fc81788f24b4..4a85076c36ab 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -4679,6 +4679,7 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
->  		i2c_del_adapter(&aconnector->i2c->base);
->  		kfree(aconnector->i2c);
->  	}
-> +	kfree(aconnector->dm_dp_aux.aux.name);
->  
->  	kfree(connector);
->  }
-> @@ -6119,7 +6120,7 @@ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
->  
->  	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort
->  		|| connector_type == DRM_MODE_CONNECTOR_eDP)
-> -		amdgpu_dm_initialize_dp_connector(dm, aconnector);
-> +		amdgpu_dm_initialize_dp_connector(dm, aconnector, link->link_index);
->  
->  out_free:
->  	if (res) {
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> index 7d28b0482127..69056660672d 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-> @@ -429,9 +429,12 @@ static const struct drm_dp_mst_topology_cbs dm_mst_cbs = {
->  };
->  
->  void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
-> -				       struct amdgpu_dm_connector *aconnector)
-> +				       struct amdgpu_dm_connector *aconnector,
-> +				       int link_index)
->  {
-> -	aconnector->dm_dp_aux.aux.name = "dmdc";
-> +	aconnector->dm_dp_aux.aux.name =
-> +		kasprintf(GFP_KERNEL, "AMDGPU DM aux hw bus %d",
-> +			  link_index);
->  	aconnector->dm_dp_aux.aux.transfer = dm_dp_aux_transfer;
->  	aconnector->dm_dp_aux.ddc_service = aconnector->dc_link->ddc;
->  
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-> index d6813ce67bbd..d2c56579a2cc 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
-> @@ -32,7 +32,8 @@ struct amdgpu_dm_connector;
->  int dm_mst_get_pbn_divider(struct dc_link *link);
->  
->  void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
-> -				       struct amdgpu_dm_connector *aconnector);
-> +				       struct amdgpu_dm_connector *aconnector,
-> +				       int link_index);
->  
->  #if defined(CONFIG_DRM_AMD_DC_DCN)
->  bool compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
-> 
+Signed-off-by: Dale Zhao <dale.zhao@amd.com>
+Signed-off-by: Sung Lee <sung.lee@amd.com>
+Reviewed-by: Yongqiang Sun <yongqiang.sun@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+index 0e638a77b5ee..babc966cdabd 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
+@@ -1709,12 +1709,8 @@ static int dcn21_populate_dml_pipes_from_context(
+ {
+ 	uint32_t pipe_cnt = dcn20_populate_dml_pipes_from_context(dc, context, pipes);
+ 	int i;
+-	struct resource_context *res_ctx = &context->res_ctx;
+ 
+-	for (i = 0; i < dc->res_pool->pipe_count; i++) {
+-
+-		if (!res_ctx->pipe_ctx[i].stream)
+-			continue;
++	for (i = 0; i < pipe_cnt; i++) {
+ 
+ 		pipes[i].pipe.src.hostvm = 1;
+ 		pipes[i].pipe.src.gpuvm = 1;
+-- 
+2.26.0
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
