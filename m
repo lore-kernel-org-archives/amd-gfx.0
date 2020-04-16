@@ -7,56 +7,56 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FD70C2BA2B
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 23:41:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2D96C38A29
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 23:41:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EBB3E21841
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 23:41:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9A1DB21841
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 23:41:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="hvepA0a3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EBB3E21841
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="gCL+3QXw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9A1DB21841
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7122988C07;
-	Thu, 16 Apr 2020 23:41:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB5389174;
+	Thu, 16 Apr 2020 23:41:22 +0000 (UTC)
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2060.outbound.protection.outlook.com [40.107.243.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 092AB6E1AA
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 23:41:18 +0000 (UTC)
+ (mail-dm6nam12on2067.outbound.protection.outlook.com [40.107.243.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CCE56E1AA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 23:41:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JZhGYLRBFYnVZCcP7Ic+gsjFpiasLi8X1z2ntaYM4ht8A4KIcd5qif7P11FF6paMtwvr+veoWc1Go/xdPpAWPyqrje8cUeINPDFTCufqoenNYOLcR3aVByV2oUlyzTP/cwuP2c72p3YJok2Q5Iizz/tAYALHUocGDMZOxfs0bmX9p3NVNtZXUoMb8S56cn+PFKEVcxib5s1TL493kS2vviI3cEiKtUYRIUuAjeeF84tQ58y/j3jk+UvOAG1fwrEg2QPRYCPevKkJO9wNr/0dl/8IjBwd/SfvtCsUadqeD2LN8+9QEcaxO1306apqs0FZ8/zu73jbGHHFCKAF2yqUdA==
+ b=HyUBe5A5PBA/wooXm5z4r8DzcYLh+p1WURLTprPe5kcOWx12vHvdvLYEMH7y/9XIgrKAnmVvjBvDD9PVIZmGNsSBkmDupvKiJi4vSUrBiWSLEhajZuDKduVAnUZdeCC6JCBKqFOkOzOzwgkcbQGq8QEZAaXAaPkoYw/RoMPHJkljulpxT9MwPCAGAFy1qR9E6M1Dt53w0sW+1bRcHXbiW00pN6s+NNSaYwOvtGVzQO7nAKNB6oHXds/Fpzg3iE/O+VT/TG6UfuwiLlPEfFyfJiXs5IWGrBPoy2jvKAMiIo/x+R2WQ8Ede9uIe2O8xDOBwfYnv4F/1Nm+A9wClbvu1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hUClnDWTa/OO23rva097cMKJ6X4Zr2MBKY9P+Mgbeo0=;
- b=Aot7PmllvsvFFgkwXmNrbGZ0K3JUYyebpVqD5NWKut8ngbtdCVse3cOIiAK25aSdaRHClUTXbf7MERX5uC9Wqy5/zP0xD2YmIkyQrse+2RTu1VKIfn9qIupgzyoCEaHe+WGUhMEmXWBOG31qJIcEHoC2vZ3ukic8nMXakWAhtFHsM/jLDm8B92uSoPt9hcymUVeLsaDHrhBZHaLlUHrvZT/7vnVBdA0PXolKQxwW1hdeZCrSx4k3/YUXBFT7ZHdEaookNToTZ1dmRD7rJNZN1EUixK+YaTTPghKtBlemONrKZ7O8jtSjlzIeSRIYtsYmu2qOhRvItG3yfQCxupVPWQ==
+ bh=CFTcg/52lDozhWQjJLI2i22ycfQzdnyxI/moKRcZknk=;
+ b=g+YfLIRjrfrLjbhLAWeKgvU8tddc01u/+n5r710QZ4f6CcDBYJ5ixUUt9F2ewdJ/zlkftxxevNmF1Kzv+SzOezhisdtfQ/80vFGRH9z6v6ap19dwqUrPsns+d4vKY7tlp0gPZ5xtLyhx2z5Dsi67ZIjjWQ3VNN//tY33rLhUnHaBG+f7P6vDsk92Ty+1+9sIcY1VGcigVlktJzv0iR0gJIacALHX769WxrFa0SKNB+qSswboMBX2T0yfMmwxIkHbSZ2cAAWcZMLpESb9rI9Ivb6SPrxCNbBCZllcXtKS7WfM1/6QFk1zReSMzkWt4FFwh2b8UJ9S4LAwAkubsAMupQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hUClnDWTa/OO23rva097cMKJ6X4Zr2MBKY9P+Mgbeo0=;
- b=hvepA0a3QD1PFsSVhlYTy/PIm1JY3aAziEHr30LYLTXvDtT5Kwgk8DVUJwRRccbnuToyLMKp4VcMBc7FPI93SIhMZwx9H9JdF4MamGsXIz2kNZ/cVjKvZ8JGe/lfmpK+cRA71ezZ5dmKsv9rx55oc55SyuZZb74yTaWND7lwiks=
+ bh=CFTcg/52lDozhWQjJLI2i22ycfQzdnyxI/moKRcZknk=;
+ b=gCL+3QXwIxD0RjlQ5JDySbKkJlPOHKgcNA1m0M4uLLRhHmrFvHX6aIBEZlqpBofCKSf+DAIkeiLFpofrCOcbqkLgmtbFYEJv8irJ3VuHx9by2WI3P0ys0hFaR/j3WZ86phEu0U5hdMsyjRfpR9R3jIuiM+nCzxj6+mXKMfgWLkk=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
  by MW2PR12MB2459.namprd12.prod.outlook.com (2603:10b6:907:c::24) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.15; Thu, 16 Apr
- 2020 23:41:16 +0000
+ 2020 23:41:18 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::91a7:e6f7:b17a:bfa5]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::91a7:e6f7:b17a:bfa5%6]) with mapi id 15.20.2921.027; Thu, 16 Apr 2020
- 23:41:16 +0000
+ 23:41:18 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 06/35] drm/amd/display: Add SetBacklight call to abm on dmcub
-Date: Thu, 16 Apr 2020 19:40:15 -0400
-Message-Id: <20200416234044.2082886-7-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 07/35] drm/amd/display: Support plane-level gamut remap in DM
+Date: Thu, 16 Apr 2020 19:40:16 -0400
+Message-Id: <20200416234044.2082886-8-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.26.0
 In-Reply-To: <20200416234044.2082886-1-Rodrigo.Siqueira@amd.com>
 References: <20200416234044.2082886-1-Rodrigo.Siqueira@amd.com>
@@ -68,16 +68,16 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::2) by
  BN8PR12CA0012.namprd12.prod.outlook.com (2603:10b6:408:60::25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2921.25 via Frontend Transport; Thu, 16 Apr 2020 23:41:15 +0000
+ 15.20.2921.25 via Frontend Transport; Thu, 16 Apr 2020 23:41:16 +0000
 X-Mailer: git-send-email 2.26.0
 X-Originating-IP: [2607:fea8:56a0:11a1::2]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 0fe71aad-4ced-4ed0-4437-08d7e25fa80d
+X-MS-Office365-Filtering-Correlation-Id: 79e8610a-43f9-42a0-1fa1-08d7e25fa8e6
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2459:|MW2PR12MB2459:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB24597BA079D40CC3C80117CC98D80@MW2PR12MB2459.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1751;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB24599ABAC56FED7BA11286AB98D80@MW2PR12MB2459.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:454;
 X-Forefront-PRVS: 0375972289
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW2PR12MB2524.namprd12.prod.outlook.com; PTR:; CAT:NONE;
@@ -88,15 +88,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5tgIeCTbSB/SN0659DsJ/zeqrclzBQTyfhz8Ia1w5ycMsCb78BqltN426Wlhzvu3iizWVCFPxLMuI7HmCbWyP+YHEZr4ibEBsfdGZzAm4VwWZOJaPSAWfKcpqYOz3wRA1xsEDuVfGz8n4F1aPEZTh5WBS2x1ocsNybZnFJau3yurSicPvcpxefOxPzS+EH2deTP1AcuD3II7wM/qo5+ytLTsQQ/sz0M0Amfj4jGpgm5OZpADRX/V83Fzu/y9TtRUmS/ThAsN4rcZhLlEVSDTNDkRiZBIpKW5pYl2MUWgeN3XwSmTNF/AQ3uZDgn45qHkxWSsjdOizJRRAGXzGhgXk/M4g28S0HQlwxjegH5u6lvw7sNU1piCH2Zh/hPK7yER+t9OLblIIvWe8mT7eLHlrtEI2Nk4Th2Lk7CBuzk/CYZJJEA6Dm58NwxWdfBpgCLH
-X-MS-Exchange-AntiSpam-MessageData: inoVUpuEG+z8Ux55kL7jEnIWDTsAIvNOVKag4F/WSxfaSSTxf4L1v0iUwOTs28rvXpYT+bn9EFrXglcUfC0FAJ+YCMryLEWZhhTANsXNXNu34+dnIzy9IN+SDhh4vJC/3Hin+XR1MHjBWGZG/mBnveMDT83vPjW7K1zkaLQ31yg=
+X-Microsoft-Antispam-Message-Info: CGdu+y0zRIHYphiTXF8ytAnzYNyQh3KvdGjiTOEMeVCYTsYJ3OJdKcPMzrs3cAkVah0jZVWWTTxpbKiDo+G0d/08nCakBYyS7eYN/qz+uvLqVC3jw2lrIAg/F0iWI+7pXIpPjeRLftemZvMJ7tArOylVVBb0LaV5IN26N2i4SppOurE8QHLES2km9cHvkAPwWSGhrZHZgx0PtKfs80JYJYSg2jhM6ChJYjrUTs0DzktnbSpbGrMd7JwzNufR4rWmlSPNVLeLHidstDhZVuMd77uCKROd9poIhrHYqbuZRFOo6QQmyKUJyERV45ffgEzOVWSlpBCFkOBobnxtDW/v/ArsRbvnIzCIYX5lfElBbl/Z+uh9GWdMBRW4ihS6L8lV+oghxsxGYij01J/HNhPj4qNfoYJebqw86Hg7uCe+rRxNaTgjenuNFQtGwA4tGBJ/
+X-MS-Exchange-AntiSpam-MessageData: WzmjZcsheVGD1r+9+3UDqomKt4rpZM1Mn2Kql6G7kBi0deotrWELWVKReeqCVHW8Aw/7CTdYmvqF+/IQUr9KRaHjvokNKq60Im/vZKpvAjziMpvU1GJAk2dLurLeHYjHeSbQoyv1VCv978xyX+lPIdBfc2wmkNKbQBjhknsRQ4g=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0fe71aad-4ced-4ed0-4437-08d7e25fa80d
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2020 23:41:16.7805 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79e8610a-43f9-42a0-1fa1-08d7e25fa8e6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2020 23:41:18.2377 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YpAogxPyhydmSr7vmJRKbe9Wlc3k5fT2BqlnzV5Cqm5q1XJiiLOZVzaNikKwPfDa0AbIG9KGrgcE1LbWJS3O5w==
+X-MS-Exchange-CrossTenant-UserPrincipalName: vwAmeQkp+3/UKT0RvUz7DXc6l03dlAznOCysXkytoBhgELMSliIGhpNV+Obk/AN46vwh8tOuoiRU+77nIMDDXQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2459
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,116 +109,51 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
- Wyatt Wood <wyatt.wood@amd.com>, Bhawanpreet.Lakha@amd.com,
- Anthony Koo <Anthony.Koo@amd.com>
+Cc: Stylon Wang <stylon.wang@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com, Bhawanpreet.Lakha@amd.com,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wyatt Wood <wyatt.wood@amd.com>
+From: Stylon Wang <stylon.wang@amd.com>
 
 [Why]
-Set backlight calls to firmware are are being prevented by dmcu == null
-check. Dmcu is expected to be null in this case.
+Plane-level gamut remap is not enabled in DM, which is necessary to
+support CTM as a plane-level property.
 
 [How]
-Only prevent call if dmcu and abm are null.  Also rename variable
-'use_smooth_brightness' to 'fw_set_brightness' as it's more appropriate.
+Enable gamut remap in DM.
 
-Signed-off-by: Wyatt Wood <wyatt.wood@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Signed-off-by: Stylon Wang <stylon.wang@amd.com>
+Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c | 10 +++++-----
- drivers/gpu/drm/amd/display/dc/dce/dce_abm.c  |  4 ++--
- drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c |  2 +-
- drivers/gpu/drm/amd/display/dc/inc/hw/abm.h   |  2 +-
- 4 files changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index 00f70e43ed76..ef8184296a7e 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -2455,16 +2455,16 @@ bool dc_link_set_backlight_level(const struct dc_link *link,
- 	struct abm *abm = dc->res_pool->abm;
- 	struct dmcu *dmcu = dc->res_pool->dmcu;
- 	unsigned int controller_id = 0;
--	bool use_smooth_brightness = true;
-+	bool fw_set_brightness = true;
- 	int i;
- 	DC_LOGGER_INIT(link->ctx->logger);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index c86b32d4274b..47d12c38bc71 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6728,6 +6728,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 		if (new_pcrtc_state->color_mgmt_changed) {
+ 			bundle->surface_updates[planes_count].gamma = dc_plane->gamma_correction;
+ 			bundle->surface_updates[planes_count].in_transfer_func = dc_plane->in_transfer_func;
++			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
+ 		}
  
--	if ((dmcu == NULL) ||
--		(abm == NULL) ||
-+	if ((dmcu == NULL && abm == NULL) ||
- 		(abm->funcs->set_backlight_level_pwm == NULL))
- 		return false;
- 
--	use_smooth_brightness = dmcu->funcs->is_dmcu_initialized(dmcu);
-+	if (dmcu)
-+		fw_set_brightness = dmcu->funcs->is_dmcu_initialized(dmcu);
- 
- 	DC_LOG_BACKLIGHT("New Backlight level: %d (0x%X)\n",
- 			backlight_pwm_u16_16, backlight_pwm_u16_16);
-@@ -2496,7 +2496,7 @@ bool dc_link_set_backlight_level(const struct dc_link *link,
- 				backlight_pwm_u16_16,
- 				frame_ramp,
- 				controller_id,
--				use_smooth_brightness);
-+				fw_set_brightness);
- 	}
- 
- 	return true;
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_abm.c b/drivers/gpu/drm/amd/display/dc/dce/dce_abm.c
-index e345df621a6a..4dae9efebb6f 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_abm.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_abm.c
-@@ -420,7 +420,7 @@ static bool dce_abm_set_backlight_level_pwm(
- 		unsigned int backlight_pwm_u16_16,
- 		unsigned int frame_ramp,
- 		unsigned int controller_id,
--		bool use_smooth_brightness)
-+		bool fw_set_brightness)
- {
- 	struct dce_abm *abm_dce = TO_DCE_ABM(abm);
- 
-@@ -428,7 +428,7 @@ static bool dce_abm_set_backlight_level_pwm(
- 			backlight_pwm_u16_16, backlight_pwm_u16_16);
- 
- 	/* If DMCU is in reset state, DMCU is uninitialized */
--	if (use_smooth_brightness)
-+	if (fw_set_brightness)
- 		dmcu_set_backlight_level(abm_dce,
- 				backlight_pwm_u16_16,
- 				frame_ramp,
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-index 8baebb594de5..a19f359e45d7 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-@@ -338,7 +338,7 @@ static bool dmub_abm_set_backlight_level_pwm(
- 		unsigned int backlight_pwm_u16_16,
- 		unsigned int frame_ramp,
- 		unsigned int otg_inst,
--		bool use_smooth_brightness)
-+		bool fw_set_brightness)
- {
- 	struct dce_abm *dce_abm = TO_DMUB_ABM(abm);
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/abm.h b/drivers/gpu/drm/amd/display/dc/inc/hw/abm.h
-index 0cae258a903e..0dd12c4fc23c 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/abm.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/abm.h
-@@ -56,7 +56,7 @@ struct abm_funcs {
- 			unsigned int backlight_pwm_u16_16,
- 			unsigned int frame_ramp,
- 			unsigned int controller_id,
--			bool use_smooth_brightness);
-+			bool fw_set_brightness);
- 
- 	unsigned int (*get_current_backlight)(struct abm *abm);
- 	unsigned int (*get_target_backlight)(struct abm *abm);
+ 		fill_dc_scaling_info(new_plane_state,
+@@ -8173,6 +8174,8 @@ dm_determine_update_type_for_commit(struct amdgpu_display_manager *dm,
+ 						new_dm_plane_state->dc_state->gamma_correction;
+ 				bundle->surface_updates[num_plane].in_transfer_func =
+ 						new_dm_plane_state->dc_state->in_transfer_func;
++				bundle->surface_updates[num_plane].gamut_remap_matrix =
++						&new_dm_plane_state->dc_state->gamut_remap_matrix;
+ 				bundle->stream_update.gamut_remap =
+ 						&new_dm_crtc_state->stream->gamut_remap_matrix;
+ 				bundle->stream_update.output_csc_transform =
 -- 
 2.26.0
 
