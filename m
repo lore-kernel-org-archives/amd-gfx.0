@@ -7,57 +7,57 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15A05C2BB85
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 23:41:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 08EF5C2BA2B
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 23:41:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DEFA021841
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 23:41:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D455421841
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 23:41:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="EDM/2zOC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DEFA021841
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="VtHE10ZM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D455421841
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93FE86E334;
-	Thu, 16 Apr 2020 23:41:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 806EA6E34C;
+	Thu, 16 Apr 2020 23:41:45 +0000 (UTC)
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2060c.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:fe59::60c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 390236E290
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 23:41:40 +0000 (UTC)
+ (mail-dm6nam12on2060a.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe59::60a])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 178456E334
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 23:41:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZdwjqWptnznwoOXh3xdHWCu1/641TV18hgD6i8u+p+Sbaj5w+U6niIDIybbZUIYuQ1d0BDhBzcA2s/Q+gDBkBIs6P60Zo2esJVxErYV/b6FSjchPkgeRjqBX8LyUp5AZD2qrVXfU4HbPnHHo7HZQWpD9/gNI0Q/EAYZLaDCbFht5OWXzuyGusidD4q1GrnGTBNsngqPwrPkvfH1fzBYpxDBYQlSLJnnjb1Bo9PQaSp89Ygf76IDmYfJx9Lo3Tl/gyRrCVY52qD5/NqfKWNNywBDPuerfVT0mvN6QF491WF181+miTEqArihdi+mVWin/A8MK+DpSpeK1Ps6idTP+AA==
+ b=ED2MG16V3P1EkW+gkrTVxh1QYDvszFYCSAXIqWiiK+wwGqux5FIxEgfldmTyFI/K88ANjHIeJ/VnPJuRnsVNob98Z9JUwYi/PNr5+regaQ/jj8wIaxAvmHfPYipjwM1R/1PpTf9UEMm0ruDjyr9lM9agON1E0MGlljk8Z2Vos5+cM+Re9cqpyV47EC6/Rxk9MXaBDUiLPrOgZKohXVLwbjm/1t9NySAPhSxdyMKk7UpLmF4j0j2mWVLKhj7OH+2nDAsaMQZ1OPbWydPtPjQjvJ72KyYQw3oQPCSAzKMH4FSGm8XaQps1KtcN16QqyIIgp9h+85HwoaOyCzE0IpWnYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=taodk3nwP9NpSrcC4ZmrdF19Z4b22KmjGPDrTOt3P5Y=;
- b=m0cFeBsJQAKqpfuDmLuzhOQgy8T9BoY19/AjE3nxm/xoBYmy6yY77Liy7RJYpJw7CbwO3DQKkanDXIM85+nfJsPNfqxeuTkzU6hTqv67u0ujzBeU6744v9I/UddG3/lcQkCmG3w/Q0vUzO4qEL0lF2G4INMiaye6iWPnVDdtSlWGWnlDWkYnEPonm3zQGthEa7ScJfCJfn40W0mtaJJoLs+Ut8CwFsKAs0g5Sepk6UBBLz19LjBkXKzSHdAq5EVgwVsEi0Yj00zvgOvv9y85v6mRZioibvLUf+2HNLHtYOwM51bXFMiV84C7lexYKYb0lKCpAc/ANIzwMa9py875xw==
+ bh=zybr3ds3lC4Fkkig8abGi7lvzCr8Yjl1SKuKbCut2BY=;
+ b=Kzn9BSmJIG2h2A6jxMubGL7NpnWduDaR9S8a4IWxpMvt8P/Fz2jev/mb6763jUQ0uzBd9ZxSunROJyja1GEwfN85FM/qfBuJ1aq13XOhyxxD6VP4q46f/yHYu0ifqCqmr1a1Vu3s0MnmjyBl4IGMF0M5mTZ50HSrzcswEymI12UwxCk/bU05lGufgKRsW6Mysz6oMhyhhpS4BBnJ+06bb+BsDLM+BEp3y/hAVpkBvpX7PMLp9W9JVs292GIBzlcwjSe0f1IhDFxPDZ4vGAb4zIO9zbXrfcCDx6j5z6A+3vMhno3w9C6DcbNl1j8jbNJbryA7+LF2FgUIAnzgbHqgUg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=taodk3nwP9NpSrcC4ZmrdF19Z4b22KmjGPDrTOt3P5Y=;
- b=EDM/2zOCIHmUbcWqZfOtXpP7KFYtghL8uTmDTurWPRGULd7uWh0EdSLdgwMILb/22PZNoic8AXs3SEUZmQ7OenXlBfdM4hYliqWot4U1DkDVovY50bztCsNrfbKwL/9CMt6K0WDBGGwN1qOtq2cpDW5cCTo+NICQIkXJc7Xfm9w=
+ bh=zybr3ds3lC4Fkkig8abGi7lvzCr8Yjl1SKuKbCut2BY=;
+ b=VtHE10ZMYAohZ6YyZkqMEFZiLdMFoEmCrnDbMPyEgJQrCOdKenXjupxvGP84uKwodFw2cFR6eqYK0b7s1lbrDekO7RbILnelmEGUkdCYBH2GHU5LLwR3wcQzSMZbn8tX822igGGjPYlhBObwh7D93edgWyz4XK3cmWXySftB1ng=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
  by MW2PR12MB2459.namprd12.prod.outlook.com (2603:10b6:907:c::24) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.15; Thu, 16 Apr
- 2020 23:41:39 +0000
+ 2020 23:41:42 +0000
 Received: from MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::91a7:e6f7:b17a:bfa5]) by MW2PR12MB2524.namprd12.prod.outlook.com
  ([fe80::91a7:e6f7:b17a:bfa5%6]) with mapi id 15.20.2921.027; Thu, 16 Apr 2020
- 23:41:39 +0000
+ 23:41:42 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 21/35] drm/amd/display: Various fixes for PSR on DMCUB
-Date: Thu, 16 Apr 2020 19:40:30 -0400
-Message-Id: <20200416234044.2082886-22-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 23/35] drm/amd/display: make all backlight calls link based
+Date: Thu, 16 Apr 2020 19:40:32 -0400
+Message-Id: <20200416234044.2082886-24-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.26.0
 In-Reply-To: <20200416234044.2082886-1-Rodrigo.Siqueira@amd.com>
 References: <20200416234044.2082886-1-Rodrigo.Siqueira@amd.com>
@@ -69,16 +69,16 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::2) by
  BN8PR12CA0012.namprd12.prod.outlook.com (2603:10b6:408:60::25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2921.25 via Frontend Transport; Thu, 16 Apr 2020 23:41:37 +0000
+ 15.20.2921.25 via Frontend Transport; Thu, 16 Apr 2020 23:41:40 +0000
 X-Mailer: git-send-email 2.26.0
 X-Originating-IP: [2607:fea8:56a0:11a1::2]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 89015673-7aad-4ba8-aac1-08d7e25fb532
+X-MS-Office365-Filtering-Correlation-Id: 17298cb0-efcf-49a1-c414-08d7e25fb6f5
 X-MS-TrafficTypeDiagnostic: MW2PR12MB2459:|MW2PR12MB2459:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB245959ED0B56960D342B57EE98D80@MW2PR12MB2459.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:660;
+X-Microsoft-Antispam-PRVS: <MW2PR12MB24591F3EB77246BBF5D8554C98D80@MW2PR12MB2459.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:215;
 X-Forefront-PRVS: 0375972289
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW2PR12MB2524.namprd12.prod.outlook.com; PTR:; CAT:NONE;
@@ -89,15 +89,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: dA5Hf3abOK2VYzxX0ryyhUBMVRx5M4ighlkz9/nrbpECYTzcB1lZT7Avu8yszKMLkHTdrBpYSxXiqV8EioyH2gVQiT7Ep5TdidFRWqX7EbB246zk2fvhc9ydqSu53m8T5rrz0GNzKU2s5xYFluXnSu9N4qKsZ19H99gXn4/46Rf1V2fLwuUr0K2u3QuacNW/Gzg7NPZI79vJ+naOk4A09lalbngukF0G9UHiyHx2Qrg+d3ATuTvPNA+3AP4ijz0JvBFFxDBRTbkH1H0xByfVi9mwL+jnLemtrfAX0PWGY1oF2n7Mz70xw2UMMQEGv8K1hFnQpsDkBDPSQW4UG2Rh5fnUa61pGnwhCT9vKQ2vD96iO6c1+ps8x3u24pWPYKHjNAXULp5DFhzRi6ZfQv8rq3Y3GgE8ye1RpIX+rB0PRrXckleMOjOHQaKhNQQw2coD
-X-MS-Exchange-AntiSpam-MessageData: scw/7EAnLG8yGFEC3dgNmhuHvUE8ZOUEEAXi04HS7GXpVAY4PKEy9QO93uJ/WfR/2aRIjeD32ejI1Jkt8MQzKohI50rnwKR2RggaCEN4EK2JM+Oola0SmsEJG9LB67L21INZaOILYzuVKH2476ePJWv5b73j7Y9AeIqbhWjc1cQ=
+X-Microsoft-Antispam-Message-Info: AzxBgkwfmgngDg0AgEXWRGsvgtwFsIbAwu1XHijsXEIb3m68Zf3WP0YwEECzBkdsNEVHgo61sIO7XeYDw0IDVZTGGkqvr4C9QjWsLyagMgl+ZdrkHyQr0fpB6ytZxhURyu9db/GICT5extTa/mHTKz4BS6Hcngz9a0CdvXGL9rdccK3M9u8QlX8RK0A8bICM/+ogPdUP+RBnKuVMTEwy6HLEvEm5dNgyRENZvTZZ77kvbll17/ETRDbI7EFeDN3mo2DAX7yOnEg7kKaf8siDNJHKYjYWq4oz28jz+nV++Q0KK4mMWhoLPyR7SjEJNI4x23CyxnCtlz8F1jm3PI6nn/PAwJgtebhrMDy+Vrq2y67TG+Lt8/UQerJol10r6pKzgYtWDFDlS31AOcOHbSqMpiGHKVsmdTIzlv4STi8QWy1sQHLOtdKKt8b8m6MdfwZ8
+X-MS-Exchange-AntiSpam-MessageData: 5tKDqqsGQ91xGVd6QT3L1WhH1Kw83dU8ZvRthGIaYmveYRw/n/Vj8TgYESNFJez4ydVmFgub62tCzeEDw0nMBVhTQINE8HmylzOoytCHbybVwRpA6/k8OWncak3UIRAXn4ncxVRJQorymUHS2LvRpvF1H/QUvHrE0cui4KkAcuU=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89015673-7aad-4ba8-aac1-08d7e25fb532
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2020 23:41:38.8380 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17298cb0-efcf-49a1-c414-08d7e25fb6f5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2020 23:41:41.8083 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eTPbg7czQrnZbUbgEFy5T+rHCeOJRUywC+Nd5tLWKDSNM+DGueggQEgB0MtMn0N8ygzCcbkpyyYY+bD9KPOLKg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: onJ+c8FyNfnuBe8KhdpiX3fuaL60KQKkO1z5aa6EeMJRxhHgh7efwagdWRKc+ggl0xH8ZbZwMRtEqsBGg1eiGA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2459
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,146 +110,177 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
- Wyatt Wood <wyatt.wood@amd.com>, Bhawanpreet.Lakha@amd.com,
+Cc: Sunpeng.Li@amd.com, Tony Cheng <Tony.Cheng@amd.com>,
+ Rodrigo.Siqueira@amd.com, Harry.Wentland@amd.com, Bhawanpreet.Lakha@amd.com,
  Anthony Koo <Anthony.Koo@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wyatt Wood <wyatt.wood@amd.com>
+From: Anthony Koo <Anthony.Koo@amd.com>
 
 [Why]
-- Driver does not recognize new definitions of psr states.
-- Internal tool is required for checking if psr is active.
+Backlight adjustment is tied to a specific display.  So make the calls
+target a link rather than making it a global state.
 
 [How]
-- Parse psr state correctly so that driver will recognize psr state.
-- Add visual confirmation that psr is active using existing mechanisms.
+make all backlight calls link based
 
-Signed-off-by: Wyatt Wood <wyatt.wood@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c | 45 ++++++++++++++++++-
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  6 +++
- 3 files changed, 51 insertions(+), 1 deletion(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 10 ++++---
+ drivers/gpu/drm/amd/display/dc/core/dc.c      | 21 -------------
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c | 30 +++++++++++++++----
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 --
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  2 ++
+ 5 files changed, 33 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index f9a2069ea30f..c46d4f8d4fe8 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -241,6 +241,7 @@ enum visual_confirm {
- 	VISUAL_CONFIRM_SURFACE = 1,
- 	VISUAL_CONFIRM_HDR = 2,
- 	VISUAL_CONFIRM_MPCTREE = 4,
-+	VISUAL_CONFIRM_PSR = 5,
- };
- 
- enum dcc_option {
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-index ccd40cffc26c..3b8a49e8e665 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-@@ -32,6 +32,45 @@
- 
- #define MAX_PIPES 6
- 
-+/**
-+ * Convert dmcub psr state to dmcu psr state.
-+ */
-+static void convert_psr_state(uint32_t *psr_state)
-+{
-+	if (*psr_state == 0)
-+		*psr_state = 0;
-+	else if (*psr_state == 0x10)
-+		*psr_state = 1;
-+	else if (*psr_state == 0x11)
-+		*psr_state = 2;
-+	else if (*psr_state == 0x20)
-+		*psr_state = 3;
-+	else if (*psr_state == 0x21)
-+		*psr_state = 4;
-+	else if (*psr_state == 0x30)
-+		*psr_state = 5;
-+	else if (*psr_state == 0x31)
-+		*psr_state = 6;
-+	else if (*psr_state == 0x40)
-+		*psr_state = 7;
-+	else if (*psr_state == 0x41)
-+		*psr_state = 8;
-+	else if (*psr_state == 0x42)
-+		*psr_state = 9;
-+	else if (*psr_state == 0x43)
-+		*psr_state = 10;
-+	else if (*psr_state == 0x44)
-+		*psr_state = 11;
-+	else if (*psr_state == 0x50)
-+		*psr_state = 12;
-+	else if (*psr_state == 0x51)
-+		*psr_state = 13;
-+	else if (*psr_state == 0x52)
-+		*psr_state = 14;
-+	else if (*psr_state == 0x53)
-+		*psr_state = 15;
-+}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 4b695f6a80c6..b3b7efd973ca 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -1228,8 +1228,9 @@ static int current_backlight_read(struct seq_file *m, void *data)
+ 	struct drm_info_node *node = (struct drm_info_node *)m->private;
+ 	struct drm_device *dev = node->minor->dev;
+ 	struct amdgpu_device *adev = dev->dev_private;
+-	struct dc *dc = adev->dm.dc;
+-	unsigned int backlight = dc_get_current_backlight_pwm(dc);
++	struct amdgpu_display_manager *dm = &adev->dm;
 +
- /**
-  * Get PSR state from firmware.
-  */
-@@ -43,6 +82,8 @@ static void dmub_psr_get_state(struct dmub_psr *dmub, uint32_t *psr_state)
- 	dmub_srv_send_gpint_command(srv, DMUB_GPINT__GET_PSR_STATE, 0, 30);
++	unsigned int backlight = dc_link_get_backlight_level(dm->backlight_link);
  
- 	dmub_srv_get_gpint_response(srv, psr_state);
+ 	seq_printf(m, "0x%x\n", backlight);
+ 	return 0;
+@@ -1245,8 +1246,9 @@ static int target_backlight_read(struct seq_file *m, void *data)
+ 	struct drm_info_node *node = (struct drm_info_node *)m->private;
+ 	struct drm_device *dev = node->minor->dev;
+ 	struct amdgpu_device *adev = dev->dev_private;
+-	struct dc *dc = adev->dm.dc;
+-	unsigned int backlight = dc_get_target_backlight_pwm(dc);
++	struct amdgpu_display_manager *dm = &adev->dm;
 +
-+	convert_psr_state(psr_state);
++	unsigned int backlight = dc_link_get_target_backlight_pwm(dm->backlight_link);
+ 
+ 	seq_printf(m, "0x%x\n", backlight);
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index d5ecf2031255..0f7810571be3 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2646,33 +2646,12 @@ void dc_set_power_state(
+ 
+ void dc_resume(struct dc *dc)
+ {
+-
+ 	uint32_t i;
+ 
+ 	for (i = 0; i < dc->link_count; i++)
+ 		core_link_resume(dc->links[i]);
  }
  
- /**
-@@ -158,7 +199,7 @@ static bool dmub_psr_copy_settings(struct dmub_psr *dmub,
- 	cmd.psr_copy_settings.header.payload_bytes = sizeof(struct dmub_cmd_psr_copy_settings_data);
+-unsigned int dc_get_current_backlight_pwm(struct dc *dc)
+-{
+-	struct abm *abm = dc->res_pool->abm;
+-
+-	if (abm)
+-		return abm->funcs->get_current_backlight(abm);
+-
+-	return 0;
+-}
+-
+-unsigned int dc_get_target_backlight_pwm(struct dc *dc)
+-{
+-	struct abm *abm = dc->res_pool->abm;
+-
+-	if (abm)
+-		return abm->funcs->get_target_backlight(abm);
+-
+-	return 0;
+-}
+-
+ bool dc_is_dmcu_initialized(struct dc *dc)
+ {
+ 	struct dmcu *dmcu = dc->res_pool->dmcu;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index a926c1c3f57d..a784fd2078a8 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -2450,6 +2450,16 @@ int dc_link_get_backlight_level(const struct dc_link *link)
+ 	return (int) abm->funcs->get_current_backlight(abm);
+ }
  
- 	// Hw insts
--	copy_settings_data->dpphy_inst				= psr_context->phyType;
-+	copy_settings_data->dpphy_inst				= psr_context->transmitterId;
- 	copy_settings_data->aux_inst				= psr_context->channel;
- 	copy_settings_data->digfe_inst				= psr_context->engineId;
- 	copy_settings_data->digbe_inst				= psr_context->transmitterId;
-@@ -183,6 +224,8 @@ static bool dmub_psr_copy_settings(struct dmub_psr *dmub,
- 	copy_settings_data->smu_optimizations_en		= psr_context->allow_smu_optimizations;
- 	copy_settings_data->frame_delay				= psr_context->frame_delay;
- 	copy_settings_data->frame_cap_ind			= psr_context->psrFrameCaptureIndicationReq;
-+	copy_settings_data->debug.visual_confirm		= dc->dc->debug.visual_confirm == VISUAL_CONFIRM_PSR ?
-+									true : false;
- 
- 	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd.psr_copy_settings.header);
- 	dc_dmub_srv_cmd_execute(dc->dmub_srv);
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index 0a996e575b9f..7c7a3561b6aa 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -215,6 +215,11 @@ struct dmub_rb_cmd_dpphy_init {
- 	uint8_t reserved[60];
- };
- 
-+struct dmub_psr_debug_flags {
-+	uint8_t visual_confirm : 1;
-+	uint8_t reserved : 7;
-+};
++int dc_link_get_target_backlight_pwm(const struct dc_link *link)
++{
++	struct abm *abm = link->ctx->dc->res_pool->abm;
 +
- struct dmub_cmd_psr_copy_settings_data {
- 	uint16_t psr_level;
- 	uint8_t dpp_inst;
-@@ -228,6 +233,7 @@ struct dmub_cmd_psr_copy_settings_data {
- 	uint8_t smu_optimizations_en;
- 	uint8_t frame_delay;
- 	uint8_t frame_cap_ind;
-+	struct dmub_psr_debug_flags debug;
- };
++	if (abm == NULL || abm->funcs->get_target_backlight == NULL)
++		return DC_ERROR_UNEXPECTED;
++
++	return (int) abm->funcs->get_target_backlight(abm);
++}
++
+ bool dc_link_set_backlight_level(const struct dc_link *link,
+ 		uint32_t backlight_pwm_u16_16,
+ 		uint32_t frame_ramp)
+@@ -2507,14 +2517,24 @@ bool dc_link_set_backlight_level(const struct dc_link *link,
+ bool dc_link_set_abm_disable(const struct dc_link *link)
+ {
+ 	struct dc  *dc = link->ctx->dc;
+-	struct abm *abm = dc->res_pool->abm;
++	struct abm *abm = NULL;
++	bool success = false;
++	int i;
  
- struct dmub_rb_cmd_psr_copy_settings {
+-	if ((abm == NULL) || (abm->funcs->set_backlight_level_pwm == NULL))
+-		return false;
++	for (i = 0; i < MAX_PIPES; i++) {
++		struct pipe_ctx pipe_ctx = dc->current_state->res_ctx.pipe_ctx[i];
++		struct dc_stream_state *stream = pipe_ctx.stream;
++
++		if (stream && stream->link == link) {
++			abm = pipe_ctx.stream_res.abm;
++			break;
++		}
++	}
+ 
+-	abm->funcs->set_abm_immediate_disable(abm);
++	if (abm)
++		success = abm->funcs->set_abm_immediate_disable(abm);
+ 
+-	return true;
++	return success;
+ }
+ 
+ bool dc_link_set_psr_allow_active(struct dc_link *link, bool allow_active, bool wait)
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index c46d4f8d4fe8..5432ca1657b1 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -1139,8 +1139,6 @@ void dc_set_power_state(
+ 		struct dc *dc,
+ 		enum dc_acpi_cm_power_state power_state);
+ void dc_resume(struct dc *dc);
+-unsigned int dc_get_current_backlight_pwm(struct dc *dc);
+-unsigned int dc_get_target_backlight_pwm(struct dc *dc);
+ 
+ #if defined(CONFIG_DRM_AMD_DC_HDCP)
+ /*
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
+index 34c6527c7c3f..72b22dd50f0d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_link.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
+@@ -217,6 +217,8 @@ bool dc_link_set_default_brightness_aux(struct dc_link *link);
+ 
+ int dc_link_get_backlight_level(const struct dc_link *dc_link);
+ 
++int dc_link_get_target_backlight_pwm(const struct dc_link *link);
++
+ bool dc_link_set_abm_disable(const struct dc_link *dc_link);
+ 
+ bool dc_link_set_psr_allow_active(struct dc_link *dc_link, bool enable, bool wait);
 -- 
 2.26.0
 
