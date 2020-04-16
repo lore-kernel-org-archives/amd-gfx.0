@@ -5,67 +5,71 @@ X-Spam-Level:
 X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9804AC2BB55
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 19:38:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED59EC352BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 19:38:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 677B621BE5
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 19:38:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id BF15921BE5
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 19:38:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jqenksqm"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 677B621BE5
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JitrBImG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF15921BE5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0812D6EB50;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85B816EB52;
 	Thu, 16 Apr 2020 19:38:07 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DE966EB50
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 19:38:05 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id q17so17203283qtp.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 12:38:05 -0700 (PDT)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 345EE6EB50
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 19:38:06 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id y3so22659514qky.8
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 12:38:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8rsdXPKGwK1XwTC81gBwOKEv60tM4J6GkTU8dcIrQwc=;
- b=Jqenksqm532nAqcoVV/r4uAQuZdx1YCx031Uv/H3dz9hSXZer0twjLQGpIQefznkiQ
- 6NAN9jzRE1sa1U28IhswXBGZoET/xhJpGO9QOgbHXz+rEKBtinF84X6BMfMnjSPjFsLl
- uw+3ZsqYjoiMdf/KEH5wtG0YWMkSibLrgS9w2ZGvYrLwDEfNjqZpoFGKpWyvCHGYm6ZZ
- yhv81pzdeH+jbMpyuYZYErx3++3zq+MCH+QFoXUJ2FwMqoNIQ7wuB9+//mBz5pTjpgX7
- BhhNiUaQ8ToIsSM41J30xLa/Dh7AoqFT0e+NxDQTTVEmSl08o9ZBSOrt2BJOZ+/b3N7p
- ZaEQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=AWUEXLA2bVIyrpkmE95K7T3+yiUuTEp9d3ByBJLKGmw=;
+ b=JitrBImGI9N6ygd70vN4b5106XwKOwCcFfOL7y2EfviPe6WqiiQbcMV9IAqNPrnP3p
+ Dc6YsArROoXOfpSE6e4Db1hD38OBtNPDVhJ1KpU7tt0ePZz+QQDAUEPkdoiXFAOYpMrn
+ dduo0bshtiAWehCzsWSquV/NDe+S07HARqKjt088zNfYvgMsHgvuBE6QDpCP0Uszs27/
+ acFCRiHEde29ePjy12fxgjc8cLHqJ+AKYAyZ8yU7khg7+oDbm8LgjjlOS3QL4X9yzfnm
+ kbwi5v4hIgHsAZBEQ9aGTSI3eejDHd4vIA6lxugAnGw0u30N5+JwgRsfTozkh0NAgwF9
+ zVdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=8rsdXPKGwK1XwTC81gBwOKEv60tM4J6GkTU8dcIrQwc=;
- b=sgYInX0153tghuDQ27Dw5oRfcNBo028X1ThkMxgCNtp4KAosHf3qHDR92I2AzY6wIK
- oMAH+FcOywoOLkWO9VCaBtbpgbyhfPt/IIOLBpq17OOrUcvD91Or4GO6MqFXaSgHH47D
- 7Yyjxr/m7yABbM067PAGs2e0GqTmFEs1qcesvOptANJn/L03OJGF+Ny0DgAI/Z9yzU0K
- RW7e66LN8jXriPrkwCPfQ1f32nvL4mHuPtrVdRjDHGXr0eEqKSVHZ7jyaPhS0jNuuuEq
- WbJqR4i4FhILF+uAVjel55EsWRIbatCHfahWOmMHqk+xwwMMLttGja4fcfBHAZE3bAeC
- aEsA==
-X-Gm-Message-State: AGi0PuZJYVIzq7iGWkYosB/x168oAsmNQem6WlQ4zakRurmM/XAvENP/
- OY+K0rICKIV9iQzaJH9wHvdAt23v
-X-Google-Smtp-Source: APiQypL2ycciKu24VlvjUhsmgmwTdIAoUH4HgBDqyGmnJubL2k8w3GVn92WnoTobUTGV1MHKyWTfWQ==
-X-Received: by 2002:ac8:7a84:: with SMTP id x4mr21752378qtr.28.1587065884308; 
- Thu, 16 Apr 2020 12:38:04 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=AWUEXLA2bVIyrpkmE95K7T3+yiUuTEp9d3ByBJLKGmw=;
+ b=kxQRyLA55OJ2gM0+TR991tqYpOvITRpbYvVJwLR1gRk1rHq7C54gGMqRRwQaHqwdgX
+ tfQZ0T99wz8jlmCg5epYelUX3+rQZqZFc1q1OfU2DBIrJERr1hbBsc/y0+KCzA4/Ber1
+ WxzzEeHVj1It4L1arpJuFU8sFLFls7omn9BnXMVRj4fFGHMuAoH+VPOMvDOr7/TbLxeI
+ 0XPwWAF6I8PH/QFqKwXg3bCRkhvenlAgsSlJkeixJVp6TFa2lQHnG5J+V576F9G5sfSY
+ nsbh+qysZ0oh1MROz/XKifjNWBTERrqlyzVlqDGaJfLKHK4CUGWNh80dO6a5d67GrKEw
+ GPOg==
+X-Gm-Message-State: AGi0Pub4YrQxAxjbVhDTpPKAxBqoT9nm1Xg2WPlzjPCz8fNex9fmK3/m
+ sTfOo6Aulc4hWn2PHFZnQggFhUQs
+X-Google-Smtp-Source: APiQypJ/gzxYHKgp4ILkwRZb77qYlK8lfduQFu8X+NL48QS02WyI/zII+sK6sMWSv1O2zJLQk2NeUg==
+X-Received: by 2002:a37:a3d3:: with SMTP id
+ m202mr22100469qke.338.1587065885128; 
+ Thu, 16 Apr 2020 12:38:05 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.72.172])
- by smtp.gmail.com with ESMTPSA id g14sm16578881qtb.24.2020.04.16.12.38.03
+ by smtp.gmail.com with ESMTPSA id g14sm16578881qtb.24.2020.04.16.12.38.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 16 Apr 2020 12:38:03 -0700 (PDT)
+ Thu, 16 Apr 2020 12:38:04 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amdgpu/display: fix aux registration
-Date: Thu, 16 Apr 2020 15:37:53 -0400
-Message-Id: <20200416193754.3702-1-alexander.deucher@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu/display: give aux i2c buses more meaningful
+ names
+Date: Thu, 16 Apr 2020 15:37:54 -0400
+Message-Id: <20200416193754.3702-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.2
+In-Reply-To: <20200416193754.3702-1-alexander.deucher@amd.com>
+References: <20200416193754.3702-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,66 +88,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We were registering the aux device in the MST late_register
-rather than the regular one.
+Mirror what we do for i2c display buses.
 
-Fixes: 405a1f9090d1ac ("drm/amdgpu/display: split dp connector registration (v4)")
-Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1100
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c      | 10 +++++++++-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    |  8 ++++----
- 2 files changed, 13 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c          | 3 ++-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c    | 7 +++++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h    | 3 ++-
+ 3 files changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 417925a0d739..c113b676218d 100644
+index c113b676218d..735c01171d90 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4738,10 +4738,18 @@ amdgpu_dm_connector_atomic_duplicate_state(struct drm_connector *connector)
- static int
- amdgpu_dm_connector_late_register(struct drm_connector *connector)
- {
--#if defined(CONFIG_DEBUG_FS)
- 	struct amdgpu_dm_connector *amdgpu_dm_connector =
- 		to_amdgpu_dm_connector(connector);
-+	int r;
+@@ -4679,6 +4679,7 @@ static void amdgpu_dm_connector_destroy(struct drm_connector *connector)
+ 		i2c_del_adapter(&aconnector->i2c->base);
+ 		kfree(aconnector->i2c);
+ 	}
++	kfree(aconnector->dm_dp_aux.aux.name);
  
-+	if (connector->connector_type == DRM_MODE_CONNECTOR_DisplayPort) {
-+		amdgpu_dm_connector->dm_dp_aux.aux.dev = connector->kdev;
-+		r = drm_dp_aux_register(&amdgpu_dm_connector->dm_dp_aux.aux);
-+		if (r)
-+			return r;
-+	}
-+
-+#if defined(CONFIG_DEBUG_FS)
- 	connector_debugfs_init(amdgpu_dm_connector);
- #endif
+ 	kfree(connector);
+ }
+@@ -6118,7 +6119,7 @@ static int amdgpu_dm_connector_init(struct amdgpu_display_manager *dm,
  
+ 	if (connector_type == DRM_MODE_CONNECTOR_DisplayPort
+ 		|| connector_type == DRM_MODE_CONNECTOR_eDP)
+-		amdgpu_dm_initialize_dp_connector(dm, aconnector);
++		amdgpu_dm_initialize_dp_connector(dm, aconnector, link->link_index);
+ 
+ out_free:
+ 	if (res) {
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index cb49f13c1548..7d28b0482127 100644
+index 7d28b0482127..69056660672d 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -113,16 +113,16 @@ amdgpu_dm_mst_connector_late_register(struct drm_connector *connector)
- 		to_amdgpu_dm_connector(connector);
- 	int r;
+@@ -429,9 +429,12 @@ static const struct drm_dp_mst_topology_cbs dm_mst_cbs = {
+ };
  
--	amdgpu_dm_connector->dm_dp_aux.aux.dev = connector->kdev;
--	r = drm_dp_aux_register(&amdgpu_dm_connector->dm_dp_aux.aux);
--	if (r)
-+	r = drm_dp_mst_connector_late_register(connector,
-+					       amdgpu_dm_connector->port);
-+	if (r < 0)
- 		return r;
+ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+-				       struct amdgpu_dm_connector *aconnector)
++				       struct amdgpu_dm_connector *aconnector,
++				       int link_index)
+ {
+-	aconnector->dm_dp_aux.aux.name = "dmdc";
++	aconnector->dm_dp_aux.aux.name =
++		kasprintf(GFP_KERNEL, "AMDGPU DM aux hw bus %d",
++			  link_index);
+ 	aconnector->dm_dp_aux.aux.transfer = dm_dp_aux_transfer;
+ 	aconnector->dm_dp_aux.ddc_service = aconnector->dc_link->ddc;
  
- #if defined(CONFIG_DEBUG_FS)
- 	connector_debugfs_init(amdgpu_dm_connector);
- #endif
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+index d6813ce67bbd..d2c56579a2cc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.h
+@@ -32,7 +32,8 @@ struct amdgpu_dm_connector;
+ int dm_mst_get_pbn_divider(struct dc_link *link);
  
--	return r;
-+	return 0;
- }
+ void amdgpu_dm_initialize_dp_connector(struct amdgpu_display_manager *dm,
+-				       struct amdgpu_dm_connector *aconnector);
++				       struct amdgpu_dm_connector *aconnector,
++				       int link_index);
  
- static void
+ #if defined(CONFIG_DRM_AMD_DC_DCN)
+ bool compute_mst_dsc_configs_for_state(struct drm_atomic_state *state,
 -- 
 2.25.2
 
