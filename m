@@ -7,57 +7,59 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F226C2BB55
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 19:33:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37A3BC352BE
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 19:33:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 11782218AC
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 19:33:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0DDFC218AC
+	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 19:33:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="hBOVy9n/"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 11782218AC
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="v42Mv4el"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0DDFC218AC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE3406EB50;
-	Thu, 16 Apr 2020 19:33:45 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680043.outbound.protection.outlook.com [40.107.68.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 98CAC6EB50
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 19:33:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B02CD6EB52;
+	Thu, 16 Apr 2020 19:33:47 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2071.outbound.protection.outlook.com [40.107.243.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECDB46EB52
+ for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 19:33:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=geVj3lYGSSP4b3wd+EBJ8mgu9kviZ3dP/HL7ZHDzmEFyFcyXiHLiAPH7f9m1K3dQxECWECF0A1fiUnYRA07rdl3d4TdUg5T6eFyMt81UF+okx0rxqFnwkjNDqcvWvu5oir3mFV+LQkxKPwDHNON6HbZAk1UX7vh6ajrcA6s0gaGWr+ISlWX3u8odU/xI5OjDFTjO5w80tzA0cGGKDD6Il9eQGTxYZjinDq7jORxrOPXQh2qOUx0jrlT8fDw+yVXTcBAQ3AdnhTudFl3M+sCxRU2Uar1XA5LaedqN0keJYMgPE944WS9/A7cEZeOMxaOou9SGxYhDS6tJANskVVjEQA==
+ b=GNBnWMvBXMufLzUe+tuPatVLQnLRimwqCGbPeSi90sO13EYrGdzqOYArnFutzitax4+qDPn99FtlneyVlZRHF4ZMpQUVCs89EUHnLjUfSPpsQbCzW+hv0esI1BLdzAyYvMvCjyT2YiH6M2K3TyiUbHAmrFd/aXebj7p5NorGlW2cfS3tRlbDJzGW9XajigcP6vnRkU13TmvJGCqMGVOMjWrju55UvEdvfAe0BK0SOv7MiR1b8+glZ9Jyi9vPLBcCaX06DGQZISQNeTkH8bJHE3Rg/HVBkA/06i2TFJt84LE1ZCLpwjEEQQD4efZm/v1gBj6/2guC086d68qb/gAE+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s/7H34LK0WWnI620GW6c7hf2Wh5LonX/0njN46rN440=;
- b=D/ZoEX3zB0qwh+O7tsPVoDx8wIGpVXLhgkzMNRHu12YxqvKLzCnRS4giWZXAPp52lt39biIgnbUbqE6/VXk1gKgf5B5c5Xv71CyzZu5scoy69mr0L3ubZMRM0ZOnNYKw2RIowyov/MjW64rFOcQ3iYXE3x590ZdCIafLqZVpmtvJm+8DnwyUdM+Ve9lfLlCJuvYJEmRxn2XPJH4vMG3xFjCvhpjHQ0FNT0SwUXUlP+bdKVTnYjKt+qJT4bNQgFWj2J6a0beO5MtbBGcuSOIjY7WkEK8Fv3cxaKYHp+YTNsfb2AEPXfBOjgSjMoggqNF+FIfkGru4Qc+/gtL+/30Nyg==
+ bh=8yn/nZBDtD4S5qQ98dkH597+VPcPeOhuqkObhaV6Vrw=;
+ b=TvacXVDVSe0CkkQHPHNTrBXHk21Xl4WD9uuTd1iBn9yof8OuWZjqgdn6ByC9zxfyDpKQnBU9x3Vj+fnddBKyExr8dsG9QhwFreJoC2VdviyTmj4ZhM1XYbEtFHMDVRHKM/raeKALmwpg4M5KL2RbxSUfpKqhA/rXPtxHJLOB/Zm0oiKTw5y+XoBVDdta5371sZba7xWuurekW5TYY9LTMD1jAWrKyodC6rrBBX9NgiI/05OfCCmoGWcGbtaW5xqfk6L7OdvnpaG1LiJt7ZGxEZizkEkeu8xtN5n1W9y//xFFHaubENEt1wbVgiJEViPSpvtevu71o+AgAlhHv626cw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s/7H34LK0WWnI620GW6c7hf2Wh5LonX/0njN46rN440=;
- b=hBOVy9n/EVd9qbW08WcKymvdF0bZmI28pMDS8mpmJyvmZSXwOZn/FGHBkMppdyCb6cnT24adkykiPrKAzMN5WtMAO8yyA1TD/VpQli5l883nTZB9UqzWN++lw9gt0ZRPjehiOQg7sgi+2ACz4qwq6yeyU+4/kLUJ+b6hhbWK1hY=
+ bh=8yn/nZBDtD4S5qQ98dkH597+VPcPeOhuqkObhaV6Vrw=;
+ b=v42Mv4el2ZQ10YtHdeCrVfrXVAC7cByXEwsOO1QofbE64nQpIus2Rh+AKpficbh8ehSZ3tRpEk4ZyRr2Q3ETh1cNwTnJsLudCL1w+c9Z3tdhWAUtI/1VKiYEBqfKhC0nLI1l1vrlZ7EEt+9Fgvp3piYNf146cggVBubPx6HizQs=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Joseph.Greathouse@amd.com; 
 Received: from DM6PR12MB4561.namprd12.prod.outlook.com (2603:10b6:5:2ac::8) by
  DM6PR12MB4011.namprd12.prod.outlook.com (2603:10b6:5:1c5::28) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2900.17; Thu, 16 Apr 2020 19:33:42 +0000
+ 15.20.2900.17; Thu, 16 Apr 2020 19:33:45 +0000
 Received: from DM6PR12MB4561.namprd12.prod.outlook.com
  ([fe80::357d:e89a:42f1:f492]) by DM6PR12MB4561.namprd12.prod.outlook.com
  ([fe80::357d:e89a:42f1:f492%7]) with mapi id 15.20.2921.027; Thu, 16 Apr 2020
- 19:33:42 +0000
+ 19:33:44 +0000
 From: Joseph Greathouse <Joseph.Greathouse@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amdgpu: Add KFD interface to get ASIC revision
-Date: Thu, 16 Apr 2020 14:33:29 -0500
-Message-Id: <20200416193330.417754-1-Joseph.Greathouse@amd.com>
+Subject: [PATCH 2/2] drm/amdkfd: Put ASIC revision into HSA capability
+Date: Thu, 16 Apr 2020 14:33:30 -0500
+Message-Id: <20200416193330.417754-2-Joseph.Greathouse@amd.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200416193330.417754-1-Joseph.Greathouse@amd.com>
+References: <20200416193330.417754-1-Joseph.Greathouse@amd.com>
 X-ClientProxiedBy: DM5PR19CA0028.namprd19.prod.outlook.com
  (2603:10b6:3:9a::14) To DM6PR12MB4561.namprd12.prod.outlook.com
  (2603:10b6:5:2ac::8)
@@ -66,16 +68,16 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from rocm-perf01.amd.com (165.204.78.2) by
  DM5PR19CA0028.namprd19.prod.outlook.com (2603:10b6:3:9a::14) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2921.27 via Frontend Transport; Thu, 16 Apr 2020 19:33:42 +0000
+ 15.20.2921.27 via Frontend Transport; Thu, 16 Apr 2020 19:33:44 +0000
 X-Mailer: git-send-email 2.20.1
 X-Originating-IP: [165.204.78.2]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f8f07226-18b4-41e5-cb0a-08d7e23d1257
+X-MS-Office365-Filtering-Correlation-Id: a7606979-b958-43b4-5660-08d7e23d13a4
 X-MS-TrafficTypeDiagnostic: DM6PR12MB4011:|DM6PR12MB4011:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB401127BDA99F4B142A41F13AF9D80@DM6PR12MB4011.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB4011F12AE6C40208DFE85C15F9D80@DM6PR12MB4011.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
 X-Forefront-PRVS: 0375972289
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4561.namprd12.prod.outlook.com; PTR:; CAT:NONE;
@@ -86,15 +88,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: lQfSPlmZ4cnr+OJBgb2giNgLu6GNEEhroO8L8N5F6nQYqRyUu7nq1R190+44IR5szmrBGM5NiTlMmAt75bE0WbxD5Aphs5qqS0hMkXCeiIP3dKJjG6zy8x6pnPwExPIQjujyeYf8Sgo/OgzHp7WdPvDA2/Uj8JsEHiWZkbelVZqOPbJtll/FBoVl0gVC5oSTVJS3ws+TwdOS98BrTk5ujL6ztYlvIahxt6Wq5tDYZZi7rM8ECu3W78jvyy/+Sb72A0+kBq4qPQ1LQc4yvQfEm4+48r8JGn98DqHMrrvZao9ZtrMoU720rLid1M3sncCCRoiE6dJo0ucGAtTjYjCJPEbs20RWxhPtOJX5jbYzibJS6lzy0uceN+N/K0ZkSzw1Y1vvVtJoVlUiXLxj5JFhYw0neWgkjZVFezO2tUAOX7TqcKiqLgEivOgYxu1lsItQ
-X-MS-Exchange-AntiSpam-MessageData: zH7jp6ila/Ok+ruW65ihF66JWfEjQ5NPuDdP8+dGbIe1iF84cnkyGgQW8JnfsexWO12btSKW+Sm9O13TVQPy9won00FCzF+H6UQB2SaUWZiNsH8WDEd1K596bxhqeWxExqfBEo5E2TOJ3AXb9o9UDQ==
+X-Microsoft-Antispam-Message-Info: H/vAkweqK7ojJC1xCRzaZFsdVso7lNBH2360GNEiM/nuj4X162Wby0uXJNnF7QiHYjKJIZbpLIWq5z29QckIOflmECN/jbN7gCuJQWlJBY1hSMJQWrIedKCSzMMwt87ANg8fkJyCgmQ2sgtBzrQo/vMGEAV5H7jTEl2tldME+3qpt4FiA46SAqtXgSkCMlTnSnKSemWt9y8aj/oCekxQvzSowa/2n+WGlnlA2f3NYw540bfiUMR3oXQOHtDbzwwKcfd1UBigja3Y4aVXWZs46cETIrPJAUHA/1z0XOq+J83t74RCQeUixa0UTnW0HLUV+rCeEJMe8/jsOomDB3HJUCNtQ0Xboqqd9HFj6EEz25EfgvgWHzl2MD54XqcPpUtTmqi+Tl15Oho1YNFKafDE7GwC8DYlH61w9W71d1CRxH/IDq0kx86ffnTrOswXy4tl
+X-MS-Exchange-AntiSpam-MessageData: 65XFGd6cRDgapV1YAS+ZSiGe5Zd2iw8lHg/QC/CIFJ5V1+BWPa6DMua8Z0IAsfbpMrFZw8CDdCWAAEvbb80JuQh5vDzo5inMpro4/GJbqS1WU9A12drRSOD5T0WbA/gl525zAoY9jbvwNX1NwUFCyw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8f07226-18b4-41e5-cb0a-08d7e23d1257
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2020 19:33:42.6642 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7606979-b958-43b4-5660-08d7e23d13a4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2020 19:33:44.8376 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vVDsKeSxwdEIfiYKTZfkhD97E795GJaEYcigr2P3JugOPLjC89X95MQakEJHRfUh18G2CSSKvkfN1KvYmtzbIA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: SPlUixhPbbCzk/h4zWvb9rsm6ovD0tNeAd0d7L61C46ON56RtYhPsGzC3uY6bsVZbm+BG5Eha/0c09UQyJAo9A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4011
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,47 +115,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-KFD need sto surface the ASIC revision in certain circumstances.
-amdgpu already has this floating around, so add in an
-amdgpu_amdkfd interface function to pull it over to KFD.
+In order to surface the ASIC revision to user level, we want
+to put it into the HSA topology. This can be because different
+ASIC revisions may require user-level software to do different
+things (e.g. patch code for things that are changed in later
+hardware revisions).
+
+The ASIC revision from the hardware is maximum of 4 bits at this
+time, so put it into 4 of the open bits in the HSA capability.
+Then user-level software can use this capability information to
+know -- for each ASIC -- what revision-based things must be done.
 
 Signed-off-by: Joseph Greathouse <Joseph.Greathouse@amd.com>
-Change-Id: I745196129d65e1d0d4349f8d3b3f828df961a603
+Change-Id: If46b3a1864d0a7a67b95fddfc1dcd93932ca81d6
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 7 +++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h | 1 +
- 2 files changed, 8 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 4 ++++
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.h | 5 ++++-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-index abfbe89e805e..ad59ac4423b8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -564,6 +564,13 @@ uint32_t amdgpu_amdkfd_get_num_gws(struct kgd_dev *kgd)
- 	return adev->gds.gws_size;
- }
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+index 5db42814dd51..6e52c95ce8b0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
+@@ -1303,6 +1303,10 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
  
-+uint32_t amdgpu_amdkfd_get_asic_rev_id(struct kgd_dev *kgd)
-+{
-+	struct amdgpu_device *adev = (struct amdgpu_device *)kgd;
-+
-+	return adev->rev_id;
-+}
-+
- int amdgpu_amdkfd_submit_ib(struct kgd_dev *kgd, enum kgd_engine_type engine,
- 				uint32_t vmid, uint64_t gpu_addr,
- 				uint32_t *ib_cmd, uint32_t ib_len)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 13feb313e9b3..d065c50582eb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -175,6 +175,7 @@ uint64_t amdgpu_amdkfd_get_hive_id(struct kgd_dev *kgd);
- uint64_t amdgpu_amdkfd_get_unique_id(struct kgd_dev *kgd);
- uint64_t amdgpu_amdkfd_get_mmio_remap_phys_addr(struct kgd_dev *kgd);
- uint32_t amdgpu_amdkfd_get_num_gws(struct kgd_dev *kgd);
-+uint32_t amdgpu_amdkfd_get_asic_rev_id(struct kgd_dev *kgd);
- uint8_t amdgpu_amdkfd_get_xgmi_hops_count(struct kgd_dev *dst, struct kgd_dev *src);
+ 	dev->node_props.vendor_id = gpu->pdev->vendor;
+ 	dev->node_props.device_id = gpu->pdev->device;
++	dev->node_props.capability |=
++		((amdgpu_amdkfd_get_asic_rev_id(dev->gpu->kgd) <<
++			HSA_CAP_ASIC_REVISION_SHIFT) &
++			HSA_CAP_ASIC_REVISION_MASK);
+ 	dev->node_props.location_id = pci_dev_id(gpu->pdev);
+ 	dev->node_props.max_engine_clk_fcompute =
+ 		amdgpu_amdkfd_get_max_engine_clock_in_mhz(dev->gpu->kgd);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+index 46eeecaf1b68..0c51bd3dcd59 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+@@ -41,7 +41,6 @@
+ #define HSA_CAP_WATCH_POINTS_TOTALBITS_SHIFT	8
+ #define HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK	0x00003000
+ #define HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT	12
+-#define HSA_CAP_RESERVED			0xffffc000
  
- /* Read user wptr from a specified user address space with page fault
+ #define HSA_CAP_DOORBELL_TYPE_PRE_1_0		0x0
+ #define HSA_CAP_DOORBELL_TYPE_1_0		0x1
+@@ -51,6 +50,10 @@
+ #define HSA_CAP_SRAM_EDCSUPPORTED		0x00080000
+ #define HSA_CAP_MEM_EDCSUPPORTED		0x00100000
+ #define HSA_CAP_RASEVENTNOTIFY			0x00200000
++#define HSA_CAP_ASIC_REVISION_MASK		0x03c00000
++#define HSA_CAP_ASIC_REVISION_SHIFT		22
++
++#define HSA_CAP_RESERVED			0xfc078000
+ 
+ struct kfd_node_properties {
+ 	uint64_t hive_id;
 -- 
 2.20.1
 
