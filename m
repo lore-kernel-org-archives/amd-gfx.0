@@ -2,81 +2,107 @@ Return-Path: <SRS0=Q5HU=6B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.7 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B821C352BE
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 09:22:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F22D5C352BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 09:40:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F0DFE2137B
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 09:22:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C3AB6221EB
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 09:40:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rL6j22FO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F0DFE2137B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Z4rZtL5M"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3AB6221EB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D9AA6E109;
-	Fri, 17 Apr 2020 09:22:44 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53CCB6E109
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2020 09:22:43 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id j2so2204576wrs.9
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2020 02:22:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=mTkXHhLO0xtYgDaHk3+DgffL9vzoEyNF7lxbByyNhCQ=;
- b=rL6j22FOJoEv5o0GQMo6YVOPobu2vtzqeZaHBH7oipoxX+/tJH1kbyVkgsvSMEfh0b
- DdyswoDB1+6EaVEQWxDS4d6aBgRsYuaD8oTGKo2PX1OYxo41geruece5bxNQCASmJYLI
- ZjO1QWLFBlPb8WZcoUcHaZRslzuUXG56/Bk3cMMOCY/c8JUGkawT+IysWWNyorVK73fn
- YavbCEGz0A6v1xNdjP6XjqY3s+Z+5vy8/jWTmGpjINtiZKCYPd0ICuNCw8+JvkIAgv1K
- adBIdlqtWut5MuCHPJSYG6sFZFAeA34PcjK/eHwQtVkuMDqZE/gNvSqB/JnDd/BbtlXl
- t77g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language;
- bh=mTkXHhLO0xtYgDaHk3+DgffL9vzoEyNF7lxbByyNhCQ=;
- b=t4xfGs7Yf0wQzVyb3Pwp0u2Psw2dZWcEbwnpL3pdE0dsYJoQcpsLYJ8w/jndYeloYd
- YnNcy4zk+oSjMABR+HEZ8f6HK+yag/hXwIDRkGr9+KINHqNiAhUl7U0eTGAepnKbXt3M
- oJenGJxzKQHNwb32ZbS0Z8Ex+XxwmVlih96XNfq0oHAGjJsjsmIEUmsTrfqWfwIsik/d
- PEm+hyaJcYIoD1WRK3w4TykaiQx0B7wGHj4MIGv7gKA7D2I7rJqDQfqmI/x0uZ7sOEFN
- 0Ow445cYNIut7Vzqq/OjQRG5/4zaH2dP/9ajwPvUwjYKKVpm1pAObu/HNPYWcPfyHBKd
- 5Wpg==
-X-Gm-Message-State: AGi0PubW02lwjWIkSI9R9twwN3e+/D0ME2U6hqa+OxdLeUZM7YTPxZJ1
- tqQlQXQT4nSNRDt8r3AgTW4=
-X-Google-Smtp-Source: APiQypJyNrkn2OYZFeNMGxZkJhecGPch5sBax3x1AaSyEmtoOzkVBch7/DtGAmo3dNRJ1VGHXA1csA==
-X-Received: by 2002:adf:ec09:: with SMTP id x9mr2846191wrn.364.1587115361968; 
- Fri, 17 Apr 2020 02:22:41 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id c20sm7482700wmd.36.2020.04.17.02.22.40
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 17 Apr 2020 02:22:41 -0700 (PDT)
-Subject: Re: [PATCH 05/35] drm/amd/display: Remove byte swapping for dmcub abm
- config table
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20200416234044.2082886-1-Rodrigo.Siqueira@amd.com>
- <20200416234044.2082886-6-Rodrigo.Siqueira@amd.com>
- <MN2PR12MB4488B2003904110CAE92E166F7D90@MN2PR12MB4488.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <c3f3fef6-6c35-7201-c75e-2a72dca42350@gmail.com>
-Date: Fri, 17 Apr 2020 11:22:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <MN2PR12MB4488B2003904110CAE92E166F7D90@MN2PR12MB4488.namprd12.prod.outlook.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7698A6E3E7;
+	Fri, 17 Apr 2020 09:40:05 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2063.outbound.protection.outlook.com [40.107.236.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 41AF86E3E7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2020 09:40:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jIXtYgr2xPOvK5yJ2+p5lcfwjCEjbFFP+Ln5W0JYLuk4PlkEhMqweWtjiv9zkN5xUZsdkQfVm0IFgOeP2wiq5FmgVpKZ4de2M7vwfSrAr1oRNO+qFRt3pRLIc+c7puSX56X2kNvEHZ996IkLmtzeDqzKZb02ieMlrdD5ibeKU+svLV3By5UAOnDj6eCwJiRuQR68TvcsHscLOrpPtnsfT7KdxQsZs9KgMc58fb831xMnejQNI7w2NOiphxk3a+8fD5Vgso6ExMIqQoXSRBDvDhI8nTgid3CNoK+dv85AeO2tU2rV2/ow9eyPYCGelxg5KF+vh7It7pKgp3VU5z+cMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LzHd+AyAf3NL448CemVgxPhFeVmCq+mIK2A93oCOuK0=;
+ b=Vnl8/KTgiclj5OPPefkrq05QFW43NMo0A5SdBxMFTKS2Y/D6GwXyaKmHMK6Pd8S1Jk2LTd1veWamj1pv3na8Iaa79RxJGD5O5cOzjnBz1K/+QRBrfg+/ynns6bDteOGIT/l/95BLcvx8LG1mfu010pxmoe3QPvVXZL83QcTwRfu5tn0j33FWLHXgFo4fUuW3pMHymSeZUsF6yJTMl9wuxWksWnvZOy46FzaXY2TKjYzle8fO8DrnSQKdXdWcsqigR4WvI212ibYynwE3HuSd1iSlQFcm256981/vdiCejCF7fqqGjS/Rh9wkcChlZieEvYBqw0Y0mELYNyXvCzTaNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LzHd+AyAf3NL448CemVgxPhFeVmCq+mIK2A93oCOuK0=;
+ b=Z4rZtL5Mh6c3u5EhNI1q/HTY/58+R1eb7dan0ATDnGYBHr40qMu40gczVTtCElW6timjKTWBO/XQLa8gWrc/Bi+kDrG44Oh0DThS94SktxQF/TlLCKFq9afeBdHp40IfIjjYKzF5QVqsCen+b6p6bfHexbEYE/Ly/CYOrO9g/NQ=
+Received: from DM5PR12MB1708.namprd12.prod.outlook.com (2603:10b6:3:10e::22)
+ by DM5PR12MB1402.namprd12.prod.outlook.com (2603:10b6:3:73::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.28; Fri, 17 Apr
+ 2020 09:39:59 +0000
+Received: from DM5PR12MB1708.namprd12.prod.outlook.com
+ ([fe80::a8d8:ad45:3232:f8bd]) by DM5PR12MB1708.namprd12.prod.outlook.com
+ ([fe80::a8d8:ad45:3232:f8bd%8]) with mapi id 15.20.2921.027; Fri, 17 Apr 2020
+ 09:39:59 +0000
+From: "Liu, Monk" <Monk.Liu@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Tao, Yintian"
+ <Yintian.Tao@amd.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>, "Ming, Davis" <Davis.Ming@amd.com>, "Jiang, Jerry
+ (SW)" <Jerry.Jiang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: refine kiq read register
+Thread-Topic: [PATCH] drm/amdgpu: refine kiq read register
+Thread-Index: AQHWFITfuUsBKum0lUeua8U6BgyKnKh84n1wgAAhSQCAAAEeMIAAAw+AgAAFVSA=
+Date: Fri, 17 Apr 2020 09:39:59 +0000
+Message-ID: <DM5PR12MB1708545C976EF8CC39FCC22B84D90@DM5PR12MB1708.namprd12.prod.outlook.com>
+References: <20200417065310.21108-1-yttao@amd.com>
+ <DM5PR12MB1708AB26054FA715829B65A684D90@DM5PR12MB1708.namprd12.prod.outlook.com>
+ <a65bfe3f-0340-7e3b-24e4-bfc1850b01a4@amd.com>
+ <DM5PR12MB170834047A4ABBC474F0CE1084D90@DM5PR12MB1708.namprd12.prod.outlook.com>
+ <2c8bbecd-de20-1a69-28d7-5177cef27a73@amd.com>
+In-Reply-To: <2c8bbecd-de20-1a69-28d7-5177cef27a73@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
+X-Mentions: Davis.Ming@amd.com,Jerry.Jiang@amd.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Monk.Liu@amd.com; 
+x-originating-ip: [101.87.149.120]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 902ad5f1-6dc3-4375-7f4c-08d7e2b34bc5
+x-ms-traffictypediagnostic: DM5PR12MB1402:|DM5PR12MB1402:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR12MB1402C3F82B17A75DBA015F8484D90@DM5PR12MB1402.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-forefront-prvs: 0376ECF4DD
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1708.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(376002)(366004)(39860400002)(396003)(136003)(346002)(53546011)(6506007)(55016002)(8676002)(66446008)(26005)(9686003)(478600001)(66476007)(8936002)(81156014)(30864003)(64756008)(66556008)(66946007)(6636002)(316002)(110136005)(86362001)(4326008)(52536014)(2906002)(186003)(33656002)(7696005)(76116006)(5660300002)(71200400001)(921003)(1121003);
+ DIR:OUT; SFP:1101; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: zpvh3hJW13IK+Tt5XAt+VjbOobL9UWvpE4zdL6hmbF01DLMIyLbHVDP9lGTKWvqRJMYiS0dqGIsGIPZc2Y2b+ayrW2u58mfIMrHSr5xLU/7KmO3IPRK1ShtFri3petu8+vUW74qbMJbNmTMfrzO5Rzc0kaXDfli4IE7UNG/WDIfDwcw82bYYyrlSQwwdcyErK7jt+P2lDQo7cBTOh8xtcDYQ8AEG8e2EeDoqDA9z5D//uanRxC2NoPygXSVjjiZao6MSEreQZXZqkgktu1qS7JyY+gsrPvJbMQu6CgkV4qkkZc2yxwTjGNoCYJqLuuTuBDi/xXn0Dh3YakuuOhQFQonpuOl+5twePlU/6U372GTN1krlRQ/ZWwjWDP+L/u8HbFN6JDKVTellBs7KbmAhNcJApjibnQw34wwsLqmyFti7pNIYhostjrsdBlFOZxnaSGlkrf6E6U35nv0JeuI4b+V/PUwhiWdAEfHnoJWXp1DQwP5gthb9y1+35b/JD/Yx
+x-ms-exchange-antispam-messagedata: RCORj3JmUNCBJmn9Rhm0XcNRq/g+XBvYNqL/LMKlnBTxPMpYATiyAaFVl2Qn7vgMcMxBqHbTn9YUJ7/m8vzQ75b6ZrWQdtIAuaQ8sB/VGUl13AaGQIRwfb2HcvmCsK3IU4j6tSmWjTuTFaqbCCy9iA==
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 902ad5f1-6dc3-4375-7f4c-08d7e2b34bc5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Apr 2020 09:39:59.3882 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: CR7Z+MoNFGAAjqfHVJM7L+bzxolrIB51v6Gxo8Y+hIKtAhVW6mIBbldqCsADCvax
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1402
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,615 +114,380 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>,
- "Wood, Wyatt" <Wyatt.Wood@amd.com>
-Content-Type: multipart/mixed; boundary="===============2124057107=="
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============2124057107==
-Content-Type: multipart/alternative;
- boundary="------------4800A9B6D3F1F6A1341DA7DC"
-Content-Language: en-US
+Hi Christian
 
-This is a multi-part message in MIME format.
---------------4800A9B6D3F1F6A1341DA7DC
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Transfer-Encoding: 8bit
+mmRLC_SPM_MC_CNTL
 
-Agreed, just wanted to reply as well since I think something is not 
-correctly understood here.
+this register is a RLC register, with my understanding it is PF&VF share register, and I did experiment proved it:
+1) write abc to it in PF
+2) read it from VF, it shows abc
+3) write ff to it in VF, read it, it is still abc
 
-The cpu_to_be16() and be16_to_cpu() functions work different depending 
-on which architecture/endianess your are.
+So this register with current policy (L1) is a VF read, PF write register, and this register is physically shared among PF/VF 
 
-So they should be a NO-OP on x86 if everything is done right.
+We should not even try to write it in VF side, no matter CPU or KIQ (KIQ write within VF role will also be blocked by the L1 policy)
+
+From what I can see so far: we need to drop this feature for SRIOV, or we need to change Policy 
+
++@Ming, Davis and @Jiang, Jerry (SW) for awareness 
+
+DRM-NEXT kernel branch has a new feature to massively use KIQ to read/write this register " mmRLC_SPM_MC_CNTL" which is a PF w/r bug VF R only register.
+We need to figure out what should we do on it 
+
+I will talk to UMD guys later (they initiated this feature in our kernel driver )
+_____________________________________
+Monk Liu|GPU Virtualization Team |AMD
+
+
+-----Original Message-----
+From: Koenig, Christian <Christian.Koenig@amd.com> 
+Sent: Friday, April 17, 2020 5:14 PM
+To: Liu, Monk <Monk.Liu@amd.com>; Tao, Yintian <Yintian.Tao@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amdgpu: refine kiq read register
+
+> Dynamic alloc each time doing KIQ reg read is a overkill to me
+Yeah, that is a rather good argument.
+
+> Now  we do KIQ read and write *every time* we do amdgpu_vm_flush  
+> (omg... what's this  ??)
+
+That is updating the VMID used for the SPM trace. And yes this read/modify/write is most likely not a good idea, we should rather just write the value we want to have or don't use the KIQ here.
+
+Most likely the later because IIRC this is a per VF register.
 
 Christian.
 
-Am 17.04.20 um 04:32 schrieb Deucher, Alexander:
+Am 17.04.20 um 11:06 schrieb Liu, Monk:
+> Christian
 >
-> [AMD Public Use]
+> See we wanted to map the ring buffers read only and USWC for some time.
+> That would result in either not working driver or rather crappy performance.
+> <<
+>
+> For KIQ the ring buffer wouldn't be read only ... should be cacheable 
+> type
+>
+> Dynamic alloc each time doing KIQ reg read is a overkill to me, leverage ring buffer is a high efficient way.
+>
+> Besides looks now the KIQ register reading is really massive, check this code:
+>
+> 4949 static void gfx_v9_0_update_spm_vmid(struct amdgpu_device *adev, 
+> unsigned vmid)
+> 4950 {
+> 4951     u32 data;
+> 4952
+> 4953     data = RREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL);
+> 4954
+> 4955     data &= ~RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK;
+> 4956     data |= (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) << RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;
+> 4957
+> 4958     WREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL, data);
+> 4959 }
+>
+> Now  we do KIQ read and write *every time* we do amdgpu_vm_flush  
+> (omg... what's this  ??)
 >
 >
-> I would drop this patch unless it only applies to APUs.  On Linux, 
-> people may run the driver on big endian systems.
 >
-> Alex
-> ------------------------------------------------------------------------
-> *From:* amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of 
-> Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> *Sent:* Thursday, April 16, 2020 7:40 PM
-> *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> *Cc:* Li, Sun peng (Leo) <Sunpeng.Li@amd.com>; Wentland, Harry 
-> <Harry.Wentland@amd.com>; Siqueira, Rodrigo 
-> <Rodrigo.Siqueira@amd.com>; Wood, Wyatt <Wyatt.Wood@amd.com>; Lakha, 
-> Bhawanpreet <Bhawanpreet.Lakha@amd.com>; Koo, Anthony 
-> <Anthony.Koo@amd.com>
-> *Subject:* [PATCH 05/35] drm/amd/display: Remove byte swapping for 
-> dmcub abm config table
-> From: Wyatt Wood <wyatt.wood@amd.com>
+> _____________________________________
+> Monk Liu|GPU Virtualization Team |AMD
 >
-> [Why]
-> Since x86 and dmcub are both little endian, byte swapping isn't
-> necessary. Dmcu requires byte swapping as it is big endian.
 >
-> [How]
-> Add flag to function definitions to determine if byte swapping is
-> necessary.
+> -----Original Message-----
+> From: Koenig, Christian <Christian.Koenig@amd.com>
+> Sent: Friday, April 17, 2020 4:59 PM
+> To: Liu, Monk <Monk.Liu@amd.com>; Tao, Yintian <Yintian.Tao@amd.com>; 
+> Kuehling, Felix <Felix.Kuehling@amd.com>; Deucher, Alexander 
+> <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+> Cc: amd-gfx@lists.freedesktop.org
+> Subject: Re: [PATCH] drm/amdgpu: refine kiq read register
 >
-> Signed-off-by: Wyatt Wood <wyatt.wood@amd.com>
-> Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
-> Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-> ---
->  .../amd/display/modules/power/power_helpers.c | 74 +++++++++----------
->  1 file changed, 36 insertions(+), 38 deletions(-)
+> Looks like a rather important bug fix to me, but I'm not sure if writing the value into the ring buffer is a good idea.
 >
-> diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c 
-> b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-> index dd1517684c90..edb446455f6b 100644
-> --- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-> @@ -240,7 +240,7 @@ static void fill_backlight_transform_table(struct 
-> dmcu_iram_parameters params,
->  }
+> See we wanted to map the ring buffers read only and USWC for some time.
+> That would result in either not working driver or rather crappy performance.
 >
->  static void fill_backlight_transform_table_v_2_2(struct 
-> dmcu_iram_parameters params,
-> -               struct iram_table_v_2_2 *table)
-> +               struct iram_table_v_2_2 *table, bool big_endian)
->  {
->          unsigned int i;
->          unsigned int num_entries = NUM_BL_CURVE_SEGS;
-> @@ -264,10 +264,10 @@ static void 
-> fill_backlight_transform_table_v_2_2(struct dmcu_iram_parameters par
->                  lut_index = (params.backlight_lut_array_size - 1) * i 
-> / (num_entries - 1);
->                  ASSERT(lut_index < params.backlight_lut_array_size);
+> Can't we just call amdgpu_device_wb_get() in amdgpu_device_wb_get() instead and allocate the wb address dynamically?
 >
-> -               table->backlight_thresholds[i] =
-> -                       cpu_to_be16(DIV_ROUNDUP((i * 65536), 
-> num_entries));
-> -               table->backlight_offsets[i] =
-> - cpu_to_be16(params.backlight_lut_array[lut_index]);
-> +               table->backlight_thresholds[i] = (big_endian) ?
-> +                       cpu_to_be16(DIV_ROUNDUP((i * 65536), 
-> num_entries)) : DIV_ROUNDUP((i * 65536), num_entries);
-> +               table->backlight_offsets[i] = (big_endian) ?
-> + cpu_to_be16(params.backlight_lut_array[lut_index]) : 
-> params.backlight_lut_array[lut_index];
->          }
->  }
+> Regards,
+> Christian.
 >
-> @@ -587,18 +587,16 @@ void fill_iram_v_2_2(struct iram_table_v_2_2 
-> *ram_table, struct dmcu_iram_parame
->          ram_table->crgb_slope[7]  = cpu_to_be16(0x1910);
->
->          fill_backlight_transform_table_v_2_2(
-> -                       params, ram_table);
-> +                       params, ram_table, true);
->  }
->
-> -void fill_iram_v_2_3(struct iram_table_v_2_2 *ram_table, struct 
-> dmcu_iram_parameters params)
-> +void fill_iram_v_2_3(struct iram_table_v_2_2 *ram_table, struct 
-> dmcu_iram_parameters params, bool big_endian)
->  {
->          unsigned int i, j;
->          unsigned int set = params.set;
->
->          ram_table->flags = 0x0;
-> -
-> -       ram_table->min_abm_backlight =
-> - cpu_to_be16(params.min_abm_backlight);
-> +       ram_table->min_abm_backlight = (big_endian) ? 
-> cpu_to_be16(params.min_abm_backlight) : params.min_abm_backlight;
->
->          for (i = 0; i < NUM_AGGR_LEVEL; i++) {
->                  ram_table->hybrid_factor[i] = 
-> abm_settings[set][i].brightness_gain;
-> @@ -622,33 +620,33 @@ void fill_iram_v_2_3(struct iram_table_v_2_2 
-> *ram_table, struct dmcu_iram_parame
->          ram_table->iir_curve[4] = 0x65;
->
->          //Gamma 2.2
-> -       ram_table->crgb_thresh[0] = cpu_to_be16(0x127c);
-> -       ram_table->crgb_thresh[1] = cpu_to_be16(0x151b);
-> -       ram_table->crgb_thresh[2] = cpu_to_be16(0x17d5);
-> -       ram_table->crgb_thresh[3] = cpu_to_be16(0x1a56);
-> -       ram_table->crgb_thresh[4] = cpu_to_be16(0x1c83);
-> -       ram_table->crgb_thresh[5] = cpu_to_be16(0x1e72);
-> -       ram_table->crgb_thresh[6] = cpu_to_be16(0x20f0);
-> -       ram_table->crgb_thresh[7] = cpu_to_be16(0x232b);
-> -       ram_table->crgb_offset[0] = cpu_to_be16(0x2999);
-> -       ram_table->crgb_offset[1] = cpu_to_be16(0x3999);
-> -       ram_table->crgb_offset[2] = cpu_to_be16(0x4666);
-> -       ram_table->crgb_offset[3] = cpu_to_be16(0x5999);
-> -       ram_table->crgb_offset[4] = cpu_to_be16(0x6333);
-> -       ram_table->crgb_offset[5] = cpu_to_be16(0x7800);
-> -       ram_table->crgb_offset[6] = cpu_to_be16(0x8c00);
-> -       ram_table->crgb_offset[7] = cpu_to_be16(0xa000);
-> -       ram_table->crgb_slope[0]  = cpu_to_be16(0x3609);
-> -       ram_table->crgb_slope[1]  = cpu_to_be16(0x2dfa);
-> -       ram_table->crgb_slope[2]  = cpu_to_be16(0x27ea);
-> -       ram_table->crgb_slope[3]  = cpu_to_be16(0x235d);
-> -       ram_table->crgb_slope[4]  = cpu_to_be16(0x2042);
-> -       ram_table->crgb_slope[5]  = cpu_to_be16(0x1dc3);
-> -       ram_table->crgb_slope[6]  = cpu_to_be16(0x1b1a);
-> -       ram_table->crgb_slope[7]  = cpu_to_be16(0x1910);
-> +       ram_table->crgb_thresh[0] = (big_endian) ? cpu_to_be16(0x127c) 
-> : 0x127c;
-> +       ram_table->crgb_thresh[1] = (big_endian) ? cpu_to_be16(0x151b) 
-> : 0x151b;
-> +       ram_table->crgb_thresh[2] = (big_endian) ? cpu_to_be16(0x17d5) 
-> : 0x17d5;
-> +       ram_table->crgb_thresh[3] = (big_endian) ? cpu_to_be16(0x1a56) 
-> : 0x1a56;
-> +       ram_table->crgb_thresh[4] = (big_endian) ? cpu_to_be16(0x1c83) 
-> : 0x1c83;
-> +       ram_table->crgb_thresh[5] = (big_endian) ? cpu_to_be16(0x1e72) 
-> : 0x1e72;
-> +       ram_table->crgb_thresh[6] = (big_endian) ? cpu_to_be16(0x20f0) 
-> : 0x20f0;
-> +       ram_table->crgb_thresh[7] = (big_endian) ? cpu_to_be16(0x232b) 
-> : 0x232b;
-> +       ram_table->crgb_offset[0] = (big_endian) ? cpu_to_be16(0x2999) 
-> : 0x2999;
-> +       ram_table->crgb_offset[1] = (big_endian) ? cpu_to_be16(0x3999) 
-> : 0x3999;
-> +       ram_table->crgb_offset[2] = (big_endian) ? cpu_to_be16(0x4666) 
-> : 0x4666;
-> +       ram_table->crgb_offset[3] = (big_endian) ? cpu_to_be16(0x5999) 
-> : 0x5999;
-> +       ram_table->crgb_offset[4] = (big_endian) ? cpu_to_be16(0x6333) 
-> : 0x6333;
-> +       ram_table->crgb_offset[5] = (big_endian) ? cpu_to_be16(0x7800) 
-> : 0x7800;
-> +       ram_table->crgb_offset[6] = (big_endian) ? cpu_to_be16(0x8c00) 
-> : 0x8c00;
-> +       ram_table->crgb_offset[7] = (big_endian) ? cpu_to_be16(0xa000) 
-> : 0xa000;
-> +       ram_table->crgb_slope[0]  = (big_endian) ? cpu_to_be16(0x3609) 
-> : 0x3609;
-> +       ram_table->crgb_slope[1]  = (big_endian) ? cpu_to_be16(0x2dfa) 
-> : 0x2dfa;
-> +       ram_table->crgb_slope[2]  = (big_endian) ? cpu_to_be16(0x27ea) 
-> : 0x27ea;
-> +       ram_table->crgb_slope[3]  = (big_endian) ? cpu_to_be16(0x235d) 
-> : 0x235d;
-> +       ram_table->crgb_slope[4]  = (big_endian) ? cpu_to_be16(0x2042) 
-> : 0x2042;
-> +       ram_table->crgb_slope[5]  = (big_endian) ? cpu_to_be16(0x1dc3) 
-> : 0x1dc3;
-> +       ram_table->crgb_slope[6]  = (big_endian) ? cpu_to_be16(0x1b1a) 
-> : 0x1b1a;
-> +       ram_table->crgb_slope[7]  = (big_endian) ? cpu_to_be16(0x1910) 
-> : 0x1910;
->
->          fill_backlight_transform_table_v_2_2(
-> -                       params, ram_table);
-> +                       params, ram_table, big_endian);
->  }
->
->  bool dmub_init_abm_config(struct abm *abm,
-> @@ -662,7 +660,7 @@ bool dmub_init_abm_config(struct abm *abm,
->
->          memset(&ram_table, 0, sizeof(ram_table));
->
-> -       fill_iram_v_2_3((struct iram_table_v_2_2 *)ram_table, params);
-> +       fill_iram_v_2_3((struct iram_table_v_2_2 *)ram_table, params, 
-> false);
->          result = abm->funcs->init_abm_config(
->                  abm, (char *)(&ram_table), IRAM_RESERVE_AREA_START_V2_2);
->
-> @@ -684,11 +682,11 @@ bool dmcu_load_iram(struct dmcu *dmcu,
->          memset(&ram_table, 0, sizeof(ram_table));
->
->          if (dmcu->dmcu_version.abm_version == 0x24) {
-> -               fill_iram_v_2_3((struct iram_table_v_2_2 *)ram_table, 
-> params);
-> +               fill_iram_v_2_3((struct iram_table_v_2_2 *)ram_table, 
-> params, true);
->                          result = dmcu->funcs->load_iram(
->                                          dmcu, 0, (char 
-> *)(&ram_table), IRAM_RESERVE_AREA_START_V2_2);
->          } else if (dmcu->dmcu_version.abm_version == 0x23) {
-> -               fill_iram_v_2_3((struct iram_table_v_2_2 *)ram_table, 
-> params);
-> +               fill_iram_v_2_3((struct iram_table_v_2_2 *)ram_table, 
-> params, true);
->
->                  result = dmcu->funcs->load_iram(
->                                  dmcu, 0, (char *)(&ram_table), 
-> IRAM_RESERVE_AREA_START_V2_2);
-> -- 
-> 2.26.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Calexander.deucher%40amd.com%7C71bc54a1a7b7444439c208d7e25fab51%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637226772877797082&amp;sdata=sa4MJoUY%2FjVgW3f4Qx1N4KYpFY3QyqZPWVDbRoUmTxs%3D&amp;reserved=0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------4800A9B6D3F1F6A1341DA7DC
-Content-Type: text/html; charset=windows-1252
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;
-      charset=windows-1252">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Agreed, just wanted to reply as well
-      since I think something is not correctly understood here.<br>
-      <br>
-      The <font size="2"><span style="font-size:11pt;">cpu_to_be16()
-          and be16_to_cpu() functions work different depending on which
-          architecture/endianess your are.<br>
-          <br>
-          So they should be a NO-OP on x86 if everything is done right.<br>
-          <br>
-          Christian.<br>
-        </span></font><br>
-      Am 17.04.20 um 04:32 schrieb Deucher, Alexander:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:MN2PR12MB4488B2003904110CAE92E166F7D90@MN2PR12MB4488.namprd12.prod.outlook.com">
-      <meta http-equiv="Content-Type" content="text/html;
-        charset=windows-1252">
-      <style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
-      <p
-        style="font-family:Arial;font-size:10pt;color:#317100;margin:15pt;"
-        align="Left">
-        [AMD Public Use]<br>
-      </p>
-      <br>
-      <div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          I would drop this patch unless it only applies to APUs.  On
-          Linux, people may run the driver on big endian systems.</div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          Alex<br>
-        </div>
-        <hr style="display:inline-block;width:98%" tabindex="-1">
-        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt"
-            face="Calibri, sans-serif" color="#000000"><b>From:</b>
-            amd-gfx <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx-bounces@lists.freedesktop.org">&lt;amd-gfx-bounces@lists.freedesktop.org&gt;</a> on
-            behalf of Rodrigo Siqueira <a class="moz-txt-link-rfc2396E" href="mailto:Rodrigo.Siqueira@amd.com">&lt;Rodrigo.Siqueira@amd.com&gt;</a><br>
-            <b>Sent:</b> Thursday, April 16, 2020 7:40 PM<br>
-            <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-            <b>Cc:</b> Li, Sun peng (Leo) <a class="moz-txt-link-rfc2396E" href="mailto:Sunpeng.Li@amd.com">&lt;Sunpeng.Li@amd.com&gt;</a>;
-            Wentland, Harry <a class="moz-txt-link-rfc2396E" href="mailto:Harry.Wentland@amd.com">&lt;Harry.Wentland@amd.com&gt;</a>; Siqueira,
-            Rodrigo <a class="moz-txt-link-rfc2396E" href="mailto:Rodrigo.Siqueira@amd.com">&lt;Rodrigo.Siqueira@amd.com&gt;</a>; Wood, Wyatt
-            <a class="moz-txt-link-rfc2396E" href="mailto:Wyatt.Wood@amd.com">&lt;Wyatt.Wood@amd.com&gt;</a>; Lakha, Bhawanpreet
-            <a class="moz-txt-link-rfc2396E" href="mailto:Bhawanpreet.Lakha@amd.com">&lt;Bhawanpreet.Lakha@amd.com&gt;</a>; Koo, Anthony
-            <a class="moz-txt-link-rfc2396E" href="mailto:Anthony.Koo@amd.com">&lt;Anthony.Koo@amd.com&gt;</a><br>
-            <b>Subject:</b> [PATCH 05/35] drm/amd/display: Remove byte
-            swapping for dmcub abm config table</font>
-          <div> </div>
-        </div>
-        <div class="BodyFragment"><font size="2"><span
-              style="font-size:11pt;">
-              <div class="PlainText">From: Wyatt Wood
-                <a class="moz-txt-link-rfc2396E" href="mailto:wyatt.wood@amd.com">&lt;wyatt.wood@amd.com&gt;</a><br>
-                <br>
-                [Why]<br>
-                Since x86 and dmcub are both little endian, byte
-                swapping isn't<br>
-                necessary. Dmcu requires byte swapping as it is big
-                endian.<br>
-                <br>
-                [How]<br>
-                Add flag to function definitions to determine if byte
-                swapping is<br>
-                necessary.<br>
-                <br>
-                Signed-off-by: Wyatt Wood <a class="moz-txt-link-rfc2396E" href="mailto:wyatt.wood@amd.com">&lt;wyatt.wood@amd.com&gt;</a><br>
-                Reviewed-by: Anthony Koo <a class="moz-txt-link-rfc2396E" href="mailto:Anthony.Koo@amd.com">&lt;Anthony.Koo@amd.com&gt;</a><br>
-                Acked-by: Rodrigo Siqueira
-                <a class="moz-txt-link-rfc2396E" href="mailto:Rodrigo.Siqueira@amd.com">&lt;Rodrigo.Siqueira@amd.com&gt;</a><br>
-                ---<br>
-                 .../amd/display/modules/power/power_helpers.c | 74
-                +++++++++----------<br>
-                 1 file changed, 36 insertions(+), 38 deletions(-)<br>
-                <br>
-                diff --git
-                a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
-b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c<br>
-                index dd1517684c90..edb446455f6b 100644<br>
-                ---
-                a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c<br>
-                +++
-                b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c<br>
-                @@ -240,7 +240,7 @@ static void
-                fill_backlight_transform_table(struct
-                dmcu_iram_parameters params,<br>
-                 }<br>
-                 <br>
-                 static void fill_backlight_transform_table_v_2_2(struct
-                dmcu_iram_parameters params,<br>
-                -               struct iram_table_v_2_2 *table)<br>
-                +               struct iram_table_v_2_2 *table, bool
-                big_endian)<br>
-                 {<br>
-                         unsigned int i;<br>
-                         unsigned int num_entries = NUM_BL_CURVE_SEGS;<br>
-                @@ -264,10 +264,10 @@ static void
-                fill_backlight_transform_table_v_2_2(struct
-                dmcu_iram_parameters par<br>
-                                 lut_index =
-                (params.backlight_lut_array_size - 1) * i / (num_entries
-                - 1);<br>
-                                 ASSERT(lut_index &lt;
-                params.backlight_lut_array_size);<br>
-                 <br>
-                -               table-&gt;backlight_thresholds[i] =<br>
-                -                       cpu_to_be16(DIV_ROUNDUP((i *
-                65536), num_entries));<br>
-                -               table-&gt;backlight_offsets[i] =<br>
-                -                      
-                cpu_to_be16(params.backlight_lut_array[lut_index]);<br>
-                +               table-&gt;backlight_thresholds[i] =
-                (big_endian) ?<br>
-                +                       cpu_to_be16(DIV_ROUNDUP((i *
-                65536), num_entries)) : DIV_ROUNDUP((i * 65536),
-                num_entries);<br>
-                +               table-&gt;backlight_offsets[i] =
-                (big_endian) ?<br>
-                +                      
-                cpu_to_be16(params.backlight_lut_array[lut_index]) :
-                params.backlight_lut_array[lut_index];<br>
-                         }<br>
-                 }<br>
-                 <br>
-                @@ -587,18 +587,16 @@ void fill_iram_v_2_2(struct
-                iram_table_v_2_2 *ram_table, struct dmcu_iram_parame<br>
-                         ram_table-&gt;crgb_slope[7]  =
-                cpu_to_be16(0x1910);<br>
-                 <br>
-                         fill_backlight_transform_table_v_2_2(<br>
-                -                       params, ram_table);<br>
-                +                       params, ram_table, true);<br>
-                 }<br>
-                 <br>
-                -void fill_iram_v_2_3(struct iram_table_v_2_2
-                *ram_table, struct dmcu_iram_parameters params)<br>
-                +void fill_iram_v_2_3(struct iram_table_v_2_2
-                *ram_table, struct dmcu_iram_parameters params, bool
-                big_endian)<br>
-                 {<br>
-                         unsigned int i, j;<br>
-                         unsigned int set = params.set;<br>
-                 <br>
-                         ram_table-&gt;flags = 0x0;<br>
-                -<br>
-                -       ram_table-&gt;min_abm_backlight =<br>
-                -                      
-                cpu_to_be16(params.min_abm_backlight);<br>
-                +       ram_table-&gt;min_abm_backlight = (big_endian) ?
-                cpu_to_be16(params.min_abm_backlight) :
-                params.min_abm_backlight;<br>
-                 <br>
-                         for (i = 0; i &lt; NUM_AGGR_LEVEL; i++) {<br>
-                                 ram_table-&gt;hybrid_factor[i] =
-                abm_settings[set][i].brightness_gain;<br>
-                @@ -622,33 +620,33 @@ void fill_iram_v_2_3(struct
-                iram_table_v_2_2 *ram_table, struct dmcu_iram_parame<br>
-                         ram_table-&gt;iir_curve[4] = 0x65;<br>
-                 <br>
-                         //Gamma 2.2<br>
-                -       ram_table-&gt;crgb_thresh[0] =
-                cpu_to_be16(0x127c);<br>
-                -       ram_table-&gt;crgb_thresh[1] =
-                cpu_to_be16(0x151b);<br>
-                -       ram_table-&gt;crgb_thresh[2] =
-                cpu_to_be16(0x17d5);<br>
-                -       ram_table-&gt;crgb_thresh[3] =
-                cpu_to_be16(0x1a56);<br>
-                -       ram_table-&gt;crgb_thresh[4] =
-                cpu_to_be16(0x1c83);<br>
-                -       ram_table-&gt;crgb_thresh[5] =
-                cpu_to_be16(0x1e72);<br>
-                -       ram_table-&gt;crgb_thresh[6] =
-                cpu_to_be16(0x20f0);<br>
-                -       ram_table-&gt;crgb_thresh[7] =
-                cpu_to_be16(0x232b);<br>
-                -       ram_table-&gt;crgb_offset[0] =
-                cpu_to_be16(0x2999);<br>
-                -       ram_table-&gt;crgb_offset[1] =
-                cpu_to_be16(0x3999);<br>
-                -       ram_table-&gt;crgb_offset[2] =
-                cpu_to_be16(0x4666);<br>
-                -       ram_table-&gt;crgb_offset[3] =
-                cpu_to_be16(0x5999);<br>
-                -       ram_table-&gt;crgb_offset[4] =
-                cpu_to_be16(0x6333);<br>
-                -       ram_table-&gt;crgb_offset[5] =
-                cpu_to_be16(0x7800);<br>
-                -       ram_table-&gt;crgb_offset[6] =
-                cpu_to_be16(0x8c00);<br>
-                -       ram_table-&gt;crgb_offset[7] =
-                cpu_to_be16(0xa000);<br>
-                -       ram_table-&gt;crgb_slope[0]  =
-                cpu_to_be16(0x3609);<br>
-                -       ram_table-&gt;crgb_slope[1]  =
-                cpu_to_be16(0x2dfa);<br>
-                -       ram_table-&gt;crgb_slope[2]  =
-                cpu_to_be16(0x27ea);<br>
-                -       ram_table-&gt;crgb_slope[3]  =
-                cpu_to_be16(0x235d);<br>
-                -       ram_table-&gt;crgb_slope[4]  =
-                cpu_to_be16(0x2042);<br>
-                -       ram_table-&gt;crgb_slope[5]  =
-                cpu_to_be16(0x1dc3);<br>
-                -       ram_table-&gt;crgb_slope[6]  =
-                cpu_to_be16(0x1b1a);<br>
-                -       ram_table-&gt;crgb_slope[7]  =
-                cpu_to_be16(0x1910);<br>
-                +       ram_table-&gt;crgb_thresh[0] = (big_endian) ?
-                cpu_to_be16(0x127c) : 0x127c;<br>
-                +       ram_table-&gt;crgb_thresh[1] = (big_endian) ?
-                cpu_to_be16(0x151b) : 0x151b;<br>
-                +       ram_table-&gt;crgb_thresh[2] = (big_endian) ?
-                cpu_to_be16(0x17d5) : 0x17d5;<br>
-                +       ram_table-&gt;crgb_thresh[3] = (big_endian) ?
-                cpu_to_be16(0x1a56) : 0x1a56;<br>
-                +       ram_table-&gt;crgb_thresh[4] = (big_endian) ?
-                cpu_to_be16(0x1c83) : 0x1c83;<br>
-                +       ram_table-&gt;crgb_thresh[5] = (big_endian) ?
-                cpu_to_be16(0x1e72) : 0x1e72;<br>
-                +       ram_table-&gt;crgb_thresh[6] = (big_endian) ?
-                cpu_to_be16(0x20f0) : 0x20f0;<br>
-                +       ram_table-&gt;crgb_thresh[7] = (big_endian) ?
-                cpu_to_be16(0x232b) : 0x232b;<br>
-                +       ram_table-&gt;crgb_offset[0] = (big_endian) ?
-                cpu_to_be16(0x2999) : 0x2999;<br>
-                +       ram_table-&gt;crgb_offset[1] = (big_endian) ?
-                cpu_to_be16(0x3999) : 0x3999;<br>
-                +       ram_table-&gt;crgb_offset[2] = (big_endian) ?
-                cpu_to_be16(0x4666) : 0x4666;<br>
-                +       ram_table-&gt;crgb_offset[3] = (big_endian) ?
-                cpu_to_be16(0x5999) : 0x5999;<br>
-                +       ram_table-&gt;crgb_offset[4] = (big_endian) ?
-                cpu_to_be16(0x6333) : 0x6333;<br>
-                +       ram_table-&gt;crgb_offset[5] = (big_endian) ?
-                cpu_to_be16(0x7800) : 0x7800;<br>
-                +       ram_table-&gt;crgb_offset[6] = (big_endian) ?
-                cpu_to_be16(0x8c00) : 0x8c00;<br>
-                +       ram_table-&gt;crgb_offset[7] = (big_endian) ?
-                cpu_to_be16(0xa000) : 0xa000;<br>
-                +       ram_table-&gt;crgb_slope[0]  = (big_endian) ?
-                cpu_to_be16(0x3609) : 0x3609;<br>
-                +       ram_table-&gt;crgb_slope[1]  = (big_endian) ?
-                cpu_to_be16(0x2dfa) : 0x2dfa;<br>
-                +       ram_table-&gt;crgb_slope[2]  = (big_endian) ?
-                cpu_to_be16(0x27ea) : 0x27ea;<br>
-                +       ram_table-&gt;crgb_slope[3]  = (big_endian) ?
-                cpu_to_be16(0x235d) : 0x235d;<br>
-                +       ram_table-&gt;crgb_slope[4]  = (big_endian) ?
-                cpu_to_be16(0x2042) : 0x2042;<br>
-                +       ram_table-&gt;crgb_slope[5]  = (big_endian) ?
-                cpu_to_be16(0x1dc3) : 0x1dc3;<br>
-                +       ram_table-&gt;crgb_slope[6]  = (big_endian) ?
-                cpu_to_be16(0x1b1a) : 0x1b1a;<br>
-                +       ram_table-&gt;crgb_slope[7]  = (big_endian) ?
-                cpu_to_be16(0x1910) : 0x1910;<br>
-                 <br>
-                         fill_backlight_transform_table_v_2_2(<br>
-                -                       params, ram_table);<br>
-                +                       params, ram_table, big_endian);<br>
-                 }<br>
-                 <br>
-                 bool dmub_init_abm_config(struct abm *abm,<br>
-                @@ -662,7 +660,7 @@ bool dmub_init_abm_config(struct abm
-                *abm,<br>
-                 <br>
-                         memset(&amp;ram_table, 0, sizeof(ram_table));<br>
-                 <br>
-                -       fill_iram_v_2_3((struct iram_table_v_2_2
-                *)ram_table, params);<br>
-                +       fill_iram_v_2_3((struct iram_table_v_2_2
-                *)ram_table, params, false);<br>
-                         result = abm-&gt;funcs-&gt;init_abm_config(<br>
-                                 abm, (char *)(&amp;ram_table),
-                IRAM_RESERVE_AREA_START_V2_2);<br>
-                 <br>
-                @@ -684,11 +682,11 @@ bool dmcu_load_iram(struct dmcu
-                *dmcu,<br>
-                         memset(&amp;ram_table, 0, sizeof(ram_table));<br>
-                 <br>
-                         if (dmcu-&gt;dmcu_version.abm_version == 0x24)
-                {<br>
-                -               fill_iram_v_2_3((struct iram_table_v_2_2
-                *)ram_table, params);<br>
-                +               fill_iram_v_2_3((struct iram_table_v_2_2
-                *)ram_table, params, true);<br>
-                                         result =
-                dmcu-&gt;funcs-&gt;load_iram(<br>
-                                                         dmcu, 0, (char
-                *)(&amp;ram_table), IRAM_RESERVE_AREA_START_V2_2);<br>
-                         } else if (dmcu-&gt;dmcu_version.abm_version ==
-                0x23) {<br>
-                -               fill_iram_v_2_3((struct iram_table_v_2_2
-                *)ram_table, params);<br>
-                +               fill_iram_v_2_3((struct iram_table_v_2_2
-                *)ram_table, params, true);<br>
-                 <br>
-                                 result = dmcu-&gt;funcs-&gt;load_iram(<br>
-                                                 dmcu, 0, (char
-                *)(&amp;ram_table), IRAM_RESERVE_AREA_START_V2_2);<br>
-                -- <br>
-                2.26.0<br>
-                <br>
-                _______________________________________________<br>
-                amd-gfx mailing list<br>
-                <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a><br>
-                <a
-href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=02%7C01%7Calexander.deucher%40amd.com%7C71bc54a1a7b7444439c208d7e25fab51%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637226772877797082&amp;amp;sdata=sa4MJoUY%2FjVgW3f4Qx1N4KYpFY3QyqZPWVDbRoUmTxs%3D&amp;amp;reserved=0"
-                  moz-do-not-send="true">https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=02%7C01%7Calexander.deucher%40amd.com%7C71bc54a1a7b7444439c208d7e25fab51%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637226772877797082&amp;amp;sdata=sa4MJoUY%2FjVgW3f4Qx1N4KYpFY3QyqZPWVDbRoUmTxs%3D&amp;amp;reserved=0</a><br>
-              </div>
-            </span></font></div>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------4800A9B6D3F1F6A1341DA7DC--
-
---===============2124057107==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+> Am 17.04.20 um 09:01 schrieb Liu, Monk:
+>> The change Looks good with me, you can put my RB to your patch .
+>>
+>> Since this patch impact on general logic (not SRIOV only) I would 
+>> like you wait a little longer for @Kuehling, Felix and @Deucher, 
+>> Alexander and @Koenig, Christian  @Zhang, Hawking
+>>
+>> If any of them gave you a RB I think we can go this way
+>>
+>> _____________________________________
+>> Monk Liu|GPU Virtualization Team |AMD
+>>
+>>
+>> -----Original Message-----
+>> From: Yintian Tao <yttao@amd.com>
+>> Sent: Friday, April 17, 2020 2:53 PM
+>> To: Liu, Monk <Monk.Liu@amd.com>
+>> Cc: amd-gfx@lists.freedesktop.org; Tao, Yintian <Yintian.Tao@amd.com>
+>> Subject: [PATCH] drm/amdgpu: refine kiq read register
+>>
+>> According to the current kiq read register method, there will be race condition when using KIQ to read register if multiple clients want to read at same time just like the expample below:
+>> 1. client-A start to read REG-0 throguh KIQ 2. client-A poll the seqno-0 3. client-B start to read REG-1 through KIQ 4. client-B poll the seqno-1 5. the kiq complete these two read operation 6. client-A to read the register at the wb buffer and
+>>      get REG-1 value
+>>
+>> Therefore, directly make kiq write the register value at the ring buffer then there will be no race condition for the wb buffer.
+>>
+>> v2: supply the read_clock and move the reg_val_offs back
+>>
+>> Signed-off-by: Yintian Tao <yttao@amd.com>
+>> ---
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c  | 11 ++++------  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h  |  1 -  drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  5 +++--
+>>    drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   | 14 +++++-------
+>>    drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c    | 14 +++++-------
+>>    drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 28 ++++++++++++------------
+>>    6 files changed, 33 insertions(+), 40 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>> index ea576b4260a4..4e1c0239e561 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+>> @@ -304,10 +304,6 @@ int amdgpu_gfx_kiq_init_ring(struct 
+>> amdgpu_device *adev,
+>>    
+>>    	spin_lock_init(&kiq->ring_lock);
+>>    
+>> -	r = amdgpu_device_wb_get(adev, &kiq->reg_val_offs);
+>> -	if (r)
+>> -		return r;
+>> -
+>>    	ring->adev = NULL;
+>>    	ring->ring_obj = NULL;
+>>    	ring->use_doorbell = true;
+>> @@ -331,7 +327,6 @@ int amdgpu_gfx_kiq_init_ring(struct amdgpu_device 
+>> *adev,
+>>    
+>>    void amdgpu_gfx_kiq_free_ring(struct amdgpu_ring *ring)  {
+>> -	amdgpu_device_wb_free(ring->adev, ring->adev->gfx.kiq.reg_val_offs);
+>>    	amdgpu_ring_fini(ring);
+>>    }
+>>    
+>> @@ -675,12 +670,14 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg)
+>>    	uint32_t seq;
+>>    	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+>>    	struct amdgpu_ring *ring = &kiq->ring;
+>> +	uint64_t reg_val_offs = 0;
+>>    
+>>    	BUG_ON(!ring->funcs->emit_rreg);
+>>    
+>>    	spin_lock_irqsave(&kiq->ring_lock, flags);
+>>    	amdgpu_ring_alloc(ring, 32);
+>> -	amdgpu_ring_emit_rreg(ring, reg);
+>> +	reg_val_offs = (ring->wptr & ring->buf_mask) + 30;
+>> +	amdgpu_ring_emit_rreg(ring, reg, reg_val_offs);
+>>    	amdgpu_fence_emit_polling(ring, &seq);
+>>    	amdgpu_ring_commit(ring);
+>>    	spin_unlock_irqrestore(&kiq->ring_lock, flags); @@ -707,7 +704,7 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg)
+>>    	if (cnt > MAX_KIQ_REG_TRY)
+>>    		goto failed_kiq_read;
+>>    
+>> -	return adev->wb.wb[kiq->reg_val_offs];
+>> +	return ring->ring[reg_val_offs];
+>>    
+>>    failed_kiq_read:
+>>    	pr_err("failed to read reg:%x\n", reg); diff --git 
+>> a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+>> index 634746829024..ee698f0246d8 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+>> @@ -103,7 +103,6 @@ struct amdgpu_kiq {
+>>    	struct amdgpu_ring	ring;
+>>    	struct amdgpu_irq_src	irq;
+>>    	const struct kiq_pm4_funcs *pmf;
+>> -	uint32_t			reg_val_offs;
+>>    };
+>>    
+>>    /*
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> index f61664ee4940..a3d88f2aa9f4 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+>> @@ -181,7 +181,8 @@ struct amdgpu_ring_funcs {
+>>    	void (*end_use)(struct amdgpu_ring *ring);
+>>    	void (*emit_switch_buffer) (struct amdgpu_ring *ring);
+>>    	void (*emit_cntxcntl) (struct amdgpu_ring *ring, uint32_t flags);
+>> -	void (*emit_rreg)(struct amdgpu_ring *ring, uint32_t reg);
+>> +	void (*emit_rreg)(struct amdgpu_ring *ring, uint32_t reg,
+>> +			  uint64_t reg_val_offs);
+>>    	void (*emit_wreg)(struct amdgpu_ring *ring, uint32_t reg, uint32_t val);
+>>    	void (*emit_reg_wait)(struct amdgpu_ring *ring, uint32_t reg,
+>>    			      uint32_t val, uint32_t mask); @@ -265,7 +266,7 @@ struct 
+>> amdgpu_ring {  #define amdgpu_ring_emit_hdp_flush(r) (r)->funcs->emit_hdp_flush((r))  #define amdgpu_ring_emit_switch_buffer(r) (r)->funcs->emit_switch_buffer((r))
+>>    #define amdgpu_ring_emit_cntxcntl(r, d) 
+>> (r)->funcs->emit_cntxcntl((r), (d)) -#define amdgpu_ring_emit_rreg(r,
+>> d) (r)->funcs->emit_rreg((r), (d))
+>> +#define amdgpu_ring_emit_rreg(r, d, o) (r)->funcs->emit_rreg((r), 
+>> +(d),
+>> +(o))
+>>    #define amdgpu_ring_emit_wreg(r, d, v) (r)->funcs->emit_wreg((r), 
+>> (d), (v))  #define amdgpu_ring_emit_reg_wait(r, d, v, m) 
+>> (r)->funcs->emit_reg_wait((r), (d), (v), (m))  #define 
+>> amdgpu_ring_emit_reg_write_reg_wait(r, d0, d1, v, m) 
+>> (r)->funcs->emit_reg_write_reg_wait((r), (d0), (d1), (v), (m)) diff 
+>> --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>> index 0a03e2ad5d95..7c9a5e440509 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>> @@ -7594,21 +7594,19 @@ static void gfx_v10_0_ring_emit_frame_cntl(struct amdgpu_ring *ring, bool start,
+>>    	amdgpu_ring_write(ring, v | FRAME_CMD(start ? 0 : 1));  }
+>>    
+>> -static void gfx_v10_0_ring_emit_rreg(struct amdgpu_ring *ring, 
+>> uint32_t reg)
+>> +static void gfx_v10_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg,
+>> +				     uint64_t reg_val_offs)
+>>    {
+>> -	struct amdgpu_device *adev = ring->adev;
+>> -	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+>> -
+>>    	amdgpu_ring_write(ring, PACKET3(PACKET3_COPY_DATA, 4));
+>>    	amdgpu_ring_write(ring, 0 |	/* src: register*/
+>>    				(5 << 8) |	/* dst: memory */
+>>    				(1 << 20));	/* write confirm */
+>>    	amdgpu_ring_write(ring, reg);
+>>    	amdgpu_ring_write(ring, 0);
+>> -	amdgpu_ring_write(ring, lower_32_bits(adev->wb.gpu_addr +
+>> -				kiq->reg_val_offs * 4));
+>> -	amdgpu_ring_write(ring, upper_32_bits(adev->wb.gpu_addr +
+>> -				kiq->reg_val_offs * 4));
+>> +	amdgpu_ring_write(ring, lower_32_bits(ring->gpu_addr +
+>> +					      reg_val_offs * 4));
+>> +	amdgpu_ring_write(ring, upper_32_bits(ring->gpu_addr +
+>> +					      reg_val_offs * 4));
+>>    }
+>>    
+>>    static void gfx_v10_0_ring_emit_wreg(struct amdgpu_ring *ring, 
+>> uint32_t reg, diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+>> b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+>> index fc6c2f2bc76c..8e7eee7838e0 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+>> @@ -6383,21 +6383,19 @@ static void gfx_v8_0_ring_emit_patch_cond_exec(struct amdgpu_ring *ring, unsigne
+>>    		ring->ring[offset] = (ring->ring_size >> 2) - offset + cur;  }
+>>    
+>> -static void gfx_v8_0_ring_emit_rreg(struct amdgpu_ring *ring, 
+>> uint32_t reg)
+>> +static void gfx_v8_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg,
+>> +				    uint64_t reg_val_offs)
+>>    {
+>> -	struct amdgpu_device *adev = ring->adev;
+>> -	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+>> -
+>>    	amdgpu_ring_write(ring, PACKET3(PACKET3_COPY_DATA, 4));
+>>    	amdgpu_ring_write(ring, 0 |	/* src: register*/
+>>    				(5 << 8) |	/* dst: memory */
+>>    				(1 << 20));	/* write confirm */
+>>    	amdgpu_ring_write(ring, reg);
+>>    	amdgpu_ring_write(ring, 0);
+>> -	amdgpu_ring_write(ring, lower_32_bits(adev->wb.gpu_addr +
+>> -				kiq->reg_val_offs * 4));
+>> -	amdgpu_ring_write(ring, upper_32_bits(adev->wb.gpu_addr +
+>> -				kiq->reg_val_offs * 4));
+>> +	amdgpu_ring_write(ring, lower_32_bits(ring->gpu_addr +
+>> +					      reg_val_offs * 4));
+>> +	amdgpu_ring_write(ring, upper_32_bits(ring->gpu_addr +
+>> +					      reg_val_offs * 4));
+>>    }
+>>    
+>>    static void gfx_v8_0_ring_emit_wreg(struct amdgpu_ring *ring, 
+>> uint32_t reg, diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>> index 84fcf842316d..ff279b1f5c24 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>> @@ -4046,11 +4046,13 @@ static uint64_t gfx_v9_0_kiq_read_clock(struct amdgpu_device *adev)
+>>    	uint32_t seq;
+>>    	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+>>    	struct amdgpu_ring *ring = &kiq->ring;
+>> +	uint64_t reg_val_offs = 0;
+>>    
+>>    	BUG_ON(!ring->funcs->emit_rreg);
+>>    
+>>    	spin_lock_irqsave(&kiq->ring_lock, flags);
+>>    	amdgpu_ring_alloc(ring, 32);
+>> +	reg_val_offs = (ring->wptr & ring->buf_mask) + 30;
+>>    	amdgpu_ring_write(ring, PACKET3(PACKET3_COPY_DATA, 4));
+>>    	amdgpu_ring_write(ring, 9 |	/* src: register*/
+>>    				(5 << 8) |	/* dst: memory */
+>> @@ -4058,10 +4060,10 @@ static uint64_t gfx_v9_0_kiq_read_clock(struct amdgpu_device *adev)
+>>    				(1 << 20));	/* write confirm */
+>>    	amdgpu_ring_write(ring, 0);
+>>    	amdgpu_ring_write(ring, 0);
+>> -	amdgpu_ring_write(ring, lower_32_bits(adev->wb.gpu_addr +
+>> -				kiq->reg_val_offs * 4));
+>> -	amdgpu_ring_write(ring, upper_32_bits(adev->wb.gpu_addr +
+>> -				kiq->reg_val_offs * 4));
+>> +	amdgpu_ring_write(ring, lower_32_bits(ring->gpu_addr +
+>> +					      reg_val_offs * 4));
+>> +	amdgpu_ring_write(ring, upper_32_bits(ring->gpu_addr +
+>> +					      reg_val_offs * 4));
+>>    	amdgpu_fence_emit_polling(ring, &seq);
+>>    	amdgpu_ring_commit(ring);
+>>    	spin_unlock_irqrestore(&kiq->ring_lock, flags); @@ -4088,8 +4090,8 @@ static uint64_t gfx_v9_0_kiq_read_clock(struct amdgpu_device *adev)
+>>    	if (cnt > MAX_KIQ_REG_TRY)
+>>    		goto failed_kiq_read;
+>>    
+>> -	return (uint64_t)adev->wb.wb[kiq->reg_val_offs] |
+>> -		(uint64_t)adev->wb.wb[kiq->reg_val_offs + 1 ] << 32ULL;
+>> +	return (uint64_t)ring->ring[reg_val_offs] |
+>> +		(uint64_t)ring->ring[reg_val_offs + 1 ] << 32ULL;
+>>    
+>>    failed_kiq_read:
+>>    	pr_err("failed to read gpu clock\n"); @@ -5482,21 +5484,19 @@ 
+>> static void gfx_v9_0_ring_emit_patch_cond_exec(struct amdgpu_ring *ring, unsigne
+>>    		ring->ring[offset] = (ring->ring_size>>2) - offset + cur;  }
+>>    
+>> -static void gfx_v9_0_ring_emit_rreg(struct amdgpu_ring *ring, 
+>> uint32_t reg)
+>> +static void gfx_v9_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg,
+>> +				    uint64_t reg_val_offs)
+>>    {
+>> -	struct amdgpu_device *adev = ring->adev;
+>> -	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
+>> -
+>>    	amdgpu_ring_write(ring, PACKET3(PACKET3_COPY_DATA, 4));
+>>    	amdgpu_ring_write(ring, 0 |	/* src: register*/
+>>    				(5 << 8) |	/* dst: memory */
+>>    				(1 << 20));	/* write confirm */
+>>    	amdgpu_ring_write(ring, reg);
+>>    	amdgpu_ring_write(ring, 0);
+>> -	amdgpu_ring_write(ring, lower_32_bits(adev->wb.gpu_addr +
+>> -				kiq->reg_val_offs * 4));
+>> -	amdgpu_ring_write(ring, upper_32_bits(adev->wb.gpu_addr +
+>> -				kiq->reg_val_offs * 4));
+>> +	amdgpu_ring_write(ring, lower_32_bits(ring->gpu_addr +
+>> +					      reg_val_offs * 4));
+>> +	amdgpu_ring_write(ring, upper_32_bits(ring->gpu_addr +
+>> +					      reg_val_offs * 4));
+>>    }
+>>    
+>>    static void gfx_v9_0_ring_emit_wreg(struct amdgpu_ring *ring, 
+>> uint32_t reg,
+>> --
+>> 2.17.1
+>>
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============2124057107==--
