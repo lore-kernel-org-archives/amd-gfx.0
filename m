@@ -1,103 +1,104 @@
-Return-Path: <SRS0=B7jy=6A=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=Q5HU=6B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 18365C2BA2B
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 23:42:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 616D5C2BA2B
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 02:29:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DC67021841
-	for <amd-gfx@archiver.kernel.org>; Thu, 16 Apr 2020 23:42:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EF9CC21D93
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 02:29:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="iW7HJ6Ey"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC67021841
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PKkrE4xA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EF9CC21D93
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EA896E156;
-	Thu, 16 Apr 2020 23:42:03 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2060.outbound.protection.outlook.com [40.107.236.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D859D6E0EC
- for <amd-gfx@lists.freedesktop.org>; Thu, 16 Apr 2020 23:42:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC2A6E0EB;
+	Fri, 17 Apr 2020 02:29:54 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770084.outbound.protection.outlook.com [40.107.77.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 686766E0EB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2020 02:29:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QHMQlP6ZcDFSlY5sS7P12gVEYJnnD0WHxFSF8mhKu5iJ9PAetk1pRdseVzUbhSQK6agmNCr4fZ2DPmMpdhPC6F2CD6Zw3hCczi2NtDvvb66taZNRdL1jULVtTykClCPUm8LvWcspQG4QsKW7sUdzySjvnhYPly4nKJMZNUQEwdYjWqqhJ5ioZerd+qNgAmE0tYmlLUsi8mZtmsc/7XlBB0t3p3pc6tlZpJoD+zE8DrYH3l6xczTHTln9HByOpgb47yGFccRJOFUw3wgSPeUo0yNwR1k2EMawlJY7QN+aC7YtvhCFxtR+xJXa39hmjpGM7/fw5ikImdltIPCWao4DYw==
+ b=J4TTLq1+N6hT8KZbulAplC5sYwjkELavtPuXhTOwZJKzIftU1Tq5wg/SNZwBgxD+1+y5jZjaiJNkpsYb13+MG7eXNGSgk2tPPhelnNs051pn63I1ZGYSjrSOW/RmburzeR+84AvIHX1KtUxLAETdHCuI0hfR/kwlOgTrhIfyhlFras9Um0VWeOCp3EiL8GfdR8USvuh/T+O6LYWUC6Mm/A4GxjDJnO/nWD1I+i5DyTo9Q15eJyA4KX+6QDNNM1yo8uUGunzOHksUIdU7kD/BjkTa1LMk/kGEKR5kcreuYqY9q87VyqfDLaqm2MT2yDTGhClF6CNaG331uD87VV8BAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=To2FvKR4pHHUpmm1qyoSqytBCKWr+r9xfdUD1iK2elM=;
- b=AB5Uq4f37OaPK8uRkLbRvY1W2k0ng0iY8zue00lZ7/oQQsnED5ooRvy0edga9W/hw+9SeaAiB222V9FWToXYAmhI0v2iPh9Qv/0wuFOe4UvdasDow4kyrTs2aYu8oTWmh4MvX/U+cGuoMMV6cNoXZt6inXzAlYQHPqTcc6AISN8WAh5GE7jJa3EsSHBNnN3NT8szbquLJIrKDb2IjMBimbXJPjh3bZGukXxMmW83wyPx5hp6iC2M3lzFblS05VCRZtcUAMXyo2SD5lxLhqNGauT+AzbwLZ0YeC/LRpwf/XxgeaGWj4HowkDLMRLOIFzF1da6Pmy+Wear5XmWn8N/Ow==
+ bh=PjqB1H7XJG0CWZjvyTauxsBStuRFP36V8o64zjKfOlQ=;
+ b=dnm56tMYsbAQqmwpz/+IryW3NKuEzHxHKVsDHmrP+rbd2eO9rX7osEcmTtVey+Tq4d+D2zEOOsTq2c7kVML9kd+bwVOnIDnb47ly0xDEsIeLeJQXXQ2yJ+iLjUAEwALggjGge/Kqc6LxCL0QuGZJhnxGT3Q3ddgJUJ5rHk7sPcd7LlYRLdV45o1nQ47OHd5m2JXnF2h+XfyYYekulCswj5sLaTFOCoQyx3hHUFJ+fttD0UQ/03mgWUPpxcMqUSpk1y4vHJXQwtukftRkY6q8ap7bhKbf2x9NnLrPUkOdOs/CRWmDQzds0ur4MR0zuPi3TB/DPT6LEaqLk0xjcgzhzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=To2FvKR4pHHUpmm1qyoSqytBCKWr+r9xfdUD1iK2elM=;
- b=iW7HJ6EyNNnGuNfAcf1m0wUGOQ3rHCVVktR+efMbRXlpfUfguhfKGJOD8VGlqDPN17giubDj9kN6x8UcxZqGAnShqIPIp26nGLb1p4OHZprldYvyQ1sT0qaqQvlSWd+IEPGReCj95N7zEmvtR7ErP4i+582ylMmmrzIquF0SCsk=
+ bh=PjqB1H7XJG0CWZjvyTauxsBStuRFP36V8o64zjKfOlQ=;
+ b=PKkrE4xAIlbPjl0vTEVE5HEMoGCto42uP7gIoBIv98v3Mbpm0rVnW2CS/eAaz1NcDQ3CMLjg+DXpoVBI4sQzlgryrPe0fQGdBTZqgJv80mARZasN4esbUOmby02udwGMO0uRonERAQ0hP+o7a55y+Vlbbq05X/qD0lxaS0rjRbQ=
 Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Rodrigo.Siqueira@amd.com; 
-Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
- by MW2PR12MB2491.namprd12.prod.outlook.com (2603:10b6:907:f::30) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.26; Thu, 16 Apr
- 2020 23:41:59 +0000
-Received: from MW2PR12MB2524.namprd12.prod.outlook.com
- ([fe80::91a7:e6f7:b17a:bfa5]) by MW2PR12MB2524.namprd12.prod.outlook.com
- ([fe80::91a7:e6f7:b17a:bfa5%6]) with mapi id 15.20.2921.027; Thu, 16 Apr 2020
- 23:41:59 +0000
-From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 35/35] drm/amd/display: Fix green screen issue after suspend
-Date: Thu, 16 Apr 2020 19:40:44 -0400
-Message-Id: <20200416234044.2082886-36-Rodrigo.Siqueira@amd.com>
-X-Mailer: git-send-email 2.26.0
-In-Reply-To: <20200416234044.2082886-1-Rodrigo.Siqueira@amd.com>
-References: <20200416234044.2082886-1-Rodrigo.Siqueira@amd.com>
-X-ClientProxiedBy: BN8PR12CA0012.namprd12.prod.outlook.com
- (2603:10b6:408:60::25) To MW2PR12MB2524.namprd12.prod.outlook.com
- (2603:10b6:907:9::27)
+ smtp.mailfrom=Ray.Huang@amd.com; 
+Received: from MN2PR12MB3309.namprd12.prod.outlook.com (2603:10b6:208:106::29)
+ by MN2PR12MB3838.namprd12.prod.outlook.com (2603:10b6:208:16c::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.27; Fri, 17 Apr
+ 2020 02:29:50 +0000
+Received: from MN2PR12MB3309.namprd12.prod.outlook.com
+ ([fe80::ddd6:ac9e:b531:f3f8]) by MN2PR12MB3309.namprd12.prod.outlook.com
+ ([fe80::ddd6:ac9e:b531:f3f8%3]) with mapi id 15.20.2921.027; Fri, 17 Apr 2020
+ 02:29:50 +0000
+Date: Fri, 17 Apr 2020 10:29:42 +0800
+From: Huang Rui <ray.huang@amd.com>
+To: "Liang, Prike" <Prike.Liang@amd.com>
+Subject: Re: [PATCH] drm/amd/powerplay: fix resume failed as smu table
+ initialize early exit
+Message-ID: <20200417022940.GA25917@jenkins-Celadon-RN>
+References: <1586965404-31922-1-git-send-email-Prike.Liang@amd.com>
+Content-Disposition: inline
+In-Reply-To: <1586965404-31922-1-git-send-email-Prike.Liang@amd.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: HK2PR04CA0087.apcprd04.prod.outlook.com
+ (2603:1096:202:15::31) To MN2PR12MB3309.namprd12.prod.outlook.com
+ (2603:10b6:208:106::29)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::2) by
- BN8PR12CA0012.namprd12.prod.outlook.com (2603:10b6:408:60::25) with Microsoft
+Received: from jenkins-Celadon-RN (180.167.199.189) by
+ HK2PR04CA0087.apcprd04.prod.outlook.com (2603:1096:202:15::31) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2921.25 via Frontend Transport; Thu, 16 Apr 2020 23:41:57 +0000
-X-Mailer: git-send-email 2.26.0
-X-Originating-IP: [2607:fea8:56a0:11a1::2]
+ 15.20.2921.25 via Frontend Transport; Fri, 17 Apr 2020 02:29:48 +0000
+X-Originating-IP: [180.167.199.189]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 2da13022-fb9b-4de6-123a-08d7e25fc149
-X-MS-TrafficTypeDiagnostic: MW2PR12MB2491:|MW2PR12MB2491:
+X-MS-Office365-Filtering-Correlation-Id: 202eafe5-cfe9-4928-4e6f-08d7e2773400
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3838:|MN2PR12MB3838:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW2PR12MB2491352281FDA21A90C867FF98D80@MW2PR12MB2491.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3513;
-X-Forefront-PRVS: 0375972289
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3838560506E5D04D35FC74F8ECD90@MN2PR12MB3838.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Forefront-PRVS: 0376ECF4DD
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW2PR12MB2524.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB3309.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(396003)(39860400002)(376002)(346002)(136003)(366004)(8676002)(6486002)(6506007)(316002)(6666004)(15650500001)(54906003)(6512007)(52116002)(1076003)(8936002)(81156014)(86362001)(2616005)(16526019)(186003)(6916009)(2906002)(66476007)(66946007)(66556008)(5660300002)(478600001)(4326008)(36756003);
+ SFS:(10009020)(4636009)(39860400002)(396003)(376002)(346002)(136003)(366004)(5660300002)(478600001)(956004)(316002)(2906002)(26005)(6862004)(81156014)(6496006)(8676002)(6636002)(55016002)(8936002)(6666004)(52116002)(54906003)(4326008)(16526019)(186003)(9686003)(1076003)(33716001)(66556008)(66476007)(66946007)(86362001)(33656002);
  DIR:OUT; SFP:1101; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: V/8/s5v5dgIGzGjVm5T2vNQPmyWpREiIFNZxxEzopYO1JQyfDPQbrYauRJ9HAWSR8jBKp6BMgxOULfJrfPj8+FaEUEHrIfIefflMKQZNK4WGWSIDX6wwJ2v/pGWWaHD2qB5R2kxdD8uOOkaOyyLcTxKNSt9mEJ8YnlseUszsC2nhoUUlAuXVXwThiuy3Bfk9E0hn9IksM2odDCHn+KbrPlCxdpwKRikJ/FyfkYgHSpudajRGbsBozWXQZrARARDTXsLjrgMLFepNwvPO0ZvjAJ3+EdcrAb4jGltzcb7Icc3NO69Tw8V34qZ/1rGv0CvZhL1DHfSmXDOCVLsKWXNTTXeGlV0VWkawsuhe9t7TTCWq+MiusUdS4pCmEBjXkN6DkgIOHUBrXuvzGc+OJZaKL79WPo3mBmgITZanykDevY7MHWoXB1XgGt84nz1iSfus
-X-MS-Exchange-AntiSpam-MessageData: qM7R3928sJnh+01lmkRHueHZFKIiGZtzkxf41cXFetyrbJ/iNxkjcAy7T9Llb+phtM0Bt5x0GH/gqgHA5Ak35m5VxyKyk7ye1D+RBPoxytuAsD8Dl3QsnD2c0uKOkF+hUvxWDo6dMnFW4khSPe1Blnw6+EwWwLYbmPvmpFAWmrQ=
+X-Microsoft-Antispam-Message-Info: gi7t6Gzf9yq+yepL+dawArdyYXEfI/WfW0/iHhjSpFwAqbzHT6uV0l8KnEyynel9uMipQsMxW91iRjscWOwCwHZi0fG40udO25KDbv5jTiDid38wzLFBEGGVWXssB9GETzP9NroHA97AvzrG6fZlPoJuNd9xhpVCGsPLgpqoHEOwhRJYsbOVrWbqJYg3KDAC9dph7f2aHR+by1uluZXcvvWynp6zo9WxPiLWC6cG0dEcjFtxwX/C1PaBPjwVWMqMYTzI8NII6kfJ+xwQPbr03CM7j4xcnf3nLVxw+24pEadYGxHwMTmXsQkgf09GPLK7+QijhXjI462yEpaA4ce4dWzhq2LTCUDfREtNO+YPIV8l4Pvxs12cwdIFJQsew8m0uNRfctWFWBponTDpw57hE1x1E6qTT2fKuhgT7OSWB8TU2QyQSU9PQo/vjc703jN+
+X-MS-Exchange-AntiSpam-MessageData: CxatFNxgfZOG8SZEAuTEVc7RmpXZfeqXleJ51ttpZGURlK+oJSd9Aiw/KdnLjnThtam/3ubnYso2++s057SddoThgWLkEj3Ok2qJZOvEXuJDqfsG2TpkKgaFlPtdgzCbwXKmUWTpK1O6+uv9L0oYeQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2da13022-fb9b-4de6-123a-08d7e25fc149
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Apr 2020 23:41:59.1295 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 202eafe5-cfe9-4928-4e6f-08d7e2773400
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2020 02:29:50.0164 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QD22/UWzqBJH68KSW+o17nZxG2OvrFYUFI2bdJIYy4m8zE/LL6PvZ8zfYKftNoqSZ2PKiOsBg4neV70wS8ZS6g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2491
+X-MS-Exchange-CrossTenant-UserPrincipalName: RvNDmSjdIOxmwYCdFWc2TcUKArbXYkOnx1VJb/hSDUGycU35VQLI9wuyRluyUezd6X4c5CRaIDgfOH2jAjwKVg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3838
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,175 +110,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Rodrigo.Siqueira@amd.com,
- Harry.Wentland@amd.com, Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[why]
-We have seen a green screen after resume from suspend in a Raven system
-connected with two displays (HDMI and DP) on X based system. We noticed
-that this issue is related to bad DCC metadata from user space which may
-generate hangs and consequently an underflow on HUBP. After taking a
-deep look at the code path we realized that after resume we try to
-restore the commit with the DCC enabled framebuffer but the framebuffer
-is no longer valid.
+On Wed, Apr 15, 2020 at 11:43:24PM +0800, Liang, Prike wrote:
+> When the amdgpu in the suspend/resume loop need notify the dpm disabled,
+> otherwise the smu table will be uninitialize and result in resume failed.
+> 
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> Tested-by: Mengbing Wang <Mengbing.Wang@amd.com>
 
-[how]
-This problem was only reported on Raven based system and after suspend,
-for this reason, this commit adds a new parameter on
-fill_plane_dcc_attributes() to give the option of disabling DCC
-programmatically. In summary, for disabling DCC we first verify if is a
-Raven system and if it is in suspend; if both conditions are true we
-disable DCC temporarily, otherwise, it is enabled.
+Reviewed-by: Huang Rui <ray.huang@amd.com>
 
-Co-developed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
-Reviewed-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 38 ++++++++++++++-----
- 1 file changed, 29 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 209b9bf8bf11..04098b344ca3 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3421,7 +3421,8 @@ fill_plane_dcc_attributes(struct amdgpu_device *adev,
- 			  const union dc_tiling_info *tiling_info,
- 			  const uint64_t info,
- 			  struct dc_plane_dcc_param *dcc,
--			  struct dc_plane_address *address)
-+			  struct dc_plane_address *address,
-+			  bool force_disable_dcc)
- {
- 	struct dc *dc = adev->dm.dc;
- 	struct dc_dcc_surface_param input;
-@@ -3433,6 +3434,9 @@ fill_plane_dcc_attributes(struct amdgpu_device *adev,
- 	memset(&input, 0, sizeof(input));
- 	memset(&output, 0, sizeof(output));
- 
-+	if (force_disable_dcc)
-+		return 0;
-+
- 	if (!offset)
- 		return 0;
- 
-@@ -3483,7 +3487,8 @@ fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 			     struct plane_size *plane_size,
- 			     struct dc_plane_dcc_param *dcc,
- 			     struct dc_plane_address *address,
--			     bool tmz_surface)
-+			     bool tmz_surface,
-+			     bool force_disable_dcc)
- {
- 	const struct drm_framebuffer *fb = &afb->base;
- 	int ret;
-@@ -3591,7 +3596,8 @@ fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 
- 		ret = fill_plane_dcc_attributes(adev, afb, format, rotation,
- 						plane_size, tiling_info,
--						tiling_flags, dcc, address);
-+						tiling_flags, dcc, address,
-+						force_disable_dcc);
- 		if (ret)
- 			return ret;
- 	}
-@@ -3684,7 +3690,8 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
- 			    const uint64_t tiling_flags,
- 			    struct dc_plane_info *plane_info,
- 			    struct dc_plane_address *address,
--			    bool tmz_surface)
-+			    bool tmz_surface,
-+			    bool force_disable_dcc)
- {
- 	const struct drm_framebuffer *fb = plane_state->fb;
- 	const struct amdgpu_framebuffer *afb =
-@@ -3766,7 +3773,8 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
- 					   plane_info->rotation, tiling_flags,
- 					   &plane_info->tiling_info,
- 					   &plane_info->plane_size,
--					   &plane_info->dcc, address, tmz_surface);
-+					   &plane_info->dcc, address,
-+					   tmz_surface, force_disable_dcc);
- 	if (ret)
- 		return ret;
- 
-@@ -3790,6 +3798,7 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
- 	uint64_t tiling_flags;
- 	int ret;
- 	bool tmz_surface = false;
-+	bool force_disable_dcc = false;
- 
- 	ret = fill_dc_scaling_info(plane_state, &scaling_info);
- 	if (ret)
-@@ -3804,10 +3813,12 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
- 	if (ret)
- 		return ret;
- 
-+	force_disable_dcc = adev->asic_type == CHIP_RAVEN && adev->in_suspend;
- 	ret = fill_dc_plane_info_and_addr(adev, plane_state, tiling_flags,
- 					  &plane_info,
- 					  &dc_plane_state->address,
--					  tmz_surface);
-+					  tmz_surface,
-+					  force_disable_dcc);
- 	if (ret)
- 		return ret;
- 
-@@ -5429,6 +5440,7 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
- 	uint32_t domain;
- 	int r;
- 	bool tmz_surface = false;
-+	bool force_disable_dcc = false;
- 
- 	dm_plane_state_old = to_dm_plane_state(plane->state);
- 	dm_plane_state_new = to_dm_plane_state(new_state);
-@@ -5489,11 +5501,13 @@ static int dm_plane_helper_prepare_fb(struct drm_plane *plane,
- 			dm_plane_state_old->dc_state != dm_plane_state_new->dc_state) {
- 		struct dc_plane_state *plane_state = dm_plane_state_new->dc_state;
- 
-+		force_disable_dcc = adev->asic_type == CHIP_RAVEN && adev->in_suspend;
- 		fill_plane_buffer_attributes(
- 			adev, afb, plane_state->format, plane_state->rotation,
- 			tiling_flags, &plane_state->tiling_info,
- 			&plane_state->plane_size, &plane_state->dcc,
--			&plane_state->address, tmz_surface);
-+			&plane_state->address, tmz_surface,
-+			force_disable_dcc);
- 	}
- 
- 	return 0;
-@@ -6773,7 +6787,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 		fill_dc_plane_info_and_addr(
- 			dm->adev, new_plane_state, tiling_flags,
- 			&bundle->plane_infos[planes_count],
--			&bundle->flip_addrs[planes_count].address, tmz_surface);
-+			&bundle->flip_addrs[planes_count].address, tmz_surface,
-+			false);
-+
-+		DRM_DEBUG_DRIVER("plane: id=%d dcc_en=%d\n",
-+				 new_plane_state->plane->index,
-+				 bundle->plane_infos[planes_count].dcc.enable);
- 
- 		bundle->surface_updates[planes_count].plane_info =
- 			&bundle->plane_infos[planes_count];
-@@ -8196,7 +8215,8 @@ dm_determine_update_type_for_commit(struct amdgpu_display_manager *dm,
- 				ret = fill_dc_plane_info_and_addr(
- 					dm->adev, new_plane_state, tiling_flags,
- 					plane_info,
--					&flip_addr->address, tmz_surface);
-+					&flip_addr->address, tmz_surface,
-+					false);
- 				if (ret)
- 					goto cleanup;
- 
--- 
-2.26.0
-
+> ---
+>  drivers/gpu/drm/amd/powerplay/renoir_ppt.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+> index 95eb445..7ddaea8 100644
+> --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+> @@ -895,12 +895,17 @@ static int renoir_read_sensor(struct smu_context *smu,
+>  
+>  static bool renoir_is_dpm_running(struct smu_context *smu)
+>  {
+> +	struct amdgpu_device *adev = smu->adev;
+> +
+>  	/*
+>  	 * Until now, the pmfw hasn't exported the interface of SMU
+>  	 * feature mask to APU SKU so just force on all the feature
+>  	 * at early initial stage.
+>  	 */
+> -	return true;
+> +	if (adev->in_suspend)
+> +		return false;
+> +	else
+> +		return true;
+>  
+>  }
+>  
+> -- 
+> 2.7.4
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
