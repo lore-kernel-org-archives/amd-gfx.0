@@ -4,61 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94B2BC38A29
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 20:45:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AB3EC38A2E
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 20:45:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6089121974
+	by mail.kernel.org (Postfix) with ESMTPS id 10CE22223C
 	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 20:45:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PYsohm9M"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6089121974
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ya2MXnec"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 10CE22223C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1259E6EACB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F96E6EB08;
 	Fri, 17 Apr 2020 20:45:05 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEFAA6EACB
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2020 20:45:02 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2083.outbound.protection.outlook.com [40.107.93.83])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFE216EACB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2020 20:45:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hM79MxHs7clfcBMWhRhdVNI7sbeG6kalE+JiUwehROXwrVxC5YPu9dcsg4oaU3+eJ3MNZZJVYXUHd47YsIp6s73oph58sj8GRqwCIm68OLKBELb+a9ZIzhmR4G0zTbRSeNfYXAtfynn8tPW52SJSkN02Sq/p2/fg1zo75eZTD/a3q7CNogDrNG9nFBqgwACPK2WT4ZiE+sx3FVGImJIg8GENg4NvOy2muwg6FlUtcc1q23IDiEt1bL36UW8x8kgLA23nGWv6+B1dDGfpvCmN7+rNoSqtFhnPb6hi8YW2onTYN9BkrtVsROEurP3eE9EmiQ9UL7g8xVj5LpZepMAJIA==
+ b=HjK6tItg2DfcHTcxVT/KCD8kUb1CfxsU6E+U9KNCXt4Gzo+nIUGN9VSdz/yJJ+8m7idKsYbNgqfLC80BQTATHsE27iHHCjzvwCkHLCpIIL7Rt1tJxOkKpbfVBSP1gt0cPB47jf1cZvuYZNhw1F3TV8/0qb64Q/HIHqnzoT8FDClHKz2dUq+dNbwjW7aRVo5N3ndZpZFXgBsIhL8t+RUDb1KuGO2jjP214FWwVl+k2Ci3iHurj8o+jY0IHJfO1NG2Cb1ulRKyb24eU/cmMHhUOLNH/bFqgOsER9xvEY5S7yckVAujbhFZtJA0LwEnl/7jYH0aXeyG+ZQPgBZkSen94A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q09NJva2zjM05Ax2B1CmErxuey2mt7Rk5SKXPQjnDUY=;
- b=UTGC5T0SVPQ3KjL8mCc6xZEWoP/DgGiVG+haOkVHg1NRYLDSTuDYhmn4SxO0N6qEp4pOqkMej7KcWaPKvu3LIO42c5CzlbevbQfgtgInvf23dL2vv08pWp1QDYwhB9HQu+Z/tJTK4+Ndmr13SInhYRaoFrSylIJlOiqs0jRPS9P8JcZX2h3QPYHRVwT6sCcyPvkEJuwHgLtoaO2V7aQqMGS23R8dfWUGa3g01vYbjfL4wwfR3ihHM0F7MBZgZP3WcvgWAhzOJAHH8V1rUc7mKznc7zgaTEcDsk84z3kkVont6d273QD6DnUsTgASQVWYGGdB9M7LDTxiVwIhJfu7VQ==
+ bh=6BunO68jFS6C2RfkT0DWCxQkhHpEVHWVvd3dA2R4pGM=;
+ b=eqYakimzamnNZzq1/qiNm9vNX1JFUPBAPy5uem4+dRJQhQonMY5NY+vurlxxnLiacrf3lRzF3Unlr8/dMGC2EGZmzIjYcu+pwtEbziK2h3y9ilYMnhU4SgyMQY2ogpKNPVuq3KNUA+ZQO6+YosinLIy7cXNEzfnDzX8HKw31e6M9fgZr9ix8SR6rEzEPyvOK75BZxU8KCMx4W/7W3JUAf85SJl5lmRrd1Ojw7BEUeHp74wddIze+OVYLLVNvlMSN4UgS7O+FePNHk8yW8wfwwj9PN7TZLx3y4hphOeE0TEWBCO7sVhuTaGFf59QTnjknApyTy86WTOY7D7iY7ITX4A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q09NJva2zjM05Ax2B1CmErxuey2mt7Rk5SKXPQjnDUY=;
- b=PYsohm9MtwQeSjSZPv3C6aWtV+guopBKqHHvYyAvjDgWiecnijudQofVmXqwy1LGfp2O0XIv2NqYTkCoKE+C4s4AagCuujywlaVmZ5BNJZWRRkj+XloTl4z6MxsI3N11Ey/XxHpubCm7sRSkNdazaL4ftq0xPGeegHHY0sT+KTs=
+ bh=6BunO68jFS6C2RfkT0DWCxQkhHpEVHWVvd3dA2R4pGM=;
+ b=ya2MXnecGQCGIKAKf5MsbS5DJY5AegdU+2jBLAKiZKtKUnRH81f/41P4wiBUHq8mTyZnd3LNIqYfBiWD3p8dChjRnQHOnIUOBDqYHoKQx0QWBzBhWL8YmwbUP+/r7hi/QZhTe2htKyKeuaJ373dzfkVMMOzd0NePnYf3g7OM4LM=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Yong.Zhao@amd.com; 
 Received: from DM6PR12MB4482.namprd12.prod.outlook.com (2603:10b6:5:2a8::23)
  by DM6PR12MB3594.namprd12.prod.outlook.com (2603:10b6:5:11f::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.29; Fri, 17 Apr
- 2020 20:45:01 +0000
+ 2020 20:45:02 +0000
 Received: from DM6PR12MB4482.namprd12.prod.outlook.com
  ([fe80::e058:9371:1bd6:9b4a]) by DM6PR12MB4482.namprd12.prod.outlook.com
  ([fe80::e058:9371:1bd6:9b4a%3]) with mapi id 15.20.2921.027; Fri, 17 Apr 2020
- 20:45:00 +0000
+ 20:45:02 +0000
 From: Yong Zhao <Yong.Zhao@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/3] drm/amdkfd: Adjust three dmesg printings during
- initialization
-Date: Fri, 17 Apr 2020 16:44:44 -0400
-Message-Id: <20200417204446.13999-1-Yong.Zhao@amd.com>
+Subject: [PATCH 2/3] drm/amdgpu: Adjust the SDMA doorbell info printing
+Date: Fri, 17 Apr 2020 16:44:45 -0400
+Message-Id: <20200417204446.13999-2-Yong.Zhao@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200417204446.13999-1-Yong.Zhao@amd.com>
+References: <20200417204446.13999-1-Yong.Zhao@amd.com>
 X-ClientProxiedBy: YTOPR0101CA0004.CANPRD01.PROD.OUTLOOK.COM
  (2603:10b6:b00:15::17) To DM6PR12MB4482.namprd12.prod.outlook.com
  (2603:10b6:5:2a8::23)
@@ -68,16 +69,16 @@ Received: from yong-dev.amd.com (165.204.55.251) by
  YTOPR0101CA0004.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.25 via Frontend
- Transport; Fri, 17 Apr 2020 20:45:00 +0000
+ Transport; Fri, 17 Apr 2020 20:45:02 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [165.204.55.251]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 0edeb632-bbab-4286-1d53-08d7e31032ad
+X-MS-Office365-Filtering-Correlation-Id: d8208bd0-459b-406e-4261-08d7e31033e9
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3594:|DM6PR12MB3594:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3594CEF9F7688265E107783CF0D90@DM6PR12MB3594.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1923;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3594C84E0F9DC294EED4FD67F0D90@DM6PR12MB3594.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:285;
 X-Forefront-PRVS: 0376ECF4DD
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4482.namprd12.prod.outlook.com; PTR:; CAT:NONE;
@@ -88,15 +89,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: KANz0HREBIjNU65Ps1HPT3aEhDYBaN3bhcUzYQlvqStf16GvNg64YRIvcsUXyLZVzGy8F2hsxDwaT9kvlGi1cYBHgwFasTS51Kg+kusPSql3ttWKDfQhUnWQNwtPdGxX13FYygTGdG1RcvLMeanwlmQGLNmwaaPLPSJAGeTWDEnKI9fJwhYKFkn+5tuNrTqN7WVI7D9E6hE2QBSBzRBHV4akOpMoDPp1HCRfNKirX4X/K+SU8gmPAHcokdeQixVLN4kAPBddpYh/Hj+t8m3FXaURoEjyI01f+vco/+f/2xxtENXNq9KU7DVE3xrvnaMqIa0dqyOBl+d5dVoJnW89yCqK+xo3l4qLWG6bJO0tR2jfc7Uda3bG0UgSwlS79JWHq2Zf0TkXO13SipzPA7EYB4FbvLzS+j0t/76L/wKjllZQiWN9ZC7wGaO1r1EsaEX8
-X-MS-Exchange-AntiSpam-MessageData: j3+z0hqpYDzeZIPn7cyYjRvF5reK+so1YN6EsQbbPa0mJWJnWBcpeBRSG3NmTg5HUZaUc2HqTRNfOLPbSLxzlBtHqszDtyTmgj1B5D10CJba3q8YcOWGd6VzrTBbRhpUA+bUFRnkB+bd6NUZuJFnKg==
+X-Microsoft-Antispam-Message-Info: l3P94/AwBc1RSiiZCe+lkkaRSMAuC6z/EcM/EGzWB22cijnktyop0MGNed9jjtjb7yr7aOeIpS5OpixIcuq7ApbvKf8jQXPgZRFxEC9oR4wbZQxglaxbdFG4u9NzdWAblrL6na/xRV6bJzgryq3tDw98LcHLruayUM26N8U2ZN6Ybfuv+TeclLRx68ajsepqClzkMnxr46Vi6/TZpqECb8EOLdTo19v7avjI19QWz9hPwaRNoTSKSMK3hpLEa4cT4cAOXm7LmV/LCER69oOlVVLGbTGp3HB4BnasXsV28yhe8OHP3SOe1gwXfS+Ylx93M1jVtw4FiZLB+0zgu8G8HkEiX1g1hIsF4rpb1pnlOBxa3jO9KEInQAwp+lF/BGlBNIHoSv8RB1t1J32rtcSXkJJxbYnPe/bqnmtcHUSU3Az66DCSK4sclDOkVeOo5yAe
+X-MS-Exchange-AntiSpam-MessageData: 1KEVGAbjVo8sbcjmkL4jh2aM//FZAucyDzitnQtv3weTFFyJShcDusj7wwfb1fLQw+SFEAG3ccGpscjrI4eO/JnWLPo4c6kTVjB0RWZiQDtGSNH/VhNQetv4H56oIJ7AM1iNTug9Y24HqAvT6tVp6g==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0edeb632-bbab-4286-1d53-08d7e31032ad
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2020 20:45:00.6975 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d8208bd0-459b-406e-4261-08d7e31033e9
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2020 20:45:02.7903 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yJp5s9BytSE3LZYRLMjWtIQB9HU1NkGC6lFyDJJjNtthFFHFiAkFGMwVbsgeswS9
+X-MS-Exchange-CrossTenant-UserPrincipalName: 21rLDmj6pHPB1N86vMHWL+PEN6TwrQOD/zbpGmKyax3dr1W/943EOaIMhMZG2fwi
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3594
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,48 +116,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Delete two printings which are not very useful, and change one from
-pr_info() to pr_debug().
+Add more detail while turning off the printing by default, because it
+is very useful.
 
 Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 2 --
- 2 files changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index de9f68d5c312..1009a3b8dcc2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -502,7 +502,7 @@ int kfd_parse_crat_table(void *crat_image, struct list_head *device_list,
- 	num_nodes = crat_table->num_domains;
- 	image_len = crat_table->length;
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index 352cd9632770..c0ca9a8229e1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -1851,7 +1851,7 @@ static int sdma_v4_0_sw_init(void *handle)
+ 		ring->ring_obj = NULL;
+ 		ring->use_doorbell = true;
  
--	pr_info("Parsing CRAT table with %d nodes\n", num_nodes);
-+	pr_debug("Parsing CRAT table with %d nodes\n", num_nodes);
+-		DRM_INFO("use_doorbell being set to: [%s]\n",
++		DRM_DEBUG("SDMA %d use_doorbell being set to: [%s]\n", i,
+ 				ring->use_doorbell?"true":"false");
  
- 	for (node_id = 0; node_id < num_nodes; node_id++) {
- 		top_dev = kfd_create_topology_device(device_list);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index 5db42814dd51..46dcf74ee2e0 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -787,7 +787,6 @@ static int kfd_topology_update_sysfs(void)
- {
- 	int ret;
+ 		/* doorbell size is 2 dwords, get DWORD offset */
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+index f7b2bcf3f293..764f455ada75 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
+@@ -1260,7 +1260,7 @@ static int sdma_v5_0_sw_init(void *handle)
+ 		ring->ring_obj = NULL;
+ 		ring->use_doorbell = true;
  
--	pr_info("Creating topology SYSFS entries\n");
- 	if (!sys_props.kobj_topology) {
- 		sys_props.kobj_topology =
- 				kfd_alloc_struct(sys_props.kobj_topology);
-@@ -1048,7 +1047,6 @@ int kfd_topology_init(void)
- 		sys_props.generation_count++;
- 		kfd_update_system_properties();
- 		kfd_debug_print_topology();
--		pr_info("Finished initializing topology\n");
- 	} else
- 		pr_err("Failed to update topology in sysfs ret=%d\n", ret);
+-		DRM_INFO("use_doorbell being set to: [%s]\n",
++		DRM_DEBUG("SDMA %d use_doorbell being set to: [%s]\n", i,
+ 				ring->use_doorbell?"true":"false");
  
+ 		ring->doorbell_index = (i == 0) ?
 -- 
 2.17.1
 
