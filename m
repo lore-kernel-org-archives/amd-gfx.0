@@ -2,109 +2,103 @@ Return-Path: <SRS0=Q5HU=6B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 85F52C2BB55
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 08:59:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9ED8C2BB55
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 09:06:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 41C93208E4
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 08:59:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 87E31207FC
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 09:06:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="HnhwbqAG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41C93208E4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="rSjY6hIB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 87E31207FC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C535B6E3DB;
-	Fri, 17 Apr 2020 08:59:01 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2077.outbound.protection.outlook.com [40.107.223.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2761E6E3D8
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2020 08:58:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F0F06E3DA;
+	Fri, 17 Apr 2020 09:06:40 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770075.outbound.protection.outlook.com [40.107.77.75])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 185F46E108
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2020 09:06:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=n4QQ9UEIMT3qcl5+yvxvaBrM4yDYZVNxTVJRu03fAGbFQVAoU+FOSSdQa/4JEl8UX2pJcLKJa9XoZTLPKBoJWwVKckGB29/qP7Dhcmn4zdnfc7qcpjyJRD0kSpforYHqV+GnkjOg1V347sMa7fPodoqgbqOZ6ulJl3XAZnSrMEEbkxyvIloxDINTgXIVzXEsyCcNgMjIsnBp/2jIsMOPnc11+c3p3ALcqDKW/0G2/oQB/dub3fWCmlEkqSlIHqHi21ogb3bA3gickZOeZLorhraL8lkHs7FPmpE+zE32CpVmFAPkJlBom1LDwu0pPGMw/fQUgkaEnEMWSesCkLP0rQ==
+ b=KxXE4edbsj7H2yCZ8+DTrEX7YxDtL1UdVRDH/kRN8nK+GdlQ+U3JNygrz6tx65sxc/5+pnTlyh60zzCau2lVeht+UoYaO0VI9xDnlEmxoNdlXV+P5EThKkRs7ZjoJEawOVkmaf8ZwNUzg1oXczSS0ttKYZ1kGWCqTU2Ktnsl0FTQvUlUo9ACceL7Ch9/hNmtLFv10w1yv6bosl20ldx+faorlav4qwBpeBlJY2HqiYEcLefF7vblFJQitwzeiC2Fq3uU/3VT/kN1HJgcEzYT3Iy6A6nYxqP/EHpy/aDf/5oC7nCxNNblqBDuHiPl6ZVrTbVpfqzchI5j9tjVLcyy4A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qy6T0tYGyiXhur5Wa5R5Ai1oIKOwdB9gr39o/WUQu5o=;
- b=C22Apjr1EV1WLGadQKSSAcTCFQYUNjJXwQf1qdcOpLfUMKVkWVOQvJmh5zIVMns3M7Ptgr4ktIUiRCI2gHnK/nVlWKJmrSBY9Q3WzHgLHau4FcUUEcw1h6xEaswSg54rbQ9Y0WmWArKWsBvMGy5ndHBGVfrKfd5BknW2DaFf1B+P3D3EIYVNKqfLXWzyKK6WG3qfmWyuT8jMGBHymGJBIFkDnaf7utaRXFMIW5Imz81Rr4l1t+vuWU1axRk7DE7rmpQAPa22YtCZmIm3Qtc8XCWZtGSdkXzW2/zPDtZ6IknXQt87D0aKSGZZ5dgDzG1DC2n9TB+PAzmgorGnHGtvSg==
+ bh=gUc1gqz5L7MYqgaNhVLmGkafM9XhfzNA+ZiOGesC0HI=;
+ b=GPePI3l8i/1tectszZmtth0AtVz3sRe3BEH5owRgAXfgOrV597/bPFIueyrXVtXJ1NQEHZeRYiws+SmxvJJZmtxwHQ7OPeASrJjJETwmSB9LAY4v2zoituhVJf9lux4iUrlQd6zVdfdoXD6K5wzTF+K4n9tgIssGCY/FqCC52851HHLPFHtyrozezwgxLxHYS/sait6PDzH14GVOSqxaAVo2uinGEafhNmAG0r7Z1BP/Bvzj+bKk0vZnw9VADS49IlY7Wlyzhx608VACP4HRj5+kjZB6d++F0FeJ0POfolBCwOMfWYmzp6Q0eav/ygV1qyZkO9+a6+HFwGf8EJZGLg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qy6T0tYGyiXhur5Wa5R5Ai1oIKOwdB9gr39o/WUQu5o=;
- b=HnhwbqAG2n3MMi/MM97dEGSwMmjesOw3PXFejgVJ0qo+PvmYVzNy69M7XZVFXkDSqnzwpnLM20C+Xmj+wd9geJqu5RhltRsHsOCJ43jiaMqExLpv8WJrPy1Ekyg8Gw00QVG3PVoXtg76sixP5Ct8pXafUaG/ZP2aMoaoGfLsWMc=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Christian.Koenig@amd.com; 
-Received: from MN2PR12MB4408.namprd12.prod.outlook.com (2603:10b6:208:26c::14)
- by MN2PR12MB3760.namprd12.prod.outlook.com (2603:10b6:208:158::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.29; Fri, 17 Apr
- 2020 08:58:54 +0000
-Received: from MN2PR12MB4408.namprd12.prod.outlook.com
- ([fe80::cc36:ee17:c768:8427]) by MN2PR12MB4408.namprd12.prod.outlook.com
- ([fe80::cc36:ee17:c768:8427%6]) with mapi id 15.20.2921.027; Fri, 17 Apr 2020
- 08:58:54 +0000
-Subject: Re: [PATCH] drm/amdgpu: refine kiq read register
-To: "Liu, Monk" <Monk.Liu@amd.com>, "Tao, Yintian" <Yintian.Tao@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Zhang, Hawking" <Hawking.Zhang@amd.com>
+ bh=gUc1gqz5L7MYqgaNhVLmGkafM9XhfzNA+ZiOGesC0HI=;
+ b=rSjY6hIBc1eXPjiU49OnshfnMSvBJpKPCl2RWQpgIJ4+frkUwdXiAeIXQOlS4InVkiikNZhBoxfQwP9xid8QlKl5xOTn7fmfMek/ObDWYrQg4SC/0dKcYeetH3fWNhWLjO8CvrCl2SF0SM5HNBAhT6nbwd3Y3F/n/mxC/zJcNBM=
+Received: from DM5PR12MB1708.namprd12.prod.outlook.com (2603:10b6:3:10e::22)
+ by DM5PR12MB1403.namprd12.prod.outlook.com (2603:10b6:3:79::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.15; Fri, 17 Apr
+ 2020 09:06:36 +0000
+Received: from DM5PR12MB1708.namprd12.prod.outlook.com
+ ([fe80::a8d8:ad45:3232:f8bd]) by DM5PR12MB1708.namprd12.prod.outlook.com
+ ([fe80::a8d8:ad45:3232:f8bd%8]) with mapi id 15.20.2921.027; Fri, 17 Apr 2020
+ 09:06:36 +0000
+From: "Liu, Monk" <Monk.Liu@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>, "Tao, Yintian"
+ <Yintian.Tao@amd.com>, "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: refine kiq read register
+Thread-Topic: [PATCH] drm/amdgpu: refine kiq read register
+Thread-Index: AQHWFITfuUsBKum0lUeua8U6BgyKnKh84n1wgAAhSQCAAAEeMA==
+Date: Fri, 17 Apr 2020 09:06:36 +0000
+Message-ID: <DM5PR12MB170834047A4ABBC474F0CE1084D90@DM5PR12MB1708.namprd12.prod.outlook.com>
 References: <20200417065310.21108-1-yttao@amd.com>
  <DM5PR12MB1708AB26054FA715829B65A684D90@DM5PR12MB1708.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <a65bfe3f-0340-7e3b-24e4-bfc1850b01a4@amd.com>
-Date: Fri, 17 Apr 2020 10:58:48 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <DM5PR12MB1708AB26054FA715829B65A684D90@DM5PR12MB1708.namprd12.prod.outlook.com>
+ <a65bfe3f-0340-7e3b-24e4-bfc1850b01a4@amd.com>
+In-Reply-To: <a65bfe3f-0340-7e3b-24e4-bfc1850b01a4@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-X-ClientProxiedBy: AM0PR10CA0005.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:208:17c::15) To MN2PR12MB4408.namprd12.prod.outlook.com
- (2603:10b6:208:26c::14)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM0PR10CA0005.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:17c::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.26 via Frontend
- Transport; Fri, 17 Apr 2020 08:58:53 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: aa96c03c-6285-4a28-3d4c-08d7e2ad8e66
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3760:|MN2PR12MB3760:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3760DB5417B3FD27B0E5708683D90@MN2PR12MB3760.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
-X-Forefront-PRVS: 0376ECF4DD
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB4408.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Monk.Liu@amd.com; 
+x-originating-ip: [101.87.149.120]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 5f22176b-e6c7-48c1-1b97-08d7e2aea1b4
+x-ms-traffictypediagnostic: DM5PR12MB1403:|DM5PR12MB1403:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM5PR12MB1403373BC364BB7166B390BC84D90@DM5PR12MB1403.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5236;
+x-forefront-prvs: 0376ECF4DD
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1708.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(346002)(366004)(376002)(136003)(39860400002)(396003)(66476007)(36756003)(8936002)(66556008)(5660300002)(66946007)(478600001)(30864003)(6636002)(81156014)(8676002)(2906002)(31696002)(31686004)(316002)(6666004)(4326008)(86362001)(186003)(6486002)(16526019)(2616005)(53546011)(52116002)(110136005)(921003)(1121003);
+ SFS:(10009020)(4636009)(376002)(136003)(39860400002)(396003)(366004)(346002)(55016002)(9686003)(86362001)(26005)(6636002)(76116006)(186003)(7696005)(52536014)(66946007)(6506007)(66556008)(66476007)(71200400001)(66446008)(64756008)(5660300002)(8676002)(4326008)(2906002)(30864003)(33656002)(8936002)(81156014)(316002)(53546011)(478600001)(110136005)(921003)(1121003);
  DIR:OUT; SFP:1101; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2xAXwzRPQSPwUR3B/fWgV/V0HSR+yV09R4etPXDnXUVeuhk1WlsxRZInDHOuSGBTi7i0vM3eK/4ZkfjLbYTDkNN3fqYjZoMboQ/DfQemmxEIk13HLz3oI2TN/q58RNhKCFtsu/hlOTbZ2Ttpxl3mKdXmJaFN1ATua39zmM9dNHXZgb7iUgelNl5PaWcbm1I5zFvYUUJdULhno0VMEt/sgQvJQp9tBsV8q4dY2uM93bUKLOwd5sOOOkNakPq27sbfuwtBA/UzWoAJq3BCnnlUxOfnEmyqeS6omH3PeSMF7kP1QPiPC7ixUScN9KkIEs3Zoz64Rb5PYmnoijlUpaJipeOCKMWn3Pmktp3vJ7za0ZaQi0wajl4e9wq6aSIo22m7BwX2oOt71MFA32E5uTgNLu+fLRupWTAiJ0JgqOe3d9hdbfzoS+xW9MrVdK2Wq8myYuWMzd8NSCOFd7qbKYcVNs4N7TnXth7iN9rm68YWi8J07xM9C1/z3dBEOxKy62Ei
-X-MS-Exchange-AntiSpam-MessageData: mW3PucBVMszRbXw6sUdoM2gfua4IvJm4dLQD2fWeh7BKSXIrnxwOVaDFlarXdsQT/mNeyXSGWNVYOfxoqNbJIbOL/lGfhgmdKsR4Q7Sctc4C7fwMuJzeUHYZwOKuyMKgnOMy1MZl5cn8MQuqOxl89hkcTZqPtYh+W7jlRTZNzFJnBkUwUgAWl1VJP7wSSsIsNZdDVjGcNpG4uulNmmGuTA==
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: CJYb4aw/Iaw6buB3S+28wwG3ulmp83x2jGOn79YM9mxZpOFnRR9nvsam3s+7FO24eBWAEAtBbTTidxd9UIFFV4DE7+8cdBUM9g4lQ3IMzrBpOdy+Zsf0n01DVulIz/kzK3xQLpMpyA3WsWVX1rT65P6ejhmOpehpAMBoLcfFZZAvJjWEhFsL/I6T/qbFIODXUX9S2D8rK6ftJstnmo/gWd2smYrgRpsrQEMJa5Let+xUKZhVzFAU7OMBEK8VGmxr7wJX5IEr1xpa7+gTF7sVdn6odONF6PNY+jRfYDmNbPCxMlALfCheaC0hh5ItknfOi/Bws3FKTR1ygWxqtylert8QmLPAGlFhr4d92uPZf+T054X5nnNbweRoODbP8nkbW2/4qheG3XEJKbT+AyegUMpPrWQb4YzjiuI1/KLIzlXc/zfSLOJgU5aFghSZQCTknEYu36sWPJh2SZJ/N4X9OGEk1e+ZVJoF79YZnRsNOljmpPtT4hrZREQbdgk9Thuc
+x-ms-exchange-antispam-messagedata: dq//IOvJ4nBPiAkfexp26jikr80PzY6706RtYeZvNP0GnMbIn/a7WsIMhVtL2TJkDad3o56ObYwExsUKxyoyP6/FfDaiB7RmxxNa2viguEj8SkaioE+DHdfLninmkC9zn1v5Fpu1d7+rJuOWYgk/HQ==
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa96c03c-6285-4a28-3d4c-08d7e2ad8e66
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Apr 2020 08:58:54.3962 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TXIM4+FIwGGVZhU02kF0dnlhnwdqG2WEuA9orsmkDAXIU0kStaGxcbGNbuGPeXeS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3760
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5f22176b-e6c7-48c1-1b97-08d7e2aea1b4
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Apr 2020 09:06:36.0537 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qft3qKnHxQbXX0+23SXNARUMl6Csf4JijmFeEllFFC4L2fJXhOMwbvCwaxeGLS5v
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1403
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,19 +111,57 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Looks like a rather important bug fix to me, but I'm not sure if writing 
-the value into the ring buffer is a good idea.
+Christian
+
+>>
+See we wanted to map the ring buffers read only and USWC for some time. 
+That would result in either not working driver or rather crappy performance.
+<<
+
+For KIQ the ring buffer wouldn't be read only ... should be cacheable type 
+
+Dynamic alloc each time doing KIQ reg read is a overkill to me, leverage ring buffer is a high efficient way. 
+
+Besides looks now the KIQ register reading is really massive, check this code:
+
+4949 static void gfx_v9_0_update_spm_vmid(struct amdgpu_device *adev, unsigned vmid)
+4950 {
+4951     u32 data;
+4952
+4953     data = RREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL);
+4954
+4955     data &= ~RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK;
+4956     data |= (vmid & RLC_SPM_MC_CNTL__RLC_SPM_VMID_MASK) << RLC_SPM_MC_CNTL__RLC_SPM_VMID__SHIFT;
+4957
+4958     WREG32_SOC15(GC, 0, mmRLC_SPM_MC_CNTL, data);
+4959 }
+
+Now  we do KIQ read and write *every time* we do amdgpu_vm_flush  (omg... what's this  ??)
+
+
+
+_____________________________________
+Monk Liu|GPU Virtualization Team |AMD
+
+
+-----Original Message-----
+From: Koenig, Christian <Christian.Koenig@amd.com> 
+Sent: Friday, April 17, 2020 4:59 PM
+To: Liu, Monk <Monk.Liu@amd.com>; Tao, Yintian <Yintian.Tao@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>; Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amdgpu: refine kiq read register
+
+Looks like a rather important bug fix to me, but I'm not sure if writing the value into the ring buffer is a good idea.
 
 See we wanted to map the ring buffers read only and USWC for some time. 
 That would result in either not working driver or rather crappy performance.
 
-Can't we just call amdgpu_device_wb_get() in amdgpu_device_wb_get() 
-instead and allocate the wb address dynamically?
+Can't we just call amdgpu_device_wb_get() in amdgpu_device_wb_get() instead and allocate the wb address dynamically?
 
 Regards,
 Christian.
@@ -137,7 +169,9 @@ Christian.
 Am 17.04.20 um 09:01 schrieb Liu, Monk:
 > The change Looks good with me, you can put my RB to your patch .
 >
-> Since this patch impact on general logic (not SRIOV only) I would like you wait a little longer for @Kuehling, Felix and @Deucher, Alexander and @Koenig, Christian  @Zhang, Hawking
+> Since this patch impact on general logic (not SRIOV only) I would like 
+> you wait a little longer for @Kuehling, Felix and @Deucher, Alexander 
+> and @Koenig, Christian  @Zhang, Hawking
 >
 > If any of them gave you a RB I think we can go this way
 >
@@ -168,11 +202,13 @@ Am 17.04.20 um 09:01 schrieb Liu, Monk:
 >   drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c    | 28 ++++++++++++------------
 >   6 files changed, 33 insertions(+), 40 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
 > index ea576b4260a4..4e1c0239e561 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> @@ -304,10 +304,6 @@ int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev,
+> @@ -304,10 +304,6 @@ int amdgpu_gfx_kiq_init_ring(struct amdgpu_device 
+> *adev,
 >   
 >   	spin_lock_init(&kiq->ring_lock);
 >   
@@ -183,7 +219,8 @@ Am 17.04.20 um 09:01 schrieb Liu, Monk:
 >   	ring->adev = NULL;
 >   	ring->ring_obj = NULL;
 >   	ring->use_doorbell = true;
-> @@ -331,7 +327,6 @@ int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev,
+> @@ -331,7 +327,6 @@ int amdgpu_gfx_kiq_init_ring(struct amdgpu_device 
+> *adev,
 >   
 >   void amdgpu_gfx_kiq_free_ring(struct amdgpu_ring *ring)  {
 > -	amdgpu_device_wb_free(ring->adev, ring->adev->gfx.kiq.reg_val_offs);
@@ -213,7 +250,9 @@ Am 17.04.20 um 09:01 schrieb Liu, Monk:
 > +	return ring->ring[reg_val_offs];
 >   
 >   failed_kiq_read:
->   	pr_err("failed to read reg:%x\n", reg); diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+>   	pr_err("failed to read reg:%x\n", reg); diff --git 
+> a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
 > index 634746829024..ee698f0246d8 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
@@ -225,7 +264,8 @@ Am 17.04.20 um 09:01 schrieb Liu, Monk:
 >   };
 >   
 >   /*
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
 > index f61664ee4940..a3d88f2aa9f4 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
 > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
@@ -238,19 +278,29 @@ Am 17.04.20 um 09:01 schrieb Liu, Monk:
 > +			  uint64_t reg_val_offs);
 >   	void (*emit_wreg)(struct amdgpu_ring *ring, uint32_t reg, uint32_t val);
 >   	void (*emit_reg_wait)(struct amdgpu_ring *ring, uint32_t reg,
->   			      uint32_t val, uint32_t mask);
-> @@ -265,7 +266,7 @@ struct amdgpu_ring {  #define amdgpu_ring_emit_hdp_flush(r) (r)->funcs->emit_hdp_flush((r))  #define amdgpu_ring_emit_switch_buffer(r) (r)->funcs->emit_switch_buffer((r))
->   #define amdgpu_ring_emit_cntxcntl(r, d) (r)->funcs->emit_cntxcntl((r), (d)) -#define amdgpu_ring_emit_rreg(r, d) (r)->funcs->emit_rreg((r), (d))
-> +#define amdgpu_ring_emit_rreg(r, d, o) (r)->funcs->emit_rreg((r), (d),
+>   			      uint32_t val, uint32_t mask); @@ -265,7 +266,7 @@ struct 
+> amdgpu_ring {  #define amdgpu_ring_emit_hdp_flush(r) (r)->funcs->emit_hdp_flush((r))  #define amdgpu_ring_emit_switch_buffer(r) (r)->funcs->emit_switch_buffer((r))
+>   #define amdgpu_ring_emit_cntxcntl(r, d) 
+> (r)->funcs->emit_cntxcntl((r), (d)) -#define amdgpu_ring_emit_rreg(r, 
+> d) (r)->funcs->emit_rreg((r), (d))
+> +#define amdgpu_ring_emit_rreg(r, d, o) (r)->funcs->emit_rreg((r), 
+> +(d),
 > +(o))
->   #define amdgpu_ring_emit_wreg(r, d, v) (r)->funcs->emit_wreg((r), (d), (v))  #define amdgpu_ring_emit_reg_wait(r, d, v, m) (r)->funcs->emit_reg_wait((r), (d), (v), (m))  #define amdgpu_ring_emit_reg_write_reg_wait(r, d0, d1, v, m) (r)->funcs->emit_reg_write_reg_wait((r), (d0), (d1), (v), (m)) diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+>   #define amdgpu_ring_emit_wreg(r, d, v) (r)->funcs->emit_wreg((r), 
+> (d), (v))  #define amdgpu_ring_emit_reg_wait(r, d, v, m) 
+> (r)->funcs->emit_reg_wait((r), (d), (v), (m))  #define 
+> amdgpu_ring_emit_reg_write_reg_wait(r, d0, d1, v, m) 
+> (r)->funcs->emit_reg_write_reg_wait((r), (d0), (d1), (v), (m)) diff 
+> --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c 
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
 > index 0a03e2ad5d95..7c9a5e440509 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
 > @@ -7594,21 +7594,19 @@ static void gfx_v10_0_ring_emit_frame_cntl(struct amdgpu_ring *ring, bool start,
 >   	amdgpu_ring_write(ring, v | FRAME_CMD(start ? 0 : 1));  }
 >   
-> -static void gfx_v10_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg)
+> -static void gfx_v10_0_ring_emit_rreg(struct amdgpu_ring *ring, 
+> uint32_t reg)
 > +static void gfx_v10_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg,
 > +				     uint64_t reg_val_offs)
 >   {
@@ -273,14 +323,17 @@ Am 17.04.20 um 09:01 schrieb Liu, Monk:
 > +					      reg_val_offs * 4));
 >   }
 >   
->   static void gfx_v10_0_ring_emit_wreg(struct amdgpu_ring *ring, uint32_t reg, diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+>   static void gfx_v10_0_ring_emit_wreg(struct amdgpu_ring *ring, 
+> uint32_t reg, diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c 
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
 > index fc6c2f2bc76c..8e7eee7838e0 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
 > @@ -6383,21 +6383,19 @@ static void gfx_v8_0_ring_emit_patch_cond_exec(struct amdgpu_ring *ring, unsigne
 >   		ring->ring[offset] = (ring->ring_size >> 2) - offset + cur;  }
 >   
-> -static void gfx_v8_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg)
+> -static void gfx_v8_0_ring_emit_rreg(struct amdgpu_ring *ring, 
+> uint32_t reg)
 > +static void gfx_v8_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg,
 > +				    uint64_t reg_val_offs)
 >   {
@@ -303,7 +356,9 @@ Am 17.04.20 um 09:01 schrieb Liu, Monk:
 > +					      reg_val_offs * 4));
 >   }
 >   
->   static void gfx_v8_0_ring_emit_wreg(struct amdgpu_ring *ring, uint32_t reg, diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+>   static void gfx_v8_0_ring_emit_wreg(struct amdgpu_ring *ring, 
+> uint32_t reg, diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c 
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
 > index 84fcf842316d..ff279b1f5c24 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
@@ -345,11 +400,12 @@ Am 17.04.20 um 09:01 schrieb Liu, Monk:
 > +		(uint64_t)ring->ring[reg_val_offs + 1 ] << 32ULL;
 >   
 >   failed_kiq_read:
->   	pr_err("failed to read gpu clock\n");
-> @@ -5482,21 +5484,19 @@ static void gfx_v9_0_ring_emit_patch_cond_exec(struct amdgpu_ring *ring, unsigne
+>   	pr_err("failed to read gpu clock\n"); @@ -5482,21 +5484,19 @@ 
+> static void gfx_v9_0_ring_emit_patch_cond_exec(struct amdgpu_ring *ring, unsigne
 >   		ring->ring[offset] = (ring->ring_size>>2) - offset + cur;  }
 >   
-> -static void gfx_v9_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg)
+> -static void gfx_v9_0_ring_emit_rreg(struct amdgpu_ring *ring, 
+> uint32_t reg)
 > +static void gfx_v9_0_ring_emit_rreg(struct amdgpu_ring *ring, uint32_t reg,
 > +				    uint64_t reg_val_offs)
 >   {
@@ -372,7 +428,8 @@ Am 17.04.20 um 09:01 schrieb Liu, Monk:
 > +					      reg_val_offs * 4));
 >   }
 >   
->   static void gfx_v9_0_ring_emit_wreg(struct amdgpu_ring *ring, uint32_t reg,
+>   static void gfx_v9_0_ring_emit_wreg(struct amdgpu_ring *ring, 
+> uint32_t reg,
 > --
 > 2.17.1
 >
