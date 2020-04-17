@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A801C38A29
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 11:11:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A1BCEC352BE
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 11:14:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1575821D95
-	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 11:11:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 75B0221D94
+	for <amd-gfx@archiver.kernel.org>; Fri, 17 Apr 2020 11:14:39 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="dssFFxrt"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1575821D95
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="2ptVIHYR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75B0221D94
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE98E6EB91;
-	Fri, 17 Apr 2020 11:11:44 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2045.outbound.protection.outlook.com [40.107.236.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 10CEB6EB91
- for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2020 11:11:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 082C16EB92;
+	Fri, 17 Apr 2020 11:14:39 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2062b.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:7e88::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE9E46EB92
+ for <amd-gfx@lists.freedesktop.org>; Fri, 17 Apr 2020 11:14:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=d4Gi58aq9JMXm54WjvXTk+432QIVHIvoXQ16SO1xMaqlRcAcGMQSXbM0Ivp2wyXmSqoAezc+UitgtIPK65pKVhT7n+UpXe3tmxim6IIoqk1yDkuFqwl2Lw9g7zJKdypdq0GQGdJFYRocLFWYiNIOxpaKQpmm2Z3KjWUejrs1e3fPXR66nJ48yVAR6nPuY3r55LrDbt984yJfsuf+epHwNYtVmB7d8kyMjOQcymzC+a4qy0SPdQVcvqcsFtIz8XGcUFzP9Bc+EXM7F3J9e3wQCu3d0f8GJyBCCeMkE/T/4wR0SMiw6grL5An8flGVb7NRF697Wj+SO8VU5SE/iqm+zg==
+ b=UaX7qyAiPb2rToQz+9MsOZYm4T0Gi2OCc1+b4M0CHC87E+MqouM807mI5/YC2CTe4w/XUXge3tdbg7Zww6QZ9IpvZI5Zk/vYBAULuuaftkSYPbn7x2OWax5LdEpD/HxUV7gHwoBSVti/UY9gI1IXOFXTtEQg+sOgAVJ9exY3tzw3WEYXLmeM5EII4R+HS/Uxw1KMkbXRGYNxY/zKW4DQ4pXW6y//U+Dm7FBDT2Ap9uhmrkAfujLGWujEMWq48y1SivZJmRmbxZbW6ZPpqy6pN6zxwkk3XwtT3x0+W/GGeVrmJFOiyhWcGGmNEgsMBlLSA6vTCHl7imLEuQkiIhwdbw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x1sDcCNasn17UHHhrnB9HQM/Va6azDZ7pGsR2oh0AuA=;
- b=SOxTG3F3NgKd/KO7Lf/5Qhp9ae/YBny68OcN2yu27uYjkqB4byvCHcyvnPLnZ9150enNuTJobTVKGxapkfTA4dV0Mv8hyXmIR4fTtIzMu0ZX6Drl+A3y0VU7LkyqD6hPtqQbTbUEsshE3derifZc9Y6VuDV2A3jmbaUq1znKjvnW48B53kOBEaokP4QbSorBLugxZpWLfngXF3C/oEGLo+wQiqGcTaWT+d7EGJoekWuvwLwU7jMd5rr7qbon617otn2nlJD3UQBOdA91aivBqXrPpXwgQRnd5owVdV7V5KH+v/ZAxCXXtn7M3/nG+2TQZnxaK3O9YXFS4zIPVlm2ww==
+ bh=8VBOQQtK50doaC6YoyMFHjgx+tloSjn6eE6S+SylPnY=;
+ b=WBffYNXmxg83XY1usCnecVCw/Hcwf3DtVBtvflVR7fa4QveNqqaTwW8A1RTYwezMic5ANlCbivAMQLvNvCilI87bL4y/NAR9uyAE+gu9sDbkc6jVGcJ+sfMtehcMd794DAmGdSG8zkMoH11qu5PO49FQ44k03KD1FauhaiiyYRFgznhY6BwS8CQI9PLtfc9F3EBVVXGtkJiCkIJlTe3d4wXrSz3G7CBw+qj23sFYMt9QRH6f2GyN2nPl/lD+VrGHhlD+LU3DlB1B+EAlv0sp5vnbDCHKCX0iKY8h5OASrhbkxTyoU8tUWaqiascqIMOddd+Snoh24c9AEiDT27os7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x1sDcCNasn17UHHhrnB9HQM/Va6azDZ7pGsR2oh0AuA=;
- b=dssFFxrtZin7deuw7M2WnSEAu10/H979sB4DZ2nJTm5NQc4q+ZYqyR4aLFKAZMPrdfBcqG7lni+r9XEokN5AGtbHLTlmtJoQjUBas352sQK/AjupcqyqhlIzCnQvnWxhEmulkOdm6ClFkURkiMBKDLUbjqdBV0ie03HLYGegv4k=
+ bh=8VBOQQtK50doaC6YoyMFHjgx+tloSjn6eE6S+SylPnY=;
+ b=2ptVIHYRCP0hFTMP/M46P2EG6eLjleLKuaO+ZjkadAthC0e50SVsW8LwaVrlCvXCVNYKLcs1nWq5Q/GnCq0zPejOQSyDR/Cuifp6RppQDBasej7L9LB/DxZMq5z8lg6Iru+aQjh57jWM36mK+7qqlTl8sMNXPtxnREp6JqbYy1U=
 Received: from SN1PR12MB2558.namprd12.prod.outlook.com (2603:10b6:802:2b::18)
  by SN1PR12MB2431.namprd12.prod.outlook.com (2603:10b6:802:27::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.25; Fri, 17 Apr
- 2020 11:11:41 +0000
+ 2020 11:14:36 +0000
 Received: from SN1PR12MB2558.namprd12.prod.outlook.com
  ([fe80::ec5f:a26:8530:3b9f]) by SN1PR12MB2558.namprd12.prod.outlook.com
  ([fe80::ec5f:a26:8530:3b9f%6]) with mapi id 15.20.2900.028; Fri, 17 Apr 2020
- 11:11:41 +0000
+ 11:14:36 +0000
 From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
 To: "Chen, Guchun" <Guchun.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>, "Zhang, Hawking" <Hawking.Zhang@amd.com>,
@@ -59,12 +60,13 @@ Subject: Re: [PATCH] drm/amdgpu: fix kernel page fault issue by ras recovery
  on sGPU
 Thread-Topic: [PATCH] drm/amdgpu: fix kernel page fault issue by ras recovery
  on sGPU
-Thread-Index: AQHWFAaVfdh4W6r+kkG/F5Zmdtnkfah9CfMAgAAdxkw=
-Date: Fri, 17 Apr 2020 11:11:40 +0000
-Message-ID: <SN1PR12MB25584E46D7D494AD099F4CA887D90@SN1PR12MB2558.namprd12.prod.outlook.com>
+Thread-Index: AQHWFAaVfdh4W6r+kkG/F5Zmdtnkfah9CfMAgAAdxkyAAAJGsA==
+Date: Fri, 17 Apr 2020 11:14:36 +0000
+Message-ID: <SN1PR12MB2558759164FDEB24C073E0A987D90@SN1PR12MB2558.namprd12.prod.outlook.com>
 References: <20200416154748.32138-1-guchun.chen@amd.com>,
- <050666bc-6754-0fed-7b88-131592fed03a@gmail.com>
-In-Reply-To: <050666bc-6754-0fed-7b88-131592fed03a@gmail.com>
+ <050666bc-6754-0fed-7b88-131592fed03a@gmail.com>,
+ <SN1PR12MB25584E46D7D494AD099F4CA887D90@SN1PR12MB2558.namprd12.prod.outlook.com>
+In-Reply-To: <SN1PR12MB25584E46D7D494AD099F4CA887D90@SN1PR12MB2558.namprd12.prod.outlook.com>
 Accept-Language: zh-CN, en-US
 Content-Language: zh-CN
 X-MS-Has-Attach: 
@@ -79,31 +81,31 @@ authentication-results: spf=none (sender IP is )
 x-originating-ip: [103.65.43.240]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 2390f9b2-686f-42a0-3a72-08d7e2c01b11
+x-ms-office365-filtering-correlation-id: 0b7442ff-589b-4067-991c-08d7e2c08398
 x-ms-traffictypediagnostic: SN1PR12MB2431:|SN1PR12MB2431:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SN1PR12MB24312DFEE71FE1DAAF59B89787D90@SN1PR12MB2431.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-microsoft-antispam-prvs: <SN1PR12MB2431F9D1E42A1CE5A6C6B7CC87D90@SN1PR12MB2431.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
 x-forefront-prvs: 0376ECF4DD
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SN1PR12MB2558.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(366004)(39860400002)(136003)(396003)(376002)(346002)(66946007)(91956017)(66476007)(6506007)(186003)(33656002)(66446008)(64756008)(66556008)(86362001)(76116006)(8676002)(6636002)(71200400001)(53546011)(316002)(81156014)(478600001)(7696005)(66574012)(966005)(110136005)(45080400002)(26005)(8936002)(52536014)(55016002)(9686003)(2906002)(5660300002)(921003)(1121003);
+ SFS:(10009020)(4636009)(366004)(39860400002)(136003)(396003)(376002)(346002)(66946007)(91956017)(66476007)(6506007)(186003)(33656002)(66446008)(64756008)(66556008)(86362001)(76116006)(8676002)(6636002)(71200400001)(53546011)(316002)(81156014)(478600001)(7696005)(66574012)(966005)(110136005)(45080400002)(26005)(8936002)(52536014)(55016002)(9686003)(2940100002)(2906002)(5660300002)(921003)(1121003);
  DIR:OUT; SFP:1101; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: ouqoq3ElTcxh2UeqvC+r29rnDhXmZxiJxDTDldETGRFDETQ3sXqZ7QwA458cibEExZ0pFOPFUVtkhbdDyJzjZ6ZGS5ii/lo5EBJjNYIjYHlQViqufVG2Sawor6ytf5AQ84nSHFcxd77rIyuqHlkkXwQfLsR+y7LGbDBIKxQirTVIPwTVXIOSwxXGJIJoJaB3/hw8CmyXNPq7OIK06Xeyk2HLKnWz9mTc5vbGs6UinUvDzG9aXoJSMLH3yTbApnwY8tp7IZ4/PnS8de086uwcvchEkWi8rCpi61kAHorrN5s3pyj524HpkZcVM+RXsQPQT63Y5Pg0DZulkOIMIeggRYM4fwUbFxlLbYLoxCubkQLOYSzD5mFtApjjKimGgdFYuYlhsWO98pVcDrFDRNXm2EpE0yF0nnHGswa8oYr8OjJcw37iVwxGRuhnbFoMqM40yWFwRM9FhYLXhnKliCOtoRhl69lQbC0K8+AKUpzktQ0yyYa38Ig/rtFbL8USfnOvn731mvtRoKmBXpUws3MhiaSux9eXbqvHMB05O4TXErE=
-x-ms-exchange-antispam-messagedata: VWGX3rEKoWxEuSnPKvVOWr+EthjXPnz2IaTxy2iVuDnVZIe0iDUeOxfP5LKxQAdO04DqqnRhxjrw7SKMkNp6qYLKLTTtzIz84rh2bOOEhQZ3vpPOTePrBstWrOXoWhkgiUMJKhWKhSQde4ON6j8HUA==
+x-microsoft-antispam-message-info: EO9w63GgATmA0B5tfiDIyiBe4tHpcocpVeGHjYitTEb0EU9OpiBkiZDLAzVdEnHK8oY8nY8lcTf59CkkuoK0YUV+C0WjxWT1jyC3xR2u9YiogQEN9/OrImWhadpXxJmQRX6uxYFfyZh7Twv2LmYH/v3E4bhGSrpIAhX9OePtGGJmBqLNqZf10osaL6aIHLC8kr9YzO1QT/fIytTqD6TOKqA+DVjoIwXi9TfCwotb/9eV+duJjGRxTjt3oGDQx2mKrRAJYbQKFki9UzGpWw17GJxOrLrJNDhhE01UrksovF2JDVsrpOh+ps8pzTPRQaleaWuS1thJbFpNzV7gkqqBAXUjILwMYdkntZ14x7wk3+9za8u+jjqNfwwCbjQ1DHSEmB+GsoFPeDufz0avwjAYGZj1WFFyARI4tOZfgD1Ru9OJPoGGeP5Vk5zc5QCwiRbb8h1b+tcY+oisGzks3GFczfQbBCUkuEV9jBldFIXN8/PctV09Iv7iE4/j7YEZbgVVKGcnRQU1taPzrE3IVsebm10DqTmfz5N2zxlm1WOlvBo=
+x-ms-exchange-antispam-messagedata: 3m3sjFe8VkBMIOr2gexf+fQ0kkv0j5kPUelCnLZIJZVhb/y06crbAEaX3TYIxHquUSSl29TaMq4D0D4FGWmgQ/8hRbsnGLHOjwQ5AwIa/qXxribLjbE+611uMJelG+lOUYz0N+dvqlUWSGl+HZkuzQ==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2390f9b2-686f-42a0-3a72-08d7e2c01b11
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Apr 2020 11:11:41.0257 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b7442ff-589b-4067-991c-08d7e2c08398
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Apr 2020 11:14:36.4469 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bxC3ab1MSpgji7oQiVh12hH9jo3ecHRiItHOIRLYJ2nrxB3DTvQLidBA249BcMSM
+X-MS-Exchange-CrossTenant-userprincipalname: DXwdeyAylTqiV5/ylsR16sVdDZxrfuxMue5anlrirgjM62P0MNS1w5rCpTrnxzma
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2431
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,20 +118,29 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0573415630=="
+Content-Type: multipart/mixed; boundary="===============2103689304=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0573415630==
+--===============2103689304==
 Content-Language: zh-CN
 Content-Type: multipart/alternative;
-	boundary="_000_SN1PR12MB25584E46D7D494AD099F4CA887D90SN1PR12MB2558namp_"
+	boundary="_000_SN1PR12MB2558759164FDEB24C073E0A987D90SN1PR12MB2558namp_"
 
---_000_SN1PR12MB25584E46D7D494AD099F4CA887D90SN1PR12MB2558namp_
-Content-Type: text/plain; charset="us-ascii"
+--_000_SN1PR12MB2558759164FDEB24C073E0A987D90SN1PR12MB2558namp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - Internal Distribution Only]
+that breaks the device list in gpu recovery.
+________________________________
+From: Pan, Xinhui <Xinhui.Pan@amd.com>
+Sent: Friday, April 17, 2020 7:11:40 PM
+To: Chen, Guchun <Guchun.Chen@amd.com>; amd-gfx@lists.freedesktop.org <amd-=
+gfx@lists.freedesktop.org>; Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Den=
+nis <Dennis.Li@amd.com>; Clements, John <John.Clements@amd.com>; Koenig, Ch=
+ristian <Christian.Koenig@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: fix kernel page fault issue by ras recover=
+y on sGPU
 
 This patch shluld fix the panic.
 
@@ -137,7 +148,7 @@ but I would like you do NOT add adev xgmi head to the local device list. if=
  ras ue occurs while the gpu is already in gpu recovery.
 ________________________________
 From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Christia=
-n K?nig <ckoenig.leichtzumerken@gmail.com>
+n K=F6nig <ckoenig.leichtzumerken@gmail.com>
 Sent: Friday, April 17, 2020 5:17:22 PM
 To: Chen, Guchun <Guchun.Chen@amd.com>; amd-gfx@lists.freedesktop.org <amd-=
 gfx@lists.freedesktop.org>; Zhang, Hawking <Hawking.Zhang@amd.com>; Li, Den=
@@ -208,38 +219,50 @@ an%40amd.com%7Ca2bb160328c942b51b4608d7e2b02579%7C3dd8961fe4884e608e11a82d9=
 94e183d%7C0%7C0%7C637227118528983724&amp;sdata=3D6bJVduxNT%2FVXKPDWDBAnJfVS=
 e3CJI9mdGfwi5V89Kgw%3D&amp;reserved=3D0
 
---_000_SN1PR12MB25584E46D7D494AD099F4CA887D90SN1PR12MB2558namp_
-Content-Type: text/html; charset="us-ascii"
+--_000_SN1PR12MB2558759164FDEB24C073E0A987D90SN1PR12MB2558namp_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
 </head>
 <body>
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
 <div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
 ly: sans-serif; font-size: 11pt; color: black; ">
+that breaks the device list in gpu recovery.</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Pan, Xinhui &lt;Xinhu=
+i.Pan@amd.com&gt;<br>
+<b>Sent:</b> Friday, April 17, 2020 7:11:40 PM<br>
+<b>To:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;; amd-gfx@lists.freedesk=
+top.org &lt;amd-gfx@lists.freedesktop.org&gt;; Zhang, Hawking &lt;Hawking.Z=
+hang@amd.com&gt;; Li, Dennis &lt;Dennis.Li@amd.com&gt;; Clements, John &lt;=
+John.Clements@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.com&g=
+t;<br>
+<b>Subject:</b> Re: [PATCH] drm/amdgpu: fix kernel page fault issue by ras =
+recovery on sGPU</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
 This patch shluld fix the panic.<br>
 <br>
 </div>
-<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
-ly: sans-serif; font-size: 11pt; color: black; ">
+<div dir=3D"auto" style=3D"direction:ltr; margin:0; padding:0; font-family:=
+sans-serif; font-size:11pt; color:black">
 but I would like you do NOT add adev xgmi head to the local device list. if=
  ras ue occurs while the gpu is already in gpu recovery.
 <br>
 </div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Christian K&ouml;nig &lt;ckoe=
-nig.leichtzumerken@gmail.com&gt;<br>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
+-bounces@lists.freedesktop.org&gt; on behalf of Christian K=F6nig &lt;ckoen=
+ig.leichtzumerken@gmail.com&gt;<br>
 <b>Sent:</b> Friday, April 17, 2020 5:17:22 PM<br>
 <b>To:</b> Chen, Guchun &lt;Guchun.Chen@amd.com&gt;; amd-gfx@lists.freedesk=
 top.org &lt;amd-gfx@lists.freedesktop.org&gt;; Zhang, Hawking &lt;Hawking.Z=
@@ -249,9 +272,9 @@ John.Clements@amd.com&gt;<br>
 recovery on sGPU</font>
 <div>&nbsp;</div>
 </div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Am 16.04.20 um 17:47 schrieb Guchun Chen:<br>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">Am 16.04.20 um 17:47 schrieb Guchun Chen:<br>
 &gt; When running ras uncorrectable error injection and trigger GPU<br>
 &gt; reset on sGPU, below issue is observed. It's caused by the list<br>
 &gt; uninitialized when accessing.<br>
@@ -338,9 +361,9 @@ JI9mdGfwi5V89Kgw%3D&amp;amp;reserved=3D0</a><br>
 </body>
 </html>
 
---_000_SN1PR12MB25584E46D7D494AD099F4CA887D90SN1PR12MB2558namp_--
+--_000_SN1PR12MB2558759164FDEB24C073E0A987D90SN1PR12MB2558namp_--
 
---===============0573415630==
+--===============2103689304==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -351,4 +374,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0573415630==--
+--===============2103689304==--
