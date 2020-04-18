@@ -6,43 +6,44 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4241DC3A5A9
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Apr 2020 14:41:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CD4A2C3A5A0
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Apr 2020 14:41:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 132A622244
-	for <amd-gfx@archiver.kernel.org>; Sat, 18 Apr 2020 14:41:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A4E6821D7E
+	for <amd-gfx@archiver.kernel.org>; Sat, 18 Apr 2020 14:41:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="aGwljTc2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 132A622244
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="J1WOEWFb"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4E6821D7E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CC406ECA1;
-	Sat, 18 Apr 2020 14:41:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 722626ECA2;
+	Sat, 18 Apr 2020 14:41:53 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74D456EC9F;
- Sat, 18 Apr 2020 14:41:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 495B26ECA2;
+ Sat, 18 Apr 2020 14:41:53 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 78D272224F;
- Sat, 18 Apr 2020 14:41:34 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3A73621D82;
+ Sat, 18 Apr 2020 14:41:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1587220895;
- bh=9d6dIVVW/eoJFIE97fA3VAir62eKBHLtOhBqUlU/lXE=;
+ s=default; t=1587220913;
+ bh=7Ui6ieL8UndMe7wdLp5Q7fxB6CMGCFtvQzYTT7O0X9s=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=aGwljTc2Ekawwp48D02rXFnwrqRfV94mwtOuNTuMtNHft0sK0DNxdP6t0JkEydiaR
- RYZhsRzjksZHTxy/RswvCCnhOK0xSj5CmIYbJ7zOrNd7n/MGzWIsY4vNNaIyalTEtJ
- wRDyCpfk4LyG4Xel2fwW+v41b4ZTGZvL4xXzhzw0=
+ b=J1WOEWFbSRdoY/ZY+KGPyjy0Zr/3s0pcuEnpqmtL5aNYcgqcgQshlWrMFDxn93al0
+ TNwQAjkij+xV49tAB2p3UfKqPMg6bmMZj7Z6mC69AqEKjLppHsticg/v1Y4bQfo0Sw
+ PThI4nsXR3X7GFS3xLBg5P9Q3DS2Ig/oWiAq1YHE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.4 37/78] drm/amdkfd: kfree the wrong pointer
-Date: Sat, 18 Apr 2020 10:40:06 -0400
-Message-Id: <20200418144047.9013-37-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 52/78] drm/amd/display: Calculate scaling ratios
+ on every medium/full update
+Date: Sat, 18 Apr 2020 10:40:21 -0400
+Message-Id: <20200418144047.9013-52-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200418144047.9013-1-sashal@kernel.org>
 References: <20200418144047.9013-1-sashal@kernel.org>
@@ -60,45 +61,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Jack Zhang <Jack.Zhang1@amd.com>,
- dri-devel@lists.freedesktop.org, Nirmoy Das <nirmoy.das@amd.com>,
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, Aric Cyr <Aric.Cyr@amd.com>,
+ Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Jack Zhang <Jack.Zhang1@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[ Upstream commit 3148a6a0ef3cf93570f30a477292768f7eb5d3c3 ]
+[ Upstream commit 3bae20137cae6c03f58f96c0bc9f3d46f0bc17d4 ]
 
-Originally, it kfrees the wrong pointer for mem_obj.
-It would cause memory leak under stress test.
+[Why]
+If a plane isn't being actively enabled or disabled then DC won't
+always recalculate scaling rects and ratios for the primary plane.
 
-Signed-off-by: Jack Zhang <Jack.Zhang1@amd.com>
-Acked-by: Nirmoy Das <nirmoy.das@amd.com>
+This results in only a partial or corrupted rect being displayed on
+the screen instead of scaling to fit the screen.
+
+[How]
+Add back the logic to recalculate the scaling rects into
+dc_commit_updates_for_stream since this is the expected place to
+do it in DC.
+
+This was previously removed a few years ago to fix an underscan issue
+but underscan is still functional now with this change - and it should
+be, since this is only updating to the latest plane state getting passed
+in.
+
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 0dc1084b5e829..ad9483b9eea32 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -1112,9 +1112,9 @@ int kfd_gtt_sa_allocate(struct kfd_dev *kfd, unsigned int size,
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 89bd0ba3db1df..71c574d1e8be2 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -2154,7 +2154,7 @@ void dc_commit_updates_for_stream(struct dc *dc,
+ 	enum surface_update_type update_type;
+ 	struct dc_state *context;
+ 	struct dc_context *dc_ctx = dc->ctx;
+-	int i;
++	int i, j;
  
- kfd_gtt_no_free_chunk:
--	pr_debug("Allocation failed with mem_obj = %p\n", mem_obj);
-+	pr_debug("Allocation failed with mem_obj = %p\n", *mem_obj);
- 	mutex_unlock(&kfd->gtt_sa_lock);
--	kfree(mem_obj);
-+	kfree(*mem_obj);
- 	return -ENOMEM;
- }
+ 	stream_status = dc_stream_get_status(stream);
+ 	context = dc->current_state;
+@@ -2192,6 +2192,17 @@ void dc_commit_updates_for_stream(struct dc *dc,
  
+ 		copy_surface_update_to_plane(surface, &srf_updates[i]);
+ 
++		if (update_type >= UPDATE_TYPE_MED) {
++			for (j = 0; j < dc->res_pool->pipe_count; j++) {
++				struct pipe_ctx *pipe_ctx =
++					&context->res_ctx.pipe_ctx[j];
++
++				if (pipe_ctx->plane_state != surface)
++					continue;
++
++				resource_build_scaling_params(pipe_ctx);
++			}
++		}
+ 	}
+ 
+ 	copy_stream_update_to_stream(dc, context, stream, stream_update);
 -- 
 2.20.1
 
