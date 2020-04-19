@@ -2,46 +2,51 @@ Return-Path: <SRS0=s+k6=6D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-1.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06223C38A30
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7CB93C54F70
 	for <amd-gfx@archiver.kernel.org>; Sun, 19 Apr 2020 21:12:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A4EBB2137B
-	for <amd-gfx@archiver.kernel.org>; Sun, 19 Apr 2020 21:12:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 52FEA2137B
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 Apr 2020 21:12:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=web.de header.i=@web.de header.b="oaBNuP9f"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4EBB2137B
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=web.de header.i=@web.de header.b="j/78Y+yh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 52FEA2137B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=web.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C72E898C8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6874F89A44;
 	Sun, 19 Apr 2020 21:12:17 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.15.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CE936E096;
- Sat, 18 Apr 2020 18:18:24 +0000 (UTC)
+X-Greylist: delayed 311 seconds by postgrey-1.36 at gabe;
+ Sun, 19 Apr 2020 08:20:57 UTC
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA8166E42D
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Apr 2020 08:20:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
- s=dbaedf251592; t=1587233889;
- bh=vH4kv+zAOYriDerXBYuJyXeMG/UMWETZBnRPa4scLRs=;
+ s=dbaedf251592; t=1587284455;
+ bh=nbpEpWlUW5cjEh1Bv3rGfJegbOGcwEJbutmkmwuZLD4=;
  h=X-UI-Sender-Class:To:Cc:Subject:From:Date;
- b=oaBNuP9frWGacySfLZNpUqjr5UZmHBhNburufDBa5fg20ANoQ/2h9oXbhZdnLP67k
- zsvbtXoNyWql1rabiwFxuq5Jc/34UfhPy6ENyFSXhJjpWCV6c2YMyWkouWOK5UkFqu
- qi+TgckNdltsGIlZ/vOCSI9IZ3QJzytCi2oNz3qs=
+ b=j/78Y+yhGCcdTqmPDfNu8OrVrzEqen7tcX5aj6pxN6caVlB2VKkkmNH1hKhwdx8en
+ cFX3wpul6IyM1dNKMpjvGps3YYnt7u68eQBWT6ZCYM/lqZyDZEdeS49wzQCf0lZpD5
+ flsMXppWbmsqrJAyZF7DqIooLanPvHd2aEGubC1Y=
 X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from [192.168.1.2] ([93.133.116.87]) by smtp.web.de (mrweb003
- [213.165.67.108]) with ESMTPSA (Nemesis) id 0MVLY6-1jkCyd2afG-00Yka0; Sat, 18
- Apr 2020 20:18:09 +0200
-To: Bernard Zhao <bernard@vivo.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH] drm/amdgpu: Remove an unnecessary condition check in
- reserve_bo_and_cond_vms()
+Received: from [192.168.1.2] ([2.243.85.208]) by smtp.web.de (mrweb101
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 0LfAoO-1itGOO45FY-00oo64; Sun, 19
+ Apr 2020 10:15:37 +0200
+To: Bernard Zhao <bernard@vivo.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ Chunming Zhou <David1.Zhou@amd.com>, =?UTF-8?Q?Felix_K=c3=bchling?=
+ <Felix.Kuehling@amd.com>, =?UTF-8?Q?Nicolai_H=c3=a4hnle?=
+ <nicolai.haehnle@amd.com>, Nirmoy Das <nirmoy.das@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: Remove an unnecessary null pointer check in
+ amdgpu_cs_bo_handles_chunk()
 From: Markus Elfring <Markus.Elfring@web.de>
 Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
  mQINBFg2+xABEADBJW2hoUoFXVFWTeKbqqif8VjszdMkriilx90WB5c0ddWQX14h6w5bT/A8
@@ -86,35 +91,35 @@ Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
  Z/wsLiWTgKlih2QYULvW61XU+mWsK8+ZlYUrRMpkauN4CJ5yTpvp+Orcz5KixHQmc5tbkLWf
  x0n1QFc1xxJhbzN+r9djSGGN/5IBDfUqSANC8cWzHpWaHmSuU3JSAMB/N+yQjIad2ztTckZY
  pwT6oxng29LzZspTYUEzMz3wK2jQHw+U66qBFk8whA7B2uAU1QdGyPgahLYSOa4XAEGb6wbI FEE=
-Message-ID: <3dedf704-896c-b1c1-2609-066522f89274@web.de>
-Date: Sat, 18 Apr 2020 20:18:06 +0200
+Message-ID: <1d0f1eb5-a26f-1739-9222-a39c92ba3024@web.de>
+Date: Sun, 19 Apr 2020 10:15:35 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
 Content-Language: en-US
-X-Provags-ID: V03:K1:c4XtGVphCtLiCSGmpuQDxk4y/D81bApdqWv+ZW8Y/LlrUM+XmPd
- 95/v+QUGHvmYD+n3C4o1/usl2rO1M1ySaNXMqTg8ixgm19fh16KhJMPtYdJQugMYlD4x73t
- M9kQE0dWa6WsOqQ9sRJkCdYM9wsLJ/qzzxCIsS8LvCXSwOBPc7X2MKc/4WNP6RQBkCp/YWI
- +Jn1HiKwA5jCauB+S/9Zw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:yOqBPuac5Fs=:6haPW986vUtYVkbTK8C0Fz
- 5e9sk1ey8c5MdRWiCOmQFos8SL2csFQ/w1G5R7bcwWF04/Sx4QgUpgJlGVmUWc7mMWl4A2nA2
- Xgu7lrS+6jph0qOmCT4OrifTNSp1b8rCzQ9FxaztpZ6otpORLP9WLahzvZ6g4z4ycgogp0JyL
- xOYTHNaqbzZOxfjR0n0IvV6LBVI3U2VxZsL8mUY5xHqTTPQ2UKLsIdD7/K3VwfbkRPTDMMExE
- Bx0PyUOSWpsFGK/+Aca2wYp/iT8IUWMy5hdylOarbZaWJkjYQQGO4a7LUQ9Z/fffBG1HM4Saa
- I+izIOA6KexflLcv98ipkLD/y6TUoTv1BvSzef2p75GXsIAPMvMX+FnYwy4Csiil4fBx1jm+L
- dTjZlCpcD4CzxoatVIdSRbQrbufhDtONRPSiNYlm3p8+exAiwNvQxoTEAYBjDSOf5z6qF1cfx
- MY8fEoVeCEkIjnZFDVH00TjM6kfupeZs2nRYGUKuyYOHcIk8kM4OyjFop60gV7n6IOakGrcKw
- RSwoX0DM/v7+8H61EXNm+mA7hTMYi+YiswOrzSelZWhuRPFBygvvijVJFhe99TshI8NbOt+Gp
- TfEF+RrAUc31uwpRbk95DE/92D5jv6OHzNJnhaxkdlgtAKW+S9Nl+GqzO0tquM7ovN5qZuVl0
- EYKufsccgTuWOwOEMlE6KKgCqXGYKBpjlITXwdqxogljQKrQQMLhcvwNQIR/51ehUTNsZiuFa
- Ibw3OjUtFJFLc32D5ZZepLItq0HNMCTOV2Crp7khuyvSttzbb8eOCfPdoilUMvn3aZp8CcArd
- AbZA9EkT3G360gfdOzeuVWFqRLesDtyvohutRRG5gqIpBiYFbqtwD8G2PhS6ZoyZs0wXZGofj
- 7iXJkFkqsC6p1g2oShZR1Nv1o0x2R+gWdTWqQDrSVpICC0Oqhi6MQK33el6Dyj0S3+EOa919u
- QHqTGVUjdwewNE8wg0aPHhBHrKnMMWnY0CROoboUT3ojace/eaAVEoM4dlqWQp018NYP8+s1k
- kIcmN3iRSFUdEiSCNoiXmZVsmkaRWtOOxhmD64+KZLz799jra/oaRVJWbCCZDmfNYlyO6+4J2
- X1FAAfdgfNLrO7jQaGkjbdSaPbV/6RaizjfjYcw+wQIKDE+D/DfV67fkiMknICDD7LknnGKnL
- 4/RzcCwxRn4nv+Rz1UO+qGwyyBfzcDc10wp2FPOv+TsKqbkFBxYFASc462Vh63S/bNKI28AbK
- xkiMhOz1av26Ytotu
+X-Provags-ID: V03:K1:wOtp743KJHdMhl10cI6KVRBvss4Fdnb4/BtUFoR9+59x1tK3riY
+ mY6nRjszPurBY7UT9LC0WtAwprPBVPF43VElnd8IyX9/aHVMvsuW5B8VAct0H5cO1SH0ajN
+ gPSE9DjWrmG19bN+HGYDFczDz44gBXB37NTTj2YHQXNcI7UeY8yANM4zSlvmFsdfSSXGevO
+ XduzCkzdsNQO4jjmwBWCg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:mLYx3WYCWEY=:XeCvwJRxkvSsXYeTUObxmZ
+ 0QEiUA3bjjrLtVdRKd6Q16WW70w3UU0lLPMKmzDJt8ZS0JBd7ckGB4du5z0IA95/5NZAYQgXR
+ WBrJ1P5zGGvhRmXnYB2wOw8r2BIJolBSmvtGN4x2/eLVyFCUlHatWxisEERi4aLmo8VyiXDCX
+ FTiUTIH/Sk7gVV/g3bItDuh7UoiUvoeKGrYcPq4dd2gPOjrwp1MIxecZLDDB1VUasOn7ED1Ru
+ xW9RxTTpE2sPhEA5/cd0GKtbRvqYWlmC+XV0WpCugYo/3GwLj95BIrTinCy7+Dq5nOmbIES6M
+ ajIDw7/pVldkb/08m3xgDjBF3PmHTFv8Uar4WunIAGCSEcduDhHq8I9I25acm9h8MJXBa/gNr
+ YkxQ/dRTtYgs7XUDv8uo3GrblD4ldvb6kcE6zemcUeu/9zRb6U6Z2aEDP2VeIgoUtRT+ug/SG
+ b78XttygX/8jdQW5ZwY/R+K4V1TbZLW4ijuuAnaIxriY1dHzGwlKwHrDInva4ohn2NKu5xzLD
+ APWKOzCGR1vRl4ahMJs5ndqa1eM6OB1n3rFoC9OX0lRsqFOXkwWCgCzpxIc4AaJ1GKB2aPfv1
+ QBJzuZhL95p5/c/ve+AW5C/fx5DnOpTCHAsT75eoXflNMik78NMkwI5Dq/F4gXAN9xmb0zUrB
+ M/mg1ACiazcr7/JmFdXa0aLAAncA1Y/KMkfhTLTaeS+ShEelwkadd6DbQcGWg9HEl7sRRE9/4
+ 6EmtPbu8tpO1kTDLQLSW6PXc32Z491en4oHkuw42shfJlfE6HdmTHeAEvO/tYsmjktLvmlkzG
+ W837fZPSMdPdgKo8lRN45CMNBeMQYGYAPVI0BfehtHgwZoXlRgBFq9yKoelgFlZWQeZvi+lsx
+ aLN9Ww2aadSroPN57a1e0hb0EO2VudQLDeimrn8EnEt4fbFr7B7T8Iqo0lnX0Vh2R31YHXboI
+ NMAPyHIiGohIaADdxA5i/IeiE0uSQmMnuMMf8DZwaPUtHayFvkQS9zw0Fvs6cpzo5pmSvQedC
+ 6x6UN3nDECXFqMlILZ+4j5is3hFT/12dZqDGSdUarg18BsMkTw2QnnzrF3Rf0jHgq80Q1LXX0
+ N5iLwpqwzeX2ASl7acxhvXIxDzp3lF73wZhMB7UmfdiveG3Ro4RfrxnHjXeY30OZNe28AT46u
+ YKl4T7L0TQDZYg8lKdgobcnX5kkYyk5+jfdW3SL3H8nSS5EzVO0XFKPMPn8Ijtk1M6pIT58yV
+ GrxmJ/X1x/9TndhmA
 X-Mailman-Approved-At: Sun, 19 Apr 2020 21:12:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,29 +132,22 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com, Chunming Zhou <David1.Zhou@amd.com>,
- David Airlie <airlied@linux.ie>,
- =?UTF-8?Q?Felix_K=c3=bchling?= <Felix.Kuehling@amd.com>,
+Cc: David Airlie <airlied@linux.ie>, opensource.kernel@vivo.com,
  linux-kernel@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PiBUaGVyZSBpcyBubyBuZWVkIHRvIGlmIGNoZWNrIGFnYWluLAoKVGhhbmtzIGZvciB0aGlzIGlu
-Zm9ybWF0aW9uLgoKKiBTaG91bGQgdGhlIGZ1bmN0aW9uIG5hbWUgYmUgbWVudGlvbmVkIGluIHRo
-aXMgY2hhbmdlIGRlc2NyaXB0aW9uPwoKKiBXb3VsZCB5b3UgbGlrZSB0byBhZGp1c3QgdGhlIHBh
-dGNoIHN1YmplY3Q/CgoKPiBtYXliZSB3ZSBjb3VsZCBtZXJnZSBpbnRvIHRoZSBhYm92ZSBlbHNl
-IGJyYW5jaC4KCkkgc3VnZ2VzdCB0byByZWNvbnNpZGVyIHRoaXMgd29yZGluZy4KCgrigKYKPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfYW1ka2ZkX2dwdXZtLmMKPiBA
-QCAtNzM1LDEwICs3MzUsOCBAQCBzdGF0aWMgaW50IHJlc2VydmVfYm9fYW5kX2NvbmRfdm1zKHN0
-cnVjdCBrZ2RfbWVtICptZW0sCuKApgoKSSBwcm9wb3NlIHRvIHRha2UgZnVydGhlciBjb2Rpbmcg
-c3R5bGUgYXNwZWN0cyBpbnRvIGFjY291bnQuCmh0dHBzOi8vZ2l0Lmtlcm5lbC5vcmcvcHViL3Nj
-bS9saW51eC9rZXJuZWwvZ2l0L3RvcnZhbGRzL2xpbnV4LmdpdC90cmVlL0RvY3VtZW50YXRpb24v
-cHJvY2Vzcy9jb2Rpbmctc3R5bGUucnN0P2lkPTkwMjgwZWFhODhhYzFhOTE0MGRjNzU5OTQxMTIz
-NTMwZDU1NDViYjYjbjE5MQoKUG9zc2libGUgcmVmYWN0b3Jpbmc6CglpZiAocmV0KSB7CgkJcHJf
-ZXJyKOKApik7CgkJ4oCmCgl9IGVsc2UgewoJCWN0eC0+cmVzZXJ2ZWQgPSB0cnVlOwoJfQoKCkhv
-dyBkbyB5b3UgdGhpbmsgYWJvdXQgdG8gYWRkIHRoZSB0YWcg4oCcRml4ZXPigJ0/CgpSZWdhcmRz
-LApNYXJrdXMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-YW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6
-Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+PiBrdmZyZWUgZW5zdXJlIHRoYXQgdGhlIG51bGwgcG9pbnRlciB3aWxsIGRvIG5vdGhpbmcuCgpJ
+IHN1Z2dlc3QgdG8gaW1wcm92ZSB0aGUgY29tbWl0IG1lc3NhZ2UuCldvdWxkIHlvdSBsaWtlIHRv
+IGFkanVzdCB0aGUgcGF0Y2ggc3ViamVjdD8KCkFyZSB5b3UgbG9va2luZyBmb3IgZnVydGhlciBx
+dWVzdGlvbmFibGUgY29uZGl0aW9uIGNoZWNrcz8KCgrigKYKPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfY3MuYwo+IEBAIC05OCw4ICs5OCw3IEBAIHN0YXRpYyBpbnQg
+YW1kZ3B1X2NzX2JvX2hhbmRsZXNfY2h1bmsoc3RydWN0IGFtZGdwdV9jc19wYXJzZXIgKnAsCuKA
+pgo+ICsJa3ZmcmVlKGluZm8pOwo+Cj4gIAlyZXR1cm4gcjsKPiAgfQoKSG93IGRvIHlvdSB0aGlu
+ayBhYm91dCB0byBvbWl0IGEgYmxhbmsgbGluZSBiZWhpbmQgdGhlIGZ1bmN0aW9uIGNhbGwKYXQg
+dGhpcyBzb3VyY2UgY29kZSBwbGFjZT8KClJlZ2FyZHMsCk1hcmt1cwpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
+YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
