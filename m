@@ -2,87 +2,110 @@ Return-Path: <SRS0=s+k6=6D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9867C38A30
-	for <amd-gfx@archiver.kernel.org>; Sun, 19 Apr 2020 16:54:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2391BC38A30
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 Apr 2020 16:56:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8F7D6214D8
-	for <amd-gfx@archiver.kernel.org>; Sun, 19 Apr 2020 16:54:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B590E214D8
+	for <amd-gfx@archiver.kernel.org>; Sun, 19 Apr 2020 16:56:11 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dJDqFGCf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8F7D6214D8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IBkmWkwQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B590E214D8
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3030F6E0C1;
-	Sun, 19 Apr 2020 16:54:10 +0000 (UTC)
-Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
- [IPv6:2a00:1450:4864:20::435])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7370C6E0C1
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 Apr 2020 16:54:09 +0000 (UTC)
-Received: by mail-wr1-x435.google.com with SMTP id g13so7040479wrb.8
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 Apr 2020 09:54:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=noIUK3iZQG+GSNtwy2yGBRDb5qv2/goBSbNzAJ2ZcNs=;
- b=dJDqFGCfUaxCw1/IvTSTJtT9xzhyVTQIIz/15+9wj7YxelqjL4B/HC7SQ5Ne2a6vFd
- j/VA39mVoxWg+GWFDO4LTy4wF3dltNk855zKHD/XRDoBKoPraPaCUiPIOdTW1i3L4Jkz
- T+oP5s4TF628Ycu/h76rB0/aTi4PaYc1E4GqiR+U2heFhrOFdpJ/GKX/qIJqIoduQ0HB
- NC+4mJaC37A+XvHHnW4JFO6MRuBBdI/Z4rdCuHUzqXnuFEYxLUP7AF3tWuc3HxIDa+wO
- F+rBBsrQPEf2y0eJK0aee7qBcL8vy5fEJgT5ElRRp00/J7mk1uCou7B03/HL+ec+1ien
- BTiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=noIUK3iZQG+GSNtwy2yGBRDb5qv2/goBSbNzAJ2ZcNs=;
- b=J4bslHH2D+KKtQfKGP6EmsPs9Kl34M9gCJ4Sg4e2epCaGPdeZ5cts8s9slbKR1ZTml
- WZfzs2KwrbeDBAKYppk3hjnYjj0J18kqedU1UvXAZFo4WoajHMwljAoVwJj7Wei5adVT
- oTbboXc1TnI8NRBb8X1p5fyeq3OVWUGzUPY9ayVI9elG92VuzzVsNuGw5IJ0jaycv9rj
- XYmyn50/pO/5HrfuEmYEVkZKLlytjNnyH80JMNLUs/fOnD4gxuouAWWMorJp2cgX57VS
- M0fqmckRWcHaQQWXUxqcfF687BENs3W0HJuKcm6fkPjkrpGA1y3HnIQQQG2uXlOJ3n0E
- hj3g==
-X-Gm-Message-State: AGi0PuZ1we9BolWbzv0rkHjwhQbXMoeFfaBY1X3HmUGk87Ii/O/aKBtp
- vYPTWLDKpwOuzq9bdvBqq4H3WYZ0
-X-Google-Smtp-Source: APiQypLJPx8tijc9AQm0YdQDDIL5B4ScO6LmOPhsSIdA6yVLRmox5RaF2RYj3ZiSCIvD6RtXSO22FQ==
-X-Received: by 2002:adf:f651:: with SMTP id x17mr14176737wrp.230.1587315248081; 
- Sun, 19 Apr 2020 09:54:08 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id j13sm14703471wrq.24.2020.04.19.09.54.06
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 19 Apr 2020 09:54:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BE796E0C1;
+	Sun, 19 Apr 2020 16:56:11 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2042.outbound.protection.outlook.com [40.107.92.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D1F16E0C1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Apr 2020 16:56:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Sj3edBksLG7W8RiJD024dEHgcW3N+SpHbnIygDgCu5Yc1MwJ24DG31GWs7S6Xat7g+18y4boHSOlD2pw/AJfjXeZYr0AGZ3XWXq0t+GV1DhHt5tSCMkYFb2yV5agCWMzfqipUIi+9ppiKP34qUUELw9oYI6yQMTvlrsu0LDiaOzVNcEEWBhVdpHuPTMOR6mrPrwlD9PcodUNextivpKsnJOme44TsX5VxdBQDi4+VJh73RSZIQ6iAHckwTNEly4qEScBOck11SdK6Xk1e/SHZ5YwYXTpB0RkMC4bAdMdLDFJ+uPOoQt1J8lr8MQ6bbD3o+TPCtMSBAeEgMd2Z1bVkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b8So20m6lbvxT9Kr/RL0YnccB34QQ2JQhFpNev8r3pc=;
+ b=YMAe6IHRyPhAeR31r7HZ9wyioSDcaWesiqs4JsbEhgTXtpHW7WYy7tj8zSnm8V00nc6vozbKttqChkyd388lUQ/rrZ0Lzfz40T8HW/9qfUWf/ivzdivmoBcX+t70stDEtDsYsk/RhRqTmrAYaIOpn1cyxF+a/7lQMfLW8uSih+j+CqxSajUdQzUOXD0pb4Z9kxATGOvX9yspWQwMHQTdxB3hkpLrgCKQgRHGfwMVg/tQn2EnxLGu4IptZzI2QZcfr4rRZhJl6h7zLF9OyIpYev5yiinUQSKhYouGazqVvy4QIplUN/W4z3vrvHLD/wUCZ3B7e3VL5d2eBy57ta3iRQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b8So20m6lbvxT9Kr/RL0YnccB34QQ2JQhFpNev8r3pc=;
+ b=IBkmWkwQCwngfbdAlL0h/0C0BR61vx115LpcLjdVWc8EqY+BbvzMyaS4VEeD62TifV3TAVuXb2so9alC2v6gnDvylOjh3OrpjJo4WLq+/QwApuxXAN/gEkAmxOr5KHVOeIye6BP+NGQ6EyKLHpUtGkJm+MWc1xxcqW9JXyJkXNc=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Christian.Koenig@amd.com; 
+Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
+ by DM6PR12MB3388.namprd12.prod.outlook.com (2603:10b6:5:11b::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.29; Sun, 19 Apr
+ 2020 16:56:06 +0000
+Received: from DM6PR12MB4401.namprd12.prod.outlook.com
+ ([fe80::7949:b580:a2d5:f766]) by DM6PR12MB4401.namprd12.prod.outlook.com
+ ([fe80::7949:b580:a2d5:f766%3]) with mapi id 15.20.2921.027; Sun, 19 Apr 2020
+ 16:56:06 +0000
 Subject: Re: [PATCH 05/35] drm/amd/display: Remove byte swapping for dmcub abm
  config table
-To: Harry Wentland <hwentlan@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Siqueira, Rodrigo" <Rodrigo.Siqueira@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+To: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 References: <20200416234044.2082886-1-Rodrigo.Siqueira@amd.com>
  <20200416234044.2082886-6-Rodrigo.Siqueira@amd.com>
  <MN2PR12MB4488B2003904110CAE92E166F7D90@MN2PR12MB4488.namprd12.prod.outlook.com>
  <c3f3fef6-6c35-7201-c75e-2a72dca42350@gmail.com>
- <9442cdf7-4aef-7831-2609-4610b09e15b8@daenzer.net>
- <1bd26e82-3afe-192f-36c0-01d836329196@amd.com>
- <5732a88b-50b1-8b48-b354-906a8c2c2284@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <9698c3b1-5fd0-12f0-639a-61e109d0a749@gmail.com>
-Date: Sun, 19 Apr 2020 18:54:05 +0200
+ <20200417214308.347n7xk2d46zx3nd@outlook.office365.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Message-ID: <25091e0c-c465-d455-f991-581aeae744c3@amd.com>
+Date: Sun, 19 Apr 2020 18:56:00 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <5732a88b-50b1-8b48-b354-906a8c2c2284@amd.com>
+In-Reply-To: <20200417214308.347n7xk2d46zx3nd@outlook.office365.com>
 Content-Language: en-US
+X-ClientProxiedBy: AM4PR0501CA0061.eurprd05.prod.outlook.com
+ (2603:10a6:200:68::29) To DM6PR12MB4401.namprd12.prod.outlook.com
+ (2603:10b6:5:2a9::15)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+ (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
+ AM4PR0501CA0061.eurprd05.prod.outlook.com (2603:10a6:200:68::29) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.25 via Frontend
+ Transport; Sun, 19 Apr 2020 16:56:04 +0000
+X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 0e85f16d-abdb-4773-7ed6-08d7e4828cc5
+X-MS-TrafficTypeDiagnostic: DM6PR12MB3388:|DM6PR12MB3388:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3388C1556B516EFB1116A29883D70@DM6PR12MB3388.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
+X-Forefront-PRVS: 0378F1E47A
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(346002)(376002)(366004)(136003)(39860400002)(396003)(4326008)(8676002)(6486002)(16526019)(37006003)(2906002)(8936002)(186003)(6862004)(54906003)(66476007)(6636002)(5660300002)(66556008)(66946007)(6666004)(2616005)(81156014)(31686004)(478600001)(36756003)(31696002)(86362001)(316002)(52116002);
+ DIR:OUT; SFP:1101; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: G7zdwVTqZJSPacI14bZ7UZZwFTYeg6hCCXcUfGEQjOr1sWT807cwEfJHg2sb/eTqlthoZtTRF5diWV/clIockfYdwIXiWP1/9wiLBZLvQfXJkJAcYYD9FFtHANPWUPkTo4+muVW8A4RMD8Lh8SM+9lR+LLmIbUgA8OhlOP0qtQU9tnO3N2IgJv1DCgVOtYmudmyaB6kYtZ7zdyGPoflBOG/jV2s+0TUdDmF0Ak8mqaU0r6QjDSmw1/cKmbIyDGzSEd7HookZ1Ic8w+0r8cRpP7a86Wci4IIr8ZBrmw/2xG4ZIHCCNVR7Tw6+3du0jwP7ENJBOWbT2Kz8U8DxZ4YW9+5aZ2tmxPu2YD9uQtYJUgssLF/hX1s1rKxL8lsuIWcd1fylzfhjCE0GwFAZi7qNE9g60QGy4e6TwlgOcr32DTKxRkrnsxKX+1sbOaEq4SfN
+X-MS-Exchange-AntiSpam-MessageData: j6LiAbCGeC2XkYm5OCNw+DfVgecJeofKNQpbDWwCOicXYp/XsRiiLypahpwy20vRkjYFHH9DApIYby2g47PhFboyyw8zbjEReRrH/qWu5Zvy9+y3R9qoTQ6FSiDd8zyJBXO01eQoV06sIjTte1/p9iBfy5VdQH39JHqNDXvL2GqjSnvM9Y8rexQdwLSxV7PVmQeupG+nxXasZOLN6IWpo0NEuT7Usj+SIEqNQ+PdgAI5AB8MP+Lil4GT9ppGQZZGyp4mJRcOpSDSfEU4RnySx7eCF5HxsKHVx++pc85Q51QKMgsn3f/yIZcC3OzYfO3MGTrImkGXPObYRr9thDORn93mWOiaYAVw2Da4UIJcKx8c5TALbR/JngCvNXpykm0VyQeIARMaaye7hbFx4COXmZYWhT9HHAs4aDCngXryIAOOep84gg+utcUivA1xKOx1ow4irvg72LBviSrgGCkbhUiPohR/V61aPLWfQJz0pPd67QAbmdDLr4yNdtK5j+TxM1KEFVs8ms6ooXKCxu3FjSbqX/AUuPNGpG8AQCFNP2/Oe9/sQEzzbq8knCBL0CyI8tTQxzSpkw92jkbMNFdf8gLY4Xtn3iOfYMln8yj8JJ5rNEhTswt0+EbAHPZOa36NYKdBoD+/CYGOj26TrO9Jv/XNb6yvUkQzeXMGzq/EWxcsTSp+Wc7K0L77NhqIfTPmIXVdmjOHvr/a1s9NUHYEkA95dRvKg2jB1hBib5zNBSe0dahzXxbrWw7/1dlnKjoCBkX6PhzUq/xxYm1rMoM/OBgj0YAQAZF/IYDtAyeWUiLIWzvRN2XJalmN3wTusG4eH359YwFW23wGgGhnRp4Ms7TekakBKGRhHyqR78t93y8=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e85f16d-abdb-4773-7ed6-08d7e4828cc5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Apr 2020 16:56:05.9329 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6HgM55yJWmciw3A47ALsqN3Y839/dHdhzbnxJcjBFZIeurM1cJwxJALGNxZWZ+8P
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3388
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,43 +117,134 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Lakha,
- Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>,
- "Wood, Wyatt" <Wyatt.Wood@amd.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Lakha,
+ Bhawanpreet" <Bhawanpreet.Lakha@amd.com>, "Wood, Wyatt" <Wyatt.Wood@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koo, Anthony" <Anthony.Koo@amd.com>
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTcuMDQuMjAgdW0gMTc6NDAgc2NocmllYiBIYXJyeSBXZW50bGFuZDoKPiBPbiAyMDIwLTA0
-LTE3IDg6MDkgYS5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0gMTcuMDQuMjAgdW0g
-MTI6NDMgc2NocmllYiBNaWNoZWwgRMOkbnplcjoKPj4+IE9uIDIwMjAtMDQtMTcgMTE6MjIgYS5t
-LiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4+PiBBZ3JlZWQsIGp1c3Qgd2FudGVkIHRvIHJl
-cGx5IGFzIHdlbGwgc2luY2UgSSB0aGluayBzb21ldGhpbmcgaXMgbm90Cj4+Pj4gY29ycmVjdGx5
-IHVuZGVyc3Rvb2QgaGVyZS4KPj4+Pgo+Pj4+IFRoZSBjcHVfdG9fYmUxNigpIGFuZCBiZTE2X3Rv
-X2NwdSgpIGZ1bmN0aW9ucyB3b3JrIGRpZmZlcmVudCBkZXBlbmRpbmcKPj4+PiBvbiB3aGljaCBh
-cmNoaXRlY3R1cmUvZW5kaWFuZXNzIHlvdXIgYXJlLgo+Pj4+Cj4+Pj4gU28gdGhleSBzaG91bGQg
-YmUgYSBOTy1PUCBvbiB4ODYgaWYgZXZlcnl0aGluZyBpcyBkb25lIHJpZ2h0Lgo+Pj4gVGhlICpi
-KmUgbWFjcm9zIGFyZW4ndCBOT1BzIG9uIGxpdHRsZSBlbmRpYW4gYXJjaGl0ZWN0dXJlcyBsaWtl
-IHg4NiwKPj4+IHRoZXkgYXJlIG9uIGJpZyBlbmRpYW4gYXJjaGl0ZWN0dXJlcy4gVmljZSB2ZXJz
-YSBmb3IgdGhlICpsKmUgbWFjcm9zLgo+PiBZZWFoLCB0aGF0J3Mgd2hhdCBJIG1lYW50IHdpdGgg
-ImlmIGV2ZXJ5dGhpbmcgaXMgZG9uZSByaWdodCIgOikKPj4KPj4gSSB1c3VhbGx5IGNhbid0IHJl
-bWVtYmVyIHdoYXQgZG9lcyB3aGF0IHdpdGggdGhvc2UgZnVuY3Rpb25zLgo+Pgo+PiBDaHJpc3Rp
-YW4uCj4gSSB0aGluayBrZXkgaGVyZSBpcyB0aGF0IGRtY3ViIEZXIGlzIGxpdHRsZSBlbmRpYW4s
-IHdoZXJlYXMgdGhlIG9sZCBkbWN1Cj4gRlcgd2FzIGJpZyBlbmRpYW4uIEhlbmNlIHdlIGhhZCB0
-aGUgY3B1X3RvX2JlIGNvbnZlcnNpb24gaGVyZSBmb3IgdGhlCj4gb2xkIGRtY3UuCj4KPiBOb3cg
-aXQgbG9va3MgbGlrZSB3ZSB3YW50IHRvIHJldXNlIHRoZSBzYW1lIGZ1bmN0aW9uIGZvciBkbWN1
-YiBjYWxscyBhbmQKPiBoZW5jZSBuZWVkIHRvIGVuc3VyZSB3ZSdyZSBub3QgY29udmVydGluZyB2
-YWx1ZXMgdG8gYmlnLWVuZGlhbi4KPgo+IFRoZSBiaWdfZW5kaWFuIHBhcmFtZXRlciBpcyBzcGVj
-aWZ5aW5nIHRoZSBlbmRpYW5uZXNzIG9mIHRoZSBGVy4KPgo+IFRoZSByaWdodCBhcHByb2FjaCB3
-b3VsZCBiZSB0byBkbyBjcHVfdG9fYmUgZm9yIGRtY3UgYW5kIGNwdV90b19sZSBmb3IKPiBkbWN1
-Yi4KClRoYW5rcyBmb3IgdGhlIGV4cGxhbmF0aW9uLCB0aGF0IG1ha2VzIGl0IG11Y2ggbW9yZSBj
-bGVhciB3aGF0IHNob3VsZCAKaGFwcGVuIGhlcmUuCgpDaHJpc3RpYW4uCgo+Cj4gSGFycnkKPiBf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IGFtZC1nZngg
-bWFpbGluZyBsaXN0Cj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBodHRwczovL2xp
-c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
-CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Am 17.04.20 um 23:43 schrieb Rodrigo Siqueira:
+> Hi,
+>
+> Wyatt made the below patch for fixing this issue. I can apply it on top
+> of this patchset if you all agree.
+>
+> [Why]
+> Current code does not guarantee the correct endianness of memory being
+> copied to fw, specifically in the case where cpu isn't little endian.
+>
+> [How]
+> Windows and Diags are always little endian, so we define a macro that
+> does nothing.  Linux already defines this macro and will do the correct
+> endianness conversion.
+>
+> Signed-off-by: Wyatt Wood <wyatt.wood@amd.com>
+> Reviewed-by: Harry Wentland <Harry.Wentland@amd.com>
+> Acked-by: Anthony Koo <Anthony.Koo@amd.com>
+> Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+> ---
+>   .../amd/display/modules/power/power_helpers.c | 58 ++++++++++---------
+>   1 file changed, 31 insertions(+), 27 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
+> index edb446455f6b..8c37bcc27132 100644
+> --- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
+> @@ -265,9 +265,11 @@ static void fill_backlight_transform_table_v_2_2(struct dmcu_iram_parameters par
+>   		ASSERT(lut_index < params.backlight_lut_array_size);
+>   
+>   		table->backlight_thresholds[i] = (big_endian) ?
+> -			cpu_to_be16(DIV_ROUNDUP((i * 65536), num_entries)) : DIV_ROUNDUP((i * 65536), num_entries);
+> +			cpu_to_be16(DIV_ROUNDUP((i * 65536), num_entries)) :
+> +			cpu_to_le16(DIV_ROUNDUP((i * 65536), num_entries));
+>   		table->backlight_offsets[i] = (big_endian) ?
+> -			cpu_to_be16(params.backlight_lut_array[lut_index]) : params.backlight_lut_array[lut_index];
+> +			cpu_to_be16(params.backlight_lut_array[lut_index]) :
+> +			cpu_to_le16(params.backlight_lut_array[lut_index]);
+>   	}
+>   }
+>   
+> @@ -596,7 +598,9 @@ void fill_iram_v_2_3(struct iram_table_v_2_2 *ram_table, struct dmcu_iram_parame
+>   	unsigned int set = params.set;
+>   
+>   	ram_table->flags = 0x0;
+> -	ram_table->min_abm_backlight = (big_endian) ? cpu_to_be16(params.min_abm_backlight) : params.min_abm_backlight;
+> +	ram_table->min_abm_backlight = (big_endian) ?
+> +		cpu_to_be16(params.min_abm_backlight) :
+> +		cpu_to_le16(params.min_abm_backlight);
+>   
+>   	for (i = 0; i < NUM_AGGR_LEVEL; i++) {
+>   		ram_table->hybrid_factor[i] = abm_settings[set][i].brightness_gain;
+> @@ -620,30 +624,30 @@ void fill_iram_v_2_3(struct iram_table_v_2_2 *ram_table, struct dmcu_iram_parame
+>   	ram_table->iir_curve[4] = 0x65;
+>   
+>   	//Gamma 2.2
+> -	ram_table->crgb_thresh[0] = (big_endian) ? cpu_to_be16(0x127c) : 0x127c;
+> -	ram_table->crgb_thresh[1] = (big_endian) ? cpu_to_be16(0x151b) : 0x151b;
+> -	ram_table->crgb_thresh[2] = (big_endian) ? cpu_to_be16(0x17d5) : 0x17d5;
+> -	ram_table->crgb_thresh[3] = (big_endian) ? cpu_to_be16(0x1a56) : 0x1a56;
+> -	ram_table->crgb_thresh[4] = (big_endian) ? cpu_to_be16(0x1c83) : 0x1c83;
+> -	ram_table->crgb_thresh[5] = (big_endian) ? cpu_to_be16(0x1e72) : 0x1e72;
+> -	ram_table->crgb_thresh[6] = (big_endian) ? cpu_to_be16(0x20f0) : 0x20f0;
+> -	ram_table->crgb_thresh[7] = (big_endian) ? cpu_to_be16(0x232b) : 0x232b;
+> -	ram_table->crgb_offset[0] = (big_endian) ? cpu_to_be16(0x2999) : 0x2999;
+> -	ram_table->crgb_offset[1] = (big_endian) ? cpu_to_be16(0x3999) : 0x3999;
+> -	ram_table->crgb_offset[2] = (big_endian) ? cpu_to_be16(0x4666) : 0x4666;
+> -	ram_table->crgb_offset[3] = (big_endian) ? cpu_to_be16(0x5999) : 0x5999;
+> -	ram_table->crgb_offset[4] = (big_endian) ? cpu_to_be16(0x6333) : 0x6333;
+> -	ram_table->crgb_offset[5] = (big_endian) ? cpu_to_be16(0x7800) : 0x7800;
+> -	ram_table->crgb_offset[6] = (big_endian) ? cpu_to_be16(0x8c00) : 0x8c00;
+> -	ram_table->crgb_offset[7] = (big_endian) ? cpu_to_be16(0xa000) : 0xa000;
+> -	ram_table->crgb_slope[0]  = (big_endian) ? cpu_to_be16(0x3609) : 0x3609;
+> -	ram_table->crgb_slope[1]  = (big_endian) ? cpu_to_be16(0x2dfa) : 0x2dfa;
+> -	ram_table->crgb_slope[2]  = (big_endian) ? cpu_to_be16(0x27ea) : 0x27ea;
+> -	ram_table->crgb_slope[3]  = (big_endian) ? cpu_to_be16(0x235d) : 0x235d;
+> -	ram_table->crgb_slope[4]  = (big_endian) ? cpu_to_be16(0x2042) : 0x2042;
+> -	ram_table->crgb_slope[5]  = (big_endian) ? cpu_to_be16(0x1dc3) : 0x1dc3;
+> -	ram_table->crgb_slope[6]  = (big_endian) ? cpu_to_be16(0x1b1a) : 0x1b1a;
+> -	ram_table->crgb_slope[7]  = (big_endian) ? cpu_to_be16(0x1910) : 0x1910;
+> +	ram_table->crgb_thresh[0] = (big_endian) ? cpu_to_be16(0x127c) : cpu_to_le16(0x127c);
+> +	ram_table->crgb_thresh[1] = (big_endian) ? cpu_to_be16(0x151b) : cpu_to_le16(0x151b);
+> +	ram_table->crgb_thresh[2] = (big_endian) ? cpu_to_be16(0x17d5) : cpu_to_le16(0x17d5);
+> +	ram_table->crgb_thresh[3] = (big_endian) ? cpu_to_be16(0x1a56) : cpu_to_le16(0x1a56);
+> +	ram_table->crgb_thresh[4] = (big_endian) ? cpu_to_be16(0x1c83) : cpu_to_le16(0x1c83);
+> +	ram_table->crgb_thresh[5] = (big_endian) ? cpu_to_be16(0x1e72) : cpu_to_le16(0x1e72);
+> +	ram_table->crgb_thresh[6] = (big_endian) ? cpu_to_be16(0x20f0) : cpu_to_le16(0x20f0);
+> +	ram_table->crgb_thresh[7] = (big_endian) ? cpu_to_be16(0x232b) : cpu_to_le16(0x232b);
+> +	ram_table->crgb_offset[0] = (big_endian) ? cpu_to_be16(0x2999) : cpu_to_le16(0x2999);
+> +	ram_table->crgb_offset[1] = (big_endian) ? cpu_to_be16(0x3999) : cpu_to_le16(0x3999);
+> +	ram_table->crgb_offset[2] = (big_endian) ? cpu_to_be16(0x4666) : cpu_to_le16(0x4666);
+> +	ram_table->crgb_offset[3] = (big_endian) ? cpu_to_be16(0x5999) : cpu_to_le16(0x5999);
+> +	ram_table->crgb_offset[4] = (big_endian) ? cpu_to_be16(0x6333) : cpu_to_le16(0x6333);
+> +	ram_table->crgb_offset[5] = (big_endian) ? cpu_to_be16(0x7800) : cpu_to_le16(0x7800);
+> +	ram_table->crgb_offset[6] = (big_endian) ? cpu_to_be16(0x8c00) : cpu_to_le16(0x8c00);
+> +	ram_table->crgb_offset[7] = (big_endian) ? cpu_to_be16(0xa000) : cpu_to_le16(0xa000);
+> +	ram_table->crgb_slope[0]  = (big_endian) ? cpu_to_be16(0x3609) : cpu_to_le16(0x3609);
+> +	ram_table->crgb_slope[1]  = (big_endian) ? cpu_to_be16(0x2dfa) : cpu_to_le16(0x2dfa);
+> +	ram_table->crgb_slope[2]  = (big_endian) ? cpu_to_be16(0x27ea) : cpu_to_le16(0x27ea);
+> +	ram_table->crgb_slope[3]  = (big_endian) ? cpu_to_be16(0x235d) : cpu_to_le16(0x235d);
+> +	ram_table->crgb_slope[4]  = (big_endian) ? cpu_to_be16(0x2042) : cpu_to_le16(0x2042);
+> +	ram_table->crgb_slope[5]  = (big_endian) ? cpu_to_be16(0x1dc3) : cpu_to_le16(0x1dc3);
+> +	ram_table->crgb_slope[6]  = (big_endian) ? cpu_to_be16(0x1b1a) : cpu_to_le16(0x1b1a);
+> +	ram_table->crgb_slope[7]  = (big_endian) ? cpu_to_be16(0x1910) : cpu_to_le16(0x1910);
+
+That you have to duplicate the values is rather ugly here.
+
+Since this is all in one file maybe come up with a helper for this? E.g. 
+conditional_bswap16(big_endian, value)
+
+Regards,
+Christian.
+
+>   
+>   	fill_backlight_transform_table_v_2_2(
+>   			params, ram_table, big_endian);
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
