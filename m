@@ -7,57 +7,57 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E907C38A30
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2020 10:17:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B6C1C3815B
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2020 10:17:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7482E21744
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2020 10:17:37 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E237320A8B
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2020 10:17:41 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZoebL6BS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7482E21744
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="erwwq62+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E237320A8B
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 389F76E4F4;
-	Mon, 20 Apr 2020 10:17:37 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2065.outbound.protection.outlook.com [40.107.94.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7DA6E4F4
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2020 10:17:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D60F6E4F9;
+	Mon, 20 Apr 2020 10:17:41 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2086.outbound.protection.outlook.com [40.107.92.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 019786E4FB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2020 10:17:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gYmLe5SUCUDIBRSgRdhonwuxuMIdmzsSH20uiaWnK6ql8c04jEWbsPN07kE2X8nIg4zQENdMxfhBoCe7JC1LOpG4GH+Zt+qw4pVzd6L3ZGTn6SLqD5GIUyprXZSS4fuUqGdWn+ejo/u06lYd5YWyWlcD/GUBd8hKl6DsckizPGSpS5tPhZ3cN44TByhUGxKRqVUE19pvll41QxREWyrtLij/aFS1qoBqGlHyVvtIDtkxs1Ddsj7z+Gv2tgGN2bLJqKSbbQVeYvj8STBNME7v5vowOQuyegSHw1v7H/RoiAQSiEzsoMPFyNpoQCGRs+l/S4d5z40ysLGdkGAsqym7cQ==
+ b=aHIcGOh3/GvRS1Xo38zYLlJr/wv7qs4EfSEsYjvZuFtZmha+ZLDvMrXii80YGMm7u6VThp+H6YOOPuYei2G+HWHUzUheHO6+GGo0y0IHeAOfVGj7rHNE0/WmiqQeXsX0iSZLONKRZW+RD/YSqEGxbeRANG1EH2DJ/pBM80VTpLeWuDhh3poWXpv2cRBn/94FPw1GnCtKp7wB11bTDJ6GprRxeHTkF4H9NqLrJ4+Il5SQh0zyNqwRMPA1o4boA27tycQw+vVytZuqMwksXkiCUIOVcdHJ2XNNXn5XhTC6zykjsLbBqCGwsf2By5ICujqwi8a6DDwEaKKX/DrStorX2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E/oRk2CxC0dISw4ZTxV8ViXBW776cKZg9wh6LV7KTQs=;
- b=kvL3FfrWeWNHasiMJ6kep3QfqTlxaN+nkKOG8gJIC6eD+4HhNyWlaeVI7d+13++hJfnRoQ36YfP98yEtUZsKIJD6/wcHNMbOtxlsqOkpU7SOBzxtubMg93RaO6wJdYpQ7nPlsVsfzvPgkIaSbDahdfTkEMoFlkDm0P+n4rCrGvcuh/W7appFdP+fSiW+qP5MhQgroKJbW7IIh5BT8Wui8pEntD6my8sFrv3jQ1a6k4VebbstwUHhHbPh7ZR/QGc3ZgFBR6UOUPO75u0fFTvHnlNLhHn1Sbss6LdDQcfkSJg4nt68oBsK7Gaoapk7bYwN/tn+1NrIkzTkHaX6/xz8ZA==
+ bh=7jzAQJiEzUrtlkt8jvHXQhmpoQrxp7KAFEY85yMX71U=;
+ b=bxUpiIEocgi4Qx9ZuXNh+EYrlvQp4zWc5GQKM3HVRTpJ/SUjEi7u4VgGB2obX8S+lhfjy20ti9zvmED+JA4zgJgUDBltYnc40LFCLjN/qTqGE2B5kpG8jVGAAkzCutzNjed2TS4VuKTwBDb6J8Ccy+YNPuat94beQdJijPLHRGKldoDCd+lPq69WyUACpImuoigfTa9ZwyhV4RqetjQY4Swj97B+S/MRVNuSCs/O1Zr5tUwc0rZBfmeVkoKL1G9ZDZf/98/ShE0AsAh+LywvS2xjzp0tQNey9Ro/R7S5Y+1lPhtgQbmuZ16+q7Ioh3N3lDaBeh0y/XvJkVBYhZCu7A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E/oRk2CxC0dISw4ZTxV8ViXBW776cKZg9wh6LV7KTQs=;
- b=ZoebL6BSAsa8MP4WS6uJxdiTFmekyiywR2E5HlE/t6cF7eP2EEulmP/W1K1+/PX42hNF+cRO+n5hSWh+4V2kfvjBJMQFQMF28v+pmUkDUmmDRKCDe+tHtf5smvtSv58reyZc9HrhX33M9v0Bays38dbm55wjcrgr9A/92uBZ3Ts=
+ bh=7jzAQJiEzUrtlkt8jvHXQhmpoQrxp7KAFEY85yMX71U=;
+ b=erwwq62+egUtS8GC/RK5FrMJBbxT9H3wL/qgogH2DCZmwG+QIlZJ+DFC52AG1e2DPJPZJmi6jVkMVc1kiRCqOU6yHJO6JNJoP5jVZveO3T9Einc1cPX7HKVIDI95lU1djpUm0uxVv+E2YYgY35S88uz3HaLcBGwLTllYmLoideQ=
 Authentication-Results: spf=none (sender IP is )
  smtp.mailfrom=Hawking.Zhang@amd.com; 
 Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
  DM6PR12MB3225.namprd12.prod.outlook.com (2603:10b6:5:188::19) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2921.25; Mon, 20 Apr 2020 10:17:35 +0000
+ 15.20.2921.25; Mon, 20 Apr 2020 10:17:38 +0000
 Received: from DM6PR12MB4075.namprd12.prod.outlook.com
  ([fe80::50d1:ecd6:255c:fbcd]) by DM6PR12MB4075.namprd12.prod.outlook.com
  ([fe80::50d1:ecd6:255c:fbcd%3]) with mapi id 15.20.2921.030; Mon, 20 Apr 2020
- 10:17:35 +0000
+ 10:17:38 +0000
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  John Clements <john.clements@amd.com>, Guchun Chen <Guchun.Chen@amd.com>
-Subject: [PATCH 7/8] drm/amdgpu: switch to helper function to init sos ucode
-Date: Mon, 20 Apr 2020 18:16:43 +0800
-Message-Id: <1587377804-3836-8-git-send-email-Hawking.Zhang@amd.com>
+Subject: [PATCH 8/8] drm/amdgpu: retire legacy vega10 sos version check
+Date: Mon, 20 Apr 2020 18:16:44 +0800
+Message-Id: <1587377804-3836-9-git-send-email-Hawking.Zhang@amd.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1587377804-3836-1-git-send-email-Hawking.Zhang@amd.com>
 References: <1587377804-3836-1-git-send-email-Hawking.Zhang@amd.com>
@@ -69,16 +69,16 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from hawzhang-All-Series.amd.com (180.167.199.189) by
  HK2PR0302CA0007.apcprd03.prod.outlook.com (2603:1096:202::17) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.20.2937.6 via Frontend Transport; Mon, 20 Apr 2020 10:17:33 +0000
+ 15.20.2937.6 via Frontend Transport; Mon, 20 Apr 2020 10:17:36 +0000
 X-Mailer: git-send-email 2.7.4
 X-Originating-IP: [180.167.199.189]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: a95aca5a-bc6f-4961-8a80-08d7e5140b8e
+X-MS-Office365-Filtering-Correlation-Id: 71a3422a-258d-430f-dec3-08d7e5140d6b
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3225:|DM6PR12MB3225:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB32257C111DC0D6DCC6D77EF8FCD40@DM6PR12MB3225.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:81;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3225AF4EB39E030CD905DC28FCD40@DM6PR12MB3225.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3276;
 X-Forefront-PRVS: 03793408BA
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
@@ -89,15 +89,15 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ggW5HHkPeiFGEajDmOnt8dggXOBL35GxfN2GgjURalWt+noAWrLJxzDEAfmhH4CmcwWAsxo2mgUedWYQykAkcSLb1jBKJZPOWPAg+eOsJX8HNBhJV48sonwm4Poe8z5iLFsROZsCuYvUIQEd2bft4OSHurvCRqHQnfsqNhXPlKdn0Y2cIT3VvvxskMsdfboPP0BkwhKHe9L099XZr8nF/2byAjb4jwFH1Sd53gcUUrqCzEH0JTjr6QXIF+jg0ubPlVgMder83ksVDIDXIpBeTjzi2gwQj6tOqVzYsax+Kd/TjNwt9SqzodPCrAOyuOEG+RvVCcdaAy8jfRsPaD3X/49A93JSNXPJ+iyy369ohC1h51fu978ildpLlzsjrBEY8XgrgfQ/4N3Omrl+1ulqb+/YP4tQE7ZJ+ySsqgYG6c/zLSAUVY7vsv+M+tHUTSQL
-X-MS-Exchange-AntiSpam-MessageData: l1qxGLGHvrhYqsDOh+QvgkXeAUh0K8dNPJqLdTDOe0vf8AZQciAC6PJCFx0Bursp90RmMjsmbRQaGUswIUvGPP3r71EY+vh6tiuUIqVlvCRkl98l6Q7W+gizc2k/2foUvmnUWSr2y87oIaAjFs1Egw==
+X-Microsoft-Antispam-Message-Info: o55bDBqqiTowOQElz/bXGlrneEx/6ksEKna4v7vSu3o/A4owZBng6t+EzSj7zIfOVjq9DTHPvVbSFByEpj90wzvfJ/ES5LPdCuNR/p20/1tBvVv/U+iBb6C97YpC78Ldnv3/+QUPdK2eE2wyd611rFgY70j6sUS9uDXmk4PwKexQM4t3+7NQwhIo33QYNEZu5Faa6GaNVPYhCDWCD+z9k4incPgWa/2j2PPyyNkNJPRDY1fdtlhre167oKXo/AQL8RNWN9rmyqsHsbZjnZEr5A0zOwIiW8S6RneHoNzey8QIX6m7Nkow1uDMMYepzs1uvOVAUFhFHnfCUPQ+uaNTGOLqd+FOmgrc4D2erPXDBDZZ/W4mmuwBzp03b7Je3SDckMgVDEMgcCu3JGvOMeX7HiEeF40NJJLMWcPotcAFB+cmuyLmwJaamx9JfpGMyUg9
+X-MS-Exchange-AntiSpam-MessageData: OUU00UmDPwJPuFBH318M4L8esJv84Zvtzw914wAbxzqi1h54CEtV+b6AXCUhNdC2EHlrk893KH4QQl0pNwrBeIruBQ21WASK9T5VqIDKBTlCZxwFpBGhizfjqtGO1jJAkpmRLxGRMJH7lsFJR4QlWw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a95aca5a-bc6f-4961-8a80-08d7e5140b8e
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2020 10:17:35.4900 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 71a3422a-258d-430f-dec3-08d7e5140d6b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Apr 2020 10:17:38.6082 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ftm+xLm9vI/HN+oCI9znoc0E0Jw6MWuFm9jxQ3bqjJZskxizkSXrHXQHwqKEWx4tXw09TmT+tUHEOCI8KtpkkQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: UnSBthfbaeJKQk1l6lkJNdAbXdkOKYtIbKspT7sei8GotJkYVBOY4eDSTDzGoYC5k+qDm7wHyQVcGBrK7tqtJA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3225
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,159 +116,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-call common helper function to init sos ucode, instead
-of duplicate codes per ip version
+retired those early sos version used in vega10 bring up
+phase
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 56 ++--------------------------------
- drivers/gpu/drm/amd/amdgpu/psp_v3_1.c  | 34 ++-------------------
- 2 files changed, 6 insertions(+), 84 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/psp_v3_1.c | 28 +---------------------------
+ 1 file changed, 1 insertion(+), 27 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index 6d50da0..d2d2363 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -75,9 +75,6 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
- 	const char *chip_name;
- 	char fw_name[30];
- 	int err = 0;
--	const struct psp_firmware_header_v1_0 *sos_hdr;
--	const struct psp_firmware_header_v1_1 *sos_hdr_v1_1;
--	const struct psp_firmware_header_v1_2 *sos_hdr_v1_2;
- 	const struct ta_firmware_header_v1_0 *ta_hdr;
- 
- 	DRM_DEBUG("\n");
-@@ -102,54 +99,13 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
- 		BUG();
- 	}
- 
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sos.bin", chip_name);
--	err = request_firmware(&adev->psp.sos_fw, fw_name, adev->dev);
-+	err = psp_init_sos_microcode(psp, chip_name);
- 	if (err)
--		goto out;
--
--	err = amdgpu_ucode_validate(adev->psp.sos_fw);
--	if (err)
--		goto out;
--
--	sos_hdr = (const struct psp_firmware_header_v1_0 *)adev->psp.sos_fw->data;
--	amdgpu_ucode_print_psp_hdr(&sos_hdr->header);
--
--	switch (sos_hdr->header.header_version_major) {
--	case 1:
--		adev->psp.sos_fw_version = le32_to_cpu(sos_hdr->header.ucode_version);
--		adev->psp.sos_feature_version = le32_to_cpu(sos_hdr->ucode_feature_version);
--		adev->psp.sos_bin_size = le32_to_cpu(sos_hdr->sos_size_bytes);
--		adev->psp.sys_bin_size = le32_to_cpu(sos_hdr->sos_offset_bytes);
--		adev->psp.sys_start_addr = (uint8_t *)sos_hdr +
--				le32_to_cpu(sos_hdr->header.ucode_array_offset_bytes);
--		adev->psp.sos_start_addr = (uint8_t *)adev->psp.sys_start_addr +
--				le32_to_cpu(sos_hdr->sos_offset_bytes);
--		if (sos_hdr->header.header_version_minor == 1) {
--			sos_hdr_v1_1 = (const struct psp_firmware_header_v1_1 *)adev->psp.sos_fw->data;
--			adev->psp.toc_bin_size = le32_to_cpu(sos_hdr_v1_1->toc_size_bytes);
--			adev->psp.toc_start_addr = (uint8_t *)adev->psp.sys_start_addr +
--					le32_to_cpu(sos_hdr_v1_1->toc_offset_bytes);
--			adev->psp.kdb_bin_size = le32_to_cpu(sos_hdr_v1_1->kdb_size_bytes);
--			adev->psp.kdb_start_addr = (uint8_t *)adev->psp.sys_start_addr +
--					le32_to_cpu(sos_hdr_v1_1->kdb_offset_bytes);
--		}
--		if (sos_hdr->header.header_version_minor == 2) {
--			sos_hdr_v1_2 = (const struct psp_firmware_header_v1_2 *)adev->psp.sos_fw->data;
--			adev->psp.kdb_bin_size = le32_to_cpu(sos_hdr_v1_2->kdb_size_bytes);
--			adev->psp.kdb_start_addr = (uint8_t *)adev->psp.sys_start_addr +
--						    le32_to_cpu(sos_hdr_v1_2->kdb_offset_bytes);
--		}
--		break;
--	default:
--		dev_err(adev->dev,
--			"Unsupported psp sos firmware\n");
--		err = -EINVAL;
--		goto out;
--	}
-+		return err;
- 
- 	err = psp_init_asd_microcode(psp, chip_name);
- 	if (err)
--		goto out;
-+		return err;
- 
- 	switch (adev->asic_type) {
- 	case CHIP_VEGA20:
-@@ -216,12 +172,6 @@ static int psp_v11_0_init_microcode(struct psp_context *psp)
- out2:
- 	release_firmware(adev->psp.ta_fw);
- 	adev->psp.ta_fw = NULL;
--out:
--	dev_err(adev->dev,
--		"psp v11.0: Failed to load firmware \"%s\"\n", fw_name);
--	release_firmware(adev->psp.sos_fw);
--	adev->psp.sos_fw = NULL;
--
- 	return err;
- }
- 
 diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-index 14d17b1..7e3a2f2 100644
+index 7e3a2f2..f2e725f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
 +++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-@@ -59,9 +59,7 @@ static int psp_v3_1_init_microcode(struct psp_context *psp)
- {
- 	struct amdgpu_device *adev = psp->adev;
- 	const char *chip_name;
--	char fw_name[30];
- 	int err = 0;
--	const struct psp_firmware_header_v1_0 *hdr;
+@@ -50,8 +50,6 @@ MODULE_FIRMWARE("amdgpu/vega12_asd.bin");
  
- 	DRM_DEBUG("\n");
+ #define smnMP1_FIRMWARE_FLAGS 0x3010028
  
-@@ -75,41 +73,15 @@ static int psp_v3_1_init_microcode(struct psp_context *psp)
- 	default: BUG();
- 	}
- 
--	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_sos.bin", chip_name);
--	err = request_firmware(&adev->psp.sos_fw, fw_name, adev->dev);
-+	err = psp_init_sos_microcode(psp, chip_name);
- 	if (err)
--		goto out;
+-static uint32_t sos_old_versions[] = {1517616, 1510592, 1448594, 1446554};
 -
--	err = amdgpu_ucode_validate(adev->psp.sos_fw);
--	if (err)
--		goto out;
--
--	hdr = (const struct psp_firmware_header_v1_0 *)adev->psp.sos_fw->data;
--	adev->psp.sos_fw_version = le32_to_cpu(hdr->header.ucode_version);
--	adev->psp.sos_feature_version = le32_to_cpu(hdr->ucode_feature_version);
--	adev->psp.sos_bin_size = le32_to_cpu(hdr->sos_size_bytes);
--	adev->psp.sys_bin_size = le32_to_cpu(hdr->header.ucode_size_bytes) -
--					le32_to_cpu(hdr->sos_size_bytes);
--	adev->psp.sys_start_addr = (uint8_t *)hdr +
--				le32_to_cpu(hdr->header.ucode_array_offset_bytes);
--	adev->psp.sos_start_addr = (uint8_t *)adev->psp.sys_start_addr +
--				le32_to_cpu(hdr->sos_offset_bytes);
-+		return err;
+ static int psp_v3_1_ring_stop(struct psp_context *psp,
+ 			      enum psp_ring_type ring_type);
  
- 	err = psp_init_asd_microcode(psp, chip_name);
- 	if (err)
--		goto out;
-+		return err;
- 
- 	return 0;
--out:
--	if (err) {
--		dev_err(adev->dev,
--			"psp v3.1: Failed to load firmware \"%s\"\n",
--			fw_name);
--		release_firmware(adev->psp.sos_fw);
--		adev->psp.sos_fw = NULL;
--	}
--
--	return err;
+@@ -125,31 +123,12 @@ static int psp_v3_1_bootloader_load_sysdrv(struct psp_context *psp)
+ 	return ret;
  }
  
- static int psp_v3_1_bootloader_load_sysdrv(struct psp_context *psp)
+-static bool psp_v3_1_match_version(struct amdgpu_device *adev, uint32_t ver)
+-{
+-	int i;
+-
+-	if (ver == adev->psp.sos_fw_version)
+-		return true;
+-
+-	/*
+-	 * Double check if the latest four legacy versions.
+-	 * If yes, it is still the right version.
+-	 */
+-	for (i = 0; i < ARRAY_SIZE(sos_old_versions); i++) {
+-		if (sos_old_versions[i] == adev->psp.sos_fw_version)
+-			return true;
+-	}
+-
+-	return false;
+-}
+-
+ static int psp_v3_1_bootloader_load_sos(struct psp_context *psp)
+ {
+ 	int ret;
+ 	unsigned int psp_gfxdrv_command_reg = 0;
+ 	struct amdgpu_device *adev = psp->adev;
+-	uint32_t sol_reg, ver;
++	uint32_t sol_reg;
+ 
+ 	/* Check sOS sign of life register to confirm sys driver and sOS
+ 	 * are already been loaded.
+@@ -181,11 +160,6 @@ static int psp_v3_1_bootloader_load_sos(struct psp_context *psp)
+ 	ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, mmMP0_SMN_C2PMSG_81),
+ 			   RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_81),
+ 			   0, true);
+-
+-	ver = RREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_58);
+-	if (!psp_v3_1_match_version(adev, ver))
+-		DRM_WARN("SOS version doesn't match\n");
+-
+ 	return ret;
+ }
+ 
 -- 
 2.7.4
 
