@@ -7,62 +7,63 @@ X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 44225C3815B
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2020 07:44:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A3E2C3815B
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2020 07:50:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 01160206B6
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2020 07:44:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B71AE20BED
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Apr 2020 07:50:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wC8570af"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 01160206B6
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="AtYkRoiX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B71AE20BED
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8161D6E3FC;
-	Mon, 20 Apr 2020 07:44:46 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2064.outbound.protection.outlook.com [40.107.93.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD036E3FC
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2020 07:44:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7AA986E43C;
+	Mon, 20 Apr 2020 07:50:22 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2053.outbound.protection.outlook.com [40.107.236.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69F486E416
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Apr 2020 07:50:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ibc4/zMHsaMx1TrCM57wYoI9INGkb2PXQ5p5bLAedredjBC1ECR7S8SPmcWELzQ5OcOatIwmPl0PeI8+mCvy2ICGnKRrecJFZW7czQJq5mtN9vmEoH+nYlALLwaTk+6YTsbljsY7EYirCFqinLisS8fhHZSaJ3SiyzUZo8WMw7yNeVABaRl/18Radod0ofbmO/Ogn04/Jw8P06XdPT6RFhyKSJTvvTs78dBtyW9v1vtOfvXuWqcgs3mkjixqhi85XwsvPLkXNPd7AX9JNeA0N8J9/fpgR/aCGn74DqdSjImcF8E2GJ4dCAETpi64i4ruoEAiaLaw8ghfZy+FZ69PoQ==
+ b=WiC0lBqe9a2vx1Vch569hWn0xmg0X5BngIbgqqeKr+RbrziQTdxUVa6bVS4T6VmVCIXsk1uApABXAu2MLwtMWS/3pf+9iBnlgukrToXsYW90xCVu7kBbhzDJMkij+dWjZOiQku/S2IeCRaHWm1SCFlXMFUudJhgNkmD1KrHZ4qhcsjLO9kATiYsyFwy3JInpMB+oOqsCMcKJA3ozKeEnrBN3Yr/Vswr+ZtvVYY1B7WJ92Yae1ZVpVeV2R2nW6M+lIuQJgiVermPyGpl9/WI4+ZaElUOm9/ILo9Tm6IiR+ZSMCLFAixOvDJH92cPchvqr2nGjpHyRz8QPMNji1Jrrtw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K7N+ssV5ccqY0Fm6cHKxaExNxlCN808K2W6Mj74m+Lw=;
- b=TVlaYyDHMxWM8Si7Q2mwDd/X58BnrTwd/C5YFdR0DeJ0qWNA7WJfkGAKG37gezPCETZkX2vAMWXFhEMzzO6VkAxZpaPgp33Rhiv/7aNCtRI6l99gaXN4/LLRcXAZFuHrAfgwnufYNP2v5mrlbbMIf+sGyL0Qf0NQ+RTol8wMkKsUWDPk6oUWBNM30vvIZJIalOsTkxUeWK1m1mHA2RZ60cYp2TwDxGs3dv4wE33Y28fvYhqyAjAh3+MzFYf3kRsAd3yFMFd+qCMkYgwLT24yCCo2GkLB43GWnIvSVPlm8h7FLir6R41mxaINCTWPWqMaQ5aACNXC/D392d2i9epT3Q==
+ bh=WT9RTLscIVQurebvLRxemCaefCWYVp7jrW1SkVCWpPM=;
+ b=AAi3Vn4EbHOgt+pWox73aq2RdfFmDsI2zXNDeRnwKyhXwV06CU+6uIy0U0val6w9pUPPR7R7DuCGliMd5UDm+RMKHHhzPPf5P+GfYHAu2ig47DIu+QQwAM9Ad4cHaXRewqVCyCpPYnANRbmelCJjtWgercjffRKOmHm84yJHfVpE+O1fW0bDJy8MywAYDxZ+O38roR3BC8S7ehJzAjmsicqcr99PKRM+o9z/dejMOvHJyV/NpRJWrsmttP65dmHEcGbQvwSlXxd3/PVxxx+b9Ug7gDUFaCe7OnOKXmYA8QTTLk2af6IUpgFVdmjXuS6ecBfIW2dTHG6FRltg/qQCtg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=K7N+ssV5ccqY0Fm6cHKxaExNxlCN808K2W6Mj74m+Lw=;
- b=wC8570afThkuk+2A0JyiVXQI/i0Zw7uea9FuBD7zavPLMGdv5it6NaqPfDYvm/VG8UMVBN2+ADtO9tcOzLbAGwFyTdVAONkQbiAeOzbIu+z7SPCUrAyDvmNlQiVVB9Vqc9yRU+3chFxv07n9iaDTaOEERozrDfiGvkMniobIWG4=
-Received: from CY4PR12MB1286.namprd12.prod.outlook.com (2603:10b6:903:44::19)
- by CY4PR12MB1654.namprd12.prod.outlook.com (2603:10b6:910:3::15) with
+ bh=WT9RTLscIVQurebvLRxemCaefCWYVp7jrW1SkVCWpPM=;
+ b=AtYkRoiXPkQ/N9tKMIUTFmo9jvIhYKx+nksW6KoYUO6/2zuEw6ISg9TotctaeQJPlxrzGvAxzLvFAvmFS/RTuQXecHzp3UlJ/mxaTvf3n/GjDEexKR80tQ1PXdI13/3fz597VmLs2ODkob7vuCelUB080aOqjoNxFd5iFAV5Xtg=
+Received: from DM5PR12MB1708.namprd12.prod.outlook.com (2603:10b6:3:10e::22)
+ by DM5PR12MB1706.namprd12.prod.outlook.com (2603:10b6:3:10f::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.25; Mon, 20 Apr
- 2020 07:44:43 +0000
-Received: from CY4PR12MB1286.namprd12.prod.outlook.com
- ([fe80::41b4:7b4e:e013:7de7]) by CY4PR12MB1286.namprd12.prod.outlook.com
- ([fe80::41b4:7b4e:e013:7de7%10]) with mapi id 15.20.2921.027; Mon, 20 Apr
- 2020 07:44:43 +0000
-From: "He, Jacob" <Jacob.He@amd.com>
-To: "Liu, Monk" <Monk.Liu@amd.com>, "Koenig, Christian"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.29; Mon, 20 Apr
+ 2020 07:50:18 +0000
+Received: from DM5PR12MB1708.namprd12.prod.outlook.com
+ ([fe80::a8d8:ad45:3232:f8bd]) by DM5PR12MB1708.namprd12.prod.outlook.com
+ ([fe80::a8d8:ad45:3232:f8bd%8]) with mapi id 15.20.2921.027; Mon, 20 Apr 2020
+ 07:50:18 +0000
+From: "Liu, Monk" <Monk.Liu@amd.com>
+To: "He, Jacob" <Jacob.He@amd.com>, "Koenig, Christian"
  <Christian.Koenig@amd.com>
-Subject: Re: why we need to do infinite RLC_SPM register setting during VM
+Subject: RE: why we need to do infinite RLC_SPM register setting during VM
  flush
 Thread-Topic: why we need to do infinite RLC_SPM register setting during VM
  flush
-Thread-Index: AdYW5UGNPLyNPdRITV6R2iyxFis4iwAAfg9k
-Date: Mon, 20 Apr 2020 07:44:43 +0000
-Message-ID: <CY4PR12MB128656A17D834BB70EC690719BD40@CY4PR12MB1286.namprd12.prod.outlook.com>
+Thread-Index: AdYW5UGNPLyNPdRITV6R2iyxFis4iwAAfg9kAABEGhA=
+Date: Mon, 20 Apr 2020 07:50:18 +0000
+Message-ID: <DM5PR12MB1708E9E86CD1A92C54A1969284D40@DM5PR12MB1708.namprd12.prod.outlook.com>
 References: <DM5PR12MB17084F1816AA6ABFC45C91F784D40@DM5PR12MB1708.namprd12.prod.outlook.com>
-In-Reply-To: <DM5PR12MB17084F1816AA6ABFC45C91F784D40@DM5PR12MB1708.namprd12.prod.outlook.com>
-Accept-Language: en-US
+ <CY4PR12MB128656A17D834BB70EC690719BD40@CY4PR12MB1286.namprd12.prod.outlook.com>
+In-Reply-To: <CY4PR12MB128656A17D834BB70EC690719BD40@CY4PR12MB1286.namprd12.prod.outlook.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator: 
@@ -74,36 +75,36 @@ msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
  Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
 authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Jacob.He@amd.com; 
-x-originating-ip: [180.167.199.185]
+ smtp.mailfrom=Monk.Liu@amd.com; 
+x-originating-ip: [180.167.199.189]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 6d80787b-fa63-4fab-e344-08d7e4feb106
-x-ms-traffictypediagnostic: CY4PR12MB1654:|CY4PR12MB1654:
+x-ms-office365-filtering-correlation-id: 64df50f0-966e-4f64-9146-08d7e4ff7870
+x-ms-traffictypediagnostic: DM5PR12MB1706:|DM5PR12MB1706:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CY4PR12MB1654113F8C01CAC4779A9ABE9BD40@CY4PR12MB1654.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <DM5PR12MB1706941DC9FEF49727D7958884D40@DM5PR12MB1706.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:1775;
 x-forefront-prvs: 03793408BA
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1286.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:DM5PR12MB1708.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(366004)(376002)(346002)(396003)(136003)(39860400002)(66476007)(76116006)(64756008)(66446008)(66616009)(66946007)(5660300002)(66574012)(66556008)(8676002)(19627405001)(4326008)(8936002)(81156014)(52536014)(7696005)(110136005)(19627235002)(71200400001)(33656002)(186003)(26005)(9686003)(316002)(86362001)(55016002)(53546011)(478600001)(99936003)(6506007)(91956017)(6636002)(2906002);
+ SFS:(10009020)(4636009)(39860400002)(366004)(396003)(136003)(376002)(346002)(6636002)(4326008)(55016002)(9686003)(33656002)(99936003)(110136005)(7696005)(316002)(26005)(53546011)(6506007)(2906002)(8676002)(66446008)(64756008)(8936002)(66556008)(66476007)(66616009)(5660300002)(186003)(86362001)(66946007)(478600001)(52536014)(76116006)(71200400001)(66574012)(81156014);
  DIR:OUT; SFP:1101; 
 received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: nl8VmPb0ls7GjVDLL5u9P4h2+74e0Tg7E2YzOVbbTbKBq9bjot4ZZuhnpUItlTcFqcjNl0+SdQ8X75f4CYSpLzsKq33veD+X9vbX5TGiD50uszj3k3eOyHPQ7J8a0Rprv7Di+Y7JYrdT5ntL3vtLgmpAMnz1btV+cJSUfbEBZ0up84hfxFJEfYGa2qb46ykijlor7lIHMRpIal4Ol+c4scmMLYzANzMSVk1CgBAKLxRljMR7bUoBmpE+kztS7VqbeqymYIlFVek5TknnifSybs3MhrXfsQ890q7+ll2UH9WEYI3FABBN5K5zxmgukzEYRnwOVvsGjklFgGYXaQi/Hnq07R1TBAbjEB1Tj8zxPRkEqTr7Nr+KWzaG287tZrsvX+NTOEC6CwEgydfeJ4kzrz8ItyogQnDKHaFiZfmL4UCjcEiOWgcXFOshFGZ+6K2A
-x-ms-exchange-antispam-messagedata: mBq1qxhf7UPR0Qz1UOKI7qFq8e+xCOGjCY+2cJ+Bt1doNHaVKu2HjmdHFgwVe3dgtf2KWvkiTXuP8L/cjz0vrYlqijs84s7z9aXAivFKFdCRgW8OhiaNgYZ9OeTiINBuHqs+K1LDUAy89iSfMjjMGQ==
+x-microsoft-antispam-message-info: eVjn8tsL+T/mElTBbx/GmRQODfajcC9boEn9GmyL11BNElF6ZvpkCruo8RC4klmD40GKgaQMNWCwYG6cnxPyQDmHPZU2gOaFddG/tsXuNgGC/8HxQqR/P7DgApA5QVNywswQgYQF69n7OgHpINzHcPxv+mtzetYzkCsTfX6l58su73UUKm2Rw/buiV5K7U5dgGbI9xzpEOuOGomhocOBCGcNDSchNRmagNsDQ/QGeJZxhmt4QI6JP4NxCx3flv67BLeuv2t822c0y159DLPBtHGhsTP5Agwnsvlj3G+wnndsHmHii+Ls0FaBAdQKTgzsmlRjMFEw/GdSoHMV6U7/UzbyX0gS3sN8XoErQcw4fZf6H6bN/66VG+ihO1RFiAxkLBU/A/YerxdjYinWrEEkFhmEjEk6qDNusosKeJ2EtNINjH83uPfl44sWz0Sq0TH/
+x-ms-exchange-antispam-messagedata: S86EwR3c2h3NXu8/VNkZ00XSnC5b5D88qKu/WF7RikFdgKB0pdzitXJtDyB+KHDd2u2intAjWuZdKBMPsspDwPgSLFNpQeZkljkB1eF5xXkTIXZUtSvyA54HnwvIErOOMcV5j5MyY53cIt2zyMbLVQ==
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d80787b-fa63-4fab-e344-08d7e4feb106
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Apr 2020 07:44:43.7699 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64df50f0-966e-4f64-9146-08d7e4ff7870
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Apr 2020 07:50:18.3571 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: dmc0P5lxw1ybuex4NH1M2HZbRN1SMbAug9zu4LPFq9KlJOICdxnWoFwmUUvSmtOO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1654
+X-MS-Exchange-CrossTenant-userprincipalname: XaSc0DU6xJRmMHeM6lsFL8fKK4w3UxRdkkRf1mltR7NaHkYD58K5MXnk5SV5Hpjs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1706
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,33 +117,49 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0023992959=="
+Content-Type: multipart/mixed; boundary="===============1446385077=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0023992959==
+--===============1446385077==
 Content-Language: en-US
 Content-Type: multipart/related;
-	boundary="_004_CY4PR12MB128656A17D834BB70EC690719BD40CY4PR12MB1286namp_";
+	boundary="_004_DM5PR12MB1708E9E86CD1A92C54A1969284D40DM5PR12MB1708namp_";
 	type="multipart/alternative"
 
---_004_CY4PR12MB128656A17D834BB70EC690719BD40CY4PR12MB1286namp_
+--_004_DM5PR12MB1708E9E86CD1A92C54A1969284D40DM5PR12MB1708namp_
 Content-Type: multipart/alternative;
-	boundary="_000_CY4PR12MB128656A17D834BB70EC690719BD40CY4PR12MB1286namp_"
+	boundary="_000_DM5PR12MB1708E9E86CD1A92C54A1969284D40DM5PR12MB1708namp_"
 
---_000_CY4PR12MB128656A17D834BB70EC690719BD40CY4PR12MB1286namp_
-Content-Type: text/plain; charset="Windows-1252"
+--_000_DM5PR12MB1708E9E86CD1A92C54A1969284D40DM5PR12MB1708namp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
+
+I just try to explain what I want to do here, no real patch formalized yet
+
+_____________________________________
+Monk Liu|GPU Virtualization Team |AMD
+[sig-cloud-gpu]
+
+From: He, Jacob <Jacob.He@amd.com>
+Sent: Monday, April 20, 2020 3:45 PM
+To: Liu, Monk <Monk.Liu@amd.com>; Koenig, Christian <Christian.Koenig@amd.c=
+om>
+Cc: amd-gfx@lists.freedesktop.org
+Subject: Re: why we need to do infinite RLC_SPM register setting during VM =
+flush
+
 
 [AMD Official Use Only - Internal Distribution Only]
 
 Do you miss a file which adds spm_updated to vm structure?
 ________________________________
-From: Liu, Monk <Monk.Liu@amd.com>
+From: Liu, Monk <Monk.Liu@amd.com<mailto:Monk.Liu@amd.com>>
 Sent: Monday, April 20, 2020 3:32 PM
-To: He, Jacob <Jacob.He@amd.com>; Koenig, Christian <Christian.Koenig@amd.c=
-om>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+To: He, Jacob <Jacob.He@amd.com<mailto:Jacob.He@amd.com>>; Koenig, Christia=
+n <Christian.Koenig@amd.com<mailto:Christian.Koenig@amd.com>>
+Cc: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
 Subject: why we need to do infinite RLC_SPM register setting during VM flus=
 h
 
@@ -157,7 +174,7 @@ As titled , check below patch:
 
 commit 10790a09ea584cc832353a5c2a481012e5e31a13
 
-Author: Jacob He <jacob.he@amd.com>
+Author: Jacob He <jacob.he@amd.com<mailto:jacob.he@amd.com>>
 
 Date:   Fri Feb 28 20:24:41 2020 +0800
 
@@ -178,9 +195,10 @@ es the vmid
 
     Change-Id: Id3881908960398f87e7c95026a54ff83ff826700
 
-    Signed-off-by: Jacob He <jacob.he@amd.com>
+    Signed-off-by: Jacob He <jacob.he@amd.com<mailto:jacob.he@amd.com>>
 
-    Reviewed-by: Christian K=F6nig <christian.koenig@amd.com>
+    Reviewed-by: Christian K=F6nig <christian.koenig@amd.com<mailto:christi=
+an.koenig@amd.com>>
 
 
 
@@ -224,12 +242,12 @@ index 6e6fc8c..ba2236a 100644
 
 
 this update_spm_vmid() looks an completely overkill to me, we only need to =
-do it once for its VM =85
+do it once for its VM ...
 
 
 
 in SRIOV the register reading/writing for update_spm_vmid() is now carried =
-by KIQ thus there is too much burden on KIQ for such unnecessary jobs =85
+by KIQ thus there is too much burden on KIQ for such unnecessary jobs ...
 
 
 
@@ -287,7 +305,7 @@ what do you think ?
 
 P.S.: the best way is to let GFX ring itself to do the update_spm_vmid() in=
 stead of let CPU doing it, e.g.: we put more PM4 command in VM-FLUSH packet=
-s =85.
+s ....
 
 But I prefer the simple way first like I demonstrated above
 
@@ -299,219 +317,315 @@ Monk Liu|GPU Virtualization Team |AMD
 
 
 
---_000_CY4PR12MB128656A17D834BB70EC690719BD40CY4PR12MB1286namp_
-Content-Type: text/html; charset="Windows-1252"
+--_000_DM5PR12MB1708E9E86CD1A92C54A1969284D40DM5PR12MB1708namp_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
 <html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
-252">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"color: rgb(0, 0, 0); font-family: Calibri,Arial,Helvetica,san=
-s-serif; font-size: 12pt;">
-Do you miss a file which adds&nbsp;<span style=3D"display: inline !importan=
-t; background-color: rgb(255, 255, 255); color: rgb(32, 31, 30); font-famil=
-y: &quot;Calibri&quot;,sans-serif; font-size: 11pt">spm_updated</span> to v=
-m structure?</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liu, Monk &lt;Monk.Li=
-u@amd.com&gt;<br>
-<b>Sent:</b> Monday, April 20, 2020 3:32 PM<br>
-<b>To:</b> He, Jacob &lt;Jacob.He@amd.com&gt;; Koenig, Christian &lt;Christ=
-ian.Koenig@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Subject:</b> why we need to do infinite RLC_SPM register setting during =
-VM flush</font>
-<div>&nbsp;</div>
-</div>
-<style>
-<!--
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
 @font-face
-	{font-family:"Cambria Math"}
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
 @font-face
-	{font-family:\7B49\7EBF}
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
 @font-face
-	{font-family:Calibri}
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
 @font-face
-	{}
-p.x_MsoNormal, li.x_MsoNormal, div.x_MsoNormal
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
 	{margin:0in;
 	margin-bottom:.0001pt;
 	font-size:11.0pt;
-	font-family:"Calibri",sans-serif}
-a:link, span.x_MsoHyperlink
-	{color:#0563C1;
-	text-decoration:underline}
-a:visited, span.x_MsoHyperlinkFollowed
-	{color:#954F72;
-	text-decoration:underline}
-span.x_EmailStyle17
-	{font-family:"Calibri",sans-serif;
-	color:windowtext}
-.x_MsoChpDefault
-	{font-family:"Calibri",sans-serif}
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.xmsonormal, li.xmsonormal, div.xmsonormal
+	{mso-style-name:x_msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.xmsochpdefault, li.xmsochpdefault, div.xmsochpdefault
+	{mso-style-name:x_msochpdefault;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.xmsohyperlink
+	{mso-style-name:x_msohyperlink;
+	color:#0563C1;
+	text-decoration:underline;}
+span.xmsohyperlinkfollowed
+	{mso-style-name:x_msohyperlinkfollowed;
+	color:#954F72;
+	text-decoration:underline;}
+span.xemailstyle17
+	{mso-style-name:x_emailstyle17;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle25
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
 @page WordSection1
-	{margin:1.0in 1.25in 1.0in 1.25in}
-div.x_WordSection1
-	{}
--->
-</style>
-<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"x_WordSection1">
-<p class=3D"x_MsoNormal">Hi Jaco &amp; Christian</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">As titled , check below patch:</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">commit 10790a09ea584cc832353a5c2a481012e5e31a13</p=
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">I just try to explain what I want to do here, no rea=
+l patch formalized yet
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<p class=3D"MsoNormal">_____________________________________<o:p></o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black;backgrou=
+nd:white">Monk Liu|GPU Virtualization Team |</span><span style=3D"font-size=
+:12.0pt;color:#C82613;border:none windowtext 1.0pt;padding:0in;background:w=
+hite">AMD<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><img width=3D"80" height=3D"80" style=3D"width:.8333=
+in;height:.8333in" id=3D"Picture_x0020_1" src=3D"cid:image001.png@01D6172B.=
+627DC310" alt=3D"sig-cloud-gpu"><o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b>From:</b> He, Jacob &lt;Jacob.He@amd.com&gt; <br>
+<b>Sent:</b> Monday, April 20, 2020 3:45 PM<br>
+<b>To:</b> Liu, Monk &lt;Monk.Liu@amd.com&gt;; Koenig, Christian &lt;Christ=
+ian.Koenig@amd.com&gt;<br>
+<b>Cc:</b> amd-gfx@lists.freedesktop.org<br>
+<b>Subject:</b> Re: why we need to do infinite RLC_SPM register setting dur=
+ing VM flush<o:p></o:p></p>
+</div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:15.0pt"><span style=3D"font-size:10.0pt;font-family:&quo=
+t;Arial&quot;,sans-serif;color:#0078D7">[AMD Official Use Only - Internal D=
+istribution Only]<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:12.0pt;color:black">Do you =
+miss a file which adds&nbsp;</span><span style=3D"color:#201F1E;background:=
+white">spm_updated</span><span style=3D"font-size:12.0pt;color:black"> to v=
+m structure?<o:p></o:p></span></p>
+</div>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
+ style=3D"color:black"> Liu, Monk &lt;<a href=3D"mailto:Monk.Liu@amd.com">M=
+onk.Liu@amd.com</a>&gt;<br>
+<b>Sent:</b> Monday, April 20, 2020 3:32 PM<br>
+<b>To:</b> He, Jacob &lt;<a href=3D"mailto:Jacob.He@amd.com">Jacob.He@amd.c=
+om</a>&gt;; Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@amd.co=
+m">Christian.Koenig@amd.com</a>&gt;<br>
+<b>Cc:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Subject:</b> why we need to do infinite RLC_SPM register setting during =
+VM flush</span>
+<o:p></o:p></p>
+<div>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+</div>
+<div>
+<div>
+<p class=3D"xmsonormal">Hi Jaco &amp; Christian<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">As titled , check below patch:<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">commit 10790a09ea584cc832353a5c2a481012e5e31a13<o:p=
+></o:p></p>
+<p class=3D"xmsonormal">Author: Jacob He &lt;<a href=3D"mailto:jacob.he@amd=
+.com">jacob.he@amd.com</a>&gt;<o:p></o:p></p>
+<p class=3D"xmsonormal">Date:&nbsp;&nbsp; Fri Feb 28 20:24:41 2020 &#43;080=
+0<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp; drm/amdgpu: Update SPM_VMID with=
+ the job's vmid when application reserves the vmid<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp; SPM access the video memory acco=
+rding to SPM_VMID. It should be updated<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp; with the job's vmid right before=
+ the job is scheduled. SPM_VMID is a<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp; global resource<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp; Change-Id: Id3881908960398f87e7c=
+95026a54ff83ff826700<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp; Signed-off-by: Jacob He &lt;<a h=
+ref=3D"mailto:jacob.he@amd.com">jacob.he@amd.com</a>&gt;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp; Reviewed-by: Christian K=F6nig &=
+lt;<a href=3D"mailto:christian.koenig@amd.com">christian.koenig@amd.com</a>=
+&gt;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c=
+ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<o:p></o:p></p>
+<p class=3D"xmsonormal">index 6e6fc8c..ba2236a 100644<o:p></o:p></p>
+<p class=3D"xmsonormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<o:p></=
+o:p></p>
+<p class=3D"xmsonormal">&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu=
+_vm.c<o:p></o:p></p>
+<p class=3D"xmsonormal">@@ -1056,8 &#43;1056,12 @@ int amdgpu_vm_flush(stru=
+ct amdgpu_ring *ring, struct amdgpu_job *job,<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct d=
+ma_fence *fence =3D NULL;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool pas=
+id_mapping_needed =3D false;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned=
+ patch_offset =3D 0;<o:p></o:p></p>
+<p class=3D"xmsonormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool upda=
+te_spm_vmid_needed =3D (job-&gt;vm &amp;&amp; (job-&gt;vm-&gt;reserved_vmid=
+[vmhub] !=3D NULL));<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<o=
+:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (updat=
+e_spm_vmid_needed &amp;&amp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid)<o:=
+p></o:p></p>
+<p class=3D"xmsonormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt;update_sp=
+m_vmid(adev, job-&gt;vmid);<o:p></o:p></p>
+<p class=3D"xmsonormal">&#43;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdg=
+pu_vmid_had_gpu_reset(adev, id)) {<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gds_switch_needed =3D true;<o:p></o=
+:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm_flush_needed =3D true;<o:p></o:p=
+></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">this update_spm_vmid() looks an completely overkill=
+ to me, we only need to do it once for its VM &#8230;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">in SRIOV the register reading/writing for update_sp=
+m_vmid() is now carried by KIQ thus there is too much burden on KIQ for suc=
+h unnecessary jobs &#8230;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">I want to change it to only do it once per VM, like=
+:<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c=
+ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<o:p></o:p></p>
+<p class=3D"xmsonormal">index 6e6fc8c..ba2236a 100644<o:p></o:p></p>
+<p class=3D"xmsonormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c<o:p></=
+o:p></p>
+<p class=3D"xmsonormal">&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu=
+_vm.c<o:p></o:p></p>
+<p class=3D"xmsonormal">@@ -1056,8 &#43;1056,12 @@ int amdgpu_vm_flush(stru=
+ct amdgpu_ring *ring, struct amdgpu_job *job,<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct d=
+ma_fence *fence =3D NULL;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bool pasi=
+d_mapping_needed =3D false;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned=
+ patch_offset =3D 0;<o:p></o:p></p>
+<p class=3D"xmsonormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool upda=
+te_spm_vmid_needed =3D (job-&gt;vm &amp;&amp; (job-&gt;vm-&gt;reserved_vmid=
+[vmhub] !=3D NULL));<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<o=
+:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (updat=
+e_spm_vmid_needed &amp;&amp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid &am=
+p;&amp; &nbsp;!vm-&gt;spm_updated) {<o:p></o:p></p>
+<p class=3D"xmsonormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt;update_sp=
+m_vmid(adev, job-&gt;vmid);
+<o:p></o:p></p>
+<p class=3D"xmsonormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm-&gt;spm_updated =3D true;<o:p></o=
+:p></p>
+<p class=3D"xmsonormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o=
+:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdg=
+pu_vmid_had_gpu_reset(adev, id)) {<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gds_switch_needed =3D true;<o:p></o=
+:p></p>
+<p class=3D"xmsonormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm_flush_needed =3D true;<o:p></o:p=
+></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">what do you think ?<o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+<p class=3D"xmsonormal">P.S.: the best way is to let GFX ring itself to do =
+the update_spm_vmid() instead of let CPU doing it, e.g.: we put more PM4 co=
+mmand in VM-FLUSH packets &#8230;.
+<o:p></o:p></p>
+<p class=3D"xmsonormal">But I prefer the simple way first like I demonstrat=
+ed above
+<o:p></o:p></p>
+<p class=3D"xmsonormal">_____________________________________<o:p></o:p></p=
 >
-<p class=3D"x_MsoNormal">Author: Jacob He &lt;jacob.he@amd.com&gt;</p>
-<p class=3D"x_MsoNormal">Date:&nbsp;&nbsp; Fri Feb 28 20:24:41 2020 &#43;08=
-00</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp; drm/amdgpu: Update SPM_VMID wit=
-h the job's vmid when application reserves the vmid</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp; SPM access the video memory acc=
-ording to SPM_VMID. It should be updated</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp; with the job's vmid right befor=
-e the job is scheduled. SPM_VMID is a</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp; global resource</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp; Change-Id: Id3881908960398f87e7=
-c95026a54ff83ff826700</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp; Signed-off-by: Jacob He &lt;jac=
-ob.he@amd.com&gt;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp; Reviewed-by: Christian K=F6nig =
-&lt;christian.koenig@amd.com&gt;</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.=
-c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c</p>
-<p class=3D"x_MsoNormal">index 6e6fc8c..ba2236a 100644</p>
-<p class=3D"x_MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c</p>
-<p class=3D"x_MsoNormal">&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgp=
-u_vm.c</p>
-<p class=3D"x_MsoNormal">@@ -1056,8 &#43;1056,12 @@ int amdgpu_vm_flush(str=
-uct amdgpu_ring *ring, struct amdgpu_job *job,</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct =
-dma_fence *fence =3D NULL;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool pa=
-sid_mapping_needed =3D false;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigne=
-d patch_offset =3D 0;</p>
-<p class=3D"x_MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool upd=
-ate_spm_vmid_needed =3D (job-&gt;vm &amp;&amp; (job-&gt;vm-&gt;reserved_vmi=
-d[vmhub] !=3D NULL));</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<=
-/p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (upda=
-te_spm_vmid_needed &amp;&amp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid)</=
-p>
-<p class=3D"x_MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt;update_s=
-pm_vmid(adev, job-&gt;vmid);</p>
-<p class=3D"x_MsoNormal">&#43;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amd=
-gpu_vmid_had_gpu_reset(adev, id)) {</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gds_switch_needed =3D true;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm_flush_needed =3D true;</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">this update_spm_vmid() looks an completely overkil=
-l to me, we only need to do it once for its VM =85</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">in SRIOV the register reading/writing for update_s=
-pm_vmid() is now carried by KIQ thus there is too much burden on KIQ for su=
-ch unnecessary jobs =85</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">I want to change it to only do it once per VM, lik=
-e:</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.=
-c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c</p>
-<p class=3D"x_MsoNormal">index 6e6fc8c..ba2236a 100644</p>
-<p class=3D"x_MsoNormal">--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c</p>
-<p class=3D"x_MsoNormal">&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgp=
-u_vm.c</p>
-<p class=3D"x_MsoNormal">@@ -1056,8 &#43;1056,12 @@ int amdgpu_vm_flush(str=
-uct amdgpu_ring *ring, struct amdgpu_job *job,</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct =
-dma_fence *fence =3D NULL;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bool pas=
-id_mapping_needed =3D false;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigne=
-d patch_offset =3D 0;</p>
-<p class=3D"x_MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool upd=
-ate_spm_vmid_needed =3D (job-&gt;vm &amp;&amp; (job-&gt;vm-&gt;reserved_vmi=
-d[vmhub] !=3D NULL));</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;<=
-/p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (upda=
-te_spm_vmid_needed &amp;&amp; adev-&gt;gfx.rlc.funcs-&gt;update_spm_vmid &a=
-mp;&amp; &nbsp;!vm-&gt;spm_updated) {</p>
-<p class=3D"x_MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;gfx.rlc.funcs-&gt;update_s=
-pm_vmid(adev, job-&gt;vmid);
-</p>
-<p class=3D"x_MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm-&gt;spm_updated =3D true;</p>
-<p class=3D"x_MsoNormal">&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amd=
-gpu_vmid_had_gpu_reset(adev, id)) {</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gds_switch_needed =3D true;</p>
-<p class=3D"x_MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vm_flush_needed =3D true;</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">what do you think ?</p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
-<p class=3D"x_MsoNormal">P.S.: the best way is to let GFX ring itself to do=
- the update_spm_vmid() instead of let CPU doing it, e.g.: we put more PM4 c=
-ommand in VM-FLUSH packets =85.
-</p>
-<p class=3D"x_MsoNormal">But I prefer the simple way first like I demonstra=
-ted above
-</p>
-<p class=3D"x_MsoNormal">_____________________________________</p>
-<p class=3D"x_MsoNormal"><span style=3D"font-size:12.0pt; color:black; back=
-ground:white">Monk Liu|GPU Virtualization Team |</span><span style=3D"font-=
-size:12.0pt; color:#C82613; border:none windowtext 1.0pt; padding:0in; back=
-ground:white">AMD</span></p>
-<p class=3D"x_MsoNormal"><img width=3D"80" height=3D"80" id=3D"x_Picture_x0=
-020_1" alt=3D"sig-cloud-gpu" style=3D"width:.8333in; height:.8333in" data-o=
-utlook-trace=3D"F:1|T:1" src=3D"cid:image001.png@01D61728.EAC3A7B0"></p>
-<p class=3D"x_MsoNormal">&nbsp;</p>
+<p class=3D"xmsonormal"><span style=3D"font-size:12.0pt;color:black;backgro=
+und:white">Monk Liu|GPU Virtualization Team |</span><span style=3D"font-siz=
+e:12.0pt;color:#C82613;border:none windowtext 1.0pt;padding:0in;background:=
+white">AMD</span><o:p></o:p></p>
+<p class=3D"xmsonormal"><img border=3D"0" width=3D"80" height=3D"80" style=
+=3D"width:.8333in;height:.8333in" id=3D"x_Picture_x0020_1" src=3D"cid:image=
+001.png@01D6172B.627DC310" alt=3D"sig-cloud-gpu"><o:p></o:p></p>
+<p class=3D"xmsonormal">&nbsp;<o:p></o:p></p>
+</div>
 </div>
 </div>
 </div>
 </body>
 </html>
 
---_000_CY4PR12MB128656A17D834BB70EC690719BD40CY4PR12MB1286namp_--
+--_000_DM5PR12MB1708E9E86CD1A92C54A1969284D40DM5PR12MB1708namp_--
 
---_004_CY4PR12MB128656A17D834BB70EC690719BD40CY4PR12MB1286namp_
+--_004_DM5PR12MB1708E9E86CD1A92C54A1969284D40DM5PR12MB1708namp_
 Content-Type: image/png; name="image001.png"
 Content-Description: image001.png
 Content-Disposition: inline; filename="image001.png"; size=12243;
-	creation-date="Mon, 20 Apr 2020 07:32:37 GMT";
-	modification-date="Mon, 20 Apr 2020 07:32:37 GMT"
-Content-ID: <image001.png@01D61728.EAC3A7B0>
+	creation-date="Mon, 20 Apr 2020 07:50:17 GMT";
+	modification-date="Mon, 20 Apr 2020 07:50:17 GMT"
+Content-ID: <image001.png@01D6172B.627DC310>
 Content-Transfer-Encoding: base64
 
 iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAIAAAF2dFVsAAAAAXNSR0IArs4c6QAAAARnQU1BAACx
@@ -730,9 +844,9 @@ GAwGf4JjDIJjIcECaU1pEFiKynGioEJM4/mQIJ1cnE+iy7Qm/v4GB25Jx7RLx6UaaUVpZQaPH55z
 g3lgwdJECWeMARRsEXNNdLHVQS/G8zDRIyJiRh09uOIRBojxIAluDdOl1fhXgGAoolNIpTSBu0Tk
 I/YY60ijpR4ewPK71GlCTDomXtoeFDL8H3b6tzRnrCr7AAAAAElFTkSuQmCC
 
---_004_CY4PR12MB128656A17D834BB70EC690719BD40CY4PR12MB1286namp_--
+--_004_DM5PR12MB1708E9E86CD1A92C54A1969284D40DM5PR12MB1708namp_--
 
---===============0023992959==
+--===============1446385077==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -743,4 +857,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============0023992959==--
+--===============1446385077==--
