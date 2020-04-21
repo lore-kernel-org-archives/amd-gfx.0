@@ -4,52 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D511EC2BA19
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2020 06:59:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF092C54FC9
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2020 06:59:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D98DA206F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2020 06:59:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D98DA206F4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=vivo.com
+	by mail.kernel.org (Postfix) with ESMTPS id 80FC4206F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2020 06:59:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80FC4206F4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BABE6E8C6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6708F6E8CE;
 	Tue, 21 Apr 2020 06:59:31 +0000 (UTC)
-Received: from m176115.mail.qiye.163.com (m176115.mail.qiye.163.com
- [59.111.176.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A8B06E870
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Apr 2020 02:08:09 +0000 (UTC)
-Received: from ubuntu.localdomain (unknown [157.0.31.122])
- by m176115.mail.qiye.163.com (Hmail) with ESMTPA id DF450664DB9;
- Tue, 21 Apr 2020 10:08:02 +0800 (CST)
-From: Bernard Zhao <bernard@vivo.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "David (ChunMing) Zhou" <David1.Zhou@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Lyude Paul <lyude@redhat.com>, Sam Ravnborg <sam@ravnborg.org>,
- Bernard Zhao <bernard@vivo.com>,
- =?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2] amdgpu: fixes error branch not return errno issue
-Date: Mon, 20 Apr 2020 19:07:50 -0700
-Message-Id: <1587434874-123252-1-git-send-email-bernard@vivo.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1587202042-115745-1-git-send-email-bernard@vivo.com>
-References: <1587202042-115745-1-git-send-email-bernard@vivo.com>
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZSlVOTE5CQkJCTE5JS09PTFlXWShZQU
- hPN1dZLVlBSVdZCQ4XHghZQVk1NCk2OjckKS43PlkG
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6Mz46MRw4EjgxGgMvA0IzLE5K
- TyEKCjdVSlVKTkNMT0hPQ0NITUpNVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
- S1VISlVKSUlZV1kIAVlBT05CSDcG
-X-HM-Tid: 0a719a7e090d9373kuwsdf450664db9
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3554289D66;
+ Tue, 21 Apr 2020 02:41:41 +0000 (UTC)
+Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.60])
+ by Forcepoint Email with ESMTP id 95ACC74C6662F635C7D9;
+ Tue, 21 Apr 2020 10:41:36 +0800 (CST)
+Received: from localhost (10.166.215.154) by DGGEMS405-HUB.china.huawei.com
+ (10.3.19.205) with Microsoft SMTP Server id 14.3.487.0; Tue, 21 Apr 2020
+ 10:41:26 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
+ <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
+ <andrey.grodzovsky@amd.com>
+Subject: [PATCH -next] drm/amdgpu: remove set but not used variable 'priority'
+Date: Tue, 21 Apr 2020 10:41:25 +0800
+Message-ID: <20200421024125.29992-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
+MIME-Version: 1.0
+X-Originating-IP: [10.166.215.154]
+X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Tue, 21 Apr 2020 06:59:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -62,91 +51,47 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com
-MIME-Version: 1.0
+Cc: YueHaibing <yuehaibing@huawei.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The "if(!encoder)" branch return the same value 0 of the success
-branch, maybe return -EINVAL is more better.
+drivers/gpu/drm/amd/amdgpu/amdgpu_job.c: In function amdgpu_job_submit:
+drivers/gpu/drm/amd/amdgpu/amdgpu_job.c:148:26: warning: variable priority set but not used [-Wunused-but-set-variable]
 
-Signed-off-by: Bernard Zhao <bernard@vivo.com>
+commit 33abcb1f5a17 ("drm/amdgpu: set compute queue priority at mqd_init")
+left behind this, remove it.
 
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
 ---
-Changes since V1:
-* commit message improve
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-index f355d9a..1f8c6b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_connectors.c
-@@ -474,12 +474,12 @@ static int amdgpu_connector_set_property(struct drm_connector *connector,
- 		/* need to find digital encoder on connector */
- 		encoder = amdgpu_connector_find_encoder(connector, DRM_MODE_ENCODER_TMDS);
- 		if (!encoder)
--			return 0;
-+			return -EINVAL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+index 35c381ec0423..47207188c569 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
+@@ -145,7 +145,6 @@ void amdgpu_job_free(struct amdgpu_job *job)
+ int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
+ 		      void *owner, struct dma_fence **f)
+ {
+-	enum drm_sched_priority priority;
+ 	int r;
  
- 		amdgpu_encoder = to_amdgpu_encoder(encoder);
+ 	if (!f)
+@@ -157,7 +156,6 @@ int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
  
- 		if (!amdgpu_encoder->enc_priv)
--			return 0;
-+			return -EINVAL;
+ 	*f = dma_fence_get(&job->base.s_fence->finished);
+ 	amdgpu_job_free_resources(job);
+-	priority = job->base.s_priority;
+ 	drm_sched_entity_push_job(&job->base, entity);
  
- 		dig = amdgpu_encoder->enc_priv;
- 		new_coherent_mode = val ? true : false;
-@@ -494,7 +494,7 @@ static int amdgpu_connector_set_property(struct drm_connector *connector,
- 		/* need to find digital encoder on connector */
- 		encoder = amdgpu_connector_find_encoder(connector, DRM_MODE_ENCODER_TMDS);
- 		if (!encoder)
--			return 0;
-+			return -EINVAL;
- 
- 		amdgpu_encoder = to_amdgpu_encoder(encoder);
- 
-@@ -509,7 +509,7 @@ static int amdgpu_connector_set_property(struct drm_connector *connector,
- 		/* need to find digital encoder on connector */
- 		encoder = amdgpu_connector_find_encoder(connector, DRM_MODE_ENCODER_TMDS);
- 		if (!encoder)
--			return 0;
-+			return -EINVAL;
- 
- 		amdgpu_encoder = to_amdgpu_encoder(encoder);
- 
-@@ -523,7 +523,7 @@ static int amdgpu_connector_set_property(struct drm_connector *connector,
- 		/* need to find digital encoder on connector */
- 		encoder = amdgpu_connector_find_encoder(connector, DRM_MODE_ENCODER_TMDS);
- 		if (!encoder)
--			return 0;
-+			return -EINVAL;
- 
- 		amdgpu_encoder = to_amdgpu_encoder(encoder);
- 
-@@ -537,7 +537,7 @@ static int amdgpu_connector_set_property(struct drm_connector *connector,
- 		/* need to find digital encoder on connector */
- 		encoder = amdgpu_connector_find_encoder(connector, DRM_MODE_ENCODER_TMDS);
- 		if (!encoder)
--			return 0;
-+			return -EINVAL;
- 
- 		amdgpu_encoder = to_amdgpu_encoder(encoder);
- 
-@@ -551,7 +551,7 @@ static int amdgpu_connector_set_property(struct drm_connector *connector,
- 		/* need to find digital encoder on connector */
- 		encoder = amdgpu_connector_find_encoder(connector, DRM_MODE_ENCODER_TMDS);
- 		if (!encoder)
--			return 0;
-+			return -EINVAL;
- 
- 		amdgpu_encoder = to_amdgpu_encoder(encoder);
- 
+ 	return 0;
 -- 
-2.7.4
+2.17.1
+
 
 _______________________________________________
 amd-gfx mailing list
