@@ -6,39 +6,45 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF092C54FC9
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2020 06:59:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC24FC54FCC
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2020 06:59:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 80FC4206F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2020 06:59:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80FC4206F4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
+	by mail.kernel.org (Postfix) with ESMTPS id CE086206F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2020 06:59:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE086206F4
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=vivo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6708F6E8CE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5D216E8D1;
 	Tue, 21 Apr 2020 06:59:31 +0000 (UTC)
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3554289D66;
- Tue, 21 Apr 2020 02:41:41 +0000 (UTC)
-Received: from DGGEMS405-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id 95ACC74C6662F635C7D9;
- Tue, 21 Apr 2020 10:41:36 +0800 (CST)
-Received: from localhost (10.166.215.154) by DGGEMS405-HUB.china.huawei.com
- (10.3.19.205) with Microsoft SMTP Server id 14.3.487.0; Tue, 21 Apr 2020
- 10:41:26 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <andrey.grodzovsky@amd.com>
-Subject: [PATCH -next] drm/amdgpu: remove set but not used variable 'priority'
-Date: Tue, 21 Apr 2020 10:41:25 +0800
-Message-ID: <20200421024125.29992-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
+Received: from m176115.mail.qiye.163.com (m176115.mail.qiye.163.com
+ [59.111.176.115])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CCAE6E889
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Apr 2020 06:48:36 +0000 (UTC)
+Received: from ubuntu.localdomain (unknown [157.0.31.122])
+ by m176115.mail.qiye.163.com (Hmail) with ESMTPA id 7E79D665C28;
+ Tue, 21 Apr 2020 14:48:26 +0800 (CST)
+From: Bernard Zhao <bernard@vivo.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "David (ChunMing) Zhou" <David1.Zhou@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH V3] amdgpu:optimization-- reduce no need mutex_lock area
+Date: Mon, 20 Apr 2020 23:48:18 -0700
+Message-Id: <20200421064818.129158-1-bernard@vivo.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-X-Originating-IP: [10.166.215.154]
-X-CFilter-Loop: Reflected
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZT1VNSktLS0tKSEhOSk9PWVdZKFlBSE
+ 83V1ktWUFJV1kJDhceCFlBWTU0KTY6NyQpLjc#WQY+
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6OBg6Dhw*MDg5OAMJI04WVj4*
+ ShoKCgJVSlVKTkNMT05KTEtCQ0JPVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
+ S1VISlVKSUlZV1kIAVlBSEtCSzcG
+X-HM-Tid: 0a719b7ebdb29373kuws7e79d665c28
 X-Mailman-Approved-At: Tue, 21 Apr 2020 06:59:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -51,47 +57,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: YueHaibing <yuehaibing@huawei.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Reply-To: 1587181464-114215-1-git-send-email-bernard@vivo.com
+Cc: opensource.kernel@vivo.com, Bernard Zhao <bernard@vivo.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_job.c: In function amdgpu_job_submit:
-drivers/gpu/drm/amd/amdgpu/amdgpu_job.c:148:26: warning: variable priority set but not used [-Wunused-but-set-variable]
+Maybe we could reduce the mutex_lock(&mem->lock)`s protected code area,
+and no need to protect pr_debug.
 
-commit 33abcb1f5a17 ("drm/amdgpu: set compute queue priority at mqd_init")
-left behind this, remove it.
+Signed-off-by: Bernard Zhao <bernard@vivo.com>
 
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Changes since V1:
+*commit message improve
+
+Changes since V2:
+*move comment along with the mutex_unlock
+
+Link for V1:
+*https://lore.kernel.org/patchwork/patch/1226588/
+Link for V2:
+*https://lore.kernel.org/patchwork/patch/1227907/
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_job.c | 2 --
- 1 file changed, 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-index 35c381ec0423..47207188c569 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-@@ -145,7 +145,6 @@ void amdgpu_job_free(struct amdgpu_job *job)
- int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
- 		      void *owner, struct dma_fence **f)
- {
--	enum drm_sched_priority priority;
- 	int r;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 327317c54f7c..f03d9843d723 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1285,21 +1285,21 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
+ 	struct bo_vm_reservation_context ctx;
+ 	struct ttm_validate_buffer *bo_list_entry;
+ 	int ret;
++	unsigned int mapped_to_gpu_memory;
  
- 	if (!f)
-@@ -157,7 +156,6 @@ int amdgpu_job_submit(struct amdgpu_job *job, struct drm_sched_entity *entity,
+ 	mutex_lock(&mem->lock);
++	mapped_to_gpu_memory = mem->mapped_to_gpu_memory;
++	mutex_unlock(&mem->lock);
++	/* lock is not needed after this, since mem is unused and will
++	 * be freed anyway
++	 */
  
- 	*f = dma_fence_get(&job->base.s_fence->finished);
- 	amdgpu_job_free_resources(job);
--	priority = job->base.s_priority;
- 	drm_sched_entity_push_job(&job->base, entity);
+-	if (mem->mapped_to_gpu_memory > 0) {
++	if (mapped_to_gpu_memory > 0) {
+ 		pr_debug("BO VA 0x%llx size 0x%lx is still mapped.\n",
+ 				mem->va, bo_size);
+-		mutex_unlock(&mem->lock);
+ 		return -EBUSY;
+ 	}
  
- 	return 0;
+-	mutex_unlock(&mem->lock);
+-	/* lock is not needed after this, since mem is unused and will
+-	 * be freed anyway
+-	 */
+-
+ 	/* No more MMU notifiers */
+ 	amdgpu_mn_unregister(mem->bo);
+ 
 -- 
-2.17.1
-
+2.26.2
 
 _______________________________________________
 amd-gfx mailing list
