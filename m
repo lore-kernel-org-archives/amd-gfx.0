@@ -2,39 +2,56 @@ Return-Path: <SRS0=Hoyj=6G=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE39AC38A30
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 06:56:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FA4AC55189
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 06:56:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 98693206D9
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 06:56:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98693206D9
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id EA848206D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 06:56:03 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="p6EV4EsY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA848206D9
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBB166E9C6;
-	Wed, 22 Apr 2020 06:54:59 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5194B6E271;
- Wed, 22 Apr 2020 05:53:13 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 6FFF268C4E; Wed, 22 Apr 2020 07:53:11 +0200 (CEST)
-Date: Wed, 22 Apr 2020 07:53:11 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH hmm 4/5] mm/hmm: remove HMM_PFN_SPECIAL
-Message-ID: <20200422055311.GC22366@lst.de>
-References: <0-v1-4eb72686de3c+5062-hmm_no_flags_jgg@mellanox.com>
- <4-v1-4eb72686de3c+5062-hmm_no_flags_jgg@mellanox.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E13086E9D1;
+	Wed, 22 Apr 2020 06:55:00 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCF8E6E34A;
+ Tue, 21 Apr 2020 23:34:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:Date:Message-ID:Subject:From:To:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:In-Reply-To:References;
+ bh=7zVefyS4upAL+bCgFh2rk2xHhMXCXvuF8sDvDJdBc+Q=; b=p6EV4EsYVjbMCvtqpLFwIXFBFo
+ P3QaMRiq5e1BckUzI1YYuSD+slL4GbOzR/kp14+Akf1BN7PcuRGMQJKMKibzu7KyrE8qC+2bchne4
+ gbyI3rvUfljwWjDfZW1TRgriZ6fOigwjH71PpcxVG+gEen9vhMkEfnlCShN87nHStZsQ89HSf2kKm
+ ux5YDi3kUQ4M4r3bpQX63p7qDgTkr5et5NPrTwXaOwfaHiZ7Ri8CDsMvukR/vKU8CAaxzTjJWxzYc
+ oCm5M9pe/23E3o2FMXWE5bhZh2GmjtO49E+OLz3A4MkD3MmdZsasZgmDWUvXkqcYXS4wdLgZ2J1fI
+ 95J+9zXQ==;
+Received: from [2601:1c0:6280:3f0::19c2]
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1jR2Ow-0000A9-Cw; Tue, 21 Apr 2020 23:34:02 +0000
+To: dri-devel <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+From: Randy Dunlap <rdunlap@infradead.org>
+Subject: [PATCH] drm: amd/display: fix Kconfig help text
+Message-ID: <31d56a46-e3de-e768-a154-03b6afb3ad72@infradead.org>
+Date: Tue, 21 Apr 2020 16:34:00 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <4-v1-4eb72686de3c+5062-hmm_no_flags_jgg@mellanox.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Language: en-US
 X-Mailman-Approved-At: Wed, 22 Apr 2020 06:54:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -47,31 +64,48 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Ralph Campbell <rcampbell@nvidia.com>, John Hubbard <jhubbard@nvidia.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@lst.de>,
- linux-mm@kvack.org, =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>,
- Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>,
- Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- intel-gfx@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 21, 2020 at 09:21:45PM -0300, Jason Gunthorpe wrote:
-> From: Jason Gunthorpe <jgg@mellanox.com>
-> 
-> This is just an alias for HMM_PFN_ERROR, nothing cares that the error was
-> because of a special page vs any other error case.
+From: Randy Dunlap <rdunlap@infradead.org>
 
-Looks good,
+Fix help text: indent one tab + 2 spaces; end a sentence with a
+period; and collapse short lines of text to one line.
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Fixes: 23c61b4599c4 ("drm/amd: Fix Kconfig indentation")
+Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>
+---
+ drivers/gpu/drm/amd/display/Kconfig |    8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+--- linux-next-20200421.orig/drivers/gpu/drm/amd/display/Kconfig
++++ linux-next-20200421/drivers/gpu/drm/amd/display/Kconfig
+@@ -21,16 +21,12 @@ config DRM_AMD_DC_HDCP
+ 	bool "Enable HDCP support in DC"
+ 	depends on DRM_AMD_DC
+ 	help
+-	 Choose this option
+-	 if you want to support
+-	 HDCP authentication
++	  Choose this option if you want to support HDCP authentication.
+ 
+ config DEBUG_KERNEL_DC
+ 	bool "Enable kgdb break in DC"
+ 	depends on DRM_AMD_DC
+ 	help
+-	  Choose this option
+-	  if you want to hit
+-	  kdgb_break in assert.
++	  Choose this option if you want to hit kdgb_break in assert.
+ 
+ endmenu
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
