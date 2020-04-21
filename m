@@ -6,26 +6,26 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC24FC54FCC
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2020 06:59:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 045EDC55182
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2020 06:59:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CE086206F4
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2020 06:59:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE086206F4
+	by mail.kernel.org (Postfix) with ESMTPS id D7066206F4
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Apr 2020 06:59:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7066206F4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=vivo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5D216E8D1;
-	Tue, 21 Apr 2020 06:59:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2ADB56E8D4;
+	Tue, 21 Apr 2020 06:59:32 +0000 (UTC)
 Received: from m176115.mail.qiye.163.com (m176115.mail.qiye.163.com
  [59.111.176.115])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CCAE6E889
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Apr 2020 06:48:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2A14989F82
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Apr 2020 02:42:12 +0000 (UTC)
 Received: from ubuntu.localdomain (unknown [157.0.31.122])
- by m176115.mail.qiye.163.com (Hmail) with ESMTPA id 7E79D665C28;
- Tue, 21 Apr 2020 14:48:26 +0800 (CST)
+ by m176115.mail.qiye.163.com (Hmail) with ESMTPA id CAD0E664EC6;
+ Tue, 21 Apr 2020 10:42:05 +0800 (CST)
 From: Bernard Zhao <bernard@vivo.com>
 To: Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -34,17 +34,17 @@ To: Felix Kuehling <Felix.Kuehling@amd.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH V3] amdgpu:optimization-- reduce no need mutex_lock area
-Date: Mon, 20 Apr 2020 23:48:18 -0700
-Message-Id: <20200421064818.129158-1-bernard@vivo.com>
+Subject: [PATCH V2] amdgpu: remove unnecessary condition check
+Date: Mon, 20 Apr 2020 19:41:59 -0700
+Message-Id: <20200421024159.126753-1-bernard@vivo.com>
 X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZT1VNSktLS0tKSEhOSk9PWVdZKFlBSE
- 83V1ktWUFJV1kJDhceCFlBWTU0KTY6NyQpLjc#WQY+
-X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6OBg6Dhw*MDg5OAMJI04WVj4*
- ShoKCgJVSlVKTkNMT05KTEtCQ0JPVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
- S1VISlVKSUlZV1kIAVlBSEtCSzcG
-X-HM-Tid: 0a719b7ebdb29373kuws7e79d665c28
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZTlVPT05LS0tKTEpNTUpIQ1lXWShZQU
+ hPN1dZLVlBSVdZCQ4XHghZQVk1NCk2OjckKS43PlkG
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6K006Kgw6KTgrFgMtAk4qCS5J
+ ETpPCS9VSlVKTkNMT0hNQklCSUhIVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
+ S1VISlVKSUlZV1kIAVlBSUJDTjcG
+X-HM-Tid: 0a719a9d34659373kuwscad0e664ec6
 X-Mailman-Approved-At: Tue, 21 Apr 2020 06:59:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,65 +57,72 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: 1587181464-114215-1-git-send-email-bernard@vivo.com
+Reply-To: 1587180037-113840-1-git-send-email-bernard@vivo.com
 Cc: opensource.kernel@vivo.com, Bernard Zhao <bernard@vivo.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Maybe we could reduce the mutex_lock(&mem->lock)`s protected code area,
-and no need to protect pr_debug.
+There is no need to if check again, maybe we could merge
+into the above else branch.
 
 Signed-off-by: Bernard Zhao <bernard@vivo.com>
 
+---
 Changes since V1:
 *commit message improve
-
-Changes since V2:
-*move comment along with the mutex_unlock
+*code style refactoring
 
 Link for V1:
-*https://lore.kernel.org/patchwork/patch/1226588/
-Link for V2:
-*https://lore.kernel.org/patchwork/patch/1227907/
+* https://lore.kernel.org/patchwork/patch/1226587/
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 327317c54f7c..f03d9843d723 100644
+index 9dff792c9290..a64eeb07bec4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1285,21 +1285,21 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 	struct bo_vm_reservation_context ctx;
- 	struct ttm_validate_buffer *bo_list_entry;
- 	int ret;
-+	unsigned int mapped_to_gpu_memory;
+@@ -660,13 +660,15 @@ static int reserve_bo_and_vm(struct kgd_mem *mem,
  
- 	mutex_lock(&mem->lock);
-+	mapped_to_gpu_memory = mem->mapped_to_gpu_memory;
-+	mutex_unlock(&mem->lock);
-+	/* lock is not needed after this, since mem is unused and will
-+	 * be freed anyway
-+	 */
- 
--	if (mem->mapped_to_gpu_memory > 0) {
-+	if (mapped_to_gpu_memory > 0) {
- 		pr_debug("BO VA 0x%llx size 0x%lx is still mapped.\n",
- 				mem->va, bo_size);
--		mutex_unlock(&mem->lock);
- 		return -EBUSY;
+ 	ret = ttm_eu_reserve_buffers(&ctx->ticket, &ctx->list,
+ 				     false, &ctx->duplicates);
+-	if (!ret)
+-		ctx->reserved = true;
+-	else {
++
++	if (ret) {
+ 		pr_err("Failed to reserve buffers in ttm\n");
+ 		kfree(ctx->vm_pd);
+ 		ctx->vm_pd = NULL;
  	}
++	else {
++		ctx->reserved = true;
++	}
  
--	mutex_unlock(&mem->lock);
--	/* lock is not needed after this, since mem is unused and will
--	 * be freed anyway
--	 */
--
- 	/* No more MMU notifiers */
- 	amdgpu_mn_unregister(mem->bo);
+ 	return ret;
+ }
+@@ -733,15 +735,15 @@ static int reserve_bo_and_cond_vms(struct kgd_mem *mem,
  
+ 	ret = ttm_eu_reserve_buffers(&ctx->ticket, &ctx->list,
+ 				     false, &ctx->duplicates);
+-	if (!ret)
+-		ctx->reserved = true;
+-	else
+-		pr_err("Failed to reserve buffers in ttm.\n");
+ 
+ 	if (ret) {
++		pr_err("Failed to reserve buffers in ttm.\n");
+ 		kfree(ctx->vm_pd);
+ 		ctx->vm_pd = NULL;
+ 	}
++	else {
++		ctx->reserved = true;
++	}
+ 
+ 	return ret;
+ }
 -- 
 2.26.2
 
