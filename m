@@ -7,69 +7,68 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DEE56C55181
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 06:55:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 96033C5518A
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 06:55:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B473D206D9
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 06:55:28 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6B2DD206D9
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 06:55:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="gIWP5ilm"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B473D206D9
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="Y9ADKn94"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B2DD206D9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80A226E9B0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 268906E9B1;
 	Wed, 22 Apr 2020 06:54:56 +0000 (UTC)
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5D9D4899A5
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B32A389DC0
  for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2020 00:21:49 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id g74so688824qke.13
+Received: by mail-qk1-x742.google.com with SMTP id g74so688835qke.13
  for <amd-gfx@lists.freedesktop.org>; Tue, 21 Apr 2020 17:21:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=dXUNQISf0T88Bj6Lj8KEYM0L0EwolOgRaHpyefYtmUk=;
- b=gIWP5ilmkmnLh/9NQ4YyFacAf5kT+bxEXkMSwIe/v0D2Ic/uYFKO3FaPeBpefOaLjP
- 0WP4+VmSjV3Sf/jbcpkqFE+5CiDA2aMMdwfCGoFtIG1TLq3gdTwID80fz7GAZpFzfm+P
- 3B1k0kODSc2crx4cbT2UNyZuA8iWvN2EBSF1KyPCpMrVWbJZBAL3QO5rMaD9RaiAiKVx
- MrGa53XEdZgZtT8fmp1PHyQUs81fwhw6ONIUu7XQ9wFZOZ2jNhdPzhvzaK8drXk5SDsm
- WOdpsQlR3Gp50p9NNVM8d1R506OI/BYArmq58KUhXYb1oCPDRv97xODXd3cpwxJr0E5d
- FmGw==
+ bh=nTTGkCmPNBNLfBeKlL5KhUg/wYh+8kbFb/bZ+rQv6GY=;
+ b=Y9ADKn94L03XU1WeAr1BxOt1n9SMwpaUA2kh4P9ChqBAdUSD+fcEFuqyvQgMnUBT5K
+ TBVzLC1fdZAXyDHYmaR4eSl4pkcikTQ2p6vftD66fKGi3itp/bh+mnTy9HWICDa/87cG
+ wSZ7VOj95q27lOa9SkMVfa+qyx0nNQ6ChLwa5xXqahDBS+eX+6110M1DMBZzjfo1G84x
+ JdgwQtnf/1Yz0i+eERnmyM0pFCNErIgH65QoZ0wCZzqypVBly7kQn/XCDR6Y0Zo9352H
+ 0SruN8Hct3GkG5DW69G9uyplLEKr3n/7toee+QwA5bt1D6p96wXvbGK1WSnslJJT5OBW
+ lKNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=dXUNQISf0T88Bj6Lj8KEYM0L0EwolOgRaHpyefYtmUk=;
- b=pw7rd04ZURVAxOTY4Bgz2aTx97V+j6nuSLZjsq260a/q6b1BvIKBPGyo5zumOVFkBJ
- zScfdA+hIBRkMKnIKPeIaTY16ffGg0RCNY40fAgoq4QIJ5kpqLvBfNZlXsE7ju3IiTsm
- vgcNiaCjVdqfz/BynJoX5qI7OjHNI1KNWJ1vfgFDDVcXIx49wKi5zAb/kqJxgXkHYHD3
- a5PZSKwIT8/B06f1wZRmkuyd2Ovwt0pLIXI5TVW9V7EHtSj9Fy/35H6l/sDekwMoWHzW
- R2oVFig+3MhWOmDlzq1GKRkbw/+0B7rnjh2kmn3XufRDAEqUEX+LcShs5C7BNp8pk/7b
- idbg==
-X-Gm-Message-State: AGi0PuaVbt6+WlHIUwKCCgIaa64Hf+RalncmRwdbf5Vwy37wRrsH8tTg
- EBnps6zHTzmdXZo5uXKxCq1fJQ==
-X-Google-Smtp-Source: APiQypKXSZmOfI1ovmhCRa4BWx0ruNS7ifeofBzvyBvIZ85CC1GrC+lD+aCIj59iOvBapC96nnzX1A==
-X-Received: by 2002:a37:68cd:: with SMTP id
- d196mr23995404qkc.188.1587514908479; 
+ bh=nTTGkCmPNBNLfBeKlL5KhUg/wYh+8kbFb/bZ+rQv6GY=;
+ b=gxcC7z9allflo0rysGygMhqVGC93l49NFrDWpSHuCETqI90S69qN4NkZ2ouzDML5jt
+ 7ta9jbvcOduHI8Xz3R54ah9/2jGwt7XTA5V9s+QSS1lTQ2ZqJUV7TOm2Y+jDW3X2PU91
+ 2uEneAP1J58N9FJbmojn8g6QwAmysRoyrhlVPqpoxIWaESQ0RmgzoUlOIH6iK4Bj/rAr
+ 0AH8vru2Qx7b3Wp/6hnibAWiyhhUXUs9eZXpFdZI2pq5rovVt11H67DFQmft10KTWIt8
+ sVbVR9yW7hizFtoRowYw+Frur/xs5swxrswj9J7oLECBnek5xFpp1nA3sowmHfz6gYDu
+ 5NpA==
+X-Gm-Message-State: AGi0PuafndVEMeiqPe0jto5vDPrIqL3aD8DUrBi6vtbMDw2nB6mZmSO+
+ pLeYNoEyU4FdG6oRQ2s9Ij8a9g==
+X-Google-Smtp-Source: APiQypLsWIwk2GzyDvAQhKyc5Ai1EdwHafbJ+aT9TsesWr9n3rkGOuvpeUzjUFzVSJOlWwn/eV0NvQ==
+X-Received: by 2002:ae9:e8c2:: with SMTP id a185mr23357780qkg.72.1587514908893; 
  Tue, 21 Apr 2020 17:21:48 -0700 (PDT)
 Received: from ziepe.ca
  (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
  [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id p10sm2821195qtu.14.2020.04.21.17.21.46
+ by smtp.gmail.com with ESMTPSA id e8sm2758708qkl.57.2020.04.21.17.21.46
  (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
  Tue, 21 Apr 2020 17:21:47 -0700 (PDT)
 Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
  (envelope-from <jgg@ziepe.ca>)
- id 1jR398-0000B6-EG; Tue, 21 Apr 2020 21:21:46 -0300
+ id 1jR398-0000BR-IN; Tue, 21 Apr 2020 21:21:46 -0300
 From: Jason Gunthorpe <jgg@ziepe.ca>
 To: linux-mm@kvack.org,
 	Ralph Campbell <rcampbell@nvidia.com>
-Subject: [PATCH hmm 2/5] mm/hmm: make hmm_range_fault return 0 or -1
-Date: Tue, 21 Apr 2020 21:21:43 -0300
-Message-Id: <2-v1-4eb72686de3c+5062-hmm_no_flags_jgg@mellanox.com>
+Subject: [PATCH hmm 4/5] mm/hmm: remove HMM_PFN_SPECIAL
+Date: Tue, 21 Apr 2020 21:21:45 -0300
+Message-Id: <4-v1-4eb72686de3c+5062-hmm_no_flags_jgg@mellanox.com>
 In-Reply-To: <0-v1-4eb72686de3c+5062-hmm_no_flags_jgg@mellanox.com>
 References: 
 MIME-Version: 1.0
@@ -102,191 +101,91 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jason Gunthorpe <jgg@mellanox.com>
 
-hmm_vma_walk->last is supposed to be updated after every write to the
-pfns, so that it can be returned by hmm_range_fault(). However, this is
-not done consistently. Fortunately nothing checks the return code of
-hmm_range_fault() for anything other than error.
-
-More importantly last must be set before returning -EBUSY as it is used to
-prevent reading an output pfn as an input flags when the loop restarts.
-
-For clarity and simplicity make hmm_range_fault() return 0 or -ERRNO. Only
-set last when returning -EBUSY.
+This is just an alias for HMM_PFN_ERROR, nothing cares that the error was
+because of a special page vs any other error case.
 
 Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
 ---
- Documentation/vm/hmm.rst                |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  4 ++--
- drivers/gpu/drm/nouveau/nouveau_svm.c   |  6 +++---
- include/linux/hmm.h                     |  2 +-
- mm/hmm.c                                | 25 +++++++++----------------
- 5 files changed, 16 insertions(+), 23 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 1 -
+ drivers/gpu/drm/nouveau/nouveau_svm.c   | 1 -
+ include/linux/hmm.h                     | 8 --------
+ mm/hmm.c                                | 2 +-
+ 4 files changed, 1 insertion(+), 11 deletions(-)
 
-diff --git a/Documentation/vm/hmm.rst b/Documentation/vm/hmm.rst
-index 4e3e9362afeb10..9924f2caa0184c 100644
---- a/Documentation/vm/hmm.rst
-+++ b/Documentation/vm/hmm.rst
-@@ -161,7 +161,7 @@ device must complete the update before the driver callback returns.
- When the device driver wants to populate a range of virtual addresses, it can
- use::
- 
--  long hmm_range_fault(struct hmm_range *range);
-+  int hmm_range_fault(struct hmm_range *range);
- 
- It will trigger a page fault on missing or read-only entries if write access is
- requested (see below). Page faults use the generic mm page fault code path just
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 6309ff72bd7876..efc1329a019127 100644
+index bff8e64701a547..449083f9f8a2bf 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -852,12 +852,12 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo, struct page **pages)
- 	down_read(&mm->mmap_sem);
- 	r = hmm_range_fault(range);
- 	up_read(&mm->mmap_sem);
--	if (unlikely(r <= 0)) {
-+	if (unlikely(r)) {
- 		/*
- 		 * FIXME: This timeout should encompass the retry from
- 		 * mmu_interval_read_retry() as well.
- 		 */
--		if ((r == 0 || r == -EBUSY) && !time_after(jiffies, timeout))
-+		if ((r == -EBUSY) && !time_after(jiffies, timeout))
- 			goto retry;
- 		goto out_free_pfns;
- 	}
+@@ -775,7 +775,6 @@ static const uint64_t hmm_range_flags[HMM_PFN_FLAG_MAX] = {
+ static const uint64_t hmm_range_values[HMM_PFN_VALUE_MAX] = {
+ 	0xfffffffffffffffeUL, /* HMM_PFN_ERROR */
+ 	0, /* HMM_PFN_NONE */
+-	0xfffffffffffffffcUL /* HMM_PFN_SPECIAL */
+ };
+ 
+ /**
 diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-index 645fedd77e21b4..c68e9317cf0740 100644
+index c68e9317cf0740..cf0d9bd61bebf9 100644
 --- a/drivers/gpu/drm/nouveau/nouveau_svm.c
 +++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-@@ -536,7 +536,7 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
- 		.pfn_shift = NVIF_VMM_PFNMAP_V0_ADDR_SHIFT,
- 	};
- 	struct mm_struct *mm = notifier->notifier.mm;
--	long ret;
-+	int ret;
+@@ -379,7 +379,6 @@ static const u64
+ nouveau_svm_pfn_values[HMM_PFN_VALUE_MAX] = {
+ 	[HMM_PFN_ERROR  ] = ~NVIF_VMM_PFNMAP_V0_V,
+ 	[HMM_PFN_NONE   ] =  NVIF_VMM_PFNMAP_V0_NONE,
+-	[HMM_PFN_SPECIAL] = ~NVIF_VMM_PFNMAP_V0_V,
+ };
  
- 	while (true) {
- 		if (time_after(jiffies, timeout))
-@@ -548,8 +548,8 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
- 		down_read(&mm->mmap_sem);
- 		ret = hmm_range_fault(&range);
- 		up_read(&mm->mmap_sem);
--		if (ret <= 0) {
--			if (ret == 0 || ret == -EBUSY)
-+		if (ret) {
-+			if (ret == -EBUSY)
- 				continue;
- 			return ret;
- 		}
+ /* Issue fault replay for GPU to retry accesses that faulted previously. */
 diff --git a/include/linux/hmm.h b/include/linux/hmm.h
-index 7475051100c782..0df27dd03d53d7 100644
+index 0df27dd03d53d7..81c302c884c0e3 100644
 --- a/include/linux/hmm.h
 +++ b/include/linux/hmm.h
-@@ -120,7 +120,7 @@ static inline struct page *hmm_device_entry_to_page(const struct hmm_range *rang
- /*
-  * Please see Documentation/vm/hmm.rst for how to use the range API.
+@@ -44,10 +44,6 @@ enum hmm_pfn_flag_e {
+  * Flags:
+  * HMM_PFN_ERROR: corresponding CPU page table entry points to poisoned memory
+  * HMM_PFN_NONE: corresponding CPU page table entry is pte_none()
+- * HMM_PFN_SPECIAL: corresponding CPU page table entry is special; i.e., the
+- *      result of vmf_insert_pfn() or vm_insert_page(). Therefore, it should not
+- *      be mirrored by a device, because the entry will never have HMM_PFN_VALID
+- *      set and the pfn value is undefined.
+  *
+  * Driver provides values for none entry, error entry, and special entry.
+  * Driver can alias (i.e., use same value) error and special, but
+@@ -56,12 +52,10 @@ enum hmm_pfn_flag_e {
+  * HMM pfn value returned by hmm_vma_get_pfns() or hmm_vma_fault() will be:
+  * hmm_range.values[HMM_PFN_ERROR] if CPU page table entry is poisonous,
+  * hmm_range.values[HMM_PFN_NONE] if there is no CPU page table entry,
+- * hmm_range.values[HMM_PFN_SPECIAL] if CPU page table entry is a special one
   */
--long hmm_range_fault(struct hmm_range *range);
-+int hmm_range_fault(struct hmm_range *range);
+ enum hmm_pfn_value_e {
+ 	HMM_PFN_ERROR,
+ 	HMM_PFN_NONE,
+-	HMM_PFN_SPECIAL,
+ 	HMM_PFN_VALUE_MAX
+ };
  
- /*
-  * HMM_RANGE_DEFAULT_TIMEOUT - default timeout (ms) when waiting for a range
+@@ -110,8 +104,6 @@ static inline struct page *hmm_device_entry_to_page(const struct hmm_range *rang
+ 		return NULL;
+ 	if (entry == range->values[HMM_PFN_ERROR])
+ 		return NULL;
+-	if (entry == range->values[HMM_PFN_SPECIAL])
+-		return NULL;
+ 	if (!(entry & range->flags[HMM_PFN_VALID]))
+ 		return NULL;
+ 	return pfn_to_page(entry >> range->pfn_shift);
 diff --git a/mm/hmm.c b/mm/hmm.c
-index 280585833adfc1..4c7c396655b528 100644
+index 4c7c396655b528..2693393dc14b30 100644
 --- a/mm/hmm.c
 +++ b/mm/hmm.c
-@@ -174,7 +174,6 @@ static int hmm_vma_walk_hole(unsigned long addr, unsigned long end,
- 	}
- 	if (required_fault)
- 		return hmm_vma_fault(addr, end, required_fault, walk);
--	hmm_vma_walk->last = addr;
- 	return hmm_pfns_fill(addr, end, range, HMM_PFN_NONE);
- }
- 
-@@ -207,7 +206,6 @@ static int hmm_vma_handle_pmd(struct mm_walk *walk, unsigned long addr,
- 	pfn = pmd_pfn(pmd) + ((addr & ~PMD_MASK) >> PAGE_SHIFT);
- 	for (i = 0; addr < end; addr += PAGE_SIZE, i++, pfn++)
- 		pfns[i] = hmm_device_entry_from_pfn(range, pfn) | cpu_flags;
--	hmm_vma_walk->last = end;
- 	return 0;
- }
- #else /* CONFIG_TRANSPARENT_HUGEPAGE */
-@@ -386,13 +384,10 @@ static int hmm_vma_walk_pmd(pmd_t *pmdp,
- 		r = hmm_vma_handle_pte(walk, addr, end, pmdp, ptep, pfns);
- 		if (r) {
- 			/* hmm_vma_handle_pte() did pte_unmap() */
--			hmm_vma_walk->last = addr;
- 			return r;
+@@ -301,7 +301,7 @@ static int hmm_vma_handle_pte(struct mm_walk *walk, unsigned long addr,
+ 			pte_unmap(ptep);
+ 			return -EFAULT;
  		}
- 	}
- 	pte_unmap(ptep - 1);
--
--	hmm_vma_walk->last = addr;
- 	return 0;
- }
- 
-@@ -455,7 +450,6 @@ static int hmm_vma_walk_pud(pud_t *pudp, unsigned long start, unsigned long end,
- 		for (i = 0; i < npages; ++i, ++pfn)
- 			pfns[i] = hmm_device_entry_from_pfn(range, pfn) |
- 				  cpu_flags;
--		hmm_vma_walk->last = end;
- 		goto out_unlock;
+-		*pfn = range->values[HMM_PFN_SPECIAL];
++		*pfn = range->values[HMM_PFN_ERROR];
+ 		return 0;
  	}
  
-@@ -500,7 +494,6 @@ static int hmm_vma_walk_hugetlb_entry(pte_t *pte, unsigned long hmask,
- 	for (; addr < end; addr += PAGE_SIZE, i++, pfn++)
- 		range->pfns[i] = hmm_device_entry_from_pfn(range, pfn) |
- 				 cpu_flags;
--	hmm_vma_walk->last = end;
- 	spin_unlock(ptl);
- 	return 0;
- }
-@@ -537,7 +530,6 @@ static int hmm_vma_walk_test(unsigned long start, unsigned long end,
- 		return -EFAULT;
- 
- 	hmm_pfns_fill(start, end, range, HMM_PFN_ERROR);
--	hmm_vma_walk->last = end;
- 
- 	/* Skip this vma and continue processing the next vma. */
- 	return 1;
-@@ -555,9 +547,7 @@ static const struct mm_walk_ops hmm_walk_ops = {
-  * hmm_range_fault - try to fault some address in a virtual address range
-  * @range:	argument structure
-  *
-- * Return: the number of valid pages in range->pfns[] (from range start
-- * address), which may be zero.  On error one of the following status codes
-- * can be returned:
-+ * Return: 0 or -ERRNO with one of the following status codes:
-  *
-  * -EINVAL:	Invalid arguments or mm or virtual address is in an invalid vma
-  *		(e.g., device file vma).
-@@ -572,7 +562,7 @@ static const struct mm_walk_ops hmm_walk_ops = {
-  * This is similar to get_user_pages(), except that it can read the page tables
-  * without mutating them (ie causing faults).
-  */
--long hmm_range_fault(struct hmm_range *range)
-+int hmm_range_fault(struct hmm_range *range)
- {
- 	struct hmm_vma_walk hmm_vma_walk = {
- 		.range = range,
-@@ -590,10 +580,13 @@ long hmm_range_fault(struct hmm_range *range)
- 			return -EBUSY;
- 		ret = walk_page_range(mm, hmm_vma_walk.last, range->end,
- 				      &hmm_walk_ops, &hmm_vma_walk);
-+		/*
-+		 * When -EBUSY is returned the loop restarts with
-+		 * hmm_vma_walk.last set to an address that has not been stored
-+		 * in pfns. All entries < last in the pfn array are set to their
-+		 * output, and all >= are still at their input values.
-+		 */
- 	} while (ret == -EBUSY);
--
--	if (ret)
--		return ret;
--	return (hmm_vma_walk.last - range->start) >> PAGE_SHIFT;
-+	return ret;
- }
- EXPORT_SYMBOL(hmm_range_fault);
 -- 
 2.26.0
 
