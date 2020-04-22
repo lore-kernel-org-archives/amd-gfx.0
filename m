@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D18F9C5518C
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 22:08:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F265BC55189
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 22:08:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A51232076E
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 22:08:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B8F9F2076E
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 22:08:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="joHmEK8L"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A51232076E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="e/Zpu7uo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8F9F2076E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7541A89E38;
-	Wed, 22 Apr 2020 22:08:16 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C66AA89E08
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2020 22:08:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71F0789E50;
+	Wed, 22 Apr 2020 22:08:17 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2044.outbound.protection.outlook.com [40.107.243.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B13889E32
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2020 22:08:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kKH75lY9PTmXhCuwljVyx6bnIGQj1WLdB+rHrkypQjaGZ4dBpbAyP+d8Lq0iTgzjO9Nf7Gp9qgPq0nKiX2ixCfDl7n9iJ8toMKsCv2Fqj/gYO8Oi2LsFA3ptlY0M5kO7aF79JC8EAGiq3l+eDC8Y3Nn6PAp4ZtKsfsBWo4Ws0JHOhsetfgewKsiucZgmZx8owl9423rv5c8MzkuvVO5+xH39BvXBlBbq8qDS0KeG7jobf9sO7copFNI/wCUoXDjHnPmwWexMvw8EmqGwKMzuEx8bxltZ3eIvnpMKKXZQ/pfMZ6J70mnkwGN4+Ro2O5WzL3laZ18AY9GSAbv2NUr9Tg==
+ b=WNFjl0s8NBtfP2WKpSfDdgpdI/XpnBwa1NXY/8xzidTXlxT9hnpA7SUjT2c54qfHuSunsJkGqa1FseKqKXCfE57cJgVX0LJhsZd7OnQjGr57Iq0P98xRAO+dDzk9jBnbUztxJG16ID/wYlHzWCa828r6OJEPX8dxSBtIElzenjhepWmN6HrEvfTHHz98naWMqtB7bnf2tFtHk3mFOkFLSkrOJGAwHRhV9XaVsyuIx1P3SAfCxBBjdxuSw0ZVW2+9aXZWW8RJJ/CBhTQGm/36uTf1rWJUtqyiQGO64eOu0rqTIFMxCXNIDDmBt3gEnE+ELDWQC5J9pwPGXnFiPsO5Kw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=El8QRteKu+L9XBJPqlAU/M/9jZ1ABdcbqwxr8G4RNm0=;
- b=PigCru5KRppamA0XYvjWWx5B5y1Pt1TkQ8LU6B91u6hLu2el7ELH/N+q9ho9L3+/ynVW6EV/ZkIVKZHHwwZ0s6HAZQ0RPqAObtPUl42QrjpiigpsRZTR40DhqsphE8m99QuvR0omwvIhqxMJaa0QTjb0jdcP818tQAa9mO03V4JdXzyEbXXZMGY1/N08HmVk123k0t7+o8IFlFEOh73e7w9iODC4pT6mnR07bUAL4Vl6mnhIbzBNdtDW6dcsnwuKgX+K9OnKRsPUv5MVwkKaubTX1ZDHnVD6zScmIXnvk15qsZEYFyMTufUbuRaKx4XPXIGwgXqwOpOZhc8ZUlTbrA==
+ bh=kjl054B9MqG6kqXHb7ETiNpzortZe2HR+QZqCHq5K1Y=;
+ b=OsgfGsuVQBBtpYINlGWLV87lM/aLew858ZLfIwJ97OYo6i5k59NfakaewrTOFwnPg9yYirFkUHbuc7lx3TLOwVuytt+hbSDh3WEVR4VcOLaDuTw8nUt5d1wMa//CV0F5HozO54p3LkpU+uI8vWXBkmON/nxF8cc85uwKaS6OzAsg+OgEBOtJOHu1C/O2u3xx+yDKm10Zdu2UeBq6F5AgG0eUlycOMY20mhSxE0qe3EDl0C6xKeAB/HtfG1rqk8Joce0qVY8nVOufJDcs4+UkGaq7FZLTd7cx9+kXdtL8DkTBojo08xhHOHvn4MNM1NUfKfcWx1gnCSGNgVL5SGZG1g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=El8QRteKu+L9XBJPqlAU/M/9jZ1ABdcbqwxr8G4RNm0=;
- b=joHmEK8LXZ8bDgekrBUKHqyLdJryYH79EMDX/itBZrDeeuClIKD0M84oo+iOkHr1qm5qr0Z/QS7aCegw5sLCCtr7POb2rFjLaZ90VZ5KBPHwNa8rCOQ+S3Z9RsIyNy1puses/gWbsZHJAiKB6G9AaICL0AgTNxlU85z+yGPPl44=
-Received: from MWHPR12CA0035.namprd12.prod.outlook.com (2603:10b6:301:2::21)
- by DM6PR12MB4281.namprd12.prod.outlook.com (2603:10b6:5:21e::10) with
+ bh=kjl054B9MqG6kqXHb7ETiNpzortZe2HR+QZqCHq5K1Y=;
+ b=e/Zpu7uokophdr6ch7XwUglhbLgSE+jJ7KmPg88v6cffGOl1y9oVFUs36fTdrxWHKseSYZGBYDUwryE4x8yro1L9NRsx6bMg2bI1/NblQO6FbjFgyJlbeuHfw0IdC5dQ7ou+hXrwVxoWlyl9VcDbUuPbE0Mw4fy9s8P1GdSO2a4=
+Received: from MWHPR12CA0036.namprd12.prod.outlook.com (2603:10b6:301:2::22)
+ by CY4PR12MB1334.namprd12.prod.outlook.com (2603:10b6:903:42::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.29; Wed, 22 Apr
- 2020 22:08:13 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.26; Wed, 22 Apr
+ 2020 22:08:14 +0000
 Received: from CO1NAM11FT011.eop-nam11.prod.protection.outlook.com
- (2603:10b6:301:2:cafe::d3) by MWHPR12CA0035.outlook.office365.com
- (2603:10b6:301:2::21) with Microsoft SMTP Server (version=TLS1_2,
+ (2603:10b6:301:2:cafe::e3) by MWHPR12CA0036.outlook.office365.com
+ (2603:10b6:301:2::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.13 via Frontend
- Transport; Wed, 22 Apr 2020 22:08:13 +0000
+ Transport; Wed, 22 Apr 2020 22:08:14 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -61,24 +61,19 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
  CO1NAM11FT011.mail.protection.outlook.com (10.13.175.186) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2937.15 via Frontend Transport; Wed, 22 Apr 2020 22:08:12 +0000
-Received: from SATLEXMB06.amd.com (10.181.40.147) by SATLEXMB02.amd.com
+ 15.20.2937.15 via Frontend Transport; Wed, 22 Apr 2020 22:08:13 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 22 Apr
- 2020 17:08:11 -0500
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB06.amd.com
- (10.181.40.147) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 22 Apr
- 2020 17:08:11 -0500
+ 2020 17:08:12 -0500
 Received: from aes.amd.com (10.180.168.240) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Wed, 22 Apr 2020 17:08:10 -0500
+ Transport; Wed, 22 Apr 2020 17:08:11 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 03/19] drm/amd/display: Fix DMUB meta offset for new load
- method
-Date: Wed, 22 Apr 2020 18:07:49 -0400
-Message-ID: <20200422220805.15759-4-aurabindo.pillai@amd.com>
+Subject: [PATCH 04/19] drm/amd/display: clean up some header paths
+Date: Wed, 22 Apr 2020 18:07:50 -0400
+Message-ID: <20200422220805.15759-5-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200422220805.15759-1-aurabindo.pillai@amd.com>
 References: <20200422220805.15759-1-aurabindo.pillai@amd.com>
@@ -88,25 +83,25 @@ X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(136003)(346002)(376002)(39860400002)(396003)(428003)(46966005)(2616005)(81156014)(82310400002)(86362001)(478600001)(8676002)(82740400003)(1076003)(336012)(356005)(8936002)(186003)(4326008)(36756003)(2906002)(5660300002)(316002)(81166007)(426003)(44832011)(6666004)(47076004)(7696005)(70586007)(70206006)(54906003)(6916009)(26005);
+ SFS:(10009020)(4636009)(346002)(136003)(396003)(39860400002)(376002)(428003)(46966005)(54906003)(81156014)(8676002)(8936002)(7696005)(47076004)(1076003)(6916009)(82310400002)(26005)(5660300002)(4326008)(6666004)(44832011)(478600001)(36756003)(70206006)(70586007)(316002)(2616005)(426003)(82740400003)(336012)(356005)(81166007)(86362001)(186003)(2906002);
  DIR:OUT; SFP:1101; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 08f24bed-5cef-4d1d-f86f-08d7e709a66f
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4281:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4281774387AEFF2E572E4BF88BD20@DM6PR12MB4281.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-MS-Office365-Filtering-Correlation-Id: 5cd00cd9-4c76-498f-a93a-08d7e709a704
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1334:
+X-Microsoft-Antispam-PRVS: <CY4PR12MB13340CE07BA3FD156D42C1C58BD20@CY4PR12MB1334.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:785;
 X-Forefront-PRVS: 03818C953D
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: tCcQnsO/9dFsUzCI5A4+EfS46NC/jzQHyceyvJ1EvD5MRD+ubV0VKHbd28mt1kiEISXrZI4WNJ+tnAJiKfIMHTMWEHOLqJ4ufxPXlP0Q9wgawVq96RJ+S0NrsJtqirb9wkVXsxCczrTJmi+ceYJJvNs7f/j+di3B/BevNBLU8gf8/MIy/bSaTf8xNyVfLQ8STiVO++vpOjFbeDxxMc+w5jhe+IS0wykT3yWn6j4gPpKgRtbHZpVdtG7t+RvfzZzpnQII3f7RqRtIqrWv10qvWb+4Cde1iP0OWcksiaOCNeEgaXcPiqPCl4cF3N71LmhYHfA3D8Vs3ZyUR8P6k7tSMl/vjMIhiBgXw1YBel3hmShyqnHzo83uyTRDMQoC1r/3rA5ApXjFbaPiUD6XVI5HIPL9N/Hi1BgqqVRoYdgRqWTu+wR5dP3FXL3KWFJcQ5Yh1xP879csvVwg+DyP84asFiIA15q5Cz+iBdrSOlZycr9oAZdneP8G2IB1f3TtaBbdSi21HEhmk+ovOJATZ4fImQ==
+X-Microsoft-Antispam-Message-Info: EGZ7qELmaOop6W2ACI7tENJ9eP7l95fQDiv3Fsy4ul8pLf3NSrTaTUtyNaBh/ihQn2g3hRUPQSxmEQtq14XwNYUVofRUb8OjUvmYNnxCwBF1dkR6ZP/8BP8JAit4t13v3Y/dIJDco1i0mvgZDhzXQZtrV2xO6YU2YiNUjp3SZB3r2yCoE7xwEYoz9j55rJGyRHgD/wq3z73+R7XKvrXsFcxxcL38s1K9Wag/qfVW6Nl5Zo9vvjvzayRMw6KW/1dtwE/fjFufOVwhdwb0cEfajiitT/Ue/QOmt6xM3Gd73DQicyNq6Pap+856J70u2ve/Iqt546mUSZtfJSWDkONxAiB9npZtpBbOQK1aFpLuOYV1n/nlJxBvAyWdlwaKW+frOgPXT3wz6pAWkfNkKs2YV83GbzaHADEsG2nTvVyYu6jXGVhJX72LtwmVsFhtwvuZmDG2luOeplzD+G40QJXntyyILjrS2BvFQHsiKfMxtKu9Gz7w7Hk3TZi4deXRPCFNJHRQtRq8AhSbQ0E8aL7wqw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2020 22:08:12.7663 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08f24bed-5cef-4d1d-f86f-08d7e709a66f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2020 22:08:13.7397 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5cd00cd9-4c76-498f-a93a-08d7e709a704
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4281
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1334
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,66 +114,118 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sunpeng.Li@amd.com, Bhawanpreet.Lakha@amd.com, Rodrigo.Siqueira@amd.com,
- Harry.Wentland@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+ Harry.Wentland@amd.com, Anthony Koo <Anthony.Koo@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Anthony Koo <Anthony.Koo@amd.com>
 
 [Why]
-The new metadata offset is located at the end of the firmware binary
-without any additional padding.
-
-Firmware state is currently larger than 1024 bytes so new firmware state
-will hang when trying to access any data above 1024 bytes.
+Some include paths don't need to have relative paths
+And some types missing
 
 [How]
-Specify the correct offset based on legacy vs new loading method.
+make some changes to headers and modify include path
 
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Yongqiang Sun <yongqiang.sun@amd.com>
+Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h      |  2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c     |  2 +-
+ drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c     |  4 ++--
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  5 -----
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_types.h | 11 +++++++++++
+ 5 files changed, 15 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-index 0a1a851741c5..a6e403227872 100644
---- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
-@@ -96,25 +96,27 @@ dmub_get_fw_meta_info(const struct dmub_srv_region_params *params)
- 	const union dmub_fw_meta *meta;
- 	const uint8_t *blob = NULL;
- 	uint32_t blob_size = 0;
-+	uint32_t meta_offset = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
+index 754b6077539c..855431483699 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
+@@ -27,7 +27,7 @@
+ #define _DMUB_DC_SRV_H_
  
- 	if (params->fw_bss_data) {
- 		/* Legacy metadata region. */
- 		blob = params->fw_bss_data;
- 		blob_size = params->bss_data_size;
-+		meta_offset = DMUB_FW_META_OFFSET;
- 	} else if (params->fw_inst_const) {
- 		/* Combined metadata region. */
- 		blob = params->fw_inst_const;
- 		blob_size = params->inst_const_size;
-+		meta_offset = 0;
- 	}
+ #include "os_types.h"
+-#include "../dmub/inc/dmub_cmd.h"
++#include "dmub/inc/dmub_cmd.h"
  
- 	if (!blob || !blob_size)
- 		return NULL;
+ struct dmub_srv;
+ struct dmub_cmd_header;
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
+index a19f359e45d7..992d869188c5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
+@@ -27,7 +27,7 @@
+ #include "dce_abm.h"
+ #include "dc.h"
+ #include "dc_dmub_srv.h"
+-#include "../../dmub/inc/dmub_srv.h"
++#include "dmub/inc/dmub_srv.h"
+ #include "core_types.h"
+ #include "dm_services.h"
+ #include "reg_helper.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+index 3b8a49e8e665..7b32e5d60ed6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
+@@ -26,8 +26,8 @@
+ #include "dmub_psr.h"
+ #include "dc.h"
+ #include "dc_dmub_srv.h"
+-#include "../../dmub/inc/dmub_srv.h"
+-#include "../../dmub/inc/dmub_gpint_cmd.h"
++#include "dmub/inc/dmub_srv.h"
++#include "dmub/inc/dmub_gpint_cmd.h"
+ #include "core_types.h"
  
--	if (blob_size < sizeof(union dmub_fw_meta) + DMUB_FW_META_OFFSET)
-+	if (blob_size < sizeof(union dmub_fw_meta) + meta_offset)
- 		return NULL;
+ #define MAX_PIPES 6
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index 7c7a3561b6aa..6b48285446c3 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -215,11 +215,6 @@ struct dmub_rb_cmd_dpphy_init {
+ 	uint8_t reserved[60];
+ };
  
--	meta = (const union dmub_fw_meta *)(blob + blob_size -
--					    DMUB_FW_META_OFFSET -
-+	meta = (const union dmub_fw_meta *)(blob + blob_size - meta_offset -
- 					    sizeof(union dmub_fw_meta));
+-struct dmub_psr_debug_flags {
+-	uint8_t visual_confirm : 1;
+-	uint8_t reserved : 7;
+-};
+-
+ struct dmub_cmd_psr_copy_settings_data {
+ 	uint16_t psr_level;
+ 	uint8_t dpp_inst;
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_types.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_types.h
+index 41d524b0db2f..bed5b023a396 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_types.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_types.h
+@@ -49,6 +49,12 @@ extern "C" {
+ #define dmub_udelay(microseconds) udelay(microseconds)
+ #endif
  
- 	if (meta->info.magic_value != DMUB_FW_META_MAGIC)
++/* Maximum number of streams on any ASIC. */
++#define DMUB_MAX_STREAMS 6
++
++/* Maximum number of planes on any ASIC. */
++#define DMUB_MAX_PLANES 6
++
+ union dmub_addr {
+ 	struct {
+ 		uint32_t low_part;
+@@ -57,6 +63,11 @@ union dmub_addr {
+ 	uint64_t quad_part;
+ };
+ 
++struct dmub_psr_debug_flags {
++	uint8_t visual_confirm : 1;
++	uint8_t reserved : 7;
++};
++
+ #if defined(__cplusplus)
+ }
+ #endif
 -- 
 2.17.1
 
