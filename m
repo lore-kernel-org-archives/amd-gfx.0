@@ -2,108 +2,101 @@ Return-Path: <SRS0=Hoyj=6G=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A2F16C2BA19
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 02:35:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 07A02C2BA19
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 02:42:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 73184206F4
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 02:35:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AD653206F4
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 02:42:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="DKg61iHT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 73184206F4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="lHGmYUDU"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD653206F4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F3426E433;
-	Wed, 22 Apr 2020 02:35:46 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2075.outbound.protection.outlook.com [40.107.94.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21CA76E400;
- Wed, 22 Apr 2020 02:35:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FFB66E413;
+	Wed, 22 Apr 2020 02:42:46 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750080.outbound.protection.outlook.com [40.107.75.80])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 571126E413
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2020 02:42:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=JV34iB+UzKPY5oJzKrUDBg73qTxmsWueJaZLF8vjDVlgTV1fH4o68KPbtGWJWYh8wfRsNF+IUAZ3tlgvtZuKIiseGGGd0Z0Uunr60evqY8IXawv87Qarb/SrAYAZywzaa9msGbmxUT/hd+1mzbsQpyGsBMbFJvBXSqdafK4Wzy/Nl+//1BgDJx2E7eigbDNdaEcLdwvxS/lc/YCjOZyO9Qtr9809RAXc+YYdL32LN2BfYvl7K142EZsBCjLAiNTrBEz4akE7/Gp8Wt8TECZNB9t4JGXFXVx6OXeF7evS6L4/nUWoa0noHZlYUFBkO44e6RkItui9CLc/9wketBZU6Q==
+ b=dW8QfUvw5/l9qQf0QROPACYE+vIht4DdyYdfcBGEIeoDJGB7ENp8dnOh+7RbsOBEiW5BXgVVhbfBB6r+JFGjv8ehmkmt/ezvdYyZA0BBZ38CEDo2UoHfzyW9535L3mDMbgUwwWTL7GjXDswc0FSMe+u4Z0LHp6NSWF7fg5H7OZpDYjDaW898YXt7M1nhgsp2Dp+W4mqE2DYrNfJvathdSwvk1DgPO9OOJYQaTYf6q6EHH0Fq2zXiKKTFgP1WMl3P04/nbvAjAyrhedv19lLjJPjhIroucX3K4mLR8XfoPzAaKvyZtXE1Djk5fNawK3vLfAauY3jfpf934ERrrROY8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/gEAf3FfvU4u+UHJeR0OMF5JozqCFY1AsVUY7XQo1hQ=;
- b=KC6aa2QA6cCFnrhR0Nydpim7xp4D08qWwZz6S+f3EcTyo6f8MadZQ/alLeUH77X71oAaXOSU5Wmad+vA8ethd9wDqqmdYmnbO8JNG6jjcy7r4R4MNID/KJ5GCa6t904VXNvUx6U4tUO3gI0RGvov4WScsyL/ri/UyQ82VLLSK9IgXzzQm7kOeZznJ2zlty0mSlA9jH7BKvNnLWo601r+3grvh6ppjJii/lHdsD91GsAq5fn+O5zIuSurCrvQpBL3+wCizsooaw6XBuU5dOYNS8/ESO7P+WhY4wNUJ/hYrNsAF1phXBEIMvAUeccaXBoONSpw/gwZL1EAVrrwL8nXJg==
+ bh=sP+o0h5RfABe4HauyiYCyDdUkRgk28GjrX1dTVfHgwI=;
+ b=D8xZ2gkILFQC8VeGyVQbnDd0iJ7Rv8pGJvBz0OPX9ucVWbyV5Zfh1nhWoAwmdv0gMUt7g421rTGd0IDzX+ABWt1bHsIX2I+cwQg+kNDciM1ZwRTc8ZGAZCGEF0OvDlJmRdk/2rvuwOfbPYRioGLyvQ6BrOWtPan7JyomFof82sFEX7due0UZfZ19m7PQYOtNQKWtfuljEf6sMpnHJvCvbozyTe3ue9Aqv0l+dcU/xKC9dU30frvU3+06b1PmcFLX4YRLORc70woDySUswRYZFPxerC7dsaAtBWRCaOffwX64LnXJH7d5cH8BrVznnC2pZDvzzgcosX9ylA6/7fqdJA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/gEAf3FfvU4u+UHJeR0OMF5JozqCFY1AsVUY7XQo1hQ=;
- b=DKg61iHT6LLLTzYW1uyyWsTLslZKuhp40Mw8ae5MGVKUP+I2nlWOlk4sbSLEijTGyx/ihgR1P9Oh2vAiJKtV4I2a/cXnSqbmKjoddMRPqDMdB4X1WtXmbScigsqC03N+xIKjwC3L0LLaQatRsfvVOXgchVthQ01YB+I8lyn7+SI=
+ bh=sP+o0h5RfABe4HauyiYCyDdUkRgk28GjrX1dTVfHgwI=;
+ b=lHGmYUDUgwx5id+CYUBcgS2hNc246IM9AxhHUZMNBRhccRs+VmWxoDVfAIRvt1XFhQ4Z4I/l3z29b97O0lDI4yz9X1hH8UJSFsUyOALorkQ88OA/9aDHJpBIVWsaZ8kqkPh2kekK8NPA+6o+c0dp3oQRo5m9b8l8hxkIGtmLZ8k=
 Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Felix.Kuehling@amd.com; 
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
- by SN1PR12MB2494.namprd12.prod.outlook.com (2603:10b6:802:29::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.25; Wed, 22 Apr
- 2020 02:35:38 +0000
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::38ef:1510:9525:f806]) by SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::38ef:1510:9525:f806%7]) with mapi id 15.20.2921.030; Wed, 22 Apr 2020
- 02:35:38 +0000
-Subject: Re: [PATCH v5] drm/amdgpu: cleanup coding style in amdkfd a bit
-To: Bernard Zhao <bernard@vivo.com>, Alex Deucher
- <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
- <christian.koenig@amd.com>, "David (ChunMing) Zhou" <David1.Zhou@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20200422014618.4020-1-bernard@vivo.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <33574896-c858-8929-aeb6-24ff4dc26b5b@amd.com>
-Date: Tue, 21 Apr 2020 22:35:35 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
-In-Reply-To: <20200422014618.4020-1-bernard@vivo.com>
-Content-Language: en-US
-X-ClientProxiedBy: YTBPR01CA0026.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::39) To SN1PR12MB2414.namprd12.prod.outlook.com
- (2603:10b6:802:2e::31)
+ smtp.mailfrom=Evan.Quan@amd.com; 
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM6PR12MB2764.namprd12.prod.outlook.com (2603:10b6:5:4a::30) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2921.29; Wed, 22 Apr 2020 02:42:41 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::5c27:185c:be20:1fb6]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::5c27:185c:be20:1fb6%5]) with mapi id 15.20.2921.027; Wed, 22 Apr 2020
+ 02:42:41 +0000
+From: Evan Quan <evan.quan@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: put the audio codec into suspend state before gpu
+ reset V2
+Date: Wed, 22 Apr 2020 10:42:21 +0800
+Message-Id: <20200422024221.16914-1-evan.quan@amd.com>
+X-Mailer: git-send-email 2.26.2
+X-ClientProxiedBy: HKAPR04CA0010.apcprd04.prod.outlook.com
+ (2603:1096:203:d0::20) To DM6PR12MB2619.namprd12.prod.outlook.com
+ (2603:10b6:5:45::18)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [172.31.150.44] (165.204.55.211) by
- YTBPR01CA0026.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::39) with Microsoft
+Received: from equan-buildpc.amd.com (180.167.199.189) by
+ HKAPR04CA0010.apcprd04.prod.outlook.com (2603:1096:203:d0::20) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2921.25 via Frontend Transport; Wed, 22 Apr 2020 02:35:37 +0000
-X-Originating-IP: [165.204.55.211]
+ 15.20.2921.25 via Frontend Transport; Wed, 22 Apr 2020 02:42:39 +0000
+X-Mailer: git-send-email 2.26.2
+X-Originating-IP: [180.167.199.189]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 01318721-b96d-4916-405e-08d7e665d788
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2494:|SN1PR12MB2494:
+X-MS-Office365-Filtering-Correlation-Id: a2b70b39-caa8-4f37-b21d-08d7e666d389
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2764:|DM6PR12MB2764:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB2494B2EDA787E3837079FB3392D20@SN1PR12MB2494.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1122;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB276445CE26027AA1C74AA76CE4D20@DM6PR12MB2764.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-Forefront-PRVS: 03818C953D
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(10009020)(4636009)(136003)(376002)(346002)(39860400002)(396003)(366004)(478600001)(36756003)(81156014)(2906002)(8676002)(45080400002)(66556008)(186003)(16526019)(16576012)(316002)(66476007)(956004)(2616005)(66946007)(44832011)(110136005)(8936002)(5660300002)(31696002)(52116002)(86362001)(26005)(53546011)(66574012)(4326008)(6486002)(31686004);
+ SFS:(10009020)(4636009)(346002)(396003)(39860400002)(136003)(376002)(366004)(16526019)(1076003)(2616005)(36756003)(316002)(86362001)(186003)(66946007)(8676002)(81156014)(52116002)(26005)(7696005)(8936002)(6916009)(6486002)(478600001)(5660300002)(66556008)(66476007)(4326008)(956004)(15650500001)(6666004)(2906002)(44832011);
  DIR:OUT; SFP:1101; 
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ZbV8aj1yienlknJTvkxCfo2p42L8+K5gMUb37a9zPupheaZT8oatnvrSGAT3Se0n1Kj2Ur0AeOLo/syg5teXFipW6mrSokqWZUxrgU1tNAB+wuYLrKrE+oIOqnbElFeELawYDniQZGlcfIvJeQEUtPAYYmMnbJJIZeEmtdCRh5T5M53Ux6wx0rdjQO9vrrYL5RNHBIyrZoRAtDlSquW5onSYes/XMUhDSKAEmfh8PEcBCoCTQqYZElVU+vs07fC+ozgVwhaWv2bxgt08mdu7qWOfKQgNw+rVlCz5e/9DJk5HcZK1T3DW8x8eXohm0nOowoA4qsioOfJN3C28RJRXP9SPPLjsomwGgRW/oX2nA6NbrMOPnky4e5JdrCCWvN9G3goC9EWej4oaFK7WhuJaldLZfkHuY84WD7XiqcJJnW4GHCMAmSq5XJPZLs1XkOMGPzS5pQgpG2aNNZ22xS1Nekjlp9AolA3nHP2k7WbNBLpZ6XN0SwoM7TekmSrusHEiDkacGwne/liZfgZF8kIjUA==
-X-MS-Exchange-AntiSpam-MessageData: tMZB5AQPAzwvBnGY51vUNO0uGVJ4knG/6WUdJOTB3Mvlh5rQ3+zzejqTH68fUysYlPMl+wREgkea0B7M/0gk3bMvoIJwBRSOCrFDWnZq+7VMiIc1bbFiJGLEzidNw+twYJvfkG4ODemrfu1u+Pxd+A==
+X-Microsoft-Antispam-Message-Info: jzqiyQdOmfU256+XsYFGxcd2Yz+nSOWIOvUlSFCuYAbjQsu1EvD/hSdijlpMSAVAVyBulqIrpXWrFfL+66o7j4w3saVZNf7pUVYF93+eQZFwv3izhomvljlNcwLxI1a5ej1g8aDshNspLMV5b7alO0Gj0m4IMkAV/5l20yLdvVJ/q8Q2yWSQUCxCqlDlMe8Kwwvvqc4x/ohfHi2hIejXSmyvOOnFNldz2QhGOrVIRllsDqmAP6yaAMsCVVRTGuZ55kzVrcyDz85zDokmFoEj7FxsHcq4cVT+uV80Tl0koN522m085dx7vsw0YxwJq4wY/1cV2ZIb7/NY78qsGJp2T7xLHgL83YWi7esOaD1kw0yKfckRqzSeshGE3W90pWDqEuD2mmWFDTW0KFrYLahns6TsMOsADI9kVYwbNZUF/mn9ICIkW+vbi8ueHKOfMldC
+X-MS-Exchange-AntiSpam-MessageData: nbByzlohgI3xqafFz4k2iSxRYS9QurHpDNXdjaFkJHN4McnbdnfVwRxcBKISTYiBsg4V7FtPLsbubVBPKP9oPDqeiZ344Fa55NJhBeC6fu3V2DAfQFpa2ZhGZ6/G4GcwA2ZvK827eRhDbpbLazIMgg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01318721-b96d-4916-405e-08d7e665d788
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2020 02:35:38.0679 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2b70b39-caa8-4f37-b21d-08d7e666d389
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2020 02:42:40.8982 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rpYTzhCC/gzhWAZSCwdmDuNI/GqLoo0OfTsA/dcpQwZswxW+saweHcg5LUVRlrViVl4v84ryq0//bh8wFMtpwA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2494
+X-MS-Exchange-CrossTenant-UserPrincipalName: HoSuKVwIupBGW+zmsaKMIR424EzpmIhcR6RyyXfSMpEAO8k7Bz1GMB17j9aERjT5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2764
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,56 +108,145 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: Alexander.Deucher@amd.com, Evan Quan <evan.quan@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ck9uIDIwMjAtMDQtMjEgMjE6NDYsIEJlcm5hcmQgWmhhbyB3cm90ZToKPiBNYWtlIHRoZSBjb2Rl
-IGEgYml0IG1vcmUgcmVhZGFibGUgYnkgdXNpbmcgYSBjb21tb24KPiBlcnJvciBoYW5kbGluZyBw
-YXR0ZXJuLgo+IFdpdGggdGhhdCBkb25lIHRoZSBwYXRjaCBpcyBSZXZpZXdlZC1ieTogQ2hyaXN0
-aWFuIEvDtm5pZwo+IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Lgo+Cj4gU2lnbmVkLW9mZi1i
-eTogQmVybmFyZCBaaGFvIDxiZXJuYXJkQHZpdm8uY29tPgoKVGhhbmtzLiBUaGUgcGF0Y2ggaXMK
-ClJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KCkkg
-cmVtb3ZlZCB0aGUgaGlzdG9yeSBmcm9tIHRoZSBjb21taXQgbWVzc2FnZSwgbWFkZSBDaHJpc3Rp
-YW4ncyAKUmV2aWV3ZWQtYnkgb2ZmaWNpYWwgYW5kIGFwcGxpZWQgdGhlIHBhdGNoLgoKUmVnYXJk
-cywKIMKgIEZlbGl4Cgo+Cj4gQ2hhbmdlcyBzaW5jZSBWMToKPiAqY29tbWl0IG1lc3NhZ2UgaW1w
-cm92ZQo+ICpjb2RlIHN0eWxlIHJlZmFjdG9yaW5nCj4KPiBDaGFuZ2VzIHNpbmNlIFYyOgo+ICpj
-b2RlIHN0eWxlIGFkanVzdAo+Cj4gQ2hhbmdlcyBzaW5jZSBWMzoKPiAqZmluZCB0aGUgYmVzdCB3
-YXkgdG8gbWVyZ2UgdW5uZWNlc3NhcnkgaWYvZWxzZSBjaGVjayBicmFuY2gKPgo+IENoYW5nZXMg
-c2luY2UgVjQ6Cj4gKkltcHJvdmUgdGhlIHN1YmplY3QgbGluZSBhbmQgY29tbWl0IG1lc3NhZ2UK
-Pgo+IExpbmsgZm9yIFYxOgo+ICpodHRwczovL25hbTExLnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91
-dGxvb2suY29tLz91cmw9aHR0cHMlM0ElMkYlMkZsb3JlLmtlcm5lbC5vcmclMkZwYXRjaHdvcmsl
-MkZwYXRjaCUyRjEyMjY1ODclMkYmYW1wO2RhdGE9MDIlN0MwMSU3Q0ZlbGl4Lkt1ZWhsaW5nJTQw
-YW1kLmNvbSU3QzI3NTA5YWEwNDU1MDQyYmVlZGM3MDhkN2U2NWVmYzIyJTdDM2RkODk2MWZlNDg4
-NGU2MDhlMTFhODJkOTk0ZTE4M2QlN0MwJTdDMCU3QzYzNzIzMTE2Nzk1MTg2MjExOCZhbXA7c2Rh
-dGE9SlBDeHNEeWN3MEp2WmZ5bTFha1Y3ZCUyQjRvUHp2elEwNFpsMXJ2M1dOJTJGajAlM0QmYW1w
-O3Jlc2VydmVkPTAKPiAtLS0KPiAgIC4uLi9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2FtZGtm
-ZF9ncHV2bS5jICB8IDIwICsrKysrKysrKy0tLS0tLS0tLS0KPiAgIDEgZmlsZSBjaGFuZ2VkLCA5
-IGluc2VydGlvbnMoKyksIDExIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9hbWRrZmRfZ3B1dm0uYwo+IGluZGV4IDlkZmY3OTJjOTI5MC4u
-YWNiNjEyYzUzYjljIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9hbWRrZmRfZ3B1dm0uYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2Ft
-ZGdwdV9hbWRrZmRfZ3B1dm0uYwo+IEBAIC02NjAsMTUgKzY2MCwxNSBAQCBzdGF0aWMgaW50IHJl
-c2VydmVfYm9fYW5kX3ZtKHN0cnVjdCBrZ2RfbWVtICptZW0sCj4gICAKPiAgIAlyZXQgPSB0dG1f
-ZXVfcmVzZXJ2ZV9idWZmZXJzKCZjdHgtPnRpY2tldCwgJmN0eC0+bGlzdCwKPiAgIAkJCQkgICAg
-IGZhbHNlLCAmY3R4LT5kdXBsaWNhdGVzKTsKPiAtCWlmICghcmV0KQo+IC0JCWN0eC0+cmVzZXJ2
-ZWQgPSB0cnVlOwo+IC0JZWxzZSB7Cj4gLQkJcHJfZXJyKCJGYWlsZWQgdG8gcmVzZXJ2ZSBidWZm
-ZXJzIGluIHR0bVxuIik7Cj4gKwlpZiAocmV0KSB7Cj4gKwkJcHJfZXJyKCJGYWlsZWQgdG8gcmVz
-ZXJ2ZSBidWZmZXJzIGluIHR0bS5cbiIpOwo+ICAgCQlrZnJlZShjdHgtPnZtX3BkKTsKPiAgIAkJ
-Y3R4LT52bV9wZCA9IE5VTEw7Cj4gKwkJcmV0dXJuIHJldDsKPiAgIAl9Cj4gICAKPiAtCXJldHVy
-biByZXQ7Cj4gKwljdHgtPnJlc2VydmVkID0gdHJ1ZTsKPiArCXJldHVybiAwOwo+ICAgfQo+ICAg
-Cj4gICAvKioKPiBAQCAtNzMzLDE3ICs3MzMsMTUgQEAgc3RhdGljIGludCByZXNlcnZlX2JvX2Fu
-ZF9jb25kX3ZtcyhzdHJ1Y3Qga2dkX21lbSAqbWVtLAo+ICAgCj4gICAJcmV0ID0gdHRtX2V1X3Jl
-c2VydmVfYnVmZmVycygmY3R4LT50aWNrZXQsICZjdHgtPmxpc3QsCj4gICAJCQkJICAgICBmYWxz
-ZSwgJmN0eC0+ZHVwbGljYXRlcyk7Cj4gLQlpZiAoIXJldCkKPiAtCQljdHgtPnJlc2VydmVkID0g
-dHJ1ZTsKPiAtCWVsc2UKPiAtCQlwcl9lcnIoIkZhaWxlZCB0byByZXNlcnZlIGJ1ZmZlcnMgaW4g
-dHRtLlxuIik7Cj4gLQo+ICAgCWlmIChyZXQpIHsKPiArCQlwcl9lcnIoIkZhaWxlZCB0byByZXNl
-cnZlIGJ1ZmZlcnMgaW4gdHRtLlxuIik7Cj4gICAJCWtmcmVlKGN0eC0+dm1fcGQpOwo+ICAgCQlj
-dHgtPnZtX3BkID0gTlVMTDsKPiArCQlyZXR1cm4gcmV0Owo+ICAgCX0KPiAgIAo+IC0JcmV0dXJu
-IHJldDsKPiArCWN0eC0+cmVzZXJ2ZWQgPSB0cnVlOwo+ICsJcmV0dXJuIDA7Cj4gICB9Cj4gICAK
-PiAgIC8qKgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
-bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
-L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+At default, the autosuspend delay of audio controller is 3S. If the
+gpu reset is triggered within 3S(after audio controller idle),
+the audio controller may be unable into suspended state. Then
+the sudden gpu reset will cause some audio errors. The change
+here is targeted to resolve this.
+
+However if the audio controller is in use when the gpu reset
+triggered, this change may be still not enough to put the
+audio controller into suspend state. Under this case, the
+gpu reset will still proceed but there will be a warning
+message printed("failed to suspend display audio").
+
+V2: limit this for BACO and mode1 reset only
+
+Change-Id: I33d85e6fcad1882eb33f9cde8916d57be8d5a87a
+Signed-off-by: Evan Quan <evan.quan@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 70 ++++++++++++++++++++++
+ 1 file changed, 70 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 2d4b78d96426..70f43b1aed78 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -69,6 +69,7 @@
+ 
+ #include <linux/suspend.h>
+ #include <drm/task_barrier.h>
++#include <linux/pm_runtime.h>
+ 
+ MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/vega12_gpu_info.bin");
+@@ -4146,6 +4147,59 @@ static void amdgpu_device_unlock_adev(struct amdgpu_device *adev)
+ 	mutex_unlock(&adev->lock_reset);
+ }
+ 
++static void amdgpu_device_resume_display_audio(struct amdgpu_device *adev)
++{
++	struct pci_dev *p = NULL;
++
++	p = pci_get_domain_bus_and_slot(pci_domain_nr(adev->pdev->bus),
++			adev->pdev->bus->number, 1);
++	if (p) {
++		pm_runtime_enable(&(p->dev));
++		pm_runtime_resume(&(p->dev));
++	}
++}
++
++static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
++{
++	enum amd_reset_method reset_method;
++	struct pci_dev *p = NULL;
++	unsigned long end_jiffies;
++
++	/*
++	 * For now, only BACO and mode1 reset are confirmed
++	 * to suffer the audio issue without proper suspended.
++	 */
++	reset_method = amdgpu_asic_reset_method(adev);
++	if ((reset_method != AMD_RESET_METHOD_BACO) &&
++	     (reset_method != AMD_RESET_METHOD_MODE1))
++		return -EINVAL;
++
++	p = pci_get_domain_bus_and_slot(pci_domain_nr(adev->pdev->bus),
++			adev->pdev->bus->number, 1);
++	if (!p)
++		return -ENODEV;
++
++	/*
++	 * 3S is the audio controller default autosuspend delay setting.
++	 * 4S used here is guaranteed to cover that.
++	 */
++	end_jiffies = msecs_to_jiffies(4000) + jiffies;
++	while (!pm_runtime_status_suspended(&(p->dev))) {
++		if (!pm_runtime_suspend(&(p->dev)))
++			break;
++
++		if (time_after(jiffies, end_jiffies)) {
++			dev_warn(adev->dev, "failed to suspend display audio\n");
++			/* TODO: abort the succeeding gpu reset? */
++			return -ETIMEDOUT;
++		}
++	}
++
++	pm_runtime_disable(&(p->dev));
++
++	return 0;
++}
++
+ /**
+  * amdgpu_device_gpu_recover - reset the asic and recover scheduler
+  *
+@@ -4170,6 +4224,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	bool use_baco =
+ 		(amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) ?
+ 		true : false;
++	bool audio_suspended = false;
+ 
+ 	/*
+ 	 * Flush RAM to disk so that after reboot
+@@ -4227,6 +4282,19 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 			return 0;
+ 		}
+ 
++		/*
++		 * Try to put the audio codec into suspend state
++		 * before gpu reset started.
++		 *
++		 * Due to the power domain of the graphics device
++		 * is shared with AZ power domain. Without this,
++		 * we may change the audio hardware from behind
++		 * the audio driver's back. That will trigger
++		 * some audio codec errors.
++		 */
++		if (!amdgpu_device_suspend_display_audio(tmp_adev))
++			audio_suspended = true;
++
+ 		amdgpu_ras_set_error_query_ready(tmp_adev, false);
+ 
+ 		cancel_delayed_work_sync(&tmp_adev->delayed_init_work);
+@@ -4339,6 +4407,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 		/*unlock kfd: SRIOV would do it separately */
+ 		if (!(in_ras_intr && !use_baco) && !amdgpu_sriov_vf(tmp_adev))
+ 	                amdgpu_amdkfd_post_reset(tmp_adev);
++		if (audio_suspended)
++			amdgpu_device_resume_display_audio(tmp_adev);
+ 		amdgpu_device_unlock_adev(tmp_adev);
+ 	}
+ 
+-- 
+2.26.2
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
