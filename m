@@ -2,66 +2,131 @@ Return-Path: <SRS0=Hoyj=6G=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 560DAC54FCB
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 13:35:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15299C54FCB
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 14:00:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 28C932076E
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 13:35:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DCD752077D
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 14:00:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n1uNS/at"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28C932076E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="MYJ9ZDbF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCD752077D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF8A96E9FC;
-	Wed, 22 Apr 2020 13:35:24 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D938C6E9FC
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2020 13:35:22 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id x17so1682025wrt.5
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2020 06:35:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6xUV5kdnix72NZm9SxMSgbg2LRNymedUcTJt3yIg2M0=;
- b=n1uNS/atBX8b7JYdDqqrdnItSoNnwDDfISmBw4rt1ZeLcqG6FB0I2bVJfwPFgzwooa
- crYp1ZPawXtvOO8SwCMqQrl5zLMMfyMnxTPVMv8KBvy6zTXjHMaFiC6lIPrCcT0DZh8W
- k4/yPgVYrIWyRoSmbSVoOqzmW2zO9W9dh+KqhLohsPRq3BdKwG0h4hGe4a9+vt19+/73
- hzPcBZONdNmnQhYFUyzjTUJtmty4K69tXowCEPf6JjV59AjMAZy/Qo7dtEV2798tD6v2
- tVyVfsXK1ziqQWI8hkjK9PoPQTA/7/deLSWcPZZlX6R6SeuYgNuov3BZqIgbFgg43ogx
- RGGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6xUV5kdnix72NZm9SxMSgbg2LRNymedUcTJt3yIg2M0=;
- b=TfMZ+pd45Xb6G6viJHnhRGQVi1heLsaVRPf5RBlh6ckLFEoljdYqOux2Lf1zy2Vzlj
- qQzXeh4V/MGTRd2mw4JWd1wo+evbckE/pcc0nXTgJmKQFnUIiD+CbZFQ3vE7dWbXR2Wu
- mL3DjlXLgsHtzxfi3q6XyyMjthZLNfki/D1jYNMbjX09d+7UPu3wzKKqDZs0s+3otf6/
- W57PRGgcGU5WKHCC25Mz7UkfiBvfF+zdTVwFnkt4cN6c03nfoaQUzBTsIMPOgYS20tpV
- 2V5a7306ugKK+8SxQbr0BwIMRyDGJsi90SMi7t2f0J6ggszL62GbeK+jeRFA/iKXp+/c
- /e3Q==
-X-Gm-Message-State: AGi0Pua8Ev+zAiZYxsMqueeiMoFQ24whKAzHHZ3pzkBPHqyhlTxUSAEn
- tkNrJeBwCZ6GrrWisFw++Klb++7k7DMoHGh+Wq8mv4WA
-X-Google-Smtp-Source: APiQypL0f50ASBH1jE7RuR2y+7qm+JjqsCTpTszSMpxqze4eL1FFYvxLprGnW9h2bY7uWDtORLAJFAe/HQ9ekqsofTY=
-X-Received: by 2002:a5d:5352:: with SMTP id t18mr3133050wrv.111.1587562521353; 
- Wed, 22 Apr 2020 06:35:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17F0D6E3F5;
+	Wed, 22 Apr 2020 14:00:45 +0000 (UTC)
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12on2068.outbound.protection.outlook.com [40.107.243.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86B7489BB0;
+ Wed, 22 Apr 2020 14:00:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Q4zUZKFWDDR15cXr/NFLqQBAGlYYl+ynggNzuX1QfKyFP4u9LwuMBM82Jnh1faCMyhxHF5tturGxvIHxYKJhr0UxFY9jxdH93DrHwFpKaXrX0UopUUoNV+lydLdaaF3nkUuWHaZlvvoY8eAPe5VXSmMLmhZY1pKZN/3HPrc0k9DNLlW4WPkCmQuu+kC+jM8gw7hRuDJRx15MIXgxRDIWB8EOZemFPFWt+O7ScERDFcXlqpE7m5w6DGmk/BFav9TgeydsJt8dAnsqEM8F4TfY3MWrwelQ3qfIoKVn4RqVEXWvk+p0YA8kpALOWFtaFRTQZpEUd12P1gRR94Zdek6GNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LU/HWoM8eYXLEToHJoOUTfi6If5bv/Y5qf5c6ulpDAM=;
+ b=RiG0b2L9DCzzL0fh9Shag4m47R7dFjTNT6Z+GKn2xSh77s0/guLXjvgl2EbxtQKv/vwdWsgFw2NQRuEpEOuKahCgvcZ1ehVNyW7pRcw0Hkmp88vnoneXXYa+jm7K6uPjZV4EVc48Ey7z6e/dHM2TYVwh3mjGc8hoYj60P06ZcPYejmoizYy9XHhXWvgsqs9DFTBzriUBozLNrARxU3GdLXHnPkc//9dskMscrFG5e0TzFdeQVi4XriNycmn+AH5Wy+AnGSk9pWc24/luInIn52eBvIjAdPRjSmkCg65sSsnLR3WCzhZARKyjqLM/gcCiFHpqMYs9iQRXAO8cS9vO+g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LU/HWoM8eYXLEToHJoOUTfi6If5bv/Y5qf5c6ulpDAM=;
+ b=MYJ9ZDbFt8oZcPPySMaA0HrJvoxOnmX2Tm8nbe31NjvrZjz+L7ieVJ43emPWxiz8JoNW1Pm0479DGtpqTqLDcML2Ifka9CJUdkrg7gSeJHx9tdzpIL9l7UpzcI5kq/MMQYliyjJm+lvy0b4s+yh51NMxBPmdjyy3IiwBTXNh/1A=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Harry.Wentland@amd.com; 
+Received: from MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11)
+ by MW3PR12MB4395.namprd12.prod.outlook.com (2603:10b6:303:5c::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.13; Wed, 22 Apr
+ 2020 14:00:37 +0000
+Received: from MW3PR12MB4379.namprd12.prod.outlook.com
+ ([fe80::31b7:9b4e:3f37:5e97]) by MW3PR12MB4379.namprd12.prod.outlook.com
+ ([fe80::31b7:9b4e:3f37:5e97%6]) with mapi id 15.20.2921.030; Wed, 22 Apr 2020
+ 14:00:37 +0000
+Subject: Re: [PATCH] drm: amd/display: fix Kconfig help text
+To: Randy Dunlap <rdunlap@infradead.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+References: <31d56a46-e3de-e768-a154-03b6afb3ad72@infradead.org>
+From: Harry Wentland <hwentlan@amd.com>
+Autocrypt: addr=hwentlan@amd.com; keydata=
+ mQENBFhb4C8BCADhHHUNoBQ7K7LupCP0FsUb443Vuqq+dH0uo4A3lnPkMF6FJmGcJ9Sbx1C6
+ cd4PbVAaTFZUEmjqfpm+wCRBe11eF55hW3GJ273wvfH69Q/zmAxwO8yk+i5ZWWl8Hns5h69K
+ D9QURHLpXxrcwnfHFah0DwV23TrD1KGB7vowCZyJOw93U/GzAlXKESy0FM7ZOYIJH83X7qhh
+ Q9KX94iTEYTeH86Wy8hwHtqM6ySviwEz0g+UegpG8ebbz0w3b5QmdKCAg+eZTmBekP5o77YE
+ BKqR+Miiwo9+tzm2N5GiF9HDeI2pVe/egOLa5UcmsgdF4Y5FKoMnBbAHNaA6Fev8PHlNABEB
+ AAG0J0hhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPokBNwQTAQgAIQUC
+ WFvgLwIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRAtWBXJjBS24xUlCAC9MqAlIbZO
+ /a37s41h+MQ+D20C6/hVErWO+RA06nA+jFDPUWrDJKYdn6EDQWdLY3ATeAq3X8GIeOTXGrPD
+ b2OXD6kOViW/RNvlXdrIsnIDacdr39aoAlY1b+bhTzZVz4pto4l+K1PZb5jlMgTk/ks9HesL
+ RfYVq5wOy3qIpocdjdlXnSUKn0WOkGBBd8Nv3o0OI18tiJ1S/QwLBBfZoVvfGinoB2p4j/wO
+ kJxpi3F9TaOtLGcdrgfghg31Fb48DP+6kodZ4ircerp4hyAp0U2iKtsrQ/sVWR4mbe3eTfcn
+ YjBxGd2JOVdNQZa2VTNf9GshIDMD8IIQK6jN0LfY8Py2uQENBFhb4C8BCAC/0KWY3pIbU2cy
+ i7GMj3gqB6h0jGqRuMpMRoSNDoAUIuSh17w+bawuOF6XZPdK3D4lC9cOXMwP3aP9tTJOori2
+ 8vMH8KW9jp9lAYnGWYhSqLdjzIACquMqi96EBtawJDct1e9pVgp+d4JXHlgIrl11ITJo8rCP
+ dEqjro2bCBWxijsIncdCzMjf57+nR7u86SBtGSFcXKapS7YJeWcvM6MzFYgIkxHxxBDvBBvm
+ U2/mAXiL72kwmlV1BNrabQxX2UnIb3xt3UovYJehrnDUMdYjxJgSPRBx27wQ/D05xAlhkmmL
+ FJ01ZYc412CRCC6gjgFPfUi2y7YJTrQHS79WSyANABEBAAGJAR8EGAEIAAkFAlhb4C8CGwwA
+ CgkQLVgVyYwUtuM72Qf+J6JOQ/27pWf5Ulde9GS0BigA1kV9CNfIq396TgvQzeyixHMvgPdq
+ Z36x89zZi0otjMZv6ypIdEg5co1Bvz0wFaKbCiNbTjpnA1VAbQVLSFjCZLQiu0vc+BZ1yKDV
+ T5ASJ97G4XvQNO+XXGY55MrmhoNqMaeIa/3Jas54fPVd5olcnUAyDty29/VWXNllUq38iBCX
+ /0tTF7oav1lzPGfeW2c6B700FFZMTR4YBVSGE8jPIzu2Fj0E8EkDmsgS+nibqSvWXfo1v231
+ 410h35CjbYDlYQO7Z1YD7asqbaOnF0As+rckyRMweQ9CxZn5+YBijtPJA3x5ldbCfQ9rWiTu XQ==
+Message-ID: <6892a582-3598-1963-5b6b-96cd8d24dad5@amd.com>
+Date: Wed, 22 Apr 2020 10:00:34 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
+In-Reply-To: <31d56a46-e3de-e768-a154-03b6afb3ad72@infradead.org>
+Content-Language: en-US
+X-ClientProxiedBy: BN8PR03CA0001.namprd03.prod.outlook.com
+ (2603:10b6:408:94::14) To MW3PR12MB4379.namprd12.prod.outlook.com
+ (2603:10b6:303:5e::11)
 MIME-Version: 1.0
-References: <20200422024221.16914-1-evan.quan@amd.com>
-In-Reply-To: <20200422024221.16914-1-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 22 Apr 2020 09:35:09 -0400
-Message-ID: <CADnq5_O8bNkDnUYYn=nAOOq+0qZUMgZgM2ZeCE4BWA2NWQ_Fdg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: put the audio codec into suspend state before
- gpu reset V2
-To: Evan Quan <evan.quan@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [IPv6:2607:fea8:9240:c66::6] (2607:fea8:9240:c66::6) by
+ BN8PR03CA0001.namprd03.prod.outlook.com (2603:10b6:408:94::14) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2937.13 via Frontend Transport; Wed, 22 Apr 2020 14:00:36 +0000
+X-Originating-IP: [2607:fea8:9240:c66::6]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 5eaca7c2-c10e-4853-9a37-08d7e6c58880
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4395:|MW3PR12MB4395:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MW3PR12MB43952D47FD0CD04536D9990D8CD20@MW3PR12MB4395.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
+X-Forefront-PRVS: 03818C953D
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW3PR12MB4379.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(366004)(376002)(346002)(396003)(136003)(39860400002)(8676002)(52116002)(316002)(66946007)(66556008)(66476007)(5660300002)(2616005)(53546011)(31686004)(186003)(36756003)(16526019)(81156014)(8936002)(2906002)(6486002)(478600001)(31696002)(110136005);
+ DIR:OUT; SFP:1101; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: p/l3Uc+q0io2qHHUl1TwdriYODd5a2F9iTVfhrGzlUXkB7UBly0rbF3AXYur91326UP3pbr5sEPghxVkNNepmiVpdmoLvCFvZvI1Ga7tFxBCfwoXqdKTIv6FUfWqpRUSnbHy3Nug0SPq05Wht2gOx21dDLx1gXKzo4FKZfyA+eNdsg5ysD38FBKBwfF1R2AG4LSuHHYlYXzEKmdq7EXrCli0WPgm0H9/kVxEvyRXJ4Th/mnZapuUniLHXte9HLEp6j6ZOAODCIBke+5x0f+z51FDjitJbLOT21bPQCLt1o+M87LYi2VV7MJpx7/IYQOp4I5ZW/1YhyoYOdlQKKJXTF5MaKl1dNfQ8ekjV+Rx9YjNAUnw9XZkmuw3sdYlDFq9BHWabZAwil+THXxxH4sQDTbcH7wU5xIPJDkQQDrxQob1ZJ1n2m3qVytZe2GLzs67
+X-MS-Exchange-AntiSpam-MessageData: U5uQe6Fl8mPO2+C0BJ/CmKFhf+LYN5WPvQWVQfOj/kLTVVSJjC4XapeauOcWwS3XE+AbbK1c+sEvW+CQDGT4BrM9btGxPf72mft25xKQV+K5jvr3ydw25WfNeaQccwiJ5yE+J9jTcaRGqJ9HtY4XxLdk2Box82gm87veMi+VoI4=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5eaca7c2-c10e-4853-9a37-08d7e6c58880
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2020 14:00:37.0773 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: n/SOd0e8CA/hkRKY84jw1E3EaiLEnso0FLi0WPgBg/BLv9H0LyFMaRY47IAqxkaz4dtBNZJ4jbGw7myA+29FRA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4395
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,161 +138,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Apr 21, 2020 at 10:42 PM Evan Quan <evan.quan@amd.com> wrote:
->
-> At default, the autosuspend delay of audio controller is 3S. If the
-> gpu reset is triggered within 3S(after audio controller idle),
-> the audio controller may be unable into suspended state. Then
-> the sudden gpu reset will cause some audio errors. The change
-> here is targeted to resolve this.
->
-> However if the audio controller is in use when the gpu reset
-> triggered, this change may be still not enough to put the
-> audio controller into suspend state. Under this case, the
-> gpu reset will still proceed but there will be a warning
-> message printed("failed to suspend display audio").
->
-> V2: limit this for BACO and mode1 reset only
->
-> Change-Id: I33d85e6fcad1882eb33f9cde8916d57be8d5a87a
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
+On 2020-04-21 7:34 p.m., Randy Dunlap wrote:
+> From: Randy Dunlap <rdunlap@infradead.org>
+> 
+> Fix help text: indent one tab + 2 spaces; end a sentence with a
+> period; and collapse short lines of text to one line.
+> 
+> Fixes: 23c61b4599c4 ("drm/amd: Fix Kconfig indentation")
+> Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: Krzysztof Kozlowski <krzk@kernel.org>
+
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 70 ++++++++++++++++++++++
->  1 file changed, 70 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 2d4b78d96426..70f43b1aed78 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -69,6 +69,7 @@
->
->  #include <linux/suspend.h>
->  #include <drm/task_barrier.h>
-> +#include <linux/pm_runtime.h>
->
->  MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
->  MODULE_FIRMWARE("amdgpu/vega12_gpu_info.bin");
-> @@ -4146,6 +4147,59 @@ static void amdgpu_device_unlock_adev(struct amdgpu_device *adev)
->         mutex_unlock(&adev->lock_reset);
->  }
->
-> +static void amdgpu_device_resume_display_audio(struct amdgpu_device *adev)
-> +{
-> +       struct pci_dev *p = NULL;
-> +
-> +       p = pci_get_domain_bus_and_slot(pci_domain_nr(adev->pdev->bus),
-> +                       adev->pdev->bus->number, 1);
-> +       if (p) {
-> +               pm_runtime_enable(&(p->dev));
-> +               pm_runtime_resume(&(p->dev));
-> +       }
-> +}
-> +
-> +static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
-> +{
-> +       enum amd_reset_method reset_method;
-> +       struct pci_dev *p = NULL;
-> +       unsigned long end_jiffies;
-> +
-> +       /*
-> +        * For now, only BACO and mode1 reset are confirmed
-> +        * to suffer the audio issue without proper suspended.
-> +        */
-> +       reset_method = amdgpu_asic_reset_method(adev);
-> +       if ((reset_method != AMD_RESET_METHOD_BACO) &&
-> +            (reset_method != AMD_RESET_METHOD_MODE1))
-> +               return -EINVAL;
-> +
-> +       p = pci_get_domain_bus_and_slot(pci_domain_nr(adev->pdev->bus),
-> +                       adev->pdev->bus->number, 1);
-> +       if (!p)
-> +               return -ENODEV;
-> +
-> +       /*
-> +        * 3S is the audio controller default autosuspend delay setting.
-> +        * 4S used here is guaranteed to cover that.
-> +        */
-
-Instead of hardcoding 3S, we should probably use
-pm_runtime_autosuspend_expiration() to query how much time is left and
-then use that.  That way this will work even if userspace has changed
-the delay.  With that fixed:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-Alex
-
-
-> +       end_jiffies = msecs_to_jiffies(4000) + jiffies;
-> +       while (!pm_runtime_status_suspended(&(p->dev))) {
-> +               if (!pm_runtime_suspend(&(p->dev)))
-> +                       break;
-> +
-> +               if (time_after(jiffies, end_jiffies)) {
-> +                       dev_warn(adev->dev, "failed to suspend display audio\n");
-> +                       /* TODO: abort the succeeding gpu reset? */
-> +                       return -ETIMEDOUT;
-> +               }
-> +       }
-> +
-> +       pm_runtime_disable(&(p->dev));
-> +
-> +       return 0;
-> +}
-> +
->  /**
->   * amdgpu_device_gpu_recover - reset the asic and recover scheduler
->   *
-> @@ -4170,6 +4224,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->         bool use_baco =
->                 (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) ?
->                 true : false;
-> +       bool audio_suspended = false;
->
->         /*
->          * Flush RAM to disk so that after reboot
-> @@ -4227,6 +4282,19 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->                         return 0;
->                 }
->
-> +               /*
-> +                * Try to put the audio codec into suspend state
-> +                * before gpu reset started.
-> +                *
-> +                * Due to the power domain of the graphics device
-> +                * is shared with AZ power domain. Without this,
-> +                * we may change the audio hardware from behind
-> +                * the audio driver's back. That will trigger
-> +                * some audio codec errors.
-> +                */
-> +               if (!amdgpu_device_suspend_display_audio(tmp_adev))
-> +                       audio_suspended = true;
-> +
->                 amdgpu_ras_set_error_query_ready(tmp_adev, false);
->
->                 cancel_delayed_work_sync(&tmp_adev->delayed_init_work);
-> @@ -4339,6 +4407,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->                 /*unlock kfd: SRIOV would do it separately */
->                 if (!(in_ras_intr && !use_baco) && !amdgpu_sriov_vf(tmp_adev))
->                         amdgpu_amdkfd_post_reset(tmp_adev);
-> +               if (audio_suspended)
-> +                       amdgpu_device_resume_display_audio(tmp_adev);
->                 amdgpu_device_unlock_adev(tmp_adev);
->         }
->
-> --
-> 2.26.2
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>  drivers/gpu/drm/amd/display/Kconfig |    8 ++------
+>  1 file changed, 2 insertions(+), 6 deletions(-)
+> 
+> --- linux-next-20200421.orig/drivers/gpu/drm/amd/display/Kconfig
+> +++ linux-next-20200421/drivers/gpu/drm/amd/display/Kconfig
+> @@ -21,16 +21,12 @@ config DRM_AMD_DC_HDCP
+>  	bool "Enable HDCP support in DC"
+>  	depends on DRM_AMD_DC
+>  	help
+> -	 Choose this option
+> -	 if you want to support
+> -	 HDCP authentication
+> +	  Choose this option if you want to support HDCP authentication.
+>  
+>  config DEBUG_KERNEL_DC
+>  	bool "Enable kgdb break in DC"
+>  	depends on DRM_AMD_DC
+>  	help
+> -	  Choose this option
+> -	  if you want to hit
+> -	  kdgb_break in assert.
+> +	  Choose this option if you want to hit kdgb_break in assert.
+>  
+>  endmenu
+> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
