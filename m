@@ -2,131 +2,104 @@ Return-Path: <SRS0=Hoyj=6G=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15299C54FCB
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 14:00:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3046BC54FCB
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 14:37:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DCD752077D
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 14:00:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EB278206D4
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Apr 2020 14:37:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="MYJ9ZDbF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCD752077D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="n9LM5PN3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB278206D4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17F0D6E3F5;
-	Wed, 22 Apr 2020 14:00:45 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2068.outbound.protection.outlook.com [40.107.243.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86B7489BB0;
- Wed, 22 Apr 2020 14:00:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97EE889711;
+	Wed, 22 Apr 2020 14:37:57 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2056.outbound.protection.outlook.com [40.107.236.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE0FB89711
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Apr 2020 14:37:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Q4zUZKFWDDR15cXr/NFLqQBAGlYYl+ynggNzuX1QfKyFP4u9LwuMBM82Jnh1faCMyhxHF5tturGxvIHxYKJhr0UxFY9jxdH93DrHwFpKaXrX0UopUUoNV+lydLdaaF3nkUuWHaZlvvoY8eAPe5VXSmMLmhZY1pKZN/3HPrc0k9DNLlW4WPkCmQuu+kC+jM8gw7hRuDJRx15MIXgxRDIWB8EOZemFPFWt+O7ScERDFcXlqpE7m5w6DGmk/BFav9TgeydsJt8dAnsqEM8F4TfY3MWrwelQ3qfIoKVn4RqVEXWvk+p0YA8kpALOWFtaFRTQZpEUd12P1gRR94Zdek6GNg==
+ b=X5HLR3vWE+x4WU+uTeaHqDedW4T2GYC1b2i+m9+Bo/+Rxm5xt3OFxSijfjTJQ9l0Byy714GC0OIqa5MFmQlvw0HErtNHL/GdG96ZQe0IxLWia7kDfSoTPDmKEaSjF499i8Oi4NiyRdLAu7Qd2utftvn38U0JojzOpyQHQOmIb9UXEMBM4CBFJFowRjy0X3sInRFcpsyfZ8dWUHmEAC1BdhR1G4odJrAB4bZ86KwDOT2Y5xEaRXwtVV3Ysr7zOCs3/dLQPQ8Zkd7bKxdH7leGXyb3y7tblUboeit5QsfZPtFOf94znIJS/0NBWNf+9s9iE+Cbf2mnRJ3hVrvsI3wfUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LU/HWoM8eYXLEToHJoOUTfi6If5bv/Y5qf5c6ulpDAM=;
- b=RiG0b2L9DCzzL0fh9Shag4m47R7dFjTNT6Z+GKn2xSh77s0/guLXjvgl2EbxtQKv/vwdWsgFw2NQRuEpEOuKahCgvcZ1ehVNyW7pRcw0Hkmp88vnoneXXYa+jm7K6uPjZV4EVc48Ey7z6e/dHM2TYVwh3mjGc8hoYj60P06ZcPYejmoizYy9XHhXWvgsqs9DFTBzriUBozLNrARxU3GdLXHnPkc//9dskMscrFG5e0TzFdeQVi4XriNycmn+AH5Wy+AnGSk9pWc24/luInIn52eBvIjAdPRjSmkCg65sSsnLR3WCzhZARKyjqLM/gcCiFHpqMYs9iQRXAO8cS9vO+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=m3BWIoRmbyBZT1Y4KUW8veiYzX9qChcUvYKTwfuCjB4=;
+ b=EIQUEW3trZnxfx03bo4Vq0CG6JnkEU48cxYUgjo46Q+izbPekqRAQyCQQ83GWVIdPdmvGdewx2lxSGku3CfODfxcUK//APSGIvWs6CK8/UN27E93dDVKcaRBx1nzLqVlsssbu9lL+rWiDTHRiA2qR/LH0ery3sADMAu9E5TnrRfMzDr6mX3+y7CX4AGRbgFag+q3gSA3duuzyLOVBc+aq2dMyFvk86TxMfpfbTGWqHxEbPapYqwo2BEapQ1zRGITkwI0Rsrspt7A71i0EOsaut30oSRiNC5ntJCIwLgRPUgKtHFuGq6wmpNPu/iv/8X/8RfZo+V12l2XloJ1117iNw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LU/HWoM8eYXLEToHJoOUTfi6If5bv/Y5qf5c6ulpDAM=;
- b=MYJ9ZDbFt8oZcPPySMaA0HrJvoxOnmX2Tm8nbe31NjvrZjz+L7ieVJ43emPWxiz8JoNW1Pm0479DGtpqTqLDcML2Ifka9CJUdkrg7gSeJHx9tdzpIL9l7UpzcI5kq/MMQYliyjJm+lvy0b4s+yh51NMxBPmdjyy3IiwBTXNh/1A=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Harry.Wentland@amd.com; 
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com (2603:10b6:303:5e::11)
- by MW3PR12MB4395.namprd12.prod.outlook.com (2603:10b6:303:5c::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.13; Wed, 22 Apr
- 2020 14:00:37 +0000
-Received: from MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::31b7:9b4e:3f37:5e97]) by MW3PR12MB4379.namprd12.prod.outlook.com
- ([fe80::31b7:9b4e:3f37:5e97%6]) with mapi id 15.20.2921.030; Wed, 22 Apr 2020
- 14:00:37 +0000
-Subject: Re: [PATCH] drm: amd/display: fix Kconfig help text
-To: Randy Dunlap <rdunlap@infradead.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-References: <31d56a46-e3de-e768-a154-03b6afb3ad72@infradead.org>
-From: Harry Wentland <hwentlan@amd.com>
-Autocrypt: addr=hwentlan@amd.com; keydata=
- mQENBFhb4C8BCADhHHUNoBQ7K7LupCP0FsUb443Vuqq+dH0uo4A3lnPkMF6FJmGcJ9Sbx1C6
- cd4PbVAaTFZUEmjqfpm+wCRBe11eF55hW3GJ273wvfH69Q/zmAxwO8yk+i5ZWWl8Hns5h69K
- D9QURHLpXxrcwnfHFah0DwV23TrD1KGB7vowCZyJOw93U/GzAlXKESy0FM7ZOYIJH83X7qhh
- Q9KX94iTEYTeH86Wy8hwHtqM6ySviwEz0g+UegpG8ebbz0w3b5QmdKCAg+eZTmBekP5o77YE
- BKqR+Miiwo9+tzm2N5GiF9HDeI2pVe/egOLa5UcmsgdF4Y5FKoMnBbAHNaA6Fev8PHlNABEB
- AAG0J0hhcnJ5IFdlbnRsYW5kIDxoYXJyeS53ZW50bGFuZEBhbWQuY29tPokBNwQTAQgAIQUC
- WFvgLwIbAwULCQgHAgYVCAkKCwIEFgIDAQIeAQIXgAAKCRAtWBXJjBS24xUlCAC9MqAlIbZO
- /a37s41h+MQ+D20C6/hVErWO+RA06nA+jFDPUWrDJKYdn6EDQWdLY3ATeAq3X8GIeOTXGrPD
- b2OXD6kOViW/RNvlXdrIsnIDacdr39aoAlY1b+bhTzZVz4pto4l+K1PZb5jlMgTk/ks9HesL
- RfYVq5wOy3qIpocdjdlXnSUKn0WOkGBBd8Nv3o0OI18tiJ1S/QwLBBfZoVvfGinoB2p4j/wO
- kJxpi3F9TaOtLGcdrgfghg31Fb48DP+6kodZ4ircerp4hyAp0U2iKtsrQ/sVWR4mbe3eTfcn
- YjBxGd2JOVdNQZa2VTNf9GshIDMD8IIQK6jN0LfY8Py2uQENBFhb4C8BCAC/0KWY3pIbU2cy
- i7GMj3gqB6h0jGqRuMpMRoSNDoAUIuSh17w+bawuOF6XZPdK3D4lC9cOXMwP3aP9tTJOori2
- 8vMH8KW9jp9lAYnGWYhSqLdjzIACquMqi96EBtawJDct1e9pVgp+d4JXHlgIrl11ITJo8rCP
- dEqjro2bCBWxijsIncdCzMjf57+nR7u86SBtGSFcXKapS7YJeWcvM6MzFYgIkxHxxBDvBBvm
- U2/mAXiL72kwmlV1BNrabQxX2UnIb3xt3UovYJehrnDUMdYjxJgSPRBx27wQ/D05xAlhkmmL
- FJ01ZYc412CRCC6gjgFPfUi2y7YJTrQHS79WSyANABEBAAGJAR8EGAEIAAkFAlhb4C8CGwwA
- CgkQLVgVyYwUtuM72Qf+J6JOQ/27pWf5Ulde9GS0BigA1kV9CNfIq396TgvQzeyixHMvgPdq
- Z36x89zZi0otjMZv6ypIdEg5co1Bvz0wFaKbCiNbTjpnA1VAbQVLSFjCZLQiu0vc+BZ1yKDV
- T5ASJ97G4XvQNO+XXGY55MrmhoNqMaeIa/3Jas54fPVd5olcnUAyDty29/VWXNllUq38iBCX
- /0tTF7oav1lzPGfeW2c6B700FFZMTR4YBVSGE8jPIzu2Fj0E8EkDmsgS+nibqSvWXfo1v231
- 410h35CjbYDlYQO7Z1YD7asqbaOnF0As+rckyRMweQ9CxZn5+YBijtPJA3x5ldbCfQ9rWiTu XQ==
-Message-ID: <6892a582-3598-1963-5b6b-96cd8d24dad5@amd.com>
-Date: Wed, 22 Apr 2020 10:00:34 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-In-Reply-To: <31d56a46-e3de-e768-a154-03b6afb3ad72@infradead.org>
-Content-Language: en-US
-X-ClientProxiedBy: BN8PR03CA0001.namprd03.prod.outlook.com
- (2603:10b6:408:94::14) To MW3PR12MB4379.namprd12.prod.outlook.com
- (2603:10b6:303:5e::11)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2607:fea8:9240:c66::6] (2607:fea8:9240:c66::6) by
- BN8PR03CA0001.namprd03.prod.outlook.com (2603:10b6:408:94::14) with Microsoft
+ bh=m3BWIoRmbyBZT1Y4KUW8veiYzX9qChcUvYKTwfuCjB4=;
+ b=n9LM5PN3w1+r3lbthp3CIF5WL+I+RdP+Y2mQWaBY8wgMxo2MMx229klBKRdC2iTr8nqRuxAzaoTL7xWOcpEQ7RpewGD0tjyh9vKjfD7GflgKjq8ekJf6MnVWCEPTPyw10XPWIEJcRIJ/kGSH0yV9CkiQTZVgp3m4S8CcT1nu7V0=
+Received: from DM5PR06CA0037.namprd06.prod.outlook.com (2603:10b6:3:5d::23) by
+ BN8PR12MB3089.namprd12.prod.outlook.com (2603:10b6:408:40::24) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2937.13 via Frontend Transport; Wed, 22 Apr 2020 14:00:36 +0000
-X-Originating-IP: [2607:fea8:9240:c66::6]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 5eaca7c2-c10e-4853-9a37-08d7e6c58880
-X-MS-TrafficTypeDiagnostic: MW3PR12MB4395:|MW3PR12MB4395:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MW3PR12MB43952D47FD0CD04536D9990D8CD20@MW3PR12MB4395.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2449;
-X-Forefront-PRVS: 03818C953D
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR12MB4379.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(366004)(376002)(346002)(396003)(136003)(39860400002)(8676002)(52116002)(316002)(66946007)(66556008)(66476007)(5660300002)(2616005)(53546011)(31686004)(186003)(36756003)(16526019)(81156014)(8936002)(2906002)(6486002)(478600001)(31696002)(110136005);
- DIR:OUT; SFP:1101; 
+ 15.20.2921.29; Wed, 22 Apr 2020 14:37:53 +0000
+Received: from DM6NAM11FT048.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:5d:cafe::8e) by DM5PR06CA0037.outlook.office365.com
+ (2603:10b6:3:5d::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.27 via Frontend
+ Transport; Wed, 22 Apr 2020 14:37:53 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ DM6NAM11FT048.mail.protection.outlook.com (10.13.173.114) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2937.15 via Frontend Transport; Wed, 22 Apr 2020 14:37:52 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 22 Apr
+ 2020 09:37:51 -0500
+Received: from yttao-code-machine.amd.com (10.180.168.240) by
+ SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Wed, 22 Apr 2020 09:37:49 -0500
+From: Yintian Tao <yttao@amd.com>
+To: <christian.koenig@amd.com>, <monk.liu@amd.com>, <Felix.Kuehling@amd.com>
+Subject: [PATCH] drm/amdgpu: protect kiq overrun
+Date: Wed, 22 Apr 2020 22:37:47 +0800
+Message-ID: <20200422143747.1072-1-yttao@amd.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(39860400002)(376002)(346002)(396003)(136003)(428003)(46966005)(47076004)(8936002)(6636002)(1076003)(2906002)(81156014)(82740400003)(7696005)(336012)(70206006)(26005)(81166007)(356005)(54906003)(4326008)(110136005)(8676002)(186003)(316002)(82310400002)(70586007)(426003)(2616005)(5660300002)(36756003)(478600001);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: e8782cb6-7486-4ed6-8404-08d7e6cabd3e
+X-MS-TrafficTypeDiagnostic: BN8PR12MB3089:
+X-Microsoft-Antispam-PRVS: <BN8PR12MB308956CF05C0C94675A91104E5D20@BN8PR12MB3089.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:466;
+X-Forefront-PRVS: 03818C953D
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: p/l3Uc+q0io2qHHUl1TwdriYODd5a2F9iTVfhrGzlUXkB7UBly0rbF3AXYur91326UP3pbr5sEPghxVkNNepmiVpdmoLvCFvZvI1Ga7tFxBCfwoXqdKTIv6FUfWqpRUSnbHy3Nug0SPq05Wht2gOx21dDLx1gXKzo4FKZfyA+eNdsg5ysD38FBKBwfF1R2AG4LSuHHYlYXzEKmdq7EXrCli0WPgm0H9/kVxEvyRXJ4Th/mnZapuUniLHXte9HLEp6j6ZOAODCIBke+5x0f+z51FDjitJbLOT21bPQCLt1o+M87LYi2VV7MJpx7/IYQOp4I5ZW/1YhyoYOdlQKKJXTF5MaKl1dNfQ8ekjV+Rx9YjNAUnw9XZkmuw3sdYlDFq9BHWabZAwil+THXxxH4sQDTbcH7wU5xIPJDkQQDrxQob1ZJ1n2m3qVytZe2GLzs67
-X-MS-Exchange-AntiSpam-MessageData: U5uQe6Fl8mPO2+C0BJ/CmKFhf+LYN5WPvQWVQfOj/kLTVVSJjC4XapeauOcWwS3XE+AbbK1c+sEvW+CQDGT4BrM9btGxPf72mft25xKQV+K5jvr3ydw25WfNeaQccwiJ5yE+J9jTcaRGqJ9HtY4XxLdk2Box82gm87veMi+VoI4=
+X-Microsoft-Antispam-Message-Info: YIeLbOZa5xeCzWiCeFH4Zhm5xwc8W4yAUXRPEqZpfKP1z7xI03HviQfhoJpc0p+M/dZ4/vMIuDPg+/4Qy1jKyAfnDbq3G2arcXLLjVkG/nC5fDMUSfjSbQJ4w4X22vnBi9FAfK42ij7gKasJsMwKZR+bRfAOYnR8lOPw9YP9IeDKHlfu1OuEVBsr4kGlsT+wpbqnscGUItvp6eYyJwMUKG+tNpVbwfTcFJ5GK80ftsxpyekiOH6+Nz22VO7q6UN44DkLqheEnp9o4exnGrU7TYfgriGweeDl8F0kUenBepD3RXs1LHuIi404/sgSQ9hai5uU8M3L9T3d0K+DaBDCK5thlBSXe3LP3lEXIc9CpmY6pibPzvY7GZ+PEdrBZuH0QJxJUMoIquj/TU0GeylSRktRDw83s4KFOeHOsaiAFDrtW/kGx6fVmzXtH0LGqWdDrrMQhWmbMF2kly6Zkyl5tVDs0R0Y2w8CYPAdHVgfTe0hkXqTDfNzFiEU2KIuig0xBrxqs5Mc181Re+4axrOXIQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5eaca7c2-c10e-4853-9a37-08d7e6c58880
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2020 14:00:37.0773 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Apr 2020 14:37:52.8148 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8782cb6-7486-4ed6-8404-08d7e6cabd3e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n/SOd0e8CA/hkRKY84jw1E3EaiLEnso0FLi0WPgBg/BLv9H0LyFMaRY47IAqxkaz4dtBNZJ4jbGw7myA+29FRA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4395
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3089
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,54 +111,233 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: amd-gfx@lists.freedesktop.org, Yintian Tao <yttao@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-04-21 7:34 p.m., Randy Dunlap wrote:
-> From: Randy Dunlap <rdunlap@infradead.org>
-> 
-> Fix help text: indent one tab + 2 spaces; end a sentence with a
-> period; and collapse short lines of text to one line.
-> 
-> Fixes: 23c61b4599c4 ("drm/amd: Fix Kconfig indentation")
-> Fixes: 4562236b3bc0 ("drm/amd/dc: Add dc display driver (v2)")
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
-> Cc: Harry Wentland <harry.wentland@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Krzysztof Kozlowski <krzk@kernel.org>
+Wait for the oldest to be signaled to make sure
+there will be no kiq overrun.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Yintian Tao <yttao@amd.com>
+---
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    |  8 ++++-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  8 ++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c       | 30 +++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |  3 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |  6 ++++
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |  6 ++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  7 +++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  7 +++++
+ 8 files changed, 73 insertions(+), 2 deletions(-)
 
-Harry
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+index 691c89705bcd..72a5d7e15494 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+@@ -311,7 +311,7 @@ static int kgd_hiq_mqd_load(struct kgd_dev *kgd, void *mqd,
+ 	struct amdgpu_device *adev = get_amdgpu_device(kgd);
+ 	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq.ring;
+ 	struct v10_compute_mqd *m;
+-	uint32_t mec, pipe;
++	uint32_t mec, pipe, seq = 0;
+ 	int r;
+ 
+ 	m = get_mqd(mqd);
+@@ -325,6 +325,12 @@ static int kgd_hiq_mqd_load(struct kgd_dev *kgd, void *mqd,
+ 		 mec, pipe, queue_id);
+ 
+ 	spin_lock(&adev->gfx.kiq.ring_lock);
++	r = amdgpu_gfx_kiq_is_avail(&adev->gfx.kiq);
++	if (r) {
++		pr_err("critical bug! too many kiq submission\n");
++		goto out_unlock;
++	}
++
+ 	r = amdgpu_ring_alloc(kiq_ring, 7);
+ 	if (r) {
+ 		pr_err("Failed to alloc KIQ (%d).\n", r);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+index df841c2ac5e7..332f72b2d334 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
+@@ -309,7 +309,7 @@ int kgd_gfx_v9_hiq_mqd_load(struct kgd_dev *kgd, void *mqd,
+ 	struct amdgpu_device *adev = get_amdgpu_device(kgd);
+ 	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq.ring;
+ 	struct v9_mqd *m;
+-	uint32_t mec, pipe;
++	uint32_t mec, pipe, seq = 0;
+ 	int r;
+ 
+ 	m = get_mqd(mqd);
+@@ -323,6 +323,12 @@ int kgd_gfx_v9_hiq_mqd_load(struct kgd_dev *kgd, void *mqd,
+ 		 mec, pipe, queue_id);
+ 
+ 	spin_lock(&adev->gfx.kiq.ring_lock);
++	r = amdgpu_gfx_kiq_is_avail(&adev->gfx.kiq);
++	if (r) {
++		pr_err("critical bug! too many kiq submissions\n");
++		goto out_unlock;
++	}
++
+ 	r = amdgpu_ring_alloc(kiq_ring, 7);
+ 	if (r) {
+ 		pr_err("Failed to alloc KIQ (%d).\n", r);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index a721b0e0ff69..387b1a8ed4df 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -321,6 +321,9 @@ int amdgpu_gfx_kiq_init_ring(struct amdgpu_device *adev,
+ 			     AMDGPU_RING_PRIO_DEFAULT);
+ 	if (r)
+ 		dev_warn(adev->dev, "(%d) failed to init kiq ring\n", r);
++	else
++		kiq->max_sub_num = (ring->ring_size / 4) /
++					ring->funcs->align_mask;
+ 
+ 	return r;
+ }
+@@ -663,6 +666,21 @@ int amdgpu_gfx_cp_ecc_error_irq(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
++int amdgpu_gfx_kiq_is_avail(struct amdgpu_kiq *kiq)
++{
++	uint32_t seq = 0;
++	signed long r = 0;
++
++	seq = abs(kiq->ring.fence_drv.sync_seq - kiq->max_sub_num);
++	if (seq > kiq->max_sub_num) {
++		r = amdgpu_fence_wait_polling(&kiq->ring, seq,
++					      MAX_KIQ_REG_WAIT);
++		return r < 1 ? -ETIME : 0;
++	}
++
++	return 0;
++}
++
+ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg)
+ {
+ 	signed long r, cnt = 0;
+@@ -674,6 +692,12 @@ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg)
+ 	BUG_ON(!ring->funcs->emit_rreg);
+ 
+ 	spin_lock_irqsave(&kiq->ring_lock, flags);
++	r = amdgpu_gfx_kiq_is_avail(&adev->gfx.kiq);
++	if (r) {
++		spin_unlock_irqrestore(&kiq->ring_lock, flags);
++		goto failed_kiq_read;
++	}
++
+ 	if (amdgpu_device_wb_get(adev, &reg_val_offs)) {
+ 		spin_unlock_irqrestore(&kiq->ring_lock, flags);
+ 		pr_err("critical bug! too many kiq readers\n");
+@@ -728,6 +752,12 @@ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v)
+ 	BUG_ON(!ring->funcs->emit_wreg);
+ 
+ 	spin_lock_irqsave(&kiq->ring_lock, flags);
++	r = amdgpu_gfx_kiq_is_avail(&adev->gfx.kiq);
++	if (r) {
++		spin_unlock_irqrestore(&kiq->ring_lock, flags);
++		goto failed_kiq_write;
++	}
++
+ 	amdgpu_ring_alloc(ring, 32);
+ 	amdgpu_ring_emit_wreg(ring, reg, v);
+ 	amdgpu_fence_emit_polling(ring, &seq);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index ee698f0246d8..1ee59a927bd9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -103,6 +103,7 @@ struct amdgpu_kiq {
+ 	struct amdgpu_ring	ring;
+ 	struct amdgpu_irq_src	irq;
+ 	const struct kiq_pm4_funcs *pmf;
++	uint32_t		max_sub_num;
+ };
+ 
+ /*
+@@ -387,4 +388,6 @@ int amdgpu_gfx_cp_ecc_error_irq(struct amdgpu_device *adev,
+ 				  struct amdgpu_iv_entry *entry);
+ uint32_t amdgpu_kiq_rreg(struct amdgpu_device *adev, uint32_t reg);
+ void amdgpu_kiq_wreg(struct amdgpu_device *adev, uint32_t reg, uint32_t v);
++
++int amdgpu_gfx_kiq_is_avail(struct amdgpu_kiq *kiq);
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index 8c10084f44ef..4b027006d072 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -57,6 +57,12 @@ void amdgpu_virt_kiq_reg_write_reg_wait(struct amdgpu_device *adev,
+ 	uint32_t seq;
+ 
+ 	spin_lock_irqsave(&kiq->ring_lock, flags);
++	r = amdgpu_gfx_kiq_is_avail(&adev->gfx.kiq);
++	if (r) {
++		spin_unlock_irqrestore(&kiq->ring_lock, flags);
++		goto failed_kiq;
++	}
++
+ 	amdgpu_ring_alloc(ring, 32);
+ 	amdgpu_ring_emit_reg_write_reg_wait(ring, reg0, reg1,
+ 					    ref, mask);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 5b1549f167b0..a136e2229f7a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -4051,6 +4051,12 @@ static uint64_t gfx_v9_0_kiq_read_clock(struct amdgpu_device *adev)
+ 	BUG_ON(!ring->funcs->emit_rreg);
+ 
+ 	spin_lock_irqsave(&kiq->ring_lock, flags);
++	r = amdgpu_gfx_kiq_is_avail(&adev->gfx.kiq);
++	if (r) {
++		spin_unlock_irqrestore(&kiq->ring_lock, flags);
++		goto failed_kiq_read;
++	}
++
+ 	if (amdgpu_device_wb_get(adev, &reg_val_offs)) {
+ 		spin_unlock_irqrestore(&kiq->ring_lock, flags);
+ 		pr_err("critical bug! too many kiq readers\n");
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 30b75d79efdb..77d8bc9c0111 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -423,6 +423,13 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 
+ 	if (amdgpu_emu_mode == 0 && ring->sched.ready) {
+ 		spin_lock(&adev->gfx.kiq.ring_lock);
++		r = amdgpu_gfx_kiq_is_avail(&adev->gfx.kiq);
++		if (r) {
++			spin_unlock(&kiq->ring_lock);
++			DRM_ERROR("too many kiq submissions\n");
++			return -ETIME;
++		}
++
+ 		/* 2 dwords flush + 8 dwords fence */
+ 		amdgpu_ring_alloc(ring, kiq->pmf->invalidate_tlbs_size + 8);
+ 		kiq->pmf->kiq_invalidate_tlbs(ring,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index fecdbc471983..c429a2a5fe3d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -614,6 +614,13 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 			ndw += kiq->pmf->invalidate_tlbs_size;
+ 
+ 		spin_lock(&adev->gfx.kiq.ring_lock);
++		r = amdgpu_gfx_kiq_is_avail(&adev->gfx.kiq);
++		if (r) {
++			spin_unlock(&kiq->ring_lock);
++			DRM_ERROR("critical bug! too many kiq submissions\n");
++			return -ETIME;
++		}
++
+ 		/* 2 dwords flush + 8 dwords fence */
+ 		amdgpu_ring_alloc(ring, ndw);
+ 		if (vega20_xgmi_wa)
+-- 
+2.17.1
 
-> ---
->  drivers/gpu/drm/amd/display/Kconfig |    8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
-> 
-> --- linux-next-20200421.orig/drivers/gpu/drm/amd/display/Kconfig
-> +++ linux-next-20200421/drivers/gpu/drm/amd/display/Kconfig
-> @@ -21,16 +21,12 @@ config DRM_AMD_DC_HDCP
->  	bool "Enable HDCP support in DC"
->  	depends on DRM_AMD_DC
->  	help
-> -	 Choose this option
-> -	 if you want to support
-> -	 HDCP authentication
-> +	  Choose this option if you want to support HDCP authentication.
->  
->  config DEBUG_KERNEL_DC
->  	bool "Enable kgdb break in DC"
->  	depends on DRM_AMD_DC
->  	help
-> -	  Choose this option
-> -	  if you want to hit
-> -	  kdgb_break in assert.
-> +	  Choose this option if you want to hit kdgb_break in assert.
->  
->  endmenu
-> 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
