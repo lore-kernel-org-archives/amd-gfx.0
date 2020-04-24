@@ -2,109 +2,70 @@ Return-Path: <SRS0=W/Sk=6I=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 21F1AC2BA1A
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 11:09:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31CE3C54FD0
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 11:47:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E6E1E20728
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 11:09:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 027C420728
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 11:47:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Jnf/zfGL"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6E1E20728
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mQCIVR3T"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 027C420728
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 95BD36E45D;
-	Fri, 24 Apr 2020 11:09:45 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2064.outbound.protection.outlook.com [40.107.237.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAC406E45D
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 11:09:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K5v7RuRvkms1e/kpHZn4pX0+LryzEufLkF+bcoQRuRLU43N1t2HAuCowaW6X7tjrhCjZKoUjOyhT6TxMB85e+H3YLFfieDTxso8AyH1T4ZgAYcVkepF1+lsTPKNFZsEJ8YamnLr4BhobwkBtDPJGT+lQpkSuFg1vqGqCJLjT0sEPJPMjnvMfmjJ/VHf7cbmLp4klE1K35Kai/lnzh1YAcVqeeRJbmtuah4SpkHOk9TNio/wBCiIPQmpImz62hQaj1oOu3xB0o51gHa2BLKrEu2rUClVVQzDEMdjn6h/9tbN2n+GpVPo8KuzuexvTW032AtnILsy0e5E3TT0OvO8jbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KOfN9Vc3uTUmouMPfoyiWhNQcgIqjKGPTIjbsYbBy+s=;
- b=lLNslqZW4gJAZCks1rS1S6z3O+P5Ql2VLO30eKVYopKAyYl03Hg6aMHL9YCqeKM5JYu+j3oF2u82sbMqbXUa68XWl38cJAKd2eNQm62sSI1VmDDOeVMJ8HBqOt3kUpFVVZIc7WE2jYsX/QMR6BulXVBPcyJfWgzdc5q76CGQ2M9NTXRtKs2OBQTL4pqCn/jCquIctL/K5+cAT8nfH0m43O91T5kJR9mbCfHRiyo5dW8rpy4XtLXYVfkbL0qHxVg4PNqUwZa2ZgKV7fiHJYFdJhECGCoPsurlkf1CeHlR8W2cLPVViqaZ7zLAOV1z6np4ipSm/QCSn81np6aUHTAuHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KOfN9Vc3uTUmouMPfoyiWhNQcgIqjKGPTIjbsYbBy+s=;
- b=Jnf/zfGL0P7sc7g1XJUaIbZ8r8Y5PZqze0H/0iAJPYQmDIhsdj3X0Cm0WSaKGQHNxDIfaKL1lOyoh/R82W7qzcMybbjaXessb2scc4U01vs06U9Iua1u7Gygyfc7zXaatmJAW1HCAE6y8zOYSDrHRp8X/CQYGuYX2EsC7Z8HdCs=
-Received: from MWHPR19CA0022.namprd19.prod.outlook.com (2603:10b6:300:d4::32)
- by MN2PR12MB3598.namprd12.prod.outlook.com (2603:10b6:208:d1::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.22; Fri, 24 Apr
- 2020 11:09:36 +0000
-Received: from CO1NAM11FT056.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:d4:cafe::64) by MWHPR19CA0022.outlook.office365.com
- (2603:10b6:300:d4::32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.13 via Frontend
- Transport; Fri, 24 Apr 2020 11:09:36 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT056.mail.protection.outlook.com (10.13.175.107) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2937.15 via Frontend Transport; Fri, 24 Apr 2020 11:09:35 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 24 Apr
- 2020 06:09:35 -0500
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
- (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 24 Apr
- 2020 06:09:34 -0500
-Received: from gc-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Fri, 24 Apr 2020 06:09:33 -0500
-From: chen gong <curry.gong@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amdgpu: Need to power up SDMA for #34 sdma firmware after
- do mode2 reset on Renoir
-Date: Fri, 24 Apr 2020 19:09:31 +0800
-Message-ID: <1587726571-31294-1-git-send-email-curry.gong@amd.com>
-X-Mailer: git-send-email 2.7.4
-MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(136003)(396003)(376002)(346002)(428003)(46966005)(81166007)(81156014)(4326008)(8936002)(316002)(6916009)(186003)(426003)(82740400003)(86362001)(8676002)(5660300002)(7696005)(2616005)(47076004)(356005)(82310400002)(36756003)(2906002)(336012)(70206006)(26005)(70586007)(478600001);
- DIR:OUT; SFP:1101; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 7de15171-3100-4c7f-9efc-08d7e83ff93a
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3598:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3598C6148A6F393CC76C849A9DD00@MN2PR12MB3598.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-Forefront-PRVS: 03838E948C
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ArNcOCX38cmWhKXgiR9NQ3x2dVYsI3RqE2p8FTB/82x3guhu7gmLyscXtSjH56zPGP71yZy6U36azY60VM74XuV4jV+SMcSzoiUsQ+08FLeqAXbkdwEsRWPjwz4O6HHgMM4fynHotIbV5yTka4H7bZY0v+VxmeMeu0zvGFF4a/c/3Mk4Vz2bc/vwkpKbzBqtU6hMfJlE7NlfEc/B3uVjdrnhWO14pvEl6hTOUcZMCjPSK3La6q3gkmtabuzxSE92vMKlqBqokbEncebnBHXeCGHN//DPBxiPfap2RBe69anvNQqEisQwv+it18QPWVecxrcF6SVx4cb/LCvI81NjeZg2cjVOBKdgUgnQNEVQIEKJvtRjlHyow27XtuovISJE7GI8NLI0ZUiqHC964tuEEy53v5maL1/XMNs7VSrqn39MImPBvxxGlHofnPKjN55vchHR/kwSNU6gMrWM2GAWTJyM89QxdwYJlfF/id0hPJv+2ihOZ8kJd/Z+3OhoOEXmDCaPq70oWqqknJqhFuI+gQ==
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2020 11:09:35.6577 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7de15171-3100-4c7f-9efc-08d7e83ff93a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3598
+	by gabe.freedesktop.org (Postfix) with ESMTP id B280C6EAA2;
+	Fri, 24 Apr 2020 11:47:37 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73E836EAA2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 11:47:37 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id d15so8799084wrx.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 04:47:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=dVhKMvUAP9YCJcitQdGC46Sd5MQcI1ujeLVSwoqswVA=;
+ b=mQCIVR3ToGTgNb2KVf/gRIKuqOCkYodWYs6vsw36XJYfXVpBxbDFOmZCYSABcuy+Zw
+ u3xsFxyTVVTIWS3E/XhWzHXFwfzEbh+CxUKzPLd22xQ0oBZt/E7Rqkcnzay/Z56EhAK+
+ SZfLfJYV4K0A+caSgEMPkMsSsZFO/Qh/Z8fCCwHTgo3yFoYJUnY7M92JuDOXfqGBwWaj
+ 7TJGZiAyKJ5IkEv8YUYal1tUsR92IEtsb3umaz+MUdTKqLcayb4DUBzFnBDqJpfKAZqd
+ Xcpx9RyAg724C/b76LUorB5/B0yRbkS5b2rBNRkmwV5GyuMDOZY2FGJQ+C9w/PtnhXmP
+ 1XIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=dVhKMvUAP9YCJcitQdGC46Sd5MQcI1ujeLVSwoqswVA=;
+ b=B+xVep0OxzODhDwdTqorQ8sGmNRxeX6zw92takfd0qKrcv18cmWG2Jqbgp0pAcI9EF
+ RkA79EiCB3wpRoRBF2xhcyATyUwNA8jZYrJSOMDi/BbgQRP8+83QeT5zbidmtaSt6GE/
+ O8o5k1DITiiJb3uFopV2sa64TAVvPsc1YnXKYBkH8vE8WaX7Ca5RMMn70osjrsfv913M
+ OD2MJU6kJ0d4etREjDBoGF9hbgFs7UePDGH586vKAmCb6342J/mHzMO4QpvuVvZExJaV
+ bL9l+xfHnOJ36vyRImBVS5YqsZwDyFyOaB3Ehn8TrKyCoJe6iWmpRQCkvkH/UkOK02+T
+ W2GA==
+X-Gm-Message-State: AGi0PuZ5FnISAxIT/NbsEVCdF8Zz5qzcPZ7lxKhE5KnCBPpNso9n1Wlr
+ rQ3ZmGWSCz/GwLXTXLxKEUv7J/Bo
+X-Google-Smtp-Source: APiQypL5ln1O15vQxB+JRBc3Jsa4N64XKfjMVD/e3LyPeq+EzbK0CFDEtSlAj0fALwszzQdLPAxEvg==
+X-Received: by 2002:adf:d087:: with SMTP id y7mr10532980wrh.321.1587728855825; 
+ Fri, 24 Apr 2020 04:47:35 -0700 (PDT)
+Received: from abel.fritz.box ([2a02:908:1252:fb60:6d7f:f78:6668:9d37])
+ by smtp.gmail.com with ESMTPSA id l9sm7940984wrq.83.2020.04.24.04.47.34
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Apr 2020 04:47:35 -0700 (PDT)
+From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
+X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>
+To: amd-gfx@lists.freedesktop.org, Pierre-eric.Pelloux-prayer@amd.com,
+ Hawking.Zhang@amd.com, Monk.Liu@amd.com, Jiange.Zhao@amd.com
+Subject: [PATCH] drm/amdgpu: Add autodump debugfs node for gpu reset v3
+Date: Fri, 24 Apr 2020 13:47:34 +0200
+Message-Id: <20200424114734.30584-1-christian.koenig@amd.com>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,53 +77,215 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: chen gong <curry.gong@amd.com>
+Cc: Felix.Kuehling@amd.com
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[why]
-Previously I found that powering up SDMA after mode2 reset can cause
-ring-sdma0 test failed.
-Perhaps the mode2 reset does not reset the SDMA PG state, so SDMA is
-already powered up so there is no need to ask the SMU to power it up
-again and doing so causes some other problem.
-So I skipped function 'amdgpu_dpm_set_powergating_by_smu(adev,
-AMD_IP_BLOCK_TYPE_SDMA, false)' with '!adev->in_gpu_reset'.
+From: Jiange Zhao <Jiange.Zhao@amd.com>
 
-But now, for #34 sdma firmware, dmesg log show "ring-sdma0 test failed "
-after the mode2 reset, and scan data show SDMA does not have power.
-Then I re-enable function "amdgpu_dpm_set_powergating_by_smu(adev,
-AMD_IP_BLOCK_TYPE_SDMA, false)" during mode2 reset, The result is issue
-disappear.
+When GPU got timeout, it would notify an interested part
+of an opportunity to dump info before actual GPU reset.
 
-Besides, I did more experiments base on previous sdma firmware for this
-patch. Situation Normal.
+A usermode app would open 'autodump' node under debugfs system
+and poll() for readable/writable. When a GPU reset is due,
+amdgpu would notify usermode app through wait_queue_head and give
+it 10 minutes to dump info.
 
-[how]
-Remove "!adev->in_gpu_reset"
+After usermode app has done its work, this 'autodump' node is closed.
+On node closure, amdgpu gets to know the dump is done through
+the completion that is triggered in release().
 
-Signed-off-by: chen gong <curry.gong@amd.com>
+There is no write or read callback because necessary info can be
+obtained through dmesg and umr. Messages back and forth between
+usermode app and amdgpu are unnecessary.
+
+v2: (1) changed 'registered' to 'app_listening'
+    (2) add a mutex in open() to prevent race condition
+
+v3 (chk): grab the reset lock to avoid race in autodump_open,
+	  rename debugfs file to amdgpu_autodump,
+	  provide autodump_read as well,
+	  style and code cleanups
+
+Signed-off-by: Jiange Zhao <Jiange.Zhao@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 92 ++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |  6 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  2 +
+ 4 files changed, 101 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index c0ca9a82..0ecab41 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -1914,7 +1914,7 @@ static int sdma_v4_0_hw_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index bc1e0fd71a09..6f8ef98c4b97 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -990,6 +990,8 @@ struct amdgpu_device {
+ 	char				product_number[16];
+ 	char				product_name[32];
+ 	char				serial[16];
++
++	struct amdgpu_autodump		autodump;
+ };
  
- 	if ((adev->asic_type == CHIP_RAVEN && adev->powerplay.pp_funcs &&
- 			adev->powerplay.pp_funcs->set_powergating_by_smu) ||
--			(adev->asic_type == CHIP_RENOIR && !adev->in_gpu_reset))
-+			adev->asic_type == CHIP_RENOIR)
- 		amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_SDMA, false);
+ static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 1a4894fa3693..b1029d12a971 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -27,7 +27,7 @@
+ #include <linux/pci.h>
+ #include <linux/uaccess.h>
+ #include <linux/pm_runtime.h>
+-
++#include <linux/poll.h>
+ #include <drm/drm_debugfs.h>
  
- 	if (!amdgpu_sriov_vf(adev))
+ #include "amdgpu.h"
+@@ -74,8 +74,96 @@ int amdgpu_debugfs_add_files(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
++int amdgpu_debugfs_wait_dump(struct amdgpu_device *adev)
++{
++#if defined(CONFIG_DEBUG_FS)
++	const unsigned long timeout = 600 * HZ;
++	int ret;
++
++	wake_up_interruptible(&adev->autodump.gpu_hang);
++
++	ret = wait_for_completion_interruptible_timeout(&adev->autodump.dumping,
++							timeout);
++	if (ret == 0) {
++		pr_err("autodump: timeout, move on to gpu recovery\n");
++		return -ETIMEDOUT;
++	}
++#endif
++	return 0;
++}
++
+ #if defined(CONFIG_DEBUG_FS)
+ 
++static int amdgpu_debugfs_autodump_open(struct inode *inode, struct file *file)
++{
++	struct amdgpu_device *adev = inode->i_private;
++	int ret;
++
++	file->private_data = adev;
++
++	mutex_lock(&adev->lock_reset);
++	if (adev->autodump.dumping.done) {
++		reinit_completion(&adev->autodump.dumping);
++		ret = 0;
++	} else {
++		ret = -EBUSY;
++	}
++	mutex_unlock(&adev->lock_reset);
++
++	return ret;
++}
++
++static int amdgpu_debugfs_autodump_release(struct inode *inode,
++					   struct file *file)
++{
++	struct amdgpu_device *adev = file->private_data;
++
++	complete(&adev->autodump.dumping);
++	return 0;
++}
++
++static ssize_t amdgpu_debugfs_autodump_read(struct file *file, char __user *buf,
++					    size_t size, loff_t *pos)
++{
++	struct amdgpu_device *adev = file->private_data;
++
++	wait_event_interruptible(adev->autodump.gpu_hang, adev->in_gpu_reset);
++	return 0;
++}
++
++unsigned int amdgpu_debugfs_autodump_poll(struct file *file,
++					  struct poll_table_struct *poll_table)
++{
++	struct amdgpu_device *adev = file->private_data;
++
++	poll_wait(file, &adev->autodump.gpu_hang, poll_table);
++
++	if (adev->in_gpu_reset)
++		return POLLIN | POLLRDNORM | POLLWRNORM;
++
++	return 0;
++}
++
++static const struct file_operations autodump_debug_fops = {
++	.owner = THIS_MODULE,
++	.open = amdgpu_debugfs_autodump_open,
++	.read = amdgpu_debugfs_autodump_read,
++	.poll = amdgpu_debugfs_autodump_poll,
++	.release = amdgpu_debugfs_autodump_release,
++};
++
++static void amdgpu_debugfs_autodump_init(struct amdgpu_device *adev)
++{
++	init_completion(&adev->autodump.dumping);
++	init_waitqueue_head(&adev->autodump.gpu_hang);
++
++	complete(&adev->autodump.dumping);
++
++	debugfs_create_file("amdgpu_autodump", 0600,
++			    adev->ddev->primary->debugfs_root,
++			    adev, &autodump_debug_fops);
++}
++
+ /**
+  * amdgpu_debugfs_process_reg_op - Handle MMIO register reads/writes
+  *
+@@ -1434,6 +1522,8 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 
+ 	amdgpu_ras_debugfs_create_all(adev);
+ 
++	amdgpu_debugfs_autodump_init(adev);
++
+ 	return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_list,
+ 					ARRAY_SIZE(amdgpu_debugfs_list));
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
+index de12d1101526..3504c48e1564 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
+@@ -31,6 +31,11 @@ struct amdgpu_debugfs {
+ 	unsigned		num_files;
+ };
+ 
++struct amdgpu_autodump {
++	struct completion	dumping;
++	struct wait_queue_head	gpu_hang;
++};
++
+ int amdgpu_debugfs_regs_init(struct amdgpu_device *adev);
+ int amdgpu_debugfs_init(struct amdgpu_device *adev);
+ void amdgpu_debugfs_fini(struct amdgpu_device *adev);
+@@ -40,3 +45,4 @@ int amdgpu_debugfs_add_files(struct amdgpu_device *adev,
+ int amdgpu_debugfs_fence_init(struct amdgpu_device *adev);
+ int amdgpu_debugfs_firmware_init(struct amdgpu_device *adev);
+ int amdgpu_debugfs_gem_init(struct amdgpu_device *adev);
++int amdgpu_debugfs_wait_dump(struct amdgpu_device *adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 3d601d5dd5af..44e54ea7af0f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3915,6 +3915,8 @@ static int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 	int i, r = 0;
+ 	bool need_full_reset  = *need_full_reset_arg;
+ 
++	amdgpu_debugfs_wait_dump(adev);
++
+ 	/* block all schedulers and reset given job's ring */
+ 	for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
+ 		struct amdgpu_ring *ring = adev->rings[i];
 -- 
-2.7.4
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
