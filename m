@@ -2,68 +2,71 @@ Return-Path: <SRS0=W/Sk=6I=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CC715C54FCB
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 14:03:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D0321C54FCB
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 14:07:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9FA5B2075A
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 14:03:50 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A4C602075A
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 14:07:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tFoBkq8a"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9FA5B2075A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="uQRzXifu"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4C602075A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EED16E053;
-	Fri, 24 Apr 2020 14:03:50 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 200966E053
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 14:03:49 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id y24so10878701wma.4
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 07:03:49 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4DB8E6E069;
+	Fri, 24 Apr 2020 14:07:47 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 812096E069
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 14:07:45 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id 20so10191022qkl.10
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 07:07:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+SX1hF6S/TfJD7pysxQDh7fyYSoXvG7nBA/i7b7NcCc=;
- b=tFoBkq8aRXoCVtMH9wNkJg4JH4jasnV/+KUkJbSiHyQD0WhENY7+trYP/QGLIEzf1o
- 72dM/FrgWMn+01l+Ic6fcEV37CmVHPawxFsKC9M8qq34FfBdkbC4VGhoapAGxE2vgXY6
- qFtgwVt82af3JDeT0npcI9e6Q/lVavlwuWesYwXQ7TRGflOCEX7UjgNlVosv4SXkoCjZ
- /pOGc9qoCBGtZrQ113nHHJUCsEKr8ISCiwIlI4TzzK9sg9RjZ5GiT7QQb8JHVn3AkrIT
- gBj4/teY/QjFvVWU354PXAuV8CnpVntn2xlG56NVbyL8+oom8YLj4kYi6vP4L5qHi58V
- sDHQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0ppTurvTf7RhzhSp9AgJmUkRged7JtOTflshEiYs3e0=;
+ b=uQRzXifuG7d2yFolChv1S20wud1RdmtE9wXKXaGkNXImUU67SD0qLDcR6kjDmBt6Yf
+ 0DwZ71r+Y7xr4JZYufFPSlOM7NcGAFGxqL4LQLW00/bO8wTNa+xOR6ARgtkm5K2IG6ee
+ coOWvBU/qxK5CzjXTkpS9hwLm0jGk3ScWiSPZm2avzEMcIybCE8pe7I3EG4EU4YAH6MP
+ M8A7HSYU6VmxbDG3NaJrfOX5O1G8KZdN7ojS7XTk3KcV6y8yhqWbVURuJ3CUswm/Tl1f
+ l/fohp2bWh2Ij2twVqP/VcXQHLcOBfHrOBaFi2Qo0hrDY2sZIR0MzP7CnhnBDeWtdSuv
+ lTKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+SX1hF6S/TfJD7pysxQDh7fyYSoXvG7nBA/i7b7NcCc=;
- b=TvcYN9r3qYNCxw7QcHNhUWVjMz+PnOng2QhfYxFkjcd+HSHBdhVyDrX6orlhsrhkxF
- lXX2BSs20iC4+ii0/4yovvDWV7zUdMbFX6slXk984UG+K0v8G7FCYn9N+bXf/yUdYQwq
- t/V3Ke82lH1daTHFBUQWygOzrb4ik9/Cl6OrqSrQ7A7DzlTuz9R3pRYKlO5w7VW/x8cy
- jOz+jY/HIVdfOSBuP7Nd9PmdPdxlw85xb5Jz5uEa1yY7xQ3RTy9p9+1QmFsHa5KmNkuK
- 68rmU0Wc2ylEDcrYcsBVBos3ouIaHTJEwXjHkAiu2530xt/S7iMYGSZzECr7mMwCW665
- THmA==
-X-Gm-Message-State: AGi0Pub9ZdQfLhRzw2tT52JpznkNhu35ZgzV42IzS25EBIk0YSow27pu
- MHjuk4p+uTcQxJTMDgUF11e/FY3azUCksnWxw27U2Wsp
-X-Google-Smtp-Source: APiQypLilxjc1o+FcAYqR+wmR98C2P3u/MODyNkaaq/VQTBMAAOjFn1VWTmRQ1lc3d96DbO5mUBoKeQ7dENzNRTbgyw=
-X-Received: by 2002:a05:600c:258:: with SMTP id
- 24mr10162625wmj.73.1587737027715; 
- Fri, 24 Apr 2020 07:03:47 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200424080547.25599-1-evan.quan@amd.com>
- <20200424080547.25599-2-evan.quan@amd.com>
- <CADnq5_PB_1Pef-C923gNut2+neF_1yxXPhzQUCWGvgLsyc1-eg@mail.gmail.com>
-In-Reply-To: <CADnq5_PB_1Pef-C923gNut2+neF_1yxXPhzQUCWGvgLsyc1-eg@mail.gmail.com>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=0ppTurvTf7RhzhSp9AgJmUkRged7JtOTflshEiYs3e0=;
+ b=BnYlJO1uGt5ixuMB0IcY0pD2kdGbfLi3i0D5FsT6bKit7OAgamididhk2xp0sZCaSU
+ /v/LFpdLqqEMGEbWvuYEWT6CSjsTv2H6imU+aepAUce7KGxFGqhrUzlKSZawSbqHbXme
+ D3pLyWmByAjEpUsyq8bTj9rvaDi75et6S3Oxp0D33XzQe5y9NOmvGbgWz2w7Ow56P1fc
+ GvxWjJkgXB3g2hbwQE54CYeY3CBYla4lN6J+7wa/N+2/AunBYT6N+CMq2gtsKqOsf7Zp
+ NYguQ0H9DHydZZ2SReuS4WhM+gZM5mfWK6oI7Dj2rRLgjZ6QsDB8GiuYf969XFpDDyCq
+ tp9A==
+X-Gm-Message-State: AGi0PuaLlJRbfYHzmVVxKuBzEgzXWFhHweN60X7NyLlpZtGGdzHc5jVk
+ WSJxPe1DR7VWS37aE4DaAM6NNDv4
+X-Google-Smtp-Source: APiQypIXbjp83xgj59FxTEfuPYJZaXde23tSEbqJsPJs6A939Kw/6j/Xql7mj9Spxn6Yx1z3WdVPYw==
+X-Received: by 2002:a37:4a14:: with SMTP id x20mr9064744qka.357.1587737264348; 
+ Fri, 24 Apr 2020 07:07:44 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id w42sm4028308qtj.63.2020.04.24.07.07.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Apr 2020 07:07:43 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 24 Apr 2020 10:03:36 -0400
-Message-ID: <CADnq5_OTeEvqXWBOkjL1z8rqNf_-32DEPVHjdok-Hhcksay7eQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drma/dmgpu: drop redundant cg/pg ungate on runpm enter
-To: Evan Quan <evan.quan@amd.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: re-enable runtime pm on vega10
+Date: Fri, 24 Apr 2020 10:07:32 -0400
+Message-Id: <20200424140732.1766356-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.3
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,64 +78,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
- Felix" <Felix.Kuehling@amd.com>, Prike Liang <prike.liang@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 24, 2020 at 10:02 AM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> Also, I just noticed a typo in the patch title:
->
-> drma/dmgpu -> drm/admgpu
+It was disabled due to a ROCm failure.  I think that should
+be fixed.  Re-enable it.
 
-Can't type.
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
 
-drma/dmgpu -> drm/amdgpu
+Can anyone verify if the runtime pm issues with ROCm have been fixed?
+I'd like to re-enable runtime pm for vega10.
 
-Alex
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 1 -
+ 1 file changed, 1 deletion(-)
 
->
-> Alex
->
-> On Fri, Apr 24, 2020 at 4:06 AM Evan Quan <evan.quan@amd.com> wrote:
-> >
-> > CG/PG ungate is already performed in ip_suspend_phase1. Otherwise,
-> > the CG/PG ungate will be performed twice. That will cause gfxoff
-> > disablement is performed twice also on runpm enter while gfxoff
-> > enablemnt once on rump exit. That will put gfxoff into disabled
-> > state.
-> >
-> > Change-Id: I489ca456770d3fe482b685f132400202467f712b
-> > Signed-off-by: Evan Quan <evan.quan@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
-> >  1 file changed, 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > index 08eeb0d2c149..71278942f9f0 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> > @@ -3453,9 +3453,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
-> >                 }
-> >         }
-> >
-> > -       amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
-> > -       amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
-> > -
-> >         amdgpu_ras_suspend(adev);
-> >
-> >         r = amdgpu_device_ip_suspend_phase1(adev);
-> > --
-> > 2.26.2
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index ea7e72ecaefa..c7f42ff6ab5e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -172,7 +172,6 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
+ 	else if (amdgpu_device_supports_baco(dev) &&
+ 		 (amdgpu_runtime_pm != 0) &&
+ 		 (adev->asic_type >= CHIP_TOPAZ) &&
+-		 (adev->asic_type != CHIP_VEGA10) &&
+ 		 (adev->asic_type != CHIP_VEGA20) &&
+ 		 (adev->asic_type != CHIP_ARCTURUS)) /* enable runpm on VI+ */
+ 		adev->runpm = true;
+-- 
+2.25.3
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
