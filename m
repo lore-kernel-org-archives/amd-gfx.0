@@ -2,104 +2,50 @@ Return-Path: <SRS0=W/Sk=6I=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C2CB3C54FCB
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 12:34:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 402ABC55191
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 12:54:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2F7D20700
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 12:34:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2F7D20700
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=FreeBSD.org
+	by mail.kernel.org (Postfix) with ESMTPS id 1BEAD20706
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 12:54:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1BEAD20706
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A24A6E03E;
-	Fri, 24 Apr 2020 12:34:12 +0000 (UTC)
-Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
- [209.85.208.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 953BE6E03E
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 12:34:11 +0000 (UTC)
-Received: by mail-lj1-f196.google.com with SMTP id l19so9740152lje.10
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 05:34:11 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:subject:to:openpgp:autocrypt:message-id
- :date:user-agent:mime-version:content-language
- :content-transfer-encoding;
- bh=4XYOTmJ9j/XFZuhvARIT1HWonS+HKw8rBXFHit8sZzg=;
- b=patNylaLFHlr8aXW1YdFnfEi65GYRY73pSb04WDrsDiE0vwv1y7OK84FZtLXY1cBef
- 4zHdp0bUtjmrXSNo9KQZz+vmZahxrOAYkQdqjDApOE7GUuQwZ7kO88rr/sJzz0JS7NgU
- KInTCCas9HpI9F70vj/03jbxx2EcAe2+qMIfR7+YiIsQV5AccrCeeawm926KG4q58Qrp
- jxlxCLWMsunGp5zkb+tRhaRgayMWp9hwSw6y28KC25MV2hTTWeT/kIjRG8qpbETS+Sil
- F6+Wwt3eaPkd565wtpq8dJPQnP4KPSHRA9lSb+b6ROPx4ZarZlitEqxwMVLwGHMNQwGL
- JPPw==
-X-Gm-Message-State: AGi0PuZEmdwmznv/fgV5dhqiEWc2V6diqIS+82tb0Lk4q0M4nrdRV26x
- Y0khPIzmnEeaMEzo+T56pgpmls0Si88=
-X-Google-Smtp-Source: APiQypKO91jf5+Lv4KEH8xHO2XtAgfgv76csBEnXoqQq+cNcFDNNF8Erpo0nVCVqay5HoYGFpWiNbA==
-X-Received: by 2002:a2e:8603:: with SMTP id a3mr5885998lji.153.1587731649625; 
- Fri, 24 Apr 2020 05:34:09 -0700 (PDT)
-Received: from [192.168.0.88] (east.meadow.volia.net. [93.72.151.96])
- by smtp.googlemail.com with ESMTPSA id q23sm4453963lji.92.2020.04.24.05.34.08
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Apr 2020 05:34:09 -0700 (PDT)
-From: Andriy Gapon <avg@FreeBSD.org>
-Subject: FreeBSD / amdgpu / Vega 3, pstate TEST_DEBUG_DATA: 0x0
-To: amd-gfx@lists.freedesktop.org
-Openpgp: preference=signencrypt
-Autocrypt: addr=avg@FreeBSD.org; prefer-encrypt=mutual; keydata=
- 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
-Message-ID: <ded7ad97-cc17-ffda-f476-cc5513e18b88@FreeBSD.org>
-Date: Fri, 24 Apr 2020 15:34:08 +0300
-User-Agent: Mozilla/5.0 (X11; FreeBSD amd64; rv:60.0) Gecko/20100101
- Firefox/60.0 Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D9A689D5F;
+	Fri, 24 Apr 2020 12:54:34 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 408C789D5F;
+ Fri, 24 Apr 2020 12:54:33 +0000 (UTC)
+IronPort-SDR: 3eanGcRWil6M62QXevqIg5POs4mRRZYsn87lrjEKfpx2J1LlYr4s9ni+pk1p5QkLZh3Jfj/7eI
+ 2XsKtW8wNtnw==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Apr 2020 05:54:32 -0700
+IronPort-SDR: NEJdMHHc3ZD2gZXb5oHGzeYKdjBpKsHUIYjcRZ47RaXAbIijC06oakr1NT+8mNvOiG5mKQ9vTJ
+ qh40wOeSl29Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,311,1583222400"; d="scan'208";a="430756381"
+Received: from unknown (HELO jeevan-desktop.iind.intel.com) ([10.223.74.85])
+ by orsmga005.jf.intel.com with ESMTP; 24 Apr 2020 05:54:29 -0700
+From: Jeevan B <jeevan.b@intel.com>
+To: dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org
+Subject: [PATCH 4/5] drm/amdgpu: utilize subconnector property for DP through
+ atombios
+Date: Fri, 24 Apr 2020 18:20:54 +0530
+Message-Id: <1587732655-17544-4-git-send-email-jeevan.b@intel.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1587732655-17544-1-git-send-email-jeevan.b@intel.com>
+References: <1587732655-17544-1-git-send-email-jeevan.b@intel.com>
 MIME-Version: 1.0
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,88 +57,81 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: David Zhou <David1.Zhou@amd.com>, jani.nikula@intel.com,
+ Oleg Vasilev <oleg.vasilev@intel.com>, amd-gfx@lists.freedesktop.org,
+ Jeevan B <jeevan.b@intel.com>, uma.shankar@intel.com,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-First, I understand that my platform is not directly supported and probably not
-very interesting, but I still hope to get some tips or pointers.
-
-I am trying to get amdgpu/FreeBSD going on Motile M141 laptop with Ryzen 3 3200U
-CPU that has Vega 3 graphics integrated.  When amdgpu starts loading the screen
-goes black and never lights up again.  I am not sure whether there is no signal
-at all or whether the backlight is turned off, but the screen is completely
-dark.  I can blindly interact with the system, so it's not crashed or hung.
-From system logs I can see that the driver attaches successfully.  It recognizes
-the hardware, loads its firmware, detects the eDP screen and so on.
-
-The FreeBSD's amdgpu port that I am trying is based on code circa 5.0.
-There is no newer version ported.
-I tried a couple of Linux distros with 5.3.x kernels and they worked without any
-problems. So that gives me some hope.
-
-I compared driver messages (with drm_debug set to 0xfff) between Linux and
-FreeBSD and they look quite similar.  Except for one thing.
-In the FreeBSD case there are these error messages that are not seen with Linux:
-
-[drm] pstate TEST_DEBUG_DATA: 0x0
-WARNING !(0) failed at
-/usr/home/avg/devel/kms-drm/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c:868
-#0 0xffffffff83451633 at linux_dump_stack+0x23
-#1 0xffffffff8325a9ee at dcn10_verify_allow_pstate_change_high+0x4e
-#2 0xffffffff8325e925 at dcn10_wait_for_mpcc_disconnect+0x25
-#3 0xffffffff8325de53 at dcn10_disable_plane+0x53
-#4 0xffffffff8325c9f5 at dcn10_init_hw+0x755
-#5 0xffffffff83295ca8 at dc_create+0x538
-#6 0xffffffff8327a8da at dm_hw_init+0x1ea
-#7 0xffffffff831701d1 at amdgpu_device_init+0x1b11
-#8 0xffffffff83185177 at amdgpu_driver_load_kms+0xd7
-#9 0xffffffff833f138e at drm_dev_register+0x17e
-#10 0xffffffff83178dea at amdgpu_pci_probe+0x18a
-#11 0xffffffff83456f40 at linux_pci_attach+0x560
-#12 0xffffffff80bf68ea at device_attach+0x3ca
-#13 0xffffffff80bf6490 at device_probe_and_attach+0x70
-#14 0xffffffff80bf8358 at bus_generic_driver_added+0x58
-#15 0xffffffff80bf4289 at devclass_driver_added+0x39
-#16 0xffffffff80bf41c7 at devclass_add_driver+0x147
-#17 0xffffffff83455ae9 at _linux_pci_register_driver+0xc9
-
-That warning plus stack trace is actually BREAK_TO_DEBUGGER() in the original
-Linux code.
-So, that makes me think that the problem is pretty serious.
-I tried searching for "TEST_DEBUG_DATA: 0x0" and I could not find a single
-result with "0x0" in it.  Usually there is some non-zero value.
-To me this looks like maybe some hardware component is not turned on...
-Perhaps this is something relatively obvious for people that hack on the driver
-and the hardware.
-I hope to receive some hint about what to look for.
-I can cherry-pick commits from Linux, apply patches, add additional debugging
-logs, etc.
-
-FreeBSD amdgpu dmesg: https://people.freebsd.org/~avg/amdgpu.dmesg.txt
-Full Linux dmesg: https://people.freebsd.org/~avg/linux-5.3.0-28.dmesg.out
-
-And with with drm_debug=0xfff.
-FreeBSD: https://people.freebsd.org/~avg/fbsd-dmesg.txt
-Linux: https://people.freebsd.org/~avg/linux-5.3.9-dmesg.txt
-
-I see that both Linux and FreeBSD have similar messages about failing to load
-some microcode components, but I guess that it must be okay since Linux works:
-[    4.487381] [drm] reserve 0x400000 from 0xf400c00000 for PSP TMR
-[    4.564893] [drm] failed to load ucode id (12)
-[    4.564894] [drm] psp command failed and response status is (-53233)
-[    4.567891] [drm] failed to load ucode id (13)
-[    4.567892] [drm] psp command failed and response status is (-65521)
-[    4.570891] [drm] failed to load ucode id (14)
-[    4.570892] [drm] psp command failed and response status is (-65521)
-
-Thank you!
-
--- 
-Andriy Gapon
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RnJvbTogT2xlZyBWYXNpbGV2IDxvbGVnLnZhc2lsZXZAaW50ZWwuY29tPgoKU2luY2UgRFAtc3Bl
+Y2lmaWMgaW5mb3JtYXRpb24gaXMgc3RvcmVkIGluIGRyaXZlcidzIHN0cnVjdHVyZXMsIGV2ZXJ5
+CmRyaXZlciBuZWVkcyB0byBpbXBsZW1lbnQgc3ViY29ubmVjdG9yIHByb3BlcnR5IGJ5IGl0c2Vs
+Zi4KCnYyOiByZWJhc2UKCnYzOiByZW5hbWVkIGEgZnVuY3Rpb24gY2FsbAoKQ2M6IEFsZXggRGV1
+Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KQ2M6IENocmlzdGlhbiBLw7ZuaWcgPGNo
+cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KQ2M6IERhdmlkIChDaHVuTWluZykgWmhvdSA8RGF2aWQx
+Llpob3VAYW1kLmNvbT4KQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnClNpZ25lZC1v
+ZmYtYnk6IEplZXZhbiBCIDxqZWV2YW4uYkBpbnRlbC5jb20+ClNpZ25lZC1vZmYtYnk6IE9sZWcg
+VmFzaWxldiA8b2xlZy52YXNpbGV2QGludGVsLmNvbT4KUmV2aWV3ZWQtYnk6IEVtaWwgVmVsaWtv
+diA8ZW1pbC52ZWxpa292QGNvbGxhYm9yYS5jb20+CkFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGFs
+ZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2Nvbm5lY3RvcnMuYyB8IDEwICsrKysrKysrKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9tb2RlLmggICAgICAgfCAgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hdG9tYmlvc19kcC5jICAgICAgIHwgMTggKysrKysrKysrKysrKysrKystCiAzIGZpbGVz
+IGNoYW5nZWQsIDI4IGluc2VydGlvbnMoKyksIDEgZGVsZXRpb24oLSkKCmRpZmYgLS1naXQgYS9k
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVjdG9ycy5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Nvbm5lY3RvcnMuYwppbmRleCBmMzU1ZDlhLi44OTU1
+YzRmIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfY29ubmVj
+dG9ycy5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9jb25uZWN0b3Jz
+LmMKQEAgLTI2LDYgKzI2LDcgQEAKIAogI2luY2x1ZGUgPGRybS9kcm1fZWRpZC5oPgogI2luY2x1
+ZGUgPGRybS9kcm1fZmJfaGVscGVyLmg+CisjaW5jbHVkZSA8ZHJtL2RybV9kcF9oZWxwZXIuaD4K
+ICNpbmNsdWRlIDxkcm0vZHJtX3Byb2JlX2hlbHBlci5oPgogI2luY2x1ZGUgPGRybS9hbWRncHVf
+ZHJtLmg+CiAjaW5jbHVkZSAiYW1kZ3B1LmgiCkBAIC0xNDA1LDYgKzE0MDYsMTAgQEAgYW1kZ3B1
+X2Nvbm5lY3Rvcl9kcF9kZXRlY3Qoc3RydWN0IGRybV9jb25uZWN0b3IgKmNvbm5lY3RvciwgYm9v
+bCBmb3JjZSkKIAkJcG1fcnVudGltZV9wdXRfYXV0b3N1c3BlbmQoY29ubmVjdG9yLT5kZXYtPmRl
+dik7CiAJfQogCisJZHJtX2RwX3NldF9zdWJjb25uZWN0b3JfcHJvcGVydHkoJmFtZGdwdV9jb25u
+ZWN0b3ItPmJhc2UsCisJCQkJCSByZXQsCisJCQkJCSBhbWRncHVfZGlnX2Nvbm5lY3Rvci0+ZHBj
+ZCwKKwkJCQkJIGFtZGdwdV9kaWdfY29ubmVjdG9yLT5kb3duc3RyZWFtX3BvcnRzKTsKIAlyZXR1
+cm4gcmV0OwogfQogCkBAIC0xOTUxLDYgKzE5NTYsMTEgQEAgYW1kZ3B1X2Nvbm5lY3Rvcl9hZGQo
+c3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCiAJaWYgKGhhc19hdXgpCiAJCWFtZGdwdV9hdG9t
+Ymlvc19kcF9hdXhfaW5pdChhbWRncHVfY29ubmVjdG9yKTsKIAorCWlmIChjb25uZWN0b3JfdHlw
+ZSA9PSBEUk1fTU9ERV9DT05ORUNUT1JfRGlzcGxheVBvcnQgfHwKKwkgICAgY29ubmVjdG9yX3R5
+cGUgPT0gRFJNX01PREVfQ09OTkVDVE9SX2VEUCkgeworCQlkcm1fY29ubmVjdG9yX2F0dGFjaF9k
+cF9zdWJjb25uZWN0b3JfcHJvcGVydHkoJmFtZGdwdV9jb25uZWN0b3ItPmJhc2UpOworCX0KKwog
+CXJldHVybjsKIAogZmFpbGVkOgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X21vZGUuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9tb2Rl
+LmgKaW5kZXggMzdiYTA3ZS4uMDRhNDMwZSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X21vZGUuaAorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfbW9kZS5oCkBAIC00NjksNiArNDY5LDcgQEAgc3RydWN0IGFtZGdwdV9lbmNvZGVyIHsK
+IHN0cnVjdCBhbWRncHVfY29ubmVjdG9yX2F0b21fZGlnIHsKIAkvKiBkaXNwbGF5cG9ydCAqLwog
+CXU4IGRwY2RbRFBfUkVDRUlWRVJfQ0FQX1NJWkVdOworCXU4IGRvd25zdHJlYW1fcG9ydHNbRFBf
+TUFYX0RPV05TVFJFQU1fUE9SVFNdOwogCXU4IGRwX3NpbmtfdHlwZTsKIAlpbnQgZHBfY2xvY2s7
+CiAJaW50IGRwX2xhbmVfY291bnQ7CmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hdG9tYmlvc19kcC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYXRvbWJpb3Nf
+ZHAuYwppbmRleCA5Yjc0Y2ZkLi45MDBiMjcyIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9hdG9tYmlvc19kcC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2F0b21iaW9zX2RwLmMKQEAgLTMyOCw2ICszMjgsMjIgQEAgc3RhdGljIHZvaWQgYW1kZ3B1X2F0
+b21iaW9zX2RwX3Byb2JlX291aShzdHJ1Y3QgYW1kZ3B1X2Nvbm5lY3RvciAqYW1kZ3B1X2Nvbm5l
+Y3QKIAkJCSAgICAgIGJ1ZlswXSwgYnVmWzFdLCBidWZbMl0pOwogfQogCitzdGF0aWMgdm9pZCBh
+bWRncHVfYXRvbWJpb3NfZHBfZHNfcG9ydHMoc3RydWN0IGFtZGdwdV9jb25uZWN0b3IgKmFtZGdw
+dV9jb25uZWN0b3IpCit7CisJc3RydWN0IGFtZGdwdV9jb25uZWN0b3JfYXRvbV9kaWcgKmRpZ19j
+b25uZWN0b3IgPSBhbWRncHVfY29ubmVjdG9yLT5jb25fcHJpdjsKKwlpbnQgcmV0OworCisJaWYg
+KGRpZ19jb25uZWN0b3ItPmRwY2RbRFBfRFBDRF9SRVZdID4gMHgxMCkgeworCQlyZXQgPSBkcm1f
+ZHBfZHBjZF9yZWFkKCZhbWRncHVfY29ubmVjdG9yLT5kZGNfYnVzLT5hdXgsCisJCQkJICAgICAg
+IERQX0RPV05TVFJFQU1fUE9SVF8wLAorCQkJCSAgICAgICBkaWdfY29ubmVjdG9yLT5kb3duc3Ry
+ZWFtX3BvcnRzLAorCQkJCSAgICAgICBEUF9NQVhfRE9XTlNUUkVBTV9QT1JUUyk7CisJCWlmIChy
+ZXQpCisJCQltZW1zZXQoZGlnX2Nvbm5lY3Rvci0+ZG93bnN0cmVhbV9wb3J0cywgMCwKKwkJCSAg
+ICAgICBEUF9NQVhfRE9XTlNUUkVBTV9QT1JUUyk7CisJfQorfQorCiBpbnQgYW1kZ3B1X2F0b21i
+aW9zX2RwX2dldF9kcGNkKHN0cnVjdCBhbWRncHVfY29ubmVjdG9yICphbWRncHVfY29ubmVjdG9y
+KQogewogCXN0cnVjdCBhbWRncHVfY29ubmVjdG9yX2F0b21fZGlnICpkaWdfY29ubmVjdG9yID0g
+YW1kZ3B1X2Nvbm5lY3Rvci0+Y29uX3ByaXY7CkBAIC0zNDMsNyArMzU5LDcgQEAgaW50IGFtZGdw
+dV9hdG9tYmlvc19kcF9nZXRfZHBjZChzdHJ1Y3QgYW1kZ3B1X2Nvbm5lY3RvciAqYW1kZ3B1X2Nv
+bm5lY3RvcikKIAkJCSAgICAgIGRpZ19jb25uZWN0b3ItPmRwY2QpOwogCiAJCWFtZGdwdV9hdG9t
+Ymlvc19kcF9wcm9iZV9vdWkoYW1kZ3B1X2Nvbm5lY3Rvcik7Ci0KKwkJYW1kZ3B1X2F0b21iaW9z
+X2RwX2RzX3BvcnRzKGFtZGdwdV9jb25uZWN0b3IpOwogCQlyZXR1cm4gMDsKIAl9CiAKLS0gCjIu
+Ny40CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQt
+Z2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xp
+c3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
