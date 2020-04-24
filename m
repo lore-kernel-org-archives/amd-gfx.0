@@ -2,68 +2,101 @@ Return-Path: <SRS0=W/Sk=6I=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D313C54FCB
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 20:16:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F1C2C54FD0
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 22:22:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0C748214AF
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 20:16:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4E11520736
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 22:22:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o6UCsamz"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0C748214AF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="nN7xZ865"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E11520736
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C945E6EB16;
-	Fri, 24 Apr 2020 20:16:35 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D88D86EB86;
- Fri, 24 Apr 2020 20:16:34 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id k13so12534626wrw.7;
- Fri, 24 Apr 2020 13:16:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=s2Kqcd847642kR70JpEfV+P8d3XYHEMIIpz5tgu/YCI=;
- b=o6UCsamzx09ft7cbYz5b/vP6s1unQr8As1dEWNnIpLlOb0YnHzbEjwZuNijpmtuS5S
- yh0Opu3rFREorI9oYM7kEw5YSzqeCSVJaKAfNz6a0l68tDZPFAh5S/rMxo8+MWujW/0V
- 1csafg+gkSFwQLluOZMR3zXhMRAySX6+JFnefhb1vcoi6iRVZ+DTTz/8+0qwZzhySMik
- CpgXXLY16uIHCxd62tdURrZAcknbgTL2odARhPap021Zf8SuYzi6PRpiW1LUg9E8TYUk
- 04pHQqDIjD00wndkEFvh9ZduQ37ThH9pDp3NIx5bhMsQMvy8M7BiK/DNHp4tAl3BszZM
- XNeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=s2Kqcd847642kR70JpEfV+P8d3XYHEMIIpz5tgu/YCI=;
- b=g5fvlW3mz9ZpHCSnemL6yhCoe6zLofxtFdzOgTbfYfkAexne8SSS1MUUboUIjDBn2j
- Z4mmhqF7Oi6tqXhpV4EJocwMj1Dn4BxjV7YaGybidS27Xr5OnbY5hp5FHOCdICgylyZh
- QpMPSxG2kMoQns7a3L9SK8Jhi0xS1XKr7jjKL0lGicNxmZlUHgsV2l5r9yPTX9SI26kP
- 0IUwjkuSq3dihuIXjnbA80xL/cToYcSCG7cIVSjxM5/PZyqCmE+qarN/Kz4473HcHN9e
- 1uWhl1JFjCnJ8oRN0LNj1J3btY3UsnOQjKMmX+6Z1azU1caF3TmcPPRtWUZ6GP/QIJIL
- PyUA==
-X-Gm-Message-State: AGi0PuZQ7zX1751Jxj38C6B0a4BrXXTchDDTlc4nL7F6hZo39u83H3oS
- jK98Pm0dJqU5TFuRB+Ud9jxxkSgN9JjsFj6Vlcs=
-X-Google-Smtp-Source: APiQypKd9+AHmK/fDx+LGJLOZOAyeNpYq05LFze2JpMkv+P2DLetcDU9gQomu7057aUNA0WoC5Hlm8wr3Z5R9ajrR2s=
-X-Received: by 2002:adf:f844:: with SMTP id d4mr12853029wrq.362.1587759393501; 
- Fri, 24 Apr 2020 13:16:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 022136E0DA;
+	Fri, 24 Apr 2020 22:22:23 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2061.outbound.protection.outlook.com [40.107.220.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D1126E0DA
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 22:22:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SD8CUFFtyQWtnQSv2fUKFFRfIw4m8YC7a/T4kpQ48RNAb+p1/bxGlU49t9IRJWUsBkARF+6H8yLp/tWgCp+wbR8jtabz0EpW9lLXL0KccV1/6LtVRSuYOgP2zvbx1GyC0N8/qObkEhDYzktqbus1FP9PRL21Agv2lTx969Jd25U4w99qt0l01Rr4yU2JYeMldwA0+YU9rwrOna+SUrr7HYWV86Vj8ojMtt2sZWALQ8i1uSTNpeMF5xtirF85tq7X0YTwoxekPNs/5iZzIHEJFVCytcb0gipnX+y85AD6GVlMAs0AtN/tsNypnG9NZ4pQwitNFf35iu0XBjv1J55fSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QVUd8hrcsQ1uOJ8gXV+0iLKCJFTzi9031ZANNucpPAg=;
+ b=atS+OxLHOFw9du2SpaO0WImr73NZuxttuf82tVMRMaG+rI6w7vdtE/ejGEUe/la4zXQ/kIu6gMfziV7iVVFgdHpB9zgDukHXgm4FdKjd1+Zd5XimrYWt1xDV2JmE0SHYJwUchnds7TEix907IQTcUaIjwUNBvD3vHf9J51eEgQSsDqEOOQ5xpvud9FMwvfKFQSxbK9a3bu83aSkwlvBxrUdLhGF2v74sXxjpGe/2ULOkrQ4NiaQNXPC+bD+iuxQYs8bUYrok4i7TX2RtQeNI+ezMXwbWgyzmUOqxLkSkB1QmYxCmcPfiFXVlI/uAVUZhD04I4G6p7xklVpStIWZkGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QVUd8hrcsQ1uOJ8gXV+0iLKCJFTzi9031ZANNucpPAg=;
+ b=nN7xZ865he4KMXS0IN5gafWXEekvzDEmTYQ0phW7uNlak8bz91Nxr222ztBEneRt4x89dtrNPuJbZpQ+hSyOPtabqvxs72ae6neI7HzVO0xv7C2hirhznz7nEr7QwKHic8mhUKbPrY2zAuSiBis7HJ0xumYrAX7ynLx/Lv3DuJU=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Jonathan.Kim@amd.com; 
+Received: from MN2PR12MB4518.namprd12.prod.outlook.com (2603:10b6:208:266::19)
+ by MN2PR12MB3229.namprd12.prod.outlook.com (2603:10b6:208:102::27)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2921.29; Fri, 24 Apr
+ 2020 22:22:19 +0000
+Received: from MN2PR12MB4518.namprd12.prod.outlook.com
+ ([fe80::4cd:783:ca8:7af0]) by MN2PR12MB4518.namprd12.prod.outlook.com
+ ([fe80::4cd:783:ca8:7af0%5]) with mapi id 15.20.2921.027; Fri, 24 Apr 2020
+ 22:22:19 +0000
+From: Jonathan Kim <jonathan.kim@amd.com>
+To: Felix.Kuehling@amd.com
+Subject: [PATCH] drm/amdgpu: sw pstate switch should only be for vega20
+Date: Fri, 24 Apr 2020 18:22:06 -0400
+Message-Id: <20200424222206.38743-1-jonathan.kim@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: YTOPR0101CA0054.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::31) To MN2PR12MB4518.namprd12.prod.outlook.com
+ (2603:10b6:208:266::19)
 MIME-Version: 1.0
-References: <20200424075620.22364-1-zhengbin13@huawei.com>
- <2ebe7c66-0562-b61d-bf36-278a52590ce7@amd.com>
-In-Reply-To: <2ebe7c66-0562-b61d-bf36-278a52590ce7@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 24 Apr 2020 16:16:21 -0400
-Message-ID: <CADnq5_O+jpdSwBB47zdepqG=wJQWWYbBH1DnyPDFBa96H8kkGw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Remove unneeded semicolon
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from jonathan-KFD.amd.com (165.204.55.251) by
+ YTOPR0101CA0054.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::31) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.13 via Frontend
+ Transport; Fri, 24 Apr 2020 22:22:18 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.55.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: a00444fe-d1b6-494a-164a-08d7e89df394
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3229:|MN2PR12MB3229:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB32295CEE4AF6065E64C0DE1B85D00@MN2PR12MB3229.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2000;
+X-Forefront-PRVS: 03838E948C
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4518.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10009020)(4636009)(376002)(396003)(366004)(39860400002)(136003)(346002)(52116002)(316002)(66556008)(186003)(2616005)(37006003)(8936002)(956004)(81156014)(34206002)(1076003)(4744005)(16526019)(5660300002)(6486002)(26005)(7696005)(66476007)(8676002)(54906003)(2906002)(86362001)(44832011)(478600001)(66946007)(36756003)(6666004)(4326008)(6636002);
+ DIR:OUT; SFP:1101; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: JItzt+80xCu/+fehDRx5aIlIaHPLKVPzNocFfvrjlF2vh9D9EyEMLk4KYElXslyhldV2oOJ7CjrOrAYpiEDHk67KudzOf2UGZvIuX11lWxDuDFHAuTZ8F1xyGcsOkDk0j94D3VdWMYoIQ6xp0KJqT8HH+Sr0lYvjFanLAc7NlB+ex5hKQ1pJNdT8Vao+aNNwHwWgoUdLP9vlNIbkInKDNVrGa42Z1G22lrz1IzDvOrhJAXsBBDP+HMhrWBYIR6KZLVg/WKMVryUaJVEP0Hb00+Hk+aiyPGMQKMzluULYyXTV17O+3CNcP7WoX3T09pOWHExwO/wI4ozuokQlFpa1ql/b0TljkYb+zGmJUq2DexfGjtQz0aVPp7wPlc5fmW1+NS8SKJV8jjIIHaeVTBsUTuv41gJioQNyxnFQKwMP1VTtnv+8uxdOAbkgUDlXFp96
+X-MS-Exchange-AntiSpam-MessageData: 6y4P5Eqg8gbir/h+tCqi9AgNlYY/7SbOKusRkZ7QdF6tdSzoJJncHFQZPd4AMGACrNEeuYi6RVNs5ruSi1exuhBHgwdjTCeU0wTLCF7G+onQ67JfJLNGqwNWQQtCsf1+qH3GQL8nMPhMJ45EvPIne3o2bxRvg+CLwsRxtNMwvvPNAVa2aLMjPX1Wz/7XUX4iUDKmKoGFWttdvyWOWSWW82M4tL0ptOSF79bkFy7qNxuVZQpW6fgkwoMv31N3gA5CrWMfVTRIQIYmn0mq/x254nadKerIO4QTLilyngewxlP1OcfWyrb9W9nyJ4xdqC8DH8HY29WLmJJ3ty8GFmVU9OA3iUeAk14B6XHtRTXHAX5Ev/w/NL/btyVEiwy/RhgLt7Kd/YwciqpzPagLDeNC9RXKZCpQu0q7509SCZJXVWik91IOHedyU3iGn+NGijlq6uuGPr9DCYb24ebPm4Thik7vgu2SQyk0edKV6HjnG2OnNQYW5H+LNl2mLqO6pxinG17E91QM/vcfnla8aK/+9aCG04Ulae9odeX4MBAiSM4hjjGG5DSxx3M4k/4vpIyZVeiE9nt1ZWPpdodwKJEqbeGE7Z8tXwPDZGmrnnw3MLkc4qBUa1rWnhXiCrxAKAcAUxONGRHOHhGPeUAtuV0/IfoVU1mJp52lsHx98UaSQPdltepEkcUAiT/haFGyD/ffsaHHeq0Yrg60tlTxVOIoXwmhCMRAi/X3ND7KRlYbCX7q6A+72KcksgXSLoDIxY9NnYYRl3CiabKWVXft1VG1FIju513t6dJGME1o2M9Vppg=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a00444fe-d1b6-494a-164a-08d7e89df394
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2020 22:22:19.2731 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I7bnbHY7f1kd+0lQ1N+QTwoea8LlothRVJWH7mQg/FUPB6/mVuZcF+TGUSe7Gkbe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3229
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,39 +108,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Airlie <airlied@linux.ie>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Zheng Bin <zhengbin13@huawei.com>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Jonathan Kim <Jonathan.Kim@amd.com>, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCk9uIEZyaSwgQXByIDI0LCAyMDIwIGF0IDM6NTYgQU0g
-Q2hyaXN0aWFuIEvDtm5pZwo8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPiB3cm90ZToKPgo+IEFt
-IDI0LjA0LjIwIHVtIDA5OjU2IHNjaHJpZWIgWmhlbmcgQmluOgo+ID4gRml4ZXMgY29jY2ljaGVj
-ayB3YXJuaW5nOgo+ID4KPiA+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmM6
-MjUzNDoyLTM6IFVubmVlZGVkIHNlbWljb2xvbgo+ID4KPiA+IFJlcG9ydGVkLWJ5OiBIdWxrIFJv
-Ym90IDxodWxrY2lAaHVhd2VpLmNvbT4KPiA+IFNpZ25lZC1vZmYtYnk6IFpoZW5nIEJpbiA8emhl
-bmdiaW4xM0BodWF3ZWkuY29tPgo+Cj4gUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
-cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPgo+ID4gLS0tCj4gPiAgIGRyaXZlcnMvZ3B1L2RybS9h
-bWQvYW1kZ3B1L2dmeF92OV8wLmMgfCAyICstCj4gPiAgIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2Vy
-dGlvbigrKSwgMSBkZWxldGlvbigtKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
-X3Y5XzAuYwo+ID4gaW5kZXggMDlhYTVmNTA5YmQyLi40M2Q4NDIxNDk5NWMgMTAwNjQ0Cj4gPiAt
-LS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gPiArKysgYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gPiBAQCAtMjUzMSw3ICsyNTMxLDcg
-QEAgc3RhdGljIHZvaWQgZ2Z4X3Y5XzBfaW5pdF9zcV9jb25maWcoc3RydWN0IGFtZGdwdV9kZXZp
-Y2UgKmFkZXYpCj4gPiAgICAgICAgICAgICAgIGJyZWFrOwo+ID4gICAgICAgZGVmYXVsdDoKPiA+
-ICAgICAgICAgICAgICAgYnJlYWs7Cj4gPiAtICAgICB9Owo+ID4gKyAgICAgfQo+ID4gICB9Cj4g
-Pgo+ID4gICBzdGF0aWMgdm9pZCBnZnhfdjlfMF9jb25zdGFudHNfaW5pdChzdHJ1Y3QgYW1kZ3B1
-X2RldmljZSAqYWRldikKPiA+IC0tCj4gPiAyLjI2LjAuMTA2Lmc5ZmFkZWRkCj4gPgo+Cj4gX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBhbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFt
-ZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
-L21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+Driver steered p-state switching is designed for Vega20 only.
+Also simplify early return for temporary disable due to SMU FW
+bug.
+
+Signed-off-by: Jonathan Kim <Jonathan.Kim@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 54d8a3e7e75c..48c0ce13f68e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -395,7 +395,9 @@ int amdgpu_xgmi_set_pstate(struct amdgpu_device *adev, int pstate)
+ 	bool init_low = hive->pstate == AMDGPU_XGMI_PSTATE_UNKNOWN;
+ 
+ 	/* fw bug so temporarily disable pstate switching */
+-	if (!hive || adev->asic_type == CHIP_VEGA20)
++	return 0;
++
++	if (!hive || adev->asic_type != CHIP_VEGA20)
+ 		return 0;
+ 
+ 	mutex_lock(&hive->hive_lock);
+-- 
+2.17.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
