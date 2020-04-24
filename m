@@ -6,38 +6,37 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 86DA1C54FCB
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3E78C54FD0
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 13:29:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5CE6920656
+	by mail.kernel.org (Postfix) with ESMTPS id D5A4B20656
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 13:29:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5CE6920656
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5A4B20656
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=canonical.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 237A589EB8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5102889EFF;
 	Fri, 24 Apr 2020 13:29:04 +0000 (UTC)
 Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 230E86EA9F;
- Fri, 24 Apr 2020 11:12:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6295A6E03E;
+ Fri, 24 Apr 2020 12:56:43 +0000 (UTC)
 Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
  by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
  (envelope-from <colin.king@canonical.com>)
- id 1jRwFu-0004vt-Gm; Fri, 24 Apr 2020 11:12:26 +0000
+ id 1jRxsm-0006eo-Rx; Fri, 24 Apr 2020 12:56:40 +0000
 From: Colin King <colin.king@canonical.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
+To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>,
  Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH] amdgpu/dc: remove redundant assignment to variable 'option'
-Date: Fri, 24 Apr 2020 12:12:26 +0100
-Message-Id: <20200424111226.11796-1-colin.king@canonical.com>
+Subject: [PATCH][next] drm/amdgpu: fix unlocks on error return path
+Date: Fri, 24 Apr 2020 13:56:40 +0100
+Message-Id: <20200424125640.22656-1-colin.king@canonical.com>
 X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 X-Mailman-Approved-At: Fri, 24 Apr 2020 13:29:03 +0000
@@ -60,30 +59,48 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Colin Ian King <colin.king@canonical.com>
 
-The variable option is being initialized with a value that is
-never read and it is being updated later with a new value.  The
-initialization is redundant and can be removed.
+Currently the error returns paths are unlocking lock kiq->ring_lock
+however it seems this should be dev->gfx.kiq.ring_lock as this
+is the lock that is being locked and unlocked around the ring
+operations.  This looks like a bug, fix it by unlocking the
+correct lock.
 
-Addresses-Coverity: ("Unused value")
+[ Note: untested ]
+
+Addresses-Coverity: ("Missing unlock")
+Fixes: 82478876eaac ("drm/amdgpu: protect ring overrun")
 Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c
-index 4245e1f818a3..e096d2b95ef9 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c
-@@ -679,8 +679,7 @@ void dce110_opp_v_set_csc_default(
- 	if (default_adjust->force_hw_default == false) {
- 		const struct out_csc_color_matrix *elm;
- 		/* currently parameter not in use */
--		enum grph_color_adjust_option option =
--			GRPH_COLOR_MATRIX_HW_DEFAULT;
-+		enum grph_color_adjust_option option;
- 		uint32_t i;
- 		/*
- 		 * HW default false we program locally defined matrix
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index b120f9160f13..edaa50d850a6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -430,7 +430,7 @@ static int gmc_v10_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 		r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
+ 		if (r) {
+ 			amdgpu_ring_undo(ring);
+-			spin_unlock(&kiq->ring_lock);
++			spin_unlock(&adev->gfx.kiq.ring_lock);
+ 			return -ETIME;
+ 		}
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index 0a6026308343..055ecba754ff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -624,7 +624,7 @@ static int gmc_v9_0_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ 		r = amdgpu_fence_emit_polling(ring, &seq, MAX_KIQ_REG_WAIT);
+ 		if (r) {
+ 			amdgpu_ring_undo(ring);
+-			spin_unlock(&kiq->ring_lock);
++			spin_unlock(&adev->gfx.kiq.ring_lock);
+ 			return -ETIME;
+ 		}
+ 
 -- 
 2.25.1
 
