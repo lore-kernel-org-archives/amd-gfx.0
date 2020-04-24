@@ -2,83 +2,109 @@ Return-Path: <SRS0=W/Sk=6I=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 76F96C2BA1A
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 11:02:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 21F1AC2BA1A
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 11:09:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 47F0020728
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 11:02:35 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E6E1E20728
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 11:09:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="ewUtGuCD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47F0020728
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Jnf/zfGL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6E1E20728
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C5FE6E45E;
-	Fri, 24 Apr 2020 11:02:35 +0000 (UTC)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC8CC6E45E
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 11:02:33 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 03OAr9M2195861;
- Fri, 24 Apr 2020 11:02:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2020-01-29;
- bh=G6GyPfkli9cRGvAFKHdxyVIeJXUkdgDavfz9cU5qJgo=;
- b=ewUtGuCDoQ+qm/ZVnInuPBnd8/e49Boiky24Ct4NE7PjFYuDgWEX47XX+/PFdJOsF2zD
- 5czO+GIek4lGHax+TYu+da+LC2SEu50FFRNNg7px+/LuUAvEbCNPzDBINRtOeXfnXNNv
- 4qbvG0IgbNhXo3LMKLJGfqMeRi6UOp/9hoJngAckROqt4dStyfveVk5QiqtzcWJZEy6J
- THjdgx0obI/E0/eg19ecJp2jst+1K5wm8CpvzjzOv6fHUO1OSI8SdwFO3l2pWCmLoFqD
- Po5UPLOqmuq5YWPMV6sBLIdhUY4VunxD+CVt1b7dOR7xqvJWHoK0y0Dsszz7EeMRaTQG yQ== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2130.oracle.com with ESMTP id 30ketdkqsx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 24 Apr 2020 11:02:30 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 03OB2S2m141665;
- Fri, 24 Apr 2020 11:02:30 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by userp3030.oracle.com with ESMTP id 30gb1phjfx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 24 Apr 2020 11:02:30 +0000
-Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 03OB2KM8013148;
- Fri, 24 Apr 2020 11:02:20 GMT
-Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Fri, 24 Apr 2020 04:02:19 -0700
-Date: Fri, 24 Apr 2020 14:02:14 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Evan Quan <evan.quan@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: address the static checker warnings
-Message-ID: <20200424110214.GR2682@kadam>
-References: <20200424104115.28738-1-evan.quan@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95BD36E45D;
+	Fri, 24 Apr 2020 11:09:45 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2064.outbound.protection.outlook.com [40.107.237.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAC406E45D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 11:09:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=K5v7RuRvkms1e/kpHZn4pX0+LryzEufLkF+bcoQRuRLU43N1t2HAuCowaW6X7tjrhCjZKoUjOyhT6TxMB85e+H3YLFfieDTxso8AyH1T4ZgAYcVkepF1+lsTPKNFZsEJ8YamnLr4BhobwkBtDPJGT+lQpkSuFg1vqGqCJLjT0sEPJPMjnvMfmjJ/VHf7cbmLp4klE1K35Kai/lnzh1YAcVqeeRJbmtuah4SpkHOk9TNio/wBCiIPQmpImz62hQaj1oOu3xB0o51gHa2BLKrEu2rUClVVQzDEMdjn6h/9tbN2n+GpVPo8KuzuexvTW032AtnILsy0e5E3TT0OvO8jbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KOfN9Vc3uTUmouMPfoyiWhNQcgIqjKGPTIjbsYbBy+s=;
+ b=lLNslqZW4gJAZCks1rS1S6z3O+P5Ql2VLO30eKVYopKAyYl03Hg6aMHL9YCqeKM5JYu+j3oF2u82sbMqbXUa68XWl38cJAKd2eNQm62sSI1VmDDOeVMJ8HBqOt3kUpFVVZIc7WE2jYsX/QMR6BulXVBPcyJfWgzdc5q76CGQ2M9NTXRtKs2OBQTL4pqCn/jCquIctL/K5+cAT8nfH0m43O91T5kJR9mbCfHRiyo5dW8rpy4XtLXYVfkbL0qHxVg4PNqUwZa2ZgKV7fiHJYFdJhECGCoPsurlkf1CeHlR8W2cLPVViqaZ7zLAOV1z6np4ipSm/QCSn81np6aUHTAuHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KOfN9Vc3uTUmouMPfoyiWhNQcgIqjKGPTIjbsYbBy+s=;
+ b=Jnf/zfGL0P7sc7g1XJUaIbZ8r8Y5PZqze0H/0iAJPYQmDIhsdj3X0Cm0WSaKGQHNxDIfaKL1lOyoh/R82W7qzcMybbjaXessb2scc4U01vs06U9Iua1u7Gygyfc7zXaatmJAW1HCAE6y8zOYSDrHRp8X/CQYGuYX2EsC7Z8HdCs=
+Received: from MWHPR19CA0022.namprd19.prod.outlook.com (2603:10b6:300:d4::32)
+ by MN2PR12MB3598.namprd12.prod.outlook.com (2603:10b6:208:d1::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.22; Fri, 24 Apr
+ 2020 11:09:36 +0000
+Received: from CO1NAM11FT056.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:d4:cafe::64) by MWHPR19CA0022.outlook.office365.com
+ (2603:10b6:300:d4::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.13 via Frontend
+ Transport; Fri, 24 Apr 2020 11:09:36 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none;lists.freedesktop.org; dmarc=permerror action=none
+ header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ CO1NAM11FT056.mail.protection.outlook.com (10.13.175.107) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2937.15 via Frontend Transport; Fri, 24 Apr 2020 11:09:35 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 24 Apr
+ 2020 06:09:35 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 24 Apr
+ 2020 06:09:34 -0500
+Received: from gc-System-Product-Name.amd.com (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Fri, 24 Apr 2020 06:09:33 -0500
+From: chen gong <curry.gong@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH] drm/amdgpu: Need to power up SDMA for #34 sdma firmware after
+ do mode2 reset on Renoir
+Date: Fri, 24 Apr 2020 19:09:31 +0800
+Message-ID: <1587726571-31294-1-git-send-email-curry.gong@amd.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200424104115.28738-1-evan.quan@amd.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9600
- signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- suspectscore=0 spamscore=0
- mlxlogscore=999 mlxscore=0 malwarescore=0 bulkscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
- definitions=main-2004240086
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9600
- signatures=668686
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- lowpriorityscore=0 spamscore=0
- impostorscore=0 bulkscore=0 mlxlogscore=999 phishscore=0 mlxscore=0
- priorityscore=1501 clxscore=1015 suspectscore=0 adultscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2004240085
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(136003)(396003)(376002)(346002)(428003)(46966005)(81166007)(81156014)(4326008)(8936002)(316002)(6916009)(186003)(426003)(82740400003)(86362001)(8676002)(5660300002)(7696005)(2616005)(47076004)(356005)(82310400002)(36756003)(2906002)(336012)(70206006)(26005)(70586007)(478600001);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 7de15171-3100-4c7f-9efc-08d7e83ff93a
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3598:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3598C6148A6F393CC76C849A9DD00@MN2PR12MB3598.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
+X-Forefront-PRVS: 03838E948C
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: ArNcOCX38cmWhKXgiR9NQ3x2dVYsI3RqE2p8FTB/82x3guhu7gmLyscXtSjH56zPGP71yZy6U36azY60VM74XuV4jV+SMcSzoiUsQ+08FLeqAXbkdwEsRWPjwz4O6HHgMM4fynHotIbV5yTka4H7bZY0v+VxmeMeu0zvGFF4a/c/3Mk4Vz2bc/vwkpKbzBqtU6hMfJlE7NlfEc/B3uVjdrnhWO14pvEl6hTOUcZMCjPSK3La6q3gkmtabuzxSE92vMKlqBqokbEncebnBHXeCGHN//DPBxiPfap2RBe69anvNQqEisQwv+it18QPWVecxrcF6SVx4cb/LCvI81NjeZg2cjVOBKdgUgnQNEVQIEKJvtRjlHyow27XtuovISJE7GI8NLI0ZUiqHC964tuEEy53v5maL1/XMNs7VSrqn39MImPBvxxGlHofnPKjN55vchHR/kwSNU6gMrWM2GAWTJyM89QxdwYJlfF/id0hPJv+2ihOZ8kJd/Z+3OhoOEXmDCaPq70oWqqknJqhFuI+gQ==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Apr 2020 11:09:35.6577 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7de15171-3100-4c7f-9efc-08d7e83ff93a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3598
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,43 +116,53 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org
+Cc: chen gong <curry.gong@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 24, 2020 at 06:41:15PM +0800, Evan Quan wrote:
-> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:4199 amdgpu_device_gpu_recover()
-> error: we previously assumed 'hive' could be null (see line 4196)
-> 
-> This is introduced by "drm/amdgpu: optimize the gpu reset for XGMI setup V2".
-> 
-> Change-Id: I9c22b57abc9f512114112f93fb035f1fecf26beb
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index 71278942f9f0..898338dc9605 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4274,7 +4274,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
->  		if (!amdgpu_device_lock_adev(tmp_adev, !hive)) {
->  			DRM_INFO("Bailing on TDR for s_job:%llx, as another already in progress",
->  				  job ? job->base.id : -1);
-> -			mutex_unlock(&hive->hive_lock);
-> +			if (hive)
-> +				mutex_unlock(&hive->hive_lock);
+[why]
+Previously I found that powering up SDMA after mode2 reset can cause
+ring-sdma0 test failed.
+Perhaps the mode2 reset does not reset the SDMA PG state, so SDMA is
+already powered up so there is no need to ask the SMU to power it up
+again and doing so causes some other problem.
+So I skipped function 'amdgpu_dpm_set_powergating_by_smu(adev,
+AMD_IP_BLOCK_TYPE_SDMA, false)' with '!adev->in_gpu_reset'.
 
-In the current code, we know for a fact that "hive" is NULL at this
-point.  Presumably this will be changed in the future?  Otherwise why
-not just delete the mutex_unlock() because it is dead code.
+But now, for #34 sdma firmware, dmesg log show "ring-sdma0 test failed "
+after the mode2 reset, and scan data show SDMA does not have power.
+Then I re-enable function "amdgpu_dpm_set_powergating_by_smu(adev,
+AMD_IP_BLOCK_TYPE_SDMA, false)" during mode2 reset, The result is issue
+disappear.
 
-regards,
-dan carpenter
+Besides, I did more experiments base on previous sdma firmware for this
+patch. Situation Normal.
+
+[how]
+Remove "!adev->in_gpu_reset"
+
+Signed-off-by: chen gong <curry.gong@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+index c0ca9a82..0ecab41 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+@@ -1914,7 +1914,7 @@ static int sdma_v4_0_hw_init(void *handle)
+ 
+ 	if ((adev->asic_type == CHIP_RAVEN && adev->powerplay.pp_funcs &&
+ 			adev->powerplay.pp_funcs->set_powergating_by_smu) ||
+-			(adev->asic_type == CHIP_RENOIR && !adev->in_gpu_reset))
++			adev->asic_type == CHIP_RENOIR)
+ 		amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_SDMA, false);
+ 
+ 	if (!amdgpu_sriov_vf(adev))
+-- 
+2.7.4
 
 _______________________________________________
 amd-gfx mailing list
