@@ -7,61 +7,61 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 079D8C54FCB
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 13:54:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A95AFC55194
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 14:03:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CCC8720700
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 13:54:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7C95620776
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 14:03:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IX3BgBSg"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCC8720700
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QAxjbXch"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C95620776
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 457EF6E04E;
-	Fri, 24 Apr 2020 13:54:06 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70FBB6E04E
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 13:54:05 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id b11so10903592wrs.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 06:54:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36E5989C3F;
+	Fri, 24 Apr 2020 14:03:12 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D08389C3F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 14:03:11 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id u16so10858074wmc.5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 07:03:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=C5C6AXX9HpYIJ6hPxEZ/nbXaXBNFf9NwIuOiUVwGmtk=;
- b=IX3BgBSgTMqVSPrtJApngCeFlcbpwg0yG5mTjQbO+S5FG1xxv3RFm/UuF71fDsSL7L
- 50V8S8ATTKF8M9QxbtUMPruGFXrUUte/dvCsaIevSeK5v3lZGJ2E7iv8z9Z8CBGTBy/X
- ztXmAGoj0ajl2oeIqBKZ5ROW08kdsz7pFYRWwkJMoUIPfk8cC7y0GSihjnn6lA/i/YPJ
- 57zk8staQB+ZWusdO7g1HGsaxCKSdJFDCM0AbfyNHKPmHXPCZjO3yJL3fyD6HONsoxiw
- h16l/Q0Zc5edoiVtvKZYITbV8lo5fkFQ/MmShjB0gUDcN5OnUXO/XMcd8Q2tyl3KpKd+
- 1EhQ==
+ :cc; bh=xlDXi5nG9tZSH/2w5PdbxcQle2H7CifsinEdamvBtu8=;
+ b=QAxjbXchTTxsp7YWv5etGQadR1bK/U7q9IlranWy+kqGZb+aZfHWJmHbmYc0TuSQLd
+ f0jpOZqmLCMGjQHvUIWtpKsDhSAUY0+oqb3skx75TP96c7c7p2OB4xhlhJHIpdu/O1yN
+ Mw9Nb/XSIJeIQ3oDlB4OmykA+IG+0ru2f0hIHCrUJFpJZgD/5NGEs/cZDvypw5wKAeV6
+ W20xEeSXbXPlex/v8FoxVONcI8NiGlZQ1W5faT38fzbZVIQq2WdSUfOxi+Ipr8+JNsqY
+ pCFvsV+MOTLzO92OOxCDOm6JBvkgLvviJtFIhjF+p2W1qUAjDnTxu9GTpwSJCrYaHM9X
+ B/Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=C5C6AXX9HpYIJ6hPxEZ/nbXaXBNFf9NwIuOiUVwGmtk=;
- b=I+ejHXVhAzHCf0/KC7GDiDqSMnhQIdiahWv/MiB7Laa8c2VkEy9lChtqKJXsPglPUy
- FEjOkcxtrPsf1kVHDgP44t511igokVPwNytJ2OycsSbTTYUcXpK25UMEXDS1Goh3mRIf
- d7vNGaJHLMjjHlm7JFQwE2DfNAu3Y7pbWcSJ2grlyXQv+tUIv3oWzENcRy49OxBLmEYF
- TZK3uTLufYzNbdIa0/DCXG4tb0GbhyHgcEegSoEfVG2udNhsZJIvMQTe9cbmRO9DLztx
- zbbx/JHxtF8vO5r5fCTYr4/g3v2UTIdDhAOEEVfSo71z2MHpgNeSGGoi3/vUbrDNFlf6
- DWag==
-X-Gm-Message-State: AGi0PuaBcGlM+hcixKcFkkZuyJgOpkQG2aIjQaJ4nNH9QzGSzHecq1Ow
- hnZsrH+WCy2Z52fj/4gq2j26PeVvZEyDfBhv7BU=
-X-Google-Smtp-Source: APiQypKzf3lYAjPZ+jU/NPxb0u9hbPEQrCuBj7xLFAVLgCuE3lbRkneJNm3nbnIyxTfWKoACRmcyjJcL+KcPNJnkNf4=
-X-Received: by 2002:a5d:5352:: with SMTP id t18mr11099591wrv.111.1587736444092; 
- Fri, 24 Apr 2020 06:54:04 -0700 (PDT)
+ bh=xlDXi5nG9tZSH/2w5PdbxcQle2H7CifsinEdamvBtu8=;
+ b=VvLkcVNfxAMfRSFiApNvKzPClKU/E9G6rAJYDXcosoD8SWi71+9FYWKUPS+seltnlz
+ klFm/YrhHQZSMmTx8udyi5zb4B8vZeyifXCB1WLH40QCZmBxdVNh+Tg7hHXf+zLvMEsK
+ FxeGk/8Lk7LnIwboJZ5YaC3NQCU4u1mbAa2iD9kMXfPsupJZgj+/i9/C4idNAdA0T8ps
+ CjRfY3K2uktmyueEQpjeiXjhYdOVQWDA/tNeOQwI02fxKCNZwX7AmHtqUPY5q+6OPpa1
+ GvX8G+4WH7Rb0qU+efdCX+GluzWoTLOTce1UpPD/3uvlr5+Cd9vxPTDLGi9/U+BATjr1
+ HKiQ==
+X-Gm-Message-State: AGi0PuYPFKvIRo5yENvF/VFyjF+sTAdow/DZkEDNUEPT0w9d2JbS4kXy
+ nAHWZ8nNlP2jvrmWdM1ptPpG/JtobyWjSDXjX2TBPjDI
+X-Google-Smtp-Source: APiQypLGAupxkYdK9tht6JhZ1PimN+V0Y3ZY1S8A96VYa1x11viZREs3uVMEx/qc09DQ1VzRRPWoUryrMoVz+IR+76o=
+X-Received: by 2002:a7b:cc0e:: with SMTP id f14mr10326757wmh.39.1587736989984; 
+ Fri, 24 Apr 2020 07:03:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <1587726571-31294-1-git-send-email-curry.gong@amd.com>
-In-Reply-To: <1587726571-31294-1-git-send-email-curry.gong@amd.com>
+References: <20200424080547.25599-1-evan.quan@amd.com>
+ <20200424080547.25599-2-evan.quan@amd.com>
+In-Reply-To: <20200424080547.25599-2-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 24 Apr 2020 09:53:52 -0400
-Message-ID: <CADnq5_OnaD6bUWmTEoJyBO=PF3pccP02=9gNXdqP4iCFo78g=g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Need to power up SDMA for #34 sdma firmware
- after do mode2 reset on Renoir
-To: chen gong <curry.gong@amd.com>
+Date: Fri, 24 Apr 2020 10:02:58 -0400
+Message-ID: <CADnq5_PB_1Pef-C923gNut2+neF_1yxXPhzQUCWGvgLsyc1-eg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drma/dmgpu: drop redundant cg/pg ungate on runpm enter
+To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,61 +73,50 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, Prike Liang <prike.liang@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Apr 24, 2020 at 7:09 AM chen gong <curry.gong@amd.com> wrote:
->
-> [why]
-> Previously I found that powering up SDMA after mode2 reset can cause
-> ring-sdma0 test failed.
-> Perhaps the mode2 reset does not reset the SDMA PG state, so SDMA is
-> already powered up so there is no need to ask the SMU to power it up
-> again and doing so causes some other problem.
-> So I skipped function 'amdgpu_dpm_set_powergating_by_smu(adev,
-> AMD_IP_BLOCK_TYPE_SDMA, false)' with '!adev->in_gpu_reset'.
->
-> But now, for #34 sdma firmware, dmesg log show "ring-sdma0 test failed "
-> after the mode2 reset, and scan data show SDMA does not have power.
-> Then I re-enable function "amdgpu_dpm_set_powergating_by_smu(adev,
-> AMD_IP_BLOCK_TYPE_SDMA, false)" during mode2 reset, The result is issue
-> disappear.
->
-> Besides, I did more experiments base on previous sdma firmware for this
-> patch. Situation Normal.
->
-> [how]
-> Remove "!adev->in_gpu_reset"
+Also, I just noticed a typo in the patch title:
 
-Do we need a firmware version check?  How recent is the #34 firmware?
-If there are older renoir SDMA firmwares out in the wild we may need
-the check for them.  With that confirmed,
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+drma/dmgpu -> drm/admgpu
 
+Alex
+
+On Fri, Apr 24, 2020 at 4:06 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-> Signed-off-by: chen gong <curry.gong@amd.com>
+> CG/PG ungate is already performed in ip_suspend_phase1. Otherwise,
+> the CG/PG ungate will be performed twice. That will cause gfxoff
+> disablement is performed twice also on runpm enter while gfxoff
+> enablemnt once on rump exit. That will put gfxoff into disabled
+> state.
+>
+> Change-Id: I489ca456770d3fe482b685f132400202467f712b
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 3 ---
+>  1 file changed, 3 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> index c0ca9a82..0ecab41 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-> @@ -1914,7 +1914,7 @@ static int sdma_v4_0_hw_init(void *handle)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 08eeb0d2c149..71278942f9f0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -3453,9 +3453,6 @@ int amdgpu_device_suspend(struct drm_device *dev, bool fbcon)
+>                 }
+>         }
 >
->         if ((adev->asic_type == CHIP_RAVEN && adev->powerplay.pp_funcs &&
->                         adev->powerplay.pp_funcs->set_powergating_by_smu) ||
-> -                       (adev->asic_type == CHIP_RENOIR && !adev->in_gpu_reset))
-> +                       adev->asic_type == CHIP_RENOIR)
->                 amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_SDMA, false);
+> -       amdgpu_device_set_pg_state(adev, AMD_PG_STATE_UNGATE);
+> -       amdgpu_device_set_cg_state(adev, AMD_CG_STATE_UNGATE);
+> -
+>         amdgpu_ras_suspend(adev);
 >
->         if (!amdgpu_sriov_vf(adev))
+>         r = amdgpu_device_ip_suspend_phase1(adev);
 > --
-> 2.7.4
+> 2.26.2
 >
 > _______________________________________________
 > amd-gfx mailing list
