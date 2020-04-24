@@ -6,50 +6,50 @@ X-Spam-Status: No, score=-2.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A26DBC54FCB
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 12:33:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2CB3C54FCB
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 12:34:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 80F8320736
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 12:33:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 80F8320736
+	by mail.kernel.org (Postfix) with ESMTPS id A2F7D20700
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Apr 2020 12:34:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2F7D20700
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=FreeBSD.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38E226E471;
-	Fri, 24 Apr 2020 12:33:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A24A6E03E;
+	Fri, 24 Apr 2020 12:34:12 +0000 (UTC)
 Received: from mail-lj1-f196.google.com (mail-lj1-f196.google.com
  [209.85.208.196])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1ADD6E471
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 12:33:20 +0000 (UTC)
-Received: by mail-lj1-f196.google.com with SMTP id u6so9740781ljl.6
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 05:33:20 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 953BE6E03E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 12:34:11 +0000 (UTC)
+Received: by mail-lj1-f196.google.com with SMTP id l19so9740152lje.10
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Apr 2020 05:34:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:to:from:subject:openpgp:autocrypt:message-id
+ h=x-gm-message-state:from:subject:to:openpgp:autocrypt:message-id
  :date:user-agent:mime-version:content-language
  :content-transfer-encoding;
  bh=4XYOTmJ9j/XFZuhvARIT1HWonS+HKw8rBXFHit8sZzg=;
- b=YoF1ioFph3cNqdqJX7C3vynIF84Hre2xzePkoqtUtEN/lYwTGg9WRHbQF88I4mM0hL
- 5xhESImoJiCWG7fV0oWMk0HNKxS/AVovw8oZh20shVHkJaWz0XD8LXLA/Y+Yq3SupsNs
- KIS65L7kOsUDB+MI5I5954+QzyqzS3wH5laEv+klbd5ZyeEODGfT6CVKWmY/oNmk+ope
- lPEeqIYNHyw8CfeRaf/4Pji7HgTbBwGyh24gng8Jl2OcDNLiRw2WmsPVTWlnK6BeN/7L
- C6F4wktBuaJsuOM1Sh/affk5ar4xQBjYmh3zNnsIU0sRijO/WUpz4wZzgAw4GJVS0C5y
- 3R7g==
-X-Gm-Message-State: AGi0PuYCF1BsuW0wsRy6nitfqhyuqwrtiJm5KObbCL8CStVw3nIwwC9u
- dCYGZfsjutJ+2pjskCNiiwz4VZO5fAs=
-X-Google-Smtp-Source: APiQypJE4TDtjjTqpUqJrNLXTY7cC0wSsjKijzgBAW+6X5eSONCZkdc0Sles4u06a8W/mzyZs1OXmQ==
-X-Received: by 2002:a2e:164b:: with SMTP id 11mr5708795ljw.23.1587731598828;
- Fri, 24 Apr 2020 05:33:18 -0700 (PDT)
+ b=patNylaLFHlr8aXW1YdFnfEi65GYRY73pSb04WDrsDiE0vwv1y7OK84FZtLXY1cBef
+ 4zHdp0bUtjmrXSNo9KQZz+vmZahxrOAYkQdqjDApOE7GUuQwZ7kO88rr/sJzz0JS7NgU
+ KInTCCas9HpI9F70vj/03jbxx2EcAe2+qMIfR7+YiIsQV5AccrCeeawm926KG4q58Qrp
+ jxlxCLWMsunGp5zkb+tRhaRgayMWp9hwSw6y28KC25MV2hTTWeT/kIjRG8qpbETS+Sil
+ F6+Wwt3eaPkd565wtpq8dJPQnP4KPSHRA9lSb+b6ROPx4ZarZlitEqxwMVLwGHMNQwGL
+ JPPw==
+X-Gm-Message-State: AGi0PuZEmdwmznv/fgV5dhqiEWc2V6diqIS+82tb0Lk4q0M4nrdRV26x
+ Y0khPIzmnEeaMEzo+T56pgpmls0Si88=
+X-Google-Smtp-Source: APiQypKO91jf5+Lv4KEH8xHO2XtAgfgv76csBEnXoqQq+cNcFDNNF8Erpo0nVCVqay5HoYGFpWiNbA==
+X-Received: by 2002:a2e:8603:: with SMTP id a3mr5885998lji.153.1587731649625; 
+ Fri, 24 Apr 2020 05:34:09 -0700 (PDT)
 Received: from [192.168.0.88] (east.meadow.volia.net. [93.72.151.96])
- by smtp.googlemail.com with ESMTPSA id l18sm4172654lje.19.2020.04.24.05.33.17
+ by smtp.googlemail.com with ESMTPSA id q23sm4453963lji.92.2020.04.24.05.34.08
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Apr 2020 05:33:17 -0700 (PDT)
-To: amd-gfx@lists.freedesktop.org
+ Fri, 24 Apr 2020 05:34:09 -0700 (PDT)
 From: Andriy Gapon <avg@FreeBSD.org>
-Subject: FreeBSD / amdgpu / Vega 3, need help
+Subject: FreeBSD / amdgpu / Vega 3, pstate TEST_DEBUG_DATA: 0x0
+To: amd-gfx@lists.freedesktop.org
 Openpgp: preference=signencrypt
 Autocrypt: addr=avg@FreeBSD.org; prefer-encrypt=mutual; keydata=
  mQINBFm4LIgBEADNB/3lT7f15UKeQ52xCFQx/GqHkSxEdVyLFZTmY3KyNPQGBtyvVyBfprJ7
@@ -94,8 +94,8 @@ Autocrypt: addr=avg@FreeBSD.org; prefer-encrypt=mutual; keydata=
  w0qK5DNQQCkiweevCIC6wc3p67jl1EMFY5+z+zdTPb3h7LeVnGqW0qBQl99vVFgzLxchKcl0
  R/paSFgwqXCZhAKMuUHncJuynDOP7z5LirUeFI8qsBAJi1rXpQoLJTVcW72swZ42IdPiboqx
  NbTMiNOiE36GqMcTPfKylCbF45JNX4nF9ElM0E+Y8gi4cizJYBRr2FBJgay0b9Cp
-Message-ID: <6b75f089-7ac3-4444-4f88-b68c542ca0e5@FreeBSD.org>
-Date: Fri, 24 Apr 2020 15:33:16 +0300
+Message-ID: <ded7ad97-cc17-ffda-f476-cc5513e18b88@FreeBSD.org>
+Date: Fri, 24 Apr 2020 15:34:08 +0300
 User-Agent: Mozilla/5.0 (X11; FreeBSD amd64; rv:60.0) Gecko/20100101
  Firefox/60.0 Thunderbird/60.9.0
 MIME-Version: 1.0
