@@ -2,52 +2,48 @@ Return-Path: <SRS0=xwvD=6L=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E3C9C5519A
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2020 07:25:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EE04C54FD0
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2020 07:25:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4C45A2072D
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2020 07:25:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4C45A2072D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+	by mail.kernel.org (Postfix) with ESMTPS id 814DF2072D
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Apr 2020 07:25:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 814DF2072D
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=vivo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B4CB06E071;
-	Mon, 27 Apr 2020 07:25:31 +0000 (UTC)
-Received: from smtprelay.hostedemail.com (smtprelay0145.hostedemail.com
- [216.40.44.145])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8EEB89C98;
- Sun, 26 Apr 2020 18:06:31 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay07.hostedemail.com (Postfix) with ESMTP id B5871181D341E;
- Sun, 26 Apr 2020 18:06:30 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: soup82_389f1b58a7502
-X-Filterd-Recvd-Size: 10978
-Received: from XPS-9350.home (unknown [47.151.136.130])
- (Authenticated sender: joe@perches.com)
- by omf13.hostedemail.com (Postfix) with ESMTPA;
- Sun, 26 Apr 2020 18:06:28 +0000 (UTC)
-Message-ID: <8b9bf44c9f823b887ca3477f3b6bca383c0eba4e.camel@perches.com>
-Subject: Re: [PATCH] drm/radeon: cleanup coding style a bit
-From: Joe Perches <joe@perches.com>
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Bernard
- Zhao <bernard@vivo.com>, Alex Deucher <alexander.deucher@amd.com>, "David
- (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Sun, 26 Apr 2020 11:06:27 -0700
-In-Reply-To: <2c67e29b-df17-6ae3-cb55-af950acc022c@amd.com>
-References: <20200426131244.22293-1-bernard@vivo.com>
- <2c67e29b-df17-6ae3-cb55-af950acc022c@amd.com>
-User-Agent: Evolution 3.36.1-2 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F90E6E0A8;
+	Mon, 27 Apr 2020 07:25:32 +0000 (UTC)
+Received: from mail-m17613.qiye.163.com (mail-m17613.qiye.163.com
+ [59.111.176.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E061A6E08A
+ for <amd-gfx@lists.freedesktop.org>; Sun, 26 Apr 2020 13:12:59 +0000 (UTC)
+Received: from ubuntu.localdomain (unknown [157.0.31.122])
+ by mail-m17613.qiye.163.com (Hmail) with ESMTPA id B18E64825F7;
+ Sun, 26 Apr 2020 21:12:52 +0800 (CST)
+From: Bernard Zhao <bernard@vivo.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "David (ChunMing) Zhou" <David1.Zhou@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/radeon: cleanup coding style a bit
+Date: Sun, 26 Apr 2020 06:12:44 -0700
+Message-Id: <20200426131244.22293-1-bernard@vivo.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZTlVLS0pCQkJDTk5LT0pOWVdZKFlBSE
+ 83V1ktWUFJV1kJDhceCFlBWTU0KTY6NyQpLjc#WQY+
+X-HM-Sender-Digest: e1kMHhlZQR0aFwgeV1kSHx4VD1lBWUc6NCo6Ojo6Kjg6NElCPhUIM01K
+ GjIwC0lVSlVKTkNMQktNTExJQkJLVTMWGhIXVRkeCRUaCR87DRINFFUYFBZFWVdZEgtZQVlKTkxV
+ S1VISlVKSUlZV1kIAVlBSkJKSzcG
+X-HM-Tid: 0a71b69e7faf93bakuwsb18e64825f7
 X-Mailman-Approved-At: Mon, 27 Apr 2020 07:25:30 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,356 +56,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: opensource.kernel@vivo.com
+Cc: opensource.kernel@vivo.com, Bernard Zhao <bernard@vivo.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-btw:  the debugging macros in atom.c are not good.
+Maybe no need to check ws before kmalloc, kmalloc will check
+itself, kmalloc`s logic is if ptr is NULL, kmalloc will just
+return
 
-It could be something like the below as the output logging is
-at best poorly formatted due to the many individual printks
-without KERN_<LEVEL> that are emitted on separate lines.
-
-#define ATOM_DEBUG
-
-should probably be commented out.
-
-The debugging macros and #include file should be better formatted.
-
-The no_printk macro is useful to verify formats and arguments when
-not debugging and removing the ATOM_DEBUG from atom-names.h does
-not cause the unused char *arrays to be added to the object file
-as the compiler elides unused arrays.
-
+Signed-off-by: Bernard Zhao <bernard@vivo.com>
 ---
- drivers/gpu/drm/radeon/atom-names.h | 266 +++++++++++++++++++++++++++---------
- drivers/gpu/drm/radeon/atom.c       |  23 ++--
- 2 files changed, 218 insertions(+), 71 deletions(-)
+ drivers/gpu/drm/radeon/atom.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/atom-names.h b/drivers/gpu/drm/radeon/atom-names.h
-index 6f907a5..055775 100644
---- a/drivers/gpu/drm/radeon/atom-names.h
-+++ b/drivers/gpu/drm/radeon/atom-names.h
-@@ -27,74 +27,218 @@
- 
- #include "atom.h"
- 
--#ifdef ATOM_DEBUG
--
- #define ATOM_OP_NAMES_CNT 123
--static char *atom_op_names[ATOM_OP_NAMES_CNT] = {
--"RESERVED", "MOVE_REG", "MOVE_PS", "MOVE_WS", "MOVE_FB", "MOVE_PLL",
--"MOVE_MC", "AND_REG", "AND_PS", "AND_WS", "AND_FB", "AND_PLL", "AND_MC",
--"OR_REG", "OR_PS", "OR_WS", "OR_FB", "OR_PLL", "OR_MC", "SHIFT_LEFT_REG",
--"SHIFT_LEFT_PS", "SHIFT_LEFT_WS", "SHIFT_LEFT_FB", "SHIFT_LEFT_PLL",
--"SHIFT_LEFT_MC", "SHIFT_RIGHT_REG", "SHIFT_RIGHT_PS", "SHIFT_RIGHT_WS",
--"SHIFT_RIGHT_FB", "SHIFT_RIGHT_PLL", "SHIFT_RIGHT_MC", "MUL_REG",
--"MUL_PS", "MUL_WS", "MUL_FB", "MUL_PLL", "MUL_MC", "DIV_REG", "DIV_PS",
--"DIV_WS", "DIV_FB", "DIV_PLL", "DIV_MC", "ADD_REG", "ADD_PS", "ADD_WS",
--"ADD_FB", "ADD_PLL", "ADD_MC", "SUB_REG", "SUB_PS", "SUB_WS", "SUB_FB",
--"SUB_PLL", "SUB_MC", "SET_ATI_PORT", "SET_PCI_PORT", "SET_SYS_IO_PORT",
--"SET_REG_BLOCK", "SET_FB_BASE", "COMPARE_REG", "COMPARE_PS",
--"COMPARE_WS", "COMPARE_FB", "COMPARE_PLL", "COMPARE_MC", "SWITCH",
--"JUMP", "JUMP_EQUAL", "JUMP_BELOW", "JUMP_ABOVE", "JUMP_BELOW_OR_EQUAL",
--"JUMP_ABOVE_OR_EQUAL", "JUMP_NOT_EQUAL", "TEST_REG", "TEST_PS", "TEST_WS",
--"TEST_FB", "TEST_PLL", "TEST_MC", "DELAY_MILLISEC", "DELAY_MICROSEC",
--"CALL_TABLE", "REPEAT", "CLEAR_REG", "CLEAR_PS", "CLEAR_WS", "CLEAR_FB",
--"CLEAR_PLL", "CLEAR_MC", "NOP", "EOT", "MASK_REG", "MASK_PS", "MASK_WS",
--"MASK_FB", "MASK_PLL", "MASK_MC", "POST_CARD", "BEEP", "SAVE_REG",
--"RESTORE_REG", "SET_DATA_BLOCK", "XOR_REG", "XOR_PS", "XOR_WS", "XOR_FB",
--"XOR_PLL", "XOR_MC", "SHL_REG", "SHL_PS", "SHL_WS", "SHL_FB", "SHL_PLL",
--"SHL_MC", "SHR_REG", "SHR_PS", "SHR_WS", "SHR_FB", "SHR_PLL", "SHR_MC",
--"DEBUG", "CTB_DS",
-+static const char * const atom_op_names[ATOM_OP_NAMES_CNT] = {
-+	"RESERVED",
-+	"MOVE_REG",
-+	"MOVE_PS",
-+	"MOVE_WS",
-+	"MOVE_FB",
-+	"MOVE_PLL",
-+	"MOVE_MC",
-+	"AND_REG",
-+	"AND_PS",
-+	"AND_WS",
-+	"AND_FB",
-+	"AND_PLL",
-+	"AND_MC",
-+	"OR_REG",
-+	"OR_PS",
-+	"OR_WS",
-+	"OR_FB",
-+	"OR_PLL",
-+	"OR_MC",
-+	"SHIFT_LEFT_REG",
-+	"SHIFT_LEFT_PS",
-+	"SHIFT_LEFT_WS",
-+	"SHIFT_LEFT_FB",
-+	"SHIFT_LEFT_PLL",
-+	"SHIFT_LEFT_MC",
-+	"SHIFT_RIGHT_REG",
-+	"SHIFT_RIGHT_PS",
-+	"SHIFT_RIGHT_WS",
-+	"SHIFT_RIGHT_FB",
-+	"SHIFT_RIGHT_PLL",
-+	"SHIFT_RIGHT_MC",
-+	"MUL_REG",
-+	"MUL_PS",
-+	"MUL_WS",
-+	"MUL_FB",
-+	"MUL_PLL",
-+	"MUL_MC",
-+	"DIV_REG",
-+	"DIV_PS",
-+	"DIV_WS",
-+	"DIV_FB",
-+	"DIV_PLL",
-+	"DIV_MC",
-+	"ADD_REG",
-+	"ADD_PS",
-+	"ADD_WS",
-+	"ADD_FB",
-+	"ADD_PLL",
-+	"ADD_MC",
-+	"SUB_REG",
-+	"SUB_PS",
-+	"SUB_WS",
-+	"SUB_FB",
-+	"SUB_PLL",
-+	"SUB_MC",
-+	"SET_ATI_PORT",
-+	"SET_PCI_PORT",
-+	"SET_SYS_IO_PORT",
-+	"SET_REG_BLOCK",
-+	"SET_FB_BASE",
-+	"COMPARE_REG",
-+	"COMPARE_PS",
-+	"COMPARE_WS",
-+	"COMPARE_FB",
-+	"COMPARE_PLL",
-+	"COMPARE_MC",
-+	"SWITCH",
-+	"JUMP",
-+	"JUMP_EQUAL",
-+	"JUMP_BELOW",
-+	"JUMP_ABOVE",
-+	"JUMP_BELOW_OR_EQUAL",
-+	"JUMP_ABOVE_OR_EQUAL",
-+	"JUMP_NOT_EQUAL",
-+	"TEST_REG",
-+	"TEST_PS",
-+	"TEST_WS",
-+	"TEST_FB",
-+	"TEST_PLL",
-+	"TEST_MC",
-+	"DELAY_MILLISEC",
-+	"DELAY_MICROSEC",
-+	"CALL_TABLE",
-+	"REPEAT",
-+	"CLEAR_REG",
-+	"CLEAR_PS",
-+	"CLEAR_WS",
-+	"CLEAR_FB",
-+	"CLEAR_PLL",
-+	"CLEAR_MC",
-+	"NOP",
-+	"EOT",
-+	"MASK_REG",
-+	"MASK_PS",
-+	"MASK_WS",
-+	"MASK_FB",
-+	"MASK_PLL",
-+	"MASK_MC",
-+	"POST_CARD",
-+	"BEEP",
-+	"SAVE_REG",
-+	"RESTORE_REG",
-+	"SET_DATA_BLOCK",
-+	"XOR_REG",
-+	"XOR_PS",
-+	"XOR_WS",
-+	"XOR_FB",
-+	"XOR_PLL",
-+	"XOR_MC",
-+	"SHL_REG",
-+	"SHL_PS",
-+	"SHL_WS",
-+	"SHL_FB",
-+	"SHL_PLL",
-+	"SHL_MC",
-+	"SHR_REG",
-+	"SHR_PS",
-+	"SHR_WS",
-+	"SHR_FB",
-+	"SHR_PLL",
-+	"SHR_MC",
-+	"DEBUG",
-+	"CTB_DS",
- };
- 
- #define ATOM_TABLE_NAMES_CNT 74
--static char *atom_table_names[ATOM_TABLE_NAMES_CNT] = {
--"ASIC_Init", "GetDisplaySurfaceSize", "ASIC_RegistersInit",
--"VRAM_BlockVenderDetection", "SetClocksRatio", "MemoryControllerInit",
--"GPIO_PinInit", "MemoryParamAdjust", "DVOEncoderControl",
--"GPIOPinControl", "SetEngineClock", "SetMemoryClock", "SetPixelClock",
--"DynamicClockGating", "ResetMemoryDLL", "ResetMemoryDevice",
--"MemoryPLLInit", "EnableMemorySelfRefresh", "AdjustMemoryController",
--"EnableASIC_StaticPwrMgt", "ASIC_StaticPwrMgtStatusChange",
--"DAC_LoadDetection", "TMDS2EncoderControl", "LCD1OutputControl",
--"DAC1EncoderControl", "DAC2EncoderControl", "DVOOutputControl",
--"CV1OutputControl", "SetCRTC_DPM_State", "TVEncoderControl",
--"TMDS1EncoderControl", "LVDSEncoderControl", "TV1OutputControl",
--"EnableScaler", "BlankCRTC", "EnableCRTC", "GetPixelClock",
--"EnableVGA_Render", "EnableVGA_Access", "SetCRTC_Timing",
--"SetCRTC_OverScan", "SetCRTC_Replication", "SelectCRTC_Source",
--"EnableGraphSurfaces", "UpdateCRTC_DoubleBufferRegisters",
--"LUT_AutoFill", "EnableHW_IconCursor", "GetMemoryClock",
--"GetEngineClock", "SetCRTC_UsingDTDTiming", "TVBootUpStdPinDetection",
--"DFP2OutputControl", "VRAM_BlockDetectionByStrap", "MemoryCleanUp",
--"ReadEDIDFromHWAssistedI2C", "WriteOneByteToHWAssistedI2C",
--"ReadHWAssistedI2CStatus", "SpeedFanControl", "PowerConnectorDetection",
--"MC_Synchronization", "ComputeMemoryEnginePLL", "MemoryRefreshConversion",
--"VRAM_GetCurrentInfoBlock", "DynamicMemorySettings", "MemoryTraining",
--"EnableLVDS_SS", "DFP1OutputControl", "SetVoltage", "CRT1OutputControl",
--"CRT2OutputControl", "SetupHWAssistedI2CStatus", "ClockSource",
--"MemoryDeviceInit", "EnableYUV",
-+static const char * const atom_table_names[ATOM_TABLE_NAMES_CNT] = {
-+	"ASIC_Init",
-+	"GetDisplaySurfaceSize",
-+	"ASIC_RegistersInit",
-+	"VRAM_BlockVenderDetection",
-+	"SetClocksRatio",
-+	"MemoryControllerInit",
-+	"GPIO_PinInit",
-+	"MemoryParamAdjust",
-+	"DVOEncoderControl",
-+	"GPIOPinControl",
-+	"SetEngineClock",
-+	"SetMemoryClock",
-+	"SetPixelClock",
-+	"DynamicClockGating",
-+	"ResetMemoryDLL",
-+	"ResetMemoryDevice",
-+	"MemoryPLLInit",
-+	"EnableMemorySelfRefresh",
-+	"AdjustMemoryController",
-+	"EnableASIC_StaticPwrMgt",
-+	"ASIC_StaticPwrMgtStatusChange",
-+	"DAC_LoadDetection",
-+	"TMDS2EncoderControl",
-+	"LCD1OutputControl",
-+	"DAC1EncoderControl",
-+	"DAC2EncoderControl",
-+	"DVOOutputControl",
-+	"CV1OutputControl",
-+	"SetCRTC_DPM_State",
-+	"TVEncoderControl",
-+	"TMDS1EncoderControl",
-+	"LVDSEncoderControl",
-+	"TV1OutputControl",
-+	"EnableScaler",
-+	"BlankCRTC",
-+	"EnableCRTC",
-+	"GetPixelClock",
-+	"EnableVGA_Render",
-+	"EnableVGA_Access",
-+	"SetCRTC_Timing",
-+	"SetCRTC_OverScan",
-+	"SetCRTC_Replication",
-+	"SelectCRTC_Source",
-+	"EnableGraphSurfaces",
-+	"UpdateCRTC_DoubleBufferRegisters",
-+	"LUT_AutoFill",
-+	"EnableHW_IconCursor",
-+	"GetMemoryClock",
-+	"GetEngineClock",
-+	"SetCRTC_UsingDTDTiming",
-+	"TVBootUpStdPinDetection",
-+	"DFP2OutputControl",
-+	"VRAM_BlockDetectionByStrap",
-+	"MemoryCleanUp",
-+	"ReadEDIDFromHWAssistedI2C",
-+	"WriteOneByteToHWAssistedI2C",
-+	"ReadHWAssistedI2CStatus",
-+	"SpeedFanControl",
-+	"PowerConnectorDetection",
-+	"MC_Synchronization",
-+	"ComputeMemoryEnginePLL",
-+	"MemoryRefreshConversion",
-+	"VRAM_GetCurrentInfoBlock",
-+	"DynamicMemorySettings",
-+	"MemoryTraining",
-+	"EnableLVDS_SS",
-+	"DFP1OutputControl",
-+	"SetVoltage",
-+	"CRT1OutputControl",
-+	"CRT2OutputControl",
-+	"SetupHWAssistedI2CStatus",
-+	"ClockSource",
-+	"MemoryDeviceInit",
-+	"EnableYUV",
- };
- 
- #define ATOM_IO_NAMES_CNT 5
--static char *atom_io_names[ATOM_IO_NAMES_CNT] = {
--"MM", "PLL", "MC", "PCIE", "PCIE PORT",
-+static const char * const atom_io_names[ATOM_IO_NAMES_CNT] = {
-+	"MM",
-+	"PLL",
-+	"MC",
-+	"PCIE",
-+	"PCIE PORT",
- };
- 
--#else
--
--#define ATOM_OP_NAMES_CNT 0
--#define ATOM_TABLE_NAMES_CNT 0
--#define ATOM_IO_NAMES_CNT 0
--
--#endif
--
- #endif
 diff --git a/drivers/gpu/drm/radeon/atom.c b/drivers/gpu/drm/radeon/atom.c
-index 2c2762..892eeb 100644
+index 2c27627b6659..f15b20da5315 100644
 --- a/drivers/gpu/drm/radeon/atom.c
 +++ b/drivers/gpu/drm/radeon/atom.c
-@@ -91,17 +91,20 @@ static int atom_def_dst[8] = { 0, 0, 1, 2, 0, 1, 2, 3 };
+@@ -1211,8 +1211,7 @@ static int atom_execute_table_locked(struct atom_context *ctx, int index, uint32
+ 	SDEBUG("<<\n");
  
- static int debug_depth = 0;
- #ifdef ATOM_DEBUG
--static void debug_print_spaces(int n)
--{
--	while (n--)
--		printk("   ");
--}
--
--#define DEBUG(...) do if (atom_debug) { printk(KERN_DEBUG __VA_ARGS__); } while (0)
--#define SDEBUG(...) do if (atom_debug) { printk(KERN_DEBUG); debug_print_spaces(debug_depth); printk(__VA_ARGS__); } while (0)
-+#define DEBUG(fmt, ...)							\
-+do {									\
-+	if (atom_debug)							\
-+		printk(KERN_DEBUG fmt, ##__VA_ARGS__);			\
-+} while (0)
-+#define SDEBUG(fmt, ...)						\
-+do {									\
-+	if (atom_debug)							\
-+		printk(KERN_DEBUG "%*s" fmt,				\
-+		       debug_depth * 3, "", ##__VA_ARGS__);		\
-+} while (0)
- #else
--#define DEBUG(...) do { } while (0)
--#define SDEBUG(...) do { } while (0)
-+#define DEBUG(fmt, ...)		no_printk(fmt, ##__VA_ARGS__)
-+#define SDEBUG(fmt, ...)	no_printk(fmt, ##__VA_ARGS__)
- #endif
+ free:
+-	if (ws)
+-		kfree(ectx.ws);
++	kfree(ectx.ws);
+ 	return ret;
+ }
  
- static uint32_t atom_iio_execute(struct atom_context *ctx, int base,
-
-
-
+-- 
+2.26.2
 
 _______________________________________________
 amd-gfx mailing list
