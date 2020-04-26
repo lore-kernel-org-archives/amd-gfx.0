@@ -1,79 +1,102 @@
 Return-Path: <SRS0=pLrr=6K=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E3A0C55199
-	for <amd-gfx@archiver.kernel.org>; Sun, 26 Apr 2020 08:55:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2DCCC55199
+	for <amd-gfx@archiver.kernel.org>; Sun, 26 Apr 2020 09:17:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 206EC20700
-	for <amd-gfx@archiver.kernel.org>; Sun, 26 Apr 2020 08:55:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A90FB2071C
+	for <amd-gfx@archiver.kernel.org>; Sun, 26 Apr 2020 09:17:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nxvjg3Gj"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 206EC20700
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="uei0lBuK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A90FB2071C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD1C76E029;
-	Sun, 26 Apr 2020 08:55:56 +0000 (UTC)
-Received: from mail-wr1-x431.google.com (mail-wr1-x431.google.com
- [IPv6:2a00:1450:4864:20::431])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27ABE6E029
- for <amd-gfx@lists.freedesktop.org>; Sun, 26 Apr 2020 08:55:56 +0000 (UTC)
-Received: by mail-wr1-x431.google.com with SMTP id x17so16051403wrt.5
- for <amd-gfx@lists.freedesktop.org>; Sun, 26 Apr 2020 01:55:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=gX8iDBtEE7A5QVM/mKjOL6KAfcBkAWSuuGog5vO4rMg=;
- b=Nxvjg3GjLzVZOKBWHbZem7fvvNHQfoCSWsQbyhkGH5DsmodLLHkZosig/wVglaZXTR
- hwwemY7u1aDAlKmxR7v+bY6G4O3aKGGFIrzeRF/QnyXAsO5bE2fYiHlePnasJRn2ixyQ
- nG8bWtu9JoGfzAZbaaTI8NN4Xqm6bE+rLZRP3nF/zmMpXRWUrSS/4FMDXnPzeSOhmDwJ
- RNLrEWZIqG3/KBgkSPh18ygZha1G72+1YtgtxgQGyLiPROiao3alwda9cgvGSSTFcXUJ
- uXAon8ic3yCkmIhjylEhcJ/Eh3XyeC61TKibXCjz0LSpS/N9TDQUP8+a8Cj7GsEU/1Sf
- X2xQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language;
- bh=gX8iDBtEE7A5QVM/mKjOL6KAfcBkAWSuuGog5vO4rMg=;
- b=L4UGNtKYgQhv68O2BQm9QMDH2sqNQv2y02IW68EMLM0s447z+OsR7DLmtj2WVYrkNX
- yDAmc2pNeTDKYDODSVHQm6mIT5IZCrRs3EhCKvy6bNVasQQXk4ZYW+rHIhs9lgbBG2hX
- vZftg2GaNJBahxVmzrBCPH6QhHAxISTuL86j97+xbY1LXDFMXe9Fd0T3H16j9jDfw3UO
- FZprl74Qur4sZNDZVSnuXwzSGGvhinn8vu0G+cdYRiP6l6KN0xPytswt8DVwZw7pcwod
- 7iOtmxusaKtTRepuBeEvyT86f7V4qEpGKrI7XB1W0TYXH9cm48hwb4YCU+UwJalHpzXf
- bZ6A==
-X-Gm-Message-State: AGi0PuarasNmJmb5nExpFEhEvRMnHaw8cVvC2agqw6+8scmHS3CmKMC7
- F9PScpPqAfcU6K3dt5A09TrHnguj
-X-Google-Smtp-Source: APiQypJB30WmY0vQ/DaQFPa7uE2boH2SJ7DgCp4QCrVQeKo8QLQVgprMp1W2i01dJtchg6iyYbW+Kg==
-X-Received: by 2002:adf:c109:: with SMTP id r9mr21165197wre.265.1587891354464; 
- Sun, 26 Apr 2020 01:55:54 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id k184sm10593145wmf.9.2020.04.26.01.55.53
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 26 Apr 2020 01:55:53 -0700 (PDT)
-Subject: Re: drm/amdgpu: apply AMDGPU_IB_FLAG_EMIT_MEM_SYNC to compute IBs too
-To: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-References: <CAAxE2A64Z91LiB9FduJf-8OO3He+1gZ9sxDfD+BVwc+-9Z7BnA@mail.gmail.com>
- <64c5a883-1933-c494-7a93-dc19e0bd0445@gmail.com>
- <CAAxE2A6Hgnq_zBjQQoa51S7KfVzddjndRGjrJYtjY7v9+vuwDw@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <328ea10b-1453-371e-7392-54e1a4051715@gmail.com>
-Date: Sun, 26 Apr 2020 10:55:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D6A489E57;
+	Sun, 26 Apr 2020 09:17:13 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2048.outbound.protection.outlook.com [40.107.236.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E80C89E57
+ for <amd-gfx@lists.freedesktop.org>; Sun, 26 Apr 2020 09:17:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=b25KnxoA+z0Egq3c16Wnr4lf+h/6CpVV+ozKxBhCUcMHrwmxnc+v5PLK+vQLPpH/hJbw5wfFV68bfk61ZqKEURzm+0GGL/FY/X0mB9GRTStcv6N6hyUFpGfAPXJiSp0kvcx8Qz0oiyFeK81orEh1oILRC/nO7oSVRHSr5bcpOHiC3fIM5tkMq0t7mhTL0g57eY6UYKyU9/qPjkdca7HvYnM6+jv3UEys2RDgjkYPcGfVISAOWI6QJM7JPtf6guVS87W9YXwNkjqooOGEizk71r0FmYf6A/oQzgR8GlSGmi/kxDghr4TzLjwrm6oc1gwxMcc29UNDn+Eh616UY9vj1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dkcVHbOQc0oOuGV82SVE4yMtFbYiFdoFYJhlPrcTx/8=;
+ b=HYhn7QCu990rObl645s455jwvPYWOHf1Wp4feoKqzu+zEtTuy4YXHD7Gy7/8lap4zV27njwZyBts6YaY6JcBDF91etTWGdatcup/Kw/JqMh83lisVUi8yCEv2NiBaNF1ZxwYIeSbnuPd7/8lfSU7CB48U1lH8p1Agjnkk5WQrapH+WX+4eOzkOWKRvXYoE6AkSbtnmYWQhhaZp3qbiW7tIJNSSgjtakFy+s2KRyPNHReHw8qXRyMSV6ZXgVkSsJ5TXXrHdWnPSUMprj2CcOms4/TQaiQq8QqVxF/KYfrHKXxN7mgpjGdYn44ynShcXyFv/Gj++TMl9fbxruKdHjQqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dkcVHbOQc0oOuGV82SVE4yMtFbYiFdoFYJhlPrcTx/8=;
+ b=uei0lBuKCbbdeX5KPeUDQ7QSHO59GFXLWRECo3lvVEj/r7an+4YKgdF9XMkLyY7XVUfG6awnR72EkY5gDTYz6tsUWbJftwjlvi2yX9mg0agLFCfz3dXIH9gdcYjiR3QeTd3SEdFJx83LBh2yFooGMFR9BGcR8cn2U1WTnonBDBs=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Guchun.Chen@amd.com; 
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com (10.168.168.136) by
+ CY4PR12MB1941.namprd12.prod.outlook.com (10.175.59.16) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2937.22; Sun, 26 Apr 2020 09:17:07 +0000
+Received: from CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::a8f9:dd91:3039:d3dc]) by CY4PR12MB1287.namprd12.prod.outlook.com
+ ([fe80::a8f9:dd91:3039:d3dc%8]) with mapi id 15.20.2937.020; Sun, 26 Apr 2020
+ 09:17:07 +0000
+From: Guchun Chen <guchun.chen@amd.com>
+To: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, Dennis.Li@amd.com,
+ Tao.Zhou1@amd.com, John.Clements@amd.com, alexander.deucher@amd.com
+Subject: [PATCH 0/2] add correctable error query support on arcturus
+Date: Sun, 26 Apr 2020 17:16:42 +0800
+Message-Id: <20200426091644.26776-1-guchun.chen@amd.com>
+X-Mailer: git-send-email 2.17.1
+X-ClientProxiedBy: HK2PR0401CA0009.apcprd04.prod.outlook.com
+ (2603:1096:202:2::19) To CY4PR12MB1287.namprd12.prod.outlook.com
+ (2603:10b6:903:40::8)
 MIME-Version: 1.0
-In-Reply-To: <CAAxE2A6Hgnq_zBjQQoa51S7KfVzddjndRGjrJYtjY7v9+vuwDw@mail.gmail.com>
-Content-Language: en-US
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from guchchen-System-Product-Name.amd.com (58.247.170.242) by
+ HK2PR0401CA0009.apcprd04.prod.outlook.com (2603:1096:202:2::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.13 via Frontend
+ Transport; Sun, 26 Apr 2020 09:17:04 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [58.247.170.242]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 72d72fde-b4fc-4bdd-a2ef-08d7e9c29765
+X-MS-TrafficTypeDiagnostic: CY4PR12MB1941:|CY4PR12MB1941:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CY4PR12MB194138B9BA16D519E1EACE8DF1AE0@CY4PR12MB1941.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631;
+X-Forefront-PRVS: 03853D523D
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(376002)(136003)(39860400002)(366004)(396003)(346002)(8676002)(66946007)(6486002)(26005)(81156014)(86362001)(8936002)(7696005)(52116002)(6666004)(36756003)(316002)(1076003)(478600001)(2616005)(44832011)(186003)(4326008)(66476007)(66556008)(2906002)(4744005)(6636002)(956004)(16526019)(5660300002);
+ DIR:OUT; SFP:1101; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: +2EhNfkdF71wBXwWey/rECU78RRIlWhx6yeUF9MicrAIbq/hvINTpp6XnEs5lJxrDcsxUbT3LQ9srjaUAwIQeGdV+PRKgVCgAFsafL3OIIo8tznv3ccWOTUjGPGYmv21g0l/HInTwDodesOMEHgM0YDE7zbe67hjUPOxRjJWFTFCDBr485icf5DMHXbIi71c8t1VRiif4oVNWBQKGBas+ZX4AyoCrJ1pH21BkvOQjLx1aGArp85TUysEz1XLAePZIo7l5B9BZfVPwJnhdAKzDA2ukQtzvVg+qLgQq5isvy3nEcMw+6MeUcht0SMaidMcx3uJw7fuk4iWE0kAxmGcuzB9xxOoGzSgOt//CMRvklHgqZI9BnEYwd+yeFbuOd7QHQOI+Y3n7ymsjBZP9UmKcW/uAl3UKtDTXTHKRL4n+z8kj880rluZMxoWoe1u6Rjc
+X-MS-Exchange-AntiSpam-MessageData: 5Vkuw0MsIfCGkIqjomuYaCSa2lRHLAHyCCc4btzvaVtERBMnUFF8XJsXYGSLWcN3AuiWZmE81ekA1gHuFMAHvHQYTEvr6prWALJ3FR9yr1sSQjfLsBg6UoLiCFoBwzsA1YlSh6bD4/D3scSWq+rbKHVcPAFQNl0HeZPk7HAUX2tcohqFn35pKjbGKj0QPA6E2N1ZEaeH0LjbUxJB2mP4b7RBdgEPScFwpYbvWQ0yf1YbCpwRk+sHM5ezYflUvMOWYocjnL2hDYme/597VxFcp03Ei7yV3H8ETzbRyynTGsenCXStyc4Rs/aLB/lMRev0JEb4hkkNs2LSI1UFkgca1hYzr59H/TrO3Y8zj+gtEiTwOfPHfeeMhlh4KMLodXPGKXvH+2c2bWFH01Utb0PMhytQdWMo/sEpBNOZdy/yDI42fyafDXQhTql5D3DVCGNpZbZapydz66o+9PLB14UL6IAGj59I86rD9IWSFaZxm1Tnr1i8KPF3RQD08B1CwMjynbLnqbW2Kqu9NxstGMIV5nqYpdkZEeSnh3G3ll7rkCKQ92EHw999L6dmC/oOxtHebFODWXGOGMrAM+pMcG0TIO+7lcC4tTaoBdn55CrNk4LesTc5+1MwEw0y9N6eePO806a7L5IjyLYx8tj04xErsac2Arn+KkGcEysPoOl+19gASTsXXK7iHQq0LFEfOGhu+fc6Fb4svpHIvNagNDE8UMUIo0sz9f1WHrYral9t3gm4DRXdxgcSIJIIcD6DLNAsqktf5oq1hosUqfaBFnl/XMpr4EEQijlMnJ7O8F5SYbQ=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72d72fde-b4fc-4bdd-a2ef-08d7e9c29765
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Apr 2020 09:17:07.3600 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C9OJV7k5oIG6yAWF3IOTm0v+zT2GegJ3QlcXi1sq4XX2ZasEJotTn6nbq0TgQ7kX9utiAii9xZ7DWnKfgzdITg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1941
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,184 +108,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: Alex Deucher <Alexander.Deucher@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1128717730=="
+Cc: Candice.Li@amd.com, Guchun Chen <guchun.chen@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============1128717730==
-Content-Type: multipart/alternative;
- boundary="------------88446086A237EB520A238403"
-Content-Language: en-US
+Below two patches are submmited to promise UMC correctable error query
+working fine on arcturus.
+Patch 1 is to switch RSMU UMC index access to SMN interface to make it
+stable, and to be consistent with other register access in this file.
+Patch 2 is to decouple EccErrCnt error count query and clear operation,
+due to unknown hardware cause.
 
-This is a multi-part message in MIME format.
---------------88446086A237EB520A238403
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Both are verified on arcturus and Vega20.
 
-Thanks for that explanation. I suspected that there was a good reason to 
-have that in the kernel, but couldn't find one.
+Guchun Chen (2):
+  drm/amdgpu: switch to SMN interface to operate RSMU index mode
+  drm/amdgpu: decouple EccErrCnt query and clear operation.
 
-In this case the patch is Reviewed-by: Christian König 
-<christian.koenig@amd.com>
+ drivers/gpu/drm/amd/amdgpu/umc_v6_1.c | 112 +++++++++++++++++++++++---
+ 1 file changed, 103 insertions(+), 9 deletions(-)
 
-We should probably add this explanation as comment to the flag as well.
-
-Thanks,
-Christian.
-
-Am 26.04.20 um 02:43 schrieb Marek Olšák:
-> It was merged into amd-staging-drm-next.
->
-> I'm not absolutely sure, but I think we need to invalidate before IBs 
-> if an IB is cached in L2 and the CPU has updated it. It can only be 
-> cached in L2 if something other than CP has read it or written to it 
-> without invalidation. CP reads don't cache it but they can hit the 
-> cache if it's already cached.
->
-> For CE, we need to invalidate before the IB in the kernel, because CE 
-> IBs can't do cache invalidations IIRC. This is the number one reason 
-> for merging the already pushed commits.
->
-> Marek
->
-> On Sat., Apr. 25, 2020, 11:03 Christian König, 
-> <ckoenig.leichtzumerken@gmail.com 
-> <mailto:ckoenig.leichtzumerken@gmail.com>> wrote:
->
->     Was that patch set actually merged upstream? My last status is
->     that we couldn't find a reason why we need to do this in the kernel.
->
->     Christian.
->
->     Am 25.04.20 um 10:52 schrieb Marek Olšák:
->>     This was missed.
->>
->>     Marek
->>
->>     _______________________________________________
->>     amd-gfx mailing list
->>     amd-gfx@lists.freedesktop.org  <mailto:amd-gfx@lists.freedesktop.org>
->>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------88446086A237EB520A238403
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Thanks for that explanation. I
-      suspected that there was a good reason to have that in the kernel,
-      but couldn't find one.<br>
-      <br>
-      In this case the patch is Reviewed-by: Christian König
-      <a class="moz-txt-link-rfc2396E" href="mailto:christian.koenig@amd.com">&lt;christian.koenig@amd.com&gt;</a><br>
-      <br>
-      We should probably add this explanation as comment to the flag as
-      well.<br>
-      <br>
-      Thanks,<br>
-      Christian.<br>
-      <br>
-      Am 26.04.20 um 02:43 schrieb Marek Olšák:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CAAxE2A6Hgnq_zBjQQoa51S7KfVzddjndRGjrJYtjY7v9+vuwDw@mail.gmail.com">
-      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-      <div dir="auto">It was merged into amd-staging-drm-next.
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">I'm not absolutely sure, but I think we need to
-          invalidate before IBs if an IB is cached in L2 and the CPU has
-          updated it. It can only be cached in L2 if something other
-          than CP has read it or written to it without invalidation. CP
-          reads don't cache it but they can hit the cache if it's
-          already cached.</div>
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">For CE, we need to invalidate before the IB in
-          the kernel, because CE IBs can't do cache invalidations IIRC.
-          This is the number one reason for merging the already pushed
-          commits.</div>
-        <div dir="auto"><br>
-        </div>
-        <div dir="auto">Marek</div>
-      </div>
-      <br>
-      <div class="gmail_quote">
-        <div dir="ltr" class="gmail_attr">On Sat., Apr. 25, 2020, 11:03
-          Christian König, &lt;<a
-            href="mailto:ckoenig.leichtzumerken@gmail.com"
-            moz-do-not-send="true">ckoenig.leichtzumerken@gmail.com</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class="gmail_quote" style="margin:0 0 0
-          .8ex;border-left:1px #ccc solid;padding-left:1ex">
-          <div text="#000000" bgcolor="#FFFFFF">
-            <div>Was that patch set actually merged upstream? My last
-              status is that we couldn't find a reason why we need to do
-              this in the kernel.<br>
-              <br>
-              Christian.<br>
-              <br>
-              Am 25.04.20 um 10:52 schrieb Marek Olšák:<br>
-            </div>
-            <blockquote type="cite">
-              <div dir="ltr">
-                <div>This was missed.</div>
-                <div><br>
-                </div>
-                <div>Marek<br>
-                </div>
-              </div>
-              <br>
-              <fieldset></fieldset>
-              <pre>_______________________________________________
-amd-gfx mailing list
-<a href="mailto:amd-gfx@lists.freedesktop.org" target="_blank" rel="noreferrer" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
-<a href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" target="_blank" rel="noreferrer" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-            </blockquote>
-            <br>
-          </div>
-        </blockquote>
-      </div>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------88446086A237EB520A238403--
-
---===============1128717730==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.17.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1128717730==--
