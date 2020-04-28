@@ -1,75 +1,48 @@
 Return-Path: <SRS0=QpD2=6M=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,HTTPS_HTTP_MISMATCH,
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 174C9C83004
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 05:16:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98ADCC83000
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 07:57:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DAED0206A1
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 05:16:36 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U4I2b09v"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DAED0206A1
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 71AC9206A5
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 07:57:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 71AC9206A5
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77DF289C3B;
-	Tue, 28 Apr 2020 05:16:36 +0000 (UTC)
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [IPv6:2607:f8b0:4864:20::62e])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F9B989C3B
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2020 05:16:35 +0000 (UTC)
-Received: by mail-pl1-x62e.google.com with SMTP id n24so7872376plp.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Apr 2020 22:16:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=fcZcu3cIEAWOqdrohqQfoHWhfQaMwr3TNdoDT1SfkMM=;
- b=U4I2b09vWmodV9M26fC0C+UnS3HNY7FeSJ8ra80BuCC67frS53ulh0Mog3Qg2jDFUS
- ir7Gn5Sp5Q01D8LTAFkZErCBBg5RZsIfePuZIoYXT2/5p6jWA3dfgoZ4eB9Z0y98PQ8T
- UqO+bchKemQ1cothIDJKGIyX+8c5tnG/+UBPgWEovkWftBkEg6QlHS8FOdUoORKOvmoH
- QXXNH01U3bQQKjaRBYnN+cs7EQg7uRUYIxy1zKj61UgxhN1vbqKIwJnhTOj6BhrdVCgh
- OQcAlyoHHzTIY8IJNQBzz/OcGlBwTf2LQsi/U3vxJan1+0/KbNZhalhBC5So/fiN/++m
- N/2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=fcZcu3cIEAWOqdrohqQfoHWhfQaMwr3TNdoDT1SfkMM=;
- b=KUpxEhy+5qMV3TXmwEB0c7Zzx6FDBCRLiiuP4ugPnq8lNotETKsZxhNT0KJSR3OvSi
- vnKIBQZLOY59SASpv+nKAJmStQD+buEZTGyJ57isDkC6nxzBCvme4bRTRGOO13xzqsRn
- iZ6Y1HcmOr+KWr8h2KLr3mD6AdsVldP+mRiJBc60BOTgOz1tTYsveosZXvUhWMQ/brI9
- jx+5EjaG61zIDV5sFEeZK+Dj0f00qA9nCK2rS7cwTc0W2CU7J8Czn5zrWKL/JTZnKJOb
- QF+yAX+BJ3uFeSeEDHooXILKqFgTsubEu5u0w6zSdTYWjz5N0TXVPLPgomqF98ZFH02n
- A+FQ==
-X-Gm-Message-State: AGi0PuYI5vS/nWiAC0mqpJql9Ho5acH4LDooL2lMTerFRBnrpMZe9qZg
- ddIqo+KX11iMCHI59XW4U72FYmCOQ14zmEncRsNlFEYd
-X-Google-Smtp-Source: APiQypLHyVFXmKd6Ksy9K/otmSwZlF2giBbfqDSdWxuPRRuS9PtRym+zlPQc9aNh0mCsLM5/8TLQ6FqZncy6Ue3Y6GE=
-X-Received: by 2002:a17:90b:3443:: with SMTP id
- lj3mr2882889pjb.38.1588050995014; 
- Mon, 27 Apr 2020 22:16:35 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAAxE2A64Z91LiB9FduJf-8OO3He+1gZ9sxDfD+BVwc+-9Z7BnA@mail.gmail.com>
- <64c5a883-1933-c494-7a93-dc19e0bd0445@gmail.com>
- <CAAxE2A6Hgnq_zBjQQoa51S7KfVzddjndRGjrJYtjY7v9+vuwDw@mail.gmail.com>
- <328ea10b-1453-371e-7392-54e1a4051715@gmail.com>
- <MN2PR12MB448809E68050B9A61B1CC7FAF7AF0@MN2PR12MB4488.namprd12.prod.outlook.com>
- <CAAxE2A50b_+oX9wmF2D6LZs9GvG9Rhug8AQU40aeDbMDm_kFqw@mail.gmail.com>
- <217db438-608d-d28c-6678-4173a6291d8b@gmail.com>
- <CAAxE2A5ZoQjWw+8JjHe5j-_-ABtEc_kE4BRL0CNS3kzhbVe0Xg@mail.gmail.com>
-In-Reply-To: <CAAxE2A5ZoQjWw+8JjHe5j-_-ABtEc_kE4BRL0CNS3kzhbVe0Xg@mail.gmail.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Tue, 28 Apr 2020 01:16:23 -0400
-Message-ID: <CAAxE2A4Wo7foY3xM_q-F8s4j7wD1FdS1mA3qG5gYOEV=OhopjQ@mail.gmail.com>
-Subject: Re: drm/amdgpu: apply AMDGPU_IB_FLAG_EMIT_MEM_SYNC to compute IBs too
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F3438918F;
+	Tue, 28 Apr 2020 07:57:28 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 092F68918F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2020 07:57:27 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 775A0B16B;
+ Tue, 28 Apr 2020 07:57:24 +0000 (UTC)
+Date: Tue, 28 Apr 2020 09:57:24 +0200
+Message-ID: <s5hv9lkm49n.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 0/1] Fiji GPU audio register timeout when in BACO state
+In-Reply-To: <CADnq5_MMQ5_MjEg=bkJJGMJP53RjB3yxvOW0nUDeWxzg3Q0pVQ@mail.gmail.com>
+References: <PSXP216MB0438D2AF96CE0D4F83F48C4D80AE0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <MN2PR12MB4488E4909C1488FB507E0BF5F7AF0@MN2PR12MB4488.namprd12.prod.outlook.com>
+ <s5ho8rdnems.wl-tiwai@suse.de>
+ <PSXP216MB04387BF6B5F8DA84749E5D6F80AF0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <CADnq5_M=QEqxuCKjb_qZvFSvwM5eLEFfsepxYYXoouFoe5bn7A@mail.gmail.com>
+ <s5h4kt4ojrf.wl-tiwai@suse.de>
+ <CADnq5_MMQ5_MjEg=bkJJGMJP53RjB3yxvOW0nUDeWxzg3Q0pVQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,372 +54,183 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1367216329=="
+Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Takashi Iwai <tiwai@suse.com>, Lukas Wunner <lukas@wunner.de>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1367216329==
-Content-Type: multipart/alternative; boundary="00000000000071716a05a452ef0a"
+On Mon, 27 Apr 2020 20:43:54 +0200,
+Alex Deucher wrote:
+> 
+> On Mon, Apr 27, 2020 at 2:39 PM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > On Mon, 27 Apr 2020 20:28:12 +0200,
+> > Alex Deucher wrote:
+> > >
+> > > On Mon, Apr 27, 2020 at 2:07 PM Nicholas Johnson
+> > > <nicholas.johnson-opensource@outlook.com.au> wrote:
+> > > >
+> > > > On Mon, Apr 27, 2020 at 05:15:55PM +0200, Takashi Iwai wrote:
+> > > > > On Mon, 27 Apr 2020 16:22:21 +0200,
+> > > > > Deucher, Alexander wrote:
+> > > > > >
+> > > > > > [AMD Public Use]
+> > > > > >
+> > > > > > > -----Original Message-----
+> > > > > > > From: Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>
+> > > > > > > Sent: Sunday, April 26, 2020 12:02 PM
+> > > > > > > To: linux-kernel@vger.kernel.org
+> > > > > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> > > > > > > <Christian.Koenig@amd.com>; Zhou, David(ChunMing)
+> > > > > > > <David1.Zhou@amd.com>; Nicholas Johnson <nicholas.johnson-
+> > > > > > > opensource@outlook.com.au>
+> > > > > > > Subject: [PATCH 0/1] Fiji GPU audio register timeout when in BACO state
+> > > > > > >
+> > > > > > > Hi all,
+> > > > > > >
+> > > > > > > Since Linux v5.7-rc1 / commit 4fdda2e66de0 ("drm/amdgpu/runpm: enable
+> > > > > > > runpm on baco capable VI+ asics"), my AMD R9 Nano has been using runpm /
+> > > > > > > BACO. You can tell visually when it sleeps, because the fan on the graphics
+> > > > > > > card is switched off to save power. It did not spin down the fan in v5.6.x.
+> > > > > > >
+> > > > > > > This is great (I love it), except that when it is sleeping, the PCIe audio function
+> > > > > > > of the GPU has issues if anything tries to access it. You get dmesg errors such
+> > > > > > > as these:
+> > > > > > >
+> > > > > > > snd_hda_intel 0000:08:00.1: spurious response 0x0:0x0, last cmd=0x170500
+> > > > > > > snd_hda_intel 0000:08:00.1: azx_get_response timeout, switching to polling
+> > > > > > > mode: last cmd=0x001f0500 snd_hda_intel 0000:08:00.1: No response from
+> > > > > > > codec, disabling MSI: last cmd=0x001f0500 snd_hda_intel 0000:08:00.1: No
+> > > > > > > response from codec, resetting bus: last cmd=0x001f0500
+> > > > > > > snd_hda_codec_hdmi hdaudioC1D0: Unable to sync register 0x2f0d00. -11
+> > > > > > >
+> > > > > > > The above is with the Fiji XT GPU at 0000:08:00.0 in a Thunderbolt enclosure
+> > > > > > > (not that Thunderbolt should affect it, but I feel I should mention it just in
+> > > > > > > case). I dropped a lot of duplicate dmesg lines, as some of them repeated a
+> > > > > > > lot of times before the driver gave up.
+> > > > > > >
+> > > > > > > I offer this patch to disable runpm for Fiji while a fix is found, if you decide
+> > > > > > > that is the best approach. Regardless, I will gladly test any patches you come
+> > > > > > > up with instead and confirm that the above issue has been fixed.
+> > > > > > >
+> > > > > > > I cannot tell if any other GPUs are affected. The only other cards to which I
+> > > > > > > have access are a couple of AMD R9 280X (Tahiti XT), which use radeon driver
+> > > > > > > instead of amdgpu driver.
+> > > > > >
+> > > > > > Adding a few more people.  Do you know what is accessing the audio?  The audio should have a dependency on the GPU device.  The GPU won't enter runtime pm until the audio has entered runtime pm and vice versa on resume. Please attach a copy of your dmesg output and lspci output.
+> > > >
+> > > > pci 0000:08:00.1: D0 power state depends on 0000:08:00.0
+> > > > The above must be the dependency of which you speak from dmesg.
+> > > >
+> > > > Accessing the audio? I did not have a single method for triggering it.
+> > > > Sometimes it happened on shutdown. Sometimes when restarting gdm.
+> > > > Sometimes when playing with audio settings in Cinnamon Desktop. But most
+> > > > often when changing displays. It might have something to do with the
+> > > > audio device associated with a monitor being created when the monitor is
+> > > > found. If an audio device is created, then pulseaudio might touch it.
+> > > > Sorry, this is a very verbose "not quite sure".
+> > > >
+> > > > To trigger the bug, this time I did the following:
+> > > >
+> > > > 1. Boot laptop without Fiji and log in
+> > > >
+> > > > 2. Attach Fiji via Thunderbolt (no displays attached to Fiji) and
+> > > > approve Thunderbolt device
+> > > >
+> > > > 3. Log in again because the session gets killed when GPU is hot-added
+> > > >
+> > > > 4. Wait for Fiji to fall asleep (fan stops)
+> > > >
+> > > > 5. Open "dmesg -w" on laptop display
+> > > >
+> > > > 6. Attach display to DisplayPort on Fiji (it should still stay asleep)
+> > > >
+> > > > 7. Do WindowsKey+P to activate external display. The error appears in
+> > > > dmesg window that instant.
+> > > >
+> > > > Could it be a race condition when waking the card up?
+> > > >
+> > > > I cannot get the graphics card fan to spin down if the Thunderbolt
+> > > > enclosure is attached at boot time. It only does it if hot-added.
+> > > >
+> > > > If you think it will help, I can take out the Fiji and put it in a test
+> > > > rig and try to replicate the issue without Thunderbolt, but it looks
+> > > > like it will not spin the fan down if Fiji is attached at boot time.
+> > > >
+> > > > Question, why would the fan not spin down if Fiji is attached at boot
+> > > > time, and how would one make the said fan turn off? Aside from being
+> > > > useful for pinning down the audio register issue, I would like to make
+> > > > sure the power savings are realised whenever the GPU is not being used.
+> > >
+> > > Presumably something is using the device.  Maybe a framebuffer console
+> > > or X?  Or maybe the something like tlp has disabled runtime pm on your
+> > > device?  You can see the current status by reading the files in
+> > > /sys/class/drm/cardX/device/power/ .  Replace cardX with card0, card1,
+> > > etc. depending on which device is the radeon card.
+> > >
+> > > FWIW, I have a fiji board in a desktop system and it worked fine when
+> > > this code was enabled.
+> >
+> > Is the new DC code used for Fiji boards?  IIRC, the audio component
+> > binding from amdgpu is enabled only for DC, and without the audio
+> > component binding the runtime PM won't be linked up, hence you can't
+> > power up GPU from the audio side access automatically.
+> >
+> 
+> Yes, DC is enabled by default for all cards with runtime pm enabled.
 
---00000000000071716a05a452ef0a
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+OK, thanks, I found that amdgpu got bound via component in the dmesg
+output, too:
 
-It's possible that what they really needed was the SDMA fix, so I don't
-know if they need this flag anymore.
+[   21.294927] snd_hda_intel 0000:08:00.1: bound 0000:08:00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu])
 
-Marek
+This is the place soon after amdgpu driver gets initialized.
+Then we see later another initialization phase:
 
-On Tue., Apr. 28, 2020, 01:12 Marek Ol=C5=A1=C3=A1k, <maraeo@gmail.com> wro=
-te:
+[   26.904127] rfkill: input handler enabled
+[   37.264152] [drm] PCIE GART of 1024M enabled (table at 0x000000F400000000).
 
-> No, Mesa won't use it. It's only necessary for the constant engine. My
-> understanding from various discussions with the PAL team is that they nee=
-d
-> it, but I don't know if they even understand what the MEM_SYNC flag does.
->
-> Marek
->
-> On Mon., Apr. 27, 2020, 10:53 Christian K=C3=B6nig, <
-> ckoenig.leichtzumerken@gmail.com> wrote:
->
->> Yeah, but is Mesa going to use it?
->>
->> Christian.
->>
->> Am 27.04.20 um 15:54 schrieb Marek Ol=C5=A1=C3=A1k:
->>
->> PAL requested it and they are going to use it. (it looks like they have
->> to use it for correctness)
->>
->> Marek
->>
->> On Mon, Apr 27, 2020 at 9:02 AM Deucher, Alexander <
->> Alexander.Deucher@amd.com> wrote:
->>
->>> [AMD Official Use Only - Internal Distribution Only]
->>>
->>> Do we have open source code UMD code which uses this?
->>>
->>> Alex
->>> ------------------------------
->>> *From:* Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>
->>> *Sent:* Sunday, April 26, 2020 4:55 AM
->>> *To:* Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com>; Koenig, Christian <
->>> Christian.Koenig@amd.com>
->>> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx mailing
->>> list <amd-gfx@lists.freedesktop.org>
->>> *Subject:* Re: drm/amdgpu: apply AMDGPU_IB_FLAG_EMIT_MEM_SYNC to
->>> compute IBs too
->>>
->>> Thanks for that explanation. I suspected that there was a good reason t=
-o
->>> have that in the kernel, but couldn't find one.
->>>
->>> In this case the patch is Reviewed-by: Christian K=C3=B6nig
->>> <christian.koenig@amd.com> <christian.koenig@amd.com>
->>>
->>> We should probably add this explanation as comment to the flag as well.
->>>
->>> Thanks,
->>> Christian.
->>>
->>> Am 26.04.20 um 02:43 schrieb Marek Ol=C5=A1=C3=A1k:
->>>
->>> It was merged into amd-staging-drm-next.
->>>
->>> I'm not absolutely sure, but I think we need to invalidate before IBs i=
-f
->>> an IB is cached in L2 and the CPU has updated it. It can only be cached=
- in
->>> L2 if something other than CP has read it or written to it without
->>> invalidation. CP reads don't cache it but they can hit the cache if it'=
-s
->>> already cached.
->>>
->>> For CE, we need to invalidate before the IB in the kernel, because CE
->>> IBs can't do cache invalidations IIRC. This is the number one reason fo=
-r
->>> merging the already pushed commits.
->>>
->>> Marek
->>>
->>> On Sat., Apr. 25, 2020, 11:03 Christian K=C3=B6nig, <
->>> ckoenig.leichtzumerken@gmail.com> wrote:
->>>
->>> Was that patch set actually merged upstream? My last status is that we
->>> couldn't find a reason why we need to do this in the kernel.
->>>
->>> Christian.
->>>
->>> Am 25.04.20 um 10:52 schrieb Marek Ol=C5=A1=C3=A1k:
->>>
->>> This was missed.
->>>
->>> Marek
->>>
->>> _______________________________________________
->>> amd-gfx mailing listamd-gfx@lists.freedesktop.orghttps://lists.freedesk=
-top.org/mailman/listinfo/amd-gfx <https://nam11.safelinks.protection.outloo=
-k.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd=
--gfx&data=3D02%7C01%7CAlexander.Deucher%40amd.com%7C6b35f61512d34bf2dc8b08d=
-7e9bfa1a6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637234881577782939&s=
-data=3D%2B95wpbjY3Q675FaX9iH1BNIFyEz5jpN4PzjEOOpIu9Q%3D&reserved=3D0>
->>>
->>>
->>>
->>> _______________________________________________
->>> amd-gfx mailing listamd-gfx@lists.freedesktop.orghttps://lists.freedesk=
-top.org/mailman/listinfo/amd-gfx <https://nam11.safelinks.protection.outloo=
-k.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd=
--gfx&data=3D02%7C01%7CAlexander.Deucher%40amd.com%7C6b35f61512d34bf2dc8b08d=
-7e9bfa1a6%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637234881577782939&s=
-data=3D%2B95wpbjY3Q675FaX9iH1BNIFyEz5jpN4PzjEOOpIu9Q%3D&reserved=3D0>
->>>
->>>
->>>
->> _______________________________________________
->> amd-gfx mailing listamd-gfx@lists.freedesktop.orghttps://lists.freedeskt=
-op.org/mailman/listinfo/amd-gfx
->>
->>
->>
+here shows 10 seconds between them.  Then, it complained something:
 
---00000000000071716a05a452ef0a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"auto">It&#39;s possible that what they really needed was the SD=
-MA fix, so I don&#39;t know if they need this flag anymore.<div dir=3D"auto=
-"><br></div><div dir=3D"auto">Marek</div></div><br><div class=3D"gmail_quot=
-e"><div dir=3D"ltr" class=3D"gmail_attr">On Tue., Apr. 28, 2020, 01:12 Mare=
-k Ol=C5=A1=C3=A1k, &lt;<a href=3D"mailto:maraeo@gmail.com">maraeo@gmail.com=
-</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:=
-0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"><div dir=3D"auto">N=
-o, Mesa won&#39;t use it. It&#39;s only necessary for the constant engine. =
-My understanding from various discussions with the PAL team is that they ne=
-ed it, but I don&#39;t know if they even understand what the MEM_SYNC flag =
-does.<div dir=3D"auto"><br></div><div dir=3D"auto">Marek</div></div><br><di=
-v class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon., Apr.=
- 27, 2020, 10:53 Christian K=C3=B6nig, &lt;<a href=3D"mailto:ckoenig.leicht=
-zumerken@gmail.com" target=3D"_blank" rel=3D"noreferrer">ckoenig.leichtzume=
-rken@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">
- =20
-   =20
- =20
-  <div text=3D"#000000" bgcolor=3D"#FFFFFF">
-    <div>Yeah, but is Mesa going to use it?<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 27.04.20 um 15:54 schrieb Marek Ol=C5=A1=C3=A1k:<br>
-    </div>
-    <blockquote type=3D"cite">
-     =20
-      <div dir=3D"ltr">
-        <div>PAL requested it and they are going to use it. (it looks
-          like they have to use it for correctness)<br>
-        </div>
-        <div><br>
-        </div>
-        <div>Marek<br>
-        </div>
-      </div>
-      <br>
-      <div class=3D"gmail_quote">
-        <div dir=3D"ltr" class=3D"gmail_attr">On Mon, Apr 27, 2020 at 9:02
-          AM Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd=
-.com" rel=3D"noreferrer noreferrer" target=3D"_blank">Alexander.Deucher@amd=
-.com</a>&gt;
-          wrote:<br>
-        </div>
-        <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex">
-          <div dir=3D"ltr">
-            <p style=3D"font-family:Arial;font-size:10pt;color:rgb(0,120,21=
-5);margin:15pt" align=3D"Left">
-              [AMD Official Use Only - Internal Distribution Only]<br>
-            </p>
-            <br>
-            <div>
-              <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;=
-font-size:12pt;color:rgb(0,0,0)">Do
-                we have open source code UMD code which uses this?</div>
-              <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;=
-font-size:12pt;color:rgb(0,0,0)"><br>
-              </div>
-              <div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;=
-font-size:12pt;color:rgb(0,0,0)">Alex<br>
-              </div>
-              <hr style=3D"display:inline-block;width:98%">
-              <div id=3D"m_890681371629926529m_-6677784358645779172gmail-m_=
--4239586701017450887divRplyFwdMsg" dir=3D"ltr"><font style=3D"font-size:11p=
-t" face=3D"Calibri,
-                  sans-serif" color=3D"#000000"><b>From:</b> Christian
-                  K=C3=B6nig &lt;<a href=3D"mailto:ckoenig.leichtzumerken@g=
-mail.com" rel=3D"noreferrer noreferrer" target=3D"_blank">ckoenig.leichtzum=
-erken@gmail.com</a>&gt;<br>
-                  <b>Sent:</b> Sunday, April 26, 2020 4:55 AM<br>
-                  <b>To:</b> Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:ma=
-raeo@gmail.com" rel=3D"noreferrer noreferrer" target=3D"_blank">maraeo@gmai=
-l.com</a>&gt;;
-                  Koenig, Christian &lt;<a href=3D"mailto:Christian.Koenig@=
-amd.com" rel=3D"noreferrer noreferrer" target=3D"_blank">Christian.Koenig@a=
-md.com</a>&gt;<br>
-                  <b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexa=
-nder.Deucher@amd.com" rel=3D"noreferrer noreferrer" target=3D"_blank">Alexa=
-nder.Deucher@amd.com</a>&gt;;
-                  amd-gfx mailing list &lt;<a href=3D"mailto:amd-gfx@lists.=
-freedesktop.org" rel=3D"noreferrer noreferrer" target=3D"_blank">amd-gfx@li=
-sts.freedesktop.org</a>&gt;<br>
-                  <b>Subject:</b> Re: drm/amdgpu: apply
-                  AMDGPU_IB_FLAG_EMIT_MEM_SYNC to compute IBs too</font>
-                <div>=C2=A0</div>
-              </div>
-              <div style=3D"background-color:rgb(255,255,255)">
-                <div>Thanks for that explanation. I suspected that there
-                  was a good reason to have that in the kernel, but
-                  couldn&#39;t find one.<br>
-                  <br>
-                  In this case the patch is Reviewed-by: Christian K=C3=B6n=
-ig
-                  <a href=3D"mailto:christian.koenig@amd.com" rel=3D"norefe=
-rrer noreferrer" target=3D"_blank">
-                    &lt;christian.koenig@amd.com&gt;</a><br>
-                  <br>
-                  We should probably add this explanation as comment to
-                  the flag as well.<br>
-                  <br>
-                  Thanks,<br>
-                  Christian.<br>
-                  <br>
-                  Am 26.04.20 um 02:43 schrieb Marek Ol=C5=A1=C3=A1k:<br>
-                </div>
-                <blockquote type=3D"cite">
-                  <div dir=3D"auto">It was merged into
-                    amd-staging-drm-next.
-                    <div dir=3D"auto"><br>
-                    </div>
-                    <div dir=3D"auto">I&#39;m not absolutely sure, but I th=
-ink
-                      we need to invalidate before IBs if an IB is
-                      cached in L2 and the CPU has updated it. It can
-                      only be cached in L2 if something other than CP
-                      has read it or written to it without invalidation.
-                      CP reads don&#39;t cache it but they can hit the cach=
-e
-                      if it&#39;s already cached.</div>
-                    <div dir=3D"auto"><br>
-                    </div>
-                    <div dir=3D"auto">For CE, we need to invalidate before
-                      the IB in the kernel, because CE IBs can&#39;t do
-                      cache invalidations IIRC. This is the number one
-                      reason for merging the already pushed commits.</div>
-                    <div dir=3D"auto"><br>
-                    </div>
-                    <div dir=3D"auto">Marek</div>
-                  </div>
-                  <br>
-                  <div>
-                    <div dir=3D"ltr">On Sat., Apr. 25, 2020, 11:03
-                      Christian K=C3=B6nig, &lt;<a href=3D"mailto:ckoenig.l=
-eichtzumerken@gmail.com" rel=3D"noreferrer noreferrer" target=3D"_blank">ck=
-oenig.leichtzumerken@gmail.com</a>&gt;
-                      wrote:<br>
-                    </div>
-                    <blockquote style=3D"margin:0px 0px 0px 0.8ex;border-le=
-ft:1px solid rgb(204,204,204);padding-left:1ex">
-                      <div bgcolor=3D"#FFFFFF">
-                        <div>Was that patch set actually merged
-                          upstream? My last status is that we couldn&#39;t
-                          find a reason why we need to do this in the
-                          kernel.<br>
-                          <br>
-                          Christian.<br>
-                          <br>
-                          Am 25.04.20 um 10:52 schrieb Marek Ol=C5=A1=C3=A1=
-k:<br>
-                        </div>
-                        <blockquote type=3D"cite">
-                          <div dir=3D"ltr">
-                            <div>This was missed.</div>
-                            <div><br>
-                            </div>
-                            <div>Marek<br>
-                            </div>
-                          </div>
-                          <br>
-                          <fieldset></fieldset>
-                          <pre>____________________________________________=
-___
-amd-gfx mailing list
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org" rel=3D"noreferrer noreferr=
-er noreferrer" target=3D"_blank">amd-gfx@lists.freedesktop.org</a>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01=
-%7CAlexander.Deucher%40amd.com%7C6b35f61512d34bf2dc8b08d7e9bfa1a6%7C3dd8961=
-fe4884e608e11a82d994e183d%7C0%7C0%7C637234881577782939&amp;sdata=3D%2B95wpb=
-jY3Q675FaX9iH1BNIFyEz5jpN4PzjEOOpIu9Q%3D&amp;reserved=3D0" rel=3D"noreferre=
-r noreferrer noreferrer" target=3D"_blank">https://lists.freedesktop.org/ma=
-ilman/listinfo/amd-gfx</a>
-</pre>
-                        </blockquote>
-                        <br>
-                      </div>
-                    </blockquote>
-                  </div>
-                  <br>
-                  <fieldset></fieldset>
-                  <pre>_______________________________________________
-amd-gfx mailing list
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org" rel=3D"noreferrer noreferr=
-er" target=3D"_blank">amd-gfx@lists.freedesktop.org</a>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01=
-%7CAlexander.Deucher%40amd.com%7C6b35f61512d34bf2dc8b08d7e9bfa1a6%7C3dd8961=
-fe4884e608e11a82d994e183d%7C0%7C0%7C637234881577782939&amp;sdata=3D%2B95wpb=
-jY3Q675FaX9iH1BNIFyEz5jpN4PzjEOOpIu9Q%3D&amp;reserved=3D0" rel=3D"noreferre=
-r noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listi=
-nfo/amd-gfx</a>
-</pre>
-                </blockquote>
-                <br>
-              </div>
-            </div>
-          </div>
-        </blockquote>
-      </div>
-      <br>
-      <fieldset></fieldset>
-      <pre>_______________________________________________
-amd-gfx mailing list
-<a href=3D"mailto:amd-gfx@lists.freedesktop.org" rel=3D"noreferrer noreferr=
-er" target=3D"_blank">amd-gfx@lists.freedesktop.org</a>
-<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
-oreferrer noreferrer" target=3D"_blank">https://lists.freedesktop.org/mailm=
-an/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </div>
+[   37.363287] [drm] UVD initialized successfully.
+[   37.473340] [drm] VCE initialized successfully.
+[   37.477942] amdgpu 0000:08:00.0: [drm] Cannot find any crtc or sizes
 
-</blockquote></div>
-</blockquote></div>
+... and go further, and hitting HD-audio error:
 
---00000000000071716a05a452ef0a--
 
---===============1367216329==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+[   38.936624] [drm] fb mappable at 0x4B0696000
+[   38.936626] [drm] vram apper at 0x4B0000000
+[   38.936626] [drm] size 33177600
+[   38.936627] [drm] fb depth is 24
+[   38.936627] [drm]    pitch is 15360
+[   38.936673] amdgpu 0000:08:00.0: fb1: amdgpudrmfb frame buffer device
+[   40.092223] snd_hda_intel 0000:08:00.1: azx_get_response timeout, switching to polling mode: last cmd=0x00170500
 
+After this point, HD-audio communication was screwed up.
+
+This lastcmd in the above message is AC_SET_POWER_STATE verb for the
+root node to D0, so the very first command to power up the codec. 
+The rest commands are also about the power up of each node, so the
+whole error indicate that the power up at runtime resume failed.
+
+So, this looks to me as if the device gets runtime-resumed at the bad
+moment?
+
+
+thanks,
+
+Takashi
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1367216329==--
