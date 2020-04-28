@@ -1,110 +1,110 @@
 Return-Path: <SRS0=QpD2=6M=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,HTTPS_HTTP_MISMATCH,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E01CAC83004
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 03:22:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CDD9C83004
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 04:09:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6AB81206D6
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 03:22:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 04A7F2051A
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 04:09:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="uZxsjmeK"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6AB81206D6
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="hhhQk6wd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 04A7F2051A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2214D6E063;
-	Tue, 28 Apr 2020 03:22:48 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2055.outbound.protection.outlook.com [40.107.93.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AEFC6E063
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2020 03:22:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46ED76E2A3;
+	Tue, 28 Apr 2020 04:09:02 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2072.outbound.protection.outlook.com [40.107.244.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62DF76E2A3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2020 04:08:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ljWwTyiEZziZ1Sg4PuzSqVbnzNHn7XXl9zBfqarSBgKIUtyiUF4f6kU1GcREvU3cp65QEaj6TPV7rUhzXxNaD3FgtuRD6PTTkqIP1jjE7MUjqQfc+HNm4pL094UCCfQ0HLLPeyiQ3oBMKX+KmoRM9HOCTNOo0EmWvNjN7JM9dNTZK3oGhiRrIcREMkbfklancJJF9yIBDaF13GAR0L59x0Jmd5cJHjuf66X3jSIA3M8bzJQN224dapvJ/DNVJpWwqDJtdInzqHM09nOF0BBiaEBT04wkDHVMNaPEWOeqse4FFqlBi5QG7vfNFq+ZkC1eJTWGOsEiKZzPQjvKTy0gqA==
+ b=XE6/zWYO/RuyGEbeR6JcdV/WfTSDtcp7x5ss7bBV//0pm46k6bis4QgfiMn2X3GqnvD24a5DYfFwKrYLxSnC5ONxUSBDo/0sPtwhJRiRhCbh9HZ1Av2OHUpUFEg1uY37q1tTMsmwEwV2+msZi69adnq+imehJHnCVNM7Qi/T8Zz2ZGj1dw1XFAvNmwPeF1KsoUmohpNDQl94Ofw1qcqCCPo4OPuq+U74joSMLKBPOTlCMc09NFUB1WYFzd1ODhSLw/3SllqESCm81+a0AIbD9bCSDIsZA0TfEkkTFTReM6NyWXd9VkCeKeTWEca7dFW4blTmh9jL6A0b1F1s5vsIBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3wU8/IrzXPwRqQoX/Ty2fVj/Ab/s38Lxj3VkLgp7g/E=;
- b=SCuLXdRJ733ZFbkgnHS9Jz0Yyj6vHDEqY72uT2/guECCtKIWjTwpHZfspB989xvlsdJqqYV6y9xmPEBcAJdKn2YRebP2lfVYe/YGE7AZtuQ3rwjYlc5UPdBXK/3f9OneSfq2KdY65f3+88jvs0eD09DMXcqOFnpOCjCGYX9lbUuXQrxxWNV+z8xhtJ7INJfQYzI6i9mO22gjAvRkm3+WpdYN40a3cpRRcJiLi6iPyyLisJuAjRcBkbc5bR1Y+0fEN5UTpX5Hjf8CkjYgOlhzwtmRBdCt90/hIJvFQEwowDsRV8dSjt9xh2wH3kprbWxOwoytsi5DTaqtocofVpJugA==
+ bh=aOd/I29PLZKG/iAXJjMPLAeuxjUqI649arWSl3cRDy8=;
+ b=UmRknEqTM0UkK+HAnlLRJO0DuUOpCajYUpcETvE8aMaN8i2mXtm4rJleMphBGOZ8InUbjT8tVabpdRB0L/qzd2DLVsWfGlYdxfcEIRvLHp3aC1hz7kRcm6a+12t1i+GCKWedrmsIQyPM/oKG2CUUG5kgmSHEVbqaAXAiCvuiTE9OvWljZOwY2uBSND8J6X2UZkSC0sNB10QsEig6RM25CI0JtZPCY5TYqyQ/EWOLKT97BKd7BLez7e5zFA8UsIelGzoPtZuPzrU8EGfSW2dF5i7F37Yapiyn3Y7dK5E87xk5KTzFpGBKoriz/uFL2DpruJzz71CSiFVAX3gsJmby8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3wU8/IrzXPwRqQoX/Ty2fVj/Ab/s38Lxj3VkLgp7g/E=;
- b=uZxsjmeK6j94dvianYZQTcT9nSrDeKp0obD0k7C4PhSvYkCo4F3XgAsVx7XAQ48JpYeQY0CI1LIYRyeqxEWHaqge9kMyMSnP3aajLd3k0BgDdZaZRm1nwH7wx3BtRraUyfs3/ObuoPsqdmqqOeaQYBaswj5MeEuhAN9BrJ1QYvY=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=David1.Zhou@amd.com; 
-Received: from DM5PR12MB2440.namprd12.prod.outlook.com (2603:10b6:4:b6::39) by
- DM5PR12MB1898.namprd12.prod.outlook.com (2603:10b6:3:10d::14) with
+ bh=aOd/I29PLZKG/iAXJjMPLAeuxjUqI649arWSl3cRDy8=;
+ b=hhhQk6wddjfScwBCulzfUA3srLRpMhr7VtK5GqL4o2VpKnT/4Cvjubaf966jhG5WFvYMf9HC4gNQy8LZr/r2R5JRwjsjy+GXqC2nRin/MbIBOo14+tcNyFOA++FPiZOfn0UNpmglISPjjKV9A//Fm6Nqq1CQQpGuY8gJbjPTRLM=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM6PR12MB4433.namprd12.prod.outlook.com (2603:10b6:5:2a1::20) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2937.22; Tue, 28 Apr 2020 03:22:44 +0000
-Received: from DM5PR12MB2440.namprd12.prod.outlook.com
- ([fe80::557:72a2:dfed:1c28]) by DM5PR12MB2440.namprd12.prod.outlook.com
- ([fe80::557:72a2:dfed:1c28%6]) with mapi id 15.20.2937.023; Tue, 28 Apr 2020
- 03:22:44 +0000
-Subject: Re: drm/amdgpu: apply AMDGPU_IB_FLAG_EMIT_MEM_SYNC to compute IBs too
-To: christian.koenig@amd.com, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?=
- <maraeo@gmail.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>
-References: <CAAxE2A64Z91LiB9FduJf-8OO3He+1gZ9sxDfD+BVwc+-9Z7BnA@mail.gmail.com>
- <64c5a883-1933-c494-7a93-dc19e0bd0445@gmail.com>
- <CAAxE2A6Hgnq_zBjQQoa51S7KfVzddjndRGjrJYtjY7v9+vuwDw@mail.gmail.com>
- <328ea10b-1453-371e-7392-54e1a4051715@gmail.com>
- <MN2PR12MB448809E68050B9A61B1CC7FAF7AF0@MN2PR12MB4488.namprd12.prod.outlook.com>
- <CAAxE2A50b_+oX9wmF2D6LZs9GvG9Rhug8AQU40aeDbMDm_kFqw@mail.gmail.com>
- <217db438-608d-d28c-6678-4173a6291d8b@gmail.com>
-From: Chunming Zhou <zhoucm1@amd.com>
-Message-ID: <305d42a7-5810-b6ca-bfec-bba1b8bd5272@amd.com>
-Date: Tue, 28 Apr 2020 11:22:29 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-In-Reply-To: <217db438-608d-d28c-6678-4173a6291d8b@gmail.com>
-X-ClientProxiedBy: HK2PR03CA0060.apcprd03.prod.outlook.com
- (2603:1096:202:17::30) To DM5PR12MB2440.namprd12.prod.outlook.com
- (2603:10b6:4:b6::39)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.252.121.145] (180.167.199.185) by
- HK2PR03CA0060.apcprd03.prod.outlook.com (2603:1096:202:17::30) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2958.10 via Frontend Transport; Tue, 28 Apr 2020 03:22:42 +0000
-X-Originating-IP: [180.167.199.185]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 6b391287-e5ea-42bb-e5eb-08d7eb236ab9
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1898:|DM5PR12MB1898:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM5PR12MB18988DB6AC50DAE9B1E8EE54B4AC0@DM5PR12MB1898.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-Forefront-PRVS: 0387D64A71
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR12MB2440.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ 15.20.2937.13; Tue, 28 Apr 2020 04:08:58 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::5c27:185c:be20:1fb6]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::5c27:185c:be20:1fb6%5]) with mapi id 15.20.2937.023; Tue, 28 Apr 2020
+ 04:08:58 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: RE: [PATCH] drm/amdgpu: put the audio codec into suspend state before
+ gpu reset V2
+Thread-Topic: [PATCH] drm/amdgpu: put the audio codec into suspend state
+ before gpu reset V2
+Thread-Index: AQHWGE+x7L6exlVURE6f9XdPAsy3xqiFJQ+AgAjM4GA=
+Date: Tue, 28 Apr 2020 04:08:58 +0000
+Message-ID: <DM6PR12MB26194747FAC0B96B60CF285CE4AC0@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20200422024221.16914-1-evan.quan@amd.com>
+ <CADnq5_O8bNkDnUYYn=nAOOq+0qZUMgZgM2ZeCE4BWA2NWQ_Fdg@mail.gmail.com>
+In-Reply-To: <CADnq5_O8bNkDnUYYn=nAOOq+0qZUMgZgM2ZeCE4BWA2NWQ_Fdg@mail.gmail.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=4d63696c-eabb-47ee-8569-00000f243285;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-04-28T03:58:32Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Evan.Quan@amd.com; 
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 3caff968-f99d-40cc-0ae3-08d7eb29e028
+x-ms-traffictypediagnostic: DM6PR12MB4433:|DM6PR12MB4433:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB4433E1F09A637A6D7E734C1FE4AC0@DM6PR12MB4433.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 0387D64A71
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(376002)(136003)(346002)(39860400002)(366004)(396003)(8936002)(186003)(6666004)(2616005)(956004)(26005)(110136005)(5660300002)(316002)(16576012)(16526019)(31686004)(2906002)(66574012)(53546011)(6636002)(45080400002)(478600001)(4326008)(31696002)(966005)(36756003)(66946007)(81156014)(66476007)(52116002)(8676002)(33964004)(66556008)(6486002);
+ SFS:(4636009)(39860400002)(136003)(376002)(396003)(346002)(366004)(15650500001)(8936002)(7696005)(33656002)(71200400001)(66476007)(5660300002)(6506007)(66446008)(45080400002)(66946007)(6916009)(64756008)(53546011)(4326008)(66556008)(52536014)(76116006)(478600001)(8676002)(81156014)(2906002)(55016002)(86362001)(9686003)(316002)(26005)(186003)(54906003)(83080400001)(966005);
  DIR:OUT; SFP:1101; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
+received-spf: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GlIHIzckls3do+JoghcNZkLpK2xcjikIx7kk2jrnIIKPGfgKBoWkEWl3cExRfoS86v+CIC4Sh+ADGjJawOr41QNjuoEtId4hB+sZLUD8H6cR9r85O00WIygVa8RBOLd1DSqJx9myVGiigmij9+ash0lsZveVxkzy2PB+m5WMPm/WtXDQOIMQ/xHiQ/sg4MXszZMQuzjiW2cKEIy2fpRSQDb2Izo08oyn9zbGnTkk6ZhBYnfEnoMM85SVxqp8xrrmEK+zkH+cohe8G1Mz9kY2GoglfleimC7IQwpj5cKDbVZLMB1hX24bRcQF5xEYds+r1WN51Y3WrTuleZS2B5vUgAcsKL6vrQEqWqXYzq4JwMJ4z/zNOHDWk2QyGrhvKjNc/RAj5LyMIZ8DRJshqI18CIXVu9xg9rB8SMO1fs2s/gRyEKgxaecnfkMVFEL0Z51M9JvLa/Dk4RGcvHpeBt0yLi7IeqXGhwF4KRo43mkqyfc=
-X-MS-Exchange-AntiSpam-MessageData: 10gr2Sd9zsdR3306ESPb8f67a7JaDyiLWbcLpxRbPBubw1csYylVwRRvdQTNEJ3TodwTI/nzZwMfdUiAaroAQnesGxnD7EnvgYNJvI1WLDiSwK9Uo/D17FjRcTEUt4EDIrhogNsOZm93ZMGN5bhhPVUNMWI3HJN5eT4wnZbktwkpT/x0ADD8yc16jNs3Tbym3C5nmQ602SQMoYJO0VOp1YL7Qq7i4JU9CRxAaoQ14SFjNYD+UZdIx+UziP67w2V7Jz/41g5yJOnV92eiY63t4GkPJgYgSEMJVcFWO/ayiWNGKJxOL4iILsV6WN3yP9MvKGiFN/5Z0YYDmt5+EDCMKFXp4by2kVwv81Tm61GJZZ6LJJiocfUuu9OW2ZJ9fL5QlCmXnvJ8T1Qoxq5FOa7xb9Dc5DlZPmX3pAugxqco+4W2rUXNprivtSXnGwKEve4F4ku2OsoZJX1u4Zlx7y1DaT3j4nUe4Ft/5KDYYcTPEs96CZxNc19Q6hHSdWq7Xryc650UNYeSFvj44cku/FD0e10g/rW1utkhjhbYDsOa2quhMeyuuRWOQVvLKZL+zwY24YjbBx/uYKrhUlBVtmQgiIPDHv8DTvtiyM96W2DZQMV3NF2e7yzBb/q7ergw6uwAgdhWqG7qPMCbnZR1vd0hn2XrCxForYFHKPs6l8t9WCEJEMyJD08i0ZxlXeKti4fCMUTCJvYj/lxfb0NzKcJSKFa/8RfLIgI0B6u4OvFcUNtlrz+HWLPsvahC4wETBJEukYQvhlSHHbz0q7QvijLNJgp4WzZm4uDq3dUWxyco8mhZag6emfzPCX8XFiVzI4iZ
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: y7Bt63+eU8FDn2z8L9s1M3p1DIQdu73YoS8HfGu5ZXFpLD9IwjxAOXMpeLkEVFjo5wgkyHrbuucGG0r/G6YLbBpR8pcFMFm4/S+MfEpNh1FpWoBX/qspT9gwjDaX+fTPa8SQVAhOsyEJSegGNqiSHEFs3F27SAF35lha9VyjqScJ0OlYEjqXZUO3O0/c0zvNtil+/TFLCf0XfN5rqtchiZDvZX+AdfRv43zmK4eRn5zhY25DdGSG8xVDGB1g8DSuyB177MtfrqxTD6/jHnWKr40H6IRHy56dSHIgVg/vV/f8eV/orXuvSEW+wG76hrPBQF2ACT6Dw81PuOUMumB7CVyTN3BV2uaqlRondPqNG8GhskNMw3jstf1T30yZZ9k8s6CQkGm5vNan2jz65gJkqCYRqJIFiA7EzH9HHJRx1fAs40k+92Mk7MVmGf3WyQH9PD1/tlqAwpxvoVxHtcLuxCe/Ww6gB+4ElFMwxddOVqDljuhO0cBBy/lHLvJkO7sRwlNAQ3+rK2OQykh6cbDhRA==
+x-ms-exchange-antispam-messagedata: PZqgM3qcn449U62n3cYDAI1StUWBpJ81Lk6LufC5aVadmmI3Zb3J33IVSevrgYnwk1JwyvTIHK/vNZateRbfBPUEBmOaDj/5xMCgE4BCDH4MM3h251/C3MoidWRuiAlAbHGxITKbsQuZiKqUmkRBSl4mHCi3C9w2lluLidDwflROJ0oE8QaTJbgmmgaK0NNsR1R/xQwBwwHnwfOSMnM0+3nyR8of+ZUt7qiw0AZdXVfpsoMH36BvMDajYnhyOCtOzTZq0OfivZvp7Wx4E+8P6oMCIhHZnWeicra7nRoAZAboo0lhyET7dmZG4QvhBWYDO1Io1JnQbnlmJkKAYJi43xkncEPu2h2RXCYqoCquOykdJUizx4QWm10x3ihJ5uXovX1nGG2k21M38+0HAvxK5wAWjYa8BN/fojv35LHGD3x9G+0lcNboAgLwzdBHuBNvXUeRxR9GC/8xR3r3YtWw2TZjuqax0mDByhy5O37IXPt8QhGZK5c4RC+QVTAGmMxaW3W5L/ZDI4tQO2/8UJ+Io6OvO95gVVEyDhEqxPlygAzuKclqejaXCmBwej7wF1+0RLtnLNLFQu9uNMBCa6hiK9DkQ2ywSdQswXSJcssb50Z6pyCOwNS0gz1tvHyq5DiMia0u1Vta8pBLBHpm7V50wmt2emP9ptEBG53C8bnySvXiH1pVejRUAD5ANFjdvKuIsUEXilNLwB1J0Ylp1M9CUk24toOPT2Ksg2q73P6tUmhgrvpAXwbDRYzt7B6Q+Br7boQtpnN0/pfb3B1ot8DmTDo/ELX70xxK/9WGTWJ3caU=
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b391287-e5ea-42bb-e5eb-08d7eb236ab9
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2020 03:22:44.6273 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q5R3zM+AScOfNOAK/ZoAz7ZbTlOijc6sRdcSF3YMChQBut7/KuioUeCchPmoJIKX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1898
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3caff968-f99d-40cc-0ae3-08d7eb29e028
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Apr 2020 04:08:58.1314 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: olGl0ZOP+M59WZEyZF21rw+m77oSIniuHKbxgo2La6p8XkMSVL2Yw9Uu12PUVZZd
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4433
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,315 +116,182 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============1525519624=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1525519624==
-Content-Type: multipart/alternative;
- boundary="------------FDA16AED658F63885E1EAB32"
+Hi Alex,
 
---------------FDA16AED658F63885E1EAB32
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+The pm_runtime_autosuspend_expiration() return 0 due to ->use_autosuspend and autosuspend_delay are all zeros.
+This seems not kernel specific. As I can see this on 5.6-drm-next kernel and ubuntu original 5.3.46 kernel.
+Any insights why that happened?
+And maybe a compromise is: try the pm_runtime_autosuspend_expiration() first. And if failed(report 0), use a fixed interval(3S).
 
-Yes, same question.
+Regards,
+Evan
+-----Original Message-----
+From: Alex Deucher <alexdeucher@gmail.com> 
+Sent: Wednesday, April 22, 2020 9:35 PM
+To: Quan, Evan <Evan.Quan@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: put the audio codec into suspend state before gpu reset V2
 
-In fact, PAL cmd stream has itself Relase/Acquire packets. That we use 
-the flag is per your request.
-
--David
-
-在 2020/4/27 22:53, Christian König 写道:
-> Yeah, but is Mesa going to use it?
+On Tue, Apr 21, 2020 at 10:42 PM Evan Quan <evan.quan@amd.com> wrote:
 >
-> Christian.
+> At default, the autosuspend delay of audio controller is 3S. If the 
+> gpu reset is triggered within 3S(after audio controller idle), the 
+> audio controller may be unable into suspended state. Then the sudden 
+> gpu reset will cause some audio errors. The change here is targeted to 
+> resolve this.
 >
-> Am 27.04.20 um 15:54 schrieb Marek Olšák:
->> PAL requested it and they are going to use it. (it looks like they 
->> have to use it for correctness)
->>
->> Marek
->>
->> On Mon, Apr 27, 2020 at 9:02 AM Deucher, Alexander 
->> <Alexander.Deucher@amd.com <mailto:Alexander.Deucher@amd.com>> wrote:
->>
->>     [AMD Official Use Only - Internal Distribution Only]
->>
->>
->>     Do we have open source code UMD code which uses this?
->>
->>     Alex
->>     ------------------------------------------------------------------------
->>     *From:* Christian König <ckoenig.leichtzumerken@gmail.com
->>     <mailto:ckoenig.leichtzumerken@gmail.com>>
->>     *Sent:* Sunday, April 26, 2020 4:55 AM
->>     *To:* Marek Olšák <maraeo@gmail.com <mailto:maraeo@gmail.com>>;
->>     Koenig, Christian <Christian.Koenig@amd.com
->>     <mailto:Christian.Koenig@amd.com>>
->>     *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com
->>     <mailto:Alexander.Deucher@amd.com>>; amd-gfx mailing list
->>     <amd-gfx@lists.freedesktop.org
->>     <mailto:amd-gfx@lists.freedesktop.org>>
->>     *Subject:* Re: drm/amdgpu: apply AMDGPU_IB_FLAG_EMIT_MEM_SYNC to
->>     compute IBs too
->>     Thanks for that explanation. I suspected that there was a good
->>     reason to have that in the kernel, but couldn't find one.
->>
->>     In this case the patch is Reviewed-by: Christian König
->>     <christian.koenig@amd.com> <mailto:christian.koenig@amd.com>
->>
->>     We should probably add this explanation as comment to the flag as
->>     well.
->>
->>     Thanks,
->>     Christian.
->>
->>     Am 26.04.20 um 02:43 schrieb Marek Olšák:
->>>     It was merged into amd-staging-drm-next.
->>>
->>>     I'm not absolutely sure, but I think we need to invalidate
->>>     before IBs if an IB is cached in L2 and the CPU has updated it.
->>>     It can only be cached in L2 if something other than CP has read
->>>     it or written to it without invalidation. CP reads don't cache
->>>     it but they can hit the cache if it's already cached.
->>>
->>>     For CE, we need to invalidate before the IB in the kernel,
->>>     because CE IBs can't do cache invalidations IIRC. This is the
->>>     number one reason for merging the already pushed commits.
->>>
->>>     Marek
->>>
->>>     On Sat., Apr. 25, 2020, 11:03 Christian König,
->>>     <ckoenig.leichtzumerken@gmail.com
->>>     <mailto:ckoenig.leichtzumerken@gmail.com>> wrote:
->>>
->>>         Was that patch set actually merged upstream? My last status
->>>         is that we couldn't find a reason why we need to do this in
->>>         the kernel.
->>>
->>>         Christian.
->>>
->>>         Am 25.04.20 um 10:52 schrieb Marek Olšák:
->>>>         This was missed.
->>>>
->>>>         Marek
->>>>
->>>>         _______________________________________________
->>>>         amd-gfx mailing list
->>>>         amd-gfx@lists.freedesktop.org  <mailto:amd-gfx@lists.freedesktop.org>
->>>>         https://lists.freedesktop.org/mailman/listinfo/amd-gfx  <https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&data=02%7C01%7Cdavid1.zhou%40amd.com%7Ced56cca1a5214cf9132808d7eabac6d9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637235960880865820&sdata=1eMdG%2Fr07okHFC%2F%2B3Oz4mg6dAvnd%2FULM6ucEoy7xXDc%3D&reserved=0>
->>>
->>>
->>>     _______________________________________________
->>>     amd-gfx mailing list
->>>     amd-gfx@lists.freedesktop.org  <mailto:amd-gfx@lists.freedesktop.org>
->>>     https://lists.freedesktop.org/mailman/listinfo/amd-gfx  <https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&data=02%7C01%7Cdavid1.zhou%40amd.com%7Ced56cca1a5214cf9132808d7eabac6d9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637235960880875773&sdata=8IuVdWV7WS%2BZR60H8B9rWug64%2Bb7xnEUOucMzOlr1wY%3D&reserved=0>
->>
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> However if the audio controller is in use when the gpu reset 
+> triggered, this change may be still not enough to put the audio 
+> controller into suspend state. Under this case, the gpu reset will 
+> still proceed but there will be a warning message printed("failed to 
+> suspend display audio").
 >
+> V2: limit this for BACO and mode1 reset only
+>
+> Change-Id: I33d85e6fcad1882eb33f9cde8916d57be8d5a87a
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 70 
+> ++++++++++++++++++++++
+>  1 file changed, 70 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 2d4b78d96426..70f43b1aed78 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -69,6 +69,7 @@
+>
+>  #include <linux/suspend.h>
+>  #include <drm/task_barrier.h>
+> +#include <linux/pm_runtime.h>
+>
+>  MODULE_FIRMWARE("amdgpu/vega10_gpu_info.bin");
+>  MODULE_FIRMWARE("amdgpu/vega12_gpu_info.bin");
+> @@ -4146,6 +4147,59 @@ static void amdgpu_device_unlock_adev(struct amdgpu_device *adev)
+>         mutex_unlock(&adev->lock_reset);  }
+>
+> +static void amdgpu_device_resume_display_audio(struct amdgpu_device 
+> +*adev) {
+> +       struct pci_dev *p = NULL;
+> +
+> +       p = pci_get_domain_bus_and_slot(pci_domain_nr(adev->pdev->bus),
+> +                       adev->pdev->bus->number, 1);
+> +       if (p) {
+> +               pm_runtime_enable(&(p->dev));
+> +               pm_runtime_resume(&(p->dev));
+> +       }
+> +}
+> +
+> +static int amdgpu_device_suspend_display_audio(struct amdgpu_device 
+> +*adev) {
+> +       enum amd_reset_method reset_method;
+> +       struct pci_dev *p = NULL;
+> +       unsigned long end_jiffies;
+> +
+> +       /*
+> +        * For now, only BACO and mode1 reset are confirmed
+> +        * to suffer the audio issue without proper suspended.
+> +        */
+> +       reset_method = amdgpu_asic_reset_method(adev);
+> +       if ((reset_method != AMD_RESET_METHOD_BACO) &&
+> +            (reset_method != AMD_RESET_METHOD_MODE1))
+> +               return -EINVAL;
+> +
+> +       p = pci_get_domain_bus_and_slot(pci_domain_nr(adev->pdev->bus),
+> +                       adev->pdev->bus->number, 1);
+> +       if (!p)
+> +               return -ENODEV;
+> +
+> +       /*
+> +        * 3S is the audio controller default autosuspend delay setting.
+> +        * 4S used here is guaranteed to cover that.
+> +        */
+
+Instead of hardcoding 3S, we should probably use
+pm_runtime_autosuspend_expiration() to query how much time is left and then use that.  That way this will work even if userspace has changed the delay.  With that fixed:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+Alex
+
+
+> +       end_jiffies = msecs_to_jiffies(4000) + jiffies;
+> +       while (!pm_runtime_status_suspended(&(p->dev))) {
+> +               if (!pm_runtime_suspend(&(p->dev)))
+> +                       break;
+> +
+> +               if (time_after(jiffies, end_jiffies)) {
+> +                       dev_warn(adev->dev, "failed to suspend display audio\n");
+> +                       /* TODO: abort the succeeding gpu reset? */
+> +                       return -ETIMEDOUT;
+> +               }
+> +       }
+> +
+> +       pm_runtime_disable(&(p->dev));
+> +
+> +       return 0;
+> +}
+> +
+>  /**
+>   * amdgpu_device_gpu_recover - reset the asic and recover scheduler
+>   *
+> @@ -4170,6 +4224,7 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>         bool use_baco =
+>                 (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO) ?
+>                 true : false;
+> +       bool audio_suspended = false;
+>
+>         /*
+>          * Flush RAM to disk so that after reboot @@ -4227,6 +4282,19 
+> @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>                         return 0;
+>                 }
+>
+> +               /*
+> +                * Try to put the audio codec into suspend state
+> +                * before gpu reset started.
+> +                *
+> +                * Due to the power domain of the graphics device
+> +                * is shared with AZ power domain. Without this,
+> +                * we may change the audio hardware from behind
+> +                * the audio driver's back. That will trigger
+> +                * some audio codec errors.
+> +                */
+> +               if (!amdgpu_device_suspend_display_audio(tmp_adev))
+> +                       audio_suspended = true;
+> +
+>                 amdgpu_ras_set_error_query_ready(tmp_adev, false);
+>
+>                 
+> cancel_delayed_work_sync(&tmp_adev->delayed_init_work);
+> @@ -4339,6 +4407,8 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+>                 /*unlock kfd: SRIOV would do it separately */
+>                 if (!(in_ras_intr && !use_baco) && !amdgpu_sriov_vf(tmp_adev))
+>                         amdgpu_amdkfd_post_reset(tmp_adev);
+> +               if (audio_suspended)
+> +                       amdgpu_device_resume_display_audio(tmp_adev);
+>                 amdgpu_device_unlock_adev(tmp_adev);
+>         }
+>
+> --
+> 2.26.2
 >
 > _______________________________________________
 > amd-gfx mailing list
 > amd-gfx@lists.freedesktop.org
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cdavid1.zhou%40amd.com%7Ced56cca1a5214cf9132808d7eabac6d9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637235960880895689&amp;sdata=6p%2BAuZXHiUrO8wElftOqsJzHF%2BVLe5TMDIF%2BbJNV6ac%3D&amp;reserved=0
-
---------------FDA16AED658F63885E1EAB32
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p>Yes, same question.</p>
-    <p>In fact, PAL cmd stream has itself Relase/Acquire packets. That
-      we use the flag is per your request.</p>
-    <p>-David<br>
-    </p>
-    <div class="moz-cite-prefix">在 2020/4/27 22:53, Christian König 写道:<br>
-    </div>
-    <blockquote type="cite" cite="mid:217db438-608d-d28c-6678-4173a6291d8b@gmail.com">
-      
-      <div class="moz-cite-prefix">Yeah, but is Mesa going to use it?<br>
-        <br>
-        Christian.<br>
-        <br>
-        Am 27.04.20 um 15:54 schrieb Marek Olšák:<br>
-      </div>
-      <blockquote type="cite" cite="mid:CAAxE2A50b_&#43;oX9wmF2D6LZs9GvG9Rhug8AQU40aeDbMDm_kFqw@mail.gmail.com">
-        <div dir="ltr">
-          <div>PAL requested it and they are going to use it. (it looks
-            like they have to use it for correctness)<br>
-          </div>
-          <div><br>
-          </div>
-          <div>Marek<br>
-          </div>
-        </div>
-        <br>
-        <div class="gmail_quote">
-          <div dir="ltr" class="gmail_attr">On Mon, Apr 27, 2020 at 9:02
-            AM Deucher, Alexander &lt;<a href="mailto:Alexander.Deucher@amd.com" moz-do-not-send="true">Alexander.Deucher@amd.com</a>&gt;
-            wrote:<br>
-          </div>
-          <blockquote class="gmail_quote" style="margin:0px 0px 0px
-            0.8ex;border-left:1px solid
-            rgb(204,204,204);padding-left:1ex">
-            <div dir="ltr">
-              <p style="font-family:Arial;font-size:10pt;color:rgb(0,120,215);margin:15pt" align="Left"> [AMD Official Use Only - Internal
-                Distribution Only]<br>
-              </p>
-              <br>
-              <div>
-                <div style="font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)">Do
-                  we have open source code UMD code which uses this?</div>
-                <div style="font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)"><br>
-                </div>
-                <div style="font-family:Calibri,Arial,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)">Alex<br>
-                </div>
-                <hr style="display:inline-block;width:98%">
-                <div id="gmail-m_-4239586701017450887divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri,
-                    sans-serif" color="#000000"><b>From:</b> Christian
-                    König &lt;<a href="mailto:ckoenig.leichtzumerken@gmail.com" target="_blank" moz-do-not-send="true">ckoenig.leichtzumerken@gmail.com</a>&gt;<br>
-                    <b>Sent:</b> Sunday, April 26, 2020 4:55 AM<br>
-                    <b>To:</b> Marek Olšák &lt;<a href="mailto:maraeo@gmail.com" target="_blank" moz-do-not-send="true">maraeo@gmail.com</a>&gt;;
-                    Koenig, Christian &lt;<a href="mailto:Christian.Koenig@amd.com" target="_blank" moz-do-not-send="true">Christian.Koenig@amd.com</a>&gt;<br>
-                    <b>Cc:</b> Deucher, Alexander &lt;<a href="mailto:Alexander.Deucher@amd.com" target="_blank" moz-do-not-send="true">Alexander.Deucher@amd.com</a>&gt;;
-                    amd-gfx mailing list &lt;<a href="mailto:amd-gfx@lists.freedesktop.org" target="_blank" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>&gt;<br>
-                    <b>Subject:</b> Re: drm/amdgpu: apply
-                    AMDGPU_IB_FLAG_EMIT_MEM_SYNC to compute IBs too</font>
-                  <div>&nbsp;</div>
-                </div>
-                <div style="background-color:rgb(255,255,255)">
-                  <div>Thanks for that explanation. I suspected that
-                    there was a good reason to have that in the kernel,
-                    but couldn't find one.<br>
-                    <br>
-                    In this case the patch is Reviewed-by: Christian
-                    König <a href="mailto:christian.koenig@amd.com" target="_blank" moz-do-not-send="true">
-                      &lt;christian.koenig@amd.com&gt;</a><br>
-                    <br>
-                    We should probably add this explanation as comment
-                    to the flag as well.<br>
-                    <br>
-                    Thanks,<br>
-                    Christian.<br>
-                    <br>
-                    Am 26.04.20 um 02:43 schrieb Marek Olšák:<br>
-                  </div>
-                  <blockquote type="cite">
-                    <div dir="auto">It was merged into
-                      amd-staging-drm-next.
-                      <div dir="auto"><br>
-                      </div>
-                      <div dir="auto">I'm not absolutely sure, but I
-                        think we need to invalidate before IBs if an IB
-                        is cached in L2 and the CPU has updated it. It
-                        can only be cached in L2 if something other than
-                        CP has read it or written to it without
-                        invalidation. CP reads don't cache it but they
-                        can hit the cache if it's already cached.</div>
-                      <div dir="auto"><br>
-                      </div>
-                      <div dir="auto">For CE, we need to invalidate
-                        before the IB in the kernel, because CE IBs
-                        can't do cache invalidations IIRC. This is the
-                        number one reason for merging the already pushed
-                        commits.</div>
-                      <div dir="auto"><br>
-                      </div>
-                      <div dir="auto">Marek</div>
-                    </div>
-                    <br>
-                    <div>
-                      <div dir="ltr">On Sat., Apr. 25, 2020, 11:03
-                        Christian König, &lt;<a href="mailto:ckoenig.leichtzumerken@gmail.com" target="_blank" moz-do-not-send="true">ckoenig.leichtzumerken@gmail.com</a>&gt;
-                        wrote:<br>
-                      </div>
-                      <blockquote style="margin:0px 0px 0px
-                        0.8ex;border-left:1px solid
-                        rgb(204,204,204);padding-left:1ex">
-                        <div bgcolor="#FFFFFF">
-                          <div>Was that patch set actually merged
-                            upstream? My last status is that we couldn't
-                            find a reason why we need to do this in the
-                            kernel.<br>
-                            <br>
-                            Christian.<br>
-                            <br>
-                            Am 25.04.20 um 10:52 schrieb Marek Olšák:<br>
-                          </div>
-                          <blockquote type="cite">
-                            <div dir="ltr">
-                              <div>This was missed.</div>
-                              <div><br>
-                              </div>
-                              <div>Marek<br>
-                              </div>
-                            </div>
-                            <br>
-                            <fieldset></fieldset>
-                            <pre>_______________________________________________
-amd-gfx mailing list
-<a href="mailto:amd-gfx@lists.freedesktop.org" rel="noreferrer" target="_blank" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
-<a href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cdavid1.zhou%40amd.com%7Ced56cca1a5214cf9132808d7eabac6d9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637235960880865820&amp;sdata=1eMdG%2Fr07okHFC%2F%2B3Oz4mg6dAvnd%2FULM6ucEoy7xXDc%3D&amp;reserved=0" originalsrc="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash="bQ6LZdwdzzCwNV2EqXiQfAcyvdzjXbTYyHK64lz3mRJBKJbIZm0xDdDeFJlNNzp1qVON7LzcvTP4A85Du/h4jY2a3b/ejhQmLP2Abe2GC&#43;0wNmj2UEKjF2tm6GyA09NNgscey&#43;Esqrhnaq1NpxwexH6ZRUJ&#43;7sEgmuFb2J9LPus=" rel="noreferrer" target="_blank" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-                          </blockquote>
-                          <br>
-                        </div>
-                      </blockquote>
-                    </div>
-                    <br>
-                    <fieldset></fieldset>
-                    <pre>_______________________________________________
-amd-gfx mailing list
-<a href="mailto:amd-gfx@lists.freedesktop.org" target="_blank" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
-<a href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cdavid1.zhou%40amd.com%7Ced56cca1a5214cf9132808d7eabac6d9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637235960880875773&amp;sdata=8IuVdWV7WS%2BZR60H8B9rWug64%2Bb7xnEUOucMzOlr1wY%3D&amp;reserved=0" originalsrc="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash="vB2eCpZvtmS3gxgkCBI0szHocIrkxYjohPfqzIqRT6MjSPKmZ72B6d6zznHqsia1oUsaf45ySo6UZLiiVkU6FMstjas5dx4QruWuD0F8JGj90K7T7EsN7btMYzZFdPvMqmA/iQS907a3sOR2pJJCFxcuXjcR0M/mqvyb5fPT33c=" target="_blank" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-                  </blockquote>
-                  <br>
-                </div>
-              </div>
-            </div>
-          </blockquote>
-        </div>
-        <br>
-        <fieldset class="mimeAttachmentHeader"></fieldset>
-        <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cdavid1.zhou%40amd.com%7Ced56cca1a5214cf9132808d7eabac6d9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637235960880875773&amp;sdata=8IuVdWV7WS%2BZR60H8B9rWug64%2Bb7xnEUOucMzOlr1wY%3D&amp;reserved=0" originalsrc="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash="vB2eCpZvtmS3gxgkCBI0szHocIrkxYjohPfqzIqRT6MjSPKmZ72B6d6zznHqsia1oUsaf45ySo6UZLiiVkU6FMstjas5dx4QruWuD0F8JGj90K7T7EsN7btMYzZFdPvMqmA/iQS907a3sOR2pJJCFxcuXjcR0M/mqvyb5fPT33c=" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-      </blockquote>
-      <br>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=02%7C01%7Cdavid1.zhou%40amd.com%7Ced56cca1a5214cf9132808d7eabac6d9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637235960880895689&amp;amp;sdata=6p%2BAuZXHiUrO8wElftOqsJzHF%2BVLe5TMDIF%2BbJNV6ac%3D&amp;amp;reserved=0">https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=02%7C01%7Cdavid1.zhou%40amd.com%7Ced56cca1a5214cf9132808d7eabac6d9%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637235960880895689&amp;amp;sdata=6p%2BAuZXHiUrO8wElftOqsJzHF%2BVLe5TMDIF%2BbJNV6ac%3D&amp;amp;reserved=0</a>
-</pre>
-    </blockquote>
-  </body>
-</html>
-
---------------FDA16AED658F63885E1EAB32--
-
---===============1525519624==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
+> s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cev
+> an.quan%40amd.com%7Cf459a830629f4738329808d7e6c201e4%7C3dd8961fe4884e6
+> 08e11a82d994e183d%7C0%7C0%7C637231593241762358&amp;sdata=0EEfJPHc%2BEF
+> K9Ukvzo20h4K4lL%2F%2FcUOvH0AdYDsha08%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1525519624==--
