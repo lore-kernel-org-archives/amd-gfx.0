@@ -2,71 +2,54 @@ Return-Path: <SRS0=QpD2=6M=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 116DCC83000
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 16:00:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4DC2EC83001
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 16:12:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D7E2A20575
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 16:00:05 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GOQ6m7xu"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D7E2A20575
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 2895E206E2
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 16:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2895E206E2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=arm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5D0F86E82D;
-	Tue, 28 Apr 2020 16:00:05 +0000 (UTC)
-Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
- [IPv6:2607:f8b0:4864:20::f43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 961336E822
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2020 16:00:03 +0000 (UTC)
-Received: by mail-qv1-xf43.google.com with SMTP id 59so8513595qva.13
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2020 09:00:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Bj6/AZ+/zhim3Wxoy8E/CzwrvSUjZFB4pcSVmdxkxEA=;
- b=GOQ6m7xucFS5irpP9/QmSfP/v4PbeMB3ndpNrZYo2a+2nJuDrrlE3pOlVSx/tCHHrv
- uYVt/d+N5kGHgvIC6ScAugBEdWixNlwiTfQM+AHy+67V5r6a3caIzZtO8ZSu4RLcRFzp
- eVY36VRfu9+sC0b0bJ/iWF288joPIKV5pGIQu536/B9Ivo2IkejaDgihBdVeyM4B6bWj
- eGOfbi3Gws8Ju+hmK7rMN+ICI47ekBmbKhiXlT0Rf9axk1Wb3BLVdFkEGdElbV5qmFeY
- CGNXX0q4jjCYmBNLZknYbNHiCSSHm3g0xR0IF7dQO6gy4f5C6CkMEZn3cxl3it7h6K15
- FoHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=Bj6/AZ+/zhim3Wxoy8E/CzwrvSUjZFB4pcSVmdxkxEA=;
- b=OMGGtGVezo+zt/ccvhIjwHNvBqmxf+svGBIWYeOiusy4e5pFVJHr1b0wrYb0ybKYC5
- fZ8M+N0GdvJ+emaKCTPjyEZCQOm1V1T/PRfkEI2jrWEoIpOUuxHSkRFWpcwqjYAUyOsS
- 0Wr0gydA5uQ4jxm4aOmuCkB5Om/Uf7MgdumL/T+aFeOK6Ui5Vi1oXnry65v2u7yWSGTt
- /8gshpuJas9rrxNwodptNrE8uRmpBp0qxRzrkswv2BG9fv0BcSq6Sa0S0Obn0eY3+c0L
- Nvf3juGF+IeUAZeyQUDgGPgl++AN1BZGyqY35kYfLQ35s0d5MyZCBNzV8DEmiga6ahXF
- obqw==
-X-Gm-Message-State: AGi0PuYYcAYqpfGbhFHn5RArdYsPxhTo1Z21I+jnYk+sgXnOAJo4ma42
- 3McI6oiTYmAOtm1YI2I4w/xoxc43
-X-Google-Smtp-Source: APiQypIipjM4DukVZefVMUjvXwSRb68+ulaNgvJGmAIFhsuP/bHWufK+9NtxR9M2mJ648UvQpgk+nA==
-X-Received: by 2002:a0c:a98f:: with SMTP id a15mr28813979qvb.105.1588089602327; 
- Tue, 28 Apr 2020 09:00:02 -0700 (PDT)
-Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id i4sm8981633qkh.66.2020.04.28.09.00.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Apr 2020 09:00:01 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: align driver version with upstream
-Date: Tue, 28 Apr 2020 11:59:52 -0400
-Message-Id: <20200428155952.545150-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB38C6E839;
+	Tue, 28 Apr 2020 16:12:01 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 99A556E82D;
+ Tue, 28 Apr 2020 16:03:02 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 11FB530E;
+ Tue, 28 Apr 2020 09:03:02 -0700 (PDT)
+Received: from [10.57.33.170] (unknown [10.57.33.170])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0EE773F305;
+ Tue, 28 Apr 2020 09:02:59 -0700 (PDT)
+Subject: Re: [RFC 00/17] DRM: fix struct sg_table nents vs. orig_nents misuse
+To: Christoph Hellwig <hch@lst.de>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@linaro.org>,
+ intel-gfx@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ amd-gfx@lists.freedesktop.org, David Airlie <airlied@linux.ie>
+References: <CGME20200428132022eucas1p2aa4716cbaca61c432ee8028be15fef7a@eucas1p2.samsung.com>
+ <20200428132005.21424-1-m.szyprowski@samsung.com>
+ <20200428140257.GA3433@lst.de> <20200428153202.GY3456981@phenom.ffwll.local>
+From: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <c01c9766-9778-fd1f-f36e-2dc7bd376ba4@arm.com>
+Date: Tue, 28 Apr 2020 17:02:58 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
+In-Reply-To: <20200428153202.GY3456981@phenom.ffwll.local>
+Content-Language: en-GB
+X-Mailman-Approved-At: Tue, 28 Apr 2020 16:12:00 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,43 +61,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We may not upstream the MEM_SYNC interface, so move that
-after the SDMA L2 fix.
+On 2020-04-28 4:32 pm, Daniel Vetter wrote:
+> On Tue, Apr 28, 2020 at 04:02:57PM +0200, Christoph Hellwig wrote:
+>> On Tue, Apr 28, 2020 at 03:19:48PM +0200, Marek Szyprowski wrote:
+>>> 1. introduce a dma_{map,sync,unmap}_sgtable() wrappers, which will use
+>>>     a proper sg_table entries and call respective DMA-mapping functions
+>>>     and adapt current code to it
+>>
+>> That sounds reasonable to me.  Those could be pretty trivial wrappers.
+>>
+>>>
+>>>
+>>> 2. rename nents and orig_nents to nr_pages, nr_dmas to clearly state
+>>>     which one refers to which part of the scatterlist; I'm open for
+>>>     other names for those entries
+>>
+>> nr_cpu_ents and nr_dma_ents might be better names, but it still would be
+>> a whole lot of churn for little gain.  I think just good wrappers like
+>> suggested above might be more helpful.
+> 
+> I guess long-term we could aim for both? I.e. roll out better wrappers
+> first, once that's soaked through the tree, rename the last offenders.
 
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+Yes, that's what I was thinking too - most of these uses are just 
+passing them in and out of the DMA APIs, and thus would be subsumed into 
+the wrappers anyway, then in the relatively few remaining places where 
+the table is actually iterated for one reason or the other, renaming 
+would stand to help review and maintenance in terms of making it far 
+more obvious when the implementation and the intent don't match.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 76a6198f5b6e..89c4e9dde6b6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -85,12 +85,11 @@
-  * - 3.34.0 - Non-DC can flip correctly between buffers with different pitches
-  * - 3.35.0 - Add drm_amdgpu_info_device::tcc_disabled_mask
-  * - 3.36.0 - Allow reading more status registers on si/cik
-- * - 3.37.0 - Add AMDGPU_IB_FLAG_EMIT_MEM_SYNC
-- * - 3.38.0 - L2 is invalidated before SDMA IBs, needed for correctness
-- * - 3.39.0 - AMDGPU_IB_FLAG_EMIT_MEM_SYNC also affects compute IBs
-+ * - 3.37.0 - L2 is invalidated before SDMA IBs, needed for correctness
-+ * - 3.38.0 - Add AMDGPU_IB_FLAG_EMIT_MEM_SYNC
-  */
- #define KMS_DRIVER_MAJOR	3
--#define KMS_DRIVER_MINOR	39
-+#define KMS_DRIVER_MINOR	38
- #define KMS_DRIVER_PATCHLEVEL	0
- 
- int amdgpu_vram_limit = 0;
--- 
-2.25.4
-
+Robin.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
