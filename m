@@ -2,58 +2,101 @@ Return-Path: <SRS0=QpD2=6M=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	HK_RANDOM_FROM,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AA115C83001
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 14:27:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E85E1C83001
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 14:50:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8757D206D9
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 14:27:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8757D206D9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id C911E206B9
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Apr 2020 14:50:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C911E206B9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=outlook.com.au
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EB156E7EA;
-	Tue, 28 Apr 2020 14:27:38 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B1A96E35F;
- Tue, 28 Apr 2020 14:27:36 +0000 (UTC)
-IronPort-SDR: zaa0JB47grjpVzd7O1yLikK45uvPfryEUXt+B8/OZAlEuhxXSO+dH5hhPbIcYLkkZUjvjzfvYn
- qd51VgoS+ZtA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2020 07:27:35 -0700
-IronPort-SDR: jNARB9oOaVwR8a2RkUVAoMTAEt2QguGl2UzmS9sk7DF6E3Z1+74FSZGnqvuhXyVsoJGRusoA09
- F4hn13yZQXyw==
-X-IronPort-AV: E=Sophos;i="5.73,328,1583222400"; d="scan'208";a="432201047"
-Received: from mzacniex-mobl1.ger.corp.intel.com (HELO [10.252.53.85])
- ([10.252.53.85])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Apr 2020 07:27:31 -0700
-Subject: Re: [Intel-gfx] [RFC 06/17] drm: i915: fix sg_table nents vs.
- orig_nents misuse
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-References: <20200428132005.21424-1-m.szyprowski@samsung.com>
- <CGME20200428132025eucas1p21580e634500a3e85564551cddf168b4a@eucas1p2.samsung.com>
- <20200428132005.21424-7-m.szyprowski@samsung.com>
-From: Tvrtko Ursulin <tvrtko.ursulin@linux.intel.com>
-Organization: Intel Corporation UK Plc
-Message-ID: <88c841d0-c64c-f1db-b91a-2c4fe7097ccf@linux.intel.com>
-Date: Tue, 28 Apr 2020 15:27:29 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E0068925E;
+	Tue, 28 Apr 2020 14:50:35 +0000 (UTC)
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-oln040092253013.outbound.protection.outlook.com [40.92.253.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B23A76E811
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Apr 2020 14:48:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Fz6+cpVkuTFV1k2o6s8jaQFZMyToykktLrPdupbJQ2disbH8Q0ZAHDZo8zNADUptkQblyH9vNh/3bdutAof32HY1Bnt/a0JTSoE/s5RMeV248m8pInWdzhX0NfbDnxa3eXRnLwsnmCdK2R4vB56V2yv9MUA5MZj57zxlOYfkgbJC6oeokdAZzavKSXCICw3hhou3lBs2KMXzvl6+NrIqBcrz19nPuV05gZlA/D7aJ7dBs7rq9j71ZMQDwfbo23XAu34cSqwX5VRZiLd0ZhquYR2LwxmBQ0gwHfsVqFLblWAkclpSyIWE7bt5zeCzSA/XnWvF1MKk/3No/nbqWiJ9xQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YVqU5JkLLeC2WjHRol2wioZoDNGeMioAk7wAvRzT030=;
+ b=gP2KuT5liQWEo878IyPMIMNRyUENmI726zNASkLQu6Ha+BJkkA1nTWTViCqqa/YaKHz8ALqXkKdWeAsINrcpRHoVwZ/hu/uF8MvVoWzCurC4ylX3n9unZXQWDQjjsXC8PiRChGctChX6C1QYjJVqS8AojivMnvE6BHw+2XDR5pIEVbN9Cyue6KEt58gXThwrRwDzwWzcszTrBovsHVT/n6FOInVWtLFEspte/Iwz4klf6k4eh3iYuMxJ5s3LW7RUSSH91yJIFaHgqxuQaa+bJ/Im2XCqnCPmundOPIjPIiQeAKREqjjzxk4v3r7QQID+f2FFCBTp4nBfIyrdd3DXnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=outlook.com.au; dmarc=pass action=none
+ header.from=outlook.com.au; dkim=pass header.d=outlook.com.au; arc=none
+Received: from SG2APC01FT046.eop-APC01.prod.protection.outlook.com
+ (2a01:111:e400:7ebd::51) by
+ SG2APC01HT045.eop-APC01.prod.protection.outlook.com (2a01:111:e400:7ebd::264)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.15; Tue, 28 Apr
+ 2020 14:48:55 +0000
+Received: from PSXP216MB0438.KORP216.PROD.OUTLOOK.COM (10.152.250.53) by
+ SG2APC01FT046.mail.protection.outlook.com (10.152.251.145) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2937.15 via Frontend Transport; Tue, 28 Apr 2020 14:48:55 +0000
+X-IncomingTopHeaderMarker: OriginalChecksum:51EDA924EE5575836B2BE8E89D68A30908D9B850C57A44654175E43D00B0DCAA;
+ UpperCasedChecksum:5800F732756826CCE29519EA3F0C8B1F67387221CD5E5A76FB26774C131BABEC;
+ SizeAsReceived:8515; Count:48
+Received: from PSXP216MB0438.KORP216.PROD.OUTLOOK.COM
+ ([fe80::21f1:20fb:d1f:8e25]) by PSXP216MB0438.KORP216.PROD.OUTLOOK.COM
+ ([fe80::21f1:20fb:d1f:8e25%7]) with mapi id 15.20.2958.019; Tue, 28 Apr 2020
+ 14:48:55 +0000
+Date: Tue, 28 Apr 2020 22:48:45 +0800
+From: Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>
+To: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [PATCH 0/1] Fiji GPU audio register timeout when in BACO state
+Message-ID: <PSXP216MB043899DC52E6C6BF728D77CD80AC0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+References: <PSXP216MB0438D2AF96CE0D4F83F48C4D80AE0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <MN2PR12MB4488E4909C1488FB507E0BF5F7AF0@MN2PR12MB4488.namprd12.prod.outlook.com>
+ <s5ho8rdnems.wl-tiwai@suse.de>
+ <PSXP216MB04387BF6B5F8DA84749E5D6F80AF0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <CADnq5_M=QEqxuCKjb_qZvFSvwM5eLEFfsepxYYXoouFoe5bn7A@mail.gmail.com>
+ <s5h4kt4ojrf.wl-tiwai@suse.de>
+ <CADnq5_MMQ5_MjEg=bkJJGMJP53RjB3yxvOW0nUDeWxzg3Q0pVQ@mail.gmail.com>
+ <s5hv9lkm49n.wl-tiwai@suse.de>
+Content-Disposition: inline
+In-Reply-To: <s5hv9lkm49n.wl-tiwai@suse.de>
+X-ClientProxiedBy: MEXPR01CA0122.ausprd01.prod.outlook.com
+ (2603:10c6:200:2c::31) To PSXP216MB0438.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:300:d::20)
+X-Microsoft-Original-Message-ID: <20200428144845.GA1547@nicholas-dell-linux>
 MIME-Version: 1.0
-In-Reply-To: <20200428132005.21424-7-m.szyprowski@samsung.com>
-Content-Language: en-US
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from nicholas-dell-linux (2001:44b8:605f:11:45ec:d37e:a989:bf24) by
+ MEXPR01CA0122.ausprd01.prod.outlook.com (2603:10c6:200:2c::31) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2937.13 via Frontend Transport; Tue, 28 Apr 2020 14:48:51 +0000
+X-Microsoft-Original-Message-ID: <20200428144845.GA1547@nicholas-dell-linux>
+X-TMN: [IUGqIC7/Zv7twGS6RVxoYzVam1CA7NZrEjvBBgbRbB98FB2DWIA8dbv+bvNICPsO]
+X-MS-PublicTrafficType: Email
+X-IncomingHeaderCount: 48
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-Correlation-Id: 8e4b4306-4dba-4988-ebed-08d7eb8345db
+X-MS-TrafficTypeDiagnostic: SG2APC01HT045:
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: dCk4q+BikjfVpAHuBnEjPOxoOji2VyGkIKuZw2/4FJYAAUwW9kI2QkomRGL3hgcH5FSy1RXWLXDnTdpDgWa4HM9ilSB+gbTPxdCp+bsBQ0cPOY9OGEPtXrd8Po0kjYKzHvVkISz2IymFM0qIqfkU6Rc9NfIe+G1W8wcZbaU2NOAOy5WEez5Ci8ixHVFxW63jwyHy4uesfg1ubaShO5Y6yQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:0; SRV:;
+ IPV:NLI; SFV:NSPM; H:PSXP216MB0438.KORP216.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFTY:; SFS:; DIR:OUT; SFP:1901; 
+X-MS-Exchange-AntiSpam-MessageData: xcdHaXoakmq/JoXDcjPo742TnHoCTzPmZnYYGDCesfAVzWzUUAH4lceZ+WKDDBEy0q31E2ecfGAEM9CeHqH5/m6fLxXCdDalpm3mElZcC3LCzukmmxvB3CnRgPM7PM/xvcFyv5IiehgmeAfQB4k32CTf4QPVl0szzdu4c6AYEYTyy0hnCBLVF4RP1om/Fru13/rHzUbzny1+NtClaUYsUg==
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e4b4306-4dba-4988-ebed-08d7eb8345db
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Apr 2020 14:48:54.9904 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2APC01HT045
+X-Mailman-Approved-At: Tue, 28 Apr 2020 14:50:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,374 +108,214 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- David Airlie <airlied@linux.ie>, intel-gfx@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@linaro.org>,
- Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
- linux-arm-kernel@lists.infradead.org
+Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Takashi Iwai <tiwai@suse.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, Lukas Wunner <lukas@wunner.de>,
+ Alex Deucher <alexdeucher@gmail.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Apr 28, 2020 at 09:57:24AM +0200, Takashi Iwai wrote:
+> On Mon, 27 Apr 2020 20:43:54 +0200,
+> Alex Deucher wrote:
+> > 
+> > On Mon, Apr 27, 2020 at 2:39 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > >
+> > > On Mon, 27 Apr 2020 20:28:12 +0200,
+> > > Alex Deucher wrote:
+> > > >
+> > > > On Mon, Apr 27, 2020 at 2:07 PM Nicholas Johnson
+> > > > <nicholas.johnson-opensource@outlook.com.au> wrote:
+> > > > >
+> > > > > On Mon, Apr 27, 2020 at 05:15:55PM +0200, Takashi Iwai wrote:
+> > > > > > On Mon, 27 Apr 2020 16:22:21 +0200,
+> > > > > > Deucher, Alexander wrote:
+> > > > > > >
+> > > > > > > [AMD Public Use]
+> > > > > > >
+> > > > > > > > -----Original Message-----
+> > > > > > > > From: Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>
+> > > > > > > > Sent: Sunday, April 26, 2020 12:02 PM
+> > > > > > > > To: linux-kernel@vger.kernel.org
+> > > > > > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> > > > > > > > <Christian.Koenig@amd.com>; Zhou, David(ChunMing)
+> > > > > > > > <David1.Zhou@amd.com>; Nicholas Johnson <nicholas.johnson-
+> > > > > > > > opensource@outlook.com.au>
+> > > > > > > > Subject: [PATCH 0/1] Fiji GPU audio register timeout when in BACO state
+> > > > > > > >
+> > > > > > > > Hi all,
+> > > > > > > >
+> > > > > > > > Since Linux v5.7-rc1 / commit 4fdda2e66de0 ("drm/amdgpu/runpm: enable
+> > > > > > > > runpm on baco capable VI+ asics"), my AMD R9 Nano has been using runpm /
+> > > > > > > > BACO. You can tell visually when it sleeps, because the fan on the graphics
+> > > > > > > > card is switched off to save power. It did not spin down the fan in v5.6.x.
+> > > > > > > >
+> > > > > > > > This is great (I love it), except that when it is sleeping, the PCIe audio function
+> > > > > > > > of the GPU has issues if anything tries to access it. You get dmesg errors such
+> > > > > > > > as these:
+> > > > > > > >
+> > > > > > > > snd_hda_intel 0000:08:00.1: spurious response 0x0:0x0, last cmd=0x170500
+> > > > > > > > snd_hda_intel 0000:08:00.1: azx_get_response timeout, switching to polling
+> > > > > > > > mode: last cmd=0x001f0500 snd_hda_intel 0000:08:00.1: No response from
+> > > > > > > > codec, disabling MSI: last cmd=0x001f0500 snd_hda_intel 0000:08:00.1: No
+> > > > > > > > response from codec, resetting bus: last cmd=0x001f0500
+> > > > > > > > snd_hda_codec_hdmi hdaudioC1D0: Unable to sync register 0x2f0d00. -11
+> > > > > > > >
+> > > > > > > > The above is with the Fiji XT GPU at 0000:08:00.0 in a Thunderbolt enclosure
+> > > > > > > > (not that Thunderbolt should affect it, but I feel I should mention it just in
+> > > > > > > > case). I dropped a lot of duplicate dmesg lines, as some of them repeated a
+> > > > > > > > lot of times before the driver gave up.
+> > > > > > > >
+> > > > > > > > I offer this patch to disable runpm for Fiji while a fix is found, if you decide
+> > > > > > > > that is the best approach. Regardless, I will gladly test any patches you come
+> > > > > > > > up with instead and confirm that the above issue has been fixed.
+> > > > > > > >
+> > > > > > > > I cannot tell if any other GPUs are affected. The only other cards to which I
+> > > > > > > > have access are a couple of AMD R9 280X (Tahiti XT), which use radeon driver
+> > > > > > > > instead of amdgpu driver.
+> > > > > > >
+> > > > > > > Adding a few more people.  Do you know what is accessing the audio?  The audio should have a dependency on the GPU device.  The GPU won't enter runtime pm until the audio has entered runtime pm and vice versa on resume. Please attach a copy of your dmesg output and lspci output.
+> > > > >
+> > > > > pci 0000:08:00.1: D0 power state depends on 0000:08:00.0
+> > > > > The above must be the dependency of which you speak from dmesg.
+> > > > >
+> > > > > Accessing the audio? I did not have a single method for triggering it.
+> > > > > Sometimes it happened on shutdown. Sometimes when restarting gdm.
+> > > > > Sometimes when playing with audio settings in Cinnamon Desktop. But most
+> > > > > often when changing displays. It might have something to do with the
+> > > > > audio device associated with a monitor being created when the monitor is
+> > > > > found. If an audio device is created, then pulseaudio might touch it.
+> > > > > Sorry, this is a very verbose "not quite sure".
+> > > > >
+> > > > > To trigger the bug, this time I did the following:
+> > > > >
+> > > > > 1. Boot laptop without Fiji and log in
+> > > > >
+> > > > > 2. Attach Fiji via Thunderbolt (no displays attached to Fiji) and
+> > > > > approve Thunderbolt device
+> > > > >
+> > > > > 3. Log in again because the session gets killed when GPU is hot-added
+> > > > >
+> > > > > 4. Wait for Fiji to fall asleep (fan stops)
+> > > > >
+> > > > > 5. Open "dmesg -w" on laptop display
+> > > > >
+> > > > > 6. Attach display to DisplayPort on Fiji (it should still stay asleep)
+> > > > >
+> > > > > 7. Do WindowsKey+P to activate external display. The error appears in
+> > > > > dmesg window that instant.
+> > > > >
+> > > > > Could it be a race condition when waking the card up?
+> > > > >
+> > > > > I cannot get the graphics card fan to spin down if the Thunderbolt
+> > > > > enclosure is attached at boot time. It only does it if hot-added.
+> > > > >
+> > > > > If you think it will help, I can take out the Fiji and put it in a test
+> > > > > rig and try to replicate the issue without Thunderbolt, but it looks
+> > > > > like it will not spin the fan down if Fiji is attached at boot time.
+> > > > >
+> > > > > Question, why would the fan not spin down if Fiji is attached at boot
+> > > > > time, and how would one make the said fan turn off? Aside from being
+> > > > > useful for pinning down the audio register issue, I would like to make
+> > > > > sure the power savings are realised whenever the GPU is not being used.
+> > > >
+> > > > Presumably something is using the device.  Maybe a framebuffer console
+> > > > or X?  Or maybe the something like tlp has disabled runtime pm on your
+> > > > device?  You can see the current status by reading the files in
+> > > > /sys/class/drm/cardX/device/power/ .  Replace cardX with card0, card1,
+> > > > etc. depending on which device is the radeon card.
+I had card1 = Fiji stuck awake and card2 = Fiji asleep (both in separate 
+Thunderbolt enclosures).
 
-On 28/04/2020 14:19, Marek Szyprowski wrote:
-> The Documentation/DMA-API-HOWTO.txt states that dma_map_sg returns the
-> numer of the created entries in the DMA address space. However the
-> subsequent calls to dma_sync_sg_for_{device,cpu} and dma_unmap_sg must be
-> called with the original number of entries passed to dma_map_sg. The
-> sg_table->nents in turn holds the result of the dma_map_sg call as stated
-> in include/linux/scatterlist.h. Adapt the code to obey those rules.
+The sysfs values in /sys/class/drm/card{0,1}/device/power/ were the 
+same.
+
+The powertop utility did not help in "tunables" tab.
+
+I compiled kernel without fbcon and it still did it.
+
+But moving from Arch to Ubuntu changed the behaviour. I am still 
+investigating.
+
+> > > >
+> > > > FWIW, I have a fiji board in a desktop system and it worked fine when
+> > > > this code was enabled.
+> > >
+> > > Is the new DC code used for Fiji boards?  IIRC, the audio component
+> > > binding from amdgpu is enabled only for DC, and without the audio
+> > > component binding the runtime PM won't be linked up, hence you can't
+> > > power up GPU from the audio side access automatically.
+> > >
+> > 
+> > Yes, DC is enabled by default for all cards with runtime pm enabled.
 > 
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> ---
->   drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c       | 13 +++++++------
->   drivers/gpu/drm/i915/gem/i915_gem_internal.c     |  4 ++--
->   drivers/gpu/drm/i915/gem/i915_gem_region.c       |  4 ++--
->   drivers/gpu/drm/i915/gem/i915_gem_shmem.c        |  5 +++--
->   drivers/gpu/drm/i915/gem/selftests/huge_pages.c  | 10 +++++-----
->   drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c |  5 +++--
->   drivers/gpu/drm/i915/gt/intel_ggtt.c             | 12 ++++++------
->   drivers/gpu/drm/i915/i915_gem_gtt.c              | 12 +++++++-----
->   drivers/gpu/drm/i915/i915_scatterlist.c          |  4 ++--
->   drivers/gpu/drm/i915/selftests/scatterlist.c     |  8 ++++----
->   10 files changed, 41 insertions(+), 36 deletions(-)
+> OK, thanks, I found that amdgpu got bound via component in the dmesg
+> output, too:
 > 
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> index 7db5a79..d829852 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
-> @@ -36,21 +36,22 @@ static struct sg_table *i915_gem_map_dma_buf(struct dma_buf_attachment *attachme
->   		goto err_unpin_pages;
->   	}
->   
-> -	ret = sg_alloc_table(st, obj->mm.pages->nents, GFP_KERNEL);
-> +	ret = sg_alloc_table(st, obj->mm.pages->orig_nents, GFP_KERNEL);
->   	if (ret)
->   		goto err_free;
->   
->   	src = obj->mm.pages->sgl;
->   	dst = st->sgl;
-> -	for (i = 0; i < obj->mm.pages->nents; i++) {
-> +	for (i = 0; i < obj->mm.pages->orig_nents; i++) {
->   		sg_set_page(dst, sg_page(src), src->length, 0);
->   		dst = sg_next(dst);
->   		src = sg_next(src);
->   	}
->   
-> -	if (!dma_map_sg_attrs(attachment->dev,
-> -			      st->sgl, st->nents, dir,
-> -			      DMA_ATTR_SKIP_CPU_SYNC)) {
-> +	st->nents = dma_map_sg_attrs(attachment->dev,
-> +				     st->sgl, st->orig_nents, dir,
-> +				     DMA_ATTR_SKIP_CPU_SYNC);
-> +	if (!st->nents) {
->   		ret = -ENOMEM;
->   		goto err_free_sg;
->   	}
-> @@ -74,7 +75,7 @@ static void i915_gem_unmap_dma_buf(struct dma_buf_attachment *attachment,
->   	struct drm_i915_gem_object *obj = dma_buf_to_obj(attachment->dmabuf);
->   
->   	dma_unmap_sg_attrs(attachment->dev,
-> -			   sg->sgl, sg->nents, dir,
-> +			   sg->sgl, sg->orig_nents, dir,
->   			   DMA_ATTR_SKIP_CPU_SYNC);
->   	sg_free_table(sg);
->   	kfree(sg);
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_internal.c b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
-> index cbbff81..a8ebfdd 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_internal.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_internal.c
-> @@ -73,7 +73,7 @@ static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
->   	}
->   
->   	sg = st->sgl;
-> -	st->nents = 0;
-> +	st->nents = st->orig_nents = 0;
->   	sg_page_sizes = 0;
->   
->   	do {
-> @@ -94,7 +94,7 @@ static int i915_gem_object_get_pages_internal(struct drm_i915_gem_object *obj)
->   
->   		sg_set_page(sg, page, PAGE_SIZE << order, 0);
->   		sg_page_sizes |= PAGE_SIZE << order;
-> -		st->nents++;
-> +		st->nents = st->orig_nents = st->nents + 1;
->   
->   		npages -= 1 << order;
->   		if (!npages) {
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_region.c b/drivers/gpu/drm/i915/gem/i915_gem_region.c
-> index 1515384..58ca560 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_region.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_region.c
-> @@ -53,7 +53,7 @@
->   	GEM_BUG_ON(list_empty(blocks));
->   
->   	sg = st->sgl;
-> -	st->nents = 0;
-> +	st->nents = st->orig_nents = 0;
->   	sg_page_sizes = 0;
->   	prev_end = (resource_size_t)-1;
->   
-> @@ -78,7 +78,7 @@
->   
->   			sg->length = block_size;
->   
-> -			st->nents++;
-> +			st->nents = st->orig_nents = st->nents + 1;
->   		} else {
->   			sg->length += block_size;
->   			sg_dma_len(sg) += block_size;
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> index 5d5d7ee..851a732 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> @@ -80,7 +80,7 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
->   	noreclaim |= __GFP_NORETRY | __GFP_NOWARN;
->   
->   	sg = st->sgl;
-> -	st->nents = 0;
-> +	st->nents = st->orig_nents = 0;
->   	sg_page_sizes = 0;
->   	for (i = 0; i < page_count; i++) {
->   		const unsigned int shrink[] = {
-> @@ -140,7 +140,8 @@ static int shmem_get_pages(struct drm_i915_gem_object *obj)
->   				sg_page_sizes |= sg->length;
->   				sg = sg_next(sg);
->   			}
-> -			st->nents++;
-> +			st->nents = st->orig_nents = st->nents + 1;
+> [   21.294927] snd_hda_intel 0000:08:00.1: bound 0000:08:00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu])
+> 
+> This is the place soon after amdgpu driver gets initialized.
+> Then we see later another initialization phase:
+> 
+> [   26.904127] rfkill: input handler enabled
+> [   37.264152] [drm] PCIE GART of 1024M enabled (table at 0x000000F400000000).
+> 
+> here shows 10 seconds between them.  Then, it complained something:
+> 
+> 
+> [   37.363287] [drm] UVD initialized successfully.
+> [   37.473340] [drm] VCE initialized successfully.
+> [   37.477942] amdgpu 0000:08:00.0: [drm] Cannot find any crtc or sizes
 
-A bit higher up, not shown in the patch, we have allocated a table via 
-sg_alloc_table giving it a pessimistic max nents, sometimes much larger 
-than the st->nents this loops will create. But orig_nents has been now 
-been overwritten. Will that leak memory come sg_table_free?
+The above would be me hitting WindowsKey+P to change screens, but with 
+no DisplayPort attached to Fiji, hence it unable to find crtc.
 
-As minimum it will nerf our i915_sg_trim optimization a bit lower down, 
-also not shown in the diff.
+> 
+> ... and go further, and hitting HD-audio error:
+> 
+That would be me having attached the DisplayPort and done WindowsKey+P 
+again.
+
+> 
+> [   38.936624] [drm] fb mappable at 0x4B0696000
+> [   38.936626] [drm] vram apper at 0x4B0000000
+> [   38.936626] [drm] size 33177600
+> [   38.936627] [drm] fb depth is 24
+> [   38.936627] [drm]    pitch is 15360
+> [   38.936673] amdgpu 0000:08:00.0: fb1: amdgpudrmfb frame buffer device
+> [   40.092223] snd_hda_intel 0000:08:00.1: azx_get_response timeout, switching to polling mode: last cmd=0x00170500
+> 
+> After this point, HD-audio communication was screwed up.
+> 
+> This lastcmd in the above message is AC_SET_POWER_STATE verb for the
+> root node to D0, so the very first command to power up the codec. 
+> The rest commands are also about the power up of each node, so the
+> whole error indicate that the power up at runtime resume failed.
+> 
+> So, this looks to me as if the device gets runtime-resumed at the bad
+> moment?
+It does. However, this is not going to be easy to pin down.
+
+I moved from Arch to Ubuntu, and it behaves differently. I cannot 
+trigger the bug in Ubuntu. Plus, it puts the GPUs asleep, even if 
+attached at boot, unlike Arch. I will continue to try to trigger it. But 
+even if this is a problem with the Linux distribution, it should not be 
+able to trigger a kernel mode bug, so we should persist with finding it.
 
 Regards,
+Nicholas
 
-Tvrtko
-
-> +
->   			sg_set_page(sg, page, PAGE_SIZE, 0);
->   		} else {
->   			sg->length += PAGE_SIZE;
-> diff --git a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-> index c9988b6..bd141f9 100644
-> --- a/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-> +++ b/drivers/gpu/drm/i915/gem/selftests/huge_pages.c
-> @@ -76,7 +76,7 @@ static int get_huge_pages(struct drm_i915_gem_object *obj)
->   
->   	rem = obj->base.size;
->   	sg = st->sgl;
-> -	st->nents = 0;
-> +	st->nents = st->orig_nents = 0;
->   	sg_page_sizes = 0;
->   
->   	/*
-> @@ -99,7 +99,7 @@ static int get_huge_pages(struct drm_i915_gem_object *obj)
->   
->   			sg_set_page(sg, page, page_size, 0);
->   			sg_page_sizes |= page_size;
-> -			st->nents++;
-> +			st->nents = st->orig_nents = st->nents + 1;
->   
->   			rem -= page_size;
->   			if (!rem) {
-> @@ -201,7 +201,7 @@ static int fake_get_huge_pages(struct drm_i915_gem_object *obj)
->   	/* Use optimal page sized chunks to fill in the sg table */
->   	rem = obj->base.size;
->   	sg = st->sgl;
-> -	st->nents = 0;
-> +	st->nents = st->orig_nents = 0;
->   	sg_page_sizes = 0;
->   	do {
->   		unsigned int page_size = get_largest_page_size(i915, rem);
-> @@ -217,7 +217,7 @@ static int fake_get_huge_pages(struct drm_i915_gem_object *obj)
->   
->   		sg_page_sizes |= len;
->   
-> -		st->nents++;
-> +		st->nents = st->orig_nents = st->nents + 1;
->   
->   		rem -= len;
->   		if (!rem) {
-> @@ -252,7 +252,7 @@ static int fake_get_huge_pages_single(struct drm_i915_gem_object *obj)
->   	}
->   
->   	sg = st->sgl;
-> -	st->nents = 1;
-> +	st->nents = st->orig_nents = 1;
->   
->   	page_size = get_largest_page_size(i915, obj->base.size);
->   	GEM_BUG_ON(!page_size);
-> diff --git a/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c b/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c
-> index debaf7b..5723525 100644
-> --- a/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c
-> +++ b/drivers/gpu/drm/i915/gem/selftests/mock_dmabuf.c
-> @@ -28,7 +28,8 @@ static struct sg_table *mock_map_dma_buf(struct dma_buf_attachment *attachment,
->   		sg = sg_next(sg);
->   	}
->   
-> -	if (!dma_map_sg(attachment->dev, st->sgl, st->nents, dir)) {
-> +	st->nents = dma_map_sg(attachment->dev, st->sgl, st->orig_nents, dir);
-> +	if (!st->nents) {
->   		err = -ENOMEM;
->   		goto err_st;
->   	}
-> @@ -46,7 +47,7 @@ static void mock_unmap_dma_buf(struct dma_buf_attachment *attachment,
->   			       struct sg_table *st,
->   			       enum dma_data_direction dir)
->   {
-> -	dma_unmap_sg(attachment->dev, st->sgl, st->nents, dir);
-> +	dma_unmap_sg(attachment->dev, st->sgl, st->orig_nents, dir);
->   	sg_free_table(st);
->   	kfree(st);
->   }
-> diff --git a/drivers/gpu/drm/i915/gt/intel_ggtt.c b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> index 66165b1..9a298bf 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_ggtt.c
-> @@ -1221,7 +1221,7 @@ void i915_ggtt_resume(struct i915_ggtt *ggtt)
->   	for (column = 0; column < width; column++) {
->   		src_idx = stride * (height - 1) + column + offset;
->   		for (row = 0; row < height; row++) {
-> -			st->nents++;
-> +			st->nents = st->orig_nents = st->nents + 1;
->   			/*
->   			 * We don't need the pages, but need to initialize
->   			 * the entries so the sg list can be happily traversed.
-> @@ -1259,7 +1259,7 @@ void i915_ggtt_resume(struct i915_ggtt *ggtt)
->   	if (ret)
->   		goto err_sg_alloc;
->   
-> -	st->nents = 0;
-> +	st->nents = st->orig_nents = 0;
->   	sg = st->sgl;
->   
->   	for (i = 0 ; i < ARRAY_SIZE(rot_info->plane); i++) {
-> @@ -1306,7 +1306,7 @@ void i915_ggtt_resume(struct i915_ggtt *ggtt)
->   
->   			length = min(left, length);
->   
-> -			st->nents++;
-> +			st->nents = st->orig_nents = st->nents + 1;
->   
->   			sg_set_page(sg, NULL, length, 0);
->   			sg_dma_address(sg) = addr;
-> @@ -1343,7 +1343,7 @@ void i915_ggtt_resume(struct i915_ggtt *ggtt)
->   	if (ret)
->   		goto err_sg_alloc;
->   
-> -	st->nents = 0;
-> +	st->nents = st->orig_nents = 0;
->   	sg = st->sgl;
->   
->   	for (i = 0 ; i < ARRAY_SIZE(rem_info->plane); i++) {
-> @@ -1389,7 +1389,7 @@ void i915_ggtt_resume(struct i915_ggtt *ggtt)
->   	GEM_BUG_ON(!iter);
->   
->   	sg = st->sgl;
-> -	st->nents = 0;
-> +	st->nents = st->orig_nents = 0;
->   	do {
->   		unsigned int len;
->   
-> @@ -1400,7 +1400,7 @@ void i915_ggtt_resume(struct i915_ggtt *ggtt)
->   			sg_dma_address(iter) + (offset << PAGE_SHIFT);
->   		sg_dma_len(sg) = len;
->   
-> -		st->nents++;
-> +		st->nents = st->orig_nents = st->nents + 1;
->   		count -= len >> PAGE_SHIFT;
->   		if (count == 0) {
->   			sg_mark_end(sg);
-> diff --git a/drivers/gpu/drm/i915/i915_gem_gtt.c b/drivers/gpu/drm/i915/i915_gem_gtt.c
-> index cb43381..c4122cd3 100644
-> --- a/drivers/gpu/drm/i915/i915_gem_gtt.c
-> +++ b/drivers/gpu/drm/i915/i915_gem_gtt.c
-> @@ -28,10 +28,11 @@ int i915_gem_gtt_prepare_pages(struct drm_i915_gem_object *obj,
->   			       struct sg_table *pages)
->   {
->   	do {
-> -		if (dma_map_sg_attrs(&obj->base.dev->pdev->dev,
-> -				     pages->sgl, pages->nents,
-> -				     PCI_DMA_BIDIRECTIONAL,
-> -				     DMA_ATTR_NO_WARN))
-> +		pages->nents = dma_map_sg_attrs(&obj->base.dev->pdev->dev,
-> +						pages->sgl, pages->orig_nents,
-> +						PCI_DMA_BIDIRECTIONAL,
-> +						DMA_ATTR_NO_WARN);
-> +		if (page->nents)
->   			return 0;
->   
->   		/*
-> @@ -68,7 +69,8 @@ void i915_gem_gtt_finish_pages(struct drm_i915_gem_object *obj,
->   		}
->   	}
->   
-> -	dma_unmap_sg(kdev, pages->sgl, pages->nents, PCI_DMA_BIDIRECTIONAL);
-> +	dma_unmap_sg(kdev, pages->sgl, pages->orig_nents,
-> +		     PCI_DMA_BIDIRECTIONAL);
->   }
->   
->   /**
-> diff --git a/drivers/gpu/drm/i915/i915_scatterlist.c b/drivers/gpu/drm/i915/i915_scatterlist.c
-> index cc6b384..05bee13 100644
-> --- a/drivers/gpu/drm/i915/i915_scatterlist.c
-> +++ b/drivers/gpu/drm/i915/i915_scatterlist.c
-> @@ -15,11 +15,11 @@ bool i915_sg_trim(struct sg_table *orig_st)
->   	if (orig_st->nents == orig_st->orig_nents)
->   		return false;
->   
-> -	if (sg_alloc_table(&new_st, orig_st->nents, GFP_KERNEL | __GFP_NOWARN))
-> +	if (sg_alloc_table(&new_st, orig_st->orig_nents, GFP_KERNEL | __GFP_NOWARN))
->   		return false;
->   
->   	new_sg = new_st.sgl;
-> -	for_each_sg(orig_st->sgl, sg, orig_st->nents, i) {
-> +	for_each_sg(orig_st->sgl, sg, orig_st->orig_nents, i) {
->   		sg_set_page(new_sg, sg_page(sg), sg->length, 0);
->   		sg_dma_address(new_sg) = sg_dma_address(sg);
->   		sg_dma_len(new_sg) = sg_dma_len(sg);
-> diff --git a/drivers/gpu/drm/i915/selftests/scatterlist.c b/drivers/gpu/drm/i915/selftests/scatterlist.c
-> index d599186..4456fe5 100644
-> --- a/drivers/gpu/drm/i915/selftests/scatterlist.c
-> +++ b/drivers/gpu/drm/i915/selftests/scatterlist.c
-> @@ -48,9 +48,9 @@ static noinline int expect_pfn_sg(struct pfn_table *pt,
->   	unsigned long pfn, n;
->   
->   	pfn = pt->start;
-> -	for_each_sg(pt->st.sgl, sg, pt->st.nents, n) {
-> +	for_each_sg(pt->st.sgl, sg, pt->st.orig_nents, n) {
->   		struct page *page = sg_page(sg);
-> -		unsigned int npages = npages_fn(n, pt->st.nents, rnd);
-> +		unsigned int npages = npages_fn(n, pt->st.orig_nents, rnd);
->   
->   		if (page_to_pfn(page) != pfn) {
->   			pr_err("%s: %s left pages out of order, expected pfn %lu, found pfn %lu (using for_each_sg)\n",
-> @@ -86,7 +86,7 @@ static noinline int expect_pfn_sg_page_iter(struct pfn_table *pt,
->   	unsigned long pfn;
->   
->   	pfn = pt->start;
-> -	for_each_sg_page(pt->st.sgl, &sgiter, pt->st.nents, 0) {
-> +	for_each_sg_page(pt->st.sgl, &sgiter, pt->st.orig_nents, 0) {
->   		struct page *page = sg_page_iter_page(&sgiter);
->   
->   		if (page != pfn_to_page(pfn)) {
-> @@ -256,7 +256,7 @@ static int alloc_table(struct pfn_table *pt,
->   		pfn += npages;
->   	}
->   	sg_mark_end(sg);
-> -	pt->st.nents = n;
-> +	pt->st.nents = pt->st.orig_nents = n;
->   	pt->end = pfn;
->   
->   	return 0;
 > 
+> 
+> thanks,
+> 
+> Takashi
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
