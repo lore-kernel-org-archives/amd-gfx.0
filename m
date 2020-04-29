@@ -2,65 +2,104 @@ Return-Path: <SRS0=m206=6N=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BEFDAC83000
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2020 18:15:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7667EC83000
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2020 18:42:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 951D621D79
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2020 18:15:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5006A2076B
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Apr 2020 18:42:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uc4seFus"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 951D621D79
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="MwFASJhH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5006A2076B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E3A66EAC5;
-	Wed, 29 Apr 2020 18:15:38 +0000 (UTC)
-Received: from mail-wm1-x331.google.com (mail-wm1-x331.google.com
- [IPv6:2a00:1450:4864:20::331])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5997B6EAC5
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2020 18:15:37 +0000 (UTC)
-Received: by mail-wm1-x331.google.com with SMTP id u127so3091645wmg.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Apr 2020 11:15:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=OIEaVTO2k/ZD+3/FAaQmFrsXEb1vFDWRHoiNnwqZBRY=;
- b=Uc4seFusJ41p4FkXMMwjSzeNeJE4YOrvt0nFe6ZXEEGPW/b+pNV4mo7oSE5Uvt0Xuh
- wlqAa0WhCrLIVl/Hd2nT+yrXXModNlO44A0g03IzcxSIacTz4LknU//OC7nwkp+UwBFK
- dEyP+wt5xS6ekbLgSnU9vEHfakUe171FGPIoQPPIN+bydVt/Lb9EbksWJgknaNofnhMd
- 5JKOS6FBy5BBBWQi0zlEQVaugasoeUO70iyos6qWtrI3lwM0GaVSGVTD5nViOAUGzwAI
- Rwq+buM6dsDOvh7pbnA2pYxshy/OOk8NmiWWs2yER+NdGVjMoGdKsfv0RBxrXhMzdqmT
- uUuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OIEaVTO2k/ZD+3/FAaQmFrsXEb1vFDWRHoiNnwqZBRY=;
- b=Mw+azBbHx7e1KWVjc4I9TXKHdRUlPtBmEGjnSfTPzrQEUtleHTxmmcfJYn90s8emKx
- yHpKqsqABowH+wQgwMVtM2SLx9H/MppJP/jp+9lzqzsh4HXIzP5fWAuISxAd3mN9mV3t
- M7cidwRStieRlrqxdbDENYYugYiBjP5HDO0stSsJ9KuiU/NO+M4e1nrqfnRVna/cvd1H
- mzqHOXam8ZWA+o2r9U0VD4DIPWHurCiZ6DUIGccog9kjSrzg8O6Tx/j8Wl2ErlDHsx7z
- jfZdD8AV73JxYDQdclYjbTPZIZcONYlYOty2oUPiyJgmhX3SlLthGzen45dBC6ofvzbO
- /eQQ==
-X-Gm-Message-State: AGi0PuYPdcEysMUPnQWQk9THnmpuF+UHy3zDuukAtPga589WNclvgCnh
- w6BfqpljPgYUDcToBCoFauVxyaWTGrXNYOa3/nY=
-X-Google-Smtp-Source: APiQypLetzwxjo6q3G2j4l6IMFBm//m1YL+lK6cXNOEXuzXZojEgSaNSJYgoUlaVrkMZscvlzQWNatTXLz7Qif3h254=
-X-Received: by 2002:a1c:9d8c:: with SMTP id g134mr4735111wme.79.1588184136010; 
- Wed, 29 Apr 2020 11:15:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E540A6EAD8;
+	Wed, 29 Apr 2020 18:42:02 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2042.outbound.protection.outlook.com [40.107.92.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 749366EAD7;
+ Wed, 29 Apr 2020 18:42:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=SytmeJVEIaIEGy0cinG8OAeoPAtyn3UmVUEp1NJ/E9ZC16Y7sUqSbwS0EApuBbK+qQ/Yx9PnlpS9sjOHehP00YKQ65x+C7QsncznEM7x0ChsMD2cEgsEweoVkBBqxEI0X28QTZ39bLXu/7TB/OTiOcECCOxtiw/a25bm0axPmjiEh2vnayiyZShkOf5aM9iOt3zIZTrJEs4bwONi4y53J21JmLwTZhB/vF9yv8SQtfhr95XmNtSuZWBszNZQjy1eopXUtypXxkuykLsEea/tcBU16tmW7oMFWRxQTi0ZcsLY1wZJRBWvBS5rHP/Hz2J6PTJW3WTMh44/qz2TuvRQTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DkMilKffDzwBWt2oeS3f7TAArpUUFzbCKt3W68dmhEg=;
+ b=DYHo/NeM1bC3BqOx7pn4Gu/vdBn3GP9nQdZcTKBCs3HZZ5BJqC8wXtDtSBes0OmrwwURrPgRYlnK3N+8nubq9OgPGmHK59zY0St5Uvo4+Uhys12bzm2X7c7YmZLAa1n2hHY+zhipwXJBqWfCLWC++Dn2suSisCHcfkl5TfREUQtaP8TFQYID5tVEc0S2nXfNZge4nqq4vK+hWqBd1po1Uu6UbvCq9uLOu8iY179NxaklxjWuG4L7x4tDDJlhNQ56CqEME0P4wL3S6VA2QenHtj2ZgaQefUwVzjrrSEKeDkM/SEGhj9yQlt4sNiEijVKU12W9oEXt5LAV9L8cbV32fw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DkMilKffDzwBWt2oeS3f7TAArpUUFzbCKt3W68dmhEg=;
+ b=MwFASJhHFxLNtWRi1bWlZlW+izaEpZevwgVbr+mDvO7RjSP8dGqdkZdXVf6lC7/SMlLzmVCcWZ6mPSdJ+7i4XaObjPvr4wRID4HEpA3Xji8qwFV6FbA3Wz4RFux2sY4KyyH2+uuFeMuo62xDyhvvbJVTyAexXJgd7ddyb5tw8PU=
+Authentication-Results: linux.intel.com; dkim=none (message not signed)
+ header.d=none;linux.intel.com; dmarc=none action=none header.from=amd.com;
+Received: from MW2PR12MB2524.namprd12.prod.outlook.com (2603:10b6:907:9::27)
+ by MW2PR12MB2508.namprd12.prod.outlook.com (2603:10b6:907:9::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2937.22; Wed, 29 Apr
+ 2020 18:41:59 +0000
+Received: from MW2PR12MB2524.namprd12.prod.outlook.com
+ ([fe80::21c8:9f4e:c412:dfbe]) by MW2PR12MB2524.namprd12.prod.outlook.com
+ ([fe80::21c8:9f4e:c412:dfbe%3]) with mapi id 15.20.2937.023; Wed, 29 Apr 2020
+ 18:41:59 +0000
+From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian Koenig <christian.koenig@amd.com>
+Subject: [PATCH] drm: Correct DP DSC macro typo
+Date: Wed, 29 Apr 2020 14:41:42 -0400
+Message-Id: <20200429184142.1867987-1-Rodrigo.Siqueira@amd.com>
+X-Mailer: git-send-email 2.26.2
+X-ClientProxiedBy: BN6PR18CA0006.namprd18.prod.outlook.com
+ (2603:10b6:404:121::16) To MW2PR12MB2524.namprd12.prod.outlook.com
+ (2603:10b6:907:9::27)
 MIME-Version: 1.0
-References: <8db5ae80-0b9d-7d44-18b6-5641eab0ac0d@FreeBSD.org>
-In-Reply-To: <8db5ae80-0b9d-7d44-18b6-5641eab0ac0d@FreeBSD.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 29 Apr 2020 14:15:23 -0400
-Message-ID: <CADnq5_NkrG1SDMAEfsVNA11Kn8baMaO4J3EcDzKOsNZCWk6LaA@mail.gmail.com>
-Subject: Re: amdgpu, dc, backlight brightness
-To: Andriy Gapon <avg@freebsd.org>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::4) by
+ BN6PR18CA0006.namprd18.prod.outlook.com (2603:10b6:404:121::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.19 via Frontend
+ Transport; Wed, 29 Apr 2020 18:41:57 +0000
+X-Mailer: git-send-email 2.26.2
+X-Originating-IP: [2607:fea8:56a0:11a1::4]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 60e6bd8b-0d16-4022-c9da-08d7ec6cffef
+X-MS-TrafficTypeDiagnostic: MW2PR12MB2508:|MW2PR12MB2508:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MW2PR12MB25080018E0224AE9DFB7831A98AD0@MW2PR12MB2508.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
+X-Forefront-PRVS: 03883BD916
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW2PR12MB2524.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(346002)(366004)(136003)(396003)(39860400002)(376002)(316002)(8676002)(2616005)(6636002)(6666004)(1076003)(4326008)(8936002)(478600001)(16526019)(36756003)(6486002)(186003)(86362001)(110136005)(5660300002)(66476007)(6512007)(6506007)(66556008)(52116002)(66946007)(2906002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: MrUozZXWiL1aH9CKHtJDovnG+wFWAWAbJ27ZGqx6R0RyI8OjqYmFCTLciY3quIQ9mPj8CYlnzoyJ9uhQ3+2zciYK0ljzsac1DJwKgtbyPLZi6SXY40Xhic2dv62ZKDB1sRR5hvlyQKx7m1PZH7cJg71soWZ3+Z+gfX1GSR6IZahVnJPBqXd+US4pNJKPXzmqHpNMDS0BHwghWKQk2sdu/hRkEYVNnT+ItGKxMvIZtAZ5FV14C6CMjEDFLQSILPJTIpYzyhfqi8b+JuealG5aK/Cwnu2HhhIwLoinUeFjuXaSNRPlE8jPDD2KJubW3VfesMgPYN6mgMBS93ddKx4Vnmhu7InW0Q5Hwy8Z0dKkHYMP3pDN9pQPtxT+7U2PgzYTPGKQ6TEZjg4ZS7cWa06Jx3zrpJDLT8JSGeDQD3UZ0kbACcvbjNlbcGvuuj6DOpvS
+X-MS-Exchange-AntiSpam-MessageData: HcY/NUX87S4VNaFKTw4cDWsca3uF0GAbRqjZk9EHcWM0ucypcqnYdyjnPVVURdg1WNtcAqEJtKWR4VCLJOLglV8uRJjbopnM+QZp1BToyQiLxnEP86S+ajYPOGyX0HNqKtwacVbpTD1qVnTzatmirSYQZ7aPtrCumMkKMNEnGUtACnJg9avbxg3GwFJHwBNYeUIPpTAt792rI5zp6JtXehBcKUNMlp8lExg9k91RjPID1vH6+utsDsRgKKVxlGjHKtze3HgjN9yHe1yHhWcK41ZCzwZk0CN212nQ14RQpqwQ6S/GorrRluDg9lP2xYYUPmSu+KlU5npgzMwMoXn27If7v4V9cXe5VIu4fQ+JHdaozoi7ko/Gf49A3crtmiZzNY0PcydABTlSWMITqcUGrhNHtjRVlLmKfXji2PQAAmStedVHFAD/8V4j++oQOecVJyTXPgysu2TkZuCj/eGsc7vqM9x5rGurjz8+9eWGq+6FobSJF/FdtLg1bOY2KXZryqWp2uRSXfQ4So0c3iHF6hVO+gkKfbywEit/ePu/w3CXHk/ipO8FzBq8is2lHBZ0A3y+xlrKacf0duuo61Mwl7kHFGu6m5yDJ2v1vWTqqoG+jT1F2cfFvPKNKImQ1lFAJ3ZJxI5U4q4UGHk3eIsxYVBcDrx5b6ctekKR0BNhaf90VIcfJqr8CNzo9JVQXOlq9KMiw/t+6NN/0FUOjeObWBehm2IURNsRbE9MHXUcmjL92/ujUohpag/z8I+/eTzjx5T7s3OdpavD7E//3iK/AYqUQ6bD3vD0nxJnmMgkk/ocsOMJnPKa1ZxSZ7KZYifQ
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60e6bd8b-0d16-4022-c9da-08d7ec6cffef
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Apr 2020 18:41:59.2431 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8WsKqhkT6JbxAfCqKJ7XJLye+QX9xuepflqgFzxo/k6tT476e/o0mL1ms1IqWYXEE80TYr3B4jcBB+e+j8vs1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW2PR12MB2508
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,71 +111,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 29, 2020 at 3:29 AM Andriy Gapon <avg@freebsd.org> wrote:
->
->
-> I see that amdgpu_atif_handler() has this comment and code:
->                 /* todo: add DC handling */
->                 if ((req.pending & ATIF_PANEL_BRIGHTNESS_CHANGE_REQUEST) &&
->                     !amdgpu_device_has_dc_support(adev)) {
-> ...
->                 }
->
-> So, this makes me curious how a typical Linux distribution handles backlight
-> brightness change via special keys hooked to ACPI.
->
-> This is what I see on FreeBSD.
-> - a special key is pressed
-> - there is a bunch of uninteresting ACPI and kernel stuff involving EC
-> - ACPI notification 0x86 on VGA.LCD device is handled by acpi_video driver
-> - the driver invokes VGA.LCD._BCM method
-> - if I read the ASL of my system correctly, ACPI does not touch any hardware
->   but simply saves some things like the requested brightness level
-> - then ACPI posts notification 0x81 on VGA device
-> - the notification gets routed to amdgpu
-> - amdgpu invokes VGA.ATIF and gets some interesting data from ACPI
-> - and this is where things stop in the DC case (because of the code above)
->
-> In the non-DC case amdgpu would actually set the brightness based on the data
-> returned from ATIF.  radeon driver also did the same as far as I can see.
->
-> So, how things work in the DC case?
->
-> I see that Linux acpi_video does something that FreeBSD doesn't do, it posts
-> KEY_BRIGHTNESSUP / KEY_BRIGHTNESSDOWN / etc.  I guess that in the end this is
-> similar to just having the corresponding multimedia keys on a keyboard.
-> Is this how the brightness control supposed to work?
-> So, there must be some userland program listening for those keys and somehow
-> knowing about amdgpu backlight controls (e.g., /sys/class/backlight/amdgpu_bl0).
-> Is that correct?
->
-> I tried a live image of Void Linux (LXQT flavor).  While it does handle the
-> special brightness keys it seems to do it without actually controlling the
-> backlight.  That is, it makes the picture lighter / darker, but values under
-> /sys/class/backlight/amdgpu_bl0 do not change.  If I set brightness under
-> /sys/class/backlight/amdgpu_bl0 to some low level then the brightness up key
-> cannot make the screen brighter.  So, it appears to be just a rendering /
-> composition trick.
+In the file drm_dp_helper.h we have a macro named
+DP_DSC_THROUGHPUT_MODE_{0,1}_UPSUPPORTED, the correct name should be
+DP_DSC_THROUGHPUT_MODE_{0,1}_UNSUPPORTED. This commits adjusts this typo
+in the header file and in other places that attempt to access this
+macro.
 
-I think it varies from OEM to OEM and whatever windows required at the
-time.  The sbios may also do different things depending on the osi
-string passed to ACPI.  Originally, ACPI handled it all directly.
-Then we got some laptops which which did the whole event via ATIF
-thing (even that I think varied based on the .  Later, I think the
-keys just produced brightness events and it was up to the OS to do
-something with them so the user's environment would catch the events
-and adjust the backlight via the standard OS backlight control
-interface.  We never hooked up the ATIF stuff to DC since I don't
-recall ever running into any laptops that used it for backlight
-control (the code was carried over from radeon when we forked amdgpu).
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c | 2 +-
+ include/drm/drm_dp_helper.h                 | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-Alex
+diff --git a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+index 87d682d25278..0ea6662a1563 100644
+--- a/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
++++ b/drivers/gpu/drm/amd/display/dc/dsc/dc_dsc.c
+@@ -129,7 +129,7 @@ static bool dsc_line_buff_depth_from_dpcd(int dpcd_line_buff_bit_depth, int *lin
+ static bool dsc_throughput_from_dpcd(int dpcd_throughput, int *throughput)
+ {
+ 	switch (dpcd_throughput) {
+-	case DP_DSC_THROUGHPUT_MODE_0_UPSUPPORTED:
++	case DP_DSC_THROUGHPUT_MODE_0_UNSUPPORTED:
+ 		*throughput = 0;
+ 		break;
+ 	case DP_DSC_THROUGHPUT_MODE_0_170:
+diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
+index c6119e4c169a..fd7ac8f15004 100644
+--- a/include/drm/drm_dp_helper.h
++++ b/include/drm/drm_dp_helper.h
+@@ -292,7 +292,7 @@
+ #define DP_DSC_PEAK_THROUGHPUT              0x06B
+ # define DP_DSC_THROUGHPUT_MODE_0_MASK      (0xf << 0)
+ # define DP_DSC_THROUGHPUT_MODE_0_SHIFT     0
+-# define DP_DSC_THROUGHPUT_MODE_0_UPSUPPORTED 0
++# define DP_DSC_THROUGHPUT_MODE_0_UNSUPPORTED 0
+ # define DP_DSC_THROUGHPUT_MODE_0_340       (1 << 0)
+ # define DP_DSC_THROUGHPUT_MODE_0_400       (2 << 0)
+ # define DP_DSC_THROUGHPUT_MODE_0_450       (3 << 0)
+@@ -310,7 +310,7 @@
+ # define DP_DSC_THROUGHPUT_MODE_0_170       (15 << 0) /* 1.4a */
+ # define DP_DSC_THROUGHPUT_MODE_1_MASK      (0xf << 4)
+ # define DP_DSC_THROUGHPUT_MODE_1_SHIFT     4
+-# define DP_DSC_THROUGHPUT_MODE_1_UPSUPPORTED 0
++# define DP_DSC_THROUGHPUT_MODE_1_UNSUPPORTED 0
+ # define DP_DSC_THROUGHPUT_MODE_1_340       (1 << 4)
+ # define DP_DSC_THROUGHPUT_MODE_1_400       (2 << 4)
+ # define DP_DSC_THROUGHPUT_MODE_1_450       (3 << 4)
+-- 
+2.26.2
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
