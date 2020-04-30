@@ -2,52 +2,51 @@ Return-Path: <SRS0=fixR=6O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E712C4724C
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 16:43:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0482DC47253
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 17:01:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BDF5820873
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 16:43:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BDF5820873
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=daenzer.net
+	by mail.kernel.org (Postfix) with ESMTPS id D8B6D20661
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 17:01:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8B6D20661
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87E6D6E939;
-	Thu, 30 Apr 2020 16:43:11 +0000 (UTC)
-Received: from netline-mail3.netline.ch (mail.netline.ch [148.251.143.178])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6D2EF6E939
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 16:43:10 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by netline-mail3.netline.ch (Postfix) with ESMTP id 7302D2A6042;
- Thu, 30 Apr 2020 18:43:09 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at netline-mail3.netline.ch
-Received: from netline-mail3.netline.ch ([127.0.0.1])
- by localhost (netline-mail3.netline.ch [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id 1vWe-xgpOKA0; Thu, 30 Apr 2020 18:43:09 +0200 (CEST)
-Received: from thor (252.80.76.83.dynamic.wline.res.cust.swisscom.ch
- [83.76.80.252])
- by netline-mail3.netline.ch (Postfix) with ESMTPSA id AB37D2A6016;
- Thu, 30 Apr 2020 18:43:08 +0200 (CEST)
-Received: from localhost ([::1]) by thor with esmtp (Exim 4.93)
- (envelope-from <michel@daenzer.net>)
- id 1jUCHD-001Hau-Rw; Thu, 30 Apr 2020 18:43:07 +0200
-Subject: Re: [PATCH] drm/amdgpu/dc: Use WARN_ON_ONCE for ASSERT
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <20200429162801.18598-1-michel@daenzer.net>
- <CADnq5_Oh9n-tfJM4dpoSmczkRtSMpdhey=CP5E4qW9vJtYA68g@mail.gmail.com>
-From: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>
-Message-ID: <83e45cee-5102-3ead-3796-eb962d6f2026@daenzer.net>
-Date: Thu, 30 Apr 2020 18:43:07 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <CADnq5_Oh9n-tfJM4dpoSmczkRtSMpdhey=CP5E4qW9vJtYA68g@mail.gmail.com>
-Content-Language: en-CA
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5F1C89C9B;
+	Thu, 30 Apr 2020 17:01:12 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 783B16E948
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 17:01:11 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id CC24DABC7;
+ Thu, 30 Apr 2020 17:01:08 +0000 (UTC)
+Date: Thu, 30 Apr 2020 19:01:08 +0200
+Message-ID: <s5hh7x0kiwb.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>
+Subject: Re: [PATCH 0/1] Fiji GPU audio register timeout when in BACO state
+In-Reply-To: <PSXP216MB0438FE3E1CA577805BEC23C880AA0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+References: <s5h4kt4ojrf.wl-tiwai@suse.de>
+ <CADnq5_MMQ5_MjEg=bkJJGMJP53RjB3yxvOW0nUDeWxzg3Q0pVQ@mail.gmail.com>
+ <s5hv9lkm49n.wl-tiwai@suse.de>
+ <PSXP216MB043899DC52E6C6BF728D77CD80AC0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <s5ha72ulp2y.wl-tiwai@suse.de>
+ <PSXP216MB043822350CDE9E7EEA37730880AD0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <CADnq5_MCQ7xHY=yhNtRW=ze0LRPzxuu-Mm7pD4kFa5R52UrGSw@mail.gmail.com>
+ <s5h1ro6jn0v.wl-tiwai@suse.de>
+ <CADnq5_Mjb_FnNOzjUfJZ7GSDzi-+Cfc1ZTuqm7UWCWVvY6DU_w@mail.gmail.com>
+ <s5hwo5xj98v.wl-tiwai@suse.de>
+ <PSXP216MB0438FE3E1CA577805BEC23C880AA0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,27 +58,80 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Takashi Iwai <tiwai@suse.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, Lukas Wunner <lukas@wunner.de>,
+ Alex Deucher <alexdeucher@gmail.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMC0wNC0zMCA0OjU1IHAubS4sIEFsZXggRGV1Y2hlciB3cm90ZToKPiBPbiBXZWQsIEFw
-ciAyOSwgMjAyMCBhdCAxMjoyOCBQTSBNaWNoZWwgRMOkbnplciA8bWljaGVsQGRhZW56ZXIubmV0
-PiB3cm90ZToKPj4KPj4gRnJvbTogTWljaGVsIETDpG56ZXIgPG1kYWVuemVyQHJlZGhhdC5jb20+
-Cj4+Cj4+IE9uY2Ugc2hvdWxkIGdlbmVyYWxseSBiZSBlbm91Z2ggZm9yIGRpYWdub3Npbmcgd2hh
-dCBsZWFkIHVwIHRvIGl0LAo+PiByZXBlYXRpbmcgaXQgb3ZlciBhbmQgb3ZlciBjYW4gYmUgcHJl
-dHR5IGFubm95aW5nLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWRhZW56
-ZXJAcmVkaGF0LmNvbT4KPiAKPiBBcHBsaWVkLiAgVGhhbmtzIQoKVGhhbmsgeW91LgoKQlRXLCBp
-dCBtaWdodCBiZSBiZXR0ZXIgdG8gbWVyZ2UgdGhpcyBmb3IgNS43IGZpbmFsLCBzaW5jZQpodHRw
-czovL2dpdGxhYi5mcmVlZGVza3RvcC5vcmcvZHJtL2FtZC8tL2lzc3Vlcy85MTIgaXMgZWFzeSB0
-byBoaXQgd2l0aAo1LjcgYW5kIGNhbiBiZSB2ZXJ5IG5vaXN5IHdpdGggV0FSTl9PTi4KCgotLSAK
-RWFydGhsaW5nIE1pY2hlbCBEw6RuemVyICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgIGh0
-dHBzOi8vcmVkaGF0LmNvbQpMaWJyZSBzb2Z0d2FyZSBlbnRodXNpYXN0ICAgICAgICAgICAgIHwg
-ICAgICAgICAgICAgTWVzYSBhbmQgWCBkZXZlbG9wZXIKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0
-cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbWQtZ2Z4Cg==
+On Thu, 30 Apr 2020 18:52:20 +0200,
+Nicholas Johnson wrote:
+> 
+> On Thu, Apr 30, 2020 at 05:14:56PM +0200, Takashi Iwai wrote:
+> > On Wed, 29 Apr 2020 18:19:57 +0200,
+> > Alex Deucher wrote:
+> > > 
+> > > On Wed, Apr 29, 2020 at 12:05 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > > > Well, but the code path there is the runtime PM resume of the audio
+> > > > device and it means that GPU must have been runtime-resumed again
+> > > > beforehand via the device link.  So, it should have worked from the
+> > > > beginning but in reality not -- that is, apparently some inconsistency
+> > > > is found in the initial attempt of the runtime resume...
+> > > 
+> > > Yeah, it should be covered, but I wonder if there is something in the
+> > > ELD update sequence that needs to call pm_runtime_get_sync()?  The ELD
+> > > sequence on AMD GPUs doesn't work the same as on other vendors.  The
+> > > GPU driver has a backdoor into the HDA device's verbs to set update
+> > > the audio state rather than doing it via an ELD buffer update.  We
+> > > still update the ELD buffer for consistency.  Maybe when the GPU
+> > > driver sets the audio state at monitor detection time that triggers an
+> > > interrupt or something on the HDA side which races with the CPU and
+> > > the power down of the GPU.  That still seems unlikely though since the
+> > > runtime pm on the GPU side defaults to a 5 second suspend timer.
+> > 
+> > I'm not sure whether it's the race between runtime suspend of GPU vs
+> > runtime resume of audio.  My wild guess is rather that it's the timing
+> > GPU notifies to the audio; then the audio driver notifies to
+> > user-space and user-space opens the stream, which in turn invokes the
+> > runtime resume of GPU. But in GPU side, it's still under processing,
+> > so it proceeds before the GPU finishes its initialization job.
+> > 
+> > Nicholas, could you try the patch below and see whether the problem
+> > still appears?  The patch artificially delays the notification and ELD
+> > update for 300msec.  If this works, it means the timing problem.
+> The bug still occurred after applying the patch.
+> 
+> But you were absolutely correct - it just needed to be increased to 
+> 3000ms - then the bug stopped.
+
+Interesting.  3 seconds are too long, but I guess 1 second would work
+as well?
+
+In anyway, the success with a long delay means that the sound setup
+after the full runtime resume of GPU seems working.
+
+> Now the question is, what do we do now that we know this?
+> 
+> Also, are you still interested in the contents of the ELD# files? I can 
+> dump them all into a file at some specific moment in time which you 
+> request, if needed.
+
+Yes, please take the snapshot before plugging, right after plugging
+and right after enabling.  I'm not sure whether your monitor supports
+the audio, and ELD contents should show that, at least.
+
+
+thanks,
+
+Takashi
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
