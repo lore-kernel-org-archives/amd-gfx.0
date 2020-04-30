@@ -2,68 +2,54 @@ Return-Path: <SRS0=fixR=6O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-0.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 607D7C4724C
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 14:58:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4169AC47247
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 15:15:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 332402076D
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 14:58:24 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mCDB63gT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 332402076D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1E7122082E
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 15:15:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E7122082E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9DCF6E1B9;
-	Thu, 30 Apr 2020 14:58:23 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA85D6E1B9
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 14:58:22 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id j2so7321035wrs.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 07:58:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=6PDW2T0KOF7yQvjtCbV0Ddlxf3NDjQ+71LbzMrj76ZA=;
- b=mCDB63gTWoLMmt1CTdrWQjo7n6p9TZ2xrPpElyZPWcAn/jCxvyoHDsyUPy87YHii5s
- ulS+Wmdtb/E0lw1h5qbOeocxaQ+6YvFlXYcnrEEcQAxPYIDo+LDguATcw5A37o74cevG
- AwpErIPWgzzBTRXjknIyIyeJZLR61ystMQ18lexAv05kbDG/sqoUmeJl5NB/vvL6K6eR
- kH5eQu3A5YTWXHTZdeCR+mbdkP5FaEaxSZhWn4ZmVlhUWXeLTTHMgmjyI4JUiKDKjy6D
- DpJOCwZHpSfl4pQTHd311VBdMUFKBJ5xntwwrztg1M4rlcEBtes8C7k2PwvmhBvBUOkN
- 0TuQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=6PDW2T0KOF7yQvjtCbV0Ddlxf3NDjQ+71LbzMrj76ZA=;
- b=tok7sXAmNS/2Sp50M6j0eHr2TmiTakByXS4AHyPFUZhPIBMHjC6UEm/IvbioLIeHOt
- f0jHJRyz1ekju/sPnyLlqHxdt2vEsYgRyjDjtJZSVv54vN1fFMGWKeiNq6vOw8uGWrkD
- HFI1AB4WH5ACBtQ0rwUDcDkx/PatWTnBMPzNDJn3PnNZpFILKIh1x6Z+GZDPnXoFqobT
- ZaMpVjH5L9tOo6oxvqFjA5o1ezUt6yu89XiH/sOas59s+jTeMiVT8SbA2JgD16+xg30J
- b4weqxXmxuzIsOvnOzrA/ADDZzXM/OLug3KqO8zByN7bENM8v5Q2/uL2B4Pe7B3B3F4c
- F/oQ==
-X-Gm-Message-State: AGi0PuYhCNV03tTesPzjkdSpGeraKCDSFXMv4i+NwUQMvhpjKbVNlL/f
- Fxzq3sxTQITmbXcdFNezy6tUbxQP/854iRhuY9c8UQ==
-X-Google-Smtp-Source: APiQypJw9eKkoqF6qgP1FvDm/mKGzived4wstUqhUud9Fau1WRXUp28EY+yV3/B4vrlHQc0bNB7MDBTOBh89FYojj/A=
-X-Received: by 2002:a5d:498d:: with SMTP id r13mr4547758wrq.374.1588258701182; 
- Thu, 30 Apr 2020 07:58:21 -0700 (PDT)
-MIME-Version: 1.0
-References: <20200429150236.4626-1-daniel@octaforge.org>
- <20200429150236.4626-2-daniel@octaforge.org>
-In-Reply-To: <20200429150236.4626-2-daniel@octaforge.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 30 Apr 2020 10:58:09 -0400
-Message-ID: <CADnq5_NaxwbhvBGB7x1vCGRohx8_1q0go8czJCPA=bLcWAOCTQ@mail.gmail.com>
-Subject: Re: [PATCH 1/1] drm/amd/display: work around fp code being emitted
- outside of DC_FP_START/END
-To: Daniel Kolesa <daniel@octaforge.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 190B96E923;
+	Thu, 30 Apr 2020 15:15:00 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7704D6E922
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 15:14:58 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 4D3B8AE39;
+ Thu, 30 Apr 2020 15:14:56 +0000 (UTC)
+Date: Thu, 30 Apr 2020 17:14:56 +0200
+Message-ID: <s5hwo5xj98v.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 0/1] Fiji GPU audio register timeout when in BACO state
+In-Reply-To: <CADnq5_Mjb_FnNOzjUfJZ7GSDzi-+Cfc1ZTuqm7UWCWVvY6DU_w@mail.gmail.com>
+References: <PSXP216MB0438D2AF96CE0D4F83F48C4D80AE0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <MN2PR12MB4488E4909C1488FB507E0BF5F7AF0@MN2PR12MB4488.namprd12.prod.outlook.com>
+ <s5ho8rdnems.wl-tiwai@suse.de>
+ <PSXP216MB04387BF6B5F8DA84749E5D6F80AF0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <CADnq5_M=QEqxuCKjb_qZvFSvwM5eLEFfsepxYYXoouFoe5bn7A@mail.gmail.com>
+ <s5h4kt4ojrf.wl-tiwai@suse.de>
+ <CADnq5_MMQ5_MjEg=bkJJGMJP53RjB3yxvOW0nUDeWxzg3Q0pVQ@mail.gmail.com>
+ <s5hv9lkm49n.wl-tiwai@suse.de>
+ <PSXP216MB043899DC52E6C6BF728D77CD80AC0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <s5ha72ulp2y.wl-tiwai@suse.de>
+ <PSXP216MB043822350CDE9E7EEA37730880AD0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <CADnq5_MCQ7xHY=yhNtRW=ze0LRPzxuu-Mm7pD4kFa5R52UrGSw@mail.gmail.com>
+ <s5h1ro6jn0v.wl-tiwai@suse.de>
+ <CADnq5_Mjb_FnNOzjUfJZ7GSDzi-+Cfc1ZTuqm7UWCWVvY6DU_w@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,97 +61,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Takashi Iwai <tiwai@suse.com>, Lukas Wunner <lukas@wunner.de>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Apr 29, 2020 at 11:08 AM Daniel Kolesa <daniel@octaforge.org> wrote:
->
-> The dcn20_validate_bandwidth function would have code touching the
-> incorrect registers emitted outside of the boundaries of the
-> DC_FP_START/END macros, at least on ppc64le. Work around the
-> problem by wrapping the whole function instead.
->
-> Signed-off-by: Daniel Kolesa <daniel@octaforge.org>
+On Wed, 29 Apr 2020 18:19:57 +0200,
+Alex Deucher wrote:
+> 
+> On Wed, Apr 29, 2020 at 12:05 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > Well, but the code path there is the runtime PM resume of the audio
+> > device and it means that GPU must have been runtime-resumed again
+> > beforehand via the device link.  So, it should have worked from the
+> > beginning but in reality not -- that is, apparently some inconsistency
+> > is found in the initial attempt of the runtime resume...
+> 
+> Yeah, it should be covered, but I wonder if there is something in the
+> ELD update sequence that needs to call pm_runtime_get_sync()?  The ELD
+> sequence on AMD GPUs doesn't work the same as on other vendors.  The
+> GPU driver has a backdoor into the HDA device's verbs to set update
+> the audio state rather than doing it via an ELD buffer update.  We
+> still update the ELD buffer for consistency.  Maybe when the GPU
+> driver sets the audio state at monitor detection time that triggers an
+> interrupt or something on the HDA side which races with the CPU and
+> the power down of the GPU.  That still seems unlikely though since the
+> runtime pm on the GPU side defaults to a 5 second suspend timer.
 
-Applied.  Thanks!
+I'm not sure whether it's the race between runtime suspend of GPU vs
+runtime resume of audio.  My wild guess is rather that it's the timing
+GPU notifies to the audio; then the audio driver notifies to
+user-space and user-space opens the stream, which in turn invokes the
+runtime resume of GPU. But in GPU side, it's still under processing,
+so it proceeds before the GPU finishes its initialization job.
 
-Alex
+Nicholas, could you try the patch below and see whether the problem
+still appears?  The patch artificially delays the notification and ELD
+update for 300msec.  If this works, it means the timing problem.
 
-> ---
->  .../drm/amd/display/dc/dcn20/dcn20_resource.c | 31 ++++++++++++++-----
->  1 file changed, 23 insertions(+), 8 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> index e310d67..1b0bca9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-> @@ -3034,25 +3034,32 @@ static bool dcn20_validate_bandwidth_internal(struct dc *dc, struct dc_state *co
->         return out;
->  }
->
-> -
-> -bool dcn20_validate_bandwidth(struct dc *dc, struct dc_state *context,
-> -               bool fast_validate)
-> +/*
-> + * This must be noinline to ensure anything that deals with FP registers
-> + * is contained within this call; previously our compiling with hard-float
-> + * would result in fp instructions being emitted outside of the boundaries
-> + * of the DC_FP_START/END macros, which makes sense as the compiler has no
-> + * idea about what is wrapped and what is not
-> + *
-> + * This is largely just a workaround to avoid breakage introduced with 5.6,
-> + * ideally all fp-using code should be moved into its own file, only that
-> + * should be compiled with hard-float, and all code exported from there
-> + * should be strictly wrapped with DC_FP_START/END
-> + */
-> +static noinline bool dcn20_validate_bandwidth_fp(struct dc *dc,
-> +               struct dc_state *context, bool fast_validate)
->  {
->         bool voltage_supported = false;
->         bool full_pstate_supported = false;
->         bool dummy_pstate_supported = false;
->         double p_state_latency_us;
->
-> -       DC_FP_START();
->         p_state_latency_us = context->bw_ctx.dml.soc.dram_clock_change_latency_us;
->         context->bw_ctx.dml.soc.disable_dram_clock_change_vactive_support =
->                 dc->debug.disable_dram_clock_change_vactive_support;
->
->         if (fast_validate) {
-> -               voltage_supported = dcn20_validate_bandwidth_internal(dc, context, true);
-> -
-> -               DC_FP_END();
-> -               return voltage_supported;
-> +               return dcn20_validate_bandwidth_internal(dc, context, true);
->         }
->
->         // Best case, we support full UCLK switch latency
-> @@ -3081,7 +3088,15 @@ bool dcn20_validate_bandwidth(struct dc *dc, struct dc_state *context,
->
->  restore_dml_state:
->         context->bw_ctx.dml.soc.dram_clock_change_latency_us = p_state_latency_us;
-> +       return voltage_supported;
-> +}
->
-> +bool dcn20_validate_bandwidth(struct dc *dc, struct dc_state *context,
-> +               bool fast_validate)
-> +{
-> +       bool voltage_supported = false;
-> +       DC_FP_START();
-> +       voltage_supported = dcn20_validate_bandwidth_fp(dc, context, fast_validate);
->         DC_FP_END();
->         return voltage_supported;
->  }
-> --
-> 2.26.2
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+thanks,
+
+Takashi
+
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -767,6 +767,7 @@ static void check_presence_and_report(struct hda_codec *codec, hda_nid_t nid,
+ 	if (pin_idx < 0)
+ 		return;
+ 	mutex_lock(&spec->pcm_lock);
++	get_pin(spec, pin_idx)->repoll_count = 1;
+ 	hdmi_present_sense(get_pin(spec, pin_idx), 1);
+ 	mutex_unlock(&spec->pcm_lock);
+ }
+@@ -1647,7 +1648,10 @@ static void sync_eld_via_acomp(struct hda_codec *codec,
+ 				      per_pin->dev_id, &eld->monitor_present,
+ 				      eld->eld_buffer, ELD_MAX_SIZE);
+ 	eld->eld_valid = (eld->eld_size > 0);
+-	update_eld(codec, per_pin, eld, 0);
++	if (per_pin->repoll_count)
++		schedule_delayed_work(&per_pin->work, msecs_to_jiffies(300));
++	else
++		update_eld(codec, per_pin, eld, 0);
+ 	mutex_unlock(&per_pin->lock);
+ }
+ 
+@@ -1669,6 +1673,11 @@ static void hdmi_repoll_eld(struct work_struct *work)
+ 	struct hdmi_spec *spec = codec->spec;
+ 	struct hda_jack_tbl *jack;
+ 
++	if (codec_has_acomp(codec)) {
++		per_pin->repoll_count = 0;
++		goto check;
++	}
++
+ 	jack = snd_hda_jack_tbl_get_mst(codec, per_pin->pin_nid,
+ 					per_pin->dev_id);
+ 	if (jack)
+@@ -1677,6 +1686,7 @@ static void hdmi_repoll_eld(struct work_struct *work)
+ 	if (per_pin->repoll_count++ > 6)
+ 		per_pin->repoll_count = 0;
+ 
++ check:
+ 	mutex_lock(&spec->pcm_lock);
+ 	hdmi_present_sense(per_pin, per_pin->repoll_count);
+ 	mutex_unlock(&spec->pcm_lock);
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
