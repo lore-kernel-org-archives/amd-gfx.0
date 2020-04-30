@@ -2,48 +2,78 @@ Return-Path: <SRS0=fixR=6O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 857D9C8300C
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91F1DC8300D
 	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 13:08:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 386602076D
+	by mail.kernel.org (Postfix) with ESMTPS id 5F07320870
 	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 13:08:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 386602076D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=vivo.com
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=endlessm-com.20150623.gappssmtp.com header.i=@endlessm-com.20150623.gappssmtp.com header.b="ksdrqkjg"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5F07320870
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=endlessm.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1AAA6E867;
-	Thu, 30 Apr 2020 13:08:31 +0000 (UTC)
-Received: from m176148.mail.qiye.163.com (m176148.mail.qiye.163.com
- [59.111.176.148])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 620456E22C
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 11:00:48 +0000 (UTC)
-Received: from vivo.com (wm-8.qy.internal [127.0.0.1])
- by m176148.mail.qiye.163.com (Hmail) with ESMTP id B636B1A41B7;
- Thu, 30 Apr 2020 19:00:11 +0800 (CST)
-Message-ID: <AO2AmAAQCPm7TNcK3aT264ov.3.1588244411605.Hmail.bernard@vivo.com>
-To: Joe Perches <joe@perches.com>
-Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSF0gZHJtL3JhZGVvbjogY2xlYW51cCBjb2Rpbmcgc3R5bGUgYSBiaXQ=?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com
-X-Originating-IP: 157.0.31.122
-In-Reply-To: <ae65a955251bd43ac71b7a162320bbc1fe220a67.camel@perches.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A7D66E890;
+	Thu, 30 Apr 2020 13:08:32 +0000 (UTC)
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C4056EB91
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 08:56:04 +0000 (UTC)
+Received: by mail-pg1-x541.google.com with SMTP id q124so2443670pgq.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 01:56:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=endlessm-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LuFSML6Qs1jNQuh9f7FSxevmV01WKXUBt/xqATWhD2Y=;
+ b=ksdrqkjg7/bPOyrlGVVf5QUEd5k1BXZ7bCgdmtHeYMIpFDf3Jwi86zlBfnZ6G3eGFf
+ LjWDtJd1vQdHqlaiLjGGzrDiDeZunzNT9EZuzxEKG+XvlqlYRXstu/pFE85897AfscDN
+ cdvyqJux8jQb2/CbeMwu4HqV5OW4SuxYJe+T4wNF3A6Av7o3axQUEJfZxOQzwMzm8/Jg
+ MWfCDjZqBpH1VUis4SI0tuLnbul1+ql36EAFLt+4kHhoeKtaTsLLPv/fYAZc8yL/1/V5
+ v2Jyc2hwtlG/8NlLhlIWkQ0Ql9LBguqNuCEvpxC3Y8JmemOdTlDhZM7wlLGEmPN7B1cX
+ ABrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=LuFSML6Qs1jNQuh9f7FSxevmV01WKXUBt/xqATWhD2Y=;
+ b=Rw40N62yr0n58YDahGkBVZb9mPu5phoCzjfg8vpQq6J+S2XQOAuLWfoFKHi3uJ+amV
+ 3T8p4lVMFJqsqGkCEkRrKkHnvkvEZGNw4hCI6DV9Q0m5bMaCITRbW+YezrJ88q2TIgRq
+ XDEfxIsVnsSKWDHMmYs+MM5KZlzkbcSsKu+ddgDFS05IyKJd+oWNTaX5S1nIN/2ZIlzJ
+ FAcnb0qrChHeavX1kbCHnnyzq2X4uIdh65HbU2ZRyGl4fcjwyCQPKOymOmGkkx8A1q7F
+ UWDbC/OkPcZBy0Km3jCyYKheR3Ge5idqOGkxlYsq6I3Y+yPozIyAhuevL39GwEZgwEQJ
+ QAEw==
+X-Gm-Message-State: AGi0PuYG/9jYVLBCyLn+G8+uo93mxyp3U/3e8Esjs1qVC65Yn4iYej7o
+ WL34N/evMTf4rMmp7qbDtTdHuQ==
+X-Google-Smtp-Source: APiQypLoq0/7IkBcTUdghxEn6PlqSyQyh8qIGbADqzsQq+98Hiyrqq/DxAocwK3AWb7h9Fm8F5nYxQ==
+X-Received: by 2002:a63:cf0d:: with SMTP id j13mr2186045pgg.379.1588236963542; 
+ Thu, 30 Apr 2020 01:56:03 -0700 (PDT)
+Received: from starnight.localdomain (123-204-46-122.static.seed.net.tw.
+ [123.204.46.122])
+ by smtp.googlemail.com with ESMTPSA id 23sm1189356pjb.11.2020.04.30.01.56.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Apr 2020 01:56:03 -0700 (PDT)
+From: Jian-Hong Pan <jian-hong@endlessm.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Zhou <David1.Zhou@amd.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ "Tianci . Yin" <tianci.yin@amd.com>,
+ =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>
+Subject: [PATCH] drm/radeon: drm/amdgpu: Disable [1002:6611] in radeon
+Date: Thu, 30 Apr 2020 16:53:19 +0800
+Message-Id: <20200430085318.114894-1-jian-hong@endlessm.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Received: from bernard@vivo.com( [157.0.31.122) ] by ajax-webmail (
- [127.0.0.1] ) ; Thu, 30 Apr 2020 19:00:11 +0800 (GMT+08:00)
-From: Bernard <bernard@vivo.com>
-Date: Thu, 30 Apr 2020 19:00:11 +0800 (GMT+08:00)
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgYFAkeWUFZSFVITktCQkJDSElKTkhISVlXWShZQU
- hPN1dZLVlBSVdZCQ4XHghZQVk1NCk2OjckKS43PlkG
-X-HM-Sender-Digest: e1kJHlYWEh9ZQUhMT05IQ0hKQkpIN1dZDB4ZWUEPCQ4eV1kSHx4VD1lB
- WUc6NEk6Fjo6KjgrFkwvNRgwSBovSU1PFA1VSFVKTkNDSU9PT0pKQ0tLVTMWGhIXVRkeCRUaCR87
- DRINFFUYFBZFWVdZEgtZQVlKTkxVS1VISlVKSUlZV1kIAVlBT01DTjcG
-X-HM-Tid: 0a71cabe75699394kuwsb636b1a41b7
 X-Mailman-Approved-At: Thu, 30 Apr 2020 13:08:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,48 +86,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>, opensource.kernel@vivo.com,
- David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, dri-devel@lists.freedesktop.org,
+ Jian-Hong Pan <jian-hong@endlessm.com>, linux@endlessm.com,
+ linux-media@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Cgrlj5Hku7bkurrvvJpKb2UgUGVyY2hlcyA8am9lQHBlcmNoZXMuY29tPgrlj5HpgIHml6XmnJ/v
-vJoyMDIwLTA0LTI3IDAxOjUzOjA2CuaUtuS7tuS6uu+8miJDaHJpc3RpYW4gS8O2bmlnIiA8Y2hy
-aXN0aWFuLmtvZW5pZ0BhbWQuY29tPixCZXJuYXJkIFpoYW8gPGJlcm5hcmRAdml2by5jb20+LEFs
-ZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4sIkRhdmlkIChDaHVuTWluZykg
-WmhvdSIgPERhdmlkMS5aaG91QGFtZC5jb20+LERhdmlkIEFpcmxpZSA8YWlybGllZEBsaW51eC5p
-ZT4sRGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPixhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
-dG9wLm9yZyxkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnLGxpbnV4LWtlcm5lbEB2Z2Vy
-Lmtlcm5lbC5vcmcK5oqE6YCB5Lq677yab3BlbnNvdXJjZS5rZXJuZWxAdml2by5jb20K5Li76aKY
-77yaUmU6IFtQQVRDSF0gZHJtL3JhZGVvbjogY2xlYW51cCBjb2Rpbmcgc3R5bGUgYSBiaXQ+T24g
-U3VuLCAyMDIwLTA0LTI2IGF0IDE1OjE4ICswMjAwLCBDaHJpc3RpYW4gS8O2bmlnIHdyb3RlOgo+
-PiBBbSAyNi4wNC4yMCB1bSAxNToxMiBzY2hyaWViIEJlcm5hcmQgWmhhbzoKPj4gPiBNYXliZSBu
-byBuZWVkIHRvIGNoZWNrIHdzIGJlZm9yZSBrbWFsbG9jLCBrbWFsbG9jIHdpbGwgY2hlY2sKPj4g
-PiBpdHNlbGYsIGttYWxsb2NgcyBsb2dpYyBpcyBpZiBwdHIgaXMgTlVMTCwga21hbGxvYyB3aWxs
-IGp1c3QKPj4gPiByZXR1cm4KPj4gPiAKPj4gPiBTaWduZWQtb2ZmLWJ5OiBCZXJuYXJkIFpoYW8g
-PGJlcm5hcmRAdml2by5jb20+Cj4+IAo+PiBSZXZpZXdlZC1ieTogQ2hyaXN0aWFuIEvDtm5pZyA8
-Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+PiAKPj4gSSdtIHdvbmRlcmluZyB3aHkgdGhlIGF1
-dG9tYXRlZCBzY3JpcHRzIGhhdmVuJ3QgZm91bmQgdGhhdCBvbmUgYmVmb3JlLgo+Cj5iZWNhdXNl
-IHRoaXMgcGF0dGVybiBpcwo+Cj4JaWYgKGZvbykKPgkJa2ZyZWUoYmFyKTsKPgo+YW5kIHRoZSBw
-YXR0ZXJuIGxvb2tlZCBmb3IgaXM6Cj4KPglpZiAoZm9vKQo+CQlrZnJlZShmb28pOwo+Cj4+ID4g
-ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vYXRvbS5jIGIvZHJpdmVycy9ncHUv
-ZHJtL3JhZGVvbi9hdG9tLmMKPltdCj4+ID4gQEAgLTEyMTEsOCArMTIxMSw3IEBAIHN0YXRpYyBp
-bnQgYXRvbV9leGVjdXRlX3RhYmxlX2xvY2tlZChzdHJ1Y3QgYXRvbV9jb250ZXh0ICpjdHgsIGlu
-dCBpbmRleCwgdWludDMyCj4+ID4gICAJU0RFQlVHKCI8PFxuIik7Cj4+ID4gICAKPj4gPiAgIGZy
-ZWU6Cj4+ID4gLQlpZiAod3MpCj4+ID4gLQkJa2ZyZWUoZWN0eC53cyk7Cj4+ID4gKwlrZnJlZShl
-Y3R4LndzKTsKPj4gPiAgIAlyZXR1cm4gcmV0Owo+PiA+ICAgfQo+Cj5JJ20gd29uZGVyaW5nIGlm
-IHRoaXMgcmVtb3ZhbCBpcyBjb3JyZWN0IGFzIHRoZSBmdW5jdGlvbgo+aXMgbmFtZWQgX2xvY2tl
-ZCBhbmQgaXQgbWF5IGJlIHJlY3Vyc2l2ZSBvciBjYWxsZWQgdW5kZXIKPnNvbWUgZXh0ZXJuYWwg
-bG9jay4KPgpIaQpJIGFtIGEgbGl0dGxlIGNvbmZ1c2VkIGFib3V0IHRoaXMuIEkgdW5kZXJzdGFu
-ZCB0aGF0IHRoZSBjYWxsZXIgZ3VhcmFudGVlcyB0aGUgbG9jayBwcm90ZWN0aW9uCnRoYXQgd2Ug
-d2lsbCBub3QgcmVsZWFzZSB0aGUgd3JvbmcgcG9pbnRlci4gQW5kIHRoZSBOVUxMIGNoZWNrIGlz
-IHRoZSBzYW1lIHdpdGggdGhlIGZpcnN0IGNoZWNrIGluIGtmcmVlPwpNYXliZSB3ZSBkbyBub3Qg
-bmVlZCBjaGVjayB0d2ljaC4KClJlZ2FyZHMsCkJlcm5hcmQKCg0KDQpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+The AMD/ATI Oland [1002:6611]'s HDMI output status is not synchronous
+as shown on UI after hot re-plug the HDMI cable, if it is radeon in
+used. The amdgpu module does not hit this issue.
+
+This patch disables [1002:6611] in radeon and enables it in amdgpu.
+
+Fixes: https://gitlab.freedesktop.org/drm/amd/-/issues/1117
+Signed-off-by: Jian-Hong Pan <jian-hong@endlessm.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 11 +++++++++++
+ include/drm/drm_pciids.h                |  1 -
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 8ea86ffdea0d..1ad6f13a5bc0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1017,6 +1017,15 @@ MODULE_DEVICE_TABLE(pci, pciidlist);
+ 
+ static struct drm_driver kms_driver;
+ 
++static void amdgpu_pci_fixup(struct pci_dev *pdev)
++{
++#ifdef CONFIG_DRM_AMDGPU_SI
++	/* [1002:6611] is disabled in radeon, so enable si_support in amdgpu. */
++	if (pdev->vendor == PCI_VENDOR_ID_ATI && pdev->device == 0x6611)
++		amdgpu_si_support = 1;
++#endif
++}
++
+ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 			    const struct pci_device_id *ent)
+ {
+@@ -1036,6 +1045,8 @@ static int amdgpu_pci_probe(struct pci_dev *pdev,
+ 		return -ENODEV;
+ 	}
+ 
++	amdgpu_pci_fixup(pdev);
++
+ #ifdef CONFIG_DRM_AMDGPU_SI
+ 	if (!amdgpu_si_support) {
+ 		switch (flags & AMD_ASIC_MASK) {
+diff --git a/include/drm/drm_pciids.h b/include/drm/drm_pciids.h
+index b7e899ce44f0..57368a0f5b82 100644
+--- a/include/drm/drm_pciids.h
++++ b/include/drm/drm_pciids.h
+@@ -171,7 +171,6 @@
+ 	{0x1002, 0x6607, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|RADEON_IS_MOBILITY|RADEON_NEW_MEMMAP}, \
+ 	{0x1002, 0x6608, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|RADEON_NEW_MEMMAP}, \
+ 	{0x1002, 0x6610, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|RADEON_NEW_MEMMAP}, \
+-	{0x1002, 0x6611, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|RADEON_NEW_MEMMAP}, \
+ 	{0x1002, 0x6613, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|RADEON_NEW_MEMMAP}, \
+ 	{0x1002, 0x6617, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|RADEON_IS_MOBILITY|RADEON_NEW_MEMMAP}, \
+ 	{0x1002, 0x6620, PCI_ANY_ID, PCI_ANY_ID, 0, 0, CHIP_OLAND|RADEON_IS_MOBILITY|RADEON_NEW_MEMMAP}, \
+-- 
+2.26.2
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
