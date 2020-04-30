@@ -8,61 +8,62 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A6B7C47247
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 14:55:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 607D7C4724C
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 14:58:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0B12C2076D
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 14:55:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 332402076D
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 14:58:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ueLJ7/J1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0B12C2076D
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mCDB63gT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 332402076D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76DA16E927;
-	Thu, 30 Apr 2020 14:55:52 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C1296E926
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 14:55:51 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id r26so2275911wmh.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 07:55:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9DCF6E1B9;
+	Thu, 30 Apr 2020 14:58:23 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA85D6E1B9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 14:58:22 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id j2so7321035wrs.9
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 07:58:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=pQjE7f7589kt0iGBiRIyizNt8qpdDUJKOJWm3F287So=;
- b=ueLJ7/J1d+BQYGt9WsdiZqAVGWPMHTBSpWA4/5TuB2T0b/iWky766sU+ii5pyNZSpF
- 943/NY0uhfZAdIHtnIFTWcbkXnetX1zS8XRB89DLXZfE1ftTAz500SaEqKHX1r0KWvDy
- yCIpD1gUKKxE/9xjhWsjW+mre/+4Mm/6chhA1dB0tRPvj7bf9rdX6sLuDgP+aFMDBdtv
- lnEfI+HZyp4B5EruSSNu3uAFnxGU9KRI3quNJkq59t8IR/gkaC3nKxGYV5SZkyFhtYQu
- kTYqg+ocPD6e7VuPa1bZFpNKWVFCI2gpajeNArmXLRcvgBDlH0z5qT7aCDsmYCOw+4VB
- VL2A==
+ :cc; bh=6PDW2T0KOF7yQvjtCbV0Ddlxf3NDjQ+71LbzMrj76ZA=;
+ b=mCDB63gTWoLMmt1CTdrWQjo7n6p9TZ2xrPpElyZPWcAn/jCxvyoHDsyUPy87YHii5s
+ ulS+Wmdtb/E0lw1h5qbOeocxaQ+6YvFlXYcnrEEcQAxPYIDo+LDguATcw5A37o74cevG
+ AwpErIPWgzzBTRXjknIyIyeJZLR61ystMQ18lexAv05kbDG/sqoUmeJl5NB/vvL6K6eR
+ kH5eQu3A5YTWXHTZdeCR+mbdkP5FaEaxSZhWn4ZmVlhUWXeLTTHMgmjyI4JUiKDKjy6D
+ DpJOCwZHpSfl4pQTHd311VBdMUFKBJ5xntwwrztg1M4rlcEBtes8C7k2PwvmhBvBUOkN
+ 0TuQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=pQjE7f7589kt0iGBiRIyizNt8qpdDUJKOJWm3F287So=;
- b=a2NOvhGRNMhGJpYN4JczMulZKke245cRvq1jFZ11umi8RIY7OFEQh0FWMZsNyfZuFU
- DdBHisXRh/hBV9i36IJ4rLHlNHio3rhCKv+TBIHOy86/fOwuGPyi5X2qaxcJlirSW07e
- WaoaCpaJooLcB6I75B2A45dmoxAAP6+Lo5ui4O5k0dk102fIVCNuGzRtmi9wsmdy63hO
- FMdufvjrBTAKK4mcJPbY5Y6YaJmm6WscnAFBwQnR4H3EbpMARgcc68dHPV0IyWY8Y9TL
- ABkMyONMh/Kcu7/n2RL/OPOG6JMYTRLAExCVYcbkdwsO9gpJ0Z0FnWofvaoWnoCSJU1Y
- r26Q==
-X-Gm-Message-State: AGi0PuYkoBUOnDhpftIWrNmKy7REDOTv++Tg9G2mRwu2qsD3h9uITiye
- kQQ+b+w5hi7ViY/Ha2GmWrMpQXs3iy+sjtin7D48hA==
-X-Google-Smtp-Source: APiQypJG1CU0+GP3uZ8u5y7MxvsZ8rrp+QPv3/TWXplUAFMaO9EAombBq0/Vmpi9RVZzXR5At3DD5yk/zxiUkrVkooI=
-X-Received: by 2002:a7b:cc0e:: with SMTP id f14mr3424747wmh.39.1588258549891; 
- Thu, 30 Apr 2020 07:55:49 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=6PDW2T0KOF7yQvjtCbV0Ddlxf3NDjQ+71LbzMrj76ZA=;
+ b=tok7sXAmNS/2Sp50M6j0eHr2TmiTakByXS4AHyPFUZhPIBMHjC6UEm/IvbioLIeHOt
+ f0jHJRyz1ekju/sPnyLlqHxdt2vEsYgRyjDjtJZSVv54vN1fFMGWKeiNq6vOw8uGWrkD
+ HFI1AB4WH5ACBtQ0rwUDcDkx/PatWTnBMPzNDJn3PnNZpFILKIh1x6Z+GZDPnXoFqobT
+ ZaMpVjH5L9tOo6oxvqFjA5o1ezUt6yu89XiH/sOas59s+jTeMiVT8SbA2JgD16+xg30J
+ b4weqxXmxuzIsOvnOzrA/ADDZzXM/OLug3KqO8zByN7bENM8v5Q2/uL2B4Pe7B3B3F4c
+ F/oQ==
+X-Gm-Message-State: AGi0PuYhCNV03tTesPzjkdSpGeraKCDSFXMv4i+NwUQMvhpjKbVNlL/f
+ Fxzq3sxTQITmbXcdFNezy6tUbxQP/854iRhuY9c8UQ==
+X-Google-Smtp-Source: APiQypJw9eKkoqF6qgP1FvDm/mKGzived4wstUqhUud9Fau1WRXUp28EY+yV3/B4vrlHQc0bNB7MDBTOBh89FYojj/A=
+X-Received: by 2002:a5d:498d:: with SMTP id r13mr4547758wrq.374.1588258701182; 
+ Thu, 30 Apr 2020 07:58:21 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200429162801.18598-1-michel@daenzer.net>
-In-Reply-To: <20200429162801.18598-1-michel@daenzer.net>
+References: <20200429150236.4626-1-daniel@octaforge.org>
+ <20200429150236.4626-2-daniel@octaforge.org>
+In-Reply-To: <20200429150236.4626-2-daniel@octaforge.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 30 Apr 2020 10:55:38 -0400
-Message-ID: <CADnq5_Oh9n-tfJM4dpoSmczkRtSMpdhey=CP5E4qW9vJtYA68g@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/dc: Use WARN_ON_ONCE for ASSERT
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Date: Thu, 30 Apr 2020 10:58:09 -0400
+Message-ID: <CADnq5_NaxwbhvBGB7x1vCGRohx8_1q0go8czJCPA=bLcWAOCTQ@mail.gmail.com>
+Subject: Re: [PATCH 1/1] drm/amd/display: work around fp code being emitted
+ outside of DC_FP_START/END
+To: Daniel Kolesa <daniel@octaforge.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,33 +75,98 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gV2VkLCBBcHIgMjksIDIwMjAgYXQgMTI6MjggUE0gTWljaGVsIETDpG56ZXIgPG1pY2hlbEBk
-YWVuemVyLm5ldD4gd3JvdGU6Cj4KPiBGcm9tOiBNaWNoZWwgRMOkbnplciA8bWRhZW56ZXJAcmVk
-aGF0LmNvbT4KPgo+IE9uY2Ugc2hvdWxkIGdlbmVyYWxseSBiZSBlbm91Z2ggZm9yIGRpYWdub3Np
-bmcgd2hhdCBsZWFkIHVwIHRvIGl0LAo+IHJlcGVhdGluZyBpdCBvdmVyIGFuZCBvdmVyIGNhbiBi
-ZSBwcmV0dHkgYW5ub3lpbmcuCj4KPiBTaWduZWQtb2ZmLWJ5OiBNaWNoZWwgRMOkbnplciA8bWRh
-ZW56ZXJAcmVkaGF0LmNvbT4KCkFwcGxpZWQuICBUaGFua3MhCgpBbGV4Cgo+IC0tLQo+ICBkcml2
-ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvb3NfdHlwZXMuaCB8IDIgKy0KPiAgMSBmaWxlIGNo
-YW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL29zX3R5cGVzLmggYi9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2Rpc3BsYXkvZGMvb3NfdHlwZXMuaAo+IGluZGV4IGMzNGViYTE5ODYwYTMyLi42ZDdiY2E1
-NjJlZWMwMCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvb3Nf
-dHlwZXMuaAo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9vc190eXBlcy5o
-Cj4gQEAgLTEwOCw3ICsxMDgsNyBAQAo+ICAjZGVmaW5lIEFTU0VSVChleHByKSBBU1NFUlRfQ1JJ
-VElDQUwoZXhwcikKPgo+ICAjZWxzZQo+IC0jZGVmaW5lIEFTU0VSVChleHByKSBXQVJOX09OKCEo
-ZXhwcikpCj4gKyNkZWZpbmUgQVNTRVJUKGV4cHIpIFdBUk5fT05fT05DRSghKGV4cHIpKQo+ICAj
-ZW5kaWYKPgo+ICAjZGVmaW5lIEJSRUFLX1RPX0RFQlVHR0VSKCkgQVNTRVJUKDApCj4gLS0KPiAy
-LjI2LjIKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-Cj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+
-IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
-aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
-ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+On Wed, Apr 29, 2020 at 11:08 AM Daniel Kolesa <daniel@octaforge.org> wrote:
+>
+> The dcn20_validate_bandwidth function would have code touching the
+> incorrect registers emitted outside of the boundaries of the
+> DC_FP_START/END macros, at least on ppc64le. Work around the
+> problem by wrapping the whole function instead.
+>
+> Signed-off-by: Daniel Kolesa <daniel@octaforge.org>
+
+Applied.  Thanks!
+
+Alex
+
+> ---
+>  .../drm/amd/display/dc/dcn20/dcn20_resource.c | 31 ++++++++++++++-----
+>  1 file changed, 23 insertions(+), 8 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> index e310d67..1b0bca9 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+> @@ -3034,25 +3034,32 @@ static bool dcn20_validate_bandwidth_internal(struct dc *dc, struct dc_state *co
+>         return out;
+>  }
+>
+> -
+> -bool dcn20_validate_bandwidth(struct dc *dc, struct dc_state *context,
+> -               bool fast_validate)
+> +/*
+> + * This must be noinline to ensure anything that deals with FP registers
+> + * is contained within this call; previously our compiling with hard-float
+> + * would result in fp instructions being emitted outside of the boundaries
+> + * of the DC_FP_START/END macros, which makes sense as the compiler has no
+> + * idea about what is wrapped and what is not
+> + *
+> + * This is largely just a workaround to avoid breakage introduced with 5.6,
+> + * ideally all fp-using code should be moved into its own file, only that
+> + * should be compiled with hard-float, and all code exported from there
+> + * should be strictly wrapped with DC_FP_START/END
+> + */
+> +static noinline bool dcn20_validate_bandwidth_fp(struct dc *dc,
+> +               struct dc_state *context, bool fast_validate)
+>  {
+>         bool voltage_supported = false;
+>         bool full_pstate_supported = false;
+>         bool dummy_pstate_supported = false;
+>         double p_state_latency_us;
+>
+> -       DC_FP_START();
+>         p_state_latency_us = context->bw_ctx.dml.soc.dram_clock_change_latency_us;
+>         context->bw_ctx.dml.soc.disable_dram_clock_change_vactive_support =
+>                 dc->debug.disable_dram_clock_change_vactive_support;
+>
+>         if (fast_validate) {
+> -               voltage_supported = dcn20_validate_bandwidth_internal(dc, context, true);
+> -
+> -               DC_FP_END();
+> -               return voltage_supported;
+> +               return dcn20_validate_bandwidth_internal(dc, context, true);
+>         }
+>
+>         // Best case, we support full UCLK switch latency
+> @@ -3081,7 +3088,15 @@ bool dcn20_validate_bandwidth(struct dc *dc, struct dc_state *context,
+>
+>  restore_dml_state:
+>         context->bw_ctx.dml.soc.dram_clock_change_latency_us = p_state_latency_us;
+> +       return voltage_supported;
+> +}
+>
+> +bool dcn20_validate_bandwidth(struct dc *dc, struct dc_state *context,
+> +               bool fast_validate)
+> +{
+> +       bool voltage_supported = false;
+> +       DC_FP_START();
+> +       voltage_supported = dcn20_validate_bandwidth_fp(dc, context, fast_validate);
+>         DC_FP_END();
+>         return voltage_supported;
+>  }
+> --
+> 2.26.2
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
