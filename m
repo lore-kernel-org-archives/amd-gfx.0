@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C77DC4724C
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 18:37:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CE9EFC4724C
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 18:37:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7329A20787
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 18:37:44 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A9E5B20787
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Apr 2020 18:37:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hBPJRvlN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7329A20787
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MXytr0tj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A9E5B20787
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 369646E94E;
-	Thu, 30 Apr 2020 18:37:44 +0000 (UTC)
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 112796E94B
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 18:37:41 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id s63so6813092qke.4
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 11:37:41 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 685A66E94D;
+	Thu, 30 Apr 2020 18:37:46 +0000 (UTC)
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
+ [IPv6:2607:f8b0:4864:20::f43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69E356E94D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 18:37:42 +0000 (UTC)
+Received: by mail-qv1-xf43.google.com with SMTP id ck5so3512073qvb.11
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Apr 2020 11:37:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=TXla+xqjyc+z80y+A1GS3bvEJuC0PKkDk93s+orZbbQ=;
- b=hBPJRvlN/P23Zwn+lQIiuH9D90/BscAH+waB7AXuuqOJMUPdhgXnlMrKDzyQ1KyN35
- 31iQP2B7BCBT2lEY30KbVzZKkRrLu069y+kN8lG0VBmdhxPeEzkeYXRyj8akjy/OwYIR
- AdWziP8qIm67IxP++nCb4FCNwTmTl3IdCW46GDV50B/me9wItc8f3jxJ7l3H0mB/kk0f
- Sb7V/ZIiuPdEI5XfXkVRvpXkzfbTd4Gr957ES0OgkrVoyM2hhNhOhNN9J4ZWccubYuIe
- aqVGpE1PmIJnOoRDCK8witvWdRrJAIJZ8+n3CAxgXaKzDH82j7tFE0JRzaTuoD1hguib
- AhnQ==
+ bh=uKb2UnswuMTn9OfTuF6dTSlJyqH31GAhHYefuJVprM0=;
+ b=MXytr0tjzZ/buGbl9KlXbl/5L3TA1505MyNG6Dj4vu0sp5OAh/5uUG8j9TS6Nq3qpv
+ Ngu/au89oSFSy6X45SK/9QdxSC75PrXD/GOYdu7RMOhcrp8MavZEG95QIESxws4URISy
+ UAHxJzZrToxV3Dht1w0uXfba1jxE6D0SqcIsEuYwei2ZnqGw0s25CSFZZNNmfIYR2KuB
+ GZDLAKjDoGn9P9uzCAqg8X//GjESuk/2I0D1NzvwwqGMuH+kJZzOue8QIImYx87eDNFv
+ GNcVbmkdyBdBE6tzzvZUi/7XY0S2xc8CZRRHKiP11y/1Z+FFDaE+qNPbCxH/EbeX2TBL
+ ZC3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=TXla+xqjyc+z80y+A1GS3bvEJuC0PKkDk93s+orZbbQ=;
- b=IObvpunDqzXbGBcSA0j7ih8ZKineD/564S7XUyvFNIQEuYKOlRHe6GAOoQI9zRBBTW
- F7ebuDws7qdB6gmWUZ6Khlu4wIs6SlEPTZoBXnJjoWUi3+4Q2CRF49uj9tArvxZs51KG
- SRxLt1WUAvBj2xQkI/S+kTETLU1LVWcpKlB69WD/a16VaYqYS2F6BBsBfbgBC8/YYm8x
- zk0FlYXHmg/PKscPBSkQziqD04c2sW2ffbxnMKh669BKia3KdZGYSoKC+m0cfoK8rQR+
- ee8i9ERCrDmOdkyLTKmiDKlT34jqbmdn9BycNx8kv0nno8PAA3OPPjHrLzxtsQZ5X7ps
- zMww==
-X-Gm-Message-State: AGi0PuZVdvbHK9LgN1jH6cKqB5gZ1rQClDpJnvzoNffiBzhvdTvDgAP/
- TnKTQpnneNufC+5YUXroarITNRSc
-X-Google-Smtp-Source: APiQypIKbf0x0fdkmdiaBoquz0EkGJ+W/Ce5IbofxQNemLIUWR0wGOoZUDg/McSw+SKZ1Pzz7GM16g==
-X-Received: by 2002:a05:620a:1396:: with SMTP id
- k22mr4870519qki.424.1588271858442; 
- Thu, 30 Apr 2020 11:37:38 -0700 (PDT)
+ bh=uKb2UnswuMTn9OfTuF6dTSlJyqH31GAhHYefuJVprM0=;
+ b=XgICfEoYmaszjwz04q/d5BqQpem6Kxh0hYuEH1+i8CJEhOjo0PBRM+2M9fYAAy/xA4
+ AOzL7dWph72VGJWvqkq3FJLbOilVeAMKV6HG6Sgm3gSqCiyW8gtsozwZTJxt2Gnk9Mhe
+ 4+L6tSbKF7nux8mgoKpoRd0SVas8l/CCDt/5LFSU+yxGbMFbMDt3WNX6c3qXJF8BcdwF
+ YuG2xo7TlsMuBWEJF/DCvx6HQ1a3YHXitu3e9YP0/hROUQeYOBEOWp2TQIU+tXrLvgaq
+ uxZ8fTRA8gtfxChoC36mUgWRfimuyRaeAJTPQTXhJ3Bfx/sAzqZVzYGVbyafjmGzXRm9
+ VROQ==
+X-Gm-Message-State: AGi0PuZWA4lXObgU9iHLwgbPLFBDwRlSy76h420u3gACsU/MghLnyj7e
+ HJb1Pp18GcDlVJi6w+ozx/9RrshB
+X-Google-Smtp-Source: APiQypItT26bz2xXTWepwpybrKCi811/kLAgTxtDZGeFlZJ6/NM7cohKC5ERkhi2OogPrmDSZjUvEg==
+X-Received: by 2002:a0c:8ecf:: with SMTP id y15mr290375qvb.44.1588271860900;
+ Thu, 30 Apr 2020 11:37:40 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id c139sm693510qkg.8.2020.04.30.11.37.37
+ by smtp.gmail.com with ESMTPSA id c139sm693510qkg.8.2020.04.30.11.37.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Apr 2020 11:37:37 -0700 (PDT)
+ Thu, 30 Apr 2020 11:37:40 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 6/8] drm/amdgpu: Rename amdgpu_gfx_kcq_queue_mask_transform()
-Date: Thu, 30 Apr 2020 14:37:17 -0400
-Message-Id: <20200430183719.419549-6-alexander.deucher@amd.com>
+Subject: [PATCH 8/8] amd/amdgpu: Limit rlcg write registers only for nv12
+Date: Thu, 30 Apr 2020 14:37:19 -0400
+Message-Id: <20200430183719.419549-8-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200430183719.419549-1-alexander.deucher@amd.com>
 References: <20200430183719.419549-1-alexander.deucher@amd.com>
@@ -81,91 +80,90 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Yong Zhao <Yong.Zhao@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, shaoyunl <shaoyun.liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yong Zhao <Yong.Zhao@amd.com>
+From: shaoyunl <shaoyun.liu@amd.com>
 
-Rename it to amdgpu_queue_mask_bit_to_set_resource_bit() to be more
-specific about its functionality. KFD will use it later.
+Create gfx_v10_0_rlc_funcs_sriov for nv12 with rlcg_write function pointers be initialized
+so driver can use RLCG to write aceess CSIB and CP_ME_CNTL registers when nv12 in sriov mode
 
-Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
+Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 16 ++++++++--------
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  2 +-
- 2 files changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 32 ++++++++++++++++++++------
+ 1 file changed, 25 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-index ed212c070e8e..d612033a23ac 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-@@ -48,7 +48,7 @@ int amdgpu_gfx_mec_queue_to_bit(struct amdgpu_device *adev, int mec,
- 	return bit;
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 20258c5d335f..7ff7e516b72f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4577,11 +4577,13 @@ static int gfx_v10_0_init_csb(struct amdgpu_device *adev)
+ 	adev->gfx.rlc.funcs->get_csb_buffer(adev, adev->gfx.rlc.cs_ptr);
+ 
+ 	/* csib */
+-	WREG32_SOC15_RLC(GC, 0, mmRLC_CSIB_ADDR_HI,
+-		     adev->gfx.rlc.clear_state_gpu_addr >> 32);
+-	WREG32_SOC15_RLC(GC, 0, mmRLC_CSIB_ADDR_LO,
+-		     adev->gfx.rlc.clear_state_gpu_addr & 0xfffffffc);
+-	WREG32_SOC15_RLC(GC, 0, mmRLC_CSIB_LENGTH, adev->gfx.rlc.clear_state_size);
++	/* amdgpu_mm_wreg_mmio_rlc will fall back to mmio if doesn't support rlcg_write */
++	amdgpu_mm_wreg_mmio_rlc(adev, SOC15_REG_OFFSET(GC, 0, mmRLC_CSIB_ADDR_HI),
++				 adev->gfx.rlc.clear_state_gpu_addr >> 32, 0);
++	amdgpu_mm_wreg_mmio_rlc(adev, SOC15_REG_OFFSET(GC, 0, mmRLC_CSIB_ADDR_LO),
++				 adev->gfx.rlc.clear_state_gpu_addr & 0xfffffffc, 0);
++	amdgpu_mm_wreg_mmio_rlc(adev, SOC15_REG_OFFSET(GC, 0, mmRLC_CSIB_LENGTH),
++				 adev->gfx.rlc.clear_state_size, 0);
+ 
+ 	return 0;
  }
+@@ -5190,7 +5192,7 @@ static int gfx_v10_0_cp_gfx_enable(struct amdgpu_device *adev, bool enable)
+ 	tmp = REG_SET_FIELD(tmp, CP_ME_CNTL, ME_HALT, enable ? 0 : 1);
+ 	tmp = REG_SET_FIELD(tmp, CP_ME_CNTL, PFP_HALT, enable ? 0 : 1);
+ 	tmp = REG_SET_FIELD(tmp, CP_ME_CNTL, CE_HALT, enable ? 0 : 1);
+-	WREG32_SOC15_RLC(GC, 0, mmCP_ME_CNTL, tmp);
++	amdgpu_mm_wreg_mmio_rlc(adev, SOC15_REG_OFFSET(GC, 0, mmCP_ME_CNTL), tmp, 0);
  
--void amdgpu_gfx_bit_to_mec_queue(struct amdgpu_device *adev, int bit,
-+void amdgpu_queue_mask_bit_to_mec_queue(struct amdgpu_device *adev, int bit,
- 				 int *mec, int *pipe, int *queue)
- {
- 	*queue = bit % adev->gfx.mec.num_queue_per_pipe;
-@@ -274,7 +274,7 @@ static int amdgpu_gfx_kiq_acquire(struct amdgpu_device *adev,
- 		if (test_bit(queue_bit, adev->gfx.mec.queue_bitmap))
- 			continue;
- 
--		amdgpu_gfx_bit_to_mec_queue(adev, queue_bit, &mec, &pipe, &queue);
-+		amdgpu_queue_mask_bit_to_mec_queue(adev, queue_bit, &mec, &pipe, &queue);
- 
- 		/*
- 		 * 1. Using pipes 2/3 from MEC 2 seems cause problems.
-@@ -485,17 +485,17 @@ int amdgpu_gfx_disable_kcq(struct amdgpu_device *adev)
- 	return amdgpu_ring_test_helper(kiq_ring);
- }
- 
--int amdgpu_gfx_kcq_queue_mask_transform(struct amdgpu_device *adev,
-+int amdgpu_queue_mask_bit_to_set_resource_bit(struct amdgpu_device *adev,
- 					int queue_bit)
- {
- 	int mec, pipe, queue;
--	int queue_kcq_bit = 0;
-+	int set_resource_bit = 0;
- 
--	amdgpu_gfx_bit_to_mec_queue(adev, queue_bit, &mec, &pipe, &queue);
-+	amdgpu_queue_mask_bit_to_mec_queue(adev, queue_bit, &mec, &pipe, &queue);
- 
--	queue_kcq_bit = mec * 4 * 8 + pipe * 8 + queue;
-+	set_resource_bit = mec * 4 * 8 + pipe * 8 + queue;
- 
--	return queue_kcq_bit;
-+	return set_resource_bit;
- }
- 
- int amdgpu_gfx_enable_kcq(struct amdgpu_device *adev)
-@@ -520,7 +520,7 @@ int amdgpu_gfx_enable_kcq(struct amdgpu_device *adev)
- 			break;
- 		}
- 
--		queue_mask |= (1ull << amdgpu_gfx_kcq_queue_mask_transform(adev, i));
-+		queue_mask |= (1ull << amdgpu_queue_mask_bit_to_set_resource_bit(adev, i));
+ 	for (i = 0; i < adev->usec_timeout; i++) {
+ 		if (RREG32_SOC15(GC, 0, mmCP_STAT) == 0)
+@@ -7088,6 +7090,20 @@ static const struct amdgpu_rlc_funcs gfx_v10_0_rlc_funcs = {
+ 	.reset = gfx_v10_0_rlc_reset,
+ 	.start = gfx_v10_0_rlc_start,
+ 	.update_spm_vmid = gfx_v10_0_update_spm_vmid,
++};
++
++static const struct amdgpu_rlc_funcs gfx_v10_0_rlc_funcs_sriov = {
++	.is_rlc_enabled = gfx_v10_0_is_rlc_enabled,
++	.set_safe_mode = gfx_v10_0_set_safe_mode,
++	.unset_safe_mode = gfx_v10_0_unset_safe_mode,
++	.init = gfx_v10_0_rlc_init,
++	.get_csb_size = gfx_v10_0_get_csb_size,
++	.get_csb_buffer = gfx_v10_0_get_csb_buffer,
++	.resume = gfx_v10_0_rlc_resume,
++	.stop = gfx_v10_0_rlc_stop,
++	.reset = gfx_v10_0_rlc_reset,
++	.start = gfx_v10_0_rlc_start,
++	.update_spm_vmid = gfx_v10_0_update_spm_vmid,
+ 	.rlcg_wreg = gfx_v10_rlcg_wreg,
+ 	.is_rlcg_access_range = gfx_v10_0_is_rlcg_access_range,
+ };
+@@ -8211,9 +8227,11 @@ static void gfx_v10_0_set_rlc_funcs(struct amdgpu_device *adev)
+ 	switch (adev->asic_type) {
+ 	case CHIP_NAVI10:
+ 	case CHIP_NAVI14:
+-	case CHIP_NAVI12:
+ 		adev->gfx.rlc.funcs = &gfx_v10_0_rlc_funcs;
+ 		break;
++	case CHIP_NAVI12:
++		adev->gfx.rlc.funcs = &gfx_v10_0_rlc_funcs_sriov;
++		break;
+ 	default:
+ 		break;
  	}
- 
- 	DRM_INFO("kiq ring mec %d pipe %d q %d\n", kiq_ring->me, kiq_ring->pipe,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index ee698f0246d8..d43c11671a38 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -364,7 +364,7 @@ void amdgpu_gfx_graphics_queue_acquire(struct amdgpu_device *adev);
- 
- int amdgpu_gfx_mec_queue_to_bit(struct amdgpu_device *adev, int mec,
- 				int pipe, int queue);
--void amdgpu_gfx_bit_to_mec_queue(struct amdgpu_device *adev, int bit,
-+void amdgpu_queue_mask_bit_to_mec_queue(struct amdgpu_device *adev, int bit,
- 				 int *mec, int *pipe, int *queue);
- bool amdgpu_gfx_is_mec_queue_enabled(struct amdgpu_device *adev, int mec,
- 				     int pipe, int queue);
 -- 
 2.25.4
 
