@@ -2,37 +2,76 @@ Return-Path: <SRS0=mrdw=6P=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DD7D7C47253
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 May 2020 17:57:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6C29C47253
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 May 2020 18:10:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B8FE720731
-	for <amd-gfx@archiver.kernel.org>; Fri,  1 May 2020 17:57:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8FE720731
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7502A20787
+	for <amd-gfx@archiver.kernel.org>; Fri,  1 May 2020 18:10:02 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nSgHMSRG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7502A20787
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70BE76ED1D;
-	Fri,  1 May 2020 17:57:18 +0000 (UTC)
-X-Greylist: delayed 527 seconds by postgrey-1.36 at gabe;
- Fri, 01 May 2020 17:57:16 UTC
-Received: from smcg.amd.com (unknown [165.204.54.251])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9BE576ED1D
- for <amd-gfx@lists.freedesktop.org>; Fri,  1 May 2020 17:57:16 +0000 (UTC)
-Received: by smcg.amd.com (Postfix, from userid 0)
- id AA4404215A6; Fri,  1 May 2020 13:48:26 -0400 (EDT)
-From: Bokun Zhang <Bokun.Zhang@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] SWDEV-220451 - Query guest's information by VF2PF message -
- part 2
-Date: Fri,  1 May 2020 13:48:18 -0400
-Message-Id: <20200501174818.35669-1-Bokun.Zhang@amd.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 196076ED24;
+	Fri,  1 May 2020 18:10:02 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74D666ED24
+ for <amd-gfx@lists.freedesktop.org>; Fri,  1 May 2020 18:10:01 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id h9so2083213wrt.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 01 May 2020 11:10:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=iUw/aLhA0cfLA+aGR2EpzJX0oOt7kHKs9TDIam0p6Jo=;
+ b=nSgHMSRGaM8xUDq+3hRJoh0HVbmnHG77yd3eoSnrYrSuIe6t78t0Ec2DnjOdzU0TUa
+ Khvxay7JaeHbxfh2n90yDznZUVAA93U0OvbPhKigXn5f7+ts80MwiV4TSQ+M+ks/xZwX
+ SrL0NfTQzXKUJuTRa0x7PFHas8DoyWoJ9xOM1BLr4Ejm3hWHnrn8o2UN5MWfoYyvXOse
+ /66e/3ABOROrswfu+GrZhG7nkse5KtQngHWDdX6IYcjkV/Vqo4p1/bNmMjtbOBrd3VbS
+ jtgLuFNJf1t4rMjJpSypY+sT2CMLd0SCzQxGiEMS77F8aJB+OX2oxygMxDNsOdKlmjh6
+ q7Aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=iUw/aLhA0cfLA+aGR2EpzJX0oOt7kHKs9TDIam0p6Jo=;
+ b=YuB8LiVZq1gXIVKiFs3MEPQdlUTS6UGHuI4vbqxUOS6dRXartLIZXQCEvg2rO22Z/i
+ K/h2TS6uKOhOEX4hiOxP43vaouhOOW5tucPmh121sBtDDzLC5JfnYjZEukolaPfu8wv6
+ iVH2ioA90FSD1NBRAOAyI9scEIK45COXFC72H8c9/fdaUpyPVnPVBa4Oj434EJPfq5Yx
+ L3dXf7JZ2m1seFm3KQWGsB0p+VGBJOJAlXgMrP3njxIuiFwvu6jMGq+OYDFLJJGToQrk
+ efwbdcdiCCHnFnCPE+LHziRXgTeEU5Q3/KvqB+lv5h7VQPGZA2zolkJfYfpM6Mzygwl/
+ uMhw==
+X-Gm-Message-State: AGi0Puarkf1MdRUCviz728a4tQ5FCCn18Rez+ZiWu1e620TzlLlKFqoQ
+ xm2W7bJTEIyqL7hHtxSPgYk=
+X-Google-Smtp-Source: APiQypJtJB4ocK9fHF6pDyN2peu0wmp68PZjpBbcPAV+bmUMNrS39FFT2r834GgebStj6xm2/9TYxw==
+X-Received: by 2002:adf:82cf:: with SMTP id 73mr5217998wrc.411.1588356600146; 
+ Fri, 01 May 2020 11:10:00 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id f7sm5108573wrt.10.2020.05.01.11.09.59
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 01 May 2020 11:09:59 -0700 (PDT)
+Subject: Re: [PATCH] drm/amdgpu: fix emit frame counts for compute mem sync
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20200501163726.871246-1-alexander.deucher@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <fcf2ce14-1767-f97e-da91-580c6c9b3b43@gmail.com>
+Date: Fri, 1 May 2020 20:09:58 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+MIME-Version: 1.0
+In-Reply-To: <20200501163726.871246-1-alexander.deucher@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,645 +83,96 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Bokun Zhang <Bokun.Zhang@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Reply-To: christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-- Guest side change
-
-- Refactor and implement VF2PF information
-
-- Share checksum function between guest and host
-
-- Refactor code in amdgpu_virt.c since some of them are useless
-
-Change-Id: I881989d8fb6b6af88209badf4c4070c281f65b6a
-Signed-off-by: Bokun Zhang <Bokun.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 249 ++++++++++++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   | 232 ++++++++++++-------
- 3 files changed, 354 insertions(+), 131 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index a928fa9077c6..37f1d2669d51 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -3305,8 +3305,10 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
- 	/* make sure IB test finished before entering exclusive mode
- 	 * to avoid preemption on IB test
- 	 * */
--	if (amdgpu_sriov_vf(adev))
-+	if (amdgpu_sriov_vf(adev)) {
- 		amdgpu_virt_request_full_gpu(adev, false);
-+		amdgpu_virt_fini_data_exchange(adev);
-+	}
- 
- 	/* disable all interrupts */
- 	amdgpu_irq_disable_all(adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-index 8c10084f44ef..b83212b76277 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
-@@ -27,6 +27,12 @@
- 
- #include "amdgpu.h"
- 
-+#define POPULATE_UCODE_INFO(vf2pf_info, ucode, ver) \
-+	do { \
-+		vf2pf_info->ucode_info[ucode].id = ucode; \
-+		vf2pf_info->ucode_info[ucode].version = ver; \
-+	} while (0)
-+
- bool amdgpu_virt_mmio_blocked(struct amdgpu_device *adev)
- {
- 	/* By now all MMIO pages except mailbox are blocked */
-@@ -228,77 +234,212 @@ void amdgpu_virt_free_mm_table(struct amdgpu_device *adev)
- 	adev->virt.mm_table.gpu_addr = 0;
- }
- 
--
--int amdgpu_virt_fw_reserve_get_checksum(void *obj,
--					unsigned long obj_size,
--					unsigned int key,
--					unsigned int chksum)
-+/*
-+ * encode: obj.checksum = amd_sriov_msg_checksum(obj, size, key, 0)
-+ * decode:            0 = amd_sriov_msg_checksum(obj, size, key, obj.checksum)
-+ */
-+unsigned int amd_sriov_msg_checksum(void *obj,
-+				unsigned long obj_size,
-+				unsigned int key,
-+				unsigned int checksum)
- {
--	unsigned int ret = key;
-+	unsigned int ret = 0;
- 	unsigned long i = 0;
- 	unsigned char *pos;
- 
--	pos = (char *)obj;
--	/* calculate checksum */
-+	/* calculate checksum of obj*/
-+	pos = (unsigned char *)obj;
- 	for (i = 0; i < obj_size; ++i)
- 		ret += *(pos + i);
--	/* minus the chksum itself */
--	pos = (char *)&chksum;
--	for (i = 0; i < sizeof(chksum); ++i)
-+
-+	pos = (unsigned char *)&checksum;
-+	for (i = 0; i < sizeof(checksum); ++i)
- 		ret -= *(pos + i);
-+
-+	ret ^= key;
-+
-+	ret -= checksum;
-+
- 	return ret;
- }
- 
--void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
-+static int amdgpu_virt_read_pf2vf_data(struct amdgpu_device *adev)
-+{
-+	struct amd_sriov_msg_pf2vf_info_header *pf2vf_info = adev->virt.fw_reserve.p_pf2vf;
-+	uint32_t checksum;
-+
-+	if (adev->virt.fw_reserve.p_pf2vf == NULL)
-+		return -EINVAL;
-+
-+	if (pf2vf_info->size > 1024) {
-+		DRM_ERROR("invalid pf2vf message size\n");
-+		return -EINVAL;
-+	}
-+
-+	switch (pf2vf_info->version) {
-+	case 1:
-+		checksum = ((struct amdgim_pf2vf_info_v1 *)pf2vf_info)->checksum;
-+		checksum = amd_sriov_msg_checksum(
-+			adev->virt.fw_reserve.p_pf2vf, pf2vf_info->size,
-+			adev->virt.fw_reserve.checksum_key, checksum);
-+		if (checksum != 0) {
-+			DRM_ERROR("invalid pf2vf message\n");
-+			return -EINVAL;
-+		}
-+
-+		adev->virt.vf2pf_update_interval_ms = 0;
-+		adev->virt.gim_feature =
-+			((struct amdgim_pf2vf_info_v1 *)pf2vf_info)->feature_flags;
-+		break;
-+	case 2:
-+		checksum = pf2vf_info->checksum;
-+		checksum = amd_sriov_msg_checksum(
-+			adev->virt.fw_reserve.p_pf2vf, pf2vf_info->size,
-+			0, checksum);
-+		if (checksum != 0) {
-+			DRM_ERROR("invalid pf2vf message\n");
-+			return -EINVAL;
-+		}
-+
-+		adev->virt.vf2pf_update_interval_ms =
-+			((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->vf2pf_update_interval_ms;
-+		adev->virt.gim_feature =
-+			((struct amd_sriov_msg_pf2vf_info *)pf2vf_info)->feature_flags.all;
-+		break;
-+	default:
-+		DRM_ERROR("invalid pf2vf version\n");
-+		return -EINVAL;
-+	}
-+
-+	if (adev->virt.vf2pf_update_interval_ms < 200 || adev->virt.vf2pf_update_interval_ms > 10000)
-+		adev->virt.vf2pf_update_interval_ms = 2000;
-+
-+	return 0;
-+}
-+
-+static void amdgpu_virt_populate_vf2pf_ucode_info(struct amdgpu_device *adev)
-+{
-+	struct amd_sriov_msg_vf2pf_info *vf2pf_info;
-+	vf2pf_info = (struct amd_sriov_msg_vf2pf_info *) adev->virt.fw_reserve.p_vf2pf;
-+
-+	if (adev->virt.fw_reserve.p_vf2pf == NULL)
-+		return;
-+
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_VCE,      adev->vce.fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_UVD,      adev->uvd.fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_MC,       adev->gmc.fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_ME,       adev->gfx.me_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_PFP,      adev->gfx.pfp_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_CE,       adev->gfx.ce_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_RLC,      adev->gfx.rlc_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_RLC_SRLC, adev->gfx.rlc_srlc_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_RLC_SRLG, adev->gfx.rlc_srlg_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_RLC_SRLS, adev->gfx.rlc_srls_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_MEC,      adev->gfx.mec_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_MEC2,     adev->gfx.mec2_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_SOS,      adev->psp.sos_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_ASD,      adev->psp.asd_fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_TA_RAS,   adev->psp.ta_ras_ucode_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_TA_XGMI,  adev->psp.ta_xgmi_ucode_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_SMC,      adev->pm.fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_SDMA,     adev->sdma.instance[0].fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_SDMA2,    adev->sdma.instance[1].fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_VCN,      adev->vcn.fw_version);
-+	POPULATE_UCODE_INFO(vf2pf_info, AMD_SRIOV_UCODE_ID_DMCU,     adev->dm.dmcu_fw_version);
-+}
-+
-+static int amdgpu_virt_write_vf2pf_data(struct amdgpu_device *adev)
- {
--	uint32_t pf2vf_size = 0;
--	uint32_t checksum = 0;
--	uint32_t checkval;
--	char *str;
-+	struct amd_sriov_msg_vf2pf_info *vf2pf_info;
- 
-+	vf2pf_info = (struct amd_sriov_msg_vf2pf_info *) adev->virt.fw_reserve.p_vf2pf;
-+
-+	if (adev->virt.fw_reserve.p_vf2pf == NULL)
-+		return -EINVAL;
-+
-+	memset(vf2pf_info, 0, sizeof(struct amd_sriov_msg_vf2pf_info));
-+
-+	vf2pf_info->header.size = sizeof(struct amd_sriov_msg_vf2pf_info);
-+	vf2pf_info->header.version = AMDGPU_FW_VRAM_VF2PF_VER;
-+
-+#ifdef MODULE
-+	if (THIS_MODULE->version != NULL)
-+		strcpy(vf2pf_info->driver_version, THIS_MODULE->version);
-+	else
-+#endif
-+		strcpy(vf2pf_info->driver_version, "N/A");
-+
-+	vf2pf_info->pf2vf_version_required = 0; // no requirement
-+	vf2pf_info->driver_cert = 0;
-+	vf2pf_info->os_info.all = 0;
-+
-+	vf2pf_info->fb_usage = amdgpu_vram_mgr_usage(&adev->mman.bdev.man[TTM_PL_VRAM]) >> 20;
-+	vf2pf_info->fb_vis_usage = amdgpu_vram_mgr_vis_usage(&adev->mman.bdev.man[TTM_PL_VRAM]) >> 20;
-+	vf2pf_info->fb_size = adev->gmc.real_vram_size >> 20;
-+	vf2pf_info->fb_vis_size = adev->gmc.visible_vram_size >> 20;
-+
-+	amdgpu_virt_populate_vf2pf_ucode_info(adev);
-+
-+	/* TODO read dynamic info */
-+	vf2pf_info->gfx_usage = 0;
-+	vf2pf_info->gfx_health = 0;
-+	vf2pf_info->compute_usage = 0;
-+	vf2pf_info->compute_health = 0;
-+	vf2pf_info->avc_enc_usage = 0;
-+	vf2pf_info->avc_enc_health = 0;
-+	vf2pf_info->hevc_enc_usage = 0;
-+	vf2pf_info->hevc_enc_health = 0;
-+
-+	vf2pf_info->header.checksum =
-+		amd_sriov_msg_checksum(
-+		vf2pf_info, vf2pf_info->header.size, 0, 0);
-+
-+	return 0;
-+}
-+
-+void amdgpu_virt_update_vf2pf_work_item(struct work_struct *work)
-+{
-+	struct amdgpu_device *adev = container_of(work, struct amdgpu_device, virt.vf2pf_work.work);
-+
-+	amdgpu_virt_read_pf2vf_data(adev);
-+	amdgpu_virt_write_vf2pf_data(adev);
-+
-+	schedule_delayed_work(&(adev->virt.vf2pf_work), adev->virt.vf2pf_update_interval_ms);
-+}
-+
-+void amdgpu_virt_fini_data_exchange(struct amdgpu_device *adev)
-+{
-+	if (adev->virt.vf2pf_update_interval_ms != 0) {
-+		DRM_INFO("clean up the vf2pf work item\n");
-+		flush_delayed_work(&adev->virt.vf2pf_work);
-+		cancel_delayed_work_sync(&adev->virt.vf2pf_work);
-+	}
-+}
-+
-+void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)
-+{
- 	adev->virt.fw_reserve.p_pf2vf = NULL;
- 	adev->virt.fw_reserve.p_vf2pf = NULL;
-+	adev->virt.vf2pf_update_interval_ms = 0;
- 
- 	if (adev->fw_vram_usage.va != NULL) {
-+		/* default 2 second */
-+		adev->virt.vf2pf_update_interval_ms = 2000;
-+
- 		adev->virt.fw_reserve.p_pf2vf =
--			(struct amd_sriov_msg_pf2vf_info_header *)(
--			adev->fw_vram_usage.va + AMDGIM_DATAEXCHANGE_OFFSET);
--		AMDGPU_FW_VRAM_PF2VF_READ(adev, header.size, &pf2vf_size);
--		AMDGPU_FW_VRAM_PF2VF_READ(adev, checksum, &checksum);
--		AMDGPU_FW_VRAM_PF2VF_READ(adev, feature_flags, &adev->virt.gim_feature);
--
--		/* pf2vf message must be in 4K */
--		if (pf2vf_size > 0 && pf2vf_size < 4096) {
--			checkval = amdgpu_virt_fw_reserve_get_checksum(
--				adev->virt.fw_reserve.p_pf2vf, pf2vf_size,
--				adev->virt.fw_reserve.checksum_key, checksum);
--			if (checkval == checksum) {
--				adev->virt.fw_reserve.p_vf2pf =
--					((void *)adev->virt.fw_reserve.p_pf2vf +
--					pf2vf_size);
--				memset((void *)adev->virt.fw_reserve.p_vf2pf, 0,
--					sizeof(amdgim_vf2pf_info));
--				AMDGPU_FW_VRAM_VF2PF_WRITE(adev, header.version,
--					AMDGPU_FW_VRAM_VF2PF_VER);
--				AMDGPU_FW_VRAM_VF2PF_WRITE(adev, header.size,
--					sizeof(amdgim_vf2pf_info));
--				AMDGPU_FW_VRAM_VF2PF_READ(adev, driver_version,
--					&str);
--#ifdef MODULE
--				if (THIS_MODULE->version != NULL)
--					strcpy(str, THIS_MODULE->version);
--				else
--#endif
--					strcpy(str, "N/A");
--				AMDGPU_FW_VRAM_VF2PF_WRITE(adev, driver_cert,
--					0);
--				AMDGPU_FW_VRAM_VF2PF_WRITE(adev, checksum,
--					amdgpu_virt_fw_reserve_get_checksum(
--					adev->virt.fw_reserve.p_vf2pf,
--					pf2vf_size,
--					adev->virt.fw_reserve.checksum_key, 0));
--			}
--		}
-+			(struct amd_sriov_msg_pf2vf_info_header *)
-+			(adev->fw_vram_usage.va + AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET);
-+		adev->virt.fw_reserve.p_vf2pf =
-+			(struct amd_sriov_msg_vf2pf_info_header *)
-+			((void *)adev->virt.fw_reserve.p_pf2vf + AMD_SRIOV_MSG_SIZE);
-+
-+		amdgpu_virt_read_pf2vf_data(adev);
-+		amdgpu_virt_write_vf2pf_data(adev);
-+	}
-+
-+	if (adev->virt.vf2pf_update_interval_ms != 0) {
-+		INIT_DELAYED_WORK(&adev->virt.vf2pf_work, amdgpu_virt_update_vf2pf_work_item);
-+		schedule_delayed_work(&(adev->virt.vf2pf_work), adev->virt.vf2pf_update_interval_ms);
- 	}
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-index de27308802c9..4f2f5481d7a9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
-@@ -35,6 +35,31 @@
- /* tonga/fiji use this offset */
- #define mmBIF_IOV_FUNC_IDENTIFIER 0x1503
- 
-+enum amd_sriov_ucode_engine_id {
-+	AMD_SRIOV_UCODE_ID_VCE = 0,
-+	AMD_SRIOV_UCODE_ID_UVD,
-+	AMD_SRIOV_UCODE_ID_MC,
-+	AMD_SRIOV_UCODE_ID_ME,
-+	AMD_SRIOV_UCODE_ID_PFP,
-+	AMD_SRIOV_UCODE_ID_CE,
-+	AMD_SRIOV_UCODE_ID_RLC,
-+	AMD_SRIOV_UCODE_ID_RLC_SRLC,
-+	AMD_SRIOV_UCODE_ID_RLC_SRLG,
-+	AMD_SRIOV_UCODE_ID_RLC_SRLS,
-+	AMD_SRIOV_UCODE_ID_MEC,
-+	AMD_SRIOV_UCODE_ID_MEC2,
-+	AMD_SRIOV_UCODE_ID_SOS,
-+	AMD_SRIOV_UCODE_ID_ASD,
-+	AMD_SRIOV_UCODE_ID_TA_RAS,
-+	AMD_SRIOV_UCODE_ID_TA_XGMI,
-+	AMD_SRIOV_UCODE_ID_SMC,
-+	AMD_SRIOV_UCODE_ID_SDMA,
-+	AMD_SRIOV_UCODE_ID_SDMA2,
-+	AMD_SRIOV_UCODE_ID_VCN,
-+	AMD_SRIOV_UCODE_ID_DMCU,
-+	AMD_SRIOV_UCODE_ID__MAX
-+};
-+
- struct amdgpu_mm_table {
- 	struct amdgpu_bo	*bo;
- 	uint32_t		*cpu_addr;
-@@ -73,11 +98,13 @@ struct amdgpu_virt_fw_reserve {
- 	struct amd_sriov_msg_vf2pf_info_header *p_vf2pf;
- 	unsigned int checksum_key;
- };
-+
- /*
-  * Defination between PF and VF
-  * Structures forcibly aligned to 4 to keep the same style as PF.
-  */
--#define AMDGIM_DATAEXCHANGE_OFFSET		(64 * 1024)
-+#define AMD_SRIOV_MSG_DATAEXCHANGE_OFFSET		(64 * 1024)
-+#define AMD_SRIOV_MSG_SIZE				(1024)
- 
- #define AMDGIM_GET_STRUCTURE_RESERVED_SIZE(total, u8, u16, u32, u64) \
- 		(total - (((u8)+3) / 4 + ((u16)+1) / 2 + (u32) + (u64)*2))
-@@ -95,14 +122,118 @@ enum AMDGIM_FEATURE_FLAG {
- 	AMDGIM_FEATURE_PP_ONE_VF = (1 << 4),
- };
- 
-+#pragma pack(push, 1)
-+union amd_sriov_msg_feature_flags
-+{
-+	struct {
-+		uint32_t  error_log_collect  : 1;
-+		uint32_t  host_load_ucodes   : 1;
-+		uint32_t  host_flr_vramlost  : 1;
-+		uint32_t  mm_bw_management   : 1;
-+		uint32_t  pp_one_vf_mode     : 1;
-+		uint32_t  reserved           : 27;
-+	} flags;
-+	uint32_t      all;
-+};
-+
-+union amd_sriov_msg_os_info
-+{
-+	struct {
-+		uint32_t  windows            : 1;
-+		uint32_t  reserved           : 31;
-+	} info;
-+	uint32_t      all;
-+};
-+
-+/* PF to VF message header */
- struct amd_sriov_msg_pf2vf_info_header {
- 	/* the total structure size in byte. */
- 	uint32_t size;
- 	/* version of this structure, written by the GIM */
- 	uint32_t version;
-+	/* 32 bit checksum */
-+	uint32_t checksum;
- 	/* reserved */
--	uint32_t reserved[2];
--} __aligned(4);
-+	uint32_t reserved[1];
-+};
-+
-+/* PF to VF message struct, libgv */
-+struct  amd_sriov_msg_pf2vf_info {
-+	/* header contains size and version */
-+	struct amd_sriov_msg_pf2vf_info_header header;
-+	/* frequency for VF to update the VF2PF area in msec, 0 = manual */
-+	uint32_t vf2pf_update_interval_ms;
-+	/* The features flags of the HOST driver supports */
-+	union amd_sriov_msg_feature_flags feature_flags;
-+	/* (max_width * max_height * fps) / (16 * 16) */
-+	uint32_t hevc_enc_max_mb_per_second;
-+	/* (max_width * max_height) / (16 * 16) */
-+	uint32_t hevc_enc_max_mb_per_frame;
-+	/* (max_width * max_height * fps) / (16 * 16) */
-+	uint32_t avc_enc_max_mb_per_second;
-+	/* (max_width * max_height) / (16 * 16) */
-+	uint32_t avc_enc_max_mb_per_frame;
-+	/* reserved */
-+	uint32_t reserved[256-10];
-+};
-+
-+/* VF to PF message header */
-+struct amd_sriov_msg_vf2pf_info_header {
-+	/* the total structure size in byte. */
-+	uint32_t size;
-+	/* version of this structure, written by the GIM */
-+	uint32_t version;
-+	/* 32 bit checksum */
-+	uint32_t checksum;
-+	/* reserved */
-+	uint32_t reserved[1];
-+};
-+
-+/* VF to PF message struct, libgv */
-+struct amd_sriov_msg_vf2pf_info {
-+	/* header contains size and version */
-+	struct amd_sriov_msg_vf2pf_info_header header;
-+	/* Version of PF2VF that VF understands */
-+	uint32_t pf2vf_version_required;
-+	/* driver version */
-+	uint8_t  driver_version[64];
-+	/* driver certification, 1=WHQL, 0=None */
-+	uint32_t driver_cert;
-+	/* guest OS type and version */
-+	union amd_sriov_msg_os_info os_info;
-+	/* guest fb information in the unit of MB */
-+	uint32_t fb_size;
-+	uint32_t fb_vis_size;
-+	uint32_t fb_usage;
-+	uint32_t fb_vis_usage;
-+	/* guest gfx engine usage percentage */
-+	uint32_t gfx_usage;
-+	/* guest gfx engine health percentage */
-+	uint32_t gfx_health;
-+	/* guest compute engine usage percentage */
-+	uint32_t compute_usage;
-+	/* guest compute engine health percentage */
-+	uint32_t compute_health;
-+	/* guest avc engine usage percentage. 0xffff means N/A */
-+	uint32_t avc_enc_usage;
-+	/* guest avc engine health percentage. 0xffff means N/A */
-+	uint32_t avc_enc_health;
-+	/* guest hevc engine usage percentage. 0xffff means N/A */
-+	uint32_t hevc_enc_usage;
-+	/* guest hevc engine usage percentage. 0xffff means N/A */
-+	uint32_t hevc_enc_health;
-+	/* guest ucode data */
-+	struct {
-+		uint8_t  id;
-+		uint32_t version;
-+	} ucode_info[40];
-+
-+	/* reserved */
-+	uint32_t reserved[256-85];
-+};
-+#pragma pack(pop)
-+
-+/* PF to VF message struct, amdgim */
- struct  amdgim_pf2vf_info_v1 {
- 	/* header contains size and version */
- 	struct amd_sriov_msg_pf2vf_info_header header;
-@@ -122,46 +253,7 @@ struct  amdgim_pf2vf_info_v1 {
- 	unsigned int checksum;
- } __aligned(4);
- 
--struct  amdgim_pf2vf_info_v2 {
--	/* header contains size and version */
--	struct amd_sriov_msg_pf2vf_info_header header;
--	/* use private key from mailbox 2 to create chueksum */
--	uint32_t checksum;
--	/* The features flags of the GIM driver supports. */
--	uint32_t feature_flags;
--	/* max_width * max_height */
--	uint32_t uvd_enc_max_pixels_count;
--	/* 16x16 pixels/sec, codec independent */
--	uint32_t uvd_enc_max_bandwidth;
--	/* max_width * max_height */
--	uint32_t vce_enc_max_pixels_count;
--	/* 16x16 pixels/sec, codec independent */
--	uint32_t vce_enc_max_bandwidth;
--	/* MEC FW position in kb from the start of VF visible frame buffer */
--	uint64_t mecfw_kboffset;
--	/* MEC FW size in KB */
--	uint32_t mecfw_ksize;
--	/* UVD FW position in kb from the start of VF visible frame buffer */
--	uint64_t uvdfw_kboffset;
--	/* UVD FW size in KB */
--	uint32_t uvdfw_ksize;
--	/* VCE FW position in kb from the start of VF visible frame buffer */
--	uint64_t vcefw_kboffset;
--	/* VCE FW size in KB */
--	uint32_t vcefw_ksize;
--	uint32_t reserved[AMDGIM_GET_STRUCTURE_RESERVED_SIZE(256, 0, 0, (9 + sizeof(struct amd_sriov_msg_pf2vf_info_header)/sizeof(uint32_t)), 3)];
--} __aligned(4);
--
--
--struct amd_sriov_msg_vf2pf_info_header {
--	/* the total structure size in byte. */
--	uint32_t size;
--	/*version of this structure, written by the guest */
--	uint32_t version;
--	/* reserved */
--	uint32_t reserved[2];
--} __aligned(4);
--
-+/* VF to PF message struct, amdgim */
- struct amdgim_vf2pf_info_v1 {
- 	/* header contains size and version */
- 	struct amd_sriov_msg_vf2pf_info_header header;
-@@ -192,6 +284,7 @@ struct amdgim_vf2pf_info_v1 {
- 	unsigned int checksum;
- } __aligned(4);
- 
-+/* VF to PF message struct, amdgim */
- struct amdgim_vf2pf_info_v2 {
- 	/* header contains size and version */
- 	struct amd_sriov_msg_vf2pf_info_header header;
-@@ -223,49 +316,30 @@ struct amdgim_vf2pf_info_v2 {
- 	uint32_t reserved[AMDGIM_GET_STRUCTURE_RESERVED_SIZE(256, 64, 0, (12 + sizeof(struct amd_sriov_msg_vf2pf_info_header)/sizeof(uint32_t)), 0)];
- } __aligned(4);
- 
--#define AMDGPU_FW_VRAM_VF2PF_VER 2
--typedef struct amdgim_vf2pf_info_v2 amdgim_vf2pf_info ;
--
--#define AMDGPU_FW_VRAM_VF2PF_WRITE(adev, field, val) \
--	do { \
--		((amdgim_vf2pf_info *)adev->virt.fw_reserve.p_vf2pf)->field = (val); \
--	} while (0)
--
--#define AMDGPU_FW_VRAM_VF2PF_READ(adev, field, val) \
--	do { \
--		(*val) = ((amdgim_vf2pf_info *)adev->virt.fw_reserve.p_vf2pf)->field; \
--	} while (0)
--
--#define AMDGPU_FW_VRAM_PF2VF_READ(adev, field, val) \
--	do { \
--		if (!adev->virt.fw_reserve.p_pf2vf) \
--			*(val) = 0; \
--		else { \
--			if (adev->virt.fw_reserve.p_pf2vf->version == 1) \
--				*(val) = ((struct amdgim_pf2vf_info_v1 *)adev->virt.fw_reserve.p_pf2vf)->field; \
--			if (adev->virt.fw_reserve.p_pf2vf->version == 2) \
--				*(val) = ((struct amdgim_pf2vf_info_v2 *)adev->virt.fw_reserve.p_pf2vf)->field; \
--		} \
--	} while (0)
-+#define AMDGPU_FW_VRAM_VF2PF_VER 3
- 
- /* GPU virtualization */
- struct amdgpu_virt {
- 	uint32_t			caps;
- 	struct amdgpu_bo		*csa_obj;
- 	void				*csa_cpu_addr;
--	bool chained_ib_support;
-+	bool				chained_ib_support;
- 	uint32_t			reg_val_offs;
- 	struct amdgpu_irq_src		ack_irq;
- 	struct amdgpu_irq_src		rcv_irq;
- 	struct work_struct		flr_work;
- 	struct amdgpu_mm_table		mm_table;
- 	const struct amdgpu_virt_ops	*ops;
--	struct amdgpu_vf_error_buffer   vf_errors;
-+	struct amdgpu_vf_error_buffer	vf_errors;
- 	struct amdgpu_virt_fw_reserve	fw_reserve;
--	uint32_t gim_feature;
--	uint32_t reg_access_mode;
--	int req_init_data_ver;
--	bool tdr_debug;
-+	uint32_t			gim_feature;
-+	uint32_t			reg_access_mode;
-+	int				req_init_data_ver;
-+	bool				tdr_debug;
-+
-+	/* vf2pf message */
-+	struct delayed_work 		vf2pf_work;
-+	uint32_t			vf2pf_update_interval_ms;
- };
- 
- #define amdgpu_sriov_enabled(adev) \
-@@ -314,13 +388,19 @@ void amdgpu_virt_request_init_data(struct amdgpu_device *adev);
- int amdgpu_virt_wait_reset(struct amdgpu_device *adev);
- int amdgpu_virt_alloc_mm_table(struct amdgpu_device *adev);
- void amdgpu_virt_free_mm_table(struct amdgpu_device *adev);
--int amdgpu_virt_fw_reserve_get_checksum(void *obj, unsigned long obj_size,
--					unsigned int key,
--					unsigned int chksum);
- void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev);
-+void amdgpu_virt_fini_data_exchange(struct amdgpu_device *adev);
-+
- void amdgpu_detect_virtualization(struct amdgpu_device *adev);
- 
- bool amdgpu_virt_can_access_debugfs(struct amdgpu_device *adev);
- int amdgpu_virt_enable_access_debugfs(struct amdgpu_device *adev);
- void amdgpu_virt_disable_access_debugfs(struct amdgpu_device *adev);
-+
-+/* checksum function between host and guest */
-+unsigned int amd_sriov_msg_checksum(void *obj,
-+				unsigned long obj_size,
-+				unsigned int key,
-+				unsigned int checksum);
-+
- #endif
--- 
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMDEuMDUuMjAgdW0gMTg6Mzcgc2NocmllYiBBbGV4IERldWNoZXI6Cj4gVGhlIGZyYW1lIGVt
+aXQgY291bnRzIHdlcmUgbm90IHVwZGF0ZWQuCj4KPiBGaXhlczogMGRkM2JhYWZiNjJjMzggKCJk
+cm0vYW1kZ3B1OiBhcHBseSBBTURHUFVfSUJfRkxBR19FTUlUX01FTV9TWU5DIHRvIGNvbXB1dGUg
+SUJzIHRvbyIpCj4gU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hl
+ckBhbWQuY29tPgoKUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2Vu
+aWdAYW1kLmNvbT4KCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjEw
+XzAuYyB8IDMgKystCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZfMC5jICB8
+IDMgKystCj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jICB8IDMgKyst
+Cj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jICB8IDMgKystCj4gICBk
+cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jICB8IDMgKystCj4gICA1IGZpbGVz
+IGNoYW5nZWQsIDEwIGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0tZ2l0
+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9nZnhfdjEwXzAuYwo+IGluZGV4IDdmZjdlNTE2YjcyZi4uZGRiNDg1ZTFl
+OTYzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92MTBfMC5j
+Cj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3YxMF8wLmMKPiBAQCAtODEy
+NSw3ICs4MTI1LDggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmluZ19mdW5jcyBnZnhf
+djEwXzBfcmluZ19mdW5jc19jb21wdXRlID0gewo+ICAgCQlTT0MxNV9GTFVTSF9HUFVfVExCX05V
+TV9XUkVHICogNSArCj4gICAJCVNPQzE1X0ZMVVNIX0dQVV9UTEJfTlVNX1JFR19XQUlUICogNyAr
+Cj4gICAJCTIgKyAvKiBnZnhfdjEwXzBfcmluZ19lbWl0X3ZtX2ZsdXNoICovCj4gLQkJOCArIDgg
+KyA4LCAvKiBnZnhfdjEwXzBfcmluZ19lbWl0X2ZlbmNlIHgzIGZvciB1c2VyIGZlbmNlLCB2bSBm
+ZW5jZSAqLwo+ICsJCTggKyA4ICsgOCArIC8qIGdmeF92MTBfMF9yaW5nX2VtaXRfZmVuY2UgeDMg
+Zm9yIHVzZXIgZmVuY2UsIHZtIGZlbmNlICovCj4gKwkJOCwgLyogZ2Z4X3YxMF8wX2VtaXRfbWVt
+X3N5bmMgKi8KPiAgIAkuZW1pdF9pYl9zaXplID0JNywgLyogZ2Z4X3YxMF8wX3JpbmdfZW1pdF9p
+Yl9jb21wdXRlICovCj4gICAJLmVtaXRfaWIgPSBnZnhfdjEwXzBfcmluZ19lbWl0X2liX2NvbXB1
+dGUsCj4gICAJLmVtaXRfZmVuY2UgPSBnZnhfdjEwXzBfcmluZ19lbWl0X2ZlbmNlLAo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZfMC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y2XzAuYwo+IGluZGV4IDA1ZTk0Mzc5YzdiMy4uNzljNTJj
+N2EwMmUzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92Nl8w
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjZfMC5jCj4gQEAgLTM1
+MzMsNyArMzUzMyw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X3JpbmdfZnVuY3MgZ2Z4
+X3Y2XzBfcmluZ19mdW5jc19jb21wdXRlID0gewo+ICAgCQk1ICsgNSArIC8qIGhkcCBmbHVzaCAv
+IGludmFsaWRhdGUgKi8KPiAgIAkJNyArIC8qIGdmeF92Nl8wX3JpbmdfZW1pdF9waXBlbGluZV9z
+eW5jICovCj4gICAJCVNJX0ZMVVNIX0dQVV9UTEJfTlVNX1dSRUcgKiA1ICsgNyArIC8qIGdmeF92
+Nl8wX3JpbmdfZW1pdF92bV9mbHVzaCAqLwo+IC0JCTE0ICsgMTQgKyAxNCwgLyogZ2Z4X3Y2XzBf
+cmluZ19lbWl0X2ZlbmNlIHgzIGZvciB1c2VyIGZlbmNlLCB2bSBmZW5jZSAqLwo+ICsJCTE0ICsg
+MTQgKyAxNCArIC8qIGdmeF92Nl8wX3JpbmdfZW1pdF9mZW5jZSB4MyBmb3IgdXNlciBmZW5jZSwg
+dm0gZmVuY2UgKi8KPiArCQk1LCAvKiBTVVJGQUNFX1NZTkMgKi8KPiAgIAkuZW1pdF9pYl9zaXpl
+ID0gNiwgLyogZ2Z4X3Y2XzBfcmluZ19lbWl0X2liICovCj4gICAJLmVtaXRfaWIgPSBnZnhfdjZf
+MF9yaW5nX2VtaXRfaWIsCj4gICAJLmVtaXRfZmVuY2UgPSBnZnhfdjZfMF9yaW5nX2VtaXRfZmVu
+Y2UsCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jCj4gaW5kZXggNWQ5MjI2Yjg3
+MWZhLi4wY2MwMTFmOTE5MGQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvZ2Z4X3Y3XzAuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18w
+LmMKPiBAQCAtNTA4OSw3ICs1MDg5LDggQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBhbWRncHVfcmlu
+Z19mdW5jcyBnZnhfdjdfMF9yaW5nX2Z1bmNzX2NvbXB1dGUgPSB7Cj4gICAJCTUgKyAvKiBoZHAg
+aW52YWxpZGF0ZSAqLwo+ICAgCQk3ICsgLyogZ2Z4X3Y3XzBfcmluZ19lbWl0X3BpcGVsaW5lX3N5
+bmMgKi8KPiAgIAkJQ0lLX0ZMVVNIX0dQVV9UTEJfTlVNX1dSRUcgKiA1ICsgNyArIC8qIGdmeF92
+N18wX3JpbmdfZW1pdF92bV9mbHVzaCAqLwo+IC0JCTcgKyA3ICsgNywgLyogZ2Z4X3Y3XzBfcmlu
+Z19lbWl0X2ZlbmNlX2NvbXB1dGUgeDMgZm9yIHVzZXIgZmVuY2UsIHZtIGZlbmNlICovCj4gKwkJ
+NyArIDcgKyA3ICsgLyogZ2Z4X3Y3XzBfcmluZ19lbWl0X2ZlbmNlX2NvbXB1dGUgeDMgZm9yIHVz
+ZXIgZmVuY2UsIHZtIGZlbmNlICovCj4gKwkJNywgLyogZ2Z4X3Y3XzBfZW1pdF9tZW1fc3luY19j
+b21wdXRlICovCj4gICAJLmVtaXRfaWJfc2l6ZSA9CTcsIC8qIGdmeF92N18wX3JpbmdfZW1pdF9p
+Yl9jb21wdXRlICovCj4gICAJLmVtaXRfaWIgPSBnZnhfdjdfMF9yaW5nX2VtaXRfaWJfY29tcHV0
+ZSwKPiAgIAkuZW1pdF9mZW5jZSA9IGdmeF92N18wX3JpbmdfZW1pdF9mZW5jZV9jb21wdXRlLAo+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y4XzAuYwo+IGluZGV4IDE0NzkwZjgwYThhOS4u
+MWQ0MTI4MjI3ZmZkIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dm
+eF92OF8wLmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjhfMC5jCj4g
+QEAgLTY5MjcsNyArNjkyNyw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X3JpbmdfZnVu
+Y3MgZ2Z4X3Y4XzBfcmluZ19mdW5jc19jb21wdXRlID0gewo+ICAgCQk1ICsgLyogaGRwX2ludmFs
+aWRhdGUgKi8KPiAgIAkJNyArIC8qIGdmeF92OF8wX3JpbmdfZW1pdF9waXBlbGluZV9zeW5jICov
+Cj4gICAJCVZJX0ZMVVNIX0dQVV9UTEJfTlVNX1dSRUcgKiA1ICsgNyArIC8qIGdmeF92OF8wX3Jp
+bmdfZW1pdF92bV9mbHVzaCAqLwo+IC0JCTcgKyA3ICsgNywgLyogZ2Z4X3Y4XzBfcmluZ19lbWl0
+X2ZlbmNlX2NvbXB1dGUgeDMgZm9yIHVzZXIgZmVuY2UsIHZtIGZlbmNlICovCj4gKwkJNyArIDcg
+KyA3ICsgLyogZ2Z4X3Y4XzBfcmluZ19lbWl0X2ZlbmNlX2NvbXB1dGUgeDMgZm9yIHVzZXIgZmVu
+Y2UsIHZtIGZlbmNlICovCj4gKwkJNywgLyogZ2Z4X3Y4XzBfZW1pdF9tZW1fc3luY19jb21wdXRl
+ICovCj4gICAJLmVtaXRfaWJfc2l6ZSA9CTcsIC8qIGdmeF92OF8wX3JpbmdfZW1pdF9pYl9jb21w
+dXRlICovCj4gICAJLmVtaXRfaWIgPSBnZnhfdjhfMF9yaW5nX2VtaXRfaWJfY29tcHV0ZSwKPiAg
+IAkuZW1pdF9mZW5jZSA9IGdmeF92OF8wX3JpbmdfZW1pdF9mZW5jZV9jb21wdXRlLAo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYwo+IGluZGV4IGE0ZTk1ZTAzZDk3Yy4uYjk4ZDkx
+OTM2YjRjIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8w
+LmMKPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jCj4gQEAgLTY3
+NDUsNyArNjc0NSw4IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgYW1kZ3B1X3JpbmdfZnVuY3MgZ2Z4
+X3Y5XzBfcmluZ19mdW5jc19jb21wdXRlID0gewo+ICAgCQlTT0MxNV9GTFVTSF9HUFVfVExCX05V
+TV9XUkVHICogNSArCj4gICAJCVNPQzE1X0ZMVVNIX0dQVV9UTEJfTlVNX1JFR19XQUlUICogNyAr
+Cj4gICAJCTIgKyAvKiBnZnhfdjlfMF9yaW5nX2VtaXRfdm1fZmx1c2ggKi8KPiAtCQk4ICsgOCAr
+IDgsIC8qIGdmeF92OV8wX3JpbmdfZW1pdF9mZW5jZSB4MyBmb3IgdXNlciBmZW5jZSwgdm0gZmVu
+Y2UgKi8KPiArCQk4ICsgOCArIDggKyAvKiBnZnhfdjlfMF9yaW5nX2VtaXRfZmVuY2UgeDMgZm9y
+IHVzZXIgZmVuY2UsIHZtIGZlbmNlICovCj4gKwkJNywgLyogZ2Z4X3Y5XzBfZW1pdF9tZW1fc3lu
+YyAqLwo+ICAgCS5lbWl0X2liX3NpemUgPQk3LCAvKiBnZnhfdjlfMF9yaW5nX2VtaXRfaWJfY29t
+cHV0ZSAqLwo+ICAgCS5lbWl0X2liID0gZ2Z4X3Y5XzBfcmluZ19lbWl0X2liX2NvbXB1dGUsCj4g
+ICAJLmVtaXRfZmVuY2UgPSBnZnhfdjlfMF9yaW5nX2VtaXRfZmVuY2UsCgpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
+bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
+Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
