@@ -2,74 +2,75 @@ Return-Path: <SRS0=8txe=6Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 176A9C47247
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 May 2020 08:35:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EBA91C3A5A9
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 May 2020 08:35:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E26B521582
+	by mail.kernel.org (Postfix) with ESMTPS id BE38B208DB
 	for <amd-gfx@archiver.kernel.org>; Sat,  2 May 2020 08:35:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RxJsTXbu"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E26B521582
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="jJbUjZIF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE38B208DB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B2016EDA3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AA5B6ED99;
 	Sat,  2 May 2020 08:35:45 +0000 (UTC)
-Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
- [IPv6:2607:f8b0:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E261E6ED79;
- Sat,  2 May 2020 03:11:50 +0000 (UTC)
-Received: by mail-ot1-x344.google.com with SMTP id j26so4194702ots.0;
- Fri, 01 May 2020 20:11:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=TRgN7dqYpnfJ32iv0mEp+A1meuKHRpjuIr6fo6bZQDI=;
- b=RxJsTXbup9QlEvWS3tzliDOKUX4V8Ve9nGRFJT1tPzsN41ZaP28hHRRjaQmVMXYH4X
- jxts4KMj4xPuN0zLE+MUuwbxdM6n4rfUiJea6QlzNwcT5eJJQJclqPnYZbAM/QvpGcsR
- GxXMEB+FoAwX7zEcUWqYGmcYoGW10XFa9/FwFp7y9pF7D/Q5qN362YPRXDPgtyLgisqZ
- kzGuKyegQx5QjgazWys8w7f6+/aSLhn5Bp01HY+CiRPNiKZ2vp6+JaBOyJ3OVjRY39PW
- SGq2AzacvGQsBFLshM9JVauz2hcankfK0kJmBIJcB6CgNRNYP6pEqmmtpSr/XZ+jvudK
- Cv+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=TRgN7dqYpnfJ32iv0mEp+A1meuKHRpjuIr6fo6bZQDI=;
- b=T2N29MbIcu0DbktImyCP0uBucgdIpkBUWRb8txhfsq1EMRLTQcOMKAS0gOSwK1yVHK
- YNNVSzCD++b8M8BAWEjYCBTyN0NoCdLqx4wKvBexK+wRq25ql4aNNw9GIiymM8oHQCAJ
- xZcJfsNwKLaek0lq/4r4uPo4IU0rufUEQKomcs2DQ65Vy2qD7bM0TWPpMToxAxk6R4Px
- a6pJ0hZGvT/ccEI5C4uQipnt5yIxmfxLomdb0E0NFXQJTxn2Ik5wHVdPgUqRMeJSXoBC
- 1JkGGWDFO1bTReFLG5M5MBtrkqa7gTCuYUjrqGEiBBMjV4Wrr0T0LzC8cjpJQDjUXgV+
- qBiQ==
-X-Gm-Message-State: AGi0PuYUF43GC3lVtamNVeRSqKsB6ibDTI7XKyP6U5KdGUiZ/lzSENeG
- FfUdSVOgwZDi50teodnyMcI=
-X-Google-Smtp-Source: APiQypKZcYdkpeLuzk63sx5uVK3c25pfnOfguhe3seCLZhWjtHD4C6Zuh/aw67LW6ih2Vhcg2sVuWw==
-X-Received: by 2002:a9d:57cb:: with SMTP id q11mr6060158oti.11.1588389110029; 
- Fri, 01 May 2020 20:11:50 -0700 (PDT)
-Received: from localhost.localdomain ([2604:1380:4111:8b00::1])
- by smtp.gmail.com with ESMTPSA id l6sm1317704otq.48.2020.05.01.20.11.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 May 2020 20:11:49 -0700 (PDT)
-From: Nathan Chancellor <natechancellor@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "David (ChunMing) Zhou" <David1.Zhou@amd.com>
-Subject: [PATCH] drm/amdgpu: Avoid integer overflow in
- amdgpu_device_suspend_display_audio
-Date: Fri,  1 May 2020 20:11:41 -0700
-Message-Id: <20200502031141.2732221-1-natechancellor@gmail.com>
-X-Mailer: git-send-email 2.26.2
+X-Greylist: delayed 300 seconds by postgrey-1.36 at gabe;
+ Sat, 02 May 2020 05:52:40 UTC
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+ [216.228.121.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38FBA6E02E;
+ Sat,  2 May 2020 05:52:40 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5ead09360000>; Fri, 01 May 2020 22:46:31 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Fri, 01 May 2020 22:47:39 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Fri, 01 May 2020 22:47:39 -0700
+Received: from DRHQMAIL107.nvidia.com (10.27.9.16) by HQMAIL109.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Sat, 2 May
+ 2020 05:47:38 +0000
+Received: from [10.2.59.220] (10.124.1.5) by DRHQMAIL107.nvidia.com
+ (10.27.9.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Sat, 2 May 2020
+ 05:47:37 +0000
+Subject: Re: [PATCH hmm v2 1/5] mm/hmm: make CONFIG_DEVICE_PRIVATE into a
+ select
+To: Jason Gunthorpe <jgg@ziepe.ca>, <linux-mm@kvack.org>, Ralph Campbell
+ <rcampbell@nvidia.com>
+References: <1-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
+X-Nvconfidentiality: public
+From: John Hubbard <jhubbard@nvidia.com>
+Message-ID: <17b40a00-658a-1bf4-c14a-7543dd0d2f8c@nvidia.com>
+Date: Fri, 1 May 2020 22:47:37 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
+In-Reply-To: <1-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
+ DRHQMAIL107.nvidia.com (10.27.9.16)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1588398391; bh=9WVhNWEwbrdSv0IZ+XjrYrQTjZYFLJxQOn+wzBze+IE=;
+ h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
+ Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+ X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=jJbUjZIFpsl+z/WpjRf+dQtCXmX45b2domJ6ui2m0qQLXPCNWeAK2d+Lt4SbMdTHW
+ g6h3pk5CkJS4IW8FgDWLONNamvZn4bouhO81p+K/1DKwCbicz1zs5jlW7h5lYehaw/
+ clXb1ncut+A5uh78Ae8RCl1Pxjlxo56PG1PTgpCitHzCJSjToSTeViTPgNwElLgtfg
+ qk2aJkzLeiGCZUHBkqurTPk4fTAp+5LR5mZhDn33zl2pf7bJhWSK1TYnaIbhFSoqYr
+ /cE70NsFQkUcb0lx6FJJ0mKaFJCNfqcecIhbKwZbc17bnzzdzQMurqGa0/qeJJkiSP
+ Uti4fpB1h8oTA==
 X-Mailman-Approved-At: Sat, 02 May 2020 08:35:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,51 +83,102 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: clang-built-linux@googlegroups.com,
- Nathan Chancellor <natechancellor@gmail.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ amd-gfx@lists.freedesktop.org, "Yang, Philip" <Philip.Yang@amd.com>,
+ nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Christoph Hellwig <hch@lst.de>,
+ =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
+ intel-gfx@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When building with Clang:
+On 2020-05-01 11:20, Jason Gunthorpe wrote:
+> From: Jason Gunthorpe <jgg@mellanox.com>
+> 
+> There is no reason for a user to select this or not directly - it should
+> be selected by drivers that are going to use the feature, similar to how
+> CONFIG_HMM_MIRROR works.
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:4160:53: warning: overflow in
-expression; result is -294967296 with type 'long' [-Winteger-overflow]
-                expires = ktime_get_mono_fast_ns() + NSEC_PER_SEC * 4L;
-                                                                  ^
-1 warning generated.
+Yes, this is a nice touch.
 
-Multiplication happens first due to order of operations and both
-NSEC_PER_SEC and 4 are long literals so the expression overflows. To
-avoid this, make 4 an unsigned long long literal, which matches the
-type of expires (u64).
+Reviewed-by: John Hubbard <jhubbard@nvidia.com>
 
-Fixes: 3f12acc8d6d4 ("drm/amdgpu: put the audio codec into suspend state before gpu reset V3")
-Link: https://github.com/ClangBuiltLinux/linux/issues/1017
-Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 6f93af972b0a..caa38e7d502e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4157,7 +4157,7 @@ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
- 		 * the audio controller default autosuspend delay setting.
- 		 * 4S used here is guaranteed to cover that.
- 		 */
--		expires = ktime_get_mono_fast_ns() + NSEC_PER_SEC * 4L;
-+		expires = ktime_get_mono_fast_ns() + NSEC_PER_SEC * 4ULL;
- 
- 	while (!pm_runtime_status_suspended(&(p->dev))) {
- 		if (!pm_runtime_suspend(&(p->dev)))
-
-base-commit: fb9d670f57e3f6478602328bbbf71138be06ca4f
+thanks,
 -- 
-2.26.2
+John Hubbard
+NVIDIA
+
+> 
+> Currently all drivers provide a feature kconfig that will disable use of
+> DEVICE_PRIVATE in that driver, allowing users to avoid enabling this if
+> they don't want the overhead.
+> 
+> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
+> ---
+>   arch/powerpc/Kconfig            | 2 +-
+>   drivers/gpu/drm/nouveau/Kconfig | 2 +-
+>   mm/Kconfig                      | 7 +------
+>   3 files changed, 3 insertions(+), 8 deletions(-)
+> 
+> diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
+> index 924c541a926008..8de52aefdc74cc 100644
+> --- a/arch/powerpc/Kconfig
+> +++ b/arch/powerpc/Kconfig
+> @@ -455,7 +455,7 @@ config PPC_TRANSACTIONAL_MEM
+>   config PPC_UV
+>   	bool "Ultravisor support"
+>   	depends on KVM_BOOK3S_HV_POSSIBLE
+> -	depends on DEVICE_PRIVATE
+> +	select DEVICE_PRIVATE
+>   	default n
+>   	help
+>   	  This option paravirtualizes the kernel to run in POWER platforms that
+> diff --git a/drivers/gpu/drm/nouveau/Kconfig b/drivers/gpu/drm/nouveau/Kconfig
+> index d6e4ae1ef7053a..af5793f3e7c2cf 100644
+> --- a/drivers/gpu/drm/nouveau/Kconfig
+> +++ b/drivers/gpu/drm/nouveau/Kconfig
+> @@ -86,10 +86,10 @@ config DRM_NOUVEAU_BACKLIGHT
+>   
+>   config DRM_NOUVEAU_SVM
+>   	bool "(EXPERIMENTAL) Enable SVM (Shared Virtual Memory) support"
+> -	depends on DEVICE_PRIVATE
+>   	depends on DRM_NOUVEAU
+>   	depends on MMU
+>   	depends on STAGING
+> +	select DEVICE_PRIVATE
+>   	select HMM_MIRROR
+>   	select MMU_NOTIFIER
+>   	default n
+> diff --git a/mm/Kconfig b/mm/Kconfig
+> index c1acc34c1c358c..7ca36bf5f5058e 100644
+> --- a/mm/Kconfig
+> +++ b/mm/Kconfig
+> @@ -805,15 +805,10 @@ config HMM_MIRROR
+>   	depends on MMU
+>   
+>   config DEVICE_PRIVATE
+> -	bool "Unaddressable device memory (GPU memory, ...)"
+> +	bool
+>   	depends on ZONE_DEVICE
+>   	select DEV_PAGEMAP_OPS
+>   
+> -	help
+> -	  Allows creation of struct pages to represent unaddressable device
+> -	  memory; i.e., memory that is only accessible from the device (or
+> -	  group of devices). You likely also want to select HMM_MIRROR.
+> -
+>   config FRAME_VECTOR
+>   	bool
+>   
+> 
 
 _______________________________________________
 amd-gfx mailing list
