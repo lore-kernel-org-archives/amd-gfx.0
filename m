@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12F09C3A5A9
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 May 2020 21:35:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 01905C47257
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 May 2020 21:35:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DADE62072E
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 May 2020 21:35:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C876F2072E
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 May 2020 21:35:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="taRuLtM5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DADE62072E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="OOkHmTZg"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C876F2072E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B5E76E1BD;
-	Sat,  2 May 2020 21:35:02 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2058.outbound.protection.outlook.com [40.107.220.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B23666E1B1
- for <amd-gfx@lists.freedesktop.org>; Sat,  2 May 2020 21:35:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 874DA6E1D2;
+	Sat,  2 May 2020 21:35:04 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2049.outbound.protection.outlook.com [40.107.92.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB3616E1D2
+ for <amd-gfx@lists.freedesktop.org>; Sat,  2 May 2020 21:35:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=auvfHLZsfcV/AgC7d+bFd5d0tfiSJa3a4uSZPMQIMDfHgoYQYI5/kDf8vhrry0gHtOv4xJS1CLxiPlKaqnQppkyY8i9OGxb7BJD1HaPAVAspTJCycJaGEzFldMZ3JF6sX3PHsyCTqLKWTapmPwzcygpXAYY9Tx0UFHJsuSpbmOo4c9jFd5eV+td+QFA879V9F+uFbx8nQW3AxTtPZp16QjeNaUVo5nsMUIV1QZtUPXUtFYWBRhJZowxRO59X6PNvrgN9RT4opg28s2nTKPN0iZ1V4gwQoqxuqiSqYQ28ADLvcxXMuT/Zul/iijX6eUyl18Fs7LH4JVxQLw2Ffuse0Q==
+ b=I31YE611LWk9Zdlt3cY8rUob279U0pgWzUcdJnIR4/EPogE+xs+sqSlxalPiiY4wB9M0wAeczCbow2IEj7/zvzpSqnGssf6MJ9h7C8RXPK9Gdlw9lZrR6SpwZ5Yul6vMCkyV7SMWY6PPJfk8PM2KydyLBd3wsmW89ZCQd+VmySDdWcigV1pJZDOxFvk/QcokvHb5M6lDeqGflPJht0auCiwAsJuM9pY4g6xdxL3+8mrVKsa9FTsMe3uclAHy/kHZgMiuZUsPRY34dBSDNPkMGs3Ikvn76L45v4t8hl3XBGuRE0YKNdo2OD8xat0hovd/3kVG2Npm7Qcep5fjFHY+mA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MiSJOmZGj9KpWPd6V8dZT4Mroe15uE/rpVaI46monVQ=;
- b=SZBSnZxdjOnRi9xx+Yd+fGQDw9V3aS5af7ZL8KA5400fAhOBAFP4eiXfqaBPHcyY02mYwJvclJXWfLevjniGn8py9dFvyXWPjRzAUQ7ks6B9lw8W7r6+L+V3tnKhgdObuAenwV+/2oqnh5dFoVAH6IE+5v0youRsI08G9sNIiLWBW4zFnaMgRNuxygkPgD/6D6WqCPvl46GGkAN3vE+B6ZeIIC7ob0N4nJTgubOf0F/kShJtrxh7/8g2+uBnNI5kpyAKKvB89qborTTv1IuhlXqg4ZPlhR41SzS5VPeZeZYuty84vY2wncMpWD1dKUtqcwhb1VWm9WZHzXU/S7PmQw==
+ bh=1JP3pA+NmwBayhYGNQszbd6ccwvwG3YX8rUWErxzzOc=;
+ b=NfqH0VmRcWwl2SpkhHG/eQA87VUlZBTu4PMJmo9ofxfLTqp59pC+X7/RU+L51O+yy0V1c4N3EVnhrHYZCSOxOQS19ajAxS7MkUNdQzPBKKMYMsAeQZIeaHmVFKrsbqRQ9aF6cLJ9hYxn2H6EBO7rdAWmuWeoxVXgz23zzxzXrzja7cGPwcmr2RGPXmoiLS77kI30EGG/CNbqs2dyed07LYSd3dYwySiPWgj4WnvlJuUMBmxUnN24LoOxf0Oegakg2IDR99sl9Q+3XAIO+MM3T5FDkhp7ra3k6tXF1Ta0I8q6Ddgt+EZKOKQ6WKR43pwsjLAGZ7eqVG/Q52OA9ZpBSg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MiSJOmZGj9KpWPd6V8dZT4Mroe15uE/rpVaI46monVQ=;
- b=taRuLtM5K9GexAmamcWdQvzE9MDTLLNk5OEKgELW5sBFI1s9DNGLi0vltCoABFahhloa/hufE6K+kVGhvBd3CybV31nBVQSAV6ojN9VXp6V122Mf22yO/XBxM/4amib4eZj7ZBS8dJXeRMmnLL07xH8xYlzTA3bT6SqIPJXxIpg=
-Received: from MWHPR1601CA0005.namprd16.prod.outlook.com
- (2603:10b6:300:da::15) by MWHPR12MB1694.namprd12.prod.outlook.com
- (2603:10b6:301:11::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.19; Sat, 2 May
- 2020 21:34:57 +0000
+ bh=1JP3pA+NmwBayhYGNQszbd6ccwvwG3YX8rUWErxzzOc=;
+ b=OOkHmTZgj2pm1gNj1a5nc7+XIUOXfGlKlLbVZNBMs+7nOZmIQz/AILjplxSAzEeNIt0A0RFqPxQKYfV+wWsFviRI9W1KR+onGcuaCo7r5tCNWMc69U8wgzAYHJXbgUW5y8m4A8y3bkPO4LX98AEt3vtUBMnxPfYynvfVF5EBMMI=
+Received: from MWHPR1601CA0006.namprd16.prod.outlook.com
+ (2603:10b6:300:da::16) by BN7PR12MB2753.namprd12.prod.outlook.com
+ (2603:10b6:408:31::33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.27; Sat, 2 May
+ 2020 21:34:58 +0000
 Received: from CO1NAM11FT017.eop-nam11.prod.protection.outlook.com
- (2603:10b6:300:da:cafe::3c) by MWHPR1601CA0005.outlook.office365.com
- (2603:10b6:300:da::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.19 via Frontend
- Transport; Sat, 2 May 2020 21:34:57 +0000
+ (2603:10b6:300:da:cafe::61) by MWHPR1601CA0006.outlook.office365.com
+ (2603:10b6:300:da::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.20 via Frontend
+ Transport; Sat, 2 May 2020 21:34:58 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -61,24 +61,23 @@ Received-SPF: None (protection.outlook.com: amd.com does not designate
 Received: from SATLEXMB02.amd.com (165.204.84.17) by
  CO1NAM11FT017.mail.protection.outlook.com (10.13.175.108) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2958.19 via Frontend Transport; Sat, 2 May 2020 21:34:57 +0000
+ 15.20.2958.19 via Frontend Transport; Sat, 2 May 2020 21:34:58 +0000
 Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Sat, 2 May 2020
- 16:34:54 -0500
+ 16:34:56 -0500
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB03.amd.com
  (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Sat, 2 May 2020
- 16:34:53 -0500
+ 16:34:55 -0500
 Received: from sudo.amd.com (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Sat, 2 May 2020 16:34:53 -0500
+ Transport; Sat, 2 May 2020 16:34:55 -0500
 From: Aurabindo Pillai <aurabindo.pillai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 08/16] drm/amd/display: add addition dc type to translate to
- dmub fw type
-Date: Sat, 2 May 2020 17:34:35 -0400
-Message-ID: <20200502213443.39232-10-aurabindo.pillai@amd.com>
+Subject: [PATCH 10/16] drm/amd/display: Add 4 to 1 MPC split support
+Date: Sat, 2 May 2020 17:34:37 -0400
+Message-ID: <20200502213443.39232-12-aurabindo.pillai@amd.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200502213443.39232-1-aurabindo.pillai@amd.com>
 References: <20200502213443.39232-1-aurabindo.pillai@amd.com>
@@ -88,25 +87,25 @@ X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(376002)(346002)(39860400002)(396003)(46966005)(2616005)(44832011)(426003)(316002)(54906003)(70586007)(2906002)(1076003)(478600001)(7696005)(336012)(6666004)(70206006)(186003)(5660300002)(4326008)(47076004)(26005)(8936002)(86362001)(82740400003)(36756003)(356005)(82310400002)(6916009)(8676002)(81166007);
+ SFS:(4636009)(396003)(136003)(346002)(376002)(39860400002)(46966005)(6916009)(81166007)(356005)(82310400002)(7696005)(5660300002)(82740400003)(2906002)(1076003)(478600001)(47076004)(86362001)(6666004)(70206006)(36756003)(4326008)(8676002)(44832011)(8936002)(186003)(26005)(2616005)(54906003)(70586007)(336012)(316002)(426003);
  DIR:OUT; SFP:1101; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 466a3c27-b852-4c78-2646-08d7eee0a914
-X-MS-TrafficTypeDiagnostic: MWHPR12MB1694:
-X-Microsoft-Antispam-PRVS: <MWHPR12MB169478416FE41AEF96C4E9338BA80@MWHPR12MB1694.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:901;
+X-MS-Office365-Filtering-Correlation-Id: b37cc9c2-2824-448c-5c2c-08d7eee0a9aa
+X-MS-TrafficTypeDiagnostic: BN7PR12MB2753:
+X-Microsoft-Antispam-PRVS: <BN7PR12MB275313ADCC3DD8DDE394B3FA8BA80@BN7PR12MB2753.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:6790;
 X-Forefront-PRVS: 039178EF4A
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: kIUGkCxmNkRe/a0dQFqQAY5dRXGr3hAkYc0KBOqXWlRuI+ajM5q18dfNwtvF3dhH53sAuHMTabZMf3yqjE5j9k60zLdWPnC5r0G8L8P7CTeDpznR3SffFhdaJaERZfaMMX25brrlp9jEenHSOe4+EETvDwre00QQXNIEPPEgRfE37SwW7ap8Ha945IU1UHwVYz7ULTi4cMCAFCYnbpOYSIdkvVuwBSttT27VnrnMLgqwcnrYJce9nOfaUzT8Hr+Eni22H+7t5ydtXSv0LDiaC1dUkbx6qK36REzF+ZQpnImGym3BakIrWgVHKGQKHWptJYhsqqBqy2wKYYhn6cs4RrvbLIGxJ/Wyuo7+R+qa77GfK2SOn6uWOGPOE92ajmy9cvN2FK1mchRiORmDZEWChYGtnBYxN9mgw3TsDHH0s+2x92+MOK5jYqonRaECTIaU/plh53ztfyhQpOX51UAY1xw0xQyw47fMCOMan0KCf/FCAlK7a8KULmn2LURHv0YiUsUMP0IbfH0SMTH5tYXUzg==
+X-Microsoft-Antispam-Message-Info: 9Z8kul5x9PWiIIcW4uivjnKuuMCs+mI67TTUStk+iPdwzZEt6uO49kaW2KI1QRo1EOU89z3KyjziLKje/Lgl6HNvyf8dh538C0fK9DhaAUc7Kdr4+Qke6oQRg4m+5OcR+2Bhxtx9gUzIVnpMPzpC4gFg866BNlQTUtnw6i4Xu07q+nkw97ao1YdVA3vMFSeFAj6syjyDbHZw/zugWO2o6Rw/IFhLOdJ/JnSCo1KITSFqOHMe7NH5EzKo05Hxe7lZ2/YASdLgftOzZj4lzLtWi+Z4KGv3lMLICOgT9ih6IiGuFJmCeG4s2b/Xxnx1RCjS4s8n7yFqeTZvlipZdkzqmMpb0iEHGiHRzHPEcjZRGQHzS45X4MRAo1qtrCUPjqViNb9I4TEWYb3avrR+jhmg4iqURzSriXv9qN+q4ajZWimzHcSyJlHnhv18zevi7SLhqy0cvP5Y/xQzYbGVS3S9rrFiFWgv4Df8ggWpKVgEUOmxnk2xWvrO3XeO8hwGcQM6YNB2gfH8MkSWhxMXBluZxg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2020 21:34:57.1250 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 466a3c27-b852-4c78-2646-08d7eee0a914
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 May 2020 21:34:58.1114 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b37cc9c2-2824-448c-5c2c-08d7eee0a9aa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB02.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1694
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2753
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,148 +117,270 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Rodrigo.Siqueira@amd.com, Bhawanpreet.Lakha@amd.com,
- Anthony Koo <Anthony.Koo@amd.com>
+Cc: Isabel Zhang <isabel.zhang@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Anthony Koo <Anthony.Koo@amd.com>
+From: Isabel Zhang <isabel.zhang@amd.com>
 
 [Why]
-For a type like PSR version, it makes sense for most of the code
-to include a dc type, instead of having this a fw type define since
-this is a capability and type exposed by dc.
-
-Especially if it doesn't even need to communicate with the fw.
-
-The code that is packing the firmware command message
-should be the one who needs to translate the psr version
-into a command that the firmware understands.
+Want to make use of detile buffer of all 4 pipes to maximize amount of
+data stored to hide certain memory latency cases.
 
 [How]
-Add a dc_psr_version enum.
+In case of 1 plane and 1 stream, program 4 pipes to each retrieve 1/4 of
+plane later mixed together by the MPCs. Added support for transition
+from 4 to 1 MPC to 2 to 1 MPC or no pipe split case and vice versa.
+Currently, only enabled if debug flag is set.
 
-Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Signed-off-by: Isabel Zhang <isabel.zhang@amd.com>
+Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c    |  6 +++---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c        |  2 +-
- drivers/gpu/drm/amd/display/dc/dc_link.h             |  2 +-
- drivers/gpu/drm/amd/display/dc/dc_types.h            |  5 +++++
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c        | 12 ++++++++++--
- .../amd/display/modules/info_packet/info_packet.c    |  2 +-
- 6 files changed, 21 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h           |   1 +
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c | 107 ++++++++++++------
+ .../drm/amd/display/dc/dcn20/dcn20_resource.h |   5 +-
+ 3 files changed, 79 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 98446372c3b2..2b92f07e4bb9 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6962,7 +6962,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 						     dc_state);
- 
- 		if ((acrtc_state->update_type > UPDATE_TYPE_FAST) &&
--				acrtc_state->stream->link->psr_settings.psr_version != PSR_VERSION_UNSUPPORTED &&
-+				acrtc_state->stream->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED &&
- 				!acrtc_state->stream->link->psr_settings.psr_feature_enabled)
- 			amdgpu_dm_link_setup_psr(acrtc_state->stream);
- 		else if ((acrtc_state->update_type == UPDATE_TYPE_FAST) &&
-@@ -8737,10 +8737,10 @@ static void amdgpu_dm_set_psr_caps(struct dc_link *link)
- 		link->dpcd_caps.psr_caps.psr_version = dpcd_data[0];
- 
- 		if (dpcd_data[0] == 0) {
--			link->psr_settings.psr_version = PSR_VERSION_UNSUPPORTED;
-+			link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
- 			link->psr_settings.psr_feature_enabled = false;
- 		} else {
--			link->psr_settings.psr_version = PSR_VERSION_1;
-+			link->psr_settings.psr_version = DC_PSR_VERSION_1;
- 			link->psr_settings.psr_feature_enabled = true;
- 		}
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index f895412538c0..6ed67e6e8739 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -1552,7 +1552,7 @@ static bool dc_link_construct(struct dc_link *link,
- 	 */
- 	program_hpd_filter(link);
- 
--	link->psr_settings.psr_version = PSR_VERSION_UNSUPPORTED;
-+	link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
- 
- 	return true;
- device_tag_fail:
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-index eb5d910bffb6..859d254c0e3f 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-@@ -72,7 +72,7 @@ struct link_trace {
- struct psr_settings {
- 	bool psr_feature_enabled;		// PSR is supported by sink
- 	bool psr_allow_active;			// PSR is currently active
--	enum psr_version psr_version;		// Internal PSR version, determined based on DPCD
-+	enum dc_psr_version psr_version;		// Internal PSR version, determined based on DPCD
- 
- 	/* These parameters are calculated in Driver,
- 	 * based on display timing and Sink capabilities.
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-index 0d210104ba0a..f236da1c1859 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-@@ -862,4 +862,9 @@ struct dsc_dec_dpcd_caps {
- 	uint32_t branch_max_line_width;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 636cf5c3a709..d2f796bff522 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -277,6 +277,7 @@ struct dc_config {
+ 	bool disable_extended_timeout_support; // Used to disable extended timeout and lttpr feature as well
+ 	bool multi_mon_pp_mclk_switch;
+ 	bool disable_dmcu;
++	bool enable_4to1MPC;
  };
  
-+enum dc_psr_version {
-+	DC_PSR_VERSION_1			= 0,
-+	DC_PSR_VERSION_UNSUPPORTED		= 0xFFFFFFFF,
-+};
-+
- #endif /* DC_TYPES_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-index 9f12c76f21ab..3c6606e0532d 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-@@ -94,12 +94,20 @@ static bool dmub_psr_set_version(struct dmub_psr *dmub, struct dc_stream_state *
- 	union dmub_rb_cmd cmd;
- 	struct dc_context *dc = dmub->ctx;
+ enum visual_confirm {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+index 96b5a451cf26..e20fe292ccf5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
+@@ -1922,7 +1922,7 @@ bool dcn20_split_stream_for_odm(
+ 	return true;
+ }
  
--	if (stream->link->psr_settings.psr_version == PSR_VERSION_UNSUPPORTED)
-+	if (stream->link->psr_settings.psr_version == DC_PSR_VERSION_UNSUPPORTED)
- 		return false;
+-bool dcn20_split_stream_for_mpc(
++void dcn20_split_stream_for_mpc(
+ 		struct resource_context *res_ctx,
+ 		const struct resource_pool *pool,
+ 		struct pipe_ctx *primary_pipe,
+@@ -1951,11 +1951,6 @@ bool dcn20_split_stream_for_mpc(
+ 	secondary_pipe->top_pipe = primary_pipe;
  
- 	cmd.psr_set_version.header.type = DMUB_CMD__PSR;
- 	cmd.psr_set_version.header.sub_type = DMUB_CMD__PSR_SET_VERSION;
--	cmd.psr_set_version.psr_set_version_data.version = stream->link->psr_settings.psr_version;
-+	switch (stream->link->psr_settings.psr_version) {
-+	case DC_PSR_VERSION_1:
-+		cmd.psr_set_version.psr_set_version_data.version = PSR_VERSION_1;
-+		break;
-+	case DC_PSR_VERSION_UNSUPPORTED:
-+	default:
-+		cmd.psr_set_version.psr_set_version_data.version = PSR_VERSION_UNSUPPORTED;
-+		break;
-+	}
- 	cmd.psr_set_version.header.payload_bytes = sizeof(struct dmub_cmd_psr_set_version_data);
+ 	ASSERT(primary_pipe->plane_state);
+-	if (!resource_build_scaling_params(primary_pipe) ||
+-			!resource_build_scaling_params(secondary_pipe))
+-		return false;
+-
+-	return true;
+ }
  
- 	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd);
-diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-index 22a5484d9f28..20c30daa374c 100644
---- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-+++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-@@ -145,7 +145,7 @@ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+ void dcn20_populate_dml_writeback_from_context(
+@@ -2581,11 +2576,32 @@ static void dcn20_merge_pipes_for_validate(
  	}
+ }
  
- 	/*VSC packet set to 2 when DP revision >= 1.2*/
--	if (stream->link->psr_settings.psr_version != PSR_VERSION_UNSUPPORTED)
-+	if (stream->link->psr_settings.psr_version != DC_PSR_VERSION_UNSUPPORTED)
- 		vsc_packet_revision = vsc_packet_rev2;
++int dcn20_find_previous_split_count(struct pipe_ctx *pipe)
++{
++	int previous_split = 1;
++	struct pipe_ctx *current_pipe = pipe;
++
++	while (current_pipe->bottom_pipe) {
++		if (current_pipe->plane_state != current_pipe->bottom_pipe->plane_state)
++			break;
++		previous_split++;
++		current_pipe = current_pipe->bottom_pipe;
++	}
++	current_pipe = pipe;
++	while (current_pipe->top_pipe) {
++		if (current_pipe->plane_state != current_pipe->top_pipe->plane_state)
++			break;
++		previous_split++;
++		current_pipe = current_pipe->top_pipe;
++	}
++	return previous_split;
++}
++
+ int dcn20_validate_apply_pipe_split_flags(
+ 		struct dc *dc,
+ 		struct dc_state *context,
+ 		int vlevel,
+-		bool *split,
++		int *split,
+ 		bool *merge)
+ {
+ 	int i, pipe_idx, vlevel_split;
+@@ -2640,8 +2656,14 @@ int dcn20_validate_apply_pipe_split_flags(
+ 		if (!context->res_ctx.pipe_ctx[i].stream)
+ 			continue;
  
- 	/* Update to revision 5 for extended colorimetry support */
+-		if (force_split || context->bw_ctx.dml.vba.NoOfDPP[vlevel][context->bw_ctx.dml.vba.maxMpcComb][pipe_plane] > 1)
+-			split[i] = true;
++		if (force_split
++				|| context->bw_ctx.dml.vba.NoOfDPP[vlevel][context->bw_ctx.dml.vba.maxMpcComb][pipe_plane] > 1) {
++			if (context->stream_count == 1 && plane_count == 1
++					&& dc->config.enable_4to1MPC && dc->res_pool->pipe_count >= 4)
++				split[i] = 4;
++			else
++				split[i] = 2;
++		}
+ 		if ((pipe->stream->view_format ==
+ 				VIEW_3D_FORMAT_SIDE_BY_SIDE ||
+ 				pipe->stream->view_format ==
+@@ -2650,9 +2672,9 @@ int dcn20_validate_apply_pipe_split_flags(
+ 				TIMING_3D_FORMAT_TOP_AND_BOTTOM ||
+ 				 pipe->stream->timing.timing_3d_format ==
+ 				TIMING_3D_FORMAT_SIDE_BY_SIDE))
+-			split[i] = true;
++			split[i] = 2;
+ 		if (dc->debug.force_odm_combine & (1 << pipe->stream_res.tg->inst)) {
+-			split[i] = true;
++			split[i] = 2;
+ 			context->bw_ctx.dml.vba.ODMCombineEnablePerState[vlevel][pipe_plane] = dm_odm_combine_mode_2to1;
+ 		}
+ 		context->bw_ctx.dml.vba.ODMCombineEnabled[pipe_plane] =
+@@ -2660,39 +2682,58 @@ int dcn20_validate_apply_pipe_split_flags(
+ 
+ 		if (pipe->prev_odm_pipe && context->bw_ctx.dml.vba.ODMCombineEnabled[pipe_plane] != dm_odm_combine_mode_disabled) {
+ 			/*Already split odm pipe tree, don't try to split again*/
+-			split[i] = false;
+-			split[pipe->prev_odm_pipe->pipe_idx] = false;
++			split[i] = 0;
++			split[pipe->prev_odm_pipe->pipe_idx] = 0;
+ 		} else if (pipe->top_pipe && pipe->plane_state == pipe->top_pipe->plane_state
+ 				&& context->bw_ctx.dml.vba.ODMCombineEnabled[pipe_plane] == dm_odm_combine_mode_disabled) {
+-			/*Already split mpc tree, don't try to split again, assumes only 2x mpc combine*/
+-			split[i] = false;
+-			split[pipe->top_pipe->pipe_idx] = false;
+-		} else if (pipe->prev_odm_pipe || (pipe->top_pipe && pipe->plane_state == pipe->top_pipe->plane_state)) {
+-			if (split[i] == false) {
++			/*If 2 way split but can support 4 way split, then split each pipe again*/
++			if (context->stream_count == 1 && plane_count == 1
++					&& dc->config.enable_4to1MPC && dc->res_pool->pipe_count >= 4) {
++				split[i] = 2;
++			} else {
++				split[i] = 0;
++				split[pipe->top_pipe->pipe_idx] = 0;
++			}
++		} else if (pipe->prev_odm_pipe || (dcn20_find_previous_split_count(pipe) == 2 && pipe->top_pipe)) {
++			if (split[i] == 0) {
+ 				/*Exiting mpc/odm combine*/
+ 				merge[i] = true;
+-				if (pipe->prev_odm_pipe) {
+-					ASSERT(0); /*should not actually happen yet*/
+-					merge[pipe->prev_odm_pipe->pipe_idx] = true;
+-				} else
+-					merge[pipe->top_pipe->pipe_idx] = true;
+ 			} else {
+ 				/*Transition from mpc combine to odm combine or vice versa*/
+ 				ASSERT(0); /*should not actually happen yet*/
+-				split[i] = true;
++				split[i] = 2;
+ 				merge[i] = true;
+ 				if (pipe->prev_odm_pipe) {
+-					split[pipe->prev_odm_pipe->pipe_idx] = true;
++					split[pipe->prev_odm_pipe->pipe_idx] = 2;
+ 					merge[pipe->prev_odm_pipe->pipe_idx] = true;
+ 				} else {
+-					split[pipe->top_pipe->pipe_idx] = true;
++					split[pipe->top_pipe->pipe_idx] = 2;
+ 					merge[pipe->top_pipe->pipe_idx] = true;
+ 				}
+ 			}
++		} else if (dcn20_find_previous_split_count(pipe) == 3) {
++			if (split[i] == 0 && !pipe->top_pipe) {
++				merge[pipe->bottom_pipe->pipe_idx] = true;
++				merge[pipe->bottom_pipe->bottom_pipe->pipe_idx] = true;
++			} else if (split[i] == 2 && !pipe->top_pipe) {
++				merge[pipe->bottom_pipe->bottom_pipe->pipe_idx] = true;
++				split[i] = 0;
++			}
++		} else if (dcn20_find_previous_split_count(pipe) == 4) {
++			if (split[i] == 0 && !pipe->top_pipe) {
++				merge[pipe->bottom_pipe->pipe_idx] = true;
++				merge[pipe->bottom_pipe->bottom_pipe->pipe_idx] = true;
++				merge[pipe->bottom_pipe->bottom_pipe->bottom_pipe->pipe_idx] = true;
++			} else if (split[i] == 2 && !pipe->top_pipe) {
++				merge[pipe->bottom_pipe->bottom_pipe->pipe_idx] = true;
++				merge[pipe->bottom_pipe->bottom_pipe->bottom_pipe->pipe_idx] = true;
++				split[i] = 0;
++			}
+ 		}
+ 
+ 		/* Adjust dppclk when split is forced, do not bother with dispclk */
+-		if (split[i] && context->bw_ctx.dml.vba.NoOfDPP[vlevel][context->bw_ctx.dml.vba.maxMpcComb][pipe_idx] == 1)
++		if (split[i] != 0
++				&& context->bw_ctx.dml.vba.NoOfDPP[vlevel][context->bw_ctx.dml.vba.maxMpcComb][pipe_idx] == 1)
+ 			context->bw_ctx.dml.vba.RequiredDPPCLK[vlevel][context->bw_ctx.dml.vba.maxMpcComb][pipe_idx] /= 2;
+ 		pipe_idx++;
+ 	}
+@@ -2709,7 +2750,7 @@ bool dcn20_fast_validate_bw(
+ 		int *vlevel_out)
+ {
+ 	bool out = false;
+-	bool split[MAX_PIPES] = { false };
++	int split[MAX_PIPES] = { 0 };
+ 	int pipe_cnt, i, pipe_idx, vlevel;
+ 
+ 	ASSERT(pipes);
+@@ -2769,7 +2810,7 @@ bool dcn20_fast_validate_bw(
+ 				&& context->bw_ctx.dml.vba.ODMCombineEnabled[pipe_idx])
+ 			goto validate_fail;
+ 
+-		if (split[i]) {
++		if (split[i] == 2) {
+ 			if (!hsplit_pipe || hsplit_pipe->plane_state != pipe->plane_state) {
+ 				/* pipe not split previously needs split */
+ 				hsplit_pipe = dcn20_find_secondary_pipe(dc, &context->res_ctx, dc->res_pool, pipe);
+@@ -2784,11 +2825,13 @@ bool dcn20_fast_validate_bw(
+ 							pipe, hsplit_pipe))
+ 						goto validate_fail;
+ 					dcn20_build_mapped_resource(dc, context, pipe->stream);
+-				} else
+-					if (!dcn20_split_stream_for_mpc(
++				} else {
++					dcn20_split_stream_for_mpc(
+ 							&context->res_ctx, dc->res_pool,
+-							pipe, hsplit_pipe))
++							pipe, hsplit_pipe);
++					if (!resource_build_scaling_params(pipe) || !resource_build_scaling_params(hsplit_pipe))
+ 						goto validate_fail;
++				}
+ 				pipe_split_from[hsplit_pipe->pipe_idx] = pipe_idx;
+ 			}
+ 		} else if (hsplit_pipe && hsplit_pipe->plane_state == pipe->plane_state) {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.h
+index 578265ccbf5b..d5448c9b0e15 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.h
+@@ -119,17 +119,18 @@ void dcn20_set_mcif_arb_params(
+ 		display_e2e_pipe_params_st *pipes,
+ 		int pipe_cnt);
+ bool dcn20_validate_bandwidth(struct dc *dc, struct dc_state *context, bool fast_validate);
++int dcn20_find_previous_split_count(struct pipe_ctx *pipe);
+ int dcn20_validate_apply_pipe_split_flags(
+ 		struct dc *dc,
+ 		struct dc_state *context,
+ 		int vlevel,
+-		bool *split,
++		int *split,
+ 		bool *merge);
+ void dcn20_release_dsc(struct resource_context *res_ctx,
+ 			const struct resource_pool *pool,
+ 			struct display_stream_compressor **dsc);
+ bool dcn20_validate_dsc(struct dc *dc, struct dc_state *new_ctx);
+-bool dcn20_split_stream_for_mpc(
++void dcn20_split_stream_for_mpc(
+ 		struct resource_context *res_ctx,
+ 		const struct resource_pool *pool,
+ 		struct pipe_ctx *primary_pipe,
 -- 
 2.25.1
 
