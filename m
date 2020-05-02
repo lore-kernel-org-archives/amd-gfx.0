@@ -2,76 +2,51 @@ Return-Path: <SRS0=8txe=6Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.1 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EBA91C3A5A9
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 May 2020 08:35:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58728C47254
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 May 2020 10:09:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE38B208DB
-	for <amd-gfx@archiver.kernel.org>; Sat,  2 May 2020 08:35:45 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="jJbUjZIF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE38B208DB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	by mail.kernel.org (Postfix) with ESMTPS id 385E7208DB
+	for <amd-gfx@archiver.kernel.org>; Sat,  2 May 2020 10:09:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 385E7208DB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AA5B6ED99;
-	Sat,  2 May 2020 08:35:45 +0000 (UTC)
-X-Greylist: delayed 300 seconds by postgrey-1.36 at gabe;
- Sat, 02 May 2020 05:52:40 UTC
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
- [216.228.121.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38FBA6E02E;
- Sat,  2 May 2020 05:52:40 +0000 (UTC)
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5ead09360000>; Fri, 01 May 2020 22:46:31 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Fri, 01 May 2020 22:47:39 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Fri, 01 May 2020 22:47:39 -0700
-Received: from DRHQMAIL107.nvidia.com (10.27.9.16) by HQMAIL109.nvidia.com
- (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Sat, 2 May
- 2020 05:47:38 +0000
-Received: from [10.2.59.220] (10.124.1.5) by DRHQMAIL107.nvidia.com
- (10.27.9.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Sat, 2 May 2020
- 05:47:37 +0000
-Subject: Re: [PATCH hmm v2 1/5] mm/hmm: make CONFIG_DEVICE_PRIVATE into a
- select
-To: Jason Gunthorpe <jgg@ziepe.ca>, <linux-mm@kvack.org>, Ralph Campbell
- <rcampbell@nvidia.com>
-References: <1-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
-X-Nvconfidentiality: public
-From: John Hubbard <jhubbard@nvidia.com>
-Message-ID: <17b40a00-658a-1bf4-c14a-7543dd0d2f8c@nvidia.com>
-Date: Fri, 1 May 2020 22:47:37 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-MIME-Version: 1.0
-In-Reply-To: <1-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
- DRHQMAIL107.nvidia.com (10.27.9.16)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1588398391; bh=9WVhNWEwbrdSv0IZ+XjrYrQTjZYFLJxQOn+wzBze+IE=;
- h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
- Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
- X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=jJbUjZIFpsl+z/WpjRf+dQtCXmX45b2domJ6ui2m0qQLXPCNWeAK2d+Lt4SbMdTHW
- g6h3pk5CkJS4IW8FgDWLONNamvZn4bouhO81p+K/1DKwCbicz1zs5jlW7h5lYehaw/
- clXb1ncut+A5uh78Ae8RCl1Pxjlxo56PG1PTgpCitHzCJSjToSTeViTPgNwElLgtfg
- qk2aJkzLeiGCZUHBkqurTPk4fTAp+5LR5mZhDn33zl2pf7bJhWSK1TYnaIbhFSoqYr
- /cE70NsFQkUcb0lx6FJJ0mKaFJCNfqcecIhbKwZbc17bnzzdzQMurqGa0/qeJJkiSP
- Uti4fpB1h8oTA==
-X-Mailman-Approved-At: Sat, 02 May 2020 08:35:44 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id D98696E0E4;
+	Sat,  2 May 2020 10:09:17 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7ECF6E0E2
+ for <amd-gfx@lists.freedesktop.org>; Sat,  2 May 2020 10:09:15 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id A957AAED6;
+ Sat,  2 May 2020 10:09:14 +0000 (UTC)
+Date: Sat, 02 May 2020 12:09:13 +0200
+Message-ID: <s5hpnbmhcmu.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>
+Subject: Re: [PATCH 0/1] Fiji GPU audio register timeout when in BACO state
+In-Reply-To: <s5h368iiyos.wl-tiwai@suse.de>
+References: <PSXP216MB043822350CDE9E7EEA37730880AD0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <CADnq5_MCQ7xHY=yhNtRW=ze0LRPzxuu-Mm7pD4kFa5R52UrGSw@mail.gmail.com>
+ <s5h1ro6jn0v.wl-tiwai@suse.de>
+ <CADnq5_Mjb_FnNOzjUfJZ7GSDzi-+Cfc1ZTuqm7UWCWVvY6DU_w@mail.gmail.com>
+ <s5hwo5xj98v.wl-tiwai@suse.de>
+ <PSXP216MB0438FE3E1CA577805BEC23C880AA0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <s5hh7x0kiwb.wl-tiwai@suse.de>
+ <PSXP216MB04381A30909F66867E6B6BCC80AA0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
+ <s5h1ro4kgog.wl-tiwai@suse.de> <s5h7dxuizep.wl-tiwai@suse.de>
+ <20200502071728.fn2fcqvt6aies3zu@wunner.de>
+ <s5h368iiyos.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,103 +58,58 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- amd-gfx@lists.freedesktop.org, "Yang, Philip" <Philip.Yang@amd.com>,
- nouveau@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Christoph Hellwig <hch@lst.de>,
- =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?= <jglisse@redhat.com>,
- Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
- Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- intel-gfx@lists.freedesktop.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Takashi Iwai <tiwai@suse.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, Lukas Wunner <lukas@wunner.de>,
+ Alex Deucher <alexdeucher@gmail.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-05-01 11:20, Jason Gunthorpe wrote:
-> From: Jason Gunthorpe <jgg@mellanox.com>
+On Sat, 02 May 2020 09:27:31 +0200,
+Takashi Iwai wrote:
 > 
-> There is no reason for a user to select this or not directly - it should
-> be selected by drivers that are going to use the feature, similar to how
-> CONFIG_HMM_MIRROR works.
-
-Yes, this is a nice touch.
-
-Reviewed-by: John Hubbard <jhubbard@nvidia.com>
-
-thanks,
--- 
-John Hubbard
-NVIDIA
-
+> On Sat, 02 May 2020 09:17:28 +0200,
+> Lukas Wunner wrote:
+> > 
+> > On Sat, May 02, 2020 at 09:11:58AM +0200, Takashi Iwai wrote:
+> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > > @@ -673,6 +673,12 @@ static int amdgpu_dm_audio_component_bind(struct device *kdev,
+> > >  	struct amdgpu_device *adev = dev->dev_private;
+> > >  	struct drm_audio_component *acomp = data;
+> > >  
+> > > +	if (!device_link_add(hda_kdev, kdev, DL_FLAG_STATELESS |
+> > > +			     DL_FLAG_PM_RUNTIME)) {
+> > > +		DRM_ERROR("DM: cannot add device link to audio device\n");
+> > > +		return -ENOMEM;
+> > > +	}
+> > > +
+> > 
+> > Doesn't this duplicate drivers/pci/quirks.c:quirk_gpu_hda() ?
 > 
-> Currently all drivers provide a feature kconfig that will disable use of
-> DEVICE_PRIVATE in that driver, allowing users to avoid enabling this if
-> they don't want the overhead.
+> Gah, you're right, that was the place I overlooked.
+> It was a typical "false Eureka right-after-wakeup" phenomenon :)
+> Need a vaccine aka coffee...
 > 
-> Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
-> Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
-> ---
->   arch/powerpc/Kconfig            | 2 +-
->   drivers/gpu/drm/nouveau/Kconfig | 2 +-
->   mm/Kconfig                      | 7 +------
->   3 files changed, 3 insertions(+), 8 deletions(-)
-> 
-> diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
-> index 924c541a926008..8de52aefdc74cc 100644
-> --- a/arch/powerpc/Kconfig
-> +++ b/arch/powerpc/Kconfig
-> @@ -455,7 +455,7 @@ config PPC_TRANSACTIONAL_MEM
->   config PPC_UV
->   	bool "Ultravisor support"
->   	depends on KVM_BOOK3S_HV_POSSIBLE
-> -	depends on DEVICE_PRIVATE
-> +	select DEVICE_PRIVATE
->   	default n
->   	help
->   	  This option paravirtualizes the kernel to run in POWER platforms that
-> diff --git a/drivers/gpu/drm/nouveau/Kconfig b/drivers/gpu/drm/nouveau/Kconfig
-> index d6e4ae1ef7053a..af5793f3e7c2cf 100644
-> --- a/drivers/gpu/drm/nouveau/Kconfig
-> +++ b/drivers/gpu/drm/nouveau/Kconfig
-> @@ -86,10 +86,10 @@ config DRM_NOUVEAU_BACKLIGHT
->   
->   config DRM_NOUVEAU_SVM
->   	bool "(EXPERIMENTAL) Enable SVM (Shared Virtual Memory) support"
-> -	depends on DEVICE_PRIVATE
->   	depends on DRM_NOUVEAU
->   	depends on MMU
->   	depends on STAGING
-> +	select DEVICE_PRIVATE
->   	select HMM_MIRROR
->   	select MMU_NOTIFIER
->   	default n
-> diff --git a/mm/Kconfig b/mm/Kconfig
-> index c1acc34c1c358c..7ca36bf5f5058e 100644
-> --- a/mm/Kconfig
-> +++ b/mm/Kconfig
-> @@ -805,15 +805,10 @@ config HMM_MIRROR
->   	depends on MMU
->   
->   config DEVICE_PRIVATE
-> -	bool "Unaddressable device memory (GPU memory, ...)"
-> +	bool
->   	depends on ZONE_DEVICE
->   	select DEV_PAGEMAP_OPS
->   
-> -	help
-> -	  Allows creation of struct pages to represent unaddressable device
-> -	  memory; i.e., memory that is only accessible from the device (or
-> -	  group of devices). You likely also want to select HMM_MIRROR.
-> -
->   config FRAME_VECTOR
->   	bool
->   
-> 
+> So the runtime PM dependency must be already placed there, and the
+> problem is not the lack of the dependency tree but the really other
+> timing issue.  Back to square.
 
+One interesting test is to open the stream while the mode isn't set
+yet and see whether the same problem appears.
+Namely, after the monitor is connected but no mode is set, run
+directly like
+   aplay -Dhdmi:1,0 foo.wav
+You might need to wrap the command with pasuspender if PA is active.
+
+
+Takashi
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
