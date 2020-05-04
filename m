@@ -2,40 +2,105 @@ Return-Path: <SRS0=L96E=6S=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=0.9 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	FORGED_HOTMAIL_RCVD2,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F8E7C3A5A9
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2020 13:20:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F5A1C3A5A9
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2020 13:20:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6C0AC2073E
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2020 13:20:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C0AC2073E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lst.de
+	by mail.kernel.org (Postfix) with ESMTPS id 6F7952073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2020 13:20:09 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="H7yZq02/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F7952073B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=hotmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2E366E3F4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8FE96E3F3;
 	Mon,  4 May 2020 13:20:06 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E0396E3F0;
- Mon,  4 May 2020 13:14:58 +0000 (UTC)
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 73CED68BFE; Mon,  4 May 2020 15:14:55 +0200 (CEST)
-Date: Mon, 4 May 2020 15:14:55 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Subject: Re: [PATCH hmm v2 5/5] mm/hmm: remove the customizable pfn format
- from hmm_range_fault
-Message-ID: <20200504131455.GA19096@lst.de>
-References: <0-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
- <5-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-oln040092073066.outbound.protection.outlook.com [40.92.73.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89BFF6E34A;
+ Mon,  4 May 2020 08:07:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lmoDIckvtUqqThUiBeY5kpuwXBAgBl8y9mRmF28mGrXZzG6ZTgTbllqJ3PWU6eehFRefBPUFQSFaRd/Z+9I1VIG20mmrGCaqzM7oZj9KaHohPS/y0xfJY4e2GcHU1426pnVUkCQohYs9qUJ82qbmiSfKJVbpbnlqgwxoeOGhhIyKeQlE7yEiEtyI8BaTs5riPf/TsKlR1hF7IEqNnbWfWq4lOTpyG7nHS0P/yWuFiOoX352G1L8sSuAuO8k/zhriHR9ToU9JqJOi6oA4EQqowUPSOLJMSRzXDkF+8pwZtRJaBFHTHS0vGIuS3DnTasfsXBEW1S27ufpBaqjq+607XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J1zvImE4mgrVE4lvwEihKpslQwsE7lXcmlzjhkFx5Kg=;
+ b=RI8Yp3A+hHLh1IA7LCGnFtApVUtTUdEFDvE4Z/PImKCzl4PBPeFVkhbV/NgilIlnhuqRUTfGAcQuMRuVjc7/pVMk1KB+IfdAUg3NLhVjYdxsQAUXEhFqufYEbtx5uU2zuS9pvqrgfkYmRHlYMMbYfB6hnSKZu0SeG+L3QwUwK7zyN1YBLTfvcIDzf8bYTsBiaOEoIFYFN4mtCgrBoV/Eof0cDiV40jc9EVJKlM999P2BQMppfKkLssOnvMbiZwbJhoSmjpUiNnK+sMWlsoSe3Z9IUzRGPdD48Vpcwjz2pTRlPSesCs3PJy+dp9WSuTKGJWGRpw4sKC1AR4ZvV8bVMw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J1zvImE4mgrVE4lvwEihKpslQwsE7lXcmlzjhkFx5Kg=;
+ b=H7yZq02/vVypOsSCWejTJqMQ/98LpVPH/NARPLsZ0rRztd6MaYK5CqS3q+5njTifA11AhzT4Nnv1KoCTcSvZa7EkD6KXPlffN85FCnIKU7Go9byY9pOzcuLVA9Vc5pTn++vDpSd6aya91vB1+0JnK3FKvSTNhidfmjgd8WuNJP7w0pYShqJye0ktVl8XSU/yT3/eDH1l4sD8AIAsSRqz9+0dQSTth/NFfxRMriR+4/gVVP7hzJrrt2tdAyFQPSOiSf4RPMyQeb5Ys/dBj4mGrSCUSJJ8RobDMLPmo2J9dDKVoBoBPXEDAzbXoDpGimbomlRiAgV2gKJBctRFaf7img==
+Received: from HE1EUR04FT029.eop-eur04.prod.protection.outlook.com
+ (2a01:111:e400:7e0d::49) by
+ HE1EUR04HT180.eop-eur04.prod.protection.outlook.com (2a01:111:e400:7e0d::392)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.19; Mon, 4 May
+ 2020 08:07:47 +0000
+Received: from DB7PR08MB3801.eurprd08.prod.outlook.com
+ (2a01:111:e400:7e0d::49) by HE1EUR04FT029.mail.protection.outlook.com
+ (2a01:111:e400:7e0d::288) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.19 via Frontend
+ Transport; Mon, 4 May 2020 08:07:47 +0000
+Received: from DB7PR08MB3801.eurprd08.prod.outlook.com
+ ([fe80::4537:eb98:836d:4bc3]) by DB7PR08MB3801.eurprd08.prod.outlook.com
+ ([fe80::4537:eb98:836d:4bc3%3]) with mapi id 15.20.2958.029; Mon, 4 May 2020
+ 08:07:46 +0000
+From: David Binderman <dcb314@hotmail.com>
+To: "harry.wentland@amd.com" <harry.wentland@amd.com>, "sunpeng.li@amd.com"
+ <sunpeng.li@amd.com>, "alexander.deucher@amd.com"
+ <alexander.deucher@amd.com>, "christian.koenig@amd.com"
+ <christian.koenig@amd.com>, "David1.Zhou@amd.com" <David1.Zhou@amd.com>,
+ David Airlie <airlied@linux.ie>, "daniel@ffwll.ch" <daniel@ffwll.ch>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, Linux
+ Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: linux-5.7-rc4/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c:1393: bad
+ loop termination condition ?
+Thread-Topic: linux-5.7-rc4/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c:1393: bad
+ loop termination condition ?
+Thread-Index: AQHWIeqJBtSVxSgrTECebrtQdGo2zA==
+Date: Mon, 4 May 2020 08:07:46 +0000
+Message-ID: <DB7PR08MB38014E850E1C929AD96A60EB9CA60@DB7PR08MB3801.eurprd08.prod.outlook.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-incomingtopheadermarker: OriginalChecksum:8AE6E2072B8C62AF66B8E7C07DF59522F47FD98172B4AFA76BFF2A2C8854C32E;
+ UpperCasedChecksum:6B39B62EF0C883FFD20700FD2403C6564F48BD1E3E8E68DB743A702BA149CC08;
+ SizeAsReceived:7493; Count:43
+x-ms-exchange-messagesentrepresentingtype: 1
+x-tmn: [aaQcRRRod76unxbEiSXV9GDK9SYO8GMg1D52xd4E0F8BOq7Co/ITOx7tWNoFmGI+]
+x-ms-publictraffictype: Email
+x-incomingheadercount: 43
+x-eopattributedmessage: 0
+x-ms-office365-filtering-correlation-id: 522d9952-b5b8-4078-52c4-08d7f0023b1a
+x-ms-traffictypediagnostic: HE1EUR04HT180:
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: DwgQ1KQr91OXC5Cfb4Dxsod1y+MJGUfh8/+2i+Cof/eMAPQ+uhzW66GL80G+d9j5IgBlBBH/Yh/Aln8P0ceZ1tcPv7dkJXmDhM8QVXFAVELcvG98joaTy+gz5C+xOZZORxxahGZPPUBs7MDJwAwhjTUggX8t07DNuTibUn1IQiPP+cyimaivInYnBGca5lLOcN93huXvUmTsCph7djy4nw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:0; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB7PR08MB3801.eurprd08.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:; SFS:; DIR:OUT; SFP:1901; 
+x-ms-exchange-antispam-messagedata: +S8tj8oTlLVUOx7ok0MNwLtIFIKEsmsGM+HwTmpdUdVz2cJzT7XRVzqB8at+LoVoSvhwpb+BKN4Rv9MeG2c/5V2XM589FnRDwy8291+W4JIfnhBJhf4aH1yVLPe12qnYsgVW29QxNY/qfkdpITLG2k24T0vmEiG9L98E/bNFf2KtbLOjHSQUGhtyXLdFxN9si2ruLQAOQONAoMAiMR8VAA==
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <5-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+X-OriginatorOrg: hotmail.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 522d9952-b5b8-4078-52c4-08d7f0023b1a
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 May 2020 08:07:46.7116 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HE1EUR04HT180
 X-Mailman-Approved-At: Mon, 04 May 2020 13:20:05 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -48,26 +113,28 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Ralph Campbell <rcampbell@nvidia.com>, "Yang, Philip" <Philip.Yang@amd.com>,
- John Hubbard <jhubbard@nvidia.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Christoph Hellwig <hch@lst.de>, linux-mm@kvack.org,
- =?iso-8859-1?B?Suly9G1l?= Glisse <jglisse@redhat.com>,
- Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- intel-gfx@lists.freedesktop.org,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Looks good,
+Hello there,
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+linux-5.7-rc4/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c:1393:63: style: Unsigned expression 'j' can't be negative so it is unnecessary to test it. [unsignedPositive]
+
+Source code is 
+
+            for (closest_clk_lvl = 0, j = dcn2_1_soc.num_states - 1; j >= 0; j--) {
+
+but
+
+    unsigned int i, j, closest_clk_lvl;
+
+so it looks like the loop never terminates. Suggest code rework.
+
+Regards
+
+David Binderman
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
