@@ -2,106 +2,113 @@ Return-Path: <SRS0=L96E=6S=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2679AC3A5A9
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2020 08:02:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A6B8C47259
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2020 12:54:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0243220658
-	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2020 08:02:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0243220658
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=FreeBSD.org
+	by mail.kernel.org (Postfix) with ESMTPS id 4CC5F2075B
+	for <amd-gfx@archiver.kernel.org>; Mon,  4 May 2020 12:54:20 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="stb/zMtX"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4CC5F2075B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=samsung.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 274866E343;
-	Mon,  4 May 2020 08:02:34 +0000 (UTC)
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com
- [209.85.208.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC79D6E343
- for <amd-gfx@lists.freedesktop.org>; Mon,  4 May 2020 08:02:32 +0000 (UTC)
-Received: by mail-lj1-f176.google.com with SMTP id w20so8766232ljj.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 04 May 2020 01:02:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=MaDQheaHVxKOor0Mht/okgN/McDlWlt9NfEC0HNQzXw=;
- b=MrRxbIoDavNEW/E1+DnQLQmDn8PuOMSy1Hg+iYaDP3df6zyXUsLlarTCNezJ/XhFzf
- teuMfyf/7U5pLoj4JQmghFA7BNVjyOl+L7nAQqBtF3a4gM6ReumqXzVhExfmqjERO384
- i0OL5umUxVX+SujAkYW66YLVQYj3fSgbERFo9jl/ktxKStDyyN5XPkAqOETyVt6llORO
- hx02Nh44kT3mrxYPY70u96aD2kJsCh7vuFlGBHLLkEwn9+pG3LFMYGJFQ/MHE7ZBXiYX
- BV+GHTNL9d856HUSZ/STEgyHObJ0MBLfuJ5qzuujBdWxr+jqbYq11c2v6n1MZXbpinSm
- 8EAA==
-X-Gm-Message-State: AGi0PuamPPoSeZ6t3aZSwTKZN8xSbpD4AWj2UD88Hcgc2lf+JV5SrQM0
- 64Ef1rooa4od+aBkYBT/pfBkDSYLNXc=
-X-Google-Smtp-Source: APiQypJyyXJAR8i8lKijvfhslMfJm612kAO0N0cljjZs7qCh8zsnTzzRFLODtwkViiVNk2UidRg7ng==
-X-Received: by 2002:a2e:9e45:: with SMTP id g5mr10051100ljk.180.1588579350051; 
- Mon, 04 May 2020 01:02:30 -0700 (PDT)
-Received: from [192.168.0.88] (east.meadow.volia.net. [93.72.151.96])
- by smtp.googlemail.com with ESMTPSA id h3sm5419893lfk.3.2020.05.04.01.02.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 04 May 2020 01:02:29 -0700 (PDT)
-Subject: Re: amdgpu, dc, backlight brightness
-To: Alex Deucher <alexdeucher@gmail.com>
-References: <8db5ae80-0b9d-7d44-18b6-5641eab0ac0d@FreeBSD.org>
- <CADnq5_NkrG1SDMAEfsVNA11Kn8baMaO4J3EcDzKOsNZCWk6LaA@mail.gmail.com>
-From: Andriy Gapon <avg@FreeBSD.org>
-Openpgp: preference=signencrypt
-Autocrypt: addr=avg@FreeBSD.org; prefer-encrypt=mutual; keydata=
- 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
-Message-ID: <53cf7e07-817a-116f-6e38-26ddfd480721@FreeBSD.org>
-Date: Mon, 4 May 2020 11:02:28 +0300
-User-Agent: Mozilla/5.0 (X11; FreeBSD amd64; rv:60.0) Gecko/20100101
- Firefox/60.0 Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4755289533;
+	Mon,  4 May 2020 12:54:14 +0000 (UTC)
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EE9389518
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 May 2020 12:54:12 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200504125411euoutp017367500fa1a40410af8ae649fa71a609~L1Gtrjs6i2809728097euoutp018
+ for <amd-gfx@lists.freedesktop.org>; Mon,  4 May 2020 12:54:11 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20200504125411euoutp017367500fa1a40410af8ae649fa71a609~L1Gtrjs6i2809728097euoutp018
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1588596851;
+ bh=eR8oFUiJZMXOv3u7xfQ4au5Namlj9CitJYXcY2fG1iQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=stb/zMtXRIhrrjQhXHaNJFyd6VOrSH0fT6eprQ0sW32pmFweAaElI4sW16IHuztEO
+ H025n7qaEYKhpdblpCiayhR3U160IvzIX4oRhP/yUlB7xBaP0mqlFYvgVhDiOsu7KP
+ yIU5ucMlqJUPs6Pm/XusXgLcp3FoQP9H9rIMg/GE=
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20200504125411eucas1p15bd4342b7b927fff40a0f083ac880ab7~L1GtZhilf0157201572eucas1p1v;
+ Mon,  4 May 2020 12:54:11 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id C7.D2.60679.27010BE5; Mon,  4
+ May 2020 13:54:11 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200504125410eucas1p21e7a58138893b2fd1d599832357c9f21~L1GtCR_Af2430724307eucas1p2g;
+ Mon,  4 May 2020 12:54:10 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20200504125410eusmtrp161ea359617c9a2dd746f0d10e93662c3~L1GtBN1qP2497724977eusmtrp1S;
+ Mon,  4 May 2020 12:54:10 +0000 (GMT)
+X-AuditID: cbfec7f4-0cbff7000001ed07-92-5eb0107239a9
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id 13.69.08375.27010BE5; Mon,  4
+ May 2020 13:54:10 +0100 (BST)
+Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200504125409eusmtip256d96640042a910976e7d8bad704c7e0~L1GsSxleE0241702417eusmtip2G;
+ Mon,  4 May 2020 12:54:09 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2 02/21] drm: amdgpu: fix sg_table nents vs. orig_nents misuse
+Date: Mon,  4 May 2020 14:53:40 +0200
+Message-Id: <20200504125359.5678-2-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200504125359.5678-1-m.szyprowski@samsung.com>
 MIME-Version: 1.0
-In-Reply-To: <CADnq5_NkrG1SDMAEfsVNA11Kn8baMaO4J3EcDzKOsNZCWk6LaA@mail.gmail.com>
-Content-Language: en-US
+X-Brightmail-Tracker: H4sIAAAAAAAAA01Sa0hTYRjuO7edrWbHKfiWpTTMKCi7SBzoQkE/jkSQ9SeizJUnjZzKjrMs
+ KtPWZWYXR2tqlJWleZtOU1llZdY0y2JazNLMC5ahZGyzu7V5svr3PM/7PN/zvvDRuKKfnE7v
+ SkjmNQmqeCUlI2oefX02X2AqohZef4zYrNZmjDV23iLZa+bDErbSZCbZ4W4P/VVzFmcLXM9I
+ tt39kWJvlDzE2Py7y1hXew/GWvpekmyb9QLFljV2Sdj7I/3kqqmczv6T4kovliLuzmg+wdWO
+ viW57kwbxlUVHOJej/XhnMFRiLhbHWkUd6q6GHFOS9D6yZtly2P4+F0pvCZsZbQs7kRLOpHU
+ DnvtpmxJGnrjr0dSGphwqO1xS/RIRiuYIgTdLhMhEheCwvIiJBInAndxJjURMTqz/0QKEYw9
+ qEd/I/ZK70RKU8wi0A/rxxP+jA5BU9YUrwlnXuBQWvCK9A78mEgoamocNxHMbDBcfkJ4sZxZ
+ DrWn3ZhYFwwlFfdwPaJpKbMCcrLmiBZfaM7pH7fjHkvGzTzc+z4wOhrsludIzK6BgZwhQsR+
+ 8MFWLRHxDGgxnCTEQAaCntYyiUhOImhLN/1JL4PO1m+Utxln5oLZGibKq2H4nRV5ZWB8wDHs
+ Ky7hA9k153FRlsPxowrRHQq5tvK/tfef23ERc3Ci/gt2Bs3K/e+c3P/Oyf3Xm4/wYhTAawV1
+ LC8sTuD3LBBUakGbELtgR6Lagjx/r2XM5qpD1h/bGxBDI+UU+SanOUpBqlKEVHUDAhpX+svr
+ jngkeYwqdR+vSdym0cbzQgMKpAllgHzJlcGtCiZWlczv5vkkXjMxxWjp9DRk7D1c33dto22n
+ 0w+rDgkU3LIS/Z2Iyu9Pjw1RdRdHmK7AyMb9zuBzC6fV2TMUIZ2x4dHEppVJB2lT1bGoAUem
+ 9OrovAOGPL/QwYFLOVpHXH/yPWPA2i1pvbqymSlr3EsnNUBQRVjHp46Wz5gr5PZMo7mTiGh8
+ P3/DKnmQf2r4OiUhxKkWzcM1guo3Uql9VHcDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrOIsWRmVeSWpSXmKPExsVy+t/xe7pFAhviDCY2alj0njvJZDHtzm5W
+ i6XrG9ktNs5Yz2rx9j6Q+3/bRGaLJV/Os1pc+fqezWLl6qNMFgv2W1t8ufKQyWLT42usFpd3
+ zWGzWHvkLrvFwQ9PWB34PVov/WXzWDNvDaPH3m8LWDy2f3vA6nG/+ziTx+Yl9R63/z1m9ph8
+ Yzmjx+6bDWwefVtWMXp83iQXwB2lZ1OUX1qSqpCRX1xiqxRtaGGkZ2hpoWdkYqlnaGwea2Vk
+ qqRvZ5OSmpNZllqkb5egl9F5uoml4IpExaUZk9gbGO+JdDFyckgImEhM+zyJvYuRi0NIYCmj
+ ROOWZ4wQCRmJk9MaWCFsYYk/17rYIIo+MUr8WPCUCSTBJmAo0fUWIiEi0MkoMa37IztIglng
+ LrPEiim5ILawgL/E810vWUBsFgFVickLz4DZvAI2Etv7vzJBbJCXWL3hAHMXIwcHp4CtxMxe
+ dZCwkEC+xN2n/6DKBSVOznzCAlLCLKAusX6eEMQmeYnmrbOZJzAKzkJSNQuhahaSqgWMzKsY
+ RVJLi3PTc4sN9YoTc4tL89L1kvNzNzECI3nbsZ+bdzBe2hh8iFGAg1GJhzfi8/o4IdbEsuLK
+ 3EOMEhzMSiK8O1qAQrwpiZVVqUX58UWlOanFhxhNgT6byCwlmpwPTDJ5JfGGpobmFpaG5sbm
+ xmYWSuK8HQIHY4QE0hNLUrNTUwtSi2D6mDg4pRoYI8rWvno0tfb66beBz2fNTWU6t7p1S0f4
+ B9eLdhu8g5z27aiT5zZQuLBCJstvJavC82lrXTg833oUMnq4R2yT4PizLDkhI0n7HndluaL6
+ d4PLoplh3u/6s6tX8b7nDpk/I/PmpNeHku9MDnlcIiZh96L/pdzLvZNSDnaWyUa/fTfZQvqF
+ ic9rJZbijERDLeai4kQAqK3jcPoCAAA=
+X-CMS-MailID: 20200504125410eucas1p21e7a58138893b2fd1d599832357c9f21
+X-Msg-Generator: CA
+X-RootMTR: 20200504125410eucas1p21e7a58138893b2fd1d599832357c9f21
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200504125410eucas1p21e7a58138893b2fd1d599832357c9f21
+References: <20200504125017.5494-1-m.szyprowski@samsung.com>
+ <20200504125359.5678-1-m.szyprowski@samsung.com>
+ <CGME20200504125410eucas1p21e7a58138893b2fd1d599832357c9f21@eucas1p2.samsung.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,97 +120,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 29/04/2020 21:15, Alex Deucher wrote:
-> I think it varies from OEM to OEM and whatever windows required at the
-> time.  The sbios may also do different things depending on the osi
-> string passed to ACPI.  Originally, ACPI handled it all directly.
-> Then we got some laptops which which did the whole event via ATIF
-> thing (even that I think varied based on the .  Later, I think the
-> keys just produced brightness events and it was up to the OS to do
-> something with them so the user's environment would catch the events
-> and adjust the backlight via the standard OS backlight control
-> interface.  We never hooked up the ATIF stuff to DC since I don't
-> recall ever running into any laptops that used it for backlight
-> control (the code was carried over from radeon when we forked amdgpu).
-
-Thank you for the information!
-Indeed, I see that there are so many quirks in how brightness keys are handled
-by firmware.  Ranging from actually changing the brightness to posting ACPI
-events to posting key codes.  And then those options are not exclusive of each
-other.
-
-Just in case, I've written a bit of code for ATIF handler to control the
-backlight in the DC case.  I doubt that it is very useful, it was mostly an
-exercise for myself.
-
-----------------------------------------------------------------------------
-commit ed2ca1d7e3fbdb641d9a1bc2de9b88e2927ff1bd
-Author: Andriy Gapon <avg@FreeBSD.org>
-Date:   Thu Apr 30 14:47:11 2020 +0300
-
-    amdgpu_acpi: perform automatic backlight adjustment in the DC case too
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 04bbd8f41441c..62fbae1177091 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -444,7 +444,6 @@ static int amdgpu_atif_handler(struct amdgpu_device *adev,
-
- 		DRM_DEBUG_DRIVER("ATIF: %d pending SBIOS requests\n", count);
-
--		/* todo: add DC handling */
- 		if ((req.pending & ATIF_PANEL_BRIGHTNESS_CHANGE_REQUEST) &&
- 		    !amdgpu_device_has_dc_support(adev)) {
- 			struct amdgpu_encoder *enc = atif->encoder_for_bl;
-@@ -463,6 +462,34 @@ static int amdgpu_atif_handler(struct amdgpu_device *adev,
- #endif
- 			}
- 		}
-+#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) ||
-defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
-+		if ((req.pending & ATIF_PANEL_BRIGHTNESS_CHANGE_REQUEST) &&
-+		    amdgpu_device_has_dc_support(adev)) {
-+			struct amdgpu_display_manager *dm = &adev->dm;
-+			struct backlight_device *bd = dm->backlight_dev;
-+
-+			if (bd) {
-+				DRM_DEBUG_DRIVER("Changing brightness to %d\n",
-+						 req.backlight_level);
-+
-+				/*
-+				 * Newer Linux has
-+				 * backlight_device_set_brightness, but it is
-+				 * hardwired to post BACKLIGHT_UPDATE_SYSFS.
-+				 */
-+				mutex_lock(&bd->ops_lock);
-+				if (bd->ops &&
-+				    req.backlight_level <= bd->props.max_brightness) {
-+					bd->props.brightness = req.backlight_level;
-+					backlight_update_status(bd);
-+				}
-+				mutex_unlock(&bd->ops_lock);
-+#if 0
-+				backlight_generate_event(bd, BACKLIGHT_UPDATE_HOTKEY);
-+#endif
-+			}
-+		}
-+#endif
- 		if (req.pending & ATIF_DGPU_DISPLAY_EVENT) {
- 			if ((adev->flags & AMD_IS_PX) &&
- 			    amdgpu_atpx_dgpu_req_power_for_displays()) {
-
-
-
--- 
-Andriy Gapon
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VGhlIERvY3VtZW50YXRpb24vRE1BLUFQSS1IT1dUTy50eHQgc3RhdGVzIHRoYXQgZG1hX21hcF9z
+ZyByZXR1cm5zIHRoZQpudW1lciBvZiB0aGUgY3JlYXRlZCBlbnRyaWVzIGluIHRoZSBETUEgYWRk
+cmVzcyBzcGFjZS4gSG93ZXZlciB0aGUKc3Vic2VxdWVudCBjYWxscyB0byBkbWFfc3luY19zZ19m
+b3Jfe2RldmljZSxjcHV9IGFuZCBkbWFfdW5tYXBfc2cgbXVzdCBiZQpjYWxsZWQgd2l0aCB0aGUg
+b3JpZ2luYWwgbnVtYmVyIG9mIGVudHJpZXMgcGFzc2VkIHRvIGRtYV9tYXBfc2cuIFRoZQpzZ190
+YWJsZS0+bmVudHMgaW4gdHVybiBob2xkcyB0aGUgcmVzdWx0IG9mIHRoZSBkbWFfbWFwX3NnIGNh
+bGwgYXMgc3RhdGVkCmluIGluY2x1ZGUvbGludXgvc2NhdHRlcmxpc3QuaC4gQWRhcHQgdGhlIGNv
+ZGUgdG8gb2JleSB0aG9zZSBydWxlcy4KClNpZ25lZC1vZmYtYnk6IE1hcmVrIFN6eXByb3dza2kg
+PG0uc3p5cHJvd3NraUBzYW1zdW5nLmNvbT4KUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcg
+PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KLS0tCkZvciBtb3JlIGluZm9ybWF0aW9uLCBzZWUg
+J1tQQVRDSCB2MiAwMC8yMV0gRFJNOiBmaXggc3RydWN0IHNnX3RhYmxlIG5lbnRzCnZzLiBvcmln
+X25lbnRzIG1pc3VzZScgdGhyZWFkOiBodHRwczovL2xrbWwub3JnL2xrbWwvMjAyMC81LzQvMzcz
+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RtYV9idWYuYyB8IDcgKysr
+Ky0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3R0bS5jICAgICB8IDggKysr
+Ky0tLS0KIDIgZmlsZXMgY2hhbmdlZCwgOCBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygtKQoK
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kbWFfYnVmLmMg
+Yi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZG1hX2J1Zi5jCmluZGV4IDQzZDhl
+ZDcuLjRkZjgxM2UgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9kbWFfYnVmLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RtYV9i
+dWYuYwpAQCAtMzA3LDggKzMwNyw5IEBAIHN0YXRpYyBzdHJ1Y3Qgc2dfdGFibGUgKmFtZGdwdV9k
+bWFfYnVmX21hcChzdHJ1Y3QgZG1hX2J1Zl9hdHRhY2htZW50ICphdHRhY2gsCiAJCWlmIChJU19F
+UlIoc2d0KSkKIAkJCXJldHVybiBzZ3Q7CiAKLQkJaWYgKCFkbWFfbWFwX3NnX2F0dHJzKGF0dGFj
+aC0+ZGV2LCBzZ3QtPnNnbCwgc2d0LT5uZW50cywgZGlyLAotCQkJCSAgICAgIERNQV9BVFRSX1NL
+SVBfQ1BVX1NZTkMpKQorCQlzZ3QtPm5lbnRzID0gZG1hX21hcF9zZ19hdHRycyhhdHRhY2gtPmRl
+diwgc2d0LT5zZ2wsIHNndC0+b3JpZ19uZW50cywKKwkJCQkJICAgICAgZGlyLCBETUFfQVRUUl9T
+S0lQX0NQVV9TWU5DKTsKKwkJaWYgKCFzZ3QtPm5lbnRzKQogCQkJZ290byBlcnJvcl9mcmVlOwog
+CQlicmVhazsKIApAQCAtMzQ5LDcgKzM1MCw3IEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbWFfYnVm
+X3VubWFwKHN0cnVjdCBkbWFfYnVmX2F0dGFjaG1lbnQgKmF0dGFjaCwKIAlzdHJ1Y3QgYW1kZ3B1
+X2RldmljZSAqYWRldiA9IGFtZGdwdV90dG1fYWRldihiby0+dGJvLmJkZXYpOwogCiAJaWYgKHNn
+dC0+c2dsLT5wYWdlX2xpbmspIHsKLQkJZG1hX3VubWFwX3NnKGF0dGFjaC0+ZGV2LCBzZ3QtPnNn
+bCwgc2d0LT5uZW50cywgZGlyKTsKKwkJZG1hX3VubWFwX3NnKGF0dGFjaC0+ZGV2LCBzZ3QtPnNn
+bCwgc2d0LT5vcmlnX25lbnRzLCBkaXIpOwogCQlzZ19mcmVlX3RhYmxlKHNndCk7CiAJCWtmcmVl
+KHNndCk7CiAJfSBlbHNlIHsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2FtZGdwdV90dG0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV90dG0uYwpp
+bmRleCBlZmYxZjczLi4xZjhjNTA3IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfdHRtLmMKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X3R0bS5jCkBAIC0xMDQzLDcgKzEwNDMsNiBAQCBzdGF0aWMgaW50IGFtZGdwdV90dG1fdHRfcGlu
+X3VzZXJwdHIoc3RydWN0IHR0bV90dCAqdHRtKQogewogCXN0cnVjdCBhbWRncHVfZGV2aWNlICph
+ZGV2ID0gYW1kZ3B1X3R0bV9hZGV2KHR0bS0+YmRldik7CiAJc3RydWN0IGFtZGdwdV90dG1fdHQg
+Kmd0dCA9ICh2b2lkICopdHRtOwotCXVuc2lnbmVkIG5lbnRzOwogCWludCByOwogCiAJaW50IHdy
+aXRlID0gIShndHQtPnVzZXJmbGFncyAmIEFNREdQVV9HRU1fVVNFUlBUUl9SRUFET05MWSk7CkBA
+IC0xMDU5LDggKzEwNTgsOSBAQCBzdGF0aWMgaW50IGFtZGdwdV90dG1fdHRfcGluX3VzZXJwdHIo
+c3RydWN0IHR0bV90dCAqdHRtKQogCiAJLyogTWFwIFNHIHRvIGRldmljZSAqLwogCXIgPSAtRU5P
+TUVNOwotCW5lbnRzID0gZG1hX21hcF9zZyhhZGV2LT5kZXYsIHR0bS0+c2ctPnNnbCwgdHRtLT5z
+Zy0+bmVudHMsIGRpcmVjdGlvbik7Ci0JaWYgKG5lbnRzID09IDApCisJdHRtLT5zZy0+bmVudHMg
+PSBkbWFfbWFwX3NnKGFkZXYtPmRldiwgdHRtLT5zZy0+c2dsLAorCQkJCSAgICB0dG0tPnNnLT5v
+cmlnX25lbnRzLCBkaXJlY3Rpb24pOworCWlmICh0dG0tPnNnLT5uZW50cyA9PSAwKQogCQlnb3Rv
+IHJlbGVhc2Vfc2c7CiAKIAkvKiBjb252ZXJ0IFNHIHRvIGxpbmVhciBhcnJheSBvZiBwYWdlcyBh
+bmQgZG1hIGFkZHJlc3NlcyAqLwpAQCAtMTA5MSw3ICsxMDkxLDcgQEAgc3RhdGljIHZvaWQgYW1k
+Z3B1X3R0bV90dF91bnBpbl91c2VycHRyKHN0cnVjdCB0dG1fdHQgKnR0bSkKIAkJcmV0dXJuOwog
+CiAJLyogdW5tYXAgdGhlIHBhZ2VzIG1hcHBlZCB0byB0aGUgZGV2aWNlICovCi0JZG1hX3VubWFw
+X3NnKGFkZXYtPmRldiwgdHRtLT5zZy0+c2dsLCB0dG0tPnNnLT5uZW50cywgZGlyZWN0aW9uKTsK
+KwlkbWFfdW5tYXBfc2coYWRldi0+ZGV2LCB0dG0tPnNnLT5zZ2wsIHR0bS0+c2ctPm9yaWdfbmVu
+dHMsIGRpcmVjdGlvbik7CiAKIAlzZ19mcmVlX3RhYmxlKHR0bS0+c2cpOwogCi0tIAoxLjkuMQoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBt
+YWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5m
+cmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
