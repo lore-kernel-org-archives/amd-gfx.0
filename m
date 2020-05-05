@@ -2,70 +2,68 @@ Return-Path: <SRS0=bavc=6T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9C30DC47257
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 06:59:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 147F4C47256
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 06:59:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6CC822064A
+	by mail.kernel.org (Postfix) with ESMTPS id DA9942064A
 	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 06:59:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="eOY1+0+N"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6CC822064A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="jlUDA7Xe"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA9942064A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C4D06E558;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3040B6E52D;
 	Tue,  5 May 2020 06:59:00 +0000 (UTC)
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B1FD6E030;
- Tue,  5 May 2020 01:30:02 +0000 (UTC)
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5eb0c1190000>; Mon, 04 May 2020 18:27:53 -0700
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+ [216.228.121.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16BE289DBC;
+ Tue,  5 May 2020 00:21:00 +0000 (UTC)
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5eb0b1260000>; Mon, 04 May 2020 17:19:50 -0700
 Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Mon, 04 May 2020 18:30:01 -0700
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Mon, 04 May 2020 17:20:59 -0700
 X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Mon, 04 May 2020 18:30:01 -0700
+ by hqpgpgate101.nvidia.com on Mon, 04 May 2020 17:20:59 -0700
 Received: from [10.2.56.198] (172.20.13.39) by HQMAIL107.nvidia.com
  (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 5 May
- 2020 01:30:01 +0000
-Subject: Re: [PATCH hmm v2 5/5] mm/hmm: remove the customizable pfn format
- from hmm_range_fault
+ 2020 00:20:59 +0000
+Subject: Re: [PATCH hmm v2 2/5] mm/hmm: make hmm_range_fault return 0 or -1
 To: Jason Gunthorpe <jgg@ziepe.ca>, <linux-mm@kvack.org>, Ralph Campbell
  <rcampbell@nvidia.com>
-References: <5-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
+References: <2-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
 X-Nvconfidentiality: public
 From: John Hubbard <jhubbard@nvidia.com>
-Message-ID: <c0d02b98-c356-60b1-6043-5b8d1a9be19a@nvidia.com>
-Date: Mon, 4 May 2020 18:30:00 -0700
+Message-ID: <9cf9f4f0-58b7-1992-6c6e-eed226ba42c0@nvidia.com>
+Date: Mon, 4 May 2020 17:20:58 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
 MIME-Version: 1.0
-In-Reply-To: <5-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
+In-Reply-To: <2-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
 X-Originating-IP: [172.20.13.39]
 X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
  HQMAIL107.nvidia.com (172.20.187.13)
 Content-Language: en-US
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1588642074; bh=0RmV3sG8w7ohZ9OHDH/pFQovyGtqFiweq5osGERvRpo=;
+ t=1588637990; bh=IxP1FX28IvHHn1UJ333IIWhaZQbrlpthRJPkCq5tlOE=;
  h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
  Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
  X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
  Content-Transfer-Encoding;
- b=eOY1+0+N16Z8aXdaiKYs4SjvO5ciGMllXCnn4JHvxrMNegzH6IgzBrgMQ6KLknx+2
- NW61WlLixaCXwpAX66FkMFk33D1AZxP9m+6e4xhyt3iViJHKiqZE0yxobywOngahYp
- Oa4t4//YPZ9FBYbFVnWJS7FFUuGNZMQcvthU8XFKEm+qluSRkODN/sHHCRiJUh5bGf
- BKKLGG2OcIR8QibGldQa4e9evirUYK9GxZAkXDoSgZQj+ERLHJV3M/7/AZZ0+IMwVQ
- /QA2kar4rqltVlXZDL6gLT9+eQ5GwMKMARyXGnZEQoIO2rCTlEo8sgwnQQ5HXAkQnM
- O4nW+Hut9230g==
+ b=jlUDA7Xe/cEVYvcoOLBLT9WxsiTxB4eaIcRkJbYt7sChT+skJNIVNGkwSxeX311N9
+ 8Icf+Bb+N7FsISzQG4Ci4zeBXx95nSpEwUjZe7BytMfOd9TIqtDhoWdCDk3g2renix
+ JJp4862GZJKQrIMSPPWchAxpo2TL3LdIgZ1nciGXyRvtuaWnU7bnlRQkU6QhCIwddA
+ zZt1IUaeh+IgfHdHcJKHNaZAmd2XKaHg3iGk3SkLeBMTYoH9nYDLidjG4h/hxqZ6a6
+ Hae57Q5zwNGF0Ax1wOvaZcYkMzvipoDz/QPdM+7uCWP3VezcDvR1L7Kvdm3oMQaoTe
+ S2aJNC1fom1GQ==
 X-Mailman-Approved-At: Tue, 05 May 2020 06:58:58 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,246 +94,63 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On 2020-05-01 11:20, Jason Gunthorpe wrote:
 > From: Jason Gunthorpe <jgg@mellanox.com>
 > 
-> Presumably the intent here was that hmm_range_fault() could put the data
-> into some HW specific format and thus avoid some work. However, nothing
-> actually does that, and it isn't clear how anything actually could do that
-> as hmm_range_fault() provides CPU addresses which must be DMA mapped.
+> hmm_vma_walk->last is supposed to be updated after every write to the
+> pfns, so that it can be returned by hmm_range_fault(). However, this is
+> not done consistently. Fortunately nothing checks the return code of
+> hmm_range_fault() for anything other than error.
 > 
-> Perhaps there is some special HW that does not need DMA mapping, but we
-> don't have any examples of this, and the theoretical performance win of
-> avoiding an extra scan over the pfns array doesn't seem worth the
-> complexity. Plus pfns needs to be scanned anyhow to sort out any
-> DEVICE_PRIVATE pages.
+> More importantly last must be set before returning -EBUSY as it is used to
+> prevent reading an output pfn as an input flags when the loop restarts.
 > 
-> This version replaces the uint64_t with an usigned long containing a pfn
-> and fixed flags. On input flags is filled with the HMM_PFN_REQ_* values,
-> on successful output it is filled with HMM_PFN_* values, describing the
-> state of the pages.
-> 
+> For clarity and simplicity make hmm_range_fault() return 0 or -ERRNO. Only
+> set last when returning -EBUSY.
 
-Just some minor stuff below. I wasn't able to spot any errors in the code,
-though, so these are just documentation nits.
+Yes, this is also a nice simplification.
 
-
-...
-
-> 
-> diff --git a/Documentation/vm/hmm.rst b/Documentation/vm/hmm.rst
-> index 9924f2caa0184c..c9f2329113a47f 100644
-> --- a/Documentation/vm/hmm.rst
-> +++ b/Documentation/vm/hmm.rst
-> @@ -185,9 +185,6 @@ The usage pattern is::
->         range.start = ...;
->         range.end = ...;
->         range.pfns = ...;
-
-That should be:
-
-           range.hmm_pfns = ...;
-
-
-> -      range.flags = ...;
-> -      range.values = ...;
-> -      range.pfn_shift = ...;
->   
->         if (!mmget_not_zero(interval_sub->notifier.mm))
->             return -EFAULT;
-> @@ -229,15 +226,10 @@ The hmm_range struct has 2 fields, default_flags and pfn_flags_mask, that specif
->   fault or snapshot policy for the whole range instead of having to set them
->   for each entry in the pfns array.
->   
-> -For instance, if the device flags for range.flags are::
-> +For instance if the device driver wants pages for a range with at least read
-> +permission, it sets::
->   
-> -    range.flags[HMM_PFN_VALID] = (1 << 63);
-> -    range.flags[HMM_PFN_WRITE] = (1 << 62);
-> -
-> -and the device driver wants pages for a range with at least read permission,
-> -it sets::
-> -
-> -    range->default_flags = (1 << 63);
-> +    range->default_flags = HMM_PFN_REQ_FAULT;
->       range->pfn_flags_mask = 0;
->   
->   and calls hmm_range_fault() as described above. This will fill fault all pages
-> @@ -246,18 +238,18 @@ in the range with at least read permission.
->   Now let's say the driver wants to do the same except for one page in the range for
->   which it wants to have write permission. Now driver set::
->   
-> -    range->default_flags = (1 << 63);
-> -    range->pfn_flags_mask = (1 << 62);
-> -    range->pfns[index_of_write] = (1 << 62);
-> +    range->default_flags = HMM_PFN_REQ_FAULT;
-> +    range->pfn_flags_mask = HMM_PFN_REQ_WRITE;
-> +    range->pfns[index_of_write] = HMM_PFN_REQ_WRITE;
-
-
-All these choices for _WRITE behavior make it slightly confusing. I mean, it's
-better than it was, but there are default flags, a mask, and an index as well,
-and it looks like maybe we have a little more power and flexibility than
-desirable? Nouveau for example is now just setting the mask only:
-
-// nouveau_range_fault():
-     .pfn_flags_mask = HMM_PFN_REQ_FAULT | HMM_PFN_REQ_WRITE,
-     (.default_flags is not set, so is zero)
-
-Maybe the example should do what Nouveau is doing? And/or do we want to get rid
-of either .default_flags or .pfn_flags_mask?
-
-...
-
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_svm.c b/drivers/gpu/drm/nouveau/nouveau_svm.c
-> index cf0d9bd61bebf9..99697df28bfe12 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_svm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_svm.c
-
-...
-
-> @@ -518,9 +506,45 @@ static const struct mmu_interval_notifier_ops nouveau_svm_mni_ops = {
->   	.invalidate = nouveau_svm_range_invalidate,
->   };
->   
-> +static void nouveau_hmm_convert_pfn(struct nouveau_drm *drm,
-> +				    struct hmm_range *range, u64 *ioctl_addr)
-> +{
-> +	unsigned long i, npages;
-> +
-> +	/*
-> +	 * The ioctl_addr prepared here is passed through nvif_object_ioctl()
-> +	 * to an eventual DMA map in something like gp100_vmm_pgt_pfn()
-> +	 *
-> +	 * This is all just encoding the internal hmm reprensetation into a
-
-"representation"
-
-...
-
-> @@ -542,12 +564,15 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
+> ...
+> @@ -590,10 +580,13 @@ long hmm_range_fault(struct hmm_range *range)
 >   			return -EBUSY;
->   
->   		range.notifier_seq = mmu_interval_read_begin(range.notifier);
-> -		range.default_flags = 0;
-> -		range.pfn_flags_mask = -1UL;
->   		down_read(&mm->mmap_sem);
->   		ret = hmm_range_fault(&range);
->   		up_read(&mm->mmap_sem);
->   		if (ret) {
-> +			/*
-> +			 * FIXME: the input PFN_REQ flags are destroyed on
-> +			 * -EBUSY, we need to regenerate them, also for the
-> +			 * other continue below
-> +			 */
+>   		ret = walk_page_range(mm, hmm_vma_walk.last, range->end,
+>   				      &hmm_walk_ops, &hmm_vma_walk);
+> +		/*
+> +		 * When -EBUSY is returned the loop restarts with
+> +		 * hmm_vma_walk.last set to an address that has not been stored
+> +		 * in pfns. All entries < last in the pfn array are set to their
+> +		 * output, and all >= are still at their input values.
+> +		 */
 
+I'm glad you added that comment. This is much easier to figure out with
+that in place. After poking around this patch and eventually understanding the
+.last handling, I wondered if you might like this slightly tweaked wording
+instead:
 
-How serious is this FIXME? It seems like we could get stuck in a loop here,
-if we're not issuing a new REQ, right?
+		/*
+		 * Each of the hmm_walk_ops routines returns -EBUSY if and only
+		 * hmm_vma_walk.last has been set to an address that has not yet
+		 * been stored in pfns. All entries < last in the pfn array are
+		 * set to their output, and all >= are still at their input
+		 * values.
+		 */
 
+Either way,
 
->   			if (ret == -EBUSY)
->   				continue;
->   			return ret;
-> @@ -562,7 +587,7 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
->   		break;
->   	}
->   
-> -	nouveau_dmem_convert_pfn(drm, &range);
-> +	nouveau_hmm_convert_pfn(drm, &range, ioctl_addr);
->   
->   	svmm->vmm->vmm.object.client->super = true;
->   	ret = nvif_object_ioctl(&svmm->vmm->vmm.object, data, size, NULL);
-> @@ -589,6 +614,7 @@ nouveau_svm_fault(struct nvif_notify *notify)
->   		} i;
->   		u64 phys[16];
->   	} args;
-> +	unsigned long hmm_pfns[ARRAY_SIZE(args.phys)];
-
-
-Is there a risk of blowing up the stack here?
-
-...
-
-> --- a/include/linux/hmm.h
-> +++ b/include/linux/hmm.h
-> @@ -19,45 +19,45 @@
->   #include <linux/mmu_notifier.h>
->   
->   /*
-> - * hmm_pfn_flag_e - HMM flag enums
-> + * On output:
-> + * 0             - The page is faultable and a future call with
-> + *                 HMM_PFN_REQ_FAULT could succeed.
-> + * HMM_PFN_VALID - the pfn field points to a valid PFN. This PFN is at
-> + *                 least readable. If dev_private_owner is !NULL then this could
-> + *                 point at a DEVICE_PRIVATE page.
-> + * HMM_PFN_WRITE - if the page memory can be written to (requires HMM_PFN_VALID)
-> + * HMM_PFN_ERROR - accessing the pfn is impossible and the device should
-> + *                 fail. ie poisoned memory, special pages, no vma, etc
->    *
-> - * Flags:
-> - * HMM_PFN_VALID: pfn is valid. It has, at least, read permission.
-> - * HMM_PFN_WRITE: CPU page table has write permission set
-> - *
-> - * The driver provides a flags array for mapping page protections to device
-> - * PTE bits. If the driver valid bit for an entry is bit 3,
-> - * i.e., (entry & (1 << 3)), then the driver must provide
-> - * an array in hmm_range.flags with hmm_range.flags[HMM_PFN_VALID] == 1 << 3.
-> - * Same logic apply to all flags. This is the same idea as vm_page_prot in vma
-> - * except that this is per device driver rather than per architecture.
-> + * On input:
-> + * 0                 - Return the current state of the page, do not fault it.
-> + * HMM_PFN_REQ_FAULT - The output must have HMM_PFN_VALID or hmm_range_fault()
-> + *                     will fail
-> + * HMM_PFN_REQ_WRITE - The output must have HMM_PFN_WRITE or hmm_range_fault()
-> + *                     will fail. Must be combined with HMM_PFN_REQ_FAULT.
->    */
-> -enum hmm_pfn_flag_e {
-> -	HMM_PFN_VALID = 0,
-> -	HMM_PFN_WRITE,
-> -	HMM_PFN_FLAG_MAX
-> +enum hmm_pfn_flags {
-
-Let's add:
-
-         /* Output flags: */
-
-> +	HMM_PFN_VALID = 1UL << (BITS_PER_LONG - 1),
-> +	HMM_PFN_WRITE = 1UL << (BITS_PER_LONG - 2),
-> +	HMM_PFN_ERROR = 1UL << (BITS_PER_LONG - 3),
-> +
-
-         /* Input flags: */
-
-...
-
-> @@ -174,44 +162,44 @@ static int hmm_vma_walk_hole(unsigned long addr, unsigned long end,
->   	}
->   	if (required_fault)
->   		return hmm_vma_fault(addr, end, required_fault, walk);
-> -	return hmm_pfns_fill(addr, end, range, HMM_PFN_NONE);
-> +	return hmm_pfns_fill(addr, end, range, 0);
->   }
->   
-> -static inline uint64_t pmd_to_hmm_pfn_flags(struct hmm_range *range, pmd_t pmd)
-> +static inline unsigned long pmd_to_hmm_pfn_flags(struct hmm_range *range,
-> +						 pmd_t pmd)
->   {
->   	if (pmd_protnone(pmd))
->   		return 0;
-> -	return pmd_write(pmd) ? range->flags[HMM_PFN_VALID] |
-> -				range->flags[HMM_PFN_WRITE] :
-> -				range->flags[HMM_PFN_VALID];
-> +	return pmd_write(pmd) ? (HMM_PFN_VALID | HMM_PFN_WRITE) : HMM_PFN_VALID;
-
-
-I always found the previous range->flags[...] approach hard to remember, so it's
-nice to see a simpler version now.
-
+     Reviewed-by: John Hubbard <jhubbard@nvidia.com>
 
 thanks,
 -- 
 John Hubbard
 NVIDIA
+
+>   	} while (ret == -EBUSY);
+> -
+> -	if (ret)
+> -		return ret;
+> -	return (hmm_vma_walk.last - range->start) >> PAGE_SHIFT;
+> +	return ret;
+>   }
+>   EXPORT_SYMBOL(hmm_range_fault);
+> 
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
