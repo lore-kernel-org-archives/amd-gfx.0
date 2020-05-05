@@ -2,112 +2,78 @@ Return-Path: <SRS0=bavc=6T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B947BC54E4A
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 08:46:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B6CEAC47254
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 09:12:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8F0DC206B9
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 08:46:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8870F206A4
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 09:12:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="uMlgOr0I"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8F0DC206B9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=samsung.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="z57iqsl5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8870F206A4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7D676E588;
-	Tue,  5 May 2020 08:46:33 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EBDA6E580
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 May 2020 08:46:32 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200505084631euoutp022d8fab331ce40995eac102d851696180~MFXwM5J7V2627826278euoutp02i
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 May 2020 08:46:31 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20200505084631euoutp022d8fab331ce40995eac102d851696180~MFXwM5J7V2627826278euoutp02i
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1588668391;
- bh=DcbTTpMYNdDMiG2ZexVlXLhvYsFnG/5yFWRERxG8I7U=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=uMlgOr0Is0KZ75SpPFGxPJ2fOFJe022Bs6AzWapLuyDBuuq8fDysOEnRHZoAi+APl
- KXWzSiWwFlgWNC79btCmw/GK8GD6FBQzvUu5HIhBTBRfCbsUn4F0KzTfj3mCf11kSK
- MEYH5l42TBlrTLxS022CrfMagSIRD9IKH/Alp04Y=
-Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20200505084630eucas1p134838c57e397207e33c78befc62bd2c5~MFXv68E4c2431324313eucas1p19;
- Tue,  5 May 2020 08:46:30 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges2new.samsung.com (EUCPMTA) with SMTP id 6D.32.60679.6E721BE5; Tue,  5
- May 2020 09:46:30 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20200505084630eucas1p1c74cd5d287e1080b85d98edde405a577~MFXvfSh-z2423024230eucas1p19;
- Tue,  5 May 2020 08:46:30 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20200505084630eusmtrp1fc951c59a5daa795417930504b517572~MFXvehUzt0942309423eusmtrp1a;
- Tue,  5 May 2020 08:46:30 +0000 (GMT)
-X-AuditID: cbfec7f4-0e5ff7000001ed07-40-5eb127e65a39
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id B8.14.08375.6E721BE5; Tue,  5
- May 2020 09:46:30 +0100 (BST)
-Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20200505084629eusmtip1760cc1a58ba7ef8bd5730cf657401aee~MFXu0oKrJ0309403094eusmtip1R;
- Tue,  5 May 2020 08:46:29 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 11/25] drm: radeon: fix common struct sg_table related
- issues
-Date: Tue,  5 May 2020 10:46:00 +0200
-Message-Id: <20200505084614.30424-11-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200505084614.30424-1-m.szyprowski@samsung.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAA0WSe0hTYRjG+XYuO1vOTrPLx5LEQYVFmhVxyJAMoSMERXQVslYedORmbE2r
- P3JWy5gXSjFNxaympnNtzmU1rZW3GZrWtGGpmGg3a2RtDhPTnKfsv+d93t/D8/LxEYjQhokI
- qfwMo5BLksQ4H61v+9W94ePa2riNBeXrqeyuFxzqxkADRpUb07lUbaERo1xDc+Ns/XWE0nm6
- Map34jtOVelbOVSZLYLy9A5zKPOIE6N6rCU4ZWgZ5FLPx0exHYtpjeM3TteU1gD6ibcMpR96
- 32P0UKadQ9fp0uj+mRGEzuurBHTDWzVO51iqAe02r9q7KJa/PZ5JkqYwirDI4/zEnJ4McDo/
- 4GztWwuqBrmkFvAISG6BVU4d0AI+ISTvAThxswJnBw+AnlI98FFC0g1gZeuefwmTYQphoUoA
- x0xe7kLCqH2E+iicDIdalxb36aWkBsD2bD8fhJDtCPye2T+/CCD3QVtn/nwAJVfD/ukGTAsI
- QkBGQs2rGLYtCOpNzxCf5s3ZI46B+fMg6eRCq7obYaFoaGv/hLE6AI7ZLVxWB8KOvCyUDVwC
- cLjLwGWHLAB7LhYCloqAA11TuK8ZIUOg0RrG2lGwYNQ7b0PSH/a5lvhsZE7m1hcgrC2AV68I
- WXoNLLLfX6h9/srx9zQa1mV/wNlXbAWw+HLsNRBU9L+rDIBqsIJRKWUJjHKTnEkNVUpkSpU8
- IfRksswM5r5Vx4zd8whYp080AZIAYj/BYbcxTohJUpTnZE0AEoh4qaBi0hQnFMRLzp1nFMnH
- FKokRtkEVhKoeIVg850vR4VkguQMc4phTjOKf1sOwROpwXKdyTHYubVzMjD1gssgmEkOOcTz
- PxVTrG5udH2xp9mmDi7+0fK6RTSa8TlatlP1lPmUkrtN59VHVb7TFOn33/2m2hXtntzNvHY0
- FjDSmlW8dLMzeJlAa3xza0oTfOTB46yHogN16xXNdzZLgy19H1+WxI+jbat/fn2TORu5SXJb
- jCoTJeHrEIVS8gdZRgIeUgMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrEIsWRmVeSWpSXmKPExsVy+t/xu7rP1DfGGey6yWPRe+4kk8W0O7tZ
- LZaub2S32DhjPavF2/tA7v9tE5ktlnw5z2px5et7NouVq48yWSzYb23x5cpDJotNj6+xWlze
- NYfNYu2Ru+wWBz88YXXg92i99JfNY828NYwee78tYPHY/u0Bq8f97uNMHpuX1Hvc/veY2WPy
- jeWMHrtvNrB59G1ZxejxeZNcAHeUnk1RfmlJqkJGfnGJrVK0oYWRnqGlhZ6RiaWeobF5rJWR
- qZK+nU1Kak5mWWqRvl2CXkbf5XbGgqnCFRtvbmFpYJwk0MXIySEhYCKxYe0v5i5GLg4hgaWM
- Eid2TGaBSMhInJzWwAphC0v8udbFBlH0iVFietNfdpAEm4ChRNdbiISIQCejxLTuj+wgDrPA
- BWaJP5/2M4NUCQsESHz+swRsLIuAqsTtP7uBxnJw8ArYSbRe8ITYIC+xesMBsHJOoPDjS3fY
- QGwhgUKJD+e/s05g5FvAyLCKUSS1tDg3PbfYUK84Mbe4NC9dLzk/dxMjMH62Hfu5eQfjpY3B
- hxgFOBiVeHgjPq+PE2JNLCuuzD3EKMHBrCTCu+zHhjgh3pTEyqrUovz4otKc1OJDjKZAN01k
- lhJNzgfGdl5JvKGpobmFpaG5sbmxmYWSOG+HwMEYIYH0xJLU7NTUgtQimD4mDk6pBsbA8303
- Juv88v++quYm8yel6AeB68vEm4UtTsnWOQieXOV9Ibje4vdMm2p5wf8bFBgb1GsttY87fDtg
- vmLRaRZ+/cd3a3b0r2eW7FJbr9r1tvJx/xtt1d07Hjbyf13qX6wvvqCu8i8z56ZTc1fdyFCq
- Pqkfm6z+QPhb0uLTXU82PFHY7B0mfV2JpTgj0VCLuag4EQCEtQT6tQIAAA==
-X-CMS-MailID: 20200505084630eucas1p1c74cd5d287e1080b85d98edde405a577
-X-Msg-Generator: CA
-X-RootMTR: 20200505084630eucas1p1c74cd5d287e1080b85d98edde405a577
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20200505084630eucas1p1c74cd5d287e1080b85d98edde405a577
-References: <20200505083926.28503-1-m.szyprowski@samsung.com>
- <20200505084614.30424-1-m.szyprowski@samsung.com>
- <CGME20200505084630eucas1p1c74cd5d287e1080b85d98edde405a577@eucas1p1.samsung.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B90B6E581;
+	Tue,  5 May 2020 09:12:50 +0000 (UTC)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38BCF6E581
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 May 2020 09:12:49 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04597baW098270;
+ Tue, 5 May 2020 09:12:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=JD3EzMFrjg+I00Sw6a33/2ygB5SEGRKsBEQm33OI+4E=;
+ b=z57iqsl5dOaHmxp04gjHQI+ab22ZxuWH6uob0oajIRCMhom0UY7jvYp9wmss9SLI5TUN
+ v0SISckp2l6Khkrr6M+Jzk94cDkoEzJcbuK0QIBZhqr+2omkzW+E69f6eIcCtQGfB5eN
+ lhs70WQ4YYm+sCDw54lg4HEGl5ARsmbdMo/SXlkpDrH2EA/mUUUM0ZsoqFN371TEXys1
+ aSU5DLqLVWodhh3OHsq1iNPGK8+NotrIlCCI2yNCsP5L+9oanh2cTVSplut8KKYYgcK9
+ ee+IWBLWe6SL97KESkTJsR64CujI+gCwTRoyjVYvyIkCyKfjnWZjW6Uvt4eqp0hfNUPG zg== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by userp2130.oracle.com with ESMTP id 30s09r3kyj-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 05 May 2020 09:12:45 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04596sHR143856;
+ Tue, 5 May 2020 09:12:44 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by aserp3030.oracle.com with ESMTP id 30sjdskcac-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 05 May 2020 09:12:44 +0000
+Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 0459CiP4012726;
+ Tue, 5 May 2020 09:12:44 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 05 May 2020 02:12:43 -0700
+Date: Tue, 5 May 2020 12:12:39 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: xinhui.pan@amd.com
+Subject: [bug report] drm/amdgpu: add amdgpu_ras.c to support ras (v2)
+Message-ID: <20200505091239.GA117990@mwanda>
+MIME-Version: 1.0
+Content-Disposition: inline
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9611
+ signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ suspectscore=3 mlxscore=0
+ bulkscore=0 adultscore=0 phishscore=0 mlxlogscore=999 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
+ definitions=main-2005050074
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9611
+ signatures=668687
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
+ mlxscore=0
+ lowpriorityscore=0 spamscore=0 adultscore=0 clxscore=1011 suspectscore=3
+ priorityscore=1501 malwarescore=0 mlxlogscore=999 phishscore=0
+ impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2003020000 definitions=main-2005050074
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,80 +85,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Zhou <David1.Zhou@amd.com>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
- linux-arm-kernel@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>
-MIME-Version: 1.0
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The Documentation/DMA-API-HOWTO.txt states that dma_map_sg returns the
-numer of the created entries in the DMA address space. However the
-subsequent calls to dma_sync_sg_for_{device,cpu} and dma_unmap_sg must be
-called with the original number of the entries passed to dma_map_sg. The
-sg_table->nents in turn holds the result of the dma_map_sg call as stated
-in include/linux/scatterlist.h. A common mistake was to ignore a result
-of the dma_map_sg function and don't use the sg_table->orig_nents at all.
+Hello xinhui pan,
 
-To avoid such issues, lets use common dma-mapping wrappers operating
-directly on the struct sg_table objects and adjust references to the
-nents and orig_nents respectively.
+The patch c030f2e4166c: "drm/amdgpu: add amdgpu_ras.c to support ras
+(v2)" from Oct 31, 2018, leads to the following static checker
+warning:
 
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
-For more information, see '[PATCH v3 00/25] DRM: fix struct sg_table nents
-vs. orig_nents misuse' thread: https://lkml.org/lkml/2020/5/5/187
----
- drivers/gpu/drm/radeon/radeon_ttm.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+	drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:620 amdgpu_ras_feature_enable()
+	warn: uncapped user index 'ras_block_string[head->block]'
 
-diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
-index 5d50c9e..166f84e 100644
---- a/drivers/gpu/drm/radeon/radeon_ttm.c
-+++ b/drivers/gpu/drm/radeon/radeon_ttm.c
-@@ -481,7 +481,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_tt *ttm)
- {
- 	struct radeon_device *rdev = radeon_get_rdev(ttm->bdev);
- 	struct radeon_ttm_tt *gtt = (void *)ttm;
--	unsigned pinned = 0, nents;
-+	unsigned pinned = 0;
- 	int r;
- 
- 	int write = !(gtt->userflags & RADEON_GEM_USERPTR_READONLY);
-@@ -521,9 +521,8 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_tt *ttm)
- 	if (r)
- 		goto release_sg;
- 
--	r = -ENOMEM;
--	nents = dma_map_sg(rdev->dev, ttm->sg->sgl, ttm->sg->nents, direction);
--	if (nents == 0)
-+	r = dma_map_sgtable(rdev->dev, ttm->sg, direction);
-+	if (r)
- 		goto release_sg;
- 
- 	drm_prime_sg_to_page_addr_arrays(ttm->sg, ttm->pages,
-@@ -554,9 +553,9 @@ static void radeon_ttm_tt_unpin_userptr(struct ttm_tt *ttm)
- 		return;
- 
- 	/* free the sg table and pages again */
--	dma_unmap_sg(rdev->dev, ttm->sg->sgl, ttm->sg->nents, direction);
-+	dma_unmap_sgtable(rdev->dev, ttm->sg, direction);
- 
--	for_each_sg_page(ttm->sg->sgl, &sg_iter, ttm->sg->nents, 0) {
-+	for_each_sg_page(ttm->sg->sgl, &sg_iter, ttm->sg->orig_nents, 0) {
- 		struct page *page = sg_page_iter_page(&sg_iter);
- 		if (!(gtt->userflags & RADEON_GEM_USERPTR_READONLY))
- 			set_page_dirty(page);
--- 
-1.9.1
+drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+   587  int amdgpu_ras_feature_enable(struct amdgpu_device *adev,
+   588                  struct ras_common_if *head, bool enable)
+   589  {
+   590          struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+   591          union ta_ras_cmd_input info;
+   592          int ret;
+   593  
+   594          if (!con)
+   595                  return -EINVAL;
+   596  
+   597          if (!enable) {
+   598                  info.disable_features = (struct ta_ras_disable_features_input) {
+   599                          .block_id =  amdgpu_ras_block_to_ta(head->block),
+   600                          .error_type = amdgpu_ras_error_to_ta(head->type),
+   601                  };
+   602          } else {
+   603                  info.enable_features = (struct ta_ras_enable_features_input) {
+   604                          .block_id =  amdgpu_ras_block_to_ta(head->block),
+   605                          .error_type = amdgpu_ras_error_to_ta(head->type),
+   606                  };
+   607          }
+   608  
+   609          /* Do not enable if it is not allowed. */
+   610          WARN_ON(enable && !amdgpu_ras_is_feature_allowed(adev, head));
+   611          /* Are we alerady in that state we are going to set? */
+   612          if (!(!!enable ^ !!amdgpu_ras_is_feature_enabled(adev, head)))
+   613                  return 0;
+   614  
+   615          if (!amdgpu_ras_intr_triggered()) {
+   616                  ret = psp_ras_enable_features(&adev->psp, &info, enable);
+   617                  if (ret) {
+   618                          amdgpu_ras_parse_status_code(adev,
+   619                                                       enable ? "enable":"disable",
+   620                                                       ras_block_str(head->block),
+                                                                           ^^^^^^^^^^^
+The head->block value can be set to anything using debugfs.  That's a
+problem because it could easily lead to a kernel panic (which is
+annoying) and also because these days we try to restrict what root can
+do.
 
+   621                                                      (enum ta_ras_status)ret);
+   622                          if (ret == TA_RAS_STATUS__RESET_NEEDED)
+   623                                  return -EAGAIN;
+   624                          return -EINVAL;
+   625                  }
+   626          }
+   627  
+   628          /* setup the obj */
+   629          __amdgpu_ras_feature_enable(adev, head, enable);
+   630  
+   631          return 0;
+   632  }
+
+regards,
+dan carpenter
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
