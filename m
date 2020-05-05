@@ -2,107 +2,68 @@ Return-Path: <SRS0=bavc=6T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BD8EC47247
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 15:19:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59943C47254
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 15:34:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3268220675
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 15:19:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2AADF206B9
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 15:34:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QfD+JYVH"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3268220675
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BVgkpwES"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2AADF206B9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F218D6E7D1;
-	Tue,  5 May 2020 15:19:42 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2084.outbound.protection.outlook.com [40.107.243.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5FE36E7D1
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 May 2020 15:19:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Y9m8V6RwCxl2Np6tBI0qKHBG9Dbww4dzBtL5pe3X2VDjBcpdaG3w8bm9YlvU0SMEYKdzoHl6f/Sb+eopXFfwEbJcoA84Armr4rBvcG2fOs0lIFHoTiArGUU0tXm6gY5lI6vGRS1AhWqrURaUB/eaXuyEK2CSmA/6CLfuXj49BkxsXQU1S8I0CNZc2q8x2K8T/hqyeZvGupn4oF3LDyySWxtaMUvVNubhXrUUfnY2p+6h18icChYyX2qXbNtGofjA+Z8Ky2cRvY5GwspdJJ4TempmiryD/ZqClB2gUCO0UH0LrfHeLZplgvi95dSWeXdaP2I4xTlLsN+rUEiXcFeylg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BUMAZEstm9DD9A4c1XXtok1C5rnnOO1r8ilvjUMxAGY=;
- b=eJRo3yWpClcZS7oSTS/8ZUu3MfXOtluCCyckiHsIn4XF1R1Yw1kbeR5mmYFa/HoA9AyzvELztLvU5zp/Hg/IVqudvYUjiDz+0qbQ63to38UoxBrcPEkhrLtgAu3vvmo8Bmq9xvl4WvENOFf4tGYhTyGj1+ejSWGIiFk2/lrXgenXSaAx2r+zAQWthMQU8h1pz1AwzD3YQN1cgv81kaPSfzAXg8Zf9kQTUqRKkIjBSMK5VfBNM4H+PUBr/H8bYFqkIvjvPnlkrF036nln2oTQfBgC/Zis5eoqAK0qNA78IC1dLW6iiQswOvJma4LAN3ahxLZoBhJ2Ws0Yv5rt1fBTYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BUMAZEstm9DD9A4c1XXtok1C5rnnOO1r8ilvjUMxAGY=;
- b=QfD+JYVHEmYo76L6D1o+LzvRMHaYIP9CeeNiFkiIp/vOKO4R15IBuXbPi0g2LWQWqXB0m6fuFOj3f3Wd9K4LidH8zLE/frilrmFjHaGSjY4L6NmMZY0g83RxTle3Xw5dblqz7EAY5OranujBLX8cGTue/zXiCOc5OwZenSZwUbg=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
- by DM6PR12MB3913.namprd12.prod.outlook.com (2603:10b6:5:1cc::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.29; Tue, 5 May
- 2020 15:19:40 +0000
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::7949:b580:a2d5:f766]) by DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::7949:b580:a2d5:f766%3]) with mapi id 15.20.2979.027; Tue, 5 May 2020
- 15:19:40 +0000
-Subject: Re: [PATCH 1/1] drm/amdgpu: Take a reference to an exported BO
-To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200501142127.14202-1-Felix.Kuehling@amd.com>
- <70e5d202-34ed-532f-e6b6-c195a3effad3@gmail.com>
- <551849ec-bc90-0bd2-d46c-f6d8e5c0fee0@amd.com>
- <6c4b3eb0-40b5-8c3c-dc5e-38b622864e12@gmail.com>
- <170627d3-b5f8-edf5-d809-dd197c4e2018@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <ca18ec07-a6f4-292c-c800-48dbf9c8854f@amd.com>
-Date: Tue, 5 May 2020 17:19:31 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <170627d3-b5f8-edf5-d809-dd197c4e2018@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM3PR07CA0057.eurprd07.prod.outlook.com
- (2603:10a6:207:4::15) To DM6PR12MB4401.namprd12.prod.outlook.com
- (2603:10b6:5:2a9::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D14FE6E5D5;
+	Tue,  5 May 2020 15:34:13 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C2616E5D5;
+ Tue,  5 May 2020 15:34:13 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id x17so3290479wrt.5;
+ Tue, 05 May 2020 08:34:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=yua9ORL9JEGiU2wcfBVEpb+8JppevaATHo200kp3UOY=;
+ b=BVgkpwESB721jk0UhzYkl1Pz9S/4BrEnvzmCmJmdSLVz37QnDe8ziP2lw49ZzSYs5o
+ 3hlzQ2wpEz4MvjKCDbTvVXR/pC09koAuDiTcPBGoUPfyAYjuXbwrlJEmxWjMkwZx/Mdk
+ +WAhJDD4WG2xXzIAlkDrqr4dYUb2EgrPeIgEijM+DTfiWIWgwWhKKYrJ7EW94VpQENLb
+ K5OaXaHjXIR2Gj7BkflF0Fc/c0jSc55mtFTYk5OK69+XiVJjzeoI/9kRX/brLzYJcn9j
+ UdRWLxCcU1n9pIXAho4i0Lyr10a3lWkFI5MJE/j4FaQlseCDLt1n8PUJ1IOik9VGSLNC
+ W8MQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=yua9ORL9JEGiU2wcfBVEpb+8JppevaATHo200kp3UOY=;
+ b=kh9Xs7fy/V0PcNV9eHaDNRF+fYE+drc220BbCanfo2plSy8+JB7mkwMsmglWW32Q/R
+ vIuZzyThr4rjEqTLs30LkDfMPDAn22XAL/jEei+v1LsbbD67VuRcDs4Hteu4AV1qtfJC
+ kjbTa5gDnaqeB5pqnssMMS9NlegNHEQfA3r6OFFz4tUjoeW1fmNZE3O4PaPh6B/uz7Sj
+ AIkbdjEC/t8i1xZUkSCWSGw5UxhknqwantRuLkXX6ZbGHnsmFXf8mvvZG3NT37CWh4+S
+ Hnrr03GURMqyOxBVm/sEvVYxAFslExQ0Rrk9H/pt5r1c49Fl6N+B+x7euKjZ6DDvM5CO
+ 04zg==
+X-Gm-Message-State: AGi0PuZCzFJsSUJ9jmdZrdgc9VLcEDX5lkmESrcFSo7yYp5LP2UJN9dR
+ THCpO5wAPFVv7Ptt65emlMQ1zumdgI1vzgPLw2w=
+X-Google-Smtp-Source: APiQypIZyv1/Gdd4zGKaVEPh2LmFuvaSQUbaQwu4n8wF6Du5nkdo3jFXTcxXLrVijJ7Q1XAWZN1GliuXMHOBc1KMb3U=
+X-Received: by 2002:a5d:4151:: with SMTP id c17mr4242249wrq.111.1588692851695; 
+ Tue, 05 May 2020 08:34:11 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM3PR07CA0057.eurprd07.prod.outlook.com (2603:10a6:207:4::15) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2979.17 via Frontend Transport; Tue, 5 May 2020 15:19:35 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: fc333453-dd77-4715-21a1-08d7f107bad1
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3913:|DM6PR12MB3913:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3913779A8A0DF3B75C8A912483A70@DM6PR12MB3913.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-Forefront-PRVS: 0394259C80
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GmjA5UsFbWplzHogwnj1SqE7hyAOxEVfIQOvnPUCbRbKfySjXbVFeUCuG72Thhz3UPPNnfZfGzpu7zO0uBE8m16rId/MRQsB7EIVBYOlV65Gwoy3a3o0rqPwjUuPMjBQvi/03lKjNo99KcaBefGOBSUP1ELXmDTdAN5PXrIefY97AdY49SopCFecBnzxwWh7lssk0K5nDAm9+Drp2Y6KrCTYjkEPmO/YJL6aHLEEJ3w8YIVnXxrUlOqlga2LLWUVcyx/pTilu3bk00gOs+2zJBu1F0MT6x+RLeL2BZxayS6pcy7Zac6bJoWxFsEol6TziHfzn/GPvgAvOXdZUbopg1dmrhJ8iS62iDvNMvFABdW4VBFhNIkOL2gyzBoj50k3eWvO6y8d1UQX4mNBtOdtQ26GDQW6qEmRULlcBmim0R4j89T6/vG0nVFII0F6Z/h0wofOHWl74U0QreAd91XD+5mLhoDnkcFMm2E/sR7ylXjTviN+6aCBKtrwDR/h4YSm9SE61LJjlHF2LNG7YjrqmI9S9Yqx5dKSNcMcX+np4jLrcFLrjzJNZJdGHn4x+wb/72KWAl6Ucc85CCpvvPD/jkMBcqCNBWA3Z8y1rZzTUD8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(39860400002)(376002)(366004)(396003)(136003)(33430700001)(316002)(36756003)(8936002)(66946007)(8676002)(2616005)(66476007)(31686004)(33440700001)(66556008)(6666004)(186003)(478600001)(16526019)(52116002)(2906002)(33964004)(30864003)(966005)(86362001)(5660300002)(31696002)(6486002)(66574012)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: F32yDwFyYtvKfNWEqDyYfdWvNo77j3qkOXKhU5/XyMYTbGa+oGg/S0TzF4dD3zRW3UTHJemM6oBSIPta7E8VRLD9gNImtPqZnIbIMcLpayMweI2PtpwUZ2YbuFkCysaVw8i6c1UDGZrm+JQhihqu+53fkWvwk79VX3jsFAxuCvCJ3ORzcHHrqm40bSTVh6AyNzqgUC/1D+FRMokIybpEVFilzh5jtnORifsne4za7jKH7Mhyecz9wFgY1EIwiWvoHrQl8mI7x6PgTOJ6PUHeY9r90naO14E7jnL9pi9pSMm13kU5eWOsKcJLzE9clIBp530Lp8oSItcKGk2h020VTgla/VCMDh25R/OCKLzPDQmSAyXcLdew1Vc4jMW+IpKBS0eyEPdFTc24DxR/Iz964ev7Xtqvr+DganE2G2D6aj201tTf1Sx9M9oNP5xy+O8QkHMUKqfmZFoej96QmJt+NmNf1dbmYiVJZrIzgo9mMDFG+lv5eAf9x3xc6rUIlX1cqZTdtKcTy4M5I3FvmYmlCd6dhlyEPxpabAki0Ej/7GJOUX5PdRVqCBQWQ2pa0BhNF8LIraICQBjKlZZ9rdAY5SMUMe8mdG0Gj06drthzVEGebp80DKcfdgu+P8LSUDfZaVD7eP/VTPYs3ZHEXQmnH6sgTeJvD5Dw9VtyWBFtjLYcpTt+mYOnpf1BAjEqR35zxeGaMdV22VUXvgbRrYN7g23w7IpYyBfVPzCk97O+t8fx7k8AZMWyXTyFYgKke16u2g4Yyyi2AnDlsIreW+PPXx6z0seBfmY9vE1yF//CggON6dyJapNaLJkJ0/rzwdeLrdSPGmOOWXVQfaZ1Ji2k8kEBYObk55exN7itE+P0+pY=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc333453-dd77-4715-21a1-08d7f107bad1
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2020 15:19:40.0056 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KyziWpmWM00+ZapQmZNtslEsP3Kx86EqU/8whX7SuFFuVhu2wAUoHWWXJ7FPTlTw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3913
+References: <20200505140208.284473-1-arnd@arndb.de>
+ <6bbd0f78-6f42-968e-2269-0a6279753267@amd.com>
+In-Reply-To: <6bbd0f78-6f42-968e-2269-0a6279753267@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 5 May 2020 11:34:00 -0400
+Message-ID: <CADnq5_ObAv11hmNd_2rksCSYZN2BYV=7qKFr=EMyP5Mqb=vRrQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: allocate large structures dynamically
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,377 +75,97 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0424544154=="
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Guchun Chen <guchun.chen@amd.com>, Arnd Bergmann <arnd@arndb.de>,
+ David Airlie <airlied@linux.ie>, Tao Zhou <tao.zhou1@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ John Clements <john.clements@amd.com>, Dennis Li <Dennis.Li@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0424544154==
-Content-Type: multipart/alternative;
- boundary="------------9643F2BA1F85A8F543051015"
-Content-Language: en-US
-
---------------9643F2BA1F85A8F543051015
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Am 05.05.20 um 16:58 schrieb Felix Kuehling:
-> Am 2020-05-05 um 3:47 a.m. schrieb Christian König:
->> Just to reply here once more, this patch is a clear NAK.
->
-> Agreed. But see below. I don't think all is well.
->
->>
->> The references are grabbed in the call path of drm_gem_prime_export() 
->> and dropped again in drm_gem_dmabuf_release().
->>
->> So they are perfectly balanced as far as I can see.
->
-> That is true for the GEM object references. But I believe there is 
-> still a problem with the TTM BO references.
->
-> As far as I can tell amdgpu_bo_unref can free the TTM BO while there 
-> are still references to the GEM object from DMA buf exports. I think 
-> that's a fundamental problem with how we have two reference counts for 
-> the same physical object (TTM BO and the embedded GEM BO).
->
-
-Completely agree, I also mentioned that problem during my talk on 
-FOSDEM. But calling amdgpu_bo_unref() to often is a bug in itself.
-
-What we could probably do to detect this is adding a BUG_ON() in TTMs 
-release function and checking if the GEM reference count is really dead.
-
-> I think the correct solution is for amdgpu_bo_ref/unref to delegate 
-> its reference counting to drm_gem_object_get/put instead of 
-> ttm_bo_get/put. The amdgpu BO would hold one token reference to the 
-> TTM BO, which it can drop when the GEM BO refcount drops to 0. 
-> Finally, the amdgpu BO should only be freed once the TTM BO refcount 
-> also becomes 0.
-
-Just the other way around, but yes the long term plan should probably be 
-to merge the two.
-
-The difficult is currently we have a mismatch what locks could be taken 
-when we drop the references.
-
-Regards,
-Christian.
-
-> Regards,
->   Felix
->
->
->>
->> Regards,
->> Christian.
->>
->> Am 01.05.20 um 16:44 schrieb Felix Kuehling:
->>>
->>> [dropping my gmail address]
->>>
->>> We saw this backtrace showing the call chain while investigating a 
->>> kernel oops caused by this issue on the DKMS branch with the KFD IPC 
->>> API. It happens after a dma-buf file is released with fput:
->>>
->>> [ 1255.049330] BUG: kernel NULL pointer dereference, address: 000000000000051e
->>> [ 1255.049727] #PF: supervisor read access in kernel mode
->>> [ 1255.050092] #PF: error_code(0x0000) - not-present page
->>> [ 1255.050416] PGD 0 P4D 0
->>> [ 1255.050736] Oops: 0000 [#1] SMP PTI
->>> [ 1255.051060] CPU: 27 PID: 2292 Comm: kworker/27:2 Tainted: G           OE     5.3.0-46-generic #38~18.04.1-Ubuntu
->>> [ 1255.051400] Hardware name: Supermicro SYS-4029GP-TRT2/X11DPG-OT-CPU, BIOS 3.0a 02/26/2019
->>> [ 1255.051752] Workqueue: events delayed_fput
->>> [ 1255.052111] RIP: 0010:drm_gem_object_put_unlocked+0x1c/0x70 [drm]
->>> [ 1255.052465] Code: 4d 80 c8 ee 0f 0b eb d8 66 0f 1f 44 00 00 0f 1f 44 00 00 48 85 ff 74 34 55 48 89 e5 41 54 53 48 89 fb 48 8b 7f 08 48 8b 47 20 <48> 83 b8 a0 00 00 00 00 74 1a 4c 8d 67 68 48 89 df 4c 89 e6 e8 9b
->>> [ 1255.053224] RSP: 0018:ffffb4b62035fdc8 EFLAGS: 00010286
->>> [ 1255.053613] RAX: 000000000000047e RBX: ffff9f2add197850 RCX: 0000000000000000
->>> [ 1255.054032] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff9f2aa2548aa0
->>> [ 1255.054440] RBP: ffffb4b62035fdd8 R08: 0000000000000000 R09: 0000000000000000
->>> [ 1255.054860] R10: 0000000000000010 R11: ffff9f2a4b1cc310 R12: 0000000000080005
->>> [ 1255.055268] R13: ffff9f2a4b1cc310 R14: ffff9f4e369161e0 R15: ffff9f2a1b2f9080
->>> [ 1255.055674] FS:  0000000000000000(0000) GS:ffff9f4e3f740000(0000) knlGS:0000000000000000
->>> [ 1255.056087] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->>> [ 1255.056501] CR2: 000000000000051e CR3: 00000002df00a004 CR4: 00000000007606e0
->>> [ 1255.056923] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
->>> [ 1255.057345] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
->>> [ 1255.057763] PKRU: 55555554
->>> [ 1255.058179] Call Trace:
->>> [ 1255.058603]  drm_gem_dmabuf_release+0x1a/0x30 [drm]
->>> [ 1255.059025]  dma_buf_release+0x56/0x130
->>> [ 1255.059443]  __fput+0xc6/0x260
->>> [ 1255.059856]  delayed_fput+0x20/0x30
->>> [ 1255.060272]  process_one_work+0x1fd/0x3f0
->>> [ 1255.060686]  worker_thread+0x34/0x410
->>> [ 1255.061099]  kthread+0x121/0x140
->>> [ 1255.061510]  ? process_one_work+0x3f0/0x3f0
->>> [ 1255.061923]  ? kthread_park+0xb0/0xb0
->>> [ 1255.062336]  ret_from_fork+0x35/0x40
->>>
->>> drm_gem_object_put_unlocked calls drm_gem_object_free when the 
->>> obj->refcount reaches 0. From there it calls 
->>> dev->driver->gem_free_object_unlocked, which is 
->>> amdgpu_gem_object_free in amdgpu.
->>>
->>> Regards,
->>>   Felix
->>>
->>> Am 2020-05-01 um 10:29 a.m. schrieb Christian König:
->>>> Am 01.05.20 um 16:21 schrieb Felix Kuehling:
->>>>> From: Felix Kuehling <felix.kuehling@gmail.com>
->>>>>
->>>>> That reference gets dropped when the the dma-buf is freed. Not 
->>>>> incrementing
->>>>> the refcount can lead to use-after-free errors.
->>>>>
->>>>> Signed-off-by: Felix Kuehling <felix.kuehling@gmail.com>
->>>>> ---
->>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 9 ++++++++-
->>>>>   1 file changed, 8 insertions(+), 1 deletion(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c 
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>>> index ffeb20f11c07..a0f9b3ef4aad 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>>> @@ -398,8 +398,15 @@ struct dma_buf 
->>>>> *amdgpu_gem_prime_export(struct drm_gem_object *gobj,
->>>>>           return ERR_PTR(-EPERM);
->>>>>         buf = drm_gem_prime_export(gobj, flags);
->>>>> -    if (!IS_ERR(buf))
->>>>> +    if (!IS_ERR(buf)) {
->>>>>           buf->ops = &amdgpu_dmabuf_ops;
->>>>> +        /* GEM needs a reference to the underlying object
->>>>> +         * that gets dropped when the dma-buf is released,
->>>>> +         * through the amdgpu_gem_object_free callback
->>>>> +         * from drm_gem_object_put_unlocked.
->>>>> +         */
->>>>> +        amdgpu_bo_ref(bo);
->>>>> +    }
->>>>
->>>> Of hand that doesn't sounds correct to me. Why should the exported 
->>>> bo be closed through amdgpu_gem_object_free()?
->>>>
->>>> Regards,
->>>> Christian.
->>>>
->>>>>         return buf;
->>>>>   }
->>>>
->>>
->>> _______________________________________________
->>> amd-gfx mailing list
->>> amd-gfx@lists.freedesktop.org
->>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>
-
-
---------------9643F2BA1F85A8F543051015
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Am 05.05.20 um 16:58 schrieb Felix
-      Kuehling:<br>
-    </div>
-    <blockquote type="cite" cite="mid:170627d3-b5f8-edf5-d809-dd197c4e2018@amd.com">
-      
-      <div class="moz-cite-prefix">Am 2020-05-05 um 3:47 a.m. schrieb
-        Christian König:<br>
-      </div>
-      <blockquote type="cite" cite="mid:6c4b3eb0-40b5-8c3c-dc5e-38b622864e12@gmail.com">
-        <div class="moz-cite-prefix">Just to reply here once more, this
-          patch is a clear NAK.<br>
-        </div>
-      </blockquote>
-      <p>Agreed. But see below. I don't think all is well.</p>
-      <blockquote type="cite" cite="mid:6c4b3eb0-40b5-8c3c-dc5e-38b622864e12@gmail.com">
-        <div class="moz-cite-prefix"> <br>
-          The references are grabbed in the call path of
-          drm_gem_prime_export() and dropped again in
-          drm_gem_dmabuf_release().<br>
-          <br>
-          So they are perfectly balanced as far as I can see.<br>
-        </div>
-      </blockquote>
-      <p>That is true for the GEM object references. But I believe there
-        is still a problem with the TTM BO references.</p>
-      <p>As far as I can tell amdgpu_bo_unref can free the TTM BO while
-        there are still references to the GEM object from DMA buf
-        exports. I think that's a fundamental problem with how we have
-        two reference counts for the same physical object (TTM BO and
-        the embedded GEM BO).</p>
-    </blockquote>
-    <br>
-    Completely agree, I also mentioned that problem during my talk on
-    FOSDEM. But calling amdgpu_bo_unref() to often is a bug in itself.<br>
-    <br>
-    What we could probably do to detect this is adding a BUG_ON() in
-    TTMs release function and checking if the GEM reference count is
-    really dead.<br>
-    <br>
-    <blockquote type="cite" cite="mid:170627d3-b5f8-edf5-d809-dd197c4e2018@amd.com">I think
-      the correct solution is for amdgpu_bo_ref/unref to delegate its
-      reference counting to drm_gem_object_get/put instead of
-      ttm_bo_get/put. The amdgpu BO would hold one token reference to
-      the TTM BO, which it can drop when the GEM BO refcount drops to 0.
-      Finally, the amdgpu BO should only be freed once the TTM BO
-      refcount also becomes 0.<br>
-    </blockquote>
-    <br>
-    Just the other way around, but yes the long term plan should
-    probably be to merge the two.<br>
-    <br>
-    The difficult is currently we have a mismatch what locks could be
-    taken when we drop the references.<br>
-    <br>
-    Regards,<br>
-    Christian.<br>
-    <br>
-    <blockquote type="cite" cite="mid:170627d3-b5f8-edf5-d809-dd197c4e2018@amd.com">
-      <p>Regards,<br>
-        &nbsp; Felix<br>
-      </p>
-      <p><br>
-      </p>
-      <blockquote type="cite" cite="mid:6c4b3eb0-40b5-8c3c-dc5e-38b622864e12@gmail.com">
-        <div class="moz-cite-prefix"> <br>
-          Regards,<br>
-          Christian.<br>
-          <br>
-          Am 01.05.20 um 16:44 schrieb Felix Kuehling:<br>
-        </div>
-      </blockquote>
-      <blockquote type="cite" cite="mid:6c4b3eb0-40b5-8c3c-dc5e-38b622864e12@gmail.com">
-        <blockquote type="cite" cite="mid:551849ec-bc90-0bd2-d46c-f6d8e5c0fee0@amd.com">
-          <p>[dropping my gmail address]</p>
-          <p>We saw this backtrace showing the call chain while
-            investigating a kernel oops caused by this issue on the DKMS
-            branch with the KFD IPC API. It happens after a dma-buf file
-            is released with fput:</p>
-          <pre>[ 1255.049330] BUG: kernel NULL pointer dereference, address: 000000000000051e
-[ 1255.049727] #PF: supervisor read access in kernel mode
-[ 1255.050092] #PF: error_code(0x0000) - not-present page
-[ 1255.050416] PGD 0 P4D 0
-[ 1255.050736] Oops: 0000 [#1] SMP PTI
-[ 1255.051060] CPU: 27 PID: 2292 Comm: kworker/27:2 Tainted: G           OE     5.3.0-46-generic #38~18.04.1-Ubuntu
-[ 1255.051400] Hardware name: Supermicro SYS-4029GP-TRT2/X11DPG-OT-CPU, BIOS 3.0a 02/26/2019
-[ 1255.051752] Workqueue: events delayed_fput
-[ 1255.052111] RIP: 0010:drm_gem_object_put_unlocked&#43;0x1c/0x70 [drm]
-[ 1255.052465] Code: 4d 80 c8 ee 0f 0b eb d8 66 0f 1f 44 00 00 0f 1f 44 00 00 48 85 ff 74 34 55 48 89 e5 41 54 53 48 89 fb 48 8b 7f 08 48 8b 47 20 &lt;48&gt; 83 b8 a0 00 00 00 00 74 1a 4c 8d 67 68 48 89 df 4c 89 e6 e8 9b
-[ 1255.053224] RSP: 0018:ffffb4b62035fdc8 EFLAGS: 00010286
-[ 1255.053613] RAX: 000000000000047e RBX: ffff9f2add197850 RCX: 0000000000000000
-[ 1255.054032] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff9f2aa2548aa0
-[ 1255.054440] RBP: ffffb4b62035fdd8 R08: 0000000000000000 R09: 0000000000000000
-[ 1255.054860] R10: 0000000000000010 R11: ffff9f2a4b1cc310 R12: 0000000000080005
-[ 1255.055268] R13: ffff9f2a4b1cc310 R14: ffff9f4e369161e0 R15: ffff9f2a1b2f9080
-[ 1255.055674] FS:  0000000000000000(0000) GS:ffff9f4e3f740000(0000) knlGS:0000000000000000
-[ 1255.056087] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[ 1255.056501] CR2: 000000000000051e CR3: 00000002df00a004 CR4: 00000000007606e0
-[ 1255.056923] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-[ 1255.057345] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-[ 1255.057763] PKRU: 55555554
-[ 1255.058179] Call Trace:
-[ 1255.058603]  drm_gem_dmabuf_release&#43;0x1a/0x30 [drm]
-[ 1255.059025]  dma_buf_release&#43;0x56/0x130
-[ 1255.059443]  __fput&#43;0xc6/0x260
-[ 1255.059856]  delayed_fput&#43;0x20/0x30
-[ 1255.060272]  process_one_work&#43;0x1fd/0x3f0
-[ 1255.060686]  worker_thread&#43;0x34/0x410
-[ 1255.061099]  kthread&#43;0x121/0x140
-[ 1255.061510]  ? process_one_work&#43;0x3f0/0x3f0
-[ 1255.061923]  ? kthread_park&#43;0xb0/0xb0
-[ 1255.062336]  ret_from_fork&#43;0x35/0x40
-</pre>
-          <p>drm_gem_object_put_unlocked calls drm_gem_object_free when
-            the obj-&gt;refcount reaches 0. From there it calls
-            dev-&gt;driver-&gt;gem_free_object_unlocked, which is
-            amdgpu_gem_object_free in amdgpu.<br>
-          </p>
-          <p>Regards,<br>
-            &nbsp; Felix<br>
-          </p>
-          <div class="moz-cite-prefix">Am 2020-05-01 um 10:29 a.m.
-            schrieb Christian König:<br>
-          </div>
-          <blockquote type="cite" cite="mid:70e5d202-34ed-532f-e6b6-c195a3effad3@gmail.com">Am
-            01.05.20 um 16:21 schrieb Felix Kuehling: <br>
-            <blockquote type="cite">From: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@gmail.com" moz-do-not-send="true">&lt;felix.kuehling@gmail.com&gt;</a>
-              <br>
-              <br>
-              That reference gets dropped when the the dma-buf is freed.
-              Not incrementing <br>
-              the refcount can lead to use-after-free errors. <br>
-              <br>
-              Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@gmail.com" moz-do-not-send="true">&lt;felix.kuehling@gmail.com&gt;</a>
-              <br>
-              --- <br>
-              &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 9
-              &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;- <br>
-              &nbsp; 1 file changed, 8 insertions(&#43;), 1 deletion(-) <br>
-              <br>
-              diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-              b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c <br>
-              index ffeb20f11c07..a0f9b3ef4aad 100644 <br>
-              --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c <br>
-              &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c <br>
-              @@ -398,8 &#43;398,15 @@ struct dma_buf
-              *amdgpu_gem_prime_export(struct drm_gem_object *gobj, <br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ERR_PTR(-EPERM); <br>
-              &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf = drm_gem_prime_export(gobj, flags); <br>
-              -&nbsp;&nbsp;&nbsp; if (!IS_ERR(buf)) <br>
-              &#43;&nbsp;&nbsp;&nbsp; if (!IS_ERR(buf)) { <br>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf-&gt;ops = &amp;amdgpu_dmabuf_ops; <br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* GEM needs a reference to the underlying object
-              <br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * that gets dropped when the dma-buf is
-              released, <br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * through the amdgpu_gem_object_free callback <br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * from drm_gem_object_put_unlocked. <br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */ <br>
-              &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_ref(bo); <br>
-              &#43;&nbsp;&nbsp;&nbsp; } <br>
-            </blockquote>
-            <br>
-            Of hand that doesn't sounds correct to me. Why should the
-            exported bo be closed through amdgpu_gem_object_free()? <br>
-            <br>
-            Regards, <br>
-            Christian. <br>
-            <br>
-            <blockquote type="cite">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return buf; <br>
-              &nbsp; } <br>
-            </blockquote>
-            <br>
-          </blockquote>
-          <br>
-          <fieldset class="mimeAttachmentHeader"></fieldset>
-          <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx" moz-do-not-send="true">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-        </blockquote>
-        <br>
-      </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------9643F2BA1F85A8F543051015--
-
---===============0424544154==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0424544154==--
+T24gVHVlLCBNYXkgNSwgMjAyMCBhdCAxMDowNyBBTSBDaHJpc3RpYW4gS8O2bmlnCjxjaHJpc3Rp
+YW4ua29lbmlnQGFtZC5jb20+IHdyb3RlOgo+Cj4gQW0gMDUuMDUuMjAgdW0gMTY6MDEgc2Nocmll
+YiBBcm5kIEJlcmdtYW5uOgo+ID4gQWZ0ZXIgdGhlIHN0cnVjdHVyZSB3YXMgcGFkZGVkIHRvIDEw
+MjQgYnl0ZXMsIGl0IGlzIG5vIGxvbmdlcgo+ID4gc3VpdGFibGUgZm9yIGJlaW5nIGEgbG9jYWwg
+dmFyaWFibGUsIGFzIHRoZSBmdW5jdGlvbiBzdXJwYXNzZXMKPiA+IHRoZSB3YXJuaW5nIGxpbWl0
+IGZvciAzMi1iaXQgYXJjaGl0ZWN0dXJlczoKPiA+Cj4gPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfcmFzLmM6NTg3OjU6IGVycm9yOiBzdGFjayBmcmFtZSBzaXplIG9mIDEwNzIg
+Ynl0ZXMgaW4gZnVuY3Rpb24gJ2FtZGdwdV9yYXNfZmVhdHVyZV9lbmFibGUnIFstV2Vycm9yLC1X
+ZnJhbWUtbGFyZ2VyLXRoYW49XQo+ID4gaW50IGFtZGdwdV9yYXNfZmVhdHVyZV9lbmFibGUoc3Ry
+dWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsCj4gPiAgICAgIF4KPiA+Cj4gPiBVc2Uga3phbGxvYygp
+IGluc3RlYWQgdG8gZ2V0IGl0IGZyb20gdGhlIGhlYXAuCj4gPgo+ID4gRml4ZXM6IGEwZDI1NDgy
+MGY0MyAoImRybS9hbWRncHU6IHVwZGF0ZSBSQVMgVEEgdG8gSG9zdCBpbnRlcmZhY2UiKQo+ID4g
+U2lnbmVkLW9mZi1ieTogQXJuZCBCZXJnbWFubiA8YXJuZEBhcm5kYi5kZT4KPgo+IEFja2VkLWJ5
+OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CgpBcHBsaWVkLiAg
+VGhhbmtzIQoKQWxleAoKPgo+IFdlIGhhdmUgYSBidW5jaCBvZiB0aG9zZSB3YXJuaW5ncyBpbiB0
+aGUgREFMIGNvZGUgYXMgd2VsbC4KPgo+IENocmlzdGlhbi4KPgo+ID4gLS0tCj4gPiAgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYyB8IDMxICsrKysrKysrKysrKysrKysr
+LS0tLS0tLS0KPiA+ICAgMSBmaWxlIGNoYW5nZWQsIDIxIGluc2VydGlvbnMoKyksIDEwIGRlbGV0
+aW9ucygtKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9h
+bWRncHVfcmFzLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKPiA+
+IGluZGV4IDUzODg5NWNmZDg2Mi4uNzM0ODYxOTI1M2M3IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3Jhcy5jCj4gPiArKysgYi9kcml2ZXJzL2dwdS9k
+cm0vYW1kL2FtZGdwdS9hbWRncHVfcmFzLmMKPiA+IEBAIC01ODgsMTkgKzU4OCwyMyBAQCBpbnQg
+YW1kZ3B1X3Jhc19mZWF0dXJlX2VuYWJsZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiA+
+ICAgICAgICAgICAgICAgc3RydWN0IHJhc19jb21tb25faWYgKmhlYWQsIGJvb2wgZW5hYmxlKQo+
+ID4gICB7Cj4gPiAgICAgICBzdHJ1Y3QgYW1kZ3B1X3JhcyAqY29uID0gYW1kZ3B1X3Jhc19nZXRf
+Y29udGV4dChhZGV2KTsKPiA+IC0gICAgIHVuaW9uIHRhX3Jhc19jbWRfaW5wdXQgaW5mbzsKPiA+
+ICsgICAgIHVuaW9uIHRhX3Jhc19jbWRfaW5wdXQgKmluZm87Cj4gPiAgICAgICBpbnQgcmV0Owo+
+ID4KPiA+ICAgICAgIGlmICghY29uKQo+ID4gICAgICAgICAgICAgICByZXR1cm4gLUVJTlZBTDsK
+PiA+Cj4gPiArICAgICAgICBpbmZvID0ga3phbGxvYyhzaXplb2YodW5pb24gdGFfcmFzX2NtZF9p
+bnB1dCksIEdGUF9LRVJORUwpOwo+ID4gKyAgICAgaWYgKCFpbmZvKQo+ID4gKyAgICAgICAgICAg
+ICByZXR1cm4gLUVOT01FTTsKPiA+ICsKPiA+ICAgICAgIGlmICghZW5hYmxlKSB7Cj4gPiAtICAg
+ICAgICAgICAgIGluZm8uZGlzYWJsZV9mZWF0dXJlcyA9IChzdHJ1Y3QgdGFfcmFzX2Rpc2FibGVf
+ZmVhdHVyZXNfaW5wdXQpIHsKPiA+ICsgICAgICAgICAgICAgaW5mby0+ZGlzYWJsZV9mZWF0dXJl
+cyA9IChzdHJ1Y3QgdGFfcmFzX2Rpc2FibGVfZmVhdHVyZXNfaW5wdXQpIHsKPiA+ICAgICAgICAg
+ICAgICAgICAgICAgICAuYmxvY2tfaWQgPSAgYW1kZ3B1X3Jhc19ibG9ja190b190YShoZWFkLT5i
+bG9jayksCj4gPiAgICAgICAgICAgICAgICAgICAgICAgLmVycm9yX3R5cGUgPSBhbWRncHVfcmFz
+X2Vycm9yX3RvX3RhKGhlYWQtPnR5cGUpLAo+ID4gICAgICAgICAgICAgICB9Owo+ID4gICAgICAg
+fSBlbHNlIHsKPiA+IC0gICAgICAgICAgICAgaW5mby5lbmFibGVfZmVhdHVyZXMgPSAoc3RydWN0
+IHRhX3Jhc19lbmFibGVfZmVhdHVyZXNfaW5wdXQpIHsKPiA+ICsgICAgICAgICAgICAgaW5mby0+
+ZW5hYmxlX2ZlYXR1cmVzID0gKHN0cnVjdCB0YV9yYXNfZW5hYmxlX2ZlYXR1cmVzX2lucHV0KSB7
+Cj4gPiAgICAgICAgICAgICAgICAgICAgICAgLmJsb2NrX2lkID0gIGFtZGdwdV9yYXNfYmxvY2tf
+dG9fdGEoaGVhZC0+YmxvY2spLAo+ID4gICAgICAgICAgICAgICAgICAgICAgIC5lcnJvcl90eXBl
+ID0gYW1kZ3B1X3Jhc19lcnJvcl90b190YShoZWFkLT50eXBlKSwKPiA+ICAgICAgICAgICAgICAg
+fTsKPiA+IEBAIC02MDksMjYgKzYxMywzMyBAQCBpbnQgYW1kZ3B1X3Jhc19mZWF0dXJlX2VuYWJs
+ZShzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiA+ICAgICAgIC8qIERvIG5vdCBlbmFibGUg
+aWYgaXQgaXMgbm90IGFsbG93ZWQuICovCj4gPiAgICAgICBXQVJOX09OKGVuYWJsZSAmJiAhYW1k
+Z3B1X3Jhc19pc19mZWF0dXJlX2FsbG93ZWQoYWRldiwgaGVhZCkpOwo+ID4gICAgICAgLyogQXJl
+IHdlIGFsZXJhZHkgaW4gdGhhdCBzdGF0ZSB3ZSBhcmUgZ29pbmcgdG8gc2V0PyAqLwo+ID4gLSAg
+ICAgaWYgKCEoISFlbmFibGUgXiAhIWFtZGdwdV9yYXNfaXNfZmVhdHVyZV9lbmFibGVkKGFkZXYs
+IGhlYWQpKSkKPiA+IC0gICAgICAgICAgICAgcmV0dXJuIDA7Cj4gPiArICAgICBpZiAoISghIWVu
+YWJsZSBeICEhYW1kZ3B1X3Jhc19pc19mZWF0dXJlX2VuYWJsZWQoYWRldiwgaGVhZCkpKSB7Cj4g
+PiArICAgICAgICAgICAgIHJldCA9IDA7Cj4gPiArICAgICAgICAgICAgIGdvdG8gb3V0Owo+ID4g
+KyAgICAgfQo+ID4KPiA+ICAgICAgIGlmICghYW1kZ3B1X3Jhc19pbnRyX3RyaWdnZXJlZCgpKSB7
+Cj4gPiAtICAgICAgICAgICAgIHJldCA9IHBzcF9yYXNfZW5hYmxlX2ZlYXR1cmVzKCZhZGV2LT5w
+c3AsICZpbmZvLCBlbmFibGUpOwo+ID4gKyAgICAgICAgICAgICByZXQgPSBwc3BfcmFzX2VuYWJs
+ZV9mZWF0dXJlcygmYWRldi0+cHNwLCBpbmZvLCBlbmFibGUpOwo+ID4gICAgICAgICAgICAgICBp
+ZiAocmV0KSB7Cj4gPiAgICAgICAgICAgICAgICAgICAgICAgYW1kZ3B1X3Jhc19wYXJzZV9zdGF0
+dXNfY29kZShhZGV2LAo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgZW5hYmxlID8gImVuYWJsZSI6ImRpc2FibGUiLAo+ID4gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmFzX2Jsb2NrX3N0cihoZWFk
+LT5ibG9jayksCj4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIChlbnVtIHRhX3Jhc19zdGF0dXMpcmV0KTsKPiA+ICAgICAgICAgICAgICAgICAgICAg
+ICBpZiAocmV0ID09IFRBX1JBU19TVEFUVVNfX1JFU0VUX05FRURFRCkKPiA+IC0gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIHJldHVybiAtRUFHQUlOOwo+ID4gLSAgICAgICAgICAgICAgICAg
+ICAgIHJldHVybiAtRUlOVkFMOwo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0
+ID0gLUVBR0FJTjsKPiA+ICsgICAgICAgICAgICAgICAgICAgICBlbHNlCj4gPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICByZXQgPSAtRUlOVkFMOwo+ID4gKwo+ID4gKyAgICAgICAgICAg
+ICAgICAgICAgIGdvdG8gb3V0Owo+ID4gICAgICAgICAgICAgICB9Cj4gPiAgICAgICB9Cj4gPgo+
+ID4gICAgICAgLyogc2V0dXAgdGhlIG9iaiAqLwo+ID4gICAgICAgX19hbWRncHVfcmFzX2ZlYXR1
+cmVfZW5hYmxlKGFkZXYsIGhlYWQsIGVuYWJsZSk7Cj4gPiAtCj4gPiAtICAgICByZXR1cm4gMDsK
+PiA+ICsgICAgIHJldCA9IDA7Cj4gPiArb3V0Ogo+ID4gKyAgICAga2ZyZWUoaW5mbyk7Cj4gPiAr
+ICAgICByZXR1cm4gcmV0Owo+ID4gICB9Cj4gPgo+ID4gICAvKiBPbmx5IHVzZWQgaW4gZGV2aWNl
+IHByb2JlIHN0YWdlIGFuZCBjYWxsZWQgb25seSBvbmNlLiAqLwo+Cj4gX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBkcmktZGV2ZWwgbWFpbGluZyBsaXN0
+Cj4gZHJpLWRldmVsQGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vZHJpLWRldmVsCl9fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhA
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxt
+YW4vbGlzdGluZm8vYW1kLWdmeAo=
