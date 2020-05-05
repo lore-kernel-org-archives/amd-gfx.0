@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C4D5C47247
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C4916C47257
 	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 14:50:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0BB5D20735
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 14:50:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0BB5D20735
+	by mail.kernel.org (Postfix) with ESMTPS id A4B6B206B9
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 14:50:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4B6B206B9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=arndb.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 826A56E5CE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A17436E5D1;
 	Tue,  5 May 2020 14:50:32 +0000 (UTC)
-X-Greylist: delayed 836 seconds by postgrey-1.36 at gabe;
- Tue, 05 May 2020 14:16:13 UTC
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B09DD89138;
- Tue,  5 May 2020 14:16:13 +0000 (UTC)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A68D6E351
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 May 2020 14:07:25 +0000 (UTC)
 Received: from localhost.localdomain ([149.172.19.189]) by
- mrelayeu.kundenserver.de (mreue106 [212.227.15.145]) with ESMTPA (Nemesis) id
- 1MBV6n-1jQid641ol-00CwN4; Tue, 05 May 2020 16:16:08 +0200
+ mrelayeu.kundenserver.de (mreue107 [212.227.15.145]) with ESMTPA (Nemesis) id
+ 1N49Qd-1j5KPS3F33-0107Nn; Tue, 05 May 2020 16:02:11 +0200
 From: Arnd Bergmann <arnd@arndb.de>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  "David (ChunMing) Zhou" <David1.Zhou@amd.com>,
  David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Evan Quan <evan.quan@amd.com>
-Subject: [PATCH] amdgpu: fix integer overflow on 32-bit architectures
-Date: Tue,  5 May 2020 16:15:59 +0200
-Message-Id: <20200505141606.837164-1-arnd@arndb.de>
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ John Clements <john.clements@amd.com>
+Subject: [PATCH] drm/amdgpu: allocate large structures dynamically
+Date: Tue,  5 May 2020 16:01:52 +0200
+Message-Id: <20200505140208.284473-1-arnd@arndb.de>
 X-Mailer: git-send-email 2.26.0
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:AkHFlSmgzp0jc+4llNiW+N+aB5OAyViD48sJ9HgEiVEF6fHsqQ/
- my7xScjJabhxQy51veqRxDGj468ZcU2Y1qyA/vAWUNneRt7mAboEJtEMSf0s2KYcuIhxneJ
- Vvf4HOqoO+vV98lY8TcGZhyq9Jzo8LXqSdQyDu6cAIZQuJO+ec6Z2IyWzTOXqFohOIDYfGl
- XToXSuqrzN3OY0YATcdag==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:4EQ5IcEC00E=:KlLlWj4vyVL6/3IxXdVlFy
- iRqdSEEX4aDUpKxY6hg6N1dWPK43VxA7TZYttNGVpXIpyxawAHjee1HRvrqb+HzATJWxvxsGD
- Q/Tjvr6CEfoY+1CP7lT1pbzw20DbbUMsJu2ebpvFm5R/ic3GWJKvgGe/p0ofkxkWpOM4OKDIH
- hxJmw+XvBJpM7ne3kn/a+L4dN50kueITd5SmkXEBt7OuVyQ+kKNkasA6WcLsXjk6/ZD/b1214
- I48BAXqy+VTn02bnk7G89hi3P5vo/ZuQFLZU93xeHm9fdvoU4vyLBpzzq0+nwoOTH7i0l/xvO
- FPlrWrrCGmvXr5aRpr9A9pI7fmHP6K2vhghcS1uTrg87fL9hKnLh8g7XysYxqlidjgbjiN83B
- 62Dh3AEihexlbYZeA1dpOPvlsk0XlaZen6yD1HW0gTTIyEn/1r1n7eaanrG1fZViKWknI72/f
- qeGhH3uU4RKyP6TZa2qCIDVQ0SARl6hTHvC9P0HvdDA82zVjqRx3AzT10hesKq8x1czlRJeKY
- rSSzoadO5ogqzgCPAwBs7TFv4sS1K2Mc8AysvvqrZpb3QPU7DSX0FYp3NnM4OOcGD6H1ewxjg
- b/KYBsyphRkgKHn7bLGznymg1KPOk2hotz9lzDrV7vKFtEaJ4wDaEabkUagz8JYKeKcdBDL+K
- yU465Q5L24SuHzhfm/8Gjw0ZnrNXvMiNsbikd4MUZG78MHvHvTQEGD0ijwduMmz3Dkz4Mm6aQ
- vlELC3mDFgcUkOQd1ur5gleJJsf4wCHPumesooBI3ccz9dqyU22QpvOc5st9PjX60klfXyMh2
- xDDdQIRdBZ3gdeCaNzJCDgaP6leVG1gnnJlXnYpoke0b6J3R5Q=
+X-Provags-ID: V03:K1:TSc6c1YhMkCs/1m6SAPJGzLtfTJo7NH6Kjg0A5Q4anVbFFYTPN5
+ 1czvuDksXTPHuVVr43jFu9sB5c2K9U6ytyW55vWyZ4r7H0ZUmFKe76IuD5mBKMJUf1MmwPe
+ tlZvkffxNQkE68Ei2SmM2ddGqT4IuwdBy7H+4QdwPa2l1iB61k6gKOkn+y+Hiaa/z4D32XR
+ 4c8iHqP3q0nR2voq6Q9XQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:b6bmVYOZz1A=:NAI4iCE0teAzIdNCKCFMCT
+ 87ZQakcJjcUm+73CmCAa1BFfhPtOK/t+4lI1jOuBWK93HxAiY0jRIhMVAgak+ngIw5B9b03wb
+ HdXnYJSQuSO/nkYsJBsYScyqRgnuB5n79UgJ/Iq3SVI26RpJMVaWbonDRac63zQZmSTSr97gA
+ +oZcWZHLf1eB9oV0MPs2YLUFrfQAGmRlvDvRj05xjAGT+TVwdcg6sCbnG+orL2saSalc3yPCp
+ K30+z6fZcI1u0FLite+tTRawB4Panf+IoYM7BieIytkLMLVJmZUrMpRp6KaOJyOVl1tHQDCS6
+ yVaoeFjpbO3D7WN6jalbe4kdUOMDXXWNJxY4+7XfH0b1TUdFDWn1oelDxiFV093RdbFAtuA3I
+ tYnux1qe7knOLPijqMSi5to91FWzPmicvUp8ZAmw760B6a7Fh8wZaElobinNkKvIIBMbNMdrI
+ SHIoSXNdpAzwVKCW+XiadS4lGTMcN5TcqFYjAahawwGkgsNPADtbBeh3hYZvHe2LN2ji6ekQi
+ jOPoE25LUUYfNOqzuUSK37lCUyu2wULLXIBhe4RQdH3r7nsJZEQOKuVgZegWiyHixFZ1i8NLV
+ ikrRdufir6RY7Kqn4y17Z4HA9OAYFYv8x7+E9bAAjt7/M/vLLzinhXYOcMLmYfW1m/ZHaTJ/h
+ YgSPR8hinDU+3cruHJq5LaSaoRedbVbrpQlAF8wdc07F9cpK7b7f5HSaO631zh0W38/VhgMKZ
+ Lpq9uo5xGdKYHoxnbp0uxzSEXnEkwJCbESA9HDSNrBeJS9q7QVn7jdjK79Gop2Y3jnT5ZEfDW
+ HvVTBAIri1C7j581qGfUEnfWiVCTgWPil6xOr4C6XuDmR3uHLA=
 X-Mailman-Approved-At: Tue, 05 May 2020 14:50:31 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,47 +67,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- Arnd Bergmann <arnd@arndb.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- clang-built-linux@googlegroups.com, Kent Russell <kent.russell@amd.com>,
- Monk Liu <Monk.Liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Guchun Chen <guchun.chen@amd.com>,
+ Tao Zhou <tao.zhou1@amd.com>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Dennis Li <Dennis.Li@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Multiplying 1000000000 by four overruns a 'long' variable, as clang
-points out:
+After the structure was padded to 1024 bytes, it is no longer
+suitable for being a local variable, as the function surpasses
+the warning limit for 32-bit architectures:
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:4160:53: error: overflow in expression; result is -294967296 with type 'long' [-Werror,-Winteger-overflow]
-                expires = ktime_get_mono_fast_ns() + NSEC_PER_SEC * 4L;
-                                                                  ^
-Make this a 'long long' constant instead.
+drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:587:5: error: stack frame size of 1072 bytes in function 'amdgpu_ras_feature_enable' [-Werror,-Wframe-larger-than=]
+int amdgpu_ras_feature_enable(struct amdgpu_device *adev,
+    ^
 
-Fixes: 3f12acc8d6d4 ("drm/amdgpu: put the audio codec into suspend state before gpu reset V3")
+Use kzalloc() instead to get it from the heap.
+
+Fixes: a0d254820f43 ("drm/amdgpu: update RAS TA to Host interface")
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
-I'm not sure the ktime_get_mono_fast_ns() call is necessary here
-either. Is it intentional because ktime_get_ns() doesn't work
-during a driver suspend, or just a mistake?
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 31 +++++++++++++++++--------
+ 1 file changed, 21 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 6f93af972b0a..2e07e3e6b036 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4157,7 +4157,7 @@ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
- 		 * the audio controller default autosuspend delay setting.
- 		 * 4S used here is guaranteed to cover that.
- 		 */
--		expires = ktime_get_mono_fast_ns() + NSEC_PER_SEC * 4L;
-+		expires = ktime_get_mono_fast_ns() + NSEC_PER_SEC * 4LL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 538895cfd862..7348619253c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -588,19 +588,23 @@ int amdgpu_ras_feature_enable(struct amdgpu_device *adev,
+ 		struct ras_common_if *head, bool enable)
+ {
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-	union ta_ras_cmd_input info;
++	union ta_ras_cmd_input *info;
+ 	int ret;
  
- 	while (!pm_runtime_status_suspended(&(p->dev))) {
- 		if (!pm_runtime_suspend(&(p->dev)))
+ 	if (!con)
+ 		return -EINVAL;
+ 
++        info = kzalloc(sizeof(union ta_ras_cmd_input), GFP_KERNEL);
++	if (!info)
++		return -ENOMEM;
++
+ 	if (!enable) {
+-		info.disable_features = (struct ta_ras_disable_features_input) {
++		info->disable_features = (struct ta_ras_disable_features_input) {
+ 			.block_id =  amdgpu_ras_block_to_ta(head->block),
+ 			.error_type = amdgpu_ras_error_to_ta(head->type),
+ 		};
+ 	} else {
+-		info.enable_features = (struct ta_ras_enable_features_input) {
++		info->enable_features = (struct ta_ras_enable_features_input) {
+ 			.block_id =  amdgpu_ras_block_to_ta(head->block),
+ 			.error_type = amdgpu_ras_error_to_ta(head->type),
+ 		};
+@@ -609,26 +613,33 @@ int amdgpu_ras_feature_enable(struct amdgpu_device *adev,
+ 	/* Do not enable if it is not allowed. */
+ 	WARN_ON(enable && !amdgpu_ras_is_feature_allowed(adev, head));
+ 	/* Are we alerady in that state we are going to set? */
+-	if (!(!!enable ^ !!amdgpu_ras_is_feature_enabled(adev, head)))
+-		return 0;
++	if (!(!!enable ^ !!amdgpu_ras_is_feature_enabled(adev, head))) {
++		ret = 0;
++		goto out;
++	}
+ 
+ 	if (!amdgpu_ras_intr_triggered()) {
+-		ret = psp_ras_enable_features(&adev->psp, &info, enable);
++		ret = psp_ras_enable_features(&adev->psp, info, enable);
+ 		if (ret) {
+ 			amdgpu_ras_parse_status_code(adev,
+ 						     enable ? "enable":"disable",
+ 						     ras_block_str(head->block),
+ 						    (enum ta_ras_status)ret);
+ 			if (ret == TA_RAS_STATUS__RESET_NEEDED)
+-				return -EAGAIN;
+-			return -EINVAL;
++				ret = -EAGAIN;
++			else
++				ret = -EINVAL;
++
++			goto out;
+ 		}
+ 	}
+ 
+ 	/* setup the obj */
+ 	__amdgpu_ras_feature_enable(adev, head, enable);
+-
+-	return 0;
++	ret = 0;
++out:
++	kfree(info);
++	return ret;
+ }
+ 
+ /* Only used in device probe stage and called only once. */
 -- 
 2.26.0
 
