@@ -2,78 +2,112 @@ Return-Path: <SRS0=bavc=6T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 52E3CC47247
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 07:47:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6FD5C47261
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 08:46:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1DD78206CC
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 07:47:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id BBEBC206B9
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 08:46:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ANKj2dhN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1DD78206CC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="rBaNXm5P"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BBEBC206B9
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=samsung.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C581F6E10F;
-	Tue,  5 May 2020 07:47:47 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2A926E10F
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 May 2020 07:47:46 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id x25so1114919wmc.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 05 May 2020 00:47:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language;
- bh=l35BxYIu1s+7MrWkmwn63TZRntZcJAoQ4s84Ao5vY90=;
- b=ANKj2dhNYauA8I4xtOE6TffXKUk6bacPLTifr8A2KzMrsPAYXmi4mDP62AnXeeRXdE
- WZ7uaBDqlISPqslXgnYvS6LCDUwAhjrxL0wBwn2kUhK6A+iwZJtYq5EbltGIcBpwqFWh
- kLbqKCk2KDp1TvEbb6dN0rh2UWU9TbWekkycNi2bEJ2kvsXcBExg9eUfmWtxFvoRxEa3
- VQSiIUMPtGSc2eHpPYcpxc4+UmQajRtIOUlq+qSG55nS1rBROort4rUKHLf1+hoTYuCX
- 36G2FeKJR97nt0PekoHzbFGJJB5DSVYzaLOYAyMqRhFUCEPyigrabJ7hqy08VCPUlu4r
- tUyw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language;
- bh=l35BxYIu1s+7MrWkmwn63TZRntZcJAoQ4s84Ao5vY90=;
- b=HyNIYGDJq5enPc4IFCWxHUCIK9e/GHoT/Qwong1fjL4KniPuQmpBYmFceYCm9PU/C+
- AzDDGUojhDOZ+b70cD2Ohc70GyAuXpSrRGVP3XOytHkVKn+6vcQwIUkhScPy7HHQlYrP
- Zp1WjKsZUpQ+HM55aJ2j4iLZ5BodFwkS5K+8aI1MIjgTFsZKF1RU/kor6HcShT7TQOrJ
- OxRGcR19rucF1m9eRczZi2T5KWmZ+2wJF21hItxtGOfLtLxkaamRauNZsaKP0TgSc+Io
- Xk/T838fWYgc4O6BckDb4gdAVMjVlAMQ320/1H5+fNAvrAlTGegtc+yPacaLKfyvLyUx
- L5fw==
-X-Gm-Message-State: AGi0PuYRbaVYHLZZjYL+h097Mm6BRFCFdOM2NMxuQ2TecKiqhS5Wo+JY
- 1QprA+5x/qjn0q5YCZgB1os14AM7
-X-Google-Smtp-Source: APiQypJ620Yp6fs6uyb++Wr3/ordwkTtaQ3eFL2KI+xNbOkAuB23sICjC3Wbsy6gVESzViESJ22/Fg==
-X-Received: by 2002:a1c:4989:: with SMTP id w131mr1888976wma.137.1588664865041; 
- Tue, 05 May 2020 00:47:45 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id a8sm1769062wrg.85.2020.05.05.00.47.43
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 05 May 2020 00:47:44 -0700 (PDT)
-Subject: Re: [PATCH 1/1] drm/amdgpu: Take a reference to an exported BO
-To: Felix Kuehling <felix.kuehling@amd.com>, christian.koenig@amd.com,
- amd-gfx@lists.freedesktop.org
-References: <20200501142127.14202-1-Felix.Kuehling@amd.com>
- <70e5d202-34ed-532f-e6b6-c195a3effad3@gmail.com>
- <551849ec-bc90-0bd2-d46c-f6d8e5c0fee0@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <6c4b3eb0-40b5-8c3c-dc5e-38b622864e12@gmail.com>
-Date: Tue, 5 May 2020 09:47:42 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <551849ec-bc90-0bd2-d46c-f6d8e5c0fee0@amd.com>
-Content-Language: en-US
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47E646E560;
+	Tue,  5 May 2020 08:46:29 +0000 (UTC)
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 689FE89D56
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 May 2020 08:46:27 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20200505084626euoutp01bffef69a05902a526256713b85422385~MFXriE3Sv0319103191euoutp01j
+ for <amd-gfx@lists.freedesktop.org>; Tue,  5 May 2020 08:46:26 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20200505084626euoutp01bffef69a05902a526256713b85422385~MFXriE3Sv0319103191euoutp01j
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1588668386;
+ bh=b2pg8Rv0a1USjl2s1bLAigSIqJD0SkZM8IxmmbNL0x8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=rBaNXm5PVX6o9AvlTtruDJIM+3u+zhRjQpcIvQq+1Fl7+9hzfpJAsMtLYNvXhyTLM
+ BEIBgPVvFWIslxTBsLW/wWOVy+CIs0P9ymfuJXVM12LxXIONrPMRbo1d43UduDKNVq
+ lXrfbUJkuXaMqCvshKXcJORpsVbRemosf8KBlGVY=
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTP id
+ 20200505084625eucas1p1a8113069f3d213d0b48a64bc1f1e3c3a~MFXrT_kcc2424624246eucas1p1z;
+ Tue,  5 May 2020 08:46:25 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id 77.32.60679.1E721BE5; Tue,  5
+ May 2020 09:46:25 +0100 (BST)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20200505084625eucas1p2b8ca16ff91ba9d6655f525ef85915d00~MFXrB5SI71348713487eucas1p2R;
+ Tue,  5 May 2020 08:46:25 +0000 (GMT)
+Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20200505084625eusmtrp2b3e6346435845a0bbc1711ba1e415204~MFXrBLYGm0573005730eusmtrp2E;
+ Tue,  5 May 2020 08:46:25 +0000 (GMT)
+X-AuditID: cbfec7f4-0e5ff7000001ed07-2c-5eb127e1cc63
+Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id B2.21.07950.1E721BE5; Tue,  5
+ May 2020 09:46:25 +0100 (BST)
+Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
+ eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20200505084624eusmtip10730825044d8cb0f9ddd84924e6f66d1~MFXqYDOGP0695906959eusmtip1B;
+ Tue,  5 May 2020 08:46:24 +0000 (GMT)
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+To: dri-devel@lists.freedesktop.org, iommu@lists.linux-foundation.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v3 03/25] drm: amdgpu: fix common struct sg_table related
+ issues
+Date: Tue,  5 May 2020 10:45:52 +0200
+Message-Id: <20200505084614.30424-3-m.szyprowski@samsung.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200505084614.30424-1-m.szyprowski@samsung.com>
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrEKsWRmVeSWpSXmKPExsWy7djP87oP1TfGGay5bmjRe+4kk8W0O7tZ
+ LZaub2S32DhjPavF2/tA7v9tE5ktlnw5z2px5et7NouVq48yWSzYb23x5cpDJotNj6+xWlze
+ NYfNYu2Ru+wWBz88YXXg92i99JfNY828NYwee78tYPHY/u0Bq8f97uNMHpuX1Hvc/veY2WPy
+ jeWMHrtvNrB59G1ZxejxeZNcAHcUl01Kak5mWWqRvl0CV8ah7X+YC05KVtyZ9JyxgXGvaBcj
+ J4eEgIlE26RtzF2MXBxCAisYJbYvW8QE4XxhlNhz/DxU5jOjxOeff1hhWs7PWwBVtZxR4ubj
+ jexwLau3XmIDqWITMJToetsFZosItDJKnOjlASliFjjBLPG++zZYQlggSGLGzO3MIDaLgKrE
+ v7bF7CA2r4CtxLtlp5gh1slLrN5wAMzmFLCTeHzpDhvIIAmBS+wS63Z0sEMUuUj0TjkMZQtL
+ vDq+BcqWkfi/cz4TREMzo8TDc2vZIZweRonLTTMYIaqsJe6c+wU0lgPoPk2J9bv0IcKOEju2
+ r2UCCUsI8EnceCsIEmYGMidtm84MEeaV6GgTgqhWk5h1fB3c2oMXLkHd7yFxePInFkgIHWWU
+ 2NX+lXECo/wshGULGBlXMYqnlhbnpqcWG+WllusVJ+YWl+al6yXn525iBKas0/+Of9nBuOtP
+ 0iFGAQ5GJR7eiM/r44RYE8uKK3MPMUpwMCuJ8C77sSFOiDclsbIqtSg/vqg0J7X4EKM0B4uS
+ OK/xopexQgLpiSWp2ampBalFMFkmDk6pBka5s/rptx7lH958Jc1s9h/77GMhvb6LXrx59nKf
+ Eo+0W8yEaWub5eeZGk82O/TUnetut9jC13emn19kqjg5eMZMtzkaYRLhp6ySznHXdSrszPvk
+ 9zVUXpSH1SP15BpNhpq2+ztE5H9N3ME/MffrFe6rW8s3+/fzqjWsVso5f3nu+j6TXFnHiC4l
+ luKMREMt5qLiRADC4lkjVQMAAA==
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrMIsWRmVeSWpSXmKPExsVy+t/xu7oP1TfGGRz8L2PRe+4kk8W0O7tZ
+ LZaub2S32DhjPavF2/tA7v9tE5ktlnw5z2px5et7NouVq48yWSzYb23x5cpDJotNj6+xWlze
+ NYfNYu2Ru+wWBz88YXXg92i99JfNY828NYwee78tYPHY/u0Bq8f97uNMHpuX1Hvc/veY2WPy
+ jeWMHrtvNrB59G1ZxejxeZNcAHeUnk1RfmlJqkJGfnGJrVK0oYWRnqGlhZ6RiaWeobF5rJWR
+ qZK+nU1Kak5mWWqRvl2CXsah7X+YC05KVtyZ9JyxgXGvaBcjJ4eEgInE+XkLmLoYuTiEBJYy
+ Six59YgNIiEjcXJaAyuELSzx51oXG0TRJ0aJaYd/MoEk2AQMJbreQiREBDqBEt0f2UEcZoEL
+ zBJ/Pu1nBqkSFgiQOHTnBTuIzSKgKvGvbTGYzStgK/Fu2SlmiBXyEqs3HACzOQXsJB5fugN2
+ hpBAocSH899ZJzDyLWBkWMUoklpanJueW2ykV5yYW1yal66XnJ+7iREYQduO/dyyg7HrXfAh
+ RgEORiUe3g1f18cJsSaWFVfmHmKU4GBWEuFd9mNDnBBvSmJlVWpRfnxRaU5q8SFGU6CjJjJL
+ iSbnA6M7ryTe0NTQ3MLS0NzY3NjMQkmct0PgYIyQQHpiSWp2ampBahFMHxMHp1QDY2T3588v
+ LoRsvnioWkXmwM9uKck+SVtRtY8dP3v+Sk8WbZW4/iCszSl70Wdf4SOZMZUzglLDRSNu6Jns
+ /b6ofI5vFQ9L+P/SLXacn2vVpSVOmi5fnx+bprLec0dgzIozcYdZVj6+6vDp9e/nzsXWwq9n
+ bX/rm7X+ueSNOk3f5aymu1/b7XsvqcRSnJFoqMVcVJwIAJs5Bli2AgAA
+X-CMS-MailID: 20200505084625eucas1p2b8ca16ff91ba9d6655f525ef85915d00
+X-Msg-Generator: CA
+X-RootMTR: 20200505084625eucas1p2b8ca16ff91ba9d6655f525ef85915d00
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20200505084625eucas1p2b8ca16ff91ba9d6655f525ef85915d00
+References: <20200505083926.28503-1-m.szyprowski@samsung.com>
+ <20200505084614.30424-1-m.szyprowski@samsung.com>
+ <CGME20200505084625eucas1p2b8ca16ff91ba9d6655f525ef85915d00@eucas1p2.samsung.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,284 +119,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Type: multipart/mixed; boundary="===============1462452286=="
+Cc: David Zhou <David1.Zhou@amd.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ David Airlie <airlied@linux.ie>, amd-gfx@lists.freedesktop.org,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Robin Murphy <robin.murphy@arm.com>, Christoph Hellwig <hch@lst.de>,
+ linux-arm-kernel@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---===============1462452286==
-Content-Type: multipart/alternative;
- boundary="------------D413B1BBF5B0CF1A4C707896"
-Content-Language: en-US
+The Documentation/DMA-API-HOWTO.txt states that dma_map_sg returns the
+numer of the created entries in the DMA address space. However the
+subsequent calls to dma_sync_sg_for_{device,cpu} and dma_unmap_sg must be
+called with the original number of the entries passed to dma_map_sg. The
+sg_table->nents in turn holds the result of the dma_map_sg call as stated
+in include/linux/scatterlist.h. A common mistake was to ignore a result
+of the dma_map_sg function and don't use the sg_table->orig_nents at all.
 
-This is a multi-part message in MIME format.
---------------D413B1BBF5B0CF1A4C707896
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+To avoid such issues, lets use common dma-mapping wrappers operating
+directly on the struct sg_table objects and adjust references to the
+nents and orig_nents respectively.
 
-Just to reply here once more, this patch is a clear NAK.
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+---
+For more information, see '[PATCH v3 00/25] DRM: fix struct sg_table nents
+vs. orig_nents misuse' thread: https://lkml.org/lkml/2020/5/5/187
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 6 +++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 9 +++------
+ 2 files changed, 6 insertions(+), 9 deletions(-)
 
-The references are grabbed in the call path of drm_gem_prime_export() 
-and dropped again in drm_gem_dmabuf_release().
-
-So they are perfectly balanced as far as I can see.
-
-Regards,
-Christian.
-
-Am 01.05.20 um 16:44 schrieb Felix Kuehling:
->
-> [dropping my gmail address]
->
-> We saw this backtrace showing the call chain while investigating a 
-> kernel oops caused by this issue on the DKMS branch with the KFD IPC 
-> API. It happens after a dma-buf file is released with fput:
->
-> [ 1255.049330] BUG: kernel NULL pointer dereference, address: 000000000000051e
-> [ 1255.049727] #PF: supervisor read access in kernel mode
-> [ 1255.050092] #PF: error_code(0x0000) - not-present page
-> [ 1255.050416] PGD 0 P4D 0
-> [ 1255.050736] Oops: 0000 [#1] SMP PTI
-> [ 1255.051060] CPU: 27 PID: 2292 Comm: kworker/27:2 Tainted: G           OE     5.3.0-46-generic #38~18.04.1-Ubuntu
-> [ 1255.051400] Hardware name: Supermicro SYS-4029GP-TRT2/X11DPG-OT-CPU, BIOS 3.0a 02/26/2019
-> [ 1255.051752] Workqueue: events delayed_fput
-> [ 1255.052111] RIP: 0010:drm_gem_object_put_unlocked+0x1c/0x70 [drm]
-> [ 1255.052465] Code: 4d 80 c8 ee 0f 0b eb d8 66 0f 1f 44 00 00 0f 1f 44 00 00 48 85 ff 74 34 55 48 89 e5 41 54 53 48 89 fb 48 8b 7f 08 48 8b 47 20 <48> 83 b8 a0 00 00 00 00 74 1a 4c 8d 67 68 48 89 df 4c 89 e6 e8 9b
-> [ 1255.053224] RSP: 0018:ffffb4b62035fdc8 EFLAGS: 00010286
-> [ 1255.053613] RAX: 000000000000047e RBX: ffff9f2add197850 RCX: 0000000000000000
-> [ 1255.054032] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff9f2aa2548aa0
-> [ 1255.054440] RBP: ffffb4b62035fdd8 R08: 0000000000000000 R09: 0000000000000000
-> [ 1255.054860] R10: 0000000000000010 R11: ffff9f2a4b1cc310 R12: 0000000000080005
-> [ 1255.055268] R13: ffff9f2a4b1cc310 R14: ffff9f4e369161e0 R15: ffff9f2a1b2f9080
-> [ 1255.055674] FS:  0000000000000000(0000) GS:ffff9f4e3f740000(0000) knlGS:0000000000000000
-> [ 1255.056087] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> [ 1255.056501] CR2: 000000000000051e CR3: 00000002df00a004 CR4: 00000000007606e0
-> [ 1255.056923] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-> [ 1255.057345] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-> [ 1255.057763] PKRU: 55555554
-> [ 1255.058179] Call Trace:
-> [ 1255.058603]  drm_gem_dmabuf_release+0x1a/0x30 [drm]
-> [ 1255.059025]  dma_buf_release+0x56/0x130
-> [ 1255.059443]  __fput+0xc6/0x260
-> [ 1255.059856]  delayed_fput+0x20/0x30
-> [ 1255.060272]  process_one_work+0x1fd/0x3f0
-> [ 1255.060686]  worker_thread+0x34/0x410
-> [ 1255.061099]  kthread+0x121/0x140
-> [ 1255.061510]  ? process_one_work+0x3f0/0x3f0
-> [ 1255.061923]  ? kthread_park+0xb0/0xb0
-> [ 1255.062336]  ret_from_fork+0x35/0x40
->
-> drm_gem_object_put_unlocked calls drm_gem_object_free when the 
-> obj->refcount reaches 0. From there it calls 
-> dev->driver->gem_free_object_unlocked, which is amdgpu_gem_object_free 
-> in amdgpu.
->
-> Regards,
->   Felix
->
-> Am 2020-05-01 um 10:29 a.m. schrieb Christian König:
->> Am 01.05.20 um 16:21 schrieb Felix Kuehling:
->>> From: Felix Kuehling <felix.kuehling@gmail.com>
->>>
->>> That reference gets dropped when the the dma-buf is freed. Not 
->>> incrementing
->>> the refcount can lead to use-after-free errors.
->>>
->>> Signed-off-by: Felix Kuehling <felix.kuehling@gmail.com>
->>> ---
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 9 ++++++++-
->>>   1 file changed, 8 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c 
->>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>> index ffeb20f11c07..a0f9b3ef4aad 100644
->>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>> @@ -398,8 +398,15 @@ struct dma_buf *amdgpu_gem_prime_export(struct 
->>> drm_gem_object *gobj,
->>>           return ERR_PTR(-EPERM);
->>>         buf = drm_gem_prime_export(gobj, flags);
->>> -    if (!IS_ERR(buf))
->>> +    if (!IS_ERR(buf)) {
->>>           buf->ops = &amdgpu_dmabuf_ops;
->>> +        /* GEM needs a reference to the underlying object
->>> +         * that gets dropped when the dma-buf is released,
->>> +         * through the amdgpu_gem_object_free callback
->>> +         * from drm_gem_object_put_unlocked.
->>> +         */
->>> +        amdgpu_bo_ref(bo);
->>> +    }
->>
->> Of hand that doesn't sounds correct to me. Why should the exported bo 
->> be closed through amdgpu_gem_object_free()?
->>
->> Regards,
->> Christian.
->>
->>>         return buf;
->>>   }
->>
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-
---------------D413B1BBF5B0CF1A4C707896
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Just to reply here once more, this
-      patch is a clear NAK.<br>
-      <br>
-      The references are grabbed in the call path of
-      drm_gem_prime_export() and dropped again in
-      drm_gem_dmabuf_release().<br>
-      <br>
-      So they are perfectly balanced as far as I can see.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      Am 01.05.20 um 16:44 schrieb Felix Kuehling:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:551849ec-bc90-0bd2-d46c-f6d8e5c0fee0@amd.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <p>[dropping my gmail address]</p>
-      <p>We saw this backtrace showing the call chain while
-        investigating a kernel oops caused by this issue on the DKMS
-        branch with the KFD IPC API. It happens after a dma-buf file is
-        released with fput:</p>
-      <pre>[ 1255.049330] BUG: kernel NULL pointer dereference, address: 000000000000051e
-[ 1255.049727] #PF: supervisor read access in kernel mode
-[ 1255.050092] #PF: error_code(0x0000) - not-present page
-[ 1255.050416] PGD 0 P4D 0
-[ 1255.050736] Oops: 0000 [#1] SMP PTI
-[ 1255.051060] CPU: 27 PID: 2292 Comm: kworker/27:2 Tainted: G           OE     5.3.0-46-generic #38~18.04.1-Ubuntu
-[ 1255.051400] Hardware name: Supermicro SYS-4029GP-TRT2/X11DPG-OT-CPU, BIOS 3.0a 02/26/2019
-[ 1255.051752] Workqueue: events delayed_fput
-[ 1255.052111] RIP: 0010:drm_gem_object_put_unlocked+0x1c/0x70 [drm]
-[ 1255.052465] Code: 4d 80 c8 ee 0f 0b eb d8 66 0f 1f 44 00 00 0f 1f 44 00 00 48 85 ff 74 34 55 48 89 e5 41 54 53 48 89 fb 48 8b 7f 08 48 8b 47 20 &lt;48&gt; 83 b8 a0 00 00 00 00 74 1a 4c 8d 67 68 48 89 df 4c 89 e6 e8 9b
-[ 1255.053224] RSP: 0018:ffffb4b62035fdc8 EFLAGS: 00010286
-[ 1255.053613] RAX: 000000000000047e RBX: ffff9f2add197850 RCX: 0000000000000000
-[ 1255.054032] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff9f2aa2548aa0
-[ 1255.054440] RBP: ffffb4b62035fdd8 R08: 0000000000000000 R09: 0000000000000000
-[ 1255.054860] R10: 0000000000000010 R11: ffff9f2a4b1cc310 R12: 0000000000080005
-[ 1255.055268] R13: ffff9f2a4b1cc310 R14: ffff9f4e369161e0 R15: ffff9f2a1b2f9080
-[ 1255.055674] FS:  0000000000000000(0000) GS:ffff9f4e3f740000(0000) knlGS:0000000000000000
-[ 1255.056087] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[ 1255.056501] CR2: 000000000000051e CR3: 00000002df00a004 CR4: 00000000007606e0
-[ 1255.056923] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-[ 1255.057345] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-[ 1255.057763] PKRU: 55555554
-[ 1255.058179] Call Trace:
-[ 1255.058603]  drm_gem_dmabuf_release+0x1a/0x30 [drm]
-[ 1255.059025]  dma_buf_release+0x56/0x130
-[ 1255.059443]  __fput+0xc6/0x260
-[ 1255.059856]  delayed_fput+0x20/0x30
-[ 1255.060272]  process_one_work+0x1fd/0x3f0
-[ 1255.060686]  worker_thread+0x34/0x410
-[ 1255.061099]  kthread+0x121/0x140
-[ 1255.061510]  ? process_one_work+0x3f0/0x3f0
-[ 1255.061923]  ? kthread_park+0xb0/0xb0
-[ 1255.062336]  ret_from_fork+0x35/0x40
-</pre>
-      <p>drm_gem_object_put_unlocked calls drm_gem_object_free when the
-        obj-&gt;refcount reaches 0. From there it calls
-        dev-&gt;driver-&gt;gem_free_object_unlocked, which is
-        amdgpu_gem_object_free in amdgpu.<br>
-      </p>
-      <p>Regards,<br>
-          Felix<br>
-      </p>
-      <div class="moz-cite-prefix">Am 2020-05-01 um 10:29 a.m. schrieb
-        Christian König:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:70e5d202-34ed-532f-e6b6-c195a3effad3@gmail.com">Am
-        01.05.20 um 16:21 schrieb Felix Kuehling: <br>
-        <blockquote type="cite">From: Felix Kuehling <a
-            class="moz-txt-link-rfc2396E"
-            href="mailto:felix.kuehling@gmail.com"
-            moz-do-not-send="true">&lt;felix.kuehling@gmail.com&gt;</a>
-          <br>
-          <br>
-          That reference gets dropped when the the dma-buf is freed. Not
-          incrementing <br>
-          the refcount can lead to use-after-free errors. <br>
-          <br>
-          Signed-off-by: Felix Kuehling <a
-            class="moz-txt-link-rfc2396E"
-            href="mailto:felix.kuehling@gmail.com"
-            moz-do-not-send="true">&lt;felix.kuehling@gmail.com&gt;</a>
-          <br>
-          --- <br>
-            drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 9 ++++++++- <br>
-            1 file changed, 8 insertions(+), 1 deletion(-) <br>
-          <br>
-          diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-          b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c <br>
-          index ffeb20f11c07..a0f9b3ef4aad 100644 <br>
-          --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c <br>
-          +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c <br>
-          @@ -398,8 +398,15 @@ struct dma_buf
-          *amdgpu_gem_prime_export(struct drm_gem_object *gobj, <br>
-                    return ERR_PTR(-EPERM); <br>
-                  buf = drm_gem_prime_export(gobj, flags); <br>
-          -    if (!IS_ERR(buf)) <br>
-          +    if (!IS_ERR(buf)) { <br>
-                    buf-&gt;ops = &amp;amdgpu_dmabuf_ops; <br>
-          +        /* GEM needs a reference to the underlying object <br>
-          +         * that gets dropped when the dma-buf is released, <br>
-          +         * through the amdgpu_gem_object_free callback <br>
-          +         * from drm_gem_object_put_unlocked. <br>
-          +         */ <br>
-          +        amdgpu_bo_ref(bo); <br>
-          +    } <br>
-        </blockquote>
-        <br>
-        Of hand that doesn't sounds correct to me. Why should the
-        exported bo be closed through amdgpu_gem_object_free()? <br>
-        <br>
-        Regards, <br>
-        Christian. <br>
-        <br>
-        <blockquote type="cite">        return buf; <br>
-            } <br>
-        </blockquote>
-        <br>
-      </blockquote>
-      <br>
-      <fieldset class="mimeAttachmentHeader"></fieldset>
-      <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------D413B1BBF5B0CF1A4C707896--
-
---===============1462452286==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index 43d8ed7..eca5628 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -307,8 +307,8 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+ 		if (IS_ERR(sgt))
+ 			return sgt;
+ 
+-		if (!dma_map_sg_attrs(attach->dev, sgt->sgl, sgt->nents, dir,
+-				      DMA_ATTR_SKIP_CPU_SYNC))
++		if (dma_map_sgtable_attrs(attach->dev, sgt, dir,
++					  DMA_ATTR_SKIP_CPU_SYNC))
+ 			goto error_free;
+ 		break;
+ 
+@@ -349,7 +349,7 @@ static void amdgpu_dma_buf_unmap(struct dma_buf_attachment *attach,
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+ 
+ 	if (sgt->sgl->page_link) {
+-		dma_unmap_sg(attach->dev, sgt->sgl, sgt->nents, dir);
++		dma_unmap_sgtable(attach->dev, sgt, dir);
+ 		sg_free_table(sgt);
+ 		kfree(sgt);
+ 	} else {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index eff1f73..f71f97f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1043,7 +1043,6 @@ static int amdgpu_ttm_tt_pin_userptr(struct ttm_tt *ttm)
+ {
+ 	struct amdgpu_device *adev = amdgpu_ttm_adev(ttm->bdev);
+ 	struct amdgpu_ttm_tt *gtt = (void *)ttm;
+-	unsigned nents;
+ 	int r;
+ 
+ 	int write = !(gtt->userflags & AMDGPU_GEM_USERPTR_READONLY);
+@@ -1058,9 +1057,8 @@ static int amdgpu_ttm_tt_pin_userptr(struct ttm_tt *ttm)
+ 		goto release_sg;
+ 
+ 	/* Map SG to device */
+-	r = -ENOMEM;
+-	nents = dma_map_sg(adev->dev, ttm->sg->sgl, ttm->sg->nents, direction);
+-	if (nents == 0)
++	r = dma_map_sgtable(adev->dev, ttm->sg, direction);
++	if (r)
+ 		goto release_sg;
+ 
+ 	/* convert SG to linear array of pages and dma addresses */
+@@ -1091,8 +1089,7 @@ static void amdgpu_ttm_tt_unpin_userptr(struct ttm_tt *ttm)
+ 		return;
+ 
+ 	/* unmap the pages mapped to the device */
+-	dma_unmap_sg(adev->dev, ttm->sg->sgl, ttm->sg->nents, direction);
+-
++	dma_unmap_sgtable(adev->dev, ttm->sg, direction);
+ 	sg_free_table(ttm->sg);
+ 
+ #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
+-- 
+1.9.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1462452286==--
