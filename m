@@ -2,109 +2,110 @@ Return-Path: <SRS0=bavc=6T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E84EAC47257
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 17:29:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 292CEC47247
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 18:00:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8638B20721
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 17:29:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EAEBE206B8
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 18:00:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="bjwISKfF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8638B20721
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="nWvIybuV"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EAEBE206B8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43B7B6E095;
-	Tue,  5 May 2020 17:29:15 +0000 (UTC)
-Received: from NAM04-CO1-obe.outbound.protection.outlook.com
- (mail-eopbgr690060.outbound.protection.outlook.com [40.107.69.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AEE96E095
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 May 2020 17:29:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B2476E81C;
+	Tue,  5 May 2020 18:00:00 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2066.outbound.protection.outlook.com [40.107.94.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 498EE6E0EE;
+ Tue,  5 May 2020 17:59:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MjvVz/3TJ3BsY8e1/Ppid7vxHgq3/KQFII+ke+gQLROQ2dv9KoZdnclrJwJdhRAYOAXVqiS9qBnq9S7FzGXbl+Tzf6SO1S6C08qYvc4O+GuI7a2adA8CQKWKP2SsQWGdxbehBqei7oA7TY0vFszn4OdF+2ORl87XZprcg2olAP7x96sHUcGebaFPJu/vExQW3/WGoJSEvblJFw/c872jCnRFLykd+k7rOW0WVXg6qHzLjWsw05lAKMRmEUCCWs0gLYOR2/cg4cb13aCDkyV7ZChzMrDQxYnHL6uB8gRNjgQy8inHBmAO1jfxCYH2RKpM/9J5l+EyqOx7R9w9DlrUvQ==
+ b=VBVRGpIaMbXCzEfJ+iAyhYyOeiWgMb7T+S1VUfXO7wEcDhmv18uGzo9eK6xjzSCq6o3UEhiklagNTGsPWnd08rG71Q2x0nkaLrIx4QpeKY2eedUHiyga9AAkXUZ22sc1zCIOALMrkt7Wdhe1pI6ypd/3uIo29xSMHolbfW9yLi+sFR5/mu4wqbdy1CUVQQDH3YTeNCDhRvmHCEZKkLbDCbMiRiJQYgb1LQrU6YbGSdnr68eZ+qtleUZ2neieMXCJs2VQ+/ZUC/Auo1Hoe0EWHfIOpokPFigGO29Rbzf/wrvCCxXVYv++tz9P9di48q1D2K/5Uxk7JvsSGXzv834RHQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8o/27BwTvpdPHunKBaALti2D/1ikTYR8rpN5P13S5Ns=;
- b=GPOuJrjlWXLjGTBXuvQlGI8ovG6wHMp/5ZXLRdRpSc0nKp3vg4PZBNPT0EdeY8tWT5xoxfnpUnJQtoE7ZGv+fgZIgdpRQi2DP4qMsA9NBYX5HZPyYL1LxAV/qIUexSfDs3uOHaDqgJLRDHfmcWlBYA9c/ETxv4hZIkL+nboUYP3RAo9idLE9NOJqTpBwvRkhv2iD/vBEKqzRSB6iCc7+6e4NEI7rKSjSvAjQtsSyk/f3mMeHHRWUhWwgfFWc8bt0m3j2LmbVnRtwMVuia9AyDlNleAiTUtcGoOg1N65sY3FGkME12KzwcsPYnZBlnil0gsDGKkyd4kdjOc6HKCWDmw==
+ bh=BL1Q0UU5SgLkfg0w8xy9w8FfWkVukUKydXAY5nRy140=;
+ b=AywuVwNF/hnat+toI4/ts8JRgK1A5601J44KKYbctNGiRcpQsqp1UGy1eYjwtEAbyazrkKzP1QMihwH9B4IxK6m2E6h8yJUGqo1lFkpp183MNbD1ZSJrX+lwupFQZE7BODWK0nl78MRfmjEctrYzmMjllCbDnqZakdl64chAtWxi/4gEA8iyAM0FngAG94Fq115Q1yFId0RF74TvdlM0JndFPM/fepTQXPG7ZvBZQnvJUbrD8KfMcsmcptqGQuESXAiY+sMfCwQMlwVA4CN3HWoGCPHhtkZbIFfkPKxrNHLg3OSRCmmjzJxTAvl4W1gzMnxQSJpPOpmMmi0HCNFSvg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8o/27BwTvpdPHunKBaALti2D/1ikTYR8rpN5P13S5Ns=;
- b=bjwISKfF28/69R1l8jB2vz1GMFPOqZE8JorN5FQEhn9gW387xjH4HkmQMok0T6BuBblXAtn5+r5h3tRnnO6e/omuvBK3mu3yv9ewGFo6ZkECS1+FuEO4SOd2D2sUjx075P9Rld5MxvEjKRfG4c5Zpvru1QgOYMmtTjHBS3mXu7M=
+ bh=BL1Q0UU5SgLkfg0w8xy9w8FfWkVukUKydXAY5nRy140=;
+ b=nWvIybuV7oUdlED/AgyghHYrMsq6H1xqxVK6IZ7HXLFlExxmlIQBAS477BPtbMkdgUdUAkEX2o7HrL2R8pKECVE0Cy4J9BzExXV74KxCrS3vU4k7Hr4srN69P4JZu8Yaq4H+6YJcb+I/iwutQ+uXJcTBK1CLpA0OXXdh6GY/7pQ=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
- by SN1PR12MB2589.namprd12.prod.outlook.com (2603:10b6:802:2c::32)
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com (2603:10b6:a03:ae::10)
+ by BYAPR12MB3048.namprd12.prod.outlook.com (2603:10b6:a03:ad::33)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.20; Tue, 5 May
- 2020 17:29:04 +0000
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::18d:97b:661f:9314]) by SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::18d:97b:661f:9314%7]) with mapi id 15.20.2958.030; Tue, 5 May 2020
- 17:29:04 +0000
-Subject: Re: [PATCH 1/1] drm/amdgpu: Take a reference to an exported BO
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-References: <20200501142127.14202-1-Felix.Kuehling@amd.com>
- <70e5d202-34ed-532f-e6b6-c195a3effad3@gmail.com>
- <551849ec-bc90-0bd2-d46c-f6d8e5c0fee0@amd.com>
- <6c4b3eb0-40b5-8c3c-dc5e-38b622864e12@gmail.com>
- <170627d3-b5f8-edf5-d809-dd197c4e2018@amd.com>
- <ca18ec07-a6f4-292c-c800-48dbf9c8854f@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <388b628f-cfd3-b8e0-d43e-ed4cd280fee7@amd.com>
-Date: Tue, 5 May 2020 13:29:01 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.19; Tue, 5 May
+ 2020 17:59:58 +0000
+Received: from BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::fd29:4119:9ef5:8210]) by BYAPR12MB3560.namprd12.prod.outlook.com
+ ([fe80::fd29:4119:9ef5:8210%7]) with mapi id 15.20.2958.030; Tue, 5 May 2020
+ 17:59:58 +0000
+Subject: Re: [PATCH] drm/amd/display: Fix pageflip event race condition for
+ DCN. (v2)
+To: Alex Deucher <alexdeucher@gmail.com>, Matt Coffin <mcoffin13@gmail.com>
+References: <20200305212044.3857-1-mario.kleiner.de@gmail.com>
+ <CADnq5_PoEbgyQ1a+DMkSpTkN2QHHEpHie53Wxo7eRktsKxKs7Q@mail.gmail.com>
+ <cd4b7cfd-1fec-db5a-ded1-65e89b14ea35@amd.com>
+ <41ab0520-e29a-b6ed-bf5e-fbdf1eec0ceb@daenzer.net>
+ <ec27e398-d40a-1abd-cd24-7d84ddb7ca85@gmail.com>
+ <f158dc9e-0441-bdd3-0e57-5f4e15e6456f@gmail.com>
+ <CADnq5_NxHKh=DG36H-MDYPL0Z+eAjJ3rv5t+BcAuX1V0Sbigqw@mail.gmail.com>
+From: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+Message-ID: <a7727c12-e482-e4c6-6d72-bdfe2cb53965@amd.com>
+Date: Tue, 5 May 2020 13:59:52 -0400
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
  Thunderbird/68.7.0
-In-Reply-To: <ca18ec07-a6f4-292c-c800-48dbf9c8854f@amd.com>
+In-Reply-To: <CADnq5_NxHKh=DG36H-MDYPL0Z+eAjJ3rv5t+BcAuX1V0Sbigqw@mail.gmail.com>
 Content-Language: en-US
-X-ClientProxiedBy: YQXPR0101CA0046.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c00:14::23) To SN1PR12MB2414.namprd12.prod.outlook.com
- (2603:10b6:802:2e::31)
+X-ClientProxiedBy: YTOPR0101CA0063.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b00:14::40) To BYAPR12MB3560.namprd12.prod.outlook.com
+ (2603:10b6:a03:ae::10)
 MIME-Version: 1.0
 X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.116.63.128) by
- YQXPR0101CA0046.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:c00:14::23) with
+Received: from [172.31.148.234] (165.204.55.211) by
+ YTOPR0101CA0063.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:14::40) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.26 via Frontend
- Transport; Tue, 5 May 2020 17:29:03 +0000
-X-Originating-IP: [142.116.63.128]
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.27 via Frontend
+ Transport; Tue, 5 May 2020 17:59:56 +0000
+X-Originating-IP: [165.204.55.211]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: cceb46ba-c092-4e01-a798-08d7f119ce9d
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2589:|SN1PR12MB2589:
+X-MS-Office365-Filtering-Correlation-Id: d9d6ac5b-344c-494a-ea05-08d7f11e1f8d
+X-MS-TrafficTypeDiagnostic: BYAPR12MB3048:|BYAPR12MB3048:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB25894BF6B555AF68DCB28EDE92A70@SN1PR12MB2589.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <BYAPR12MB304800F36EF3EAF3ABB6B355ECA70@BYAPR12MB3048.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
 X-Forefront-PRVS: 0394259C80
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: iWyWe/IIeRlyTtwwmUiCj+wOiM2RagIwDRqk5F6AAr9Cfidqzq20mRUPc46qzPhU12T/fvhn9WgcV539tyYcW2Y+99sO+SbxD+Mspr7dYQjTHYVigEHQ5Jjl5hEm2RapQM5xyo9y2uiXQeQRUbNQz4aiXdr8+xyPquIq0WyQgVm1MJir5ukLS49Ltx4blRyuHemb1SN696Mn5nmFmP0W4BphAFwJI5+GDLWB/hrXVUFXB6zSQOQUFZyUNV3/GE9aYBMwRtE3R7WWVH6q7vAOS0oEX+1wRE4HToCutnNqqOIdmiLtS+7YVQjuyT5dZ2bt0R/vAmjBp+wtuQc9hW85A5KjYIuGrX0EdanRTO5zi4f3YGkCID8u0KeFOVBITfvojH2UtXpuq7u/3AGBTDIL6XjVFYYKhuxsTqH/ChRhXyrjiL9rqvxrsdrJ+hJv7YxwP+dOMamqozHvkUB5tpUNsrZEb7Y80meJmLJnLva9iwfpTIBbtpYb1w7WrynTBmEKtjT6PbMtqbONNtYKsu/FAxUegt4cXrk/R9nVHtsm4hDQLWTE2vRZ0gIZwI/vHCZt4TLrFSDW252nFSTGjl3YNoOAcNWflx+FZPzczPr5Im8=
+X-Microsoft-Antispam-Message-Info: gNCmeS0d9bWeDRwrreekx5OOBfcYnIxFXrMUVgPJanpyB3mZuqHvr5W74uC1b9luAQEyJXUxIw5oNfyHl756XYP6QoQGjAmxHjv37FLBXUR1DV/83E90E2VpQr+gOG3XFj774uTwklcopSZlY/WdCasmFHNys7pPdQ0OHPTHGFcDaFCHn4qUOiKV/C72eUpTkauUf027+SCkkvBnNYHdpmy3vzlDYko/QGzsKDOzydbtQ5SHjuu95RBZFRwqEH8OwFll3K2rNV1B6Ip4zNoLvkh8nqRoP2Ncu6NF0L7cz/PwjtlDEQfgvDcMtFDJ/nmcWAezlirlbR46Vz8cqHGlj97cbntBUpnU4uQFTRTUVXAvqYuUAg+4eDjZIWC2oVL3fdIr6phFlmNSMSiWUtDJNv//dRGUm06QzpX2BrN0CG000pzGMFqTui8yGhCufj93rrhAeuOZzuPTaJWzqXyLQefRXFJCal+7ARXN92QSNpB/3coP+F22eZ2D7L45s99wG+hvJxEItP6fn5r2K2JmMJZLSAXsDip5bxRNhOGNDw4NCQyGw4CC0EN3Vtrr0/ddn/eU3M4vi3aE29Rc/7QSEJJa4EkcXlxZYr766NXK1DPHdQTk0auAgUObbL7oc2H0IEo2seBi1/KtGYEU/iMk5w==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3560.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(346002)(396003)(39860400002)(376002)(366004)(33430700001)(956004)(31686004)(86362001)(6486002)(478600001)(31696002)(2616005)(966005)(44832011)(5660300002)(33440700001)(52116002)(33964004)(186003)(16526019)(2906002)(66574012)(30864003)(66556008)(66946007)(66476007)(26005)(16576012)(8676002)(8936002)(316002)(36756003)(43740500002);
+ SFS:(4636009)(39860400002)(366004)(376002)(136003)(346002)(396003)(33430700001)(52116002)(478600001)(2616005)(956004)(6666004)(316002)(33440700001)(966005)(54906003)(110136005)(36756003)(16576012)(2906002)(31696002)(86362001)(31686004)(26005)(8676002)(6486002)(186003)(16526019)(53546011)(5660300002)(8936002)(4326008)(66574012)(66476007)(66556008)(66946007)(43740500002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 71IuPRpRaHkO0YBcpX3hgGRUP/O5uYqeri+hOYaqu+eRYa+BMpcd6At33K9Y6yxE5+wtwSnCjIgse2QtA0kh8QvxbUltcXFQRz6OotWDVswh56GoNywIAvE6NeUNnh6aAqqbPSxu7d6LlnKarkEfolLOQBYNJm6yPtKpjBMeAsbiZsXj3149WlZZMSxqAAokh9ptvGMNnKe2bCUrd1hn0zktyizzpCspRhKnVnoPzal3N9obQ1BNQFAoN55n3YEX5zKC7LgI2KxoVLRxF7SABUNJDtFYjWCYCJB3WbpO+GqjGOmODDAmwkRH6Qpm/tAQFVkpbuKdbkFtonua8dJNtVXYQwhGmKrnrXrA6l8tVxrxTuu1YNX4aSPbBV419xFz/UXGZ2owQpJdxvkVIAt2fHMNa0J3AGGFMrDKDSe7p4Hdi+nxOVfFkXaRPriOHY8N5xY0e5eAJm5BjDhmSry1xiA2UhnZyPYok/KzhN1sb1V0tlPATccTDFGnXL4Gx7ZLMsRMEn0TOs63CbJbXaUMq54lleP3fSNDBSt4ANXn86M/MMBqJM8RozgfwUKSQfH3CFVwnSAco4tbbcfIZY6S2DLjJG9kfH4utIZTMUeZ6rBsljtU7RFooLp20lr6EKeAQ5h9vrU/D5YLRC+/suwW56lib1BvoFACMYnGnNcoQBmrFSz6Qw4beyn8X+YbUoCHkQYZ8yctoa+1o0XCdI8daVxtSGGBlcEL981q4ZEw5p1/CVlR3BATo/gcNB0pUDVWeCgGjXpXglBxp871PTh82FVhcvu/q1OfCsy+MaosKx8=
+X-MS-Exchange-AntiSpam-MessageData: qrFhw2+Cxd2w8wDa/x1+UxLJulxdt54BmxCplFZy9h3x0MGaqvyx6UxU8TkAfhXlyBBMB0E6t1DcwVry6sPyYvYtPSdFiPZS7cKOKuLttQAC992BbB9Sm1SkZbcUH7XgIcIz3jcESF3SQFVyKqtNWsB36j+J9C/kFD7w+WzHbW0lYFSyzB1/D0o1Fk0Py+qKN2zzaWsmqAv3sJORLjWbIVr1B+UmVgi2L3xauuuHserd7LwNMndSKUddvr4Zshm45L5p9MW1TRK0BQ3VXkaNShx3IA8YegbJ+xmVjdX6UoYEWBKejf7rzCYWlmUxv/N741wCYwaxZFvHHJ1EN27Y0cDGQ/j1c9sNiQW+ZtQnJzj7Q8EU32i+PweYoIqq6Qf0R6qGEF0Mfp7mbIapItPuEmqEdKg6eO3ITUu+b/IcI5cSyi/MGlEctGekWNBm73eFbG+X9smrGhFrnNNE1sECmVcVcyfuvjann9fictb6Hi4lvWwK2P2gtNhsdoIwo6uarGHHo7a90qbbGX5edDrSTFHN1xbnEiUAOLWBe2Q/kB066V8L8oj+ND+gK9xcfblF+iWpLZJvmfnVxtF6NZdrZcOK0DDT+4t3oDR2uqWeOexsrAPRHm3HXyMTvyM/A3ymubwHXKdHqjsYp4f2PLbCuEZDnbzlEqf+s4DoMrboUCYMdw1X2iXfpPQWRnkGEh5aswTVKSLW/T/KxnCXYfAHtsZqdjyQDN1n8fQ96ZkLwIcVLcTLF0jySlYemzU0RqVMylO5wO0qlIcmkCPPSjjlzUZVO3Qcsthz7lzVadGy1fs=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cceb46ba-c092-4e01-a798-08d7f119ce9d
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2020 17:29:04.1298 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d9d6ac5b-344c-494a-ea05-08d7f11e1f8d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 May 2020 17:59:58.0209 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CNGDVg+b7U7kh8bPm8/evfDi3/AJT5iXUDkVFGGi1JwEGg293At15nZ43Eb+MKHM7UcnLZH7P+yC5n7ltNgNfA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2589
+X-MS-Exchange-CrossTenant-UserPrincipalName: tiv3mjkyuDpSzxspTfc7BfwvqvgFloiDj8qqQCa6yO9R8suIqG6lwHU6EI3X2gmYe+flB3SSQXVmIM25fzJr1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB3048
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,460 +117,155 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0060554663=="
+Cc: Mario Kleiner <mario.kleiner.de@gmail.com>,
+ "Leo \(Sunpeng\) Li" <sunpeng.li@amd.com>,
+ =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0060554663==
-Content-Type: multipart/alternative;
- boundary="------------EDB8FD0A3BE32BE1396C5205"
-Content-Language: en-US
-
---------------EDB8FD0A3BE32BE1396C5205
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-Am 2020-05-05 um 11:19 a.m. schrieb Christian König:
-> Am 05.05.20 um 16:58 schrieb Felix Kuehling:
->> Am 2020-05-05 um 3:47 a.m. schrieb Christian König:
->>> Just to reply here once more, this patch is a clear NAK.
->>
->> Agreed. But see below. I don't think all is well.
->>
->>>
->>> The references are grabbed in the call path of
->>> drm_gem_prime_export() and dropped again in drm_gem_dmabuf_release().
->>>
->>> So they are perfectly balanced as far as I can see.
->>
->> That is true for the GEM object references. But I believe there is
->> still a problem with the TTM BO references.
->>
->> As far as I can tell amdgpu_bo_unref can free the TTM BO while there
->> are still references to the GEM object from DMA buf exports. I think
->> that's a fundamental problem with how we have two reference counts
->> for the same physical object (TTM BO and the embedded GEM BO).
->>
->
-> Completely agree, I also mentioned that problem during my talk on
-> FOSDEM. But calling amdgpu_bo_unref() to often is a bug in itself.
-
-That's not the problem here.
-
-
->
-> What we could probably do to detect this is adding a BUG_ON() in TTMs
-> release function and checking if the GEM reference count is really dead.
-
-The problem is, that we have to guess whether there are still any dmabuf
-references to the GEM BO. There is no way amdgpu can know that. You
-can't make amdgpu responsible for keeping a reference to the TTM BO
-while the GEM BO is still referenced by entities completely out of the
-control of amdgpu.
-
-Another weird thing I see is that amdgpu_gem_free_object calls
-amdgpu_bo_unref. That implies that the GEM object conceptually holds a
-reference to the amdpu/TTM BO. But that is not really the case. Amdgpu
-never takes that reference that GEM is supposed to own. If it did, we
-would leak all our memory because nobody would ever drop that reference.
-
-
->
->> I think the correct solution is for amdgpu_bo_ref/unref to delegate
->> its reference counting to drm_gem_object_get/put instead of
->> ttm_bo_get/put. The amdgpu BO would hold one token reference to the
->> TTM BO, which it can drop when the GEM BO refcount drops to 0.
->> Finally, the amdgpu BO should only be freed once the TTM BO refcount
->> also becomes 0.
->
-> Just the other way around, but yes the long term plan should probably
-> be to merge the two.
-
-I need a short term solution. Because I have a bug that causes a kernel
-oops with applications that are valid and correct, as far as I can tell.
-
-I'm thinking a solution that doesn't require major changes to the way
-TTM and GEM interact would put amdgpu in charge of coordinating the two.
-Unfortunately that would mean adding a third reference count in
-amdgpu_bo, in addition to the ones in TTM and GEM. The amdgpu BO would
-hold one token reference to each of the GEM and TTM BO. When amdgpu
-refcount goes to 0 it releases that GEM BO token reference. When the GEM
-BO refcount goes  to 0, we get a callback amdgpu_gem_object_free. There
-we can drop the token reference to the TTM BO. Once the TTM BO reference
-goes to 0 we free the memory.
-
-Does this sound feasible?
-
-Regards,
-  Felix
-
-
->
-> The difficult is currently we have a mismatch what locks could be
-> taken when we drop the references.
->
-> Regards,
-> Christian.
->
->> Regards,
->>   Felix
->>
->>
->>>
->>> Regards,
->>> Christian.
->>>
->>> Am 01.05.20 um 16:44 schrieb Felix Kuehling:
->>>>
->>>> [dropping my gmail address]
->>>>
->>>> We saw this backtrace showing the call chain while investigating a
->>>> kernel oops caused by this issue on the DKMS branch with the KFD
->>>> IPC API. It happens after a dma-buf file is released with fput:
->>>>
->>>> [ 1255.049330] BUG: kernel NULL pointer dereference, address: 000000000000051e
->>>> [ 1255.049727] #PF: supervisor read access in kernel mode
->>>> [ 1255.050092] #PF: error_code(0x0000) - not-present page
->>>> [ 1255.050416] PGD 0 P4D 0
->>>> [ 1255.050736] Oops: 0000 [#1] SMP PTI
->>>> [ 1255.051060] CPU: 27 PID: 2292 Comm: kworker/27:2 Tainted: G           OE     5.3.0-46-generic #38~18.04.1-Ubuntu
->>>> [ 1255.051400] Hardware name: Supermicro SYS-4029GP-TRT2/X11DPG-OT-CPU, BIOS 3.0a 02/26/2019
->>>> [ 1255.051752] Workqueue: events delayed_fput
->>>> [ 1255.052111] RIP: 0010:drm_gem_object_put_unlocked+0x1c/0x70 [drm]
->>>> [ 1255.052465] Code: 4d 80 c8 ee 0f 0b eb d8 66 0f 1f 44 00 00 0f 1f 44 00 00 48 85 ff 74 34 55 48 89 e5 41 54 53 48 89 fb 48 8b 7f 08 48 8b 47 20 <48> 83 b8 a0 00 00 00 00 74 1a 4c 8d 67 68 48 89 df 4c 89 e6 e8 9b
->>>> [ 1255.053224] RSP: 0018:ffffb4b62035fdc8 EFLAGS: 00010286
->>>> [ 1255.053613] RAX: 000000000000047e RBX: ffff9f2add197850 RCX: 0000000000000000
->>>> [ 1255.054032] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff9f2aa2548aa0
->>>> [ 1255.054440] RBP: ffffb4b62035fdd8 R08: 0000000000000000 R09: 0000000000000000
->>>> [ 1255.054860] R10: 0000000000000010 R11: ffff9f2a4b1cc310 R12: 0000000000080005
->>>> [ 1255.055268] R13: ffff9f2a4b1cc310 R14: ffff9f4e369161e0 R15: ffff9f2a1b2f9080
->>>> [ 1255.055674] FS:  0000000000000000(0000) GS:ffff9f4e3f740000(0000) knlGS:0000000000000000
->>>> [ 1255.056087] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->>>> [ 1255.056501] CR2: 000000000000051e CR3: 00000002df00a004 CR4: 00000000007606e0
->>>> [ 1255.056923] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
->>>> [ 1255.057345] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
->>>> [ 1255.057763] PKRU: 55555554
->>>> [ 1255.058179] Call Trace:
->>>> [ 1255.058603]  drm_gem_dmabuf_release+0x1a/0x30 [drm]
->>>> [ 1255.059025]  dma_buf_release+0x56/0x130
->>>> [ 1255.059443]  __fput+0xc6/0x260
->>>> [ 1255.059856]  delayed_fput+0x20/0x30
->>>> [ 1255.060272]  process_one_work+0x1fd/0x3f0
->>>> [ 1255.060686]  worker_thread+0x34/0x410
->>>> [ 1255.061099]  kthread+0x121/0x140
->>>> [ 1255.061510]  ? process_one_work+0x3f0/0x3f0
->>>> [ 1255.061923]  ? kthread_park+0xb0/0xb0
->>>> [ 1255.062336]  ret_from_fork+0x35/0x40
->>>>
->>>> drm_gem_object_put_unlocked calls drm_gem_object_free when the
->>>> obj->refcount reaches 0. From there it calls
->>>> dev->driver->gem_free_object_unlocked, which is
->>>> amdgpu_gem_object_free in amdgpu.
->>>>
->>>> Regards,
->>>>   Felix
->>>>
->>>> Am 2020-05-01 um 10:29 a.m. schrieb Christian König:
->>>>> Am 01.05.20 um 16:21 schrieb Felix Kuehling:
->>>>>> From: Felix Kuehling <felix.kuehling@gmail.com>
->>>>>>
->>>>>> That reference gets dropped when the the dma-buf is freed. Not
->>>>>> incrementing
->>>>>> the refcount can lead to use-after-free errors.
->>>>>>
->>>>>> Signed-off-by: Felix Kuehling <felix.kuehling@gmail.com>
->>>>>> ---
->>>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 9 ++++++++-
->>>>>>   1 file changed, 8 insertions(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>>>> index ffeb20f11c07..a0f9b3ef4aad 100644
->>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
->>>>>> @@ -398,8 +398,15 @@ struct dma_buf
->>>>>> *amdgpu_gem_prime_export(struct drm_gem_object *gobj,
->>>>>>           return ERR_PTR(-EPERM);
->>>>>>         buf = drm_gem_prime_export(gobj, flags);
->>>>>> -    if (!IS_ERR(buf))
->>>>>> +    if (!IS_ERR(buf)) {
->>>>>>           buf->ops = &amdgpu_dmabuf_ops;
->>>>>> +        /* GEM needs a reference to the underlying object
->>>>>> +         * that gets dropped when the dma-buf is released,
->>>>>> +         * through the amdgpu_gem_object_free callback
->>>>>> +         * from drm_gem_object_put_unlocked.
->>>>>> +         */
->>>>>> +        amdgpu_bo_ref(bo);
->>>>>> +    }
->>>>>
->>>>> Of hand that doesn't sounds correct to me. Why should the exported
->>>>> bo be closed through amdgpu_gem_object_free()?
->>>>>
->>>>> Regards,
->>>>> Christian.
->>>>>
->>>>>>         return buf;
->>>>>>   }
->>>>>
->>>>
->>>> _______________________________________________
->>>> amd-gfx mailing list
->>>> amd-gfx@lists.freedesktop.org
->>>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
->>>
->
-
---------------EDB8FD0A3BE32BE1396C5205
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">Am 2020-05-05 um 11:19 a.m. schrieb
-      Christian König:<br>
-    </div>
-    <blockquote type="cite" cite="mid:ca18ec07-a6f4-292c-c800-48dbf9c8854f@amd.com">
-      
-      <div class="moz-cite-prefix">Am 05.05.20 um 16:58 schrieb Felix
-        Kuehling:<br>
-      </div>
-      <blockquote type="cite" cite="mid:170627d3-b5f8-edf5-d809-dd197c4e2018@amd.com">
-        <div class="moz-cite-prefix">Am 2020-05-05 um 3:47 a.m. schrieb
-          Christian König:<br>
-        </div>
-        <blockquote type="cite" cite="mid:6c4b3eb0-40b5-8c3c-dc5e-38b622864e12@gmail.com">
-          <div class="moz-cite-prefix">Just to reply here once more,
-            this patch is a clear NAK.<br>
-          </div>
-        </blockquote>
-        <p>Agreed. But see below. I don't think all is well.</p>
-        <blockquote type="cite" cite="mid:6c4b3eb0-40b5-8c3c-dc5e-38b622864e12@gmail.com">
-          <div class="moz-cite-prefix"> <br>
-            The references are grabbed in the call path of
-            drm_gem_prime_export() and dropped again in
-            drm_gem_dmabuf_release().<br>
-            <br>
-            So they are perfectly balanced as far as I can see.<br>
-          </div>
-        </blockquote>
-        <p>That is true for the GEM object references. But I believe
-          there is still a problem with the TTM BO references.</p>
-        <p>As far as I can tell amdgpu_bo_unref can free the TTM BO
-          while there are still references to the GEM object from DMA
-          buf exports. I think that's a fundamental problem with how we
-          have two reference counts for the same physical object (TTM BO
-          and the embedded GEM BO).</p>
-      </blockquote>
-      <br>
-      Completely agree, I also mentioned that problem during my talk on
-      FOSDEM. But calling amdgpu_bo_unref() to often is a bug in itself.<br>
-    </blockquote>
-    <p>That's not the problem here.</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:ca18ec07-a6f4-292c-c800-48dbf9c8854f@amd.com"> <br>
-      What we could probably do to detect this is adding a BUG_ON() in
-      TTMs release function and checking if the GEM reference count is
-      really dead.<br>
-    </blockquote>
-    <p>The problem is, that we have to guess whether there are still any
-      dmabuf references to the GEM BO. There is no way amdgpu can know
-      that. You can't make amdgpu responsible for keeping a reference to
-      the TTM BO while the GEM BO is still referenced by entities
-      completely out of the control of amdgpu.</p>
-    <p>Another weird thing I see is that amdgpu_gem_free_object calls
-      amdgpu_bo_unref. That implies that the GEM object conceptually
-      holds a reference to the amdpu/TTM BO. But that is not really the
-      case. Amdgpu never takes that reference that GEM is supposed to
-      own. If it did, we would leak all our memory because nobody would
-      ever drop that reference.</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:ca18ec07-a6f4-292c-c800-48dbf9c8854f@amd.com"> <br>
-      <blockquote type="cite" cite="mid:170627d3-b5f8-edf5-d809-dd197c4e2018@amd.com">I think
-        the correct solution is for amdgpu_bo_ref/unref to delegate its
-        reference counting to drm_gem_object_get/put instead of
-        ttm_bo_get/put. The amdgpu BO would hold one token reference to
-        the TTM BO, which it can drop when the GEM BO refcount drops to
-        0. Finally, the amdgpu BO should only be freed once the TTM BO
-        refcount also becomes 0.<br>
-      </blockquote>
-      <br>
-      Just the other way around, but yes the long term plan should
-      probably be to merge the two.<br>
-    </blockquote>
-    <p>I need a short term solution. Because I have a bug that causes a
-      kernel oops with applications that are valid and correct, as far
-      as I can tell.</p>
-    <p>I'm thinking a solution that doesn't require major changes to the
-      way TTM and GEM interact would put amdgpu in charge of
-      coordinating the two. Unfortunately that would mean adding a third
-      reference count in amdgpu_bo, in addition to the ones in TTM and
-      GEM. The amdgpu BO would hold one token reference to each of the
-      GEM and TTM BO. When amdgpu refcount goes to 0 it releases that
-      GEM BO token reference. When the GEM BO refcount goes&nbsp; to 0, we
-      get a callback amdgpu_gem_object_free. There we can drop the token
-      reference to the TTM BO. Once the TTM BO reference goes to 0 we
-      free the memory.</p>
-    <p>Does this sound feasible?<br>
-    </p>
-    <p>Regards,<br>
-      &nbsp; Felix</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:ca18ec07-a6f4-292c-c800-48dbf9c8854f@amd.com"> <br>
-      The difficult is currently we have a mismatch what locks could be
-      taken when we drop the references.<br>
-      <br>
-      Regards,<br>
-      Christian.<br>
-      <br>
-      <blockquote type="cite" cite="mid:170627d3-b5f8-edf5-d809-dd197c4e2018@amd.com">
-        <p>Regards,<br>
-          &nbsp; Felix<br>
-        </p>
-        <p><br>
-        </p>
-        <blockquote type="cite" cite="mid:6c4b3eb0-40b5-8c3c-dc5e-38b622864e12@gmail.com">
-          <div class="moz-cite-prefix"> <br>
-            Regards,<br>
-            Christian.<br>
-            <br>
-            Am 01.05.20 um 16:44 schrieb Felix Kuehling:<br>
-          </div>
-        </blockquote>
-        <blockquote type="cite" cite="mid:6c4b3eb0-40b5-8c3c-dc5e-38b622864e12@gmail.com">
-          <blockquote type="cite" cite="mid:551849ec-bc90-0bd2-d46c-f6d8e5c0fee0@amd.com">
-            <p>[dropping my gmail address]</p>
-            <p>We saw this backtrace showing the call chain while
-              investigating a kernel oops caused by this issue on the
-              DKMS branch with the KFD IPC API. It happens after a
-              dma-buf file is released with fput:</p>
-            <pre>[ 1255.049330] BUG: kernel NULL pointer dereference, address: 000000000000051e
-[ 1255.049727] #PF: supervisor read access in kernel mode
-[ 1255.050092] #PF: error_code(0x0000) - not-present page
-[ 1255.050416] PGD 0 P4D 0
-[ 1255.050736] Oops: 0000 [#1] SMP PTI
-[ 1255.051060] CPU: 27 PID: 2292 Comm: kworker/27:2 Tainted: G           OE     5.3.0-46-generic #38~18.04.1-Ubuntu
-[ 1255.051400] Hardware name: Supermicro SYS-4029GP-TRT2/X11DPG-OT-CPU, BIOS 3.0a 02/26/2019
-[ 1255.051752] Workqueue: events delayed_fput
-[ 1255.052111] RIP: 0010:drm_gem_object_put_unlocked&#43;0x1c/0x70 [drm]
-[ 1255.052465] Code: 4d 80 c8 ee 0f 0b eb d8 66 0f 1f 44 00 00 0f 1f 44 00 00 48 85 ff 74 34 55 48 89 e5 41 54 53 48 89 fb 48 8b 7f 08 48 8b 47 20 &lt;48&gt; 83 b8 a0 00 00 00 00 74 1a 4c 8d 67 68 48 89 df 4c 89 e6 e8 9b
-[ 1255.053224] RSP: 0018:ffffb4b62035fdc8 EFLAGS: 00010286
-[ 1255.053613] RAX: 000000000000047e RBX: ffff9f2add197850 RCX: 0000000000000000
-[ 1255.054032] RDX: 0000000000000000 RSI: 0000000000000000 RDI: ffff9f2aa2548aa0
-[ 1255.054440] RBP: ffffb4b62035fdd8 R08: 0000000000000000 R09: 0000000000000000
-[ 1255.054860] R10: 0000000000000010 R11: ffff9f2a4b1cc310 R12: 0000000000080005
-[ 1255.055268] R13: ffff9f2a4b1cc310 R14: ffff9f4e369161e0 R15: ffff9f2a1b2f9080
-[ 1255.055674] FS:  0000000000000000(0000) GS:ffff9f4e3f740000(0000) knlGS:0000000000000000
-[ 1255.056087] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-[ 1255.056501] CR2: 000000000000051e CR3: 00000002df00a004 CR4: 00000000007606e0
-[ 1255.056923] DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-[ 1255.057345] DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-[ 1255.057763] PKRU: 55555554
-[ 1255.058179] Call Trace:
-[ 1255.058603]  drm_gem_dmabuf_release&#43;0x1a/0x30 [drm]
-[ 1255.059025]  dma_buf_release&#43;0x56/0x130
-[ 1255.059443]  __fput&#43;0xc6/0x260
-[ 1255.059856]  delayed_fput&#43;0x20/0x30
-[ 1255.060272]  process_one_work&#43;0x1fd/0x3f0
-[ 1255.060686]  worker_thread&#43;0x34/0x410
-[ 1255.061099]  kthread&#43;0x121/0x140
-[ 1255.061510]  ? process_one_work&#43;0x3f0/0x3f0
-[ 1255.061923]  ? kthread_park&#43;0xb0/0xb0
-[ 1255.062336]  ret_from_fork&#43;0x35/0x40
-</pre>
-            <p>drm_gem_object_put_unlocked calls drm_gem_object_free
-              when the obj-&gt;refcount reaches 0. From there it calls
-              dev-&gt;driver-&gt;gem_free_object_unlocked, which is
-              amdgpu_gem_object_free in amdgpu.<br>
-            </p>
-            <p>Regards,<br>
-              &nbsp; Felix<br>
-            </p>
-            <div class="moz-cite-prefix">Am 2020-05-01 um 10:29 a.m.
-              schrieb Christian König:<br>
-            </div>
-            <blockquote type="cite" cite="mid:70e5d202-34ed-532f-e6b6-c195a3effad3@gmail.com">Am
-              01.05.20 um 16:21 schrieb Felix Kuehling: <br>
-              <blockquote type="cite">From: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@gmail.com" moz-do-not-send="true">&lt;felix.kuehling@gmail.com&gt;</a>
-                <br>
-                <br>
-                That reference gets dropped when the the dma-buf is
-                freed. Not incrementing <br>
-                the refcount can lead to use-after-free errors. <br>
-                <br>
-                Signed-off-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@gmail.com" moz-do-not-send="true">&lt;felix.kuehling@gmail.com&gt;</a>
-                <br>
-                --- <br>
-                &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 9
-                &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;- <br>
-                &nbsp; 1 file changed, 8 insertions(&#43;), 1 deletion(-) <br>
-                <br>
-                diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c <br>
-                index ffeb20f11c07..a0f9b3ef4aad 100644 <br>
-                --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c <br>
-                &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c <br>
-                @@ -398,8 &#43;398,15 @@ struct dma_buf
-                *amdgpu_gem_prime_export(struct drm_gem_object *gobj, <br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ERR_PTR(-EPERM); <br>
-                &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf = drm_gem_prime_export(gobj, flags); <br>
-                -&nbsp;&nbsp;&nbsp; if (!IS_ERR(buf)) <br>
-                &#43;&nbsp;&nbsp;&nbsp; if (!IS_ERR(buf)) { <br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; buf-&gt;ops = &amp;amdgpu_dmabuf_ops; <br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* GEM needs a reference to the underlying
-                object <br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * that gets dropped when the dma-buf is
-                released, <br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * through the amdgpu_gem_object_free callback
-                <br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * from drm_gem_object_put_unlocked. <br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */ <br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_ref(bo); <br>
-                &#43;&nbsp;&nbsp;&nbsp; } <br>
-              </blockquote>
-              <br>
-              Of hand that doesn't sounds correct to me. Why should the
-              exported bo be closed through amdgpu_gem_object_free()? <br>
-              <br>
-              Regards, <br>
-              Christian. <br>
-              <br>
-              <blockquote type="cite">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return buf; <br>
-                &nbsp; } <br>
-              </blockquote>
-              <br>
-            </blockquote>
-            <br>
-            <fieldset class="mimeAttachmentHeader"></fieldset>
-            <pre class="moz-quote-pre" wrap="">_______________________________________________
-amd-gfx mailing list
-<a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-<a class="moz-txt-link-freetext" href="https://lists.freedesktop.org/mailman/listinfo/amd-gfx">https://lists.freedesktop.org/mailman/listinfo/amd-gfx</a>
-</pre>
-          </blockquote>
-          <br>
-        </blockquote>
-      </blockquote>
-      <br>
-    </blockquote>
-  </body>
-</html>
-
---------------EDB8FD0A3BE32BE1396C5205--
-
---===============0060554663==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0060554663==--
+Q2FuIHlvdSBmaWxlIGEgZnVsbCBidWcgcmVwb3J0IG9uIHRoZSBnaXRsYWIgdHJhY2tlcj8KCkZy
+ZWVTeW5jIGlzIHN0aWxsIHdvcmtpbmcgb24gbXkgTmF2aSBzZXR1cHMgd2l0aCB0aGlzIHBhdGNo
+IGFwcGxpZWQsIGFuZCAKdGhpcyBwYXRjaCBpcyBlc3NlbnRpYWxseSBqdXN0IGEgcmV2ZXJ0IG9m
+IGFub3RoZXIgcGF0Y2ggYWxyZWFkeSAod2hlcmUgCkZyZWVTeW5jIHdvcmtlZCBiZWZvcmUpLgoK
+SSBjYW4gdW5kZXJzdGFuZCB0aGUgdjIgb2YgdGhpcyBzZXJpZXMgY2F1c2luZyBpc3N1ZXMsIGJ1
+dCB0aGUgdjEgCnNob3VsZG4ndCBiZSAtIHNvIEknZCBsaWtlIHRvIHVuZGVyc3RhbmQgbW9yZSBh
+Ym91dCB0aGUgc2V0dXAgd2hlcmUgdGhpcyAKaXMgY2F1c2luZyBpc3N1ZXMgLSBBU0lDLCBPUywg
+Y29tcG9zaXRvciwgZGlzcGxheXMsIGRtZXNnIGxvZywgWCBsb2csIGV0Yy4KClJlZ2FyZHMsCk5p
+Y2hvbGFzIEthemxhdXNrYXMKCk9uIDIwMjAtMDUtMDUgMTowMyBwLm0uLCBBbGV4IERldWNoZXIg
+d3JvdGU6Cj4gTWFyaW8gb3IgTmljayBhbnkgdGhvdWdodHM/Cj4gCj4gQWxleAo+IAo+IE9uIE1v
+biwgTWF5IDQsIDIwMjAgYXQgMTozNSBQTSBNYXR0IENvZmZpbiA8bWNvZmZpbjEzQGdtYWlsLmNv
+bT4gd3JvdGU6Cj4+Cj4+IEhleSBndXlzLAo+Pgo+PiBUaGlzIGlzIHN0aWxsIGFuIGlzc3VlIGZv
+ciBtZSwgYW5kIEknbSBzdGlsbCBoYXZpbmcgdG8gcnVuIGEgcGF0Y2ggdG8KPj4gcmV2ZXJ0IHRo
+aXMgYXMgb2YgNS43LXJjNC4gVG8gYXZvaWQgYnJlYWtpbmcgYSBsb3Qgb2YgcGVvcGxlJ3MgTmF2
+aQo+PiBzZXR1cHMgaW4gNS43LCBpcyB0aGVyZSBhbnkgbmV3cyBvbiB0aGlzPyBIYXMgYW55b25l
+IGVsc2UgYXQgdGhlIHZlcnkKPj4gbGVhc3QgYmVlbiBhYmxlIHRvIHJlcHJvZHVjZSB0aGUgcHJv
+YmxlbT8KPj4KPj4gSXQgaGFwcGVucyBmb3IgbWUgaW4gZXZlcnkgc2luZ2xlIHByb2dyYW0gdGhh
+dCBtZXNhIGFsbG93cyB0byB1dGlsaXplCj4+IHZhcmlhYmxlIHJlZnJlc2ggcmF0ZXMsIGFuZCBy
+ZXZlcnRpbmcgaXQgImZpeGVzIiB0aGUgaXNzdWUuCj4+Cj4+IENoZWVycywgYW5kIHNvcnJ5IGZv
+ciB0aGUgZXh0cmEgZW1haWwsIGp1c3QgbWFraW5nIHN1cmUgdGhpcyBpcyBzdGlsbCBvbgo+PiBz
+b21lb25lJ3MgcmFkYXIsCj4+IE1hdHQKPj4KPj4gT24gNC8xNC8yMCA1OjMyIFBNLCBNYXR0IENv
+ZmZpbiB3cm90ZToKPj4+IEhleSBldmVyeW9uZSwKPj4+Cj4+PiBUaGlzIHBhdGNoIGJyb2tlIHZh
+cmlhYmxlIHJlZnJlc2ggcmF0ZSBpbiBnYW1lcyAoYWxsIHRoYXQgSSd2ZSB0cmllZCBzbwo+Pj4g
+ZmFyLi4uIFByb2plY3QgQ0FSUyAyLCBEaVJUIFJhbGx5IDIuMCwgQXNzZXR0byBDb3JzYSBDb21w
+ZXRpemlvbmUpIGFzCj4+PiB3ZWxsIGFzIGEgc2ltcGxlIGZyZWVzeW5jIHRlc3RlciBhcHBsaWNh
+dGlvbi4KPj4+Cj4+PiBGcmVlU3luYyB0ZXN0ZXIgSSd2ZSBiZWVuIHVzaW5nOiBodHRwczovL2dp
+dGh1Yi5jb20vTml4b2xhL1ZSUlRlc3QKPj4+Cj4+PiBJJ20gbm90IGF0IGFsbCBmYW1pbGlhciB3
+aXRoIHRoZSBwYWdlIGZsaXBwaW5nIGNvZGUsIHNvIGl0IHdvdWxkIHRha2UgbWUKPj4+IGEgbG9u
+ZyB0aW1lIHRvIGZpbmQgdGhlICpyaWdodCogd2F5IHRvIGZpeCBpdCwgYnV0IGRvZXMgc29tZW9u
+ZSBlbHNlIHNlZQo+Pj4gd2h5IGl0IHdvdWxkIGRvIHRoYXQ/Cj4+Pgo+Pj4gVGhlIHN5bXB0b20g
+aXMgdGhhdCB0aGUgcmVmcmVzaCByYXRlIG9mIHRoZSBkaXNwbGF5IGNvbnN0YW50bHkgYm91bmNl
+cwo+Pj4gYmV0d2VlbiB0aGUgdHdvIGVuZHMgb2YgdGhlIEZyZWVTeW5jIHJhbmdlIChmb3IgbWUg
+NDAgLT4gMTQ0KSwgYW5kIHRoZQo+Pj4gZ2FtZSBzdHV0dGVycyBsaWtlIGEgbWFkbWFuLgo+Pj4K
+Pj4+IEFueSBoZWxwIG9uIHdoZXJlIHRvIHN0YXJ0LCBpZGVhcyBvbiBob3cgdG8gZml4IGl0IChv
+dGhlciB0aGFuIGp1c3QKPj4+IHJldmVydCB0aGlzIGNvbW1pdCwgd2hpY2ggSSd2ZSBkb25lIGlu
+IHRoZSBpbnRlcmltKSwgb3IgYWx0ZXJuYXRpdmUKPj4+IHBhdGNoZXMgd291bGQgYmUgYXBwcmVj
+aWF0ZWQuCj4+Pgo+Pj4gVGhhbmtzIGluIGFkdmFuY2UgZm9yIHRoZSB3b3JrL2hlbHAsCj4+PiBN
+YXR0Cj4+Pgo+Pj4gT24gMy8xMy8yMCA4OjQyIEFNLCBNaWNoZWwgRMOkbnplciB3cm90ZToKPj4+
+PiBPbiAyMDIwLTAzLTEzIDE6MzUgcC5tLiwgS2F6bGF1c2thcywgTmljaG9sYXMgd3JvdGU6Cj4+
+Pj4+IE9uIDIwMjAtMDMtMTIgMTA6MzIgYS5tLiwgQWxleCBEZXVjaGVyIHdyb3RlOgo+Pj4+Pj4g
+T24gVGh1LCBNYXIgNSwgMjAyMCBhdCA0OjIxIFBNIE1hcmlvIEtsZWluZXIKPj4+Pj4+IDxtYXJp
+by5rbGVpbmVyLmRlQGdtYWlsLmNvbT4gd3JvdGU6Cj4+Pj4+Pj4KPj4+Pj4+PiBDb21taXQgJzE2
+ZjE3ZWRhOGJhZCAoImRybS9hbWQvZGlzcGxheTogU2VuZCB2YmxhbmsgYW5kIHVzZXIKPj4+Pj4+
+PiBldmVudHMgYXQgdnNhcnR1cCBmb3IgRENOIiknIGludHJvZHVjZXMgYSBuZXcgd2F5IG9mIHBh
+Z2VmbGlwCj4+Pj4+Pj4gY29tcGxldGlvbiBoYW5kbGluZyBmb3IgRENOLCBhbmQgc29tZSB0cm91
+YmxlLgo+Pj4+Pj4+Cj4+Pj4+Pj4gVGhlIGN1cnJlbnQgaW1wbGVtZW50YXRpb24gaW50cm9kdWNl
+cyBhIHJhY2UgY29uZGl0aW9uLCB3aGljaAo+Pj4+Pj4+IGNhbiBjYXVzZSBwYWdlZmxpcCBjb21w
+bGV0aW9uIGV2ZW50cyB0byBiZSBzZW50IG91dCBvbmUgdmJsYW5rCj4+Pj4+Pj4gdG9vIGVhcmx5
+LCB0aGVyZWJ5IGNvbmZ1c2luZyB1c2Vyc3BhY2UgYW5kIGNhdXNpbmcgZmxpY2tlcjoKPj4+Pj4+
+Pgo+Pj4+Pj4+IHByZXBhcmVfZmxpcF9pc3IoKToKPj4+Pj4+Pgo+Pj4+Pj4+IDEuIFBhZ2VmbGlw
+IHByb2dyYW1taW5nIHRha2VzIHRoZSBkZGV2LT5ldmVudF9sb2NrLgo+Pj4+Pj4+IDIuIFNldHMg
+YWNydGMtPnBmbGlwX3N0YXR1cyA9PSBBTURHUFVfRkxJUF9TVUJNSVRURUQKPj4+Pj4+PiAzLiBS
+ZWxlYXNlcyBkZGV2LT5ldmVudF9sb2NrLgo+Pj4+Pj4+Cj4+Pj4+Pj4gLS0+IERlYWRsaW5lIGZv
+ciBzdXJmYWNlIGFkZHJlc3MgcmVncyBkb3VibGUtYnVmZmVyaW5nIHBhc3NlcyBvbgo+Pj4+Pj4+
+ICAgICAgIHRhcmdldCBwaXBlLgo+Pj4+Pj4+Cj4+Pj4+Pj4gNC4gZGNfY29tbWl0X3VwZGF0ZXNf
+Zm9yX3N0cmVhbSgpIE1NSU8gcHJvZ3JhbXMgdGhlIG5ldyBwYWdlZmxpcAo+Pj4+Pj4+ICAgICAg
+aW50byBodywgYnV0IHRvbyBsYXRlIGZvciBjdXJyZW50IHZibGFuay4KPj4+Pj4+Pgo+Pj4+Pj4+
+ID0+IHBmbGlwX3N0YXR1cyA9PSBBTURHUFVfRkxJUF9TVUJNSVRURUQsIGJ1dCBmbGlwIHdvbid0
+IGNvbXBsZXRlCj4+Pj4+Pj4gICAgICBpbiBjdXJyZW50IHZibGFuayBkdWUgdG8gbWlzc2luZyB0
+aGUgZG91YmxlLWJ1ZmZlcmluZyBkZWFkbGluZQo+Pj4+Pj4+ICAgICAgYnkgYSB0aW55IGJpdC4K
+Pj4+Pj4+Pgo+Pj4+Pj4+IDUuIFZTVEFSVFVQIHRyaWdnZXIgcG9pbnQgaW4gdmJsYW5rIGlzIHJl
+YWNoZWQsIFZTVEFSVFVQIGlycSBmaXJlcywKPj4+Pj4+PiAgICAgIGRtX2Rjbl9jcnRjX2hpZ2hf
+aXJxKCkgZ2V0cyBjYWxsZWQuCj4+Pj4+Pj4KPj4+Pj4+PiA2LiBEZXRlY3RzIHBmbGlwX3N0YXR1
+cyA9PSBBTURHUFVfRkxJUF9TVUJNSVRURUQgYW5kIGFzc3VtZXMgdGhlCj4+Pj4+Pj4gICAgICBw
+YWdlZmxpcCBoYXMgYmVlbiBjb21wbGV0ZWQvd2lsbCBjb21wbGV0ZSBpbiB0aGlzIHZibGFuayBh
+bmQKPj4+Pj4+PiAgICAgIHNlbmRzIG91dCBwYWdlZmxpcCBjb21wbGV0aW9uIGV2ZW50IHRvIHVz
+ZXJzcGFjZSBhbmQgcmVzZXRzCj4+Pj4+Pj4gICAgICBwZmxpcF9zdGF0dXMgPSBBTURHUFVfRkxJ
+UF9OT05FLgo+Pj4+Pj4+Cj4+Pj4+Pj4gPT4gRmxpcCBjb21wbGV0aW9uIGV2ZW50IHNlbnQgb3V0
+IG9uZSB2YmxhbmsgdG9vIGVhcmx5Lgo+Pj4+Pj4+Cj4+Pj4+Pj4gVGhpcyBiZWhhdmlvdXIgaGFz
+IGJlZW4gb2JzZXJ2ZWQgZHVyaW5nIG15IHRlc3Rpbmcgd2l0aCBtZWFzdXJlbWVudAo+Pj4+Pj4+
+IGhhcmR3YXJlIGEgY291cGxlIG9mIHRpbWUuCj4+Pj4+Pj4KPj4+Pj4+PiBUaGUgY29tbWl0IG1l
+c3NhZ2Ugc2F5cyB0aGF0IHRoZSBleHRyYSBmbGlwIGV2ZW50IGNvZGUgd2FzIGFkZGVkIHRvCj4+
+Pj4+Pj4gZG1fZGNuX2NydGNfaGlnaF9pcnEoKSB0byBwcmV2ZW50IG1pc3NpbmcgdG8gc2VuZCBv
+dXQgcGFnZWZsaXAgZXZlbnRzCj4+Pj4+Pj4gaW4gY2FzZSB0aGUgcGZsaXAgaXJxIGRvZXNuJ3Qg
+ZmlyZSwgYmVjYXVzZSB0aGUgIkRDSCBIVUJQIiBjb21wb25lbnQKPj4+Pj4+PiBpcyBjbG9jayBn
+YXRlZCBhbmQgZG9lc24ndCBmaXJlIHBmbGlwIGlycXMgaW4gdGhhdCBzdGF0ZS4gQWxzbyB0aGF0
+Cj4+Pj4+Pj4gdGhpcyBjbG9jayBnYXRpbmcgbWF5IGhhcHBlbiBpZiBubyBwbGFuZXMgYXJlIGFj
+dGl2ZS4gQWNjb3JkaW5nIHRvCj4+Pj4+Pj4gTmljaG9sYXMsIHRoZSBjbG9jayBnYXRpbmcgY2Fu
+IGFsc28gaGFwcGVuIGlmIHBzciBpcyBhY3RpdmUsIGFuZCB0aGUKPj4+Pj4+PiBnYXRpbmcgaXMg
+Y29udHJvbGxlZCBpbmRlcGVuZGVudGx5IGJ5IHRoZSBoYXJkd2FyZSwgc28gZGlmZmljdWx0IHRv
+Cj4+Pj4+Pj4gZGV0ZWN0IGlmIGFuZCB3aGVuIHRoZSBjb21wbGV0aW9uIGNvZGUgaW4gYWJvdmUg
+Y29tbWl0IGlzIG5lZWRlZC4KPj4+Pj4+Pgo+Pj4+Pj4+IFRoaXMgcGF0Y2ggdHJpZXMgdGhlIGZv
+bGxvd2luZyBzb2x1dGlvbjogSXQgb25seSBleGVjdXRlcyB0aGUgZXh0cmEKPj4+Pj4+PiBwZmxp
+cAo+Pj4+Pj4+IGNvbXBsZXRpb24gY29kZSBpbiBkbV9kY25fY3J0Y19oaWdoX2lycSgpIGlmZiB0
+aGUgaGFyZHdhcmUgcmVwb3J0cwo+Pj4+Pj4+IHRoYXQgdGhlcmUgYXJlbid0IGFueSBzdXJmYWNl
+IHVwZGF0ZWQgcGVuZGluZyBpbiB0aGUgZG91YmxlLWJ1ZmZlcmVkCj4+Pj4+Pj4gc3VyZmFjZSBz
+Y2Fub3V0IGFkZHJlc3MgcmVnaXN0ZXJzLiBPdGhlcndpc2UgaXQgbGVhdmVzIHBmbGlwIGNvbXBs
+ZXRpb24KPj4+Pj4+PiB0byB0aGUgcGZsaXAgaXJxIGhhbmRsZXIsIGZvciBhIG1vcmUgcmFjZS1m
+cmVlIGV4cGVyaWVuY2UuCj4+Pj4+Pj4KPj4+Pj4+PiBUaGlzIHdvdWxkIG9ubHkgZ3VhcmQgYWdh
+aW5zdCB0aGUgb3JkZXIgb2YgZXZlbnRzIG1lbnRpb25lZCBhYm92ZS4KPj4+Pj4+PiBJZiBTdGVw
+IDUgKFZTVEFSVFVQIHRyaWdnZXIpIGhhcHBlbnMgYmVmb3JlIHN0ZXAgNCB0aGVuIHRoaXMgd29u
+J3QgaGVscAo+Pj4+Pj4+IGF0IGFsbCwgYmVjYXVzZSAxLTMgKyA1IG1pZ2h0IGhhcHBlbiBldmVu
+IHdpdGhvdXQgdGhlIGh3IGJlaW5nCj4+Pj4+Pj4gcHJvZ3JhbW1lZAo+Pj4+Pj4+IGF0IGFsbCwg
+aWUuIG5vIHN1cmZhY2UgdXBkYXRlIHBlbmRpbmcgYmVjYXVzZSBub25lIHlldCBwcm9ncmFtbWVk
+Cj4+Pj4+Pj4gaW50byBody4KPj4+Pj4+Pgo+Pj4+Pj4+IFRoZXJlZm9yZSB0aGlzIHBhdGNoIGFs
+c28gY2hhbmdlcyBsb2NraW5nIGluIGFtZGdwdV9kbV9jb21taXRfcGxhbmVzKCksCj4+Pj4+Pj4g
+c28gdGhhdCBwcmVwYXJlX2ZsaXBfaXNyKCkgYW5kIGRjX2NvbW1pdF91cGRhdGVzX2Zvcl9zdHJl
+YW0oKSBhcmUgZG9uZQo+Pj4+Pj4+IHVuZGVyIGV2ZW50X2xvY2sgcHJvdGVjdGlvbiB3aXRoaW4g
+dGhlIHNhbWUgY3JpdGljYWwgc2VjdGlvbi4KPj4+Pj4+Pgo+Pj4+Pj4+IHYyOiBUYWtlIE5pY2hv
+bGFzIGNvbW1lbnRzIGludG8gYWNjb3VudCwgdHJ5IGEgZGlmZmVyZW50IHNvbHV0aW9uLgo+Pj4+
+Pj4+Cj4+Pj4+Pj4gTGlnaHRseSB0ZXN0ZWQgb24gUG9sYXJpcyAobG9ja2luZykgYW5kIFJhdmVu
+ICh0aGUgd2hvbGUgRENOIHN0dWZmKS4KPj4+Pj4+PiBTZWVtcyB0byB3b3JrIHdpdGhvdXQgY2F1
+c2luZyBvYnZpb3VzIG5ldyB0cm91YmxlLgo+Pj4+Pj4KPj4+Pj4+IE5pY2ssIGFueSBjb21tZW50
+cyBvbiB0aGlzPyAgQ2FuIHdlIGdldCB0aGlzIGNvbW1pdHRlZCBvciBkbyB5b3UgdGhpbmsKPj4+
+Pj4+IGl0IG5lZWRzIGFkZGl0aW9uYWwgcmV3b3JrPwo+Pj4+Pj4KPj4+Pj4+IFRoYW5rcywKPj4+
+Pj4+Cj4+Pj4+PiBBbGV4Cj4+Pj4+Cj4+Pj4+IEhpIEFsZXgsIE1hcmlvLAo+Pj4+Pgo+Pj4+PiBU
+aGlzIG1pZ2h0IGJlIGEgbGl0dGxlIHN0cmFuZ2UsIGJ1dCBpZiB3ZSB3YW50IHRvIGdldCB0aGlz
+IGluIGFzIGEgZml4Cj4+Pj4+IGZvciByZWdyZXNzaW9ucyBjYXVzZWQgYnkgdGhlIG9yaWdpbmFs
+IHZibGFuayBhbmQgdXNlciBldmVudHMgYXQKPj4+Pj4gdnN0YXJ0dXAgcGF0Y2ggdGhlbiBJJ20g
+YWN0dWFsbHkgZ29pbmcgdG8gZ2l2ZSBteSByZXZpZXdlZCBieSBvbiB0aGUKPj4+Pj4gKnYxKiBv
+ZiB0aGlzIHBhdGNoIChidXQgbm90IHRoaXMgdjIpOgo+Pj4+Pgo+Pj4+PiBSZXZpZXdlZC1ieTog
+TmljaG9sYXMgS2F6bGF1c2thcyA8bmljaG9sYXMua2F6bGF1c2thc0BhbWQuY29tPgo+Pj4+Pgo+
+Pj4+PiBZb3UgY2FuIGZlZWwgZnJlZSB0byBhcHBseSB0aGF0IG9uZS4KPj4+Pj4KPj4+Pj4gUmVh
+c29uIDE6IEFmdGVyIGhhdmluZyB0aG91Z2h0IGFib3V0IGl0IHNvbWUgbW9yZSBJIGRvbid0IHRo
+aW5rIHdlCj4+Pj4+IGVuYWJsZSBhbnl0aGluZyB0b2RheSB0aGF0IGhhcyBodWJwIHBvd2VyZWQg
+ZG93biBhdCB0aGUgc2FtZSB0aW1lIHdlCj4+Pj4+IGV4cGVjdCB0byBiZSB3YWl0aW5nIGZvciBh
+IGZsaXAgLSBlZy4gRE1DVSBwb3dlcmluZyBkb3duIEhVQlAgZHVyaW5nIFBTUgo+Pj4+PiBlbnRy
+eS4gU3RhdGljIHNjcmVlbiBpbnRlcnJ1cHQgc2hvdWxkIGhhcHBlbiBhZnRlciB0aGF0IGZsaXAg
+ZmluaXNoZXMgSQo+Pj4+PiB0aGluay4KPj4+Pj4KPj4+Pj4gVGhlIENSVEMgY2FuIHN0aWxsIGJl
+IHBvd2VyZWQgb24gd2l0aCB6ZXJvIHBsYW5lcywgYW5kIEkgZG9uJ3QgdGhpbmsgYW55Cj4+Pj4+
+IHVzZXJzcGFjZSBleHBsaWNpdGx5IGFza3MgZm9yIHZibGFuayBldmVudHMgaW4gdGhpcyBjYXNl
+IGJ1dCBpdCBkb2Vzbid0Cj4+Pj4+IGh1cnQgdG8gaGF2ZSB0aGUgY2hlY2suCj4+Pj4+Cj4+Pj4+
+IFJlYXNvbiAyOiBUaGlzIG5ldyBwYXRjaCB3aWxsIG5lZWQgbXVjaCBtb3JlIHRob3JvdWdoIHRl
+c3RpbmcgZnJvbSBzaWRlCj4+Pj4+IHRvIGZ1bGx5IHVuZGVyc3RhbmQgdGhlIGNvbnNlcXVlbmNl
+cyBvZiBsb2NraW5nIHRoZSBlbnRpcmUgREMgY29tbWl0Cj4+Pj4+IHNlcXVlbmNlLiBGb3IganVz
+dCBhIHBhZ2UgZmxpcCB0aGF0IHNvdW5kcyBmaW5lLCBidXQgZm9yIGFueXRoaW5nIG1vcmUKPj4+
+Pj4gdGhhbiAoZWcuIGZ1bGwgdXBkYXRlcywgbW9kZXNldHMsIGV0YykgSSBkb24ndCB0aGluayB3
+ZSB3YW50IHRvIGJlCj4+Pj4+IGRpc2FibGluZyBpbnRlcnJ1cHRzIGZvciBwb3RlbnRpYWxseSBt
+YW55IG1pbGxpc2Vjb25kcy4KPj4+Pgo+Pj4+IEFoISBJIHdhcyB3b25kZXJpbmcgd2hlcmUgdGhl
+IGF0dGFjaGVkIHNwbGF0IGNvbWVzIGZyb20sIGJ1dCBJIHRoaW5rCj4+Pj4gdGhpcyBleHBsYWlu
+cyBpdDogV2l0aCB0aGlzIHBhdGNoIGFtZGdwdV9kbV9jb21taXRfcGxhbmVzIGtlZXBzIHRoZQo+
+Pj4+IHBjcnRjLT5kZXYtPmV2ZW50X2xvY2sgc3BpbmxvY2sgbG9ja2VkIHdoaWxlIGNhbGxpbmcK
+Pj4+PiBkY19jb21taXRfdXBkYXRlc19mb3Jfc3RyZWFtLCB3aGljaCBlbmRzIHVwIGNhbGxpbmcK
+Pj4+PiBzbXVfc2V0X2Rpc3BsYXlfY291bnQsIHdoaWNoIHRyaWVzIHRvIGxvY2sgYSBtdXRleC4K
+Pj4+Pgo+Pj4+Cj4+Pj4KPj4+PiBfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwo+Pj4+IGFtZC1nZnggbWFpbGluZyBsaXN0Cj4+Pj4gYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKPj4+PiBodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2FtZC1nZngKPj4+PgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
+a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bWQtZ2Z4Cg==
