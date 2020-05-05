@@ -2,71 +2,67 @@ Return-Path: <SRS0=bavc=6T=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-11.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A90ABC47254
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 14:30:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 37201C47247
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 14:44:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 75F65206A5
-	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 14:30:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0966E206B9
+	for <amd-gfx@archiver.kernel.org>; Tue,  5 May 2020 14:44:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A3giufVD"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75F65206A5
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vrc0/YFL"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0966E206B9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4056289CC1;
-	Tue,  5 May 2020 14:30:21 +0000 (UTC)
-Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
- [IPv6:2607:f8b0:4864:20::f43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C4EE89CC1
- for <amd-gfx@lists.freedesktop.org>; Tue,  5 May 2020 14:30:20 +0000 (UTC)
-Received: by mail-qv1-xf43.google.com with SMTP id fb4so1061876qvb.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 05 May 2020 07:30:20 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA2AF89AC9;
+	Tue,  5 May 2020 14:44:53 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDC9689AC9;
+ Tue,  5 May 2020 14:44:52 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id e16so3070243wra.7;
+ Tue, 05 May 2020 07:44:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PIoM2uL8A4Uh4CHUrXMCs6xlTekZ0buffPHKViZhjm0=;
- b=A3giufVDKn8OtlnQ/A+cCnz/DeFu2x37uvgq37kzzYWSvptblClLfloX4PfOTxcQGk
- XX50vaOIPIhu2unRqW07CcC3E7Fudb+2TfHX6JQ5oZKWP4Oj1+8DlFD8IKpwzYUjvqv2
- oFWbjTyqmAKfbJ3mWPbHBquch852WaDtx4raFNyiE4vmAwXUkTV6tUchQXSl9YUc8etn
- ZI0nR0ya+rzLhTByIIywIXZTT67QauN903BGtIPA6C6Eux6hWDYvLGgRR1OJgUbVn9cv
- 7nL/PpZ/DrkxNqN3aC8ibRyyH1uyL5bqEvLZwejUluHUCxiDzM7XX7+WviCkDOl8Ku8k
- avGQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=PSNzqE9w9ggP7uPPAK4KUUUBVcwgOZ6j5qNH5gD8e9M=;
+ b=Vrc0/YFLCwJscVtU+i19mS5ZPJ4jJwcbi1fjI6iSdiVA6OPDvdjhENuyWxI4BkCiaG
+ Xr2hpK0QyALgA7Ybaf4ot3Nu7EzljpTTaX7gotdwnfOMXDO3RHOE3dbDBFQgaXK1Gg92
+ h7I4fweMdD6WRiiZN5fi1xfyhNBqsrjPRkgY0VSlakJi3r8Gf9g3MgVjYT1qjrzdEXme
+ zjWW0y+HTxsnpCVPCxQNzqAOhvZrKEMGQYyAizxpKafY1AieP7z+V9T5WB5VGxZPv0Hb
+ OCtnke1/f+JpiPEol/Lrk/t9K27CKVwPyAW5JGPpVyMQoYxgIjYXW5w+s4go/ckRPoko
+ x5mQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=PIoM2uL8A4Uh4CHUrXMCs6xlTekZ0buffPHKViZhjm0=;
- b=rWmyMrxtTCEOcJJ+NE+W4gp4IpJSdVTVKisuUzC4FyhzwARVHjSE07dlfxGXfw5OM9
- Y6PsYnJECl752gg3ASvUb/AgffQRQGEzs9XEyZsWtZb0lef+l9RVh4yAj0rINA/B0bCx
- HJg2SkOfJcerFRNOf5pyh6Dakd98eokwIsglBINpQ4ireRGbqKRc9wGmoO37SAaxHzH1
- PiPhYTeZTvVSeGT3DtUyip2R2zMPAR0LIqw37RBNr9iYzJGe56HfvjoTpoyr3BWsxepT
- i2kGPwkzW+REEr/v8Pnjtj7N7ck4iD5vYqDZVF63Yx47/9miHoetJtnKd9cQUSJ7Ioar
- bUuw==
-X-Gm-Message-State: AGi0PuaXIvpNtnbrbicyP/jsWbgPjiF8OHeiX4zsfYXAyKELsCIrFhUe
- JQHf4Kh18nLJgCyDizHzo4TFhrN4
-X-Google-Smtp-Source: APiQypIuF7Pau9a3z7neTRLRQAn+Sm5pEQ/aNksYvJgwIkO9B6HeeDhgooZfVhX6sHl17iSAKWd+4Q==
-X-Received: by 2002:a0c:eb50:: with SMTP id c16mr2833570qvq.151.1588689018978; 
- Tue, 05 May 2020 07:30:18 -0700 (PDT)
-Received: from localhost.localdomain ([71.219.37.167])
- by smtp.gmail.com with ESMTPSA id o68sm1855740qka.110.2020.05.05.07.30.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 05 May 2020 07:30:18 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu/fb: use virt_to_phys to get smem_start
-Date: Tue,  5 May 2020 10:30:06 -0400
-Message-Id: <20200505143006.5608-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=PSNzqE9w9ggP7uPPAK4KUUUBVcwgOZ6j5qNH5gD8e9M=;
+ b=olUt402LkvqI0p8ikfy2sD4NHzbJeP+dgWGLhVJTM+YG/DbnqHtsP2bqHGQ2cGLAy6
+ t0b6MV533cNvJa0VSaDHVYUbQlATyN8zL0C8mNP8o05Ez1ww39L4BDcmVcuJ/qKcEBmk
+ Rf+DIzr8xMJuc+Y5BTchhUNv9jYB6kxkR10QDucy0/m3H6Gj1JpmM9I+YdjmjFlE2lDB
+ ws0ZBA0BRxDzXYjgoGawbgfjr6t+W/w5/ngTtE+PuCmqou29HCqrLWG7/R+Q0MjCwO5O
+ X3ktE7yCE3jOoO3MT4529F65qnXJIpCRFHe9jkHs000HKEYFyXfDHUvdhayOvFTndmP9
+ o3iQ==
+X-Gm-Message-State: AGi0PuYJ56M8uiGJhNd0Zy0R+Htz2bSM+egf7n5J/LnIdFNMV4C6Z16S
+ cEpXwhH2d6tT8MaRDhIt14i+NSC2f8u/XWAMScEVGg==
+X-Google-Smtp-Source: APiQypKTq0dXp0DSGKg2+q37wBHHkO+EXX+oz5MRyNqq/kymYUpV5ub11RuMWZHYWMrUunT1XhX2hQFAfXHne9/rvtM=
+X-Received: by 2002:a5d:4389:: with SMTP id i9mr4322821wrq.374.1588689891557; 
+ Tue, 05 May 2020 07:44:51 -0700 (PDT)
 MIME-Version: 1.0
+References: <20200502031141.2732221-1-natechancellor@gmail.com>
+In-Reply-To: <20200502031141.2732221-1-natechancellor@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 5 May 2020 10:44:40 -0400
+Message-ID: <CADnq5_NdtZh5_RGDWKJ9c_42XLvrncCs5DDU1YSptfZP94KXkQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Avoid integer overflow in
+ amdgpu_device_suspend_display_audio
+To: Nathan Chancellor <natechancellor@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,48 +74,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ clang-built-linux <clang-built-linux@googlegroups.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We set the fb smem pointer to the offset into the BAR which doesn't
-handle framebuffers in system memory. Use virt_to_phys which should
-handle both BARs and system memory.
+On Sat, May 2, 2020 at 4:35 AM Nathan Chancellor
+<natechancellor@gmail.com> wrote:
+>
+> When building with Clang:
+>
+> drivers/gpu/drm/amd/amdgpu/amdgpu_device.c:4160:53: warning: overflow in
+> expression; result is -294967296 with type 'long' [-Winteger-overflow]
+>                 expires = ktime_get_mono_fast_ns() + NSEC_PER_SEC * 4L;
+>                                                                   ^
+> 1 warning generated.
+>
+> Multiplication happens first due to order of operations and both
+> NSEC_PER_SEC and 4 are long literals so the expression overflows. To
+> avoid this, make 4 an unsigned long long literal, which matches the
+> type of expires (u64).
+>
+> Fixes: 3f12acc8d6d4 ("drm/amdgpu: put the audio codec into suspend state before gpu reset V3")
+> Link: https://github.com/ClangBuiltLinux/linux/issues/1017
+> Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
 
-Bug: https://bugzilla.kernel.org/show_bug.cgi?id=207581
-Fixes: 6c8d74caa2fa33 ("drm/amdgpu: Enable scatter gather display support")
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+Applied.  Thanks!
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-index 25ddb482466a..caef156fbd1f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fb.c
-@@ -205,7 +205,6 @@ static int amdgpufb_create(struct drm_fb_helper *helper,
- 	struct drm_gem_object *gobj = NULL;
- 	struct amdgpu_bo *abo = NULL;
- 	int ret;
--	unsigned long tmp;
- 
- 	mode_cmd.width = sizes->surface_width;
- 	mode_cmd.height = sizes->surface_height;
-@@ -245,8 +244,7 @@ static int amdgpufb_create(struct drm_fb_helper *helper,
- 
- 	info->fbops = &amdgpufb_ops;
- 
--	tmp = amdgpu_bo_gpu_offset(abo) - adev->gmc.vram_start;
--	info->fix.smem_start = adev->gmc.aper_base + tmp;
-+	info->fix.smem_start = virt_to_phys(amdgpu_bo_kptr(abo));
- 	info->fix.smem_len = amdgpu_bo_size(abo);
- 	info->screen_base = amdgpu_bo_kptr(abo);
- 	info->screen_size = amdgpu_bo_size(abo);
--- 
-2.25.4
+Alex
 
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 6f93af972b0a..caa38e7d502e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -4157,7 +4157,7 @@ static int amdgpu_device_suspend_display_audio(struct amdgpu_device *adev)
+>                  * the audio controller default autosuspend delay setting.
+>                  * 4S used here is guaranteed to cover that.
+>                  */
+> -               expires = ktime_get_mono_fast_ns() + NSEC_PER_SEC * 4L;
+> +               expires = ktime_get_mono_fast_ns() + NSEC_PER_SEC * 4ULL;
+>
+>         while (!pm_runtime_status_suspended(&(p->dev))) {
+>                 if (!pm_runtime_suspend(&(p->dev)))
+>
+> base-commit: fb9d670f57e3f6478602328bbbf71138be06ca4f
+> --
+> 2.26.2
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
