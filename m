@@ -2,65 +2,80 @@ Return-Path: <SRS0=JxR8=6U=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5327C28CBC
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 16:00:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 66B8AC28CBC
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 16:31:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 769302068E
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 16:00:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3D74120708
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 16:31:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lQ4Ia6TZ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 769302068E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="CDYYUXVy"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D74120708
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30A856E049;
-	Wed,  6 May 2020 16:00:38 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 337CA6E049;
- Wed,  6 May 2020 16:00:37 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id s8so2833466wrt.9;
- Wed, 06 May 2020 09:00:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=d5eC0q9kH/OLW0xvH/Ya7sSzazIuNp3mcIJJ1oeL080=;
- b=lQ4Ia6TZkysbbNIAhDuGpiWO7KCO47RjQPcjpPSazd6nrV18G3QvrExOvMLRWcOlon
- nRoXysP7XKcVH9sSW2dDvM8hAxLsQ5vL0VRPGfE6VyAyfXaQbRAGaXRVwVJFYggcbshQ
- OceVO97EVdAO4rE7Ex9n/pgGpW+guIOj3cuWITRY0EBJr2Ij+D0mY42Yuu0VDNEcyDrQ
- HfBzrxDXl8NMox2jDWQph40c5NZTu2j49IOPMMNjOWxawnWvO5FRr34r5jLU3N+/Xas3
- ClnK59EnGBDfAu/bjEzfaR5RoHbfH+KdO63KZ0Xr8P8Tv3TKNLPqY4EWE/7PfTSmn0/6
- kVyg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB25D6E8A7;
+	Wed,  6 May 2020 16:31:21 +0000 (UTC)
+Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
+ [IPv6:2607:f8b0:4864:20::842])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E232C6E8A6
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2020 16:18:26 +0000 (UTC)
+Received: by mail-qt1-x842.google.com with SMTP id q13so1849509qtp.7
+ for <amd-gfx@lists.freedesktop.org>; Wed, 06 May 2020 09:18:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=dI/8k01wqNtPsEMN3JryPuexKMUAM9GFAPsiKlMJOgs=;
+ b=CDYYUXVytFKURB46DxLbtSQhLKEUVHOamKg4N6ws/VeYuZqe48aW2fVU4DY/h9Bp0C
+ oxPsar9OJVyyfKYewl2b61UAK/iYMJhUOEztf6FyAWUPWMHx6K52Ms3zjFawc0T82Nl1
+ 7Xt+P1aPijxMvudfHiyJNFg5C9ZFGxb7Xq5W8dbwJ21FJwxC/q1Blc/Rw7qi4EBtZ7QU
+ QsgB9ERVVjUURncAAw80TIEnHnDpJ9Brzd9+PloSZTbvOPoos60r/CIiiaGLTHr18jlp
+ z1hKejvJ2XMgEhTqjmxxET3DODSbvUQWlTA4t/TK35N6seBmGymATrWanur938yEOAM8
+ A/+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=d5eC0q9kH/OLW0xvH/Ya7sSzazIuNp3mcIJJ1oeL080=;
- b=ptGInQg1b24onyYtwXvgeRZanOGqpjXIcfVnO7HknS1hvR/z2ezDVyXfAQDqR4nsJ0
- q3DkfAfsGDBzq2t3qWjVS7zLz/kMzz3gHjiECUcvBXH63jVbDHNfnVnJ1LS69DAey7Oe
- c8TmLqYP4OPul34xuV3sDomx+nUBmnyURU2XaC1VSKe8cqRv/zC8wNcptLz0kXMOXfJl
- 88F0sFMK7V6kRiOV1i2a0DVSIAbOCm6aEavSGGCVtxkqx7gOo4xsYrZ2JTKKjhBd5bYQ
- /UByCLnawiDeHrc07LFPPCuFmCc6z+Ql5dyIF6cxiDCxLuIPH/0T3qlCKGVxtf21ZKSD
- LdhQ==
-X-Gm-Message-State: AGi0PuZERwxrFB4sskmUK8ri0unJ/vWFRUPqLevg/P2LlPrwuv7zi8nT
- HD5/gWqQmJpGWUpZAtJr0/uUbtprwwGnYPicvlTMUg==
-X-Google-Smtp-Source: APiQypL3tXEjYhLf/bgr7Q0/DSDIJeeO4NiNwYIkbeeKaDlvH8xQfeOdRow5FP8uN2OVMaxsWCEPpToybESgb9qCgTA=
-X-Received: by 2002:a5d:4389:: with SMTP id i9mr10814250wrq.374.1588780835900; 
- Wed, 06 May 2020 09:00:35 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=dI/8k01wqNtPsEMN3JryPuexKMUAM9GFAPsiKlMJOgs=;
+ b=s3IfM77MCxn3Y8cPV8Mlwch72kHhzPUYyL21v5RvLJdgWl5yiVznZ42ZOnjvW/eEhK
+ RNNcuGgeVxi0LShYGL1iIfIGErajo+DjGZh/XElU+QHzXAi37tHy52OLn7JQpbp2abdW
+ ahSlyb10oVKjKB6PCYPwzNL+tx6o+vAMvcV2YHr7g1KVGxwn5zs8NnMZ90g5cmElIyov
+ IQIjmHqNPWkbZX2Ok/58vBn3N73fuaMsuQPjSue9NztSVhyu+JXc7wh7dfEKLzh92F0T
+ VymO0jXU8kAM4u7IvUshg0XTNJc8dKoDvqJRddpXvKrnusigKqfD/6jDQLLVxKZHJ6F4
+ 6Hsw==
+X-Gm-Message-State: AGi0PualhT/e/mgnD1TrN8vG3WRPmGvgdD18/qwYNooMZS4iyjs5dD6B
+ imsmyZzumh85Go5NFiJaovnuAA==
+X-Google-Smtp-Source: APiQypKyDRDNEzprm+gsfACpH0aQyfocl+/L2XhuNJKEuZItD8tyLPJ84MVvdGkrVM9/6D8550tNkg==
+X-Received: by 2002:aed:2e83:: with SMTP id k3mr9101168qtd.2.1588781906015;
+ Wed, 06 May 2020 09:18:26 -0700 (PDT)
+Received: from ziepe.ca
+ (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.68.57.212])
+ by smtp.gmail.com with ESMTPSA id h13sm1895261qti.32.2020.05.06.09.18.25
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 06 May 2020 09:18:25 -0700 (PDT)
+Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
+ (envelope-from <jgg@ziepe.ca>)
+ id 1jWMka-0002ut-Lq; Wed, 06 May 2020 13:18:24 -0300
+Date: Wed, 6 May 2020 13:18:24 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Ralph Campbell <rcampbell@nvidia.com>
+Subject: Re: [PATCH hmm v2 5/5] mm/hmm: remove the customizable pfn format
+ from hmm_range_fault
+Message-ID: <20200506161824.GG26002@ziepe.ca>
+References: <5-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
+ <3c06a94c-c17f-dc31-537e-f3f6e1ace9a2@nvidia.com>
 MIME-Version: 1.0
-References: <20200506143326.66467-1-zhengbin13@huawei.com>
-In-Reply-To: <20200506143326.66467-1-zhengbin13@huawei.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 6 May 2020 12:00:24 -0400
-Message-ID: <CADnq5_MZvyhVQ6kcd1_qHgDOGGSe+DEbQJNnGeBf6mq5zT8GrA@mail.gmail.com>
-Subject: Re: [PATCH 00/14] drm/radeon: remove comparison to bool
-To: Zheng Bin <zhengbin13@huawei.com>
+Content-Disposition: inline
+In-Reply-To: <3c06a94c-c17f-dc31-537e-f3f6e1ace9a2@nvidia.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Mailman-Approved-At: Wed, 06 May 2020 16:31:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,64 +87,57 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Chunming Zhou <David1.Zhou@amd.com>, Dave Airlie <airlied@linux.ie>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- Christian Koenig <christian.koenig@amd.com>
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>, "Yang,
+ Philip" <Philip.Yang@amd.com>, John Hubbard <jhubbard@nvidia.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Christoph Hellwig <hch@lst.de>,
+ linux-mm@kvack.org, =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>,
+ Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
+ intel-gfx@lists.freedesktop.org,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 6, 2020 at 10:27 AM Zheng Bin <zhengbin13@huawei.com> wrote:
->
-> Zheng Bin (14):
->   drm/radeon: remove comparison to bool in btc_dpm.c
->   drm/radeon: remove comparison to bool in ci_dpm.c
->   drm/radeon: remove comparison to bool in ni_dpm.c
->   drm/radeon: remove comparison to bool in radeon_atpx_handler.c
->   drm/radeon: remove comparison to bool in radeon_object.c
->   drm/radeon: remove comparison to bool in radeon_ttm.c
->   drm/radeon: remove comparison to bool in r100.c
->   drm/radeon: remove comparison to bool in r300.c
->   drm/radeon: remove comparison to bool in r600.c
->   drm/radeon: remove comparison to bool in rs600.c
->   drm/radeon: remove comparison to bool in rs690.c
->   drm/radeon: remove comparison to bool in rv6xx_dpm.c
->   drm/radeon: remove comparison to bool in rv515.c
->   drm/radeon: remove comparison to bool in si_dpm.c
+On Fri, May 01, 2020 at 05:53:26PM -0700, Ralph Campbell wrote:
+> > Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+> > Tested-by: Ralph Campbell <rcampbell@nvidia.com>
+> > Signed-off-by: Jason Gunthorpe <jgg@mellanox.com>
+> > Signed-off-by: Christoph Hellwig <hch@lst.de>
+> >   Documentation/vm/hmm.rst                |  26 ++--
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c |  35 ++----
+> >   drivers/gpu/drm/nouveau/nouveau_dmem.c  |  27 +---
+> >   drivers/gpu/drm/nouveau/nouveau_dmem.h  |   3 +-
+> >   drivers/gpu/drm/nouveau/nouveau_svm.c   |  87 ++++++++-----
+> >   include/linux/hmm.h                     |  99 ++++++---------
+> >   mm/hmm.c                                | 160 +++++++++++-------------
+> >   7 files changed, 192 insertions(+), 245 deletions(-)
+> > 
+> 
+> ...snip...
+> 
+> > +static void nouveau_hmm_convert_pfn(struct nouveau_drm *drm,
+> > +				    struct hmm_range *range, u64 *ioctl_addr)
+> > +{
+> > +	unsigned long i, npages;
+> > +
+> > +	/*
+> > +	 * The ioctl_addr prepared here is passed through nvif_object_ioctl()
+> > +	 * to an eventual DMA map in something like gp100_vmm_pgt_pfn()
+> > +	 *
+> > +	 * This is all just encoding the internal hmm reprensetation into a
+> 
+> s/reprensetation/representation/
+> 
+> Looks good and still tests OK with nouveau.
 
-Does the checker need to be fixed?  All of these are comparing boolean
-variables to true/false.  Seems like needless code churn to me.
+Got it, thanks
 
-Alex
-
->
->  drivers/gpu/drm/radeon/btc_dpm.c             | 2 +-
->  drivers/gpu/drm/radeon/ci_dpm.c              | 4 ++--
->  drivers/gpu/drm/radeon/ni_dpm.c              | 6 +++---
->  drivers/gpu/drm/radeon/r100.c                | 2 +-
->  drivers/gpu/drm/radeon/r300.c                | 2 +-
->  drivers/gpu/drm/radeon/r600.c                | 3 ++-
->  drivers/gpu/drm/radeon/radeon_atpx_handler.c | 4 ++--
->  drivers/gpu/drm/radeon/radeon_object.c       | 2 +-
->  drivers/gpu/drm/radeon/radeon_ttm.c          | 2 +-
->  drivers/gpu/drm/radeon/rs600.c               | 2 +-
->  drivers/gpu/drm/radeon/rs690.c               | 3 ++-
->  drivers/gpu/drm/radeon/rv515.c               | 2 +-
->  drivers/gpu/drm/radeon/rv6xx_dpm.c           | 2 +-
->  drivers/gpu/drm/radeon/si_dpm.c              | 6 +++---
->  14 files changed, 22 insertions(+), 20 deletions(-)
->
-> --
-> 2.26.0.106.g9fadedd
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Jason
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
