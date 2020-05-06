@@ -2,100 +2,79 @@ Return-Path: <SRS0=JxR8=6U=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C203C47257
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 16:31:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACAA6C4724C
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 16:31:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 53F1F20708
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 16:31:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53F1F20708
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=outlook.com.au
+	by mail.kernel.org (Postfix) with ESMTPS id 83186214D8
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 16:31:22 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="P+43D4P1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 83186214D8
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C0366E8AA;
-	Wed,  6 May 2020 16:31:23 +0000 (UTC)
-Received: from APC01-PU1-obe.outbound.protection.outlook.com
- (mail-oln040092254100.outbound.protection.outlook.com [40.92.254.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F8096E86C
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2020 15:15:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mr3xND6MI/Am3TP/x+KKG0+cR2hKuGchycm1L4JX2JbuqWRmicWRr8rlwrY72kglGmqGDd7AsIbnGavRh3C2yLGyNWO7pPF9zvzgqCOsOtAkHHIORzdAnY06d+XwnNp5qdBV3ir5RXxVEzOH5ivoiqzsL7F4fDslrcAY2rt81wg+OHbTgAes9uuCARAlqN2u4y9i7rxLN/cFMu30Ai46BGSwStMipfKodfEpLT5/uvK8wGbYavkQuy6eRtih9BJCYjhdkgUjmjJQnLG+eEZa3CxXMf8T0dLm1WgnJFiYdayTXJmje80zu0w1PkiyRsaAyh6/+xjaESoHwaXuSyILrw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RI4ZvFeMjLzYlGY1rF1hJ/6aYiLbdudKeutSOZqRRQg=;
- b=lH2EF5cTvwYtGMUab1n67O+1uM3POxnxmolGoLRbQx0u6F1YJy0SU3uuVOOVsj97VEr6x5HQYqVedPdQ9sXYD4JCbRbBXDs50a34voeWarLyoaOzhy9F6cKyo7k0F4QZZMflILS1GAmQa3EQPJqQPIID4ofBXylNOHrSUt69BvWEz+fuSksT7+AFGFNLWtbaHidDzg0CgP3Ys1wnv09CcD1yqcH6xqY2RZJxwXWJQjKPWjk4wL40afPgIdf6CA7xVUTg1Zcdm41rQLfSTnNz7W+5y4DgZw+lcqTEZscH1Dc03cJisvrrqPkvWjncLsoZBduyrInmXtYdA/ZFOIOO2Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=outlook.com.au; dmarc=pass action=none
- header.from=outlook.com.au; dkim=pass header.d=outlook.com.au; arc=none
-Received: from HK2APC01FT026.eop-APC01.prod.protection.outlook.com
- (2a01:111:e400:7ebc::4b) by
- HK2APC01HT238.eop-APC01.prod.protection.outlook.com (2a01:111:e400:7ebc::490)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.27; Wed, 6 May
- 2020 15:15:47 +0000
-Received: from PSXP216MB0438.KORP216.PROD.OUTLOOK.COM (10.152.248.53) by
- HK2APC01FT026.mail.protection.outlook.com (10.152.248.174) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2979.27 via Frontend Transport; Wed, 6 May 2020 15:15:47 +0000
-X-IncomingTopHeaderMarker: OriginalChecksum:700999ACCD16A2AFF04FE910C14BCBEE942B6EEEC7A4D6D4100AA494BB72F075;
- UpperCasedChecksum:34E65D70D797FC91C0465C7C0162B7E24C00D4C5A55E5D55CB9095B1A76B7D04;
- SizeAsReceived:8489; Count:48
-Received: from PSXP216MB0438.KORP216.PROD.OUTLOOK.COM
- ([fe80::21f1:20fb:d1f:8e25]) by PSXP216MB0438.KORP216.PROD.OUTLOOK.COM
- ([fe80::21f1:20fb:d1f:8e25%7]) with mapi id 15.20.2979.028; Wed, 6 May 2020
- 15:15:46 +0000
-Date: Wed, 6 May 2020 23:15:36 +0800
-From: Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>
-To: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [PATCH 0/1] Fiji GPU audio register timeout when in BACO state
-Message-ID: <PSXP216MB0438F42EB2405C4215DF0BF280A40@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
-References: <CADnq5_Mjb_FnNOzjUfJZ7GSDzi-+Cfc1ZTuqm7UWCWVvY6DU_w@mail.gmail.com>
- <s5hwo5xj98v.wl-tiwai@suse.de>
- <PSXP216MB0438FE3E1CA577805BEC23C880AA0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
- <s5hh7x0kiwb.wl-tiwai@suse.de>
- <PSXP216MB04381A30909F66867E6B6BCC80AA0@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
- <s5h1ro4kgog.wl-tiwai@suse.de> <s5h7dxuizep.wl-tiwai@suse.de>
- <20200502071728.fn2fcqvt6aies3zu@wunner.de>
- <s5h368iiyos.wl-tiwai@suse.de> <s5hpnbmhcmu.wl-tiwai@suse.de>
-Content-Disposition: inline
-In-Reply-To: <s5hpnbmhcmu.wl-tiwai@suse.de>
-X-ClientProxiedBy: SYAPR01CA0034.ausprd01.prod.outlook.com (2603:10c6:1:1::22)
- To PSXP216MB0438.KORP216.PROD.OUTLOOK.COM
- (2603:1096:300:d::20)
-X-Microsoft-Original-Message-ID: <20200506151536.GA4636@nicholas-dell-linux>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 453CF6E8A8;
+	Wed,  6 May 2020 16:31:22 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C53E66E8A4
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2020 16:21:05 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id f13so2583037qkh.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 06 May 2020 09:21:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=Dyoh+uzVopySI5FODKG7mHSszpizan+Lq+4GxuY2nZ8=;
+ b=P+43D4P1hqyTZkojEPCCJuDCm7TXg2VQDDPQxA//nlF2E86IuTMhMq6XxjWiDz0oz/
+ 3f18nbAnTq5RBz0pWEv3ceRSY2fQB2/a0ViylC4ayCemaVXZQE7XUjS1l9/1MPk33QN8
+ nHvcCpTb0qtnHhylLe0Y2fhmYvH7ULMCgo59PztdctkblFy365mIbiq8HoCRTa55XSDa
+ B7MkXM9oV1iwIiNiUiwNnmbJMVUtYa9HsYXxX09CAie92NQ+JXEIyEkDuyMZbFbYuBcR
+ RwdruGuA1FvQ32Lb9/Ze5APaYKPH27Zx+bURMQpwFXseHVsa9WIpcIanjKG0llobFndA
+ 55UA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=Dyoh+uzVopySI5FODKG7mHSszpizan+Lq+4GxuY2nZ8=;
+ b=XT9qtov4aL+dzuJ/0Z5VCu0kjs3zEPTh/6SWp++4v2ega1VxH4hqgtj/qM9C1aLCnd
+ 2rodRxYMJuViOPQg5lj6AEXkjpojEHriAAB/8/Nuj56CZB7njA7CHQ8WIoEZi+Le4iuv
+ 0MuErs71TLnKEkAD2/vXQQ/OYcz2yE2+uRFGEY9FAo1LhSW5pNSoSZswgZI7mxZX6mLB
+ wgaat8YLny86/3CBHZE3S0tVnvC/P5DnYSNdEqMtgc5oszXs8kJgepTV8uw5Cr8FcfqV
+ deIzllof4WBfk2eAsnowHyylbG8cQDSWPKXUTBbKqQW1Gbvri+jznU1G1J235w9FJQXL
+ oLvw==
+X-Gm-Message-State: AGi0Pub/x4vqWG2EcZhuenP8jdxwvMjSntKToegIFCdKxvOXgf7s0sXd
+ /6i7ao9G1UxFKLVEHZ63G37m+A==
+X-Google-Smtp-Source: APiQypL1015F99syX42d8DJqfJa0K6kyV7lWTAd4boVw1cslKJCDATld5u+wCnsBs116QhYGHusayw==
+X-Received: by 2002:a37:4383:: with SMTP id q125mr9214194qka.273.1588782064906; 
+ Wed, 06 May 2020 09:21:04 -0700 (PDT)
+Received: from ziepe.ca
+ (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
+ [142.68.57.212])
+ by smtp.gmail.com with ESMTPSA id i42sm1989348qtc.83.2020.05.06.09.21.04
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 06 May 2020 09:21:04 -0700 (PDT)
+Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
+ (envelope-from <jgg@ziepe.ca>)
+ id 1jWMn9-0002xP-UF; Wed, 06 May 2020 13:21:03 -0300
+Date: Wed, 6 May 2020 13:21:03 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: John Hubbard <jhubbard@nvidia.com>
+Subject: Re: [PATCH hmm v2 5/5] mm/hmm: remove the customizable pfn format
+ from hmm_range_fault
+Message-ID: <20200506162103.GH26002@ziepe.ca>
+References: <5-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
+ <c0d02b98-c356-60b1-6043-5b8d1a9be19a@nvidia.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from nicholas-dell-linux (2001:44b8:605f:11:45ec:d37e:a989:bf24) by
- SYAPR01CA0034.ausprd01.prod.outlook.com (2603:10c6:1:1::22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2979.26 via Frontend Transport; Wed, 6 May 2020 15:15:42 +0000
-X-Microsoft-Original-Message-ID: <20200506151536.GA4636@nicholas-dell-linux>
-X-TMN: [ZFrRSr9vjLRyEvwVgo3i/0Zmw7a1m9PV7o4xUgDwV/s2y3VWHBIesyYDYIIOArlX]
-X-MS-PublicTrafficType: Email
-X-IncomingHeaderCount: 48
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-Correlation-Id: 03fab1b8-c161-455e-05e3-08d7f1d0592c
-X-MS-TrafficTypeDiagnostic: HK2APC01HT238:
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: YFzYRAoBbjotzjAlpBV/qB1xfckF1pztQsz+6mgOuEc7L0PkkGca/inFo3/AzjPrSi+szvPbO1O9YFo3Sha/qGI6UH4k5YBnUhWE63bLpNsqfX2tzNndFYuc5co/u4ePN/Xls5SlfZMGZjIokqvUGYW1H1+F0VC1Q55W33kxdE+FAkONYYaMJlNdl+qlw0glYyft6Y88Kyi7/IVlN/r7Jw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:0; SRV:;
- IPV:NLI; SFV:NSPM; H:PSXP216MB0438.KORP216.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFTY:; SFS:; DIR:OUT; SFP:1901; 
-X-MS-Exchange-AntiSpam-MessageData: H+qiLUzndFozG4cbIahV27ULRI5oAOHjUib5yboapRrMuugOUHkgbSa3HUuCKYPPYCKoptmL5wWb8Ol6Nu95YJw6uxUgzkkyRKjob8IPhhLjSfNEGk5+GuAvHNNQIMODV5ex6TCdAsG6oMyLozZtpLOljl2W//vTcQfOEg2mXrgCqooPsHzFnqib5GFB7GRAXPCgzTiMARL9uZNz231Lcg==
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03fab1b8-c161-455e-05e3-08d7f1d0592c
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2020 15:15:46.5255 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-FromEntityHeader: Internet
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK2APC01HT238
+Content-Disposition: inline
+In-Reply-To: <c0d02b98-c356-60b1-6043-5b8d1a9be19a@nvidia.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-Mailman-Approved-At: Wed, 06 May 2020 16:31:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,69 +87,171 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Takashi Iwai <tiwai@suse.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, Lukas Wunner <lukas@wunner.de>,
- Alex Deucher <alexdeucher@gmail.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ Ralph Campbell <rcampbell@nvidia.com>, "Yang, Philip" <Philip.Yang@amd.com>,
+ nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Christoph Hellwig <hch@lst.de>, linux-mm@kvack.org,
+ =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>,
+ Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
+ intel-gfx@lists.freedesktop.org,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, May 02, 2020 at 12:09:13PM +0200, Takashi Iwai wrote:
-> On Sat, 02 May 2020 09:27:31 +0200,
-> Takashi Iwai wrote:
+On Mon, May 04, 2020 at 06:30:00PM -0700, John Hubbard wrote:
+> On 2020-05-01 11:20, Jason Gunthorpe wrote:
+> > From: Jason Gunthorpe <jgg@mellanox.com>
 > > 
-> > On Sat, 02 May 2020 09:17:28 +0200,
-> > Lukas Wunner wrote:
-> > > 
-> > > On Sat, May 02, 2020 at 09:11:58AM +0200, Takashi Iwai wrote:
-> > > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> > > > @@ -673,6 +673,12 @@ static int amdgpu_dm_audio_component_bind(struct device *kdev,
-> > > >  	struct amdgpu_device *adev = dev->dev_private;
-> > > >  	struct drm_audio_component *acomp = data;
-> > > >  
-> > > > +	if (!device_link_add(hda_kdev, kdev, DL_FLAG_STATELESS |
-> > > > +			     DL_FLAG_PM_RUNTIME)) {
-> > > > +		DRM_ERROR("DM: cannot add device link to audio device\n");
-> > > > +		return -ENOMEM;
-> > > > +	}
-> > > > +
-> > > 
-> > > Doesn't this duplicate drivers/pci/quirks.c:quirk_gpu_hda() ?
+> > Presumably the intent here was that hmm_range_fault() could put the data
+> > into some HW specific format and thus avoid some work. However, nothing
+> > actually does that, and it isn't clear how anything actually could do that
+> > as hmm_range_fault() provides CPU addresses which must be DMA mapped.
 > > 
-> > Gah, you're right, that was the place I overlooked.
-> > It was a typical "false Eureka right-after-wakeup" phenomenon :)
-> > Need a vaccine aka coffee...
+> > Perhaps there is some special HW that does not need DMA mapping, but we
+> > don't have any examples of this, and the theoretical performance win of
+> > avoiding an extra scan over the pfns array doesn't seem worth the
+> > complexity. Plus pfns needs to be scanned anyhow to sort out any
+> > DEVICE_PRIVATE pages.
 > > 
-> > So the runtime PM dependency must be already placed there, and the
-> > problem is not the lack of the dependency tree but the really other
-> > timing issue.  Back to square.
+> > This version replaces the uint64_t with an usigned long containing a pfn
+> > and fixed flags. On input flags is filled with the HMM_PFN_REQ_* values,
+> > on successful output it is filled with HMM_PFN_* values, describing the
+> > state of the pages.
+> > 
 > 
-> One interesting test is to open the stream while the mode isn't set
-> yet and see whether the same problem appears.
-> Namely, after the monitor is connected but no mode is set, run
-> directly like
->    aplay -Dhdmi:1,0 foo.wav
-> You might need to wrap the command with pasuspender if PA is active.
-I could not figure out how to get the interface for aplay set other than 
-not specifying it and having it find the default device (which can 
-change). I even used aplay -L and aplay -l to show devices. I could not 
-get it working.
+> Just some minor stuff below. I wasn't able to spot any errors in the code,
+> though, so these are just documentation nits.
+> 
+> 
+> ...
+> 
+> > 
+> > diff --git a/Documentation/vm/hmm.rst b/Documentation/vm/hmm.rst
+> > index 9924f2caa0184c..c9f2329113a47f 100644
+> > +++ b/Documentation/vm/hmm.rst
+> > @@ -185,9 +185,6 @@ The usage pattern is::
+> >         range.start = ...;
+> >         range.end = ...;
+> >         range.pfns = ...;
+> 
+> That should be:
+> 
+>           range.hmm_pfns = ...;
 
-Is there anything else I can try? I did not apply the last patch when it 
-was pointed out that it is already a quirk.
+Yep
 
-Regards,
-Nicholas
+> 
+> > -      range.flags = ...;
+> > -      range.values = ...;
+> > -      range.pfn_shift = ...;
+> >         if (!mmget_not_zero(interval_sub->notifier.mm))
+> >             return -EFAULT;
+> > @@ -229,15 +226,10 @@ The hmm_range struct has 2 fields, default_flags and pfn_flags_mask, that specif
+> >   fault or snapshot policy for the whole range instead of having to set them
+> >   for each entry in the pfns array.
+> > -For instance, if the device flags for range.flags are::
+> > +For instance if the device driver wants pages for a range with at least read
+> > +permission, it sets::
+> > -    range.flags[HMM_PFN_VALID] = (1 << 63);
+> > -    range.flags[HMM_PFN_WRITE] = (1 << 62);
+> > -
+> > -and the device driver wants pages for a range with at least read permission,
+> > -it sets::
+> > -
+> > -    range->default_flags = (1 << 63);
+> > +    range->default_flags = HMM_PFN_REQ_FAULT;
+> >       range->pfn_flags_mask = 0;
+> >   and calls hmm_range_fault() as described above. This will fill fault all pages
+> > @@ -246,18 +238,18 @@ in the range with at least read permission.
+> >   Now let's say the driver wants to do the same except for one page in the range for
+> >   which it wants to have write permission. Now driver set::
+> > -    range->default_flags = (1 << 63);
+> > -    range->pfn_flags_mask = (1 << 62);
+> > -    range->pfns[index_of_write] = (1 << 62);
+> > +    range->default_flags = HMM_PFN_REQ_FAULT;
+> > +    range->pfn_flags_mask = HMM_PFN_REQ_WRITE;
+> > +    range->pfns[index_of_write] = HMM_PFN_REQ_WRITE;
 > 
 > 
-> Takashi
+> All these choices for _WRITE behavior make it slightly confusing. I mean, it's
+> better than it was, but there are default flags, a mask, and an index as well,
+> and it looks like maybe we have a little more power and flexibility than
+> desirable? Nouveau for example is now just setting the mask only:
+
+The example is showing how to fault all pages but request write for
+only certain pages, ie it shows how to use default_flags and pfn_flags
+together in probably the only way that could make any sense
+
+> > @@ -542,12 +564,15 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
+> >   			return -EBUSY;
+> >   		range.notifier_seq = mmu_interval_read_begin(range.notifier);
+> > -		range.default_flags = 0;
+> > -		range.pfn_flags_mask = -1UL;
+> >   		down_read(&mm->mmap_sem);
+> >   		ret = hmm_range_fault(&range);
+> >   		up_read(&mm->mmap_sem);
+> >   		if (ret) {
+> > +			/*
+> > +			 * FIXME: the input PFN_REQ flags are destroyed on
+> > +			 * -EBUSY, we need to regenerate them, also for the
+> > +			 * other continue below
+> > +			 */
+> 
+> How serious is this FIXME? It seems like we could get stuck in a loop here,
+> if we're not issuing a new REQ, right?
+
+Serious enough someone should fix it and not copy it into other
+drivers..
+ 
+> >   			if (ret == -EBUSY)
+> >   				continue;
+> >   			return ret;
+> > @@ -562,7 +587,7 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
+> >   		break;
+> >   	}
+> > -	nouveau_dmem_convert_pfn(drm, &range);
+> > +	nouveau_hmm_convert_pfn(drm, &range, ioctl_addr);
+> >   	svmm->vmm->vmm.object.client->super = true;
+> >   	ret = nvif_object_ioctl(&svmm->vmm->vmm.object, data, size, NULL);
+> > @@ -589,6 +614,7 @@ nouveau_svm_fault(struct nvif_notify *notify)
+> >   		} i;
+> >   		u64 phys[16];
+> >   	} args;
+> > +	unsigned long hmm_pfns[ARRAY_SIZE(args.phys)];
+> 
+> 
+> Is there a risk of blowing up the stack here?
+
+16*8 is pretty small, but the call stack is very long sadly, since
+Ralph succeed it seems OK
+
+> >    */
+> > -enum hmm_pfn_flag_e {
+> > -	HMM_PFN_VALID = 0,
+> > -	HMM_PFN_WRITE,
+> > -	HMM_PFN_FLAG_MAX
+> > +enum hmm_pfn_flags {
+> 
+> Let's add:
+> 
+>         /* Output flags: */
+> 
+> > +	HMM_PFN_VALID = 1UL << (BITS_PER_LONG - 1),
+> > +	HMM_PFN_WRITE = 1UL << (BITS_PER_LONG - 2),
+> > +	HMM_PFN_ERROR = 1UL << (BITS_PER_LONG - 3),
+> > +
+> 
+>         /* Input flags: */
+
+Ok
+
+Thanks,
+Jason
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
