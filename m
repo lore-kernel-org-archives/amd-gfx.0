@@ -1,77 +1,103 @@
 Return-Path: <SRS0=JxR8=6U=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DC4AC38A2A
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 09:44:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 94B38C28CBC
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 10:11:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 517F72070B
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 09:44:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5054F2073A
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 10:11:01 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WonYaHDX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 517F72070B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wfToHPkM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5054F2073A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03D946E038;
-	Wed,  6 May 2020 09:44:26 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8606C6E038
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2020 09:44:24 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id j5so1401281wrq.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 06 May 2020 02:44:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=rr1dXUNKib3PD/PhDNNQgsD3xdAeO3sMwNSpMRmQZsk=;
- b=WonYaHDX+pgQeetrQq1NEP14C/9sTHNkBv+sW7bImQRatpNUQfsyqhg7/UtiP8qh+y
- tw+8zTJnk5YFa8NQ4l1O8ruWeoTTYoshjiSH0/LTzZxOGZW1tk1gBXJrEqaz7xCVtgmR
- ln+i713VZkept1xsKaquCq4pBXdCkfKZ9TXhzFrDzsim+1e3Hh//eE37z0m5O1nUoINN
- 7Fkp5kY/sUr7xV8D6P62GDfvu/33+K/q/12+LcRaFWeMiZ3NAcftUU68/p4RV6QSf1Pl
- i8mHwVkHh5//l+LYdyLbmeEpi0NnogbCMR2dqb2t5QRlQi5vqhMqvPTscAoNNucHFcb2
- krMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-transfer-encoding
- :content-language;
- bh=rr1dXUNKib3PD/PhDNNQgsD3xdAeO3sMwNSpMRmQZsk=;
- b=NY2cpA8L/ey0/VyPm/NJLjtC9pD04rdGZWbg4NUWAtzc1C10mfQbwTm2yVmktU9YNA
- 13aR7VTP3NiCRnwIOLCvP3kvrfqUrxbtCMoWlUnMvS3VAHLdcsyOwlo9oNOQkmaGtRHA
- dxSZlW+RqBIp+R4vpKbxHXXnPdbGZ+EJSDE5L4YXDRoAMlM+Nwr9YSHOjotKgP9PkWMM
- 1FkwjTSjZPhE1dra8EjIzPMWkrWchuQkeTauPIQ1J4FrAcs7zzi6KewAQlwasaQddTKf
- AumVd+Dylfku7bA0hjRDKPqecAtqknF9aFStldXEolTaa+OJpJtSRYheG0hAkE6VRDkj
- 8UDQ==
-X-Gm-Message-State: AGi0PuZgfR0NzP7J6+nPdOWX2cJEH1R1CbuQVN+Vyem9m3CVkbYS3XcT
- u6bhgxW0m8RZ70u/zSpwk/QzJpwl
-X-Google-Smtp-Source: APiQypL3C2J2vhInNXNLMC6xLICqGwLgiY+Zv6v+SNadhavvTl8/IcKh7xgHE2Kj3WkmxwSA5jYlOw==
-X-Received: by 2002:adf:f887:: with SMTP id u7mr8236585wrp.369.1588758262720; 
- Wed, 06 May 2020 02:44:22 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id v16sm2166448wml.30.2020.05.06.02.44.21
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 06 May 2020 02:44:22 -0700 (PDT)
-Subject: Re: [PATCH] drm/amdgpu: avoid clearing freed bo with sdma in gpu reset
-To: Tiecheng Zhou <Tiecheng.Zhou@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200506093626.13501-1-Tiecheng.Zhou@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <1dba2b3b-d5b2-42a4-74e9-530658d039bd@gmail.com>
-Date: Wed, 6 May 2020 11:44:21 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF2926E84C;
+	Wed,  6 May 2020 10:11:00 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E55076E84C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2020 10:10:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=k3uhhqsbENZXVcMGTMFu+OlhyFFFtgmiHOxP+n0KGVME2eu3TFGP44gHBK0N3KDx+65HYx1bkmOc5l/LjBY7VQFSyC8Kj2Bqjx/2oE98AOFIlhb4uUzdh4s1cK4bEr8kNpghmayu1N0aNTyuidKIhJiegsRRsSvTgFxJ5hsf0AGi9PZpY3AX+TB6jk6tpm+nR4omD/zRYf8IQcxX7+IHCfZ5eaYUMiQnZi/1ALn0t3HEJTAzn3XohI/5xH95scSbA/Gb+z9QpKiPM3AOQXHeMqm9A8Pzu/TRSGnmF/MNmtSzhLVVUKbS+T+xSEuJyJjcVuHyK3RDtuFFrM6ZPjLCVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o71K5YXy/5W5zbeZqk13Iy9G72XyeRRlipzW+GrYUpk=;
+ b=YFwslPDFnA4WGup8VKyQJN2ShUEp4yWBy/ChZlbkZBw4KI5Dt4QpZKdOoHithJTwBMKGWgmkYXd8/HEHUD8FojTwzFN/AIGSEQTMNMkQG+8fA19hFuOTXwqJNBGC7Bws7IBwPoMwE7hjyX3e6haztOjHGcA9dFWlY3REbZIa8E79glYmcZFigja631y75WNeq7JC2kcv9dVmxVx/GuovUwSm4OICwn+fsWwB+TjVw58FmdznUFRbHg3RcbeV8PHxBF6Ifqo3I3yvLNzXBKjjp9DuayCj8eE6DgF3bKEMF4bc392/+PNQo0vi1kHvrN86J1WmJMhheqEe0Lv4vYkTeg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o71K5YXy/5W5zbeZqk13Iy9G72XyeRRlipzW+GrYUpk=;
+ b=wfToHPkMnlI2kY001TcqrVWmpGTszScYfPQIbapRt5NHAgncRApLLt8PszNK+BlriHLVcUfngNI/BTz0MQ9XzNyrf/kd/vlJpcOKFeMR+BSpR0/rmkJAzDys82DybfWvsJrO0+MNZBhge0TpjsVjBLmoQVKvW4yrFyitQSqSgAo=
+Received: from SN1PR12MB2558.namprd12.prod.outlook.com (2603:10b6:802:2b::18)
+ by SN1PR12MB2527.namprd12.prod.outlook.com (2603:10b6:802:23::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.28; Wed, 6 May
+ 2020 10:10:57 +0000
+Received: from SN1PR12MB2558.namprd12.prod.outlook.com
+ ([fe80::ec5f:a26:8530:3b9f]) by SN1PR12MB2558.namprd12.prod.outlook.com
+ ([fe80::ec5f:a26:8530:3b9f%6]) with mapi id 15.20.2979.028; Wed, 6 May 2020
+ 10:10:56 +0000
+From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [bug report] drm/amdgpu: add amdgpu_ras.c to support ras (v2)
+Thread-Topic: [bug report] drm/amdgpu: add amdgpu_ras.c to support ras (v2)
+Thread-Index: AQHWIr1ZHoATYm2B+U+G4L4WnXqlF6iaqcYAgAAfGQCAAA0BNw==
+Date: Wed, 6 May 2020 10:10:56 +0000
+Message-ID: <SN1PR12MB2558A472D85D6296CE250BBF87A40@SN1PR12MB2558.namprd12.prod.outlook.com>
+References: <20200505091239.GA117990@mwanda>
+ <BYAPR12MB288896162E5761D45A5077DFB0A40@BYAPR12MB2888.namprd12.prod.outlook.com>,
+ <20200506091734.GH1992@kadam>
+In-Reply-To: <20200506091734.GH1992@kadam>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-06T10:04:06.0398757Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Privileged
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [101.88.247.85]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: bb7dda53-0c18-4281-6017-08d7f1a5c4be
+x-ms-traffictypediagnostic: SN1PR12MB2527:|SN1PR12MB2527:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <SN1PR12MB2527BA0BFED6F677EDB974F887A40@SN1PR12MB2527.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:281;
+x-forefront-prvs: 03950F25EC
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: wQuPUYzrWZKqCgpt7JvI9BTldluJ9B/FjbsM1oWCoxbuDV0pAj5EcZGrx8NJBKqOer4mgrnclUSvBjj2DsPF2casQDVe81achTD8Z/ycovOWi8Z/BTSHFZVc5N7LNptp9lG6exNnztj09Rhidr8pRcchcTChPyUDfO3GRwp+RJxRimdB+TPivWrYm7f/oXYTvFjd+efGPkgk5UgCkTU90Slh440NZr3iw3kkw/sEx/CgDkmD/LOYuf6dhaEMXK4hvLpWq+ozxyGUCXxhCMLv/5cRpRiG9Zz8RzTfe8/Kd3pWz3OvwxtLvPDibcemZii62z8om4fwRmoDjNPNJFzAChyxg205Z32v8G2i0Ak5sjPS2oE3jR/ffAVdPj3Ld7vHw1oCnhgvV1+W10qLZR1/Xlk+tYOzPeoTbbyqnAJhIUDvoSzyqn8y3+oGHNxP0tEZ4QT+lpl6uwORS05a47dDczYF1OVpBd3u+JBYCTbH6YqAZrsjx5eX33l4abEmV4ivLiXxVmHQCiKY3rLHg2EgXg==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN1PR12MB2558.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(346002)(376002)(136003)(366004)(39860400002)(396003)(33430700001)(66556008)(64756008)(66476007)(66446008)(66946007)(7696005)(52536014)(186003)(86362001)(8676002)(26005)(33656002)(71200400001)(53546011)(6506007)(55016002)(478600001)(9686003)(110136005)(33440700001)(4326008)(91956017)(316002)(5660300002)(2906002)(76116006)(8936002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: mP4+b391xACHxlAVnnNhBPuwsO408KY3QzfOPR3MHCdh6Lnoc1CPbS/Fxxr/Ppa9J1g0Om1fplKGTtDgdN6Aptx6LpNgWnc3FXUaZgxE+CRgsfePZXiaTxlmtbte5hKBVWsexycIUWWGusBCN2KOdK7wB3i/bakd752Din5U1NTHK2KMCkFNFMFCTE5puYPsCSWcfYi452j5UsWs5pT4zlAjJ+hVEPcrVu9I+IJaWiR9SwwbOwin2kTyST/PUsqS/pPYhrCNRr34tD910/M0KHujJUSySMNOT8k41rQVjaCHCS1KQEcMDDBqTrfk77XpAPYKccZgYExHXFjZ7vJsMKk/+R7ode6ymh0GPpeGYjVg5RmlgR+mqiY2ceuQTOpXqy5KLaWcwcT4jq5/bozSCCn/M1M9AuV59J3IedshLNwTeLgAxww6uVItEjW0WhwDEPPlTF3YvRQF8jnAJ+/fLMNm3tf4dzRB7M0CX+jIju2JtYBEfdASeLtiq0OmuCS9Am66DH+AtpzGjpUEtxAQxhXnAgtA9PvhDtkyBQmkk520Yqe299Nb5//6WZA4Hx6LVBZZt27nEmw2RSLr1YBPgabmE6JiZW6bSN10q+9Rjcrsn2QbLRf25Qt0NkBwPEOu1NmZiXJsBX0Xtyd3w38LOKY6hbDsKnj5sYExpu1gBagXOz8fnykgE9MT4JSwBlC8+2pekSFoV/58TCPpZ9nCUjatLX3fgfrhOhV6QGllZgu4uwIFMqq9BTs8PzqCR5PRZxdzwDncAlReVZeiVlnSxnD+lRThptV3ZwFSQJZKW+Y=
 MIME-Version: 1.0
-In-Reply-To: <20200506093626.13501-1-Tiecheng.Zhou@amd.com>
-Content-Language: en-US
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb7dda53-0c18-4281-6017-08d7f1a5c4be
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 May 2020 10:10:56.7354 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: FxkAwJPnTlU1moMG9NlMj6aBg2e1SjtS2zMmbyDj/MdCBrjfUanrJaHl5vQ+EDWy
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2527
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,128 +109,422 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============0664415879=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-NAK, the fundamental problem was that we disabled the SDMA paging queue 
-during reset:
-> [  885.694682] [drm] schedpage0 is not ready, skipping
-> [  885.694682] [drm] schedpage1 is not ready, skipping
+--===============0664415879==
+Content-Language: zh-CN
+Content-Type: multipart/alternative;
+	boundary="_000_SN1PR12MB2558A472D85D6296CE250BBF87A40SN1PR12MB2558namp_"
 
-This is fixed by now, so the problem should not happen any more.
+--_000_SN1PR12MB2558A472D85D6296CE250BBF87A40SN1PR12MB2558namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Regards,
-Christian.
+[AMD Official Use Only - Internal Distribution Only]
+
+no.  below function checks if block is valid or not.
+I think you need check your code_checker. or you were checking on a very ol=
+d codebase?
+
+/* check if ras is supported on block, say, sdma, gfx */
+static inline int amdgpu_ras_is_supported(struct amdgpu_device *adev,
+unsigned int block)
+________________________________
+From: Dan Carpenter <dan.carpenter@oracle.com>
+Sent: Wednesday, May 6, 2020 5:17:34 PM
+To: Zhou1, Tao <Tao.Zhou1@amd.com>
+Cc: Pan, Xinhui <Xinhui.Pan@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
+x@lists.freedesktop.org>
+Subject: Re: [bug report] drm/amdgpu: add amdgpu_ras.c to support ras (v2)
+
+On Wed, May 06, 2020 at 07:26:16AM +0000, Zhou1, Tao wrote:
+> [AMD Public Use]
+>
+> Hi Dan:
+>
+> Please check the following piece of code in amdgpu_ras_debugfs_ctrl_parse=
+_data:
+>
+>        if (op !=3D -1) {
+>                if (amdgpu_ras_find_block_id_by_name(block_name, &block_id=
+))
+>                        return -EINVAL;
+>
+>                data->head.block =3D block_id;
+>
+> amdgpu_ras_find_block_id_by_name will return error directly if someone tr=
+y to provide an invalid block_name intentionally via debugfs.
+>
+
+No.  It's the line after that which are the problem.
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+   147  static int amdgpu_ras_debugfs_ctrl_parse_data(struct file *f,
+   148                  const char __user *buf, size_t size,
+   149                  loff_t *pos, struct ras_debug_if *data)
+   150  {
+   151          ssize_t s =3D min_t(u64, 64, size);
+   152          char str[65];
+   153          char block_name[33];
+   154          char err[9] =3D "ue";
+   155          int op =3D -1;
+   156          int block_id;
+   157          uint32_t sub_block;
+   158          u64 address, value;
+   159
+   160          if (*pos)
+   161                  return -EINVAL;
+   162          *pos =3D size;
+   163
+   164          memset(str, 0, sizeof(str));
+   165          memset(data, 0, sizeof(*data));
+   166
+   167          if (copy_from_user(str, buf, s))
+   168                  return -EINVAL;
+   169
+   170          if (sscanf(str, "disable %32s", block_name) =3D=3D 1)
+   171                  op =3D 0;
+   172          else if (sscanf(str, "enable %32s %8s", block_name, err) =
+=3D=3D 2)
+   173                  op =3D 1;
+   174          else if (sscanf(str, "inject %32s %8s", block_name, err) =
+=3D=3D 2)
+   175                  op =3D 2;
+   176          else if (str[0] && str[1] && str[2] && str[3])
+   177                  /* ascii string, but commands are not matched. */
+
+Say we don't write an ascii string.
+
+   178                  return -EINVAL;
+   179
+   180          if (op !=3D -1) {
+   181                  if (amdgpu_ras_find_block_id_by_name(block_name, &b=
+lock_id))
+   182                          return -EINVAL;
+   183
+   184                  data->head.block =3D block_id;
+   185                  /* only ue and ce errors are supported */
+   186                  if (!memcmp("ue", err, 2))
+   187                          data->head.type =3D AMDGPU_RAS_ERROR__MULTI=
+_UNCORRECTABLE;
+   188                  else if (!memcmp("ce", err, 2))
+   189                          data->head.type =3D AMDGPU_RAS_ERROR__SINGL=
+E_CORRECTABLE;
+   190                  else
+   191                          return -EINVAL;
+   192
+   193                  data->op =3D op;
+   194
+   195                  if (op =3D=3D 2) {
+   196                          if (sscanf(str, "%*s %*s %*s %u %llu %llu",
+   197                                                  &sub_block, &addres=
+s, &value) !=3D 3)
+   198                                  if (sscanf(str, "%*s %*s %*s 0x%x 0=
+x%llx 0x%llx",
+   199                                                          &sub_block,=
+ &address, &value) !=3D 3)
+   200                                          return -EINVAL;
+   201                          data->head.sub_block_index =3D sub_block;
+   202                          data->inject.address =3D address;
+   203                          data->inject.value =3D value;
+   204                  }
+   205          } else {
+   206                  if (size < sizeof(*data))
+   207                          return -EINVAL;
+   208
+   209                  if (copy_from_user(data, buf, sizeof(*data)))
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+This lets us set the data->head.block to whatever we want.  Premusably
+there is a trusted app which knows how to write the correct values.
+But if it has a bug that will cause a crash and we'll have to find a
+way to disable it in the kernel for kernel lock down mode etc so either
+way we'll need to do a bit of work.
+
+   210                          return -EINVAL;
+   211          }
+   212
+   213          return 0;
+   214  }
+
+regards,
+dan carpenter
 
 
-Am 06.05.20 um 11:36 schrieb Tiecheng Zhou:
-> WHY:
-> For V320 passthrough and "modprobe amdgpu lockup_timeout=500", there will be
-> kernel NULL pointer when using quark ~ BACO reset, for instance:
->    hang_vm_compute0_bad_cs_dispatch.lua
->    hang_vm_dma0_corrupted_header.lua
->    etc.
-> -----------------------------
-> [  884.792885] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* ring comp_1.0.0 timeout, signaled seq=3, emitted seq=4
-> [  884.793772] [drm:amdgpu_job_timedout [amdgpu]] *ERROR* Process information: process quark pid 16939 thread quark pid 16940
-> [  884.859979] amdgpu: [powerplay] set virtualization GFX DPM policy success
-> [  884.861003] amdgpu: [powerplay] activate virtualization GFX DPM policy success
-> [  884.861065] amdgpu: [powerplay] set virtualization VCE DPM policy success
-> [  885.693554] [drm:amdgpu_cs_ioctl [amdgpu]] *ERROR* Failed to initialize parser -125!
-> [  885.694682] [drm] schedpage0 is not ready, skipping
-> [  885.694682] [drm] schedpage1 is not ready, skipping
-> [  885.694720] [drm:amdgpu_gem_va_ioctl [amdgpu]] *ERROR* Couldn't update BO_VA (-2)
-> [  885.695328] BUG: unable to handle kernel NULL pointer dereference at 0000000000000008
-> [  885.695909] PGD 0 P4D 0
-> [  885.696104] Oops: 0000 [#1] SMP PTI
-> [  885.696368] CPU: 2 PID: 16940 Comm: quark Tainted: G           OE     4.19.52+ #6
-> [  885.696945] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.10.2-1 04/01/2014
-> [  885.697593] RIP: 0010:amdgpu_vm_sdma_commit+0x59/0x130 [amdgpu]
-> ...
-> [  885.705042] Call Trace:
-> [  885.705251]  ? amdgpu_vm_bo_update_mapping+0xdf/0xf0 [amdgpu]
-> [  885.705696]  ? amdgpu_vm_clear_freed+0xcc/0x1b0 [amdgpu]
-> [  885.706112]  ? amdgpu_gem_va_ioctl+0x4a1/0x510 [amdgpu]
-> [  885.706493]  ? __radix_tree_delete+0x7e/0xa0
-> [  885.706822]  ? amdgpu_gem_va_map_flags+0x70/0x70 [amdgpu]
-> [  885.707220]  ? drm_ioctl_kernel+0xaa/0xf0 [drm]
-> [  885.707568]  ? amdgpu_gem_va_map_flags+0x70/0x70 [amdgpu]
-> [  885.707962]  ? drm_ioctl_kernel+0xaa/0xf0 [drm]
-> [  885.708294]  ? drm_ioctl+0x3a7/0x3f0 [drm]
-> [  885.708632]  ? amdgpu_gem_va_map_flags+0x70/0x70 [amdgpu]
-> [  885.709032]  ? unmap_region+0xd9/0x120
-> [  885.709328]  ? amdgpu_drm_ioctl+0x49/0x80 [amdgpu]
-> [  885.709684]  ? do_vfs_ioctl+0xa1/0x620
-> [  885.709971]  ? do_munmap+0x32e/0x430
-> [  885.710232]  ? ksys_ioctl+0x66/0x70
-> [  885.710513]  ? __x64_sys_ioctl+0x16/0x20
-> [  885.710806]  ? do_syscall_64+0x55/0x100
-> [  885.711092]  ? entry_SYSCALL_64_after_hwframe+0x44/0xa9
-> ...
-> [  885.719408] ---[ end trace 7ee3180f42e9f572 ]---
-> [  885.719766] RIP: 0010:amdgpu_vm_sdma_commit+0x59/0x130 [amdgpu]
-> ...
-> -----------------------------
+--_000_SN1PR12MB2558A472D85D6296CE250BBF87A40SN1PR12MB2558namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> the NULL pointer (entity->rq == NULL in amdgpu_vm_sdma_commit()) as follows:
-> 1. quark sends bad job that triggers job timeout;
-> 2. guest KMD detects the job timeout and goes to gpu recovery, and it goes to
->     ip_suspend for SDMA, and it sets sdma[].sched.ready to false;
-> 3. quark sends UNMAP operation through amdgpu_gem_va_ioctl, and guest KMD goes
->     through amdgpu_gem_va_update_vm and finally goes to amdgpu_vm_sdma_commit,
->     it goes to amdgpu_job_submit to drm_sched_job_init
-> 4. drm_sched_job_init fails at drm_sched_pick_best() since
->     sdma[].sched.ready is set to false; in the meanwhile entity->rq becomes NULL;
-> 5. quark sends other UNMAP operations through amdgpu_gem_va_ioctl, while this time
->     there will be NULL pointer because entity->rq is NULL;
+</head>
+<body>
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+no.&nbsp; below function checks if block is valid or not.<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+I think you need check your code_checker. or you were checking on a very ol=
+d codebase?<br>
+<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+/* check if ras is supported on block, say, sdma, gfx */<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+static inline int amdgpu_ras_is_supported(struct amdgpu_device *adev,<br>
+</div>
+<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
+ly: sans-serif; font-size: 11pt; color: black; ">
+unsigned int block)<br>
+</div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Dan Carpenter &lt;dan=
+.carpenter@oracle.com&gt;<br>
+<b>Sent:</b> Wednesday, May 6, 2020 5:17:34 PM<br>
+<b>To:</b> Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;<br>
+<b>Cc:</b> Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;; amd-gfx@lists.freedeskto=
+p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> Re: [bug report] drm/amdgpu: add amdgpu_ras.c to support ra=
+s (v2)</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">On Wed, May 06, 2020 at 07:26:16AM &#43;0000, Zhou=
+1, Tao wrote:<br>
+&gt; [AMD Public Use]<br>
+&gt; <br>
+&gt; Hi Dan:<br>
+&gt; <br>
+&gt; Please check the following piece of code in amdgpu_ras_debugfs_ctrl_pa=
+rse_data:<br>
+&gt; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (op !=3D -1) {<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; if (amdgpu_ras_find_block_id_by_name(block_name, &amp;b=
+lock_id))<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
+-EINVAL;<br>
+&gt; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; data-&gt;head.block =3D block_id;<br>
+&gt; <br>
+&gt; amdgpu_ras_find_block_id_by_name will return error directly if someone=
+ try to provide an invalid block_name intentionally via debugfs.<br>
+&gt; <br>
+<br>
+No.&nbsp; It's the line after that which are the problem.<br>
+<br>
+drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
+&nbsp;&nbsp; 147&nbsp; static int amdgpu_ras_debugfs_ctrl_parse_data(struct=
+ file *f,<br>
+&nbsp;&nbsp; 148&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char __user *buf, size_t =
+size,<br>
+&nbsp;&nbsp; 149&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loff_t *pos, struct ras_debug_i=
+f *data)<br>
+&nbsp;&nbsp; 150&nbsp; {<br>
+&nbsp;&nbsp; 151&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ssiz=
+e_t s =3D min_t(u64, 64, size);<br>
+&nbsp;&nbsp; 152&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char=
+ str[65];<br>
+&nbsp;&nbsp; 153&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char=
+ block_name[33];<br>
+&nbsp;&nbsp; 154&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char=
+ err[9] =3D &quot;ue&quot;;<br>
+&nbsp;&nbsp; 155&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int =
+op =3D -1;<br>
+&nbsp;&nbsp; 156&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int =
+block_id;<br>
+&nbsp;&nbsp; 157&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
+32_t sub_block;<br>
+&nbsp;&nbsp; 158&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 =
+address, value;<br>
+&nbsp;&nbsp; 159&nbsp; <br>
+&nbsp;&nbsp; 160&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (=
+*pos)<br>
+&nbsp;&nbsp; 161&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;&nbsp; 162&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *pos=
+ =3D size;<br>
+&nbsp;&nbsp; 163&nbsp; <br>
+&nbsp;&nbsp; 164&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mems=
+et(str, 0, sizeof(str));<br>
+&nbsp;&nbsp; 165&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mems=
+et(data, 0, sizeof(*data));<br>
+&nbsp;&nbsp; 166&nbsp; <br>
+&nbsp;&nbsp; 167&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (=
+copy_from_user(str, buf, s))<br>
+&nbsp;&nbsp; 168&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;&nbsp; 169&nbsp; <br>
+&nbsp;&nbsp; 170&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (=
+sscanf(str, &quot;disable %32s&quot;, block_name) =3D=3D 1)<br>
+&nbsp;&nbsp; 171&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; op =3D 0;<br>
+&nbsp;&nbsp; 172&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else=
+ if (sscanf(str, &quot;enable %32s %8s&quot;, block_name, err) =3D=3D 2)<br=
 >
-> the above sequence occurs only when "modprobe amdgpu lockup_timeout=500".
-> it does not occur when lockup_timeout=10000 (default) because step 2. KMD detects
-> job timeout will be sometime after quark sends UNMAP operations; i.e. quark UNMAP
-> opeartions are finished before sdma ip suspend.
+&nbsp;&nbsp; 173&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; op =3D 1;<br>
+&nbsp;&nbsp; 174&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else=
+ if (sscanf(str, &quot;inject %32s %8s&quot;, block_name, err) =3D=3D 2)<br=
 >
-> HOW:
-> here is to add mutex_lock to wait to avoid using sdma during gpu reset.
+&nbsp;&nbsp; 175&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; op =3D 2;<br>
+&nbsp;&nbsp; 176&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else=
+ if (str[0] &amp;&amp; str[1] &amp;&amp; str[2] &amp;&amp; str[3])<br>
+&nbsp;&nbsp; 177&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* ascii string, but commands a=
+re not matched. */<br>
+<br>
+Say we don't write an ascii string.<br>
+<br>
+&nbsp;&nbsp; 178&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;&nbsp; 179&nbsp; <br>
+&nbsp;&nbsp; 180&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (=
+op !=3D -1) {<br>
+&nbsp;&nbsp; 181&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ras_find_block_id_by=
+_name(block_name, &amp;block_id))<br>
+&nbsp;&nbsp; 182&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;&nbsp; 183&nbsp; <br>
+&nbsp;&nbsp; 184&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;head.block =3D block_i=
+d;<br>
+&nbsp;&nbsp; 185&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* only ue and ce errors are su=
+pported */<br>
+&nbsp;&nbsp; 186&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!memcmp(&quot;ue&quot;, err=
+, 2))<br>
+&nbsp;&nbsp; 187&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; data-&gt;head.type =3D AMDGPU_RAS_ERROR__MULTI_UNCORRECTAB=
+LE;<br>
+&nbsp;&nbsp; 188&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (!memcmp(&quot;ce&quot;=
+, err, 2))<br>
+&nbsp;&nbsp; 189&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; data-&gt;head.type =3D AMDGPU_RAS_ERROR__SINGLE_CORRECTABL=
+E;<br>
+&nbsp;&nbsp; 190&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
+&nbsp;&nbsp; 191&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;&nbsp; 192&nbsp; <br>
+&nbsp;&nbsp; 193&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;op =3D op;<br>
+&nbsp;&nbsp; 194&nbsp; <br>
+&nbsp;&nbsp; 195&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (op =3D=3D 2) {<br>
+&nbsp;&nbsp; 196&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; if (sscanf(str, &quot;%*s %*s %*s %u %llu %llu&quot;,<br>
+&nbsp;&nbsp; 197&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; &amp;sub_block, &amp;address, &amp;value) !=3D 3)<br>
+&nbsp;&nbsp; 198&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (sscanf=
+(str, &quot;%*s %*s %*s 0x%x 0x%llx 0x%llx&quot;,<br>
+&nbsp;&nbsp; 199&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sub_block, =
+&amp;address, &amp;value) !=3D 3)<br>
+&nbsp;&nbsp; 200&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;&nbsp; 201&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; data-&gt;head.sub_block_index =3D sub_block;<br>
+&nbsp;&nbsp; 202&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; data-&gt;inject.address =3D address;<br>
+&nbsp;&nbsp; 203&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; data-&gt;inject.value =3D value;<br>
+&nbsp;&nbsp; 204&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp; 205&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } el=
+se {<br>
+&nbsp;&nbsp; 206&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (size &lt; sizeof(*data))<br=
 >
-> Signed-off-by: Tiecheng Zhou <Tiecheng.Zhou@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 4 ++++
->   1 file changed, 4 insertions(+)
+&nbsp;&nbsp; 207&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;&nbsp; 208&nbsp; <br>
+&nbsp;&nbsp; 209&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (copy_from_user(data, buf, s=
+izeof(*data)))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp; ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br>
+This lets us set the data-&gt;head.block to whatever we want.&nbsp; Premusa=
+bly<br>
+there is a trusted app which knows how to write the correct values.<br>
+But if it has a bug that will cause a crash and we'll have to find a<br>
+way to disable it in the kernel for kernel lock down mode etc so either<br>
+way we'll need to do a bit of work.<br>
+<br>
+&nbsp;&nbsp; 210&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp; return -EINVAL;<br>
+&nbsp;&nbsp; 211&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br=
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index e205ecc75a21..018b88f3b6da 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -2047,6 +2047,8 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
->   	struct dma_fence *f = NULL;
->   	int r;
->   
-> +	mutex_lock(&adev->lock_reset);
-> +
->   	while (!list_empty(&vm->freed)) {
->   		mapping = list_first_entry(&vm->freed,
->   			struct amdgpu_bo_va_mapping, list);
-> @@ -2062,6 +2064,7 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
->   		amdgpu_vm_free_mapping(adev, vm, mapping, f);
->   		if (r) {
->   			dma_fence_put(f);
-> +			mutex_unlock(&adev->lock_reset);
->   			return r;
->   		}
->   	}
-> @@ -2073,6 +2076,7 @@ int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
->   		dma_fence_put(f);
->   	}
->   
-> +	mutex_unlock(&adev->lock_reset);
->   	return 0;
->   
->   }
+&nbsp;&nbsp; 212&nbsp; <br>
+&nbsp;&nbsp; 213&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retu=
+rn 0;<br>
+&nbsp;&nbsp; 214&nbsp; }<br>
+<br>
+regards,<br>
+dan carpenter<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_SN1PR12MB2558A472D85D6296CE250BBF87A40SN1PR12MB2558namp_--
+
+--===============0664415879==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0664415879==--
