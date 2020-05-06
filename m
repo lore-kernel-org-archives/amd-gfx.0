@@ -1,81 +1,94 @@
 Return-Path: <SRS0=JxR8=6U=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ACAA6C4724C
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 16:31:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39E26C28CBC
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 16:36:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 83186214D8
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 16:31:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0B08C20708
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 16:36:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="P+43D4P1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 83186214D8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ee2Q3aLG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0B08C20708
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 453CF6E8A8;
-	Wed,  6 May 2020 16:31:22 +0000 (UTC)
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C53E66E8A4
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2020 16:21:05 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id f13so2583037qkh.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 06 May 2020 09:21:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=Dyoh+uzVopySI5FODKG7mHSszpizan+Lq+4GxuY2nZ8=;
- b=P+43D4P1hqyTZkojEPCCJuDCm7TXg2VQDDPQxA//nlF2E86IuTMhMq6XxjWiDz0oz/
- 3f18nbAnTq5RBz0pWEv3ceRSY2fQB2/a0ViylC4ayCemaVXZQE7XUjS1l9/1MPk33QN8
- nHvcCpTb0qtnHhylLe0Y2fhmYvH7ULMCgo59PztdctkblFy365mIbiq8HoCRTa55XSDa
- B7MkXM9oV1iwIiNiUiwNnmbJMVUtYa9HsYXxX09CAie92NQ+JXEIyEkDuyMZbFbYuBcR
- RwdruGuA1FvQ32Lb9/Ze5APaYKPH27Zx+bURMQpwFXseHVsa9WIpcIanjKG0llobFndA
- 55UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=Dyoh+uzVopySI5FODKG7mHSszpizan+Lq+4GxuY2nZ8=;
- b=XT9qtov4aL+dzuJ/0Z5VCu0kjs3zEPTh/6SWp++4v2ega1VxH4hqgtj/qM9C1aLCnd
- 2rodRxYMJuViOPQg5lj6AEXkjpojEHriAAB/8/Nuj56CZB7njA7CHQ8WIoEZi+Le4iuv
- 0MuErs71TLnKEkAD2/vXQQ/OYcz2yE2+uRFGEY9FAo1LhSW5pNSoSZswgZI7mxZX6mLB
- wgaat8YLny86/3CBHZE3S0tVnvC/P5DnYSNdEqMtgc5oszXs8kJgepTV8uw5Cr8FcfqV
- deIzllof4WBfk2eAsnowHyylbG8cQDSWPKXUTBbKqQW1Gbvri+jznU1G1J235w9FJQXL
- oLvw==
-X-Gm-Message-State: AGi0Pub/x4vqWG2EcZhuenP8jdxwvMjSntKToegIFCdKxvOXgf7s0sXd
- /6i7ao9G1UxFKLVEHZ63G37m+A==
-X-Google-Smtp-Source: APiQypL1015F99syX42d8DJqfJa0K6kyV7lWTAd4boVw1cslKJCDATld5u+wCnsBs116QhYGHusayw==
-X-Received: by 2002:a37:4383:: with SMTP id q125mr9214194qka.273.1588782064906; 
- Wed, 06 May 2020 09:21:04 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id i42sm1989348qtc.83.2020.05.06.09.21.04
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 06 May 2020 09:21:04 -0700 (PDT)
-Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
- (envelope-from <jgg@ziepe.ca>)
- id 1jWMn9-0002xP-UF; Wed, 06 May 2020 13:21:03 -0300
-Date: Wed, 6 May 2020 13:21:03 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: John Hubbard <jhubbard@nvidia.com>
-Subject: Re: [PATCH hmm v2 5/5] mm/hmm: remove the customizable pfn format
- from hmm_range_fault
-Message-ID: <20200506162103.GH26002@ziepe.ca>
-References: <5-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
- <c0d02b98-c356-60b1-6043-5b8d1a9be19a@nvidia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id AEFA08826D;
+	Wed,  6 May 2020 16:36:38 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750088.outbound.protection.outlook.com [40.107.75.88])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F4378826D;
+ Wed,  6 May 2020 16:36:37 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KDaCT6BrZ3Gn8r65Zd+IjToAT9v5D8+np8ax++rJXVrQF/jCyJP4kQwp5Thpcaa5+QuGKO0aUcljIi4AUDfFL2usjnYgrsVZrLFzJAkFst3TzbjjRvhkhxLouIJFjMBFnV+CCTtDbjqG2N/tPWeZLBubl6++FsRcIYXg5RKOJ98urRi9fmIShW+YQqqZ7kobnN+R2LDu5aVc8X8jQkIuLVzra53CcaoqYiJ84Q4vqkzjwqzqW4xCP8nXIL7aW8XlpsvQGRmT+To/b67253Jmqs2Jih8NSfIeA+jA3NePPwGXn8ON7PMvx+qdLBUb+RxEQYwVLMYwyXBuobotxiS4vQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wjfUi/gWnFM8k/teYqL3FmnVD/4xTRIxP90RwL+wS+Q=;
+ b=jL7bkMYQLzWfiZroXNPo1bBaWYoBJeyQCcKRE5o0Pe6f/zYo/t1rQSMMPL2GDmyL4+IKUY6SaA7b7wTWYTXnbg99WRfPikYk8QHcgcpR2TqxHk8kHqt71baSGKb/fbHLbwsjw2/Zs/D0MV0NdkbFaj/f0d3fckOykWqIfi5E2fsUFLKs9eOlh0+hFZVbHm+KFhPXPqCQXYoE7z/7bYEzoLhkIaPu5Fj5YMiS6rCoW1u4/WYc8t2JLewDggB6I9v86eXhTiURG+YCKUAvJu4rcIusa6o8j6MC3z9sqNwJXnzAvsSJ8lwMoqh+8G9y5CAdOimSTr7RBLwZg5dh1pasng==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wjfUi/gWnFM8k/teYqL3FmnVD/4xTRIxP90RwL+wS+Q=;
+ b=ee2Q3aLG9tMY/TxKI+KN/QtB8Ehg/YC+scIZJWOZ3l9jV/kxKpg9aIroS2kLroOhQRk9bDbXpUb56GzjS9HyHo2mtpBVjtN9KezFfCWPTWF9UjirTXO7K6mcAG0FC9BrOjCzOs4fRFpQcR2nNh1cWp0pFhGdc5sqZKcKZcEeRmk=
+Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
+ by DM6PR12MB2922.namprd12.prod.outlook.com (2603:10b6:5:18d::25) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.20; Wed, 6 May
+ 2020 16:36:35 +0000
+Received: from DM6PR12MB4401.namprd12.prod.outlook.com
+ ([fe80::7949:b580:a2d5:f766]) by DM6PR12MB4401.namprd12.prod.outlook.com
+ ([fe80::7949:b580:a2d5:f766%3]) with mapi id 15.20.2979.027; Wed, 6 May 2020
+ 16:36:34 +0000
+From: "Koenig, Christian" <Christian.Koenig@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Subject: Re: [PATCH 00/14] drm/radeon: remove comparison to bool
+Thread-Topic: [PATCH 00/14] drm/radeon: remove comparison to bool
+Thread-Index: AQHWI8SBfxyzlTjrkE2j7KRSU+xdpw==
+Date: Wed, 6 May 2020 16:36:34 +0000
+Message-ID: <67340d36-c16a-4107-8ed1-ab34501ce998@email.android.com>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [178.202.40.54]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: d28cf146-d8cd-4335-6971-08d7f1dba41c
+x-ms-traffictypediagnostic: DM6PR12MB2922:|DM6PR12MB2922:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB2922F74D66E875931B3D721183A40@DM6PR12MB2922.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-forefront-prvs: 03950F25EC
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: nqqi9DYUGECIdn+Ej41QOQl/C6LzOU9ahGdQP6onP8hKRkMPUmeJeF3bdk5n0pAX9/1MbYJnN1ROuo1nsNaCi9GjiSDOyRQb3HihXxb5+dY7/wi1Ms8octbhfQL6y4VTN8dRSG/7zHBgT1CM9f/lf83cHlfB1CRnX1sQbTK+3FaMSI2dUx17OhsKQOZdwmga90uK7LXp79ck4rE4a7X5soyP/Lnmbqjd7NBG860GiFNp079b4PxWgPfkkGtKcEgIeLexMhvSVKmGuYZ+65OcHGn/NTuSEVnUGYRJJsTLobasW6kckF0OVlyv5hqeHjdFS08+qVhg8fa6jSpb4L71wd1RF1SZrwNfcDEdd8/q28xnRowk3IN19xzxyAX8LuO2a5Glk3fDaCITohu4eYSJK6Qzp1oITUzUtVZCDhJ6QGzjxsBzUv9xgoBih+SElW5AxqFCM034FTtvTPoOL9FisfXdAGxCBZhAsFcDBzItUveauaErYTJBSGMr5STHGqE0Q3RuyT1a+rRmToPHJoZXCsVTz+DSFY1cFgffKpL95+oQbz78WVoct63gzhGVor7v
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(366004)(136003)(376002)(346002)(39860400002)(396003)(33430700001)(8676002)(26005)(33440700001)(53546011)(6506007)(54906003)(31696002)(6486002)(166002)(86362001)(316002)(31686004)(45080400002)(966005)(2906002)(4326008)(71200400001)(66574014)(478600001)(66446008)(5660300002)(66556008)(64756008)(9686003)(6916009)(66476007)(8936002)(66946007)(91956017)(6512007)(186003)(76116006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: wVu9eDUrUqB4/wF5muHpVQxGoZuRNfXwRMKpHyYLx/oLshoNL0MyVO0OydxPXcoZpEWf9gYE0DUK4s0dyVHhjoCSt17c10PviCZi0wxf/SLMApXF++CN25jBIIJS073fuP6cJD+uXxuewZNCceM9PJHXTZNCCDClnoAagbFbOgVM/n+aLW2rVZYyMKtOnehDIL49Cx0J2/Bu9vVZESZTRgTaBnofzuzBlJdIL058wlN0kXLkziLUFqCPmP9xqlr2Xm6aSJ8sgjT5NHN+RCCpVSaibP+FQ0WU6dLZFWE+8joXetL6dLy10BecrJZj8MF0kAx96iMSmhVeaqBQj35OId/O/X19rUKGmDPLlBHqEELsCn6a/jy9L9qssBWFy7b52/fa9wmZLiFY1P8sllpDQEmnuv53Tc0wj/c4usIEB42Abl0NAVMn+MhPY/1OSmQgKAzeOg9TdDpJp5g4nulriuk2BLI8IBD3uui05xU/tMH2QJ0x+vdVLaQMV9bEEirds/+XAODcDidMz8tdigZ4VHyPspF3lP8cU90tCEkgmTp9MgXGciNxODtDPNkRnx2jsoJ+fWUwkBCSUn8Wp/MG7u79QiavM9bqaYny/CyDCPz0fsgq3PP/yJiD502X0qCyDKdEeuhDkCptG0wEvT8ITMTZ9B1KIUcUOnDD6rajiq12EmsMP2GRW2N4xrT85shQri36GEE7iXo6T9d2LZ8c1z5ADXd0cU8rTprJWNbm4/HDaMnMx5Rf5o9/50qfqFq0KVdyFTQ3KKpcm2qjR0htBvVZQGV0FLjEfgH+cjY33n0=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c0d02b98-c356-60b1-6043-5b8d1a9be19a@nvidia.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Wed, 06 May 2020 16:31:21 +0000
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d28cf146-d8cd-4335-6971-08d7f1dba41c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 May 2020 16:36:34.7979 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: B90Nxi3LQrciEaHHSwzAwGYZJSPyWuJ/pK+aSr0Xz36+nGFT3FvEd1kUvmOO6spr
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2922
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,172 +100,183 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Ralph Campbell <rcampbell@nvidia.com>, "Yang, Philip" <Philip.Yang@amd.com>,
- nouveau@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Christoph Hellwig <hch@lst.de>, linux-mm@kvack.org,
- =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>,
- Ben Skeggs <bskeggs@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- intel-gfx@lists.freedesktop.org,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
+ Dave Airlie <airlied@linux.ie>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Zheng Bin <zhengbin13@huawei.com>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel@ffwll.ch>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>
+Content-Type: multipart/mixed; boundary="===============1120987215=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 04, 2020 at 06:30:00PM -0700, John Hubbard wrote:
-> On 2020-05-01 11:20, Jason Gunthorpe wrote:
-> > From: Jason Gunthorpe <jgg@mellanox.com>
-> > 
-> > Presumably the intent here was that hmm_range_fault() could put the data
-> > into some HW specific format and thus avoid some work. However, nothing
-> > actually does that, and it isn't clear how anything actually could do that
-> > as hmm_range_fault() provides CPU addresses which must be DMA mapped.
-> > 
-> > Perhaps there is some special HW that does not need DMA mapping, but we
-> > don't have any examples of this, and the theoretical performance win of
-> > avoiding an extra scan over the pfns array doesn't seem worth the
-> > complexity. Plus pfns needs to be scanned anyhow to sort out any
-> > DEVICE_PRIVATE pages.
-> > 
-> > This version replaces the uint64_t with an usigned long containing a pfn
-> > and fixed flags. On input flags is filled with the HMM_PFN_REQ_* values,
-> > on successful output it is filled with HMM_PFN_* values, describing the
-> > state of the pages.
-> > 
-> 
-> Just some minor stuff below. I wasn't able to spot any errors in the code,
-> though, so these are just documentation nits.
-> 
-> 
-> ...
-> 
-> > 
-> > diff --git a/Documentation/vm/hmm.rst b/Documentation/vm/hmm.rst
-> > index 9924f2caa0184c..c9f2329113a47f 100644
-> > +++ b/Documentation/vm/hmm.rst
-> > @@ -185,9 +185,6 @@ The usage pattern is::
-> >         range.start = ...;
-> >         range.end = ...;
-> >         range.pfns = ...;
-> 
-> That should be:
-> 
->           range.hmm_pfns = ...;
+--===============1120987215==
+Content-Language: de-DE
+Content-Type: multipart/alternative;
+	boundary="_000_67340d36c16a41078ed1ab34501ce998emailandroidcom_"
 
-Yep
+--_000_67340d36c16a41078ed1ab34501ce998emailandroidcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-> 
-> > -      range.flags = ...;
-> > -      range.values = ...;
-> > -      range.pfn_shift = ...;
-> >         if (!mmget_not_zero(interval_sub->notifier.mm))
-> >             return -EFAULT;
-> > @@ -229,15 +226,10 @@ The hmm_range struct has 2 fields, default_flags and pfn_flags_mask, that specif
-> >   fault or snapshot policy for the whole range instead of having to set them
-> >   for each entry in the pfns array.
-> > -For instance, if the device flags for range.flags are::
-> > +For instance if the device driver wants pages for a range with at least read
-> > +permission, it sets::
-> > -    range.flags[HMM_PFN_VALID] = (1 << 63);
-> > -    range.flags[HMM_PFN_WRITE] = (1 << 62);
-> > -
-> > -and the device driver wants pages for a range with at least read permission,
-> > -it sets::
-> > -
-> > -    range->default_flags = (1 << 63);
-> > +    range->default_flags = HMM_PFN_REQ_FAULT;
-> >       range->pfn_flags_mask = 0;
-> >   and calls hmm_range_fault() as described above. This will fill fault all pages
-> > @@ -246,18 +238,18 @@ in the range with at least read permission.
-> >   Now let's say the driver wants to do the same except for one page in the range for
-> >   which it wants to have write permission. Now driver set::
-> > -    range->default_flags = (1 << 63);
-> > -    range->pfn_flags_mask = (1 << 62);
-> > -    range->pfns[index_of_write] = (1 << 62);
-> > +    range->default_flags = HMM_PFN_REQ_FAULT;
-> > +    range->pfn_flags_mask = HMM_PFN_REQ_WRITE;
-> > +    range->pfns[index_of_write] = HMM_PFN_REQ_WRITE;
-> 
-> 
-> All these choices for _WRITE behavior make it slightly confusing. I mean, it's
-> better than it was, but there are default flags, a mask, and an index as well,
-> and it looks like maybe we have a little more power and flexibility than
-> desirable? Nouveau for example is now just setting the mask only:
+DQoNCkFtIDA2LjA1LjIwMjAgMTg6MDAgc2NocmllYiBBbGV4IERldWNoZXIgPGFsZXhkZXVjaGVy
+QGdtYWlsLmNvbT46DQpPbiBXZWQsIE1heSA2LCAyMDIwIGF0IDEwOjI3IEFNIFpoZW5nIEJpbiA8
+emhlbmdiaW4xM0BodWF3ZWkuY29tPiB3cm90ZToNCj4NCj4gWmhlbmcgQmluICgxNCk6DQo+ICAg
+ZHJtL3JhZGVvbjogcmVtb3ZlIGNvbXBhcmlzb24gdG8gYm9vbCBpbiBidGNfZHBtLmMNCj4gICBk
+cm0vcmFkZW9uOiByZW1vdmUgY29tcGFyaXNvbiB0byBib29sIGluIGNpX2RwbS5jDQo+ICAgZHJt
+L3JhZGVvbjogcmVtb3ZlIGNvbXBhcmlzb24gdG8gYm9vbCBpbiBuaV9kcG0uYw0KPiAgIGRybS9y
+YWRlb246IHJlbW92ZSBjb21wYXJpc29uIHRvIGJvb2wgaW4gcmFkZW9uX2F0cHhfaGFuZGxlci5j
+DQo+ICAgZHJtL3JhZGVvbjogcmVtb3ZlIGNvbXBhcmlzb24gdG8gYm9vbCBpbiByYWRlb25fb2Jq
+ZWN0LmMNCj4gICBkcm0vcmFkZW9uOiByZW1vdmUgY29tcGFyaXNvbiB0byBib29sIGluIHJhZGVv
+bl90dG0uYw0KPiAgIGRybS9yYWRlb246IHJlbW92ZSBjb21wYXJpc29uIHRvIGJvb2wgaW4gcjEw
+MC5jDQo+ICAgZHJtL3JhZGVvbjogcmVtb3ZlIGNvbXBhcmlzb24gdG8gYm9vbCBpbiByMzAwLmMN
+Cj4gICBkcm0vcmFkZW9uOiByZW1vdmUgY29tcGFyaXNvbiB0byBib29sIGluIHI2MDAuYw0KPiAg
+IGRybS9yYWRlb246IHJlbW92ZSBjb21wYXJpc29uIHRvIGJvb2wgaW4gcnM2MDAuYw0KPiAgIGRy
+bS9yYWRlb246IHJlbW92ZSBjb21wYXJpc29uIHRvIGJvb2wgaW4gcnM2OTAuYw0KPiAgIGRybS9y
+YWRlb246IHJlbW92ZSBjb21wYXJpc29uIHRvIGJvb2wgaW4gcnY2eHhfZHBtLmMNCj4gICBkcm0v
+cmFkZW9uOiByZW1vdmUgY29tcGFyaXNvbiB0byBib29sIGluIHJ2NTE1LmMNCj4gICBkcm0vcmFk
+ZW9uOiByZW1vdmUgY29tcGFyaXNvbiB0byBib29sIGluIHNpX2RwbS5jDQoNCkRvZXMgdGhlIGNo
+ZWNrZXIgbmVlZCB0byBiZSBmaXhlZD8gIEFsbCBvZiB0aGVzZSBhcmUgY29tcGFyaW5nIGJvb2xl
+YW4NCnZhcmlhYmxlcyB0byB0cnVlL2ZhbHNlLiAgU2VlbXMgbGlrZSBuZWVkbGVzcyBjb2RlIGNo
+dXJuIHRvIG1lLg0KDQpXZSBzaG91bGQgcHJvYmFibHkgbWFrZSBzdXJlIHRoYXQgbm8gbmV3IGNv
+ZGUgbGlrZSB0aGlzIGxlYWtzIGluLCBidXQgSSBhbHNvIGRvbid0IHNlZSB0aGF0IHRoaXMgaXMg
+bmVjZXNzYXJ5IGZvciB0aGUgb2xkIGRyaXZlciBzdGFjay4NCg0KQ2hyaXN0aWFuLg0KDQoNCkFs
+ZXgNCg0KPg0KPiAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9idGNfZHBtLmMgICAgICAgICAgICAg
+fCAyICstDQo+ICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2NpX2RwbS5jICAgICAgICAgICAgICB8
+IDQgKystLQ0KPiAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9uaV9kcG0uYyAgICAgICAgICAgICAg
+fCA2ICsrKy0tLQ0KPiAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yMTAwLmMgICAgICAgICAgICAg
+ICAgfCAyICstDQo+ICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3IzMDAuYyAgICAgICAgICAgICAg
+ICB8IDIgKy0NCj4gIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcjYwMC5jICAgICAgICAgICAgICAg
+IHwgMyArKy0NCj4gIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2F0cHhfaGFuZGxlci5j
+IHwgNCArKy0tDQo+ICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuYyAgICAg
+ICB8IDIgKy0NCj4gIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX3R0bS5jICAgICAgICAg
+IHwgMiArLQ0KPiAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yczYwMC5jICAgICAgICAgICAgICAg
+fCAyICstDQo+ICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JzNjkwLmMgICAgICAgICAgICAgICB8
+IDMgKystDQo+ICBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3J2NTE1LmMgICAgICAgICAgICAgICB8
+IDIgKy0NCj4gIGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcnY2eHhfZHBtLmMgICAgICAgICAgIHwg
+MiArLQ0KPiAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9zaV9kcG0uYyAgICAgICAgICAgICAgfCA2
+ICsrKy0tLQ0KPiAgMTQgZmlsZXMgY2hhbmdlZCwgMjIgaW5zZXJ0aW9ucygrKSwgMjAgZGVsZXRp
+b25zKC0pDQo+DQo+IC0tDQo+IDIuMjYuMC4xMDYuZzlmYWRlZGQNCj4NCj4gX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18NCj4gYW1kLWdmeCBtYWlsaW5nIGxp
+c3QNCj4gYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcNCj4gaHR0cHM6Ly9uYW0xMS5zYWZl
+bGlua3MucHJvdGVjdGlvbi5vdXRsb29rLmNvbS8/dXJsPWh0dHBzJTNBJTJGJTJGbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnJTJGbWFpbG1hbiUyRmxpc3RpbmZvJTJGYW1kLWdmeCZhbXA7ZGF0YT0wMiU3
+QzAxJTdDY2hyaXN0aWFuLmtvZW5pZyU0MGFtZC5jb20lN0MxMGMyYTkwNzI4NTc0YmIyMGVmMjA4
+ZDdmMWQ2OWUyYiU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2
+MzcyNDM3NzY0MDEyNjQyNzUmYW1wO3NkYXRhPVo2YWxDUzhoUEE3cldOS0hpbXBrYzZ6QmxkdEJh
+Z0swZEdwWDhtVE9FWkElM0QmYW1wO3Jlc2VydmVkPTANCg0K
 
-The example is showing how to fault all pages but request write for
-only certain pages, ie it shows how to use default_flags and pfn_flags
-together in probably the only way that could make any sense
+--_000_67340d36c16a41078ed1ab34501ce998emailandroidcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <7DDE403CB6D278439BB0CF5C03A64511@amdcloud.onmicrosoft.com>
+Content-Transfer-Encoding: base64
 
-> > @@ -542,12 +564,15 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
-> >   			return -EBUSY;
-> >   		range.notifier_seq = mmu_interval_read_begin(range.notifier);
-> > -		range.default_flags = 0;
-> > -		range.pfn_flags_mask = -1UL;
-> >   		down_read(&mm->mmap_sem);
-> >   		ret = hmm_range_fault(&range);
-> >   		up_read(&mm->mmap_sem);
-> >   		if (ret) {
-> > +			/*
-> > +			 * FIXME: the input PFN_REQ flags are destroyed on
-> > +			 * -EBUSY, we need to regenerate them, also for the
-> > +			 * other continue below
-> > +			 */
-> 
-> How serious is this FIXME? It seems like we could get stuck in a loop here,
-> if we're not issuing a new REQ, right?
+PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
+dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdiBkaXI9ImF1
+dG8iPg0KPGRpdj48YnI+DQo8ZGl2IGNsYXNzPSJnbWFpbF9leHRyYSI+PGJyPg0KPGRpdiBjbGFz
+cz0iZ21haWxfcXVvdGUiPkFtIDA2LjA1LjIwMjAgMTg6MDAgc2NocmllYiBBbGV4IERldWNoZXIg
+Jmx0O2FsZXhkZXVjaGVyQGdtYWlsLmNvbSZndDs6PGJyIHR5cGU9ImF0dHJpYnV0aW9uIj4NCjxi
+bG9ja3F1b3RlIGNsYXNzPSJxdW90ZSIgc3R5bGU9Im1hcmdpbjowIDAgMCAuOGV4O2JvcmRlci1s
+ZWZ0OjFweCAjY2NjIHNvbGlkO3BhZGRpbmctbGVmdDoxZXgiPg0KPGRpdj48Zm9udCBzaXplPSIy
+Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExcHQiPg0KPGRpdj5PbiBXZWQsIE1heSA2LCAyMDIw
+IGF0IDEwOjI3IEFNIFpoZW5nIEJpbiAmbHQ7emhlbmdiaW4xM0BodWF3ZWkuY29tJmd0OyB3cm90
+ZTo8YnI+DQomZ3Q7PGJyPg0KJmd0OyBaaGVuZyBCaW4gKDE0KTo8YnI+DQomZ3Q7Jm5ic3A7Jm5i
+c3A7IGRybS9yYWRlb246IHJlbW92ZSBjb21wYXJpc29uIHRvIGJvb2wgaW4gYnRjX2RwbS5jPGJy
+Pg0KJmd0OyZuYnNwOyZuYnNwOyBkcm0vcmFkZW9uOiByZW1vdmUgY29tcGFyaXNvbiB0byBib29s
+IGluIGNpX2RwbS5jPGJyPg0KJmd0OyZuYnNwOyZuYnNwOyBkcm0vcmFkZW9uOiByZW1vdmUgY29t
+cGFyaXNvbiB0byBib29sIGluIG5pX2RwbS5jPGJyPg0KJmd0OyZuYnNwOyZuYnNwOyBkcm0vcmFk
+ZW9uOiByZW1vdmUgY29tcGFyaXNvbiB0byBib29sIGluIHJhZGVvbl9hdHB4X2hhbmRsZXIuYzxi
+cj4NCiZndDsmbmJzcDsmbmJzcDsgZHJtL3JhZGVvbjogcmVtb3ZlIGNvbXBhcmlzb24gdG8gYm9v
+bCBpbiByYWRlb25fb2JqZWN0LmM8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7IGRybS9yYWRlb246IHJl
+bW92ZSBjb21wYXJpc29uIHRvIGJvb2wgaW4gcmFkZW9uX3R0bS5jPGJyPg0KJmd0OyZuYnNwOyZu
+YnNwOyBkcm0vcmFkZW9uOiByZW1vdmUgY29tcGFyaXNvbiB0byBib29sIGluIHIxMDAuYzxicj4N
+CiZndDsmbmJzcDsmbmJzcDsgZHJtL3JhZGVvbjogcmVtb3ZlIGNvbXBhcmlzb24gdG8gYm9vbCBp
+biByMzAwLmM8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7IGRybS9yYWRlb246IHJlbW92ZSBjb21wYXJp
+c29uIHRvIGJvb2wgaW4gcjYwMC5jPGJyPg0KJmd0OyZuYnNwOyZuYnNwOyBkcm0vcmFkZW9uOiBy
+ZW1vdmUgY29tcGFyaXNvbiB0byBib29sIGluIHJzNjAwLmM8YnI+DQomZ3Q7Jm5ic3A7Jm5ic3A7
+IGRybS9yYWRlb246IHJlbW92ZSBjb21wYXJpc29uIHRvIGJvb2wgaW4gcnM2OTAuYzxicj4NCiZn
+dDsmbmJzcDsmbmJzcDsgZHJtL3JhZGVvbjogcmVtb3ZlIGNvbXBhcmlzb24gdG8gYm9vbCBpbiBy
+djZ4eF9kcG0uYzxicj4NCiZndDsmbmJzcDsmbmJzcDsgZHJtL3JhZGVvbjogcmVtb3ZlIGNvbXBh
+cmlzb24gdG8gYm9vbCBpbiBydjUxNS5jPGJyPg0KJmd0OyZuYnNwOyZuYnNwOyBkcm0vcmFkZW9u
+OiByZW1vdmUgY29tcGFyaXNvbiB0byBib29sIGluIHNpX2RwbS5jPGJyPg0KPGJyPg0KRG9lcyB0
+aGUgY2hlY2tlciBuZWVkIHRvIGJlIGZpeGVkPyZuYnNwOyBBbGwgb2YgdGhlc2UgYXJlIGNvbXBh
+cmluZyBib29sZWFuPGJyPg0KdmFyaWFibGVzIHRvIHRydWUvZmFsc2UuJm5ic3A7IFNlZW1zIGxp
+a2UgbmVlZGxlc3MgY29kZSBjaHVybiB0byBtZS48YnI+DQo8L2Rpdj4NCjwvc3Bhbj48L2ZvbnQ+
+PC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGRpcj0i
+YXV0byI+PGJyPg0KPC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+V2Ugc2hvdWxkIHByb2JhYmx5IG1h
+a2Ugc3VyZSB0aGF0IG5vIG5ldyBjb2RlIGxpa2UgdGhpcyBsZWFrcyBpbiwgYnV0IEkgYWxzbyBk
+b24ndCBzZWUgdGhhdCB0aGlzIGlzIG5lY2Vzc2FyeSBmb3IgdGhlIG9sZCBkcml2ZXIgc3RhY2su
+PC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+PGJyPg0KPC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+Q2hy
+aXN0aWFuLjwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPjxicj4NCjwvZGl2Pg0KPGRpdiBkaXI9ImF1
+dG8iPg0KPGRpdiBjbGFzcz0iZ21haWxfZXh0cmEiPg0KPGRpdiBjbGFzcz0iZ21haWxfcXVvdGUi
+Pg0KPGJsb2NrcXVvdGUgY2xhc3M9InF1b3RlIiBzdHlsZT0ibWFyZ2luOjAgMCAwIC44ZXg7Ym9y
+ZGVyLWxlZnQ6MXB4ICNjY2Mgc29saWQ7cGFkZGluZy1sZWZ0OjFleCI+DQo8ZGl2Pjxmb250IHNp
+emU9IjIiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTFwdCI+DQo8ZGl2Pjxicj4NCkFsZXg8YnI+
+DQo8YnI+DQomZ3Q7PGJyPg0KJmd0OyZuYnNwOyBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2J0Y19k
+cG0uYyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyB8IDIgJiM0MzstPGJyPg0KJmd0OyZuYnNwOyBkcml2ZXJzL2dw
+dS9kcm0vcmFkZW9uL2NpX2RwbS5jJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwgNCAmIzQzOyYjNDM7
+LS08YnI+DQomZ3Q7Jm5ic3A7IGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vbmlfZHBtLmMmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsgfCA2ICYjNDM7JiM0MzsmIzQzOy0tLTxicj4NCiZndDsmbmJzcDsgZHJp
+dmVycy9ncHUvZHJtL3JhZGVvbi9yMTAwLmMmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsgfCAyICYjNDM7LTxicj4NCiZndDsmbmJzcDsgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yMzAw
+LmMmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgfCAyICYjNDM7LTxicj4NCiZndDsm
+bmJzcDsgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yNjAwLmMmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsgfCAzICYjNDM7JiM0MzstPGJyPg0KJmd0OyZuYnNwOyBkcml2ZXJzL2dwdS9k
+cm0vcmFkZW9uL3JhZGVvbl9hdHB4X2hhbmRsZXIuYyB8IDQgJiM0MzsmIzQzOy0tPGJyPg0KJmd0
+OyZuYnNwOyBkcml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl9vYmplY3QuYyZuYnNwOyZuYnNw
+OyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8IDIgJiM0MzstPGJyPg0KJmd0OyZuYnNwOyBkcml2
+ZXJzL2dwdS9kcm0vcmFkZW9uL3JhZGVvbl90dG0uYyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8IDIgJiM0MzstPGJyPg0KJmd0OyZuYnNwOyBk
+cml2ZXJzL2dwdS9kcm0vcmFkZW9uL3JzNjAwLmMmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsg
+fCAyICYjNDM7LTxicj4NCiZndDsmbmJzcDsgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yczY5MC5j
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IHwgMyAmIzQzOyYjNDM7LTxicj4NCiZndDsmbmJz
+cDsgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9ydjUxNS5jJm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5i
+c3A7IHwgMiAmIzQzOy08YnI+DQomZ3Q7Jm5ic3A7IGRyaXZlcnMvZ3B1L2RybS9yYWRlb24vcnY2
+eHhfZHBtLmMmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsgfCAyICYjNDM7LTxicj4NCiZndDsmbmJzcDsgZHJpdmVycy9ncHUvZHJtL3Jh
+ZGVvbi9zaV9kcG0uYyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZu
+YnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyB8IDYgJiM0MzsmIzQzOyYjNDM7LS0t
+PGJyPg0KJmd0OyZuYnNwOyAxNCBmaWxlcyBjaGFuZ2VkLCAyMiBpbnNlcnRpb25zKCYjNDM7KSwg
+MjAgZGVsZXRpb25zKC0pPGJyPg0KJmd0Ozxicj4NCiZndDsgLS08YnI+DQomZ3Q7IDIuMjYuMC4x
+MDYuZzlmYWRlZGQ8YnI+DQomZ3Q7PGJyPg0KJmd0OyBfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXzxicj4NCiZndDsgYW1kLWdmeCBtYWlsaW5nIGxpc3Q8YnI+
+DQomZ3Q7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPGJyPg0KJmd0OyA8YSBocmVmPSJo
+dHRwczovL25hbTExLnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29tLz91cmw9aHR0cHMl
+M0ElMkYlMkZsaXN0cy5mcmVlZGVza3RvcC5vcmclMkZtYWlsbWFuJTJGbGlzdGluZm8lMkZhbWQt
+Z2Z4JmFtcDthbXA7ZGF0YT0wMiU3QzAxJTdDY2hyaXN0aWFuLmtvZW5pZyU0MGFtZC5jb20lN0Mx
+MGMyYTkwNzI4NTc0YmIyMGVmMjA4ZDdmMWQ2OWUyYiU3QzNkZDg5NjFmZTQ4ODRlNjA4ZTExYTgy
+ZDk5NGUxODNkJTdDMCU3QzAlN0M2MzcyNDM3NzY0MDEyNjQyNzUmYW1wO2FtcDtzZGF0YT1aNmFs
+Q1M4aFBBN3JXTktIaW1wa2M2ekJsZHRCYWdLMGRHcFg4bVRPRVpBJTNEJmFtcDthbXA7cmVzZXJ2
+ZWQ9MCI+DQpodHRwczovL25hbTExLnNhZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29tLz91
+cmw9aHR0cHMlM0ElMkYlMkZsaXN0cy5mcmVlZGVza3RvcC5vcmclMkZtYWlsbWFuJTJGbGlzdGlu
+Zm8lMkZhbWQtZ2Z4JmFtcDthbXA7ZGF0YT0wMiU3QzAxJTdDY2hyaXN0aWFuLmtvZW5pZyU0MGFt
+ZC5jb20lN0MxMGMyYTkwNzI4NTc0YmIyMGVmMjA4ZDdmMWQ2OWUyYiU3QzNkZDg5NjFmZTQ4ODRl
+NjA4ZTExYTgyZDk5NGUxODNkJTdDMCU3QzAlN0M2MzcyNDM3NzY0MDEyNjQyNzUmYW1wO2FtcDtz
+ZGF0YT1aNmFsQ1M4aFBBN3JXTktIaW1wa2M2ekJsZHRCYWdLMGRHcFg4bVRPRVpBJTNEJmFtcDth
+bXA7cmVzZXJ2ZWQ9MDwvYT48YnI+DQo8L2Rpdj4NCjwvc3Bhbj48L2ZvbnQ+PC9kaXY+DQo8L2Js
+b2NrcXVvdGU+DQo8L2Rpdj4NCjxicj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4N
+CjwvaHRtbD4NCg==
 
-Serious enough someone should fix it and not copy it into other
-drivers..
- 
-> >   			if (ret == -EBUSY)
-> >   				continue;
-> >   			return ret;
-> > @@ -562,7 +587,7 @@ static int nouveau_range_fault(struct nouveau_svmm *svmm,
-> >   		break;
-> >   	}
-> > -	nouveau_dmem_convert_pfn(drm, &range);
-> > +	nouveau_hmm_convert_pfn(drm, &range, ioctl_addr);
-> >   	svmm->vmm->vmm.object.client->super = true;
-> >   	ret = nvif_object_ioctl(&svmm->vmm->vmm.object, data, size, NULL);
-> > @@ -589,6 +614,7 @@ nouveau_svm_fault(struct nvif_notify *notify)
-> >   		} i;
-> >   		u64 phys[16];
-> >   	} args;
-> > +	unsigned long hmm_pfns[ARRAY_SIZE(args.phys)];
-> 
-> 
-> Is there a risk of blowing up the stack here?
+--_000_67340d36c16a41078ed1ab34501ce998emailandroidcom_--
 
-16*8 is pretty small, but the call stack is very long sadly, since
-Ralph succeed it seems OK
+--===============1120987215==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-> >    */
-> > -enum hmm_pfn_flag_e {
-> > -	HMM_PFN_VALID = 0,
-> > -	HMM_PFN_WRITE,
-> > -	HMM_PFN_FLAG_MAX
-> > +enum hmm_pfn_flags {
-> 
-> Let's add:
-> 
->         /* Output flags: */
-> 
-> > +	HMM_PFN_VALID = 1UL << (BITS_PER_LONG - 1),
-> > +	HMM_PFN_WRITE = 1UL << (BITS_PER_LONG - 2),
-> > +	HMM_PFN_ERROR = 1UL << (BITS_PER_LONG - 3),
-> > +
-> 
->         /* Input flags: */
-
-Ok
-
-Thanks,
-Jason
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1120987215==--
