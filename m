@@ -1,103 +1,116 @@
 Return-Path: <SRS0=JxR8=6U=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94B38C28CBC
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 10:11:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ECB24C28CBC
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 10:35:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5054F2073A
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 10:11:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AB9EF20663
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 10:35:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wfToHPkM"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5054F2073A
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="lVR3Dq0w"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB9EF20663
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF2926E84C;
-	Wed,  6 May 2020 10:11:00 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2066.outbound.protection.outlook.com [40.107.237.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E55076E84C
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2020 10:10:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EE286E854;
+	Wed,  6 May 2020 10:35:54 +0000 (UTC)
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760057.outbound.protection.outlook.com [40.107.76.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6A6356E854
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2020 10:35:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k3uhhqsbENZXVcMGTMFu+OlhyFFFtgmiHOxP+n0KGVME2eu3TFGP44gHBK0N3KDx+65HYx1bkmOc5l/LjBY7VQFSyC8Kj2Bqjx/2oE98AOFIlhb4uUzdh4s1cK4bEr8kNpghmayu1N0aNTyuidKIhJiegsRRsSvTgFxJ5hsf0AGi9PZpY3AX+TB6jk6tpm+nR4omD/zRYf8IQcxX7+IHCfZ5eaYUMiQnZi/1ALn0t3HEJTAzn3XohI/5xH95scSbA/Gb+z9QpKiPM3AOQXHeMqm9A8Pzu/TRSGnmF/MNmtSzhLVVUKbS+T+xSEuJyJjcVuHyK3RDtuFFrM6ZPjLCVQ==
+ b=fX+TzIX0ZCu5vzcJMCtv5Q+ANU7rmCYkf1Wt8Jgh88rx/AHq4Z248xA6aioQVAcmjVr51UX+PrnBP7s8weiJS6TnXmnJ8HsnnTx8K+0JvRIwReih4vznuyjAORQW7t3PwtvjUP6pBb5O3FbwcypO8haYxymroOJmdfyJ2c3PDgvyVdCPqvS9T6LB9LvGzCxT+sBkqmj0nJ/KS3Rx68RnwNkuRaM5vqvXbpy2S/8kC35k3Igkf13QOV7zQBjl6DODvcueSBos5AMXXlRNY7MvJt/aEd/alVChnd6mBcmmK+NOAmip7ryVd2/vVX0YOORoRZ0xPfnDKN8hra87Ub8s2Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o71K5YXy/5W5zbeZqk13Iy9G72XyeRRlipzW+GrYUpk=;
- b=YFwslPDFnA4WGup8VKyQJN2ShUEp4yWBy/ChZlbkZBw4KI5Dt4QpZKdOoHithJTwBMKGWgmkYXd8/HEHUD8FojTwzFN/AIGSEQTMNMkQG+8fA19hFuOTXwqJNBGC7Bws7IBwPoMwE7hjyX3e6haztOjHGcA9dFWlY3REbZIa8E79glYmcZFigja631y75WNeq7JC2kcv9dVmxVx/GuovUwSm4OICwn+fsWwB+TjVw58FmdznUFRbHg3RcbeV8PHxBF6Ifqo3I3yvLNzXBKjjp9DuayCj8eE6DgF3bKEMF4bc392/+PNQo0vi1kHvrN86J1WmJMhheqEe0Lv4vYkTeg==
+ bh=L1W+7isxQJ+vVimA2/TWNZPTqRSdI5R1jCwq1BxHYbQ=;
+ b=PNLqi8KX3slprLDfCnhyInEqFqkNnkqalqZJ58IM2cPi3/2RfChYWhcIiylknd1cci5R89b0Rbvopn+NVcGPYYMPbqs1EeKU9rB7FmBMgWW5WZrzMOjeH5/uKrlPxiBlVSgYcZYwCR/0rgXs7OmDFxNbfKQ2fA6410Mo24OndGUawmY+816Q2OVxjxHpzi+cwt4Sjle9T52LtGPsyPZFJ3DXG6zqauGRSZSek8Y+CdN/AWmd9oV0LkOjSPefB+w5XuzQbZLV5ogezlpP9cNT1YynzgsPp45KOiEm83hOypZGcp2TRFxQj5YidDSv6ESPPSYWzwYGCfqIguslL0Y0GQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o71K5YXy/5W5zbeZqk13Iy9G72XyeRRlipzW+GrYUpk=;
- b=wfToHPkMnlI2kY001TcqrVWmpGTszScYfPQIbapRt5NHAgncRApLLt8PszNK+BlriHLVcUfngNI/BTz0MQ9XzNyrf/kd/vlJpcOKFeMR+BSpR0/rmkJAzDys82DybfWvsJrO0+MNZBhge0TpjsVjBLmoQVKvW4yrFyitQSqSgAo=
-Received: from SN1PR12MB2558.namprd12.prod.outlook.com (2603:10b6:802:2b::18)
- by SN1PR12MB2527.namprd12.prod.outlook.com (2603:10b6:802:23::10)
+ bh=L1W+7isxQJ+vVimA2/TWNZPTqRSdI5R1jCwq1BxHYbQ=;
+ b=lVR3Dq0wxjOTQONvDIa2mujOMRM4MiJxPmgtaGjH1FMq172OfeYDxsg03KQZsTTa18u1JctgnQl5DRHTwks6ICkknNd8tO7WTPzYirL8yMdzfysSru47gFjkyvfAvJSFCX59HYh9vhMxNhI/Iv+lwbM1Sor2Q9rb+uFF9BtJy+s=
+Received: from BY5PR12MB4209.namprd12.prod.outlook.com (2603:10b6:a03:20d::22)
+ by BY5PR12MB3777.namprd12.prod.outlook.com (2603:10b6:a03:1a9::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.28; Wed, 6 May
- 2020 10:10:57 +0000
-Received: from SN1PR12MB2558.namprd12.prod.outlook.com
- ([fe80::ec5f:a26:8530:3b9f]) by SN1PR12MB2558.namprd12.prod.outlook.com
- ([fe80::ec5f:a26:8530:3b9f%6]) with mapi id 15.20.2979.028; Wed, 6 May 2020
- 10:10:56 +0000
-From: "Pan, Xinhui" <Xinhui.Pan@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [bug report] drm/amdgpu: add amdgpu_ras.c to support ras (v2)
-Thread-Topic: [bug report] drm/amdgpu: add amdgpu_ras.c to support ras (v2)
-Thread-Index: AQHWIr1ZHoATYm2B+U+G4L4WnXqlF6iaqcYAgAAfGQCAAA0BNw==
-Date: Wed, 6 May 2020 10:10:56 +0000
-Message-ID: <SN1PR12MB2558A472D85D6296CE250BBF87A40@SN1PR12MB2558.namprd12.prod.outlook.com>
-References: <20200505091239.GA117990@mwanda>
- <BYAPR12MB288896162E5761D45A5077DFB0A40@BYAPR12MB2888.namprd12.prod.outlook.com>,
- <20200506091734.GH1992@kadam>
-In-Reply-To: <20200506091734.GH1992@kadam>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.20; Wed, 6 May
+ 2020 10:35:51 +0000
+Received: from BY5PR12MB4209.namprd12.prod.outlook.com
+ ([fe80::914:b35a:32a:637d]) by BY5PR12MB4209.namprd12.prod.outlook.com
+ ([fe80::914:b35a:32a:637d%5]) with mapi id 15.20.2958.033; Wed, 6 May 2020
+ 10:35:50 +0000
+From: "Zhou, Tiecheng" <Tiecheng.Zhou@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: avoid clearing freed bo with sdma in gpu reset
+Thread-Topic: [PATCH] drm/amdgpu: avoid clearing freed bo with sdma in gpu
+ reset
+Thread-Index: AQHWI4nW7+8QIdt+H0qESRjRJpu3T6iazsKAgAAN3uA=
+Date: Wed, 6 May 2020 10:35:50 +0000
+Message-ID: <BY5PR12MB42092BD1D9CE86F4717911A5E4A40@BY5PR12MB4209.namprd12.prod.outlook.com>
+References: <20200506093626.13501-1-Tiecheng.Zhou@amd.com>
+ <1dba2b3b-d5b2-42a4-74e9-530658d039bd@gmail.com>
+In-Reply-To: <1dba2b3b-d5b2-42a4-74e9-530658d039bd@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-06T10:35:46Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-06T10:04:06.0398757Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Privileged
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=453366ac-9530-43ef-a703-0000c05fab70;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-05-06T10:35:46Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: dd53b936-1208-470f-9012-000051990d8a
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [101.88.247.85]
+x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: bb7dda53-0c18-4281-6017-08d7f1a5c4be
-x-ms-traffictypediagnostic: SN1PR12MB2527:|SN1PR12MB2527:
+x-ms-office365-filtering-correlation-id: f54dff62-9290-458a-a3e7-08d7f1a93f3a
+x-ms-traffictypediagnostic: BY5PR12MB3777:|BY5PR12MB3777:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SN1PR12MB2527BA0BFED6F677EDB974F887A40@SN1PR12MB2527.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:281;
+x-microsoft-antispam-prvs: <BY5PR12MB377730FC05B276E5DDC195B2E4A40@BY5PR12MB3777.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3826;
 x-forefront-prvs: 03950F25EC
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: wQuPUYzrWZKqCgpt7JvI9BTldluJ9B/FjbsM1oWCoxbuDV0pAj5EcZGrx8NJBKqOer4mgrnclUSvBjj2DsPF2casQDVe81achTD8Z/ycovOWi8Z/BTSHFZVc5N7LNptp9lG6exNnztj09Rhidr8pRcchcTChPyUDfO3GRwp+RJxRimdB+TPivWrYm7f/oXYTvFjd+efGPkgk5UgCkTU90Slh440NZr3iw3kkw/sEx/CgDkmD/LOYuf6dhaEMXK4hvLpWq+ozxyGUCXxhCMLv/5cRpRiG9Zz8RzTfe8/Kd3pWz3OvwxtLvPDibcemZii62z8om4fwRmoDjNPNJFzAChyxg205Z32v8G2i0Ak5sjPS2oE3jR/ffAVdPj3Ld7vHw1oCnhgvV1+W10qLZR1/Xlk+tYOzPeoTbbyqnAJhIUDvoSzyqn8y3+oGHNxP0tEZ4QT+lpl6uwORS05a47dDczYF1OVpBd3u+JBYCTbH6YqAZrsjx5eX33l4abEmV4ivLiXxVmHQCiKY3rLHg2EgXg==
+x-microsoft-antispam-message-info: qnVmR2BbwZEtK0X3GHPOGup9agZ2AOfmbIfV10eGWTGMtieO+UAmTEmM6i01gB6OkgB+UmHqTXoPY8cSGcB98oJu/7aeW80KigJcUOck8sDqrQDQ+ZSkSZop2JnHZlNiLEiUqdecUMdivroVZw9pOWzcfysI8S1Jn1RYBM7dUsYJPAIP3EyBLuO4AIWrA90V5gTvW5XNyOYUIrxkTqp3NlBIVJt5yNED0pYbcP2+S13kD4MK8QITbUwhcg5uIwT/hSdXHKPvP4QfLYe9NMhycE0mEwie9Z709dZJ7GkEp46WBPOYj6o9buf3j3Ye5lvttutDe0kkmEeAC1xGezCFQ6yM2MfRoMPdmHbZvVDZ6+fwP01cKmJQUcX36YcLOJvUR7THC9V9K/0J0bhoNiyljKPPshOX35GAaU8RkCHGOKTlOHptkK2IlfwJ1iCCHB5h4hTw6OLNiUl5HEc9L37znQavzMbwX/htlyjDic+BCkW8fRf4g5edApytEeB46peW1ooVSdCjA8Lt4YCkBUrWqg==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN1PR12MB2558.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:BY5PR12MB4209.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(346002)(376002)(136003)(366004)(39860400002)(396003)(33430700001)(66556008)(64756008)(66476007)(66446008)(66946007)(7696005)(52536014)(186003)(86362001)(8676002)(26005)(33656002)(71200400001)(53546011)(6506007)(55016002)(478600001)(9686003)(110136005)(33440700001)(4326008)(91956017)(316002)(5660300002)(2906002)(76116006)(8936002);
+ SFS:(4636009)(396003)(346002)(136003)(376002)(366004)(39860400002)(33430700001)(5660300002)(71200400001)(316002)(66946007)(52536014)(66556008)(66574014)(55016002)(76116006)(110136005)(2906002)(66476007)(66446008)(64756008)(9686003)(478600001)(33656002)(6506007)(7696005)(26005)(186003)(33440700001)(8676002)(8936002)(86362001)(53546011);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: mP4+b391xACHxlAVnnNhBPuwsO408KY3QzfOPR3MHCdh6Lnoc1CPbS/Fxxr/Ppa9J1g0Om1fplKGTtDgdN6Aptx6LpNgWnc3FXUaZgxE+CRgsfePZXiaTxlmtbte5hKBVWsexycIUWWGusBCN2KOdK7wB3i/bakd752Din5U1NTHK2KMCkFNFMFCTE5puYPsCSWcfYi452j5UsWs5pT4zlAjJ+hVEPcrVu9I+IJaWiR9SwwbOwin2kTyST/PUsqS/pPYhrCNRr34tD910/M0KHujJUSySMNOT8k41rQVjaCHCS1KQEcMDDBqTrfk77XpAPYKccZgYExHXFjZ7vJsMKk/+R7ode6ymh0GPpeGYjVg5RmlgR+mqiY2ceuQTOpXqy5KLaWcwcT4jq5/bozSCCn/M1M9AuV59J3IedshLNwTeLgAxww6uVItEjW0WhwDEPPlTF3YvRQF8jnAJ+/fLMNm3tf4dzRB7M0CX+jIju2JtYBEfdASeLtiq0OmuCS9Am66DH+AtpzGjpUEtxAQxhXnAgtA9PvhDtkyBQmkk520Yqe299Nb5//6WZA4Hx6LVBZZt27nEmw2RSLr1YBPgabmE6JiZW6bSN10q+9Rjcrsn2QbLRf25Qt0NkBwPEOu1NmZiXJsBX0Xtyd3w38LOKY6hbDsKnj5sYExpu1gBagXOz8fnykgE9MT4JSwBlC8+2pekSFoV/58TCPpZ9nCUjatLX3fgfrhOhV6QGllZgu4uwIFMqq9BTs8PzqCR5PRZxdzwDncAlReVZeiVlnSxnD+lRThptV3ZwFSQJZKW+Y=
+x-ms-exchange-antispam-messagedata: oNJYqGrVj1mLQHRRYAmCLtDNvpj5VsDy8LXIjlj8p5u0S19KSXuo8NaR2vZN3JkT5SMHJ5Z3SiFRK5xfTPTH8zLQr+hVKoldp5x1nBJ16Lns6TrAITJTtb2YQZSJHpTwn7Gh1m0LY9xAcn/9XDOLFlVW63DF9j0oQR0LtUVFoORrWPMtGGSSM2ZwgFscNjrk+5QP4ZXpgHUuApTn5yH6QrMxNoePwVcbtEWbP1xN5VgcW8Dk5S8YL1sQxNK9JDYE0XTKZIBBFC7XDzGpDE6E2OPwreXnN6pm3kkUEqjVrtNIUN1RFfIhxblf40AIlm0ZXRcys5yfi1TN1Vc7GOyNZNA6PJRk1UkWCMVVg5ysWwlP9mYvb5bHuNC89yyLNyUp2BIoGLZ6qqvig+SoMvltY6WnRTJXbBz9/z5FcV8owhduge4mTGGaE2eu1IMPhCf0tfpU/DzhiqPWTA/bOSrybET0mI8u9rRRiGnBhBmzyCkQPITDEFIdAPOoVABqow5gt4vuQmnr3otbldBH9kHcSN17AChJgA+bR9bVYtdX9VY1BuB2JNqwaRN2+3PJVuEuQcHpw8zL6RKyKjqctX+ynwLtCIcO472DMfossBXv35/YafYfUadszhXBWMItdpIFbfYSWjaxUc1Ub8eiM9linyRSU6E1G7Xeeuz2UjdFWEzPNsrxICnYx2XuOjF+r7lHrTIiSiXbb0OsQAYzXWY03zF0nut2d0KKpRQKTKqJjal4z6xOj/pw9XxoFPntqohKaKle22ryBUDM5fBGD2rRNV2WzHAfLJ005WW6Nuf2sO4=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb7dda53-0c18-4281-6017-08d7f1a5c4be
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 May 2020 10:10:56.7354 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f54dff62-9290-458a-a3e7-08d7f1a93f3a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 May 2020 10:35:50.3990 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: FxkAwJPnTlU1moMG9NlMj6aBg2e1SjtS2zMmbyDj/MdCBrjfUanrJaHl5vQ+EDWy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2527
+X-MS-Exchange-CrossTenant-userprincipalname: +znFrlXFPWdM93dg8QyfEMo0AQMwbSH6qxqEstEVoF9MsKCgB1nQBnvLwhD979w8
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3777
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,422 +122,130 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0664415879=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0664415879==
-Content-Language: zh-CN
-Content-Type: multipart/alternative;
-	boundary="_000_SN1PR12MB2558A472D85D6296CE250BBF87A40SN1PR12MB2558namp_"
-
---_000_SN1PR12MB2558A472D85D6296CE250BBF87A40SN1PR12MB2558namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-no.  below function checks if block is valid or not.
-I think you need check your code_checker. or you were checking on a very ol=
-d codebase?
-
-/* check if ras is supported on block, say, sdma, gfx */
-static inline int amdgpu_ras_is_supported(struct amdgpu_device *adev,
-unsigned int block)
-________________________________
-From: Dan Carpenter <dan.carpenter@oracle.com>
-Sent: Wednesday, May 6, 2020 5:17:34 PM
-To: Zhou1, Tao <Tao.Zhou1@amd.com>
-Cc: Pan, Xinhui <Xinhui.Pan@amd.com>; amd-gfx@lists.freedesktop.org <amd-gf=
-x@lists.freedesktop.org>
-Subject: Re: [bug report] drm/amdgpu: add amdgpu_ras.c to support ras (v2)
-
-On Wed, May 06, 2020 at 07:26:16AM +0000, Zhou1, Tao wrote:
-> [AMD Public Use]
->
-> Hi Dan:
->
-> Please check the following piece of code in amdgpu_ras_debugfs_ctrl_parse=
-_data:
->
->        if (op !=3D -1) {
->                if (amdgpu_ras_find_block_id_by_name(block_name, &block_id=
-))
->                        return -EINVAL;
->
->                data->head.block =3D block_id;
->
-> amdgpu_ras_find_block_id_by_name will return error directly if someone tr=
-y to provide an invalid block_name intentionally via debugfs.
->
-
-No.  It's the line after that which are the problem.
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-   147  static int amdgpu_ras_debugfs_ctrl_parse_data(struct file *f,
-   148                  const char __user *buf, size_t size,
-   149                  loff_t *pos, struct ras_debug_if *data)
-   150  {
-   151          ssize_t s =3D min_t(u64, 64, size);
-   152          char str[65];
-   153          char block_name[33];
-   154          char err[9] =3D "ue";
-   155          int op =3D -1;
-   156          int block_id;
-   157          uint32_t sub_block;
-   158          u64 address, value;
-   159
-   160          if (*pos)
-   161                  return -EINVAL;
-   162          *pos =3D size;
-   163
-   164          memset(str, 0, sizeof(str));
-   165          memset(data, 0, sizeof(*data));
-   166
-   167          if (copy_from_user(str, buf, s))
-   168                  return -EINVAL;
-   169
-   170          if (sscanf(str, "disable %32s", block_name) =3D=3D 1)
-   171                  op =3D 0;
-   172          else if (sscanf(str, "enable %32s %8s", block_name, err) =
-=3D=3D 2)
-   173                  op =3D 1;
-   174          else if (sscanf(str, "inject %32s %8s", block_name, err) =
-=3D=3D 2)
-   175                  op =3D 2;
-   176          else if (str[0] && str[1] && str[2] && str[3])
-   177                  /* ascii string, but commands are not matched. */
-
-Say we don't write an ascii string.
-
-   178                  return -EINVAL;
-   179
-   180          if (op !=3D -1) {
-   181                  if (amdgpu_ras_find_block_id_by_name(block_name, &b=
-lock_id))
-   182                          return -EINVAL;
-   183
-   184                  data->head.block =3D block_id;
-   185                  /* only ue and ce errors are supported */
-   186                  if (!memcmp("ue", err, 2))
-   187                          data->head.type =3D AMDGPU_RAS_ERROR__MULTI=
-_UNCORRECTABLE;
-   188                  else if (!memcmp("ce", err, 2))
-   189                          data->head.type =3D AMDGPU_RAS_ERROR__SINGL=
-E_CORRECTABLE;
-   190                  else
-   191                          return -EINVAL;
-   192
-   193                  data->op =3D op;
-   194
-   195                  if (op =3D=3D 2) {
-   196                          if (sscanf(str, "%*s %*s %*s %u %llu %llu",
-   197                                                  &sub_block, &addres=
-s, &value) !=3D 3)
-   198                                  if (sscanf(str, "%*s %*s %*s 0x%x 0=
-x%llx 0x%llx",
-   199                                                          &sub_block,=
- &address, &value) !=3D 3)
-   200                                          return -EINVAL;
-   201                          data->head.sub_block_index =3D sub_block;
-   202                          data->inject.address =3D address;
-   203                          data->inject.value =3D value;
-   204                  }
-   205          } else {
-   206                  if (size < sizeof(*data))
-   207                          return -EINVAL;
-   208
-   209                  if (copy_from_user(data, buf, sizeof(*data)))
-                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-This lets us set the data->head.block to whatever we want.  Premusably
-there is a trusted app which knows how to write the correct values.
-But if it has a bug that will cause a crash and we'll have to find a
-way to disable it in the kernel for kernel lock down mode etc so either
-way we'll need to do a bit of work.
-
-   210                          return -EINVAL;
-   211          }
-   212
-   213          return 0;
-   214  }
-
-regards,
-dan carpenter
-
-
---_000_SN1PR12MB2558A472D85D6296CE250BBF87A40SN1PR12MB2558namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
-ly: sans-serif; font-size: 11pt; color: black; ">
-no.&nbsp; below function checks if block is valid or not.<br>
-</div>
-<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
-ly: sans-serif; font-size: 11pt; color: black; ">
-I think you need check your code_checker. or you were checking on a very ol=
-d codebase?<br>
-<br>
-</div>
-<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
-ly: sans-serif; font-size: 11pt; color: black; ">
-/* check if ras is supported on block, say, sdma, gfx */<br>
-</div>
-<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
-ly: sans-serif; font-size: 11pt; color: black; ">
-static inline int amdgpu_ras_is_supported(struct amdgpu_device *adev,<br>
-</div>
-<div dir=3D"auto" style=3D"direction: ltr; margin: 0; padding: 0; font-fami=
-ly: sans-serif; font-size: 11pt; color: black; ">
-unsigned int block)<br>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Dan Carpenter &lt;dan=
-.carpenter@oracle.com&gt;<br>
-<b>Sent:</b> Wednesday, May 6, 2020 5:17:34 PM<br>
-<b>To:</b> Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;<br>
-<b>Cc:</b> Pan, Xinhui &lt;Xinhui.Pan@amd.com&gt;; amd-gfx@lists.freedeskto=
-p.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Subject:</b> Re: [bug report] drm/amdgpu: add amdgpu_ras.c to support ra=
-s (v2)</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">On Wed, May 06, 2020 at 07:26:16AM &#43;0000, Zhou=
-1, Tao wrote:<br>
-&gt; [AMD Public Use]<br>
-&gt; <br>
-&gt; Hi Dan:<br>
-&gt; <br>
-&gt; Please check the following piece of code in amdgpu_ras_debugfs_ctrl_pa=
-rse_data:<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (op !=3D -1) {<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; if (amdgpu_ras_find_block_id_by_name(block_name, &amp;b=
-lock_id))<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return =
--EINVAL;<br>
-&gt; <br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; data-&gt;head.block =3D block_id;<br>
-&gt; <br>
-&gt; amdgpu_ras_find_block_id_by_name will return error directly if someone=
- try to provide an invalid block_name intentionally via debugfs.<br>
-&gt; <br>
-<br>
-No.&nbsp; It's the line after that which are the problem.<br>
-<br>
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
-&nbsp;&nbsp; 147&nbsp; static int amdgpu_ras_debugfs_ctrl_parse_data(struct=
- file *f,<br>
-&nbsp;&nbsp; 148&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const char __user *buf, size_t =
-size,<br>
-&nbsp;&nbsp; 149&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; loff_t *pos, struct ras_debug_i=
-f *data)<br>
-&nbsp;&nbsp; 150&nbsp; {<br>
-&nbsp;&nbsp; 151&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ssiz=
-e_t s =3D min_t(u64, 64, size);<br>
-&nbsp;&nbsp; 152&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char=
- str[65];<br>
-&nbsp;&nbsp; 153&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char=
- block_name[33];<br>
-&nbsp;&nbsp; 154&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char=
- err[9] =3D &quot;ue&quot;;<br>
-&nbsp;&nbsp; 155&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int =
-op =3D -1;<br>
-&nbsp;&nbsp; 156&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int =
-block_id;<br>
-&nbsp;&nbsp; 157&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint=
-32_t sub_block;<br>
-&nbsp;&nbsp; 158&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 =
-address, value;<br>
-&nbsp;&nbsp; 159&nbsp; <br>
-&nbsp;&nbsp; 160&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (=
-*pos)<br>
-&nbsp;&nbsp; 161&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp; 162&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *pos=
- =3D size;<br>
-&nbsp;&nbsp; 163&nbsp; <br>
-&nbsp;&nbsp; 164&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mems=
-et(str, 0, sizeof(str));<br>
-&nbsp;&nbsp; 165&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mems=
-et(data, 0, sizeof(*data));<br>
-&nbsp;&nbsp; 166&nbsp; <br>
-&nbsp;&nbsp; 167&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (=
-copy_from_user(str, buf, s))<br>
-&nbsp;&nbsp; 168&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp; 169&nbsp; <br>
-&nbsp;&nbsp; 170&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (=
-sscanf(str, &quot;disable %32s&quot;, block_name) =3D=3D 1)<br>
-&nbsp;&nbsp; 171&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; op =3D 0;<br>
-&nbsp;&nbsp; 172&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else=
- if (sscanf(str, &quot;enable %32s %8s&quot;, block_name, err) =3D=3D 2)<br=
->
-&nbsp;&nbsp; 173&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; op =3D 1;<br>
-&nbsp;&nbsp; 174&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else=
- if (sscanf(str, &quot;inject %32s %8s&quot;, block_name, err) =3D=3D 2)<br=
->
-&nbsp;&nbsp; 175&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; op =3D 2;<br>
-&nbsp;&nbsp; 176&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else=
- if (str[0] &amp;&amp; str[1] &amp;&amp; str[2] &amp;&amp; str[3])<br>
-&nbsp;&nbsp; 177&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* ascii string, but commands a=
-re not matched. */<br>
-<br>
-Say we don't write an ascii string.<br>
-<br>
-&nbsp;&nbsp; 178&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp; 179&nbsp; <br>
-&nbsp;&nbsp; 180&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (=
-op !=3D -1) {<br>
-&nbsp;&nbsp; 181&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ras_find_block_id_by=
-_name(block_name, &amp;block_id))<br>
-&nbsp;&nbsp; 182&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp; 183&nbsp; <br>
-&nbsp;&nbsp; 184&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;head.block =3D block_i=
-d;<br>
-&nbsp;&nbsp; 185&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* only ue and ce errors are su=
-pported */<br>
-&nbsp;&nbsp; 186&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!memcmp(&quot;ue&quot;, err=
-, 2))<br>
-&nbsp;&nbsp; 187&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; data-&gt;head.type =3D AMDGPU_RAS_ERROR__MULTI_UNCORRECTAB=
-LE;<br>
-&nbsp;&nbsp; 188&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else if (!memcmp(&quot;ce&quot;=
-, err, 2))<br>
-&nbsp;&nbsp; 189&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; data-&gt;head.type =3D AMDGPU_RAS_ERROR__SINGLE_CORRECTABL=
-E;<br>
-&nbsp;&nbsp; 190&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-&nbsp;&nbsp; 191&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp; 192&nbsp; <br>
-&nbsp;&nbsp; 193&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; data-&gt;op =3D op;<br>
-&nbsp;&nbsp; 194&nbsp; <br>
-&nbsp;&nbsp; 195&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (op =3D=3D 2) {<br>
-&nbsp;&nbsp; 196&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; if (sscanf(str, &quot;%*s %*s %*s %u %llu %llu&quot;,<br>
-&nbsp;&nbsp; 197&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; &amp;sub_block, &amp;address, &amp;value) !=3D 3)<br>
-&nbsp;&nbsp; 198&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (sscanf=
-(str, &quot;%*s %*s %*s 0x%x 0x%llx 0x%llx&quot;,<br>
-&nbsp;&nbsp; 199&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;sub_block, =
-&amp;address, &amp;value) !=3D 3)<br>
-&nbsp;&nbsp; 200&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp; 201&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; data-&gt;head.sub_block_index =3D sub_block;<br>
-&nbsp;&nbsp; 202&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; data-&gt;inject.address =3D address;<br>
-&nbsp;&nbsp; 203&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; data-&gt;inject.value =3D value;<br>
-&nbsp;&nbsp; 204&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp; 205&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } el=
-se {<br>
-&nbsp;&nbsp; 206&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (size &lt; sizeof(*data))<br=
->
-&nbsp;&nbsp; 207&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp; 208&nbsp; <br>
-&nbsp;&nbsp; 209&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (copy_from_user(data, buf, s=
-izeof(*data)))<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^<br>
-This lets us set the data-&gt;head.block to whatever we want.&nbsp; Premusa=
-bly<br>
-there is a trusted app which knows how to write the correct values.<br>
-But if it has a bug that will cause a crash and we'll have to find a<br>
-way to disable it in the kernel for kernel lock down mode etc so either<br>
-way we'll need to do a bit of work.<br>
-<br>
-&nbsp;&nbsp; 210&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;&nbsp; 211&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br=
->
-&nbsp;&nbsp; 212&nbsp; <br>
-&nbsp;&nbsp; 213&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retu=
-rn 0;<br>
-&nbsp;&nbsp; 214&nbsp; }<br>
-<br>
-regards,<br>
-dan carpenter<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_SN1PR12MB2558A472D85D6296CE250BBF87A40SN1PR12MB2558namp_--
-
---===============0664415879==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0664415879==--
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQ0KDQpU
+aGFua3MsIENocmlzdGlhbiwNCg0KSXMgdGhpcyB0aGUgZml4IHRoYXQgeW91IGFyZSBtZW50aW9u
+aW5nOg0KDQpjb21taXQgMTY3NWMzYTI0ZDA3NWQ0ODQzNzcwMDM3ODkyNDVmNDhjMjExNGEwYg0K
+QXV0aG9yOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+DQpEYXRl
+OiAgIEZyaSBGZWIgMjEgMTU6MTA6MzEgMjAyMCArMDEwMA0KDQogICAgZHJtL2FtZGdwdTogc3Rv
+cCBkaXNhYmxlIHRoZSBzY2hlZHVsZXIgZHVyaW5nIEhXIGZpbmkNCg0KICAgIFdoZW4gd2Ugc3Rv
+cCB0aGUgSFcgZm9yIGV4YW1wbGUgZm9yIEdQVSByZXNldCB3ZSBzaG91bGQgbm90IHN0b3AgdGhl
+DQogICAgZnJvbnQtZW5kIHNjaGVkdWxlci4gT3RoZXJ3aXNlIHdlIHJ1biBpbnRvIGludGVybWVk
+aWF0ZSBmYWlsdXJlcyBkdXJpbmcNCiAgICBjb21tYW5kIHN1Ym1pc3Npb24uDQoNCiAgICBUaGUg
+c2NoZWR1bGVyIHNob3VsZCBvbmx5IGJlIHN0b3BwZWQgaW4gdmVyeSBmZXcgY2FzZXM6DQogICAg
+MS4gV2UgY2FuJ3QgZ2V0IHRoZSBoYXJkd2FyZSB3b3JraW5nIGluIHJpbmcgb3IgSUIgdGVzdCBh
+ZnRlciBhIEdQVSByZXNldC4NCiAgICAyLiBUaGUgS0lRIHNjaGVkdWxlciBpcyBub3QgdXNlZCBp
+biB0aGUgZnJvbnQtZW5kIGFuZCBzaG91bGQgYmUgZGlzYWJsZWQgZHVyaW5nIEdQVSByZXNldC4N
+CiAgICAzLiBJbiBhbWRncHVfcmluZ19maW5pKCkgd2hlbiB0aGUgZHJpdmVyIHVubG9hZHMuDQoN
+CiAgICBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFt
+ZC5jb20+DQogICAgUmV2aWV3ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJA
+YW1kLmNvbT4NCiAgICBBY2tlZC1ieTogTmlybW95IERhcyA8bmlybW95LmRhc0BhbWQuY29tPg0K
+ICAgIFRlc3QtYnk6IERlbm5pcyBMaSA8ZGVubmlzLmxpQGFtZC5jb20+DQogICAgU2lnbmVkLW9m
+Zi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPg0KDQpUaGFua3MN
+ClRpZWNoZW5nDQoNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IENocmlzdGlh
+biBLw7ZuaWcgPGNrb2VuaWcubGVpY2h0enVtZXJrZW5AZ21haWwuY29tPiANClNlbnQ6IFdlZG5l
+c2RheSwgTWF5IDYsIDIwMjAgNTo0NCBQTQ0KVG86IFpob3UsIFRpZWNoZW5nIDxUaWVjaGVuZy5a
+aG91QGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KU3ViamVjdDogUmU6
+IFtQQVRDSF0gZHJtL2FtZGdwdTogYXZvaWQgY2xlYXJpbmcgZnJlZWQgYm8gd2l0aCBzZG1hIGlu
+IGdwdSByZXNldA0KDQpOQUssIHRoZSBmdW5kYW1lbnRhbCBwcm9ibGVtIHdhcyB0aGF0IHdlIGRp
+c2FibGVkIHRoZSBTRE1BIHBhZ2luZyBxdWV1ZSBkdXJpbmcgcmVzZXQ6DQo+IFsgIDg4NS42OTQ2
+ODJdIFtkcm1dIHNjaGVkcGFnZTAgaXMgbm90IHJlYWR5LCBza2lwcGluZyBbICA4ODUuNjk0Njgy
+XSANCj4gW2RybV0gc2NoZWRwYWdlMSBpcyBub3QgcmVhZHksIHNraXBwaW5nDQoNClRoaXMgaXMg
+Zml4ZWQgYnkgbm93LCBzbyB0aGUgcHJvYmxlbSBzaG91bGQgbm90IGhhcHBlbiBhbnkgbW9yZS4N
+Cg0KUmVnYXJkcywNCkNocmlzdGlhbi4NCg0KDQpBbSAwNi4wNS4yMCB1bSAxMTozNiBzY2hyaWVi
+IFRpZWNoZW5nIFpob3U6DQo+IFdIWToNCj4gRm9yIFYzMjAgcGFzc3Rocm91Z2ggYW5kICJtb2Rw
+cm9iZSBhbWRncHUgbG9ja3VwX3RpbWVvdXQ9NTAwIiwgdGhlcmUgDQo+IHdpbGwgYmUga2VybmVs
+IE5VTEwgcG9pbnRlciB3aGVuIHVzaW5nIHF1YXJrIH4gQkFDTyByZXNldCwgZm9yIGluc3RhbmNl
+Og0KPiAgICBoYW5nX3ZtX2NvbXB1dGUwX2JhZF9jc19kaXNwYXRjaC5sdWENCj4gICAgaGFuZ192
+bV9kbWEwX2NvcnJ1cHRlZF9oZWFkZXIubHVhDQo+ICAgIGV0Yy4NCj4gLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0NCj4gWyAgODg0Ljc5Mjg4NV0gW2RybTphbWRncHVfam9iX3RpbWVkb3V0
+IFthbWRncHVdXSAqRVJST1IqIHJpbmcgDQo+IGNvbXBfMS4wLjAgdGltZW91dCwgc2lnbmFsZWQg
+c2VxPTMsIGVtaXR0ZWQgc2VxPTQgWyAgODg0Ljc5Mzc3Ml0gDQo+IFtkcm06YW1kZ3B1X2pvYl90
+aW1lZG91dCBbYW1kZ3B1XV0gKkVSUk9SKiBQcm9jZXNzIGluZm9ybWF0aW9uOiANCj4gcHJvY2Vz
+cyBxdWFyayBwaWQgMTY5MzkgdGhyZWFkIHF1YXJrIHBpZCAxNjk0MCBbICA4ODQuODU5OTc5XSBh
+bWRncHU6IA0KPiBbcG93ZXJwbGF5XSBzZXQgdmlydHVhbGl6YXRpb24gR0ZYIERQTSBwb2xpY3kg
+c3VjY2VzcyBbICA4ODQuODYxMDAzXSANCj4gYW1kZ3B1OiBbcG93ZXJwbGF5XSBhY3RpdmF0ZSB2
+aXJ0dWFsaXphdGlvbiBHRlggRFBNIHBvbGljeSBzdWNjZXNzIFsgIDg4NC44NjEwNjVdIGFtZGdw
+dTogW3Bvd2VycGxheV0gc2V0IHZpcnR1YWxpemF0aW9uIFZDRSBEUE0gcG9saWN5IHN1Y2Nlc3Mg
+WyAgODg1LjY5MzU1NF0gW2RybTphbWRncHVfY3NfaW9jdGwgW2FtZGdwdV1dICpFUlJPUiogRmFp
+bGVkIHRvIGluaXRpYWxpemUgcGFyc2VyIC0xMjUhDQo+IFsgIDg4NS42OTQ2ODJdIFtkcm1dIHNj
+aGVkcGFnZTAgaXMgbm90IHJlYWR5LCBza2lwcGluZyBbICA4ODUuNjk0NjgyXSANCj4gW2RybV0g
+c2NoZWRwYWdlMSBpcyBub3QgcmVhZHksIHNraXBwaW5nIFsgIDg4NS42OTQ3MjBdIA0KPiBbZHJt
+OmFtZGdwdV9nZW1fdmFfaW9jdGwgW2FtZGdwdV1dICpFUlJPUiogQ291bGRuJ3QgdXBkYXRlIEJP
+X1ZBICgtMikgDQo+IFsgIDg4NS42OTUzMjhdIEJVRzogdW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwg
+TlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIA0KPiBhdCAwMDAwMDAwMDAwMDAwMDA4IFsgIDg4NS42
+OTU5MDldIFBHRCAwIFA0RCAwIFsgIDg4NS42OTYxMDRdIE9vcHM6IA0KPiAwMDAwIFsjMV0gU01Q
+IFBUSQ0KPiBbICA4ODUuNjk2MzY4XSBDUFU6IDIgUElEOiAxNjk0MCBDb21tOiBxdWFyayBUYWlu
+dGVkOiBHICAgICAgICAgICBPRSAgICAgNC4xOS41MisgIzYNCj4gWyAgODg1LjY5Njk0NV0gSGFy
+ZHdhcmUgbmFtZTogUUVNVSBTdGFuZGFyZCBQQyAoaTQ0MEZYICsgUElJWCwgMTk5NiksIA0KPiBC
+SU9TIDEuMTAuMi0xIDA0LzAxLzIwMTQgWyAgODg1LjY5NzU5M10gUklQOiANCj4gMDAxMDphbWRn
+cHVfdm1fc2RtYV9jb21taXQrMHg1OS8weDEzMCBbYW1kZ3B1XSAuLi4NCj4gWyAgODg1LjcwNTA0
+Ml0gQ2FsbCBUcmFjZToNCj4gWyAgODg1LjcwNTI1MV0gID8gYW1kZ3B1X3ZtX2JvX3VwZGF0ZV9t
+YXBwaW5nKzB4ZGYvMHhmMCBbYW1kZ3B1XSBbICANCj4gODg1LjcwNTY5Nl0gID8gYW1kZ3B1X3Zt
+X2NsZWFyX2ZyZWVkKzB4Y2MvMHgxYjAgW2FtZGdwdV0gWyAgDQo+IDg4NS43MDYxMTJdICA/IGFt
+ZGdwdV9nZW1fdmFfaW9jdGwrMHg0YTEvMHg1MTAgW2FtZGdwdV0gWyAgODg1LjcwNjQ5M10gIA0K
+PiA/IF9fcmFkaXhfdHJlZV9kZWxldGUrMHg3ZS8weGEwIFsgIDg4NS43MDY4MjJdICA/IA0KPiBh
+bWRncHVfZ2VtX3ZhX21hcF9mbGFncysweDcwLzB4NzAgW2FtZGdwdV0gWyAgODg1LjcwNzIyMF0g
+ID8gDQo+IGRybV9pb2N0bF9rZXJuZWwrMHhhYS8weGYwIFtkcm1dIFsgIDg4NS43MDc1NjhdICA/
+IA0KPiBhbWRncHVfZ2VtX3ZhX21hcF9mbGFncysweDcwLzB4NzAgW2FtZGdwdV0gWyAgODg1Ljcw
+Nzk2Ml0gID8gDQo+IGRybV9pb2N0bF9rZXJuZWwrMHhhYS8weGYwIFtkcm1dIFsgIDg4NS43MDgy
+OTRdICA/IA0KPiBkcm1faW9jdGwrMHgzYTcvMHgzZjAgW2RybV0gWyAgODg1LjcwODYzMl0gID8g
+DQo+IGFtZGdwdV9nZW1fdmFfbWFwX2ZsYWdzKzB4NzAvMHg3MCBbYW1kZ3B1XSBbICA4ODUuNzA5
+MDMyXSAgPyANCj4gdW5tYXBfcmVnaW9uKzB4ZDkvMHgxMjAgWyAgODg1LjcwOTMyOF0gID8gYW1k
+Z3B1X2RybV9pb2N0bCsweDQ5LzB4ODAgDQo+IFthbWRncHVdIFsgIDg4NS43MDk2ODRdICA/IGRv
+X3Zmc19pb2N0bCsweGExLzB4NjIwIFsgIDg4NS43MDk5NzFdICA/IA0KPiBkb19tdW5tYXArMHgz
+MmUvMHg0MzAgWyAgODg1LjcxMDIzMl0gID8ga3N5c19pb2N0bCsweDY2LzB4NzAgWyAgDQo+IDg4
+NS43MTA1MTNdICA/IF9feDY0X3N5c19pb2N0bCsweDE2LzB4MjAgWyAgODg1LjcxMDgwNl0gID8g
+DQo+IGRvX3N5c2NhbGxfNjQrMHg1NS8weDEwMCBbICA4ODUuNzExMDkyXSAgPyANCj4gZW50cnlf
+U1lTQ0FMTF82NF9hZnRlcl9od2ZyYW1lKzB4NDQvMHhhOQ0KPiAuLi4NCj4gWyAgODg1LjcxOTQw
+OF0gLS0tWyBlbmQgdHJhY2UgN2VlMzE4MGY0MmU5ZjU3MiBdLS0tIFsgIDg4NS43MTk3NjZdIA0K
+PiBSSVA6IDAwMTA6YW1kZ3B1X3ZtX3NkbWFfY29tbWl0KzB4NTkvMHgxMzAgW2FtZGdwdV0gLi4u
+DQo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+DQo+IHRoZSBOVUxMIHBvaW50ZXIg
+KGVudGl0eS0+cnEgPT0gTlVMTCBpbiBhbWRncHVfdm1fc2RtYV9jb21taXQoKSkgYXMgZm9sbG93
+czoNCj4gMS4gcXVhcmsgc2VuZHMgYmFkIGpvYiB0aGF0IHRyaWdnZXJzIGpvYiB0aW1lb3V0OyAy
+LiBndWVzdCBLTUQgZGV0ZWN0cyANCj4gdGhlIGpvYiB0aW1lb3V0IGFuZCBnb2VzIHRvIGdwdSBy
+ZWNvdmVyeSwgYW5kIGl0IGdvZXMgdG8NCj4gICAgIGlwX3N1c3BlbmQgZm9yIFNETUEsIGFuZCBp
+dCBzZXRzIHNkbWFbXS5zY2hlZC5yZWFkeSB0byBmYWxzZTsgMy4gDQo+IHF1YXJrIHNlbmRzIFVO
+TUFQIG9wZXJhdGlvbiB0aHJvdWdoIGFtZGdwdV9nZW1fdmFfaW9jdGwsIGFuZCBndWVzdCBLTUQg
+Z29lcw0KPiAgICAgdGhyb3VnaCBhbWRncHVfZ2VtX3ZhX3VwZGF0ZV92bSBhbmQgZmluYWxseSBn
+b2VzIHRvIGFtZGdwdV92bV9zZG1hX2NvbW1pdCwNCj4gICAgIGl0IGdvZXMgdG8gYW1kZ3B1X2pv
+Yl9zdWJtaXQgdG8gZHJtX3NjaGVkX2pvYl9pbml0IDQuIA0KPiBkcm1fc2NoZWRfam9iX2luaXQg
+ZmFpbHMgYXQgZHJtX3NjaGVkX3BpY2tfYmVzdCgpIHNpbmNlDQo+ICAgICBzZG1hW10uc2NoZWQu
+cmVhZHkgaXMgc2V0IHRvIGZhbHNlOyBpbiB0aGUgbWVhbndoaWxlIGVudGl0eS0+cnEgDQo+IGJl
+Y29tZXMgTlVMTDsgNS4gcXVhcmsgc2VuZHMgb3RoZXIgVU5NQVAgb3BlcmF0aW9ucyB0aHJvdWdo
+IGFtZGdwdV9nZW1fdmFfaW9jdGwsIHdoaWxlIHRoaXMgdGltZQ0KPiAgICAgdGhlcmUgd2lsbCBi
+ZSBOVUxMIHBvaW50ZXIgYmVjYXVzZSBlbnRpdHktPnJxIGlzIE5VTEw7DQo+DQo+IHRoZSBhYm92
+ZSBzZXF1ZW5jZSBvY2N1cnMgb25seSB3aGVuICJtb2Rwcm9iZSBhbWRncHUgbG9ja3VwX3RpbWVv
+dXQ9NTAwIi4NCj4gaXQgZG9lcyBub3Qgb2NjdXIgd2hlbiBsb2NrdXBfdGltZW91dD0xMDAwMCAo
+ZGVmYXVsdCkgYmVjYXVzZSBzdGVwIDIuIA0KPiBLTUQgZGV0ZWN0cyBqb2IgdGltZW91dCB3aWxs
+IGJlIHNvbWV0aW1lIGFmdGVyIHF1YXJrIHNlbmRzIFVOTUFQIA0KPiBvcGVyYXRpb25zOyBpLmUu
+IHF1YXJrIFVOTUFQIG9wZWFydGlvbnMgYXJlIGZpbmlzaGVkIGJlZm9yZSBzZG1hIGlwIHN1c3Bl
+bmQuDQo+DQo+IEhPVzoNCj4gaGVyZSBpcyB0byBhZGQgbXV0ZXhfbG9jayB0byB3YWl0IHRvIGF2
+b2lkIHVzaW5nIHNkbWEgZHVyaW5nIGdwdSByZXNldC4NCj4NCj4gU2lnbmVkLW9mZi1ieTogVGll
+Y2hlbmcgWmhvdSA8VGllY2hlbmcuWmhvdUBhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYyB8IDQgKysrKw0KPiAgIDEgZmlsZSBjaGFuZ2Vk
+LCA0IGluc2VydGlvbnMoKykNCj4NCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV92bS5jIA0KPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV92bS5jDQo+IGluZGV4IGUyMDVlY2M3NWEyMS4uMDE4Yjg4ZjNiNmRhIDEwMDY0NA0KPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiArKysgYi9kcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdm0uYw0KPiBAQCAtMjA0Nyw2ICsyMDQ3LDggQEAg
+aW50IGFtZGdwdV92bV9jbGVhcl9mcmVlZChzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4g
+ICAJc3RydWN0IGRtYV9mZW5jZSAqZiA9IE5VTEw7DQo+ICAgCWludCByOw0KPiAgIA0KPiArCW11
+dGV4X2xvY2soJmFkZXYtPmxvY2tfcmVzZXQpOw0KPiArDQo+ICAgCXdoaWxlICghbGlzdF9lbXB0
+eSgmdm0tPmZyZWVkKSkgew0KPiAgIAkJbWFwcGluZyA9IGxpc3RfZmlyc3RfZW50cnkoJnZtLT5m
+cmVlZCwNCj4gICAJCQlzdHJ1Y3QgYW1kZ3B1X2JvX3ZhX21hcHBpbmcsIGxpc3QpOyBAQCAtMjA2
+Miw2ICsyMDY0LDcgQEAgaW50IA0KPiBhbWRncHVfdm1fY2xlYXJfZnJlZWQoc3RydWN0IGFtZGdw
+dV9kZXZpY2UgKmFkZXYsDQo+ICAgCQlhbWRncHVfdm1fZnJlZV9tYXBwaW5nKGFkZXYsIHZtLCBt
+YXBwaW5nLCBmKTsNCj4gICAJCWlmIChyKSB7DQo+ICAgCQkJZG1hX2ZlbmNlX3B1dChmKTsNCj4g
+KwkJCW11dGV4X3VubG9jaygmYWRldi0+bG9ja19yZXNldCk7DQo+ICAgCQkJcmV0dXJuIHI7DQo+
+ICAgCQl9DQo+ICAgCX0NCj4gQEAgLTIwNzMsNiArMjA3Niw3IEBAIGludCBhbWRncHVfdm1fY2xl
+YXJfZnJlZWQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYsDQo+ICAgCQlkbWFfZmVuY2VfcHV0
+KGYpOw0KPiAgIAl9DQo+ICAgDQo+ICsJbXV0ZXhfdW5sb2NrKCZhZGV2LT5sb2NrX3Jlc2V0KTsN
+Cj4gICAJcmV0dXJuIDA7DQo+ICAgDQo+ICAgfQ0KX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5m
+cmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbWQtZ2Z4Cg==
