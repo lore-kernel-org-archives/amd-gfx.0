@@ -6,35 +6,35 @@ X-Spam-Status: No, score=-9.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10E1BC47256
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9500EC38A2A
 	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 14:27:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E68C920769
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 14:27:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E68C920769
+	by mail.kernel.org (Postfix) with ESMTPS id 74DBF20769
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 14:27:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74DBF20769
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C8586E888;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C87E16E88D;
 	Wed,  6 May 2020 14:27:50 +0000 (UTC)
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E6908989A;
- Wed,  6 May 2020 14:26:31 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24A7A8991D;
+ Wed,  6 May 2020 14:26:36 +0000 (UTC)
 Received: from DGGEMS407-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 04F18B72BC3D72B57A71;
- Wed,  6 May 2020 22:26:27 +0800 (CST)
+ by Forcepoint Email with ESMTP id 16F618FC79A654FBFF77;
+ Wed,  6 May 2020 22:26:32 +0800 (CST)
 Received: from huawei.com (10.90.53.225) by DGGEMS407-HUB.china.huawei.com
  (10.3.19.207) with Microsoft SMTP Server id 14.3.487.0; Wed, 6 May 2020
- 22:26:19 +0800
+ 22:26:22 +0800
 From: Zheng Bin <zhengbin13@huawei.com>
 To: <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
  <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
  <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>
-Subject: [PATCH 03/14] drm/radeon: remove comparison to bool in ni_dpm.c
-Date: Wed, 6 May 2020 22:33:15 +0800
-Message-ID: <20200506143326.66467-4-zhengbin13@huawei.com>
+Subject: [PATCH 12/14] drm/radeon: remove comparison to bool in rv6xx_dpm.c
+Date: Wed, 6 May 2020 22:33:24 +0800
+Message-ID: <20200506143326.66467-13-zhengbin13@huawei.com>
 X-Mailer: git-send-email 2.26.0.106.g9fadedd
 In-Reply-To: <20200506143326.66467-1-zhengbin13@huawei.com>
 References: <20200506143326.66467-1-zhengbin13@huawei.com>
@@ -61,47 +61,27 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Fixes coccicheck warning:
 
-drivers/gpu/drm/radeon/ni_dpm.c:807:5-26: WARNING: Comparison to bool
-drivers/gpu/drm/radeon/ni_dpm.c:2466:5-36: WARNING: Comparison to boo
-drivers/gpu/drm/radeon/ni_dpm.c:3146:5-22: WARNING: Comparison to bool
+drivers/gpu/drm/radeon/rv6xx_dpm.c:1571:5-20: WARNING: Comparison to bool
 
 Reported-by: Hulk Robot <hulkci@huawei.com>
 Signed-off-by: Zheng Bin <zhengbin13@huawei.com>
 ---
- drivers/gpu/drm/radeon/ni_dpm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/radeon/rv6xx_dpm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/radeon/ni_dpm.c b/drivers/gpu/drm/radeon/ni_dpm.c
-index b57c37ddd164..66c48ce107a5 100644
---- a/drivers/gpu/drm/radeon/ni_dpm.c
-+++ b/drivers/gpu/drm/radeon/ni_dpm.c
-@@ -804,7 +804,7 @@ static void ni_apply_state_adjust_rules(struct radeon_device *rdev,
- 	else
- 		max_limits = &rdev->pm.dpm.dyn_state.max_clock_voltage_on_dc;
+diff --git a/drivers/gpu/drm/radeon/rv6xx_dpm.c b/drivers/gpu/drm/radeon/rv6xx_dpm.c
+index 69d380fff22a..ebdb937730c2 100644
+--- a/drivers/gpu/drm/radeon/rv6xx_dpm.c
++++ b/drivers/gpu/drm/radeon/rv6xx_dpm.c
+@@ -1568,7 +1568,7 @@ int rv6xx_dpm_enable(struct radeon_device *rdev)
+ 	rv6xx_program_engine_speed_parameters(rdev);
 
--	if (rdev->pm.dpm.ac_power == false) {
-+	if (!rdev->pm.dpm.ac_power) {
- 		for (i = 0; i < ps->performance_level_count; i++) {
- 			if (ps->performance_levels[i].mclk > max_limits->mclk)
- 				ps->performance_levels[i].mclk = max_limits->mclk;
-@@ -2463,7 +2463,7 @@ static int ni_populate_power_containment_values(struct radeon_device *rdev,
- 	u32 power_boost_limit;
- 	u8 max_ps_percent;
+ 	rv6xx_enable_display_gap(rdev, true);
+-	if (pi->display_gap == false)
++	if (!pi->display_gap)
+ 		rv6xx_enable_display_gap(rdev, false);
 
--	if (ni_pi->enable_power_containment == false)
-+	if (!ni_pi->enable_power_containment)
- 		return 0;
-
- 	if (state->performance_level_count == 0)
-@@ -3143,7 +3143,7 @@ static int ni_initialize_smc_cac_tables(struct radeon_device *rdev)
- 	int i, ret;
- 	u32 reg;
-
--	if (ni_pi->enable_cac == false)
-+	if (!ni_pi->enable_cac)
- 		return 0;
-
- 	cac_tables = kzalloc(sizeof(PP_NIslands_CACTABLES), GFP_KERNEL);
+ 	rv6xx_program_power_level_enter_state(rdev);
 --
 2.26.0.106.g9fadedd
 
