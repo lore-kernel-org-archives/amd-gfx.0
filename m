@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7B4CEC28CBC
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 06:39:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E0BBC28CBC
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 06:42:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E1E9206E6
-	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 06:39:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0113D206E6
+	for <amd-gfx@archiver.kernel.org>; Wed,  6 May 2020 06:42:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="zArT0dOT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E1E9206E6
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Zg7QT59z"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0113D206E6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F11DA6E287;
-	Wed,  6 May 2020 06:39:48 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2052.outbound.protection.outlook.com [40.107.223.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC9E56E287
- for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2020 06:39:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A240689E08;
+	Wed,  6 May 2020 06:42:09 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2087.outbound.protection.outlook.com [40.107.244.87])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5C856E22E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  6 May 2020 06:42:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SRpipm5ibGggvF2zYdZeFTlkZA5rmcF8a6b4wty/90AQa6chM0GVoQyYdU7OoJqphpxc188giBlaMgAGDBnZcPHL+VA478Wudmy7pEVfKCp1NV3pw77N21gIXQWEKAUxfFE0j8GN16543Exion7tjq+675jM/kIazQjcK5H2iPY0PU/8n9Ygw0n+D8L8vRuhO7tQAXH2oJ2pVO4aE0dX78ggZJrXsk93bIYbTeheFxVOQI3kKbgSzkq6FPxhDoKrIDTDZzXhoLynfMyyX2ATjAd4K7olVm7zdSKXohU6+M/9QCW6dQTmsG7Eq8HP47qdcIGNe1Ypp1WuVoYFLd/g9w==
+ b=JgoCI7uJQcZgLdR+NAtc4zVvrbRt4lZXQ2mqVUfMIf1yh1XfnNEPc/UYRa6aMLx/MI3A9WxHn8VA1OFKJt4M/qv4die92yoac8inkc1MuxSCgv5/b3uy5LcOlkS+drlznOHhxhpXvWSzJV9fmluZe+Im0yfhk8WNuzh0Z+5nxyKwnrpKrRa9DfvhyClTEAZUuwrVvWSZKKxTyDISeVaOXJgQFht1zS42OvL35ZilmW5Qfw3yVZgVO5paLLtP+fqXVikKMFTkgLOKYJGzShiKSU8VDFtU6LTVMmbzvRfxmKZntVEm+6E7ZkO4q5VYvs2OqixTdXHjNliEKcdtnK6cRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+wKW1EUkWa876fM4FM9tmwVOr8hPvJqnqyXtER7cDbE=;
- b=U7dkJUIVvW3TnwsfdGuNQzrDl6wfHLCukiS9M7wmTG5TfagtWlz5Tu5L5UoVTHdTTL2HsLlZRM+H9esRghXfPY7dC/2XlXp7UpwGls/6IKHJUcvigE3T7eijYgE4eO/xObYJBFcs/gLp8iCa6BLw3CRp7su1CbuW8cv01cKN6tPsRbZi+f7qNcmbcUL+EZb2t+i2y418idIIJELx1I2M7ReqJJgN/iB/R3qtcfgIbAg4pS4QzsgpQ1jcloIn0XdceqDJUi4GGuTwQuaxCDFhbVBvHkUBvGppaqEzFt0Kh3JOFiXEIKF7AUw/zBRFPoikVuHIyINs/5x3idfYBH9Zrg==
+ bh=b7rNHXigosmgBJ82cx8Jlwa1Rkm5q8jsAY9eDrJZ5tE=;
+ b=m3uSrV0T60kWyDyuUBP6vboo41tgqLdERLNAyoqd1SMeTl5Ndw4KJ7dS3LrTuTLlBOIDmaOpGHUJIxRs7amG4f/SghfCy3Yi6TS8EzLuk+HlJLS5M+NapR4KqSls8wyLV4uRvbSSSqJN4Od/Ys36s9HEk8MyeFBuBGxufnwsQQR6M91gqc/INPgkk/63L+DVmPMwardjBzA3z8hoAmxPXSumxfceI7Lp9Zic9197YazUTvlY5ddpzWCy0bKgOKUaKUV/kw8xGCHt44PFLXNL33CccVFp8rNS5PkDnSXK4rViglGvawHr5sI78l48LBHTSNj9s4FYo9qK7kRP36+ySA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,18 +40,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+wKW1EUkWa876fM4FM9tmwVOr8hPvJqnqyXtER7cDbE=;
- b=zArT0dOTNgFo8DdOBWOKgdQJ3G+FJt5DNG3eEFPCcDzSfSQBRplIWP5M/0o5ybnGP+qf6F+e0iXLqeadJV2EmP9SxGugkbMjKFNa7j6smoHFBziFwP552vjKVvR5OMeSasx+6F/B84C2lfqTeXGoE3aw/yrCKnB/s4EPhTuXN14=
-Received: from DM6PR06CA0029.namprd06.prod.outlook.com (2603:10b6:5:120::42)
- by DM6PR12MB4579.namprd12.prod.outlook.com (2603:10b6:5:2ac::7) with
+ bh=b7rNHXigosmgBJ82cx8Jlwa1Rkm5q8jsAY9eDrJZ5tE=;
+ b=Zg7QT59zqu7qJ5xvxGu8WKp0+/m5Y1WQASGhN+7l7xwoopNXxRVEM8NKrwJtqHpMoayBDtAkMomhvOyLPNvoQlThVmE8bUVdL4rpeqyfr0gTWMLIfrt1Vdpm0oSKzwy8QB+HnBQyu0ZTMTTI5LLK5MVaKK4fWrC54VTXSG4SmdI=
+Received: from DM3PR08CA0019.namprd08.prod.outlook.com (2603:10b6:0:52::29) by
+ MWHPR1201MB2557.namprd12.prod.outlook.com (2603:10b6:300:e4::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.20; Wed, 6 May
- 2020 06:39:46 +0000
-Received: from DM6NAM11FT047.eop-nam11.prod.protection.outlook.com
- (2603:10b6:5:120:cafe::87) by DM6PR06CA0029.outlook.office365.com
- (2603:10b6:5:120::42) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.26 via Frontend
- Transport; Wed, 6 May 2020 06:39:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.26; Wed, 6 May
+ 2020 06:42:07 +0000
+Received: from DM6NAM11FT042.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:0:52:cafe::8b) by DM3PR08CA0019.outlook.office365.com
+ (2603:10b6:0:52::29) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.27 via Frontend
+ Transport; Wed, 6 May 2020 06:42:06 +0000
 Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
@@ -59,57 +59,53 @@ Authentication-Results: spf=none (sender IP is 165.204.84.17)
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
 Received: from SATLEXMB01.amd.com (165.204.84.17) by
- DM6NAM11FT047.mail.protection.outlook.com (10.13.172.139) with Microsoft SMTP
+ DM6NAM11FT042.mail.protection.outlook.com (10.13.173.165) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2979.27 via Frontend Transport; Wed, 6 May 2020 06:39:45 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB01.amd.com
+ 15.20.2979.27 via Frontend Transport; Wed, 6 May 2020 06:42:06 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
  (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 6 May 2020
- 01:39:45 -0500
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
+ 01:42:05 -0500
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 6 May 2020
- 01:39:45 -0500
+ 01:42:05 -0500
 Received: from hawzhang-System-Product-Master.amd.com (10.180.168.240) by
  SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Wed, 6 May 2020 01:39:42 -0500
+ via Frontend Transport; Wed, 6 May 2020 01:42:04 -0500
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, Alex Deucher <alexander.deucher@amd.com>, 
- John Clements <John.Clements@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- "Guchun
- Chen" <Guchun.Chen@amd.com>, Dennis Li <Dennis.Li@amd.com>, Tao Zhou
- <Tao.Zhou1@amd.com>
-Subject: [PATCH 4/4] drm/amdgpu: switch to common rlc_autoload helper
-Date: Wed, 6 May 2020 14:39:23 +0800
-Message-ID: <20200506063923.22772-4-Hawking.Zhang@amd.com>
+ John Clements <John.Clements@amd.com>
+Subject: [PATCH] drm/amdgpu: use node_id and node_size to calcualte
+ dram_base_address
+Date: Wed, 6 May 2020 14:42:01 +0800
+Message-ID: <20200506064201.22945-1-Hawking.Zhang@amd.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200506063923.22772-1-Hawking.Zhang@amd.com>
-References: <20200506063923.22772-1-Hawking.Zhang@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(346002)(376002)(396003)(39850400004)(46966005)(33430700001)(26005)(2906002)(1076003)(316002)(36756003)(110136005)(186003)(478600001)(8676002)(8936002)(5660300002)(86362001)(7696005)(81166007)(336012)(6636002)(82310400002)(2616005)(70586007)(6666004)(356005)(70206006)(47076004)(82740400003)(4326008)(426003)(33440700001);
+ SFS:(4636009)(396003)(39850400004)(346002)(376002)(136003)(46966005)(33430700001)(1076003)(6636002)(336012)(82310400002)(2906002)(33440700001)(26005)(426003)(4326008)(6666004)(81166007)(2616005)(47076004)(186003)(82740400003)(5660300002)(316002)(8676002)(36756003)(7696005)(478600001)(8936002)(86362001)(356005)(70586007)(70206006)(110136005);
  DIR:OUT; SFP:1101; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1b9742b2-74ad-4952-920c-08d7f1884446
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4579:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4579B89189708824E2FE4282FCA40@DM6PR12MB4579.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1923;
+X-MS-Office365-Filtering-Correlation-Id: ddeaf3cf-f528-4908-245b-08d7f188981c
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB2557:
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB2557789CA95C1EE17AE4E236FCA40@MWHPR1201MB2557.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3044;
 X-Forefront-PRVS: 03950F25EC
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5gozw9el8L+J+jTWBIlMzWydOUjon9plQcbNUt2rqGxYLBJnzRFez2tJGh8S3XlDugLr8c47pjxn4SnLX/qzQFiYbE770QvV37FQdH4pnjClws1BR6AtRz7N5ZFQvynKoB3gV1iwwSRbcKc/DtCbykyEnuiRUQqrLaK1UFp22ahZZhGdgEzPWCGFf7BU4z5zHuQpHXaRUFNLjWR2Tcvtg65zugwRsB/Bbz1Iw5TdOZwiEl/89j8SAdWR1L++iSBhN1oR1kA7eMvg+XkRKT1UyHqbUcFFKUS8RTy5LWDSQxdMB0zLjzFGgk5dSWf55kdv2ZLrs8nrEZCHs60k2fDkcCqfc11FhTLZUwQJ8zcjOsQftc39U27hjSEPljhDjkazPxmKKP1nLkOOmCHeeoAsMHzrGba/4jCkWIR/r/n0Y3kad0T9mLpjnavGyU8WQtiV6P8j3ahqsprTt6w6oVCigjzXguxnMt7Vy+z750awRLYHlaCjKGSwxux2qzZSgXl2p3ZEG1cqdBEDCFLnH/BKa5UDM/0Zv+pfHrvx+3aEo5hgwDSc0/JTbsykJ7HpNFQveE3sKDFrBjh+KIDlKnDDLQ==
+X-Microsoft-Antispam-Message-Info: Zg+/1+sStmeOgFUI5myQfarXjEyVm1fAjBYywZvGZ7ZA74imUf9OyEKsTjXhb6fknuGSkg5NIIUk3wnnxvaVa7kUnNwREGuoDUEynl/Y1Xoa/rdaYlTum7G3DdhO4NoGRoDeq1GSo/3RXGrdBNGNHNedp5lEf5qSJn4QWseSP/PsjoMhoSwIWIMlzi/3JGaEegqO3eWJe1oRHzb+BrTPSX/jWKXkUtuedLgBHMcHeZjbuaAXFYl9DKoqOCLbKq277wB1bTPvwL9mQog94GxglO4jmjZ1X9sVnb3q7qfHkq6avtF9MAIcKqhiFh5fBdimiFqwGFVR86+Tu/Z4aKInZ2kHJ2jySkQ+zjxbJHlbQOOQ72+XHA8gxRpq9N530txDacgxJ5JF+TJizJv24GPjCG6J2mZwl+SRQ+1DuXiCf4yTU2dWhJv9zqdUawpQqomzudUUwGIrNdSXBKrgtmKjLrNcF1QZ4+Fd5yUB/5U43tZmDjf6jXs8034qvNaWMcia/Q7v+/pv2NR9WFQ6bMo5GACwpN3APufNSMkEiSaUj0HXGGFCFurKUnf7oKd34G9sXIcW3ksDFXYGqJjvkcwATg==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2020 06:39:45.8566 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b9742b2-74ad-4952-920c-08d7f1884446
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 May 2020 06:42:06.5152 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ddeaf3cf-f528-4908-245b-08d7f188981c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4579
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB2557
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,75 +123,138 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-drop IP specific psp functon for rlc autoload since
-the autoload_supported was introduced to mark ASICs
-that support rlc_autoload
+physical_node_id * node_segment_size should be the
+dram_base_address for current gpu node in xgmi config
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h | 3 ---
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 6 ------
- 3 files changed, 1 insertion(+), 10 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_df.h   |  3 --
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c | 27 ++--------------
+ drivers/gpu/drm/amd/amdgpu/df_v3_6.c     | 54 --------------------------------
+ 3 files changed, 2 insertions(+), 82 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 19f09b4..5146542 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1646,7 +1646,7 @@ static int psp_np_fw_load(struct psp_context *psp)
- 		/* Start rlc autoload after psp recieved all the gfx firmware */
- 		if (psp->autoload_supported && ucode->ucode_id == (amdgpu_sriov_vf(adev) ?
- 		    AMDGPU_UCODE_ID_CP_MEC2 : AMDGPU_UCODE_ID_RLC_G)) {
--			ret = psp_rlc_autoload(psp);
-+			ret = psp_rlc_autoload_start(psp);
- 			if (ret) {
- 				DRM_ERROR("Failed to start rlc autoload\n");
- 				return ret;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index 46bd85f..2a56ad9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -95,7 +95,6 @@ struct psp_funcs
- 			    enum psp_ring_type ring_type);
- 	bool (*smu_reload_quirk)(struct psp_context *psp);
- 	int (*mode1_reset)(struct psp_context *psp);
--	int (*rlc_autoload_start)(struct psp_context *psp);
- 	int (*mem_training_init)(struct psp_context *psp);
- 	void (*mem_training_fini)(struct psp_context *psp);
- 	int (*mem_training)(struct psp_context *psp, uint32_t ops);
-@@ -307,8 +306,6 @@ struct amdgpu_psp_funcs {
- 		((psp)->funcs->smu_reload_quirk ? (psp)->funcs->smu_reload_quirk((psp)) : false)
- #define psp_mode1_reset(psp) \
- 		((psp)->funcs->mode1_reset ? (psp)->funcs->mode1_reset((psp)) : false)
--#define psp_rlc_autoload(psp) \
--		((psp)->funcs->rlc_autoload_start ? (psp)->funcs->rlc_autoload_start((psp)) : 0)
- #define psp_mem_training_init(psp) \
- 	((psp)->funcs->mem_training_init ? (psp)->funcs->mem_training_init((psp)) : 0)
- #define psp_mem_training_fini(psp) \
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index cfbf30a..1de89cc 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -524,11 +524,6 @@ static int psp_v11_0_mode1_reset(struct psp_context *psp)
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
+index 057f6ea..61a26c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_df.h
+@@ -52,9 +52,6 @@ struct amdgpu_df_funcs {
+ 	uint64_t (*get_fica)(struct amdgpu_device *adev, uint32_t ficaa_val);
+ 	void (*set_fica)(struct amdgpu_device *adev, uint32_t ficaa_val,
+ 			 uint32_t ficadl_val, uint32_t ficadh_val);
+-	uint64_t (*get_dram_base_addr)(struct amdgpu_device *adev,
+-				       uint32_t df_inst);
+-	uint32_t (*get_df_inst_id)(struct amdgpu_device *adev);
+ };
+ 
+ struct amdgpu_df {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+index 48c0ce1..90610b4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c
+@@ -649,31 +649,8 @@ void amdgpu_xgmi_ras_fini(struct amdgpu_device *adev)
+ uint64_t amdgpu_xgmi_get_relative_phy_addr(struct amdgpu_device *adev,
+ 					   uint64_t addr)
+ {
+-	uint32_t df_inst_id;
+-	uint64_t dram_base_addr = 0;
+-	const struct amdgpu_df_funcs *df_funcs = adev->df.funcs;
+-
+-	if ((!df_funcs)                 ||
+-	    (!df_funcs->get_df_inst_id) ||
+-	    (!df_funcs->get_dram_base_addr)) {
+-		dev_warn(adev->dev,
+-			 "XGMI: relative phy_addr algorithm is not supported\n");
+-		return addr;
+-	}
+-
+-	if (amdgpu_dpm_set_df_cstate(adev, DF_CSTATE_DISALLOW)) {
+-		dev_warn(adev->dev,
+-			 "failed to disable DF-Cstate, DF register may not be accessible\n");
+-		return addr;
+-	}
+-
+-	df_inst_id = df_funcs->get_df_inst_id(adev);
+-	dram_base_addr = df_funcs->get_dram_base_addr(adev, df_inst_id);
+-
+-	if (amdgpu_dpm_set_df_cstate(adev, DF_CSTATE_ALLOW))
+-		dev_warn(adev->dev, "failed to enable DF-Cstate\n");
+-
+-	return addr + dram_base_addr;
++	struct amdgpu_xgmi *xgmi = &adev->gmc.xgmi;
++	return (addr + xgmi->physical_node_id * xgmi->node_segment_size);
  }
  
--static int psp_v11_0_rlc_autoload_start(struct psp_context *psp)
+ static void pcs_clear_status(struct amdgpu_device *adev, uint32_t pcs_status_reg)
+diff --git a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+index 5a1bd8e..a7b8292 100644
+--- a/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
++++ b/drivers/gpu/drm/amd/amdgpu/df_v3_6.c
+@@ -686,58 +686,6 @@ static void df_v3_6_pmc_get_count(struct amdgpu_device *adev,
+ 	}
+ }
+ 
+-static uint64_t df_v3_6_get_dram_base_addr(struct amdgpu_device *adev,
+-					   uint32_t df_inst)
 -{
--	return psp_rlc_autoload_start(psp);
+-	uint32_t base_addr_reg_val 	= 0;
+-	uint64_t base_addr	 	= 0;
+-
+-	base_addr_reg_val = RREG32_PCIE(smnDF_CS_UMC_AON0_DramBaseAddress0 +
+-					df_inst * DF_3_6_SMN_REG_INST_DIST);
+-
+-	if (REG_GET_FIELD(base_addr_reg_val,
+-			  DF_CS_UMC_AON0_DramBaseAddress0,
+-			  AddrRngVal) == 0) {
+-		DRM_WARN("address range not valid");
+-		return 0;
+-	}
+-
+-	base_addr = REG_GET_FIELD(base_addr_reg_val,
+-				  DF_CS_UMC_AON0_DramBaseAddress0,
+-				  DramBaseAddr);
+-
+-	return base_addr << 28;
 -}
 -
- static int psp_v11_0_memory_training_send_msg(struct psp_context *psp, int msg)
- {
- 	int ret;
-@@ -825,7 +820,6 @@ static const struct psp_funcs psp_v11_0_funcs = {
- 	.ring_stop = psp_v11_0_ring_stop,
- 	.ring_destroy = psp_v11_0_ring_destroy,
- 	.mode1_reset = psp_v11_0_mode1_reset,
--	.rlc_autoload_start = psp_v11_0_rlc_autoload_start,
- 	.mem_training_init = psp_v11_0_memory_training_init,
- 	.mem_training_fini = psp_v11_0_memory_training_fini,
- 	.mem_training = psp_v11_0_memory_training,
+-static uint32_t df_v3_6_get_df_inst_id(struct amdgpu_device *adev)
+-{
+-	uint32_t xgmi_node_id	= 0;
+-	uint32_t df_inst_id 	= 0;
+-
+-	/* Walk through DF dst nodes to find current XGMI node */
+-	for (df_inst_id = 0; df_inst_id < DF_3_6_INST_CNT; df_inst_id++) {
+-
+-		xgmi_node_id = RREG32_PCIE(smnDF_CS_UMC_AON0_DramLimitAddress0 +
+-					   df_inst_id * DF_3_6_SMN_REG_INST_DIST);
+-		xgmi_node_id = REG_GET_FIELD(xgmi_node_id,
+-					     DF_CS_UMC_AON0_DramLimitAddress0,
+-					     DstFabricID);
+-
+-		/* TODO: establish reason dest fabric id is offset by 7 */
+-		xgmi_node_id = xgmi_node_id >> 7;
+-
+-		if (adev->gmc.xgmi.physical_node_id == xgmi_node_id)
+-			break;
+-	}
+-
+-	if (df_inst_id == DF_3_6_INST_CNT) {
+-		DRM_WARN("cant match df dst id with gpu node");
+-		return 0;
+-	}
+-
+-	return df_inst_id;
+-}
+-
+ const struct amdgpu_df_funcs df_v3_6_funcs = {
+ 	.sw_init = df_v3_6_sw_init,
+ 	.sw_fini = df_v3_6_sw_fini,
+@@ -752,6 +700,4 @@ const struct amdgpu_df_funcs df_v3_6_funcs = {
+ 	.pmc_get_count = df_v3_6_pmc_get_count,
+ 	.get_fica = df_v3_6_get_fica,
+ 	.set_fica = df_v3_6_set_fica,
+-	.get_dram_base_addr = df_v3_6_get_dram_base_addr,
+-	.get_df_inst_id = df_v3_6_get_df_inst_id
+ };
 -- 
 2.7.4
 
