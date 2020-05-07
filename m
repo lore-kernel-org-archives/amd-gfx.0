@@ -2,67 +2,68 @@ Return-Path: <SRS0=+Cdj=6V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-11.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8892C38A2A
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 19:48:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B191AC38A2A
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 20:05:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 95F79208E4
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 19:48:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 750B120CC7
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 20:05:48 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PdYGp+gr"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 95F79208E4
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="osxF1l8N"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 750B120CC7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 493E76EA56;
-	Thu,  7 May 2020 19:48:08 +0000 (UTC)
-Received: from mail-wr1-x42a.google.com (mail-wr1-x42a.google.com
- [IPv6:2a00:1450:4864:20::42a])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C6BB6EA56
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 May 2020 19:48:07 +0000 (UTC)
-Received: by mail-wr1-x42a.google.com with SMTP id y3so7865963wrt.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 07 May 2020 12:48:07 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED8626EA5F;
+	Thu,  7 May 2020 20:05:47 +0000 (UTC)
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD8936EA5E;
+ Thu,  7 May 2020 20:05:46 +0000 (UTC)
+Received: by mail-wr1-x442.google.com with SMTP id k1so7905849wrx.4;
+ Thu, 07 May 2020 13:05:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=aUkQPbRDA4bwhOXERfaTBls21bXB1iv/eKw/x3hsU7c=;
- b=PdYGp+grizW5KL9EEPkj14ss5Ck/VO6CnP3Gbf2CKrYKdRA8rQ0aWaYIXlmOdxkVR3
- JyGLiMqme5z6S4VT/TwuBW7bE1Uv+hmGGo7pOUrBTEXVuYW2B0xWuGpp06tIJD8ptng7
- qixXmq/TmC20fPpMEjtUIfLONzqBe/Eowv1C9E57aopl+0hJDpBRaQXD7XyTZSautmnj
- thhplMfC0PaHBllGXDoFSB16mkFFnsg9wn2nJed8XYMHB6ilghXWvPRXbPyMWJYaV+bK
- Lp/ZGccYongEEbeiNNbmq7aI+DuYJkQ/2kByM3dLnPiemH7PRStavsTH2J/TWxQbholy
- lojg==
+ :cc:content-transfer-encoding;
+ bh=CrYfmmSwv+JySTyTYwGzP2iBGkWHIZBd7bjrJC5ooVc=;
+ b=osxF1l8Nx4lZFIAChlc6L3qMDyZ32oexH7aQ5H/ozgPRyD2CaTJTecQT36EDvb0lwD
+ 7YpJRF3A40V4hV8WEmSMACWcLU5zAZlYT7YjqoVjRNgFlsz0K4hh00alVMMk4PVKkKCE
+ GfTnfl9kxlANmoR/tQQr+lyzXAW3xT7NipidNGuM/RF0EODE8j5gfja7SSqfHYwfLkcu
+ hv0CJyyzrXwyMvgutYdPr8XtlrqrhK/me9eT61vy+3MjEXwyAiQYzkmddcXujVydav66
+ 72CNA9OFnrjdHGL55IdU97XFvJLi5YgH6nHfdf3RDqRADGVVOkp+MySeEWYyfPWkwFxG
+ tiJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=aUkQPbRDA4bwhOXERfaTBls21bXB1iv/eKw/x3hsU7c=;
- b=lhI1f43KXJP1xW6S62CqWIGZr1SKOvWku4IVEn22CKHu0Df6YdVXfKdiIbgb5feO3M
- Mpc3vPfShfluMYo7zWqmxdwrs0X3xU4p1tPtHcbsj9LITL+4Tl8Z4Xs5MThA7mT9psyb
- oKNBvhqCkvC991qleZ7kN8WGDD7Ven2Ok5ovupoi0jfc/ChzG2pzRilsI0d5O/ocuQYw
- rNDuEkO7T1Jq7mQG2zM7zz3GL2XkAdQGVoc25fEBNqjL4engFLy0DiPsikL+myAQND+i
- 8+VnSY05FmyywfuQQpQil7w9wL5gVqO+vDKXlpEMMYiqtx2AJdoJ8AvBW9aJmv9R/PCn
- 8N2A==
-X-Gm-Message-State: AGi0PuZAgXAn2hey6fdVQUap5WxmkKmJwxh7f36QjR6PXxDhPhOECqOr
- zQ9nYMGNfWoUBMJTXER7HSDUsMkl5t48qNSQUZY=
-X-Google-Smtp-Source: APiQypIbaZDpOuzvVPlZK6Rye7K5M+VxAzW3H/leKxXIsGlmuR2TXxRmX/mASUZIvYpIjnlsZBVETA8kd73MCF+oi54=
-X-Received: by 2002:a5d:4389:: with SMTP id i9mr18185588wrq.374.1588880886193; 
- Thu, 07 May 2020 12:48:06 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=CrYfmmSwv+JySTyTYwGzP2iBGkWHIZBd7bjrJC5ooVc=;
+ b=QcW3/Iq0FtR2XkGSYcJzEyhJeqrzu1HZRQ8uByT1bDn/0OP3bZdGQP/BXbKoSAoEKW
+ dSE9ZOhuLnarJtEDvmh5DvIo1/tBCTmHn7Tew33BG6YLtg1kmkys4cRxg+sPGruUgzn2
+ f+sHdhOHKSHmFlH0Onp8crzQR3XF2V9GtgKZohT7b+YAan6wl3o42UsPnDykdgFOZ/Vl
+ Qq2Dsx4kV+zYGUUnCKO2BczdcBWlPMGCvpRqpfT256UVNroZAoYlPVhv+10i+IoHkJpp
+ 0ugcdHDGnglAwS/iqQEe5569zsf4/ZjisIAJminz18s2Cto/oFTrZeSpWIXrI9WAyEN+
+ L0aw==
+X-Gm-Message-State: AGi0Puahe9GnAuh3rRQW0Hu6ivM8U0vbi2lpURoZd1qCT7QY+5jNkiSt
+ lNAnGT5RKChIWVl0xEPAdHgWt2o/9E0OwJr/7yo=
+X-Google-Smtp-Source: APiQypKloJvDW14eWF4gCoWbXMu1WfPb9WxaMArtA+pDH2xRdXOog0Feqr5WQ78mR9b9awpNJJkchQroNzVAvOy5rsA=
+X-Received: by 2002:adf:fa91:: with SMTP id h17mr753982wrr.111.1588881945532; 
+ Thu, 07 May 2020 13:05:45 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200507191935.GD1799@routi.mrns.nl>
-In-Reply-To: <20200507191935.GD1799@routi.mrns.nl>
+References: <20200507020221.10548-1-david1.zhou@amd.com>
+ <cbbcc5b3-8860-6f44-b8ec-dd96eece6d7c@gmail.com>
+In-Reply-To: <cbbcc5b3-8860-6f44-b8ec-dd96eece6d7c@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 7 May 2020 15:47:55 -0400
-Message-ID: <CADnq5_PXvbCPCM=e30buKQ=8baPp7-bNijP9E68qygzAUC-vgA@mail.gmail.com>
-Subject: Re: builtin display using amdgpu gives a black screen on macbook pro
- 13, 3
-To: D Marinus <dmarinus@mrns.nl>
+Date: Thu, 7 May 2020 16:05:33 -0400
+Message-ID: <CADnq5_POGStjWKyWs6cR7Frj6NK49Gc79SHBEJEj4Xk8q2B=NA@mail.gmail.com>
+Subject: Re: [PATCH] MAINTAINERS: Remove me from amdgpu maintainers
+To: Christian Koenig <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,43 +75,36 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ Chunming Zhou <david1.zhou@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 7, 2020 at 3:36 PM D Marinus <dmarinus@mrns.nl> wrote:
->
-> Hi!
->
-> Since I've updated the linux kernel to 5.6 my builtin display of my
-> Apple Macbook Pro 13,3 is blank. The following bug reports have been
-> opened:
->
-> https://github.com/Dunedan/mbp-2016-linux/issues/142
-> https://bugzilla.kernel.org/show_bug.cgi?id=207589
-> https://bugzilla.redhat.com/show_bug.cgi?id=1829174
->
->
-> xrandr gives the following message
-> xrandr: Output eDP is not disconnected but has no modes
->
-> the /sys/kernel/debug/vgaswitcheroo/switch entry is missing
->
-> lspci gives:
-> 01:00.0 VGA compatible controller: Advanced Micro Devices, Inc.
-> [AMD/ATI] Baffin [Radeon RX 460/560D / Pro
-> 450/455/460/555/555X/560/560X] (rev ef)
->
-> Any thoughts on the cause or fix? What would be helpful information?
-
-Macs handle hybrid graphics differently than other systems.  Maybe
-some change related to the mac mux driver?  A bisection would be
-helpful.
-
-Alex
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QXBwbGllZC4gIFRoYW5rcyEKCkFsZXgKCk9uIFRodSwgTWF5IDcsIDIwMjAgYXQgMjo0NSBBTSBD
+aHJpc3RpYW4gS8O2bmlnCjxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6
+Cj4KPiBBbSAwNy4wNS4yMCB1bSAwNDowMiBzY2hyaWViIENodW5taW5nIFpob3U6Cj4gPiBHbGFk
+IHRvIHNwZW5kIHRpbWUgb24ga2VybmVsIGRyaXZlciBpbiBwYXN0IHllYXJzLgo+ID4gSSd2ZSBt
+b3ZlZCB0byBuZXcgZm9jdXMgaW4gdW1kIGFuZCBjb3VsZG4ndCBjb21taXQKPiA+IGVub3VnaCB0
+aW1lIHRvIGRpc2N1c3Npb25zLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IENodW5taW5nIFpob3Ug
+PGRhdmlkMS56aG91QGFtZC5jb20+Cj4KPiBTbyBMb25nLCBhbmQgVGhhbmtzIGZvciBBbGwgdGhl
+IEZpc2ggOikKPgo+IFJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29l
+bmlnQGFtZC5jb20+Cj4KPiA+IC0tLQo+ID4gICBNQUlOVEFJTkVSUyB8IDEgLQo+ID4gICAxIGZp
+bGUgY2hhbmdlZCwgMSBkZWxldGlvbigtKQo+ID4KPiA+IGRpZmYgLS1naXQgYS9NQUlOVEFJTkVS
+UyBiL01BSU5UQUlORVJTCj4gPiBpbmRleCA5MzgzMTYwOTI2MzQuLjRjYTUwOGJkNGM5ZSAxMDA2
+NDQKPiA+IC0tLSBhL01BSU5UQUlORVJTCj4gPiArKysgYi9NQUlOVEFJTkVSUwo+ID4gQEAgLTE0
+MDY2LDcgKzE0MDY2LDYgQEAgRjogICAgZHJpdmVycy9uZXQvd2lyZWxlc3MvcXVhbnRlbm5hCj4g
+PiAgIFJBREVPTiBhbmQgQU1ER1BVIERSTSBEUklWRVJTCj4gPiAgIE06ICBBbGV4IERldWNoZXIg
+PGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gPiAgIE06ICBDaHJpc3RpYW4gS8O2bmlnIDxj
+aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gPiAtTTogICBEYXZpZCAoQ2h1bk1pbmcpIFpob3Ug
+PERhdmlkMS5aaG91QGFtZC5jb20+Cj4gPiAgIEw6ICBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwo+ID4gICBTOiAgU3VwcG9ydGVkCj4gPiAgIFQ6ICBnaXQgZ2l0Oi8vcGVvcGxlLmZyZWVk
+ZXNrdG9wLm9yZy9+YWdkNWYvbGludXgKPgo+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fCj4gYW1kLWdmeCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
