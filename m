@@ -4,49 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 63666C54E7F
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 14:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5734BC38A2A
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 14:29:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A2AE20870
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 14:28:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 26331208D6
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 14:29:04 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZdlGP+YX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A2AE20870
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="mJdrr8Zr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26331208D6
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D411C6E9C2;
-	Thu,  7 May 2020 14:28:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D46216E9B5;
+	Thu,  7 May 2020 14:29:03 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9D6D6E9BE;
- Thu,  7 May 2020 14:28:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F9F66E9C3;
+ Thu,  7 May 2020 14:29:02 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id CE83220B1F;
- Thu,  7 May 2020 14:28:12 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6867420936;
+ Thu,  7 May 2020 14:29:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1588861693;
- bh=MDZdmsagPKCRha5QAA/DRBmtg2TCG7A+Bwmwop+1W9Y=;
+ s=default; t=1588861742;
+ bh=qQJ8XuGD1yqiYvBBlA+XTk9Ka7sBVbNnfFgy4ubIWrU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ZdlGP+YX9H9e9Y6HQRIeVB1JDFJ0DNhGW2nXhnuR6pxSU2sMu/0JBRllluu63MvEj
- zwRcxhkNFfa3g+/aVhDFRb6+kmjI1UnMAGlwid2LVHJbDe238SLOee96RoH1zCJkjz
- oaT+V37ZKPeKI2zOPRwPMzRseUhPckEMnpktViaE=
+ b=mJdrr8Zrai7DJiuWpxowo157HHyG+CGPCf9fhx+IDHebxJ68G0Xzr3mJD3t3Mmh9E
+ 0m+goOARxxZn3AIs1hFSDTipR83bQF22Wg/uOhm1s0XYCLpHsUnRlVQ5YEacn+TJuD
+ 7IvPZSplajp9BuJPHM8oVZPuYyFxdcaM6vy9W3DE=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 37/50] drm/amd/display: Update downspread percent
- to match spreadsheet for DCN2.1
-Date: Thu,  7 May 2020 10:27:13 -0400
-Message-Id: <20200507142726.25751-37-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.4 25/35] drm/amd/powerplay: avoid using pm_en before
+ it is initialized revised
+Date: Thu,  7 May 2020 10:28:19 -0400
+Message-Id: <20200507142830.26239-25-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200507142726.25751-1-sashal@kernel.org>
-References: <20200507142726.25751-1-sashal@kernel.org>
+In-Reply-To: <20200507142830.26239-1-sashal@kernel.org>
+References: <20200507142830.26239-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -61,51 +61,61 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Sung Lee <sung.lee@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Yongqiang Sun <yongqiang.sun@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
+Cc: Sasha Levin <sashal@kernel.org>, dri-devel@lists.freedesktop.org,
+ Tiecheng Zhou <Tiecheng.Zhou@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sung Lee <sung.lee@amd.com>
+From: Tiecheng Zhou <Tiecheng.Zhou@amd.com>
 
-[ Upstream commit 668a6741f809f2d15d125cfe2b39661e8f1655ea ]
+[ Upstream commit 690ae30be163d5262feae01335b2a6f30569e5aa ]
 
-[WHY]
-The downspread percentage was copied over from a previous version
-of the display_mode_lib spreadsheet. This value has been updated,
-and the previous value is too high to allow for such modes as
-4K120hz. The new value is sufficient for such modes.
+hwmgr->pm_en is initialized at hwmgr_hw_init.
 
-[HOW]
-Update the value in dcn21_resource to match the spreadsheet.
+during amdgpu_device_init, there is amdgpu_asic_reset that calls to
+soc15_asic_reset (for V320 usecase, Vega10 asic), in which:
+1) soc15_asic_reset_method calls to pp_get_asic_baco_capability (pm_en)
+2) soc15_asic_baco_reset calls to pp_set_asic_baco_state (pm_en)
 
-Signed-off-by: Sung Lee <sung.lee@amd.com>
-Reviewed-by: Yongqiang Sun <yongqiang.sun@amd.com>
-Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+pm_en is used in the above two cases while it has not yet been initialized
+
+So avoid using pm_en in the above two functions for V320 passthrough.
+
+Reviewed-by: Evan Quan <evan.quan@amd.com>
+Signed-off-by: Tiecheng Zhou <Tiecheng.Zhou@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/powerplay/amd_powerplay.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-index 33d0a176841a5..122d3e734c59a 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-@@ -250,7 +250,7 @@ struct _vcs_dpi_soc_bounding_box_st dcn2_1_soc = {
- 	.dram_channel_width_bytes = 4,
- 	.fabric_datapath_to_dcn_data_return_bytes = 32,
- 	.dcn_downspread_percent = 0.5,
--	.downspread_percent = 0.5,
-+	.downspread_percent = 0.38,
- 	.dram_page_open_time_ns = 50.0,
- 	.dram_rw_turnaround_time_ns = 17.5,
- 	.dram_return_buffer_per_channel_bytes = 8192,
+diff --git a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+index d306cc7119976..8bb5fbef7de0f 100644
+--- a/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
++++ b/drivers/gpu/drm/amd/powerplay/amd_powerplay.c
+@@ -1425,7 +1425,8 @@ static int pp_get_asic_baco_capability(void *handle, bool *cap)
+ 	if (!hwmgr)
+ 		return -EINVAL;
+ 
+-	if (!hwmgr->pm_en || !hwmgr->hwmgr_func->get_asic_baco_capability)
++	if (!(hwmgr->not_vf && amdgpu_dpm) ||
++		!hwmgr->hwmgr_func->get_asic_baco_capability)
+ 		return 0;
+ 
+ 	mutex_lock(&hwmgr->smu_lock);
+@@ -1459,7 +1460,8 @@ static int pp_set_asic_baco_state(void *handle, int state)
+ 	if (!hwmgr)
+ 		return -EINVAL;
+ 
+-	if (!hwmgr->pm_en || !hwmgr->hwmgr_func->set_asic_baco_state)
++	if (!(hwmgr->not_vf && amdgpu_dpm) ||
++		!hwmgr->hwmgr_func->set_asic_baco_state)
+ 		return 0;
+ 
+ 	mutex_lock(&hwmgr->smu_lock);
 -- 
 2.20.1
 
