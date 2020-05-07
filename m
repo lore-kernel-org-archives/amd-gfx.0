@@ -5,66 +5,68 @@ X-Spam-Level:
 X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E3F8C47257
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 16:08:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C4F0C38A2A
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 16:08:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6F0A72083B
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 16:08:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E2B182083B
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 16:08:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A6DgfQm6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F0A72083B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZQHgJU4c"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E2B182083B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9E1A6E136;
-	Thu,  7 May 2020 16:08:19 +0000 (UTC)
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82B366E136
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 May 2020 16:08:18 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id p12so833045qtn.13
- for <amd-gfx@lists.freedesktop.org>; Thu, 07 May 2020 09:08:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A65726EA2E;
+	Thu,  7 May 2020 16:08:21 +0000 (UTC)
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3ADA6EA2E
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 May 2020 16:08:19 +0000 (UTC)
+Received: by mail-qv1-xf44.google.com with SMTP id 59so2890477qva.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 07 May 2020 09:08:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=auLDUTubyrxHGVyw6NU83acqytv17n3SyW+AVGuh/YY=;
- b=A6DgfQm6K7pQSupqC/+E3ybCOY7y5hWLs+/A13bEKXps7M0r1YVBdcA2VYwO9G8mN2
- gLHYmEAZaJK98XIQV0TnDykap1/Wz9sA0y/WEpreiNQAWxTX1IjOCdjq0lRM8ay8ODqE
- zcOLWfAu+cIjKGyPcUUf2pm/k75Xq7JNRH6MYypv3WRupqsek/hP7cscM8lqD7SNrNpr
- jjiz0F6x4wiHNq3hp0/gJFetOR0bnZbFw9vnxyv/P/rOYR5VSrBOyERntEKfkiYpaUVt
- LaSEWjn9klcXf2OrFVp6sRBCU/SOsNFxAp7zM3Yv0TutdILwS+cDUG9iX2BolyC2j+BV
- Qwrg==
+ bh=0uQg9IKweBBv7pvCLxRGSh8qmc8dAuF9FwYjtxpz8DQ=;
+ b=ZQHgJU4c4LLD/gVpX5hKG4DM/FTN6LtwNFwbLmrZdSHpfC2r55kDwDub9RI8LMisIc
+ aEDj6ElN/L6gIndDviQHhZADdOhGyl6sq7E3o+oIduvfCteDS881jRiCtcerrIDRhQSH
+ TQsiYmCxUpa79xXiGL4PDBqCFLkIeK4TEjo2DgxF7QfxhOqscVGwaB/ULyYJ79P4mMV9
+ QXqzW3qZ0p9NIbnlwiF9paQY8MWjlyZ8gLnjwPcMc733zKYAwR8tgWvnCzTGOjxMQTe7
+ xbzNMoq47DD/XfNDjjQ8AZDHJg0OKvDsXfGGOTzZrQBeKrSLH0cnRVGm2i1iCEKF2a+g
+ rLbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=auLDUTubyrxHGVyw6NU83acqytv17n3SyW+AVGuh/YY=;
- b=bwkVroX0u2OCSgakz/2BnmjuuKtUUmEbbZZElbrqkgpmyyf9+4V77cu+slhm+LduOF
- r7qgz55DhF6THGtAjGDyHuB5Vi9BH2gQ34uoxFIfX76TZSdmxX8pCK1MpDudrOBcAzDH
- PF3xafuDxJp/DOdqYHSaQjkoZUeG+1fjmb3Bm6pEYj/WIquJkdDHHs/KtDf+yPnahlqq
- sBNtPEvAK+30PzDZBGO/7gnlhzxCZ7kfOcNmk5iJ+zJT6DSbaWI/9WSsSVSna4XqnITm
- DEVRDnqMalnRP0pEIPQwf/LR1tUGyO2eNqGBobWL7YfN/0NNluqO6W/QSohqR8phRhVC
- S2Bw==
-X-Gm-Message-State: AGi0Pub0RJzSClQ22umj4J/3w856t6cXTRBBR8Sw6St5igFqRS2Fn/7H
- uBFGlCBnpPC+lCe4oyKVlvN0qZRL
-X-Google-Smtp-Source: APiQypJbtiQHIMOnKGtW8S/ZZpRZALrTOQl9UjA13mSKlZiR4cUipJ5hJj8pi/ShMZkCil/TX5CbuA==
-X-Received: by 2002:ac8:4447:: with SMTP id m7mr14742154qtn.372.1588867697394; 
- Thu, 07 May 2020 09:08:17 -0700 (PDT)
+ bh=0uQg9IKweBBv7pvCLxRGSh8qmc8dAuF9FwYjtxpz8DQ=;
+ b=jycsFpmvirzEsG8Nu02ocKW62UvV3E5inJnxFUyqJ5bY6U6YdGEhU9VJaWgfPWwTNP
+ v2auaFB2LXJ3PTf7wRAM4ElJqBa3BRGPXMoQ+NaNzE43J2dRoJlyI38i4w+Bp/fZdsVR
+ DvnErqZnUjFbkRxYvgr1z08YrzUpdvEN4UO7tGHpbl67+Sg5+yEzw/NRxwcOcRSU6hqv
+ Ga9Kl1caiDnrQX4Th5CpeVPq/J1Jo2GWfM3Djpvg+dvt4giC4AetOgzhcHZov+0qba8X
+ F6DcBKL9RB8qrAFh31K8qwED/Wqq87mfEORv7FG9yD7sRdSNriTV4V6igPiPqLWqAUMB
+ wrew==
+X-Gm-Message-State: AGi0PuaZRUoBowmixtPu494bFIJAH0INrqxkZuSON32dR2sFOnXZRcdl
+ IfEog4wkiH2BP2aFg3HWdqZSj8Re
+X-Google-Smtp-Source: APiQypIUy0HIfUGipk8JvyAmSRhWMQPx8+OS7MuroR6kc7cXhJTZ2bV43PoKO2xp2WqLWzFaDt7KhQ==
+X-Received: by 2002:a05:6214:192d:: with SMTP id
+ es13mr2533584qvb.248.1588867698796; 
+ Thu, 07 May 2020 09:08:18 -0700 (PDT)
 Received: from localhost.localdomain ([71.219.37.167])
- by smtp.gmail.com with ESMTPSA id d6sm3186567qkj.72.2020.05.07.09.08.16
+ by smtp.gmail.com with ESMTPSA id d6sm3186567qkj.72.2020.05.07.09.08.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 07 May 2020 09:08:16 -0700 (PDT)
+ Thu, 07 May 2020 09:08:17 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/4] drm/amdgpu: drop extra runtime pm handling in resume pmop
-Date: Thu,  7 May 2020 12:08:07 -0400
-Message-Id: <20200507160808.4250-3-alexander.deucher@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: only set DPM_FLAG_NEVER_SKIP for legacy ATPX
+ BOCO
+Date: Thu,  7 May 2020 12:08:08 -0400
+Message-Id: <20200507160808.4250-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200507160808.4250-1-alexander.deucher@amd.com>
 References: <20200507160808.4250-1-alexander.deucher@amd.com>
@@ -86,32 +88,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The core handles this for us.
+We only need to set DPM_FLAG_NEVER_SKIP for the legacy ATPX
+BOCO case.  D3cold and BACO work as expected.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 --------
- 1 file changed, 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index ea2b4254d30c..5407edeeccc2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1174,14 +1174,6 @@ static int amdgpu_pmops_suspend(struct device *dev)
- static int amdgpu_pmops_resume(struct device *dev)
- {
- 	struct drm_device *drm_dev = dev_get_drvdata(dev);
--	struct amdgpu_device *adev = drm_dev->dev_private;
--
--	/* GPU comes up enabled by the bios on resume */
--	if (adev->runpm) {
--		pm_runtime_disable(dev);
--		pm_runtime_set_active(dev);
--		pm_runtime_enable(dev);
--	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+index 233d6c8c4ca3..4e4c9550dcf8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
+@@ -188,7 +188,10 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
+ 		dev_dbg(&dev->pdev->dev, "Error during ACPI methods call\n");
  
- 	return amdgpu_device_resume(drm_dev, true);
- }
+ 	if (adev->runpm) {
+-		dev_pm_set_driver_flags(dev->dev, DPM_FLAG_NEVER_SKIP);
++		/* only need to skip on ATPX */
++		if (amdgpu_device_supports_boco(dev) &&
++		    !amdgpu_is_atpx_hybrid())
++			dev_pm_set_driver_flags(dev->dev, DPM_FLAG_NEVER_SKIP);
+ 		pm_runtime_use_autosuspend(dev->dev);
+ 		pm_runtime_set_autosuspend_delay(dev->dev, 5000);
+ 		pm_runtime_allow(dev->dev);
 -- 
 2.25.4
 
