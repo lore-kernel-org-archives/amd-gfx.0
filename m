@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 826B0C38A2A
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 09:59:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4BAA9C4724C
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 09:59:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 514BF20870
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 09:59:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 21C2020643
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 09:59:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="HqvrmT0e"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 514BF20870
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="nahjLmi8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 21C2020643
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEC166E0DB;
-	Thu,  7 May 2020 09:59:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3ADFD6E966;
+	Thu,  7 May 2020 09:59:17 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2055.outbound.protection.outlook.com [40.107.244.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21A406E0D4
- for <amd-gfx@lists.freedesktop.org>; Thu,  7 May 2020 09:59:16 +0000 (UTC)
+ (mail-mw2nam12on2043.outbound.protection.outlook.com [40.107.244.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E24E6E0D4
+ for <amd-gfx@lists.freedesktop.org>; Thu,  7 May 2020 09:59:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GA5o6XhQZku/k04cEhLviyIiAtUOWHS/ejgwaK4c4rvLlNv78cU9ZM/qYm+FTC7pp95lb27tDuKj1Kwv2Kg4bxd4KQTQqc5d/4i3jM8Vi0RsqW5gjGVFwtC74CelB2xV7+ku3FS+4TZ4uo2oLO07WHAp3iDzjQwCr9WeE5e65QnaGMNh8HBR6+siR5xDaVFvmBiq9Eh/8kGfPnQhmjfB56JGvqyRXqvvz+LrAesOo1wGoZ8lUnAtk/iPOsV5sFjMLXY45hORC8DNhtOLqVCsk04ezx+uuWuDMTXvAx4DkwSoPWntQRjGM0zrwa0691P32i71GZXQl7+68bxb8HudpQ==
+ b=OpdFBgi8ZCTAqh3ZfwRx6lVJuD0dOBcjlgUQha/oHSteWSh6zx7u3/joNTAkKKrgkNCA9TOA4w6fRyobv3Z3hMREGkuQEQdtspXtZ27uH14dqbwkvJBj6sYKQwRu3VFyDyJnicYD9q3VHQmLkbEvrAnAq1w626X84fLzEhcvPoroSN12KdX/AmESPrlaPqjyNzm2KVHt/u6XEsXMz2KJxuCa52Flm7vj0Cpaa6zzNntzLudwnw8po9KFN2eiHyaiwHnk/OgTqOzFO3tPo337YdLP5239BdkJ3h6weyJcIXHa+fNBcDDyWKPMuh28M8C83WnfAHCorEGm5eNZnIJZ4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TWswOQe9T/XMQWP3DxI7Ydlo2vh3TZJyGeFdJdDGpA8=;
- b=Es6R29zysOIu/5aCwBX5AAwKvDBiN6ZNBe6cvpBNXqFV21ua3agvuztBIf5INwBITFEPLnFYqPdbXyoqQGvVuV3f/YlTIjDrSM0cbvIlO1NnEM6jlOYXqeKvvf7OIwd8QRFt31LymjXV9+Q/zVaLK7fslxCs4tLMM3smxmgyNGh0pN9Kx30Q+UHwoCx+1FX0vdt/JyHHg/ZD4YzRmB3UTIKF6m1Oq8mP46+chr9+a7Eu0bMitucHC6bIwxndUA+4G/uvz0g5LrTJegMNEDPSQqYjjLDCEwNriooQLxiew1QbvbgxZthbvg/0+jQyvqF1+dMF3bskSvo6rc/l0hlSTg==
+ bh=1w7gG136v+3AyflO/JHBLuyjtICykBfwO4i3CYoHIHs=;
+ b=fh8xcyho2VoP1uLPic9uymKfWgUemwivOZUtXyxqAE7jYqcsvXnp1q85VAcUASb/+PWfGozBb/k9UCDJfYNYGr5w2H5Ld8Cxt+kviN3PRqqkF6dZormsIDgiHLW/oHkZrfbXRbo2JPMhQLqNU8aMoSXP1FjINqmkd9YQxOnjjXnOwk1VxVtg8ju1Os/ndhgeoKyTadw/2KST+v3f5CSD3or0UgOkqcczkZ/QC3t4n/8pxT62cgAwR8O9EQtrvQ+OOYtNaRgqCd55hCP5fMGryTYi3ZseEa/qeYZtONo+ZhSDBI0SGIYxhwcQcPmfxhRDSM7J3asileNYLf+xJTuWkg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TWswOQe9T/XMQWP3DxI7Ydlo2vh3TZJyGeFdJdDGpA8=;
- b=HqvrmT0eQHoxbi1RPQKM0bytLqAk4OS0OZT9FihOlUDks51aJEn/psYDYL1kwB5Bge6P4h7m6ibgzxJpluKLujHKSnjaUR+x8eVfh8tQU7uigf1lqWBB0z4jK2vakKe2pSf8+qwhIfHIFppCyfVajWmy7CZrxBBgjxCfBOkSgeY=
+ bh=1w7gG136v+3AyflO/JHBLuyjtICykBfwO4i3CYoHIHs=;
+ b=nahjLmi8eTD3kVO9rZuw3auvN0FUGjOBMaoYUyZzZGQ+yaVKmt+fcZo3fRc59ShNEmwlhUJ3F72Ct1kLDPQUpa53GiZ0iznwZk1foUnA1UqlLdta8pGHvqNSJC0ILehGn5xeBsrZHmgIYACN6y3+2QOSpnKlqBTyXLYtPmm0t7I=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,16 @@ Received: from BY5PR12MB4068.namprd12.prod.outlook.com (2603:10b6:a03:203::12)
  by BY5PR12MB3666.namprd12.prod.outlook.com (2603:10b6:a03:1a4::23)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2958.20; Thu, 7 May
- 2020 09:59:15 +0000
+ 2020 09:59:12 +0000
 Received: from BY5PR12MB4068.namprd12.prod.outlook.com
  ([fe80::1897:7b63:ee7e:5d2c]) by BY5PR12MB4068.namprd12.prod.outlook.com
  ([fe80::1897:7b63:ee7e:5d2c%2]) with mapi id 15.20.2958.030; Thu, 7 May 2020
- 09:59:15 +0000
+ 09:59:12 +0000
 From: Kevin Wang <kevin1.wang@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/4] drm/amdgpu: cleanup unnecessary virt sriov check in
- amdgpu attribute
-Date: Thu,  7 May 2020 17:57:03 +0800
-Message-Id: <20200507095704.25623-3-kevin1.wang@amd.com>
+Subject: [PATCH 2/4] drm/amdgpu: optimize amdgpu device attribute code
+Date: Thu,  7 May 2020 17:57:02 +0800
+Message-Id: <20200507095704.25623-2-kevin1.wang@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200507095704.25623-1-kevin1.wang@amd.com>
 References: <20200507095704.25623-1-kevin1.wang@amd.com>
@@ -70,33 +69,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from kevin-kaka-kvm.amd.com (58.247.170.245) by
  HK0PR03CA0098.apcprd03.prod.outlook.com (2603:1096:203:b0::14) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2979.26 via Frontend Transport; Thu, 7 May 2020 09:59:13 +0000
+ 15.20.2979.26 via Frontend Transport; Thu, 7 May 2020 09:59:10 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [58.247.170.245]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 54e1eaf2-8a7d-4c01-9170-08d7f26d4c98
+X-MS-Office365-Filtering-Correlation-Id: c56bab0a-666e-446e-538a-08d7f26d4b21
 X-MS-TrafficTypeDiagnostic: BY5PR12MB3666:|BY5PR12MB3666:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BY5PR12MB366644C07A3116D0424869C3A2A50@BY5PR12MB3666.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
+X-Microsoft-Antispam-PRVS: <BY5PR12MB36664B57375BCE4C7A113BA1A2A50@BY5PR12MB3666.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:551;
 X-Forefront-PRVS: 03965EFC76
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vQy291+8TQN7wdsohZifpQtPLwsWPv4Kyuaeiiv63FQ6Q8RavXBUDJ7odeieTwn6lr81cAN3CLrKQZ7OoeroLl4NTar3BSO6tQJF6HDKsyewvDAVFG5a+amNCFUSL+TvSogcI9sKhnzH0qdk5cE7o1QLTAC5XjpVaJv77oEBH/T45AQFDryRNywyNJFhcrVW9g+weEqMNPUNvDZl2fVxRpLs2km5AExIPnvzW2Yq4Wz3FDYsxYAWGLEhlgaTzzuStkGvSuvQWEARF+ZYUy0tuYxbIrh+KvGMsvm9xzbnjnbtPtkQ25RNhxxKK5rjDcXKpN3gKjWW+g1OyNI2iYMddt50r65xfYSODnIK1Cio7SCxMHhHrR3Nm7zNrreGAE9tt5RIv/ji4HVruIrgjej3V993epfCuCDJBK5u1Xl2pjcD7MgpbJVVISmcrdrhIn+npjsmgNmit1Iv8dc3FDJRXpoKlB2tQMMtf/QhfyaM6JYYqHxkyYM2JIwPH8T6JA5euAHSr6eZy6nEzeFSfHfJXQ==
+X-Microsoft-Antispam-Message-Info: XUhX88Phb6kM35/5fsebPLhfHnW5AD6nvwwFPo/gphTMP7/EFC9ygnZYlAuH92ealh0B28V8H2gMajxE3H/Qe/+tkJLUUGpTgla2SFbjZYYvq0hRGBw3t8eJkEnTbpLCWWOq1Z88LOy0gx6uox1bxPjxt3Sd5chTaSnd8YN9Tpdqs8CK1PUcEgtJ5ARs/vsYmYB9i7RJrPFsHZef3RFXN1e3UtVeaPS5l2alD7kI2he97DRIUvRpzdX0W5JdN83EsiW2caii0DOqjtwK1u18cTuO+ZLbofL648V8eVc/gfTuYFstT9VNRUSRWSt5rZI+KJgMgfzlUsRG8io8tST+BZUOh+tFnuMJiIYgznGhfzgCAPYg0dc0ayTf9dzBztUNeaAFfvzF2EMr5ICUPlFxlwR6er3KzZRr7twJEODWeCoMXo0uEMwXZb7DZATEvCRkBxQj0zRotki3DRFVDu1Z9wVhAQH85nweNVGiehdAWT+MvJg4NDZ6DZYGsT690DITKpyreghKSxtONWDnwmwx6A==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BY5PR12MB4068.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(366004)(136003)(396003)(39860400002)(376002)(346002)(33430700001)(33440700001)(316002)(83290400001)(478600001)(2906002)(26005)(83280400001)(83310400001)(83300400001)(83320400001)(16526019)(7696005)(186003)(52116002)(6916009)(6486002)(86362001)(36756003)(66556008)(6666004)(4326008)(8676002)(1076003)(8936002)(66946007)(66476007)(956004)(2616005)(5660300002);
+ SFS:(4636009)(366004)(136003)(396003)(39860400002)(376002)(346002)(33430700001)(33440700001)(316002)(83290400001)(478600001)(2906002)(26005)(83280400001)(83310400001)(83300400001)(83320400001)(16526019)(7696005)(186003)(52116002)(6916009)(6486002)(86362001)(36756003)(66556008)(6666004)(4326008)(8676002)(1076003)(8936002)(66946007)(66476007)(30864003)(956004)(2616005)(5660300002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: fcaj4smOdMKF0AksfKQgee6WuFAKDkHTaQu38jSym63/j6uVWkES6O9b2R03ALDRzN6HGpaEukumjjgiZ9kPoTty2KQ8WUG3NvsTtznDzXtWYVZl/6JIpFKUfhx8Df38efE9DEhoZrGvCHl/ACAG3tgu/IqTmKE/+szbXTKxSgAcQTdXwPhADEEe4o4idd1SvLaJVGFyRdi2a5ITjdBVaeh8v9HgmEVm5lFpJX3XuRAlrStGwdzVoG+taSqgdLdaj2pZZ395pHGT4/CwY3b2QP8bLmwpIb+/JTm+xLPGtLBW6pY1LuISrqaDoPN3P+IUDqV8jdOvY8mMPW9RMfDnzK/XdOig7OiIRHr9AE8M0Yg7LMwDxlJMG2ruT6edu0ivID5g2QYA4bxeKkF3pzn08eswpu+ILq1J/I8m8MGfDkAtUV/2agpMK+CG1k96tbkssNWzq1Zvq8T2WVkjNXe/cKytdStwHNDDBQRlZk8/YCH/JIpXfBYeropr+yINwQgCS2iNJ3bn02g/UPkKXyeFPTZCycpfm3aTtccHuXCSe9gWciueMIFNI7b1nblvXHYsXTgb+5dvOtVVsl9MxvWbL/iyh+G7Arb/a5V6spI4HSDNNA15Opbav4QR1DpCM440og2HopMVLWqNldfxQxHA47GWk60MOBDOhurLA+GOZ5lm1f+UcasKk3DfRuiFEfKpaPVf4FaMGhbpoweG2dpvoWJ8KlHxyL2gY0U3iIdTDNvUcVQ1cegpBOdi4BnE5K1C7BWMlPg2W0xuAXNIzl7fxZlVGBAaMC22B91WDIRZqBY=
+X-MS-Exchange-AntiSpam-MessageData: PK0Cz6fUcZd3VVqbvKzFu0wwYIUsELkx20OyCHix3+xlsSN2wslRp1W3SgoYdOuuewG1o2lpjXmJP2f52O3U6sZ5t+wtTokLIuY2wDjs+j4GpvpIEC8tfgZr8yyEVj9HYasKPyg9NNY0pvhIlbsS7JiR0JBEOePL75u92kfucoNK7EG27E6KV3KR7fv1K7rLWdgSOEY0LsJEw4fha4n/nqWEQIPCN1iW3yxH5kPeVtSbCMbofK6BQfxvHrQfmjK6O/gzahSrETSFIQU4bVktuTRi9EysSkoLb76PlKDGtE3EX1Nmx0I6jfwf72t3J1w/wpuKCds4s43ks4aiIh2+JmGKbORjeQJK9rEp4EqC7a34k8jHDDQnBSJE72TIyIwrkGqZK7dAsYu44+wJ2yaT20CYpg5MMDscoRmkEUiNVvhdYe0g4JtcRC7budiq+iTkI5tWTIj823FTDduR+YT6odTLRoIn5cSD6IG6oU6CB4OSElfHdws1GAQsaUH/Byxl7aUf5WTF+Qazet3qk5z1W56LuJT6AEuBpmSK7CiWOtarhbLrZX+g39lxUIVx9h0RhFSGF64MbAXX8zkJ1dzao8qjn+swNMpI3Ea35z9hHzN/ejv6Al9ewEyqRxPgJ3agIvdLsN7W6TXQNFM+HboyiysaEI5vCzu7hkC0z3EpyMZUXvLbCQUIMJRYtkieXjoXjZFvjNHlGQpTZuXUB1ISkZw/TFZRZfYUQENMT4LMG4gZvckihc9fKLgLhEKotFXeVhTBlU6RTnMyKoWxYFtz8wXaSjMxWfTlYMQQLsoUil4=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 54e1eaf2-8a7d-4c01-9170-08d7f26d4c98
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2020 09:59:15.1915 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c56bab0a-666e-446e-538a-08d7f26d4b21
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 May 2020 09:59:12.7174 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qaU29tHMxrsa0Vlq6+dkwdz7IPdXRJFAMxNHC6+EGTS9xJvSkWjljR/aZ/W6rb/o
+X-MS-Exchange-CrossTenant-UserPrincipalName: gcuO3P4Y0bv4IN7iZ534p9YE2bHBLPg2+CW3QbFVucfqfommP8meo+N+/o6R9KL8
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3666
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -116,369 +115,670 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-the amdgpu device attribute node will be created accordding to sriov vf
-mode at runtime.
-cleanup unnecessary sriov check in attribute operation function.
+unified amdgpu device attribute node functions:
+1. add some helper functions to create amdgpu device attribute node.
+2. create device node according to device attr flags on different VF mode.
+3. rename some functions name to adapt a new interface.
+
+v2:
+1. remove ATTR_STATE_DEAD, ATTR_STATE_ALIVE enum.
+2. rename callback function perform to attr_update.
+3. modify some variable names
 
 Signed-off-by: Kevin Wang <kevin1.wang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 105 -------------------------
- 1 file changed, 105 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 494 +++++++++++--------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.h |  46 +++
+ 2 files changed, 262 insertions(+), 278 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-index b75362bf0742..bc7de2f62d12 100644
+index c762deb5abc7..b75362bf0742 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -163,9 +163,6 @@ static ssize_t amdgpu_get_power_dpm_state(struct device *dev,
- 	enum amd_pm_state_type pm;
- 	int ret;
+@@ -154,9 +154,9 @@ int amdgpu_dpm_read_sensor(struct amdgpu_device *adev, enum amd_pp_sensors senso
+  *
+  */
  
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -199,9 +196,6 @@ static ssize_t amdgpu_set_power_dpm_state(struct device *dev,
- 	enum amd_pm_state_type  state;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return -EINVAL;
--
- 	if (strncmp("battery", buf, strlen("battery")) == 0)
- 		state = POWER_STATE_TYPE_BATTERY;
- 	else if (strncmp("balanced", buf, strlen("balanced")) == 0)
-@@ -303,9 +297,6 @@ static ssize_t amdgpu_get_power_dpm_force_performance_level(struct device *dev,
- 	enum amd_dpm_forced_level level = 0xff;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -343,9 +334,6 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
- 	enum amd_dpm_forced_level current_level = 0xff;
- 	int ret = 0;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return -EINVAL;
--
- 	if (strncmp("low", buf, strlen("low")) == 0) {
- 		level = AMD_DPM_FORCED_LEVEL_LOW;
- 	} else if (strncmp("high", buf, strlen("high")) == 0) {
-@@ -475,9 +463,6 @@ static ssize_t amdgpu_get_pp_cur_state(struct device *dev,
- 	enum amd_pm_state_type pm = 0;
- 	int i = 0, ret = 0;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -514,9 +499,6 @@ static ssize_t amdgpu_get_pp_force_state(struct device *dev,
+-static ssize_t amdgpu_get_dpm_state(struct device *dev,
+-				    struct device_attribute *attr,
+-				    char *buf)
++static ssize_t amdgpu_get_power_dpm_state(struct device *dev,
++					  struct device_attribute *attr,
++					  char *buf)
+ {
  	struct drm_device *ddev = dev_get_drvdata(dev);
  	struct amdgpu_device *adev = ddev->dev_private;
+@@ -189,10 +189,10 @@ static ssize_t amdgpu_get_dpm_state(struct device *dev,
+ 			(pm == POWER_STATE_TYPE_BALANCED) ? "balanced" : "performance");
+ }
  
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	if (adev->pp_force_state_enabled)
- 		return amdgpu_get_pp_cur_state(dev, attr, buf);
- 	else
-@@ -534,9 +516,6 @@ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
- 	unsigned long idx;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return -EINVAL;
--
- 	if (strlen(buf) == 1)
- 		adev->pp_force_state_enabled = false;
- 	else if (is_support_sw_smu(adev))
-@@ -592,9 +571,6 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
- 	char *table = NULL;
- 	int size, ret;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -634,9 +610,6 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	int ret = 0;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return -EINVAL;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -739,9 +712,6 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
- 	const char delimiter[3] = {' ', '\n', '\0'};
- 	uint32_t type;
- 
--	if (amdgpu_sriov_vf(adev))
--		return -EINVAL;
--
- 	if (count > 127)
- 		return -EINVAL;
- 
-@@ -831,9 +801,6 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
- 	ssize_t size;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -883,9 +850,6 @@ static ssize_t amdgpu_set_pp_features(struct device *dev,
- 	uint64_t featuremask;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev))
--		return -EINVAL;
--
- 	ret = kstrtou64(buf, 0, &featuremask);
- 	if (ret)
- 		return -EINVAL;
-@@ -926,9 +890,6 @@ static ssize_t amdgpu_get_pp_features(struct device *dev,
- 	ssize_t size;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -985,9 +946,6 @@ static ssize_t amdgpu_get_pp_dpm_sclk(struct device *dev,
- 	ssize_t size;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -1051,9 +1009,6 @@ static ssize_t amdgpu_set_pp_dpm_sclk(struct device *dev,
- 	int ret;
- 	uint32_t mask = 0;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return -EINVAL;
--
- 	ret = amdgpu_read_mask(buf, count, &mask);
- 	if (ret)
- 		return ret;
-@@ -1085,9 +1040,6 @@ static ssize_t amdgpu_get_pp_dpm_mclk(struct device *dev,
- 	ssize_t size;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -1115,9 +1067,6 @@ static ssize_t amdgpu_set_pp_dpm_mclk(struct device *dev,
- 	uint32_t mask = 0;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--			return -EINVAL;
--
- 	ret = amdgpu_read_mask(buf, count, &mask);
- 	if (ret)
- 		return ret;
-@@ -1149,9 +1098,6 @@ static ssize_t amdgpu_get_pp_dpm_socclk(struct device *dev,
- 	ssize_t size;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -1179,9 +1125,6 @@ static ssize_t amdgpu_set_pp_dpm_socclk(struct device *dev,
- 	int ret;
- 	uint32_t mask = 0;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return -EINVAL;
--
- 	ret = amdgpu_read_mask(buf, count, &mask);
- 	if (ret)
- 		return ret;
-@@ -1215,9 +1158,6 @@ static ssize_t amdgpu_get_pp_dpm_fclk(struct device *dev,
- 	ssize_t size;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -1245,9 +1185,6 @@ static ssize_t amdgpu_set_pp_dpm_fclk(struct device *dev,
- 	int ret;
- 	uint32_t mask = 0;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return -EINVAL;
--
- 	ret = amdgpu_read_mask(buf, count, &mask);
- 	if (ret)
- 		return ret;
-@@ -1281,9 +1218,6 @@ static ssize_t amdgpu_get_pp_dpm_dcefclk(struct device *dev,
- 	ssize_t size;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -1311,9 +1245,6 @@ static ssize_t amdgpu_set_pp_dpm_dcefclk(struct device *dev,
- 	int ret;
- 	uint32_t mask = 0;
- 
--	if (amdgpu_sriov_vf(adev))
--		return -EINVAL;
--
- 	ret = amdgpu_read_mask(buf, count, &mask);
- 	if (ret)
- 		return ret;
-@@ -1347,9 +1278,6 @@ static ssize_t amdgpu_get_pp_dpm_pcie(struct device *dev,
- 	ssize_t size;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -1377,9 +1305,6 @@ static ssize_t amdgpu_set_pp_dpm_pcie(struct device *dev,
- 	int ret;
- 	uint32_t mask = 0;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return -EINVAL;
--
- 	ret = amdgpu_read_mask(buf, count, &mask);
- 	if (ret)
- 		return ret;
-@@ -1413,9 +1338,6 @@ static ssize_t amdgpu_get_pp_sclk_od(struct device *dev,
- 	uint32_t value = 0;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -1441,9 +1363,6 @@ static ssize_t amdgpu_set_pp_sclk_od(struct device *dev,
- 	int ret;
- 	long int value;
- 
--	if (amdgpu_sriov_vf(adev))
--		return -EINVAL;
--
- 	ret = kstrtol(buf, 0, &value);
- 
- 	if (ret)
-@@ -1482,9 +1401,6 @@ static ssize_t amdgpu_get_pp_mclk_od(struct device *dev,
- 	uint32_t value = 0;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -1510,9 +1426,6 @@ static ssize_t amdgpu_set_pp_mclk_od(struct device *dev,
- 	int ret;
- 	long int value;
- 
--	if (amdgpu_sriov_vf(adev))
--		return 0;
--
- 	ret = kstrtol(buf, 0, &value);
- 
- 	if (ret)
-@@ -1571,9 +1484,6 @@ static ssize_t amdgpu_get_pp_power_profile_mode(struct device *dev,
- 	ssize_t size;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -1615,9 +1525,6 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
- 	if (ret)
- 		return -EINVAL;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return -EINVAL;
--
- 	if (profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
- 		if (count < 2 || count > 127)
- 			return -EINVAL;
-@@ -1671,9 +1578,6 @@ static ssize_t amdgpu_get_gpu_busy_percent(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	int r, value, size = sizeof(value);
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	r = pm_runtime_get_sync(ddev->dev);
- 	if (r < 0)
- 		return r;
-@@ -1707,9 +1611,6 @@ static ssize_t amdgpu_get_mem_busy_percent(struct device *dev,
- 	struct amdgpu_device *adev = ddev->dev_private;
- 	int r, value, size = sizeof(value);
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	r = pm_runtime_get_sync(ddev->dev);
- 	if (r < 0)
- 		return r;
-@@ -1748,9 +1649,6 @@ static ssize_t amdgpu_get_pcie_bw(struct device *dev,
- 	uint64_t count0, count1;
- 	int ret;
- 
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
--
- 	ret = pm_runtime_get_sync(ddev->dev);
- 	if (ret < 0)
- 		return ret;
-@@ -1781,9 +1679,6 @@ static ssize_t amdgpu_get_unique_id(struct device *dev,
+-static ssize_t amdgpu_set_dpm_state(struct device *dev,
+-				    struct device_attribute *attr,
+-				    const char *buf,
+-				    size_t count)
++static ssize_t amdgpu_set_power_dpm_state(struct device *dev,
++					  struct device_attribute *attr,
++					  const char *buf,
++					  size_t count)
+ {
  	struct drm_device *ddev = dev_get_drvdata(dev);
  	struct amdgpu_device *adev = ddev->dev_private;
+@@ -294,9 +294,9 @@ static ssize_t amdgpu_set_dpm_state(struct device *dev,
+  *
+  */
  
--	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
--		return 0;
+-static ssize_t amdgpu_get_dpm_forced_performance_level(struct device *dev,
+-						struct device_attribute *attr,
+-								char *buf)
++static ssize_t amdgpu_get_power_dpm_force_performance_level(struct device *dev,
++							    struct device_attribute *attr,
++							    char *buf)
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = ddev->dev_private;
+@@ -332,10 +332,10 @@ static ssize_t amdgpu_get_dpm_forced_performance_level(struct device *dev,
+ 			"unknown");
+ }
+ 
+-static ssize_t amdgpu_set_dpm_forced_performance_level(struct device *dev,
+-						       struct device_attribute *attr,
+-						       const char *buf,
+-						       size_t count)
++static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
++							    struct device_attribute *attr,
++							    const char *buf,
++							    size_t count)
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = ddev->dev_private;
+@@ -873,10 +873,10 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
+  * the corresponding bit from original ppfeature masks and input the
+  * new ppfeature masks.
+  */
+-static ssize_t amdgpu_set_pp_feature_status(struct device *dev,
+-		struct device_attribute *attr,
+-		const char *buf,
+-		size_t count)
++static ssize_t amdgpu_set_pp_features(struct device *dev,
++				      struct device_attribute *attr,
++				      const char *buf,
++				      size_t count)
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = ddev->dev_private;
+@@ -917,9 +917,9 @@ static ssize_t amdgpu_set_pp_feature_status(struct device *dev,
+ 	return count;
+ }
+ 
+-static ssize_t amdgpu_get_pp_feature_status(struct device *dev,
+-		struct device_attribute *attr,
+-		char *buf)
++static ssize_t amdgpu_get_pp_features(struct device *dev,
++				      struct device_attribute *attr,
++				      char *buf)
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = ddev->dev_private;
+@@ -1663,9 +1663,9 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
+  * The SMU firmware computes a percentage of load based on the
+  * aggregate activity level in the IP cores.
+  */
+-static ssize_t amdgpu_get_busy_percent(struct device *dev,
+-		struct device_attribute *attr,
+-		char *buf)
++static ssize_t amdgpu_get_gpu_busy_percent(struct device *dev,
++					   struct device_attribute *attr,
++					   char *buf)
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = ddev->dev_private;
+@@ -1699,9 +1699,9 @@ static ssize_t amdgpu_get_busy_percent(struct device *dev,
+  * The SMU firmware computes a percentage of load based on the
+  * aggregate activity level in the IP cores.
+  */
+-static ssize_t amdgpu_get_memory_busy_percent(struct device *dev,
+-		struct device_attribute *attr,
+-		char *buf)
++static ssize_t amdgpu_get_mem_busy_percent(struct device *dev,
++					   struct device_attribute *attr,
++					   char *buf)
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = ddev->dev_private;
+@@ -1790,57 +1790,174 @@ static ssize_t amdgpu_get_unique_id(struct device *dev,
+ 	return 0;
+ }
+ 
+-static DEVICE_ATTR(power_dpm_state, S_IRUGO | S_IWUSR, amdgpu_get_dpm_state, amdgpu_set_dpm_state);
+-static DEVICE_ATTR(power_dpm_force_performance_level, S_IRUGO | S_IWUSR,
+-		   amdgpu_get_dpm_forced_performance_level,
+-		   amdgpu_set_dpm_forced_performance_level);
+-static DEVICE_ATTR(pp_num_states, S_IRUGO, amdgpu_get_pp_num_states, NULL);
+-static DEVICE_ATTR(pp_cur_state, S_IRUGO, amdgpu_get_pp_cur_state, NULL);
+-static DEVICE_ATTR(pp_force_state, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_force_state,
+-		amdgpu_set_pp_force_state);
+-static DEVICE_ATTR(pp_table, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_table,
+-		amdgpu_set_pp_table);
+-static DEVICE_ATTR(pp_dpm_sclk, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_dpm_sclk,
+-		amdgpu_set_pp_dpm_sclk);
+-static DEVICE_ATTR(pp_dpm_mclk, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_dpm_mclk,
+-		amdgpu_set_pp_dpm_mclk);
+-static DEVICE_ATTR(pp_dpm_socclk, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_dpm_socclk,
+-		amdgpu_set_pp_dpm_socclk);
+-static DEVICE_ATTR(pp_dpm_fclk, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_dpm_fclk,
+-		amdgpu_set_pp_dpm_fclk);
+-static DEVICE_ATTR(pp_dpm_dcefclk, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_dpm_dcefclk,
+-		amdgpu_set_pp_dpm_dcefclk);
+-static DEVICE_ATTR(pp_dpm_pcie, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_dpm_pcie,
+-		amdgpu_set_pp_dpm_pcie);
+-static DEVICE_ATTR(pp_sclk_od, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_sclk_od,
+-		amdgpu_set_pp_sclk_od);
+-static DEVICE_ATTR(pp_mclk_od, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_mclk_od,
+-		amdgpu_set_pp_mclk_od);
+-static DEVICE_ATTR(pp_power_profile_mode, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_power_profile_mode,
+-		amdgpu_set_pp_power_profile_mode);
+-static DEVICE_ATTR(pp_od_clk_voltage, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_od_clk_voltage,
+-		amdgpu_set_pp_od_clk_voltage);
+-static DEVICE_ATTR(gpu_busy_percent, S_IRUGO,
+-		amdgpu_get_busy_percent, NULL);
+-static DEVICE_ATTR(mem_busy_percent, S_IRUGO,
+-		amdgpu_get_memory_busy_percent, NULL);
+-static DEVICE_ATTR(pcie_bw, S_IRUGO, amdgpu_get_pcie_bw, NULL);
+-static DEVICE_ATTR(pp_features, S_IRUGO | S_IWUSR,
+-		amdgpu_get_pp_feature_status,
+-		amdgpu_set_pp_feature_status);
+-static DEVICE_ATTR(unique_id, S_IRUGO, amdgpu_get_unique_id, NULL);
++static struct amdgpu_device_attr amdgpu_device_attrs[] = {
++	AMDGPU_DEVICE_ATTR_RW(power_dpm_state,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
++	AMDGPU_DEVICE_ATTR_RW(power_dpm_force_performance_level,	ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
++	AMDGPU_DEVICE_ATTR_RO(pp_num_states,				ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RO(pp_cur_state,				ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RW(pp_force_state,				ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RW(pp_table,					ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RW(pp_dpm_sclk,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
++	AMDGPU_DEVICE_ATTR_RW(pp_dpm_mclk,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
++	AMDGPU_DEVICE_ATTR_RW(pp_dpm_socclk,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
++	AMDGPU_DEVICE_ATTR_RW(pp_dpm_fclk,				ATTR_FLAG_BASIC|ATTR_FLAG_ONEVF),
++	AMDGPU_DEVICE_ATTR_RW(pp_dpm_dcefclk,				ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RW(pp_dpm_pcie,				ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RW(pp_sclk_od,				ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RW(pp_mclk_od,				ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RW(pp_power_profile_mode,			ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RW(pp_od_clk_voltage,			ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RO(gpu_busy_percent,				ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RO(mem_busy_percent,				ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RO(pcie_bw,					ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RW(pp_features,				ATTR_FLAG_BASIC),
++	AMDGPU_DEVICE_ATTR_RO(unique_id,				ATTR_FLAG_BASIC),
++};
++
++static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_attr *attr,
++			       uint32_t mask)
++{
++	struct device_attribute *dev_attr = &attr->dev_attr;
++	const char *attr_name = dev_attr->attr.name;
++	struct pp_hwmgr *hwmgr = adev->powerplay.pp_handle;
++	enum amd_asic_type asic_type = adev->asic_type;
++
++	if (!(attr->flags & mask)) {
++		attr->states = ATTR_STATE_UNSUPPORTED;
++		return 0;
++	}
++
++#define DEVICE_ATTR_IS(_name)	(!strcmp(attr_name, #_name))
++
++	if (DEVICE_ATTR_IS(pp_dpm_socclk)) {
++		if (asic_type <= CHIP_VEGA10)
++			attr->states = ATTR_STATE_UNSUPPORTED;
++	} else if (DEVICE_ATTR_IS(pp_dpm_dcefclk)) {
++		if (asic_type <= CHIP_VEGA10 || asic_type == CHIP_ARCTURUS)
++			attr->states = ATTR_STATE_UNSUPPORTED;
++	} else if (DEVICE_ATTR_IS(pp_dpm_fclk)) {
++		if (asic_type < CHIP_VEGA20)
++			attr->states = ATTR_STATE_UNSUPPORTED;
++	} else if (DEVICE_ATTR_IS(pp_dpm_pcie)) {
++		if (asic_type == CHIP_ARCTURUS)
++			attr->states = ATTR_STATE_UNSUPPORTED;
++	} else if (DEVICE_ATTR_IS(pp_od_clk_voltage)) {
++		attr->states = ATTR_STATE_UNSUPPORTED;
++		if ((is_support_sw_smu(adev) && adev->smu.od_enabled) ||
++		    (!is_support_sw_smu(adev) && hwmgr->od_enabled))
++			attr->states = ATTR_STATE_UNSUPPORTED;
++	} else if (DEVICE_ATTR_IS(mem_busy_percent)) {
++		if (adev->flags & AMD_IS_APU || asic_type == CHIP_VEGA10)
++			attr->states = ATTR_STATE_UNSUPPORTED;
++	} else if (DEVICE_ATTR_IS(pcie_bw)) {
++		/* PCIe Perf counters won't work on APU nodes */
++		if (adev->flags & AMD_IS_APU)
++			attr->states = ATTR_STATE_UNSUPPORTED;
++	} else if (DEVICE_ATTR_IS(unique_id)) {
++		if (!adev->unique_id)
++			attr->states = ATTR_STATE_UNSUPPORTED;
++	} else if (DEVICE_ATTR_IS(pp_features)) {
++		if (adev->flags & AMD_IS_APU || asic_type <= CHIP_VEGA10)
++			attr->states = ATTR_STATE_UNSUPPORTED;
++	}
++
++	if (asic_type == CHIP_ARCTURUS) {
++		/* Arcturus does not support standalone mclk/socclk/fclk level setting */
++		if (DEVICE_ATTR_IS(pp_dpm_mclk) ||
++		    DEVICE_ATTR_IS(pp_dpm_socclk) ||
++		    DEVICE_ATTR_IS(pp_dpm_fclk)) {
++			dev_attr->attr.mode &= ~S_IWUGO;
++			dev_attr->store = NULL;
++		}
++	}
++
++#undef DEVICE_ATTR_IS
++
++	return 0;
++}
++
++
++static int amdgpu_device_attr_create(struct amdgpu_device *adev,
++				     struct amdgpu_device_attr *attr,
++				     uint32_t mask)
++{
++	int ret = 0;
++	struct device_attribute *dev_attr = &attr->dev_attr;
++	const char *name = dev_attr->attr.name;
++	int (*attr_update)(struct amdgpu_device *adev, struct amdgpu_device_attr *attr,
++			   uint32_t mask) = default_attr_update;
++
++	BUG_ON(!attr);
++
++	attr_update = attr->attr_update ? attr_update : default_attr_update;
++
++	ret = attr_update(adev, attr, mask);
++	if (ret) {
++		dev_err(adev->dev, "failed to update device file %s, ret = %d\n",
++			name, ret);
++		return ret;
++	}
++
++	/* the attr->states maybe changed after call attr->attr_update function */
++	if (attr->states == ATTR_STATE_UNSUPPORTED)
++		return 0;
++
++	ret = device_create_file(adev->dev, dev_attr);
++	if (ret) {
++		dev_err(adev->dev, "failed to create device file %s, ret = %d\n",
++			name, ret);
++	}
++
++	attr->states = ATTR_STATE_SUPPORTED;
++
++	return ret;
++}
++
++static void amdgpu_device_attr_remove(struct amdgpu_device *adev, struct amdgpu_device_attr *attr)
++{
++	struct device_attribute *dev_attr = &attr->dev_attr;
++
++	if (attr->states == ATTR_STATE_UNSUPPORTED)
++		return;
++
++	device_remove_file(adev->dev, dev_attr);
++
++	attr->states = ATTR_STATE_UNSUPPORTED;
++}
++
++static int amdgpu_device_attr_create_groups(struct amdgpu_device *adev,
++					    struct amdgpu_device_attr *attrs,
++					    uint32_t counts,
++					    uint32_t mask)
++{
++	int ret = 0;
++	uint32_t i = 0;
++
++	for (i = 0; i < counts; i++) {
++		ret = amdgpu_device_attr_create(adev, &attrs[i], mask);
++		if (ret)
++			goto failed;
++	}
++
++	return 0;
++
++failed:
++	for (; i > 0; i--) {
++		amdgpu_device_attr_remove(adev, &attrs[i]);
++	}
++
++	return ret;
++}
++
++static void amdgpu_device_attr_remove_groups(struct amdgpu_device *adev,
++					     struct amdgpu_device_attr *attrs,
++					     uint32_t counts)
++{
++	uint32_t i = 0;
++
++	for (i = 0; i < counts; i++)
++		amdgpu_device_attr_remove(adev, &attrs[i]);
++}
+ 
+ static ssize_t amdgpu_hwmon_show_temp(struct device *dev,
+ 				      struct device_attribute *attr,
+@@ -3241,8 +3358,8 @@ int amdgpu_pm_load_smu_firmware(struct amdgpu_device *adev, uint32_t *smu_versio
+ 
+ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
+ {
+-	struct pp_hwmgr *hwmgr = adev->powerplay.pp_handle;
+ 	int ret;
++	uint32_t mask = 0;
+ 
+ 	if (adev->pm.sysfs_initialized)
+ 		return 0;
+@@ -3260,168 +3377,25 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
+ 		return ret;
+ 	}
+ 
+-	ret = device_create_file(adev->dev, &dev_attr_power_dpm_state);
+-	if (ret) {
+-		DRM_ERROR("failed to create device file for dpm state\n");
+-		return ret;
+-	}
+-	ret = device_create_file(adev->dev, &dev_attr_power_dpm_force_performance_level);
+-	if (ret) {
+-		DRM_ERROR("failed to create device file for dpm state\n");
+-		return ret;
+-	}
 -
- 	if (adev->unique_id)
- 		return snprintf(buf, PAGE_SIZE, "%016llx\n", adev->unique_id);
+-	if (!amdgpu_sriov_vf(adev)) {
+-		ret = device_create_file(adev->dev, &dev_attr_pp_num_states);
+-		if (ret) {
+-			DRM_ERROR("failed to create device file pp_num_states\n");
+-			return ret;
+-		}
+-		ret = device_create_file(adev->dev, &dev_attr_pp_cur_state);
+-		if (ret) {
+-			DRM_ERROR("failed to create device file pp_cur_state\n");
+-			return ret;
+-		}
+-		ret = device_create_file(adev->dev, &dev_attr_pp_force_state);
+-		if (ret) {
+-			DRM_ERROR("failed to create device file pp_force_state\n");
+-			return ret;
+-		}
+-		ret = device_create_file(adev->dev, &dev_attr_pp_table);
+-		if (ret) {
+-			DRM_ERROR("failed to create device file pp_table\n");
+-			return ret;
+-		}
+-	}
+-
+-	ret = device_create_file(adev->dev, &dev_attr_pp_dpm_sclk);
+-	if (ret) {
+-		DRM_ERROR("failed to create device file pp_dpm_sclk\n");
+-		return ret;
+-	}
+-
+-	/* Arcturus does not support standalone mclk/socclk/fclk level setting */
+-	if (adev->asic_type == CHIP_ARCTURUS) {
+-		dev_attr_pp_dpm_mclk.attr.mode &= ~S_IWUGO;
+-		dev_attr_pp_dpm_mclk.store = NULL;
+-
+-		dev_attr_pp_dpm_socclk.attr.mode &= ~S_IWUGO;
+-		dev_attr_pp_dpm_socclk.store = NULL;
+-
+-		dev_attr_pp_dpm_fclk.attr.mode &= ~S_IWUGO;
+-		dev_attr_pp_dpm_fclk.store = NULL;
+-	}
+-
+-	ret = device_create_file(adev->dev, &dev_attr_pp_dpm_mclk);
+-	if (ret) {
+-		DRM_ERROR("failed to create device file pp_dpm_mclk\n");
+-		return ret;
+-	}
+-	if (adev->asic_type >= CHIP_VEGA10) {
+-		ret = device_create_file(adev->dev, &dev_attr_pp_dpm_socclk);
+-		if (ret) {
+-			DRM_ERROR("failed to create device file pp_dpm_socclk\n");
+-			return ret;
+-		}
+-		if (adev->asic_type != CHIP_ARCTURUS) {
+-			ret = device_create_file(adev->dev, &dev_attr_pp_dpm_dcefclk);
+-			if (ret) {
+-				DRM_ERROR("failed to create device file pp_dpm_dcefclk\n");
+-				return ret;
+-			}
+-		}
+-	}
+-	if (adev->asic_type >= CHIP_VEGA20) {
+-		ret = device_create_file(adev->dev, &dev_attr_pp_dpm_fclk);
+-		if (ret) {
+-			DRM_ERROR("failed to create device file pp_dpm_fclk\n");
+-			return ret;
+-		}
+-	}
+-
+-	/* the reset are not needed for SRIOV one vf mode */
+-	if (amdgpu_sriov_vf(adev)) {
+-		adev->pm.sysfs_initialized = true;
+-		return ret;
++	switch (amdgpu_virt_get_sriov_vf_mode(adev)) {
++	case SRIOV_VF_MODE_ONE_VF:
++		mask = ATTR_FLAG_ONEVF;
++		break;
++	case SRIOV_VF_MODE_MULTI_VF:
++		mask = 0;
++		break;
++	case SRIOV_VF_MODE_BARE_METAL:
++	default:
++		mask = ATTR_FLAG_MASK_ALL;
++		break;
+ 	}
  
+-	if (adev->asic_type != CHIP_ARCTURUS) {
+-		ret = device_create_file(adev->dev, &dev_attr_pp_dpm_pcie);
+-		if (ret) {
+-			DRM_ERROR("failed to create device file pp_dpm_pcie\n");
+-			return ret;
+-		}
+-	}
+-	ret = device_create_file(adev->dev, &dev_attr_pp_sclk_od);
+-	if (ret) {
+-		DRM_ERROR("failed to create device file pp_sclk_od\n");
+-		return ret;
+-	}
+-	ret = device_create_file(adev->dev, &dev_attr_pp_mclk_od);
+-	if (ret) {
+-		DRM_ERROR("failed to create device file pp_mclk_od\n");
+-		return ret;
+-	}
+-	ret = device_create_file(adev->dev,
+-			&dev_attr_pp_power_profile_mode);
+-	if (ret) {
+-		DRM_ERROR("failed to create device file	"
+-				"pp_power_profile_mode\n");
+-		return ret;
+-	}
+-	if ((is_support_sw_smu(adev) && adev->smu.od_enabled) ||
+-	    (!is_support_sw_smu(adev) && hwmgr->od_enabled)) {
+-		ret = device_create_file(adev->dev,
+-				&dev_attr_pp_od_clk_voltage);
+-		if (ret) {
+-			DRM_ERROR("failed to create device file	"
+-					"pp_od_clk_voltage\n");
+-			return ret;
+-		}
+-	}
+-	ret = device_create_file(adev->dev,
+-			&dev_attr_gpu_busy_percent);
+-	if (ret) {
+-		DRM_ERROR("failed to create device file	"
+-				"gpu_busy_level\n");
+-		return ret;
+-	}
+-	/* APU does not have its own dedicated memory */
+-	if (!(adev->flags & AMD_IS_APU) &&
+-	     (adev->asic_type != CHIP_VEGA10)) {
+-		ret = device_create_file(adev->dev,
+-				&dev_attr_mem_busy_percent);
+-		if (ret) {
+-			DRM_ERROR("failed to create device file	"
+-					"mem_busy_percent\n");
+-			return ret;
+-		}
+-	}
+-	/* PCIe Perf counters won't work on APU nodes */
+-	if (!(adev->flags & AMD_IS_APU)) {
+-		ret = device_create_file(adev->dev, &dev_attr_pcie_bw);
+-		if (ret) {
+-			DRM_ERROR("failed to create device file pcie_bw\n");
+-			return ret;
+-		}
+-	}
+-	if (adev->unique_id)
+-		ret = device_create_file(adev->dev, &dev_attr_unique_id);
+-	if (ret) {
+-		DRM_ERROR("failed to create device file unique_id\n");
++	ret = amdgpu_device_attr_create_groups(adev,
++					       amdgpu_device_attrs,
++					       ARRAY_SIZE(amdgpu_device_attrs),
++					       mask);
++	if (ret)
+ 		return ret;
+-	}
+-
+-	if ((adev->asic_type >= CHIP_VEGA10) &&
+-	    !(adev->flags & AMD_IS_APU)) {
+-		ret = device_create_file(adev->dev,
+-				&dev_attr_pp_features);
+-		if (ret) {
+-			DRM_ERROR("failed to create device file	"
+-					"pp_features\n");
+-			return ret;
+-		}
+-	}
+ 
+ 	adev->pm.sysfs_initialized = true;
+ 
+@@ -3430,51 +3404,15 @@ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev)
+ 
+ void amdgpu_pm_sysfs_fini(struct amdgpu_device *adev)
+ {
+-	struct pp_hwmgr *hwmgr = adev->powerplay.pp_handle;
+-
+ 	if (adev->pm.dpm_enabled == 0)
+ 		return;
+ 
+ 	if (adev->pm.int_hwmon_dev)
+ 		hwmon_device_unregister(adev->pm.int_hwmon_dev);
+-	device_remove_file(adev->dev, &dev_attr_power_dpm_state);
+-	device_remove_file(adev->dev, &dev_attr_power_dpm_force_performance_level);
+-
+-	device_remove_file(adev->dev, &dev_attr_pp_num_states);
+-	device_remove_file(adev->dev, &dev_attr_pp_cur_state);
+-	device_remove_file(adev->dev, &dev_attr_pp_force_state);
+-	device_remove_file(adev->dev, &dev_attr_pp_table);
+-
+-	device_remove_file(adev->dev, &dev_attr_pp_dpm_sclk);
+-	device_remove_file(adev->dev, &dev_attr_pp_dpm_mclk);
+-	if (adev->asic_type >= CHIP_VEGA10) {
+-		device_remove_file(adev->dev, &dev_attr_pp_dpm_socclk);
+-		if (adev->asic_type != CHIP_ARCTURUS)
+-			device_remove_file(adev->dev, &dev_attr_pp_dpm_dcefclk);
+-	}
+-	if (adev->asic_type != CHIP_ARCTURUS)
+-		device_remove_file(adev->dev, &dev_attr_pp_dpm_pcie);
+-	if (adev->asic_type >= CHIP_VEGA20)
+-		device_remove_file(adev->dev, &dev_attr_pp_dpm_fclk);
+-	device_remove_file(adev->dev, &dev_attr_pp_sclk_od);
+-	device_remove_file(adev->dev, &dev_attr_pp_mclk_od);
+-	device_remove_file(adev->dev,
+-			&dev_attr_pp_power_profile_mode);
+-	if ((is_support_sw_smu(adev) && adev->smu.od_enabled) ||
+-	    (!is_support_sw_smu(adev) && hwmgr->od_enabled))
+-		device_remove_file(adev->dev,
+-				&dev_attr_pp_od_clk_voltage);
+-	device_remove_file(adev->dev, &dev_attr_gpu_busy_percent);
+-	if (!(adev->flags & AMD_IS_APU) &&
+-	     (adev->asic_type != CHIP_VEGA10))
+-		device_remove_file(adev->dev, &dev_attr_mem_busy_percent);
+-	if (!(adev->flags & AMD_IS_APU))
+-		device_remove_file(adev->dev, &dev_attr_pcie_bw);
+-	if (adev->unique_id)
+-		device_remove_file(adev->dev, &dev_attr_unique_id);
+-	if ((adev->asic_type >= CHIP_VEGA10) &&
+-	    !(adev->flags & AMD_IS_APU))
+-		device_remove_file(adev->dev, &dev_attr_pp_features);
++
++	amdgpu_device_attr_remove_groups(adev,
++					 amdgpu_device_attrs,
++					 ARRAY_SIZE(amdgpu_device_attrs));
+ }
+ 
+ void amdgpu_pm_compute_clocks(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.h
+index 5db0ef86e84c..48e8086baf33 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.h
+@@ -30,6 +30,52 @@ struct cg_flag_name
+ 	const char *name;
+ };
+ 
++enum amdgpu_device_attr_flags {
++	ATTR_FLAG_BASIC = (1 << 0),
++	ATTR_FLAG_ONEVF = (1 << 16),
++};
++
++#define ATTR_FLAG_TYPE_MASK	(0x0000ffff)
++#define ATTR_FLAG_MODE_MASK	(0xffff0000)
++#define ATTR_FLAG_MASK_ALL	(0xffffffff)
++
++enum amdgpu_device_attr_states {
++	ATTR_STATE_UNSUPPORTED = 0,
++	ATTR_STATE_SUPPORTED,
++};
++
++struct amdgpu_device_attr {
++	struct device_attribute dev_attr;
++	enum amdgpu_device_attr_flags flags;
++	enum amdgpu_device_attr_states states;
++	int (*attr_update)(struct amdgpu_device *adev,
++			   struct amdgpu_device_attr* attr,
++			   uint32_t mask);
++};
++
++#define to_amdgpu_device_attr(_dev_attr) \
++	container_of(_dev_attr, struct amdgpu_device_attr, dev_attr)
++
++#define __AMDGPU_DEVICE_ATTR(_name, _mode, _show, _store, _flags, ...)	\
++	{ .dev_attr = __ATTR(_name, _mode, _show, _store),		\
++	  .flags = _flags,						\
++	  .states = ATTR_STATE_SUPPORTED,					\
++	  ##__VA_ARGS__, }
++
++#define AMDGPU_DEVICE_ATTR(_name, _mode, _flags, ...)			\
++	__AMDGPU_DEVICE_ATTR(_name, _mode,				\
++			     amdgpu_get_##_name, amdgpu_set_##_name,	\
++			     _flags, ##__VA_ARGS__)
++
++#define AMDGPU_DEVICE_ATTR_RW(_name, _flags, ...)			\
++	AMDGPU_DEVICE_ATTR(_name, S_IRUGO | S_IWUSR,			\
++			   _flags, ##__VA_ARGS__)
++
++#define AMDGPU_DEVICE_ATTR_RO(_name, _flags, ...)			\
++	__AMDGPU_DEVICE_ATTR(_name, S_IRUGO,				\
++			     amdgpu_get_##_name, NULL,			\
++			     _flags, ##__VA_ARGS__)
++
+ void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev);
+ int amdgpu_pm_sysfs_init(struct amdgpu_device *adev);
+ int amdgpu_pm_virt_sysfs_init(struct amdgpu_device *adev);
 -- 
 2.17.1
 
