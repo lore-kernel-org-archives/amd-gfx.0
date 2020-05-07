@@ -6,41 +6,36 @@ X-Spam-Status: No, score=-9.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A4F8AC38A24
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 13:35:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0500AC4724C
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 13:35:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 28CE420643
-	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 13:35:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 28CE420643
+	by mail.kernel.org (Postfix) with ESMTPS id D83EA20643
+	for <amd-gfx@archiver.kernel.org>; Thu,  7 May 2020 13:35:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D83EA20643
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=huawei.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC60E6E104;
-	Thu,  7 May 2020 13:35:20 +0000 (UTC)
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C377E6E0DF;
- Thu,  7 May 2020 11:07:53 +0000 (UTC)
-Received: from DGGEMS404-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 1376A673389A9E16E1A2;
- Thu,  7 May 2020 19:07:49 +0800 (CST)
-Received: from huawei.com (10.175.124.28) by DGGEMS404-HUB.china.huawei.com
- (10.3.19.204) with Microsoft SMTP Server id 14.3.487.0; Thu, 7 May 2020
- 19:07:42 +0800
-From: Jason Yan <yanaijie@huawei.com>
-To: <harry.wentland@amd.com>, <sunpeng.li@amd.com>,
- <alexander.deucher@amd.com>, <christian.koenig@amd.com>,
- <David1.Zhou@amd.com>, <airlied@linux.ie>, <daniel@ffwll.ch>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-Subject: [PATCH] drm/amd/display: remove variable "result" in
- dcn20_patch_unknown_plane_state()
-Date: Thu, 7 May 2020 19:07:03 +0800
-Message-ID: <20200507110703.37509-1-yanaijie@huawei.com>
-X-Mailer: git-send-email 2.21.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21E166E984;
+	Thu,  7 May 2020 13:35:21 +0000 (UTC)
+Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF6A76E979;
+ Thu,  7 May 2020 11:25:07 +0000 (UTC)
+Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id B8738379BE6317962F8C;
+ Thu,  7 May 2020 19:25:03 +0800 (CST)
+Received: from huawei.com (10.67.174.156) by DGGEMS403-HUB.china.huawei.com
+ (10.3.19.203) with Microsoft SMTP Server id 14.3.487.0; Thu, 7 May 2020
+ 19:24:57 +0800
+From: ChenTao <chentao107@huawei.com>
+To: <airlied@linux.ie>, <daniel@ffwll.ch>
+Subject: [PATCH -next] drm/amd/dc: Remove a useless comparison
+Date: Thu, 7 May 2020 19:24:12 +0800
+Message-ID: <20200507112412.10829-1-chentao107@huawei.com>
+X-Mailer: git-send-email 2.22.0
 MIME-Version: 1.0
-X-Originating-IP: [10.175.124.28]
+X-Originating-IP: [10.67.174.156]
 X-CFilter-Loop: Reflected
 X-Mailman-Approved-At: Thu, 07 May 2020 13:35:20 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -54,46 +49,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jason Yan <yanaijie@huawei.com>
+Cc: Aric.Cyr@amd.com, sunpeng.li@amd.com, Anthony.Koo@amd.com,
+ Rodrigo.Siqueira@amd.com, murton.liu@amd.com, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, chentao107@huawei.com,
+ dri-devel@lists.freedesktop.org, harry.wentland@amd.com, sam@ravnborg.org,
+ christian.koenig@amd.com, Su.Chung@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Fix the following coccicheck warning:
+Fix the following warning:
 
-drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c:3216:16-22:
-Unneeded variable: "result". Return "DC_OK" on line 3229
+'en' is uint32_t and can never be negative.
 
-Signed-off-by: Jason Yan <yanaijie@huawei.com>
+drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/hw_hpd.c:132:10: warning:
+comparison of unsigned expression < 0 is always false [-Wtype-limits]
+  if ((en < GPIO_DDC_LINE_MIN) || (en > GPIO_DDC_LINE_MAX)) {
+drivers/gpu/drm/amd/amdgpu/../display/dc/gpio/hw_generic.c:109:10: warning:
+comparison of unsigned expression < 0 is always false [-Wtype-limits]
+  if ((en < GPIO_DDC_LINE_MIN) || (en > GPIO_DDC_LINE_MAX)) {
+
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: ChenTao <chentao107@huawei.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/dc/gpio/hw_generic.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-index 4dea550c3f83..3c0090797866 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_resource.c
-@@ -3228,8 +3228,6 @@ static struct dc_cap_funcs cap_funcs = {
- 
- enum dc_status dcn20_patch_unknown_plane_state(struct dc_plane_state *plane_state)
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_generic.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_generic.c
+index f9e847e6555d..6cd50232c432 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/hw_generic.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_generic.c
+@@ -106,7 +106,7 @@ void dal_hw_generic_init(
+ 	enum gpio_id id,
+ 	uint32_t en)
  {
--	enum dc_status result = DC_OK;
--
- 	enum surface_pixel_format surf_pix_format = plane_state->format;
- 	unsigned int bpp = resource_pixel_format_to_bpp(surf_pix_format);
- 
-@@ -3241,7 +3239,7 @@ enum dc_status dcn20_patch_unknown_plane_state(struct dc_plane_state *plane_stat
- 		swizzle = DC_SW_64KB_S;
- 
- 	plane_state->tiling_info.gfx9.swizzle = swizzle;
--	return result;
-+	return DC_OK;
- }
- 
- static struct resource_funcs dcn20_res_pool_funcs = {
+-	if ((en < GPIO_DDC_LINE_MIN) || (en > GPIO_DDC_LINE_MAX)) {
++	if (en > GPIO_DDC_LINE_MAX) {
+ 		ASSERT_CRITICAL(false);
+ 		*hw_generic = NULL;
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
+index 692f29de7797..f91f426699c0 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_hpd.c
+@@ -129,7 +129,7 @@ void dal_hw_hpd_init(
+ 	enum gpio_id id,
+ 	uint32_t en)
+ {
+-	if ((en < GPIO_DDC_LINE_MIN) || (en > GPIO_DDC_LINE_MAX)) {
++	if (en > GPIO_DDC_LINE_MAX) {
+ 		ASSERT_CRITICAL(false);
+ 		*hw_hpd = NULL;
+ 	}
 -- 
-2.21.1
+2.22.0
 
 _______________________________________________
 amd-gfx mailing list
