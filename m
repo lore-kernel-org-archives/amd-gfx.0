@@ -2,52 +2,70 @@ Return-Path: <SRS0=8BNM=6W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 655ACC47254
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2020 11:09:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3393CC38A2A
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2020 15:45:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3DECF208DB
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2020 11:09:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3DECF208DB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
+	by mail.kernel.org (Postfix) with ESMTPS id 090382173E
+	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2020 15:45:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 090382173E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5016E6EB04;
-	Fri,  8 May 2020 11:09:08 +0000 (UTC)
-Received: from asavdk4.altibox.net (asavdk4.altibox.net [109.247.116.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24D0C6EB03;
- Fri,  8 May 2020 11:09:07 +0000 (UTC)
-Received: from ravnborg.org (unknown [158.248.194.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by asavdk4.altibox.net (Postfix) with ESMTPS id D6F2A80500;
- Fri,  8 May 2020 13:09:04 +0200 (CEST)
-Date: Fri, 8 May 2020 13:09:03 +0200
-From: Sam Ravnborg <sam@ravnborg.org>
-To: Emil Velikov <emil.l.velikov@gmail.com>
-Subject: Re: [PATCH 06/36] drm/amdgpu: use the unlocked drm_gem_object_put
-Message-ID: <20200508110903.GC15931@ravnborg.org>
-References: <20200507150822.114464-1-emil.l.velikov@gmail.com>
- <20200507150822.114464-7-emil.l.velikov@gmail.com>
- <20200507180310.GC13247@ravnborg.org>
- <d79cd110-27d3-3df9-00b2-b1cad5924454@amd.com>
- <CACvgo50TW1zxB4a20L_JD_3kOvy+BWLVaB6R_r5fTvKnkU5XTg@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78E386EB27;
+	Fri,  8 May 2020 15:45:10 +0000 (UTC)
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38DEA6EB27;
+ Fri,  8 May 2020 15:45:09 +0000 (UTC)
+IronPort-SDR: 2v25JNOkkeEsGsYONltbDARVOFOTJvnz3xZ+lDuh5W2pcS5XO2wumu9RqbXonTkdPOphbRp2bf
+ ryFdco8QXLZA==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 08 May 2020 08:45:08 -0700
+IronPort-SDR: zuLAiuchje8B0YyQv0S/mbUVBsaBhKQ3aT39CD4wudUZg6RsHy7KKcVB23qKFBK/RFueqW6QIA
+ q31289LMt4LQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,368,1583222400"; d="scan'208";a="285505776"
+Received: from fmsmsx107.amr.corp.intel.com ([10.18.124.205])
+ by fmsmga004.fm.intel.com with ESMTP; 08 May 2020 08:45:08 -0700
+Received: from fmsmsx121.amr.corp.intel.com (10.18.125.36) by
+ fmsmsx107.amr.corp.intel.com (10.18.124.205) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Fri, 8 May 2020 08:45:08 -0700
+Received: from fmsmsx108.amr.corp.intel.com ([169.254.9.60]) by
+ fmsmsx121.amr.corp.intel.com ([169.254.6.5]) with mapi id 14.03.0439.000;
+ Fri, 8 May 2020 08:45:08 -0700
+From: "Ruhl, Michael J" <michael.j.ruhl@intel.com>
+To: Bernard Zhao <bernard@vivo.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, "David
+ (ChunMing) Zhou" <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>, Tom St Denis <tom.stdenis@amd.com>, "Sam
+ Ravnborg" <sam@ravnborg.org>, Ori Messinger <Ori.Messinger@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2] drm/amd/amdgpu: cleanup coding style a bit
+Thread-Topic: [PATCH v2] drm/amd/amdgpu: cleanup coding style a bit
+Thread-Index: AQHWJE+3bau47Y1nb0Gh/jTCob7xpaieVcIg
+Date: Fri, 8 May 2020 15:45:07 +0000
+Message-ID: <14063C7AD467DE4B82DEDB5C278E8663010E20C5BD@FMSMSX108.amr.corp.intel.com>
+References: <20200507091311.10898-1-bernard@vivo.com>
+In-Reply-To: <20200507091311.10898-1-bernard@vivo.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+x-originating-ip: [10.1.200.106]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CACvgo50TW1zxB4a20L_JD_3kOvy+BWLVaB6R_r5fTvKnkU5XTg@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-CMAE-Score: 0
-X-CMAE-Analysis: v=2.3 cv=MOBOZvRl c=1 sm=1 tr=0
- a=UWs3HLbX/2nnQ3s7vZ42gw==:117 a=UWs3HLbX/2nnQ3s7vZ42gw==:17
- a=8nJEP1OIZ-IA:10 a=zd2uoN0lAAAA:8 a=QX4gbG5DAAAA:8 a=e5mUnYsNAAAA:8
- a=pGLkceISAAAA:8 a=6O4YvwrpDX13PYuNmRMA:9 a=wPNLvfGTeEIA:10
- a=AbAUZ8qAyYyZVLSsDulk:22 a=Vxmtnl_E_bksehYqCbjh:22
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,66 +77,150 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- ML dri-devel <dri-devel@lists.freedesktop.org>
+Cc: "opensource.kernel@vivo.com" <opensource.kernel@vivo.com>
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 08, 2020 at 10:55:42AM +0100, Emil Velikov wrote:
-> On Fri, 8 May 2020 at 09:16, Christian K=F6nig <christian.koenig@amd.com>=
- wrote:
-> >
-> > Am 07.05.20 um 20:03 schrieb Sam Ravnborg:
-> > > Hi Emil.
-> > >
-> > > On Thu, May 07, 2020 at 04:07:52PM +0100, Emil Velikov wrote:
-> > >> From: Emil Velikov <emil.velikov@collabora.com>
-> > >>
-> > >> The driver does not hold struct_mutex, thus using the locked version=
- of
-> > >> the helper is incorrect.
-> > >>
-> > >> Cc: Alex Deucher <alexander.deucher@amd.com>
-> > >> Cc: Christian K=F6nig <christian.koenig@amd.com>
-> > >> Cc: amd-gfx@lists.freedesktop.org
-> > >> Fixes: a39414716ca0 ("drm/amdgpu: add independent DMA-buf import v9"=
-):
-> > >> Signed-off-by: Emil Velikov <emil.l.velikov@gmail.com>
-> > >> ---
-> > >>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 2 +-
-> > >>   1 file changed, 1 insertion(+), 1 deletion(-)
-> > >>
-> > >> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> > >> index 43d8ed7dbd00..652c57a3b847 100644
-> > >> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> > >> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> > >> @@ -587,7 +587,7 @@ struct drm_gem_object *amdgpu_gem_prime_import(s=
-truct drm_device *dev,
-> > >>      attach =3D dma_buf_dynamic_attach(dma_buf, dev->dev,
-> > >>                                      &amdgpu_dma_buf_attach_ops, obj=
-);
-> > >>      if (IS_ERR(attach)) {
-> > >> -            drm_gem_object_put(obj);
-> > >> +            drm_gem_object_put_unlocked(obj);
-> > >>              return ERR_CAST(attach);
-> > >>      }
-> > > Likewise previous patch.
-> > > Drop this as the patch is correct after the rename a few pathces late=
-r.
-> >
-> > Well this is a bug fix in the error path and should probably be back
-> > ported, so having a separate patch is certainly a good idea.
-> >
-> Precisely the goal here. The fixes tag should allow Greg and team to
-> pick/port it where applicable.
-I got it now... Thanks for spelling it out for my dense mind.
+>-----Original Message-----
+>From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of
+>Bernard Zhao
+>Sent: Thursday, May 7, 2020 5:13 AM
+>To: Alex Deucher <alexander.deucher@amd.com>; Christian K=F6nig
+><christian.koenig@amd.com>; David (ChunMing) Zhou
+><David1.Zhou@amd.com>; David Airlie <airlied@linux.ie>; Daniel Vetter
+><daniel@ffwll.ch>; Tom St Denis <tom.stdenis@amd.com>; Sam Ravnborg
+><sam@ravnborg.org>; Ori Messinger <Ori.Messinger@amd.com>; Bernard
+>Zhao <bernard@vivo.com>; amd-gfx@lists.freedesktop.org; dri-
+>devel@lists.freedesktop.org; linux-kernel@vger.kernel.org
+>Cc: opensource.kernel@vivo.com
+>Subject: [PATCH v2] drm/amd/amdgpu: cleanup coding style a bit
+>
+>There is DEVICE_ATTR mechanism in separate attribute define.
+>So this change is to use attr array, also use
+>sysfs_create_files in init function & sysfs_remove_files in
+>fini function.
+>This maybe make the code a bit readable.
+>
+>Signed-off-by: Bernard Zhao <bernard@vivo.com>
+>
+>Changes since V1:
+>*Use DEVICE_ATTR mechanism
+>
+>Link for V1:
+>*https://lore.kernel.org/patchwork/patch/1228076/
+>---
+> drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 43 ++++++-------------
+>-
+> 1 file changed, 13 insertions(+), 30 deletions(-)
+>
+>diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>index 82a3299e53c0..57bbc70662ff 100644
+>--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>@@ -148,6 +148,15 @@ static DEVICE_ATTR(mem_info_vis_vram_used,
+>S_IRUGO,
+> static DEVICE_ATTR(mem_info_vram_vendor, S_IRUGO,
+> 		   amdgpu_mem_info_vram_vendor, NULL);
+>
+>+static struct attribute *amdgpu_vram_mgr_attributes[] =3D {
+>+	&dev_attr_mem_info_vram_total.attr,
+>+	&dev_attr_mem_info_vis_vram_total.attr,
+>+	&dev_attr_mem_info_vram_used.attr,
+>+	&dev_attr_mem_info_vis_vram_used.attr,
+>+	&dev_attr_mem_info_vram_vendor.attr,
+>+	NULL
+>+};
+>+
+> /**
+>  * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
+>  *
+>@@ -172,31 +181,9 @@ static int amdgpu_vram_mgr_init(struct
+>ttm_mem_type_manager *man,
+> 	man->priv =3D mgr;
+>
+> 	/* Add the two VRAM-related sysfs files */
+>-	ret =3D device_create_file(adev->dev,
+>&dev_attr_mem_info_vram_total);
+>-	if (ret) {
+>-		DRM_ERROR("Failed to create device file
+>mem_info_vram_total\n");
+>-		return ret;
+>-	}
+>-	ret =3D device_create_file(adev->dev,
+>&dev_attr_mem_info_vis_vram_total);
+>-	if (ret) {
+>-		DRM_ERROR("Failed to create device file
+>mem_info_vis_vram_total\n");
+>-		return ret;
+>-	}
+>-	ret =3D device_create_file(adev->dev,
+>&dev_attr_mem_info_vram_used);
+>-	if (ret) {
+>-		DRM_ERROR("Failed to create device file
+>mem_info_vram_used\n");
+>-		return ret;
+>-	}
+>-	ret =3D device_create_file(adev->dev,
+>&dev_attr_mem_info_vis_vram_used);
+>-	if (ret) {
+>-		DRM_ERROR("Failed to create device file
+>mem_info_vis_vram_used\n");
+>-		return ret;
+>-	}
+>-	ret =3D device_create_file(adev->dev,
+>&dev_attr_mem_info_vram_vendor);
+>-	if (ret) {
+>-		DRM_ERROR("Failed to create device file
+>mem_info_vram_vendor\n");
+>-		return ret;
+>-	}
+>+	ret =3D sysfs_create_files(&adev->dev->kobj,
+>amdgpu_vram_mgr_attributes);
+>+	if (ret)
+>+		DRM_ERROR("Failed to register sysfs\n");
 
-	Sam
+This looks good to me.
+
+I think that there is a new error macro (drm_err?) that you might
+want to use instead of DRM_ERROR().
+
+Otherwise:
+
+Acked-by: Michael J. Ruhl <michael.j.ruhl@intel.com>
+
+m
+
+>
+> 	return 0;
+> }
+>@@ -219,11 +206,7 @@ static int amdgpu_vram_mgr_fini(struct
+>ttm_mem_type_manager *man)
+> 	spin_unlock(&mgr->lock);
+> 	kfree(mgr);
+> 	man->priv =3D NULL;
+>-	device_remove_file(adev->dev, &dev_attr_mem_info_vram_total);
+>-	device_remove_file(adev->dev,
+>&dev_attr_mem_info_vis_vram_total);
+>-	device_remove_file(adev->dev, &dev_attr_mem_info_vram_used);
+>-	device_remove_file(adev->dev,
+>&dev_attr_mem_info_vis_vram_used);
+>-	device_remove_file(adev->dev,
+>&dev_attr_mem_info_vram_vendor);
+>+	sysfs_remove_files(&adev->dev->kobj,
+>amdgpu_vram_mgr_attributes);
+> 	return 0;
+> }
+>
+>--
+>2.26.2
+>
+>_______________________________________________
+>dri-devel mailing list
+>dri-devel@lists.freedesktop.org
+>https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
