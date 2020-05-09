@@ -1,71 +1,107 @@
-Return-Path: <SRS0=8BNM=6W=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=XXlo=6X=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.2 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MIME_HTML_MOSTLY,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A4579C38A2A
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2020 20:03:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 27A76C28CBC
+	for <amd-gfx@archiver.kernel.org>; Sat,  9 May 2020 04:34:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 73035207DD
-	for <amd-gfx@archiver.kernel.org>; Fri,  8 May 2020 20:03:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D75ED21473
+	for <amd-gfx@archiver.kernel.org>; Sat,  9 May 2020 04:34:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ejd4ZsDP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 73035207DD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="pQuUPB76"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D75ED21473
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B6706EB60;
-	Fri,  8 May 2020 20:03:42 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A8296EB5F
- for <amd-gfx@lists.freedesktop.org>; Fri,  8 May 2020 20:03:40 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id k12so11430741wmj.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 08 May 2020 13:03:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=crfovagTt36UGk6jIn5cv1+knJS7l0OO+DFWRgEgBHE=;
- b=ejd4ZsDPC7ifUEvcMnVY3ersZ76Lllz47cU8ZkTAedP+CZY8KvWXy8ev3J432iXWll
- FBToew3ja9uvxEPADmsSfMCcfPG8jYyC5nczgYMZUxN5/fgF3yTTBN7k6l1oJOgLttnq
- PEcJvaGm40i+UpOv2MeWaRln3zId37wQsYAx6KRjAyP/uH2iVGW4O4RFdt3hg3mAcWWq
- IvLvq1oVRxq/WfrW1gWwBbBHpgw6BmiB5Z84jSVNb6m66yTv8cJuBrmeVx8V0//5wtsi
- CBgbPWW9h0DJ3yWkDzUfOqQcGuqOo6hJV3YCoP6aV1GSyG0/KzAUeG+X1CxMf9IRvMc6
- m5jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=crfovagTt36UGk6jIn5cv1+knJS7l0OO+DFWRgEgBHE=;
- b=GEAjS14cdn8zlg+P/7tzkd6yyO1tY7piFlp/1E7sgrFdh2hX7OnVeJVvOftBbuHtV4
- 8XfCj3wLMMQgnTB1553923KL6M6w3KN+azGFDt2ZwSMH1oH8rkIP0Crktulv+WRCw2ZT
- xwzXzpjnzPdkzLkwee/YF35FzEAXHGcwB1XuTf4Fy0nUpj31xdvLU1ImVNic67dTVIWH
- y7tUieoCnDTBUh+xYL6T1iWPy+tmTYai9l7gk3lgFkIHmFAyUGwpSZyF9baAvG7nhDtq
- ragDxA5ERi6tdIwxOPKPdic416/lxPoqH5PgDeEON4k006+9my+Vl63TQKZWutRJNpS3
- KRcw==
-X-Gm-Message-State: AGi0PuboTod+A6ObCuKVAAHQ+7HmXL/CD6c+y/sNTuI8Iu0m30uMGRxK
- alcYiwKEfCSi/GJyYlonoSG1bel7bV3SOeJCqUI=
-X-Google-Smtp-Source: APiQypI2TWkXRZ+pnwD57Q7PByQ1kxyB+MFaneKOaM6wp5FYzQxdHNdDzbHjcD8MwX0qS86KVoqT5GUN3R12E03rJDM=
-X-Received: by 2002:a1c:3c08:: with SMTP id j8mr17583257wma.30.1588968219194; 
- Fri, 08 May 2020 13:03:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 559206E2DA;
+	Sat,  9 May 2020 04:34:02 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2077.outbound.protection.outlook.com [40.107.92.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1C206E2DA
+ for <amd-gfx@lists.freedesktop.org>; Sat,  9 May 2020 04:34:01 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=U8SJ5LzpYDnbKSu6GcmvhbKMCZSjniKwhewq/f7TQKfGkwsaKdJ8qaFOVIvbgcNRZFvi+0fMyMRy6zNA4c2KEGOp3INgqbfG/v2K30g4RcbaMhTpyv1BQcMsER68LYnrx6GNwIzUBow27k+nwREXIwGm5/JAuOfhPCTHpVGgdbgTLuPWefkSVNMHlxmr+JHyZapMGyAIJWJH8wU5D02t2yOpX5vh6iHbi0s/BxoVrVAvzHBbIFrnIHFFPhlR+RLxq9lZCAIeDIP9ylxsO191e0a5GLfJxiFxn20hpjnLA3xpft4H68rAsopXRWu5cyJcMNa9PnWIVoVrL1l9rtWlxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SBYAAn6Z3+M5M5qWoHk7qPTZfSMxTDVR8FaqYsBwm0I=;
+ b=VaVTAV5ca8nll1hJeJb6iVwAKfKIcQ1TZH8oKq1tINHXI5JnmBV8T5mxXlJXZvyZtg75hlx0hdW3jmyqj6YqkmJ8d8KZS/kqul+SmPu8mNiSuIL6ZJ555h4T1kScwppNoEyubEcp6J0n5GHHdyygTjvCLJsQ5ZGerl1JDn2Z7s0s3QQc7Ocd10w/b6GsM7JZub5gMgwGHVBlcLzna2rH14EZzUzj5nwLAqN8BVpotMS5piXKiN/9Zrs77XApBETkhYDCXjGhb/L0hfxf6maSun6sLGANi/rchKk6rSDdSkngP/q/Kj5YKm/tOwwl1y3o2wbIq8kUCohTjfsag3fAfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SBYAAn6Z3+M5M5qWoHk7qPTZfSMxTDVR8FaqYsBwm0I=;
+ b=pQuUPB760aIgunUkrqpLIykkySAo4cw321G+o9AGVIV14D6y1O7Yrg3HEr0BjAEVSDxllm69Ibaf33BjRo9BRXt+6Xhg486fCwkT0muNbPuDwjhFZsZ7gUKT+/+/J9Jxua4IZdfVgGIfqWRcVE+GIPOYKTos0XcC+KEKhTeVSbI=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM6PR12MB3193.namprd12.prod.outlook.com (2603:10b6:5:186::31) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2979.29; Sat, 9 May 2020 04:34:00 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::5c27:185c:be20:1fb6]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::5c27:185c:be20:1fb6%5]) with mapi id 15.20.2958.035; Sat, 9 May 2020
+ 04:34:00 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 1/2] drm/amdgpu: decode the ctxid for SMC to host IH
+Thread-Topic: [PATCH 1/2] drm/amdgpu: decode the ctxid for SMC to host IH
+Thread-Index: AQHWJR/kKIVObS3R9U2b6oA9P5FpUKieA3AAgAEoEtA=
+Date: Sat, 9 May 2020 04:33:59 +0000
+Message-ID: <DM6PR12MB2619000589CAA0F9B3D07222E4A30@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20200508100253.12839-1-evan.quan@amd.com>
+ <4d132c20-5c5e-946b-91bd-1d7739ed884f@gmail.com>
+In-Reply-To: <4d132c20-5c5e-946b-91bd-1d7739ed884f@gmail.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=bee67152-5487-4f3a-91d0-0000a33527f3;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-09T04:32:43Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: ee4b4301-b076-456e-33f9-08d7f3d231cb
+x-ms-traffictypediagnostic: DM6PR12MB3193:|DM6PR12MB3193:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB3193E80248321C966541884CE4A30@DM6PR12MB3193.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5516;
+x-forefront-prvs: 03982FDC1D
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: vc3U121HsKDO/bAWna6XmCTDOolKZJN4U9aRExStVm17gurZGKZ5UagSzFKY80KM2sjqNRecSTNo0APui0RQlrOyS1Tl2RILdvIESDcZ/+EbFbXeaQuxqEw8xRdqmk9w5QWi6SMU4lgKrWJzaRUs0MeNxcQhPPT7cQp355guBhcSr0qJoc/ZDFTJgSorWWnA+QAa/s8Tr1W2VF4dqPPqs1mWUWwczukRNy/HpX0NjaaCTzaXgl1dRwfxEDR+WIgR8PsW67Kvjt1z3ZUgsC/yvSUpiU5A9/mTnj2zaEhV2wmQftTAkU+3+KjlTOWJCxyIgt/TNptBShZDBaTzWLkFiDkBa8j9EIul+0rlTaM16nHvjK3tTB73p/onfFWbdj0KAsL4dKwoNf5AfiAQ41B+Xra2HNfBfZi05WN+iQikTPLip3EUdTjACNRlcZZ3dmnMddEEOs47jNAhxsEufPTZJe//qVUaqowE6xgUQhV0dKJJ/hwN0WNDbI7qtjv41GQRh1//x26JGTH60ApTrDl1/A==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(396003)(346002)(39860400002)(376002)(366004)(33430700001)(64756008)(478600001)(66556008)(52536014)(66476007)(9686003)(66446008)(186003)(8936002)(55016002)(8676002)(4326008)(7696005)(86362001)(5660300002)(33440700001)(110136005)(316002)(26005)(6506007)(53546011)(76116006)(66574014)(33656002)(71200400001)(66946007)(2906002);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata: cI9z7EtWreIMBLHfjp6nboDTFhHkm6cCbz8dxAxdvrMfST5PPqYSSMjvXG4qJeNGIqAQL2GQPBTrvGBiT7bgzhPLMRlClG3vod3Lc+/xOlAe32oylw/5VFLBp8QlAKOpFuthrsl9/y7gQTxEdkxvYQONI0hW1pASDB1wtwfbDfiUQ4p+UEwxDM4Mipb891bH7kvidvp69zdS5jgjvqyOLp8U3kw1jHiUW/PL0iqCoDfER8ptHvXB6QDvz6gO7A20fok46Msmse9e7/rDaa+XUH7xRViSbPC/JVL864voIY/t4SbFsicpoGvxS/osyZ+WiFHgo8mgBvpHkcN7l4zoBQEfD0M8XwCPDHsQSxPUeER8bRuw5Le8HtwYuGrO0KO+TgLSLf2KEdkz6rtW8gxomhjlB+YAHsolp+cyqin5OcCSXzGXil8vpU8AQGcttas45uIVpcxhOnPGXYEXVRXVST4+V2ugASe8sPczJmhAAae5fwJltBqPXdjKR88J1kqo
 MIME-Version: 1.0
-References: <20200506194754.10780-1-nicholas.kazlauskas@amd.com>
- <33b0a4ad-496a-51f7-dbd4-ace5e807b3e9@amd.com>
- <CAEsyxyg0Vt=t=Ukt9H_6DQV_ikwqVKkkC3LtGQB3RPg8p=QUeg@mail.gmail.com>
- <3afc03fb-220f-ae9a-3849-ff429eac5607@amd.com>
-In-Reply-To: <3afc03fb-220f-ae9a-3849-ff429eac5607@amd.com>
-From: Mario Kleiner <mario.kleiner.de@gmail.com>
-Date: Fri, 8 May 2020 22:03:27 +0200
-Message-ID: <CAEsyxyjzUXx_EvrfWVrY0LRQWF4sV5+n+74LOiAOjTqDLG+UkQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix vblank and pageflip event handling
- for FreeSync
-To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee4b4301-b076-456e-33f9-08d7f3d231cb
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 May 2020 04:33:59.9817 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xSXA07PXaSg6ypaEjidNX06CsQbsv5Cnv23b2niloL9V9lWlV4gBEOhhDKBrrljH
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3193
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,915 +113,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Leo Li <sunpeng.li@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: multipart/mixed; boundary="===============0353744972=="
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0353744972==
-Content-Type: multipart/alternative; boundary="00000000000043c42b05a5287ea9"
-
---00000000000043c42b05a5287ea9
-Content-Type: text/plain; charset="UTF-8"
-
-On Thu, May 7, 2020 at 7:35 PM Kazlauskas, Nicholas <
-nicholas.kazlauskas@amd.com> wrote:
-
-> It applies on top of Alex's amd-staging-drm-next-branch.
->
-> It is essentially just a revert to the old behavior with
-> acrtc_state->active_planes == 0 special case you added on top and some
-> small refactoring.
->
-> The only remaining bits that are kind of questionable is the
-> VUPDATE_NO_LOCK vs VUPDATE bit again along with some of the locking around
-> where we check if FreeSync is active or not.
->
-> I also don't think that VSTARTUP is the correct place to be performing the
-> update for the registers since the offset between VSTARTUP and VUPDATE can
-> be small enough such that the programming won't finish in time for some
-> timings. We should be doing it on line 0 instead.
->
-> All these issues existed before this patch series at least though.
->
-> Regards,
-> Nicholas Kazlauskas
->
->
-Ok, thanks. Tested it on a Samsung monitor with 48 Hz - 144 Hz range on a
-Raven Ridge gpu. It worked with and without your patch, both with my tests,
-and with the that VRRTester application from GitHub, so i guess the problem
-is highly dependent on small timing differences in game execution, vblank
-durations, etc.
-
-So fwif here's my
-
-Reviewed-and-Tested-by: Mario Kleiner <mario.kleiner.de@gmail.com>
-
--mario
-
-On 2020-05-07 12:58 p.m., Mario Kleiner wrote:
->
-> Looking over it now, will do some testing. Alex amdgpu-drm-next branch
-> would be the best to test this?
->
-> It looks like a revert of the whole vstartup series, except for that one
-> if(acrtc_state->active_planes == 0)  special case, so i expect it should be
-> fine?
->
-> thanks,
-> -mario
->
->
-> On Thu, May 7, 2020 at 5:56 PM Leo Li <sunpeng.li@amd.com> wrote:
->
->>
->>
->> On 2020-05-06 3:47 p.m., Nicholas Kazlauskas wrote:
->> > [Why]
->> > We're the drm vblank event a frame too early in the case where the
->>         ^sending
->>
->> Thanks for catching this!
->>
->> Reviewed-by: Leo Li <sunpeng.li@amd.com>
->>
->> > pageflip happens close to VUPDATE and ends up blocking the signal.
->> >
->> > The implementation in DM was previously correct *before* we started
->> > sending vblank events from VSTARTUP unconditionally to handle cases
->> > where HUBP was off, OTG was ON and userspace was still requesting some
->> > DRM planes enabled. As part of that patch series we dropped VUPDATE
->> > since it was deemed close enough to VSTARTUP, but there's a key
->> > difference betweeen VSTARTUP and VUPDATE - the VUPDATE signal can be
->> > blocked if we're holding the pipe lock >
->> > There was a fix recently to revert the unconditional behavior for the
->> > DCN VSTARTUP vblank event since it was sending the pageflip event on
->> > the wrong frame - once again, due to blocking VUPDATE and having the
->> > address start scanning out two frames later.
->> >
->> > The problem with this fix is it didn't update the logic that calls
->> > drm_crtc_handle_vblank(), so the timestamps are totally bogus now.
->> >
->> > [How]
->> > Essentially reverts most of the original VSTARTUP series but retains
->> > the behavior to send back events when active planes == 0.
->> >
->> > Some refactoring/cleanup was done to not have duplicated code in both
->> > the handlers.
->> >
->> > Fixes: 16f17eda8bad ("drm/amd/display: Send vblank and user events at
->> vsartup for DCN")
->> > Fixes: 3a2ce8d66a4b ("drm/amd/display: Disable VUpdate interrupt for
->> DCN hardware")
->> > Fixes: 2b5aed9ac3f7 ("drm/amd/display: Fix pageflip event race
->> condition for DCN.")
->> >
->> > Cc: Leo Li <sunpeng.li@amd.com>
->> > Cc: Mario Kleiner <mario.kleiner.de@gmail.com>
->> > Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
->> > ---
->> >   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 137 +++++++-----------
->> >   1 file changed, 55 insertions(+), 82 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> > index 59f1d4a94f12..30ce28f7c444 100644
->> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> > @@ -441,7 +441,7 @@ static void dm_vupdate_high_irq(void
->> *interrupt_params)
->> >
->> >   /**
->> >    * dm_crtc_high_irq() - Handles CRTC interrupt
->> > - * @interrupt_params: ignored
->> > + * @interrupt_params: used for determining the CRTC instance
->> >    *
->> >    * Handles the CRTC/VSYNC interrupt by notfying DRM's VBLANK
->> >    * event handler.
->> > @@ -455,70 +455,6 @@ static void dm_crtc_high_irq(void
->> *interrupt_params)
->> >       unsigned long flags;
->> >
->> >       acrtc = get_crtc_by_otg_inst(adev, irq_params->irq_src -
->> IRQ_TYPE_VBLANK);
->> > -
->> > -     if (acrtc) {
->> > -             acrtc_state = to_dm_crtc_state(acrtc->base.state);
->> > -
->> > -             DRM_DEBUG_VBL("crtc:%d, vupdate-vrr:%d\n",
->> > -                           acrtc->crtc_id,
->> > -                           amdgpu_dm_vrr_active(acrtc_state));
->> > -
->> > -             /* Core vblank handling at start of front-porch is only
->> possible
->> > -              * in non-vrr mode, as only there vblank timestamping
->> will give
->> > -              * valid results while done in front-porch. Otherwise
->> defer it
->> > -              * to dm_vupdate_high_irq after end of front-porch.
->> > -              */
->> > -             if (!amdgpu_dm_vrr_active(acrtc_state))
->> > -                     drm_crtc_handle_vblank(&acrtc->base);
->> > -
->> > -             /* Following stuff must happen at start of vblank, for crc
->> > -              * computation and below-the-range btr support in vrr
->> mode.
->> > -              */
->> > -             amdgpu_dm_crtc_handle_crc_irq(&acrtc->base);
->> > -
->> > -             if (acrtc_state->stream && adev->family >=
->> AMDGPU_FAMILY_AI &&
->> > -                 acrtc_state->vrr_params.supported &&
->> > -                 acrtc_state->freesync_config.state ==
->> VRR_STATE_ACTIVE_VARIABLE) {
->> > -                     spin_lock_irqsave(&adev->ddev->event_lock, flags);
->> > -                     mod_freesync_handle_v_update(
->> > -                             adev->dm.freesync_module,
->> > -                             acrtc_state->stream,
->> > -                             &acrtc_state->vrr_params);
->> > -
->> > -                     dc_stream_adjust_vmin_vmax(
->> > -                             adev->dm.dc,
->> > -                             acrtc_state->stream,
->> > -                             &acrtc_state->vrr_params.adjust);
->> > -                     spin_unlock_irqrestore(&adev->ddev->event_lock,
->> flags);
->> > -             }
->> > -     }
->> > -}
->> > -
->> > -#if defined(CONFIG_DRM_AMD_DC_DCN)
->> > -/**
->> > - * dm_dcn_crtc_high_irq() - Handles VStartup interrupt for DCN
->> generation ASICs
->> > - * @interrupt params - interrupt parameters
->> > - *
->> > - * Notify DRM's vblank event handler at VSTARTUP
->> > - *
->> > - * Unlike DCE hardware, we trigger the handler at VSTARTUP. at which:
->> > - * * We are close enough to VUPDATE - the point of no return for hw
->> > - * * We are in the fixed portion of variable front porch when vrr is
->> enabled
->> > - * * We are before VUPDATE, where double-buffered vrr registers are
->> swapped
->> > - *
->> > - * It is therefore the correct place to signal vblank, send user flip
->> events,
->> > - * and update VRR.
->> > - */
->> > -static void dm_dcn_crtc_high_irq(void *interrupt_params)
->> > -{
->> > -     struct common_irq_params *irq_params = interrupt_params;
->> > -     struct amdgpu_device *adev = irq_params->adev;
->> > -     struct amdgpu_crtc *acrtc;
->> > -     struct dm_crtc_state *acrtc_state;
->> > -     unsigned long flags;
->> > -
->> > -     acrtc = get_crtc_by_otg_inst(adev, irq_params->irq_src -
->> IRQ_TYPE_VBLANK);
->> > -
->> >       if (!acrtc)
->> >               return;
->> >
->> > @@ -528,22 +464,35 @@ static void dm_dcn_crtc_high_irq(void
->> *interrupt_params)
->> >                        amdgpu_dm_vrr_active(acrtc_state),
->> >                        acrtc_state->active_planes);
->> >
->> > +     /**
->> > +      * Core vblank handling at start of front-porch is only possible
->> > +      * in non-vrr mode, as only there vblank timestamping will give
->> > +      * valid results while done in front-porch. Otherwise defer it
->> > +      * to dm_vupdate_high_irq after end of front-porch.
->> > +      */
->> > +     if (!amdgpu_dm_vrr_active(acrtc_state))
->> > +             drm_crtc_handle_vblank(&acrtc->base);
->> > +
->> > +     /**
->> > +      * Following stuff must happen at start of vblank, for crc
->> > +      * computation and below-the-range btr support in vrr mode.
->> > +      */
->> >       amdgpu_dm_crtc_handle_crc_irq(&acrtc->base);
->> > -     drm_crtc_handle_vblank(&acrtc->base);
->> > +
->> > +     /* BTR updates need to happen before VUPDATE on Vega and above. */
->> > +     if (adev->family < AMDGPU_FAMILY_AI)
->> > +             return;
->> >
->> >       spin_lock_irqsave(&adev->ddev->event_lock, flags);
->> >
->> > -     if (acrtc_state->vrr_params.supported &&
->> > +     if (acrtc_state->stream && acrtc_state->vrr_params.supported &&
->> >           acrtc_state->freesync_config.state ==
->> VRR_STATE_ACTIVE_VARIABLE) {
->> > -             mod_freesync_handle_v_update(
->> > -             adev->dm.freesync_module,
->> > -             acrtc_state->stream,
->> > -             &acrtc_state->vrr_params);
->> > +             mod_freesync_handle_v_update(adev->dm.freesync_module,
->> > +                                          acrtc_state->stream,
->> > +                                          &acrtc_state->vrr_params);
->> >
->> > -             dc_stream_adjust_vmin_vmax(
->> > -                     adev->dm.dc,
->> > -                     acrtc_state->stream,
->> > -                     &acrtc_state->vrr_params.adjust);
->> > +             dc_stream_adjust_vmin_vmax(adev->dm.dc,
->> acrtc_state->stream,
->> > +
->> &acrtc_state->vrr_params.adjust);
->> >       }
->> >
->> >       /*
->> > @@ -556,7 +505,8 @@ static void dm_dcn_crtc_high_irq(void
->> *interrupt_params)
->> >        * avoid race conditions between flip programming and completion,
->> >        * which could cause too early flip completion events.
->> >        */
->> > -     if (acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
->> > +     if (adev->family >= AMDGPU_FAMILY_RV &&
->> > +         acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
->> >           acrtc_state->active_planes == 0) {
->> >               if (acrtc->event) {
->> >                       drm_crtc_send_vblank_event(&acrtc->base,
->> acrtc->event);
->> > @@ -568,7 +518,6 @@ static void dm_dcn_crtc_high_irq(void
->> *interrupt_params)
->> >
->> >       spin_unlock_irqrestore(&adev->ddev->event_lock, flags);
->> >   }
->> > -#endif
->> >
->> >   static int dm_set_clockgating_state(void *handle,
->> >                 enum amd_clockgating_state state)
->> > @@ -2454,8 +2403,36 @@ static int dcn10_register_irq_handlers(struct
->> amdgpu_device *adev)
->> >               c_irq_params->adev = adev;
->> >               c_irq_params->irq_src = int_params.irq_source;
->> >
->> > +             amdgpu_dm_irq_register_interrupt(
->> > +                     adev, &int_params, dm_crtc_high_irq,
->> c_irq_params);
->> > +     }
->> > +
->> > +     /* Use VUPDATE_NO_LOCK interrupt on DCN, which seems to
->> correspond to
->> > +      * the regular VUPDATE interrupt on DCE. We want
->> DC_IRQ_SOURCE_VUPDATEx
->> > +      * to trigger at end of each vblank, regardless of state of the
->> lock,
->> > +      * matching DCE behaviour.
->> > +      */
->> > +     for (i = DCN_1_0__SRCID__OTG0_IHC_V_UPDATE_NO_LOCK_INTERRUPT;
->> > +          i <= DCN_1_0__SRCID__OTG0_IHC_V_UPDATE_NO_LOCK_INTERRUPT +
->> adev->mode_info.num_crtc - 1;
->> > +          i++) {
->> > +             r = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_DCE, i,
->> &adev->vupdate_irq);
->> > +
->> > +             if (r) {
->> > +                     DRM_ERROR("Failed to add vupdate irq id!\n");
->> > +                     return r;
->> > +             }
->> > +
->> > +             int_params.int_context = INTERRUPT_HIGH_IRQ_CONTEXT;
->> > +             int_params.irq_source =
->> > +                     dc_interrupt_to_irq_source(dc, i, 0);
->> > +
->> > +             c_irq_params =
->> &adev->dm.vupdate_params[int_params.irq_source - DC_IRQ_SOURCE_VUPDATE1];
->> > +
->> > +             c_irq_params->adev = adev;
->> > +             c_irq_params->irq_src = int_params.irq_source;
->> > +
->> >               amdgpu_dm_irq_register_interrupt(adev, &int_params,
->> > -                             dm_dcn_crtc_high_irq, c_irq_params);
->> > +                             dm_vupdate_high_irq, c_irq_params);
->> >       }
->> >
->> >       /* Use GRPH_PFLIP interrupt */
->> > @@ -4544,10 +4521,6 @@ static inline int dm_set_vupdate_irq(struct
->> drm_crtc *crtc, bool enable)
->> >       struct amdgpu_device *adev = crtc->dev->dev_private;
->> >       int rc;
->> >
->> > -     /* Do not set vupdate for DCN hardware */
->> > -     if (adev->family > AMDGPU_FAMILY_AI)
->> > -             return 0;
->> > -
->> >       irq_source = IRQ_TYPE_VUPDATE + acrtc->otg_inst;
->> >
->> >       rc = dc_interrupt_set(adev->dm.dc, irq_source, enable) ? 0 :
->> -EBUSY;
->> >
->>
->
->
-
---00000000000043c42b05a5287ea9
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Thu, May 7, 2020 at 7:35 PM Kazlau=
-skas, Nicholas &lt;<a href=3D"mailto:nicholas.kazlauskas@amd.com">nicholas.=
-kazlauskas@amd.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote=
-" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);=
-padding-left:1ex">
-
- =20
-  <div>
-    <div>It applies on top of Alex&#39;s
-      amd-staging-drm-next-branch.</div>
-    <div><br>
-    </div>
-    <div>It is essentially just a revert to the
-      old behavior with acrtc_state-&gt;active_planes =3D=3D 0 special case
-      you added on top and some small refactoring.</div>
-    <div><br>
-    </div>
-    <div>The only remaining bits that are kind
-      of questionable is the VUPDATE_NO_LOCK vs VUPDATE bit again along
-      with some of the locking around where we check if FreeSync is
-      active or not.</div>
-    <div><br>
-    </div>
-    <div>I also don&#39;t think that VSTARTUP is the
-      correct place to be performing the update for the registers since
-      the offset between VSTARTUP and VUPDATE can be small enough such
-      that the programming won&#39;t finish in time for some timings. We
-      should be doing it on line 0 instead.<br>
-    </div>
-    <div><br>
-    </div>
-    <div>All these issues existed before this
-      patch series at least though.<br>
-    </div>
-    <div><br>
-    </div>
-    <div>Regards,</div>
-    <div>Nicholas Kazlauskas<br>
-    </div>
-    <div><br></div></div></blockquote><div><br></div><div>Ok, thanks. Teste=
-d it on a Samsung monitor with 48 Hz - 144 Hz range on a Raven Ridge gpu. I=
-t worked with and without your patch, both with my tests, and with the that=
- VRRTester application from GitHub, so i guess the problem is highly depend=
-ent on small timing differences in game execution, vblank durations, etc.</=
-div><div><br></div><div>So fwif here&#39;s my</div><div><br></div><div>Revi=
-ewed-and-Tested-by: Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.de@gm=
-ail.com">mario.kleiner.de@gmail.com</a>&gt;</div><div>=C2=A0</div><div>-mar=
-io</div><div><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0p=
-x 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><d=
-iv><div>
-    </div>
-    <div>On 2020-05-07 12:58 p.m., Mario Kleiner
-      wrote:<br>
-    </div>
-    <blockquote type=3D"cite">
-     =20
-      <div dir=3D"ltr">
-        <div>Looking over it now, will do some testing. Alex
-          amdgpu-drm-next branch would be the best to test this?</div>
-        <div><br>
-        </div>
-        <div>It looks like a revert of the whole vstartup series, except
-          for that one=C2=A0 if(acrtc_state-&gt;active_planes =3D=3D 0)=C2=
-=A0 special
-          case, so i expect it should be fine?</div>
-        <div><br>
-        </div>
-        <div>thanks,<br>
-        </div>
-        <div>-mario</div>
-        <div><br>
-        </div>
-      </div>
-      <br>
-      <div class=3D"gmail_quote">
-        <div dir=3D"ltr" class=3D"gmail_attr">On Thu, May 7, 2020 at 5:56 P=
-M
-          Leo Li &lt;<a href=3D"mailto:sunpeng.li@amd.com" target=3D"_blank=
-">sunpeng.li@amd.com</a>&gt; wrote:<br>
-        </div>
-        <blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
-;border-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-          <br>
-          On 2020-05-06 3:47 p.m., Nicholas Kazlauskas wrote:<br>
-          &gt; [Why]<br>
-          &gt; We&#39;re the drm vblank event a frame too early in the case
-          where the<br>
-          =C2=A0 =C2=A0 =C2=A0 =C2=A0 ^sending<br>
-          <br>
-          Thanks for catching this!<br>
-          <br>
-          Reviewed-by: Leo Li &lt;<a href=3D"mailto:sunpeng.li@amd.com" tar=
-get=3D"_blank">sunpeng.li@amd.com</a>&gt;<br>
-          <br>
-          &gt; pageflip happens close to VUPDATE and ends up blocking
-          the signal.<br>
-          &gt; <br>
-          &gt; The implementation in DM was previously correct *before*
-          we started<br>
-          &gt; sending vblank events from VSTARTUP unconditionally to
-          handle cases<br>
-          &gt; where HUBP was off, OTG was ON and userspace was still
-          requesting some<br>
-          &gt; DRM planes enabled. As part of that patch series we
-          dropped VUPDATE<br>
-          &gt; since it was deemed close enough to VSTARTUP, but there&#39;=
-s
-          a key<br>
-          &gt; difference betweeen VSTARTUP and VUPDATE - the VUPDATE
-          signal can be<br>
-          &gt; blocked if we&#39;re holding the pipe lock &gt;<br>
-          &gt; There was a fix recently to revert the unconditional
-          behavior for the<br>
-          &gt; DCN VSTARTUP vblank event since it was sending the
-          pageflip event on<br>
-          &gt; the wrong frame - once again, due to blocking VUPDATE and
-          having the<br>
-          &gt; address start scanning out two frames later.<br>
-          &gt; <br>
-          &gt; The problem with this fix is it didn&#39;t update the logic
-          that calls<br>
-          &gt; drm_crtc_handle_vblank(), so the timestamps are totally
-          bogus now.<br>
-          &gt; <br>
-          &gt; [How]<br>
-          &gt; Essentially reverts most of the original VSTARTUP series
-          but retains<br>
-          &gt; the behavior to send back events when active planes =3D=3D 0=
-.<br>
-          &gt; <br>
-          &gt; Some refactoring/cleanup was done to not have duplicated
-          code in both<br>
-          &gt; the handlers.<br>
-          &gt; <br>
-          &gt; Fixes: 16f17eda8bad (&quot;drm/amd/display: Send vblank and
-          user events at vsartup for DCN&quot;)<br>
-          &gt; Fixes: 3a2ce8d66a4b (&quot;drm/amd/display: Disable VUpdate
-          interrupt for DCN hardware&quot;)<br>
-          &gt; Fixes: 2b5aed9ac3f7 (&quot;drm/amd/display: Fix pageflip eve=
-nt
-          race condition for DCN.&quot;)<br>
-          &gt; <br>
-          &gt; Cc: Leo Li &lt;<a href=3D"mailto:sunpeng.li@amd.com" target=
-=3D"_blank">sunpeng.li@amd.com</a>&gt;<br>
-          &gt; Cc: Mario Kleiner &lt;<a href=3D"mailto:mario.kleiner.de@gma=
-il.com" target=3D"_blank">mario.kleiner.de@gmail.com</a>&gt;<br>
-          &gt; Signed-off-by: Nicholas Kazlauskas &lt;<a href=3D"mailto:nic=
-holas.kazlauskas@amd.com" target=3D"_blank">nicholas.kazlauskas@amd.com</a>=
-&gt;<br>
-          &gt; ---<br>
-          &gt;=C2=A0 =C2=A0.../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | =
-137
-          +++++++-----------<br>
-          &gt;=C2=A0 =C2=A01 file changed, 55 insertions(+), 82 deletions(-=
-)<br>
-          &gt; <br>
-          &gt; diff --git
-          a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-          b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-          &gt; index 59f1d4a94f12..30ce28f7c444 100644<br>
-          &gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-          &gt; +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c<br>
-          &gt; @@ -441,7 +441,7 @@ static void dm_vupdate_high_irq(void
-          *interrupt_params)<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt;=C2=A0 =C2=A0/**<br>
-          &gt;=C2=A0 =C2=A0 * dm_crtc_high_irq() - Handles CRTC interrupt<b=
-r>
-          &gt; - * @interrupt_params: ignored<br>
-          &gt; + * @interrupt_params: used for determining the CRTC
-          instance<br>
-          &gt;=C2=A0 =C2=A0 *<br>
-          &gt;=C2=A0 =C2=A0 * Handles the CRTC/VSYNC interrupt by notfying =
-DRM&#39;s
-          VBLANK<br>
-          &gt;=C2=A0 =C2=A0 * event handler.<br>
-          &gt; @@ -455,70 +455,6 @@ static void dm_crtc_high_irq(void
-          *interrupt_params)<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0unsigned long flags;<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0acrtc =3D get_crtc_by_otg_inst(ade=
-v,
-          irq_params-&gt;irq_src - IRQ_TYPE_VBLANK);<br>
-          &gt; -<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0if (acrtc) {<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acrtc_state=
- =3D
-          to_dm_crtc_state(acrtc-&gt;base.state);<br>
-          &gt; -<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_DEBUG_V=
-BL(&quot;crtc:%d, vupdate-vrr:%d\n&quot;,<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acrtc-&gt;crtc_id,<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-          =C2=A0amdgpu_dm_vrr_active(acrtc_state));<br>
-          &gt; -<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Core vbl=
-ank handling at start of
-          front-porch is only possible<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * in non-v=
-rr mode, as only there vblank
-          timestamping will give<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * valid re=
-sults while done in front-porch.
-          Otherwise defer it<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * to dm_vu=
-pdate_high_irq after end of
-          front-porch.<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!amdgpu=
-_dm_vrr_active(acrtc_state))<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0
-          =C2=A0drm_crtc_handle_vblank(&amp;acrtc-&gt;base);<br>
-          &gt; -<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0/* Followin=
-g stuff must happen at start of
-          vblank, for crc<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 * computat=
-ion and below-the-range btr
-          support in vrr mode.<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-          =C2=A0amdgpu_dm_crtc_handle_crc_irq(&amp;acrtc-&gt;base);<br>
-          &gt; -<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (acrtc_s=
-tate-&gt;stream &amp;&amp;
-          adev-&gt;family &gt;=3D AMDGPU_FAMILY_AI &amp;&amp;<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0acrtc_state-&gt;vrr_params.supported
-          &amp;&amp;<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0acrtc_state-&gt;freesync_config.state
-          =3D=3D VRR_STATE_ACTIVE_VARIABLE) {<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0
-          =C2=A0spin_lock_irqsave(&amp;adev-&gt;ddev-&gt;event_lock, flags)=
-;<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0mod_freesync_handle_v_update(<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-          =C2=A0adev-&gt;dm.freesync_module,<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acrtc_state-&gt;stream,<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-          =C2=A0&amp;acrtc_state-&gt;vrr_params);<br>
-          &gt; -<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0dc_stream_adjust_vmin_vmax(<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;dm.dc,<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acrtc_state-&gt;stream,<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-          =C2=A0&amp;acrtc_state-&gt;vrr_params.adjust);<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0
-          =C2=A0spin_unlock_irqrestore(&amp;adev-&gt;ddev-&gt;event_lock,
-          flags);<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0}<br>
-          &gt; -}<br>
-          &gt; -<br>
-          &gt; -#if defined(CONFIG_DRM_AMD_DC_DCN)<br>
-          &gt; -/**<br>
-          &gt; - * dm_dcn_crtc_high_irq() - Handles VStartup interrupt
-          for DCN generation ASICs<br>
-          &gt; - * @interrupt params - interrupt parameters<br>
-          &gt; - *<br>
-          &gt; - * Notify DRM&#39;s vblank event handler at VSTARTUP<br>
-          &gt; - *<br>
-          &gt; - * Unlike DCE hardware, we trigger the handler at
-          VSTARTUP. at which:<br>
-          &gt; - * * We are close enough to VUPDATE - the point of no
-          return for hw<br>
-          &gt; - * * We are in the fixed portion of variable front porch
-          when vrr is enabled<br>
-          &gt; - * * We are before VUPDATE, where double-buffered vrr
-          registers are swapped<br>
-          &gt; - *<br>
-          &gt; - * It is therefore the correct place to signal vblank,
-          send user flip events,<br>
-          &gt; - * and update VRR.<br>
-          &gt; - */<br>
-          &gt; -static void dm_dcn_crtc_high_irq(void *interrupt_params)<br=
->
-          &gt; -{<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0struct common_irq_params *irq_params =
-=3D
-          interrupt_params;<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =3D irq_para=
-ms-&gt;adev;<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0struct amdgpu_crtc *acrtc;<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0struct dm_crtc_state *acrtc_state;<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0unsigned long flags;<br>
-          &gt; -<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0acrtc =3D get_crtc_by_otg_inst(adev,
-          irq_params-&gt;irq_src - IRQ_TYPE_VBLANK);<br>
-          &gt; -<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0if (!acrtc)<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return=
-;<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt; @@ -528,22 +464,35 @@ static void
-          dm_dcn_crtc_high_irq(void *interrupt_params)<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 amdgpu_dm_vrr_active(acrtc_state),<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 acrtc_state-&gt;active_planes);<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0/**<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 * Core vblank handling at start of fro=
-nt-porch is
-          only possible<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 * in non-vrr mode, as only there vblan=
-k
-          timestamping will give<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 * valid results while done in front-po=
-rch.
-          Otherwise defer it<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 * to dm_vupdate_high_irq after end of =
-front-porch.<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0if (!amdgpu_dm_vrr_active(acrtc_state))=
-<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-          =C2=A0drm_crtc_handle_vblank(&amp;acrtc-&gt;base);<br>
-          &gt; +<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0/**<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 * Following stuff must happen at start=
- of vblank,
-          for crc<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 * computation and below-the-range btr =
-support in
-          vrr mode.<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_dm_crtc_handle_crc_irq(&amp=
-;acrtc-&gt;base);<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0drm_crtc_handle_vblank(&amp;acrtc-&gt;b=
-ase);<br>
-          &gt; +<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0/* BTR updates need to happen before VU=
-PDATE on
-          Vega and above. */<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0if (adev-&gt;family &lt; AMDGPU_FAMILY_=
-AI)<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return;<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0
-          =C2=A0spin_lock_irqsave(&amp;adev-&gt;ddev-&gt;event_lock, flags)=
-;<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0if (acrtc_state-&gt;vrr_params.supporte=
-d &amp;&amp;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0if (acrtc_state-&gt;stream &amp;&amp;
-          acrtc_state-&gt;vrr_params.supported &amp;&amp;<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acrtc_state-&gt;free=
-sync_config.state =3D=3D
-          VRR_STATE_ACTIVE_VARIABLE) {<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0mod_freesyn=
-c_handle_v_update(<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0adev-&gt;dm=
-.freesync_module,<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acrtc_state=
--&gt;stream,<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&amp;acrtc_=
-state-&gt;vrr_params);<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0
-          =C2=A0mod_freesync_handle_v_update(adev-&gt;dm.freesync_module,<b=
-r>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0
-          acrtc_state-&gt;stream,<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0
-          &amp;acrtc_state-&gt;vrr_params);<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dc_stream_a=
-djust_vmin_vmax(<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0adev-&gt;dm.dc,<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0acrtc_state-&gt;stream,<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0
-          =C2=A0&amp;acrtc_state-&gt;vrr_params.adjust);<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dc_stream_a=
-djust_vmin_vmax(adev-&gt;dm.dc,
-          acrtc_state-&gt;stream,<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0
-          &amp;acrtc_state-&gt;vrr_params.adjust);<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/*<br>
-          &gt; @@ -556,7 +505,8 @@ static void dm_dcn_crtc_high_irq(void
-          *interrupt_params)<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 * avoid race conditions between f=
-lip programming
-          and completion,<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 * which could cause too early fli=
-p completion
-          events.<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 */<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0if (acrtc-&gt;pflip_status =3D=3D AMDGP=
-U_FLIP_SUBMITTED
-          &amp;&amp;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0if (adev-&gt;family &gt;=3D AMDGPU_FAMI=
-LY_RV
-          &amp;&amp;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acrtc-&gt;pflip_status =
-=3D=3D AMDGPU_FLIP_SUBMITTED
-          &amp;&amp;<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0acrtc_state-&gt;acti=
-ve_planes =3D=3D 0) {<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (ac=
-rtc-&gt;event) {<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0
-          =C2=A0drm_crtc_send_vblank_event(&amp;acrtc-&gt;base,
-          acrtc-&gt;event);<br>
-          &gt; @@ -568,7 +518,6 @@ static void dm_dcn_crtc_high_irq(void
-          *interrupt_params)<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0
-          =C2=A0spin_unlock_irqrestore(&amp;adev-&gt;ddev-&gt;event_lock,
-          flags);<br>
-          &gt;=C2=A0 =C2=A0}<br>
-          &gt; -#endif<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt;=C2=A0 =C2=A0static int dm_set_clockgating_state(void *handle=
-,<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0enum amd_clockgating_state state)<br>
-          &gt; @@ -2454,8 +2403,36 @@ static int
-          dcn10_register_irq_handlers(struct amdgpu_device *adev)<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0c_irq_=
-params-&gt;adev =3D adev;<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0c_irq_=
-params-&gt;irq_src =3D
-          int_params.irq_source;<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu_dm_i=
-rq_register_interrupt(<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0adev, &amp;int_params,
-          dm_crtc_high_irq, c_irq_params);<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0}<br>
-          &gt; +<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0/* Use VUPDATE_NO_LOCK interrupt on DCN=
-, which
-          seems to correspond to<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 * the regular VUPDATE interrupt on DCE=
-. We want
-          DC_IRQ_SOURCE_VUPDATEx<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 * to trigger at end of each vblank, re=
-gardless of
-          state of the lock,<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 * matching DCE behaviour.<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 */<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0for (i =3D
-          DCN_1_0__SRCID__OTG0_IHC_V_UPDATE_NO_LOCK_INTERRUPT;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 i &lt;=3D
-          DCN_1_0__SRCID__OTG0_IHC_V_UPDATE_NO_LOCK_INTERRUPT +
-          adev-&gt;mode_info.num_crtc - 1;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 i++) {<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D amdgp=
-u_irq_add_id(adev,
-          SOC15_IH_CLIENTID_DCE, i, &amp;adev-&gt;vupdate_irq);<br>
-          &gt; +<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (r) {<br=
->
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0DRM_ERROR(&quot;Failed to add vupdate
-          irq id!\n&quot;);<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0return r;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-          &gt; +<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int_params.=
-int_context =3D
-          INTERRUPT_HIGH_IRQ_CONTEXT;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int_params.=
-irq_source =3D<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0dc_interrupt_to_irq_source(dc, i,
-          0);<br>
-          &gt; +<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0c_irq_param=
-s =3D
-          &amp;adev-&gt;dm.vupdate_params[int_params.irq_source -
-          DC_IRQ_SOURCE_VUPDATE1];<br>
-          &gt; +<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0c_irq_param=
-s-&gt;adev =3D adev;<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0c_irq_param=
-s-&gt;irq_src =3D
-          int_params.irq_source;<br>
-          &gt; +<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0amdgpu=
-_dm_irq_register_interrupt(adev,
-          &amp;int_params,<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dm_dcn_crtc_high_irq,
-          c_irq_params);<br>
-          &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0dm_vupdate_high_irq,
-          c_irq_params);<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0/* Use GRPH_PFLIP interrupt */<br>
-          &gt; @@ -4544,10 +4521,6 @@ static inline int
-          dm_set_vupdate_irq(struct drm_crtc *crtc, bool enable)<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0struct amdgpu_device *adev =3D
-          crtc-&gt;dev-&gt;dev_private;<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0int rc;<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0/* Do not set vupdate for DCN hardware =
-*/<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0if (adev-&gt;family &gt; AMDGPU_FAMILY_=
-AI)<br>
-          &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<b=
-r>
-          &gt; -<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0irq_source =3D IRQ_TYPE_VUPDATE + =
-acrtc-&gt;otg_inst;<br>
-          &gt;=C2=A0 =C2=A0<br>
-          &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0rc =3D dc_interrupt_set(adev-&gt;d=
-m.dc, irq_source,
-          enable) ? 0 : -EBUSY;<br>
-          &gt; <br>
-        </blockquote>
-      </div>
-    </blockquote>
-    <p><br>
-    </p>
-  </div>
-
-</blockquote></div></div>
-
---00000000000043c42b05a5287ea9--
-
---===============0353744972==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0353744972==--
+W0FNRCBPZmZpY2lhbCBVc2UgT25seSAtIEludGVybmFsIERpc3RyaWJ1dGlvbiBPbmx5XQ0KDQpP
+Sy4gUmVhc29uYWJsZS4gV2lsbCB1cGRhdGUgdGhlIHBhdGNoZXMuDQoNCkJSLA0KRXZhbg0KLS0t
+LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IENocmlzdGlhbiBLw7ZuaWcgPGNrb2VuaWcu
+bGVpY2h0enVtZXJrZW5AZ21haWwuY29tPg0KU2VudDogRnJpZGF5LCBNYXkgOCwgMjAyMCA2OjUz
+IFBNDQpUbzogUXVhbiwgRXZhbiA8RXZhbi5RdWFuQGFtZC5jb20+OyBhbWQtZ2Z4QGxpc3RzLmZy
+ZWVkZXNrdG9wLm9yZw0KQ2M6IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJA
+YW1kLmNvbT4NClN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8yXSBkcm0vYW1kZ3B1OiBkZWNvZGUgdGhl
+IGN0eGlkIGZvciBTTUMgdG8gaG9zdCBJSA0KDQpBbSAwOC4wNS4yMCB1bSAxMjowMiBzY2hyaWVi
+IEV2YW4gUXVhbjoNCj4gRHJpdmVyIG5lZWRzIHRoYXQgdG8gdGVsbCB0aGUgZGlmZmVyZW50IGV2
+ZW50cyByYWlzZWQgZnJvbSBTTUMuDQoNCk5BSywgdGhlIGN0eGlkIGlzIGZpbGxlZCBpbiBieSB0
+aGUgU01DIGFuZCBub3QgYnkgdGhlIElILiBXZSBvbmx5IGRlY29kZSBmaWVsZHMgaGVyZSB3aGlj
+aCBhcmUgZmlsbGVkIGluIGJ5IHRoZSBJSC4NCg0KSnVzdCB1c2Ugc3JjX2RhdGFbMF0gd2hlbiB5
+b3UgbmVlZCBzb21lIFNNQyBzcGVjaWZpYyBiaXRzLg0KDQpDaHJpc3RpYW4uDQoNCj4NCj4gQ2hh
+bmdlLUlkOiBJMGU0NGUyMjUyNzE4MmZiYjQ1YTJkYjRmYzNiMWNkNzNmYjE3YmEzMw0KPiBTaWdu
+ZWQtb2ZmLWJ5OiBFdmFuIFF1YW4gPGV2YW4ucXVhbkBhbWQuY29tPg0KPiAtLS0NCj4gICBkcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJxLmggfCAxICsNCj4gICBkcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9uYXZpMTBfaWguYyAgfCAxICsNCj4gICBkcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS92ZWdhMTBfaWguYyAgfCAxICsNCj4gICAzIGZpbGVzIGNoYW5nZWQsIDMgaW5z
+ZXJ0aW9ucygrKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2lycS5oDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5o
+DQo+IGluZGV4IDdiMTc2MmIxYzU5NS4uOTY1ODc1YjhiZjkzIDEwMDY0NA0KPiAtLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfaXJxLmgNCj4gKysrIGIvZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lycS5oDQo+IEBAIC01NSw2ICs1NSw3IEBAIHN0cnVjdCBh
+bWRncHVfaXZfZW50cnkgew0KPiAgIHVuc2lnbmVkIHRpbWVzdGFtcF9zcmM7DQo+ICAgdW5zaWdu
+ZWQgcGFzaWQ7DQo+ICAgdW5zaWduZWQgcGFzaWRfc3JjOw0KPiArdW5zaWduZWQgY3R4aWQ7IC8q
+IGZvciBTTUMgdG8gSG9zdCBpbnRlcnJ1cHQgKi8NCj4gICB1bnNpZ25lZCBzcmNfZGF0YVtBTURH
+UFVfSVJRX1NSQ19EQVRBX01BWF9TSVpFX0RXXTsNCj4gICBjb25zdCB1aW50MzJfdCAqaXZfZW50
+cnk7DQo+ICAgfTsNCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L25h
+dmkxMF9paC5jDQo+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbmF2aTEwX2loLmMNCj4g
+aW5kZXggZjk3ODU3ZWQzYzdlLi45MzJkYzNlYWJiZTIgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L25hdmkxMF9paC5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L25hdmkxMF9paC5jDQo+IEBAIC00NzAsNiArNDcwLDcgQEAgc3RhdGljIHZvaWQg
+bmF2aTEwX2loX2RlY29kZV9pdihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwNCj4gICBlbnRy
+eS0+dGltZXN0YW1wX3NyYyA9IGR3WzJdID4+IDMxOw0KPiAgIGVudHJ5LT5wYXNpZCA9IGR3WzNd
+ICYgMHhmZmZmOw0KPiAgIGVudHJ5LT5wYXNpZF9zcmMgPSBkd1szXSA+PiAzMTsNCj4gK2VudHJ5
+LT5jdHhpZCA9IGR3WzRdOw0KPiAgIGVudHJ5LT5zcmNfZGF0YVswXSA9IGR3WzRdOw0KPiAgIGVu
+dHJ5LT5zcmNfZGF0YVsxXSA9IGR3WzVdOw0KPiAgIGVudHJ5LT5zcmNfZGF0YVsyXSA9IGR3WzZd
+Ow0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvdmVnYTEwX2loLmMN
+Cj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92ZWdhMTBfaWguYw0KPiBpbmRleCA0MDdj
+NjA5M2MyZWMuLmU0NmQxZjlmNjJjYSAxMDA2NDQNCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvdmVnYTEwX2loLmMNCj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+dmVnYTEwX2loLmMNCj4gQEAgLTQ2MCw2ICs0NjAsNyBAQCBzdGF0aWMgdm9pZCB2ZWdhMTBfaWhf
+ZGVjb2RlX2l2KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2LA0KPiAgIGVudHJ5LT50aW1lc3Rh
+bXBfc3JjID0gZHdbMl0gPj4gMzE7DQo+ICAgZW50cnktPnBhc2lkID0gZHdbM10gJiAweGZmZmY7
+DQo+ICAgZW50cnktPnBhc2lkX3NyYyA9IGR3WzNdID4+IDMxOw0KPiArZW50cnktPmN0eGlkID0g
+ZHdbNF07DQo+ICAgZW50cnktPnNyY19kYXRhWzBdID0gZHdbNF07DQo+ICAgZW50cnktPnNyY19k
+YXRhWzFdID0gZHdbNV07DQo+ICAgZW50cnktPnNyY19kYXRhWzJdID0gZHdbNl07DQoNCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
