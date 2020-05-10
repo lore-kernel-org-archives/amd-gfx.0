@@ -2,78 +2,37 @@ Return-Path: <SRS0=XsTU=6Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA6AFC47255
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 07:05:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AF3CC47255
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 07:19:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ADB51206F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 07:05:23 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S+8afC7K"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ADB51206F5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 09FCD207FF
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 07:19:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09FCD207FF
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69ADF6E1DE;
-	Mon, 11 May 2020 07:05:23 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0AC96E1DE;
- Mon, 11 May 2020 07:05:21 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id 50so8915482wrc.11;
- Mon, 11 May 2020 00:05:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=DvLsXI69d3/CWDmNPL0li0FpQeolD6hftJmaIq+Uwfw=;
- b=S+8afC7KIIJeE1O1Agd4Q7qq7UrPJO8sN/NEtJprPtXCPseG4lzi0biJlL5bXAjFpU
- 0qIxntSvCXIfEvjGctqS2CPs5KPVRWfM0jSMqR4VcvbSvEn/oxHiNXdQzfR1gDG6Pph3
- Ig4UJlKSkhkYmvs64ERDJUMIdfnuhRJkvviILAa00pGuUgjlxQBynAXm9BI4zxJJgk1h
- poH0RYhrR3k6NFTBYknctYGtJAOt5MtJToxldKHb6ZSPxDDzF4A75dswXMlwl6smHS8K
- nhFJh2pfv+omIO1YjPbft+MnaHkpeWamwsbsQnghoUCVrRj90T3Mt4Sq9BfGaKsJonqa
- niAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=DvLsXI69d3/CWDmNPL0li0FpQeolD6hftJmaIq+Uwfw=;
- b=CrY329dpOsP/bMW8xaH43TUxuwz8nKrxhqlkrVj1L5hVpBO+jANfjITmVN1xKoPL5M
- tlTs64LRzMtBDnZoFZSYd7Uht+is/nNHSS/M+RThzrdFuo8sa6CEeHG10A9uw0ii/6ex
- qZ52Q/CkX/rKh+/zU1Apr01g7SN1PFg7O6xaCmjzSWeqtqOYN1ipy9nLqbbr7ZcizinK
- XGOHS68u0b/NX27fz2Mq8ob3WKHpFDLDpCXeHmiuGRpwJDwl0yWpnKbuIVI52seX9AzF
- SboCzT60CIDKHUlf0E0aKO/zanyzm/Uau7vC0Q2HQk2hsvabLFQsnD3fCAtfs73AHM9t
- g3Lw==
-X-Gm-Message-State: AGi0PuYZIupISwOatnYG5t5KT73mOzEugYmzgGrBWRlUpQZxDCkLZNev
- z27RdplViQXVhvsgq89UQl8=
-X-Google-Smtp-Source: APiQypJ8ELaiVZx5YTWS4ddL1pAOUfZ7Ndp/ZGvMUJ+AKWFTwEMV5M+l41nrNFj90uK8oNepkcWIcg==
-X-Received: by 2002:adf:e751:: with SMTP id c17mr18121771wrn.351.1589180720408; 
- Mon, 11 May 2020 00:05:20 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id 32sm16448355wrg.19.2020.05.11.00.05.19
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 11 May 2020 00:05:19 -0700 (PDT)
-Subject: Re: [PATCH 5/6] drm/ttm: Add destroy flag in TTM BO eviction interface
-To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <1589050310-19666-1-git-send-email-andrey.grodzovsky@amd.com>
- <1589050310-19666-6-git-send-email-andrey.grodzovsky@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <d8dbe3eb-598e-fa6a-f1b5-8bf5f0313920@gmail.com>
-Date: Mon, 11 May 2020 09:05:18 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id B57366E22F;
+	Mon, 11 May 2020 07:19:13 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C59A6E15C;
+ Sun, 10 May 2020 12:08:46 +0000 (UTC)
+Received: from hopp.molgen.mpg.de (hopp.molgen.mpg.de [141.14.25.186])
+ by mx.molgen.mpg.de (Postfix) with ESMTP id 9307F2002EE01;
+ Sun, 10 May 2020 14:08:43 +0200 (CEST)
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+To: dri-devel@lists.freedesktop.org
+Subject: [PATCH 1/3] gpu/drm: Fix spelling of *sequence* and *frequency*
+Date: Sun, 10 May 2020 14:08:33 +0200
+Message-Id: <20200510120835.32054-1-pmenzel@molgen.mpg.de>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-In-Reply-To: <1589050310-19666-6-git-send-email-andrey.grodzovsky@amd.com>
-Content-Language: en-US
+X-Mailman-Approved-At: Mon, 11 May 2020 07:19:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,280 +44,178 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: alexdeucher@gmail.com, daniel.vetter@ffwll.ch, michel@daenzer.net
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Paul Menzel <pmenzel@molgen.mpg.de>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, David Zhou <David1.Zhou@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-While this looks rather nice it is most likely the wrong approach since 
-it doesn't handles other concurrent evictions.
-
-It would most likely be better to add a check calling 
-drm_dev_is_unplugged() into amdgpu_bo_move().
-
-Regards,
-Christian.
-
-Am 09.05.20 um 20:51 schrieb Andrey Grodzovsky:
-> This will allow to invalidate, destroy backing storage and notify users
-> of BOs when device is unpluged.
->
-> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 +-
->   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  |  2 +-
->   drivers/gpu/drm/nouveau/nouveau_drm.c       |  2 +-
->   drivers/gpu/drm/qxl/qxl_object.c            |  4 +--
->   drivers/gpu/drm/radeon/radeon_object.c      |  2 +-
->   drivers/gpu/drm/ttm/ttm_bo.c                | 41 ++++++++++++++++++-----------
->   drivers/gpu/drm/vmwgfx/vmwgfx_drv.c         |  6 ++---
->   include/drm/ttm/ttm_bo_api.h                |  2 +-
->   8 files changed, 35 insertions(+), 26 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 1a4894f..f96c6d1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -1145,7 +1145,7 @@ static int amdgpu_debugfs_evict_gtt(struct seq_file *m, void *data)
->   	if (r < 0)
->   		return r;
->   
-> -	seq_printf(m, "(%d)\n", ttm_bo_evict_mm(&adev->mman.bdev, TTM_PL_TT));
-> +	seq_printf(m, "(%d)\n", ttm_bo_evict_mm(&adev->mman.bdev, TTM_PL_TT, false));
->   
->   	pm_runtime_mark_last_busy(dev->dev);
->   	pm_runtime_put_autosuspend(dev->dev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> index 22afd11..82d43d0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-> @@ -1046,7 +1046,7 @@ int amdgpu_bo_evict_vram(struct amdgpu_device *adev)
->   		return 0;
->   	}
->   #endif
-> -	return ttm_bo_evict_mm(&adev->mman.bdev, TTM_PL_VRAM);
-> +	return ttm_bo_evict_mm(&adev->mman.bdev, TTM_PL_VRAM, false);
->   }
->   
->   static const char *amdgpu_vram_names[] = {
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> index 6b1629c..f3eea89 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> @@ -759,7 +759,7 @@ nouveau_do_suspend(struct drm_device *dev, bool runtime)
->   	}
->   
->   	NV_DEBUG(drm, "evicting buffers...\n");
-> -	ttm_bo_evict_mm(&drm->ttm.bdev, TTM_PL_VRAM);
-> +	ttm_bo_evict_mm(&drm->ttm.bdev, TTM_PL_VRAM, false);
->   
->   	NV_DEBUG(drm, "waiting for kernel channels to go idle...\n");
->   	if (drm->cechan) {
-> diff --git a/drivers/gpu/drm/qxl/qxl_object.c b/drivers/gpu/drm/qxl/qxl_object.c
-> index ab72dc3..45bb89b 100644
-> --- a/drivers/gpu/drm/qxl/qxl_object.c
-> +++ b/drivers/gpu/drm/qxl/qxl_object.c
-> @@ -359,10 +359,10 @@ int qxl_bo_check_id(struct qxl_device *qdev, struct qxl_bo *bo)
->   
->   int qxl_surf_evict(struct qxl_device *qdev)
->   {
-> -	return ttm_bo_evict_mm(&qdev->mman.bdev, TTM_PL_PRIV);
-> +	return ttm_bo_evict_mm(&qdev->mman.bdev, TTM_PL_PRIV, false);
->   }
->   
->   int qxl_vram_evict(struct qxl_device *qdev)
->   {
-> -	return ttm_bo_evict_mm(&qdev->mman.bdev, TTM_PL_VRAM);
-> +	return ttm_bo_evict_mm(&qdev->mman.bdev, TTM_PL_VRAM, false);
->   }
-> diff --git a/drivers/gpu/drm/radeon/radeon_object.c b/drivers/gpu/drm/radeon/radeon_object.c
-> index 140d94c..3eeeb8d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_object.c
-> +++ b/drivers/gpu/drm/radeon/radeon_object.c
-> @@ -429,7 +429,7 @@ int radeon_bo_evict_vram(struct radeon_device *rdev)
->   			return 0;
->   	}
->   #endif
-> -	return ttm_bo_evict_mm(&rdev->mman.bdev, TTM_PL_VRAM);
-> +	return ttm_bo_evict_mm(&rdev->mman.bdev, TTM_PL_VRAM, false);
->   }
->   
->   void radeon_bo_force_delete(struct radeon_device *rdev)
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index eae61cc..a17f87c2 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> @@ -42,6 +42,7 @@
->   #include <linux/module.h>
->   #include <linux/atomic.h>
->   #include <linux/dma-resv.h>
-> +#include <drm/drm_drv.h>
->   
->   static void ttm_bo_global_kobj_release(struct kobject *kobj);
->   
-> @@ -652,7 +653,8 @@ void ttm_bo_unlock_delayed_workqueue(struct ttm_bo_device *bdev, int resched)
->   EXPORT_SYMBOL(ttm_bo_unlock_delayed_workqueue);
->   
->   static int ttm_bo_evict(struct ttm_buffer_object *bo,
-> -			struct ttm_operation_ctx *ctx)
-> +			struct ttm_operation_ctx *ctx,
-> +			bool destroy)
->   {
->   	struct ttm_bo_device *bdev = bo->bdev;
->   	struct ttm_mem_reg evict_mem;
-> @@ -665,18 +667,23 @@ static int ttm_bo_evict(struct ttm_buffer_object *bo,
->   	placement.num_busy_placement = 0;
->   	bdev->driver->evict_flags(bo, &placement);
->   
-> -	if (!placement.num_placement && !placement.num_busy_placement) {
-> +	evict_mem = bo->mem;
-> +	evict_mem.mm_node = NULL;
-> +	evict_mem.bus.io_reserved_vm = false;
-> +	evict_mem.bus.io_reserved_count = 0;
-> +
-> +	if (destroy || !placement.num_placement && !placement.num_busy_placement) {
->   		ret = ttm_bo_pipeline_gutting(bo);
->   		if (ret)
->   			return ret;
->   
-> -		return ttm_tt_create(bo, false);
-> -	}
-> +		ret = ttm_tt_create(bo, false);
->   
-> -	evict_mem = bo->mem;
-> -	evict_mem.mm_node = NULL;
-> -	evict_mem.bus.io_reserved_vm = false;
-> -	evict_mem.bus.io_reserved_count = 0;
-> +		if (bdev->driver->move_notify)
-> +			bdev->driver->move_notify(bo, true, &evict_mem);
-> +
-> +		return ret;
-> +	}
->   
->   	ret = ttm_bo_mem_space(bo, &placement, &evict_mem, ctx);
->   	if (ret) {
-> @@ -785,7 +792,8 @@ static int ttm_mem_evict_first(struct ttm_bo_device *bdev,
->   			       uint32_t mem_type,
->   			       const struct ttm_place *place,
->   			       struct ttm_operation_ctx *ctx,
-> -			       struct ww_acquire_ctx *ticket)
-> +			       struct ww_acquire_ctx *ticket,
-> +			       bool destroy)
->   {
->   	struct ttm_buffer_object *bo = NULL, *busy_bo = NULL;
->   	struct ttm_mem_type_manager *man = &bdev->man[mem_type];
-> @@ -846,7 +854,7 @@ static int ttm_mem_evict_first(struct ttm_bo_device *bdev,
->   
->   	spin_unlock(&ttm_bo_glob.lru_lock);
->   
-> -	ret = ttm_bo_evict(bo, ctx);
-> +	ret = ttm_bo_evict(bo, ctx, destroy);
->   	if (locked)
->   		ttm_bo_unreserve(bo);
->   
-> @@ -919,7 +927,7 @@ static int ttm_bo_mem_force_space(struct ttm_buffer_object *bo,
->   		if (mem->mm_node)
->   			break;
->   		ret = ttm_mem_evict_first(bdev, mem->mem_type, place, ctx,
-> -					  ticket);
-> +					  ticket, false);
->   		if (unlikely(ret != 0))
->   			return ret;
->   	} while (1);
-> @@ -1428,7 +1436,8 @@ int ttm_bo_create(struct ttm_bo_device *bdev,
->   EXPORT_SYMBOL(ttm_bo_create);
->   
->   static int ttm_bo_force_list_clean(struct ttm_bo_device *bdev,
-> -				   unsigned mem_type)
-> +				   unsigned mem_type,
-> +				   bool destroy)
->   {
->   	struct ttm_operation_ctx ctx = {
->   		.interruptible = false,
-> @@ -1450,7 +1459,7 @@ static int ttm_bo_force_list_clean(struct ttm_bo_device *bdev,
->   		while (!list_empty(&man->lru[i])) {
->   			spin_unlock(&glob->lru_lock);
->   			ret = ttm_mem_evict_first(bdev, mem_type, NULL, &ctx,
-> -						  NULL);
-> +						  NULL, destroy);
->   			if (ret)
->   				return ret;
->   			spin_lock(&glob->lru_lock);
-> @@ -1494,7 +1503,7 @@ int ttm_bo_clean_mm(struct ttm_bo_device *bdev, unsigned mem_type)
->   
->   	ret = 0;
->   	if (mem_type > 0) {
-> -		ret = ttm_bo_force_list_clean(bdev, mem_type);
-> +		ret = ttm_bo_force_list_clean(bdev, mem_type, false);
->   		if (ret) {
->   			pr_err("Cleanup eviction failed\n");
->   			return ret;
-> @@ -1510,7 +1519,7 @@ int ttm_bo_clean_mm(struct ttm_bo_device *bdev, unsigned mem_type)
->   }
->   EXPORT_SYMBOL(ttm_bo_clean_mm);
->   
-> -int ttm_bo_evict_mm(struct ttm_bo_device *bdev, unsigned mem_type)
-> +int ttm_bo_evict_mm(struct ttm_bo_device *bdev, unsigned mem_type, bool destroy)
->   {
->   	struct ttm_mem_type_manager *man = &bdev->man[mem_type];
->   
-> @@ -1524,7 +1533,7 @@ int ttm_bo_evict_mm(struct ttm_bo_device *bdev, unsigned mem_type)
->   		return 0;
->   	}
->   
-> -	return ttm_bo_force_list_clean(bdev, mem_type);
-> +	return ttm_bo_force_list_clean(bdev, mem_type, destroy);
->   }
->   EXPORT_SYMBOL(ttm_bo_evict_mm);
->   
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-> index 71e45b56..350064f 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_drv.c
-> @@ -468,7 +468,7 @@ static int vmw_request_device(struct vmw_private *dev_priv)
->   	if (dev_priv->cman)
->   		vmw_cmdbuf_remove_pool(dev_priv->cman);
->   	if (dev_priv->has_mob) {
-> -		(void) ttm_bo_evict_mm(&dev_priv->bdev, VMW_PL_MOB);
-> +		(void) ttm_bo_evict_mm(&dev_priv->bdev, VMW_PL_MOB, false);
->   		vmw_otables_takedown(dev_priv);
->   	}
->   	if (dev_priv->cman)
-> @@ -501,7 +501,7 @@ static void vmw_release_device_early(struct vmw_private *dev_priv)
->   		vmw_cmdbuf_remove_pool(dev_priv->cman);
->   
->   	if (dev_priv->has_mob) {
-> -		ttm_bo_evict_mm(&dev_priv->bdev, VMW_PL_MOB);
-> +		ttm_bo_evict_mm(&dev_priv->bdev, VMW_PL_MOB, false);
->   		vmw_otables_takedown(dev_priv);
->   	}
->   }
-> @@ -1227,7 +1227,7 @@ void vmw_svga_disable(struct vmw_private *dev_priv)
->   	if (dev_priv->bdev.man[TTM_PL_VRAM].use_type) {
->   		dev_priv->bdev.man[TTM_PL_VRAM].use_type = false;
->   		spin_unlock(&dev_priv->svga_lock);
-> -		if (ttm_bo_evict_mm(&dev_priv->bdev, TTM_PL_VRAM))
-> +		if (ttm_bo_evict_mm(&dev_priv->bdev, TTM_PL_VRAM, false))
->   			DRM_ERROR("Failed evicting VRAM buffers.\n");
->   		vmw_write(dev_priv, SVGA_REG_ENABLE,
->   			  SVGA_REG_ENABLE_HIDE |
-> diff --git a/include/drm/ttm/ttm_bo_api.h b/include/drm/ttm/ttm_bo_api.h
-> index b9bc1b0..9d57b8c 100644
-> --- a/include/drm/ttm/ttm_bo_api.h
-> +++ b/include/drm/ttm/ttm_bo_api.h
-> @@ -597,7 +597,7 @@ int ttm_bo_clean_mm(struct ttm_bo_device *bdev, unsigned mem_type);
->    * -ERESTARTSYS: The call was interrupted by a signal while waiting to
->    * evict a buffer.
->    */
-> -int ttm_bo_evict_mm(struct ttm_bo_device *bdev, unsigned mem_type);
-> +int ttm_bo_evict_mm(struct ttm_bo_device *bdev, unsigned mem_type, bool destroy);
->   
->   /**
->    * ttm_kmap_obj_virtual
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Rml4IGFsbCBvY2N1cnJlbmNlcyB3aXRoIHRoZSBjb21tYW5kcyBiZWxvdy4KCiAgICAkIGdpdCBn
+cmVwIC1sIGVxdW5jZSBkcml2ZXJzL2dwdS8gfCB4YXJncyBzZWQgLWkgJ3MvZXF1bmNlL2VxdWVu
+Y2UvZycKCkNjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CkNjOiBD
+aHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+CkNjOiBEYXZpZCAoQ2h1
+bk1pbmcpIFpob3UgPERhdmlkMS5aaG91QGFtZC5jb20+CkNjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVk
+ZXNrdG9wLm9yZwpTaWduZWQtb2ZmLWJ5OiBQYXVsIE1lbnplbCA8cG1lbnplbEBtb2xnZW4ubXBn
+LmRlPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92N18wLmMgIHwgNCArKy0t
+CiBkcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXRvbWJpb3MuaCB8IDYgKysrLS0tCiBkcml2
+ZXJzL2dwdS9kcm0vcmFkZW9uL2F0b21iaW9zLmggICAgICB8IDYgKysrLS0tCiBkcml2ZXJzL2dw
+dS9kcm0vcmFkZW9uL2Npay5jICAgICAgICAgICB8IDQgKystLQogZHJpdmVycy9ncHUvZHJtL3Jh
+ZGVvbi9yYWRlb25fZmVuY2UuYyAgfCA2ICsrKy0tLQogNSBmaWxlcyBjaGFuZ2VkLCAxMyBpbnNl
+cnRpb25zKCspLCAxMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2FtZGdwdS9nZnhfdjdfMC5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y3
+XzAuYwppbmRleCA3MzNkMzk4YzYxY2NiLi4zZGE0MDA1NmM2YzVkIDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjdfMC5jCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2dmeF92N18wLmMKQEAgLTIxNzYsNyArMjE3Niw3IEBAIHN0YXRpYyB2b2lkIGdm
+eF92N18wX3JpbmdfZW1pdF92Z3RfZmx1c2goc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nKQogICog
+QGFkZXY6IGFtZGdwdV9kZXZpY2UgcG9pbnRlcgogICogQGZlbmNlOiBhbWRncHUgZmVuY2Ugb2Jq
+ZWN0CiAgKgotICogRW1pdHMgYSBmZW5jZSBzZXF1bmNlIG51bWJlciBvbiB0aGUgZ2Z4IHJpbmcg
+YW5kIGZsdXNoZXMKKyAqIEVtaXRzIGEgZmVuY2Ugc2VxdWVuY2UgbnVtYmVyIG9uIHRoZSBnZngg
+cmluZyBhbmQgZmx1c2hlcwogICogR1BVIGNhY2hlcy4KICAqLwogc3RhdGljIHZvaWQgZ2Z4X3Y3
+XzBfcmluZ19lbWl0X2ZlbmNlX2dmeChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHU2NCBhZGRy
+LApAQCAtMjIxNyw3ICsyMjE3LDcgQEAgc3RhdGljIHZvaWQgZ2Z4X3Y3XzBfcmluZ19lbWl0X2Zl
+bmNlX2dmeChzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsIHU2NCBhZGRyLAogICogQGFkZXY6IGFt
+ZGdwdV9kZXZpY2UgcG9pbnRlcgogICogQGZlbmNlOiBhbWRncHUgZmVuY2Ugb2JqZWN0CiAgKgot
+ICogRW1pdHMgYSBmZW5jZSBzZXF1bmNlIG51bWJlciBvbiB0aGUgY29tcHV0ZSByaW5nIGFuZCBm
+bHVzaGVzCisgKiBFbWl0cyBhIGZlbmNlIHNlcXVlbmNlIG51bWJlciBvbiB0aGUgY29tcHV0ZSBy
+aW5nIGFuZCBmbHVzaGVzCiAgKiBHUFUgY2FjaGVzLgogICovCiBzdGF0aWMgdm9pZCBnZnhfdjdf
+MF9yaW5nX2VtaXRfZmVuY2VfY29tcHV0ZShzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2luY2x1ZGUvYXRvbWJpb3MuaCBiL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvaW5jbHVkZS9hdG9tYmlvcy5oCmluZGV4IDhiYTIxNzQ3YjQwYTMuLmFmZWY1
+NzRjM2I4OGIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hdG9tYmlv
+cy5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvaW5jbHVkZS9hdG9tYmlvcy5oCkBAIC02MTM4
+LDcgKzYxMzgsNyBAQCB1Y0xWRFNPZmZUb09uRGVsYXlfaW40TXM6ICAgICAgICAgTFZEUyBwb3dl
+ciBkb3duIHNlcXVlbmNlIHRpbWUgaW4gdW5pdCBvZiA0bXMuCiAKIHVjTWluQWxsb3dlZEJMX0xl
+dmVsOiAgICAgICAgICAgICBMb3dlc3QgTENEIGJhY2tsaWdodCBQV00gbGV2ZWwuIFRoaXMgaXMg
+Y3VzdG9tZXIgcGxhdGZvcm0gc3BlY2lmaWMgcGFyYW1ldGVycy4gQnkgZGVmYXVsdCBpdCBpcyAw
+LgogCi11bE5icFN0YXRlTWVtY2xrRnJlcVs0XTogICAgICAgICAgc3lzdGVtIG1lbW9yeSBjbG9j
+ayBmcmVxdW5jZXkgaW4gdW5pdCBvZiAxMEtoeiBpbiBkaWZmZXJlbnQgTkIgcHN0YXRlLgordWxO
+YnBTdGF0ZU1lbWNsa0ZyZXFbNF06ICAgICAgICAgIHN5c3RlbSBtZW1vcnkgY2xvY2sgZnJlcXVl
+bmNleSBpbiB1bml0IG9mIDEwS2h6IGluIGRpZmZlcmVudCBOQiBwc3RhdGUuCiAKICoqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiovCiAK
+QEAgLTYzNDYsNyArNjM0Niw3IEBAIHVjTWluQWxsb3dlZEJMX0xldmVsOiAgICAgICAgICAgICBM
+b3dlc3QgTENEIGJhY2tsaWdodCBQV00gbGV2ZWwuIFRoaXMgaXMgY3VzdG9tCiAKIHVsTENEQml0
+RGVwdGhDb250cm9sVmFsOiAgICAgICAgICBHUFUgZGlzcGxheSBjb250cm9sIGVuY29kZXIgYml0
+IGRpdGhlciBjb250cm9sIHNldHRpbmcsIHVzZWQgdG8gcHJvZ3JhbSByZWdpc3RlciBtbUZNVF9C
+SVRfREVQVEhfQ09OVFJPTAogCi11bE5icFN0YXRlTWVtY2xrRnJlcVs0XTogICAgICAgICAgc3lz
+dGVtIG1lbW9yeSBjbG9jayBmcmVxdW5jZXkgaW4gdW5pdCBvZiAxMEtoeiBpbiBkaWZmZXJlbnQg
+TkIgUC1TdGF0ZShQMCwgUDEsIFAyICYgUDMpLgordWxOYnBTdGF0ZU1lbWNsa0ZyZXFbNF06ICAg
+ICAgICAgIHN5c3RlbSBtZW1vcnkgY2xvY2sgZnJlcXVlbmNleSBpbiB1bml0IG9mIDEwS2h6IGlu
+IGRpZmZlcmVudCBOQiBQLVN0YXRlKFAwLCBQMSwgUDIgJiBQMykuCiB1bE5icFN0YXRlTkNsa0Zy
+ZXFbNF06ICAgICAgICAgICAgTkIgUC1TdGF0ZSBOQ2xrIGZyZXF1ZW5jeSBpbiBkaWZmZXJlbnQg
+TkIgUC1TdGF0ZQogdXNOQlBTdGF0ZVZvbHRhZ2VbNF06ICAgICAgICAgICAgIE5CIFAtU3RhdGUg
+KFAwL1AxICYgUDIvUDMpIHZvbHRhZ2U7IE5CUDMgcmVmZXJzIHRvIGxvd2VzIHZvbHRhZ2UKIHVz
+Qm9vdFVwTkJWb2x0YWdlOiAgICAgICAgICAgICAgICBOQiBQLVN0YXRlIHZvbHRhZ2UgZHVyaW5n
+IGJvb3QgdXAgYmVmb3JlIGRyaXZlciBsb2FkZWQKQEAgLTg5MDIsNyArODkwMiw3IEBAIHR5cGVk
+ZWYgc3RydWN0IF9BVE9NX1hUTURTX0lORk8KICAgQVRPTV9JMkNfSURfQ09ORklHX0FDQ0VTUyAg
+c3VjSTJjSWQ7ICAgICAgICAgICAvL1BvaW50IHRoZSBJRCBvbiB3aGljaCBJMkMgaXMgdXNlZCB0
+byBjb250cm9sIGV4dGVybmFsIGNoaXAKICAgVUNIQVIgICAgICAgICAgICAgICAgICAgICAgdWNY
+dHJhbnNpbWl0dGVySUQ7CiAgIFVDSEFSICAgICAgICAgICAgICAgICAgICAgIHVjU3VwcG9ydGVk
+TGluazsgICAgLy8gQml0IGZpZWxkLCBiaXQwPTEsIHNpbmdsZSBsaW5rIHN1cHBvcnRlZDtiaXQx
+PTEsZHVhbCBsaW5rIHN1cHBvcnRlZAotICBVQ0hBUiAgICAgICAgICAgICAgICAgICAgICB1Y1Nl
+cXVuY2VBbHRlcklEOyAgIC8vIEV2ZW4gd2l0aCB0aGUgc2FtZSBleHRlcm5hbCBUTURTIGFzaWMs
+IGl0J3MgcG9zc2libGUgdGhhdCB0aGUgcHJvZ3JhbSBzZXFlbmNlIGFsdGVycworICBVQ0hBUiAg
+ICAgICAgICAgICAgICAgICAgICB1Y1NlcXVlbmNlQWx0ZXJJRDsgICAvLyBFdmVuIHdpdGggdGhl
+IHNhbWUgZXh0ZXJuYWwgVE1EUyBhc2ljLCBpdCdzIHBvc3NpYmxlIHRoYXQgdGhlIHByb2dyYW0g
+c2VxZW5jZSBhbHRlcnMKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAvLyBkdWUgdG8gZGVzaWduLiBUaGlzIElEIGlzIHVzZWQgdG8gYWxlcnQgZHJpdmVy
+IHRoYXQgdGhlIHNlcXVlbmNlIGlzIG5vdCAic3RhbmRhcmQiIQogICBVQ0hBUiAgICAgICAgICAg
+ICAgICAgICAgICB1Y01hc3RlckFkZHJlc3M7ICAgIC8vIEFkZHJlc3MgdG8gY29udHJvbCBNYXN0
+ZXIgeFRNRFMgQ2hpcAogICBVQ0hBUiAgICAgICAgICAgICAgICAgICAgICB1Y1NsYXZlQWRkcmVz
+czsgICAgIC8vIEFkZHJlc3MgdG8gY29udHJvbCBTbGF2ZSB4VE1EUyBDaGlwCmRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vcmFkZW9uL2F0b21iaW9zLmggYi9kcml2ZXJzL2dwdS9kcm0vcmFk
+ZW9uL2F0b21iaW9zLmgKaW5kZXggNGI4NmU4YjQ1MDA5MC4uNGQwZjZkZTMyOTU3ZiAxMDA2NDQK
+LS0tIGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9hdG9tYmlvcy5oCisrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9yYWRlb24vYXRvbWJpb3MuaApAQCAtNTIwNiw3ICs1MjA2LDcgQEAgdWNMVkRTT2ZmVG9P
+bkRlbGF5X2luNE1zOiAgICAgICAgIExWRFMgcG93ZXIgZG93biBzZXF1ZW5jZSB0aW1lIGluIHVu
+aXQgb2YgNG1zLgogCiB1Y01pbkFsbG93ZWRCTF9MZXZlbDogICAgICAgICAgICAgTG93ZXN0IExD
+RCBiYWNrbGlnaHQgUFdNIGxldmVsLiBUaGlzIGlzIGN1c3RvbWVyIHBsYXRmb3JtIHNwZWNpZmlj
+IHBhcmFtZXRlcnMuIEJ5IGRlZmF1bHQgaXQgaXMgMC4gCiAKLXVsTmJwU3RhdGVNZW1jbGtGcmVx
+WzRdOiAgICAgICAgICBzeXN0ZW0gbWVtb3J5IGNsb2NrIGZyZXF1bmNleSBpbiB1bml0IG9mIDEw
+S2h6IGluIGRpZmZlcmVudCBOQiBwc3RhdGUuIAordWxOYnBTdGF0ZU1lbWNsa0ZyZXFbNF06ICAg
+ICAgICAgIHN5c3RlbSBtZW1vcnkgY2xvY2sgZnJlcXVlbmNleSBpbiB1bml0IG9mIDEwS2h6IGlu
+IGRpZmZlcmVudCBOQiBwc3RhdGUuIAogCiAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKioqKioqKioqKioqKioqKioqKioqKioqLwogCkBAIC01NDEzLDcgKzU0MTMsNyBAQCB1
+Y01pbkFsbG93ZWRCTF9MZXZlbDogICAgICAgICAgICAgTG93ZXN0IExDRCBiYWNrbGlnaHQgUFdN
+IGxldmVsLiBUaGlzIGlzIGN1c3RvbQogCiB1bExDREJpdERlcHRoQ29udHJvbFZhbDogICAgICAg
+ICAgR1BVIGRpc3BsYXkgY29udHJvbCBlbmNvZGVyIGJpdCBkaXRoZXIgY29udHJvbCBzZXR0aW5n
+LCB1c2VkIHRvIHByb2dyYW0gcmVnaXN0ZXIgbW1GTVRfQklUX0RFUFRIX0NPTlRST0wKIAotdWxO
+YnBTdGF0ZU1lbWNsa0ZyZXFbNF06ICAgICAgICAgIHN5c3RlbSBtZW1vcnkgY2xvY2sgZnJlcXVu
+Y2V5IGluIHVuaXQgb2YgMTBLaHogaW4gZGlmZmVyZW50IE5CIFAtU3RhdGUoUDAsIFAxLCBQMiAm
+IFAzKS4KK3VsTmJwU3RhdGVNZW1jbGtGcmVxWzRdOiAgICAgICAgICBzeXN0ZW0gbWVtb3J5IGNs
+b2NrIGZyZXF1ZW5jZXkgaW4gdW5pdCBvZiAxMEtoeiBpbiBkaWZmZXJlbnQgTkIgUC1TdGF0ZShQ
+MCwgUDEsIFAyICYgUDMpLgogdWxOYnBTdGF0ZU5DbGtGcmVxWzRdOiAgICAgICAgICAgIE5CIFAt
+U3RhdGUgTkNsayBmcmVxdWVuY3kgaW4gZGlmZmVyZW50IE5CIFAtU3RhdGUKIHVzTkJQU3RhdGVW
+b2x0YWdlWzRdOiAgICAgICAgICAgICBOQiBQLVN0YXRlIChQMC9QMSAmIFAyL1AzKSB2b2x0YWdl
+OyBOQlAzIHJlZmVycyB0byBsb3dlcyB2b2x0YWdlCiB1c0Jvb3RVcE5CVm9sdGFnZTogICAgICAg
+ICAgICAgICAgTkIgUC1TdGF0ZSB2b2x0YWdlIGR1cmluZyBib290IHVwIGJlZm9yZSBkcml2ZXIg
+bG9hZGVkIApAQCAtNzU5Nyw3ICs3NTk3LDcgQEAgdHlwZWRlZiBzdHJ1Y3QgX0FUT01fWFRNRFNf
+SU5GTwogICBBVE9NX0kyQ19JRF9DT05GSUdfQUNDRVNTICBzdWNJMmNJZDsgICAgICAgICAgIC8v
+UG9pbnQgdGhlIElEIG9uIHdoaWNoIEkyQyBpcyB1c2VkIHRvIGNvbnRyb2wgZXh0ZXJuYWwgY2hp
+cAogICBVQ0hBUiAgICAgICAgICAgICAgICAgICAgICB1Y1h0cmFuc2ltaXR0ZXJJRDsgICAgICAg
+ICAgCiAgIFVDSEFSICAgICAgICAgICAgICAgICAgICAgIHVjU3VwcG9ydGVkTGluazsgICAgLy8g
+Qml0IGZpZWxkLCBiaXQwPTEsIHNpbmdsZSBsaW5rIHN1cHBvcnRlZDtiaXQxPTEsZHVhbCBsaW5r
+IHN1cHBvcnRlZAotICBVQ0hBUiAgICAgICAgICAgICAgICAgICAgICB1Y1NlcXVuY2VBbHRlcklE
+OyAgIC8vIEV2ZW4gd2l0aCB0aGUgc2FtZSBleHRlcm5hbCBUTURTIGFzaWMsIGl0J3MgcG9zc2li
+bGUgdGhhdCB0aGUgcHJvZ3JhbSBzZXFlbmNlIGFsdGVycyAKKyAgVUNIQVIgICAgICAgICAgICAg
+ICAgICAgICAgdWNTZXF1ZW5jZUFsdGVySUQ7ICAgLy8gRXZlbiB3aXRoIHRoZSBzYW1lIGV4dGVy
+bmFsIFRNRFMgYXNpYywgaXQncyBwb3NzaWJsZSB0aGF0IHRoZSBwcm9ncmFtIHNlcWVuY2UgYWx0
+ZXJzIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8v
+IGR1ZSB0byBkZXNpZ24uIFRoaXMgSUQgaXMgdXNlZCB0byBhbGVydCBkcml2ZXIgdGhhdCB0aGUg
+c2VxdWVuY2UgaXMgbm90ICJzdGFuZGFyZCIhICAgICAgICAgICAgICAKICAgVUNIQVIgICAgICAg
+ICAgICAgICAgICAgICAgdWNNYXN0ZXJBZGRyZXNzOyAgICAvLyBBZGRyZXNzIHRvIGNvbnRyb2wg
+TWFzdGVyIHhUTURTIENoaXAKICAgVUNIQVIgICAgICAgICAgICAgICAgICAgICAgdWNTbGF2ZUFk
+ZHJlc3M7ICAgICAvLyBBZGRyZXNzIHRvIGNvbnRyb2wgU2xhdmUgeFRNRFMgQ2hpcApkaWZmIC0t
+Z2l0IGEvZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9jaWsuYyBiL2RyaXZlcnMvZ3B1L2RybS9yYWRl
+b24vY2lrLmMKaW5kZXggNWM0Mjg3N2ZkNmZiZi4uNGNlNzA3OTNlODVmYiAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9jaWsuYworKysgYi9kcml2ZXJzL2dwdS9kcm0vcmFkZW9u
+L2Npay5jCkBAIC0zNTQ0LDcgKzM1NDQsNyBAQCBzdGF0aWMgdm9pZCBjaWtfaGRwX2ZsdXNoX2Nw
+X3JpbmdfZW1pdChzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldiwKICAqIEByZGV2OiByYWRlb25f
+ZGV2aWNlIHBvaW50ZXIKICAqIEBmZW5jZTogcmFkZW9uIGZlbmNlIG9iamVjdAogICoKLSAqIEVt
+aXRzIGEgZmVuY2Ugc2VxdW5jZSBudW1iZXIgb24gdGhlIGdmeCByaW5nIGFuZCBmbHVzaGVzCisg
+KiBFbWl0cyBhIGZlbmNlIHNlcXVlbmNlIG51bWJlciBvbiB0aGUgZ2Z4IHJpbmcgYW5kIGZsdXNo
+ZXMKICAqIEdQVSBjYWNoZXMuCiAgKi8KIHZvaWQgY2lrX2ZlbmNlX2dmeF9yaW5nX2VtaXQoc3Ry
+dWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYsCkBAIC0zNTg1LDcgKzM1ODUsNyBAQCB2b2lkIGNpa19m
+ZW5jZV9nZnhfcmluZ19lbWl0KHN0cnVjdCByYWRlb25fZGV2aWNlICpyZGV2LAogICogQHJkZXY6
+IHJhZGVvbl9kZXZpY2UgcG9pbnRlcgogICogQGZlbmNlOiByYWRlb24gZmVuY2Ugb2JqZWN0CiAg
+KgotICogRW1pdHMgYSBmZW5jZSBzZXF1bmNlIG51bWJlciBvbiB0aGUgY29tcHV0ZSByaW5nIGFu
+ZCBmbHVzaGVzCisgKiBFbWl0cyBhIGZlbmNlIHNlcXVlbmNlIG51bWJlciBvbiB0aGUgY29tcHV0
+ZSByaW5nIGFuZCBmbHVzaGVzCiAgKiBHUFUgY2FjaGVzLgogICovCiB2b2lkIGNpa19mZW5jZV9j
+b21wdXRlX3JpbmdfZW1pdChzdHJ1Y3QgcmFkZW9uX2RldmljZSAqcmRldiwKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2ZlbmNlLmMgYi9kcml2ZXJzL2dwdS9kcm0v
+cmFkZW9uL3JhZGVvbl9mZW5jZS5jCmluZGV4IDQzZjJmOTMwNzg2NjguLjc3NjU4ZWNkZDE4MWIg
+MTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2ZlbmNlLmMKKysrIGIv
+ZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fZmVuY2UuYwpAQCAtMzM4LDcgKzMzOCw3IEBA
+IHZvaWQgcmFkZW9uX2ZlbmNlX3Byb2Nlc3Moc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYsIGlu
+dCByaW5nKQogICogQHNlcTogc2VxdWVuY2UgbnVtYmVyCiAgKiBAcmluZzogcmluZyBpbmRleCB0
+aGUgZmVuY2UgaXMgYXNzb2NpYXRlZCB3aXRoCiAgKgotICogQ2hlY2sgaWYgdGhlIGxhc3Qgc2ln
+bmFsZWQgZmVuY2Ugc2VxdW5jZSBudW1iZXIgaXMgPj0gdGhlIHJlcXVlc3RlZAorICogQ2hlY2sg
+aWYgdGhlIGxhc3Qgc2lnbmFsZWQgZmVuY2Ugc2VxdWVuY2UgbnVtYmVyIGlzID49IHRoZSByZXF1
+ZXN0ZWQKICAqIHNlcXVlbmNlIG51bWJlciAoYWxsIGFzaWNzKS4KICAqIFJldHVybnMgdHJ1ZSBp
+ZiB0aGUgZmVuY2UgaGFzIHNpZ25hbGVkIChjdXJyZW50IGZlbmNlIHZhbHVlCiAgKiBpcyA+PSBy
+ZXF1ZXN0ZWQgdmFsdWUpIG9yIGZhbHNlIGlmIGl0IGhhcyBub3QgKGN1cnJlbnQgZmVuY2UKQEAg
+LTQ1OCw3ICs0NTgsNyBAQCBib29sIHJhZGVvbl9mZW5jZV9zaWduYWxlZChzdHJ1Y3QgcmFkZW9u
+X2ZlbmNlICpmZW5jZSkKICAqIEByZGV2OiByYWRlb24gZGV2aWNlIHBvaW50ZXIKICAqIEBzZXE6
+IHNlcXVlbmNlIG51bWJlcnMKICAqCi0gKiBDaGVjayBpZiB0aGUgbGFzdCBzaWduYWxlZCBmZW5j
+ZSBzZXF1bmNlIG51bWJlciBpcyA+PSB0aGUgcmVxdWVzdGVkCisgKiBDaGVjayBpZiB0aGUgbGFz
+dCBzaWduYWxlZCBmZW5jZSBzZXF1ZW5jZSBudW1iZXIgaXMgPj0gdGhlIHJlcXVlc3RlZAogICog
+c2VxdWVuY2UgbnVtYmVyIChhbGwgYXNpY3MpLgogICogUmV0dXJucyB0cnVlIGlmIGFueSBoYXMg
+c2lnbmFsZWQgKGN1cnJlbnQgdmFsdWUgaXMgPj0gcmVxdWVzdGVkIHZhbHVlKQogICogb3IgZmFs
+c2UgaWYgaXQgaGFzIG5vdC4gSGVscGVyIGZ1bmN0aW9uIGZvciByYWRlb25fZmVuY2Vfd2FpdF9z
+ZXEuCkBAIC00ODMsNyArNDgzLDcgQEAgc3RhdGljIGJvb2wgcmFkZW9uX2ZlbmNlX2FueV9zZXFf
+c2lnbmFsZWQoc3RydWN0IHJhZGVvbl9kZXZpY2UgKnJkZXYsIHU2NCAqc2VxKQogICogQHRpbWVv
+dXQ6IG1heGltdW0gdGltZSB0byB3YWl0LCBvciBNQVhfU0NIRURVTEVfVElNRU9VVCBmb3IgaW5m
+aW5pdGUgd2FpdAogICoKICAqIFdhaXQgZm9yIHRoZSByZXF1ZXN0ZWQgc2VxdWVuY2UgbnVtYmVy
+KHMpIHRvIGJlIHdyaXR0ZW4gYnkgYW55IHJpbmcKLSAqIChhbGwgYXNpY3MpLiAgU2VxdW5jZSBu
+dW1iZXIgYXJyYXkgaXMgaW5kZXhlZCBieSByaW5nIGlkLgorICogKGFsbCBhc2ljcykuICBTZXF1
+ZW5jZSBudW1iZXIgYXJyYXkgaXMgaW5kZXhlZCBieSByaW5nIGlkLgogICogQGludHIgc2VsZWN0
+cyB3aGV0aGVyIHRvIHVzZSBpbnRlcnJ1cHRhYmxlICh0cnVlKSBvciBub24taW50ZXJydXB0YWJs
+ZQogICogKGZhbHNlKSBzbGVlcCB3aGVuIHdhaXRpbmcgZm9yIHRoZSBzZXF1ZW5jZSBudW1iZXIu
+ICBIZWxwZXIgZnVuY3Rpb24KICAqIGZvciByYWRlb25fZmVuY2Vfd2FpdF8qKCkuCi0tIAoyLjI2
+LjIKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1n
+ZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
