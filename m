@@ -6,65 +6,64 @@ X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36F5CC47255
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 11:03:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45B46C54E8E
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 11:19:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 086AB206F9
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 11:03:35 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A4D2020736
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 11:19:36 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="FNX2D5zW"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 086AB206F9
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="RAxA0wvM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4D2020736
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AACBB6E432;
-	Mon, 11 May 2020 11:03:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 712236E439;
+	Mon, 11 May 2020 11:19:36 +0000 (UTC)
 Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
  [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 618956E432
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 11:03:34 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id h17so1491656wrc.8
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 04:03:34 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 500946E438
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 11:19:35 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id l11so4535826wru.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 04:19:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
  h=date:from:to:cc:subject:message-id:references:mime-version
  :content-disposition:in-reply-to;
- bh=f2UAiave+4C0yzTk4hyjUeeMrVJ2ok20QkX6BTAWcnk=;
- b=FNX2D5zWVGnnBlmc4Oo0SzmBoJG611Ho8o7b87QXAyfZdfSuYWU/wq7wd9PknSvltY
- Vq2E+4yJMSO/cloGGg1r1jR5dxTK77Vh1Cp5AREOzxPAUQjTMTzbqk9q8VyAYkoZg/2D
- SY0WWHLHI7pUiZM7b7UQSIfUnkj8hLT5HtVGY=
+ bh=5BxJAM3m0NqPF1VK2+PWokzhUb1mzLpTTCKkR+44LiQ=;
+ b=RAxA0wvM8QoDHGML1mbUMPKndYci1raxxYtTn7O+Zrq8YhgXDK7m+Y15YQHsAn8cZb
+ kOEmNTbUxEeJqD2r4NDDOgGQ/iESR6rTF0Ni0UDRntRqlYGjILusESzGHf3+G/cqhUSm
+ ZE1YffqlVLtxTzGjBjQGG0n9ynJq41QdzPAp4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=f2UAiave+4C0yzTk4hyjUeeMrVJ2ok20QkX6BTAWcnk=;
- b=njiZqbKpt7MdgbzMNOCdgxKQ31t5at2kp9K1G0IFM9xdUGMDsST56jY/Z2EWqsAkkZ
- s+aYfZzD0DwX1/AMGa8jcIqNCuef0l5nptRbompVaQwQ4MOx8Zf9zKTl70SweL4hm+Aw
- qK8hWCAYH2x0kzG9OJIRH3Ar4XOZlOyu6/9STn4bn4AlIHXivcmbVBP0F5MG+v3VEf7p
- l+NjSNkM7WRqP+69s1s/FBT+sTNcQxh4tuW6jxjBJsmIejqdLsvq0TOWUw8FoLUy7lBq
- SeIh7o3S+RHcafso33OX/DcZCxftjmVrBcDgCw4to1KQBRQ5uC9KqKs0wOVWR1B4niNS
- 70og==
-X-Gm-Message-State: AGi0PubIYVn92rBpdIV2t6uUy7855nDhypnnH6O4dOs3bm2ZoGDqMAZa
- aj/W29tHZRlIAVv7HEtIBPkZhw==
-X-Google-Smtp-Source: APiQypIU/wmV9sEfNkXiGps5GelhOeqDK0bu+lOqF9lumObpKw9FBzEdzOfKsYbcqcNn+7ummTLhPg==
-X-Received: by 2002:a5d:460d:: with SMTP id t13mr19154145wrq.280.1589195013059; 
- Mon, 11 May 2020 04:03:33 -0700 (PDT)
+ bh=5BxJAM3m0NqPF1VK2+PWokzhUb1mzLpTTCKkR+44LiQ=;
+ b=VJjh5sdpaQb0YDnBWmxbSuc50PHEIERoTNE3yRBz/JZtSSv8ysV8AKOSmE4pXw82OO
+ oBP5sfpP2s7ybseF3zEKPZwSFst0uRsnqv5tIXvzW3BMQObIPKPidrNZKB7ryZ/wwG8a
+ t/209m+kbLJJ+iI9spR2fj3DYWVTZV9SGRSGVmtFbdnQzU1xyWwxEObDOdNeSCCUrn1h
+ 0vSvaXNt2qYyGmdypxF2m/DAS6TCjwWNgEYk0MsNkFynbeASMovohS5l9HM29xsPBS3b
+ w5K2kkZmk+v+FliLYCMrDvY8UunRfkbaVdIqxq/YdiNhyKN8mMMYHS1NmGXmJDmmPlut
+ wTng==
+X-Gm-Message-State: AGi0PuYyg0m6S1Q+VY936C7ANOnUgk5qCyi1lnDmpc6CjXT4FxLeZGgu
+ t9915jZ4kBDKWGM++Yr3vxFmqg==
+X-Google-Smtp-Source: APiQypL8dcJdHuzz097XXtlby4WBcbxfOf+Yjq6IhA1aEeMCGm89alo27v2/I1zSWY50fjVAvc0J4A==
+X-Received: by 2002:adf:d0c5:: with SMTP id z5mr19611873wrh.410.1589195973642; 
+ Mon, 11 May 2020 04:19:33 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id g184sm11633864wmg.1.2020.05.11.04.03.30
+ by smtp.gmail.com with ESMTPSA id z10sm7682261wmi.2.2020.05.11.04.19.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2020 04:03:31 -0700 (PDT)
-Date: Mon, 11 May 2020 13:03:29 +0200
+ Mon, 11 May 2020 04:19:32 -0700 (PDT)
+Date: Mon, 11 May 2020 13:19:31 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
-To: Chris Wilson <chris@chris-wilson.co.uk>
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Subject: Re: [PATCH 0/6] RFC Support hot device unplug in amdgpu
-Message-ID: <20200511110329.GC206103@phenom.ffwll.local>
+Message-ID: <20200511111931.GD206103@phenom.ffwll.local>
 References: <1589050310-19666-1-git-send-email-andrey.grodzovsky@amd.com>
  <20200511095433.GA206103@phenom.ffwll.local>
- <158919237000.1729.13151635793333034320@build.alporthouse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <158919237000.1729.13151635793333034320@build.alporthouse.com>
+In-Reply-To: <20200511095433.GA206103@phenom.ffwll.local>
 X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,36 +76,189 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>, daniel.vetter@ffwll.ch,
- michel@daenzer.net, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- ckoenig.leichtzumerken@gmail.com
+Cc: daniel.vetter@ffwll.ch, michel@daenzer.net, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, ckoenig.leichtzumerken@gmail.com,
+ alexdeucher@gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, May 11, 2020 at 11:19:30AM +0100, Chris Wilson wrote:
-> Quoting Daniel Vetter (2020-05-11 10:54:33)
-> >   - worse, neither vk nor gl (to my knowledge) have a concept of events
-> >     for when the gpu died. The only stuff you have is things like
-> >     arb_robustness which says a) everything continues as if nothing
-> >     happened b) there's a function where you can ask whether your gl
-> >     context and all the textures/buffers are toast.
+On Mon, May 11, 2020 at 11:54:33AM +0200, Daniel Vetter wrote:
+> On Sat, May 09, 2020 at 02:51:44PM -0400, Andrey Grodzovsky wrote:
+> > This RFC is a more of a proof of concept then a fully working solution as there are a few unresolved issues we are hopping to get advise on from people on the mailing list.
+> > Until now extracting a card either by physical extraction (e.g. eGPU with thunderbold connection or by emulation through syfs -> /sys/bus/pci/devices/device_id/remove) 
+> > would cause random crashes in user apps. The random crashes in apps were mostly due to the app having mapped a device backed BO into it's adress space was still 
+> > trying to access the BO while the backing device was gone. 
+> > To answer this first problem Christian suggested to fix the handling of mapped memory in the clients when the device goes away by forcibly unmap all buffers 
+> > the user processes has by clearing their respective VMAs mapping the device BOs. Then when the VMAs try to fill in the page tables again we check in the fault handler 
+> > if the device is removed and if so, return an error. This will generate a SIGBUS to the application which can then cleanly terminate. 
+> > This indeed was done but this in turn created a problem of kernel OOPs were the OOPSes were due to the fact that while the app was terminating because of the SIGBUS 
+> > it would trigger use after free in the driver by calling to accesses device structures that were already released from the pci remove sequence. 
+> > This we handled by introducing a 'flush' seqence during device removal were we wait for drm file reference to drop to 0 meaning all user clients directly using this device terminated. 
+> > With this I was able to cleanly emulate device unplug with X and glxgears running and later emulate device plug back and restart of X and glxgears.
+> > 
+> > But this use case is only partial and as I see it all the use cases are as follwing and the questions it raises.
+> > 
+> > 1) Application accesses a BO by opening drm file
+> > 	1.1) BO is mapped into applications address space (BO is CPU visible) - this one we have a solution for by invaldating BO's CPU mapping casuing SIGBUS 
+> > 	     and termination and waiting for drm file refcound to drop to 0 before releasing the device
+> > 	1.2) BO is not mapped into applcation address space (BO is CPU invisible) - no solution yet because how we force the application to terminate in this case ?
+> > 
+> > 2) Application accesses a BO by importing a DMA-BUF
+> > 	2.1)  BO is mapped into applications address space (BO is CPU visible) - solution is same as 1.1 but instead of waiting for drm file release we wait for the 
+> > 	      imported dma-buf's file release
+> > 	2.2)  BO is not mapped into applcation address space (BO is CPU invisible) - our solution is to invalidate GPUVM page tables and destroy backing storage for 
+> >               all exported BOs which will in turn casue VM faults in the importing device and then when the importing driver will try to re-attach the imported BO to 
+> > 	      update mappings we return -ENODEV in the import hook which hopeffuly will cause the user app to terminate.
+> > 
+> > 3) Applcation opens a drm file or imports a dma-bud and holds a reference but never access any BO or does access but never more after device was unplug - how would we 
+> >    force this applcation to termiante before proceeding with device removal code ? Otherwise the wait in pci remove just hangs for ever.
+> > 
+> > The attached patches adress 1.1, 2.1 and 2.2, for now only 1.1 fully tested and I am still testing the others but I will be happy for any advise on all the 
+> > described use cases and maybe some alternative and better (more generic) approach to this like maybe obtaining PIDs of relevant processes through some revere 
+> > mapping from device file and exported dma-buf files and send them SIGKILL - would this make more sense or any other method ? 
+> > 
+> > Patches 1-3 address 1.1
+> > Patch 4 addresses 2.1
+> > Pathces 5-6 address 2.2
+> > 
+> > Reference: https://gitlab.freedesktop.org/drm/amd/-/issues/1081
 > 
-> Vulkan/DX12 arrived after eGPU, and there is at least the concept of
-> VK_ERROR_DEVICE_LOST. Mainly used at the moment after a GPU hang and
-> loss of context.
+> So we've been working on this problem for a few years already (but it's
+> still not solved), I think you could have saved yourselfs some typing.
 > 
-> https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#devsandqueues-lost-device
+> Bunch of things:
+> - we can't wait for userspace in the hotunplug handlers, that might never
+>   happen. The correct way is to untangle the lifetime of your hw driver
+>   for a specific struct pci_device from the drm_device lifetime.
+>   Infrastructure is all there now, see drm_dev_get/put, drm_dev_unplug and
+>   drm_dev_enter/exit. A bunch of usb/spi drivers use this 100% correctly
+>   now, so there's examples. Plus kerneldoc explains stuff.
+> 
+> - for a big driver like amdgpu doing this split up is going to be
+>   horrendously complex. I know, we've done it for i915, at least
+>   partially. I strongly recommend that you're using devm_ for managing hw
+>   related resources (iomap, irq, ...) as much as possible.
+> 
+>   For drm_device resources (mostly structures and everything related to
+>   that) we've just merged the drmm_ managed resources framework. There's
+>   some more work to be done there for various kms objects, but you can at
+>   least somewhat avoid tedious handrolling for everything internal
+>   already.
+> 
+>   Don't ever use devm_kzalloc and friends, I've looked at hundreds of uses
+>   of this in drm, they're all wrong.
+> 
+> - dma-buf is hilarious (and atm unfixed), dma-fence is even worse. In
+>   theory they're already refcounted and all and so should work, in
+>   practice I think we need to refcount the underlying drm_device with
+>   drm_dev_get/put to avoid the worst fall-out.
 
-Ah cool, so -EIO on some ioctls, with silencing it in the gl driver and
-passing it on for the vk driver should be ok. Assuming vk frameworks
-bother to implement the *may* thing. I'm assuming if the validation
-midlayer doesn't inject this, it's untested and firework will ensue.
+oh I forgot one, since it's new since the last time we've seriously
+discussed this: p2p dma-buf
 
-But then more direct path to fireworks is what vk is all about :-)
+But that /should/ be handleable with the move_notify callback. Assuming we
+don't have any bugs anywhere, and the importer can indeed get rid of all
+its mapping, always.
+
+But for completeness probably need this one, just to keep it noted.
 -Daniel
+
+> 
+> - One unfortunate thing with drm_dev_unplug is that the driver core is
+>   very opinionated and doesn't tell you whether it's a hotunplug or a
+>   driver unload. In the former case trying to shut down hw just wastes
+>   time (and might hit driver bugs), in the latter case driver engineers
+>   very much expect everything to be shut down.
+> 
+>   Right now you can only have one or the other, so this needs a module
+>   option hack or similar (default to the correct hotunplug behaviour for
+>   users).
+> 
+> - SIGBUS is better than crashing the kernel, but it's not even close for
+>   users. They still lose everything because everything crashes because in
+>   my experience, in practice, no one ever handles errors. There's a few
+>   more things on top:
+> 
+>   - sighandlers are global, which means only the app can use it. You can't
+>     use it in e.g. mesa. They're also not composable, so if you have on
+>     sighandler for gpu1 and a 2nd one for gpu2 (could be different vendor)
+>     it's all sadness. Hence "usersapce will handle SIGBUS" wont work.
+> 
+>   - worse, neither vk nor gl (to my knowledge) have a concept of events
+>     for when the gpu died. The only stuff you have is things like
+>     arb_robustness which says a) everything continues as if nothing
+>     happened b) there's a function where you can ask whether your gl
+>     context and all the textures/buffers are toast.
+> 
+>     I think that's about the only hotunplug application model we can
+>     realistically expect applications to support. That means _all_ errors
+>     need to be silently eaten by either mesa or the kernel. On i915 the
+>     model (also for terminally wedged gpu hangs) is that all ioctl keep
+>     working, mmaps keep working, and execbuf gives you an -EIO (which mesa
+>     eats silently iirc for arb_robustness).
+> 
+>   Conclusion is that SIGBUS is imo a no-go, and the only option we have is
+>   that a) mmaps fully keep working, doable for shmem or b) we put some
+>   fake memory in there (for vram or whatever), maybe even only a single
+>   page for all fake memory.
+> 
+> - you probably want arb_robustness and similar stuff in userspace as a
+>   first step.
+> 
+> tldr;
+> - refcounting, not waiting for userspace
+> - nothing can fail because userspace wont handle it
+> 
+> That's at least my take on this mess, and what we've been pushing for over
+> the past few years. For kms-only drm_driver we should have achieved that
+> by now (plus/minus maybe some issues for dma-buf/fences, but kms-only
+> dma-buf/fences are simple enough that maybe we don't go boom yet).
+> 
+> For big gpus with rendering I think best next step would be to type up a
+> reasonable Gran Plan (into Documentation/gpu/todo.rst) with all the issues
+> and likely solutions. And then bikeshed that, since the above is just my
+> take on all this.
+> 
+> Cheers, Daniel
+> 
+> > 
+> > Andrey Grodzovsky (6):
+> >   drm/ttm: Add unampping of the entire device address space
+> >   drm/amdgpu: Force unmap all user VMAs on device removal.
+> >   drm/amdgpu: Wait for all user clients
+> >   drm/amdgpu: Wait for all clients importing out dma-bufs.
+> >   drm/ttm: Add destroy flag in TTM BO eviction interface
+> >   drm/amdgpu: Use TTM MMs destroy interface
+> > 
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  3 ++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 +-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  7 +++-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 27 ++++++++++++-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     | 22 ++++++++--
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |  9 +++++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |  4 ++
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 17 +++++++-
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |  1 +
+> >  drivers/gpu/drm/nouveau/nouveau_drm.c       |  2 +-
+> >  drivers/gpu/drm/qxl/qxl_object.c            |  4 +-
+> >  drivers/gpu/drm/radeon/radeon_object.c      |  2 +-
+> >  drivers/gpu/drm/ttm/ttm_bo.c                | 63 +++++++++++++++++++++--------
+> >  drivers/gpu/drm/vmwgfx/vmwgfx_drv.c         |  6 +--
+> >  include/drm/ttm/ttm_bo_api.h                |  2 +-
+> >  include/drm/ttm/ttm_bo_driver.h             |  2 +
+> >  16 files changed, 139 insertions(+), 34 deletions(-)
+> > 
+> > -- 
+> > 2.7.4
+> > 
+> 
+> -- 
+> Daniel Vetter
+> Software Engineer, Intel Corporation
+> http://blog.ffwll.ch
+
 -- 
 Daniel Vetter
 Software Engineer, Intel Corporation
