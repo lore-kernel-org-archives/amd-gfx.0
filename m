@@ -2,81 +2,50 @@ Return-Path: <SRS0=XsTU=6Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E326AC47255
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 13:51:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98C01C47255
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 14:08:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B5BE2206F5
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 13:51:19 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="fTLHNSai"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B5BE2206F5
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+	by mail.kernel.org (Postfix) with ESMTPS id 58875206D3
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 14:08:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 58875206D3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6873489951;
-	Mon, 11 May 2020 13:51:19 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99A2D6E47A
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 13:49:56 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id a136so784953qkg.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 06:49:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ziepe.ca; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=4rPpMLzUp9bspNeARk829RL9zhdg6LdCbnWGM4mXn5M=;
- b=fTLHNSaidCTBTVafRZ88/JPpZndAW4JKAiqp+xUjmlcGq11JBx+zkoc/gLYyuRZMpU
- 8huyG7Lesc6lj13AkjhSbtSdyaW0HhfFpl0iYlVpDT1IiP7SHlaVI+MZSY7RwrTYhtBq
- RQNBgrM8IvriB2Mvvs4e8HQwdfhdtIbJbykV3RNu3vDxx3lnpyWu6MdARnOn+R62z8Jc
- KN8rcWegPekMEUZip8kruV0JwYQbPzQPKIlrCHz/KHExck9xbphKWhwcVarhbGi64Uoa
- alGo+ohiWuSyQC8pRj3oZO/AC0G930Xueg4XAOk+AAPwsMsi4evR7ZHEiIxrpqeKQKyH
- 7Trg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=4rPpMLzUp9bspNeARk829RL9zhdg6LdCbnWGM4mXn5M=;
- b=hwILmMGeVtYXpQkC32G9LVZGyvG257+fNgJPZIh8e51X2VXfiL4uZJAKn6iUiuxKcB
- 0BJP+3dYpzkhJnaQ0O0Zz4VVTz8ukCq0qfX4QC5rKTaBRFW1/b3xf/pmBKA6dZk/jw1a
- q64yeBHeUNZRexTL9AEYclxaXsZeK5X2DJMR0imyJ/lp7cIRNA/S3u3tzPRL4ap6p7Gu
- k040rwrYNiZuC5ElAFRMKxP/Y2Ic1IjDaQoSkIy9WdpALk9Y+j1EjppDKvV+FgVQiCIX
- lT/BAsJtDRTVeRogJLVQAPLRKNXr3Th4kJJsjhWynlb//zwjjNf6UWyBRnMAaFnkFElH
- 2tfg==
-X-Gm-Message-State: AGi0PuY8bYzOJR5cbbDgtsBB2eVwYZ0Evk9luX/ZvaU/0gB8zR+nwsk7
- jxZe/Gff5XZryDkdNcW3NZG65Q==
-X-Google-Smtp-Source: APiQypJNAQ0/U/AQ7HD5Ea1GoiCuDrCNke0sGrNZi0ZXjdmU+vdOsV+r7iIZyEfm/aW74L1CSMAM/Q==
-X-Received: by 2002:a05:620a:2019:: with SMTP id
- c25mr15376455qka.320.1589204995576; 
- Mon, 11 May 2020 06:49:55 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-68-57-212.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.68.57.212])
- by smtp.gmail.com with ESMTPSA id i10sm1542178qkk.128.2020.05.11.06.49.54
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 11 May 2020 06:49:55 -0700 (PDT)
-Received: from jgg by mlx.ziepe.ca with local (Exim 4.90_1)
- (envelope-from <jgg@ziepe.ca>)
- id 1jY8oc-0005UB-FF; Mon, 11 May 2020 10:49:54 -0300
-Date: Mon, 11 May 2020 10:49:54 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH hmm v2 1/5] mm/hmm: make CONFIG_DEVICE_PRIVATE into a
- select
-Message-ID: <20200511134954.GS26002@ziepe.ca>
-References: <0-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
- <1-v2-b4e84f444c7d+24f57-hmm_no_flags_jgg@mellanox.com>
- <20200509171612.94ee332ad4f494521d911ac0@linux-foundation.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDD6F6E483;
+	Mon, 11 May 2020 14:08:43 +0000 (UTC)
+X-Greylist: delayed 8731 seconds by postgrey-1.36 at gabe;
+ Mon, 11 May 2020 14:08:42 UTC
+Received: from bmailout2.hostsharing.net (bmailout2.hostsharing.net
+ [IPv6:2a01:37:3000::53df:4ef0:0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56F486E2B1;
+ Mon, 11 May 2020 14:08:42 +0000 (UTC)
+Received: from h08.hostsharing.net (h08.hostsharing.net [83.223.95.28])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client CN "*.hostsharing.net",
+ Issuer "COMODO RSA Domain Validation Secure Server CA" (not verified))
+ by bmailout2.hostsharing.net (Postfix) with ESMTPS id E85682800932A;
+ Mon, 11 May 2020 16:08:40 +0200 (CEST)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+ id 93056ACC2; Mon, 11 May 2020 16:08:40 +0200 (CEST)
+Date: Mon, 11 May 2020 16:08:40 +0200
+From: Lukas Wunner <lukas@wunner.de>
+To: Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [PATCH 0/6] RFC Support hot device unplug in amdgpu
+Message-ID: <20200511140840.kd2yacwvyuaqkxkk@wunner.de>
+References: <1589050310-19666-1-git-send-email-andrey.grodzovsky@amd.com>
+ <20200511095433.GA206103@phenom.ffwll.local>
+ <20200511114307.jfirnlvkikmulyhu@wunner.de>
+ <CAKMK7uGA7XHPwuS3GF9u+YQ-GRBfZzf5CCRH15Tx_qnH3Pcchw@mail.gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20200509171612.94ee332ad4f494521d911ac0@linux-foundation.org>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Mon, 11 May 2020 13:51:18 +0000
+In-Reply-To: <CAKMK7uGA7XHPwuS3GF9u+YQ-GRBfZzf5CCRH15Tx_qnH3Pcchw@mail.gmail.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,61 +57,55 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- Ralph Campbell <rcampbell@nvidia.com>, "Yang, Philip" <Philip.Yang@amd.com>,
- John Hubbard <jhubbard@nvidia.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Christoph Hellwig <hch@lst.de>, linux-mm@kvack.org,
- =?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>,
- Ben Skeggs <bskeggs@redhat.com>, nouveau@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- Niranjana Vishwanathapura <niranjana.vishwanathapura@intel.com>,
- intel-gfx@lists.freedesktop.org,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Michel =?iso-8859-1?Q?D=E4nzer?= <michel@daenzer.net>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, May 09, 2020 at 05:16:12PM -0700, Andrew Morton wrote:
-> On Fri,  1 May 2020 15:20:44 -0300 Jason Gunthorpe <jgg@ziepe.ca> wrote:
-> 
-> > From: Jason Gunthorpe <jgg@mellanox.com>
+On Mon, May 11, 2020 at 02:21:57PM +0200, Daniel Vetter wrote:
+> On Mon, May 11, 2020 at 1:43 PM Lukas Wunner <lukas@wunner.de> wrote:
+> > On Mon, May 11, 2020 at 11:54:33AM +0200, Daniel Vetter wrote:
+> > > - One unfortunate thing with drm_dev_unplug is that the driver core is
+> > >   very opinionated and doesn't tell you whether it's a hotunplug or a
+> > >   driver unload. In the former case trying to shut down hw just wastes
+> > >   time (and might hit driver bugs), in the latter case driver engineers
+> > >   very much expect everything to be shut down.
 > > 
-> > There is no reason for a user to select this or not directly - it should
-> > be selected by drivers that are going to use the feature, similar to how
-> > CONFIG_HMM_MIRROR works.
-> > 
-> > Currently all drivers provide a feature kconfig that will disable use of
-> > DEVICE_PRIVATE in that driver, allowing users to avoid enabling this if
-> > they don't want the overhead.
-> > 
+> > You can get that information at the PCI bus level with
+> > pci_dev_is_disconnected().
 > 
-> I'm not too sure what's going on here, but i386 allmodconfig broke.
+> Ok, so at least for pci devices you could do something like
 > 
-> kernel/resource.c: In function '__request_free_mem_region':
-> kernel/resource.c:1653:28: error: 'PA_SECTION_SHIFT' undeclared (first use in this function); did you mean 'SECTIONS_PGSHIFT'?
->   size = ALIGN(size, 1UL << PA_SECTION_SHIFT);
-> 
-> because in current mainline, allmodconfig produces
-> CONFIG_DEVICE_PRIVATE=n but in current linux-next, allmodconfig
-> produces CONFIG_DEVICE_PRIVATE=y.  But CONFIG_SPARSEMEM=n so the build
-> breaks.
+> if (pci_dev_is_disconnected())
+>     drm_dev_unplug();
+> else
+>     drm_dev_unregister();
+>
+> In the ->remove callback and both users and developers should be
+> happy.
 
-I think Arnd identified this, let us just revet the patch that caused
-it.
+Basically yes.  But if the driver is unbound e.g. via sysfs and the
+device is hot-removed while it is being unbound, that approach fails.
 
-> Bisection fingers this commit, but reverting it doesn't seem to fix
-> things.  Could you take a look please?
+So you'll need checks for pci_dev_is_disconnected() further below in
+the call stack as well to avoid unpleasant side effects such as unduly
+delaying unbinding or ending up in infinite loops when reading "all ones"
+from PCI BARs, etc.
 
-There is a latter patch adding a 'select DEVICE_PRIVATE' so reverting
-this needs to swap that to 'depends on'.
+It may also be worth checking for pci_dev_is_disconnected() in ioctls
+as well and directly returning -ENODEV, though of course that suffers
+from the same race.  (The device may disappear after the check for
+pci_dev_is_disconnected(), or it may have already disappeared but
+pciehp hasn't updated the device's channel state yet.)
 
-I've done both and updated git
+Thanks,
 
-Regards,
-Jason
+Lukas
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
