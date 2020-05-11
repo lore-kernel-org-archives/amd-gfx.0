@@ -2,70 +2,68 @@ Return-Path: <SRS0=XsTU=6Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7FA5BC47255
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 09:26:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AD2B4C47255
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 10:00:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4FD37206E6
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 09:26:15 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7F9EB20720
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 10:00:23 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jdVd4ZgR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4FD37206E6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="fuwqdWkm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7F9EB20720
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 010E989DDD;
-	Mon, 11 May 2020 09:26:15 +0000 (UTC)
-Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
- [IPv6:2a00:1450:4864:20::142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E28889C83;
- Mon, 11 May 2020 09:26:14 +0000 (UTC)
-Received: by mail-lf1-x142.google.com with SMTP id a4so6879701lfh.12;
- Mon, 11 May 2020 02:26:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :mime-version; bh=4zo7jzvpk/vepLsJ+HeP+FA5ukIAt2q8Oi1cr2q/goI=;
- b=jdVd4ZgR02BCIFjs6LCvyJyCKthKZ0OwS/H6bLMVvtNhhIOtM2SAVnsR4FWZdD7FGG
- tPDVNHBYuHF3v8LgPVi5RFQmKWPY0f42t18KCN0RgyVOxqu9cmi5xjeseSIPaMpY+mN8
- xU0CRQBSyATjsU0GP9A6O0jgt3cU8Fh4bdsLxp4+KIz+s/0MBKdB1ZXX4EHy1f0prlp7
- jXyjkwZBwHevOj4PmLo4FnTNoW2NxA5v3mXg3QX5I6NMlP9zsi3/rmlYzImu5G03xWD4
- oRwBXtg2pR8gESG4CbaHg4iXj7CV0IUXQLpjBOLjCINrVGYCRwweej2GcbelpiQ0uVo2
- +rUg==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2734D6E42A;
+	Mon, 11 May 2020 10:00:22 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05A196E22D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 10:00:20 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id y16so2956051wrs.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 03:00:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=k9baRcDTYKUds8uWgSP1eT3+dSKdNLfEyCOsBJdP7xw=;
+ b=fuwqdWkmrtMs+fSIRCtJZtXV9O3FuJUOb+UoGFKm0rfWKotgGCGuH6TTTOlp2vez2I
+ CG7hbLpnI8JhwMaPaT0Llea3hwPWdnaSVv4iXLPqexzA/E6BhSEwas1vuI91PwNRXEw7
+ aJ68PWQ+gL4BB4n8/SOQbxM5nmZJgr+g+5jnU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:mime-version;
- bh=4zo7jzvpk/vepLsJ+HeP+FA5ukIAt2q8Oi1cr2q/goI=;
- b=GCZcyeHGjBo/D0HSyD6RIzV5+zDuks0feucCyzTqOhljN7ocNuLuFY1VRfm6qqU9Qj
- /TcRXZbPMrucg6CdnofR2zqdIy8rCfZdoAjvI7qsRtbdtfuKze0NdiB5+0H6I+nMWqz3
- jiEA2peqZMivEpRfNHrQdCv1bqhPZoANhB+80hnkWZjeXh9xahAE7nGZKplQDNbIgCVA
- KkZYzHVLU97EkQi5kmapKQLidM1FV1QRVlYc+B5tTxhtGeRUZV2h17eEMJtB8sakJNY8
- smrlYA/NTANqg2CJ848RK/eQcpYKemnceQNXWIkDEZCFTyhMT4bBPQrEc6YPMUJfABrq
- 1hMg==
-X-Gm-Message-State: AOAM532/nSBZfEa/7QDVAshU1t0HLAqBnROpM2d3l8Pkg4N239hjORyY
- udp/RjAN7j0aEsYN8sttEWA=
-X-Google-Smtp-Source: ABdhPJwg9juRlJdYB40k2MpFA+LR7LsGYm4ZiSldRIWGXVHOG58HbIKcNK5wdol3SE3ei71+Ynxl5w==
-X-Received: by 2002:ac2:53af:: with SMTP id j15mr10549137lfh.191.1589189172225; 
- Mon, 11 May 2020 02:26:12 -0700 (PDT)
-Received: from eldfell.localdomain ([194.136.85.206])
- by smtp.gmail.com with ESMTPSA id w9sm9253730ljw.39.2020.05.11.02.26.11
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=k9baRcDTYKUds8uWgSP1eT3+dSKdNLfEyCOsBJdP7xw=;
+ b=iJdsHvc3drIZqEbRcdRkqzkhgrN+w5DQuYwCLM3zvpYG5+LzlW77yVtmR19ZouYNgK
+ 9dbs7gCbwkYIzzvm962mkI4aH8sRC5345pQTpzGetDEJ7uiPVgt0EqNUPZwy0jb5+y06
+ 0z+AjLVdlbhFWRt4jMUU2nYTyBWyTLrehqU+hoMr5L+7D4PyIVpqcI9pkLsOCS0VN2Rv
+ skQzcKQ0l2H3juvbEVF6Hxq20pyq7IVvSzzqfkMjVIL2f1RynaXCiBAc5w8PAhovJTm7
+ pAWbUWI8II21u9ba75kjKhOFLlJFaEDOuN+cZB4XXKESfjjx1upy9BHKqXh8LrLlTeVK
+ uAQA==
+X-Gm-Message-State: AGi0PuZCZh2fQFCwWBgxCnS+brWJGRE/BIN9Q80lR4zaDMSXJ4rMTJcT
+ BlBg1/q3T0bdDzwWaJ6BH0LiIA==
+X-Google-Smtp-Source: APiQypIAWCsWqr5h/kJ/2SvX4HqLc3VQZ7GTU4FslMzAt53VY9icofblo1wX38bi2D9ls+Q0DFyDkw==
+X-Received: by 2002:a5d:51c9:: with SMTP id n9mr17698954wrv.84.1589191219259; 
+ Mon, 11 May 2020 03:00:19 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id 5sm24640000wmg.34.2020.05.11.03.00.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2020 02:26:11 -0700 (PDT)
-Date: Mon, 11 May 2020 12:26:00 +0300
-From: Pekka Paalanen <ppaalanen@gmail.com>
+ Mon, 11 May 2020 03:00:18 -0700 (PDT)
+Date: Mon, 11 May 2020 11:54:33 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
 To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
 Subject: Re: [PATCH 0/6] RFC Support hot device unplug in amdgpu
-Message-ID: <20200511122600.0adb4494@eldfell.localdomain>
-In-Reply-To: <1589050310-19666-1-git-send-email-andrey.grodzovsky@amd.com>
+Message-ID: <20200511095433.GA206103@phenom.ffwll.local>
 References: <1589050310-19666-1-git-send-email-andrey.grodzovsky@amd.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1589050310-19666-1-git-send-email-andrey.grodzovsky@amd.com>
+X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,159 +76,141 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: daniel.vetter@ffwll.ch, michel@daenzer.net, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, ckoenig.leichtzumerken@gmail.com
-Content-Type: multipart/mixed; boundary="===============0754198806=="
+ amd-gfx@lists.freedesktop.org, ckoenig.leichtzumerken@gmail.com,
+ alexdeucher@gmail.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0754198806==
-Content-Type: multipart/signed; micalg=pgp-sha256;
- boundary="Sig_/05sbnmefCCihWg0NzLbh/hq"; protocol="application/pgp-signature"
-
---Sig_/05sbnmefCCihWg0NzLbh/hq
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-On Sat, 9 May 2020 14:51:44 -0400
-Andrey Grodzovsky <andrey.grodzovsky@amd.com> wrote:
-
-> This RFC is a more of a proof of concept then a fully working
-> solution as there are a few unresolved issues we are hopping to get
-> advise on from people on the mailing list. Until now extracting a
-> card either by physical extraction (e.g. eGPU with thunderbold
-> connection or by emulation through syfs
-> -> /sys/bus/pci/devices/device_id/remove) would cause random crashes
-> in user apps. The random crashes in apps were mostly due to the app
-> having mapped a device backed BO into it's adress space was still
-> trying to access the BO while the backing device was gone. To answer
-> this first problem Christian suggested to fix the handling of mapped
-> memory in the clients when the device goes away by forcibly unmap all
-> buffers the user processes has by clearing their respective VMAs
-> mapping the device BOs. Then when the VMAs try to fill in the page
-> tables again we check in the fault handler if the device is removed
-> and if so, return an error. This will generate a SIGBUS to the
-> application which can then cleanly terminate. This indeed was done
-> but this in turn created a problem of kernel OOPs were the OOPSes
-> were due to the fact that while the app was terminating because of
-> the SIGBUS it would trigger use after free in the driver by calling
-> to accesses device structures that were already released from the pci
-> remove sequence. This we handled by introducing a 'flush' seqence
-> during device removal were we wait for drm file reference to drop to
-> 0 meaning all user clients directly using this device terminated.
-> With this I was able to cleanly emulate device unplug with X and
-> glxgears running and later emulate device plug back and restart of X
-> and glxgears.
->=20
-> But this use case is only partial and as I see it all the use cases
-> are as follwing and the questions it raises.
->=20
+On Sat, May 09, 2020 at 02:51:44PM -0400, Andrey Grodzovsky wrote:
+> This RFC is a more of a proof of concept then a fully working solution as there are a few unresolved issues we are hopping to get advise on from people on the mailing list.
+> Until now extracting a card either by physical extraction (e.g. eGPU with thunderbold connection or by emulation through syfs -> /sys/bus/pci/devices/device_id/remove) 
+> would cause random crashes in user apps. The random crashes in apps were mostly due to the app having mapped a device backed BO into it's adress space was still 
+> trying to access the BO while the backing device was gone. 
+> To answer this first problem Christian suggested to fix the handling of mapped memory in the clients when the device goes away by forcibly unmap all buffers 
+> the user processes has by clearing their respective VMAs mapping the device BOs. Then when the VMAs try to fill in the page tables again we check in the fault handler 
+> if the device is removed and if so, return an error. This will generate a SIGBUS to the application which can then cleanly terminate. 
+> This indeed was done but this in turn created a problem of kernel OOPs were the OOPSes were due to the fact that while the app was terminating because of the SIGBUS 
+> it would trigger use after free in the driver by calling to accesses device structures that were already released from the pci remove sequence. 
+> This we handled by introducing a 'flush' seqence during device removal were we wait for drm file reference to drop to 0 meaning all user clients directly using this device terminated. 
+> With this I was able to cleanly emulate device unplug with X and glxgears running and later emulate device plug back and restart of X and glxgears.
+> 
+> But this use case is only partial and as I see it all the use cases are as follwing and the questions it raises.
+> 
 > 1) Application accesses a BO by opening drm file
-> 	1.1) BO is mapped into applications address space (BO is CPU visible) - =
-this one we have a solution for by invaldating BO's CPU mapping casuing SIG=
-BUS=20
-> 	     and termination and waiting for drm file refcound to drop to 0 befo=
-re releasing the device
-> 	1.2) BO is not mapped into applcation address space (BO is CPU invisible=
-) - no solution yet because how we force the application to terminate in th=
-is case ?
->=20
+> 	1.1) BO is mapped into applications address space (BO is CPU visible) - this one we have a solution for by invaldating BO's CPU mapping casuing SIGBUS 
+> 	     and termination and waiting for drm file refcound to drop to 0 before releasing the device
+> 	1.2) BO is not mapped into applcation address space (BO is CPU invisible) - no solution yet because how we force the application to terminate in this case ?
+> 
 > 2) Application accesses a BO by importing a DMA-BUF
-> 	2.1)  BO is mapped into applications address space (BO is CPU visible) -=
- solution is same as 1.1 but instead of waiting for drm file release we wai=
-t for the=20
+> 	2.1)  BO is mapped into applications address space (BO is CPU visible) - solution is same as 1.1 but instead of waiting for drm file release we wait for the 
 > 	      imported dma-buf's file release
-> 	2.2)  BO is not mapped into applcation address space (BO is CPU invisibl=
-e) - our solution is to invalidate GPUVM page tables and destroy backing st=
-orage for=20
->               all exported BOs which will in turn casue VM faults in the =
-importing device and then when the importing driver will try to re-attach t=
-he imported BO to=20
-> 	      update mappings we return -ENODEV in the import hook which hopeffu=
-ly will cause the user app to terminate.
->=20
-> 3) Applcation opens a drm file or imports a dma-bud and holds a reference=
- but never access any BO or does access but never more after device was unp=
-lug - how would we=20
->    force this applcation to termiante before proceeding with device remov=
-al code ? Otherwise the wait in pci remove just hangs for ever.
->=20
-> The attached patches adress 1.1, 2.1 and 2.2, for now only 1.1 fully test=
-ed and I am still testing the others but I will be happy for any advise on =
-all the=20
-> described use cases and maybe some alternative and better (more generic) =
-approach to this like maybe obtaining PIDs of relevant processes through so=
-me revere=20
-> mapping from device file and exported dma-buf files and send them SIGKILL=
- - would this make more sense or any other method ?=20
->=20
+> 	2.2)  BO is not mapped into applcation address space (BO is CPU invisible) - our solution is to invalidate GPUVM page tables and destroy backing storage for 
+>               all exported BOs which will in turn casue VM faults in the importing device and then when the importing driver will try to re-attach the imported BO to 
+> 	      update mappings we return -ENODEV in the import hook which hopeffuly will cause the user app to terminate.
+> 
+> 3) Applcation opens a drm file or imports a dma-bud and holds a reference but never access any BO or does access but never more after device was unplug - how would we 
+>    force this applcation to termiante before proceeding with device removal code ? Otherwise the wait in pci remove just hangs for ever.
+> 
+> The attached patches adress 1.1, 2.1 and 2.2, for now only 1.1 fully tested and I am still testing the others but I will be happy for any advise on all the 
+> described use cases and maybe some alternative and better (more generic) approach to this like maybe obtaining PIDs of relevant processes through some revere 
+> mapping from device file and exported dma-buf files and send them SIGKILL - would this make more sense or any other method ? 
+> 
 > Patches 1-3 address 1.1
 > Patch 4 addresses 2.1
 > Pathces 5-6 address 2.2
->=20
+> 
 > Reference: https://gitlab.freedesktop.org/drm/amd/-/issues/1081
 
-Hi,
+So we've been working on this problem for a few years already (but it's
+still not solved), I think you could have saved yourselfs some typing.
 
-how did you come up with the goal "make applications terminate"? Is
-that your end goal, or is it just step 1 of many on the road of
-supporting device hot-unplug?
+Bunch of things:
+- we can't wait for userspace in the hotunplug handlers, that might never
+  happen. The correct way is to untangle the lifetime of your hw driver
+  for a specific struct pci_device from the drm_device lifetime.
+  Infrastructure is all there now, see drm_dev_get/put, drm_dev_unplug and
+  drm_dev_enter/exit. A bunch of usb/spi drivers use this 100% correctly
+  now, so there's examples. Plus kerneldoc explains stuff.
 
-Why do you want to terminate also applications that don't "need" to
-terminate? Why hunt them down? I'm referring to your points 1.2, 2.2
-and 3.
+- for a big driver like amdgpu doing this split up is going to be
+  horrendously complex. I know, we've done it for i915, at least
+  partially. I strongly recommend that you're using devm_ for managing hw
+  related resources (iomap, irq, ...) as much as possible.
 
-=46rom an end user perspective, I believe making applications terminate
-is not helpful at all. Your display server still disappears, which
-means all your apps are forced to quit, and you lose your desktop. I do
-understand that a graceful termination is better than a hard lockup,
-but not much.
+  For drm_device resources (mostly structures and everything related to
+  that) we've just merged the drmm_ managed resources framework. There's
+  some more work to be done there for various kms objects, but you can at
+  least somewhat avoid tedious handrolling for everything internal
+  already.
 
-When I've talked about DRM device hot-unplug with Daniel Vetter, our
-shared opinion seems to be that the unplug should not outright kill any
-programs that are prepared to handle errors, that is, functions or
-ioctls that return a success code can return an error, and then it is
-up for the application to decide how to handle that. The end goal must
-not be to terminate all applications that had something to do with the
-device. At the very least the display server must survive.
+  Don't ever use devm_kzalloc and friends, I've looked at hundreds of uses
+  of this in drm, they're all wrong.
 
-The rough idea on how that should work is that DRM ioctls start
-returning errors and all mmaps are replaced with something harmless
-that does not cause a SIGBUS. Userspace can handle the errors if it
-wants to, and display servers will react to the device removed uevent
-if not earlier.
+- dma-buf is hilarious (and atm unfixed), dma-fence is even worse. In
+  theory they're already refcounted and all and so should work, in
+  practice I think we need to refcount the underlying drm_device with
+  drm_dev_get/put to avoid the worst fall-out.
 
-Why deliberately avoid raising SIGBUS? Because it is such a huge pain
-to handle due to the archaic design of how signals are delivered. Most
-of existing userspace is also not prepared to handle SIGBUS anywhere.
+- One unfortunate thing with drm_dev_unplug is that the driver core is
+  very opinionated and doesn't tell you whether it's a hotunplug or a
+  driver unload. In the former case trying to shut down hw just wastes
+  time (and might hit driver bugs), in the latter case driver engineers
+  very much expect everything to be shut down.
 
-The problem of handling SIGBUS at all is that a process can only have a
-single signal handler per signal, but the process may comprise of
-multiple components that cannot cooperate on signal catching: Mesa GPU
-drivers, GUI toolkits, and the application itself may all do some
-things that would require handling SIGBUS if removing a DRM device
-raised it. For Mesa to cooperate with SIGBUS handling with the other
-components in the process, we'd need some whole new APIs, an EGL
-extension and maybe Vulkan extension too. The process may also have
-threads, which are really painful with signals. What if you need to
-handle the SIGBUS differently in different threads?
+  Right now you can only have one or the other, so this needs a module
+  option hack or similar (default to the correct hotunplug behaviour for
+  users).
 
-Hence, mmaps should be replaced with something harmless, maybe
-something that reads back all zeros and ignores writes. The application
-will learn later that the DRM device is gone. Sending it a SIGBUS on
-the spot when it accesses an mmap does not help: the memory is gone
-already - if you didn't have a backup of the contents, you're not going
-to make one now.
+- SIGBUS is better than crashing the kernel, but it's not even close for
+  users. They still lose everything because everything crashes because in
+  my experience, in practice, no one ever handles errors. There's a few
+  more things on top:
 
-My point here is, are you designing things to specifically only
-terminate processes, or will you leave room in the design to improve the
-implementation towards a proper handling of DRM device hot-unplug?
+  - sighandlers are global, which means only the app can use it. You can't
+    use it in e.g. mesa. They're also not composable, so if you have on
+    sighandler for gpu1 and a 2nd one for gpu2 (could be different vendor)
+    it's all sadness. Hence "usersapce will handle SIGBUS" wont work.
 
+  - worse, neither vk nor gl (to my knowledge) have a concept of events
+    for when the gpu died. The only stuff you have is things like
+    arb_robustness which says a) everything continues as if nothing
+    happened b) there's a function where you can ask whether your gl
+    context and all the textures/buffers are toast.
 
-Thanks,
-pq
+    I think that's about the only hotunplug application model we can
+    realistically expect applications to support. That means _all_ errors
+    need to be silently eaten by either mesa or the kernel. On i915 the
+    model (also for terminally wedged gpu hangs) is that all ioctl keep
+    working, mmaps keep working, and execbuf gives you an -EIO (which mesa
+    eats silently iirc for arb_robustness).
 
+  Conclusion is that SIGBUS is imo a no-go, and the only option we have is
+  that a) mmaps fully keep working, doable for shmem or b) we put some
+  fake memory in there (for vram or whatever), maybe even only a single
+  page for all fake memory.
 
->=20
+- you probably want arb_robustness and similar stuff in userspace as a
+  first step.
+
+tldr;
+- refcounting, not waiting for userspace
+- nothing can fail because userspace wont handle it
+
+That's at least my take on this mess, and what we've been pushing for over
+the past few years. For kms-only drm_driver we should have achieved that
+by now (plus/minus maybe some issues for dma-buf/fences, but kms-only
+dma-buf/fences are simple enough that maybe we don't go boom yet).
+
+For big gpus with rendering I think best next step would be to type up a
+reasonable Gran Plan (into Documentation/gpu/todo.rst) with all the issues
+and likely solutions. And then bikeshed that, since the above is just my
+take on all this.
+
+Cheers, Daniel
+
+> 
 > Andrey Grodzovsky (6):
 >   drm/ttm: Add unampping of the entire device address space
 >   drm/amdgpu: Force unmap all user VMAs on device removal.
@@ -238,7 +218,7 @@ pq
 >   drm/amdgpu: Wait for all clients importing out dma-bufs.
 >   drm/ttm: Add destroy flag in TTM BO eviction interface
 >   drm/amdgpu: Use TTM MMs destroy interface
->=20
+> 
 >  drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  3 ++
 >  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 +-
 >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  7 +++-
@@ -251,47 +231,21 @@ pq
 >  drivers/gpu/drm/nouveau/nouveau_drm.c       |  2 +-
 >  drivers/gpu/drm/qxl/qxl_object.c            |  4 +-
 >  drivers/gpu/drm/radeon/radeon_object.c      |  2 +-
->  drivers/gpu/drm/ttm/ttm_bo.c                | 63 +++++++++++++++++++++--=
-------
+>  drivers/gpu/drm/ttm/ttm_bo.c                | 63 +++++++++++++++++++++--------
 >  drivers/gpu/drm/vmwgfx/vmwgfx_drv.c         |  6 +--
 >  include/drm/ttm/ttm_bo_api.h                |  2 +-
 >  include/drm/ttm/ttm_bo_driver.h             |  2 +
 >  16 files changed, 139 insertions(+), 34 deletions(-)
->=20
+> 
+> -- 
+> 2.7.4
+> 
 
-
---Sig_/05sbnmefCCihWg0NzLbh/hq
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAl65GigACgkQI1/ltBGq
-qqc0TQ//Wa351FirirqlSq/HfRY6tjeNcWcvjjg55BGAFsZXtRsuxzaYG6VsWTZx
-9kMl/YFvIvPIhl8vqI+Nhl7r9R+hM2GS0oeXlkaPPyYivkffvf/MFTQePXp3jh7f
-g08x5Z2MsdUrAWrujxLMKBBsUUxDWEYhVmrL4XunfMuYLtZWHN2y/9l5z569/aWF
-vLhhx+or1vKk1hndowNM5/aNWRJBQrhfHQp3zuuLHIlWBDvcvLySMmKkQWJeuzid
-PZRiV/EbpHYkhsAuBGUtZhTonRxJVg8gBtq2RUMxY1kt55K0dPWLUrYxNI7kiyHS
-rf822cynGt6KbuoNYarfQd5FuQDrSqDok3iW+t02AGafDiWuq4OwILMzviDanFRB
-0Q4y8V9HdQXgVwGYAvFwZKmnRqbDGC3jYFg+ZnFbfNLnxDBMo1S6vEtaGM8C/yz4
-0Tdppo4SfSS20wCIOdWfnWk5N1v0VLQlsuZq5pcY5L710Aj80dNcEoq5yfIbiR3H
-6J9ZloAAil/00+tg6e/jnPgZeaDkIPRWnkHgD8YcCk3OsRJ2EyOxfBoWeQvNA8JV
-Y7HmM4Y+40UB037aicG9yB54eikbv+wX5hEqbSqTPkRVwn43cTguC9GxOt0hi8LC
-aJwOnKQg4EYoPmREsPhtIgHVo+C5hcicXS91fAaUYRSKIcdV/fc=
-=NSmL
------END PGP SIGNATURE-----
-
---Sig_/05sbnmefCCihWg0NzLbh/hq--
-
---===============0754198806==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0754198806==--
