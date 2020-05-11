@@ -2,112 +2,106 @@ Return-Path: <SRS0=XsTU=6Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CCB01C54E8F
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 19:48:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 546CEC47255
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 19:51:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A6E242075E
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 19:48:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2109F206DB
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 19:51:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Ev5lq/ae"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A6E242075E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="YJQuufSm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2109F206DB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63F3389249;
-	Mon, 11 May 2020 19:48:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D11616E546;
+	Mon, 11 May 2020 19:51:30 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2088.outbound.protection.outlook.com [40.107.244.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE72F89249
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 19:48:28 +0000 (UTC)
+ (mail-mw2nam12on2054.outbound.protection.outlook.com [40.107.244.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 72F3E6E546
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 19:51:30 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=AXJmU0ZWI1rffjD6pFfsqK79b2zyo/4+jQ8592tw75eRDG8zSPxhfprfYD9udHXdutrZpgVcHkMuO40808gCyw5tZbWpT2GizH8SowTjfKlvWKSqh20pKEJgr8JWSIfCIc7nypYDeWNRbZi8i7Hmn1sBj7B45x86tOY17zanKGSYAf/33JVMsuTTVQc6y5bYFs8ev2n9FhuWTAihqk0Ggzikkxgrcovbg6Hheib1OpdoyO3lSxhMHhJlFpz/gfT3e3ucSzZJlHSuT0rT+V+9+7trR0f6Xw11PE7+TXe7syzssMkElM2lmJy8+VcePzo6//nchRQmLl6IBEkFH0IUnA==
+ b=ceWlAxeOrnHkVO9Ncpn3wZ5mJBKfHLQutmlI6dfD+r+d435aPMdnmOmXa7pXHCZjkbmjaCFOyklYfIwr5SCB9faesUsNaHoSA6xs//Hr7yMJE6lbkKDDiFs8IGIqQP2vrZ06WZnIlRMNLu/+ZcWfEVO42lTEUDmhwSdhS6v1as1boFerCuMP4o7ru6u9FgGWuiPPH+Lq4Y395XAc+qv++DUp/NujG6N5DYGibZ4tsqryzpxa3NG87bUEgE7GlFgff8UqYcfM0+q+SpxdGXeyA9R53m1wG5K2MeReklCzXH98v7uaaUXFHwidmQ3BsvhQZIrzD+LDMpvaVDwZzzAJ7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z4NC6ZylK4Z2A1jSbCFVhJKADH55layrP/8EYf6vEQM=;
- b=Ue+G70iAI74ey8pbtDjbi1MB2+pXpV5+oNxW1QCY3UkXPXRZtRBrnVm3gODJA8EutwRyN70kP3m45TbRCiNQDcCe6xcxo1lSS/OONv/NtnNgozbG+eaveIdGOW5JnT26UP/cv52r8m7bRKedLar6zGG1ekiW3bABn0kt8PEBa+Z9F5KGeEnC3aM34mGsXuf9ZDyYvo5yshpoU6bBhnVWFkgZshqJ+YwhzkXshtCc5aQVqmTjO5jP2Jy5nYyJJdwhXvuaQI7N1G2C75+XzP3gCkLemmQsteqOz9XappF16n1gGcj/QCe5lSv89i1Fdx696bPUmb8Ggx5WPwztY4ptVg==
+ bh=1lcQP7R5YC/h6Pebt77YpSgoKw1KAZiak+NaYBuWkno=;
+ b=fgL+LDtZIwxPfiYbKlNlGVnyr187/v8iXvJUQcEy2WYHe/M2S8ng0BTbEYxNPk5xiO4+eOPEb30J7TYwNBdNkOOvMcZxy74ibdDO1PNa6I4hsyI0FNU32MUp/KVBdp3fQYLAyk5cjOu9dmiKDSsOPQdnXYBAm4TSUCqoSC3H0g/ZmSPbwTut3Z597f6tWuBOdFG7wWJolgbohTJ4XixvIkR0GkskwwYCO8P/aGCvUy1c4bWsJThXTW5BXjnAsiszxvppznyJY8GJI0CwfVm1jOUD9aI995dQIUmFo/2fi3ka4M1uh2hJh0qtYe1Gy5DlLEkGhwabQRTsa316D2tH1A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z4NC6ZylK4Z2A1jSbCFVhJKADH55layrP/8EYf6vEQM=;
- b=Ev5lq/aegmspoF4knsDut1CrcoAzN8u69pkonU80zCxFjFh08NLorE/R82Z3rnjXk0EvqKkwC6Qpe3yquRGOq9kW1GRS7YgeIYe+9CvftAUJ1uWsGSh81cGrxu2LrclMup/BXddDKsMotUU/QofJuuyWO5OKFA6jnBmUfE4/s6o=
-Received: from SA0PR12MB4349.namprd12.prod.outlook.com (2603:10b6:806:98::21)
- by SA0PR12MB4543.namprd12.prod.outlook.com (2603:10b6:806:9d::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.28; Mon, 11 May
- 2020 19:48:27 +0000
-Received: from SA0PR12MB4349.namprd12.prod.outlook.com
- ([fe80::9de3:cd20:5d34:3ca]) by SA0PR12MB4349.namprd12.prod.outlook.com
- ([fe80::9de3:cd20:5d34:3ca%3]) with mapi id 15.20.2979.033; Mon, 11 May 2020
- 19:48:27 +0000
-From: "Ma, Hanghong" <Hanghong.Ma@amd.com>
-To: "Wentland, Harry" <Harry.Wentland@amd.com>
-Subject: RE: [PATCH] drm/amd/amdgpu: Update update_config() logic
+ bh=1lcQP7R5YC/h6Pebt77YpSgoKw1KAZiak+NaYBuWkno=;
+ b=YJQuufSmYpCWICecN07AWDQD3uWkSZ8q3nfhRFFlPPe2900xo9dKgA5dI2HLyipl+g5WgZOOwL4DliRl2r/B8axuosiJFrUAUY+428FkIzHcynrNEoCRR3CEUTW59rfxOLQgTrWB0XJh8y7oQr1U51/B6arF5SjCxEIUUZjYW+4=
+Received: from MW3PR12MB4554.namprd12.prod.outlook.com (2603:10b6:303:55::21)
+ by MW3PR12MB4474.namprd12.prod.outlook.com (2603:10b6:303:2e::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.29; Mon, 11 May
+ 2020 19:51:28 +0000
+Received: from MW3PR12MB4554.namprd12.prod.outlook.com
+ ([fe80::758f:7609:b573:448d]) by MW3PR12MB4554.namprd12.prod.outlook.com
+ ([fe80::758f:7609:b573:448d%6]) with mapi id 15.20.2979.033; Mon, 11 May 2020
+ 19:51:28 +0000
+From: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
+To: "Ma, Hanghong" <Hanghong.Ma@amd.com>, "Wentland, Harry"
+ <Harry.Wentland@amd.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: Update update_config() logic
 Thread-Topic: [PATCH] drm/amd/amdgpu: Update update_config() logic
-Thread-Index: AQHWJ8s/gnWcb/5VT0aeBl48VaUdAKijShQAgAAAP5A=
-Date: Mon, 11 May 2020 19:48:27 +0000
-Message-ID: <SA0PR12MB43493D1ED5333EFF4170B001F1A10@SA0PR12MB4349.namprd12.prod.outlook.com>
+Thread-Index: AQHWJ8s/GfiXjTPvhUO3pSrXd/MaJKijShQAgAAAnICAAACuyw==
+Date: Mon, 11 May 2020 19:51:28 +0000
+Message-ID: <MW3PR12MB45540F656CDB3770F88C964DF9A10@MW3PR12MB4554.namprd12.prod.outlook.com>
 References: <20200511192853.11150-1-hanghong.ma@amd.com>
- <8954f030-f222-60d0-21ad-bb7155c67440@amd.com>
-In-Reply-To: <8954f030-f222-60d0-21ad-bb7155c67440@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
+ <8954f030-f222-60d0-21ad-bb7155c67440@amd.com>,
+ <SA0PR12MB43493D1ED5333EFF4170B001F1A10@SA0PR12MB4349.namprd12.prod.outlook.com>
+In-Reply-To: <SA0PR12MB43493D1ED5333EFF4170B001F1A10@SA0PR12MB4349.namprd12.prod.outlook.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-CA
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-11T19:48:25Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=cc364026-d09a-4180-9460-0000f9f55362;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-05-11T19:48:25Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 8b8286e5-3295-40bf-9dab-00006a64d084
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-11T19:51:28.089Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
 authentication-results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [165.204.55.250]
+x-originating-ip: [165.204.54.211]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 9a8acbd8-eec5-4361-60ca-08d7f5e44617
-x-ms-traffictypediagnostic: SA0PR12MB4543:|SA0PR12MB4543:
+x-ms-office365-filtering-correlation-id: d235425b-c32b-4998-112b-08d7f5e4b21b
+x-ms-traffictypediagnostic: MW3PR12MB4474:|MW3PR12MB4474:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <SA0PR12MB4543561A9B63A1C35160EE63F1A10@SA0PR12MB4543.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <MW3PR12MB4474F050086D2BDD2C0EFD98F9A10@MW3PR12MB4474.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:7691;
 x-forefront-prvs: 04004D94E2
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: z9SrFHiX3zv9A0WXQ41wSgkh8sItqdOugj+8JWQd5a+7bRkYKcDqefAa53v91Nn4pVco33gXMTIibCpKBSNZJT8DymR/FW+Hebzhzmyh3512peoYKt+QI/PDnW2SGIvE0haW6SfF6LbheQtcvTSK/zo5Oz0xUSK3c1Sc0s3kzZXU2LHtJhJwqE31XU/HzRS3U3/IxCjdUukVxsd9AvfmnpQ2yzcxsnZRcjvvvUpwIkd0hka3j7h/JVE6T1s6YaUIYatPNCi6mpEEOFNGFKveKk6BDxD4o4rcLxHIr9t9qDwMmKAA2C/6UuoHzHWCU2FnpO9CQXVf1caqLfyP1FIhsavYang/7XKqIzYpZEiD7qeH3Uqff/jdvgFdy8CdJ7GWen9fTaQn7xGtSvcI62gQlkxYHtvLOcFALv4+jYgIJfjwj7Xbn0nazq+dObAwj8zHOOmY3iskgKS+a/VNudDV60QLs6UIM2+A6zGOhBanZtPwQ3p2DOYD+M5SLgjQyhfbcasi1AuHMYr87YOqq/i4ew==
+x-microsoft-antispam-message-info: YCGTyxXWblTdb1h0HNRh1SF/KVH3nGFZE+MNYW7+HHhxw3FSWynZ4KkmWCYIrWR1+aD0bxgiDgW5Hr/iDyZBqJB0jfC5xeDGbdOkh0jHFT/VBI1MYtMfv3OXvymiml5dVx4zDsilkmTxr+rMdRV7He5Xm7C6loPOuJm4BhxTf5vZ2T8Uzfiaejw9tAJaeTYMD6gtQcqj48ziGSTC+Nxb2TPG8hAZgFEOBz3fynmcya5dCnn7V8NWzNsuwstZuKAtFZYJM0tNNQRUzUaTv7iUcBIFkoHhlfThEB/KjM2JRK34pbrcZ4aCrCf+LZ25hNmkH9vfJZ+kpuDh/JwC0Q73pv8DGEeJQdg3vXwf2+n9uB/uRQO5tyULu5yxxJ3FcJh4GKVH3VznaQhCkT3M7ziDAefa+CeTck7Myy1UTjxa9WIBaH0D/n+OFarcibZ+LHOII8WiuvP5LHke9sORmX/AMw7N2pXUdeqZV72tX+kc6WwCYl1Fp433RDpQwBHXBPwkJXKsRr+6DlVvSVWeO8Pbvg==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB4349.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:MW3PR12MB4554.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(366004)(39860400002)(376002)(346002)(396003)(33430700001)(33440700001)(53546011)(66556008)(66476007)(76116006)(66946007)(71200400001)(86362001)(7696005)(5660300002)(8676002)(15650500001)(66446008)(8936002)(54906003)(64756008)(55016002)(9686003)(6862004)(6506007)(2906002)(33656002)(52536014)(316002)(26005)(478600001)(4326008)(6636002)(186003);
+ SFS:(4636009)(376002)(346002)(396003)(366004)(136003)(39860400002)(33430700001)(6636002)(186003)(86362001)(2906002)(33656002)(91956017)(26005)(76116006)(316002)(52536014)(7696005)(71200400001)(66946007)(8676002)(19627405001)(9686003)(110136005)(5660300002)(33440700001)(66556008)(64756008)(66476007)(66446008)(478600001)(55016002)(4326008)(6506007)(8936002)(53546011)(15650500001);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: K1oJ6Br7FXNKkc7d8WzL/ebJ2YKmDrRH19r4kEPvciFUtaYijdw6etD9tx1kbMZ0lIp77lwfd9bNib0+63YM5OdCkk0UTp55wfMZeanh0Tda2brnUIQlIpjEJhW7SxYWq9LZVv56+j7a/JWgagp5qNGotkYJlLuR8Wj4EI3QGk5Eq5HyF3iFCIJlfmLHzoEmzg1XhtBpDeYY396zA4pfaa/bE6sJLZ85ZiKgqd/kj0LziU3V3y4qqrQPvk6tXkDhd4K90kxcxSD2PktgLcOp5mlR37G0H/uik+gmphlPjia4z695n5BZ17R8tCy0aN1EL1dVpN9lfLG5/Od5i91RvOrBzdnw385yicMUAy80Rhx4j2iYdHK5fcgtVtgRDts77vzuUMVfZrJyAsyJVvDKoPwn+ApA4iRpxNxN/A7xG3zDEdzQS2CJ78Moq7con8WFCKrWZjQ06er5eNfvYQhfofsyb6/8okeIljCl/jf0dGOyfrKtRCqdt1ZBf1mOQlJ1
+x-ms-exchange-antispam-messagedata: a6vSxm9nAoaRxxFxjxuncNMwUeMKm0Sf2C3WDbVz5wAe2GJPbUlHmYIipKNuCmigkgnVW50VDphQBOjQFYhOu4K+UykswkM8T4jRm+ItWhrgwCX+M4B9fE56kg20BKR4eWAFGFp5WzlisF8/e938q011kcgnQl78df+NQxPphWSkFFH54wZ6wreaUBURDp3LYNDYXLckmic64S+uZoBuwcRuyrV5aGaEbmqpTFmMyypch3dtPz3FE9smbA8UymxHgzmaj4oQ/jkzyMD/agwNFVl3Ro89xPskG8/9Cohva78QgaN04FsIp+haCe0yovx0KXl5iNQDLWrdKTBQFrEyM46Xf0uBXHxHpT+aUAsZsBmNJtoBw2jlu7w5rU2nDFACDv+/IbJOK3cdc8IgmAGCOfYUAXHv2JcIf0Md+pA7kRWneiBzrPu9MXhXNdjTkbeu5Cavb6JWWAClPSZ5yd+LGo70h2O6ylKirALxcNi3sipMT3FP5KwbaX5vEInnf7Op
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a8acbd8-eec5-4361-60ca-08d7f5e44617
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2020 19:48:27.2544 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d235425b-c32b-4998-112b-08d7f5e4b21b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2020 19:51:28.3759 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wFw4Er+in8Yjo3yY4aEkw3pkjyUTK0YDLF/t/LoyncUH/susNklSlfbBMz2HwUX+KcsSt+LqAy/4s5uxbXNS0w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4543
+X-MS-Exchange-CrossTenant-userprincipalname: jvNdfkOOfXbDRbGDBakX8kpVrHfEXMHTD0OfFpyYuG7oR3RCi3EdmpudgzUcvSwg
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4474
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,12 +113,30 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============0826589850=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
+
+--===============0826589850==
+Content-Language: en-CA
+Content-Type: multipart/alternative;
+	boundary="_000_MW3PR12MB45540F656CDB3770F88C964DF9A10MW3PR12MB4554namp_"
+
+--_000_MW3PR12MB45540F656CDB3770F88C964DF9A10MW3PR12MB4554namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+[AMD Official Use Only - Internal Distribution Only]
+
+Reviewed-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+________________________________
+From: Ma, Hanghong <Hanghong.Ma@amd.com>
+Sent: May 11, 2020 3:48 PM
+To: Wentland, Harry <Harry.Wentland@amd.com>
+Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; amd-gfx@lists.freedeskt=
+op.org <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/amdgpu: Update update_config() logic
 
 [AMD Official Use Only - Internal Distribution Only]
 
@@ -134,21 +146,22 @@ I will drop the Change-Id before merging.
 -Leo
 
 -----Original Message-----
-From: Wentland, Harry <Harry.Wentland@amd.com> 
+From: Wentland, Harry <Harry.Wentland@amd.com>
 Sent: Monday, May 11, 2020 3:46 PM
-To: Ma, Hanghong <Hanghong.Ma@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>; amd-gfx@lists.freedesktop.org
+To: Ma, Hanghong <Hanghong.Ma@amd.com>; Lakha, Bhawanpreet <Bhawanpreet.Lak=
+ha@amd.com>; amd-gfx@lists.freedesktop.org
 Cc: Wentland, Harry <Harry.Wentland@amd.com>
 Subject: Re: [PATCH] drm/amd/amdgpu: Update update_config() logic
 
 On 2020-05-11 3:28 p.m., Leo (Hanghong) Ma wrote:
 > [Why]
-> For MST case: when update_config is called to disable a stream, this 
+> For MST case: when update_config is called to disable a stream, this
 > clears the settings for all the streams on that link.
 > We should only clear the settings for the stream that was disabled.
-> 
+>
 > [How]
 > Clear the settings after the call to remove display is called.
-> 
+>
 > Change-Id: I8235998b8fac3d58d24edf86bb5d7cc030f1e375
 
 Please drop the Change-Id before merging.
@@ -160,38 +173,177 @@ Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 Harry
 
 > ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 10 
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 10
 > +++++-----
 >  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c 
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
 > b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
 > index 78e1c11d4ae5..dcf84a61de37 100644
 > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
 > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-> @@ -398,15 +398,15 @@ static void update_config(void *handle, struct cp_psp_stream_config *config)
->  	struct mod_hdcp_display *display = &hdcp_work[link_index].display;
->  	struct mod_hdcp_link *link = &hdcp_work[link_index].link;
->  
-> -	memset(display, 0, sizeof(*display));
-> -	memset(link, 0, sizeof(*link));
+> @@ -398,15 +398,15 @@ static void update_config(void *handle, struct cp_p=
+sp_stream_config *config)
+>        struct mod_hdcp_display *display =3D &hdcp_work[link_index].displa=
+y;
+>        struct mod_hdcp_link *link =3D &hdcp_work[link_index].link;
+>
+> -     memset(display, 0, sizeof(*display));
+> -     memset(link, 0, sizeof(*link));
 > -
-> -	display->index = aconnector->base.index;
+> -     display->index =3D aconnector->base.index;
 > -
->  	if (config->dpms_off) {
->  		hdcp_remove_display(hdcp_work, link_index, aconnector);
->  		return;
->  	}
+>        if (config->dpms_off) {
+>                hdcp_remove_display(hdcp_work, link_index, aconnector);
+>                return;
+>        }
 > +
-> +	memset(display, 0, sizeof(*display));
-> +	memset(link, 0, sizeof(*link));
+> +     memset(display, 0, sizeof(*display));
+> +     memset(link, 0, sizeof(*link));
 > +
-> +	display->index = aconnector->base.index;
->  	display->state = MOD_HDCP_DISPLAY_ACTIVE;
->  
->  	if (aconnector->dc_sink != NULL)
-> 
+> +     display->index =3D aconnector->base.index;
+>        display->state =3D MOD_HDCP_DISPLAY_ACTIVE;
+>
+>        if (aconnector->dc_sink !=3D NULL)
+>
+
+--_000_MW3PR12MB45540F656CDB3770F88C964DF9A10MW3PR12MB4554namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Reviewed-by: Bhawanpreet Lakha &lt;Bhawanpreet.Lakha@amd.com&gt;<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Ma, Hanghong &lt;Hang=
+hong.Ma@amd.com&gt;<br>
+<b>Sent:</b> May 11, 2020 3:48 PM<br>
+<b>To:</b> Wentland, Harry &lt;Harry.Wentland@amd.com&gt;<br>
+<b>Cc:</b> Lakha, Bhawanpreet &lt;Bhawanpreet.Lakha@amd.com&gt;; amd-gfx@li=
+sts.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amd/amdgpu: Update update_config() logic</f=
+ont>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">[AMD Official Use Only - Internal Distribution Onl=
+y]<br>
+<br>
+Thanks Harry.<br>
+I will drop the Change-Id before merging.<br>
+<br>
+-Leo<br>
+<br>
+-----Original Message-----<br>
+From: Wentland, Harry &lt;Harry.Wentland@amd.com&gt; <br>
+Sent: Monday, May 11, 2020 3:46 PM<br>
+To: Ma, Hanghong &lt;Hanghong.Ma@amd.com&gt;; Lakha, Bhawanpreet &lt;Bhawan=
+preet.Lakha@amd.com&gt;; amd-gfx@lists.freedesktop.org<br>
+Cc: Wentland, Harry &lt;Harry.Wentland@amd.com&gt;<br>
+Subject: Re: [PATCH] drm/amd/amdgpu: Update update_config() logic<br>
+<br>
+On 2020-05-11 3:28 p.m., Leo (Hanghong) Ma wrote:<br>
+&gt; [Why]<br>
+&gt; For MST case: when update_config is called to disable a stream, this <=
+br>
+&gt; clears the settings for all the streams on that link.<br>
+&gt; We should only clear the settings for the stream that was disabled.<br=
+>
+&gt; <br>
+&gt; [How]<br>
+&gt; Clear the settings after the call to remove display is called.<br>
+&gt; <br>
+&gt; Change-Id: I8235998b8fac3d58d24edf86bb5d7cc030f1e375<br>
+<br>
+Please drop the Change-Id before merging.<br>
+<br>
+&gt; Signed-off-by: Leo (Hanghong) Ma &lt;hanghong.ma@amd.com&gt;<br>
+<br>
+Reviewed-by: Harry Wentland &lt;harry.wentland@amd.com&gt;<br>
+<br>
+Harry<br>
+<br>
+&gt; ---<br>
+&gt;&nbsp; drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c | 10 <br>
+&gt; &#43;&#43;&#43;&#43;&#43;-----<br>
+&gt;&nbsp; 1 file changed, 5 insertions(&#43;), 5 deletions(-)<br>
+&gt; <br>
+&gt; diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c <b=
+r>
+&gt; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c<br>
+&gt; index 78e1c11d4ae5..dcf84a61de37 100644<br>
+&gt; --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c<br>
+&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp=
+.c<br>
+&gt; @@ -398,15 &#43;398,15 @@ static void update_config(void *handle, stru=
+ct cp_psp_stream_config *config)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mod_hdcp_display *dis=
+play =3D &amp;hdcp_work[link_index].display;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mod_hdcp_link *link =
+=3D &amp;hdcp_work[link_index].link;<br>
+&gt;&nbsp; <br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(display, 0, sizeof(*display));<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; memset(link, 0, sizeof(*link));<br>
+&gt; -<br>
+&gt; -&nbsp;&nbsp;&nbsp;&nbsp; display-&gt;index =3D aconnector-&gt;base.in=
+dex;<br>
+&gt; -<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (config-&gt;dpms_off) {<b=
+r>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; hdcp_remove_display(hdcp_work, link_index, aconnector);=
+<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; return;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; memset(display, 0, sizeof(*display));<br=
+>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; memset(link, 0, sizeof(*link));<br>
+&gt; &#43;<br>
+&gt; &#43;&nbsp;&nbsp;&nbsp;&nbsp; display-&gt;index =3D aconnector-&gt;bas=
+e.index;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; display-&gt;state =3D MOD_HD=
+CP_DISPLAY_ACTIVE;<br>
+&gt;&nbsp; <br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (aconnector-&gt;dc_sink !=
+=3D NULL)<br>
+&gt; <br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_MW3PR12MB45540F656CDB3770F88C964DF9A10MW3PR12MB4554namp_--
+
+--===============0826589850==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0826589850==--
