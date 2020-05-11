@@ -2,108 +2,79 @@ Return-Path: <SRS0=XsTU=6Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EBFAC47255
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 06:29:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B7C4C47255
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 06:45:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2FE5E20736
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 06:29:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 313802075E
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 06:45:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="OYmi81Qf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2FE5E20736
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SzyQivQ/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 313802075E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08B316E1BA;
-	Mon, 11 May 2020 06:29:38 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2071.outbound.protection.outlook.com [40.107.223.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C781B6E1BA
- for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 06:29:36 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=EB3BGpwgEYhNWXlEtui7u4UjGVecwDW98oU9o0oo3ROd+7s9tkKRCPWhNMeFS3NyfmuAm7zI921XZgmV0vbAf4+aa8KJfMtI3NHJxRspckd3T03odxwbrRJ4uAsXalndifU3OgRr+onmVs0WjOagzpK6gJetCZZOR/hunmrvoulTaadtSneRCMNPmIviyOAra2U2S6d+6vDvuRmq4nXK/b27BvPJDv+c70cRIBapO+otuhiRgA6LwKlhPczhBvUrbgRqLAA1VAi2AwJEYJFca7hZWS89ZFPweRFhCTj4V73MjLkHEbqhuRz2zk1P3O9UYOEW1Ncw3nyBrnmaVxqLQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tULq1bC/uaNMR/CrM6dMvhJDPtzLwVN002P2yuNSQOE=;
- b=bKXIrGBf5SKtbCr3+URXUwGyuSyoF/lPcC3l6kmO97T+RWfOCwBLl6nZY8Z4llwR+MdtyFaJcMsKxB62D3+dKLewFPVQ5nXsvLVHHs9sBmzjZ1cVH5E1mObcGMz75s69ZqdG90AoiydigPs7sarUutaqZRBxrTEIjwOVCjqf7dpM0Uf7HVh8axBxvr9MtbsZbHMceR0wHlSEsXcZAbfVoaLEMDItJUaIVSOpbg9Bs8dj8pqpDUspgi1+ao8tbRO6ycuffI32W388W5yG7iyQBUwEyfBDmCQrv3QHX5Z2b+u9uxVumDA6uwGk1TR9yIr9ooUnF+wbHnLRhEiuXVYGCA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tULq1bC/uaNMR/CrM6dMvhJDPtzLwVN002P2yuNSQOE=;
- b=OYmi81Qf3jmOqFlEjDXYFREbpvKfdmJx740rFgXvcuBodW4PBQyEk4ctfoyQ5eeYQ01/KwCghNMtV8Tr7LoKEa/KRiwdRCrmxxDj7h+dSNp8bue79aHtpZgDDkkk45JFFAhvA5hFcrKSenAfia8u+J9W3+c6EFtveBcsmxO6wSA=
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB2922.namprd12.prod.outlook.com (2603:10b6:5:18d::25) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2979.34; Mon, 11 May 2020 06:29:34 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.2979.033; Mon, 11 May 2020
- 06:29:34 +0000
-From: "Quan, Evan" <Evan.Quan@amd.com>
-To: "Jian, Jane" <Jane.Jian@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/powerplay: skip judging if baco support for
- Arcturus sriov
-Thread-Topic: [PATCH] drm/amd/powerplay: skip judging if baco support for
- Arcturus sriov
-Thread-Index: AQHWJdjGJ80Bf+QGFE2IBnn9sYFu5qiibmMAgAAA1CA=
-Date: Mon, 11 May 2020 06:29:33 +0000
-Message-ID: <DM6PR12MB2619280194A396D8DFC6E4C4E4A10@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <20200509080633.4506-1-Jane.Jian@amd.com>
- <BY5PR12MB3652092EA8ED7FCBD34DA165FFA10@BY5PR12MB3652.namprd12.prod.outlook.com>
-In-Reply-To: <BY5PR12MB3652092EA8ED7FCBD34DA165FFA10@BY5PR12MB3652.namprd12.prod.outlook.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-11T06:25:59Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=c4e03e14-386d-4bab-b862-0000d91534ec;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 1d68bd12-7fef-4b49-8e68-08d7f574abb1
-x-ms-traffictypediagnostic: DM6PR12MB2922:|DM6PR12MB2922:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB2922DEBFC44107AC5129FD59E4A10@DM6PR12MB2922.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
-x-forefront-prvs: 04004D94E2
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: OLGXd3vgN+vqSqFQ+V9B0FPQQeIDC9OmEMzewtrMddnhHYq6sEcUP3LXaz+wTSpmzxuIyPdpMgvwVd24/BLs37F2nfF7/NL+w3L3gPA6RFsvMhiBN30i3vMbizTdItXj+64Y2L6Pjm6qPMQfvDfAd0kHYqHWgSneYW2gRSPKMmQAEDcuYDH4k1tDoDjERG9VyObvCh+3VJz1XzaLjK+snuRHE3a//3ewCZyKFwGyGqR5/wbYq8m1LIKpIJUZsHJGxW12U3JvSuffaw8+KAijtw92/sfWeuyqmOGpyqfKLQ2ktXXYM4SVPvIRzKLT3G3mAhKxHP9QBXBZs2cLPwA55SKNsvgCSZosesi2ZAKwWaL71RXLd0VqXzL2es4HLB+GQaIX/hEK6n3DKDdmAAp5dmOMxDsO8xhtbFPmk0zItlL4xFgE6hIb2SKhVS7jyByxgMgxPU9T4Er6Lk9nAfemvZJ/VQvH0DAav89qlEdL9gOHVu2KhNhNdGCJ/uq9sl49HxPCMiB1nMeHHrWPSpGZIg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(396003)(136003)(366004)(39860400002)(346002)(376002)(33430700001)(6506007)(8676002)(53546011)(26005)(8936002)(4326008)(66476007)(86362001)(110136005)(66946007)(76116006)(5660300002)(7696005)(71200400001)(66556008)(64756008)(186003)(52536014)(316002)(9686003)(55016002)(33656002)(66446008)(2906002)(33440700001)(478600001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: ftIF4xU8O1MLxvP6PDd+rQXVkrivFYu48ng2+POlNFKP3TGSCOJdnnrxbxuV5fkdrcXOR/OXQABqIZJYaSqo6AprAOgF2dPeggEuA3dAsDBXTFlsgjm/nl21DlYIHK6lAAgFKgSxgSvjq4nDup6jyPERt1dGeuXmNckgV6lTrjbTn8Y2W8zBRBLxdCFfrcHEsrToxZGHjkIepp71a9+JHJF7VANoMKcgj2blyRE0E92wkno3IAIGfJnVKaMktnV2Wq+8p+eYdrpQews7mpl5KZYFByM5VK3vcJbYFElh0vNfbUY6dpZAL8rTtGHgGvaAkogoZHU3sy0GOsF826yMNdDqgTY6I90I1dG+zuLEfYp3VzwSYVI5bJ5vlzc3YQvWfyjaFETIALIA38iM9YgLd/H9RAF8oI5rKXCFSdyo5MBXGQQzKGrH5DmyWiBU6lubRauDpAea1PyBOUfo4amnD3CSLvyn1Ux1PxqzD6nq++UtrUfKOZiVZKq5shH6dIzj
+	by gabe.freedesktop.org (Postfix) with ESMTP id B07D26E1BE;
+	Mon, 11 May 2020 06:45:32 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E1456E1BC;
+ Mon, 11 May 2020 06:45:31 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id u16so17763355wmc.5;
+ Sun, 10 May 2020 23:45:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=1EGHCNZLop6lpa2MpQukB0Jzk7xjNDSSnPYZVksTl3g=;
+ b=SzyQivQ/k/7XrX8ar4XJQSn6XsTnFG6KqOIWxsJDuWQaChKGSnVAjtH0PyEm1stXRX
+ 2hdUyzb8OXIMagIdiS94rTquleNZLkmhyeLuYncHNTgT3mjGHceSe0v0LHx63jEUAOPS
+ 5zR0mNg8H0+PD7hmGrH18koC9v0HpLJ0uyvbWs2qnDhEszLQTM6EjsPZFrzbH6CDK7Bh
+ yjaLRU8Xw1xNvKBua9jLiFz1qOznXnd8+2Ag0BPocSmLSEh2muXsod8FWd5IkGf2ndSD
+ ww5ZFpHG8nxl2qMqw28CHdfCe/tbQWI4PBHxXwajJX8BbZIjQvGHmCDMOe7JJcK8xBmk
+ RciQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=1EGHCNZLop6lpa2MpQukB0Jzk7xjNDSSnPYZVksTl3g=;
+ b=pjVxYyQoAsPLLeRmC+Qb54gXAWQboE8rUXdkOqjCIdo6uI3bFasYKqFvEgC1bWCB/u
+ GaoW1SNXqw8MhmM94BQKPs5BAjusSbtEXu9Bp6vccaOZteX/EiuO0JvkfQvp0yCyfg2p
+ 3AmoI6wLNuNcwQZGGOZslLybh1xiP6g15BZJTBnZRelXmfa80n9MtETeiqvVWw2dqRhi
+ +UaSPjn32qJw+//v0CQK6SAHaBdOynHYSorry/VBJegqvWnAi3jHzs5H/ZouZrlE+3Ke
+ pYY2GxwJPeq/qlYrMVZRyfGN6xmtMs15t8Tr57AN2njiFkPiX9sG23rXyTqY7In7ll5q
+ 7Uxg==
+X-Gm-Message-State: AGi0PuYb/s2N+15RGclQvkgSSLoh1ogqJ952HXoP+2qKmFVimgW3fycY
+ 4ail9qdK7TLCLIuLYxA6OII=
+X-Google-Smtp-Source: APiQypK5EFJWbdLc5bXtXjCxgAaG3RfG35us+gztlEfpNe17D+ozOZBQZM+xCfL9V1I+x56wlVuhTA==
+X-Received: by 2002:a1c:1f16:: with SMTP id f22mr10040983wmf.46.1589179529773; 
+ Sun, 10 May 2020 23:45:29 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id d9sm874290wmd.10.2020.05.10.23.45.28
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 10 May 2020 23:45:29 -0700 (PDT)
+Subject: Re: [PATCH 1/6] drm/ttm: Add unampping of the entire device address
+ space
+To: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <1589050310-19666-1-git-send-email-andrey.grodzovsky@amd.com>
+ <1589050310-19666-2-git-send-email-andrey.grodzovsky@amd.com>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <e293af59-99df-c147-68d6-8fa3ade38829@gmail.com>
+Date: Mon, 11 May 2020 08:45:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d68bd12-7fef-4b49-8e68-08d7f574abb1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 May 2020 06:29:34.0097 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: RNiyGxFIZQUZwAkjQW+kzSH5NIWI3U/gqVCEw5l423KbYjYudgNm2IOMx+lsWj5a
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2922
+In-Reply-To: <1589050310-19666-2-git-send-email-andrey.grodzovsky@amd.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,60 +86,77 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Min, Frank" <Frank.Min@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: christian.koenig@amd.com
+Cc: alexdeucher@gmail.com, daniel.vetter@ffwll.ch, michel@daenzer.net
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Acked-by: Evan Quan <evan.quan@amd.com>
+Am 09.05.20 um 20:51 schrieb Andrey Grodzovsky:
+> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+> ---
+>   drivers/gpu/drm/ttm/ttm_bo.c    | 22 +++++++++++++++++++++-
+>   include/drm/ttm/ttm_bo_driver.h |  2 ++
+>   2 files changed, 23 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index c5b516f..eae61cc 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -1750,9 +1750,29 @@ void ttm_bo_unmap_virtual(struct ttm_buffer_object *bo)
+>   	ttm_bo_unmap_virtual_locked(bo);
+>   	ttm_mem_io_unlock(man);
+>   }
+> +EXPORT_SYMBOL(ttm_bo_unmap_virtual);
+>   
+> +void ttm_bo_unmap_virtual_address_space(struct ttm_bo_device *bdev)
+> +{
+> +	struct ttm_mem_type_manager *man;
+> +	int i;
+>   
+> -EXPORT_SYMBOL(ttm_bo_unmap_virtual);
 
------Original Message-----
-From: Jian, Jane <Jane.Jian@amd.com> 
-Sent: Monday, May 11, 2020 2:26 PM
-To: Jian, Jane <Jane.Jian@amd.com>; amd-gfx@lists.freedesktop.org; Quan, Evan <Evan.Quan@amd.com>
-Cc: Min, Frank <Frank.Min@amd.com>
-Subject: RE: [PATCH] drm/amd/powerplay: skip judging if baco support for Arcturus sriov
+> +	for (i = 0; i < TTM_NUM_MEM_TYPES; i++) {
+> +		man = &bdev->man[i];
+> +		if (man->has_type && man->use_type)
+> +			ttm_mem_io_lock(man, false);
+> +	}
 
-[AMD Official Use Only - Internal Distribution Only]
+You should drop that it will just result in a deadlock warning for 
+Nouveau and has no effect at all.
 
-Hi @Quan, Evan,
-Could you please help to review this patch?
-Since this is previously your patch here.
-Thanks,
-Jane 
+Apart from that looks good to me,
+Christian.
 
------Original Message-----
-From: Jane Jian <Jane.Jian@amd.com> 
-Sent: Saturday, May 9, 2020 4:07 PM
-To: amd-gfx@lists.freedesktop.org; Quan, Evan <Evan.Quan@amd.com>
-Cc: Jian, Jane <Jane.Jian@amd.com>; Min, Frank <Frank.Min@amd.com>
-Subject: [PATCH] drm/amd/powerplay: skip judging if baco support for Arcturus sriov
+> +
+> +	unmap_mapping_range(bdev->dev_mapping, 0, 0 , 1);
+> +	/*TODO What about ttm_mem_io_free_vm(bo) ? */
+> +
+> +	for (i = TTM_NUM_MEM_TYPES - 1; i >= 0; i--) {
+> +		man = &bdev->man[i];
+> +		if (man->has_type && man->use_type)
+> +			ttm_mem_io_unlock(man);
+> +	}
+> +}
+> +EXPORT_SYMBOL(ttm_bo_unmap_virtual_address_space);
+>   
+>   int ttm_bo_wait(struct ttm_buffer_object *bo,
+>   		bool interruptible, bool no_wait)
+> diff --git a/include/drm/ttm/ttm_bo_driver.h b/include/drm/ttm/ttm_bo_driver.h
+> index c9e0fd0..3133463 100644
+> --- a/include/drm/ttm/ttm_bo_driver.h
+> +++ b/include/drm/ttm/ttm_bo_driver.h
+> @@ -600,6 +600,8 @@ int ttm_bo_device_init(struct ttm_bo_device *bdev,
+>    */
+>   void ttm_bo_unmap_virtual(struct ttm_buffer_object *bo);
+>   
+> +void ttm_bo_unmap_virtual_address_space(struct ttm_bo_device *bdev);
+> +
+>   /**
+>    * ttm_bo_unmap_virtual
+>    *
 
-since for sriov, baco happens on host side, no need and meaning to judge is baco.
-also, since kiq reads strap0 in here, if kiq is not ready or gpu reset(kiq resume) happens after this read, would fail to read and wrongly set baco as true(1).
-
-Change-Id: Ib67f837edfbf09263133d5614f6dbb890cf27b12
-Signed-off-by: Jane Jian <Jane.Jian@amd.com>
----
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-index 1c66b7d7139c..cfae4bcaf32e 100644
---- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-@@ -2251,7 +2251,7 @@ static bool arcturus_is_baco_supported(struct smu_context *smu)
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t val;
- 
--	if (!smu_v11_0_baco_is_support(smu))
-+	if (!smu_v11_0_baco_is_support(smu) || amdgpu_sriov_vf(adev))
- 		return false;
- 
- 	val = RREG32_SOC15(NBIO, 0, mmRCC_BIF_STRAP0);
---
-2.17.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
