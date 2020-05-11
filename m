@@ -2,78 +2,65 @@ Return-Path: <SRS0=XsTU=6Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-1.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BCE0C54E8D
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 12:34:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1BECCC54E4A
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 12:43:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E062C206D6
-	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 12:34:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E660120736
+	for <amd-gfx@archiver.kernel.org>; Mon, 11 May 2020 12:43:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qQo2Yatr"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E062C206D6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Duq4uwf3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E660120736
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87E9D6E452;
-	Mon, 11 May 2020 12:34:19 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5AF5D6E44F;
- Mon, 11 May 2020 12:34:18 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id k12so17829141wmj.3;
- Mon, 11 May 2020 05:34:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=LphsfCyPVu0MdCoxqVpG2uL08ny9bL/Y03NLWFhWvZs=;
- b=qQo2Yatr3jxyW/g0s9keYj+PhhXC0B9KF4LJ89ArBByxokBTSa0IihAC+aG27CuSdg
- zkz5CrQSomoHgEK1EfY3ozAxZSZ5G0eRo8Fx/OFIe7xl8GthIehqAfdoWwDbkwXgFGer
- zCz+nFMPJGgon6nK76RCaPsUvcyMq7gkJXJO2ySFCm164zgQDVGd8BtDm9Q056wuDSJD
- S7h8+avRUNhV+znVX8CPZSNrykxp/mnukr049Q4oSK++ZOTm3sWyh+0aeQ1DT2l4gll8
- 7suGptMRIamcclnvbrf9ZixvBo1H0cM4PYkl24c94oM+1RFrIzXIAU5C7k/dDhj+TBS4
- P+Bw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id A09F16E456;
+	Mon, 11 May 2020 12:43:42 +0000 (UTC)
+Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
+ [IPv6:2607:f8b0:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D9D06E455
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 12:43:41 +0000 (UTC)
+Received: by mail-ot1-x342.google.com with SMTP id j26so7423921ots.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 11 May 2020 05:43:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=KZcQtNiVHTXNbSLeR8iGsQkedDij2Ge2nm0dRX81a7s=;
+ b=Duq4uwf35/zmtEsjZGUtQtpaRVEPVwTxo1mtBFfeXokTqOp66yVMRAbsa/piZ5CPHh
+ WHGaWBOAujR5t9r62cJYiZwzFrjBB0HQAe6LTVnJVv+f4WZEMemTMXRB7Qw7XYWhli+A
+ kztDt9qbreeHQ2C0mr/GoqNQgVFNy3A7RqyV8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=LphsfCyPVu0MdCoxqVpG2uL08ny9bL/Y03NLWFhWvZs=;
- b=grufMOwoqVsxxQRhfJMggjMRl4YknUKBAzdrfsRkPgpWugpbTKJY0quKN5GpRUrzzM
- Mk+8KUwKvgZT1XVMqK6wK32n2oILiKYp2ugu8AIwXCftSOMMydwG7atPY6/XnsqUljIb
- /0tG0pOlohutOVtZXUNgC3iN+I5byR7VnaDwN5IGhQUXqyTVtIRvMpYveNXbkZsSl0xW
- 0yclQLQItTctkRlJimVv3Ye0VfRaOhSamev0hZJUgvtdD+LIz/LRb8QINajk0ZBRyO4+
- 8CMzAYH5gf+k0Ne7X9PaFsuE6PfJmz3odihJDIml715hUVPEcStDxANQFLjH46K6GaBX
- XgGA==
-X-Gm-Message-State: AGi0Puab89vA5l0XybjBK8IZK5Ify0IXZAkNGfkqbElYB7PQFSKhgaAe
- E8VuYcUyQ1rDubyYkiW2uFLgEx5P
-X-Google-Smtp-Source: APiQypKuCxKY8UrY9CQKkbYuRyuWrKZ7mdLwAFb7kE+gpM3vywtFlOoQn76/cdEYCEqmJfCslO+vLw==
-X-Received: by 2002:a1c:6344:: with SMTP id x65mr14659905wmb.51.1589200456660; 
- Mon, 11 May 2020 05:34:16 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id l19sm27136187wmj.14.2020.05.11.05.34.13
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 11 May 2020 05:34:16 -0700 (PDT)
-Subject: Re: [PATCH 0/6] RFC Support hot device unplug in amdgpu
-To: Daniel Vetter <daniel@ffwll.ch>,
- Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=KZcQtNiVHTXNbSLeR8iGsQkedDij2Ge2nm0dRX81a7s=;
+ b=mxEy+uJasRJOYqZXMjWE9B/94QwJVFLvcDQbc1t/b3n9nRRNIXNqq4+IlPrWe6AE+3
+ UAMQVX8mvwEbb4IQtZGeOOUFkAgJC8fLuDTHkexh2oRNHYkpItdb/TkZA5Mw9QYxKSwk
+ 6YmrhWmo+aEAo1Gu1dn61W5FdGmLdK+fIs4aS1O1XSrU4oi2/NtLRWX1Dnw7vxCqWVaU
+ L54U9gzkB0//608+QPx39NAn/fOrPtHbFBv2guRcC8OUoix3NWfSO6zPXXQHk4Kt44H1
+ ZQFIg/Fst8N4anY1XGUyspUaryoqtzAxJ+8JsF8YT3kC/VudbAdeuG45XQ9eNu/7HjBK
+ JoWA==
+X-Gm-Message-State: AGi0PuZfLYK4O9MFoNrKuZrYSH9V2ewAkCePAENxhmXpLmH2+UMht9Rf
+ ot/8/HuDBZ4C7JZmmJMR1JC/NZwWPs1LSkm8ltQpsQ==
+X-Google-Smtp-Source: APiQypKJwaoyXQen4PFR7OxpNtThM79ztF0ydqqj8tQybSVyXfUY28MlSzV1gLlquzLFn9657Kigie5MV/fDPofDR10=
+X-Received: by 2002:a9d:d06:: with SMTP id 6mr13219354oti.188.1589201020213;
+ Mon, 11 May 2020 05:43:40 -0700 (PDT)
+MIME-Version: 1.0
 References: <1589050310-19666-1-git-send-email-andrey.grodzovsky@amd.com>
  <20200511095433.GA206103@phenom.ffwll.local>
  <20200511111931.GD206103@phenom.ffwll.local>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <1a58a623-b54d-1c90-0228-2f3d4da2dbbe@gmail.com>
-Date: Mon, 11 May 2020 14:34:13 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <20200511111931.GD206103@phenom.ffwll.local>
-Content-Language: en-US
+ <1a58a623-b54d-1c90-0228-2f3d4da2dbbe@gmail.com>
+In-Reply-To: <1a58a623-b54d-1c90-0228-2f3d4da2dbbe@gmail.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Mon, 11 May 2020 14:43:28 +0200
+Message-ID: <CAKMK7uG1N=C27GG=N7tvUgAq3BoRfAUgzBFeTyLjLuYssM4KXA@mail.gmail.com>
+Subject: Re: [PATCH 0/6] RFC Support hot device unplug in amdgpu
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,204 +72,224 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: alexdeucher@gmail.com, daniel.vetter@ffwll.ch, michel@daenzer.net,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Alex Deucher <alexdeucher@gmail.com>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 11.05.20 um 13:19 schrieb Daniel Vetter:
-> On Mon, May 11, 2020 at 11:54:33AM +0200, Daniel Vetter wrote:
->> On Sat, May 09, 2020 at 02:51:44PM -0400, Andrey Grodzovsky wrote:
->>> This RFC is a more of a proof of concept then a fully working solution as there are a few unresolved issues we are hopping to get advise on from people on the mailing list.
->>> Until now extracting a card either by physical extraction (e.g. eGPU with thunderbold connection or by emulation through syfs -> /sys/bus/pci/devices/device_id/remove)
->>> would cause random crashes in user apps. The random crashes in apps were mostly due to the app having mapped a device backed BO into it's adress space was still
->>> trying to access the BO while the backing device was gone.
->>> To answer this first problem Christian suggested to fix the handling of mapped memory in the clients when the device goes away by forcibly unmap all buffers
->>> the user processes has by clearing their respective VMAs mapping the device BOs. Then when the VMAs try to fill in the page tables again we check in the fault handler
->>> if the device is removed and if so, return an error. This will generate a SIGBUS to the application which can then cleanly terminate.
->>> This indeed was done but this in turn created a problem of kernel OOPs were the OOPSes were due to the fact that while the app was terminating because of the SIGBUS
->>> it would trigger use after free in the driver by calling to accesses device structures that were already released from the pci remove sequence.
->>> This we handled by introducing a 'flush' seqence during device removal were we wait for drm file reference to drop to 0 meaning all user clients directly using this device terminated.
->>> With this I was able to cleanly emulate device unplug with X and glxgears running and later emulate device plug back and restart of X and glxgears.
->>>
->>> But this use case is only partial and as I see it all the use cases are as follwing and the questions it raises.
->>>
->>> 1) Application accesses a BO by opening drm file
->>> 	1.1) BO is mapped into applications address space (BO is CPU visible) - this one we have a solution for by invaldating BO's CPU mapping casuing SIGBUS
->>> 	     and termination and waiting for drm file refcound to drop to 0 before releasing the device
->>> 	1.2) BO is not mapped into applcation address space (BO is CPU invisible) - no solution yet because how we force the application to terminate in this case ?
->>>
->>> 2) Application accesses a BO by importing a DMA-BUF
->>> 	2.1)  BO is mapped into applications address space (BO is CPU visible) - solution is same as 1.1 but instead of waiting for drm file release we wait for the
->>> 	      imported dma-buf's file release
->>> 	2.2)  BO is not mapped into applcation address space (BO is CPU invisible) - our solution is to invalidate GPUVM page tables and destroy backing storage for
->>>                all exported BOs which will in turn casue VM faults in the importing device and then when the importing driver will try to re-attach the imported BO to
->>> 	      update mappings we return -ENODEV in the import hook which hopeffuly will cause the user app to terminate.
->>>
->>> 3) Applcation opens a drm file or imports a dma-bud and holds a reference but never access any BO or does access but never more after device was unplug - how would we
->>>     force this applcation to termiante before proceeding with device removal code ? Otherwise the wait in pci remove just hangs for ever.
->>>
->>> The attached patches adress 1.1, 2.1 and 2.2, for now only 1.1 fully tested and I am still testing the others but I will be happy for any advise on all the
->>> described use cases and maybe some alternative and better (more generic) approach to this like maybe obtaining PIDs of relevant processes through some revere
->>> mapping from device file and exported dma-buf files and send them SIGKILL - would this make more sense or any other method ?
->>>
->>> Patches 1-3 address 1.1
->>> Patch 4 addresses 2.1
->>> Pathces 5-6 address 2.2
->>>
->>> Reference: https://gitlab.freedesktop.org/drm/amd/-/issues/1081
->> So we've been working on this problem for a few years already (but it's
->> still not solved), I think you could have saved yourselfs some typing.
->>
->> Bunch of things:
->> - we can't wait for userspace in the hotunplug handlers, that might never
->>    happen. The correct way is to untangle the lifetime of your hw driver
->>    for a specific struct pci_device from the drm_device lifetime.
->>    Infrastructure is all there now, see drm_dev_get/put, drm_dev_unplug and
->>    drm_dev_enter/exit. A bunch of usb/spi drivers use this 100% correctly
->>    now, so there's examples. Plus kerneldoc explains stuff.
-
-That's exactly what we tried first and I expected that this is a 
-necessity. Ok so back to the drawing board for this.
-
->>
->> - for a big driver like amdgpu doing this split up is going to be
->>    horrendously complex. I know, we've done it for i915, at least
->>    partially. I strongly recommend that you're using devm_ for managing hw
->>    related resources (iomap, irq, ...) as much as possible.
->>
->>    For drm_device resources (mostly structures and everything related to
->>    that) we've just merged the drmm_ managed resources framework. There's
->>    some more work to be done there for various kms objects, but you can at
->>    least somewhat avoid tedious handrolling for everything internal
->>    already.
->>
->>    Don't ever use devm_kzalloc and friends, I've looked at hundreds of uses
->>    of this in drm, they're all wrong.
->>
->> - dma-buf is hilarious (and atm unfixed), dma-fence is even worse. In
->>    theory they're already refcounted and all and so should work, in
->>    practice I think we need to refcount the underlying drm_device with
->>    drm_dev_get/put to avoid the worst fall-out.
-> oh I forgot one, since it's new since the last time we've seriously
-> discussed this: p2p dma-buf
->
-> But that /should/ be handleable with the move_notify callback. Assuming we
-> don't have any bugs anywhere, and the importer can indeed get rid of all
-> its mapping, always.
-
-Yeah, already noted that as well in the internal discussion.
-
->
-> But for completeness probably need this one, just to keep it noted.
-> -Daniel
->
->> - One unfortunate thing with drm_dev_unplug is that the driver core is
->>    very opinionated and doesn't tell you whether it's a hotunplug or a
->>    driver unload. In the former case trying to shut down hw just wastes
->>    time (and might hit driver bugs), in the latter case driver engineers
->>    very much expect everything to be shut down.
->>
->>    Right now you can only have one or the other, so this needs a module
->>    option hack or similar (default to the correct hotunplug behaviour for
->>    users).
->>
->> - SIGBUS is better than crashing the kernel, but it's not even close for
->>    users. They still lose everything because everything crashes because in
->>    my experience, in practice, no one ever handles errors. There's a few
->>    more things on top:
->>
->>    - sighandlers are global, which means only the app can use it. You can't
->>      use it in e.g. mesa. They're also not composable, so if you have on
->>      sighandler for gpu1 and a 2nd one for gpu2 (could be different vendor)
->>      it's all sadness. Hence "usersapce will handle SIGBUS" wont work.
->>
->>    - worse, neither vk nor gl (to my knowledge) have a concept of events
->>      for when the gpu died. The only stuff you have is things like
->>      arb_robustness which says a) everything continues as if nothing
->>      happened b) there's a function where you can ask whether your gl
->>      context and all the textures/buffers are toast.
->>
->>      I think that's about the only hotunplug application model we can
->>      realistically expect applications to support. That means _all_ errors
->>      need to be silently eaten by either mesa or the kernel. On i915 the
->>      model (also for terminally wedged gpu hangs) is that all ioctl keep
->>      working, mmaps keep working, and execbuf gives you an -EIO (which mesa
->>      eats silently iirc for arb_robustness).
->>
->>    Conclusion is that SIGBUS is imo a no-go, and the only option we have is
->>    that a) mmaps fully keep working, doable for shmem or b) we put some
->>    fake memory in there (for vram or whatever), maybe even only a single
->>    page for all fake memory.
-
-Ok, good to know.
-
-So to summarize no application termination, but instead redirect all 
-memory access to a dummy page.
-
- From the IOCTLs we return -ENODEV instead of -EIO. Is that a problem?
-
-Thanks for the comments,
-Christian.
-
->>
->> - you probably want arb_robustness and similar stuff in userspace as a
->>    first step.
->>
->> tldr;
->> - refcounting, not waiting for userspace
->> - nothing can fail because userspace wont handle it
->>
->> That's at least my take on this mess, and what we've been pushing for over
->> the past few years. For kms-only drm_driver we should have achieved that
->> by now (plus/minus maybe some issues for dma-buf/fences, but kms-only
->> dma-buf/fences are simple enough that maybe we don't go boom yet).
->>
->> For big gpus with rendering I think best next step would be to type up a
->> reasonable Gran Plan (into Documentation/gpu/todo.rst) with all the issues
->> and likely solutions. And then bikeshed that, since the above is just my
->> take on all this.
->>
->> Cheers, Daniel
->>
->>> Andrey Grodzovsky (6):
->>>    drm/ttm: Add unampping of the entire device address space
->>>    drm/amdgpu: Force unmap all user VMAs on device removal.
->>>    drm/amdgpu: Wait for all user clients
->>>    drm/amdgpu: Wait for all clients importing out dma-bufs.
->>>    drm/ttm: Add destroy flag in TTM BO eviction interface
->>>    drm/amdgpu: Use TTM MMs destroy interface
->>>
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  3 ++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c |  2 +-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  7 +++-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c | 27 ++++++++++++-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c     | 22 ++++++++--
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_job.c     |  9 +++++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c     |  4 ++
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  | 17 +++++++-
->>>   drivers/gpu/drm/amd/amdgpu/amdgpu_object.h  |  1 +
->>>   drivers/gpu/drm/nouveau/nouveau_drm.c       |  2 +-
->>>   drivers/gpu/drm/qxl/qxl_object.c            |  4 +-
->>>   drivers/gpu/drm/radeon/radeon_object.c      |  2 +-
->>>   drivers/gpu/drm/ttm/ttm_bo.c                | 63 +++++++++++++++++++++--------
->>>   drivers/gpu/drm/vmwgfx/vmwgfx_drv.c         |  6 +--
->>>   include/drm/ttm/ttm_bo_api.h                |  2 +-
->>>   include/drm/ttm/ttm_bo_driver.h             |  2 +
->>>   16 files changed, 139 insertions(+), 34 deletions(-)
->>>
->>> -- 
->>> 2.7.4
->>>
->> -- 
->> Daniel Vetter
->> Software Engineer, Intel Corporation
->> http://blog.ffwll.ch
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gTW9uLCBNYXkgMTEsIDIwMjAgYXQgMjozNCBQTSBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
+LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBBbSAxMS4wNS4yMCB1bSAxMzox
+OSBzY2hyaWViIERhbmllbCBWZXR0ZXI6Cj4gPiBPbiBNb24sIE1heSAxMSwgMjAyMCBhdCAxMTo1
+NDozM0FNICswMjAwLCBEYW5pZWwgVmV0dGVyIHdyb3RlOgo+ID4+IE9uIFNhdCwgTWF5IDA5LCAy
+MDIwIGF0IDAyOjUxOjQ0UE0gLTA0MDAsIEFuZHJleSBHcm9kem92c2t5IHdyb3RlOgo+ID4+PiBU
+aGlzIFJGQyBpcyBhIG1vcmUgb2YgYSBwcm9vZiBvZiBjb25jZXB0IHRoZW4gYSBmdWxseSB3b3Jr
+aW5nIHNvbHV0aW9uIGFzIHRoZXJlIGFyZSBhIGZldyB1bnJlc29sdmVkIGlzc3VlcyB3ZSBhcmUg
+aG9wcGluZyB0byBnZXQgYWR2aXNlIG9uIGZyb20gcGVvcGxlIG9uIHRoZSBtYWlsaW5nIGxpc3Qu
+Cj4gPj4+IFVudGlsIG5vdyBleHRyYWN0aW5nIGEgY2FyZCBlaXRoZXIgYnkgcGh5c2ljYWwgZXh0
+cmFjdGlvbiAoZS5nLiBlR1BVIHdpdGggdGh1bmRlcmJvbGQgY29ubmVjdGlvbiBvciBieSBlbXVs
+YXRpb24gdGhyb3VnaCBzeWZzIC0+IC9zeXMvYnVzL3BjaS9kZXZpY2VzL2RldmljZV9pZC9yZW1v
+dmUpCj4gPj4+IHdvdWxkIGNhdXNlIHJhbmRvbSBjcmFzaGVzIGluIHVzZXIgYXBwcy4gVGhlIHJh
+bmRvbSBjcmFzaGVzIGluIGFwcHMgd2VyZSBtb3N0bHkgZHVlIHRvIHRoZSBhcHAgaGF2aW5nIG1h
+cHBlZCBhIGRldmljZSBiYWNrZWQgQk8gaW50byBpdCdzIGFkcmVzcyBzcGFjZSB3YXMgc3RpbGwK
+PiA+Pj4gdHJ5aW5nIHRvIGFjY2VzcyB0aGUgQk8gd2hpbGUgdGhlIGJhY2tpbmcgZGV2aWNlIHdh
+cyBnb25lLgo+ID4+PiBUbyBhbnN3ZXIgdGhpcyBmaXJzdCBwcm9ibGVtIENocmlzdGlhbiBzdWdn
+ZXN0ZWQgdG8gZml4IHRoZSBoYW5kbGluZyBvZiBtYXBwZWQgbWVtb3J5IGluIHRoZSBjbGllbnRz
+IHdoZW4gdGhlIGRldmljZSBnb2VzIGF3YXkgYnkgZm9yY2libHkgdW5tYXAgYWxsIGJ1ZmZlcnMK
+PiA+Pj4gdGhlIHVzZXIgcHJvY2Vzc2VzIGhhcyBieSBjbGVhcmluZyB0aGVpciByZXNwZWN0aXZl
+IFZNQXMgbWFwcGluZyB0aGUgZGV2aWNlIEJPcy4gVGhlbiB3aGVuIHRoZSBWTUFzIHRyeSB0byBm
+aWxsIGluIHRoZSBwYWdlIHRhYmxlcyBhZ2FpbiB3ZSBjaGVjayBpbiB0aGUgZmF1bHQgaGFuZGxl
+cgo+ID4+PiBpZiB0aGUgZGV2aWNlIGlzIHJlbW92ZWQgYW5kIGlmIHNvLCByZXR1cm4gYW4gZXJy
+b3IuIFRoaXMgd2lsbCBnZW5lcmF0ZSBhIFNJR0JVUyB0byB0aGUgYXBwbGljYXRpb24gd2hpY2gg
+Y2FuIHRoZW4gY2xlYW5seSB0ZXJtaW5hdGUuCj4gPj4+IFRoaXMgaW5kZWVkIHdhcyBkb25lIGJ1
+dCB0aGlzIGluIHR1cm4gY3JlYXRlZCBhIHByb2JsZW0gb2Yga2VybmVsIE9PUHMgd2VyZSB0aGUg
+T09QU2VzIHdlcmUgZHVlIHRvIHRoZSBmYWN0IHRoYXQgd2hpbGUgdGhlIGFwcCB3YXMgdGVybWlu
+YXRpbmcgYmVjYXVzZSBvZiB0aGUgU0lHQlVTCj4gPj4+IGl0IHdvdWxkIHRyaWdnZXIgdXNlIGFm
+dGVyIGZyZWUgaW4gdGhlIGRyaXZlciBieSBjYWxsaW5nIHRvIGFjY2Vzc2VzIGRldmljZSBzdHJ1
+Y3R1cmVzIHRoYXQgd2VyZSBhbHJlYWR5IHJlbGVhc2VkIGZyb20gdGhlIHBjaSByZW1vdmUgc2Vx
+dWVuY2UuCj4gPj4+IFRoaXMgd2UgaGFuZGxlZCBieSBpbnRyb2R1Y2luZyBhICdmbHVzaCcgc2Vx
+ZW5jZSBkdXJpbmcgZGV2aWNlIHJlbW92YWwgd2VyZSB3ZSB3YWl0IGZvciBkcm0gZmlsZSByZWZl
+cmVuY2UgdG8gZHJvcCB0byAwIG1lYW5pbmcgYWxsIHVzZXIgY2xpZW50cyBkaXJlY3RseSB1c2lu
+ZyB0aGlzIGRldmljZSB0ZXJtaW5hdGVkLgo+ID4+PiBXaXRoIHRoaXMgSSB3YXMgYWJsZSB0byBj
+bGVhbmx5IGVtdWxhdGUgZGV2aWNlIHVucGx1ZyB3aXRoIFggYW5kIGdseGdlYXJzIHJ1bm5pbmcg
+YW5kIGxhdGVyIGVtdWxhdGUgZGV2aWNlIHBsdWcgYmFjayBhbmQgcmVzdGFydCBvZiBYIGFuZCBn
+bHhnZWFycy4KPiA+Pj4KPiA+Pj4gQnV0IHRoaXMgdXNlIGNhc2UgaXMgb25seSBwYXJ0aWFsIGFu
+ZCBhcyBJIHNlZSBpdCBhbGwgdGhlIHVzZSBjYXNlcyBhcmUgYXMgZm9sbHdpbmcgYW5kIHRoZSBx
+dWVzdGlvbnMgaXQgcmFpc2VzLgo+ID4+Pgo+ID4+PiAxKSBBcHBsaWNhdGlvbiBhY2Nlc3NlcyBh
+IEJPIGJ5IG9wZW5pbmcgZHJtIGZpbGUKPiA+Pj4gICAgIDEuMSkgQk8gaXMgbWFwcGVkIGludG8g
+YXBwbGljYXRpb25zIGFkZHJlc3Mgc3BhY2UgKEJPIGlzIENQVSB2aXNpYmxlKSAtIHRoaXMgb25l
+IHdlIGhhdmUgYSBzb2x1dGlvbiBmb3IgYnkgaW52YWxkYXRpbmcgQk8ncyBDUFUgbWFwcGluZyBj
+YXN1aW5nIFNJR0JVUwo+ID4+PiAgICAgICAgICBhbmQgdGVybWluYXRpb24gYW5kIHdhaXRpbmcg
+Zm9yIGRybSBmaWxlIHJlZmNvdW5kIHRvIGRyb3AgdG8gMCBiZWZvcmUgcmVsZWFzaW5nIHRoZSBk
+ZXZpY2UKPiA+Pj4gICAgIDEuMikgQk8gaXMgbm90IG1hcHBlZCBpbnRvIGFwcGxjYXRpb24gYWRk
+cmVzcyBzcGFjZSAoQk8gaXMgQ1BVIGludmlzaWJsZSkgLSBubyBzb2x1dGlvbiB5ZXQgYmVjYXVz
+ZSBob3cgd2UgZm9yY2UgdGhlIGFwcGxpY2F0aW9uIHRvIHRlcm1pbmF0ZSBpbiB0aGlzIGNhc2Ug
+Pwo+ID4+Pgo+ID4+PiAyKSBBcHBsaWNhdGlvbiBhY2Nlc3NlcyBhIEJPIGJ5IGltcG9ydGluZyBh
+IERNQS1CVUYKPiA+Pj4gICAgIDIuMSkgIEJPIGlzIG1hcHBlZCBpbnRvIGFwcGxpY2F0aW9ucyBh
+ZGRyZXNzIHNwYWNlIChCTyBpcyBDUFUgdmlzaWJsZSkgLSBzb2x1dGlvbiBpcyBzYW1lIGFzIDEu
+MSBidXQgaW5zdGVhZCBvZiB3YWl0aW5nIGZvciBkcm0gZmlsZSByZWxlYXNlIHdlIHdhaXQgZm9y
+IHRoZQo+ID4+PiAgICAgICAgICAgaW1wb3J0ZWQgZG1hLWJ1ZidzIGZpbGUgcmVsZWFzZQo+ID4+
+PiAgICAgMi4yKSAgQk8gaXMgbm90IG1hcHBlZCBpbnRvIGFwcGxjYXRpb24gYWRkcmVzcyBzcGFj
+ZSAoQk8gaXMgQ1BVIGludmlzaWJsZSkgLSBvdXIgc29sdXRpb24gaXMgdG8gaW52YWxpZGF0ZSBH
+UFVWTSBwYWdlIHRhYmxlcyBhbmQgZGVzdHJveSBiYWNraW5nIHN0b3JhZ2UgZm9yCj4gPj4+ICAg
+ICAgICAgICAgICAgIGFsbCBleHBvcnRlZCBCT3Mgd2hpY2ggd2lsbCBpbiB0dXJuIGNhc3VlIFZN
+IGZhdWx0cyBpbiB0aGUgaW1wb3J0aW5nIGRldmljZSBhbmQgdGhlbiB3aGVuIHRoZSBpbXBvcnRp
+bmcgZHJpdmVyIHdpbGwgdHJ5IHRvIHJlLWF0dGFjaCB0aGUgaW1wb3J0ZWQgQk8gdG8KPiA+Pj4g
+ICAgICAgICAgIHVwZGF0ZSBtYXBwaW5ncyB3ZSByZXR1cm4gLUVOT0RFViBpbiB0aGUgaW1wb3J0
+IGhvb2sgd2hpY2ggaG9wZWZmdWx5IHdpbGwgY2F1c2UgdGhlIHVzZXIgYXBwIHRvIHRlcm1pbmF0
+ZS4KPiA+Pj4KPiA+Pj4gMykgQXBwbGNhdGlvbiBvcGVucyBhIGRybSBmaWxlIG9yIGltcG9ydHMg
+YSBkbWEtYnVkIGFuZCBob2xkcyBhIHJlZmVyZW5jZSBidXQgbmV2ZXIgYWNjZXNzIGFueSBCTyBv
+ciBkb2VzIGFjY2VzcyBidXQgbmV2ZXIgbW9yZSBhZnRlciBkZXZpY2Ugd2FzIHVucGx1ZyAtIGhv
+dyB3b3VsZCB3ZQo+ID4+PiAgICAgZm9yY2UgdGhpcyBhcHBsY2F0aW9uIHRvIHRlcm1pYW50ZSBi
+ZWZvcmUgcHJvY2VlZGluZyB3aXRoIGRldmljZSByZW1vdmFsIGNvZGUgPyBPdGhlcndpc2UgdGhl
+IHdhaXQgaW4gcGNpIHJlbW92ZSBqdXN0IGhhbmdzIGZvciBldmVyLgo+ID4+Pgo+ID4+PiBUaGUg
+YXR0YWNoZWQgcGF0Y2hlcyBhZHJlc3MgMS4xLCAyLjEgYW5kIDIuMiwgZm9yIG5vdyBvbmx5IDEu
+MSBmdWxseSB0ZXN0ZWQgYW5kIEkgYW0gc3RpbGwgdGVzdGluZyB0aGUgb3RoZXJzIGJ1dCBJIHdp
+bGwgYmUgaGFwcHkgZm9yIGFueSBhZHZpc2Ugb24gYWxsIHRoZQo+ID4+PiBkZXNjcmliZWQgdXNl
+IGNhc2VzIGFuZCBtYXliZSBzb21lIGFsdGVybmF0aXZlIGFuZCBiZXR0ZXIgKG1vcmUgZ2VuZXJp
+YykgYXBwcm9hY2ggdG8gdGhpcyBsaWtlIG1heWJlIG9idGFpbmluZyBQSURzIG9mIHJlbGV2YW50
+IHByb2Nlc3NlcyB0aHJvdWdoIHNvbWUgcmV2ZXJlCj4gPj4+IG1hcHBpbmcgZnJvbSBkZXZpY2Ug
+ZmlsZSBhbmQgZXhwb3J0ZWQgZG1hLWJ1ZiBmaWxlcyBhbmQgc2VuZCB0aGVtIFNJR0tJTEwgLSB3
+b3VsZCB0aGlzIG1ha2UgbW9yZSBzZW5zZSBvciBhbnkgb3RoZXIgbWV0aG9kID8KPiA+Pj4KPiA+
+Pj4gUGF0Y2hlcyAxLTMgYWRkcmVzcyAxLjEKPiA+Pj4gUGF0Y2ggNCBhZGRyZXNzZXMgMi4xCj4g
+Pj4+IFBhdGhjZXMgNS02IGFkZHJlc3MgMi4yCj4gPj4+Cj4gPj4+IFJlZmVyZW5jZTogaHR0cHM6
+Ly9naXRsYWIuZnJlZWRlc2t0b3Aub3JnL2RybS9hbWQvLS9pc3N1ZXMvMTA4MQo+ID4+IFNvIHdl
+J3ZlIGJlZW4gd29ya2luZyBvbiB0aGlzIHByb2JsZW0gZm9yIGEgZmV3IHllYXJzIGFscmVhZHkg
+KGJ1dCBpdCdzCj4gPj4gc3RpbGwgbm90IHNvbHZlZCksIEkgdGhpbmsgeW91IGNvdWxkIGhhdmUg
+c2F2ZWQgeW91cnNlbGZzIHNvbWUgdHlwaW5nLgo+ID4+Cj4gPj4gQnVuY2ggb2YgdGhpbmdzOgo+
+ID4+IC0gd2UgY2FuJ3Qgd2FpdCBmb3IgdXNlcnNwYWNlIGluIHRoZSBob3R1bnBsdWcgaGFuZGxl
+cnMsIHRoYXQgbWlnaHQgbmV2ZXIKPiA+PiAgICBoYXBwZW4uIFRoZSBjb3JyZWN0IHdheSBpcyB0
+byB1bnRhbmdsZSB0aGUgbGlmZXRpbWUgb2YgeW91ciBodyBkcml2ZXIKPiA+PiAgICBmb3IgYSBz
+cGVjaWZpYyBzdHJ1Y3QgcGNpX2RldmljZSBmcm9tIHRoZSBkcm1fZGV2aWNlIGxpZmV0aW1lLgo+
+ID4+ICAgIEluZnJhc3RydWN0dXJlIGlzIGFsbCB0aGVyZSBub3csIHNlZSBkcm1fZGV2X2dldC9w
+dXQsIGRybV9kZXZfdW5wbHVnIGFuZAo+ID4+ICAgIGRybV9kZXZfZW50ZXIvZXhpdC4gQSBidW5j
+aCBvZiB1c2Ivc3BpIGRyaXZlcnMgdXNlIHRoaXMgMTAwJSBjb3JyZWN0bHkKPiA+PiAgICBub3cs
+IHNvIHRoZXJlJ3MgZXhhbXBsZXMuIFBsdXMga2VybmVsZG9jIGV4cGxhaW5zIHN0dWZmLgo+Cj4g
+VGhhdCdzIGV4YWN0bHkgd2hhdCB3ZSB0cmllZCBmaXJzdCBhbmQgSSBleHBlY3RlZCB0aGF0IHRo
+aXMgaXMgYQo+IG5lY2Vzc2l0eS4gT2sgc28gYmFjayB0byB0aGUgZHJhd2luZyBib2FyZCBmb3Ig
+dGhpcy4KPgo+ID4+Cj4gPj4gLSBmb3IgYSBiaWcgZHJpdmVyIGxpa2UgYW1kZ3B1IGRvaW5nIHRo
+aXMgc3BsaXQgdXAgaXMgZ29pbmcgdG8gYmUKPiA+PiAgICBob3JyZW5kb3VzbHkgY29tcGxleC4g
+SSBrbm93LCB3ZSd2ZSBkb25lIGl0IGZvciBpOTE1LCBhdCBsZWFzdAo+ID4+ICAgIHBhcnRpYWxs
+eS4gSSBzdHJvbmdseSByZWNvbW1lbmQgdGhhdCB5b3UncmUgdXNpbmcgZGV2bV8gZm9yIG1hbmFn
+aW5nIGh3Cj4gPj4gICAgcmVsYXRlZCByZXNvdXJjZXMgKGlvbWFwLCBpcnEsIC4uLikgYXMgbXVj
+aCBhcyBwb3NzaWJsZS4KPiA+Pgo+ID4+ICAgIEZvciBkcm1fZGV2aWNlIHJlc291cmNlcyAobW9z
+dGx5IHN0cnVjdHVyZXMgYW5kIGV2ZXJ5dGhpbmcgcmVsYXRlZCB0bwo+ID4+ICAgIHRoYXQpIHdl
+J3ZlIGp1c3QgbWVyZ2VkIHRoZSBkcm1tXyBtYW5hZ2VkIHJlc291cmNlcyBmcmFtZXdvcmsuIFRo
+ZXJlJ3MKPiA+PiAgICBzb21lIG1vcmUgd29yayB0byBiZSBkb25lIHRoZXJlIGZvciB2YXJpb3Vz
+IGttcyBvYmplY3RzLCBidXQgeW91IGNhbiBhdAo+ID4+ICAgIGxlYXN0IHNvbWV3aGF0IGF2b2lk
+IHRlZGlvdXMgaGFuZHJvbGxpbmcgZm9yIGV2ZXJ5dGhpbmcgaW50ZXJuYWwKPiA+PiAgICBhbHJl
+YWR5Lgo+ID4+Cj4gPj4gICAgRG9uJ3QgZXZlciB1c2UgZGV2bV9remFsbG9jIGFuZCBmcmllbmRz
+LCBJJ3ZlIGxvb2tlZCBhdCBodW5kcmVkcyBvZiB1c2VzCj4gPj4gICAgb2YgdGhpcyBpbiBkcm0s
+IHRoZXkncmUgYWxsIHdyb25nLgo+ID4+Cj4gPj4gLSBkbWEtYnVmIGlzIGhpbGFyaW91cyAoYW5k
+IGF0bSB1bmZpeGVkKSwgZG1hLWZlbmNlIGlzIGV2ZW4gd29yc2UuIEluCj4gPj4gICAgdGhlb3J5
+IHRoZXkncmUgYWxyZWFkeSByZWZjb3VudGVkIGFuZCBhbGwgYW5kIHNvIHNob3VsZCB3b3JrLCBp
+bgo+ID4+ICAgIHByYWN0aWNlIEkgdGhpbmsgd2UgbmVlZCB0byByZWZjb3VudCB0aGUgdW5kZXJs
+eWluZyBkcm1fZGV2aWNlIHdpdGgKPiA+PiAgICBkcm1fZGV2X2dldC9wdXQgdG8gYXZvaWQgdGhl
+IHdvcnN0IGZhbGwtb3V0Lgo+ID4gb2ggSSBmb3Jnb3Qgb25lLCBzaW5jZSBpdCdzIG5ldyBzaW5j
+ZSB0aGUgbGFzdCB0aW1lIHdlJ3ZlIHNlcmlvdXNseQo+ID4gZGlzY3Vzc2VkIHRoaXM6IHAycCBk
+bWEtYnVmCj4gPgo+ID4gQnV0IHRoYXQgL3Nob3VsZC8gYmUgaGFuZGxlYWJsZSB3aXRoIHRoZSBt
+b3ZlX25vdGlmeSBjYWxsYmFjay4gQXNzdW1pbmcgd2UKPiA+IGRvbid0IGhhdmUgYW55IGJ1Z3Mg
+YW55d2hlcmUsIGFuZCB0aGUgaW1wb3J0ZXIgY2FuIGluZGVlZCBnZXQgcmlkIG9mIGFsbAo+ID4g
+aXRzIG1hcHBpbmcsIGFsd2F5cy4KPgo+IFllYWgsIGFscmVhZHkgbm90ZWQgdGhhdCBhcyB3ZWxs
+IGluIHRoZSBpbnRlcm5hbCBkaXNjdXNzaW9uLgo+Cj4gPgo+ID4gQnV0IGZvciBjb21wbGV0ZW5l
+c3MgcHJvYmFibHkgbmVlZCB0aGlzIG9uZSwganVzdCB0byBrZWVwIGl0IG5vdGVkLgo+ID4gLURh
+bmllbAo+ID4KPiA+PiAtIE9uZSB1bmZvcnR1bmF0ZSB0aGluZyB3aXRoIGRybV9kZXZfdW5wbHVn
+IGlzIHRoYXQgdGhlIGRyaXZlciBjb3JlIGlzCj4gPj4gICAgdmVyeSBvcGluaW9uYXRlZCBhbmQg
+ZG9lc24ndCB0ZWxsIHlvdSB3aGV0aGVyIGl0J3MgYSBob3R1bnBsdWcgb3IgYQo+ID4+ICAgIGRy
+aXZlciB1bmxvYWQuIEluIHRoZSBmb3JtZXIgY2FzZSB0cnlpbmcgdG8gc2h1dCBkb3duIGh3IGp1
+c3Qgd2FzdGVzCj4gPj4gICAgdGltZSAoYW5kIG1pZ2h0IGhpdCBkcml2ZXIgYnVncyksIGluIHRo
+ZSBsYXR0ZXIgY2FzZSBkcml2ZXIgZW5naW5lZXJzCj4gPj4gICAgdmVyeSBtdWNoIGV4cGVjdCBl
+dmVyeXRoaW5nIHRvIGJlIHNodXQgZG93bi4KPiA+Pgo+ID4+ICAgIFJpZ2h0IG5vdyB5b3UgY2Fu
+IG9ubHkgaGF2ZSBvbmUgb3IgdGhlIG90aGVyLCBzbyB0aGlzIG5lZWRzIGEgbW9kdWxlCj4gPj4g
+ICAgb3B0aW9uIGhhY2sgb3Igc2ltaWxhciAoZGVmYXVsdCB0byB0aGUgY29ycmVjdCBob3R1bnBs
+dWcgYmVoYXZpb3VyIGZvcgo+ID4+ICAgIHVzZXJzKS4KPiA+Pgo+ID4+IC0gU0lHQlVTIGlzIGJl
+dHRlciB0aGFuIGNyYXNoaW5nIHRoZSBrZXJuZWwsIGJ1dCBpdCdzIG5vdCBldmVuIGNsb3NlIGZv
+cgo+ID4+ICAgIHVzZXJzLiBUaGV5IHN0aWxsIGxvc2UgZXZlcnl0aGluZyBiZWNhdXNlIGV2ZXJ5
+dGhpbmcgY3Jhc2hlcyBiZWNhdXNlIGluCj4gPj4gICAgbXkgZXhwZXJpZW5jZSwgaW4gcHJhY3Rp
+Y2UsIG5vIG9uZSBldmVyIGhhbmRsZXMgZXJyb3JzLiBUaGVyZSdzIGEgZmV3Cj4gPj4gICAgbW9y
+ZSB0aGluZ3Mgb24gdG9wOgo+ID4+Cj4gPj4gICAgLSBzaWdoYW5kbGVycyBhcmUgZ2xvYmFsLCB3
+aGljaCBtZWFucyBvbmx5IHRoZSBhcHAgY2FuIHVzZSBpdC4gWW91IGNhbid0Cj4gPj4gICAgICB1
+c2UgaXQgaW4gZS5nLiBtZXNhLiBUaGV5J3JlIGFsc28gbm90IGNvbXBvc2FibGUsIHNvIGlmIHlv
+dSBoYXZlIG9uCj4gPj4gICAgICBzaWdoYW5kbGVyIGZvciBncHUxIGFuZCBhIDJuZCBvbmUgZm9y
+IGdwdTIgKGNvdWxkIGJlIGRpZmZlcmVudCB2ZW5kb3IpCj4gPj4gICAgICBpdCdzIGFsbCBzYWRu
+ZXNzLiBIZW5jZSAidXNlcnNhcGNlIHdpbGwgaGFuZGxlIFNJR0JVUyIgd29udCB3b3JrLgo+ID4+
+Cj4gPj4gICAgLSB3b3JzZSwgbmVpdGhlciB2ayBub3IgZ2wgKHRvIG15IGtub3dsZWRnZSkgaGF2
+ZSBhIGNvbmNlcHQgb2YgZXZlbnRzCj4gPj4gICAgICBmb3Igd2hlbiB0aGUgZ3B1IGRpZWQuIFRo
+ZSBvbmx5IHN0dWZmIHlvdSBoYXZlIGlzIHRoaW5ncyBsaWtlCj4gPj4gICAgICBhcmJfcm9idXN0
+bmVzcyB3aGljaCBzYXlzIGEpIGV2ZXJ5dGhpbmcgY29udGludWVzIGFzIGlmIG5vdGhpbmcKPiA+
+PiAgICAgIGhhcHBlbmVkIGIpIHRoZXJlJ3MgYSBmdW5jdGlvbiB3aGVyZSB5b3UgY2FuIGFzayB3
+aGV0aGVyIHlvdXIgZ2wKPiA+PiAgICAgIGNvbnRleHQgYW5kIGFsbCB0aGUgdGV4dHVyZXMvYnVm
+ZmVycyBhcmUgdG9hc3QuCj4gPj4KPiA+PiAgICAgIEkgdGhpbmsgdGhhdCdzIGFib3V0IHRoZSBv
+bmx5IGhvdHVucGx1ZyBhcHBsaWNhdGlvbiBtb2RlbCB3ZSBjYW4KPiA+PiAgICAgIHJlYWxpc3Rp
+Y2FsbHkgZXhwZWN0IGFwcGxpY2F0aW9ucyB0byBzdXBwb3J0LiBUaGF0IG1lYW5zIF9hbGxfIGVy
+cm9ycwo+ID4+ICAgICAgbmVlZCB0byBiZSBzaWxlbnRseSBlYXRlbiBieSBlaXRoZXIgbWVzYSBv
+ciB0aGUga2VybmVsLiBPbiBpOTE1IHRoZQo+ID4+ICAgICAgbW9kZWwgKGFsc28gZm9yIHRlcm1p
+bmFsbHkgd2VkZ2VkIGdwdSBoYW5ncykgaXMgdGhhdCBhbGwgaW9jdGwga2VlcAo+ID4+ICAgICAg
+d29ya2luZywgbW1hcHMga2VlcCB3b3JraW5nLCBhbmQgZXhlY2J1ZiBnaXZlcyB5b3UgYW4gLUVJ
+TyAod2hpY2ggbWVzYQo+ID4+ICAgICAgZWF0cyBzaWxlbnRseSBpaXJjIGZvciBhcmJfcm9idXN0
+bmVzcykuCj4gPj4KPiA+PiAgICBDb25jbHVzaW9uIGlzIHRoYXQgU0lHQlVTIGlzIGltbyBhIG5v
+LWdvLCBhbmQgdGhlIG9ubHkgb3B0aW9uIHdlIGhhdmUgaXMKPiA+PiAgICB0aGF0IGEpIG1tYXBz
+IGZ1bGx5IGtlZXAgd29ya2luZywgZG9hYmxlIGZvciBzaG1lbSBvciBiKSB3ZSBwdXQgc29tZQo+
+ID4+ICAgIGZha2UgbWVtb3J5IGluIHRoZXJlIChmb3IgdnJhbSBvciB3aGF0ZXZlciksIG1heWJl
+IGV2ZW4gb25seSBhIHNpbmdsZQo+ID4+ICAgIHBhZ2UgZm9yIGFsbCBmYWtlIG1lbW9yeS4KPgo+
+IE9rLCBnb29kIHRvIGtub3cuCj4KPiBTbyB0byBzdW1tYXJpemUgbm8gYXBwbGljYXRpb24gdGVy
+bWluYXRpb24sIGJ1dCBpbnN0ZWFkIHJlZGlyZWN0IGFsbAo+IG1lbW9yeSBhY2Nlc3MgdG8gYSBk
+dW1teSBwYWdlLgo+Cj4gIEZyb20gdGhlIElPQ1RMcyB3ZSByZXR1cm4gLUVOT0RFViBpbnN0ZWFk
+IG9mIC1FSU8uIElzIHRoYXQgYSBwcm9ibGVtPwoKRm9yIGF0b21pYyBJIHRoaW5rIGl0J2QgYmUg
+Z29vZCBpZiB3ZSdyZSBjb25zaXN0ZW50IGFjcm9zcyBkcml2ZXJzLgoKRm9yIHJlbmRlciBpb2N0
+bCBhbGwgdGhhdCBtYXR0ZXJzIGlzIHRoYXQgeW91IGVuZCB1cCBpbXBsZW1lbnRpbmcKYXJiX3Jv
+YnVzdGVuZXNzL3ZrIGRldmljZSByZW1vdmFsL3doYXRldmVyIGVsc2UgY3VzdG9tIGludGVyZmFj
+ZSBIU0EKaGFzLy4uLiBjb3JyZWN0bHkuIFNvIGVudGlyZWx5IHVwIHRvIGEgZGlzY3Vzc2lvbiBi
+ZXR3ZWVuIGFtZGdwdSBhbmQKcmFkZW9uc2kgZm9sa3MgSSdkIHNheS4KLURhbmllbAoKPiBUaGFu
+a3MgZm9yIHRoZSBjb21tZW50cywKPiBDaHJpc3RpYW4uCj4KPiA+Pgo+ID4+IC0geW91IHByb2Jh
+Ymx5IHdhbnQgYXJiX3JvYnVzdG5lc3MgYW5kIHNpbWlsYXIgc3R1ZmYgaW4gdXNlcnNwYWNlIGFz
+IGEKPiA+PiAgICBmaXJzdCBzdGVwLgo+ID4+Cj4gPj4gdGxkcjsKPiA+PiAtIHJlZmNvdW50aW5n
+LCBub3Qgd2FpdGluZyBmb3IgdXNlcnNwYWNlCj4gPj4gLSBub3RoaW5nIGNhbiBmYWlsIGJlY2F1
+c2UgdXNlcnNwYWNlIHdvbnQgaGFuZGxlIGl0Cj4gPj4KPiA+PiBUaGF0J3MgYXQgbGVhc3QgbXkg
+dGFrZSBvbiB0aGlzIG1lc3MsIGFuZCB3aGF0IHdlJ3ZlIGJlZW4gcHVzaGluZyBmb3Igb3Zlcgo+
+ID4+IHRoZSBwYXN0IGZldyB5ZWFycy4gRm9yIGttcy1vbmx5IGRybV9kcml2ZXIgd2Ugc2hvdWxk
+IGhhdmUgYWNoaWV2ZWQgdGhhdAo+ID4+IGJ5IG5vdyAocGx1cy9taW51cyBtYXliZSBzb21lIGlz
+c3VlcyBmb3IgZG1hLWJ1Zi9mZW5jZXMsIGJ1dCBrbXMtb25seQo+ID4+IGRtYS1idWYvZmVuY2Vz
+IGFyZSBzaW1wbGUgZW5vdWdoIHRoYXQgbWF5YmUgd2UgZG9uJ3QgZ28gYm9vbSB5ZXQpLgo+ID4+
+Cj4gPj4gRm9yIGJpZyBncHVzIHdpdGggcmVuZGVyaW5nIEkgdGhpbmsgYmVzdCBuZXh0IHN0ZXAg
+d291bGQgYmUgdG8gdHlwZSB1cCBhCj4gPj4gcmVhc29uYWJsZSBHcmFuIFBsYW4gKGludG8gRG9j
+dW1lbnRhdGlvbi9ncHUvdG9kby5yc3QpIHdpdGggYWxsIHRoZSBpc3N1ZXMKPiA+PiBhbmQgbGlr
+ZWx5IHNvbHV0aW9ucy4gQW5kIHRoZW4gYmlrZXNoZWQgdGhhdCwgc2luY2UgdGhlIGFib3ZlIGlz
+IGp1c3QgbXkKPiA+PiB0YWtlIG9uIGFsbCB0aGlzLgo+ID4+Cj4gPj4gQ2hlZXJzLCBEYW5pZWwK
+PiA+Pgo+ID4+PiBBbmRyZXkgR3JvZHpvdnNreSAoNik6Cj4gPj4+ICAgIGRybS90dG06IEFkZCB1
+bmFtcHBpbmcgb2YgdGhlIGVudGlyZSBkZXZpY2UgYWRkcmVzcyBzcGFjZQo+ID4+PiAgICBkcm0v
+YW1kZ3B1OiBGb3JjZSB1bm1hcCBhbGwgdXNlciBWTUFzIG9uIGRldmljZSByZW1vdmFsLgo+ID4+
+PiAgICBkcm0vYW1kZ3B1OiBXYWl0IGZvciBhbGwgdXNlciBjbGllbnRzCj4gPj4+ICAgIGRybS9h
+bWRncHU6IFdhaXQgZm9yIGFsbCBjbGllbnRzIGltcG9ydGluZyBvdXQgZG1hLWJ1ZnMuCj4gPj4+
+ICAgIGRybS90dG06IEFkZCBkZXN0cm95IGZsYWcgaW4gVFRNIEJPIGV2aWN0aW9uIGludGVyZmFj
+ZQo+ID4+PiAgICBkcm0vYW1kZ3B1OiBVc2UgVFRNIE1NcyBkZXN0cm95IGludGVyZmFjZQo+ID4+
+Pgo+ID4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdS5oICAgICAgICAgfCAg
+MyArKwo+ID4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZWJ1Z2ZzLmMg
+fCAgMiArLQo+ID4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kZXZpY2Uu
+YyAgfCAgNyArKystCj4gPj4+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2Rt
+YV9idWYuYyB8IDI3ICsrKysrKysrKysrKy0KPiA+Pj4gICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
+ZGdwdS9hbWRncHVfZHJ2LmMgICAgIHwgMjIgKysrKysrKystLQo+ID4+PiAgIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9qb2IuYyAgICAgfCAgOSArKysrKwo+ID4+PiAgIGRyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9rbXMuYyAgICAgfCAgNCArKwo+ID4+PiAgIGRy
+aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuYyAgfCAxNyArKysrKysrLQo+
+ID4+PiAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9vYmplY3QuaCAgfCAgMSAr
+Cj4gPj4+ICAgZHJpdmVycy9ncHUvZHJtL25vdXZlYXUvbm91dmVhdV9kcm0uYyAgICAgICB8ICAy
+ICstCj4gPj4+ICAgZHJpdmVycy9ncHUvZHJtL3F4bC9xeGxfb2JqZWN0LmMgICAgICAgICAgICB8
+ICA0ICstCj4gPj4+ICAgZHJpdmVycy9ncHUvZHJtL3JhZGVvbi9yYWRlb25fb2JqZWN0LmMgICAg
+ICB8ICAyICstCj4gPj4+ICAgZHJpdmVycy9ncHUvZHJtL3R0bS90dG1fYm8uYyAgICAgICAgICAg
+ICAgICB8IDYzICsrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tCj4gPj4+ICAgZHJpdmVycy9n
+cHUvZHJtL3Ztd2dmeC92bXdnZnhfZHJ2LmMgICAgICAgICB8ICA2ICstLQo+ID4+PiAgIGluY2x1
+ZGUvZHJtL3R0bS90dG1fYm9fYXBpLmggICAgICAgICAgICAgICAgfCAgMiArLQo+ID4+PiAgIGlu
+Y2x1ZGUvZHJtL3R0bS90dG1fYm9fZHJpdmVyLmggICAgICAgICAgICAgfCAgMiArCj4gPj4+ICAg
+MTYgZmlsZXMgY2hhbmdlZCwgMTM5IGluc2VydGlvbnMoKyksIDM0IGRlbGV0aW9ucygtKQo+ID4+
+Pgo+ID4+PiAtLQo+ID4+PiAyLjcuNAo+ID4+Pgo+ID4+IC0tCj4gPj4gRGFuaWVsIFZldHRlcgo+
+ID4+IFNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlvbgo+ID4+IGh0dHA6Ly9ibG9n
+LmZmd2xsLmNoCj4KCgotLSAKRGFuaWVsIFZldHRlcgpTb2Z0d2FyZSBFbmdpbmVlciwgSW50ZWwg
+Q29ycG9yYXRpb24KKzQxICgwKSA3OSAzNjUgNTcgNDggLSBodHRwOi8vYmxvZy5mZndsbC5jaApf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1h
+aWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZy
+ZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
