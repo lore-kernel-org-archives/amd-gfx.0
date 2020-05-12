@@ -2,105 +2,68 @@ Return-Path: <SRS0=6vDE=62=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F1A3BCA90AF
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 May 2020 17:31:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B5C78C2D0F6
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 May 2020 18:20:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BE053206B8
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 May 2020 17:31:58 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Xmpsvm/T"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BE053206B8
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 98314206A3
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 May 2020 18:20:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 98314206A3
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=suse.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 59FC86E13D;
-	Tue, 12 May 2020 17:31:58 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2069.outbound.protection.outlook.com [40.107.236.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC206E13D;
- Tue, 12 May 2020 17:31:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GYYdZI5PvtDvhSQpcislTe+X+SzPO6eIyoDtPHwhFg8E9fGKuQOI7tBZKSaRF5ITiqW35MtYgJzuFmD/9ORlQxv1E0xkF4hXl+ePgFtly1cbb+CqYJj9LVgzozbC+tjQzk0YJy7pZVZqmNLsbvk3imVqpWvqe2leFqhKRVGSH0o13utj4VcnN+XXVYXw0pMy2/Yxk/UmgJdvZGw+VWubqjFk4cnZ/ot78wM1mAHjkBq6z/6Ng0v/Ebns/Hcml+2CMrTumcFbVy+LkogRPZcPUJgoe0FU41aw5ZoaSNnfSvZG7BKLiHKMnJkTpPdEfuJI+nuBvOfulhTgXuH5UAmxsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Paf9aSP7l/UqZPzzc1mm6HCpErMY7jmUg5ejYsLvZ9g=;
- b=hSqRePuF1IPACsPNcD5rnkJPSAidSI42x6ZVnKU2bQ8wtaDtLGDR0kGJPzkyAQtt91LHjqhQaZ8ht52CF183fgVTHwlByAIma5scblps5Yj+mgXdimwvNxf0t5DfctVVmFYQB44EtS64F1adz4CN25ahhySRnIL2t99rjDaAtyjnp28LUAuTPWRYC3cqO/FGtyvGEh794PaQATFoksFNyZ0ymHwMhQ50qc2CGDZirNE3eyELJpvWg/0ivMivgywEKqx3zy6xxr7LDPjNYHZsM92OkBc0iMSTqB+Sy3ybdphQfJ1lfkoZmhgZkYUJNffjzhrQsRHrMh1w3usWNcpWKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Paf9aSP7l/UqZPzzc1mm6HCpErMY7jmUg5ejYsLvZ9g=;
- b=Xmpsvm/ToIQPyA7egpSjfV3jEwW59BGNzE+seQ6HznLa1uuXxoEL0gRxD3NtYbT11w59WpHX7QNDjhzCJyp0Hea1QHTnXqF0dPt930U8lc6QlgLcDG+toOZNJZYH7dGV9EuYpMKJ3VYMxouhApuT24qHU0CF+JqTv28OKuxmeec=
-Authentication-Results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
- by DM6PR12MB4251.namprd12.prod.outlook.com (2603:10b6:5:21e::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2979.30; Tue, 12 May
- 2020 17:31:55 +0000
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::7949:b580:a2d5:f766]) by DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::7949:b580:a2d5:f766%3]) with mapi id 15.20.2979.033; Tue, 12 May 2020
- 17:31:55 +0000
-Subject: Re: [RFC 10/17] drm/amdgpu: s/GFP_KERNEL/GFP_ATOMIC in scheduler code
-To: Daniel Vetter <daniel.vetter@ffwll.ch>
-References: <20200512085944.222637-1-daniel.vetter@ffwll.ch>
- <20200512085944.222637-11-daniel.vetter@ffwll.ch>
- <879b127e-2180-bc59-f522-252416a7ac01@amd.com>
- <CAKMK7uF1c3R7DTsvRaBfzRVAx03Z+AiUnqdAzP=mt4d=KsoEgg@mail.gmail.com>
- <CAKMK7uGUBqcwo56p3f+8B=ntvuYZ8WtKaFxAPJ_D=H7qdDsGqQ@mail.gmail.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <5e087376-1c71-ae98-fe91-0d9334e8e6bb@amd.com>
-Date: Tue, 12 May 2020 19:31:49 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <CAKMK7uGUBqcwo56p3f+8B=ntvuYZ8WtKaFxAPJ_D=H7qdDsGqQ@mail.gmail.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM3PR07CA0111.eurprd07.prod.outlook.com
- (2603:10a6:207:7::21) To DM6PR12MB4401.namprd12.prod.outlook.com
- (2603:10b6:5:2a9::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20DAA6E966;
+	Tue, 12 May 2020 18:20:38 +0000 (UTC)
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 819AC6E960;
+ Tue, 12 May 2020 18:20:36 +0000 (UTC)
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 7FFA7B120;
+ Tue, 12 May 2020 18:20:37 +0000 (UTC)
+Subject: Re: [PATCH 1/3] drm/radeon: remove AGP support
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org
+References: <20200511171722.96576-1-christian.koenig@amd.com>
+ <20200511171722.96576-2-christian.koenig@amd.com>
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ mQENBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAG0J1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPokBVAQTAQgAPhYh
+ BHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsDBQkDwmcABQsJCAcCBhUKCQgLAgQWAgMB
+ Ah4BAheAAAoJEGgNwR1TC3ojR80H/jH+vYavwQ+TvO8ksXL9JQWc3IFSiGpuSVXLCdg62AmR
+ irxW+qCwNncNQyb9rd30gzdectSkPWL3KSqEResBe24IbA5/jSkPweJasgXtfhuyoeCJ6PXo
+ clQQGKIoFIAEv1s8l0ggPZswvCinegl1diyJXUXmdEJRTWYAtxn/atut1o6Giv6D2qmYbXN7
+ mneMC5MzlLaJKUtoH7U/IjVw1sx2qtxAZGKVm4RZxPnMCp9E1MAr5t4dP5gJCIiqsdrVqI6i
+ KupZstMxstPU//azmz7ZWWxT0JzgJqZSvPYx/SATeexTYBP47YFyri4jnsty2ErS91E6H8os
+ Bv6pnSn7eAq5AQ0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRH
+ UE9eosYbT6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgT
+ RjP+qbU63Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+R
+ dhgATnWWGKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zb
+ ehDda8lvhFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r
+ 12+lqdsAEQEAAYkBPAQYAQgAJhYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJbOdLgAhsMBQkD
+ wmcAAAoJEGgNwR1TC3ojpfcIAInwP5OlcEKokTnHCiDTz4Ony4GnHRP2fXATQZCKxmu4AJY2
+ h9ifw9Nf2TjCZ6AMvC3thAN0rFDj55N9l4s1CpaDo4J+0fkrHuyNacnT206CeJV1E7NYntxU
+ n+LSiRrOdywn6erjxRi9EYTVLCHcDhBEjKmFZfg4AM4GZMWX1lg0+eHbd5oL1as28WvvI/uI
+ aMyV8RbyXot1r/8QLlWldU3NrTF5p7TMU2y3ZH2mf5suSKHAMtbE4jKJ8ZHFOo3GhLgjVrBW
+ HE9JXO08xKkgD+w6v83+nomsEuf6C6LYrqY/tsZvyEX6zN8CtirPdPWu/VXNRYAl/lat7lSI
+ 3H26qrE=
+Message-ID: <d0314d28-7ef3-e158-ee05-4802e16c0ecc@suse.de>
+Date: Tue, 12 May 2020 20:20:29 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM3PR07CA0111.eurprd07.prod.outlook.com (2603:10a6:207:7::21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.12 via Frontend Transport; Tue, 12 May 2020 17:31:52 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ff748cbe-ae9a-490c-2016-08d7f69a5d50
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4251:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB425115830FDFC46148C8283683BE0@DM6PR12MB4251.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
-X-Forefront-PRVS: 0401647B7F
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: MAhOIic4in8ak5weawcqmIdaPl26nmiK218DxdbBj0iBx3KVX65DT7kHGFD/+7EIIulN9DzwMtmHGy3tToUSM8RAhtPRW+oBIi2Vdux+LUgujj/wJt1rSV1VpXNAm2IWUab1nZncfFDND9TawKbkLx37ugw7H+1Uw2B3hrXOWLKGSBFCNZwbpsSrMDsw2u19jXLpCHHeAiPpx1PROznnv6KzjROcuWfdkIoGCecBrqB18hx5C0xzWNoo6m3JITZriIcAfucKeUiVIchWrM/VA6zhfrv8fTEVIkPlg+EGJDstC6/kY7TMss1bTcVzzrgjP81JU0GHTvfVAF0Cum5+AdaLmqDxoOeDecegwFEgJIOHAtynqzo3qy9iYmwJV1nA+6BDJP0gCZhk3hSNfkVp5HlZaVNSTAiJIK/3xH2siWQDlqIsocBiPJk5alyu2dnvDdy2GeVrllGO8ZH1rwZTfeFv+L9MF9FMswpxv327mWq4+YIa1WXd9+YuaYq5UlZPdZLeKKMzyZRoufPYwdgsKsoVVXmyAejzwna/3MVL5tGmhcuHckEqrkP+gKBUei+9ubC8Z/NxDvz/ryRZBUagjXBwjMJ3ldTaVgASe0ipXDmLgiJFksW3KM+Httz96+KS0xrcpOORB+TmB4yUSC9gZg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(376002)(136003)(396003)(346002)(39860400002)(366004)(33430700001)(66574014)(36756003)(316002)(33440700001)(31696002)(54906003)(86362001)(2906002)(6666004)(45080400002)(2616005)(31686004)(83080400001)(66476007)(6916009)(478600001)(52116002)(66946007)(8676002)(5660300002)(966005)(66556008)(8936002)(16526019)(186003)(53546011)(4326008)(6486002)(7416002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: SdhZQQ6mhCPvi4c+Fpxk8+JoE2Ww9yUdCzyn1GPC9kDEXh3MTeRTvspiotd+COtDpyd+EJlTi5+pKl+Zm4A3KTfLiB1rCw741K4yhzkwKO2QnXl+DIOEAyWMmLxmXIzkYNHEnI9hpg5nSlXy2DzrYcvKsty+EjQ9huTuzwh+GCRqIo8qfgKteEnUSKsBHI9QNbufQeFuOcrFCNLDqifiA8iniG6envi3oe6BuzbKUHc+qvTA/IFoAucRr9bK76ytcnfWTzXSa9PcJxEVEAk2bsXzobfc5kN3gNN8hvrzSX9kBuoaPo7+uDj+TFdhJHw/0+FtWF6fgT2vKTHKhPDV07dg4xaHiIK54JRQcj/Qa/49t3AoD6wqBhxvV8tKN6IoRNfwf0Ertrh3VLM6KzuEB33CM/1GLXUQnHAqdDCRXhHRGavQYfcWaWjYcPzO8mC8GCX33gv7prKy1Ek8MFIC4lZNNeU2ysV6Bz9P5TqH4hryKFjI4iogbmvTl5xiVOp3ZURM32veqlir4B7tnb8Bw6W3ONfnVD0GhYyRUj0x4nrpwg06+CPWeEMEwsvEAf2b
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff748cbe-ae9a-490c-2016-08d7f69a5d50
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 May 2020 17:31:54.9891 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: me42JpesL+B6lOnOYOp30oi347I8a3Z4AdfuKOpW9DQNtgwrjJPAVtCD61V1MVbv
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4251
+In-Reply-To: <20200511171722.96576-2-christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,153 +75,929 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: linux-rdma <linux-rdma@vger.kernel.org>,
- intel-gfx <intel-gfx@lists.freedesktop.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@intel.com>,
- "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0412208610=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QWghCgpTbyB3ZSBjYW4ndCBhbGxvY2F0ZSBtZW1vcnkgd2hpbGUgc2NoZWR1bGluZyBhbnl0aGlu
-ZyBiZWNhdXNlIGl0IGNvdWxkIApiZSB0aGF0IG1lbW9yeSByZWNsYWltIGlzIHdhaXRpbmcgZm9y
-IHRoZSBzY2hlZHVsZXIgdG8gZmluaXNoIHB1c2hpbmcgCnRoaW5ncyB0byB0aGUgaGFyZHdhcmUs
-IHJpZ2h0PwoKSW5kZWVkIGEgbmljZSBwcm9ibGVtLCBoYXZlbid0IG5vdGljZWQgdGhhdCBvbmUu
-CgpDaHJpc3RpYW4uCgpBbSAxMi4wNS4yMCB1bSAxODoyNyBzY2hyaWViIERhbmllbCBWZXR0ZXI6
-Cj4gT24gVHVlLCBNYXkgMTIsIDIwMjAgYXQgNjoyMCBQTSBEYW5pZWwgVmV0dGVyIDxkYW5pZWwu
-dmV0dGVyQGZmd2xsLmNoPiB3cm90ZToKPj4gT24gVHVlLCBNYXkgMTIsIDIwMjAgYXQgNTo1NiBQ
-TSBDaHJpc3RpYW4gS8O2bmlnCj4+IDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+IHdyb3RlOgo+
-Pj4gSHVpIHdoYXQ/IE9mIGhhbmQgdGhhdCBkb2Vzbid0IGxvb2tzIGNvcnJlY3QgdG8gbWUuCj4+
-IEl0J3Mgbm90IEdGUF9BVE9NSUMsIGl0J3MganVzdCB0aGF0IEdGUF9BVE9NSUMgaXMgdGhlIG9u
-bHkgc2hvdGd1biB3ZQo+PiBoYXZlIHRvIGF2b2lkIGRpcmVjdCByZWNsYWltLiBBbmQgZGlyZWN0
-IHJlY2xhaW0gbWlnaHQgbmVlZCB0byBjYWxsCj4+IGludG8geW91ciBtbXUgbm90aWZpZXIsIHdo
-aWNoIG1pZ2h0IG5lZWQgdG8gd2FpdCBvbiBhIGZlbmNlLCB3aGljaCBpcwo+PiBuZXZlciBnb2lu
-ZyB0byBoYXBwZW4gYmVjYXVzZSB5b3VyIHNjaGVkdWxlciBpcyBzdHVjay4KPj4KPj4gTm90ZSB0
-aGF0IGFsbCB0aGUgZXhwbGFuYXRpb25zIGZvciB0aGUgZGVhZGxvY2tzIGFuZCBzdHVmZiBJJ20g
-dHJ5aW5nCj4+IHRvIGh1bnQgaGVyZSBhcmUgaW4gdGhlIG90aGVyIHBhdGNoZXMsIHRoZSBkcml2
-ZXIgb25lcyBhcmUgbW9yZQo+PiBpbmZvcm1hdGlvbmFsLCBzbyBJIGxlZnQgdGhlc2UgaGVyZSBy
-YXRoZXIgYmFyZS1ib25lcyB0byBzaHV0IHVwCj4+IGxvY2tkZXAgc28gSSBjYW4gZ2V0IHRocm91
-Z2ggdGhlIGVudGlyZSBkcml2ZXIgYW5kIGFsbCBtYWpvciBhcmVhcwo+PiAoc2NoZWR1bGVyLCBy
-ZXNldCwgbW9kZXNldCBjb2RlKS4KPj4KPj4gTm93IHlvdSBjYW4gZG8gc29tZXRoaW5nIGxpa2Ug
-R0ZQX05PRlMsIGJ1dCB0aGUgb25seSByZWFzb25zIHRoYXQKPj4gd29ya3MgaXMgYmVjYXVzZSB0
-aGUgZGlyZWN0IHJlY2xhaW0gYW5ub3RhdGlvbnMKPj4gKGZzX3JlY2xhaW1fYWNxdWlyZS9yZWxl
-YXNlKSBvbmx5IHZhbGlkYXRlcyBhZ2FpbnN0IF9fR0ZQX0ZTLCBhbmQgbm90Cj4+IGFnYWluc3Qg
-YW55IG9mIHRoZSBvdGhlciBmbGFncy4gV2Ugc2hvdWxkIHByb2JhYmx5IGFkZCBzb21lIGxvY2tk
-ZXAKPj4gYW5ub3RhdGlvbnMgc28gdGhhdCBfX0dGUF9SRUNMQUlNIGlzIGFubm90YXRlZCBhZ2Fp
-bnN0IHRoZQo+PiBfX21tdV9ub3RpZmllcl9pbnZhbGlkYXRlX3JhbmdlX3N0YXJ0X21hcCBsb2Nr
-ZGVwIG1hcCBJJ3ZlIHJlY2VudGx5Cj4+IGFkZGVkIGZvciBtbXUgbm90aWZpZXJzLiBFbmQgcmVz
-dWx0IChhc3N1bWluZyBJJ20gbm90IG1peGluZyBhbnl0aGluZwo+PiB1cCBoZXJlLCB0aGlzIGlz
-IGFsbCByYXRoZXIgdHJpY2t5IHN0dWZmKTogR0ZQX0FUT01JQyBpcyB0aGUgb25seSBraW5kCj4+
-IG9mIG1lbW9yeSBhbGxvY2F0aW9uIHlvdSBjYW4gZG8uCj4+Cj4+PiBXaHkgdGhlIGhlY2sgc2hv
-dWxkIHRoaXMgYmUgYW4gYXRvbWljIGNvbnRleHQ/IElmIHRoYXQncyBjb3JyZWN0Cj4+PiBhbGxv
-Y2F0aW5nIG1lbW9yeSBpcyB0aGUgbGVhc3Qgb2YgdGhlIHByb2JsZW1zIHdlIGhhdmUuCj4+IEl0
-J3Mgbm90IGFib3V0IGF0b21pYywgaXQncyAhX19HRlBfUkVDTEFJTS4gV2hpY2ggbW9yZSBvciBs
-ZXNzIGlzCj4+IEdGUF9BVE9NSUMuIENvcnJlY3QgZml4IGlzIHByb2JhYmx5IEdGUF9BVE9NSUMg
-KyBhIG1lbXBvb2wgZm9yIHRoZQo+PiBzY2hlZHVsZXIgZml4ZXMgc28gdGhhdCBpZiB5b3UgY2Fu
-J3QgYWxsb2NhdGUgdGhlbSBmb3Igc29tZSByZWFzb24sCj4+IHlvdSBhdCBsZWFzdCBrbm93IHRo
-YXQgeW91ciBzY2hlZHVsZXIgc2hvdWxkIGV2ZW50dWFsbHkgcmV0aXJlIHJldGlyZQo+PiBzb21l
-IG9mIHRoZW0sIHdoaWNoIHlvdSBjYW4gdGhlbiBwaWNrIHVwIGZyb20gdGhlIG1lbXBvb2wgdG8g
-Z3VhcmFudGVlCj4+IGZvcndhcmQgcHJvZ3Jlc3MuCj4+Cj4+IEJ1dCBJIHJlYWxseSBkaWRuJ3Qg
-ZGlnIGludG8gZGV0YWlscyBvZiB0aGUgY29kZSwgdGhpcyB3YXMganVzdCBhIHF1aWNrIGhhY2su
-Cj4+Cj4+IFNvIHNsZWVwaW5nIGFuZCB0YWtpbmcgYWxsIGtpbmRzIG9mIGxvY2tzIChidXQgbm90
-IGFsbCwgZS5nLgo+PiBkbWFfcmVzdl9sb2NrIGFuZCBkcm1fbW9kZXNldF9sb2NrIGFyZSBuby1n
-bykgaXMgc3RpbGwgdG90YWxseSBvay4KPj4gSnVzdCB0aGluawo+Pgo+PiAjZGVmaW5lIEdGUF9O
-T19ESVJFQ1RfUkVDTEFJTSBHRlBfQVRPTUlDCj4gTWF5YmUgc2xpZ2h0bHkgZGlmZmVyZW50IHRh
-a2UgdGhhdCdzIGVhc2llciB0byB1bmRlcnN0YW5kOiBZb3UndmUKPiBhbHJlYWR5IG1hZGUgdGhl
-IG9ic2VydmF0aW9uIHRoYXQgYW55dGhpbmcgaG9sZGluZyBhZGV2LT5ub3RpZmllcl9sb2NrCj4g
-aXNuJ3QgYWxsb3dlZCB0byBhbGxvY2F0ZSBtZW1vcnkgKHdlbGwgR0ZQX0FUT01JQyBpcyBvaywg
-bGlrZSBoZXJlKS4KPgo+IE9ubHkgdGhpbmcgSSdtIGFkZGluZyBpcyB0aGF0IHRoZSBzaXR1YXRp
-b24gaXMgYSBsb3Qgd29yc2UuIFBsdXMgdGhlCj4gbG9ja2RlcCBhbm5vdGF0aW9ucyB0byBoZWxw
-IHVzIGNhdGNoIHRoZXNlIGlzc3Vlcy4KPiAtRGFuaWVsCj4KPj4gQ2hlZXJzLCBEYW5pZWwKPj4K
-Pj4+IFJlZ2FyZHMsCj4+PiBDaHJpc3RpYW4uCj4+Pgo+Pj4gQW0gMTIuMDUuMjAgdW0gMTA6NTkg
-c2NocmllYiBEYW5pZWwgVmV0dGVyOgo+Pj4+IE15IGRtYS1mZW5jZSBsb2NrZGVwIGFubm90YXRp
-b25zIGNhdWdodCBhbiBpbnZlcnNpb24gYmVjYXVzZSB3ZQo+Pj4+IGFsbG9jYXRlIG1lbW9yeSB3
-aGVyZSB3ZSByZWFsbHkgc2hvdWxkbid0Ogo+Pj4+Cj4+Pj4gICAgICAgIGttZW1fY2FjaGVfYWxs
-b2MrMHgyYi8weDZkMAo+Pj4+ICAgICAgICBhbWRncHVfZmVuY2VfZW1pdCsweDMwLzB4MzMwIFth
-bWRncHVdCj4+Pj4gICAgICAgIGFtZGdwdV9pYl9zY2hlZHVsZSsweDMwNi8weDU1MCBbYW1kZ3B1
-XQo+Pj4+ICAgICAgICBhbWRncHVfam9iX3J1bisweDEwZi8weDI2MCBbYW1kZ3B1XQo+Pj4+ICAg
-ICAgICBkcm1fc2NoZWRfbWFpbisweDFiOS8weDQ5MCBbZ3B1X3NjaGVkXQo+Pj4+ICAgICAgICBr
-dGhyZWFkKzB4MTJlLzB4MTUwCj4+Pj4KPj4+PiBUcm91YmxlIHJpZ2h0IG5vdyBpcyB0aGF0IGxv
-Y2tkZXAgb25seSB2YWxpZGF0ZXMgYWdhaW5zdCBHRlBfRlMsIHdoaWNoCj4+Pj4gd291bGQgYmUg
-Z29vZCBlbm91Z2ggZm9yIHNocmlua2Vycy4gQnV0IGZvciBtbXVfbm90aWZpZXJzIHdlIGFjdHVh
-bGx5Cj4+Pj4gbmVlZCAhR0ZQX0FUT01JQywgc2luY2UgdGhleSBjYW4gYmUgY2FsbGVkIGZyb20g
-YW55IHBhZ2UgbGF1bmRlcmluZywKPj4+PiBldmVuIGlmIEdGUF9OT0ZTIG9yIEdGUF9OT0lPIGFy
-ZSBzZXQuCj4+Pj4KPj4+PiBJIGd1ZXNzIHdlIHNob3VsZCBpbXByb3ZlIHRoZSBsb2NrZGVwIGFu
-bm90YXRpb25zIGZvcgo+Pj4+IGZzX3JlY2xhaW1fYWNxdWlyZS9yZWxlYXNlLgo+Pj4+Cj4+Pj4g
-T2ZjIHJlYWwgZml4IGlzIHRvIHByb3Blcmx5IHByZWFsbG9jYXRlIHRoaXMgZmVuY2UgYW5kIHN0
-dWZmIGl0IGludG8KPj4+PiB0aGUgYW1kZ3B1IGpvYiBzdHJ1Y3R1cmUuIEJ1dCBHRlBfQVRPTUlD
-IGdldHMgdGhlIGxvY2tkZXAgc3BsYXQgb3V0IG9mCj4+Pj4gdGhlIHdheS4KPj4+Pgo+Pj4+IHYy
-OiBUd28gbW9yZSBhbGxvY2F0aW9ucyBpbiBzY2hlZHVsZXIgcGF0aHMuCj4+Pj4KPj4+PiBGcmlz
-dCBvbmU6Cj4+Pj4KPj4+PiAgICAgICAgX19rbWFsbG9jKzB4NTgvMHg3MjAKPj4+PiAgICAgICAg
-YW1kZ3B1X3ZtaWRfZ3JhYisweDEwMC8weGNhMCBbYW1kZ3B1XQo+Pj4+ICAgICAgICBhbWRncHVf
-am9iX2RlcGVuZGVuY3krMHhmOS8weDEyMCBbYW1kZ3B1XQo+Pj4+ICAgICAgICBkcm1fc2NoZWRf
-ZW50aXR5X3BvcF9qb2IrMHgzZi8weDQ0MCBbZ3B1X3NjaGVkXQo+Pj4+ICAgICAgICBkcm1fc2No
-ZWRfbWFpbisweGY5LzB4NDkwIFtncHVfc2NoZWRdCj4+Pj4KPj4+PiBTZWNvbmQgb25lOgo+Pj4+
-Cj4+Pj4gICAgICAgIGttZW1fY2FjaGVfYWxsb2MrMHgyYi8weDZkMAo+Pj4+ICAgICAgICBhbWRn
-cHVfc3luY19mZW5jZSsweDdlLzB4MTEwIFthbWRncHVdCj4+Pj4gICAgICAgIGFtZGdwdV92bWlk
-X2dyYWIrMHg4NmIvMHhjYTAgW2FtZGdwdV0KPj4+PiAgICAgICAgYW1kZ3B1X2pvYl9kZXBlbmRl
-bmN5KzB4ZjkvMHgxMjAgW2FtZGdwdV0KPj4+PiAgICAgICAgZHJtX3NjaGVkX2VudGl0eV9wb3Bf
-am9iKzB4M2YvMHg0NDAgW2dwdV9zY2hlZF0KPj4+PiAgICAgICAgZHJtX3NjaGVkX21haW4rMHhm
-OS8weDQ5MCBbZ3B1X3NjaGVkXQo+Pj4+Cj4+Pj4gQ2M6IGxpbnV4LW1lZGlhQHZnZXIua2VybmVs
-Lm9yZwo+Pj4+IENjOiBsaW5hcm8tbW0tc2lnQGxpc3RzLmxpbmFyby5vcmcKPj4+PiBDYzogbGlu
-dXgtcmRtYUB2Z2VyLmtlcm5lbC5vcmcKPj4+PiBDYzogYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKPj4+PiBDYzogaW50ZWwtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+Pj4+IENjOiBD
-aHJpcyBXaWxzb24gPGNocmlzQGNocmlzLXdpbHNvbi5jby51az4KPj4+PiBDYzogTWFhcnRlbiBM
-YW5raG9yc3QgPG1hYXJ0ZW4ubGFua2hvcnN0QGxpbnV4LmludGVsLmNvbT4KPj4+PiBDYzogQ2hy
-aXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgo+Pj4+IFNpZ25lZC1vZmYt
-Ynk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAaW50ZWwuY29tPgo+Pj4+IC0tLQo+Pj4+
-ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jIHwgMiArLQo+Pj4+
-ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9pZHMuYyAgIHwgMiArLQo+Pj4+
-ICAgIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zeW5jLmMgIHwgMiArLQo+Pj4+
-ICAgIDMgZmlsZXMgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Pj4+
-Cj4+Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5j
-ZS5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMKPj4+PiBpbmRl
-eCBkODc4ZmU3ZmVlNTEuLjA1NWI0NzI0MWJiMSAxMDA2NDQKPj4+PiAtLS0gYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYwo+Pj4+ICsrKyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jCj4+Pj4gQEAgLTE0Myw3ICsxNDMsNyBAQCBpbnQg
-YW1kZ3B1X2ZlbmNlX2VtaXQoc3RydWN0IGFtZGdwdV9yaW5nICpyaW5nLCBzdHJ1Y3QgZG1hX2Zl
-bmNlICoqZiwKPj4+PiAgICAgICAgdWludDMyX3Qgc2VxOwo+Pj4+ICAgICAgICBpbnQgcjsKPj4+
-Pgo+Pj4+IC0gICAgIGZlbmNlID0ga21lbV9jYWNoZV9hbGxvYyhhbWRncHVfZmVuY2Vfc2xhYiwg
-R0ZQX0tFUk5FTCk7Cj4+Pj4gKyAgICAgZmVuY2UgPSBrbWVtX2NhY2hlX2FsbG9jKGFtZGdwdV9m
-ZW5jZV9zbGFiLCBHRlBfQVRPTUlDKTsKPj4+PiAgICAgICAgaWYgKGZlbmNlID09IE5VTEwpCj4+
-Pj4gICAgICAgICAgICAgICAgcmV0dXJuIC1FTk9NRU07Cj4+Pj4KPj4+PiBkaWZmIC0tZ2l0IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lkcy5jIGIvZHJpdmVycy9ncHUvZHJt
-L2FtZC9hbWRncHUvYW1kZ3B1X2lkcy5jCj4+Pj4gaW5kZXggZmU5MmRjZDk0ZDRhLi5mZGNkNjY1
-OWY1YWQgMTAwNjQ0Cj4+Pj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
-X2lkcy5jCj4+Pj4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2lkcy5j
-Cj4+Pj4gQEAgLTIwOCw3ICsyMDgsNyBAQCBzdGF0aWMgaW50IGFtZGdwdV92bWlkX2dyYWJfaWRs
-ZShzdHJ1Y3QgYW1kZ3B1X3ZtICp2bSwKPj4+PiAgICAgICAgaWYgKHJpbmctPnZtaWRfd2FpdCAm
-JiAhZG1hX2ZlbmNlX2lzX3NpZ25hbGVkKHJpbmctPnZtaWRfd2FpdCkpCj4+Pj4gICAgICAgICAg
-ICAgICAgcmV0dXJuIGFtZGdwdV9zeW5jX2ZlbmNlKHN5bmMsIHJpbmctPnZtaWRfd2FpdCwgZmFs
-c2UpOwo+Pj4+Cj4+Pj4gLSAgICAgZmVuY2VzID0ga21hbGxvY19hcnJheShzaXplb2Yodm9pZCAq
-KSwgaWRfbWdyLT5udW1faWRzLCBHRlBfS0VSTkVMKTsKPj4+PiArICAgICBmZW5jZXMgPSBrbWFs
-bG9jX2FycmF5KHNpemVvZih2b2lkICopLCBpZF9tZ3ItPm51bV9pZHMsIEdGUF9BVE9NSUMpOwo+
-Pj4+ICAgICAgICBpZiAoIWZlbmNlcykKPj4+PiAgICAgICAgICAgICAgICByZXR1cm4gLUVOT01F
-TTsKPj4+Pgo+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
-cHVfc3luYy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3N5bmMuYwo+Pj4+
-IGluZGV4IGI4N2NhMTcxOTg2YS4uMzMwNDc2Y2MwYzg2IDEwMDY0NAo+Pj4+IC0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9zeW5jLmMKPj4+PiArKysgYi9kcml2ZXJzL2dw
-dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfc3luYy5jCj4+Pj4gQEAgLTE2OCw3ICsxNjgsNyBAQCBp
-bnQgYW1kZ3B1X3N5bmNfZmVuY2Uoc3RydWN0IGFtZGdwdV9zeW5jICpzeW5jLCBzdHJ1Y3QgZG1h
-X2ZlbmNlICpmLAo+Pj4+ICAgICAgICBpZiAoYW1kZ3B1X3N5bmNfYWRkX2xhdGVyKHN5bmMsIGYs
-IGV4cGxpY2l0KSkKPj4+PiAgICAgICAgICAgICAgICByZXR1cm4gMDsKPj4+Pgo+Pj4+IC0gICAg
-IGUgPSBrbWVtX2NhY2hlX2FsbG9jKGFtZGdwdV9zeW5jX3NsYWIsIEdGUF9LRVJORUwpOwo+Pj4+
-ICsgICAgIGUgPSBrbWVtX2NhY2hlX2FsbG9jKGFtZGdwdV9zeW5jX3NsYWIsIEdGUF9BVE9NSUMp
-Owo+Pj4+ICAgICAgICBpZiAoIWUpCj4+Pj4gICAgICAgICAgICAgICAgcmV0dXJuIC1FTk9NRU07
-Cj4+Pj4KPj4KPj4gLS0KPj4gRGFuaWVsIFZldHRlcgo+PiBTb2Z0d2FyZSBFbmdpbmVlciwgSW50
-ZWwgQ29ycG9yYXRpb24KPj4gKzQxICgwKSA3OSAzNjUgNTcgNDggLSBodHRwczovL25hbTExLnNh
-ZmVsaW5rcy5wcm90ZWN0aW9uLm91dGxvb2suY29tLz91cmw9aHR0cCUzQSUyRiUyRmJsb2cuZmZ3
-bGwuY2glMkYmYW1wO2RhdGE9MDIlN0MwMSU3Q2NocmlzdGlhbi5rb2VuaWclNDBhbWQuY29tJTdD
-MzhiMzMwYjhhYWI5NDZmMzg4ZTkwOGQ3ZjY5MTU1M2IlN0MzZGQ4OTYxZmU0ODg0ZTYwOGUxMWE4
-MmQ5OTRlMTgzZCU3QzAlN0MwJTdDNjM3MjQ4OTc2MzY5NTUxNTgxJmFtcDtzZGF0YT02cnJDdkVZ
-VnVnOTVRWGMzeVlMYlE4Wk40d3lZZWxmVVVHV2l5aXRWcHVjJTNEJmFtcDtyZXNlcnZlZD0wCj4K
-PgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0412208610==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="0pBMGTWQsV6s2HpzTYNLFGIWqImJ3CuU9"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--0pBMGTWQsV6s2HpzTYNLFGIWqImJ3CuU9
+Content-Type: multipart/mixed; boundary="NbA2eOA4R5k0IXPLJryz8nnkswo7VcVPO";
+ protected-headers="v1"
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org
+Message-ID: <d0314d28-7ef3-e158-ee05-4802e16c0ecc@suse.de>
+Subject: Re: [PATCH 1/3] drm/radeon: remove AGP support
+References: <20200511171722.96576-1-christian.koenig@amd.com>
+ <20200511171722.96576-2-christian.koenig@amd.com>
+In-Reply-To: <20200511171722.96576-2-christian.koenig@amd.com>
+
+--NbA2eOA4R5k0IXPLJryz8nnkswo7VcVPO
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
+
+Hi Christian
+
+Am 11.05.20 um 19:17 schrieb Christian K=C3=B6nig:
+> AGP is deprecated for 10+ years now and not used any more on modern har=
+dware.
+>=20
+> Old hardware should continue to work in PCI mode.
+>=20
+> Signed-off-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> ---
+>  drivers/gpu/drm/radeon/Makefile        |   4 +-
+>  drivers/gpu/drm/radeon/evergreen.c     |   7 -
+>  drivers/gpu/drm/radeon/r100.c          |  10 +-
+>  drivers/gpu/drm/radeon/r300.c          |   9 -
+>  drivers/gpu/drm/radeon/r420.c          |   9 -
+>  drivers/gpu/drm/radeon/r520.c          |   8 -
+>  drivers/gpu/drm/radeon/r600.c          |   6 -
+>  drivers/gpu/drm/radeon/radeon.h        |  11 -
+>  drivers/gpu/drm/radeon/radeon_agp.c    | 290 -------------------------=
+
+>  drivers/gpu/drm/radeon/radeon_device.c |  23 +-
+>  drivers/gpu/drm/radeon/radeon_drv.c    |   9 -
+
+In radeon_drv.c, the field drm_device.agp is still being initialized in
+radeon_pci_probe() and cleaned up in radeon_driver_unload_kms(). Is this
+intentional?
+
+Best regards
+Thomas
+
+>  drivers/gpu/drm/radeon/radeon_ttm.c    |  39 ----
+>  drivers/gpu/drm/radeon/rv515.c         |   9 -
+>  drivers/gpu/drm/radeon/rv770.c         |   7 -
+>  14 files changed, 4 insertions(+), 437 deletions(-)
+>  delete mode 100644 drivers/gpu/drm/radeon/radeon_agp.c
+>=20
+> diff --git a/drivers/gpu/drm/radeon/Makefile b/drivers/gpu/drm/radeon/M=
+akefile
+> index c693b2ca0329..77429cfd303e 100644
+> --- a/drivers/gpu/drm/radeon/Makefile
+> +++ b/drivers/gpu/drm/radeon/Makefile
+> @@ -61,8 +61,8 @@ radeon-y :=3D radeon_drv.o
+> =20
+>  # add KMS driver
+>  radeon-y +=3D radeon_device.o radeon_asic.o radeon_kms.o \
+> -	radeon_atombios.o radeon_agp.o atombios_crtc.o radeon_combios.o \
+> -	atom.o radeon_fence.o radeon_ttm.o radeon_object.o radeon_gart.o \
+> +	radeon_atombios.o atombios_crtc.o radeon_combios.o atom.o \
+> +	radeon_fence.o radeon_ttm.o radeon_object.o radeon_gart.o \
+>  	radeon_legacy_crtc.o radeon_legacy_encoders.o radeon_connectors.o \
+>  	radeon_encoders.o radeon_display.o radeon_cursor.o radeon_i2c.o \
+>  	radeon_clocks.o radeon_fb.o radeon_gem.o radeon_ring.o radeon_irq_kms=
+=2Eo \
+> diff --git a/drivers/gpu/drm/radeon/evergreen.c b/drivers/gpu/drm/radeo=
+n/evergreen.c
+> index 14d90dc376e7..66b3d9a2c6dd 100644
+> --- a/drivers/gpu/drm/radeon/evergreen.c
+> +++ b/drivers/gpu/drm/radeon/evergreen.c
+> @@ -5216,12 +5216,6 @@ int evergreen_init(struct radeon_device *rdev)
+>  	r =3D radeon_fence_driver_init(rdev);
+>  	if (r)
+>  		return r;
+> -	/* initialize AGP */
+> -	if (rdev->flags & RADEON_IS_AGP) {
+> -		r =3D radeon_agp_init(rdev);
+> -		if (r)
+> -			radeon_agp_disable(rdev);
+> -	}
+>  	/* initialize memory controller */
+>  	r =3D evergreen_mc_init(rdev);
+>  	if (r)
+> @@ -5315,7 +5309,6 @@ void evergreen_fini(struct radeon_device *rdev)
+>  	r600_vram_scratch_fini(rdev);
+>  	radeon_gem_fini(rdev);
+>  	radeon_fence_driver_fini(rdev);
+> -	radeon_agp_fini(rdev);
+>  	radeon_bo_fini(rdev);
+>  	radeon_atombios_fini(rdev);
+>  	kfree(rdev->bios);
+> diff --git a/drivers/gpu/drm/radeon/r100.c b/drivers/gpu/drm/radeon/r10=
+0.c
+> index 24c8db673931..320b1b40a30a 100644
+> --- a/drivers/gpu/drm/radeon/r100.c
+> +++ b/drivers/gpu/drm/radeon/r100.c
+> @@ -3382,7 +3382,7 @@ void r100_bandwidth_update(struct radeon_device *=
+rdev)
+> =20
+>  	if (rdev->flags & RADEON_IS_AGP) {
+>  		fixed20_12 agpmode_ff;
+> -		agpmode_ff.full =3D dfixed_const(radeon_agpmode);
+> +		agpmode_ff.full =3D dfixed_const(0);
+>  		temp_ff.full =3D dfixed_const_666(16);
+>  		sclk_eff_ff.full -=3D dfixed_mul(agpmode_ff, temp_ff);
+>  	}
+> @@ -3992,7 +3992,6 @@ void r100_fini(struct radeon_device *rdev)
+>  	radeon_gem_fini(rdev);
+>  	if (rdev->flags & RADEON_IS_PCI)
+>  		r100_pci_gart_fini(rdev);
+> -	radeon_agp_fini(rdev);
+>  	radeon_irq_kms_fini(rdev);
+>  	radeon_fence_driver_fini(rdev);
+>  	radeon_bo_fini(rdev);
+> @@ -4068,13 +4067,6 @@ int r100_init(struct radeon_device *rdev)
+>  	r100_errata(rdev);
+>  	/* Initialize clocks */
+>  	radeon_get_clock_info(rdev->ddev);
+> -	/* initialize AGP */
+> -	if (rdev->flags & RADEON_IS_AGP) {
+> -		r =3D radeon_agp_init(rdev);
+> -		if (r) {
+> -			radeon_agp_disable(rdev);
+> -		}
+> -	}
+>  	/* initialize VRAM */
+>  	r100_mc_init(rdev);
+>  	/* Fence driver */
+> diff --git a/drivers/gpu/drm/radeon/r300.c b/drivers/gpu/drm/radeon/r30=
+0.c
+> index 3b7ead5be5bf..afd688629cf9 100644
+> --- a/drivers/gpu/drm/radeon/r300.c
+> +++ b/drivers/gpu/drm/radeon/r300.c
+> @@ -1498,7 +1498,6 @@ void r300_fini(struct radeon_device *rdev)
+>  		rv370_pcie_gart_fini(rdev);
+>  	if (rdev->flags & RADEON_IS_PCI)
+>  		r100_pci_gart_fini(rdev);
+> -	radeon_agp_fini(rdev);
+>  	radeon_irq_kms_fini(rdev);
+>  	radeon_fence_driver_fini(rdev);
+>  	radeon_bo_fini(rdev);
+> @@ -1547,13 +1546,6 @@ int r300_init(struct radeon_device *rdev)
+>  	r300_errata(rdev);
+>  	/* Initialize clocks */
+>  	radeon_get_clock_info(rdev->ddev);
+> -	/* initialize AGP */
+> -	if (rdev->flags & RADEON_IS_AGP) {
+> -		r =3D radeon_agp_init(rdev);
+> -		if (r) {
+> -			radeon_agp_disable(rdev);
+> -		}
+> -	}
+>  	/* initialize memory controller */
+>  	r300_mc_init(rdev);
+>  	/* Fence driver */
+> @@ -1592,7 +1584,6 @@ int r300_init(struct radeon_device *rdev)
+>  			rv370_pcie_gart_fini(rdev);
+>  		if (rdev->flags & RADEON_IS_PCI)
+>  			r100_pci_gart_fini(rdev);
+> -		radeon_agp_fini(rdev);
+>  		rdev->accel_working =3D false;
+>  	}
+>  	return 0;
+> diff --git a/drivers/gpu/drm/radeon/r420.c b/drivers/gpu/drm/radeon/r42=
+0.c
+> index 1d4c04e0a449..3cb337dacd56 100644
+> --- a/drivers/gpu/drm/radeon/r420.c
+> +++ b/drivers/gpu/drm/radeon/r420.c
+> @@ -366,7 +366,6 @@ void r420_fini(struct radeon_device *rdev)
+>  		rv370_pcie_gart_fini(rdev);
+>  	if (rdev->flags & RADEON_IS_PCI)
+>  		r100_pci_gart_fini(rdev);
+> -	radeon_agp_fini(rdev);
+>  	radeon_irq_kms_fini(rdev);
+>  	radeon_fence_driver_fini(rdev);
+>  	radeon_bo_fini(rdev);
+> @@ -419,13 +418,6 @@ int r420_init(struct radeon_device *rdev)
+> =20
+>  	/* Initialize clocks */
+>  	radeon_get_clock_info(rdev->ddev);
+> -	/* initialize AGP */
+> -	if (rdev->flags & RADEON_IS_AGP) {
+> -		r =3D radeon_agp_init(rdev);
+> -		if (r) {
+> -			radeon_agp_disable(rdev);
+> -		}
+> -	}
+>  	/* initialize memory controller */
+>  	r300_mc_init(rdev);
+>  	r420_debugfs(rdev);
+> @@ -470,7 +462,6 @@ int r420_init(struct radeon_device *rdev)
+>  			rv370_pcie_gart_fini(rdev);
+>  		if (rdev->flags & RADEON_IS_PCI)
+>  			r100_pci_gart_fini(rdev);
+> -		radeon_agp_fini(rdev);
+>  		rdev->accel_working =3D false;
+>  	}
+>  	return 0;
+> diff --git a/drivers/gpu/drm/radeon/r520.c b/drivers/gpu/drm/radeon/r52=
+0.c
+> index fc78e64ae727..76ac87d72406 100644
+> --- a/drivers/gpu/drm/radeon/r520.c
+> +++ b/drivers/gpu/drm/radeon/r520.c
+> @@ -288,13 +288,6 @@ int r520_init(struct radeon_device *rdev)
+>  	}
+>  	/* Initialize clocks */
+>  	radeon_get_clock_info(rdev->ddev);
+> -	/* initialize AGP */
+> -	if (rdev->flags & RADEON_IS_AGP) {
+> -		r =3D radeon_agp_init(rdev);
+> -		if (r) {
+> -			radeon_agp_disable(rdev);
+> -		}
+> -	}
+>  	/* initialize memory controller */
+>  	r520_mc_init(rdev);
+>  	rv515_debugfs(rdev);
+> @@ -324,7 +317,6 @@ int r520_init(struct radeon_device *rdev)
+>  		radeon_ib_pool_fini(rdev);
+>  		radeon_irq_kms_fini(rdev);
+>  		rv370_pcie_gart_fini(rdev);
+> -		radeon_agp_fini(rdev);
+>  		rdev->accel_working =3D false;
+>  	}
+>  	return 0;
+> diff --git a/drivers/gpu/drm/radeon/r600.c b/drivers/gpu/drm/radeon/r60=
+0.c
+> index d9a33ca768f3..4a5ac15893c2 100644
+> --- a/drivers/gpu/drm/radeon/r600.c
+> +++ b/drivers/gpu/drm/radeon/r600.c
+> @@ -3286,11 +3286,6 @@ int r600_init(struct radeon_device *rdev)
+>  	r =3D radeon_fence_driver_init(rdev);
+>  	if (r)
+>  		return r;
+> -	if (rdev->flags & RADEON_IS_AGP) {
+> -		r =3D radeon_agp_init(rdev);
+> -		if (r)
+> -			radeon_agp_disable(rdev);
+> -	}
+>  	r =3D r600_mc_init(rdev);
+>  	if (r)
+>  		return r;
+> @@ -3353,7 +3348,6 @@ void r600_fini(struct radeon_device *rdev)
+>  	radeon_irq_kms_fini(rdev);
+>  	r600_pcie_gart_fini(rdev);
+>  	r600_vram_scratch_fini(rdev);
+> -	radeon_agp_fini(rdev);
+>  	radeon_gem_fini(rdev);
+>  	radeon_fence_driver_fini(rdev);
+>  	radeon_bo_fini(rdev);
+> diff --git a/drivers/gpu/drm/radeon/radeon.h b/drivers/gpu/drm/radeon/r=
+adeon.h
+> index 30e32adc1fc6..377e1403b134 100644
+> --- a/drivers/gpu/drm/radeon/radeon.h
+> +++ b/drivers/gpu/drm/radeon/radeon.h
+> @@ -91,7 +91,6 @@ extern int radeon_no_wb;
+>  extern int radeon_modeset;
+>  extern int radeon_dynclks;
+>  extern int radeon_r4xx_atom;
+> -extern int radeon_agpmode;
+>  extern int radeon_vram_limit;
+>  extern int radeon_gart_size;
+>  extern int radeon_benchmarking;
+> @@ -1116,16 +1115,6 @@ typedef int (*radeon_packet0_check_t)(struct rad=
+eon_cs_parser *p,
+>  typedef int (*radeon_packet3_check_t)(struct radeon_cs_parser *p,
+>  				      struct radeon_cs_packet *pkt);
+> =20
+> -
+> -/*
+> - * AGP
+> - */
+> -int radeon_agp_init(struct radeon_device *rdev);
+> -void radeon_agp_resume(struct radeon_device *rdev);
+> -void radeon_agp_suspend(struct radeon_device *rdev);
+> -void radeon_agp_fini(struct radeon_device *rdev);
+> -
+> -
+>  /*
+>   * Writeback
+>   */
+> diff --git a/drivers/gpu/drm/radeon/radeon_agp.c b/drivers/gpu/drm/rade=
+on/radeon_agp.c
+> deleted file mode 100644
+> index 0aca7bdf54c7..000000000000
+> --- a/drivers/gpu/drm/radeon/radeon_agp.c
+> +++ /dev/null
+> @@ -1,290 +0,0 @@
+> -/*
+> - * Copyright 2008 Red Hat Inc.
+> - * Copyright 2009 Jerome Glisse.
+> - *
+> - * Permission is hereby granted, free of charge, to any person obtaini=
+ng a
+> - * copy of this software and associated documentation files (the "Soft=
+ware"),
+> - * to deal in the Software without restriction, including without limi=
+tation
+> - * the rights to use, copy, modify, merge, publish, distribute, sublic=
+ense,
+> - * and/or sell copies of the Software, and to permit persons to whom t=
+he
+> - * Software is furnished to do so, subject to the following conditions=
+:
+> - *
+> - * The above copyright notice and this permission notice shall be incl=
+uded in
+> - * all copies or substantial portions of the Software.
+> - *
+> - * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXP=
+RESS OR
+> - * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABI=
+LITY,
+> - * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT =
+SHALL
+> - * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAG=
+ES OR
+> - * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWIS=
+E,
+> - * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE =
+OR
+> - * OTHER DEALINGS IN THE SOFTWARE.
+> - *
+> - * Authors:
+> - *    Dave Airlie
+> - *    Jerome Glisse <glisse@freedesktop.org>
+> - */
+> -
+> -#include <linux/pci.h>
+> -
+> -#include <drm/drm_agpsupport.h>
+> -#include <drm/drm_device.h>
+> -#include <drm/radeon_drm.h>
+> -
+> -#include "radeon.h"
+> -
+> -#if IS_ENABLED(CONFIG_AGP)
+> -
+> -struct radeon_agpmode_quirk {
+> -	u32 hostbridge_vendor;
+> -	u32 hostbridge_device;
+> -	u32 chip_vendor;
+> -	u32 chip_device;
+> -	u32 subsys_vendor;
+> -	u32 subsys_device;
+> -	u32 default_mode;
+> -};
+> -
+> -static struct radeon_agpmode_quirk radeon_agpmode_quirk_list[] =3D {
+> -	/* Intel E7505 Memory Controller Hub / RV350 AR [Radeon 9600XT] Needs=
+ AGPMode 4 (deb #515326) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x2550, PCI_VENDOR_ID_ATI, 0x4152, 0x1458, 0x4=
+038, 4},
+> -	/* Intel 82865G/PE/P DRAM Controller/Host-Hub / Mobility 9800 Needs A=
+GPMode 4 (deb #462590) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x2570, PCI_VENDOR_ID_ATI, 0x4a4e, PCI_VENDOR_=
+ID_DELL, 0x5106, 4},
+> -	/* Intel 82865G/PE/P DRAM Controller/Host-Hub / RV280 [Radeon 9200 SE=
+] Needs AGPMode 4 (lp #300304) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x2570, PCI_VENDOR_ID_ATI, 0x5964,
+> -		0x148c, 0x2073, 4},
+> -	/* Intel 82855PM Processor to I/O Controller / Mobility M6 LY Needs A=
+GPMode 1 (deb #467235) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3340, PCI_VENDOR_ID_ATI, 0x4c59,
+> -		PCI_VENDOR_ID_IBM, 0x052f, 1},
+> -	/* Intel 82855PM host bridge / Mobility 9600 M10 RV350 Needs AGPMode =
+1 (lp #195051) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3340, PCI_VENDOR_ID_ATI, 0x4e50,
+> -		PCI_VENDOR_ID_IBM, 0x0550, 1},
+> -	/* Intel 82855PM host bridge / RV250/M9 GL [Mobility FireGL 9000/Rade=
+on 9000] needs AGPMode 1 (Thinkpad T40p) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3340, PCI_VENDOR_ID_ATI, 0x4c66,
+> -		PCI_VENDOR_ID_IBM, 0x054d, 1},
+> -	/* Intel 82855PM host bridge / Mobility M7 needs AGPMode 1 */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3340, PCI_VENDOR_ID_ATI, 0x4c57,
+> -		PCI_VENDOR_ID_IBM, 0x0530, 1},
+> -	/* Intel 82855PM host bridge / FireGL Mobility T2 RV350 Needs AGPMode=
+ 2 (fdo #20647) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3340, PCI_VENDOR_ID_ATI, 0x4e54,
+> -		PCI_VENDOR_ID_IBM, 0x054f, 2},
+> -	/* Intel 82855PM host bridge / Mobility M9+ / VaioPCG-V505DX Needs AG=
+PMode 2 (fdo #17928) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3340, PCI_VENDOR_ID_ATI, 0x5c61,
+> -		PCI_VENDOR_ID_SONY, 0x816b, 2},
+> -	/* Intel 82855PM Processor to I/O Controller / Mobility M9+ Needs AGP=
+Mode 8 (phoronix forum) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3340, PCI_VENDOR_ID_ATI, 0x5c61,
+> -		PCI_VENDOR_ID_SONY, 0x8195, 8},
+> -	/* Intel 82830 830 Chipset Host Bridge / Mobility M6 LY Needs AGPMode=
+ 2 (fdo #17360)*/
+> -	{ PCI_VENDOR_ID_INTEL, 0x3575, PCI_VENDOR_ID_ATI, 0x4c59,
+> -		PCI_VENDOR_ID_DELL, 0x00e3, 2},
+> -	/* Intel 82852/82855 host bridge / Mobility FireGL 9000 RV250 Needs A=
+GPMode 1 (lp #296617) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3580, PCI_VENDOR_ID_ATI, 0x4c66,
+> -		PCI_VENDOR_ID_DELL, 0x0149, 1},
+> -	/* Intel 82855PM host bridge / Mobility FireGL 9000 RV250 Needs AGPMo=
+de 1 for suspend/resume */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3340, PCI_VENDOR_ID_ATI, 0x4c66,
+> -		PCI_VENDOR_ID_IBM, 0x0531, 1},
+> -	/* Intel 82852/82855 host bridge / Mobility 9600 M10 RV350 Needs AGPM=
+ode 1 (deb #467460) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3580, PCI_VENDOR_ID_ATI, 0x4e50,
+> -		0x1025, 0x0061, 1},
+> -	/* Intel 82852/82855 host bridge / Mobility 9600 M10 RV350 Needs AGPM=
+ode 1 (lp #203007) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3580, PCI_VENDOR_ID_ATI, 0x4e50,
+> -		0x1025, 0x0064, 1},
+> -	/* Intel 82852/82855 host bridge / Mobility 9600 M10 RV350 Needs AGPM=
+ode 1 (lp #141551) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3580, PCI_VENDOR_ID_ATI, 0x4e50,
+> -		PCI_VENDOR_ID_ASUSTEK, 0x1942, 1},
+> -	/* Intel 82852/82855 host bridge / Mobility 9600/9700 Needs AGPMode 1=
+ (deb #510208) */
+> -	{ PCI_VENDOR_ID_INTEL, 0x3580, PCI_VENDOR_ID_ATI, 0x4e50,
+> -		0x10cf, 0x127f, 1},
+> -	/* ASRock K7VT4A+ AGP 8x / ATI Radeon 9250 AGP Needs AGPMode 4 (lp #1=
+33192) */
+> -	{ 0x1849, 0x3189, PCI_VENDOR_ID_ATI, 0x5960,
+> -		0x1787, 0x5960, 4},
+> -	/* VIA K8M800 Host Bridge / RV280 [Radeon 9200 PRO] Needs AGPMode 4 (=
+fdo #12544) */
+> -	{ PCI_VENDOR_ID_VIA, 0x0204, PCI_VENDOR_ID_ATI, 0x5960,
+> -		0x17af, 0x2020, 4},
+> -	/* VIA KT880 Host Bridge / RV350 [Radeon 9550] Needs AGPMode 4 (fdo #=
+19981) */
+> -	{ PCI_VENDOR_ID_VIA, 0x0269, PCI_VENDOR_ID_ATI, 0x4153,
+> -		PCI_VENDOR_ID_ASUSTEK, 0x003c, 4},
+> -	/* VIA VT8363 Host Bridge / R200 QL [Radeon 8500] Needs AGPMode 2 (lp=
+ #141551) */
+> -	{ PCI_VENDOR_ID_VIA, 0x0305, PCI_VENDOR_ID_ATI, 0x514c,
+> -		PCI_VENDOR_ID_ATI, 0x013a, 2},
+> -	/* VIA VT82C693A Host Bridge / RV280 [Radeon 9200 PRO] Needs AGPMode =
+2 (deb #515512) */
+> -	{ PCI_VENDOR_ID_VIA, 0x0691, PCI_VENDOR_ID_ATI, 0x5960,
+> -		PCI_VENDOR_ID_ASUSTEK, 0x004c, 2},
+> -	/* VIA VT82C693A Host Bridge / RV280 [Radeon 9200 PRO] Needs AGPMode =
+2 */
+> -	{ PCI_VENDOR_ID_VIA, 0x0691, PCI_VENDOR_ID_ATI, 0x5960,
+> -		PCI_VENDOR_ID_ASUSTEK, 0x0054, 2},
+> -	/* VIA VT8377 Host Bridge / R200 QM [Radeon 9100] Needs AGPMode 4 (de=
+b #461144) */
+> -	{ PCI_VENDOR_ID_VIA, 0x3189, PCI_VENDOR_ID_ATI, 0x514d,
+> -		0x174b, 0x7149, 4},
+> -	/* VIA VT8377 Host Bridge / RV280 [Radeon 9200 PRO] Needs AGPMode 4 (=
+lp #312693) */
+> -	{ PCI_VENDOR_ID_VIA, 0x3189, PCI_VENDOR_ID_ATI, 0x5960,
+> -		0x1462, 0x0380, 4},
+> -	/* VIA VT8377 Host Bridge / RV280 Needs AGPMode 4 (ati ML) */
+> -	{ PCI_VENDOR_ID_VIA, 0x3189, PCI_VENDOR_ID_ATI, 0x5964,
+> -		0x148c, 0x2073, 4},
+> -	/* ATI Host Bridge / RV280 [M9+] Needs AGPMode 1 (phoronix forum) */
+> -	{ PCI_VENDOR_ID_ATI, 0xcbb2, PCI_VENDOR_ID_ATI, 0x5c61,
+> -		PCI_VENDOR_ID_SONY, 0x8175, 1},
+> -	{ 0, 0, 0, 0, 0, 0, 0 },
+> -};
+> -#endif
+> -
+> -int radeon_agp_init(struct radeon_device *rdev)
+> -{
+> -#if IS_ENABLED(CONFIG_AGP)
+> -	struct radeon_agpmode_quirk *p =3D radeon_agpmode_quirk_list;
+> -	struct drm_agp_mode mode;
+> -	struct drm_agp_info info;
+> -	uint32_t agp_status;
+> -	int default_mode;
+> -	bool is_v3;
+> -	int ret;
+> -
+> -	/* Acquire AGP. */
+> -	ret =3D drm_agp_acquire(rdev->ddev);
+> -	if (ret) {
+> -		DRM_ERROR("Unable to acquire AGP: %d\n", ret);
+> -		return ret;
+> -	}
+> -
+> -	ret =3D drm_agp_info(rdev->ddev, &info);
+> -	if (ret) {
+> -		drm_agp_release(rdev->ddev);
+> -		DRM_ERROR("Unable to get AGP info: %d\n", ret);
+> -		return ret;
+> -	}
+> -
+> -	if (rdev->ddev->agp->agp_info.aper_size < 32) {
+> -		drm_agp_release(rdev->ddev);
+> -		dev_warn(rdev->dev, "AGP aperture too small (%zuM) "
+> -			"need at least 32M, disabling AGP\n",
+> -			rdev->ddev->agp->agp_info.aper_size);
+> -		return -EINVAL;
+> -	}
+> -
+> -	mode.mode =3D info.mode;
+> -	/* chips with the agp to pcie bridge don't have the AGP_STATUS regist=
+er
+> -	 * Just use the whatever mode the host sets up.
+> -	 */
+> -	if (rdev->family <=3D CHIP_RV350)
+> -		agp_status =3D (RREG32(RADEON_AGP_STATUS) | RADEON_AGPv3_MODE) & mod=
+e.mode;
+> -	else
+> -		agp_status =3D mode.mode;
+> -	is_v3 =3D !!(agp_status & RADEON_AGPv3_MODE);
+> -
+> -	if (is_v3) {
+> -		default_mode =3D (agp_status & RADEON_AGPv3_8X_MODE) ? 8 : 4;
+> -	} else {
+> -		if (agp_status & RADEON_AGP_4X_MODE) {
+> -			default_mode =3D 4;
+> -		} else if (agp_status & RADEON_AGP_2X_MODE) {
+> -			default_mode =3D 2;
+> -		} else {
+> -			default_mode =3D 1;
+> -		}
+> -	}
+> -
+> -	/* Apply AGPMode Quirks */
+> -	while (p && p->chip_device !=3D 0) {
+> -		if (info.id_vendor =3D=3D p->hostbridge_vendor &&
+> -		    info.id_device =3D=3D p->hostbridge_device &&
+> -		    rdev->pdev->vendor =3D=3D p->chip_vendor &&
+> -		    rdev->pdev->device =3D=3D p->chip_device &&
+> -		    rdev->pdev->subsystem_vendor =3D=3D p->subsys_vendor &&
+> -		    rdev->pdev->subsystem_device =3D=3D p->subsys_device) {
+> -			default_mode =3D p->default_mode;
+> -		}
+> -		++p;
+> -	}
+> -
+> -	if (radeon_agpmode > 0) {
+> -		if ((radeon_agpmode < (is_v3 ? 4 : 1)) ||
+> -		    (radeon_agpmode > (is_v3 ? 8 : 4)) ||
+> -		    (radeon_agpmode & (radeon_agpmode - 1))) {
+> -			DRM_ERROR("Illegal AGP Mode: %d (valid %s), leaving at %d\n",
+> -				  radeon_agpmode, is_v3 ? "4, 8" : "1, 2, 4",
+> -				  default_mode);
+> -			radeon_agpmode =3D default_mode;
+> -		} else {
+> -			DRM_INFO("AGP mode requested: %d\n", radeon_agpmode);
+> -		}
+> -	} else {
+> -		radeon_agpmode =3D default_mode;
+> -	}
+> -
+> -	mode.mode &=3D ~RADEON_AGP_MODE_MASK;
+> -	if (is_v3) {
+> -		switch (radeon_agpmode) {
+> -		case 8:
+> -			mode.mode |=3D RADEON_AGPv3_8X_MODE;
+> -			break;
+> -		case 4:
+> -		default:
+> -			mode.mode |=3D RADEON_AGPv3_4X_MODE;
+> -			break;
+> -		}
+> -	} else {
+> -		switch (radeon_agpmode) {
+> -		case 4:
+> -			mode.mode |=3D RADEON_AGP_4X_MODE;
+> -			break;
+> -		case 2:
+> -			mode.mode |=3D RADEON_AGP_2X_MODE;
+> -			break;
+> -		case 1:
+> -		default:
+> -			mode.mode |=3D RADEON_AGP_1X_MODE;
+> -			break;
+> -		}
+> -	}
+> -
+> -	mode.mode &=3D ~RADEON_AGP_FW_MODE; /* disable fw */
+> -	ret =3D drm_agp_enable(rdev->ddev, mode);
+> -	if (ret) {
+> -		DRM_ERROR("Unable to enable AGP (mode =3D 0x%lx)\n", mode.mode);
+> -		drm_agp_release(rdev->ddev);
+> -		return ret;
+> -	}
+> -
+> -	rdev->mc.agp_base =3D rdev->ddev->agp->agp_info.aper_base;
+
+The field agp_base seems to be used to program HW registers. Yet I
+cannot find its initialization after applying the patchset. Does some of
+this removed setup code need to be moved elsewhere instead?
+
+Best regards
+Thomas
+
+> -	rdev->mc.gtt_size =3D rdev->ddev->agp->agp_info.aper_size << 20;
+> -	rdev->mc.gtt_start =3D rdev->mc.agp_base;
+> -	rdev->mc.gtt_end =3D rdev->mc.gtt_start + rdev->mc.gtt_size - 1;
+> -	dev_info(rdev->dev, "GTT: %lluM 0x%08llX - 0x%08llX\n",
+> -		rdev->mc.gtt_size >> 20, rdev->mc.gtt_start, rdev->mc.gtt_end);
+> -
+> -	/* workaround some hw issues */
+> -	if (rdev->family < CHIP_R200) {
+> -		WREG32(RADEON_AGP_CNTL, RREG32(RADEON_AGP_CNTL) | 0x000e0000);
+> -	}
+> -	return 0;
+> -#else
+> -	return 0;
+> -#endif
+> -}
+> -
+> -void radeon_agp_resume(struct radeon_device *rdev)
+> -{
+> -#if IS_ENABLED(CONFIG_AGP)
+> -	int r;
+> -	if (rdev->flags & RADEON_IS_AGP) {
+> -		r =3D radeon_agp_init(rdev);
+> -		if (r)
+> -			dev_warn(rdev->dev, "radeon AGP reinit failed\n");
+> -	}
+> -#endif
+> -}
+> -
+> -void radeon_agp_fini(struct radeon_device *rdev)
+> -{
+> -#if IS_ENABLED(CONFIG_AGP)
+> -	if (rdev->ddev->agp && rdev->ddev->agp->acquired) {
+> -		drm_agp_release(rdev->ddev);
+> -	}
+> -#endif
+> -}
+> -
+> -void radeon_agp_suspend(struct radeon_device *rdev)
+> -{
+> -	radeon_agp_fini(rdev);
+> -}
+> diff --git a/drivers/gpu/drm/radeon/radeon_device.c b/drivers/gpu/drm/r=
+adeon/radeon_device.c
+> index 266e3cbbd09b..12e5c5d81c47 100644
+> --- a/drivers/gpu/drm/radeon/radeon_device.c
+> +++ b/drivers/gpu/drm/radeon/radeon_device.c
+> @@ -1145,22 +1145,6 @@ static void radeon_check_arguments(struct radeon=
+_device *rdev)
+>  	}
+>  	rdev->mc.gtt_size =3D (uint64_t)radeon_gart_size << 20;
+> =20
+> -	/* AGP mode can only be -1, 1, 2, 4, 8 */
+> -	switch (radeon_agpmode) {
+> -	case -1:
+> -	case 0:
+> -	case 1:
+> -	case 2:
+> -	case 4:
+> -	case 8:
+> -		break;
+> -	default:
+> -		dev_warn(rdev->dev, "invalid AGP mode %d (valid mode: "
+> -				"-1, 0, 1, 2, 4, 8)\n", radeon_agpmode);
+> -		radeon_agpmode =3D 0;
+> -		break;
+> -	}
+> -
+>  	if (!radeon_check_pot_argument(radeon_vm_size)) {
+>  		dev_warn(rdev->dev, "VM size (%d) must be a power of 2\n",
+>  			 radeon_vm_size);
+> @@ -1348,9 +1332,8 @@ int radeon_device_init(struct radeon_device *rdev=
+,
+>  		rdev->flags &=3D ~RADEON_IS_AGP;
+>  	}
+> =20
+> -	if (rdev->flags & RADEON_IS_AGP && radeon_agpmode =3D=3D -1) {
+> +	if (rdev->flags & RADEON_IS_AGP)
+>  		radeon_agp_disable(rdev);
+> -	}
+> =20
+>  	/* Set the internal MC address mask
+>  	 * This is the max address of the GPU's
+> @@ -1636,8 +1619,6 @@ int radeon_suspend_kms(struct drm_device *dev, bo=
+ol suspend,
+>  	 */
+>  	radeon_bo_evict_vram(rdev);
+> =20
+> -	radeon_agp_suspend(rdev);
+> -
+>  	pci_save_state(dev->pdev);
+>  	if (freeze && rdev->family >=3D CHIP_CEDAR && !(rdev->flags & RADEON_=
+IS_IGP)) {
+>  		rdev->asic->asic_reset(rdev, true);
+> @@ -1687,8 +1668,6 @@ int radeon_resume_kms(struct drm_device *dev, boo=
+l resume, bool fbcon)
+>  			return -1;
+>  		}
+>  	}
+> -	/* resume AGP if in use */
+> -	radeon_agp_resume(rdev);
+>  	radeon_resume(rdev);
+> =20
+>  	r =3D radeon_ib_ring_tests(rdev);
+> diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/rade=
+on/radeon_drv.c
+> index bbb0883e8ce6..62a5dfaf990b 100644
+> --- a/drivers/gpu/drm/radeon/radeon_drv.c
+> +++ b/drivers/gpu/drm/radeon/radeon_drv.c
+> @@ -171,12 +171,6 @@ int radeon_no_wb;
+>  int radeon_modeset =3D -1;
+>  int radeon_dynclks =3D -1;
+>  int radeon_r4xx_atom =3D 0;
+> -#ifdef __powerpc__
+> -/* Default to PCI on PowerPC (fdo #95017) */
+> -int radeon_agpmode =3D -1;
+> -#else
+> -int radeon_agpmode =3D 0;
+> -#endif
+>  int radeon_vram_limit =3D 0;
+>  int radeon_gart_size =3D -1; /* auto */
+>  int radeon_benchmarking =3D 0;
+> @@ -220,9 +214,6 @@ module_param_named(r4xx_atom, radeon_r4xx_atom, int=
+, 0444);
+>  MODULE_PARM_DESC(vramlimit, "Restrict VRAM for testing, in megabytes")=
+;
+>  module_param_named(vramlimit, radeon_vram_limit, int, 0600);
+> =20
+> -MODULE_PARM_DESC(agpmode, "AGP Mode (-1 =3D=3D PCI)");
+> -module_param_named(agpmode, radeon_agpmode, int, 0444);
+> -
+>  MODULE_PARM_DESC(gartsize, "Size of PCIE/IGP gart to setup in megabyte=
+s (32, 64, etc., -1 =3D auto)");
+>  module_param_named(gartsize, radeon_gart_size, int, 0600);
+> =20
+> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/rade=
+on/radeon_ttm.c
+> index 5d50c9edbe80..21bb3706c13c 100644
+> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+> @@ -86,20 +86,6 @@ static int radeon_init_mem_type(struct ttm_bo_device=
+ *bdev, uint32_t type,
+>  		man->available_caching =3D TTM_PL_MASK_CACHING;
+>  		man->default_caching =3D TTM_PL_FLAG_CACHED;
+>  		man->flags =3D TTM_MEMTYPE_FLAG_MAPPABLE | TTM_MEMTYPE_FLAG_CMA;
+> -#if IS_ENABLED(CONFIG_AGP)
+> -		if (rdev->flags & RADEON_IS_AGP) {
+> -			if (!rdev->ddev->agp) {
+> -				DRM_ERROR("AGP is not enabled for memory type %u\n",
+> -					  (unsigned)type);
+> -				return -EINVAL;
+> -			}
+> -			if (!rdev->ddev->agp->cant_use_aperture)
+> -				man->flags =3D TTM_MEMTYPE_FLAG_MAPPABLE;
+> -			man->available_caching =3D TTM_PL_FLAG_UNCACHED |
+> -						 TTM_PL_FLAG_WC;
+> -			man->default_caching =3D TTM_PL_FLAG_WC;
+> -		}
+> -#endif
+>  		break;
+>  	case TTM_PL_VRAM:
+>  		/* "On-card" video ram */
+> @@ -411,14 +397,6 @@ static int radeon_ttm_io_mem_reserve(struct ttm_bo=
+_device *bdev, struct ttm_mem_
+>  		/* system memory */
+>  		return 0;
+>  	case TTM_PL_TT:
+> -#if IS_ENABLED(CONFIG_AGP)
+> -		if (rdev->flags & RADEON_IS_AGP) {
+> -			/* RADEON_IS_AGP is set only if AGP is active */
+> -			mem->bus.offset =3D mem->start << PAGE_SHIFT;
+> -			mem->bus.base =3D rdev->mc.agp_base;
+> -			mem->bus.is_iomem =3D !rdev->ddev->agp->cant_use_aperture;
+> -		}
+> -#endif
+>  		break;
+>  	case TTM_PL_VRAM:
+>  		mem->bus.offset =3D mem->start << PAGE_SHIFT;
+> @@ -631,12 +609,6 @@ static struct ttm_tt *radeon_ttm_tt_create(struct =
+ttm_buffer_object *bo,
+>  	struct radeon_ttm_tt *gtt;
+> =20
+>  	rdev =3D radeon_get_rdev(bo->bdev);
+> -#if IS_ENABLED(CONFIG_AGP)
+> -	if (rdev->flags & RADEON_IS_AGP) {
+> -		return ttm_agp_tt_create(bo, rdev->ddev->agp->bridge,
+> -					 page_flags);
+> -	}
+> -#endif
+> =20
+>  	gtt =3D kzalloc(sizeof(struct radeon_ttm_tt), GFP_KERNEL);
+>  	if (gtt =3D=3D NULL) {
+> @@ -683,11 +655,6 @@ static int radeon_ttm_tt_populate(struct ttm_tt *t=
+tm,
+>  	}
+> =20
+>  	rdev =3D radeon_get_rdev(ttm->bdev);
+> -#if IS_ENABLED(CONFIG_AGP)
+> -	if (rdev->flags & RADEON_IS_AGP) {
+> -		return ttm_agp_tt_populate(ttm, ctx);
+> -	}
+> -#endif
+> =20
+>  #ifdef CONFIG_SWIOTLB
+>  	if (rdev->need_swiotlb && swiotlb_nr_tbl()) {
+> @@ -714,12 +681,6 @@ static void radeon_ttm_tt_unpopulate(struct ttm_tt=
+ *ttm)
+>  		return;
+> =20
+>  	rdev =3D radeon_get_rdev(ttm->bdev);
+> -#if IS_ENABLED(CONFIG_AGP)
+> -	if (rdev->flags & RADEON_IS_AGP) {
+> -		ttm_agp_tt_unpopulate(ttm);
+> -		return;
+> -	}
+> -#endif
+> =20
+>  #ifdef CONFIG_SWIOTLB
+>  	if (rdev->need_swiotlb && swiotlb_nr_tbl()) {
+> diff --git a/drivers/gpu/drm/radeon/rv515.c b/drivers/gpu/drm/radeon/rv=
+515.c
+> index 147e5cf8348d..8a2f16320869 100644
+> --- a/drivers/gpu/drm/radeon/rv515.c
+> +++ b/drivers/gpu/drm/radeon/rv515.c
+> @@ -622,7 +622,6 @@ void rv515_fini(struct radeon_device *rdev)
+>  	radeon_ib_pool_fini(rdev);
+>  	radeon_gem_fini(rdev);
+>  	rv370_pcie_gart_fini(rdev);
+> -	radeon_agp_fini(rdev);
+>  	radeon_irq_kms_fini(rdev);
+>  	radeon_fence_driver_fini(rdev);
+>  	radeon_bo_fini(rdev);
+> @@ -667,13 +666,6 @@ int rv515_init(struct radeon_device *rdev)
+>  		return -EINVAL;
+>  	/* Initialize clocks */
+>  	radeon_get_clock_info(rdev->ddev);
+> -	/* initialize AGP */
+> -	if (rdev->flags & RADEON_IS_AGP) {
+> -		r =3D radeon_agp_init(rdev);
+> -		if (r) {
+> -			radeon_agp_disable(rdev);
+> -		}
+> -	}
+>  	/* initialize memory controller */
+>  	rv515_mc_init(rdev);
+>  	rv515_debugfs(rdev);
+> @@ -703,7 +695,6 @@ int rv515_init(struct radeon_device *rdev)
+>  		radeon_ib_pool_fini(rdev);
+>  		radeon_irq_kms_fini(rdev);
+>  		rv370_pcie_gart_fini(rdev);
+> -		radeon_agp_fini(rdev);
+>  		rdev->accel_working =3D false;
+>  	}
+>  	return 0;
+> diff --git a/drivers/gpu/drm/radeon/rv770.c b/drivers/gpu/drm/radeon/rv=
+770.c
+> index 21f653ae1e1b..20bf54266f24 100644
+> --- a/drivers/gpu/drm/radeon/rv770.c
+> +++ b/drivers/gpu/drm/radeon/rv770.c
+> @@ -1943,12 +1943,6 @@ int rv770_init(struct radeon_device *rdev)
+>  	r =3D radeon_fence_driver_init(rdev);
+>  	if (r)
+>  		return r;
+> -	/* initialize AGP */
+> -	if (rdev->flags & RADEON_IS_AGP) {
+> -		r =3D radeon_agp_init(rdev);
+> -		if (r)
+> -			radeon_agp_disable(rdev);
+> -	}
+>  	r =3D rv770_mc_init(rdev);
+>  	if (r)
+>  		return r;
+> @@ -2015,7 +2009,6 @@ void rv770_fini(struct radeon_device *rdev)
+>  	r600_vram_scratch_fini(rdev);
+>  	radeon_gem_fini(rdev);
+>  	radeon_fence_driver_fini(rdev);
+> -	radeon_agp_fini(rdev);
+>  	radeon_bo_fini(rdev);
+>  	radeon_atombios_fini(rdev);
+>  	kfree(rdev->bios);
+>=20
+
+--=20
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Maxfeldstr. 5, 90409 N=C3=BCrnberg, Germany
+(HRB 36809, AG N=C3=BCrnberg)
+Gesch=C3=A4ftsf=C3=BChrer: Felix Imend=C3=B6rffer
+
+
+--NbA2eOA4R5k0IXPLJryz8nnkswo7VcVPO--
+
+--0pBMGTWQsV6s2HpzTYNLFGIWqImJ3CuU9
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCAAdFiEEchf7rIzpz2NEoWjlaA3BHVMLeiMFAl666PEACgkQaA3BHVML
+eiO8NQf/S3fe6dJBGCPXrOelimQpQz3gewcGkiBKIwC1bSqMocbIUNqxQEu2H0QE
+I/flHE0nfA1fQe+9+LgIkY2ezKYtg9NWh7xSPsyh7GsDULyxLrFdMTa8RLleXj9f
+iQaPNSy/3CmV4C7J1JRgvazlGhDSpO39M0sX/l7tZNNGQDNLNhOsuerNfJ9wjt+U
+s8o7P65nCfuVFp1jGlUzr7YM3EIrvAOHZCZeqXU7kDVkyNzat9elO/a2JaTr9v7l
+JmEqdZZCTKJv197ZXKqvbwlBhcvMowQhhkvQ7C6q9WSWthDLAqgfufSUxKR1pxeW
+iJMYc2nR4aXqgi6ao8fU6gg4Dzh67Q==
+=uj40
+-----END PGP SIGNATURE-----
+
+--0pBMGTWQsV6s2HpzTYNLFGIWqImJ3CuU9--
+
+--===============0412208610==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0412208610==--
