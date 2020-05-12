@@ -2,67 +2,71 @@ Return-Path: <SRS0=6vDE=62=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C654C2D0F7
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 May 2020 20:15:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F94DC2D0F8
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 May 2020 21:12:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 09D6720740
-	for <amd-gfx@archiver.kernel.org>; Tue, 12 May 2020 20:15:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D3FB920740
+	for <amd-gfx@archiver.kernel.org>; Tue, 12 May 2020 21:12:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r1Uedi1/"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 09D6720740
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lP/38E2f"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3FB920740
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B6E36E97A;
-	Tue, 12 May 2020 20:15:53 +0000 (UTC)
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0972C6E97A
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 May 2020 20:15:51 +0000 (UTC)
-Received: by mail-wm1-x344.google.com with SMTP id u16so25252894wmc.5
- for <amd-gfx@lists.freedesktop.org>; Tue, 12 May 2020 13:15:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81C4A6E99F;
+	Tue, 12 May 2020 21:12:17 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFD906E99F;
+ Tue, 12 May 2020 21:12:16 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id g12so25518410wmh.3;
+ Tue, 12 May 2020 14:12:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=PIKtDsNjhu7JFAAcnChzykjQwWnAVLBfcVv31COCVDE=;
- b=r1Uedi1/+njuR38+d8V5HUG/Unfbckzzx8vd8AXnKWDfKD2lMxfOVjX08nImgj+BtE
- FQ1ilkULMczf+m9ze8hbtGe459kHKQug8VMhy2ZsWb+KWHM2bqbZf97A21LkcsPJLtfi
- n7Cl0UQm4vocWyA/Gkg7NepQYUB4IY/UV86ekIjtEF1wIs4wslwmu0npCHKZXdK3/0j7
- DJnOE81GHBI+XKYxLcZmdjWFsDREyccvs+qFNjb9eXPFaf4reRWGE67buNDoQEXJTUmT
- 55IgNNvMfa8I1tG4RxIH6fbAtf+FAry/Gpcggz93/Knq3PD7UclXDucaMoVXEkLsb7Dp
- Vj7A==
+ :cc:content-transfer-encoding;
+ bh=pLYCwLh/bjz54dBFKDYpXCCsMiFh7ugi78OcIyHdNMo=;
+ b=lP/38E2f7hDc/lcxiazNY6iOfcDVgebacbmnahr0DCK5dsdqaRqI7ViKSsAxtsr3IU
+ gqsGzO53JcgScCh5yusADIV5OlGOksYyB54R4PkzyiIUSMk6g5qNKQU2d4W+VFEUIrbr
+ ZuUzhaV6bteInDfQGcADBl3vIo8S0gB6j36lyxSm4Z8cLl8dxnKuVTN/e29d2fAsIxoM
+ TjnbrWaf/+kSawLGrhoEeTa7SWTH7RMLrv0YuPkwvckQ8R46/+UkAIt5UXY8HlYTeVtO
+ m7mysjqQpc6A7nbcppFhFFLeVYYLd1n22KYUhBJxaWZaY8Q7aqGBKc1yCiwuF0wVcHvy
+ aF6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=PIKtDsNjhu7JFAAcnChzykjQwWnAVLBfcVv31COCVDE=;
- b=DUogIuaBQSk2FrS0iBS9w+KbgaqliDz31H0lWCrYJOQNlaqChgneRbjKyDsepr9uvM
- Lq9hmjE+MWAyF6v3GnzI5Tnyr3X2y8O0rysNjMlWqcHCjdLC4+j/uAQgCEkO2n90kARp
- W5JUaFVTjjbRcw2QOhE88TDsZoiOFjasJhZ6gn4P7VcQBA0Du0rzHFcKdJNynHdzDfRE
- lR//5hdcfs0xtGJt7oSYxNCemfRu/WOOH0//zPAmCrRuoiEj8ZxoiHMfMgN5kZh1Y7cu
- mAr7/6l3oEBYLGf2XiKImPG2w2pJLOOAHq55h6oSELCZZCx7oZKhFjmKAbfE+lyQKBL2
- vo8w==
-X-Gm-Message-State: AGi0Pua7yN+7Ny2vB62yKLvLF86ryfPOyhvuCTEiLOrm8JBcRFKeshSc
- F4+vBP7n600PlpjZl/gf6DGDwtkjiA1ZNhvMUUnk/w==
-X-Google-Smtp-Source: APiQypLhrNwuhSg/dAnnezrC1bxHmpH8SQ0ytATw/EKk+4pEaqldIlpVzSAis2Hm2j6acqbYeMYcnT1tWkrQGvB/rqU=
-X-Received: by 2002:a1c:1d41:: with SMTP id d62mr18707954wmd.79.1589314550250; 
- Tue, 12 May 2020 13:15:50 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=pLYCwLh/bjz54dBFKDYpXCCsMiFh7ugi78OcIyHdNMo=;
+ b=NH9YmICzZaro3YuTi2Isk4sATOqsSmQwzN/GDF0IUvrDsGTS0SaDsPdXvtvSw7Ay99
+ cQwx0seGT+F8sOZkT0u9pNn/W6RRiKg1+F5CNeQwFuNNGcg1fg0Ck1rhO+5i4ukcQFHM
+ h7mVW6C8aAcJCikNv4ILiuZlNR7ewtNXWtARUXGJ9/wwiDIb0y574zcCbYzOaXMzclfC
+ poynGc5gFpBFG3E2RJg69k+cnhedolZQTqh5JZ5lJ5+9HCajOZ+u7fqR5fCFkO9BvZy9
+ uxDcoZvg/2d5X7SaHTLz/teLJNAa44hmE3qS6v4XwR0Aa1PaCsosyAp0QHATRSV8gpMq
+ rSGQ==
+X-Gm-Message-State: AGi0PuYgiDv7tvehw/BtlefD16APaguL8HM0Z/c6tCb8goptEdk8DW4O
+ rrw2PGPWgp6hqhAFlS6DDhI33jWigxyidILtf8k=
+X-Google-Smtp-Source: APiQypL9vXFi7J6y9Ng/AqiS1iiuyIhSOzR1EI1V1+5nFZTZ3zrvoaPI1hMmjODwUWYfaHsoapPr3RkyX0QpzCbXwTM=
+X-Received: by 2002:a1c:1d41:: with SMTP id d62mr18919174wmd.79.1589317935386; 
+ Tue, 12 May 2020 14:12:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200505194812.185370-1-alexander.deucher@amd.com>
- <CADnq5_Oizm+QJjJ2FxQERWXdvWy_g=8=QMh2POGH5-tR44M7bA@mail.gmail.com>
-In-Reply-To: <CADnq5_Oizm+QJjJ2FxQERWXdvWy_g=8=QMh2POGH5-tR44M7bA@mail.gmail.com>
+References: <20200511171722.96576-1-christian.koenig@amd.com>
+ <20200511171722.96576-2-christian.koenig@amd.com>
+ <CADnq5_MyO_L+1w69qDLzhg34W6Qer-uSRR2tb7-2uXLC_6PXSg@mail.gmail.com>
+ <ba0b1ab7-3078-a6f2-41cd-326ca21ee99f@daenzer.net>
+ <CADnq5_MdbJUXs7wbG=HCOKj4Vp_NmLkcJng=EXynSXPe9gsyOQ@mail.gmail.com>
+ <777c08d1-3ac3-16ca-0222-e2d62c281e50@spliet.org>
+In-Reply-To: <777c08d1-3ac3-16ca-0222-e2d62c281e50@spliet.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 12 May 2020 16:15:38 -0400
-Message-ID: <CADnq5_MZAigZC_vOSTUiscnn_zrF61Es7HszD25YHh_wkstAcA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: simplify ATIF backlight handling
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Date: Tue, 12 May 2020 17:12:04 -0400
+Message-ID: <CADnq5_NK6ziShvkDug5xGHm7oZTf9qEu41gOxvNANQHFD2a-qQ@mail.gmail.com>
+Subject: Re: [Nouveau] [PATCH 1/3] drm/radeon: remove AGP support
+To: Roy Spliet <nouveau@spliet.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,146 +78,68 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ nouveau <nouveau@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping?
-
-Alex
-
-On Thu, May 7, 2020 at 12:09 PM Alex Deucher <alexdeucher@gmail.com> wrote:
->
-> Ping?
->
-> On Tue, May 5, 2020 at 3:48 PM Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > Just register the a pointer to the backlight device and use
-> > that. Unifies the DC and non-DC handling.
-> >
-> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 73 ++++++++++--------------
-> >  1 file changed, 30 insertions(+), 43 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > index 956cbbda4793..913c8f0513bd 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-> > @@ -64,7 +64,9 @@ struct amdgpu_atif {
-> >         struct amdgpu_atif_notifications notifications;
-> >         struct amdgpu_atif_functions functions;
-> >         struct amdgpu_atif_notification_cfg notification_cfg;
-> > -       struct amdgpu_encoder *encoder_for_bl;
-> > +#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
-> > +       struct backlight_device *bd;
-> > +#endif
-> >         struct amdgpu_dm_backlight_caps backlight_caps;
-> >  };
-> >
-> > @@ -444,45 +446,21 @@ static int amdgpu_atif_handler(struct amdgpu_device *adev,
-> >
-> >                 DRM_DEBUG_DRIVER("ATIF: %d pending SBIOS requests\n", count);
-> >
-> > -               if ((req.pending & ATIF_PANEL_BRIGHTNESS_CHANGE_REQUEST) &&
-> > -                   !amdgpu_device_has_dc_support(adev)) {
-> > -                       struct amdgpu_encoder *enc = atif->encoder_for_bl;
-> > -
-> > -                       if (enc) {
-> > -                               struct amdgpu_encoder_atom_dig *dig = enc->enc_priv;
-> > -
-> > -                               DRM_DEBUG_DRIVER("Changing brightness to %d\n",
-> > -                                                req.backlight_level);
-> > -
-> > -                               amdgpu_display_backlight_set_level(adev, enc, req.backlight_level);
-> > -
-> > -#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
-> > -                               backlight_force_update(dig->bl_dev,
-> > -                                                      BACKLIGHT_UPDATE_HOTKEY);
-> > -#endif
-> > -                       }
-> > -               }
-> > -#if defined(CONFIG_DRM_AMD_DC)
-> > +               if (req.pending & ATIF_PANEL_BRIGHTNESS_CHANGE_REQUEST) {
-> >  #if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
-> > -               if ((req.pending & ATIF_PANEL_BRIGHTNESS_CHANGE_REQUEST) &&
-> > -                   amdgpu_device_has_dc_support(adev)) {
-> > -                       struct amdgpu_display_manager *dm = &adev->dm;
-> > -                       struct backlight_device *bd = dm->backlight_dev;
-> > -
-> > -                       if (bd) {
-> > +                       if (atif->bd) {
-> >                                 DRM_DEBUG_DRIVER("Changing brightness to %d\n",
-> >                                                  req.backlight_level);
-> > -
-> >                                 /*
-> >                                  * XXX backlight_device_set_brightness() is
-> >                                  * hardwired to post BACKLIGHT_UPDATE_SYSFS.
-> >                                  * It probably should accept 'reason' parameter.
-> >                                  */
-> > -                               backlight_device_set_brightness(bd, req.backlight_level);
-> > +                               backlight_device_set_brightness(atif->bd, req.backlight_level);
-> >                         }
-> > -               }
-> > -#endif
-> >  #endif
-> > +               }
-> > +
-> >                 if (req.pending & ATIF_DGPU_DISPLAY_EVENT) {
-> >                         if (adev->flags & AMD_IS_PX) {
-> >                                 pm_runtime_get_sync(adev->ddev->dev);
-> > @@ -829,23 +807,32 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
-> >         adev->atif = atif;
-> >
-> >         if (atif->notifications.brightness_change) {
-> > -               struct drm_encoder *tmp;
-> > -
-> > -               /* Find the encoder controlling the brightness */
-> > -               list_for_each_entry(tmp, &adev->ddev->mode_config.encoder_list,
-> > -                               head) {
-> > -                       struct amdgpu_encoder *enc = to_amdgpu_encoder(tmp);
-> > -
-> > -                       if ((enc->devices & (ATOM_DEVICE_LCD_SUPPORT)) &&
-> > -                           enc->enc_priv) {
-> > -                               struct amdgpu_encoder_atom_dig *dig = enc->enc_priv;
-> > -                               if (dig->bl_dev) {
-> > -                                       atif->encoder_for_bl = enc;
-> > -                                       break;
-> > +#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
-> > +               if (amdgpu_device_has_dc_support(adev)) {
-> > +#if defined(CONFIG_DRM_AMD_DC)
-> > +                       struct amdgpu_display_manager *dm = &adev->dm;
-> > +                       atif->bd = dm->backlight_dev;
-> > +#endif
-> > +               } else {
-> > +                       struct drm_encoder *tmp;
-> > +
-> > +                       /* Find the encoder controlling the brightness */
-> > +                       list_for_each_entry(tmp, &adev->ddev->mode_config.encoder_list,
-> > +                                           head) {
-> > +                               struct amdgpu_encoder *enc = to_amdgpu_encoder(tmp);
-> > +
-> > +                               if ((enc->devices & (ATOM_DEVICE_LCD_SUPPORT)) &&
-> > +                                   enc->enc_priv) {
-> > +                                       struct amdgpu_encoder_atom_dig *dig = enc->enc_priv;
-> > +                                       if (dig->bl_dev) {
-> > +                                               atif->bd = dig->bl_dev;
-> > +                                               break;
-> > +                                       }
-> >                                 }
-> >                         }
-> >                 }
-> >         }
-> > +#endif
-> >
-> >         if (atif->functions.sbios_requests && !atif->functions.system_params) {
-> >                 /* XXX check this workraround, if sbios request function is
-> > --
-> > 2.25.4
-> >
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVHVlLCBNYXkgMTIsIDIwMjAgYXQgNDo1MiBQTSBSb3kgU3BsaWV0IDxub3V2ZWF1QHNwbGll
+dC5vcmc+IHdyb3RlOgo+Cj4gT3AgMTItMDUtMjAyMCBvbSAxNDozNiBzY2hyZWVmIEFsZXggRGV1
+Y2hlcjoKPiA+IE9uIFR1ZSwgTWF5IDEyLCAyMDIwIGF0IDQ6MTYgQU0gTWljaGVsIETDpG56ZXIg
+PG1pY2hlbEBkYWVuemVyLm5ldD4gd3JvdGU6Cj4gPj4KPiA+PiBPbiAyMDIwLTA1LTExIDEwOjEy
+IHAubS4sIEFsZXggRGV1Y2hlciB3cm90ZToKPiA+Pj4gT24gTW9uLCBNYXkgMTEsIDIwMjAgYXQg
+MToxNyBQTSBDaHJpc3RpYW4gS8O2bmlnCj4gPj4+IDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdt
+YWlsLmNvbT4gd3JvdGU6Cj4gPj4+Pgo+ID4+Pj4gQUdQIGlzIGRlcHJlY2F0ZWQgZm9yIDEwKyB5
+ZWFycyBub3cgYW5kIG5vdCB1c2VkIGFueSBtb3JlIG9uIG1vZGVybiBoYXJkd2FyZS4KPiA+Pj4+
+Cj4gPj4+PiBPbGQgaGFyZHdhcmUgc2hvdWxkIGNvbnRpbnVlIHRvIHdvcmsgaW4gUENJIG1vZGUu
+Cj4gPj4+Cj4gPj4+IE1pZ2h0IHdhbnQgdG8gY2xhcmlmeSB0aGF0IHRoZXJlIGlzIG5vIGxvc3Mg
+b2YgZnVuY3Rpb25hbGl0eSBoZXJlLgo+ID4+PiBTb21ldGhpbmcgbGlrZToKPiA+Pj4KPiA+Pj4g
+IlRoZXJlIGlzIG5vIGxvc3Mgb2YgZnVuY3Rpb25hbGl0eSBoZXJlLiAgR1BVcyB3aWxsIGNvbnRp
+bnVlIHRvCj4gPj4+IGZ1bmN0aW9uLiAgVGhpcyBqdXN0IGRyb3BzIHRoZSB1c2Ugb2YgdGhlIEFH
+UCBNTVUgaW4gdGhlIGNoaXBzZXQgaW4KPiA+Pj4gZmF2b3Igb2YgdGhlIE1NVSBvbiB0aGUgZGV2
+aWNlIHdoaWNoIGhhcyBwcm92ZW4gdG8gYmUgbXVjaCBtb3JlCj4gPj4+IHJlbGlhYmxlLiAgRHVl
+IHRvIGl0cyB1bnJlbGlhYmlsaXR5LCBBR1Agc3VwcG9ydCBoYXMgYmVlbiBkaXNhYmxlZCBvbgo+
+ID4+PiBQb3dlclBDIGZvciB5ZWFycyBhbHJlYWR5IHNvIHRoZXJlIGlzIG5vIGNoYW5nZSBvbiBQ
+b3dlclBDLiIKPiA+Pgo+ID4+IFRoZXJlJ3MgYSBkaWZmZXJlbmNlIGJldHdlZW4gc29tZXRoaW5n
+IGJlaW5nIGRpc2FibGVkIGJ5IGRlZmF1bHQgb3Igbm90Cj4gPj4gYmVpbmcgYXZhaWxhYmxlIGF0
+IGFsbC4gV2UgbWF5IGRlY2lkZSBpdCdzIHdvcnRoIGl0IGFueXdheSwgYnV0IGxldCdzIGRvCj4g
+Pj4gaXQgYmFzZWQgb24gZmFjdHMuCj4gPj4KPiA+Cj4gPiBJIGRpZG4ndCBtZWFuIHRvIGltcGx5
+IHRoYXQgQUdQIEdBUlQgc3VwcG9ydCB3YXMgYWxyZWFkeSByZW1vdmVkLiAgQnV0Cj4gPiBmb3Ig
+dGhlIHZhc3QgbWFqb3JpdHkgb2YgdXNlcnMgdGhlIGVuZCByZXN1bHQgaXMgdGhlIHNhbWUuICBJ
+ZiB5b3UKPiA+IGtuZXcgZW5vdWdoIHJlLWVuYWJsZSBBR1AgR0FSVCwgeW91IHByb2JhYmx5IHdv
+dWxkbid0IGhhdmUgYmVlbiBhcwo+ID4gY29uZnVzZWQgYWJvdXQgd2hhdCB0aGlzIHBhdGNoIHNl
+dCBkb2VzIGVpdGhlci4gIFRvIHJlaXRlcmF0ZSwgdGhpcwo+ID4gcGF0Y2ggc2V0IGRvZXMgbm90
+IHJlbW92ZSBzdXBwb3J0IGZvciBBR1AgY2FyZHMsIGl0IG9ubHkgcmVtb3ZlcyB0aGUKPiA+IHN1
+cHBvcnQgZm9yIEFHUCBHQVJULiAgVGhlIGNhcmRzIHdpbGwgc3RpbGwgYmUgZnVuY3Rpb25hbCB1
+c2luZyB0aGUKPiA+IGRldmljZSBHQVJULiAgVGhlcmUgbWF5IGJlIHBlcmZvcm1hbmNlIHRyYWRl
+b2ZmcyB0aGVyZSBpbiBzb21lIGNhc2VzLgo+Cj4gSSdsbCB2b2x1bnRlZXIgdG8gYmUgdGhlIG9u
+ZSBhc2tpbmc6IGhvdyBiaWcgaXMgdGhpcyBwZXJmb3JtYW5jZQo+IGRpZmZlcmVuY2U/IEhhdmUg
+YW55IGJlbmNobWFya3MgYmVlbiBydW4gYmVmb3JlIGFuZCBhZnRlciByZW1vdmFsIG9mIEFHUAo+
+IEdBUlQgY29kZSBvbiBhZmZlY3RlZCBub3V2ZWF1L3JhZGVvbiBzeXN0ZW1zPyBPciBpcyB0aGlz
+IGNvZGUgYmVpbmcKPiBkcm9wcGVkIF9qdXN0XyBiZWNhdXNlIGl0J3MgY3VtYmVyc29tZSwgd2l0
+aCBubyByZWdhcmQgZm9yIG1ldHJpY3MgdGhhdAo+IGRldGVybWluZSB0aGUgdmFsdWUgb2YgQUdQ
+IEdBUlQgc3VwcG9ydD8KPgoKSSBkb24ndCB0aGluayBhbnlvbmUgaGFzIGFueSBzb2xpZCBudW1i
+ZXJzLCBqdXN0IGFuZWNkb3RhbCBmcm9tCm1lbW9yeS4gIEkgY2VydGFpbmx5IGRvbid0IGhhdmUg
+YW55IGZ1bmN0aW9uYWwgQUdQIHN5c3RlbXMgYXQgdGhpcwpwb2ludC4gIEl0J3MgbW9zdGx5IGp1
+c3QgY3VtYmVyc29tZSBhbmQgd291bGQgYWxsb3cgdXMgdG8gY2xlYW4gdHRtCmFuZCBwcm9iYWJs
+eSBpbXByb3ZlIHN0YWJpbGl0eSBhdCB0aGUgc2FtZSB0aW1lLiAgQXQgbGVhc3Qgb24gdGhlCnJh
+ZGVvbiBzaWRlLCB0aGUgb25seSBuYXRpdmUgQUdQIGNhcmRzIHdlcmUgcjF4eCwgcjJ4eCwgYW5k
+IHNvbWUgb2YKdGhlIGVhcmx5IHIzeHggYm9hcmRzLiAgT25jZSB3ZSBzd2l0Y2hlZCB0byBwY2ll
+IG1pZC13YXkgdGhyb3VnaCByM3h4LApldmVyeXRoaW5nIHdhcyBuYXRpdmUgcGNpZSBhbmQgdGhl
+IEFHUCBjYXJkcyB1c2VkIGEgcGNpZSB0byBBR1AgYnJpZGdlCmNoaXAgc28gdGhleSBoYWQgYSBk
+ZWNlbnQgb24gY2hpcCBNTVUuICBUaG9zZSBvbGRlciBjYXJkcyB0b3BwZWQgb3V0CmF0IG1heWJl
+IDMyIG9yIDY0IE1CIG9mIHZyYW0sIHNvIHRoZXkgYXJlIGdvaW5nIHRvIGJlIGhhcmQgcHJlc3Nl
+ZCB0bwpkZWFsIHdpdGggbW9kZXJuIGRlc2t0b3BzIGFueXdheS4gIE5vIGlkZWEgd2hhdCBzb3J0
+IG9mIEdBUlQKY2FwYWJpbGl0aWVzIE5WIEFHUCBoYXJkd2FyZSBhdCB0aGlzIHRpbWUgaGFkLgoK
+QWxleAoKPiBSb3kKPgo+ID4KPiA+IEFsZXgKPiA+IF9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCj4gPiBOb3V2ZWF1IG1haWxpbmcgbGlzdAo+ID4gTm91dmVh
+dUBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiA+IGh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3Jn
+L21haWxtYW4vbGlzdGluZm8vbm91dmVhdQo+ID4KPgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngK
