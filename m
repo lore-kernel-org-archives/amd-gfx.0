@@ -2,104 +2,67 @@ Return-Path: <SRS0=jMTE=63=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.9 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MIME_HTML_MOSTLY,MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B88BCA90AF
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2020 08:20:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EFE0DC2D0FD
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2020 08:30:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6C39C2078C
-	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2020 08:20:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C734F20769
+	for <amd-gfx@archiver.kernel.org>; Wed, 13 May 2020 08:30:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="l9AYM7Sy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C39C2078C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="ZYqNT7S9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C734F20769
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36BA46E9AC;
-	Wed, 13 May 2020 08:20:43 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7CCC6E9AC
- for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2020 08:20:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VW6sfxCgtxSHijBVI6lKKJyInwRzhBXqk+WTnq67fuafXl9XLb3OdTzqoD/uo5NDcINXC3whMQdJ2Hz7Me2aX2V6vYXilL1aSFJvsoRkXDzVhjAMyrp43SlOltpgsbZbhYTYtg1HknvqWXddil0vF1qUOTt9f+s8lhsQG8kPrLyDnIGSo+pRpLGEAsZsZOFfgsLdPNqg9FPSyeb5LWUBAUCYP9lE2TkJEQ3czlGb7cdhRugFpFSyJQxefTvSbUaiAZIqpKvm1GsUWYvBEph/hNjEDfrdoZTs1vF25o38U99Bmub27x56Z7uJibuhOTfeSw28375niDmoRvByMpR0tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uor2aBxz3I0LlVIhIRznw1Ac//nqGhIrcznm+6/dgY8=;
- b=Z/uiLURY/P1VYo3upOlQ+YF7FsXetJDKwRqwKlanvfPALievtvjwIBzPQzEUNtnqBjPBo1ifvsam7V0ld1RX2LMRe8oA4uIW3K7iPJvvXNRLDfLmA9+tB8jzXDs2NcXzJEMrrhFMnwongIfNTGlw6E9Gk6zGdn9Ueviobybcrx7uiine6Q/wruE6vR5lWeZawvokWgli0tP92PEVu6u7TPTUJ8RUdn41gl8fXmOFGBGwcahXO9TP5u2TE0zY+7J29h3b1+nFRxzj3Mvto+88oFQANyKoa++RHc1xD6Jv/29FaolwoBCbBgDStcZI5WjpYDjMX/b9nwQHxpq/yZShiw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Uor2aBxz3I0LlVIhIRznw1Ac//nqGhIrcznm+6/dgY8=;
- b=l9AYM7SyBsWxkAyLGG6WM5W7CzV0oH8VgT36AY89FbjcKCSZ6pvfr4dwYfo1mxCO2CPN84ioaiVqT+qDQ9QngbrmCx38p4L0H8o6cd3l6r2teSjsTJBjZBalwlBgaMvaK68st6mDFeDhXWQwsVBxnzmiBo1SO3/W68lvkleTnMQ=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
- by DM6PR12MB4354.namprd12.prod.outlook.com (2603:10b6:5:28f::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.24; Wed, 13 May
- 2020 08:20:39 +0000
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::7949:b580:a2d5:f766]) by DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::7949:b580:a2d5:f766%3]) with mapi id 15.20.2979.033; Wed, 13 May 2020
- 08:20:39 +0000
-Subject: Re: [PATCH] drm/amdgpu: Add autodump debugfs node for gpu reset v4
-To: "Zhao, Jiange" <Jiange.Zhao@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20200509094508.28909-1-jianzh@amd.com>
- <BY5PR12MB38445689BC83AF85CF770F19E1BF0@BY5PR12MB3844.namprd12.prod.outlook.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <3778093c-dc83-ebf6-aa55-966fe223df5f@amd.com>
-Date: Wed, 13 May 2020 10:20:31 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <BY5PR12MB38445689BC83AF85CF770F19E1BF0@BY5PR12MB3844.namprd12.prod.outlook.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM0P190CA0008.EURP190.PROD.OUTLOOK.COM
- (2603:10a6:208:190::18) To DM6PR12MB4401.namprd12.prod.outlook.com
- (2603:10b6:5:2a9::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 846FD6E9BC;
+	Wed, 13 May 2020 08:30:32 +0000 (UTC)
+Received: from mail-oo1-xc42.google.com (mail-oo1-xc42.google.com
+ [IPv6:2607:f8b0:4864:20::c42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 394826E9B9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2020 08:30:31 +0000 (UTC)
+Received: by mail-oo1-xc42.google.com with SMTP id s139so2332058oos.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 13 May 2020 01:30:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=P/cQOw5xN+TfOYRkXBpG74KgaYsRxjssQU8OCSQs0lw=;
+ b=ZYqNT7S96JIC/2QUMWjtKF68s7Mlj31GoqTmd/vNnuROLIyB0kD9KQbJGZzvzwvUbA
+ E3luqZwNVfQvG5bGKUij9LW4w7tisfb2ZjPEK2MdxiXprewxdAOya4VpMVU2y0meest4
+ Fp2TkQzADhnoZpBxsZgu12qAiKzzJR0VP+umY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=P/cQOw5xN+TfOYRkXBpG74KgaYsRxjssQU8OCSQs0lw=;
+ b=gyb4bt9mUja7EOYq6EYFI7zOJ+0jgAnzTcGOEbfwj/Z+3cm3Nj5buFRuCtzq7mly07
+ pcWbrK8FqPoFnl3LuzPcbDRN/P1/xYE9VocT5mItk+0CCJPCUsLnV2tTNkIhLD+qk/UF
+ a3Vbv55f0dpADU6v1S9j2v+PzmosENmTsYIt8GoE6aFNZ6ZvJfjd5HwbWTf1+RvuhOys
+ 47c2Gaiuj+xN0q5cCttLkC4ihsenawS6wFFF1zD4BjTW/2stU1Y9QwDNERGcFOja8cEj
+ QnPrTtqFViIYblOQvB2DZWbRgHT0qxcbkFzjeChEa5RfgxFmTNPf9WsqCou7R5PBH7yp
+ 9Ysg==
+X-Gm-Message-State: AGi0PuYti0sgNRoi31c4RMEZ27JTptQH1PY7OLIgG2274UmWq1GFct2j
+ OJvlm21ccjXmQYb2YOVvzgROdm2WWxudAhmH55sI6w==
+X-Google-Smtp-Source: APiQypK721eLmXQ6tEOq0sY7098uVZ1/1lnGE6R9IvcYdjA6Ym65merSRHvKBROuVGmkJOSrpR7fmIYoiLovJ+FPnQA=
+X-Received: by 2002:a4a:d136:: with SMTP id n22mr21115688oor.85.1589358630346; 
+ Wed, 13 May 2020 01:30:30 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM0P190CA0008.EURP190.PROD.OUTLOOK.COM (2603:10a6:208:190::18) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.20 via Frontend Transport; Wed, 13 May 2020 08:20:38 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ce378a00-e5e6-4261-173b-08d7f7168516
-X-MS-TrafficTypeDiagnostic: DM6PR12MB4354:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB4354E443958A2F4767862C1C83BF0@DM6PR12MB4354.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8273;
-X-Forefront-PRVS: 0402872DA1
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: m/ZUbE1cAA5gV249ILbYySNrpIjVbmtOglQSV+aQHB+VxE3jbNYzJPfd+uRv90UbcDN56rxrS/+YjbUI+EtMpYK+Nle7xoqUYpV3N/hnJJPg3MNzsWDRWwfTh4KBnCIo5cnPif0yEPUZq9kuFZFEeFVotM4TjnzHJSFvInvgMbn3ZpX1SNsJ9xfE6VCW34eD/hO/6tV4qsulhfnKThOOmHNL2Z5l9Eg+b3j3iNB2uqu7CCvj4soJ3cZUK9j5ZVgXzwuMvzJuTwXAbsjuqONz9mlNsiktl76RCPSRhMy1VTdoHhFrJ8brvTCvBG64i7uYrRZB5kW5otuN+4GDIhv5MriboftAEMXuBgPeWbL1TDY9EGIjirERFzAbOa1FWUt80r5ehdzSMEBASUhxLbr3ihRuj5AzmwPbu2Z6Tk00blU+/i7TDeXtcEhxf2Te+5uvrBvVeiy4S93eKAkATra1BmaPb8fP0vq7GJ91YawVJ9Z7BE8Ib//OOxqF4AANTVwsn0XZPr7O9xx0JPy97pYQmNRgWUuvHxNH2ajFP/eHYCsDjOFCpAowZAbqpYGnirN0
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(366004)(136003)(39860400002)(376002)(346002)(396003)(33430700001)(54906003)(110136005)(6666004)(19627405001)(33964004)(186003)(16526019)(53546011)(6486002)(52116002)(2616005)(30864003)(4326008)(8936002)(31696002)(478600001)(66946007)(33440700001)(316002)(66476007)(8676002)(66556008)(36756003)(86362001)(2906002)(31686004)(5660300002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: W5N2w65wQfENAFholrF7gdhPIQEKkKPb0X/d3n3sU78pnQ3tNHx/nNkFNYKd0eFZtSBO7rVR02SntEWqkMfcvOefN3zMkVuUybycWVz8w1dThZHnNbeOEPO28g9MnauqhbbieOetOcqtYCuq3nvnVx2uhfPQwZ1e9dIAcutK7CRNhu8mBamqWxu/K0UuTtc5VWwsbHiexGlsbaAFB+q7if6n/Fh581mGPNDxMXV0aaIzE9CX2N1q4x2Co60A3/B5Up0c10WUkWkJgXM52BMI68nye54bxW5b8MRKg6BDT/Skwr9bu7sKfF/+hR7Gc0bNt48WrNHayqLC35kk2yQOuJfs9Dam7CtvPcu0PcTD63aqiXmeRFjqkZO8bSU4GkXHT9QzODEAWhnu7E2Pc65hhCRJoR892owHAAFlwWsiWv8KnyL0D5SgdlepdKNvqYujhQYIfmQLDeikAWD3IsErTnY8kuXr1S5LUKcdKxqjMguvXKDl6R85nPBfAcpQ1RiY+ZbwlBZnTb6EyHbOXj3dtF0Gbb9Sg/KgTp4Aoza77c8FXUUrgaQE90lVu3JFK+uQ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce378a00-e5e6-4261-173b-08d7f7168516
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 May 2020 08:20:39.3638 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HjlcEnbcj038679NlJ0agy9WfV7GatnqHgj65h6/ugA6MpHV5i7PtKGh3ZHjfmv6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4354
+References: <20200512085944.222637-1-daniel.vetter@ffwll.ch>
+ <20200512085944.222637-3-daniel.vetter@ffwll.ch>
+ <158927426244.15653.14406159524439944950@build.alporthouse.com>
+ <20200512090847.GF206103@phenom.ffwll.local>
+ <158927519651.15653.17392305363363808831@build.alporthouse.com>
+In-Reply-To: <158927519651.15653.17392305363363808831@build.alporthouse.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Wed, 13 May 2020 10:30:19 +0200
+Message-ID: <CAKMK7uGnFhbpuurRsnZ4dvRV9gQ_3-rmSJaoqSFY=+Kvepz_CA@mail.gmail.com>
+Subject: Re: [RFC 02/17] dma-fence: basic lockdep annotations
+To: Chris Wilson <chris@chris-wilson.co.uk>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,604 +74,171 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Pelloux-prayer,
- Pierre-eric" <Pierre-eric.Pelloux-prayer@amd.com>, "Liu,
- Monk" <Monk.Liu@amd.com>
-Content-Type: multipart/mixed; boundary="===============0391727476=="
+Cc: linux-rdma <linux-rdma@vger.kernel.org>,
+ intel-gfx <intel-gfx@lists.freedesktop.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Dave Airlie <airlied@redhat.com>, Daniel Vetter <daniel.vetter@intel.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0391727476==
-Content-Type: multipart/alternative;
- boundary="------------C304ED659962E5D84817CA8D"
-Content-Language: en-US
-
---------------C304ED659962E5D84817CA8D
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-Thanks for the reminder, had to much todo yesterday and just forgot 
-about it.
-
-Christian.
-
-Am 13.05.20 um 10:16 schrieb Zhao, Jiange:
->
-> [AMD Official Use Only - Internal Distribution Only]
->
->
-> Hi @Koenig, Christian <mailto:Christian.Koenig@amd.com>,
->
-> I made some changes on top of version 3 and tested it. Can you help 
-> review?
->
-> Jiange
-> ------------------------------------------------------------------------
-> *From:* Zhao, Jiange <jianzh@amd.com>
-> *Sent:* Saturday, May 9, 2020 5:45 PM
-> *To:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> *Cc:* Koenig, Christian <Christian.Koenig@amd.com>; Pelloux-prayer, 
-> Pierre-eric <Pierre-eric.Pelloux-prayer@amd.com>; Deucher, Alexander 
-> <Alexander.Deucher@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Zhao, 
-> Jiange <Jiange.Zhao@amd.com>
-> *Subject:* [PATCH] drm/amdgpu: Add autodump debugfs node for gpu reset v4
-> From: Jiange Zhao <Jiange.Zhao@amd.com>
->
-> When GPU got timeout, it would notify an interested part
-> of an opportunity to dump info before actual GPU reset.
->
-> A usermode app would open 'autodump' node under debugfs system
-> and poll() for readable/writable. When a GPU reset is due,
-> amdgpu would notify usermode app through wait_queue_head and give
-> it 10 minutes to dump info.
->
-> After usermode app has done its work, this 'autodump' node is closed.
-> On node closure, amdgpu gets to know the dump is done through
-> the completion that is triggered in release().
->
-> There is no write or read callback because necessary info can be
-> obtained through dmesg and umr. Messages back and forth between
-> usermode app and amdgpu are unnecessary.
->
-> v2: (1) changed 'registered' to 'app_listening'
->     (2) add a mutex in open() to prevent race condition
->
-> v3 (chk): grab the reset lock to avoid race in autodump_open,
->           rename debugfs file to amdgpu_autodump,
->           provide autodump_read as well,
->           style and code cleanups
->
-> v4: add 'bool app_listening' to differentiate situations, so that
->     the node can be reopened; also, there is no need to wait for
->     completion when no app is waiting for a dump.
->
-> v5: change 'bool app_listening' to 'enum amdgpu_autodump_state'
->     add 'app_state_mutex' for race conditions:
->         (1)Only 1 user can open this file node
->         (2)wait_dump() can only take effect after poll() executed.
->         (3)eliminated the race condition between release() and
->            wait_dump()
->
-> v6: removed 'enum amdgpu_autodump_state' and 'app_state_mutex'
->     removed state checking in amdgpu_debugfs_wait_dump
->     Improve on top of version 3 so that the node can be reopened.
->
-> Signed-off-by: Jiange Zhao <Jiange.Zhao@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h         |  2 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 78 ++++++++++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |  6 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c  |  2 +
->  4 files changed, 87 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 2a806cb55b78..9e8eeddfe7ce 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -992,6 +992,8 @@ struct amdgpu_device {
->          char product_number[16];
->          char product_name[32];
->          char                            serial[16];
-> +
-> +       struct amdgpu_autodump          autodump;
->  };
->
->  static inline struct amdgpu_device *amdgpu_ttm_adev(struct 
-> ttm_bo_device *bdev)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> index 1a4894fa3693..261b67ece7fb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-> @@ -27,7 +27,7 @@
->  #include <linux/pci.h>
->  #include <linux/uaccess.h>
->  #include <linux/pm_runtime.h>
-> -
-> +#include <linux/poll.h>
->  #include <drm/drm_debugfs.h>
->
->  #include "amdgpu.h"
-> @@ -74,8 +74,82 @@ int amdgpu_debugfs_add_files(struct amdgpu_device 
-> *adev,
->          return 0;
->  }
->
-> +int amdgpu_debugfs_wait_dump(struct amdgpu_device *adev)
-> +{
-> +#if defined(CONFIG_DEBUG_FS)
-> +       unsigned long timeout = 600 * HZ;
-> +       int ret;
-> +
-> + wake_up_interruptible(&adev->autodump.gpu_hang);
-> +
-> +       ret = 
-> wait_for_completion_interruptible_timeout(&adev->autodump.dumping, 
-> timeout);
-> +       complete_all(&adev->autodump.dumping);
-> +       if (ret == 0) {
-> +               pr_err("autodump: timeout, move on to gpu recovery\n");
-> +               return -ETIMEDOUT;
-> +       }
-> +#endif
-> +       return 0;
-> +}
-> +
->  #if defined(CONFIG_DEBUG_FS)
->
-> +static int amdgpu_debugfs_autodump_open(struct inode *inode, struct 
-> file *file)
-> +{
-> +       struct amdgpu_device *adev = inode->i_private;
-> +       int ret;
-> +
-> +       file->private_data = adev;
-> +
-> +       mutex_lock(&adev->lock_reset);
-> +       if (adev->autodump.dumping.done)
-> +               ret = 0;
-> +       else
-> +               ret = -EBUSY;
-> +       mutex_unlock(&adev->lock_reset);
-> +
-> +       return ret;
-> +}
-> +
-> +static int amdgpu_debugfs_autodump_release(struct inode *inode, 
-> struct file *file)
-> +{
-> +       struct amdgpu_device *adev = file->private_data;
-> +
-> +       complete_all(&adev->autodump.dumping);
-> +       return 0;
-> +}
-> +
-> +static unsigned int amdgpu_debugfs_autodump_poll(struct file *file, 
-> struct poll_table_struct *poll_table)
-> +{
-> +       struct amdgpu_device *adev = file->private_data;
-> +
-> + reinit_completion(&adev->autodump.dumping);
-> +       poll_wait(file, &adev->autodump.gpu_hang, poll_table);
-> +
-> +       if (adev->in_gpu_reset)
-> +               return POLLIN | POLLRDNORM | POLLWRNORM;
-> +
-> +       return 0;
-> +}
-> +
-> +static const struct file_operations autodump_debug_fops = {
-> +       .owner = THIS_MODULE,
-> +       .open = amdgpu_debugfs_autodump_open,
-> +       .poll = amdgpu_debugfs_autodump_poll,
-> +       .release = amdgpu_debugfs_autodump_release,
-> +};
-> +
-> +static void amdgpu_debugfs_autodump_init(struct amdgpu_device *adev)
-> +{
-> +       init_completion(&adev->autodump.dumping);
-> +       complete_all(&adev->autodump.dumping);
-> + init_waitqueue_head(&adev->autodump.gpu_hang);
-> +
-> +       debugfs_create_file("amdgpu_autodump", 0600,
-> + adev->ddev->primary->debugfs_root,
-> +               adev, &autodump_debug_fops);
-> +}
-> +
->  /**
->   * amdgpu_debugfs_process_reg_op - Handle MMIO register reads/writes
->   *
-> @@ -1434,6 +1508,8 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
->
->          amdgpu_ras_debugfs_create_all(adev);
->
-> +       amdgpu_debugfs_autodump_init(adev);
-> +
->          return amdgpu_debugfs_add_files(adev, amdgpu_debugfs_list,
-> ARRAY_SIZE(amdgpu_debugfs_list));
->  }
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-> index de12d1101526..2803884d338d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-> @@ -31,6 +31,11 @@ struct amdgpu_debugfs {
->          unsigned                num_files;
->  };
->
-> +struct amdgpu_autodump {
-> +       struct completion               dumping;
-> +       struct wait_queue_head          gpu_hang;
-> +};
-> +
->  int amdgpu_debugfs_regs_init(struct amdgpu_device *adev);
->  int amdgpu_debugfs_init(struct amdgpu_device *adev);
->  void amdgpu_debugfs_fini(struct amdgpu_device *adev);
-> @@ -40,3 +45,4 @@ int amdgpu_debugfs_add_files(struct amdgpu_device *adev,
->  int amdgpu_debugfs_fence_init(struct amdgpu_device *adev);
->  int amdgpu_debugfs_firmware_init(struct amdgpu_device *adev);
->  int amdgpu_debugfs_gem_init(struct amdgpu_device *adev);
-> +int amdgpu_debugfs_wait_dump(struct amdgpu_device *adev);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c 
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index cc41e8f5ad14..545beebcf43e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -3927,6 +3927,8 @@ static int amdgpu_device_pre_asic_reset(struct 
-> amdgpu_device *adev,
->          int i, r = 0;
->          bool need_full_reset  = *need_full_reset_arg;
->
-> +       amdgpu_debugfs_wait_dump(adev);
-> +
->          /* block all schedulers and reset given job's ring */
->          for (i = 0; i < AMDGPU_MAX_RINGS; ++i) {
->                  struct amdgpu_ring *ring = adev->rings[i];
-> -- 
-> 2.20.1
->
-
-
---------------C304ED659962E5D84817CA8D
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">Thanks for the reminder, had to much
-      todo yesterday and just forgot about it.<br>
-      <br>
-      Christian.<br>
-      <br>
-      Am 13.05.20 um 10:16 schrieb Zhao, Jiange:<br>
-    </div>
-    <blockquote type="cite" cite="mid:BY5PR12MB38445689BC83AF85CF770F19E1BF0@BY5PR12MB3844.namprd12.prod.outlook.com">
-      
-      <style type="text/css" style="display:none;"> P {margin-top:0;margin-bottom:0;} </style>
-      <p style="font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" align="Left">
-        [AMD Official Use Only - Internal Distribution Only]<br>
-      </p>
-      <br>
-      <div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          Hi <a id="OWAAM832723" class="_1OtrSZdhKXVv3UhaivrdJ4 mention
-            ms-bgc-nlr ms-fcl-b" href="mailto:Christian.Koenig@amd.com" moz-do-not-send="true">
-            @Koenig, Christian</a>,</div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          I made some changes on top of version 3 and tested it. Can you
-          help review?</div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          <br>
-        </div>
-        <div style="font-family: Calibri, Arial, Helvetica, sans-serif;
-          font-size: 12pt; color: rgb(0, 0, 0);">
-          Jiange<br>
-        </div>
-        <hr style="display:inline-block;width:98%" tabindex="-1">
-        <div id="divRplyFwdMsg" dir="ltr"><font style="font-size:11pt" face="Calibri, sans-serif" color="#000000"><b>From:</b>
-            Zhao, Jiange <a class="moz-txt-link-rfc2396E" href="mailto:jianzh@amd.com">&lt;jianzh@amd.com&gt;</a><br>
-            <b>Sent:</b> Saturday, May 9, 2020 5:45 PM<br>
-            <b>To:</b> <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-            <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-            <b>Cc:</b> Koenig, Christian
-            <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>; Pelloux-prayer,
-            Pierre-eric <a class="moz-txt-link-rfc2396E" href="mailto:Pierre-eric.Pelloux-prayer@amd.com">&lt;Pierre-eric.Pelloux-prayer@amd.com&gt;</a>;
-            Deucher, Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>; Liu,
-            Monk <a class="moz-txt-link-rfc2396E" href="mailto:Monk.Liu@amd.com">&lt;Monk.Liu@amd.com&gt;</a>; Zhao, Jiange
-            <a class="moz-txt-link-rfc2396E" href="mailto:Jiange.Zhao@amd.com">&lt;Jiange.Zhao@amd.com&gt;</a><br>
-            <b>Subject:</b> [PATCH] drm/amdgpu: Add autodump debugfs
-            node for gpu reset v4</font>
-          <div>&nbsp;</div>
-        </div>
-        <div class="BodyFragment"><font size="2"><span style="font-size:11pt;">
-              <div class="PlainText">From: Jiange Zhao
-                <a class="moz-txt-link-rfc2396E" href="mailto:Jiange.Zhao@amd.com">&lt;Jiange.Zhao@amd.com&gt;</a><br>
-                <br>
-                When GPU got timeout, it would notify an interested part<br>
-                of an opportunity to dump info before actual GPU reset.<br>
-                <br>
-                A usermode app would open 'autodump' node under debugfs
-                system<br>
-                and poll() for readable/writable. When a GPU reset is
-                due,<br>
-                amdgpu would notify usermode app through wait_queue_head
-                and give<br>
-                it 10 minutes to dump info.<br>
-                <br>
-                After usermode app has done its work, this 'autodump'
-                node is closed.<br>
-                On node closure, amdgpu gets to know the dump is done
-                through<br>
-                the completion that is triggered in release().<br>
-                <br>
-                There is no write or read callback because necessary
-                info can be<br>
-                obtained through dmesg and umr. Messages back and forth
-                between<br>
-                usermode app and amdgpu are unnecessary.<br>
-                <br>
-                v2: (1) changed 'registered' to 'app_listening'<br>
-                &nbsp;&nbsp;&nbsp; (2) add a mutex in open() to prevent race condition<br>
-                <br>
-                v3 (chk): grab the reset lock to avoid race in
-                autodump_open,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rename debugfs file to amdgpu_autodump,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; provide autodump_read as well,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; style and code cleanups<br>
-                <br>
-                v4: add 'bool app_listening' to differentiate
-                situations, so that<br>
-                &nbsp;&nbsp;&nbsp; the node can be reopened; also, there is no need to
-                wait for<br>
-                &nbsp;&nbsp;&nbsp; completion when no app is waiting for a dump.<br>
-                <br>
-                v5: change 'bool app_listening' to 'enum
-                amdgpu_autodump_state'<br>
-                &nbsp;&nbsp;&nbsp; add 'app_state_mutex' for race conditions:<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (1)Only 1 user can open this file node<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (2)wait_dump() can only take effect after poll()
-                executed.<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (3)eliminated the race condition between
-                release() and<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wait_dump()<br>
-                <br>
-                v6: removed 'enum amdgpu_autodump_state' and
-                'app_state_mutex'<br>
-                &nbsp;&nbsp;&nbsp; removed state checking in amdgpu_debugfs_wait_dump<br>
-                &nbsp;&nbsp;&nbsp; Improve on top of version 3 so that the node can be
-                reopened.<br>
-                <br>
-                Signed-off-by: Jiange Zhao <a class="moz-txt-link-rfc2396E" href="mailto:Jiange.Zhao@amd.com">&lt;Jiange.Zhao@amd.com&gt;</a><br>
-                ---<br>
-                &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 2 &#43;<br>
-                &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 78
-                &#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;&#43;-<br>
-                &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h |&nbsp; 6 &#43;&#43;<br>
-                &nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_device.c&nbsp; |&nbsp; 2 &#43;<br>
-                &nbsp;4 files changed, 87 insertions(&#43;), 1 deletion(-)<br>
-                <br>
-                diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-                index 2a806cb55b78..9e8eeddfe7ce 100644<br>
-                --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-                &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu.h<br>
-                @@ -992,6 &#43;992,8 @@ struct amdgpu_device {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                product_number[16];<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                product_name[32];<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; char&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; serial[16];<br>
-                &#43;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_autodump&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; autodump;<br>
-                &nbsp;};<br>
-                &nbsp;<br>
-                &nbsp;static inline struct amdgpu_device
-                *amdgpu_ttm_adev(struct ttm_bo_device *bdev)<br>
-                diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
-                index 1a4894fa3693..261b67ece7fb 100644<br>
-                --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
-                &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c<br>
-                @@ -27,7 &#43;27,7 @@<br>
-                &nbsp;#include &lt;linux/pci.h&gt;<br>
-                &nbsp;#include &lt;linux/uaccess.h&gt;<br>
-                &nbsp;#include &lt;linux/pm_runtime.h&gt;<br>
-                -<br>
-                &#43;#include &lt;linux/poll.h&gt;<br>
-                &nbsp;#include &lt;drm/drm_debugfs.h&gt;<br>
-                &nbsp;<br>
-                &nbsp;#include &quot;amdgpu.h&quot;<br>
-                @@ -74,8 &#43;74,82 @@ int amdgpu_debugfs_add_files(struct
-                amdgpu_device *adev,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-                &nbsp;}<br>
-                &nbsp;<br>
-                &#43;int amdgpu_debugfs_wait_dump(struct amdgpu_device
-                *adev)<br>
-                &#43;{<br>
-                &#43;#if defined(CONFIG_DEBUG_FS)<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long timeout = 600 * HZ;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-                &#43;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                wake_up_interruptible(&amp;adev-&gt;autodump.gpu_hang);<br>
-                &#43;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =
-wait_for_completion_interruptible_timeout(&amp;adev-&gt;autodump.dumping,
-                timeout);<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; complete_all(&amp;adev-&gt;autodump.dumping);<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret == 0) {<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_err(&quot;autodump: timeout, move on to
-                gpu recovery\n&quot;);<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return -ETIMEDOUT;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-                &#43;#endif<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-                &#43;}<br>
-                &#43;<br>
-                &nbsp;#if defined(CONFIG_DEBUG_FS)<br>
-                &nbsp;<br>
-                &#43;static int amdgpu_debugfs_autodump_open(struct inode
-                *inode, struct file *file)<br>
-                &#43;{<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-                inode-&gt;i_private;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret;<br>
-                &#43;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; file-&gt;private_data = adev;<br>
-                &#43;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;adev-&gt;lock_reset);<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;autodump.dumping.done)<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = 0;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = -EBUSY;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;adev-&gt;lock_reset);<br>
-                &#43;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-                &#43;}<br>
-                &#43;<br>
-                &#43;static int amdgpu_debugfs_autodump_release(struct inode
-                *inode, struct file *file)<br>
-                &#43;{<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-                file-&gt;private_data;<br>
-                &#43;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; complete_all(&amp;adev-&gt;autodump.dumping);<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-                &#43;}<br>
-                &#43;<br>
-                &#43;static unsigned int amdgpu_debugfs_autodump_poll(struct
-                file *file, struct poll_table_struct *poll_table)<br>
-                &#43;{<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =
-                file-&gt;private_data;<br>
-                &#43;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                reinit_completion(&amp;adev-&gt;autodump.dumping);<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; poll_wait(file, &amp;adev-&gt;autodump.gpu_hang,
-                poll_table);<br>
-                &#43;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;in_gpu_reset)<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return POLLIN | POLLRDNORM | POLLWRNORM;<br>
-                &#43;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-                &#43;}<br>
-                &#43;<br>
-                &#43;static const struct file_operations autodump_debug_fops
-                = {<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .owner = THIS_MODULE,<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .open = amdgpu_debugfs_autodump_open,<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .poll = amdgpu_debugfs_autodump_poll,<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .release = amdgpu_debugfs_autodump_release,<br>
-                &#43;};<br>
-                &#43;<br>
-                &#43;static void amdgpu_debugfs_autodump_init(struct
-                amdgpu_device *adev)<br>
-                &#43;{<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; init_completion(&amp;adev-&gt;autodump.dumping);<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; complete_all(&amp;adev-&gt;autodump.dumping);<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                init_waitqueue_head(&amp;adev-&gt;autodump.gpu_hang);<br>
-                &#43;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; debugfs_create_file(&quot;amdgpu_autodump&quot;, 0600,<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                adev-&gt;ddev-&gt;primary-&gt;debugfs_root,<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev, &amp;autodump_debug_fops);<br>
-                &#43;}<br>
-                &#43;<br>
-                &nbsp;/**<br>
-                &nbsp; * amdgpu_debugfs_process_reg_op - Handle MMIO register
-                reads/writes<br>
-                &nbsp; *<br>
-                @@ -1434,6 &#43;1508,8 @@ int amdgpu_debugfs_init(struct
-                amdgpu_device *adev)<br>
-                &nbsp;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ras_debugfs_create_all(adev);<br>
-                &nbsp;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_debugfs_autodump_init(adev);<br>
-                &#43;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return amdgpu_debugfs_add_files(adev,
-                amdgpu_debugfs_list,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                ARRAY_SIZE(amdgpu_debugfs_list));<br>
-                &nbsp;}<br>
-                diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h<br>
-                index de12d1101526..2803884d338d 100644<br>
-                --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h<br>
-                &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.h<br>
-                @@ -31,6 &#43;31,11 @@ struct amdgpu_debugfs {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; num_files;<br>
-                &nbsp;};<br>
-                &nbsp;<br>
-                &#43;struct amdgpu_autodump {<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct completion&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dumping;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct wait_queue_head&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpu_hang;<br>
-                &#43;};<br>
-                &#43;<br>
-                &nbsp;int amdgpu_debugfs_regs_init(struct amdgpu_device
-                *adev);<br>
-                &nbsp;int amdgpu_debugfs_init(struct amdgpu_device *adev);<br>
-                &nbsp;void amdgpu_debugfs_fini(struct amdgpu_device *adev);<br>
-                @@ -40,3 &#43;45,4 @@ int amdgpu_debugfs_add_files(struct
-                amdgpu_device *adev,<br>
-                &nbsp;int amdgpu_debugfs_fence_init(struct amdgpu_device
-                *adev);<br>
-                &nbsp;int amdgpu_debugfs_firmware_init(struct amdgpu_device
-                *adev);<br>
-                &nbsp;int amdgpu_debugfs_gem_init(struct amdgpu_device
-                *adev);<br>
-                &#43;int amdgpu_debugfs_wait_dump(struct amdgpu_device
-                *adev);<br>
-                diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-                b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                index cc41e8f5ad14..545beebcf43e 100644<br>
-                --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c<br>
-                @@ -3927,6 &#43;3927,8 @@ static int
-                amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int i, r = 0;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool need_full_reset&nbsp; = *need_full_reset_arg;<br>
-                &nbsp;<br>
-                &#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_debugfs_wait_dump(adev);<br>
-                &#43;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* block all schedulers and reset given job's
-                ring */<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 0; i &lt; AMDGPU_MAX_RINGS; &#43;&#43;i) {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ring *ring =
-                adev-&gt;rings[i];<br>
-                -- <br>
-                2.20.1<br>
-                <br>
-              </div>
-            </span></font></div>
-      </div>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------C304ED659962E5D84817CA8D--
-
---===============0391727476==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0391727476==--
+T24gVHVlLCBNYXkgMTIsIDIwMjAgYXQgMTE6MTkgQU0gQ2hyaXMgV2lsc29uIDxjaHJpc0BjaHJp
+cy13aWxzb24uY28udWs+IHdyb3RlOgo+IFF1b3RpbmcgRGFuaWVsIFZldHRlciAoMjAyMC0wNS0x
+MiAxMDowODo0NykKPiA+IE9uIFR1ZSwgTWF5IDEyLCAyMDIwIGF0IDEwOjA0OjIyQU0gKzAxMDAs
+IENocmlzIFdpbHNvbiB3cm90ZToKPiA+ID4gUXVvdGluZyBEYW5pZWwgVmV0dGVyICgyMDIwLTA1
+LTEyIDA5OjU5OjI5KQo+ID4gPiA+IERlc2lnbiBpcyBzaW1pbGFyIHRvIHRoZSBsb2NrZGVwIGFu
+bm90YXRpb25zIGZvciB3b3JrZXJzLCBidXQgd2l0aAo+ID4gPiA+IHNvbWUgdHdpc3RzOgo+ID4g
+PiA+Cj4gPiA+ID4gLSBXZSB1c2UgYSByZWFkLWxvY2sgZm9yIHRoZSBleGVjdXRpb24vd29ya2Vy
+L2NvbXBsZXRpb24gc2lkZSwgc28gdGhhdAo+ID4gPiA+ICAgdGhpcyBleHBsaWNpdCBhbm5vdGF0
+aW9uIGNhbiBiZSBtb3JlIGxpYmVyYWxseSBzcHJpbmtsZWQgYXJvdW5kLgo+ID4gPiA+ICAgV2l0
+aCByZWFkIGxvY2tzIGxvY2tkZXAgaXNuJ3QgZ29pbmcgdG8gY29tcGxhaW4gaWYgdGhlIHJlYWQt
+c2lkZQo+ID4gPiA+ICAgaXNuJ3QgbmVzdGVkIHRoZSBzYW1lIHdheSB1bmRlciBhbGwgY2lyY3Vt
+c3RhbmNlcywgc28gQUJCQSBkZWFkbG9ja3MKPiA+ID4gPiAgIGFyZSBvay4gV2hpY2ggdGhleSBh
+cmUsIHNpbmNlIHRoaXMgaXMgYW4gYW5ub3RhdGlvbiBvbmx5Lgo+ID4gPiA+Cj4gPiA+ID4gLSBX
+ZSdyZSB1c2luZyBub24tcmVjdXJzaXZlIGxvY2tkZXAgcmVhZCBsb2NrIG1vZGUsIHNpbmNlIGlu
+IHJlY3Vyc2l2ZQo+ID4gPiA+ICAgcmVhZCBsb2NrIG1vZGUgbG9ja2RlcCBkb2VzIG5vdCBjYXRj
+aCByZWFkIHNpZGUgaGF6YXJkcy4gQW5kIHdlCj4gPiA+ID4gICBfdmVyeV8gbXVjaCB3YW50IHJl
+YWQgc2lkZSBoYXphcmRzIHRvIGJlIGNhdWdodC4gRm9yIGZ1bGwgZGV0YWlscyBvZgo+ID4gPiA+
+ICAgdGhpcyBsaW1pdGF0aW9uIHNlZQo+ID4gPiA+Cj4gPiA+ID4gICBjb21taXQgZTkxNDk4NTg5
+NzQ2MDY1ZTNhZTk1ZDlhMDBiMDY4ZTUyNWVlYzM0Zgo+ID4gPiA+ICAgQXV0aG9yOiBQZXRlciBa
+aWpsc3RyYSA8cGV0ZXJ6QGluZnJhZGVhZC5vcmc+Cj4gPiA+ID4gICBEYXRlOiAgIFdlZCBBdWcg
+MjMgMTM6MTM6MTEgMjAxNyArMDIwMAo+ID4gPiA+Cj4gPiA+ID4gICAgICAgbG9ja2luZy9sb2Nr
+ZGVwL3NlbGZ0ZXN0czogQWRkIG1peGVkIHJlYWQtd3JpdGUgQUJCQSB0ZXN0cwo+ID4gPiA+Cj4g
+PiA+ID4gLSBUbyBhbGxvdyBuZXN0aW5nIG9mIHRoZSByZWFkLXNpZGUgZXhwbGljaXQgYW5ub3Rh
+dGlvbnMgd2UgZXhwbGljaXRseQo+ID4gPiA+ICAga2VlcCB0cmFjayBvZiB0aGUgbmVzdGluZy4g
+bG9ja19pc19oZWxkKCkgYWxsb3dzIHVzIHRvIGRvIHRoYXQuCj4gPiA+ID4KPiA+ID4gPiAtIFRo
+ZSB3YWl0LXNpZGUgYW5ub3RhdGlvbiBpcyBhIHdyaXRlIGxvY2ssIGFuZCBlbnRpcmVseSBkb25l
+IHdpdGhpbgo+ID4gPiA+ICAgZG1hX2ZlbmNlX3dhaXQoKSBmb3IgZXZlcnlvbmUgYnkgZGVmYXVs
+dC4KPiA+ID4gPgo+ID4gPiA+IC0gVG8gYmUgYWJsZSB0byBmcmVlbHkgYW5ub3RhdGUgaGVscGVy
+IGZ1bmN0aW9ucyBJIHdhbnQgdG8gbWFrZSBpdCBvawo+ID4gPiA+ICAgdG8gY2FsbCBkbWFfZmVu
+Y2VfYmVnaW4vZW5kX3NpZ25hbGxpbmcgZnJvbSBzb2Z0L2hhcmRpcnEgY29udGV4dC4KPiA+ID4g
+PiAgIEZpcnN0IGF0dGVtcHQgd2FzIHVzaW5nIHRoZSBoYXJkaXJxIGxvY2tpbmcgY29udGV4dCBm
+b3IgdGhlIHdyaXRlCj4gPiA+ID4gICBzaWRlIGluIGxvY2tkZXAsIGJ1dCB0aGlzIGZvcmNlcyBh
+bGwgbm9ybWFsIHNwaW5sb2NrcyBuZXN0ZWQgd2l0aGluCj4gPiA+ID4gICBkbWFfZmVuY2VfYmVn
+aW4vZW5kX3NpZ25hbGxpbmcgdG8gYmUgc3BpbmxvY2tzLiBUaGF0IGJvbGxvY2tzLgo+ID4gPiA+
+Cj4gPiA+ID4gICBUaGUgYXBwcm9hY2ggbm93IGlzIHRvIHNpbXBsZSBjaGVjayBpbl9hdG9taWMo
+KSwgYW5kIGZvciB0aGVzZSBjYXNlcwo+ID4gPiA+ICAgZW50aXJlbHkgcmVseSBvbiB0aGUgbWln
+aHRfc2xlZXAoKSBjaGVjayBpbiBkbWFfZmVuY2Vfd2FpdCgpLiBUaGF0Cj4gPiA+ID4gICB3aWxs
+IGNhdGNoIGFueSB3cm9uZyBuZXN0aW5nIGFnYWluc3Qgc3BpbmxvY2tzIGZyb20gc29mdC9oYXJk
+aXJxCj4gPiA+ID4gICBjb250ZXh0cy4KPiA+ID4gPgo+ID4gPiA+IFRoZSBpZGVhIGhlcmUgaXMg
+dGhhdCBldmVyeSBjb2RlIHBhdGggdGhhdCdzIGNyaXRpY2FsIGZvciBldmVudHVhbGx5Cj4gPiA+
+ID4gc2lnbmFsbGluZyBhIGRtYV9mZW5jZSBzaG91bGQgYmUgYW5ub3RhdGVkIHdpdGgKPiA+ID4g
+PiBkbWFfZmVuY2VfYmVnaW4vZW5kX3NpZ25hbGxpbmcuIFRoZSBhbm5vdGF0aW9uIGlkZWFsbHkg
+c3RhcnRzIHJpZ2h0Cj4gPiA+ID4gYWZ0ZXIgYSBkbWFfZmVuY2UgaXMgcHVibGlzaGVkIChhZGRl
+ZCB0byBhIGRtYV9yZXN2LCBleHBvc2VkIGFzIGEKPiA+ID4gPiBzeW5jX2ZpbGUgZmQsIGF0dGFj
+aGVkIHRvIGEgZHJtX3N5bmNvYmogZmQsIG9yIGFueXRoaW5nIGVsc2UgdGhhdAo+ID4gPiA+IG1h
+a2VzIHRoZSBkbWFfZmVuY2UgdmlzaWJsZSB0byBvdGhlciBrZXJuZWwgdGhyZWFkcyksIHVwIHRv
+IGFuZAo+ID4gPiA+IGluY2x1ZGluZyB0aGUgZG1hX2ZlbmNlX3dhaXQoKS4gRXhhbXBsZXMgYXJl
+IGlycSBoYW5kbGVycywgdGhlCj4gPiA+ID4gc2NoZWR1bGVyIHJ0IHRocmVhZHMsIHRoZSB0YWls
+IG9mIGV4ZWNidWYgKGFmdGVyIHRoZSBjb3JyZXNwb25kaW5nCj4gPiA+ID4gZmVuY2VzIGFyZSB2
+aXNpYmxlKSwgYW55IHdvcmtlcnMgdGhhdCBlbmQgdXAgc2lnbmFsbGluZyBkbWFfZmVuY2VzIGFu
+ZAo+ID4gPiA+IHJlYWxseSBhbnl0aGluZyBlbHNlLiBOb3QgYW5ub3RhdGVkIHNob3VsZCBiZSBj
+b2RlIHBhdGhzIHRoYXQgb25seQo+ID4gPiA+IGNvbXBsZXRlIGZlbmNlcyBvcHBvcnR1bmlzdGlj
+YWxseSBhcyB0aGUgZ3B1IHByb2dyZXNzZXMsIGxpa2UgZS5nLgo+ID4gPiA+IHNocmlua2VyL2V2
+aWN0aW9uIGNvZGUuCj4gPiA+ID4KPiA+ID4gPiBUaGUgbWFpbiBjbGFzcyBvZiBkZWFkbG9ja3Mg
+dGhpcyBpcyBzdXBwb3NlZCB0byBjYXRjaCBhcmU6Cj4gPiA+ID4KPiA+ID4gPiBUaHJlYWQgQToK
+PiA+ID4gPgo+ID4gPiA+ICAgICAgICAgbXV0ZXhfbG9jayhBKTsKPiA+ID4gPiAgICAgICAgIG11
+dGV4X3VubG9jayhBKTsKPiA+ID4gPgo+ID4gPiA+ICAgICAgICAgZG1hX2ZlbmNlX3NpZ25hbCgp
+Owo+ID4gPiA+Cj4gPiA+ID4gVGhyZWFkIEI6Cj4gPiA+ID4KPiA+ID4gPiAgICAgICAgIG11dGV4
+X2xvY2soQSk7Cj4gPiA+ID4gICAgICAgICBkbWFfZmVuY2Vfd2FpdCgpOwo+ID4gPiA+ICAgICAg
+ICAgbXV0ZXhfdW5sb2NrKEEpOwo+ID4gPiA+Cj4gPiA+ID4gVGhyZWFkIEIgaXMgYmxvY2tlZCBv
+biBBIHNpZ25hbGxpbmcgdGhlIGZlbmNlLCBidXQgQSBuZXZlciBnZXRzIGFyb3VuZAo+ID4gPiA+
+IHRvIHRoYXQgYmVjYXVzZSBpdCBjYW5ub3QgYWNxdWlyZSB0aGUgbG9jayBBLgo+ID4gPiA+Cj4g
+PiA+ID4gTm90ZSB0aGF0IGRtYV9mZW5jZV93YWl0KCkgaXMgYWxsb3dlZCB0byBiZSBuZXN0ZWQg
+d2l0aGluCj4gPiA+ID4gZG1hX2ZlbmNlX2JlZ2luL2VuZF9zaWduYWxsaW5nIHNlY3Rpb25zLiBU
+byBhbGxvdyB0aGlzIHRvIGhhcHBlbiB0aGUKPiA+ID4gPiByZWFkIGxvY2sgbmVlZHMgdG8gYmUg
+dXBncmFkZWQgdG8gYSB3cml0ZSBsb2NrLCB3aGljaCBtZWFucyB0aGF0IGFueQo+ID4gPiA+IG90
+aGVyIGxvY2sgaXMgYWNxdWlyZWQgYmV0d2VlbiB0aGUgZG1hX2ZlbmNlX2JlZ2luX3NpZ25hbGxp
+bmcoKSBjYWxsIGFuZAo+ID4gPiA+IHRoZSBjYWxsIHRvIGRtYV9mZW5jZV93YWl0KCksIGFuZCBz
+dGlsbCBoZWxkLCB0aGlzIHdpbGwgcmVzdWx0IGluIGFuCj4gPiA+ID4gaW1tZWRpYXRlIGxvY2tk
+ZXAgY29tcGxhaW50LiBUaGUgb25seSBvdGhlciBvcHRpb24gd291bGQgYmUgdG8gbm90Cj4gPiA+
+ID4gYW5ub3RhdGUgc3VjaCBjYWxscywgZGVmZWF0aW5nIHRoZSBwb2ludC4gVGhlcmVmb3JlIHRo
+ZXNlIGFubm90YXRpb25zCj4gPiA+ID4gY2Fubm90IGJlIHNwcmlua2xlZCBvdmVyIHRoZSBjb2Rl
+IGVudGlyZWx5IG1pbmRsZXNzIHRvIGF2b2lkIGZhbHNlCj4gPiA+ID4gcG9zaXRpdmVzLgo+ID4g
+PiA+Cj4gPiA+ID4gdjI6IGhhbmRsZSBzb2Z0L2hhcmRpcnEgY3R4IGJldHRlciBhZ2FpbnN0IHdy
+aXRlIHNpZGUgYW5kIGRvbnQgZm9yZ2V0Cj4gPiA+ID4gRVhQT1JUX1NZTUJPTCwgZHJpdmVycyBj
+YW4ndCB1c2UgdGhpcyBvdGhlcndpc2UuCj4gPiA+ID4KPiA+ID4gPiBDYzogbGludXgtbWVkaWFA
+dmdlci5rZXJuZWwub3JnCj4gPiA+ID4gQ2M6IGxpbmFyby1tbS1zaWdAbGlzdHMubGluYXJvLm9y
+Zwo+ID4gPiA+IENjOiBsaW51eC1yZG1hQHZnZXIua2VybmVsLm9yZwo+ID4gPiA+IENjOiBhbWQt
+Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+ID4gPiA+IENjOiBpbnRlbC1nZnhAbGlzdHMuZnJl
+ZWRlc2t0b3Aub3JnCj4gPiA+ID4gQ2M6IENocmlzIFdpbHNvbiA8Y2hyaXNAY2hyaXMtd2lsc29u
+LmNvLnVrPgo+ID4gPiA+IENjOiBNYWFydGVuIExhbmtob3JzdCA8bWFhcnRlbi5sYW5raG9yc3RA
+bGludXguaW50ZWwuY29tPgo+ID4gPiA+IENjOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4u
+a29lbmlnQGFtZC5jb20+Cj4gPiA+ID4gU2lnbmVkLW9mZi1ieTogRGFuaWVsIFZldHRlciA8ZGFu
+aWVsLnZldHRlckBpbnRlbC5jb20+Cj4gPiA+ID4gLS0tCj4gPiA+ID4gIGRyaXZlcnMvZG1hLWJ1
+Zi9kbWEtZmVuY2UuYyB8IDUzICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysK
+PiA+ID4gPiAgaW5jbHVkZS9saW51eC9kbWEtZmVuY2UuaCAgIHwgMTIgKysrKysrKysrCj4gPiA+
+ID4gIDIgZmlsZXMgY2hhbmdlZCwgNjUgaW5zZXJ0aW9ucygrKQo+ID4gPiA+Cj4gPiA+ID4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVuY2UuYyBiL2RyaXZlcnMvZG1hLWJ1Zi9k
+bWEtZmVuY2UuYwo+ID4gPiA+IGluZGV4IDY4MDIxMjUzNDlmYi4uZDVjMGZkMmVmYzcwIDEwMDY0
+NAo+ID4gPiA+IC0tLSBhL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVuY2UuYwo+ID4gPiA+ICsrKyBi
+L2RyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVuY2UuYwo+ID4gPiA+IEBAIC0xMTAsNiArMTEwLDUyIEBA
+IHU2NCBkbWFfZmVuY2VfY29udGV4dF9hbGxvYyh1bnNpZ25lZCBudW0pCj4gPiA+ID4gIH0KPiA+
+ID4gPiAgRVhQT1JUX1NZTUJPTChkbWFfZmVuY2VfY29udGV4dF9hbGxvYyk7Cj4gPiA+ID4KPiA+
+ID4gPiArI2lmZGVmIENPTkZJR19MT0NLREVQCj4gPiA+ID4gK3N0cnVjdCBsb2NrZGVwX21hcCAg
+ICAgZG1hX2ZlbmNlX2xvY2tkZXBfbWFwID0gewo+ID4gPiA+ICsgICAgICAgLm5hbWUgPSAiZG1h
+X2ZlbmNlX21hcCIKPiA+ID4gPiArfTsKPiA+ID4KPiA+ID4gTm90IGFub3RoZXIgZmFsc2UgZ2xv
+YmFsIHNoYXJpbmcgbG9ja21hcC4KPiA+Cj4gPiBJdCdzIGEgZ2xvYmFsIGNvbnRyYWN0LCBpdCBu
+ZWVkcyBhIGdsb2JhbCBsb2NrZGVwIG1hcC4gQW5kIHllcyBhIGJpZwo+ID4gcmVhc29uIGZvciB0
+aGUgbW90aXZhdGlvbiBoZXJlIGlzIHRoYXQgaTkxNS1nZW0gaGFzIGEgdHJlbWVuZG91cyB1cmdl
+IHRvCj4gPiBqdXN0IHJlZGVmaW5lIGFsbCB0aGVzZSBnbG9iYWwgbG9ja3MgdG8gZml0IHRvIHNv
+bWUgbG9jYWwgaW50ZXJwcmV0YXRpb24KPiA+IG9mIHdoYXQncyBnb2luZyBvbi4KPgo+IE5vLCB5
+b3UgY2FuIGJ1aWxkIHRoZSBnbG9iYWwgY29udHJhY3Qgb3V0IG9mIHRoZSBhY3R1YWwgY29udHJh
+Y3RzCj4gYmV0d2VlbiBmZW5jZSBkcml2ZXJzLiBJZiB5b3UgaW50cm9kdWNlIGEgc3RydWN0IGxv
+Y2tkZXBfbWFwICptYXAgaW50bwo+IHRoZSBmZW5jZV9vcHMgKHNvIHRoZSBmZW5jZV9vcHMgY2Fu
+IHJlbWFpbiBjb25zdCksIHlvdSBnYWluIGNvcnJlY3RuZXNzCj4gYXQgdGhlIGNvc3Qgb2YgaGF2
+aW5nIHRvIHJ1biB0aHJvdWdoIGFsbCBwb3NzaWJsZSBpbnRlcmFjdGlvbnMgb25jZS4KPiBZb3Ug
+Y2FuIGFsc28gdGhlbiBkbyBpZiBvcHMtPmxvY2ttYXAgPzogJmdsb2JhbF9mZW5jZV9sb2NrbWFw
+IGZvcgo+IHBpZWNlbWVhbCBjb252ZXJzaW9uIG9mIGRyaXZlcnMgdGhhdCBkbyBub3QgYWxyZWFk
+eSB1c2UgbG9ja21hcHMgZm9yCj4gY29udHJhY3QgZW5mb3JjZW1lbnQgb2YgdGhlaXIgZmVuY2Ug
+d2FpdHMuCgpJJ20gbm90IHF1aXRlIHN1cmUgd2hldGhlciB5b3UncmUgYWN0dWFsbHkgcHJvcG9z
+aW5nIHRvIGhhdmUgbG9ja2luZwpjb250cmFjdHMgcGVyIGRyaXZlcnMsIHNpbmNlIHRoYXQgc2Vl
+bXMgcmF0aGVyIG91dCBvZiAuLi4gSSBkdW5uby4gQnV0CmlmIHRoYXQncyB3aGF0IHlvdSB3YW50
+LCB0aGF0IGp1c3QgZG9lc24ndCBtYWtlIGFueSBzZW5zZSBhdCBhbGw6CgotIExvY2tpbmcgaXMg
+cmF0aGVyIGNvcmUgdG8ga2VybmVsIHByb2dyYW1taW5nLCBhc2lkZSBmcm9tIGEgZmV3IG90aGVy
+CnRoaW5ncyBsaWtlIGhhcmQvc29mdGlycS9wcmVlbXB0Ly4uLiBkaXNhYmxlZCBzZWN0aW9ucyBh
+bmQgaG93CnJlY3Vyc2lvbiB3b3JrcyBmb3IgdGhlc2UsIG9yIHdoZXJlIGFuZCB3aGF0IHlvdSdy
+ZSBhbGxvd2VkIHRvCmFsbG9jYXRlIG1lbW9yeS4gTG9ja2RlcCwgbWlnaHRfc2xlZXAgYW5kIGEg
+YnVuY2ggb2Ygb3RoZXIgc3VjaCBkZWJ1ZwpjaGVja3MgaGVscCB1cyBlbmZvcmNlIHRoYXQuIElm
+IHlvdSBpbnN0ZWFkIGdvIHdpdGggZXZlcnkgZHJpdmVyIGRvZXMKd2hhdCB0aGV5IHBsZWFzZSB5
+b2xvLCB0aGVuIHlvdSBkb24ndCBoYXZlIGFuIGFic3RyYWN0aW9uLCBhbGwgeW91CmhhdmUgaXMg
+c21hc2hpbmcgYSByb3NlIGFuZCByb3NlIGFuZCBSb3NlIGludG8gb25lIHRoaW5nIGJlY2F1c2Ug
+dGhleQpoYXZlIHRoZSBzYW1lIDQgbGV0dGVyIG5hbWUuIEl0J3MganVzdCBhbiBpbnRlcmZhY2Ug
+dGhhdCBjYW4gYmUgdXNlZApvbmx5IHdoZW4gdW5kZXJzdGFuZGluZyBldmVyeSBzaW5nbGUgaW1w
+bGVtZW50YXRpb24gaW4gZGV0YWlsIC0gcmVhbGx5Cm5vdCBzb21ldGhpbmcgdGhhdCdzIGFuIGFi
+c3RyYWN0aW9uLiBZZXMgSSd2ZSBzZWVuIHNvbWUgb2YgdGhlc2UKZHViaW91cyBhYnN0cmFjdGlv
+bnMgaW4gaTkxNSwgbWVyZ2VkIGZhaXJseSByZWNlbnRseSwgdGhhdCBkb2Vzbid0Cm1ha2UgdGhl
+bSBhIGdvb2QgaWRlYS4KCi0gWW91IG5lZWQgdG8gdGVzdCB0aGUgZnVsbCBOeE4gbWF0cml4ICh5
+ZXMgeW91IG5lZWQgdG8gdGVzdCB0aGUKZHJpdmVyIGFnYWluc3QgaXRzZWxmIGluIHRoaXMgd29y
+bGQsIHNpbmNlIHRlc3RpbmcgYWdhaW5zdCBzb21ldGhpbmcKZmFrZSBsaWtlIHZnZW0gZG9lc24n
+dCBjdXQgaXQpLiBUaGF0J3MgbnV0cy4gU3RyaWtlIHRoYXQsIHRoYXQncwppbXBvc3NpYmxlLgoK
+LSBSZXZpZXcgaXMgaW1wb3NzaWJsZSwgYmVjYXVzZSB0aGUgZG9jdW1lbnRhdGlvbiBjYW4gYmUg
+c3VtbWVkIHVwIGFzCiJ5b2xvIi4gV2l0aG91dCBjbGVhciBydWxlcyBhbGwgcmV2aWV3IGNhbiBk
+byBpcyBjaGVjayBldmVyeSBjb2RlCmFnYWluc3QgZXZlcnkgb3RoZXIgcGllY2Ugb2YgY29kZSwg
+b24gZXZlcnkgY2hhbmdlLiBUaGF0J3MgaW1wb3NzaWJsZSwKYmVjYXVzZSB3ZSBodW1hbnMgYXJl
+IG1lcmUgbW9ydGFscywgYW5kIHdlJ3JlIGxlZnQgd2l0aCBwdXNoJnByYXkKZW5naW5lZXJpbmcs
+IHdoaWNoIHJlYWxseSBpc24ndC4KClRoZSBvdGhlciBpc3N1ZSB3aXRoIHRoaXMgYXBwcm9hY2gg
+aXMgdGhhdCBpdCdzIGZ1bGwgb24gcGxhdGZvcm0KcHJvYmxlbSBpbiBleHRyZW1pcy4gSW5zdGVh
+ZCBvZiBleHRlbmRpbmcgdGhlIHNoYXJlZCBhYnN0cmFjdGlvbiBvcgphZGRpbmcgbmV3IHVzZWZ1
+bCBmdW5jdGlvbmFsaXR5LCBpOTE1LWdlbSBoYXMgcmVzb3J0ZWQgdG8gcmVpbnByZXRpbmcKcnVs
+ZXMgdG8gZml4IGxvY2FsIHByb2JsZW1zLiBUaGF0IGxlYWRzIHRvIHN0dWZmIGxpa2Ugcm91Z2hs
+eQoKaWYgKG11dGV4X2xvY2tfdGltZW91dChIWioxMCkgPT0gLUVUSU1FKSB7CiAgICAvKiBJIGd1
+ZXNzIHdlIGRlYWRsb2NrZWQsIHRyeSB0byBiYWlsIG91dCAqLwp9CgpleGNlcHQgaXQncyBmb3Ig
+ZmVuY2VzLiBUaGF0J3MgbmVpdGhlciBzb2xpZCBlbmdpbmVlcmluZyAtIHdlIGRvbid0CmdlbmVy
+YWxseSBsZXQgdGhlIGtlcm5lbCBkZWFkbG9jayBvbiBpdHNlbGYgdG8gdGVzdCB3aGV0aGVyIG1h
+eWJlIGl0CndhcyBhIGRlYWRsb2NrIG9yIG5vdCwgbm9yIGlzIHRoaXMgc29saWQgdXBzdHJlYW1p
+bmcgaW4gYSBvcGVuIHNvdXJjZQpwcm9qZWN0IC0gd2UgZml4IHRoZSBwcm9ibGVtcyB3aGVyZSB0
+aGV5IGFyZSwgbm90IHdvcmsgYXJvdW5kIHRoZW0KanVzdCBpbiBvdXIgb3duIGRyaXZlci4KLURh
+bmllbAotLQpEYW5pZWwgVmV0dGVyClNvZnR3YXJlIEVuZ2luZWVyLCBJbnRlbCBDb3Jwb3JhdGlv
+bgorNDEgKDApIDc5IDM2NSA1NyA0OCAtIGh0dHA6Ly9ibG9nLmZmd2xsLmNoCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
