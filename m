@@ -2,68 +2,55 @@ Return-Path: <SRS0=u08i=64=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC1C3C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2020 15:18:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EBCAC433E1
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2020 18:52:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8ED062065F
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2020 15:18:35 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1B123206A5
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2020 18:52:48 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KNKmwpGa"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8ED062065F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="lewh+dHy"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B123206A5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 417B36EB64;
-	Thu, 14 May 2020 15:18:35 +0000 (UTC)
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89B186EB63;
- Thu, 14 May 2020 15:18:34 +0000 (UTC)
-Received: by mail-wr1-x429.google.com with SMTP id e1so4685805wrt.5;
- Thu, 14 May 2020 08:18:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=mqcL9G4GwvDXau49ts4jKonS+XSNd4KWiN9J9Xdv4QE=;
- b=KNKmwpGalCkVWgPVUsq4/LxY4Bp1cDJEh52kyzVlU3K/Ez2/PvXYOhMdz1uz19vTZ5
- 4Fo18y5NxMVW+2CkbSvHXFt2io/2IhUG/4gtuDFTvJK2mI81JrZFrivADYR+znNPex6b
- uDTJyAypS+BhvSlgp6g+QkP0So5OSA6kkfQVd4kVkqLaRUhaic1zdEVC9fW/UtJlW1Rh
- vLp+jTUYA7RgdV4VxI9AWM6EqZmlsDlgQSfooy9ZIYUHv8mwou7gkcmndZz4Hx9/3ckO
- /u2BXvEjzb4fbJgSWsQOkAskVt0TAq8huuiqxZfFo/O8P4iKZ8NEfFthnW+9wye6zqVV
- epGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=mqcL9G4GwvDXau49ts4jKonS+XSNd4KWiN9J9Xdv4QE=;
- b=PxGItDCFfz1zSdSqa3djzV8f9xzl9e8xIOSKC8rMdgGvnNGsVBdOxwrvNsyfYEVJzZ
- 7c4I/P5BFxBDMOmuWy2MmsfhUH6Bd2hgNeAku17Pd+c0sg2Q6PCIRHPTYvG23quq93ED
- 8IMiEBckKU3MXjEm9QwYxasxYouX7wdCvuukO75vXTX6S/JEK2HP0K25T9ne5olsizIq
- B2Zrny+k+0KGaf1VVanW36iU6pyaLwx/w7O+aeNFd6wYe26SYTbROjy5cLRtD+iMc56D
- s/2Ae8W/NGmOfHdX/vqP9yUjyhNOykINM7O3HMnu0Vr22KWusuNu8iHcHe2Jaknqy6bh
- dF4g==
-X-Gm-Message-State: AOAM532NVFzAf+K6L9XbfFhwplzGbhm9wVzMeaJzKDPAG6uHYrrot5Hx
- TMlihu43XusCNhTEA3Kws5gHQ6yAodHIMXNPPHoD3w==
-X-Google-Smtp-Source: ABdhPJxSrY45EcZ/VcRp3WJwvknzGl4jngRqfdUnTM3eL4Cw+ZwhIkcPHuuI75CDkmPAXGYUQ+bHlekbt4xZw5DRhns=
-X-Received: by 2002:adf:9264:: with SMTP id 91mr5953145wrj.362.1589469513164; 
- Thu, 14 May 2020 08:18:33 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 783BE891C0;
+	Thu, 14 May 2020 18:52:46 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A87C891FF;
+ Thu, 14 May 2020 18:52:45 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id E086F206D8;
+ Thu, 14 May 2020 18:52:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1589482364;
+ bh=AQ5Ja54zZPWJCzN1n8jzY96BFQlAAx9L0kU4hbgVYnU=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=lewh+dHyHa8kqsuku5Yn3eE4DCrl/jfsdFqs6g2wRmsgzQfRF7d8jIavG1aYTR1O0
+ FeGciNaBajurBTEsQdtgYQ6aNR1D9gqUQ7q8yN43rU50rR9gTJE1anQj7RUjHc4DfJ
+ xOraXTSdGvLT41Cnschg0YdVlvjoyorA/uxjwT3o=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.6 44/62] drm/amd/display: Update DCN2.1 DV Code
+ Revision
+Date: Thu, 14 May 2020 14:51:29 -0400
+Message-Id: <20200514185147.19716-44-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200514185147.19716-1-sashal@kernel.org>
+References: <20200514185147.19716-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20200430212951.3902-1-alexander.deucher@amd.com>
- <CAPj87rM6nvr-pspfz9PaPiV9kkSM+=rh_YMaPXqaBZv37Yc-Yw@mail.gmail.com>
- <CADnq5_O-jgxFf4RArnf_fxeW5MxyDX3aMn=jViAZyx1-PAtHzw@mail.gmail.com>
- <CAPj87rPwd0TpnBy1g3BDBbQb3e0RjEn2Sy+yP01ALNGts+NhLA@mail.gmail.com>
-In-Reply-To: <CAPj87rPwd0TpnBy1g3BDBbQb3e0RjEn2Sy+yP01ALNGts+NhLA@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 14 May 2020 11:18:21 -0400
-Message-ID: <CADnq5_NB6J9ZUtNtKxO2wiGDnA55FBQn6O14OiqqZE9O=oN=ag@mail.gmail.com>
-Subject: Re: [pull] amdgpu, amdkfd drm-next-5.8
-To: Daniel Stone <daniel@fooishbar.org>
+X-stable: review
+X-Patchwork-Hint: Ignore
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,72 +62,71 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Daniel Vetter <daniel.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
+Cc: Sasha Levin <sashal@kernel.org>, Sung Lee <sung.lee@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 14, 2020 at 10:15 AM Daniel Stone <daniel@fooishbar.org> wrote:
->
-> Hi,
->
-> On Thu, 14 May 2020 at 14:36, Alex Deucher <alexdeucher@gmail.com> wrote:
-> > On Thu, May 14, 2020 at 5:42 AM Daniel Stone <daniel@fooishbar.org> wrote:
-> > > Did this ever go through uAPI review? It's been pushed to the kernel
-> > > before Mesa review was complete. Even then, Mesa only uses it when
-> > > behind a magic environment variable, rather than through the EGL
-> > > extensions which have been specifically designed for protected content
-> > > (EGL_EXT_protected_content, protected_surface, etc). The winsys
-> > > usecase was based on a Wayland system which seems like it will only
-> > > work when composition bypass is available - not using any of the
-> > > Wayland protected-content extensions, and it's completely unclear what
-> > > will happen if composition bypass can't actually be achieved.
-> > >
-> > > I don't think this should be landing before all those open questions
-> > > have been answered. We're trying to come up with a good and coherent
-> > > story for handling protected content, and I'd rather not see AMD
-> > > landing its own uAPI which might completely contradict that.
-> >
-> > Well, the patches have been public for months and we have a UAPI and
-> > mesa userspace which works for our use cases and the mesa side has
-> > been merged and the recent comments on the MR didn't seem like show
-> > stoppers.
->
-> As a generic compositor author, it's pretty important for me to
-> understand what happens when trying to access protected content. Does
-> the import simply fail? Does it sample rubbish? Does my context
-> killed? etc.
+From: Sung Lee <sung.lee@amd.com>
 
-Unless you are a GPU engine in secure mode, you'll just get garbage.
-You specify what mode you want each engine to operate in when you
-submit work to the GPU.
+[ Upstream commit b95e51eb9f2ee7b6d6c3203a2f75122349aa77be ]
 
->
-> > I don't disagree with your point, but I feel like agreeing
-> > on a what we want to do for EGL protected content could drag out for
-> > months or years.
->
-> I don't really see what the problem is, but it would've been nice if
-> it was at least attempted, rather than just parachuted in ... I know
-> I'm going to end up getting bug reports about it for Wayland/Weston,
-> and then all of a sudden it's become my problem that this was just
-> dropped in as a vendor-specific feature in a vendor-specific island.
+[WHY & HOW]
+There is a problem in hscale_pixel_rate, the bug
+causes DCN to be more optimistic (more likely to underflow)
+in upscale cases during prefetch.
+This commit ports the fix from DV code to address these issues.
 
-I'm not sure what you mean by parachuted in.  The patches for both the
-kernel and mesa were send out to their respective review mediums a
-number of times and there were actually a number of revisions as we
-worked through issues that came up.  We were certainly not trying to
-"sneak" this in.
+Signed-off-by: Sung Lee <sung.lee@amd.com>
+Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-I didn't realize anyone was actually seriously working on this at the
-moment either until you brought it up.  What is the current status?
-Does anyone else have anything similar in progress?
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
+index a38baa73d4841..b8ec08e3b7a36 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
+@@ -1200,7 +1200,7 @@ static void dml_rq_dlg_get_dlg_params(
+ 	min_hratio_fact_l = 1.0;
+ 	min_hratio_fact_c = 1.0;
+ 
+-	if (htaps_l <= 1)
++	if (hratio_l <= 1)
+ 		min_hratio_fact_l = 2.0;
+ 	else if (htaps_l <= 6) {
+ 		if ((hratio_l * 2.0) > 4.0)
+@@ -1216,7 +1216,7 @@ static void dml_rq_dlg_get_dlg_params(
+ 
+ 	hscale_pixel_rate_l = min_hratio_fact_l * dppclk_freq_in_mhz;
+ 
+-	if (htaps_c <= 1)
++	if (hratio_c <= 1)
+ 		min_hratio_fact_c = 2.0;
+ 	else if (htaps_c <= 6) {
+ 		if ((hratio_c * 2.0) > 4.0)
+@@ -1522,8 +1522,8 @@ static void dml_rq_dlg_get_dlg_params(
+ 
+ 	disp_dlg_regs->refcyc_per_vm_group_vblank   = get_refcyc_per_vm_group_vblank(mode_lib, e2e_pipe_param, num_pipes, pipe_idx) * refclk_freq_in_mhz;
+ 	disp_dlg_regs->refcyc_per_vm_group_flip     = get_refcyc_per_vm_group_flip(mode_lib, e2e_pipe_param, num_pipes, pipe_idx) * refclk_freq_in_mhz;
+-	disp_dlg_regs->refcyc_per_vm_req_vblank     = get_refcyc_per_vm_req_vblank(mode_lib, e2e_pipe_param, num_pipes, pipe_idx) * refclk_freq_in_mhz;
+-	disp_dlg_regs->refcyc_per_vm_req_flip       = get_refcyc_per_vm_req_flip(mode_lib, e2e_pipe_param, num_pipes, pipe_idx) * refclk_freq_in_mhz;
++	disp_dlg_regs->refcyc_per_vm_req_vblank     = get_refcyc_per_vm_req_vblank(mode_lib, e2e_pipe_param, num_pipes, pipe_idx) * refclk_freq_in_mhz * dml_pow(2, 10);
++	disp_dlg_regs->refcyc_per_vm_req_flip       = get_refcyc_per_vm_req_flip(mode_lib, e2e_pipe_param, num_pipes, pipe_idx) * refclk_freq_in_mhz * dml_pow(2, 10);
+ 
+ 	// Clamp to max for now
+ 	if (disp_dlg_regs->refcyc_per_vm_group_vblank >= (unsigned int)dml_pow(2, 23))
+-- 
+2.20.1
 
-Alex
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
