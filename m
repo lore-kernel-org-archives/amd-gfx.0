@@ -6,47 +6,47 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2CA55C433E2
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2020 18:52:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DED72C433E2
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2020 18:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 03A63206D8
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2020 18:52:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B2504206F1
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2020 18:53:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="kBgg7eSy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 03A63206D8
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="LkajXWRp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B2504206F1
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7D5588D96;
-	Thu, 14 May 2020 18:52:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63BA888D96;
+	Thu, 14 May 2020 18:53:58 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8854089134;
- Thu, 14 May 2020 18:52:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 820B788D96;
+ Thu, 14 May 2020 18:53:57 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8AFED2065F;
- Thu, 14 May 2020 18:52:46 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5AF9120767;
+ Thu, 14 May 2020 18:53:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589482367;
- bh=FpJAmaIbXfW+zhkboocQed7po9iRsV2lzX9DK4liwkU=;
+ s=default; t=1589482437;
+ bh=DZ5qTTuGiQ8ince+iTyYGDPiQ52kRRQ7QbhT+igfATI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kBgg7eSyfBLZcQW1BIRmjA6UiW1oz+cWp3SQDVx7M2GY89mo/L/YpXuqblWdlT6ZB
- 2/nL1t9MVAnW5Fnsb0BDCgmXvVZRuP4OjGgGpSIdNbZhRo7t1zMbnNcbiMjw4NjOnV
- aFlOfh4lWq92GTjY/JyRarXrHOkqe2/bDS3KNfpc=
+ b=LkajXWRpMQX7e39SsJxMzDoEBxT90h4qptYtW4WU4lFVnaYHlswFaF2dOgebB/qxW
+ 4ptlkcDEdRtdWINqqm/oWSu6+EJwTUusi/PeqlJdapKhOMGZBR35I9H3dSah/pdsdc
+ KzTujFDVBk1WlcDHDCVHY1HpmUrLRq1FNp0zKnSA=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 46/62] drm/amd/display: Prevent dpcd reads with
+Subject: [PATCH AUTOSEL 5.4 37/49] drm/amd/display: Prevent dpcd reads with
  passive dongles
-Date: Thu, 14 May 2020 14:51:31 -0400
-Message-Id: <20200514185147.19716-46-sashal@kernel.org>
+Date: Thu, 14 May 2020 14:52:58 -0400
+Message-Id: <20200514185311.20294-37-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200514185147.19716-1-sashal@kernel.org>
-References: <20200514185147.19716-1-sashal@kernel.org>
+In-Reply-To: <20200514185311.20294-1-sashal@kernel.org>
+References: <20200514185311.20294-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -93,10 +93,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 11 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8136a58deb393..f98c42150b4f3 100644
+index be61ae1430ed9..c9c2984138263 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -1941,17 +1941,22 @@ amdgpu_dm_update_connector_after_detect(struct amdgpu_dm_connector *aconnector)
+@@ -1422,17 +1422,22 @@ amdgpu_dm_update_connector_after_detect(struct amdgpu_dm_connector *aconnector)
  		dc_sink_retain(aconnector->dc_sink);
  		if (sink->dc_edid.length == 0) {
  			aconnector->edid = NULL;
