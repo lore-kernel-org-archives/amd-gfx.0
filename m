@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EBCAC433E1
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2020 18:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 16B52C433E4
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2020 18:52:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B123206A5
-	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2020 18:52:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DF4062074A
+	for <amd-gfx@archiver.kernel.org>; Thu, 14 May 2020 18:52:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="lewh+dHy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B123206A5
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="wKkQ5yI0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DF4062074A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 783BE891C0;
-	Thu, 14 May 2020 18:52:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8867C892D8;
+	Thu, 14 May 2020 18:52:49 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1A87C891FF;
- Thu, 14 May 2020 18:52:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 586BD89122;
+ Thu, 14 May 2020 18:52:46 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E086F206D8;
- Thu, 14 May 2020 18:52:43 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3B524206DC;
+ Thu, 14 May 2020 18:52:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1589482364;
- bh=AQ5Ja54zZPWJCzN1n8jzY96BFQlAAx9L0kU4hbgVYnU=;
+ s=default; t=1589482366;
+ bh=cvoD8Qxudo0h98aKEW9NlNSH6GhsR3nh//6Euzu4X2Q=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=lewh+dHyHa8kqsuku5Yn3eE4DCrl/jfsdFqs6g2wRmsgzQfRF7d8jIavG1aYTR1O0
- FeGciNaBajurBTEsQdtgYQ6aNR1D9gqUQ7q8yN43rU50rR9gTJE1anQj7RUjHc4DfJ
- xOraXTSdGvLT41Cnschg0YdVlvjoyorA/uxjwT3o=
+ b=wKkQ5yI0PPD3b89pNQ7tXiXyfknqUtODN4jFKotj5q7bAIDD3IWEzJDMHxzXyRVq3
+ jfzUahiTVegjrP6TjNC2u0lVYGoldzeXgfZgi0S1dk9Sdl2IOAdSDIc+odtsV+iRfI
+ lKedt4CQzNzlgXA9lKONAgOI2wPiLN8NynqjvALk=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 44/62] drm/amd/display: Update DCN2.1 DV Code
- Revision
-Date: Thu, 14 May 2020 14:51:29 -0400
-Message-Id: <20200514185147.19716-44-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.6 45/62] drm/amd/display: fix counter in
+ wait_for_no_pipes_pending
+Date: Thu, 14 May 2020 14:51:30 -0400
+Message-Id: <20200514185147.19716-45-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200514185147.19716-1-sashal@kernel.org>
 References: <20200514185147.19716-1-sashal@kernel.org>
@@ -62,68 +61,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Sung Lee <sung.lee@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
+Cc: Sasha Levin <sashal@kernel.org>, Zhan Liu <Zhan.Liu@amd.com>,
+ Roman Li <roman.li@amd.com>, amd-gfx@lists.freedesktop.org,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
  Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sung Lee <sung.lee@amd.com>
+From: Roman Li <roman.li@amd.com>
 
-[ Upstream commit b95e51eb9f2ee7b6d6c3203a2f75122349aa77be ]
+[ Upstream commit 80797dd6f1a525d1160c463d6a9f9d29af182cbb ]
 
-[WHY & HOW]
-There is a problem in hscale_pixel_rate, the bug
-causes DCN to be more optimistic (more likely to underflow)
-in upscale cases during prefetch.
-This commit ports the fix from DV code to address these issues.
+[Why]
+Wait counter is not being reset for each pipe.
 
-Signed-off-by: Sung Lee <sung.lee@amd.com>
-Reviewed-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+[How]
+Move counter reset into pipe loop scope.
+
+Signed-off-by: Roman Li <roman.li@amd.com>
+Reviewed-by: Zhan Liu <Zhan.Liu@amd.com>
 Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-index a38baa73d4841..b8ec08e3b7a36 100644
---- a/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml/dcn21/display_rq_dlg_calc_21.c
-@@ -1200,7 +1200,7 @@ static void dml_rq_dlg_get_dlg_params(
- 	min_hratio_fact_l = 1.0;
- 	min_hratio_fact_c = 1.0;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 188e51600070b..b3987124183a7 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -803,11 +803,10 @@ static void disable_dangling_plane(struct dc *dc, struct dc_state *context)
+ static void wait_for_no_pipes_pending(struct dc *dc, struct dc_state *context)
+ {
+ 	int i;
+-	int count = 0;
+-	struct pipe_ctx *pipe;
+ 	PERF_TRACE();
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe = &context->res_ctx.pipe_ctx[i];
++		int count = 0;
++		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
  
--	if (htaps_l <= 1)
-+	if (hratio_l <= 1)
- 		min_hratio_fact_l = 2.0;
- 	else if (htaps_l <= 6) {
- 		if ((hratio_l * 2.0) > 4.0)
-@@ -1216,7 +1216,7 @@ static void dml_rq_dlg_get_dlg_params(
- 
- 	hscale_pixel_rate_l = min_hratio_fact_l * dppclk_freq_in_mhz;
- 
--	if (htaps_c <= 1)
-+	if (hratio_c <= 1)
- 		min_hratio_fact_c = 2.0;
- 	else if (htaps_c <= 6) {
- 		if ((hratio_c * 2.0) > 4.0)
-@@ -1522,8 +1522,8 @@ static void dml_rq_dlg_get_dlg_params(
- 
- 	disp_dlg_regs->refcyc_per_vm_group_vblank   = get_refcyc_per_vm_group_vblank(mode_lib, e2e_pipe_param, num_pipes, pipe_idx) * refclk_freq_in_mhz;
- 	disp_dlg_regs->refcyc_per_vm_group_flip     = get_refcyc_per_vm_group_flip(mode_lib, e2e_pipe_param, num_pipes, pipe_idx) * refclk_freq_in_mhz;
--	disp_dlg_regs->refcyc_per_vm_req_vblank     = get_refcyc_per_vm_req_vblank(mode_lib, e2e_pipe_param, num_pipes, pipe_idx) * refclk_freq_in_mhz;
--	disp_dlg_regs->refcyc_per_vm_req_flip       = get_refcyc_per_vm_req_flip(mode_lib, e2e_pipe_param, num_pipes, pipe_idx) * refclk_freq_in_mhz;
-+	disp_dlg_regs->refcyc_per_vm_req_vblank     = get_refcyc_per_vm_req_vblank(mode_lib, e2e_pipe_param, num_pipes, pipe_idx) * refclk_freq_in_mhz * dml_pow(2, 10);
-+	disp_dlg_regs->refcyc_per_vm_req_flip       = get_refcyc_per_vm_req_flip(mode_lib, e2e_pipe_param, num_pipes, pipe_idx) * refclk_freq_in_mhz * dml_pow(2, 10);
- 
- 	// Clamp to max for now
- 	if (disp_dlg_regs->refcyc_per_vm_group_vblank >= (unsigned int)dml_pow(2, 23))
+ 		if (!pipe->plane_state)
+ 			continue;
 -- 
 2.20.1
 
