@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6310FC433E1
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 125DEC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A7F320657
+	by mail.kernel.org (Postfix) with ESMTPS id DB06420657
 	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="atQlPHeT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A7F320657
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="hlmyWy7i"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB06420657
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E69466ED20;
-	Fri, 15 May 2020 18:13:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F6A46ED26;
+	Fri, 15 May 2020 18:13:57 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2043.outbound.protection.outlook.com [40.107.92.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 598466ED20
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:13:56 +0000 (UTC)
+ (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF4EA6ED20
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:13:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VfGQfP6GcRdSwuZIt1+JFUic6Y9f22sQ1cTcacR048airh3oS6uQTH6TH8twVMM+hoRMhPadSOdR41ozLXNfD+4lkU4BG9lX/yxb1nJfYsLaTdTCBdr6O+7pMdVB3tZJ1Q54GGufmgTVn24KB8joWo0tLfjr2zkTcwBqXYWRAH1nHbH3X0w5ZvIWuT7WU5VIBs8IrMkBsl03mqGJcCF8H9kK/niIVCcz/Ua6XfnpLlO1tJuIkrYoWg1Zu279QUiMO/L83FGWclB0GDTIl5Oxk/G4BDXmFyOSWP1KDWug55e8+S1t0tu7xgrSz6gqR3qaZDkWSTkAeJ9BtGpMMR40xQ==
+ b=XvHsgnyr0CJ52RIi8OvrOszDSx6+ecf+5AMpcOOIfK6oLu66bjYsYo7F7I+Cf74j9hxvBLl1VXxbhcJqlnQLvQNGviV40V0aqBYADTv+t766NXXR5TF+BlU48LW76NlbJQb0se2/NgInsC7TafKpJaMyGHaNZM6TVU7Yd/HtJQa8KW+5JWMuCZKvk1kBHtQlMfDaaCeAj3FCkXv6hp7UseHhgS5cFrL4jOgJSiSVXNZyqCIgGIot7FRzrto+h2e1U2ccPlURMk1i7R3C9zTG8oHBsNxa0oXWsHpUfxZTc1IkiPvMi4LatjgP6SEjmcA9Y9Avvz9ZYO4Puj8oi3iliQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t2QG27tCjT3FQlFaDmtWz8VKBwyYKL5N+b9IWCys/Pg=;
- b=O5iaChQzHjagsNg0GLElo9W5zxmim7nsvVtkkeyr8+TIriSjHTbCBUgJkUc0GWXgzmVqwZp71bunF3C5ye0htt5sl76eIu6YL8RRWL3UhtPIfG113hrYJKZWuQ+urMnYUXqXWnpldIXu0ZwQvrhekcm+6/NsGvg/kZ6BIfTeyWpGVBXoCLyFJopiHO3i6M9Fqii/GYdPyO8g8MriztkK1ly0sc67CYtjY6A7dY3GkfTCM6DAE+D3RmOFDqKwN4UdNy6Ts+jQlDks4gsXyJLe1vGfu2lLRxDVxF9vB9uumLUSCvxaH6WdXbPAFTBkxZCCYqKo456qiZw/n7u0a3lUkw==
+ bh=3yKE4KdGa++Jg8JXeSWXVD8ua3OmdJA1DPNTRJVBCDM=;
+ b=j/GJKVlXWoMEudtE6SgIgpgr+wdNclpDp7LvXZ615lTT2gIXWzG9KVRvjkBychJzMzuvy/8cSdjbX9F6PC8aG1yW3T+vmyA6uDUgClIdvao9qdCJHBDcEa7HK48SnMymFcqPW2nt5GhDxjbHT2v27sIb2riXv9ytOfvOZoXcC8EWHHWJllgVkn/QHSGUpnUgsiA5HNVNLRsRy/Pt6OgT+5aMhudZTsa/25maFKN4dRshN//LwTUbX6H86E/qrqqfOIDPRpux2deRRXooH8HWCx5bRsC7Ir1TiIG8GG3xspmJ408LB5/TYMDKGPmDuZrmWc5V+bFiRpIevAn8wAacBw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=t2QG27tCjT3FQlFaDmtWz8VKBwyYKL5N+b9IWCys/Pg=;
- b=atQlPHeTMrpW8Q+Z6NMy+4u+470KnyzVdenSZu6v95jo+ErkZsd/7iSfR1uaOvj7INIxthzi0eurRJjGnF+Q7spfHyyNyJdsfPauWVS3QapN5xVFepv5+niFuaQkvrDlR7gwFJZdfU9e2sf+2j8XHxFQZnQqTuzKnyGB7c5IgGo=
+ bh=3yKE4KdGa++Jg8JXeSWXVD8ua3OmdJA1DPNTRJVBCDM=;
+ b=hlmyWy7i2IjV7ri0x3gW2NjFE+5gG3YQ2LYZodT1QvlE64QQHocW0ucJxSPqwk6sUTUwlAhyZ/hQISxUS+2lz4gumj69NtM1Em56NmJKpe8l5fX6ins9eSLhft28/O58DPFiQ9mTCD/zgKXKmSPrsdcFI3Cl2CjeAUc7IArpNrU=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received: from CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23)
  by CH2PR12MB3848.namprd12.prod.outlook.com (2603:10b6:610:16::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.20; Fri, 15 May
- 2020 18:13:55 +0000
+ 2020 18:13:54 +0000
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580]) by CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580%9]) with mapi id 15.20.3000.022; Fri, 15 May 2020
- 18:13:55 +0000
+ 18:13:53 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 17/27] drm/amd/display: Defer cursor lock until after VUPDATE
-Date: Fri, 15 May 2020 14:13:04 -0400
-Message-Id: <20200515181315.1237251-18-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 16/27] drm/amd/display: vbios data table packing
+Date: Fri, 15 May 2020 14:13:03 -0400
+Message-Id: <20200515181315.1237251-17-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
 References: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
@@ -69,33 +69,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::2) by
  BN7PR02CA0034.namprd02.prod.outlook.com (2603:10b6:408:20::47) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:54 +0000
+ 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:52 +0000
 X-Mailer: git-send-email 2.26.2
 X-Originating-IP: [2607:fea8:56a0:11a1::2]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 476432b2-068b-4726-a484-08d7f8fbba8c
+X-MS-Office365-Filtering-Correlation-Id: 65c794e5-99a9-407b-6dfe-08d7f8fbb9f3
 X-MS-TrafficTypeDiagnostic: CH2PR12MB3848:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB3848A0D105FA5A41C48A17CE98BD0@CH2PR12MB3848.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB3848A7E7158CBA7766C34DB098BD0@CH2PR12MB3848.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2958;
 X-Forefront-PRVS: 04041A2886
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: aU9G7vGa/I1lIaI1R9py5d0G40iImEa4Ikhv0FUi7Fj4116+IaEfNJrGPn6I+Bbj45YbPSQINC51uNLD6aAWYQGrQXiZsCFQwEZbO0+AjhDcu7SW7EREIlfuxjSClRjkNAD0bmN3dGBU411ZkHjyv/ev2ZZPyBk96ipp37r9xCZUlatkhfz4pPTwrddY0p1y+vz+kmjScRb5b7Sp4h6BfEgxNblAOEs9EwF657/+tzRD6GiNYmhNBoNaEyb1O9wmUxsA48eDTmWlgyPcEz6EQg8KU9M0dxbh5NZogYopYV/zlTGR3GnoYSdMBGcB1v2vWsOqGDc6VYtqXLgmpHkczbRRQpBBo5gXd4q/3e6R0CRDtkIWO7ikKPYDWeJRtscNxTbJ3aPfgAAde0JIO/2xubQmfHGEXWJ5aMrncUhD4NAnW8q2yKq2zFZiR7po30F4
+X-Microsoft-Antispam-Message-Info: 6STGWNso9/2KJTSDwTR/TxfSmPzJxRY9GW66N7GiWeEtBP509IpW+u7Bl3mVk36OyhorTuMQ4w8MSX3PxqB9yHloa5sf36Tbk4Ns7yeKrpKK7abTb39FDVa/V/tOG1IZvd87+f/8i4Z8AqToUj8qBvCFl+esHC37kZfFrW4UGXu79A9cyr9NnSw7Dp/cjG6HhhqEXCkEL6bv1AaLCiIEaYkdLuZLY1GgTh6Z3GkA47+NWOJrpfIG5tFD/GzUZ4H4m35e3CZOm00OtpFlD/faTp/MOHwtLy/Jjy/GVtkY147cafIy8Y9EIlGc8ULvF81GjlkJT8oxrhrfcIM+Nw3YoeYtosJ9GgPd8m6ksomLGDleKN5cfDRWUaOZ8wfX5bU8RRbCVtLwLHd8vjePiExR16/KnKX1UV28aUPRR97c0IHxTVOOp/Dt/IRbitPz84Z6
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB4198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(376002)(346002)(366004)(39860400002)(136003)(396003)(54906003)(86362001)(2906002)(186003)(8936002)(52116002)(6506007)(6512007)(8676002)(36756003)(316002)(5660300002)(16526019)(4326008)(6916009)(66556008)(478600001)(1076003)(66946007)(6486002)(66476007)(6666004)(2616005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: A1QR0jrJLDP51gYtmI+lQIwbMYWZm9IJfU9Gp4G3ZNNYiqryr7NLO52D08uNwZtA4bvZ31bTBA77dQWf5SVdSoxFN8SzJ6QKO0Fz1Tp496XkJr6NKrMwKTZEzdy4vSKgVqdHyBnWNrmbCLgbO0lQm3qhc1WdeZ0b0A+R0r2OOKpgo5ddwW7GhTuswauNzLt3K1N71s1yHAOnwPdN6e9NT5MWUr8c3W+iJ2ajTcob1xKvM5e7DH9OEeQUyKm3Vq2WDyhGvkrgV2gCDCRUt8/DoP6AtxwHvpOnhBrQ9zFR6XK8j5ErLI30IVctg080Mse3kaudL15/gOncxJ9CLYve7Uvqdc2ILvQGNbGLtlOOPO9r7rrPO+K4+WYGKJGcrqlAljOOEUQYPwON1QdbPD9l+JgolJBUF7LG3Gu38R7HpUBZi762WqIo0qeWA4AWdKfjddA4SJXNZp0JTf8GhbH1KM5rR8EBewkrzsd8DutapOPqFt3BHLhCDk6+7YOKtzy7
+X-MS-Exchange-AntiSpam-MessageData: ooG3oZ8ptrjSgEhgI5tSvb68N2834/SUxYxxi2yv1gUajR/dDfu5TaTVuRxehavfQfMHlfWsO3rtYnoGyG3rWSWQWRyLhrqgKoE0VYFhI6QyofIu7I+igI0nmantDVAJv3i1XxL0itfttgSk0fgZO14ukDV0AloHvoJhr8EXDaCkXB9vHnWZPeg/xEHU9itlDf8aGm3gNRXQ/QeCeodN0CwkUZVTllPH0HEw+IUITkcQq59rMc7mUEmbyGcaTseYyGpZ0rTy0wJqzcVkZWvhBryAIG32uD+SsF92yq0MVHRgMs+IInQ0NF1qdXOeEFLCciH+1OK9nE/V0NCsm6J1yJIhkKKZt8ZFCT7XXdXxG3+8V0Z+XhBobG3vQlpAV0z4TEtnrKb4PwPwYxirt5MSHCyj8dkB3LG5fKTwONYg13LApZvGfou3kMOb9lRaNyO2Xr+Z0Jowj9wALAqKZ4pw07Jr3Xl27TZ4VRUnfN3ce3/IXmijM4AABrdxACSqIepc
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 476432b2-068b-4726-a484-08d7f8fbba8c
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:54.8649 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65c794e5-99a9-407b-6dfe-08d7f8fbb9f3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:53.8304 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: etl2R+4/yeedXieZJaCHL0tVf0o6vHRPCzfNRXz6u5PBXZdamgAayRLI4ymJkMVHC8PoGNxan73M1TZrfJ4e1A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8Sk0traduTdlCH1a7PR7lPJRYqAgT6Fqj0d6BQHa1hrMDBIoNZ061s6PR7QOGZoOhhOUpmBe7Ap1RKrmZHGCww==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3848
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,224 +108,175 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
- Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Jake Wang <haonan.wang2@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
+ Tony Cheng <Tony.Cheng@amd.com>, Bhawanpreet.Lakha@amd.com,
+ Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Jake Wang <haonan.wang2@amd.com>
 
-[Why]
-We dropped the delay after changed the cursor functions locking the
-entire pipe to locking just the CURSOR registers to fix page flip
-stuttering - this introduced cursor stuttering instead, and an underflow
-issue.
+[WHY]
+Currently we're copying the entire bios image into vbios.  Loading time
+for FW with entire bios(54272 bytes) is 105138us.  By copying only the
+sections of bios we're using(4436 bytes), loading time drops to 104326us
+which saves us 812us.
 
-The cursor update can be delayed indefinitely if the cursor update
-repeatedly happens right around VUPDATE.
+[HOW]
+ROM header, master data table, and all data tables will be packed in
+contiguous manner. The offsets for the data tables are remapped to their
+newly packed location.
 
-The underflow issue can happen if we do a viewport update on a pipe
-on the same frame where a cursor update happens around VUPDATE - the
-old cursor registers are retained which can be in an invalid position.
-
-This can cause a pipe hang and indefinite underflow.
-
-[How]
-The complex, ideal solution to the problem would be a software
-triple buffering mechanism from the DM layer to program only one cursor
-update per frame just before VUPDATE.
-
-The simple workaround until we have that infrastructure in place is
-this change - bring back the delay until VUPDATE before locking, but
-with some corrections to the calculations.
-
-This didn't work for all timings before because the calculation for
-VUPDATE was wrong - it was using the offset from VSTARTUP instead and
-didn't correctly handle the case where VUPDATE could be in the back
-porch.
-
-Add a new hardware sequencer function to use the existing helper to
-calculate the real VUPDATE start and VUPDATE end - VUPDATE can last
-multiple lines after all.
-
-Change the udelay to incorporate the width of VUPDATE as well.
-
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
+Signed-off-by: Jake Wang <haonan.wang2@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
+Acked-by: Nicholas Kazlauskas <Nicholas.Kazlauskas@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 69 ++++++++++++++++++-
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.h |  5 ++
- .../gpu/drm/amd/display/dc/dcn10/dcn10_init.c |  1 +
- .../gpu/drm/amd/display/dc/dcn20/dcn20_init.c |  1 +
- .../gpu/drm/amd/display/dc/dcn21/dcn21_init.c |  1 +
- .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  5 ++
- 6 files changed, 81 insertions(+), 1 deletion(-)
+ .../drm/amd/display/dc/bios/bios_parser2.c    | 98 +++++++++++++++++++
+ .../gpu/drm/amd/display/dc/dc_bios_types.h    |  4 +-
+ 2 files changed, 101 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index 27cae98936ea..0512a60c43b2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -1682,12 +1682,79 @@ void dcn10_pipe_control_lock(
- 		hws->funcs.verify_allow_pstate_change_high(dc);
+diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+index 37fa7b48250e..7fb62780e8cf 100644
+--- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
++++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
+@@ -1877,6 +1877,103 @@ static enum bp_result bios_get_board_layout_info(
+ 	return BP_RESULT_OK;
  }
  
-+/**
-+ * delay_cursor_until_vupdate() - Delay cursor update if too close to VUPDATE.
-+ *
-+ * Software keepout workaround to prevent cursor update locking from stalling
-+ * out cursor updates indefinitely or from old values from being retained in
-+ * the case where the viewport changes in the same frame as the cursor.
-+ *
-+ * The idea is to calculate the remaining time from VPOS to VUPDATE. If it's
-+ * too close to VUPDATE, then stall out until VUPDATE finishes.
-+ *
-+ * TODO: Optimize cursor programming to be once per frame before VUPDATE
-+ *       to avoid the need for this workaround.
-+ */
-+static void delay_cursor_until_vupdate(struct dc *dc, struct pipe_ctx *pipe_ctx)
++static uint16_t bios_parser_pack_data_tables(
++	struct dc_bios *dcb,
++	void *dst)
 +{
-+	struct dc_stream_state *stream = pipe_ctx->stream;
-+	struct crtc_position position;
-+	uint32_t vupdate_start, vupdate_end;
-+	unsigned int lines_to_vupdate, us_to_vupdate, vpos;
-+	unsigned int us_per_line, us_vupdate;
++	struct bios_parser *bp = BP_FROM_DCB(dcb);
++	struct atom_rom_header_v2_2 *rom_header = NULL;
++	struct atom_rom_header_v2_2 *packed_rom_header = NULL;
++	struct atom_common_table_header *data_tbl_header = NULL;
++	struct atom_master_list_of_data_tables_v2_1 *data_tbl_list = NULL;
++	struct atom_master_data_table_v2_1 *packed_master_data_tbl = NULL;
++	struct atom_data_revision tbl_rev = {0};
++	uint16_t *rom_header_offset = NULL;
++	const uint8_t *bios = bp->base.bios;
++	uint8_t *bios_dst = (uint8_t *)dst;
++	uint16_t packed_rom_header_offset;
++	uint16_t packed_masterdatatable_offset;
++	uint16_t packed_data_tbl_offset;
++	uint16_t data_tbl_offset;
++	unsigned int i;
 +
-+	if (!dc->hwss.calc_vupdate_position || !dc->hwss.get_position)
-+		return;
++	rom_header_offset =
++		GET_IMAGE(uint16_t, OFFSET_TO_ATOM_ROM_HEADER_POINTER);
 +
-+	if (!pipe_ctx->stream_res.stream_enc || !pipe_ctx->stream_res.tg)
-+		return;
++	if (!rom_header_offset)
++		return 0;
 +
-+	dc->hwss.calc_vupdate_position(dc, pipe_ctx, &vupdate_start,
-+				       &vupdate_end);
++	rom_header = GET_IMAGE(struct atom_rom_header_v2_2, *rom_header_offset);
 +
-+	dc->hwss.get_position(&pipe_ctx, 1, &position);
-+	vpos = position.vertical_count;
++	if (!rom_header)
++		return 0;
 +
-+	/* Avoid wraparound calculation issues */
-+	vupdate_start += stream->timing.v_total;
-+	vupdate_end += stream->timing.v_total;
-+	vpos += stream->timing.v_total;
++	get_atom_data_table_revision(&rom_header->table_header, &tbl_rev);
++	if (!(tbl_rev.major >= 2 && tbl_rev.minor >= 2))
++		return 0;
 +
-+	if (vpos <= vupdate_start) {
-+		/* VPOS is in VACTIVE or back porch. */
-+		lines_to_vupdate = vupdate_start - vpos;
-+	} else if (vpos > vupdate_end) {
-+		/* VPOS is in the front porch. */
-+		return;
-+	} else {
-+		/* VPOS is in VUPDATE. */
-+		lines_to_vupdate = 0;
++	get_atom_data_table_revision(&bp->master_data_tbl->table_header, &tbl_rev);
++	if (!(tbl_rev.major >= 2 && tbl_rev.minor >= 1))
++		return 0;
++
++	packed_rom_header_offset =
++		OFFSET_TO_ATOM_ROM_HEADER_POINTER + sizeof(*rom_header_offset);
++
++	packed_masterdatatable_offset =
++		packed_rom_header_offset + rom_header->table_header.structuresize;
++
++	packed_data_tbl_offset =
++		packed_masterdatatable_offset +
++		bp->master_data_tbl->table_header.structuresize;
++
++	packed_rom_header =
++		(struct atom_rom_header_v2_2 *)(bios_dst + packed_rom_header_offset);
++
++	packed_master_data_tbl =
++		(struct atom_master_data_table_v2_1 *)(bios_dst +
++		packed_masterdatatable_offset);
++
++	memcpy(bios_dst, bios, OFFSET_TO_ATOM_ROM_HEADER_POINTER);
++
++	*((uint16_t *)(bios_dst + OFFSET_TO_ATOM_ROM_HEADER_POINTER)) =
++		packed_rom_header_offset;
++
++	memcpy(bios_dst + packed_rom_header_offset, rom_header,
++		rom_header->table_header.structuresize);
++
++	packed_rom_header->masterdatatable_offset = packed_masterdatatable_offset;
++
++	memcpy(&packed_master_data_tbl->table_header,
++		&bp->master_data_tbl->table_header,
++		sizeof(bp->master_data_tbl->table_header));
++
++	data_tbl_list = &bp->master_data_tbl->listOfdatatables;
++
++	/* Each data table offset in data table list is 2 bytes,
++	 * we can use that to iterate through listOfdatatables
++	 * without knowing the name of each member.
++	 */
++	for (i = 0; i < sizeof(*data_tbl_list)/sizeof(uint16_t); i++) {
++		data_tbl_offset = *((uint16_t *)data_tbl_list + i);
++
++		if (data_tbl_offset) {
++			data_tbl_header =
++				(struct atom_common_table_header *)(bios + data_tbl_offset);
++
++			memcpy(bios_dst + packed_data_tbl_offset, data_tbl_header,
++				data_tbl_header->structuresize);
++
++			*((uint16_t *)&packed_master_data_tbl->listOfdatatables + i) =
++				packed_data_tbl_offset;
++
++			packed_data_tbl_offset += data_tbl_header->structuresize;
++		} else {
++			*((uint16_t *)&packed_master_data_tbl->listOfdatatables + i) = 0;
++		}
 +	}
-+
-+	/* Calculate time until VUPDATE in microseconds. */
-+	us_per_line =
-+		stream->timing.h_total * 10000u / stream->timing.pix_clk_100hz;
-+	us_to_vupdate = lines_to_vupdate * us_per_line;
-+
-+	/* 70 us is a conservative estimate of cursor update time*/
-+	if (us_to_vupdate > 70)
-+		return;
-+
-+	/* Stall out until the cursor update completes. */
-+	us_vupdate = (vupdate_end - vupdate_start + 1) * us_per_line;
-+	udelay(us_to_vupdate + us_vupdate);
++	return packed_data_tbl_offset;
 +}
 +
- void dcn10_cursor_lock(struct dc *dc, struct pipe_ctx *pipe, bool lock)
- {
- 	/* cursor lock is per MPCC tree, so only need to lock one pipe per stream */
- 	if (!pipe || pipe->top_pipe)
- 		return;
+ static const struct dc_vbios_funcs vbios_funcs = {
+ 	.get_connectors_number = bios_parser_get_connectors_number,
  
-+	/* Prevent cursor lock from stalling out cursor updates. */
-+	if (lock)
-+		delay_cursor_until_vupdate(dc, pipe);
-+
- 	dc->res_pool->mpc->funcs->cursor_lock(dc->res_pool->mpc,
- 			pipe->stream_res.opp->inst, lock);
- }
-@@ -3300,7 +3367,7 @@ int dcn10_get_vupdate_offset_from_vsync(struct pipe_ctx *pipe_ctx)
- 	return vertical_line_start;
- }
+@@ -1925,6 +2022,7 @@ static const struct dc_vbios_funcs vbios_funcs = {
+ 	.bios_parser_destroy = firmware_parser_destroy,
  
--static void dcn10_calc_vupdate_position(
-+void dcn10_calc_vupdate_position(
- 		struct dc *dc,
- 		struct pipe_ctx *pipe_ctx,
- 		uint32_t *start_line,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h
-index af51424315d5..42b6e016d71e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h
-@@ -34,6 +34,11 @@ struct dc;
- void dcn10_hw_sequencer_construct(struct dc *dc);
+ 	.get_board_layout_info = bios_get_board_layout_info,
++	.pack_data_tables = bios_parser_pack_data_tables,
+ };
  
- int dcn10_get_vupdate_offset_from_vsync(struct pipe_ctx *pipe_ctx);
-+void dcn10_calc_vupdate_position(
-+		struct dc *dc,
-+		struct pipe_ctx *pipe_ctx,
-+		uint32_t *start_line,
-+		uint32_t *end_line);
- void dcn10_setup_vupdate_interrupt(struct dc *dc, struct pipe_ctx *pipe_ctx);
- enum dc_status dcn10_enable_stream_timing(
- 		struct pipe_ctx *pipe_ctx,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
-index 9f8c89b6a763..f6a790c49321 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
-@@ -72,6 +72,7 @@ static const struct hw_sequencer_funcs dcn10_funcs = {
- 	.set_clock = dcn10_set_clock,
- 	.get_clock = dcn10_get_clock,
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
-+	.calc_vupdate_position = dcn10_calc_vupdate_position,
- 	.set_backlight_level = dce110_set_backlight_level,
- 	.set_abm_immediate_disable = dce110_set_abm_immediate_disable,
- 	.set_pipe = dce110_set_pipe,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
-index e20760fa11ff..bb9e9bec2f28 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
-@@ -83,6 +83,7 @@ static const struct hw_sequencer_funcs dcn20_funcs = {
- 	.init_vm_ctx = dcn20_init_vm_ctx,
- 	.set_flip_control_gsl = dcn20_set_flip_control_gsl,
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
-+	.calc_vupdate_position = dcn10_calc_vupdate_position,
- 	.set_backlight_level = dce110_set_backlight_level,
- 	.set_abm_immediate_disable = dce110_set_abm_immediate_disable,
- 	.set_pipe = dce110_set_pipe,
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
-index 9a2d1f755839..8575de1a8ad2 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
-@@ -86,6 +86,7 @@ static const struct hw_sequencer_funcs dcn21_funcs = {
- 	.optimize_pwr_state = dcn21_optimize_pwr_state,
- 	.exit_optimized_pwr_state = dcn21_exit_optimized_pwr_state,
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
-+	.calc_vupdate_position = dcn10_calc_vupdate_position,
- 	.power_down = dce110_power_down,
- 	.set_backlight_level = dcn21_set_backlight_level,
- 	.set_abm_immediate_disable = dcn21_set_abm_immediate_disable,
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-index 2e8f3fecc6a3..4f9216c96e59 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-@@ -96,6 +96,11 @@ struct hw_sequencer_funcs {
- 	void (*get_position)(struct pipe_ctx **pipe_ctx, int num_pipes,
- 			struct crtc_position *position);
- 	int (*get_vupdate_offset_from_vsync)(struct pipe_ctx *pipe_ctx);
-+	void (*calc_vupdate_position)(
-+			struct dc *dc,
-+			struct pipe_ctx *pipe_ctx,
-+			uint32_t *start_line,
-+			uint32_t *end_line);
- 	void (*enable_per_frame_crtc_position_reset)(struct dc *dc,
- 			int group_size, struct pipe_ctx *grouped_pipes[]);
- 	void (*enable_timing_synchronization)(struct dc *dc,
+ static bool bios_parser2_construct(
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_bios_types.h b/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
+index b1dd0d60d98e..441768aa53ff 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_bios_types.h
+@@ -89,7 +89,6 @@ struct dc_vbios_funcs {
+ 	bool (*is_device_id_supported)(
+ 		struct dc_bios *bios,
+ 		struct device_id id);
+-
+ 	/* COMMANDS */
+ 
+ 	enum bp_result (*encoder_control)(
+@@ -131,6 +130,9 @@ struct dc_vbios_funcs {
+ 	enum bp_result (*get_board_layout_info)(
+ 		struct dc_bios *dcb,
+ 		struct board_layout_info *board_layout_info);
++	uint16_t (*pack_data_tables)(
++		struct dc_bios *dcb,
++		void *dst);
+ };
+ 
+ struct bios_registers {
 -- 
 2.26.2
 
