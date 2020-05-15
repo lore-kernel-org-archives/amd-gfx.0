@@ -7,58 +7,57 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2FE46C433E1
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC04FC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 07C2520657
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 928E420657
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="3AWyAsvb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 07C2520657
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="JnqmpAL7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 928E420657
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA6806ED17;
-	Fri, 15 May 2020 18:13:53 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700088.outbound.protection.outlook.com [40.107.70.88])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 045586ED19
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:13:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D4D26ED23;
+	Fri, 15 May 2020 18:13:55 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10on2052.outbound.protection.outlook.com [40.107.92.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F0FD6ED14
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:13:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Tl7wgcanHp9COIcov2gORc3xf43HIOku0tYRIv11lvLhdEvdVWiuYcWzkplRL2rccE1YxA4L4h4myWuac7Xr73pAjS/O1nk+ty1MAqIKECn6iAPz8wCHeK+gK303rxFjvhc669XI2V/dNjebHoKHl2VgBSh4qIVcBpW8gZF73FispO91Zyqlgl78FtXMxLEjotPpwPezX5r4wVbqUdh1paxdIpq16AWai/MyOQwcsuLUH36euGrhSz5kynJ4UkY6RE49JnPcKDcfq1e4gwJAMYMpdNKSyZjaOM4RRCEeyC96GrO5ZgTAO4wi4g1rXV8EVKcOmeDKAHgF9uAmXiDJsQ==
+ b=mg0k10KHs/vb0EmHBhI8x6clhTzNQxy17JvFgx2Cu1wzwXw3AERl+gt3BrspDvpEFqviLUFTu/yySQr/vyIeqzGZf3sm2owROwAZ/P91yG2RQqMzaUX38K0uvtbBrQhTnExV7k5eDUjoYvB7mh9apiMsF3NrvruOMqzIHo3gieN9Mg0BNqy4GxaeU3AbBPKg1EMlhilVn/baP5ULjkFH7d28X8vOxwR/Y+opJK4tmXNjJmSTKAjaXXZjpCtN7Od4lRYQVcq6fNsPo5+hqYLG0tnUE9XuX49ESjVm+EHE3AfFZhxza0cLMACgyrKZOtfiZB1KRQN7NbCXp93V1aPJrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PMrNl6Rt0e7h8hhTPgn3nNBPUTHsT88O7SR6x9MkeU4=;
- b=IubRXNtu7P4xJwz0NF/Rwb2Y5AYvWMOFCa7eX7VLcvTIahIw47Jb8eh6vaf4c0svbhBntXFujVq8MZRTjXVmw3DZloIxY722nZtqHBf+k1GSR9VQOxUfXemrswlKhadtNCbLLxDu6sz6n40akGZI1T1NvM6misVZbSNwr8p14CwVBkX5aT4uQc1LTe8jZA7Yx1Shm1Nasvp3wvTsdiZqm5x+VtqSik5ERvPL5U1YxMPC587fU/mGl/x0fu5exUu4rOpEfoeXxR6aysbxe0/AGucrhwBASBKw8fc2z7LnEU+mXwQhE685YdVqOcZ5hvUsJTDLC3gXdIHfmzRsh7gGfw==
+ bh=0AbNEQnt/lhY9+SSNWBLih1F5N4G+NFKyUKHzozh3y8=;
+ b=EmD5DYhi3Td2QytqqiD+9XPFUGJm030lHxZ6RhN70LDAlT5LZ7ETrwzByIlbv/nF5SD3eB4RJT5DXcPONF5/hUT7OHIXsOt68M42k/5ra76xwOsSGEsaVw1TaNjmnvxNkZ5oDLNA+zfbOX2UDT1fxa2G9x5drOV1nxt6Pk+hmXPYH9XVofJa3ixD8g6Nzmhley+FMcNAjrA6aEIqQIicSWyTzS9dlVaNLKt95XwCFLtCediCKfS3IQIi/sSNvbERNngMcxhAuqCK8QQYQLU4Hxi8yhvmjjaE+m1NmmdWDZUESOxcL2ms2CD4YCc3xYjEiIS9/XFm6EI4B2oFoFtN7Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PMrNl6Rt0e7h8hhTPgn3nNBPUTHsT88O7SR6x9MkeU4=;
- b=3AWyAsvbgUbrlj21Vf3/4Hg18mi9Sub6arU9JZR2hynIniqnHXZyhZyY+RTxZY4svr2Xe5uyB1nP5ZyRwguaMoXZrxldGCDbKELXIp2Ae4gG6rgJUoDJscbqYgcggnRngq0WjDHy2gl5s6aG6+xxQJ4UpuA4X0nVh7jVhgBZA3Y=
+ bh=0AbNEQnt/lhY9+SSNWBLih1F5N4G+NFKyUKHzozh3y8=;
+ b=JnqmpAL7l9DZpUxXCz3Q3aq2Uy31zwp9YHz0fb6jxhLHaXFL92mmzaZ1w02DioXyl07eOFtdQ48PKFDWY91YtbrtQofm2vDVoDf7zsxJ6Rpnb6X06/SjrZ1NVnCXauelgJz25kVDeEod4S2BuRpJIKe8HZUZBafykIlwMlN26ts=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23)
- by CH2PR12MB3974.namprd12.prod.outlook.com (2603:10b6:610:2e::27)
+ by CH2PR12MB3848.namprd12.prod.outlook.com (2603:10b6:610:16::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.26; Fri, 15 May
- 2020 18:13:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.20; Fri, 15 May
+ 2020 18:13:50 +0000
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580]) by CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580%9]) with mapi id 15.20.3000.022; Fri, 15 May 2020
- 18:13:46 +0000
+ 18:13:50 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 09/27] drm/amd/display: Implement some asic specific abm call
- backs.
-Date: Fri, 15 May 2020 14:12:56 -0400
-Message-Id: <20200515181315.1237251-10-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 13/27] drm/amd/display: Remove dml_common_def file
+Date: Fri, 15 May 2020 14:13:00 -0400
+Message-Id: <20200515181315.1237251-14-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
 References: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
@@ -70,34 +69,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::2) by
  BN7PR02CA0034.namprd02.prod.outlook.com (2603:10b6:408:20::47) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:45 +0000
+ 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:49 +0000
 X-Mailer: git-send-email 2.26.2
 X-Originating-IP: [2607:fea8:56a0:11a1::2]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: e479159a-cd6d-4b7b-c373-08d7f8fbb581
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3974:
+X-MS-Office365-Filtering-Correlation-Id: f446e398-ef1b-45ff-243a-08d7f8fbb812
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3848:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB3974B7E7BC00F47940E80C5F98BD0@CH2PR12MB3974.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:287;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB38486489EEC604E28A750FDB98BD0@CH2PR12MB3848.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
 X-Forefront-PRVS: 04041A2886
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: hBx0hsokgyP7TBkaJMdVSwb63Nj/2TLdqkGqaJLnhycJchuzUFK+ns0CKwkItF+Ambyy6ZaXZXtq/Hqe8pgMAnzlBfUKPOuFDfymSJkKCJgqwQSVtdSl6rUTgZf3SedAfeTMbnxMDovw813N1utOW4mTNMUGbVv2s61aIwZ3j9vyXsY9yD5XPYNyrDJD9Gyr5qgMNN4F9jXixZJtNKuk5oOkEZGTOm4yYU2Z26/DkZOitrfNzQY0fPb/E7wO0Dz6bZ+E2cBoOI78UH0141xU9ui9PW4+m2gPi2QfPtQdykDCZx7grsNpIgWkQWZmXzkJy/y6KvWiPKEOk9LliZ0tLINiiK+AoiWoJjK+dFdh/F9TcJFlQaxHX+yfiXizp4q1qQqT2vKSgz4q6e2ZsNeR8Z/1l0PhjXCnLuSKpngS0sTcw8CY/7ehBcQjD4lHGPya
+X-Microsoft-Antispam-Message-Info: d7sgPckb8giX76z3Wl3MkIVO4M/zVo5bgmC11E6V3TH29ikHsGmpIAMKTTuGgJEqrtg3FXjvEE1l8KLeTgIt2Zlr3mWhTkpmhQNWL6kw57yiW+mUYoBqQUPClX++8yNw+GLvXaHfV73cjGs5voWq86rZJ7GasXdUr67N4Tk/IZU4EuHATa1fr0Zg1t7PYMwt3TOcLtr57HuZWWzrsLsUmMuIqnJDCaNWPj4d/pVOCP/23NkgBSsuEBR6mQa1g5tgYpXAGNrcgNYVtoP6RjZSmsBuSkqVHFkikDH4mBV9o5/+37WHyVv4MYiKcqm8IgxjpuHAMdb4yYQY3dElOxsc8hN/7D1Of+oH6ni6vUAU4hHTpYHajBvWAIvYqjjOlB/4bqJB1KiNVaXgNPJACVOa3tWYEA/ZhZK/ED9FzGQP2SUlgN23Meco40yV1JAD4qfo
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB4198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(346002)(376002)(366004)(396003)(136003)(39860400002)(6506007)(316002)(8676002)(8936002)(86362001)(6486002)(54906003)(6666004)(30864003)(5660300002)(6916009)(478600001)(6512007)(2906002)(36756003)(66556008)(1076003)(52116002)(16526019)(186003)(2616005)(66476007)(66946007)(4326008);
+ SFS:(4636009)(376002)(346002)(366004)(39860400002)(136003)(396003)(54906003)(86362001)(2906002)(186003)(66574014)(8936002)(52116002)(6506007)(6512007)(8676002)(36756003)(316002)(5660300002)(16526019)(4326008)(6916009)(66556008)(478600001)(1076003)(66946007)(6486002)(66476007)(6666004)(30864003)(2616005)(45954011);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: CKpUWzfzqjgnId0IfxT+qdLdiR2aL23dEYClp6u8P+d/oraOxbMzoFRs4rWbXgdMBY5xNmmPKTuMSyVuG3ZIh+L0DRjDngOyv81P4EwJOW0EcWBkLThBNPuPxwAeTbzLXGDXqYtcsArlTtCy3kiHgbL2VBwWnYJ83KYljhfV7iN2GbYTcO79ZCJ/ZGuxRlRyfvznOUi/r4uMwnC1Ur9krD8sMzexu0XcQ7ZuJoO0KH1DCYuMs46A3bCcsO1eLURqrvRKAiyAXikXJdvqYGRp29hDWr8zGJ2rKMeuBshVx91pPAM2aAn2RMkxeaqav7mUI9HQxPkKz7oLx+8QutkOmTh3pjzlbRzTMxMceRw7k8Y/JXtg7KS+1E9EtQ2b/tlYYhHG/PqX1LeryOTF2/jZeCrWFtmAFig4QknfXER3RFqF0z6sq28uLM2PYGW+hIy3fQ7tfq3q5khNrEXlg3tbHDtkAU+s5xv9gwGOpN56vBDmMHo22darHw3tgEzib60qFrZRvt6RvNcopBffBkTO6g==
+X-MS-Exchange-AntiSpam-MessageData: m+uUY/9WqApibTXIvjDJRWv2wY1dsJy9wyx+4Oes7KtMrDsTxj6DrB87jgt4S1qZEQHf3buozK0HqiOhh+srvUDQR6CIQB+j5b2vB091NI6V8QuFTSSePvp0INFnyQYa+dC2H8BQc6CMRrgopcRwBK1jUwYhzMUXQxAEshQZ0VPUlC06HEw35uA6s2WazQJRv2Ate0OHdr9ZORUBTkDbF0S9/Wt0JsoXDAVjZr4qLyCzenvuoxZcurcxv89uTvX8U0zRELRx1s823IaNkDeS7LLf3pYsyI3Ww947aBvlKk80jCLeHLe/FvurOpJxCOZBRYtFc8GkDhq1ch+YRBIRwxTPjZFQzxsAuHaBMQDUQ1Wlzx5vvb8eDoHyEqhQ1vZFHL2sQ79uPCtprhOgz7YsuW6DnevwSUwtsV2tdMiyAAZuE1CIgjaAxDdXaS2YgW4hzo/60Fh4EBAKuSPo+rusZtx9NxsZGSpWIdFWqDNslexH0k5U8eMgbCQre/dSIUyi
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e479159a-cd6d-4b7b-c373-08d7f8fbb581
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:46.4129 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f446e398-ef1b-45ff-243a-08d7f8fbb812
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:50.7141 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zD0KFdeJPbrouerEXKVk4VM7cwkZdNZQF3Xd85JCBKxo1wKjpKl7n/WV5QTexVQjhMx6oCDC+s4nYa1G3oeDqA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3974
+X-MS-Exchange-CrossTenant-UserPrincipalName: UBUkEFmNUFtOcLy2w0NbN3jBDEckITc23AN414ZHKjhY8h6HIJ4hIt9bhR6fKjHal+N2Da8DCdGxE+MCvsZKLw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3848
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,429 +108,205 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
- Aurabindo.Pillai@amd.com, Yongqiang Sun <yongqiang.sun@amd.com>,
- Bhawanpreet.Lakha@amd.com, Anthony Koo <Anthony.Koo@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
+ Harry Wentland <hwentlan@amd.com>, Peter Zijlstra <peterz@infradead.org>,
+ Aurabindo.Pillai@amd.com, Tony Cheng <tony.cheng@amd.com>,
+ Alexander Deucher <Alexander.Deucher@amd.com>, Bhawanpreet.Lakha@amd.com,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yongqiang Sun <yongqiang.sun@amd.com>
-
-[Why & How]
-Implement abm set_pipe call stacks
-Have some asics speicifc call stacks for abm.
-
-Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
-Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c | 92 -------------------
- .../display/dc/dce110/dce110_hw_sequencer.c   | 11 +++
- .../display/dc/dce110/dce110_hw_sequencer.h   |  1 +
- .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |  3 +-
- .../gpu/drm/amd/display/dc/dcn10/dcn10_init.c |  1 +
- .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |  3 +-
- .../gpu/drm/amd/display/dc/dcn20/dcn20_init.c |  1 +
- .../drm/amd/display/dc/dcn21/dcn21_hwseq.c    | 89 ++++++++++++++++++
- .../drm/amd/display/dc/dcn21/dcn21_hwseq.h    |  6 ++
- .../gpu/drm/amd/display/dc/dcn21/dcn21_init.c |  5 +-
- .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  2 +
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  4 +
- 12 files changed, 120 insertions(+), 98 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-index da0b29abfbda..0cf130dc4e52 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_abm.c
-@@ -50,71 +50,7 @@
- 
- #define DISABLE_ABM_IMMEDIATELY 255
- 
--static bool dmub_abm_set_pipe(struct abm *abm, uint32_t otg_inst, uint32_t panel_inst)
--{
--	union dmub_rb_cmd cmd;
--	struct dc_context *dc = abm->ctx;
--	uint32_t ramping_boundary = 0xFFFF;
--
--	cmd.abm_set_pipe.header.type = DMUB_CMD__ABM;
--	cmd.abm_set_pipe.header.sub_type = DMUB_CMD__ABM_SET_PIPE;
--	cmd.abm_set_pipe.abm_set_pipe_data.otg_inst = otg_inst;
--	cmd.abm_set_pipe.abm_set_pipe_data.panel_inst = panel_inst;
--	cmd.abm_set_pipe.abm_set_pipe_data.ramping_boundary = ramping_boundary;
--	cmd.abm_set_pipe.header.payload_bytes = sizeof(struct dmub_cmd_abm_set_pipe_data);
--
--	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd);
--	dc_dmub_srv_cmd_execute(dc->dmub_srv);
--	dc_dmub_srv_wait_idle(dc->dmub_srv);
--
--	return true;
--}
--
--static void dmcub_set_backlight_level(
--	struct dce_abm *dce_abm,
--	uint32_t backlight_pwm_u16_16,
--	uint32_t frame_ramp,
--	uint32_t otg_inst,
--	uint32_t panel_inst)
--{
--	union dmub_rb_cmd cmd;
--	struct dc_context *dc = dce_abm->base.ctx;
--	unsigned int backlight_8_bit = 0;
--	uint32_t s2;
--
--	if (backlight_pwm_u16_16 & 0x10000)
--		// Check for max backlight condition
--		backlight_8_bit = 0xFF;
--	else
--		// Take MSB of fractional part since backlight is not max
--		backlight_8_bit = (backlight_pwm_u16_16 >> 8) & 0xFF;
--
--	dmub_abm_set_pipe(&dce_abm->base, otg_inst, panel_inst);
--
--	REG_UPDATE(BL1_PWM_USER_LEVEL, BL1_PWM_USER_LEVEL, backlight_pwm_u16_16);
--
--	if (otg_inst == 0)
--		frame_ramp = 0;
--
--	cmd.abm_set_backlight.header.type = DMUB_CMD__ABM;
--	cmd.abm_set_backlight.header.sub_type = DMUB_CMD__ABM_SET_BACKLIGHT;
--	cmd.abm_set_backlight.abm_set_backlight_data.frame_ramp = frame_ramp;
--	cmd.abm_set_backlight.header.payload_bytes = sizeof(struct dmub_cmd_abm_set_backlight_data);
- 
--	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd);
--	dc_dmub_srv_cmd_execute(dc->dmub_srv);
--	dc_dmub_srv_wait_idle(dc->dmub_srv);
--
--	// Update requested backlight level
--	s2 = REG_READ(BIOS_SCRATCH_2);
--
--	s2 &= ~ATOM_S2_CURRENT_BL_LEVEL_MASK;
--	backlight_8_bit &= (ATOM_S2_CURRENT_BL_LEVEL_MASK >>
--				ATOM_S2_CURRENT_BL_LEVEL_SHIFT);
--	s2 |= (backlight_8_bit << ATOM_S2_CURRENT_BL_LEVEL_SHIFT);
--
--	REG_WRITE(BIOS_SCRATCH_2, s2);
--}
- 
- static void dmub_abm_enable_fractional_pwm(struct dc_context *dc)
- {
-@@ -211,31 +147,6 @@ static bool dmub_abm_set_level(struct abm *abm, uint32_t level)
- 	return true;
- }
- 
--static bool dmub_abm_immediate_disable(struct abm *abm, uint32_t panel_inst)
--{
--	dmub_abm_set_pipe(abm, DISABLE_ABM_IMMEDIATELY, panel_inst);
--
--	return true;
--}
--
--static bool dmub_abm_set_backlight_level_pwm(
--		struct abm *abm,
--		unsigned int backlight_pwm_u16_16,
--		unsigned int frame_ramp,
--		unsigned int otg_inst,
--		uint32_t panel_inst)
--{
--	struct dce_abm *dce_abm = TO_DMUB_ABM(abm);
--
--	dmcub_set_backlight_level(dce_abm,
--			backlight_pwm_u16_16,
--			frame_ramp,
--			otg_inst,
--			panel_inst);
--
--	return true;
--}
--
- static bool dmub_abm_init_config(struct abm *abm,
- 	const char *src,
- 	unsigned int bytes)
-@@ -266,11 +177,8 @@ static bool dmub_abm_init_config(struct abm *abm,
- static const struct abm_funcs abm_funcs = {
- 	.abm_init = dmub_abm_init,
- 	.set_abm_level = dmub_abm_set_level,
--	.set_pipe = dmub_abm_set_pipe,
--	.set_backlight_level_pwm = dmub_abm_set_backlight_level_pwm,
- 	.get_current_backlight = dmub_abm_get_current_backlight,
- 	.get_target_backlight = dmub_abm_get_target_backlight,
--	.set_abm_immediate_disable = dmub_abm_immediate_disable,
- 	.init_abm_config = dmub_abm_init_config,
- };
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-index b77e9dc16086..a475e529ae1c 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
-@@ -2767,6 +2767,16 @@ void dce110_set_abm_immediate_disable(struct pipe_ctx *pipe_ctx)
- 		panel_cntl->funcs->store_backlight_level(panel_cntl);
- }
- 
-+void dce110_set_pipe(struct pipe_ctx *pipe_ctx)
-+{
-+	struct abm *abm = pipe_ctx->stream_res.abm;
-+	struct panel_cntl *panel_cntl = pipe_ctx->stream->link->panel_cntl;
-+	uint32_t otg_inst = pipe_ctx->stream_res.tg->inst + 1;
-+
-+	if (abm && panel_cntl)
-+		abm->funcs->set_pipe(abm, otg_inst, panel_cntl->inst);
-+}
-+
- static const struct hw_sequencer_funcs dce110_funcs = {
- 	.program_gamut_remap = program_gamut_remap,
- 	.program_output_csc = program_output_csc,
-@@ -2804,6 +2814,7 @@ static const struct hw_sequencer_funcs dce110_funcs = {
- 	.set_cursor_attribute = dce110_set_cursor_attribute,
- 	.set_backlight_level = dce110_set_backlight_level,
- 	.set_abm_immediate_disable = dce110_set_abm_immediate_disable,
-+	.set_pipe = dce110_set_pipe,
- };
- 
- static const struct hwseq_private_funcs dce110_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.h
-index fe5326df00f7..b6f3843d3d05 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.h
-@@ -89,6 +89,7 @@ bool dce110_set_backlight_level(struct pipe_ctx *pipe_ctx,
- 		uint32_t backlight_pwm_u16_16,
- 		uint32_t frame_ramp);
- void dce110_set_abm_immediate_disable(struct pipe_ctx *pipe_ctx);
-+void dce110_set_pipe(struct pipe_ctx *pipe_ctx);
- 
- #endif /* __DC_HWSS_DCE110_H__ */
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-index f36d1f57b846..27cae98936ea 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
-@@ -2506,8 +2506,7 @@ void dcn10_blank_pixel_data(
- 		if (stream_res->tg->funcs->set_blank)
- 			stream_res->tg->funcs->set_blank(stream_res->tg, blank);
- 		if (stream_res->abm) {
--			stream_res->abm->funcs->set_pipe(stream_res->abm, stream_res->tg->inst + 1,
--					stream->link->panel_cntl->inst);
-+			dc->hwss.set_pipe(pipe_ctx);
- 			stream_res->abm->funcs->set_abm_level(stream_res->abm, stream->abm_level);
- 		}
- 	} else if (blank) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
-index 897a3d25685a..9f8c89b6a763 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
-@@ -74,6 +74,7 @@ static const struct hw_sequencer_funcs dcn10_funcs = {
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
- 	.set_backlight_level = dce110_set_backlight_level,
- 	.set_abm_immediate_disable = dce110_set_abm_immediate_disable,
-+	.set_pipe = dce110_set_pipe,
- };
- 
- static const struct hwseq_private_funcs dcn10_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-index da5333d165ac..258dcd33787e 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hwseq.c
-@@ -996,8 +996,7 @@ void dcn20_blank_pixel_data(
- 
- 	if (!blank)
- 		if (stream_res->abm) {
--			stream_res->abm->funcs->set_pipe(stream_res->abm, stream_res->tg->inst + 1,
--					stream->link->panel_cntl->inst);
-+			dc->hwss.set_pipe(pipe_ctx);
- 			stream_res->abm->funcs->set_abm_level(stream_res->abm, stream->abm_level);
- 		}
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
-index a8bcd747d7ba..e20760fa11ff 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
-@@ -85,6 +85,7 @@ static const struct hw_sequencer_funcs dcn20_funcs = {
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
- 	.set_backlight_level = dce110_set_backlight_level,
- 	.set_abm_immediate_disable = dce110_set_abm_immediate_disable,
-+	.set_pipe = dce110_set_pipe,
- };
- 
- static const struct hwseq_private_funcs dcn20_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c
-index ada65b1a7eb1..01f1d3d9a639 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.c
-@@ -28,10 +28,13 @@
- #include "core_types.h"
- #include "resource.h"
- #include "dce/dce_hwseq.h"
-+#include "dce110/dce110_hw_sequencer.h"
- #include "dcn21_hwseq.h"
- #include "vmid.h"
- #include "reg_helper.h"
- #include "hw/clk_mgr.h"
-+#include "dc_dmub_srv.h"
-+#include "abm.h"
- 
- 
- #define DC_LOGGER_INIT(logger)
-@@ -134,3 +137,89 @@ void dcn21_PLAT_58856_wa(struct dc_state *context, struct pipe_ctx *pipe_ctx)
- 	pipe_ctx->stream->dpms_off = true;
- }
- 
-+static bool dmub_abm_set_pipe(struct abm *abm, uint32_t otg_inst, uint32_t option, uint32_t panel_inst)
-+{
-+	union dmub_rb_cmd cmd;
-+	struct dc_context *dc = abm->ctx;
-+	uint32_t ramping_boundary = 0xFFFF;
-+
-+	cmd.abm_set_pipe.header.type = DMUB_CMD__ABM;
-+	cmd.abm_set_pipe.header.sub_type = DMUB_CMD__ABM_SET_PIPE;
-+	cmd.abm_set_pipe.abm_set_pipe_data.otg_inst = otg_inst;
-+	cmd.abm_set_pipe.abm_set_pipe_data.set_pipe_option = option;
-+	cmd.abm_set_pipe.abm_set_pipe_data.panel_inst = panel_inst;
-+	cmd.abm_set_pipe.abm_set_pipe_data.ramping_boundary = ramping_boundary;
-+	cmd.abm_set_pipe.header.payload_bytes = sizeof(struct dmub_cmd_abm_set_pipe_data);
-+
-+	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd);
-+	dc_dmub_srv_cmd_execute(dc->dmub_srv);
-+	dc_dmub_srv_wait_idle(dc->dmub_srv);
-+
-+	return true;
-+}
-+
-+void dcn21_set_abm_immediate_disable(struct pipe_ctx *pipe_ctx)
-+{
-+	struct abm *abm = pipe_ctx->stream_res.abm;
-+	uint32_t otg_inst = pipe_ctx->stream_res.tg->inst;
-+	struct panel_cntl *panel_cntl = pipe_ctx->stream->link->panel_cntl;
-+
-+	struct dmcu *dmcu = pipe_ctx->stream->ctx->dc->res_pool->dmcu;
-+
-+	if (dmcu) {
-+		dce110_set_abm_immediate_disable(pipe_ctx);
-+		return;
-+	}
-+
-+	if (abm && panel_cntl)
-+		dmub_abm_set_pipe(abm, otg_inst, SET_ABM_PIPE_IMMEDIATELY_DISABLE,
-+				panel_cntl->inst);
-+}
-+
-+void dcn21_set_pipe(struct pipe_ctx *pipe_ctx)
-+{
-+	struct abm *abm = pipe_ctx->stream_res.abm;
-+	uint32_t otg_inst = pipe_ctx->stream_res.tg->inst;
-+	struct panel_cntl *panel_cntl = pipe_ctx->stream->link->panel_cntl;
-+	struct dmcu *dmcu = pipe_ctx->stream->ctx->dc->res_pool->dmcu;
-+
-+	if (dmcu) {
-+		dce110_set_pipe(pipe_ctx);
-+		return;
-+	}
-+
-+	if (abm && panel_cntl)
-+		dmub_abm_set_pipe(abm, otg_inst, SET_ABM_PIPE_NORMAL, panel_cntl->inst);
-+}
-+
-+bool dcn21_set_backlight_level(struct pipe_ctx *pipe_ctx,
-+		uint32_t backlight_pwm_u16_16,
-+		uint32_t frame_ramp)
-+{
-+	union dmub_rb_cmd cmd;
-+	struct dc_context *dc = pipe_ctx->stream->ctx;
-+	struct abm *abm = pipe_ctx->stream_res.abm;
-+	uint32_t otg_inst = pipe_ctx->stream_res.tg->inst;
-+	struct panel_cntl *panel_cntl = pipe_ctx->stream->link->panel_cntl;
-+
-+	if (dc->dc->res_pool->dmcu) {
-+		dce110_set_backlight_level(pipe_ctx, backlight_pwm_u16_16, frame_ramp);
-+		return true;
-+	}
-+
-+	if (abm && panel_cntl)
-+		dmub_abm_set_pipe(abm, otg_inst, SET_ABM_PIPE_NORMAL, panel_cntl->inst);
-+
-+	cmd.abm_set_backlight.header.type = DMUB_CMD__ABM;
-+	cmd.abm_set_backlight.header.sub_type = DMUB_CMD__ABM_SET_BACKLIGHT;
-+	cmd.abm_set_backlight.abm_set_backlight_data.frame_ramp = frame_ramp;
-+	cmd.abm_set_backlight.abm_set_backlight_data.backlight_user_level = backlight_pwm_u16_16;
-+	cmd.abm_set_backlight.header.payload_bytes = sizeof(struct dmub_cmd_abm_set_backlight_data);
-+
-+	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd);
-+	dc_dmub_srv_cmd_execute(dc->dmub_srv);
-+	dc_dmub_srv_wait_idle(dc->dmub_srv);
-+
-+	return true;
-+}
-+
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.h b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.h
-index 26bf24d3b59f..9e97747e57cd 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hwseq.h
-@@ -47,4 +47,10 @@ void dcn21_optimize_pwr_state(
- void dcn21_PLAT_58856_wa(struct dc_state *context,
- 		struct pipe_ctx *pipe_ctx);
- 
-+void dcn21_set_pipe(struct pipe_ctx *pipe_ctx);
-+void dcn21_set_abm_immediate_disable(struct pipe_ctx *pipe_ctx);
-+bool dcn21_set_backlight_level(struct pipe_ctx *pipe_ctx,
-+		uint32_t backlight_pwm_u16_16,
-+		uint32_t frame_ramp);
-+
- #endif /* __DC_HWSS_DCN21_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
-index e97dfaa656e9..9a2d1f755839 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
-@@ -87,8 +87,9 @@ static const struct hw_sequencer_funcs dcn21_funcs = {
- 	.exit_optimized_pwr_state = dcn21_exit_optimized_pwr_state,
- 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
- 	.power_down = dce110_power_down,
--	.set_backlight_level = dce110_set_backlight_level,
--	.set_abm_immediate_disable = dce110_set_abm_immediate_disable,
-+	.set_backlight_level = dcn21_set_backlight_level,
-+	.set_abm_immediate_disable = dcn21_set_abm_immediate_disable,
-+	.set_pipe = dcn21_set_pipe,
- };
- 
- static const struct hwseq_private_funcs dcn21_private_funcs = {
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-index 3b2ea9bdb62c..2e8f3fecc6a3 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
-@@ -198,6 +198,8 @@ struct hw_sequencer_funcs {
- 
- 	void (*set_abm_immediate_disable)(struct pipe_ctx *pipe_ctx);
- 
-+	void (*set_pipe)(struct pipe_ctx *pipe_ctx);
-+
- 
- };
- 
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index 599bf2055bcb..cbfde2706c18 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -36,6 +36,9 @@
- #define DMUB_RB_SIZE (DMUB_RB_CMD_SIZE * DMUB_RB_MAX_ENTRY)
- #define REG_SET_MASK 0xFFFF
- 
-+#define SET_ABM_PIPE_GRADUALLY_DISABLE           0
-+#define SET_ABM_PIPE_IMMEDIATELY_DISABLE         255
-+#define SET_ABM_PIPE_NORMAL                      1
- 
- /*
-  * Command IDs should be treated as stable ABI.
-@@ -272,6 +275,7 @@ struct dmub_rb_cmd_abm_set_pipe {
- 
- struct dmub_cmd_abm_set_backlight_data {
- 	uint32_t frame_ramp;
-+	uint32_t backlight_user_level;
- };
- 
- struct dmub_rb_cmd_abm_set_backlight {
--- 
-2.26.2
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RHVyaW5nIHRoZSByZXdvcmsgZm9yIHJlbW92aW5nIHRoZSBGUFUgaXNzdWVzLCBJIGZvdW5kIHRo
+ZSBmb2xsb3dpbmcKd2FybmluZzoKCiBbLi5dIGRtbF9jb21tb25fZGVmcy5vOiB3YXJuaW5nOiBv
+Ymp0b29sOiBkbWxfcm91bmQoKSsweDk6IEZQVQogICAgICBpbnN0cnVjdGlvbiBvdXRzaWRlIG9m
+IGtlcm5lbF9mcHVfe2JlZ2luLGVuZH0oKQoKVGhpcyBmaWxlIGhhcyBhIHNpbmdsZSBmdW5jdGlv
+biB0aGF0IGRvZXMgbm90IG5lZWQgdG8gYmUgaW4gYSBzcGVjaWZpYwpmaWxlLiBUaGlzIGNvbW1p
+dCBkcm9wIGRtbF9jb21tb25fZGVmcyBmaWxlLCBhbmQgbW92ZSBkbWxfcm91bmQgZnVuY3Rpb24K
+dG8gZG1sX2lubGluZV9kZWZzLgoKQ0M6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2Vu
+aWdAYW1kLmNvbT4KQ0M6IEFsZXhhbmRlciBEZXVjaGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQu
+Y29tPgpDQzogUGV0ZXIgWmlqbHN0cmEgPHBldGVyekBpbmZyYWRlYWQub3JnPgpDQzogVG9ueSBD
+aGVuZyA8dG9ueS5jaGVuZ0BhbWQuY29tPgpDQzogSGFycnkgV2VudGxhbmQgPGh3ZW50bGFuQGFt
+ZC5jb20+ClNpZ25lZC1vZmYtYnk6IFJvZHJpZ28gU2lxdWVpcmEgPFJvZHJpZ28uU2lxdWVpcmFA
+YW1kLmNvbT4KUmV2aWV3ZWQtYnk6IERteXRybyBMYWt0eXVzaGtpbiA8RG15dHJvLkxha3R5dXNo
+a2luQGFtZC5jb20+CkFja2VkLWJ5OiBSb2RyaWdvIFNpcXVlaXJhIDxSb2RyaWdvLlNpcXVlaXJh
+QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmls
+ZSAgIHwgIDIgLQogLi4uL2RjL2RtbC9kY24yMC9kaXNwbGF5X3JxX2RsZ19jYWxjXzIwLmggICAg
+IHwgIDEgLQogLi4uL2RjL2RtbC9kY24yMC9kaXNwbGF5X3JxX2RsZ19jYWxjXzIwdjIuaCAgIHwg
+IDEgLQogLi4uL2RjL2RtbC9kY24yMS9kaXNwbGF5X3JxX2RsZ19jYWxjXzIxLmggICAgIHwgIDIg
+Ky0KIC4uLi9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL2Rpc3BsYXlfbW9kZV9saWIuaCB8ICA2ICsr
+LQogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGlzcGxheV9tb2RlX3ZiYS5oIHwgIDIgLQog
+Li4uL2Rpc3BsYXkvZGMvZG1sL2Rpc3BsYXlfcnFfZGxnX2hlbHBlcnMuaCAgIHwgIDEgLQogLi4u
+L2Rpc3BsYXkvZGMvZG1sL2RtbDFfZGlzcGxheV9ycV9kbGdfY2FsYy5oIHwgIDIgLQogLi4uL2Ry
+bS9hbWQvZGlzcGxheS9kYy9kbWwvZG1sX2NvbW1vbl9kZWZzLmMgIHwgNDMgLS0tLS0tLS0tLS0t
+LS0tLS0tLQogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZG1sX2NvbW1vbl9kZWZzLmggIHwg
+MzcgLS0tLS0tLS0tLS0tLS0tLQogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZG1sX2lubGlu
+ZV9kZWZzLmggIHwgMTUgKysrKysrLQogMTEgZmlsZXMgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygr
+KSwgOTQgZGVsZXRpb25zKC0pCiBkZWxldGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RtbC9kbWxfY29tbW9uX2RlZnMuYwogZGVsZXRlIG1vZGUgMTAwNjQ0IGRy
+aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZG1sX2NvbW1vbl9kZWZzLmgKCmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmlsZQppbmRleCA3ZWU4Yjg0NjBh
+OWIuLmUzNGMzMzc2ZWZjMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RtbC9NYWtlZmlsZQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1s
+L01ha2VmaWxlCkBAIC02MywxMCArNjMsOCBAQCBDRkxBR1NfJChBTUREQUxQQVRIKS9kYy9kbWwv
+ZGNuMjEvZGlzcGxheV9ycV9kbGdfY2FsY18yMS5vIDo9ICQoZG1sX2NjZmxhZ3MpCiBlbmRpZgog
+Q0ZMQUdTXyQoQU1EREFMUEFUSCkvZGMvZG1sL2RtbDFfZGlzcGxheV9ycV9kbGdfY2FsYy5vIDo9
+ICQoZG1sX2NjZmxhZ3MpCiBDRkxBR1NfJChBTUREQUxQQVRIKS9kYy9kbWwvZGlzcGxheV9ycV9k
+bGdfaGVscGVycy5vIDo9ICQoZG1sX2NjZmxhZ3MpCi1DRkxBR1NfJChBTUREQUxQQVRIKS9kYy9k
+bWwvZG1sX2NvbW1vbl9kZWZzLm8gOj0gJChkbWxfY2NmbGFncykKIAogRE1MID0gZGlzcGxheV9t
+b2RlX2xpYi5vIGRpc3BsYXlfcnFfZGxnX2hlbHBlcnMubyBkbWwxX2Rpc3BsYXlfcnFfZGxnX2Nh
+bGMubyBcCi0JZG1sX2NvbW1vbl9kZWZzLm8KIAogaWZkZWYgQ09ORklHX0RSTV9BTURfRENfRENO
+CiBETUwgKz0gZGlzcGxheV9tb2RlX3ZiYS5vIGRjbjIwL2Rpc3BsYXlfcnFfZGxnX2NhbGNfMjAu
+byBkY24yMC9kaXNwbGF5X21vZGVfdmJhXzIwLm8KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
+bS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjAvZGlzcGxheV9ycV9kbGdfY2FsY18yMC5oIGIvZHJp
+dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kY24yMC9kaXNwbGF5X3JxX2RsZ19jYWxj
+XzIwLmgKaW5kZXggOGM4NmI2M2RkZjA3Li4xZTU1N2RkY2I2MzggMTAwNjQ0Ci0tLSBhL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjAvZGlzcGxheV9ycV9kbGdfY2FsY18y
+MC5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjAvZGlzcGxh
+eV9ycV9kbGdfY2FsY18yMC5oCkBAIC0yNiw3ICsyNiw2IEBACiAjaWZuZGVmIF9fRE1MMjBfRElT
+UExBWV9SUV9ETEdfQ0FMQ19IX18KICNkZWZpbmUgX19ETUwyMF9ESVNQTEFZX1JRX0RMR19DQUxD
+X0hfXwogCi0jaW5jbHVkZSAiLi4vZG1sX2NvbW1vbl9kZWZzLmgiCiAjaW5jbHVkZSAiLi4vZGlz
+cGxheV9ycV9kbGdfaGVscGVycy5oIgogCiBzdHJ1Y3QgZGlzcGxheV9tb2RlX2xpYjsKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjAvZGlzcGxheV9y
+cV9kbGdfY2FsY18yMHYyLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL2Rj
+bjIwL2Rpc3BsYXlfcnFfZGxnX2NhbGNfMjB2Mi5oCmluZGV4IDAzNzg0MDZiZjdlNy4uMGQ1M2U4
+NzFhOWQxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL2Rj
+bjIwL2Rpc3BsYXlfcnFfZGxnX2NhbGNfMjB2Mi5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+ZGlzcGxheS9kYy9kbWwvZGNuMjAvZGlzcGxheV9ycV9kbGdfY2FsY18yMHYyLmgKQEAgLTI2LDcg
+KzI2LDYgQEAKICNpZm5kZWYgX19ETUwyMFYyX0RJU1BMQVlfUlFfRExHX0NBTENfSF9fCiAjZGVm
+aW5lIF9fRE1MMjBWMl9ESVNQTEFZX1JRX0RMR19DQUxDX0hfXwogCi0jaW5jbHVkZSAiLi4vZG1s
+X2NvbW1vbl9kZWZzLmgiCiAjaW5jbHVkZSAiLi4vZGlzcGxheV9ycV9kbGdfaGVscGVycy5oIgog
+CiBzdHJ1Y3QgZGlzcGxheV9tb2RlX2xpYjsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9kbWwvZGNuMjEvZGlzcGxheV9ycV9kbGdfY2FsY18yMS5oIGIvZHJpdmVy
+cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kY24yMS9kaXNwbGF5X3JxX2RsZ19jYWxjXzIx
+LmgKaW5kZXggODNlOTVmOGNiZmYyLi5lOGY3Nzg1ZTNmYzYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
+Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjEvZGlzcGxheV9ycV9kbGdfY2FsY18yMS5o
+CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjEvZGlzcGxheV9y
+cV9kbGdfY2FsY18yMS5oCkBAIC0yNiw3ICsyNiw3IEBACiAjaWZuZGVmIF9fRE1MMjFfRElTUExB
+WV9SUV9ETEdfQ0FMQ19IX18KICNkZWZpbmUgX19ETUwyMV9ESVNQTEFZX1JRX0RMR19DQUxDX0hf
+XwogCi0jaW5jbHVkZSAiLi4vZG1sX2NvbW1vbl9kZWZzLmgiCisjaW5jbHVkZSAiZG1fc2Vydmlj
+ZXMuaCIKICNpbmNsdWRlICIuLi9kaXNwbGF5X3JxX2RsZ19oZWxwZXJzLmgiCiAKIHN0cnVjdCBk
+aXNwbGF5X21vZGVfbGliOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RtbC9kaXNwbGF5X21vZGVfbGliLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
+ZGMvZG1sL2Rpc3BsYXlfbW9kZV9saWIuaAppbmRleCBjZjI3NThjYTViMDIuLmM3N2MzZDgyN2U0
+YSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kaXNwbGF5
+X21vZGVfbGliLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kaXNw
+bGF5X21vZGVfbGliLmgKQEAgLTI1LDggKzI1LDEwIEBACiAjaWZuZGVmIF9fRElTUExBWV9NT0RF
+X0xJQl9IX18KICNkZWZpbmUgX19ESVNQTEFZX01PREVfTElCX0hfXwogCi0KLSNpbmNsdWRlICJk
+bWxfY29tbW9uX2RlZnMuaCIKKyNpbmNsdWRlICJkbV9zZXJ2aWNlcy5oIgorI2luY2x1ZGUgImRj
+X2ZlYXR1cmVzLmgiCisjaW5jbHVkZSAiZGlzcGxheV9tb2RlX3N0cnVjdHMuaCIKKyNpbmNsdWRl
+ICJkaXNwbGF5X21vZGVfZW51bXMuaCIKICNpbmNsdWRlICJkaXNwbGF5X21vZGVfdmJhLmgiCiAK
+IGVudW0gZG1sX3Byb2plY3QgewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2RtbC9kaXNwbGF5X21vZGVfdmJhLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
+YXkvZGMvZG1sL2Rpc3BsYXlfbW9kZV92YmEuaAppbmRleCA2YTdiMjA5MjdhNmIuLjNmNTU5ZTcy
+NWFiMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kaXNw
+bGF5X21vZGVfdmJhLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9k
+aXNwbGF5X21vZGVfdmJhLmgKQEAgLTI3LDggKzI3LDYgQEAKICNpZm5kZWYgX19ETUwyX0RJU1BM
+QVlfTU9ERV9WQkFfSF9fCiAjZGVmaW5lIF9fRE1MMl9ESVNQTEFZX01PREVfVkJBX0hfXwogCi0j
+aW5jbHVkZSAiZG1sX2NvbW1vbl9kZWZzLmgiCi0KIHN0cnVjdCBkaXNwbGF5X21vZGVfbGliOwog
+CiB2b2lkIE1vZGVTdXBwb3J0QW5kU3lzdGVtQ29uZmlndXJhdGlvbihzdHJ1Y3QgZGlzcGxheV9t
+b2RlX2xpYiAqbW9kZV9saWIpOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2RtbC9kaXNwbGF5X3JxX2RsZ19oZWxwZXJzLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvZG1sL2Rpc3BsYXlfcnFfZGxnX2hlbHBlcnMuaAppbmRleCAxZjI0ZGI4MzA3
+MzcuLjI1NTVlZjAzNThjMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RtbC9kaXNwbGF5X3JxX2RsZ19oZWxwZXJzLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9kaXNwbGF5L2RjL2RtbC9kaXNwbGF5X3JxX2RsZ19oZWxwZXJzLmgKQEAgLTI2LDcgKzI2LDYg
+QEAKICNpZm5kZWYgX19ESVNQTEFZX1JRX0RMR19IRUxQRVJTX0hfXwogI2RlZmluZSBfX0RJU1BM
+QVlfUlFfRExHX0hFTFBFUlNfSF9fCiAKLSNpbmNsdWRlICJkbWxfY29tbW9uX2RlZnMuaCIKICNp
+bmNsdWRlICJkaXNwbGF5X21vZGVfbGliLmgiCiAKIC8qIEZ1bmN0aW9uOiBQcmludGVyIGZ1bmN0
+aW9ucwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kbWwx
+X2Rpc3BsYXlfcnFfZGxnX2NhbGMuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
+bWwvZG1sMV9kaXNwbGF5X3JxX2RsZ19jYWxjLmgKaW5kZXggMzA0MTY0OTg2YmQ4Li45YzA2OTEz
+YWQ3NjcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZG1s
+MV9kaXNwbGF5X3JxX2RsZ19jYWxjLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
+L2RjL2RtbC9kbWwxX2Rpc3BsYXlfcnFfZGxnX2NhbGMuaApAQCAtMjYsOCArMjYsNiBAQAogI2lm
+bmRlZiBfX0RJU1BMQVlfUlFfRExHX0NBTENfSF9fCiAjZGVmaW5lIF9fRElTUExBWV9SUV9ETEdf
+Q0FMQ19IX18KIAotI2luY2x1ZGUgImRtbF9jb21tb25fZGVmcy5oIgotCiBzdHJ1Y3QgZGlzcGxh
+eV9tb2RlX2xpYjsKIAogI2luY2x1ZGUgImRpc3BsYXlfcnFfZGxnX2hlbHBlcnMuaCIKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZG1sX2NvbW1vbl9kZWZz
+LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL2RtbF9jb21tb25fZGVmcy5j
+CmRlbGV0ZWQgZmlsZSBtb2RlIDEwMDY0NAppbmRleCA3MjNhZjBiMmRkYTAuLjAwMDAwMDAwMDAw
+MAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL2RtbF9jb21tb25fZGVm
+cy5jCisrKyAvZGV2L251bGwKQEAgLTEsNDMgKzAsMCBAQAotLyoKLSAqIENvcHlyaWdodCAyMDE3
+IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4KLSAqCi0gKiBQZXJtaXNzaW9uIGlzIGhlcmVi
+eSBncmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8gYW55IHBlcnNvbiBvYnRhaW5pbmcgYQotICog
+Y29weSBvZiB0aGlzIHNvZnR3YXJlIGFuZCBhc3NvY2lhdGVkIGRvY3VtZW50YXRpb24gZmlsZXMg
+KHRoZSAiU29mdHdhcmUiKSwKLSAqIHRvIGRlYWwgaW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQgcmVz
+dHJpY3Rpb24sIGluY2x1ZGluZyB3aXRob3V0IGxpbWl0YXRpb24KLSAqIHRoZSByaWdodHMgdG8g
+dXNlLCBjb3B5LCBtb2RpZnksIG1lcmdlLCBwdWJsaXNoLCBkaXN0cmlidXRlLCBzdWJsaWNlbnNl
+LAotICogYW5kL29yIHNlbGwgY29waWVzIG9mIHRoZSBTb2Z0d2FyZSwgYW5kIHRvIHBlcm1pdCBw
+ZXJzb25zIHRvIHdob20gdGhlCi0gKiBTb2Z0d2FyZSBpcyBmdXJuaXNoZWQgdG8gZG8gc28sIHN1
+YmplY3QgdG8gdGhlIGZvbGxvd2luZyBjb25kaXRpb25zOgotICoKLSAqIFRoZSBhYm92ZSBjb3B5
+cmlnaHQgbm90aWNlIGFuZCB0aGlzIHBlcm1pc3Npb24gbm90aWNlIHNoYWxsIGJlIGluY2x1ZGVk
+IGluCi0gKiBhbGwgY29waWVzIG9yIHN1YnN0YW50aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0d2Fy
+ZS4KLSAqCi0gKiBUSEUgU09GVFdBUkUgSVMgUFJPVklERUQgIkFTIElTIiwgV0lUSE9VVCBXQVJS
+QU5UWSBPRiBBTlkgS0lORCwgRVhQUkVTUyBPUgotICogSU1QTElFRCwgSU5DTFVESU5HIEJVVCBO
+T1QgTElNSVRFRCBUTyBUSEUgV0FSUkFOVElFUyBPRiBNRVJDSEFOVEFCSUxJVFksCi0gKiBGSVRO
+RVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiAgSU4gTk8g
+RVZFTlQgU0hBTEwKLSAqIFRIRSBDT1BZUklHSFQgSE9MREVSKFMpIE9SIEFVVEhPUihTKSBCRSBM
+SUFCTEUgRk9SIEFOWSBDTEFJTSwgREFNQUdFUyBPUgotICogT1RIRVIgTElBQklMSVRZLCBXSEVU
+SEVSIElOIEFOIEFDVElPTiBPRiBDT05UUkFDVCwgVE9SVCBPUiBPVEhFUldJU0UsCi0gKiBBUklT
+SU5HIEZST00sIE9VVCBPRiBPUiBJTiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9SIFRI
+RSBVU0UgT1IKLSAqIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4KLSAqCi0gKiBBdXRo
+b3JzOiBBTUQKLSAqCi0gKi8KLQotI2luY2x1ZGUgImRtbF9jb21tb25fZGVmcy5oIgotI2luY2x1
+ZGUgImRjbl9jYWxjX21hdGguaCIKLQotI2luY2x1ZGUgImRtbF9pbmxpbmVfZGVmcy5oIgotCi1k
+b3VibGUgZG1sX3JvdW5kKGRvdWJsZSBhKQotewotCWRvdWJsZSByb3VuZF9wdCA9IDAuNTsKLQlk
+b3VibGUgY2VpbCA9IGRtbF9jZWlsKGEsIDEpOwotCWRvdWJsZSBmbG9vciA9IGRtbF9mbG9vcihh
+LCAxKTsKLQotCWlmIChhIC0gZmxvb3IgPj0gcm91bmRfcHQpCi0JCXJldHVybiBjZWlsOwotCWVs
+c2UKLQkJcmV0dXJuIGZsb29yOwotfQotCi0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvZGlzcGxheS9kYy9kbWwvZG1sX2NvbW1vbl9kZWZzLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1k
+L2Rpc3BsYXkvZGMvZG1sL2RtbF9jb21tb25fZGVmcy5oCmRlbGV0ZWQgZmlsZSBtb2RlIDEwMDY0
+NAppbmRleCBmNzhjYmFlOWRiODguLjAwMDAwMDAwMDAwMAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
+YW1kL2Rpc3BsYXkvZGMvZG1sL2RtbF9jb21tb25fZGVmcy5oCisrKyAvZGV2L251bGwKQEAgLTEs
+MzcgKzAsMCBAQAotLyoKLSAqIENvcHlyaWdodCAyMDE3IEFkdmFuY2VkIE1pY3JvIERldmljZXMs
+IEluYy4KLSAqCi0gKiBQZXJtaXNzaW9uIGlzIGhlcmVieSBncmFudGVkLCBmcmVlIG9mIGNoYXJn
+ZSwgdG8gYW55IHBlcnNvbiBvYnRhaW5pbmcgYQotICogY29weSBvZiB0aGlzIHNvZnR3YXJlIGFu
+ZCBhc3NvY2lhdGVkIGRvY3VtZW50YXRpb24gZmlsZXMgKHRoZSAiU29mdHdhcmUiKSwKLSAqIHRv
+IGRlYWwgaW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQgcmVzdHJpY3Rpb24sIGluY2x1ZGluZyB3aXRo
+b3V0IGxpbWl0YXRpb24KLSAqIHRoZSByaWdodHMgdG8gdXNlLCBjb3B5LCBtb2RpZnksIG1lcmdl
+LCBwdWJsaXNoLCBkaXN0cmlidXRlLCBzdWJsaWNlbnNlLAotICogYW5kL29yIHNlbGwgY29waWVz
+IG9mIHRoZSBTb2Z0d2FyZSwgYW5kIHRvIHBlcm1pdCBwZXJzb25zIHRvIHdob20gdGhlCi0gKiBT
+b2Z0d2FyZSBpcyBmdXJuaXNoZWQgdG8gZG8gc28sIHN1YmplY3QgdG8gdGhlIGZvbGxvd2luZyBj
+b25kaXRpb25zOgotICoKLSAqIFRoZSBhYm92ZSBjb3B5cmlnaHQgbm90aWNlIGFuZCB0aGlzIHBl
+cm1pc3Npb24gbm90aWNlIHNoYWxsIGJlIGluY2x1ZGVkIGluCi0gKiBhbGwgY29waWVzIG9yIHN1
+YnN0YW50aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0d2FyZS4KLSAqCi0gKiBUSEUgU09GVFdBUkUg
+SVMgUFJPVklERUQgIkFTIElTIiwgV0lUSE9VVCBXQVJSQU5UWSBPRiBBTlkgS0lORCwgRVhQUkVT
+UyBPUgotICogSU1QTElFRCwgSU5DTFVESU5HIEJVVCBOT1QgTElNSVRFRCBUTyBUSEUgV0FSUkFO
+VElFUyBPRiBNRVJDSEFOVEFCSUxJVFksCi0gKiBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVS
+UE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiAgSU4gTk8gRVZFTlQgU0hBTEwKLSAqIFRIRSBDT1BZ
+UklHSFQgSE9MREVSKFMpIE9SIEFVVEhPUihTKSBCRSBMSUFCTEUgRk9SIEFOWSBDTEFJTSwgREFN
+QUdFUyBPUgotICogT1RIRVIgTElBQklMSVRZLCBXSEVUSEVSIElOIEFOIEFDVElPTiBPRiBDT05U
+UkFDVCwgVE9SVCBPUiBPVEhFUldJU0UsCi0gKiBBUklTSU5HIEZST00sIE9VVCBPRiBPUiBJTiBD
+T05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9SIFRIRSBVU0UgT1IKLSAqIE9USEVSIERFQUxJ
+TkdTIElOIFRIRSBTT0ZUV0FSRS4KLSAqCi0gKiBBdXRob3JzOiBBTUQKLSAqCi0gKi8KLQotI2lm
+bmRlZiBfX0RDX0NPTU1PTl9ERUZTX0hfXwotI2RlZmluZSBfX0RDX0NPTU1PTl9ERUZTX0hfXwot
+Ci0jaW5jbHVkZSAiZG1fc2VydmljZXMuaCIKLSNpbmNsdWRlICJkY19mZWF0dXJlcy5oIgotI2lu
+Y2x1ZGUgImRpc3BsYXlfbW9kZV9zdHJ1Y3RzLmgiCi0jaW5jbHVkZSAiZGlzcGxheV9tb2RlX2Vu
+dW1zLmgiCi0KLQotZG91YmxlIGRtbF9yb3VuZChkb3VibGUgYSk7Ci0KLSNlbmRpZiAvKiBfX0RD
+X0NPTU1PTl9ERUZTX0hfXyAqLwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
+bGF5L2RjL2RtbC9kbWxfaW5saW5lX2RlZnMuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
+eS9kYy9kbWwvZG1sX2lubGluZV9kZWZzLmgKaW5kZXggZGVkNzFlYTgyNDEzLi4wMmUwNmM5YjMy
+MzAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZG1sX2lu
+bGluZV9kZWZzLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kbWxf
+aW5saW5lX2RlZnMuaApAQCAtMjYsNyArMjYsNiBAQAogI2lmbmRlZiBfX0RNTF9JTkxJTkVfREVG
+U19IX18KICNkZWZpbmUgX19ETUxfSU5MSU5FX0RFRlNfSF9fCiAKLSNpbmNsdWRlICJkbWxfY29t
+bW9uX2RlZnMuaCIKICNpbmNsdWRlICJkY25fY2FsY19tYXRoLmgiCiAjaW5jbHVkZSAiZG1sX2xv
+Z2dlci5oIgogCkBAIC03NSw2ICs3NCwxOCBAQCBzdGF0aWMgaW5saW5lIGRvdWJsZSBkbWxfZmxv
+b3IoZG91YmxlIGEsIGRvdWJsZSBncmFudWxhcml0eSkKIAlyZXR1cm4gKGRvdWJsZSkgZGNuX2J3
+X2Zsb29yMihhLCBncmFudWxhcml0eSk7CiB9CiAKK3N0YXRpYyBpbmxpbmUgZG91YmxlIGRtbF9y
+b3VuZChkb3VibGUgYSkKK3sKKwlkb3VibGUgcm91bmRfcHQgPSAwLjU7CisJZG91YmxlIGNlaWwg
+PSBkbWxfY2VpbChhLCAxKTsKKwlkb3VibGUgZmxvb3IgPSBkbWxfZmxvb3IoYSwgMSk7CisKKwlp
+ZiAoYSAtIGZsb29yID49IHJvdW5kX3B0KQorCQlyZXR1cm4gY2VpbDsKKwllbHNlCisJCXJldHVy
+biBmbG9vcjsKK30KKwogc3RhdGljIGlubGluZSBpbnQgZG1sX2xvZzIoZG91YmxlIHgpCiB7CiAJ
+cmV0dXJuIGRtbF9yb3VuZCgoZG91YmxlKWRjbl9id19sb2coeCwgMikpOwpAQCAtMTEyLDcgKzEy
+Myw3IEBAIHN0YXRpYyBpbmxpbmUgZG91YmxlIGRtbF9sb2coZG91YmxlIHgsIGRvdWJsZSBiYXNl
+KQogCiBzdGF0aWMgaW5saW5lIHVuc2lnbmVkIGludCBkbWxfcm91bmRfdG9fbXVsdGlwbGUodW5z
+aWduZWQgaW50IG51bSwKIAkJCQkJCSB1bnNpZ25lZCBpbnQgbXVsdGlwbGUsCi0JCQkJCQkgYm9v
+bCB1cCkKKwkJCQkJCSB1bnNpZ25lZCBjaGFyIHVwKQogewogCXVuc2lnbmVkIGludCByZW1haW5k
+ZXI7CiAKLS0gCjIuMjYuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
+cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
+Cg==
