@@ -2,46 +2,45 @@ Return-Path: <SRS0=ENO8=65=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.7 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40340C433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B336CC433E2
 	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 17FAA20657
+	by mail.kernel.org (Postfix) with ESMTPS id 88C9420657
 	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wt70D5hb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 17FAA20657
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="fSIcRfRe"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 88C9420657
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D229F6ED1F;
-	Fri, 15 May 2020 18:13:52 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700042.outbound.protection.outlook.com [40.107.70.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C2DAC6ED19
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:13:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3958E6ED14;
+	Fri, 15 May 2020 18:13:53 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2069.outbound.protection.outlook.com [40.107.236.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3AE4F6ED19
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:13:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=k2svO8UvGtmackM79sveM/D+DPTXs28WkZ52s8N9xdlW2gfLJQa9lbbjHrNFVVpnmuOkhVvFJqsslrhuVfWRpJRaM8pHUInmxTLwkPQn/+E0pbxhn+71JlLT8rwvTKytm0qsLfNMHh/c+y6cd0giJleolSwDSqzuvXlxVDtN6Vf8umuCeYMehbJHb3+8sK1DhZZ+2q6ygm6vldV36Lm2U/fimjoCgoMkRwVYpJ1jO7QjCoqaHcKgCRU5UooZA8L72Rdaz3M9T8z/12BYOT5tyJP5uOH7LmxgS+TqhIRrTeYiEmEJBIwVAILkrF59BlQZ2wZSLXkOxiG3Haekj5seiA==
+ b=AtFHwJ1d7kgVniuAOK6OqBzcphg+j8zQ9EjSmT2cw1zVfkXnyYybuU991E8hwYRvLnzXfgovhy2ITifbPqO6RE+7Kfad42yX7pMrZ/0qR3MdKPUwxznXv8Arz7HrvZC0tR0eNmS4ETfX+VBt9vutLsWNs3R13yi+HLyy+WMQqs1yIH0CC5c8gFSTtB5qOQLnqSzDa7qdVa9YWCkqUVbMo74yVE1IIXT4OM2djTpXAZxqVZPRUXD6Vmamd/+x3MVxd2id1UcuH7jseZCVjQczHs7tgNVTKvAMGL/obcwkN/pBKkv+4E2bHVfvna0d87SFSvl3yCMCEzGuwRlbpwAoug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z+1eL6uQj6YEEFQbwl/rvHOmWuQb3yqIUzymuSGe2zk=;
- b=GTGtG09SOOC3nhhkmJ81oxCM6lqqB5StiN/RJLdQmswBoc+NXyKLSE5wrqwHjnwsR8LqWeGhABs+NzPmP3ir6PBE6jrVy5Vto0mdSfn0USh1Rr3JtpJXyvy2fn/is+8TYni4+jXsmM3jXVcWHaa0Su4yAC31x/HqwZ0x/Xy0jgwJX3Gm0SaCw/3y4BFGCOX8M/TtCjfNaj2IiyNPYy5IB0JTbzr99xyiS4JH1rQjhHrXIKmOw/l62rkcmY8zSpN7S38U1Mh/qvAm17RrvPpF1ycTEYn3A2gwaxFbwU6AlucgyKZQaklB64Pw68+AcfBYEZodK3uT+cGDzIJBatzPCw==
+ bh=dfvPYAfxDncgXH7z/xkXTd7RZJTvt9Oj0HjCSbydKb4=;
+ b=nL6Plyn0iKpkgYIOfkZ/c+Ib3NmSd3Ucvt4bybIZz6ZiMtPRRbcYQXLXS9IHT+zf66aEZjIyWR7gf6PL9pMU1gW6whgR3JDhNFCZWgIQBVsQjTfsovJU1+YVMZtbvEn512Q9EW1OMer0MWsZ+capdPk6jGr7sBO7z/FQmt9Z1gjzcN/OZHsRF4IIXxHAs9MyjQqoJLKM7ywwEt0dFWiR3dcmu/L9mrsY7dqhoXc7px3Tm/xJ7zdemI9Eu23nV3hWipEicEWZ6pvbRL1fLqgJB4/fs0DIPJdW5Oy8764NHUsCJa0Yjfcz3vgT7Lvt3trfvYnR1NWkj75NGmF9ituAOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z+1eL6uQj6YEEFQbwl/rvHOmWuQb3yqIUzymuSGe2zk=;
- b=wt70D5hbMrJixqeCySknUaI2PbL4YJMM5zpxd9glEMbtCi8LNCRR5hkG4hfsoG7lQrFyagb3lLkm28IB4HeD+nS5ZlxKxfwCZ60DSe/eDDePYFFkAOQbRwP8lQLqKWdFro/mFPdYsCMW0Iz1mJ1/pi1TUvGS3/fzjHSSNKhlfuI=
+ bh=dfvPYAfxDncgXH7z/xkXTd7RZJTvt9Oj0HjCSbydKb4=;
+ b=fSIcRfRe8882CX60yUBrqyNm3ESgMM8DZnCd1UnnRdMAAQwQfURh3RCCm76ONZL/Wwp87cvRt8o5K/52xWzzV40PrKly0/0JdRbbc6jugg5digRFhJSOaXc6jvlP996clzMdf8MvxuCF+xASJIZYs08LoyiHv57hX0cAO0ctll0=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -49,16 +48,16 @@ Received: from CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23)
  by CH2PR12MB3974.namprd12.prod.outlook.com (2603:10b6:610:2e::27)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.26; Fri, 15 May
- 2020 18:13:47 +0000
+ 2020 18:13:45 +0000
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580]) by CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580%9]) with mapi id 15.20.3000.022; Fri, 15 May 2020
- 18:13:47 +0000
+ 18:13:45 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 10/27] drm/amd/display: FW release 1.0.10
-Date: Fri, 15 May 2020 14:12:57 -0400
-Message-Id: <20200515181315.1237251-11-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 08/27] drm/amd/display: Add bit swap helper based on endianness
+Date: Fri, 15 May 2020 14:12:55 -0400
+Message-Id: <20200515181315.1237251-9-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
 References: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
@@ -70,33 +69,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::2) by
  BN7PR02CA0034.namprd02.prod.outlook.com (2603:10b6:408:20::47) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:46 +0000
+ 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:44 +0000
 X-Mailer: git-send-email 2.26.2
 X-Originating-IP: [2607:fea8:56a0:11a1::2]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: eda340e5-8298-49f5-5b38-08d7f8fbb61b
+X-MS-Office365-Filtering-Correlation-Id: 1f1fd3f8-eaf7-42ca-b390-08d7f8fbb4e2
 X-MS-TrafficTypeDiagnostic: CH2PR12MB3974:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB39743C69DB33D01D5EDC530C98BD0@CH2PR12MB3974.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB3974B7E4C17F2A9216CCD7F598BD0@CH2PR12MB3974.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:612;
 X-Forefront-PRVS: 04041A2886
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ytvvUCrQFXBkE0NlVNDZ7tvQwUeLRlURrIpcu4eyTgyWt8PNjm0bPRTBOq+wrBCLUAYvqoPxolKrFQ23mNFgTg9kYHd6enyCFXYxEbPrj1F0aPoJGzTRDgHeJwis0ocx12f1oM0DUqhNElevIkEAgEZHpXYFFZZLOs5hVWyn+SjOsNQfc8q1/qyRer5ggEoKMA5qsmO+XCifxSu1XdAKdsUAgW1tox9HZofGryxJNrqaCa63Ts12UCRfF73Mv4yke9pL4AvbiXYwyNgIFU8dq78vZDHNyoWhKfdVzpkSi9Sd+VgPuZeIqcMmbgmEv/E3Lp1kGFzOmhsHM4UPyo/pIbHqzIApXOkUrXdpAZPCZLY+rFXkYcptcmAOlHKascFbiUmzOtyrcMyzsugJiBti3V1JxWfOLot1+ZFtb2+5Z/oH/pjWBccpnV2bPeOFkVsF
+X-Microsoft-Antispam-Message-Info: kDuZh2AA99r1PbyuyBhqASTGUfH2YQQMj7bMsZcc0fZJ8JiWefsJ2aztgnX1kXup07t+lezt8leskQDHLBFTBHYLqeyZOVq7UqmSW26jnzZxZaaegbyzrfvkeWQFRE742TtiKaWdnNjA+ZgJj+MQoTW5wANbltC/Zb87DYOYbv1H16OAvGKCLJOPK+6InSoIrT5BoWDjxSilT36wTlHt39BnyCKJZHqaQL/pkf8fToNDBOj3qmK82j8ccx04DZCWS3V+N+mu5GBSFjja5pCG917VUxp6UAhhiGON9rkKSG+WcS31Skeg7qlXhANM/3pXDLevA8Ni5TQHH2ubOxM+k/ZU6zieFq9hhaEZz5MqnMsA/+HiwtGHyFbbXf3D4Rf2GVo6ZI5M8O55ELK0/aBfHK7NI8UzPI3hNNWJQUDHRljWRgnlTVZuv8aHPSwhEax+
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB4198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(346002)(376002)(366004)(396003)(136003)(39860400002)(6506007)(316002)(8676002)(8936002)(86362001)(6486002)(6666004)(5660300002)(6916009)(478600001)(6512007)(2906002)(36756003)(66556008)(1076003)(52116002)(16526019)(186003)(2616005)(66476007)(66946007)(4326008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 5RrpdHkIyyvm4T2giALQQX5tnQNVOkO4NDzEOyusIl7CcB8U/Bv7pqlzWu/sb6nSLERreqyaLczjFPgeqSCmllQMc9VNJsKdZ6Rrk96DgSo41OQT3ombfJHHKuSgMtzV2d6NbKqUZ+phEwwDP/jEw+45zOH/E1IG5rl9tXp8cM9NojKNF26Vbd0dCFyWuAJr8+W9RJ4ZchvzAsXh1d3s0DBafAq5ZW1rA9uR2xjooXe8/QtaRiPJcSAqVHlhxife9YaNj/5xIj90/YcOcr2WeQtB6Fb7re2WSBlHNnlX+HiLz66K00bqjtQhc8A0RIjD+blTlatYwwRbuItwTx+TtBRml0Hb6/yJKGd2P5JEsmrbA0n1IJodhgz4cpTmD7WF4hciYRKviL1RWXAu5RwRQ5IEytOCa8p0mNzAv53/yeuuXi2xvSbKpmW8vgmjKE3OTO4SYaNxNRiJ1jc7V5Cp9ziKR6ZOhaukBVEG9w4YMY1pKlsC1z0+5OEjl7TKds61
+X-MS-Exchange-AntiSpam-MessageData: 2gddtRLJdUNTW9oINFmQlo3HHDy3nuv0xofqekvblnXoLP0OUldj1ygBcvzyO9C3qX4lyXnmF+XuYEkwsWsKenpzVY83dsS6hUXrXRZqyi1jB8kOCju90yuUl14viPb984lEFMt5Qll2GaVV4dcvqvsSMbqxjexwoxR/Gq0VgPjwb8YOfeF8xc/ouT6Ac7TvfbU5vaj0p/9yNk1pvUvl7gbqWcXoM32CZLrelA5jr+qUR41eVWsx60Fpy15o9+mC1BRRVyXxF7gj6ZITY/e6FCcWhlPcjCrrx/lXT/WXccrQXYDn57Zqf/v73+c/TWO+ctrbPu12Sz/0XYjoGoPKbd1ZGumnWPFNbQnjvjHgYxW/uRPg5jzUmBuMEt85Zxm/7dQbpUALJrNXVkkxlVPPGktau0xDQBEbbmZqK/xcnHkmlLxKr37twkra2AoKeU4WdTWvbP4PfKJ1KS0upP7Hq4i1kscYwha4JOM+c5Cww1EZc8o1v4NtmVryUbbkYATub/7jh8zRMZxwYklqJEF+kA==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: eda340e5-8298-49f5-5b38-08d7f8fbb61b
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:47.4165 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1f1fd3f8-eaf7-42ca-b390-08d7f8fbb4e2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:45.3824 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q4MJ0D+FGPQypTRiZU4vSkTJTIccrDgwnAFwDE5Ccv3fhCQ45+E0UG2On2kUNJdQ2nYLHtOCIvyX1CkE5SUyZQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: KnOIJPbNFXYauLsrd5EGKFS07T1mnwr4I6nSE7LJ8Y5/L+hahha8fJTyGdzwd6viM72E8ZB3N/X0q2oE9MijWw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3974
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,153 +109,93 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
- Anthony Koo <Anthony.Koo@amd.com>
+ Aurabindo.Pillai@amd.com, Wyatt Wood <Wyatt.Wood@amd.com>,
+ Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Anthony Koo <Anthony.Koo@amd.com>
+Christian Koenig pointed out a code duplication related to bit swap in
+case of big-endian manipulation. This commit adds a helper for handling
+this verification and reduces the requirement of replicate some part of
+the code.
 
-Signed-off-by: Anthony Koo <Anthony.Koo@amd.com>
-Reviewed-by: Anthony Koo <Anthony.Koo@amd.com>
+Signed-off-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Reviewed-by: Wyatt Wood <Wyatt.Wood@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c |  2 +-
- .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   | 12 ++++---
- .../drm/amd/display/dmub/inc/dmub_cmd_dal.h   | 35 +++++++++++++++++++
- .../gpu/drm/amd/display/dmub/inc/dmub_types.h |  9 +++--
- 4 files changed, 49 insertions(+), 9 deletions(-)
+ .../amd/display/modules/power/power_helpers.c | 50 ++++++++++---------
+ 1 file changed, 26 insertions(+), 24 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-index 044a0133ebb1..fd4e1021903a 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dmub_psr.c
-@@ -231,7 +231,7 @@ static bool dmub_psr_copy_settings(struct dmub_psr *dmub,
- 	copy_settings_data->smu_optimizations_en		= psr_context->allow_smu_optimizations;
- 	copy_settings_data->frame_delay				= psr_context->frame_delay;
- 	copy_settings_data->frame_cap_ind			= psr_context->psrFrameCaptureIndicationReq;
--	copy_settings_data->debug.visual_confirm		= dc->dc->debug.visual_confirm == VISUAL_CONFIRM_PSR ?
-+	copy_settings_data->debug.bitfields.visual_confirm	= dc->dc->debug.visual_confirm == VISUAL_CONFIRM_PSR ?
- 									true : false;
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
+index 8c37bcc27132..60b92f099af5 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
++++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.c
+@@ -29,6 +29,8 @@
+ #include "core_types.h"
  
- 	dc_dmub_srv_cmd_queue(dc->dmub_srv, &cmd);
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-index cbfde2706c18..7782b7fc1ce0 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
-@@ -219,6 +219,7 @@ struct dmub_rb_cmd_dpphy_init {
- };
+ #define DIV_ROUNDUP(a, b) (((a)+((b)/2))/(b))
++#define bswap16_based_on_endian(big_endian, value) \
++	(big_endian) ? cpu_to_be16(value) : cpu_to_le16(value)
  
- struct dmub_cmd_psr_copy_settings_data {
-+	union dmub_psr_debug_flags debug;
- 	uint16_t psr_level;
- 	uint8_t dpp_inst;
- 	uint8_t mpcc_inst;
-@@ -231,7 +232,7 @@ struct dmub_cmd_psr_copy_settings_data {
- 	uint8_t smu_optimizations_en;
- 	uint8_t frame_delay;
- 	uint8_t frame_cap_ind;
--	struct dmub_psr_debug_flags debug;
-+	uint8_t pad[3];
- };
+ /* Possible Min Reduction config from least aggressive to most aggressive
+  *  0    1     2     3     4     5     6     7     8     9     10    11   12
+@@ -624,30 +626,30 @@ void fill_iram_v_2_3(struct iram_table_v_2_2 *ram_table, struct dmcu_iram_parame
+ 	ram_table->iir_curve[4] = 0x65;
  
- struct dmub_rb_cmd_psr_copy_settings {
-@@ -241,6 +242,7 @@ struct dmub_rb_cmd_psr_copy_settings {
+ 	//Gamma 2.2
+-	ram_table->crgb_thresh[0] = (big_endian) ? cpu_to_be16(0x127c) : cpu_to_le16(0x127c);
+-	ram_table->crgb_thresh[1] = (big_endian) ? cpu_to_be16(0x151b) : cpu_to_le16(0x151b);
+-	ram_table->crgb_thresh[2] = (big_endian) ? cpu_to_be16(0x17d5) : cpu_to_le16(0x17d5);
+-	ram_table->crgb_thresh[3] = (big_endian) ? cpu_to_be16(0x1a56) : cpu_to_le16(0x1a56);
+-	ram_table->crgb_thresh[4] = (big_endian) ? cpu_to_be16(0x1c83) : cpu_to_le16(0x1c83);
+-	ram_table->crgb_thresh[5] = (big_endian) ? cpu_to_be16(0x1e72) : cpu_to_le16(0x1e72);
+-	ram_table->crgb_thresh[6] = (big_endian) ? cpu_to_be16(0x20f0) : cpu_to_le16(0x20f0);
+-	ram_table->crgb_thresh[7] = (big_endian) ? cpu_to_be16(0x232b) : cpu_to_le16(0x232b);
+-	ram_table->crgb_offset[0] = (big_endian) ? cpu_to_be16(0x2999) : cpu_to_le16(0x2999);
+-	ram_table->crgb_offset[1] = (big_endian) ? cpu_to_be16(0x3999) : cpu_to_le16(0x3999);
+-	ram_table->crgb_offset[2] = (big_endian) ? cpu_to_be16(0x4666) : cpu_to_le16(0x4666);
+-	ram_table->crgb_offset[3] = (big_endian) ? cpu_to_be16(0x5999) : cpu_to_le16(0x5999);
+-	ram_table->crgb_offset[4] = (big_endian) ? cpu_to_be16(0x6333) : cpu_to_le16(0x6333);
+-	ram_table->crgb_offset[5] = (big_endian) ? cpu_to_be16(0x7800) : cpu_to_le16(0x7800);
+-	ram_table->crgb_offset[6] = (big_endian) ? cpu_to_be16(0x8c00) : cpu_to_le16(0x8c00);
+-	ram_table->crgb_offset[7] = (big_endian) ? cpu_to_be16(0xa000) : cpu_to_le16(0xa000);
+-	ram_table->crgb_slope[0]  = (big_endian) ? cpu_to_be16(0x3609) : cpu_to_le16(0x3609);
+-	ram_table->crgb_slope[1]  = (big_endian) ? cpu_to_be16(0x2dfa) : cpu_to_le16(0x2dfa);
+-	ram_table->crgb_slope[2]  = (big_endian) ? cpu_to_be16(0x27ea) : cpu_to_le16(0x27ea);
+-	ram_table->crgb_slope[3]  = (big_endian) ? cpu_to_be16(0x235d) : cpu_to_le16(0x235d);
+-	ram_table->crgb_slope[4]  = (big_endian) ? cpu_to_be16(0x2042) : cpu_to_le16(0x2042);
+-	ram_table->crgb_slope[5]  = (big_endian) ? cpu_to_be16(0x1dc3) : cpu_to_le16(0x1dc3);
+-	ram_table->crgb_slope[6]  = (big_endian) ? cpu_to_be16(0x1b1a) : cpu_to_le16(0x1b1a);
+-	ram_table->crgb_slope[7]  = (big_endian) ? cpu_to_be16(0x1910) : cpu_to_le16(0x1910);
++	ram_table->crgb_thresh[0] = bswap16_based_on_endian(big_endian, 0x127c);
++	ram_table->crgb_thresh[1] = bswap16_based_on_endian(big_endian, 0x151b);
++	ram_table->crgb_thresh[2] = bswap16_based_on_endian(big_endian, 0x17d5);
++	ram_table->crgb_thresh[3] = bswap16_based_on_endian(big_endian, 0x1a56);
++	ram_table->crgb_thresh[4] = bswap16_based_on_endian(big_endian, 0x1c83);
++	ram_table->crgb_thresh[5] = bswap16_based_on_endian(big_endian, 0x1e72);
++	ram_table->crgb_thresh[6] = bswap16_based_on_endian(big_endian, 0x20f0);
++	ram_table->crgb_thresh[7] = bswap16_based_on_endian(big_endian, 0x232b);
++	ram_table->crgb_offset[0] = bswap16_based_on_endian(big_endian, 0x2999);
++	ram_table->crgb_offset[1] = bswap16_based_on_endian(big_endian, 0x3999);
++	ram_table->crgb_offset[2] = bswap16_based_on_endian(big_endian, 0x4666);
++	ram_table->crgb_offset[3] = bswap16_based_on_endian(big_endian, 0x5999);
++	ram_table->crgb_offset[4] = bswap16_based_on_endian(big_endian, 0x6333);
++	ram_table->crgb_offset[5] = bswap16_based_on_endian(big_endian, 0x7800);
++	ram_table->crgb_offset[6] = bswap16_based_on_endian(big_endian, 0x8c00);
++	ram_table->crgb_offset[7] = bswap16_based_on_endian(big_endian, 0xa000);
++	ram_table->crgb_slope[0]  = bswap16_based_on_endian(big_endian, 0x3609);
++	ram_table->crgb_slope[1]  = bswap16_based_on_endian(big_endian, 0x2dfa);
++	ram_table->crgb_slope[2]  = bswap16_based_on_endian(big_endian, 0x27ea);
++	ram_table->crgb_slope[3]  = bswap16_based_on_endian(big_endian, 0x235d);
++	ram_table->crgb_slope[4]  = bswap16_based_on_endian(big_endian, 0x2042);
++	ram_table->crgb_slope[5]  = bswap16_based_on_endian(big_endian, 0x1dc3);
++	ram_table->crgb_slope[6]  = bswap16_based_on_endian(big_endian, 0x1b1a);
++	ram_table->crgb_slope[7]  = bswap16_based_on_endian(big_endian, 0x1910);
  
- struct dmub_cmd_psr_set_level_data {
- 	uint16_t psr_level;
-+	uint8_t pad[2];
- };
- 
- struct dmub_rb_cmd_psr_set_level {
-@@ -262,10 +264,10 @@ struct dmub_rb_cmd_psr_set_version {
- };
- 
- struct dmub_cmd_abm_set_pipe_data {
--	uint32_t ramping_boundary;
--	uint32_t otg_inst;
--	uint32_t panel_inst;
--	uint32_t set_pipe_option;
-+	uint8_t otg_inst;
-+	uint8_t panel_inst;
-+	uint8_t set_pipe_option;
-+	uint8_t ramping_boundary; // TODO: Remove this
- };
- 
- struct dmub_rb_cmd_abm_set_pipe {
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd_dal.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd_dal.h
-index e42de9ded275..3ed77b6f0e44 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd_dal.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd_dal.h
-@@ -26,6 +26,11 @@
- #ifndef _DMUB_CMD_DAL_H_
- #define _DMUB_CMD_DAL_H_
- 
-+#define NUM_AMBI_LEVEL                  5
-+#define NUM_AGGR_LEVEL                  4
-+#define NUM_POWER_FN_SEGS               8
-+#define NUM_BL_CURVE_SEGS               16
-+
- /*
-  * Command IDs should be treated as stable ABI.
-  * Do not reuse or modify IDs.
-@@ -53,4 +58,34 @@ enum dmub_cmd_abm_type {
- 	DMUB_CMD__ABM_SET_PWM_FRAC	= 5,
- };
- 
-+/*
-+ * Parameters for ABM2.4 algorithm.
-+ * Padded explicitly to 32-bit boundary.
-+ */
-+struct abm_config_table {
-+	/* Parameters for crgb conversion */
-+	uint16_t crgb_thresh[NUM_POWER_FN_SEGS];                 // 0B
-+	uint16_t crgb_offset[NUM_POWER_FN_SEGS];                 // 15B
-+	uint16_t crgb_slope[NUM_POWER_FN_SEGS];                  // 31B
-+
-+	/* Parameters for custom curve */
-+	uint16_t backlight_thresholds[NUM_BL_CURVE_SEGS];        // 47B
-+	uint16_t backlight_offsets[NUM_BL_CURVE_SEGS];           // 79B
-+
-+	uint16_t ambient_thresholds_lux[NUM_AMBI_LEVEL];         // 111B
-+	uint16_t min_abm_backlight;                              // 121B
-+
-+	uint8_t min_reduction[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL];   // 123B
-+	uint8_t max_reduction[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL];   // 143B
-+	uint8_t bright_pos_gain[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL]; // 163B
-+	uint8_t dark_pos_gain[NUM_AMBI_LEVEL][NUM_AGGR_LEVEL];   // 183B
-+	uint8_t hybrid_factor[NUM_AGGR_LEVEL];                   // 203B
-+	uint8_t contrast_factor[NUM_AGGR_LEVEL];                 // 207B
-+	uint8_t deviation_gain[NUM_AGGR_LEVEL];                  // 211B
-+	uint8_t min_knee[NUM_AGGR_LEVEL];                        // 215B
-+	uint8_t max_knee[NUM_AGGR_LEVEL];                        // 219B
-+	uint8_t iir_curve[NUM_AMBI_LEVEL];                       // 223B
-+	uint8_t pad3[3];                                         // 228B
-+};
-+
- #endif /* _DMUB_CMD_DAL_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_types.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_types.h
-index bed5b023a396..f61af26fc73e 100644
---- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_types.h
-+++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_types.h
-@@ -63,9 +63,12 @@ union dmub_addr {
- 	uint64_t quad_part;
- };
- 
--struct dmub_psr_debug_flags {
--	uint8_t visual_confirm : 1;
--	uint8_t reserved : 7;
-+union dmub_psr_debug_flags {
-+	struct {
-+		uint8_t visual_confirm : 1;
-+	} bitfields;
-+
-+	unsigned int u32All;
- };
- 
- #if defined(__cplusplus)
+ 	fill_backlight_transform_table_v_2_2(
+ 			params, ram_table, big_endian);
 -- 
 2.26.2
 
