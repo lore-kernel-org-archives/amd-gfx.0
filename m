@@ -7,57 +7,58 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8473C433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:14:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A848AC433E2
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:14:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8EC8420657
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:14:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8006320657
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:14:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="3FuhpWC4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8EC8420657
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="j/rULc6D"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8006320657
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A8F56ED24;
-	Fri, 15 May 2020 18:14:01 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2051.outbound.protection.outlook.com [40.107.92.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 876EF6ED25
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:13:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 493BC6ED28;
+	Fri, 15 May 2020 18:14:02 +0000 (UTC)
+Received: from NAM04-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr700059.outbound.protection.outlook.com [40.107.70.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFED66ED24
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:14:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ImSIG09GFBDKnzsZruCSC9Lo95GlYHios1rceTkZi/KL21yaN0rnYCGgFPYFke5FIEF+Fc6qxutj0a3prrnRheK1fvGklXkQXuvcBdHTBRZLcGZeU7tyHPPbv4C+WpWp+FZGws6CfOOaQOFqSm01Ma5LVgU65UtSb5FhSjGRQg8T2tklt8G9q8zGOSm2IvSYdGzRru2dLOMEj+Fb8lX2FSn12zHjG1TesKHM+sMfhHUU57uon1EABFl5uEn2FrfgB/PNN81+Gweik2IC8gy/lZSqsinE99J9YLaspgmhRZvs7+p3iDPWu1AHoQ7iHFBOWw0h5uQ20T03wmhtTZ3w0Q==
+ b=gDnI0EkZBP+dJxLQGaYuV76wNvk7z+tAzRMQOAcyGqz1A13ymb7o3Zh147/KU/YHdvRP/BByFU6buaNow/Fi/Mz7fJZDKHxYID+8FHpd9qr8gE3GXPfVxSiFdVj3ygdPWGz5QZiomMrSAJwWqnDQXfGFIOjtVOCpNzMrajICB7lEJ07Z16Ay0Lv7IoPv/Pq2MRIvbqeSLqjN/ooMnVhZoqywiVXV3L+7h4zRLvxRv3yK9omxYQtqRMunkcuR3vOuGxw7jgUV3KgBsr9Am9NtwmExj1mHV2RsAylpgQDT1FE1JkDlxjciy6kC322YFOdIN4M2QV6DGgBRAgD5fVitxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YDieuEl8J4bW5i1NHwuqPXOqIq7Zl58Onhv5t8/7MhM=;
- b=gfZzsrY/XeR4JsPrJrWzIx30HeDajaq/i/BewGAf4jxEcxMwvtEy6CeDFquICerndHshgRyba2gfFqemXx5c8NFVsRqYnjL3aDoRUKuhEizQX1UyqO3XQQb1PksQ7P/QmfJjRQKPIQfXrSPA8ZpaNBRuQi5CUww05PfYQ20SxDNJ3HW6eBslQICUIbePJxIzL5YgZYACACSsKQ/5NRDDVMobob+2tdJDz4/Vd1/kbdzMVVI7BUC231PaOQlPQBGTqk+6cs4C8VAtYfHP0wrIVIeUyH3Hn4k6wEAiL02gpNZDEq6V2z5bT0n/MxHo6JW55W2+32Ekhpol6H5Nb63pNA==
+ bh=nGOIdW6oWBAiDVWtCwZeEBXbNw6TbvoPEh5ecYKNTPo=;
+ b=nWDLGJlDn2YOEKvSzsoogp/sI9Z1RUa5mcn9kLSReHqyl09bwOw3i13r+l35Af0llb0JG6guCKh1BGEr4ImgD1LsvS3fgOgT4VLbK2K3B8GGa30qGEEEaBECglhS624KQnN+gXl07u2Po+rp7tIRQUYsMnjE7NAbDFg/ZpBKoKPSSiKQXqjq1779YQJHT+ETKzein612uq0n3lRNho7kMvOEhqX9PtaPImOwTn+5ZPDhqBvYVy712NVzZgkRT8H/zTvdZmPzH8XdTuXOZA691z90Qb77phbp/gf8ESPnMD/zsVV09z1nWgMPKqbf+b2PzsZ6nKzkAY7AxujfS5+h9A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YDieuEl8J4bW5i1NHwuqPXOqIq7Zl58Onhv5t8/7MhM=;
- b=3FuhpWC4WZh72OTITSu8KTDMlQkoEfMIuyY7wEkbkYakZVgHmO3iQdpFQZ7InF82MACvL6s9OEi6mePGja14fQrPZXyHrfjPhkTkCcQuPkaj2h6Rlw1jvEUKiCQA98QywwrJcUv1ndNSwvcV9URz2Q6pyh/jnr/yaR6bhQe/IXM=
+ bh=nGOIdW6oWBAiDVWtCwZeEBXbNw6TbvoPEh5ecYKNTPo=;
+ b=j/rULc6Dc7MntOwBVBG3mfNLPgzFC6PV4ycZTqFWcsNMYSv0mUZZsSJB5AZokLIbLni447htvpoyZ3S/6wWbaNQccJf8U6QzklzJ90PHwu/4PWdUJ5jOO/elODIUZ2+qJcUIol+aCInOc6CFQIT07jRhvQGKg16sWnGhEOmIWXs=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23)
- by CH2PR12MB3848.namprd12.prod.outlook.com (2603:10b6:610:16::18)
+ by CH2PR12MB3974.namprd12.prod.outlook.com (2603:10b6:610:2e::27)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.20; Fri, 15 May
- 2020 18:13:57 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.26; Fri, 15 May
+ 2020 18:13:59 +0000
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580]) by CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580%9]) with mapi id 15.20.3000.022; Fri, 15 May 2020
- 18:13:57 +0000
+ 18:13:59 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 19/27] drm/amd/display: correct rn NUM_VMID
-Date: Fri, 15 May 2020 14:13:06 -0400
-Message-Id: <20200515181315.1237251-20-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 21/27] drm/amd/display: Add DMUB firmware version helpers in
+ DMUB service
+Date: Fri, 15 May 2020 14:13:08 -0400
+Message-Id: <20200515181315.1237251-22-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
 References: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
@@ -69,34 +70,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::2) by
  BN7PR02CA0034.namprd02.prod.outlook.com (2603:10b6:408:20::47) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:56 +0000
+ 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:58 +0000
 X-Mailer: git-send-email 2.26.2
 X-Originating-IP: [2607:fea8:56a0:11a1::2]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 927e9a5f-cc5d-4d12-fea1-08d7f8fbbbca
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3848:
+X-MS-Office365-Filtering-Correlation-Id: e32c9281-54db-482c-ed7b-08d7f8fbbcff
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3974:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB3848C0F68ADD74A8757C645E98BD0@CH2PR12MB3848.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB397475E8A05AC63000EA0B8898BD0@CH2PR12MB3974.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
 X-Forefront-PRVS: 04041A2886
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: zeeej5VtbVADCxt6LR4q9NRYYi0JawA0inxcelkEBhNO/Bt5kmBZ3NKL019ywKlfYOvL6lQmE9AGaxuUOP5DNF55dL3+dbjBxpTIneG4Ye0pDk7RQNqpJqc5Y9/MADTveOC9yhVSP/hc54agW77IQvbSBaILY8APNbWQcIUMQNWu8mdLLa/AY11aNIMSVo+QYNjTSgDNSEWttnBdNvCAH8UtI3IHCIg7Su5V+0qf6WdacHxIl3NLFzMIO30aDrrQOLGsnjqv+2pCwwsVuJKvihZKD8ueGayLlfOP6eU9QFt1tMDWBlyLe7AiLX9rRxlS50K9Go+guGSkZDDv3GqIGVX9vQc20JOBI+FCdhaUHFVJTX3hdtm8ZA2waFNdrfCHlr5qaDWdUydbfc1pefc5jnsAUAk2Jh4kE+R94lcFpKPX4tlebG0LTZbpXX+DBSRX
+X-Microsoft-Antispam-Message-Info: 9wfW1yAZuYMdz9ahBZMNAqMlXZY4J2uApGkVr3Y/mSckXn/kzeMAlzl0UFi4O+suRuX5z23nQU1hvStulFHX70kHDpCj3DuPnGqURBOZhKmDi5q2GNUKSlh0+vpvK6itduwVpoJmsQcmIhBnUc8kZBbriK970d5SboXBk+u8aHzlYya4v4GqJuvQuqNI7iLBO8HoSPeO6mIsYKpullEW6SmeX4kyHzP8OG/PZ2rgwmLBbiGciXD8ce6L2iXc4I2wcWJy2JdRN3ZFafCMMrwiQ1gCkgRv04GL7TRD/mav3XyszxbivBhXgQyfRRONB/kRqZ2vQ5LEpzjnxl/0ZRM24gRsXrfmIlnsSp/Hu8B+GQm4yaE5u4c8tSXxVnF4KMoXRTifYlFkJ9jnFCOe24lN3s3Sj0uA/xyxzBmrfWUQqXWvAYazBLgj7qwgAdntKuw1
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB4198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(376002)(346002)(366004)(39860400002)(136003)(396003)(54906003)(86362001)(2906002)(186003)(8936002)(52116002)(6506007)(6512007)(8676002)(36756003)(316002)(5660300002)(16526019)(4326008)(6916009)(66556008)(478600001)(1076003)(66946007)(6486002)(66476007)(6666004)(2616005);
+ SFS:(4636009)(346002)(376002)(366004)(396003)(136003)(39860400002)(6506007)(316002)(8676002)(8936002)(86362001)(6486002)(54906003)(6666004)(5660300002)(6916009)(478600001)(6512007)(2906002)(36756003)(66556008)(1076003)(52116002)(16526019)(186003)(2616005)(66476007)(66946007)(4326008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: MPW+HbBHxSgEXet92MB9ScoD3+eXImKgSHFh9AweDOVX6Wb8Wi1q7cGhb9kiIaN7jwcTcJBRw6B+xzBv0lQ27VJNUGdDZE95l1hW2inZ+paap5/1gI880kd30X15bWGQjRw4CMAPpOHtjVWssqowsDT17bzurmlZNiz8aajYT/nH+itV36lAUF3TACX1A9uhiHAFa8DSspjuFFMcsBw3YsbImxOTFK2efsCg4C7cmsLAl6NbtzG8R7z12C3bXxBzohkematHpmN+D4dMc85igZkvxZ7yDyhkzl4k/OYk/vIjkgo3suEeNpb2n1nDMxFeuvPikyM3mq2SoexuMWk4Sz1LQ6Qc0hZWjhP6wi8r3JY+btQtfPERmGLD/dCykEaG0G4da0wS6ybAMwvkKy6IYMDjPbYz6Agu4nXNXlQcaBLf3RNUL1UOxj2/SpIuaqwauxA1jDcepwVxGRNI/8YgUn1eIl2llJhK0Z72FhnL4bayjAzD92Pafh8tDCM8eHmy
+X-MS-Exchange-AntiSpam-MessageData: qjJDta5oHq8FlwFKlX0dLyQHJDBYa1QXf+Hv+W4YSzXsgGHJPjEc2+1gfNDHMjJ5yjcdmObfDK46DrZq/fd5JAI/EczbzO6mjVXC4h4RizQC5x0wa/VoOMbKuzF/Rr1wOzg2L/rzB9+GsPLAAw6gbesknvLOtxe/fV4Evlw+9amAaRCQZi7cIv4qt57sFaS5XrIWiBOGpFJHb8J9fN2i9gQyawq/FzVNsvMNhhrbaaD/f7D02psELWTk0dxjT6FCc6/cGWxr0aSkUfZpFBsu2K5Tx6VKEGTjvSU5NA7qgc4rowvN31RJY7Tb/ZyOQc3p68ZHtk/ln2tZrUYoU6fzGnH9jssRdDiIeUbFvQ8AUPjG42MKgOZNs+6Impf5cz5WgGNqZB50pNGDVkdURFElJwC5pkpH2Y1jeiO7SxF5LNs3Uiep73NyI0+OhcabdFB5jkyXUTk4KjLv2Gcw+HT/UzQqLS4fFw70qwh1R1XNaDSBjuKzDiP5Lpb16Tzy8xT7
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 927e9a5f-cc5d-4d12-fea1-08d7f8fbbbca
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:56.9323 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e32c9281-54db-482c-ed7b-08d7f8fbbcff
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:58.9480 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MD+P+1i28pYQ8MAQ1DNsZAuMOc06ahBeeUsrg4JZ2jipr8VWZcqIiKZQ/OTae1c1U4hD5VMvs++b+oNU8Z83Jw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3848
+X-MS-Exchange-CrossTenant-UserPrincipalName: vsH91k+11b2phDf0UHXHJZsrlLkWYWK/XkS8hpVI1ZUi4SrFu1JMjVure80gXsFdLGWytb1WSxceZwe8T6lmgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3974
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,106 +110,96 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
- Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>,
- Eric Bernstein <Eric.Bernstein@amd.com>, Aurabindo.Pillai@amd.com,
- Bhawanpreet.Lakha@amd.com
+ Aurabindo.Pillai@amd.com, Tony Cheng <Tony.Cheng@amd.com>,
+ Bhawanpreet.Lakha@amd.com, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-Save the correct num vmid during resource creation and fix RN gpuvm
-level from 1 to 16 vmid entries.
+[Why]
+In order to switch over the inbox from region4 to cw4 we need to know if
+the firmware is capable of properly invalidating the cache before
+reading the commands.
 
-Signed-off-by: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>
-Reviewed-by: Eric Bernstein <Eric.Bernstein@amd.com>
+Easiest way is to just check the firmware version, but we don't have the
+helper macros or a way for the dmub_srv to know what version it is.
+
+[How]
+Add a new fw_version field to the creation parameters that driver can
+optional pass in. Assumes a version of 0x00000000 is invalid.
+
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.h   | 1 +
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c   | 7 +------
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c | 3 ++-
- drivers/gpu/drm/amd/display/modules/vmid/vmid.c       | 7 +++++--
- 4 files changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h     | 11 +++++++++++
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c |  1 +
+ 2 files changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.h
-index 501532dd523a..c478213ba7ad 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.h
-@@ -80,6 +80,7 @@ struct dcn20_hubbub {
- 	const struct dcn_hubbub_mask *masks;
- 	unsigned int debug_test_index_pstate;
- 	struct dcn_watermark_set watermarks;
-+	int num_vmid;
- 	struct dcn20_vmid vmid[16];
- 	unsigned int detile_buf_size;
- };
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
-index 5e2d14b897af..129f0b62f751 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c
-@@ -49,11 +49,6 @@
- #define FN(reg_name, field_name) \
- 	hubbub1->shifts->field_name, hubbub1->masks->field_name
- 
--#ifdef NUM_VMID
--#undef NUM_VMID
--#endif
--#define NUM_VMID 16
--
- static uint32_t convert_and_clamp(
- 	uint32_t wm_ns,
- 	uint32_t refclk_mhz,
-@@ -138,7 +133,7 @@ int hubbub21_init_dchub(struct hubbub *hubbub,
- 
- 	dcn21_dchvm_init(hubbub);
- 
--	return NUM_VMID;
-+	return hubbub1->num_vmid;
- }
- 
- bool hubbub21_program_urgent_watermarks(
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-index 419cdde624f5..f00a56835084 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_resource.c
-@@ -805,7 +805,7 @@ static const struct resource_caps res_cap_rn = {
- 		.num_pll = 5,  // maybe 3 because the last two used for USB-c
- 		.num_dwb = 1,
- 		.num_ddc = 5,
--		.num_vmid = 1,
-+		.num_vmid = 16,
- 		.num_dsc = 3,
+diff --git a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+index 26d94eb5ab58..73b5d500ccf6 100644
+--- a/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
++++ b/drivers/gpu/drm/amd/display/dmub/dmub_srv.h
+@@ -280,6 +280,7 @@ struct dmub_srv_hw_funcs {
+  * @hw_funcs: optional overrides for hw funcs
+  * @user_ctx: context data for callback funcs
+  * @asic: driver supplied asic
++ * @fw_version: the current firmware version, if any
+  * @is_virtual: false for hw support only
+  */
+ struct dmub_srv_create_params {
+@@ -287,6 +288,7 @@ struct dmub_srv_create_params {
+ 	struct dmub_srv_hw_funcs *hw_funcs;
+ 	void *user_ctx;
+ 	enum dmub_asic asic;
++	uint32_t fw_version;
+ 	bool is_virtual;
  };
  
-@@ -1295,6 +1295,7 @@ static struct hubbub *dcn21_hubbub_create(struct dc_context *ctx)
- 		vmid->shifts = &vmid_shifts;
- 		vmid->masks = &vmid_masks;
- 	}
-+	hubbub->num_vmid = res_cap_rn.num_vmid;
+@@ -310,12 +312,14 @@ struct dmub_srv_hw_params {
+  * struct dmub_srv - software state for dmcub
+  * @asic: dmub asic identifier
+  * @user_ctx: user provided context for the dmub_srv
++ * @fw_version: the current firmware version, if any
+  * @is_virtual: false if hardware support only
+  * @fw_state: dmub firmware state pointer
+  */
+ struct dmub_srv {
+ 	enum dmub_asic asic;
+ 	void *user_ctx;
++	uint32_t fw_version;
+ 	bool is_virtual;
+ 	struct dmub_fb scratch_mem_fb;
+ 	volatile const struct dmub_fw_state *fw_state;
+@@ -335,6 +339,13 @@ struct dmub_srv {
+ 	uint32_t psp_version;
+ };
  
- 	return &hubbub->base;
- }
-diff --git a/drivers/gpu/drm/amd/display/modules/vmid/vmid.c b/drivers/gpu/drm/amd/display/modules/vmid/vmid.c
-index 00f132f8ad55..61ee4be35d27 100644
---- a/drivers/gpu/drm/amd/display/modules/vmid/vmid.c
-+++ b/drivers/gpu/drm/amd/display/modules/vmid/vmid.c
-@@ -112,9 +112,12 @@ uint8_t mod_vmid_get_for_ptb(struct mod_vmid *mod_vmid, uint64_t ptb)
- 			evict_vmids(core_vmid);
++/**
++ * DMUB firmware version helper macro - useful for checking if the version
++ * of a firmware to know if feature or functionality is supported or present.
++ */
++#define DMUB_FW_VERSION(major, minor, revision) \
++	((((major) & 0xFF) << 24) | (((minor) & 0xFF) << 16) | ((revision) & 0xFFFF))
++
+ /**
+  * dmub_srv_create() - creates the DMUB service.
+  * @dmub: the dmub service
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+index 3cfbc27f3eab..3559093027ee 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+@@ -172,6 +172,7 @@ enum dmub_status dmub_srv_create(struct dmub_srv *dmub,
+ 	dmub->funcs = params->funcs;
+ 	dmub->user_ctx = params->user_ctx;
+ 	dmub->asic = params->asic;
++	dmub->fw_version = params->fw_version;
+ 	dmub->is_virtual = params->is_virtual;
  
- 		vmid = get_next_available_vmid(core_vmid);
--		add_ptb_to_table(core_vmid, vmid, ptb);
-+		if (vmid != -1) {
-+			add_ptb_to_table(core_vmid, vmid, ptb);
- 
--		dc_setup_vm_context(core_vmid->dc, &va_config, vmid);
-+			dc_setup_vm_context(core_vmid->dc, &va_config, vmid);
-+		} else
-+			ASSERT(0);
- 	}
- 
- 	return vmid;
+ 	/* Setup asic dependent hardware funcs. */
 -- 
 2.26.2
 
