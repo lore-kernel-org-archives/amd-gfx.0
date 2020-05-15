@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC04FC433DF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6C17C433E2
 	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 928E420657
+	by mail.kernel.org (Postfix) with ESMTPS id BD893206D8
 	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="JnqmpAL7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 928E420657
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Lokp5CjS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD893206D8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D4D26ED23;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07F366ED21;
 	Fri, 15 May 2020 18:13:55 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2052.outbound.protection.outlook.com [40.107.92.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F0FD6ED14
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:13:52 +0000 (UTC)
+ (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F7396ED1E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:13:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=mg0k10KHs/vb0EmHBhI8x6clhTzNQxy17JvFgx2Cu1wzwXw3AERl+gt3BrspDvpEFqviLUFTu/yySQr/vyIeqzGZf3sm2owROwAZ/P91yG2RQqMzaUX38K0uvtbBrQhTnExV7k5eDUjoYvB7mh9apiMsF3NrvruOMqzIHo3gieN9Mg0BNqy4GxaeU3AbBPKg1EMlhilVn/baP5ULjkFH7d28X8vOxwR/Y+opJK4tmXNjJmSTKAjaXXZjpCtN7Od4lRYQVcq6fNsPo5+hqYLG0tnUE9XuX49ESjVm+EHE3AfFZhxza0cLMACgyrKZOtfiZB1KRQN7NbCXp93V1aPJrw==
+ b=O6ZUM4DFLWMRPZGcuO+zOWLwJqbGQGNBeRZfQi0DMLrFf69p/bWF9c0cfMKFr8xzAMYejoxlsmraEOqPZB4GzcBLnuWog0HF7QX15SFIf/PMW8jyT6dZm+Pci0WxfqmTzcwGieo/qlNQJ0Lm5nZKR8Wiy8MXHfUOhk25kITZY/BK0qVDy8c6Znmk6yPuyM8aO5Nkt5B4yW/Xqa6YaXPXIRBjxJUWTE26QMpDjCEUCFeR9awVfMfI96FhSuLvSFeHFoV+pttl7ZjZTHbrTN62flmyX8eeNKpesvym3GxXlyEMbfbFD5/uWuwrOjdWVkysGKeUJbvxhfM/NF4VZn6LPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0AbNEQnt/lhY9+SSNWBLih1F5N4G+NFKyUKHzozh3y8=;
- b=EmD5DYhi3Td2QytqqiD+9XPFUGJm030lHxZ6RhN70LDAlT5LZ7ETrwzByIlbv/nF5SD3eB4RJT5DXcPONF5/hUT7OHIXsOt68M42k/5ra76xwOsSGEsaVw1TaNjmnvxNkZ5oDLNA+zfbOX2UDT1fxa2G9x5drOV1nxt6Pk+hmXPYH9XVofJa3ixD8g6Nzmhley+FMcNAjrA6aEIqQIicSWyTzS9dlVaNLKt95XwCFLtCediCKfS3IQIi/sSNvbERNngMcxhAuqCK8QQYQLU4Hxi8yhvmjjaE+m1NmmdWDZUESOxcL2ms2CD4YCc3xYjEiIS9/XFm6EI4B2oFoFtN7Q==
+ bh=JY6coKBSjiEu/L4fGQ8odg7J1+u4OgiIdNnezi4r5Rs=;
+ b=cLb4CXD475D8bJl2O3Fmtemg+Wkx+fbWFSfrClxotSP6h9VA7rpOVMxIc/94GyegOROuG3Erxd9O8JG7I6vo/UGBrMTrINSwF29/aM2ZymY49wfLyfkYY1TwHMkaizux7IclkJqiywj1nNSHHPPO1W11wVxRIY0ymAyAT0bRmAtF5u+sNpXNmApBOTFD/HUf4BlPHNBUdbWJFwDDTdz6SXmisuRcfYwDNBKJjkBVc/MkhKkYYWwB1ZvxK8x0FqXQWSDREaTo1bIEvFlxRqntZmfEtooWjvSntuK0rEXAldWOjitxrjUGxDElqCiqdbwV8GxbuvrF+8TQi97c81uNRQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0AbNEQnt/lhY9+SSNWBLih1F5N4G+NFKyUKHzozh3y8=;
- b=JnqmpAL7l9DZpUxXCz3Q3aq2Uy31zwp9YHz0fb6jxhLHaXFL92mmzaZ1w02DioXyl07eOFtdQ48PKFDWY91YtbrtQofm2vDVoDf7zsxJ6Rpnb6X06/SjrZ1NVnCXauelgJz25kVDeEod4S2BuRpJIKe8HZUZBafykIlwMlN26ts=
+ bh=JY6coKBSjiEu/L4fGQ8odg7J1+u4OgiIdNnezi4r5Rs=;
+ b=Lokp5CjS0d0LrJcYOE2KXgWp8auMNKcURydQIBlsTeafSDaKfsnspa5cHi6FzVQVpAfXgYDu0hlN8KN5ygC3DdTVfYWyu7ak5SRzKu0XFirzmPbB43nyZQ6pxOiBJc2n0yStxHPhW4Fos/CS3ZZSlBuHBfPTnLrslCxnRjo4S+4=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,17 @@ Received: from CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23)
  by CH2PR12MB3848.namprd12.prod.outlook.com (2603:10b6:610:16::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.20; Fri, 15 May
- 2020 18:13:50 +0000
+ 2020 18:13:53 +0000
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580]) by CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580%9]) with mapi id 15.20.3000.022; Fri, 15 May 2020
- 18:13:50 +0000
+ 18:13:53 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 13/27] drm/amd/display: Remove dml_common_def file
-Date: Fri, 15 May 2020 14:13:00 -0400
-Message-Id: <20200515181315.1237251-14-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 15/27] drm/amd/display: DP link layer test 4.2.1.1 fix due to
+ specs update
+Date: Fri, 15 May 2020 14:13:02 -0400
+Message-Id: <20200515181315.1237251-16-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
 References: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
@@ -69,33 +70,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::2) by
  BN7PR02CA0034.namprd02.prod.outlook.com (2603:10b6:408:20::47) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:49 +0000
+ 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:51 +0000
 X-Mailer: git-send-email 2.26.2
 X-Originating-IP: [2607:fea8:56a0:11a1::2]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f446e398-ef1b-45ff-243a-08d7f8fbb812
+X-MS-Office365-Filtering-Correlation-Id: 4bd0fe08-3722-4b5a-19e7-08d7f8fbb951
 X-MS-TrafficTypeDiagnostic: CH2PR12MB3848:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB38486489EEC604E28A750FDB98BD0@CH2PR12MB3848.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1850;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB384890616D54D723A1DFC8C598BD0@CH2PR12MB3848.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
 X-Forefront-PRVS: 04041A2886
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: d7sgPckb8giX76z3Wl3MkIVO4M/zVo5bgmC11E6V3TH29ikHsGmpIAMKTTuGgJEqrtg3FXjvEE1l8KLeTgIt2Zlr3mWhTkpmhQNWL6kw57yiW+mUYoBqQUPClX++8yNw+GLvXaHfV73cjGs5voWq86rZJ7GasXdUr67N4Tk/IZU4EuHATa1fr0Zg1t7PYMwt3TOcLtr57HuZWWzrsLsUmMuIqnJDCaNWPj4d/pVOCP/23NkgBSsuEBR6mQa1g5tgYpXAGNrcgNYVtoP6RjZSmsBuSkqVHFkikDH4mBV9o5/+37WHyVv4MYiKcqm8IgxjpuHAMdb4yYQY3dElOxsc8hN/7D1Of+oH6ni6vUAU4hHTpYHajBvWAIvYqjjOlB/4bqJB1KiNVaXgNPJACVOa3tWYEA/ZhZK/ED9FzGQP2SUlgN23Meco40yV1JAD4qfo
+X-Microsoft-Antispam-Message-Info: vXMXgYCnShmRhj8WJcZrBQ1CPFH2u0D6yBdGI67fFaE++J7cLlG+9Q9XrMyEczWmIgHRDL/s7YBuKIHj4NTaesNerzJveFkWy9D6TyyI4AgAGtiN+NrG2bJZuCgC/F0eVjEE9edMsDOSuuOOVQgPWHyru7FBXRE8cpWg78ls9Lt81rfRzG3cwEDUuzV2qr3x72RpfZNFucog9mjpuIqAG/HuvSPZKa5tIy4XjMUjOgfu3fz/d83T05GA5i9XUXbaLSo0g6Sonws+sBypQjN1arulbmWcBnjZBlR19Wq61XZXQVa1fks4OEki23AkkHBZe+4XEm1TawSC89WrHg4wtCxaKYsg/D7nLCpD/pc5+PV9gZOO0zS8pioB3WSRLJMYAwptHxt2lym3hbYzxipZPmNPqd5oF/JQowp++jurZg0X/PGQprFu+MpJHeOiF7RE
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB4198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(376002)(346002)(366004)(39860400002)(136003)(396003)(54906003)(86362001)(2906002)(186003)(66574014)(8936002)(52116002)(6506007)(6512007)(8676002)(36756003)(316002)(5660300002)(16526019)(4326008)(6916009)(66556008)(478600001)(1076003)(66946007)(6486002)(66476007)(6666004)(30864003)(2616005)(45954011);
+ SFS:(4636009)(376002)(346002)(366004)(39860400002)(136003)(396003)(54906003)(86362001)(2906002)(186003)(8936002)(52116002)(6506007)(6512007)(8676002)(36756003)(316002)(5660300002)(15650500001)(16526019)(4326008)(6916009)(66556008)(478600001)(1076003)(66946007)(6486002)(66476007)(6666004)(30864003)(2616005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: m+uUY/9WqApibTXIvjDJRWv2wY1dsJy9wyx+4Oes7KtMrDsTxj6DrB87jgt4S1qZEQHf3buozK0HqiOhh+srvUDQR6CIQB+j5b2vB091NI6V8QuFTSSePvp0INFnyQYa+dC2H8BQc6CMRrgopcRwBK1jUwYhzMUXQxAEshQZ0VPUlC06HEw35uA6s2WazQJRv2Ate0OHdr9ZORUBTkDbF0S9/Wt0JsoXDAVjZr4qLyCzenvuoxZcurcxv89uTvX8U0zRELRx1s823IaNkDeS7LLf3pYsyI3Ww947aBvlKk80jCLeHLe/FvurOpJxCOZBRYtFc8GkDhq1ch+YRBIRwxTPjZFQzxsAuHaBMQDUQ1Wlzx5vvb8eDoHyEqhQ1vZFHL2sQ79uPCtprhOgz7YsuW6DnevwSUwtsV2tdMiyAAZuE1CIgjaAxDdXaS2YgW4hzo/60Fh4EBAKuSPo+rusZtx9NxsZGSpWIdFWqDNslexH0k5U8eMgbCQre/dSIUyi
+X-MS-Exchange-AntiSpam-MessageData: pceKfv07VwLPLe5RjGiMjwPrsh21FloQ6ZCma8fNweCeYeCCsWGpgYQo0Ona7crNzRBbpBXQrKcFhEwQ5j1UXLyscoEkkT4Jk7tLL8FYnqpUZnwyiB8cAlY6OWG9uXhr4zX0UjWyDojNKPQUhU71XsA8fEhZgXXAO0r8JDDCB/Ni9ilSh4c6N/gTRA85zKjsiOiRVEaggjsIJnXCtg94R0d3cz5iaW2Ecq0Hyh+pnn/nPqmLloKUKwFVN41dEYvFL506XHg0EATUoSF6M4UyeLzsU2mEK7xTXlcmrkfZ1swJXDRL7uqCrAZgZJX3YBvCBBJcXGjl96jQYKzacRUq87mqgWA3ID/bENgUqM3W4ZwM/xvegAKWsGWQS1KYCfT/EOMraxXMwsSok9eRip88+9xg252ep8/Jklkp5WKlRQvA5uwThmGIMnwazPV5zieYt2NtIfLMgWtIgo0E485a2lvTM9a/Kvd10QmYGIcDdRROuCmbrbI5GI0DiG3ivi0U
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f446e398-ef1b-45ff-243a-08d7f8fbb812
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:50.7141 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4bd0fe08-3722-4b5a-19e7-08d7f8fbb951
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:52.8054 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UBUkEFmNUFtOcLy2w0NbN3jBDEckITc23AN414ZHKjhY8h6HIJ4hIt9bhR6fKjHal+N2Da8DCdGxE+MCvsZKLw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8RAsLDSEtsIq2kIRaHa7DQssrP+uI15dL+YvKSnHnumOURtSnqNldQ5acesRG61ZuTqIT+aqyWWNDprqGk5zzg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3848
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -108,205 +109,302 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dmytro Laktyushkin <Dmytro.Laktyushkin@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
- Harry Wentland <hwentlan@amd.com>, Peter Zijlstra <peterz@infradead.org>,
- Aurabindo.Pillai@amd.com, Tony Cheng <tony.cheng@amd.com>,
- Alexander Deucher <Alexander.Deucher@amd.com>, Bhawanpreet.Lakha@amd.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
+ Wenjing Liu <wenjing.liu@amd.com>, Aurabindo.Pillai@amd.com,
+ Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RHVyaW5nIHRoZSByZXdvcmsgZm9yIHJlbW92aW5nIHRoZSBGUFUgaXNzdWVzLCBJIGZvdW5kIHRo
-ZSBmb2xsb3dpbmcKd2FybmluZzoKCiBbLi5dIGRtbF9jb21tb25fZGVmcy5vOiB3YXJuaW5nOiBv
-Ymp0b29sOiBkbWxfcm91bmQoKSsweDk6IEZQVQogICAgICBpbnN0cnVjdGlvbiBvdXRzaWRlIG9m
-IGtlcm5lbF9mcHVfe2JlZ2luLGVuZH0oKQoKVGhpcyBmaWxlIGhhcyBhIHNpbmdsZSBmdW5jdGlv
-biB0aGF0IGRvZXMgbm90IG5lZWQgdG8gYmUgaW4gYSBzcGVjaWZpYwpmaWxlLiBUaGlzIGNvbW1p
-dCBkcm9wIGRtbF9jb21tb25fZGVmcyBmaWxlLCBhbmQgbW92ZSBkbWxfcm91bmQgZnVuY3Rpb24K
-dG8gZG1sX2lubGluZV9kZWZzLgoKQ0M6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2Vu
-aWdAYW1kLmNvbT4KQ0M6IEFsZXhhbmRlciBEZXVjaGVyIDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQu
-Y29tPgpDQzogUGV0ZXIgWmlqbHN0cmEgPHBldGVyekBpbmZyYWRlYWQub3JnPgpDQzogVG9ueSBD
-aGVuZyA8dG9ueS5jaGVuZ0BhbWQuY29tPgpDQzogSGFycnkgV2VudGxhbmQgPGh3ZW50bGFuQGFt
-ZC5jb20+ClNpZ25lZC1vZmYtYnk6IFJvZHJpZ28gU2lxdWVpcmEgPFJvZHJpZ28uU2lxdWVpcmFA
-YW1kLmNvbT4KUmV2aWV3ZWQtYnk6IERteXRybyBMYWt0eXVzaGtpbiA8RG15dHJvLkxha3R5dXNo
-a2luQGFtZC5jb20+CkFja2VkLWJ5OiBSb2RyaWdvIFNpcXVlaXJhIDxSb2RyaWdvLlNpcXVlaXJh
-QGFtZC5jb20+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmls
-ZSAgIHwgIDIgLQogLi4uL2RjL2RtbC9kY24yMC9kaXNwbGF5X3JxX2RsZ19jYWxjXzIwLmggICAg
-IHwgIDEgLQogLi4uL2RjL2RtbC9kY24yMC9kaXNwbGF5X3JxX2RsZ19jYWxjXzIwdjIuaCAgIHwg
-IDEgLQogLi4uL2RjL2RtbC9kY24yMS9kaXNwbGF5X3JxX2RsZ19jYWxjXzIxLmggICAgIHwgIDIg
-Ky0KIC4uLi9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL2Rpc3BsYXlfbW9kZV9saWIuaCB8ICA2ICsr
-LQogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGlzcGxheV9tb2RlX3ZiYS5oIHwgIDIgLQog
-Li4uL2Rpc3BsYXkvZGMvZG1sL2Rpc3BsYXlfcnFfZGxnX2hlbHBlcnMuaCAgIHwgIDEgLQogLi4u
-L2Rpc3BsYXkvZGMvZG1sL2RtbDFfZGlzcGxheV9ycV9kbGdfY2FsYy5oIHwgIDIgLQogLi4uL2Ry
-bS9hbWQvZGlzcGxheS9kYy9kbWwvZG1sX2NvbW1vbl9kZWZzLmMgIHwgNDMgLS0tLS0tLS0tLS0t
-LS0tLS0tLQogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZG1sX2NvbW1vbl9kZWZzLmggIHwg
-MzcgLS0tLS0tLS0tLS0tLS0tLQogLi4uL2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZG1sX2lubGlu
-ZV9kZWZzLmggIHwgMTUgKysrKysrLQogMTEgZmlsZXMgY2hhbmdlZCwgMTggaW5zZXJ0aW9ucygr
-KSwgOTQgZGVsZXRpb25zKC0pCiBkZWxldGUgbW9kZSAxMDA2NDQgZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2RjL2RtbC9kbWxfY29tbW9uX2RlZnMuYwogZGVsZXRlIG1vZGUgMTAwNjQ0IGRy
-aXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZG1sX2NvbW1vbl9kZWZzLmgKCmRpZmYg
-LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL01ha2VmaWxlIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9NYWtlZmlsZQppbmRleCA3ZWU4Yjg0NjBh
-OWIuLmUzNGMzMzc2ZWZjMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2RtbC9NYWtlZmlsZQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1s
-L01ha2VmaWxlCkBAIC02MywxMCArNjMsOCBAQCBDRkxBR1NfJChBTUREQUxQQVRIKS9kYy9kbWwv
-ZGNuMjEvZGlzcGxheV9ycV9kbGdfY2FsY18yMS5vIDo9ICQoZG1sX2NjZmxhZ3MpCiBlbmRpZgog
-Q0ZMQUdTXyQoQU1EREFMUEFUSCkvZGMvZG1sL2RtbDFfZGlzcGxheV9ycV9kbGdfY2FsYy5vIDo9
-ICQoZG1sX2NjZmxhZ3MpCiBDRkxBR1NfJChBTUREQUxQQVRIKS9kYy9kbWwvZGlzcGxheV9ycV9k
-bGdfaGVscGVycy5vIDo9ICQoZG1sX2NjZmxhZ3MpCi1DRkxBR1NfJChBTUREQUxQQVRIKS9kYy9k
-bWwvZG1sX2NvbW1vbl9kZWZzLm8gOj0gJChkbWxfY2NmbGFncykKIAogRE1MID0gZGlzcGxheV9t
-b2RlX2xpYi5vIGRpc3BsYXlfcnFfZGxnX2hlbHBlcnMubyBkbWwxX2Rpc3BsYXlfcnFfZGxnX2Nh
-bGMubyBcCi0JZG1sX2NvbW1vbl9kZWZzLm8KIAogaWZkZWYgQ09ORklHX0RSTV9BTURfRENfRENO
-CiBETUwgKz0gZGlzcGxheV9tb2RlX3ZiYS5vIGRjbjIwL2Rpc3BsYXlfcnFfZGxnX2NhbGNfMjAu
-byBkY24yMC9kaXNwbGF5X21vZGVfdmJhXzIwLm8KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjAvZGlzcGxheV9ycV9kbGdfY2FsY18yMC5oIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kY24yMC9kaXNwbGF5X3JxX2RsZ19jYWxj
-XzIwLmgKaW5kZXggOGM4NmI2M2RkZjA3Li4xZTU1N2RkY2I2MzggMTAwNjQ0Ci0tLSBhL2RyaXZl
-cnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjAvZGlzcGxheV9ycV9kbGdfY2FsY18y
-MC5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjAvZGlzcGxh
-eV9ycV9kbGdfY2FsY18yMC5oCkBAIC0yNiw3ICsyNiw2IEBACiAjaWZuZGVmIF9fRE1MMjBfRElT
-UExBWV9SUV9ETEdfQ0FMQ19IX18KICNkZWZpbmUgX19ETUwyMF9ESVNQTEFZX1JRX0RMR19DQUxD
-X0hfXwogCi0jaW5jbHVkZSAiLi4vZG1sX2NvbW1vbl9kZWZzLmgiCiAjaW5jbHVkZSAiLi4vZGlz
-cGxheV9ycV9kbGdfaGVscGVycy5oIgogCiBzdHJ1Y3QgZGlzcGxheV9tb2RlX2xpYjsKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjAvZGlzcGxheV9y
-cV9kbGdfY2FsY18yMHYyLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL2Rj
-bjIwL2Rpc3BsYXlfcnFfZGxnX2NhbGNfMjB2Mi5oCmluZGV4IDAzNzg0MDZiZjdlNy4uMGQ1M2U4
-NzFhOWQxIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL2Rj
-bjIwL2Rpc3BsYXlfcnFfZGxnX2NhbGNfMjB2Mi5oCisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
-ZGlzcGxheS9kYy9kbWwvZGNuMjAvZGlzcGxheV9ycV9kbGdfY2FsY18yMHYyLmgKQEAgLTI2LDcg
-KzI2LDYgQEAKICNpZm5kZWYgX19ETUwyMFYyX0RJU1BMQVlfUlFfRExHX0NBTENfSF9fCiAjZGVm
-aW5lIF9fRE1MMjBWMl9ESVNQTEFZX1JRX0RMR19DQUxDX0hfXwogCi0jaW5jbHVkZSAiLi4vZG1s
-X2NvbW1vbl9kZWZzLmgiCiAjaW5jbHVkZSAiLi4vZGlzcGxheV9ycV9kbGdfaGVscGVycy5oIgog
-CiBzdHJ1Y3QgZGlzcGxheV9tb2RlX2xpYjsKZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9kYy9kbWwvZGNuMjEvZGlzcGxheV9ycV9kbGdfY2FsY18yMS5oIGIvZHJpdmVy
-cy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kY24yMS9kaXNwbGF5X3JxX2RsZ19jYWxjXzIx
-LmgKaW5kZXggODNlOTVmOGNiZmYyLi5lOGY3Nzg1ZTNmYzYgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMv
-Z3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjEvZGlzcGxheV9ycV9kbGdfY2FsY18yMS5o
-CisrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZGNuMjEvZGlzcGxheV9y
-cV9kbGdfY2FsY18yMS5oCkBAIC0yNiw3ICsyNiw3IEBACiAjaWZuZGVmIF9fRE1MMjFfRElTUExB
-WV9SUV9ETEdfQ0FMQ19IX18KICNkZWZpbmUgX19ETUwyMV9ESVNQTEFZX1JRX0RMR19DQUxDX0hf
-XwogCi0jaW5jbHVkZSAiLi4vZG1sX2NvbW1vbl9kZWZzLmgiCisjaW5jbHVkZSAiZG1fc2Vydmlj
-ZXMuaCIKICNpbmNsdWRlICIuLi9kaXNwbGF5X3JxX2RsZ19oZWxwZXJzLmgiCiAKIHN0cnVjdCBk
-aXNwbGF5X21vZGVfbGliOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2RtbC9kaXNwbGF5X21vZGVfbGliLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-ZGMvZG1sL2Rpc3BsYXlfbW9kZV9saWIuaAppbmRleCBjZjI3NThjYTViMDIuLmM3N2MzZDgyN2U0
-YSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kaXNwbGF5
-X21vZGVfbGliLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kaXNw
-bGF5X21vZGVfbGliLmgKQEAgLTI1LDggKzI1LDEwIEBACiAjaWZuZGVmIF9fRElTUExBWV9NT0RF
-X0xJQl9IX18KICNkZWZpbmUgX19ESVNQTEFZX01PREVfTElCX0hfXwogCi0KLSNpbmNsdWRlICJk
-bWxfY29tbW9uX2RlZnMuaCIKKyNpbmNsdWRlICJkbV9zZXJ2aWNlcy5oIgorI2luY2x1ZGUgImRj
-X2ZlYXR1cmVzLmgiCisjaW5jbHVkZSAiZGlzcGxheV9tb2RlX3N0cnVjdHMuaCIKKyNpbmNsdWRl
-ICJkaXNwbGF5X21vZGVfZW51bXMuaCIKICNpbmNsdWRlICJkaXNwbGF5X21vZGVfdmJhLmgiCiAK
-IGVudW0gZG1sX3Byb2plY3QgewpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RjL2RtbC9kaXNwbGF5X21vZGVfdmJhLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3Bs
-YXkvZGMvZG1sL2Rpc3BsYXlfbW9kZV92YmEuaAppbmRleCA2YTdiMjA5MjdhNmIuLjNmNTU5ZTcy
-NWFiMSAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kaXNw
-bGF5X21vZGVfdmJhLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9k
-aXNwbGF5X21vZGVfdmJhLmgKQEAgLTI3LDggKzI3LDYgQEAKICNpZm5kZWYgX19ETUwyX0RJU1BM
-QVlfTU9ERV9WQkFfSF9fCiAjZGVmaW5lIF9fRE1MMl9ESVNQTEFZX01PREVfVkJBX0hfXwogCi0j
-aW5jbHVkZSAiZG1sX2NvbW1vbl9kZWZzLmgiCi0KIHN0cnVjdCBkaXNwbGF5X21vZGVfbGliOwog
-CiB2b2lkIE1vZGVTdXBwb3J0QW5kU3lzdGVtQ29uZmlndXJhdGlvbihzdHJ1Y3QgZGlzcGxheV9t
-b2RlX2xpYiAqbW9kZV9saWIpOwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RjL2RtbC9kaXNwbGF5X3JxX2RsZ19oZWxwZXJzLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvZG1sL2Rpc3BsYXlfcnFfZGxnX2hlbHBlcnMuaAppbmRleCAxZjI0ZGI4MzA3
-MzcuLjI1NTVlZjAzNThjMiAxMDA2NDQKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2RtbC9kaXNwbGF5X3JxX2RsZ19oZWxwZXJzLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2Ft
-ZC9kaXNwbGF5L2RjL2RtbC9kaXNwbGF5X3JxX2RsZ19oZWxwZXJzLmgKQEAgLTI2LDcgKzI2LDYg
-QEAKICNpZm5kZWYgX19ESVNQTEFZX1JRX0RMR19IRUxQRVJTX0hfXwogI2RlZmluZSBfX0RJU1BM
-QVlfUlFfRExHX0hFTFBFUlNfSF9fCiAKLSNpbmNsdWRlICJkbWxfY29tbW9uX2RlZnMuaCIKICNp
-bmNsdWRlICJkaXNwbGF5X21vZGVfbGliLmgiCiAKIC8qIEZ1bmN0aW9uOiBQcmludGVyIGZ1bmN0
-aW9ucwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kbWwx
-X2Rpc3BsYXlfcnFfZGxnX2NhbGMuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9k
-bWwvZG1sMV9kaXNwbGF5X3JxX2RsZ19jYWxjLmgKaW5kZXggMzA0MTY0OTg2YmQ4Li45YzA2OTEz
-YWQ3NjcgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZG1s
-MV9kaXNwbGF5X3JxX2RsZ19jYWxjLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5
-L2RjL2RtbC9kbWwxX2Rpc3BsYXlfcnFfZGxnX2NhbGMuaApAQCAtMjYsOCArMjYsNiBAQAogI2lm
-bmRlZiBfX0RJU1BMQVlfUlFfRExHX0NBTENfSF9fCiAjZGVmaW5lIF9fRElTUExBWV9SUV9ETEdf
-Q0FMQ19IX18KIAotI2luY2x1ZGUgImRtbF9jb21tb25fZGVmcy5oIgotCiBzdHJ1Y3QgZGlzcGxh
-eV9tb2RlX2xpYjsKIAogI2luY2x1ZGUgImRpc3BsYXlfcnFfZGxnX2hlbHBlcnMuaCIKZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZG1sX2NvbW1vbl9kZWZz
-LmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL2RtbF9jb21tb25fZGVmcy5j
-CmRlbGV0ZWQgZmlsZSBtb2RlIDEwMDY0NAppbmRleCA3MjNhZjBiMmRkYTAuLjAwMDAwMDAwMDAw
-MAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZG1sL2RtbF9jb21tb25fZGVm
-cy5jCisrKyAvZGV2L251bGwKQEAgLTEsNDMgKzAsMCBAQAotLyoKLSAqIENvcHlyaWdodCAyMDE3
-IEFkdmFuY2VkIE1pY3JvIERldmljZXMsIEluYy4KLSAqCi0gKiBQZXJtaXNzaW9uIGlzIGhlcmVi
-eSBncmFudGVkLCBmcmVlIG9mIGNoYXJnZSwgdG8gYW55IHBlcnNvbiBvYnRhaW5pbmcgYQotICog
-Y29weSBvZiB0aGlzIHNvZnR3YXJlIGFuZCBhc3NvY2lhdGVkIGRvY3VtZW50YXRpb24gZmlsZXMg
-KHRoZSAiU29mdHdhcmUiKSwKLSAqIHRvIGRlYWwgaW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQgcmVz
-dHJpY3Rpb24sIGluY2x1ZGluZyB3aXRob3V0IGxpbWl0YXRpb24KLSAqIHRoZSByaWdodHMgdG8g
-dXNlLCBjb3B5LCBtb2RpZnksIG1lcmdlLCBwdWJsaXNoLCBkaXN0cmlidXRlLCBzdWJsaWNlbnNl
-LAotICogYW5kL29yIHNlbGwgY29waWVzIG9mIHRoZSBTb2Z0d2FyZSwgYW5kIHRvIHBlcm1pdCBw
-ZXJzb25zIHRvIHdob20gdGhlCi0gKiBTb2Z0d2FyZSBpcyBmdXJuaXNoZWQgdG8gZG8gc28sIHN1
-YmplY3QgdG8gdGhlIGZvbGxvd2luZyBjb25kaXRpb25zOgotICoKLSAqIFRoZSBhYm92ZSBjb3B5
-cmlnaHQgbm90aWNlIGFuZCB0aGlzIHBlcm1pc3Npb24gbm90aWNlIHNoYWxsIGJlIGluY2x1ZGVk
-IGluCi0gKiBhbGwgY29waWVzIG9yIHN1YnN0YW50aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0d2Fy
-ZS4KLSAqCi0gKiBUSEUgU09GVFdBUkUgSVMgUFJPVklERUQgIkFTIElTIiwgV0lUSE9VVCBXQVJS
-QU5UWSBPRiBBTlkgS0lORCwgRVhQUkVTUyBPUgotICogSU1QTElFRCwgSU5DTFVESU5HIEJVVCBO
-T1QgTElNSVRFRCBUTyBUSEUgV0FSUkFOVElFUyBPRiBNRVJDSEFOVEFCSUxJVFksCi0gKiBGSVRO
-RVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVSUE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiAgSU4gTk8g
-RVZFTlQgU0hBTEwKLSAqIFRIRSBDT1BZUklHSFQgSE9MREVSKFMpIE9SIEFVVEhPUihTKSBCRSBM
-SUFCTEUgRk9SIEFOWSBDTEFJTSwgREFNQUdFUyBPUgotICogT1RIRVIgTElBQklMSVRZLCBXSEVU
-SEVSIElOIEFOIEFDVElPTiBPRiBDT05UUkFDVCwgVE9SVCBPUiBPVEhFUldJU0UsCi0gKiBBUklT
-SU5HIEZST00sIE9VVCBPRiBPUiBJTiBDT05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9SIFRI
-RSBVU0UgT1IKLSAqIE9USEVSIERFQUxJTkdTIElOIFRIRSBTT0ZUV0FSRS4KLSAqCi0gKiBBdXRo
-b3JzOiBBTUQKLSAqCi0gKi8KLQotI2luY2x1ZGUgImRtbF9jb21tb25fZGVmcy5oIgotI2luY2x1
-ZGUgImRjbl9jYWxjX21hdGguaCIKLQotI2luY2x1ZGUgImRtbF9pbmxpbmVfZGVmcy5oIgotCi1k
-b3VibGUgZG1sX3JvdW5kKGRvdWJsZSBhKQotewotCWRvdWJsZSByb3VuZF9wdCA9IDAuNTsKLQlk
-b3VibGUgY2VpbCA9IGRtbF9jZWlsKGEsIDEpOwotCWRvdWJsZSBmbG9vciA9IGRtbF9mbG9vcihh
-LCAxKTsKLQotCWlmIChhIC0gZmxvb3IgPj0gcm91bmRfcHQpCi0JCXJldHVybiBjZWlsOwotCWVs
-c2UKLQkJcmV0dXJuIGZsb29yOwotfQotCi0KZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9kYy9kbWwvZG1sX2NvbW1vbl9kZWZzLmggYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2Rpc3BsYXkvZGMvZG1sL2RtbF9jb21tb25fZGVmcy5oCmRlbGV0ZWQgZmlsZSBtb2RlIDEwMDY0
-NAppbmRleCBmNzhjYmFlOWRiODguLjAwMDAwMDAwMDAwMAotLS0gYS9kcml2ZXJzL2dwdS9kcm0v
-YW1kL2Rpc3BsYXkvZGMvZG1sL2RtbF9jb21tb25fZGVmcy5oCisrKyAvZGV2L251bGwKQEAgLTEs
-MzcgKzAsMCBAQAotLyoKLSAqIENvcHlyaWdodCAyMDE3IEFkdmFuY2VkIE1pY3JvIERldmljZXMs
-IEluYy4KLSAqCi0gKiBQZXJtaXNzaW9uIGlzIGhlcmVieSBncmFudGVkLCBmcmVlIG9mIGNoYXJn
-ZSwgdG8gYW55IHBlcnNvbiBvYnRhaW5pbmcgYQotICogY29weSBvZiB0aGlzIHNvZnR3YXJlIGFu
-ZCBhc3NvY2lhdGVkIGRvY3VtZW50YXRpb24gZmlsZXMgKHRoZSAiU29mdHdhcmUiKSwKLSAqIHRv
-IGRlYWwgaW4gdGhlIFNvZnR3YXJlIHdpdGhvdXQgcmVzdHJpY3Rpb24sIGluY2x1ZGluZyB3aXRo
-b3V0IGxpbWl0YXRpb24KLSAqIHRoZSByaWdodHMgdG8gdXNlLCBjb3B5LCBtb2RpZnksIG1lcmdl
-LCBwdWJsaXNoLCBkaXN0cmlidXRlLCBzdWJsaWNlbnNlLAotICogYW5kL29yIHNlbGwgY29waWVz
-IG9mIHRoZSBTb2Z0d2FyZSwgYW5kIHRvIHBlcm1pdCBwZXJzb25zIHRvIHdob20gdGhlCi0gKiBT
-b2Z0d2FyZSBpcyBmdXJuaXNoZWQgdG8gZG8gc28sIHN1YmplY3QgdG8gdGhlIGZvbGxvd2luZyBj
-b25kaXRpb25zOgotICoKLSAqIFRoZSBhYm92ZSBjb3B5cmlnaHQgbm90aWNlIGFuZCB0aGlzIHBl
-cm1pc3Npb24gbm90aWNlIHNoYWxsIGJlIGluY2x1ZGVkIGluCi0gKiBhbGwgY29waWVzIG9yIHN1
-YnN0YW50aWFsIHBvcnRpb25zIG9mIHRoZSBTb2Z0d2FyZS4KLSAqCi0gKiBUSEUgU09GVFdBUkUg
-SVMgUFJPVklERUQgIkFTIElTIiwgV0lUSE9VVCBXQVJSQU5UWSBPRiBBTlkgS0lORCwgRVhQUkVT
-UyBPUgotICogSU1QTElFRCwgSU5DTFVESU5HIEJVVCBOT1QgTElNSVRFRCBUTyBUSEUgV0FSUkFO
-VElFUyBPRiBNRVJDSEFOVEFCSUxJVFksCi0gKiBGSVRORVNTIEZPUiBBIFBBUlRJQ1VMQVIgUFVS
-UE9TRSBBTkQgTk9OSU5GUklOR0VNRU5ULiAgSU4gTk8gRVZFTlQgU0hBTEwKLSAqIFRIRSBDT1BZ
-UklHSFQgSE9MREVSKFMpIE9SIEFVVEhPUihTKSBCRSBMSUFCTEUgRk9SIEFOWSBDTEFJTSwgREFN
-QUdFUyBPUgotICogT1RIRVIgTElBQklMSVRZLCBXSEVUSEVSIElOIEFOIEFDVElPTiBPRiBDT05U
-UkFDVCwgVE9SVCBPUiBPVEhFUldJU0UsCi0gKiBBUklTSU5HIEZST00sIE9VVCBPRiBPUiBJTiBD
-T05ORUNUSU9OIFdJVEggVEhFIFNPRlRXQVJFIE9SIFRIRSBVU0UgT1IKLSAqIE9USEVSIERFQUxJ
-TkdTIElOIFRIRSBTT0ZUV0FSRS4KLSAqCi0gKiBBdXRob3JzOiBBTUQKLSAqCi0gKi8KLQotI2lm
-bmRlZiBfX0RDX0NPTU1PTl9ERUZTX0hfXwotI2RlZmluZSBfX0RDX0NPTU1PTl9ERUZTX0hfXwot
-Ci0jaW5jbHVkZSAiZG1fc2VydmljZXMuaCIKLSNpbmNsdWRlICJkY19mZWF0dXJlcy5oIgotI2lu
-Y2x1ZGUgImRpc3BsYXlfbW9kZV9zdHJ1Y3RzLmgiCi0jaW5jbHVkZSAiZGlzcGxheV9tb2RlX2Vu
-dW1zLmgiCi0KLQotZG91YmxlIGRtbF9yb3VuZChkb3VibGUgYSk7Ci0KLSNlbmRpZiAvKiBfX0RD
-X0NPTU1PTl9ERUZTX0hfXyAqLwpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNw
-bGF5L2RjL2RtbC9kbWxfaW5saW5lX2RlZnMuaCBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxh
-eS9kYy9kbWwvZG1sX2lubGluZV9kZWZzLmgKaW5kZXggZGVkNzFlYTgyNDEzLi4wMmUwNmM5YjMy
-MzAgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9kYy9kbWwvZG1sX2lu
-bGluZV9kZWZzLmgKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RtbC9kbWxf
-aW5saW5lX2RlZnMuaApAQCAtMjYsNyArMjYsNiBAQAogI2lmbmRlZiBfX0RNTF9JTkxJTkVfREVG
-U19IX18KICNkZWZpbmUgX19ETUxfSU5MSU5FX0RFRlNfSF9fCiAKLSNpbmNsdWRlICJkbWxfY29t
-bW9uX2RlZnMuaCIKICNpbmNsdWRlICJkY25fY2FsY19tYXRoLmgiCiAjaW5jbHVkZSAiZG1sX2xv
-Z2dlci5oIgogCkBAIC03NSw2ICs3NCwxOCBAQCBzdGF0aWMgaW5saW5lIGRvdWJsZSBkbWxfZmxv
-b3IoZG91YmxlIGEsIGRvdWJsZSBncmFudWxhcml0eSkKIAlyZXR1cm4gKGRvdWJsZSkgZGNuX2J3
-X2Zsb29yMihhLCBncmFudWxhcml0eSk7CiB9CiAKK3N0YXRpYyBpbmxpbmUgZG91YmxlIGRtbF9y
-b3VuZChkb3VibGUgYSkKK3sKKwlkb3VibGUgcm91bmRfcHQgPSAwLjU7CisJZG91YmxlIGNlaWwg
-PSBkbWxfY2VpbChhLCAxKTsKKwlkb3VibGUgZmxvb3IgPSBkbWxfZmxvb3IoYSwgMSk7CisKKwlp
-ZiAoYSAtIGZsb29yID49IHJvdW5kX3B0KQorCQlyZXR1cm4gY2VpbDsKKwllbHNlCisJCXJldHVy
-biBmbG9vcjsKK30KKwogc3RhdGljIGlubGluZSBpbnQgZG1sX2xvZzIoZG91YmxlIHgpCiB7CiAJ
-cmV0dXJuIGRtbF9yb3VuZCgoZG91YmxlKWRjbl9id19sb2coeCwgMikpOwpAQCAtMTEyLDcgKzEy
-Myw3IEBAIHN0YXRpYyBpbmxpbmUgZG91YmxlIGRtbF9sb2coZG91YmxlIHgsIGRvdWJsZSBiYXNl
-KQogCiBzdGF0aWMgaW5saW5lIHVuc2lnbmVkIGludCBkbWxfcm91bmRfdG9fbXVsdGlwbGUodW5z
-aWduZWQgaW50IG51bSwKIAkJCQkJCSB1bnNpZ25lZCBpbnQgbXVsdGlwbGUsCi0JCQkJCQkgYm9v
-bCB1cCkKKwkJCQkJCSB1bnNpZ25lZCBjaGFyIHVwKQogewogCXVuc2lnbmVkIGludCByZW1haW5k
-ZXI7CiAKLS0gCjIuMjYuMgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5v
-cmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4
-Cg==
+From: Wenjing Liu <wenjing.liu@amd.com>
+
+[why]
+DP link layer CTS specs updated to change the test parameters in test
+4.2.1.1.
+Before it requires source to delay 400us on aux no reply.
+With the specs updates Errata5, it requires source to delay 3.2ms
+(based on LTTPR aux timeout)
+This causes our test to fail after updating with the latest test
+equipment firmware.
+
+[how]
+the change is to allow LTTPR 3.2ms aux timeout delay by default.
+And only set to 400us if LTTPR is not present.
+Before this piece of logic is interwined with LTTPR support.
+Now we will default to 3.2ms aux timeout even if LTTPR support is not
+enabled by driver.
+
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
+Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+---
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |  3 +-
+ .../gpu/drm/amd/display/dc/core/dc_link_ddc.c | 13 ++--
+ .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 59 +++++++++----------
+ .../drm/amd/display/dc/core/dc_link_hwss.c    |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
+ drivers/gpu/drm/amd/display/dc/dc_link.h      |  1 +
+ .../gpu/drm/amd/display/dc/inc/dc_link_ddc.h  |  2 +-
+ .../gpu/drm/amd/display/dc/inc/dc_link_dp.h   |  2 +-
+ 8 files changed, 42 insertions(+), 42 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+index c08de6823db4..e920d046f026 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
+@@ -691,10 +691,9 @@ static bool detect_dp(struct dc_link *link,
+ 	if (sink_caps->transaction_type == DDC_TRANSACTION_TYPE_I2C_OVER_AUX) {
+ 		sink_caps->signal = SIGNAL_TYPE_DISPLAY_PORT;
+ 
+-		dpcd_set_source_specific_data(link);
+-
+ 		if (!detect_dp_sink_caps(link))
+ 			return false;
++		dpcd_set_source_specific_data(link);
+ 
+ 		if (is_mst_supported(link)) {
+ 			sink_caps->signal = SIGNAL_TYPE_DISPLAY_PORT_MST;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+index aefd29a440b5..242ed5976cdb 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
+@@ -648,16 +648,17 @@ bool dc_link_aux_transfer_with_retries(struct ddc_service *ddc,
+ }
+ 
+ 
+-uint32_t dc_link_aux_configure_timeout(struct ddc_service *ddc,
++bool dc_link_aux_try_to_configure_timeout(struct ddc_service *ddc,
+ 		uint32_t timeout)
+ {
+-	uint32_t prev_timeout = 0;
++	bool result = false;
+ 	struct ddc *ddc_pin = ddc->ddc_pin;
+ 
+-	if (ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en]->funcs->configure_timeout)
+-		prev_timeout =
+-				ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en]->funcs->configure_timeout(ddc, timeout);
+-	return prev_timeout;
++	if (ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en]->funcs->configure_timeout) {
++		ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en]->funcs->configure_timeout(ddc, timeout);
++		result = true;
++	}
++	return result;
+ }
+ 
+ /*test only function*/
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+index 6db1f16957ac..b578687f2b38 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
+@@ -245,7 +245,7 @@ static uint8_t dc_dp_initialize_scrambling_data_symbols(
+ 
+ static inline bool is_repeater(struct dc_link *link, uint32_t offset)
+ {
+-	return (!link->is_lttpr_mode_transparent && offset != 0);
++	return (link->lttpr_non_transparent_mode && offset != 0);
+ }
+ 
+ static void dpcd_set_lt_pattern_and_lane_settings(
+@@ -1038,7 +1038,7 @@ static enum link_training_result perform_clock_recovery_sequence(
+ 		/* 3. wait receiver to lock-on*/
+ 		wait_time_microsec = lt_settings->cr_pattern_time;
+ 
+-		if (!link->is_lttpr_mode_transparent)
++		if (link->lttpr_non_transparent_mode)
+ 			wait_time_microsec = TRAINING_AUX_RD_INTERVAL;
+ 
+ 		wait_for_training_aux_rd_interval(
+@@ -1268,7 +1268,7 @@ static void configure_lttpr_mode(struct dc_link *link)
+ 		link->dpcd_caps.lttpr_caps.mode = repeater_mode;
+ 	}
+ 
+-	if (!link->is_lttpr_mode_transparent) {
++	if (link->lttpr_non_transparent_mode) {
+ 
+ 		DC_LOG_HW_LINK_TRAINING("%s\n Set LTTPR to Non Transparent Mode\n", __func__);
+ 
+@@ -1473,7 +1473,7 @@ enum link_training_result dc_link_dp_perform_link_training(
+ 			&lt_settings);
+ 
+ 	/* Configure lttpr mode */
+-	if (!link->is_lttpr_mode_transparent)
++	if (link->lttpr_non_transparent_mode)
+ 		configure_lttpr_mode(link);
+ 
+ 	if (link->ctx->dc->work_arounds.lt_early_cr_pattern)
+@@ -1489,7 +1489,7 @@ enum link_training_result dc_link_dp_perform_link_training(
+ 
+ 	dp_set_fec_ready(link, fec_enable);
+ 
+-	if (!link->is_lttpr_mode_transparent) {
++	if (link->lttpr_non_transparent_mode) {
+ 
+ 		/* 2. perform link training (set link training done
+ 		 *  to false is done as well)
+@@ -1756,7 +1756,7 @@ static struct dc_link_settings get_max_link_cap(struct dc_link *link)
+ 	 * account for lttpr repeaters cap
+ 	 * notes: repeaters do not snoop in the DPRX Capabilities addresses (3.6.3).
+ 	 */
+-	if (!link->is_lttpr_mode_transparent) {
++	if (link->lttpr_non_transparent_mode) {
+ 		if (link->dpcd_caps.lttpr_caps.max_lane_count < max_link_cap.lane_count)
+ 			max_link_cap.lane_count = link->dpcd_caps.lttpr_caps.max_lane_count;
+ 
+@@ -1914,7 +1914,7 @@ bool dp_verify_link_cap(
+ 	max_link_cap = get_max_link_cap(link);
+ 
+ 	/* Grant extended timeout request */
+-	if (!link->is_lttpr_mode_transparent && link->dpcd_caps.lttpr_caps.max_ext_timeout > 0) {
++	if (link->lttpr_non_transparent_mode && link->dpcd_caps.lttpr_caps.max_ext_timeout > 0) {
+ 		uint8_t grant = link->dpcd_caps.lttpr_caps.max_ext_timeout & 0x80;
+ 
+ 		core_link_write_dpcd(link, DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT, &grant, sizeof(grant));
+@@ -3255,17 +3255,7 @@ static bool retrieve_link_cap(struct dc_link *link)
+ 	uint32_t read_dpcd_retry_cnt = 3;
+ 	int i;
+ 	struct dp_sink_hw_fw_revision dp_hw_fw_revision;
+-
+-	/* Set default timeout to 3.2ms and read LTTPR capabilities */
+-	bool ext_timeout_support = link->dc->caps.extended_aux_timeout_support &&
+-			!link->dc->config.disable_extended_timeout_support;
+-
+-	link->is_lttpr_mode_transparent = true;
+-
+-	if (ext_timeout_support) {
+-		dc_link_aux_configure_timeout(link->ddc,
+-					LINK_AUX_DEFAULT_EXTENDED_TIMEOUT_PERIOD);
+-	}
++	bool is_lttpr_present = false;
+ 
+ 	memset(dpcd_data, '\0', sizeof(dpcd_data));
+ 	memset(lttpr_dpcd_data, '\0', sizeof(lttpr_dpcd_data));
+@@ -3274,6 +3264,13 @@ static bool retrieve_link_cap(struct dc_link *link)
+ 	memset(&edp_config_cap, '\0',
+ 		sizeof(union edp_configuration_cap));
+ 
++	/* if extended timeout is supported in hardware,
++	 * default to LTTPR timeout (3.2ms) first as a W/A for DP link layer
++	 * CTS 4.2.1.1 regression introduced by CTS specs requirement update.
++	 */
++	dc_link_aux_try_to_configure_timeout(link->ddc,
++			LINK_AUX_DEFAULT_LTTPR_TIMEOUT_PERIOD);
++
+ 	status = core_link_read_dpcd(link, DP_SET_POWER,
+ 				&dpcd_power_state, sizeof(dpcd_power_state));
+ 
+@@ -3300,8 +3297,9 @@ static bool retrieve_link_cap(struct dc_link *link)
+ 		return false;
+ 	}
+ 
+-	if (ext_timeout_support) {
+-
++	if (link->dc->caps.extended_aux_timeout_support) {
++		/* By reading LTTPR capability, RX assumes that we will enable LTTPR extended aux timeout if LTTPR is present.
++		 * Therefore, only query LTTPR capability when LTTPR extended aux timeout is supported by hardware */
+ 		status = core_link_read_dpcd(
+ 				link,
+ 				DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV,
+@@ -3332,20 +3330,21 @@ static bool retrieve_link_cap(struct dc_link *link)
+ 				lttpr_dpcd_data[DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT -
+ 								DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
+ 
+-		if (link->dpcd_caps.lttpr_caps.phy_repeater_cnt > 0 &&
++		is_lttpr_present = (link->dpcd_caps.lttpr_caps.phy_repeater_cnt > 0 &&
+ 				link->dpcd_caps.lttpr_caps.max_lane_count > 0 &&
+ 				link->dpcd_caps.lttpr_caps.max_lane_count <= 4 &&
+-				link->dpcd_caps.lttpr_caps.revision.raw >= 0x14) {
+-			link->is_lttpr_mode_transparent = false;
+-		} else {
+-			/*No lttpr reset timeout to its default value*/
+-			link->is_lttpr_mode_transparent = true;
+-			dc_link_aux_configure_timeout(link->ddc, LINK_AUX_DEFAULT_TIMEOUT_PERIOD);
+-		}
+-
+-		CONN_DATA_DETECT(link, lttpr_dpcd_data, sizeof(lttpr_dpcd_data), "LTTPR Caps: ");
++				link->dpcd_caps.lttpr_caps.revision.raw >= 0x14);
++		if (is_lttpr_present)
++			CONN_DATA_DETECT(link, lttpr_dpcd_data, sizeof(lttpr_dpcd_data), "LTTPR Caps: ");
+ 	}
+ 
++	/* decide lttpr non transparent mode */
++	link->lttpr_non_transparent_mode = is_lttpr_present && link->dc->config.allow_lttpr_non_transparent_mode;
++
++	if (!is_lttpr_present)
++		dc_link_aux_try_to_configure_timeout(link->ddc, LINK_AUX_DEFAULT_TIMEOUT_PERIOD);
++
++
+ 	{
+ 		union training_aux_rd_interval aux_rd_interval;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
+index 6590f51caefa..6bbe4e775832 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
+@@ -281,7 +281,7 @@ void dp_set_hw_lane_settings(
+ {
+ 	struct link_encoder *encoder = link->link_enc;
+ 
+-	if (!link->is_lttpr_mode_transparent && !is_immediate_downstream(link, offset))
++	if (link->lttpr_non_transparent_mode && !is_immediate_downstream(link, offset))
+ 		return;
+ 
+ 	/* call Encoder to set lane settings */
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index a4b30233aee3..391691c70805 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -274,7 +274,7 @@ struct dc_config {
+ 	bool edp_not_connected;
+ 	bool force_enum_edp;
+ 	bool forced_clocks;
+-	bool disable_extended_timeout_support; // Used to disable extended timeout and lttpr feature as well
++	bool allow_lttpr_non_transparent_mode;
+ 	bool multi_mon_pp_mclk_switch;
+ 	bool disable_dmcu;
+ 	bool enable_4to1MPC;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
+index f63fc25aa6c5..5c60c2f9779a 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_link.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
+@@ -101,6 +101,7 @@ struct dc_link {
+ 	bool aux_access_disabled;
+ 	bool sync_lt_in_progress;
+ 	bool is_lttpr_mode_transparent;
++	bool lttpr_non_transparent_mode;
+ 
+ 	/* caps is the same as reported_link_cap. link_traing use
+ 	 * reported_link_cap. Will clean up.  TODO
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_ddc.h b/drivers/gpu/drm/amd/display/dc/inc/dc_link_ddc.h
+index de2d160114db..b324e13f3f78 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_ddc.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_ddc.h
+@@ -105,7 +105,7 @@ int dc_link_aux_transfer_raw(struct ddc_service *ddc,
+ bool dc_link_aux_transfer_with_retries(struct ddc_service *ddc,
+ 		struct aux_payload *payload);
+ 
+-uint32_t dc_link_aux_configure_timeout(struct ddc_service *ddc,
++bool dc_link_aux_try_to_configure_timeout(struct ddc_service *ddc,
+ 		uint32_t timeout);
+ 
+ void dal_ddc_service_write_scdc_data(
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
+index e94e5fbf2aa2..b970a32177af 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
+@@ -28,7 +28,7 @@
+ 
+ #define LINK_TRAINING_ATTEMPTS 4
+ #define LINK_TRAINING_RETRY_DELAY 50 /* ms */
+-#define LINK_AUX_DEFAULT_EXTENDED_TIMEOUT_PERIOD 3200 /*us*/
++#define LINK_AUX_DEFAULT_LTTPR_TIMEOUT_PERIOD 3200 /*us*/
+ #define LINK_AUX_DEFAULT_TIMEOUT_PERIOD 552 /*us*/
+ 
+ struct dc_link;
+-- 
+2.26.2
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
