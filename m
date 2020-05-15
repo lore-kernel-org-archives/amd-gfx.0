@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75E4AC433E3
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 231BFC433E1
 	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4D9B920657
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E43ED20657
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="pGTbILMf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D9B920657
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="XG+6svFQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E43ED20657
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 058696ED1A;
-	Fri, 15 May 2020 18:13:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F1FE6ED18;
+	Fri, 15 May 2020 18:13:47 +0000 (UTC)
 Received: from NAM11-BN8-obe.outbound.protection.outlook.com
  (mail-bn8nam11on2069.outbound.protection.outlook.com [40.107.236.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F7556ED18
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2D5D6ED19
  for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:13:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F8hNh4WYIaEBGjrJqL1PxppbCy4OePMwYKCpXEvPjgZP/BVNzMfxN+GBj3IHKPSqtzWQU4n9CQbOJ8MgQcGvuhnMfLNIlmPJgc70UjTKVMFYK/z+tg1/FJIqQ12hTlFI2eQ0Sx7qJS9Df1T3jc+iiYzZ6EvkgeGFZVWnAflDvJctlO7pcarDo+LzZ+m8zIfpL7H/uLXMcbmYJDBc8aXRmCgllVAQnWNpFQznvE2UWWomz5eievnmQrsg5LbRko63zeTflTvAlJvH6RflYyEssKgGtdXhTmkn6uksm3SFIaeK8sL7am3tlkymghMz/zVXdg8X0LJBn5550Opa4xWpAw==
+ b=CcccScsxT0NjPqSOf1OxtyB3s1Qv6MpaGpKF+3tzgYCOcajomUmeRUQt0BKpwQLKirZ2x47o65O0C6fBajekuJ8pKVLaQ/j6SCdZRkiJE/6AH09hff4jAzykRHcahj2yWGG/lLYOecCA0Hsq9xCPE8PERexdlWsIt4cjt1MCMNN+aAAG6pHToinGTbwCxWvwFmuJiR+IV+iDeJpsJeawfCfAUGevkLEN1XzfH+neV1PqLNPG7FvXdQNpibIPcoI+x5Ox1GIIL6+lP2UAOYRSkB9LDJ4FDRI0JRX51ZGJrvZJSsgOaAJ2kRQlSUcKFmoeL63whmWOZRfGLzo1CvRhhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wyhD74m9EsamaLSHQjKObpHdhsHS4dEme9o26qk+ekU=;
- b=CcwgyyXuYroUwMO/Hwa7dM+f04Kwy2ipKaqmpTFkcj25aOMfI33V/LzcHAcip+EvMb1LP+WWasmIILFfP6wV26sQ2Csx5NX/bZCu+hIsKZq/0WDehJbwbfAwV88nVtT1gNO55R2FKYiJ84ncDIzjgzSFwH2g7Bmd/tNlcdX02fM5r4o1eC+paUGzInxmzjn9eu+XNd0mBab1Q0yEuufOYnoVxTmiJLzNJh8M8nW07TgeLPEbOzYD3XES5ZY2zO8IBmZ+r0HvFg6Q1jiWKYF2zERq6Pt7g52lYtsvtP6xG/GsyKK45ifwKglMXmj/5aZ1vGh5bQDxz5rgHrU8EhzRyw==
+ bh=smy/emq3CFXtCiDc671vMAqGNKFLASl3ZCm6zwxTzbc=;
+ b=QM/IXDLFG6edO3uTEs1XePG3FuGxm8I5BXEkTph7gCnB+8l2cp+IFjuaNaS/IjZR0Pi7EjZtABZLPSV7BDWyevVtPfwIVCSDbuawaq25NFp8RNTDNPyb3eNT9gmzulKcqSl6XjNUM9goBG3Mkt2v2Nj6ayhjtCXbiipv3N3xnGLksHi89i8qRof1Id79F28TxPmPeiSvn2cYNeW4OBQqiTPvpg9qsFfmCfQ9xGAKeGfxHpj9ecbaZzhm52MUgYIHMeoTBPxkhhAX9/GZDsOMWyK3xthpVgOE2peBAl4mRqs/dG9ApvwUnIuo9Ifnvh6qfCj+JijbG75GiVKyW2GjZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wyhD74m9EsamaLSHQjKObpHdhsHS4dEme9o26qk+ekU=;
- b=pGTbILMfX5lAjOaJ4c560mFqqGUC2Rek3ITOKE9ML3/yFuumWbbZEVUIZ0BXPDMozS1g8pwa4g2ZvGiN0ATbzKD2tykq40dykZdBEHNXLWdUtgCGUzXn3Lit63QbChvFo+Yr2euRiTDafgAPq17VdV3dbZRIZNfplkZnZtMJ+M0=
+ bh=smy/emq3CFXtCiDc671vMAqGNKFLASl3ZCm6zwxTzbc=;
+ b=XG+6svFQ+iqzckOUqToWut+v1Lqwn5Pa2qcycSbuu9V20iHf/SV6LL6carGGoTqskrsNpJb+CAOugZ7voK1MtORFmPcn8hvROX36aWkQUTx+9G2e+fh9cxkgLJarwwuPYhJff7drueABL7FSV4+1tGS0EuvHN8/ZHRqSdH0YVu0=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,17 @@ Received: from CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23)
  by CH2PR12MB3974.namprd12.prod.outlook.com (2603:10b6:610:2e::27)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.26; Fri, 15 May
- 2020 18:13:42 +0000
+ 2020 18:13:44 +0000
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580]) by CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580%9]) with mapi id 15.20.3000.022; Fri, 15 May 2020
- 18:13:42 +0000
+ 18:13:44 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 05/27] drm/amd/display: DP training to set properly
- SCRAMBLING_DISABLE
-Date: Fri, 15 May 2020 14:12:52 -0400
-Message-Id: <20200515181315.1237251-6-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 06/27] drm/amd/display: Check bss_data_size before going down
+ legacy DMUB load path
+Date: Fri, 15 May 2020 14:12:53 -0400
+Message-Id: <20200515181315.1237251-7-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
 References: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
@@ -70,33 +70,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::2) by
  BN7PR02CA0034.namprd02.prod.outlook.com (2603:10b6:408:20::47) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:41 +0000
+ 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:42 +0000
 X-Mailer: git-send-email 2.26.2
 X-Originating-IP: [2607:fea8:56a0:11a1::2]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 9f32d57a-7bdc-4b63-4de4-08d7f8fbb322
+X-MS-Office365-Filtering-Correlation-Id: 823586bc-e08c-475d-4d88-08d7f8fbb3c0
 X-MS-TrafficTypeDiagnostic: CH2PR12MB3974:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB397493DF4C4E20BAB70C14AE98BD0@CH2PR12MB3974.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB39749374E5077655E54E5CEC98BD0@CH2PR12MB3974.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2201;
 X-Forefront-PRVS: 04041A2886
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: eUNLtQGhRr2q2karpTQGBk1jZFkVp2KjTGBW8jsfahWmE2WP476VmdhpSiO7tIwIaN+4zNNrKteam0ksi/3jwC0ISgqUDNNqwgARrPhv7T06cdAX/u/omAhOGiIwB9ULtOPdFMh9gx5afBBc/Fr4lU52pFEGz6tSYsddFWxpoH5D4YHeLhcDESaML5hrsmgaqe+iqn3s3B5Bs5FxqDPcjoHdkuOqFbmuLk5HNGddBoQeODHX50G1YnA2NzpGhKO3jr3+FHvZcvRSc77qC5Xqu5x+YNlr5GaazwFyr7RSdkfs6VYdZtj/9DPLYgLCMn7x9tITnPBAoR/4VhQPLQ5Y1XtZSpL9avS6NakwF7qA0k7UB712POCtBHgzFpASRUX3F/B/3vxEZmg9jY6sWl5sjCCtbpIvhX+qAHHg1aSRFYW4rvePomzXjmeDLayWZGOR
+X-Microsoft-Antispam-Message-Info: JJUhtxr4uPQ48NcWOQuekL0wYciRBcTdx3eNaNSbw1HAmm5CqDgdXg/3c2X8w/qH0weYCYpuVahODk61pBFduieYWPaAsqUcijGWqeoggXW9ie78UDBGC0JBcM7BNbZ6cR8NJhBvwPfF7Nfgzy2+gyOrv+/a+OMkR6gw4p2/nqqIdqtUwMOxVaupBtP4Ru2T2sMm8LklNp5ftb+LNvzcLPhUomIR9JbHzyFmNIGwiWN0i2F8KsSCHJ67zrpUTBFTnh3NFU4NbrGqn2BA556TaUwOcyQLi4Jpa1mOte4/QPqtWH9HI/aVLH1iDcETcN26mxeZnHmdNttRCjdU9P8npJW/9g1dNkUpE9jmvMj4WikkMpWpBv2goijJHDuG7OwzuBP+Q+S9yXYnHWtuc5UxlvKGryt5w71vpiOEMZFEBUyFkUHWZLs2pgsossXUpRg3
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB4198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
  SFS:(4636009)(346002)(376002)(366004)(396003)(136003)(39860400002)(6506007)(316002)(8676002)(8936002)(86362001)(6486002)(54906003)(6666004)(5660300002)(6916009)(478600001)(6512007)(2906002)(36756003)(66556008)(1076003)(52116002)(16526019)(186003)(2616005)(66476007)(66946007)(4326008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: DLlcPnB2kHHCjZWKg65fqd7+kya194pT1N1rMINWxRQp4XPxkfz0GF9NuiJZevYITAiqFjoD9trT4oUG9CWYaJ7V8WfC2G2esr5PPjbwdN6T2zgOcBzgkO6x8bnRqwVkdVy7lgxAVfSvKTIJFoDFZHN8nvAlhAIPmhtqz6gj8L47IonPTmMV1+k48OrbGsWXUKq8M8PnC/Z/DJyM5VD3cZXPepRrJOUM7CKGTiq394gxaEwBAv60xkrQNZgWWqZ9NmGwkw6UZ2pEabMwBV6PYBmp23XEJ8aijK/Te3hEx6SDmduW5MRt8fi6aA2J00yPtZ/sJU3QkZILUqWtzi1KexRoWwGpV60lI9oJOsJKNHrenOPH1e0iBgLNs+Ld1uDmSal7WFGnvGqyUm2CxqTr2oWzCQBO7PG5IxGe7KA45fbsB7fUrvM3sy3+n5WQbEFHbdFaZmux9ucQzBJhO0RkrI6NvkLaAOtmL2+f3+pRSGuUei9XS5D9i5LsqKPuhcTOLeAn1VmuKLU8llitgnBYlA==
+X-MS-Exchange-AntiSpam-MessageData: R/2ooIaDG/iCZNL/JD3mzYSCm4/Hy8Hce6PbomtFDcQnO7nLWZ8OERM689dO37jZzDifmFSQrgaSJjOhyX+E2F+AuKdf8DsMh1nhAzrOyHwlu5rkDU9ONV6jwOVeE3IbQhP1f2W4y3wYRxWZ2ULoqyZbnanOzsjQCpmKIQEAfLl/yQjbLYSnRM+tPcariG9dCh4Kaj2zoSU9maCuVYKDkUkTgOR1wK8JSkHo5O1k0dMSIF9NiNBbXtDsRWh3CGz9StQpSw9RN+CVTULDHsve7KS0RsZc5xXSruxHh9k8bDe2ETGdU594kg+setzxgFiUdlVrSY4HL2kq+9D0OZTSofwX+NmVpNowyKvYn28ZKtglZoMWlcz/MdAOqgNNsMiMJujUuG1pOkq3odEKrs1eFfymxjslb6uKLN9DQh7cm2tlv9vobcf+E7GF5oqdh/RlPt0NCewXLmoIX1puJskR8rbWu7T9BpmAqfvVSSJRo632a14kPQa+xiODM8vDWetC/6dSbEaYE2Le4Y0ROurZrw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f32d57a-7bdc-4b63-4de4-08d7f8fbb322
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:42.4189 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 823586bc-e08c-475d-4d88-08d7f8fbb3c0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:43.4459 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QCz30AYW0xeBS+yxguDFvwxbuVhEunkk9ETJgCZnAqQrDJAU7NljRIVVz+ToQNHcCkgM8+VbZlg9Q2a/pP0l7A==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3Wdn00okk9fjAc2/OG7qLsjqLxjTlshrkAu5CxfdwDDHn3ep39KWHvvrDYn1m/lXouRgxumBgxkZqLxs3tskFw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3974
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,77 +109,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Vladimir Stempen <Vladimir.Stempen@amd.com>, Sunpeng.Li@amd.com,
- Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
- Wenjing Liu <Wenjing.Liu@amd.com>, Aurabindo.Pillai@amd.com,
- Bhawanpreet.Lakha@amd.com
+Cc: Zhan Liu <Zhan.Liu@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Vladimir Stempen <vladimir.stempen@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
 [Why]
-DP training sequence to set SCRAMBLING_DISABLE bit properly based on
-training pattern - per DP Spec.
+New unified firmware binary with only inst const still passes down
+fw_bss_data != NULL and params->bss_data_size == 0 from DM.
+
+This leads it into the legacy path causing firmware state allocation to
+be too small.
 
 [How]
-Update dpcd_pattern.v1_4.SCRAMBLING_DISABLE with 1 for TPS1, TPS2, TPS3,
-but not for TPS4.
+Check bss_data_size as well.
 
-Signed-off-by: Vladimir Stempen <Vladimir.Stempen@amd.com>
-Reviewed-by: Wenjing Liu <Wenjing.Liu@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Zhan Liu <Zhan.Liu@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 27 +++++++++++++++++++
- 1 file changed, 27 insertions(+)
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index ebad1787f5cb..6db1f16957ac 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -219,6 +219,30 @@ static enum dpcd_training_patterns
- 	return dpcd_tr_pattern;
- }
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+index 0e3751d94cb0..3cfbc27f3eab 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+@@ -98,12 +98,12 @@ dmub_get_fw_meta_info(const struct dmub_srv_region_params *params)
+ 	uint32_t blob_size = 0;
+ 	uint32_t meta_offset = 0;
  
-+static uint8_t dc_dp_initialize_scrambling_data_symbols(
-+	struct dc_link *link,
-+	enum dc_dp_training_pattern pattern)
-+{
-+	uint8_t disable_scrabled_data_symbols = 0;
-+
-+	switch (pattern) {
-+	case DP_TRAINING_PATTERN_SEQUENCE_1:
-+	case DP_TRAINING_PATTERN_SEQUENCE_2:
-+	case DP_TRAINING_PATTERN_SEQUENCE_3:
-+		disable_scrabled_data_symbols = 1;
-+		break;
-+	case DP_TRAINING_PATTERN_SEQUENCE_4:
-+		disable_scrabled_data_symbols = 0;
-+		break;
-+	default:
-+		ASSERT(0);
-+		DC_LOG_HW_LINK_TRAINING("%s: Invalid HW Training pattern: %d\n",
-+			__func__, pattern);
-+		break;
-+	}
-+	return disable_scrabled_data_symbols;
-+}
-+
- static inline bool is_repeater(struct dc_link *link, uint32_t offset)
- {
- 	return (!link->is_lttpr_mode_transparent && offset != 0);
-@@ -251,6 +275,9 @@ static void dpcd_set_lt_pattern_and_lane_settings(
- 	dpcd_pattern.v1_4.TRAINING_PATTERN_SET =
- 		dc_dp_training_pattern_to_dpcd_training_pattern(link, pattern);
- 
-+	dpcd_pattern.v1_4.SCRAMBLING_DISABLE =
-+		dc_dp_initialize_scrambling_data_symbols(link, pattern);
-+
- 	dpcd_lt_buffer[DP_TRAINING_PATTERN_SET - DP_TRAINING_PATTERN_SET]
- 		= dpcd_pattern.raw;
- 
+-	if (params->fw_bss_data) {
++	if (params->fw_bss_data && params->bss_data_size) {
+ 		/* Legacy metadata region. */
+ 		blob = params->fw_bss_data;
+ 		blob_size = params->bss_data_size;
+ 		meta_offset = DMUB_FW_META_OFFSET;
+-	} else if (params->fw_inst_const) {
++	} else if (params->fw_inst_const && params->inst_const_size) {
+ 		/* Combined metadata region. */
+ 		blob = params->fw_inst_const;
+ 		blob_size = params->inst_const_size;
 -- 
 2.26.2
 
