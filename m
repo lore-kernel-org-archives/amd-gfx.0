@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6C17C433E2
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6310FC433E1
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BD893206D8
-	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3A7F320657
+	for <amd-gfx@archiver.kernel.org>; Fri, 15 May 2020 18:13:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Lokp5CjS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BD893206D8
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="atQlPHeT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A7F320657
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07F366ED21;
-	Fri, 15 May 2020 18:13:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E69466ED20;
+	Fri, 15 May 2020 18:13:56 +0000 (UTC)
 Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2079.outbound.protection.outlook.com [40.107.92.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F7396ED1E
- for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:13:54 +0000 (UTC)
+ (mail-bn7nam10on2043.outbound.protection.outlook.com [40.107.92.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 598466ED20
+ for <amd-gfx@lists.freedesktop.org>; Fri, 15 May 2020 18:13:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O6ZUM4DFLWMRPZGcuO+zOWLwJqbGQGNBeRZfQi0DMLrFf69p/bWF9c0cfMKFr8xzAMYejoxlsmraEOqPZB4GzcBLnuWog0HF7QX15SFIf/PMW8jyT6dZm+Pci0WxfqmTzcwGieo/qlNQJ0Lm5nZKR8Wiy8MXHfUOhk25kITZY/BK0qVDy8c6Znmk6yPuyM8aO5Nkt5B4yW/Xqa6YaXPXIRBjxJUWTE26QMpDjCEUCFeR9awVfMfI96FhSuLvSFeHFoV+pttl7ZjZTHbrTN62flmyX8eeNKpesvym3GxXlyEMbfbFD5/uWuwrOjdWVkysGKeUJbvxhfM/NF4VZn6LPg==
+ b=VfGQfP6GcRdSwuZIt1+JFUic6Y9f22sQ1cTcacR048airh3oS6uQTH6TH8twVMM+hoRMhPadSOdR41ozLXNfD+4lkU4BG9lX/yxb1nJfYsLaTdTCBdr6O+7pMdVB3tZJ1Q54GGufmgTVn24KB8joWo0tLfjr2zkTcwBqXYWRAH1nHbH3X0w5ZvIWuT7WU5VIBs8IrMkBsl03mqGJcCF8H9kK/niIVCcz/Ua6XfnpLlO1tJuIkrYoWg1Zu279QUiMO/L83FGWclB0GDTIl5Oxk/G4BDXmFyOSWP1KDWug55e8+S1t0tu7xgrSz6gqR3qaZDkWSTkAeJ9BtGpMMR40xQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JY6coKBSjiEu/L4fGQ8odg7J1+u4OgiIdNnezi4r5Rs=;
- b=cLb4CXD475D8bJl2O3Fmtemg+Wkx+fbWFSfrClxotSP6h9VA7rpOVMxIc/94GyegOROuG3Erxd9O8JG7I6vo/UGBrMTrINSwF29/aM2ZymY49wfLyfkYY1TwHMkaizux7IclkJqiywj1nNSHHPPO1W11wVxRIY0ymAyAT0bRmAtF5u+sNpXNmApBOTFD/HUf4BlPHNBUdbWJFwDDTdz6SXmisuRcfYwDNBKJjkBVc/MkhKkYYWwB1ZvxK8x0FqXQWSDREaTo1bIEvFlxRqntZmfEtooWjvSntuK0rEXAldWOjitxrjUGxDElqCiqdbwV8GxbuvrF+8TQi97c81uNRQ==
+ bh=t2QG27tCjT3FQlFaDmtWz8VKBwyYKL5N+b9IWCys/Pg=;
+ b=O5iaChQzHjagsNg0GLElo9W5zxmim7nsvVtkkeyr8+TIriSjHTbCBUgJkUc0GWXgzmVqwZp71bunF3C5ye0htt5sl76eIu6YL8RRWL3UhtPIfG113hrYJKZWuQ+urMnYUXqXWnpldIXu0ZwQvrhekcm+6/NsGvg/kZ6BIfTeyWpGVBXoCLyFJopiHO3i6M9Fqii/GYdPyO8g8MriztkK1ly0sc67CYtjY6A7dY3GkfTCM6DAE+D3RmOFDqKwN4UdNy6Ts+jQlDks4gsXyJLe1vGfu2lLRxDVxF9vB9uumLUSCvxaH6WdXbPAFTBkxZCCYqKo456qiZw/n7u0a3lUkw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JY6coKBSjiEu/L4fGQ8odg7J1+u4OgiIdNnezi4r5Rs=;
- b=Lokp5CjS0d0LrJcYOE2KXgWp8auMNKcURydQIBlsTeafSDaKfsnspa5cHi6FzVQVpAfXgYDu0hlN8KN5ygC3DdTVfYWyu7ak5SRzKu0XFirzmPbB43nyZQ6pxOiBJc2n0yStxHPhW4Fos/CS3ZZSlBuHBfPTnLrslCxnRjo4S+4=
+ bh=t2QG27tCjT3FQlFaDmtWz8VKBwyYKL5N+b9IWCys/Pg=;
+ b=atQlPHeTMrpW8Q+Z6NMy+4u+470KnyzVdenSZu6v95jo+ErkZsd/7iSfR1uaOvj7INIxthzi0eurRJjGnF+Q7spfHyyNyJdsfPauWVS3QapN5xVFepv5+niFuaQkvrDlR7gwFJZdfU9e2sf+2j8XHxFQZnQqTuzKnyGB7c5IgGo=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,16 @@ Received: from CH2PR12MB4198.namprd12.prod.outlook.com (2603:10b6:610:7e::23)
  by CH2PR12MB3848.namprd12.prod.outlook.com (2603:10b6:610:16::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.20; Fri, 15 May
- 2020 18:13:53 +0000
+ 2020 18:13:55 +0000
 Received: from CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580]) by CH2PR12MB4198.namprd12.prod.outlook.com
  ([fe80::812c:cc72:6d14:9580%9]) with mapi id 15.20.3000.022; Fri, 15 May 2020
- 18:13:53 +0000
+ 18:13:55 +0000
 From: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 15/27] drm/amd/display: DP link layer test 4.2.1.1 fix due to
- specs update
-Date: Fri, 15 May 2020 14:13:02 -0400
-Message-Id: <20200515181315.1237251-16-Rodrigo.Siqueira@amd.com>
+Subject: [PATCH 17/27] drm/amd/display: Defer cursor lock until after VUPDATE
+Date: Fri, 15 May 2020 14:13:04 -0400
+Message-Id: <20200515181315.1237251-18-Rodrigo.Siqueira@amd.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
 References: <20200515181315.1237251-1-Rodrigo.Siqueira@amd.com>
@@ -70,33 +69,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from atma2.hitronhub.home (2607:fea8:56a0:11a1::2) by
  BN7PR02CA0034.namprd02.prod.outlook.com (2603:10b6:408:20::47) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:51 +0000
+ 15.20.3000.20 via Frontend Transport; Fri, 15 May 2020 18:13:54 +0000
 X-Mailer: git-send-email 2.26.2
 X-Originating-IP: [2607:fea8:56a0:11a1::2]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4bd0fe08-3722-4b5a-19e7-08d7f8fbb951
+X-MS-Office365-Filtering-Correlation-Id: 476432b2-068b-4726-a484-08d7f8fbba8c
 X-MS-TrafficTypeDiagnostic: CH2PR12MB3848:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB384890616D54D723A1DFC8C598BD0@CH2PR12MB3848.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
+X-Microsoft-Antispam-PRVS: <CH2PR12MB3848A0D105FA5A41C48A17CE98BD0@CH2PR12MB3848.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:10000;
 X-Forefront-PRVS: 04041A2886
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vXMXgYCnShmRhj8WJcZrBQ1CPFH2u0D6yBdGI67fFaE++J7cLlG+9Q9XrMyEczWmIgHRDL/s7YBuKIHj4NTaesNerzJveFkWy9D6TyyI4AgAGtiN+NrG2bJZuCgC/F0eVjEE9edMsDOSuuOOVQgPWHyru7FBXRE8cpWg78ls9Lt81rfRzG3cwEDUuzV2qr3x72RpfZNFucog9mjpuIqAG/HuvSPZKa5tIy4XjMUjOgfu3fz/d83T05GA5i9XUXbaLSo0g6Sonws+sBypQjN1arulbmWcBnjZBlR19Wq61XZXQVa1fks4OEki23AkkHBZe+4XEm1TawSC89WrHg4wtCxaKYsg/D7nLCpD/pc5+PV9gZOO0zS8pioB3WSRLJMYAwptHxt2lym3hbYzxipZPmNPqd5oF/JQowp++jurZg0X/PGQprFu+MpJHeOiF7RE
+X-Microsoft-Antispam-Message-Info: aU9G7vGa/I1lIaI1R9py5d0G40iImEa4Ikhv0FUi7Fj4116+IaEfNJrGPn6I+Bbj45YbPSQINC51uNLD6aAWYQGrQXiZsCFQwEZbO0+AjhDcu7SW7EREIlfuxjSClRjkNAD0bmN3dGBU411ZkHjyv/ev2ZZPyBk96ipp37r9xCZUlatkhfz4pPTwrddY0p1y+vz+kmjScRb5b7Sp4h6BfEgxNblAOEs9EwF657/+tzRD6GiNYmhNBoNaEyb1O9wmUxsA48eDTmWlgyPcEz6EQg8KU9M0dxbh5NZogYopYV/zlTGR3GnoYSdMBGcB1v2vWsOqGDc6VYtqXLgmpHkczbRRQpBBo5gXd4q/3e6R0CRDtkIWO7ikKPYDWeJRtscNxTbJ3aPfgAAde0JIO/2xubQmfHGEXWJ5aMrncUhD4NAnW8q2yKq2zFZiR7po30F4
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB4198.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(376002)(346002)(366004)(39860400002)(136003)(396003)(54906003)(86362001)(2906002)(186003)(8936002)(52116002)(6506007)(6512007)(8676002)(36756003)(316002)(5660300002)(15650500001)(16526019)(4326008)(6916009)(66556008)(478600001)(1076003)(66946007)(6486002)(66476007)(6666004)(30864003)(2616005);
+ SFS:(4636009)(376002)(346002)(366004)(39860400002)(136003)(396003)(54906003)(86362001)(2906002)(186003)(8936002)(52116002)(6506007)(6512007)(8676002)(36756003)(316002)(5660300002)(16526019)(4326008)(6916009)(66556008)(478600001)(1076003)(66946007)(6486002)(66476007)(6666004)(2616005);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: pceKfv07VwLPLe5RjGiMjwPrsh21FloQ6ZCma8fNweCeYeCCsWGpgYQo0Ona7crNzRBbpBXQrKcFhEwQ5j1UXLyscoEkkT4Jk7tLL8FYnqpUZnwyiB8cAlY6OWG9uXhr4zX0UjWyDojNKPQUhU71XsA8fEhZgXXAO0r8JDDCB/Ni9ilSh4c6N/gTRA85zKjsiOiRVEaggjsIJnXCtg94R0d3cz5iaW2Ecq0Hyh+pnn/nPqmLloKUKwFVN41dEYvFL506XHg0EATUoSF6M4UyeLzsU2mEK7xTXlcmrkfZ1swJXDRL7uqCrAZgZJX3YBvCBBJcXGjl96jQYKzacRUq87mqgWA3ID/bENgUqM3W4ZwM/xvegAKWsGWQS1KYCfT/EOMraxXMwsSok9eRip88+9xg252ep8/Jklkp5WKlRQvA5uwThmGIMnwazPV5zieYt2NtIfLMgWtIgo0E485a2lvTM9a/Kvd10QmYGIcDdRROuCmbrbI5GI0DiG3ivi0U
+X-MS-Exchange-AntiSpam-MessageData: A1QR0jrJLDP51gYtmI+lQIwbMYWZm9IJfU9Gp4G3ZNNYiqryr7NLO52D08uNwZtA4bvZ31bTBA77dQWf5SVdSoxFN8SzJ6QKO0Fz1Tp496XkJr6NKrMwKTZEzdy4vSKgVqdHyBnWNrmbCLgbO0lQm3qhc1WdeZ0b0A+R0r2OOKpgo5ddwW7GhTuswauNzLt3K1N71s1yHAOnwPdN6e9NT5MWUr8c3W+iJ2ajTcob1xKvM5e7DH9OEeQUyKm3Vq2WDyhGvkrgV2gCDCRUt8/DoP6AtxwHvpOnhBrQ9zFR6XK8j5ErLI30IVctg080Mse3kaudL15/gOncxJ9CLYve7Uvqdc2ILvQGNbGLtlOOPO9r7rrPO+K4+WYGKJGcrqlAljOOEUQYPwON1QdbPD9l+JgolJBUF7LG3Gu38R7HpUBZi762WqIo0qeWA4AWdKfjddA4SJXNZp0JTf8GhbH1KM5rR8EBewkrzsd8DutapOPqFt3BHLhCDk6+7YOKtzy7
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4bd0fe08-3722-4b5a-19e7-08d7f8fbb951
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:52.8054 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 476432b2-068b-4726-a484-08d7f8fbba8c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 May 2020 18:13:54.8649 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8RAsLDSEtsIq2kIRaHa7DQssrP+uI15dL+YvKSnHnumOURtSnqNldQ5acesRG61ZuTqIT+aqyWWNDprqGk5zzg==
+X-MS-Exchange-CrossTenant-UserPrincipalName: etl2R+4/yeedXieZJaCHL0tVf0o6vHRPCzfNRXz6u5PBXZdamgAayRLI4ymJkMVHC8PoGNxan73M1TZrfJ4e1A==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3848
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,298 +108,224 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
- Wenjing Liu <wenjing.liu@amd.com>, Aurabindo.Pillai@amd.com,
- Jun Lei <Jun.Lei@amd.com>, Bhawanpreet.Lakha@amd.com
+Cc: Aric Cyr <Aric.Cyr@amd.com>, Sunpeng.Li@amd.com, Harry.Wentland@amd.com,
+ Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wenjing Liu <wenjing.liu@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[why]
-DP link layer CTS specs updated to change the test parameters in test
-4.2.1.1.
-Before it requires source to delay 400us on aux no reply.
-With the specs updates Errata5, it requires source to delay 3.2ms
-(based on LTTPR aux timeout)
-This causes our test to fail after updating with the latest test
-equipment firmware.
+[Why]
+We dropped the delay after changed the cursor functions locking the
+entire pipe to locking just the CURSOR registers to fix page flip
+stuttering - this introduced cursor stuttering instead, and an underflow
+issue.
 
-[how]
-the change is to allow LTTPR 3.2ms aux timeout delay by default.
-And only set to 400us if LTTPR is not present.
-Before this piece of logic is interwined with LTTPR support.
-Now we will default to 3.2ms aux timeout even if LTTPR support is not
-enabled by driver.
+The cursor update can be delayed indefinitely if the cursor update
+repeatedly happens right around VUPDATE.
 
-Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
-Reviewed-by: Jun Lei <Jun.Lei@amd.com>
+The underflow issue can happen if we do a viewport update on a pipe
+on the same frame where a cursor update happens around VUPDATE - the
+old cursor registers are retained which can be in an invalid position.
+
+This can cause a pipe hang and indefinite underflow.
+
+[How]
+The complex, ideal solution to the problem would be a software
+triple buffering mechanism from the DM layer to program only one cursor
+update per frame just before VUPDATE.
+
+The simple workaround until we have that infrastructure in place is
+this change - bring back the delay until VUPDATE before locking, but
+with some corrections to the calculations.
+
+This didn't work for all timings before because the calculation for
+VUPDATE was wrong - it was using the offset from VSTARTUP instead and
+didn't correctly handle the case where VUPDATE could be in the back
+porch.
+
+Add a new hardware sequencer function to use the existing helper to
+calculate the real VUPDATE start and VUPDATE end - VUPDATE can last
+multiple lines after all.
+
+Change the udelay to incorporate the width of VUPDATE as well.
+
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Aric Cyr <Aric.Cyr@amd.com>
 Acked-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc_link.c |  3 +-
- .../gpu/drm/amd/display/dc/core/dc_link_ddc.c | 13 ++--
- .../gpu/drm/amd/display/dc/core/dc_link_dp.c  | 59 +++++++++----------
- .../drm/amd/display/dc/core/dc_link_hwss.c    |  2 +-
- drivers/gpu/drm/amd/display/dc/dc.h           |  2 +-
- drivers/gpu/drm/amd/display/dc/dc_link.h      |  1 +
- .../gpu/drm/amd/display/dc/inc/dc_link_ddc.h  |  2 +-
- .../gpu/drm/amd/display/dc/inc/dc_link_dp.h   |  2 +-
- 8 files changed, 42 insertions(+), 42 deletions(-)
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c | 69 ++++++++++++++++++-
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.h |  5 ++
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_init.c |  1 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_init.c |  1 +
+ .../gpu/drm/amd/display/dc/dcn21/dcn21_init.c |  1 +
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |  5 ++
+ 6 files changed, 81 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link.c b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-index c08de6823db4..e920d046f026 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link.c
-@@ -691,10 +691,9 @@ static bool detect_dp(struct dc_link *link,
- 	if (sink_caps->transaction_type == DDC_TRANSACTION_TYPE_I2C_OVER_AUX) {
- 		sink_caps->signal = SIGNAL_TYPE_DISPLAY_PORT;
- 
--		dpcd_set_source_specific_data(link);
--
- 		if (!detect_dp_sink_caps(link))
- 			return false;
-+		dpcd_set_source_specific_data(link);
- 
- 		if (is_mst_supported(link)) {
- 			sink_caps->signal = SIGNAL_TYPE_DISPLAY_PORT_MST;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-index aefd29a440b5..242ed5976cdb 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_ddc.c
-@@ -648,16 +648,17 @@ bool dc_link_aux_transfer_with_retries(struct ddc_service *ddc,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+index 27cae98936ea..0512a60c43b2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c
+@@ -1682,12 +1682,79 @@ void dcn10_pipe_control_lock(
+ 		hws->funcs.verify_allow_pstate_change_high(dc);
  }
  
- 
--uint32_t dc_link_aux_configure_timeout(struct ddc_service *ddc,
-+bool dc_link_aux_try_to_configure_timeout(struct ddc_service *ddc,
- 		uint32_t timeout)
- {
--	uint32_t prev_timeout = 0;
-+	bool result = false;
- 	struct ddc *ddc_pin = ddc->ddc_pin;
- 
--	if (ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en]->funcs->configure_timeout)
--		prev_timeout =
--				ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en]->funcs->configure_timeout(ddc, timeout);
--	return prev_timeout;
-+	if (ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en]->funcs->configure_timeout) {
-+		ddc->ctx->dc->res_pool->engines[ddc_pin->pin_data->en]->funcs->configure_timeout(ddc, timeout);
-+		result = true;
++/**
++ * delay_cursor_until_vupdate() - Delay cursor update if too close to VUPDATE.
++ *
++ * Software keepout workaround to prevent cursor update locking from stalling
++ * out cursor updates indefinitely or from old values from being retained in
++ * the case where the viewport changes in the same frame as the cursor.
++ *
++ * The idea is to calculate the remaining time from VPOS to VUPDATE. If it's
++ * too close to VUPDATE, then stall out until VUPDATE finishes.
++ *
++ * TODO: Optimize cursor programming to be once per frame before VUPDATE
++ *       to avoid the need for this workaround.
++ */
++static void delay_cursor_until_vupdate(struct dc *dc, struct pipe_ctx *pipe_ctx)
++{
++	struct dc_stream_state *stream = pipe_ctx->stream;
++	struct crtc_position position;
++	uint32_t vupdate_start, vupdate_end;
++	unsigned int lines_to_vupdate, us_to_vupdate, vpos;
++	unsigned int us_per_line, us_vupdate;
++
++	if (!dc->hwss.calc_vupdate_position || !dc->hwss.get_position)
++		return;
++
++	if (!pipe_ctx->stream_res.stream_enc || !pipe_ctx->stream_res.tg)
++		return;
++
++	dc->hwss.calc_vupdate_position(dc, pipe_ctx, &vupdate_start,
++				       &vupdate_end);
++
++	dc->hwss.get_position(&pipe_ctx, 1, &position);
++	vpos = position.vertical_count;
++
++	/* Avoid wraparound calculation issues */
++	vupdate_start += stream->timing.v_total;
++	vupdate_end += stream->timing.v_total;
++	vpos += stream->timing.v_total;
++
++	if (vpos <= vupdate_start) {
++		/* VPOS is in VACTIVE or back porch. */
++		lines_to_vupdate = vupdate_start - vpos;
++	} else if (vpos > vupdate_end) {
++		/* VPOS is in the front porch. */
++		return;
++	} else {
++		/* VPOS is in VUPDATE. */
++		lines_to_vupdate = 0;
 +	}
-+	return result;
- }
- 
- /*test only function*/
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-index 6db1f16957ac..b578687f2b38 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c
-@@ -245,7 +245,7 @@ static uint8_t dc_dp_initialize_scrambling_data_symbols(
- 
- static inline bool is_repeater(struct dc_link *link, uint32_t offset)
++
++	/* Calculate time until VUPDATE in microseconds. */
++	us_per_line =
++		stream->timing.h_total * 10000u / stream->timing.pix_clk_100hz;
++	us_to_vupdate = lines_to_vupdate * us_per_line;
++
++	/* 70 us is a conservative estimate of cursor update time*/
++	if (us_to_vupdate > 70)
++		return;
++
++	/* Stall out until the cursor update completes. */
++	us_vupdate = (vupdate_end - vupdate_start + 1) * us_per_line;
++	udelay(us_to_vupdate + us_vupdate);
++}
++
+ void dcn10_cursor_lock(struct dc *dc, struct pipe_ctx *pipe, bool lock)
  {
--	return (!link->is_lttpr_mode_transparent && offset != 0);
-+	return (link->lttpr_non_transparent_mode && offset != 0);
- }
- 
- static void dpcd_set_lt_pattern_and_lane_settings(
-@@ -1038,7 +1038,7 @@ static enum link_training_result perform_clock_recovery_sequence(
- 		/* 3. wait receiver to lock-on*/
- 		wait_time_microsec = lt_settings->cr_pattern_time;
- 
--		if (!link->is_lttpr_mode_transparent)
-+		if (link->lttpr_non_transparent_mode)
- 			wait_time_microsec = TRAINING_AUX_RD_INTERVAL;
- 
- 		wait_for_training_aux_rd_interval(
-@@ -1268,7 +1268,7 @@ static void configure_lttpr_mode(struct dc_link *link)
- 		link->dpcd_caps.lttpr_caps.mode = repeater_mode;
- 	}
- 
--	if (!link->is_lttpr_mode_transparent) {
-+	if (link->lttpr_non_transparent_mode) {
- 
- 		DC_LOG_HW_LINK_TRAINING("%s\n Set LTTPR to Non Transparent Mode\n", __func__);
- 
-@@ -1473,7 +1473,7 @@ enum link_training_result dc_link_dp_perform_link_training(
- 			&lt_settings);
- 
- 	/* Configure lttpr mode */
--	if (!link->is_lttpr_mode_transparent)
-+	if (link->lttpr_non_transparent_mode)
- 		configure_lttpr_mode(link);
- 
- 	if (link->ctx->dc->work_arounds.lt_early_cr_pattern)
-@@ -1489,7 +1489,7 @@ enum link_training_result dc_link_dp_perform_link_training(
- 
- 	dp_set_fec_ready(link, fec_enable);
- 
--	if (!link->is_lttpr_mode_transparent) {
-+	if (link->lttpr_non_transparent_mode) {
- 
- 		/* 2. perform link training (set link training done
- 		 *  to false is done as well)
-@@ -1756,7 +1756,7 @@ static struct dc_link_settings get_max_link_cap(struct dc_link *link)
- 	 * account for lttpr repeaters cap
- 	 * notes: repeaters do not snoop in the DPRX Capabilities addresses (3.6.3).
- 	 */
--	if (!link->is_lttpr_mode_transparent) {
-+	if (link->lttpr_non_transparent_mode) {
- 		if (link->dpcd_caps.lttpr_caps.max_lane_count < max_link_cap.lane_count)
- 			max_link_cap.lane_count = link->dpcd_caps.lttpr_caps.max_lane_count;
- 
-@@ -1914,7 +1914,7 @@ bool dp_verify_link_cap(
- 	max_link_cap = get_max_link_cap(link);
- 
- 	/* Grant extended timeout request */
--	if (!link->is_lttpr_mode_transparent && link->dpcd_caps.lttpr_caps.max_ext_timeout > 0) {
-+	if (link->lttpr_non_transparent_mode && link->dpcd_caps.lttpr_caps.max_ext_timeout > 0) {
- 		uint8_t grant = link->dpcd_caps.lttpr_caps.max_ext_timeout & 0x80;
- 
- 		core_link_write_dpcd(link, DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT, &grant, sizeof(grant));
-@@ -3255,17 +3255,7 @@ static bool retrieve_link_cap(struct dc_link *link)
- 	uint32_t read_dpcd_retry_cnt = 3;
- 	int i;
- 	struct dp_sink_hw_fw_revision dp_hw_fw_revision;
--
--	/* Set default timeout to 3.2ms and read LTTPR capabilities */
--	bool ext_timeout_support = link->dc->caps.extended_aux_timeout_support &&
--			!link->dc->config.disable_extended_timeout_support;
--
--	link->is_lttpr_mode_transparent = true;
--
--	if (ext_timeout_support) {
--		dc_link_aux_configure_timeout(link->ddc,
--					LINK_AUX_DEFAULT_EXTENDED_TIMEOUT_PERIOD);
--	}
-+	bool is_lttpr_present = false;
- 
- 	memset(dpcd_data, '\0', sizeof(dpcd_data));
- 	memset(lttpr_dpcd_data, '\0', sizeof(lttpr_dpcd_data));
-@@ -3274,6 +3264,13 @@ static bool retrieve_link_cap(struct dc_link *link)
- 	memset(&edp_config_cap, '\0',
- 		sizeof(union edp_configuration_cap));
- 
-+	/* if extended timeout is supported in hardware,
-+	 * default to LTTPR timeout (3.2ms) first as a W/A for DP link layer
-+	 * CTS 4.2.1.1 regression introduced by CTS specs requirement update.
-+	 */
-+	dc_link_aux_try_to_configure_timeout(link->ddc,
-+			LINK_AUX_DEFAULT_LTTPR_TIMEOUT_PERIOD);
-+
- 	status = core_link_read_dpcd(link, DP_SET_POWER,
- 				&dpcd_power_state, sizeof(dpcd_power_state));
- 
-@@ -3300,8 +3297,9 @@ static bool retrieve_link_cap(struct dc_link *link)
- 		return false;
- 	}
- 
--	if (ext_timeout_support) {
--
-+	if (link->dc->caps.extended_aux_timeout_support) {
-+		/* By reading LTTPR capability, RX assumes that we will enable LTTPR extended aux timeout if LTTPR is present.
-+		 * Therefore, only query LTTPR capability when LTTPR extended aux timeout is supported by hardware */
- 		status = core_link_read_dpcd(
- 				link,
- 				DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV,
-@@ -3332,20 +3330,21 @@ static bool retrieve_link_cap(struct dc_link *link)
- 				lttpr_dpcd_data[DP_PHY_REPEATER_EXTENDED_WAIT_TIMEOUT -
- 								DP_LT_TUNABLE_PHY_REPEATER_FIELD_DATA_STRUCTURE_REV];
- 
--		if (link->dpcd_caps.lttpr_caps.phy_repeater_cnt > 0 &&
-+		is_lttpr_present = (link->dpcd_caps.lttpr_caps.phy_repeater_cnt > 0 &&
- 				link->dpcd_caps.lttpr_caps.max_lane_count > 0 &&
- 				link->dpcd_caps.lttpr_caps.max_lane_count <= 4 &&
--				link->dpcd_caps.lttpr_caps.revision.raw >= 0x14) {
--			link->is_lttpr_mode_transparent = false;
--		} else {
--			/*No lttpr reset timeout to its default value*/
--			link->is_lttpr_mode_transparent = true;
--			dc_link_aux_configure_timeout(link->ddc, LINK_AUX_DEFAULT_TIMEOUT_PERIOD);
--		}
--
--		CONN_DATA_DETECT(link, lttpr_dpcd_data, sizeof(lttpr_dpcd_data), "LTTPR Caps: ");
-+				link->dpcd_caps.lttpr_caps.revision.raw >= 0x14);
-+		if (is_lttpr_present)
-+			CONN_DATA_DETECT(link, lttpr_dpcd_data, sizeof(lttpr_dpcd_data), "LTTPR Caps: ");
- 	}
- 
-+	/* decide lttpr non transparent mode */
-+	link->lttpr_non_transparent_mode = is_lttpr_present && link->dc->config.allow_lttpr_non_transparent_mode;
-+
-+	if (!is_lttpr_present)
-+		dc_link_aux_try_to_configure_timeout(link->ddc, LINK_AUX_DEFAULT_TIMEOUT_PERIOD);
-+
-+
- 	{
- 		union training_aux_rd_interval aux_rd_interval;
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
-index 6590f51caefa..6bbe4e775832 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_hwss.c
-@@ -281,7 +281,7 @@ void dp_set_hw_lane_settings(
- {
- 	struct link_encoder *encoder = link->link_enc;
- 
--	if (!link->is_lttpr_mode_transparent && !is_immediate_downstream(link, offset))
-+	if (link->lttpr_non_transparent_mode && !is_immediate_downstream(link, offset))
+ 	/* cursor lock is per MPCC tree, so only need to lock one pipe per stream */
+ 	if (!pipe || pipe->top_pipe)
  		return;
  
- 	/* call Encoder to set lane settings */
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index a4b30233aee3..391691c70805 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -274,7 +274,7 @@ struct dc_config {
- 	bool edp_not_connected;
- 	bool force_enum_edp;
- 	bool forced_clocks;
--	bool disable_extended_timeout_support; // Used to disable extended timeout and lttpr feature as well
-+	bool allow_lttpr_non_transparent_mode;
- 	bool multi_mon_pp_mclk_switch;
- 	bool disable_dmcu;
- 	bool enable_4to1MPC;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_link.h b/drivers/gpu/drm/amd/display/dc/dc_link.h
-index f63fc25aa6c5..5c60c2f9779a 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_link.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_link.h
-@@ -101,6 +101,7 @@ struct dc_link {
- 	bool aux_access_disabled;
- 	bool sync_lt_in_progress;
- 	bool is_lttpr_mode_transparent;
-+	bool lttpr_non_transparent_mode;
++	/* Prevent cursor lock from stalling out cursor updates. */
++	if (lock)
++		delay_cursor_until_vupdate(dc, pipe);
++
+ 	dc->res_pool->mpc->funcs->cursor_lock(dc->res_pool->mpc,
+ 			pipe->stream_res.opp->inst, lock);
+ }
+@@ -3300,7 +3367,7 @@ int dcn10_get_vupdate_offset_from_vsync(struct pipe_ctx *pipe_ctx)
+ 	return vertical_line_start;
+ }
  
- 	/* caps is the same as reported_link_cap. link_traing use
- 	 * reported_link_cap. Will clean up.  TODO
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_ddc.h b/drivers/gpu/drm/amd/display/dc/inc/dc_link_ddc.h
-index de2d160114db..b324e13f3f78 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_ddc.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_ddc.h
-@@ -105,7 +105,7 @@ int dc_link_aux_transfer_raw(struct ddc_service *ddc,
- bool dc_link_aux_transfer_with_retries(struct ddc_service *ddc,
- 		struct aux_payload *payload);
+-static void dcn10_calc_vupdate_position(
++void dcn10_calc_vupdate_position(
+ 		struct dc *dc,
+ 		struct pipe_ctx *pipe_ctx,
+ 		uint32_t *start_line,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h
+index af51424315d5..42b6e016d71e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h
+@@ -34,6 +34,11 @@ struct dc;
+ void dcn10_hw_sequencer_construct(struct dc *dc);
  
--uint32_t dc_link_aux_configure_timeout(struct ddc_service *ddc,
-+bool dc_link_aux_try_to_configure_timeout(struct ddc_service *ddc,
- 		uint32_t timeout);
- 
- void dal_ddc_service_write_scdc_data(
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-index e94e5fbf2aa2..b970a32177af 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/dc_link_dp.h
-@@ -28,7 +28,7 @@
- 
- #define LINK_TRAINING_ATTEMPTS 4
- #define LINK_TRAINING_RETRY_DELAY 50 /* ms */
--#define LINK_AUX_DEFAULT_EXTENDED_TIMEOUT_PERIOD 3200 /*us*/
-+#define LINK_AUX_DEFAULT_LTTPR_TIMEOUT_PERIOD 3200 /*us*/
- #define LINK_AUX_DEFAULT_TIMEOUT_PERIOD 552 /*us*/
- 
- struct dc_link;
+ int dcn10_get_vupdate_offset_from_vsync(struct pipe_ctx *pipe_ctx);
++void dcn10_calc_vupdate_position(
++		struct dc *dc,
++		struct pipe_ctx *pipe_ctx,
++		uint32_t *start_line,
++		uint32_t *end_line);
+ void dcn10_setup_vupdate_interrupt(struct dc *dc, struct pipe_ctx *pipe_ctx);
+ enum dc_status dcn10_enable_stream_timing(
+ 		struct pipe_ctx *pipe_ctx,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
+index 9f8c89b6a763..f6a790c49321 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c
+@@ -72,6 +72,7 @@ static const struct hw_sequencer_funcs dcn10_funcs = {
+ 	.set_clock = dcn10_set_clock,
+ 	.get_clock = dcn10_get_clock,
+ 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
++	.calc_vupdate_position = dcn10_calc_vupdate_position,
+ 	.set_backlight_level = dce110_set_backlight_level,
+ 	.set_abm_immediate_disable = dce110_set_abm_immediate_disable,
+ 	.set_pipe = dce110_set_pipe,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
+index e20760fa11ff..bb9e9bec2f28 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c
+@@ -83,6 +83,7 @@ static const struct hw_sequencer_funcs dcn20_funcs = {
+ 	.init_vm_ctx = dcn20_init_vm_ctx,
+ 	.set_flip_control_gsl = dcn20_set_flip_control_gsl,
+ 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
++	.calc_vupdate_position = dcn10_calc_vupdate_position,
+ 	.set_backlight_level = dce110_set_backlight_level,
+ 	.set_abm_immediate_disable = dce110_set_abm_immediate_disable,
+ 	.set_pipe = dce110_set_pipe,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
+index 9a2d1f755839..8575de1a8ad2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c
+@@ -86,6 +86,7 @@ static const struct hw_sequencer_funcs dcn21_funcs = {
+ 	.optimize_pwr_state = dcn21_optimize_pwr_state,
+ 	.exit_optimized_pwr_state = dcn21_exit_optimized_pwr_state,
+ 	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
++	.calc_vupdate_position = dcn10_calc_vupdate_position,
+ 	.power_down = dce110_power_down,
+ 	.set_backlight_level = dcn21_set_backlight_level,
+ 	.set_abm_immediate_disable = dcn21_set_abm_immediate_disable,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
+index 2e8f3fecc6a3..4f9216c96e59 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h
+@@ -96,6 +96,11 @@ struct hw_sequencer_funcs {
+ 	void (*get_position)(struct pipe_ctx **pipe_ctx, int num_pipes,
+ 			struct crtc_position *position);
+ 	int (*get_vupdate_offset_from_vsync)(struct pipe_ctx *pipe_ctx);
++	void (*calc_vupdate_position)(
++			struct dc *dc,
++			struct pipe_ctx *pipe_ctx,
++			uint32_t *start_line,
++			uint32_t *end_line);
+ 	void (*enable_per_frame_crtc_position_reset)(struct dc *dc,
+ 			int group_size, struct pipe_ctx *grouped_pipes[]);
+ 	void (*enable_timing_synchronization)(struct dc *dc,
 -- 
 2.26.2
 
