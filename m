@@ -2,75 +2,69 @@ Return-Path: <SRS0=VEb6=7A=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-3.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1EC1CC433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2020 16:37:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC477C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2020 22:36:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DEBA520758
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2020 16:37:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9037D20715
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2020 22:36:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZCxeUuua"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DEBA520758
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MG1ZfaHS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9037D20715
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 440286E43C;
-	Mon, 18 May 2020 16:37:30 +0000 (UTC)
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 656246E42F;
- Mon, 18 May 2020 16:23:23 +0000 (UTC)
-Received: by mail-pj1-x1043.google.com with SMTP id q9so48550pjm.2;
- Mon, 18 May 2020 09:23:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 137786E4A1;
+	Mon, 18 May 2020 22:35:59 +0000 (UTC)
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0909A6E49F;
+ Mon, 18 May 2020 22:35:58 +0000 (UTC)
+Received: by mail-pl1-x644.google.com with SMTP id m7so4817307plt.5;
+ Mon, 18 May 2020 15:35:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=K211i4h2u/TxQcxsieD51LxexrJexjO9Rx1FtdNootg=;
- b=ZCxeUuuaf+obk5I3yVMAoO21FuFn9ZnaajU4+BOQ99SaS5pj2jagOJ/JOGl+8RsUII
- rvwLVEZZIkzXNr6+b5GK8kBK5CwmCLz1LU0DPBurnFBaDT4RSxCswhVllgphaQG+aZjj
- p/NUv/ujcSx2sF8dexJN5AdeFuomxgou0IRwg3hXoLKBdK/NS2+wU/KFY8//Q1WbOVzx
- zSuZB4Bs5Z+jwykwSB4wAhMcLrvVt6iGZlNfPN/l6Rb1XTrVmBKIOUjCY/D2PWfPmFXt
- /PzfwEXc5tl2MfRF3y+kOyECmkL7fRukDwcF+Ii3mXydS4jRBqnvfcTtirZxzQWmQRCT
- 0uRg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=mfAW18+azOaRLKQwdw2OH359zGyKgAyGJxrSb3RPujM=;
+ b=MG1ZfaHSeaRymkrPQU62cgmxH/2uylYLvmmO9og6TbMelX4G53rCvY/UKtSLRK3PmE
+ 26Xg4KABmqt+zGydOShoZX0fWklL09/4yk4oohvFz3ed8FWEWc0U6N/mhM/SX7sNyWql
+ 2TLlZJqhFlnbF2ua+dQ3efRFwY7MXPkIIQ9+JHJaBWjd88EWVzSWnFx6zunfrI3cNavU
+ 0Nj9K4iMquF7lzVloaI5il2pMw7y+Gt5j6C7kDNyk3dOiKmprKSwNhswo8rYnW7bNTSX
+ tGjxa7Gr2DxenrOtCqGzmgf8qW+2wNK2V0iOshzf7iAfc/bbYFyS9SDd1CxBEbqZc61l
+ kcQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=K211i4h2u/TxQcxsieD51LxexrJexjO9Rx1FtdNootg=;
- b=M1AUoLLuFS9SogKsVUA+11udAK0WFEsQtsy+hAiFlyRxEHGie9bbSftzlM9Rx0TedZ
- d8fnHtYmUKLkFRFQjmR9cZPDPePBRhT2Pv9LlmBxlmCLZ18lbFa5yRULxVKV3yTVomAF
- a0JEy0D9giWPbSqqA0QHcB9OUS6kWZqXbTPD9+DCyqbV4mTZwJaNyAKy7NyTk2v38S0v
- E8zF5SwRvsR/fRsLDdRZzn7Euwez9WicjXkYMLtrLCPCl53As+LCJj+vSgxaHrBIFhiu
- xsn5HuuL5GsKoOKs6RrrRF3AXvcCDu2FHaC/5etQp0XCvWXz/k+4MxzckP85aClO/zCR
- Gcfw==
-X-Gm-Message-State: AOAM532l+pCbh+gdR7572Wf6gz14tAZbtHzWZHMk3Km1t3Azdkkjrk8f
- 8jdXB/U5O+18ghNLAmfxE7s=
-X-Google-Smtp-Source: ABdhPJwGk4vPSvK7vas58uw/Mle4Y1AUjToQolSEGddq1AGgxZx/L/rMqSj8a28neGfe3Hv0XNqxVw==
-X-Received: by 2002:a17:902:7587:: with SMTP id
- j7mr17207481pll.81.1589819002963; 
- Mon, 18 May 2020 09:23:22 -0700 (PDT)
-Received: from localhost.localdomain ([2409:4072:418:e389:7149:74ab:b584:ecf8])
- by smtp.gmail.com with ESMTPSA id s63sm44882pjj.16.2020.05.18.09.23.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 18 May 2020 09:23:22 -0700 (PDT)
-From: Aishwarya Ramakrishnan <aishwaryarj100@gmail.com>
-To: Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "David (ChunMing) Zhou" <David1.Zhou@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdkfd: Fix boolreturn.cocci warnings
-Date: Mon, 18 May 2020 21:53:12 +0530
-Message-Id: <20200518162312.18059-1-aishwaryarj100@gmail.com>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Mon, 18 May 2020 16:37:29 +0000
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=mfAW18+azOaRLKQwdw2OH359zGyKgAyGJxrSb3RPujM=;
+ b=M9mX20D7Peq+VWif+rsPxBBXhPu/icQ5wjf8+fqYo6M6SRXM1NAl06cQAsH9iYJz98
+ Dq1NOh4RYqSoeYdaVxA4xbiQPzxYP3DjEZ3jyEI5d+eZ8xEIlNCjOycyLc8ftVnIpvcC
+ DW8L+8JJ7IHmgXkkoHOsRFxquNUoVCVhsUkSwTit/VfH4V2t6aHXX64A+y2L5OyCzE7M
+ kniHWPRBmYzZLe4B+YWEvTTcwKryUqE6PO7qFe4pX78uQbgsS3t8G4ENVEoCC1ZLQuKq
+ 5MZ8ylMa4xgJmjXSSA1zH7BitxT3kX/R7TMAS5lv8qn88sTGWqVBt+wm9k+fs+pygCNx
+ whag==
+X-Gm-Message-State: AOAM5335Yq0l6zCgB0YCfPRpaWc3QGCJIvrLMYTrqRA8a4Ok/MeVtcXX
+ 1xOtfCT4i7KV+XGSpfMDBKKQgDjV6jC7vXIhta0=
+X-Google-Smtp-Source: ABdhPJznGTRKT9ufZQjwegFQghrNIqUvaywioi4WTB0wEbibjK24jj0RZ5kf1R/BD5jxlgQVC+bJ3LOXFbMvnpxwubU=
+X-Received: by 2002:a17:902:bb8f:: with SMTP id
+ m15mr18754385pls.5.1589841357598; 
+ Mon, 18 May 2020 15:35:57 -0700 (PDT)
+MIME-Version: 1.0
+References: <20200507142726.25751-1-sashal@kernel.org>
+ <20200507142726.25751-33-sashal@kernel.org>
+In-Reply-To: <20200507142726.25751-33-sashal@kernel.org>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Mon, 18 May 2020 18:35:19 -0400
+Message-ID: <CAAxE2A4cWMctuCzm-ftdzDT=p9d5973XSZAstC0-OuJ0WE9ASQ@mail.gmail.com>
+Subject: Re: [PATCH AUTOSEL 5.6 33/50] drm/amdgpu: bump version for invalidate
+ L2 before SDMA IBs
+To: Sasha Levin <sashal@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,52 +76,162 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: aishwaryarj100@gmail.com
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <marek.olsak@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: multipart/mixed; boundary="===============0876480792=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Return statements in functions returning bool should use
-true/false instead of 1/0.
+--===============0876480792==
+Content-Type: multipart/alternative; boundary="0000000000005e774a05a5f3c99b"
 
-drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c:40:9-10:
-WARNING: return of 0/1 in function 'event_interrupt_isr_v9' with return type bool
+--0000000000005e774a05a5f3c99b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Generated by: scripts/coccinelle/misc/boolreturn.cocci
+Hi Sasha,
 
-Signed-off-by: Aishwarya Ramakrishnan <aishwaryarj100@gmail.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I disagree with this. Bumping the driver version will have implications on
+other new features, because it's like an ABI barrier exposing new
+functionality.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-index e05d75ecda21..fce6ccabe38b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c
-@@ -37,7 +37,7 @@ static bool event_interrupt_isr_v9(struct kfd_dev *dev,
- 	vmid = SOC15_VMID_FROM_IH_ENTRY(ih_ring_entry);
- 	if (vmid < dev->vm_info.first_vmid_kfd ||
- 	    vmid > dev->vm_info.last_vmid_kfd)
--		return 0;
-+		return false;
- 
- 	source_id = SOC15_SOURCE_ID_FROM_IH_ENTRY(ih_ring_entry);
- 	client_id = SOC15_CLIENT_ID_FROM_IH_ENTRY(ih_ring_entry);
-@@ -69,7 +69,7 @@ static bool event_interrupt_isr_v9(struct kfd_dev *dev,
- 
- 	/* If there is no valid PASID, it's likely a bug */
- 	if (WARN_ONCE(pasid == 0, "Bug: No PASID in KFD interrupt"))
--		return 0;
-+		return false;
- 
- 	/* Interrupt types we care about: various signals and faults.
- 	 * They will be forwarded to a work queue (see below).
--- 
-2.17.1
+Marek
+
+On Thu, May 7, 2020 at 10:28 AM Sasha Levin <sashal@kernel.org> wrote:
+
+> From: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
+>
+> [ Upstream commit 9017a4897a20658f010bebea825262963c10afa6 ]
+>
+> This fixes GPU hangs due to cache coherency issues.
+> Bump the driver version. Split out from the original patch.
+>
+> Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Tested-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com=
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 42f4febe24c6d..8d45a2b662aeb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -85,9 +85,10 @@
+>   * - 3.34.0 - Non-DC can flip correctly between buffers with different
+> pitches
+>   * - 3.35.0 - Add drm_amdgpu_info_device::tcc_disabled_mask
+>   * - 3.36.0 - Allow reading more status registers on si/cik
+> + * - 3.37.0 - L2 is invalidated before SDMA IBs, needed for correctness
+>   */
+>  #define KMS_DRIVER_MAJOR       3
+> -#define KMS_DRIVER_MINOR       36
+> +#define KMS_DRIVER_MINOR       37
+>  #define KMS_DRIVER_PATCHLEVEL  0
+>
+>  int amdgpu_vram_limit =3D 0;
+> --
+> 2.20.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+>
+
+--0000000000005e774a05a5f3c99b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div style=3D"font-family:Calibri,Arial,Helvetica,sans-ser=
+if;font-size:12pt;color:rgb(0,0,0)">Hi Sasha,</div><div style=3D"font-famil=
+y:Calibri,Arial,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)"><br><=
+/div><div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif;font-size=
+:12pt;color:rgb(0,0,0)">I
+ disagree with this. Bumping the driver version will have implications=20
+on other new features, because it&#39;s like an ABI barrier exposing new=20
+functionality.</div><div style=3D"font-family:Calibri,Arial,Helvetica,sans-=
+serif;font-size:12pt;color:rgb(0,0,0)"><br></div><div style=3D"font-family:=
+Calibri,Arial,Helvetica,sans-serif;font-size:12pt;color:rgb(0,0,0)">Marek<b=
+r></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmai=
+l_attr">On Thu, May 7, 2020 at 10:28 AM Sasha Levin &lt;<a href=3D"mailto:s=
+ashal@kernel.org">sashal@kernel.org</a>&gt; wrote:<br></div><blockquote cla=
+ss=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid =
+rgb(204,204,204);padding-left:1ex">From: Marek Ol=C5=A1=C3=A1k &lt;<a href=
+=3D"mailto:marek.olsak@amd.com" target=3D"_blank">marek.olsak@amd.com</a>&g=
+t;<br>
+<br>
+[ Upstream commit 9017a4897a20658f010bebea825262963c10afa6 ]<br>
+<br>
+This fixes GPU hangs due to cache coherency issues.<br>
+Bump the driver version. Split out from the original patch.<br>
+<br>
+Signed-off-by: Marek Ol=C5=A1=C3=A1k &lt;<a href=3D"mailto:marek.olsak@amd.=
+com" target=3D"_blank">marek.olsak@amd.com</a>&gt;<br>
+Reviewed-by: Christian K=C3=B6nig &lt;<a href=3D"mailto:christian.koenig@am=
+d.com" target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
+Tested-by: Pierre-Eric Pelloux-Prayer &lt;<a href=3D"mailto:pierre-eric.pel=
+loux-prayer@amd.com" target=3D"_blank">pierre-eric.pelloux-prayer@amd.com</=
+a>&gt;<br>
+Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com=
+" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
+Signed-off-by: Sasha Levin &lt;<a href=3D"mailto:sashal@kernel.org" target=
+=3D"_blank">sashal@kernel.org</a>&gt;<br>
+---<br>
+=C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-<br>
+=C2=A01 file changed, 2 insertions(+), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c<br>
+index 42f4febe24c6d..8d45a2b662aeb 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+@@ -85,9 +85,10 @@<br>
+=C2=A0 * - 3.34.0 - Non-DC can flip correctly between buffers with differen=
+t pitches<br>
+=C2=A0 * - 3.35.0 - Add drm_amdgpu_info_device::tcc_disabled_mask<br>
+=C2=A0 * - 3.36.0 - Allow reading more status registers on si/cik<br>
++ * - 3.37.0 - L2 is invalidated before SDMA IBs, needed for correctness<br=
+>
+=C2=A0 */<br>
+=C2=A0#define KMS_DRIVER_MAJOR=C2=A0 =C2=A0 =C2=A0 =C2=A03<br>
+-#define KMS_DRIVER_MINOR=C2=A0 =C2=A0 =C2=A0 =C2=A036<br>
++#define KMS_DRIVER_MINOR=C2=A0 =C2=A0 =C2=A0 =C2=A037<br>
+=C2=A0#define KMS_DRIVER_PATCHLEVEL=C2=A0 0<br>
+<br>
+=C2=A0int amdgpu_vram_limit =3D 0;<br>
+-- <br>
+2.20.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://lists.freedesktop.org/mailman/listinfo/amd-gfx" rel=3D"n=
+oreferrer" target=3D"_blank">https://lists.freedesktop.org/mailman/listinfo=
+/amd-gfx</a><br>
+</blockquote></div>
+
+--0000000000005e774a05a5f3c99b--
+
+--===============0876480792==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0876480792==--
