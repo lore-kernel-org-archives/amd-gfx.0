@@ -2,99 +2,68 @@ Return-Path: <SRS0=VEb6=7A=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9CF6C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2020 10:35:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D73E7C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2020 13:51:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 75C9B20787
-	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2020 10:35:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A625B20674
+	for <amd-gfx@archiver.kernel.org>; Mon, 18 May 2020 13:51:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="XNEhyazb"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75C9B20787
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kVJ3lUoh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A625B20674
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4353589994;
-	Mon, 18 May 2020 10:35:33 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2081.outbound.protection.outlook.com [40.107.94.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35C7489994
- for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2020 10:35:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=F3710k7PkmmWi82rPnVsUUE5a7buwDoe95UTW4vwwU9YQqukTrk0Z6gQWyVvK4d3SXm7yCkuK0t/78Z5aFHOB2yS7bT1JZ0D85hZ40jVOJi5ZtUqxyfuK2TMcvxBQUYOq+yK4jMqsfOOTpHGCO/vB/Ynv+96fnlG9Pom/y2Gr48kBRTFquHenUTjznMfulRIAeir5PYjkYpt+6NoA75Rq8MlDR7f52aglQE/SXgg5C+zEzhyMavO132EktXmMHULJeBcGfNFteW6LgWFfBEkOfAlUDSyBDNj2dxiPer2xIMoVMUqCulGsg5juI0iiI18IJnB60nAlMh5+X08MFzaog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hWsoCIZt6ze7ubEYKC5QxrsX4tz3bOx83VTDL0TwqRE=;
- b=iXqowNBFRSaJAYZmdmy2nKin29Lt3qVHgI4ELH+MZ/87dqwGRdKLJK37eG0iRJ4ZEZ5q8gZTIQCKdCmscr9wySeU5uAeEkiP1FONNzDBEP03i8eC/AiEPSmxWCwMoMbiRtVRBklS4q8/qxhs0D5snhydeFlLHKhhXUjIJNJPNPTxjFPsU2QC/RtHlPgT0F1WW6toa70+NsdkVoCF1EbYtpNjoyd82cMggiR/XZxBJmCu9byHJUDx35q4RxyCiQeOYCqRCng4D7vMvxaylSIWgbTyRfv5njhTga+jeoV61aRDxWoqJyfSLOIlhArGz3GtiTDqsh55anvHrE2+ZLz9Vw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hWsoCIZt6ze7ubEYKC5QxrsX4tz3bOx83VTDL0TwqRE=;
- b=XNEhyazbLYSFh4/y8jLZlIP8DiFpgMfHJ+76v2M19SGA+6rD3auHDE6/jaPXTkg1s/lNs2JWAcSo7Z/1PbfLiKlvzw8lepWQmBtJsZdN45ZCGgwlxeH0Z/9N/06jhN6J5PUXN+XE5C0focD2TWziRm0hoSmU7ql71rPHvIIut+M=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from CY4PR1201MB0136.namprd12.prod.outlook.com
- (2603:10b6:910:1a::19) by CY4PR1201MB0022.namprd12.prod.outlook.com
- (2603:10b6:910:1e::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.24; Mon, 18 May
- 2020 10:35:30 +0000
-Received: from CY4PR1201MB0136.namprd12.prod.outlook.com
- ([fe80::8d22:7d25:8892:a09]) by CY4PR1201MB0136.namprd12.prod.outlook.com
- ([fe80::8d22:7d25:8892:a09%8]) with mapi id 15.20.3000.034; Mon, 18 May 2020
- 10:35:30 +0000
-From: Likun Gao <likun.gao@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: add condition to set MP1 state on gpu reset
-Date: Mon, 18 May 2020 18:35:04 +0800
-Message-Id: <20200518103504.2176521-1-likun.gao@amd.com>
-X-Mailer: git-send-email 2.25.1
-X-ClientProxiedBy: HK2PR04CA0048.apcprd04.prod.outlook.com
- (2603:1096:202:14::16) To CY4PR1201MB0136.namprd12.prod.outlook.com
- (2603:10b6:910:1a::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E1956E1A8;
+	Mon, 18 May 2020 13:51:42 +0000 (UTC)
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CBD2B6E1A8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2020 13:51:41 +0000 (UTC)
+Received: by mail-wm1-x32d.google.com with SMTP id d207so75691wmd.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 18 May 2020 06:51:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=cQb/RKpf8FbXnAOu6VyIkPqQESDZOW7JHH8IkJAqaZc=;
+ b=kVJ3lUohBO/UwZ+TOprX6X1onjZwYjG8N04WYDbytyNC2+jU3LHDvDhvylpF1F2rcZ
+ lrfIemvJ8ClCFcXf3mO3W10xPICzaEtZLPFvBr28IVxRuwQNDoopxxLDg7h6p4w4yCT/
+ biSNx/bd/TDczBiqRef3/8eMgBIUPoFZ81hFR/2RxiDwP3ghenp+veUE+ZL0NgJYnhzl
+ MRLjbcebKYJSfcvU7v5bHj3i0IE2RthZ8Lm6ExoANEaonYypqZKfT3fcoAWyDkBhxoF4
+ HXPOYLH8uOt2Fc4vVVmyz6sdlko09Xm6ZNg3uxyitT5YyCcYUi8MFhPbMXiLMkDmyXiB
+ zfaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=cQb/RKpf8FbXnAOu6VyIkPqQESDZOW7JHH8IkJAqaZc=;
+ b=nwSbQC3e34d8WJ1LgCb64wt/vNKjTmV/4Y/V9zwNBGz9h2KnyP8zzeECJw4K76XQh7
+ UeLALWoRvYcSrNGkslkAkfI1PkrldZ2XWOm0mFq60zSlPuM/JtIgVsjWiYfcQ82GzENs
+ O/K7eoBxUaiAvClOiOOJEungP5Qe/h4ud2FX6ILIrpXdn8AVaH859sOpkZPLMcFEjJgN
+ 1YDc+rBNvBtlokPiClbpBhNH2B+MlgNn+wCH4z9gZDFaEqMw2sV+n779UQ19UDPxjc5G
+ KD7O78JhZumKZ9xeoTJqwQiftQMW3zaqn8OrOl02KutsFmiq9MPUzOZZK9yqSs9xOA4G
+ I8KQ==
+X-Gm-Message-State: AOAM533UFiVHQYnbM88Q0WBYZTT2zpq05QtchuWVfijulCLiIyht79yc
+ ENJT3Qby8sA0uzhjGcRMhx997uqHjaEK2RQ2aMVZqg==
+X-Google-Smtp-Source: ABdhPJypOp8Fk/rVhYebutcH6WdaAANEgvq03UUPRVI4tubcwkmZ2i8jas1UiGJiDkh6yrH3NtPg/kgJr4OHLbIZJJ4=
+X-Received: by 2002:a7b:cc0e:: with SMTP id f14mr19800408wmh.39.1589809900438; 
+ Mon, 18 May 2020 06:51:40 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from lnx-glk.amd.com (58.247.170.242) by
- HK2PR04CA0048.apcprd04.prod.outlook.com (2603:1096:202:14::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.25 via Frontend Transport; Mon, 18 May 2020 10:35:28 +0000
-X-Mailer: git-send-email 2.25.1
-X-Originating-IP: [58.247.170.242]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: b2e4980b-75ad-445c-94e1-08d7fb172fcc
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB0022:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB0022A7DB895B9F11924F9019EFB80@CY4PR1201MB0022.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2733;
-X-Forefront-PRVS: 04073E895A
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: JEuKYx6j5hWglScnV+5+rRPj47wPOiFJLZNQWEY6yblkhHcat66OZ/E0vgCgA0MneTkHZuZp6STAip0fy98s3Td9vUFSEeRkk/BOiXvz8lROMeLv+quLhJdsA0bVFHpqyFUyR9ZXmij9V6xxPbWPJKgwWcuY7TcSQI1to8MPZMk43G2Ker820kylT4izHEPfoFu+O6eDSiykmYZhVwnpu3PkpFLCELX1MKzbTMyWiz4AuOW7M6aya+0uBKwLN/8/ADvp7EM/Uo9AWvj/czERyONEVSNtSye3S6wB7E5pgPo9PW8xljmlpsCTc5tuhyb236njnWNJ+NMGO00dQ91UKp23wR0bMKuaVOyW1bA2+IQWJLlly3QxdB7r4qlTzFIG/1NQ3sp0u6qJIJE6g3qtk2CllpiPYeUdKUJfcns3+D63DJrYTZ8FE8NArmDHL1GB
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR1201MB0136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(376002)(346002)(366004)(39860400002)(136003)(396003)(6486002)(2906002)(7696005)(52116002)(5660300002)(6666004)(86362001)(44832011)(66556008)(66946007)(8936002)(8676002)(6916009)(66476007)(478600001)(186003)(1076003)(54906003)(4326008)(36756003)(2616005)(316002)(956004)(26005)(16526019);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: lEuS+IjQK3tA3OAsba3nTUqSwRzulVMIkgaxpbNGpx2NAfl0VCGMoEbNZqmXHw/ZVK6qRk31g4JUtgFDrLknBEa+Uls4ndazVQtStraSneum8BI1XMY34Ay9Lct22mJFGoukeUIoN1ywmD24xP6YsBrUxskU3xS2q+/6V1Hh9kQUSOZVbvL2ueUOwCyBeAcUwQeltLNyS6qJlwEcr7IMMergc6gIy7WXaiRgSGWyWbY5ac1YCAQ0osTLgQ/YRnAtQV9KhuVCBDifRZO94ipsTmFKO4lvzLS013uisIyL3WsYS2FNwdjQJPUcnEKYc/neFhJ/4jm4hceUU6JAQ8mDpjEFkgSn9/UTS4e2ryK0nqQBC4kpVSYa8iwhAUGz39iPdQK2gj8sHf1CN8pAQlr6Jn+fR+0u4YlffIqG27krGg37WEyLwX+AT3wkSZZqxVXtGQ049MBJKS42YEJfhyKMIf0IMJLndtjB/cFIUgcqS1Z6as7NNdQ58dHVzs59j+Kf
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b2e4980b-75ad-445c-94e1-08d7fb172fcc
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 May 2020 10:35:30.5358 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4pXYBjl/AvmRoL+I+dG8V6YcdQf7yCAm2m74594b7xBDwOwXyB4QbeDpF0slTIBC
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0022
+References: <CAEOHGOnvFxBtFixhVWtO=Mx3t2-0YYJM8pHD_FaKhQRTkjJjTw@mail.gmail.com>
+ <CAEOHGOkqs3qicXrT_wWZEbedXoT2Mp884aMSLEDBBYKDWbdnKg@mail.gmail.com>
+ <CAEOHGOmj3YKRi9zWgGwt4YSvULx=JY7hnVQU_JVTXkMZHQ4Duw@mail.gmail.com>
+In-Reply-To: <CAEOHGOmj3YKRi9zWgGwt4YSvULx=JY7hnVQU_JVTXkMZHQ4Duw@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 18 May 2020 09:51:29 -0400
+Message-ID: <CADnq5_PzpMWyu_CNQnT_ceMRLi4q-kSSQz_EwW0Fo46pUWvaEA@mail.gmail.com>
+Subject: Re: XFX RX 5600 XT Raw II graphics card slow
+To: Javad Karabi <karabijavad@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,46 +75,116 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Likun Gao <Likun.Gao@amd.com>, Evan Quan <Evan.Quan@amd.com>,
- John Clements <John.Clements@amd.com>, Hawking Zhang <hawking.zhang@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Likun Gao <Likun.Gao@amd.com>
+On Sun, May 17, 2020 at 5:25 PM Javad Karabi <karabijavad@gmail.com> wrote:
+>
+> hmm, actually upon digging deeper, it looks like the latest
+> linux-firmware doesnt have navi10_mes.bin.
+> if i understand correctly, the rx 5600 xt is navi10, right?
+> navi10_mes.bin is one of the firmware files that update-initramfs is
+> saying is missing.
+>
+> is there any way i can get my hands on navi10_mes.bin?
 
-Only ras supportted need to set MP1 state to prepare for unload before
-reloading SMU FW.
+It's an optional firmware that is not used by the driver at this
+point.  You can ignore it.
 
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Change-Id: I9e49b3f13aa613393381fe15b6b060665026078a
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Alex
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 5de5b27bf4c4..a349cf15f90a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -1399,12 +1399,13 @@ static int psp_load_smu_fw(struct psp_context *psp)
- 	struct amdgpu_device* adev = psp->adev;
- 	struct amdgpu_firmware_info *ucode =
- 			&adev->firmware.ucode[AMDGPU_UCODE_ID_SMC];
-+	struct amdgpu_ras *ras = psp->ras.ras;
- 
- 	if (!ucode->fw || amdgpu_sriov_vf(psp->adev))
- 		return 0;
- 
- 
--	if (adev->in_gpu_reset) {
-+	if (adev->in_gpu_reset && ras && ras->supported) {
- 		ret = amdgpu_dpm_set_mp1_state(adev, PP_MP1_STATE_UNLOAD);
- 		if (ret) {
- 			DRM_WARN("Failed to set MP1 state prepare for reload\n");
--- 
-2.25.1
-
+>
+>
+> On Sun, May 17, 2020 at 4:02 PM Javad Karabi <karabijavad@gmail.com> wrote:
+> >
+> > oh, i also flashed the card bios with the bios provided at:
+> > https://www.xfxforce.com/gpus/xfx-amd-radeon-tm-rx-5600-xt-6gb-gddr6-raw-ii
+> >
+> > if you scroll down a bit and click on downloads, they have a link to a "performance bios". i flashed that, and nothing changed. after the flash, the card still worked great in windows, and still terrible in linux. so i guess that flash didnt change anything.
+> >
+> > also, fyi i do have the latest linux-firmware installed (since apparently there was some issue with the firmware for the rx 5600 which was solved in the latest firmware i guess)
+> >
+> > $ md5sum /lib/firmware/amdgpu/navi10_smc.bin
+> > 632de739379e484c0233f6808cba2c7f  /lib/firmware/amdgpu/navi10_smc.bin
+> >
+> > On Sun, May 17, 2020 at 3:51 PM Javad Karabi <karabijavad@gmail.com> wrote:
+> >>
+> >> Heres my setup:
+> >>
+> >> kernel: linux-5.6.13
+> >> card: XFX RX 5600 XT Raw II  (https://www.bestbuy.com/site/xfx-amd-radeon-rx-5600-xt-raw-ii-pro-6gb-gddr6-pci-express-4-0-graphics-card/6398005.p?skuId=6398005)
+> >>
+> >> x1 carbon 7th gen -thunderbolt-> Razer Core X -> rx 5600 xt -> hdmi connection to my monitor (asus mg248)
+> >>
+> >> when i boot into windows, the card works totally fine (installed the radeon drivers and everything)
+> >>
+> >> when im in linux, the card works, my monitor works, radeontop shows the gpu being used when i run DRI_PRIME=1 glxgears, etc etc, so it seems that the card is being properly utilized by everything.
+> >>
+> >> one interesting detail: when i install the kernel, update-initramfs reports that there is "possibly missing firmware". i dont see any errors in dmesg about missing firmware so im assuming thats not a problem?
+> >>
+> >> problem is, its very low fps. for example, heres my glxinfo/glxgears output:
+> >>
+> >> $ DRI_PRIME=0 glxgears
+> >> 3148 frames in 5.0 seconds = 628.420 FPS
+> >> 1950 frames in 5.0 seconds = 389.999 FPS
+> >> ^C
+> >> $ DRI_PRIME=1 glxgears
+> >> 755 frames in 5.0 seconds = 150.698 FPS
+> >> 662 frames in 5.0 seconds = 132.296 FPS
+> >> ^C
+> >> $ DRI_PRIME=0 glxinfo | grep vendor
+> >> server glx vendor string: SGI
+> >> client glx vendor string: Mesa Project and SGI
+> >> OpenGL vendor string: Intel
+> >> $ DRI_PRIME=1 glxinfo | grep vendor
+> >> server glx vendor string: SGI
+> >> client glx vendor string: Mesa Project and SGI
+> >> OpenGL vendor string: X.Org
+> >>
+> >> $ dmesg | egrep -i "amdgpu|radeon"
+> >> [    4.798043] amdgpu: unknown parameter 'si_support' ignored
+> >> [    4.802600] amdgpu: unknown parameter 'cik_support' ignored
+> >> [    4.813305] [drm] amdgpu kernel modesetting enabled.
+> >> [    4.813449] amdgpu 0000:0c:00.0: enabling device (0000 -> 0003)
+> >> [    5.051950] amdgpu 0000:0c:00.0: VRAM: 6128M 0x0000008000000000 - 0x000000817EFFFFFF (6128M used)
+> >> [    5.051952] amdgpu 0000:0c:00.0: GART: 512M 0x0000000000000000 - 0x000000001FFFFFFF
+> >> [    5.052081] [drm] amdgpu: 6128M of VRAM memory ready
+> >> [    5.052084] [drm] amdgpu: 6128M of GTT memory ready.
+> >> [    6.125885] amdgpu 0000:0c:00.0: RAS: ras ta ucode is not available
+> >> [    6.131800] amdgpu: [powerplay] use vbios provided pptable
+> >> [    6.131973] amdgpu: [powerplay] smu driver if version = 0x00000033, smu fw if version = 0x00000035, smu fw version = 0x002a3200 (42.50.0)
+> >> [    6.131979] amdgpu: [powerplay] SMU driver if version not matched
+> >> [    6.176170] amdgpu: [powerplay] SMU is initialized successfully!
+> >> [    6.298473] amdgpu 0000:0c:00.0: fb0: amdgpudrmfb frame buffer device
+> >> [    6.310927] amdgpu 0000:0c:00.0: ring gfx_0.0.0 uses VM inv eng 0 on hub 0
+> >> [    6.311158] amdgpu 0000:0c:00.0: ring comp_1.0.0 uses VM inv eng 1 on hub 0
+> >> [    6.311401] amdgpu 0000:0c:00.0: ring comp_1.1.0 uses VM inv eng 4 on hub 0
+> >> [    6.311648] amdgpu 0000:0c:00.0: ring comp_1.2.0 uses VM inv eng 5 on hub 0
+> >> [    6.311904] amdgpu 0000:0c:00.0: ring comp_1.3.0 uses VM inv eng 6 on hub 0
+> >> [    6.312133] amdgpu 0000:0c:00.0: ring comp_1.0.1 uses VM inv eng 7 on hub 0
+> >> [    6.312376] amdgpu 0000:0c:00.0: ring comp_1.1.1 uses VM inv eng 8 on hub 0
+> >> [    6.312619] amdgpu 0000:0c:00.0: ring comp_1.2.1 uses VM inv eng 9 on hub 0
+> >> [    6.312863] amdgpu 0000:0c:00.0: ring comp_1.3.1 uses VM inv eng 10 on hub 0
+> >> [    6.313110] amdgpu 0000:0c:00.0: ring kiq_2.1.0 uses VM inv eng 11 on hub 0
+> >> [    6.313355] amdgpu 0000:0c:00.0: ring sdma0 uses VM inv eng 12 on hub 0
+> >> [    6.313585] amdgpu 0000:0c:00.0: ring sdma1 uses VM inv eng 13 on hub 0
+> >> [    6.313821] amdgpu 0000:0c:00.0: ring vcn_dec uses VM inv eng 0 on hub 1
+> >> [    6.314059] amdgpu 0000:0c:00.0: ring vcn_enc0 uses VM inv eng 1 on hub 1
+> >> [    6.314298] amdgpu 0000:0c:00.0: ring vcn_enc1 uses VM inv eng 4 on hub 1
+> >> [    6.314536] amdgpu 0000:0c:00.0: ring jpeg_dec uses VM inv eng 5 on hub 1
+> >> [    6.316101] [drm] Initialized amdgpu 3.36.0 20150101 for 0000:0c:00.0 on minor 1
+> >> [   10.797203] snd_hda_intel 0000:0c:00.1: bound 0000:0c:00.0 (ops amdgpu_dm_audio_component_bind_ops [amdgpu])
+> >>
+> >> is this perhaps a power management issue?
+> >> i can include my kernel config and X logs etc if yall need.
+> >>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
