@@ -1,113 +1,109 @@
 Return-Path: <SRS0=dIjB=7B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.4 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.7 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,HTTPS_HTTP_MISMATCH,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6232BC433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 10:26:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72EEEC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 13:25:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1E0ED206BE
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 10:26:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 497B8204EA
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 13:25:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Ze59qGfF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E0ED206BE
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="BxfT7BKh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 497B8204EA
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C45016E530;
-	Tue, 19 May 2020 10:26:45 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2085.outbound.protection.outlook.com [40.107.237.85])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4FD46E580
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2020 10:26:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9D576E342;
+	Tue, 19 May 2020 13:25:49 +0000 (UTC)
+Received: from NAM10-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10on2078.outbound.protection.outlook.com [40.107.93.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B3B16E342;
+ Tue, 19 May 2020 13:25:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LcawGu90VuZGPk7HstaKa517qWX5kXN1wHVHuxwjxknXgOIykGGPINTpI1z0R2mGwtSquxm5XeNMrmS+uiBAIaFmV6jKjzl8mzAht52+OHSF6B1XtfPpG49MZngFHJ8q3Zoy7LxQPX28OO6UMuqJJ9IuPsBM9a+E8JScZkHSoScPyg50OKgCyMyPbzDTSPNTI2ycF11v43eaS8F2wHUfjweRhlYAQp9LwmWaBKBVZuEBhqSpH0crZ/250nXNUoRnj66XlDaDnK0QFuKDKTJyHcEUazrEsQCXYkxd0troV8EwqY479KQuPqbeq2Nm8CMqjAwwrtVsmZrKVHpL2dqDwg==
+ b=Y9ZFUZ4ZxE909I9uXX6Txv57779V8iX7Oe4v1gL4KT6WCyFI9YL0gaKVZrhKntEUvJHmHKJWim/pAZLatR3bDs3yhZ36Pt+W87IK/WO6WYPnEDFvqG3QFUwWx3xW2xFJMMgIp6AcBf9Q7dGQtYUoyTqCFRXhGoyBfWDlO3Qla3GR2r5OCWWeKJmgkMFrxwf83fWzXC+RbVFFRIqhN8aSUhYmS0v5HtHHmAPqOPRDYeh7ZT89be20+XNTNj2Lb5VP/7HaDv6NT45bxWxCFLS5Jf5/eftlE99C6d+X93sJIOnn217FMSaTTcdVdOUyb8cOURXW6yX0QK5pxdp2N+6CBg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iCBPJglhbpE79ztcCAgO+hewRmLPaUjSZ7pSj6Ymp98=;
- b=KURtsKr7o0PiULBbd3i6uiLzsf+VasuXPYz74r0bcRGlgu2RjxxXFtrBr+ge+6ZDz0TToR/3IEkbRP/3XG8n6hL8tid6bgyA+fkeVd+lNA2RnHP0V/ErrmsXzn2aBfKDeyRIWsQoBvTs02+C1A7TYYgxBr/diNzDpwRtRiJGe0mmoKyQU250MOAJ+lVT8tv7R5xAyPH/QjIx0LKfHKhtsbJYBd1iTKEEZJe/d7xT7DPtGYbmRzxr0XN8teAx919QKkoVdA8um4lEt3CRiT2n62XzOKpBnaDHTHizyQiyE67K3eZbkmvNPYMqxPwt6sgyv5vp27ixD2K7jaAhcMXL5Q==
+ bh=HgKqJ0t9Qn0Rt82LHm+nH3kySoOoM8LCfY7xcjjVnNs=;
+ b=MgUCrGxyZ2pJQXGvC6sC7xLpWRh/kutMEYme56katplfT+setLeiEyf5Kmua2L0vyOjWLL3x0q7/QlnlxWfZYOPm7x4pcXp7Qgkk6xdLFkmAELd7egISeC4JNISov5SKVVdcaOgFbY/rZxMXQb2mDwbI/XcOvl7BUFIauZX1S4fpb13Bu/h7epO0XYeYcngu35D2HgXP9jGfchwYM1ie04ifcRLBZMSQmlpYF+ZwVPpKI3777P9PT3uwTgQXZKSjyL55/itM51ki5xKNWCbEgE/cojFToiyLLbtC5G98+HHJ1B0rX4XCi2yQ5x7rosqON/BO8AnkjvgHiC0u18WuOw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iCBPJglhbpE79ztcCAgO+hewRmLPaUjSZ7pSj6Ymp98=;
- b=Ze59qGfFF3ZO4595+eHyu+bGuZ7d8s13CudFWoPPGel5kXWlSqU2qhUZh34cFOvju8IxzubgCoris7evl5JLnLf9OOySFaykzn5oOEJUFY1ITtjiwA6Orde7aHTKB5rz/n7F9rQTS3X3DHpN1ct5anD7oimtTPutCoII6OnXcD4=
-Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
- DM6PR12MB3692.namprd12.prod.outlook.com (2603:10b6:5:14a::33) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.27; Tue, 19 May 2020 10:26:42 +0000
-Received: from DM6PR12MB4075.namprd12.prod.outlook.com
- ([fe80::50d1:ecd6:255c:fbcd]) by DM6PR12MB4075.namprd12.prod.outlook.com
- ([fe80::50d1:ecd6:255c:fbcd%3]) with mapi id 15.20.3000.033; Tue, 19 May 2020
- 10:26:42 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Clements, John" <John.Clements@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: resolve ras recovery vs smi race condition
-Thread-Topic: [PATCH] drm/amdgpu: resolve ras recovery vs smi race condition
-Thread-Index: AdYtvciAHbipIGpZT6qk0o/TamXupgACE0yg
-Date: Tue, 19 May 2020 10:26:42 +0000
-Message-ID: <DM6PR12MB4075736EFBC2A476F7EE3F78FCB90@DM6PR12MB4075.namprd12.prod.outlook.com>
-References: <DM6PR12MB4026718C8DD47807F9856F3FFBB90@DM6PR12MB4026.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB4026718C8DD47807F9856F3FFBB90@DM6PR12MB4026.namprd12.prod.outlook.com>
+ bh=HgKqJ0t9Qn0Rt82LHm+nH3kySoOoM8LCfY7xcjjVnNs=;
+ b=BxfT7BKhz5xehxCUXstWrcRMV9ziYJH9SRwgnOdqtxmacRsI3dLInDRJbUTzW5Aj1pdrVnoF4iEERTfjUzrr/8uLZ+30tyCJ8N80SE/g8L6BxFwbJsAcjdJSf5q3bUBSiQsmPtY5blBrK6bVXh9UtHIQ12iRROkdZoQMr9dlT64=
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com (2603:10b6:208:24e::19)
+ by MN2PR12MB3774.namprd12.prod.outlook.com (2603:10b6:208:16a::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.20; Tue, 19 May
+ 2020 13:25:46 +0000
+Received: from MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::313c:e4d2:7dd2:2d72]) by MN2PR12MB4488.namprd12.prod.outlook.com
+ ([fe80::313c:e4d2:7dd2:2d72%5]) with mapi id 15.20.3021.020; Tue, 19 May 2020
+ 13:25:46 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: =?Windows-1252?Q?Marek_Ol=9A=E1k?= <maraeo@gmail.com>, Sasha Levin
+ <sashal@kernel.org>
+Subject: Re: [PATCH AUTOSEL 5.6 33/50] drm/amdgpu: bump version for invalidate
+ L2 before SDMA IBs
+Thread-Topic: [PATCH AUTOSEL 5.6 33/50] drm/amdgpu: bump version for
+ invalidate L2 before SDMA IBs
+Thread-Index: AQHWJHu9VxGgA9T09Uin+3s+X1WVCKiugECAgAD4rEo=
+Date: Tue, 19 May 2020 13:25:46 +0000
+Message-ID: <MN2PR12MB448885DDE200B4137C2C18F9F7B90@MN2PR12MB4488.namprd12.prod.outlook.com>
+References: <20200507142726.25751-1-sashal@kernel.org>
+ <20200507142726.25751-33-sashal@kernel.org>,
+ <CAAxE2A4cWMctuCzm-ftdzDT=p9d5973XSZAstC0-OuJ0WE9ASQ@mail.gmail.com>
+In-Reply-To: <CAAxE2A4cWMctuCzm-ftdzDT=p9d5973XSZAstC0-OuJ0WE9ASQ@mail.gmail.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-19T09:14:31Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=6334e757-9313-4c47-aeb1-00001eb443f7;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-05-19T10:26:39Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 3a5c668a-cd0f-4fc7-b53a-000020e1bcc8
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=True;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-05-19T13:25:45.707Z;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=AMD
+ Public; MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged; 
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [71.51.180.250]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 7a118e5e-5441-4017-5150-08d7fbdf1fba
-x-ms-traffictypediagnostic: DM6PR12MB3692:
+x-ms-office365-filtering-correlation-id: fb1ecb50-a5c2-43e1-29d4-08d7fbf8239c
+x-ms-traffictypediagnostic: MN2PR12MB3774:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB3692BF8FB65E350108F7659FFCB90@DM6PR12MB3692.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
+x-microsoft-antispam-prvs: <MN2PR12MB3774FDB8E8A22776DBF94D65F7B90@MN2PR12MB3774.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:4941;
 x-forefront-prvs: 040866B734
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 3zqq6gvUq5kRAGj+qaEdabH3dEqMzCjK2WcKFSB1BP/1ac+UtoeD3afygaRt2jHdEJed5OCpvPZ/PVv1Fn1BEBgLodXyHfmYgL9fP4S60uaX0KFp6jHoD8PB60Yo1d7fzTlJ3flGeF6/zUNDIZPl1MJTx0TV7m3NEE43LHNRZdo99UWV21PP3Harf1MJGB7iCJEpnVAI0q9MplLWGIatGpnkRo0ek+QY9+DJrh+Z2dStzm9NNZWUKXhbwY1n3zKBjigGIVqF3CphgtXB/1xbZqw0S+kEHFkqqAQpBaQny+m2kraJEECKB01lKlbUw7anRZPb/tCKQsp2kjJS6XO/G9Svzq0/1SPJpIy/q8YRC9wBYJzpKA0SRl0KhwLOz8gBDJxORgFgVjIcEBpulUch0IwWgQ6RVl2F2appMDuIUU1ZJxAJx6C0gQXA9ftWo3kj
+x-microsoft-antispam-message-info: EjGlAJSvHalat2juUO5VdQibkaPZoJhLs8SsQ9VtxVccZgbxawP8PCDTFRRlEEXuMaR5lOjJjlb4MprxJKV2D3LUaQEhKu7FkAp0+yYaGSgiQ1MA+wwPndS/llmzGb1vD2g8aqkt/CFTRNiMNcsKDcSjQkYJEp9YVQsvyk5S45sHwjluaz1ZXhVmPZEvjEtv0zJ6/Sd+RryLv2syYudP3KyS0+Ah+tUcET7V+hufoJGI26vEwx/9nd9YuiqtPsUr2ORQgO8p1bW9DOB8frTj65p5ficnr4XRl9rUYY9O5vFoJCaUaJzfg5p5vUHTYccUvn8UnKF5nKrhvQmUhphNhlqSTyI4v/Y0+UC1utL2feuz/hCa2Jc4BjVIarz2zqbKatytBoTWfd8nt4cuYzp8EY/OTObJLIvxLYrZ3kIsR9WYXkmsdNtNnRjRJojPs5TJYX31ErNN9Kpm/lB3xm6Zv0PC6LjNj+9stQv9RSHsb2g=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4488.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(396003)(366004)(376002)(39860400002)(136003)(346002)(110136005)(4744005)(186003)(316002)(86362001)(478600001)(66946007)(66476007)(26005)(66556008)(5660300002)(76116006)(64756008)(66446008)(33656002)(8676002)(8936002)(53546011)(52536014)(7696005)(6506007)(9686003)(2906002)(71200400001)(55016002);
+ SFS:(4636009)(136003)(396003)(39860400002)(366004)(346002)(376002)(71200400001)(966005)(26005)(55016002)(9686003)(6506007)(53546011)(8676002)(76116006)(66946007)(478600001)(2906002)(66476007)(66556008)(33656002)(64756008)(66446008)(4326008)(86362001)(5660300002)(52536014)(54906003)(110136005)(7696005)(316002)(8936002)(186003)(66574014)(19627405001)(166002);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: zF3nyrpDMkwsdOlkBpQzAjVBZdEtfX4no2D/p3Y5zvYhH3Kxi+v+vOtD9O5sHZHJd3t/zNsYVzH00T9FuqU/gzYFmkxUR6M104KozHV7NW8zeWBuGh9x3w2z/6zKRQkoaLzRJ/GPaHAl5aI1ipK81kjL4LCmxtNCLIls3TweqPwskuVlYV4S0W8q4GRHnPuMuamqgdZRrDk10SVjWOJTd37SFRU6DnzfKueAewifJYpiizr2MBhxeBDiyOxO+1oENdH2UhsKfwsi4uZcEAzxXs+e1k/NjVV/zG0atkLhYZTKdU/ydfO2IN/SzryAXuPrqWYEpdX/7OUVz2DYIXj+dFw7c045GcOWcoBJpl4zdg36GLoQ50+3vyMmPYDiyndHfi6oIHSrA3qdNHtrS9wYW1BW0zQD8VpItxCMdc2qbLeKM3RxT+NbzRvbtxjoRDEjyh7JGgn0LweZSvcL7ZtyI8wwqurHj3lQkm40Qo/+D9Z5y8noQlRDzEsCIQZlQqZH
+x-ms-exchange-antispam-messagedata: uwYc8pOK+TvqgS46a9Z7CNPd86diAvcxlZ0biGjLYUqj+cr3zS2HyRrKJrk6PAu44nmsEYzhZhzAIw+Wba/otIc5eDROfHnjbK87yAJyD7TuFLziTcKn4Z/5Ss65ljQfgPXexb5ktNLlZZdkaxty3bT+VR9z24Tv5YTkL7wwlybuNfJ1FLpqRyqkNe1vPiCkdLzyBxnMNqEowvDa3GG8Crkfxm5B36PxHlpKdzow0ruVCegPeMOVQQVujXpke9/cYlhpTJXt2rUbKf+O2o+ROzRUc+qxYo3LFaDTb1hHjGa6WJQ4GDyVCkw/m9bovOTGQEBFHLuQhP5d6ExYKhULr/AoUcZRBPOsZ+JoqWjQmPvuuWF4mFamVURtArmz+dpnM0EAlSpjfZSJlCBC2BF5kud91+ucnXAO75m8+FNzBPuKLiFAHRGGDK6+kv+tdF8I61yf2Z9uWh9RRCfTonvhgjGO1Q1QUjJXpaN5DLD9hCE=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a118e5e-5441-4017-5150-08d7fbdf1fba
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2020 10:26:42.3254 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb1ecb50-a5c2-43e1-29d4-08d7fbf8239c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2020 13:25:46.2887 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nPFuCwuoBMn65m/nnCshMWpfAXCQ0MZ2J8NsGSjDOji7/kdiV+bCXLb0XHqVwPUu9jetehJ76bjHqxohSsdtmg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3692
+X-MS-Exchange-CrossTenant-userprincipalname: 1PeFHxkGn1uGA9X+6h9OoY35IdQGmnvmH/lPyjvyK10vVKZj7lMK7NH75/28IshFxSqWO4ebFRYQmhf4H0jtFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3774
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,135 +115,253 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1298582117=="
+Cc: "Pelloux-prayer, Pierre-eric" <Pierre-eric.Pelloux-prayer@amd.com>, "Olsak,
+ Marek" <Marek.Olsak@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+Content-Type: multipart/mixed; boundary="===============1616564868=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1298582117==
+--===============1616564868==
 Content-Language: en-US
 Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB4075736EFBC2A476F7EE3F78FCB90DM6PR12MB4075namp_"
+	boundary="_000_MN2PR12MB448885DDE200B4137C2C18F9F7B90MN2PR12MB4488namp_"
 
---_000_DM6PR12MB4075736EFBC2A476F7EE3F78FCB90DM6PR12MB4075namp_
-Content-Type: text/plain; charset="us-ascii"
+--_000_MN2PR12MB448885DDE200B4137C2C18F9F7B90MN2PR12MB4488namp_
+Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
-[AMD Official Use Only - Internal Distribution Only]
+[AMD Public Use]
 
-Please only apply the check to arcturus - we don't need to check ras fatal =
-error event on all the NV series.
+Yes, please drop this patch for stable.
 
-Regards,
-Hawking
-From: Clements, John <John.Clements@amd.com>
-Sent: Tuesday, May 19, 2020 17:15
-To: amd-gfx@lists.freedesktop.org; Zhang, Hawking <Hawking.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu: resolve ras recovery vs smi race condition
+Alex
+________________________________
+From: Marek Ol=9A=E1k <maraeo@gmail.com>
+Sent: Monday, May 18, 2020 6:35 PM
+To: Sasha Levin <sashal@kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>; stable@vger.k=
+ernel.org <stable@vger.kernel.org>; Pelloux-prayer, Pierre-eric <Pierre-eri=
+c.Pelloux-prayer@amd.com>; Olsak, Marek <Marek.Olsak@amd.com>; amd-gfx mail=
+ing list <amd-gfx@lists.freedesktop.org>; dri-devel <dri-devel@lists.freede=
+sktop.org>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christi=
+an <Christian.Koenig@amd.com>
+Subject: Re: [PATCH AUTOSEL 5.6 33/50] drm/amdgpu: bump version for invalid=
+ate L2 before SDMA IBs
 
+Hi Sasha,
 
-[AMD Official Use Only - Internal Distribution Only]
+I disagree with this. Bumping the driver version will have implications on =
+other new features, because it's like an ABI barrier exposing new functiona=
+lity.
 
-Submitting patch to block SMU access' via SMI during RAS recovery
+Marek
 
---_000_DM6PR12MB4075736EFBC2A476F7EE3F78FCB90DM6PR12MB4075namp_
-Content-Type: text/html; charset="us-ascii"
+On Thu, May 7, 2020 at 10:28 AM Sasha Levin <sashal@kernel.org<mailto:sasha=
+l@kernel.org>> wrote:
+From: Marek Ol=9A=E1k <marek.olsak@amd.com<mailto:marek.olsak@amd.com>>
+
+[ Upstream commit 9017a4897a20658f010bebea825262963c10afa6 ]
+
+This fixes GPU hangs due to cache coherency issues.
+Bump the driver version. Split out from the original patch.
+
+Signed-off-by: Marek Ol=9A=E1k <marek.olsak@amd.com<mailto:marek.olsak@amd.=
+com>>
+Reviewed-by: Christian K=F6nig <christian.koenig@amd.com<mailto:christian.k=
+oenig@amd.com>>
+Tested-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com<m=
+ailto:pierre-eric.pelloux-prayer@amd.com>>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com<mailto:alexander.deu=
+cher@amd.com>>
+Signed-off-by: Sasha Levin <sashal@kernel.org<mailto:sashal@kernel.org>>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c
+index 42f4febe24c6d..8d45a2b662aeb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -85,9 +85,10 @@
+  * - 3.34.0 - Non-DC can flip correctly between buffers with different pit=
+ches
+  * - 3.35.0 - Add drm_amdgpu_info_device::tcc_disabled_mask
+  * - 3.36.0 - Allow reading more status registers on si/cik
++ * - 3.37.0 - L2 is invalidated before SDMA IBs, needed for correctness
+  */
+ #define KMS_DRIVER_MAJOR       3
+-#define KMS_DRIVER_MINOR       36
++#define KMS_DRIVER_MINOR       37
+ #define KMS_DRIVER_PATCHLEVEL  0
+
+ int amdgpu_vram_limit =3D 0;
+--
+2.20.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx<https://nam11.safeli=
+nks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmai=
+lman%2Flistinfo%2Famd-gfx&data=3D02%7C01%7Calexander.deucher%40amd.com%7C2b=
+b4939b162b4d66d57708d7fb7bd608%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7=
+C637254381604715852&sdata=3DuJEI0CDUeUbUGUgnhnobpKygBueEGg6UqwgzkEtIsh8%3D&=
+reserved=3D0>
+
+--_000_MN2PR12MB448885DDE200B4137C2C18F9F7B90MN2PR12MB4488namp_
+Content-Type: text/html; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@DengXian";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-p.msipheadera92e061b, li.msipheadera92e061b, div.msipheadera92e061b
-	{mso-style-name:msipheadera92e061b;
-	mso-margin-top-alt:auto;
-	margin-right:0in;
-	mso-margin-bottom-alt:auto;
-	margin-left:0in;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle19
-	{mso-style-type:personal-compose;
-	font-family:"Arial",sans-serif;
-	color:#0078D7;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"msipheadera92e061b" style=3D"margin:0in;margin-bottom:.0001pt">=
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
-lor:#0078D7">[AMD Official Use Only - Internal Distribution Only]</span><o:=
-p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Please only apply the check to arcturus &#8211; we d=
-on&#8217;t need to check ras fatal error event on all the NV series.<o:p></=
-o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Regards,<br>
-Hawking<o:p></o:p></p>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#317100;margin:15pt;" al=
+ign=3D"Left">
+[AMD Public Use]<br>
+</p>
+<br>
 <div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b>From:</b> Clements, John &lt;John.Clements@amd.co=
-m&gt; <br>
-<b>Sent:</b> Tuesday, May 19, 2020 17:15<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org; Zhang, Hawking &lt;Hawking.Zhang@=
-amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: resolve ras recovery vs smi race condit=
-ion<o:p></o:p></p>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Yes, please drop this patch for stable.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Alex<br>
+</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Marek Ol=9A=E1k &lt;m=
+araeo@gmail.com&gt;<br>
+<b>Sent:</b> Monday, May 18, 2020 6:35 PM<br>
+<b>To:</b> Sasha Levin &lt;sashal@kernel.org&gt;<br>
+<b>Cc:</b> Linux Kernel Mailing List &lt;linux-kernel@vger.kernel.org&gt;; =
+stable@vger.kernel.org &lt;stable@vger.kernel.org&gt;; Pelloux-prayer, Pier=
+re-eric &lt;Pierre-eric.Pelloux-prayer@amd.com&gt;; Olsak, Marek &lt;Marek.=
+Olsak@amd.com&gt;; amd-gfx mailing list &lt;amd-gfx@lists.freedesktop.org&g=
+t;;
+ dri-devel &lt;dri-devel@lists.freedesktop.org&gt;; Deucher, Alexander &lt;=
+Alexander.Deucher@amd.com&gt;; Koenig, Christian &lt;Christian.Koenig@amd.c=
+om&gt;<br>
+<b>Subject:</b> Re: [PATCH AUTOSEL 5.6 33/50] drm/amdgpu: bump version for =
+invalidate L2 before SDMA IBs</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<div dir=3D"ltr">
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+Hi Sasha,</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+I disagree with this. Bumping the driver version will have implications on =
+other new features, because it's like an ABI barrier exposing new functiona=
+lity.</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+<br>
+</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+Marek<br>
 </div>
 </div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"msipheadera92e061b" style=3D"margin:0in;margin-bottom:.0001pt">=
-<span style=3D"font-size:10.0pt;font-family:&quot;Arial&quot;,sans-serif;co=
-lor:#0078D7">[AMD Official Use Only - Internal Distribution Only]</span><o:=
-p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Submitting patch to block SMU access&#8217; via SMI =
-during RAS recovery<o:p></o:p></p>
+<br>
+<div class=3D"x_gmail_quote">
+<div dir=3D"ltr" class=3D"x_gmail_attr">On Thu, May 7, 2020 at 10:28 AM Sas=
+ha Levin &lt;<a href=3D"mailto:sashal@kernel.org">sashal@kernel.org</a>&gt;=
+ wrote:<br>
+</div>
+<blockquote class=3D"x_gmail_quote" style=3D"margin:0px 0px 0px 0.8ex; bord=
+er-left:1px solid rgb(204,204,204); padding-left:1ex">
+From: Marek Ol=9A=E1k &lt;<a href=3D"mailto:marek.olsak@amd.com" target=3D"=
+_blank">marek.olsak@amd.com</a>&gt;<br>
+<br>
+[ Upstream commit 9017a4897a20658f010bebea825262963c10afa6 ]<br>
+<br>
+This fixes GPU hangs due to cache coherency issues.<br>
+Bump the driver version. Split out from the original patch.<br>
+<br>
+Signed-off-by: Marek Ol=9A=E1k &lt;<a href=3D"mailto:marek.olsak@amd.com" t=
+arget=3D"_blank">marek.olsak@amd.com</a>&gt;<br>
+Reviewed-by: Christian K=F6nig &lt;<a href=3D"mailto:christian.koenig@amd.c=
+om" target=3D"_blank">christian.koenig@amd.com</a>&gt;<br>
+Tested-by: Pierre-Eric Pelloux-Prayer &lt;<a href=3D"mailto:pierre-eric.pel=
+loux-prayer@amd.com" target=3D"_blank">pierre-eric.pelloux-prayer@amd.com</=
+a>&gt;<br>
+Signed-off-by: Alex Deucher &lt;<a href=3D"mailto:alexander.deucher@amd.com=
+" target=3D"_blank">alexander.deucher@amd.com</a>&gt;<br>
+Signed-off-by: Sasha Levin &lt;<a href=3D"mailto:sashal@kernel.org" target=
+=3D"_blank">sashal@kernel.org</a>&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 3 &#43;&#43;-<br>
+&nbsp;1 file changed, 2 insertions(&#43;), 1 deletion(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_drv.c<br>
+index 42f4febe24c6d..8d45a2b662aeb 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c<br>
+@@ -85,9 &#43;85,10 @@<br>
+&nbsp; * - 3.34.0 - Non-DC can flip correctly between buffers with differen=
+t pitches<br>
+&nbsp; * - 3.35.0 - Add drm_amdgpu_info_device::tcc_disabled_mask<br>
+&nbsp; * - 3.36.0 - Allow reading more status registers on si/cik<br>
+&#43; * - 3.37.0 - L2 is invalidated before SDMA IBs, needed for correctnes=
+s<br>
+&nbsp; */<br>
+&nbsp;#define KMS_DRIVER_MAJOR&nbsp; &nbsp; &nbsp; &nbsp;3<br>
+-#define KMS_DRIVER_MINOR&nbsp; &nbsp; &nbsp; &nbsp;36<br>
+&#43;#define KMS_DRIVER_MINOR&nbsp; &nbsp; &nbsp; &nbsp;37<br>
+&nbsp;#define KMS_DRIVER_PATCHLEVEL&nbsp; 0<br>
+<br>
+&nbsp;int amdgpu_vram_limit =3D 0;<br>
+-- <br>
+2.20.1<br>
+<br>
+_______________________________________________<br>
+amd-gfx mailing list<br>
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org" target=3D"_blank">amd-gfx@=
+lists.freedesktop.org</a><br>
+<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
+F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01=
+%7Calexander.deucher%40amd.com%7C2bb4939b162b4d66d57708d7fb7bd608%7C3dd8961=
+fe4884e608e11a82d994e183d%7C0%7C0%7C637254381604715852&amp;sdata=3DuJEI0CDU=
+eUbUGUgnhnobpKygBueEGg6UqwgzkEtIsh8%3D&amp;reserved=3D0" originalsrc=3D"htt=
+ps://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash=3D"VAPmgi26LcB/k=
+sdTS0iKaO1gfo9OB1JH8GmQQFjotKsRmhPuT0piirbA/yFnDeWQLl&#43;KMcs8KOY8uKGQaG4/=
+s8n9lxJDoR2XsOZAQJQlvgid1hHfg/I9wtqQAAK1Oly&#43;MJtKsFsiGmHxCH&#43;NNQa7vPy=
+LQvIWHrwBtCb43RqMWj8=3D" rel=3D"noreferrer" target=3D"_blank">https://lists=
+.freedesktop.org/mailman/listinfo/amd-gfx</a><br>
+</blockquote>
+</div>
+</div>
 </div>
 </body>
 </html>
 
---_000_DM6PR12MB4075736EFBC2A476F7EE3F78FCB90DM6PR12MB4075namp_--
+--_000_MN2PR12MB448885DDE200B4137C2C18F9F7B90MN2PR12MB4488namp_--
 
---===============1298582117==
+--===============1616564868==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -258,4 +372,4 @@ amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 
---===============1298582117==--
+--===============1616564868==--
