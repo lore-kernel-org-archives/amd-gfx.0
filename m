@@ -2,41 +2,52 @@ Return-Path: <SRS0=dIjB=7B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D4DE8C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 21:52:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2038DC433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 22:51:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BDCE12072C
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 21:52:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BDCE12072C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
+	by mail.kernel.org (Postfix) with ESMTPS id D200E20809
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 22:50:59 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="VqIiz4a8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D200E20809
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 75963891FA;
-	Tue, 19 May 2020 21:52:47 +0000 (UTC)
-Received: from fireflyinternet.com (mail.fireflyinternet.com [109.228.58.192])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C61C689D8D;
- Tue, 19 May 2020 21:52:45 +0000 (UTC)
-X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
- x-ip-name=78.156.65.138; 
-Received: from localhost (unverified [78.156.65.138]) 
- by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
- 21233858-1500050 for multiple; Tue, 19 May 2020 22:51:56 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99E916E3A0;
+	Tue, 19 May 2020 22:50:59 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE5AB6E3A0;
+ Tue, 19 May 2020 22:50:58 +0000 (UTC)
+Received: from embeddedor (unknown [189.207.59.248])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id DA30620674;
+ Tue, 19 May 2020 22:50:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1589928658;
+ bh=Fqra9IuVuRyQX7OP0Uy6DhIAmIXe+LMIOkrDcW8htPo=;
+ h=Date:From:To:Cc:Subject:From;
+ b=VqIiz4a8dXOCfJYo0RzYsoa/zEaVTZCPxvClxFI9E0CB5b3lE56BiocD6YcC4zvMG
+ HUYFxIWUyjxQ2YIBBA9fvKdRS+d06BfV1qgKmXWimlij4rdkaFog6YzOXCvYEynvdv
+ b2g1hSeX3IXsCIj7lAQIsBg9FyXj52owte8DEhBA=
+Date: Tue, 19 May 2020 17:55:45 -0500
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Evan Quan <evan.quan@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH] drm/amdgpu/smu10: Replace one-element array and use
+ struct_size() helper
+Message-ID: <20200519225545.GA2066@embeddedor>
 MIME-Version: 1.0
-In-Reply-To: <20200519132756.682888-1-daniel.vetter@ffwll.ch>
-References: <20200519132756.682888-1-daniel.vetter@ffwll.ch>
-Subject: Re: [PATCH] dma-fence: add might_sleep annotation to _wait()
-To: DRI Development <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel.vetter@ffwll.ch>
-From: Chris Wilson <chris@chris-wilson.co.uk>
-Message-ID: <158992511426.8153.12953280000513890247@build.alporthouse.com>
-User-Agent: alot/0.8.1
-Date: Tue, 19 May 2020 22:51:54 +0100
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,63 +59,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Oded Gabbay <oded.gabbay@gmail.com>, amd-gfx@lists.freedesktop.org, linux-rdma@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, LKML <linux-kernel@vger.kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>, linaro-mm-sig@lists.linaro.org, VMware Graphics <linux-graphics-maintainer@vmware.com>, Ben Skeggs <bskeggs@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Alex Deucher <alexander.deucher@amd.com>, Daniel Vetter <daniel.vetter@intel.com>, linux-media@vger.kernel.org, Christian König <christian.koenig@amd.com>, Lucas Stach <l.stach@pengutronix.de>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-UXVvdGluZyBEYW5pZWwgVmV0dGVyICgyMDIwLTA1LTE5IDE0OjI3OjU2KQo+IERvIGl0IHVuY29u
-dGlvbmFsbHksIHRoZXJlJ3MgYSBzZXBhcmF0ZSBwZWVrIGZ1bmN0aW9uIHdpdGgKPiBkbWFfZmVu
-Y2VfaXNfc2lnbmFsbGVkKCkgd2hpY2ggY2FuIGJlIGNhbGxlZCBmcm9tIGF0b21pYyBjb250ZXh0
-Lgo+IAo+IHYyOiBDb25zZW5zdXMgY2FsbHMgZm9yIGFuIHVuY29uZGl0aW9uYWwgbWlnaHRfc2xl
-ZXAgKENocmlzLAo+IENocmlzdGlhbikKPiAKPiBGdWxsIGF1ZGl0Ogo+IC0gZG1hLWZlbmNlLmg6
-IFVzZXMgTUFYX1NDSEVEVUxFX1RJTU9VVCwgZ29vZCBjaGFuY2UgdGhpcyBzbGVlcHMKPiAtIGRt
-YS1yZXN2LmM6IFRpbWVvdXQgYWx3YXlzIGF0IGxlYXN0IDEKPiAtIHN0LWRtYS1mZW5jZS5jOiBT
-YXZlIHRvIHNsZWVwIGluIHRlc3RjYXNlcwo+IC0gYW1kZ3B1X2NzLmM6IEJvdGggY2FsbGVycyBh
-cmUgZm9yIHZhcmlhbnRzIG9mIHRoZSB3YWl0IGlvY3RsCj4gLSBhbWRncHVfZGV2aWNlLmM6IFR3
-byBjYWxsZXJzIGluIHZyYW0gcmVjb3ZlciBjb2RlLCBib3RoIHJpZ2h0IG5leHQKPiAgIHRvIG11
-dGV4X2xvY2suCj4gLSBhbWRncHVfdm0uYzogVXNlIGluIHRoZSB2bV93YWl0IGlvY3RsLCBuZXh0
-IHRvIF9yZXNlcnZlL3VucmVzZXJ2ZQo+IC0gcmVtYWluaW5nIGZ1bmN0aW9ucyBpbiBhbWRncHU6
-IEFsbCBmb3IgdGVzdF9pYiBpbXBsZW1lbnRhdGlvbnMgZm9yCj4gICB2YXJpb3VzIGVuZ2luZXMs
-IGNhbGxlciBmb3IgdGhhdCBsb29rcyBhbGwgc2FmZSAoZGVidWdmcywgZHJpdmVyCj4gICBsb2Fk
-LCByZXNldCkKPiAtIGV0bmF2aXY6IGFub3RoZXIgd2FpdCBpb2N0bAo+IC0gaGFiYW5hbGFiczog
-YW5vdGhlciB3YWl0IGlvY3RsCj4gLSBub3V2ZWF1X2ZlbmNlLmM6IGhhcmRjb2RlZCAxNSpIWiAu
-Li4gZ2xvcmlvdXMKPiAtIG5vdXZlYXVfZ2VtLmM6IGhhcmRjb2RlZCAyKkhaIC4uLiBzbyBub3Qg
-ZXZlbiBzdXBlciBjb25zaXN0ZW50LCBidXQKPiAgIHRoaXMgb25lIGRvZXMgaGF2ZSBhIFdBUk5f
-T04gOi0vIEF0IGxlYXN0IHRoaXMgb25lIGlzIG9ubHkgYQo+ICAgZmFsbGJhY2sgcGF0aCBmb3Ig
-d2hlbiBrbWFsbG9jIGZhaWxzLiBNYXliZSB0aGlzIHNob3VsZCBiZSBwdXQgb250bwo+ICAgc29t
-ZSB3b3JrZXIgbGlzdCBpbnN0ZWFkLCBpbnN0ZWFkIG9mIGEgd29yayBwZXIgdW5hbXAgLi4uCj4g
-LSBpOTE1L3NlbGZ0ZXN0czogSGFyZGVjb2RlZCBIWiAvIDQgb3IgSFogLyA4Cj4gLSBpOTE1L2d0
-L3NlbGZ0ZXN0czogR29pbmcgdXAgdGhlIGNhbGxjaGFpbiBsb29rcyBzYWZlIGxvb2tpbmcgYXQK
-PiAgIG5lYXJieSBjYWxsZXJzCj4gLSBpOTE1L2d0L2ludGVsX2d0X3JlcXVlc3RzLmMuIFdyYXBw
-ZWQgaW4gYSBtdXRleF9sb2NrCj4gLSBpOTE1L2dlbV9pOTE1X2dlbV93YWl0LmM6IFRoZSBpOTE1
-LXZlcnNpb24gd2hpY2ggaXMgY2FsbGVkIGluc3RlYWQKPiAgIGZvciBpOTE1IGZlbmNlcyBhbHJl
-YWR5IGhhcyBhIG1pZ2h0X3NsZWVwKCkgYW5ub3RhdGlvbiwgc28gYWxsIGdvb2QKPiAKPiBDYzog
-QWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+IENjOiBMdWNhcyBTdGFj
-aCA8bC5zdGFjaEBwZW5ndXRyb25peC5kZT4KPiBDYzogSmFuaSBOaWt1bGEgPGphbmkubmlrdWxh
-QGxpbnV4LmludGVsLmNvbT4KPiBDYzogSm9vbmFzIExhaHRpbmVuIDxqb29uYXMubGFodGluZW5A
-bGludXguaW50ZWwuY29tPgo+IENjOiBSb2RyaWdvIFZpdmkgPHJvZHJpZ28udml2aUBpbnRlbC5j
-b20+Cj4gQ2M6IEJlbiBTa2VnZ3MgPGJza2VnZ3NAcmVkaGF0LmNvbT4KPiBDYzogIlZNd2FyZSBH
-cmFwaGljcyIgPGxpbnV4LWdyYXBoaWNzLW1haW50YWluZXJAdm13YXJlLmNvbT4KPiBDYzogT2Rl
-ZCBHYWJiYXkgPG9kZWQuZ2FiYmF5QGdtYWlsLmNvbT4KPiBDYzogbGludXgtbWVkaWFAdmdlci5r
-ZXJuZWwub3JnCj4gQ2M6IGxpbmFyby1tbS1zaWdAbGlzdHMubGluYXJvLm9yZwo+IENjOiBsaW51
-eC1yZG1hQHZnZXIua2VybmVsLm9yZwo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
-Zwo+IENjOiBpbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IENocmlzIFdpbHNv
-biA8Y2hyaXNAY2hyaXMtd2lsc29uLmNvLnVrPgo+IENjOiBNYWFydGVuIExhbmtob3JzdCA8bWFh
-cnRlbi5sYW5raG9yc3RAbGludXguaW50ZWwuY29tPgo+IENjOiBDaHJpc3RpYW4gS8O2bmlnIDxj
-aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogRGFuaWVsIFZldHRlciA8
-ZGFuaWVsLnZldHRlckBpbnRlbC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVu
-Y2UuYyB8IDIgKysKPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYg
-LS1naXQgYS9kcml2ZXJzL2RtYS1idWYvZG1hLWZlbmNlLmMgYi9kcml2ZXJzL2RtYS1idWYvZG1h
-LWZlbmNlLmMKPiBpbmRleCA5MGVkZjJiMjgxYjAuLjY1NmU5YWMyZDAyOCAxMDA2NDQKPiAtLS0g
-YS9kcml2ZXJzL2RtYS1idWYvZG1hLWZlbmNlLmMKPiArKysgYi9kcml2ZXJzL2RtYS1idWYvZG1h
-LWZlbmNlLmMKPiBAQCAtMjA4LDYgKzIwOCw4IEBAIGRtYV9mZW5jZV93YWl0X3RpbWVvdXQoc3Ry
-dWN0IGRtYV9mZW5jZSAqZmVuY2UsIGJvb2wgaW50ciwgc2lnbmVkIGxvbmcgdGltZW91dCkKPiAg
-ICAgICAgIGlmIChXQVJOX09OKHRpbWVvdXQgPCAwKSkKPiAgICAgICAgICAgICAgICAgcmV0dXJu
-IC1FSU5WQUw7Cj4gIAo+ICsgICAgICAgbWlnaHRfc2xlZXAoKTsKCmdpdCBncmVwIG1hdGNoZXMg
-eW91ciBzeW5vcHNpcy4KClJldmlld2VkLWJ5OiBDaHJpcyBXaWxzb24gPGNocmlzQGNocmlzLXdp
-bHNvbi5jby51az4KLUNocmlzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+The current codebase makes use of one-element arrays in the following
+form:
+
+struct something {
+    int length;
+    u8 data[1];
+};
+
+struct something *instance;
+
+instance = kmalloc(sizeof(*instance) + size, GFP_KERNEL);
+instance->length = size;
+memcpy(instance->data, source, size);
+
+but the preferred mechanism to declare variable-length types such as
+these ones is a flexible array member[1][2], introduced in C99:
+
+struct foo {
+        int stuff;
+        struct boo array[];
+};
+
+By making use of the mechanism above, we will get a compiler warning
+in case the flexible array does not occur last in the structure, which
+will help us prevent some kind of undefined behavior bugs from being
+inadvertently introduced[3] to the codebase from now on. So, replace
+the one-element array with a flexible-array member.
+
+Also, make use of the new struct_size() helper to properly calculate the
+size of struct smu10_voltage_dependency_table.
+
+This issue was found with the help of Coccinelle and, audited and fixed
+_manually_.
+
+[1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
+[2] https://github.com/KSPP/linux/issues/21
+[3] commit 76497732932f ("cxgb3/l2t: Fix undefined behaviour")
+
+Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+---
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c | 6 ++----
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.h | 2 +-
+ 2 files changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+index 246bb9ac557d8..c9cfe90a29471 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c
+@@ -410,12 +410,10 @@ static int smu10_get_clock_voltage_dependency_table(struct pp_hwmgr *hwmgr,
+ 			struct smu10_voltage_dependency_table **pptable,
+ 			uint32_t num_entry, const DpmClock_t *pclk_dependency_table)
+ {
+-	uint32_t table_size, i;
++	uint32_t i;
+ 	struct smu10_voltage_dependency_table *ptable;
+ 
+-	table_size = sizeof(uint32_t) + sizeof(struct smu10_voltage_dependency_table) * num_entry;
+-	ptable = kzalloc(table_size, GFP_KERNEL);
+-
++	ptable = kzalloc(struct_size(ptable, entries, num_entry), GFP_KERNEL);
+ 	if (NULL == ptable)
+ 		return -ENOMEM;
+ 
+diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.h b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.h
+index 1fb296a996f3a..0f969de10fabc 100644
+--- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.h
++++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.h
+@@ -192,7 +192,7 @@ struct smu10_clock_voltage_dependency_record {
+ 
+ struct smu10_voltage_dependency_table {
+ 	uint32_t count;
+-	struct smu10_clock_voltage_dependency_record entries[1];
++	struct smu10_clock_voltage_dependency_record entries[];
+ };
+ 
+ struct smu10_clock_voltage_information {
+-- 
+2.26.2
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
