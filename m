@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A1135C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 15:44:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43280C433E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 15:44:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 772E920657
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 15:44:49 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1A2B220657
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 15:44:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ihit5e8b"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 772E920657
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mxT1j1ez"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A2B220657
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2565E6E369;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DC116E36F;
 	Tue, 19 May 2020 15:44:49 +0000 (UTC)
-Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
- [IPv6:2607:f8b0:4864:20::f44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08A056E362
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2020 15:44:48 +0000 (UTC)
-Received: by mail-qv1-xf44.google.com with SMTP id g20so6700324qvb.9
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4FB96E35D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2020 15:44:47 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id c24so11505999qtw.7
  for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2020 08:44:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=nlFHWArWoqOK3CumI5M6Tbe9Nk7KAOuK8vFgZUTAgwg=;
- b=ihit5e8b/aUQNQfXnBBonpgShvCXICuIbZxZ23ios22f+Ibt5RAxzr33ZpSKZf8CKd
- g64m755nx4LZhJVBEUzQvrouUhTRq5B/hbXs95+pGrjyHnvYYdwt375o4ekhhhhYOBtf
- 6XZWEgTOggc8NJ+oFjXZWM3jT/Zok2xs1FAuynANTiPKSmErDbkb6EM6LpFUSAKdPAUV
- H/i7cl+G9JPpB64ukYfAgCUx2SpZxTO6SsaZ57BDhqQacQ4WePUUDA1I7taXblbDR3NH
- wlYTU96VUOlnm2ci1ZI8iFTlJFUlzLgNVBVtUXbRtcrvyYe2js/7b7ZumsuLc7NkUERf
- yIdA==
+ bh=j11HZeyrkXS5mgFTffk79mSAgeG6JNQ+IXC0kGIVYxI=;
+ b=mxT1j1eziKIIr9tU59vQbPEyZpSAjtoK0DRjPv4Hc/SxKgS6uMYZOcZz86BD3gqkue
+ K6r1zqR/g4Hf2v7rgma0FI+7GNBll/PTEU2q36HYm7G556UOqHOEwC/hnQsUbEVEJgJs
+ XqtJ9RHqV7dUBqg4su9+Ruvvp1f8of0C3bTx99C/0kRx+F8K2zgMeWl3X8k8J2dPOhb2
+ SM3HZrK/D+8Td0hvzTKCjBOnUqjTMtlLN1oROsITVaH8o1YdtavyKSKtij0ClHQO7Szs
+ tS1kDhbHPb0zSFRsKn81iIc4BKsKQ4ivtcCAywxPcrYkjwh1ivQlakbN+Oq5LY+1k1Fc
+ dnNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=nlFHWArWoqOK3CumI5M6Tbe9Nk7KAOuK8vFgZUTAgwg=;
- b=PcrqI/rgS1Y8CR/AiZ9nSN45eZ5gqobMtx5k1t/bt6KuFAu9WX1YE5hWQEKkrjh77N
- 0PMcAsDaeEygt/PmgyRqYeMd/l8WwY0aqbDClwe/JUxtQEU+7cnHHU0g67EdZDee8jJd
- l/pKQmleymCbpvW6Obfy/1WZeX2SDJJVMLdRdst7wQVFMUdIH3DYgAg7l+n3UK1s9Fqh
- yE+bqJYWuXoGJz3Q4AT6jC74XCsO8VqYxx7Xp7v3Zr682A3bWOEY0ZWErC5V1OXdrKKh
- gcn7AHWGJhBPesFhS49Ymo3LDDNv+FjCbMpkPENdunKzZHyVEiuDPBEv295BTN2wNfyz
- p7NA==
-X-Gm-Message-State: AOAM5323vmJpW0pDse+OdaylZTxRkPhUN2LVtvBdZ+BOSFjII5ZGKYGc
- Hyff6BnbPAHP271tJ5Z3O94HFmmp
-X-Google-Smtp-Source: ABdhPJxSl4i4zKPodMRN97Em9Fh2D5yAxDnJaXPBuYQd7nHSl/nACbUO6RDLUHVtyqef3cou3f2PLw==
-X-Received: by 2002:a0c:ed21:: with SMTP id u1mr184080qvq.206.1589903085970;
- Tue, 19 May 2020 08:44:45 -0700 (PDT)
+ bh=j11HZeyrkXS5mgFTffk79mSAgeG6JNQ+IXC0kGIVYxI=;
+ b=GXcENLAZ22JsGGyBtMWq578agw8dpALD6ZheyM5Fc0Lm9K80C/e0TeNb0Lw8MAvN0D
+ s4WNVlodS5i2UPilQT1QYsHcoTjkV1vzcmpHJtPKb/L0O3bHqLT5W8+r6KJ9/FAyP/Lj
+ Qfi5DVJxBY+ChKw3O50AqYQXI432GHZWJmC/H3w3dX+CdxjtKjWbUD45AGX04KccLQDk
+ i2a6oFoulyzzqDLxzyjqp4Z3yhXessnsnDW9sdfmtzEswfl4jeSZ8cYQij2aiy4nMPZ7
+ 52OFU5BESI0A6mmhqAK8lsAF8jyGdHHWXm0924qzDGEUYLytCYc4G+aQvaKs3zgKL5x9
+ 5QrA==
+X-Gm-Message-State: AOAM531fsmtbq12oGtq2UQ4J1GpAea3TbVzvXvwuq+04QMMNaSaOvwZP
+ gjsM7kW94ZiycomNpuLoqFHGWfi7
+X-Google-Smtp-Source: ABdhPJzVGkcY5NQQKCGNy3amoxkrWZxjP/YXxSwpF7IliPiY9sOEONYpcqlxh5MTWUguO0K+h27hig==
+X-Received: by 2002:ac8:6c54:: with SMTP id z20mr386789qtu.76.1589903086808;
+ Tue, 19 May 2020 08:44:46 -0700 (PDT)
 Received: from localhost.localdomain ([71.51.180.250])
- by smtp.gmail.com with ESMTPSA id l133sm10819975qke.105.2020.05.19.08.44.45
+ by smtp.gmail.com with ESMTPSA id l133sm10819975qke.105.2020.05.19.08.44.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 19 May 2020 08:44:45 -0700 (PDT)
+ Tue, 19 May 2020 08:44:46 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 6/7] drm/amdgpu/sdma4: simplify the logic around powering up
- sdma
-Date: Tue, 19 May 2020 11:44:25 -0400
-Message-Id: <20200519154426.1752937-6-alexander.deucher@amd.com>
+Subject: [PATCH 7/7] drm/amdgpu: put some case statments in family order
+Date: Tue, 19 May 2020 11:44:26 -0400
+Message-Id: <20200519154426.1752937-7-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200519154426.1752937-1-alexander.deucher@amd.com>
 References: <20200519154426.1752937-1-alexander.deucher@amd.com>
@@ -87,48 +86,99 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Just check if it's an APU.  The checks for the ppfuncs are
-pointless because if we don't have them we can't power up
-sdma anyway so we shouldn't even be in this code in the first
-place.  I'm not sure about the in_gpu_reset check.  This
-probably needs to be double checked.  The fini logic doesn't
-match the init logic however with that in_gpu_reset check
-in place which seems odd.
+SI and CIK came before VI and newer asics.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 54 +++++++++++-----------
+ 1 file changed, 27 insertions(+), 27 deletions(-)
 
-Can someone test this on renoir?
-
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-index 8545018747d6..4b47a267cbe8 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
-@@ -1913,9 +1913,7 @@ static int sdma_v4_0_hw_init(void *handle)
- 	int r;
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 80a6c3156766..2f0e8da7bacf 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -1534,15 +1534,6 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+ 	adev->firmware.gpu_info_fw = NULL;
  
--	if ((adev->asic_type == CHIP_RAVEN && adev->powerplay.pp_funcs &&
--			adev->powerplay.pp_funcs->set_powergating_by_smu) ||
--			(adev->asic_type == CHIP_RENOIR && !adev->in_gpu_reset))
-+	if (adev->flags & AMD_IS_APU)
- 		amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_SDMA, false);
+ 	switch (adev->asic_type) {
+-	case CHIP_TOPAZ:
+-	case CHIP_TONGA:
+-	case CHIP_FIJI:
+-	case CHIP_POLARIS10:
+-	case CHIP_POLARIS11:
+-	case CHIP_POLARIS12:
+-	case CHIP_VEGAM:
+-	case CHIP_CARRIZO:
+-	case CHIP_STONEY:
+ #ifdef CONFIG_DRM_AMDGPU_SI
+ 	case CHIP_VERDE:
+ 	case CHIP_TAHITI:
+@@ -1557,6 +1548,15 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+ 	case CHIP_KABINI:
+ 	case CHIP_MULLINS:
+ #endif
++	case CHIP_TOPAZ:
++	case CHIP_TONGA:
++	case CHIP_FIJI:
++	case CHIP_POLARIS10:
++	case CHIP_POLARIS11:
++	case CHIP_POLARIS12:
++	case CHIP_VEGAM:
++	case CHIP_CARRIZO:
++	case CHIP_STONEY:
+ 	case CHIP_VEGA20:
+ 	default:
+ 		return 0;
+@@ -1690,24 +1690,6 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 	amdgpu_device_enable_virtual_display(adev);
  
- 	if (!amdgpu_sriov_vf(adev))
-@@ -1942,9 +1940,7 @@ static int sdma_v4_0_hw_fini(void *handle)
- 	sdma_v4_0_ctx_switch_enable(adev, false);
- 	sdma_v4_0_enable(adev, false);
- 
--	if ((adev->asic_type == CHIP_RAVEN && adev->powerplay.pp_funcs
--			&& adev->powerplay.pp_funcs->set_powergating_by_smu) ||
--			adev->asic_type == CHIP_RENOIR)
-+	if (adev->flags & AMD_IS_APU)
- 		amdgpu_dpm_set_powergating_by_smu(adev, AMD_IP_BLOCK_TYPE_SDMA, true);
- 
- 	return 0;
+ 	switch (adev->asic_type) {
+-	case CHIP_TOPAZ:
+-	case CHIP_TONGA:
+-	case CHIP_FIJI:
+-	case CHIP_POLARIS10:
+-	case CHIP_POLARIS11:
+-	case CHIP_POLARIS12:
+-	case CHIP_VEGAM:
+-	case CHIP_CARRIZO:
+-	case CHIP_STONEY:
+-		if (adev->flags & AMD_IS_APU)
+-			adev->family = AMDGPU_FAMILY_CZ;
+-		else
+-			adev->family = AMDGPU_FAMILY_VI;
+-
+-		r = vi_set_ip_blocks(adev);
+-		if (r)
+-			return r;
+-		break;
+ #ifdef CONFIG_DRM_AMDGPU_SI
+ 	case CHIP_VERDE:
+ 	case CHIP_TAHITI:
+@@ -1736,6 +1718,24 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
+ 			return r;
+ 		break;
+ #endif
++	case CHIP_TOPAZ:
++	case CHIP_TONGA:
++	case CHIP_FIJI:
++	case CHIP_POLARIS10:
++	case CHIP_POLARIS11:
++	case CHIP_POLARIS12:
++	case CHIP_VEGAM:
++	case CHIP_CARRIZO:
++	case CHIP_STONEY:
++		if (adev->flags & AMD_IS_APU)
++			adev->family = AMDGPU_FAMILY_CZ;
++		else
++			adev->family = AMDGPU_FAMILY_VI;
++
++		r = vi_set_ip_blocks(adev);
++		if (r)
++			return r;
++		break;
+ 	case CHIP_VEGA10:
+ 	case CHIP_VEGA12:
+ 	case CHIP_VEGA20:
 -- 
 2.25.4
 
