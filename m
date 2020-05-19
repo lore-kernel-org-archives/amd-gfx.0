@@ -2,70 +2,41 @@ Return-Path: <SRS0=dIjB=7B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FD23C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 21:42:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4DE8C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 21:52:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 00A2920C09
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 21:42:42 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LXkUvXRf"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00A2920C09
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id BDCE12072C
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 21:52:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BDCE12072C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=chris-wilson.co.uk
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5CAA6E3A4;
-	Tue, 19 May 2020 21:42:42 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD1816E3A4
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2020 21:42:41 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id v12so980779wrp.12
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2020 14:42:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Uev8V+3zOaIlnOY72kdSwXjAgim7IgXu93G3tyw9FQs=;
- b=LXkUvXRfFrg7pFtH7uKKtAJZyc+LM/Cc3fhjEWtk8z5W3wuRGIcA+G2cAMpHM3bnjd
- PN3/nW+NepmdAijjjmj4kLbh6ax1DPQX0zUTxWEoAXmPSuaM6gb5kztS7R6oo5v4h9ul
- i5UbTcA2ZvbNDUbew74W1A+FpyZfRDIrh2ENbDuGm9Ja943Lv7Ud3y9xpeFZgO8+CCLq
- oWLcKE9dYyC8EZXLW+5iRrmV/UqLcMQIG1Up5NKKrDWxDxjSUosKuXfyuGU8JtbWU67p
- LOtHtaujQqfY5pzwUoIcGz7bX02deoZNmP0RUMFdz/HQdEYX2kI4HjaYMLHLGDHqL/ZK
- 1tiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Uev8V+3zOaIlnOY72kdSwXjAgim7IgXu93G3tyw9FQs=;
- b=Zv/DszR24q0YyUmHt+t8hI5J1oqI6LNGya1Vc5M6PS3LNKqOIlF2SQZHGirwwJGuCm
- Y1Vo1ZZ3UsxTto2JBG791UmqAoYpJg2n7Go//wbhIyF3Sbw9ZeRhELujQQQrr9iGwRy3
- vXK0jg5oeWCEsE5qAC9RbtffMdH4yWUEjuJovjOxXDaklA0EOwu2OxDoMa0nU+duampJ
- XaZE80QnNywQkFEhFBMOA7q+A/Luv1kwKt1TVidXT0kyfbEO0V8umR9MzIx40Dv9kkbA
- WWrxn597IYs5SB5hXD8Iok39w/OmPLx7hxOJF88mE0u+lr45+qLEch4mPwWhgea9D5Zy
- 8hyg==
-X-Gm-Message-State: AOAM530LgPtDZexzWU56UUQShV/YHgjtuoARf5sNvr0yJ+VgEa7KYDaD
- H7vdrwwEj5398V99PCaaHq/tORmKP43kdEHMMWQ=
-X-Google-Smtp-Source: ABdhPJxBl5/3jwwDoz+MeomIuJfhOtfXDSO8luxnijYNXjCeYh9Qt1QomU1oJVjJiWcMmVQYItSZ50fCu4Oc1gyfsJI=
-X-Received: by 2002:a5d:400f:: with SMTP id n15mr926604wrp.419.1589924560189; 
- Tue, 19 May 2020 14:42:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75963891FA;
+	Tue, 19 May 2020 21:52:47 +0000 (UTC)
+Received: from fireflyinternet.com (mail.fireflyinternet.com [109.228.58.192])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C61C689D8D;
+ Tue, 19 May 2020 21:52:45 +0000 (UTC)
+X-Default-Received-SPF: pass (skip=forwardok (res=PASS))
+ x-ip-name=78.156.65.138; 
+Received: from localhost (unverified [78.156.65.138]) 
+ by fireflyinternet.com (Firefly Internet (M1)) with ESMTP (TLS) id
+ 21233858-1500050 for multiple; Tue, 19 May 2020 22:51:56 +0100
 MIME-Version: 1.0
-References: <CAEOHGOm=g_VGa5939Qi_HEXAfuUKuy3tXURx9TKg+n==dUDqPQ@mail.gmail.com>
- <CADnq5_N-vLuyqo_rqjy44nwdKPWyiO8cpAJN9pFk79wjwKi7gw@mail.gmail.com>
- <CAEOHGOkbu5jy_1_bUD4H0U89YEc_9zOxsSdyZqmtqZNsdOyDkg@mail.gmail.com>
- <CAEOHGOkRYXZWN-20VagBEFFywRT=26xphP3JQeQD4AJuxxzg+Q@mail.gmail.com>
- <CADnq5_Nc+eoCKsQrHA-u0d7trv=MM=5iKv5G1R3TMCyot40OjA@mail.gmail.com>
- <CAEOHGOk-YO_B3gS7WayrBEAO4oxrUAGtR0o9ZzW8ehOypuc1YA@mail.gmail.com>
-In-Reply-To: <CAEOHGOk-YO_B3gS7WayrBEAO4oxrUAGtR0o9ZzW8ehOypuc1YA@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 19 May 2020 17:42:29 -0400
-Message-ID: <CADnq5_M2R93S6aQn8XtrC_JdHhB=ajC17D780koNvdnDFbWCpA@mail.gmail.com>
-Subject: Re: slow rx 5600 xt fps
-To: Javad Karabi <karabijavad@gmail.com>
+In-Reply-To: <20200519132756.682888-1-daniel.vetter@ffwll.ch>
+References: <20200519132756.682888-1-daniel.vetter@ffwll.ch>
+Subject: Re: [PATCH] dma-fence: add might_sleep annotation to _wait()
+To: DRI Development <dri-devel@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@ffwll.ch>
+From: Chris Wilson <chris@chris-wilson.co.uk>
+Message-ID: <158992511426.8153.12953280000513890247@build.alporthouse.com>
+User-Agent: alot/0.8.1
+Date: Tue, 19 May 2020 22:51:54 +0100
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,195 +48,63 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Oded Gabbay <oded.gabbay@gmail.com>, amd-gfx@lists.freedesktop.org, linux-rdma@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>, intel-gfx@lists.freedesktop.org, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, LKML <linux-kernel@vger.kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>, linaro-mm-sig@lists.linaro.org, VMware Graphics <linux-graphics-maintainer@vmware.com>, Ben Skeggs <bskeggs@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Alex Deucher <alexander.deucher@amd.com>, Daniel Vetter <daniel.vetter@intel.com>, linux-media@vger.kernel.org, Christian König <christian.koenig@amd.com>, Lucas Stach <l.stach@pengutronix.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, May 19, 2020 at 5:22 PM Javad Karabi <karabijavad@gmail.com> wrote:
->
-> lol youre quick!
->
-> "Windows has supported peer to peer DMA for years so it already has a
-> numbers of optimizations that are only now becoming possible on Linux"
->
-> whoa, i figured linux would be ahead of windows when it comes to
-> things like that. but peer-to-peer dma is something that is only
-> recently possible on linux, but has been possible on windows? what
-> changed recently that allows for peer to peer dma in linux?
->
-
-A few things that made this more complicated on Linux:
-1. Linux uses IOMMUs more extensively than windows so you can't just
-pass around physical bus addresses.
-2. Linux supports lots of strange architectures that have a lot of
-limitations with respect to peer to peer transactions
-
-It just took years to get all the necessary bits in place in Linux and
-make everyone happy.
-
-> also, in the context of a game running opengl on some gpu, is the
-> "peer-to-peer" dma transfer something like: the game draw's to some
-> memory it has allocated, then a DMA transfer gets that and moves it
-> into the graphics card output?
-
-Peer to peer DMA just lets devices access another devices local memory
-directly.  So if you have a buffer in vram on one device, you can
-share that directly with another device rather than having to copy it
-to system memory first.  For example, if you have two GPUs, you can
-have one of them copy it's content directly to a buffer in the other
-GPU's vram rather than having to go through system memory first.
-
->
-> also, i know it can be super annoying trying to debug an issue like
-> this, with someone like me who has all types of differences from a
-> normal setup (e.g. using it via egpu, using a kernel with custom
-> configs and stuff) so as a token of my appreciation i donated 50$ to
-> the red cross' corona virus outbreak charity thing, on behalf of
-> amd-gfx.
-
-Thanks,
-
-Alex
-
->
-> On Tue, May 19, 2020 at 4:13 PM Alex Deucher <alexdeucher@gmail.com> wrote:
-> >
-> > On Tue, May 19, 2020 at 3:44 PM Javad Karabi <karabijavad@gmail.com> wrote:
-> > >
-> > > just a couple more questions:
-> > >
-> > > - based on what you are aware of, the technical details such as
-> > > "shared buffers go through system memory", and all that, do you see
-> > > any issues that might exist that i might be missing in my setup? i
-> > > cant imagine this being the case because the card works great in
-> > > windows, unless the windows driver does something different?
-> > >
-> >
-> > Windows has supported peer to peer DMA for years so it already has a
-> > numbers of optimizations that are only now becoming possible on Linux.
-> >
-> > > - as far as kernel config, is there anything in particular which
-> > > _should_ or _should not_ be enabled/disabled?
-> >
-> > You'll need the GPU drivers for your devices and dma-buf support.
-> >
-> > >
-> > > - does the vendor matter? for instance, this is an xfx card. when it
-> > > comes to different vendors, are there interface changes that might
-> > > make one vendor work better for linux than another? i dont really
-> > > understand the differences in vendors, but i imagine that the vbios
-> > > differs between vendors, and as such, the linux compatibility would
-> > > maybe change?
-> >
-> > board vendor shouldn't matter.
-> >
-> > >
-> > > - is the pcie bandwidth possible an issue? the pcie_bw file changes
-> > > between values like this:
-> > > 18446683600662707640 18446744071581623085 128
-> > > and sometimes i see this:
-> > > 4096 0 128
-> > > as you can see, the second value seems significantly lower. is that
-> > > possibly an issue? possibly due to aspm?
-> >
-> > pcie_bw is not implemented for navi yet so you are just seeing
-> > uninitialized data.  This patch set should clear that up.
-> > https://patchwork.freedesktop.org/patch/366262/
-> >
-> > Alex
-> >
-> > >
-> > > On Tue, May 19, 2020 at 2:20 PM Javad Karabi <karabijavad@gmail.com> wrote:
-> > > >
-> > > > im using Driver "amdgpu" in my xorg conf
-> > > >
-> > > > how does one verify which gpu is the primary? im assuming my intel
-> > > > card is the primary, since i have not done anything to change that.
-> > > >
-> > > > also, if all shared buffers have to go through system memory, then
-> > > > that means an eGPU amdgpu wont work very well in general right?
-> > > > because going through system memory for the egpu means going over the
-> > > > thunderbolt connection
-> > > >
-> > > > and what are the shared buffers youre referring to? for example, if an
-> > > > application is drawing to a buffer, is that an example of a shared
-> > > > buffer that has to go through system memory? if so, thats fine, right?
-> > > > because the application's memory is in system memory, so that copy
-> > > > wouldnt be an issue.
-> > > >
-> > > > in general, do you think the "copy buffer across system memory might
-> > > > be a hindrance for thunderbolt? im trying to figure out which
-> > > > directions to go to debug and im totally lost, so maybe i can do some
-> > > > testing that direction?
-> > > >
-> > > > and for what its worth, when i turn the display "off" via the gnome
-> > > > display settings, its the same issue as when the laptop lid is closed,
-> > > > so unless the motherboard reads the "closed lid" the same as "display
-> > > > off", then im not sure if its thermal issues.
-> > > >
-> > > > On Tue, May 19, 2020 at 2:14 PM Alex Deucher <alexdeucher@gmail.com> wrote:
-> > > > >
-> > > > > On Tue, May 19, 2020 at 2:59 PM Javad Karabi <karabijavad@gmail.com> wrote:
-> > > > > >
-> > > > > > given this setup:
-> > > > > > laptop -thunderbolt-> razer core x -> xfx rx 5600 xt raw 2 -hdmi-> monitor
-> > > > > > DRI_PRIME=1 glxgears gears gives me ~300fps
-> > > > > >
-> > > > > > given this setup:
-> > > > > > laptop -thunderbolt-> razer core x -> xfx rx 5600 xt raw 2
-> > > > > > laptop -hdmi-> monitor
-> > > > > >
-> > > > > > glx gears gives me ~1800fps
-> > > > > >
-> > > > > > this doesnt make sense to me because i thought that having the monitor
-> > > > > > plugged directly into the card should give best performance.
-> > > > > >
-> > > > >
-> > > > > Do you have displays connected to both GPUs?  If you are using X which
-> > > > > ddx are you using?  xf86-video-modesetting or xf86-video-amdgpu?
-> > > > > IIRC, xf86-video-amdgpu has some optimizations for prime which are not
-> > > > > yet in xf86-video-modesetting.  Which GPU is set up as the primary?
-> > > > > Note that the GPU which does the rendering is not necessarily the one
-> > > > > that the displays are attached to.  The render GPU renders to it's
-> > > > > render buffer and then that data may end up being copied other GPUs
-> > > > > for display.  Also, at this point, all shared buffers have to go
-> > > > > through system memory (this will be changing eventually now that we
-> > > > > support device memory via dma-buf), so there is often an extra copy
-> > > > > involved.
-> > > > >
-> > > > > > theres another really weird issue...
-> > > > > >
-> > > > > > given setup 1, where the monitor is plugged in to the card:
-> > > > > > when i close the laptop lid, my monitor is "active" and whatnot, and i
-> > > > > > can "use it" in a sense
-> > > > > >
-> > > > > > however, heres the weirdness:
-> > > > > > the mouse cursor will move along the monitor perfectly smooth and
-> > > > > > fine, but all the other updates to the screen are delayed by about 2
-> > > > > > or 3 seconds.
-> > > > > > that is to say, its as if the laptop is doing everything (e.g. if i
-> > > > > > open a terminal, the terminal will open, but it will take 2 seconds
-> > > > > > for me to see it)
-> > > > > >
-> > > > > > its almost as if all the frames and everything are being drawn, and
-> > > > > > the laptop is running fine and everything, but i simply just dont get
-> > > > > > to see it on the monitor, except for one time every 2 seconds.
-> > > > > >
-> > > > > > its hard to articulate, because its so bizarre. its not like, a "low
-> > > > > > fps" per se, because the cursor is totally smooth. but its that
-> > > > > > _everything else_ is only updated once every couple seconds.
-> > > > >
-> > > > > This might also be related to which GPU is the primary.  It still may
-> > > > > be the integrated GPU since that is what is attached to the laptop
-> > > > > panel.  Also the platform and some drivers may do certain things when
-> > > > > the lid is closed.  E.g., for thermal reasons, the integrated GPU or
-> > > > > CPU may have a more limited TDP because the laptop cannot cool as
-> > > > > efficiently.
-> > > > >
-> > > > > Alex
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+UXVvdGluZyBEYW5pZWwgVmV0dGVyICgyMDIwLTA1LTE5IDE0OjI3OjU2KQo+IERvIGl0IHVuY29u
+dGlvbmFsbHksIHRoZXJlJ3MgYSBzZXBhcmF0ZSBwZWVrIGZ1bmN0aW9uIHdpdGgKPiBkbWFfZmVu
+Y2VfaXNfc2lnbmFsbGVkKCkgd2hpY2ggY2FuIGJlIGNhbGxlZCBmcm9tIGF0b21pYyBjb250ZXh0
+Lgo+IAo+IHYyOiBDb25zZW5zdXMgY2FsbHMgZm9yIGFuIHVuY29uZGl0aW9uYWwgbWlnaHRfc2xl
+ZXAgKENocmlzLAo+IENocmlzdGlhbikKPiAKPiBGdWxsIGF1ZGl0Ogo+IC0gZG1hLWZlbmNlLmg6
+IFVzZXMgTUFYX1NDSEVEVUxFX1RJTU9VVCwgZ29vZCBjaGFuY2UgdGhpcyBzbGVlcHMKPiAtIGRt
+YS1yZXN2LmM6IFRpbWVvdXQgYWx3YXlzIGF0IGxlYXN0IDEKPiAtIHN0LWRtYS1mZW5jZS5jOiBT
+YXZlIHRvIHNsZWVwIGluIHRlc3RjYXNlcwo+IC0gYW1kZ3B1X2NzLmM6IEJvdGggY2FsbGVycyBh
+cmUgZm9yIHZhcmlhbnRzIG9mIHRoZSB3YWl0IGlvY3RsCj4gLSBhbWRncHVfZGV2aWNlLmM6IFR3
+byBjYWxsZXJzIGluIHZyYW0gcmVjb3ZlciBjb2RlLCBib3RoIHJpZ2h0IG5leHQKPiAgIHRvIG11
+dGV4X2xvY2suCj4gLSBhbWRncHVfdm0uYzogVXNlIGluIHRoZSB2bV93YWl0IGlvY3RsLCBuZXh0
+IHRvIF9yZXNlcnZlL3VucmVzZXJ2ZQo+IC0gcmVtYWluaW5nIGZ1bmN0aW9ucyBpbiBhbWRncHU6
+IEFsbCBmb3IgdGVzdF9pYiBpbXBsZW1lbnRhdGlvbnMgZm9yCj4gICB2YXJpb3VzIGVuZ2luZXMs
+IGNhbGxlciBmb3IgdGhhdCBsb29rcyBhbGwgc2FmZSAoZGVidWdmcywgZHJpdmVyCj4gICBsb2Fk
+LCByZXNldCkKPiAtIGV0bmF2aXY6IGFub3RoZXIgd2FpdCBpb2N0bAo+IC0gaGFiYW5hbGFiczog
+YW5vdGhlciB3YWl0IGlvY3RsCj4gLSBub3V2ZWF1X2ZlbmNlLmM6IGhhcmRjb2RlZCAxNSpIWiAu
+Li4gZ2xvcmlvdXMKPiAtIG5vdXZlYXVfZ2VtLmM6IGhhcmRjb2RlZCAyKkhaIC4uLiBzbyBub3Qg
+ZXZlbiBzdXBlciBjb25zaXN0ZW50LCBidXQKPiAgIHRoaXMgb25lIGRvZXMgaGF2ZSBhIFdBUk5f
+T04gOi0vIEF0IGxlYXN0IHRoaXMgb25lIGlzIG9ubHkgYQo+ICAgZmFsbGJhY2sgcGF0aCBmb3Ig
+d2hlbiBrbWFsbG9jIGZhaWxzLiBNYXliZSB0aGlzIHNob3VsZCBiZSBwdXQgb250bwo+ICAgc29t
+ZSB3b3JrZXIgbGlzdCBpbnN0ZWFkLCBpbnN0ZWFkIG9mIGEgd29yayBwZXIgdW5hbXAgLi4uCj4g
+LSBpOTE1L3NlbGZ0ZXN0czogSGFyZGVjb2RlZCBIWiAvIDQgb3IgSFogLyA4Cj4gLSBpOTE1L2d0
+L3NlbGZ0ZXN0czogR29pbmcgdXAgdGhlIGNhbGxjaGFpbiBsb29rcyBzYWZlIGxvb2tpbmcgYXQK
+PiAgIG5lYXJieSBjYWxsZXJzCj4gLSBpOTE1L2d0L2ludGVsX2d0X3JlcXVlc3RzLmMuIFdyYXBw
+ZWQgaW4gYSBtdXRleF9sb2NrCj4gLSBpOTE1L2dlbV9pOTE1X2dlbV93YWl0LmM6IFRoZSBpOTE1
+LXZlcnNpb24gd2hpY2ggaXMgY2FsbGVkIGluc3RlYWQKPiAgIGZvciBpOTE1IGZlbmNlcyBhbHJl
+YWR5IGhhcyBhIG1pZ2h0X3NsZWVwKCkgYW5ub3RhdGlvbiwgc28gYWxsIGdvb2QKPiAKPiBDYzog
+QWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+IENjOiBMdWNhcyBTdGFj
+aCA8bC5zdGFjaEBwZW5ndXRyb25peC5kZT4KPiBDYzogSmFuaSBOaWt1bGEgPGphbmkubmlrdWxh
+QGxpbnV4LmludGVsLmNvbT4KPiBDYzogSm9vbmFzIExhaHRpbmVuIDxqb29uYXMubGFodGluZW5A
+bGludXguaW50ZWwuY29tPgo+IENjOiBSb2RyaWdvIFZpdmkgPHJvZHJpZ28udml2aUBpbnRlbC5j
+b20+Cj4gQ2M6IEJlbiBTa2VnZ3MgPGJza2VnZ3NAcmVkaGF0LmNvbT4KPiBDYzogIlZNd2FyZSBH
+cmFwaGljcyIgPGxpbnV4LWdyYXBoaWNzLW1haW50YWluZXJAdm13YXJlLmNvbT4KPiBDYzogT2Rl
+ZCBHYWJiYXkgPG9kZWQuZ2FiYmF5QGdtYWlsLmNvbT4KPiBDYzogbGludXgtbWVkaWFAdmdlci5r
+ZXJuZWwub3JnCj4gQ2M6IGxpbmFyby1tbS1zaWdAbGlzdHMubGluYXJvLm9yZwo+IENjOiBsaW51
+eC1yZG1hQHZnZXIua2VybmVsLm9yZwo+IENjOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+Zwo+IENjOiBpbnRlbC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gQ2M6IENocmlzIFdpbHNv
+biA8Y2hyaXNAY2hyaXMtd2lsc29uLmNvLnVrPgo+IENjOiBNYWFydGVuIExhbmtob3JzdCA8bWFh
+cnRlbi5sYW5raG9yc3RAbGludXguaW50ZWwuY29tPgo+IENjOiBDaHJpc3RpYW4gS8O2bmlnIDxj
+aHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gU2lnbmVkLW9mZi1ieTogRGFuaWVsIFZldHRlciA8
+ZGFuaWVsLnZldHRlckBpbnRlbC5jb20+Cj4gLS0tCj4gIGRyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVu
+Y2UuYyB8IDIgKysKPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQo+IAo+IGRpZmYg
+LS1naXQgYS9kcml2ZXJzL2RtYS1idWYvZG1hLWZlbmNlLmMgYi9kcml2ZXJzL2RtYS1idWYvZG1h
+LWZlbmNlLmMKPiBpbmRleCA5MGVkZjJiMjgxYjAuLjY1NmU5YWMyZDAyOCAxMDA2NDQKPiAtLS0g
+YS9kcml2ZXJzL2RtYS1idWYvZG1hLWZlbmNlLmMKPiArKysgYi9kcml2ZXJzL2RtYS1idWYvZG1h
+LWZlbmNlLmMKPiBAQCAtMjA4LDYgKzIwOCw4IEBAIGRtYV9mZW5jZV93YWl0X3RpbWVvdXQoc3Ry
+dWN0IGRtYV9mZW5jZSAqZmVuY2UsIGJvb2wgaW50ciwgc2lnbmVkIGxvbmcgdGltZW91dCkKPiAg
+ICAgICAgIGlmIChXQVJOX09OKHRpbWVvdXQgPCAwKSkKPiAgICAgICAgICAgICAgICAgcmV0dXJu
+IC1FSU5WQUw7Cj4gIAo+ICsgICAgICAgbWlnaHRfc2xlZXAoKTsKCmdpdCBncmVwIG1hdGNoZXMg
+eW91ciBzeW5vcHNpcy4KClJldmlld2VkLWJ5OiBDaHJpcyBXaWxzb24gPGNocmlzQGNocmlzLXdp
+bHNvbi5jby51az4KLUNocmlzCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
+eAo=
