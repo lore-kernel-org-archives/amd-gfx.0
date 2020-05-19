@@ -2,68 +2,72 @@ Return-Path: <SRS0=dIjB=7B=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-13.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 067E2C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 20:01:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6D143C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 20:25:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CD45020826
-	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 20:01:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2A1A320657
+	for <amd-gfx@archiver.kernel.org>; Tue, 19 May 2020 20:25:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IlG+INz3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD45020826
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J9pS69ff"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2A1A320657
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 632126E38A;
-	Tue, 19 May 2020 20:01:54 +0000 (UTC)
-Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
- [IPv6:2607:f8b0:4864:20::230])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6EEE06E38A
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2020 20:01:53 +0000 (UTC)
-Received: by mail-oi1-x230.google.com with SMTP id v128so859494oia.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 19 May 2020 13:01:53 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAAE46E454;
+	Tue, 19 May 2020 20:25:16 +0000 (UTC)
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [IPv6:2607:f8b0:4864:20::82d])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E36366E454;
+ Tue, 19 May 2020 20:25:15 +0000 (UTC)
+Received: by mail-qt1-x82d.google.com with SMTP id l1so758331qtp.6;
+ Tue, 19 May 2020 13:25:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+s515oZ9JBzbviNVRScsVEdmDyPSleKE2ShcyGj3a/U=;
- b=IlG+INz3q55Fuk9mb85Oe/akqizHvUyZXyZnldUtM/VY3PAfR0LlfRVnfBzdWe6qut
- CA0m8npA7M55V5NFQWI83z1moR7bbPHyIAXiue6CeH5YQDkU08k9pKumxvOCAsW5b8mf
- rbLM1n2mNLB9FatSmrRjL5jv/0oBxBOUCqbwt4G6MJYzmqARrxoSosa+L/SM7oOBv9R4
- 5dYVoIhkB6UvEyxdplg9qVlMk66BT2bT+PBQbuAhURx+CIG6e80Q7tequbXGJoA+Nva+
- DXLZyd/vKp9EaqhPvbfPyIGJqYok+zzczdvxWpmPqHDseMFDcinP6pzyaKIXq48IZ74L
- DLDQ==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=2kg1fp0G9RDQT0q3aOBvMqyGYAIgc8XRlMj7R9IDGoI=;
+ b=J9pS69ff6f80Y4lYbdhmqie5zSttAZnh4rJZvFkpSxmCm+5yEc8nZel23oeK72MgOC
+ 9EMH0GwGP9BYoJy92lG9ZQKZA3P3VqLDieMWrFx/CR3RmtzZGK6+Exgutri/f9m/Wu7N
+ XTkN305gCk+4spgFOU9+kYs5X+tYYqm58X9oj0x+uLBrO1GGB9BOSFPKL4+N+/u6lmNp
+ QXgSL+idTiFj4NyIOfSGww29Yjydx53lJgKuzEEHmaT3bTuis69lE8Gi/p/rgwrVaIuK
+ gJsrprmJwWZvUAaavfEny5bH0HGgbcGU9pu/4qD40wJrE6iSHMHSoyEI+05aNkmtzcJF
+ JqkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+s515oZ9JBzbviNVRScsVEdmDyPSleKE2ShcyGj3a/U=;
- b=RZfw52VxtdLFs6kir0FA19VuZtJ9wjqFvo5ThRFr9KSyEzBTs8cRUUg+7lWH+wdEhQ
- 1HJlrSTnSLWJLl4eWttZcPUlyLEKUkgGI8jckAi9Icjo4Zbvyq20Sk2T4eJ6OE0LQCWT
- r7XBRJd9S81tJkZG8Fni8CC3ni0pjKNTynb6k0rL/KwngNjj1qZf21wgCV67cwLQ6Ene
- Rf8RCEjYejlpmJzwtJSyUOVV8BkRSYmzN1+UjsFzV9ITemgLJvEKuaAQBXd+ar/HHSr8
- GNWD21bdC9pmUcJORh3TDg03FY8X2Y4vU8ShnyWTTCQbXkZzsRc0Go9UjADOs48GA8Az
- i8SA==
-X-Gm-Message-State: AOAM532Zs9ihykKwbID6qExDrBMlnJXEtmonlAKsU2evPDJRnMccO3b5
- bb163indmJb+xykaF74W1qRQnDSNxf4nUPSLg3A=
-X-Google-Smtp-Source: ABdhPJyAzzdDA3vL60qNIfWz5fjAFRoN+5+FctKGiaf6QIbhGmgXGJtZmc0RCAkw26nrYh8IwkIsV88gxD4+vWNe4DU=
-X-Received: by 2002:aca:b5d5:: with SMTP id e204mr863421oif.108.1589918511512; 
- Tue, 19 May 2020 13:01:51 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=2kg1fp0G9RDQT0q3aOBvMqyGYAIgc8XRlMj7R9IDGoI=;
+ b=lHf6m4l6HCsDvz9DdbAOX73E1ehtflYRzthK4XuQsOmSDcE8t/cvn2EJ1InbXn0LfS
+ /mFAIJMGZqjnTMeZZIun4vJ6/WohxWL+fSPPx7211Z67UaJCck1rnG5BN4fOl1xhdYrb
+ 5Ra2PpToCFw6KHZXI7h9z6H7eOvE9yhadKzBC7OsYRoFMEBJenkGntI5nkNmOMV4WkcP
+ K7GN4opB4lCNgeuj+Ma0mlObWkt6b2Xutlnyt8zXKhUSFN22ZhhUFi+D7gGIqv60yb4d
+ 7mGFib146blw2S2tpjktyW0Cshtqy58wiLwGHLgQgM6sn92+ukx6HERVL8s7QMIZ/if2
+ dOQQ==
+X-Gm-Message-State: AOAM533FqQgVuXro+rQdiFdbHPwDmDFHs01sfi4yWQy+dt86NxFlSA0V
+ xriCgQQSx7oAaGiqB0PdbjHmQeKw
+X-Google-Smtp-Source: ABdhPJz/htgt94YwrERJMPqcFgwjKuB7igvmYvJU8qa1MYzP/Qcj1NhBf8CPCgggxfvo74CfCYZGmA==
+X-Received: by 2002:ac8:5693:: with SMTP id h19mr1784288qta.252.1589919914567; 
+ Tue, 19 May 2020 13:25:14 -0700 (PDT)
+Received: from localhost.localdomain ([71.51.180.250])
+ by smtp.gmail.com with ESMTPSA id 19sm527044qks.8.2020.05.19.13.25.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 19 May 2020 13:25:13 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu drm-next-5.8
+Date: Tue, 19 May 2020 16:25:05 -0400
+Message-Id: <20200519202505.4126-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-References: <CAEOHGOm=g_VGa5939Qi_HEXAfuUKuy3tXURx9TKg+n==dUDqPQ@mail.gmail.com>
- <CADnq5_N-vLuyqo_rqjy44nwdKPWyiO8cpAJN9pFk79wjwKi7gw@mail.gmail.com>
- <CAEOHGOkbu5jy_1_bUD4H0U89YEc_9zOxsSdyZqmtqZNsdOyDkg@mail.gmail.com>
- <CAEOHGOkRYXZWN-20VagBEFFywRT=26xphP3JQeQD4AJuxxzg+Q@mail.gmail.com>
-In-Reply-To: <CAEOHGOkRYXZWN-20VagBEFFywRT=26xphP3JQeQD4AJuxxzg+Q@mail.gmail.com>
-From: Javad Karabi <karabijavad@gmail.com>
-Date: Tue, 19 May 2020 15:01:40 -0500
-Message-ID: <CAEOHGOnPz2pWTrPPWS=-kN9O7RG21rL2iGwJYTSboh0d-5--Lw@mail.gmail.com>
-Subject: Re: slow rx 5600 xt fps
-To: Alex Deucher <alexdeucher@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,138 +79,88 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-another tidbit:
-when in linux, the gpu's fans _never_ come on.
-
-even when i run 4 instances of glmark2, the fans do not come on :/
-i see the temp hitting just below 50 deg c, and i saw some value that
-says that 50c was the max?
-isnt 50c low for a max gpu temp?
-
-
-On Tue, May 19, 2020 at 2:44 PM Javad Karabi <karabijavad@gmail.com> wrote:
->
-> just a couple more questions:
->
-> - based on what you are aware of, the technical details such as
-> "shared buffers go through system memory", and all that, do you see
-> any issues that might exist that i might be missing in my setup? i
-> cant imagine this being the case because the card works great in
-> windows, unless the windows driver does something different?
->
-> - as far as kernel config, is there anything in particular which
-> _should_ or _should not_ be enabled/disabled?
->
-> - does the vendor matter? for instance, this is an xfx card. when it
-> comes to different vendors, are there interface changes that might
-> make one vendor work better for linux than another? i dont really
-> understand the differences in vendors, but i imagine that the vbios
-> differs between vendors, and as such, the linux compatibility would
-> maybe change?
->
-> - is the pcie bandwidth possible an issue? the pcie_bw file changes
-> between values like this:
-> 18446683600662707640 18446744071581623085 128
-> and sometimes i see this:
-> 4096 0 128
-> as you can see, the second value seems significantly lower. is that
-> possibly an issue? possibly due to aspm?
->
-> On Tue, May 19, 2020 at 2:20 PM Javad Karabi <karabijavad@gmail.com> wrote:
-> >
-> > im using Driver "amdgpu" in my xorg conf
-> >
-> > how does one verify which gpu is the primary? im assuming my intel
-> > card is the primary, since i have not done anything to change that.
-> >
-> > also, if all shared buffers have to go through system memory, then
-> > that means an eGPU amdgpu wont work very well in general right?
-> > because going through system memory for the egpu means going over the
-> > thunderbolt connection
-> >
-> > and what are the shared buffers youre referring to? for example, if an
-> > application is drawing to a buffer, is that an example of a shared
-> > buffer that has to go through system memory? if so, thats fine, right?
-> > because the application's memory is in system memory, so that copy
-> > wouldnt be an issue.
-> >
-> > in general, do you think the "copy buffer across system memory might
-> > be a hindrance for thunderbolt? im trying to figure out which
-> > directions to go to debug and im totally lost, so maybe i can do some
-> > testing that direction?
-> >
-> > and for what its worth, when i turn the display "off" via the gnome
-> > display settings, its the same issue as when the laptop lid is closed,
-> > so unless the motherboard reads the "closed lid" the same as "display
-> > off", then im not sure if its thermal issues.
-> >
-> > On Tue, May 19, 2020 at 2:14 PM Alex Deucher <alexdeucher@gmail.com> wrote:
-> > >
-> > > On Tue, May 19, 2020 at 2:59 PM Javad Karabi <karabijavad@gmail.com> wrote:
-> > > >
-> > > > given this setup:
-> > > > laptop -thunderbolt-> razer core x -> xfx rx 5600 xt raw 2 -hdmi-> monitor
-> > > > DRI_PRIME=1 glxgears gears gives me ~300fps
-> > > >
-> > > > given this setup:
-> > > > laptop -thunderbolt-> razer core x -> xfx rx 5600 xt raw 2
-> > > > laptop -hdmi-> monitor
-> > > >
-> > > > glx gears gives me ~1800fps
-> > > >
-> > > > this doesnt make sense to me because i thought that having the monitor
-> > > > plugged directly into the card should give best performance.
-> > > >
-> > >
-> > > Do you have displays connected to both GPUs?  If you are using X which
-> > > ddx are you using?  xf86-video-modesetting or xf86-video-amdgpu?
-> > > IIRC, xf86-video-amdgpu has some optimizations for prime which are not
-> > > yet in xf86-video-modesetting.  Which GPU is set up as the primary?
-> > > Note that the GPU which does the rendering is not necessarily the one
-> > > that the displays are attached to.  The render GPU renders to it's
-> > > render buffer and then that data may end up being copied other GPUs
-> > > for display.  Also, at this point, all shared buffers have to go
-> > > through system memory (this will be changing eventually now that we
-> > > support device memory via dma-buf), so there is often an extra copy
-> > > involved.
-> > >
-> > > > theres another really weird issue...
-> > > >
-> > > > given setup 1, where the monitor is plugged in to the card:
-> > > > when i close the laptop lid, my monitor is "active" and whatnot, and i
-> > > > can "use it" in a sense
-> > > >
-> > > > however, heres the weirdness:
-> > > > the mouse cursor will move along the monitor perfectly smooth and
-> > > > fine, but all the other updates to the screen are delayed by about 2
-> > > > or 3 seconds.
-> > > > that is to say, its as if the laptop is doing everything (e.g. if i
-> > > > open a terminal, the terminal will open, but it will take 2 seconds
-> > > > for me to see it)
-> > > >
-> > > > its almost as if all the frames and everything are being drawn, and
-> > > > the laptop is running fine and everything, but i simply just dont get
-> > > > to see it on the monitor, except for one time every 2 seconds.
-> > > >
-> > > > its hard to articulate, because its so bizarre. its not like, a "low
-> > > > fps" per se, because the cursor is totally smooth. but its that
-> > > > _everything else_ is only updated once every couple seconds.
-> > >
-> > > This might also be related to which GPU is the primary.  It still may
-> > > be the integrated GPU since that is what is attached to the laptop
-> > > panel.  Also the platform and some drivers may do certain things when
-> > > the lid is closed.  E.g., for thermal reasons, the integrated GPU or
-> > > CPU may have a more limited TDP because the laptop cannot cool as
-> > > efficiently.
-> > >
-> > > Alex
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+SGkgRGF2ZSwgRGFuaWVsLAoKTGFzdCBmZXcgYml0cyBmb3IgNS44LgoKVGhlIGZvbGxvd2luZyBj
+aGFuZ2VzIHNpbmNlIGNvbW1pdCA4MGM5YjU4ZTk1MDNmMzNhNzA3YTIzMTcyYjJkZDhkMDE1Yjhj
+MDM2OgoKICBNZXJnZSB0YWcgJ2R1LW5leHQtMjAyMDA1MTQnIG9mIGdpdDovL2xpbnV4dHYub3Jn
+L3BpbmNoYXJ0bC9tZWRpYSBpbnRvIGRybS1uZXh0ICgyMDIwLTA1LTE0IDEzOjQxOjUxICsxMDAw
+KQoKYXJlIGF2YWlsYWJsZSBpbiB0aGUgR2l0IHJlcG9zaXRvcnkgYXQ6CgogIGdpdDovL3Blb3Bs
+ZS5mcmVlZGVza3RvcC5vcmcvfmFnZDVmL2xpbnV4IHRhZ3MvYW1kLWRybS1uZXh0LTUuOC0yMDIw
+LTA1LTE5Cgpmb3IgeW91IHRvIGZldGNoIGNoYW5nZXMgdXAgdG8gNDNjODU0NmJjZDg1NDgwNjcz
+NmQ4YTYzNWEwZDY5NjUwNGRkNGMyMToKCiAgZHJtL2FtZGdwdTogQWRkIGEgVUFQSSBmbGFnIGZv
+ciB1c2VyIHRvIGNhbGwgbWVtX3N5bmMgKDIwMjAtMDUtMTggMTE6MjQ6MjEgLTA0MDApCgotLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tCmFtZC1kcm0tbmV4dC01LjgtMjAyMC0wNS0xOToKCmFtZGdwdToKLSBJbXByb3ZlZCBoYW5k
+bGluZyBmb3IgQ1RGIChDcml0aWNhbCBUaGVybWFsIEZhdWx0KSBzaXR1YXRpb25zCi0gQ2xhcmlm
+eSBBQy9EQyBtb2RlIHN3aXRjaGVzCi0gU1ItSU9WIGZpeGVzCi0gWEdNSSBmaXhlcyBmb3IgUkFT
+Ci0gTWlzYyBjbGVhbnVwcwotIEFkZCBhdXRvZHVtcCBkZWJ1Z2ZzIG5vZGUgdG8gYWlkIGluIEdQ
+VSBoYW5nIGRlYnVnZ2luZwoKVUFQSToKLSBBZGQgYSBNRU1fU1lOQyBJQiBmbGFnIGZvciBoYW5k
+bGluZyBwcm9wZXIgYWNxdWlyZSBtZW1vcnkgc2VtYW50aWNzIGlmIFVNRHMgZXhwZWN0IHRoZSBr
+ZXJuZWwgdG8gaGFuZGxlIHRoaXMKICBVc2VkIGJ5IEFNRFZMSzogaHR0cHM6Ly9naXRodWIuY29t
+L0dQVU9wZW4tRHJpdmVycy9wYWwvYmxvYi9kZXYvc3JjL2NvcmUvb3MvYW1kZ3B1L2FtZGdwdVF1
+ZXVlLmNwcCNMMTI2MgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpBbmRyZXkgR3JvZHpvdnNreSAoNCk6CiAgICAgIGRybS9h
+bWRncHU6IEFkZCBBUVVJUkVfTUVNIFBBQ0tFVDMgZmllbGRzIGRlZmludGlvbgogICAgICBkcm0v
+YW1kZ3B1OiBBZGQgbmV3IHJpbmcgY2FsbGJhY2sgdG8gaW5zZXJ0IG1lbW9yeSBzeW5jCiAgICAg
+IGRybS9hbWRncHU6IEFkZCBtZW1fc3luYyBpbXBsZW1lbnRhdGlvbiBmb3IgYWxsIHRoZSBBU0lD
+cy4KICAgICAgZHJtL2FtZGdwdTogQWRkIGEgVUFQSSBmbGFnIGZvciB1c2VyIHRvIGNhbGwgbWVt
+X3N5bmMKCkNvbGluIElhbiBLaW5nICgxKToKICAgICAgZHJtL2FtZGdwdTogcmVtb3ZlIHJlZHVu
+ZGFudCBhc3NpZ25tZW50IHRvIHZhcmlhYmxlIHJldAoKRXZhbiBRdWFuICgzKToKICAgICAgZHJt
+L2FtZC9wb3dlcnBsYXk6IHRyeSB0byBkbyBhIGdyYWNlZnVsIHNodXRkb3duIG9uIFNXIENURgog
+ICAgICBkcm0vYW1kL3Bvd2VycGxheTogc2h1dGRvd24gb24gSFcgQ1RGCiAgICAgIGRybS9hbWQv
+cG93ZXJwbGF5OiByZXBvcnQgY29ycmVjdCBBQy9EQyBldmVudCBiYXNlZCBvbiBjdHhpZCBWMgoK
+SmlhbmdlIFpoYW8gKDEpOgogICAgICBkcm0vYW1kZ3B1OiBBZGQgYXV0b2R1bXAgZGVidWdmcyBu
+b2RlIGZvciBncHUgcmVzZXQgdjgKCkpvaG4gQ2xlbWVudHMgKDQpOgogICAgICBkcm0vYW1kZ3B1
+OiBBZGQgY21kIHRvIGNvbnRyb2wgWEdNSSBsaW5rIHNsZWVwCiAgICAgIGRybS9hbWRncHU6IEFk
+ZCBEUE0gZnVuY3Rpb24gZm9yIFhHTUkgbGluayBwb3dlciBkb3duIGNvbnRyb2wKICAgICAgZHJt
+L2FtZGdwdTogVXBkYXRlIFJBUyBYR01JIGVycm9yIGluamVjdCBzZXF1ZW5jZQogICAgICBkcm0v
+YW1kZ3B1OiBVcGRhdGVkIFhHTUkgcG93ZXIgZG93biBjb250cm9sIHN1cHBvcnQgY2hlY2sKCktl
+dmluIFdhbmcgKDIpOgogICAgICBkcm0vYW1kZ3B1OiBhZGQgYW1kZ3B1X3ZpcnRfZ2V0X3ZmX21v
+ZGUgaGVscGVyIGZ1bmN0aW9uCiAgICAgIGRybS9hbWRncHU6IG9wdGltaXplIGFtZGdwdSBkZXZp
+Y2UgYXR0cmlidXRlIGNvZGUKCk1hcmVrIE9sxaHDoWsgKDEpOgogICAgICBkcm0vYW1kZ3B1OiBh
+cHBseSBBTURHUFVfSUJfRkxBR19FTUlUX01FTV9TWU5DIHRvIGNvbXB1dGUgSUJzIHRvbyAodjMp
+CgpZaW50aWFuIFRhbyAoMSk6CiAgICAgIGRybS9hbWRncHU6IHR1cm4gYmFjayBybGNnIHdyaXRl
+IGZvciBnZnhfdjEwCgogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1LmggICAgICAg
+ICAgICAgICAgfCAgIDIgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2RlYnVn
+ZnMuYyAgICAgICAgfCAgNzggKysrLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1
+X2RlYnVnZnMuaCAgICAgICAgfCAgIDYgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1k
+Z3B1X2RldmljZS5jICAgICAgICAgfCAgIDIgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2RwbS5jICAgICAgICAgICAgfCAgMTAgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRn
+cHUvYW1kZ3B1X2RwbS5oICAgICAgICAgICAgfCAgIDIgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9h
+bWRncHUvYW1kZ3B1X2Rydi5jICAgICAgICAgICAgfCAgIDMgKy0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9pYi5jICAgICAgICAgICAgIHwgICAzICsKIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9wbS5jICAgICAgICAgICAgIHwgNDk0ICsrKysrKysrKy0tLS0t
+LS0tLS0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmggICAgICAgICAg
+ICAgfCAgNDYgKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9yYXMuYyAgICAg
+ICAgICAgIHwgIDMwICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcmluZy5o
+ICAgICAgICAgICB8ICAgMSArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfdmly
+dC5jICAgICAgICAgICB8ICAxNiArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
+dmlydC5oICAgICAgICAgICB8ICAgOCArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRn
+cHVfeGdtaS5jICAgICAgICAgICB8ICAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+Y2lrZC5oICAgICAgICAgICAgICAgICAgfCAgIDIgKy0KIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1k
+Z3B1L2dmeF92MTBfMC5jICAgICAgICAgICAgIHwgIDQ1ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1k
+L2FtZGdwdS9nZnhfdjZfMC5jICAgICAgICAgICAgICB8ICAyMCArLQogZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvZ2Z4X3Y3XzAuYyAgICAgICAgICAgICAgfCAgMzQgKy0KIGRyaXZlcnMvZ3B1
+L2RybS9hbWQvYW1kZ3B1L2dmeF92OF8wLmMgICAgICAgICAgICAgIHwgIDM2ICstCiBkcml2ZXJz
+L2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jICAgICAgICAgICAgICB8ICAyNyArLQogZHJp
+dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbnZkLmggICAgICAgICAgICAgICAgICAgfCAgNDggKysK
+IGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L3NvYzE1ZC5oICAgICAgICAgICAgICAgIHwgIDI1
+ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS92aWQuaCAgICAgICAgICAgICAgICAgICB8
+ICAgMiArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYW1kZ3B1X3NtdS5jICAgICAg
+ICAgfCAgMjIgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkvYXJjdHVydXNfcHB0LmMg
+ICAgICAgfCAgMzEgKysKIGRyaXZlcnMvZ3B1L2RybS9hbWQvcG93ZXJwbGF5L2h3bWdyL3NtdV9o
+ZWxwZXIuYyAgIHwgIDM3ICstCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMvYW1k
+Z3B1X3NtdS5oICAgICB8ICAgMiArCiBkcml2ZXJzL2dwdS9kcm0vYW1kL3Bvd2VycGxheS9pbmMv
+YXJjdHVydXNfcHBzbWMuaCB8ICAgMyArLQogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBsYXkv
+aW5jL3NtdV90eXBlcy5oICAgICAgfCAgIDEgKwogZHJpdmVycy9ncHUvZHJtL2FtZC9wb3dlcnBs
+YXkvc211X3YxMV8wLmMgICAgICAgICAgfCAgNDYgKy0KIGluY2x1ZGUvdWFwaS9kcm0vYW1kZ3B1
+X2RybS5oICAgICAgICAgICAgICAgICAgICAgIHwgICA0ICsKIDMyIGZpbGVzIGNoYW5nZWQsIDc3
+NSBpbnNlcnRpb25zKCspLCAzMTMgZGVsZXRpb25zKC0pCl9fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlz
+dHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4v
+bGlzdGluZm8vYW1kLWdmeAo=
