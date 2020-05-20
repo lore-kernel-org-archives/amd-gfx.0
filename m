@@ -4,86 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 792ECC433E3
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 11:03:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40DD0C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 12:01:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4F2CA206F1
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 11:03:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1560720829
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 12:01:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="gCn4N7N3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F2CA206F1
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="YRc3iz02"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1560720829
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2105B6E139;
-	Wed, 20 May 2020 11:03:27 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A74106E139
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2020 11:03:25 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id l11so2728520wru.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2020 04:03:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:mail-followup-to:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to; bh=ct4iwtkqSx7W80DKvDt8WvEkiq9KjVIacJ0yr7BAVII=;
- b=gCn4N7N304bnLXil/a63o+C7lXWE4O+dUD5kr4U/QwkYok3WIYIss7MpTiwkIvDJDu
- Yb14/i8NGGvtiwnPpTQWB1oc/MHjv9gyvs+HjkbrsA9GEiFTSWKwCkg07hWlb9e22xpX
- cG1iXAAYqHj6N5FDXXS8FFy8ELfjoCREHTKlM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id
- :mail-followup-to:references:mime-version:content-disposition
- :content-transfer-encoding:in-reply-to;
- bh=ct4iwtkqSx7W80DKvDt8WvEkiq9KjVIacJ0yr7BAVII=;
- b=ZPBvI1LUCHX2d4fJkwiOPbTHAGKafsUl0H2bSqkfMfLWuuf1iUGqbwjdsFGpWi5weA
- HzkW9G9P3zbgJhqUPWQhlg1uZkho5+OXGJISU9VHJckH8rHt/Xp3vn1u0aLJD/9AK3ET
- zQdl1jCZKqDWDIWndXH8ah95FAFnb66VnKgoQtH1Ig/VtlagYG5OWQIYZ+l449+sykNE
- MkmevFYzcDKt57YhKY9uo60c7sLOtiPOa2/VDIQqLKHufTrLp7RMFDdNF5J8ltEGUIEm
- dOzuK1vwYvgurEcYBIKnLtmn47v4mBQrqe1wshbZnlOUcTwMLqdyms0VAfg6id55fSz3
- fafg==
-X-Gm-Message-State: AOAM5326209P84i5AI5iR8Ds3CA5BwdIHbQvrqujOkmDx62fImjJ7KQu
- zuuGWCIF6Tf+Rkvw+qDE8FK6dw==
-X-Google-Smtp-Source: ABdhPJzCd29Xl/wTekkJzbG2hFf7ELniw9c+535re3/QWPV7VzmtBOKv2TwjIms44WqcPc+fmic+SA==
-X-Received: by 2002:adf:fe90:: with SMTP id l16mr3672440wrr.222.1589972604221; 
- Wed, 20 May 2020 04:03:24 -0700 (PDT)
-Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id u65sm2743050wmg.8.2020.05.20.04.03.22
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2020 04:03:23 -0700 (PDT)
-Date: Wed, 20 May 2020 13:03:20 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] dma-fence: add might_sleep annotation to _wait()
-Message-ID: <20200520110320.GT206103@phenom.ffwll.local>
-Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, 
- DRI Development <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- Lucas Stach <l.stach@pengutronix.de>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Ben Skeggs <bskeggs@redhat.com>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Oded Gabbay <oded.gabbay@gmail.com>, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Daniel Vetter <daniel.vetter@intel.com>
-References: <20200519132756.682888-1-daniel.vetter@ffwll.ch>
- <be86b73c-2fb3-a6c0-5a12-004af051210f@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAA996E802;
+	Wed, 20 May 2020 12:01:15 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F9DD6E7DC;
+ Wed, 20 May 2020 12:01:14 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04KBvY8D173181;
+ Wed, 20 May 2020 12:01:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=68JDAbvefgoH93PS1ZCGMUKwpNrUM0Es7ihpXKYD3SQ=;
+ b=YRc3iz024NVv0RIMObb+nH8HqskR8SsNAB++dS9Ryu9eT2P9OAxdFZHQa/zungABs/84
+ F61hJvddLjsvEq9YKKQAVNgsXanV/ROCEjrzJ4B0MP6TwH9tZSi8hCgygDPClnGyrWAe
+ dy7dBmUb9FsTHxckibNELYF5Y+IwA1PAHTaX/sIi2UPcwXUHfrk+ksYOqUWIbMO+CWsd
+ zvyYqtdZ7GnaGGZL3iTcTENkxUgFaNEMJAxWKN1E8nSFe8gsk98z1R6PuEIl2dnSnnO2
+ Z8wEOj28LtiOiTF0wq6cKBLHdyftmpqvdVzAvlpR2l60IF1iZju45zqks7BmPQYTPULp tw== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2120.oracle.com with ESMTP id 31501r96wd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 20 May 2020 12:01:06 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04KBsR7x107085;
+ Wed, 20 May 2020 12:01:06 GMT
+Received: from userv0122.oracle.com (userv0122.oracle.com [156.151.31.75])
+ by userp3030.oracle.com with ESMTP id 314gm6xwa3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 20 May 2020 12:01:06 +0000
+Received: from abhmp0005.oracle.com (abhmp0005.oracle.com [141.146.116.11])
+ by userv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 04KC13SD003438;
+ Wed, 20 May 2020 12:01:03 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 20 May 2020 05:01:02 -0700
+Date: Wed, 20 May 2020 15:00:54 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Alex Deucher <alexander.deucher@amd.com>, Kevin Wang <kevin1.wang@amd.com>
+Subject: [PATCH] drm/amdgpu: off by on in amdgpu_device_attr_create_groups()
+ error handling
+Message-ID: <20200520120054.GB172354@mwanda>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <be86b73c-2fb3-a6c0-5a12-004af051210f@amd.com>
-X-Operating-System: Linux phenom 5.6.0-1-amd64 
+X-Mailer: git-send-email haha only kidding
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9626
+ signatures=668686
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ mlxlogscore=999
+ adultscore=0 phishscore=0 mlxscore=0 spamscore=0 suspectscore=0
+ bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2004280000 definitions=main-2005200104
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9626
+ signatures=668686
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 spamscore=0
+ mlxlogscore=999 clxscore=1011 priorityscore=1501 cotscore=-2147483648
+ impostorscore=0 bulkscore=0 adultscore=0 malwarescore=0 phishscore=0
+ mlxscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2004280000 definitions=main-2005200104
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,114 +88,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Oded Gabbay <oded.gabbay@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
- intel-gfx@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>, linaro-mm-sig@lists.linaro.org,
- Ben Skeggs <bskeggs@redhat.com>,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- DRI Development <dri-devel@lists.freedesktop.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Daniel Vetter <daniel.vetter@intel.com>, linux-media@vger.kernel.org,
- Lucas Stach <l.stach@pengutronix.de>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: David Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Hawking Zhang <Hawking.Zhang@amd.com>, Rui Huang <ray.huang@amd.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Evan Quan <evan.quan@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Yintian Tao <yttao@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 20, 2020 at 08:54:36AM +0200, Christian K=F6nig wrote:
-> Am 19.05.20 um 15:27 schrieb Daniel Vetter:
-> > Do it uncontionally, there's a separate peek function with
-> > dma_fence_is_signalled() which can be called from atomic context.
-> > =
+This loop in the error handling code should start a "i - 1" and end at
+"i == 0".  Currently it starts a "i" and ends at "i == 1".  The result
+is that it removes one attribute that wasn't created yet, and leaks the
+zeroeth attribute.
 
-> > v2: Consensus calls for an unconditional might_sleep (Chris,
-> > Christian)
-> > =
+Fixes: 4e01847c38f7 ("drm/amdgpu: optimize amdgpu device attribute code")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-> > Full audit:
-> > - dma-fence.h: Uses MAX_SCHEDULE_TIMOUT, good chance this sleeps
-> > - dma-resv.c: Timeout always at least 1
-> > - st-dma-fence.c: Save to sleep in testcases
-> > - amdgpu_cs.c: Both callers are for variants of the wait ioctl
-> > - amdgpu_device.c: Two callers in vram recover code, both right next
-> >    to mutex_lock.
-> > - amdgpu_vm.c: Use in the vm_wait ioctl, next to _reserve/unreserve
-> > - remaining functions in amdgpu: All for test_ib implementations for
-> >    various engines, caller for that looks all safe (debugfs, driver
-> >    load, reset)
-> > - etnaviv: another wait ioctl
-> > - habanalabs: another wait ioctl
-> > - nouveau_fence.c: hardcoded 15*HZ ... glorious
-> > - nouveau_gem.c: hardcoded 2*HZ ... so not even super consistent, but
-> >    this one does have a WARN_ON :-/ At least this one is only a
-> >    fallback path for when kmalloc fails. Maybe this should be put onto
-> >    some worker list instead, instead of a work per unamp ...
-> > - i915/selftests: Hardecoded HZ / 4 or HZ / 8
-> > - i915/gt/selftests: Going up the callchain looks safe looking at
-> >    nearby callers
-> > - i915/gt/intel_gt_requests.c. Wrapped in a mutex_lock
-> > - i915/gem_i915_gem_wait.c: The i915-version which is called instead
-> >    for i915 fences already has a might_sleep() annotation, so all good
-> > =
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+index b75362bf0742..ee4a8e44fbeb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -1931,7 +1931,7 @@ static int amdgpu_device_attr_create_groups(struct amdgpu_device *adev,
+ 					    uint32_t mask)
+ {
+ 	int ret = 0;
+-	uint32_t i = 0;
++	int i;
+ 
+ 	for (i = 0; i < counts; i++) {
+ 		ret = amdgpu_device_attr_create(adev, &attrs[i], mask);
+@@ -1942,9 +1942,8 @@ static int amdgpu_device_attr_create_groups(struct amdgpu_device *adev,
+ 	return 0;
+ 
+ failed:
+-	for (; i > 0; i--) {
++	while (--i >= 0)
+ 		amdgpu_device_attr_remove(adev, &attrs[i]);
+-	}
+ 
+ 	return ret;
+ }
+-- 
+2.26.2
 
-> > Cc: Alex Deucher <alexander.deucher@amd.com>
-> > Cc: Lucas Stach <l.stach@pengutronix.de>
-> > Cc: Jani Nikula <jani.nikula@linux.intel.com>
-> > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-> > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
-> > Cc: Ben Skeggs <bskeggs@redhat.com>
-> > Cc: "VMware Graphics" <linux-graphics-maintainer@vmware.com>
-> > Cc: Oded Gabbay <oded.gabbay@gmail.com>
-> > Cc: linux-media@vger.kernel.org
-> > Cc: linaro-mm-sig@lists.linaro.org
-> > Cc: linux-rdma@vger.kernel.org
-> > Cc: amd-gfx@lists.freedesktop.org
-> > Cc: intel-gfx@lists.freedesktop.org
-> > Cc: Chris Wilson <chris@chris-wilson.co.uk>
-> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> > Cc: Christian K=F6nig <christian.koenig@amd.com>
-> > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
-> =
-
-> Reviewed-by: Christian K=F6nig <christian.koenig@amd.com>
-
-intel-gfx-ci approves too, thanks to both of you for reviews, patch merged
-to drm-misc-next.
--Daniel
-
-> =
-
-> > ---
-> >   drivers/dma-buf/dma-fence.c | 2 ++
-> >   1 file changed, 2 insertions(+)
-> > =
-
-> > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-> > index 90edf2b281b0..656e9ac2d028 100644
-> > --- a/drivers/dma-buf/dma-fence.c
-> > +++ b/drivers/dma-buf/dma-fence.c
-> > @@ -208,6 +208,8 @@ dma_fence_wait_timeout(struct dma_fence *fence, boo=
-l intr, signed long timeout)
-> >   	if (WARN_ON(timeout < 0))
-> >   		return -EINVAL;
-> > +	might_sleep();
-> > +
-> >   	trace_dma_fence_wait_start(fence);
-> >   	if (fence->ops->wait)
-> >   		ret =3D fence->ops->wait(fence, intr, timeout);
-> =
-
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
