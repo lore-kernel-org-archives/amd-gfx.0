@@ -2,103 +2,72 @@ Return-Path: <SRS0=vyzA=7C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ECB73C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 19:19:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 89ABCC433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 19:58:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B4124206B6
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 19:19:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 46AB8207D8
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 19:58:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="fCRMDAcN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B4124206B6
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KiILePGF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 46AB8207D8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E24F6E888;
-	Wed, 20 May 2020 19:19:53 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2057.outbound.protection.outlook.com [40.107.94.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D34986E888;
- Wed, 20 May 2020 19:19:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=GlOE7LgrqIZvrrCFWAnmVNSav4jFTMZM9O+lcvd3UjhZfJYAGkmHpZveid11gUyXkOrRQqq51sdB7IOm2bADyG7mo3BfQmwnJLadTC8atQV1NPLr0P88vi9N5e0KfBySo8FCCcB5fC340Pm/ejhExNz0TjkgVf49lp+c9dORWINMKPKf5EZ71ibjgFTfhyMLH0pBqyU/XAFlkgWdEskP0R+U8+cz0tZAuM9U/51AanK0coHQG92hr2X4MNVJvZQb3NtQx48qxHLTBcGULrZOhzwo45E1YQ8NlzfqtnjUAgNDVyaqN2le7BWcViQHGv/gtGXNrJypANpUJjr3cUXggw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DNE/Kw6RC2DuNwPM/QVfHyUwCNoMvrbtVem8Jq5gKps=;
- b=QDoeiqDnRTQ5n9v/Eok30HMC0xeRASlLHEDeY5vmqBigjnad8Rs+vOacaLHURGRl0cuNOcfXbLnXLCfgPHPMrDxx9CU85VGbSC7Fe1Ew1YFqX63YIOm/kXHf8CcdADcuvLyOGiCu9Ke0v/2gk8AYxKd3Vk3V8YATSQK3+NEThCEAMh08Y0mjZsBfV4QJ+8ie/M+xFBrU5IJB7cZd6x3JnN6VeOf/AINd+iSKJ5jBQlLZ8yv7gNETvalsiagLD9Sl807DuHvamXOD9q7N81wGtnWWCYTs2cQiBtFiZGB1s9bbo4Z7EXwerAuW6QHGbL2YTPsGFc6eeSwiPUAtS6Z3gg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DNE/Kw6RC2DuNwPM/QVfHyUwCNoMvrbtVem8Jq5gKps=;
- b=fCRMDAcN9Lejzkog+iGJQ4trah3Y02MK8v+CDDrg5XyPfLoI9klGO0EsCJoNCaS8qgwYwEh9qnUvPKY6A/ArCf1zD3ioQeLIjr9WXKaTT0O9m9kH613POCZMqACwd4xy48SBNJiHWqKqBTznaoMtIHzeHE346QioOVQpLJv6e0M=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
- by SN1PR12MB2495.namprd12.prod.outlook.com (2603:10b6:802:32::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.23; Wed, 20 May
- 2020 19:19:50 +0000
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::18d:97b:661f:9314]) by SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::18d:97b:661f:9314%7]) with mapi id 15.20.3000.034; Wed, 20 May 2020
- 19:19:50 +0000
-Subject: Re: [PATCH] drm/amd/amdkfd: Fix large framesize for kfd_smi_ev_read()
-To: Aurabindo Pillai <aurabindo.pillai@amd.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com
-References: <20200520135306.11221-1-aurabindo.pillai@amd.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <1c09eb78-f2a4-3f20-1bee-2590c35b982e@amd.com>
-Date: Wed, 20 May 2020 15:19:40 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-In-Reply-To: <20200520135306.11221-1-aurabindo.pillai@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: YTOPR0101CA0001.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:15::14) To SN1PR12MB2414.namprd12.prod.outlook.com
- (2603:10b6:802:2e::31)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB0A06E89A;
+	Wed, 20 May 2020 19:58:11 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 915616E894;
+ Wed, 20 May 2020 19:58:10 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id j5so4442725wrq.2;
+ Wed, 20 May 2020 12:58:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3NQsGr8yLRmLepS9IgXnFNybwzo5KqpNOJrQPRcG/TI=;
+ b=KiILePGFtCftl4JmWhWs7hVc0SNd1YzSXa/VZ8yJ+QuNFXGfg5YOJe90KZD+HpuKBL
+ wMyp4LGOvJ2GBIXBoMyVN8in5RBLCi6vrtimaJ4DaWyXJtCwdA2ToYwWfFSXQo960B0M
+ 6vemgE8mX+XejglkSB6mRRKL2Gizz3oI4qXTtlkaxxvgzZhn/e5L5pwHcJNmzGRJgPDD
+ LQdjnKEaaQS2UBhD+asWW6ZBAN22eh+WStmnTyO3FwmdjuUZXxPmpBAQxITmr0zQvwT6
+ 2Zl/SPbi88CYrKTdJbw+L3JY3mN4ezyhvIr3Q6sUfMSAoDKMD/0KCewHoFM1J20GmlvG
+ rchA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3NQsGr8yLRmLepS9IgXnFNybwzo5KqpNOJrQPRcG/TI=;
+ b=LsH1BxKi/3xmQk58WlhoFcsRZMF42VhPsRpEkJUspJNDk9GF6Ms8PtYIuIL2dzRNe/
+ I4bV4slrQmgFa+w7VtZfZYD6/nMF4z2NXa72IdRxWUvROodsSiWXm9QcAE5MLrDKQgSa
+ uzjfjfHRI5Cr0YDA0zqavlbYbEb93NhRYTwhpS3wSH/oucY3RjLzrUAiGM9CZsLo2/iF
+ 90bDIdHHJ1RbmBsCtyjAkcftJaKJby/7Gsir+ob+sZkpS/yPFMXyplUuZ7wO/oXFaV7w
+ fnf/IV3TXByBL9+aSmNkM61tCnhSpcVTsbuib2wqcVz9TQne+MLRfw0QNN0ynQ95xeqR
+ OZBw==
+X-Gm-Message-State: AOAM5314VHsj4bFJzhQ1p1e5Q3HSSs4fmFXO8+HHZUrq7+vgJfGthk2/
+ ULKZhg8mVouSZsP+X86dkESPpEIw0ncV7CeYyOc=
+X-Google-Smtp-Source: ABdhPJwGpnFc6MOntb9V48VABOY0lgr9qs+MRV+r8xaU2pZ/a4g2HfSeTkkJF1kApVDh+zII+EdzTUpIRAOi+zgEDI8=
+X-Received: by 2002:adf:9166:: with SMTP id j93mr5129841wrj.289.1590004689229; 
+ Wed, 20 May 2020 12:58:09 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [192.168.2.100] (142.116.63.128) by
- YTOPR0101CA0001.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:15::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.23 via Frontend
- Transport; Wed, 20 May 2020 19:19:44 +0000
-X-Originating-IP: [142.116.63.128]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: f5ab3269-ba1b-4a7d-2491-08d7fcf2c41f
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2495:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB2495884A4F136ECCD398E00292B60@SN1PR12MB2495.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-Forefront-PRVS: 04097B7F7F
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 2sodXrRH0rm+3IUmxBmGMjdbHecxwkhT/CsrZN1hAAxI3xS2fQviRn9iqHvpwfJ0Uipe7fUbP5owK4fhRJBVqY2mMYy5w8M5C1jSBUnx1r1JmrX4we6Kkx+j6lUyt6JL7aqJ8PAe4oXvEQ05PC+U3ijB0mIDF8ZcbDEluik9pe3784gjobp9AyChCe0yq5p78XkO1AJEg14Rx4+plOed7q6Adu8lU811EAZYtSHSfiTSIN9OsWKJ2niWqQoTkMB6tdZ9FbjhdPukqtQoAOLXTKUNtFwAfK2D4P9reIDSn4Wd/8eUQswirxmQmXXsINs96QmdHc5JhBx4jRrE4aNg09aDLQHzH4GJl/Fo3lnQaJ2Re+lDF9C93HCzrEcX6lRt
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(396003)(376002)(346002)(366004)(136003)(39860400002)(2616005)(6636002)(956004)(31696002)(4326008)(52116002)(66556008)(66946007)(5660300002)(26005)(16526019)(186003)(66476007)(2906002)(31686004)(86362001)(316002)(16576012)(6666004)(8676002)(6486002)(8936002)(36756003)(478600001)(44832011)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: ovtHEqY1/6mysqe6bbR4FbCYi1wmavccl9jtiMZPCR0eaDp2jYNb/DJejYPbo2KrDzATWyMVme22lsP8vIeTxSqehBYoK57gYlsuptS8hK1XwjAg9Pw+Iz0DuVUxdkntS8oXwpUrJcrztIGDB0rBlPTtsJcWCA/iv+auPBeblVp5ITvKYLy/RGgOd/M/xRuI9r5IPtswHgx6aEOxSlhS9DLnu3X6j2vu5sRfqDVTjqDvTXbZF5Sh8CBSt3sfckz21wPCOTq72Li7C2G0UW3OMqhDsFgQ+DsM/h6OKN3EV/y1OZyb5jmeQDMedsHgVdqCZ4W4xinnbNBk5ORNCmN8U7rGQOxiwFO/rI+UJMm5jTY/ntsxdJNAN6a/neQb3P3/df5Ftem1NozUcc26lNLda17dgKTRmT4zJaFNApOSDsqkaqVFsQGHuPB5X4+GRf/RGYSf0MmHMsnm/h7xuyOGGC5UB8HHCbHOz766KujKfnA=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5ab3269-ba1b-4a7d-2491-08d7fcf2c41f
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2020 19:19:50.1203 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1rXaw2f4HsCtbFsgD/g8GxdQKghIaNE8Ibt6DP4wEjsP8A2++0DPSrc81T5w+zmRIM+4fXaXv/Rk2RczFD2wMQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2495
+References: <20200515051924.12331-1-mario.kleiner.de@gmail.com>
+ <20200515051924.12331-3-mario.kleiner.de@gmail.com>
+ <7ab95258-02a9-fd39-6806-e6e81ddc295c@amd.com>
+ <CADnq5_MJzLC4q8MU9GTmVLzN1kHxy9m15nm3WwsCoPUb-0d2WA@mail.gmail.com>
+ <CAEsyxyjCbRvo-o-pUeYiuBbLX9SRNtZjaOLBr6CXDTdKRnMiNg@mail.gmail.com>
+ <54f52bcf-83a6-f087-762d-3c8534f84865@amd.com>
+In-Reply-To: <54f52bcf-83a6-f087-762d-3c8534f84865@amd.com>
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+Date: Wed, 20 May 2020 21:57:57 +0200
+Message-ID: <CAEsyxyjFHU-ZzGoEyPszVcsBNipojLHVBAxgdC1G=YLVb+todw@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amd/display: Enable fp16 also on DCE-11.0 -
+ DCE-12.
+To: "Kazlauskas, Nicholas" <nicholas.kazlauskas@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,55 +79,361 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: airlied@linux.ie, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Amber Lin <Amber.Lin@amd.com>,
- amd-gfx@lists.freedesktop.org, daniel@ffwll.ch
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Alex Deucher <alexdeucher@gmail.com>, "Deucher,
+ Alexander" <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============0024500334=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjAyMC0wNS0yMCB1bSA5OjUzIGEubS4gc2NocmllYiBBdXJhYmluZG8gUGlsbGFpOgo+IFRo
-ZSBidWZmZXIgYWxsb2NhdGVkIGlzIG9mIDEwMjQgYnl0ZXMuIEFsbG9jYXRlIHRoaXMgZnJvbQo+
-IGhlYXAgaW5zdGVhZCBvZiBzdGFjay4KPgo+IEFsc28gcmVtb3ZlIGNoZWNrIGZvciBzdGFjayBz
-aXplIHNpbmNlIHdlJ3JlIGFsbG9jYXRpbmcgZnJvbSBoZWFwCj4KPiBTaWduZWQtb2ZmLWJ5OiBB
-dXJhYmluZG8gUGlsbGFpIDxhdXJhYmluZG8ucGlsbGFpQGFtZC5jb20+Cj4gVGVzdGVkLWJ5OiBB
-bWJlciBMaW4gPEFtYmVyLkxpbkBhbWQuY29tPgoKU2VlIG9uZSBjb21tZW50IGlubGluZS4gV2l0
-aCB0aGF0IGZpeGVkLCB0aGUgcGF0Y2ggaXMKClJldmlld2VkLWJ5OiBGZWxpeCBLdWVobGluZyA8
-RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KCgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGtmZC9rZmRfc21pX2V2ZW50cy5jIHwgMjYgKysrKysrKysrKysrKysrLS0tLS0tCj4gIDEgZmls
-ZSBjaGFuZ2VkLCAxOSBpbnNlcnRpb25zKCspLCA3IGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9zbWlfZXZlbnRzLmMgYi9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfc21pX2V2ZW50cy5jCj4gaW5kZXggZjVmZDE4ZWFjZjBk
-Li41YWViZTE2OWY4YzYgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRrZmQv
-a2ZkX3NtaV9ldmVudHMuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9z
-bWlfZXZlbnRzLmMKPiBAQCAtNzcsOSArNzcsMTEgQEAgc3RhdGljIHNzaXplX3Qga2ZkX3NtaV9l
-dl9yZWFkKHN0cnVjdCBmaWxlICpmaWxlcCwgY2hhciBfX3VzZXIgKnVzZXIsCj4gIAlpbnQgcmV0
-Owo+ICAJc2l6ZV90IHRvX2NvcHk7Cj4gIAlzdHJ1Y3Qga2ZkX3NtaV9jbGllbnQgKmNsaWVudCA9
-IGZpbGVwLT5wcml2YXRlX2RhdGE7Cj4gLQl1bnNpZ25lZCBjaGFyIGJ1ZltNQVhfS0ZJRk9fU0la
-RV07Cj4gKwl1bnNpZ25lZCBjaGFyICpidWY7Cj4gIAo+IC0JQlVJTERfQlVHX09OKE1BWF9LRklG
-T19TSVpFID4gMTAyNCk7Cj4gKwlidWYgPSBremFsbG9jKE1BWF9LRklGT19TSVpFICogc2l6ZW9m
-KCpidWYpLCBHRlBfS0VSTkVMKTsKCmt6YWxsb2MgaXMgbm90IG5lY2Vzc2FyeSBoZXJlLCB5b3Ug
-Y291bGQgdXNlIGttYWxsb2MuIFRoZSBwYXJ0IG9mIHRoYXQKYWxsb2NhdGlvbiB0aGF0IG1hdHRl
-cnMgd2lsbCBiZSBvdmVyd3JpdHRlbiBieSBrZmlmb19vdXQuCgpSZWdhcmRzLArCoCBGZWxpeAoK
-Cj4gKwlpZiAoIWJ1ZikKPiArCQlyZXR1cm4gLUVOT01FTTsKPiAgCj4gIAkvKiBrZmlmb190b191
-c2VyIGNhbiBzbGVlcCBzbyB3ZSBjYW4ndCB1c2Ugc3BpbmxvY2sgcHJvdGVjdGlvbiBhcm91bmQK
-PiAgCSAqIGl0LiBJbnN0ZWFkLCB3ZSBrZmlmbyBvdXQgYXMgc3BpbmxvY2tlZCB0aGVuIGNvcHkg
-dGhlbSB0byB0aGUgdXNlci4KPiBAQCAtODgsMTkgKzkwLDI5IEBAIHN0YXRpYyBzc2l6ZV90IGtm
-ZF9zbWlfZXZfcmVhZChzdHJ1Y3QgZmlsZSAqZmlsZXAsIGNoYXIgX191c2VyICp1c2VyLAo+ICAJ
-dG9fY29weSA9IGtmaWZvX2xlbigmY2xpZW50LT5maWZvKTsKPiAgCWlmICghdG9fY29weSkgewo+
-ICAJCXNwaW5fdW5sb2NrKCZjbGllbnQtPmxvY2spOwo+IC0JCXJldHVybiAtRUFHQUlOOwo+ICsJ
-CXJldCA9IC1FQUdBSU47Cj4gKwkJZ290byByZXRfZXJyOwo+ICAJfQo+ICAJdG9fY29weSA9IG1p
-bjMoc2l6ZSwgc2l6ZW9mKGJ1ZiksIHRvX2NvcHkpOwo+ICAJcmV0ID0ga2ZpZm9fb3V0KCZjbGll
-bnQtPmZpZm8sIGJ1ZiwgdG9fY29weSk7Cj4gIAlzcGluX3VubG9jaygmY2xpZW50LT5sb2NrKTsK
-PiAtCWlmIChyZXQgPD0gMCkKPiAtCQlyZXR1cm4gLUVBR0FJTjsKPiArCWlmIChyZXQgPD0gMCkg
-ewo+ICsJCXJldCA9IC1FQUdBSU47Cj4gKwkJZ290byByZXRfZXJyOwo+ICsJfQo+ICAKPiAgCXJl
-dCA9IGNvcHlfdG9fdXNlcih1c2VyLCBidWYsIHRvX2NvcHkpOwo+IC0JaWYgKHJldCkKPiAtCQly
-ZXR1cm4gLUVGQVVMVDsKPiArCWlmIChyZXQpIHsKPiArCQlyZXQgPSAtRUZBVUxUOwo+ICsJCWdv
-dG8gcmV0X2VycjsKPiArCX0KPiAgCj4gKwlrZnJlZShidWYpOwo+ICAJcmV0dXJuIHRvX2NvcHk7
-Cj4gKwo+ICtyZXRfZXJyOgo+ICsJa2ZyZWUoYnVmKTsKPiArCXJldHVybiByZXQ7Cj4gIH0KPiAg
-Cj4gIHN0YXRpYyBzc2l6ZV90IGtmZF9zbWlfZXZfd3JpdGUoc3RydWN0IGZpbGUgKmZpbGVwLCBj
-b25zdCBjaGFyIF9fdXNlciAqdXNlciwKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVz
-a3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
-bWQtZ2Z4Cg==
+--===============0024500334==
+Content-Type: multipart/alternative; boundary="000000000000b15d5c05a619d056"
+
+--000000000000b15d5c05a619d056
+Content-Type: text/plain; charset="UTF-8"
+
+On Wed, May 20, 2020 at 9:07 PM Kazlauskas, Nicholas <
+nicholas.kazlauskas@amd.com> wrote:
+
+> On 2020-05-20 2:44 p.m., Mario Kleiner wrote:
+> > On Wed, May 20, 2020 at 8:25 PM Alex Deucher <alexdeucher@gmail.com
+> > <mailto:alexdeucher@gmail.com>> wrote:
+> >
+> >     On Wed, May 20, 2020 at 12:39 PM Harry Wentland <hwentlan@amd.com
+> >     <mailto:hwentlan@amd.com>> wrote:
+> >      >
+> >      > On 2020-05-15 1:19 a.m., Mario Kleiner wrote:
+> >      > > Testing on a Polaris11 gpu with DCE-11.2 suggests that it
+> >      > > seems to work fine there, so optimistically enable it for
+> >      > > DCE-11 and later.
+> >      > >
+> >      > > Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com
+> >     <mailto:mario.kleiner.de@gmail.com>>
+> >      > > ---
+> >      > >  drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c | 2 +-
+> >      > >  drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c | 2 +-
+> >      > >  drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c | 2 +-
+> >      > >  3 files changed, 3 insertions(+), 3 deletions(-)
+> >      > >
+> >      > > diff --git
+> >     a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+> >     b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+> >      > > index 9597fc79d7fa..a043ddae5149 100644
+> >      > > --- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+> >      > > +++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_resource.c
+> >      > > @@ -410,7 +410,7 @@ static const struct dc_plane_cap plane_cap
+> = {
+> >      > >               .pixel_format_support = {
+> >      > >                               .argb8888 = true,
+> >      > >                               .nv12 = false,
+> >      > > -                             .fp16 = false
+> >      > > +                             .fp16 = true
+> >      >
+> >      > Carrizo (DCE 11.0) has a HW bug where FP16 scaling doesn't work. I
+> >      > recommend we leave it off here.
+> >
+> >     I'll drop this hunk for upstream.
+> >
+> >     Alex
+> >
+> >
+> > Ok, no fixup patch needed from myself, thanks Alex. Does the scaling bug
+> > refer to scaling the planes (those max_downscale_factor /
+> > max_upscale_factor definitions seem to be unused) or the fp16 values
+> itself?
+> >
+> > What about DCE 8 and DCE 10 hw capabilities wrt. fp16? Should i send
+> > fp16 enable patches for those as well?
+> >
+> > -mario
+>
+> Yeah, the upscale and downscale factors were intended to block FP16
+> accepted and reject the commit but I guess nobody ever added those to
+> atomic check.
+>
+> I reviewed the patch with the idea in mind that we already blocked this
+> on a DC level. We can re-enable it in the caps after this is in I think.
+>
+> Off the top of my head I don't remember what DCE8/DCE10 supports, but
+> I'm also not sure if they even support sending the SDP message for those
+> to really be usable.
+>
+
+While HDR is the typical user for fp16, even on SDR displays, without any
+HDR signalling, fp16 should give an additional bit of precision ~ 11 bpc
+effective in standard 0.0 - 1.0 unorm range on a 12 bit pipeline with a 12
+bpc panel or even on a 10 bpc panel with dithering. Useful for
+neuroscience/medical research applications or the color precision obsessed
+people. I take every bit i can get ;)
+
+-mario
+
+
+
+> Regards,
+> Nicholas Kazlauskas
+>
+> >
+> >      >
+> >      > Harry
+> >      >
+> >      > >               },
+> >      > >
+> >      > >               .max_upscale_factor = {
+> >      > > diff --git
+> >     a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+> >     b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+> >      > > index 4a7796de2ff5..51b3fe502670 100644
+> >      > > --- a/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+> >      > > +++ b/drivers/gpu/drm/amd/display/dc/dce112/dce112_resource.c
+> >      > > @@ -411,7 +411,7 @@ static const struct dc_plane_cap plane_cap
+> = {
+> >      > >       .pixel_format_support = {
+> >      > >                       .argb8888 = true,
+> >      > >                       .nv12 = false,
+> >      > > -                     .fp16 = false
+> >      > > +                     .fp16 = true
+> >      > >       },
+> >      > >
+> >      > >       .max_upscale_factor = {
+> >      > > diff --git
+> >     a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
+> >     b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
+> >      > > index 9a9764cbd78d..8f362e8c1787 100644
+> >      > > --- a/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
+> >      > > +++ b/drivers/gpu/drm/amd/display/dc/dce120/dce120_resource.c
+> >      > > @@ -516,7 +516,7 @@ static const struct dc_plane_cap plane_cap
+> = {
+> >      > >       .pixel_format_support = {
+> >      > >                       .argb8888 = true,
+> >      > >                       .nv12 = false,
+> >      > > -                     .fp16 = false
+> >      > > +                     .fp16 = true
+> >      > >       },
+> >      > >
+> >      > >       .max_upscale_factor = {
+> >      > >
+> >      > _______________________________________________
+> >      > dri-devel mailing list
+> >      > dri-devel@lists.freedesktop.org
+> >     <mailto:dri-devel@lists.freedesktop.org>
+> >      > https://lists.freedesktop.org/mailman/listinfo/dri-devel
+> >     <https://lists.freedesktop.org/mailman/listinfo/dri-devel>
+> >
+>
+>
+
+--000000000000b15d5c05a619d056
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">On Wed, May 20, 2020 at 9:07 PM Kazlauska=
+s, Nicholas &lt;<a href=3D"mailto:nicholas.kazlauskas@amd.com">nicholas.kaz=
+lauskas@amd.com</a>&gt; wrote:<br></div><div class=3D"gmail_quote"><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
+ solid rgb(204,204,204);padding-left:1ex">On 2020-05-20 2:44 p.m., Mario Kl=
+einer wrote:<br>
+&gt; On Wed, May 20, 2020 at 8:25 PM Alex Deucher &lt;<a href=3D"mailto:ale=
+xdeucher@gmail.com" target=3D"_blank">alexdeucher@gmail.com</a> <br>
+&gt; &lt;mailto:<a href=3D"mailto:alexdeucher@gmail.com" target=3D"_blank">=
+alexdeucher@gmail.com</a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0On Wed, May 20, 2020 at 12:39 PM Harry Wentland &lt=
+;<a href=3D"mailto:hwentlan@amd.com" target=3D"_blank">hwentlan@amd.com</a>=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:hwentlan@amd.com" targ=
+et=3D"_blank">hwentlan@amd.com</a>&gt;&gt; wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; On 2020-05-15 1:19 a.m., Mario Kleiner wrote:=
+<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; Testing on a Polaris11 gpu with DCE-11.2=
+ suggests that it<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; seems to work fine there, so optimistica=
+lly enable it for<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; DCE-11 and later.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; Signed-off-by: Mario Kleiner &lt;<a href=
+=3D"mailto:mario.kleiner.de@gmail.com" target=3D"_blank">mario.kleiner.de@g=
+mail.com</a><br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:mario.kleiner.de@gmail=
+.com" target=3D"_blank">mario.kleiner.de@gmail.com</a>&gt;&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; ---<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 drivers/gpu/drm/amd/display/dc/dce=
+110/dce110_resource.c | 2 +-<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 drivers/gpu/drm/amd/display/dc/dce=
+112/dce112_resource.c | 2 +-<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 drivers/gpu/drm/amd/display/dc/dce=
+120/dce120_resource.c | 2 +-<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 3 files changed, 3 insertions(+), =
+3 deletions(-)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; diff --git<br>
+&gt;=C2=A0 =C2=A0 =C2=A0a/drivers/gpu/drm/amd/display/dc/dce110/dce110_reso=
+urce.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0b/drivers/gpu/drm/amd/display/dc/dce110/dce110_reso=
+urce.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; index 9597fc79d7fa..a043ddae5149 100644<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; --- a/drivers/gpu/drm/amd/display/dc/dce=
+110/dce110_resource.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; +++ b/drivers/gpu/drm/amd/display/dc/dce=
+110/dce110_resource.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; @@ -410,7 +410,7 @@ static const struct =
+dc_plane_cap plane_cap =3D {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0.pixel_format_support =3D {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.argb=
+8888 =3D true,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.nv12=
+ =3D false,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.fp16 =3D=
+ false<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.fp16 =3D=
+ true<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Carrizo (DCE 11.0) has a HW bug where FP16 sc=
+aling doesn&#39;t work. I<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; recommend we leave it off here.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0I&#39;ll drop this hunk for upstream.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Alex<br>
+&gt; <br>
+&gt; <br>
+&gt; Ok, no fixup patch needed from myself, thanks Alex. Does the scaling b=
+ug <br>
+&gt; refer to scaling the planes (those max_downscale_factor / <br>
+&gt; max_upscale_factor definitions seem to be unused) or the fp16 values i=
+tself?<br>
+&gt; <br>
+&gt; What about DCE 8 and DCE 10 hw capabilities wrt. fp16? Should i send <=
+br>
+&gt; fp16 enable patches for those as well?<br>
+&gt; <br>
+&gt; -mario<br>
+<br>
+Yeah, the upscale and downscale factors were intended to block FP16 <br>
+accepted and reject the commit but I guess nobody ever added those to <br>
+atomic check.<br>
+<br>
+I reviewed the patch with the idea in mind that we already blocked this <br=
+>
+on a DC level. We can re-enable it in the caps after this is in I think.<br=
+>
+<br>
+Off the top of my head I don&#39;t remember what DCE8/DCE10 supports, but <=
+br>
+I&#39;m also not sure if they even support sending the SDP message for thos=
+e <br>
+to really be usable.<br></blockquote><div><br></div><div>While HDR is the t=
+ypical user for fp16, even on SDR displays, without any HDR signalling, fp1=
+6 should give an additional bit of precision ~ 11 bpc effective in standard=
+ 0.0 - 1.0 unorm range on a 12 bit pipeline with a 12 bpc panel or even on =
+a 10 bpc panel with dithering. Useful for neuroscience/medical research app=
+lications or the color precision obsessed people. I take every bit i can ge=
+t ;) <br></div><div><br></div><div>-mario<br></div><div><br></div><div>=C2=
+=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
+x;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+Regards,<br>
+Nicholas Kazlauskas<br>
+<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Harry<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0},<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0.max_upscale_factor =3D {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; diff --git<br>
+&gt;=C2=A0 =C2=A0 =C2=A0a/drivers/gpu/drm/amd/display/dc/dce112/dce112_reso=
+urce.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0b/drivers/gpu/drm/amd/display/dc/dce112/dce112_reso=
+urce.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; index 4a7796de2ff5..51b3fe502670 100644<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; --- a/drivers/gpu/drm/amd/display/dc/dce=
+112/dce112_resource.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; +++ b/drivers/gpu/drm/amd/display/dc/dce=
+112/dce112_resource.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; @@ -411,7 +411,7 @@ static const struct =
+dc_plane_cap plane_cap =3D {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0.pixel_format_=
+support =3D {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.argb8888 =3D true,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.nv12 =3D false,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.fp16 =3D false<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.fp16 =3D true<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0},<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0.max_upscale_f=
+actor =3D {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; diff --git<br>
+&gt;=C2=A0 =C2=A0 =C2=A0a/drivers/gpu/drm/amd/display/dc/dce120/dce120_reso=
+urce.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0b/drivers/gpu/drm/amd/display/dc/dce120/dce120_reso=
+urce.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; index 9a9764cbd78d..8f362e8c1787 100644<=
+br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; --- a/drivers/gpu/drm/amd/display/dc/dce=
+120/dce120_resource.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; +++ b/drivers/gpu/drm/amd/display/dc/dce=
+120/dce120_resource.c<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; @@ -516,7 +516,7 @@ static const struct =
+dc_plane_cap plane_cap =3D {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0.pixel_format_=
+support =3D {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.argb8888 =3D true,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.nv12 =3D false,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.fp16 =3D false<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt; +=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.fp16 =3D true<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0},<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0.max_upscale_f=
+actor =3D {<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; _____________________________________________=
+__<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; dri-devel mailing list<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; <a href=3D"mailto:dri-devel@lists.freedesktop=
+.org" target=3D"_blank">dri-devel@lists.freedesktop.org</a><br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:dri-devel@lists.freede=
+sktop.org" target=3D"_blank">dri-devel@lists.freedesktop.org</a>&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; <a href=3D"https://lists.freedesktop.org/mail=
+man/listinfo/dri-devel" rel=3D"noreferrer" target=3D"_blank">https://lists.=
+freedesktop.org/mailman/listinfo/dri-devel</a><br>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;<a href=3D"https://lists.freedesktop.org/mailma=
+n/listinfo/dri-devel" rel=3D"noreferrer" target=3D"_blank">https://lists.fr=
+eedesktop.org/mailman/listinfo/dri-devel</a>&gt;<br>
+&gt; <br>
+<br>
+</blockquote></div></div>
+
+--000000000000b15d5c05a619d056--
+
+--===============0024500334==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============0024500334==--
