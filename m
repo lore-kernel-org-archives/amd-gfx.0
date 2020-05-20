@@ -2,99 +2,81 @@ Return-Path: <SRS0=vyzA=7C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 25927C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 10:40:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6928C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 10:48:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A767B207C4
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 10:40:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7A93A207C4
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 10:48:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Jvn5ZpKX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A767B207C4
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WEPQ8MJr"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A93A207C4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7359889C3B;
-	Wed, 20 May 2020 10:40:11 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2041.outbound.protection.outlook.com [40.107.223.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EE8D89C3B
- for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2020 10:40:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WsZmR/gHq3w0J7egYlES8U5vOp+gJW/T1Erp9rFyVnrN/Jb90HyqSR8pvA1GyFf0Fs7ONG2NSyvsjXsdNQegthOtXfKG+JGrARuj/ox4HwBdO37huw0uQf2/lAphF080thROgPPTrSmfQwmCG/2lYjODvTWmgndBVXtsDe3wH/pucVVBiGMMJ3IWRy1EPUw2SDeCAcUpXWuCTDkxTVp2Q8Q/mVwR6uXlLEKLGaQvDatRzdkUl0WK4UJeqsBzVeK09OxnLqqe/ketCF+eXJuOtb4tOoVK/WVR7Ro8lpzjFidHR6FLEtPDGuIKIvmlxWzaR58o+tHWW85RCc94JEciJw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bu91L68wl++sQ2B94VfCc0iizsmcL+C4rpylhsIb3/w=;
- b=jKoPATY6uiPnf+lQVPkv8WZpPcDT1Pr7FTHamSi6InCcgt+3Lp2McxqWLRjjJmS518puMY0R6tZHDZw3KFLe0blOTYmAxO+Wa+blx8Wpv/U7ZU/3dan0RKqbnZV0PB3x/FjPG7hIv7Kubiu7B0MLveKBBbMhYsUtzdS7LNMhrq+EG0EM4b8p7qEnD6G+16VJEYjq+wGoNjrQB0PLMgpPEjVVhQk5f6veFpGKUMTHOuU/c8Jkk61XbL0KOA462vk7/5g9rieAJVy7qCqpmdNnPUJTN/ZCctmcuzNUFQzTH7TGmY1ySqpdaFvbWxcMi4EZ5XCA7UVjUdeR6xXjZojj7g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Bu91L68wl++sQ2B94VfCc0iizsmcL+C4rpylhsIb3/w=;
- b=Jvn5ZpKX9NcTUPrVZlwXB4drtMW0ZMHIlPrAfaFa65sHfgCG1SU8t9bVe03Mpo6fnxmite3XMkPp/zaw7PvtNKSg6hjeHFD1jJx5CwOqrg7phC6eoFKyijuyAQUBRYM2xFJ/HmmrlY5rAKPG+yCFb7J8PfAXJs6+4UeU1CigUVs=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB3625.namprd12.prod.outlook.com (2603:10b6:5:116::21) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.26; Wed, 20 May 2020 10:40:06 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3000.022; Wed, 20 May 2020
- 10:40:06 +0000
-From: Evan Quan <evan.quan@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/powerplay: unify the prompts on thermal interrupts
-Date: Wed, 20 May 2020 18:39:48 +0800
-Message-Id: <20200520103948.30993-1-evan.quan@amd.com>
-X-Mailer: git-send-email 2.26.2
-X-ClientProxiedBy: HK2PR04CA0086.apcprd04.prod.outlook.com
- (2603:1096:202:15::30) To DM6PR12MB2619.namprd12.prod.outlook.com
- (2603:10b6:5:45::18)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A47789D8E;
+	Wed, 20 May 2020 10:48:16 +0000 (UTC)
+Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
+ [IPv6:2a00:1450:4864:20::643])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F85989D8E;
+ Wed, 20 May 2020 10:48:15 +0000 (UTC)
+Received: by mail-ej1-x643.google.com with SMTP id e2so3134260eje.13;
+ Wed, 20 May 2020 03:48:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=BJ/UCzsi6VWkG3ZZDu+33O2d2bF1wj81EEaZB1Z7K30=;
+ b=WEPQ8MJrWaSjujdfKushADVupApSDARb7vrKJ/fPzUsc3mC/ujYkoHlzhlGNkA308s
+ 8QlM2py1RTW3ThJuqL16Dpm1nPcK2exZHYTewSxgEmvnBX8O73WjrhSWRPP0hp7qqKfW
+ NbQHSbLaGDcilmMiDH6e6NwoD7qWS80mADr92pxpSZYaDKfCSgT0euPlX2HhzHki488r
+ g5uQmhh21dl5sC0qN5bsGNktaK5rHkVXszDrtbSsBuxkKRcSA+thic04zS4eH6+Xbrwq
+ PTAE7Nk0wBp+2n35cDhBohVR1UyNtmIR8pSjt57EXmTRH7q+SThhRTT0BzCiW4he0NaY
+ g5MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:reply-to:subject:to:cc:references:from
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-transfer-encoding:content-language;
+ bh=BJ/UCzsi6VWkG3ZZDu+33O2d2bF1wj81EEaZB1Z7K30=;
+ b=V3aA8Bek4qU6FVc4mi90YCpHefwasN01spqmYY61YUSgcyfLji+SXtWsvs8yq3A4jP
+ T3NnAz/BSzWbQtDog3hwIalc37Mk4NV7hHQ9wI1cqxUCoPyi94BIJDfRnv2rpg8NF+Gc
+ 9xWHxbdnJvk3OFlJ3+DfkcNMkEwfIPf/PT38uI0E0mpv6zvE83koIErkWtAyVbEe8RIX
+ cJDCSmM8qCPgBetM2wkJE5Vh0g5xoKqzQYlZMaalDu0G8ESD2J7KzVat3I16TO3umHGy
+ IyXkwyfAlHKvRro4nYOrvJQmxVGaUX4MRSNPFc2Ru3dTITdFTVfshAtfIRVzwLvj0oIW
+ rMNw==
+X-Gm-Message-State: AOAM531eFSdF1p6gWYg8pg0eLCvxDgX3BwDFVqMVXtx37J6O5jbf1mgf
+ 8Ex3DaGtaDos8dlP2q2p0m8=
+X-Google-Smtp-Source: ABdhPJwl6ENc60zjPf1yS0B2rvn9LuXNOLk4I5UDfSAupLCD7BKpxI1kC22/RvD9+6+rp/IyTh2rFg==
+X-Received: by 2002:a17:906:8514:: with SMTP id
+ i20mr3004443ejx.298.1589971693861; 
+ Wed, 20 May 2020 03:48:13 -0700 (PDT)
+Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
+ ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
+ by smtp.gmail.com with ESMTPSA id m3sm1558631ede.58.2020.05.20.03.48.12
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 20 May 2020 03:48:13 -0700 (PDT)
+Subject: Re: [PATCH v1 13/25] dma-buf: Use sequence counter with associated
+ wound/wait mutex
+To: "Ahmed S. Darwish" <a.darwish@linutronix.de>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>
+References: <20200519214547.352050-1-a.darwish@linutronix.de>
+ <20200519214547.352050-14-a.darwish@linutronix.de>
+From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
+Message-ID: <e28c251e-5771-598c-37dd-c6be2de4b9e1@gmail.com>
+Date: Wed, 20 May 2020 12:48:10 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from equan-buildpc.amd.com (58.247.170.242) by
- HK2PR04CA0086.apcprd04.prod.outlook.com (2603:1096:202:15::30) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3021.23 via Frontend Transport; Wed, 20 May 2020 10:40:05 +0000
-X-Mailer: git-send-email 2.26.2
-X-Originating-IP: [58.247.170.242]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ad8fa7d1-515f-4167-fce4-08d7fcaa2973
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3625:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3625AAA344578852AC4BFF78E4B60@DM6PR12MB3625.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2089;
-X-Forefront-PRVS: 04097B7F7F
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +FuDqO6T2MGeKy6Csn8FQX1W4ibMwjonRYG8tj/7AsuUuk9wIgBoy2EhrtZGOSZDAs0EYWrkZqYtVSC4X4AmmDIUtt/38/A/33ZQCARtGG6e/Fxx1ADGhYm8XYcrRUcOzQv/iJUjf5bGShy45UxginouLGD5sG2sf4qSj27O6ZeBH/znYwotaOfzaEaRb6NDOt9phbTWb2J5JLdlWHk+iQv8sUBm16v/l/0WgAnbwcBYjfhSOjTozCJb7G1TZNKxmAV/jvL4RQMvnhHFhdwQ0zqwvuuYGAp7ge5DpP14+lBVsW2meDwqqZ2brZGiylfm9rYJfLzklLoqSYJwgJlrxXbw9h3xHN9e5q075D0nleJ1nO5c5Z8/TjyJXPHjwQGUjfyod2Cn6NUWA8Jj6FIRVI+8Y090J7k7xFoMBrrSBOBX8cqRnqUOEt48F8aA2J9b
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(366004)(396003)(346002)(376002)(39860400002)(2616005)(86362001)(26005)(316002)(44832011)(2906002)(956004)(4326008)(7696005)(6916009)(6486002)(16526019)(186003)(36756003)(478600001)(66556008)(5660300002)(8936002)(66946007)(8676002)(1076003)(52116002)(6666004)(66476007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: ZvyBWK07rAE7nODg75QJ2KzlCZhkOXsn70It3e4F3b0WMA0pkUbFFd8KGqPe+SooKoMxyR1oZrGFVEN+CYu8w3/sX+xcOr5vslzZHREEyGTAJ7W9KQAmt+a60Ep8PoUz3fBxjugtVby0SeZhkrf55tjWVbN1X80fvo5q3UFy97H09M3ufJNEXHoPv+MDm42IGZEvu5udB4VhzYiueU9QuR9rtmJFzSY2XlBUqRKGMl88ot9IFf8k5iiULBQCIL1OLZhn7JsEjweSJrpQgFbGo3Tb//E6jV8zPUSJ64lbBJQRIVbSeFojY4POjDSyDbbSXCmQl+fRdiFld5zmvsCyKP+zZxQtdaeIPPpEo/9ObJSK9hAocfqXzcA6/Eze3pMypN3U3Gkb1uOZ+N7xkEQDTEi/LurksHvw2PRd9QeAi3JSx9+XOP8y9XXPlX4NtL6hihhlRkVjwWtNlYFojJdvtCQ9oeerpxAPaSv6MpV86h5dR9Tn2f7kzNYAs7VOt3Hc
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad8fa7d1-515f-4167-fce4-08d7fcaa2973
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2020 10:40:06.8100 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9hTQ/hpcbOlBR0XU2lmIG8AKx8xZkjqwfEhqvxBLaXZLXk1YnaziTgK2B8hWm5sV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3625
+In-Reply-To: <20200519214547.352050-14-a.darwish@linutronix.de>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,151 +88,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Reply-To: christian.koenig@amd.com
+Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
+ dri-devel@lists.freedesktop.org, "Paul E. McKenney" <paulmck@kernel.org>,
+ David Airlie <airlied@linux.ie>,
+ "Sebastian A. Siewior" <bigeasy@linutronix.de>,
+ LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
+ Sumit Semwal <sumit.semwal@linaro.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The prompts will contain pci address(segment/bus/port/function),
-severity(warn or error) and some keywords(GPU, amdgpu). Also this
-address the issue that pci bus retrieved by PCI_BUS_NUM(adev->pdev->devfn)
-is wrong.
+Am 19.05.20 um 23:45 schrieb Ahmed S. Darwish:
+> A sequence counter write side critical section must be protected by some
+> form of locking to serialize writers. If the serialization primitive is
+> not disabling preemption implicitly, preemption has to be explicitly
+> disabled before entering the sequence counter write side critical
+> section.
+>
+> The dma-buf reservation subsystem uses plain sequence counters to manage
+> updates to reservations. Writer serialization is accomplished through a
+> wound/wait mutex.
+>
+> Acquiring a wound/wait mutex does not disable preemption, so this needs
+> to be done manually before and after the write side critical section.
+>
+> Use the newly-added seqcount_ww_mutex_t instead:
+>
+>    - It associates the ww_mutex with the sequence count, which enables
+>      lockdep to validate that the write side critical section is properly
+>      serialized.
+>
+>    - It removes the need to explicitly add preempt_disable/enable()
+>      around the write side critical section because the write_begin/end()
+>      functions for this new data type automatically do this.
+>
+> If lockdep is disabled this ww_mutex lock association is compiled out
+> and has neither storage size nor runtime overhead.
 
-Change-Id: I714d1dffb30a6cf76dcede087cf5d9302f683ed8
-Signed-off-by: Evan Quan <evan.quan@amd.com>
----
- .../gpu/drm/amd/powerplay/hwmgr/smu_helper.c  | 38 +++++--------------
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 26 ++++---------
- 2 files changed, 17 insertions(+), 47 deletions(-)
+Mhm, is the dma_resv object the only user of this new seqcount_ww_mutex 
+variant ?
 
-diff --git a/drivers/gpu/drm/amd/powerplay/hwmgr/smu_helper.c b/drivers/gpu/drm/amd/powerplay/hwmgr/smu_helper.c
-index 4279f95ba779..60b5ca974356 100644
---- a/drivers/gpu/drm/amd/powerplay/hwmgr/smu_helper.c
-+++ b/drivers/gpu/drm/amd/powerplay/hwmgr/smu_helper.c
-@@ -597,58 +597,40 @@ int phm_irq_process(struct amdgpu_device *adev,
- 
- 	if (client_id == AMDGPU_IRQ_CLIENTID_LEGACY) {
- 		if (src_id == VISLANDS30_IV_SRCID_CG_TSS_THERMAL_LOW_TO_HIGH) {
--			pr_warn("GPU over temperature range detected on PCIe %d:%d.%d!\n",
--						PCI_BUS_NUM(adev->pdev->devfn),
--						PCI_SLOT(adev->pdev->devfn),
--						PCI_FUNC(adev->pdev->devfn));
-+			dev_emerg(adev->dev, "ERROR: GPU over temperature range(SW CTF) detected!\n");
- 			/*
- 			 * SW CTF just occurred.
- 			 * Try to do a graceful shutdown to prevent further damage.
- 			 */
--			dev_emerg(adev->dev, "System is going to shutdown due to SW CTF!\n");
-+			dev_emerg(adev->dev, "ERROR: System is going to shutdown due to GPU SW CTF!\n");
- 			orderly_poweroff(true);
- 		} else if (src_id == VISLANDS30_IV_SRCID_CG_TSS_THERMAL_HIGH_TO_LOW)
--			pr_warn("GPU under temperature range detected on PCIe %d:%d.%d!\n",
--					PCI_BUS_NUM(adev->pdev->devfn),
--					PCI_SLOT(adev->pdev->devfn),
--					PCI_FUNC(adev->pdev->devfn));
-+			dev_emerg(adev->dev, "ERROR: GPU under temperature range detected!\n");
- 		else if (src_id == VISLANDS30_IV_SRCID_GPIO_19) {
--			pr_warn("GPU Critical Temperature Fault detected on PCIe %d:%d.%d!\n",
--					PCI_BUS_NUM(adev->pdev->devfn),
--					PCI_SLOT(adev->pdev->devfn),
--					PCI_FUNC(adev->pdev->devfn));
-+			dev_emerg(adev->dev, "ERROR: GPU HW Critical Temperature Fault(aka CTF) detected!\n");
- 			/*
- 			 * HW CTF just occurred. Shutdown to prevent further damage.
- 			 */
--			dev_emerg(adev->dev, "System is going to shutdown due to HW CTF!\n");
-+			dev_emerg(adev->dev, "ERROR: System is going to shutdown due to GPU HW CTF!\n");
- 			orderly_poweroff(true);
- 		}
- 	} else if (client_id == SOC15_IH_CLIENTID_THM) {
- 		if (src_id == 0) {
--			pr_warn("GPU over temperature range detected on PCIe %d:%d.%d!\n",
--						PCI_BUS_NUM(adev->pdev->devfn),
--						PCI_SLOT(adev->pdev->devfn),
--						PCI_FUNC(adev->pdev->devfn));
-+			dev_emerg(adev->dev, "ERROR: GPU over temperature range(SW CTF) detected!\n");
- 			/*
- 			 * SW CTF just occurred.
- 			 * Try to do a graceful shutdown to prevent further damage.
- 			 */
--			dev_emerg(adev->dev, "System is going to shutdown due to SW CTF!\n");
-+			dev_emerg(adev->dev, "ERROR: System is going to shutdown due to GPU SW CTF!\n");
- 			orderly_poweroff(true);
- 		} else
--			pr_warn("GPU under temperature range detected on PCIe %d:%d.%d!\n",
--					PCI_BUS_NUM(adev->pdev->devfn),
--					PCI_SLOT(adev->pdev->devfn),
--					PCI_FUNC(adev->pdev->devfn));
-+			dev_emerg(adev->dev, "ERROR: GPU under temperature range detected!\n");
- 	} else if (client_id == SOC15_IH_CLIENTID_ROM_SMUIO) {
--		pr_warn("GPU Critical Temperature Fault detected on PCIe %d:%d.%d!\n",
--				PCI_BUS_NUM(adev->pdev->devfn),
--				PCI_SLOT(adev->pdev->devfn),
--				PCI_FUNC(adev->pdev->devfn));
-+		dev_emerg(adev->dev, "ERROR: GPU HW Critical Temperature Fault(aka CTF) detected!\n");
- 		/*
- 		 * HW CTF just occurred. Shutdown to prevent further damage.
- 		 */
--		dev_emerg(adev->dev, "System is going to shutdown due to HW CTF!\n");
-+		dev_emerg(adev->dev, "ERROR: System is going to shutdown due to GPU HW CTF!\n");
- 		orderly_poweroff(true);
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index c1ba77344107..f56789f8ec11 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -1540,40 +1540,28 @@ static int smu_v11_0_irq_process(struct amdgpu_device *adev,
- 	if (client_id == SOC15_IH_CLIENTID_THM) {
- 		switch (src_id) {
- 		case THM_11_0__SRCID__THM_DIG_THERM_L2H:
--			pr_warn("GPU over temperature range detected on PCIe %d:%d.%d!\n",
--				PCI_BUS_NUM(adev->pdev->devfn),
--				PCI_SLOT(adev->pdev->devfn),
--				PCI_FUNC(adev->pdev->devfn));
-+			dev_emerg(adev->dev, "ERROR: GPU over temperature range(SW CTF) detected!\n");
- 			/*
- 			 * SW CTF just occurred.
- 			 * Try to do a graceful shutdown to prevent further damage.
- 			 */
--			dev_emerg(adev->dev, "System is going to shutdown due to SW CTF!\n");
-+			dev_emerg(adev->dev, "ERROR: System is going to shutdown due to GPU SW CTF!\n");
- 			orderly_poweroff(true);
- 		break;
- 		case THM_11_0__SRCID__THM_DIG_THERM_H2L:
--			pr_warn("GPU under temperature range detected on PCIe %d:%d.%d!\n",
--				PCI_BUS_NUM(adev->pdev->devfn),
--				PCI_SLOT(adev->pdev->devfn),
--				PCI_FUNC(adev->pdev->devfn));
-+			dev_emerg(adev->dev, "ERROR: GPU under temperature range detected\n");
- 		break;
- 		default:
--			pr_warn("GPU under temperature range unknown src id (%d), detected on PCIe %d:%d.%d!\n",
--				src_id,
--				PCI_BUS_NUM(adev->pdev->devfn),
--				PCI_SLOT(adev->pdev->devfn),
--				PCI_FUNC(adev->pdev->devfn));
-+			dev_emerg(adev->dev, "ERROR: GPU under temperature range unknown src id (%d)\n",
-+				src_id);
- 		break;
- 		}
- 	} else if (client_id == SOC15_IH_CLIENTID_ROM_SMUIO) {
--		pr_warn("GPU Critical Temperature Fault detected on PCIe %d:%d.%d!\n",
--				PCI_BUS_NUM(adev->pdev->devfn),
--				PCI_SLOT(adev->pdev->devfn),
--				PCI_FUNC(adev->pdev->devfn));
-+		dev_emerg(adev->dev, "ERROR: GPU HW Critical Temperature Fault(aka CTF) detected!\n");
- 		/*
- 		 * HW CTF just occurred. Shutdown to prevent further damage.
- 		 */
--		dev_emerg(adev->dev, "System is going to shutdown due to HW CTF!\n");
-+		dev_emerg(adev->dev, "ERROR: System is going to shutdown due to GPU HW CTF!\n");
- 		orderly_poweroff(true);
- 	} else if (client_id == SOC15_IH_CLIENTID_MP1) {
- 		if (src_id == 0xfe) {
--- 
-2.26.2
+If yes we are trying to get rid of this sequence counter for quite some 
+time, so I would rather invest the additional time to finish this.
+
+Regards,
+Christian.
+
+>
+> Signed-off-by: Ahmed S. Darwish <a.darwish@linutronix.de>
+> ---
+>   drivers/dma-buf/dma-resv.c                       | 8 +-------
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 --
+>   include/linux/dma-resv.h                         | 2 +-
+>   3 files changed, 2 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+> index 590ce7ad60a0..3aba2b2bfc48 100644
+> --- a/drivers/dma-buf/dma-resv.c
+> +++ b/drivers/dma-buf/dma-resv.c
+> @@ -128,7 +128,7 @@ subsys_initcall(dma_resv_lockdep);
+>   void dma_resv_init(struct dma_resv *obj)
+>   {
+>   	ww_mutex_init(&obj->lock, &reservation_ww_class);
+> -	seqcount_init(&obj->seq);
+> +	seqcount_ww_mutex_init(&obj->seq, &obj->lock);
+>   
+>   	RCU_INIT_POINTER(obj->fence, NULL);
+>   	RCU_INIT_POINTER(obj->fence_excl, NULL);
+> @@ -259,7 +259,6 @@ void dma_resv_add_shared_fence(struct dma_resv *obj, struct dma_fence *fence)
+>   	fobj = dma_resv_get_list(obj);
+>   	count = fobj->shared_count;
+>   
+> -	preempt_disable();
+>   	write_seqcount_begin(&obj->seq);
+>   
+>   	for (i = 0; i < count; ++i) {
+> @@ -281,7 +280,6 @@ void dma_resv_add_shared_fence(struct dma_resv *obj, struct dma_fence *fence)
+>   	smp_store_mb(fobj->shared_count, count);
+>   
+>   	write_seqcount_end(&obj->seq);
+> -	preempt_enable();
+>   	dma_fence_put(old);
+>   }
+>   EXPORT_SYMBOL(dma_resv_add_shared_fence);
+> @@ -308,14 +306,12 @@ void dma_resv_add_excl_fence(struct dma_resv *obj, struct dma_fence *fence)
+>   	if (fence)
+>   		dma_fence_get(fence);
+>   
+> -	preempt_disable();
+>   	write_seqcount_begin(&obj->seq);
+>   	/* write_seqcount_begin provides the necessary memory barrier */
+>   	RCU_INIT_POINTER(obj->fence_excl, fence);
+>   	if (old)
+>   		old->shared_count = 0;
+>   	write_seqcount_end(&obj->seq);
+> -	preempt_enable();
+>   
+>   	/* inplace update, no shared fences */
+>   	while (i--)
+> @@ -393,13 +389,11 @@ int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv *src)
+>   	src_list = dma_resv_get_list(dst);
+>   	old = dma_resv_get_excl(dst);
+>   
+> -	preempt_disable();
+>   	write_seqcount_begin(&dst->seq);
+>   	/* write_seqcount_begin provides the necessary memory barrier */
+>   	RCU_INIT_POINTER(dst->fence_excl, new);
+>   	RCU_INIT_POINTER(dst->fence, dst_list);
+>   	write_seqcount_end(&dst->seq);
+> -	preempt_enable();
+>   
+>   	dma_resv_list_free(src_list);
+>   	dma_fence_put(old);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> index 9dff792c9290..87fd32aae8f9 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+> @@ -258,11 +258,9 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
+>   	new->shared_count = k;
+>   
+>   	/* Install the new fence list, seqcount provides the barriers */
+> -	preempt_disable();
+>   	write_seqcount_begin(&resv->seq);
+>   	RCU_INIT_POINTER(resv->fence, new);
+>   	write_seqcount_end(&resv->seq);
+> -	preempt_enable();
+>   
+>   	/* Drop the references to the removed fences or move them to ef_list */
+>   	for (i = j, k = 0; i < old->shared_count; ++i) {
+> diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
+> index a6538ae7d93f..d44a77e8a7e3 100644
+> --- a/include/linux/dma-resv.h
+> +++ b/include/linux/dma-resv.h
+> @@ -69,7 +69,7 @@ struct dma_resv_list {
+>    */
+>   struct dma_resv {
+>   	struct ww_mutex lock;
+> -	seqcount_t seq;
+> +	seqcount_ww_mutex_t seq;
+>   
+>   	struct dma_fence __rcu *fence_excl;
+>   	struct dma_resv_list __rcu *fence;
 
 _______________________________________________
 amd-gfx mailing list
