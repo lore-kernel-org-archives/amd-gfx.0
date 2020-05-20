@@ -2,81 +2,88 @@ Return-Path: <SRS0=vyzA=7C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A6928C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 10:48:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 792ECC433E3
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 11:03:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A93A207C4
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 10:48:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4F2CA206F1
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 11:03:29 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WEPQ8MJr"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A93A207C4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="gCn4N7N3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F2CA206F1
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A47789D8E;
-	Wed, 20 May 2020 10:48:16 +0000 (UTC)
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F85989D8E;
- Wed, 20 May 2020 10:48:15 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id e2so3134260eje.13;
- Wed, 20 May 2020 03:48:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=BJ/UCzsi6VWkG3ZZDu+33O2d2bF1wj81EEaZB1Z7K30=;
- b=WEPQ8MJrWaSjujdfKushADVupApSDARb7vrKJ/fPzUsc3mC/ujYkoHlzhlGNkA308s
- 8QlM2py1RTW3ThJuqL16Dpm1nPcK2exZHYTewSxgEmvnBX8O73WjrhSWRPP0hp7qqKfW
- NbQHSbLaGDcilmMiDH6e6NwoD7qWS80mADr92pxpSZYaDKfCSgT0euPlX2HhzHki488r
- g5uQmhh21dl5sC0qN5bsGNktaK5rHkVXszDrtbSsBuxkKRcSA+thic04zS4eH6+Xbrwq
- PTAE7Nk0wBp+2n35cDhBohVR1UyNtmIR8pSjt57EXmTRH7q+SThhRTT0BzCiW4he0NaY
- g5MA==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2105B6E139;
+	Wed, 20 May 2020 11:03:27 +0000 (UTC)
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A74106E139
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2020 11:03:25 +0000 (UTC)
+Received: by mail-wr1-x441.google.com with SMTP id l11so2728520wru.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2020 04:03:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to; bh=ct4iwtkqSx7W80DKvDt8WvEkiq9KjVIacJ0yr7BAVII=;
+ b=gCn4N7N304bnLXil/a63o+C7lXWE4O+dUD5kr4U/QwkYok3WIYIss7MpTiwkIvDJDu
+ Yb14/i8NGGvtiwnPpTQWB1oc/MHjv9gyvs+HjkbrsA9GEiFTSWKwCkg07hWlb9e22xpX
+ cG1iXAAYqHj6N5FDXXS8FFy8ELfjoCREHTKlM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=BJ/UCzsi6VWkG3ZZDu+33O2d2bF1wj81EEaZB1Z7K30=;
- b=V3aA8Bek4qU6FVc4mi90YCpHefwasN01spqmYY61YUSgcyfLji+SXtWsvs8yq3A4jP
- T3NnAz/BSzWbQtDog3hwIalc37Mk4NV7hHQ9wI1cqxUCoPyi94BIJDfRnv2rpg8NF+Gc
- 9xWHxbdnJvk3OFlJ3+DfkcNMkEwfIPf/PT38uI0E0mpv6zvE83koIErkWtAyVbEe8RIX
- cJDCSmM8qCPgBetM2wkJE5Vh0g5xoKqzQYlZMaalDu0G8ESD2J7KzVat3I16TO3umHGy
- IyXkwyfAlHKvRro4nYOrvJQmxVGaUX4MRSNPFc2Ru3dTITdFTVfshAtfIRVzwLvj0oIW
- rMNw==
-X-Gm-Message-State: AOAM531eFSdF1p6gWYg8pg0eLCvxDgX3BwDFVqMVXtx37J6O5jbf1mgf
- 8Ex3DaGtaDos8dlP2q2p0m8=
-X-Google-Smtp-Source: ABdhPJwl6ENc60zjPf1yS0B2rvn9LuXNOLk4I5UDfSAupLCD7BKpxI1kC22/RvD9+6+rp/IyTh2rFg==
-X-Received: by 2002:a17:906:8514:: with SMTP id
- i20mr3004443ejx.298.1589971693861; 
- Wed, 20 May 2020 03:48:13 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id m3sm1558631ede.58.2020.05.20.03.48.12
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 20 May 2020 03:48:13 -0700 (PDT)
-Subject: Re: [PATCH v1 13/25] dma-buf: Use sequence counter with associated
- wound/wait mutex
-To: "Ahmed S. Darwish" <a.darwish@linutronix.de>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>
-References: <20200519214547.352050-1-a.darwish@linutronix.de>
- <20200519214547.352050-14-a.darwish@linutronix.de>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <e28c251e-5771-598c-37dd-c6be2de4b9e1@gmail.com>
-Date: Wed, 20 May 2020 12:48:10 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to;
+ bh=ct4iwtkqSx7W80DKvDt8WvEkiq9KjVIacJ0yr7BAVII=;
+ b=ZPBvI1LUCHX2d4fJkwiOPbTHAGKafsUl0H2bSqkfMfLWuuf1iUGqbwjdsFGpWi5weA
+ HzkW9G9P3zbgJhqUPWQhlg1uZkho5+OXGJISU9VHJckH8rHt/Xp3vn1u0aLJD/9AK3ET
+ zQdl1jCZKqDWDIWndXH8ah95FAFnb66VnKgoQtH1Ig/VtlagYG5OWQIYZ+l449+sykNE
+ MkmevFYzcDKt57YhKY9uo60c7sLOtiPOa2/VDIQqLKHufTrLp7RMFDdNF5J8ltEGUIEm
+ dOzuK1vwYvgurEcYBIKnLtmn47v4mBQrqe1wshbZnlOUcTwMLqdyms0VAfg6id55fSz3
+ fafg==
+X-Gm-Message-State: AOAM5326209P84i5AI5iR8Ds3CA5BwdIHbQvrqujOkmDx62fImjJ7KQu
+ zuuGWCIF6Tf+Rkvw+qDE8FK6dw==
+X-Google-Smtp-Source: ABdhPJzCd29Xl/wTekkJzbG2hFf7ELniw9c+535re3/QWPV7VzmtBOKv2TwjIms44WqcPc+fmic+SA==
+X-Received: by 2002:adf:fe90:: with SMTP id l16mr3672440wrr.222.1589972604221; 
+ Wed, 20 May 2020 04:03:24 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id u65sm2743050wmg.8.2020.05.20.04.03.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 20 May 2020 04:03:23 -0700 (PDT)
+Date: Wed, 20 May 2020 13:03:20 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Subject: Re: [PATCH] dma-fence: add might_sleep annotation to _wait()
+Message-ID: <20200520110320.GT206103@phenom.ffwll.local>
+Mail-Followup-To: Christian =?iso-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, 
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Ben Skeggs <bskeggs@redhat.com>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ Oded Gabbay <oded.gabbay@gmail.com>, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-rdma@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Chris Wilson <chris@chris-wilson.co.uk>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Daniel Vetter <daniel.vetter@intel.com>
+References: <20200519132756.682888-1-daniel.vetter@ffwll.ch>
+ <be86b73c-2fb3-a6c0-5a12-004af051210f@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <20200519214547.352050-14-a.darwish@linutronix.de>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <be86b73c-2fb3-a6c0-5a12-004af051210f@amd.com>
+X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,154 +95,114 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- dri-devel@lists.freedesktop.org, "Paul E. McKenney" <paulmck@kernel.org>,
- David Airlie <airlied@linux.ie>,
- "Sebastian A. Siewior" <bigeasy@linutronix.de>,
- LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
- Sumit Semwal <sumit.semwal@linaro.org>, Steven Rostedt <rostedt@goodmis.org>,
- Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- linux-media@vger.kernel.org
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: Oded Gabbay <oded.gabbay@gmail.com>, amd-gfx@lists.freedesktop.org,
+ linux-rdma@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ intel-gfx@lists.freedesktop.org,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Chris Wilson <chris@chris-wilson.co.uk>, linaro-mm-sig@lists.linaro.org,
+ Ben Skeggs <bskeggs@redhat.com>,
+ VMware Graphics <linux-graphics-maintainer@vmware.com>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Daniel Vetter <daniel.vetter@intel.com>, linux-media@vger.kernel.org,
+ Lucas Stach <l.stach@pengutronix.de>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 19.05.20 um 23:45 schrieb Ahmed S. Darwish:
-> A sequence counter write side critical section must be protected by some
-> form of locking to serialize writers. If the serialization primitive is
-> not disabling preemption implicitly, preemption has to be explicitly
-> disabled before entering the sequence counter write side critical
-> section.
->
-> The dma-buf reservation subsystem uses plain sequence counters to manage
-> updates to reservations. Writer serialization is accomplished through a
-> wound/wait mutex.
->
-> Acquiring a wound/wait mutex does not disable preemption, so this needs
-> to be done manually before and after the write side critical section.
->
-> Use the newly-added seqcount_ww_mutex_t instead:
->
->    - It associates the ww_mutex with the sequence count, which enables
->      lockdep to validate that the write side critical section is properly
->      serialized.
->
->    - It removes the need to explicitly add preempt_disable/enable()
->      around the write side critical section because the write_begin/end()
->      functions for this new data type automatically do this.
->
-> If lockdep is disabled this ww_mutex lock association is compiled out
-> and has neither storage size nor runtime overhead.
+On Wed, May 20, 2020 at 08:54:36AM +0200, Christian K=F6nig wrote:
+> Am 19.05.20 um 15:27 schrieb Daniel Vetter:
+> > Do it uncontionally, there's a separate peek function with
+> > dma_fence_is_signalled() which can be called from atomic context.
+> > =
 
-Mhm, is the dma_resv object the only user of this new seqcount_ww_mutex 
-variant ?
+> > v2: Consensus calls for an unconditional might_sleep (Chris,
+> > Christian)
+> > =
 
-If yes we are trying to get rid of this sequence counter for quite some 
-time, so I would rather invest the additional time to finish this.
+> > Full audit:
+> > - dma-fence.h: Uses MAX_SCHEDULE_TIMOUT, good chance this sleeps
+> > - dma-resv.c: Timeout always at least 1
+> > - st-dma-fence.c: Save to sleep in testcases
+> > - amdgpu_cs.c: Both callers are for variants of the wait ioctl
+> > - amdgpu_device.c: Two callers in vram recover code, both right next
+> >    to mutex_lock.
+> > - amdgpu_vm.c: Use in the vm_wait ioctl, next to _reserve/unreserve
+> > - remaining functions in amdgpu: All for test_ib implementations for
+> >    various engines, caller for that looks all safe (debugfs, driver
+> >    load, reset)
+> > - etnaviv: another wait ioctl
+> > - habanalabs: another wait ioctl
+> > - nouveau_fence.c: hardcoded 15*HZ ... glorious
+> > - nouveau_gem.c: hardcoded 2*HZ ... so not even super consistent, but
+> >    this one does have a WARN_ON :-/ At least this one is only a
+> >    fallback path for when kmalloc fails. Maybe this should be put onto
+> >    some worker list instead, instead of a work per unamp ...
+> > - i915/selftests: Hardecoded HZ / 4 or HZ / 8
+> > - i915/gt/selftests: Going up the callchain looks safe looking at
+> >    nearby callers
+> > - i915/gt/intel_gt_requests.c. Wrapped in a mutex_lock
+> > - i915/gem_i915_gem_wait.c: The i915-version which is called instead
+> >    for i915 fences already has a might_sleep() annotation, so all good
+> > =
 
-Regards,
-Christian.
+> > Cc: Alex Deucher <alexander.deucher@amd.com>
+> > Cc: Lucas Stach <l.stach@pengutronix.de>
+> > Cc: Jani Nikula <jani.nikula@linux.intel.com>
+> > Cc: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+> > Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > Cc: Ben Skeggs <bskeggs@redhat.com>
+> > Cc: "VMware Graphics" <linux-graphics-maintainer@vmware.com>
+> > Cc: Oded Gabbay <oded.gabbay@gmail.com>
+> > Cc: linux-media@vger.kernel.org
+> > Cc: linaro-mm-sig@lists.linaro.org
+> > Cc: linux-rdma@vger.kernel.org
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Cc: intel-gfx@lists.freedesktop.org
+> > Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Christian K=F6nig <christian.koenig@amd.com>
+> > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+> =
 
->
-> Signed-off-by: Ahmed S. Darwish <a.darwish@linutronix.de>
-> ---
->   drivers/dma-buf/dma-resv.c                       | 8 +-------
->   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 --
->   include/linux/dma-resv.h                         | 2 +-
->   3 files changed, 2 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-> index 590ce7ad60a0..3aba2b2bfc48 100644
-> --- a/drivers/dma-buf/dma-resv.c
-> +++ b/drivers/dma-buf/dma-resv.c
-> @@ -128,7 +128,7 @@ subsys_initcall(dma_resv_lockdep);
->   void dma_resv_init(struct dma_resv *obj)
->   {
->   	ww_mutex_init(&obj->lock, &reservation_ww_class);
-> -	seqcount_init(&obj->seq);
-> +	seqcount_ww_mutex_init(&obj->seq, &obj->lock);
->   
->   	RCU_INIT_POINTER(obj->fence, NULL);
->   	RCU_INIT_POINTER(obj->fence_excl, NULL);
-> @@ -259,7 +259,6 @@ void dma_resv_add_shared_fence(struct dma_resv *obj, struct dma_fence *fence)
->   	fobj = dma_resv_get_list(obj);
->   	count = fobj->shared_count;
->   
-> -	preempt_disable();
->   	write_seqcount_begin(&obj->seq);
->   
->   	for (i = 0; i < count; ++i) {
-> @@ -281,7 +280,6 @@ void dma_resv_add_shared_fence(struct dma_resv *obj, struct dma_fence *fence)
->   	smp_store_mb(fobj->shared_count, count);
->   
->   	write_seqcount_end(&obj->seq);
-> -	preempt_enable();
->   	dma_fence_put(old);
->   }
->   EXPORT_SYMBOL(dma_resv_add_shared_fence);
-> @@ -308,14 +306,12 @@ void dma_resv_add_excl_fence(struct dma_resv *obj, struct dma_fence *fence)
->   	if (fence)
->   		dma_fence_get(fence);
->   
-> -	preempt_disable();
->   	write_seqcount_begin(&obj->seq);
->   	/* write_seqcount_begin provides the necessary memory barrier */
->   	RCU_INIT_POINTER(obj->fence_excl, fence);
->   	if (old)
->   		old->shared_count = 0;
->   	write_seqcount_end(&obj->seq);
-> -	preempt_enable();
->   
->   	/* inplace update, no shared fences */
->   	while (i--)
-> @@ -393,13 +389,11 @@ int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv *src)
->   	src_list = dma_resv_get_list(dst);
->   	old = dma_resv_get_excl(dst);
->   
-> -	preempt_disable();
->   	write_seqcount_begin(&dst->seq);
->   	/* write_seqcount_begin provides the necessary memory barrier */
->   	RCU_INIT_POINTER(dst->fence_excl, new);
->   	RCU_INIT_POINTER(dst->fence, dst_list);
->   	write_seqcount_end(&dst->seq);
-> -	preempt_enable();
->   
->   	dma_resv_list_free(src_list);
->   	dma_fence_put(old);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> index 9dff792c9290..87fd32aae8f9 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-> @@ -258,11 +258,9 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
->   	new->shared_count = k;
->   
->   	/* Install the new fence list, seqcount provides the barriers */
-> -	preempt_disable();
->   	write_seqcount_begin(&resv->seq);
->   	RCU_INIT_POINTER(resv->fence, new);
->   	write_seqcount_end(&resv->seq);
-> -	preempt_enable();
->   
->   	/* Drop the references to the removed fences or move them to ef_list */
->   	for (i = j, k = 0; i < old->shared_count; ++i) {
-> diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
-> index a6538ae7d93f..d44a77e8a7e3 100644
-> --- a/include/linux/dma-resv.h
-> +++ b/include/linux/dma-resv.h
-> @@ -69,7 +69,7 @@ struct dma_resv_list {
->    */
->   struct dma_resv {
->   	struct ww_mutex lock;
-> -	seqcount_t seq;
-> +	seqcount_ww_mutex_t seq;
->   
->   	struct dma_fence __rcu *fence_excl;
->   	struct dma_resv_list __rcu *fence;
+> Reviewed-by: Christian K=F6nig <christian.koenig@amd.com>
 
+intel-gfx-ci approves too, thanks to both of you for reviews, patch merged
+to drm-misc-next.
+-Daniel
+
+> =
+
+> > ---
+> >   drivers/dma-buf/dma-fence.c | 2 ++
+> >   1 file changed, 2 insertions(+)
+> > =
+
+> > diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+> > index 90edf2b281b0..656e9ac2d028 100644
+> > --- a/drivers/dma-buf/dma-fence.c
+> > +++ b/drivers/dma-buf/dma-fence.c
+> > @@ -208,6 +208,8 @@ dma_fence_wait_timeout(struct dma_fence *fence, boo=
+l intr, signed long timeout)
+> >   	if (WARN_ON(timeout < 0))
+> >   		return -EINVAL;
+> > +	might_sleep();
+> > +
+> >   	trace_dma_fence_wait_start(fence);
+> >   	if (fence->ops->wait)
+> >   		ret =3D fence->ops->wait(fence, intr, timeout);
+> =
+
+
+-- =
+
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
