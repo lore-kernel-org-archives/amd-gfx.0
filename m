@@ -2,106 +2,104 @@ Return-Path: <SRS0=vyzA=7C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5253CC433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 13:38:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FBE7C433E1
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 13:53:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F31B8207D3
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 13:38:24 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 55E9020829
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 13:53:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Cdv575fG"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F31B8207D3
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="aL557VXw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 55E9020829
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3FB88989C;
-	Wed, 20 May 2020 13:38:24 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2069.outbound.protection.outlook.com [40.107.92.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FE0389D40;
- Wed, 20 May 2020 13:38:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03BDB89D3E;
+	Wed, 20 May 2020 13:53:12 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2074.outbound.protection.outlook.com [40.107.237.74])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E544890F0;
+ Wed, 20 May 2020 13:53:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kotNtZPHD5Lz5kp1ZI0WqxNNY36QEYgcq5uRTV90KMkSLhVZmamgMl6D5qfE2zAzrbrWYC9mDo9TYcumapERIOMEWLvc7czGxRsWBYjAznwTUgCooAboHwMSza2HilpBHv6Efx2iNS1ExbmHXq4Wk7bkb4S3mMp07w9bKxQBQnJaRKPjYDIsv0/TSkxqm1/4V2Iwd8s1SQZ68QSYJ+hI4mUZX4E87jLm7m/2iZcW6hACM8oE7xFiCsh/D/gbysWe6x+fs+NARtDa1r2okme8llXW2AI6pPrDPOEGMoxpBD+9aoEOi/dMnN7Ixcydc1x31EeT5gPDSIIebfdg9j1zCg==
+ b=nQc/uUgfYV+4e/K6WKc62MhQwDZgZeCMci3bEJJ6f/0O7NwRTN1rTqcvQ820OraJb4raEW6YXW7LJKz8AzjrgJDOsTVHa2sPQlJ8Q0i/+/CxK45YBitcClZ82bDaGkjqJM5bfUbmhY8/Wb7Oje6CxLd+SEvvfvzrIzDpv2o+qBKD3CsrRLptQg8Te7NVMVP06j5u0JEvA3T+8Os0GPXL/KOodeTpNic8CgYRw+2j0kpbi+q31RGB6tAPnfumKGsu5gshDWANJd5EHU4GMxl7zUbfbJDt0zUOmR6zKXgNMBrQw6fM4WJwO0Ef3NIzzJuOAlWWef1RWclm1OQdowrEEA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zar4ujONOvQea1u+PCZZM9eM7dmdHesXgrvQq70Y/kk=;
- b=YvwaMLKN8Zk4Vd30Cfs2h3KBqBAhdGtmosrgBMnG4GKwWOXjSOgQNowafwTjPlrF4ZjhfRxUVTVIGv3C98OjLpy8AwvkU0bsKRr4Uljpldh1aoUzTAY66DGFGVU3PSRrzrFHNBzEMKmsDxdl1v4TYdFvwYMbUZyLGMT6H9qrHBnVE0y/ySTIGT+Agd0bYaDD56Zbl/twRBob521e9lKSlqHIuomirPOYejqTfNdh83wfAO4JzHmFEeVOqMCqqXL0B4+Nn6qLDf+pTPNqVG9+oIWpxw4mH+NeXEIOBWuMyEqdR7UmQh+e/SuzkZV4xzTDTVfhYmCLn1rNz3GUwvXp3Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=Xz9rwR0eUPKuVj4fJQdvsNxw6BeDwm1RNlON+6WNOFI=;
+ b=ajQJWTCUBAPB3yEJOjKwrWyIVPEpD3aA6CRWpgo7xSDUwnDcJ2hHnNinLbuRewbCSMuNVwFNvsBslkAOsg4e9UgmTTCO6BEOByCk3G1WXJ86SmFCpFxM9gYGIQDv9AE+TxZYrPbtv6951CbohusqREfmzGgJ0A8CRBnJXTIiX3Cp8q7k1R0YorS7lhx9znZzgf0a4GPjsaCTnHPFvww0+CmpyXk4SmKlooeho8gWsn1WL0YokKsfwFwFTAPXsxbxRaMwjGXJchHQyDiPibwLyt/EcfeoqeqFyrYbopsNeIjSZHncGOgkuUOXmBUQlpqLk4OjG0z2AHvUrVyB6A6kGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linux.ie smtp.mailfrom=amd.com;
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zar4ujONOvQea1u+PCZZM9eM7dmdHesXgrvQq70Y/kk=;
- b=Cdv575fG7eJTMTVPFYiucjny76XbV4ytj8fWef41xhQYfZ1KFckKXqGtYXIqYnwfOtVN2YVPgJ/of4xow3BU0nBDPMMtSCKxb8WkGUgZNzwDtbWGtiOCeqhEeNsz7iypwd1QmMEglzBiSACuiApnD9TjCQrWrdmUPZFI0GhzBTA=
-Received: from BY5PR12MB4068.namprd12.prod.outlook.com (2603:10b6:a03:203::12)
- by BY5PR12MB3844.namprd12.prod.outlook.com (2603:10b6:a03:1ad::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.23; Wed, 20 May
- 2020 13:38:21 +0000
-Received: from BY5PR12MB4068.namprd12.prod.outlook.com
- ([fe80::1897:7b63:ee7e:5d2c]) by BY5PR12MB4068.namprd12.prod.outlook.com
- ([fe80::1897:7b63:ee7e:5d2c%2]) with mapi id 15.20.3000.034; Wed, 20 May 2020
- 13:38:20 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: Dan Carpenter <dan.carpenter@oracle.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH v2] drm/amdgpu: off by on in
- amdgpu_device_attr_create_groups() error handling
-Thread-Topic: [PATCH v2] drm/amdgpu: off by on in
- amdgpu_device_attr_create_groups() error handling
-Thread-Index: AQHWLqgMNjUhvbNSo06RZcwgCtFZwaiw+kXb
-Date: Wed, 20 May 2020 13:38:20 +0000
-Message-ID: <BY5PR12MB4068A89E90AFD74E62C210C9A2B60@BY5PR12MB4068.namprd12.prod.outlook.com>
-References: <20200520125209.GP3041@kadam>,<20200520130812.GA177222@mwanda>
-In-Reply-To: <20200520130812.GA177222@mwanda>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-20T13:38:21.450Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: oracle.com; dkim=none (message not signed)
- header.d=none;oracle.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.246.142.66]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 9d4c1b3f-3f63-4492-33b6-08d7fcc30fc7
-x-ms-traffictypediagnostic: BY5PR12MB3844:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BY5PR12MB3844B430C9A7F5CDB38E5AFDA2B60@BY5PR12MB3844.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4303;
-x-forefront-prvs: 04097B7F7F
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: yBG5V3ysKz5aGuy6BHrB3G+/0GE1zMviBRcfTiDHAnoKPfnpK5FUsCjKjeb6R49dLBJXI09hTCyh3tHy7cHE6bKYL17scl5/E3w/up/p2hulIvaeQM9jdQEYdWYsn8PXhTGAKTE4i0a/MvESYnD0SvaeQwKuF7DyhLyI6cYAhXAOMvuuI/KSP1mPC02ZPWq2+fRD5aQWs9uPPOGzpyS129N2ra5E7xvamvUsbAQLcBONp0gSwjJoc00xcBXTFCsyVNgpjGCIPGy5C3nDkG2joEcT6xAHVOwxzVs2FH4RIha0frcl6xFB5ZRoHr4214hcdPqjOUyTahONJsEkZL1frw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BY5PR12MB4068.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(366004)(346002)(376002)(396003)(136003)(6636002)(8936002)(9686003)(71200400001)(478600001)(8676002)(55016002)(33656002)(19627405001)(52536014)(66476007)(66556008)(64756008)(66946007)(66446008)(54906003)(4326008)(76116006)(86362001)(5660300002)(91956017)(6506007)(2906002)(110136005)(7696005)(186003)(53546011)(316002)(26005);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: 7knhSlIiQmC8NDYK+T2DYDoJZv+HIeC2vX2AtDg1Uit7K30NTb67eaodQ8we8g+oZweRao9XqaK+VPxO0t2Ky2k2q9rLUGL5yh3vjk+XYC5PC2F9VJVCw4/hOuL1GimAFR/3lXzLyPazN5+jY/K3iX2EBRXGCVZ73telmMAeqeJS7FYm0ZF5t6Wv+926XzNRPyxJp8PWT7/o5f5AiskakavINNzEXeDCNF4xdOrWqneRbbuR3cjqHxM3mIbcK6XBxg2S1SNJqScKm57IPrC6aUmwRQNPpQesVZZH/gcn9DW73KL/diRxiyyE3CkCwMZBdHSQGw1+biQ37vxWXs/kTLSnEq233VtvwvAMwZ6DFEOEACrg/jvPI6U46WZI4m/lAqLDdLXlI0dAjFSKdt/krPtnG5ww76EDZ3mD6qDX57mF+LJ0jje4L5bEm5jPXxvjSMI26i9j0wVzkXAo4Qy2oJfHBQzqI29GlObv6VZBV5o=
+ bh=Xz9rwR0eUPKuVj4fJQdvsNxw6BeDwm1RNlON+6WNOFI=;
+ b=aL557VXwW+i6iDFCJuPF9arTyaUKl4GuxtqhaCxA/dIMpURPU8S4qwgcYQlg0MikTLYWOGM2PSyeFIKLqHIre75Cbf6+Iqmj6gbUFGrSFF5HT47QxnHNEeTISw5DuqFMmvRNpmth1yUpZrH3QwZkjjX4P4K6NgnTHYR1jUGMVng=
+Received: from DM5PR22CA0003.namprd22.prod.outlook.com (2603:10b6:3:101::13)
+ by DM6PR12MB2907.namprd12.prod.outlook.com (2603:10b6:5:183::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.27; Wed, 20 May
+ 2020 13:53:08 +0000
+Received: from DM6NAM11FT003.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:3:101:cafe::45) by DM5PR22CA0003.outlook.office365.com
+ (2603:10b6:3:101::13) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.23 via Frontend
+ Transport; Wed, 20 May 2020 13:53:08 +0000
+X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; linux.ie; dkim=none (message not signed)
+ header.d=none;linux.ie; dmarc=permerror action=none header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ DM6NAM11FT003.mail.protection.outlook.com (10.13.173.162) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.3021.23 via Frontend Transport; Wed, 20 May 2020 13:53:07 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 20 May
+ 2020 08:53:07 -0500
+Received: from sudo.amd.com (10.180.168.240) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
+ Transport; Wed, 20 May 2020 08:53:06 -0500
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: <Felix.Kuehling@amd.com>, <alexander.deucher@amd.com>,
+ <christian.koenig@amd.com>
+Subject: [PATCH] drm/amd/amdkfd: Fix large framesize for kfd_smi_ev_read()
+Date: Wed, 20 May 2020 09:53:06 -0400
+Message-ID: <20200520135306.11221-1-aurabindo.pillai@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(136003)(346002)(39860400002)(376002)(396003)(46966005)(82310400002)(82740400003)(8936002)(478600001)(7696005)(36756003)(336012)(426003)(44832011)(356005)(186003)(4326008)(6636002)(81166007)(26005)(8676002)(5660300002)(316002)(70586007)(70206006)(1076003)(86362001)(54906003)(2616005)(110136005)(2906002)(47076004);
+ DIR:OUT; SFP:1101; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8cd0635e-a73a-433a-d741-08d7fcc52061
+X-MS-TrafficTypeDiagnostic: DM6PR12MB2907:
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2907E5BEEEAEF8FEDFB6943F8BB60@DM6PR12MB2907.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Forefront-PRVS: 04097B7F7F
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: HKg2Le69gBYBUtgWXH+CiAOH/hLKk2jV2WVrHAPPl+DKUJLMjmO7NgwG7hCyvKbPdlMdMvsfNF7zBYxzmEjw5S29sosveLp/fFCQ8LYo5gJsAP2TSVuDUK6lleom19SkV25HKCi0nV1JLXu9t/tH2ACWiCk4nJZJinJ1Z/2aYZ5M1/K7/oghIMhk2AjdsKhtJphLl7kIPC6DqPnoSoFC59amnh0R098khoMnkKB2VLy6zS3Kz380iUCHMhJLS/yX8lcAcgRAI11yCfPBwKOrqBJVXAVTR2CGp128aGo1EpZMzdcS3PiziAlJcDGowhOTFpR3VKG7aEJpJWD7Ese64eNg2mSQLJVEICfQBHdpyvr8b1WCg93ANe0Rrf3aoz2SnJXi6YrGlSxBiNm+eiFDTKn1kdi03i7qt7qR1zOyTwwREMWCmimAASBFfEzcPcB4paFltWz4RECLRNVrsOUk1pk+egCw2kbe6FSkLc0j0MARTqQZzWiJq+Ou9bxD0mwMv9bIV3XzfoKJmYD9YiENXQ==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d4c1b3f-3f63-4492-33b6-08d7fcc30fc7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 May 2020 13:38:20.7420 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vtJ+HjNuak0d8XpIwAxMv+RFpLYn08KguW7p4p5XzqS02XHExOcG/mxhO7K22uxL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3844
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2020 13:53:07.7344 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8cd0635e-a73a-433a-d741-08d7fcc52061
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB02.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2907
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,198 +111,82 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>, "Tao, Yintian" <Yintian.Tao@amd.com>,
- "kernel-janitors@vger.kernel.org" <kernel-janitors@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Huang,
- Ray" <Ray.Huang@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>, "Quan, Evan" <Evan.Quan@amd.com>, "Feng,
- Kenneth" <Kenneth.Feng@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Zhang, 
- Hawking" <Hawking.Zhang@amd.com>
-Content-Type: multipart/mixed; boundary="===============1415074399=="
+Cc: airlied@linux.ie, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Amber Lin <Amber.Lin@amd.com>,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1415074399==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BY5PR12MB4068A89E90AFD74E62C210C9A2B60BY5PR12MB4068namp_"
+The buffer allocated is of 1024 bytes. Allocate this from
+heap instead of stack.
 
---_000_BY5PR12MB4068A89E90AFD74E62C210C9A2B60BY5PR12MB4068namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Also remove check for stack size since we're allocating from heap
 
-[AMD Official Use Only - Internal Distribution Only]
-
-thanks.
-
-Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
-
-Best Regads,
-Kevin
-________________________________
-From: Dan Carpenter <dan.carpenter@oracle.com>
-Sent: Wednesday, May 20, 2020 9:08 PM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; Wang, Kevin(Yang) <Kevi=
-n1.Wang@amd.com>
-Cc: Koenig, Christian <Christian.Koenig@amd.com>; David Airlie <airlied@lin=
-ux.ie>; Daniel Vetter <daniel@ffwll.ch>; Quan, Evan <Evan.Quan@amd.com>; Hu=
-ang, Ray <Ray.Huang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>; Tao, Yi=
-ntian <Yintian.Tao@amd.com>; Zhang, Hawking <Hawking.Zhang@amd.com>; amd-gf=
-x@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; dri-devel@lists.fr=
-eedesktop.org <dri-devel@lists.freedesktop.org>; linux-kernel@vger.kernel.o=
-rg <linux-kernel@vger.kernel.org>; kernel-janitors@vger.kernel.org <kernel-=
-janitors@vger.kernel.org>
-Subject: [PATCH v2] drm/amdgpu: off by on in amdgpu_device_attr_create_grou=
-ps() error handling
-
-This loop in the error handling code should start a "i - 1" and end at
-"i =3D=3D 0".  Currently it starts a "i" and ends at "i =3D=3D 1".  The res=
-ult
-is that it removes one attribute that wasn't created yet, and leaks the
-zeroeth attribute.
-
-Fixes: 4e01847c38f7 ("drm/amdgpu: optimize amdgpu device attribute code")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Tested-by: Amber Lin <Amber.Lin@amd.com>
 ---
-v2: style change
+ drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 26 +++++++++++++++------
+ 1 file changed, 19 insertions(+), 7 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c           | 3 +--
- 1 files changed, 1 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c
-index b75362bf0742..e809534fabd4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -1942,9 +1942,8 @@ static int amdgpu_device_attr_create_groups(struct am=
-dgpu_device *adev,
-         return 0;
-
- failed:
--       for (; i > 0; i--) {
-+       while (i--)
-                 amdgpu_device_attr_remove(adev, &attrs[i]);
--       }
-
-         return ret;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+index f5fd18eacf0d..5aebe169f8c6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+@@ -77,9 +77,11 @@ static ssize_t kfd_smi_ev_read(struct file *filep, char __user *user,
+ 	int ret;
+ 	size_t to_copy;
+ 	struct kfd_smi_client *client = filep->private_data;
+-	unsigned char buf[MAX_KFIFO_SIZE];
++	unsigned char *buf;
+ 
+-	BUILD_BUG_ON(MAX_KFIFO_SIZE > 1024);
++	buf = kzalloc(MAX_KFIFO_SIZE * sizeof(*buf), GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
+ 
+ 	/* kfifo_to_user can sleep so we can't use spinlock protection around
+ 	 * it. Instead, we kfifo out as spinlocked then copy them to the user.
+@@ -88,19 +90,29 @@ static ssize_t kfd_smi_ev_read(struct file *filep, char __user *user,
+ 	to_copy = kfifo_len(&client->fifo);
+ 	if (!to_copy) {
+ 		spin_unlock(&client->lock);
+-		return -EAGAIN;
++		ret = -EAGAIN;
++		goto ret_err;
+ 	}
+ 	to_copy = min3(size, sizeof(buf), to_copy);
+ 	ret = kfifo_out(&client->fifo, buf, to_copy);
+ 	spin_unlock(&client->lock);
+-	if (ret <= 0)
+-		return -EAGAIN;
++	if (ret <= 0) {
++		ret = -EAGAIN;
++		goto ret_err;
++	}
+ 
+ 	ret = copy_to_user(user, buf, to_copy);
+-	if (ret)
+-		return -EFAULT;
++	if (ret) {
++		ret = -EFAULT;
++		goto ret_err;
++	}
+ 
++	kfree(buf);
+ 	return to_copy;
++
++ret_err:
++	kfree(buf);
++	return ret;
  }
-
---_000_BY5PR12MB4068A89E90AFD74E62C210C9A2B60BY5PR12MB4068namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-thanks.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Reviewed-by: Kevin Wang &lt;kevin1.wang@amd.com&gt;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Best Regads,</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Kevin</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Dan Carpenter &lt;dan=
-.carpenter@oracle.com&gt;<br>
-<b>Sent:</b> Wednesday, May 20, 2020 9:08 PM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Wang, Kevi=
-n(Yang) &lt;Kevin1.Wang@amd.com&gt;<br>
-<b>Cc:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; David Airlie=
- &lt;airlied@linux.ie&gt;; Daniel Vetter &lt;daniel@ffwll.ch&gt;; Quan, Eva=
-n &lt;Evan.Quan@amd.com&gt;; Huang, Ray &lt;Ray.Huang@amd.com&gt;; Feng, Ke=
-nneth &lt;Kenneth.Feng@amd.com&gt;; Tao, Yintian &lt;Yintian.Tao@amd.com&gt=
-;;
- Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; amd-gfx@lists.freedesktop.or=
-g &lt;amd-gfx@lists.freedesktop.org&gt;; dri-devel@lists.freedesktop.org &l=
-t;dri-devel@lists.freedesktop.org&gt;; linux-kernel@vger.kernel.org &lt;lin=
-ux-kernel@vger.kernel.org&gt;; kernel-janitors@vger.kernel.org
- &lt;kernel-janitors@vger.kernel.org&gt;<br>
-<b>Subject:</b> [PATCH v2] drm/amdgpu: off by on in amdgpu_device_attr_crea=
-te_groups() error handling</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">This loop in the error handling code should start =
-a &quot;i - 1&quot; and end at<br>
-&quot;i =3D=3D 0&quot;.&nbsp; Currently it starts a &quot;i&quot; and ends =
-at &quot;i =3D=3D 1&quot;.&nbsp; The result<br>
-is that it removes one attribute that wasn't created yet, and leaks the<br>
-zeroeth attribute.<br>
-<br>
-Fixes: 4e01847c38f7 (&quot;drm/amdgpu: optimize amdgpu device attribute cod=
-e&quot;)<br>
-Signed-off-by: Dan Carpenter &lt;dan.carpenter@oracle.com&gt;<br>
----<br>
-v2: style change<br>
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 3 &#43;--<br>
-&nbsp;1 files changed, 1 insertions(&#43;), 2 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c<br>
-index b75362bf0742..e809534fabd4 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-@@ -1942,9 &#43;1942,8 @@ static int amdgpu_device_attr_create_groups(struc=
-t amdgpu_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;<br>
-&nbsp;failed:<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (; i &gt; 0; i--) {<br>
-&#43;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (i--)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; amdgpu_device_attr_remove(adev, &amp;attrs[i]);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&nbsp;}<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BY5PR12MB4068A89E90AFD74E62C210C9A2B60BY5PR12MB4068namp_--
-
---===============1415074399==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+ 
+ static ssize_t kfd_smi_ev_write(struct file *filep, const char __user *user,
+-- 
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1415074399==--
