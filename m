@@ -2,79 +2,85 @@ Return-Path: <SRS0=vyzA=7C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F5BBC433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 12:05:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7DF85C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 12:54:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 339CA207D4
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 12:05:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3EAC32070A
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 12:54:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="onX2mjo3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 339CA207D4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="VhF9Q366"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3EAC32070A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9E7046E142;
-	Wed, 20 May 2020 12:05:24 +0000 (UTC)
-Received: from mail-ej1-x642.google.com (mail-ej1-x642.google.com
- [IPv6:2a00:1450:4864:20::642])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E04C88FAD;
- Wed, 20 May 2020 12:05:23 +0000 (UTC)
-Received: by mail-ej1-x642.google.com with SMTP id a2so3443526ejb.10;
- Wed, 20 May 2020 05:05:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=IpcuDlVK4ewXDEYJwfHRhSq6queIrqFdGofnfdB2b5w=;
- b=onX2mjo3ZhjB0Rm0CUCdmoTq9xTcOPNo4s5dhyCMe2uhOVJMo7SZsPW9VGTeh20rH9
- Zay7CC5J9eMlj0sywrYRVB9uRatEAZAtXXGRxMVXkdTFQ1sK6od0rnvplRyxfP2ypBIy
- 3fOk+Y6pqAI877qGZV9OO/rFrXX+8uScKcLpbOORM42wqnAlS1Xo5qCTFtIMx/KaxAW5
- 7zQzorlV+jpu38Za5wp9UlKpBJdvzePpr81AhfJeuX3UYcPAdK9lyRyLBZjPVANWNkdd
- 5ro6AbnmSMmcsjmW7ZjqI2wzwRUdgkhK8JZPXzkFr8PeMdayDguSyv/HTcuWoZ8Tunb0
- dI7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=IpcuDlVK4ewXDEYJwfHRhSq6queIrqFdGofnfdB2b5w=;
- b=PSUrRMJMOeSyICJgJwwNPWBZbKm4HGrEBR26CZp93ErzrqQYV0cjZeijPrLlafAPLe
- Br2HuWx78J8+fxHxSXsVeAJFMoBSu2+pZm8wJZ9yDU/NrNOGEW5fI9S0Kru4ePLV5kb0
- Ub/D6ApZcAZ73wxOirmaM1EGBQWSchrX9cscCFp/aSoPIEHo93Y66k4vRHHPUbczQYVc
- Qqp1dssadz4UnzY9p/BHFxP1dP/sRXs2Tiqf3PtiH57LoWnbHIkHAEa/5zeP8q6Kzg6Z
- iq5zCv6eXIdFUdVxqb/9HLCQgy0JvzMLO6cAv7NjeJOLWuAZxckNkLN54otl5UwIeQ7N
- Ohdg==
-X-Gm-Message-State: AOAM532sWNgZfPY3xqyDXzW18YJHhO+87/HQK5Z/Jp6zjPcelYpWaBWh
- kXJ5KQKZUp/u9gGJ1ZL2Ng8=
-X-Google-Smtp-Source: ABdhPJwr6r+idrtcT++eTWfSy6fLWhDhq5ATlJSlfd5P0GodqO/MjCxxPCBQLhArlKbZoForyIwaWg==
-X-Received: by 2002:a17:906:3cd:: with SMTP id
- c13mr3534648eja.164.1589976321947; 
- Wed, 20 May 2020 05:05:21 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id g25sm1601766edm.57.2020.05.20.05.05.20
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 20 May 2020 05:05:21 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0322E89E4C;
+	Wed, 20 May 2020 12:54:27 +0000 (UTC)
+Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7559A89E4C;
+ Wed, 20 May 2020 12:54:26 +0000 (UTC)
+Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
+ by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04KCrF3r040394;
+ Wed, 20 May 2020 12:54:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ content-transfer-encoding : in-reply-to; s=corp-2020-01-29;
+ bh=j3qY+AimdnUvnxFvl+25yJx20/yrC+woZBSTpFQ9VfY=;
+ b=VhF9Q366W2dpeQzzwA6sxglfaiUhtsndVFTY7kQD6Q5FKMHMiVGHgnM+M46HIlvi7kky
+ dPIxOgCRik2CD0GruE+jtY+7Iz42Wd+8i65qyHzChwVuiL230UAEECh5v7fK0ktNHPkO
+ xgJ8KrRd2pxOhjI3uDuzY92RMZY1jVcxhcZVUKZVQRqJGOseelXbV9DlWA2UWb1x4R12
+ TsjcvsG9Y5hTlHl0OuXHKoflhAFxBTKeJbF1aDuSf58sWAPBn0samw6HIB86fYN+23xI
+ X2BlgISO0aif6TQRWzgenMwLHFXPTcGj+wJM8lzKxhydu+usAzbfy9ZGOzPkDCtN+Clj +g== 
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+ by userp2130.oracle.com with ESMTP id 3127kraxey-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 20 May 2020 12:54:21 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+ by userp3020.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 04KCnDV3074147;
+ Wed, 20 May 2020 12:52:21 GMT
+Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
+ by userp3020.oracle.com with ESMTP id 3150208722-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 20 May 2020 12:52:21 +0000
+Received: from abhmp0015.oracle.com (abhmp0015.oracle.com [141.146.116.21])
+ by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 04KCqIYg021917;
+ Wed, 20 May 2020 12:52:18 GMT
+Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Wed, 20 May 2020 05:52:17 -0700
+Date: Wed, 20 May 2020 15:52:09 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: christian.koenig@amd.com
 Subject: Re: [PATCH] drm/amdgpu: off by on in
  amdgpu_device_attr_create_groups() error handling
-To: Dan Carpenter <dan.carpenter@oracle.com>,
- Alex Deucher <alexander.deucher@amd.com>, Kevin Wang <kevin1.wang@amd.com>
+Message-ID: <20200520125209.GP3041@kadam>
 References: <20200520120054.GB172354@mwanda>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <62d9d539-8401-233a-3f20-984042489987@gmail.com>
-Date: Wed, 20 May 2020 14:05:19 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ <62d9d539-8401-233a-3f20-984042489987@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20200520120054.GB172354@mwanda>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <62d9d539-8401-233a-3f20-984042489987@gmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9626
+ signatures=668686
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ mlxscore=0 mlxlogscore=999
+ adultscore=0 bulkscore=0 suspectscore=1 phishscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2004280000
+ definitions=main-2005200110
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9626
+ signatures=668686
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ phishscore=0 spamscore=0
+ bulkscore=0 clxscore=1015 priorityscore=1501 mlxscore=0 impostorscore=0
+ suspectscore=1 mlxlogscore=999 malwarescore=0 cotscore=-2147483648
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2004280000 definitions=main-2005200111
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,61 +92,73 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: David Airlie <airlied@linux.ie>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Rui Huang <ray.huang@amd.com>, dri-devel@lists.freedesktop.org,
- Daniel Vetter <daniel@ffwll.ch>, Yintian Tao <yttao@amd.com>,
+Cc: David Airlie <airlied@linux.ie>, Kevin Wang <kevin1.wang@amd.com>,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, Rui Huang <ray.huang@amd.com>,
+ dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
+ Alex Deucher <alexander.deucher@amd.com>, Yintian Tao <yttao@amd.com>,
  Evan Quan <evan.quan@amd.com>, Kenneth Feng <kenneth.feng@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 20.05.20 um 14:00 schrieb Dan Carpenter:
-> This loop in the error handling code should start a "i - 1" and end at
-> "i == 0".  Currently it starts a "i" and ends at "i == 1".  The result
-> is that it removes one attribute that wasn't created yet, and leaks the
-> zeroeth attribute.
->
-> Fixes: 4e01847c38f7 ("drm/amdgpu: optimize amdgpu device attribute code")
-> Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 5 ++---
->   1 file changed, 2 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> index b75362bf0742..ee4a8e44fbeb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> @@ -1931,7 +1931,7 @@ static int amdgpu_device_attr_create_groups(struct amdgpu_device *adev,
->   					    uint32_t mask)
->   {
->   	int ret = 0;
-> -	uint32_t i = 0;
-> +	int i;
->   
->   	for (i = 0; i < counts; i++) {
->   		ret = amdgpu_device_attr_create(adev, &attrs[i], mask);
-> @@ -1942,9 +1942,8 @@ static int amdgpu_device_attr_create_groups(struct amdgpu_device *adev,
->   	return 0;
->   
->   failed:
-> -	for (; i > 0; i--) {
-> +	while (--i >= 0)
+On Wed, May 20, 2020 at 02:05:19PM +0200, Christian K=F6nig wrote:
+> Am 20.05.20 um 14:00 schrieb Dan Carpenter:
+> > This loop in the error handling code should start a "i - 1" and end at
+> > "i =3D=3D 0".  Currently it starts a "i" and ends at "i =3D=3D 1".  The=
+ result
+> > is that it removes one attribute that wasn't created yet, and leaks the
+> > zeroeth attribute.
+> > =
 
-As far as I know the common idiom for this is while (i--) which even 
-works without changing the type of i to signed.
+> > Fixes: 4e01847c38f7 ("drm/amdgpu: optimize amdgpu device attribute code=
+")
+> > Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+> > ---
+> >   drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 5 ++---
+> >   1 file changed, 2 insertions(+), 3 deletions(-)
+> > =
 
-Christian.
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_pm.c
+> > index b75362bf0742..ee4a8e44fbeb 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> > @@ -1931,7 +1931,7 @@ static int amdgpu_device_attr_create_groups(struc=
+t amdgpu_device *adev,
+> >   					    uint32_t mask)
+> >   {
+> >   	int ret =3D 0;
+> > -	uint32_t i =3D 0;
+> > +	int i;
+> >   	for (i =3D 0; i < counts; i++) {
+> >   		ret =3D amdgpu_device_attr_create(adev, &attrs[i], mask);
+> > @@ -1942,9 +1942,8 @@ static int amdgpu_device_attr_create_groups(struc=
+t amdgpu_device *adev,
+> >   	return 0;
+> >   failed:
+> > -	for (; i > 0; i--) {
+> > +	while (--i >=3D 0)
+> =
 
->   		amdgpu_device_attr_remove(adev, &attrs[i]);
-> -	}
->   
->   	return ret;
->   }
+> As far as I know the common idiom for this is while (i--) which even works
+> without changing the type of i to signed.
+
+It's about 50/50, one way or the other.  To me --i >=3D 0 seems far more
+readable.
+
+I've been trying to figure out which tool tells people to make iterators
+unsigned so I can help them avoid it.  :/  I understand how in theory
+iterators could go above INT_MAX but if we're going above INT_MAX then
+probably we should use a 64 bit type.  There are very few times where 2
+billion iterations is not enough but in those situations probably 4
+billion is not enough either.  So unsigned int iterators never or seldom
+solve real life bugs but they regularly cause them.
+
+regards,
+dan carpenter
 
 _______________________________________________
 amd-gfx mailing list
