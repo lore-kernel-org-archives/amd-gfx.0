@@ -2,104 +2,57 @@ Return-Path: <SRS0=vyzA=7C=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4149CC433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 06:54:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80049C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 07:35:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 068CC2065F
-	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 06:54:51 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 13BFF2075F
+	for <amd-gfx@archiver.kernel.org>; Wed, 20 May 2020 07:35:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZdLONIhU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 068CC2065F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=preining.info header.i=@preining.info header.b="K4+TUIf3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 13BFF2075F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=preining.info
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 341686E580;
-	Wed, 20 May 2020 06:54:47 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2084.outbound.protection.outlook.com [40.107.244.84])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 392EA6E3E3;
- Wed, 20 May 2020 06:54:45 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TovAAStFr6dQ37cf/MQD+bY7blxvs/dUFrClVDj58fM/LXWE+2+V1U56eqk4HnE5W52d1YEyG39k57Gk6IXNXYZZxcxMUMmFhCRF3L8CA1j1nW/rELLBhlskP+T4YEf9tb2q8PvjsY4UFMjKA8foVo8j6kEPcjBQF2tdHw/h28eY9pJ/QTLbwGFL8mAMnWo2GQfWkhwq7IYZnetgK1eSrWEa4Ose6WwfBtPQ7lfj8dzQE9QTQK7JY9oH5SQloGct9HCvLFoGawZy/cdu/yh8YStIl2dw6xgYqkfiT2AiU0Ox10v4zhRCl8WzDT515X7IahgrJT+YCOSHOehwWG8EBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RdaCuSPmEN2mL3/eYXoPsSxKryrFjyMCDnrvwYZBEME=;
- b=ZZAEsLSs9LVeeqr0P4zT8UoIdlOUuYnVPniuIUCJTnfDXMPoxJe0RfbyiCEZ9VOZ8eBITOrD8PbHMTsOASg6NQO2n8QHK+yPo7vTH/oKRxMtv4WaQXwwTe5KmCVFJATAsANu6iUw+HHq5KSmvzPZFlUMgHHmt5+5wJWvj3UAs1QK2iyfqB0ERLAa+wuE8H2yLJ6hAaMwPMpxSluChPRD8/L5QD5iDug2WALm1GuS46X0sKWGb02tYBuyzybG1Bwu/CJeaK9iKu+7zcENqI4gO3FbT0NL3+Cp3aEg8MpitnmEYoLvugEQ9zd4pWOB15BKJ22SO2BfS1t9OuEHo00gYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RdaCuSPmEN2mL3/eYXoPsSxKryrFjyMCDnrvwYZBEME=;
- b=ZdLONIhUxC0l8fYW5/3KrPj36fYxyozyAWkrv/CHW5JlGIy4RjLM5B/r3tI/b8KbHswqEEZb4MvZxMvDg+Ze93QXJLw1RlqGuE+lxTQBHnWjPr1tSK+dMJ64zPUSiXysnUgJX073gMvsJIR0sYA7yrf00rjOe9ShCHNJrr9QYj4=
-Authentication-Results: intel.com; dkim=none (message not signed)
- header.d=none;intel.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
- by DM6PR12MB3260.namprd12.prod.outlook.com (2603:10b6:5:183::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.27; Wed, 20 May
- 2020 06:54:43 +0000
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::7949:b580:a2d5:f766]) by DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::7949:b580:a2d5:f766%3]) with mapi id 15.20.3021.020; Wed, 20 May 2020
- 06:54:43 +0000
-Subject: Re: [PATCH] dma-fence: add might_sleep annotation to _wait()
-To: Daniel Vetter <daniel.vetter@ffwll.ch>,
- DRI Development <dri-devel@lists.freedesktop.org>
-References: <20200519132756.682888-1-daniel.vetter@ffwll.ch>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <be86b73c-2fb3-a6c0-5a12-004af051210f@amd.com>
-Date: Wed, 20 May 2020 08:54:36 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <20200519132756.682888-1-daniel.vetter@ffwll.ch>
-Content-Language: en-US
-X-ClientProxiedBy: AM0PR01CA0081.eurprd01.prod.exchangelabs.com
- (2603:10a6:208:10e::22) To DM6PR12MB4401.namprd12.prod.outlook.com
- (2603:10b6:5:2a9::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3AFA6E59B;
+	Wed, 20 May 2020 07:35:49 +0000 (UTC)
+X-Greylist: delayed 1581 seconds by postgrey-1.36 at gabe;
+ Wed, 20 May 2020 05:58:17 UTC
+Received: from hz.preining.info (hz.preining.info [IPv6:2a01:4f9:2a:1a08::2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91DAD89CFA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 20 May 2020 05:58:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=preining.info; s=201909; h=Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Message-ID:Subject:To:From:Date:Sender:Reply-To:Cc:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=hF17WuO3U+Kh7Jk6FbET2W0ULdnEPArlrE14jqZtdLE=; b=K4+TUIf3f7xWajmmS5z4PoC59k
+ lqFIGyER7RuuoyjRXkx6NYdM0WmmLO/LwX9sfvzzlr4TcXXfB4PtN1vnkX4OrNEkA6mOivpI8e/uO
+ 8FghZMnGa3dkzan1ewy9oXE2xS9x5L6WCXpmnTFqNnRw9Ma8VoaGxEWcMfYEcdjdes6C4WKVNBTeO
+ doXzAGHvYnahE5MTVq0vqb/nGI96hdYMakfdJu9PKFs/KuVIPSHyLpsjnN2zI3fMr5psKtHvKeKyT
+ JAvZukWKiT3O7Y/t5U+7YFRHePKJvuZSZZmRPsbhrRc5WG079RCjfT13CPw/Fw1yON9I3n/jBj6Gn
+ omhXOLQQ==;
+Received: from tvk213002.tvk.ne.jp ([180.94.213.2] helo=bulldog.preining.info)
+ by hz.preining.info with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <norbert@preining.info>) id 1jbHKc-0007y0-HO
+ for amd-gfx@lists.freedesktop.org; Wed, 20 May 2020 05:31:55 +0000
+Received: by bulldog.preining.info (Postfix, from userid 1000)
+ id CAAD38FD5B45; Wed, 20 May 2020 14:31:50 +0900 (JST)
+Date: Wed, 20 May 2020 14:31:50 +0900
+From: Norbert Preining <norbert@preining.info>
+To: amd-gfx@lists.freedesktop.org
+Subject: WARNINGs in amdgpu dcn20_hwseq.c:127 dcn20_setup_gsl_group_as_lock
+Message-ID: <20200520053150.GB118502@bulldog.preining.info>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM0PR01CA0081.eurprd01.prod.exchangelabs.com (2603:10a6:208:10e::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.23 via Frontend
- Transport; Wed, 20 May 2020 06:54:40 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 3edeaee0-4091-4114-3eaf-08d7fc8aacd2
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3260:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3260EEC5E50B9A746401F5E983B60@DM6PR12MB3260.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-Forefront-PRVS: 04097B7F7F
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: wdMPcZpomRbJjgCjDgCCUUZya90n7J1+9UkWattp/9IEasATIGqpxoSqxQoeit81uNco0lHslCBaGSB7cK3RKiI18D/vtolrL7Fpd77R1VtsqK3Jg+jepvrL4M5kzIXZ6i1Vq/XVLl0F8z/eg4WTuMInnCs4IN6Yq9f8uEu9LVrJma/0Vi8ByfDNHEqAGfAR3UwG33Q//7pG86y8Ph/bJJHWbEr4WbGM4O6IkPAZ2PhtGdfLcoLMIBFcCaRbEcpxH6gAJKW+2OlA8Mwg+WiUpE6/mHXHObuIGfn+L790APf7Ww+bydhDT0kGjUF2NCx5FTT8Mj/9r+U58LR4muBCynl62DU0UVrXAHcvwtvI4YBadIHH9EpAli1VxgJvmcBoV40fiWiAnIl2vGVN1hwyyWMXNsn1K7y3K+5KnQsvMS+SihdljPyoP/P0VWcyp2C7WRbv0sUKiwkOf8cLxZwwf1seX2ya4qEote9GYgqCd+V6R8sriUMIX3rfuJCsuJZC
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(376002)(39860400002)(366004)(396003)(136003)(346002)(86362001)(66574014)(66556008)(31696002)(66946007)(36756003)(54906003)(110136005)(8936002)(8676002)(2616005)(66476007)(316002)(478600001)(5660300002)(6666004)(31686004)(52116002)(6486002)(2906002)(4326008)(16526019)(7416002)(186003)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: /V/rnfUwvEvDmZLV6qlOAhuH5H1zplobp8r10KdpsMacdqzT5BPNffDK2iJnJWxuBkh6t4+zrCADfkH+0KZMGvR/hSatCm6qK98Pk4sGeScWGo2OWXvvPf+DW1T1s7hAVimWUJpi9wF+37c3x4EjT9q5R1KOxIAAZ23GeylDig6nS925R1qE3ZhzV5boCS1Hsgg4JU8jdasJNWZU/pBx7MmhI1fbVcFNbO2pKGCNcsqnlmKwZ63QDPW/keKAhsmkUb/1sm3UYCPfi0gw1E6QQfEARkUk3Q8xeAk7zP+Ja0QZXEuXT6WrfvUKl1xQCrlIS/OKA0OcHGL/sKqqFUAUXMIFpWdKFbom867K2JM0XCJnbpHwESb2oJsxzNTeHrC6HwDA20vVg6dpTMl7Ln+75rnTrJPJW7JG4Glu242z+YJ6F/ubQXPTOiJLH5220tKaieWkP555dgqrZNsO/gtDBD9mmslWMk962nME5rUTve1svCA29ofYSz4Wqnra3YOp4JvGOTGX7nYACmBcdQ22qZ1C1ObBs+ZZOFCPZ9qldljC5F+nmyrQiTYu4njytz/H
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3edeaee0-4091-4114-3eaf-08d7fc8aacd2
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 May 2020 06:54:43.3172 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: l2iG+D4zLjAeN5gfBpiIKu8PsRzrVGpBLaDRcRCsKqRRuP+jS5A/aJ/qjMEeReL+
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3260
+Content-Disposition: inline
+X-Mailman-Approved-At: Wed, 20 May 2020 07:35:49 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,74 +64,173 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Oded Gabbay <oded.gabbay@gmail.com>, amd-gfx@lists.freedesktop.org,
- linux-rdma@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- LKML <linux-kernel@vger.kernel.org>, Jani Nikula <jani.nikula@linux.intel.com>,
- Chris Wilson <chris@chris-wilson.co.uk>, linaro-mm-sig@lists.linaro.org,
- VMware Graphics <linux-graphics-maintainer@vmware.com>,
- Ben Skeggs <bskeggs@redhat.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Daniel Vetter <daniel.vetter@intel.com>, linux-media@vger.kernel.org,
- Lucas Stach <l.stach@pengutronix.de>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMTkuMDUuMjAgdW0gMTU6Mjcgc2NocmllYiBEYW5pZWwgVmV0dGVyOgo+IERvIGl0IHVuY29u
-dGlvbmFsbHksIHRoZXJlJ3MgYSBzZXBhcmF0ZSBwZWVrIGZ1bmN0aW9uIHdpdGgKPiBkbWFfZmVu
-Y2VfaXNfc2lnbmFsbGVkKCkgd2hpY2ggY2FuIGJlIGNhbGxlZCBmcm9tIGF0b21pYyBjb250ZXh0
-Lgo+Cj4gdjI6IENvbnNlbnN1cyBjYWxscyBmb3IgYW4gdW5jb25kaXRpb25hbCBtaWdodF9zbGVl
-cCAoQ2hyaXMsCj4gQ2hyaXN0aWFuKQo+Cj4gRnVsbCBhdWRpdDoKPiAtIGRtYS1mZW5jZS5oOiBV
-c2VzIE1BWF9TQ0hFRFVMRV9USU1PVVQsIGdvb2QgY2hhbmNlIHRoaXMgc2xlZXBzCj4gLSBkbWEt
-cmVzdi5jOiBUaW1lb3V0IGFsd2F5cyBhdCBsZWFzdCAxCj4gLSBzdC1kbWEtZmVuY2UuYzogU2F2
-ZSB0byBzbGVlcCBpbiB0ZXN0Y2FzZXMKPiAtIGFtZGdwdV9jcy5jOiBCb3RoIGNhbGxlcnMgYXJl
-IGZvciB2YXJpYW50cyBvZiB0aGUgd2FpdCBpb2N0bAo+IC0gYW1kZ3B1X2RldmljZS5jOiBUd28g
-Y2FsbGVycyBpbiB2cmFtIHJlY292ZXIgY29kZSwgYm90aCByaWdodCBuZXh0Cj4gICAgdG8gbXV0
-ZXhfbG9jay4KPiAtIGFtZGdwdV92bS5jOiBVc2UgaW4gdGhlIHZtX3dhaXQgaW9jdGwsIG5leHQg
-dG8gX3Jlc2VydmUvdW5yZXNlcnZlCj4gLSByZW1haW5pbmcgZnVuY3Rpb25zIGluIGFtZGdwdTog
-QWxsIGZvciB0ZXN0X2liIGltcGxlbWVudGF0aW9ucyBmb3IKPiAgICB2YXJpb3VzIGVuZ2luZXMs
-IGNhbGxlciBmb3IgdGhhdCBsb29rcyBhbGwgc2FmZSAoZGVidWdmcywgZHJpdmVyCj4gICAgbG9h
-ZCwgcmVzZXQpCj4gLSBldG5hdml2OiBhbm90aGVyIHdhaXQgaW9jdGwKPiAtIGhhYmFuYWxhYnM6
-IGFub3RoZXIgd2FpdCBpb2N0bAo+IC0gbm91dmVhdV9mZW5jZS5jOiBoYXJkY29kZWQgMTUqSFog
-Li4uIGdsb3Jpb3VzCj4gLSBub3V2ZWF1X2dlbS5jOiBoYXJkY29kZWQgMipIWiAuLi4gc28gbm90
-IGV2ZW4gc3VwZXIgY29uc2lzdGVudCwgYnV0Cj4gICAgdGhpcyBvbmUgZG9lcyBoYXZlIGEgV0FS
-Tl9PTiA6LS8gQXQgbGVhc3QgdGhpcyBvbmUgaXMgb25seSBhCj4gICAgZmFsbGJhY2sgcGF0aCBm
-b3Igd2hlbiBrbWFsbG9jIGZhaWxzLiBNYXliZSB0aGlzIHNob3VsZCBiZSBwdXQgb250bwo+ICAg
-IHNvbWUgd29ya2VyIGxpc3QgaW5zdGVhZCwgaW5zdGVhZCBvZiBhIHdvcmsgcGVyIHVuYW1wIC4u
-Lgo+IC0gaTkxNS9zZWxmdGVzdHM6IEhhcmRlY29kZWQgSFogLyA0IG9yIEhaIC8gOAo+IC0gaTkx
-NS9ndC9zZWxmdGVzdHM6IEdvaW5nIHVwIHRoZSBjYWxsY2hhaW4gbG9va3Mgc2FmZSBsb29raW5n
-IGF0Cj4gICAgbmVhcmJ5IGNhbGxlcnMKPiAtIGk5MTUvZ3QvaW50ZWxfZ3RfcmVxdWVzdHMuYy4g
-V3JhcHBlZCBpbiBhIG11dGV4X2xvY2sKPiAtIGk5MTUvZ2VtX2k5MTVfZ2VtX3dhaXQuYzogVGhl
-IGk5MTUtdmVyc2lvbiB3aGljaCBpcyBjYWxsZWQgaW5zdGVhZAo+ICAgIGZvciBpOTE1IGZlbmNl
-cyBhbHJlYWR5IGhhcyBhIG1pZ2h0X3NsZWVwKCkgYW5ub3RhdGlvbiwgc28gYWxsIGdvb2QKPgo+
-IENjOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gQ2M6IEx1Y2Fz
-IFN0YWNoIDxsLnN0YWNoQHBlbmd1dHJvbml4LmRlPgo+IENjOiBKYW5pIE5pa3VsYSA8amFuaS5u
-aWt1bGFAbGludXguaW50ZWwuY29tPgo+IENjOiBKb29uYXMgTGFodGluZW4gPGpvb25hcy5sYWh0
-aW5lbkBsaW51eC5pbnRlbC5jb20+Cj4gQ2M6IFJvZHJpZ28gVml2aSA8cm9kcmlnby52aXZpQGlu
-dGVsLmNvbT4KPiBDYzogQmVuIFNrZWdncyA8YnNrZWdnc0ByZWRoYXQuY29tPgo+IENjOiAiVk13
-YXJlIEdyYXBoaWNzIiA8bGludXgtZ3JhcGhpY3MtbWFpbnRhaW5lckB2bXdhcmUuY29tPgo+IENj
-OiBPZGVkIEdhYmJheSA8b2RlZC5nYWJiYXlAZ21haWwuY29tPgo+IENjOiBsaW51eC1tZWRpYUB2
-Z2VyLmtlcm5lbC5vcmcKPiBDYzogbGluYXJvLW1tLXNpZ0BsaXN0cy5saW5hcm8ub3JnCj4gQ2M6
-IGxpbnV4LXJkbWFAdmdlci5rZXJuZWwub3JnCj4gQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnCj4gQ2M6IGludGVsLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKPiBDYzogQ2hyaXMg
-V2lsc29uIDxjaHJpc0BjaHJpcy13aWxzb24uY28udWs+Cj4gQ2M6IE1hYXJ0ZW4gTGFua2hvcnN0
-IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5jb20+Cj4gQ2M6IENocmlzdGlhbiBLw7Zu
-aWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgVmV0
-dGVyIDxkYW5pZWwudmV0dGVyQGludGVsLmNvbT4KClJldmlld2VkLWJ5OiBDaHJpc3RpYW4gS8O2
-bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cgo+IC0tLQo+ICAgZHJpdmVycy9kbWEtYnVm
-L2RtYS1mZW5jZS5jIHwgMiArKwo+ICAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKQo+
-Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVuY2UuYyBiL2RyaXZlcnMvZG1h
-LWJ1Zi9kbWEtZmVuY2UuYwo+IGluZGV4IDkwZWRmMmIyODFiMC4uNjU2ZTlhYzJkMDI4IDEwMDY0
-NAo+IC0tLSBhL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVuY2UuYwo+ICsrKyBiL2RyaXZlcnMvZG1h
-LWJ1Zi9kbWEtZmVuY2UuYwo+IEBAIC0yMDgsNiArMjA4LDggQEAgZG1hX2ZlbmNlX3dhaXRfdGlt
-ZW91dChzdHJ1Y3QgZG1hX2ZlbmNlICpmZW5jZSwgYm9vbCBpbnRyLCBzaWduZWQgbG9uZyB0aW1l
-b3V0KQo+ICAgCWlmIChXQVJOX09OKHRpbWVvdXQgPCAwKSkKPiAgIAkJcmV0dXJuIC1FSU5WQUw7
-Cj4gICAKPiArCW1pZ2h0X3NsZWVwKCk7Cj4gKwo+ICAgCXRyYWNlX2RtYV9mZW5jZV93YWl0X3N0
-YXJ0KGZlbmNlKTsKPiAgIAlpZiAoZmVuY2UtPm9wcy0+d2FpdCkKPiAgIAkJcmV0ID0gZmVuY2Ut
-Pm9wcy0+d2FpdChmZW5jZSwgaW50ciwgdGltZW91dCk7CgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFu
-L2xpc3RpbmZvL2FtZC1nZngK
+Dear all
+
+(please cc)
+
+Hardware: Radeon RX 5700 XT, i7-6700K CPU
+Software:
+- kernel 5.7.0-rc5+ commit 12bf0b632ed09
+- Debian/sid
+
+boot log lines
+kernel: [drm] initializing kernel modesetting (NAVI10 0x1002:0x731F 0x1462:0x3810 0xC1).
+kernel: [drm] register mmio base: 0xDFC00000
+kernel: [drm] register mmio size: 524288
+kernel: [drm] add ip block number 0 <nv_common>
+kernel: [drm] add ip block number 1 <gmc_v10_0>
+kernel: [drm] add ip block number 2 <navi10_ih>
+kernel: [drm] add ip block number 3 <psp>
+kernel: [drm] add ip block number 4 <smu>
+kernel: [drm] add ip block number 5 <dm>
+kernel: [drm] add ip block number 6 <gfx_v10_0>
+kernel: [drm] add ip block number 7 <sdma_v5_0>
+kernel: [drm] add ip block number 8 <vcn_v2_0>
+kernel: [drm] add ip block number 9 <jpeg_v2_0>
+kernel: amdgpu 0000:03:00.0: No more image in the PCI ROM
+kernel: [drm] VCN decode is enabled in VM mode
+kernel: [drm] VCN encode is enabled in VM mode
+kernel: [drm] JPEG decode is enabled in VM mode
+kernel: [drm] vm size is 262144 GB, 4 levels, block size is 9-bit, fragment size is 9-bit
+kernel: amdgpu 0000:03:00.0: VRAM: 8176M 0x0000008000000000 - 0x00000081FEFFFFFF (8176M used)
+kernel: amdgpu 0000:03:00.0: GART: 512M 0x0000000000000000 - 0x000000001FFFFFFF
+kernel: [drm] Detected VRAM RAM=8176M, BAR=256M
+kernel: [drm] RAM width 256bits GDDR6
+kernel: [TTM] Zone  kernel: Available graphics memory: 16424728 KiB
+kernel: [TTM] Zone   dma32: Available graphics memory: 2097152 KiB
+kernel: [TTM] Initializing pool allocator
+kernel: [TTM] Initializing DMA pool allocator
+kernel: [drm] amdgpu: 8176M of VRAM memory ready
+kernel: [drm] amdgpu: 8176M of GTT memory ready.
+kernel: [drm] GART: num cpu pages 131072, num gpu pages 131072
+kernel: [drm] PCIE GART of 512M enabled (table at 0x0000008000300000).
+kernel: [drm] use_doorbell being set to: [true]
+kernel: [drm] use_doorbell being set to: [true]
+kernel: [drm] Found VCN firmware Version ENC: 1.7 DEC: 4 VEP: 0 Revision: 17
+kernel: [drm] PSP loading VCN firmware
+...
+kernel: [drm] Supports vblank timestamp caching Rev 2 (21.10.2013).
+kernel: [drm] kiq ring mec 2 pipe 1 q 0
+kernel: [drm] VCN decode and encode initialized successfully(under DPG Mode).
+kernel: [drm] JPEG decode initialized successfully.
+kernel: kfd kfd: Allocated 3969056 bytes on gart
+kernel: Virtual CRAT table created for GPU
+kernel: Parsing CRAT table with 1 nodes
+kernel: Creating topology SYSFS entries
+kernel: Topology: Add dGPU node [0x731f:0x1002]
+kernel: kfd kfd: added device 1002:731f
+kernel: [drm] fb mappable at 0xC04C9000
+kernel: [drm] vram apper at 0xC0000000
+kernel: [drm] size 8294400
+kernel: [drm] fb depth is 24
+kernel: [drm]    pitch is 7680
+kernel: fbcon: amdgpudrmfb (fb0) is primary device
+kernel: Console: switching to colour frame buffer device 240x67
+kernel: amdgpu 0000:03:00.0: fb0: amdgpudrmfb frame buffer device
+kernel: amdgpu 0000:03:00.0: ring gfx_0.0.0 uses VM inv eng 0 on hub 0
+kernel: amdgpu 0000:03:00.0: ring comp_1.0.0 uses VM inv eng 1 on hub 0
+kernel: amdgpu 0000:03:00.0: ring comp_1.1.0 uses VM inv eng 4 on hub 0
+kernel: amdgpu 0000:03:00.0: ring comp_1.2.0 uses VM inv eng 5 on hub 0
+kernel: amdgpu 0000:03:00.0: ring comp_1.3.0 uses VM inv eng 6 on hub 0
+kernel: amdgpu 0000:03:00.0: ring comp_1.0.1 uses VM inv eng 7 on hub 0
+kernel: amdgpu 0000:03:00.0: ring comp_1.1.1 uses VM inv eng 8 on hub 0
+kernel: amdgpu 0000:03:00.0: ring comp_1.2.1 uses VM inv eng 9 on hub 0
+kernel: amdgpu 0000:03:00.0: ring comp_1.3.1 uses VM inv eng 10 on hub 0
+kernel: amdgpu 0000:03:00.0: ring kiq_2.1.0 uses VM inv eng 11 on hub 0
+kernel: amdgpu 0000:03:00.0: ring sdma0 uses VM inv eng 12 on hub 0
+kernel: amdgpu 0000:03:00.0: ring sdma1 uses VM inv eng 13 on hub 0
+kernel: amdgpu 0000:03:00.0: ring vcn_dec uses VM inv eng 0 on hub 1
+kernel: amdgpu 0000:03:00.0: ring vcn_enc0 uses VM inv eng 1 on hub 1
+kernel: amdgpu 0000:03:00.0: ring vcn_enc1 uses VM inv eng 4 on hub 1
+kernel: amdgpu 0000:03:00.0: ring jpeg_dec uses VM inv eng 5 on hub 1
+kernel: [drm] Initialized amdgpu 3.37.0 20150101 for 0000:03:00.0 on minor 0
+
+
+When playing The Long Dark, again and again the graphic update freezes
+for a few seconds (3-5) before continuing.
+
+The kernel log shows WARNINGS regarding amdcpu:
+
+*****
+kernel: WARNING: CPU: 7 PID: 128773 at drivers/gpu/drm/amd/amdgpu/../display/dc/dcn20/dcn20_hwseq.c:127 dcn20_setup_gsl_group_as_lock+0x82/0x1f0 [amdgpu]
+kernel: Modules linked in: vhost_net vhost tap vhost_iotlb xt_CHECKSUM ipt_REJECT nf_reject_ipv4 xt_tcpudp xt_conntrack xt_MASQUERADE nf_conntrack_netlink xfrm_user xfrm_algo nft_counter xt_addrtype nft_compat nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4 tun nf_tables nfnetlink br_netfilter bridge stp llc nfsv3 nfs_acl rpcsec_gss_krb5 auth_rpcgss nfsv4 dns_resolver nfs lockd grace fscache scsi_transport_iscsi rfkill overlay binfmt_misc x86_pkg_temp_thermal kvm_intel kvm irqbypass crct10dif_pclmul uvcvideo videobuf2_vmalloc videobuf2_memops videobuf2_v4l2 ghash_clmulni_intel videobuf2_common aesni_intel snd_usb_audio crypto_simd snd_usbmidi_lib cryptd videodev glue_helper snd_rawmidi mc joydev serio_raw mei_me iTCO_wdt pcspkr mei iTCO_vendor_support sg intel_pch_thermal acpi_pad evdev ext4 crc16 mbcache jbd2 i2c_dev loop parport_pc parport sunrpc ip_tables x_tables autofs4 uas usb_storage wacom hid_generic usbhid hid raid10 raid456 async_raid6_recov async_memcpy
+kernel:  async_pq async_xor async_tx raid1 raid0 multipath linear md_mod crc32_pclmul amdgpu crc32c_intel psmouse mxm_wmi gpu_sched i2c_algo_bit ttm xhci_pci drm_kms_helper cec xhci_hcd i2c_designware_platform drm i2c_designware_core usbcore
+kernel: CPU: 7 PID: 128773 Comm: kworker/u16:12 Tainted: G        W         5.7.0-rc5+ #48
+kernel: Hardware name: MSI MS-7A16/Z170A MPOWER GAMING TITANIUM(MS-7A16), BIOS 1.10 07/22/2016
+kernel: Workqueue: events_unbound commit_work [drm_kms_helper]
+kernel: RIP: 0010:dcn20_setup_gsl_group_as_lock+0x82/0x1f0 [amdgpu]
+kernel: Code: 74 47 84 c0 75 26 48 8b 87 30 03 00 00 0f b6 80 70 02 00 00 a8 01 0f 84 d8 00 00 00 a8 02 74 53 a8 04 0f 84 f2 00 00 00 0f 0b <0f> 0b 48 8b 44 24 28 65 48 33 04 25 28 00 00 00 0f 85 53 01 00 00
+kernel: RSP: 0018:ffffb3cc44bdfa48 EFLAGS: 00010202
+kernel: RAX: 0000000000000007 RBX: ffff9d4ef07a01b8 RCX: 0000000000000000
+kernel: RDX: 0000000000000001 RSI: ffff9d4ef07a01b8 RDI: ffff9d56bea90000
+kernel: RBP: 00000000000186a0 R08: ffffb3cc44bdfa44 R09: 0000000000000000
+kernel: R10: ffff9d508c83ec00 R11: ffffb3cc44bdfa6c R12: 0000000000000001
+kernel: R13: ffff9d56bea90000 R14: 0000000000000000 R15: 000000009787e801
+kernel: FS:  0000000000000000(0000) GS:ffff9d56cedc0000(0000) knlGS:0000000000000000
+kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+kernel: CR2: 000012b68e3c2000 CR3: 00000002e020a001 CR4: 00000000003606e0
+kernel: DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+kernel: DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+kernel: Call Trace:
+kernel:  dcn20_pipe_control_lock+0x1ac/0x1c0 [amdgpu]
+kernel:  dc_commit_updates_for_stream+0xb81/0x1890 [amdgpu]
+kernel:  amdgpu_dm_atomic_commit_tail+0xaf4/0x1eb0 [amdgpu]
+kernel:  ? load_balance+0x172/0xc70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? _cond_resched+0x15/0x30
+kernel:  ? wait_for_completion_timeout+0x36/0x100
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  ? __switch_to_asm+0x34/0x70
+kernel:  ? __switch_to_asm+0x40/0x70
+kernel:  commit_tail+0x94/0x130 [drm_kms_helper]
+kernel:  process_one_work+0x1ae/0x370
+kernel:  worker_thread+0x50/0x3c0
+kernel:  ? process_one_work+0x370/0x370
+kernel:  kthread+0x118/0x130
+kernel:  ? kthread_destroy_worker+0x50/0x50
+kernel:  ret_from_fork+0x35/0x40
+kernel: ---[ end trace 6e0271383cfd46db ]---
+*****
+
+If there is anything else I can provide, please let me know.
+
+Best
+
+Norbert
+
+--
+PREINING Norbert                              https://www.preining.info
+Accelia Inc. + IFMGA ProGuide + TU Wien + JAIST + TeX Live + Debian Dev
+GPG: 0x860CDC13   fp: F7D8 A928 26E3 16A1 9FA0 ACF0 6CAC A448 860C DC13
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
