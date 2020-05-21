@@ -3,112 +3,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
 X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 33B09C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 11:19:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 19877C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 13:06:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DC88020721
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 11:19:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A375D20721
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 13:06:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="IITXVuMX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DC88020721
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="02JXf8SD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A375D20721
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C1E26E92B;
-	Thu, 21 May 2020 11:19:43 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2054.outbound.protection.outlook.com [40.107.93.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E93046E92B
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 11:19:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E2C56E200;
+	Thu, 21 May 2020 13:06:47 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2071.outbound.protection.outlook.com [40.107.244.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 280BC6E207;
+ Thu, 21 May 2020 13:06:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=CTtpBesPjXRcP5z7VBw4KA5mhXYXzZo19qu0U4iE+oprNeHOr6/bhbXlH+SweJAQWQH+NRWsk3od/b0Otvfq9rUzF+gB+YGdex6wINuCdcbBfjSZveznlhAfbPVlOtLZW+pB/KPUGKGepRGSuxhsaPA+FQGqZNg3OBXjTEKe9GFtGODzUlrkhCrAX8fHj94JBfETxvsJ86bqggPEVJXyra/iY8jGSR9l04uiuQ/T+5YckuTtwgTdGD+LRUk5Pb+2xUmKXN7xDMPZatyS0EEFVmyZLf1vDxRjWqQ6/RuIa8RUWlYiTLWX8kqAsavLTb6uxmSpYYR9suHfDy8/Bx3hXQ==
+ b=LIBP0XoHko7C2Lcrd2fiWw6Or/BoRrJfWhbunKf34aPAPgP1kzWWPqSwjrF6Lv3RZ9n0SnWlDF3Q8O6i8Z2/Nn4UgSJ2AVv9j6H7j4KNqcUS6y03tdU5Zu8xt0NlgqYqEXx7ufD8Kxfxz97WdFhVSi3EduluWogG4sBD5RgrWQKolBBVVHR5EsxnM+DVkeGDPLPJHURU09kHCH2FzXuRWt0+0vCcXEpO50qcfYbh5fdn0GppZdia7yqk+bJUA1q4aeByCxK9oVbEhTaWRgsToBlSX67to1LrE6Yb471gulIionJZAmaQhlOP+FxESj032qYfdNCMkoUjfp/dSHloYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=90+8pyd9VpEqY70SnC2jN670yx6nquPUzodTsfwj8Yk=;
- b=eO6nyVFTGP5CAKz4cwIARo7kpfI2GwqzrnpP2aFhxhO51CmJlNNTYp8HTlP/Phb86zIN+4+SwM08RNfQYvNMRl2BEUwhfZCv+cmlGe9HI1FK/eGrbmm+P52Rew3H5XyZtq5plodStqWloT7W5j/Q1vaRKuqTdeqs/FmSpkOmruHN6SzjuYciqb6ayPKawsV7kDjPAMR3OIInQUNRxeNwDc+T0GKdgZoYf/s+1MBHm2G7lRZsru7L2l8qah0ggMP9oXuElYHIClasNjlIHVx8Kq8gHkWYHl8Ey6kd5cUlwGDP8jS0wKZ/DveeRfYl2u3zaVxrRgGUCn5sQtdJrDUbGQ==
+ bh=0nF5LJirplyvPETK67zAT1M9HGqWk0iBZwPquYOWwuI=;
+ b=MacPuguAH85xMzGk4hz4ltl6MTDJFg4GGOhdoZJqKcy2Qa8AqON+hC3sehaPfL6Wl7A/CaJY3HNZA9EKnhGQYrv5MtipnPeHdtjSXsxkgMrKdkZa+ymdHVZ/ltqHKm5qjhTBjEa5tx6Urf1UwFGCzXmFKFwgyln0nUPYAJLpD36R0RzKz/f6IXddILuZHuMilDNa+ao/RHeibKa2cjuXK2oD3kiM6nMwz8Txbtn8T6nbLt5cyRq25SCZBifsxWNAWCN7B8NciyM0vjDGmB8FRJlL2aLSAb4k3V02JoIb1ycU+i9bTejnuOjysVFsoUHAszXXP5qdLwmq/iGyirvqWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=90+8pyd9VpEqY70SnC2jN670yx6nquPUzodTsfwj8Yk=;
- b=IITXVuMXFeIKrqZ+ATW729ZCKJ6s6iCtJB2o0uplyuCSq6+MjFPcgYe3rg9RueEenwZRcuQY6x4s4uwufplHSAmyfTQO+b4cIB669vqi8ZSxmEKZYXHQr2wwdfiDV/ps/dxa+MWlfv06+VQV8WU6a0hA8JW+Zcja6CmDgzGZje8=
-Received: from DM6PR12MB4075.namprd12.prod.outlook.com (2603:10b6:5:21d::8) by
- DM6PR12MB3931.namprd12.prod.outlook.com (2603:10b6:5:1cb::12) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3000.27; Thu, 21 May 2020 11:19:41 +0000
-Received: from DM6PR12MB4075.namprd12.prod.outlook.com
- ([fe80::50d1:ecd6:255c:fbcd]) by DM6PR12MB4075.namprd12.prod.outlook.com
- ([fe80::50d1:ecd6:255c:fbcd%3]) with mapi id 15.20.3021.020; Thu, 21 May 2020
- 11:19:41 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Gao, Likun" <Likun.Gao@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: change memory training to common function
-Thread-Topic: [PATCH] drm/amdgpu: change memory training to common function
-Thread-Index: AQHWL2CJfELMIMuJHEGP5j4dAvG+Y6iyZJRQ
-Date: Thu, 21 May 2020 11:19:41 +0000
-Message-ID: <DM6PR12MB40753210568B83044BBE2850FCB70@DM6PR12MB4075.namprd12.prod.outlook.com>
-References: <20200521110946.2488274-1-likun.gao@amd.com>
-In-Reply-To: <20200521110946.2488274-1-likun.gao@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-21T11:19:38Z; 
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
- Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=d6364ebd-0f15-4b06-b7bb-0000e4b7399a;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-05-21T11:19:38Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: a28588b4-434f-4434-ab15-000016a30d87
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-authentication-results: amd.com; dkim=none (message not signed)
+ bh=0nF5LJirplyvPETK67zAT1M9HGqWk0iBZwPquYOWwuI=;
+ b=02JXf8SDp15fSDiLv0J8YTkZdqEuCu9t9Gp1Suc6PsYKxbZ/QxRbK4RnwhzM598ZXT3XDhGefvtn8CUI2WNdZ/zOWtYstOthRcCVAOJvfuK7/hnxI/pmwABBbQV4zeoXlLiO1KG7tv/vmAhDl2JvOTMshIMsivHBLhcQPTiakaY=
+Authentication-Results: amd.com; dkim=none (message not signed)
  header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [58.247.170.242]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 1a9ff8a6-d3ee-4802-840e-08d7fd78db51
-x-ms-traffictypediagnostic: DM6PR12MB3931:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB3931453D0C3BEF238DC01B43FCB70@DM6PR12MB3931.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:561;
-x-forefront-prvs: 041032FF37
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 3mPQ962WHIuljuodDt+owksGo4jda7+Sd3iGYIl6WcPjvWZg1DjZ/nRDsdTapa+0QEnb8HLzb22xGgh/SFLSzo5WVHIx2V9QK04whi0wFaoShKABwnz7mprp7Xw82PbwfxboyYG8NaSh2BmoyjJblZ7l1YDWVVy+bsfC8P7Avmzwn4EY3RwEGB/r1/UhmpafX7JXE5eQ0Ba68e6reJ0/BZW8PcB7EQ2c0GHqw4VdmGm4n4uQj7t+yRpLclC4Jz0JtLpgToVP6Kjjo95O3QhN7U4C7m4ropB1fPdI2l52Dvivz+5GwtWiqql0eyA7T0/9Tf0b+CGeuDxYzsw0fZDOPflm6Cy6t5VUWw7OlBvp22zDoeOk3CfDyCmc3pRE6jCzJL9cJyT+kyKb7Hf/mrescIa0jxZsH/U4hsDss039lFz/jeGgM6gbENbuKaNlauqungMFVWchTMzo561UBA39Dsw1oLBLtdy/MnfrF9glncY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4075.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(39860400002)(366004)(376002)(346002)(396003)(316002)(64756008)(86362001)(110136005)(52536014)(66556008)(26005)(76116006)(186003)(6506007)(7696005)(66446008)(66946007)(53546011)(66476007)(71200400001)(478600001)(33656002)(966005)(9686003)(45080400002)(8936002)(5660300002)(55016002)(8676002)(4326008)(2906002);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: r2Eo/99EbouAi1Yfad8fp0eIsY/57LWCxOHl0pRpmjH+ydJW8htG/w2HOBugVv+Kbaqu6CbKu4S10ahExOOXeYBmIj2/WKWc1nHRmbOIbM17gsz032zEVpSYqfadzLHPxF5Yt+rC5q8bd35c5EkeOoVik7LLjbfJGe9GE0g2iJ7Fvjs+/b0RQxRx1dFhf8LrYU+DsxTaeRWrl/qQm9Wo9tqhYUW28jKzDE8oL+PKM9jkxAXKve7gQdmLm7nOnldpAKGjPKzYZMXlz+6SUI0xU/1xx04oP0LfFfVMSjFUUC7/21frfB9VnqpJoFDxje2rQ2aCAX21hYXwekXMdNUGfBi6EIarxtk/g7dEupA8FxpSFN74DX5u5yj5/gHHUScHFR1pvDpnvsNZZxGN7/kvx8WjmvIEu3D0iMzrMD1aMfw61VjWYlaNcqtJQY4l7VHzAquu24EKrUj9mkx3+DGj5VWgi/nIy2edqNxGEwBepgTxTeZL6g2ORLMJdhdC9BvE
+Received: from BY5PR12MB4082.namprd12.prod.outlook.com (2603:10b6:a03:212::19)
+ by BY5PR12MB4180.namprd12.prod.outlook.com (2603:10b6:a03:213::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.27; Thu, 21 May
+ 2020 13:06:43 +0000
+Received: from BY5PR12MB4082.namprd12.prod.outlook.com
+ ([fe80::5856:1cff:8a2:7db6]) by BY5PR12MB4082.namprd12.prod.outlook.com
+ ([fe80::5856:1cff:8a2:7db6%6]) with mapi id 15.20.3021.024; Thu, 21 May 2020
+ 13:06:42 +0000
+Date: Thu, 21 May 2020 09:06:37 -0400
+From: Aurabindo Pillai <aurabindo.pillai@amd.com>
+To: Felix Kuehling <felix.kuehling@amd.com>
+Subject: Re: [PATCH] drm/amd/amdkfd: Fix large framesize for kfd_smi_ev_read()
+Message-ID: <20200521130637.celg23pnqivdmaei@outlook.office365.com>
+References: <20200520135306.11221-1-aurabindo.pillai@amd.com>
+ <1c09eb78-f2a4-3f20-1bee-2590c35b982e@amd.com>
+In-Reply-To: <1c09eb78-f2a4-3f20-1bee-2590c35b982e@amd.com>
+X-ClientProxiedBy: BN6PR03CA0001.namprd03.prod.outlook.com
+ (2603:10b6:404:23::11) To BY5PR12MB4082.namprd12.prod.outlook.com
+ (2603:10b6:a03:212::19)
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from outlook.office365.com (165.204.84.11) by
+ BN6PR03CA0001.namprd03.prod.outlook.com (2603:10b6:404:23::11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3021.23 via Frontend Transport; Thu, 21 May 2020 13:06:40 +0000
+X-Originating-IP: [165.204.84.11]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 1a09ba1f-9178-4282-22fa-08d7fd87ce97
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4180:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <BY5PR12MB41800451EF6FEE477D381AFE8BB70@BY5PR12MB4180.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-Forefront-PRVS: 041032FF37
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: w3c6+GLy2O7im+fwXaGO4uaCDz7TCr7ZfM4nkuLLtYr/SgNi7ckPrgo4OYK7BrN8kmMcpGIzR11mw4xS5VmVPDopMJKCo/CPN8viV/QAZhXmuSuuZJWdJ0maWD5Lp+RJNC+wMrVh7pZRPhFRHOB27Hl19NfpEwlPdf7XWK6vQyw3cvXhEJLCyU1tGnG1IFKRJXwmncdhZwYopAY811tVsmM82Y7FvKMaBgbhQwhf3GSTknzN7/lMDFRmpr0Zp2fyy9pBT6GaUc/3IC+d36nLJaAoelLTs/d52i7gPVwSRZYrfIRAq5Ju+6RzSydxtLjT5TS5iRlulAMqmxuKItILfwdlkLhk6CHZBPqIYNr4fdgYzrETnTUURU2X7ElWLQN2
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BY5PR12MB4082.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(376002)(136003)(366004)(39860400002)(346002)(396003)(4326008)(6862004)(956004)(44832011)(2906002)(55016002)(9686003)(66556008)(86362001)(66946007)(1076003)(66476007)(6666004)(8676002)(316002)(52116002)(16526019)(186003)(7696005)(5660300002)(44144004)(26005)(21480400003)(8936002)(6506007)(478600001)(6636002)(2700100001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: MWdbhXxWF1Gxz8O/lhN2/aVKgRjcQ4CBZBRilFz4wxrqy2QVXvrwh+C7sJ2Eb0YVs8kHuY7LSgS7L71S+sJ79MUcCGFnCSCrGrblJlUms9T6waTDOVkznMZQTsDz+a7k1VFaTUuGpP4hvfQmgs5sjgP4iVhOJpzer7Yva6gPnYm7otDi7N1r8oe45xgHUFca1HlBjBuALAsSNYDmspuDYopcG3k5zNcqVj6GnIylfUZsCiEo7pmkMp+UgV2xznRlR3tK13IegRVGoOGHawKZiJluOKaZsw+aIXPdSyB0MFSZdSqFXEiKyTJpHy5p80s6XENbMDMMN9j1UAZz+rjOMh1c7tuZbXxE2bu04KrPQp/yYPTj8gKOL8ceSeX+jvrZhiWYiSqgnr+0tI1c+OXWlEIJnXTR7kcOcBqwQ7yyNJ7O1jHcbiib6kprzWKSgQUwaNWRMJeDORTwubTBcMn815sQY6lzgN7rQG3aD8wgmXQ=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1a9ff8a6-d3ee-4802-840e-08d7fd78db51
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2020 11:19:41.1589 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VwlLOjqiY86A5X+UXvBVKVD6UiJenfcnHGjEa7Jtb4qkj6sHDDDCrBdYWB0f/TLm2eZF0H7ye0o/Vkr84Yst5Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3931
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1a09ba1f-9178-4282-22fa-08d7fd87ce97
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2020 13:06:42.6305 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: cEm+KxIIHb+cQk3M12kTLpA33WxmqTz4G20HOC1R5iu+CDfDBSN6z8YRWhj7MUdcMp8/T79KuilRWXAqxh76WA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4180
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,183 +106,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Gao, Likun" <Likun.Gao@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: airlied@linux.ie, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Amber Lin <Amber.Lin@amd.com>,
+ amd-gfx@lists.freedesktop.org, daniel@ffwll.ch, alexander.deucher@amd.com,
+ christian.koenig@amd.com
+Content-Type: multipart/mixed; boundary="===============1598659914=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+--===============1598659914==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="7dovo3om5iboyszh"
+Content-Disposition: inline
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+--7dovo3om5iboyszh
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Likun Gao
-Sent: Thursday, May 21, 2020 19:10
-To: amd-gfx@lists.freedesktop.org
-Cc: Gao, Likun <Likun.Gao@amd.com>
-Subject: [PATCH] drm/amdgpu: change memory training to common function
+On 05/20, Felix Kuehling wrote:
+> Am 2020-05-20 um 9:53 a.m. schrieb Aurabindo Pillai:
+> > The buffer allocated is of 1024 bytes. Allocate this from
+> > heap instead of stack.
+> >
+> > Also remove check for stack size since we're allocating from heap
+> >
+> > Signed-off-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> > Tested-by: Amber Lin <Amber.Lin@amd.com>
+>=20
+> See one comment inline. With that fixed, the patch is
+>=20
+> Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+>=20
+>=20
+> > ---
+> >  drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c | 26 +++++++++++++++------
+> >  1 file changed, 19 insertions(+), 7 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c b/drivers/gpu/=
+drm/amd/amdkfd/kfd_smi_events.c
+> > index f5fd18eacf0d..5aebe169f8c6 100644
+> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_smi_events.c
+> > @@ -77,9 +77,11 @@ static ssize_t kfd_smi_ev_read(struct file *filep, c=
+har __user *user,
+> >  	int ret;
+> >  	size_t to_copy;
+> >  	struct kfd_smi_client *client =3D filep->private_data;
+> > -	unsigned char buf[MAX_KFIFO_SIZE];
+> > +	unsigned char *buf;
+> > =20
+> > -	BUILD_BUG_ON(MAX_KFIFO_SIZE > 1024);
+> > +	buf =3D kzalloc(MAX_KFIFO_SIZE * sizeof(*buf), GFP_KERNEL);
+>=20
+> kzalloc is not necessary here, you could use kmalloc. The part of that
+> allocation that matters will be overwritten by kfifo_out.
+>=20
+> Regards,
+> =A0 Felix
+>=20
+>
 
-From: Likun Gao <Likun.Gao@amd.com>
+Thank you Felix, Alex for the review. I shall make that change and submit i=
+t.
 
-Change memory training init and finit a common function, as it only have software behavior do not relay on the IP version of PSP.
 
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Change-Id: I0a81d3c3cd1813480781876101e9bfb6787bce3b
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 42 +++++++++++++++++++++++--  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  6 ----  drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 40 -----------------------
- 3 files changed, 40 insertions(+), 48 deletions(-)
+Thanks & Regards,
+Aurabindo
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 7301fdcfb8bc..679d96719410 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -115,6 +115,44 @@ static int psp_early_init(void *handle)
- 	return 0;
- }
- 
-+static void psp_memory_training_fini(struct psp_context *psp) {
-+	struct psp_memory_training_context *ctx = &psp->mem_train_ctx;
-+
-+	ctx->init = PSP_MEM_TRAIN_NOT_SUPPORT;
-+	kfree(ctx->sys_cache);
-+	ctx->sys_cache = NULL;
-+}
-+
-+static int psp_memory_training_init(struct psp_context *psp) {
-+	int ret;
-+	struct psp_memory_training_context *ctx = &psp->mem_train_ctx;
-+
-+	if (ctx->init != PSP_MEM_TRAIN_RESERVE_SUCCESS) {
-+		DRM_DEBUG("memory training is not supported!\n");
-+		return 0;
-+	}
-+
-+	ctx->sys_cache = kzalloc(ctx->train_data_size, GFP_KERNEL);
-+	if (ctx->sys_cache == NULL) {
-+		DRM_ERROR("alloc mem_train_ctx.sys_cache failed!\n");
-+		ret = -ENOMEM;
-+		goto Err_out;
-+	}
-+
-+	DRM_DEBUG("train_data_size:%llx,p2c_train_data_offset:%llx,c2p_train_data_offset:%llx.\n",
-+		  ctx->train_data_size,
-+		  ctx->p2c_train_data_offset,
-+		  ctx->c2p_train_data_offset);
-+	ctx->init = PSP_MEM_TRAIN_INIT_SUCCESS;
-+	return 0;
-+
-+Err_out:
-+	psp_memory_training_fini(psp);
-+	return ret;
-+}
-+
- static int psp_sw_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle; @@ -127,7 +165,7 @@ static int psp_sw_init(void *handle)
- 		return ret;
- 	}
- 
--	ret = psp_mem_training_init(psp);
-+	ret = psp_memory_training_init(psp);
- 	if (ret) {
- 		DRM_ERROR("Failed to initialize memory training!\n");
- 		return ret;
-@@ -152,7 +190,7 @@ static int psp_sw_fini(void *handle)  {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 
--	psp_mem_training_fini(&adev->psp);
-+	psp_memory_training_fini(&adev->psp);
- 	release_firmware(adev->psp.sos_fw);
- 	adev->psp.sos_fw = NULL;
- 	release_firmware(adev->psp.asd_fw);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index 2a56ad996d83..e19b98d48c98 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -95,8 +95,6 @@ struct psp_funcs
- 			    enum psp_ring_type ring_type);
- 	bool (*smu_reload_quirk)(struct psp_context *psp);
- 	int (*mode1_reset)(struct psp_context *psp);
--	int (*mem_training_init)(struct psp_context *psp);
--	void (*mem_training_fini)(struct psp_context *psp);
- 	int (*mem_training)(struct psp_context *psp, uint32_t ops);
- 	uint32_t (*ring_get_wptr)(struct psp_context *psp);
- 	void (*ring_set_wptr)(struct psp_context *psp, uint32_t value); @@ -306,10 +304,6 @@ struct amdgpu_psp_funcs {
- 		((psp)->funcs->smu_reload_quirk ? (psp)->funcs->smu_reload_quirk((psp)) : false)  #define psp_mode1_reset(psp) \
- 		((psp)->funcs->mode1_reset ? (psp)->funcs->mode1_reset((psp)) : false) -#define psp_mem_training_init(psp) \
--	((psp)->funcs->mem_training_init ? (psp)->funcs->mem_training_init((psp)) : 0)
--#define psp_mem_training_fini(psp) \
--	((psp)->funcs->mem_training_fini ? (psp)->funcs->mem_training_fini((psp)) : 0)
- #define psp_mem_training(psp, ops) \
- 	((psp)->funcs->mem_training ? (psp)->funcs->mem_training((psp), (ops)) : 0)
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index 1de89cc3c355..9ec6e3819dff 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -555,44 +555,6 @@ static int psp_v11_0_memory_training_send_msg(struct psp_context *psp, int msg)
- 	return ret;
- }
- 
--static void psp_v11_0_memory_training_fini(struct psp_context *psp) -{
--	struct psp_memory_training_context *ctx = &psp->mem_train_ctx;
--
--	ctx->init = PSP_MEM_TRAIN_NOT_SUPPORT;
--	kfree(ctx->sys_cache);
--	ctx->sys_cache = NULL;
--}
--
--static int psp_v11_0_memory_training_init(struct psp_context *psp) -{
--	int ret;
--	struct psp_memory_training_context *ctx = &psp->mem_train_ctx;
--
--	if (ctx->init != PSP_MEM_TRAIN_RESERVE_SUCCESS) {
--		DRM_DEBUG("memory training is not supported!\n");
--		return 0;
--	}
--
--	ctx->sys_cache = kzalloc(ctx->train_data_size, GFP_KERNEL);
--	if (ctx->sys_cache == NULL) {
--		DRM_ERROR("alloc mem_train_ctx.sys_cache failed!\n");
--		ret = -ENOMEM;
--		goto Err_out;
--	}
--
--	DRM_DEBUG("train_data_size:%llx,p2c_train_data_offset:%llx,c2p_train_data_offset:%llx.\n",
--		  ctx->train_data_size,
--		  ctx->p2c_train_data_offset,
--		  ctx->c2p_train_data_offset);
--	ctx->init = PSP_MEM_TRAIN_INIT_SUCCESS;
--	return 0;
--
--Err_out:
--	psp_v11_0_memory_training_fini(psp);
--	return ret;
--}
--
- /*
-  * save and restore proces
-  */
-@@ -820,8 +782,6 @@ static const struct psp_funcs psp_v11_0_funcs = {
- 	.ring_stop = psp_v11_0_ring_stop,
- 	.ring_destroy = psp_v11_0_ring_destroy,
- 	.mode1_reset = psp_v11_0_mode1_reset,
--	.mem_training_init = psp_v11_0_memory_training_init,
--	.mem_training_fini = psp_v11_0_memory_training_fini,
- 	.mem_training = psp_v11_0_memory_training,
- 	.ring_get_wptr = psp_v11_0_ring_get_wptr,
- 	.ring_set_wptr = psp_v11_0_ring_set_wptr,
---
-2.25.1
+--7dovo3om5iboyszh
+Content-Type: application/pgp-signature; name="signature.asc"
 
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Chawking.zhang%40amd.com%7C5274a40ffb69486a53f108d7fd77aa8a%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637256562720385907&amp;sdata=l7gu73UTWF59P5TXRxCxscyVv%2FGiEO93VX%2FfQAiCa6U%3D&amp;reserved=0
+-----BEGIN PGP SIGNATURE-----
+
+iQGzBAEBCAAdFiEEQx2/asct60LX/aRkMN9QjD+bPfYFAl7GfN0ACgkQMN9QjD+b
+PfYUvwv9Eho5uw4SuDh1lA1S0DoEOPts49vSWmzyDsvWito2U1/ikcGTzZDO3lng
+sxN1/GMIGowvpFdY4zOspfQ4Jago7TsEJ6NFre13FWUdFvG6y7eD8ppMrh0uW0BB
+F5zw6EbdZFOaPjK2iICQvPdtLO44Ps1ahmk5ozO4t36i3VTwfiSnMcY+26ow5mM6
+TZpys4cjXKrUFUpstMsazA4D+prX2tIRU6m/AdSeIIR2yrhMjpYDgoWo3hkJEh0g
+vik+Dnf2Kq4WzNaQIxyCEpSanvuHox5A1wINt2M3Z4jA/2wmmt7ySzEvZxhdHoZF
+7Cq7g/iEgR3qwq9urco7CyPdV2ClzG1gefdYnBR0oEzLA77n7bBIPmfkdXfL8Hr1
+Id98EX/oIHII5fyKulNIwnGLJiABx1vzPhbJPJxVEVlx7leG6l0VRNkzCy8hxv+j
+fbqR1HWmbpyTPzPZIvZxqgtHMm/ZtGuRLN9CzRpUHxjcTBn4ZGlTnRK/A70RLIjg
+ad7FJFYd
+=2wO/
+-----END PGP SIGNATURE-----
+
+--7dovo3om5iboyszh--
+
+--===============1598659914==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1598659914==--
