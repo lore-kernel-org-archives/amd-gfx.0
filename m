@@ -2,78 +2,71 @@ Return-Path: <SRS0=MTnY=7D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7051CC433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 13:51:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73BBAC433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 14:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 39E02206B6
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 13:51:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 32A6820721
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 14:15:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ey/V17yE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 39E02206B6
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EkVgdUqO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32A6820721
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D79536E21A;
-	Thu, 21 May 2020 13:51:02 +0000 (UTC)
-Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
- [IPv6:2a00:1450:4864:20::544])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3AA66E21A
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 13:51:01 +0000 (UTC)
-Received: by mail-ed1-x544.google.com with SMTP id k19so6690938edv.9
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 06:51:01 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F172E6E24D;
+	Thu, 21 May 2020 14:15:18 +0000 (UTC)
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73A386E24D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 14:15:18 +0000 (UTC)
+Received: by mail-qt1-x843.google.com with SMTP id t25so5603270qtc.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 07:15:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=YNkap3wFHKVkXHAGlopCqe5B9SpqJlIq1kSkQk3Y5/4=;
- b=ey/V17yEQJ05wMWtEeYr1XTQb1DdZ6QGMr0grkTHr1wUQyELFQNbsGJ3oFb/vlryjP
- u/rXr2/WOY9kJC9wcBxNMa8nB9GOH3oxppeb1jqun5Jl4xUlcw/FSNuRq8D+O5ccFZhX
- syQtD8VAwSChqfG2vQHXrsUuAWF9YfW5z8A/Fl+huBkuYegcXSg+lppbWQwAcyujSDmn
- 8tCRBQQ6FGso2tEujfqYR3m5Qi3zVRflCl20Bj9RRtqXe3jhD3eKTvfiXubtNLyUci8L
- mVxuKUBV89An1rRxsAPCHJvA1Pwo5bLduhLlEh5LjET39AnxZEuJnKrDawU5NBru6KcS
- j93g==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eDqGyM+Gx0s1iQpHyyzhaB+Pfdu/J7l1ndZ+bKX3Axo=;
+ b=EkVgdUqO6B96WAdRCQXmxc05Bd4ZpmOLdKShRiAY34BGJB2jt5iqvO9XLe8CgkzUb9
+ zWvOVXFUVm0aSyDlfsUNDhbkyEZhKig7PoTiWsv0oGKyG5vDh0ekUwsVkk5He74CNTEw
+ uwD67TUm19FC/9TbUIkOR7/tKAKnQlMY7nwZATc/xkM9FtJTnVjCjpc/DCmWxG+6e1Hs
+ Sj5O8NzsHd5QmD9aqXqfKda1d9tueJU3lNSaNb+0y7/gTrSgFoZBbK9gzhvqxRthMbth
+ CFlaDM7ve8CaLTF0JUzCU8FBDkXZEc14HQXz2dAcqK5VO1I4wQ4mHcol4Ati6j/ASzPl
+ pG+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:reply-to:subject:to:cc:references:from
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-transfer-encoding:content-language;
- bh=YNkap3wFHKVkXHAGlopCqe5B9SpqJlIq1kSkQk3Y5/4=;
- b=c+5qcYQCC1UXShp/nXVhdOTAB3hKzsLV9tmEFXU/pQjggRoev4xN+UWvQFXCd7kata
- i4tEnH3H+qMBYAqS9mGxeksuYIxMMI9iZSIdU3GXfrik+SA9aWBrPqq9i2ZYr67r/xZj
- +oZIzuWk/0x1XQ/nN5Xxaw2KzhH83MxW8qB1W1P6A/7bsDKHZ3CvdVq9uFEhSD9H2C/i
- c2Q2WLaRQI/ahTF7sM2FMHJLU8yf0LlSwVHv99uE7k+iFNu+f3LVmz4bFCVqz15FrtYl
- f7929LaMdusl8qKDT1931vqegXowPYw1cMBWEqo6c36/km+4kIxn1u7gfBqJ0thgBRSl
- zreA==
-X-Gm-Message-State: AOAM533yr6kYOGjlzBdCsT3pExePodoYWsETt3E1vVr/itZtdVkUNbvl
- 2rkYWij9mAm44o3mhyZ2UtQcLUr2
-X-Google-Smtp-Source: ABdhPJwKw/+HrpqTDDvfMrpReRWDY38DWtSMhMxmkUuq9ypmJCHVJTIW6Fqc1d2wtLo7UEW092tKpA==
-X-Received: by 2002:a05:6402:3185:: with SMTP id
- di5mr7804489edb.330.1590069060203; 
- Thu, 21 May 2020 06:51:00 -0700 (PDT)
-Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
- ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id qp13sm5122882ejb.8.2020.05.21.06.50.53
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 21 May 2020 06:50:59 -0700 (PDT)
-Subject: Re: [PATCH 1/1] drm/amdgpu: Sync with VM root BO when switching VM to
- CPU update mode
-To: Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20200520225159.977-1-Felix.Kuehling@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <14ac63e1-a212-7540-fe65-523451bf6a89@gmail.com>
-Date: Thu, 21 May 2020 15:50:52 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=eDqGyM+Gx0s1iQpHyyzhaB+Pfdu/J7l1ndZ+bKX3Axo=;
+ b=mHPWJgFmmVA58PfU+13g+e/Gvro73oB8kIzdKSM/9qpxvRsGLqKFj3VqUon4YRyjW+
+ I+pgTtPFQH+FSy1ryF+jqYU7UQSZxdX/rZE8B5TKHAeelXg+ncfXoNoyT4RnjsEUGRqH
+ AYb+9xU6dTF6u5EsLVlGhtKUbWpqaj3GOHN+m3X4JvwLL8xA8j0pNCFDOdtL7ipntm1y
+ YHS8WAf0AD+QKKDmlJEoTyv3dZ+dzpBkzhURrB7egO2Y92sqJbuOpR5FaJWOw5EBArwG
+ sV8nl4lo2uD+op9NOsXOKKRYmPM/20uXXU55d49cQP17JcdqZnmSUB/2hcdcvR/cVD5y
+ AtLA==
+X-Gm-Message-State: AOAM532ITAUW27xKDY4WuFaOFfkriPjiji7OHm9tJZRP/FaXAGJjGbTm
+ ZxNOW5iWIh9RcXk2KrlMcSV+UA1W
+X-Google-Smtp-Source: ABdhPJx4YTbeYm8sWegF0BtQnYFogzpCpkoBnKJbyM4enjSo1g33exgzqEC6ABzS1+u664+qpiaRmg==
+X-Received: by 2002:ac8:3722:: with SMTP id o31mr10634763qtb.175.1590070517339; 
+ Thu, 21 May 2020 07:15:17 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id v4sm4549599qkv.43.2020.05.21.07.15.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 May 2020 07:15:16 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: fix pp_clk_voltage handling
+Date: Thu, 21 May 2020 10:15:07 -0400
+Message-Id: <20200521141507.1042075-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-In-Reply-To: <20200520225159.977-1-Felix.Kuehling@amd.com>
-Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,58 +78,37 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
-Cc: jay.cornwall@amd.com, christian.koenig@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.05.20 um 00:51 schrieb Felix Kuehling:
-> This fixes an intermittent bug where a root PD clear operation still in
-> progress could overwrite a PDE update done by the CPU, resulting in a
-> VM fault.
+Fix a typo with pp_clk_voltage that prevented it from
+showing up.
 
-Mhm, maybe better add this to amdgpu_vm_cpu_prepare().
+Fixes: 4e01847c38f7a5 ("drm/amdgpu: optimize amdgpu device attribute code")
+Bug: https://gitlab.freedesktop.org/drm/amd/-/issues/1150
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This way we could (in theory) switch between CPU and SDMA based updates 
-on the fly elsewhere as well.
-
-Christian.
-
->
-> Fixes: 108b4d928c03 ("drm/amd/amdgpu: Update VM function pointer")
-> Reported-by: Jay Cornwall <Jay.Cornwall@amd.com>
-> Tested-by: Jay Cornwall <Jay.Cornwall@amd.com>
-> Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 11 +++++++++--
->   1 file changed, 9 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index 414a0b1c2e5a..7417754e9141 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -3000,10 +3000,17 @@ int amdgpu_vm_make_compute(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->   		   !amdgpu_gmc_vram_full_visible(&adev->gmc)),
->   		  "CPU update of VM recommended only for large BAR system\n");
->   
-> -	if (vm->use_cpu_for_update)
-> +	if (vm->use_cpu_for_update) {
-> +		/* Sync with last SDMA update/clear before switching to CPU */
-> +		r = amdgpu_bo_sync_wait(vm->root.base.bo,
-> +					AMDGPU_FENCE_OWNER_UNDEFINED, true);
-> +		if (r)
-> +			goto free_idr;
-> +
->   		vm->update_funcs = &amdgpu_vm_cpu_funcs;
-> -	else
-> +	} else {
->   		vm->update_funcs = &amdgpu_vm_sdma_funcs;
-> +	}
->   	dma_fence_put(vm->last_update);
->   	vm->last_update = NULL;
->   	vm->is_compute_context = true;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+index 2fc51f815eaa..88dfc61fa084 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -1746,7 +1746,7 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+ 		attr->states = ATTR_STATE_UNSUPPORTED;
+ 		if ((is_support_sw_smu(adev) && adev->smu.od_enabled) ||
+ 		    (!is_support_sw_smu(adev) && hwmgr->od_enabled))
+-			attr->states = ATTR_STATE_UNSUPPORTED;
++			attr->states = ATTR_STATE_SUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(mem_busy_percent)) {
+ 		if (adev->flags & AMD_IS_APU || asic_type == CHIP_VEGA10)
+ 			attr->states = ATTR_STATE_UNSUPPORTED;
+-- 
+2.25.4
 
 _______________________________________________
 amd-gfx mailing list
