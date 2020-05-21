@@ -2,109 +2,99 @@ Return-Path: <SRS0=MTnY=7D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9F595C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 10:43:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C39D7C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 11:11:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 63530206F6
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 10:43:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 8C3AC20721
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 11:11:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="auRea0u0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63530206F6
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="s7t6ljXE"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C3AC20721
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0944E6E110;
-	Thu, 21 May 2020 10:43:32 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2089.outbound.protection.outlook.com [40.107.93.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4F2E6E110
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 10:43:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 501026E1CD;
+	Thu, 21 May 2020 11:11:08 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2059.outbound.protection.outlook.com [40.107.236.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0AC426E1CD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 11:11:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=OOZ+MDCyuKcgiQud161oNud0vaguNBuczVGIb7DYNBn36/oSVKierKn0rb1sRyEOn8kORoomI0PZVF+tBhyx2Fdz/e99EjaJvgVSk9M84PGLzNSazHwAxauVZEEgcniZcmlG/MoRFdCcMsZWH65IVjNDIS5SLYH8TNndQdQk6khyqkEy/DXqgtYyasVebrX42+bMPQvfbs0uayhKeITZO48ZxdRq/5pFlQ3K3cUbo5ME5X9iG9vFO0Skvc0AErR3mmjwFFMZyUbIM3JZ3a8FD3uzomVVBM4eFyXNGhT7iyHSSkbfXpfYQZhDFfI5Fum1QgikO98Z4inGZf9T7iZtgg==
+ b=VrkbnZCXkSoSbvHxWWNyalCzk7oJtkykHTVaTS/BGXwhGPhdmW9Sj+XMgtYMAp81k7F8D0D2u3j6AeqwaD7322bC05K9kYiZwzCm06nmA0P447ol0ki6ECvTPQYeWy1pqz/fFxHvveTEaw8euIW4PoBJZSqC6tdjvm3pWfcStsQAhkureRA0ccj9o2NS5Da4JzxKcjvqDlSeKZ1fvE+P8u/p2w1JyK/mHL4btIznk73NCHEtFN0PSvIAr1tIXdqLxpITB8mrRL+JgVbMunUprAioF5Y8BWt+WqRp9pv0nmywiYgwqM14NKRE3xYc2VVBH9M90NZiVh0r3YGyeOsARw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XVoySnLZRcZG46h4lcsY9If3OGePmxhpQvoxaFmtnc0=;
- b=Dm5AztNruRXbqbj9C145Be82xAOuSX1Vu5PwmrGD5wBKxBCPL/XyEr7AOxwp3VV8SKM2w3eMy3mLXBeewJELvsLPUn5THTuNX16UA+mHq+Vr41nrMWHDXP2louX19dSGXcmbuzvmxRVSNAn+CCGtK7TW8kjxQD2LCeQK9Ju+4pkEEC/+atRqRTrFnuzW9OdmWRRC58ynisgeGK3pNidBbUMbu5LH0BK8bXaxw0IbG4Yf8jt+5fpS4LOkl2isDvK4AS521labiF+GriKuvKfB8SsrTAiw54O9zGQOVERggT/yNk//jSZhY5kw33IgJAYREetYpWrqcQ3L2iziEa+SQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
+ bh=a0AUA9RJP+I3Bw/De52zJil/tAwqUXveH+njJG7Ts8U=;
+ b=S7gDcoACYdvq9oLigM++s6srm+Xe5Q8bUghuD+L4O++pRgoQvyKKHdMfArh/wZGlbe4e3ONDXIWK6DDnZgMcQUBN6lR84NW1YydaFSpK46fwPoS9y0vIGhWGp1cBz/tRnxPXdcmrAeT7OusRpDqcAoHh1b3+Zp+M32KOqQlDAKTq4lzgHsgypwpTmvN1r/yM3sc5fVk5F/EitMVIBautlQcyXkFQG7TIvw/L0qkNB+KyEy+1Mv7DlYiXz7ipNhK1hvDIz3ZM7fLr/NpAlqngsI1HKrUt0IlH28TOJsRxyn1bvog9D4mCd+G+F91oLN/YAWpbm812op5gOqnRn5CCxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XVoySnLZRcZG46h4lcsY9If3OGePmxhpQvoxaFmtnc0=;
- b=auRea0u09IROfkn3NX/4j1W1dS+EMPFwvnZz6RSMwghNSRlX577Sph75PojnX4dayOthDaS9+yXk0Pwu5NCQ3C3wgjwlhfeeRP4wfw/BwqAgsgQw0qiCAvCbo3iZf9rluDb4W11TYVUA3GGJWnDXzgCCTwDj9J2eTrJPjXip7PI=
-Received: from BN6PR11CA0007.namprd11.prod.outlook.com (2603:10b6:405:2::17)
- by BYAPR12MB2823.namprd12.prod.outlook.com (2603:10b6:a03:96::33) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.23; Thu, 21 May
- 2020 10:43:28 +0000
-Received: from BN8NAM11FT045.eop-nam11.prod.protection.outlook.com
- (2603:10b6:405:2:cafe::53) by BN6PR11CA0007.outlook.office365.com
- (2603:10b6:405:2::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.23 via Frontend
- Transport; Thu, 21 May 2020 10:43:28 +0000
-X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
- header.d=none;lists.freedesktop.org; dmarc=permerror action=none
- header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- BN8NAM11FT045.mail.protection.outlook.com (10.13.177.47) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3021.23 via Frontend Transport; Thu, 21 May 2020 10:43:27 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 21 May
- 2020 05:43:27 -0500
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 21 May
- 2020 05:43:27 -0500
-Received: from gc-System-Product-Name.amd.com (10.180.168.240) by
- SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Thu, 21 May 2020 05:43:26 -0500
-From: chen gong <curry.gong@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH] drm/amd/powerpay: Disable gfxoff when setting manual mode on
- picasso and raven
-Date: Thu, 21 May 2020 18:43:14 +0800
-Message-ID: <1590057794-14232-1-git-send-email-curry.gong@amd.com>
-X-Mailer: git-send-email 2.7.4
+ bh=a0AUA9RJP+I3Bw/De52zJil/tAwqUXveH+njJG7Ts8U=;
+ b=s7t6ljXEhcl31RDP6kVqCVn3u0sAnySyxJMjIR05NtowgGKykboDYJ2MTeGoUY3kBKGTsX1nv423j6MqjkSt52uzDCPTB5uPjTXdRq++Jn+3wGuyHWwcbmxRUrlIuSoVby6Up0bH6nxaEl+c3LKPYBbY9Yj3cMCKGtf0rdWNt5Y=
+Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
+ header.d=none; lists.freedesktop.org;
+ dmarc=none action=none header.from=amd.com;
+Received: from CY4PR1201MB0136.namprd12.prod.outlook.com
+ (2603:10b6:910:1a::19) by CY4PR1201MB0006.namprd12.prod.outlook.com
+ (2603:10b6:903:d3::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.20; Thu, 21 May
+ 2020 11:11:04 +0000
+Received: from CY4PR1201MB0136.namprd12.prod.outlook.com
+ ([fe80::8d22:7d25:8892:a09]) by CY4PR1201MB0136.namprd12.prod.outlook.com
+ ([fe80::8d22:7d25:8892:a09%8]) with mapi id 15.20.3021.024; Thu, 21 May 2020
+ 11:11:04 +0000
+From: Likun Gao <likun.gao@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: change memory training to common function
+Date: Thu, 21 May 2020 19:09:46 +0800
+Message-Id: <20200521110946.2488274-1-likun.gao@amd.com>
+X-Mailer: git-send-email 2.25.1
+X-ClientProxiedBy: HK0PR03CA0103.apcprd03.prod.outlook.com
+ (2603:1096:203:b0::19) To CY4PR1201MB0136.namprd12.prod.outlook.com
+ (2603:10b6:910:1a::19)
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFTY:;
- SFS:(4636009)(376002)(39860400002)(136003)(396003)(346002)(46966005)(82310400002)(6666004)(81166007)(426003)(336012)(186003)(316002)(70586007)(26005)(2616005)(7696005)(356005)(2906002)(70206006)(36756003)(82740400003)(8936002)(5660300002)(86362001)(8676002)(47076004)(478600001)(4326008)(6916009);
- DIR:OUT; SFP:1101; 
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from lnx-glk.amd.com (58.247.170.242) by
+ HK0PR03CA0103.apcprd03.prod.outlook.com (2603:1096:203:b0::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3021.23 via Frontend Transport; Thu, 21 May 2020 11:11:03 +0000
+X-Mailer: git-send-email 2.25.1
+X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: a615b796-c67b-4286-fb70-08d7fd73cb99
-X-MS-TrafficTypeDiagnostic: BYAPR12MB2823:
-X-Microsoft-Antispam-PRVS: <BYAPR12MB2823BCA009DF5D80B224A6B19DB70@BYAPR12MB2823.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:8882;
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: efa405c8-4680-4459-5141-08d7fd77a725
+X-MS-TrafficTypeDiagnostic: CY4PR1201MB0006:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <CY4PR1201MB00065CEB7F7E7DEEC2A60F6FEFB70@CY4PR1201MB0006.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:454;
 X-Forefront-PRVS: 041032FF37
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: +jcVHqdwhWzUA18rb9zOkuspnp2apcvMtpGKs/30ob8KuJNi4nl9Dph0SPH8A0ESXaSkYHbxvu7DFe16e9dCucPw+2bL2Ptv71nUOpJ97ub7J8m1Td814HxlDrZQbMHxWq4mHUEdb862PgmXZEoxa7BeO5RwCrIg+2kUbVen5JGRrmNI54HtF9c+WUvoF1dS0myPV1y5TePck8WWMaftEVhVcfKw9E42tU+q61ojUhElu1GRmGOovvABgdO/UZgyTubkmZL9Qrltyhgx2n9ir9HQAMHbZgSsaVBbhX4F5Nidnov904o9S60FayL0eIW7HZXUhF09s2kP86AECSaZ+iQFJIzNxk7eHCmixVC6mKIDECgOSOs7bj9/1dxGC6mtrfVaRwb/mJ/114f6TkqlHg==
+X-Microsoft-Antispam-Message-Info: c5CqY58jMscW+b6belYzTrZLGHw+SofwTWDAO2nH/DdeZpL10tdEYygINu3uTIBLwV3c62jGFxZ1ndjOhbJky8FeQoad/VxXvHp4PNyS7b87n44Ixj6KyYUH0yeIfOwqYTXQzk/XJW1ZKaqfij5cauOxjL+Z7akq6ralMPnWlCVtM3C7TlYm+ixWAmccsQ7PYM3dFl7CeCw9sc9dZo45RH/RaoTtKc6jUO0CvaAMdotmJbCRx9JBs1qZZF5zDYs9CTadIf7yRAj2J/ujcskabmbIToSLN2n518lCHU1V8msoYEZFBWGSYZ15Kqax9kqpHhL18IPNJ5f2LU+KrlxCauEojdeCswRzU06nnK9WFoqrjQLwfGdrLGWKodEkqydccVbbvBIPKACuZgO18dhUqdf2h6oRKICBXFYEimoRH5FjNK7zSxuPMOMpgFaGv2sL
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY4PR1201MB0136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(346002)(376002)(366004)(39860400002)(396003)(136003)(36756003)(2616005)(5660300002)(4326008)(1076003)(7696005)(6486002)(316002)(186003)(86362001)(16526019)(6916009)(52116002)(6666004)(8936002)(956004)(66946007)(8676002)(2906002)(44832011)(66556008)(26005)(66476007)(478600001);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: L7iNs6lVxA4waS+WaFLC4FI1EAGkrSNNxjWcfLKSB/PuWdCxLAbdASkVyP6KiHxgnculMNUxClQqxrOtzm/0zoZLYmq6tGGnDkp9fpihxFTYX6H9Ekgf/vX9BSJyT3i+RhkwSiCJT79+rgi3xfrhdxRlfGiocm81f+wCScR59GXjcbCp1eL4QHs0VdaVALWItZg06fSlTLH2ihOYQ8X8ZXyTSzoqqnl6JKOvUoXp4wwWrBgU33SYPEt0STHEIAQNmFZYGLs99YCcm4K5+MCSnzWXYCXSMGX9keFtsoKgjYDjCNthD5IjDxCsMHhpVwB+3QFgLmUtIpvIR1S1+M9gbMv1AWdjU+Mk+21v1DHNAIovbtUiK8TJdCBTiRzXvQXrR/v+KZaPztoQ8n6Y6YxLO2enHuVoZBPKjHTartV76p4FZyuOTd4+NFdQI2EzaaMcC+YVER3ht/Kk5J5Tu48lwkbUNlopzNJTqOs62eFapFRPRVHxSvn6jvJ4GkRQ/XWM
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2020 10:43:27.4707 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a615b796-c67b-4286-fb70-08d7fd73cb99
+X-MS-Exchange-CrossTenant-Network-Message-Id: efa405c8-4680-4459-5141-08d7fd77a725
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2020 11:11:04.6099 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB2823
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: x+l7Vr3VD3hJi5VcpINcoBm8fSlgqPit8pAlZeMgG8XkJejaJzDqXsZ7a42RVOuU
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB0006
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,71 +106,178 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: chen gong <curry.gong@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Likun Gao <Likun.Gao@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-W1Byb2JsZW0gZGVzY3JpcHRpb25dCjEuIEJvb3QgdXAgcGljYXNzbyBwbGF0Zm9ybSwgbGF1bmNo
-ZXMgZGVza3RvcCwgRG9uJ3QgZG8gYW55dGhpbmcgKEFQVSBlbnRlciBpbnRvICJnZnhvZmYiIHN0
-YXRlKQoyLiBSZW1vdGUgbG9naW4gdG8gcGxhdGZvcm0gdXNpbmcgU1NILCB0aGVuIHR5cGUgdGhl
-IGNvbW1hbmQgbGluZToKCXN1ZG8gc3UgLWMgImVjaG8gbWFudWFsID4gL3N5cy9jbGFzcy9kcm0v
-Y2FyZDAvZGV2aWNlL3Bvd2VyX2RwbV9mb3JjZV9wZXJmb3JtYW5jZV9sZXZlbCIKCXN1ZG8gc3Ug
-LWMgImVjaG8gMiA+IC9zeXMvY2xhc3MvZHJtL2NhcmQwL2RldmljZS9wcF9kcG1fc2NsayIgKGZp
-eCBTQ0xLIHRvIDE0MDBNSHopCjMuIE1vdmUgdGhlIG1vdXNlIGFyb3VuZCBpbiBXaW5kb3cKNC4g
-UGhlbm9tZW5vbiA6ICBUaGUgc2NyZWVuIGZyb3plbgoKVGVzdGVyIHdpbGwgc3dpdGNoIHNjbGsg
-bGV2ZWwgZHVyaW5nIGdsbWFyazIgcnVuIHRpbWUuCkFQVSB3aWxsIGVudGVyICJnZnhvZmYiIHN0
-YXRlIGludGVybWl0dGVudGx5IGR1cmluZyBnbG1hcmsyIHJ1biB0aW1lLgpUaGUgc3lzdGVtIGdv
-dCBoYW5nZWQgaWYgZml4IEdGWENMSyB0byAxNDAwTUh6IHdoZW4gQVBVIGlzIGluICJnZnhvZmYi
-CnN0YXRlLgoKW0RlYnVnXQoxLiBGaXggU0NMSyB0byBYIE1IegoJMTQwMDogc2NyZWVuIGZyb3pl
-biwgc2NyZWVuIGJsYWNrLCB0aGVuIE9TIHdpbGwgcmVib290LgoJMTMwMDogc2NyZWVuIGZyb3pl
-bi4KCTEyMDA6IHNjcmVlbiBmcm96ZW4sIHNjcmVlbiBibGFjay4KCTExMDA6IHNjcmVlbiBmcm96
-ZW4sIHNjcmVlbiBibGFjaywgdGhlbiBPUyB3aWxsIHJlYm9vdC4KCTEwMDA6IHNjcmVlbiBmcm96
-ZW4sIHNjcmVlbiBibGFjay4KCTkwMDogIHNjcmVlbiBmcm96ZW4sIHNjcmVlbiBibGFjaywgdGhl
-biBPUyB3aWxsIHJlYm9vdC4KCTgwMDogIFNpdHVhdGlvbiBOb21hbCwgaXNzdWUgZGlzYXBwZWFy
-LgoJNzAwOiAgU2l0dWF0aW9uIE5vbWFsLCBpc3N1ZSBkaXNhcHBlYXIuCjIuIFNCSU9TIHNldHRp
-bmc6IEFNRCBDQlMgLS0+IFNNVSBEZWJ1ZyBPcHRpb25zIC0tPlNNVSBEZWJ1ZyAtLT4gIkdGWCBE
-TERPIFBzbSBNYXJnaW4gQ29udHJvbCI6Cgk1MCA6IFNpdHVhdGlvbiBOb21hbCwgaXNzdWUgZGlz
-YXBwZWFyLgoJNDUgOiBTaXR1YXRpb24gTm9tYWwsIGlzc3VlIGRpc2FwcGVhci4KCTQwIDogU2l0
-dWF0aW9uIE5vbWFsLCBpc3N1ZSBkaXNhcHBlYXIuCgkzNSA6IFNpdHVhdGlvbiBOb21hbCwgaXNz
-dWUgZGlzYXBwZWFyLgoJMzAgOiBzY3JlZW4gYmxhY2suCgkyNSA6IHNjcmVlbiBmcm96ZW4sIHRo
-ZW4gYmx1cnJlZCBzY3JlZW4uCgkyMCA6IHNjcmVlbiBmcm96ZW4uCgkxNSA6IHNjcmVlbiBibGFj
-ay4KCTEwIDogc2NyZWVuIGZyb3plbi4KCTUgIDogc2NyZWVuIGZyb3plbiwgdGhlbiBibHVycmVk
-IHNjcmVlbi4KMy4gRGlzYWJsZSBHRlhPRkYgZmVhdHVyZQoJU2l0dWF0aW9uIE5vbWFsLCBpc3N1
-ZSBkaXNhcHBlYXIuCgpbV2h5XQpUaHJvdWdoIGEgcGVyaW9kIG9mIHRpbWUgZGVidWdnaW5nIHdp
-dGggU3lzIEVuZyB0ZWFtIGFuZCBTTVUgdGVhbSwgU3lzCkVuZyB0ZWFtIHNhaWQgdGhpcyBpcyB2
-b2x0YWdlL2ZyZXF1ZW5jeSBtYXJnaW5hbCBpc3N1ZSBub3QgYSBGL1cgb3IgSC9XCmJ1Zy4gVGhp
-cyBleHBlcmltZW50IHByb3ZlcyB0aGF0IGRlZmF1bHQgdGFyZ2V0UHNtIFtmb3IgZj0xNDAwTUh6
-XSBpcwpub3Qgc3VmZmljaWVudCB3aGVuIEdGWE9GRiBpcyBlbmFibGVkIG9uIFBpY2Fzc28uCgpT
-TVUgdGVhbSB0aGluayBpdCBpcyBhbiBvZGQgdGVzdCBjb25kaXRpb25zIHRvIGZvcmNlIHNjbGs9
-IjE0MDBNSHoiIHdoZW4KR1BVIGlzIGluICJnZnhvZmYiIHN0YXRl77yMdGhlbiB3YWtlIHVwIHRo
-ZSBHRlguIFNDTEsgc2hvdWxkIGJlIGluIHRoZQoibG93ZXN0IGZyZXF1ZW5jeSIgd2hlbiBnZnhv
-ZmYuCgpbSG93XQpEaXNhYmxlIGdmeG9mZiB3aGVuIHNldHRpbmcgbWFudWFsIG1vZGUuCkVuYWJs
-ZSBnZnhvZmYgd2hlbiBzZXR0aW5nIG90aGVyIG1vZGUoZXhpdGluZyBtYW51YWwgbW9kZSkgYWdh
-aW4uCgpCeSB0aGUgd2F5LCBmcm9tIHRoZSB1c2VyIHBvaW50IG9mIHZpZXcsIG5vdyB0aGF0IHVz
-ZXIgc3dpdGNoIHRvIG1hbnVhbAptb2RlIGFuZCBmb3JjZSBTQ0xLIEZyZXF1ZW5jeSwgaGUgZG9u
-J3Qgd2FudCBTQ0xLIGJlIGNvbnRyb2xsZWQgYnkKd29ya2xvYWQuSXQgYmVjb21lcyBtZWFuaW5n
-bGVzcyB0byAic3dpdGNoIHRvIG1hbnVhbCBtb2RlIiBpZiBBUFUgZW50ZXIgImdmeG9mZiIKZHVl
-IHRvIGxhY2sgb2Ygd29ya2xvYWQgYXQgdGhpcyBwb2ludC4KClRpcHM6IFNhbWUgaXNzdWUgb2Jz
-ZXJ2ZWQgb24gUmF2ZW4uCgpTaWduZWQtb2ZmLWJ5OiBjaGVuIGdvbmcgPGN1cnJ5LmdvbmdAYW1k
-LmNvbT4KLS0tCiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYyB8IDkgKysr
-KysrKysrCiAxIGZpbGUgY2hhbmdlZCwgOSBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3BtLmMgYi9kcml2ZXJzL2dwdS9kcm0vYW1k
-L2FtZGdwdS9hbWRncHVfcG0uYwppbmRleCAxN2JjN2Y1Li5kNDUzOTRjIDEwMDY0NAotLS0gYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYworKysgYi9kcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGdwdS9hbWRncHVfcG0uYwpAQCAtMzcxLDYgKzM3MSwxNSBAQCBzdGF0aWMgc3Np
-emVfdCBhbWRncHVfc2V0X3Bvd2VyX2RwbV9mb3JjZV9wZXJmb3JtYW5jZV9sZXZlbChzdHJ1Y3Qg
-ZGV2aWNlICpkZXYsCiAJCXJldHVybiBjb3VudDsKIAl9CiAKKwlpZihhZGV2LT5hc2ljX3R5cGUg
-PT0gQ0hJUF9SQVZFTil7CisJCWlmIChhZGV2LT5yZXZfaWQgPCA4KXsKKwkJCWlmIChjdXJyZW50
-X2xldmVsICE9IEFNRF9EUE1fRk9SQ0VEX0xFVkVMX01BTlVBTCAmJiBsZXZlbCA9PSBBTURfRFBN
-X0ZPUkNFRF9MRVZFTF9NQU5VQUwpCisJCQkJYW1kZ3B1X2dmeF9vZmZfY3RybChhZGV2LCBmYWxz
-ZSk7CisJCQllbHNlIGlmIChjdXJyZW50X2xldmVsID09IEFNRF9EUE1fRk9SQ0VEX0xFVkVMX01B
-TlVBTCAmJiBsZXZlbCAhPSBBTURfRFBNX0ZPUkNFRF9MRVZFTF9NQU5VQUwpCisJCQkJYW1kZ3B1
-X2dmeF9vZmZfY3RybChhZGV2LCB0cnVlKTsKKwkJfQorCX0KKwogCS8qIHByb2ZpbGVfZXhpdCBz
-ZXR0aW5nIGlzIHZhbGlkIG9ubHkgd2hlbiBjdXJyZW50IG1vZGUgaXMgaW4gcHJvZmlsZSBtb2Rl
-ICovCiAJaWYgKCEoY3VycmVudF9sZXZlbCAmIChBTURfRFBNX0ZPUkNFRF9MRVZFTF9QUk9GSUxF
-X1NUQU5EQVJEIHwKIAkgICAgQU1EX0RQTV9GT1JDRURfTEVWRUxfUFJPRklMRV9NSU5fU0NMSyB8
-Ci0tIAoyLjcuNAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0
-cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+From: Likun Gao <Likun.Gao@amd.com>
+
+Change memory training init and finit a common function, as it only have
+software behavior do not relay on the IP version of PSP.
+
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Change-Id: I0a81d3c3cd1813480781876101e9bfb6787bce3b
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 42 +++++++++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  6 ----
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c  | 40 -----------------------
+ 3 files changed, 40 insertions(+), 48 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 7301fdcfb8bc..679d96719410 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -115,6 +115,44 @@ static int psp_early_init(void *handle)
+ 	return 0;
+ }
+ 
++static void psp_memory_training_fini(struct psp_context *psp)
++{
++	struct psp_memory_training_context *ctx = &psp->mem_train_ctx;
++
++	ctx->init = PSP_MEM_TRAIN_NOT_SUPPORT;
++	kfree(ctx->sys_cache);
++	ctx->sys_cache = NULL;
++}
++
++static int psp_memory_training_init(struct psp_context *psp)
++{
++	int ret;
++	struct psp_memory_training_context *ctx = &psp->mem_train_ctx;
++
++	if (ctx->init != PSP_MEM_TRAIN_RESERVE_SUCCESS) {
++		DRM_DEBUG("memory training is not supported!\n");
++		return 0;
++	}
++
++	ctx->sys_cache = kzalloc(ctx->train_data_size, GFP_KERNEL);
++	if (ctx->sys_cache == NULL) {
++		DRM_ERROR("alloc mem_train_ctx.sys_cache failed!\n");
++		ret = -ENOMEM;
++		goto Err_out;
++	}
++
++	DRM_DEBUG("train_data_size:%llx,p2c_train_data_offset:%llx,c2p_train_data_offset:%llx.\n",
++		  ctx->train_data_size,
++		  ctx->p2c_train_data_offset,
++		  ctx->c2p_train_data_offset);
++	ctx->init = PSP_MEM_TRAIN_INIT_SUCCESS;
++	return 0;
++
++Err_out:
++	psp_memory_training_fini(psp);
++	return ret;
++}
++
+ static int psp_sw_init(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+@@ -127,7 +165,7 @@ static int psp_sw_init(void *handle)
+ 		return ret;
+ 	}
+ 
+-	ret = psp_mem_training_init(psp);
++	ret = psp_memory_training_init(psp);
+ 	if (ret) {
+ 		DRM_ERROR("Failed to initialize memory training!\n");
+ 		return ret;
+@@ -152,7 +190,7 @@ static int psp_sw_fini(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+-	psp_mem_training_fini(&adev->psp);
++	psp_memory_training_fini(&adev->psp);
+ 	release_firmware(adev->psp.sos_fw);
+ 	adev->psp.sos_fw = NULL;
+ 	release_firmware(adev->psp.asd_fw);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index 2a56ad996d83..e19b98d48c98 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -95,8 +95,6 @@ struct psp_funcs
+ 			    enum psp_ring_type ring_type);
+ 	bool (*smu_reload_quirk)(struct psp_context *psp);
+ 	int (*mode1_reset)(struct psp_context *psp);
+-	int (*mem_training_init)(struct psp_context *psp);
+-	void (*mem_training_fini)(struct psp_context *psp);
+ 	int (*mem_training)(struct psp_context *psp, uint32_t ops);
+ 	uint32_t (*ring_get_wptr)(struct psp_context *psp);
+ 	void (*ring_set_wptr)(struct psp_context *psp, uint32_t value);
+@@ -306,10 +304,6 @@ struct amdgpu_psp_funcs {
+ 		((psp)->funcs->smu_reload_quirk ? (psp)->funcs->smu_reload_quirk((psp)) : false)
+ #define psp_mode1_reset(psp) \
+ 		((psp)->funcs->mode1_reset ? (psp)->funcs->mode1_reset((psp)) : false)
+-#define psp_mem_training_init(psp) \
+-	((psp)->funcs->mem_training_init ? (psp)->funcs->mem_training_init((psp)) : 0)
+-#define psp_mem_training_fini(psp) \
+-	((psp)->funcs->mem_training_fini ? (psp)->funcs->mem_training_fini((psp)) : 0)
+ #define psp_mem_training(psp, ops) \
+ 	((psp)->funcs->mem_training ? (psp)->funcs->mem_training((psp), (ops)) : 0)
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+index 1de89cc3c355..9ec6e3819dff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
+@@ -555,44 +555,6 @@ static int psp_v11_0_memory_training_send_msg(struct psp_context *psp, int msg)
+ 	return ret;
+ }
+ 
+-static void psp_v11_0_memory_training_fini(struct psp_context *psp)
+-{
+-	struct psp_memory_training_context *ctx = &psp->mem_train_ctx;
+-
+-	ctx->init = PSP_MEM_TRAIN_NOT_SUPPORT;
+-	kfree(ctx->sys_cache);
+-	ctx->sys_cache = NULL;
+-}
+-
+-static int psp_v11_0_memory_training_init(struct psp_context *psp)
+-{
+-	int ret;
+-	struct psp_memory_training_context *ctx = &psp->mem_train_ctx;
+-
+-	if (ctx->init != PSP_MEM_TRAIN_RESERVE_SUCCESS) {
+-		DRM_DEBUG("memory training is not supported!\n");
+-		return 0;
+-	}
+-
+-	ctx->sys_cache = kzalloc(ctx->train_data_size, GFP_KERNEL);
+-	if (ctx->sys_cache == NULL) {
+-		DRM_ERROR("alloc mem_train_ctx.sys_cache failed!\n");
+-		ret = -ENOMEM;
+-		goto Err_out;
+-	}
+-
+-	DRM_DEBUG("train_data_size:%llx,p2c_train_data_offset:%llx,c2p_train_data_offset:%llx.\n",
+-		  ctx->train_data_size,
+-		  ctx->p2c_train_data_offset,
+-		  ctx->c2p_train_data_offset);
+-	ctx->init = PSP_MEM_TRAIN_INIT_SUCCESS;
+-	return 0;
+-
+-Err_out:
+-	psp_v11_0_memory_training_fini(psp);
+-	return ret;
+-}
+-
+ /*
+  * save and restore proces
+  */
+@@ -820,8 +782,6 @@ static const struct psp_funcs psp_v11_0_funcs = {
+ 	.ring_stop = psp_v11_0_ring_stop,
+ 	.ring_destroy = psp_v11_0_ring_destroy,
+ 	.mode1_reset = psp_v11_0_mode1_reset,
+-	.mem_training_init = psp_v11_0_memory_training_init,
+-	.mem_training_fini = psp_v11_0_memory_training_fini,
+ 	.mem_training = psp_v11_0_memory_training,
+ 	.ring_get_wptr = psp_v11_0_ring_get_wptr,
+ 	.ring_set_wptr = psp_v11_0_ring_set_wptr,
+-- 
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
