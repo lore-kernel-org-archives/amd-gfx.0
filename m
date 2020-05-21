@@ -2,99 +2,74 @@ Return-Path: <SRS0=MTnY=7D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 65EB4C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 19:53:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03CA7C433E1
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 20:23:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DA1A020738
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 19:53:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CD4F42078B
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 20:23:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Tmemzokl"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DA1A020738
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oDi6blh9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CD4F42078B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FBEA6E051;
-	Thu, 21 May 2020 19:53:23 +0000 (UTC)
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2072.outbound.protection.outlook.com [40.107.243.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40AA96E051
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 19:53:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=fyI1GIwmeB4ozXwukdyH96/7Bsgt/5DXLyj3Uz8sD1LZbWpF65STUPjdLCsHma77haNTLrGhMyhvUNkboS4ApzetXDjZxrwsOtt8cdpMDbHTxGVgUdytYorUFiuspx+vBd+fqlwFbqxyGYqxGQGfm2nav4KVDASjsKmN8tndDyzQoNQCHGr5OMSAI4Ynn7h0mXIW5vd4MzO5Hi30RNAKPSBSUjeT6JpoEt3g+rgrviIJhY5NFun82DXEbviwd6tDUhFIvC28PFaKOpSitETIP7sEIowCglDBAqMe3U8nXkbCMYmQ8pe30hfQFcNrfiRVU9xHJ9dFZ+KqPuwHq75S2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bxumRR8hAo8qMDsLJeKM9CDTV6Rn/20pVtNZvVODEVA=;
- b=LGMh+kPUgOWK5aShDU4DjzlxvUHYRXIQhDKcALYX/6G8Zv7B2dvR0wlkD7IO9QyNSwnlyeqaUZ66uR/OOVC8TVzPw8Q8cezFqYr5I+fHk0e6zGpAYz2JqbacGv/UTh6maitu8EyyMzhIEBE0tchLUQlpNDF6S0QJzdldA17aY9BQZlP9Ux0K9jlt9ZPZOE1o1eQOHVjKbr6bZlkKVN7td+/sYlBcXHBhNkIgEV7kHGdW1EKUPpfwxJ1pv/cH/BeaKba1VHCXEQW3AZQ1Zg5qBDhcTLEfb8dVULuhpUK6Yd4PPifYskz+DhQRU1v/LM5h9GCb+NU6mYm/IkDWyMxVLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bxumRR8hAo8qMDsLJeKM9CDTV6Rn/20pVtNZvVODEVA=;
- b=TmemzoklJ5kw8UsEMlHARxD8pnafIwja1wS2obnxFpaclpLhMK1afarKIKpiQNKTzuVJYKdYoi2JGDAZW8t1qAnJ966rSObjB+cRX+KSxHCAA7mC4VPt+iSZiI16AAwcc9Lid2tR445XREEd7Vf8Klz1W4aoh6jsrGKRfpsjjfA=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4121.namprd12.prod.outlook.com (2603:10b6:5:220::14)
- by DM6PR12MB3244.namprd12.prod.outlook.com (2603:10b6:5:18c::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.20; Thu, 21 May
- 2020 19:53:20 +0000
-Received: from DM6PR12MB4121.namprd12.prod.outlook.com
- ([fe80::21db:6afc:4193:872c]) by DM6PR12MB4121.namprd12.prod.outlook.com
- ([fe80::21db:6afc:4193:872c%8]) with mapi id 15.20.3021.027; Thu, 21 May 2020
- 19:53:20 +0000
-From: Gavin Wan <Gavin.Wan@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CEDE6E055;
+	Thu, 21 May 2020 20:23:18 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C09E6E055
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 20:23:18 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id f83so8530550qke.13
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 13:23:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=ABMYSC65s8UhU99Ijmy64Vr4Ygn1+PXcWfM5VdaRrko=;
+ b=oDi6blh9NymD7Mkp3HSVXdexSnmL7YqhYncddDPKwDkp+hjS/FpAQvn04b7GVX8cJf
+ Be081Ob/pw+s/f85NQHiCwRsOWopdIJUNTlFrLNJor6NbriFhUCSMMdPklv4wQY1oFIG
+ I0+AaXVlqT5RdmCPdeyNkN9fy47FH74Bt9r6FV1fyqy7vlKrS9Ev+CgYzOE0BCK6H8lM
+ 9taRs0KA71/oiEZGxnVTQWctAGfXICL+4Eg8k5n2qYncgum/aWFL+Q7uzO09p6KergXL
+ 3HUfpT0gaZFnZpte+RcO3S0laS3xy6RaTDFnDfDKyWgqD+gCmKa7H75pb8RVpTkEVdJ7
+ Nl2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=ABMYSC65s8UhU99Ijmy64Vr4Ygn1+PXcWfM5VdaRrko=;
+ b=UUGSyKswfIkzwz36FURmom5G2zTk2iAfIJhmilbOnP1cVMUEUXluIB/F+50Wm5m/Or
+ ah/yQQmtqxWhWR1fSJbFCgzSogz7N3oDspeNrtngpN+KJr+VUD4MxXzy0AN5yCOpI/DD
+ PzNssmXoBq+bbL4PyADzwVJ4u/63k6AUJ7gPQgntFwPtPnXPfNq72fRnc5Sof9BFo09+
+ +N25Gmm2M4dsgVtjupvwJU6jVs1QNAOpcbOGtYhuTkFQwdUEfwo2a1WcXxdp9S8AuMuJ
+ a2Ln2RvHkqcsLYLJIDA7uj5OCQZy+DgLLTb9zz81+8LrOKIdjGGg+AF3pnj/mSkHXoHY
+ t24g==
+X-Gm-Message-State: AOAM53366sCM+qSF0hhgGbiXJEEI4vfiCl23mlEvta1canJdvg8xWPlq
+ +BUyBH9qNpRsS1zNbiAi0d03IBn7
+X-Google-Smtp-Source: ABdhPJxusrwRR0b8SNQ5jkgzYNysq7fM/k0c1nLJI+n1egapvK2Y7qfEGfwdV/h5PxtESSUirwsplg==
+X-Received: by 2002:a37:7603:: with SMTP id r3mr11378227qkc.243.1590092596636; 
+ Thu, 21 May 2020 13:23:16 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id t130sm5543470qka.14.2020.05.21.13.23.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 21 May 2020 13:23:16 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/amdgpu: Fix the CGCG setting is overwritten for SRIOV.
-Date: Thu, 21 May 2020 19:53:06 +0000
-Message-Id: <20200521195306.261777-1-Gavin.Wan@amd.com>
-X-Mailer: git-send-email 2.25.1
-X-ClientProxiedBy: YTBPR01CA0015.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::28) To DM6PR12MB4121.namprd12.prod.outlook.com
- (2603:10b6:5:220::14)
+Subject: [PATCH 2/3] Revert "drm/amdgpu: cleanup unnecessary virt sriov check
+ in amdgpu attribute"
+Date: Thu, 21 May 2020 16:23:07 -0400
+Message-Id: <20200521202308.1996496-2-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
+In-Reply-To: <20200521202308.1996496-1-alexander.deucher@amd.com>
+References: <20200521202308.1996496-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from Gavin-Ubuntu-00.amd.com (165.204.55.250) by
- YTBPR01CA0015.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::28) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3021.23 via Frontend Transport; Thu, 21 May 2020 19:53:20 +0000
-X-Mailer: git-send-email 2.25.1
-X-Originating-IP: [165.204.55.250]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: ce33fdf0-de62-4d09-f569-08d7fdc09d03
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3244:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3244D40B737A3463D5010259FCB70@DM6PR12MB3244.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
-X-Forefront-PRVS: 041032FF37
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: b6DQM+5KpA8LBlCuupgD5UqEh7WpOCbtXBfqO4hbbECNrsPhnPi7zuu4KyX4b8A5suoDy3ogoliuZfFlgAIvmZtO+Y/9w8sKXvSeqmFpUgpSLkQbO68FwsIkyJd0iaxm2cUbCjLxIELu5Wxgt2fno+FBfqPiW+aVOcjJz5osmSXuzBZn4qY3fAptf7/y0kOMYCwbB6EXYZc/V6GxqlwTZzHXQy0b0TKl+pGC/+QnxuYRvk0p3BzIaQOmjpEYki5rowj8GpI47+/zrMsAMpXaQsRPFbrxaoYsemF20h3S0kgnZdFiTEMeeFxBJMkIK3A9Ggyvn7vqBV8dZtoc2cvrCcLj3OjVWdFb46qgkpiMB/w39dymKpJBC0QCUGlKMTVU5lmR0GVN/iGGwovEdJ3+NimpTc+sHFtDvIW7kefr7IV7EsFXs66nJDGikT2/gHgZ
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4121.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(39860400002)(136003)(366004)(396003)(376002)(66946007)(16526019)(66476007)(4326008)(8936002)(316002)(956004)(1076003)(52116002)(2906002)(36756003)(186003)(7696005)(8676002)(478600001)(5660300002)(66556008)(6916009)(26005)(86362001)(6486002)(6666004)(2616005);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 27VcdoAIzZnj8C16fb0v1fIWVNgL8gQ9dF9QNLu++TFscjt7L0dGo+M5bO3MVzg8XngodbZS2LTFlH3eTXEWGFWYKIcnXn2gF3VCbIYvSbHtpGN8ja+jphnZJ6mfIzaBaYPHxZ1Y4t1938FugMQQ5/VNjq2CI7fpigPmqE0c2jZMfuuv4koERVQWX/wcK7vo9VeqQqcdEZ7sSLMZyZu/Xep4AVS2fIcItoThizZoVxzkSDCdJemNXKusAWrR5k6du+FIZ0lwXu2ycZwk133h8vjyt9cCKbYnPx7V8dux5k7aJKhr4HqzOhD3EzdClLhdz48SWq6yEss+s+TOQjj1QhGXWxHvGddognGZK7wEtwv/94foaLKFJWsDOLYGmXtlQDFQBmWq6ZY9RjdBSiQ+MsIYaZlKUDONoVMytidvpMK2/6rQMaGzh7kj1ML2uCeR2LnvnrJ7OE5CZ1D9NwcNVmwfSHe0W1y4X274wKbw8AAbpWKZ1g8juxVq6M1zOY3D
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ce33fdf0-de62-4d09-f569-08d7fdc09d03
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 May 2020 19:53:20.7608 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Szr9fb5diYchWL9DbvpZgcDX+EySvdwBTPQLSib71Ocn8odMwNmHubgEyapUMeR4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3244
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,79 +81,375 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Gavin Wan <Gavin.Wan@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For SRIOV, since the CGCG is set on host side. The Guest should
-not program CGCG again.
+This reverts commit e04aba8a382d86646a2a2cc194c3fc2441b64917.
 
-The patch ignores setting CGCG for SRIOV.
-
-Change-Id: Ic336fab3b23b8371c9e9e192182a3ba14a8db8e1
-Signed-off-by: Gavin Wan <Gavin.Wan@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 105 +++++++++++++++++++++++++
+ 1 file changed, 105 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index bd5dd4f64311..52b6e4759cf3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4558,6 +4558,9 @@ static void gfx_v10_0_constants_init(struct amdgpu_device *adev)
- static void gfx_v10_0_enable_gui_idle_interrupt(struct amdgpu_device *adev,
- 					       bool enable)
- {
-+	if (amdgpu_sriov_vf(adev))
-+		return;
-+
- 	u32 tmp = RREG32_SOC15(GC, 0, mmCP_INT_CNTL_RING0);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+index 72bbb8175b22..63e3e6534913 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -163,6 +163,9 @@ static ssize_t amdgpu_get_power_dpm_state(struct device *dev,
+ 	enum amd_pm_state_type pm;
+ 	int ret;
  
- 	tmp = REG_SET_FIELD(tmp, CP_INT_CNTL_RING0, CNTX_BUSY_INT_ENABLE,
-@@ -6842,6 +6845,9 @@ static void gfx_v10_0_update_medium_grain_clock_gating(struct amdgpu_device *ade
- {
- 	uint32_t data, def;
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -196,6 +199,9 @@ static ssize_t amdgpu_set_power_dpm_state(struct device *dev,
+ 	enum amd_pm_state_type  state;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return -EINVAL;
++
+ 	if (strncmp("battery", buf, strlen("battery")) == 0)
+ 		state = POWER_STATE_TYPE_BATTERY;
+ 	else if (strncmp("balanced", buf, strlen("balanced")) == 0)
+@@ -297,6 +303,9 @@ static ssize_t amdgpu_get_power_dpm_force_performance_level(struct device *dev,
+ 	enum amd_dpm_forced_level level = 0xff;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -334,6 +343,9 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+ 	enum amd_dpm_forced_level current_level = 0xff;
+ 	int ret = 0;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return -EINVAL;
++
+ 	if (strncmp("low", buf, strlen("low")) == 0) {
+ 		level = AMD_DPM_FORCED_LEVEL_LOW;
+ 	} else if (strncmp("high", buf, strlen("high")) == 0) {
+@@ -463,6 +475,9 @@ static ssize_t amdgpu_get_pp_cur_state(struct device *dev,
+ 	enum amd_pm_state_type pm = 0;
+ 	int i = 0, ret = 0;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -499,6 +514,9 @@ static ssize_t amdgpu_get_pp_force_state(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = ddev->dev_private;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	if (adev->pp_force_state_enabled)
+ 		return amdgpu_get_pp_cur_state(dev, attr, buf);
+ 	else
+@@ -516,6 +534,9 @@ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
+ 	unsigned long idx;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return -EINVAL;
++
+ 	if (strlen(buf) == 1)
+ 		adev->pp_force_state_enabled = false;
+ 	else if (is_support_sw_smu(adev))
+@@ -571,6 +592,9 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
+ 	char *table = NULL;
+ 	int size, ret;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -610,6 +634,9 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
+ 	struct amdgpu_device *adev = ddev->dev_private;
+ 	int ret = 0;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return -EINVAL;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -712,6 +739,9 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
+ 	const char delimiter[3] = {' ', '\n', '\0'};
+ 	uint32_t type;
  
 +	if (amdgpu_sriov_vf(adev))
-+		return;
++		return -EINVAL;
 +
- 	/* It is disabled by HW by default */
- 	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_MGCG)) {
- 		/* 0 - Disable some blocks' MGCG */
-@@ -6911,6 +6917,9 @@ static void gfx_v10_0_update_3d_clock_gating(struct amdgpu_device *adev,
- {
- 	uint32_t data, def;
+ 	if (count > 127)
+ 		return -EINVAL;
+ 
+@@ -801,6 +831,9 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
  
 +	if (amdgpu_sriov_vf(adev))
-+		return;
++		return 0;
 +
- 	/* Enable 3D CGCG/CGLS */
- 	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_3D_CGCG)) {
- 		/* write cmd to clear cgcg/cgls ov */
-@@ -6953,6 +6962,9 @@ static void gfx_v10_0_update_coarse_grain_clock_gating(struct amdgpu_device *ade
- {
- 	uint32_t def, data;
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -850,6 +883,9 @@ static ssize_t amdgpu_set_pp_features(struct device *dev,
+ 	uint64_t featuremask;
+ 	int ret;
  
 +	if (amdgpu_sriov_vf(adev))
-+		return;
++		return -EINVAL;
 +
- 	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_GFX_CGCG)) {
- 		def = data = RREG32_SOC15(GC, 0, mmRLC_CGTT_MGCG_OVERRIDE);
- 		/* unset CGCG override */
-@@ -6994,6 +7006,9 @@ static void gfx_v10_0_update_coarse_grain_clock_gating(struct amdgpu_device *ade
- static int gfx_v10_0_update_gfx_clock_gating(struct amdgpu_device *adev,
- 					    bool enable)
- {
-+	if (amdgpu_sriov_vf(adev))
-+		return;
-+
- 	amdgpu_gfx_rlc_enter_safe_mode(adev);
+ 	ret = kstrtou64(buf, 0, &featuremask);
+ 	if (ret)
+ 		return -EINVAL;
+@@ -890,6 +926,9 @@ static ssize_t amdgpu_get_pp_features(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
  
- 	if (enable) {
++	if (amdgpu_sriov_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -946,6 +985,9 @@ static ssize_t amdgpu_get_pp_dpm_sclk(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1009,6 +1051,9 @@ static ssize_t amdgpu_set_pp_dpm_sclk(struct device *dev,
+ 	int ret;
+ 	uint32_t mask = 0;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return -EINVAL;
++
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
+@@ -1040,6 +1085,9 @@ static ssize_t amdgpu_get_pp_dpm_mclk(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1067,6 +1115,9 @@ static ssize_t amdgpu_set_pp_dpm_mclk(struct device *dev,
+ 	uint32_t mask = 0;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++			return -EINVAL;
++
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
+@@ -1098,6 +1149,9 @@ static ssize_t amdgpu_get_pp_dpm_socclk(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1125,6 +1179,9 @@ static ssize_t amdgpu_set_pp_dpm_socclk(struct device *dev,
+ 	int ret;
+ 	uint32_t mask = 0;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return -EINVAL;
++
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
+@@ -1158,6 +1215,9 @@ static ssize_t amdgpu_get_pp_dpm_fclk(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1185,6 +1245,9 @@ static ssize_t amdgpu_set_pp_dpm_fclk(struct device *dev,
+ 	int ret;
+ 	uint32_t mask = 0;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return -EINVAL;
++
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
+@@ -1218,6 +1281,9 @@ static ssize_t amdgpu_get_pp_dpm_dcefclk(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1245,6 +1311,9 @@ static ssize_t amdgpu_set_pp_dpm_dcefclk(struct device *dev,
+ 	int ret;
+ 	uint32_t mask = 0;
+ 
++	if (amdgpu_sriov_vf(adev))
++		return -EINVAL;
++
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
+@@ -1278,6 +1347,9 @@ static ssize_t amdgpu_get_pp_dpm_pcie(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1305,6 +1377,9 @@ static ssize_t amdgpu_set_pp_dpm_pcie(struct device *dev,
+ 	int ret;
+ 	uint32_t mask = 0;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return -EINVAL;
++
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
+@@ -1338,6 +1413,9 @@ static ssize_t amdgpu_get_pp_sclk_od(struct device *dev,
+ 	uint32_t value = 0;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1363,6 +1441,9 @@ static ssize_t amdgpu_set_pp_sclk_od(struct device *dev,
+ 	int ret;
+ 	long int value;
+ 
++	if (amdgpu_sriov_vf(adev))
++		return -EINVAL;
++
+ 	ret = kstrtol(buf, 0, &value);
+ 
+ 	if (ret)
+@@ -1401,6 +1482,9 @@ static ssize_t amdgpu_get_pp_mclk_od(struct device *dev,
+ 	uint32_t value = 0;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1426,6 +1510,9 @@ static ssize_t amdgpu_set_pp_mclk_od(struct device *dev,
+ 	int ret;
+ 	long int value;
+ 
++	if (amdgpu_sriov_vf(adev))
++		return 0;
++
+ 	ret = kstrtol(buf, 0, &value);
+ 
+ 	if (ret)
+@@ -1484,6 +1571,9 @@ static ssize_t amdgpu_get_pp_power_profile_mode(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1525,6 +1615,9 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
+ 	if (ret)
+ 		return -EINVAL;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return -EINVAL;
++
+ 	if (profile_mode == PP_SMC_POWER_PROFILE_CUSTOM) {
+ 		if (count < 2 || count > 127)
+ 			return -EINVAL;
+@@ -1578,6 +1671,9 @@ static ssize_t amdgpu_get_gpu_busy_percent(struct device *dev,
+ 	struct amdgpu_device *adev = ddev->dev_private;
+ 	int r, value, size = sizeof(value);
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	r = pm_runtime_get_sync(ddev->dev);
+ 	if (r < 0)
+ 		return r;
+@@ -1611,6 +1707,9 @@ static ssize_t amdgpu_get_mem_busy_percent(struct device *dev,
+ 	struct amdgpu_device *adev = ddev->dev_private;
+ 	int r, value, size = sizeof(value);
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	r = pm_runtime_get_sync(ddev->dev);
+ 	if (r < 0)
+ 		return r;
+@@ -1655,6 +1754,9 @@ static ssize_t amdgpu_get_pcie_bw(struct device *dev,
+ 	if (!adev->asic_funcs->get_pcie_usage)
+ 		return -ENODATA;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1685,6 +1787,9 @@ static ssize_t amdgpu_get_unique_id(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = ddev->dev_private;
+ 
++	if (amdgpu_sriov_vf(adev) && !amdgpu_sriov_is_pp_one_vf(adev))
++		return 0;
++
+ 	if (adev->unique_id)
+ 		return snprintf(buf, PAGE_SIZE, "%016llx\n", adev->unique_id);
+ 
 -- 
-2.25.1
+2.25.4
 
 _______________________________________________
 amd-gfx mailing list
