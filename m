@@ -2,100 +2,76 @@ Return-Path: <SRS0=MTnY=7D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 884D1C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 17:35:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C38A1C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 19:03:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 29612207F7
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 17:35:14 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 858D320759
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 19:03:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="i4m21sPx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 29612207F7
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hm+CR3wj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 858D320759
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDBDB6E229;
-	Thu, 21 May 2020 17:35:13 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700069.outbound.protection.outlook.com [40.107.70.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 843AA6E229
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 17:35:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ZpcS2scMCDIB3O0CRM9qeTiYSj9AB5KOLaAFlyXJJI55NqNrx0xHzhqDMS4+Zco8b2UdSS182QwB3QBjFE6X6KaVa0VOYyNE5qBoSSWxg3mcOVqpovINTpxnd08ZXyLHcBQbA6EaDdgxm9D+tBy91uyB9Hgw7GK2FeOJ8dmho6IfY8qA8m1hPsE5a6yuCzS3JUN4O89+wFsX6sy9hwb5SKP6CCkMYxytUMj7RsLiNpjNAny8As1uyZZOxVsfN5JaMIMvmwABHgxsdX1lpDcbhU+CWrmJq2Q5URgkQJ1riOQC9Hqpp2VQGMB2dNvkpsyXrWVuJcgR8DnA7FFJCJVjzg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OA/P9RSd8tWJGmWUTDzncDqkO2TUVWNDuqQq31mF3Zg=;
- b=AjldHO94bhzpCrHapa1cH5ukd57NEFWatZC7XX2xdv3dWk+gcM36+ZFxdih8NSBUYMKX6WZ1GGqPMWitpGo51J5vtnIc55K39QE+084oNuFrQsAt2VgsPQVHj5a7RBnYq1riGFVEwRowE43ILULjXaCG0Bsa+t4KNmrNbDRVKSRhYVyqXVvfCtGtcST5gTde9WxikPAoSHrSxgMLT6ue776BIPGlEv6c3C1ySq+TGxAfkOQQEeXVLgonLwjR78De8ZbGwva84ViC9AAET2Zx3dtgHB6Flz5QHMRbYvmIKYCNSIs8aFCEteB5hm+1/mlBh2pMgfsE0FORcjSLf0UmdA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OA/P9RSd8tWJGmWUTDzncDqkO2TUVWNDuqQq31mF3Zg=;
- b=i4m21sPxG67RMGZxQ7WMzJhn64l3mcqVSkVPU/qUx4KH1Xk657e62ysIWO53Kmre5ALOf4acKlMGIjPsEqV2AykR9PVEYi7DDRU2X7IhQT1K5rv48/tPloegINKxWG+MbeUtUvomLWkhuw+G4GuA+jciRHrSAuFfEzwFc9WBW/U=
-Received: from DM6PR12MB3721.namprd12.prod.outlook.com (2603:10b6:5:1c2::18)
- by DM6PR12MB3098.namprd12.prod.outlook.com (2603:10b6:5:11c::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.23; Thu, 21 May
- 2020 17:35:11 +0000
-Received: from DM6PR12MB3721.namprd12.prod.outlook.com
- ([fe80::e027:654c:5d9f:a648]) by DM6PR12MB3721.namprd12.prod.outlook.com
- ([fe80::e027:654c:5d9f:a648%3]) with mapi id 15.20.3021.024; Thu, 21 May 2020
- 17:35:10 +0000
-From: "Russell, Kent" <Kent.Russell@amd.com>
-To: "Zhao, Yong" <Yong.Zhao@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH 2/2] drm/amdgpu: drop navi pcie bw callback
-Thread-Topic: [PATCH 2/2] drm/amdgpu: drop navi pcie bw callback
-Thread-Index: AQHWLiHpQYVqA6s8tEq8AH6qQjIokaiyxCmAgAAJ64CAAAHSsQ==
-Date: Thu, 21 May 2020 17:35:10 +0000
-Message-ID: <DM6PR12MB37210386812382F7396657FC85B70@DM6PR12MB3721.namprd12.prod.outlook.com>
-References: <20200519211006.80492-1-alexander.deucher@amd.com>
- <20200519211006.80492-2-alexander.deucher@amd.com>,
- <CADnq5_P_oQgSV5tO16ZFE44b4uGq+MMOhLA+fbV8RBPzLorBng@mail.gmail.com>,
- <DM6PR12MB44828392B7F38FE7246B2869F0B70@DM6PR12MB4482.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB44828392B7F38FE7246B2869F0B70@DM6PR12MB4482.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [2001:56b:3ff4:3a97:0:4a:4587:cc01]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: e9f2b1de-bc33-4b79-f29c-08d7fdad4ffb
-x-ms-traffictypediagnostic: DM6PR12MB3098:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB30981CC2B7A373B99E3FBC1785B70@DM6PR12MB3098.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:2043;
-x-forefront-prvs: 041032FF37
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: FDN5kKmdXlQ5QlR6Co/xSxpwMEiklOPg/G7IlQJu/6y5jJHW8d5V/dexgQfbdFGB4BwB15Lw836Bgu+eg5wDP0EBniPDb1J5YJayScUqCp9Cem8AkwZQjCN4yl2wh+UyQGPHcblbpg9gH3Khg16FgEkBnTy1HejkuKX6q21iDS0mC1VyMn0GKc1INPCEQnOpkYE6cfm7cmJv81pMFajIJoqVt5Gq2orU2wm/IGgKRpgov9DeXpib0+JCrkF7CQkt2BsBHxlSVZY1jFx56RPpFV762aoxd0qsKRLb+o336wYbmuTxU9s3ECcGSpOwi8YpFQFug0rGgEjGy1//Vsh3c0x4D/d2kEcvkoIeq5nmGvU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3721.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(366004)(376002)(346002)(39860400002)(396003)(136003)(66946007)(33656002)(316002)(52536014)(64756008)(66476007)(76116006)(66556008)(9686003)(186003)(53546011)(55016002)(66446008)(7696005)(6506007)(4326008)(166002)(2906002)(110136005)(71200400001)(5660300002)(45080400002)(19627405001)(966005)(8936002)(8676002)(478600001)(86362001);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: My53xTdxu343L1b0/2gWYHEUpmAfzpJIo2OBKgNDlFJ1qIU5PeMTYDB4AL+7+NVpVPz+Hrp4szMOOJ8NaCvDMkwYdoPdNXxLSK3RNwIo7OZAyUDG3eNOPROUyujsoSLhAEc6vUaSYLptu+8UpoyoQWdMPymOZHQ/WxIbAU0yOJZitm82sOKoBdcS/9A7mW5CJYlaGwPBnOaIV//Eq2+aSF1wHvoDPyD+qNNqn3Y07w3nyOFHvBn9xYGf6KdJ6TQlNfyUglUazepQDloncxvK5UhepGlgTognVDZXWxNcdT48mUks6sRh/luyS+wX8Ro8OlgqQ5sgTN8t82UH2qWBm7FdOIOcELWX6rq9Ho3HWJO0XYjU9wCK2k/1DQoV0t70tdxSe2eVoOBfllF3fjhpFWWJy9htdJCm6+KHlmmSXPd8ZY37GqF1ex9pbSrgt307/ViO1z5s3A5SOX4u2hCqZ3v8hqdaUOgxySzfOD0FF6YyHXOCmOJaiUmf/ZsVAL6pvDF3dH44y9eWuvAb7LA16KGD5DPe8t5b1KZgKJCWtoM=
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C4CE6E233;
+	Thu, 21 May 2020 19:03:21 +0000 (UTC)
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D8936E22A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 19:03:19 +0000 (UTC)
+Received: by mail-ot1-x330.google.com with SMTP id o13so6375737otl.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 12:03:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=OOKKtlOSm/oRnuz3ZRuIHmdRqDzpqSpYRqTsQN6BUHI=;
+ b=Hm+CR3wjcltpglJIqUI1KQtcGmkdcsC8XbE6TYOFBelM3wxXq0ucuW8CfqVlrEhepK
+ +4qG78D4V+o4v0Q2e01q3agyJk2zF8v/H0SkuyHyqHPEvnS8OB9GZGWFnE3HrWCTEUvk
+ mdPuJnPCN0GawPEYlUPfbR9Z2OgJwNst4skJCN2qosUL+pBb/D+47wJw2RZ1cktKGjfT
+ PL+7NHG729AiIpQMeuk39tj6xh3CcCQjTfzFDsB679d3c91/i3MOGOsX8C6LvpvNYmyB
+ Lpf5EHRXreYmziXLg/m1AT9bhxYkqnx2c3pCmLd04iuq53OWMoox7SBfZY0kLtjtC5v7
+ 5bwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=OOKKtlOSm/oRnuz3ZRuIHmdRqDzpqSpYRqTsQN6BUHI=;
+ b=n1fE25QzQhED8T11ugxl/qIliZowd9L7pGVEBw/18ro2sm3MslFpYrgl0sXasDO+Ga
+ 9pjRxLm20LrYyuFeQBIDMpe1ynjSsEihNyBBVAXcg3jTa9vDwazvviKUFY1y/JZUxMiU
+ nEUfNLF9XvurLA6MCyuWuZuFy4ZTgZZtnADSJ18Z/I6I73Z/bRnSTANOxa74Kekqcimq
+ Q9EFLuTFFr1i93Smtq/A/0MJjR/bFspJwODX9IFN8zERmUTEjXW4HO8f3wHj6nGUmA3Y
+ lBnOWU3JCoH/USKlrgtQ2QkKZfvhZMXzdfeabFMNsq846dYqh/1J2qLjA72GS4IAVPIP
+ hQkA==
+X-Gm-Message-State: AOAM531z952yeCjcHd5HtWc9RLBWtx9J1/gBzLx0Kzjgq7Hy6xKnxLFT
+ yq3VNed7fd+0rh/zOvrXG0IHvSX3UQqNzT7jIf8=
+X-Google-Smtp-Source: ABdhPJzxG7mbtMIAffWB7Uv3O8rhVoiBilz2fVEFVzxWvmHv7LQVwx4WxPFAWDhFip5X8GQkjUR5hShUv/lCWo3WxlM=
+X-Received: by 2002:a9d:5cc9:: with SMTP id r9mr8373454oti.111.1590087798200; 
+ Thu, 21 May 2020 12:03:18 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9f2b1de-bc33-4b79-f29c-08d7fdad4ffb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2020 17:35:10.7756 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6eoqnOl8VwAt3OI6sAT1VbX+CnKPRiGycBaN+t/vccArxxRm2m/CEAfNstVhq/htN8h8W7/moU3bvMWALVYo7A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3098
+References: <CAEOHGOm=g_VGa5939Qi_HEXAfuUKuy3tXURx9TKg+n==dUDqPQ@mail.gmail.com>
+ <CADnq5_N-vLuyqo_rqjy44nwdKPWyiO8cpAJN9pFk79wjwKi7gw@mail.gmail.com>
+ <CAEOHGOkbu5jy_1_bUD4H0U89YEc_9zOxsSdyZqmtqZNsdOyDkg@mail.gmail.com>
+ <CAEOHGOkRYXZWN-20VagBEFFywRT=26xphP3JQeQD4AJuxxzg+Q@mail.gmail.com>
+ <CADnq5_Nc+eoCKsQrHA-u0d7trv=MM=5iKv5G1R3TMCyot40OjA@mail.gmail.com>
+ <CAEOHGOk-YO_B3gS7WayrBEAO4oxrUAGtR0o9ZzW8ehOypuc1YA@mail.gmail.com>
+ <CADnq5_M2R93S6aQn8XtrC_JdHhB=ajC17D780koNvdnDFbWCpA@mail.gmail.com>
+ <CAEOHGO=Tgook7i5R5Ucxn3Pg4ovZe+Fak5rntZ2P+UuwDJ+-Vg@mail.gmail.com>
+ <CADnq5_Mef-FCri1_wriYgvmnkTNQpxaUfba9_hLSB-yVQHU9cQ@mail.gmail.com>
+ <CAEOHGOm+ooti4JX6OD2zd7rOxbAVn1yQ22TwgS0hmiy8Ssf-Kg@mail.gmail.com>
+ <CADnq5_O-u_dX84-=y8itZzsrxGLtboBaT5jPY4izzqSjwVtiqg@mail.gmail.com>
+In-Reply-To: <CADnq5_O-u_dX84-=y8itZzsrxGLtboBaT5jPY4izzqSjwVtiqg@mail.gmail.com>
+From: Javad Karabi <karabijavad@gmail.com>
+Date: Thu, 21 May 2020 14:03:06 -0500
+Message-ID: <CAEOHGOmoyyiOSmTPP21mhavJ-qzgPSnWiLb9VFz4z9aSwao3Aw@mail.gmail.com>
+Subject: Re: slow rx 5600 xt fps
+To: Alex Deucher <alexdeucher@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,318 +83,313 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: multipart/mixed; boundary="===============1682029215=="
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============1682029215==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB37210386812382F7396657FC85B70DM6PR12MB3721namp_"
+Alex,
+yea, youre totally right i was overcomplicating it lol
+so i was able to get the radeon to run super fast, by doing as you
+suggested and blacklisting i915.
+(had to use module_blacklist= though because modprobe.blacklist still
+allows i915, if a dependency wants to load it)
+but with one caveat:
+using the amdgpu driver, there was some error saying something about
+telling me that i need to add BusID to my device or something.
+maybe amdgpu wasnt able to find the card or something, i dont
+remember. so i used modesetting instead and it seemed to work.
+i will try going back to amdgpu and seeing what that error message was.
+i recall you saying that modesetting doesnt have some features that
+amdgpu provides.
+what are some examples of that?
+is the direction that graphics drivers are going, to be simply used as
+"modesetting" via xorg?
 
---_000_DM6PR12MB37210386812382F7396657FC85B70DM6PR12MB3721namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Sorry I missed this.
-Series is Reviewed-By: Kent Russell <kent.russell@amd.com>
-
- Kent
-
-
-KENT RUSSELL
-Sr. Software Engineer | Linux Compute Kernel
-1 Commerce Valley Drive East
-Markham, ON L3T 7X6
-O +(1) 289-695-2122 | Ext 72122
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Zhao, Yo=
-ng <Yong.Zhao@amd.com>
-Sent: Thursday, May 21, 2020 1:27 PM
-To: Alex Deucher <alexdeucher@gmail.com>; amd-gfx list <amd-gfx@lists.freed=
-esktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: drop navi pcie bw callback
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-
-[AMD Official Use Only - Internal Distribution Only]
-
-The series are
-
-Reviewed-by: Yong Zhao <Yong.Zhao@amd.com>
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Alex Deu=
-cher <alexdeucher@gmail.com>
-Sent: Thursday, May 21, 2020 12:52 PM
-To: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: drop navi pcie bw callback
-
-Ping on this series?
-
-On Tue, May 19, 2020 at 5:10 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+On Wed, May 20, 2020 at 10:12 PM Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> It's not implemented yet so just drop it so the sysfs
-> pcie bw file returns an appropriate error instead of
-> garbage.
+> I think you are overcomplicating things.  Just try and get X running
+> on just the AMD GPU on bare metal.  Introducing virtualization is just
+> adding more uncertainty.  If you can't configure X to not use the
+> integrated GPU, just blacklist the i915 driver (append
+> modprobe.blacklist=i915 to the kernel command line in grub) and X
+> should come up on the dGPU.
 >
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/nv.c | 8 --------
->  1 file changed, 8 deletions(-)
+> Alex
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu=
-/nv.c
-> index 9c42316c47c0..6655dd2009b6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/nv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-> @@ -548,13 +548,6 @@ static bool nv_need_full_reset(struct amdgpu_device =
-*adev)
->         return true;
->  }
->
-> -static void nv_get_pcie_usage(struct amdgpu_device *adev,
-> -                             uint64_t *count0,
-> -                             uint64_t *count1)
-> -{
-> -       /*TODO*/
-> -}
-> -
->  static bool nv_need_reset_on_init(struct amdgpu_device *adev)
->  {
->  #if 0
-> @@ -629,7 +622,6 @@ static const struct amdgpu_asic_funcs nv_asic_funcs =
-=3D
->         .invalidate_hdp =3D &nv_invalidate_hdp,
->         .init_doorbell_index =3D &nv_init_doorbell_index,
->         .need_full_reset =3D &nv_need_full_reset,
-> -       .get_pcie_usage =3D &nv_get_pcie_usage,
->         .need_reset_on_init =3D &nv_need_reset_on_init,
->         .get_pcie_replay_count =3D &nv_get_pcie_replay_count,
->         .supports_baco =3D &nv_asic_supports_baco,
-> --
-> 2.25.4
->
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7Cyong.zha=
-o%40amd.com%7C1a6de00e60b447bad54a08d7fda76316%7C3dd8961fe4884e608e11a82d99=
-4e183d%7C0%7C0%7C637256767681371342&amp;sdata=3DEWwfgYQtOR1TGw6%2BL6w8Cw7Y9=
-e7ixVI1xDJoWTUsWtk%3D&amp;reserved=3D0<https://nam11.safelinks.protection.o=
-utlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%=
-2Famd-gfx&data=3D02%7C01%7Ckent.russell%40amd.com%7Cb24bbf754a294cc666ba08d=
-7fdac5228%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637256789747127637&s=
-data=3Dm%2BJ73URIHmwFL3IH%2BC%2BSgryLmztoLuXswA33XTFiy90%3D&reserved=3D0>
-
---_000_DM6PR12MB37210386812382F7396657FC85B70DM6PR12MB3721namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<div>Sorry I missed this.&nbsp;</div>
-<div>Series is Reviewed-By: Kent Russell &lt;kent.russell@amd.com&gt;</div>
-<div><br>
-</div>
-<div>&nbsp;Kent</div>
-<div><br>
-</div>
-<div><br>
-</div>
-<div><style type=3D"text/css" style=3D"display:none">=0A=
-<!--=0A=
-p=0A=
-	{margin-top:0;=0A=
-	margin-bottom:0}=0A=
--->=0A=
-</style>
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size:12pt; color=
-:#000000; font-family:Calibri,Helvetica,sans-serif">
-<div style=3D"font-family:Tahoma; font-size:13px">
-<div style=3D"font-family:Tahoma; font-size:13px">
-<div style=3D"font-family:Tahoma; font-size:13px"><font face=3D"Verdana"><f=
-ont size=3D"2"><b></b></font>
-<p class=3D"MsoNormal"><a name=3D"_MailAutoSig"><b><span style=3D"color:bla=
-ck; text-transform:uppercase">KENT RUSSELL</span></b></a><span style=3D""><=
-b><span style=3D"font-variant:small-caps; color:black">
-</span></b></span><span style=3D""><span style=3D"font-size:10.0pt; color:b=
-lack">&nbsp;&nbsp;</span></span></p>
-<p class=3D"MsoNormal"><span style=3D""><span style=3D"font-size:10.0pt; co=
-lor:black">Sr. Software Engineer | Linux Compute Kernel</span></span></p>
-<p class=3D"MsoNormal"><span style=3D""><span style=3D"font-size:10.0pt; co=
-lor:black">1 Commerce Valley Drive East</span></span></p>
-<p class=3D"MsoNormal"><span style=3D""><span style=3D"font-size:10.0pt; co=
-lor:black">Markham, ON L3T 7X6</span></span></p>
-<p class=3D"MsoNormal"><span style=3D""><b><span style=3D"font-size:10.0pt;=
- color:black">O</span></b></span><span style=3D""><span style=3D"font-size:=
-10.0pt; color:black"> &#43;(1) 289-695-2122<b>
-</b><span style=3D"">| Ext 72122</span></span></span></p>
-</font></div>
-</div>
-</div>
-</div>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Zhao, Yong &lt;Yong.Zhao@amd.=
-com&gt;<br>
-<b>Sent:</b> Thursday, May 21, 2020 1:27 PM<br>
-<b>To:</b> Alex Deucher &lt;alexdeucher@gmail.com&gt;; amd-gfx list &lt;amd=
--gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: drop navi pcie bw callback</fon=
-t>
-<div>&nbsp;</div>
-</div>
-<style type=3D"text/css" style=3D"display:none">
-<!--
-p
-	{margin-top:0;
-	margin-bottom:0}
--->
-</style>
-<div dir=3D"ltr">
-<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#0078D7=
-; margin:15pt">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<p align=3D"Left" style=3D"font-family:Arial; font-size:10pt; color:#0078D7=
-; margin:15pt">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-The series are&nbsp;</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-Reviewed-by: Yong Zhao &lt;Yong.Zhao@amd.com&gt;</div>
-<div id=3D"x_appendonsend"></div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
-color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx=
--bounces@lists.freedesktop.org&gt; on behalf of Alex Deucher &lt;alexdeuche=
-r@gmail.com&gt;<br>
-<b>Sent:</b> Thursday, May 21, 2020 12:52 PM<br>
-<b>To:</b> amd-gfx list &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> Re: [PATCH 2/2] drm/amdgpu: drop navi pcie bw callback</fon=
-t>
-<div>&nbsp;</div>
-</div>
-<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
-t">
-<div class=3D"x_PlainText">Ping on this series?<br>
-<br>
-On Tue, May 19, 2020 at 5:10 PM Alex Deucher &lt;alexdeucher@gmail.com&gt; =
-wrote:<br>
-&gt;<br>
-&gt; It's not implemented yet so just drop it so the sysfs<br>
-&gt; pcie bw file returns an appropriate error instead of<br>
-&gt; garbage.<br>
-&gt;<br>
-&gt; Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/amdgpu/nv.c | 8 --------<br>
-&gt;&nbsp; 1 file changed, 8 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amd=
-gpu/nv.c<br>
-&gt; index 9c42316c47c0..6655dd2009b6 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-&gt; &#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/nv.c<br>
-&gt; @@ -548,13 &#43;548,6 @@ static bool nv_need_full_reset(struct amdgpu_=
-device *adev)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;<br>
-&gt;&nbsp; }<br>
-&gt;<br>
-&gt; -static void nv_get_pcie_usage(struct amdgpu_device *adev,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; uint64_t *count0,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; uint64_t *count1)<br>
-&gt; -{<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*TODO*/<br>
-&gt; -}<br>
-&gt; -<br>
-&gt;&nbsp; static bool nv_need_reset_on_init(struct amdgpu_device *adev)<br=
->
-&gt;&nbsp; {<br>
-&gt;&nbsp; #if 0<br>
-&gt; @@ -629,7 &#43;622,6 @@ static const struct amdgpu_asic_funcs nv_asic_=
-funcs =3D<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .invalidate_hdp =3D &a=
-mp;nv_invalidate_hdp,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .init_doorbell_index =
-=3D &amp;nv_init_doorbell_index,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .need_full_reset =3D &=
-amp;nv_need_full_reset,<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_usage =3D &amp;nv_get_=
-pcie_usage,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .need_reset_on_init =
-=3D &amp;nv_need_reset_on_init,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .get_pcie_replay_count=
- =3D &amp;nv_get_pcie_replay_count,<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; .supports_baco =3D &am=
-p;nv_asic_supports_baco,<br>
-&gt; --<br>
-&gt; 2.25.4<br>
-&gt;<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01=
-%7Ckent.russell%40amd.com%7Cb24bbf754a294cc666ba08d7fdac5228%7C3dd8961fe488=
-4e608e11a82d994e183d%7C0%7C0%7C637256789747127637&amp;sdata=3Dm%2BJ73URIHmw=
-FL3IH%2BC%2BSgryLmztoLuXswA33XTFiy90%3D&amp;reserved=3D0" originalsrc=3D"ht=
-tps://lists.freedesktop.org/mailman/listinfo/amd-gfx" shash=3D"xjEFtKrMG2dK=
-psBHq0Na/4GT4aMW/gmzls6zpQLxYyPTEqnECoZleIW6rDtHnXFWhcgn6MhBD9AAW6NCt2BlQNk=
-xyuDkWLR4W1R3z0AzwwD5qcqolizRLQYJoevQMDBc0XHrtW696ZsDnN1aZ28J7YS2AJgnpCVPsp=
-aZYAi1GJY=3D">https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3=
-A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D=
-02%7C01%7Cyong.zhao%40amd.com%7C1a6de00e60b447bad54a08d7fda76316%7C3dd8961f=
-e4884e608e11a82d994e183d%7C0%7C0%7C637256767681371342&amp;amp;sdata=3DEWwfg=
-YQtOR1TGw6%2BL6w8Cw7Y9e7ixVI1xDJoWTUsWtk%3D&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB37210386812382F7396657FC85B70DM6PR12MB3721namp_--
-
---===============1682029215==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> On Wed, May 20, 2020 at 6:05 PM Javad Karabi <karabijavad@gmail.com> wrote:
+> >
+> > Thanks Alex,
+> > Here's my plan:
+> >
+> > since my laptop's os is pretty customized, e.g. compiling my own kernel, building latest xorg, latest xorg-driver-amdgpu, etc etc,
+> > im going to use the intel iommu and pass through my rx 5600 into a virtual machine, which will be a 100% stock ubuntu installation.
+> > then, inside that vm, i will continue to debug
+> >
+> > does that sound like it would make sense for testing? for example, with that scenario, it adds the iommu into the mix, so who knows if that causes performance issues. but i think its worth a shot, to see if a stock kernel will handle it better
+> >
+> > also, quick question:
+> > from what i understand, a thunderbolt 3 pci express connection should handle 8 GT/s x4, however, along the chain of bridges to my device, i notice that the bridge closest to the graphics card is at 2.5 GT/s x4, and it also says "downgraded" (this is via the lspci output)
+> >
+> > now, when i boot into windows, it _also_ says 2.5 GT/s x4, and it runs extremely well. no issues at all.
+> >
+> > so my question is: the fact that the bridge is at 2.5 GT/s x4, and not at its theoretical "full link speed" of 8 GT/s x4, do you suppose that _could_ be an issue?
+> > i do not think so, because, like i said, in windows it also reports that link speed.
+> > i would assume that you would want the fastest link speed possible, because i would assume that of _all_ tb3 pci express devices, a GPU would be the #1 most demanding on the link
+> >
+> > just curious if you think 2.5 GT/s could be the bottleneck
+> >
+> > i will pass through the device into a ubuntu vm and let you know how it goes. thanks
+> >
+> >
+> >
+> > On Tue, May 19, 2020 at 9:29 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> >>
+> >> On Tue, May 19, 2020 at 9:16 PM Javad Karabi <karabijavad@gmail.com> wrote:
+> >> >
+> >> > thanks for the answers alex.
+> >> >
+> >> > so, i went ahead and got a displayport cable to see if that changes
+> >> > anything. and now, when i run monitor only, and the monitor connected
+> >> > to the card, it has no issues like before! so i am thinking that
+> >> > somethings up with either the hdmi cable, or some hdmi related setting
+> >> > in my system? who knows, but im just gonna roll with only using
+> >> > displayport cables now.
+> >> > the previous hdmi cable was actually pretty long, because i was
+> >> > extending it with an hdmi extension cable, so maybe the signal was
+> >> > really bad or something :/
+> >> >
+> >> > but yea, i guess the only real issue now is maybe something simple
+> >> > related to some sysfs entry about enabling some powermode, voltage,
+> >> > clock frequency, or something, so that glxgears will give me more than
+> >> > 300 fps. but atleast now i can use a single monitor configuration with
+> >> > the monitor displayported up to the card.
+> >> >
+> >>
+> >> The GPU dynamically adjusts the clocks and voltages based on load.  No
+> >> manual configuration is required.
+> >>
+> >> At this point, we probably need to see you xorg log and dmesg output
+> >> to try and figure out exactly what is going on.  I still suspect there
+> >> is some interaction going on with both GPUs and the integrated GPU
+> >> being the primary, so as I mentioned before, you should try and run X
+> >> on just the amdgpu rather than trying to use both of them.
+> >>
+> >> Alex
+> >>
+> >>
+> >> > also, one other thing i think you might be interested in, that was
+> >> > happening before.
+> >> >
+> >> > so, previously, with laptop -tb3-> egpu-hdmi> monitor, there was a
+> >> > funny thing happening which i never could figure out.
+> >> > when i would look at the X logs, i would see that "modesetting" (for
+> >> > the intel integrated graphics) was reporting that MonitorA was used
+> >> > with "eDP-1",  which is correct and what i expected.
+> >> > when i scrolled further down, i then saw that "HDMI-A-1-2" was being
+> >> > used for another MonitorB, which also is what i expected (albeit i
+> >> > have no idea why its saying A-1-2)
+> >> > but amdgpu was _also_ saying that DisplayPort-1-2 (a port on the
+> >> > radeon card) was being used for MonitorA, which is the same Monitor
+> >> > that the modesetting driver had claimed to be using with eDP-1!
+> >> >
+> >> > so the point is that amdgpu was "using" Monitor0 with DisplayPort-1-2,
+> >> > although that is what modesetting was using for eDP-1.
+> >> >
+> >> > anyway, thats a little aside, i doubt it was related to the terrible
+> >> > hdmi experience i was getting, since its about display port and stuff,
+> >> > but i thought id let you know about that.
+> >> >
+> >> > if you think that is a possible issue, im more than happy to plug the
+> >> > hdmi setup back in and create an issue on gitlab with the logs and
+> >> > everything
+> >> >
+> >> > On Tue, May 19, 2020 at 4:42 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> >> > >
+> >> > > On Tue, May 19, 2020 at 5:22 PM Javad Karabi <karabijavad@gmail.com> wrote:
+> >> > > >
+> >> > > > lol youre quick!
+> >> > > >
+> >> > > > "Windows has supported peer to peer DMA for years so it already has a
+> >> > > > numbers of optimizations that are only now becoming possible on Linux"
+> >> > > >
+> >> > > > whoa, i figured linux would be ahead of windows when it comes to
+> >> > > > things like that. but peer-to-peer dma is something that is only
+> >> > > > recently possible on linux, but has been possible on windows? what
+> >> > > > changed recently that allows for peer to peer dma in linux?
+> >> > > >
+> >> > >
+> >> > > A few things that made this more complicated on Linux:
+> >> > > 1. Linux uses IOMMUs more extensively than windows so you can't just
+> >> > > pass around physical bus addresses.
+> >> > > 2. Linux supports lots of strange architectures that have a lot of
+> >> > > limitations with respect to peer to peer transactions
+> >> > >
+> >> > > It just took years to get all the necessary bits in place in Linux and
+> >> > > make everyone happy.
+> >> > >
+> >> > > > also, in the context of a game running opengl on some gpu, is the
+> >> > > > "peer-to-peer" dma transfer something like: the game draw's to some
+> >> > > > memory it has allocated, then a DMA transfer gets that and moves it
+> >> > > > into the graphics card output?
+> >> > >
+> >> > > Peer to peer DMA just lets devices access another devices local memory
+> >> > > directly.  So if you have a buffer in vram on one device, you can
+> >> > > share that directly with another device rather than having to copy it
+> >> > > to system memory first.  For example, if you have two GPUs, you can
+> >> > > have one of them copy it's content directly to a buffer in the other
+> >> > > GPU's vram rather than having to go through system memory first.
+> >> > >
+> >> > > >
+> >> > > > also, i know it can be super annoying trying to debug an issue like
+> >> > > > this, with someone like me who has all types of differences from a
+> >> > > > normal setup (e.g. using it via egpu, using a kernel with custom
+> >> > > > configs and stuff) so as a token of my appreciation i donated 50$ to
+> >> > > > the red cross' corona virus outbreak charity thing, on behalf of
+> >> > > > amd-gfx.
+> >> > >
+> >> > > Thanks,
+> >> > >
+> >> > > Alex
+> >> > >
+> >> > > >
+> >> > > > On Tue, May 19, 2020 at 4:13 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> >> > > > >
+> >> > > > > On Tue, May 19, 2020 at 3:44 PM Javad Karabi <karabijavad@gmail.com> wrote:
+> >> > > > > >
+> >> > > > > > just a couple more questions:
+> >> > > > > >
+> >> > > > > > - based on what you are aware of, the technical details such as
+> >> > > > > > "shared buffers go through system memory", and all that, do you see
+> >> > > > > > any issues that might exist that i might be missing in my setup? i
+> >> > > > > > cant imagine this being the case because the card works great in
+> >> > > > > > windows, unless the windows driver does something different?
+> >> > > > > >
+> >> > > > >
+> >> > > > > Windows has supported peer to peer DMA for years so it already has a
+> >> > > > > numbers of optimizations that are only now becoming possible on Linux.
+> >> > > > >
+> >> > > > > > - as far as kernel config, is there anything in particular which
+> >> > > > > > _should_ or _should not_ be enabled/disabled?
+> >> > > > >
+> >> > > > > You'll need the GPU drivers for your devices and dma-buf support.
+> >> > > > >
+> >> > > > > >
+> >> > > > > > - does the vendor matter? for instance, this is an xfx card. when it
+> >> > > > > > comes to different vendors, are there interface changes that might
+> >> > > > > > make one vendor work better for linux than another? i dont really
+> >> > > > > > understand the differences in vendors, but i imagine that the vbios
+> >> > > > > > differs between vendors, and as such, the linux compatibility would
+> >> > > > > > maybe change?
+> >> > > > >
+> >> > > > > board vendor shouldn't matter.
+> >> > > > >
+> >> > > > > >
+> >> > > > > > - is the pcie bandwidth possible an issue? the pcie_bw file changes
+> >> > > > > > between values like this:
+> >> > > > > > 18446683600662707640 18446744071581623085 128
+> >> > > > > > and sometimes i see this:
+> >> > > > > > 4096 0 128
+> >> > > > > > as you can see, the second value seems significantly lower. is that
+> >> > > > > > possibly an issue? possibly due to aspm?
+> >> > > > >
+> >> > > > > pcie_bw is not implemented for navi yet so you are just seeing
+> >> > > > > uninitialized data.  This patch set should clear that up.
+> >> > > > > https://patchwork.freedesktop.org/patch/366262/
+> >> > > > >
+> >> > > > > Alex
+> >> > > > >
+> >> > > > > >
+> >> > > > > > On Tue, May 19, 2020 at 2:20 PM Javad Karabi <karabijavad@gmail.com> wrote:
+> >> > > > > > >
+> >> > > > > > > im using Driver "amdgpu" in my xorg conf
+> >> > > > > > >
+> >> > > > > > > how does one verify which gpu is the primary? im assuming my intel
+> >> > > > > > > card is the primary, since i have not done anything to change that.
+> >> > > > > > >
+> >> > > > > > > also, if all shared buffers have to go through system memory, then
+> >> > > > > > > that means an eGPU amdgpu wont work very well in general right?
+> >> > > > > > > because going through system memory for the egpu means going over the
+> >> > > > > > > thunderbolt connection
+> >> > > > > > >
+> >> > > > > > > and what are the shared buffers youre referring to? for example, if an
+> >> > > > > > > application is drawing to a buffer, is that an example of a shared
+> >> > > > > > > buffer that has to go through system memory? if so, thats fine, right?
+> >> > > > > > > because the application's memory is in system memory, so that copy
+> >> > > > > > > wouldnt be an issue.
+> >> > > > > > >
+> >> > > > > > > in general, do you think the "copy buffer across system memory might
+> >> > > > > > > be a hindrance for thunderbolt? im trying to figure out which
+> >> > > > > > > directions to go to debug and im totally lost, so maybe i can do some
+> >> > > > > > > testing that direction?
+> >> > > > > > >
+> >> > > > > > > and for what its worth, when i turn the display "off" via the gnome
+> >> > > > > > > display settings, its the same issue as when the laptop lid is closed,
+> >> > > > > > > so unless the motherboard reads the "closed lid" the same as "display
+> >> > > > > > > off", then im not sure if its thermal issues.
+> >> > > > > > >
+> >> > > > > > > On Tue, May 19, 2020 at 2:14 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+> >> > > > > > > >
+> >> > > > > > > > On Tue, May 19, 2020 at 2:59 PM Javad Karabi <karabijavad@gmail.com> wrote:
+> >> > > > > > > > >
+> >> > > > > > > > > given this setup:
+> >> > > > > > > > > laptop -thunderbolt-> razer core x -> xfx rx 5600 xt raw 2 -hdmi-> monitor
+> >> > > > > > > > > DRI_PRIME=1 glxgears gears gives me ~300fps
+> >> > > > > > > > >
+> >> > > > > > > > > given this setup:
+> >> > > > > > > > > laptop -thunderbolt-> razer core x -> xfx rx 5600 xt raw 2
+> >> > > > > > > > > laptop -hdmi-> monitor
+> >> > > > > > > > >
+> >> > > > > > > > > glx gears gives me ~1800fps
+> >> > > > > > > > >
+> >> > > > > > > > > this doesnt make sense to me because i thought that having the monitor
+> >> > > > > > > > > plugged directly into the card should give best performance.
+> >> > > > > > > > >
+> >> > > > > > > >
+> >> > > > > > > > Do you have displays connected to both GPUs?  If you are using X which
+> >> > > > > > > > ddx are you using?  xf86-video-modesetting or xf86-video-amdgpu?
+> >> > > > > > > > IIRC, xf86-video-amdgpu has some optimizations for prime which are not
+> >> > > > > > > > yet in xf86-video-modesetting.  Which GPU is set up as the primary?
+> >> > > > > > > > Note that the GPU which does the rendering is not necessarily the one
+> >> > > > > > > > that the displays are attached to.  The render GPU renders to it's
+> >> > > > > > > > render buffer and then that data may end up being copied other GPUs
+> >> > > > > > > > for display.  Also, at this point, all shared buffers have to go
+> >> > > > > > > > through system memory (this will be changing eventually now that we
+> >> > > > > > > > support device memory via dma-buf), so there is often an extra copy
+> >> > > > > > > > involved.
+> >> > > > > > > >
+> >> > > > > > > > > theres another really weird issue...
+> >> > > > > > > > >
+> >> > > > > > > > > given setup 1, where the monitor is plugged in to the card:
+> >> > > > > > > > > when i close the laptop lid, my monitor is "active" and whatnot, and i
+> >> > > > > > > > > can "use it" in a sense
+> >> > > > > > > > >
+> >> > > > > > > > > however, heres the weirdness:
+> >> > > > > > > > > the mouse cursor will move along the monitor perfectly smooth and
+> >> > > > > > > > > fine, but all the other updates to the screen are delayed by about 2
+> >> > > > > > > > > or 3 seconds.
+> >> > > > > > > > > that is to say, its as if the laptop is doing everything (e.g. if i
+> >> > > > > > > > > open a terminal, the terminal will open, but it will take 2 seconds
+> >> > > > > > > > > for me to see it)
+> >> > > > > > > > >
+> >> > > > > > > > > its almost as if all the frames and everything are being drawn, and
+> >> > > > > > > > > the laptop is running fine and everything, but i simply just dont get
+> >> > > > > > > > > to see it on the monitor, except for one time every 2 seconds.
+> >> > > > > > > > >
+> >> > > > > > > > > its hard to articulate, because its so bizarre. its not like, a "low
+> >> > > > > > > > > fps" per se, because the cursor is totally smooth. but its that
+> >> > > > > > > > > _everything else_ is only updated once every couple seconds.
+> >> > > > > > > >
+> >> > > > > > > > This might also be related to which GPU is the primary.  It still may
+> >> > > > > > > > be the integrated GPU since that is what is attached to the laptop
+> >> > > > > > > > panel.  Also the platform and some drivers may do certain things when
+> >> > > > > > > > the lid is closed.  E.g., for thermal reasons, the integrated GPU or
+> >> > > > > > > > CPU may have a more limited TDP because the laptop cannot cool as
+> >> > > > > > > > efficiently.
+> >> > > > > > > >
+> >> > > > > > > > Alex
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1682029215==--
