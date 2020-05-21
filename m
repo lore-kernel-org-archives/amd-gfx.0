@@ -8,59 +8,59 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 75BE2C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 14:16:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69ABAC433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 14:16:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 39CF220721
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 14:16:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4041020748
+	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 14:16:51 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ON4kgdL5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 39CF220721
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="uKq4Q4IG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4041020748
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05CE06E936;
-	Thu, 21 May 2020 14:16:25 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E77FB6E937
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 14:16:23 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id l18so6815829wrn.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 07:16:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F7966E24D;
+	Thu, 21 May 2020 14:16:51 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 613BE6E24D
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 14:16:50 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id w64so6504221wmg.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 21 May 2020 07:16:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zK3J0XfQsUKokXTZOsOWwi78bejrut+PtOLaxC0xbPs=;
- b=ON4kgdL5U5LZyJ0XArEW4vQRkvHQHmXXLN0MDzhrEn8RKy+N4FwcqxKOgvbIUMgEQA
- WHBqIukjIV5TgGDdSX0o5yYeqHVsEcWSQB31RXs6UcpHkFPq2Br/6QEDyOs4fp64qtRe
- sKqQTRXsFfAenv+GSnoWJBubdvP5xC093c5PjFCLaUwDXRPR54xTceOIIRcQQQkNwvA6
- /XMu4y4glt8bOJK1hwPzufkEL/1xpgdSUozMoCHQyNCItFKbapOTK5AVnDLsbv6BISAg
- 7cW3aqlb0d7sqMX594ERYYu+MCLB6MQI2xCB66dIR7Pjh0obU06RkpasMZLgSZDgpL3S
- U+ZA==
+ :cc; bh=ABA71yUPgiCKzHH18HWOR721IXiIEUgsGk7LvEXLvcs=;
+ b=uKq4Q4IGM5ozjEiexrxy5mpGwxO1WZYnjvwRd1Ak6uKCvavnVRh0HwdGSp3jV8kUZS
+ c9NImCyIbV60RV3Uv2XVF1xpVfyog1xRh6VglY5AdPqCdVko4QxDmms/ZnGaAyj37Z07
+ 8lUMqx9fUu/45SE4Uo6cBF+cvIpUds4g3C5ddyUvjh0/uvc0oWIV76i2xnS/x6G3sBHV
+ MbxhfS44Qw8EdS9PQeGfUekE2x1HEQ+CJ3dydH8dX27wic8w7NHTA5CIYwanRg/NjGnp
+ /ZdmzNGCKkiqW7eS7uXqa5JVLv9LmfOfh6EdggQBgsUrQgBrx+/LSLv5XI9wYmFyPGJ2
+ 2+/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=zK3J0XfQsUKokXTZOsOWwi78bejrut+PtOLaxC0xbPs=;
- b=F/AzkeJ1zZmCRo3waqIDTzYRpLTiyoH/ICuzjlL0y1avrJXUxsPPwoke3ABzgKGwGi
- L+dbsxrrEjPDvhaMOAkqPndibxDdRMIZqGUTrejBvaN2y7J3UjDdTm5UHtN9m+pk1OTn
- azSZbNidfHLxeyCN3d/LJONLDbAwjp0PvQhDJbWg6pYRtKsHewZuVQHw0NiLW2Sq6OkP
- wGVimgtUqXdbUPBsqQizQf1cHIvWnHJey0R9wGRRz9FU3o55L6QcGfYNMGaE9Ron4T2E
- IyR7cvBFSVIAI0e4ShTTAY1+cZzx1wIyTNAx45XTR7FnR7ZmSQHpf5a4tSgS5soKCsQD
- Sv7Q==
-X-Gm-Message-State: AOAM5313hUkoPYMr0n8c/X6FB+6xB4JmOcLB+dS8QIJdwVsSpq6S2Fbd
- IG9X3T4aT8ZJ5RXaSw0A6rBuIyoEgEL8yMqCsohh3A==
-X-Google-Smtp-Source: ABdhPJznkg7TUf+jONY7OqzQeFv127axMu1xgywh+8WZhuIWTVlHyy5oiEIsbozkqFDu3oki8jWp6iCdayfpOfoaGJ4=
-X-Received: by 2002:a5d:400f:: with SMTP id n15mr9250034wrp.419.1590070582443; 
- Thu, 21 May 2020 07:16:22 -0700 (PDT)
+ bh=ABA71yUPgiCKzHH18HWOR721IXiIEUgsGk7LvEXLvcs=;
+ b=dh7JFPK+rXEQ/NibGxGJQYNTWVv831EWboeXfKDXkWaNIzpoiNyh3RLuuFas3eORjL
+ v3wA7vVcDakQM1Hva9BawQEPB4Hx4JR/v2UN5gkcpoCmyXi3NMAOFrr1ADFu2vBtqOZX
+ mQzq1N7eVYekVIwpGOc+dDCh+6gIoeDVVyWH1Ei61XDR4+X4UJDnCrnhnVUmPtxSVm8r
+ 6OMuvNaILuTr15KO78i7iuHgq/cpSatT45kDVCEhc/wqCm9Ys/DiWeowsMAFl6YW9KWP
+ +32H4T3AxoL2xFFpo8wpXpnHmM1LUqATC8DY+OrlX3cPMcytK6BoxB8B/+8yI3ZF91VI
+ K0fA==
+X-Gm-Message-State: AOAM531Z07vIkqgbXod65Bek7k3QnIg3EN+BH4KmqVYZHAZaqLfrv8Mz
+ JGGkkEe2IOTNPfnEIU7heKW+IVHx8bDaHsF9DEdx2Q==
+X-Google-Smtp-Source: ABdhPJzrRPX8kZHy1OULWAs4A4NLWaWFJ/pLg0iuQ8lXkA8NmbyjxDOhrpxQqTNpRNY582VEXsWNAndapxAdzBuD8r4=
+X-Received: by 2002:a1c:29c4:: with SMTP id p187mr9136652wmp.73.1590070608892; 
+ Thu, 21 May 2020 07:16:48 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200515183135.626855-1-alexander.deucher@amd.com>
-In-Reply-To: <20200515183135.626855-1-alexander.deucher@amd.com>
+References: <20200519154426.1752937-1-alexander.deucher@amd.com>
+In-Reply-To: <20200519154426.1752937-1-alexander.deucher@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 21 May 2020 10:16:11 -0400
-Message-ID: <CADnq5_P16h9KJ=gT3wfGU8Kg0XjrJVwZoFNqJC3U4G4_LNO37A@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: move discovery gfx config fetching
+Date: Thu, 21 May 2020 10:16:37 -0400
+Message-ID: <CADnq5_Pig-WxhqAb9tFWWRKj9Jo2_Ye-hj04XB6Udu7W=v-+PA@mail.gmail.com>
+Subject: Re: [PATCH 1/7] drm/amdgpu/sdma4: add renoir to powergating setup
 To: amd-gfx list <amd-gfx@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,46 +79,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Ping on this series?  It fixes an ordering issue for raven2.
+Ping on this series?
 
 Alex
 
-On Fri, May 15, 2020 at 2:31 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+On Tue, May 19, 2020 at 11:44 AM Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> Move it into the fw_info function since it's logically part
-> of the same functionality.
+> Looks like renoir should be handled here as well.
 >
 > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index cc41e8f5ad14..bab1be7abdf0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1617,8 +1617,10 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
->                         (const struct gpu_info_firmware_v1_0 *)(adev->firmware.gpu_info_fw->data +
->                                                                 le32_to_cpu(hdr->header.ucode_array_offset_bytes));
+> Can someone test this on renoir?
 >
-> -               if (amdgpu_discovery && adev->asic_type >= CHIP_NAVI10)
-> +               if (amdgpu_discovery && adev->asic_type >= CHIP_NAVI10) {
-> +                       amdgpu_discovery_get_gfx_info(adev);
->                         goto parse_soc_bounding_box;
-> +               }
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
->                 adev->gfx.config.max_shader_engines = le32_to_cpu(gpu_info_fw->gc_num_se);
->                 adev->gfx.config.max_cu_per_sh = le32_to_cpu(gpu_info_fw->gc_num_cu_per_sh);
-> @@ -1768,9 +1770,6 @@ static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->         if (r)
->                 return r;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> index 9077507b425a..a8cad03b1c42 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c
+> @@ -2203,6 +2203,7 @@ static int sdma_v4_0_set_powergating_state(void *handle,
 >
-> -       if (amdgpu_discovery && adev->asic_type >= CHIP_NAVI10)
-> -               amdgpu_discovery_get_gfx_info(adev);
-> -
->         amdgpu_amdkfd_device_probe(adev);
->
->         if (amdgpu_sriov_vf(adev)) {
+>         switch (adev->asic_type) {
+>         case CHIP_RAVEN:
+> +       case CHIP_RENOIR:
+>                 sdma_v4_1_update_power_gating(adev,
+>                                 state == AMD_PG_STATE_GATE ? true : false);
+>                 break;
 > --
 > 2.25.4
 >
