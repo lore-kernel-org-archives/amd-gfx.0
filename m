@@ -1,73 +1,53 @@
-Return-Path: <SRS0=MTnY=7D=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=+s4F=7E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 78D53C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 22:24:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A34F7C433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 01:21:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B9E6206F6
-	for <amd-gfx@archiver.kernel.org>; Thu, 21 May 2020 22:24:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6EB4D207F7
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 01:21:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VkMOjLw+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B9E6206F6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="xG3o7F2/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6EB4D207F7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B096E6E27C;
-	Thu, 21 May 2020 22:24:27 +0000 (UTC)
-Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
- [IPv6:2607:f8b0:4864:20::82b])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09BA26E26F;
- Thu, 21 May 2020 22:24:26 +0000 (UTC)
-Received: by mail-qt1-x82b.google.com with SMTP id l1so6852430qtp.6;
- Thu, 21 May 2020 15:24:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=V3CQCiR8svJQ7O4RzaroW4mvufa3lG771nqCJTVuRBo=;
- b=VkMOjLw+wuI2Cnz+rSU1+c2lYyS/lMURy3Ili+5IzQ/ICb3aQcC/uSt671ITM0zCvd
- ZValjhh0ECZL2VluAhhZR8eujw4IvgOg1mPFuDrd4IORYMdUdHLuNvMqu8fqFqkUkdJi
- SsLX89gRwIRXxWCprkiZAlIrXaGsTTT5galAkTlR7Dtt81puGJssvQHEU/jq7976tWJE
- 89rBWB/BsTDdiu+1C49W8xGVvt8z/psoqD1RyZDfQ5wrhq7WvXw1Gr+DPe7CWvJvTzvz
- Q97/xy2mtKOk0cL3qPq0HJI36hsU3JESy2qwdLRsYMxftnwxlkOVsYCULjbd300WvD+g
- BkxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=V3CQCiR8svJQ7O4RzaroW4mvufa3lG771nqCJTVuRBo=;
- b=ZpOnnGyES5ffn+/BqWfxCOCATTvGbhd/uWD8YUNMqA0SMvGoxp2VS7JDolELuy1h9L
- Kb5HIBVGrhsYUTC7uKhg4ku8pPMr1/uiAaWEiN0vP/IllQVcshXJwb9dvl2v3LgU9h2L
- Lv6W4+7+1wZdkj0GJj48e4gE9owHOicsuNUi4YhRDOkc9zZA0tVrmsw/GCxxNlIvFTZD
- eag8OWRtvRtvrnOcWlfhCM6NSuEFa9reg126c7Jl1V0ZhpEgICVzzWhYrCADUAHWUeuz
- evMUtaQ9tc/JK8/3Z0Zgx4oECIqcnr1pt04Vv8eFvSsjmNFkR/flq0umWxczHX0R17K8
- 6QCQ==
-X-Gm-Message-State: AOAM531q2xbuQqCpXBKfr5yuVttRg6ZYZDTNagsmynpHZAYbX+eXWwYQ
- JnwI9npL9QHCAB+auNW+5Rldt8vV
-X-Google-Smtp-Source: ABdhPJxtygEPTu0QMZlxHbNVExxab+0/B2JEZ8a1+P83cly4rKhkGbfVwKu3h7rd6EkPbtNWopUEow==
-X-Received: by 2002:ac8:5210:: with SMTP id r16mr13206758qtn.341.1590099864885; 
- Thu, 21 May 2020 15:24:24 -0700 (PDT)
-Received: from localhost.localdomain ([71.51.180.250])
- by smtp.gmail.com with ESMTPSA id a4sm6327042qtb.27.2020.05.21.15.24.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2020 15:24:24 -0700 (PDT)
-From: Alex Deucher <alexdeucher@gmail.com>
-X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniel.vetter@ffwll.ch
-Subject: [pull] amdgpu drm-fixes-5.7
-Date: Thu, 21 May 2020 18:24:15 -0400
-Message-Id: <20200521222415.4122-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.25.4
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEDF26E29E;
+	Fri, 22 May 2020 01:21:01 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0363B6E062;
+ Fri, 22 May 2020 01:20:59 +0000 (UTC)
+Received: from embeddedor (unknown [189.207.59.248])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1C568207D8;
+ Fri, 22 May 2020 01:20:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1590110458;
+ bh=2+PPWtAtIWrXh8GHaxR6UZHkYVkCWucHPcLYyfkfZjg=;
+ h=Date:From:To:Cc:Subject:From;
+ b=xG3o7F2/P+VdCTnXo4QWqPyFSMVI8Fy2R3lkyvwLIfDCWDd318uMpZrIHpMXDenuj
+ 2Rs1PL0DBHzCHn3vjzwbPtGCVi9OVhImQqdORChYY3pnhrOPASQl7OApA7tC3yBsdY
+ S7l4Oumx61oWHzX7Nk6mHHXg+AmWDna992KeSVTg=
+Date: Thu, 21 May 2020 20:25:47 -0500
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>
+Subject: [PATCH] drm/radeon/dpm: Replace one-element array and use
+ struct_size() helper
+Message-ID: <20200522012547.GA6783@embeddedor>
 MIME-Version: 1.0
+Content-Disposition: inline
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,67 +59,94 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Daniel,
+The current codebase makes use of one-element arrays in the following
+form:
 
-Fixes for 5.7.
+struct something {
+    int length;
+    u8 data[1];
+};
 
-The following changes since commit 5a3f610877e9d08968ea7237551049581f02b163:
+struct something *instance;
 
-  drm/edid: Add Oculus Rift S to non-desktop list (2020-05-20 12:56:49 +1000)
+instance = kmalloc(sizeof(*instance) + size, GFP_KERNEL);
+instance->length = size;
+memcpy(instance->data, source, size);
 
-are available in the Git repository at:
+but the preferred mechanism to declare variable-length types such as
+these ones is a flexible array member[1][2], introduced in C99:
 
-  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.7-2020-05-21
+struct foo {
+        int stuff;
+        struct boo array[];
+};
 
-for you to fetch changes up to 31ecebee9c36d5e5e113a357a655d993fa916174:
+By making use of the mechanism above, we will get a compiler warning
+in case the flexible array does not occur last in the structure, which
+will help us prevent some kind of undefined behavior bugs from being
+inadvertently introduced[3] to the codebase from now on. So, replace
+the one-element array with a flexible-array member.
 
-  drm/amd/display: Defer cursor lock until after VUPDATE (2020-05-20 17:32:13 -0400)
+Also, make use of the new struct_size() helper to properly calculate the
+size of struct NISLANDS_SMC_SWSTATE.
 
-----------------------------------------------------------------
-amd-drm-fixes-5.7-2020-05-21:
+This issue was found with the help of Coccinelle and, audited and fixed
+_manually_.
 
-amdgpu:
-- DP fix
-- Floating point fix
-- Fix cursor stutter issue
+[1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
+[2] https://github.com/KSPP/linux/issues/21
+[3] commit 76497732932f ("cxgb3/l2t: Fix undefined behaviour")
 
-----------------------------------------------------------------
-Nicholas Kazlauskas (1):
-      drm/amd/display: Defer cursor lock until after VUPDATE
+Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
+---
+ drivers/gpu/drm/amd/amdgpu/si_dpm.h | 2 +-
+ drivers/gpu/drm/radeon/ni_dpm.c     | 7 ++++---
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
-Rodrigo Siqueira (1):
-      drm/amd/display: Remove dml_common_def file
+diff --git a/drivers/gpu/drm/amd/amdgpu/si_dpm.h b/drivers/gpu/drm/amd/amdgpu/si_dpm.h
+index 6b7d292b919f3..bc0be6818e218 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si_dpm.h
++++ b/drivers/gpu/drm/amd/amdgpu/si_dpm.h
+@@ -781,7 +781,7 @@ struct NISLANDS_SMC_SWSTATE
+     uint8_t                             levelCount;
+     uint8_t                             padding2;
+     uint8_t                             padding3;
+-    NISLANDS_SMC_HW_PERFORMANCE_LEVEL   levels[1];
++    NISLANDS_SMC_HW_PERFORMANCE_LEVEL   levels[];
+ };
+ 
+ typedef struct NISLANDS_SMC_SWSTATE NISLANDS_SMC_SWSTATE;
+diff --git a/drivers/gpu/drm/radeon/ni_dpm.c b/drivers/gpu/drm/radeon/ni_dpm.c
+index b57c37ddd164c..7d81dde509dc9 100644
+--- a/drivers/gpu/drm/radeon/ni_dpm.c
++++ b/drivers/gpu/drm/radeon/ni_dpm.c
+@@ -2685,11 +2685,12 @@ static int ni_upload_sw_state(struct radeon_device *rdev,
+ 	struct rv7xx_power_info *pi = rv770_get_pi(rdev);
+ 	u16 address = pi->state_table_start +
+ 		offsetof(NISLANDS_SMC_STATETABLE, driverState);
+-	u16 state_size = sizeof(NISLANDS_SMC_SWSTATE) +
+-		((NISLANDS_MAX_SMC_PERFORMANCE_LEVELS_PER_SWSTATE - 1) * sizeof(NISLANDS_SMC_HW_PERFORMANCE_LEVEL));
++	NISLANDS_SMC_SWSTATE *smc_state;
++	u16 state_size = struct_size(smc_state, levels,
++			NISLANDS_MAX_SMC_PERFORMANCE_LEVELS_PER_SWSTATE);
+ 	int ret;
+-	NISLANDS_SMC_SWSTATE *smc_state = kzalloc(state_size, GFP_KERNEL);
+ 
++	smc_state = kzalloc(state_size, GFP_KERNEL);
+ 	if (smc_state == NULL)
+ 		return -ENOMEM;
+ 
+-- 
+2.26.2
 
-Vladimir Stempen (1):
-      drm/amd/display: DP training to set properly SCRAMBLING_DISABLE
-
- drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   | 27 +++++++++
- .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  | 69 +++++++++++++++++++++-
- .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h  |  5 ++
- drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c  |  1 +
- drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c  |  1 +
- drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c  |  1 +
- drivers/gpu/drm/amd/display/dc/dml/Makefile        |  2 -
- .../display/dc/dml/dcn20/display_rq_dlg_calc_20.h  |  1 -
- .../dc/dml/dcn20/display_rq_dlg_calc_20v2.h        |  1 -
- .../display/dc/dml/dcn21/display_rq_dlg_calc_21.h  |  2 +-
- .../gpu/drm/amd/display/dc/dml/display_mode_lib.h  |  6 +-
- .../gpu/drm/amd/display/dc/dml/display_mode_vba.h  |  2 -
- .../amd/display/dc/dml/display_rq_dlg_helpers.h    |  1 -
- .../amd/display/dc/dml/dml1_display_rq_dlg_calc.h  |  2 -
- .../gpu/drm/amd/display/dc/dml/dml_common_defs.c   | 43 --------------
- .../gpu/drm/amd/display/dc/dml/dml_common_defs.h   | 37 ------------
- .../gpu/drm/amd/display/dc/dml/dml_inline_defs.h   | 15 ++++-
- drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h  |  5 ++
- 18 files changed, 126 insertions(+), 95 deletions(-)
- delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/dml_common_defs.c
- delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/dml_common_defs.h
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
