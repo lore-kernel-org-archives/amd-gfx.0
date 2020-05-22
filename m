@@ -2,105 +2,105 @@ Return-Path: <SRS0=+s4F=7E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_FONT_FACE_BAD,HTML_MESSAGE,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4FE46C433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 05:53:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC2BCC433E0
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 05:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0C74920757
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 05:53:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B151120757
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 05:53:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="2L09JfIT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0C74920757
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ayvc3od9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B151120757
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7F8C6E046;
-	Fri, 22 May 2020 05:53:22 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2077.outbound.protection.outlook.com [40.107.244.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5E2F6E046
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 May 2020 05:53:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 669BB6E0E7;
+	Fri, 22 May 2020 05:53:30 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E58DE6E0E7
+ for <amd-gfx@lists.freedesktop.org>; Fri, 22 May 2020 05:53:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Oy1gBhT1M1rYEwhETaNm60CROiNMJOvFJOw67nX21bp4WH/Jioe3FIG9DlwXR+CfYUafnjLyYbjR4iYT0D2jD2zgVCt8XN5/iU1xS2IRIal5nJjM8uInPDGVo8dDbuHtstNC3Xmfhzmxf2yOOa3HSWrUwxlCr/X7TGtqQrzWCyQ2krQ9iUSPmrrhQCZo7FYCgVlEkuTIhXlX3FQyAeamxCYuwamIwCPxmTAdX0Q3Fpu+rEhrL5+15vTYQnqUVTWTfmDi0BA69EPb3Al+EJ8L50Le6dLpFwgkqUUjHREzYGlf2k+fb+CG7V67eQhKgBAV0s5jABpOekaOi59FWL0/yA==
+ b=Ztu3rR1RVyxO2URFJ+3p+lQGqmjM3IjY6VAGkogmpcvEx0X2+MqfuuCrToiAztQRi/5cbXWp9R5PJIFR5G8gWRJ8HnDEDrhY2gZn9Ox2Zq78J0siBO51HtnEHd+wu+1loeyIo1Sx080CBeCCzPJTPQMP1RibzUBhs7Dqj6uzgkxAQi33mDy2zV4g2z7GVr6+KjJPVpheScFZqUXrHCevkNKPcS0HkVfn3JoNCEZfjPS4DvSYy0JPnKNuJQPT8qACiAtW/KTVpGM43VbuAN+0ipwPeNfr3v2l0DUK0pL0sywMJnUJmJGBWgjs7gIs5/AEYjSBNHoGMzupLmtuQGj21Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fo0AZH1B6Y2F9V7Qo3GV3CZrgPhgBsvJgUAy7NXmey0=;
- b=dWHvKQCHDkSRZozY2NcXkS9nKNc1wzD48gje1yUUQWQEl7KCVTt9hVgXrdfReXsb5gN6cxjSTZkKCl68Ak0o52eaOyrLHsrEq0VzIjtDRCeiIUeGBZNUeD46pfz7+RLioiitszyF/GEwdGzAVqw/QW+XND0ELqMfkqXX2KmDJVdH7AZymbuwa8LP5p4APXn6ZAtCfbUJUcjyz3a9/pQGMUTPnhQulMraRoMGQjQh4Qrey/yEmwmFLxGkyUxAF+gmfK4fl7ba46fdCONXCWcjKKvPB52rOpOGQWQjFYe2VzcObP7uwoo4N+SwojVj3TwcpKxV4RkJ+nWIvZMdnkC6jw==
+ bh=qDbuYAivULH0cjF1BLyt/I1K0e+YPqyQMKY53d+SgOw=;
+ b=l7In4QyWWfty+WuWPyz/uddvAV8sW/JU4tq8qV5y02PvNKxrlpvQG4CiHuyOWa9XSgyiaPorV2nGx5Uat2VgH5/1HmTXZbGO1ipUccIesNV2ueDNqswaCb7hBLMP36jQhCHUPuw8jC4dCYlT3JXoM9fC0WG5226uhZjxBh/aRNUuSQ7g+S8h+AiqcUX+mQrMSIXoYw18g9vGLWgBkJDEmqlSH2AINRKWGHG3+KGFe4T+XANow4rYWylCl5AM/C4I8XyH/F4pIAfKWzImROUv0KaRUQP51J9Db5/yz0RKCmcgXYx+eOHofngD1zTK1JyC3sMVCYXnYN5jBUwfQBPz6A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fo0AZH1B6Y2F9V7Qo3GV3CZrgPhgBsvJgUAy7NXmey0=;
- b=2L09JfITj3TBIpdRMq94bqSYQbHPWji8Vn0y/xNo3X5BEDeThFmWRSA32mYgEJUsXeaHobW1FfKREnIeX9p1CKfqymJCmfRpQCk6HYV9KxaqJVU+wiHs8OIp98yiqOPWINZhuHlxjnk1tfbe5TO8bXDto6RYVky+HRT4o6mCBlM=
-Received: from BY5PR12MB4068.namprd12.prod.outlook.com (2603:10b6:a03:203::12)
- by BY5PR12MB3986.namprd12.prod.outlook.com (2603:10b6:a03:195::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.23; Fri, 22 May
- 2020 05:53:18 +0000
-Received: from BY5PR12MB4068.namprd12.prod.outlook.com
- ([fe80::1897:7b63:ee7e:5d2c]) by BY5PR12MB4068.namprd12.prod.outlook.com
- ([fe80::1897:7b63:ee7e:5d2c%2]) with mapi id 15.20.3021.027; Fri, 22 May 2020
- 05:53:18 +0000
-From: "Wang, Kevin(Yang)" <Kevin1.Wang@amd.com>
-To: "Quan, Evan" <Evan.Quan@amd.com>, Alex Deucher <alexdeucher@gmail.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/amdgpu: fix sysfs power controls with multi-GPU
-Thread-Topic: [PATCH] drm/amdgpu: fix sysfs power controls with multi-GPU
-Thread-Index: AQHWL7gl6BJxwgFrSUypIHvvSK+vlaizlfqggAAE4e0=
-Date: Fri, 22 May 2020 05:53:18 +0000
-Message-ID: <BY5PR12MB4068ABF0C467558D479D4D49A2B40@BY5PR12MB4068.namprd12.prod.outlook.com>
-References: <20200521213806.4016-1-alexander.deucher@amd.com>,
- <DM6PR12MB261949C39144B50C765AE290E4B40@DM6PR12MB2619.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB261949C39144B50C765AE290E4B40@DM6PR12MB2619.namprd12.prod.outlook.com>
+ bh=qDbuYAivULH0cjF1BLyt/I1K0e+YPqyQMKY53d+SgOw=;
+ b=ayvc3od9ksCMrt7xxrbeNoioiAr7pGjpD6HZpsB4X+kKCMaR+9djR1zO6wAZuasx1Fn7UrXqoMfL8/rtJb4djkNgZMKxgB8W5xiqJ4UwR1ZEaUj18I+xMuMslo8YYYkCEL80QGOW5bW6+45vjSIvBDVAjr+klQI+DWt9qkkeeMg=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM6PR12MB2987.namprd12.prod.outlook.com (2603:10b6:5:3b::25) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3021.26; Fri, 22 May 2020 05:53:25 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3000.022; Fri, 22 May 2020
+ 05:53:25 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: simplify ATIF backlight handling
+Thread-Topic: [PATCH] drm/amdgpu: simplify ATIF backlight handling
+Thread-Index: AQHWIxZmuuN9wYGS5ky1efcZsYCLP6iztFSA
+Date: Fri, 22 May 2020 05:53:25 +0000
+Message-ID: <DM6PR12MB2619F921240B6C25712400F3E4B40@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20200505194812.185370-1-alexander.deucher@amd.com>
+In-Reply-To: <20200505194812.185370-1-alexander.deucher@amd.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-22T05:53:22.842Z;
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=6ad81f59-c980-4562-80af-0000a3709c2e;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
- Distribution
- Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-22T05:53:02Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: f2154330-f35c-4bbb-bbb1-08d7fe146da1
-x-ms-traffictypediagnostic: BY5PR12MB3986:
+x-ms-office365-filtering-correlation-id: e35c1daa-a927-4fac-5eda-08d7fe1471c5
+x-ms-traffictypediagnostic: DM6PR12MB2987:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BY5PR12MB3986E9483E2028F5622A5B7CA2B40@BY5PR12MB3986.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1775;
+x-microsoft-antispam-prvs: <DM6PR12MB2987134431944A9B29B67761E4B40@DM6PR12MB2987.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3173;
 x-forefront-prvs: 04111BAC64
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: gYZU1t0PnXkMgQl9bHiHCrUdKCTBG3oe1xajOsduS41niXN4sM1IzLhP0fpV49CmQo4X/cAgMWrYyFIzP1781cE18nIDqZ+1ShXNV9JzFkF601BiSGXS+ti5YAnNOEO/scKKCY0MtTMPTXRRIXkhqVxxKX4X6M7tuuTuuSPrZ2gygGGOXfso56eGoyiCjWKZ5ys+n7midOqEd3ErVs1LoXQqWj5Wk/NimrF57gi9YZba4IrK755PyydFJ1OnKxz+xGwpsAdqJ5OeWjbFY84qzEjSIkoLdzMNCwuDcZIMJGz8/RcWgIo6ng34ipIbYKinTykSpjXfG7hMhCrLpIQaKQKeXTrab2YF7YhCjQuA72xN4SXFVwHl1nF8nZoKG6N8aH0ZqIvp6XCvxnJSWTfjE1P4S17sYy1uoob+E70EpRg=
+x-microsoft-antispam-message-info: 0IFe3ITMmBcoignnRDAaSbdupNwYt/qVQ2gUNlsMlAhZ0HRH64jCD8X4UMBAHk1YjR6GKp4P/CVMZE5FGbMeOxuclF/3ykx24ZfglHvst2iQ3lcN5JkQZh7sCkkwcrCK9P2nY6DVE6Gssmx2BbhEtjnUyuZj0ip0RzRR9ThRS1XMTyT0eIwmhpvRytT6tJMdJeAoYl9s8WoW55MDbUy0viirsuqNmH/dSuiA/hGhZsWMUXvSeqRWXC/LpvfmJevTMuS6B5J9q0GzSAxFHv2gq33lF3JCub1MQxPHQveleUYG1xWVjlFPSIfY654KTuGap6Qs9BF8mdOhboYrcvPJ49P3OVnRhMDkUpsR+7wm8kfzFK0sCFeYcRess2TVhBOYFn/nJrPOe+Mk7TaznouitjQr/G1XLodjMn0JeKNctns=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BY5PR12MB4068.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(366004)(376002)(396003)(39860400002)(346002)(45080400002)(966005)(5660300002)(86362001)(55016002)(478600001)(66446008)(33656002)(316002)(7696005)(66946007)(186003)(64756008)(53546011)(66556008)(76116006)(110136005)(6506007)(9686003)(91956017)(66476007)(52536014)(4326008)(8676002)(2906002)(26005)(71200400001)(166002)(19627405001)(8936002)(21314003);
+ SFS:(4636009)(39860400002)(136003)(376002)(396003)(346002)(366004)(9686003)(6506007)(53546011)(5660300002)(7696005)(316002)(86362001)(26005)(52536014)(33656002)(110136005)(4326008)(71200400001)(966005)(45080400002)(55016002)(2906002)(66446008)(64756008)(8936002)(186003)(66556008)(76116006)(478600001)(66946007)(8676002)(66476007)(21314003);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: nVCggVt0BitG79mmsjixVtj1AUBkwa+Rs8u6XL/Y/d9zBc/UxENyfMUjqp8uFk+XhXBGbRSDESUkFP3uOHbxBIXutHHU4XZafM7Se51zeJ3Cu59e/yLsaQ5SrVnA9mlnu9QLE3bexfOOqNsUkWEdPwwwjKDDxWgHIIBWqRLEY8lvRyW8wCvrTojot4BcFiPmFrmk8gygXVJbvRfbNR2AMmfDvEfEDmmU3LRz40O6skxZXnVGv0TWDCpwaV4xIGLltcTFuw01coA6dQBYWkn7eUTAwPkKG8IQU3QLIIgfzhni2uIAe2toy/dQBNH/P2mN2SltljdxsTHZAZ+VhqlZ3Tu7KeuP50q/+B2/99yChQT4yVkEjGiyEfAjJuR/S9pXQ6+1xddiTwZezksrAgA80yPfjWrUv0KXGxttLT1Oi/eRnX4FLn4QwHbflmQNtB1u6riFDiTMHWLTGnB19s5ti57KamLq/m96zGmtAyfltoa70hnPOk3updOh8CpdH8XB
+x-ms-exchange-antispam-messagedata: 01iHWH9tt4+bCHbfoP6gQCZjy58dvlg8H24de295+HOX3/yD25CJla1v6PV+40wF7/c4QsD4KbIvZGVhpCIMk0h0pFw/tBB8neKnoRLBdE54f37VvfwosWjhtZ3FXGfst//3Ds7BPtNJiAjUFMVgTMrqpZIBSymekZoKw2AZO7byXcIO1eZe0IqMrhAz3ILixO9IM+K2Iu0ex+e7Rwo3HG6wgdTyeD/vR0XxaJk7r+r4D2g6EYMxltw2LPNS55o49/CTnwT2JPmBId3zGSaXaFuLbVMY4Ho9DYlRITcUkxYaM+7dY01J3Q1b/BgEUbdeRZaSzg4v1ucJi6QOiUewiI7LmB8ZbdjKlKVHtZ+LpMmwZlrLNa5OQIs7c8sNbgxw5GWnsNlYDDUuxXSaeF7IRtHv+P9HoNxqR8OCJG0lLfGw6K9UfUfPuT40yeI1ryRvnnEghY+ypUoDtrF2357LX4r9DsL2xNHSCWWXWrqhz2lChvpqqyo5rZQc+azH8mJh
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2154330-f35c-4bbb-bbb1-08d7fe146da1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2020 05:53:18.3781 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e35c1daa-a927-4fac-5eda-08d7fe1471c5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 May 2020 05:53:25.6306 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: nwAODkoKQMmADzGMtGKTxI3Ibzm1d7DpOqCW7D3VdCEWLQlirOQjpm9uQ1kd1Zs0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB3986
+X-MS-Exchange-CrossTenant-userprincipalname: F/+A+TBvbA4G0UB567+1NG57F4i4Ssnv8+NA1dMu5Y2Y0MqXTAjPxXj8Do8N6BRe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2987
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,301 +113,148 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Content-Type: multipart/mixed; boundary="===============1153434727=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-
---===============1153434727==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_BY5PR12MB4068ABF0C467558D479D4D49A2B40BY5PR12MB4068namp_"
-
---_000_BY5PR12MB4068ABF0C467558D479D4D49A2B40BY5PR12MB4068namp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-[AMD Official Use Only - Internal Distribution Only]
-
-Hi Alex,
-
-the flag of "ATTR_STATE_[UN]SUPPORTED" should be binding to device not devi=
-ce attribute node,
-when inserting two different video cards, the driver may be need to create =
-different node according device type (vega, navi,...),
-and when unload driver, the driver also need remove different node accordin=
-g device type and the state of ATTR_STATE_SUPPORTED.
-so i think the ATTR_STATE_XXX is not work well on multi gpu, so we'd better=
- revert previous patch.
-thanks.
-
-Best Regards,
-Kevin
-
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Quan, Ev=
-an <Evan.Quan@amd.com>
-Sent: Friday, May 22, 2020 1:35 PM
-To: Alex Deucher <alexdeucher@gmail.com>; amd-gfx@lists.freedesktop.org <am=
-d-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: fix sysfs power controls with multi-GPU
-
-[AMD Official Use Only - Internal Distribution Only]
 
 [AMD Official Use Only - Internal Distribution Only]
 
 Acked-by: Evan Quan <evan.quan@amd.com>
 
 -----Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deu=
-cher
-Sent: Friday, May 22, 2020 5:38 AM
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
+Sent: Wednesday, May 6, 2020 3:48 AM
 To: amd-gfx@lists.freedesktop.org
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdgpu: fix sysfs power controls with multi-GPU
+Subject: [PATCH] drm/amdgpu: simplify ATIF backlight handling
 
-Reset the SUPPORTED attribute.
+Just register the a pointer to the backlight device and use that. Unifies the DC and non-DC handling.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 73 ++++++++++--------------
+ 1 file changed, 30 insertions(+), 43 deletions(-)
 
-This fixes multi-GPU, but I think we could still race without some sort of =
-locking around the attr array.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+index 956cbbda4793..913c8f0513bd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
+@@ -64,7 +64,9 @@ struct amdgpu_atif {
+ struct amdgpu_atif_notifications notifications;
+ struct amdgpu_atif_functions functions;
+ struct amdgpu_atif_notification_cfg notification_cfg;
+-struct amdgpu_encoder *encoder_for_bl;
++#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
++struct backlight_device *bd;
++#endif
+ struct amdgpu_dm_backlight_caps backlight_caps;  };
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 2 ++
- 1 file changed, 2 insertions(+)
+@@ -444,45 +446,21 @@ static int amdgpu_atif_handler(struct amdgpu_device *adev,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c
-index e06fef6174e5..4c65444e9ef7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-@@ -1790,6 +1790,8 @@ static int amdgpu_device_attr_create(struct amdgpu_de=
-vice *adev,
+ DRM_DEBUG_DRIVER("ATIF: %d pending SBIOS requests\n", count);
 
- BUG_ON(!attr);
-
-+attr->states =3D ATTR_STATE_SUPPORTED;
+-if ((req.pending & ATIF_PANEL_BRIGHTNESS_CHANGE_REQUEST) &&
+-    !amdgpu_device_has_dc_support(adev)) {
+-struct amdgpu_encoder *enc = atif->encoder_for_bl;
+-
+-if (enc) {
+-struct amdgpu_encoder_atom_dig *dig = enc->enc_priv;
+-
+-DRM_DEBUG_DRIVER("Changing brightness to %d\n",
+- req.backlight_level);
+-
+-amdgpu_display_backlight_set_level(adev, enc, req.backlight_level);
+-
+-#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
+-backlight_force_update(dig->bl_dev,
+-       BACKLIGHT_UPDATE_HOTKEY);
+-#endif
+-}
+-}
+-#if defined(CONFIG_DRM_AMD_DC)
++if (req.pending & ATIF_PANEL_BRIGHTNESS_CHANGE_REQUEST) {
+ #if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
+-if ((req.pending & ATIF_PANEL_BRIGHTNESS_CHANGE_REQUEST) &&
+-    amdgpu_device_has_dc_support(adev)) {
+-struct amdgpu_display_manager *dm = &adev->dm;
+-struct backlight_device *bd = dm->backlight_dev;
+-
+-if (bd) {
++if (atif->bd) {
+ DRM_DEBUG_DRIVER("Changing brightness to %d\n",
+  req.backlight_level);
+-
+ /*
+  * XXX backlight_device_set_brightness() is
+  * hardwired to post BACKLIGHT_UPDATE_SYSFS.
+  * It probably should accept 'reason' parameter.
+  */
+-backlight_device_set_brightness(bd, req.backlight_level);
++backlight_device_set_brightness(atif->bd, req.backlight_level);
+ }
+-}
+-#endif
+ #endif
++}
 +
- attr_update =3D attr->attr_update ? attr_update : default_attr_update;
+ if (req.pending & ATIF_DGPU_DISPLAY_EVENT) {
+ if (adev->flags & AMD_IS_PX) {
+ pm_runtime_get_sync(adev->ddev->dev);
+@@ -829,23 +807,32 @@ int amdgpu_acpi_init(struct amdgpu_device *adev)
+ adev->atif = atif;
 
- ret =3D attr_update(adev, attr, mask);
+ if (atif->notifications.brightness_change) {
+-struct drm_encoder *tmp;
+-
+-/* Find the encoder controlling the brightness */
+-list_for_each_entry(tmp, &adev->ddev->mode_config.encoder_list,
+-head) {
+-struct amdgpu_encoder *enc = to_amdgpu_encoder(tmp);
+-
+-if ((enc->devices & (ATOM_DEVICE_LCD_SUPPORT)) &&
+-    enc->enc_priv) {
+-struct amdgpu_encoder_atom_dig *dig = enc->enc_priv;
+-if (dig->bl_dev) {
+-atif->encoder_for_bl = enc;
+-break;
++#if defined(CONFIG_BACKLIGHT_CLASS_DEVICE) || defined(CONFIG_BACKLIGHT_CLASS_DEVICE_MODULE)
++if (amdgpu_device_has_dc_support(adev)) { #if
++defined(CONFIG_DRM_AMD_DC)
++struct amdgpu_display_manager *dm = &adev->dm;
++atif->bd = dm->backlight_dev;
++#endif
++} else {
++struct drm_encoder *tmp;
++
++/* Find the encoder controlling the brightness */
++list_for_each_entry(tmp, &adev->ddev->mode_config.encoder_list,
++    head) {
++struct amdgpu_encoder *enc = to_amdgpu_encoder(tmp);
++
++if ((enc->devices & (ATOM_DEVICE_LCD_SUPPORT)) &&
++    enc->enc_priv) {
++struct amdgpu_encoder_atom_dig *dig = enc->enc_priv;
++if (dig->bl_dev) {
++atif->bd = dig->bl_dev;
++break;
++}
+ }
+ }
+ }
+ }
++#endif
+
+ if (atif->functions.sbios_requests && !atif->functions.system_params) {
+ /* XXX check this workraround, if sbios request function is
 --
 2.25.4
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7CKevin1.W=
-ang%40amd.com%7Cd86afa6ac5ab49bd75d208d7fe11ed8d%7C3dd8961fe4884e608e11a82d=
-994e183d%7C0%7C0%7C637257225315854026&amp;sdata=3DTMiKBdpSF4wPgkLgbRBtTloPL=
-FBHyyLXuO%2BxSgSE%2BeY%3D&amp;reserved=3D0
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.f=
-reedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=3D02%7C01%7CKevin1.W=
-ang%40amd.com%7Cd86afa6ac5ab49bd75d208d7fe11ed8d%7C3dd8961fe4884e608e11a82d=
-994e183d%7C0%7C0%7C637257225315864023&amp;sdata=3DMtypjxOmgqJhKwNEMH75r3Z%2=
-F9M3Uv7qTpOjQo1yBSVk%3D&amp;reserved=3D0
-
---_000_BY5PR12MB4068ABF0C467558D479D4D49A2B40BY5PR12MB4068namp_
-Content-Type: text/html; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"background-color: rgba(0, 0, 0, 0); color: rgb(50, 49, 48); =
-font-family: &quot;segoe ui&quot;, &quot;segoe ui web (west european)&quot;=
-, &quot;segoe ui&quot;, -apple-system, blinkmacsystemfont, roboto, &quot;he=
-lvetica neue&quot;, sans-serif; font-size: 11pt;">Hi Alex,</span><br>
-</div>
-<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
-t; color:rgb(0,0,0)">
-<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
-lvetica, sans-serif">
-<br>
-</div>
-<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
-lvetica, sans-serif">
-<span style=3D"margin: 0px; font-size: 11pt; font-family: &quot;segoe ui&qu=
-ot;, &quot;segoe ui web (west european)&quot;, &quot;segoe ui&quot;, -apple=
--system, blinkmacsystemfont, roboto, &quot;helvetica neue&quot;, sans-serif=
-; color: rgb(50, 49, 48); background-color: rgba(0, 0, 0, 0)">the flag of
- &quot;ATTR_STATE_[UN]SUPPORTED&quot; should be binding to device not devic=
-e attribute node,</span></div>
-<div style=3D"margin: 0px; font-family: &quot;Segoe UI&quot;, &quot;Segoe U=
-I Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacS=
-ystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(50, 4=
-9, 48)">
-<font face=3D"segoe ui, segoe ui web (west european), segoe ui, -apple-syst=
-em, blinkmacsystemfont, roboto, helvetica neue, sans-serif"><span style=3D"=
-margin: 0px; font-size: 14.6667px"></span></font></div>
-<span style=3D"margin: 0px; font-family: &quot;Segoe UI&quot;, &quot;Segoe =
-UI Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMac=
-SystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(50, =
-49, 48)">when inserting two different video cards, the driver may be need
- to create different node according device type (vega, navi,...),</span>
-<div style=3D"margin: 0px; font-family: &quot;Segoe UI&quot;, &quot;Segoe U=
-I Web (West European)&quot;, &quot;Segoe UI&quot;, -apple-system, BlinkMacS=
-ystemFont, Roboto, &quot;Helvetica Neue&quot;, sans-serif; color: rgb(50, 4=
-9, 48)">
-<span style=3D"margin: 0px">and when unload driver, the driver also need re=
-move different node according device type and the state of ATTR_STATE_SUPPO=
-RTED.<br>
-</span>
-<div style=3D"margin: 0px"><font face=3D"segoe ui, segoe ui web (west europ=
-ean), segoe ui, -apple-system, blinkmacsystemfont, roboto, helvetica neue, =
-sans-serif"><span style=3D"margin: 0px; font-size: 14.6667px">so i think th=
-e ATTR_STATE_XXX is not work well on multi
- gpu, so we'd better revert previous patch.</span></font></div>
-<div style=3D"margin: 0px"><font face=3D"segoe ui, segoe ui web (west europ=
-ean), segoe ui, -apple-system, blinkmacsystemfont, roboto, helvetica neue, =
-sans-serif"><span style=3D"margin: 0px; font-size: 14.6667px">thanks.</span=
-></font></div>
-<div style=3D"margin: 0px">
-<div style=3D"margin: 0px"><span style=3D"margin: 0px"></span>
-<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
-lvetica, sans-serif; color: rgb(0, 0, 0)">
-<br>
-</div>
-<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
-lvetica, sans-serif; color: rgb(0, 0, 0)">
-<span style=3D"margin: 0px; font-size: 11pt; font-family: &quot;segoe ui&qu=
-ot;, &quot;segoe ui web (west european)&quot;, &quot;segoe ui&quot;, -apple=
--system, blinkmacsystemfont, roboto, &quot;helvetica neue&quot;, sans-serif=
-; color: rgb(50, 49, 48); background-color: rgba(0, 0, 0, 0)">Best Regards,=
-</span></div>
-<div style=3D"margin: 0px; font-size: 12pt; font-family: Calibri, Arial, He=
-lvetica, sans-serif; color: rgb(0, 0, 0)">
-<span style=3D"margin: 0px; font-size: 11pt; font-family: &quot;segoe ui&qu=
-ot;, &quot;segoe ui web (west european)&quot;, &quot;segoe ui&quot;, -apple=
--system, blinkmacsystemfont, roboto, &quot;helvetica neue&quot;, sans-serif=
-; color: rgb(50, 49, 48); background-color: rgba(0, 0, 0, 0)">Kevin</span><=
-/div>
-</div>
-</div>
-</div>
-<br>
-</div>
-<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" co=
-lor=3D"#000000" style=3D"font-size:11pt"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Quan, Evan &lt;Evan.Quan@amd.=
-com&gt;<br>
-<b>Sent:</b> Friday, May 22, 2020 1:35 PM<br>
-<b>To:</b> Alex Deucher &lt;alexdeucher@gmail.com&gt;; amd-gfx@lists.freede=
-sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: fix sysfs power controls with multi=
--GPU</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
->
-<div class=3D"PlainText">[AMD Official Use Only - Internal Distribution Onl=
-y]<br>
-<br>
-[AMD Official Use Only - Internal Distribution Only]<br>
-<br>
-Acked-by: Evan Quan &lt;evan.quan@amd.com&gt;<br>
-<br>
------Original Message-----<br>
-From: amd-gfx &lt;amd-gfx-bounces@lists.freedesktop.org&gt; On Behalf Of Al=
-ex Deucher<br>
-Sent: Friday, May 22, 2020 5:38 AM<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;<br>
-Subject: [PATCH] drm/amdgpu: fix sysfs power controls with multi-GPU<br>
-<br>
-Reset the SUPPORTED attribute.<br>
-<br>
-Signed-off-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;<br>
----<br>
-<br>
-This fixes multi-GPU, but I think we could still race without some sort of =
-locking around the attr array.<br>
-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 2 &#43;&#43;<br>
-&nbsp;1 file changed, 2 insertions(&#43;)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/a=
-mdgpu/amdgpu_pm.c<br>
-index e06fef6174e5..4c65444e9ef7 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-&#43;&#43;&#43; b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c<br>
-@@ -1790,6 &#43;1790,8 @@ static int amdgpu_device_attr_create(struct amdgp=
-u_device *adev,<br>
-<br>
-&nbsp;BUG_ON(!attr);<br>
-<br>
-&#43;attr-&gt;states =3D ATTR_STATE_SUPPORTED;<br>
-&#43;<br>
-&nbsp;attr_update =3D attr-&gt;attr_update ? attr_update : default_attr_upd=
-ate;<br>
-<br>
-&nbsp;ret =3D attr_update(adev, attr, mask);<br>
---<br>
-2.25.4<br>
-<br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7CKevin1.Wang%40amd.com%7Cd86afa6ac5ab49bd75d208d7fe11ed8d%7C3dd8961fe=
-4884e608e11a82d994e183d%7C0%7C0%7C637257225315854026&amp;amp;sdata=3DTMiKBd=
-pSF4wPgkLgbRBtTloPLFBHyyLXuO%2BxSgSE%2BeY%3D&amp;amp;reserved=3D0">https://=
-nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedeskt=
-op.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7CKevin1.Wang%=
-40amd.com%7Cd86afa6ac5ab49bd75d208d7fe11ed8d%7C3dd8961fe4884e608e11a82d994e=
-183d%7C0%7C0%7C637257225315854026&amp;amp;sdata=3DTMiKBdpSF4wPgkLgbRBtTloPL=
-FBHyyLXuO%2BxSgSE%2BeY%3D&amp;amp;reserved=3D0</a><br>
-_______________________________________________<br>
-amd-gfx mailing list<br>
-amd-gfx@lists.freedesktop.org<br>
-<a href=3D"https://nam11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2=
-F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%=
-7C01%7CKevin1.Wang%40amd.com%7Cd86afa6ac5ab49bd75d208d7fe11ed8d%7C3dd8961fe=
-4884e608e11a82d994e183d%7C0%7C0%7C637257225315864023&amp;amp;sdata=3DMtypjx=
-OmgqJhKwNEMH75r3Z%2F9M3Uv7qTpOjQo1yBSVk%3D&amp;amp;reserved=3D0">https://na=
-m11.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Flists.freedesktop=
-.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;amp;data=3D02%7C01%7CKevin1.Wang%40=
-amd.com%7Cd86afa6ac5ab49bd75d208d7fe11ed8d%7C3dd8961fe4884e608e11a82d994e18=
-3d%7C0%7C0%7C637257225315864023&amp;amp;sdata=3DMtypjxOmgqJhKwNEMH75r3Z%2F9=
-M3Uv7qTpOjQo1yBSVk%3D&amp;amp;reserved=3D0</a><br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_BY5PR12MB4068ABF0C467558D479D4D49A2B40BY5PR12MB4068namp_--
-
---===============1153434727==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cevan.quan%40amd.com%7Cf8a40f42e8ec4ea3c9e008d7f12d4592%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637243050173626661&amp;sdata=yj1OgR%2FXj4X0VvZ3%2F%2FOIGgA0RDN4JP%2FG7IOuBM9xEaA%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1153434727==--
