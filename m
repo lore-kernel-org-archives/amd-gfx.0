@@ -2,79 +2,78 @@ Return-Path: <SRS0=+s4F=7E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-1.8 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50592C433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 10:28:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2F94C433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 10:40:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B8E220738
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 10:28:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C3CE4204EA
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 10:40:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lW2P1TTL"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B8E220738
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UAhIRTAN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3CE4204EA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C8BAA6E9BA;
-	Fri, 22 May 2020 10:28:18 +0000 (UTC)
-Received: from mail-ej1-x644.google.com (mail-ej1-x644.google.com
- [IPv6:2a00:1450:4864:20::644])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E46B86E9BA
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 May 2020 10:28:17 +0000 (UTC)
-Received: by mail-ej1-x644.google.com with SMTP id x1so12388816ejd.8
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 May 2020 03:28:17 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B36256E9BD;
+	Fri, 22 May 2020 10:40:10 +0000 (UTC)
+Received: from mail-ej1-x62b.google.com (mail-ej1-x62b.google.com
+ [IPv6:2a00:1450:4864:20::62b])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF0986E9BA;
+ Fri, 22 May 2020 10:40:09 +0000 (UTC)
+Received: by mail-ej1-x62b.google.com with SMTP id j21so12479508ejy.1;
+ Fri, 22 May 2020 03:40:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=reply-to:subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-transfer-encoding:content-language;
- bh=miBI6wuob9DcW81kVZPOP3LTZjIZH1G3YuGehQ80TBs=;
- b=lW2P1TTLGDy5NhL4k3EWhPlz18MyTU0e6Ns4sSZT9c410Bw4MJ9UApfq7Zs7jZGlEx
- jtPUv9JVqw+fXJ7/oWLNaBANg00nYF0MGl6eOBIZrQSIhIaNv4HvdHzYTKi0tXeiZV2W
- PmwA7qSEjUSSBwmIA9HDs1GBaykNHHvHEkv/kcsMuhzg9Dopd/NHK1J9B+zxZ6oSgqXs
- S3+GhvaUklyM7/2g9cZVqhkQyhWUm1WRK/R203bKgYGkQzh9o8vUTJxBy73PFHW40L7w
- WWnLBP7Z3/QorG7pxTJM2EnUezf28c9Q4VoCsIXGy6dewcFg8NoXfJiDs//ToJOFKn6H
- iIRQ==
+ bh=TYcDv5vIBw6ya7Ut1f794E52nl6X9yRKNiq2adVnOx8=;
+ b=UAhIRTANXcE313UyA5JQ4miAQk2o05HqRii5VRnb/Kx6Z8NMwgJu4gODrOVh0/fRHi
+ IfhY73LkEqaEfuO/b49HBpYZcWXntIHjTkZjFKzsSDGzsDe3kX4LFpM67iuZP3LVjbDC
+ 4aMltvsHT+kdY0sx7cq/l22jKESV5WLhwW1x6PNngbWZZGyWmAOW3t0OHuirKuARApt6
+ FqWgZqsw7Aw1wrZOugSC47Bc9GCWmtUvFruQ9Wj7nz3NFwe5zI3WdMY6AKL0X/Y879iW
+ 5qoIcPjMNQIGTp+eJPWcHAIFv7ijOulYJlGCCFOvtxgk28VL33AhgrK2SfKrUkUv9Dui
+ HO7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:reply-to:subject:to:cc:references:from
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-transfer-encoding:content-language;
- bh=miBI6wuob9DcW81kVZPOP3LTZjIZH1G3YuGehQ80TBs=;
- b=rH1iIPULEV4GUjqtDBH+ts+hXQt31uhN7cykx1ROHyLkwdU62sPs6xLZVxTJsfFXJk
- All1Z7EfE/0CBXh2G2bKFsoycsZwmPI7JHAcMJIZmzhqyMclP9FFNrJl5EK4aQ8tNzrx
- nE+X7hWDoOXb0Qlv/+kEWuvPciLL4xasTUIsw2gj9I67zDmhMQNzF05gXPIMPPQh62Sr
- 297uf3ppsEfOQ0FWnvR699bSfG6yXnnX7ucuEZLRnKb1bQYx3kIKDvjXgNQpC/xYgPTg
- Pe9cdJF3Gxw+x8noCRdjY0+BNEOpAodRMeZWg528cZ+WQG/O1a626Hy3SIR8C+1Y4mI0
- 4ysA==
-X-Gm-Message-State: AOAM5319kzXoYpvJzEuVey6uq3WnZpoOgDHDQN+4RRGqVx0zsmOMXsvO
- 8xFtGhWB7xDZC9VW0EKAK0EUK8cw
-X-Google-Smtp-Source: ABdhPJzl2XUWvjoi2xqqd5cnNEUpZQYam9T3z3KUSINTK2gner8isnAZkTtR8Y55KxuGv0cwy8Io9g==
-X-Received: by 2002:a17:906:14db:: with SMTP id
- y27mr7755864ejc.427.1590143296212; 
- Fri, 22 May 2020 03:28:16 -0700 (PDT)
+ bh=TYcDv5vIBw6ya7Ut1f794E52nl6X9yRKNiq2adVnOx8=;
+ b=IJdP/rMLu+SA7nk9XSKdq9CRqdlVbRCx0++2r36Nx/y9XvvTfJQZYbhzrSjWcFAuQd
+ aU9sFum8EJZCppHFDjQXwoUvibJv6V3RVlXosrfqEZ9LaKeaRlma3u68oXwmodHDJqxo
+ +EhM6LJhb3KS09R4VMy/b8GDg7QUMVfzx3PonF9itY6mqOmfV52pSy1Bz7bnCTnBiaA1
+ wmVnPJO7TLmnD4vZzGy0/hcvuKhKATKMluer5VebRCM9YcHNqDvsk7/NxIOFuaz3DcmY
+ hYSb1sG38f7wseCDeBy/soHS7efipDNKorv5xiRQjuHePIy106EWsxWUfG/X/VTQQet6
+ k70w==
+X-Gm-Message-State: AOAM532y9BrgKPrTrC4+XK3fHuAARfaVrOKFQUQP362pbb++cQjdZQnB
+ a0GniPM6F6a61FQ8/W5YGX0khvyA
+X-Google-Smtp-Source: ABdhPJxHtE4KJPqzO9Lc0q5UUIbrtk+yBBPBSCLMPtlSplSq0cLdvbHcPvyGSaJwnNGkUdD8ox2lmw==
+X-Received: by 2002:a17:906:3041:: with SMTP id d1mr7666526ejd.7.1590144008390; 
+ Fri, 22 May 2020 03:40:08 -0700 (PDT)
 Received: from ?IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7?
  ([2a02:908:1252:fb60:be8a:bd56:1f94:86e7])
- by smtp.gmail.com with ESMTPSA id g20sm7601662ejx.85.2020.05.22.03.28.14
+ by smtp.gmail.com with ESMTPSA id w12sm6916357edj.22.2020.05.22.03.40.06
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 22 May 2020 03:28:15 -0700 (PDT)
-Subject: Re: [PATCH 2/2] drm/amdgpu: Advise if unable to resize BAR
-To: Alex Deucher <alexdeucher@gmail.com>,
- Alan Swanson <reiver@improbability.net>
-References: <20200521202931.15726-1-reiver@improbability.net>
- <20200521202931.15726-2-reiver@improbability.net>
- <CADnq5_NAhJvZYfmHpCRSPR0zv_6pXoR=2ZQgFWhgpfrT8ebcUQ@mail.gmail.com>
+ Fri, 22 May 2020 03:40:07 -0700 (PDT)
+Subject: Re: [RFC] Deprecate AGP GART support for Radeon/Nouveau/TTM
+To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
+ amd-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20200513110313.12979-1-christian.koenig@amd.com>
+ <9d784383-905e-59af-b17c-923c92474ece@gmail.com>
+ <ea2dfaaa-a7ca-5e4a-9264-0a82f1d5ea9b@daenzer.net>
 From: =?UTF-8?Q?Christian_K=c3=b6nig?= <ckoenig.leichtzumerken@gmail.com>
-Message-ID: <e3688ca7-6eb4-a69e-664b-39a6ac9922a5@gmail.com>
-Date: Fri, 22 May 2020 12:28:14 +0200
+Message-ID: <39241451-b25e-759f-6d52-455d806add09@gmail.com>
+Date: Fri, 22 May 2020 12:40:05 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <CADnq5_NAhJvZYfmHpCRSPR0zv_6pXoR=2ZQgFWhgpfrT8ebcUQ@mail.gmail.com>
+In-Reply-To: <ea2dfaaa-a7ca-5e4a-9264-0a82f1d5ea9b@daenzer.net>
 Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,67 +87,49 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: christian.koenig@amd.com
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: debian-powerpc@lists.debian.org, dri-devel@lists.freedesktop.org
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am 21.05.20 um 23:32 schrieb Alex Deucher:
-> On Thu, May 21, 2020 at 4:45 PM Alan Swanson <reiver@improbability.net> wrote:
->> Even with the "Above 4G decoding" (or similar) BIOS option enabled,
->> many BIOS do not assign the PCI root bus a 64-bit address space.
->>
->> If available, "MMIOH Base" and "MMIO High Size" (or similar) BIOS
->> options should allow mapping to the desired address spaces.
->>
->> Signed-off-by: Alan Swanson <reiver@improbability.net>
->> ---
->> Useful to know why bar resizing isn't happening.
-> This will spam a lot of people and probably cause confusion.  I'd
-> prefer to drop this one.
-
-Agreed, you can just look at /proc/iomem to figure out if resources 
-above 4GB are available or not.
-
-Christian.
-
->
-> Alex
->
->
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 4 +++-
->>   1 file changed, 3 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> index 2f0e8da7b..39a7f7212 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
->> @@ -919,8 +919,10 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
->>          }
->>
->>          /* Trying to resize is pointless without a root hub window above 4GB */
->> -       if (!res)
->> +       if (!res) {
->> +               DRM_INFO("Unable to resize BAR as PCI bus address space below 4GB.");
->>                  return 0;
->> +       }
->>
->>          /* Disable memory decoding while we change the BAR addresses and size */
->>          pci_read_config_word(adev->pdev, PCI_COMMAND, &cmd);
->> --
->> 2.26.2
->>
->> _______________________________________________
->> amd-gfx mailing list
->> amd-gfx@lists.freedesktop.org
->> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+QW0gMjAuMDUuMjAgdW0gMTg6MjUgc2NocmllYiBNaWNoZWwgRMOkbnplcjoKPiBPbiAyMDIwLTA1
+LTIwIDQ6NDMgcC5tLiwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0gMTMuMDUuMjAgdW0g
+MTM6MDMgc2NocmllYiBDaHJpc3RpYW4gS8O2bmlnOgo+Pj4gVW5mb3J0dW5hdGVseSBBR1AgaXMg
+c3RpbGwgdG8gd2lkZWx5IHVzZWQgYXMgd2UgY291bGQganVzdCBkcm9wCj4+PiBzdXBwb3J0IGZv
+ciB1c2luZyBpdHMgR0FSVC4KPj4+Cj4+PiBOb3QgdXNpbmcgdGhlIEFHUCBHQVJUIGFsc28gZG9l
+c24ndCBtZWFuIGEgbG9zcyBpbiBmdW5jdGlvbmFsaXR5IHNpbmNlCj4+PiBkcml2ZXJzIHdpbGwg
+anVzdCBmYWxsYmFjayB0byB0aGUgZHJpdmVyIHNwZWNpZmljIFBDSSBHQVJULgo+Pj4KPj4+IEZv
+ciBub3cganVzdCBkZXByZWNhdGUgdGhlIGNvZGUgYW5kIGRvbid0IGVuYWJsZSB0aGUgQUdQIEdB
+UlQgaW4gVFRNCj4+PiBldmVuIHdoZW4gZ2VuZXJhbCBBR1Agc3VwcG9ydCBpcyBhdmFpbGFibGUu
+Cj4+IFNvIEkndmUgdXNlZCBhbiBhbmNpZW50IHN5c3RlbSAoMzJiaXQpIHRvIHNldHVwIGEgdGVz
+dCBib3ggZm9yIHRoaXMuCj4+Cj4+Cj4+IFRoZSBmaXJzdCBHUFUgSSBjb3VsZCB0ZXN0IGlzIGFu
+IFJWMjgwIChSYWRlb24gOTIwMCBQUk8pIHdoaWNoIGlzIGVhc2lseQo+PiAxNSB5ZWFycyBvbGQu
+Cj4+Cj4+IFdoYXQgaGFwcGVucyBpbiBBR1AgbW9kZSBpcyB0aGF0IGdseGdlYXJzIHNob3dzIGFy
+dGlmYWN0cyBkdXJpbmcKPj4gcmVuZGVyaW5nIG9uIHRoaXMgc3lzdGVtLgo+Pgo+PiBJbiBQQ0kg
+bW9kZSB0aG9zZSByZW5kZXJpbmcgYXJ0aWZhY3RzIGFyZSBnb25lIGFuZCBnbHhnZWFycyBzZWVt
+cyB0bwo+PiBkcmF3IGV2ZXJ5dGhpbmcgY29ycmVjdGx5IG5vdy4KPj4KPj4gUGVyZm9ybWFuY2Ug
+aXMgb2J2aW91c2x5IG5vdCBjb21wYXJhYmxlLCBjYXVzZSBpbiBBR1Agd2UgZG9uJ3QgcmVuZGVy
+Cj4+IGFsbCB0cmlhbmdsZXMgY29ycmVjdGx5Lgo+Pgo+Pgo+PiBUaGUgc2Vjb25kIEdQVSBJIGNv
+dWxkIHRlc3QgaXMgYW4gUlY2MzAgUFJPIChSYWRlb24gSEQgMjYwMCBQUk8gQUdQKQo+PiB3aGlj
+aCBpcyBtb3JlIHRoYW4gMTAgeWVhcnMgb2xkLgo+Pgo+PiBBcyBmYXIgYXMgSSBjYW4gdGVsbCB0
+aGlzIG9uZSB3b3JrcyBpbiBib3RoIEFHUCBhbmQgUENJZSBtb2RlIHBlcmZlY3RseQo+PiBmaW5l
+Lgo+Pgo+PiBTaW5jZSB0aGlzIGlzIG9ubHkgYSAzMmJpdCBzeXN0ZW0gSSBjb3VsZG4ndCByZWFs
+bHkgdGVzdCBhbnkgT3BlbkdMIGdhbWUKPj4gdGhhdCB3ZWxsLgo+Pgo+PiBCdXQgZm9yIGdseGdl
+YXJzIHN3aXRjaGluZyBmcm9tIEFHUCB0byBQQ0llIG1vZGUgc2VlbXMgdG8gcmVzdWx0IGluIGEK
+Pj4gcm91Z2hseSA1JSBwZXJmb3JtYW5jZSBkcm9wLgo+Pgo+PiBUaGUgc3VycHJpc2luZyByZWFz
+b24gZm9yIHRoaXMgaXMgbm90IHRoZSBiZXR0ZXIgVExCIHBlcmZvcm1hbmNlLCBidXQKPj4gdGhl
+IGxhY2sgb2YgVVNXQyBzdXBwb3J0IGZvciB0aGUgUENJZSBHQVJUIGluIHJhZGVvbi4KPiBJIHN1
+c3BlY3QgdGhlIG1haW4gcmVhc29uIGl0J3Mgb25seSA1JSBpcyB0aGF0IFBDSWUgR0FSVCBwYWdl
+IHRhYmxlcyBhcmUKPiBzdG9yZWQgaW4gVlJBTSwgc28gdGhleSBkb24ndCBuZWVkIHRvIGJlIGZl
+dGNoZWQgYWNyb3NzIHRoZSBQQ0llIGxpbmsKPiAoYW5kIHByZXN1bWFibHkgaXQgaGFzIG1vcmUg
+dGhhbiBvbmUgVExCIGVudHJ5IGFzIHdlbGwpLiBUaGUgZGlmZmVyZW5jZQo+IGlzIG11Y2ggYmln
+Z2VyIHdpdGggbmF0aXZlIEFHUCBBU0lDcyB3aXRoIFBDSSBHQVJULgoKRG8geW91IGhhdmUgc29t
+ZSBoYXJkd2FyZSB5b3UgY291bGQgZ2l2ZSB0aGF0IGEgdHJ5IG9uPwoKSSBtZWFuIHRoZSBmaXJz
+dCBjYXJkIEkgcHV0IGludG8gdGhlIHN5c3RlbSBvYnZpb3VzbHkgb25seSB3b3JrZWQgCmNvcnJl
+Y3RseSB3aXRoIEFHUCBkaXNhYmxlZC4KCldoaWxlIEkgYWdyZWUgdGhhdCBpdCBtZWFucyBhIHBl
+cmZvcm1hbmNlIHJlZ3Jlc3Npb24sIHRoaXMgaXMgYSByYXRoZXIgCmhpZ2ggbW90aXZhdGlvbiB0
+byBnbyBhaGVhZCB3aXRoIGF0IGxlYXN0IHRoZSBmaXJzdCBwYXRjaC4KCkNocmlzdGlhbi4KX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWls
+aW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVl
+ZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
