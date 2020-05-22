@@ -2,66 +2,70 @@ Return-Path: <SRS0=+s4F=7E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7A1ACC433E1
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 14:45:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1637FC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 14:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4AC072054F
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 14:45:56 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E508A204EF
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 14:47:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B9cy+YSH"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4AC072054F
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LkAodB6u"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E508A204EF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB0116E9F9;
-	Fri, 22 May 2020 14:45:55 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48D2F6E9F9
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 May 2020 14:45:55 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id y17so2023117wrn.11
- for <amd-gfx@lists.freedesktop.org>; Fri, 22 May 2020 07:45:55 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90F206E9FE;
+	Fri, 22 May 2020 14:47:03 +0000 (UTC)
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E53F6E9F9;
+ Fri, 22 May 2020 14:47:02 +0000 (UTC)
+Received: by mail-wr1-x434.google.com with SMTP id c3so6179762wru.12;
+ Fri, 22 May 2020 07:47:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8fOD4YsmP+d6q6HmNcCmQPCejW2saeT7AodhwkNxpuQ=;
- b=B9cy+YSHt5j+P9EA1hBuyrVafYAZUJvfpJguLLQZs/3QZ1+V3AbJ4xhBzBNuk6qjqS
- Hpmb+VmbI8CgUOWJNkLFOgkPMxSKq1HRT4Y3THd3MWviOdCXMOJpMyanOzJGiFrGmaUi
- LfNqTXezbJmhnUgMbhe8fQV52+M8zu/OwLBjDIu2Y34Ax3zGUCXFV9ejsc577fr8riEq
- UMnWa8P6cwEkxTaitfuvZ45RkQwuR+3JCUHm8tIZE8qMPyk8NkUMjGnDkiUMJtE6sX8Y
- yDLDqw3yQ7/C75sHXfiuZQMCReIybPPw8dMYmNTURYrys2usL2wPvXXLuZwUbA5VybmO
- NAYg==
+ :cc:content-transfer-encoding;
+ bh=FJLUjBuFGBG9K6nNrkEm7oIIr33fE1bvy0GPNpUlYiA=;
+ b=LkAodB6uqnzUVqkofGVTcncGAHkjfH+tGR+BUicspSJGHkkiBeZZcZKtUcKHS/NDQy
+ f+ALuUQxUIyH5lUTCaAZMIhp71CzzbeYECtJ10PaeRCvUX8rwiNvMIeIA2UAC3rLHmPB
+ ZRCNhYOuaK0ugqNszE6lzzfMlv4dfpgAGsNQQzomEE1vlAD1s5i5ZeFgp3V07QgqWS+L
+ eDTRlpwuu8G81H/Y2K8aGM0NPgyFqGEkRShXrUlxo59OZEgesUlynVHXmmOQDFTxufES
+ 0Db6fhJhsvOUvuMMBzejregAMWGJIWM9pLuNr/FKrfHY0wZUWjVob5Q/JvxaTlX13HsF
+ Frug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=8fOD4YsmP+d6q6HmNcCmQPCejW2saeT7AodhwkNxpuQ=;
- b=LayyFutsM7eQW8qDx0MspJQU14x/EU20epaAdmPGe+YdIdz4QqnPrAIHH059esV6cj
- 9PMzDS/YXTCXJ5NTaZJpSqPEErOn0uQo4XL6sIOgGdbUT149qyMqlS66jtB9kX4GMt0a
- gwDv+/ULJSsnNPhE7YzxtelmDTTFKpXq0PLuojWr9PHdN6TQLqPSGwaeCWKWRwwMIQvu
- jO4EwcTUVXDG/OVh9zo1qjhceR6QQJIgde/glI41uHmY6I7EN00br9ADjz5aYn0a1pxh
- IeL+e0nvN1e0RVQBPL9PqAFiXwV8UuS1VCc+worFSMnWcENL6th7U+A2kHzc3KRBofPw
- vMFw==
-X-Gm-Message-State: AOAM531YpsSIRXzlWL+jF/ATp0U/LUvWLJqJzhYFgueWNlss/+AaI1vt
- RtxqtlAtg7chATy0ro3MmFBRHbtKHzTn1VCrYyY=
-X-Google-Smtp-Source: ABdhPJzATrqUJaKTXi/rbzkicFkhz56MxrGFP+RvxnsDxgE8pgAD7bJOOyrxKQLZ20P0bwjTvCnJr49OJmzbnj9gl/I=
-X-Received: by 2002:a5d:400f:: with SMTP id n15mr3912202wrp.419.1590158753850; 
- Fri, 22 May 2020 07:45:53 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=FJLUjBuFGBG9K6nNrkEm7oIIr33fE1bvy0GPNpUlYiA=;
+ b=Mj6tDtUBQ2C7F70ri2RwrmFT5sh3AsUW9Kbaf1nwZb/EkkTyyQK9YcLKnJ5xzoYjdc
+ prfDlFPuACTHQgK0Y5xt3DjK/lcMjxwJpTZXijeqdE7aDR7IfHgyoMFogBQefCrqXcLS
+ Gr/oU8/ruKIO5l2kDADyQybxmw/qE5vKj5U+NtzqcPqhJELvpN1dPemqg8oX8pVgBkZx
+ x6ZVh9NWZjslh2p8suuRqeWhWsbO0E42cVz/fRU9KQeaMp4tkgH+2xm5Fzsj3LKvpMnS
+ gqeBp/vyNdnwQ0rLWddl0Y2B1RgG4pUKwTNQt8P7f4grbnZGve9yNSiRgXQZ/qxCzIYb
+ dAaQ==
+X-Gm-Message-State: AOAM531D6DBsbZ4nZxcXg+BqyfpV+pay9JoE0RfxRdNwZRBH/2Cf/0tL
+ E32QB2FaJBep1IKj7P8DwNhditDIfucJYLHkvgZLiw==
+X-Google-Smtp-Source: ABdhPJwZ0Iv4BZM0I8hDBBtF89c0VMMfI+eFiTVnQNDBpzDF1oEwZIeqT+IC3dwns8jbTGf8E8nfKrpKragTMn0LlbE=
+X-Received: by 2002:a05:6000:14b:: with SMTP id
+ r11mr3980382wrx.124.1590158821059; 
+ Fri, 22 May 2020 07:47:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200521213933.5252-1-Bhawanpreet.Lakha@amd.com>
-In-Reply-To: <20200521213933.5252-1-Bhawanpreet.Lakha@amd.com>
+References: <20200513110313.12979-1-christian.koenig@amd.com>
+ <9d784383-905e-59af-b17c-923c92474ece@gmail.com>
+ <CADnq5_PxUD546E852r918xEc=MddzArLDciBKtJRpuoiC4e-qQ@mail.gmail.com>
+ <9e87c7db-3129-42fb-e1b3-0b8dfe3bca8f@gmail.com>
+In-Reply-To: <9e87c7db-3129-42fb-e1b3-0b8dfe3bca8f@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 22 May 2020 10:45:42 -0400
-Message-ID: <CADnq5_OaLsk6T-+R2n0ozB2c_dGWKukoKL-UYX-N6kr1k4-3SA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Handle GPU reset for DC block
-To: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Date: Fri, 22 May 2020 10:46:50 -0400
+Message-ID: <CADnq5_PeGnkDoHdpPL6uK_hgih6aNsjYrVaiiDYjD0T43udgGw@mail.gmail.com>
+Subject: Re: [RFC] Deprecate AGP GART support for Radeon/Nouveau/TTM
+To: Christian Koenig <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,288 +77,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>, "Kazlauskas,
- Nicholas" <nicholas.kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ nouveau <nouveau@lists.freedesktop.org>, debian-powerpc@lists.debian.org,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, May 21, 2020 at 5:39 PM Bhawanpreet Lakha
-<Bhawanpreet.Lakha@amd.com> wrote:
->
-> [Why]
-> Previously we used the s3 codepath for gpu reset. This can lead to issues in
-> certain case where we end of waiting for fences which will never come (because
-> parts of the hw are off due to gpu reset) and we end up waiting forever causing
-> a deadlock.
->
-> [How]
-> Handle GPU reset separately from normal s3 case. We essentially need to redo
-> everything we do in s3, but avoid any drm calls.
->
-> For GPU reset case
->
-> suspend:
->         -Acquire DC lock
->         -Cache current dc_state
->         -Commit 0 stream/planes to dc (this puts dc into a state where it can be
->          powered off)
->         -Disable interrupts
-> resume
->         -Edit cached state to force full update
->         -Commit cached state from suspend
->         -Build stream and plane updates from the cached state
->         -Commit stream/plane updates
->         -Enable interrupts
->         -Release DC lock
->
-> v2:
-> -Formatting
-> -Release dc_state
->
-> Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 182 +++++++++++++++++-
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   1 +
->  2 files changed, 182 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 60fe64aef11b..4110ff8580b7 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1521,10 +1521,114 @@ static int dm_hw_fini(void *handle)
->         return 0;
->  }
->
-> +
-> +static int dm_enable_vblank(struct drm_crtc *crtc);
-> +static void dm_disable_vblank(struct drm_crtc *crtc);
-> +
-> +static void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
-> +                                struct dc_state *state, bool enable)
-> +{
-> +       enum dc_irq_source irq_source;
-> +       struct amdgpu_crtc *acrtc;
-> +       int rc = -EBUSY;
-> +       int i = 0;
-> +
-> +       for (i = 0; i < state->stream_count; i++) {
-> +               acrtc = get_crtc_by_otg_inst(
-> +                               adev, state->stream_status[i].primary_otg_inst);
-> +
-> +               if (acrtc && state->stream_status[i].plane_count != 0) {
-> +                       irq_source = IRQ_TYPE_PFLIP + acrtc->otg_inst;
-> +                       rc = dc_interrupt_set(adev->dm.dc, irq_source, enable) ? 0 : -EBUSY;
-> +                       DRM_DEBUG("crtc %d - vupdate irq %sabling: r=%d\n",
-> +                                 acrtc->crtc_id, enable ? "en" : "dis", rc);
-> +                       if (rc)
-> +                               DRM_WARN("Failed to %s pflip interrupts\n",
-> +                                        enable ? "enable" : "disable");
-> +
-> +                       if (enable) {
-> +                               rc = dm_enable_vblank(&acrtc->base);
-> +                               if (rc)
-> +                                       DRM_WARN("Failed to enable vblank interrupts\n");
-> +                       } else {
-> +                               dm_disable_vblank(&acrtc->base);
-> +                       }
-> +
-> +               }
-> +       }
-> +
-> +}
-> +
-> +enum dc_status amdgpu_dm_commit_zero_streams(struct dc *dc)
-> +{
-> +       struct dc_state *context = NULL;
-> +       enum dc_status res = DC_ERROR_UNEXPECTED;
-> +       int i;
-> +       struct dc_stream_state *del_streams[MAX_PIPES];
-> +       int del_streams_count = 0;
-> +
-> +       memset(del_streams, 0, sizeof(del_streams));
-> +
-> +       context = dc_create_state(dc);
-> +       if (context == NULL)
-> +               goto context_alloc_fail;
-> +
-> +       dc_resource_state_copy_construct_current(dc, context);
-> +
-> +       /* First remove from context all streams */
-> +       for (i = 0; i < context->stream_count; i++) {
-> +               struct dc_stream_state *stream = context->streams[i];
-> +
-> +               del_streams[del_streams_count++] = stream;
-> +       }
-> +
-> +       /* Remove all planes for removed streams and then remove the streams */
-> +       for (i = 0; i < del_streams_count; i++) {
-> +               if (!dc_rem_all_planes_for_stream(dc, del_streams[i], context)) {
-> +                       res = DC_FAIL_DETACH_SURFACES;
-> +                       goto fail;
-> +               }
-> +
-> +               res = dc_remove_stream_from_ctx(dc, context, del_streams[i]);
-> +               if (res != DC_OK)
-> +                       goto fail;
-> +       }
-> +
-> +
-> +       res = dc_validate_global_state(dc, context, false);
-> +
-> +       if (res != DC_OK) {
-> +               DRM_ERROR("%s:resource validation failed, dc_status:%d\n", __func__, res);
-> +               goto fail;
-> +       }
-> +
-> +       res = dc_commit_state(dc, context);
-> +
-> +fail:
-> +       dc_release_state(context);
-> +
-> +context_alloc_fail:
-> +       return res;
-> +}
-> +
->  static int dm_suspend(void *handle)
->  {
->         struct amdgpu_device *adev = handle;
->         struct amdgpu_display_manager *dm = &adev->dm;
-> +       int ret = 0;
-> +
-> +       if (adev->in_gpu_reset) {
-> +               mutex_lock(&dm->dc_lock);
-> +               dm->cached_dc_state = dc_copy_state(dm->dc->current_state);
-> +
-> +               dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, false);
-> +
-> +               amdgpu_dm_commit_zero_streams(dm->dc);
-> +
-> +               amdgpu_dm_irq_suspend(adev);
-> +
-> +               return ret;
-> +       }
->
->         WARN_ON(adev->dm.cached_state);
->         adev->dm.cached_state = drm_atomic_helper_suspend(adev->ddev);
-> @@ -1640,6 +1744,46 @@ static void emulated_link_detect(struct dc_link *link)
->
->  }
->
-> +static void dm_gpureset_commit_state(struct dc_state *dc_state,
-> +                                    struct amdgpu_display_manager *dm)
-> +{
-> +       struct {
-> +               struct dc_surface_update surface_updates[MAX_SURFACES];
-> +               struct dc_plane_info plane_infos[MAX_SURFACES];
-> +               struct dc_scaling_info scaling_infos[MAX_SURFACES];
-> +               struct dc_flip_addrs flip_addrs[MAX_SURFACES];
-> +               struct dc_stream_update stream_update;
-> +       } * bundle;
-> +       int k, m;
-> +
-> +       bundle = kzalloc(sizeof(*bundle), GFP_KERNEL);
-> +
-> +       if (!bundle) {
-> +               dm_error("Failed to allocate update bundle\n");
-> +               goto cleanup;
-> +       }
-> +
-> +       for (k = 0; k < dc_state->stream_count; k++) {
-> +               bundle->stream_update.stream = dc_state->streams[k];
-> +
-> +               for (m = 0; m < dc_state->stream_status->plane_count; m++) {
-> +                       bundle->surface_updates[m].surface =
-> +                               dc_state->stream_status->plane_states[m];
-> +                       bundle->surface_updates[m].surface->force_full_update =
-> +                               true;
-> +               }
-> +               dc_commit_updates_for_stream(
-> +                       dm->dc, bundle->surface_updates,
-> +                       dc_state->stream_status->plane_count,
-> +                       dc_state->streams[k], &bundle->stream_update, dc_state);
-> +       }
-> +
-> +cleanup:
-> +       kfree(bundle);
-> +
-> +       return;
-> +}
-> +
->  static int dm_resume(void *handle)
->  {
->         struct amdgpu_device *adev = handle;
-> @@ -1656,8 +1800,44 @@ static int dm_resume(void *handle)
->         struct dm_plane_state *dm_new_plane_state;
->         struct dm_atomic_state *dm_state = to_dm_atomic_state(dm->atomic_obj.state);
->         enum dc_connection_type new_connection_type = dc_connection_none;
-> -       int i, r;
-> +       struct dc_state *dc_state;
-> +       int i, r, j;
-> +
-> +       if (adev->in_gpu_reset) {
-> +               dc_state = dm->cached_dc_state;
->
-> +               r = dm_dmub_hw_init(adev);
-> +               if (r)
-> +                       DRM_ERROR("DMUB interface failed to initialize: status=%d\n", r);
-> +
-> +               dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D0);
-> +               dc_resume(dm->dc);
-> +
-> +               amdgpu_dm_irq_resume_early(adev);
-> +
-> +               for (i = 0; i < dc_state->stream_count; i++) {
-> +                       dc_state->streams[i]->mode_changed = true;
-> +                       for (j = 0; j < dc_state->stream_status->plane_count; j++) {
-> +                               dc_state->stream_status->plane_states[j]->update_flags.raw
-> +                                       = 0xffffffff;
-> +                       }
-> +               }
-> +
-> +               WARN_ON(!dc_commit_state(dm->dc, dc_state));
-> +
-> +               dm_gpureset_commit_state(dm->cached_dc_state, dm);
-> +
-> +               dm_gpureset_toggle_interrupts(adev, dm->cached_dc_state, true);
-> +
-> +               dc_release_state(dm->cached_dc_state);
-> +               dm->cached_dc_state = NULL;
-> +
-> +               amdgpu_dm_irq_resume_late(adev);
-> +
-> +               mutex_unlock(&dm->dc_lock);
-> +
-> +               return 0;
-> +       }
->         /* Recreate dc_state - DC invalidates it when setting power state to S3. */
->         dc_release_state(dm_state->context);
->         dm_state->context = dc_create_state(dm->dc);
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> index 3f0c6298b588..40c912e0bf0c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-> @@ -315,6 +315,7 @@ struct amdgpu_display_manager {
->  #endif
->
->         struct drm_atomic_state *cached_state;
-> +       struct dc_state *cached_dc_state;
->
->         struct dm_comressor_info compressor;
->
-> --
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gRnJpLCBNYXkgMjIsIDIwMjAgYXQgNjo0MSBBTSBDaHJpc3RpYW4gS8O2bmlnCjxja29lbmln
+LmxlaWNodHp1bWVya2VuQGdtYWlsLmNvbT4gd3JvdGU6Cj4KPiBBbSAyMC4wNS4yMCB1bSAxODox
+OCBzY2hyaWViIEFsZXggRGV1Y2hlcjoKPiA+IE9uIFdlZCwgTWF5IDIwLCAyMDIwIGF0IDEwOjQz
+IEFNIENocmlzdGlhbiBLw7ZuaWcKPiA+IDxja29lbmlnLmxlaWNodHp1bWVya2VuQGdtYWlsLmNv
+bT4gd3JvdGU6Cj4gPj4gQW0gMTMuMDUuMjAgdW0gMTM6MDMgc2NocmllYiBDaHJpc3RpYW4gS8O2
+bmlnOgo+ID4+PiBVbmZvcnR1bmF0ZWx5IEFHUCBpcyBzdGlsbCB0byB3aWRlbHkgdXNlZCBhcyB3
+ZSBjb3VsZCBqdXN0IGRyb3Agc3VwcG9ydCBmb3IgdXNpbmcgaXRzIEdBUlQuCj4gPj4+Cj4gPj4+
+IE5vdCB1c2luZyB0aGUgQUdQIEdBUlQgYWxzbyBkb2Vzbid0IG1lYW4gYSBsb3NzIGluIGZ1bmN0
+aW9uYWxpdHkgc2luY2UgZHJpdmVycyB3aWxsIGp1c3QgZmFsbGJhY2sgdG8gdGhlIGRyaXZlciBz
+cGVjaWZpYyBQQ0kgR0FSVC4KPiA+Pj4KPiA+Pj4gRm9yIG5vdyBqdXN0IGRlcHJlY2F0ZSB0aGUg
+Y29kZSBhbmQgZG9uJ3QgZW5hYmxlIHRoZSBBR1AgR0FSVCBpbiBUVE0gZXZlbiB3aGVuIGdlbmVy
+YWwgQUdQIHN1cHBvcnQgaXMgYXZhaWxhYmxlLgo+ID4+IFNvIEkndmUgdXNlZCBhbiBhbmNpZW50
+IHN5c3RlbSAoMzJiaXQpIHRvIHNldHVwIGEgdGVzdCBib3ggZm9yIHRoaXMuCj4gPj4KPiA+Pgo+
+ID4+IFRoZSBmaXJzdCBHUFUgSSBjb3VsZCB0ZXN0IGlzIGFuIFJWMjgwIChSYWRlb24gOTIwMCBQ
+Uk8pIHdoaWNoIGlzIGVhc2lseQo+ID4+IDE1IHllYXJzIG9sZC4KPiA+Pgo+ID4+IFdoYXQgaGFw
+cGVucyBpbiBBR1AgbW9kZSBpcyB0aGF0IGdseGdlYXJzIHNob3dzIGFydGlmYWN0cyBkdXJpbmcK
+PiA+PiByZW5kZXJpbmcgb24gdGhpcyBzeXN0ZW0uCj4gPj4KPiA+PiBJbiBQQ0kgbW9kZSB0aG9z
+ZSByZW5kZXJpbmcgYXJ0aWZhY3RzIGFyZSBnb25lIGFuZCBnbHhnZWFycyBzZWVtcyB0bwo+ID4+
+IGRyYXcgZXZlcnl0aGluZyBjb3JyZWN0bHkgbm93Lgo+ID4+Cj4gPj4gUGVyZm9ybWFuY2UgaXMg
+b2J2aW91c2x5IG5vdCBjb21wYXJhYmxlLCBjYXVzZSBpbiBBR1Agd2UgZG9uJ3QgcmVuZGVyCj4g
+Pj4gYWxsIHRyaWFuZ2xlcyBjb3JyZWN0bHkuCj4gPj4KPiA+Pgo+ID4+IFRoZSBzZWNvbmQgR1BV
+IEkgY291bGQgdGVzdCBpcyBhbiBSVjYzMCBQUk8gKFJhZGVvbiBIRCAyNjAwIFBSTyBBR1ApCj4g
+Pj4gd2hpY2ggaXMgbW9yZSB0aGFuIDEwIHllYXJzIG9sZC4KPiA+Pgo+ID4+IEFzIGZhciBhcyBJ
+IGNhbiB0ZWxsIHRoaXMgb25lIHdvcmtzIGluIGJvdGggQUdQIGFuZCBQQ0llIG1vZGUgcGVyZmVj
+dGx5Cj4gPj4gZmluZS4KPiA+Pgo+ID4+IFNpbmNlIHRoaXMgaXMgb25seSBhIDMyYml0IHN5c3Rl
+bSBJIGNvdWxkbid0IHJlYWxseSB0ZXN0IGFueSBPcGVuR0wgZ2FtZQo+ID4+IHRoYXQgd2VsbC4K
+PiA+Pgo+ID4+IEJ1dCBmb3IgZ2x4Z2VhcnMgc3dpdGNoaW5nIGZyb20gQUdQIHRvIFBDSWUgbW9k
+ZSBzZWVtcyB0byByZXN1bHQgaW4gYQo+ID4+IHJvdWdobHkgNSUgcGVyZm9ybWFuY2UgZHJvcC4K
+PiA+Pgo+ID4+IFRoZSBzdXJwcmlzaW5nIHJlYXNvbiBmb3IgdGhpcyBpcyBub3QgdGhlIGJldHRl
+ciBUTEIgcGVyZm9ybWFuY2UsIGJ1dAo+ID4+IHRoZSBsYWNrIG9mIFVTV0Mgc3VwcG9ydCBmb3Ig
+dGhlIFBDSWUgR0FSVCBpbiByYWRlb24uCj4gPj4KPiA+Pgo+ID4+IFNvIGlmIGFueWJvZHkgd2Fu
+dHMgdG8gZ2V0IGhpcyBoYW5kcyBkaXJ0eSBhbmQgc3F1ZWV6ZSBhIGJpdCBtb3JlCj4gPj4gcGVy
+Zm9ybWFuY2Ugb3V0IG9mIHRoZSBvbGQgaGFyZHdhcmUsIHBvcnRpbmcgVVNXQyBmcm9tIGFtZGdw
+dSB0byByYWRlb24KPiA+PiBzaG91bGRuJ3QgYmUgdG8gbXVjaCBvZiBhIHByb2JsZW0uCj4gPiBX
+ZSBkbyBzdXBwb3J0IFVTV0Mgb24gcmFkZW9uLCBhbHRob3VnaCBJIHRoaW5rIHdlIGhhZCBzZXBh
+cmF0ZSBmbGFncwo+ID4gZm9yIGNhY2hlZCBhbmQgV0MuICBUaGF0IHNhaWQgd2UgaGFkIGEgbG90
+IG9mIHByb2JsZW1zIHdpdGggV0Mgb24gMzIKPiA+IGJpdCAoc2VlIHJhZGVvbl9ib19jcmVhdGUo
+KSkuICBUaGUgb3RoZXIgcHJvYmxlbSBpcyB0aGF0LCBhdCBsZWFzdCBvbgo+ID4gdGhlIHJlYWxs
+eSBvbGQgcmFkZW9ucywgdGhlIFBDSSBnYXJ0IGRpZG4ndCBzdXBwb3J0IHNub29wZWQgYW5kCj4g
+PiB1bnNub29wZWQuICBJdCB3YXMgYWx3YXlzIHNub29wZWQuICBJdCB3YXNuJ3QgdW50aWwgcGNp
+ZSB0aGF0IHRoZSBnYXJ0Cj4gPiBodyBnb3Qgc3VwcG9ydCBmb3IgYm90aC4gIEZvciBBR1AsIHRo
+ZSBleHBlY3RhdGlvbiB3YXMgdGhhdCBBR1AKPiA+IHByb3ZpZGVkIHRoZSB1bmNhY2hlZCBtZW1v
+cnkuCj4KPiBPaCwgaW5kZWVkLiBJIGRpZG4ndCByZW1lbWJlcmVkIHRoYXQuCj4KPiBJbnRlcmVz
+dGluZyBpcyB0aGF0IGluIHRoaXMgY2FzZSBJIGhhdmUgbm8gaWRlYSB3aGVyZSB0aGUgcGVyZm9y
+bWFuY2UKPiBkaWZmZXJlbmNlIGlzIGNvbWluZyBmcm9tLgo+Cj4gPgo+ID4+Cj4gPj4gU3VtbWlu
+ZyBpdCB1cCBJJ20gc3RpbGwgbGVhbmluZyB0b3dhcmRzIGRpc2FibGluZyBBR1AgY29tcGxldGVs
+eSBieQo+ID4+IGRlZmF1bHQgZm9yIHJhZGVvbiBhbmQgZGVwcmVjYXRlIGl0IGluIFRUTSBhcyB3
+ZWxsLgo+ID4+Cj4gPj4gVGhvdWdodHM/IEVzcGVjaWFsbHkgQWxleCB3aGF0IGRvIHlvdSB0aGlu
+ay4KPiA+IFdvcmtzIGZvciBtZS4KPgo+IEkgd2lsbCB0YWtlIHRoYXQgYXMgYW4gcmIgYW5kIGNv
+bW1pdCBhdCBsZWFzdCB0aGUgZmlyc3QgcGF0Y2guCgpZZWFoLCBSZXZpZXdlZC1ieTogQWxleCBE
+ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgoKPgo+IFRoYW5rcywKPiBDaHJpc3Rp
+YW4uCj4KPiA+Cj4gPiBBbGV4Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
+cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
+Z2Z4Cg==
