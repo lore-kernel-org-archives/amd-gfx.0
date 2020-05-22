@@ -2,52 +2,70 @@ Return-Path: <SRS0=+s4F=7E=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37F2BC433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 17:46:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3191DC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 17:54:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EE56D20738
-	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 17:46:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EE279206D5
+	for <amd-gfx@archiver.kernel.org>; Fri, 22 May 2020 17:54:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nb6aIsQc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE56D20738
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="u7RbKLwj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE279206D5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FC756EA15;
-	Fri, 22 May 2020 17:46:53 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B87A6EA15;
- Fri, 22 May 2020 17:46:52 +0000 (UTC)
-Received: from embeddedor (unknown [189.207.59.248])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A95E92072C;
- Fri, 22 May 2020 17:46:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1590169612;
- bh=D18/tscbxNYJt7Qi51OajMBP8/Y1ftjXaTbS8M/yx6g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Nb6aIsQcHONH6fn8FyPFvbOOwO3QjVHZd40VefUzq2Aa6TUjr/ikpuBaIan+XiE/L
- mVYg8LPnlNqb6RaLcUR4WMGfypNbRiJ1qbMenZVRKfUrBPOve31RnG2Wr53k7AUMae
- l+prLfZh08RC2CGMiwEo2m1OO8NeU57g1c2xzUoU=
-Date: Fri, 22 May 2020 12:51:42 -0500
-From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Subject: Re: [PATCH] drm/amdgpu/smu10: Replace one-element array and use
- struct_size() helper
-Message-ID: <20200522175142.GF29907@embeddedor>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B13B86EA1D;
+	Fri, 22 May 2020 17:54:14 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0CA46EA1D;
+ Fri, 22 May 2020 17:54:13 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id g12so9780144wrw.1;
+ Fri, 22 May 2020 10:54:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=pf8ZbrNYhqExC9KlQDsW36HsSdXFIIPGxctjlqUhPhU=;
+ b=u7RbKLwjVjVzyigBMehTZA8DZ8q5mbPJhVRZm6b5dfW8TZB/BDoYYQtn+kJTQVQooR
+ tutjnmSCKhbXhltjZ47l7fpwMjaGwDOJ8PxvMMbkw5bjHWd+Rw+01hsi0MEJf6vDmYLf
+ IkUETqM3VjFJIdTQ4W4vgTPcpjo4PcMPaAd4AeHfpuWlI8WwZneTofDEE8uaaaYUU2Zj
+ qn0JHeEZ0RBiTCBmRCkPXS0A1XDwDgstTkU1rsnlzkm/y8QJPb250SCSKULGpmx9msW+
+ 9N1r7SruAt/HdxBXAsVX+FunUtJHSGLh91Y6nvUi9Kk1FPUHl1xB9tpsKXjKOyTrq95y
+ zCuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=pf8ZbrNYhqExC9KlQDsW36HsSdXFIIPGxctjlqUhPhU=;
+ b=VuRziMiA2EfyG3IeuG6aIpiJH/ftxqgnnztK5YlSBTbCOVJphbCDw9A39HeH3BTwLK
+ iW4OPQSpdQ4KEYWSQ4ar9hNkgSDRmckpQxtaGf5Emwmnom02HupihCEOEIb0pu5AwgUj
+ fmsmfhVsPkdcYFv1hafMEPBn/8nAbgj8nACUKxpC00nz0J2EKBraRJycwS4hp8cmpydD
+ Stk9H6h1arbkqeivEzJMFh/EoJ/l8xMI7V0WPWwlwQ4LyQFqmRv55tkiJmT2Tjr9PWL3
+ OuNFI3SeMiLXxPyuw88PnOtg4qFyu6rh/37Zrl0SgYgooXlHh8/57Tf1plnL52VdwkWO
+ U32g==
+X-Gm-Message-State: AOAM533uYEC1B2J+xyO0QiU9jWnle5sQnQA3miF7VipaJMOtFiOzjoGH
+ v9oQZuc7ERBA0RK1AdWGNLW2XSCd3KPSkRXekWs=
+X-Google-Smtp-Source: ABdhPJzvWdhRPfLMzR36gDh2x1ZCpNeC2MEquHBzD0O8Idsmsrs64y9LjzBbuf3andQmXrkZnIRYjU6VUv3tzxnzNtM=
+X-Received: by 2002:a5d:400f:: with SMTP id n15mr4535314wrp.419.1590170052313; 
+ Fri, 22 May 2020 10:54:12 -0700 (PDT)
+MIME-Version: 1.0
 References: <20200519225545.GA2066@embeddedor>
  <1065d63e-7959-e4b4-af4e-70607ba92296@amd.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1065d63e-7959-e4b4-af4e-70607ba92296@amd.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+ <20200522175142.GF29907@embeddedor>
+In-Reply-To: <20200522175142.GF29907@embeddedor>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 22 May 2020 13:54:01 -0400
+Message-ID: <CADnq5_NQRYkeHY-9733rqh1ykRbVXKyBa5+r8qzbavo240jjug@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/smu10: Replace one-element array and use
+ struct_size() helper
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,43 +78,36 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
- David Airlie <airlied@linux.ie>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ David Airlie <airlied@linux.ie>, LKML <linux-kernel@vger.kernel.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
  Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Evan Quan <evan.quan@amd.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ Evan Quan <evan.quan@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, May 20, 2020 at 09:42:27AM +0200, Christian K=F6nig wrote:
-> > =
-
-> > Signed-off-by: Gustavo A. R. Silva <gustavoars@kernel.org>
-> =
-
-> Acked-by: Christian K=F6nig <christian.koenig@amd.com>
-> =
-
-> May I suggest that we add a section how to correctly do this to
-> Documentation/process/coding-style.rst or similar document?
-> =
-
-
-That's already on my list. :)
-
-> I've seen a bunch of different approaches and some even doesn't work with
-> some gcc versions and result in a broken binary.
-> =
-
-
-Do you have an example of that one that doesn't work with some GCC
-versions? It'd be interesting to take a look...
-
-Thanks
---
-Gustavo
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gRnJpLCBNYXkgMjIsIDIwMjAgYXQgMTo0NiBQTSBHdXN0YXZvIEEuIFIuIFNpbHZhCjxndXN0
+YXZvYXJzQGtlcm5lbC5vcmc+IHdyb3RlOgo+Cj4gT24gV2VkLCBNYXkgMjAsIDIwMjAgYXQgMDk6
+NDI6MjdBTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPiA+ID4KPiA+ID4gU2lnbmVk
+LW9mZi1ieTogR3VzdGF2byBBLiBSLiBTaWx2YSA8Z3VzdGF2b2Fyc0BrZXJuZWwub3JnPgo+ID4K
+PiA+IEFja2VkLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+
+Cj4gPgo+ID4gTWF5IEkgc3VnZ2VzdCB0aGF0IHdlIGFkZCBhIHNlY3Rpb24gaG93IHRvIGNvcnJl
+Y3RseSBkbyB0aGlzIHRvCj4gPiBEb2N1bWVudGF0aW9uL3Byb2Nlc3MvY29kaW5nLXN0eWxlLnJz
+dCBvciBzaW1pbGFyIGRvY3VtZW50Pwo+ID4KPgo+IFRoYXQncyBhbHJlYWR5IG9uIG15IGxpc3Qu
+IDopCj4KPiA+IEkndmUgc2VlbiBhIGJ1bmNoIG9mIGRpZmZlcmVudCBhcHByb2FjaGVzIGFuZCBz
+b21lIGV2ZW4gZG9lc24ndCB3b3JrIHdpdGgKPiA+IHNvbWUgZ2NjIHZlcnNpb25zIGFuZCByZXN1
+bHQgaW4gYSBicm9rZW4gYmluYXJ5Lgo+ID4KPgo+IERvIHlvdSBoYXZlIGFuIGV4YW1wbGUgb2Yg
+dGhhdCBvbmUgdGhhdCBkb2Vzbid0IHdvcmsgd2l0aCBzb21lIEdDQwo+IHZlcnNpb25zPyBJdCdk
+IGJlIGludGVyZXN0aW5nIHRvIHRha2UgYSBsb29rLi4uCgpodHRwczovL2dpdC5rZXJuZWwub3Jn
+L3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90b3J2YWxkcy9saW51eC5naXQvY29tbWl0L2RyaXZl
+cnMvZ3B1L2RybS9yYWRlb24vcmFkZW9uX2F0b21iaW9zLmM/aWQ9YTdlZTgyNGE2MjU1ZTM0N2Vh
+NzZlMmYwMDgyN2U4MWJiZTAxMDA0ZQoKQWxleAoKPgo+IFRoYW5rcwo+IC0tCj4gR3VzdGF2bwo+
+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4gYW1kLWdm
+eCBtYWlsaW5nIGxpc3QKPiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwo+IGh0dHBzOi8v
+bGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeApfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlz
+dAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9w
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
