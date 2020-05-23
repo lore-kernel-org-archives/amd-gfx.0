@@ -1,100 +1,106 @@
 Return-Path: <SRS0=njeu=7F=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A24D7C433E0
-	for <amd-gfx@archiver.kernel.org>; Sat, 23 May 2020 02:55:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10310C433DF
+	for <amd-gfx@archiver.kernel.org>; Sat, 23 May 2020 03:15:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2C70C206DD
-	for <amd-gfx@archiver.kernel.org>; Sat, 23 May 2020 02:55:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C17F020727
+	for <amd-gfx@archiver.kernel.org>; Sat, 23 May 2020 03:15:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="jtAnBnD6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2C70C206DD
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="cfbuR0K+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C17F020727
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF2F16E177;
-	Sat, 23 May 2020 02:55:16 +0000 (UTC)
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700047.outbound.protection.outlook.com [40.107.70.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C13096E177
- for <amd-gfx@lists.freedesktop.org>; Sat, 23 May 2020 02:55:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5201A6E177;
+	Sat, 23 May 2020 03:15:03 +0000 (UTC)
+Received: from NAM11-CO1-obe.outbound.protection.outlook.com
+ (mail-co1nam11on2042.outbound.protection.outlook.com [40.107.220.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D0A556E177
+ for <amd-gfx@lists.freedesktop.org>; Sat, 23 May 2020 03:15:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QpmXqP6bNQWUyZM0bNRbv8maAzYB+N9GflN+lA9y3V+W9t75YR2kcg2VpRpHBEFYUvNpg2ChyBCLbCyZGMw1fxGLzoyJvUE7CD5Nqy2KszaBdTmC4Rt37myJmc/Xtrc+CzspD6dPeGvAJ010OrSNLrBNBup9y8pPdj5UWFVsRBGlGnqsb37p3jE6MypG2JeTZIYtpYMH1b+s8p2ElNA1cFldnbX3Sqkn0z/1ze3ciRWfHlIEG1di3Ne0oym8PkDtFe875FeLeipcer8hN3/lw+iC4c3/PpwdUb3qm3ngb/18jN+bAE2qvkFYVZb7N3PuKAgE4cDLrFKKtKqGHows9g==
+ b=GrAEKx+HddJ3aUUqWi0/lcBC+fAXXckYmnFp8hfyZpv4kXJpJO3mkn/WrDH+XvCDrG/FRopdyHOT7Rlr1YxlNYkaaPTz61HOedh2hnwBTfH93k7Pae2pFmvUOx768C/QHg6wHz8kDc0aOmdSq9cjRqn5b3+phqlayhBJQfzfPxq8zOzMRkZX90eKH+vXCUiBc55D36z4L7soSq3dvAnxnbaXd1Ec/5CbtB4UxySGpzeEVD2sPGXGkyj4XZOqZUO9voYqOsoO+IWOk9qhCJr3H1BRFT86KHRpJIZGG6Thgr0n9DFtsHkmvVju63AzEvm3+PRWybN7ObtrMOawlf2GyQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n5ZlQLlZr6g1U790Hkli4DpccR3A1hgRlMpi7HDYFS4=;
- b=asEjUN+KtIRklnza5dZDe2v1SCGMKmh7IYUPAsIEIWUJEKANohd2y+UiR2Rd7f9vTIyGeQ8pztKCS2ovePC/83BZ+1AW43SmRAjuO3c13RWEVMw5Kr73/me0DJaBGPrhpavFLD3d/Wy8oo0B75IwuJRyACGL/meqasJaOUD9LV9Wg1R4KtGmnqA8RPWZgVvswk1DUFsme3tx7Eow7j35jQhHaIwzWFLIgLxCLyX09+xXslnQorV6tvouQkL5WlAXc/mz+LBsvXUQ/XMfcZQ+glm0779xask0prAuIFzLAVUy2NHf1PmxNjB74x+o8cbXSx/3q0Ct220ElT0hoOT6ng==
+ bh=EBcVWndxgEJY39ft/FsWghlv8mRTZY7H4jvRbIxeaB0=;
+ b=HqQHWf3Mj5yn80jJ1c5n0+GLZPcOHUbedbi/JRJrpdgSsTCTRa+jZ8ifGsGSG3BUL8U+3DKwjrcye92Z61H8/M10Yw2QOb+VJx1NvsLjbne4EKtWMwBz8rJKAnsodssEmtYAvOgAFvgQb2/CjzKkQIPIIX7LleDPOiruJJPBQOUh5jaEELqrMw4b+amm5hSF2jzRJ2xbo0azw3vUpCUGd0MsBhGq1olKNATX1vnfKAqucS6E/QnetIHG0gMWObloxta1JEfwHj3/VfQa0cWQ/sjKQ/AmUen6uudE74UB8pwn58OwZ/cH2iyVXxAQnkUQ3M2G63BeoilrlHei5l1UnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n5ZlQLlZr6g1U790Hkli4DpccR3A1hgRlMpi7HDYFS4=;
- b=jtAnBnD6vY6pmoJyRN05ei3Gd6HtmZIkyF6w2J+nCaEZjJS7HMY/3MYOp/q0kWxU6xsoGZ9W06Y6HfQuQDyOJ/yhtjwwc8vpykHAk2dkwojsdZo7EmynQRzM/Iw0bnEeSUjfwSv+MTEHFya6FKMsDSwF+ZNTTvid5QsF8YXGThU=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BN7PR12MB2836.namprd12.prod.outlook.com (2603:10b6:408:32::33)
- by BN7PR12MB2835.namprd12.prod.outlook.com (2603:10b6:408:30::31)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3000.27; Sat, 23 May
- 2020 02:55:12 +0000
-Received: from BN7PR12MB2836.namprd12.prod.outlook.com
- ([fe80::14f2:9ef9:beed:ad1]) by BN7PR12MB2836.namprd12.prod.outlook.com
- ([fe80::14f2:9ef9:beed:ad1%7]) with mapi id 15.20.3021.024; Sat, 23 May 2020
- 02:55:12 +0000
-From: Mukul Joshi <mukul.joshi@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v2] drm/amdkfd: Track SDMA utilization per process
-Date: Fri, 22 May 2020 22:54:57 -0400
-Message-Id: <20200523025457.26563-1-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: YT1PR01CA0133.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2f::12) To BN7PR12MB2836.namprd12.prod.outlook.com
- (2603:10b6:408:32::33)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from Ryzen-3700X.amd.com (165.204.55.251) by
- YT1PR01CA0133.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2f::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3021.24 via Frontend Transport; Sat, 23 May 2020 02:55:12 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 74073755-a753-4b95-c3c8-08d7fec4b653
-X-MS-TrafficTypeDiagnostic: BN7PR12MB2835:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN7PR12MB28357B7C474DCED23CD63BDAEEB50@BN7PR12MB2835.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:758;
-X-Forefront-PRVS: 0412A98A59
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: nvQJ0PNwyiwwJId0z2ji0z0UwXTN/rGZIuaz7FE4Z78REXZo2esoHoUdiygsYVNugzoV1/3oKgADLQcXRFeGcPjnMKxn0ao9ywgwIFdhT8EDAFPi1FbmwBWzmNmAbX9YKEizVHxsq5RKFEJmYkhxVTmrKw188WmkoD5z9jdqaXSFdR+jHSOEcnztsNuPCPuuuJuCQD9TqwiVjhf3bX79H9e6C3Ik9qO1uJ3SpgiD6DpHbqZRudkMG6DDGy1oiP8KA9rqq2rDo3i9onZOQm2whRG40yUljePQJ6SkIT359Y0FG8b6gS5U28H7PFdPzbZJkwNKjBlUl7FO/JU5eF52tbMcsF33Rht1mA/NptQCMGGCtO4EF4rdfbBuKq0RchZzoBmr2j6Wxt7OyK/x2F+JKMwmA629SbD2HkMTxvsiSN+hOBbAlW5UpCASaPIanLVl
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PR12MB2836.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ bh=EBcVWndxgEJY39ft/FsWghlv8mRTZY7H4jvRbIxeaB0=;
+ b=cfbuR0K+8muSYamRmR07NrJxy4JG1qLdVCNIf/jiCsix8JvGT/NX/6p3AxZKu9KwNiLhgV2CkKZGIJALwkbZxHv59owa5xA9lrzd04bFREnGIzodRAiTi1TnT+FKe/44iyY5d1CWJ/N9VOah7tgGzBKWo5RKHvI0BtSLs2417ME=
+Received: from DM6PR12MB4482.namprd12.prod.outlook.com (2603:10b6:5:2a8::23)
+ by DM6PR12MB3100.namprd12.prod.outlook.com (2603:10b6:5:11b::30) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.23; Sat, 23 May
+ 2020 03:14:59 +0000
+Received: from DM6PR12MB4482.namprd12.prod.outlook.com
+ ([fe80::e058:9371:1bd6:9b4a]) by DM6PR12MB4482.namprd12.prod.outlook.com
+ ([fe80::e058:9371:1bd6:9b4a%4]) with mapi id 15.20.3021.026; Sat, 23 May 2020
+ 03:14:59 +0000
+From: "Zhao, Yong" <Yong.Zhao@amd.com>
+To: Fenghua Yu <fenghua.yu@intel.com>, "Kuehling, Felix"
+ <Felix.Kuehling@amd.com>
+Subject: Re: drm/amdkfd: Change pasid's type to unsigned int
+Thread-Topic: drm/amdkfd: Change pasid's type to unsigned int
+Thread-Index: AQHWMG8K4Olopc1qzUiheduaQ5p34Ki0gLgAgAAcT4CAAGKusg==
+Date: Sat, 23 May 2020 03:14:59 +0000
+Message-ID: <DM6PR12MB448252364F96A4419AF2B3BFF0B50@DM6PR12MB4482.namprd12.prod.outlook.com>
+References: <20200522192554.GA39766@romley-ivt3.sc.intel.com>
+ <d6318005-4860-b82f-e2fc-21fa9f1c1683@amd.com>,
+ <20200522212125.GB39766@romley-ivt3.sc.intel.com>
+In-Reply-To: <20200522212125.GB39766@romley-ivt3.sc.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-23T03:14:58.741Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Distribution
+ Only; MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard; 
+authentication-results: intel.com; dkim=none (message not signed)
+ header.d=none;intel.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [165.204.55.211]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 25a1256c-ed85-4511-1e22-08d7fec77a05
+x-ms-traffictypediagnostic: DM6PR12MB3100:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB3100A1EB7A65EC91A6E86D3FF0B50@DM6PR12MB3100.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 0412A98A59
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: i7cBTZKT4QWW5zIcodt7hHWre89DqQ6bfc456WAPgUk0s2KXF7TIoUXvlqqylXeup3RLFaCD/Ul7pvob5dUr6Hg3sDFZ5NY3QD4CXxupEOk2p6NdE/I9FjA7yDnQDoP7U1+j6OdhdDWhGBp23TlxyMbM3B4cxRmOVw/rhFvBQwgln33IKElwyvB96eUwV/3LiXKG7lBJk+3d4XfVOuLdl9EqZ2HJEK/DtXDVkRkSH02fPD3xkv4/s/QTZpE62jfFlp8Ya6YtYeGEw4vceydkq0YfHn36uRFgIEJkYeHuICKShMFF/iwH75Dj4pJcbnCbz2cDzJHWvklpjXi7+n2Y8g==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB4482.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(366004)(39860400002)(346002)(376002)(396003)(136003)(6486002)(2906002)(956004)(16526019)(186003)(26005)(6916009)(36756003)(2616005)(6666004)(52116002)(44832011)(8936002)(7696005)(4326008)(30864003)(478600001)(8676002)(66946007)(5660300002)(66476007)(316002)(86362001)(66556008)(1076003);
+ SFS:(4636009)(376002)(39860400002)(346002)(396003)(366004)(136003)(6636002)(33656002)(26005)(186003)(4326008)(478600001)(7696005)(66946007)(9686003)(5660300002)(52536014)(19627405001)(316002)(110136005)(8936002)(71200400001)(8676002)(76116006)(66476007)(91956017)(86362001)(55016002)(64756008)(53546011)(66446008)(6506007)(2906002)(66556008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: HgTcGyJonHzkZRv1qWLDJD2o0S8z4BDf4bIdPc8p8rjEu+iTAmFvxmtEjGUrNhHRUI0A0BPjNdl3bpwTwLmPxo8z9WUCFmZSMb71/uGu5652vtlzEFfyPLYCbfTQhICzD/JWrnsUt9iNhg9IUamQXKy1dYofWekWzaAhKB3EPr6YppFREOMq3sMG5cqbqwnQmOL4Rihmf9z5ZFPFuhl/U0DPP/1JAinNf8HoswwNWi9n8YkXU6ujNLHBgpG7jCRPHgEd9bkeudS/30JzQrS4M9LCCSC0sNRZ3qfmqCOBJpeteKTGgGzsZmFCVn1qJvBcqbTbLLaSbZelxJ6rWx46fTI7FdrhbSKqTnIn5ArkwTq50ZSetfR7EiUA/i35DZZrJ9HpneYIPFK4w+FF2myPwYkh7fXBXSwkVzmQJxpnCkgJM8ghpddw+pD6/RmyH1CYVl/8fvTqrGHzonfQVm84kBLT6oprTlvGA6eidHZD+bpl2CdAeiTeYYDzzUcMdnsS
+x-ms-exchange-antispam-messagedata: YyWM3Ccpzt4GKfGYIa9TGdIGoZlJaWZRBeuBKJMU4RE3eAO7rR32JcOe1aHlERS7V2R4HwGW+4XEhO08oDmTXYGiVu89FbpVTPAdYwzzKW1wosm3Q3dqQd41sNlOnF4gfYPQMQtNfCNLOwqoTbJTFpDHbvvzdNj8rbcOIdnYTEVeMla5os59lKq+90r4n5zPCejuaVYNXdRubT8tpke8Mb5PWVNvn16Yiy2L1KV9zig7dqLKMoIt2gGbkV8bVK0lPoPFXURyVv7E7auWElaFrUnxeOrYwxC2Nekrf/XHV0zG8pHjLokHinRZ0Zod+8g+Jeh6mSrvZELYRfjEGlDPhqECwRNWBSM6tFuOR7aYGhBTbqCAqhEMMbZWrLZvrw2uOfRt0PPmRuLVNV/Ok8JQHs784p/tPfuJXbbcyXJiBmwNe4uNEqqx9DHLEZXAWvjZcH8FodeRVQclEMm9oRHmsoye0FkIskUovFthwO/hHTDpVUa1K7Q35AFad6uArTHp
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74073755-a753-4b95-c3c8-08d7fec4b653
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 May 2020 02:55:12.4421 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8awYipyjGLMq3gLVf5iJh/SMWt7aWJSU2T55jqBxdJ5E/RJ/h46sGhYD62WywOOAl560rcDG3yJlMzLU43W3Cg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2835
+X-MS-Exchange-CrossTenant-Network-Message-Id: 25a1256c-ed85-4511-1e22-08d7fec77a05
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 May 2020 03:14:59.3983 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9UdSpcba3TAT5sib928OKzqYUIBlckx5JxtG1uE+CpM3P5Zu42+tks3yO5IoY2PF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3100
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,358 +112,153 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mukul Joshi <mukul.joshi@amd.com>, Felix.Kuehling@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============1082274882=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Track SDMA usage on a per process basis and report it through sysfs.
-The value in the sysfs file indicates the amount of time SDMA has
-been in-use by this process since the creation of the process.
-This value is in microsecond granularity.
+--===============1082274882==
+Content-Language: en-US
+Content-Type: multipart/alternative;
+	boundary="_000_DM6PR12MB448252364F96A4419AF2B3BFF0B50DM6PR12MB4482namp_"
 
-v2:
-- Remove unnecessary checks for pdd is kfd_procfs_show().
-- Make counter part of the kfd_sdma_activity_handler_workarea 
-  structure.
+--_000_DM6PR12MB448252364F96A4419AF2B3BFF0B50DM6PR12MB4482namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
----
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |  57 ++++++++
- .../drm/amd/amdkfd/kfd_device_queue_manager.h |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  16 ++-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 130 ++++++++++++++++--
- 4 files changed, 191 insertions(+), 14 deletions(-)
+[AMD Official Use Only - Internal Distribution Only]
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index e9c4867abeff..49f72d0f7be7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -153,6 +153,52 @@ void decrement_queue_count(struct device_queue_manager *dqm,
- 		dqm->active_cp_queue_count--;
- }
- 
-+int read_sdma_queue_counter(struct queue *q, uint64_t *val)
-+{
-+	int ret;
-+	uint64_t tmp = 0;
-+
-+	if (!q || !val)
-+		return -EINVAL;
-+	/*
-+	 * SDMA activity counter is stored at queue's RPTR + 0x8 location.
-+	 */
-+	if (!access_ok((const void __user *)((uint64_t)q->properties.read_ptr +
-+					sizeof(uint64_t)), sizeof(uint64_t))) {
-+		pr_err("Can't access sdma queue activity counter\n");
-+		return -EFAULT;
-+	}
-+
-+	ret = get_user(tmp, (uint64_t *)((uint64_t)(q->properties.read_ptr) +
-+						    sizeof(uint64_t)));
-+	if (!ret) {
-+		*val = tmp;
-+	}
-+
-+	return ret;
-+}
-+
-+static int update_sdma_queue_past_activity_stats(struct kfd_process_device *pdd,
-+						 struct queue *q)
-+{
-+	int ret;
-+	uint64_t val = 0;
-+
-+	if (!pdd)
-+		return -ENODEV;
-+
-+	ret = read_sdma_queue_counter(q, &val);
-+	if (ret) {
-+		pr_err("Failed to read SDMA queue counter for queue: %d\n",
-+				q->properties.queue_id);
-+		return ret;
-+	}
-+
-+	WRITE_ONCE(pdd->sdma_past_activity_counter, pdd->sdma_past_activity_counter + val);
-+
-+	return ret;
-+}
-+
- static int allocate_doorbell(struct qcm_process_device *qpd, struct queue *q)
- {
- 	struct kfd_dev *dev = qpd->dqm->dev;
-@@ -487,6 +533,12 @@ static int destroy_queue_nocpsch_locked(struct device_queue_manager *dqm,
- 	if (retval == -ETIME)
- 		qpd->reset_wavefronts = true;
- 
-+	/* Get the SDMA queue stats */
-+        if ((q->properties.type == KFD_QUEUE_TYPE_SDMA) ||
-+            (q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI)) {
-+                update_sdma_queue_past_activity_stats(qpd_to_pdd(qpd), q);
-+        }
-+
- 	mqd_mgr->free_mqd(mqd_mgr, q->mqd, q->mqd_mem_obj);
- 
- 	list_del(&q->list);
-@@ -1468,6 +1520,11 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
- 		}
- 	}
- 
-+	/* Get the SDMA queue stats */
-+	if ((q->properties.type == KFD_QUEUE_TYPE_SDMA) ||
-+	    (q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI)) {
-+		update_sdma_queue_past_activity_stats(qpd_to_pdd(qpd), q);
-+	}
- 	/*
- 	 * Unconditionally decrement this counter, regardless of the queue's
- 	 * type
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index 4afa015c69b1..894bcf877f9e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -251,4 +251,6 @@ static inline void dqm_unlock(struct device_queue_manager *dqm)
- 	mutex_unlock(&dqm->lock_hidden);
- }
- 
-+int read_sdma_queue_counter(struct queue *q, uint64_t *val);
-+
- #endif /* KFD_DEVICE_QUEUE_MANAGER_H_ */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index f70f789c3cb3..fae139b77c0a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -633,7 +633,14 @@ enum kfd_pdd_bound {
- 	PDD_BOUND_SUSPENDED,
- };
- 
--#define MAX_VRAM_FILENAME_LEN 11
-+#define MAX_SYSFS_FILENAME_LEN 11
-+
-+/*
-+ * SDMA counter runs at 100MHz frequency.
-+ * We display SDMA activity in microsecond granularity in sysfs.
-+ * As a result, the divisor is 100.
-+ */
-+#define SDMA_ACTIVITY_DIVISOR  100
- 
- /* Data that is per-process-per device. */
- struct kfd_process_device {
-@@ -681,7 +688,12 @@ struct kfd_process_device {
- 	/* VRAM usage */
- 	uint64_t vram_usage;
- 	struct attribute attr_vram;
--	char vram_filename[MAX_VRAM_FILENAME_LEN];
-+	char vram_filename[MAX_SYSFS_FILENAME_LEN];
-+
-+	/* SDMA activity tracking */
-+	uint64_t sdma_past_activity_counter;
-+	struct attribute attr_sdma;
-+	char sdma_filename[MAX_SYSFS_FILENAME_LEN];
- };
- 
- #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index d27221ddcdeb..e2ebed5c033f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -25,6 +25,7 @@
- #include <linux/sched.h>
- #include <linux/sched/mm.h>
- #include <linux/sched/task.h>
-+#include <linux/mmu_context.h>
- #include <linux/slab.h>
- #include <linux/amd-iommu.h>
- #include <linux/notifier.h>
-@@ -76,6 +77,66 @@ struct kfd_procfs_tree {
- 
- static struct kfd_procfs_tree procfs;
- 
-+/*
-+ * Structure for SDMA activity tracking
-+ */
-+struct kfd_sdma_activity_handler_workarea {
-+	struct work_struct sdma_activity_work;
-+	struct kfd_process_device *pdd;
-+	uint64_t sdma_current_activity_counter;
-+};
-+
-+static void kfd_sdma_activity_worker(struct work_struct *work)
-+{
-+	struct kfd_sdma_activity_handler_workarea *workarea;
-+	struct kfd_process_device *pdd;
-+	uint64_t val;
-+	struct mm_struct *mm;
-+	struct queue *q;
-+	struct qcm_process_device *qpd;
-+	struct device_queue_manager *dqm;
-+	int ret = 0;
-+
-+	workarea = container_of(work, struct kfd_sdma_activity_handler_workarea,
-+				sdma_activity_work);
-+	if (!workarea)
-+		return;
-+
-+	pdd = workarea->pdd;
-+	dqm = pdd->dev->dqm;
-+	qpd = &pdd->qpd;
-+
-+	if (!pdd || !dqm || !qpd)
-+		return;
-+
-+	mm = get_task_mm(pdd->process->lead_thread);
-+	if (!mm) {
-+		return;
-+	}
-+
-+	use_mm(mm);
-+
-+	dqm_lock(dqm);
-+
-+	list_for_each_entry(q, &qpd->queues_list, list) {
-+		if ((q->properties.type == KFD_QUEUE_TYPE_SDMA) ||
-+		    (q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI)) {
-+			val = 0;
-+			ret = read_sdma_queue_counter(q, &val);
-+			if (ret)
-+				pr_debug("Failed to read SDMA queue active "
-+					 "counter for queue id: %d",
-+					 q->properties.queue_id);
-+			else
-+				workarea->sdma_current_activity_counter += val;
-+		}
-+	}
-+
-+	dqm_unlock(dqm);
-+	unuse_mm(mm);
-+	mmput(mm);
-+}
-+
- static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
- 			       char *buffer)
- {
-@@ -87,8 +148,25 @@ static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
- 	} else if (strncmp(attr->name, "vram_", 5) == 0) {
- 		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
- 							      attr_vram);
--		if (pdd)
--			return snprintf(buffer, PAGE_SIZE, "%llu\n", READ_ONCE(pdd->vram_usage));
-+		return snprintf(buffer, PAGE_SIZE, "%llu\n", READ_ONCE(pdd->vram_usage));
-+	} else if (strncmp(attr->name, "sdma_", 5) == 0) {
-+		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
-+							      attr_sdma);
-+		struct kfd_sdma_activity_handler_workarea sdma_activity_work_handler;
-+
-+		INIT_WORK(&sdma_activity_work_handler.sdma_activity_work,
-+					kfd_sdma_activity_worker);
-+
-+		sdma_activity_work_handler.pdd = pdd;
-+
-+		schedule_work(&sdma_activity_work_handler.sdma_activity_work);
-+
-+		flush_work(&sdma_activity_work_handler.sdma_activity_work);
-+
-+		return snprintf(buffer, PAGE_SIZE, "%llu\n",
-+		        (READ_ONCE(pdd->sdma_past_activity_counter) +
-+			 sdma_activity_work_handler.sdma_current_activity_counter)/
-+			 SDMA_ACTIVITY_DIVISOR);
- 	} else {
- 		pr_err("Invalid attribute");
- 		return -EINVAL;
-@@ -210,7 +288,24 @@ int kfd_procfs_add_queue(struct queue *q)
- 	return 0;
- }
- 
--int kfd_procfs_add_vram_usage(struct kfd_process *p)
-+static int kfd_sysfs_create_file(struct kfd_process *p, struct attribute *attr,
-+				 char *name)
-+{
-+	int ret = 0;
-+
-+	if (!p || !attr || !name)
-+		return -EINVAL;
-+
-+	attr->name = name;
-+	attr->mode = KFD_SYSFS_FILE_MODE;
-+	sysfs_attr_init(attr);
-+
-+	ret = sysfs_create_file(p->kobj, attr);
-+
-+	return ret;
-+}
-+
-+int kfd_procfs_add_sysfs_files(struct kfd_process *p)
- {
- 	int ret = 0;
- 	struct kfd_process_device *pdd;
-@@ -221,17 +316,25 @@ int kfd_procfs_add_vram_usage(struct kfd_process *p)
- 	if (!p->kobj)
- 		return -EFAULT;
- 
--	/* Create proc/<pid>/vram_<gpuid> file for each GPU */
-+	/*
-+	 * Create sysfs files for each GPU:
-+	 * - proc/<pid>/vram_<gpuid>
-+	 * - proc/<pid>/sdma_<gpuid>
-+	 */
- 	list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
--		snprintf(pdd->vram_filename, MAX_VRAM_FILENAME_LEN, "vram_%u",
-+		snprintf(pdd->vram_filename, MAX_SYSFS_FILENAME_LEN, "vram_%u",
- 			 pdd->dev->id);
--		pdd->attr_vram.name = pdd->vram_filename;
--		pdd->attr_vram.mode = KFD_SYSFS_FILE_MODE;
--		sysfs_attr_init(&pdd->attr_vram);
--		ret = sysfs_create_file(p->kobj, &pdd->attr_vram);
-+		ret = kfd_sysfs_create_file(p, &pdd->attr_vram, pdd->vram_filename);
- 		if (ret)
- 			pr_warn("Creating vram usage for gpu id %d failed",
- 				(int)pdd->dev->id);
-+
-+		snprintf(pdd->sdma_filename, MAX_SYSFS_FILENAME_LEN, "sdma_%u",
-+			 pdd->dev->id);
-+		ret = kfd_sysfs_create_file(p, &pdd->attr_sdma, pdd->sdma_filename);
-+		if (ret)
-+			pr_warn("Creating sdma usage for gpu id %d failed",
-+				(int)pdd->dev->id);
- 	}
- 
- 	return ret;
-@@ -444,9 +547,9 @@ struct kfd_process *kfd_create_process(struct file *filep)
- 		if (!process->kobj_queues)
- 			pr_warn("Creating KFD proc/queues folder failed");
- 
--		ret = kfd_procfs_add_vram_usage(process);
-+		ret = kfd_procfs_add_sysfs_files(process);
- 		if (ret)
--			pr_warn("Creating vram usage file for pid %d failed",
-+			pr_warn("Creating sysfs usage file for pid %d failed",
- 				(int)process->lead_thread->pid);
- 	}
- out:
-@@ -597,8 +700,10 @@ static void kfd_process_wq_release(struct work_struct *work)
- 		kobject_put(p->kobj_queues);
- 		p->kobj_queues = NULL;
- 
--		list_for_each_entry(pdd, &p->per_device_data, per_device_list)
-+		list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
- 			sysfs_remove_file(p->kobj, &pdd->attr_vram);
-+			sysfs_remove_file(p->kobj, &pdd->attr_sdma);
-+		}
- 
- 		kobject_del(p->kobj);
- 		kobject_put(p->kobj);
-@@ -906,6 +1011,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
- 	pdd->already_dequeued = false;
- 	pdd->runtime_inuse = false;
- 	pdd->vram_usage = 0;
-+	pdd->sdma_past_activity_counter = 0;
- 	list_add(&pdd->per_device_list, &p->per_device_data);
- 
- 	/* Init idr used for memory handle translation */
--- 
-2.17.1
+Hi Fenghua,
+
+I am okay with the idea.
+
+Regards,
+Yong
+________________________________
+From: Fenghua Yu <fenghua.yu@intel.com>
+Sent: Friday, May 22, 2020 5:21 PM
+To: Kuehling, Felix <Felix.Kuehling@amd.com>
+Cc: Zhao, Yong <Yong.Zhao@amd.com>; amd-gfx@lists.freedesktop.org <amd-gfx@=
+lists.freedesktop.org>
+Subject: Re: drm/amdkfd: Change pasid's type to unsigned int
+
+Hi, Felix,
+
+On Fri, May 22, 2020 at 03:40:06PM -0400, Felix Kuehling wrote:
+> Hi Fenghua,
+>
+> The PASID width in KFD is currently limited to 16 bits. I believe this
+> reflects what our hardware can handle. KFD will never allocate a PASID
+> bigger than 16 bits. That said, I'm OK with changing this field in the
+> kfd_process structure to unsigned int. Generally, I find uint16_t in
+> structures not very useful except in tightly packed structures such as
+> packet formats or ioctl arguments.
+
+Thank you very much for your insight!
+
+I'm writing the patch set to define pasid as "unsigned int" consistently
+in iommu. I'll put the amdkfd changes (only a few changes including this
+pasid change in struct kfd_processin) one patch and send it to you for
+review.
+
+-Fenghua
+
+--_000_DM6PR12MB448252364F96A4419AF2B3BFF0B50DM6PR12MB4482namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
+ign=3D"Left">
+[AMD Official Use Only - Internal Distribution Only]<br>
+</p>
+<br>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi Fenghua,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+I am okay with the idea.</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Regards,</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Yong</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Fenghua Yu &lt;fenghu=
+a.yu@intel.com&gt;<br>
+<b>Sent:</b> Friday, May 22, 2020 5:21 PM<br>
+<b>To:</b> Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;<br>
+<b>Cc:</b> Zhao, Yong &lt;Yong.Zhao@amd.com&gt;; amd-gfx@lists.freedesktop.=
+org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Subject:</b> Re: drm/amdkfd: Change pasid's type to unsigned int</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">Hi, Felix,<br>
+<br>
+On Fri, May 22, 2020 at 03:40:06PM -0400, Felix Kuehling wrote:<br>
+&gt; Hi Fenghua,<br>
+&gt; <br>
+&gt; The PASID width in KFD is currently limited to 16 bits. I believe this=
+<br>
+&gt; reflects what our hardware can handle. KFD will never allocate a PASID=
+<br>
+&gt; bigger than 16 bits. That said, I'm OK with changing this field in the=
+<br>
+&gt; kfd_process structure to unsigned int. Generally, I find uint16_t in<b=
+r>
+&gt; structures not very useful except in tightly packed structures such as=
+<br>
+&gt; packet formats or ioctl arguments.<br>
+<br>
+Thank you very much for your insight!<br>
+<br>
+I'm writing the patch set to define pasid as &quot;unsigned int&quot; consi=
+stently<br>
+in iommu. I'll put the amdkfd changes (only a few changes including this<br=
+>
+pasid change in struct kfd_processin) one patch and send it to you for<br>
+review.<br>
+<br>
+-Fenghua<br>
+</div>
+</span></font></div>
+</div>
+</body>
+</html>
+
+--_000_DM6PR12MB448252364F96A4419AF2B3BFF0B50DM6PR12MB4482namp_--
+
+--===============1082274882==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1082274882==--
