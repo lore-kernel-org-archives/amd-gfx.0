@@ -1,46 +1,69 @@
 Return-Path: <SRS0=Ro4j=7H=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.7 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4170FC433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2020 15:20:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 998EBC433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2020 15:26:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F3DF22071A
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2020 15:20:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6B5272070A
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2020 15:26:37 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=emersion.fr header.i=@emersion.fr header.b="GCgMbpMz"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F3DF22071A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=emersion.fr
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WIL+6dZ9"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6B5272070A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 710DC8915F;
-	Mon, 25 May 2020 15:20:46 +0000 (UTC)
-Received: from mail-40131.protonmail.ch (mail-40131.protonmail.ch
- [185.70.40.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0477A8915F
- for <amd-gfx@lists.freedesktop.org>; Mon, 25 May 2020 15:20:45 +0000 (UTC)
-Date: Mon, 25 May 2020 15:20:41 +0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail; t=1590420043;
- bh=3RdNudmO4hC+GYd+Ig1ZoKDa7xqF0YYW/EZMY3WG7UU=;
- h=Date:To:From:Cc:Reply-To:Subject:In-Reply-To:References:From;
- b=GCgMbpMzR1PD3wYrkwGnmsXzEfPttQN6UX4cG5i5epxeMrmkPNqiouYx2GrwBHIOy
- OKNSX7DyTb8bDqajjrjpInKInekr1138duoIKBf9SPvsVSrh5SuoLi/zUN+lO2Kxt+
- xcOpQXIHdmM6SMjDIkj1vkKeR/xjRpfB2rA2O+SQ=
-To: Daniel Vetter <daniel@ffwll.ch>
-From: Simon Ser <contact@emersion.fr>
-Subject: Re: Adaptive Sync enabling in Xorg Modesetting driver
-Message-ID: <y61UnQ7JgZGomUBsKxwazOBwHB6sLQG3RfeimrIQ97Z35kTL6kwdLyCekZVWVVYA05qTERecIAbZdORUorZVsm_WK7zz9tPYCdGzWc0d2aw=@emersion.fr>
-In-Reply-To: <20200525151515.GK206103@phenom.ffwll.local>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9EE889AA2;
+	Mon, 25 May 2020 15:26:36 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34CD189AA2;
+ Mon, 25 May 2020 15:26:36 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id v79so7664123qkb.10;
+ Mon, 25 May 2020 08:26:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=U0lUQ6DZQ5HW3zVZ78eBQpqE45pWlfZ+bqEH97DKz20=;
+ b=WIL+6dZ9xah1AsbV+SrbEZAZWypwjog6fBOlBH8ywvaXVk3EqqWVrsIUdQVh9vsOWs
+ +RKHgetxaGZ1Bq58nBsdk5DKQkMYPCkZggQHd0tUZ5tVRs0LOUnMDUqmPRQKQE0jW43y
+ REloFdNFAAIXqJCLLdM1+Mp+B1sEZeJFu4V+PXSIcHnfCy5vbphBAkmTF+Dt1Fc2xKI8
+ uysRtV5Z5C87wMPEgELmk7G79fCHuIUHLXQSfHRMRcOw9++ujfjCfV3JYdtFwrT1njIw
+ N98Menlk8mrlvHGFYxynbVkQW5FSVtZ/oVmH4525e/3bXkqg3LDnVAuj/AB6h+wMK1hA
+ C3Ug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=U0lUQ6DZQ5HW3zVZ78eBQpqE45pWlfZ+bqEH97DKz20=;
+ b=tAcf49rk4+YC3WoyhJzIsjYj9q+8YnPinZ+R5wvaMMwcMV452PaezmKz3wmNPYheWk
+ a3qxqJxngqfPEphO4TrWQTyR7/MTJXmSS/BoWe6k00dFNLDjOy+9y/g4k6b9A6ZVfc3x
+ qgkxqS3LHlC0PzHuDw4OlSpnsDL0d/2tG7ZIy4vpk3aONnepgLtHg+jicyprK2TvesyA
+ cKRrhtTV+1QoTP71hjhTFT6rx4WATtmP5Y1PEZbnDEQX/IRoA3IicKCa+wGnuaz3Mppm
+ pjNaz9CdDsQUe6wskB+jvlM0SfI3p5ifisywAAMJp68IUF6erRW+i08n51CKyCuX0kXd
+ ssvQ==
+X-Gm-Message-State: AOAM532aRnxybV0u46CpzegV58JBcdq0ru8Td8rrdx4Rh/6Q5Ctc2HAj
+ s1jBaW+tcpJNKuSUiz+bxxPuM05A35VKDkiV+Dvl7Kqe
+X-Google-Smtp-Source: ABdhPJxoKA6BqXfxB/J/Vv919kXamSFFjVlSXwDjOQPE1QYa/TEJShMLVSYjx++m+BRzoXPnCmaotoMOgPpsnP1rfYU=
+X-Received: by 2002:a05:620a:526:: with SMTP id
+ h6mr1931173qkh.338.1590420395229; 
+ Mon, 25 May 2020 08:26:35 -0700 (PDT)
+MIME-Version: 1.0
 References: <CAGcx_0Yu4D6F2BiPp5CnJhMyrupGsnFnzEH0-Gv=8rFuVtDi+w@mail.gmail.com>
  <20200525151515.GK206103@phenom.ffwll.local>
-MIME-Version: 1.0
+ <y61UnQ7JgZGomUBsKxwazOBwHB6sLQG3RfeimrIQ97Z35kTL6kwdLyCekZVWVVYA05qTERecIAbZdORUorZVsm_WK7zz9tPYCdGzWc0d2aw=@emersion.fr>
+In-Reply-To: <y61UnQ7JgZGomUBsKxwazOBwHB6sLQG3RfeimrIQ97Z35kTL6kwdLyCekZVWVVYA05qTERecIAbZdORUorZVsm_WK7zz9tPYCdGzWc0d2aw=@emersion.fr>
+From: uday kiran pichika <udaykiran.pichika@gmail.com>
+Date: Mon, 25 May 2020 20:56:24 +0530
+Message-ID: <CAGcx_0Z-1fafZW1cK-VwA+6oDY+bi6j-YeAQDUthByExDO6i6Q@mail.gmail.com>
+Subject: Re: Adaptive Sync enabling in Xorg Modesetting driver
+To: Simon Ser <contact@emersion.fr>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,38 +75,108 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Simon Ser <contact@emersion.fr>
 Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- uday kiran pichika <udaykiran.pichika@gmail.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+ Daniel Vetter <daniel@ffwll.ch>
+Content-Type: multipart/mixed; boundary="===============1817490255=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, May 25, 2020 5:15 PM, Daniel Vetter <daniel@ffwll.ch> wrote:
+--===============1817490255==
+Content-Type: multipart/alternative; boundary="000000000000b384ae05a67a9acd"
 
-> On Mon, May 25, 2020 at 07:01:21PM +0530, uday kiran pichika wrote:
->
-> > Hello,
-> > Am working on enabling the Adaptive sync feature as part of the
-> > Xorg/Modesetting DDX driver by taking the reference of AMD DDX Driver
-> > (xf86-video-amdgpu). Below is the commit which i submitted.
-> > https://gitlab.freedesktop.org/pichika/xserver/-/commit/682565a645bda7371cc3731ee805cc4a0ace80db
-> > I have made the below changes to enable this feature
-> >
-> > 1.  Enable Adaptive sync in Graphics Driver
-> > 2.  Added Xorg.conf file with VariableRefresh property which is read in the
-> >     Modesetting driver --> This is working fine.
-> >
->
-> -modesetting, even in latest git master branch doesn't have VRR support.
->
-> So yeah this wont work.
+--000000000000b384ae05a67a9acd
+Content-Type: text/plain; charset="UTF-8"
 
-FWIW, Sway supports VRR (via the output adaptive_sync command). So it
-would be a way to test your driver.
+Thanks for the input simon. Sway Compositor is based on the wayland
+protocol right !!
+
+But we are trying to do it through Xorg modesetting driver..
+
+On Mon, May 25, 2020 at 8:50 PM Simon Ser <contact@emersion.fr> wrote:
+
+> On Monday, May 25, 2020 5:15 PM, Daniel Vetter <daniel@ffwll.ch> wrote:
+>
+> > On Mon, May 25, 2020 at 07:01:21PM +0530, uday kiran pichika wrote:
+> >
+> > > Hello,
+> > > Am working on enabling the Adaptive sync feature as part of the
+> > > Xorg/Modesetting DDX driver by taking the reference of AMD DDX Driver
+> > > (xf86-video-amdgpu). Below is the commit which i submitted.
+> > >
+> https://gitlab.freedesktop.org/pichika/xserver/-/commit/682565a645bda7371cc3731ee805cc4a0ace80db
+> > > I have made the below changes to enable this feature
+> > >
+> > > 1.  Enable Adaptive sync in Graphics Driver
+> > > 2.  Added Xorg.conf file with VariableRefresh property which is read
+> in the
+> > >     Modesetting driver --> This is working fine.
+> > >
+> >
+> > -modesetting, even in latest git master branch doesn't have VRR support.
+> >
+> > So yeah this wont work.
+>
+> FWIW, Sway supports VRR (via the output adaptive_sync command). So it
+> would be a way to test your driver.
+>
+
+--000000000000b384ae05a67a9acd
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Thanks for the input simon. Sway Compositor is based on th=
+e wayland protocol right !!=C2=A0<div><br></div><div>But we are trying to d=
+o it through Xorg modesetting driver..=C2=A0</div></div><br><div class=3D"g=
+mail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, May 25, 2020 at 8=
+:50 PM Simon Ser &lt;<a href=3D"mailto:contact@emersion.fr">contact@emersio=
+n.fr</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex">On Monday, May 25, 2020 5:15 PM, Daniel Vetter &lt;<a href=3D"mailto:da=
+niel@ffwll.ch" target=3D"_blank">daniel@ffwll.ch</a>&gt; wrote:<br>
+<br>
+&gt; On Mon, May 25, 2020 at 07:01:21PM +0530, uday kiran pichika wrote:<br=
+>
+&gt;<br>
+&gt; &gt; Hello,<br>
+&gt; &gt; Am working on enabling the Adaptive sync feature as part of the<b=
+r>
+&gt; &gt; Xorg/Modesetting DDX driver by taking the reference of AMD DDX Dr=
+iver<br>
+&gt; &gt; (xf86-video-amdgpu). Below is the commit which i submitted.<br>
+&gt; &gt; <a href=3D"https://gitlab.freedesktop.org/pichika/xserver/-/commi=
+t/682565a645bda7371cc3731ee805cc4a0ace80db" rel=3D"noreferrer" target=3D"_b=
+lank">https://gitlab.freedesktop.org/pichika/xserver/-/commit/682565a645bda=
+7371cc3731ee805cc4a0ace80db</a><br>
+&gt; &gt; I have made the below changes to enable this feature<br>
+&gt; &gt;<br>
+&gt; &gt; 1.=C2=A0 Enable Adaptive sync in Graphics Driver<br>
+&gt; &gt; 2.=C2=A0 Added Xorg.conf file with VariableRefresh property which=
+ is read in the<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0Modesetting driver --&gt; This is working fine=
+.<br>
+&gt; &gt;<br>
+&gt;<br>
+&gt; -modesetting, even in latest git master branch doesn&#39;t have VRR su=
+pport.<br>
+&gt;<br>
+&gt; So yeah this wont work.<br>
+<br>
+FWIW, Sway supports VRR (via the output adaptive_sync command). So it<br>
+would be a way to test your driver.<br>
+</blockquote></div>
+
+--000000000000b384ae05a67a9acd--
+
+--===============1817490255==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1817490255==--
