@@ -1,67 +1,69 @@
 Return-Path: <SRS0=Ro4j=7H=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.7 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58F32C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2020 14:58:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 554A2C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2020 15:15:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 23D1420888
-	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2020 14:58:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 27D24206B6
+	for <amd-gfx@archiver.kernel.org>; Mon, 25 May 2020 15:15:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XLw/D5Y5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 23D1420888
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="OwLv4qS2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 27D24206B6
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C171B89FD4;
-	Mon, 25 May 2020 14:58:45 +0000 (UTC)
-Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
- [IPv6:2607:f8b0:4864:20::f2d])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D7BC389FC9;
- Mon, 25 May 2020 14:58:44 +0000 (UTC)
-Received: by mail-qv1-xf2d.google.com with SMTP id v15so8131496qvr.8;
- Mon, 25 May 2020 07:58:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oEQGzdGf55hROlZZzP0RnfWNG7N1rwyMbo4r+EOdmtY=;
- b=XLw/D5Y5CYvPnqtBj44xxUf0ghkYSdQTDck6flWnKA14aCrwYAETHua6U7qIkW53lx
- wFsS37BtgEJRsJZlqALjaMFSVIoZUgaNTRBRwI0Jy2DC1XEPFrpeStPZgwYKkBFCyYZk
- CbXLPhqhwxbpwZ9taBnYshAMEw3poKDZXq9F8hG6DatVvIgm/INmwtwAsIis2Yu/ZZuu
- 2YRr+4scdLz5kLe1+6W8Mdb5rDdqc2CfiGdNDs5ubW6grPIEx6hccbwUim89dNl2WFeY
- MYXLGrw/YTwmejrDWIeEaZ+AriRHBfmbq6U6pkgsQX455cTysumPggK00E5TPthTS2DG
- pRtw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB7A389E35;
+	Mon, 25 May 2020 15:15:20 +0000 (UTC)
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1A8289E35
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 May 2020 15:15:19 +0000 (UTC)
+Received: by mail-wr1-x444.google.com with SMTP id j16so4933793wrb.7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 25 May 2020 08:15:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=nZhVmkt+k/PyFcD9bZVLAYu1XJoNkOIXHLmqHm7k94U=;
+ b=OwLv4qS2wQCVMlsqNIL7hzAy5rqofwmaMCuWSrDQQbULLzvLH2jVF5vSjJY39qp7ne
+ XaG9HLb/49ZUZ5hVr1Xk91gF61IdTzHomegLrQWv7OGAnA9rVB0TgfDxa+pTFkHa0bsu
+ 4FbobgB4V2eUmWU83NuYbbQgttOk0WfZWdeZo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oEQGzdGf55hROlZZzP0RnfWNG7N1rwyMbo4r+EOdmtY=;
- b=svRJtv8wd3RsG7tfULAvLdYpV09yG61l+Wry/mT1+te00JwIcc1jgAYaTFS2PkNn60
- Gghzb0UMYUuUTv453+accqunm9rmvUK0FuokpdGQ3D0GnGtzi46o93sau3yi2yDSvhoR
- xlW1f4CTdzj0PL+KxdEsAAYzamOftmf+kcol7C9BBgOz0yLTMll1onsBWVbzO4jne00d
- CAeKwE6+WwyLfDjB8iR1yki0nL08V/2W4CmiP0+CvpvmrFetaAB1iSv4F+iK267hGmlE
- SfLAcV+SrBR5E3cxJF72LixT4/crPjKn7OR/jlq4pKc07tdkHdjfTk55NlBTDiII7I3w
- QBoA==
-X-Gm-Message-State: AOAM531NYlH/D7+4WK/fAlPBoZ+Lv+52a5MQIjtktuYzPOByIAdsqtgu
- fsVhwL7ssHPt8jPifTwDXliL2k6jZ/wL5ItiL98StA==
-X-Google-Smtp-Source: ABdhPJyqUdWv4bIKxEfJPSje7DMT+Us0WHVqBUtXg44pHK/pMnqdY/RlXJDthiirjcyGVb/CNTB1A3ewPZJEKq4FgVE=
-X-Received: by 2002:a0c:b60c:: with SMTP id f12mr15962313qve.244.1590418724031; 
- Mon, 25 May 2020 07:58:44 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAGcx_0Yu4D6F2BiPp5CnJhMyrupGsnFnzEH0-Gv=8rFuVtDi+w@mail.gmail.com>
- <53679f9b-4d81-cb46-72bb-02ca05fb303f@daenzer.net>
-In-Reply-To: <53679f9b-4d81-cb46-72bb-02ca05fb303f@daenzer.net>
-From: uday kiran pichika <udaykiran.pichika@gmail.com>
-Date: Mon, 25 May 2020 20:28:32 +0530
-Message-ID: <CAGcx_0Z3JhUP_2KpfC0JQZeugd6VfDSYeErMSZMVVA8sogUt+A@mail.gmail.com>
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=nZhVmkt+k/PyFcD9bZVLAYu1XJoNkOIXHLmqHm7k94U=;
+ b=Ff50MZ7a/rvEq48nb/knrUPzIFl4PVXe+TjKdodBu7kiFZmXa59z8g9pmXZqKWI9Lv
+ C2k6hInc9jrSicIMzg3vVniEf2rd/4rPg/6Eq7p1gKCwRjuugzWw0ilUHWFtKmfCs7EH
+ o5HB3/NQtbrokA+8cuMB5ZfZbFAtnpgPdJbyCKCBiM8Aa73lPH0AxZ4DKFHlzwmZpVF1
+ jG+saBiXXBpUfHJH2h1LJZowhSBg0hksKBU9yLzbzZK7TMhpMTB1Ic1T7lmyPnDnFvFO
+ jkMX2n2xj4jl66NlwT/FpM1eM2n16ozUAaYZZBAOveRMhJEr8F7Q6HNUhTURc20jY+KR
+ ut3A==
+X-Gm-Message-State: AOAM5306R9QrrpE2RH0ZUrhV2yIakE7a/rKNzdAa4kyv/y6aKOXjCR4F
+ qRMmH0lU+FgiiajHHORHI/IChAVBQwY=
+X-Google-Smtp-Source: ABdhPJxIJvxgJNFHAOk12epKlT8D3FmfQISZTgg/56ci6AWFGzlVao5dIvFQRUqthb2mQZOBmTT60w==
+X-Received: by 2002:adf:a34d:: with SMTP id d13mr10229237wrb.270.1590419718614; 
+ Mon, 25 May 2020 08:15:18 -0700 (PDT)
+Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
+ by smtp.gmail.com with ESMTPSA id r11sm18637253wrv.14.2020.05.25.08.15.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 May 2020 08:15:17 -0700 (PDT)
+Date: Mon, 25 May 2020 17:15:15 +0200
+From: Daniel Vetter <daniel@ffwll.ch>
+To: uday kiran pichika <udaykiran.pichika@gmail.com>
 Subject: Re: Adaptive Sync enabling in Xorg Modesetting driver
-To: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>
+Message-ID: <20200525151515.GK206103@phenom.ffwll.local>
+References: <CAGcx_0Yu4D6F2BiPp5CnJhMyrupGsnFnzEH0-Gv=8rFuVtDi+w@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CAGcx_0Yu4D6F2BiPp5CnJhMyrupGsnFnzEH0-Gv=8rFuVtDi+w@mail.gmail.com>
+X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,180 +76,62 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Content-Type: multipart/mixed; boundary="===============0427211478=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---===============0427211478==
-Content-Type: multipart/alternative; boundary="00000000000017138a05a67a37f5"
+On Mon, May 25, 2020 at 07:01:21PM +0530, uday kiran pichika wrote:
+> Hello,
+> 
+> Am working on enabling the Adaptive sync feature as part of the
+> Xorg/Modesetting DDX driver by taking the reference of AMD DDX Driver
+> (xf86-video-amdgpu). Below is the commit which i submitted.
+> https://gitlab.freedesktop.org/pichika/xserver/-/commit/682565a645bda7371cc3731ee805cc4a0ace80db
+> 
+> 
+> I have made the below changes to enable this feature
+> 1. Enable Adaptive sync in Graphics Driver
+> 2. Added Xorg.conf file with VariableRefresh property which is read in the
+> Modesetting driver --> This is working fine.
 
---00000000000017138a05a67a37f5
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+-modesetting, even in latest git master branch doesn't have VRR support.
 
-Thanks Michel..
+So yeah this wont work.
+-Daniel
 
-sorry if my description is not clear.
-Yes I have used with glxgears in fullscreen mode and also a simple glxapp
-which actually opens in fullscreen by default.
+> 
+> After taking the above changes, am observing that Adaptive sync is not
+> working.
+> 
+> Below are my observations.
+> 1. loader_dri3_helper.c  --> Adaptive sync property is being set once the
+> system is booted successfully on one Window. Once
+> set_adaptive_sync_property() method gets called, adaptive_sync_active flag
+> is setting to true. From the next time, when fullscreen applications are
+> loaded, this property never gets set on any window.
+> 2. Once this property is being set, received a notification in modesetting
+> ddx driver and read the property from the Stuff->window.
+> 3. But when the fullscreen application(Either DOTA or Xonotic), not
+> observing that this propety is not being set on any app window.
+> 
+> Can any one please help me why this property is not being set in the
+> application windows ?
+> 
+> Thanks
+> Uday Kiran
 
-In both the cases, the issue is same.
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 
-Just wanted to know if AMD has done anything different apart from the
-configurations either in MESA or in its Radeon driver ?
 
-Thanks
-Uday Kiran
-
-On Mon, May 25, 2020 at 7:26 PM Michel D=C3=A4nzer <michel@daenzer.net> wro=
-te:
-
-> On 2020-05-25 3:31 p.m., uday kiran pichika wrote:
-> > Hello,
-> >
-> > Am working on enabling the Adaptive sync feature as part of the
-> > Xorg/Modesetting DDX driver by taking the reference of AMD DDX Driver
-> > (xf86-video-amdgpu). Below is the commit which i submitted.
-> >
-> https://gitlab.freedesktop.org/pichika/xserver/-/commit/682565a645bda7371=
-cc3731ee805cc4a0ace80db
-> >
-> >
-> > I have made the below changes to enable this feature
-> > 1. Enable Adaptive sync in Graphics Driver
-> > 2. Added Xorg.conf file with VariableRefresh property which is read in
-> the
-> > Modesetting driver --> This is working fine.
-> >
-> > After taking the above changes, am observing that Adaptive sync is not
-> > working.
-> >
-> > Below are my observations.
-> > 1. loader_dri3_helper.c  --> Adaptive sync property is being set once t=
-he
-> > system is booted successfully on one Window. Once
-> > set_adaptive_sync_property() method gets called, adaptive_sync_active
-> flag
-> > is setting to true. From the next time, when fullscreen applications ar=
-e
-> > loaded, this property never gets set on any window.
-> > 2. Once this property is being set, received a notification in
-> modesetting
-> > ddx driver and read the property from the Stuff->window.
-> > 3. But when the fullscreen application(Either DOTA or Xonotic), not
-> > observing that this propety is not being set on any app window.
-> >
-> > Can any one please help me why this property is not being set in the
-> > application windows ?
->
-> From your description, it does get set for some windows. Just apparently
-> not for the window which is fullscreen and using page flipping (your
-> description is a bit vague to be sure though).
->
-> Have you tried with a simpler test app, e.g.
->
->  glxgears -fullscreen
->
-> ?
->
->
-> --
-> Earthling Michel D=C3=A4nzer               |               https://redhat=
-.com
-> Libre software enthusiast             |             Mesa and X developer
->
-
---00000000000017138a05a67a37f5
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thanks Michel..<div><br></div><div>sorry if my description=
- is not clear.=C2=A0</div><div>Yes I have used with glxgears in fullscreen =
-mode and also a simple glxapp which actually opens in fullscreen=C2=A0by de=
-fault.=C2=A0</div><div><br></div><div>In both the cases, the issue is same.=
-=C2=A0</div><div><br></div><div>Just wanted to know if AMD has done anythin=
-g different apart from the configurations either in MESA or in its Radeon d=
-river ?=C2=A0</div><div><br></div><div>Thanks=C2=A0</div><div>Uday Kiran</d=
-iv></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_att=
-r">On Mon, May 25, 2020 at 7:26 PM Michel D=C3=A4nzer &lt;<a href=3D"mailto=
-:michel@daenzer.net">michel@daenzer.net</a>&gt; wrote:<br></div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex">On 2020-05-25 3:31 p.m., uday kiran =
-pichika wrote:<br>
-&gt; Hello,<br>
-&gt; <br>
-&gt; Am working on enabling the Adaptive sync feature as part of the<br>
-&gt; Xorg/Modesetting DDX driver by taking the reference of AMD DDX Driver<=
-br>
-&gt; (xf86-video-amdgpu). Below is the commit which i submitted.<br>
-&gt; <a href=3D"https://gitlab.freedesktop.org/pichika/xserver/-/commit/682=
-565a645bda7371cc3731ee805cc4a0ace80db" rel=3D"noreferrer" target=3D"_blank"=
->https://gitlab.freedesktop.org/pichika/xserver/-/commit/682565a645bda7371c=
-c3731ee805cc4a0ace80db</a><br>
-&gt; <br>
-&gt; <br>
-&gt; I have made the below changes to enable this feature<br>
-&gt; 1. Enable Adaptive sync in Graphics Driver<br>
-&gt; 2. Added Xorg.conf file with VariableRefresh property which is read in=
- the<br>
-&gt; Modesetting driver --&gt; This is working fine.<br>
-&gt; <br>
-&gt; After taking the above changes, am observing that Adaptive sync is not=
-<br>
-&gt; working.<br>
-&gt; <br>
-&gt; Below are my observations.<br>
-&gt; 1. loader_dri3_helper.c=C2=A0 --&gt; Adaptive sync property is being s=
-et once the<br>
-&gt; system is booted successfully on one Window. Once<br>
-&gt; set_adaptive_sync_property() method gets called, adaptive_sync_active =
-flag<br>
-&gt; is setting to true. From the next time, when fullscreen applications a=
-re<br>
-&gt; loaded, this property never gets set on any window.<br>
-&gt; 2. Once this property is being set, received a notification in modeset=
-ting<br>
-&gt; ddx driver and read the property from the Stuff-&gt;window.<br>
-&gt; 3. But when the fullscreen application(Either DOTA or Xonotic), not<br=
->
-&gt; observing that this propety is not being set on any app window.<br>
-&gt; <br>
-&gt; Can any one please help me why this property is not being set in the<b=
-r>
-&gt; application windows ?<br>
-<br>
-From your description, it does get set for some windows. Just apparently<br=
->
-not for the window which is fullscreen and using page flipping (your<br>
-description is a bit vague to be sure though).<br>
-<br>
-Have you tried with a simpler test app, e.g.<br>
-<br>
-=C2=A0glxgears -fullscreen<br>
-<br>
-?<br>
-<br>
-<br>
--- <br>
-Earthling Michel D=C3=A4nzer=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0<a href=
-=3D"https://redhat.com" rel=3D"noreferrer" target=3D"_blank">https://redhat=
-.com</a><br>
-Libre software enthusiast=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0|=
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0Mesa and X developer<br>
-</blockquote></div>
-
---00000000000017138a05a67a37f5--
-
---===============0427211478==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============0427211478==--
