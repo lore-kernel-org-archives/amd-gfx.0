@@ -2,99 +2,71 @@ Return-Path: <SRS0=trOe=7I=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2AD13C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2020 17:27:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86061C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2020 17:56:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A0E8C204EF
-	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2020 17:27:20 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 4A5A420776
+	for <amd-gfx@archiver.kernel.org>; Tue, 26 May 2020 17:56:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="azcfTJow"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0E8C204EF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nFrFSYye"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4A5A420776
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27DFA89D2F;
-	Tue, 26 May 2020 17:27:20 +0000 (UTC)
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680055.outbound.protection.outlook.com [40.107.68.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB3789B8F
- for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2020 17:27:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WKw12xvWSwjsl8R24IEehrHl6OY86Yqr4DoQzaXVsEWxvfhEKbbw3wgZy4hNa/pZp39zXiCwRky5v6oeUgtCOj0NesmNtzLUQfZgG4LQLYoNrvcIiMottGGYtFDS4AlqjZB07MarI8xk9L6czrp5/zXP8umlNULIEgRk/OYYugjY7wTAJsIXOKmaVt9Ej8YnY/tirI3+dqpdVNUyS2+685zOhAeevQWXFC8GexdFdkQvGPItz942VaJAhwAcffcRFD4BLyRiEDltRymk7DESGZ/3RmNypEad+8vR49Vuh3rSr6OvmeUkrmAB/57u0Bsne5oBX+IKWiFfgdXs+1j6yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s3jhoAu9KkA9xfJoMxtPRcJjUenw6OeBgX6M8H74x4E=;
- b=HY/tEc8X0dt0eBYyxye/Xt7j0AQSy5gwlYbGCOpOP+ivQ+FCmap5DCoBrwy0yVAu/jK6eTTMCStwzjaYHo6yifLi4uaqAZDKPpaEmhl0Xs9Tu+zqfaDo5oAv54d/sgv8/Qg0GxbCeV2WbXBewYV7ERJE1GpTAuviS2jRiyq6EvpnQNUAjWobh8yDRKxh4NPmgjdDqTfnLrtQnpKA4tbvH5PgUqc2eZxiR1A22zJ8n4oGs4aZCfTMPejxq0Ayrp6Vjc9WP4hQoaQcvSD/qtLOKYzwr1c1ZyJgyWMRwvBqpA6Hnc9tEyLBNDCy/1W8ar77/FtxwpXm0acHzwwxQC0vKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s3jhoAu9KkA9xfJoMxtPRcJjUenw6OeBgX6M8H74x4E=;
- b=azcfTJowgXF60WXBmkwk4X8xTirStmB8duNlLUAc3l0IL5Hnjom+bPikGlYYCKjblefGV85l9nyCZ2pZy3USDEB5nyFMtM8xiyWuT1PjPvq7FdG4iVbJgwNow9rJSADxNbeDlCP5jf6BLwgGP96Y/PrlKZeDuaBidYOe9G4JI4g=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from BN7PR12MB2836.namprd12.prod.outlook.com (2603:10b6:408:32::33)
- by BN7PR12MB2690.namprd12.prod.outlook.com (2603:10b6:408:32::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.26; Tue, 26 May
- 2020 17:27:15 +0000
-Received: from BN7PR12MB2836.namprd12.prod.outlook.com
- ([fe80::14f2:9ef9:beed:ad1]) by BN7PR12MB2836.namprd12.prod.outlook.com
- ([fe80::14f2:9ef9:beed:ad1%7]) with mapi id 15.20.3021.029; Tue, 26 May 2020
- 17:27:15 +0000
-From: Mukul Joshi <mukul.joshi@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECF2889349;
+	Tue, 26 May 2020 17:56:49 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB7EE89349
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2020 17:56:48 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id f189so21534850qkd.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 26 May 2020 10:56:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=xyOBsxJDfQfAYTMMTBF10HkMKQ7ZeH0Q3a3dzNUGcWQ=;
+ b=nFrFSYyehfWlpZdFKN5FR0NqSz5VXlv32gvno/FLfITw74+watBwc6wUzRb0uj+bD/
+ yUZnrcdSUgWklEGx8/nmh7pGnklHQa/V53Ufe8FI9yX7DC0L5HzAt8OQD3EpzwLJPpXo
+ yskIpUadaLWVFIw1NgLtBebBC2TvQAyyAxliIxIHrL2pTRa9uxYbSneMXYxq9VAwCdCW
+ d1vcRTO8GTv9XE23NQEb7+Jq2zS89ZqgDXEGKRgWCdlNLzFaHdrr/760ZsKCiRsdy1eC
+ JlLivvvpPt1c5B8GiIO7yJZMVZUM1C3NC8EY5E5or/bEYNA58ManX/nLvEkTbKjGxAZK
+ 3KwA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=xyOBsxJDfQfAYTMMTBF10HkMKQ7ZeH0Q3a3dzNUGcWQ=;
+ b=hiiyiTIO03IK5h+tmCxcx67qJ/6L3NWCs7twTfBxVWDdfi7vpL8px9X7rM27SObSPA
+ 3RqoFD5VdCslfWLCG6NKu9yfFZFx6pLFyPF4uJ0HwnhlQQwlGVwvpup7JEeoy6N833Ud
+ jZB2x93nI+mECqfgDnImpZSbxbPCjn+KovPcpgB3jA3c7SA2vlMp0Ag5QHFVzGTDuCAS
+ 7PB9IHYXpGWmqhGALPTc5Pz1BK16hxE4+YgpUpmgvEmBl9sT9iluj6coJGKrRRNxZifK
+ H32/wQfjVRacbAifgohUymMlyGzJOC+oTZyqP5XrG6klC4bhwumb+7EnBR7M/idliAb8
+ A9xQ==
+X-Gm-Message-State: AOAM532e4ryrm5sTkAcDdvSwZsqiaNrh9QQnjUow81hFQmQ2vqQFMz2n
+ X6niSYwaBJpU4l7lbr6U80mK1FhF
+X-Google-Smtp-Source: ABdhPJwUQvTTrmAZCaUYU9Tn17Xg5WyTT4Xy5Cpp/C0M20ygZxVC8VllqlsB1X9lx6+r6u0AqGYFxg==
+X-Received: by 2002:a37:9807:: with SMTP id a7mr8648qke.112.1590515806989;
+ Tue, 26 May 2020 10:56:46 -0700 (PDT)
+Received: from localhost.localdomain ([71.51.180.250])
+ by smtp.gmail.com with ESMTPSA id q4sm368252qtf.35.2020.05.26.10.56.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 26 May 2020 10:56:46 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH v3] drm/amdkfd: Track SDMA utilization per process
-Date: Tue, 26 May 2020 13:26:59 -0400
-Message-Id: <20200526172659.8537-1-mukul.joshi@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: YTBPR01CA0022.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:14::35) To BN7PR12MB2836.namprd12.prod.outlook.com
- (2603:10b6:408:32::33)
+Subject: [PATCH] drm/amdgpu/pm: return an error during GPU reset or suspend
+Date: Tue, 26 May 2020 13:56:37 -0400
+Message-Id: <20200526175637.853730-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from Ryzen-3700X.amd.com (165.204.55.251) by
- YTBPR01CA0022.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::35) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3021.24 via Frontend Transport; Tue, 26 May 2020 17:27:15 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: b4e0563c-9330-49b3-e06a-08d8019a08a1
-X-MS-TrafficTypeDiagnostic: BN7PR12MB2690:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <BN7PR12MB26900CB70C6F0CDA8836AF14EEB00@BN7PR12MB2690.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:758;
-X-Forefront-PRVS: 041517DFAB
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: UrBzI5ORGu41N9A5hmfreZFgoc25rQU1rBm+Ry3KILadJcyTanHdOB8HFLEnv/H9CWZufZL6DsZiSheGlu/gSsFjsf/FKXWUh99W0IKhipBVE2dJ/G2Cx+BoeQLAxvGS1sMEsoHwMBF57mWIGjayrkYMbpQ6WKhPhgDjPjK++WBxBJTnoFLZA3EpGdQpplIqN/WobeeSkkBGWBXKTxM63kjyOaurwc/YSYpn7Jva3JZ7/Pttz3aTVHKfnkVZKn86l9mhfyaaz1666kRHFdA3pEJtK9UGeiWVPPUMeWKXYDnPXPnprRXyhfynw4S1qcFX
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN7PR12MB2836.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(376002)(366004)(136003)(396003)(39860400002)(6486002)(316002)(5660300002)(8676002)(4326008)(8936002)(6666004)(86362001)(36756003)(1076003)(2616005)(2906002)(44832011)(186003)(16526019)(26005)(7696005)(66556008)(30864003)(956004)(478600001)(52116002)(66946007)(6916009)(66476007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: xvCheJEDQjJJ6WDEDfb1XUajlSgBA65HILc49wE4mxt+se9o9Wio9221Kh1jE6XylIAqc7XCDL9/RXGu6FnAQvwx/55OS+6zqVxoGRZk6BDbQYqx4mljWHLMtUTIYm0SbZGDJzojSTm3W0mzuDjERADzYzcf4vY8W9lqEJokvMj3MGqE7/747eGdedBYDGwufy5u2ICS/AYHXxPTgEEQDZZjCe4xXGHDQiosak4PHVwg1o7bDmeU4GytrQjlCQYxOFqKj5zYyJtXQ2CcVbiGMxOFZNTJM5LX+sRJfCLKR7wUxbp19Ii5ub/2ke9f4qxObtFs8IhFdaDiF+asFhPBtEK78Parif8FqwM8sg7Sva3020hRgdACMnukhR2O4vRgwKo6YbzRc0vPGoBSgzOd3Vw6OxeNE4DI4T5P3i7FfjWF7Ed5qyZshgsynuZ9abYrsV/wvQVYwZuhCBnaS/kQZnmK2YoXwHURC6p4skrm3GT0phTjJMOl+2Wyo9kJdj1u
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4e0563c-9330-49b3-e06a-08d8019a08a1
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2020 17:27:15.5782 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LwzVrHRgA91a+Jsajs+Zfxz+mpCr2NejhTmimCZ2X6rbzCrey37AvwN6ai8H5VVWYIrTszwSjQ42NRidPssgNQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PR12MB2690
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,368 +78,597 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Mukul Joshi <mukul.joshi@amd.com>, Felix.Kuehling@amd.com
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Track SDMA usage on a per process basis and report it through sysfs.
-The value in the sysfs file indicates the amount of time SDMA has
-been in-use by this process since the creation of the process.
-This value is in microsecond granularity.
+Return an error for sysfs and debugfs power interfaces during
+gpu reset and suspend.  Prevents access to the hw while it may
+be in an unusable state.
 
-v2:
-- Remove unnecessary checks for pdd is kfd_procfs_show().
-- Make counter part of the kfd_sdma_activity_handler_workarea
-  structure.
-
-v3:
-- Remove READ_ONCE/WRITE_ONCE while updating acitivty
-  counter.
-- Add updation of past acitivt counter under dqm_lock.
-
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |  57 ++++++++
- .../drm/amd/amdkfd/kfd_device_queue_manager.h |   2 +
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |  16 +-
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 137 ++++++++++++++++--
- 4 files changed, 198 insertions(+), 14 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 171 +++++++++++++++++++++++++
+ 1 file changed, 171 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index e9c4867abeff..6293017bd5bf 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -153,6 +153,52 @@ void decrement_queue_count(struct device_queue_manager *dqm,
- 		dqm->active_cp_queue_count--;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+index 702a3a03c707..255e21d46921 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -163,6 +163,9 @@ static ssize_t amdgpu_get_power_dpm_state(struct device *dev,
+ 	enum amd_pm_state_type pm;
+ 	int ret;
  
-+int read_sdma_queue_counter(struct queue *q, uint64_t *val)
-+{
-+	int ret;
-+	uint64_t tmp = 0;
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
 +
-+	if (!q || !val)
-+		return -EINVAL;
-+	/*
-+	 * SDMA activity counter is stored at queue's RPTR + 0x8 location.
-+	 */
-+	if (!access_ok((const void __user *)((uint64_t)q->properties.read_ptr +
-+					sizeof(uint64_t)), sizeof(uint64_t))) {
-+		pr_err("Can't access sdma queue activity counter\n");
-+		return -EFAULT;
-+	}
-+
-+	ret = get_user(tmp, (uint64_t *)((uint64_t)(q->properties.read_ptr) +
-+						    sizeof(uint64_t)));
-+	if (!ret) {
-+		*val = tmp;
-+	}
-+
-+	return ret;
-+}
-+
-+static int update_sdma_queue_past_activity_stats(struct kfd_process_device *pdd,
-+						 struct queue *q)
-+{
-+	int ret;
-+	uint64_t val = 0;
-+
-+	if (!pdd)
-+		return -ENODEV;
-+
-+	ret = read_sdma_queue_counter(q, &val);
-+	if (ret) {
-+		pr_err("Failed to read SDMA queue counter for queue: %d\n",
-+				q->properties.queue_id);
-+		return ret;
-+	}
-+
-+	pdd->sdma_past_activity_counter += val;
-+
-+	return ret;
-+}
-+
- static int allocate_doorbell(struct qcm_process_device *qpd, struct queue *q)
- {
- 	struct kfd_dev *dev = qpd->dqm->dev;
-@@ -487,6 +533,12 @@ static int destroy_queue_nocpsch_locked(struct device_queue_manager *dqm,
- 	if (retval == -ETIME)
- 		qpd->reset_wavefronts = true;
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -196,6 +199,9 @@ static ssize_t amdgpu_set_power_dpm_state(struct device *dev,
+ 	enum amd_pm_state_type  state;
+ 	int ret;
  
-+	/* Get the SDMA queue stats */
-+        if ((q->properties.type == KFD_QUEUE_TYPE_SDMA) ||
-+            (q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI)) {
-+                update_sdma_queue_past_activity_stats(qpd_to_pdd(qpd), q);
-+        }
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
 +
- 	mqd_mgr->free_mqd(mqd_mgr, q->mqd, q->mqd_mem_obj);
+ 	if (strncmp("battery", buf, strlen("battery")) == 0)
+ 		state = POWER_STATE_TYPE_BATTERY;
+ 	else if (strncmp("balanced", buf, strlen("balanced")) == 0)
+@@ -297,6 +303,9 @@ static ssize_t amdgpu_get_power_dpm_force_performance_level(struct device *dev,
+ 	enum amd_dpm_forced_level level = 0xff;
+ 	int ret;
  
- 	list_del(&q->list);
-@@ -1468,6 +1520,11 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
- 		}
- 	}
- 
-+	/* Get the SDMA queue stats */
-+	if ((q->properties.type == KFD_QUEUE_TYPE_SDMA) ||
-+	    (q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI)) {
-+		update_sdma_queue_past_activity_stats(qpd_to_pdd(qpd), q);
-+	}
- 	/*
- 	 * Unconditionally decrement this counter, regardless of the queue's
- 	 * type
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index 4afa015c69b1..894bcf877f9e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -251,4 +251,6 @@ static inline void dqm_unlock(struct device_queue_manager *dqm)
- 	mutex_unlock(&dqm->lock_hidden);
- }
- 
-+int read_sdma_queue_counter(struct queue *q, uint64_t *val);
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
 +
- #endif /* KFD_DEVICE_QUEUE_MANAGER_H_ */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index f70f789c3cb3..fae139b77c0a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -633,7 +633,14 @@ enum kfd_pdd_bound {
- 	PDD_BOUND_SUSPENDED,
- };
- 
--#define MAX_VRAM_FILENAME_LEN 11
-+#define MAX_SYSFS_FILENAME_LEN 11
-+
-+/*
-+ * SDMA counter runs at 100MHz frequency.
-+ * We display SDMA activity in microsecond granularity in sysfs.
-+ * As a result, the divisor is 100.
-+ */
-+#define SDMA_ACTIVITY_DIVISOR  100
- 
- /* Data that is per-process-per device. */
- struct kfd_process_device {
-@@ -681,7 +688,12 @@ struct kfd_process_device {
- 	/* VRAM usage */
- 	uint64_t vram_usage;
- 	struct attribute attr_vram;
--	char vram_filename[MAX_VRAM_FILENAME_LEN];
-+	char vram_filename[MAX_SYSFS_FILENAME_LEN];
-+
-+	/* SDMA activity tracking */
-+	uint64_t sdma_past_activity_counter;
-+	struct attribute attr_sdma;
-+	char sdma_filename[MAX_SYSFS_FILENAME_LEN];
- };
- 
- #define qpd_to_pdd(x) container_of(x, struct kfd_process_device, qpd)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index d27221ddcdeb..db010c5da144 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -25,6 +25,7 @@
- #include <linux/sched.h>
- #include <linux/sched/mm.h>
- #include <linux/sched/task.h>
-+#include <linux/mmu_context.h>
- #include <linux/slab.h>
- #include <linux/amd-iommu.h>
- #include <linux/notifier.h>
-@@ -76,6 +77,74 @@ struct kfd_procfs_tree {
- 
- static struct kfd_procfs_tree procfs;
- 
-+/*
-+ * Structure for SDMA activity tracking
-+ */
-+struct kfd_sdma_activity_handler_workarea {
-+	struct work_struct sdma_activity_work;
-+	struct kfd_process_device *pdd;
-+	uint64_t sdma_activity_counter;
-+};
-+
-+static void kfd_sdma_activity_worker(struct work_struct *work)
-+{
-+	struct kfd_sdma_activity_handler_workarea *workarea;
-+	struct kfd_process_device *pdd;
-+	uint64_t val;
-+	struct mm_struct *mm;
-+	struct queue *q;
-+	struct qcm_process_device *qpd;
-+	struct device_queue_manager *dqm;
-+	int ret = 0;
-+
-+	workarea = container_of(work, struct kfd_sdma_activity_handler_workarea,
-+				sdma_activity_work);
-+	if (!workarea)
-+		return;
-+
-+	pdd = workarea->pdd;
-+	dqm = pdd->dev->dqm;
-+	qpd = &pdd->qpd;
-+
-+	if (!pdd || !dqm || !qpd)
-+		return;
-+
-+	mm = get_task_mm(pdd->process->lead_thread);
-+	if (!mm) {
-+		return;
-+	}
-+
-+	use_mm(mm);
-+
-+	dqm_lock(dqm);
-+
-+	/*
-+	 * Total SDMA activity is current SDMA activity + past SDMA activity
-+	 */
-+	workarea->sdma_activity_counter = pdd->sdma_past_activity_counter;
-+
-+	/*
-+	 * Get the current activity counters for all active SDMA queues
-+	 */
-+	list_for_each_entry(q, &qpd->queues_list, list) {
-+		if ((q->properties.type == KFD_QUEUE_TYPE_SDMA) ||
-+		    (q->properties.type == KFD_QUEUE_TYPE_SDMA_XGMI)) {
-+			val = 0;
-+			ret = read_sdma_queue_counter(q, &val);
-+			if (ret)
-+				pr_debug("Failed to read SDMA queue active "
-+					 "counter for queue id: %d",
-+					 q->properties.queue_id);
-+			else
-+				workarea->sdma_activity_counter += val;
-+		}
-+	}
-+
-+	dqm_unlock(dqm);
-+	unuse_mm(mm);
-+	mmput(mm);
-+}
-+
- static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
- 			       char *buffer)
- {
-@@ -87,8 +156,24 @@ static ssize_t kfd_procfs_show(struct kobject *kobj, struct attribute *attr,
- 	} else if (strncmp(attr->name, "vram_", 5) == 0) {
- 		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
- 							      attr_vram);
--		if (pdd)
--			return snprintf(buffer, PAGE_SIZE, "%llu\n", READ_ONCE(pdd->vram_usage));
-+		return snprintf(buffer, PAGE_SIZE, "%llu\n", READ_ONCE(pdd->vram_usage));
-+	} else if (strncmp(attr->name, "sdma_", 5) == 0) {
-+		struct kfd_process_device *pdd = container_of(attr, struct kfd_process_device,
-+							      attr_sdma);
-+		struct kfd_sdma_activity_handler_workarea sdma_activity_work_handler;
-+
-+		INIT_WORK(&sdma_activity_work_handler.sdma_activity_work,
-+					kfd_sdma_activity_worker);
-+
-+		sdma_activity_work_handler.pdd = pdd;
-+
-+		schedule_work(&sdma_activity_work_handler.sdma_activity_work);
-+
-+		flush_work(&sdma_activity_work_handler.sdma_activity_work);
-+
-+		return snprintf(buffer, PAGE_SIZE, "%llu\n",
-+				(sdma_activity_work_handler.sdma_activity_counter)/
-+				 SDMA_ACTIVITY_DIVISOR);
- 	} else {
- 		pr_err("Invalid attribute");
- 		return -EINVAL;
-@@ -210,7 +295,24 @@ int kfd_procfs_add_queue(struct queue *q)
- 	return 0;
- }
- 
--int kfd_procfs_add_vram_usage(struct kfd_process *p)
-+static int kfd_sysfs_create_file(struct kfd_process *p, struct attribute *attr,
-+				 char *name)
-+{
-+	int ret = 0;
-+
-+	if (!p || !attr || !name)
-+		return -EINVAL;
-+
-+	attr->name = name;
-+	attr->mode = KFD_SYSFS_FILE_MODE;
-+	sysfs_attr_init(attr);
-+
-+	ret = sysfs_create_file(p->kobj, attr);
-+
-+	return ret;
-+}
-+
-+int kfd_procfs_add_sysfs_files(struct kfd_process *p)
- {
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -334,6 +343,9 @@ static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+ 	enum amd_dpm_forced_level current_level = 0xff;
  	int ret = 0;
- 	struct kfd_process_device *pdd;
-@@ -221,17 +323,25 @@ int kfd_procfs_add_vram_usage(struct kfd_process *p)
- 	if (!p->kobj)
- 		return -EFAULT;
  
--	/* Create proc/<pid>/vram_<gpuid> file for each GPU */
-+	/*
-+	 * Create sysfs files for each GPU:
-+	 * - proc/<pid>/vram_<gpuid>
-+	 * - proc/<pid>/sdma_<gpuid>
-+	 */
- 	list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
--		snprintf(pdd->vram_filename, MAX_VRAM_FILENAME_LEN, "vram_%u",
-+		snprintf(pdd->vram_filename, MAX_SYSFS_FILENAME_LEN, "vram_%u",
- 			 pdd->dev->id);
--		pdd->attr_vram.name = pdd->vram_filename;
--		pdd->attr_vram.mode = KFD_SYSFS_FILE_MODE;
--		sysfs_attr_init(&pdd->attr_vram);
--		ret = sysfs_create_file(p->kobj, &pdd->attr_vram);
-+		ret = kfd_sysfs_create_file(p, &pdd->attr_vram, pdd->vram_filename);
- 		if (ret)
- 			pr_warn("Creating vram usage for gpu id %d failed",
- 				(int)pdd->dev->id);
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
 +
-+		snprintf(pdd->sdma_filename, MAX_SYSFS_FILENAME_LEN, "sdma_%u",
-+			 pdd->dev->id);
-+		ret = kfd_sysfs_create_file(p, &pdd->attr_sdma, pdd->sdma_filename);
-+		if (ret)
-+			pr_warn("Creating sdma usage for gpu id %d failed",
-+				(int)pdd->dev->id);
- 	}
+ 	if (strncmp("low", buf, strlen("low")) == 0) {
+ 		level = AMD_DPM_FORCED_LEVEL_LOW;
+ 	} else if (strncmp("high", buf, strlen("high")) == 0) {
+@@ -433,6 +445,9 @@ static ssize_t amdgpu_get_pp_num_states(struct device *dev,
+ 	struct pp_states_info data;
+ 	int i, buf_len, ret;
  
- 	return ret;
-@@ -444,9 +554,9 @@ struct kfd_process *kfd_create_process(struct file *filep)
- 		if (!process->kobj_queues)
- 			pr_warn("Creating KFD proc/queues folder failed");
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -472,6 +487,9 @@ static ssize_t amdgpu_get_pp_cur_state(struct device *dev,
+ 	enum amd_pm_state_type pm = 0;
+ 	int i = 0, ret = 0;
  
--		ret = kfd_procfs_add_vram_usage(process);
-+		ret = kfd_procfs_add_sysfs_files(process);
- 		if (ret)
--			pr_warn("Creating vram usage file for pid %d failed",
-+			pr_warn("Creating sysfs usage file for pid %d failed",
- 				(int)process->lead_thread->pid);
- 	}
- out:
-@@ -597,8 +707,10 @@ static void kfd_process_wq_release(struct work_struct *work)
- 		kobject_put(p->kobj_queues);
- 		p->kobj_queues = NULL;
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -508,6 +526,9 @@ static ssize_t amdgpu_get_pp_force_state(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = ddev->dev_private;
  
--		list_for_each_entry(pdd, &p->per_device_data, per_device_list)
-+		list_for_each_entry(pdd, &p->per_device_data, per_device_list) {
- 			sysfs_remove_file(p->kobj, &pdd->attr_vram);
-+			sysfs_remove_file(p->kobj, &pdd->attr_sdma);
-+		}
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	if (adev->pp_force_state_enabled)
+ 		return amdgpu_get_pp_cur_state(dev, attr, buf);
+ 	else
+@@ -525,6 +546,9 @@ static ssize_t amdgpu_set_pp_force_state(struct device *dev,
+ 	unsigned long idx;
+ 	int ret;
  
- 		kobject_del(p->kobj);
- 		kobject_put(p->kobj);
-@@ -906,6 +1018,7 @@ struct kfd_process_device *kfd_create_process_device_data(struct kfd_dev *dev,
- 	pdd->already_dequeued = false;
- 	pdd->runtime_inuse = false;
- 	pdd->vram_usage = 0;
-+	pdd->sdma_past_activity_counter = 0;
- 	list_add(&pdd->per_device_list, &p->per_device_data);
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	if (strlen(buf) == 1)
+ 		adev->pp_force_state_enabled = false;
+ 	else if (is_support_sw_smu(adev))
+@@ -580,6 +604,9 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
+ 	char *table = NULL;
+ 	int size, ret;
  
- 	/* Init idr used for memory handle translation */
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -619,6 +646,9 @@ static ssize_t amdgpu_set_pp_table(struct device *dev,
+ 	struct amdgpu_device *adev = ddev->dev_private;
+ 	int ret = 0;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -721,6 +751,9 @@ static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
+ 	const char delimiter[3] = {' ', '\n', '\0'};
+ 	uint32_t type;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	if (count > 127)
+ 		return -EINVAL;
+ 
+@@ -810,6 +843,9 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -859,6 +895,9 @@ static ssize_t amdgpu_set_pp_features(struct device *dev,
+ 	uint64_t featuremask;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = kstrtou64(buf, 0, &featuremask);
+ 	if (ret)
+ 		return -EINVAL;
+@@ -899,6 +938,9 @@ static ssize_t amdgpu_get_pp_features(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -955,6 +997,9 @@ static ssize_t amdgpu_get_pp_dpm_sclk(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1018,6 +1063,9 @@ static ssize_t amdgpu_set_pp_dpm_sclk(struct device *dev,
+ 	int ret;
+ 	uint32_t mask = 0;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
+@@ -1049,6 +1097,9 @@ static ssize_t amdgpu_get_pp_dpm_mclk(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1076,6 +1127,9 @@ static ssize_t amdgpu_set_pp_dpm_mclk(struct device *dev,
+ 	uint32_t mask = 0;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
+@@ -1107,6 +1161,9 @@ static ssize_t amdgpu_get_pp_dpm_socclk(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1134,6 +1191,9 @@ static ssize_t amdgpu_set_pp_dpm_socclk(struct device *dev,
+ 	int ret;
+ 	uint32_t mask = 0;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
+@@ -1167,6 +1227,9 @@ static ssize_t amdgpu_get_pp_dpm_fclk(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1194,6 +1257,9 @@ static ssize_t amdgpu_set_pp_dpm_fclk(struct device *dev,
+ 	int ret;
+ 	uint32_t mask = 0;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
+@@ -1227,6 +1293,9 @@ static ssize_t amdgpu_get_pp_dpm_dcefclk(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1254,6 +1323,9 @@ static ssize_t amdgpu_set_pp_dpm_dcefclk(struct device *dev,
+ 	int ret;
+ 	uint32_t mask = 0;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
+@@ -1287,6 +1359,9 @@ static ssize_t amdgpu_get_pp_dpm_pcie(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1314,6 +1389,9 @@ static ssize_t amdgpu_set_pp_dpm_pcie(struct device *dev,
+ 	int ret;
+ 	uint32_t mask = 0;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = amdgpu_read_mask(buf, count, &mask);
+ 	if (ret)
+ 		return ret;
+@@ -1347,6 +1425,9 @@ static ssize_t amdgpu_get_pp_sclk_od(struct device *dev,
+ 	uint32_t value = 0;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1372,6 +1453,9 @@ static ssize_t amdgpu_set_pp_sclk_od(struct device *dev,
+ 	int ret;
+ 	long int value;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = kstrtol(buf, 0, &value);
+ 
+ 	if (ret)
+@@ -1410,6 +1494,9 @@ static ssize_t amdgpu_get_pp_mclk_od(struct device *dev,
+ 	uint32_t value = 0;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1435,6 +1522,9 @@ static ssize_t amdgpu_set_pp_mclk_od(struct device *dev,
+ 	int ret;
+ 	long int value;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = kstrtol(buf, 0, &value);
+ 
+ 	if (ret)
+@@ -1493,6 +1583,9 @@ static ssize_t amdgpu_get_pp_power_profile_mode(struct device *dev,
+ 	ssize_t size;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1528,6 +1621,9 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
+ 	long int profile_mode = 0;
+ 	const char delimiter[3] = {' ', '\n', '\0'};
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	tmp[0] = *(buf);
+ 	tmp[1] = '\0';
+ 	ret = kstrtol(tmp, 0, &profile_mode);
+@@ -1587,6 +1683,9 @@ static ssize_t amdgpu_get_gpu_busy_percent(struct device *dev,
+ 	struct amdgpu_device *adev = ddev->dev_private;
+ 	int r, value, size = sizeof(value);
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	r = pm_runtime_get_sync(ddev->dev);
+ 	if (r < 0)
+ 		return r;
+@@ -1620,6 +1719,9 @@ static ssize_t amdgpu_get_mem_busy_percent(struct device *dev,
+ 	struct amdgpu_device *adev = ddev->dev_private;
+ 	int r, value, size = sizeof(value);
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	r = pm_runtime_get_sync(ddev->dev);
+ 	if (r < 0)
+ 		return r;
+@@ -1658,6 +1760,9 @@ static ssize_t amdgpu_get_pcie_bw(struct device *dev,
+ 	uint64_t count0 = 0, count1 = 0;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	if (adev->flags & AMD_IS_APU)
+ 		return -ENODATA;
+ 
+@@ -1694,6 +1799,9 @@ static ssize_t amdgpu_get_unique_id(struct device *dev,
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = ddev->dev_private;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	if (adev->unique_id)
+ 		return snprintf(buf, PAGE_SIZE, "%016llx\n", adev->unique_id);
+ 
+@@ -1876,6 +1984,9 @@ static ssize_t amdgpu_hwmon_show_temp(struct device *dev,
+ 	int channel = to_sensor_dev_attr(attr)->index;
+ 	int r, temp = 0, size = sizeof(temp);
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	if (channel >= PP_TEMP_MAX)
+ 		return -EINVAL;
+ 
+@@ -2007,6 +2118,9 @@ static ssize_t amdgpu_hwmon_get_pwm1_enable(struct device *dev,
+ 	u32 pwm_mode = 0;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -2038,6 +2152,9 @@ static ssize_t amdgpu_hwmon_set_pwm1_enable(struct device *dev,
+ 	int err, ret;
+ 	int value;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	err = kstrtoint(buf, 10, &value);
+ 	if (err)
+ 		return err;
+@@ -2087,6 +2204,9 @@ static ssize_t amdgpu_hwmon_set_pwm1(struct device *dev,
+ 	u32 value;
+ 	u32 pwm_mode;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	err = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (err < 0)
+ 		return err;
+@@ -2136,6 +2256,9 @@ static ssize_t amdgpu_hwmon_get_pwm1(struct device *dev,
+ 	int err;
+ 	u32 speed = 0;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	err = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (err < 0)
+ 		return err;
+@@ -2166,6 +2289,9 @@ static ssize_t amdgpu_hwmon_get_fan1_input(struct device *dev,
+ 	int err;
+ 	u32 speed = 0;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	err = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (err < 0)
+ 		return err;
+@@ -2195,6 +2321,9 @@ static ssize_t amdgpu_hwmon_get_fan1_min(struct device *dev,
+ 	u32 size = sizeof(min_rpm);
+ 	int r;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	r = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (r < 0)
+ 		return r;
+@@ -2220,6 +2349,9 @@ static ssize_t amdgpu_hwmon_get_fan1_max(struct device *dev,
+ 	u32 size = sizeof(max_rpm);
+ 	int r;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	r = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (r < 0)
+ 		return r;
+@@ -2244,6 +2376,9 @@ static ssize_t amdgpu_hwmon_get_fan1_target(struct device *dev,
+ 	int err;
+ 	u32 rpm = 0;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	err = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (err < 0)
+ 		return err;
+@@ -2273,6 +2408,9 @@ static ssize_t amdgpu_hwmon_set_fan1_target(struct device *dev,
+ 	u32 value;
+ 	u32 pwm_mode;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	err = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (err < 0)
+ 		return err;
+@@ -2319,6 +2457,9 @@ static ssize_t amdgpu_hwmon_get_fan1_enable(struct device *dev,
+ 	u32 pwm_mode = 0;
+ 	int ret;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	ret = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (ret < 0)
+ 		return ret;
+@@ -2351,6 +2492,9 @@ static ssize_t amdgpu_hwmon_set_fan1_enable(struct device *dev,
+ 	int value;
+ 	u32 pwm_mode;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	err = kstrtoint(buf, 10, &value);
+ 	if (err)
+ 		return err;
+@@ -2391,6 +2535,9 @@ static ssize_t amdgpu_hwmon_show_vddgfx(struct device *dev,
+ 	u32 vddgfx;
+ 	int r, size = sizeof(vddgfx);
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	r = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (r < 0)
+ 		return r;
+@@ -2423,6 +2570,9 @@ static ssize_t amdgpu_hwmon_show_vddnb(struct device *dev,
+ 	u32 vddnb;
+ 	int r, size = sizeof(vddnb);
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	/* only APUs have vddnb */
+ 	if  (!(adev->flags & AMD_IS_APU))
+ 		return -EINVAL;
+@@ -2460,6 +2610,9 @@ static ssize_t amdgpu_hwmon_show_power_avg(struct device *dev,
+ 	int r, size = sizeof(u32);
+ 	unsigned uw;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	r = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (r < 0)
+ 		return r;
+@@ -2496,6 +2649,9 @@ static ssize_t amdgpu_hwmon_show_power_cap_max(struct device *dev,
+ 	ssize_t size;
+ 	int r;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	r = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (r < 0)
+ 		return r;
+@@ -2525,6 +2681,9 @@ static ssize_t amdgpu_hwmon_show_power_cap(struct device *dev,
+ 	ssize_t size;
+ 	int r;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	r = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (r < 0)
+ 		return r;
+@@ -2555,6 +2714,9 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct device *dev,
+ 	int err;
+ 	u32 value;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	if (amdgpu_sriov_vf(adev))
+ 		return -EINVAL;
+ 
+@@ -2593,6 +2755,9 @@ static ssize_t amdgpu_hwmon_show_sclk(struct device *dev,
+ 	uint32_t sclk;
+ 	int r, size = sizeof(sclk);
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	r = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (r < 0)
+ 		return r;
+@@ -2625,6 +2790,9 @@ static ssize_t amdgpu_hwmon_show_mclk(struct device *dev,
+ 	uint32_t mclk;
+ 	int r, size = sizeof(mclk);
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	r = pm_runtime_get_sync(adev->ddev->dev);
+ 	if (r < 0)
+ 		return r;
+@@ -3484,6 +3652,9 @@ static int amdgpu_debugfs_pm_info(struct seq_file *m, void *data)
+ 	u32 flags = 0;
+ 	int r;
+ 
++	if (adev->in_gpu_reset || adev->in_suspend)
++		return -EPERM;
++
+ 	r = pm_runtime_get_sync(dev->dev);
+ 	if (r < 0)
+ 		return r;
 -- 
-2.17.1
+2.25.4
 
 _______________________________________________
 amd-gfx mailing list
