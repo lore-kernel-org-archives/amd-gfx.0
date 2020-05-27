@@ -2,46 +2,72 @@ Return-Path: <SRS0=WaPU=7J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A790C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2020 22:53:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 401E1C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2020 23:12:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2506C2071A
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2020 22:53:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2506C2071A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=ispras.ru
+	by mail.kernel.org (Postfix) with ESMTPS id 05285207D3
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2020 23:12:29 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MkbcbSmS"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 05285207D3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF5466E0AC;
-	Wed, 27 May 2020 22:53:15 +0000 (UTC)
-Received: from smtp.ispras.ru (winnie.ispras.ru [83.149.199.91])
- by gabe.freedesktop.org (Postfix) with ESMTP id C1FE16E0AC
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2020 22:49:20 +0000 (UTC)
-Received: from monopod.intra.ispras.ru (monopod.intra.ispras.ru [10.10.3.121])
- by smtp.ispras.ru (Postfix) with ESMTP id 78021201D0;
- Thu, 28 May 2020 01:49:19 +0300 (MSK)
-Date: Thu, 28 May 2020 01:49:19 +0300 (MSK)
-From: Alexander Monakov <amonakov@ispras.ru>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: Re: Flaky brightness on Renoir
-In-Reply-To: <CADnq5_MbP6j4Rq_0xxYPBp16mxtyzn1t7MEbpWdq1Mnh53bUnw@mail.gmail.com>
-Message-ID: <alpine.LNX.2.20.13.2005280140460.18802@monopod.intra.ispras.ru>
-References: <20200520213638.1896-1-amonakov@ispras.ru>
- <CADnq5_OmxeZ3yEOGjCjJgOdi_-PTJ-8KhLzz7nnx_yvVLjSe9Q@mail.gmail.com>
- <792858ed-d675-ce6b-07c2-12002874ffd5@amd.com>
- <SA0PR12MB4560B79A71B3CEE54D37E45AF3B60@SA0PR12MB4560.namprd12.prod.outlook.com>
- <cbba4d03-b4a2-1357-b5ba-1caf01a25f4f@amd.com>
- <DM6PR12MB4545A28C450D9C717F0870AAF3B60@DM6PR12MB4545.namprd12.prod.outlook.com>
- <alpine.LNX.2.20.13.2005280123530.18802@monopod.intra.ispras.ru>
- <CADnq5_MbP6j4Rq_0xxYPBp16mxtyzn1t7MEbpWdq1Mnh53bUnw@mail.gmail.com>
-User-Agent: Alpine 2.20.13 (LNX 116 2015-12-14)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5BB86E118;
+	Wed, 27 May 2020 23:12:29 +0000 (UTC)
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E48896E114;
+ Wed, 27 May 2020 23:12:28 +0000 (UTC)
+Received: by mail-qt1-x843.google.com with SMTP id g18so3870228qtu.13;
+ Wed, 27 May 2020 16:12:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=CzJ+0g6yX69wJemo2qd9RCJV612c0MxfOAew0VNEBVM=;
+ b=MkbcbSmSUIiY9ygD0aX9gm2YdEjeRMOpwsoak4FtccBwA62+XHfLISJUaG991l85/z
+ aAYXkk+zm0Yg1lQa04/DGumic0p4qsLYK76fUK01hqgXARkXqaAlACetalyGzSseSPi/
+ nZrTNebv0MKdR2Z+PowC0xa5NwaH04sw7cv8FCA4XTx2ds2shIvPBIZgXrwm7yxuh0yz
+ ax2rRbawbJtPGCwUfaTIgkf8CbncjgnuKIg7LNcIn1md3J8cwiIjF4gru0JKTXqbTSl+
+ ShssLk+L84J1Y6jcPPYBs4tqP0xUPSYA1bSUcgSKPx2oSzbD+LAuZ5CdhKpB0QKFWvpM
+ ng8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=CzJ+0g6yX69wJemo2qd9RCJV612c0MxfOAew0VNEBVM=;
+ b=cZRb/dRIoW7EUYpVVRqCxdYrkQZo19QkKixoEF2y3O0035euBFhUwXu/kDiLnJLJ0c
+ P0fJ0DMhc13rvvIOKvwlwXGQVuLt0zTzAX1BPvqTv4vstMy0bi/Pj/Hh7AOE/8gmAJny
+ ppv9pHGzdtUYBMB8y+IGV1UzGFZYC77LybYs7URBP892Vk0g/Sl/qOhaK2qhrf90squB
+ 9R7bsL6YpopM08dcteUodEciP4uq8BJHrBesJ3kDgZafDhfwZNAa3ga6JfTcY5nQOJJd
+ mDji10EkI6JPvSDHUzQdn3cQMbtRrKAaVMpHh/Uc2R6Nub3hVazR3L47c7eiTqkhK0L3
+ 6N0Q==
+X-Gm-Message-State: AOAM5312AGaEk/Dwyp++BAAxPUIRjjwq4vh1HT9BAxdSxnIqlk/om4rO
+ MMYzPpRkxR9+kGY5S8ecOZCSJEDT
+X-Google-Smtp-Source: ABdhPJxyrKE23cQSBu9GNlyzWWj6RcZaw2vDgnwjxEIHnyC/38S+KIIoaDch84Xh5Py5Q9f2xlf0/Q==
+X-Received: by 2002:ac8:e8f:: with SMTP id v15mr264444qti.391.1590621147573;
+ Wed, 27 May 2020 16:12:27 -0700 (PDT)
+Received: from localhost.localdomain ([71.51.180.250])
+ by smtp.gmail.com with ESMTPSA id p25sm3694286qtj.18.2020.05.27.16.12.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 May 2020 16:12:27 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu, amdkfd drm-next-5.8
+Date: Wed, 27 May 2020 19:12:19 -0400
+Message-Id: <20200527231219.3930-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 27 May 2020 22:53:14 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,163 +79,207 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Li, Sun peng \(Leo\)" <Sunpeng.Li@amd.com>, "Koo,
- Anthony" <Anthony.Koo@amd.com>, amd-gfx list <amd-gfx@lists.freedesktop.org>,
- "Chiu, Michael" <Michael.Chiu@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>, "Wentland,
- Harry" <Harry.Wentland@amd.com>, "Kazlauskas,
- Nicholas" <Nicholas.Kazlauskas@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Dave, Daniel,
 
-it looks like part of the problem is that dmcu_load_iram is never called on
-Renoir, and yet is_dmcu_initialized returns true. Would you agree?
+Fixes for 5.8.
 
-Is something necessary to address that TODO still missing? It's from February
-of last year.
+The following changes since commit c41219fda6e04255c44d37fd2c0d898c1c46abf1:
 
-Alexander
+  Merge tag 'drm-intel-next-fixes-2020-05-20' of git://anongit.freedesktop.org/drm/drm-intel into drm-next (2020-05-21 10:44:33 +1000)
 
-On Wed, 27 May 2020, Alex Deucher wrote:
+are available in the Git repository at:
 
-> On Wed, May 27, 2020 at 6:30 PM Alexander Monakov <amonakov@ispras.ru> wrote:
-> >
-> > Hey,
-> >
-> > note that the driver does not call dmcu_load_iram on Renoir, as dm_late_init has
-> >
-> >     /* todo will enable for navi10 */
-> >     if (adev->asic_type <= CHIP_RAVEN) {
-> >         ret = dmcu_load_iram(dmcu, params);
-> >
-> > and there's no other callsite for dmcu_load_iram.
-> >
-> > Why is it necessary anyway? The driver seems to have perfectly working direct
-> > programming for PWM registers, so why the extra complications with brightness
-> > control via a microcontroller middleman?
-> 
-> The display guys can correct me if I'm wrong, but I believe it's
-> mainly for power savings.  I.e., the microcontroller can dynamically
-> adjust the backlight levels and gamma to save power while still having
-> the same apparent brightness.
-> 
-> Alex
-> 
-> >
-> > Thanks.
-> > Alexander
-> >
-> > On Wed, 20 May 2020, Koo, Anthony wrote:
-> >
-> > > [AMD Official Use Only - Internal Distribution Only]
-> > >
-> > > It's touching around that area, but just the endian-ness change itself would not cause the boot-to-boot variation observed here. But it could cause broken backlight behavior.
-> > >
-> > > I also don't know what driver is being tested, so I don't know other details like whether we are using DMUB on this system.
-> > > But in general, I would try to check out whether those parameters look like they are loaded correctly.
-> > >
-> > > Thanks,
-> > > Anthony
-> > >
-> > > -----Original Message-----
-> > > From: Wentland, Harry <Harry.Wentland@amd.com>
-> > > Sent: Wednesday, May 20, 2020 6:08 PM
-> > > To: Koo, Anthony <Anthony.Koo@amd.com>; Wentland, Harry <Harry.Wentland@amd.com>; Alex Deucher <alexdeucher@gmail.com>; Alexander Monakov <amonakov@ispras.ru>; Kazlauskas, Nicholas <Nicholas.Kazlauskas@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>
-> > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Deucher, Alexander <Alexander.Deucher@amd.com>; Chiu, Michael <Michael.Chiu@amd.com>
-> > > Subject: Re: Flaky brightness on Renoir
-> > >
-> > > On 2020-05-20 6:03 p.m., Koo, Anthony wrote:
-> > > > [AMD Official Use Only - Internal Distribution Only]
-> > > >
-> > > > Hi Harry,
-> > > >
-> > > > It does sound like a firmware issue.
-> > > > I think we will need to do some investigation here. I would be curious if this is a driver regression or just never worked (not sure how new the driver being tested is).
-> > > >
-> > > > This point below seems to indicate the firmware might be using some uninitialized values in some if its calculations.
-> > > > Typically these value would be things like backlight characteristic curves that are passed to the firmware via a table generated in the power helpers file, and programmed in our dc code.
-> > >
-> > > Do you think this could be related to Wyatt's endian-ness fixes?
-> > >
-> > > Harry
-> > >
-> > > > I'm not 100% sure this is the problem, but it could be something we can take a look at from dmcu_load_iram.
-> > > >>> There's a bugreport on the tracker from a person with the same
-> > > >>> laptop model as mine that says that the threshold may vary from boot to boot.
-> > > >
-> > > > Thanks,
-> > > > Anthony
-> > > >
-> > > > -----Original Message-----
-> > > > From: Wentland, Harry <Harry.Wentland@amd.com>
-> > > > Sent: Wednesday, May 20, 2020 5:53 PM
-> > > > To: Alex Deucher <alexdeucher@gmail.com>; Alexander Monakov
-> > > > <amonakov@ispras.ru>; Kazlauskas, Nicholas
-> > > > <Nicholas.Kazlauskas@amd.com>; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>
-> > > > Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>; Deucher, Alexander
-> > > > <Alexander.Deucher@amd.com>; Chiu, Michael <Michael.Chiu@amd.com>;
-> > > > Koo, Anthony <Anthony.Koo@amd.com>
-> > > > Subject: Re: Flaky brightness on Renoir
-> > > >
-> > > > We've seen similar problems internally.
-> > > >
-> > > > Michael, does this "fix" your issue?
-> > > >
-> > > > Anthony, looks like smooth_brightness is problematic on (some) renoir systems. Thoughts?
-> > > >
-> > > > Thanks,
-> > > > Harry
-> > > >
-> > > > On 2020-05-20 5:47 p.m., Alex Deucher wrote:
-> > > >> Adding some display people.
-> > > >>
-> > > >> On Wed, May 20, 2020 at 5:46 PM Alexander Monakov <amonakov@ispras.ru> wrote:
-> > > >>>
-> > > >>> Hello,
-> > > >>>
-> > > >>> I have a laptop with the recent Renoir SoC. Screen brightness is
-> > > >>> controlled via the amdgpu driver. Unfortunately it doesn't work
-> > > >>> properly: brightness doesn't go below a certain threshold. In one
-> > > >>> experiment I've found the threshold to be about 95 (of 255), which
-> > > >>> is quite high.
-> > > >>>
-> > > >>> There's a bugreport on the tracker from a person with the same
-> > > >>> laptop model as mine that says that the threshold may vary from boot to boot.
-> > > >>>
-> > > >>> So far I was able to find a workaround: avoiding
-> > > >>> dmcu_set_backlight_level like in the patch below gives more reliable
-> > > >>> backlight control (but at the expense of breaking "actual_brightness"
-> > > >>> sysfs file, because it reads from DMCU registers).
-> > > >>>
-> > > >>> What might be the problem and can I help investigate this further?
-> > > >>> Would really like to see this work properly.
-> > > >>>
-> > > >>> Alexander
-> > > >>>
-> > > >>> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_abm.c
-> > > >>> b/drivers/gpu/drm/amd/display/dc/dce/dce_abm.c
-> > > >>> index b8a3fc505c9b..3274b0d15893 100644
-> > > >>> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_abm.c
-> > > >>> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_abm.c
-> > > >>> @@ -428,7 +428,7 @@ static bool dce_abm_set_backlight_level_pwm(
-> > > >>>                         backlight_pwm_u16_16, backlight_pwm_u16_16);
-> > > >>>
-> > > >>>         /* If DMCU is in reset state, DMCU is uninitialized */
-> > > >>> -       if (use_smooth_brightness)
-> > > >>> +       if (0 && use_smooth_brightness)
-> > > >>>                 dmcu_set_backlight_level(abm_dce,
-> > > >>>                                 backlight_pwm_u16_16,
-> > > >>>                                 frame_ramp,
-> > > >>> _______________________________________________
-> > > >>> amd-gfx mailing list
-> > > >>> amd-gfx@lists.freedesktop.org
-> > > >>> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-> > >
-> 
+  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-next-5.8-2020-05-27
+
+for you to fetch changes up to 185082b679b4bd6dfb69764eaa89213b26f6f703:
+
+  drm/amd/display: Fix potential integer wraparound resulting in a hang (2020-05-27 18:42:10 -0400)
+
+----------------------------------------------------------------
+amd-drm-next-5.8-2020-05-27:
+
+amdgpu:
+- SRIOV fixes
+- RAS fixes
+- VCN 2.5 DPG (Dynamic PowerGating) fixes
+- FP16 updates for display
+- CTF cleanups
+- Display fixes
+- Fix pcie bw sysfs handling
+- Enable resizeable BAR support for gmc 10.x
+- GFXOFF fixes for Raven
+- PM sysfs handling fixes
+
+amdkfd:
+- Fix a race condition
+- Warning fixes
+
+----------------------------------------------------------------
+Aishwarya Ramakrishnan (1):
+      drm/amdkfd: Fix boolreturn.cocci warnings
+
+Alan Swanson (1):
+      drm/amdgpu: resize VRAM BAR for CPU access on gfx10
+
+Alex Deucher (6):
+      drm/amdgpu: improve error handling in pcie_bw
+      drm/amdgpu: drop navi pcie bw callback
+      drm/amdgpu: move discovery gfx config fetching
+      drm/amdgpu: move gpu_info parsing after common early init
+      drm/amdgpu: fix pm sysfs node handling (v2)
+      drm/amdgpu: add apu flags (v2)
+
+Aric Cyr (1):
+      drm/amd/display: Fix potential integer wraparound resulting in a hang
+
+Bhawanpreet Lakha (1):
+      drm/amd/display: Handle GPU reset for DC block
+
+Dan Carpenter (1):
+      drm/amdgpu: off by one in amdgpu_device_attr_create_groups() error handling
+
+Dmytro Laktyushkin (2):
+      drm/amd/display: fix and simplify pipe split logic
+      drm/amd/display: correct rn NUM_VMID
+
+Evan Quan (2):
+      drm/amd/powerplay: unify the prompts on thermal interrupts
+      drm/amdkfd: report the real PCI bus number
+
+Felix Kuehling (1):
+      drm/amdgpu: Sync with VM root BO when switching VM to CPU update mode
+
+Gustavo A. R. Silva (1):
+      drm/amdgpu/smu10: Replace one-element array and use struct_size() helper
+
+Harry Wentland (3):
+      drm/amd/display: Add DC Debug mask to disable features for bringup
+      drm/amd/display: Fix disable_stutter debug option
+      drm/amd/display: Respect PP_STUTTER_MODE but don't override DC_DISABLE_STUTTER
+
+Jack Zhang (1):
+      drm/amdgpu fix incorrect sysfs remove behavior for xgmi
+
+James Zhu (2):
+      drm/amdgpu/jpeg2.5: Remove JPEG_ENC_MASK from clock ungating
+      drm/amdgpu/vcn2.5: Remove old DPG workaround
+
+Jinze Xu (1):
+      drm/amd/display: Set/Reset avmute when disable/enable stream
+
+John Clements (1):
+      drm/amdgpu: resolve ras recovery vs smi race condition
+
+Kevin Wang (2):
+      drm/amdgpu: cleanup unnecessary virt sriov check in amdgpu attribute
+      drm/amdgpu: fix device attribute node create failed with multi gpu
+
+Likun Gao (1):
+      drm/amdgpu: add condition to set MP1 state on gpu reset
+
+Mario Kleiner (2):
+      drm/amd/display: Expose support for xBGR ordered fp16 formats.
+      drm/amd/display: Enable fp16 also on DCE-11.0 - DCE-12. (v2)
+
+Nicholas Kazlauskas (2):
+      drm/amd/display: Defer cursor lock until after VUPDATE
+      drm/amd/display: Avoid pipe split when plane is too small
+
+Nikola Cornij (1):
+      drm/amd/display: Minimize DSC resource re-assignment
+
+Philip Yang (1):
+      drm/amdkfd: fix restore worker race condition
+
+Rodrigo Siqueira (1):
+      drm/amd/display: Remove dml_common_def file
+
+Simon Ser (1):
+      drm/amd/display: drop cursor position check in atomic test
+
+Stylon Wang (1):
+      drm/amd/display: Fix incorrectly pruned modes with deep color
+
+Vladimir Stempen (1):
+      drm/amd/display: DP training to set properly SCRAMBLING_DISABLE
+
+chen gong (1):
+      drm/amd/powerpay: Disable gfxoff when setting manual mode on picasso and raven
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h                |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  19 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c        |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dpm.h            |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |   8 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c             | 212 +++++---------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.h             |  13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |   3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c            |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |  11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c           |  23 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c              |  16 +-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c           |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c             |  14 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c              |   5 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c             |   1 -
+ drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c            |   2 +-
+ drivers/gpu/drm/amd/amdgpu/nv.c                    |   8 -
+ drivers/gpu/drm/amd/amdgpu/psp_v10_0.c             |   4 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c             |   6 +-
+ drivers/gpu/drm/amd/amdgpu/soc15.c                 |  17 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c              |   9 -
+ drivers/gpu/drm/amd/amdkfd/kfd_int_process_v9.c    |   4 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_iommu.c             |   2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  | 317 +++++++++++++++++----
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h  |   1 +
+ drivers/gpu/drm/amd/display/dc/calcs/dcn_calcs.c   |  21 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c      |   8 +
+ drivers/gpu/drm/amd/display/dc/core/dc_link_dp.c   |  27 ++
+ drivers/gpu/drm/amd/display/dc/core/dc_resource.c  |  28 +-
+ .../drm/amd/display/dc/dce112/dce112_resource.c    |   2 +-
+ .../drm/amd/display/dc/dce120/dce120_resource.c    |   2 +-
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_hubbub.c    |   1 -
+ .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c  |  74 ++++-
+ .../drm/amd/display/dc/dcn10/dcn10_hw_sequencer.h  |   5 +
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_init.c  |   1 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.h    |   1 +
+ drivers/gpu/drm/amd/display/dc/dcn20/dcn20_init.c  |   1 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.c  | 189 ++++++------
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_resource.h  |   7 +-
+ .../gpu/drm/amd/display/dc/dcn21/dcn21_hubbub.c    |   7 +-
+ drivers/gpu/drm/amd/display/dc/dcn21/dcn21_init.c  |   1 +
+ .../gpu/drm/amd/display/dc/dcn21/dcn21_resource.c  |   3 +-
+ drivers/gpu/drm/amd/display/dc/dml/Makefile        |   2 -
+ .../display/dc/dml/dcn20/display_rq_dlg_calc_20.h  |   1 -
+ .../dc/dml/dcn20/display_rq_dlg_calc_20v2.h        |   1 -
+ .../display/dc/dml/dcn21/display_rq_dlg_calc_21.h  |   2 +-
+ .../gpu/drm/amd/display/dc/dml/display_mode_lib.h  |   6 +-
+ .../gpu/drm/amd/display/dc/dml/display_mode_vba.h  |   2 -
+ .../amd/display/dc/dml/display_rq_dlg_helpers.h    |   1 -
+ .../amd/display/dc/dml/dml1_display_rq_dlg_calc.h  |   2 -
+ .../gpu/drm/amd/display/dc/dml/dml_common_defs.c   |  43 ---
+ .../gpu/drm/amd/display/dc/dml/dml_common_defs.h   |  37 ---
+ .../gpu/drm/amd/display/dc/dml/dml_inline_defs.h   |  15 +-
+ drivers/gpu/drm/amd/display/dc/inc/hw_sequencer.h  |   5 +
+ drivers/gpu/drm/amd/display/dc/inc/resource.h      |   2 +
+ drivers/gpu/drm/amd/display/modules/vmid/vmid.c    |   7 +-
+ drivers/gpu/drm/amd/include/amd_shared.h           |  14 +
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c       |   6 +
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.c  |   9 +-
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu10_hwmgr.h  |   2 +-
+ drivers/gpu/drm/amd/powerplay/hwmgr/smu_helper.c   |  38 +--
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c          |  26 +-
+ .../gpu/drm/amd/powerplay/smumgr/smu10_smumgr.c    |   3 +-
+ 65 files changed, 780 insertions(+), 535 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/dml_common_defs.c
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/dml/dml_common_defs.h
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
