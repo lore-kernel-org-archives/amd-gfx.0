@@ -2,75 +2,65 @@ Return-Path: <SRS0=WaPU=7J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 45881C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2020 19:34:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A8E3C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2020 20:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0FF4A207D3
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2020 19:34:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 67466204EF
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2020 20:29:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="LFjk88MN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0FF4A207D3
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MEkflJv2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67466204EF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B3416E3AA;
-	Wed, 27 May 2020 19:34:42 +0000 (UTC)
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
- [216.228.121.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D6E86E0E6;
- Wed, 27 May 2020 19:07:09 +0000 (UTC)
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5eceba090002>; Wed, 27 May 2020 12:05:45 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Wed, 27 May 2020 12:07:09 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Wed, 27 May 2020 12:07:09 -0700
-Received: from [10.2.87.74] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 27 May
- 2020 19:07:08 +0000
-Subject: Re: [PATCH] drm/radeon: Convert get_user_pages() --> pin_user_pages()
-To: Souptick Joarder <jrdr.linux@gmail.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <David1.Zhou@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-References: <1590526802-3008-1-git-send-email-jrdr.linux@gmail.com>
- <69a033cf-63b2-7da6-6a5e-a5bbc94b8afb@nvidia.com>
- <20200527084852.GN206103@phenom.ffwll.local>
- <20200527085117.GO206103@phenom.ffwll.local>
-From: John Hubbard <jhubbard@nvidia.com>
-X-Nvconfidentiality: public
-Message-ID: <aaf62285-981e-3753-5501-07bbba98fc36@nvidia.com>
-Date: Wed, 27 May 2020 12:07:08 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23FEE88EF2;
+	Wed, 27 May 2020 20:29:43 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAEDA88EF2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2020 20:29:42 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id x14so20141090wrp.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2020 13:29:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dwXDn8Toi8QU//epVrMXDPIpsvlB3FDuLk3PYHd8/X8=;
+ b=MEkflJv2vdYQh7xuifxvH/Ws0Gh3+PP4bNZD8qpiWTrOr50EwBDwrYCd3N67W/Wm0r
+ H7+VzqFyB/U1nq1EqRPC/aLVQYqpsi6l6xIyfBpYwK0n9nkAyJOpHz4OQhK4scqoEuhO
+ NQFogdRqzVbdivqfttZkAxPvFngdPRF6xKOgtCEPY7G4sdy7j3XFV7ExtyRuwACmSsSP
+ 7bwzbF691smQHtCrEDhiodZNDdxQ/yEgItUxKEpL0t1SjoLP/0ZrcrPBEKn3nKii4YhD
+ gJe3uStOG4O13uHWEGQeMnsftfvPVA4KBN8uCaLHcbstSTaTmAFU0yd2rrxX4HLwnTFd
+ qGUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dwXDn8Toi8QU//epVrMXDPIpsvlB3FDuLk3PYHd8/X8=;
+ b=Tf20Gmw/nvfqp9+jTnOhpc7u3k2SBopwuPxxqu0Xv9k3oXv9vDwYwOSNEv+oAJb0yQ
+ HLcuEyl2e+mfVnJKFUswf2ucP5VAVLLmnpVy+i26MelzzV10shFuYwGQDgxU6jEzAbnh
+ RIcUB2c0nmF6myyqzRs1PRzRve9kTycyAjsXggnLi4TSOKWt0Ss0tY2Cqs4OYh/aRVRt
+ mMegIPWx2i5VofPw3yc0r65WXsWFtumxnMwOZ+akINLOBialyi1JeslWqxN2pCRGAeNu
+ 0e74GnyhC3hBWvg5KncGz6t2DRFjkpQu9WS7q+Lo/ien+sTvSbEKdjYjrC9CE95dPZSe
+ pt+g==
+X-Gm-Message-State: AOAM533vM9ITiSQO08FG4vvB+M3HzX6bDEXpqjPwjhEzrHahK/YKFCGj
+ EIcWaDL8g1qxbIGlIh8JuMqZwzJ0GZmlw9R515BzSw==
+X-Google-Smtp-Source: ABdhPJxb9I7UncxKD7/tgH4dJqLfU4EDkcfmlZDFvgVA5VgtC9rzxSnmz25YWClMpEmUN/K0fKa6KvhUguAkONzamzc=
+X-Received: by 2002:a5d:6789:: with SMTP id v9mr92219wru.124.1590611381233;
+ Wed, 27 May 2020 13:29:41 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20200527085117.GO206103@phenom.ffwll.local>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1590606345; bh=cJGxgyxUMS7+SGXB5PmVaX93dA/VtdD9tLRCxZnqybQ=;
- h=X-PGP-Universal:Subject:To:References:From:X-Nvconfidentiality:
- Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
- X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=LFjk88MNH0RKsXsLEslCB9oYqWO/+qMh7mtsWwHzujVQNvjhVM3PMi5vWNhtfXxso
- crnY9sWfLYHUbXyb1qBHZ2T3NZDECLkFwKYXj5JCxdqvsHElOFJDUqLmcZZUmwz8vw
- kNSQ1hzCmul6R2atxy7vC4gHnhTLSubpC9+XFFM2R5zhstiVlSIQRp6Lp3IE/8L2SM
- CucGGzQ8NCIIWK2j5pvWa5Jr7e6iP/ggLLIduMbh7MVZHCREBVJ5dVoD8IhyWo0M2N
- 1yF68YtM+toIRVk1NkUTaZRPr5GOd1ry/MnsmndslsBkJVaLj7Xb9e0kKPDZlgLWIs
- sDMfQem0oi7Vw==
-X-Mailman-Approved-At: Wed, 27 May 2020 19:34:41 +0000
+References: <20200522221728.808568-1-alexander.deucher@amd.com>
+In-Reply-To: <20200522221728.808568-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 27 May 2020 16:29:28 -0400
+Message-ID: <CADnq5_Nr-xOhM25cApQ5m8kYkk4A_U++riJcL3bCCoJWKpANXQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu/gmc10: program the smallK fragment size
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,129 +72,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-05-27 01:51, Daniel Vetter wrote:
-> On Wed, May 27, 2020 at 10:48:52AM +0200, Daniel Vetter wrote:
->> On Tue, May 26, 2020 at 03:57:45PM -0700, John Hubbard wrote:
->>> On 2020-05-26 14:00, Souptick Joarder wrote:
->>>> This code was using get_user_pages(), in a "Case 2" scenario
->>>> (DMA/RDMA), using the categorization from [1]. That means that it's
->>>> time to convert the get_user_pages() + release_pages() calls to
->>>> pin_user_pages() + unpin_user_pages() calls.
->>>>
->>>> There is some helpful background in [2]: basically, this is a small
->>>> part of fixing a long-standing disconnect between pinning pages, and
->>>> file systems' use of those pages.
->>>>
->>>> [1] Documentation/core-api/pin_user_pages.rst
->>>>
->>>> [2] "Explicit pinning of user-space pages":
->>>>       https://lwn.net/Articles/807108/
->>
->> I don't think this is a case 2 here, nor is it any of the others. Feels
->> like not covered at all by the doc.
->>
->> radeon has a mmu notifier (might be a bit broken, but hey whatever there's
->> other drivers which have the same concept, but less broken). So when you
->> do an munmap, radeon will release the page refcount.
-> 
+Ping?
 
-Aha, thanks Daniel. I withdraw my misinformed ACK, then.
-
-> I forgot to add: It's also not case 3, since there's no hw page fault
-> support. It's all faked in software, and explicitly synchronizes against
-> pending io (or preempts it, that depends a bit upon the jobs running).
-> 
-
-This is what case 3 was *intended* to cover, but it looks like case 3 needs to
-be written a little better. I'll attempt that, and Cc you on the actual patch
-to -mm. (I think we also need a case 5 for an unrelated scenario, too, so
-it's time.)
-
-
-thanks,
--- 
-John Hubbard
-NVIDIA
-
-
->> Which case it that?
->>
->> Note that currently only amdgpu doesn't work like that for gpu dma
->> directly to userspace ranges, it uses hmm and afaiui doens't hold a full
->> page pin refcount.
->>
->> Cheers, Daniel
->>
->>
->>>>
->>>> Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
->>>> Cc: John Hubbard <jhubbard@nvidia.com>
->>>>
->>>> Hi,
->>>>
->>>> I'm compile tested this, but unable to run-time test, so any testing
->>>> help is much appriciated.
->>>> ---
->>>>    drivers/gpu/drm/radeon/radeon_ttm.c | 6 +++---
->>>>    1 file changed, 3 insertions(+), 3 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
->>>> index 5d50c9e..e927de2 100644
->>>> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
->>>> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
->>>> @@ -506,7 +506,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_tt *ttm)
->>>>    		uint64_t userptr = gtt->userptr + pinned * PAGE_SIZE;
->>>>    		struct page **pages = ttm->pages + pinned;
->>>> -		r = get_user_pages(userptr, num_pages, write ? FOLL_WRITE : 0,
->>>> +		r = pin_user_pages(userptr, num_pages, write ? FOLL_WRITE : 0,
->>>>    				   pages, NULL);
->>>>    		if (r < 0)
->>>>    			goto release_pages;
->>>> @@ -535,7 +535,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_tt *ttm)
->>>>    	kfree(ttm->sg);
->>>>    release_pages:
->>>> -	release_pages(ttm->pages, pinned);
->>>> +	unpin_user_pages(ttm->pages, pinned);
->>>>    	return r;
->>>>    }
->>>> @@ -562,7 +562,7 @@ static void radeon_ttm_tt_unpin_userptr(struct ttm_tt *ttm)
->>>>    			set_page_dirty(page);
->>>
->>>
->>> Maybe we also need a preceding patch, to fix the above? It should be
->>> set_page_dirty_lock(), rather than set_page_dirty(), unless I'm overlooking
->>> something (which is very possible!).
->>>
->>> Either way, from a tunnel vision perspective of changing gup to pup, this
->>> looks good to me, so
->>>
->>>      Acked-by: John Hubbard <jhubbard@nvidia.com>
->>>
->>>
->>> thanks,
->>> -- 
->>> John Hubbard
->>> NVIDIA
->>>
->>>>    		mark_page_accessed(page);
->>>> -		put_page(page);
->>>> +		unpin_user_page(page);
->>>>    	}
->>>>    	sg_free_table(ttm->sg);
->>>>
->>>
->>
->> -- 
->> Daniel Vetter
->> Software Engineer, Intel Corporation
->> http://blog.ffwll.ch
-> 
-
+On Fri, May 22, 2020 at 6:17 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> Explicitly set the smallk size to 0 (4k).  This is the hw
+> default, but set it anyway just in case something else
+> changed it.
+>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c | 4 ++++
+>  drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c  | 4 ++++
+>  2 files changed, 8 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
+> index cc866c367939..6939edfc5232 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_0.c
+> @@ -181,6 +181,10 @@ static void gfxhub_v2_0_init_cache_regs(struct amdgpu_device *adev)
+>         tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL4, VMC_TAP_PDE_REQUEST_PHYSICAL, 0);
+>         tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL4, VMC_TAP_PTE_REQUEST_PHYSICAL, 0);
+>         WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL4, tmp);
+> +
+> +       tmp = mmGCVM_L2_CNTL5_DEFAULT;
+> +       tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL5, L2_CACHE_SMALLK_FRAGMENT_SIZE, 0);
+> +       WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL5, tmp);
+>  }
+>
+>  static void gfxhub_v2_0_enable_system_domain(struct amdgpu_device *adev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> index fb3f228458e5..616309e85d6e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+> @@ -164,6 +164,10 @@ static void mmhub_v2_0_init_cache_regs(struct amdgpu_device *adev)
+>         tmp = REG_SET_FIELD(tmp, MMVM_L2_CNTL4, VMC_TAP_PDE_REQUEST_PHYSICAL, 0);
+>         tmp = REG_SET_FIELD(tmp, MMVM_L2_CNTL4, VMC_TAP_PTE_REQUEST_PHYSICAL, 0);
+>         WREG32_SOC15(MMHUB, 0, mmMMVM_L2_CNTL4, tmp);
+> +
+> +       tmp = mmMMVM_L2_CNTL5_DEFAULT;
+> +       tmp = REG_SET_FIELD(tmp, MMVM_L2_CNTL5, L2_CACHE_SMALLK_FRAGMENT_SIZE, 0);
+> +       WREG32_SOC15(GC, 0, mmMMVM_L2_CNTL5, tmp);
+>  }
+>
+>  static void mmhub_v2_0_enable_system_domain(struct amdgpu_device *adev)
+> --
+> 2.25.4
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
