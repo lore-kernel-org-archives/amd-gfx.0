@@ -2,66 +2,72 @@ Return-Path: <SRS0=WaPU=7J=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-13.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PULL_REQUEST,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 74829C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2020 21:05:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3AF6C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2020 22:27:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C74C2075A
-	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2020 21:05:09 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A4EEA20707
+	for <amd-gfx@archiver.kernel.org>; Wed, 27 May 2020 22:27:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="vSMROAgN"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C74C2075A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="odypDNEs"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4EEA20707
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDB5F6E101;
-	Wed, 27 May 2020 21:05:08 +0000 (UTC)
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56B016E101
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2020 21:05:08 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id v19so1017482wmj.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 27 May 2020 14:05:08 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA3E86E0AC;
+	Wed, 27 May 2020 22:27:15 +0000 (UTC)
+Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
+ [IPv6:2607:f8b0:4864:20::f33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63F836E0AC;
+ Wed, 27 May 2020 22:27:14 +0000 (UTC)
+Received: by mail-qv1-xf33.google.com with SMTP id l3so12013305qvo.7;
+ Wed, 27 May 2020 15:27:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=qiePC7R1hRKUBXk7uMROHKiOujWNUXvdc6UCwgYEkTI=;
- b=vSMROAgNjk9TeJd/T1pvSOr6CODum3VHhmzJv2lfQSCKl/PoiaHB7/RdY5HTuqLQbp
- FSYxf2bhYIw8ze4BQ7xVZoOOhgjhnC3bYTe0xXOL3GHJ1t+MoFCdhISp8DzY8IUtKDVM
- qP5HEBmoIqxJufOGhG+z1/rXtrqlZsQbktlyp2rNWruXdBuHdjNNKO3g8MnZxClnay70
- vm/8IrJAiBoaDqSXSSYOSKvDW9NIylHLl3NfGAVXzZ6UaDJB9bYQg66AE6BoaMX/xxBV
- /b2OmnNV1HzwGReqVyuHbkR2czZFEfo7xznPwHaHoQzhL6wpwPeS5e24RWTEDi14iLMp
- 4JVw==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jQK1VK4/wYN9YE3uPIg2aTNDXxDiE+OSMlDeuXcvzwM=;
+ b=odypDNEsu3vmlN6lTjY7M3GWkl81A1cFeMrc/KlzFBY7pZ53LBjYg2CakXmv+JI+Mj
+ eb+1/YCSF603onXU+ciJyN/ybUZvbfL9mMiK/R+Mobk1oljaMtmL7yz2WsIVEgsUHuQb
+ 0oQHafjOnFHN/IExV91Sr/53Xy5awZ+WaVJA2R9++lPrQa61wQ7zh6ugbfrILq9n8Fe+
+ 9IrQOIHKD8ty1An9LYB5jgVjetCdXf/WsWkxp5d8ZA5v78e6crZBNi3Xkiom2e/Q8y8h
+ Vk7jPCGEH0ExUazPvayVIzINrgs1VThIwGr7FE9TT9X6ejjtnyulL41YgqxVgOnv/iDo
+ KRmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=qiePC7R1hRKUBXk7uMROHKiOujWNUXvdc6UCwgYEkTI=;
- b=JGDLQqts5c1Oa2Cf5iE7oj+OVK8ZgBKyii9FYNKBMvY1tXqHtDxwQED2mlmzq9O+69
- xJ0L4Pp+QVCe951JuyTUD6lP16A4mDMJQkavniFlgaO6owSBIdP9b+Ds/1Yv3C7giDM1
- q7M2RyDuodv2BLHOa+EzXYWmmhXDOFv99T1vDU97oAnGKeqfuTg6MIPTarPIUhhJ0nOr
- 3jnVYddUZpgUgDn8dRimzShnHIsvLI3uEh8pDeMOAUkYknUg2DNo3WyLPNHk5wbm/WTU
- oU7C9P76GB84B77lRapbIROT9p1PGuLA5zCG+eixFp/ZCPXOOdTM9Y2kbkBN2l75H48S
- gOpg==
-X-Gm-Message-State: AOAM5308BH0vsSuKF0VcE3IAizdEdpY1Pf9GtvbuK10w5FhWNAIDUHgz
- gOubkJ9wRS0ofANTRVlDoEUTJBvIY1SiV6jPatjPCA==
-X-Google-Smtp-Source: ABdhPJxg6gsalDzTYrXKqr9EQC5WOZ681NiuAK5hs1QGTRgDemCOC1y7/oqoupClkTFYv2TqXPcOAe7Ojlh6IKp5SB4=
-X-Received: by 2002:a05:600c:2201:: with SMTP id z1mr46654wml.70.1590613507031; 
- Wed, 27 May 2020 14:05:07 -0700 (PDT)
-MIME-Version: 1.0
-References: <HB1_5z8Vnk8KvqVJezbdCJ0uUkI29R_Q7ksMByqCNQ3DG9HWd_iJP6b0WL1jIIJLBPdN25D8iC4BN-Jbf8NbKSL_Ep6IKVn3DaHpe_h5Ljg=@emersion.fr>
-In-Reply-To: <HB1_5z8Vnk8KvqVJezbdCJ0uUkI29R_Q7ksMByqCNQ3DG9HWd_iJP6b0WL1jIIJLBPdN25D8iC4BN-Jbf8NbKSL_Ep6IKVn3DaHpe_h5Ljg=@emersion.fr>
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jQK1VK4/wYN9YE3uPIg2aTNDXxDiE+OSMlDeuXcvzwM=;
+ b=AaySCeyXLsPOHZce8DKXpYPJ3l1Z6hUDsIMUomHjJ4geIsErHeTga9bKAx3gjAu3ml
+ u6RMiHMLRH4/glkhpW5qtFYen6oJrFdAHUnAskDi68OYza6CP3rMACRQ7FIsuhIdTcNj
+ khspFzclwTYMVCPUn4tiLT92vMO9ye8Q9XmdK3UxNshE4pEOARp39LFcWHV5m3ke8McD
+ UOrdBC3zQYwy/cs8Enr4RGQYpZfrVN7qTFktQmteoUhQf59myexGSTzZOWaOf9nBzDb+
+ MF4qUSvEC/elkm63mvRSav2hzGg+v+IkZRmnPcSUCkWTVHVM6kwOVkNNU9HRzAhK7lNn
+ EHhQ==
+X-Gm-Message-State: AOAM5303M9Hz5hr6TmS8g/TAidg/PTKHq2pnji5m5BVCwycSF0fJEAY/
+ msg+4O7LNuONuk5gXTwdx6YNCMk2
+X-Google-Smtp-Source: ABdhPJwe6dhqESdNiZQok/N4fqF43aM01SDWfTtGRycTZMi6eU7QSUmh3IH78i4u7E4MK+sCz+59+Q==
+X-Received: by 2002:ad4:556c:: with SMTP id w12mr241348qvy.52.1590618433144;
+ Wed, 27 May 2020 15:27:13 -0700 (PDT)
+Received: from localhost.localdomain ([71.51.180.250])
+ by smtp.gmail.com with ESMTPSA id c17sm3270544qtw.48.2020.05.27.15.27.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 May 2020 15:27:12 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 27 May 2020 17:04:55 -0400
-Message-ID: <CADnq5_PP_5vzhZ1XOeci=HtDq_N7vZpzKyEU6UsswZaGTBPaYg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: drop cursor position check in atomic test
-To: Simon Ser <contact@emersion.fr>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniel.vetter@ffwll.ch
+Subject: [pull] amdgpu drm-fixes-5.7
+Date: Wed, 27 May 2020 18:27:00 -0400
+Message-Id: <20200527222700.4378-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
+MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,58 +79,45 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Hi Dave, Daniel,
 
-Alex
+A couple of small fixes for 5.7
 
-On Sat, May 23, 2020 at 7:53 AM Simon Ser <contact@emersion.fr> wrote:
->
-> get_cursor_position already handles the case where the cursor has
-> negative off-screen coordinates by not setting
-> dc_cursor_position.enabled.
->
-> Signed-off-by: Simon Ser <contact@emersion.fr>
-> Fixes: 626bf90fe03f ("drm/amd/display: add basic atomic check for cursor plane")
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-> ---
->  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 7 -------
->  1 file changed, 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 28e651b173ab..7fc15b82fe48 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -7880,13 +7880,6 @@ static int dm_update_plane_state(struct dc *dc,
->                         return -EINVAL;
->                 }
->
-> -               if (new_plane_state->crtc_x <= -new_acrtc->max_cursor_width ||
-> -                       new_plane_state->crtc_y <= -new_acrtc->max_cursor_height) {
-> -                       DRM_DEBUG_ATOMIC("Bad cursor position %d, %d\n",
-> -                                                        new_plane_state->crtc_x, new_plane_state->crtc_y);
-> -                       return -EINVAL;
-> -               }
-> -
->                 return 0;
->         }
->
-> --
-> 2.26.2
->
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+The following changes since commit 7d9ff5eed4146bf026c69e766ff630bc0bd555bb:
+
+  Merge tag 'amd-drm-fixes-5.7-2020-05-21' of git://people.freedesktop.org/~agd5f/linux into drm-fixes (2020-05-22 10:30:51 +1000)
+
+are available in the Git repository at:
+
+  git://people.freedesktop.org/~agd5f/linux tags/amd-drm-fixes-5.7-2020-05-27
+
+for you to fetch changes up to 4e5183200d9b66695c754ef214933402056e7b95:
+
+  drm/amd/display: Fix potential integer wraparound resulting in a hang (2020-05-27 18:13:14 -0400)
+
+----------------------------------------------------------------
+amd-drm-fixes-5.7-2020-05-27:
+
+amdgpu:
+- Display atomic test fix
+- Fix soft hang in display vupdate code
+
+----------------------------------------------------------------
+Aric Cyr (1):
+      drm/amd/display: Fix potential integer wraparound resulting in a hang
+
+Simon Ser (1):
+      drm/amd/display: drop cursor position check in atomic test
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c         | 7 -------
+ drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hw_sequencer.c | 2 ++
+ 2 files changed, 2 insertions(+), 7 deletions(-)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
