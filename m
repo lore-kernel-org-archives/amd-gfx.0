@@ -1,109 +1,70 @@
 Return-Path: <SRS0=qtCw=7K=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.7 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 921BDC433DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2020 14:40:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A646BC433E0
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2020 16:06:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 67DA4207D3
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2020 14:40:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 780542071A
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2020 16:06:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="HFdqlz4s"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67DA4207D3
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RwM6JgFw"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 780542071A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BB056E581;
-	Thu, 28 May 2020 14:40:08 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750054.outbound.protection.outlook.com [40.107.75.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A1636E581
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2020 14:40:06 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LFt9ihhMAwn6pBPN0nrxGBIvFDHppYgDstt6p8YI/Ltwo5kdOifwa2QhKQWNIkgf2UEJcj3uAeDzSevBi4qtGAQrVzSAjYJ5RHdNSAfeLfsXm5S/Y0jRoV2ryVQ3jRpnIhCne/H5Es8w9O0LI2Bd44jXG4oC8c41hT7MnqQ+NzYLh8iFkqwVmuhzVWfgPwzfa+LAUJATx1QOJNZKAgfbSIyCo7Q6maU3r+QmuJjAoRRa9e1DIkXpxvjSvXiYhqILDVu1OxrLROWpEL3KLBeEwR97C9a9obyUKCJDndL6NCnPVSgtzBXY+RUabsI9kcol+7iW/8H2bqH8lUgoiDMHsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gk6fY88xWqqHfxMtXz3mdQDKE2CwTsZHLD3/UvDYRKg=;
- b=L8MUqkLsIV5qIeLH/VD0VuxkSHr1t2MVnuBPxXfLS0CKew3A9F3OPN4oletxU8Dzo7ueD4o4M7zYhTkzd386Aiwb8dE7WVTwZ+TAEMBmXjMk1vjbAkmMB2CQ0243vQtxDDblVx9++p8BJ+gH8rd8+fzfVUu7nSiDfXvfukyvFmsa5wOsOcUPzZCDSRhT/QfckTvG2vMxeAqxIYepyqdOSQumjJmipmK7m7nMhi1fo32vy6ynqyt9JSas1DnNoVh4l/btM6fXKpdfg96/H/s1iP26VIyLoc512Z4d0QCexvYjVc+GqFsm3g5WMDcL49iIOHvg7HqQwkY5Qi7nCUSn8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Gk6fY88xWqqHfxMtXz3mdQDKE2CwTsZHLD3/UvDYRKg=;
- b=HFdqlz4s5jJwneJpsrRqZfs1GC8lnOlsCo6Bq4Pbi14KCYD+orWJveHXnQM8JUu5+W+UsXm64IkeSMG7F+JbGeWNygCr3xr9hDQhiu+vEEQj2maXFb/EzfsJRqq1rXMT3QJjTtkd+NQjIuWIo3Krd+crWkTX1QV65qxzKMP7da8=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
- by DM6PR12MB3980.namprd12.prod.outlook.com (2603:10b6:5:1cc::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.19; Thu, 28 May
- 2020 14:40:04 +0000
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::7949:b580:a2d5:f766]) by DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::7949:b580:a2d5:f766%3]) with mapi id 15.20.3045.018; Thu, 28 May 2020
- 14:40:04 +0000
-Subject: Re: amdgpu doesn't do implicit sync, requires drivers to do it in IBs
-To: =?UTF-8?Q?Michel_D=c3=a4nzer?= <michel@daenzer.net>,
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>,
- Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3393D6E59F;
+	Thu, 28 May 2020 16:06:55 +0000 (UTC)
+Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
+ [IPv6:2607:f8b0:4864:20::531])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0D406E59F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2020 16:06:53 +0000 (UTC)
+Received: by mail-pg1-x531.google.com with SMTP id j21so13655640pgb.7
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2020 09:06:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=VWGvUP+beaa9dP4JHyaB4pcppqIGVbgqmyFHW6B3Xho=;
+ b=RwM6JgFwwJPzJeShrV70TtwMM9Kb5W7/QyZ6lUyF4pS8bGg/nh3dYWnDzicDzQyxqw
+ GpOYHKPja1o4V/qdZ4eKpOCE7n3OC8+uq+3pgaFTfziM5/5vUkPAiuiHX9C4KeFBXFEm
+ p3z6z8uRO5UPX8vcRZjSAzfAZu70Sx+W7s56nTT9JwYKRw1FXCu8JJ9FDHGS8y2G8/X2
+ 3ykY+sPNRDB80GyL/Eg4mCY9Hlin5wdHz3BlZD7X4AbwBwIp/01UaZ2MvaGvspnalKHK
+ KxECM8u8Q7VLiGfUK0F0SxmZj8dpgcM36vptPE9WrmtMNPBRr2xEdVmJqrqG0YjNxQgi
+ lPRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=VWGvUP+beaa9dP4JHyaB4pcppqIGVbgqmyFHW6B3Xho=;
+ b=TOfvVNLFz1Aw5+D9HnQ1Aj6biX1HfUALUhSjNAanbJVSXXgBJvNLlt9W/RIoJOIRyy
+ px/tgrOnuxDJRb1XCrd9uGZnC/d6bletCEA3i5KkayVlKoM/y4nbQTZePp07Dxf/LN/T
+ YDJpbyJafYNzJfNIdPYJEfa96y/MfBdLVJyOwMXsk3X9oRaPp5mpOLP06ii/gn1THMjK
+ Tvg+a34MCfRMKsUHIhjvdOsVB5tC6fWtITRN3mY5lwhgQVXCR/WVAsX6KUDXvZ4lFM7s
+ TsHBgbfsQsTvX68UNKrO/Ww+pNK+CDa2b5ZJiaUcImV6hLOVGpYmsLsasdhbXormKfUm
+ Qoww==
+X-Gm-Message-State: AOAM531nVbKbnfwIejXFC5d/8ajybN0PyLUi6fyskcQqw8ZbWzTwurv5
+ tcJjXDMH66b58J81HJThRuml5QrMD6+6hpUhSRg=
+X-Google-Smtp-Source: ABdhPJyy7igApRp9vgWCp74Evxja4tNPUOXcUAVGMX6U3GHGWNGtdX35imtyIMwGlNI+zcpllQoFrJiEaSA+VDXpKI0=
+X-Received: by 2002:aa7:8c0b:: with SMTP id c11mr3202406pfd.262.1590682013209; 
+ Thu, 28 May 2020 09:06:53 -0700 (PDT)
+MIME-Version: 1.0
 References: <CAAxE2A5Kv9oB7TnoAKSLfuB7unYZzgggSY=BaNyHZq0Fvi+5Qw@mail.gmail.com>
  <CAAxE2A7wy4CBevdHwQzGgYFZHkEUP4Fokj2CzET9GmJWHA+kww@mail.gmail.com>
  <1b4cc0a0-b690-3f54-d983-76975fe788bf@gmail.com>
  <e2f2843b-db9f-bba3-1925-55af2a68432d@daenzer.net>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <1adb6ee4-7472-fa3e-fd67-6e5c6668cbc3@amd.com>
-Date: Thu, 28 May 2020 16:39:59 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <e2f2843b-db9f-bba3-1925-55af2a68432d@daenzer.net>
-Content-Language: en-US
-X-ClientProxiedBy: AM4PR0902CA0016.eurprd09.prod.outlook.com
- (2603:10a6:200:9b::26) To DM6PR12MB4401.namprd12.prod.outlook.com
- (2603:10b6:5:2a9::15)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM4PR0902CA0016.eurprd09.prod.outlook.com (2603:10a6:200:9b::26) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.17 via Frontend
- Transport; Thu, 28 May 2020 14:40:03 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 631ed360-b0f0-4636-e888-08d803150230
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3980:
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3980B3CD3E4483C6111DDCEE838E0@DM6PR12MB3980.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-Forefront-PRVS: 0417A3FFD2
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gorp05CKoQ0eE2o33WEFZA+ZlQ7OhlH6WZ+Qax909ngAd9uLMkiBs57ZMF4bCAqksWH+bdwBsVMJqqENfyzTEObZ5p5fWaphjHxFbzQSv+FnIaEfJJ+8CGi01uAlLzlg3MQhswDmFQDDpzvIC/fTp8vn1VgtT0cVRw2KJJTq+AbXQFS5VCpkvRkIudoGtBTHVLepFaMZT1z8kU8+yDeJxKt+pkOimwdCzBq6tNatrDeOTQHW4Im13eaBiaRGMGzWgZK0dcTW9wuZGkLBCEN6U0uyfVd7iyUL0aagpmxE/Tm7fmxfBn0x2Dz0IsH41WKfAfV5hlgIQWVZoJgbZYO0Vjc5Od4PgX88tl5/9nb9ohLi/wRgnk8DRhKfDQcycNOv
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(376002)(366004)(346002)(136003)(396003)(66476007)(66556008)(31696002)(66946007)(316002)(86362001)(6486002)(36756003)(6666004)(110136005)(31686004)(2906002)(83380400001)(4326008)(8936002)(16526019)(52116002)(186003)(8676002)(478600001)(2616005)(5660300002)(53546011)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: xMTa7/dpWZ7jmWsGbKGLNeNcO9ldU+7sAKw8xe1Gr35wr+SVwTkLyzj+7I3YKjlC6t/wuJPjwIWH0UMaEuuDuaKXcqzXWOJTZ15ifs4mNNNuzJFkdIrIsd8HmgZ16GJvF3VnFdTHAPrzYXI8Z7roKSTDOQzo9InGxi3pHE7KMODtePcOQrJTueJ64VfdVjORTLcsjd1o48eOQfYbjE0u+FHfU+YR238MGblyM36ZjfQ5Y49IoZwByp+8vdh1LI2G29edEyg/+rI1t1X21SielTAnzozC0x1wZ5B5wZ3OC0fruqAAgmxMoE543RhuRQYV0Ls2+Jiwxg96ylo32l/xNUa1xvdi3N+9G2cryBnn4oM1En0C10upBxq8dFSWEHUYo0wxlWSWHgdailUzCnM/dwFQWe0LORuV1oNIQXz67FDfjKyD3cLRmsiNnnSfL1LwQH5sGwiHluRXYAc+KmLT5JLWBIwbDBAox5jWjSr6nQHjDco78kqMQgAJfIPxkhjwDdDIXe2Q8vtfzjwNv5podr+h/7PZRGxZrpLeoxmRlghZyvLGy80KgdX3zTJGBOPx
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 631ed360-b0f0-4636-e888-08d803150230
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2020 14:40:04.0494 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: W0fCBEh4qhaEwEjlKUloPFBwuB2aNvso+fyvms+u8fFm+IFh2yEBeo7DDExJcuzS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3980
+ <1adb6ee4-7472-fa3e-fd67-6e5c6668cbc3@amd.com>
+In-Reply-To: <1adb6ee4-7472-fa3e-fd67-6e5c6668cbc3@amd.com>
+From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
+Date: Thu, 28 May 2020 12:06:16 -0400
+Message-ID: <CAAxE2A4-5RT==eUzsO+jciucJ1t1aw+Fb=zoi9YB9q2fz1ZaSQ@mail.gmail.com>
+Subject: Re: amdgpu doesn't do implicit sync, requires drivers to do it in IBs
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,37 +76,120 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx mailing list <amd-gfx@lists.freedesktop.org>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: =?UTF-8?Q?Michel_D=C3=A4nzer?= <michel@daenzer.net>,
+ amd-gfx mailing list <amd-gfx@lists.freedesktop.org>,
+ Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+Content-Type: multipart/mixed; boundary="===============1707688636=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMjguMDUuMjAgdW0gMTI6MDYgc2NocmllYiBNaWNoZWwgRMOkbnplcjoKPiBPbiAyMDIwLTA1
-LTI4IDExOjExIGEubS4sIENocmlzdGlhbiBLw7ZuaWcgd3JvdGU6Cj4+IFdlbGwgd2Ugc3RpbGwg
-bmVlZCBpbXBsaWNpdCBzeW5jIFsuLi5dCj4gWWVhaCwgdGhpcyBpc24ndCBhYm91dCAid2UgZG9u
-J3Qgd2FudCBpbXBsaWNpdCBzeW5jIiwgaXQncyBhYm91dCAiYW1kZ3B1Cj4gZG9lc24ndCBlbnN1
-cmUgbGF0ZXIgam9icyBmdWxseSBzZWUgdGhlIGVmZmVjdHMgb2YgcHJldmlvdXMgaW1wbGljaXRs
-eQo+IHN5bmNlZCBqb2JzIiwgcmVxdWlyaW5nIHVzZXJzcGFjZSB0byBkbyBwZXNzaW1pc3RpYyBm
-bHVzaGluZy4KClllcywgZXhhY3RseSB0aGF0LgoKRm9yIHRoZSBiYWNrZ3JvdW5kOiBXZSBhbHNv
-IGRvIHRoaXMgZmx1c2hpbmcgZm9yIGV4cGxpY2l0IHN5bmNzLiBBbmQgCndoZW4gdGhpcyB3YXMg
-aW1wbGVtZW50ZWQgMi0zIHllYXJzIGFnbyB3ZSBmaXJzdCBkaWQgdGhlIGZsdXNoaW5nIGZvciAK
-aW1wbGljaXQgc3luYyBhcyB3ZWxsLgoKVGhhdCB3YXMgaW1tZWRpYXRlbHkgcmV2ZXJ0ZWQgYW5k
-IHRoZW4gaW1wbGVtZW50ZWQgZGlmZmVyZW50bHkgYmVjYXVzZSAKaXQgY2F1c2VkIHNldmVyZSBw
-ZXJmb3JtYW5jZSBwcm9ibGVtcyBpbiBzb21lIHVzZSBjYXNlcy4KCkknbSBub3Qgc3VyZSBvZiB0
-aGUgcm9vdCBjYXVzZSBvZiB0aGlzIHBlcmZvcm1hbmNlIHByb2JsZW1zLiBNeSAKYXNzdW1wdGlv
-biB3YXMgYWx3YXlzIHRoYXQgd2UgdGhlbiBpbnNlcnQgdG8gbWFueSBwaXBlbGluZSBzeW5jcywg
-YnV0IApNYXJlayBkb2Vzbid0IHNlZW0gdG8gdGhpbmsgaXQgY291bGQgYmUgdGhhdC4KCk9uIHRo
-ZSBvbmUgaGFuZCBJJ20gcmF0aGVyIGtlZW4gdG8gcmVtb3ZlIHRoZSBleHRyYSBoYW5kbGluZyBh
-bmQganVzdCAKYWx3YXlzIHVzZSB0aGUgZXhwbGljaXQgaGFuZGxpbmcgZm9yIGV2ZXJ5dGhpbmcg
-YmVjYXVzZSBpdCBzaW1wbGlmaWVzIAp0aGUga2VybmVsIGNvZGUgcXVpdGUgYSBiaXQuIE9uIHRo
-ZSBvdGhlciBoYW5kIEkgZG9uJ3Qgd2FudCB0byBydW4gaW50byAKdGhpcyBwZXJmb3JtYW5jZSBw
-cm9ibGVtIGFnYWluLgoKQWRkaXRpb25hbCB0byB0aGF0IHdoYXQgdGhlIGtlcm5lbCBkb2VzIGlz
-IGEgImZ1bGwiIHBpcGVsaW5lIHN5bmMsIGUuZy4gCndlIGJ1c3kgd2FpdCBmb3IgdGhlIGZ1bGwg
-aGFyZHdhcmUgcGlwZWxpbmUgdG8gZHJhaW4uIFRoYXQgbWlnaHQgYmUgCm92ZXJraWxsIGlmIHlv
-dSBqdXN0IHdhbnQgdG8gZG8gc29tZSBmbHVzaGluZyBzbyB0aGF0IHRoZSBuZXh0IHNoYWRlciAK
-c2VlcyB0aGUgc3R1ZmYgd3JpdHRlbiwgYnV0IEknbSBub3QgYW4gZXhwZXJ0IG9uIHRoYXQuCgpS
-ZWdhcmRzLApDaHJpc3RpYW4uCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
-b3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdm
-eAo=
+--===============1707688636==
+Content-Type: multipart/alternative; boundary="000000000000591a6f05a6b78471"
+
+--000000000000591a6f05a6b78471
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, May 28, 2020 at 10:40 AM Christian K=C3=B6nig <christian.koenig@amd=
+.com>
+wrote:
+
+> Am 28.05.20 um 12:06 schrieb Michel D=C3=A4nzer:
+> > On 2020-05-28 11:11 a.m., Christian K=C3=B6nig wrote:
+> >> Well we still need implicit sync [...]
+> > Yeah, this isn't about "we don't want implicit sync", it's about "amdgp=
+u
+> > doesn't ensure later jobs fully see the effects of previous implicitly
+> > synced jobs", requiring userspace to do pessimistic flushing.
+>
+> Yes, exactly that.
+>
+> For the background: We also do this flushing for explicit syncs. And
+> when this was implemented 2-3 years ago we first did the flushing for
+> implicit sync as well.
+>
+> That was immediately reverted and then implemented differently because
+> it caused severe performance problems in some use cases.
+>
+> I'm not sure of the root cause of this performance problems. My
+> assumption was always that we then insert to many pipeline syncs, but
+> Marek doesn't seem to think it could be that.
+>
+> On the one hand I'm rather keen to remove the extra handling and just
+> always use the explicit handling for everything because it simplifies
+> the kernel code quite a bit. On the other hand I don't want to run into
+> this performance problem again.
+>
+> Additional to that what the kernel does is a "full" pipeline sync, e.g.
+> we busy wait for the full hardware pipeline to drain. That might be
+> overkill if you just want to do some flushing so that the next shader
+> sees the stuff written, but I'm not an expert on that.
+>
+
+Do we busy-wait on the CPU or in WAIT_REG_MEM?
+
+WAIT_REG_MEM is what UMDs do and should be faster.
+
+Marek
+
+--000000000000591a6f05a6b78471
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail=
+_attr">On Thu, May 28, 2020 at 10:40 AM Christian K=C3=B6nig &lt;<a href=3D=
+"mailto:christian.koenig@amd.com">christian.koenig@amd.com</a>&gt; wrote:<b=
+r></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex=
+;border-left:1px solid rgb(204,204,204);padding-left:1ex">Am 28.05.20 um 12=
+:06 schrieb Michel D=C3=A4nzer:<br>
+&gt; On 2020-05-28 11:11 a.m., Christian K=C3=B6nig wrote:<br>
+&gt;&gt; Well we still need implicit sync [...]<br>
+&gt; Yeah, this isn&#39;t about &quot;we don&#39;t want implicit sync&quot;=
+, it&#39;s about &quot;amdgpu<br>
+&gt; doesn&#39;t ensure later jobs fully see the effects of previous implic=
+itly<br>
+&gt; synced jobs&quot;, requiring userspace to do pessimistic flushing.<br>
+<br>
+Yes, exactly that.<br>
+<br>
+For the background: We also do this flushing for explicit syncs. And <br>
+when this was implemented 2-3 years ago we first did the flushing for <br>
+implicit sync as well.<br>
+<br>
+That was immediately reverted and then implemented differently because <br>
+it caused severe performance problems in some use cases.<br>
+<br>
+I&#39;m not sure of the root cause of this performance problems. My <br>
+assumption was always that we then insert to many pipeline syncs, but <br>
+Marek doesn&#39;t seem to think it could be that.<br>
+<br>
+On the one hand I&#39;m rather keen to remove the extra handling and just <=
+br>
+always use the explicit handling for everything because it simplifies <br>
+the kernel code quite a bit. On the other hand I don&#39;t want to run into=
+ <br>
+this performance problem again.<br>
+<br>
+Additional to that what the kernel does is a &quot;full&quot; pipeline sync=
+, e.g. <br>
+we busy wait for the full hardware pipeline to drain. That might be <br>
+overkill if you just want to do some flushing so that the next shader <br>
+sees the stuff written, but I&#39;m not an expert on that.<br></blockquote>=
+<div><br></div><div>Do we busy-wait on the CPU or in WAIT_REG_MEM?</div><di=
+v><br></div><div>WAIT_REG_MEM is what UMDs do and should be faster.</div><d=
+iv><br></div><div>Marek</div></div></div>
+
+--000000000000591a6f05a6b78471--
+
+--===============1707688636==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1707688636==--
