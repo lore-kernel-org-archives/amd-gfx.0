@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 11AF1C433E1
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2020 21:35:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 10EFDC433DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2020 21:35:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D5B2C206DF
-	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2020 21:35:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D42A7206DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 28 May 2020 21:35:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ivHSwjH/"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5B2C206DF
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qv6u3TyT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D42A7206DF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EC666E7F1;
-	Thu, 28 May 2020 21:35:41 +0000 (UTC)
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 656426E7EF
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2020 21:35:40 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id k22so295978qtm.6
- for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2020 14:35:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB7BE6E7F5;
+	Thu, 28 May 2020 21:35:43 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99E166E7F5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2020 21:35:42 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id w1so403774qkw.5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 28 May 2020 14:35:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=uR1FwK2EE/Bvqc1MRxlQutKkvSGAzOOgMpAellSRaLc=;
- b=ivHSwjH/3ddPO4pc1k16Snqgq75y+l0Ex+dxGyamzjMA1gyZBP8V3//dRmd5oz5xz6
- x6I+fDFV4bYLRrDOLo0FKwWufXrqf9mboU1A/3vxswwWohUfeyDNC6Tv10+PiGWF5uB3
- n7BL0WdLr7gY9eq6gjn2zh9ApdeMTHO3+tsKQmoSGTUD+KGUPCzAiPNY6bddlMKGAeuU
- Y/G/TmXvwtUNBX0n7xoaI2hzbNNLbHz8pKgP2DHWkh2eaHwEuHwWNDh87NEDWprnbfWM
- PbLAby8n9RFgv9T/Df0FZ+s8/kPn4Gvhb+ro8b+YmSmdRuPVJ9ieDUIM9LhCZu8+ek7Q
- OQvA==
+ bh=ER+cNtYZuoeyVlg3bP6CiwSPvcL7pxu8W79p6v4Cxj8=;
+ b=Qv6u3TyT+W4CHLIki4IGoZrCHLh/jINkcX/NPB7BzsAhTaJYwvoO8ejSLRiZFdlv9c
+ 7NHXDhqjM22NZCk6qcSIK/EarLlVnS2HVkgoFCOvu3bCOcPOJOsjcv6JgbCyAGjNBaYA
+ rprovrON4xiOr+d0CZlnffMXhwpPwl3iYaPZB/WPRr9wmtTSxJ/qb8VPdEpiqQv6tnqs
+ Bap6jTYB6jhxobj48NpoWtRXm/qCJr0zAdKqZo+YhC5JH7LgLF+w6w8WLVGGEsUEzCLr
+ rvabo+Pd5m1G8WudVxrrhiFSPBo9ZYbQuHGOGV1jBhxkBzeCo3zpHC2gnCDap/jKzHnZ
+ Aw9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=uR1FwK2EE/Bvqc1MRxlQutKkvSGAzOOgMpAellSRaLc=;
- b=O9HpMcu8c0uZOO8PLlyq4e6xJor5wXWyMK/RSjECcx25vw2fcw1Y0nB/fEwCD2GaK0
- e3qMKpjKRaBmfHnCOdiemEQrC3FYZ6d3m/kDS5++b2pNxF0L5YzbAChD779TlU3uL5J4
- 2lFSbO0uz3+HyCrTNIaXsoiQZugLMiBFKGtwpQuxeWvaTtP++2Fe0O4vNEfN9+ZFPKNv
- Vbr3P4tas5OwPRgkm4GE7Op9OoDdee+MnBKadzLbDBqR84usgTKZWImmWJm9JlpDziQD
- kGCFz6Bd77Do67xQWaMFQfPBodiS+n4vJkPASF4sAATR9ToX8oDNr4kYCZHWW+dmCut6
- J7Jg==
-X-Gm-Message-State: AOAM533KFLgucFdW5XpB6i6jHVpJDEcrR6n/LxtA0K6yyv3HzQLalthD
- qPt5SkLhWNzoEKr0wmE/KoElPYIk
-X-Google-Smtp-Source: ABdhPJyTZXY9V47mNFYeFpvuFapz5jwSauHAkIP7+nW+/nNz+3oFTI0oeiqobtZU0xnsrmNbnf8KWw==
-X-Received: by 2002:ac8:3483:: with SMTP id w3mr5011271qtb.330.1590701739300; 
- Thu, 28 May 2020 14:35:39 -0700 (PDT)
+ bh=ER+cNtYZuoeyVlg3bP6CiwSPvcL7pxu8W79p6v4Cxj8=;
+ b=Pqn5jMCcwal1H7b1Q4/LSz+lu4jw6TIiluNvh0+XSWUupKUJlNOuDFlQ54SS+qmOx9
+ yvLIfS92b477usFKwayZvgJT7Lnxpe5tMjB+m5gdy6xLRmXGSLN64KR6c/i3oJ5WmyaD
+ 5LKzXbkvyVghv1nd3OIC9uHKVUyHP6lETYAQXtFQzVtL3jnwBFPfhyirsAztuWk3mnfW
+ LN1uvIDkrJBO55OIg3czVraRWa4FaLanaQ8lKAQajTv0bJbGkAEXOXrKFd7KAdpTVPqu
+ py3Ov8L7h+J05Rv1opLalrY60sx0iPVwWjWwM5CjyMQ8dQ6EjweCEgz+XOBRtTQZwRyR
+ +mOQ==
+X-Gm-Message-State: AOAM532GaArL/Mlisl7zuxBT5wcga3EB3fXYsF4UuH2B1ciwXr4+6zYL
+ vPNVKFYOpJjZmq11Zjw9jydfW+Up
+X-Google-Smtp-Source: ABdhPJwGbeT7m80b/lY+YiStfAODV9JInS8TuJ5r+RBpc1NyRma+L1Ci3JGiduUhRHwfjomCrZrohw==
+X-Received: by 2002:a37:9c55:: with SMTP id f82mr4854095qke.225.1590701741400; 
+ Thu, 28 May 2020 14:35:41 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id k43sm7027851qtk.67.2020.05.28.14.35.38
+ by smtp.gmail.com with ESMTPSA id k43sm7027851qtk.67.2020.05.28.14.35.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 May 2020 14:35:38 -0700 (PDT)
+ Thu, 28 May 2020 14:35:40 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 3/6] drm/amdgpu: use IP discovery table for renoir
-Date: Thu, 28 May 2020 17:35:26 -0400
-Message-Id: <20200528213529.673145-3-alexander.deucher@amd.com>
+Subject: [PATCH 5/6] drm/amdgpu/nv: remove some dead code
+Date: Thu, 28 May 2020 17:35:28 -0400
+Message-Id: <20200528213529.673145-5-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200528213529.673145-1-alexander.deucher@amd.com>
 References: <20200528213529.673145-1-alexander.deucher@amd.com>
@@ -86,47 +86,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rather than relying on gpu info firmware.
+navi never supported the pci config reset.  Neither did
+vega.
 
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
+ drivers/gpu/drm/amd/amdgpu/nv.c | 34 ---------------------------------
+ 1 file changed, 34 deletions(-)
 
-Can someone test this on renoir?
-
- drivers/gpu/drm/amd/amdgpu/soc15.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index c7c9e07962b9..623745b2d8b3 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -670,14 +670,25 @@ static uint32_t soc15_get_rev_id(struct amdgpu_device *adev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 61eea26922ce..0f927fcff0d5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -254,31 +254,6 @@ static int nv_read_register(struct amdgpu_device *adev, u32 se_num,
+ 	return -EINVAL;
+ }
  
- int soc15_set_ip_blocks(struct amdgpu_device *adev)
+-#if 0
+-static void nv_gpu_pci_config_reset(struct amdgpu_device *adev)
+-{
+-	u32 i;
+-
+-	dev_info(adev->dev, "GPU pci config reset\n");
+-
+-	/* disable BM */
+-	pci_clear_master(adev->pdev);
+-	/* reset */
+-	amdgpu_pci_config_reset(adev);
+-
+-	udelay(100);
+-
+-	/* wait for asic to come out of reset */
+-	for (i = 0; i < adev->usec_timeout; i++) {
+-		u32 memsize = nbio_v2_3_get_memsize(adev);
+-		if (memsize != 0xffffffff)
+-			break;
+-		udelay(1);
+-	}
+-
+-}
+-#endif
+-
+ static int nv_asic_mode1_reset(struct amdgpu_device *adev)
  {
-+	int r;
-+
- 	/* Set IP register base before any HW register access */
- 	switch (adev->asic_type) {
- 	case CHIP_VEGA10:
- 	case CHIP_VEGA12:
- 	case CHIP_RAVEN:
--	case CHIP_RENOIR:
- 		vega10_reg_base_init(adev);
- 		break;
-+	case CHIP_RENOIR:
-+		if (amdgpu_discovery) {
-+			r = amdgpu_discovery_reg_base_init(adev);
-+			if (r) {
-+				DRM_WARN("failed to init reg base from ip discovery table, "
-+					 "fallback to legacy init method\n");
-+				vega10_reg_base_init(adev);
-+			}
-+		}
-+		break;
- 	case CHIP_VEGA20:
- 		vega20_reg_base_init(adev);
- 		break;
+ 	u32 i;
+@@ -336,15 +311,6 @@ nv_asic_reset_method(struct amdgpu_device *adev)
+ 
+ static int nv_asic_reset(struct amdgpu_device *adev)
+ {
+-
+-	/* FIXME: it doesn't work since vega10 */
+-#if 0
+-	amdgpu_atombios_scratch_regs_engine_hung(adev, true);
+-
+-	nv_gpu_pci_config_reset(adev);
+-
+-	amdgpu_atombios_scratch_regs_engine_hung(adev, false);
+-#endif
+ 	int ret = 0;
+ 	struct smu_context *smu = &adev->smu;
+ 
 -- 
 2.25.4
 
