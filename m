@@ -2,72 +2,70 @@ Return-Path: <SRS0=sMqH=7L=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9AF3DC433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2020 13:29:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0287AC433E2
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2020 13:29:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6C5C02100A
+	by mail.kernel.org (Postfix) with ESMTPS id CCCFF20721
 	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2020 13:29:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nvidia.com header.i=@nvidia.com header.b="IWUyjwMj"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6C5C02100A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=nvidia.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dJkgyWD0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCCFF20721
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D8716E8F3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 632266E8F4;
 	Fri, 29 May 2020 13:29:30 +0000 (UTC)
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B86BD6E870;
- Fri, 29 May 2020 07:28:49 +0000 (UTC)
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5ed0b9550001>; Fri, 29 May 2020 00:27:17 -0700
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Fri, 29 May 2020 00:28:49 -0700
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Fri, 29 May 2020 00:28:49 -0700
-Received: from [10.2.62.53] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 29 May
- 2020 07:28:48 +0000
-Subject: Re: [PATCH] drm/radeon: Convert get_user_pages() --> pin_user_pages()
-To: Souptick Joarder <jrdr.linux@gmail.com>
+Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
+ [IPv6:2a00:1450:4864:20::143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3CA56E864;
+ Fri, 29 May 2020 06:49:45 +0000 (UTC)
+Received: by mail-lf1-x143.google.com with SMTP id h188so631897lfd.7;
+ Thu, 28 May 2020 23:49:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=duvqSauRz0FpWQFF0Eq5g7XEMfQ1c+DCTu7LukoHlpY=;
+ b=dJkgyWD0ciBIQfF3woOJbQsYsbg0j2sy53gHMGBk66/DLQVlD2Li/OnKmZ1HHOVylg
+ OycFqaMIkKyafxY/aMbGwwkeXJiMVJUXvFG099Qsm7Y7okuRyQ5BQWOhVZuIXkhnD4dC
+ l13AE1muQIzF6gGJAoO8XCvDadFCwzfNCIi9IoIDSTQqwb1cLeUP0v98PMzsnuuj8+M8
+ YHrEkMNXcCByn5nkIKZovzH55tyS+dWSVpFQMULT8K2MK79Qy1g09WIyKItusQdo2dZZ
+ fS4J/QFUB/tnatg7f9CibGRQ8hnWVhTsMFIXxj3kQfuY8srH8ee6dw+7jqLX7lfiOQql
+ +ejA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=duvqSauRz0FpWQFF0Eq5g7XEMfQ1c+DCTu7LukoHlpY=;
+ b=OitSgkD8b9WhvqC8q9+jzd882Kzxq0su5FmGidoze6vKFkmzS2RFjIlbWLV6VS3BAR
+ Wip+cx6bzsWbvY9OJI2H2ai9x6R6ynDAMo6+uJVDQmZMLcUcvouQQe27knGdkHgxvuZL
+ BUmmE8Nq2DtYqFPVJPY5+56rmKu4c0pN1Yv3yqtUnYiSgBY4UB4aT/Wt+2XlhnEEmsJN
+ voDIyD+KdMgBzqgJSaVmHAzbS5F3fZz2i4r/MqLu49uKwa9/+bQHuSMxJ2vMPrn0/TLC
+ NrlDQ5Jod8r/v6cMc3W6DPnuLRxN+1/rpgmJqYw/007iyQMMdlIMhfup4nKHrWnPCeq+
+ 0SHw==
+X-Gm-Message-State: AOAM532OORE6ryfq6FC8XSocgeOFKG+9aURoyW+/tO6xr43s//OvOF0y
+ DbuzzPdjw/ogmeSB9u2mpSx1w5zi7kR1i5l/Wrc=
+X-Google-Smtp-Source: ABdhPJw2x0Tix5Tq5shT8N9Y2U5/m2pu3yTz3m3OmwzFD46UBDyZDMSbl4hATVzRPu6/m60TcMaci0i2xANR2AYiOTc=
+X-Received: by 2002:a19:500e:: with SMTP id e14mr3595899lfb.88.1590734982916; 
+ Thu, 28 May 2020 23:49:42 -0700 (PDT)
+MIME-Version: 1.0
 References: <1590526802-3008-1-git-send-email-jrdr.linux@gmail.com>
  <69a033cf-63b2-7da6-6a5e-a5bbc94b8afb@nvidia.com>
  <20200527084852.GN206103@phenom.ffwll.local>
  <20200527085117.GO206103@phenom.ffwll.local>
  <aaf62285-981e-3753-5501-07bbba98fc36@nvidia.com>
- <CAFqt6zZVAQ3LKwud85LgHe9300xVjyGYXjvdWKTdezZA1uRewg@mail.gmail.com>
-From: John Hubbard <jhubbard@nvidia.com>
-X-Nvconfidentiality: public
-Message-ID: <011353ca-39d5-a41d-477a-f67a47ebb47b@nvidia.com>
-Date: Fri, 29 May 2020 00:28:48 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
-MIME-Version: 1.0
-In-Reply-To: <CAFqt6zZVAQ3LKwud85LgHe9300xVjyGYXjvdWKTdezZA1uRewg@mail.gmail.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1590737237; bh=GnjtLmALkfQs3YEwXPer78fTSzDzMUUUxr8h8lxb8WY=;
- h=X-PGP-Universal:Subject:To:CC:References:From:X-Nvconfidentiality:
- Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
- X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=IWUyjwMjgVPn9XuZYZnyVZqXqMpoRdk8CFFSla0+UZhlAYPfCTboaaJUR57mPsaYP
- CLdN+LqIRXGZZUSI2ONJHhigatZ3PBB6cOYkwG+xDoPzduDVeZHgYgZ2Ld7Mn0lqv7
- U+kaQyb0PteDfWGUkUoYxEhOT+cQ+CqLdWuPvOrLOyvqa4IoAXd4qEREjDxWVwdkzI
- XUSBmtmLwITlbundeWdKpN4UmCNuu/y+vEIXl9rZG5KdABbcs/F7YCz53v1MWeluAo
- hYOyvQflPC+Pe69zh02QN4DGJ3IsY5niUK3FBNTl4PDwXIeueM+DSVuIFdiIuWIKzs
- VwKIWPotgXg9A==
+In-Reply-To: <aaf62285-981e-3753-5501-07bbba98fc36@nvidia.com>
+From: Souptick Joarder <jrdr.linux@gmail.com>
+Date: Fri, 29 May 2020 12:19:30 +0530
+Message-ID: <CAFqt6zZVAQ3LKwud85LgHe9300xVjyGYXjvdWKTdezZA1uRewg@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: Convert get_user_pages() --> pin_user_pages()
+To: John Hubbard <jhubbard@nvidia.com>
 X-Mailman-Approved-At: Fri, 29 May 2020 13:29:29 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,38 +78,139 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhou,
- David\(ChunMing\)" <David1.Zhou@amd.com>, linux-kernel@vger.kernel.org,
- dri-devel <dri-devel@lists.freedesktop.org>, amd-gfx@lists.freedesktop.org,
- "Deucher, Alexander" <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,
+ amd-gfx@lists.freedesktop.org, "Deucher,
+ Alexander" <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2020-05-28 23:49, Souptick Joarder wrote:
-...
->> This is what case 3 was *intended* to cover, but it looks like case 3 needs to
->> be written a little better. I'll attempt that, and Cc you on the actual patch
->> to -mm. (I think we also need a case 5 for an unrelated scenario, too, so
->> it's time.)
-> 
-> There were no *case 5* in the other patch posted in -mm. Do we need to add it ?
-> 
+On Thu, May 28, 2020 at 12:37 AM John Hubbard <jhubbard@nvidia.com> wrote:
+>
+> On 2020-05-27 01:51, Daniel Vetter wrote:
+> > On Wed, May 27, 2020 at 10:48:52AM +0200, Daniel Vetter wrote:
+> >> On Tue, May 26, 2020 at 03:57:45PM -0700, John Hubbard wrote:
+> >>> On 2020-05-26 14:00, Souptick Joarder wrote:
+> >>>> This code was using get_user_pages(), in a "Case 2" scenario
+> >>>> (DMA/RDMA), using the categorization from [1]. That means that it's
+> >>>> time to convert the get_user_pages() + release_pages() calls to
+> >>>> pin_user_pages() + unpin_user_pages() calls.
+> >>>>
+> >>>> There is some helpful background in [2]: basically, this is a small
+> >>>> part of fixing a long-standing disconnect between pinning pages, and
+> >>>> file systems' use of those pages.
+> >>>>
+> >>>> [1] Documentation/core-api/pin_user_pages.rst
+> >>>>
+> >>>> [2] "Explicit pinning of user-space pages":
+> >>>>       https://lwn.net/Articles/807108/
+> >>
+> >> I don't think this is a case 2 here, nor is it any of the others. Feels
+> >> like not covered at all by the doc.
+> >>
+> >> radeon has a mmu notifier (might be a bit broken, but hey whatever there's
+> >> other drivers which have the same concept, but less broken). So when you
+> >> do an munmap, radeon will release the page refcount.
+> >
+>
+> Aha, thanks Daniel. I withdraw my misinformed ACK, then.
+>
+> > I forgot to add: It's also not case 3, since there's no hw page fault
+> > support. It's all faked in software, and explicitly synchronizes against
+> > pending io (or preempts it, that depends a bit upon the jobs running).
+> >
+>
+> This is what case 3 was *intended* to cover, but it looks like case 3 needs to
+> be written a little better. I'll attempt that, and Cc you on the actual patch
+> to -mm. (I think we also need a case 5 for an unrelated scenario, too, so
+> it's time.)
 
-Working on figuring that out [1], but it's not directly relevant to this thread.
-Maybe I shouldn't have brought it up here. :)
+There were no *case 5* in the other patch posted in -mm. Do we need to add it ?
 
-
-[1] https://lore.kernel.org/r/20200529070343.GL14550@quack2.suse.cz
-
-thanks,
-John Hubbard
-NVIDIA
-
-
-
+>
+>
+> thanks,
+> --
+> John Hubbard
+> NVIDIA
+>
+>
+> >> Which case it that?
+> >>
+> >> Note that currently only amdgpu doesn't work like that for gpu dma
+> >> directly to userspace ranges, it uses hmm and afaiui doens't hold a full
+> >> page pin refcount.
+> >>
+> >> Cheers, Daniel
+> >>
+> >>
+> >>>>
+> >>>> Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
+> >>>> Cc: John Hubbard <jhubbard@nvidia.com>
+> >>>>
+> >>>> Hi,
+> >>>>
+> >>>> I'm compile tested this, but unable to run-time test, so any testing
+> >>>> help is much appriciated.
+> >>>> ---
+> >>>>    drivers/gpu/drm/radeon/radeon_ttm.c | 6 +++---
+> >>>>    1 file changed, 3 insertions(+), 3 deletions(-)
+> >>>>
+> >>>> diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+> >>>> index 5d50c9e..e927de2 100644
+> >>>> --- a/drivers/gpu/drm/radeon/radeon_ttm.c
+> >>>> +++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+> >>>> @@ -506,7 +506,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_tt *ttm)
+> >>>>                    uint64_t userptr = gtt->userptr + pinned * PAGE_SIZE;
+> >>>>                    struct page **pages = ttm->pages + pinned;
+> >>>> -          r = get_user_pages(userptr, num_pages, write ? FOLL_WRITE : 0,
+> >>>> +          r = pin_user_pages(userptr, num_pages, write ? FOLL_WRITE : 0,
+> >>>>                                       pages, NULL);
+> >>>>                    if (r < 0)
+> >>>>                            goto release_pages;
+> >>>> @@ -535,7 +535,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_tt *ttm)
+> >>>>            kfree(ttm->sg);
+> >>>>    release_pages:
+> >>>> -  release_pages(ttm->pages, pinned);
+> >>>> +  unpin_user_pages(ttm->pages, pinned);
+> >>>>            return r;
+> >>>>    }
+> >>>> @@ -562,7 +562,7 @@ static void radeon_ttm_tt_unpin_userptr(struct ttm_tt *ttm)
+> >>>>                            set_page_dirty(page);
+> >>>
+> >>>
+> >>> Maybe we also need a preceding patch, to fix the above? It should be
+> >>> set_page_dirty_lock(), rather than set_page_dirty(), unless I'm overlooking
+> >>> something (which is very possible!).
+> >>>
+> >>> Either way, from a tunnel vision perspective of changing gup to pup, this
+> >>> looks good to me, so
+> >>>
+> >>>      Acked-by: John Hubbard <jhubbard@nvidia.com>
+> >>>
+> >>>
+> >>> thanks,
+> >>> --
+> >>> John Hubbard
+> >>> NVIDIA
+> >>>
+> >>>>                    mark_page_accessed(page);
+> >>>> -          put_page(page);
+> >>>> +          unpin_user_page(page);
+> >>>>            }
+> >>>>            sg_free_table(ttm->sg);
+> >>>>
+> >>>
+> >>
+> >> --
+> >> Daniel Vetter
+> >> Software Engineer, Intel Corporation
+> >> http://blog.ffwll.ch
+> >
+>
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
