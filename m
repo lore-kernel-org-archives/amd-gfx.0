@@ -2,107 +2,105 @@ Return-Path: <SRS0=sMqH=7L=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D9A6CC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2020 02:06:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EC567C433E1
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2020 02:59:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 945B62068D
-	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2020 02:06:35 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B7BDE2075F
+	for <amd-gfx@archiver.kernel.org>; Fri, 29 May 2020 02:59:11 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="iGv47NeW"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 945B62068D
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Sd3pSdTW"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B7BDE2075F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F35E46E854;
-	Fri, 29 May 2020 02:06:34 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2082.outbound.protection.outlook.com [40.107.92.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C31D6E854;
- Fri, 29 May 2020 02:06:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D9946E856;
+	Fri, 29 May 2020 02:59:10 +0000 (UTC)
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam12on2089.outbound.protection.outlook.com [40.107.237.89])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF23D6E235
+ for <amd-gfx@lists.freedesktop.org>; Fri, 29 May 2020 02:59:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=iCOwS60GmzbFQqccOYw7SgwAjr/rvWwMu3tBNewgUv0PfBZkeMPqbMoNn60RVMOP6XtPmk0pSN3YCqnrHqvOcpWOHMFbg7/PTyKNByRMfTCokpp49cbnY5YHq8ieLsCtO00/shV2gIOYcZOEZSlbXJAeRBI689KV6OXVIu05i27F/VWjVzKwFvO7HSb2P19YOGw/fBSYDynbO79h9FFcSfn16X3/RWWFUFTOUX6mxHdAgsHPH4vE4x/u3N+A0qPJ6eK3TSpw59HOiWFRampw+eX5FZ86aCDsA87d2bkm1a/Vpu9KKg8cndvysYrTAcTk/1cw4eAjv+4PQ23GyNtFAA==
+ b=ZDWSTpUvrVVvF7XRxQJ8x/7VS3aDaiiklW0NeNDXxmtVyzgZ0cMhwWVCeg7NGPUT0J1a+/PmnrJ2MPy/jc5WdasREtEg97+SQK3MjVKh1J/1/kVfquQKfRawstiJU6ucFhwK6TjK18jn2uhJ9sF3etnfpGJSMMp6esTAI1WUOG89cZpcuARNWLGTrGs/BvfSnN9M3RoZT4Zupp4o7OIPP7FQFag6eyIuBTqoA6AE/vEsI8o5IwlKEi+oXORTnFiZq1endoYODkYBxGVhhzvnAf4Jib9OV9+LgeXwrhSgc0OtMjQgbSAWiVhkP0vkP+OJT1XeK9DBZ+f1VBG7iu1ezw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f15cFJguZyj/vi3mBdvW33G30Pql4r56hquaySHucJo=;
- b=J7yKKHTbbJ5Jo1eXLYpq4dL0Dp3zXI0RdS3w8prJCOhMgn591WJoQyjIeRNWSqppR0z3mEPyCHAuVtgtKKI3gkWjLGwMhhsq3rZ68oCRnXw7uBg3z5k+hocqT5sD6TMyA+qdxkPR0Zx5/cxiU73+dh4w66pQhRMtVOIB2uRLpyioJOaj6Oc3AkFWeC/HSjIACGGfnFexLXJP8JX7t3/VcGY00rkdhnhvygQw9Bn0vKikDT8S8fP/UVFp/hfbvJk5EU1exIQLA0NprvMRwnXu3jRmvW7lm8ddLYhgNaSieXBL2Cqpd2xUzp8dLImFi1OF29AhPQfNxlJ7wInEOmVE6g==
+ bh=X0O4DLsECMZ7AQkaBPvf7lXjQB/Vgu/WTWg/xyU2QeI=;
+ b=Oo+My97EbquPsvp+Ld+rdX429+9rQMytjEHNC5FebkDDSML0aR+tTgtv6qqf2yPr6lmk54Ts8c5CtAixJtjOZgbJLZeKHXzcPJlJEjLqPOm2DUdOZYBT9GmPpfuhZLWXKaXk57qtg4xiXQBdhQ5ZruClbymf/SS4glwBsaUqnNgM1qKsYi20bDcP5lpPxlxZf/KiXYy14YBdxYjhVboU7OYDNXaoM2C6AtjVvYSDDlQXbXc67rAzDEnjmMCeInE99D3V+C4nWNFEYxgBpkv+KPbboD4V2Un3V1WlC5V4MGkLxLVketORkUlEjyDc9NSvLZPxdCVICD1DRDx0f3qM/Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f15cFJguZyj/vi3mBdvW33G30Pql4r56hquaySHucJo=;
- b=iGv47NeWDWkNLYBRWiZH8xWrte1HLjpKyq0w9xlypj5B4jt4Kj/bwxdDjgpg3PLdA+7lZCxt15dOEYUx+R2Y0i/3LOykqyyhajm/PFNAoKqGgYWDyiChH5tB+VCBWqJDyGoN7VNMeA0fxPVKAYMllj8hrVu3vO8AaX/8bWDlODE=
-Authentication-Results: vger.kernel.org; dkim=none (message not signed)
- header.d=none;vger.kernel.org; dmarc=none action=none header.from=amd.com;
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
- by SN1PR12MB2382.namprd12.prod.outlook.com (2603:10b6:802:2e::30)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3021.24; Fri, 29 May
- 2020 02:06:27 +0000
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::18d:97b:661f:9314]) by SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::18d:97b:661f:9314%7]) with mapi id 15.20.3021.030; Fri, 29 May 2020
- 02:06:27 +0000
-Subject: Re: [PATCH][next] drm/amdkfd: fix a dereference of pdd before it is
- null checked
-To: Colin King <colin.king@canonical.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Mukul Joshi <mukul.joshi@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-References: <20200528222453.536137-1-colin.king@canonical.com>
-From: Felix Kuehling <felix.kuehling@amd.com>
-Message-ID: <dc37cf9d-ddaf-94c7-8fc1-460c8da59d7b@amd.com>
-Date: Thu, 28 May 2020 22:06:14 -0400
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
-In-Reply-To: <20200528222453.536137-1-colin.king@canonical.com>
-Content-Language: en-US
-X-ClientProxiedBy: BN6PR03CA0016.namprd03.prod.outlook.com
- (2603:10b6:404:23::26) To SN1PR12MB2414.namprd12.prod.outlook.com
- (2603:10b6:802:2e::31)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [10.252.0.178] (165.204.84.11) by
- BN6PR03CA0016.namprd03.prod.outlook.com (2603:10b6:404:23::26) with Microsoft
+ bh=X0O4DLsECMZ7AQkaBPvf7lXjQB/Vgu/WTWg/xyU2QeI=;
+ b=Sd3pSdTWxlMChWsrlH2kxiSdMkjNqPA4msZbq8cwuGzPqDs2dennjktQe3pDWcv/HtpvMClr+xd+uwEJsjciBaR7pNjuAvzn8LYbdSZeo+NHWVSv4WGUKD5Dx9WHpvzrq0iswraNBRi3aNoJq1Lg4DAccFDUJvWnVs25Bi7AzNU=
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
+ DM6PR12MB4450.namprd12.prod.outlook.com (2603:10b6:5:28e::18) with
+ Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3045.19 via Frontend Transport; Fri, 29 May 2020 02:06:19 +0000
-X-Originating-IP: [165.204.84.11]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 34c71310-dd95-4301-03da-08d80374e4ff
-X-MS-TrafficTypeDiagnostic: SN1PR12MB2382:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN1PR12MB23825E9A06128F3B4F87579E928F0@SN1PR12MB2382.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2089;
-X-Forefront-PRVS: 04180B6720
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: gwUTGxNA4W6LYh4sHypTUjqcQIiVsBd52NEvm8h/yUegNTIxnpwp/Z+Kx2kBuWG+mW3QurXS5tYdsii1npN7jLDkVCMV14vrqF1rHucMbIQ+4XU98DioUlnvHxTU4yp5Q5NnG6DPaU3I0vfvDgzMAj8EKxAa0P7128BB0wry4t4XMV1yl7n48JT5N1KG2qHK0mgJBgEvbohgvANaiQHIYzuFQWnviAjCK8xAvRRXpDNfSPyeirc0ScicTqEEHWophnHKtuYDPJT+iWk1b4IGRvRmKxEdwlIEmWp6JA+t5vshbAb+yoL8fUK1TeNgVmS+fwFRJXCzZsklL5Qevc+CGdlf5VYT1fYS17yPqe8IaBVzeDxFHGWJM1MHL2MYO71f
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ 15.20.3045.19; Fri, 29 May 2020 02:59:06 +0000
+Received: from DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
+ ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3021.030; Fri, 29 May 2020
+ 02:59:06 +0000
+From: "Quan, Evan" <Evan.Quan@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx list
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu/pm: don't bail for in_suspend
+Thread-Topic: [PATCH] drm/amdgpu/pm: don't bail for in_suspend
+Thread-Index: AQHWNHmR6t5UYbRuJUitBrpgGP4ZS6i9ds0AgADqXGA=
+Date: Fri, 29 May 2020 02:59:06 +0000
+Message-ID: <DM6PR12MB2619135BFD78B0DA3E031CF9E48F0@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20200527225158.27756-1-alexander.deucher@amd.com>
+ <CADnq5_PO-SFFSpz=V3JsGPqunAs+Na9pUwy22Bj+cX3N3Sv48A@mail.gmail.com>
+In-Reply-To: <CADnq5_PO-SFFSpz=V3JsGPqunAs+Na9pUwy22Bj+cX3N3Sv48A@mail.gmail.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=e501d7c7-d16b-469c-b05d-0000f603193e;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
+ Use Only - Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-05-29T02:58:41Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 822f502a-32c8-4104-889c-08d8037c408a
+x-ms-traffictypediagnostic: DM6PR12MB4450:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB4450B99367330080A7AD261FE48F0@DM6PR12MB4450.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1824;
+x-forefront-prvs: 04180B6720
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Ndp1w1PgF9Iv0rN9HsU0CMgZfEWYK6vdyzxEcqV0BgvJb7SJL5xahh80nXzRiidsJ9POoDI9L+0/zZW2JkQuLx3n/MMkXqnB/DKva2uK3QCELxGksG3zYnNCD0pnhwscIKFpqpIB8OQgS0/kaDDu6fTMgVKlSVYQ8qlgNoXCQzpdcbrNOIftoW+3Rh/Q4GPUDK+V2kN2a4wrqxeVW60yUR3XD+GuYo1zjPNc0WkMYfFxXAFvQ4vzy1nF7v64tBYqPPt+uaoprqIgxDBkDKyXwHhTVOtCANpIa0qnfnTn4L64tnfqY2l3rcQEzDLSEKxqSipd6TbOQrZIitZt79WDF0qVJ1Xend/TPD3vye3ZtKQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(346002)(39860400002)(136003)(376002)(366004)(396003)(44832011)(110136005)(8676002)(66556008)(66476007)(8936002)(66946007)(6666004)(16576012)(86362001)(31696002)(956004)(316002)(2616005)(2906002)(36756003)(4326008)(5660300002)(6486002)(52116002)(186003)(16526019)(53546011)(478600001)(83380400001)(31686004)(26005)(43740500002);
+ SFS:(4636009)(366004)(346002)(376002)(136003)(396003)(39860400002)(83380400001)(5660300002)(33656002)(9686003)(55016002)(26005)(30864003)(71200400001)(66476007)(64756008)(76116006)(66556008)(52536014)(186003)(66946007)(66446008)(110136005)(8936002)(4326008)(53546011)(6506007)(7696005)(86362001)(316002)(2906002)(45080400002)(478600001)(966005)(8676002)(579004);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: Thy+b6u0b15/E0GayQZ/CpXwlswPJB56yZsu2ncfgnq8PaWwMxEFr74kCq2clrFOuj6DMO+35l55P5I4LjXqm937Ry20kIkE7Chpo4ugkwYBD48pLcpUEMkTswOwG10uakkla7k5Gke2RLPRNjYL6s+A06nXiV5ip7DifS3Vbk1WthWE9hhYTPtrlDrSyF3C9fEFlhsyC3IrJcgykCfrR7xR3QKg2yY+pAPNBAzQ+XOHyIkgbMrvX9l30N5U/o4ERvBwjkpQAStVriIaeno9dZPOE7kf0XWesdOF5OWsRQ0QdcMeDRM2ftXVyWL+pW79STQ3JqZ+Up7XTq8Zx1IHfs+bj0DMUyi6FEh2BZUMXBwTwzV+IFhKl5A5E3Okq1PhYM5ZtD4eQwXxydWOmAM5PqXe9hyHhD8Z+sS8ozpizdko2A5sTgsCFazG7ewBugUBMLAizGfABdzV0oc+sQkcIauyFA31Hr7e/RQfKg3/Nj9CYrdly8xLUpipa2ppYQ5/
+x-ms-exchange-antispam-messagedata: E6pOGilURzhsETUhARaszTPybSasON7xIlPuZxaLbks4U+kRWrULmrKmBpAOae2UZUCReR/CdbKRThF4pi0qIv0e5wHtCea3zCM2BnodCJx+w1bwmm590F1BaXjkoidoE8ySoU/N6Fv4k97Xda5bZkqAWpu+dM2/Xa69o+hewEW+YS1UtnPQEAzzhCOWlQlElamG5+ARbfRbZ9gxQ3vGeTbq9W9IvpNWqKx4Rbeuup5iWVn4sAnQPhurG4Ky2izCl8Vk6/hSVOwyQsWpVvLApB8rKBynAeXLcrZXGTwqZ+UPp0JZOvjiKNEnCcL98M3DFqCzn39ZrR1ggZQE3FEUhiMh05vdMLEF8V0HU25X0xAcnceM+ftPS13dtJw0xpvWuiveUV9wqzGjHu4rwOgiCFyelo3W/j+rh0wNSy/NCCVRQSkaP3eFthBxtHX/NJ54J8WcJ2aMyk6UnJ9qf9LZc65r5t/bu9acvlj7MsWfrYDwjo6cgMvox0UFNkRCpW7e
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 34c71310-dd95-4301-03da-08d80374e4ff
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2020 02:06:26.8801 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WZJLwpF/belaR7HMp3FQImEPNZbw3eh4p2VaO5Shtq0e3w9WtzXmmZAke0+PduBnvmhU+zLwrjhlRNbPnck75w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2382
+X-MS-Exchange-CrossTenant-Network-Message-Id: 822f502a-32c8-4104-889c-08d8037c408a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2020 02:59:06.4874 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: lvsWaudNu+iLiMAUzA21nUBahyxA8a3Bsa7tK6bM9Y0py7IRTFeQRZCXC7w7XzFx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4450
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,35 +112,563 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gMjAyMC0wNS0yOCAxODoyNCwgQ29saW4gS2luZyB3cm90ZToKPiBGcm9tOiBDb2xpbiBJYW4g
-S2luZyA8Y29saW4ua2luZ0BjYW5vbmljYWwuY29tPgo+Cj4gQ3VycmVudGx5IHBvaW50ZXIgcGRk
-IGlzIGJlaW5nIGRlcmVmZXJlbmNlZCB3aGVuIGFzc2lnbmluZyBwb2ludGVyCj4gZHBtIGFuZCB0
-aGVuIHBkZCBpcyBiZWluZyBudWxsIGNoZWNrZWQuICBGaXggdGhpcyBieSBjaGVja2luZyBpZgo+
-IHBkZCBpcyBudWxsIGJlZm9yZSB0aGUgZGVyZWZlcmVuY2Ugb2YgcGRkIG9jY3Vycy4KPgo+IEFk
-ZHJlc3Nlcy1Db3Zlcml0eTogKCJEZXJlZmVyZW5jZSBiZWZvcmUgbnVsbCBjaGVjayIpCj4gRml4
-ZXM6IDUyMmI4OWM2MzM3MCAoImRybS9hbWRrZmQ6IFRyYWNrIFNETUEgdXRpbGl6YXRpb24gcGVy
-IHByb2Nlc3MiKQo+IFNpZ25lZC1vZmYtYnk6IENvbGluIElhbiBLaW5nIDxjb2xpbi5raW5nQGNh
-bm9uaWNhbC5jb20+CgpSZXZpZXdlZC1ieTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5n
-QGFtZC5jb20+CgpJIGFwcGxpZWQgdGhlIHBhdGNoIHRvIG91ciBpbnRlcm5hbCBhbWQtc3RhZ2lu
-Zy1kcm0tbmV4dC4KClJlZ2FyZHMsCiDCoCBGZWxpeAoKCj4gLS0tCj4gICBkcml2ZXJzL2dwdS9k
-cm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jIHwgNSArKystLQo+ICAgMSBmaWxlIGNoYW5nZWQs
-IDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9kcml2ZXJz
-L2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9h
-bWRrZmQva2ZkX3Byb2Nlc3MuYwo+IGluZGV4IDI1NjM2Nzg5ZjNkMy4uYmRjNTg3NDFiMzJlIDEw
-MDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1ka2ZkL2tmZF9wcm9jZXNzLmMKPiAr
-KysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGtmZC9rZmRfcHJvY2Vzcy5jCj4gQEAgLTEwMywx
-MCArMTAzLDExIEBAIHN0YXRpYyB2b2lkIGtmZF9zZG1hX2FjdGl2aXR5X3dvcmtlcihzdHJ1Y3Qg
-d29ya19zdHJ1Y3QgKndvcmspCj4gICAJCXJldHVybjsKPiAgIAo+ICAgCXBkZCA9IHdvcmthcmVh
-LT5wZGQ7Cj4gKwlpZiAoIXBkZCkKPiArCQlyZXR1cm47Cj4gICAJZHFtID0gcGRkLT5kZXYtPmRx
-bTsKPiAgIAlxcGQgPSAmcGRkLT5xcGQ7Cj4gLQo+IC0JaWYgKCFwZGQgfHwgIWRxbSB8fCAhcXBk
-KQo+ICsJaWYgKCFkcW0gfHwgIXFwZCkKPiAgIAkJcmV0dXJuOwo+ICAgCj4gICAJbW0gPSBnZXRf
-dGFza19tbShwZGQtPnByb2Nlc3MtPmxlYWRfdGhyZWFkKTsKX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBs
-aXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1h
-bi9saXN0aW5mby9hbWQtZ2Z4Cg==
+[AMD Official Use Only - Internal Distribution Only]
+
+Reviewed-by: Evan Quan <evan.quan@amd.com>
+
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
+Sent: Thursday, May 28, 2020 9:00 PM
+To: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
+Subject: Re: [PATCH] drm/amdgpu/pm: don't bail for in_suspend
+
+Ping?
+
+On Wed, May 27, 2020 at 6:52 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+>
+> Otherwise we disable sysfs/debugfs access with runtime pm.
+>
+> Fixes: f7c8d853b029df ("drm/amdgpu/pm: return an error during GPU
+> reset or suspend")
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 114
+> ++++++++++++-------------
+>  1 file changed, 57 insertions(+), 57 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> index 808884aaf36d..775e389c9a13 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> @@ -163,7 +163,7 @@ static ssize_t amdgpu_get_power_dpm_state(struct device *dev,
+>         enum amd_pm_state_type pm;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -199,7 +199,7 @@
+> static ssize_t amdgpu_set_power_dpm_state(struct device *dev,
+>         enum amd_pm_state_type  state;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         if (strncmp("battery", buf, strlen("battery")) == 0) @@ -303,7
+> +303,7 @@ static ssize_t amdgpu_get_power_dpm_force_performance_level(struct device *dev,
+>         enum amd_dpm_forced_level level = 0xff;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -343,7 +343,7 @@
+> static ssize_t amdgpu_set_power_dpm_force_performance_level(struct device *dev,
+>         enum amd_dpm_forced_level current_level = 0xff;
+>         int ret = 0;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         if (strncmp("low", buf, strlen("low")) == 0) { @@ -445,7
+> +445,7 @@ static ssize_t amdgpu_get_pp_num_states(struct device *dev,
+>         struct pp_states_info data;
+>         int i, buf_len, ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -487,7 +487,7 @@
+> static ssize_t amdgpu_get_pp_cur_state(struct device *dev,
+>         enum amd_pm_state_type pm = 0;
+>         int i = 0, ret = 0;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -526,7 +526,7 @@
+> static ssize_t amdgpu_get_pp_force_state(struct device *dev,
+>         struct drm_device *ddev = dev_get_drvdata(dev);
+>         struct amdgpu_device *adev = ddev->dev_private;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         if (adev->pp_force_state_enabled) @@ -546,7 +546,7 @@ static
+> ssize_t amdgpu_set_pp_force_state(struct device *dev,
+>         unsigned long idx;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         if (strlen(buf) == 1)
+> @@ -604,7 +604,7 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
+>         char *table = NULL;
+>         int size, ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -646,7 +646,7 @@
+> static ssize_t amdgpu_set_pp_table(struct device *dev,
+>         struct amdgpu_device *adev = ddev->dev_private;
+>         int ret = 0;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -751,7 +751,7 @@
+> static ssize_t amdgpu_set_pp_od_clk_voltage(struct device *dev,
+>         const char delimiter[3] = {' ', '\n', '\0'};
+>         uint32_t type;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         if (count > 127)
+> @@ -843,7 +843,7 @@ static ssize_t amdgpu_get_pp_od_clk_voltage(struct device *dev,
+>         ssize_t size;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -895,7 +895,7 @@
+> static ssize_t amdgpu_set_pp_features(struct device *dev,
+>         uint64_t featuremask;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = kstrtou64(buf, 0, &featuremask); @@ -938,7 +938,7 @@
+> static ssize_t amdgpu_get_pp_features(struct device *dev,
+>         ssize_t size;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -997,7 +997,7 @@
+> static ssize_t amdgpu_get_pp_dpm_sclk(struct device *dev,
+>         ssize_t size;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -1063,7 +1063,7 @@
+> static ssize_t amdgpu_set_pp_dpm_sclk(struct device *dev,
+>         int ret;
+>         uint32_t mask = 0;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = amdgpu_read_mask(buf, count, &mask); @@ -1097,7 +1097,7
+> @@ static ssize_t amdgpu_get_pp_dpm_mclk(struct device *dev,
+>         ssize_t size;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -1127,7 +1127,7 @@
+> static ssize_t amdgpu_set_pp_dpm_mclk(struct device *dev,
+>         uint32_t mask = 0;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = amdgpu_read_mask(buf, count, &mask); @@ -1161,7 +1161,7
+> @@ static ssize_t amdgpu_get_pp_dpm_socclk(struct device *dev,
+>         ssize_t size;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -1191,7 +1191,7 @@
+> static ssize_t amdgpu_set_pp_dpm_socclk(struct device *dev,
+>         int ret;
+>         uint32_t mask = 0;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = amdgpu_read_mask(buf, count, &mask); @@ -1227,7 +1227,7
+> @@ static ssize_t amdgpu_get_pp_dpm_fclk(struct device *dev,
+>         ssize_t size;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -1257,7 +1257,7 @@
+> static ssize_t amdgpu_set_pp_dpm_fclk(struct device *dev,
+>         int ret;
+>         uint32_t mask = 0;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = amdgpu_read_mask(buf, count, &mask); @@ -1293,7 +1293,7
+> @@ static ssize_t amdgpu_get_pp_dpm_dcefclk(struct device *dev,
+>         ssize_t size;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -1323,7 +1323,7 @@
+> static ssize_t amdgpu_set_pp_dpm_dcefclk(struct device *dev,
+>         int ret;
+>         uint32_t mask = 0;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = amdgpu_read_mask(buf, count, &mask); @@ -1359,7 +1359,7
+> @@ static ssize_t amdgpu_get_pp_dpm_pcie(struct device *dev,
+>         ssize_t size;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -1389,7 +1389,7 @@
+> static ssize_t amdgpu_set_pp_dpm_pcie(struct device *dev,
+>         int ret;
+>         uint32_t mask = 0;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = amdgpu_read_mask(buf, count, &mask); @@ -1425,7 +1425,7
+> @@ static ssize_t amdgpu_get_pp_sclk_od(struct device *dev,
+>         uint32_t value = 0;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -1453,7 +1453,7 @@
+> static ssize_t amdgpu_set_pp_sclk_od(struct device *dev,
+>         int ret;
+>         long int value;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = kstrtol(buf, 0, &value); @@ -1494,7 +1494,7 @@ static
+> ssize_t amdgpu_get_pp_mclk_od(struct device *dev,
+>         uint32_t value = 0;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -1522,7 +1522,7 @@
+> static ssize_t amdgpu_set_pp_mclk_od(struct device *dev,
+>         int ret;
+>         long int value;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = kstrtol(buf, 0, &value); @@ -1583,7 +1583,7 @@ static
+> ssize_t amdgpu_get_pp_power_profile_mode(struct device *dev,
+>         ssize_t size;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(ddev->dev); @@ -1621,7 +1621,7 @@
+> static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
+>         long int profile_mode = 0;
+>         const char delimiter[3] = {' ', '\n', '\0'};
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         tmp[0] = *(buf);
+> @@ -1683,7 +1683,7 @@ static ssize_t amdgpu_get_gpu_busy_percent(struct device *dev,
+>         struct amdgpu_device *adev = ddev->dev_private;
+>         int r, value, size = sizeof(value);
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         r = pm_runtime_get_sync(ddev->dev); @@ -1719,7 +1719,7 @@
+> static ssize_t amdgpu_get_mem_busy_percent(struct device *dev,
+>         struct amdgpu_device *adev = ddev->dev_private;
+>         int r, value, size = sizeof(value);
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         r = pm_runtime_get_sync(ddev->dev); @@ -1760,7 +1760,7 @@
+> static ssize_t amdgpu_get_pcie_bw(struct device *dev,
+>         uint64_t count0 = 0, count1 = 0;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         if (adev->flags & AMD_IS_APU)
+> @@ -1799,7 +1799,7 @@ static ssize_t amdgpu_get_unique_id(struct device *dev,
+>         struct drm_device *ddev = dev_get_drvdata(dev);
+>         struct amdgpu_device *adev = ddev->dev_private;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         if (adev->unique_id)
+> @@ -1996,7 +1996,7 @@ static ssize_t amdgpu_hwmon_show_temp(struct device *dev,
+>         int channel = to_sensor_dev_attr(attr)->index;
+>         int r, temp = 0, size = sizeof(temp);
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         if (channel >= PP_TEMP_MAX)
+> @@ -2130,7 +2130,7 @@ static ssize_t amdgpu_hwmon_get_pwm1_enable(struct device *dev,
+>         u32 pwm_mode = 0;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2164,7 +2164,7 @@ static ssize_t amdgpu_hwmon_set_pwm1_enable(struct device *dev,
+>         int err, ret;
+>         int value;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         err = kstrtoint(buf, 10, &value); @@ -2216,7 +2216,7 @@ static
+> ssize_t amdgpu_hwmon_set_pwm1(struct device *dev,
+>         u32 value;
+>         u32 pwm_mode;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         err = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2268,7 +2268,7 @@ static ssize_t amdgpu_hwmon_get_pwm1(struct device *dev,
+>         int err;
+>         u32 speed = 0;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         err = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2301,7 +2301,7 @@ static ssize_t amdgpu_hwmon_get_fan1_input(struct device *dev,
+>         int err;
+>         u32 speed = 0;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         err = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2333,7 +2333,7 @@ static ssize_t amdgpu_hwmon_get_fan1_min(struct device *dev,
+>         u32 size = sizeof(min_rpm);
+>         int r;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         r = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2361,7 +2361,7 @@ static ssize_t amdgpu_hwmon_get_fan1_max(struct device *dev,
+>         u32 size = sizeof(max_rpm);
+>         int r;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         r = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2388,7 +2388,7 @@ static ssize_t amdgpu_hwmon_get_fan1_target(struct device *dev,
+>         int err;
+>         u32 rpm = 0;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         err = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2420,7 +2420,7 @@ static ssize_t amdgpu_hwmon_set_fan1_target(struct device *dev,
+>         u32 value;
+>         u32 pwm_mode;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         err = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2469,7 +2469,7 @@ static ssize_t amdgpu_hwmon_get_fan1_enable(struct device *dev,
+>         u32 pwm_mode = 0;
+>         int ret;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         ret = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2504,7 +2504,7 @@ static ssize_t amdgpu_hwmon_set_fan1_enable(struct device *dev,
+>         int value;
+>         u32 pwm_mode;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         err = kstrtoint(buf, 10, &value); @@ -2547,7 +2547,7 @@ static
+> ssize_t amdgpu_hwmon_show_vddgfx(struct device *dev,
+>         u32 vddgfx;
+>         int r, size = sizeof(vddgfx);
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         r = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2582,7 +2582,7 @@ static ssize_t amdgpu_hwmon_show_vddnb(struct device *dev,
+>         u32 vddnb;
+>         int r, size = sizeof(vddnb);
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         /* only APUs have vddnb */
+> @@ -2622,7 +2622,7 @@ static ssize_t amdgpu_hwmon_show_power_avg(struct device *dev,
+>         int r, size = sizeof(u32);
+>         unsigned uw;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         r = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2661,7 +2661,7 @@ static ssize_t amdgpu_hwmon_show_power_cap_max(struct device *dev,
+>         ssize_t size;
+>         int r;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         r = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2693,7 +2693,7 @@ static ssize_t amdgpu_hwmon_show_power_cap(struct device *dev,
+>         ssize_t size;
+>         int r;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         r = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2726,7 +2726,7 @@ static ssize_t amdgpu_hwmon_set_power_cap(struct device *dev,
+>         int err;
+>         u32 value;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         if (amdgpu_sriov_vf(adev))
+> @@ -2767,7 +2767,7 @@ static ssize_t amdgpu_hwmon_show_sclk(struct device *dev,
+>         uint32_t sclk;
+>         int r, size = sizeof(sclk);
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         r = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -2802,7 +2802,7 @@ static ssize_t amdgpu_hwmon_show_mclk(struct device *dev,
+>         uint32_t mclk;
+>         int r, size = sizeof(mclk);
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         r = pm_runtime_get_sync(adev->ddev->dev);
+> @@ -3665,7 +3665,7 @@ static int amdgpu_debugfs_pm_info(struct seq_file *m, void *data)
+>         u32 flags = 0;
+>         int r;
+>
+> -       if (adev->in_gpu_reset || adev->in_suspend)
+> +       if (adev->in_gpu_reset)
+>                 return -EPERM;
+>
+>         r = pm_runtime_get_sync(dev->dev);
+> --
+> 2.25.4
+>
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cevan.quan%40amd.com%7C97b6a87de2fd4bc7ed6308d803070c10%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637262676586697822&amp;sdata=8V2SIQumUqRoJX%2FFwH8%2FS9x6XEy3ykBFJHm%2B9%2Fa2kpg%3D&amp;reserved=0
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
