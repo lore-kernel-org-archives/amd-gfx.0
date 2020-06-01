@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 001F6C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:30:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B995C433E3
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:30:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CBE7620776
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:30:17 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id D3F7F2074B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:30:18 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g39/quie"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CBE7620776
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ej4ciTuv"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D3F7F2074B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 538D86E9E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D96886E9EA;
 	Mon,  1 Jun 2020 18:30:17 +0000 (UTC)
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [IPv6:2607:f8b0:4864:20::733])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9097C6E9DA
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:30:14 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id v79so9996710qkb.10
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:30:14 -0700 (PDT)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F1CA46E9E9
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:30:15 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id c12so9989204qkk.13
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:30:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=nK1DUH8Z21gp7YxTDGDaTFWG6u09yLYqu5aPK63Stj0=;
- b=g39/quie3cZrbn2yX/7pMR/Nl9Pi9NjJ5NkQkpbR5BBh1CswCLCiPlXwbtkZkADRDD
- pU31phHyY3sxs1s4gA92Ikq59+5oTdKVL6NtWS7GM/SCHivfoHWwQv8HjDwsT2ycKZT/
- K8a5VJnzW9uOOcKlfOxEOhich3XK9wd2AzOvdByKQOqwnVI9ZimoIajbZnLbcbCdV2S3
- rgiVqbcErGaBGliuDUAf4I5+rIqomimn95Ujr2TVM3blDUw+SedrH2HyY3Gu/RKzkPtU
- yQoj9CfNu4tgliYX5NWIs/E6VckwF+1KUEjBS/etJfYQJXedCoaWGsciPAjC+kSXeLBb
- Z16g==
+ bh=TZsDRdRmvRq4xBsGrMbCVs0LClXXgaM98dkZmKhhLDc=;
+ b=ej4ciTuvIKrbaz1TTtj4OUB9pL/ApR0blOgtoRp9yRdh9KHo6adxjIAUybDLCtKYED
+ uVayhTyuBHOKu3mh1kr2ltds7fdeH/OGd/aEU1BTJ5+UIB5te6E+eyRC60w0CxzKc86c
+ MJQbCEVffXOO/eJMVNFR6jspLglN8xmrLSR8lJIqT6xf3DgNkuZaO7UYWbtdXF4LoADy
+ jKXuVeEOIJx/mPokuOK/hQnOFitTg31h69oNNR9W0lRmHO6trwkJFGA3O9mls2jKXUvT
+ uNo8rAuDeGiUXv6wPOi50NmWbMLaKQS+OBbfDB/FjWXfOJ75pMf14U2KTboetjHou4/5
+ 1T6w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=nK1DUH8Z21gp7YxTDGDaTFWG6u09yLYqu5aPK63Stj0=;
- b=cWpNLjjLLJMkJP0uSfHwALwp86gdw8h1ZAX7qYRiNKnLeTpxOxpTA5vUv5BDAr7dxe
- 6tANykyW3DIL9vMdFgfebcaYCnk95j5NtKZLDWgELV5JFeKdLsC37Hi5zR1Z7S5E/kSX
- W96YaublDnr1iCelT49d75ThnyBto/PmgVLGU8WOcE7NrC+tE49TqDKIqxQyMBsprUKs
- bNURaz+hd5OTXGUAJIpkmp2M4R7q3sA0k9BacGNdQuquvOzxnNdojGKj8DHs3lqNLXZP
- zt3OuPk01L4Ed+ohoGsTDkW+FjGVbG3t+JGJOSLdIRhnA359qJd78MwjxLFyz5rqkMSj
- CTOA==
-X-Gm-Message-State: AOAM530svGbG32h+K5OWrHmEleMJ3y9VNhL+2gWw1cyRGbAXzKh8UVbV
- I1uTplqmAtW/ZZfJ/1eGaStFTvEs
-X-Google-Smtp-Source: ABdhPJxljD41EqX7xJdatM7NO8HiMn4t52OfAGIi5uU+y8kbWPnj6fm/E1GLHjvb5M6IX9wrK7itdA==
-X-Received: by 2002:a37:414f:: with SMTP id o76mr20499047qka.375.1591036213268; 
- Mon, 01 Jun 2020 11:30:13 -0700 (PDT)
+ bh=TZsDRdRmvRq4xBsGrMbCVs0LClXXgaM98dkZmKhhLDc=;
+ b=oH2xIgcVW73CcuGFV3svOYRPtfUtbFMctuyC6OXYj9kZ5cDCeuKk+ijglTFrL4ZuWy
+ Ml4hhCaDMLokVzGgyzBu4TygT+dBZ0ccwX8tli1d0auykSHsWZRpC/JUpzcumM+fDV3J
+ fIYUbebqVTgjPXoWoqyYuVObV0aKMqn0DXSbcALyftfJR6s+AEKb0krR5YD6b8fTYE6P
+ Ml9tW3NehrCEKhLoW9OP+yAeSO94Kztt/1GiPrjXMPckHz6JtQ2MEfEX2CCdb76gMaYd
+ rFGXfs3gwP1FLYd5c/vP6tuPPBOu/uYnkqCvK/6pFWrSQrDVQH9v2ujx8lOZtsTFixXb
+ 4srg==
+X-Gm-Message-State: AOAM533fJ8ybtZlswTqvPXfKJpaLiuX0+Kobqg62tc/6L0blPz9z/JDo
+ MnwtoGFu9tXsqVVEquoY+J3UxohI
+X-Google-Smtp-Source: ABdhPJxWhdFCeJd1l8R4HsaQGseLbMytvbRngWrhTDX/Ea2sWpzhpd3iV9Sdp+J751UFbzpYChyLFg==
+X-Received: by 2002:a37:a648:: with SMTP id p69mr21566522qke.190.1591036214726; 
+ Mon, 01 Jun 2020 11:30:14 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id z194sm8592qkb.73.2020.06.01.11.30.12
+ by smtp.gmail.com with ESMTPSA id z194sm8592qkb.73.2020.06.01.11.30.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:30:12 -0700 (PDT)
+ Mon, 01 Jun 2020 11:30:13 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 200/207] drm/amd/display: Add DCN3 VPG
-Date: Mon,  1 Jun 2020 14:29:19 -0400
-Message-Id: <20200601182926.1267958-22-alexander.deucher@amd.com>
+Subject: [PATCH 201/207] drm/amd/display: Init function tables for DCN3
+Date: Mon,  1 Jun 2020 14:29:20 -0400
+Message-Id: <20200601182926.1267958-23-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182926.1267958-1-alexander.deucher@amd.com>
 References: <20200601182926.1267958-1-alexander.deucher@amd.com>
@@ -88,224 +88,22 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 
-Video Package generator.
-
-used to prepare avi info, DP info etc
+Initilize function tables for hw programing
 
 Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 ---
- .../gpu/drm/amd/display/dc/dcn30/dcn30_vpg.c  | 194 ++++++++++++++++++
- .../gpu/drm/amd/display/dc/dcn30/dcn30_vpg.h  | 133 ++++++++++++
- 2 files changed, 327 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_vpg.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_vpg.h
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c | 148 ++++++++++++++++++
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_init.h |  33 ++++
+ 2 files changed, 181 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.h
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_vpg.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_vpg.c
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
 new file mode 100644
-index 000000000000..9c0020c8a730
+index 000000000000..5ba7b5354de8
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_vpg.c
-@@ -0,0 +1,194 @@
-+/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ *  and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+
-+#include "dc_bios_types.h"
-+#include "dcn30_vpg.h"
-+#include "reg_helper.h"
-+
-+#define DC_LOGGER \
-+		vpg3->base.ctx->logger
-+
-+#define REG(reg)\
-+	(vpg3->regs->reg)
-+
-+#undef FN
-+#define FN(reg_name, field_name) \
-+	vpg3->vpg_shift->field_name, vpg3->vpg_mask->field_name
-+
-+
-+#define CTX \
-+	vpg3->base.ctx
-+
-+
-+static void vpg3_update_generic_info_packet(
-+	struct vpg *vpg,
-+	uint32_t packet_index,
-+	const struct dc_info_packet *info_packet)
-+{
-+	struct dcn30_vpg *vpg3 = DCN30_VPG_FROM_VPG(vpg);
-+	uint32_t i;
-+
-+	/* TODOFPGA Figure out a proper number for max_retries polling for lock
-+	 * use 50 for now.
-+	 */
-+	uint32_t max_retries = 50;
-+
-+	if (packet_index > 14)
-+		ASSERT(0);
-+
-+	/* poll dig_update_lock is not locked -> asic internal signal
-+	 * assume otg master lock will unlock it
-+	 */
-+	/* REG_WAIT(AFMT_VBI_PACKET_CONTROL, AFMT_GENERIC_LOCK_STATUS,
-+	 * 		0, 10, max_retries);
-+	 */
-+
-+	/* TODO: Check if this is required */
-+	/* check if HW reading GSP memory */
-+	REG_WAIT(VPG_GENERIC_STATUS, VPG_GENERIC_CONFLICT_OCCURED,
-+			0, 10, max_retries);
-+
-+	/* HW does is not reading GSP memory not reading too long ->
-+	 * something wrong. clear GPS memory access and notify?
-+	 * hw SW is writing to GSP memory
-+	 */
-+	REG_UPDATE(VPG_GENERIC_STATUS, VPG_GENERIC_CONFLICT_CLR, 1);
-+
-+	/* choose which generic packet to use */
-+	REG_UPDATE(VPG_GENERIC_PACKET_ACCESS_CTRL,
-+			VPG_GENERIC_DATA_INDEX, packet_index*9);
-+
-+	/* write generic packet header
-+	 * (4th byte is for GENERIC0 only)
-+	 */
-+	REG_SET_4(VPG_GENERIC_PACKET_DATA, 0,
-+			VPG_GENERIC_DATA_BYTE0, info_packet->hb0,
-+			VPG_GENERIC_DATA_BYTE1, info_packet->hb1,
-+			VPG_GENERIC_DATA_BYTE2, info_packet->hb2,
-+			VPG_GENERIC_DATA_BYTE3, info_packet->hb3);
-+
-+	/* write generic packet contents
-+	 * (we never use last 4 bytes)
-+	 * there are 8 (0-7) mmDIG0_AFMT_GENERIC0_x registers
-+	 */
-+	{
-+		const uint32_t *content =
-+			(const uint32_t *) &info_packet->sb[0];
-+
-+		for (i = 0; i < 8; i++) {
-+			REG_WRITE(VPG_GENERIC_PACKET_DATA, *content++);
-+		}
-+	}
-+
-+	/* atomically update double-buffered GENERIC0 registers in frame mode
-+	 * (update at next block_update when block_update_lock == 0).
-+	 */
-+	switch (packet_index) {
-+	case 0:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC0_FRAME_UPDATE, 1);
-+		break;
-+	case 1:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC1_FRAME_UPDATE, 1);
-+		break;
-+	case 2:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC2_FRAME_UPDATE, 1);
-+		break;
-+	case 3:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC3_FRAME_UPDATE, 1);
-+		break;
-+	case 4:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC4_FRAME_UPDATE, 1);
-+		break;
-+	case 5:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC5_FRAME_UPDATE, 1);
-+		break;
-+	case 6:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC6_FRAME_UPDATE, 1);
-+		break;
-+	case 7:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC7_FRAME_UPDATE, 1);
-+		break;
-+	case 8:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC8_FRAME_UPDATE, 1);
-+		break;
-+	case 9:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC9_FRAME_UPDATE, 1);
-+		break;
-+	case 10:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC10_FRAME_UPDATE, 1);
-+		break;
-+	case 11:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC11_FRAME_UPDATE, 1);
-+		break;
-+	case 12:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC12_FRAME_UPDATE, 1);
-+		break;
-+	case 13:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC13_FRAME_UPDATE, 1);
-+		break;
-+	case 14:
-+		REG_UPDATE(VPG_GSP_FRAME_UPDATE_CTRL,
-+				VPG_GENERIC14_FRAME_UPDATE, 1);
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
-+static struct vpg_funcs dcn30_vpg_funcs = {
-+	.update_generic_info_packet	= vpg3_update_generic_info_packet,
-+};
-+
-+void vpg3_construct(struct dcn30_vpg *vpg3,
-+	struct dc_context *ctx,
-+	uint32_t inst,
-+	const struct dcn30_vpg_registers *vpg_regs,
-+	const struct dcn30_vpg_shift *vpg_shift,
-+	const struct dcn30_vpg_mask *vpg_mask)
-+{
-+	vpg3->base.ctx = ctx;
-+
-+	vpg3->base.inst = inst;
-+	vpg3->base.funcs = &dcn30_vpg_funcs;
-+
-+	vpg3->regs = vpg_regs;
-+	vpg3->vpg_shift = vpg_shift;
-+	vpg3->vpg_mask = vpg_mask;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_vpg.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_vpg.h
-new file mode 100644
-index 000000000000..0284092630f1
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_vpg.h
-@@ -0,0 +1,133 @@
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+@@ -0,0 +1,148 @@
 +/*
 + * Copyright 2020 Advanced Micro Devices, Inc.
 + *
@@ -331,114 +129,168 @@ index 000000000000..0284092630f1
 + *
 + */
 +
-+#ifndef __DAL_DCN30_VPG_H__
-+#define __DAL_DCN30_VPG_H__
++#include "dce110/dce110_hw_sequencer.h"
++#include "dcn10/dcn10_hw_sequencer.h"
++#include "dcn20/dcn20_hwseq.h"
++#include "dcn30_hwseq.h"
 +
-+
-+#define DCN30_VPG_FROM_VPG(vpg)\
-+	container_of(vpg, struct dcn30_vpg, base)
-+
-+#define VPG_DCN3_REG_LIST(id) \
-+	SRI(VPG_GENERIC_STATUS, VPG, id), \
-+	SRI(VPG_GENERIC_PACKET_ACCESS_CTRL, VPG, id), \
-+	SRI(VPG_GENERIC_PACKET_DATA, VPG, id), \
-+	SRI(VPG_GSP_FRAME_UPDATE_CTRL, VPG, id)
-+
-+struct dcn30_vpg_registers {
-+	uint32_t VPG_GENERIC_STATUS;
-+	uint32_t VPG_GENERIC_PACKET_ACCESS_CTRL;
-+	uint32_t VPG_GENERIC_PACKET_DATA;
-+	uint32_t VPG_GSP_FRAME_UPDATE_CTRL;
++static const struct hw_sequencer_funcs dcn30_funcs = {
++	.program_gamut_remap = dcn10_program_gamut_remap,
++	.init_hw = dcn10_init_hw,
++	.apply_ctx_to_hw = dce110_apply_ctx_to_hw,
++	.apply_ctx_for_surface = NULL,
++	.program_front_end_for_ctx = dcn20_program_front_end_for_ctx,
++	.post_unlock_program_front_end = dcn20_post_unlock_program_front_end,
++	.update_plane_addr = dcn20_update_plane_addr,
++	.update_dchub = dcn10_update_dchub,
++	.update_pending_status = dcn10_update_pending_status,
++	.program_output_csc = dcn20_program_output_csc,
++	.enable_accelerated_mode = dce110_enable_accelerated_mode,
++	.enable_timing_synchronization = dcn10_enable_timing_synchronization,
++	.enable_per_frame_crtc_position_reset = dcn10_enable_per_frame_crtc_position_reset,
++	.update_info_frame = dcn30_update_info_frame,
++	.send_immediate_sdp_message = dcn10_send_immediate_sdp_message,
++	.enable_stream = dcn20_enable_stream,
++	.disable_stream = dce110_disable_stream,
++	.unblank_stream = dcn20_unblank_stream,
++	.blank_stream = dce110_blank_stream,
++	.enable_audio_stream = dce110_enable_audio_stream,
++	.disable_audio_stream = dce110_disable_audio_stream,
++	.disable_plane = dcn20_disable_plane,
++	.pipe_control_lock = dcn20_pipe_control_lock,
++	.interdependent_update_lock = dcn10_lock_all_pipes,
++	.cursor_lock = dcn10_cursor_lock,
++	.prepare_bandwidth = dcn20_prepare_bandwidth,
++	.optimize_bandwidth = dcn20_optimize_bandwidth,
++	.update_bandwidth = dcn20_update_bandwidth,
++	.set_drr = dcn10_set_drr,
++	.get_position = dcn10_get_position,
++	.set_static_screen_control = dcn10_set_static_screen_control,
++	.setup_stereo = dcn10_setup_stereo,
++	.set_avmute = dcn30_set_avmute,
++	.log_hw_state = dcn10_log_hw_state,
++	.get_hw_state = dcn10_get_hw_state,
++	.clear_status_bits = dcn10_clear_status_bits,
++	.wait_for_mpcc_disconnect = dcn10_wait_for_mpcc_disconnect,
++	.edp_power_control = dce110_edp_power_control,
++	.edp_wait_for_hpd_ready = dce110_edp_wait_for_hpd_ready,
++	.set_cursor_position = dcn10_set_cursor_position,
++	.set_cursor_attribute = dcn10_set_cursor_attribute,
++	.set_cursor_sdr_white_level = dcn10_set_cursor_sdr_white_level,
++	.setup_periodic_interrupt = dcn10_setup_periodic_interrupt,
++	.set_clock = dcn10_set_clock,
++	.get_clock = dcn10_get_clock,
++	.program_triplebuffer = dcn20_program_triple_buffer,
++	.enable_writeback = dcn30_enable_writeback,
++	.disable_writeback = dcn30_disable_writeback,
++	.update_writeback = dcn30_update_writeback,
++	.mmhubbub_warmup = dcn30_mmhubbub_warmup,
++	.dmdata_status_done = dcn20_dmdata_status_done,
++	.program_dmdata_engine = dcn30_program_dmdata_engine,
++	.set_dmdata_attributes = dcn20_set_dmdata_attributes,
++	.init_sys_ctx = dcn20_init_sys_ctx,
++	.init_vm_ctx = dcn20_init_vm_ctx,
++	.set_flip_control_gsl = dcn20_set_flip_control_gsl,
++	.get_vupdate_offset_from_vsync = dcn10_get_vupdate_offset_from_vsync,
++	.apply_idle_power_optimizations = dcn30_apply_idle_power_optimizations,
++	.set_backlight_level = dce110_set_backlight_level,
++	.set_abm_immediate_disable = dce110_set_abm_immediate_disable,
 +};
 +
-+#define DCN3_VPG_MASK_SH_LIST(mask_sh)\
-+	SE_SF(VPG0_VPG_GENERIC_STATUS, VPG_GENERIC_CONFLICT_OCCURED, mask_sh),\
-+	SE_SF(VPG0_VPG_GENERIC_STATUS, VPG_GENERIC_CONFLICT_CLR, mask_sh),\
-+	SE_SF(VPG0_VPG_GENERIC_PACKET_ACCESS_CTRL, VPG_GENERIC_DATA_INDEX, mask_sh),\
-+	SE_SF(VPG0_VPG_GENERIC_PACKET_DATA, VPG_GENERIC_DATA_BYTE0, mask_sh),\
-+	SE_SF(VPG0_VPG_GENERIC_PACKET_DATA, VPG_GENERIC_DATA_BYTE1, mask_sh),\
-+	SE_SF(VPG0_VPG_GENERIC_PACKET_DATA, VPG_GENERIC_DATA_BYTE2, mask_sh),\
-+	SE_SF(VPG0_VPG_GENERIC_PACKET_DATA, VPG_GENERIC_DATA_BYTE3, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC0_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC1_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC2_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC3_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC4_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC5_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC6_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC7_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC8_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC9_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC10_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC11_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC12_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC13_FRAME_UPDATE, mask_sh),\
-+	SE_SF(VPG0_VPG_GSP_FRAME_UPDATE_CTRL, VPG_GENERIC14_FRAME_UPDATE, mask_sh)
-+
-+#define VPG_DCN3_REG_FIELD_LIST(type) \
-+	type VPG_GENERIC_CONFLICT_OCCURED;\
-+	type VPG_GENERIC_CONFLICT_CLR;\
-+	type VPG_GENERIC_DATA_INDEX;\
-+	type VPG_GENERIC_DATA_BYTE0;\
-+	type VPG_GENERIC_DATA_BYTE1;\
-+	type VPG_GENERIC_DATA_BYTE2;\
-+	type VPG_GENERIC_DATA_BYTE3;\
-+	type VPG_GENERIC0_FRAME_UPDATE;\
-+	type VPG_GENERIC1_FRAME_UPDATE;\
-+	type VPG_GENERIC2_FRAME_UPDATE;\
-+	type VPG_GENERIC3_FRAME_UPDATE;\
-+	type VPG_GENERIC4_FRAME_UPDATE;\
-+	type VPG_GENERIC5_FRAME_UPDATE;\
-+	type VPG_GENERIC6_FRAME_UPDATE;\
-+	type VPG_GENERIC7_FRAME_UPDATE;\
-+	type VPG_GENERIC8_FRAME_UPDATE;\
-+	type VPG_GENERIC9_FRAME_UPDATE;\
-+	type VPG_GENERIC10_FRAME_UPDATE;\
-+	type VPG_GENERIC11_FRAME_UPDATE;\
-+	type VPG_GENERIC12_FRAME_UPDATE;\
-+	type VPG_GENERIC13_FRAME_UPDATE;\
-+	type VPG_GENERIC14_FRAME_UPDATE
-+
-+
-+struct dcn30_vpg_shift {
-+	VPG_DCN3_REG_FIELD_LIST(uint8_t);
++static const struct hwseq_private_funcs dcn30_private_funcs = {
++	.init_pipes = dcn10_init_pipes,
++	.update_plane_addr = dcn20_update_plane_addr,
++	.plane_atomic_disconnect = dcn10_plane_atomic_disconnect,
++	.update_mpcc = dcn20_update_mpcc,
++	.set_input_transfer_func = dcn30_set_input_transfer_func,
++	.set_output_transfer_func = dcn30_set_output_transfer_func,
++	.power_down = dce110_power_down,
++	.enable_display_power_gating = dcn10_dummy_display_power_gating,
++	.blank_pixel_data = dcn20_blank_pixel_data,
++	.reset_hw_ctx_wrap = dcn20_reset_hw_ctx_wrap,
++	.enable_stream_timing = dcn20_enable_stream_timing,
++	.edp_backlight_control = dce110_edp_backlight_control,
++	.disable_stream_gating = dcn20_disable_stream_gating,
++	.enable_stream_gating = dcn20_enable_stream_gating,
++	.setup_vupdate_interrupt = dcn20_setup_vupdate_interrupt,
++	.did_underflow_occur = dcn10_did_underflow_occur,
++	.init_blank = dcn20_init_blank,
++	.disable_vga = dcn20_disable_vga,
++	.bios_golden_init = dcn10_bios_golden_init,
++	.plane_atomic_disable = dcn20_plane_atomic_disable,
++	.plane_atomic_power_down = dcn10_plane_atomic_power_down,
++	.enable_power_gating_plane = dcn20_enable_power_gating_plane,
++	.dpp_pg_control = dcn20_dpp_pg_control,
++	.hubp_pg_control = dcn20_hubp_pg_control,
++	.dsc_pg_control = NULL,
++	.program_all_writeback_pipes_in_tree = dcn30_program_all_writeback_pipes_in_tree,
++	.update_odm = dcn20_update_odm,
++	.dsc_pg_control = dcn20_dsc_pg_control,
++	.get_surface_visual_confirm_color = dcn10_get_surface_visual_confirm_color,
++	.get_hdr_visual_confirm_color = dcn10_get_hdr_visual_confirm_color,
++	.set_hdr_multiplier = dcn10_set_hdr_multiplier,
++	.verify_allow_pstate_change_high = dcn10_verify_allow_pstate_change_high,
++	.wait_for_blank_complete = dcn20_wait_for_blank_complete,
++	.dccg_init = dcn20_dccg_init,
++	.set_blend_lut = dcn30_set_blend_lut,
++	.set_shaper_3dlut = dcn20_set_shaper_3dlut,
 +};
 +
-+struct dcn30_vpg_mask {
-+	VPG_DCN3_REG_FIELD_LIST(uint32_t);
-+};
++void dcn30_hw_sequencer_construct(struct dc *dc)
++{
++	dc->hwss = dcn30_funcs;
++	dc->hwseq->funcs = dcn30_private_funcs;
 +
-+struct vpg;
++	if (IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment)) {
++		dc->hwss.init_hw = dcn20_fpga_init_hw;
++		dc->hwseq->funcs.init_pipes = NULL;
++	}
 +
-+struct vpg_funcs {
-+	void (*update_generic_info_packet)(
-+		struct vpg *vpg,
-+		uint32_t packet_index,
-+		const struct dc_info_packet *info_packet);
-+};
++	// TODO: Use generic dcn10_init_hw and dcn10_init_pipes sequence
++	if (!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment)) {
++		dc->hwss.init_hw = dcn30_init_hw;
++		dc->hwseq->funcs.init_pipes = NULL;
++	}
++}
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.h
+new file mode 100644
+index 000000000000..c280ff90bfa3
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.h
+@@ -0,0 +1,33 @@
++/*
++ * Copyright 2020 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ * Authors: AMD
++ *
++ */
 +
-+struct vpg {
-+	const struct vpg_funcs *funcs;
-+	struct dc_context *ctx;
-+	int inst;
-+};
++#ifndef __DC_DCN30_INIT_H__
++#define __DC_DCN30_INIT_H__
 +
-+struct dcn30_vpg {
-+	struct vpg base;
-+	const struct dcn30_vpg_registers *regs;
-+	const struct dcn30_vpg_shift *vpg_shift;
-+	const struct dcn30_vpg_mask *vpg_mask;
-+};
++struct dc;
 +
-+void vpg3_construct(struct dcn30_vpg *vpg3,
-+	struct dc_context *ctx,
-+	uint32_t inst,
-+	const struct dcn30_vpg_registers *vpg_regs,
-+	const struct dcn30_vpg_shift *vpg_shift,
-+	const struct dcn30_vpg_mask *vpg_mask);
++void dcn30_hw_sequencer_construct(struct dc *dc);
 +
-+
-+#endif
++#endif /* __DC_DCN30_INIT_H__ */
 -- 
 2.25.4
 
