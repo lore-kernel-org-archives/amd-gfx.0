@@ -8,64 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DEC8EC433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB90FC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B77892073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:31 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 865A02073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CtWkl+Z9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B77892073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tYryil6d"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 865A02073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76D226E34C;
-	Mon,  1 Jun 2020 18:22:31 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 274136E354
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:30 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id q14so8224328qtr.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 48A6C6E357;
+	Mon,  1 Jun 2020 18:22:33 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A948D6E358
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:31 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id c185so10009466qke.7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=MImlpwVeM+/MtnqicKQFBCIeDyuVDqBQqOyR6DX82lM=;
- b=CtWkl+Z9LzOQu8r+JzMr5axD7qXSwbsdPl2M+tkPsUs0WMfjEbS/W37NQhU3CZEw6I
- S1xOsHK3phELUjiSAzNEkmcgMluBGedHARpjYVhARpHNyoBn5JjyCUdyXrzp/VvRm1JL
- fGfUI2HjzBeaQ5JITx9FLOUjF3e2Zp5sz4jZXTp3NO9cKs6P8TbQA1DzfUFWi8e0CeZa
- YsGdsDh0hj2K+r2/3BcUQfjNbhEpAMztKZ5923h9tCp6vDdT0kZvr5gZ0p1a8pZ82HC0
- h0wVhoolcfI4CczNayExcxp4JG1T9R4GzVforJpwEU6Tb6uc7xbEgjGNIwukkdJfFy2a
- 4k4Q==
+ bh=XxuaFK/I1zuwrGBSgOOXB8SkyuzRXsLIaysejvpMOME=;
+ b=tYryil6ds0NaKgCzqhGp7rCkRwnBmYFFoz240CUisOca93JxV9hvKs6Z0ltsz+tQNe
+ HoaauH/iarGXICJdBxxUThIdEgif8tBeLrUMmFnJEVQoG1oe1BPVte598VCYJK8RXAu/
+ z2vWtpfqZQf25e14NNTcAEYIvghJYF5UD6K2cDxjVXPAGYCfGSXCICHPLNtAMnohhcjb
+ utBhXelWSz1vepmlLdKJ3kLtHA2rle6v539X6kvoLLRl2aDXblzPJvMtt3LJcy/dv8kd
+ 8pnFEKr67q7D1i7p5V52JEC36SUrmc/anSTQ6dwD4YT5v2SNl1sB8d1hRdItMjr7/Shn
+ XBuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=MImlpwVeM+/MtnqicKQFBCIeDyuVDqBQqOyR6DX82lM=;
- b=GmIISIhOJ8TXRSZV/vJoftwNhuw150CSLSZTV5YqFuDau/ipFAejDzbxA9KiNssPxt
- awjy/YIBuW9wpdY6DV7H8S5tbzw0NT9M2LPDyAlNJkXh7RFwdwU6RmJVjqP35qi2n92s
- 74Yy3svqfb962r5FVHZ9OSmoX3CbKVKFxCu4ZR/dhBHWXvl5EdUwuLUszjfXtVe476g4
- Gh+8g6it5FOQOcxHAzhSWC5VfSLN8L0wjzEafkkOIenVcAr6cEvnKrjG935hWps2/qIj
- slw+JZu5zXCWN97pNcj/CePyDogQyfwWMj+QZCco2xm1QRy1E0m3PeQK0HvknnIN6jw0
- Mu0w==
-X-Gm-Message-State: AOAM532U/ZejVgn1dZrXqDJZpYU4Ber5EgqIkXt6zZc3pvsg9sotsazc
- NDcagzYIE4IID82A59ee3IXsaiQC
-X-Google-Smtp-Source: ABdhPJy7R9Sy7c3IbDDojDVwXYtdWF69/enXDh+Vu71RMhz1GmbcAu80Sxiv7aj+li2G4OA0SrGv1g==
-X-Received: by 2002:ac8:6683:: with SMTP id d3mr22770965qtp.199.1591035749068; 
- Mon, 01 Jun 2020 11:22:29 -0700 (PDT)
+ bh=XxuaFK/I1zuwrGBSgOOXB8SkyuzRXsLIaysejvpMOME=;
+ b=mCvg95AQ32V8uKwTU+skdv/tslVVkCQUeyocTv7HyR1mqhRGYoROg/SucAYICOTc8+
+ PXd+UT+LHP1xPqm5/9KRwnHtQ1+E6Sg4/AAzwPPvhimqnpMC4/CGqsa7uLelRsP3R1CU
+ fe6tvfS/JRypGCZIlBaF62z9WMgV59SBImASWllNF6evFnVrz1CKxdUIouMJtGggxxHu
+ 92eXw5L1vZ2kGKvw+Hy3B3j3PnF8vYclG/EaRXSQPXYeu4ockM+f6tjukBGdIL0GieZq
+ hYzKeFQSliVTH2aJjEM9OT1YwpKFIwedlTQejtc8f+9cvNgTHavXbwr9oyypf/4i6M76
+ +WDQ==
+X-Gm-Message-State: AOAM532yuILetiPoIvX9083Rjh3kRW3JqJ8Ir56v5wtlFKMS0EU0OdMT
+ tABfyDyAf9svAqPagyOoXb2y0R8t
+X-Google-Smtp-Source: ABdhPJwiTaljLGzt/XgSSnU2Gi39Nrv8ocyy6Bwq325qruVFeYD870+GGIChgKN9Gpq0+f1Zt68Hvg==
+X-Received: by 2002:a37:6851:: with SMTP id d78mr20960096qkc.86.1591035750548; 
+ Mon, 01 Jun 2020 11:22:30 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.27
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:22:28 -0700 (PDT)
+ Mon, 01 Jun 2020 11:22:30 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 155/207] drm/amd/powerplay: and smc dpm info struct for
- sienna_cichlid
-Date: Mon,  1 Jun 2020 14:20:02 -0400
-Message-Id: <20200601182054.1267858-66-alexander.deucher@amd.com>
+Subject: [PATCH 156/207] drm/amd/powerplay: append pptable for sienna_cichlid
+ (v2)
+Date: Mon,  1 Jun 2020 14:20:03 -0400
+Message-Id: <20200601182054.1267858-67-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -90,149 +90,129 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-And atom_smc_dpm_info_v4_9 struct for sienna_cichlid use.
+Add function to append powerplay table from vbios for sienna_cichlid.
+
+v2: squash in warning fix
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/include/atomfirmware.h | 123 +++++++++++++++++++++
- 1 file changed, 123 insertions(+)
+ .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 101 ++++++++++++++++++
+ 1 file changed, 101 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
-index f7e98855cac7..b852248b2da8 100644
---- a/drivers/gpu/drm/amd/include/atomfirmware.h
-+++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-@@ -2016,6 +2016,129 @@ struct atom_smc_dpm_info_v4_7
-   uint32_t     BoardReserved[5];
- };
+diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+index 8e3fe192e50a..5589838a2238 100644
+--- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+@@ -358,6 +358,107 @@ static int sienna_cichlid_check_powerplay_table(struct smu_context *smu)
  
-+struct smudpm_i2c_controller_config_v3
-+{
-+  uint8_t   Enabled;
-+  uint8_t   Speed;
-+  uint8_t   SlaveAddress;
-+  uint8_t   ControllerPort;
-+  uint8_t   ControllerName;
-+  uint8_t   ThermalThrotter;
-+  uint8_t   I2cProtocol;
-+  uint8_t   PaddingConfig;
-+};
+ static int sienna_cichlid_append_powerplay_table(struct smu_context *smu)
+ {
++	struct smu_table_context *table_context = &smu->smu_table;
++	PPTable_t *smc_pptable = table_context->driver_pptable;
++	struct atom_smc_dpm_info_v4_9 *smc_dpm_table;
++	int index, ret;
++	int i;
 +
-+struct atom_smc_dpm_info_v4_9
-+{
-+  struct   atom_common_table_header  table_header;
++	index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
++					    smc_dpm_info);
 +
-+  //SECTION: Gaming Clocks
-+  //uint32_t     GamingClk[6];
++	ret = smu_get_atom_data_table(smu, index, NULL, NULL, NULL,
++				      (uint8_t **)&smc_dpm_table);
++	if (ret)
++		return ret;
 +
-+  // SECTION: I2C Control
-+  struct smudpm_i2c_controller_config_v3  I2cControllers[16];     
++	memcpy(smc_pptable->I2cControllers, smc_dpm_table->I2cControllers,
++	       sizeof(I2cControllerConfig_t) * NUM_I2C_CONTROLLERS);
 +
-+  uint8_t      GpioScl;  // GPIO Number for SCL Line, used only for CKSVII2C1
-+  uint8_t      GpioSda;  // GPIO Number for SDA Line, used only for CKSVII2C1
-+  uint8_t      FchUsbPdSlaveAddr; //For requesting USB PD controller S-states via FCH I2C when entering PME turn off
-+  uint8_t      I2cSpare;
++	/* SVI2 Board Parameters */
++	smc_pptable->VddGfxVrMapping = smc_dpm_table->VddGfxVrMapping;
++	smc_pptable->VddSocVrMapping = smc_dpm_table->VddSocVrMapping;
++	smc_pptable->VddMem0VrMapping = smc_dpm_table->VddMem0VrMapping;
++	smc_pptable->VddMem1VrMapping = smc_dpm_table->VddMem1VrMapping;
++	smc_pptable->GfxUlvPhaseSheddingMask = smc_dpm_table->GfxUlvPhaseSheddingMask;
++	smc_pptable->SocUlvPhaseSheddingMask = smc_dpm_table->SocUlvPhaseSheddingMask;
++	smc_pptable->VddciUlvPhaseSheddingMask = smc_dpm_table->VddciUlvPhaseSheddingMask;
++	smc_pptable->MvddUlvPhaseSheddingMask = smc_dpm_table->MvddUlvPhaseSheddingMask;
 +
-+  // SECTION: SVI2 Board Parameters
-+  uint8_t      VddGfxVrMapping;   // Use VR_MAPPING* bitfields
-+  uint8_t      VddSocVrMapping;   // Use VR_MAPPING* bitfields
-+  uint8_t      VddMem0VrMapping;  // Use VR_MAPPING* bitfields
-+  uint8_t      VddMem1VrMapping;  // Use VR_MAPPING* bitfields
++	/* Telemetry Settings */
++	smc_pptable->GfxMaxCurrent = smc_dpm_table->GfxMaxCurrent;
++	smc_pptable->GfxOffset = smc_dpm_table->GfxOffset;
++	smc_pptable->Padding_TelemetryGfx = smc_dpm_table->Padding_TelemetryGfx;
++	smc_pptable->SocMaxCurrent = smc_dpm_table->SocMaxCurrent;
++	smc_pptable->SocOffset = smc_dpm_table->SocOffset;
++	smc_pptable->Padding_TelemetrySoc = smc_dpm_table->Padding_TelemetrySoc;
++	smc_pptable->Mem0MaxCurrent = smc_dpm_table->Mem0MaxCurrent;
++	smc_pptable->Mem0Offset = smc_dpm_table->Mem0Offset;
++	smc_pptable->Padding_TelemetryMem0 = smc_dpm_table->Padding_TelemetryMem0;
++	smc_pptable->Mem1MaxCurrent = smc_dpm_table->Mem1MaxCurrent;
++	smc_pptable->Mem1Offset = smc_dpm_table->Mem1Offset;
++	smc_pptable->Padding_TelemetryMem1 = smc_dpm_table->Padding_TelemetryMem1;
++	smc_pptable->MvddRatio = smc_dpm_table->MvddRatio;
 +
-+  uint8_t      GfxUlvPhaseSheddingMask; // set this to 1 to set PSI0/1 to 1 in ULV mode
-+  uint8_t      SocUlvPhaseSheddingMask; // set this to 1 to set PSI0/1 to 1 in ULV mode
-+  uint8_t      VddciUlvPhaseSheddingMask; // set this to 1 to set PSI0/1 to 1 in ULV mode
-+  uint8_t      MvddUlvPhaseSheddingMask; // set this to 1 to set PSI0/1 to 1 in ULV mode
++	/* GPIO Settings */
++	smc_pptable->AcDcGpio = smc_dpm_table->AcDcGpio;
++	smc_pptable->AcDcPolarity = smc_dpm_table->AcDcPolarity;
++	smc_pptable->VR0HotGpio = smc_dpm_table->VR0HotGpio;
++	smc_pptable->VR0HotPolarity = smc_dpm_table->VR0HotPolarity;
++	smc_pptable->VR1HotGpio = smc_dpm_table->VR1HotGpio;
++	smc_pptable->VR1HotPolarity = smc_dpm_table->VR1HotPolarity;
++	smc_pptable->GthrGpio = smc_dpm_table->GthrGpio;
++	smc_pptable->GthrPolarity = smc_dpm_table->GthrPolarity;
 +
-+  // SECTION: Telemetry Settings
-+  uint16_t     GfxMaxCurrent;   // in Amps
-+  uint8_t      GfxOffset;       // in Amps
-+  uint8_t      Padding_TelemetryGfx;
++	/* LED Display Settings */
++	smc_pptable->LedPin0 = smc_dpm_table->LedPin0;
++	smc_pptable->LedPin1 = smc_dpm_table->LedPin1;
++	smc_pptable->LedPin2 = smc_dpm_table->LedPin2;
++	smc_pptable->LedEnableMask = smc_dpm_table->LedEnableMask;
++	smc_pptable->LedPcie = smc_dpm_table->LedPcie;
++	smc_pptable->LedError = smc_dpm_table->LedError;
++	smc_pptable->LedSpare1[0] = smc_dpm_table->LedSpare1[0];
++	smc_pptable->LedSpare1[1] = smc_dpm_table->LedSpare1[1];
 +
-+  uint16_t     SocMaxCurrent;   // in Amps
-+  uint8_t      SocOffset;       // in Amps
-+  uint8_t      Padding_TelemetrySoc;
++	/* GFXCLK PLL Spread Spectrum */
++	smc_pptable->PllGfxclkSpreadEnabled = smc_dpm_table->PllGfxclkSpreadEnabled;
++	smc_pptable->PllGfxclkSpreadPercent = smc_dpm_table->PllGfxclkSpreadPercent;
++	smc_pptable->PllGfxclkSpreadFreq = smc_dpm_table->PllGfxclkSpreadFreq;
 +
-+  uint16_t     Mem0MaxCurrent;   // in Amps
-+  uint8_t      Mem0Offset;       // in Amps
-+  uint8_t      Padding_TelemetryMem0;
-+  
-+  uint16_t     Mem1MaxCurrent;   // in Amps
-+  uint8_t      Mem1Offset;       // in Amps
-+  uint8_t      Padding_TelemetryMem1;
++	/* GFXCLK DFLL Spread Spectrum */
++	smc_pptable->DfllGfxclkSpreadEnabled = smc_dpm_table->DfllGfxclkSpreadEnabled;
++	smc_pptable->DfllGfxclkSpreadPercent = smc_dpm_table->DfllGfxclkSpreadPercent;
++	smc_pptable->DfllGfxclkSpreadFreq = smc_dpm_table->DfllGfxclkSpreadFreq;
 +
-+  uint32_t     MvddRatio; // This is used for MVDD  Svi2 Div Ratio workaround. It has 16 fractional bits (Q16.16)
-+  
-+  // SECTION: GPIO Settings
-+  uint8_t      AcDcGpio;        // GPIO pin configured for AC/DC switching
-+  uint8_t      AcDcPolarity;    // GPIO polarity for AC/DC switching
-+  uint8_t      VR0HotGpio;      // GPIO pin configured for VR0 HOT event
-+  uint8_t      VR0HotPolarity;  // GPIO polarity for VR0 HOT event
++	/* UCLK Spread Spectrum */
++	smc_pptable->UclkSpreadEnabled = smc_dpm_table->UclkSpreadEnabled;
++	smc_pptable->UclkSpreadPercent = smc_dpm_table->UclkSpreadPercent;
++	smc_pptable->UclkSpreadFreq = smc_dpm_table->UclkSpreadFreq;
 +
-+  uint8_t      VR1HotGpio;      // GPIO pin configured for VR1 HOT event 
-+  uint8_t      VR1HotPolarity;  // GPIO polarity for VR1 HOT event 
-+  uint8_t      GthrGpio;        // GPIO pin configured for GTHR Event
-+  uint8_t      GthrPolarity;    // replace GPIO polarity for GTHR
++	/* FCLK Spred Spectrum */
++	smc_pptable->FclkSpreadEnabled = smc_dpm_table->FclkSpreadEnabled;
++	smc_pptable->FclkSpreadPercent = smc_dpm_table->FclkSpreadPercent;
++	smc_pptable->FclkSpreadFreq = smc_dpm_table->FclkSpreadFreq;
 +
-+  // LED Display Settings
-+  uint8_t      LedPin0;         // GPIO number for LedPin[0]
-+  uint8_t      LedPin1;         // GPIO number for LedPin[1]
-+  uint8_t      LedPin2;         // GPIO number for LedPin[2]
-+  uint8_t      LedEnableMask;
++	/* Memory Config */
++	smc_pptable->MemoryChannelEnabled = smc_dpm_table->MemoryChannelEnabled;
++	smc_pptable->DramBitWidth = smc_dpm_table->DramBitWidth;
++	smc_pptable->PaddingMem1[0] = smc_dpm_table->PaddingMem1[0];
++	smc_pptable->PaddingMem1[1] = smc_dpm_table->PaddingMem1[1];
++	smc_pptable->PaddingMem1[2] = smc_dpm_table->PaddingMem1[2];
 +
-+  uint8_t      LedPcie;        // GPIO number for PCIE results
-+  uint8_t      LedError;       // GPIO number for Error Cases
-+  uint8_t      LedSpare1[2];
++	/* Total board power */
++	smc_pptable->TotalBoardPower = smc_dpm_table->TotalBoardPower;
++	smc_pptable->BoardPowerPadding = smc_dpm_table->BoardPowerPadding;
 +
-+  // SECTION: Clock Spread Spectrum
-+  
-+  // GFXCLK PLL Spread Spectrum
-+  uint8_t      PllGfxclkSpreadEnabled;   // on or off
-+  uint8_t      PllGfxclkSpreadPercent;   // Q4.4
-+  uint16_t     PllGfxclkSpreadFreq;      // kHz
++	/* XGMI Training */
++	for (i = 0; i < NUM_XGMI_PSTATE_LEVELS; i++) {
++		smc_pptable->XgmiLinkSpeed[i] = smc_dpm_table->XgmiLinkSpeed[i];
++		smc_pptable->XgmiLinkWidth[i] = smc_dpm_table->XgmiLinkWidth[i];
++		smc_pptable->XgmiFclkFreq[i] = smc_dpm_table->XgmiFclkFreq[i];
++		smc_pptable->XgmiSocVoltage[i] = smc_dpm_table->XgmiSocVoltage[i];
++	}
 +
-+  // GFXCLK DFLL Spread Spectrum
-+  uint8_t      DfllGfxclkSpreadEnabled;   // on or off
-+  uint8_t      DfllGfxclkSpreadPercent;   // Q4.4
-+  uint16_t     DfllGfxclkSpreadFreq;      // kHz
-+  
-+  // UCLK Spread Spectrum
-+  uint8_t      UclkSpreadEnabled;   // on or off
-+  uint8_t      UclkSpreadPercent;   // Q4.4
-+  uint16_t     UclkSpreadFreq;      // kHz
-+
-+  // FCLK Spread Spectrum
-+  uint8_t      FclkSpreadEnabled;   // on or off
-+  uint8_t      FclkSpreadPercent;   // Q4.4
-+  uint16_t     FclkSpreadFreq;      // kHz
-+  
-+  // Section: Memory Config
-+  uint32_t     MemoryChannelEnabled; // For DRAM use only, Max 32 channels enabled bit mask. 
-+  
-+  uint8_t      DramBitWidth; // For DRAM use only.  See Dram Bit width type defines
-+  uint8_t      PaddingMem1[3];
-+
-+  // Section: Total Board Power
-+  uint16_t     TotalBoardPower;     //Only needed for TCP Estimated case, where TCP = TGP+Total Board Power
-+  uint16_t     BoardPowerPadding; 
-+  
-+  // SECTION: XGMI Training
-+  uint8_t      XgmiLinkSpeed   [4];
-+  uint8_t      XgmiLinkWidth   [4];
-+
-+  uint16_t     XgmiFclkFreq    [4];
-+  uint16_t     XgmiSocVoltage  [4];
-+
-+  // SECTION: Board Reserved
-+
-+  uint32_t     BoardReserved[16];
-+
-+};
-+
- /* 
-   ***************************************************************************
-     Data Table asic_profiling_info  structure
+ 	return 0;
+ }
+ 
 -- 
 2.25.4
 
