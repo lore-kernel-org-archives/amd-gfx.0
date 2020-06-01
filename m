@@ -8,63 +8,65 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 168B6C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A3C9C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E38BE2073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3367D2073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QKYPzuly"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E38BE2073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Op5TAh1H"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3367D2073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AABD16E301;
-	Mon,  1 Jun 2020 18:21:23 +0000 (UTC)
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95F256E2F2
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:22 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id w3so9991758qkb.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:22 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D345E6E303;
+	Mon,  1 Jun 2020 18:21:24 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A127B6E2FF
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:23 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id v79so9967952qkb.10
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=v0q2z/BDSS3GVdjngKXR9Yqd0qHFQOvmyvHmXnjvbVQ=;
- b=QKYPzulyzTDNWQydHWcm+07cOuJtPOOP9UAjP78Wo+4QSnNGkIyN1bx2OxGHuNbsbM
- 41din5i65NH/AwwecrrItyxftEz4moxRy6/v9S+73CAj15EmCcHH3OMBnLbdfhPlSixj
- mJZ3dk1mAUmhhPgWWdDYg9BYJKX7LsMKHtQ3WebXGIIT3Y3XnA+heWd8Ru7FGtKh2cAI
- WSDyCMKsvc5AFwZIxfv8jssqrjqLcNoWfDYPuhP/JvR7mFa2UXX38IAufzeti2QUJB7w
- FfPN4CzDGKdUOH1Z/wD1iV1ZfvV63IRpbp5aSiYsCczxp33ErcW4tlwupaeQZQwDsvzv
- wx+g==
+ bh=raJnSEtA2yZAgtzODpihF/nm8d1933wpCgEQvhmfk8o=;
+ b=Op5TAh1HLyylV+P76NZeMhrlYsXvQUXkjJhfYXPDs5jKuYRBCY0qnkaNehYD759Uhx
+ XeNatR7w9uKIAm/EpSfA6NOA7TxcfRdeiPr0LoLU3pHBiMthQ5fi8xlBeu3vyFlMqMoa
+ sNUvGjdF6xlvSNqFvqTQESJ36KiAhXRe2mXR6ivDrpQoSuEjQHBwcNCPJX4OFaUGjazK
+ 95hCbNc6C8V+hkRnUUTvyfBPjLz02cnSLJ98cGPrdYaUzQ4foIkn0hFPKZTG1tcOh/Dx
+ NplJlw7YEYVZwTdi4kizglFSnm2OhmZDwIzuYk3qaW96BYXobr3A/by05WDSzk4GpIQR
+ LDmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=v0q2z/BDSS3GVdjngKXR9Yqd0qHFQOvmyvHmXnjvbVQ=;
- b=RIA7ot/6Wqc3BQ2Tym3p7GdDBRsmfe4XQakv2ybGOBS/A5EMKBpgJWZgLqdwvVsiPs
- QZjduzjV+8Cdeb88hcRx4L46dFWvUmeY7vF2PxhrZxJoHL3yBgUWsonMhaMVFb3hWy+t
- 8yN4dY1tzKdTB+5pKzAHarwwS/gI2EgYAjFXv+WI83CER4gVoui5bkhervOUGWd6fkm7
- av/GYxRnQ6pmvWJYOW82Xl1UGcVAZhD+Oh/xCm+H3s60wupFDhA3WugtWt1zm6SR0oDZ
- y5wBKF0nYK91xq8+WcRO1Ay/HygdL7sewZ632Mar4mrAgIjH+TWd6BZWCt3lhbC/zXpr
- hHlw==
-X-Gm-Message-State: AOAM533aF0QExAIj+Qyx+AJO8THcWedCqdoHB/9GQFyGFebpfvW+J+9f
- 9rubCB60J8p/CN62xN+oDgDyXP90
-X-Google-Smtp-Source: ABdhPJyHV+Hr3dMrzUgcUmkrarne4SccglawWK8hg/gzV8wU0B9B13wfqhW+ikNx1UN0rr2IxkCd2Q==
-X-Received: by 2002:a37:845:: with SMTP id 66mr20758698qki.67.1591035681585;
- Mon, 01 Jun 2020 11:21:21 -0700 (PDT)
+ bh=raJnSEtA2yZAgtzODpihF/nm8d1933wpCgEQvhmfk8o=;
+ b=g4u4fCStdnLNiMFIIstzwfD+HvyY0cmcg47LWu/A8NI6BxT9DTQzbVr4D46J6Fjlcl
+ llQPDJxY7q39S2bRbpqAFrqQxFlUyNZ0GsCiiE3r5UrGWaHM/DWvYsZgXq0T1uo9hEMs
+ k+9xntnlk0QSTr8bP5lahhh5Nv+ZAieHuP4S8vvhpm0JXkftpKUd3J2swMyYkPZgfuzW
+ jA3MKBW4ng2ee4xCfBgz0C9yaYXl4RaR1C0KeQ72XkngCuprgWb1OWRet6C4fATHeg4W
+ H51+M7osTmNZaGDzE1TF6wxbauBrkV39iKg5364seMF0t3Oundn0jjwK5FWzo6q5hAJ7
+ poxg==
+X-Gm-Message-State: AOAM532zntMmuRBvnn0hBZUTy5N84JFMpozn0HcNokcaium0NPTnb6Vd
+ hmCkyVRkCa86tvooYYF3l+JGS3/L
+X-Google-Smtp-Source: ABdhPJzkwpY/HNvOTnOVpISAbO5++jrGGL+L4aZlI3XajPz14POL7se2fAK1WGwXciGwToJ8WOOmNA==
+X-Received: by 2002:a05:620a:20d6:: with SMTP id
+ f22mr20492415qka.294.1591035682662; 
+ Mon, 01 Jun 2020 11:21:22 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.20
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:21:21 -0700 (PDT)
+ Mon, 01 Jun 2020 11:21:22 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 103/207] drm/amdgpu: change the offset for VCN FW cache window
-Date: Mon,  1 Jun 2020 14:19:10 -0400
-Message-Id: <20200601182054.1267858-14-alexander.deucher@amd.com>
+Subject: [PATCH 104/207] drm/amdgpu: fix the PSP front door loading VCN
+ firmware
+Date: Mon,  1 Jun 2020 14:19:11 -0400
+Message-Id: <20200601182054.1267858-15-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -88,31 +90,31 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Leo Liu <leo.liu@amd.com>
 
-The signed header is added
+for the second instance with correct index
 
 Signed-off-by: Leo Liu <leo.liu@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 3 ---
- 1 file changed, 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 011edbdd4e55..371c70a1e611 100644
+index 371c70a1e611..dddae2b8f0f9 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -356,11 +356,8 @@ static void vcn_v3_0_mc_resume(struct amdgpu_device *adev, int inst)
+@@ -345,9 +345,9 @@ static void vcn_v3_0_mc_resume(struct amdgpu_device *adev, int inst)
+ 	/* cache window 0: fw */
+ 	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
+ 		WREG32_SOC15(VCN, inst, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW,
+-			(adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].tmr_mc_addr_lo));
++			(adev->firmware.ucode[AMDGPU_UCODE_ID_VCN + inst].tmr_mc_addr_lo));
  		WREG32_SOC15(VCN, inst, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH,
- 			upper_32_bits(adev->vcn.inst[inst].gpu_addr));
- 		offset = size;
--		/* No signed header for now from firmware
- 		WREG32_SOC15(VCN, inst, mmUVD_VCPU_CACHE_OFFSET0,
- 			AMDGPU_UVD_FIRMWARE_OFFSET >> 3);
--		*/
--		WREG32_SOC15(UVD, inst, mmUVD_VCPU_CACHE_OFFSET0, 0);
- 	}
- 	WREG32_SOC15(VCN, inst, mmUVD_VCPU_CACHE_SIZE0, size);
- 
+-			(adev->firmware.ucode[AMDGPU_UCODE_ID_VCN].tmr_mc_addr_hi));
++			(adev->firmware.ucode[AMDGPU_UCODE_ID_VCN + inst].tmr_mc_addr_hi));
+ 		WREG32_SOC15(VCN, inst, mmUVD_VCPU_CACHE_OFFSET0, 0);
+ 		offset = 0;
+ 	} else {
 -- 
 2.25.4
 
