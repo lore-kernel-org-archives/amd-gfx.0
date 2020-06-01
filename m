@@ -8,64 +8,65 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 064C9C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D0B5C433E2
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D17ED20825
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 22DE821508
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RIViJ/L1"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D17ED20825
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oj9TQ7mC"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 22DE821508
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A2C56E284;
-	Mon,  1 Jun 2020 18:03:40 +0000 (UTC)
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0533F6E27C
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:03:40 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id j32so8406208qte.10
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:03:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C81596E26F;
+	Mon,  1 Jun 2020 18:03:42 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C4F56E286
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:03:41 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id c14so8915879qka.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:03:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=f1a1hf+EyIMhM/UuL8wo9w45EVTeH6VTirLp1q7NN/0=;
- b=RIViJ/L1B4JroE6Lh+6e0PuetUVxDa2Ds7RReRL1ITf5nMbMdEG0LQlA0kIJ5BjgcE
- CRsRe26x4kXO5WL5RkCrf1TxBcCxEGhz4XA//Gkovn354EugkqEEUyjq4vO2STgBIIzC
- /lalVJMvAVt1Ayg3msN7qYusbS/MbUSQCBJ2Ockjwldr2sZ3vJhySsTXkCy8xGYAay3m
- +G1oQ0XLYgt+O1E6ZETItHfeu0An5UTn9wmozZmuBu5UAdu549GaJN94qR1a7JydwuUZ
- NoyuvFvSwYmHZuuja5xmzISkDeQf5NpXVeBnlzMk+9k9QP+Bc+T1jE8XYTWUR4zHyZl4
- pPKw==
+ bh=9eTunRPepr9YGDRAynb6dpVupFAeSkTSAakKJjdnLRU=;
+ b=oj9TQ7mCSYn1QqifPQ2SFUjU9MJn1TdvTI7lbDzMZRzC3cM/rLc+Xs6kHrW7xAxHpE
+ ngWVbzM5beHJbPqFtytuKNf2m7qyNLyeFY0C93WrqIsNaxxqCRdwm15qRj08fFeJ4Oc7
+ KWSGXrjOcXAL70fAcsM3TC5vl2MjFQk4rCEze/xftqcUZ9lVy/DXJuYm6UQgoDGyHaMm
+ 1PkHPWDApuirlDcVIhGDVYn9B74B9xEcDYxTdKZJX7pwXWHXC9L6HGqxyelBmpGLgh0Y
+ BhQJaEbwUs+odWs7Pz/RU9qUUmZdzPLJ3ICQUzynmb6FP6rK5aZAXJ7BYRJB6+74WL9P
+ XFog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=f1a1hf+EyIMhM/UuL8wo9w45EVTeH6VTirLp1q7NN/0=;
- b=Uax94ouB2cSMkKrKl1kCYzijidN7sKacfAedfzme0EJp2nhfA8P+QH6U5rVVdlZOXB
- 00Frv4z5VZNc93TPj/8Mz/RLFKMUvxfZB0GVJseRdgun4UDM7gtOGHzWC5UaqL83MgHi
- rygSw1xDO65P6KU6b562mql0fAr7aWVC+4HfxLTxZ7kXEaindTB9r7Ev6hNGBm1EIXWy
- EClLI9vn17ip1v+22VMCTzW7+AbVWKuOJLOYmGkVCEpRld+l9QM7xj89B4EdT5LnjIDF
- 9r1ybgQwZ5qwKXmczcZikQez+nRqa91e7Eqq8TAOuvVpWXprTckDOW+hu93yrOwbHTSv
- LEWQ==
-X-Gm-Message-State: AOAM533VDKUQeyB4BMI7VoG6VD/KZot4RHfeM6rr70TEE7auoAy45Flr
- f186SDMHgwqHvomoAxqVYiLUAArb
-X-Google-Smtp-Source: ABdhPJx7R/rDdObKiJupDZurxneKHM7LDjkld/N2/V43+OccLhOznLKAVMTHNKnSCNimzK6rJame1g==
-X-Received: by 2002:aed:2d87:: with SMTP id i7mr10069894qtd.291.1591034619031; 
- Mon, 01 Jun 2020 11:03:39 -0700 (PDT)
+ bh=9eTunRPepr9YGDRAynb6dpVupFAeSkTSAakKJjdnLRU=;
+ b=jRgCx0zqA2SOoChG+6xZLwc1OL6HhkakVhjOSI1vHrg3nmZF8iBGSd6264h8gZaKCq
+ VPMdrjcn8WgU5PhL8rnFGiX3QFjvLFrasyrOgyhmOjdPmUBKh1/wnmVu5t9m9HhRBHsf
+ 03Rk8/gAtT1xZa64WoSFitUO79QJAm+usXkkTzHvlQ71R3q66sunjDbVvPGGi3T3HWvh
+ KlziGL+GX94xziVBdYAs9gQdmrnhH6FsMTvIKiEmFDi0Gf2/daOGY1aTS/8vQDhzMuz6
+ Pb06WhwmRvUGw4So4bto5uA5lxE8ZJbJw1ydodO3ZpMTzXDJCt6lRewHjKnuMbgcbi3o
+ l21A==
+X-Gm-Message-State: AOAM533zfxoWVKYSjm3GjU3vlu+fV+OKUnp1dM0seco6kThtu6LeOe0Y
+ htxWrPW7Ua4nYiTHyF0XAvv8TBi2
+X-Google-Smtp-Source: ABdhPJyFkgzpLgt9Vy+1k/zIdsL6rWHNdh0tSdvAxV6/BrxEBJ874l6T3OdDlZwK8ME6ncUogsMSFA==
+X-Received: by 2002:a05:620a:2287:: with SMTP id
+ o7mr20490294qkh.238.1591034620239; 
+ Mon, 01 Jun 2020 11:03:40 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.03.37
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.03.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:03:38 -0700 (PDT)
+ Mon, 01 Jun 2020 11:03:39 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 036/207] drm/amd/powerplay: enable DCEFCLK DPM and DS for
- sienna_cichlid
-Date: Mon,  1 Jun 2020 13:59:48 -0400
-Message-Id: <20200601180239.1267430-33-alexander.deucher@amd.com>
+Subject: [PATCH 037/207] drm/amd/powerplay: support pcie value set and update
+ for sienna_cichlid
+Date: Mon,  1 Jun 2020 13:59:49 -0400
+Message-Id: <20200601180239.1267430-34-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -90,48 +91,90 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-Enable Display Clocks Dynamic Power Management (DPM) for sienna_cichlid.
-Enable Display Controller Engine Fabric Clock Deep Sleep for sienna_cichlid.
+Add support to set default pcie parameters for sienna_cichlid.
+Add support to update pcie parameters for sienna_cichlid.
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 42 +++++++++++++++++++
+ 1 file changed, 42 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index a91e6f753bea..852c364fd7a3 100644
+index 852c364fd7a3..5b4319b0da6c 100644
 --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -45,7 +45,8 @@
- 	FEATURE_MASK(FEATURE_DPM_GFXCLK_BIT)     | \
- 	FEATURE_MASK(FEATURE_DPM_UCLK_BIT)	 | \
- 	FEATURE_MASK(FEATURE_DPM_SOCCLK_BIT)     | \
--	FEATURE_MASK(FEATURE_DPM_FCLK_BIT))
-+	FEATURE_MASK(FEATURE_DPM_FCLK_BIT)	 | \
-+	FEATURE_MASK(FEATURE_DPM_DCEFCLK_BIT))
+@@ -407,6 +407,7 @@ static int sienna_cichlid_set_default_dpm_table(struct smu_context *smu)
+ 	struct smu_table_context *table_context = &smu->smu_table;
+ 	struct smu_11_0_dpm_context *dpm_context = smu_dpm->dpm_context;
+ 	PPTable_t *driver_ppt = NULL;
++	int i;
  
- #define MSG_MAP(msg, index) \
- 	[SMU_MSG_##msg] = {1, (index)}
-@@ -272,6 +273,7 @@ sienna_cichlid_get_allowed_feature_mask(struct smu_context *smu,
- 	*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_PREFETCHER_BIT)
- 				| FEATURE_MASK(FEATURE_DPM_FCLK_BIT)
- 				| FEATURE_MASK(FEATURE_DS_SOCCLK_BIT)
-+				| FEATURE_MASK(FEATURE_DS_DCEFCLK_BIT)
- 				| FEATURE_MASK(FEATURE_FW_DSTATE_BIT)
- 				| FEATURE_MASK(FEATURE_DF_CSTATE_BIT)
- 				| FEATURE_MASK(FEATURE_THERMAL_BIT);
-@@ -282,6 +284,9 @@ sienna_cichlid_get_allowed_feature_mask(struct smu_context *smu,
- 	if (adev->pm.pp_feature & PP_MCLK_DPM_MASK)
- 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_UCLK_BIT);
+         driver_ppt = table_context->driver_pptable;
  
-+	if (adev->pm.pp_feature & PP_DCEFCLK_DPM_MASK)
-+		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_DCEFCLK_BIT);
+@@ -437,6 +438,11 @@ static int sienna_cichlid_set_default_dpm_table(struct smu_context *smu)
+         dpm_context->dpm_tables.phy_table.min = driver_ppt->FreqTablePhyclk[0];
+         dpm_context->dpm_tables.phy_table.max = driver_ppt->FreqTablePhyclk[NUM_PHYCLK_DPM_LEVELS - 1];
+ 
++	for (i = 0; i < MAX_PCIE_CONF; i++) {
++		dpm_context->dpm_tables.pcie_table.pcie_gen[i] = driver_ppt->PcieGenSpeed[i];
++		dpm_context->dpm_tables.pcie_table.pcie_lane[i] = driver_ppt->PcieLaneCount[i];
++	}
 +
- 	if (adev->pm.pp_feature & PP_SOCCLK_DPM_MASK)
- 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_SOCCLK_BIT);
+ 	return 0;
+ }
  
+@@ -1430,6 +1436,41 @@ static int sienna_cichlid_get_power_limit(struct smu_context *smu,
+ 	return 0;
+ }
+ 
++static int sienna_cichlid_update_pcie_parameters(struct smu_context *smu,
++					 uint32_t pcie_gen_cap,
++					 uint32_t pcie_width_cap)
++{
++	PPTable_t *pptable = smu->smu_table.driver_pptable;
++	int ret, i;
++	uint32_t smu_pcie_arg;
++
++	struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
++	struct smu_11_0_dpm_context *dpm_context = smu_dpm->dpm_context;
++
++	for (i = 0; i < NUM_LINK_LEVELS; i++) {
++		smu_pcie_arg = (i << 16) |
++			((pptable->PcieGenSpeed[i] <= pcie_gen_cap) ?
++					(pptable->PcieGenSpeed[i] << 8) :
++					(pcie_gen_cap << 8)) |
++			((pptable->PcieLaneCount[i] <= pcie_width_cap) ?
++					pptable->PcieLaneCount[i] :
++					pcie_width_cap);
++
++		ret = smu_send_smc_msg_with_param(smu,
++						  SMU_MSG_OverridePcieParameters,
++						  smu_pcie_arg, NULL);
++		if (ret)
++			return ret;
++
++		if (pptable->PcieGenSpeed[i] > pcie_gen_cap)
++			dpm_context->dpm_tables.pcie_table.pcie_gen[i] = pcie_gen_cap;
++		if (pptable->PcieLaneCount[i] > pcie_width_cap)
++			dpm_context->dpm_tables.pcie_table.pcie_lane[i] = pcie_width_cap;
++	}
++
++	return 0;
++}
++
+ static void sienna_cichlid_dump_pptable(struct smu_context *smu)
+ {
+ 	struct smu_table_context *table_context = &smu->smu_table;
+@@ -2134,6 +2175,7 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+ 	.get_thermal_temperature_range = sienna_cichlid_get_thermal_temperature_range,
+ 	.display_disable_memory_clock_switch = sienna_cichlid_display_disable_memory_clock_switch,
+ 	.get_power_limit = sienna_cichlid_get_power_limit,
++	.update_pcie_parameters = sienna_cichlid_update_pcie_parameters,
+ 	.dump_pptable = sienna_cichlid_dump_pptable,
+ 	.init_microcode = smu_v11_0_init_microcode,
+ 	.load_microcode = smu_v11_0_load_microcode,
 -- 
 2.25.4
 
