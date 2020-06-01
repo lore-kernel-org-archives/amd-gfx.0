@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5928DC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D7816C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2FEB02073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B04C32073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:07 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dJbQ5XlR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2FEB02073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dXmcrs6c"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B04C32073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E69B16E330;
-	Mon,  1 Jun 2020 18:22:05 +0000 (UTC)
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDD446E330
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:03 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id k22so8471246qtm.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74DCF6E33E;
+	Mon,  1 Jun 2020 18:22:07 +0000 (UTC)
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 043756E338
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:06 +0000 (UTC)
+Received: by mail-qv1-xf44.google.com with SMTP id z9so467355qvi.12
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=e9pFqXjO9M/Lpe9Ia/vNg3WdApJV3WwoiXSqeZFBonk=;
- b=dJbQ5XlREjqUJbzrXdZUqhhR529ozXpZ+YlT2J1v1iD9wQYlFslRFWEpZJikoX4+Qm
- vjT+YJNtlGkSYu2FAeZvuhxeFS+1lCQQmLLJ5OfFMr69xYTjnUzIn24c5wrAsZhJ2dfr
- 00WXec0Wx2yIPBpkgxRJ10/RYHf3txVmOvVPZiDEwZtr5FmNkn5z1ljqn+1vLRapFvso
- 7rYNnrXwYKvftc/yLDwdgIHE7uA9IU6VurTWKaBMjHqTgNdhzz+I8Y50ZbPbaxh2N+rX
- 69CDWbvBibFzj0L9SUtxj0uXcA2JRdTCKRwXnhvtbt75FOv3sqQ/5Cy8Iu92uuJagn2F
- o9Jg==
+ bh=LnJEfJKJnwkjPnAkQScVa+m68af+3X6JXf9EvPPto+A=;
+ b=dXmcrs6conW/qRMOpMwgmh4atFeV1O/MvXTl6OZcAWNxIlFNcLNwiQgDXr7r33f0yj
+ ar7C0bUUBl7ka3xKac2fkHovCZheR+eX9Ae6lS8eNWuZsrg0cEg4DdrAlULQmrr6fAQE
+ Wq6e9ReT3f7LTGMDmn7ZKewe4kXnkZJuWzAal5t1CO9XPq/mhxdTuZkgZL/KOLoRdjsM
+ wfYHijGGPD9/BQh4osXqQuN5X51AGAMddXDuflV7yU4TWfTWvwWvUWBdGBCPhki5MDIY
+ NJLxpVf7iKHTeRpVWLPqUXl3e4bat7j4M0PKVbWiiWacL/DgUCo2admpJhRa6OcXji+P
+ n/Ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=e9pFqXjO9M/Lpe9Ia/vNg3WdApJV3WwoiXSqeZFBonk=;
- b=Y7ng07yJsr28U2n8uBW51JNULnQuE2NWG/dtlsb1cxmPW4KEhJBXxE3/MOgTr3CpZD
- Bc2j4tNoQJWecXbWJguMa/cv2EoU3HF4dhMDYGAvPFsSqsv777USLKIkJQdoVvDmGyHs
- qAjMFuW+ATbNA1IWyepN25qCunJWuMkdhUXOsiDrOjoDSeafVFW67kBU6/1SWIwjGxY4
- ukNkCtswAp1NOemd9RY9PUP7VgjLgc2bRTJgvCK+nURescxU+0cAqbCpLrAQ7X51cZpY
- LmtXvZ+gS402rCBl9Lw5LtAI2ofrPL+4jENV88npxQ6FMiJgIGSCT/P7wssr2ANdTSU0
- YUxA==
-X-Gm-Message-State: AOAM532LEWAhUhKeioUA2IyG08wXb0eO0KQ6QOpKtX+XbWSfuWEyfZpR
- +c+JH9aAUgeU+6r7UmEy/nvw3WDS
-X-Google-Smtp-Source: ABdhPJy0VG9ShOWPbi+HMdlh8zwYI15BP2nsm0Dqga6FjIRo4K5dR4KSMpa9GBpe8BRdpAobmterFg==
-X-Received: by 2002:aed:21af:: with SMTP id l44mr24134180qtc.124.1591035722914; 
- Mon, 01 Jun 2020 11:22:02 -0700 (PDT)
+ bh=LnJEfJKJnwkjPnAkQScVa+m68af+3X6JXf9EvPPto+A=;
+ b=nqPL1LeLAiyc63WW2V14T83jST3QWHvJ2RcOR4bM74ODAdz3zaHoVxBxrQWTtUfxl4
+ DQWpH8U66+EwrKg5n4lkEVW1JCnFH8qqrxz1kA7e4RzAny6iYC8NEWSJYx1qvOg4zcHE
+ GBT0//bjlS41aSCVZAgUFSAUlEEvjrR8WmHm7Khg+ZPRgX//ZLITgrkRKKOAM2Uwxoq1
+ uHN4GD0Jvw5NE0uoqIGL449nRCojPc60zVCOv43waOWJEmOTcpd4YQfpWgYptUW9bgvJ
+ M0aGfjGKrKVl/Cs9U59WKpgpncdC+uRFBc8B+ZmT4SpNuzerWozp6cCbxxqlwrRzg5k6
+ JS7g==
+X-Gm-Message-State: AOAM532/KbFET4oV2rxQbZaOu/GYG+GpBcYE0Pf5AOn9fIt7lQZXeS3U
+ QUIzJfZwgaQ9Q7DvpA9zxOeaaqBj
+X-Google-Smtp-Source: ABdhPJzFGdG0PDk1GhSoSP97cvATewht0JJat2r3VQHh6aauixjWJ6cPMmtuBpCT+tsght8V2DRUfA==
+X-Received: by 2002:a0c:fa4b:: with SMTP id k11mr5639310qvo.136.1591035725006; 
+ Mon, 01 Jun 2020 11:22:05 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.01
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:22:02 -0700 (PDT)
+ Mon, 01 Jun 2020 11:22:04 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 135/207] drm/amd/powerplay: enable GPO
-Date: Mon,  1 Jun 2020 14:19:42 -0400
-Message-Id: <20200601182054.1267858-46-alexander.deucher@amd.com>
+Subject: [PATCH 136/207] drm/amd/powerplay: bundle GPO with gfx DPM
+Date: Mon,  1 Jun 2020 14:19:43 -0400
+Message-Id: <20200601182054.1267858-47-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -80,8 +80,8 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -89,43 +89,32 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Kenneth Feng <kenneth.feng@amd.com>
 
-GPO is graphics power optimizer.
-SMU calculates the 16 gfxclk V/F points according to the CU numbers
-and memory activity.RLC picks one of them according to the memory
-speed requirements for the data transmission.
+Bundle GPO with gfx DPM and enable it since gfxclk dpm
+should work first then GPO works.
 
 Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Likun Gao <Likun.Gao@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/inc/smu_types.h      | 1 +
- drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_types.h b/drivers/gpu/drm/amd/powerplay/inc/smu_types.h
-index 3efadf2cff9c..dff2295705be 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/smu_types.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/smu_types.h
-@@ -260,6 +260,7 @@ enum smu_clk_type {
-        __SMU_DUMMY_MAP(MMHUB_PG),                      	\
-        __SMU_DUMMY_MAP(ATHUB_PG),                      	\
-        __SMU_DUMMY_MAP(APCC_DFLL),                     	\
-+       __SMU_DUMMY_MAP(DPM_GFX_GPO),                    \
-        __SMU_DUMMY_MAP(WAFL_CG),
- 
- #undef __SMU_DUMMY_MAP
 diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index 8fb08cae5c24..9dbf29e96312 100644
+index 9dbf29e96312..45707772e755 100644
 --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -126,6 +126,7 @@ static struct smu_11_0_cmn2aisc_mapping sienna_cichlid_clk_map[SMU_CLK_COUNT] =
- static struct smu_11_0_cmn2aisc_mapping sienna_cichlid_feature_mask_map[SMU_FEATURE_COUNT] = {
- 	FEA_MAP(DPM_PREFETCHER),
- 	FEA_MAP(DPM_GFXCLK),
-+	FEA_MAP(DPM_GFX_GPO),
- 	FEA_MAP(DPM_UCLK),
- 	FEA_MAP(DPM_SOCCLK),
- 	FEA_MAP(DPM_MP0CLK),
+@@ -312,8 +312,10 @@ sienna_cichlid_get_allowed_feature_mask(struct smu_context *smu,
+ 				| FEATURE_MASK(FEATURE_FAN_CONTROL_BIT)
+ 				| FEATURE_MASK(FEATURE_THERMAL_BIT);
+ 
+-	if (adev->pm.pp_feature & PP_SCLK_DPM_MASK)
++	if (adev->pm.pp_feature & PP_SCLK_DPM_MASK) {
+ 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_GFXCLK_BIT);
++		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_GFX_GPO_BIT);
++	}
+ 
+ 	if (adev->pm.pp_feature & PP_MCLK_DPM_MASK)
+ 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_UCLK_BIT);
 -- 
 2.25.4
 
