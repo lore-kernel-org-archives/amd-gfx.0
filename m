@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 36D38C433DF
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D0AEBC433E1
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0CF632073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:14 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A99D02073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aEBaAkAQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0CF632073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ib/6PzVn"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A99D02073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99DC86E2E9;
-	Mon,  1 Jun 2020 18:21:14 +0000 (UTC)
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 971736E2E8
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:13 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id j32so8456808qte.10
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:13 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E6266E2EC;
+	Mon,  1 Jun 2020 18:21:15 +0000 (UTC)
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBE576E2EC
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:14 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id q14so8220945qtr.9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=S0w7ibU9oT/N9ntQA5IFgUWfKLg38fC5+glqq0AbS4k=;
- b=aEBaAkAQ4WjgNoRhh4zy5EnG0vQwjTR3HIlLrz0/JrOLGj47mpTyDvsWZcWvZ2qNQN
- R/hGWc0yzzlXPGJprROZh+FM7m5eImagQQrUnaEt050g7VXZT8YVtUJU5yaSwaNLqIUn
- 28HaKYuqD6haXkSkNaMKOHDYsI/8byigAd1VzaZlLfAtf53NXzbi6QQMZSXfV6jzbLHe
- ePTn/GaN3kA/hfrvmz540+K2i+DHaDcHwPuOuQxxs9sUZim6E+or9C0QUsqMWR31ZtqQ
- IPPgMuKTwipVhufw0vW730ViDrR1IXjS26Ix1wsyNOQ9F5berOJAGlzgTCtdq+BPTm5B
- HZvw==
+ bh=KePInzW0+Sq6wa19EIQHTeAzFIIyJ4m7XGc1eU+PHIs=;
+ b=ib/6PzVn6oJhWQB5HyRwffiLNQp1gY7oT+mSTLgNz7CKAXwi08j8g8HSkY0E7ADhd1
+ WxJIgsas+gtK7C2DyIFOiM/H2F0xtxjpwrpBv+RQOthWJuHaBLZP9Ht3KrL2xS05RflM
+ 1Krfze4aknK8hhQEpqpEKk94j4jyPQcaP0syjSTdOco7tQFX4iuvL7TE2AnFem9jYCev
+ 9yFXjf16DjEYQh/lhKYWvtmgmqEriJGylKM0RQ1OjL/4mhuIRKXN73mUOlnn6Buh7UNC
+ dxVrxNMdeIr5s51mcMfyZvV+Tx15ppvU3t1hSF4HP/D2MaW6vChASZLFmz7mlP/Bd/tP
+ 53Mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=S0w7ibU9oT/N9ntQA5IFgUWfKLg38fC5+glqq0AbS4k=;
- b=ZYDoI6XKTuCGZrh6brcFq7XmmcLQwystTaCy4aKt3iDeat4sDoERoNRW1/NkhQfzbb
- VA3/KzRIcdPmR8mPUWHAucuyW7IgQIabtSrPoXKaZCPRTkmEGFJBcDnRK572BqN8cUNp
- 1U4cd2VKhW+TtG5G8eR9+QJLww6YWCN9cSn4kDDUdyyL5fP3i4q/EYapMBGM/6+udYYL
- v5YlFrQoAhGs5yjkm/PQq+toE+5uYjtQaOV+KSh3mGyTeGvJp9Nw1Jhpj4wAGNE/tmTE
- x5IQkSPLbr8dUsXXfyOUWWmjp0c4tHQFfAKcz5bQR8tLlqxDsexFaC413ghup1oVO4Uq
- H4XQ==
-X-Gm-Message-State: AOAM530r7zu4NmZzNMDud3W2LiI6vNpDy6+JeFyEYl3CU02UJr/ylL3r
- nO7NER3LKS0iCH4X175b1rQAxpa8
-X-Google-Smtp-Source: ABdhPJzzVO2az9sHtv0f66hvStJ0v2iOhr0N/91vPpi1XZMd89yRuLi7yzxXMcOjU8rBx80/O5+lOA==
-X-Received: by 2002:ac8:2dea:: with SMTP id q39mr23512193qta.2.1591035672625; 
- Mon, 01 Jun 2020 11:21:12 -0700 (PDT)
+ bh=KePInzW0+Sq6wa19EIQHTeAzFIIyJ4m7XGc1eU+PHIs=;
+ b=OkBhl5oahGncGeDgGaUXUy9KXTHrXnuIIN/h/qlQt0Ig+B07DJ/4S2BK1lPqWs2F6c
+ wpGOSzLKKX8BvQRrjyxUJdXLKT5sZvYxWbxR5Uv4xx5F+T0b9ia/2gesCVgxRJX6+iXW
+ Gr3+An4gSjhoHtxdOfkxz0n9dG04wvbaSrnroulPakYTzKOV+8OXuTo3pqVfBe2PNrPl
+ U9S4ni2TQP+y1qZLyrxOMf8M3pL+Rl1WUluZd+Rys8yCCz4QpIUTeHmmC2sWOt6ehcGT
+ 0gFF4u972ct315hQ/uHFI7TzY31E4Pi4VDm0N8d2F20AHvIBSaE1soWe9k+uxCIgEYZr
+ Ymyw==
+X-Gm-Message-State: AOAM531JkjrCzwFa539FvUtlKgBS/V2g5HFE7v+mm/SPHMZXPZfmk6Mw
+ U6f4LVvARZozbyYUUm5GX2JRSBhK
+X-Google-Smtp-Source: ABdhPJyxL0op2+/ljSvPOO/TFNchUSTVbQnA0uhnc8XZeSMa47bBJGjf1ksCkiFE9PrK1k7dJ7ZHlQ==
+X-Received: by 2002:ac8:67d7:: with SMTP id r23mr24101726qtp.110.1591035673751; 
+ Mon, 01 Jun 2020 11:21:13 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.11
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:21:12 -0700 (PDT)
+ Mon, 01 Jun 2020 11:21:13 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 096/207] drm/amdgpu: support query vram info for sienna_cichlid
-Date: Mon,  1 Jun 2020 14:19:03 -0400
-Message-Id: <20200601182054.1267858-7-alexander.deucher@amd.com>
+Subject: [PATCH 097/207] drm/amdgpu: drop gfx_v10_0_tiling_mode_table_init
+Date: Mon,  1 Jun 2020 14:19:04 -0400
+Message-Id: <20200601182054.1267858-8-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -89,61 +89,41 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-support query vram_module v11 and vram_info v2_5
-for sienna_cichlid
+tiling mode table is not used anymore for gfx10
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Likun Gao <Likun.Gao@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 8 --------
+ 1 file changed, 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index 58f9d8c3a17a..659d845dbebe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -120,11 +120,13 @@ union umc_info {
- union vram_info {
- 	struct atom_vram_info_header_v2_3 v23;
- 	struct atom_vram_info_header_v2_4 v24;
-+	struct atom_vram_info_header_v2_5 v25;
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 940b4563312b..ce6ba3ba9223 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -4401,12 +4401,6 @@ static int gfx_v10_0_sw_fini(void *handle)
+ 	return 0;
+ }
  
- union vram_module {
- 	struct atom_vram_module_v9 v9;
- 	struct atom_vram_module_v10 v10;
-+	struct atom_vram_module_v11 v11;
- };
+-
+-static void gfx_v10_0_tiling_mode_table_init(struct amdgpu_device *adev)
+-{
+-	/* TODO */
+-}
+-
+ static void gfx_v10_0_select_se_sh(struct amdgpu_device *adev, u32 se_num,
+ 				   u32 sh_num, u32 instance)
+ {
+@@ -4656,8 +4650,6 @@ static void gfx_v10_0_constants_init(struct amdgpu_device *adev)
  
- static int convert_atom_mem_type_to_vram_type(struct amdgpu_device *adev,
-@@ -260,6 +262,26 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
- 				if (vram_vendor)
- 					*vram_vendor = mem_vendor;
- 				break;
-+			case 5:
-+				if (module_id > vram_info->v25.vram_module_num)
-+					module_id = 0;
-+				vram_module = (union vram_module *)vram_info->v25.vram_module;
-+				while (i < module_id) {
-+					vram_module = (union vram_module *)
-+						((u8 *)vram_module + vram_module->v11.vram_module_size);
-+					i++;
-+				}
-+				mem_type = vram_module->v11.memory_type;
-+				if (vram_type)
-+					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
-+				mem_channel_number = vram_module->v11.channel_num;
-+				mem_channel_width = vram_module->v11.channel_width;
-+				if (vram_width)
-+					*vram_width = mem_channel_number * (1 << mem_channel_width);
-+				mem_vendor = (vram_module->v11.vender_rev_id) & 0xF;
-+				if (vram_vendor)
-+					*vram_vendor = mem_vendor;
-+				break;
- 			default:
- 				return -EINVAL;
- 			}
+ 	WREG32_FIELD15(GC, 0, GRBM_CNTL, READ_TIMEOUT, 0xff);
+ 
+-	gfx_v10_0_tiling_mode_table_init(adev);
+-
+ 	gfx_v10_0_setup_rb(adev);
+ 	gfx_v10_0_get_cu_info(adev, &adev->gfx.cu_info);
+ 	gfx_v10_0_get_tcc_info(adev);
 -- 
 2.25.4
 
