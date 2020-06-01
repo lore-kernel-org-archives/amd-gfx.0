@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3D59C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C4C8C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9CAE32073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:25 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2331F2073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:27 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EfEBvDaF"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9CAE32073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ep6eT++f"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2331F2073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 652F86E34D;
-	Mon,  1 Jun 2020 18:22:25 +0000 (UTC)
-Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
- [IPv6:2607:f8b0:4864:20::f42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C39F6E34C
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:23 +0000 (UTC)
-Received: by mail-qv1-xf42.google.com with SMTP id g7so470074qvx.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:23 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D81C56E34E;
+	Mon,  1 Jun 2020 18:22:26 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43E976E34E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:26 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id w1so10017822qkw.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=vcCZZI7Fx/fouPF1vAwaYuX2eO7FGNDq1t/0H72iI0M=;
- b=EfEBvDaFTzktRravByStp7mc0W2HCHim8iEh4mxAad98jWHipGggq4m3MrHAciBQ1s
- r+72JZNL442UUjZD4L7g3U5QPwONlWE1WsB1YXuYNONQSgh08XudFWXGAKMm2BAiKoPg
- l6ve6Q2C8Zc/OJSI7fsWVbsTP4HUvlYeV9qrJk8GumntEONKuVWBFVdn0fmigevgbUZY
- 8HZ5aKVzU6o2yUBJaJWT3VAW0+w6tUYWc3TBN4Dt9aOhYJDPJMrZ7FspUzZexli8mdve
- tTR1zS2Dm6cBq3ahCP4cGcNeIqFsXp83XDpd7NugadDEp9Oy06trtjbs850gyQI8sGWV
- 5nkw==
+ bh=ybfJ2ccY1YEVHYYJ4YVqwQFJWjyqwOsiCg0IcjRjP7c=;
+ b=Ep6eT++fxmxUDB/Bp7UICqK8iXOww7DWhgNq363SDJPU0RXyCWBS9p4aTi80paP3+2
+ QSepD33MmIXigPyNHfD3iJLDNZKtWJGlSU6y+Tv1qElDUMiRnJEP3igKSGmaTBTExsg3
+ E6Th2EHvOenUZ/9bEtuOX++hZ9KBWaatC+pwZViiW1HV11CcjGiQWo9MWSDr6if9YI0C
+ D1ylLU4ldUhCqbKtGIbPXkpZAyQ8yud3aN8rj6VUshT8Q5US+utSC9nPc9LE/ZRqZ4mV
+ wF44xLaTYnX1zPwbHwXfn5PmYKd8RSJEayLTUpcjcGPfrPvSUMvcJjthnng1fDFU6P0U
+ EKHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=vcCZZI7Fx/fouPF1vAwaYuX2eO7FGNDq1t/0H72iI0M=;
- b=XcYNXcLQkHyK7ImssfCWhVDhVNza5UAE8kf6z5BRJcUpmU4I25gFaRFRPopauAkvoj
- um5+MR055/TZHbq2N5uMO+tk9AtwnDCA1G/ku617dvitEfvXzuxsRBL0yExpcjVM5vL9
- d0oJkNG6vH670bYQKKJXgvw7qNTNStsb6vSek1Ea9uUmCFH375aCW0vFO7TXFnXwE5Gm
- hQJmEIHBEH1XR/t58fYQimFuYvJ5XoBFBn+QWS+Wi4pJY2isnADoWwXKC6jtID7NwYXr
- 8x9ceqcwPvMDTDgCgccba8/0wRTKEVKD+Kard8uxr/pt40v9oMwWVnftqG0V2wb8zXsR
- /DPg==
-X-Gm-Message-State: AOAM530i7ehDJhCp/ff90inWQA/VokaEccDNAHaA2PKOCaENtrbGLVJO
- SzjA+tOI0k98/YiyMfA4T0DcZPQs
-X-Google-Smtp-Source: ABdhPJyCaJmF7I1q/YiRz+zDvryWFzPVQhAIfTLo2hDf0YintY9qOcWwrmr1SkPoPNNhxO4EV0JtgQ==
-X-Received: by 2002:a0c:b44c:: with SMTP id e12mr21609909qvf.30.1591035742615; 
- Mon, 01 Jun 2020 11:22:22 -0700 (PDT)
+ bh=ybfJ2ccY1YEVHYYJ4YVqwQFJWjyqwOsiCg0IcjRjP7c=;
+ b=XeyIREgzewd8gVWvxkoJVkY1DG7+4VnT2vufO1ga79uwbPlSzcU3Uz/XxHENrKjOpa
+ BYtHimQ2/ZmCoq84EZCQF4bOqeJeuOH0AeL4bTyurZ0Ds3Pin7ttI497QrEImVYqxxDm
+ Z+7I0hiwJxFRn2hCWLMaFKjSnbxUulG3ddyWL/MQ7qHYypCpldN9XAyp7bGy0docmKAV
+ YZVAhhXiZGCQuJE2bIONlGfFWzCnlwZ/jwAs6eZLSHDy0+kcWa5oets+aUJepgbkiRsv
+ 9oTVwSGpVP+lxdqpZA96RWOCBR6dYXM2+JeS2EUtWBtbBh6BCvRbMjZAE6/cOgwExE/k
+ gWiQ==
+X-Gm-Message-State: AOAM530hMdC8mH+IeAXyc2Rc94HPMljBzddidas+YlUoD5IA/6PO2QUr
+ klvnreiFAGVDu2oaqHhmIEgNfdSh
+X-Google-Smtp-Source: ABdhPJzSrZ78NrS3dEPZYerN2/ui+ffb67K6w3EhjZBUxwMKzO87WZ9QRLIXXXbCAG6qglwD//e4hg==
+X-Received: by 2002:a37:9c57:: with SMTP id f84mr21155864qke.128.1591035745175; 
+ Mon, 01 Jun 2020 11:22:25 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.21
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:22:22 -0700 (PDT)
+ Mon, 01 Jun 2020 11:22:24 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 150/207] drm/amdgpu: enable DPG mode for VCN3.0
-Date: Mon,  1 Jun 2020 14:19:57 -0400
-Message-Id: <20200601182054.1267858-61-alexander.deucher@amd.com>
+Subject: [PATCH 152/207] drm/amdgpu/vcn3.0: schedule instance 0 for decode and
+ 1 for encode
+Date: Mon,  1 Jun 2020 14:19:59 -0400
+Message-Id: <20200601182054.1267858-63-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -81,64 +82,43 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>,
- Boyuan Zhang <boyuan.zhang@amd.com>, James Zhu <james.zhu@amd.com>
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Boyuan Zhang <boyuan.zhang@amd.com>
+VCN3 has 2 unsymmetrical instances, i.e there're less codecs
+on instance 1, we use 0 for decode and 1 for encode for now
 
-Enable DPG mode for VCN3.0 by updating related flag.
-
-V2: update description.
-
-Signed-off-by: Boyuan Zhang <boyuan.zhang@amd.com>
-Reviewed-by: James Zhu <james.zhu@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c       | 1 +
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 7 +++++--
- 2 files changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 936950fbafda..ef3f07dc89cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -726,6 +726,7 @@ static int nv_common_early_init(void *handle)
- 			AMD_CG_SUPPORT_IH_CG |
- 			AMD_CG_SUPPORT_MC_LS;
- 		adev->pg_flags = AMD_PG_SUPPORT_VCN |
-+			AMD_PG_SUPPORT_VCN_DPG |
- 			AMD_PG_SUPPORT_JPEG |
- 			AMD_PG_SUPPORT_ATHUB;
- 		adev->external_rev_id = adev->rev_id + 0x28;
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 98ba6ddde823..875bdc877c3d 100644
+index 875bdc877c3d..2497f29bbb35 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -254,7 +254,8 @@ static int vcn_v3_0_hw_init(void *handle)
- 
- done:
- 	if (!r)
--		DRM_INFO("VCN decode and encode initialized successfully.\n");
-+		DRM_INFO("VCN decode and encode initialized successfully(under %s).\n",
-+			(adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG)?"DPG Mode":"SPG Mode");
- 
- 	return r;
- }
-@@ -278,7 +279,9 @@ static int vcn_v3_0_hw_fini(void *handle)
- 
+@@ -167,6 +167,8 @@ static int vcn_v3_0_sw_init(void *handle)
  		ring = &adev->vcn.inst[i].ring_dec;
- 
--		if (RREG32_SOC15(VCN, i, mmUVD_STATUS))
-+		if ((adev->pg_flags & AMD_PG_SUPPORT_VCN_DPG) ||
-+			(adev->vcn.cur_state != AMD_PG_STATE_GATE &&
-+			RREG32_SOC15(VCN, i, mmUVD_STATUS)))
- 			vcn_v3_0_set_powergating_state(adev, AMD_PG_STATE_GATE);
- 
- 		ring->sched.ready = false;
+ 		ring->use_doorbell = true;
+ 		ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 8 * i;
++		if (i != 0)
++			ring->no_scheduler = true;
+ 		sprintf(ring->name, "vcn_dec_%d", i);
+ 		r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[i].irq, 0,
+ 				     AMDGPU_RING_PRIO_DEFAULT);
+@@ -183,6 +185,8 @@ static int vcn_v3_0_sw_init(void *handle)
+ 			ring = &adev->vcn.inst[i].ring_enc[j];
+ 			ring->use_doorbell = true;
+ 			ring->doorbell_index = (adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 2 + j + 8 * i;
++			if (i != 1)
++				ring->no_scheduler = true;
+ 			sprintf(ring->name, "vcn_enc_%d.%d", i, j);
+ 			r = amdgpu_ring_init(adev, ring, 512, &adev->vcn.inst[i].irq, 0,
+ 					     AMDGPU_RING_PRIO_DEFAULT);
 -- 
 2.25.4
 
