@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD18DC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12107C433E2
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2BF52077D
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DFAF7206E2
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:02 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O3Ab5Z2e"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2BF52077D
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UtQJ+1Aq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DFAF7206E2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF0B6E297;
-	Mon,  1 Jun 2020 18:04:01 +0000 (UTC)
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C1556E297
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:00 +0000 (UTC)
-Received: by mail-qk1-x742.google.com with SMTP id v79so9908582qkb.10
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A524D6E29D;
+	Mon,  1 Jun 2020 18:04:02 +0000 (UTC)
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
+ [IPv6:2607:f8b0:4864:20::f43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB8546E29E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:01 +0000 (UTC)
+Received: by mail-qv1-xf43.google.com with SMTP id fc4so470945qvb.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=8+Cr+a+OEV6N+ExgNxDePkgALyjDyVJCu7LYO+G6zhI=;
- b=O3Ab5Z2eJsceM1qveMfdFMkvi2hz1BQVXlAIb97GSThOmb0/0ueOhES7BRSXKyy8ly
- fQsl8CprhGxvhc6N8C0SnTqc9x8Oql1OSZxvGG5izr4mX/hbgbAh1yXWaQtjYwFvpcWy
- CNFH/ehZoV6tDup7S64rHQ4a/rdfRsG++L4F83u9PdbwmBQV/Oxa2T7IPTszPvaejAgf
- FZBw1zUBY7iyZluZErP5Ckc+4yIyIMAQre5J6eFD4NueccxnekPEENI9BKoRPw/0qa5U
- KbpyTU/ykR8oRVQuWk8mdz3bGNuDXU00ZR51NWay0Gy9DdsfunWlkJP4VvPHjygh77pH
- Mx8w==
+ bh=uZHO3LroGSh+4yCa7JHe5vFm14p4x5FW/BYUwiut7QY=;
+ b=UtQJ+1AqBWi1oRfycHI2u0pI2cC9zAP9yWcNC5Pt9PTW4GnXEjCFKufWBAYzr9Obsd
+ T1c1GLouY84uFya9A6j9drKLe+Ftx2Bz0iytCvX8CGLINp50v/axzDA0CQMxpDZCu5iq
+ aZnjODPJ1EgvWG7KzFVup/mTMvAa24XY4SZQ7y32L4LPdXLkAFjZC/bACKi23LmgdvUc
+ Kk9M/kN0QuwQ84OsPWPfPLmEvLv2ZJM4aN0HTXvqDSnBpnAOugZ5oypO8aYgibPr5Gqg
+ zROdQZ+OT7POZUKqpEmCWpY+pkW1ucMBD82fiJuCd4Ky8sZo9Uz3yx2wK62rZtmoIJrz
+ 6tZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=8+Cr+a+OEV6N+ExgNxDePkgALyjDyVJCu7LYO+G6zhI=;
- b=RWQAZ4jAdrCP1bGlOuMcoa1BL8uPZtUshrqXHGsN7uF5o6zEbhhQm8uJ7XJFEaOcQy
- v9R/cr06AvVzO9DnsEYPHyknrNcqh+kz5hEwBPKHRlGmgjUPRFcDgTYxuA7j58cW6X/q
- 8f3F0CGYUCCiHJgJ7IIyg6M7cD2UNs3fgEuzTbUxdQuZOX3GRYi0/FLIrKFjEXJW5E+P
- oK5oR5SY/Bd9F38XN/7n9+YscK7azb+gzQTrnTqOgzlPGXsiSdkoE37yj/yeV45KckmA
- vclaokX4L0QalSvpnkL+5amogGMGGf+PzrFw/sPryFkzXnwiNWRuWmwVQ4pla1OpT1Kg
- Xuog==
-X-Gm-Message-State: AOAM532fmrS+8eufG3pdSN+OjHMPp6JKL5gylHG4Q1wpdRYt1Rek2k1S
- HtXftkVDXJhODKajPkvD/hQ5TplB
-X-Google-Smtp-Source: ABdhPJzJxthc+CRGXiVb76BBDYpYiAivNfdmOXej3WvQaRuEEqGZfhO4Q5bKcswBwzogf1NBFk1MNw==
-X-Received: by 2002:a37:a89:: with SMTP id 131mr20713775qkk.92.1591034639321; 
- Mon, 01 Jun 2020 11:03:59 -0700 (PDT)
+ bh=uZHO3LroGSh+4yCa7JHe5vFm14p4x5FW/BYUwiut7QY=;
+ b=lkHV0NMM4a9J53Po+63tTSavtTodBR176MFGTZk7c8xohhkTVjO0o8ReWKMSP09N/h
+ w0/AD9Xwz/54bHWbbic9Qt9/Du1qTQVEJ5k6eVSOvbQmMvHxIS3s3je/6tjcqHKlFAeX
+ dl15E4q08KO60Z8Er10+AIVu4OqkTQK/k1UY7Gc74gNcd9ysAjo1zUlmfmaK91jt92ew
+ Xj3SKUxhY4ueKk/WZ+B0rZy+seNYzpanPiv+keysm4REBt0GVyFfPPke0OW48YkWTmRV
+ 2zgOOXQc9qeuiyrizxfuYVdTHO1Gm+8451Szc5/Jg6QJd4w9XIer8FWHelttHeanmJP3
+ G2zQ==
+X-Gm-Message-State: AOAM533/vMxDmjIoa/SNwJqyV/mQW8SQFKqhIOYVQGAaAG016RssChua
+ 9MIdcDU6lxQSyIvJKbbsU3SjOa1F
+X-Google-Smtp-Source: ABdhPJzECc57cxoRmCNT3RB7msQZUJXC9PuMZU17xTCvrN/OgoDw9thRJ88LP3av/WTU1KhOzhQ0xA==
+X-Received: by 2002:ad4:580b:: with SMTP id
+ dd11mr22364724qvb.145.1591034640826; 
+ Mon, 01 Jun 2020 11:04:00 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.03.57
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.03.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:03:58 -0700 (PDT)
+ Mon, 01 Jun 2020 11:04:00 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 051/207] drm/amdgpu: add support for athub v2.1
-Date: Mon,  1 Jun 2020 14:00:03 -0400
-Message-Id: <20200601180239.1267430-48-alexander.deucher@amd.com>
+Subject: [PATCH 052/207] drm/amdgpu: add gmc cg support for sienna_cichlid
+Date: Mon,  1 Jun 2020 14:00:04 -0400
+Message-Id: <20200601180239.1267430-49-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -89,175 +90,65 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-Add athub v2.1 function and support to compile it.
+Add gmc clockgating support for sienna_cichlid.
+The athub version used for sienna_cichlid is v2.1.
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile     |   3 +-
- drivers/gpu/drm/amd/amdgpu/athub_v2_1.c | 100 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/athub_v2_1.h |  30 +++++++
- 3 files changed, 132 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/athub_v2_1.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/athub_v2_1.h
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  | 11 +++++++++--
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c |  1 +
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index e78674121dfe..38b6ec10751f 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -163,7 +163,8 @@ amdgpu-y += \
- # add ATHUB block
- amdgpu-y += \
- 	athub_v1_0.o \
--	athub_v2_0.o
-+	athub_v2_0.o \
-+	athub_v2_1.o
- 
- # add amdkfd interfaces
- amdgpu-y += amdgpu_amdkfd.o
-diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/athub_v2_1.c
-new file mode 100644
-index 000000000000..0219bd6ce1b2
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/athub_v2_1.c
-@@ -0,0 +1,100 @@
-+/*
-+ * Copyright 2019 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include "amdgpu.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index afca175a092c..ce2f72430403 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -48,6 +48,7 @@
+ #include "gfxhub_v2_1.h"
+ #include "mmhub_v2_0.h"
+ #include "athub_v2_0.h"
 +#include "athub_v2_1.h"
-+
-+#include "athub/athub_2_1_0_offset.h"
-+#include "athub/athub_2_1_0_sh_mask.h"
-+#include "navi10_enum.h"
-+
-+#include "soc15_common.h"
-+
-+static void
-+athub_v2_1_update_medium_grain_clock_gating(struct amdgpu_device *adev,
-+					    bool enable)
-+{
-+	uint32_t def, data;
-+
-+	def = data = RREG32_SOC15(ATHUB, 0, mmATHUB_MISC_CNTL);
-+
-+	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_MC_MGCG))
-+		data |= ATHUB_MISC_CNTL__CG_ENABLE_MASK;
+ /* XXX Move this macro to navi10 header file, which is like vid.h for VI.*/
+ #define AMDGPU_NUM_OF_VMIDS			8
+ 
+@@ -1078,7 +1079,10 @@ static int gmc_v10_0_set_clockgating_state(void *handle,
+ 	if (r)
+ 		return r;
+ 
+-	return athub_v2_0_set_clockgating(adev, state);
++	if (adev->asic_type == CHIP_SIENNA_CICHLID)
++		return athub_v2_1_set_clockgating(adev, state);
 +	else
-+		data &= ~ATHUB_MISC_CNTL__CG_ENABLE_MASK;
-+
-+	if (def != data)
-+		WREG32_SOC15(ATHUB, 0, mmATHUB_MISC_CNTL, data);
-+}
-+
-+static void
-+athub_v2_1_update_medium_grain_light_sleep(struct amdgpu_device *adev,
-+					   bool enable)
-+{
-+	uint32_t def, data;
-+
-+	def = data = RREG32_SOC15(ATHUB, 0, mmATHUB_MISC_CNTL);
-+
-+	if (enable && (adev->cg_flags & AMD_CG_SUPPORT_MC_LS) &&
-+	    (adev->cg_flags & AMD_CG_SUPPORT_HDP_LS))
-+		data |= ATHUB_MISC_CNTL__CG_MEM_LS_ENABLE_MASK;
++		return athub_v2_0_set_clockgating(adev, state);
+ }
+ 
+ static void gmc_v10_0_get_clockgating_state(void *handle, u32 *flags)
+@@ -1087,7 +1091,10 @@ static void gmc_v10_0_get_clockgating_state(void *handle, u32 *flags)
+ 
+ 	mmhub_v2_0_get_clockgating(adev, flags);
+ 
+-	athub_v2_0_get_clockgating(adev, flags);
++	if (adev->asic_type == CHIP_SIENNA_CICHLID)
++		athub_v2_1_get_clockgating(adev, flags);
 +	else
-+		data &= ~ATHUB_MISC_CNTL__CG_MEM_LS_ENABLE_MASK;
-+
-+	if(def != data)
-+		WREG32_SOC15(ATHUB, 0, mmATHUB_MISC_CNTL, data);
-+}
-+
-+int athub_v2_1_set_clockgating(struct amdgpu_device *adev,
-+			       enum amd_clockgating_state state)
-+{
-+	if (amdgpu_sriov_vf(adev))
-+		return 0;
-+
-+	switch (adev->asic_type) {
++		athub_v2_0_get_clockgating(adev, flags);
+ }
+ 
+ static int gmc_v10_0_set_powergating_state(void *handle,
+diff --git a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+index b83a56d67428..af0866af63a5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c
+@@ -461,6 +461,7 @@ int mmhub_v2_0_set_clockgating(struct amdgpu_device *adev,
+ 	case CHIP_NAVI10:
+ 	case CHIP_NAVI14:
+ 	case CHIP_NAVI12:
 +	case CHIP_SIENNA_CICHLID:
-+		athub_v2_1_update_medium_grain_clock_gating(adev,
-+				state == AMD_CG_STATE_GATE ? true : false);
-+		athub_v2_1_update_medium_grain_light_sleep(adev,
-+				state == AMD_CG_STATE_GATE ? true : false);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+void athub_v2_1_get_clockgating(struct amdgpu_device *adev, u32 *flags)
-+{
-+	int data;
-+
-+	/* AMD_CG_SUPPORT_ATHUB_MGCG */
-+	data = RREG32_SOC15(ATHUB, 0, mmATHUB_MISC_CNTL);
-+	if (data & ATHUB_MISC_CNTL__CG_ENABLE_MASK)
-+		*flags |= AMD_CG_SUPPORT_ATHUB_MGCG;
-+
-+	/* AMD_CG_SUPPORT_ATHUB_LS */
-+	if (data & ATHUB_MISC_CNTL__CG_MEM_LS_ENABLE_MASK)
-+		*flags |= AMD_CG_SUPPORT_ATHUB_LS;
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/athub_v2_1.h b/drivers/gpu/drm/amd/amdgpu/athub_v2_1.h
-new file mode 100644
-index 000000000000..5e6824c0f591
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/athub_v2_1.h
-@@ -0,0 +1,30 @@
-+/*
-+ * Copyright 2019 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+#ifndef __ATHUB_V2_1_H__
-+#define __ATHUB_V2_1_H__
-+
-+int athub_v2_1_set_clockgating(struct amdgpu_device *adev,
-+			       enum amd_clockgating_state state);
-+void athub_v2_1_get_clockgating(struct amdgpu_device *adev, u32 *flags);
-+
-+#endif
+ 		mmhub_v2_0_update_medium_grain_clock_gating(adev,
+ 				state == AMD_CG_STATE_GATE);
+ 		mmhub_v2_0_update_medium_grain_light_sleep(adev,
 -- 
 2.25.4
 
