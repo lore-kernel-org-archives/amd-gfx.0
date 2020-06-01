@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4494AC433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC68FC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 18DF12073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:53 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 81F162073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qv7E+gqA"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 18DF12073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X9kLWrbG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81F162073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7BAD6E31E;
-	Mon,  1 Jun 2020 18:21:52 +0000 (UTC)
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E90A16E30D
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:51 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id f18so10054144qkh.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E2706E328;
+	Mon,  1 Jun 2020 18:21:54 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 321276E328
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:53 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id n141so10041691qke.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=P6N7qP6GvV6E0jmgTGYHFm7INHg3Fm+ETvuTkhQSqcY=;
- b=qv7E+gqArCrTXvSbYP6OnqWpMFfmrW6whR6qc0vXr8v+uYcRjFxq/RWzXDxxQuIbSY
- SkHCbrXb9cNqMDLa1Lt4f4ONHdwVO6aFr/I8sNeHwcr5dGRQDrn+v6beSXVwgriWjfFE
- iUoRzwN/0+YWtOeU2Lw5dOeAqorZAfmRWqZzTmV1FqYbS0KnjmZTbaz7zxfrY3Gjj+pR
- TMPDw+k2m5jnvZZhgHAeaUpFd1h4nR3oLoHlsS4HTMeBs3C3KSpLmY5rbScfv6KGTxnU
- Ire3J8iUvji5yFZwn3TwNPE37tmnzLEym8xOTtBT8zbcQE99CS6SCHeU6nGJ/n7SEeW6
- pMpg==
+ bh=rjngsjtADBt3P+cM57UqPQVUjqVmcuDKA0vD8YWAd9A=;
+ b=X9kLWrbGCrwndiaR2gzoUZGhRnkame1e92cQjE66Jqcnr8gXEv+pSpDCkTkR/Pb50d
+ BKnowLk72Juv8WKXbUbUy0SIzQAXTu3Edgs08QuPeC4Hh02vmQdGDRIj5FWdMsrxdcJf
+ 1ercSeSQ5zq6qBKCT/XlX6mwmDjqnzxVdCFW+VgG8EC0nvgZ+Ldq7gekTUyNr9P4RCPr
+ 3bPatQTy1ABZLf9mhYWxTPmvBvQlTTN+3LhOGQKB1Ub1xi7rKhY2bb45VjTquKd15Uob
+ iy/J1SnPZ95d0WIM1X//7LuFZnCXVPl2Xsv6CNOuiN4p62pkRMC5s6NSAKR/IPmnpvKK
+ 966A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=P6N7qP6GvV6E0jmgTGYHFm7INHg3Fm+ETvuTkhQSqcY=;
- b=S9eo4/1oHEuJ7lPygcz4IVTFV+syh0WAHEhv6cXX/soWEnCwF6lc6DLG5zp8/hRS57
- izfuiNJqFFyxCiLztm570ZZJh3/6RbjuR8hhgxA98vW0Qg/GZhUXQM87Uo1oYbFyu5G5
- SV4att8Kc7g/q2/6V/5F5t793bYK0WJG5WtbsF+fj05ujWcjqAlVnLMNDnKJI2k7Wm4i
- IMPkMR/DXIiI7px7/FqJKHeEGe4GVlFd17fu+LQi0I52YdGsyRWJox20Oehpegg2f2Wa
- HZomP+T7HUFpa6bjmjX5vnBZSJfRTflFaeSGZDfu4Os5Gc3l9K8KukGASh83ICvqdqA0
- k1xg==
-X-Gm-Message-State: AOAM531NGr5wjDTi3s2fqVmzi1UNqMk9YchzBKddlOqDVFXLjrshGrc/
- Xny/kj0XE3vrWhArjcG9rsGGk6Ww
-X-Google-Smtp-Source: ABdhPJzavE/VVUMMLlCJr2kELhcGmbMRG83g1NBGgJuwF6Wt93LVBm+7DOCOXolTrmL1qCakpFqFGw==
-X-Received: by 2002:a37:8d85:: with SMTP id p127mr19652801qkd.35.1591035710944; 
- Mon, 01 Jun 2020 11:21:50 -0700 (PDT)
+ bh=rjngsjtADBt3P+cM57UqPQVUjqVmcuDKA0vD8YWAd9A=;
+ b=FnuHCG0NOESd1HI7vMtdtt1pinIPzweto9n9itv5vWuP5Y2RoskTPfnHudLKVjZU+A
+ 7U/anTEoQB+SXtSH6RvXobUeugvQSysCsoZPDK9yfAwA5KPqsXJ0r5LFQPn1rtvm6orD
+ wjIjsA/Kia7xmqpgnddHIuolfpcj3e51TDMCuZn7rzbpFAcETn30q1ASwj071Ov27+Vl
+ ORcWjUaITGH2cb5eZ+kgUrphW46qAxKPkP/FhG5gmBK9n/AeDq1za4jZKvnxKeE9jUD0
+ COy7Wov5fgmYq+HpTKbF/guXBik2hOxfU86D1KyCeiI88vFYrNTgJLRrP431u7h9NqYq
+ UdvQ==
+X-Gm-Message-State: AOAM531kQRRA30H2dnkFH444J2qQTDwf/z6SgAF+PsdFubTvwbUOjGjh
+ nHyDWdZh2YQkvbUnk/0zjqenyJrE
+X-Google-Smtp-Source: ABdhPJxLv2r+YevjypZXC0PgOtrbXHk5MX6vA3SmLB1ICS7bCXivR7rM7+MyLfyvmHrTDr2Nmea7XQ==
+X-Received: by 2002:a37:845:: with SMTP id 66mr20760708qki.67.1591035712181;
+ Mon, 01 Jun 2020 11:21:52 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.50
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:21:50 -0700 (PDT)
+ Mon, 01 Jun 2020 11:21:51 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 125/207] drm/amdgpu: Sienna_Cichlid don't enable SMU for SRIOV
-Date: Mon,  1 Jun 2020 14:19:32 -0400
-Message-Id: <20200601182054.1267858-36-alexander.deucher@amd.com>
+Subject: [PATCH 126/207] drm/amd/powerplay: enable BACO for sienna_cichlid
+Date: Mon,  1 Jun 2020 14:19:33 -0400
+Message-Id: <20200601182054.1267858-37-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -80,36 +80,44 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, shaoyunl <shaoyun.liu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: shaoyunl <shaoyun.liu@amd.com>
+From: Likun Gao <Likun.Gao@amd.com>
 
-SMU firmware already been loaded from host, don't enable it for now.
-May need to re-work it if we want to enable the SMU for guest in the future.
+Enable BACO for sienna_cichlid.
 
-Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 89c3727b7a8e..f4d4d91ebee2 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -493,7 +493,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
- 		if (likely(adev->firmware.load_type == AMDGPU_FW_LOAD_PSP))
- 			amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
- 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
--		    is_support_sw_smu(adev))
-+		    is_support_sw_smu(adev) && !amdgpu_sriov_vf(adev))
- 			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
- 		if (adev->enable_virtual_display || amdgpu_sriov_vf(adev))
- 			amdgpu_device_ip_block_add(adev, &dce_virtual_ip_block);
+diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+index 80a099877a68..e0067921a3e9 100644
+--- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+@@ -103,6 +103,7 @@ static struct smu_11_0_cmn2aisc_mapping sienna_cichlid_message_map[SMU_MSG_MAX_C
+ 	MSG_MAP(PowerUpJpeg,			PPSMC_MSG_PowerUpJpeg),
+ 	MSG_MAP(PowerDownJpeg,			PPSMC_MSG_PowerDownJpeg),
+ 	MSG_MAP(BacoAudioD3PME,			PPSMC_MSG_BacoAudioD3PME),
++	MSG_MAP(ArmD3,				PPSMC_MSG_ArmD3),
+ };
+ 
+ static struct smu_11_0_cmn2aisc_mapping sienna_cichlid_clk_map[SMU_CLK_COUNT] = {
+@@ -304,6 +305,7 @@ sienna_cichlid_get_allowed_feature_mask(struct smu_context *smu,
+ 				| FEATURE_MASK(FEATURE_VR0HOT_BIT)
+ 				| FEATURE_MASK(FEATURE_PPT_BIT)
+ 				| FEATURE_MASK(FEATURE_TDC_BIT)
++				| FEATURE_MASK(FEATURE_BACO_BIT)
+ 				| FEATURE_MASK(FEATURE_FAN_CONTROL_BIT)
+ 				| FEATURE_MASK(FEATURE_THERMAL_BIT);
+ 
 -- 
 2.25.4
 
