@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E6570C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80C3CC433E1
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AB9842073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:41 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 56D312073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:43 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eIb4u7f3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AB9842073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FOS+qIg/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56D312073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7885A6E317;
-	Mon,  1 Jun 2020 18:21:41 +0000 (UTC)
-Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
- [IPv6:2607:f8b0:4864:20::733])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B97156E314
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:40 +0000 (UTC)
-Received: by mail-qk1-x733.google.com with SMTP id w3so9992721qkb.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:40 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F108C6E314;
+	Mon,  1 Jun 2020 18:21:42 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 179F76E31A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:42 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id c14so8976997qka.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=/pNXx7mQs7MItYBwC7v35putmsVB3IEO3x/Gi4hvIqE=;
- b=eIb4u7f328eeuP2zO61Pq1D8ehREDguUATQEBJhURSNgEu8UDXIOenINf4du2QukdE
- Yf3/HvoOQgsHCyXumNz0uPcGbfcfY8WgpS5kfqEUvvGjdNYttOQDUI+IdqJOD97QHWwh
- haWKdVjYeqEkGMUtzGJMsSh2e2IYLFcxHh7Q5nGrqZcXskK3QZbO7wHjxUI+kLHtrUKk
- nH4QMT0+8JweBDH7Eo6ObvnOhap0mk9KG5a1IQ8/PscOhJ8nbhwMItOLTSKq3Mr6CLty
- FjwilLZ2wo0iVmmT7KckOHMTja9Q8mVvWdY3Ecz2+EXb5WCljlgKUrAKDtf1e9f/XEaX
- XsQg==
+ bh=FUh0RwOBXFRMnQdBtnfkfx4Sc6oO73fJT1lQYkzJ8Co=;
+ b=FOS+qIg/cdw9ZGbAXdzo6sr869uFh1VxeNc8RUvW3Gq3N5zcmxUn2qNsToiBANgUeO
+ tuKEaiIhuaE+kjKWO0/kxg7mR2FqLpQ+1KFpy4SasP7FSVFEEo8Ro3YwTp11lOKa1FaD
+ YseYPSqAVUj6bX4XSKpejR2bMuSuZeGU7KZjNfVIA2twjcL0rmyq8EhR3X+5wp9aeO0g
+ xIM0+ke6YvBuXPD0YUXrOVXI+QzSpIxggUzqFg8rSGlMIwS5jwEWKO8BbMe7hWsoy7Sz
+ h0kuWIqTyC3HY1Jx2W48mR5rtz3aJcopNsSQfWMXqw+gTC+7Cy7yOekTmCJ/e7JUmXh2
+ RVLQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=/pNXx7mQs7MItYBwC7v35putmsVB3IEO3x/Gi4hvIqE=;
- b=NgWhjM4Hz1trdQUGdGz/UtcEdKXsEAt8bTyYYpzUzm9x78O4HmBt2rlpRiiLpFsjDH
- SjBRuuVu1RIC8/4OOLHARKT528SwIitnWu5IQKtT2hiEEg6Z5Ea4wVBcctdF4IymZ/Zq
- oazQsjxYkrylmvofWnZNkUjDsNZtaun/0aNLVbtvfJMiQ4wEKCxMjPj/zAn/LvtbhSjO
- hp1vr0XRC8JBJXk4+8XDr1F0DG9b7Ulq4T12/cUZbavuwdw0MhUgeOBuYCEWaxiUBOZn
- 8NyZK2URm1OM9RyNkFaw8HU0yYNO1httlYRvL++DapvvogYatnKffuVFNcM0BD8w1Xf+
- DB7g==
-X-Gm-Message-State: AOAM530XC/a6EXxL7CwCXEfGOYhX4i2lp72LT1mMIT+W+hcO4ZrEuXDH
- 8GOmxV+e414NfGEibKn63XR/UnzG
-X-Google-Smtp-Source: ABdhPJxucExeUcMaixqDrSW0d6zFldAYAOiolv8XFy07HKYLnVisthNhzK/+aXDB8h75IGZfd00PZA==
-X-Received: by 2002:ae9:c10d:: with SMTP id z13mr19839175qki.3.1591035698559; 
- Mon, 01 Jun 2020 11:21:38 -0700 (PDT)
+ bh=FUh0RwOBXFRMnQdBtnfkfx4Sc6oO73fJT1lQYkzJ8Co=;
+ b=TyXhWCY6GssOVDcd6y2mYivofhMVaYSKKE7bJkwLOuJFXTgojeWY1TadSKIUUQ6U77
+ CFJTbgB98v0Zgk3Nxutiu0edbGMq+dmVcl6xxYDEMRIDaOE9wwv0KgvXbmK7S7/GkYwL
+ FT6i4amoFV54kzgcplgs6z6nb8vzzjIizOjKSkuax4/qNqUmuMCnSOJHWmLuLch0GI5l
+ K60jv4nXXhlUUvI1lAST/c/TrSlPZm2k3TuWkutvFEY3D73dlJGpb571l4wq6O2BnQNJ
+ 3lzxwNpYxOMZT7bu+4jbVXQqBRjpbxeQAfQDkE5/ekNfKSbrdQBh5ALiqPXoIrLVK9xO
+ PXeA==
+X-Gm-Message-State: AOAM531fgzIbwPXzzsVZIubTplKUeUvm7/CZUj7QiI9J0Ecwa8CuTenH
+ fBJ+UzNxPInZdOKpmi3F4osDxbWD
+X-Google-Smtp-Source: ABdhPJzrYEGdnvBKQYQq3bZhWNqJ5MfNktfd3Oknt7DIUXELsdwhEcjx5aQC22R2ypvWtl+9TnTQrg==
+X-Received: by 2002:a37:9a87:: with SMTP id
+ c129mr20877803qke.374.1591035700114; 
+ Mon, 01 Jun 2020 11:21:40 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.37
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:21:37 -0700 (PDT)
+ Mon, 01 Jun 2020 11:21:39 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 116/207] drm/amdkfd: Support Sienna_Cichlid KFD v4
-Date: Mon,  1 Jun 2020 14:19:23 -0400
-Message-Id: <20200601182054.1267858-27-alexander.deucher@amd.com>
+Subject: [PATCH 117/207] drm/amdkfd: Add Sienna_Cichlid trap handler support
+Date: Mon,  1 Jun 2020 14:19:24 -0400
+Message-Id: <20200601182054.1267858-28-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -80,1007 +81,1280 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Yong Zhao <Yong.Zhao@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Jay Cornwall <jay.cornwall@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yong Zhao <Yong.Zhao@amd.com>
+From: Jay Cornwall <jay.cornwall@amd.com>
 
-v4: drop get_tile_config, comment out other callbacks
+- Replace SQC stores with TCP stores
+- Synchronize with MSG_SAVEWAVE via lgkmcnt
+- HW_REG_IB_STS is now read-only
 
-Signed-off-by: Yong Zhao <Yong.Zhao@amd.com>
+Signed-off-by: Jay Cornwall <jay.cornwall@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile           |  13 +-
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c  | 834 ++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |   1 +
- drivers/gpu/drm/amd/amdkfd/kfd_device.c       |  21 +
- .../drm/amd/amdkfd/kfd_device_queue_manager.c |   1 +
- drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |   1 +
- .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |   1 +
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |   1 +
- 8 files changed, 867 insertions(+), 6 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+ .../gpu/drm/amd/amdkfd/cwsr_trap_handler.h    | 844 +++++++++++++-----
+ .../amd/amdkfd/cwsr_trap_handler_gfx10.asm    | 154 +++-
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c       |   4 +
+ 3 files changed, 731 insertions(+), 271 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 179070b12cde..bfcfb034aed5 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -176,12 +176,13 @@ AMDKFD_PATH := ../amdkfd
- include $(FULL_AMD_PATH)/amdkfd/Makefile
- amdgpu-y += $(AMDKFD_FILES)
- amdgpu-y += \
--	 amdgpu_amdkfd_fence.o \
--	 amdgpu_amdkfd_gpuvm.o \
--	 amdgpu_amdkfd_gfx_v8.o \
--	 amdgpu_amdkfd_gfx_v9.o \
--	 amdgpu_amdkfd_arcturus.o \
--	 amdgpu_amdkfd_gfx_v10.o
-+	amdgpu_amdkfd_fence.o \
-+	amdgpu_amdkfd_gpuvm.o \
-+	amdgpu_amdkfd_gfx_v8.o \
-+	amdgpu_amdkfd_gfx_v9.o \
-+	amdgpu_amdkfd_arcturus.o \
-+	amdgpu_amdkfd_gfx_v10.o \
-+	amdgpu_amdkfd_gfx_v10_3.o
+diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+index d3400da6ab64..0aeff2cc3efe 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
++++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler.h
+@@ -679,8 +679,8 @@ static const uint32_t cwsr_trap_gfx9_hex[] = {
+ 	0xbf810000, 0x00000000,
+ };
  
- ifneq ($(CONFIG_DRM_AMDGPU_CIK),)
- amdgpu-y += amdgpu_amdkfd_gfx_v7.o
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-new file mode 100644
-index 000000000000..7e59e473a190
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
-@@ -0,0 +1,834 @@
-+/*
-+ * Copyright 2019 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ */
-+#include <linux/mmu_context.h>
-+#include "amdgpu.h"
-+#include "amdgpu_amdkfd.h"
-+#include "gc/gc_10_3_0_offset.h"
-+#include "gc/gc_10_3_0_sh_mask.h"
-+#include "navi10_enum.h"
-+#include "oss/osssys_5_0_0_offset.h"
-+#include "oss/osssys_5_0_0_sh_mask.h"
-+#include "soc15_common.h"
-+#include "v10_structs.h"
-+#include "nv.h"
-+#include "nvd.h"
-+#include "gfxhub_v2_1.h"
+-static const uint32_t cwsr_trap_gfx10_hex[] = {
+-	0xbf820001, 0xbf8201c1,
++static const uint32_t cwsr_trap_nv1x_hex[] = {
++	0xbf820001, 0xbf8201bc,
+ 	0xb0804004, 0xb978f802,
+ 	0x8a788678, 0xb971f803,
+ 	0x876eff71, 0x00000400,
+@@ -736,7 +736,22 @@ static const uint32_t cwsr_trap_gfx10_hex[] = {
+ 	0x90768176, 0x88777677,
+ 	0xbefb037c, 0xbefa0380,
+ 	0xb97302dc, 0x8f739973,
+-	0x8873737f, 0xb97a2a05,
++	0x8873737f, 0xbefe03c1,
++	0x907c9973, 0x877c817c,
++	0xbf06817c, 0xbf850002,
++	0xbeff0380, 0xbf820002,
++	0xbeff03c1, 0xbf82000b,
++	0xbef603ff, 0x01000000,
++	0xe0704000, 0x7a5d0000,
++	0xe0704080, 0x7a5d0100,
++	0xe0704100, 0x7a5d0200,
++	0xe0704180, 0x7a5d0300,
++	0xbf82000a, 0xbef603ff,
++	0x01000000, 0xe0704000,
++	0x7a5d0000, 0xe0704100,
++	0x7a5d0100, 0xe0704200,
++	0x7a5d0200, 0xe0704300,
++	0x7a5d0300, 0xb97a2a05,
+ 	0x807a817a, 0x907c9973,
+ 	0x877c817c, 0xbf06817c,
+ 	0xbf850002, 0x8f7a897a,
+@@ -779,9 +794,7 @@ static const uint32_t cwsr_trap_gfx10_hex[] = {
+ 	0xb97bf815, 0xbefe037c,
+ 	0xbefc037a, 0xf4611efa,
+ 	0xf8000000, 0x807a847a,
+-	0xbefc037e, 0x8776ff7f,
+-	0x04000000, 0xbeef0380,
+-	0x886f6f76, 0xb97a2a05,
++	0xbefc037e, 0xb97a2a05,
+ 	0x807a817a, 0x907c9973,
+ 	0x877c817c, 0xbf06817c,
+ 	0xbf850002, 0x8f7a897a,
+@@ -809,190 +822,105 @@ static const uint32_t cwsr_trap_gfx10_hex[] = {
+ 	0xf469013a, 0xfa000010,
+ 	0xf469023a, 0xfa000020,
+ 	0x8074b074, 0x82758075,
+-	0xbef40372, 0xbefa0380,
+-	0xbefe03c1, 0x907c9973,
+-	0x877c817c, 0xbf06817c,
+-	0xbf850002, 0xbeff0380,
+-	0xbf820002, 0xbeff03c1,
+-	0xbf82000b, 0xbef603ff,
+-	0x01000000, 0xe0704000,
+-	0x7a5d0000, 0xe0704080,
+-	0x7a5d0100, 0xe0704100,
+-	0x7a5d0200, 0xe0704180,
+-	0x7a5d0300, 0xbf82000a,
+-	0xbef603ff, 0x01000000,
+-	0xe0704000, 0x7a5d0000,
+-	0xe0704100, 0x7a5d0100,
+-	0xe0704200, 0x7a5d0200,
+-	0xe0704300, 0x7a5d0300,
+-	0xbefe03c1, 0x907c9973,
+-	0x877c817c, 0xbf06817c,
+-	0xbf850002, 0xbeff0380,
+-	0xbf820001, 0xbeff03c1,
+-	0xb9714306, 0x8771c171,
+-	0xbf840046, 0xbf8a0000,
+-	0x8776ff6f, 0x04000000,
+-	0xbf840042, 0x8f718671,
+-	0x8f718271, 0xbef60371,
+-	0xb97a2a05, 0x807a817a,
++	0xbef40372, 0xbefe03c1,
+ 	0x907c9973, 0x877c817c,
+ 	0xbf06817c, 0xbf850002,
+-	0x8f7a897a, 0xbf820001,
+-	0x8f7a8a7a, 0xb9761e06,
+-	0x8f768a76, 0x807a767a,
+-	0x807aff7a, 0x00000200,
+-	0x807aff7a, 0x00000080,
+-	0xbef603ff, 0x01000000,
+-	0xd7650000, 0x000100c1,
+-	0xd7660000, 0x000200c1,
+-	0x16000084, 0x907c9973,
++	0xbeff0380, 0xbf820001,
++	0xbeff03c1, 0xb9714306,
++	0x8771c171, 0xbf840046,
++	0xbf8a0000, 0x8776ff73,
++	0x04000000, 0xbf840042,
++	0x8f718671, 0x8f718271,
++	0xbef60371, 0xb97a2a05,
++	0x807a817a, 0x907c9973,
+ 	0x877c817c, 0xbf06817c,
+-	0xbefc0380, 0xbf850012,
+-	0xbe8303ff, 0x00000080,
++	0xbf850002, 0x8f7a897a,
++	0xbf820001, 0x8f7a8a7a,
++	0xb9761e06, 0x8f768a76,
++	0x807a767a, 0x807aff7a,
++	0x00000200, 0x807aff7a,
++	0x00000080, 0xbef603ff,
++	0x01000000, 0xd7650000,
++	0x000100c1, 0xd7660000,
++	0x000200c1, 0x16000084,
++	0x907c9973, 0x877c817c,
++	0xbf06817c, 0xbefc0380,
++	0xbf850012, 0xbe8303ff,
++	0x00000080, 0xbf800000,
+ 	0xbf800000, 0xbf800000,
+-	0xbf800000, 0xd8d80000,
+-	0x01000000, 0xbf8c0000,
+-	0xe0704000, 0x7a5d0100,
+-	0x807c037c, 0x807a037a,
+-	0xd5250000, 0x0001ff00,
+-	0x00000080, 0xbf0a717c,
+-	0xbf85fff4, 0xbf820011,
+-	0xbe8303ff, 0x00000100,
++	0xd8d80000, 0x01000000,
++	0xbf8c0000, 0xe0704000,
++	0x7a5d0100, 0x807c037c,
++	0x807a037a, 0xd5250000,
++	0x0001ff00, 0x00000080,
++	0xbf0a717c, 0xbf85fff4,
++	0xbf820011, 0xbe8303ff,
++	0x00000100, 0xbf800000,
+ 	0xbf800000, 0xbf800000,
+-	0xbf800000, 0xd8d80000,
+-	0x01000000, 0xbf8c0000,
+-	0xe0704000, 0x7a5d0100,
+-	0x807c037c, 0x807a037a,
+-	0xd5250000, 0x0001ff00,
+-	0x00000100, 0xbf0a717c,
+-	0xbf85fff4, 0xbefe03c1,
+-	0x907c9973, 0x877c817c,
+-	0xbf06817c, 0xbf850004,
+-	0xbefa03ff, 0x00000200,
+-	0xbeff0380, 0xbf820003,
+-	0xbefa03ff, 0x00000400,
+-	0xbeff03c1, 0xb9712a05,
+-	0x80718171, 0x8f718271,
+-	0x907c9973, 0x877c817c,
+-	0xbf06817c, 0xbf850017,
++	0xd8d80000, 0x01000000,
++	0xbf8c0000, 0xe0704000,
++	0x7a5d0100, 0x807c037c,
++	0x807a037a, 0xd5250000,
++	0x0001ff00, 0x00000100,
++	0xbf0a717c, 0xbf85fff4,
++	0xbefe03c1, 0x907c9973,
++	0x877c817c, 0xbf06817c,
++	0xbf850004, 0xbefa03ff,
++	0x00000200, 0xbeff0380,
++	0xbf820003, 0xbefa03ff,
++	0x00000400, 0xbeff03c1,
++	0xb9712a05, 0x80718171,
++	0x8f718271, 0x907c9973,
++	0x877c817c, 0xbf06817c,
++	0xbf850017, 0xbef603ff,
++	0x01000000, 0xbefc0384,
++	0xbf0a717c, 0xbf840037,
++	0x7e008700, 0x7e028701,
++	0x7e048702, 0x7e068703,
++	0xe0704000, 0x7a5d0000,
++	0xe0704080, 0x7a5d0100,
++	0xe0704100, 0x7a5d0200,
++	0xe0704180, 0x7a5d0300,
++	0x807c847c, 0x807aff7a,
++	0x00000200, 0xbf0a717c,
++	0xbf85ffef, 0xbf820025,
+ 	0xbef603ff, 0x01000000,
+ 	0xbefc0384, 0xbf0a717c,
+-	0xbf840037, 0x7e008700,
++	0xbf840020, 0x7e008700,
+ 	0x7e028701, 0x7e048702,
+ 	0x7e068703, 0xe0704000,
+-	0x7a5d0000, 0xe0704080,
+-	0x7a5d0100, 0xe0704100,
+-	0x7a5d0200, 0xe0704180,
++	0x7a5d0000, 0xe0704100,
++	0x7a5d0100, 0xe0704200,
++	0x7a5d0200, 0xe0704300,
+ 	0x7a5d0300, 0x807c847c,
+-	0x807aff7a, 0x00000200,
++	0x807aff7a, 0x00000400,
+ 	0xbf0a717c, 0xbf85ffef,
+-	0xbf820025, 0xbef603ff,
+-	0x01000000, 0xbefc0384,
+-	0xbf0a717c, 0xbf840020,
+-	0x7e008700, 0x7e028701,
+-	0x7e048702, 0x7e068703,
++	0xb9711e06, 0x8771c171,
++	0xbf84000c, 0x8f718371,
++	0x80717c71, 0xbefe03c1,
++	0xbeff0380, 0x7e008700,
+ 	0xe0704000, 0x7a5d0000,
+-	0xe0704100, 0x7a5d0100,
+-	0xe0704200, 0x7a5d0200,
+-	0xe0704300, 0x7a5d0300,
+-	0x807c847c, 0x807aff7a,
+-	0x00000400, 0xbf0a717c,
+-	0xbf85ffef, 0xb9711e06,
+-	0x8771c171, 0xbf84000c,
+-	0x8f718371, 0x80717c71,
+-	0xbefe03c1, 0xbeff0380,
+-	0x7e008700, 0xe0704000,
+-	0x7a5d0000, 0x807c817c,
+-	0x807aff7a, 0x00000080,
+-	0xbf0a717c, 0xbf85fff8,
+-	0xbf820142, 0xbef4037e,
+-	0x8775ff7f, 0x0000ffff,
+-	0x8875ff75, 0x00040000,
+-	0xbef60380, 0xbef703ff,
+-	0x10807fac, 0x8772ff7f,
+-	0x08000000, 0x90728372,
+-	0x88777277, 0x8772ff7f,
+-	0x70000000, 0x90728172,
+-	0x88777277, 0xb97302dc,
+-	0x8f739973, 0x8873737f,
+-	0x8772ff7f, 0x04000000,
+-	0xbf840036, 0xbefe03c1,
+-	0x907c9973, 0x877c817c,
+-	0xbf06817c, 0xbf850002,
+-	0xbeff0380, 0xbf820001,
+-	0xbeff03c1, 0xb96f4306,
+-	0x876fc16f, 0xbf84002b,
+-	0x8f6f866f, 0x8f6f826f,
+-	0xbef6036f, 0xb9782a05,
+-	0x80788178, 0x907c9973,
+-	0x877c817c, 0xbf06817c,
+-	0xbf850002, 0x8f788978,
+-	0xbf820001, 0x8f788a78,
+-	0xb9721e06, 0x8f728a72,
+-	0x80787278, 0x8078ff78,
+-	0x00000200, 0x8078ff78,
+-	0x00000080, 0xbef603ff,
+-	0x01000000, 0x907c9973,
+-	0x877c817c, 0xbf06817c,
+-	0xbefc0380, 0xbf850009,
+-	0xe0310000, 0x781d0000,
+-	0x807cff7c, 0x00000080,
+-	0x8078ff78, 0x00000080,
+-	0xbf0a6f7c, 0xbf85fff8,
+-	0xbf820008, 0xe0310000,
+-	0x781d0000, 0x807cff7c,
+-	0x00000100, 0x8078ff78,
+-	0x00000100, 0xbf0a6f7c,
+-	0xbf85fff8, 0xbef80380,
++	0x807c817c, 0x807aff7a,
++	0x00000080, 0xbf0a717c,
++	0xbf85fff8, 0xbf820142,
++	0xbef4037e, 0x8775ff7f,
++	0x0000ffff, 0x8875ff75,
++	0x00040000, 0xbef60380,
++	0xbef703ff, 0x10807fac,
++	0x8772ff7f, 0x08000000,
++	0x90728372, 0x88777277,
++	0x8772ff7f, 0x70000000,
++	0x90728172, 0x88777277,
++	0xb97302dc, 0x8f739973,
++	0x8873737f, 0x8772ff7f,
++	0x04000000, 0xbf840036,
+ 	0xbefe03c1, 0x907c9973,
+ 	0x877c817c, 0xbf06817c,
+ 	0xbf850002, 0xbeff0380,
+ 	0xbf820001, 0xbeff03c1,
+-	0xb96f2a05, 0x806f816f,
+-	0x8f6f826f, 0x907c9973,
+-	0x877c817c, 0xbf06817c,
+-	0xbf850021, 0xbef603ff,
+-	0x01000000, 0xbef20378,
+-	0x8078ff78, 0x00000200,
+-	0xbefc0384, 0xe0304000,
+-	0x785d0000, 0xe0304080,
+-	0x785d0100, 0xe0304100,
+-	0x785d0200, 0xe0304180,
+-	0x785d0300, 0xbf8c3f70,
+-	0x7e008500, 0x7e028501,
+-	0x7e048502, 0x7e068503,
+-	0x807c847c, 0x8078ff78,
+-	0x00000200, 0xbf0a6f7c,
+-	0xbf85ffee, 0xe0304000,
+-	0x725d0000, 0xe0304080,
+-	0x725d0100, 0xe0304100,
+-	0x725d0200, 0xe0304180,
+-	0x725d0300, 0xbf820032,
+-	0xbef603ff, 0x01000000,
+-	0xbef20378, 0x8078ff78,
+-	0x00000400, 0xbefc0384,
+-	0xe0304000, 0x785d0000,
+-	0xe0304100, 0x785d0100,
+-	0xe0304200, 0x785d0200,
+-	0xe0304300, 0x785d0300,
+-	0xbf8c3f70, 0x7e008500,
+-	0x7e028501, 0x7e048502,
+-	0x7e068503, 0x807c847c,
+-	0x8078ff78, 0x00000400,
+-	0xbf0a6f7c, 0xbf85ffee,
+-	0xb96f1e06, 0x876fc16f,
+-	0xbf84000e, 0x8f6f836f,
+-	0x806f7c6f, 0xbefe03c1,
+-	0xbeff0380, 0xe0304000,
+-	0x785d0000, 0xbf8c3f70,
+-	0x7e008500, 0x807c817c,
+-	0x8078ff78, 0x00000080,
+-	0xbf0a6f7c, 0xbf85fff7,
+-	0xbeff03c1, 0xe0304000,
+-	0x725d0000, 0xe0304100,
+-	0x725d0100, 0xe0304200,
+-	0x725d0200, 0xe0304300,
+-	0x725d0300, 0xbf8c3f70,
++	0xb96f4306, 0x876fc16f,
++	0xbf84002b, 0x8f6f866f,
++	0x8f6f826f, 0xbef6036f,
+ 	0xb9782a05, 0x80788178,
+ 	0x907c9973, 0x877c817c,
+ 	0xbf06817c, 0xbf850002,
+@@ -1000,77 +928,147 @@ static const uint32_t cwsr_trap_gfx10_hex[] = {
+ 	0x8f788a78, 0xb9721e06,
+ 	0x8f728a72, 0x80787278,
+ 	0x8078ff78, 0x00000200,
+-	0x80f8ff78, 0x00000050,
++	0x8078ff78, 0x00000080,
+ 	0xbef603ff, 0x01000000,
+-	0xbefc03ff, 0x0000006c,
+-	0x80f89078, 0xf429003a,
+-	0xf0000000, 0xbf8cc07f,
+-	0x80fc847c, 0xbf800000,
+-	0xbe803100, 0xbe823102,
+-	0x80f8a078, 0xf42d003a,
+-	0xf0000000, 0xbf8cc07f,
+-	0x80fc887c, 0xbf800000,
+-	0xbe803100, 0xbe823102,
+-	0xbe843104, 0xbe863106,
+-	0x80f8c078, 0xf431003a,
+-	0xf0000000, 0xbf8cc07f,
+-	0x80fc907c, 0xbf800000,
+-	0xbe803100, 0xbe823102,
+-	0xbe843104, 0xbe863106,
+-	0xbe883108, 0xbe8a310a,
+-	0xbe8c310c, 0xbe8e310e,
+-	0xbf06807c, 0xbf84fff0,
+-	0xb9782a05, 0x80788178,
++	0x907c9973, 0x877c817c,
++	0xbf06817c, 0xbefc0380,
++	0xbf850009, 0xe0310000,
++	0x781d0000, 0x807cff7c,
++	0x00000080, 0x8078ff78,
++	0x00000080, 0xbf0a6f7c,
++	0xbf85fff8, 0xbf820008,
++	0xe0310000, 0x781d0000,
++	0x807cff7c, 0x00000100,
++	0x8078ff78, 0x00000100,
++	0xbf0a6f7c, 0xbf85fff8,
++	0xbef80380, 0xbefe03c1,
+ 	0x907c9973, 0x877c817c,
+ 	0xbf06817c, 0xbf850002,
+-	0x8f788978, 0xbf820001,
+-	0x8f788a78, 0xb9721e06,
+-	0x8f728a72, 0x80787278,
+-	0x8078ff78, 0x00000200,
++	0xbeff0380, 0xbf820001,
++	0xbeff03c1, 0xb96f2a05,
++	0x806f816f, 0x8f6f826f,
++	0x907c9973, 0x877c817c,
++	0xbf06817c, 0xbf850021,
+ 	0xbef603ff, 0x01000000,
+-	0xf4211bfa, 0xf0000000,
+-	0x80788478, 0xf4211b3a,
++	0xbef20378, 0x8078ff78,
++	0x00000200, 0xbefc0384,
++	0xe0304000, 0x785d0000,
++	0xe0304080, 0x785d0100,
++	0xe0304100, 0x785d0200,
++	0xe0304180, 0x785d0300,
++	0xbf8c3f70, 0x7e008500,
++	0x7e028501, 0x7e048502,
++	0x7e068503, 0x807c847c,
++	0x8078ff78, 0x00000200,
++	0xbf0a6f7c, 0xbf85ffee,
++	0xe0304000, 0x725d0000,
++	0xe0304080, 0x725d0100,
++	0xe0304100, 0x725d0200,
++	0xe0304180, 0x725d0300,
++	0xbf820032, 0xbef603ff,
++	0x01000000, 0xbef20378,
++	0x8078ff78, 0x00000400,
++	0xbefc0384, 0xe0304000,
++	0x785d0000, 0xe0304100,
++	0x785d0100, 0xe0304200,
++	0x785d0200, 0xe0304300,
++	0x785d0300, 0xbf8c3f70,
++	0x7e008500, 0x7e028501,
++	0x7e048502, 0x7e068503,
++	0x807c847c, 0x8078ff78,
++	0x00000400, 0xbf0a6f7c,
++	0xbf85ffee, 0xb96f1e06,
++	0x876fc16f, 0xbf84000e,
++	0x8f6f836f, 0x806f7c6f,
++	0xbefe03c1, 0xbeff0380,
++	0xe0304000, 0x785d0000,
++	0xbf8c3f70, 0x7e008500,
++	0x807c817c, 0x8078ff78,
++	0x00000080, 0xbf0a6f7c,
++	0xbf85fff7, 0xbeff03c1,
++	0xe0304000, 0x725d0000,
++	0xe0304100, 0x725d0100,
++	0xe0304200, 0x725d0200,
++	0xe0304300, 0x725d0300,
++	0xbf8c3f70, 0xb9782a05,
++	0x80788178, 0x907c9973,
++	0x877c817c, 0xbf06817c,
++	0xbf850002, 0x8f788978,
++	0xbf820001, 0x8f788a78,
++	0xb9721e06, 0x8f728a72,
++	0x80787278, 0x8078ff78,
++	0x00000200, 0x80f8ff78,
++	0x00000050, 0xbef603ff,
++	0x01000000, 0xbefc03ff,
++	0x0000006c, 0x80f89078,
++	0xf429003a, 0xf0000000,
++	0xbf8cc07f, 0x80fc847c,
++	0xbf800000, 0xbe803100,
++	0xbe823102, 0x80f8a078,
++	0xf42d003a, 0xf0000000,
++	0xbf8cc07f, 0x80fc887c,
++	0xbf800000, 0xbe803100,
++	0xbe823102, 0xbe843104,
++	0xbe863106, 0x80f8c078,
++	0xf431003a, 0xf0000000,
++	0xbf8cc07f, 0x80fc907c,
++	0xbf800000, 0xbe803100,
++	0xbe823102, 0xbe843104,
++	0xbe863106, 0xbe883108,
++	0xbe8a310a, 0xbe8c310c,
++	0xbe8e310e, 0xbf06807c,
++	0xbf84fff0, 0xb9782a05,
++	0x80788178, 0x907c9973,
++	0x877c817c, 0xbf06817c,
++	0xbf850002, 0x8f788978,
++	0xbf820001, 0x8f788a78,
++	0xb9721e06, 0x8f728a72,
++	0x80787278, 0x8078ff78,
++	0x00000200, 0xbef603ff,
++	0x01000000, 0xf4211bfa,
+ 	0xf0000000, 0x80788478,
+-	0xf4211b7a, 0xf0000000,
+-	0x80788478, 0xf4211eba,
++	0xf4211b3a, 0xf0000000,
++	0x80788478, 0xf4211b7a,
+ 	0xf0000000, 0x80788478,
+-	0xf4211efa, 0xf0000000,
+-	0x80788478, 0xf4211c3a,
++	0xf4211eba, 0xf0000000,
++	0x80788478, 0xf4211efa,
+ 	0xf0000000, 0x80788478,
+-	0xf4211c7a, 0xf0000000,
+-	0x80788478, 0xf4211e7a,
++	0xf4211c3a, 0xf0000000,
++	0x80788478, 0xf4211c7a,
+ 	0xf0000000, 0x80788478,
+-	0xf4211cfa, 0xf0000000,
+-	0x80788478, 0xf4211bba,
++	0xf4211e7a, 0xf0000000,
++	0x80788478, 0xf4211cfa,
+ 	0xf0000000, 0x80788478,
+-	0xbf8cc07f, 0xb9eef814,
+ 	0xf4211bba, 0xf0000000,
+ 	0x80788478, 0xbf8cc07f,
+-	0xb9eef815, 0xbef2036d,
+-	0x876dff72, 0x0000ffff,
+-	0xbefc036f, 0xbefe037a,
+-	0xbeff037b, 0x876f71ff,
+-	0x000003ff, 0xb9ef4803,
+-	0xb9f9f816, 0x876f71ff,
+-	0xfffff800, 0x906f8b6f,
+-	0xb9efa2c3, 0xb9f3f801,
+-	0x876fff72, 0xfc000000,
+-	0x906f9a6f, 0x8f6f906f,
+-	0xbef30380, 0x88736f73,
+-	0x876fff72, 0x02000000,
+-	0x906f996f, 0x8f6f8f6f,
++	0xb9eef814, 0xf4211bba,
++	0xf0000000, 0x80788478,
++	0xbf8cc07f, 0xb9eef815,
++	0xbef2036d, 0x876dff72,
++	0x0000ffff, 0xbefc036f,
++	0xbefe037a, 0xbeff037b,
++	0x876f71ff, 0x000003ff,
++	0xb9ef4803, 0xb9f9f816,
++	0x876f71ff, 0xfffff800,
++	0x906f8b6f, 0xb9efa2c3,
++	0xb9f3f801, 0x876fff72,
++	0xfc000000, 0x906f9a6f,
++	0x8f6f906f, 0xbef30380,
+ 	0x88736f73, 0x876fff72,
+-	0x01000000, 0x906f986f,
+-	0x8f6f996f, 0x88736f73,
+-	0x876fff70, 0x00800000,
+-	0x906f976f, 0xb9f3f807,
+-	0x87fe7e7e, 0x87ea6a6a,
+-	0xb9f0f802, 0xbf8a0000,
+-	0xbe80226c, 0xbf810000,
++	0x02000000, 0x906f996f,
++	0x8f6f8f6f, 0x88736f73,
++	0x876fff72, 0x01000000,
++	0x906f986f, 0x8f6f996f,
++	0x88736f73, 0x876fff70,
++	0x00800000, 0x906f976f,
++	0xb9f3f807, 0x87fe7e7e,
++	0x87ea6a6a, 0xb9f0f802,
++	0xbf8a0000, 0xbe80226c,
++	0xbf810000, 0xbf9f0000,
+ 	0xbf9f0000, 0xbf9f0000,
+ 	0xbf9f0000, 0xbf9f0000,
+-	0xbf9f0000, 0x00000000,
+ };
 +
-+enum hqd_dequeue_request_type {
-+	NO_ACTION = 0,
-+	DRAIN_PIPE,
-+	RESET_WAVES,
-+	SAVE_WAVES
+ static const uint32_t cwsr_trap_arcturus_hex[] = {
+ 	0xbf820001, 0xbf8202c4,
+ 	0xb8f8f802, 0x89788678,
+@@ -1560,3 +1558,389 @@ static const uint32_t cwsr_trap_arcturus_hex[] = {
+ 	0xbf8a0000, 0x95806f6c,
+ 	0xbf810000, 0x00000000,
+ };
++
++static const uint32_t cwsr_trap_gfx10_hex[] = {
++	0xbf820001, 0xbf8201c7,
++	0xb0804004, 0xb978f802,
++	0x8a788678, 0xb971f803,
++	0x876eff71, 0x00000400,
++	0xbf85001d, 0x876eff71,
++	0x00000100, 0xbf840002,
++	0x8878ff78, 0x00002000,
++	0xb970f812, 0xb971f813,
++	0x8ff08870, 0xf4051bb8,
++	0xfa000000, 0xbf8cc07f,
++	0xf4051c38, 0xfa000008,
++	0xbf8cc07f, 0x87ee6e6e,
++	0xbf840001, 0xbe80206e,
++	0xb971f803, 0x8771ff71,
++	0x000001ff, 0xbf850002,
++	0x806c846c, 0x826d806d,
++	0x876dff6d, 0x0000ffff,
++	0x87fe7e7e, 0x87ea6a6a,
++	0xb9f8f802, 0xbe80226c,
++	0xb971f803, 0x8771ff71,
++	0x00000100, 0xbf840006,
++	0xbef60380, 0xb9f60203,
++	0x876dff6d, 0x0000ffff,
++	0x80ec886c, 0x82ed806d,
++	0xbef60380, 0xb9f60283,
++	0xb972f816, 0xbeee037e,
++	0xbeef037f, 0xbefe0480,
++	0xbf900004, 0xbf8cc07f,
++	0xbef4037e, 0x8775ff7f,
++	0x0000ffff, 0x8875ff75,
++	0x00040000, 0xbef60380,
++	0xbef703ff, 0x10807fac,
++	0x8776ff7f, 0x08000000,
++	0x90768376, 0x88777677,
++	0x8776ff7f, 0x70000000,
++	0x90768176, 0x88777677,
++	0xbefb037c, 0xbefa0380,
++	0xb97302dc, 0x8f739973,
++	0x8873737f, 0xbefe03c1,
++	0x907c9973, 0x877c817c,
++	0xbf06817c, 0xbf850002,
++	0xbeff0380, 0xbf820002,
++	0xbeff03c1, 0xbf82000b,
++	0xbef603ff, 0x01000000,
++	0xe0704000, 0x7a5d0000,
++	0xe0704080, 0x7a5d0100,
++	0xe0704100, 0x7a5d0200,
++	0xe0704180, 0x7a5d0300,
++	0xbf82000a, 0xbef603ff,
++	0x01000000, 0xe0704000,
++	0x7a5d0000, 0xe0704100,
++	0x7a5d0100, 0xe0704200,
++	0x7a5d0200, 0xe0704300,
++	0x7a5d0300, 0xb97a2a05,
++	0x807a817a, 0x907c9973,
++	0x877c817c, 0xbf06817c,
++	0xbf850002, 0x8f7a897a,
++	0xbf820001, 0x8f7a8a7a,
++	0xb9761e06, 0x8f768a76,
++	0x807a767a, 0x807aff7a,
++	0x00000200, 0xbef603ff,
++	0x01000000, 0x7e000280,
++	0x7e020280, 0x7e040280,
++	0xbefc0380, 0xd7610002,
++	0x0000f87b, 0x807c817c,
++	0xd7610002, 0x0000f86c,
++	0x807c817c, 0xd7610002,
++	0x0000f86d, 0x807c817c,
++	0xd7610002, 0x0000f86e,
++	0x807c817c, 0xd7610002,
++	0x0000f86f, 0x807c817c,
++	0xd7610002, 0x0000f878,
++	0x807c817c, 0xb971f803,
++	0xd7610002, 0x0000f871,
++	0x807c817c, 0xd7610002,
++	0x0000f872, 0x807c817c,
++	0xb97bf801, 0xd7610002,
++	0x0000f87b, 0x807c817c,
++	0xb97bf814, 0xd7610002,
++	0x0000f87b, 0x807c817c,
++	0xb97bf815, 0xd7610002,
++	0x0000f87b, 0x807c817c,
++	0xbeff0380, 0xe0704000,
++	0x7a5d0200, 0xb97a2a05,
++	0x807a817a, 0x907c9973,
++	0x877c817c, 0xbf06817c,
++	0xbf850002, 0x8f7a897a,
++	0xbf820001, 0x8f7a8a7a,
++	0xb9761e06, 0x8f768a76,
++	0x807a767a, 0xbef603ff,
++	0x01000000, 0xbef90380,
++	0xbefc0380, 0xbf800000,
++	0xbe802f00, 0xbe822f02,
++	0xbe842f04, 0xbe862f06,
++	0xbe882f08, 0xbe8a2f0a,
++	0xbe8c2f0c, 0xbe8e2f0e,
++	0xd7610002, 0x0000f200,
++	0x80798179, 0xd7610002,
++	0x0000f201, 0x80798179,
++	0xd7610002, 0x0000f202,
++	0x80798179, 0xd7610002,
++	0x0000f203, 0x80798179,
++	0xd7610002, 0x0000f204,
++	0x80798179, 0xd7610002,
++	0x0000f205, 0x80798179,
++	0xd7610002, 0x0000f206,
++	0x80798179, 0xd7610002,
++	0x0000f207, 0x80798179,
++	0xd7610002, 0x0000f208,
++	0x80798179, 0xd7610002,
++	0x0000f209, 0x80798179,
++	0xd7610002, 0x0000f20a,
++	0x80798179, 0xd7610002,
++	0x0000f20b, 0x80798179,
++	0xd7610002, 0x0000f20c,
++	0x80798179, 0xd7610002,
++	0x0000f20d, 0x80798179,
++	0xd7610002, 0x0000f20e,
++	0x80798179, 0xd7610002,
++	0x0000f20f, 0x80798179,
++	0xbf06a079, 0xbf840006,
++	0xe0704000, 0x7a5d0200,
++	0x807aff7a, 0x00000080,
++	0xbef90380, 0x7e040280,
++	0x807c907c, 0xbf0aff7c,
++	0x00000060, 0xbf85ffbc,
++	0xbe802f00, 0xbe822f02,
++	0xbe842f04, 0xbe862f06,
++	0xbe882f08, 0xbe8a2f0a,
++	0xd7610002, 0x0000f200,
++	0x80798179, 0xd7610002,
++	0x0000f201, 0x80798179,
++	0xd7610002, 0x0000f202,
++	0x80798179, 0xd7610002,
++	0x0000f203, 0x80798179,
++	0xd7610002, 0x0000f204,
++	0x80798179, 0xd7610002,
++	0x0000f205, 0x80798179,
++	0xd7610002, 0x0000f206,
++	0x80798179, 0xd7610002,
++	0x0000f207, 0x80798179,
++	0xd7610002, 0x0000f208,
++	0x80798179, 0xd7610002,
++	0x0000f209, 0x80798179,
++	0xd7610002, 0x0000f20a,
++	0x80798179, 0xd7610002,
++	0x0000f20b, 0x80798179,
++	0xe0704000, 0x7a5d0200,
++	0xbefe03c1, 0x907c9973,
++	0x877c817c, 0xbf06817c,
++	0xbf850002, 0xbeff0380,
++	0xbf820001, 0xbeff03c1,
++	0xb9714306, 0x8771c171,
++	0xbf840046, 0xbf8a0000,
++	0x8776ff73, 0x04000000,
++	0xbf840042, 0x8f718671,
++	0x8f718271, 0xbef60371,
++	0xb97a2a05, 0x807a817a,
++	0x907c9973, 0x877c817c,
++	0xbf06817c, 0xbf850002,
++	0x8f7a897a, 0xbf820001,
++	0x8f7a8a7a, 0xb9761e06,
++	0x8f768a76, 0x807a767a,
++	0x807aff7a, 0x00000200,
++	0x807aff7a, 0x00000080,
++	0xbef603ff, 0x01000000,
++	0xd7650000, 0x000100c1,
++	0xd7660000, 0x000200c1,
++	0x16000084, 0x907c9973,
++	0x877c817c, 0xbf06817c,
++	0xbefc0380, 0xbf850012,
++	0xbe8303ff, 0x00000080,
++	0xbf800000, 0xbf800000,
++	0xbf800000, 0xd8d80000,
++	0x01000000, 0xbf8c0000,
++	0xe0704000, 0x7a5d0100,
++	0x807c037c, 0x807a037a,
++	0xd5250000, 0x0001ff00,
++	0x00000080, 0xbf0a717c,
++	0xbf85fff4, 0xbf820011,
++	0xbe8303ff, 0x00000100,
++	0xbf800000, 0xbf800000,
++	0xbf800000, 0xd8d80000,
++	0x01000000, 0xbf8c0000,
++	0xe0704000, 0x7a5d0100,
++	0x807c037c, 0x807a037a,
++	0xd5250000, 0x0001ff00,
++	0x00000100, 0xbf0a717c,
++	0xbf85fff4, 0xbefe03c1,
++	0x907c9973, 0x877c817c,
++	0xbf06817c, 0xbf850004,
++	0xbefa03ff, 0x00000200,
++	0xbeff0380, 0xbf820003,
++	0xbefa03ff, 0x00000400,
++	0xbeff03c1, 0xb9712a05,
++	0x80718171, 0x8f718271,
++	0x907c9973, 0x877c817c,
++	0xbf06817c, 0xbf850017,
++	0xbef603ff, 0x01000000,
++	0xbefc0384, 0xbf0a717c,
++	0xbf840037, 0x7e008700,
++	0x7e028701, 0x7e048702,
++	0x7e068703, 0xe0704000,
++	0x7a5d0000, 0xe0704080,
++	0x7a5d0100, 0xe0704100,
++	0x7a5d0200, 0xe0704180,
++	0x7a5d0300, 0x807c847c,
++	0x807aff7a, 0x00000200,
++	0xbf0a717c, 0xbf85ffef,
++	0xbf820025, 0xbef603ff,
++	0x01000000, 0xbefc0384,
++	0xbf0a717c, 0xbf840020,
++	0x7e008700, 0x7e028701,
++	0x7e048702, 0x7e068703,
++	0xe0704000, 0x7a5d0000,
++	0xe0704100, 0x7a5d0100,
++	0xe0704200, 0x7a5d0200,
++	0xe0704300, 0x7a5d0300,
++	0x807c847c, 0x807aff7a,
++	0x00000400, 0xbf0a717c,
++	0xbf85ffef, 0xb9711e06,
++	0x8771c171, 0xbf84000c,
++	0x8f718371, 0x80717c71,
++	0xbefe03c1, 0xbeff0380,
++	0x7e008700, 0xe0704000,
++	0x7a5d0000, 0x807c817c,
++	0x807aff7a, 0x00000080,
++	0xbf0a717c, 0xbf85fff8,
++	0xbf82012e, 0xbef4037e,
++	0x8775ff7f, 0x0000ffff,
++	0x8875ff75, 0x00040000,
++	0xbef60380, 0xbef703ff,
++	0x10807fac, 0x8772ff7f,
++	0x08000000, 0x90728372,
++	0x88777277, 0x8772ff7f,
++	0x70000000, 0x90728172,
++	0x88777277, 0xb97302dc,
++	0x8f739973, 0x8873737f,
++	0x8772ff7f, 0x04000000,
++	0xbf840036, 0xbefe03c1,
++	0x907c9973, 0x877c817c,
++	0xbf06817c, 0xbf850002,
++	0xbeff0380, 0xbf820001,
++	0xbeff03c1, 0xb96f4306,
++	0x876fc16f, 0xbf84002b,
++	0x8f6f866f, 0x8f6f826f,
++	0xbef6036f, 0xb9782a05,
++	0x80788178, 0x907c9973,
++	0x877c817c, 0xbf06817c,
++	0xbf850002, 0x8f788978,
++	0xbf820001, 0x8f788a78,
++	0xb9721e06, 0x8f728a72,
++	0x80787278, 0x8078ff78,
++	0x00000200, 0x8078ff78,
++	0x00000080, 0xbef603ff,
++	0x01000000, 0x907c9973,
++	0x877c817c, 0xbf06817c,
++	0xbefc0380, 0xbf850009,
++	0xe0310000, 0x781d0000,
++	0x807cff7c, 0x00000080,
++	0x8078ff78, 0x00000080,
++	0xbf0a6f7c, 0xbf85fff8,
++	0xbf820008, 0xe0310000,
++	0x781d0000, 0x807cff7c,
++	0x00000100, 0x8078ff78,
++	0x00000100, 0xbf0a6f7c,
++	0xbf85fff8, 0xbef80380,
++	0xbefe03c1, 0x907c9973,
++	0x877c817c, 0xbf06817c,
++	0xbf850002, 0xbeff0380,
++	0xbf820001, 0xbeff03c1,
++	0xb96f2a05, 0x806f816f,
++	0x8f6f826f, 0x907c9973,
++	0x877c817c, 0xbf06817c,
++	0xbf850021, 0xbef603ff,
++	0x01000000, 0xbef20378,
++	0x8078ff78, 0x00000200,
++	0xbefc0384, 0xe0304000,
++	0x785d0000, 0xe0304080,
++	0x785d0100, 0xe0304100,
++	0x785d0200, 0xe0304180,
++	0x785d0300, 0xbf8c3f70,
++	0x7e008500, 0x7e028501,
++	0x7e048502, 0x7e068503,
++	0x807c847c, 0x8078ff78,
++	0x00000200, 0xbf0a6f7c,
++	0xbf85ffee, 0xe0304000,
++	0x725d0000, 0xe0304080,
++	0x725d0100, 0xe0304100,
++	0x725d0200, 0xe0304180,
++	0x725d0300, 0xbf820032,
++	0xbef603ff, 0x01000000,
++	0xbef20378, 0x8078ff78,
++	0x00000400, 0xbefc0384,
++	0xe0304000, 0x785d0000,
++	0xe0304100, 0x785d0100,
++	0xe0304200, 0x785d0200,
++	0xe0304300, 0x785d0300,
++	0xbf8c3f70, 0x7e008500,
++	0x7e028501, 0x7e048502,
++	0x7e068503, 0x807c847c,
++	0x8078ff78, 0x00000400,
++	0xbf0a6f7c, 0xbf85ffee,
++	0xb96f1e06, 0x876fc16f,
++	0xbf84000e, 0x8f6f836f,
++	0x806f7c6f, 0xbefe03c1,
++	0xbeff0380, 0xe0304000,
++	0x785d0000, 0xbf8c3f70,
++	0x7e008500, 0x807c817c,
++	0x8078ff78, 0x00000080,
++	0xbf0a6f7c, 0xbf85fff7,
++	0xbeff03c1, 0xe0304000,
++	0x725d0000, 0xe0304100,
++	0x725d0100, 0xe0304200,
++	0x725d0200, 0xe0304300,
++	0x725d0300, 0xbf8c3f70,
++	0xb9782a05, 0x80788178,
++	0x907c9973, 0x877c817c,
++	0xbf06817c, 0xbf850002,
++	0x8f788978, 0xbf820001,
++	0x8f788a78, 0xb9721e06,
++	0x8f728a72, 0x80787278,
++	0x8078ff78, 0x00000200,
++	0x80f8ff78, 0x00000050,
++	0xbef603ff, 0x01000000,
++	0xbefc03ff, 0x0000006c,
++	0x80f89078, 0xf429003a,
++	0xf0000000, 0xbf8cc07f,
++	0x80fc847c, 0xbf800000,
++	0xbe803100, 0xbe823102,
++	0x80f8a078, 0xf42d003a,
++	0xf0000000, 0xbf8cc07f,
++	0x80fc887c, 0xbf800000,
++	0xbe803100, 0xbe823102,
++	0xbe843104, 0xbe863106,
++	0x80f8c078, 0xf431003a,
++	0xf0000000, 0xbf8cc07f,
++	0x80fc907c, 0xbf800000,
++	0xbe803100, 0xbe823102,
++	0xbe843104, 0xbe863106,
++	0xbe883108, 0xbe8a310a,
++	0xbe8c310c, 0xbe8e310e,
++	0xbf06807c, 0xbf84fff0,
++	0xb9782a05, 0x80788178,
++	0x907c9973, 0x877c817c,
++	0xbf06817c, 0xbf850002,
++	0x8f788978, 0xbf820001,
++	0x8f788a78, 0xb9721e06,
++	0x8f728a72, 0x80787278,
++	0x8078ff78, 0x00000200,
++	0xbef603ff, 0x01000000,
++	0xf4211bfa, 0xf0000000,
++	0x80788478, 0xf4211b3a,
++	0xf0000000, 0x80788478,
++	0xf4211b7a, 0xf0000000,
++	0x80788478, 0xf4211eba,
++	0xf0000000, 0x80788478,
++	0xf4211efa, 0xf0000000,
++	0x80788478, 0xf4211c3a,
++	0xf0000000, 0x80788478,
++	0xf4211c7a, 0xf0000000,
++	0x80788478, 0xf4211e7a,
++	0xf0000000, 0x80788478,
++	0xf4211cfa, 0xf0000000,
++	0x80788478, 0xf4211bba,
++	0xf0000000, 0x80788478,
++	0xbf8cc07f, 0xb9eef814,
++	0xf4211bba, 0xf0000000,
++	0x80788478, 0xbf8cc07f,
++	0xb9eef815, 0xbef2036d,
++	0x876dff72, 0x0000ffff,
++	0xbefc036f, 0xbefe037a,
++	0xbeff037b, 0x876f71ff,
++	0x000003ff, 0xb9ef4803,
++	0xb9f9f816, 0x876f71ff,
++	0xfffff800, 0x906f8b6f,
++	0xb9efa2c3, 0xb9f3f801,
++	0x87fe7e7e, 0x87ea6a6a,
++	0xb9f0f802, 0xbf8a0000,
++	0xbe80226c, 0xbf810000,
++	0xbf9f0000, 0xbf9f0000,
++	0xbf9f0000, 0xbf9f0000,
++	0xbf9f0000, 0x00000000,
 +};
-+
-+static inline struct amdgpu_device *get_amdgpu_device(struct kgd_dev *kgd)
-+{
-+	return (struct amdgpu_device *)kgd;
-+}
-+
-+static void lock_srbm(struct kgd_dev *kgd, uint32_t mec, uint32_t pipe,
-+			uint32_t queue, uint32_t vmid)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+
-+	mutex_lock(&adev->srbm_mutex);
-+	nv_grbm_select(adev, mec, pipe, queue, vmid);
-+}
-+
-+static void unlock_srbm(struct kgd_dev *kgd)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+
-+	nv_grbm_select(adev, 0, 0, 0, 0);
-+	mutex_unlock(&adev->srbm_mutex);
-+}
-+
-+static void acquire_queue(struct kgd_dev *kgd, uint32_t pipe_id,
-+				uint32_t queue_id)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+
-+	uint32_t mec = (pipe_id / adev->gfx.mec.num_pipe_per_mec) + 1;
-+	uint32_t pipe = (pipe_id % adev->gfx.mec.num_pipe_per_mec);
-+
-+	lock_srbm(kgd, mec, pipe, queue_id, 0);
-+}
-+
-+static uint64_t get_queue_mask(struct amdgpu_device *adev,
-+			       uint32_t pipe_id, uint32_t queue_id)
-+{
-+	unsigned int bit = pipe_id * adev->gfx.mec.num_queue_per_pipe +
-+			queue_id;
-+
-+	return 1ull << bit;
-+}
-+
-+static void release_queue(struct kgd_dev *kgd)
-+{
-+	unlock_srbm(kgd);
-+}
-+
-+static void program_sh_mem_settings_v10_3(struct kgd_dev *kgd, uint32_t vmid,
-+					uint32_t sh_mem_config,
-+					uint32_t sh_mem_ape1_base,
-+					uint32_t sh_mem_ape1_limit,
-+					uint32_t sh_mem_bases)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+
-+	lock_srbm(kgd, 0, 0, 0, vmid);
-+
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSH_MEM_CONFIG), sh_mem_config);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSH_MEM_BASES), sh_mem_bases);
-+	/* APE1 no longer exists on GFX9 */
-+
-+	unlock_srbm(kgd);
-+}
-+
-+/* ATC is defeatured on Sienna_Cichlid */
-+static int set_pasid_vmid_mapping_v10_3(struct kgd_dev *kgd, unsigned int pasid,
-+					unsigned int vmid)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+
-+	uint32_t value = pasid << IH_VMID_0_LUT__PASID__SHIFT;
-+
-+	/* Mapping vmid to pasid also for IH block */
-+	pr_debug("mapping vmid %d -> pasid %d in IH block for GFX client\n",
-+			vmid, pasid);
-+	WREG32(SOC15_REG_OFFSET(OSSSYS, 0, mmIH_VMID_0_LUT) + vmid, value);
-+
-+	return 0;
-+}
-+
-+static int init_interrupts_v10_3(struct kgd_dev *kgd, uint32_t pipe_id)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	uint32_t mec;
-+	uint32_t pipe;
-+
-+	mec = (pipe_id / adev->gfx.mec.num_pipe_per_mec) + 1;
-+	pipe = (pipe_id % adev->gfx.mec.num_pipe_per_mec);
-+
-+	lock_srbm(kgd, mec, pipe, 0, 0);
-+
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmCPC_INT_CNTL),
-+		CP_INT_CNTL_RING0__TIME_STAMP_INT_ENABLE_MASK |
-+		CP_INT_CNTL_RING0__OPCODE_ERROR_INT_ENABLE_MASK);
-+
-+	unlock_srbm(kgd);
-+
-+	return 0;
-+}
-+
-+static uint32_t get_sdma_rlc_reg_offset(struct amdgpu_device *adev,
-+				unsigned int engine_id,
-+				unsigned int queue_id)
-+{
-+	uint32_t sdma_engine_reg_base = 0;
-+	uint32_t sdma_rlc_reg_offset;
-+
-+	switch (engine_id) {
-+	default:
-+		dev_warn(adev->dev,
-+			 "Invalid sdma engine id (%d), using engine id 0\n",
-+			 engine_id);
-+		/* fall through */
-+	case 0:
-+		sdma_engine_reg_base = SOC15_REG_OFFSET(SDMA0, 0,
-+				mmSDMA0_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_CNTL;
-+		break;
-+	case 1:
-+		sdma_engine_reg_base = SOC15_REG_OFFSET(SDMA1, 0,
-+				mmSDMA1_RLC0_RB_CNTL) - mmSDMA0_RLC0_RB_CNTL;
-+		break;
-+	case 2:
-+		sdma_engine_reg_base = SOC15_REG_OFFSET(SDMA2, 0,
-+				mmSDMA2_RLC0_RB_CNTL) - mmSDMA2_RLC0_RB_CNTL;
-+		break;
-+	case 3:
-+		sdma_engine_reg_base = SOC15_REG_OFFSET(SDMA3, 0,
-+				mmSDMA3_RLC0_RB_CNTL) - mmSDMA2_RLC0_RB_CNTL;
-+		break;
-+	}
-+
-+	sdma_rlc_reg_offset = sdma_engine_reg_base
-+		+ queue_id * (mmSDMA0_RLC1_RB_CNTL - mmSDMA0_RLC0_RB_CNTL);
-+
-+	pr_debug("RLC register offset for SDMA%d RLC%d: 0x%x\n", engine_id,
-+			queue_id, sdma_rlc_reg_offset);
-+
-+	return sdma_rlc_reg_offset;
-+}
-+
-+static inline struct v10_compute_mqd *get_mqd(void *mqd)
-+{
-+	return (struct v10_compute_mqd *)mqd;
-+}
-+
-+static inline struct v10_sdma_mqd *get_sdma_mqd(void *mqd)
-+{
-+	return (struct v10_sdma_mqd *)mqd;
-+}
-+
-+static int hqd_load_v10_3(struct kgd_dev *kgd, void *mqd, uint32_t pipe_id,
-+			uint32_t queue_id, uint32_t __user *wptr,
-+			uint32_t wptr_shift, uint32_t wptr_mask,
-+			struct mm_struct *mm)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	struct v10_compute_mqd *m;
-+	uint32_t *mqd_hqd;
-+	uint32_t reg, hqd_base, data;
-+
-+	m = get_mqd(mqd);
-+
-+	pr_debug("Load hqd of pipe %d queue %d\n", pipe_id, queue_id);
-+	acquire_queue(kgd, pipe_id, queue_id);
-+
-+	/* HIQ is set during driver init period with vmid set to 0*/
-+	if (m->cp_hqd_vmid == 0) {
-+		uint32_t value, mec, pipe;
-+
-+		mec = (pipe_id / adev->gfx.mec.num_pipe_per_mec) + 1;
-+		pipe = (pipe_id % adev->gfx.mec.num_pipe_per_mec);
-+
-+		pr_debug("kfd: set HIQ, mec:%d, pipe:%d, queue:%d.\n",
-+			mec, pipe, queue_id);
-+		value = RREG32(SOC15_REG_OFFSET(GC, 0, mmRLC_CP_SCHEDULERS));
-+		value = REG_SET_FIELD(value, RLC_CP_SCHEDULERS, scheduler1,
-+			((mec << 5) | (pipe << 3) | queue_id | 0x80));
-+		WREG32(SOC15_REG_OFFSET(GC, 0, mmRLC_CP_SCHEDULERS), value);
-+	}
-+
-+	/* HQD registers extend from CP_MQD_BASE_ADDR to CP_HQD_EOP_WPTR_MEM. */
-+	mqd_hqd = &m->cp_mqd_base_addr_lo;
-+	hqd_base = SOC15_REG_OFFSET(GC, 0, mmCP_MQD_BASE_ADDR);
-+
-+	for (reg = hqd_base;
-+	     reg <= SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_HI); reg++)
-+		WREG32(reg, mqd_hqd[reg - hqd_base]);
-+
-+
-+	/* Activate doorbell logic before triggering WPTR poll. */
-+	data = REG_SET_FIELD(m->cp_hqd_pq_doorbell_control,
-+			     CP_HQD_PQ_DOORBELL_CONTROL, DOORBELL_EN, 1);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL), data);
-+
-+	if (wptr) {
-+		/* Don't read wptr with get_user because the user
-+		 * context may not be accessible (if this function
-+		 * runs in a work queue). Instead trigger a one-shot
-+		 * polling read from memory in the CP. This assumes
-+		 * that wptr is GPU-accessible in the queue's VMID via
-+		 * ATC or SVM. WPTR==RPTR before starting the poll so
-+		 * the CP starts fetching new commands from the right
-+		 * place.
-+		 *
-+		 * Guessing a 64-bit WPTR from a 32-bit RPTR is a bit
-+		 * tricky. Assume that the queue didn't overflow. The
-+		 * number of valid bits in the 32-bit RPTR depends on
-+		 * the queue size. The remaining bits are taken from
-+		 * the saved 64-bit WPTR. If the WPTR wrapped, add the
-+		 * queue size.
-+		 */
-+		uint32_t queue_size =
-+			2 << REG_GET_FIELD(m->cp_hqd_pq_control,
-+					   CP_HQD_PQ_CONTROL, QUEUE_SIZE);
-+		uint64_t guessed_wptr = m->cp_hqd_pq_rptr & (queue_size - 1);
-+
-+		if ((m->cp_hqd_pq_wptr_lo & (queue_size - 1)) < guessed_wptr)
-+			guessed_wptr += queue_size;
-+		guessed_wptr += m->cp_hqd_pq_wptr_lo & ~(queue_size - 1);
-+		guessed_wptr += (uint64_t)m->cp_hqd_pq_wptr_hi << 32;
-+
-+		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_LO),
-+		       lower_32_bits(guessed_wptr));
-+		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_HI),
-+		       upper_32_bits(guessed_wptr));
-+		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR),
-+		       lower_32_bits((uint64_t)wptr));
-+		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI),
-+		       upper_32_bits((uint64_t)wptr));
-+		pr_debug("%s setting CP_PQ_WPTR_POLL_CNTL1 to %x\n", __func__,
-+			 (uint32_t)get_queue_mask(adev, pipe_id, queue_id));
-+		WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_PQ_WPTR_POLL_CNTL1),
-+		       (uint32_t)get_queue_mask(adev, pipe_id, queue_id));
-+	}
-+
-+	/* Start the EOP fetcher */
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_EOP_RPTR),
-+	       REG_SET_FIELD(m->cp_hqd_eop_rptr,
-+			     CP_HQD_EOP_RPTR, INIT_FETCHER, 1));
-+
-+	data = REG_SET_FIELD(m->cp_hqd_active, CP_HQD_ACTIVE, ACTIVE, 1);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_ACTIVE), data);
-+
-+	release_queue(kgd);
-+
-+	return 0;
-+}
-+
-+static int hiq_mqd_load_v10_3(struct kgd_dev *kgd, void *mqd,
-+			    uint32_t pipe_id, uint32_t queue_id,
-+			    uint32_t doorbell_off)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq.ring;
-+	struct v10_compute_mqd *m;
-+	uint32_t mec, pipe;
-+	int r;
-+
-+	m = get_mqd(mqd);
-+
-+	acquire_queue(kgd, pipe_id, queue_id);
-+
-+	mec = (pipe_id / adev->gfx.mec.num_pipe_per_mec) + 1;
-+	pipe = (pipe_id % adev->gfx.mec.num_pipe_per_mec);
-+
-+	pr_debug("kfd: set HIQ, mec:%d, pipe:%d, queue:%d.\n",
-+		 mec, pipe, queue_id);
-+
-+	spin_lock(&adev->gfx.kiq.ring_lock);
-+	r = amdgpu_ring_alloc(kiq_ring, 7);
-+	if (r) {
-+		pr_err("Failed to alloc KIQ (%d).\n", r);
-+		goto out_unlock;
-+	}
-+
-+	amdgpu_ring_write(kiq_ring, PACKET3(PACKET3_MAP_QUEUES, 5));
-+	amdgpu_ring_write(kiq_ring,
-+			  PACKET3_MAP_QUEUES_QUEUE_SEL(0) | /* Queue_Sel */
-+			  PACKET3_MAP_QUEUES_VMID(m->cp_hqd_vmid) | /* VMID */
-+			  PACKET3_MAP_QUEUES_QUEUE(queue_id) |
-+			  PACKET3_MAP_QUEUES_PIPE(pipe) |
-+			  PACKET3_MAP_QUEUES_ME((mec - 1)) |
-+			  PACKET3_MAP_QUEUES_QUEUE_TYPE(0) | /*queue_type: normal compute queue */
-+			  PACKET3_MAP_QUEUES_ALLOC_FORMAT(0) | /* alloc format: all_on_one_pipe */
-+			  PACKET3_MAP_QUEUES_ENGINE_SEL(1) | /* engine_sel: hiq */
-+			  PACKET3_MAP_QUEUES_NUM_QUEUES(1)); /* num_queues: must be 1 */
-+	amdgpu_ring_write(kiq_ring,
-+			  PACKET3_MAP_QUEUES_DOORBELL_OFFSET(doorbell_off));
-+	amdgpu_ring_write(kiq_ring, m->cp_mqd_base_addr_lo);
-+	amdgpu_ring_write(kiq_ring, m->cp_mqd_base_addr_hi);
-+	amdgpu_ring_write(kiq_ring, m->cp_hqd_pq_wptr_poll_addr_lo);
-+	amdgpu_ring_write(kiq_ring, m->cp_hqd_pq_wptr_poll_addr_hi);
-+	amdgpu_ring_commit(kiq_ring);
-+
-+out_unlock:
-+	spin_unlock(&adev->gfx.kiq.ring_lock);
-+	release_queue(kgd);
-+
-+	return r;
-+}
-+
-+static int hqd_dump_v10_3(struct kgd_dev *kgd,
-+			uint32_t pipe_id, uint32_t queue_id,
-+			uint32_t (**dump)[2], uint32_t *n_regs)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	uint32_t i = 0, reg;
-+#define HQD_N_REGS 56
-+#define DUMP_REG(addr) do {				\
-+		if (WARN_ON_ONCE(i >= HQD_N_REGS))	\
-+			break;				\
-+		(*dump)[i][0] = (addr) << 2;		\
-+		(*dump)[i++][1] = RREG32(addr);		\
-+	} while (0)
-+
-+	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
-+	if (*dump == NULL)
-+		return -ENOMEM;
-+
-+	acquire_queue(kgd, pipe_id, queue_id);
-+
-+	for (reg = SOC15_REG_OFFSET(GC, 0, mmCP_MQD_BASE_ADDR);
-+	     reg <= SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_WPTR_HI); reg++)
-+		DUMP_REG(reg);
-+
-+	release_queue(kgd);
-+
-+	WARN_ON_ONCE(i != HQD_N_REGS);
-+	*n_regs = i;
-+
-+	return 0;
-+}
-+
-+static int hqd_sdma_load_v10_3(struct kgd_dev *kgd, void *mqd,
-+			     uint32_t __user *wptr, struct mm_struct *mm)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	struct v10_sdma_mqd *m;
-+	uint32_t sdma_rlc_reg_offset;
-+	unsigned long end_jiffies;
-+	uint32_t data;
-+	uint64_t data64;
-+	uint64_t __user *wptr64 = (uint64_t __user *)wptr;
-+
-+	m = get_sdma_mqd(mqd);
-+	sdma_rlc_reg_offset = get_sdma_rlc_reg_offset(adev, m->sdma_engine_id,
-+					    m->sdma_queue_id);
-+
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL,
-+		m->sdmax_rlcx_rb_cntl & (~SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK));
-+
-+	end_jiffies = msecs_to_jiffies(2000) + jiffies;
-+	while (true) {
-+		data = RREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_CONTEXT_STATUS);
-+		if (data & SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)
-+			break;
-+		if (time_after(jiffies, end_jiffies)) {
-+			pr_err("SDMA RLC not idle in %s\n", __func__);
-+			return -ETIME;
-+		}
-+		usleep_range(500, 1000);
-+	}
-+
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_DOORBELL_OFFSET,
-+	       m->sdmax_rlcx_doorbell_offset);
-+
-+	data = REG_SET_FIELD(m->sdmax_rlcx_doorbell, SDMA0_RLC0_DOORBELL,
-+			     ENABLE, 1);
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_DOORBELL, data);
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR,
-+				m->sdmax_rlcx_rb_rptr);
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_HI,
-+				m->sdmax_rlcx_rb_rptr_hi);
-+
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 1);
-+	if (read_user_wptr(mm, wptr64, data64)) {
-+		WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR,
-+		       lower_32_bits(data64));
-+		WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR_HI,
-+		       upper_32_bits(data64));
-+	} else {
-+		WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR,
-+		       m->sdmax_rlcx_rb_rptr);
-+		WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_WPTR_HI,
-+		       m->sdmax_rlcx_rb_rptr_hi);
-+	}
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_MINOR_PTR_UPDATE, 0);
-+
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_BASE, m->sdmax_rlcx_rb_base);
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_BASE_HI,
-+			m->sdmax_rlcx_rb_base_hi);
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_ADDR_LO,
-+			m->sdmax_rlcx_rb_rptr_addr_lo);
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_ADDR_HI,
-+			m->sdmax_rlcx_rb_rptr_addr_hi);
-+
-+	data = REG_SET_FIELD(m->sdmax_rlcx_rb_cntl, SDMA0_RLC0_RB_CNTL,
-+			     RB_ENABLE, 1);
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL, data);
-+
-+	return 0;
-+}
-+
-+static int hqd_sdma_dump_v10_3(struct kgd_dev *kgd,
-+			     uint32_t engine_id, uint32_t queue_id,
-+			     uint32_t (**dump)[2], uint32_t *n_regs)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	uint32_t sdma_rlc_reg_offset = get_sdma_rlc_reg_offset(adev,
-+			engine_id, queue_id);
-+	uint32_t i = 0, reg;
-+#undef HQD_N_REGS
-+#define HQD_N_REGS (19+6+7+10)
-+
-+	*dump = kmalloc(HQD_N_REGS*2*sizeof(uint32_t), GFP_KERNEL);
-+	if (*dump == NULL)
-+		return -ENOMEM;
-+
-+	for (reg = mmSDMA0_RLC0_RB_CNTL; reg <= mmSDMA0_RLC0_DOORBELL; reg++)
-+		DUMP_REG(sdma_rlc_reg_offset + reg);
-+	for (reg = mmSDMA0_RLC0_STATUS; reg <= mmSDMA0_RLC0_CSA_ADDR_HI; reg++)
-+		DUMP_REG(sdma_rlc_reg_offset + reg);
-+	for (reg = mmSDMA0_RLC0_IB_SUB_REMAIN;
-+	     reg <= mmSDMA0_RLC0_MINOR_PTR_UPDATE; reg++)
-+		DUMP_REG(sdma_rlc_reg_offset + reg);
-+	for (reg = mmSDMA0_RLC0_MIDCMD_DATA0;
-+	     reg <= mmSDMA0_RLC0_MIDCMD_CNTL; reg++)
-+		DUMP_REG(sdma_rlc_reg_offset + reg);
-+
-+	WARN_ON_ONCE(i != HQD_N_REGS);
-+	*n_regs = i;
-+
-+	return 0;
-+}
-+
-+static bool hqd_is_occupied_v10_3(struct kgd_dev *kgd, uint64_t queue_address,
-+				uint32_t pipe_id, uint32_t queue_id)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	uint32_t act;
-+	bool retval = false;
-+	uint32_t low, high;
-+
-+	acquire_queue(kgd, pipe_id, queue_id);
-+	act = RREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_ACTIVE));
-+	if (act) {
-+		low = lower_32_bits(queue_address >> 8);
-+		high = upper_32_bits(queue_address >> 8);
-+
-+		if (low == RREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_BASE)) &&
-+		   high == RREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_PQ_BASE_HI)))
-+			retval = true;
-+	}
-+	release_queue(kgd);
-+	return retval;
-+}
-+
-+static bool hqd_sdma_is_occupied_v10_3(struct kgd_dev *kgd, void *mqd)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	struct v10_sdma_mqd *m;
-+	uint32_t sdma_rlc_reg_offset;
-+	uint32_t sdma_rlc_rb_cntl;
-+
-+	m = get_sdma_mqd(mqd);
-+	sdma_rlc_reg_offset = get_sdma_rlc_reg_offset(adev, m->sdma_engine_id,
-+					    m->sdma_queue_id);
-+
-+	sdma_rlc_rb_cntl = RREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL);
-+
-+	if (sdma_rlc_rb_cntl & SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK)
-+		return true;
-+
-+	return false;
-+}
-+
-+static int hqd_destroy_v10_3(struct kgd_dev *kgd, void *mqd,
-+				enum kfd_preempt_type reset_type,
-+				unsigned int utimeout, uint32_t pipe_id,
-+				uint32_t queue_id)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	enum hqd_dequeue_request_type type;
-+	unsigned long end_jiffies;
-+	uint32_t temp;
-+	struct v10_compute_mqd *m = get_mqd(mqd);
-+
-+	acquire_queue(kgd, pipe_id, queue_id);
-+
-+	if (m->cp_hqd_vmid == 0)
-+		WREG32_FIELD15(GC, 0, RLC_CP_SCHEDULERS, scheduler1, 0);
-+
-+	switch (reset_type) {
-+	case KFD_PREEMPT_TYPE_WAVEFRONT_DRAIN:
-+		type = DRAIN_PIPE;
-+		break;
-+	case KFD_PREEMPT_TYPE_WAVEFRONT_RESET:
-+		type = RESET_WAVES;
-+		break;
-+	default:
-+		type = DRAIN_PIPE;
-+		break;
-+	}
-+
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_DEQUEUE_REQUEST), type);
-+
-+	end_jiffies = (utimeout * HZ / 1000) + jiffies;
-+	while (true) {
-+		temp = RREG32(SOC15_REG_OFFSET(GC, 0, mmCP_HQD_ACTIVE));
-+		if (!(temp & CP_HQD_ACTIVE__ACTIVE_MASK))
-+			break;
-+		if (time_after(jiffies, end_jiffies)) {
-+			pr_err("cp queue pipe %d queue %d preemption failed\n",
-+					pipe_id, queue_id);
-+			release_queue(kgd);
-+			return -ETIME;
-+		}
-+		usleep_range(500, 1000);
-+	}
-+
-+	release_queue(kgd);
-+	return 0;
-+}
-+
-+static int hqd_sdma_destroy_v10_3(struct kgd_dev *kgd, void *mqd,
-+				unsigned int utimeout)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	struct v10_sdma_mqd *m;
-+	uint32_t sdma_rlc_reg_offset;
-+	uint32_t temp;
-+	unsigned long end_jiffies = (utimeout * HZ / 1000) + jiffies;
-+
-+	m = get_sdma_mqd(mqd);
-+	sdma_rlc_reg_offset = get_sdma_rlc_reg_offset(adev, m->sdma_engine_id,
-+					    m->sdma_queue_id);
-+
-+	temp = RREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL);
-+	temp = temp & ~SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK;
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL, temp);
-+
-+	while (true) {
-+		temp = RREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_CONTEXT_STATUS);
-+		if (temp & SDMA0_RLC0_CONTEXT_STATUS__IDLE_MASK)
-+			break;
-+		if (time_after(jiffies, end_jiffies)) {
-+			pr_err("SDMA RLC not idle in %s\n", __func__);
-+			return -ETIME;
-+		}
-+		usleep_range(500, 1000);
-+	}
-+
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_DOORBELL, 0);
-+	WREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL,
-+		RREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_CNTL) |
-+		SDMA0_RLC0_RB_CNTL__RB_ENABLE_MASK);
-+
-+	m->sdmax_rlcx_rb_rptr = RREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR);
-+	m->sdmax_rlcx_rb_rptr_hi =
-+		RREG32(sdma_rlc_reg_offset + mmSDMA0_RLC0_RB_RPTR_HI);
-+
-+	return 0;
-+}
-+
-+
-+static int address_watch_disable_v10_3(struct kgd_dev *kgd)
-+{
-+	return 0;
-+}
-+
-+static int address_watch_execute_v10_3(struct kgd_dev *kgd,
-+					unsigned int watch_point_id,
-+					uint32_t cntl_val,
-+					uint32_t addr_hi,
-+					uint32_t addr_lo)
-+{
-+	return 0;
-+}
-+
-+static int wave_control_execute_v10_3(struct kgd_dev *kgd,
-+					uint32_t gfx_index_val,
-+					uint32_t sq_cmd)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	uint32_t data = 0;
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmGRBM_GFX_INDEX), gfx_index_val);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSQ_CMD), sq_cmd);
-+
-+	data = REG_SET_FIELD(data, GRBM_GFX_INDEX,
-+		INSTANCE_BROADCAST_WRITES, 1);
-+	data = REG_SET_FIELD(data, GRBM_GFX_INDEX,
-+		SA_BROADCAST_WRITES, 1);
-+	data = REG_SET_FIELD(data, GRBM_GFX_INDEX,
-+		SE_BROADCAST_WRITES, 1);
-+
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmGRBM_GFX_INDEX), data);
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+
-+	return 0;
-+}
-+
-+static uint32_t address_watch_get_offset_v10_3(struct kgd_dev *kgd,
-+					unsigned int watch_point_id,
-+					unsigned int reg_offset)
-+{
-+	return 0;
-+}
-+
-+static void set_vm_context_page_table_base_v10_3(struct kgd_dev *kgd, uint32_t vmid,
-+		uint64_t page_table_base)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+
-+	/* SDMA is on gfxhub as well for Navi1* series */
-+	gfxhub_v2_1_setup_vm_pt_regs(adev, vmid, page_table_base);
-+}
-+
-+#if 0
-+uint32_t enable_debug_trap_v10_3(struct kgd_dev *kgd,
-+				uint32_t trap_debug_wave_launch_mode,
-+				uint32_t vmid)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	uint32_t data = 0;
-+	uint32_t orig_wave_cntl_value;
-+	uint32_t orig_stall_vmid;
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+
-+	orig_wave_cntl_value = RREG32(SOC15_REG_OFFSET(GC,
-+				0,
-+				mmSPI_GDBG_WAVE_CNTL));
-+	orig_stall_vmid = REG_GET_FIELD(orig_wave_cntl_value,
-+			SPI_GDBG_WAVE_CNTL,
-+			STALL_VMID);
-+
-+	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL, STALL_RA, 1);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL), data);
-+
-+	data = 0;
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), data);
-+
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL), orig_stall_vmid);
-+
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+
-+	return 0;
-+}
-+
-+uint32_t disable_debug_trap_v10_3(struct kgd_dev *kgd)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), 0);
-+
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+
-+	return 0;
-+}
-+
-+uint32_t set_wave_launch_trap_override_v10_3(struct kgd_dev *kgd,
-+						uint32_t trap_override,
-+						uint32_t trap_mask)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	uint32_t data = 0;
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+
-+	data = RREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL));
-+	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL, STALL_RA, 1);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL), data);
-+
-+	data = 0;
-+	data = REG_SET_FIELD(data, SPI_GDBG_TRAP_MASK,
-+			EXCP_EN, trap_mask);
-+	data = REG_SET_FIELD(data, SPI_GDBG_TRAP_MASK,
-+			REPLACE, trap_override);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_TRAP_MASK), data);
-+
-+	data = RREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL));
-+	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL, STALL_RA, 0);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL), data);
-+
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+
-+	return 0;
-+}
-+
-+uint32_t set_wave_launch_mode_v10_3(struct kgd_dev *kgd,
-+					uint8_t wave_launch_mode,
-+					uint32_t vmid)
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
-+	uint32_t data = 0;
-+	bool is_stall_mode;
-+	bool is_mode_set;
-+
-+	is_stall_mode = (wave_launch_mode == 4);
-+	is_mode_set = (wave_launch_mode != 0 && wave_launch_mode != 4);
-+
-+	mutex_lock(&adev->grbm_idx_mutex);
-+
-+	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL2,
-+			VMID_MASK, is_mode_set ? 1 << vmid : 0);
-+	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL2,
-+			MODE, is_mode_set ? wave_launch_mode : 0);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL2), data);
-+
-+	data = RREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL));
-+	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL,
-+			STALL_VMID, is_stall_mode ? 1 << vmid : 0);
-+	data = REG_SET_FIELD(data, SPI_GDBG_WAVE_CNTL,
-+			STALL_RA, is_stall_mode ? 1 : 0);
-+	WREG32(SOC15_REG_OFFSET(GC, 0, mmSPI_GDBG_WAVE_CNTL), data);
-+
-+	mutex_unlock(&adev->grbm_idx_mutex);
-+
-+	return 0;
-+}
-+
-+/* kgd_get_iq_wait_times: Returns the mmCP_IQ_WAIT_TIME1/2 values
-+ * The values read are:
-+ *	ib_offload_wait_time     -- Wait Count for Indirect Buffer Offloads.
-+ *	atomic_offload_wait_time -- Wait Count for L2 and GDS Atomics Offloads.
-+ *	wrm_offload_wait_time    -- Wait Count for WAIT_REG_MEM Offloads.
-+ *	gws_wait_time            -- Wait Count for Global Wave Syncs.
-+ *	que_sleep_wait_time      -- Wait Count for Dequeue Retry.
-+ *	sch_wave_wait_time       -- Wait Count for Scheduling Wave Message.
-+ *	sem_rearm_wait_time      -- Wait Count for Semaphore re-arm.
-+ *	deq_retry_wait_time      -- Wait Count for Global Wave Syncs.
+diff --git a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
+index 4433bda2ce25..ce70bba8ac06 100644
+--- a/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
++++ b/drivers/gpu/drm/amd/amdkfd/cwsr_trap_handler_gfx10.asm
+@@ -20,6 +20,17 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  */
+ 
++/* To compile this assembly code:
++ *
++ * Navi1x:
++ *   PROJECT=gfx10 ./sp3 ASIC_TARGET_NAVI1X=1 cwsr_trap_handler_gfx10.asm -hex tmp.hex
++ *
++ * Others:
++ *   PROJECT=gfx10 ./sp3 ASIC_TARGET_NAVI1X=0 cwsr_trap_handler_gfx10.asm -hex tmp.hex
 + */
-+void get_iq_wait_times_v10_3(struct kgd_dev *kgd,
-+					uint32_t *wait_times)
 +
-+{
-+	struct amdgpu_device *adev = get_amdgpu_device(kgd);
++var NO_SQC_STORE				= !ASIC_TARGET_NAVI1X
 +
-+	*wait_times = RREG32(SOC15_REG_OFFSET(GC, 0, mmCP_IQ_WAIT_TIME2));
-+}
+ var SQ_WAVE_STATUS_INST_ATC_SHIFT		= 23
+ var SQ_WAVE_STATUS_INST_ATC_MASK		= 0x00800000
+ var SQ_WAVE_STATUS_SPI_PRIO_MASK		= 0x00000006
+@@ -170,6 +181,8 @@ L_SKIP_RESTORE:
+ 	s_or_b32	s_save_status, s_save_status, SQ_WAVE_STATUS_HALT_MASK
+ 
+ L_FETCH_2ND_TRAP:
 +
-+void build_grace_period_packet_info_v10_3(struct kgd_dev *kgd,
-+						uint32_t wait_times,
-+						uint32_t grace_period,
-+						uint32_t *reg_offset,
-+						uint32_t *reg_data)
-+{
-+	*reg_data = wait_times;
++if ASIC_TARGET_NAVI1X
+ 	// Preserve and clear scalar XNACK state before issuing scalar loads.
+ 	// Save IB_STS.REPLAY_W64H[25], RCNT[21:16], FIRST_REPLAY[15] into
+ 	// unused space ttmp11[31:24].
+@@ -183,6 +196,7 @@ L_FETCH_2ND_TRAP:
+ 	s_or_b32	ttmp11, ttmp11, ttmp3
+ 	s_andn2_b32	ttmp2, ttmp2, (SQ_WAVE_IB_STS_REPLAY_W64H_MASK | SQ_WAVE_IB_STS_RCNT_FIRST_REPLAY_MASK)
+ 	s_setreg_b32	hwreg(HW_REG_IB_STS), ttmp2
++end
+ 
+ 	// Read second-level TBA/TMA from first-level TMA and jump if available.
+ 	// ttmp[2:5] and ttmp12 can be used (others hold SPI-initialized debug data)
+@@ -207,6 +221,7 @@ L_NO_NEXT_TRAP:
+ L_EXCP_CASE:
+ 	s_and_b32	ttmp1, ttmp1, 0xFFFF
+ 
++if ASIC_TARGET_NAVI1X
+ 	// Restore SQ_WAVE_IB_STS.
+ 	s_lshr_b32	ttmp2, ttmp11, (TTMP11_SAVE_RCNT_FIRST_REPLAY_SHIFT - SQ_WAVE_IB_STS_FIRST_REPLAY_SHIFT)
+ 	s_and_b32	ttmp3, ttmp2, SQ_WAVE_IB_STS_RCNT_FIRST_REPLAY_MASK
+@@ -214,6 +229,7 @@ L_EXCP_CASE:
+ 	s_and_b32	ttmp2, ttmp2, SQ_WAVE_IB_STS_REPLAY_W64H_MASK
+ 	s_or_b32	ttmp2, ttmp2, ttmp3
+ 	s_setreg_b32	hwreg(HW_REG_IB_STS), ttmp2
++end
+ 
+ 	// Restore SQ_WAVE_STATUS.
+ 	s_and_b64	exec, exec, exec					// Restore STATUS.EXECZ, not writable by s_setreg_b32
+@@ -240,6 +256,8 @@ L_NO_PC_REWIND:
+ 	s_setreg_b32	hwreg(HW_REG_TRAPSTS, SQ_WAVE_TRAPSTS_SAVECTX_SHIFT, 1), s_save_tmp	//clear saveCtx bit
+ 
+ 	s_getreg_b32	s_save_xnack_mask, hwreg(HW_REG_SHADER_XNACK_MASK)
 +
-+	*reg_data = REG_SET_FIELD(*reg_data,
-+			CP_IQ_WAIT_TIME2,
-+			SCH_WAVE,
-+			grace_period);
++if ASIC_TARGET_NAVI1X
+ 	s_getreg_b32	s_save_tmp, hwreg(HW_REG_IB_STS, SQ_WAVE_IB_STS_RCNT_SHIFT, SQ_WAVE_IB_STS_RCNT_SIZE)
+ 	s_lshl_b32	s_save_tmp, s_save_tmp, S_SAVE_PC_HI_RCNT_SHIFT
+ 	s_or_b32	s_save_pc_hi, s_save_pc_hi, s_save_tmp
+@@ -253,6 +271,7 @@ L_NO_PC_REWIND:
+ 	s_and_b32	s_save_tmp, s_save_tmp, SQ_WAVE_IB_STS_RCNT_FIRST_REPLAY_MASK_NEG
+ 
+ 	s_setreg_b32	hwreg(HW_REG_IB_STS), s_save_tmp
++end
+ 
+ 	/* inform SPI the readiness and wait for SPI's go signal */
+ 	s_mov_b32	s_save_exec_lo, exec_lo					//save EXEC and use EXEC for the go signal from SPI
+@@ -261,12 +280,16 @@ L_NO_PC_REWIND:
+ 
+ 	s_sendmsg	sendmsg(MSG_SAVEWAVE)					//send SPI a message and wait for SPI's write to EXEC
+ 
++if ASIC_TARGET_NAVI1X
+ L_SLEEP:
+ 	// sleep 1 (64clk) is not enough for 8 waves per SIMD, which will cause
+ 	// SQ hang, since the 7,8th wave could not get arbit to exec inst, while
+ 	// other waves are stuck into the sleep-loop and waiting for wrexec!=0
+ 	s_sleep		0x2
+ 	s_cbranch_execz	L_SLEEP
++else
++	s_waitcnt	lgkmcnt(0)
++end
+ 
+ 	/* setup Resource Contants */
+ 	s_mov_b32	s_save_buf_rsrc0, s_save_spi_init_lo			//base_addr_lo
+@@ -289,6 +312,38 @@ L_SLEEP:
+ 	s_lshl_b32	s_wave_size, s_wave_size, S_WAVE_SIZE
+ 	s_or_b32	s_wave_size, s_save_spi_init_hi, s_wave_size		//share s_wave_size with exec_hi, it's at bit25
+ 
++	/* save first 4 VGPRs, needed for SGPR save */
++	s_mov_b32	exec_lo, 0xFFFFFFFF					//need every thread from now on
++	s_lshr_b32	m0, s_wave_size, S_WAVE_SIZE
++	s_and_b32	m0, m0, 1
++	s_cmp_eq_u32	m0, 1
++	s_cbranch_scc1	L_ENABLE_SAVE_4VGPR_EXEC_HI
++	s_mov_b32	exec_hi, 0x00000000
++	s_branch	L_SAVE_4VGPR_WAVE32
++L_ENABLE_SAVE_4VGPR_EXEC_HI:
++	s_mov_b32	exec_hi, 0xFFFFFFFF
++	s_branch	L_SAVE_4VGPR_WAVE64
++L_SAVE_4VGPR_WAVE32:
++	s_mov_b32	s_save_buf_rsrc2, 0x1000000				//NUM_RECORDS in bytes
 +
-+	*reg_offset = mmCP_IQ_WAIT_TIME2;
-+}
-+#endif
++	// VGPR Allocated in 4-GPR granularity
 +
-+const struct kfd2kgd_calls gfx_v10_3_kfd2kgd = {
-+	.program_sh_mem_settings = program_sh_mem_settings_v10_3,
-+	.set_pasid_vmid_mapping = set_pasid_vmid_mapping_v10_3,
-+	.init_interrupts = init_interrupts_v10_3,
-+	.hqd_load = hqd_load_v10_3,
-+	.hiq_mqd_load = hiq_mqd_load_v10_3,
-+	.hqd_sdma_load = hqd_sdma_load_v10_3,
-+	.hqd_dump = hqd_dump_v10_3,
-+	.hqd_sdma_dump = hqd_sdma_dump_v10_3,
-+	.hqd_is_occupied = hqd_is_occupied_v10_3,
-+	.hqd_sdma_is_occupied = hqd_sdma_is_occupied_v10_3,
-+	.hqd_destroy = hqd_destroy_v10_3,
-+	.hqd_sdma_destroy = hqd_sdma_destroy_v10_3,
-+	.address_watch_disable = address_watch_disable_v10_3,
-+	.address_watch_execute = address_watch_execute_v10_3,
-+	.wave_control_execute = wave_control_execute_v10_3,
-+	.address_watch_get_offset = address_watch_get_offset_v10_3,
-+	.get_atc_vmid_pasid_mapping_info = NULL,
-+	.set_vm_context_page_table_base = set_vm_context_page_table_base_v10_3,
-+	.get_hive_id = amdgpu_amdkfd_get_hive_id,
-+#if 0
-+	.enable_debug_trap = enable_debug_trap_v10_3,
-+	.disable_debug_trap = disable_debug_trap_v10_3,
-+	.set_wave_launch_trap_override = set_wave_launch_trap_override_v10_3,
-+	.set_wave_launch_mode = set_wave_launch_mode_v10_3,
-+	.get_iq_wait_times = get_iq_wait_times_v10_3,
-+	.build_grace_period_packet_info = build_grace_period_packet_info_v10_3,
-+#endif
-+};
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 1009a3b8dcc2..9deadfd8f929 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -678,6 +678,7 @@ static int kfd_fill_gpu_cache_info(struct kfd_dev *kdev,
- 	case CHIP_NAVI10:
- 	case CHIP_NAVI12:
- 	case CHIP_NAVI14:
-+	case CHIP_SIENNA_CICHLID:
- 		pcache_info = navi10_cache_info;
- 		num_of_cache_types = ARRAY_SIZE(navi10_cache_info);
- 		break;
++	buffer_store_dword	v0, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1
++	buffer_store_dword	v1, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1 offset:128
++	buffer_store_dword	v2, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1 offset:128*2
++	buffer_store_dword	v3, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1 offset:128*3
++	s_branch	L_SAVE_HWREG
++
++L_SAVE_4VGPR_WAVE64:
++	s_mov_b32	s_save_buf_rsrc2, 0x1000000				//NUM_RECORDS in bytes
++
++	// VGPR Allocated in 4-GPR granularity
++
++	buffer_store_dword	v0, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1
++	buffer_store_dword	v1, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1 offset:256
++	buffer_store_dword	v2, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1 offset:256*2
++	buffer_store_dword	v3, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1 offset:256*3
++
+ 	/* save HW registers */
+ 
+ L_SAVE_HWREG:
+@@ -300,6 +355,13 @@ L_SAVE_HWREG:
+ 
+ 	s_mov_b32	s_save_buf_rsrc2, 0x1000000				//NUM_RECORDS in bytes
+ 
++if NO_SQC_STORE
++	v_mov_b32	v0, 0x0							//Offset[31:0] from buffer resource
++	v_mov_b32	v1, 0x0							//Offset[63:32] from buffer resource
++	v_mov_b32	v2, 0x0							//Set of SGPRs for TCP store
++	s_mov_b32	m0, 0x0							//Next lane of v2 to write to
++end
++
+ 	write_hwreg_to_mem(s_save_m0, s_save_buf_rsrc0, s_save_mem_offset)
+ 	write_hwreg_to_mem(s_save_pc_lo, s_save_buf_rsrc0, s_save_mem_offset)
+ 	write_hwreg_to_mem(s_save_pc_hi, s_save_buf_rsrc0, s_save_mem_offset)
+@@ -320,10 +382,11 @@ L_SAVE_HWREG:
+ 	s_getreg_b32	s_save_m0, hwreg(HW_REG_SHADER_FLAT_SCRATCH_HI)
+ 	write_hwreg_to_mem(s_save_m0, s_save_buf_rsrc0, s_save_mem_offset)
+ 
+-	/* the first wave in the threadgroup */
+-	s_and_b32	s_save_tmp, s_save_spi_init_hi, S_SAVE_SPI_INIT_FIRST_WAVE_MASK
+-	s_mov_b32	s_save_exec_hi, 0x0
+-	s_or_b32	s_save_exec_hi, s_save_tmp, s_save_exec_hi		// save first wave bit to s_save_exec_hi.bits[26]
++if NO_SQC_STORE
++	// Write HWREG/SGPRs with 32 VGPR lanes, wave32 is common case.
++	s_mov_b32	exec_hi, 0x0
++	buffer_store_dword	v2, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1
++end
+ 
+ 	/* save SGPRs */
+ 	// Save SGPR before LDS save, then the s0 to s4 can be used during LDS save...
+@@ -334,10 +397,14 @@ L_SAVE_HWREG:
+ 	s_add_u32	s_save_mem_offset, s_save_mem_offset, s_save_tmp
+ 	s_mov_b32	s_save_buf_rsrc2, 0x1000000				//NUM_RECORDS in bytes
+ 
++if NO_SQC_STORE
++	s_mov_b32	ttmp13, 0x0						//next VGPR lane to copy SGPR into
++else
+ 	// backup s_save_buf_rsrc0,1 to s_save_pc_lo/hi, since write_16sgpr_to_mem function will change the rsrc0
+ 	s_mov_b32	s_save_xnack_mask, s_save_buf_rsrc0
+ 	s_add_u32	s_save_buf_rsrc0, s_save_buf_rsrc0, s_save_mem_offset
+ 	s_addc_u32	s_save_buf_rsrc1, s_save_buf_rsrc1, 0
++end
+ 
+ 	s_mov_b32	m0, 0x0							//SGPR initial index value =0
+ 	s_nop		0x0							//Manually inserted wait states
+@@ -353,6 +420,18 @@ L_SAVE_SGPR_LOOP:
+ 	s_movrels_b64	s14, s14						//s14 = s[14+m0], s15 = s[15+m0]
+ 
+ 	write_16sgpr_to_mem(s0, s_save_buf_rsrc0, s_save_mem_offset)
++
++if NO_SQC_STORE
++	s_cmp_eq_u32	ttmp13, 0x20						//have 32 VGPR lanes filled?
++	s_cbranch_scc0	L_SAVE_SGPR_SKIP_TCP_STORE
++
++	buffer_store_dword	v2, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1
++	s_add_u32	s_save_mem_offset, s_save_mem_offset, 0x80
++	s_mov_b32	ttmp13, 0x0
++	v_mov_b32	v2, 0x0
++L_SAVE_SGPR_SKIP_TCP_STORE:
++end
++
+ 	s_add_u32	m0, m0, 16						//next sgpr index
+ 	s_cmp_lt_u32	m0, 96							//scc = (m0 < first 96 SGPR) ? 1 : 0
+ 	s_cbranch_scc1	L_SAVE_SGPR_LOOP					//first 96 SGPR save is complete?
+@@ -366,43 +445,12 @@ L_SAVE_SGPR_LOOP:
+ 	s_movrels_b64	s10, s10						//s10 = s[10+m0], s11 = s[11+m0]
+ 	write_12sgpr_to_mem(s0, s_save_buf_rsrc0, s_save_mem_offset)
+ 
++if NO_SQC_STORE
++	buffer_store_dword	v2, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1
++else
+ 	// restore s_save_buf_rsrc0,1
+ 	s_mov_b32	s_save_buf_rsrc0, s_save_xnack_mask
+-
+-	/* save first 4 VGPR, then LDS save could use   */
+-	// each wave will alloc 4 vgprs at least...
+-
+-	s_mov_b32	s_save_mem_offset, 0
+- 	s_mov_b32	exec_lo, 0xFFFFFFFF					//need every thread from now on
+-	s_lshr_b32	m0, s_wave_size, S_WAVE_SIZE
+-	s_and_b32	m0, m0, 1
+-	s_cmp_eq_u32	m0, 1
+-	s_cbranch_scc1	L_ENABLE_SAVE_4VGPR_EXEC_HI
+-	s_mov_b32	exec_hi, 0x00000000
+-	s_branch	L_SAVE_4VGPR_WAVE32
+-L_ENABLE_SAVE_4VGPR_EXEC_HI:
+-	s_mov_b32	exec_hi, 0xFFFFFFFF
+-	s_branch	L_SAVE_4VGPR_WAVE64
+-L_SAVE_4VGPR_WAVE32:
+-	s_mov_b32	s_save_buf_rsrc2, 0x1000000				//NUM_RECORDS in bytes
+-
+-	// VGPR Allocated in 4-GPR granularity
+-
+-	buffer_store_dword	v0, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1
+-	buffer_store_dword	v1, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1 offset:128
+-	buffer_store_dword	v2, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1 offset:128*2
+-	buffer_store_dword	v3, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1 offset:128*3
+-	s_branch	L_SAVE_LDS
+-
+-L_SAVE_4VGPR_WAVE64:
+-	s_mov_b32	s_save_buf_rsrc2, 0x1000000				//NUM_RECORDS in bytes
+-
+-	// VGPR Allocated in 4-GPR granularity
+-
+-	buffer_store_dword	v0, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1
+-	buffer_store_dword	v1, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1 offset:256
+-	buffer_store_dword	v2, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1 offset:256*2
+-	buffer_store_dword	v3, v0, s_save_buf_rsrc0, s_save_mem_offset slc:1 glc:1 offset:256*3
++end
+ 
+ 	/* save LDS */
+ 
+@@ -423,7 +471,7 @@ L_SAVE_LDS_NORMAL:
+ 	s_cbranch_scc0	L_SAVE_LDS_DONE						//no lds used? jump to L_SAVE_DONE
+ 
+ 	s_barrier								//LDS is used? wait for other waves in the same TG
+-	s_and_b32	s_save_tmp, s_save_exec_hi, S_SAVE_SPI_INIT_FIRST_WAVE_MASK
++	s_and_b32	s_save_tmp, s_wave_size, S_SAVE_SPI_INIT_FIRST_WAVE_MASK
+ 	s_cbranch_scc0	L_SAVE_LDS_DONE
+ 
+ 	// first wave do LDS save;
+@@ -856,6 +904,8 @@ L_RESTORE_HWREG:
+ 	s_lshr_b32	s_restore_m0, s_restore_m0, SQ_WAVE_TRAPSTS_POST_SAVECTX_SHIFT
+ 	s_setreg_b32	hwreg(HW_REG_TRAPSTS, SQ_WAVE_TRAPSTS_POST_SAVECTX_SHIFT, SQ_WAVE_TRAPSTS_POST_SAVECTX_SIZE), s_restore_m0
+ 	s_setreg_b32	hwreg(HW_REG_MODE), s_restore_mode
++
++if ASIC_TARGET_NAVI1X
+ 	s_and_b32	s_restore_m0, s_restore_tmp, S_SAVE_PC_HI_RCNT_MASK
+ 	s_lshr_b32	s_restore_m0, s_restore_m0, S_SAVE_PC_HI_RCNT_SHIFT
+ 	s_lshl_b32	s_restore_m0, s_restore_m0, SQ_WAVE_IB_STS_RCNT_SHIFT
+@@ -873,6 +923,7 @@ L_RESTORE_HWREG:
+ 	s_and_b32	s_restore_m0, s_restore_status, SQ_WAVE_STATUS_INST_ATC_MASK
+ 	s_lshr_b32	s_restore_m0, s_restore_m0, SQ_WAVE_STATUS_INST_ATC_SHIFT
+ 	s_setreg_b32 	hwreg(HW_REG_IB_STS), s_restore_mode
++end
+ 
+ 	s_and_b64	exec, exec, exec					// Restore STATUS.EXECZ, not writable by s_setreg_b32
+ 	s_and_b64	vcc, vcc, vcc						// Restore STATUS.VCCZ, not writable by s_setreg_b32
+@@ -887,15 +938,28 @@ L_END_PGM:
+ end
+ 
+ function write_hwreg_to_mem(s, s_rsrc, s_mem_offset)
++if NO_SQC_STORE
++	// Copy into VGPR for later TCP store.
++	v_writelane_b32	v2, s, m0
++	s_add_u32	m0, m0, 0x1
++else
+ 	s_mov_b32	exec_lo, m0
+ 	s_mov_b32	m0, s_mem_offset
+ 	s_buffer_store_dword	s, s_rsrc, m0 glc:1
+ 	s_add_u32	s_mem_offset, s_mem_offset, 4
+ 	s_mov_b32	m0, exec_lo
+ end
++end
+ 
+ 
+ function write_16sgpr_to_mem(s, s_rsrc, s_mem_offset)
++if NO_SQC_STORE
++	// Copy into VGPR for later TCP store.
++	for var sgpr_idx = 0; sgpr_idx < 16; sgpr_idx ++
++		v_writelane_b32	v2, s[sgpr_idx], ttmp13
++		s_add_u32	ttmp13, ttmp13, 0x1
++	end
++else
+ 	s_buffer_store_dwordx4	s[0], s_rsrc, 0 glc:1
+ 	s_buffer_store_dwordx4	s[4], s_rsrc, 16 glc:1
+ 	s_buffer_store_dwordx4	s[8], s_rsrc, 32 glc:1
+@@ -903,15 +967,23 @@ function write_16sgpr_to_mem(s, s_rsrc, s_mem_offset)
+ 	s_add_u32	s_rsrc[0], s_rsrc[0], 4*16
+ 	s_addc_u32	s_rsrc[1], s_rsrc[1], 0x0
+ end
++end
+ 
+ function write_12sgpr_to_mem(s, s_rsrc, s_mem_offset)
++if NO_SQC_STORE
++	// Copy into VGPR for later TCP store.
++	for var sgpr_idx = 0; sgpr_idx < 12; sgpr_idx ++
++		v_writelane_b32	v2, s[sgpr_idx], ttmp13
++		s_add_u32	ttmp13, ttmp13, 0x1
++	end
++else
+ 	s_buffer_store_dwordx4	s[0], s_rsrc, 0 glc:1
+ 	s_buffer_store_dwordx4	s[4], s_rsrc, 16 glc:1
+ 	s_buffer_store_dwordx4	s[8], s_rsrc, 32 glc:1
+ 	s_add_u32	s_rsrc[0], s_rsrc[0], 4*12
+ 	s_addc_u32	s_rsrc[1], s_rsrc[1], 0x0
+ end
+-
++end
+ 
+ function read_hwreg_from_mem(s, s_rsrc, s_mem_offset)
+ 	s_buffer_load_dword	s, s_rsrc, s_mem_offset glc:1
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 2c030c2b5b8d..25a2703621a7 100644
+index 25a2703621a7..c36a352776a7 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -46,6 +46,7 @@ extern const struct kfd2kgd_calls gfx_v8_kfd2kgd;
- extern const struct kfd2kgd_calls gfx_v9_kfd2kgd;
- extern const struct kfd2kgd_calls arcturus_kfd2kgd;
- extern const struct kfd2kgd_calls gfx_v10_kfd2kgd;
-+extern const struct kfd2kgd_calls gfx_v10_3_kfd2kgd;
- 
- static const struct kfd2kgd_calls *kfd2kgd_funcs[] = {
- #ifdef KFD_SUPPORT_IOMMU_V2
-@@ -72,6 +73,7 @@ static const struct kfd2kgd_calls *kfd2kgd_funcs[] = {
- 	[CHIP_NAVI10] = &gfx_v10_kfd2kgd,
- 	[CHIP_NAVI12] = &gfx_v10_kfd2kgd,
- 	[CHIP_NAVI14] = &gfx_v10_kfd2kgd,
-+	[CHIP_SIENNA_CICHLID] = &gfx_v10_3_kfd2kgd,
- };
- 
- #ifdef KFD_SUPPORT_IOMMU_V2
-@@ -458,6 +460,24 @@ static const struct kfd_device_info navi14_device_info = {
- 	.num_sdma_queues_per_engine = 8,
- };
- 
-+static const struct kfd_device_info sienna_cichlid_device_info = {
-+	.asic_family = CHIP_SIENNA_CICHLID,
-+	.asic_name = "sienna_cichlid",
-+	.max_pasid_bits = 16,
-+	.max_no_of_hqd  = 24,
-+	.doorbell_size  = 8,
-+	.ih_ring_entry_size = 8 * sizeof(uint32_t),
-+	.event_interrupt_class = &event_interrupt_class_v9,
-+	.num_of_watch_points = 4,
-+	.mqd_size_aligned = MQD_SIZE_ALIGNED,
-+	.needs_iommu_device = false,
-+	.supports_cwsr = true,
-+	.needs_pci_atomics = false,
-+	.num_sdma_engines = 4,
-+	.num_xgmi_sdma_engines = 0,
-+	.num_sdma_queues_per_engine = 8,
-+};
-+
- /* For each entry, [0] is regular and [1] is virtualisation device. */
- static const struct kfd_device_info *kfd_supported_devices[][2] = {
- #ifdef KFD_SUPPORT_IOMMU_V2
-@@ -480,6 +500,7 @@ static const struct kfd_device_info *kfd_supported_devices[][2] = {
- 	[CHIP_NAVI10] = {&navi10_device_info, NULL},
- 	[CHIP_NAVI12] = {&navi12_device_info, &navi12_device_info},
- 	[CHIP_NAVI14] = {&navi14_device_info, NULL},
-+	[CHIP_SIENNA_CICHLID] = {&sienna_cichlid_device_info, NULL},
- };
- 
- static int kfd_gtt_sa_init(struct kfd_dev *kfd, unsigned int buf_size,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 6293017bd5bf..fcc927c2f887 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1943,6 +1943,7 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_dev *dev)
- 	case CHIP_NAVI10:
- 	case CHIP_NAVI12:
- 	case CHIP_NAVI14:
-+	case CHIP_SIENNA_CICHLID:
- 		device_queue_manager_init_v10_navi10(&dqm->asic_ops);
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-index 78714f9a8b11..b4674cf73132 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c
-@@ -415,6 +415,7 @@ int kfd_init_apertures(struct kfd_process *process)
- 			case CHIP_NAVI10:
- 			case CHIP_NAVI12:
- 			case CHIP_NAVI14:
-+			case CHIP_SIENNA_CICHLID:
- 				kfd_init_apertures_v9(pdd, id);
- 				break;
- 			default:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-index 685ca82d42fe..89d7f08d749f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager.c
-@@ -245,6 +245,7 @@ int pm_init(struct packet_manager *pm, struct device_queue_manager *dqm)
- 	case CHIP_NAVI10:
- 	case CHIP_NAVI12:
- 	case CHIP_NAVI14:
-+	case CHIP_SIENNA_CICHLID:
- 		pm->pmf = &kfd_v9_pm_funcs;
- 		break;
- 	default:
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index d5e2585d6f34..4025efc619c7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -1363,6 +1363,7 @@ int kfd_topology_add_device(struct kfd_dev *gpu)
- 	case CHIP_NAVI10:
- 	case CHIP_NAVI12:
- 	case CHIP_NAVI14:
-+	case CHIP_SIENNA_CICHLID:
- 		dev->node_props.capability |= ((HSA_CAP_DOORBELL_TYPE_2_0 <<
- 			HSA_CAP_DOORBELL_TYPE_TOTALBITS_SHIFT) &
- 			HSA_CAP_DOORBELL_TYPE_TOTALBITS_MASK);
+@@ -580,6 +580,10 @@ static void kfd_cwsr_init(struct kfd_dev *kfd)
+ 			BUILD_BUG_ON(sizeof(cwsr_trap_gfx9_hex) > PAGE_SIZE);
+ 			kfd->cwsr_isa = cwsr_trap_gfx9_hex;
+ 			kfd->cwsr_isa_size = sizeof(cwsr_trap_gfx9_hex);
++		} else if (kfd->device_info->asic_family < CHIP_SIENNA_CICHLID) {
++			BUILD_BUG_ON(sizeof(cwsr_trap_nv1x_hex) > PAGE_SIZE);
++			kfd->cwsr_isa = cwsr_trap_nv1x_hex;
++			kfd->cwsr_isa_size = sizeof(cwsr_trap_nv1x_hex);
+ 		} else {
+ 			BUILD_BUG_ON(sizeof(cwsr_trap_gfx10_hex) > PAGE_SIZE);
+ 			kfd->cwsr_isa = cwsr_trap_gfx10_hex;
 -- 
 2.25.4
 
