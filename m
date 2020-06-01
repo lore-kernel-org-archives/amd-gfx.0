@@ -8,64 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5775EC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 862E7C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2F25C2073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:58 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5E6012073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:59 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P8c6xmGE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F25C2073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EL5gPRXe"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E6012073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D26056E372;
-	Mon,  1 Jun 2020 18:22:57 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97FC389E35
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:56 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id g18so8453667qtu.13
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:56 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CFF96E379;
+	Mon,  1 Jun 2020 18:22:59 +0000 (UTC)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04A4C6E0E0
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:58 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id u17so7372384qtq.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Gvwad/ys1zXMbYFnphvcykZR2UmMH/gYV8Z0KLJ4qH4=;
- b=P8c6xmGE8R3sXV8FuLFzSeoW8SomCTks8sgFG8GkjqbaFIRELXJGvJcjffyAoYiFUR
- tPruO49dDko9i9I9foYvaslt6mahmqKlZu8PSIJpjuJ6bQa4Z2CJZo4CWr/W+c78ozrM
- Yv691s6bWkVNjRn349eetPF2nMlunfTJngj01uoAmAB4XjvjVVS1660P9IQ7k01hvvvV
- /qm3DR1nphF5601dugjsopVVuL4qxPVfmtmEMYnHB4SYho4HqeGRG3jWNtDw+mGxkHb0
- HemfphHozQn8G5kPBATNrGdogEW8Eg9iPCFrzo1SOg4O6BBhSpTme6oMYpqTT/88c2+Q
- N+rg==
+ bh=iIvegJSnn4193vTZJ/wd6CYK8+jtPozSG2INnAuS3RU=;
+ b=EL5gPRXeSGeT+grPgDKHnvm2wkxcCYqtdYvFqDy/IeABJmBdp2wE+wn0jMffwz+q9s
+ QR7mLsfolWhlKnzY3XOQRy3hdox+K5CUPnm+LsuaD/bETIfeR6acle5ulVhvlhek0Z8G
+ wkojOGq5VaLUgnmkUVi1dSg70w7YfJeyh/SUuQBoid55Au4c7vbGEcDMbYE8hVLQhUMN
+ gTMlnFlT9R0zgl8dWgSbfvVxP7y9TqTz0wSXr9Q6uLX6JGp5rG+jcVHn2R1sQwMTJobQ
+ nMn4mrVbcc9+S7uWyNfcN7Wi7NgHw2fhAlTDFNzFCKgmBYUjkFp8/ER2L0KyeRrKSykY
+ FgNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Gvwad/ys1zXMbYFnphvcykZR2UmMH/gYV8Z0KLJ4qH4=;
- b=KLswQdyD6DxXcM+xJmsVo7fVPJVvdB6DpvPVytzVE3dZurAf841GQtUV2ycc6UstUS
- bxbDSn5I7Fypbp2auxqFyW5oMDtbWiY9892reJ7W78f47NGjAop64Ka+olMw30Eww3RF
- j8PCeADG0cBsaLrPuE+dVu8QPWzf2EanJ37yt8158yQSLGRtEFNBNOpDoSTSXS0HnKyC
- IuA02gjYyMzkWrf2QyFLyG+lrEx01RUBydIxUPi3YJjaIfNi4BiEt8lBTDVxCxVgNoHt
- F+w6/EpxzcMaEA1XoBiWwYipBvwCIo03/lQ2FxWSPRs588EHx4rMBSr523RW4DAEtSO5
- x8ZQ==
-X-Gm-Message-State: AOAM530toND0ATijn8zCg/jrDKfoz8b/y8a5YveCfjBmwumLjgv5en2F
- h8KUg0MGIl91EGDxtg2zdQL8p4xv
-X-Google-Smtp-Source: ABdhPJzLTiTmPb9kDuIFbtwJWHzriKDwV3DXY375hCPTkFdwItOoPRAP+HKBmVBTl0LD6FvW2BlKKQ==
-X-Received: by 2002:aed:21af:: with SMTP id l44mr24137986qtc.124.1591035775601; 
- Mon, 01 Jun 2020 11:22:55 -0700 (PDT)
+ bh=iIvegJSnn4193vTZJ/wd6CYK8+jtPozSG2INnAuS3RU=;
+ b=gnOoq5YaMQ6k/icqtDUhMdoS7kMj9XdEYoTJet7REzgkcUUxNO6kmNZ8IhE4N4+cj2
+ GkES0/Cd3hVal0ZeXCSKiUoC/1MMF3Uj4bbXn+Tw8LoGnjW7I9LWvyK1zc0UrJSszFuv
+ Jwvb2Dzqvoia+4+h2M9/NwtR/C6l8fhOhptIvK/ZywEBXmeaam+luHkJ5J5iglUAQt8l
+ Yt0jOdDHlAyvh7sYwju8JLdyKCMBmZGuO6ViyTLybb55817z9Pmt18xrq0e4FATUsHg9
+ kTe3dabLDO3fPvh+Jp9WZx/LmXjqQeGuAQVS+zlURny1VHgv0JNqAmXy6mjbzYsmfeFV
+ NkuA==
+X-Gm-Message-State: AOAM531bNP1Ar6HubWV/xSiMizCUpq6GizTtwJR/U1u5uVBFVuiRW69s
+ rfJMB54rqDsmjUxLnrm9bHDhwIIk
+X-Google-Smtp-Source: ABdhPJzFsrkNSUY6uUR44GUaq/AXpZB8Q6Bo+2xAxGwTUn22xCkpg20+PA813h5+0xXqevQitaLTgA==
+X-Received: by 2002:ac8:32dc:: with SMTP id a28mr15950171qtb.158.1591035776697; 
+ Mon, 01 Jun 2020 11:22:56 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.54
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:22:55 -0700 (PDT)
+ Mon, 01 Jun 2020 11:22:56 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 174/207] drm/amd/powerplay: let PMFW to handle the features
- disablement on BACO in V2
-Date: Mon,  1 Jun 2020 14:20:21 -0400
-Message-Id: <20200601182054.1267858-85-alexander.deucher@amd.com>
+Subject: [PATCH 175/207] drm/amdgpu: reserve fb according to return value from
+ vbios
+Date: Mon,  1 Jun 2020 14:20:22 -0400
+Message-Id: <20200601182054.1267858-86-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -82,70 +82,192 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Evan Quan <evan.quan@amd.com>
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Evan Quan <evan.quan@amd.com>
+From: Likun Gao <Likun.Gao@amd.com>
 
-For Sienna_Cichlid, PMFW will handle the features disablement on BACO in. No
-need to have driver stepped in.
+Query reserved tmr size through atom firmwareinfo for Sienna_Cichlid and onwards
+for all the use cases (IP discovery/G6 memory
+training/profiling/diagnostic data.etc), otherwise, fallback to legacy
+approach to check and reserve tmr block for ip discovery data and G6
+memory training data respectively
 
-V2: limit this for baco really
-
-Signed-off-by: Evan Quan <evan.quan@amd.com>
-Reviewed-by: Likun Gao <Likun.Gao@amd.com>
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 24 ++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 127 +++++++++++++-----------
+ 1 file changed, 71 insertions(+), 56 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index 870fe32437b6..343139a5c7a6 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -1532,6 +1532,11 @@ static int smu_suspend(void *handle)
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
- 	struct smu_context *smu = &adev->smu;
- 	int ret;
-+	bool use_baco = !smu->is_apu &&
-+		((adev->in_gpu_reset &&
-+		  (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)) ||
-+		 (adev->in_runpm && amdgpu_asic_supports_baco(adev)));
-+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index b5e050b82172..12675cb7dde4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1831,46 +1831,85 @@ static u64 amdgpu_ttm_training_get_c2p_offset(u64 vram_size)
+        return ALIGN(vram_size, SZ_1M);
+ }
  
- 	if (amdgpu_sriov_vf(adev)&& !amdgpu_sriov_is_pp_one_vf(adev))
- 		return 0;
-@@ -1549,15 +1554,22 @@ static int smu_suspend(void *handle)
+-/**
+- * amdgpu_ttm_training_reserve_vram_init - create bo vram reservation from memory training
+- *
+- * @adev: amdgpu_device pointer
+- *
+- * create bo vram reservation from memory training.
++static void amdgpu_ttm_training_data_block_init(struct amdgpu_device *adev)
++{
++	struct psp_memory_training_context *ctx = &adev->psp.mem_train_ctx;
++
++	memset(ctx, 0, sizeof(*ctx));
++
++	ctx->c2p_train_data_offset =
++		amdgpu_ttm_training_get_c2p_offset(adev->gmc.mc_vram_size);
++	ctx->p2c_train_data_offset =
++		(adev->gmc.mc_vram_size - GDDR6_MEM_TRAINING_OFFSET);
++	ctx->train_data_size =
++		GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES;
++	
++	DRM_DEBUG("train_data_size:%llx,p2c_train_data_offset:%llx,c2p_train_data_offset:%llx.\n",
++			ctx->train_data_size,
++			ctx->p2c_train_data_offset,
++			ctx->c2p_train_data_offset);
++}
++
++/*
++ * reserve TMR memory at the top of VRAM which holds
++ * IP Discovery data and is protected by PSP.
+  */
+-static int amdgpu_ttm_training_reserve_vram_init(struct amdgpu_device *adev)
++static int amdgpu_ttm_reserve_tmr(struct amdgpu_device *adev)
+ {
+ 	int ret;
+ 	struct psp_memory_training_context *ctx = &adev->psp.mem_train_ctx;
++	bool mem_train_support = false;
+ 
+-	memset(ctx, 0, sizeof(*ctx));
+-	if (!adev->fw_vram_usage.mem_train_support) {
+-		DRM_DEBUG("memory training does not support!\n");
+-		return 0;
++	if (!amdgpu_sriov_vf(adev)) {
++		if (adev->fw_vram_usage.mem_train_support) {
++			mem_train_support = true;
++			amdgpu_ttm_training_data_block_init(adev);
++		} else
++			DRM_DEBUG("memory training does not support!\n");
+ 	}
+ 
+-	ctx->c2p_train_data_offset = amdgpu_ttm_training_get_c2p_offset(adev->gmc.mc_vram_size);
+-	ctx->p2c_train_data_offset = (adev->gmc.mc_vram_size - GDDR6_MEM_TRAINING_OFFSET);
+-	ctx->train_data_size = GDDR6_MEM_TRAINING_DATA_SIZE_IN_BYTES;
+-
+-	DRM_DEBUG("train_data_size:%llx,p2c_train_data_offset:%llx,c2p_train_data_offset:%llx.\n",
+-		  ctx->train_data_size,
+-		  ctx->p2c_train_data_offset,
+-		  ctx->c2p_train_data_offset);
++	/*
++	 * Query reserved tmr size through atom firmwareinfo for Sienna_Cichlid and onwards for all
++	 * the use cases (IP discovery/G6 memory training/profiling/diagnostic data.etc)
++	 *
++	 * Otherwise, fallback to legacy approach to check and reserve tmr block for ip
++	 * discovery data and G6 memory training data respectively
++	 */
++	adev->discovery_tmr_size =
++		amdgpu_atomfirmware_get_fw_reserved_fb_size(adev);
++	if (!adev->discovery_tmr_size) {
++		adev->discovery_tmr_size = DISCOVERY_TMR_SIZE;
++		if (mem_train_support) {
++			/* reserve vram for mem train indepently */
++			ret = amdgpu_bo_create_kernel_at(adev,
++						 ctx->c2p_train_data_offset,
++						 ctx->train_data_size,
++						 AMDGPU_GEM_DOMAIN_VRAM,
++						 &ctx->c2p_bo,
++						 NULL);
++			if (ret) {
++				DRM_ERROR("alloc c2p_bo failed(%d)!\n", ret);
++				amdgpu_ttm_training_reserve_vram_fini(adev);
++				return ret;
++			}
++		}
++	}
+ 
+ 	ret = amdgpu_bo_create_kernel_at(adev,
+-					 ctx->c2p_train_data_offset,
+-					 ctx->train_data_size,
+-					 AMDGPU_GEM_DOMAIN_VRAM,
+-					 &ctx->c2p_bo,
+-					 NULL);
++				adev->gmc.real_vram_size - adev->discovery_tmr_size,
++				adev->discovery_tmr_size,
++				AMDGPU_GEM_DOMAIN_VRAM,
++				&adev->discovery_memory,
++				NULL);
+ 	if (ret) {
+-		DRM_ERROR("alloc c2p_bo failed(%d)!\n", ret);
+-		amdgpu_ttm_training_reserve_vram_fini(adev);
++		DRM_ERROR("alloc tmr failed(%d)!\n", ret);
++		amdgpu_bo_free_kernel(&adev->discovery_memory, NULL, NULL);
  		return ret;
  	}
  
--	ret = smu_disable_dpm(smu);
--	if (ret)
--		return ret;
-+	/*
-+	 * For Sienna_Cichlid, PMFW will handle the features disablement properly
-+	 * on BACO in. Driver involvement is unnecessary.
-+	 */
-+	if ((adev->asic_type != CHIP_SIENNA_CICHLID) || !use_baco) {
-+		ret = smu_disable_dpm(smu);
-+		if (ret)
-+			return ret;
+-	ctx->init = PSP_MEM_TRAIN_RESERVE_SUCCESS;
++	if (mem_train_support)
++		ctx->init = PSP_MEM_TRAIN_RESERVE_SUCCESS;
 +
-+		if (adev->asic_type >= CHIP_NAVI10 &&
-+		    adev->gfx.rlc.funcs->stop)
-+			adev->gfx.rlc.funcs->stop(adev);
-+	}
+ 	return 0;
+ }
  
- 	smu->watermarks_bitmap &= ~(WATERMARKS_LOADED);
+@@ -1938,11 +1977,12 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 	}
  
--	if (adev->asic_type >= CHIP_NAVI10 &&
--	    adev->gfx.rlc.funcs->stop)
--		adev->gfx.rlc.funcs->stop(adev);
- 	if (smu->is_apu)
- 		smu_set_gfx_cgpg(&adev->smu, false);
+ 	/*
+-	 *The reserved vram for memory training must be pinned to the specified
+-	 *place on the VRAM, so reserve it early.
++	 * only NAVI10 and onwards ASIC support for IP discovery.
++	 * If IP discovery enabled, a block of memory should be
++	 * reserved for IP discovey.
+ 	 */
+-	if (!amdgpu_sriov_vf(adev)) {
+-		r = amdgpu_ttm_training_reserve_vram_init(adev);
++	if (adev->asic_type >= CHIP_NAVI10 && amdgpu_discovery) {
++		r = amdgpu_ttm_reserve_tmr(adev);
+ 		if (r)
+ 			return r;
+ 	}
+@@ -1958,31 +1998,6 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
+ 	if (r)
+ 		return r;
+ 
+-	/*
+-	 * reserve TMR memory at the top of VRAM which holds
+-	 * IP Discovery data and is protected by PSP.
+-	 */
+-	adev->discovery_tmr_size =
+-		amdgpu_atomfirmware_get_fw_reserved_fb_size(adev);
+-	if (!adev->discovery_tmr_size &&
+-	    adev->asic_type >= CHIP_NAVI10 &&
+-	    amdgpu_discovery) {
+-		/* if fw_reserved_fb_size is 0 from vbios,
+-		 * then fallback to the default tmr_size */
+-		adev->discovery_tmr_size = DISCOVERY_TMR_SIZE;
+-	}
+-
+-	if (adev->discovery_tmr_size > 0) {
+-		r = amdgpu_bo_create_kernel_at(adev,
+-					adev->gmc.real_vram_size - adev->discovery_tmr_size,
+-					adev->discovery_tmr_size,
+-					AMDGPU_GEM_DOMAIN_VRAM,
+-					&adev->discovery_memory,
+-					NULL);
+-		if (r)
+-			return r;
+-	}
+-
+ 	DRM_INFO("amdgpu: %uM of VRAM memory ready\n",
+ 		 (unsigned) (adev->gmc.real_vram_size / (1024 * 1024)));
  
 -- 
 2.25.4
