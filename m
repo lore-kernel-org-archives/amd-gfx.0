@@ -8,65 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 104C3C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69C17C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D9C00207DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 432D0207BB
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sv+/7+SS"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D9C00207DF
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rV5NaSjf"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 432D0207BB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F2A789FED;
-	Mon,  1 Jun 2020 18:03:05 +0000 (UTC)
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1986489FED
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:03:04 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id q8so9920801qkm.12
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:03:04 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB8326E155;
+	Mon,  1 Jun 2020 18:03:08 +0000 (UTC)
+Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
+ [IPv6:2607:f8b0:4864:20::f44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84BB26E155
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:03:07 +0000 (UTC)
+Received: by mail-qv1-xf44.google.com with SMTP id j7so466516qvp.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:03:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=xZTiYMkfOIHhjZGJryvAw8dcGMRaNpkuFSzN8XA+I0s=;
- b=Sv+/7+SSZff8ImktbMiRLqXUxSkdk76DyD1prRZrSXKLLMv0tju8L7RdnfNbnQsBit
- dP02SMFa5fVa5t3NejM0FDzomDHBKI5vPYFqTcATiDp1R/itp4VpBS0gDpyHU/opxaHE
- 4qIT63T8eKz2xU/hE1AN2r5CsRnj3nuCheM2THQNKDMUFK90XfnIt1FpmtMSVUExDQDe
- Rp4BzSiXwL7UaxF7yCUpELhjrtCrmRgzFAv/V+W+lg9CNcfAu9VPVTUAGOiWgXwYbkaa
- pFtumtUO53fYcUPLPTc3VPWrQSHHviIKOxLCF7WjakSVy1JrZQkM6YYURWKLWA0nZbiQ
- 2mKQ==
+ bh=XLlG01PiHpYgrKVDxdfKuI1KLg6VQcdpiSyRQdcpC7Y=;
+ b=rV5NaSjfmb6+9lLB0/2oR1A9lyakvxKPL1Vdt7a70BPQMEHZ1Vd0JVBaLhTiXk/Cqf
+ 61Po7E9ZVrKo19bgemHyRV+deCtCgvbbvg0NaxeZlA5lzJeyS5d6ltiNoNFDw2hQ4jTo
+ rkriQISXQhOECzB7aOCZRqvhrmrmWyKD9lPXa0RA5x5mKnyqITxy15QTs2tKokHlabRr
+ Ir3r4JMzn05dTwHJcabVI9exm6Un04/gIH9my1aFKtFrrJ4S1K+Ooo0Ex7sbHEpsVIgj
+ tsSksGVFpXfO4NO6ibU2cLV5wt4l/2W4suVk9I8jEYsH9bN5oy7X9OzfL5iyunYkrRgB
+ 4DdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=xZTiYMkfOIHhjZGJryvAw8dcGMRaNpkuFSzN8XA+I0s=;
- b=YZdV7WDdoJ/ZJM0KvPli8mLuqE8HLlQjcbvMWsTcATvr3kVu/ol/EcjGZs7f/5AJII
- DKHFTfNlHDDtKwlpojLb8qAmuQtEKPWk9Mgpoj/koNhcidtoSrqnlz7wF5iTZoCHuUTQ
- rnBtxau7oPD4Kd7tiOBPsaaxR7Dme9S/aLJxyAt6VvmxepQtVPlhaSNWa56nxfAk3uUX
- CXCsJkO6DL4foNGdKo9ffRV1yQA16ZQwA7Jbp+24kbqRG+mZtbNOSCBdEKfxU3NFVBnU
- fiIVr00tZpgEq2sUPkjgbMetHN1v0doSix/1NCZ8kZhZPE39O9iKE16ieHe3doQcDVIT
- 66AA==
-X-Gm-Message-State: AOAM53196/ONdd1YCQOWNEkoQL/lvUv4gjvAAVDybd7VxdT5lW1PAE1c
- oBQ2FS8ZNU5r8TajIGV4qw+7PO/0
-X-Google-Smtp-Source: ABdhPJwbj9Dlp/GR0mKVpOokBMEEK2Gq/Jv5AzuThJ7AZwMB/dUOpXYkXL1q2kBrjL7mXVWWf+/kzg==
-X-Received: by 2002:a05:620a:1388:: with SMTP id
- k8mr21132319qki.216.1591034582088; 
- Mon, 01 Jun 2020 11:03:02 -0700 (PDT)
+ bh=XLlG01PiHpYgrKVDxdfKuI1KLg6VQcdpiSyRQdcpC7Y=;
+ b=EU93fbUwFcSYZzFjYT6poN3NJGYGzjVLOjYlN+ORatvTK7YyGgtCR69zdfMW71VZrS
+ MtGR8RPK4GuBEly8efp9vjEvbo27LemSk3Fvt+lgu1triPP8gKTnZ9wxhRqSwbTY74B/
+ ErS4knb6bYtRMigWVtwoPsVvwn0V+yVDx6x4yDfxrxE2yYhw2CF/sjqe/fmzoXzwKLAc
+ 4bnUjmoq1zpuB6N7dWsgA+zpMgd3o0kl+qR0SFQZvy6Dm5K5sLjbsjUFI4bnSHA9Gkpi
+ 2hkmt/UeIqbzHC96AzS+0ld7oM4I9UP81BoZB8RuwkKpryRoKfFJ3HGXgqJX/iApygdn
+ Xrfw==
+X-Gm-Message-State: AOAM531U5rroYC6cotCJh22XTzlA28CuvzrIHUVdUawvnawAD+tPhA9d
+ U5IXmKXCbO24vZfc13Tjhbf+rAKo
+X-Google-Smtp-Source: ABdhPJx6mGuDFRBoS2e5zR1FOgBdPrTu8QrD5dWfXyzqkw5E5pYBBSHxxI8qGkmD9QsECN1zSeUmqw==
+X-Received: by 2002:ad4:510c:: with SMTP id g12mr4583506qvp.231.1591034586041; 
+ Mon, 01 Jun 2020 11:03:06 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.02.59
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.03.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:03:01 -0700 (PDT)
+ Mon, 01 Jun 2020 11:03:05 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 013/207] drm/amdgpu: initialize IP offset for sienna_cichlid
- (v2)
-Date: Mon,  1 Jun 2020 13:59:25 -0400
-Message-Id: <20200601180239.1267430-10-alexander.deucher@amd.com>
+Subject: [PATCH 016/207] drm/amdgpu: add support gfxhub for sienna_cichlid (v3)
+Date: Mon,  1 Jun 2020 13:59:28 -0400
+Message-Id: <20200601180239.1267430-13-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -91,66 +89,41 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-Add IP offset headers and state.
+GFX10.3 is used for sienna_cichlid.
 
-V2: squash in updates (Alex)
+v2: squash in BANK_SELECT and FRAGMENT_SIZE fixes (Alex)
+v3: squash in smallk update (Alex)
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile           |    2 +-
- drivers/gpu/drm/amd/amdgpu/nv.c               |    3 +
- drivers/gpu/drm/amd/amdgpu/nv.h               |    1 +
- .../drm/amd/amdgpu/sienna_cichlid_reg_init.c  |   54 +
- .../amd/include/sienna_cichlid_ip_offset.h    | 1168 +++++++++++++++++
- 5 files changed, 1227 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/sienna_cichlid_reg_init.c
- create mode 100644 drivers/gpu/drm/amd/include/sienna_cichlid_ip_offset.h
+ drivers/gpu/drm/amd/amdgpu/Makefile      |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c | 375 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.h |  37 +++
+ 3 files changed, 413 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.h
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index 210d57a4afc8..0fdcb71a4feb 100644
+index 0fdcb71a4feb..f6e16028a434 100644
 --- a/drivers/gpu/drm/amd/amdgpu/Makefile
 +++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -68,7 +68,7 @@ amdgpu-$(CONFIG_DRM_AMDGPU_SI)+= si.o gmc_v6_0.o gfx_v6_0.o si_ih.o si_dma.o dce
- amdgpu-y += \
- 	vi.o mxgpu_vi.o nbio_v6_1.o soc15.o emu_soc.o mxgpu_ai.o nbio_v7_0.o vega10_reg_init.o \
- 	vega20_reg_init.o nbio_v7_4.o nbio_v2_3.o nv.o navi10_reg_init.o navi14_reg_init.o \
--	arct_reg_init.o navi12_reg_init.o mxgpu_nv.o
-+	arct_reg_init.o navi12_reg_init.o mxgpu_nv.o sienna_cichlid_reg_init.o
+@@ -80,7 +80,7 @@ amdgpu-y += \
+ 	gmc_v7_0.o \
+ 	gmc_v8_0.o \
+ 	gfxhub_v1_0.o mmhub_v1_0.o gmc_v9_0.o gfxhub_v1_1.o mmhub_v9_4.o \
+-	gfxhub_v2_0.o mmhub_v2_0.o gmc_v10_0.o
++	gfxhub_v2_0.o mmhub_v2_0.o gmc_v10_0.o gfxhub_v2_1.o
  
- # add DF block
+ # add UMC block
  amdgpu-y += \
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 642d18e70860..9466dc52df53 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -407,6 +407,9 @@ static int nv_reg_base_init(struct amdgpu_device *adev)
- 	case CHIP_NAVI12:
- 		navi12_reg_base_init(adev);
- 		break;
-+	case CHIP_SIENNA_CICHLID:
-+		sienna_cichlid_reg_base_init(adev);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.h b/drivers/gpu/drm/amd/amdgpu/nv.h
-index 82e6cb432f3d..b6a95f0122fb 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.h
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.h
-@@ -32,4 +32,5 @@ int nv_set_ip_blocks(struct amdgpu_device *adev);
- int navi10_reg_base_init(struct amdgpu_device *adev);
- int navi14_reg_base_init(struct amdgpu_device *adev);
- int navi12_reg_base_init(struct amdgpu_device *adev);
-+int sienna_cichlid_reg_base_init(struct amdgpu_device *adev);
- #endif
-diff --git a/drivers/gpu/drm/amd/amdgpu/sienna_cichlid_reg_init.c b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid_reg_init.c
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
 new file mode 100644
-index 000000000000..5ee69f70c49b
+index 000000000000..34c12c8ce149
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/amdgpu/sienna_cichlid_reg_init.c
-@@ -0,0 +1,54 @@
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+@@ -0,0 +1,375 @@
 +/*
 + * Copyright 2019 Advanced Micro Devices, Inc.
 + *
@@ -173,46 +146,367 @@ index 000000000000..5ee69f70c49b
 + * OTHER DEALINGS IN THE SOFTWARE.
 + *
 + */
++
 +#include "amdgpu.h"
-+#include "nv.h"
++#include "gfxhub_v2_1.h"
++
++#include "gc/gc_10_3_0_offset.h"
++#include "gc/gc_10_3_0_sh_mask.h"
++#include "gc/gc_10_3_0_default.h"
++#include "navi10_enum.h"
 +
 +#include "soc15_common.h"
-+#include "soc15_hw_ip.h"
-+#include "sienna_cichlid_ip_offset.h"
 +
-+int sienna_cichlid_reg_base_init(struct amdgpu_device *adev)
++u64 gfxhub_v2_1_get_fb_location(struct amdgpu_device *adev)
 +{
-+	/* HW has more IP blocks,  only initialized the blocke needed by driver */
-+	uint32_t i;
-+	for (i = 0 ; i < MAX_INSTANCE ; ++i) {
-+		adev->reg_offset[GC_HWIP][i] = (uint32_t *)(&(GC_BASE.instance[i]));
-+		adev->reg_offset[HDP_HWIP][i] = (uint32_t *)(&(HDP_BASE.instance[i]));
-+		adev->reg_offset[MMHUB_HWIP][i] = (uint32_t *)(&(MMHUB_BASE.instance[i]));
-+		adev->reg_offset[ATHUB_HWIP][i] = (uint32_t *)(&(ATHUB_BASE.instance[i]));
-+		adev->reg_offset[NBIO_HWIP][i] = (uint32_t *)(&(NBIO_BASE.instance[i]));
-+		adev->reg_offset[MP0_HWIP][i] = (uint32_t *)(&(MP0_BASE.instance[i]));
-+		adev->reg_offset[MP1_HWIP][i] = (uint32_t *)(&(MP1_BASE.instance[i]));
-+		adev->reg_offset[VCN_HWIP][i] = (uint32_t *)(&(VCN_BASE.instance[i]));
-+		adev->reg_offset[DF_HWIP][i] = (uint32_t *)(&(DF_BASE.instance[i]));
-+		adev->reg_offset[DCE_HWIP][i] = (uint32_t *)(&(DCN_BASE.instance[i]));
-+		adev->reg_offset[OSSSYS_HWIP][i] = (uint32_t *)(&(OSSSYS_BASE.instance[i]));
-+		adev->reg_offset[SDMA0_HWIP][i] = (uint32_t *)(&(GC_BASE.instance[i]));
-+		adev->reg_offset[SDMA1_HWIP][i] = (uint32_t *)(&(GC_BASE.instance[i]));
-+		adev->reg_offset[SDMA2_HWIP][i] = (uint32_t *)(&(GC_BASE.instance[i]));
-+		adev->reg_offset[SDMA3_HWIP][i] = (uint32_t *)(&(GC_BASE.instance[i]));
-+		adev->reg_offset[SMUIO_HWIP][i] = (uint32_t *)(&(SMUIO_BASE.instance[i]));
-+		adev->reg_offset[THM_HWIP][i] = (uint32_t *)(&(THM_BASE.instance[i]));
++	u64 base = RREG32_SOC15(GC, 0, mmGCMC_VM_FB_LOCATION_BASE);
++
++	base &= GCMC_VM_FB_LOCATION_BASE__FB_BASE_MASK;
++	base <<= 24;
++
++	return base;
++}
++
++u64 gfxhub_v2_1_get_mc_fb_offset(struct amdgpu_device *adev)
++{
++	return (u64)RREG32_SOC15(GC, 0, mmGCMC_VM_FB_OFFSET) << 24;
++}
++
++void gfxhub_v2_1_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
++				uint64_t page_table_base)
++{
++	/* two registers distance between mmGCVM_CONTEXT0_* to mmGCVM_CONTEXT1_* */
++	int offset = mmGCVM_CONTEXT1_PAGE_TABLE_BASE_ADDR_LO32
++			- mmGCVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32;
++
++	WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32,
++				offset * vmid, lower_32_bits(page_table_base));
++
++	WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32,
++				offset * vmid, upper_32_bits(page_table_base));
++}
++
++static void gfxhub_v2_1_init_gart_aperture_regs(struct amdgpu_device *adev)
++{
++	uint64_t pt_base = amdgpu_gmc_pd_addr(adev->gart.bo);
++
++	gfxhub_v2_1_setup_vm_pt_regs(adev, 0, pt_base);
++
++	WREG32_SOC15(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_START_ADDR_LO32,
++		     (u32)(adev->gmc.gart_start >> 12));
++	WREG32_SOC15(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_START_ADDR_HI32,
++		     (u32)(adev->gmc.gart_start >> 44));
++
++	WREG32_SOC15(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_END_ADDR_LO32,
++		     (u32)(adev->gmc.gart_end >> 12));
++	WREG32_SOC15(GC, 0, mmGCVM_CONTEXT0_PAGE_TABLE_END_ADDR_HI32,
++		     (u32)(adev->gmc.gart_end >> 44));
++}
++
++static void gfxhub_v2_1_init_system_aperture_regs(struct amdgpu_device *adev)
++{
++	uint64_t value;
++
++	/* Disable AGP. */
++	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BASE, 0);
++	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_TOP, 0);
++	WREG32_SOC15(GC, 0, mmGCMC_VM_AGP_BOT, 0x00FFFFFF);
++
++	/* Program the system aperture low logical page number. */
++	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_LOW_ADDR,
++		     adev->gmc.vram_start >> 18);
++	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_HIGH_ADDR,
++		     adev->gmc.vram_end >> 18);
++
++	/* Set default page address. */
++	value = adev->vram_scratch.gpu_addr - adev->gmc.vram_start
++		+ adev->vm_manager.vram_base_offset;
++	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_LSB,
++		     (u32)(value >> 12));
++	WREG32_SOC15(GC, 0, mmGCMC_VM_SYSTEM_APERTURE_DEFAULT_ADDR_MSB,
++		     (u32)(value >> 44));
++
++	/* Program "protection fault". */
++	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_LO32,
++		     (u32)(adev->dummy_page_addr >> 12));
++	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_DEFAULT_ADDR_HI32,
++		     (u32)((u64)adev->dummy_page_addr >> 44));
++
++	WREG32_FIELD15(GC, 0, GCVM_L2_PROTECTION_FAULT_CNTL2,
++		       ACTIVE_PAGE_MIGRATION_PTE_READ_RETRY, 1);
++}
++
++
++static void gfxhub_v2_1_init_tlb_regs(struct amdgpu_device *adev)
++{
++	uint32_t tmp;
++
++	/* Setup TLB control */
++	tmp = RREG32_SOC15(GC, 0, mmGCMC_VM_MX_L1_TLB_CNTL);
++
++	tmp = REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL, ENABLE_L1_TLB, 1);
++	tmp = REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL, SYSTEM_ACCESS_MODE, 3);
++	tmp = REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL,
++			    ENABLE_ADVANCED_DRIVER_MODEL, 1);
++	tmp = REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL,
++			    SYSTEM_APERTURE_UNMAPPED_ACCESS, 0);
++	tmp = REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL, ECO_BITS, 0);
++	tmp = REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL,
++			    MTYPE, MTYPE_UC); /* UC, uncached */
++
++	WREG32_SOC15(GC, 0, mmGCMC_VM_MX_L1_TLB_CNTL, tmp);
++}
++
++static void gfxhub_v2_1_init_cache_regs(struct amdgpu_device *adev)
++{
++	uint32_t tmp;
++
++	/* Setup L2 cache */
++	tmp = RREG32_SOC15(GC, 0, mmGCVM_L2_CNTL);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL, ENABLE_L2_CACHE, 1);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL, ENABLE_L2_FRAGMENT_PROCESSING, 0);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL,
++			    ENABLE_DEFAULT_PAGE_OUT_TO_SYSTEM_MEMORY, 1);
++	/* XXX for emulation, Refer to closed source code.*/
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL,
++			    L2_PDE0_CACHE_TAG_GENERATION_MODE, 0);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL, PDE_FAULT_CLASSIFICATION, 0);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL, CONTEXT1_IDENTITY_ACCESS_MODE, 1);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL, IDENTITY_MODE_FRAGMENT_SIZE, 0);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL, tmp);
++
++	tmp = RREG32_SOC15(GC, 0, mmGCVM_L2_CNTL2);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL2, INVALIDATE_ALL_L1_TLBS, 1);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL2, INVALIDATE_L2_CACHE, 1);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL2, tmp);
++
++	tmp = mmGCVM_L2_CNTL3_DEFAULT;
++	if (adev->gmc.translate_further) {
++		tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL3, BANK_SELECT, 12);
++		tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL3,
++				    L2_CACHE_BIGK_FRAGMENT_SIZE, 9);
++	} else {
++		tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL3, BANK_SELECT, 9);
++		tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL3,
++				    L2_CACHE_BIGK_FRAGMENT_SIZE, 6);
 +	}
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL3, tmp);
++
++	tmp = mmGCVM_L2_CNTL4_DEFAULT;
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL4, VMC_TAP_PDE_REQUEST_PHYSICAL, 0);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL4, VMC_TAP_PTE_REQUEST_PHYSICAL, 0);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL4, tmp);
++
++	tmp = mmGCVM_L2_CNTL5_DEFAULT;
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_CNTL5, L2_CACHE_SMALLK_FRAGMENT_SIZE, 0);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL5, tmp);
++}
++
++static void gfxhub_v2_1_enable_system_domain(struct amdgpu_device *adev)
++{
++	uint32_t tmp;
++
++	tmp = RREG32_SOC15(GC, 0, mmGCVM_CONTEXT0_CNTL);
++	tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT0_CNTL, ENABLE_CONTEXT, 1);
++	tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT0_CNTL, PAGE_TABLE_DEPTH, 0);
++	tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT0_CNTL,
++			    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT, 0);
++	WREG32_SOC15(GC, 0, mmGCVM_CONTEXT0_CNTL, tmp);
++}
++
++static void gfxhub_v2_1_disable_identity_aperture(struct amdgpu_device *adev)
++{
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CONTEXT1_IDENTITY_APERTURE_LOW_ADDR_LO32,
++		     0xFFFFFFFF);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CONTEXT1_IDENTITY_APERTURE_LOW_ADDR_HI32,
++		     0x0000000F);
++
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CONTEXT1_IDENTITY_APERTURE_HIGH_ADDR_LO32,
++		     0);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CONTEXT1_IDENTITY_APERTURE_HIGH_ADDR_HI32,
++		     0);
++
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CONTEXT_IDENTITY_PHYSICAL_OFFSET_LO32, 0);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CONTEXT_IDENTITY_PHYSICAL_OFFSET_HI32, 0);
++
++}
++
++static void gfxhub_v2_1_setup_vmid_config(struct amdgpu_device *adev)
++{
++	int i;
++	uint32_t tmp;
++
++	for (i = 0; i <= 14; i++) {
++		tmp = RREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL, i);
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, ENABLE_CONTEXT, 1);
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL, PAGE_TABLE_DEPTH,
++				    adev->vm_manager.num_level);
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
++				RANGE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
++				DUMMY_PAGE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
++				PDE0_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
++				VALID_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
++				READ_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
++				WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
++				EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, 1);
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
++				PAGE_TABLE_BLOCK_SIZE,
++				adev->vm_manager.block_size - 9);
++		/* Send no-retry XNACK on fault to suppress VM fault storm. */
++		tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
++				    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
++				    !amdgpu_noretry);
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_CNTL, i, tmp);
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_LO32, i*2, 0);
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_START_ADDR_HI32, i*2, 0);
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_END_ADDR_LO32,  i*2,
++			lower_32_bits(adev->vm_manager.max_pfn - 1));
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT1_PAGE_TABLE_END_ADDR_HI32, i*2,
++			upper_32_bits(adev->vm_manager.max_pfn - 1));
++	}
++}
++
++static void gfxhub_v2_1_program_invalidation(struct amdgpu_device *adev)
++{
++	unsigned i;
++
++	for (i = 0 ; i < 18; ++i) {
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_INVALIDATE_ENG0_ADDR_RANGE_LO32,
++				    2 * i, 0xffffffff);
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_INVALIDATE_ENG0_ADDR_RANGE_HI32,
++				    2 * i, 0x1f);
++	}
++}
++
++int gfxhub_v2_1_gart_enable(struct amdgpu_device *adev)
++{
++	if (amdgpu_sriov_vf(adev)) {
++		/*
++		 * GCMC_VM_FB_LOCATION_BASE/TOP is NULL for VF, becuase they are
++		 * VF copy registers so vbios post doesn't program them, for
++		 * SRIOV driver need to program them
++		 */
++		WREG32_SOC15(GC, 0, mmGCMC_VM_FB_LOCATION_BASE,
++			     adev->gmc.vram_start >> 24);
++		WREG32_SOC15(GC, 0, mmGCMC_VM_FB_LOCATION_TOP,
++			     adev->gmc.vram_end >> 24);
++	}
++
++	/* GART Enable. */
++	gfxhub_v2_1_init_gart_aperture_regs(adev);
++	gfxhub_v2_1_init_system_aperture_regs(adev);
++	gfxhub_v2_1_init_tlb_regs(adev);
++	gfxhub_v2_1_init_cache_regs(adev);
++
++	gfxhub_v2_1_enable_system_domain(adev);
++	gfxhub_v2_1_disable_identity_aperture(adev);
++	gfxhub_v2_1_setup_vmid_config(adev);
++	gfxhub_v2_1_program_invalidation(adev);
++
 +	return 0;
 +}
-diff --git a/drivers/gpu/drm/amd/include/sienna_cichlid_ip_offset.h b/drivers/gpu/drm/amd/include/sienna_cichlid_ip_offset.h
++
++void gfxhub_v2_1_gart_disable(struct amdgpu_device *adev)
++{
++	u32 tmp;
++	u32 i;
++
++	/* Disable all tables */
++	for (i = 0; i < 16; i++)
++		WREG32_SOC15_OFFSET(GC, 0, mmGCVM_CONTEXT0_CNTL, i, 0);
++
++	/* Setup TLB control */
++	tmp = RREG32_SOC15(GC, 0, mmGCMC_VM_MX_L1_TLB_CNTL);
++	tmp = REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL, ENABLE_L1_TLB, 0);
++	tmp = REG_SET_FIELD(tmp, GCMC_VM_MX_L1_TLB_CNTL,
++			    ENABLE_ADVANCED_DRIVER_MODEL, 0);
++	WREG32_SOC15(GC, 0, mmGCMC_VM_MX_L1_TLB_CNTL, tmp);
++
++	/* Setup L2 cache */
++	WREG32_FIELD15(GC, 0, GCVM_L2_CNTL, ENABLE_L2_CACHE, 0);
++	WREG32_SOC15(GC, 0, mmGCVM_L2_CNTL3, 0);
++}
++
++/**
++ * gfxhub_v2_1_set_fault_enable_default - update GART/VM fault handling
++ *
++ * @adev: amdgpu_device pointer
++ * @value: true redirects VM faults to the default page
++ */
++void gfxhub_v2_1_set_fault_enable_default(struct amdgpu_device *adev,
++					  bool value)
++{
++	u32 tmp;
++	tmp = RREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++			    RANGE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++			    PDE0_PROTECTION_FAULT_ENABLE_DEFAULT, value);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++			    PDE1_PROTECTION_FAULT_ENABLE_DEFAULT, value);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++			    PDE2_PROTECTION_FAULT_ENABLE_DEFAULT, value);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++			    TRANSLATE_FURTHER_PROTECTION_FAULT_ENABLE_DEFAULT,
++			    value);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++			    NACK_PROTECTION_FAULT_ENABLE_DEFAULT, value);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++			    DUMMY_PAGE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++			    VALID_PROTECTION_FAULT_ENABLE_DEFAULT, value);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++			    READ_PROTECTION_FAULT_ENABLE_DEFAULT, value);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++			    WRITE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
++	tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++			    EXECUTE_PROTECTION_FAULT_ENABLE_DEFAULT, value);
++	if (!value) {
++		tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++				CRASH_ON_NO_RETRY_FAULT, 1);
++		tmp = REG_SET_FIELD(tmp, GCVM_L2_PROTECTION_FAULT_CNTL,
++				CRASH_ON_RETRY_FAULT, 1);
++	}
++	WREG32_SOC15(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL, tmp);
++}
++
++void gfxhub_v2_1_init(struct amdgpu_device *adev)
++{
++	struct amdgpu_vmhub *hub = &adev->vmhub[AMDGPU_GFXHUB_0];
++
++	hub->ctx0_ptb_addr_lo32 =
++		SOC15_REG_OFFSET(GC, 0,
++				 mmGCVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_LO32);
++	hub->ctx0_ptb_addr_hi32 =
++		SOC15_REG_OFFSET(GC, 0,
++				 mmGCVM_CONTEXT0_PAGE_TABLE_BASE_ADDR_HI32);
++	hub->vm_inv_eng0_sem =
++		SOC15_REG_OFFSET(GC, 0, mmGCVM_INVALIDATE_ENG0_SEM);
++	hub->vm_inv_eng0_req =
++		SOC15_REG_OFFSET(GC, 0, mmGCVM_INVALIDATE_ENG0_REQ);
++	hub->vm_inv_eng0_ack =
++		SOC15_REG_OFFSET(GC, 0, mmGCVM_INVALIDATE_ENG0_ACK);
++	hub->vm_context0_cntl =
++		SOC15_REG_OFFSET(GC, 0, mmGCVM_CONTEXT0_CNTL);
++	hub->vm_l2_pro_fault_status =
++		SOC15_REG_OFFSET(GC, 0, mmGCVM_L2_PROTECTION_FAULT_STATUS);
++	hub->vm_l2_pro_fault_cntl =
++		SOC15_REG_OFFSET(GC, 0, mmGCVM_L2_PROTECTION_FAULT_CNTL);
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.h b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.h
 new file mode 100644
-index 000000000000..06800c6fa049
+index 000000000000..e385ae024a47
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/include/sienna_cichlid_ip_offset.h
-@@ -0,0 +1,1168 @@
++++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.h
+@@ -0,0 +1,37 @@
 +/*
-+ * Copyright (C) 2019  Advanced Micro Devices, Inc.
++ * Copyright 2019 Advanced Micro Devices, Inc.
 + *
 + * Permission is hereby granted, free of charge, to any person obtaining a
 + * copy of this software and associated documentation files (the "Software"),
@@ -221,1162 +515,31 @@ index 000000000000..06800c6fa049
 + * and/or sell copies of the Software, and to permit persons to whom the
 + * Software is furnished to do so, subject to the following conditions:
 + *
-+ * The above copyright notice and this permission notice shall be included
-+ * in all copies or substantial portions of the Software.
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
 + *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-+ * OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 + * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
-+ * AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
 + */
-+#ifndef _sienna_cichlid_ip_offset_HEADER
-+#define _sienna_cichlid_ip_offset_HEADER
 +
-+#define MAX_INSTANCE                                        7
-+#define MAX_SEGMENT                                         5
-+
-+
-+struct IP_BASE_INSTANCE
-+{
-+    unsigned int segment[MAX_SEGMENT];
-+};
-+
-+struct IP_BASE
-+{
-+    struct IP_BASE_INSTANCE instance[MAX_INSTANCE];
-+};
-+
-+
-+static const struct IP_BASE ATHUB_BASE = { { { { 0x00000C00, 0x02408C00, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE CLK_BASE = { { { { 0x00016C00, 0x02401800, 0, 0, 0 } },
-+                                        { { 0x00016E00, 0x02401C00, 0, 0, 0 } },
-+                                        { { 0x00017000, 0x02402000, 0, 0, 0 } },
-+                                        { { 0x00017200, 0x02402400, 0, 0, 0 } },
-+                                        { { 0x0001B000, 0x0242D800, 0, 0, 0 } },
-+                                        { { 0x0001B200, 0x0242DC00, 0, 0, 0 } },
-+                                        { { 0x0001B400, 0x0242E000, 0, 0, 0 } } } };
-+static const struct IP_BASE DF_BASE = { { { { 0x00007000, 0x0240B800, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE DIO_BASE = { { { { 0x02404000, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE DCN_BASE = { { { { 0x00000012, 0x000000C0, 0x000034C0, 0x00009000, 0x02403C00 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE DPCS_BASE = { { { { 0x00000012, 0x000000C0, 0x000034C0, 0x00009000, 0x02403C00 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE FUSE_BASE = { { { { 0x00017400, 0x02401400, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE GC_BASE = { { { { 0x00001260, 0x0000A000, 0x0001C000, 0x02402C00, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE HDA_BASE = { { { { 0x004C0000, 0x02404800, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE HDP_BASE = { { { { 0x00000F20, 0x0240A400, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE MMHUB_BASE = { { { { 0x0001A000, 0x02408800, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE MP0_BASE = { { { { 0x00016000, 0x00DC0000, 0x00E00000, 0x00E40000, 0x0243FC00 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE MP1_BASE = { { { { 0x00016000, 0x00DC0000, 0x00E00000, 0x00E40000, 0x0243FC00 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE NBIO_BASE = { { { { 0x00000000, 0x00000014, 0x00000D20, 0x00010400, 0x0241B000 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE OSSSYS_BASE = { { { { 0x000010A0, 0x0240A000, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE PCIE0_BASE = { { { { 0x00000000, 0x00000014, 0x00000D20, 0x00010400, 0x0241B000 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE SDMA0_BASE = { { { { 0x00001260, 0x0000A000, 0x0001C000, 0x02402C00, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE SDMA1_BASE = { { { { 0x00001260, 0x0000A000, 0x0001C000, 0x02402C00, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE SMUIO_BASE = { { { { 0x00016800, 0x00016A00, 0x00440000, 0x02401000, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE THM_BASE = { { { { 0x00016600, 0x02400C00, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE UMC_BASE = { { { { 0x00014000, 0x02425800, 0, 0, 0 } },
-+                                        { { 0x00054000, 0x02425C00, 0, 0, 0 } },
-+                                        { { 0x00094000, 0x02426000, 0, 0, 0 } },
-+                                        { { 0x000D4000, 0x02426400, 0, 0, 0 } },
-+                                        { { 0x00114000, 0x02426800, 0, 0, 0 } },
-+                                        { { 0x00154000, 0x02426C00, 0, 0, 0 } },
-+                                        { { 0x00194000, 0x02427000, 0, 0, 0 } } } };
-+static const struct IP_BASE USB0_BASE = { { { { 0x0242A800, 0x05B00000, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+static const struct IP_BASE VCN_BASE = { { { { 0x00007800, 0x00007E00, 0x02403000, 0, 0 } },
-+                                        { { 0x00007B00, 0x00012000, 0x02445000, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } },
-+                                        { { 0, 0, 0, 0, 0 } } } };
-+
-+
-+#define ATHUB_BASE__INST0_SEG0                     0x00000C00
-+#define ATHUB_BASE__INST0_SEG1                     0x02408C00
-+#define ATHUB_BASE__INST0_SEG2                     0
-+#define ATHUB_BASE__INST0_SEG3                     0
-+#define ATHUB_BASE__INST0_SEG4                     0
-+
-+#define ATHUB_BASE__INST1_SEG0                     0
-+#define ATHUB_BASE__INST1_SEG1                     0
-+#define ATHUB_BASE__INST1_SEG2                     0
-+#define ATHUB_BASE__INST1_SEG3                     0
-+#define ATHUB_BASE__INST1_SEG4                     0
-+
-+#define ATHUB_BASE__INST2_SEG0                     0
-+#define ATHUB_BASE__INST2_SEG1                     0
-+#define ATHUB_BASE__INST2_SEG2                     0
-+#define ATHUB_BASE__INST2_SEG3                     0
-+#define ATHUB_BASE__INST2_SEG4                     0
-+
-+#define ATHUB_BASE__INST3_SEG0                     0
-+#define ATHUB_BASE__INST3_SEG1                     0
-+#define ATHUB_BASE__INST3_SEG2                     0
-+#define ATHUB_BASE__INST3_SEG3                     0
-+#define ATHUB_BASE__INST3_SEG4                     0
-+
-+#define ATHUB_BASE__INST4_SEG0                     0
-+#define ATHUB_BASE__INST4_SEG1                     0
-+#define ATHUB_BASE__INST4_SEG2                     0
-+#define ATHUB_BASE__INST4_SEG3                     0
-+#define ATHUB_BASE__INST4_SEG4                     0
-+
-+#define ATHUB_BASE__INST5_SEG0                     0
-+#define ATHUB_BASE__INST5_SEG1                     0
-+#define ATHUB_BASE__INST5_SEG2                     0
-+#define ATHUB_BASE__INST5_SEG3                     0
-+#define ATHUB_BASE__INST5_SEG4                     0
-+
-+#define ATHUB_BASE__INST6_SEG0                     0
-+#define ATHUB_BASE__INST6_SEG1                     0
-+#define ATHUB_BASE__INST6_SEG2                     0
-+#define ATHUB_BASE__INST6_SEG3                     0
-+#define ATHUB_BASE__INST6_SEG4                     0
-+
-+#define CLK_BASE__INST0_SEG0                       0x00016C00
-+#define CLK_BASE__INST0_SEG1                       0x02401800
-+#define CLK_BASE__INST0_SEG2                       0
-+#define CLK_BASE__INST0_SEG3                       0
-+#define CLK_BASE__INST0_SEG4                       0
-+
-+#define CLK_BASE__INST1_SEG0                       0x00016E00
-+#define CLK_BASE__INST1_SEG1                       0x02401C00
-+#define CLK_BASE__INST1_SEG2                       0
-+#define CLK_BASE__INST1_SEG3                       0
-+#define CLK_BASE__INST1_SEG4                       0
-+
-+#define CLK_BASE__INST2_SEG0                       0x00017000
-+#define CLK_BASE__INST2_SEG1                       0x02402000
-+#define CLK_BASE__INST2_SEG2                       0
-+#define CLK_BASE__INST2_SEG3                       0
-+#define CLK_BASE__INST2_SEG4                       0
-+
-+#define CLK_BASE__INST3_SEG0                       0x00017200
-+#define CLK_BASE__INST3_SEG1                       0x02402400
-+#define CLK_BASE__INST3_SEG2                       0
-+#define CLK_BASE__INST3_SEG3                       0
-+#define CLK_BASE__INST3_SEG4                       0
-+
-+#define CLK_BASE__INST4_SEG0                       0x0001B000
-+#define CLK_BASE__INST4_SEG1                       0x0242D800
-+#define CLK_BASE__INST4_SEG2                       0
-+#define CLK_BASE__INST4_SEG3                       0
-+#define CLK_BASE__INST4_SEG4                       0
-+
-+#define CLK_BASE__INST5_SEG0                       0x0001B200
-+#define CLK_BASE__INST5_SEG1                       0x0242DC00
-+#define CLK_BASE__INST5_SEG2                       0
-+#define CLK_BASE__INST5_SEG3                       0
-+#define CLK_BASE__INST5_SEG4                       0
-+
-+#define CLK_BASE__INST6_SEG0                       0x0001B400
-+#define CLK_BASE__INST6_SEG1                       0x0242E000
-+#define CLK_BASE__INST6_SEG2                       0
-+#define CLK_BASE__INST6_SEG3                       0
-+#define CLK_BASE__INST6_SEG4                       0
-+
-+#define DF_BASE__INST0_SEG0                        0x00007000
-+#define DF_BASE__INST0_SEG1                        0x0240B800
-+#define DF_BASE__INST0_SEG2                        0
-+#define DF_BASE__INST0_SEG3                        0
-+#define DF_BASE__INST0_SEG4                        0
-+
-+#define DF_BASE__INST1_SEG0                        0
-+#define DF_BASE__INST1_SEG1                        0
-+#define DF_BASE__INST1_SEG2                        0
-+#define DF_BASE__INST1_SEG3                        0
-+#define DF_BASE__INST1_SEG4                        0
-+
-+#define DF_BASE__INST2_SEG0                        0
-+#define DF_BASE__INST2_SEG1                        0
-+#define DF_BASE__INST2_SEG2                        0
-+#define DF_BASE__INST2_SEG3                        0
-+#define DF_BASE__INST2_SEG4                        0
-+
-+#define DF_BASE__INST3_SEG0                        0
-+#define DF_BASE__INST3_SEG1                        0
-+#define DF_BASE__INST3_SEG2                        0
-+#define DF_BASE__INST3_SEG3                        0
-+#define DF_BASE__INST3_SEG4                        0
-+
-+#define DF_BASE__INST4_SEG0                        0
-+#define DF_BASE__INST4_SEG1                        0
-+#define DF_BASE__INST4_SEG2                        0
-+#define DF_BASE__INST4_SEG3                        0
-+#define DF_BASE__INST4_SEG4                        0
-+
-+#define DF_BASE__INST5_SEG0                        0
-+#define DF_BASE__INST5_SEG1                        0
-+#define DF_BASE__INST5_SEG2                        0
-+#define DF_BASE__INST5_SEG3                        0
-+#define DF_BASE__INST5_SEG4                        0
-+
-+#define DF_BASE__INST6_SEG0                        0
-+#define DF_BASE__INST6_SEG1                        0
-+#define DF_BASE__INST6_SEG2                        0
-+#define DF_BASE__INST6_SEG3                        0
-+#define DF_BASE__INST6_SEG4                        0
-+
-+#define DIO_BASE__INST0_SEG0                       0x02404000
-+#define DIO_BASE__INST0_SEG1                       0
-+#define DIO_BASE__INST0_SEG2                       0
-+#define DIO_BASE__INST0_SEG3                       0
-+#define DIO_BASE__INST0_SEG4                       0
-+
-+#define DIO_BASE__INST1_SEG0                       0
-+#define DIO_BASE__INST1_SEG1                       0
-+#define DIO_BASE__INST1_SEG2                       0
-+#define DIO_BASE__INST1_SEG3                       0
-+#define DIO_BASE__INST1_SEG4                       0
-+
-+#define DIO_BASE__INST2_SEG0                       0
-+#define DIO_BASE__INST2_SEG1                       0
-+#define DIO_BASE__INST2_SEG2                       0
-+#define DIO_BASE__INST2_SEG3                       0
-+#define DIO_BASE__INST2_SEG4                       0
-+
-+#define DIO_BASE__INST3_SEG0                       0
-+#define DIO_BASE__INST3_SEG1                       0
-+#define DIO_BASE__INST3_SEG2                       0
-+#define DIO_BASE__INST3_SEG3                       0
-+#define DIO_BASE__INST3_SEG4                       0
-+
-+#define DIO_BASE__INST4_SEG0                       0
-+#define DIO_BASE__INST4_SEG1                       0
-+#define DIO_BASE__INST4_SEG2                       0
-+#define DIO_BASE__INST4_SEG3                       0
-+#define DIO_BASE__INST4_SEG4                       0
-+
-+#define DIO_BASE__INST5_SEG0                       0
-+#define DIO_BASE__INST5_SEG1                       0
-+#define DIO_BASE__INST5_SEG2                       0
-+#define DIO_BASE__INST5_SEG3                       0
-+#define DIO_BASE__INST5_SEG4                       0
-+
-+#define DIO_BASE__INST6_SEG0                       0
-+#define DIO_BASE__INST6_SEG1                       0
-+#define DIO_BASE__INST6_SEG2                       0
-+#define DIO_BASE__INST6_SEG3                       0
-+#define DIO_BASE__INST6_SEG4                       0
-+
-+#define DCN_BASE__INST0_SEG0                       0x00000012
-+#define DCN_BASE__INST0_SEG1                       0x000000C0
-+#define DCN_BASE__INST0_SEG2                       0x000034C0
-+#define DCN_BASE__INST0_SEG3                       0x00009000
-+#define DCN_BASE__INST0_SEG4                       0x02403C00
-+
-+#define DCN_BASE__INST1_SEG0                       0
-+#define DCN_BASE__INST1_SEG1                       0
-+#define DCN_BASE__INST1_SEG2                       0
-+#define DCN_BASE__INST1_SEG3                       0
-+#define DCN_BASE__INST1_SEG4                       0
-+
-+#define DCN_BASE__INST2_SEG0                       0
-+#define DCN_BASE__INST2_SEG1                       0
-+#define DCN_BASE__INST2_SEG2                       0
-+#define DCN_BASE__INST2_SEG3                       0
-+#define DCN_BASE__INST2_SEG4                       0
-+
-+#define DCN_BASE__INST3_SEG0                       0
-+#define DCN_BASE__INST3_SEG1                       0
-+#define DCN_BASE__INST3_SEG2                       0
-+#define DCN_BASE__INST3_SEG3                       0
-+#define DCN_BASE__INST3_SEG4                       0
-+
-+#define DCN_BASE__INST4_SEG0                       0
-+#define DCN_BASE__INST4_SEG1                       0
-+#define DCN_BASE__INST4_SEG2                       0
-+#define DCN_BASE__INST4_SEG3                       0
-+#define DCN_BASE__INST4_SEG4                       0
-+
-+#define DCN_BASE__INST5_SEG0                       0
-+#define DCN_BASE__INST5_SEG1                       0
-+#define DCN_BASE__INST5_SEG2                       0
-+#define DCN_BASE__INST5_SEG3                       0
-+#define DCN_BASE__INST5_SEG4                       0
-+
-+#define DCN_BASE__INST6_SEG0                       0
-+#define DCN_BASE__INST6_SEG1                       0
-+#define DCN_BASE__INST6_SEG2                       0
-+#define DCN_BASE__INST6_SEG3                       0
-+#define DCN_BASE__INST6_SEG4                       0
-+
-+#define DPCS_BASE__INST0_SEG0                      0x00000012
-+#define DPCS_BASE__INST0_SEG1                      0x000000C0
-+#define DPCS_BASE__INST0_SEG2                      0x000034C0
-+#define DPCS_BASE__INST0_SEG3                      0x00009000
-+#define DPCS_BASE__INST0_SEG4                      0x02403C00
-+
-+#define DPCS_BASE__INST1_SEG0                      0
-+#define DPCS_BASE__INST1_SEG1                      0
-+#define DPCS_BASE__INST1_SEG2                      0
-+#define DPCS_BASE__INST1_SEG3                      0
-+#define DPCS_BASE__INST1_SEG4                      0
-+
-+#define DPCS_BASE__INST2_SEG0                      0
-+#define DPCS_BASE__INST2_SEG1                      0
-+#define DPCS_BASE__INST2_SEG2                      0
-+#define DPCS_BASE__INST2_SEG3                      0
-+#define DPCS_BASE__INST2_SEG4                      0
-+
-+#define DPCS_BASE__INST3_SEG0                      0
-+#define DPCS_BASE__INST3_SEG1                      0
-+#define DPCS_BASE__INST3_SEG2                      0
-+#define DPCS_BASE__INST3_SEG3                      0
-+#define DPCS_BASE__INST3_SEG4                      0
-+
-+#define DPCS_BASE__INST4_SEG0                      0
-+#define DPCS_BASE__INST4_SEG1                      0
-+#define DPCS_BASE__INST4_SEG2                      0
-+#define DPCS_BASE__INST4_SEG3                      0
-+#define DPCS_BASE__INST4_SEG4                      0
-+
-+#define DPCS_BASE__INST5_SEG0                      0
-+#define DPCS_BASE__INST5_SEG1                      0
-+#define DPCS_BASE__INST5_SEG2                      0
-+#define DPCS_BASE__INST5_SEG3                      0
-+#define DPCS_BASE__INST5_SEG4                      0
-+
-+#define DPCS_BASE__INST6_SEG0                      0
-+#define DPCS_BASE__INST6_SEG1                      0
-+#define DPCS_BASE__INST6_SEG2                      0
-+#define DPCS_BASE__INST6_SEG3                      0
-+#define DPCS_BASE__INST6_SEG4                      0
-+
-+#define FUSE_BASE__INST0_SEG0                      0x00017400
-+#define FUSE_BASE__INST0_SEG1                      0x02401400
-+#define FUSE_BASE__INST0_SEG2                      0
-+#define FUSE_BASE__INST0_SEG3                      0
-+#define FUSE_BASE__INST0_SEG4                      0
-+
-+#define FUSE_BASE__INST1_SEG0                      0
-+#define FUSE_BASE__INST1_SEG1                      0
-+#define FUSE_BASE__INST1_SEG2                      0
-+#define FUSE_BASE__INST1_SEG3                      0
-+#define FUSE_BASE__INST1_SEG4                      0
-+
-+#define FUSE_BASE__INST2_SEG0                      0
-+#define FUSE_BASE__INST2_SEG1                      0
-+#define FUSE_BASE__INST2_SEG2                      0
-+#define FUSE_BASE__INST2_SEG3                      0
-+#define FUSE_BASE__INST2_SEG4                      0
-+
-+#define FUSE_BASE__INST3_SEG0                      0
-+#define FUSE_BASE__INST3_SEG1                      0
-+#define FUSE_BASE__INST3_SEG2                      0
-+#define FUSE_BASE__INST3_SEG3                      0
-+#define FUSE_BASE__INST3_SEG4                      0
-+
-+#define FUSE_BASE__INST4_SEG0                      0
-+#define FUSE_BASE__INST4_SEG1                      0
-+#define FUSE_BASE__INST4_SEG2                      0
-+#define FUSE_BASE__INST4_SEG3                      0
-+#define FUSE_BASE__INST4_SEG4                      0
-+
-+#define FUSE_BASE__INST5_SEG0                      0
-+#define FUSE_BASE__INST5_SEG1                      0
-+#define FUSE_BASE__INST5_SEG2                      0
-+#define FUSE_BASE__INST5_SEG3                      0
-+#define FUSE_BASE__INST5_SEG4                      0
-+
-+#define FUSE_BASE__INST6_SEG0                      0
-+#define FUSE_BASE__INST6_SEG1                      0
-+#define FUSE_BASE__INST6_SEG2                      0
-+#define FUSE_BASE__INST6_SEG3                      0
-+#define FUSE_BASE__INST6_SEG4                      0
-+
-+#define GC_BASE__INST0_SEG0                        0x00001260
-+#define GC_BASE__INST0_SEG1                        0x0000A000
-+#define GC_BASE__INST0_SEG2                        0x0001C000
-+#define GC_BASE__INST0_SEG3                        0x02402C00
-+#define GC_BASE__INST0_SEG4                        0
-+
-+#define GC_BASE__INST1_SEG0                        0
-+#define GC_BASE__INST1_SEG1                        0
-+#define GC_BASE__INST1_SEG2                        0
-+#define GC_BASE__INST1_SEG3                        0
-+#define GC_BASE__INST1_SEG4                        0
-+
-+#define GC_BASE__INST2_SEG0                        0
-+#define GC_BASE__INST2_SEG1                        0
-+#define GC_BASE__INST2_SEG2                        0
-+#define GC_BASE__INST2_SEG3                        0
-+#define GC_BASE__INST2_SEG4                        0
-+
-+#define GC_BASE__INST3_SEG0                        0
-+#define GC_BASE__INST3_SEG1                        0
-+#define GC_BASE__INST3_SEG2                        0
-+#define GC_BASE__INST3_SEG3                        0
-+#define GC_BASE__INST3_SEG4                        0
-+
-+#define GC_BASE__INST4_SEG0                        0
-+#define GC_BASE__INST4_SEG1                        0
-+#define GC_BASE__INST4_SEG2                        0
-+#define GC_BASE__INST4_SEG3                        0
-+#define GC_BASE__INST4_SEG4                        0
-+
-+#define GC_BASE__INST5_SEG0                        0
-+#define GC_BASE__INST5_SEG1                        0
-+#define GC_BASE__INST5_SEG2                        0
-+#define GC_BASE__INST5_SEG3                        0
-+#define GC_BASE__INST5_SEG4                        0
-+
-+#define GC_BASE__INST6_SEG0                        0
-+#define GC_BASE__INST6_SEG1                        0
-+#define GC_BASE__INST6_SEG2                        0
-+#define GC_BASE__INST6_SEG3                        0
-+#define GC_BASE__INST6_SEG4                        0
-+
-+#define HDA_BASE__INST0_SEG0                       0x004C0000
-+#define HDA_BASE__INST0_SEG1                       0x02404800
-+#define HDA_BASE__INST0_SEG2                       0
-+#define HDA_BASE__INST0_SEG3                       0
-+#define HDA_BASE__INST0_SEG4                       0
-+
-+#define HDA_BASE__INST1_SEG0                       0
-+#define HDA_BASE__INST1_SEG1                       0
-+#define HDA_BASE__INST1_SEG2                       0
-+#define HDA_BASE__INST1_SEG3                       0
-+#define HDA_BASE__INST1_SEG4                       0
-+
-+#define HDA_BASE__INST2_SEG0                       0
-+#define HDA_BASE__INST2_SEG1                       0
-+#define HDA_BASE__INST2_SEG2                       0
-+#define HDA_BASE__INST2_SEG3                       0
-+#define HDA_BASE__INST2_SEG4                       0
-+
-+#define HDA_BASE__INST3_SEG0                       0
-+#define HDA_BASE__INST3_SEG1                       0
-+#define HDA_BASE__INST3_SEG2                       0
-+#define HDA_BASE__INST3_SEG3                       0
-+#define HDA_BASE__INST3_SEG4                       0
-+
-+#define HDA_BASE__INST4_SEG0                       0
-+#define HDA_BASE__INST4_SEG1                       0
-+#define HDA_BASE__INST4_SEG2                       0
-+#define HDA_BASE__INST4_SEG3                       0
-+#define HDA_BASE__INST4_SEG4                       0
-+
-+#define HDA_BASE__INST5_SEG0                       0
-+#define HDA_BASE__INST5_SEG1                       0
-+#define HDA_BASE__INST5_SEG2                       0
-+#define HDA_BASE__INST5_SEG3                       0
-+#define HDA_BASE__INST5_SEG4                       0
-+
-+#define HDA_BASE__INST6_SEG0                       0
-+#define HDA_BASE__INST6_SEG1                       0
-+#define HDA_BASE__INST6_SEG2                       0
-+#define HDA_BASE__INST6_SEG3                       0
-+#define HDA_BASE__INST6_SEG4                       0
-+
-+#define HDP_BASE__INST0_SEG0                       0x00000F20
-+#define HDP_BASE__INST0_SEG1                       0x0240A400
-+#define HDP_BASE__INST0_SEG2                       0
-+#define HDP_BASE__INST0_SEG3                       0
-+#define HDP_BASE__INST0_SEG4                       0
-+
-+#define HDP_BASE__INST1_SEG0                       0
-+#define HDP_BASE__INST1_SEG1                       0
-+#define HDP_BASE__INST1_SEG2                       0
-+#define HDP_BASE__INST1_SEG3                       0
-+#define HDP_BASE__INST1_SEG4                       0
-+
-+#define HDP_BASE__INST2_SEG0                       0
-+#define HDP_BASE__INST2_SEG1                       0
-+#define HDP_BASE__INST2_SEG2                       0
-+#define HDP_BASE__INST2_SEG3                       0
-+#define HDP_BASE__INST2_SEG4                       0
-+
-+#define HDP_BASE__INST3_SEG0                       0
-+#define HDP_BASE__INST3_SEG1                       0
-+#define HDP_BASE__INST3_SEG2                       0
-+#define HDP_BASE__INST3_SEG3                       0
-+#define HDP_BASE__INST3_SEG4                       0
-+
-+#define HDP_BASE__INST4_SEG0                       0
-+#define HDP_BASE__INST4_SEG1                       0
-+#define HDP_BASE__INST4_SEG2                       0
-+#define HDP_BASE__INST4_SEG3                       0
-+#define HDP_BASE__INST4_SEG4                       0
-+
-+#define HDP_BASE__INST5_SEG0                       0
-+#define HDP_BASE__INST5_SEG1                       0
-+#define HDP_BASE__INST5_SEG2                       0
-+#define HDP_BASE__INST5_SEG3                       0
-+#define HDP_BASE__INST5_SEG4                       0
-+
-+#define HDP_BASE__INST6_SEG0                       0
-+#define HDP_BASE__INST6_SEG1                       0
-+#define HDP_BASE__INST6_SEG2                       0
-+#define HDP_BASE__INST6_SEG3                       0
-+#define HDP_BASE__INST6_SEG4                       0
-+
-+#define MMHUB_BASE__INST0_SEG0                     0x0001A000
-+#define MMHUB_BASE__INST0_SEG1                     0x02408800
-+#define MMHUB_BASE__INST0_SEG2                     0
-+#define MMHUB_BASE__INST0_SEG3                     0
-+#define MMHUB_BASE__INST0_SEG4                     0
-+
-+#define MMHUB_BASE__INST1_SEG0                     0
-+#define MMHUB_BASE__INST1_SEG1                     0
-+#define MMHUB_BASE__INST1_SEG2                     0
-+#define MMHUB_BASE__INST1_SEG3                     0
-+#define MMHUB_BASE__INST1_SEG4                     0
-+
-+#define MMHUB_BASE__INST2_SEG0                     0
-+#define MMHUB_BASE__INST2_SEG1                     0
-+#define MMHUB_BASE__INST2_SEG2                     0
-+#define MMHUB_BASE__INST2_SEG3                     0
-+#define MMHUB_BASE__INST2_SEG4                     0
-+
-+#define MMHUB_BASE__INST3_SEG0                     0
-+#define MMHUB_BASE__INST3_SEG1                     0
-+#define MMHUB_BASE__INST3_SEG2                     0
-+#define MMHUB_BASE__INST3_SEG3                     0
-+#define MMHUB_BASE__INST3_SEG4                     0
-+
-+#define MMHUB_BASE__INST4_SEG0                     0
-+#define MMHUB_BASE__INST4_SEG1                     0
-+#define MMHUB_BASE__INST4_SEG2                     0
-+#define MMHUB_BASE__INST4_SEG3                     0
-+#define MMHUB_BASE__INST4_SEG4                     0
-+
-+#define MMHUB_BASE__INST5_SEG0                     0
-+#define MMHUB_BASE__INST5_SEG1                     0
-+#define MMHUB_BASE__INST5_SEG2                     0
-+#define MMHUB_BASE__INST5_SEG3                     0
-+#define MMHUB_BASE__INST5_SEG4                     0
-+
-+#define MMHUB_BASE__INST6_SEG0                     0
-+#define MMHUB_BASE__INST6_SEG1                     0
-+#define MMHUB_BASE__INST6_SEG2                     0
-+#define MMHUB_BASE__INST6_SEG3                     0
-+#define MMHUB_BASE__INST6_SEG4                     0
-+
-+#define MP0_BASE__INST0_SEG0                       0x00016000
-+#define MP0_BASE__INST0_SEG1                       0x00DC0000
-+#define MP0_BASE__INST0_SEG2                       0x00E00000
-+#define MP0_BASE__INST0_SEG3                       0x00E40000
-+#define MP0_BASE__INST0_SEG4                       0x0243FC00
-+
-+#define MP0_BASE__INST1_SEG0                       0
-+#define MP0_BASE__INST1_SEG1                       0
-+#define MP0_BASE__INST1_SEG2                       0
-+#define MP0_BASE__INST1_SEG3                       0
-+#define MP0_BASE__INST1_SEG4                       0
-+
-+#define MP0_BASE__INST2_SEG0                       0
-+#define MP0_BASE__INST2_SEG1                       0
-+#define MP0_BASE__INST2_SEG2                       0
-+#define MP0_BASE__INST2_SEG3                       0
-+#define MP0_BASE__INST2_SEG4                       0
-+
-+#define MP0_BASE__INST3_SEG0                       0
-+#define MP0_BASE__INST3_SEG1                       0
-+#define MP0_BASE__INST3_SEG2                       0
-+#define MP0_BASE__INST3_SEG3                       0
-+#define MP0_BASE__INST3_SEG4                       0
-+
-+#define MP0_BASE__INST4_SEG0                       0
-+#define MP0_BASE__INST4_SEG1                       0
-+#define MP0_BASE__INST4_SEG2                       0
-+#define MP0_BASE__INST4_SEG3                       0
-+#define MP0_BASE__INST4_SEG4                       0
-+
-+#define MP0_BASE__INST5_SEG0                       0
-+#define MP0_BASE__INST5_SEG1                       0
-+#define MP0_BASE__INST5_SEG2                       0
-+#define MP0_BASE__INST5_SEG3                       0
-+#define MP0_BASE__INST5_SEG4                       0
-+
-+#define MP0_BASE__INST6_SEG0                       0
-+#define MP0_BASE__INST6_SEG1                       0
-+#define MP0_BASE__INST6_SEG2                       0
-+#define MP0_BASE__INST6_SEG3                       0
-+#define MP0_BASE__INST6_SEG4                       0
-+
-+#define MP1_BASE__INST0_SEG0                       0x00016000
-+#define MP1_BASE__INST0_SEG1                       0x00DC0000
-+#define MP1_BASE__INST0_SEG2                       0x00E00000
-+#define MP1_BASE__INST0_SEG3                       0x00E40000
-+#define MP1_BASE__INST0_SEG4                       0x0243FC00
-+
-+#define MP1_BASE__INST1_SEG0                       0
-+#define MP1_BASE__INST1_SEG1                       0
-+#define MP1_BASE__INST1_SEG2                       0
-+#define MP1_BASE__INST1_SEG3                       0
-+#define MP1_BASE__INST1_SEG4                       0
-+
-+#define MP1_BASE__INST2_SEG0                       0
-+#define MP1_BASE__INST2_SEG1                       0
-+#define MP1_BASE__INST2_SEG2                       0
-+#define MP1_BASE__INST2_SEG3                       0
-+#define MP1_BASE__INST2_SEG4                       0
-+
-+#define MP1_BASE__INST3_SEG0                       0
-+#define MP1_BASE__INST3_SEG1                       0
-+#define MP1_BASE__INST3_SEG2                       0
-+#define MP1_BASE__INST3_SEG3                       0
-+#define MP1_BASE__INST3_SEG4                       0
-+
-+#define MP1_BASE__INST4_SEG0                       0
-+#define MP1_BASE__INST4_SEG1                       0
-+#define MP1_BASE__INST4_SEG2                       0
-+#define MP1_BASE__INST4_SEG3                       0
-+#define MP1_BASE__INST4_SEG4                       0
-+
-+#define MP1_BASE__INST5_SEG0                       0
-+#define MP1_BASE__INST5_SEG1                       0
-+#define MP1_BASE__INST5_SEG2                       0
-+#define MP1_BASE__INST5_SEG3                       0
-+#define MP1_BASE__INST5_SEG4                       0
-+
-+#define MP1_BASE__INST6_SEG0                       0
-+#define MP1_BASE__INST6_SEG1                       0
-+#define MP1_BASE__INST6_SEG2                       0
-+#define MP1_BASE__INST6_SEG3                       0
-+#define MP1_BASE__INST6_SEG4                       0
-+
-+#define NBIO_BASE__INST0_SEG0                      0x00000000
-+#define NBIO_BASE__INST0_SEG1                      0x00000014
-+#define NBIO_BASE__INST0_SEG2                      0x00000D20
-+#define NBIO_BASE__INST0_SEG3                      0x00010400
-+#define NBIO_BASE__INST0_SEG4                      0x0241B000
-+
-+#define NBIO_BASE__INST1_SEG0                      0
-+#define NBIO_BASE__INST1_SEG1                      0
-+#define NBIO_BASE__INST1_SEG2                      0
-+#define NBIO_BASE__INST1_SEG3                      0
-+#define NBIO_BASE__INST1_SEG4                      0
-+
-+#define NBIO_BASE__INST2_SEG0                      0
-+#define NBIO_BASE__INST2_SEG1                      0
-+#define NBIO_BASE__INST2_SEG2                      0
-+#define NBIO_BASE__INST2_SEG3                      0
-+#define NBIO_BASE__INST2_SEG4                      0
-+
-+#define NBIO_BASE__INST3_SEG0                      0
-+#define NBIO_BASE__INST3_SEG1                      0
-+#define NBIO_BASE__INST3_SEG2                      0
-+#define NBIO_BASE__INST3_SEG3                      0
-+#define NBIO_BASE__INST3_SEG4                      0
-+
-+#define NBIO_BASE__INST4_SEG0                      0
-+#define NBIO_BASE__INST4_SEG1                      0
-+#define NBIO_BASE__INST4_SEG2                      0
-+#define NBIO_BASE__INST4_SEG3                      0
-+#define NBIO_BASE__INST4_SEG4                      0
-+
-+#define NBIO_BASE__INST5_SEG0                      0
-+#define NBIO_BASE__INST5_SEG1                      0
-+#define NBIO_BASE__INST5_SEG2                      0
-+#define NBIO_BASE__INST5_SEG3                      0
-+#define NBIO_BASE__INST5_SEG4                      0
-+
-+#define NBIO_BASE__INST6_SEG0                      0
-+#define NBIO_BASE__INST6_SEG1                      0
-+#define NBIO_BASE__INST6_SEG2                      0
-+#define NBIO_BASE__INST6_SEG3                      0
-+#define NBIO_BASE__INST6_SEG4                      0
-+
-+#define OSSSYS_BASE__INST0_SEG0                    0x000010A0
-+#define OSSSYS_BASE__INST0_SEG1                    0x0240A000
-+#define OSSSYS_BASE__INST0_SEG2                    0
-+#define OSSSYS_BASE__INST0_SEG3                    0
-+#define OSSSYS_BASE__INST0_SEG4                    0
-+
-+#define OSSSYS_BASE__INST1_SEG0                    0
-+#define OSSSYS_BASE__INST1_SEG1                    0
-+#define OSSSYS_BASE__INST1_SEG2                    0
-+#define OSSSYS_BASE__INST1_SEG3                    0
-+#define OSSSYS_BASE__INST1_SEG4                    0
-+
-+#define OSSSYS_BASE__INST2_SEG0                    0
-+#define OSSSYS_BASE__INST2_SEG1                    0
-+#define OSSSYS_BASE__INST2_SEG2                    0
-+#define OSSSYS_BASE__INST2_SEG3                    0
-+#define OSSSYS_BASE__INST2_SEG4                    0
-+
-+#define OSSSYS_BASE__INST3_SEG0                    0
-+#define OSSSYS_BASE__INST3_SEG1                    0
-+#define OSSSYS_BASE__INST3_SEG2                    0
-+#define OSSSYS_BASE__INST3_SEG3                    0
-+#define OSSSYS_BASE__INST3_SEG4                    0
-+
-+#define OSSSYS_BASE__INST4_SEG0                    0
-+#define OSSSYS_BASE__INST4_SEG1                    0
-+#define OSSSYS_BASE__INST4_SEG2                    0
-+#define OSSSYS_BASE__INST4_SEG3                    0
-+#define OSSSYS_BASE__INST4_SEG4                    0
-+
-+#define OSSSYS_BASE__INST5_SEG0                    0
-+#define OSSSYS_BASE__INST5_SEG1                    0
-+#define OSSSYS_BASE__INST5_SEG2                    0
-+#define OSSSYS_BASE__INST5_SEG3                    0
-+#define OSSSYS_BASE__INST5_SEG4                    0
-+
-+#define OSSSYS_BASE__INST6_SEG0                    0
-+#define OSSSYS_BASE__INST6_SEG1                    0
-+#define OSSSYS_BASE__INST6_SEG2                    0
-+#define OSSSYS_BASE__INST6_SEG3                    0
-+#define OSSSYS_BASE__INST6_SEG4                    0
-+
-+#define PCIE0_BASE__INST0_SEG0                     0x00000000
-+#define PCIE0_BASE__INST0_SEG1                     0x00000014
-+#define PCIE0_BASE__INST0_SEG2                     0x00000D20
-+#define PCIE0_BASE__INST0_SEG3                     0x00010400
-+#define PCIE0_BASE__INST0_SEG4                     0x0241B000
-+
-+#define PCIE0_BASE__INST1_SEG0                     0
-+#define PCIE0_BASE__INST1_SEG1                     0
-+#define PCIE0_BASE__INST1_SEG2                     0
-+#define PCIE0_BASE__INST1_SEG3                     0
-+#define PCIE0_BASE__INST1_SEG4                     0
-+
-+#define PCIE0_BASE__INST2_SEG0                     0
-+#define PCIE0_BASE__INST2_SEG1                     0
-+#define PCIE0_BASE__INST2_SEG2                     0
-+#define PCIE0_BASE__INST2_SEG3                     0
-+#define PCIE0_BASE__INST2_SEG4                     0
-+
-+#define PCIE0_BASE__INST3_SEG0                     0
-+#define PCIE0_BASE__INST3_SEG1                     0
-+#define PCIE0_BASE__INST3_SEG2                     0
-+#define PCIE0_BASE__INST3_SEG3                     0
-+#define PCIE0_BASE__INST3_SEG4                     0
-+
-+#define PCIE0_BASE__INST4_SEG0                     0
-+#define PCIE0_BASE__INST4_SEG1                     0
-+#define PCIE0_BASE__INST4_SEG2                     0
-+#define PCIE0_BASE__INST4_SEG3                     0
-+#define PCIE0_BASE__INST4_SEG4                     0
-+
-+#define PCIE0_BASE__INST5_SEG0                     0
-+#define PCIE0_BASE__INST5_SEG1                     0
-+#define PCIE0_BASE__INST5_SEG2                     0
-+#define PCIE0_BASE__INST5_SEG3                     0
-+#define PCIE0_BASE__INST5_SEG4                     0
-+
-+#define PCIE0_BASE__INST6_SEG0                     0
-+#define PCIE0_BASE__INST6_SEG1                     0
-+#define PCIE0_BASE__INST6_SEG2                     0
-+#define PCIE0_BASE__INST6_SEG3                     0
-+#define PCIE0_BASE__INST6_SEG4                     0
-+
-+#define SDMA0_BASE__INST0_SEG0                     0x00001260
-+#define SDMA0_BASE__INST0_SEG1                     0x0000A000
-+#define SDMA0_BASE__INST0_SEG2                     0x0001C000
-+#define SDMA0_BASE__INST0_SEG3                     0x02402C00
-+#define SDMA0_BASE__INST0_SEG4                     0
-+
-+#define SDMA0_BASE__INST1_SEG0                     0
-+#define SDMA0_BASE__INST1_SEG1                     0
-+#define SDMA0_BASE__INST1_SEG2                     0
-+#define SDMA0_BASE__INST1_SEG3                     0
-+#define SDMA0_BASE__INST1_SEG4                     0
-+
-+#define SDMA0_BASE__INST2_SEG0                     0
-+#define SDMA0_BASE__INST2_SEG1                     0
-+#define SDMA0_BASE__INST2_SEG2                     0
-+#define SDMA0_BASE__INST2_SEG3                     0
-+#define SDMA0_BASE__INST2_SEG4                     0
-+
-+#define SDMA0_BASE__INST3_SEG0                     0
-+#define SDMA0_BASE__INST3_SEG1                     0
-+#define SDMA0_BASE__INST3_SEG2                     0
-+#define SDMA0_BASE__INST3_SEG3                     0
-+#define SDMA0_BASE__INST3_SEG4                     0
-+
-+#define SDMA0_BASE__INST4_SEG0                     0
-+#define SDMA0_BASE__INST4_SEG1                     0
-+#define SDMA0_BASE__INST4_SEG2                     0
-+#define SDMA0_BASE__INST4_SEG3                     0
-+#define SDMA0_BASE__INST4_SEG4                     0
-+
-+#define SDMA0_BASE__INST5_SEG0                     0
-+#define SDMA0_BASE__INST5_SEG1                     0
-+#define SDMA0_BASE__INST5_SEG2                     0
-+#define SDMA0_BASE__INST5_SEG3                     0
-+#define SDMA0_BASE__INST5_SEG4                     0
-+
-+#define SDMA0_BASE__INST6_SEG0                     0
-+#define SDMA0_BASE__INST6_SEG1                     0
-+#define SDMA0_BASE__INST6_SEG2                     0
-+#define SDMA0_BASE__INST6_SEG3                     0
-+#define SDMA0_BASE__INST6_SEG4                     0
-+
-+#define SDMA1_BASE__INST0_SEG0                     0x00001260
-+#define SDMA1_BASE__INST0_SEG1                     0x0000A000
-+#define SDMA1_BASE__INST0_SEG2                     0x0001C000
-+#define SDMA1_BASE__INST0_SEG3                     0x02402C00
-+#define SDMA1_BASE__INST0_SEG4                     0
-+
-+#define SDMA1_BASE__INST1_SEG0                     0
-+#define SDMA1_BASE__INST1_SEG1                     0
-+#define SDMA1_BASE__INST1_SEG2                     0
-+#define SDMA1_BASE__INST1_SEG3                     0
-+#define SDMA1_BASE__INST1_SEG4                     0
-+
-+#define SDMA1_BASE__INST2_SEG0                     0
-+#define SDMA1_BASE__INST2_SEG1                     0
-+#define SDMA1_BASE__INST2_SEG2                     0
-+#define SDMA1_BASE__INST2_SEG3                     0
-+#define SDMA1_BASE__INST2_SEG4                     0
-+
-+#define SDMA1_BASE__INST3_SEG0                     0
-+#define SDMA1_BASE__INST3_SEG1                     0
-+#define SDMA1_BASE__INST3_SEG2                     0
-+#define SDMA1_BASE__INST3_SEG3                     0
-+#define SDMA1_BASE__INST3_SEG4                     0
-+
-+#define SDMA1_BASE__INST4_SEG0                     0
-+#define SDMA1_BASE__INST4_SEG1                     0
-+#define SDMA1_BASE__INST4_SEG2                     0
-+#define SDMA1_BASE__INST4_SEG3                     0
-+#define SDMA1_BASE__INST4_SEG4                     0
-+
-+#define SDMA1_BASE__INST5_SEG0                     0
-+#define SDMA1_BASE__INST5_SEG1                     0
-+#define SDMA1_BASE__INST5_SEG2                     0
-+#define SDMA1_BASE__INST5_SEG3                     0
-+#define SDMA1_BASE__INST5_SEG4                     0
-+
-+#define SDMA1_BASE__INST6_SEG0                     0
-+#define SDMA1_BASE__INST6_SEG1                     0
-+#define SDMA1_BASE__INST6_SEG2                     0
-+#define SDMA1_BASE__INST6_SEG3                     0
-+#define SDMA1_BASE__INST6_SEG4                     0
-+
-+#define SMUIO_BASE__INST0_SEG0                     0x00016800
-+#define SMUIO_BASE__INST0_SEG1                     0x00016A00
-+#define SMUIO_BASE__INST0_SEG2                     0x00440000
-+#define SMUIO_BASE__INST0_SEG3                     0x02401000
-+#define SMUIO_BASE__INST0_SEG4                     0
-+
-+#define SMUIO_BASE__INST1_SEG0                     0
-+#define SMUIO_BASE__INST1_SEG1                     0
-+#define SMUIO_BASE__INST1_SEG2                     0
-+#define SMUIO_BASE__INST1_SEG3                     0
-+#define SMUIO_BASE__INST1_SEG4                     0
-+
-+#define SMUIO_BASE__INST2_SEG0                     0
-+#define SMUIO_BASE__INST2_SEG1                     0
-+#define SMUIO_BASE__INST2_SEG2                     0
-+#define SMUIO_BASE__INST2_SEG3                     0
-+#define SMUIO_BASE__INST2_SEG4                     0
-+
-+#define SMUIO_BASE__INST3_SEG0                     0
-+#define SMUIO_BASE__INST3_SEG1                     0
-+#define SMUIO_BASE__INST3_SEG2                     0
-+#define SMUIO_BASE__INST3_SEG3                     0
-+#define SMUIO_BASE__INST3_SEG4                     0
-+
-+#define SMUIO_BASE__INST4_SEG0                     0
-+#define SMUIO_BASE__INST4_SEG1                     0
-+#define SMUIO_BASE__INST4_SEG2                     0
-+#define SMUIO_BASE__INST4_SEG3                     0
-+#define SMUIO_BASE__INST4_SEG4                     0
-+
-+#define SMUIO_BASE__INST5_SEG0                     0
-+#define SMUIO_BASE__INST5_SEG1                     0
-+#define SMUIO_BASE__INST5_SEG2                     0
-+#define SMUIO_BASE__INST5_SEG3                     0
-+#define SMUIO_BASE__INST5_SEG4                     0
-+
-+#define SMUIO_BASE__INST6_SEG0                     0
-+#define SMUIO_BASE__INST6_SEG1                     0
-+#define SMUIO_BASE__INST6_SEG2                     0
-+#define SMUIO_BASE__INST6_SEG3                     0
-+#define SMUIO_BASE__INST6_SEG4                     0
-+
-+#define THM_BASE__INST0_SEG0                       0x00016600
-+#define THM_BASE__INST0_SEG1                       0x02400C00
-+#define THM_BASE__INST0_SEG2                       0
-+#define THM_BASE__INST0_SEG3                       0
-+#define THM_BASE__INST0_SEG4                       0
-+
-+#define THM_BASE__INST1_SEG0                       0
-+#define THM_BASE__INST1_SEG1                       0
-+#define THM_BASE__INST1_SEG2                       0
-+#define THM_BASE__INST1_SEG3                       0
-+#define THM_BASE__INST1_SEG4                       0
-+
-+#define THM_BASE__INST2_SEG0                       0
-+#define THM_BASE__INST2_SEG1                       0
-+#define THM_BASE__INST2_SEG2                       0
-+#define THM_BASE__INST2_SEG3                       0
-+#define THM_BASE__INST2_SEG4                       0
-+
-+#define THM_BASE__INST3_SEG0                       0
-+#define THM_BASE__INST3_SEG1                       0
-+#define THM_BASE__INST3_SEG2                       0
-+#define THM_BASE__INST3_SEG3                       0
-+#define THM_BASE__INST3_SEG4                       0
-+
-+#define THM_BASE__INST4_SEG0                       0
-+#define THM_BASE__INST4_SEG1                       0
-+#define THM_BASE__INST4_SEG2                       0
-+#define THM_BASE__INST4_SEG3                       0
-+#define THM_BASE__INST4_SEG4                       0
-+
-+#define THM_BASE__INST5_SEG0                       0
-+#define THM_BASE__INST5_SEG1                       0
-+#define THM_BASE__INST5_SEG2                       0
-+#define THM_BASE__INST5_SEG3                       0
-+#define THM_BASE__INST5_SEG4                       0
-+
-+#define THM_BASE__INST6_SEG0                       0
-+#define THM_BASE__INST6_SEG1                       0
-+#define THM_BASE__INST6_SEG2                       0
-+#define THM_BASE__INST6_SEG3                       0
-+#define THM_BASE__INST6_SEG4                       0
-+
-+#define UMC_BASE__INST0_SEG0                       0x00014000
-+#define UMC_BASE__INST0_SEG1                       0x02425800
-+#define UMC_BASE__INST0_SEG2                       0
-+#define UMC_BASE__INST0_SEG3                       0
-+#define UMC_BASE__INST0_SEG4                       0
-+
-+#define UMC_BASE__INST1_SEG0                       0x00054000
-+#define UMC_BASE__INST1_SEG1                       0x02425C00
-+#define UMC_BASE__INST1_SEG2                       0
-+#define UMC_BASE__INST1_SEG3                       0
-+#define UMC_BASE__INST1_SEG4                       0
-+
-+#define UMC_BASE__INST2_SEG0                       0x00094000
-+#define UMC_BASE__INST2_SEG1                       0x02426000
-+#define UMC_BASE__INST2_SEG2                       0
-+#define UMC_BASE__INST2_SEG3                       0
-+#define UMC_BASE__INST2_SEG4                       0
-+
-+#define UMC_BASE__INST3_SEG0                       0x000D4000
-+#define UMC_BASE__INST3_SEG1                       0x02426400
-+#define UMC_BASE__INST3_SEG2                       0
-+#define UMC_BASE__INST3_SEG3                       0
-+#define UMC_BASE__INST3_SEG4                       0
-+
-+#define UMC_BASE__INST4_SEG0                       0x00114000
-+#define UMC_BASE__INST4_SEG1                       0x02426800
-+#define UMC_BASE__INST4_SEG2                       0
-+#define UMC_BASE__INST4_SEG3                       0
-+#define UMC_BASE__INST4_SEG4                       0
-+
-+#define UMC_BASE__INST5_SEG0                       0x00154000
-+#define UMC_BASE__INST5_SEG1                       0x02426C00
-+#define UMC_BASE__INST5_SEG2                       0
-+#define UMC_BASE__INST5_SEG3                       0
-+#define UMC_BASE__INST5_SEG4                       0
-+
-+#define UMC_BASE__INST6_SEG0                       0x00194000
-+#define UMC_BASE__INST6_SEG1                       0x02427000
-+#define UMC_BASE__INST6_SEG2                       0
-+#define UMC_BASE__INST6_SEG3                       0
-+#define UMC_BASE__INST6_SEG4                       0
-+
-+#define USB0_BASE__INST0_SEG0                      0x0242A800
-+#define USB0_BASE__INST0_SEG1                      0x05B00000
-+#define USB0_BASE__INST0_SEG2                      0
-+#define USB0_BASE__INST0_SEG3                      0
-+#define USB0_BASE__INST0_SEG4                      0
-+
-+#define USB0_BASE__INST1_SEG0                      0
-+#define USB0_BASE__INST1_SEG1                      0
-+#define USB0_BASE__INST1_SEG2                      0
-+#define USB0_BASE__INST1_SEG3                      0
-+#define USB0_BASE__INST1_SEG4                      0
-+
-+#define USB0_BASE__INST2_SEG0                      0
-+#define USB0_BASE__INST2_SEG1                      0
-+#define USB0_BASE__INST2_SEG2                      0
-+#define USB0_BASE__INST2_SEG3                      0
-+#define USB0_BASE__INST2_SEG4                      0
-+
-+#define USB0_BASE__INST3_SEG0                      0
-+#define USB0_BASE__INST3_SEG1                      0
-+#define USB0_BASE__INST3_SEG2                      0
-+#define USB0_BASE__INST3_SEG3                      0
-+#define USB0_BASE__INST3_SEG4                      0
-+
-+#define USB0_BASE__INST4_SEG0                      0
-+#define USB0_BASE__INST4_SEG1                      0
-+#define USB0_BASE__INST4_SEG2                      0
-+#define USB0_BASE__INST4_SEG3                      0
-+#define USB0_BASE__INST4_SEG4                      0
-+
-+#define USB0_BASE__INST5_SEG0                      0
-+#define USB0_BASE__INST5_SEG1                      0
-+#define USB0_BASE__INST5_SEG2                      0
-+#define USB0_BASE__INST5_SEG3                      0
-+#define USB0_BASE__INST5_SEG4                      0
-+
-+#define USB0_BASE__INST6_SEG0                      0
-+#define USB0_BASE__INST6_SEG1                      0
-+#define USB0_BASE__INST6_SEG2                      0
-+#define USB0_BASE__INST6_SEG3                      0
-+#define USB0_BASE__INST6_SEG4                      0
-+
-+#define VCN_BASE__INST0_SEG0                       0x00007800
-+#define VCN_BASE__INST0_SEG1                       0x00007E00
-+#define VCN_BASE__INST0_SEG2                       0x02403000
-+#define VCN_BASE__INST0_SEG3                       0
-+#define VCN_BASE__INST0_SEG4                       0
-+
-+#define VCN_BASE__INST1_SEG0                       0x00007B00
-+#define VCN_BASE__INST1_SEG1                       0x00012000
-+#define VCN_BASE__INST1_SEG2                       0x02445000
-+#define VCN_BASE__INST1_SEG3                       0
-+#define VCN_BASE__INST1_SEG4                       0
-+
-+#define VCN_BASE__INST2_SEG0                       0
-+#define VCN_BASE__INST2_SEG1                       0
-+#define VCN_BASE__INST2_SEG2                       0
-+#define VCN_BASE__INST2_SEG3                       0
-+#define VCN_BASE__INST2_SEG4                       0
-+
-+#define VCN_BASE__INST3_SEG0                       0
-+#define VCN_BASE__INST3_SEG1                       0
-+#define VCN_BASE__INST3_SEG2                       0
-+#define VCN_BASE__INST3_SEG3                       0
-+#define VCN_BASE__INST3_SEG4                       0
-+
-+#define VCN_BASE__INST4_SEG0                       0
-+#define VCN_BASE__INST4_SEG1                       0
-+#define VCN_BASE__INST4_SEG2                       0
-+#define VCN_BASE__INST4_SEG3                       0
-+#define VCN_BASE__INST4_SEG4                       0
-+
-+#define VCN_BASE__INST5_SEG0                       0
-+#define VCN_BASE__INST5_SEG1                       0
-+#define VCN_BASE__INST5_SEG2                       0
-+#define VCN_BASE__INST5_SEG3                       0
-+#define VCN_BASE__INST5_SEG4                       0
-+
-+#define VCN_BASE__INST6_SEG0                       0
-+#define VCN_BASE__INST6_SEG1                       0
-+#define VCN_BASE__INST6_SEG2                       0
-+#define VCN_BASE__INST6_SEG3                       0
-+#define VCN_BASE__INST6_SEG4                       0
++#ifndef __GFXHUB_V2_1_H__
++#define __GFXHUB_V2_1_H__
++
++u64 gfxhub_v2_1_get_fb_location(struct amdgpu_device *adev);
++int gfxhub_v2_1_gart_enable(struct amdgpu_device *adev);
++void gfxhub_v2_1_gart_disable(struct amdgpu_device *adev);
++void gfxhub_v2_1_set_fault_enable_default(struct amdgpu_device *adev,
++					  bool value);
++void gfxhub_v2_1_init(struct amdgpu_device *adev);
++u64 gfxhub_v2_1_get_mc_fb_offset(struct amdgpu_device *adev);
++void gfxhub_v2_1_setup_vm_pt_regs(struct amdgpu_device *adev, uint32_t vmid,
++				uint64_t page_table_base);
 +
 +#endif
 -- 
