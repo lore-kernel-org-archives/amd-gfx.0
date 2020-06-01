@@ -8,64 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8FC1AC433E1
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CB5C2C433E2
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 62B932077D
+	by mail.kernel.org (Postfix) with ESMTPS id A34722077D
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TEW0cX89"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62B932077D
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K9lidEHp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A34722077D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E2306E2D1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C48D6E2CC;
 	Mon,  1 Jun 2020 18:04:44 +0000 (UTC)
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0559B6E2DC
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:43 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id i68so8441905qtb.5
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
+ [IPv6:2607:f8b0:4864:20::f43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6A9E6E2D7
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:42 +0000 (UTC)
+Received: by mail-qv1-xf43.google.com with SMTP id ec10so460517qvb.5
  for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=KbwLZWDOZyw6drEyxVpZ47SxBJ+Y81yN6pKDRW5Vee8=;
- b=TEW0cX89OHTIkjk166ZLthBSZZUPyPWN20PX5uJpV5VL2+dA0tPvWd5V/CgWPpRRrd
- /GnwLJeIAyw0JqZBF/+kaD6QXHTOynmOH8jU/da7jaBfzKEmWgC2U0w72gWpLuebaw0F
- vJv4Zxa/k+xh12ae2bZNtr3l0lX0io+q7n/6qWch72P6toDEAk/lCqJ7bPR2MMHRE4O4
- 9LFGKQQDDqhN1Q2Bljm1t5p3aiG/VO7yKI6CMWGtMPOZHqPgB92dkdrkyOtPoZzELD9e
- Lv98/Q37sDXHC+nSrQgRHXN1ifaYunYgi2tmSnc8b99at60l9rd1gHg1AMqxQG9xoB36
- ilNw==
+ bh=Yvd6z3CFUpj/qRf2OvcSwSdbafk3ZEWGgsrE8ZiD5jo=;
+ b=K9lidEHpi18E98LPsfmat5KqMhfMuTu+F8rFzuaJQST674wQiUm0ZtKdgKDooVGUs8
+ tn/Tz29llIsXa/W9g+YyxcXm6d97ZSyIrVJipiUqMWH1xQS6+Os+5jnTf1XfhCsyUzy6
+ +jIvrqAnktT9Jo9Eau1xSK35CBXCgMIKfVNwoiK6dYHMfifCve59yfVhEIJbMLbiU5cA
+ 8uRMck/XxPTrs83bfYKHJ+Ol7gfTA5/G2s3CcBv7L/QPYeJhxzYLn2Vg8YKEQFj5L4uD
+ z1Z3JWoYZIFTOq3TtlEU8g0wN3yndwR01Zi1CMaLpJAro0VLcKgeX0Xg0rD7t6N+Nyy2
+ tnBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=KbwLZWDOZyw6drEyxVpZ47SxBJ+Y81yN6pKDRW5Vee8=;
- b=phYjShex2hPYFkXfHE9Lv2eaYbxHQCnve6ER86DeXV/IdtRds2GjopxhK0R0mQYNKm
- 4EiVaEso8G7jdN52CcJyvo86P2m53pTtcNEDJ9bu8kmG+pBfzUdfwt9h0hlDQn32+9vb
- JOYWFOnhi5U/jz9pQObms411dd5xtbm6exUbPilPt/KY9bwKKttHVdIeqBO3Xsuct95g
- iNU5RYGFRCZoNVFzgli7tstMHhHC/75BayKkolbIGtgHOtITe6TVuiiBaONP/W+SC+j9
- qyiA0HVFXzukA/spNcMkfsIyVtjNVOJt3syABGnLfWKkaZ3xqWM7JmtZQmMyi6RjY3Gx
- sWNg==
-X-Gm-Message-State: AOAM532UxJbCk6CIJAYlnnoy7elQWfmLM9YKf3RTkW0fA56w6h1O+SSI
- cqaRwmBzx0eRW/xchZOcGgQLX00k
-X-Google-Smtp-Source: ABdhPJyqqkX4Jbm1Q2jPkqzWjCXiPeMnDMk8fOCAyQJ306QKXSH2Rv7YjkWMNP3C/p3NUN+l1AuX9g==
-X-Received: by 2002:ac8:7ca:: with SMTP id m10mr20597074qth.86.1591034680511; 
- Mon, 01 Jun 2020 11:04:40 -0700 (PDT)
+ bh=Yvd6z3CFUpj/qRf2OvcSwSdbafk3ZEWGgsrE8ZiD5jo=;
+ b=Kvuswv8Aws+6mMKR2Pgp2KH17PEn5Dc7CcWe1cv7HQqCJ5Vkmn6yGrEqX95CB9gpnY
+ BiaXwnVC1mye0/JGexf3wFysXZEPtKzQrcG2PV9ls6TtRqv3SFX2FB94wyOvzrIafB6S
+ UJIqh0m0/dtcthbaRQjQM2aAfJVaaTfYLriJo+yYx4iSX5J2kZNbVnQfFN6cyZy0ASRN
+ ZJmanDsrTMwxDeQl3ijFujJsOOlXj/QJ64alp1nmeWXK8N2r6A5ncZwUpWqLbsSGNMZd
+ 8lIzfy5RUCMP6G8sSUsdB/7EIz43NgM9aPR8GyVP6ZPDrwNeB4Vdczg0L9IhsucuRdNI
+ d4fg==
+X-Gm-Message-State: AOAM532ocZoPx4o4zOK7OSn1nfoFDmgbO2oZZ1xwA5KaGTX0iEHdO0Ah
+ 4qgyRPLcxkuXwANTeCYbgbMsqHMR
+X-Google-Smtp-Source: ABdhPJzZHb2B8tHOcu6Xi4aDiltlKWLjapvLHOJ7u4ubzGJswDh8Nhmw58l4KqG8ZSGepYjsf1mTVQ==
+X-Received: by 2002:ad4:4baa:: with SMTP id i10mr7164156qvw.163.1591034681865; 
+ Mon, 01 Jun 2020 11:04:41 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.04.39
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.04.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:04:40 -0700 (PDT)
+ Mon, 01 Jun 2020 11:04:41 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 080/207] drm/amdgpu: update the num of queue per pipe for mec
- on sienna_cichlid
-Date: Mon,  1 Jun 2020 14:00:32 -0400
-Message-Id: <20200601180239.1267430-77-alexander.deucher@amd.com>
+Subject: [PATCH 081/207] drm/amdgpu/mes: correct register offset for
+ sienna_cichlid
+Date: Mon,  1 Jun 2020 14:00:33 -0400
+Message-Id: <20200601180239.1267430-78-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -82,7 +82,7 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Huang Rui <ray.huang@amd.com>
+ Jack Xiao <Jack.Xiao@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -90,42 +90,77 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-The number of queue per pipe for mec on sienna_cichlid should be 4.
+Correct CP_MES_IC_OP_CNTL register address for sienna_cichlid on mes v10.1.
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Reviewed-by: Huang Rui <ray.huang@amd.com>
+Reviewed-by: Jack Xiao <Jack.Xiao@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c | 39 +++++++++++++++++++++++---
+ 1 file changed, 35 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index 5cbee23d2ff8..69458d5ccb09 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -4147,7 +4147,6 @@ static int gfx_v10_0_sw_init(void *handle)
- 	case CHIP_NAVI10:
- 	case CHIP_NAVI14:
- 	case CHIP_NAVI12:
--	case CHIP_SIENNA_CICHLID:
- 		adev->gfx.me.num_me = 1;
- 		adev->gfx.me.num_pipe_per_me = 1;
- 		adev->gfx.me.num_queue_per_pipe = 1;
-@@ -4155,6 +4154,14 @@ static int gfx_v10_0_sw_init(void *handle)
- 		adev->gfx.mec.num_pipe_per_mec = 4;
- 		adev->gfx.mec.num_queue_per_pipe = 8;
- 		break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+index 8d2469fe2174..447bee159089 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+@@ -31,6 +31,9 @@
+ #include "v10_structs.h"
+ #include "mes_api_def.h"
+ 
++#define mmCP_MES_IC_OP_CNTL_Sienna_Cichlid               0x2820
++#define mmCP_MES_IC_OP_CNTL_Sienna_Cichlid_BASE_IDX      1
++
+ MODULE_FIRMWARE("amdgpu/navi10_mes.bin");
+ MODULE_FIRMWARE("amdgpu/sienna_cichlid_mes.bin");
+ 
+@@ -490,15 +493,43 @@ static int mes_v10_1_load_microcode(struct amdgpu_device *adev)
+ 	WREG32_SOC15(GC, 0, mmCP_MES_MDBOUND_LO, 0x3FFFF);
+ 
+ 	/* invalidate ICACHE */
+-	data = RREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL);
++	switch (adev->asic_type) {
 +	case CHIP_SIENNA_CICHLID:
-+		adev->gfx.me.num_me = 1;
-+		adev->gfx.me.num_pipe_per_me = 2;
-+		adev->gfx.me.num_queue_per_pipe = 1;
-+		adev->gfx.mec.num_mec = 2;
-+		adev->gfx.mec.num_pipe_per_mec = 4;
-+		adev->gfx.mec.num_queue_per_pipe = 4;
++		data = RREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL_Sienna_Cichlid);
 +		break;
- 	default:
- 		adev->gfx.me.num_me = 1;
- 		adev->gfx.me.num_pipe_per_me = 1;
++	default:
++		data = RREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL);
++		break;
++	}
+ 	data = REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACHE, 0);
+ 	data = REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, INVALIDATE_CACHE, 1);
+-	WREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL, data);
++	switch (adev->asic_type) {
++	case CHIP_SIENNA_CICHLID:
++		WREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL_Sienna_Cichlid, data);
++		break;
++	default:
++		WREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL, data);
++		break;
++	}
+ 
+ 	/* prime the ICACHE. */
+-	data = RREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL);
++	switch (adev->asic_type) {
++	case CHIP_SIENNA_CICHLID:
++		data = RREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL_Sienna_Cichlid);
++		break;
++	default:
++		data = RREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL);
++		break;
++	}
+ 	data = REG_SET_FIELD(data, CP_MES_IC_OP_CNTL, PRIME_ICACHE, 1);
+-	WREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL, data);
++	switch (adev->asic_type) {
++	case CHIP_SIENNA_CICHLID:
++		WREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL_Sienna_Cichlid, data);
++		break;
++	default:
++		WREG32_SOC15(GC, 0, mmCP_MES_IC_OP_CNTL, data);
++		break;
++	}
+ 
+ 	nv_grbm_select(adev, 0, 0, 0, 0);
+ 	mutex_unlock(&adev->srbm_mutex);
 -- 
 2.25.4
 
