@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7ECD4C433E1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 800DDC433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5850D2074B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:12 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5673E2074B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rZffitjL"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5850D2074B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pUa7uLdM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5673E2074B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB876E2A9;
-	Mon,  1 Jun 2020 18:04:12 +0000 (UTC)
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [IPv6:2607:f8b0:4864:20::72c])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3A366E2A0
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:10 +0000 (UTC)
-Received: by mail-qk1-x72c.google.com with SMTP id c14so8917598qka.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 176746E2B1;
+	Mon,  1 Jun 2020 18:04:13 +0000 (UTC)
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAAAA6E2AF
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:11 +0000 (UTC)
+Received: by mail-qt1-x843.google.com with SMTP id j32so8407846qte.10
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=DLOGkylRwc4BrJZBPQ+qOyjmosZECaEs+D6SW5yg9BU=;
- b=rZffitjL3ms0irgjFLdGhloCGV5q2ItmYVW6uFxWvH/FZKGg2mtNNDfwJDpjUNiKzn
- 7Tue9B/3lH/b45C45KbIXSYhnK/hdA3k6ufFDVd0cRNeL5WuSzX+rU1viu0JOtpMRjWB
- uQfcUU9fTJ2FWSCVEf74QRpx0jPFsAE0g6qocE1LNAFDaypl3uY63E3JoRXp2ymhDGvx
- GBGMSrTK8mjzdQvAYQZ4i5qoA1fOAnxQRX5dPyGumtoIImxOZ1C7Ni4Bw8+V5iKz/L/8
- LODwqUybGaDYnm8Cwl6SysDTLHOUA7t9V7qGAu5WONfY8Y2ZNU6mXmzcL/y1JKOlZ8rW
- eY4g==
+ bh=he5B4a76WNpZx+229udey+f5R0ttO3EcoIT75AIXI8Q=;
+ b=pUa7uLdM3rrVjS4yHYae0NQ1x2P1iqafdra/aBvwtOqSlLU+7DlMeS7dzkhYSnC+gc
+ PL1ldBBF3CGBhCmEUwbPNV8czy4eEDTVyHuZjMpqWBia1sHT5bObuxdacjYQGAIaGWXQ
+ mKzoeqKza4lmQi1RXBVDna9Su562jZT1pLeUdCno3e7pC2aU++MgnLdpa5AvLzmcQ5TX
+ C2OwEDiZ4NKpLSpd9cqWZiqKtboACrKXEl0Qrk7dHZYqF4zAilraoRJ9MABBvgpQv3Os
+ AbU9FeLh9NJDMJXtGZex0U/WMg4ihBQzv9kkCkah73hCmYzgwILRFFvP6gjmM8e8B6R8
+ 638A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=DLOGkylRwc4BrJZBPQ+qOyjmosZECaEs+D6SW5yg9BU=;
- b=WHmCV/pAXMTE7sSONvU+9D2mCCmdC5MKlBCEOidJp267oN2qKKXTKNXjweOQG10A5Z
- BCzNAOCUTuEllVALh3UIYlraACxoWmNLr9xEjnaI0FloNmcWBJK3nRn6PeHM1tfBOUEp
- HcWCT2PlpLdcJqFNM0cCjkKXE0M+xXzwTwrfgwMpJegDSNXvuxRFyJaxlLXyUyct4DfY
- Q+SdGP+1GtfWD7sh1NfWr93KLk5SnFyEaXFZhGFgSB4B/m6D0W/dwHz7t8A4b0VxDk0L
- 6PU0SXtXWHRunjCPu0TNZKmEU9wEdI2QDWss9VFYZiHuMAga1TiakTjlMXZkrWOtLgbW
- Rffg==
-X-Gm-Message-State: AOAM530RgSVZaYK8lADxaLgYm/ji1pwILSPyZFOSSUKXNWt0wuXkw7Jw
- 16p/YO4v9Lc+DUXsnWWyBJFg8vdi
-X-Google-Smtp-Source: ABdhPJwn3zGkyIE79Y2Z9RBqwWIsHIyotjTyGgy2Bqqng2ZCUS7RwdD1IbAH0MCBOZ7P0PqFegly4Q==
-X-Received: by 2002:a37:4f55:: with SMTP id d82mr20393368qkb.219.1591034649689; 
- Mon, 01 Jun 2020 11:04:09 -0700 (PDT)
+ bh=he5B4a76WNpZx+229udey+f5R0ttO3EcoIT75AIXI8Q=;
+ b=IU10YXFbDsXcEpWkUZ8a35E4pIAKnrxHFgi4Q+r24RO7lhSlVDkY0IVKKCljpG6mMH
+ td+laMvj9ZX5hpnurdpYZTYjgAP2V0BRplcN0cJwr5JK7nxXjFP0jjG4DbeOREUh+1wj
+ /ungbwvRo/TfDsgOUrHzDlF2hwXkZw2ai8e39npfn6GQOl73roD0Zz03NJ8H/5lQ1rPs
+ NrQBQEvAsd3usJBXA1zEeOPN1Y+6TWuEpp1AryyKCqSvoQnQZt84cp4MKjKvWXXDsYhG
+ XzIIZK0DfjkmcuNYPtxG7BRFxFHN+wiVM1M5zbr5tPNli8SxuoMt2nbTyauFGT+tfuwn
+ +ceA==
+X-Gm-Message-State: AOAM5328ZbgftNm+8p+rTzG7scvw53RQLO7XGFR6fJZgAydy1lqIIHzj
+ PcO7zUSv/WSyLsB/x1vy1QI0zUaD
+X-Google-Smtp-Source: ABdhPJwtgksF6cRNokClOZg72jxI4bzTd85sImtp02pK+6loPILrbZtcLBCeWSv5uDUFYAFw5w979w==
+X-Received: by 2002:ac8:3267:: with SMTP id y36mr24333389qta.241.1591034650743; 
+ Mon, 01 Jun 2020 11:04:10 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.04.08
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.04.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:04:09 -0700 (PDT)
+ Mon, 01 Jun 2020 11:04:10 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 058/207] drm/amdgpu/mes: update some mes definitions
-Date: Mon,  1 Jun 2020 14:00:10 -0400
-Message-Id: <20200601180239.1267430-55-alexander.deucher@amd.com>
+Subject: [PATCH 059/207] drm/amdgpu/mes10.1: allocate the eop buffer
+Date: Mon,  1 Jun 2020 14:00:11 -0400
+Message-Id: <20200601180239.1267430-56-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -89,80 +89,81 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jack Xiao <Jack.Xiao@amd.com>
 
-Update some mes definitions.
+eop buffer will be used for mes queue setup.
 
 Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h | 42 +++++++++++++++++++++++--
- 1 file changed, 40 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c | 33 ++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-index 78fe49033543..4da9d8f50578 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -24,10 +24,32 @@
- #ifndef __AMDGPU_MES_H__
- #define __AMDGPU_MES_H__
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+index 29fab7984855..7970107be532 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+@@ -31,6 +31,8 @@
  
-+#define AMDGPU_MES_MAX_COMPUTE_PIPES        8
-+#define AMDGPU_MES_MAX_GFX_PIPES            2
-+#define AMDGPU_MES_MAX_SDMA_PIPES           2
-+
-+enum amdgpu_mes_priority_level {
-+	AMDGPU_MES_PRIORITY_LEVEL_LOW       = 0,
-+	AMDGPU_MES_PRIORITY_LEVEL_NORMAL    = 1,
-+	AMDGPU_MES_PRIORITY_LEVEL_MEDIUM    = 2,
-+	AMDGPU_MES_PRIORITY_LEVEL_HIGH      = 3,
-+	AMDGPU_MES_PRIORITY_LEVEL_REALTIME  = 4,
-+	AMDGPU_MES_PRIORITY_NUM_LEVELS
-+};
-+
- struct amdgpu_mes_funcs;
+ MODULE_FIRMWARE("amdgpu/navi10_mes.bin");
  
- struct amdgpu_mes {
--	struct amdgpu_adev *adev;
-+	struct amdgpu_device            *adev;
++#define MES_EOP_SIZE   2048
 +
-+	uint32_t                        total_max_queue;
-+	uint32_t                        doorbell_id_offset;
-+	uint32_t                        max_doorbell_slices;
-+
-+	uint64_t                        default_process_quantum;
-+	uint64_t                        default_gang_quantum;
-+
-+	struct amdgpu_ring              ring;
+ static int mes_v10_1_add_hw_queue(struct amdgpu_mes *mes,
+ 				  struct mes_add_queue_input *input)
+ {
+@@ -283,6 +285,29 @@ static int mes_v10_1_load_microcode(struct amdgpu_device *adev)
+ 	return 0;
+ }
  
- 	const struct firmware           *fw;
- 
-@@ -45,8 +67,24 @@ struct amdgpu_mes {
- 	uint32_t                        data_fw_version;
- 	uint64_t                        data_start_addr;
- 
-+	/* eop gpu obj */
-+	struct amdgpu_bo		*eop_gpu_obj;
-+	uint64_t                        eop_gpu_addr;
++static int mes_v10_1_allocate_eop_buf(struct amdgpu_device *adev)
++{
++	int r;
++	u32 *eop;
 +
-+	void                            *mqd_backup;
++	r = amdgpu_bo_create_reserved(adev, MES_EOP_SIZE, PAGE_SIZE,
++				      AMDGPU_GEM_DOMAIN_GTT,
++				      &adev->mes.eop_gpu_obj,
++				      &adev->mes.eop_gpu_addr,
++				      (void **)&eop);
++	if (r) {
++		dev_warn(adev->dev, "(%d) create EOP bo failed\n", r);
++		return r;
++	}
 +
-+	uint32_t                        vmid_mask_gfxhub;
-+	uint32_t                        vmid_mask_mmhub;
-+	uint32_t                        compute_hqd_mask[AMDGPU_MES_MAX_COMPUTE_PIPES];
-+	uint32_t                        gfx_hqd_mask[AMDGPU_MES_MAX_GFX_PIPES];
-+	uint32_t                        sdma_hqd_mask[AMDGPU_MES_MAX_SDMA_PIPES];
-+	uint32_t                        agreegated_doorbells[AMDGPU_MES_PRIORITY_NUM_LEVELS];
-+	uint32_t                        sch_ctx_offs;
-+	uint64_t			sch_ctx_gpu_addr;
-+	uint64_t			*sch_ctx_ptr;
++	memset(eop, 0, adev->mes.eop_gpu_obj->tbo.mem.size);
 +
- 	/* ip specific functions */
--	struct amdgpu_mes_funcs *funcs;
-+	const struct amdgpu_mes_funcs   *funcs;
- };
++	amdgpu_bo_kunmap(adev->mes.eop_gpu_obj);
++	amdgpu_bo_unreserve(adev->mes.eop_gpu_obj);
++
++	return 0;
++}
++
+ static int mes_v10_1_sw_init(void *handle)
+ {
+ 	int r;
+@@ -292,6 +317,10 @@ static int mes_v10_1_sw_init(void *handle)
+ 	if (r)
+ 		return r;
  
- struct mes_add_queue_input {
++	r = mes_v10_1_allocate_eop_buf(adev);
++	if (r)
++		return r;
++
+ 	return 0;
+ }
+ 
+@@ -299,6 +328,10 @@ static int mes_v10_1_sw_fini(void *handle)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
++	amdgpu_bo_free_kernel(&adev->mes.eop_gpu_obj,
++			      &adev->mes.eop_gpu_addr,
++			      NULL);
++
+ 	mes_v10_1_free_microcode(adev);
+ 
+ 	return 0;
 -- 
 2.25.4
 
