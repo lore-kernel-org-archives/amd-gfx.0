@@ -8,64 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA341C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 26C33C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B43342077D
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EBA62206E2
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YdwMjz3q"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B43342077D
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jXsGNGbP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EBA62206E2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D2886E2C8;
-	Mon,  1 Jun 2020 18:04:32 +0000 (UTC)
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 037646E2C8
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:32 +0000 (UTC)
-Received: by mail-qt1-x842.google.com with SMTP id q14so8172184qtr.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:31 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A11DF6E2CD;
+	Mon,  1 Jun 2020 18:04:34 +0000 (UTC)
+Received: from mail-qv1-xf33.google.com (mail-qv1-xf33.google.com
+ [IPv6:2607:f8b0:4864:20::f33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0E786E2CD
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:33 +0000 (UTC)
+Received: by mail-qv1-xf33.google.com with SMTP id f89so464760qva.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=DnFmtdcVSjuuKZai+avebqJRGYqkI1sd7W2EW4DL62Q=;
- b=YdwMjz3qvA728AtfNMMYe9VciJKQgwB05AoSx+OMwqaKaBisxzNv4UKua7K1clZ2G8
- I/PkYoggAzVkUJhyGHcgZY9m0F03tKZIUpKi/H5tims0s5MPd/+CUmA1Hkg0q3jBjK9G
- 6YdH3h/eIwT/6MrbDfhIouXcV8zeNlLYvRm1MlM+FPI6qyYkh2A4q3gsAN/G3VP/bd/z
- pk8JF1E78mlfCmszRwHA0xTpzIRFXukDWtLo+yV6DF15h3NOqVklEuPh1PGSk+PR2uCw
- MlawUSEJnz7fgiPijcF9Kyg6uCr/brbBlTXLshDUQk1Q8du6EuwTd1h1HTTih/Mykm+Z
- AWOg==
+ bh=woxvDGkTwqPtNfTOb8aMeyI+2CHw0ivA9xaKUu4T6JM=;
+ b=jXsGNGbPS92W6Ig9roCoAosnS+s1oCPQCy1YDlSE1th/vDbB/LAhz9yZYgT38FJ/oG
+ 1jvxb24KcIJEIoUOzGcuOB55jMI3+PsRc5qt6ksZ2KAAnSZry5ir8HqqCmJMSQXPTEfO
+ 7FylpTrSQW/N37KwpQNLVOUr6xw+Xvd9/heT9CEXfqDwmZk2/NBPOIoOMdcKc0CEH+bc
+ TaNcFP7QZpXJvc1GhL3czLrikDBDFJMcneacmDtTc+Ky7e5nhOpwbtfAsfzirb5seBci
+ 7XTjdrboOfQvN8JjS17d0O1gzN/ByhQnaecXKZvjcgHtpAfo+AfwxE1WzhqHoKAkC9OL
+ tgLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=DnFmtdcVSjuuKZai+avebqJRGYqkI1sd7W2EW4DL62Q=;
- b=YolQnT1yhJvDp6oTRYqgrA24oK5z126chRZmNmJ+l9yFkcndglLMgb67ec2xH/1iHK
- yXClql+qztdyHpvzJ+eNMBBhePselmMHhmEx2/OPN0B2Ekwts/KLNPtVwBTtNwZYQTyd
- /ei2PZTVe4dVED5OvW/ZkmkEYYfTbEqEfCnr5XwxNVOeiPdmwKct23i/+g0rUbmuSshW
- EnKUl2r0DYzLd9sp4lzHoV0vayTcOjPY62XqPhJYdRd9eISjLkqsA8nOXdd0bk90NSLs
- jluiZ+IyCI5Xsxre1TrLH7lXr2C36f/MD/s8aecYOMhyw0hGD2MhDIX4cUqV/bQ9WTfr
- pebg==
-X-Gm-Message-State: AOAM5305mIbdvyBys9KOjHnGeyzBsm8u6QjMwXen7J3UH3hSTvk4IGwG
- glPTxERLHo322w4Z1zrbKj1nnz7/
-X-Google-Smtp-Source: ABdhPJzB0+JfwBi2WjmDwF2dmslWblmanqFIzcOVJeXenh93DG2mnp9I8ZqtCuXMlQFuXSLVYL8ePg==
-X-Received: by 2002:ac8:4e50:: with SMTP id e16mr23642304qtw.149.1591034670995; 
- Mon, 01 Jun 2020 11:04:30 -0700 (PDT)
+ bh=woxvDGkTwqPtNfTOb8aMeyI+2CHw0ivA9xaKUu4T6JM=;
+ b=KPCf8yia4Ey4A7sW74b+L1FEavDqrJWnxx3UgmjT+9ss0INbpqQaq97+FxSFbsSHxS
+ bAAzTYkNzFpTZRtmnatKH4NnGs9q0KcRYdp715zGSno16bhLuv3c33RSBBU//5Vhgf4W
+ nbwtGDQVcxeO41vbcWITM3pJYYnPdCC9EpNmlmC+UcHX80EMcmQ9d7fHblGmR7zisQUR
+ 6aPCNHEaN2Edcf3dxtmfcrbkqIdEyC1plf/CxwTa4p2Jn7YnrZTnhLmG7GasnfHLXT/6
+ o55x4Aid/n4DCox73gxkh50UawtpdD3wS1osM8HykM7I74qyWdFTyzKEP684N9ESseP8
+ InIA==
+X-Gm-Message-State: AOAM532ASa66+2HcC5zirFhnMiDFksQSyFJAIw74SOp1Egoo3HT8SO0J
+ WqgwUrVebtZF1E8bmSKVxUiotoME
+X-Google-Smtp-Source: ABdhPJwy1PetMcg96hoRx5V0XwlnE2MKssdLv+OtiiP2NlZGVquKB/LPMUfv+kwN0+Fcp+ezEOXmHA==
+X-Received: by 2002:a0c:aa4b:: with SMTP id e11mr21623924qvb.14.1591034672597; 
+ Mon, 01 Jun 2020 11:04:32 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.04.29
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.04.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:04:30 -0700 (PDT)
+ Mon, 01 Jun 2020 11:04:31 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 073/207] drm/amdgpu/mes10.1: add sienna_cichlid mes firmware
- support
-Date: Mon,  1 Jun 2020 14:00:25 -0400
-Message-Id: <20200601180239.1267430-70-alexander.deucher@amd.com>
+Subject: [PATCH 074/207] drm/amdgpu/mes10.1: copy mes fw info into global fw
+ array
+Date: Mon,  1 Jun 2020 14:00:26 -0400
+Message-Id: <20200601180239.1267430-71-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -90,38 +90,52 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jack Xiao <Jack.Xiao@amd.com>
 
-Add sienna_cichlid mes firmware support.
+Copy mes firmware info into into global fw array, preparing
+for fw front door loading.
 
 Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mes_v10_1.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-index 8102ffcf949c..a6a96cf96b22 100644
+index a6a96cf96b22..a0fd3c3c7397 100644
 --- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
 +++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-@@ -32,6 +32,7 @@
- #include "mes_api_def.h"
+@@ -271,6 +271,7 @@ static int mes_v10_1_init_microcode(struct amdgpu_device *adev)
+ 	char fw_name[30];
+ 	int err;
+ 	const struct mes_firmware_header_v1_0 *mes_hdr;
++	struct amdgpu_firmware_info *info;
  
- MODULE_FIRMWARE("amdgpu/navi10_mes.bin");
-+MODULE_FIRMWARE("amdgpu/sienna_cichlid_mes.bin");
- 
- static int mes_v10_1_hw_fini(void *handle);
- 
-@@ -275,6 +276,9 @@ static int mes_v10_1_init_microcode(struct amdgpu_device *adev)
+ 	switch (adev->asic_type) {
  	case CHIP_NAVI10:
- 		chip_name = "navi10";
- 		break;
-+	case CHIP_SIENNA_CICHLID:
-+		chip_name = "sienna_cichlid";
-+		break;
- 	default:
- 		BUG();
- 	}
+@@ -306,6 +307,22 @@ static int mes_v10_1_init_microcode(struct amdgpu_device *adev)
+ 		le32_to_cpu(mes_hdr->mes_data_start_addr_lo) |
+ 		((uint64_t)(le32_to_cpu(mes_hdr->mes_data_start_addr_hi)) << 32);
+ 
++	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
++		info = &adev->firmware.ucode[AMDGPU_UCODE_ID_CP_MES];
++		info->ucode_id = AMDGPU_UCODE_ID_CP_MES;
++		info->fw = adev->mes.fw;
++		adev->firmware.fw_size +=
++			ALIGN(le32_to_cpu(mes_hdr->mes_ucode_size_bytes),
++			      PAGE_SIZE);
++
++		info = &adev->firmware.ucode[AMDGPU_UCODE_ID_CP_MES_DATA];
++		info->ucode_id = AMDGPU_UCODE_ID_CP_MES_DATA;
++		info->fw = adev->mes.fw;
++		adev->firmware.fw_size +=
++			ALIGN(le32_to_cpu(mes_hdr->mes_ucode_data_size_bytes),
++			      PAGE_SIZE);
++	}
++
+ 	return 0;
+ }
+ 
 -- 
 2.25.4
 
