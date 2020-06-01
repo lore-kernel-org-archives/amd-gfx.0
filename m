@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3443EC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 36D38C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0AE952073B
+	by mail.kernel.org (Postfix) with ESMTPS id 0CF632073B
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Af0IchUy"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0AE952073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aEBaAkAQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0CF632073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C083F6E2E8;
-	Mon,  1 Jun 2020 18:21:13 +0000 (UTC)
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A263B6E2E8
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:12 +0000 (UTC)
-Received: by mail-qk1-x744.google.com with SMTP id c14so8975521qka.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:12 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99DC86E2E9;
+	Mon,  1 Jun 2020 18:21:14 +0000 (UTC)
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 971736E2E8
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:13 +0000 (UTC)
+Received: by mail-qt1-x843.google.com with SMTP id j32so8456808qte.10
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ae99j0YGVa2q/SM95E1jL1RDf+Q/EQoSuYowrNA0erc=;
- b=Af0IchUyikJ1Plb/3mQAw1RnaQ5t5oM7PGz+sWKl10zXYhXZD2J/S1psmGb0ohAbIA
- 5Q3wR+VpGYQEizV83ugP8sw1DU5JhX9+Ljrsuo8fsAMmiaFBhEjYgLbC3yWmH6Ee6SsB
- FRDXCWvV4tEHRSi1hDyYY9gYpRW7QkBTIa9Jw7FtOjGxJentJQB1Op7kzZ0l3l0DBlh2
- 3cov37RiVSJ1CLGOJHIUueo0aRh6nsK+rDsMyBcGGghMCkRX3sW1T0+brLg6DeG91GxS
- sK74bHkDIvftqWZKv4L8N/vlES/Nd7hd3pMVCcs3+HQQPBhUW5jmNE6+/CUGkhz2Ouke
- XAAQ==
+ bh=S0w7ibU9oT/N9ntQA5IFgUWfKLg38fC5+glqq0AbS4k=;
+ b=aEBaAkAQ4WjgNoRhh4zy5EnG0vQwjTR3HIlLrz0/JrOLGj47mpTyDvsWZcWvZ2qNQN
+ R/hGWc0yzzlXPGJprROZh+FM7m5eImagQQrUnaEt050g7VXZT8YVtUJU5yaSwaNLqIUn
+ 28HaKYuqD6haXkSkNaMKOHDYsI/8byigAd1VzaZlLfAtf53NXzbi6QQMZSXfV6jzbLHe
+ ePTn/GaN3kA/hfrvmz540+K2i+DHaDcHwPuOuQxxs9sUZim6E+or9C0QUsqMWR31ZtqQ
+ IPPgMuKTwipVhufw0vW730ViDrR1IXjS26Ix1wsyNOQ9F5berOJAGlzgTCtdq+BPTm5B
+ HZvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ae99j0YGVa2q/SM95E1jL1RDf+Q/EQoSuYowrNA0erc=;
- b=FkS713ynUL2IQtNJZh792/l3KmWufZRU9zFIrvk/3UDhjY/L6JCPtLEAfD1kRWUzug
- uFPmLAvd9vdXOtWdoV78QWfcg2XGkkn5AIU+POSeL3z+nwrzTDewqB8y7zZt2m+lYaGx
- fL4WrmACKVeLJVd2nfjGKr2hIoo3I8a8x1/kVAKFCJPHIR0Y716JFhZOdFb1rLxhW4KF
- vKInVFlwulsxh49D21zMTtKcKvxpbDPa9EwzBvNHr+Yoj3M4S7ODX+0dGsuTJkUcy2hz
- nDk+86lc/Dn1SHLhRSxBsYYdC5/6yU2YMQcbQqpgsXJFLa6kO8bb2tjSmbuGoBmamaEU
- lrCA==
-X-Gm-Message-State: AOAM5314XIvUkNP4u5m1PAZEZ3/pdfgxWk7RNcnxcsbMFlakDsJ/xIhs
- vEp68VjPrSEkM+/qUWo4Qezc4cNh
-X-Google-Smtp-Source: ABdhPJwUbh9iNGvv8SIDYFFmL9row7RKeLMQM8ajv0SsGmrWIil53UyBO1sZOB5n6QK8leOX4WnJsg==
-X-Received: by 2002:a37:6851:: with SMTP id d78mr20954857qkc.86.1591035671543; 
- Mon, 01 Jun 2020 11:21:11 -0700 (PDT)
+ bh=S0w7ibU9oT/N9ntQA5IFgUWfKLg38fC5+glqq0AbS4k=;
+ b=ZYDoI6XKTuCGZrh6brcFq7XmmcLQwystTaCy4aKt3iDeat4sDoERoNRW1/NkhQfzbb
+ VA3/KzRIcdPmR8mPUWHAucuyW7IgQIabtSrPoXKaZCPRTkmEGFJBcDnRK572BqN8cUNp
+ 1U4cd2VKhW+TtG5G8eR9+QJLww6YWCN9cSn4kDDUdyyL5fP3i4q/EYapMBGM/6+udYYL
+ v5YlFrQoAhGs5yjkm/PQq+toE+5uYjtQaOV+KSh3mGyTeGvJp9Nw1Jhpj4wAGNE/tmTE
+ x5IQkSPLbr8dUsXXfyOUWWmjp0c4tHQFfAKcz5bQR8tLlqxDsexFaC413ghup1oVO4Uq
+ H4XQ==
+X-Gm-Message-State: AOAM530r7zu4NmZzNMDud3W2LiI6vNpDy6+JeFyEYl3CU02UJr/ylL3r
+ nO7NER3LKS0iCH4X175b1rQAxpa8
+X-Google-Smtp-Source: ABdhPJzzVO2az9sHtv0f66hvStJ0v2iOhr0N/91vPpi1XZMd89yRuLi7yzxXMcOjU8rBx80/O5+lOA==
+X-Received: by 2002:ac8:2dea:: with SMTP id q39mr23512193qta.2.1591035672625; 
+ Mon, 01 Jun 2020 11:21:12 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.10
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:21:11 -0700 (PDT)
+ Mon, 01 Jun 2020 11:21:12 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 095/207] drm/amdgpu: add vram_info v2_5 in atomfirmware header
-Date: Mon,  1 Jun 2020 14:19:02 -0400
-Message-Id: <20200601182054.1267858-6-alexander.deucher@amd.com>
+Subject: [PATCH 096/207] drm/amdgpu: support query vram info for sienna_cichlid
+Date: Mon,  1 Jun 2020 14:19:03 -0400
+Message-Id: <20200601182054.1267858-7-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -89,150 +89,61 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-vram_info v2_5 was introduced to support sienna_cichlid
+support query vram_module v11 and vram_info v2_5
+for sienna_cichlid
 
 Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Reviewed-by: Likun Gao <Likun.Gao@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/include/atomfirmware.h | 124 +++++++++++++++++++++
- 1 file changed, 124 insertions(+)
+ .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  | 22 +++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/include/atomfirmware.h b/drivers/gpu/drm/amd/include/atomfirmware.h
-index b36ea8340afa..2c3c73f1e6ee 100644
---- a/drivers/gpu/drm/amd/include/atomfirmware.h
-+++ b/drivers/gpu/drm/amd/include/atomfirmware.h
-@@ -2313,6 +2313,130 @@ struct atom_vram_info_header_v2_4 {
-   struct   atom_vram_module_v10  vram_module[16];        // just for allocation, real number of blocks is in ucNumOfVRAMModule;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+index 58f9d8c3a17a..659d845dbebe 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
+@@ -120,11 +120,13 @@ union umc_info {
+ union vram_info {
+ 	struct atom_vram_info_header_v2_3 v23;
+ 	struct atom_vram_info_header_v2_4 v24;
++	struct atom_vram_info_header_v2_5 v25;
  };
  
-+struct atom_vram_module_v11 {
-+	// Design Specific Values
-+	uint32_t  memory_size;                   // Total memory size in unit of MB for CONFIG_MEMSIZE zeros
-+	uint32_t  channel_enable;                // bit vector, each bit indicate specific channel enable or not
-+	uint16_t  mem_voltage;                   // mem_voltage
-+	uint16_t  vram_module_size;              // Size of atom_vram_module_v9
-+	uint8_t   ext_memory_id;                 // Current memory module ID
-+	uint8_t   memory_type;                   // enum of atom_dgpu_vram_type
-+	uint8_t   channel_num;                   // Number of mem. channels supported in this module
-+	uint8_t   channel_width;                 // CHANNEL_16BIT/CHANNEL_32BIT/CHANNEL_64BIT
-+	uint8_t   density;                       // _8Mx32, _16Mx32, _16Mx16, _32Mx16
-+	uint8_t   tunningset_id;                 // MC phy registers set per.
-+	uint16_t  reserved[4];                   // reserved
-+	uint8_t   vender_rev_id;                 // [7:4] Revision, [3:0] Vendor code
-+	uint8_t   refreshrate;			 // [1:0]=RefreshFactor (00=8ms, 01=16ms, 10=32ms,11=64ms)
-+	uint8_t   vram_flags;			 // bit0= bankgroup enable
-+	uint8_t   vram_rsd2;			 // reserved
-+	uint16_t  gddr6_mr10;                    // gddr6 mode register10 value
-+	uint16_t  gddr6_mr0;                     // gddr6 mode register0 value
-+	uint16_t  gddr6_mr1;                     // gddr6 mode register1 value
-+	uint16_t  gddr6_mr2;                     // gddr6 mode register2 value
-+	uint16_t  gddr6_mr4;                     // gddr6 mode register4 value
-+	uint16_t  gddr6_mr7;                     // gddr6 mode register7 value
-+	uint16_t  gddr6_mr8;                     // gddr6 mode register8 value
-+	char    dram_pnstring[40];               // part number end with '0'.
-+};
-+
-+struct atom_gddr6_ac_timing_v2_5 {
-+	uint32_t  u32umc_id_access;
-+	uint8_t  RL;
-+	uint8_t  WL;
-+	uint8_t  tRAS;
-+	uint8_t  tRC;
-+
-+	uint16_t  tREFI;
-+	uint8_t  tRFC;
-+	uint8_t  tRFCpb;
-+
-+	uint8_t  tRREFD;
-+	uint8_t  tRCDRD;
-+	uint8_t  tRCDWR;
-+	uint8_t  tRP;
-+
-+	uint8_t  tRRDS;
-+	uint8_t  tRRDL;
-+	uint8_t  tWR;
-+	uint8_t  tWTRS;
-+
-+	uint8_t  tWTRL;
-+	uint8_t  tFAW;
-+	uint8_t  tCCDS;
-+	uint8_t  tCCDL;
-+
-+	uint8_t  tCRCRL;
-+	uint8_t  tCRCWL;
-+	uint8_t  tCKE;
-+	uint8_t  tCKSRE;
-+
-+	uint8_t  tCKSRX;
-+	uint8_t  tRTPS;
-+	uint8_t  tRTPL;
-+	uint8_t  tMRD;
-+
-+	uint8_t  tMOD;
-+	uint8_t  tXS;
-+	uint8_t  tXHP;
-+	uint8_t  tXSMRS;
-+
-+	uint32_t  tXSH;
-+
-+	uint8_t  tPD;
-+	uint8_t  tXP;
-+	uint8_t  tCPDED;
-+	uint8_t  tACTPDE;
-+
-+	uint8_t  tPREPDE;
-+	uint8_t  tREFPDE;
-+	uint8_t  tMRSPDEN;
-+	uint8_t  tRDSRE;
-+
-+	uint8_t  tWRSRE;
-+	uint8_t  tPPD;
-+	uint8_t  tCCDMW;
-+	uint8_t  tWTRTR;
-+
-+	uint8_t  tLTLTR;
-+	uint8_t  tREFTR;
-+	uint8_t  VNDR;
-+	uint8_t  reserved[9];
-+};
-+
-+struct atom_gddr6_bit_byte_remap {
-+	uint32_t dphy_byteremap;    //mmUMC_DPHY_ByteRemap
-+	uint32_t dphy_bitremap0;    //mmUMC_DPHY_BitRemap0
-+	uint32_t dphy_bitremap1;    //mmUMC_DPHY_BitRemap1
-+	uint32_t dphy_bitremap2;    //mmUMC_DPHY_BitRemap2
-+	uint32_t aphy_bitremap0;    //mmUMC_APHY_BitRemap0
-+	uint32_t aphy_bitremap1;    //mmUMC_APHY_BitRemap1
-+	uint32_t phy_dram;          //mmUMC_PHY_DRAM
-+};
-+
-+struct atom_gddr6_dram_data_remap {
-+	uint32_t table_size;
-+	uint8_t phyintf_ck_inverted[8];     //UMC_PHY_PHYINTF_CNTL.INV_CK
-+	struct atom_gddr6_bit_byte_remap bit_byte_remap[16];
-+};
-+
-+struct atom_vram_info_header_v2_5 {
-+	struct   atom_common_table_header table_header;
-+	uint16_t mem_adjust_tbloffset;                         // offset of atom_umc_init_reg_block structure for memory vendor specific UMC adjust settings
-+	uint16_t gddr6_ac_timing_offset;                     // offset of atom_gddr6_ac_timing_v2_5 structure for memory clock specific UMC settings
-+	uint16_t mc_adjust_pertile_tbloffset;                  // offset of atom_umc_init_reg_block structure for Per Byte Offset Preset Settings
-+	uint16_t mc_phyinit_tbloffset;                         // offset of atom_umc_init_reg_block structure for MC phy init set
-+	uint16_t dram_data_remap_tbloffset;                    // offset of atom_gddr6_dram_data_remap array to indicate DRAM data lane to GPU mapping
-+	uint16_t reserved;                                     // offset of reserved
-+	uint16_t post_ucode_init_offset;                       // offset of atom_umc_init_reg_block structure for MC phy init after MC uCode complete umc init
-+	uint16_t strobe_mode_patch_tbloffset;                  // offset of atom_umc_init_reg_block structure for Strobe Mode memory clock specific UMC settings
-+	uint8_t  vram_module_num;                              // indicate number of VRAM module
-+	uint8_t  umcip_min_ver;
-+	uint8_t  umcip_max_ver;
-+	uint8_t  mc_phy_tile_num;                              // indicate the MCD tile number which use in DramDataRemapTbl and usMcAdjustPerTileTblOffset
-+	struct   atom_vram_module_v11  vram_module[16];        // just for allocation, real number of blocks is in ucNumOfVRAMModule;
-+};
-+
- /* 
-   ***************************************************************************
-     Data Table voltageobject_info  structure
+ union vram_module {
+ 	struct atom_vram_module_v9 v9;
+ 	struct atom_vram_module_v10 v10;
++	struct atom_vram_module_v11 v11;
+ };
+ 
+ static int convert_atom_mem_type_to_vram_type(struct amdgpu_device *adev,
+@@ -260,6 +262,26 @@ amdgpu_atomfirmware_get_vram_info(struct amdgpu_device *adev,
+ 				if (vram_vendor)
+ 					*vram_vendor = mem_vendor;
+ 				break;
++			case 5:
++				if (module_id > vram_info->v25.vram_module_num)
++					module_id = 0;
++				vram_module = (union vram_module *)vram_info->v25.vram_module;
++				while (i < module_id) {
++					vram_module = (union vram_module *)
++						((u8 *)vram_module + vram_module->v11.vram_module_size);
++					i++;
++				}
++				mem_type = vram_module->v11.memory_type;
++				if (vram_type)
++					*vram_type = convert_atom_mem_type_to_vram_type(adev, mem_type);
++				mem_channel_number = vram_module->v11.channel_num;
++				mem_channel_width = vram_module->v11.channel_width;
++				if (vram_width)
++					*vram_width = mem_channel_number * (1 << mem_channel_width);
++				mem_vendor = (vram_module->v11.vender_rev_id) & 0xF;
++				if (vram_vendor)
++					*vram_vendor = mem_vendor;
++				break;
+ 			default:
+ 				return -EINVAL;
+ 			}
 -- 
 2.25.4
 
