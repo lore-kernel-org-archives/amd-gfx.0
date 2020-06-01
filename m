@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 969A9C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F168C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 685592073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:40 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 271002073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MKPDDlb5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 685592073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VQv3T28/"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 271002073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20BA86E364;
-	Mon,  1 Jun 2020 18:22:40 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F6526E364
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:39 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id w90so8476866qtd.8
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:39 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E70076E358;
+	Mon,  1 Jun 2020 18:22:41 +0000 (UTC)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 913E06E369
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:40 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id u17so7371656qtq.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=jNDTGw76hxbOzapoE442SbShLf8INDTzIjcyT3KGpXY=;
- b=MKPDDlb5db9M13c+ywIKnDh0QXeLGxLbgvQeEMpCluKSXboYISKtBYknV8KQi7MceM
- Om4TZqJQq/xILnwiYsX9ehbtncd/FXS2d+Kcu4oout6Yea/qfcRxAJrOV3e4s0eN7Nfg
- CD99DVIkQfQPaAasF45bphyqDCzmgjqRT+EOdWpIrM0grbCu5RDX1nJ0yluG1tdmgFBD
- 68XnCECByA5x8n3lWdxA6SMdbt1ZPq2OX/jo3zWZ5at0nml5psMvo/xufd/bBccJOAkD
- RtsjRgEEQygP8gsi00wYMG3cVrnex77BrIYZpXmRafLNNO6IhGdUefoZQRBpawcEG7SW
- Sc8g==
+ bh=NZkC9GRyoqhBrbAZbEAAhh3ucXJBNXj9Z2TGjvybWqQ=;
+ b=VQv3T28/BkRrw5ZdqPB30d4UCTDGIIlwYfoq06Wk6avVLdUYUcXqOL73yNpmR4mrgU
+ j3HzshYrVBY2lDF4giiX8xWYz8exieFsmkrvpihp905i/YkMGAoSImX6beoR7Zs02YJ3
+ kC0Ed5HDw9bkHNUrEa7ni1sxdi5+U2G+eQLqkU2EHbblw9c+gfHWNBpnuVV6ajX+jCTy
+ yagTo3s3oSzp7fZ0QbDMCiN6RDki9ItBkaJMzAXIdUaOVkv7bVucuoCOf0MNBPazqbt6
+ r6X6gWPH2dopaD71ovKo1bTqoJjfB3njC2GuN4LIcniuFE8vIyFn4cO0k+w6TmI0QMSh
+ tK0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=jNDTGw76hxbOzapoE442SbShLf8INDTzIjcyT3KGpXY=;
- b=iksbqHEWzmREqHnjdmqHHtXb1Mf9g314YBEUfaTkrIUyEtiuCtBDyIFh0CwCAiNTY/
- z11sghSJck41Uu0X52eOHA+66nceboFvM2zDpjW+XMXodHzMhfeBWSPVusmMw+Dh+V/U
- Wj6+Wz0PRWzXRBpWOTN+8gx/dOUOzS0vo/N2D7xv0UIeKCzoafrcpTrR1hzhwZem0Vdc
- YzkH3ng76J33ESRq+J6PR4LTA21XM2JdAwGXIxoIvTBejfLmLl9r6hOmCCQSUK6UFBmP
- seCwoeKoJmHYFxe+biOcPsg9ucdVHAPeG2I0M/kwI7IHmFzlV7GfcqMiKg/8DuZ7pxu3
- SwwA==
-X-Gm-Message-State: AOAM5318TyFq4J6VsB4G4XoFtIzkWbktS9zFSEvGi/7T0hUkrXvV0//3
- PxGrH+BDFSdurdve2S9OGf38l8eK
-X-Google-Smtp-Source: ABdhPJwEkxFoQWq+YCTDszIhGaVPNSSWStBiQhLndDitcZKAjt0xN4LC6EbptWGdBQV89AfAUsRnCw==
-X-Received: by 2002:ac8:32dc:: with SMTP id a28mr15948902qtb.158.1591035758279; 
- Mon, 01 Jun 2020 11:22:38 -0700 (PDT)
+ bh=NZkC9GRyoqhBrbAZbEAAhh3ucXJBNXj9Z2TGjvybWqQ=;
+ b=gN7xVQCAE5AvEfilpcHLPpK+kKmotODNFxBu1ohMGhgrSS70gFvA/nA+e3i+nZKJKt
+ xJ5GHjCH9uVJvrW32qAG2x8SNM/0rOx6XVA3pCk2nNss4gcNsOEpKxXmZ//pIPfgg08k
+ WljcopHybJ0D4t91T8Tn7yzg+S98NIsLn6LfcD6uqpeAX5smPzOGn2AHH6uHcHpNTGgd
+ HK5UDz043QuDrv0J/0ztwhhJOwGmRjYRSlfATxswbiPnWgtjGB2r2GIDvGINB7JZoNNc
+ ryOOZVOZFu23zZaEwjDh8e16Q0N+FtKxNSHvMwFxtgoX3sELos5WBrhQWRMIY19oFb17
+ bGPQ==
+X-Gm-Message-State: AOAM532qYOMxxdqgHVInwqamr+GodXDVkRRpOtlwjaFLwbnt6cleG+tu
+ oaaOY98uWu+mwQ2VtNYYgske8PWj
+X-Google-Smtp-Source: ABdhPJxvUn+86LZ8j/tkn3WEIE8L4Ks/t5bk+16Ocn61koOlxJoy8baMJ+/wUSC1X1gepCyZFSBzBQ==
+X-Received: by 2002:aed:3b56:: with SMTP id q22mr23056647qte.345.1591035759606; 
+ Mon, 01 Jun 2020 11:22:39 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.36
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:22:37 -0700 (PDT)
+ Mon, 01 Jun 2020 11:22:38 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 162/207] drm/amdgpu: only use one gfx pipe for Sienna_Cichlid
-Date: Mon,  1 Jun 2020 14:20:09 -0400
-Message-Id: <20200601182054.1267858-73-alexander.deucher@amd.com>
+Subject: [PATCH 163/207] drm/amdgpu/sriov : Add sriov detection for
+ sienna_cichlid
+Date: Mon,  1 Jun 2020 14:20:10 -0400
+Message-Id: <20200601182054.1267858-74-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -81,45 +82,36 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
+ Hawking Zhang <Hawking.Zhang@amd.com>, shaoyunl <shaoyun.liu@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Likun Gao <Likun.Gao@amd.com>
+From: shaoyunl <shaoyun.liu@amd.com>
 
-Only enable one gfx pipe for sienna_cichlid currently.
+This is a regression due to the rebase , add sienna_cichlid sriov detection back
 
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Acked-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: shaoyunl <shaoyun.liu@amd.com>
+Reviewed-by: Likun Gao <Likun.Gao@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-index f0955b325798..cc1835cd0c91 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
-@@ -55,7 +55,7 @@
-  * 2. Async ring
-  */
- #define GFX10_NUM_GFX_RINGS_NV1X	1
--#define GFX10_NUM_GFX_RINGS_Sienna_Cichlid	2
-+#define GFX10_NUM_GFX_RINGS_Sienna_Cichlid	1
- #define GFX10_MEC_HPD_SIZE	2048
- 
- #define F32_CE_PROGRAM_RAM_SIZE		65536
-@@ -4232,7 +4232,7 @@ static int gfx_v10_0_sw_init(void *handle)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+index f3b38c9e04ca..bab9286021a7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+@@ -321,6 +321,7 @@ void amdgpu_detect_virtualization(struct amdgpu_device *adev)
+ 	case CHIP_VEGA20:
+ 	case CHIP_NAVI10:
+ 	case CHIP_NAVI12:
++	case CHIP_SIENNA_CICHLID:
+ 	case CHIP_ARCTURUS:
+ 		reg = RREG32(mmRCC_IOV_FUNC_IDENTIFIER);
  		break;
- 	case CHIP_SIENNA_CICHLID:
- 		adev->gfx.me.num_me = 1;
--		adev->gfx.me.num_pipe_per_me = 2;
-+		adev->gfx.me.num_pipe_per_me = 1;
- 		adev->gfx.me.num_queue_per_pipe = 1;
- 		adev->gfx.mec.num_mec = 2;
- 		adev->gfx.mec.num_pipe_per_mec = 4;
 -- 
 2.25.4
 
