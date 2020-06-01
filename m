@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC4B2C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 17:28:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2501AC433E1
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 17:28:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 520E0206A4
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 17:28:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id ED1F0206A4
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 17:28:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="BbPbsn67"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 520E0206A4
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="0fHFoy9M"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED1F0206A4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03B6B89CF9;
-	Mon,  1 Jun 2020 17:28:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B5C5089D79;
+	Mon,  1 Jun 2020 17:28:33 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2053.outbound.protection.outlook.com [40.107.94.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B77A89CF9
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 17:28:30 +0000 (UTC)
+ (mail-mw2nam10on2046.outbound.protection.outlook.com [40.107.94.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2129F89D4F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 17:28:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=dr41xepGcCspisz1zIwtqTZg6u2cmIvIuLc8xQgK6Tm4L+1/Qno7NEUVrQRJLhdIOE/xuu1GpMi0D35TyDx0NNlySLUM03lktSNgO+SgC8T+AQ7gjptTMFtZiOALPR+Xgt78hE4v4caN/xPHFC24uznPUxqpA++wkekNxX/9WfC+g76nJvLCwxIQzFTnJPxAegDOk1MFYVcXPmA4eryXUpXDN/Hcj6QsPMwpD0vCI6+mfW/68SjOHpjk3UaoU4T7Zf94YzwhP5z015J6muhHZD33B4teW1p6rHxivgjApd0F+heeMohSn07syec5RhXhBG5kLUO8TA688p09BGVNZA==
+ b=lYcFtxA4eBMgFfQXZC4PJXyZIYlUAbJv61A/m64rEFuBp2aW98kTS4VTBwTEyGMmcOdZgFzYIfaqq7m4fFue9KBE2e+yAPdbShE0l74TNCztB+srghLTCpYVurrDtwGb4ggUCc7v0wnokjkiOPrqxV1S9wduTRMAEDkCnWuCPD0PP6GHwD79UNEt4K7nniHbKm8z/QJCxdbgPbtbKBLoVAqPxVQNc9A2ucxLm/zMnQ/MUIYBNTLpNvIEfPWNy9URal+WYUiGHHHIGIVJzSivpElGGwCE+yIlsxOcOYM8HY0whUcpWAR7alk1s0SvxMT8thI3xxyEHt99RrB0xImB0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b+mKZ/hrD/Vow6aOSOzkSlI3zBNXi24WpVkZ2OcaItA=;
- b=AFsRfZNrKu0IEGrQMMJ9QhHoJJ6GbdRcZgFgBIDUhom4432Uwd/G12UAHPbLC5OIj6WBbvKHgsWINAXc+/gUCdF60TKqa6AYfzn9qx8t5dD2buFPBltYpyYpogCksArFQ3ntWzizMJhHOHr6fr3vSiQSS/dWFquM4ClDOfY2uPVvXJ35CZLkEkGTX8n+TRFO0E2aEjTcwcobM8GQphXknJv4UWFq/bJVFlGYsajScWbqvnj8vAlPyxsfQUFRrFN0rJySXLK8gn3R2tRqUIy/ZT23QiM33cTuBPPKgfAB5dej1UnsdIDwFdcnmmTqPQjV1u3WwYvaUAZc89utPJ9ANg==
+ bh=bEbhfdp9B2cIHSqTIbX1rKUKgC0Y8r2iv4b0zGABXoA=;
+ b=eq5O8cWIJZ7GZC1zduEsAxT/9CC5lC7zNAcewZvzysDDz+bH2w4WttbnWN2Ktpo29kvYvMjNZT2h/u8ZUKZPX5fepILYlTCjAjdzwzWLYDb/ACWExyD9Cz0EKVBc90VOlaxLW1z3Gwy4fS+TQAwzQseI1BGU0PRevoMudHWNA9r22XJd//rm/gPAIK3b5+DuOfpN1LNaxI/FjgvCIRrt7enD4kHWpCVB4Je2W05jSIYEJZs2B3zXH+v90mdP1ISi9ObEvtkqsg0QzfCw7/tnY07cvJcPkop2LTsJx2TAnv8fYDTjUFEKny5llB1DHm7PdAzD4ZMPVbmazhzLyU1k8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=b+mKZ/hrD/Vow6aOSOzkSlI3zBNXi24WpVkZ2OcaItA=;
- b=BbPbsn67jl/X5jDjWZ1IJphwy9bamnxwt8mqfKRjioGOXvJka7hyPe0c4Cczw42ziR1KJ3RbjYfP0gD+rU786yJztM1dy29nBAFIAS226X2NqOezD4Zfw1b5RuEV8bYLFcsDmQvlF7f9VVljooTYG9x8RM3QKp1A8Z6DoJVBhuY=
+ bh=bEbhfdp9B2cIHSqTIbX1rKUKgC0Y8r2iv4b0zGABXoA=;
+ b=0fHFoy9MiwIA65hPw5WHC1IvJhUV1uhAKgOXAo5ep0mVCgorUPGSlP1ZGOz86pIpROLt4MakksK53rrrZWzsIY+c07EGegpztMSBLHz3T8dyqJJZgimXJ+kWhsdEe6gwoXYGxD7dH6S2wNtqQ8g5gYGxuCQK3opI/dcmOtGe1eU=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,19 @@ Received: from DM6PR12MB3721.namprd12.prod.outlook.com (2603:10b6:5:1c2::18)
  by DM6PR12MB2668.namprd12.prod.outlook.com (2603:10b6:5:4a::29) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.17; Mon, 1 Jun
- 2020 17:28:28 +0000
+ 2020 17:28:31 +0000
 Received: from DM6PR12MB3721.namprd12.prod.outlook.com
  ([fe80::e027:654c:5d9f:a648]) by DM6PR12MB3721.namprd12.prod.outlook.com
  ([fe80::e027:654c:5d9f:a648%3]) with mapi id 15.20.3045.024; Mon, 1 Jun 2020
- 17:28:28 +0000
+ 17:28:31 +0000
 From: Kent Russell <kent.russell@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amdgpu: Add ReadSerial defines for Arcturus
-Date: Mon,  1 Jun 2020 13:28:17 -0400
-Message-Id: <20200601172818.5560-1-kent.russell@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: Add unique_id and serial_number for Arcturus
+Date: Mon,  1 Jun 2020 13:28:18 -0400
+Message-Id: <20200601172818.5560-2-kent.russell@amd.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200601172818.5560-1-kent.russell@amd.com>
+References: <20200601172818.5560-1-kent.russell@amd.com>
 X-ClientProxiedBy: YTBPR01CA0033.CANPRD01.PROD.OUTLOOK.COM
  (2603:10b6:b01:14::46) To DM6PR12MB3721.namprd12.prod.outlook.com
  (2603:10b6:5:1c2::18)
@@ -67,33 +69,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from krussell.amd.com (165.204.55.251) by
  YTBPR01CA0033.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:14::46) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3045.19 via Frontend Transport; Mon, 1 Jun 2020 17:28:28 +0000
+ 15.20.3045.19 via Frontend Transport; Mon, 1 Jun 2020 17:28:30 +0000
 X-Mailer: git-send-email 2.17.1
 X-Originating-IP: [165.204.55.251]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 19182775-be7a-4c35-0b42-08d8065132a2
+X-MS-Office365-Filtering-Correlation-Id: 98f4fe3d-f049-40d9-cd2d-08d806513419
 X-MS-TrafficTypeDiagnostic: DM6PR12MB2668:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB26684CB6D051147277107B9A858A0@DM6PR12MB2668.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB2668D86A35BCF0F9DFE9C57F858A0@DM6PR12MB2668.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1002;
 X-Forefront-PRVS: 0421BF7135
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 7VrTlCc4EYXEbvFHBWIZ0APikhfMsrxTGhSmDhnp3loO39HHf+s3hvQ52M91GLuToWAGLjKUnepYCgpsayDrkpAi9990oZF6o2MgyfIq8n0mIhMdziQMHgEQzknTSKk23eOZmMVXhMfiQ+1g7sQE2r0f5a/esjmTphwm1iEV6G1FLEZMKF4tdnflZi/QRBRLspJR6LFsIDsH3qdb5jm0ZOYXZcM/45tjRLNYWduq1YSYdCnq13AZVNeEcLWdksfC8BgA4I122kXXs6UOpmTTJS7MZ5Dvsk7hcdejGbCu8GHi9JE8nMIsWtuU8IfTxh+p0TWUkvjqZu8qEDirH6euGQ==
+X-Microsoft-Antispam-Message-Info: KeLgDcFy3i6e0QcpIHfYx8wxaGoXtLMEcCJIyJGjjr+dvEesf9YAt9lmBi3QGP5W5aRrI/U4cEb4hD+ZPg+w4w9m94j3Y339ECp7KpPvhojR2yIRCEekxf3E6Rrp62xy5NJ6cTg1hJM6B9ZDr5bB3syDJxoUW2s5eN5UeFo1+mIjQbj/JKcJ5M2dSue6R7ZyEyn8fCBgUy+1A3YN+kiEyR2sSWN4kHSBpzb4ZNCpdUw0+lnRcEhduzHkj9M1ZeGU1vc+2a9CfDSQpWLIcpLlw3tRGbhRUAlJzI/Gqw2wFGRhF5ACW5Iu9wfJtjpuP++m
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3721.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(376002)(346002)(396003)(136003)(366004)(66476007)(2616005)(44832011)(956004)(66946007)(8676002)(83380400001)(4326008)(8936002)(66556008)(6916009)(316002)(36756003)(5660300002)(478600001)(2906002)(7696005)(16526019)(26005)(6486002)(186003)(6666004)(52116002)(86362001)(19627235002)(1076003);
+ SFS:(4636009)(39860400002)(376002)(346002)(396003)(136003)(366004)(66476007)(2616005)(44832011)(956004)(66946007)(8676002)(83380400001)(4326008)(8936002)(66556008)(6916009)(316002)(36756003)(5660300002)(478600001)(2906002)(7696005)(16526019)(26005)(6486002)(186003)(6666004)(52116002)(86362001)(1076003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: KyPluwdejBJXk5FS+cK7QyTzNL12FCbsHewm4+C1AV5omxsz8VF5wS7Y1qmY0v6hpq8mbVUdua6zx2RttmzG2Pf3sFmShYRsUN+THb2Qd3/5AIVMqAiPvcWwmgyogqjad5IbIV5QnnmagSDS1c/uWUHY5xBM+Od29jMcSdsHXMwYGUr+D0mPpQd1DXnNtYZS+Gtwzkeo4693AgYwEeo7N6bl6nqsNDBfW4uectTeX6y7BaHImBmL3dQkmi+tJZKV7ZqbbAeLVHGB/AGPLVzkU6D/4N3xHSBQsVhHmVRUYm5UYJwQj9FXhLdTzOgasOwhEj0TiBTBGiA9kPBKOWjFBCAly4apW/rCnDYju/rI5rIwvv2krc72jv296JXxt51jxeIPGmvt+UBgAmvu8pYU4rM2mo1QQORe/nidNTBGM30DzhtODIaM1AEkC91CIFDQaxxTP13i6xvBME9Q2CLLfSajH6kd3e5qnoUD/MeRag4=
+X-MS-Exchange-AntiSpam-MessageData: EfsW687nZma3oJFbDob7p56tcPuXFRrpm6usgf4BVUF8+t+KEmzWLd2zDCTaWUzAmqdmnmA4JE47WrUwSnm8HbaZX8PCIO9PSLEFtAsWJK0gd5pv1fUGqoKBgPBU+cmjYTi1r0NOvycOAPnwt2OoGfN0Hp2SsCr78X0QZTIqYx/PwbBjnUALUuHg5BFzscGSpQYBdW6JyN/YBqIAz/mQqOgVYSdaQd2HReSKBs9KZKPiGZ7VYBT36D44D7al0NSCS7Ki1OkrPBX8edGKNDI6RWoV+yrxmGeUb4JxxTdfPUtPZcJCfC2rp7SIYuVXha4m+fLfLn0k3x83+V75TqzeWX3nEqdS+eCQ5sfG6+sGkR298JBdA/ZK3X9yZnlIt1Z8I5/X/Uf5h04bPgsGTklc9mmV/yaGKNXc1Kod5DkRqAQWm/LrXMfyHaMqjMwzO2z/Iz5RhUlZwn3V9fsT3ppAmOwnNb4BVkcXA1vkU05+wYc9fhHxZrrSgGSPCEWPgB3W
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19182775-be7a-4c35-0b42-08d8065132a2
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2020 17:28:28.6712 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98f4fe3d-f049-40d9-cd2d-08d806513419
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2020 17:28:31.1237 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nDnYdr7ehK8KlAKM7OkQLwcVOG5L5tTruReY7PR4Y6W8673c9IQK4JVVDBjTf60kxwJLBeAy2oKfJ0zimBuLsQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: XJv9vdEgp4BLn12oBg5lX7Cbpgu2zPaEtRpbcRgwEVDjjYzJikNpd0udZnJ5TgPtov1QdYn+2NiHA7OJZ1fjRQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2668
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,46 +114,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the ReadSerial definitions for Arcturus to the arcturus_ppsmc.h
-header for use with unique_id
-
-Unrevert: Supported in SMU 54.23, update values to match SMU spec
+Add support for unique_id and serial_number, as these are now
+the same value, and will be for future ASICs as well.
 
 Signed-off-by: Kent Russell <kent.russell@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Change-Id: I9a70368ea65b898b3c26f0d57dc088f21dab9c53
+Change-Id: I3b036a38b19cd84025399b0706b2dad9b7aff713
 ---
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c       | 2 ++
- drivers/gpu/drm/amd/powerplay/inc/arcturus_ppsmc.h | 3 +++
- 2 files changed, 5 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        |  2 +-
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |  2 ++
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 32 +++++++++++++++++++
+ .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  1 +
+ drivers/gpu/drm/amd/powerplay/smu_internal.h  |  2 ++
+ 5 files changed, 38 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+index b0dff9ecfb88..9136d9022c51 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+@@ -1940,7 +1940,7 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+ 		if (adev->flags & AMD_IS_APU)
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(unique_id)) {
+-		if (!adev->unique_id)
++		if (asic_type < CHIP_VEGA10)
+ 			*states = ATTR_STATE_UNSUPPORTED;
+ 	} else if (DEVICE_ATTR_IS(pp_features)) {
+ 		if (adev->flags & AMD_IS_APU || asic_type < CHIP_VEGA10)
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+index 5294aa7cdde1..7946fd8444a3 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -793,6 +793,8 @@ static int smu_late_init(void *handle)
+ 	if (!smu->pm_enabled)
+ 		return 0;
+ 
++	smu_set_unique_id(smu);
++
+ 	smu_handle_task(&adev->smu,
+ 			smu->smu_dpm.dpm_level,
+ 			AMD_PP_TASK_COMPLETE_INIT,
 diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-index 302b7e9cb5ba..d66ac7457574 100644
+index d66ac7457574..855e609650d9 100644
 --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-@@ -129,6 +129,8 @@ static struct smu_11_0_msg_mapping arcturus_message_map[SMU_MSG_MAX_COUNT] = {
- 	MSG_MAP(SetMemoryChannelEnable,		     PPSMC_MSG_SetMemoryChannelEnable,		0),
- 	MSG_MAP(DFCstateControl,		     PPSMC_MSG_DFCstateControl,			0),
- 	MSG_MAP(GmiPwrDnControl,		     PPSMC_MSG_GmiPwrDnControl,			0),
-+	MSG_MAP(ReadSerialNumTop32,		     PPSMC_MSG_ReadSerialNumTop32,		1),
-+	MSG_MAP(ReadSerialNumBottom32,		     PPSMC_MSG_ReadSerialNumBottom32,		1),
- };
+@@ -2262,6 +2262,37 @@ static void arcturus_i2c_eeprom_control_fini(struct i2c_adapter *control)
+ 	i2c_del_adapter(control);
+ }
  
- static struct smu_11_0_cmn2aisc_mapping arcturus_clk_map[SMU_CLK_COUNT] = {
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/arcturus_ppsmc.h b/drivers/gpu/drm/amd/powerplay/inc/arcturus_ppsmc.h
-index e07478b6ac04..79afb132164e 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/arcturus_ppsmc.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/arcturus_ppsmc.h
-@@ -117,6 +117,9 @@
- #define PPSMC_MSG_GmiPwrDnControl                0x3D
- #define PPSMC_Message_Count                      0x3E
- 
-+#define PPSMC_MSG_ReadSerialNumTop32		 0x40
-+#define PPSMC_MSG_ReadSerialNumBottom32		 0x41
++static void arcturus_set_unique_id(struct smu_context *smu)
++{
++	struct amdgpu_device *adev = smu->adev;
++	uint32_t top32, bottom32, smu_version, size;
++	char sn[16];
++	uint64_t id;
 +
- typedef uint32_t PPSMC_Result;
- typedef uint32_t PPSMC_Msg;
- #pragma pack(pop)
++	if (smu_get_smc_version(smu, NULL, &smu_version)) {
++		pr_warn("Failed to get smu version, cannot get unique_id or serial_number\n");
++		return;
++	}
++
++	/* PPSMC_MSG_ReadSerial* is supported by 54.23.0 and onwards */
++	if (smu_version < 0x361700) {
++		pr_warn("ReadSerial is only supported by PMFW 54.23.0 and onwards\n");
++		return;
++	}
++
++	/* Get the SN to turn into a Unique ID */
++	smu_send_smc_msg(smu, SMU_MSG_ReadSerialNumTop32, &top32);
++	smu_send_smc_msg(smu, SMU_MSG_ReadSerialNumBottom32, &bottom32);
++
++	id = ((uint64_t)bottom32 << 32) | top32;
++	adev->unique_id = id;
++	/* For Arcturus-and-later, unique_id == serial_number, so convert it to a
++	 * 16-digit HEX string for convenience and backwards-compatibility
++	 */
++	size = sprintf(sn, "%llx", id);
++	memcpy(adev->serial, &sn, size);
++}
++
+ static bool arcturus_is_baco_supported(struct smu_context *smu)
+ {
+ 	struct amdgpu_device *adev = smu->adev;
+@@ -2416,6 +2447,7 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
+ 	.dpm_set_uvd_enable = arcturus_dpm_set_uvd_enable,
+ 	.i2c_eeprom_init = arcturus_i2c_eeprom_control_init,
+ 	.i2c_eeprom_fini = arcturus_i2c_eeprom_control_fini,
++	.set_unique_id = arcturus_set_unique_id,
+ 	.init_microcode = smu_v11_0_init_microcode,
+ 	.load_microcode = smu_v11_0_load_microcode,
+ 	.init_smc_tables = smu_v11_0_init_smc_tables,
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+index 5bb1ac821aeb..bfa5211de079 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+@@ -495,6 +495,7 @@ struct pptable_funcs {
+ 	int (*update_pcie_parameters)(struct smu_context *smu, uint32_t pcie_gen_cap, uint32_t pcie_width_cap);
+ 	int (*i2c_eeprom_init)(struct i2c_adapter *control);
+ 	void (*i2c_eeprom_fini)(struct i2c_adapter *control);
++	void (*set_unique_id)(struct smu_context *smu);
+ 	int (*get_dpm_clock_table)(struct smu_context *smu, struct dpm_clocks *clock_table);
+ 	int (*init_microcode)(struct smu_context *smu);
+ 	int (*load_microcode)(struct smu_context *smu);
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+index 6c59eeef2590..125d976215a6 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
++++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+@@ -218,6 +218,8 @@ static inline int smu_send_smc_msg(struct smu_context *smu, enum smu_message_typ
+ 		((smu)->ppt_funcs->i2c_eeprom_init ? (smu)->ppt_funcs->i2c_eeprom_init((control)) : 0)
+ #define smu_i2c_eeprom_fini(smu, control) \
+ 		((smu)->ppt_funcs->i2c_eeprom_fini ? (smu)->ppt_funcs->i2c_eeprom_fini((control)) : 0)
++#define smu_set_unique_id(smu) \
++		((smu)->ppt_funcs->set_unique_id ? (smu)->ppt_funcs->set_unique_id((smu)) : 0)
+ 
+ #define smu_log_thermal_throttling(smu) \
+ 		((smu)->ppt_funcs->log_thermal_throttling_event ? (smu)->ppt_funcs->log_thermal_throttling_event((smu)) : 0)
 -- 
 2.17.1
 
