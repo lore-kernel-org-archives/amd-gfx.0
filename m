@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B1D31C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD302C433E2
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 89BF920872
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:39 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A8D6720C56
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q8ZjPue8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89BF920872
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iZd4zCYY"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A8D6720C56
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 525226E2D3;
-	Mon,  1 Jun 2020 18:04:39 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 378786E2D1
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:38 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id c185so9948774qke.7
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:38 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60BF76E2D5;
+	Mon,  1 Jun 2020 18:04:40 +0000 (UTC)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4265E6E2D1
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:39 +0000 (UTC)
+Received: by mail-qk1-x744.google.com with SMTP id v79so9910750qkb.10
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=HjMnJy+ati37QpQWLt0clWBht6q8w6glyi3Szv0ACHQ=;
- b=Q8ZjPue8TSbjE0wTyPIzDahqvqy3GvdQztX+8OkRtmKbg8L5m8CsOXSDMfRZwQBbNB
- BEIbtl8dZV9iC93w+Xu8bHl5wjRIuXCeGWmrFHdYcuiH4bTWuml7KNaDA+wtuSZxOHEH
- NNDk9KZrp2vMVjtkvhcEbQUDXGfCL5OWN3+nx/gP6QmvAjJV0mWUAJJ8uguJYfu4lnlH
- 69JRXMNru2u7zVvo2haQVU0sdYntxX19hb1UiEuqC83Ql8PLRGSRjwxPz1mK8I1HAxjb
- ce56XBoFzalCLE3cpCgMbcfMnWcEll3XU56QbFEeVMB30QwfVYBaUXky6WNLiElhMhAv
- +QYw==
+ bh=vq2aoFLI1UfToqEi62Mo2I/J6LXqYlT3n2HD60UPvFU=;
+ b=iZd4zCYYtM2xG3sWF2qB/r20y741BspjZoYaU3mWPlc9fA9qL8tNEU4riGFQ3fZ7fF
+ M6xsMqD0Zo+PzxVpjYUxyWjZwg0WyFASL6vmVGYkjvMfF293bTN86CnxamAd1jvrpZ81
+ MSIl1sAeF/En74FtB6VgJvrnGDyt+dKJWHRBuPogniWPsv94B6NeiO+jO6mDcU2FzWXD
+ emlP5gkCvE/TGd6/FEHdw2aWy+i/8X0//WmyePQhtv0eH6CS0H5KHQDmOkO8mkpq7Nmg
+ Mm3lfXziACofeZOP4ex50DuSEyMeDzTKtC1qAwb2sLh7Oc6HGWzWyLQ88Ksjw+ND5TNQ
+ Ppwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=HjMnJy+ati37QpQWLt0clWBht6q8w6glyi3Szv0ACHQ=;
- b=abaj5SdK5eSp207BWngbHu4LoOSMkSKjhVViIkzQY1dRfFIIDlq18SVnXpVPR5WBmi
- KMcbnvZRK4H0WKoN5GoNkOwueU/bD2jAv2H08GWFTGDUKGJ1I1rV0ZSopyAo9q9SWBVa
- LOaB56YMwqdvDeA2wFnSTe3rcb6vkWfb1PKN5wXneyisTNYADhHEn+pzTAUmO6+RnMAM
- WtaN0yY3f3ak5KShXUqjyh0xd+bVlQc+zpYF0vxtlXCShEYiCwQzQOSYHwZbqbxBrPcW
- gFhnSden0MCibfdkv4Idi4qm/ZxV4O8jUXtxmtVUZZ1H3i7929ZrilLFPHGfM2sAl5Qe
- jGrg==
-X-Gm-Message-State: AOAM530r1b5lJCxkdMEUMDiIwuXQNU82Pkq3MQiou75l0l5JfRq/K+K3
- wiDYIzgDk/RBvujbAiJP/wANesx7
-X-Google-Smtp-Source: ABdhPJyprJSu4AHKkw3hznkFz5hvGQkVaHGsaI8JwErqpXFflUg+0u29APv3VmTAmCJj94aMDdMrUQ==
-X-Received: by 2002:a37:7f42:: with SMTP id a63mr21976879qkd.265.1591034677201; 
- Mon, 01 Jun 2020 11:04:37 -0700 (PDT)
+ bh=vq2aoFLI1UfToqEi62Mo2I/J6LXqYlT3n2HD60UPvFU=;
+ b=cTf2p9GXog45bDyaJlQymtgG+EhTG9AYeBTZQm0zNMOsJPdLS53iErr0kBTsPJCHxr
+ LLSsMGMU99Goo7ZIdCQ3WSSmK6qlJEx16VSnR5vbBmk8kkElVsD8wlW4FQeUkVXS1GQR
+ w3fqIBwx+TMFDTJ8gYgbVHSc9CO1d7k7PyPkifcTVQ9hGL2BQwSwWkj9bTZmwD71gknW
+ aArpaSFnA0DaWJ3ovo0MX1oZe6BNLvXjpoJ8Fk1fqDQ+RYYgMemQXyCNRbviT8+IELaN
+ T2h1F+bJlN91KhlOfF0wbPjiRgsxIcRO+/c5nRUSf/F/6GV5k9nicw64A5G1fjthCCQh
+ ormA==
+X-Gm-Message-State: AOAM530d8OcdKDwDJlhSMZ4DHb+MIHHX5s5cuPUHqZzdi9YB8GOPp0Vr
+ GpZ1h1V9ZVp4NEfaujSMCOvU2AuK
+X-Google-Smtp-Source: ABdhPJx4A5cb2JiYt+6IABU6iC5M/L2Y80sRgYo4G8b7A5a+rf/4VWOOSZarKjfa/VTknAodon25NQ==
+X-Received: by 2002:a37:650:: with SMTP id 77mr22154261qkg.369.1591034678240; 
+ Mon, 01 Jun 2020 11:04:38 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.04.35
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.04.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:04:36 -0700 (PDT)
+ Mon, 01 Jun 2020 11:04:37 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 077/207] drm/amdgpu: no need to set up GPU scheduler for mes
- ring
-Date: Mon,  1 Jun 2020 14:00:29 -0400
-Message-Id: <20200601180239.1267430-74-alexander.deucher@amd.com>
+Subject: [PATCH 078/207] drm/amdgpu/mes10.1: update mes initialization
+Date: Mon,  1 Jun 2020 14:00:30 -0400
+Message-Id: <20200601180239.1267430-75-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -82,35 +81,75 @@ List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
 Cc: Alex Deucher <alexander.deucher@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogSmFjayBYaWFvIDxKYWNrLlhpYW9AYW1kLmNvbT4KCkFzIG1lcyByaW5nIGRpcmVjdGx5
-IHN1Ym1pdHMgdG8gaGFyZHdhcmVkLAppdCdzIG5vIG5lZWQgdG8gc2V0IHVwIEdQVSBzY2hlZHVs
-ZXIgZm9yIG1lcyByaW5nLgoKU2lnbmVkLW9mZi1ieTogSmFjayBYaWFvIDxKYWNrLlhpYW9AYW1k
-LmNvbT4KQWNrZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4K
-UmV2aWV3ZWQtYnk6IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4KUmV2aWV3
-ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KU2lnbmVk
-LW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgotLS0KIGRy
-aXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jIHwgNSArKystLQogMSBmaWxl
-IGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9k
-cml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYyBiL2RyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5jCmluZGV4IDM0MTRlMTE5ZjBjYi4uODcxMmEyZTFi
-ODY5IDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2Uu
-YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZmVuY2UuYwpAQCAtNDY5
-LDggKzQ2OSw5IEBAIGludCBhbWRncHVfZmVuY2VfZHJpdmVyX2luaXRfcmluZyhzdHJ1Y3QgYW1k
-Z3B1X3JpbmcgKnJpbmcsCiAJaWYgKCFyaW5nLT5mZW5jZV9kcnYuZmVuY2VzKQogCQlyZXR1cm4g
-LUVOT01FTTsKIAotCS8qIE5vIG5lZWQgdG8gc2V0dXAgdGhlIEdQVSBzY2hlZHVsZXIgZm9yIEtJ
-USByaW5nICovCi0JaWYgKHJpbmctPmZ1bmNzLT50eXBlICE9IEFNREdQVV9SSU5HX1RZUEVfS0lR
-KSB7CisJLyogTm8gbmVlZCB0byBzZXR1cCB0aGUgR1BVIHNjaGVkdWxlciBmb3IgS0lRIGFuZCBN
-RVMgcmluZyAqLworCWlmIChyaW5nLT5mdW5jcy0+dHlwZSAhPSBBTURHUFVfUklOR19UWVBFX0tJ
-USB8fAorCSAgICByaW5nLT5mdW5jcy0+dHlwZSAhPSBBTURHUFVfUklOR19UWVBFX01FUykgewog
-CQlzd2l0Y2ggKHJpbmctPmZ1bmNzLT50eXBlKSB7CiAJCWNhc2UgQU1ER1BVX1JJTkdfVFlQRV9H
-Rlg6CiAJCQl0aW1lb3V0ID0gYWRldi0+Z2Z4X3RpbWVvdXQ7Ci0tIAoyLjI1LjQKCl9fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBs
-aXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0
-b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
+From: Jack Xiao <Jack.Xiao@amd.com>
+
+Update mes initialization sequence.
+
+Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c | 20 +++++++++++++++-----
+ 1 file changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+index a0fd3c3c7397..8d2469fe2174 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
+@@ -825,6 +825,7 @@ static int mes_v10_1_sw_init(void *handle)
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+ 
+ 	adev->mes.adev = adev;
++	adev->mes.funcs = &mes_v10_1_funcs;
+ 
+ 	r = mes_v10_1_init_microcode(adev);
+ 	if (r)
+@@ -875,20 +876,29 @@ static int mes_v10_1_hw_init(void *handle)
+ 			DRM_ERROR("failed to MES fw, r=%d\n", r);
+ 			return r;
+ 		}
+-	} else {
+-		DRM_ERROR("only support direct fw loading on MES\n");
+-		return -EINVAL;
+ 	}
+ 
+ 	mes_v10_1_enable(adev, true);
+ 
+ 	r = mes_v10_1_queue_init(adev);
++	if (r)
++		goto failure;
++
++	r = mes_v10_1_set_hw_resources(&adev->mes);
++	if (r)
++		goto failure;
++
++	r = mes_v10_1_query_sched_status(&adev->mes);
+ 	if (r) {
+-		mes_v10_1_hw_fini(adev);
+-		return r;
++		DRM_ERROR("MES is busy\n");
++		goto failure;
+ 	}
+ 
+ 	return 0;
++
++failure:
++	mes_v10_1_hw_fini(adev);
++	return r;
+ }
+ 
+ static int mes_v10_1_hw_fini(void *handle)
+-- 
+2.25.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
