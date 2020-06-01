@@ -2,69 +2,70 @@ Return-Path: <SRS0=+jgF=7O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-8.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 723CAC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:29:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 40A82C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:29:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 499252074B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:29:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 16A882074B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:29:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rMNRk/i2"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 499252074B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SG2ow+qs"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 16A882074B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 126AC6E9D8;
-	Mon,  1 Jun 2020 18:29:54 +0000 (UTC)
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 743726E9D9
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:29:52 +0000 (UTC)
-Received: by mail-qt1-x829.google.com with SMTP id j32so8480745qte.10
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:29:52 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB9606E93F;
+	Mon,  1 Jun 2020 18:29:56 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 327C26E93F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:29:54 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id n11so10026316qkn.8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:29:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=UqG7DEtc2Xe/2c3TfcmVJSL36TCepdALAV0KSIAnJLQ=;
- b=rMNRk/i2zjCSCnV7Z2AY4b+iB6+aohYmTjVhOueE2jUXuXyPSfwGtGg4eiUqPiFNbj
- Ctq7Bzdf7AZgIYD2aoaDGEXYvsURhdgS71/8sM9NHq+1FM1rfKUHY9Ql8B8dNgBvIWl/
- jG4XYzm1XwKzbZcGcJ8wu7h1/IL7ncHlyjML8J1t3B0W2OMtd+gzwcUBtocOdSSdKcSz
- vpgj4OE7bDbnn39lq9/GWzyT5pmdzmj3dsmGo5PJIHW780GyXvwbmtkyppgQl42jw5yb
- qg5PJHJKsHcao7TtzId7NCX3TNy6FbQvM4vC6qtkUffhPwdK5om9LWc81NEBDYEXZtBr
- nifw==
+ bh=ZTX3qPS3Ew+OI754gcszCGEnbDqejo+K2nDyzYE5GFc=;
+ b=SG2ow+qs7NBVN8hR5TFfshlbWPz6V9PxlqAqvVy2FrKlmeIt8oTPRo0kqigeRa0j3F
+ PrrrXGl6F/Ux1OHvN/iqNppI1Kynai/DYNweQLKP9Ti6vCQGRjcFcjBZoY9wLfdRuS8A
+ 9DdH99cuVGDa/lpHxY+QdYS3m3YZ8DoWitsc/pXeH3ZfoiM2zRiNsjPfFbreqT+jom60
+ xiz4bMMkzwbj4WJF9xwF+7Av1Ki7hgjVdr7PGoSlMKifn5dNzl00U1OxXPoEA0Ki6KP4
+ qsOAU2nmoqp6n7EezZfcTzDXYKiHbRtDcAj+N1vvxvfcYCwzbMJKAaVIcccSWeDSGtQg
+ s1mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=UqG7DEtc2Xe/2c3TfcmVJSL36TCepdALAV0KSIAnJLQ=;
- b=Mf+nQcd+PaBeHnfEGhzIDDPj82/IF+3ScEr3tbVEngq9oF3zyBiCYnuVALGiZCKfH7
- x0iXVq/XgSBk1Zo8k7hDAs/OoQZIRFFLnPRx/eMl8vgWw2XeDgq8WuFX1JxtuAeQyNnO
- olmF8NxZoEh7slJGZ/HMQiaFmVVvDXIewGYAdwMVEQH53V/YMcPHdxeFwtVJq1CQHGV3
- ztCWCge8VYl2Gis8QJCCI1/Pe3q4cEIZyoN+07OcZ4G+GA4vu6UsHO39M2JInNJM+Mxf
- TpLWW7difs7/GuzDTqQOwna/8chFyWLvIP2i0GBoTVe7/dCUMuvRzV3MKDdy9vcjCErk
- g5hw==
-X-Gm-Message-State: AOAM532cVWo/8xCd9H6k823SmMW1NdmSU0WfR3Qh3rfgTtWCGjLIBOqe
- 4NxdantBq4Mxc3bmeMhmTT1c056u
-X-Google-Smtp-Source: ABdhPJwTSmcxdwW9shFeqFbYwxnzG+io7caswQME+A2V2xXEohxlMPgIubmh2JmMuPWcRDrEDluUwA==
-X-Received: by 2002:ac8:7111:: with SMTP id z17mr23603020qto.187.1591036191066; 
- Mon, 01 Jun 2020 11:29:51 -0700 (PDT)
+ bh=ZTX3qPS3Ew+OI754gcszCGEnbDqejo+K2nDyzYE5GFc=;
+ b=LUeJvuz7PCeRnsiwDEr8RS9XU/7u7Al0xWVVrB8AxQ3p6MlaSm/Ezx6rUhFNKJnA0t
+ 3ioARbbMEwMIjeNC41A+gkXkG4KbVq382YUmlkeBnpvJakYStb4piIykpSTYxZhX35Yg
+ ihSqxBRLRBwoJ4rDiSNSgNfrmmESFPEjmA9PyPwsikyMaiIHTKJwcI0NF86QHu4pdmqQ
+ jC6HHFyIdAZ6fsuJBm2tHBHRSt0vA3yQDzhm2RUkEf53NokHwLyJx+FTUg3ldAN/SZEP
+ EXfy7NgO7KmpaE0FEfgKPekq6ASpxf3ylzxrnDhglFlaf46u5FQagLvJNSdy7zbsqJn7
+ jQXg==
+X-Gm-Message-State: AOAM533807aT4j94afQPhLQSgOMkRiP40I09n8eEN4yip/WeBMGohZav
+ cdFIiDhwo5lsL8tZRrSkqvyziFwZ
+X-Google-Smtp-Source: ABdhPJzZXEYAGpMnHARLCMUjNuri85Jgw4TFTxDT4YkFlzVUjvJpJoLWS81kG6x//NWjsrZmk1ALCQ==
+X-Received: by 2002:a37:70c5:: with SMTP id
+ l188mr21794787qkc.396.1591036192514; 
+ Mon, 01 Jun 2020 11:29:52 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id z194sm8592qkb.73.2020.06.01.11.29.50
+ by smtp.gmail.com with ESMTPSA id z194sm8592qkb.73.2020.06.01.11.29.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:29:50 -0700 (PDT)
+ Mon, 01 Jun 2020 11:29:52 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 187/207] drm/amd/display: Add DCN3 HUBHUB
-Date: Mon,  1 Jun 2020 14:29:06 -0400
-Message-Id: <20200601182926.1267958-9-alexander.deucher@amd.com>
+Subject: [PATCH 188/207] drm/amd/display: Add DCN3 HUBP
+Date: Mon,  1 Jun 2020 14:29:07 -0400
+Message-Id: <20200601182926.1267958-10-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182926.1267958-1-alexander.deucher@amd.com>
 References: <20200601182926.1267958-1-alexander.deucher@amd.com>
@@ -88,13 +89,14 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 
-Add support to program the HUBBUB (DCN memory HUB interface)
+Add support to program the DCN3 HUBP (Display to data fabric interface
+pipe)
 
 HW Blocks:
 
- +--------+
- | HUBBUB |
- +--------+
+ +--------++------+
+ | HUBBUB || HUBP |
+ +--------++------+
         |
         v
     +--------+
@@ -123,68 +125,238 @@ HW Blocks:
 
 Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc.h           |   9 +
- .../drm/amd/display/dc/dcn20/dcn20_hubbub.c   |   9 +
- .../drm/amd/display/dc/dcn30/dcn30_hubbub.c   | 417 ++++++++++++++++++
- .../drm/amd/display/dc/dcn30/dcn30_hubbub.h   | 119 +++++
- .../gpu/drm/amd/display/dc/inc/hw/dchubbub.h  |   6 +
- 5 files changed, 560 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubbub.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubbub.h
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |  35 ++
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c |  12 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c |  20 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h |  41 ++
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c | 532 ++++++++++++++++++
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_hubp.h | 292 ++++++++++
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |   4 +
+ 7 files changed, 936 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.h
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 262da8a4b518..8bd9f1ca445c 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -186,6 +186,15 @@ struct dc_dcc_setting {
- 	unsigned int max_compressed_blk_size;
- 	unsigned int max_uncompressed_blk_size;
- 	bool independent_64b_blks;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+index a8dc3082e3e1..7bc0be839c9e 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_hw_types.h
+@@ -62,6 +62,9 @@ enum dc_plane_addr_type {
+ 	PLN_ADDR_TYPE_GRAPHICS = 0,
+ 	PLN_ADDR_TYPE_GRPH_STEREO,
+ 	PLN_ADDR_TYPE_VIDEO_PROGRESSIVE,
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	//These bitfields to be used starting with DCN 3.0
-+	struct {
-+		uint32_t dcc_256_64_64 : 1;//available in ASICs before DCN 3.0 (the worst compression case)
-+		uint32_t dcc_128_128_uncontrained : 1;  //available in ASICs before DCN 3.0
-+		uint32_t dcc_256_128_128 : 1;		//available starting with DCN 3.0
-+		uint32_t dcc_256_256_unconstrained : 1;  //available in ASICs before DCN 3.0 (the best compression case)
-+	} dcc_controls;
++	PLN_ADDR_TYPE_RGBEA
 +#endif
  };
  
- struct dc_surface_dcc_cap {
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c
-index c0b21d7450d4..69d49551ab5d 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubbub.c
-@@ -153,6 +153,10 @@ bool hubbub2_dcc_support_pixel_format(
- 	case SURFACE_PIXEL_FORMAT_GRPH_BGR101111_FIX:
- 	case SURFACE_PIXEL_FORMAT_GRPH_RGB111110_FLOAT:
- 	case SURFACE_PIXEL_FORMAT_GRPH_BGR101111_FLOAT:
+ struct dc_plane_address {
+@@ -84,6 +87,16 @@ struct dc_plane_address {
+ 			PHYSICAL_ADDRESS_LOC right_meta_addr;
+ 			union large_integer right_dcc_const_color;
+ 
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	case SURFACE_PIXEL_FORMAT_GRPH_RGBE:
-+	case SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA:
++			PHYSICAL_ADDRESS_LOC left_alpha_addr;
++			PHYSICAL_ADDRESS_LOC left_alpha_meta_addr;
++			union large_integer left_alpha_dcc_const_color;
++
++			PHYSICAL_ADDRESS_LOC right_alpha_addr;
++			PHYSICAL_ADDRESS_LOC right_alpha_meta_addr;
++			union large_integer right_alpha_dcc_const_color;
 +#endif
- 		*bytes_per_element = 4;
- 		return true;
- 	case SURFACE_PIXEL_FORMAT_GRPH_ARGB16161616:
-@@ -339,6 +343,11 @@ static enum dcn_hubbub_page_table_block_size page_table_block_size_to_hw(unsigne
- 	case 65536:
- 		block_size = DCN_PAGE_TABLE_BLOCK_SIZE_64KB;
++
+ 		} grph_stereo;
+ 
+ 		/*video  progressive*/
+@@ -96,6 +109,18 @@ struct dc_plane_address {
+ 			PHYSICAL_ADDRESS_LOC chroma_meta_addr;
+ 			union large_integer chroma_dcc_const_color;
+ 		} video_progressive;
++
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++		struct {
++			PHYSICAL_ADDRESS_LOC addr;
++			PHYSICAL_ADDRESS_LOC meta_addr;
++			union large_integer dcc_const_color;
++
++			PHYSICAL_ADDRESS_LOC alpha_addr;
++			PHYSICAL_ADDRESS_LOC alpha_meta_addr;
++			union large_integer alpha_dcc_const_color;
++		} rgbea;
++#endif
+ 	};
+ 
+ 	union large_integer page_table_base;
+@@ -131,9 +156,15 @@ struct dc_plane_dcc_param {
+ 
+ 	int meta_pitch;
+ 	bool independent_64b_blks;
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++	uint8_t dcc_ind_blk;
++#endif
+ 
+ 	int meta_pitch_c;
+ 	bool independent_64b_blks_c;
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++	uint8_t dcc_ind_blk_c;
++#endif
+ };
+ 
+ /*Displayable pixel format in fb*/
+@@ -169,6 +200,10 @@ enum surface_pixel_format {
+ 	SURFACE_PIXEL_FORMAT_GRPH_BGR101111_FIX,
+ 	SURFACE_PIXEL_FORMAT_GRPH_RGB111110_FLOAT,
+ 	SURFACE_PIXEL_FORMAT_GRPH_BGR101111_FLOAT,
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++	SURFACE_PIXEL_FORMAT_GRPH_RGBE,
++	SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA,
++#endif
+ 	SURFACE_PIXEL_FORMAT_VIDEO_BEGIN,
+ 	SURFACE_PIXEL_FORMAT_VIDEO_420_YCbCr =
+ 		SURFACE_PIXEL_FORMAT_VIDEO_BEGIN,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
+index 319366ebb44f..cedf359a00f5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c
+@@ -326,6 +326,18 @@ void hubp1_program_pixel_format(
+ 		REG_UPDATE(DCSURF_SURFACE_CONFIG,
+ 				SURFACE_PIXEL_FORMAT, 119);
  		break;
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	case 32768:
-+		block_size = DCN_PAGE_TABLE_BLOCK_SIZE_32KB;
++	case SURFACE_PIXEL_FORMAT_GRPH_RGBE:
++		REG_UPDATE_2(DCSURF_SURFACE_CONFIG,
++				SURFACE_PIXEL_FORMAT, 116,
++				ALPHA_PLANE_EN, 0);
++		break;
++	case SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA:
++		REG_UPDATE_2(DCSURF_SURFACE_CONFIG,
++				SURFACE_PIXEL_FORMAT, 116,
++				ALPHA_PLANE_EN, 1);
 +		break;
 +#endif
  	default:
- 		ASSERT(false);
- 		block_size = page_table_block_size;
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubbub.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubbub.c
+ 		BREAK_TO_DEBUGGER();
+ 		break;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+index 84d7ac5dd206..bb920d0e0b89 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c
+@@ -336,6 +336,10 @@ void hubp2_program_size(
+ 	 */
+ 	use_pitch_c = format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN
+ 		&& format < SURFACE_PIXEL_FORMAT_SUBSAMPLE_END;
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++	use_pitch_c = use_pitch_c
++		|| (format == SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA);
++#endif
+ 	if (use_pitch_c) {
+ 		ASSERT(plane_size->chroma_pitch != 0);
+ 		/* Chroma pitch zero can cause system hang! */
+@@ -360,6 +364,10 @@ void hubp2_program_size(
+ 			PITCH, pitch, META_PITCH, meta_pitch);
+ 
+ 	use_pitch_c = format >= SURFACE_PIXEL_FORMAT_VIDEO_BEGIN;
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++	use_pitch_c = use_pitch_c
++		|| (format == SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA);
++#endif
+ 	if (use_pitch_c)
+ 		REG_UPDATE_2(DCSURF_SURFACE_PITCH_C,
+ 			PITCH_C, pitch_c, META_PITCH_C, meta_pitch_c);
+@@ -505,6 +513,18 @@ void hubp2_program_pixel_format(
+ 		REG_UPDATE(DCSURF_SURFACE_CONFIG,
+ 				SURFACE_PIXEL_FORMAT, 119);
+ 		break;
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++	case SURFACE_PIXEL_FORMAT_GRPH_RGBE:
++		REG_UPDATE_2(DCSURF_SURFACE_CONFIG,
++				SURFACE_PIXEL_FORMAT, 116,
++				ALPHA_PLANE_EN, 0);
++		break;
++	case SURFACE_PIXEL_FORMAT_GRPH_RGBE_ALPHA:
++		REG_UPDATE_2(DCSURF_SURFACE_CONFIG,
++				SURFACE_PIXEL_FORMAT, 116,
++				ALPHA_PLANE_EN, 1);
++		break;
++#endif
+ 	default:
+ 		BREAK_TO_DEBUGGER();
+ 		break;
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h
+index 8c04a3606a54..4a2c93087459 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h
+@@ -157,6 +157,12 @@
+ 	uint32_t VBLANK_PARAMETERS_5;\
+ 	uint32_t VBLANK_PARAMETERS_6
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++#define DCN30_HUBP_REG_COMMON_VARIABLE_LIST \
++	DCN21_HUBP_REG_COMMON_VARIABLE_LIST;\
++	uint32_t DCN_DMDATA_VM_CNTL
++#endif
++
+ #define DCN2_HUBP_REG_FIELD_VARIABLE_LIST(type) \
+ 	DCN_HUBP_REG_FIELD_BASE_LIST(type); \
+ 	type DMDATA_ADDRESS_HIGH;\
+@@ -192,17 +198,52 @@
+ 	type REFCYC_PER_META_CHUNK_FLIP_C; \
+ 	type VM_GROUP_SIZE
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++#define DCN30_HUBP_REG_FIELD_VARIABLE_LIST(type) \
++	DCN21_HUBP_REG_FIELD_VARIABLE_LIST(type);\
++	type PRIMARY_SURFACE_DCC_IND_BLK;\
++	type SECONDARY_SURFACE_DCC_IND_BLK;\
++	type PRIMARY_SURFACE_DCC_IND_BLK_C;\
++	type SECONDARY_SURFACE_DCC_IND_BLK_C;\
++	type ALPHA_PLANE_EN;\
++	type REFCYC_PER_VM_DMDATA;\
++	type DMDATA_VM_FAULT_STATUS;\
++	type DMDATA_VM_FAULT_STATUS_CLEAR; \
++	type DMDATA_VM_UNDERFLOW_STATUS;\
++	type DMDATA_VM_LATE_STATUS;\
++	type DMDATA_VM_UNDERFLOW_STATUS_CLEAR; \
++	type DMDATA_VM_DONE; \
++	type CROSSBAR_SRC_Y_G; \
++	type CROSSBAR_SRC_ALPHA; \
++	type PACK_3TO2_ELEMENT_DISABLE; \
++	type ROW_TTU_MODE; \
++	type NUM_PKRS
++#endif
+ 
+ struct dcn_hubp2_registers {
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++	DCN30_HUBP_REG_COMMON_VARIABLE_LIST;
++#else
+ 	DCN21_HUBP_REG_COMMON_VARIABLE_LIST;
++#endif
+ };
+ 
+ struct dcn_hubp2_shift {
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++	DCN30_HUBP_REG_FIELD_VARIABLE_LIST(uint8_t);
++#else
+ 	DCN21_HUBP_REG_FIELD_VARIABLE_LIST(uint8_t);
++#endif
++
+ };
+ 
+ struct dcn_hubp2_mask {
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++	DCN30_HUBP_REG_FIELD_VARIABLE_LIST(uint32_t);
++#else
+ 	DCN21_HUBP_REG_FIELD_VARIABLE_LIST(uint32_t);
++#endif
++
+ };
+ 
+ struct dcn20_hubp {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
 new file mode 100644
-index 000000000000..982732dec133
+index 000000000000..af462fe4260d
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubbub.c
-@@ -0,0 +1,417 @@
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+@@ -0,0 +1,532 @@
 +/*
 + * Copyright 2020 Advanced Micro Devices, Inc.
 + *
@@ -210,404 +382,519 @@ index 000000000000..982732dec133
 + *
 + */
 +
++#include "dcn30_hubp.h"
 +
 +#include "dm_services.h"
++#include "dce_calcs.h"
 +#include "reg_helper.h"
-+#include "dcn30_hubbub.h"
++#include "basics/conversion.h"
++#include "dcn20/dcn20_hubp.h"
++#include "dcn21/dcn21_hubp.h"
 +
++#define REG(reg)\
++	hubp2->hubp_regs->reg
 +
 +#define CTX \
-+	hubbub1->base.ctx
-+#define DC_LOGGER \
-+	hubbub1->base.ctx->logger
-+#define REG(reg)\
-+	hubbub1->regs->reg
++	hubp2->base.ctx
 +
 +#undef FN
 +#define FN(reg_name, field_name) \
-+	hubbub1->shifts->field_name, hubbub1->masks->field_name
++	hubp2->hubp_shift->field_name, hubp2->hubp_mask->field_name
 +
-+#ifdef NUM_VMID
-+#undef NUM_VMID
-+#endif
-+#define NUM_VMID 16
-+
-+
-+static uint32_t convert_and_clamp(
-+	uint32_t wm_ns,
-+	uint32_t refclk_mhz,
-+	uint32_t clamp_value)
++void hubp3_set_vm_system_aperture_settings(struct hubp *hubp,
++		struct vm_system_aperture_param *apt)
 +{
-+	uint32_t ret_val = 0;
-+	ret_val = wm_ns * refclk_mhz;
-+	ret_val /= 1000;
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
 +
-+	if (ret_val > clamp_value)
-+		ret_val = clamp_value;
++	PHYSICAL_ADDRESS_LOC mc_vm_apt_default;
++	PHYSICAL_ADDRESS_LOC mc_vm_apt_low;
++	PHYSICAL_ADDRESS_LOC mc_vm_apt_high;
 +
-+	return ret_val;
++	// The format of default addr is 48:12 of the 48 bit addr
++	mc_vm_apt_default.quad_part = apt->sys_default.quad_part >> 12;
++
++	// The format of high/low are 48:18 of the 48 bit addr
++	mc_vm_apt_low.quad_part = apt->sys_low.quad_part >> 18;
++	mc_vm_apt_high.quad_part = apt->sys_high.quad_part >> 18;
++
++	REG_SET(DCN_VM_SYSTEM_APERTURE_LOW_ADDR, 0,
++			MC_VM_SYSTEM_APERTURE_LOW_ADDR, mc_vm_apt_low.quad_part);
++
++	REG_SET(DCN_VM_SYSTEM_APERTURE_HIGH_ADDR, 0,
++			MC_VM_SYSTEM_APERTURE_HIGH_ADDR, mc_vm_apt_high.quad_part);
++
++	REG_SET_2(DCN_VM_MX_L1_TLB_CNTL, 0,
++			ENABLE_L1_TLB, 1,
++			SYSTEM_ACCESS_MODE, 0x3);
 +}
 +
-+int hubbub3_init_dchub_sys_ctx(struct hubbub *hubbub,
-+		struct dcn_hubbub_phys_addr_config *pa_config)
++bool hubp3_program_surface_flip_and_addr(
++	struct hubp *hubp,
++	const struct dc_plane_address *address,
++	bool flip_immediate)
 +{
-+	struct dcn20_hubbub *hubbub1 = TO_DCN20_HUBBUB(hubbub);
-+	struct dcn_vmid_page_table_config phys_config;
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
 +
-+	REG_SET(DCN_VM_FB_LOCATION_BASE, 0,
-+			FB_BASE, pa_config->system_aperture.fb_base >> 24);
-+	REG_SET(DCN_VM_FB_LOCATION_TOP, 0,
-+			FB_TOP, pa_config->system_aperture.fb_top >> 24);
-+	REG_SET(DCN_VM_FB_OFFSET, 0,
-+			FB_OFFSET, pa_config->system_aperture.fb_offset >> 24);
-+	REG_SET(DCN_VM_AGP_BOT, 0,
-+			AGP_BOT, pa_config->system_aperture.agp_bot >> 24);
-+	REG_SET(DCN_VM_AGP_TOP, 0,
-+			AGP_TOP, pa_config->system_aperture.agp_top >> 24);
-+	REG_SET(DCN_VM_AGP_BASE, 0,
-+			AGP_BASE, pa_config->system_aperture.agp_base >> 24);
++	//program flip type
++	REG_UPDATE(DCSURF_FLIP_CONTROL,
++			SURFACE_FLIP_TYPE, flip_immediate);
 +
-+	if (pa_config->gart_config.page_table_start_addr != pa_config->gart_config.page_table_end_addr) {
-+		phys_config.page_table_start_addr = pa_config->gart_config.page_table_start_addr >> 12;
-+		phys_config.page_table_end_addr = pa_config->gart_config.page_table_end_addr >> 12;
-+		phys_config.page_table_base_addr = pa_config->gart_config.page_table_base_addr;
-+		phys_config.depth = 0;
-+		phys_config.block_size = 0;
-+		// Init VMID 0 based on PA config
-+		dcn20_vmid_setup(&hubbub1->vmid[0], &phys_config);
++	// Program VMID reg
++	if (flip_immediate == 0)
++		REG_UPDATE(VMID_SETTINGS_0,
++			VMID, address->vmid);
++
++	if (address->type == PLN_ADDR_TYPE_GRPH_STEREO) {
++		REG_UPDATE(DCSURF_FLIP_CONTROL, SURFACE_FLIP_MODE_FOR_STEREOSYNC, 0x1);
++		REG_UPDATE(DCSURF_FLIP_CONTROL, SURFACE_FLIP_IN_STEREOSYNC, 0x1);
++
++	} else {
++		// turn off stereo if not in stereo
++		REG_UPDATE(DCSURF_FLIP_CONTROL, SURFACE_FLIP_MODE_FOR_STEREOSYNC, 0x0);
++		REG_UPDATE(DCSURF_FLIP_CONTROL, SURFACE_FLIP_IN_STEREOSYNC, 0x0);
 +	}
 +
-+	return NUM_VMID;
-+}
-+
-+bool hubbub3_program_watermarks(
-+		struct hubbub *hubbub,
-+		struct dcn_watermark_set *watermarks,
-+		unsigned int refclk_mhz,
-+		bool safe_to_lower)
-+{
-+	struct dcn20_hubbub *hubbub1 = TO_DCN20_HUBBUB(hubbub);
-+	bool wm_pending = false;
-+
-+	if (hubbub21_program_urgent_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
-+
-+	if (hubbub21_program_stutter_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
-+
-+	if (hubbub21_program_pstate_watermarks(hubbub, watermarks, refclk_mhz, safe_to_lower))
-+		wm_pending = true;
-+
-+	/*
-+	 * The DCHub arbiter has a mechanism to dynamically rate limit the DCHub request stream to the fabric.
-+	 * If the memory controller is fully utilized and the DCHub requestors are
-+	 * well ahead of their amortized schedule, then it is safe to prevent the next winner
-+	 * from being committed and sent to the fabric.
-+	 * The utilization of the memory controller is approximated by ensuring that
-+	 * the number of outstanding requests is greater than a threshold specified
-+	 * by the ARB_MIN_REQ_OUTSTANDING. To determine that the DCHub requestors are well ahead of the amortized schedule,
-+	 * the slack of the next winner is compared with the ARB_SAT_LEVEL in DLG RefClk cycles.
++	/* HW automatically latch rest of address register on write to
++	 * DCSURF_PRIMARY_SURFACE_ADDRESS if SURFACE_UPDATE_LOCK is not used
 +	 *
-+	 * TODO: Revisit request limit after figure out right number. request limit for Renoir isn't decided yet, set maximum value (0x1FF)
-+	 * to turn off it for now.
++	 * program high first and then the low addr, order matters!
 +	 */
-+	REG_SET(DCHUBBUB_ARB_SAT_LEVEL, 0,
-+			DCHUBBUB_ARB_SAT_LEVEL, 60 * refclk_mhz);
-+	REG_UPDATE(DCHUBBUB_ARB_DF_REQ_OUTSTAND,
-+			DCHUBBUB_ARB_MIN_REQ_OUTSTAND, 0x1FF);
++	switch (address->type) {
++	case PLN_ADDR_TYPE_GRAPHICS:
++		/* DCN1.0 does not support const color
++		 * TODO: program DCHUBBUB_RET_PATH_DCC_CFGx_0/1
++		 * base on address->grph.dcc_const_color
++		 * x = 0, 2, 4, 6 for pipe 0, 1, 2, 3 for rgb and luma
++		 * x = 1, 3, 5, 7 for pipe 0, 1, 2, 3 for chroma
++		 */
 +
-+	hubbub1_allow_self_refresh_control(hubbub, !hubbub->ctx->dc->debug.disable_stutter);
++		if (address->grph.addr.quad_part == 0)
++			break;
 +
-+	return wm_pending;
-+}
++		REG_UPDATE_2(DCSURF_SURFACE_CONTROL,
++				PRIMARY_SURFACE_TMZ, address->tmz_surface,
++				PRIMARY_META_SURFACE_TMZ, address->tmz_surface);
 +
-+bool hubbub3_dcc_support_swizzle(
-+		enum swizzle_mode_values swizzle,
-+		unsigned int bytes_per_element,
-+		enum segment_order *segment_order_horz,
-+		enum segment_order *segment_order_vert)
-+{
-+	bool standard_swizzle = false;
-+	bool display_swizzle = false;
-+	bool render_swizzle = false;
++		if (address->grph.meta_addr.quad_part != 0) {
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH, 0,
++					PRIMARY_META_SURFACE_ADDRESS_HIGH,
++					address->grph.meta_addr.high_part);
 +
-+	switch (swizzle) {
-+	case DC_SW_4KB_S:
-+	case DC_SW_64KB_S:
-+	case DC_SW_VAR_S:
-+	case DC_SW_4KB_S_X:
-+	case DC_SW_64KB_S_X:
-+	case DC_SW_VAR_S_X:
-+		standard_swizzle = true;
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS, 0,
++					PRIMARY_META_SURFACE_ADDRESS,
++					address->grph.meta_addr.low_part);
++		}
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH, 0,
++				PRIMARY_SURFACE_ADDRESS_HIGH,
++				address->grph.addr.high_part);
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS, 0,
++				PRIMARY_SURFACE_ADDRESS,
++				address->grph.addr.low_part);
 +		break;
-+	case DC_SW_4KB_R:
-+	case DC_SW_64KB_R:
-+	case DC_SW_VAR_R:
-+	case DC_SW_4KB_R_X:
-+	case DC_SW_64KB_R_X:
-+	case DC_SW_VAR_R_X:
-+		render_swizzle = true;
++	case PLN_ADDR_TYPE_VIDEO_PROGRESSIVE:
++		if (address->video_progressive.luma_addr.quad_part == 0
++				|| address->video_progressive.chroma_addr.quad_part == 0)
++			break;
++
++		REG_UPDATE_4(DCSURF_SURFACE_CONTROL,
++				PRIMARY_SURFACE_TMZ, address->tmz_surface,
++				PRIMARY_SURFACE_TMZ_C, address->tmz_surface,
++				PRIMARY_META_SURFACE_TMZ, address->tmz_surface,
++				PRIMARY_META_SURFACE_TMZ_C, address->tmz_surface);
++
++		if (address->video_progressive.luma_meta_addr.quad_part != 0) {
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH_C, 0,
++					PRIMARY_META_SURFACE_ADDRESS_HIGH_C,
++					address->video_progressive.chroma_meta_addr.high_part);
++
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS_C, 0,
++					PRIMARY_META_SURFACE_ADDRESS_C,
++					address->video_progressive.chroma_meta_addr.low_part);
++
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH, 0,
++					PRIMARY_META_SURFACE_ADDRESS_HIGH,
++					address->video_progressive.luma_meta_addr.high_part);
++
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS, 0,
++					PRIMARY_META_SURFACE_ADDRESS,
++					address->video_progressive.luma_meta_addr.low_part);
++		}
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH_C, 0,
++				PRIMARY_SURFACE_ADDRESS_HIGH_C,
++				address->video_progressive.chroma_addr.high_part);
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS_C, 0,
++				PRIMARY_SURFACE_ADDRESS_C,
++				address->video_progressive.chroma_addr.low_part);
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH, 0,
++				PRIMARY_SURFACE_ADDRESS_HIGH,
++				address->video_progressive.luma_addr.high_part);
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS, 0,
++				PRIMARY_SURFACE_ADDRESS,
++				address->video_progressive.luma_addr.low_part);
 +		break;
-+	case DC_SW_4KB_D:
-+	case DC_SW_64KB_D:
-+	case DC_SW_VAR_D:
-+	case DC_SW_4KB_D_X:
-+	case DC_SW_64KB_D_X:
-+	case DC_SW_VAR_D_X:
-+		display_swizzle = true;
++	case PLN_ADDR_TYPE_GRPH_STEREO:
++		if (address->grph_stereo.left_addr.quad_part == 0)
++			break;
++		if (address->grph_stereo.right_addr.quad_part == 0)
++			break;
++
++		REG_UPDATE_8(DCSURF_SURFACE_CONTROL,
++				PRIMARY_SURFACE_TMZ, address->tmz_surface,
++				PRIMARY_SURFACE_TMZ_C, address->tmz_surface,
++				PRIMARY_META_SURFACE_TMZ, address->tmz_surface,
++				PRIMARY_META_SURFACE_TMZ_C, address->tmz_surface,
++				SECONDARY_SURFACE_TMZ, address->tmz_surface,
++				SECONDARY_SURFACE_TMZ_C, address->tmz_surface,
++				SECONDARY_META_SURFACE_TMZ, address->tmz_surface,
++				SECONDARY_META_SURFACE_TMZ_C, address->tmz_surface);
++
++		if (address->grph_stereo.right_meta_addr.quad_part != 0) {
++
++			REG_SET(DCSURF_SECONDARY_META_SURFACE_ADDRESS_HIGH_C, 0,
++				SECONDARY_META_SURFACE_ADDRESS_HIGH_C,
++				address->grph_stereo.right_alpha_meta_addr.high_part);
++
++			REG_SET(DCSURF_SECONDARY_META_SURFACE_ADDRESS_C, 0,
++				SECONDARY_META_SURFACE_ADDRESS_C,
++				address->grph_stereo.right_alpha_meta_addr.low_part);
++
++			REG_SET(DCSURF_SECONDARY_META_SURFACE_ADDRESS_HIGH, 0,
++					SECONDARY_META_SURFACE_ADDRESS_HIGH,
++					address->grph_stereo.right_meta_addr.high_part);
++
++			REG_SET(DCSURF_SECONDARY_META_SURFACE_ADDRESS, 0,
++					SECONDARY_META_SURFACE_ADDRESS,
++					address->grph_stereo.right_meta_addr.low_part);
++		}
++		if (address->grph_stereo.left_meta_addr.quad_part != 0) {
++
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH_C, 0,
++				PRIMARY_META_SURFACE_ADDRESS_HIGH_C,
++				address->grph_stereo.left_alpha_meta_addr.high_part);
++
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS_C, 0,
++				PRIMARY_META_SURFACE_ADDRESS_C,
++				address->grph_stereo.left_alpha_meta_addr.low_part);
++
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH, 0,
++					PRIMARY_META_SURFACE_ADDRESS_HIGH,
++					address->grph_stereo.left_meta_addr.high_part);
++
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS, 0,
++					PRIMARY_META_SURFACE_ADDRESS,
++					address->grph_stereo.left_meta_addr.low_part);
++		}
++
++		REG_SET(DCSURF_SECONDARY_SURFACE_ADDRESS_HIGH_C, 0,
++				SECONDARY_SURFACE_ADDRESS_HIGH_C,
++				address->grph_stereo.right_alpha_addr.high_part);
++
++		REG_SET(DCSURF_SECONDARY_SURFACE_ADDRESS_C, 0,
++				SECONDARY_SURFACE_ADDRESS_C,
++				address->grph_stereo.right_alpha_addr.low_part);
++
++		REG_SET(DCSURF_SECONDARY_SURFACE_ADDRESS_HIGH, 0,
++				SECONDARY_SURFACE_ADDRESS_HIGH,
++				address->grph_stereo.right_addr.high_part);
++
++		REG_SET(DCSURF_SECONDARY_SURFACE_ADDRESS, 0,
++				SECONDARY_SURFACE_ADDRESS,
++				address->grph_stereo.right_addr.low_part);
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH_C, 0,
++				PRIMARY_SURFACE_ADDRESS_HIGH_C,
++				address->grph_stereo.left_alpha_addr.high_part);
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS_C, 0,
++				PRIMARY_SURFACE_ADDRESS_C,
++				address->grph_stereo.left_alpha_addr.low_part);
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH, 0,
++				PRIMARY_SURFACE_ADDRESS_HIGH,
++				address->grph_stereo.left_addr.high_part);
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS, 0,
++				PRIMARY_SURFACE_ADDRESS,
++				address->grph_stereo.left_addr.low_part);
++		break;
++	case PLN_ADDR_TYPE_RGBEA:
++		if (address->rgbea.addr.quad_part == 0
++				|| address->rgbea.alpha_addr.quad_part == 0)
++			break;
++
++		REG_UPDATE_4(DCSURF_SURFACE_CONTROL,
++				PRIMARY_SURFACE_TMZ, address->tmz_surface,
++				PRIMARY_SURFACE_TMZ_C, address->tmz_surface,
++				PRIMARY_META_SURFACE_TMZ, address->tmz_surface,
++				PRIMARY_META_SURFACE_TMZ_C, address->tmz_surface);
++
++		if (address->rgbea.meta_addr.quad_part != 0) {
++
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH_C, 0,
++					PRIMARY_META_SURFACE_ADDRESS_HIGH_C,
++					address->rgbea.alpha_meta_addr.high_part);
++
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS_C, 0,
++					PRIMARY_META_SURFACE_ADDRESS_C,
++					address->rgbea.alpha_meta_addr.low_part);
++
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH, 0,
++					PRIMARY_META_SURFACE_ADDRESS_HIGH,
++					address->rgbea.meta_addr.high_part);
++
++			REG_SET(DCSURF_PRIMARY_META_SURFACE_ADDRESS, 0,
++					PRIMARY_META_SURFACE_ADDRESS,
++					address->rgbea.meta_addr.low_part);
++		}
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH_C, 0,
++				PRIMARY_SURFACE_ADDRESS_HIGH_C,
++				address->rgbea.alpha_addr.high_part);
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS_C, 0,
++				PRIMARY_SURFACE_ADDRESS_C,
++				address->rgbea.alpha_addr.low_part);
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH, 0,
++				PRIMARY_SURFACE_ADDRESS_HIGH,
++				address->rgbea.addr.high_part);
++
++		REG_SET(DCSURF_PRIMARY_SURFACE_ADDRESS, 0,
++				PRIMARY_SURFACE_ADDRESS,
++				address->rgbea.addr.low_part);
 +		break;
 +	default:
++		BREAK_TO_DEBUGGER();
 +		break;
 +	}
 +
-+	if (standard_swizzle) {
-+		if (bytes_per_element == 1) {
-+			*segment_order_horz = segment_order__contiguous;
-+			*segment_order_vert = segment_order__na;
-+			return true;
-+		}
-+		if (bytes_per_element == 2) {
-+			*segment_order_horz = segment_order__non_contiguous;
-+			*segment_order_vert = segment_order__contiguous;
-+			return true;
-+		}
-+		if (bytes_per_element == 4) {
-+			*segment_order_horz = segment_order__non_contiguous;
-+			*segment_order_vert = segment_order__contiguous;
-+			return true;
-+		}
-+		if (bytes_per_element == 8) {
-+			*segment_order_horz = segment_order__na;
-+			*segment_order_vert = segment_order__contiguous;
-+			return true;
-+		}
-+	}
-+	if (render_swizzle) {
-+		if (bytes_per_element == 1) {
-+			*segment_order_horz = segment_order__contiguous;
-+			*segment_order_vert = segment_order__na;
-+			return true;
-+		}
-+		if (bytes_per_element == 2) {
-+			*segment_order_horz = segment_order__non_contiguous;
-+			*segment_order_vert = segment_order__contiguous;
-+			return true;
-+		}
-+		if (bytes_per_element == 4) {
-+			*segment_order_horz = segment_order__contiguous;
-+			*segment_order_vert = segment_order__non_contiguous;
-+			return true;
-+		}
-+		if (bytes_per_element == 8) {
-+			*segment_order_horz = segment_order__contiguous;
-+			*segment_order_vert = segment_order__non_contiguous;
-+			return true;
-+		}
-+	}
-+	if (display_swizzle && bytes_per_element == 8) {
-+		*segment_order_horz = segment_order__contiguous;
-+		*segment_order_vert = segment_order__non_contiguous;
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
-+static void hubbub3_get_blk256_size(unsigned int *blk256_width, unsigned int *blk256_height,
-+		unsigned int bytes_per_element)
-+{
-+	/* copied from DML.  might want to refactor DML to leverage from DML */
-+	/* DML : get_blk256_size */
-+	if (bytes_per_element == 1) {
-+		*blk256_width = 16;
-+		*blk256_height = 16;
-+	} else if (bytes_per_element == 2) {
-+		*blk256_width = 16;
-+		*blk256_height = 8;
-+	} else if (bytes_per_element == 4) {
-+		*blk256_width = 8;
-+		*blk256_height = 8;
-+	} else if (bytes_per_element == 8) {
-+		*blk256_width = 8;
-+		*blk256_height = 4;
-+	}
-+}
-+
-+static void hubbub3_det_request_size(
-+		unsigned int detile_buf_size,
-+		unsigned int height,
-+		unsigned int width,
-+		unsigned int bpe,
-+		bool *req128_horz_wc,
-+		bool *req128_vert_wc)
-+{
-+	unsigned int blk256_height = 0;
-+	unsigned int blk256_width = 0;
-+	unsigned int swath_bytes_horz_wc, swath_bytes_vert_wc;
-+
-+	hubbub3_get_blk256_size(&blk256_width, &blk256_height, bpe);
-+
-+	swath_bytes_horz_wc = width * blk256_height * bpe;
-+	swath_bytes_vert_wc = height * blk256_width * bpe;
-+
-+	*req128_horz_wc = (2 * swath_bytes_horz_wc <= detile_buf_size) ?
-+			false : /* full 256B request */
-+			true; /* half 128b request */
-+
-+	*req128_vert_wc = (2 * swath_bytes_vert_wc <= detile_buf_size) ?
-+			false : /* full 256B request */
-+			true; /* half 128b request */
-+}
-+
-+bool hubbub3_get_dcc_compression_cap(struct hubbub *hubbub,
-+		const struct dc_dcc_surface_param *input,
-+		struct dc_surface_dcc_cap *output)
-+{
-+	struct dc *dc = hubbub->ctx->dc;
-+	/* implement section 1.6.2.1 of DCN1_Programming_Guide.docx */
-+	enum dcc_control dcc_control;
-+	unsigned int bpe;
-+	enum segment_order segment_order_horz, segment_order_vert;
-+	bool req128_horz_wc, req128_vert_wc;
-+
-+	memset(output, 0, sizeof(*output));
-+
-+	if (dc->debug.disable_dcc == DCC_DISABLE)
-+		return false;
-+
-+	if (!hubbub->funcs->dcc_support_pixel_format(input->format,
-+			&bpe))
-+		return false;
-+
-+	if (!hubbub->funcs->dcc_support_swizzle(input->swizzle_mode, bpe,
-+			&segment_order_horz, &segment_order_vert))
-+		return false;
-+
-+	hubbub3_det_request_size(TO_DCN20_HUBBUB(hubbub)->detile_buf_size,
-+			input->surface_size.height,  input->surface_size.width,
-+			bpe, &req128_horz_wc, &req128_vert_wc);
-+
-+	if (!req128_horz_wc && !req128_vert_wc) {
-+		dcc_control = dcc_control__256_256_xxx;
-+	} else if (input->scan == SCAN_DIRECTION_HORIZONTAL) {
-+		if (!req128_horz_wc)
-+			dcc_control = dcc_control__256_256_xxx;
-+		else if (segment_order_horz == segment_order__contiguous)
-+			dcc_control = dcc_control__128_128_xxx;
-+		else
-+			dcc_control = dcc_control__256_64_64;
-+	} else if (input->scan == SCAN_DIRECTION_VERTICAL) {
-+		if (!req128_vert_wc)
-+			dcc_control = dcc_control__256_256_xxx;
-+		else if (segment_order_vert == segment_order__contiguous)
-+			dcc_control = dcc_control__128_128_xxx;
-+		else
-+			dcc_control = dcc_control__256_64_64;
-+	} else {
-+		if ((req128_horz_wc &&
-+			segment_order_horz == segment_order__non_contiguous) ||
-+			(req128_vert_wc &&
-+			segment_order_vert == segment_order__non_contiguous))
-+			/* access_dir not known, must use most constraining */
-+			dcc_control = dcc_control__256_64_64;
-+		else
-+			/* reg128 is true for either horz and vert
-+			 * but segment_order is contiguous
-+			 */
-+			dcc_control = dcc_control__128_128_xxx;
-+	}
-+
-+	/* Exception for 64KB_R_X */
-+	if ((bpe == 2) && (input->swizzle_mode == DC_SW_64KB_R_X))
-+		dcc_control = dcc_control__128_128_xxx;
-+
-+	if (dc->debug.disable_dcc == DCC_HALF_REQ_DISALBE &&
-+		dcc_control != dcc_control__256_256_xxx)
-+		return false;
-+
-+	switch (dcc_control) {
-+	case dcc_control__256_256_xxx:
-+		output->grph.rgb.max_uncompressed_blk_size = 256;
-+		output->grph.rgb.max_compressed_blk_size = 256;
-+		output->grph.rgb.independent_64b_blks = false;
-+		output->grph.rgb.dcc_controls.dcc_256_256_unconstrained = 1;
-+		output->grph.rgb.dcc_controls.dcc_256_128_128 = 1;
-+		break;
-+	case dcc_control__128_128_xxx:
-+		output->grph.rgb.max_uncompressed_blk_size = 128;
-+		output->grph.rgb.max_compressed_blk_size = 128;
-+		output->grph.rgb.independent_64b_blks = false;
-+		output->grph.rgb.dcc_controls.dcc_128_128_uncontrained = 1;
-+		output->grph.rgb.dcc_controls.dcc_256_128_128 = 1;
-+		break;
-+	case dcc_control__256_64_64:
-+		output->grph.rgb.max_uncompressed_blk_size = 256;
-+		output->grph.rgb.max_compressed_blk_size = 64;
-+		output->grph.rgb.independent_64b_blks = true;
-+		output->grph.rgb.dcc_controls.dcc_256_64_64 = 1;
-+		break;
-+	case dcc_control__256_128_128:
-+		output->grph.rgb.max_uncompressed_blk_size = 256;
-+		output->grph.rgb.max_compressed_blk_size = 128;
-+		output->grph.rgb.independent_64b_blks = false;
-+		output->grph.rgb.dcc_controls.dcc_256_128_128 = 1;
-+		break;
-+	}
-+	output->capable = true;
-+	output->const_color_support = true;
++	hubp->request_address = *address;
 +
 +	return true;
 +}
 +
-+void hubbub3_force_wm_propagate_to_pipes(struct hubbub *hubbub)
++static void hubp3_program_tiling(
++	struct dcn20_hubp *hubp2,
++	const union dc_tiling_info *info,
++	const enum surface_pixel_format pixel_format)
 +{
-+	struct dcn20_hubbub *hubbub1 = TO_DCN20_HUBBUB(hubbub);
-+	uint32_t refclk_mhz = hubbub->ctx->dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000;
-+	uint32_t prog_wm_value = convert_and_clamp(hubbub1->watermarks.a.urgent_ns,
-+			refclk_mhz, 0x1fffff);
++	REG_UPDATE_4(DCSURF_ADDR_CONFIG,
++		NUM_PIPES, log_2(info->gfx9.num_pipes),
++		PIPE_INTERLEAVE, info->gfx9.pipe_interleave,
++		MAX_COMPRESSED_FRAGS, log_2(info->gfx9.max_compressed_frags),
++		NUM_PKRS, log_2(info->gfx9.num_pkrs));
 +
-+	REG_SET_2(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, 0,
-+			DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, prog_wm_value,
-+			DCHUBBUB_ARB_VM_ROW_URGENCY_WATERMARK_A, prog_wm_value);
++	REG_UPDATE_3(DCSURF_TILING_CONFIG,
++			SW_MODE, info->gfx9.swizzle,
++			META_LINEAR, info->gfx9.meta_linear,
++			PIPE_ALIGNED, info->gfx9.pipe_aligned);
++
 +}
 +
-+static const struct hubbub_funcs hubbub30_funcs = {
-+	.update_dchub = hubbub2_update_dchub,
-+	.init_dchub_sys_ctx = hubbub3_init_dchub_sys_ctx,
-+	.init_vm_ctx = hubbub2_init_vm_ctx,
-+	.dcc_support_swizzle = hubbub3_dcc_support_swizzle,
-+	.dcc_support_pixel_format = hubbub2_dcc_support_pixel_format,
-+	.get_dcc_compression_cap = hubbub3_get_dcc_compression_cap,
-+	.wm_read_state = hubbub21_wm_read_state,
-+	.get_dchub_ref_freq = hubbub2_get_dchub_ref_freq,
-+	.program_watermarks = hubbub3_program_watermarks,
-+	.allow_self_refresh_control = hubbub1_allow_self_refresh_control,
-+	.is_allow_self_refresh_enabled = hubbub1_is_allow_self_refresh_enabled,
-+	.force_wm_propagate_to_pipes = hubbub3_force_wm_propagate_to_pipes,
++void hubp3_dcc_control(struct hubp *hubp, bool enable,
++		enum hubp_ind_block_size blk_size)
++{
++	uint32_t dcc_en = enable ? 1 : 0;
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
++
++	REG_UPDATE_4(DCSURF_SURFACE_CONTROL,
++			PRIMARY_SURFACE_DCC_EN, dcc_en,
++			PRIMARY_SURFACE_DCC_IND_BLK, blk_size,
++			SECONDARY_SURFACE_DCC_EN, dcc_en,
++			SECONDARY_SURFACE_DCC_IND_BLK, blk_size);
++}
++
++void hubp3_dcc_control_sienna_cichlid(struct hubp *hubp,
++		struct dc_plane_dcc_param *dcc)
++{
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
++
++	/*Workaround until UMD fix the new dcc_ind_blk interface */
++	if (dcc->independent_64b_blks && dcc->dcc_ind_blk == 0)
++		dcc->dcc_ind_blk = 1;
++	if (dcc->independent_64b_blks_c && dcc->dcc_ind_blk_c == 0)
++		dcc->dcc_ind_blk_c = 1;
++
++	REG_UPDATE_6(DCSURF_SURFACE_CONTROL,
++		PRIMARY_SURFACE_DCC_EN, dcc->enable,
++		PRIMARY_SURFACE_DCC_IND_BLK, dcc->dcc_ind_blk,
++		PRIMARY_SURFACE_DCC_IND_BLK_C, dcc->dcc_ind_blk_c,
++		SECONDARY_SURFACE_DCC_EN, dcc->enable,
++		SECONDARY_SURFACE_DCC_IND_BLK, dcc->dcc_ind_blk,
++		SECONDARY_SURFACE_DCC_IND_BLK_C, dcc->dcc_ind_blk_c);
++}
++
++void hubp3_dmdata_set_attributes(
++		struct hubp *hubp,
++		const struct dc_dmdata_attributes *attr)
++{
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
++
++	/*always HW mode */
++	REG_UPDATE(DMDATA_CNTL,
++			DMDATA_MODE, 1);
++
++	/* for DMDATA flip, need to use SURFACE_UPDATE_LOCK */
++	REG_UPDATE(DCSURF_FLIP_CONTROL, SURFACE_UPDATE_LOCK, 1);
++
++	/* toggle DMDATA_UPDATED and set repeat and size */
++	REG_UPDATE(DMDATA_CNTL,
++			DMDATA_UPDATED, 0);
++	REG_UPDATE_3(DMDATA_CNTL,
++			DMDATA_UPDATED, 1,
++			DMDATA_REPEAT, attr->dmdata_repeat,
++			DMDATA_SIZE, attr->dmdata_size);
++
++	/* set DMDATA address */
++	REG_WRITE(DMDATA_ADDRESS_LOW, attr->address.low_part);
++	REG_UPDATE(DMDATA_ADDRESS_HIGH,
++			DMDATA_ADDRESS_HIGH, attr->address.high_part);
++
++	REG_UPDATE(DCSURF_FLIP_CONTROL, SURFACE_UPDATE_LOCK, 0);
++
++}
++
++
++void hubp3_program_surface_config(
++	struct hubp *hubp,
++	enum surface_pixel_format format,
++	union dc_tiling_info *tiling_info,
++	struct plane_size *plane_size,
++	enum dc_rotation_angle rotation,
++	struct dc_plane_dcc_param *dcc,
++	bool horizontal_mirror,
++	unsigned int compat_level)
++{
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
++
++	hubp3_dcc_control_sienna_cichlid(hubp, dcc);
++	hubp3_program_tiling(hubp2, tiling_info, format);
++	hubp2_program_size(hubp, format, plane_size, dcc);
++	hubp2_program_rotation(hubp, rotation, horizontal_mirror);
++	hubp2_program_pixel_format(hubp, format);
++}
++
++static void hubp3_program_deadline(
++		struct hubp *hubp,
++		struct _vcs_dpi_display_dlg_regs_st *dlg_attr,
++		struct _vcs_dpi_display_ttu_regs_st *ttu_attr)
++{
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
++
++	hubp2_program_deadline(hubp, dlg_attr, ttu_attr);
++	REG_UPDATE(DCN_DMDATA_VM_CNTL,
++			REFCYC_PER_VM_DMDATA, dlg_attr->refcyc_per_vm_dmdata);
++}
++
++void hubp3_read_state(struct hubp *hubp)
++{
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
++	struct dcn_hubp_state *s = &hubp2->state;
++	struct _vcs_dpi_display_rq_regs_st *rq_regs = &s->rq_regs;
++
++	hubp2_read_state_common(hubp);
++
++	REG_GET_7(DCHUBP_REQ_SIZE_CONFIG,
++		CHUNK_SIZE, &rq_regs->rq_regs_l.chunk_size,
++		MIN_CHUNK_SIZE, &rq_regs->rq_regs_l.min_chunk_size,
++		META_CHUNK_SIZE, &rq_regs->rq_regs_l.meta_chunk_size,
++		MIN_META_CHUNK_SIZE, &rq_regs->rq_regs_l.min_meta_chunk_size,
++		DPTE_GROUP_SIZE, &rq_regs->rq_regs_l.dpte_group_size,
++		SWATH_HEIGHT, &rq_regs->rq_regs_l.swath_height,
++		PTE_ROW_HEIGHT_LINEAR, &rq_regs->rq_regs_l.pte_row_height_linear);
++
++	REG_GET_7(DCHUBP_REQ_SIZE_CONFIG_C,
++		CHUNK_SIZE_C, &rq_regs->rq_regs_c.chunk_size,
++		MIN_CHUNK_SIZE_C, &rq_regs->rq_regs_c.min_chunk_size,
++		META_CHUNK_SIZE_C, &rq_regs->rq_regs_c.meta_chunk_size,
++		MIN_META_CHUNK_SIZE_C, &rq_regs->rq_regs_c.min_meta_chunk_size,
++		DPTE_GROUP_SIZE_C, &rq_regs->rq_regs_c.dpte_group_size,
++		SWATH_HEIGHT_C, &rq_regs->rq_regs_c.swath_height,
++		PTE_ROW_HEIGHT_LINEAR_C, &rq_regs->rq_regs_c.pte_row_height_linear);
++
++}
++
++void hubp3_setup(
++		struct hubp *hubp,
++		struct _vcs_dpi_display_dlg_regs_st *dlg_attr,
++		struct _vcs_dpi_display_ttu_regs_st *ttu_attr,
++		struct _vcs_dpi_display_rq_regs_st *rq_regs,
++		struct _vcs_dpi_display_pipe_dest_params_st *pipe_dest)
++{
++	/* otg is locked when this func is called. Register are double buffered.
++	 * disable the requestors is not needed
++	 */
++	hubp2_vready_at_or_After_vsync(hubp, pipe_dest);
++	hubp21_program_requestor(hubp, rq_regs);
++	hubp3_program_deadline(hubp, dlg_attr, ttu_attr);
++}
++
++void hubp3_init(struct hubp *hubp)
++{
++	// DEDCN21-133: Inconsistent row starting line for flip between DPTE and Meta
++	// This is a chicken bit to enable the ECO fix.
++
++	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
++	//hubp[i].HUBPREQ_DEBUG.HUBPREQ_DEBUG[26] = 1;
++	REG_WRITE(HUBPREQ_DEBUG, 1 << 26);
++}
++
++static struct hubp_funcs dcn30_hubp_funcs = {
++	.hubp_enable_tripleBuffer = hubp2_enable_triplebuffer,
++	.hubp_is_triplebuffer_enabled = hubp2_is_triplebuffer_enabled,
++	.hubp_program_surface_flip_and_addr = hubp3_program_surface_flip_and_addr,
++	.hubp_program_surface_config = hubp3_program_surface_config,
++	.hubp_is_flip_pending = hubp2_is_flip_pending,
++	.hubp_setup = hubp3_setup,
++	.hubp_setup_interdependent = hubp2_setup_interdependent,
++	.hubp_set_vm_system_aperture_settings = hubp3_set_vm_system_aperture_settings,
++	.set_blank = hubp2_set_blank,
++	.dcc_control = hubp3_dcc_control,
++	.mem_program_viewport = min_set_viewport,
++	.set_cursor_attributes	= hubp2_cursor_set_attributes,
++	.set_cursor_position	= hubp2_cursor_set_position,
++	.hubp_clk_cntl = hubp2_clk_cntl,
++	.hubp_vtg_sel = hubp2_vtg_sel,
++	.dmdata_set_attributes = hubp3_dmdata_set_attributes,
++	.dmdata_load = hubp2_dmdata_load,
++	.dmdata_status_done = hubp2_dmdata_status_done,
++	.hubp_read_state = hubp3_read_state,
++	.hubp_clear_underflow = hubp2_clear_underflow,
++	.hubp_set_flip_control_surface_gsl = hubp2_set_flip_control_surface_gsl,
++	.hubp_init = hubp3_init,
 +};
 +
-+void hubbub3_construct(struct dcn20_hubbub *hubbub3,
++bool hubp3_construct(
++	struct dcn20_hubp *hubp2,
 +	struct dc_context *ctx,
-+	const struct dcn_hubbub_registers *hubbub_regs,
-+	const struct dcn_hubbub_shift *hubbub_shift,
-+	const struct dcn_hubbub_mask *hubbub_mask)
++	uint32_t inst,
++	const struct dcn_hubp2_registers *hubp_regs,
++	const struct dcn_hubp2_shift *hubp_shift,
++	const struct dcn_hubp2_mask *hubp_mask)
 +{
-+	hubbub3->base.ctx = ctx;
-+	hubbub3->base.funcs = &hubbub30_funcs;
-+	hubbub3->regs = hubbub_regs;
-+	hubbub3->shifts = hubbub_shift;
-+	hubbub3->masks = hubbub_mask;
++	hubp2->base.funcs = &dcn30_hubp_funcs;
++	hubp2->base.ctx = ctx;
++	hubp2->hubp_regs = hubp_regs;
++	hubp2->hubp_shift = hubp_shift;
++	hubp2->hubp_mask = hubp_mask;
++	hubp2->base.inst = inst;
++	hubp2->base.opp_id = OPP_ID_INVALID;
++	hubp2->base.mpcc_id = 0xf;
 +
-+	hubbub3->debug_test_index_pstate = 0xB;
-+	hubbub3->detile_buf_size = 184 * 1024; /* 184KB for DCN3 */
++	return true;
 +}
-+
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubbub.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubbub.h
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.h
 new file mode 100644
-index 000000000000..790baa00672b
+index 000000000000..fd1fb3c531d1
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubbub.h
-@@ -0,0 +1,119 @@
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.h
+@@ -0,0 +1,292 @@
 +/*
 + * Copyright 2020 Advanced Micro Devices, Inc.
 + *
@@ -633,124 +920,288 @@ index 000000000000..790baa00672b
 + *
 + */
 +
-+#ifndef __DC_HUBBUB_DCN30_H__
-+#define __DC_HUBBUB_DCN30_H__
++#ifndef __DC_HUBP_DCN30_H__
++#define __DC_HUBP_DCN30_H__
 +
-+#include "dcn21/dcn21_hubbub.h"
++#include "dcn20/dcn20_hubp.h"
++#include "dcn21/dcn21_hubp.h"
 +
-+#define HUBBUB_REG_LIST_DCN3AG(id)\
-+	HUBBUB_REG_LIST_DCN21()
++#define HUBP_REG_LIST_DCN30(id)\
++	HUBP_REG_LIST_DCN21(id),\
++	SRI(DCN_DMDATA_VM_CNTL, HUBPREQ, id)
 +
-+#define HUBBUB_MASK_SH_LIST_DCN3AG(mask_sh)\
-+	HUBBUB_MASK_SH_LIST_DCN21(mask_sh)
 +
-+#define HUBBUB_REG_LIST_DCN30(id)\
-+	HUBBUB_REG_LIST_DCN20_COMMON(), \
-+	HUBBUB_SR_WATERMARK_REG_LIST(), \
-+	SR(DCHUBBUB_ARB_FRAC_URG_BW_NOM_A),\
-+	SR(DCHUBBUB_ARB_FRAC_URG_BW_NOM_B),\
-+	SR(DCHUBBUB_ARB_FRAC_URG_BW_NOM_C),\
-+	SR(DCHUBBUB_ARB_FRAC_URG_BW_NOM_D),\
-+	SR(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_A),\
-+	SR(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_B),\
-+	SR(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_C),\
-+	SR(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_D),\
-+	SR(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A),\
-+	SR(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B),\
-+	SR(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C),\
-+	SR(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D)
++#define HUBP_MASK_SH_LIST_DCN30_BASE(mask_sh)\
++	HUBP_MASK_SH_LIST_DCN21_COMMON(mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SURFACE_CONFIG, ALPHA_PLANE_EN, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, REFCYC_PER_VM_DMDATA, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_FAULT_STATUS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_FAULT_STATUS_CLEAR, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_UNDERFLOW_STATUS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_LATE_STATUS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_UNDERFLOW_STATUS_CLEAR, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_DONE, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_ADDR_CONFIG, NUM_PKRS, mask_sh)
 +
-+#define HUBBUB_MASK_SH_LIST_DCN30(mask_sh)\
-+	HUBBUB_MASK_SH_LIST_DCN_COMMON(mask_sh), \
-+	HUBBUB_MASK_SH_LIST_STUTTER(mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_GLOBAL_TIMER_CNTL, DCHUBBUB_GLOBAL_TIMER_REFDIV, mask_sh), \
-+	HUBBUB_SF(DCN_VM_FB_LOCATION_BASE, FB_BASE, mask_sh), \
-+	HUBBUB_SF(DCN_VM_FB_LOCATION_TOP, FB_TOP, mask_sh), \
-+	HUBBUB_SF(DCN_VM_FB_OFFSET, FB_OFFSET, mask_sh), \
-+	HUBBUB_SF(DCN_VM_AGP_BOT, AGP_BOT, mask_sh), \
-+	HUBBUB_SF(DCN_VM_AGP_TOP, AGP_TOP, mask_sh), \
-+	HUBBUB_SF(DCN_VM_AGP_BASE, AGP_BASE, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_A, DCHUBBUB_ARB_FRAC_URG_BW_FLIP_A, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_B, DCHUBBUB_ARB_FRAC_URG_BW_FLIP_B, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_C, DCHUBBUB_ARB_FRAC_URG_BW_FLIP_C, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_FLIP_D, DCHUBBUB_ARB_FRAC_URG_BW_FLIP_D, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_NOM_A, DCHUBBUB_ARB_FRAC_URG_BW_NOM_A, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_NOM_B, DCHUBBUB_ARB_FRAC_URG_BW_NOM_B, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_NOM_C, DCHUBBUB_ARB_FRAC_URG_BW_NOM_C, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_FRAC_URG_BW_NOM_D, DCHUBBUB_ARB_FRAC_URG_BW_NOM_D, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A, DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_A, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B, DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_B, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C, DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_C, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D, DCHUBBUB_ARB_REFCYC_PER_TRIP_TO_MEMORY_D, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_A, DCHUBBUB_ARB_VM_ROW_URGENCY_WATERMARK_A, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_B, DCHUBBUB_ARB_VM_ROW_URGENCY_WATERMARK_B, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_C, DCHUBBUB_ARB_VM_ROW_URGENCY_WATERMARK_C, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_DATA_URGENCY_WATERMARK_D, DCHUBBUB_ARB_VM_ROW_URGENCY_WATERMARK_D, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_A, DCHUBBUB_ARB_VM_ROW_ALLOW_SR_ENTER_WATERMARK_A, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_B, DCHUBBUB_ARB_VM_ROW_ALLOW_SR_ENTER_WATERMARK_B, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_C, DCHUBBUB_ARB_VM_ROW_ALLOW_SR_ENTER_WATERMARK_C, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_ENTER_WATERMARK_D, DCHUBBUB_ARB_VM_ROW_ALLOW_SR_ENTER_WATERMARK_D, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_A, DCHUBBUB_ARB_VM_ROW_ALLOW_SR_EXIT_WATERMARK_A, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_B, DCHUBBUB_ARB_VM_ROW_ALLOW_SR_EXIT_WATERMARK_B, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_C, DCHUBBUB_ARB_VM_ROW_ALLOW_SR_EXIT_WATERMARK_C, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_SR_EXIT_WATERMARK_D, DCHUBBUB_ARB_VM_ROW_ALLOW_SR_EXIT_WATERMARK_D, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_A, DCHUBBUB_ARB_VM_ROW_ALLOW_DRAM_CLK_CHANGE_WATERMARK_A, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_B, DCHUBBUB_ARB_VM_ROW_ALLOW_DRAM_CLK_CHANGE_WATERMARK_B, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_C, DCHUBBUB_ARB_VM_ROW_ALLOW_DRAM_CLK_CHANGE_WATERMARK_C, mask_sh), \
-+	HUBBUB_SF(DCHUBBUB_ARB_ALLOW_DRAM_CLK_CHANGE_WATERMARK_D, DCHUBBUB_ARB_VM_ROW_ALLOW_DRAM_CLK_CHANGE_WATERMARK_D, mask_sh)
 +
-+void hubbub3_construct(struct dcn20_hubbub *hubbub3,
-+	struct dc_context *ctx,
-+	const struct dcn_hubbub_registers *hubbub_regs,
-+	const struct dcn_hubbub_shift *hubbub_shift,
-+	const struct dcn_hubbub_mask *hubbub_mask);
++#define HUBP_MASK_SH_LIST_DCN30(mask_sh)\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, REFCYC_PER_VM_DMDATA, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_FAULT_STATUS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_FAULT_STATUS_CLEAR, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_UNDERFLOW_STATUS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_LATE_STATUS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_UNDERFLOW_STATUS_CLEAR, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_DMDATA_VM_CNTL, DMDATA_VM_DONE, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_BLANK_EN, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_TTU_DISABLE, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_UNDERFLOW_STATUS, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_UNDERFLOW_CLEAR, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_NO_OUTSTANDING_REQ, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_VTG_SEL, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_DISABLE, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_ADDR_CONFIG, NUM_PIPES, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_ADDR_CONFIG, PIPE_INTERLEAVE, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_ADDR_CONFIG, MAX_COMPRESSED_FRAGS, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_ADDR_CONFIG, NUM_PKRS, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_TILING_CONFIG, SW_MODE, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_TILING_CONFIG, META_LINEAR, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_TILING_CONFIG, PIPE_ALIGNED, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_PITCH, PITCH, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_PITCH, META_PITCH, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_PITCH_C, PITCH_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_PITCH_C, META_PITCH_C, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SURFACE_CONFIG, SURFACE_PIXEL_FORMAT, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL, SURFACE_FLIP_TYPE, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL, SURFACE_FLIP_MODE_FOR_STEREOSYNC, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL, SURFACE_FLIP_IN_STEREOSYNC, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL, SURFACE_FLIP_PENDING, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL, SURFACE_UPDATE_LOCK, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION, PRI_VIEWPORT_WIDTH, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION, PRI_VIEWPORT_HEIGHT, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_START, PRI_VIEWPORT_X_START, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_START, PRI_VIEWPORT_Y_START, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_DIMENSION, SEC_VIEWPORT_WIDTH, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_DIMENSION, SEC_VIEWPORT_HEIGHT, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_START, SEC_VIEWPORT_X_START, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_START, SEC_VIEWPORT_Y_START, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION_C, PRI_VIEWPORT_WIDTH_C, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_DIMENSION_C, PRI_VIEWPORT_HEIGHT_C, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_START_C, PRI_VIEWPORT_X_START_C, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_PRI_VIEWPORT_START_C, PRI_VIEWPORT_Y_START_C, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_DIMENSION_C, SEC_VIEWPORT_WIDTH_C, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_DIMENSION_C, SEC_VIEWPORT_HEIGHT_C, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_START_C, SEC_VIEWPORT_X_START_C, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SEC_VIEWPORT_START_C, SEC_VIEWPORT_Y_START_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH, PRIMARY_SURFACE_ADDRESS_HIGH, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_SURFACE_ADDRESS, PRIMARY_SURFACE_ADDRESS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_SURFACE_ADDRESS_HIGH, SECONDARY_SURFACE_ADDRESS_HIGH, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_SURFACE_ADDRESS, SECONDARY_SURFACE_ADDRESS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH, PRIMARY_META_SURFACE_ADDRESS_HIGH, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_META_SURFACE_ADDRESS, PRIMARY_META_SURFACE_ADDRESS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_META_SURFACE_ADDRESS_HIGH, SECONDARY_META_SURFACE_ADDRESS_HIGH, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_META_SURFACE_ADDRESS, SECONDARY_META_SURFACE_ADDRESS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_SURFACE_ADDRESS_HIGH_C, PRIMARY_SURFACE_ADDRESS_HIGH_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_SURFACE_ADDRESS_C, PRIMARY_SURFACE_ADDRESS_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_SURFACE_ADDRESS_HIGH_C, SECONDARY_SURFACE_ADDRESS_HIGH_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_SURFACE_ADDRESS_C, SECONDARY_SURFACE_ADDRESS_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_META_SURFACE_ADDRESS_HIGH_C, PRIMARY_META_SURFACE_ADDRESS_HIGH_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_PRIMARY_META_SURFACE_ADDRESS_C, PRIMARY_META_SURFACE_ADDRESS_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_META_SURFACE_ADDRESS_HIGH_C, SECONDARY_META_SURFACE_ADDRESS_HIGH_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SECONDARY_META_SURFACE_ADDRESS_C, SECONDARY_META_SURFACE_ADDRESS_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_INUSE, SURFACE_INUSE_ADDRESS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_INUSE_HIGH, SURFACE_INUSE_ADDRESS_HIGH, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_INUSE_C, SURFACE_INUSE_ADDRESS_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_INUSE_HIGH_C, SURFACE_INUSE_ADDRESS_HIGH_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_EARLIEST_INUSE, SURFACE_EARLIEST_INUSE_ADDRESS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_EARLIEST_INUSE_HIGH, SURFACE_EARLIEST_INUSE_ADDRESS_HIGH, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_EARLIEST_INUSE_C, SURFACE_EARLIEST_INUSE_ADDRESS_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_EARLIEST_INUSE_HIGH_C, SURFACE_EARLIEST_INUSE_ADDRESS_HIGH_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_SURFACE_TMZ, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_SURFACE_TMZ_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_META_SURFACE_TMZ, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_META_SURFACE_TMZ_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_SURFACE_DCC_EN, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_SURFACE_DCC_IND_BLK, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, PRIMARY_SURFACE_DCC_IND_BLK_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_TMZ, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_TMZ_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_META_SURFACE_TMZ, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_META_SURFACE_TMZ_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_DCC_EN, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_DCC_IND_BLK, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_SURFACE_CONTROL, SECONDARY_SURFACE_DCC_IND_BLK_C, mask_sh),\
++	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, DET_BUF_PLANE1_BASE_ADDRESS, mask_sh),\
++	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, CROSSBAR_SRC_CB_B, mask_sh),\
++	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, CROSSBAR_SRC_CR_R, mask_sh),\
++	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, CROSSBAR_SRC_Y_G, mask_sh),\
++	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, CROSSBAR_SRC_ALPHA, mask_sh),\
++	HUBP_SF(HUBPRET0_HUBPRET_CONTROL, PACK_3TO2_ELEMENT_DISABLE, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_EXPANSION_MODE, DRQ_EXPANSION_MODE, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_EXPANSION_MODE, PRQ_EXPANSION_MODE, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_EXPANSION_MODE, MRQ_EXPANSION_MODE, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_EXPANSION_MODE, CRQ_EXPANSION_MODE, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, CHUNK_SIZE, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, MIN_CHUNK_SIZE, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, META_CHUNK_SIZE, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, MIN_META_CHUNK_SIZE, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, DPTE_GROUP_SIZE, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, SWATH_HEIGHT, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, PTE_ROW_HEIGHT_LINEAR, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, CHUNK_SIZE_C, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, MIN_CHUNK_SIZE_C, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, META_CHUNK_SIZE_C, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, MIN_META_CHUNK_SIZE_C, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, DPTE_GROUP_SIZE_C, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, SWATH_HEIGHT_C, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG_C, PTE_ROW_HEIGHT_LINEAR_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_BLANK_OFFSET_0, REFCYC_H_BLANK_END, mask_sh),\
++	HUBP_SF(HUBPREQ0_BLANK_OFFSET_0, DLG_V_BLANK_END, mask_sh),\
++	HUBP_SF(HUBPREQ0_BLANK_OFFSET_1, MIN_DST_Y_NEXT_START, mask_sh),\
++	HUBP_SF(HUBPREQ0_DST_DIMENSIONS, REFCYC_PER_HTOTAL, mask_sh),\
++	HUBP_SF(HUBPREQ0_DST_AFTER_SCALER, REFCYC_X_AFTER_SCALER, mask_sh),\
++	HUBP_SF(HUBPREQ0_DST_AFTER_SCALER, DST_Y_AFTER_SCALER, mask_sh),\
++	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_0, DST_Y_PER_VM_VBLANK, mask_sh),\
++	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_0, DST_Y_PER_ROW_VBLANK, mask_sh),\
++	HUBP_SF(HUBPREQ0_REF_FREQ_TO_PIX_FREQ, REF_FREQ_TO_PIX_FREQ, mask_sh),\
++	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_1, REFCYC_PER_PTE_GROUP_VBLANK_L, mask_sh),\
++	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_3, REFCYC_PER_META_CHUNK_VBLANK_L, mask_sh),\
++	HUBP_SF(HUBPREQ0_NOM_PARAMETERS_4, DST_Y_PER_META_ROW_NOM_L, mask_sh),\
++	HUBP_SF(HUBPREQ0_NOM_PARAMETERS_5, REFCYC_PER_META_CHUNK_NOM_L, mask_sh),\
++	HUBP_SF(HUBPREQ0_PER_LINE_DELIVERY_PRE, REFCYC_PER_LINE_DELIVERY_PRE_L, mask_sh),\
++	HUBP_SF(HUBPREQ0_PER_LINE_DELIVERY_PRE, REFCYC_PER_LINE_DELIVERY_PRE_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_PER_LINE_DELIVERY, REFCYC_PER_LINE_DELIVERY_L, mask_sh),\
++	HUBP_SF(HUBPREQ0_PER_LINE_DELIVERY, REFCYC_PER_LINE_DELIVERY_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_2, REFCYC_PER_PTE_GROUP_VBLANK_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_4, REFCYC_PER_META_CHUNK_VBLANK_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_NOM_PARAMETERS_6, DST_Y_PER_META_ROW_NOM_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_NOM_PARAMETERS_7, REFCYC_PER_META_CHUNK_NOM_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_TTU_QOS_WM, QoS_LEVEL_LOW_WM, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_TTU_QOS_WM, QoS_LEVEL_HIGH_WM, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_GLOBAL_TTU_CNTL, MIN_TTU_VBLANK, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_GLOBAL_TTU_CNTL, QoS_LEVEL_FLIP, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_GLOBAL_TTU_CNTL, ROW_TTU_MODE, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_SURF0_TTU_CNTL0, REFCYC_PER_REQ_DELIVERY, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_SURF0_TTU_CNTL0, QoS_LEVEL_FIXED, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_SURF0_TTU_CNTL0, QoS_RAMP_DISABLE, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_SURF0_TTU_CNTL1, REFCYC_PER_REQ_DELIVERY_PRE, mask_sh),\
++	HUBP_SF(HUBP0_HUBP_CLK_CNTL, HUBP_CLOCK_ENABLE, mask_sh),\
++	HUBP_MASK_SH_LIST_DCN_VM(mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SURFACE_CONFIG, ROTATION_ANGLE, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SURFACE_CONFIG, H_MIRROR_EN, mask_sh),\
++	HUBP_SF(HUBP0_DCSURF_SURFACE_CONFIG, ALPHA_PLANE_EN, mask_sh),\
++	HUBP_SF(HUBPREQ0_PREFETCH_SETTINGS, DST_Y_PREFETCH, mask_sh),\
++	HUBP_SF(HUBPREQ0_PREFETCH_SETTINGS, VRATIO_PREFETCH, mask_sh),\
++	HUBP_SF(HUBPREQ0_PREFETCH_SETTINGS_C, VRATIO_PREFETCH_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_VM_SYSTEM_APERTURE_LOW_ADDR, MC_VM_SYSTEM_APERTURE_LOW_ADDR, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCN_VM_SYSTEM_APERTURE_HIGH_ADDR, MC_VM_SYSTEM_APERTURE_HIGH_ADDR, mask_sh),\
++	HUBP_SF(HUBPREQ0_CURSOR_SETTINGS, CURSOR0_DST_Y_OFFSET, mask_sh), \
++	HUBP_SF(HUBPREQ0_CURSOR_SETTINGS, CURSOR0_CHUNK_HDL_ADJUST, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_SURFACE_ADDRESS_HIGH, CURSOR_SURFACE_ADDRESS_HIGH, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_SURFACE_ADDRESS, CURSOR_SURFACE_ADDRESS, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_SIZE, CURSOR_WIDTH, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_SIZE, CURSOR_HEIGHT, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_CONTROL, CURSOR_MODE, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_CONTROL, CURSOR_2X_MAGNIFY, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_CONTROL, CURSOR_PITCH, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_CONTROL, CURSOR_LINES_PER_CHUNK, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_CONTROL, CURSOR_ENABLE, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_POSITION, CURSOR_X_POSITION, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_POSITION, CURSOR_Y_POSITION, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_HOT_SPOT, CURSOR_HOT_SPOT_X, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_HOT_SPOT, CURSOR_HOT_SPOT_Y, mask_sh), \
++	HUBP_SF(CURSOR0_0_CURSOR_DST_OFFSET, CURSOR_DST_X_OFFSET, mask_sh), \
++	HUBP_SF(CURSOR0_0_DMDATA_ADDRESS_HIGH, DMDATA_ADDRESS_HIGH, mask_sh), \
++	HUBP_SF(CURSOR0_0_DMDATA_CNTL, DMDATA_MODE, mask_sh), \
++	HUBP_SF(CURSOR0_0_DMDATA_CNTL, DMDATA_UPDATED, mask_sh), \
++	HUBP_SF(CURSOR0_0_DMDATA_CNTL, DMDATA_REPEAT, mask_sh), \
++	HUBP_SF(CURSOR0_0_DMDATA_CNTL, DMDATA_SIZE, mask_sh), \
++	HUBP_SF(CURSOR0_0_DMDATA_SW_CNTL, DMDATA_SW_UPDATED, mask_sh), \
++	HUBP_SF(CURSOR0_0_DMDATA_SW_CNTL, DMDATA_SW_REPEAT, mask_sh), \
++	HUBP_SF(CURSOR0_0_DMDATA_SW_CNTL, DMDATA_SW_SIZE, mask_sh), \
++	HUBP_SF(CURSOR0_0_DMDATA_QOS_CNTL, DMDATA_QOS_MODE, mask_sh), \
++	HUBP_SF(CURSOR0_0_DMDATA_QOS_CNTL, DMDATA_QOS_LEVEL, mask_sh), \
++	HUBP_SF(CURSOR0_0_DMDATA_QOS_CNTL, DMDATA_DL_DELTA, mask_sh), \
++	HUBP_SF(CURSOR0_0_DMDATA_STATUS, DMDATA_DONE, mask_sh),\
++	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_0, DST_Y_PER_VM_FLIP, mask_sh),\
++	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_0, DST_Y_PER_ROW_FLIP, mask_sh),\
++	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_1, REFCYC_PER_PTE_GROUP_FLIP_L, mask_sh),\
++	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_2, REFCYC_PER_META_CHUNK_FLIP_L, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_VREADY_AT_OR_AFTER_VSYNC, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_CNTL, HUBP_DISABLE_STOP_DATA_DURING_VM, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL, HUBPREQ_MASTER_UPDATE_LOCK_STATUS, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL2, SURFACE_GSL_ENABLE, mask_sh),\
++	HUBP_SF(HUBPREQ0_DCSURF_FLIP_CONTROL2, SURFACE_TRIPLE_BUFFER_ENABLE, mask_sh),\
++	HUBP_SF(HUBPREQ0_VMID_SETTINGS_0, VMID, mask_sh),\
++	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_3, REFCYC_PER_VM_GROUP_FLIP, mask_sh),\
++	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_4, REFCYC_PER_VM_REQ_FLIP, mask_sh),\
++	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_5, REFCYC_PER_PTE_GROUP_FLIP_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_FLIP_PARAMETERS_6, REFCYC_PER_META_CHUNK_FLIP_C, mask_sh),\
++	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_5, REFCYC_PER_VM_GROUP_VBLANK, mask_sh),\
++	HUBP_SF(HUBPREQ0_VBLANK_PARAMETERS_6, REFCYC_PER_VM_REQ_VBLANK, mask_sh),\
++	HUBP_SF(HUBP0_DCHUBP_REQ_SIZE_CONFIG, VM_GROUP_SIZE, mask_sh)
 +
-+int hubbub3_init_dchub_sys_ctx(struct hubbub *hubbub,
-+		struct dcn_hubbub_phys_addr_config *pa_config);
++bool hubp3_construct(
++		struct dcn20_hubp *hubp2,
++		struct dc_context *ctx,
++		uint32_t inst,
++		const struct dcn_hubp2_registers *hubp_regs,
++		const struct dcn_hubp2_shift *hubp_shift,
++		const struct dcn_hubp2_mask *hubp_mask);
 +
-+bool hubbub3_dcc_support_swizzle(
-+		enum swizzle_mode_values swizzle,
-+		unsigned int bytes_per_element,
-+		enum segment_order *segment_order_horz,
-+		enum segment_order *segment_order_vert);
++bool hubp3_program_surface_flip_and_addr(
++	struct hubp *hubp,
++	const struct dc_plane_address *address,
++	bool flip_immediate);
 +
-+void hubbub3_force_wm_propagate_to_pipes(struct hubbub *hubbub);
++void hubp3_program_surface_config(
++	struct hubp *hubp,
++	enum surface_pixel_format format,
++	union dc_tiling_info *tiling_info,
++	struct plane_size *plane_size,
++	enum dc_rotation_angle rotation,
++	struct dc_plane_dcc_param *dcc,
++	bool horizontal_mirror,
++	unsigned int compat_level);
 +
-+bool hubbub3_get_dcc_compression_cap(struct hubbub *hubbub,
-+		const struct dc_dcc_surface_param *input,
-+		struct dc_surface_dcc_cap *output);
++void hubp3_setup(
++		struct hubp *hubp,
++		struct _vcs_dpi_display_dlg_regs_st *dlg_attr,
++		struct _vcs_dpi_display_ttu_regs_st *ttu_attr,
++		struct _vcs_dpi_display_rq_regs_st *rq_regs,
++		struct _vcs_dpi_display_pipe_dest_params_st *pipe_dest);
 +
-+bool hubbub3_program_watermarks(
-+		struct hubbub *hubbub,
-+		struct dcn_watermark_set *watermarks,
-+		unsigned int refclk_mhz,
-+		bool safe_to_lower);
++void hubp3_dcc_control(struct hubp *hubp, bool enable,
++		enum hubp_ind_block_size blk_size);
 +
-+#endif
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-index 47a566d82d6e..65f182c8bf14 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dchubbub.h
-@@ -31,6 +31,9 @@ enum dcc_control {
- 	dcc_control__256_256_xxx,
- 	dcc_control__128_128_xxx,
- 	dcc_control__256_64_64,
++void hubp3_dcc_control_sienna_cichlid(struct hubp *hubp,
++		struct dc_plane_dcc_param *dcc);
++
++void hubp3_dmdata_set_attributes(
++		struct hubp *hubp,
++		const struct dc_dmdata_attributes *attr);
++
++void hubp3_read_state(struct hubp *hubp);
++
++void hubp3_init(struct hubp *hubp);
++
++#endif /* __DC_HUBP_DCN30_H__ */
++
++
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
+index efce08e4c0ca..286cceeb9c24 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h
+@@ -48,6 +48,10 @@ enum cursor_lines_per_chunk {
+ enum hubp_ind_block_size {
+ 	hubp_ind_block_unconstrained = 0,
+ 	hubp_ind_block_64b,
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	dcc_control__256_128_128,
++	hubp_ind_block_128b,
++	hubp_ind_block_64b_no_128bcl,
 +#endif
  };
  
- enum segment_order {
-@@ -62,6 +65,9 @@ enum dcn_hubbub_page_table_depth {
- enum dcn_hubbub_page_table_block_size {
- 	DCN_PAGE_TABLE_BLOCK_SIZE_4KB = 0,
- 	DCN_PAGE_TABLE_BLOCK_SIZE_64KB = 4,
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	DCN_PAGE_TABLE_BLOCK_SIZE_32KB = 3
-+#endif
- };
- 
- struct dcn_hubbub_phys_addr_config {
+ struct hubp {
 -- 
 2.25.4
 
