@@ -2,70 +2,69 @@ Return-Path: <SRS0=+jgF=7O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-8.5 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E2B7C433E2
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:29:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF4D4C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:29:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1278A2074B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:29:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C360B2074B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:29:46 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="td6zNdUC"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1278A2074B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jpUL3LdU"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C360B2074B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BCB46E5A1;
-	Mon,  1 Jun 2020 18:29:44 +0000 (UTC)
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [IPv6:2607:f8b0:4864:20::735])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 82CB76E593
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:29:42 +0000 (UTC)
-Received: by mail-qk1-x735.google.com with SMTP id f18so10079321qkh.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:29:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CEB46E93B;
+	Mon,  1 Jun 2020 18:29:46 +0000 (UTC)
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F54C6E5B0
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:29:45 +0000 (UTC)
+Received: by mail-qk1-x742.google.com with SMTP id c14so9002766qka.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:29:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=mlctOtGFMQ+L33Jq/b0oMzLwx+MmlDjfhPCXi16QQz0=;
- b=td6zNdUCkup3GI5GexcwYxOtWYARKRboyyVKXoSBrJiURCivMvbMqpnbdXWGIf75km
- Z948FMp5qRy0CA+peB5ZNzlWEhRVE3UybDP1aAhyKLGSelSvhUaDJLUeM3AEaa6cqy1J
- ulrCSxLILqRt3NxcgYhGG5MaqecA5E3BMXTLm/OIcQ/XHu7X3naijnaJH+H8a7Mw1v6N
- WlDxtMf2SLgXOZRCGEygkEIFQQn6gCl8AU0q6a7tXvE4pO6yAouhNcKfJ8pJLZ+bbHNP
- od75IpfJbUZAb1O36AUik1/6S8c2EsyUGRd5kmsqjJTxmQVd8SppvTnm3kKyYmwfz5D8
- lnIg==
+ bh=UnZJDu514q1nzhwz1jkIH/x96UXj/QF4glEDIcMMuFs=;
+ b=jpUL3LdUxsmKFPhhMdWhogm9hXDsn0r6j+wo24fL1cTBFLOEAxGXOhx+ZwLGM1nWrg
+ YvX9vrG1WvG6rTBucAq6ox+i4mtFD0f+LLkUwr+wjUV74ku5CGfmdrUCSdn9OF3azYxo
+ lWj9UQXZ7Rb4suZbHm4NIPy5LgbWCJngfH2RzjgnUFl/qlOxnccBLIhTA1BsZC9WN2Q6
+ oWwLXzoLmmlyp2qSb+sGs7ABUmfIKHta8WB/4AMVsggpIjaxzTUnUArMu1H1rjdDW5c/
+ IRkR0U15g0EW8xU2/9m4WqniBW5og50WY0P+a9H6Agcxp9ZNbBObGBhe6GknYM9YdNis
+ 3NHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=mlctOtGFMQ+L33Jq/b0oMzLwx+MmlDjfhPCXi16QQz0=;
- b=BVHy5zkPH0MrJlfOYonuuJysVew9ctaynoP5fcWWm13M+m3dL3gz04ggxVYBPne01q
- t5s9gXI72CcYehk1h/VMfSNShRIFqNcRkEmkSctdzhIA2HX0d50Kl+EDFPBlgCUrsu4o
- tYbKShYR+qbasHQb23sEQdeJj15dN16MoDqfiguH9lACDB3ozkoLRAOpDrJPzVofj/UI
- alxJc8h5B2F7/Fju6doof8Vqv2KdjCL7m/xzf0pSupZAw01K6SI9INC6retFwXQgdjvj
- J6ldPudlhwpWCcrA5jESMbDnNvLrvyP3n1hOPKsRaqWJP7UwmiRDBEeuRhUXf0qCYB4V
- tJEA==
-X-Gm-Message-State: AOAM5335p+8XL9I+QDXLTGwFFTW4/UG2lWZqrkmbdbpv0dibs0XibBFS
- 7tz73Eso7IbdznJVSx/JTlI+gxyF
-X-Google-Smtp-Source: ABdhPJySEmy1RgRc9kyz/L043CrNkmGPBO/WqwqkXNnrNkMiXgNqIoo2HrtZ3HNMGt+zzX4DibzWVQ==
-X-Received: by 2002:a05:620a:2290:: with SMTP id
- o16mr21623683qkh.205.1591036180324; 
- Mon, 01 Jun 2020 11:29:40 -0700 (PDT)
+ bh=UnZJDu514q1nzhwz1jkIH/x96UXj/QF4glEDIcMMuFs=;
+ b=BmIrRfC9s0wt38ypQpu2XV11Kv7Zt+su1UnLQthyffkhsLMLl7WBipSaXjqy37qKQG
+ V+j7QVUIGaX6T6XuwW7ZL4wIqFbPGTeE2JKjFg8v+lANSvCfNWOBBMcITIeXvA1qBMln
+ P9Jowx728UniQ8zmA3k3ACMGDmTarlas0NTI3gs+g9vCW57pdy1I/YMs9DqSZz1moCV2
+ hL80pTGMa4Nuak9EYGQ3MKLdQKEbeQHYkTIBNZ8Nyloow6NrXO6MC818v1wdeuggQpvm
+ zLxjg91jIwdXLQdM6CU9FC8MhTbWKpxStCATY1I6+WpepdcOy8PwnALR1F8uhQAg1PYr
+ ARQg==
+X-Gm-Message-State: AOAM532PAOdY/Q8VN58U23xx030EXMqbelZeWpNbmPbGNUH2lwJq8idG
+ uImcnBm/NSCE1cGKNNrJf3HaTW+0
+X-Google-Smtp-Source: ABdhPJycW3JDk5LY5dvbA6ObAbFqONqiq5Do03J43TlKpoQ3u6z2qh0/ynx1wn2OSJrJ1nv6moaoBg==
+X-Received: by 2002:a37:9401:: with SMTP id w1mr6609847qkd.308.1591036183180; 
+ Mon, 01 Jun 2020 11:29:43 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id z194sm8592qkb.73.2020.06.01.11.29.38
+ by smtp.gmail.com with ESMTPSA id z194sm8592qkb.73.2020.06.01.11.29.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:29:39 -0700 (PDT)
+ Mon, 01 Jun 2020 11:29:42 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 181/207] drm/amd/display: Add DCN3 CLK_MGR
-Date: Mon,  1 Jun 2020 14:29:00 -0400
-Message-Id: <20200601182926.1267958-3-alexander.deucher@amd.com>
+Subject: [PATCH 183/207] drm/amd/display: Add DCN3 OPTC
+Date: Mon,  1 Jun 2020 14:29:02 -0400
+Message-Id: <20200601182926.1267958-5-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182926.1267958-1-alexander.deucher@amd.com>
 References: <20200601182926.1267958-1-alexander.deucher@amd.com>
@@ -89,102 +88,174 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 
-Adds support for handling of clocking relevant to the DCN3 block
+Add support for programming the DCN3 OPTC (Output Timing Controller)
+
+HW Blocks:
+
+    +--------+
+    |  OPTC  |
+    +--------+
+        |
+        v
+    +--------+       +--------+
+    |  DIO   |       |  DCCG  |
+    +--------+       +--------+
 
 Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 ---
- .../gpu/drm/amd/display/dc/clk_mgr/Makefile   |  10 +
- .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |  22 +
- .../drm/amd/display/dc/clk_mgr/dcn30/dalsmc.h |  60 ++
- .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  | 543 ++++++++++++++++++
- .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.h  |  38 ++
- .../dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c  | 255 ++++++++
- .../dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h  | 108 ++++
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  51 ++
- .../gpu/drm/amd/display/dc/core/dc_stream.c   |  37 ++
- drivers/gpu/drm/amd/display/dc/dc.h           |  26 +
- .../drm/amd/display/dc/dce/dce_clock_source.c | 153 ++++-
- .../drm/amd/display/dc/dce/dce_clock_source.h |  42 ++
- .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |  69 +++
- .../amd/display/dc/inc/hw/clk_mgr_internal.h  |  14 +
- 14 files changed, 1421 insertions(+), 7 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dalsmc.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.h
- create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.c |  10 +-
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.h |  62 +++
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_optc.c | 365 ++++++++++++++++++
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_optc.h | 333 ++++++++++++++++
+ .../amd/display/dc/inc/hw/timing_generator.h  |  19 +
+ 5 files changed, 788 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.h
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-index c0f6a8c7de7d..6874276bb2a1 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/Makefile
-@@ -97,3 +97,13 @@ AMD_DAL_CLK_MGR_DCN21 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn21/,$(CLK_MGR_DC
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+index ec0ab42becba..43d0b4e53b5d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.c
+@@ -288,8 +288,16 @@ void optc1_program_timing(
+ 	if (optc1_is_two_pixels_per_containter(&patched_crtc_timing) || optc1->opp_count == 2)
+ 		h_div = H_TIMING_DIV_BY2;
  
- AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN21)
- endif
-+ifdef CONFIG_DRM_AMD_DC_DCN3_0
-+###############################################################################
-+# DCN30
-+###############################################################################
-+CLK_MGR_DCN30 = dcn30_clk_mgr.o dcn30_clk_mgr_smu_msg.o
+-	REG_UPDATE(OTG_H_TIMING_CNTL,
++	if (optc1->tg_mask->OTG_H_TIMING_DIV_MODE != 0) {
++		if (optc1->opp_count == 4)
++			h_div = H_TIMING_DIV_BY4;
 +
-+AMD_DAL_CLK_MGR_DCN30 = $(addprefix $(AMDDALPATH)/dc/clk_mgr/dcn30/,$(CLK_MGR_DCN30))
-+
-+AMD_DISPLAY_FILES += $(AMD_DAL_CLK_MGR_DCN30)
-+endif
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-index a5c2114e4292..f376058b5df6 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c
-@@ -38,6 +38,9 @@
- #include "dcn10/rv2_clk_mgr.h"
- #include "dcn20/dcn20_clk_mgr.h"
- #include "dcn21/rn_clk_mgr.h"
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+#include "dcn30/dcn30_clk_mgr.h"
-+#endif
- 
- 
- int clk_mgr_helper_get_active_display_cnt(
-@@ -169,6 +172,15 @@ struct clk_mgr *dc_clk_mgr_create(struct dc_context *ctx, struct pp_smu_funcs *p
- 		break;
- 
- 	case FAMILY_NV:
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+		if (ASICREV_IS_SIENNA_CICHLID_P(asic_id.hw_internal_rev)) {
-+			/* TODO: to add SIENNA_CICHLID clk_mgr support, once CLK IP header files are available,
-+			 * for now use DCN3AG clk mgr.
-+			 */
-+			dcn3_clk_mgr_construct(ctx, clk_mgr, pp_smu, dccg);
-+			break;
-+		}
-+#endif
- 		dcn20_clk_mgr_construct(ctx, clk_mgr, pp_smu, dccg);
- 		break;
- #endif	/* Family RV and NV*/
-@@ -184,6 +196,16 @@ struct clk_mgr *dc_clk_mgr_create(struct dc_context *ctx, struct pp_smu_funcs *p
- void dc_destroy_clk_mgr(struct clk_mgr *clk_mgr_base)
- {
- 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-+#ifdef CONFIG_DRM_AMD_DC_DCN3_0
-+
-+	switch (clk_mgr_base->ctx->asic_id.chip_family) {
-+	case FAMILY_NV:
-+		if (ASICREV_IS_SIENNA_CICHLID_P(clk_mgr_base->ctx->asic_id.hw_internal_rev)) {
-+			dcn3_clk_mgr_destroy(clk_mgr);
-+			break;
-+		}
++		REG_UPDATE(OTG_H_TIMING_CNTL,
++		OTG_H_TIMING_DIV_MODE, h_div);
++	} else {
++		REG_UPDATE(OTG_H_TIMING_CNTL,
+ 		OTG_H_TIMING_DIV_BY2, h_div);
 +	}
+ }
+ 
+ void optc1_set_vtg_params(struct timing_generator *optc,
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.h b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.h
+index 8d1e52fb0393..b38475285835 100644
+--- a/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.h
++++ b/drivers/gpu/drm/amd/display/dc/dcn10/dcn10_optc.h
+@@ -171,6 +171,15 @@ struct dcn_optc_registers {
+ 	uint32_t OPTC_DATA_FORMAT_CONTROL;
+ 	uint32_t OPTC_BYTES_PER_PIXEL;
+ 	uint32_t OPTC_WIDTH_CONTROL;
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++	uint32_t OTG_BLANK_DATA_COLOR;
++	uint32_t OTG_BLANK_DATA_COLOR_EXT;
++	uint32_t OTG_DRR_TRIGGER_WINDOW;
++	uint32_t OTG_M_CONST_DTO0;
++	uint32_t OTG_M_CONST_DTO1;
++	uint32_t OTG_DRR_V_TOTAL_CHANGE;
++	uint32_t OTG_GLOBAL_CONTROL4;
++#endif
+ };
+ 
+ #define TG_COMMON_MASK_SH_LIST_DCN(mask_sh)\
+@@ -296,6 +305,8 @@ struct dcn_optc_registers {
+ 	SF(GSL_SOURCE_SELECT, GSL2_READY_SOURCE_SEL, mask_sh),\
+ 	SF(OTG0_OTG_GLOBAL_CONTROL2, MANUAL_FLOW_CONTROL_SEL, mask_sh)
+ 
++
++
+ #define TG_COMMON_MASK_SH_LIST_DCN1_0(mask_sh)\
+ 	TG_COMMON_MASK_SH_LIST_DCN(mask_sh),\
+ 	SF(OTG0_OTG_TEST_PATTERN_PARAMETERS, OTG_TEST_PATTERN_INC0, mask_sh),\
+@@ -385,6 +396,13 @@ struct dcn_optc_registers {
+ 	type OTG_BLACK_COLOR_B_CB;\
+ 	type OTG_BLACK_COLOR_G_Y;\
+ 	type OTG_BLACK_COLOR_R_CR;\
++	type OTG_BLANK_DATA_COLOR_BLUE_CB;\
++	type OTG_BLANK_DATA_COLOR_GREEN_Y;\
++	type OTG_BLANK_DATA_COLOR_RED_CR;\
++	type OTG_BLANK_DATA_COLOR_BLUE_CB_EXT;\
++	type OTG_BLANK_DATA_COLOR_GREEN_Y_EXT;\
++	type OTG_BLANK_DATA_COLOR_RED_CR_EXT;\
++	type OTG_VTOTAL_MID_REPLACING_MIN_EN;\
+ 	type OTG_TEST_PATTERN_INC0;\
+ 	type OTG_TEST_PATTERN_INC1;\
+ 	type OTG_TEST_PATTERN_VRES;\
+@@ -456,9 +474,17 @@ struct dcn_optc_registers {
+ 	type MANUAL_FLOW_CONTROL;\
+ 	type MANUAL_FLOW_CONTROL_SEL;
+ 
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
+ 
+ #define TG_REG_FIELD_LIST(type) \
+ 	TG_REG_FIELD_LIST_DCN1_0(type)\
++	type OTG_V_SYNC_MODE;\
++	type OTG_DRR_TRIGGER_WINDOW_START_X;\
++	type OTG_DRR_TRIGGER_WINDOW_END_X;\
++	type OTG_DRR_V_TOTAL_CHANGE_LIMIT;\
++	type OTG_OUT_MUX;\
++	type OTG_M_CONST_DTO_PHASE;\
++	type OTG_M_CONST_DTO_MODULO;\
+ 	type MASTER_UPDATE_LOCK_DB_X;\
+ 	type MASTER_UPDATE_LOCK_DB_Y;\
+ 	type MASTER_UPDATE_LOCK_DB_EN;\
+@@ -469,6 +495,8 @@ struct dcn_optc_registers {
+ 	type OPTC_NUM_OF_INPUT_SEGMENT;\
+ 	type OPTC_SEG0_SRC_SEL;\
+ 	type OPTC_SEG1_SRC_SEL;\
++	type OPTC_SEG2_SRC_SEL;\
++	type OPTC_SEG3_SRC_SEL;\
+ 	type OPTC_MEM_SEL;\
+ 	type OPTC_DATA_FORMAT;\
+ 	type OPTC_DSC_MODE;\
+@@ -477,11 +505,45 @@ struct dcn_optc_registers {
+ 	type OPTC_SEGMENT_WIDTH;\
+ 	type OPTC_DWB0_SOURCE_SELECT;\
+ 	type OPTC_DWB1_SOURCE_SELECT;\
++	type MASTER_UPDATE_LOCK_DB_START_X;\
++	type MASTER_UPDATE_LOCK_DB_END_X;\
++	type MASTER_UPDATE_LOCK_DB_START_Y;\
++	type MASTER_UPDATE_LOCK_DB_END_Y;\
++	type DIG_UPDATE_POSITION_X;\
++	type DIG_UPDATE_POSITION_Y;\
++	type OTG_H_TIMING_DIV_MODE;\
++	type OTG_DRR_TIMING_DBUF_UPDATE_MODE;\
+ 	type OTG_CRC_DSC_MODE;\
+ 	type OTG_CRC_DATA_STREAM_COMBINE_MODE;\
+ 	type OTG_CRC_DATA_STREAM_SPLIT_MODE;\
+ 	type OTG_CRC_DATA_FORMAT;
++#else
+ 
++#define TG_REG_FIELD_LIST(type) \
++	TG_REG_FIELD_LIST_DCN1_0(type)\
++	type MASTER_UPDATE_LOCK_DB_X;\
++	type MASTER_UPDATE_LOCK_DB_Y;\
++	type MASTER_UPDATE_LOCK_DB_EN;\
++	type GLOBAL_UPDATE_LOCK_EN;\
++	type DIG_UPDATE_LOCATION;\
++	type OTG_DSC_START_POSITION_X;\
++	type OTG_DSC_START_POSITION_LINE_NUM;\
++	type OPTC_NUM_OF_INPUT_SEGMENT;\
++	type OPTC_SEG0_SRC_SEL;\
++	type OPTC_SEG1_SRC_SEL;\
++	type OPTC_MEM_SEL;\
++	type OPTC_DATA_FORMAT;\
++	type OPTC_DSC_MODE;\
++	type OPTC_DSC_BYTES_PER_PIXEL;\
++	type OPTC_DSC_SLICE_WIDTH;\
++	type OPTC_SEGMENT_WIDTH;\
++	type OPTC_DWB0_SOURCE_SELECT;\
++	type OPTC_DWB1_SOURCE_SELECT;\
++	type OTG_CRC_DSC_MODE;\
++	type OTG_CRC_DATA_STREAM_COMBINE_MODE;\
++	type OTG_CRC_DATA_STREAM_SPLIT_MODE;\
++	type OTG_CRC_DATA_FORMAT;
 +#endif
  
- 	kfree(clk_mgr);
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dalsmc.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dalsmc.h
+ 
+ struct dcn_optc_shift {
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
 new file mode 100644
-index 000000000000..5ed03287aaaf
+index 000000000000..224c8d145eba
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dalsmc.h
-@@ -0,0 +1,60 @@
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
+@@ -0,0 +1,365 @@
 +/*
 + * Copyright 2020 Advanced Micro Devices, Inc.
 + *
@@ -210,596 +281,352 @@ index 000000000000..5ed03287aaaf
 + *
 + */
 +
-+// TEMPORARY until this exists in the proper location
-+#ifndef DALSMC_H
-+#define DALSMC_H
-+
-+#define DALSMC_VERSION 0x1
-+
-+// SMU Response Codes:
-+#define DALSMC_Result_OK                   0x1
-+#define DALSMC_Result_Failed               0xFF
-+#define DALSMC_Result_UnknownCmd           0xFE
-+#define DALSMC_Result_CmdRejectedPrereq    0xFD
-+#define DALSMC_Result_CmdRejectedBusy      0xFC
-+
-+
-+
-+// Message Definitions:
-+#define DALSMC_MSG_TestMessage                    0x1
-+#define DALSMC_MSG_GetSmuVersion                  0x2
-+#define DALSMC_MSG_GetDriverIfVersion             0x3
-+#define DALSMC_MSG_GetMsgHeaderVersion            0x4
-+#define DALSMC_MSG_SetDalDramAddrHigh             0x5
-+#define DALSMC_MSG_SetDalDramAddrLow              0x6
-+#define DALSMC_MSG_TransferTableSmu2Dram          0x7
-+#define DALSMC_MSG_TransferTableDram2Smu          0x8
-+#define DALSMC_MSG_SetHardMinByFreq               0x9
-+#define DALSMC_MSG_SetHardMaxByFreq               0xA
-+#define DALSMC_MSG_GetDpmFreqByIndex              0xB
-+#define DALSMC_MSG_GetDcModeMaxDpmFreq            0xC
-+#define DALSMC_MSG_SetMinDeepSleepDcefclk         0xD
-+#define DALSMC_MSG_NumOfDisplays                  0xE
-+#define DALSMC_MSG_SetExternalClientDfCstateAllow 0x10
-+#define DALSMC_MSG_BacoAudioD3PME                 0x11
-+#define DALSMC_Message_Count                      0x12
-+
-+#endif
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
-new file mode 100644
-index 000000000000..b27cb52903f5
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
-@@ -0,0 +1,543 @@
-+/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+#include "dccg.h"
-+#include "clk_mgr_internal.h"
-+
-+#include "dcn30_clk_mgr_smu_msg.h"
-+#include "dcn20/dcn20_clk_mgr.h"
-+#include "dce100/dce_clk_mgr.h"
 +#include "reg_helper.h"
-+#include "core_types.h"
-+#include "dm_helpers.h"
++#include "dcn30_optc.h"
++#include "dc.h"
++#include "dcn_calc_math.h"
 +
-+#include "atomfirmware.h"
++#define REG(reg)\
++	optc1->tg_regs->reg
 +
-+
-+#include "sienna_cichlid_ip_offset.h"
-+#include "dcn/dcn_3_0_0_offset.h"
-+#include "dcn/dcn_3_0_0_sh_mask.h"
-+
-+#include "nbio/nbio_7_4_offset.h"
-+
-+#include "dcn/dpcs_3_0_0_offset.h"
-+#include "dcn/dpcs_3_0_0_sh_mask.h"
-+
-+#include "mmhub/mmhub_2_0_0_offset.h"
-+#include "mmhub/mmhub_2_0_0_sh_mask.h"
-+/*we don't have clk folder yet*/
-+#include "dcn30/dcn30_clk_mgr.h"
++#define CTX \
++	optc1->base.ctx
 +
 +#undef FN
 +#define FN(reg_name, field_name) \
-+	clk_mgr->clk_mgr_shift->field_name, clk_mgr->clk_mgr_mask->field_name
++	optc1->tg_shift->field_name, optc1->tg_mask->field_name
 +
-+#define REG(reg) \
-+	(clk_mgr->regs->reg)
-+
-+#define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
-+
-+#define BASE(seg) BASE_INNER(seg)
-+
-+#define SR(reg_name)\
-+		.reg_name = BASE(mm ## reg_name ## _BASE_IDX) +  \
-+					mm ## reg_name
-+
-+#undef CLK_SRI
-+#define CLK_SRI(reg_name, block, inst)\
-+	.reg_name = mm ## block ## _ ## reg_name
-+
-+static const struct clk_mgr_registers clk_mgr_regs = {
-+	CLK_REG_LIST_DCN3()
-+};
-+
-+static const struct clk_mgr_shift clk_mgr_shift = {
-+	CLK_COMMON_MASK_SH_LIST_DCN20_BASE(__SHIFT)
-+};
-+
-+static const struct clk_mgr_mask clk_mgr_mask = {
-+	CLK_COMMON_MASK_SH_LIST_DCN20_BASE(_MASK)
-+};
-+
-+
-+/* Query SMU for all clock states for a particular clock */
-+static void dcn3_init_single_clock(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, unsigned int *entry_0, unsigned int *num_levels)
++void optc3_triplebuffer_lock(struct timing_generator *optc)
 +{
-+	unsigned int i;
-+	char *entry_i = (char *)entry_0;
-+	uint32_t ret = dcn30_smu_get_dpm_freq_by_index(clk_mgr, clk, 0xFF);
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
 +
-+	if (ret & (1 << 31))
-+		/* fine-grained, only min and max */
-+		*num_levels = 2;
-+	else
-+		/* discrete, a number of fixed states */
-+		/* will set num_levels to 0 on failure */
-+		*num_levels = ret & 0xFF;
++	REG_UPDATE(OTG_GLOBAL_CONTROL2,
++		OTG_MASTER_UPDATE_LOCK_SEL, optc->inst);
 +
-+	/* if the initial message failed, num_levels will be 0 */
-+	for (i = 0; i < *num_levels; i++) {
-+		*((unsigned int *)entry_i) = (dcn30_smu_get_dpm_freq_by_index(clk_mgr, clk, i) & 0xFFFF);
-+		entry_i += sizeof(clk_mgr->base.bw_params->clk_table.entries[0]);
-+	}
++	REG_SET(OTG_VUPDATE_KEEPOUT, 0,
++		OTG_MASTER_UPDATE_LOCK_VUPDATE_KEEPOUT_EN, 1);
++
++	REG_SET(OTG_MASTER_UPDATE_LOCK, 0,
++		OTG_MASTER_UPDATE_LOCK, 1);
++
++	if (optc->ctx->dce_environment != DCE_ENV_FPGA_MAXIMUS)
++		REG_WAIT(OTG_MASTER_UPDATE_LOCK,
++				UPDATE_LOCK_STATUS, 1,
++				1, 10);
 +}
 +
-+static void dcn3_build_wm_range_table(struct clk_mgr_internal *clk_mgr)
++void optc3_lock_doublebuffer_enable(struct timing_generator *optc)
 +{
-+	/* defaults */
-+	double pstate_latency_us = clk_mgr->base.ctx->dc->dml.soc.dram_clock_change_latency_us;
-+	double sr_exit_time_us = clk_mgr->base.ctx->dc->dml.soc.sr_exit_time_us;
-+	double sr_enter_plus_exit_time_us = clk_mgr->base.ctx->dc->dml.soc.sr_enter_plus_exit_time_us;
-+	uint16_t min_uclk_mhz = clk_mgr->base.bw_params->clk_table.entries[0].memclk_mhz;
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++	uint32_t v_blank_start = 0;
++	uint32_t v_blank_end = 0;
++	uint32_t h_blank_start = 0;
++	uint32_t h_blank_end = 0;
 +
-+	/* Set A - Normal - default values*/
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].valid = true;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.pstate_latency_us = pstate_latency_us;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.sr_exit_time_us = sr_exit_time_us;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.wm_type = WATERMARKS_CLOCK_RANGE;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.min_dcfclk = 0;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.max_dcfclk = 0xFFFF;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.min_uclk = min_uclk_mhz;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_A].pmfw_breakdown.max_uclk = 0xFFFF;
++	REG_GET_2(OTG_V_BLANK_START_END,
++		OTG_V_BLANK_START, &v_blank_start,
++		OTG_V_BLANK_END, &v_blank_end);
++	REG_GET_2(OTG_H_BLANK_START_END,
++		OTG_H_BLANK_START, &h_blank_start,
++		OTG_H_BLANK_END, &h_blank_end);
 +
-+	/* Set B - Performance - higher minimum clocks */
-+//	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].valid = true;
-+//	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].dml_input.pstate_latency_us = pstate_latency_us;
-+//	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].dml_input.sr_exit_time_us = sr_exit_time_us;
-+//	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
-+//	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.wm_type = WATERMARKS_CLOCK_RANGE;
-+//	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.min_dcfclk = TUNED VALUE;
-+//	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.max_dcfclk = 0xFFFF;
-+//	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.min_uclk = TUNED VALUE;
-+//	clk_mgr->base.bw_params->wm_table.nv_entries[WM_B].pmfw_breakdown.max_uclk = 0xFFFF;
++	REG_UPDATE_2(OTG_GLOBAL_CONTROL1,
++		MASTER_UPDATE_LOCK_DB_START_Y, v_blank_start,
++		MASTER_UPDATE_LOCK_DB_END_Y, v_blank_end);
++	REG_UPDATE_2(OTG_GLOBAL_CONTROL4,
++		DIG_UPDATE_POSITION_X, 20,
++		DIG_UPDATE_POSITION_Y, v_blank_start);
++	REG_UPDATE_3(OTG_GLOBAL_CONTROL0,
++		MASTER_UPDATE_LOCK_DB_START_X, h_blank_start - 200 - 1,
++		MASTER_UPDATE_LOCK_DB_END_X, h_blank_end,
++		MASTER_UPDATE_LOCK_DB_EN, 1);
++	REG_UPDATE(OTG_GLOBAL_CONTROL2, GLOBAL_UPDATE_LOCK_EN, 1);
++}
 +
-+	/* Set C - Dummy P-State - P-State latency set to "dummy p-state" value */
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].valid = true;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.pstate_latency_us = clk_mgr->base.ctx->dc->dml.soc.dummy_pstate_latency_us;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.sr_exit_time_us = sr_exit_time_us;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].dml_input.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.wm_type = WATERMARKS_DUMMY_PSTATE;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.min_dcfclk = 0;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.max_dcfclk = 0xFFFF;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.min_uclk = min_uclk_mhz;
-+	clk_mgr->base.bw_params->wm_table.nv_entries[WM_C].pmfw_breakdown.max_uclk = 0xFFFF;
++void optc3_lock_doublebuffer_disable(struct timing_generator *optc)
++{
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++
++	REG_UPDATE_2(OTG_GLOBAL_CONTROL0,
++		MASTER_UPDATE_LOCK_DB_START_X, 0,
++		MASTER_UPDATE_LOCK_DB_END_X, 0);
++	REG_UPDATE_2(OTG_GLOBAL_CONTROL1,
++		MASTER_UPDATE_LOCK_DB_START_Y, 0,
++		MASTER_UPDATE_LOCK_DB_END_Y, 0);
++
++	REG_UPDATE(OTG_GLOBAL_CONTROL2, GLOBAL_UPDATE_LOCK_EN, 0);
++	REG_UPDATE(OTG_GLOBAL_CONTROL0, MASTER_UPDATE_LOCK_DB_EN, 1);
++}
++
++void optc3_lock(struct timing_generator *optc)
++{
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++
++	REG_UPDATE(OTG_GLOBAL_CONTROL2,
++		OTG_MASTER_UPDATE_LOCK_SEL, optc->inst);
++	REG_SET(OTG_MASTER_UPDATE_LOCK, 0,
++		OTG_MASTER_UPDATE_LOCK, 1);
++
++	/* Should be fast, status does not update on maximus */
++	if (optc->ctx->dce_environment != DCE_ENV_FPGA_MAXIMUS)
++		REG_WAIT(OTG_MASTER_UPDATE_LOCK,
++				UPDATE_LOCK_STATUS, 1,
++				1, 10);
++}
++
++void optc3_set_out_mux(struct timing_generator *optc, enum otg_out_mux_dest dest)
++{
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++
++	REG_UPDATE(OTG_CONTROL, OTG_OUT_MUX, dest);
++}
++
++void optc3_program_blank_color(struct timing_generator *optc,
++		const struct tg_color *blank_color)
++{
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++
++	REG_SET_3(OTG_BLANK_DATA_COLOR, 0,
++		OTG_BLANK_DATA_COLOR_BLUE_CB, blank_color->color_b_cb,
++		OTG_BLANK_DATA_COLOR_GREEN_Y, blank_color->color_g_y,
++		OTG_BLANK_DATA_COLOR_RED_CR, blank_color->color_r_cr);
++
++	REG_SET_3(OTG_BLANK_DATA_COLOR_EXT, 0,
++		OTG_BLANK_DATA_COLOR_BLUE_CB_EXT, blank_color->color_b_cb >> 10,
++		OTG_BLANK_DATA_COLOR_GREEN_Y_EXT, blank_color->color_g_y >> 10,
++		OTG_BLANK_DATA_COLOR_RED_CR_EXT, blank_color->color_r_cr >> 10);
++}
++
++void optc3_set_drr_trigger_window(struct timing_generator *optc,
++		uint32_t window_start, uint32_t window_end)
++{
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++
++	REG_SET_2(OTG_DRR_TRIGGER_WINDOW, 0,
++		OTG_DRR_TRIGGER_WINDOW_START_X, window_start,
++		OTG_DRR_TRIGGER_WINDOW_END_X, window_end);
++}
++
++void optc3_set_vtotal_change_limit(struct timing_generator *optc,
++		uint32_t limit)
++{
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++
++
++	REG_SET(OTG_DRR_V_TOTAL_CHANGE, 0,
++		OTG_DRR_V_TOTAL_CHANGE_LIMIT, limit);
++}
++
++
++/* Set DSC-related configuration.
++ *   dsc_mode: 0 disables DSC, other values enable DSC in specified format
++ *   sc_bytes_per_pixel: Bytes per pixel in u3.28 format
++ *   dsc_slice_width: Slice width in pixels
++ */
++void optc3_set_dsc_config(struct timing_generator *optc,
++		enum optc_dsc_mode dsc_mode,
++		uint32_t dsc_bytes_per_pixel,
++		uint32_t dsc_slice_width)
++{
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++
++	optc2_set_dsc_config(optc, dsc_mode, dsc_bytes_per_pixel,
++		dsc_slice_width);
++
++		REG_UPDATE(OTG_V_SYNC_A_CNTL, OTG_V_SYNC_MODE, 0);
 +
 +}
 +
-+void dcn3_init_clocks(struct clk_mgr *clk_mgr_base)
++
++static void optc3_set_odm_bypass(struct timing_generator *optc,
++		const struct dc_crtc_timing *dc_crtc_timing)
 +{
-+	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-+	unsigned int num_levels;
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++	enum h_timing_div_mode h_div = H_TIMING_NO_DIV;
 +
-+	memset(&(clk_mgr_base->clks), 0, sizeof(struct dc_clocks));
-+	clk_mgr_base->clks.p_state_change_support = true;
-+	clk_mgr_base->clks.prev_p_state_change_support = true;
-+	clk_mgr->smu_present = false;
++	REG_SET_5(OPTC_DATA_SOURCE_SELECT, 0,
++			OPTC_NUM_OF_INPUT_SEGMENT, 0,
++			OPTC_SEG0_SRC_SEL, optc->inst,
++			OPTC_SEG1_SRC_SEL, 0xf,
++			OPTC_SEG2_SRC_SEL, 0xf,
++			OPTC_SEG3_SRC_SEL, 0xf
++			);
 +
-+	if (!clk_mgr_base->bw_params)
-+		return;
++	h_div = optc1_is_two_pixels_per_containter(dc_crtc_timing);
++	REG_SET(OTG_H_TIMING_CNTL, 0,
++			OTG_H_TIMING_DIV_MODE, h_div);
 +
-+	if (!clk_mgr_base->force_smu_not_present && dcn30_smu_get_smu_version(clk_mgr, &clk_mgr->smu_ver))
-+		clk_mgr->smu_present = true;
-+
-+	if (!clk_mgr->smu_present)
-+		return;
-+
-+	// do we fail if these fail? if so, how? do we not care to check?
-+	dcn30_smu_check_driver_if_version(clk_mgr);
-+	dcn30_smu_check_msg_header_version(clk_mgr);
-+
-+	/* DCFCLK */
-+	dcn3_init_single_clock(clk_mgr, PPCLK_DCEFCLK,
-+			&clk_mgr_base->bw_params->clk_table.entries[0].dcfclk_mhz,
-+			&num_levels);
-+
-+	/* DTBCLK */
-+	dcn3_init_single_clock(clk_mgr, PPCLK_DTBCLK,
-+			&clk_mgr_base->bw_params->clk_table.entries[0].dtbclk_mhz,
-+			&num_levels);
-+
-+	// DPREFCLK ???
-+
-+	/* DISPCLK */
-+	dcn3_init_single_clock(clk_mgr, PPCLK_DISPCLK,
-+			&clk_mgr_base->bw_params->clk_table.entries[0].dispclk_mhz,
-+			&num_levels);
-+
-+	/* DPPCLK */
-+	dcn3_init_single_clock(clk_mgr, PPCLK_PIXCLK,
-+			&clk_mgr_base->bw_params->clk_table.entries[0].dppclk_mhz,
-+			&num_levels);
-+
-+	/* PHYCLK */
-+	dcn3_init_single_clock(clk_mgr, PPCLK_PHYCLK,
-+			&clk_mgr_base->bw_params->clk_table.entries[0].phyclk_mhz,
-+			&num_levels);
-+
-+	/* Get UCLK, update bounding box */
-+	clk_mgr_base->funcs->get_memclk_states_from_smu(clk_mgr_base);
-+
-+	/* WM range table */
-+	dcn3_build_wm_range_table(clk_mgr);
++	REG_SET(OPTC_MEMORY_CONFIG, 0,
++			OPTC_MEM_SEL, 0);
++	optc1->opp_count = 1;
 +}
 +
-+static int dcn30_get_vco_frequency_from_reg(struct clk_mgr_internal *clk_mgr)
++static void optc3_set_odm_combine(struct timing_generator *optc, int *opp_id, int opp_cnt,
++		struct dc_crtc_timing *timing)
 +{
-+	/* get FbMult value */
-+	struct fixed31_32 pll_req;
-+	/* get FbMult value */
-+	uint32_t pll_req_reg = REG_READ(CLK0_CLK_PLL_REQ);
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++	int mpcc_hactive = (timing->h_addressable + timing->h_border_left + timing->h_border_right)
++			/ opp_cnt;
++	uint32_t memory_mask = 0;
++	uint32_t data_fmt = 0;
 +
-+	/* set up a fixed-point number
-+	 * this works because the int part is on the right edge of the register
-+	 * and the frac part is on the left edge
++	/* TODO: In pseudocode but does not affect maximus, delete comment if we dont need on asic
++	 * REG_SET(OTG_GLOBAL_CONTROL2, 0, GLOBAL_UPDATE_LOCK_EN, 1);
++	 * Program OTG register MASTER_UPDATE_LOCK_DB_X/Y to the position before DP frame start
++	 * REG_SET_2(OTG_GLOBAL_CONTROL1, 0,
++	 *		MASTER_UPDATE_LOCK_DB_X, 160,
++	 *		MASTER_UPDATE_LOCK_DB_Y, 240);
 +	 */
-+	pll_req = dc_fixpt_from_int(pll_req_reg & clk_mgr->clk_mgr_mask->FbMult_int);
-+	pll_req.value |= pll_req_reg & clk_mgr->clk_mgr_mask->FbMult_frac;
 +
-+	/* multiply by REFCLK period */
-+	pll_req = dc_fixpt_mul_int(pll_req, clk_mgr->dfs_ref_freq_khz);
++	ASSERT(opp_cnt == 2 || opp_cnt == 4);
 +
-+	return dc_fixpt_floor(pll_req);
++	/* 2 pieces of memory required for up to 5120 displays, 4 for up to 8192,
++	 * however, for ODM combine we can simplify by always using 4.
++	 */
++	if (opp_cnt == 2) {
++		/* To make sure there's no memory overlap, each instance "reserves" 2
++		 * memories and they are uniquely combined here.
++		 */
++		memory_mask = 0x3 << (opp_id[0] * 2) | 0x3 << (opp_id[1] * 2);
++	} else if (opp_cnt == 4) {
++		/* To make sure there's no memory overlap, each instance "reserves" 1
++		 * memory and they are uniquely combined here.
++		 */
++		memory_mask = 0x1 << (opp_id[0] * 2) | 0x1 << (opp_id[1] * 2) | 0x1 << (opp_id[2] * 2) | 0x1 << (opp_id[3] * 2);
++	}
++
++	if (REG(OPTC_MEMORY_CONFIG))
++		REG_SET(OPTC_MEMORY_CONFIG, 0,
++			OPTC_MEM_SEL, memory_mask);
++
++	if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR422)
++		data_fmt = 1;
++	else if (timing->pixel_encoding == PIXEL_ENCODING_YCBCR420)
++		data_fmt = 2;
++
++	REG_UPDATE(OPTC_DATA_FORMAT_CONTROL, OPTC_DATA_FORMAT, data_fmt);
++
++	if (opp_cnt == 2) {
++		REG_SET_3(OPTC_DATA_SOURCE_SELECT, 0,
++				OPTC_NUM_OF_INPUT_SEGMENT, 1,
++				OPTC_SEG0_SRC_SEL, opp_id[0],
++				OPTC_SEG1_SRC_SEL, opp_id[1]);
++	} else if (opp_cnt == 4) {
++		REG_SET_5(OPTC_DATA_SOURCE_SELECT, 0,
++				OPTC_NUM_OF_INPUT_SEGMENT, 3,
++				OPTC_SEG0_SRC_SEL, opp_id[0],
++				OPTC_SEG1_SRC_SEL, opp_id[1],
++				OPTC_SEG2_SRC_SEL, opp_id[2],
++				OPTC_SEG3_SRC_SEL, opp_id[3]);
++	}
++
++	REG_UPDATE(OPTC_WIDTH_CONTROL,
++			OPTC_SEGMENT_WIDTH, mpcc_hactive);
++
++	REG_SET(OTG_H_TIMING_CNTL, 0, OTG_H_TIMING_DIV_MODE, opp_cnt - 1);
++	optc1->opp_count = opp_cnt;
 +}
 +
-+static void dcn3_update_clocks(struct clk_mgr *clk_mgr_base,
-+			struct dc_state *context,
-+			bool safe_to_lower)
++/**
++ * optc3_set_timing_double_buffer() - DRR double buffering control
++ *
++ * Sets double buffer point for V_TOTAL, H_TOTAL, VTOTAL_MIN,
++ * VTOTAL_MAX, VTOTAL_MIN_SEL and VTOTAL_MAX_SEL registers.
++ *
++ * Options: any time,  start of frame, dp start of frame (range timing)
++ */
++void optc3_set_timing_double_buffer(struct timing_generator *optc, bool enable)
 +{
-+	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-+	struct dc_clocks *new_clocks = &context->bw_ctx.bw.dcn.clk;
-+	struct dc *dc = clk_mgr_base->ctx->dc;
-+	int display_count;
-+	bool update_dppclk = false;
-+	bool update_dispclk = false;
-+	bool enter_display_off = false;
-+	bool dpp_clock_lowered = false;
-+	struct dmcu *dmcu = clk_mgr_base->ctx->dc->res_pool->dmcu;
-+	bool force_reset = false;
-+	bool update_uclk = false;
++	struct optc *optc1 = DCN10TG_FROM_TG(optc);
++	uint32_t mode = enable ? 2 : 0;
 +
-+	if (dc->work_arounds.skip_clock_update || !clk_mgr->smu_present)
-+		return;
-+
-+	if (clk_mgr_base->clks.dispclk_khz == 0 ||
-+			(dc->debug.force_clock_mode & 0x1)) {
-+		/* this is from resume or boot up, if forced_clock cfg option used, we bypass program dispclk and DPPCLK, but need set them for S3. */
-+		force_reset = true;
-+
-+		dcn2_read_clocks_from_hw_dentist(clk_mgr_base);
-+
-+		/* force_clock_mode 0x1:  force reset the clock even it is the same clock as long as it is in Passive level. */
-+	}
-+	display_count = clk_mgr_helper_get_active_display_cnt(dc, context);
-+
-+	if (display_count == 0)
-+		enter_display_off = true;
-+
-+	if (enter_display_off == safe_to_lower)
-+		dcn30_smu_set_num_of_displays(clk_mgr, display_count);
-+
-+	if (should_set_clock(safe_to_lower, new_clocks->phyclk_khz, clk_mgr_base->clks.phyclk_khz)) {
-+		clk_mgr_base->clks.phyclk_khz = new_clocks->phyclk_khz;
-+		dcn30_smu_set_hard_min_by_freq(clk_mgr, PPCLK_PHYCLK, clk_mgr_base->clks.phyclk_khz / 1000);
-+	}
-+
-+	if (dc->debug.force_min_dcfclk_mhz > 0)
-+		new_clocks->dcfclk_khz = (new_clocks->dcfclk_khz > (dc->debug.force_min_dcfclk_mhz * 1000)) ?
-+				new_clocks->dcfclk_khz : (dc->debug.force_min_dcfclk_mhz * 1000);
-+
-+	if (should_set_clock(safe_to_lower, new_clocks->dcfclk_khz, clk_mgr_base->clks.dcfclk_khz)) {
-+		clk_mgr_base->clks.dcfclk_khz = new_clocks->dcfclk_khz;
-+		dcn30_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DCEFCLK, clk_mgr_base->clks.dcfclk_khz / 1000);
-+	}
-+
-+	if (should_set_clock(safe_to_lower, new_clocks->dcfclk_deep_sleep_khz, clk_mgr_base->clks.dcfclk_deep_sleep_khz)) {
-+		clk_mgr_base->clks.dcfclk_deep_sleep_khz = new_clocks->dcfclk_deep_sleep_khz;
-+		dcn30_smu_set_min_deep_sleep_dcef_clk(clk_mgr, clk_mgr_base->clks.dcfclk_deep_sleep_khz / 1000);
-+	}
-+
-+	if (should_set_clock(safe_to_lower, new_clocks->socclk_khz, clk_mgr_base->clks.socclk_khz))
-+		/* We don't actually care about socclk, don't notify SMU of hard min */
-+		clk_mgr_base->clks.socclk_khz = new_clocks->socclk_khz;
-+
-+	clk_mgr_base->clks.prev_p_state_change_support = clk_mgr_base->clks.p_state_change_support;
-+	if (should_update_pstate_support(safe_to_lower, new_clocks->p_state_change_support, clk_mgr_base->clks.p_state_change_support)) {
-+		clk_mgr_base->clks.p_state_change_support = new_clocks->p_state_change_support;
-+
-+		/* to disable P-State switching, set UCLK min = max */
-+		if (!clk_mgr_base->clks.p_state_change_support)
-+			dcn30_smu_set_hard_min_by_freq(clk_mgr, PPCLK_UCLK,
-+					clk_mgr_base->bw_params->clk_table.entries[clk_mgr_base->bw_params->clk_table.num_entries - 1].memclk_mhz);
-+	}
-+
-+	/* Always update saved value, even if new value not set due to P-State switching unsupported */
-+	if (should_set_clock(safe_to_lower, new_clocks->dramclk_khz, clk_mgr_base->clks.dramclk_khz)) {
-+		clk_mgr_base->clks.dramclk_khz = new_clocks->dramclk_khz;
-+		update_uclk = true;
-+	}
-+
-+	/* set UCLK to requested value if P-State switching is supported, or to re-enable P-State switching */
-+	if (clk_mgr_base->clks.p_state_change_support &&
-+			(update_uclk || !clk_mgr_base->clks.prev_p_state_change_support))
-+		dcn30_smu_set_hard_min_by_freq(clk_mgr, PPCLK_UCLK, clk_mgr_base->clks.dramclk_khz / 1000);
-+
-+	if (should_set_clock(safe_to_lower, new_clocks->dppclk_khz, clk_mgr_base->clks.dppclk_khz)) {
-+		if (clk_mgr_base->clks.dppclk_khz > new_clocks->dppclk_khz)
-+			dpp_clock_lowered = true;
-+
-+		clk_mgr_base->clks.dppclk_khz = new_clocks->dppclk_khz;
-+		dcn30_smu_set_hard_min_by_freq(clk_mgr, PPCLK_PIXCLK, clk_mgr_base->clks.dppclk_khz / 1000);
-+		update_dppclk = true;
-+	}
-+
-+	if (should_set_clock(safe_to_lower, new_clocks->dispclk_khz, clk_mgr_base->clks.dispclk_khz)) {
-+		clk_mgr_base->clks.dispclk_khz = new_clocks->dispclk_khz;
-+		dcn30_smu_set_hard_min_by_freq(clk_mgr, PPCLK_DISPCLK, clk_mgr_base->clks.dispclk_khz / 1000);
-+		update_dispclk = true;
-+	}
-+
-+	if (dc->config.forced_clocks == false || (force_reset && safe_to_lower)) {
-+		if (dpp_clock_lowered) {
-+			/* if clock is being lowered, increase DTO before lowering refclk */
-+			dcn20_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
-+			dcn20_update_clocks_update_dentist(clk_mgr);
-+		} else {
-+			/* if clock is being raised, increase refclk before lowering DTO */
-+			if (update_dppclk || update_dispclk)
-+				dcn20_update_clocks_update_dentist(clk_mgr);
-+			/* always update dtos unless clock is lowered and not safe to lower */
-+			if (new_clocks->dppclk_khz >= dc->current_state->bw_ctx.bw.dcn.clk.dppclk_khz)
-+				dcn20_update_clocks_update_dpp_dto(clk_mgr, context, safe_to_lower);
-+		}
-+	}
-+
-+	if (update_dispclk && dmcu && dmcu->funcs->is_dmcu_initialized(dmcu))
-+		/*update dmcu for wait_loop count*/
-+		dmcu->funcs->set_psr_wait_loop(dmcu,
-+				clk_mgr_base->clks.dispclk_khz / 1000 / 7);
++	REG_UPDATE(OTG_DOUBLE_BUFFER_CONTROL,
++		   OTG_DRR_TIMING_DBUF_UPDATE_MODE, mode);
 +}
 +
-+
-+static void dcn3_notify_wm_ranges(struct clk_mgr *clk_mgr_base)
++void optc3_tg_init(struct timing_generator *optc)
 +{
-+	unsigned int i;
-+	long long table_addr;
-+	WatermarksExternal_t *table;
-+	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-+
-+	if (!clk_mgr->smu_present)
-+		return;
-+
-+	/* need physical address of table to give to PMFW */
-+	table = (WatermarksExternal_t *) dm_helpers_allocate_gpu_mem(clk_mgr->base.ctx, DC_MEM_ALLOC_TYPE_GART, sizeof(WatermarksExternal_t), &table_addr);
-+
-+	if (!table)
-+		// should log failure
-+		return;
-+
-+	memset(table, 0, sizeof(*table));
-+
-+	/* collect valid ranges, place in pmfw table */
-+	for (i = 0; i < WM_SET_COUNT; i++)
-+		if (clk_mgr->base.bw_params->wm_table.nv_entries[i].valid) {
-+			table->Watermarks.WatermarkRow[WM_DCEFCLK][i].MinClock = clk_mgr->base.bw_params->wm_table.nv_entries[i].pmfw_breakdown.min_dcfclk;
-+			table->Watermarks.WatermarkRow[WM_DCEFCLK][i].MaxClock = clk_mgr->base.bw_params->wm_table.nv_entries[i].pmfw_breakdown.max_dcfclk;
-+			table->Watermarks.WatermarkRow[WM_DCEFCLK][i].MinUclk = clk_mgr->base.bw_params->wm_table.nv_entries[i].pmfw_breakdown.min_uclk;
-+			table->Watermarks.WatermarkRow[WM_DCEFCLK][i].MaxUclk = clk_mgr->base.bw_params->wm_table.nv_entries[i].pmfw_breakdown.max_uclk;
-+			table->Watermarks.WatermarkRow[WM_DCEFCLK][i].WmSetting = i;
-+			table->Watermarks.WatermarkRow[WM_DCEFCLK][i].Flags = clk_mgr->base.bw_params->wm_table.nv_entries[i].pmfw_breakdown.wm_type;
-+		}
-+
-+	dcn30_smu_set_dram_addr_high(clk_mgr, table_addr >> 32);
-+	dcn30_smu_set_dram_addr_low(clk_mgr, table_addr & 0xFFFFFFFF);
-+	dcn30_smu_transfer_wm_table_dram_2_smu(clk_mgr);
-+
-+	dm_helpers_free_gpu_mem(clk_mgr->base.ctx, DC_MEM_ALLOC_TYPE_GART, table);
++	optc3_set_timing_double_buffer(optc, true);
++	optc1_clear_optc_underflow(optc);
 +}
 +
-+/* Set min memclk to minimum, either constrained by the current mode or DPM0 */
-+static void dcn3_set_hard_min_memclk(struct clk_mgr *clk_mgr_base, bool current_mode)
-+{
-+	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-+
-+	if (!clk_mgr->smu_present)
-+		return;
-+
-+	if (current_mode)
-+		dcn30_smu_set_hard_min_by_freq(clk_mgr, PPCLK_UCLK,
-+				clk_mgr_base->clks.dramclk_khz / 1000);
-+	else
-+		dcn30_smu_set_hard_min_by_freq(clk_mgr, PPCLK_UCLK,
-+				clk_mgr_base->bw_params->clk_table.entries[0].memclk_mhz);
-+}
-+
-+/* Set max memclk to highest DPM value */
-+static void dcn3_set_hard_max_memclk(struct clk_mgr *clk_mgr_base)
-+{
-+	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-+
-+	if (!clk_mgr->smu_present)
-+		return;
-+
-+	dcn30_smu_set_hard_max_by_freq(clk_mgr, PPCLK_UCLK,
-+			clk_mgr_base->bw_params->clk_table.entries[clk_mgr_base->bw_params->clk_table.num_entries - 1].memclk_mhz);
-+}
-+
-+/* Get current memclk states, update bounding box */
-+static void dcn3_get_memclk_states_from_smu(struct clk_mgr *clk_mgr_base)
-+{
-+	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-+	unsigned int num_levels;
-+
-+	if (!clk_mgr->smu_present)
-+		return;
-+
-+	/* Refresh memclk states */
-+	dcn3_init_single_clock(clk_mgr, PPCLK_UCLK,
-+			&clk_mgr_base->bw_params->clk_table.entries[0].memclk_mhz,
-+			&num_levels);
-+	clk_mgr_base->bw_params->clk_table.num_entries = num_levels ? num_levels : 1;
-+
-+	/* Refresh bounding box */
-+	clk_mgr_base->ctx->dc->res_pool->funcs->update_bw_bounding_box(
-+			clk_mgr->base.ctx->dc, clk_mgr_base->bw_params);
-+}
-+
-+static bool dcn3_are_clock_states_equal(struct dc_clocks *a,
-+					struct dc_clocks *b)
-+{
-+	if (a->dispclk_khz != b->dispclk_khz)
-+		return false;
-+	else if (a->dppclk_khz != b->dppclk_khz)
-+		return false;
-+	else if (a->dcfclk_khz != b->dcfclk_khz)
-+		return false;
-+	else if (a->dcfclk_deep_sleep_khz != b->dcfclk_deep_sleep_khz)
-+		return false;
-+	else if (a->phyclk_khz != b->phyclk_khz)
-+		return false;
-+	else if (a->dramclk_khz != b->dramclk_khz)
-+		return false;
-+	else if (a->p_state_change_support != b->p_state_change_support)
-+		return false;
-+
-+	return true;
-+}
-+
-+static void dcn3_enable_pme_wa(struct clk_mgr *clk_mgr_base)
-+{
-+	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
-+
-+	if (!clk_mgr->smu_present)
-+		return;
-+
-+	dcn30_smu_set_pme_workaround(clk_mgr);
-+}
-+
-+static struct clk_mgr_funcs dcn3_funcs = {
-+		.get_dp_ref_clk_frequency = dce12_get_dp_ref_freq_khz,
-+		.update_clocks = dcn3_update_clocks,
-+		.init_clocks = dcn3_init_clocks,
-+		.notify_wm_ranges = dcn3_notify_wm_ranges,
-+		.set_hard_min_memclk = dcn3_set_hard_min_memclk,
-+		.set_hard_max_memclk = dcn3_set_hard_max_memclk,
-+		.get_memclk_states_from_smu = dcn3_get_memclk_states_from_smu,
-+		.are_clock_states_equal = dcn3_are_clock_states_equal,
-+		.enable_pme_wa = dcn3_enable_pme_wa
++static struct timing_generator_funcs dcn30_tg_funcs = {
++		.validate_timing = optc1_validate_timing,
++		.program_timing = optc1_program_timing,
++		.setup_vertical_interrupt0 = optc1_setup_vertical_interrupt0,
++		.setup_vertical_interrupt1 = optc1_setup_vertical_interrupt1,
++		.setup_vertical_interrupt2 = optc1_setup_vertical_interrupt2,
++		.program_global_sync = optc1_program_global_sync,
++		.enable_crtc = optc2_enable_crtc,
++		.disable_crtc = optc1_disable_crtc,
++		/* used by enable_timing_synchronization. Not need for FPGA */
++		.is_counter_moving = optc1_is_counter_moving,
++		.get_position = optc1_get_position,
++		.get_frame_count = optc1_get_vblank_counter,
++		.get_scanoutpos = optc1_get_crtc_scanoutpos,
++		.get_otg_active_size = optc1_get_otg_active_size,
++		.set_early_control = optc1_set_early_control,
++		/* used by enable_timing_synchronization. Not need for FPGA */
++		.wait_for_state = optc1_wait_for_state,
++		.set_blank_color = optc3_program_blank_color,
++		.did_triggered_reset_occur = optc1_did_triggered_reset_occur,
++		.triplebuffer_lock = optc3_triplebuffer_lock,
++		.triplebuffer_unlock = optc2_triplebuffer_unlock,
++		.enable_reset_trigger = optc1_enable_reset_trigger,
++		.enable_crtc_reset = optc1_enable_crtc_reset,
++		.disable_reset_trigger = optc1_disable_reset_trigger,
++		.lock = optc3_lock,
++		.unlock = optc1_unlock,
++		.lock_doublebuffer_enable = optc3_lock_doublebuffer_enable,
++		.lock_doublebuffer_disable = optc3_lock_doublebuffer_disable,
++		.enable_optc_clock = optc1_enable_optc_clock,
++		.set_drr = optc1_set_drr,
++		.set_static_screen_control = optc1_set_static_screen_control,
++		.program_stereo = optc1_program_stereo,
++		.is_stereo_left_eye = optc1_is_stereo_left_eye,
++		.tg_init = optc3_tg_init,
++		.is_tg_enabled = optc1_is_tg_enabled,
++		.is_optc_underflow_occurred = optc1_is_optc_underflow_occurred,
++		.clear_optc_underflow = optc1_clear_optc_underflow,
++		.setup_global_swap_lock = NULL,
++		.get_crc = optc1_get_crc,
++		.configure_crc = optc2_configure_crc,
++		.set_dsc_config = optc3_set_dsc_config,
++		.set_dwb_source = NULL,
++		.set_odm_bypass = optc3_set_odm_bypass,
++		.set_odm_combine = optc3_set_odm_combine,
++		.get_optc_source = optc2_get_optc_source,
++		.set_out_mux = optc3_set_out_mux,
++		.set_drr_trigger_window = optc3_set_drr_trigger_window,
++		.set_vtotal_change_limit = optc3_set_vtotal_change_limit,
++		.set_gsl = optc2_set_gsl,
++		.set_gsl_source_select = optc2_set_gsl_source_select,
++		.set_vtg_params = optc1_set_vtg_params,
++		.program_manual_trigger = optc2_program_manual_trigger,
++		.setup_manual_trigger = optc2_setup_manual_trigger,
++		.get_hw_timing = optc1_get_hw_timing,
 +};
 +
-+static void dcn3_init_clocks_fpga(struct clk_mgr *clk_mgr)
++void dcn30_timing_generator_init(struct optc *optc1)
 +{
-+	dcn2_init_clocks(clk_mgr);
++	optc1->base.funcs = &dcn30_tg_funcs;
 +
-+/* TODO: Implement the functions and remove the ifndef guard */
++	optc1->max_h_total = optc1->tg_mask->OTG_H_TOTAL + 1;
++	optc1->max_v_total = optc1->tg_mask->OTG_V_TOTAL + 1;
++
++	optc1->min_h_blank = 32;
++	optc1->min_v_blank = 3;
++	optc1->min_v_blank_interlace = 5;
++	optc1->min_h_sync_width = 8;
++	optc1->min_v_sync_width = 1;
 +}
 +
-+static struct clk_mgr_funcs dcn3_fpga_funcs = {
-+	.get_dp_ref_clk_frequency = dce12_get_dp_ref_freq_khz,
-+	.update_clocks = dcn2_update_clocks_fpga,
-+	.init_clocks = dcn3_init_clocks_fpga,
-+};
-+
-+/*todo for dcn30 for clk register offset*/
-+void dcn3_clk_mgr_construct(
-+		struct dc_context *ctx,
-+		struct clk_mgr_internal *clk_mgr,
-+		struct pp_smu_funcs *pp_smu,
-+		struct dccg *dccg)
-+{
-+	clk_mgr->base.ctx = ctx;
-+	clk_mgr->base.funcs = &dcn3_funcs;
-+	clk_mgr->regs = &clk_mgr_regs;
-+	clk_mgr->clk_mgr_shift = &clk_mgr_shift;
-+	clk_mgr->clk_mgr_mask = &clk_mgr_mask;
-+
-+	clk_mgr->dccg = dccg;
-+	clk_mgr->dfs_bypass_disp_clk = 0;
-+
-+	clk_mgr->dprefclk_ss_percentage = 0;
-+	clk_mgr->dprefclk_ss_divider = 1000;
-+	clk_mgr->ss_on_dprefclk = false;
-+	clk_mgr->dfs_ref_freq_khz = 100000;
-+
-+	clk_mgr->base.dprefclk_khz = 730000; // 700 MHz planned if VCO is 3.85 GHz, will be retrieved
-+
-+	if (IS_FPGA_MAXIMUS_DC(ctx->dce_environment)) {
-+		clk_mgr->base.funcs  = &dcn3_fpga_funcs;
-+		clk_mgr->base.dentist_vco_freq_khz = 3650000;
-+
-+	} else {
-+		struct clk_state_registers_and_bypass s = { 0 };
-+
-+		/* integer part is now VCO frequency in kHz */
-+		clk_mgr->base.dentist_vco_freq_khz = dcn30_get_vco_frequency_from_reg(clk_mgr);
-+
-+		/* in case we don't get a value from the register, use default */
-+		if (clk_mgr->base.dentist_vco_freq_khz == 0)
-+			clk_mgr->base.dentist_vco_freq_khz = 3650000;
-+		/* Convert dprefclk units from MHz to KHz */
-+		/* Value already divided by 10, some resolution lost */
-+
-+		/*TODO: uncomment assert once dcn3_dump_clk_registers is implemented */
-+		//ASSERT(s.dprefclk != 0);
-+		if (s.dprefclk != 0)
-+			clk_mgr->base.dprefclk_khz = s.dprefclk * 1000;
-+	}
-+
-+	clk_mgr->dfs_bypass_enabled = false;
-+
-+	clk_mgr->smu_present = false;
-+
-+	dce_clock_read_ss_info(clk_mgr);
-+
-+	clk_mgr->base.bw_params = kzalloc(sizeof(*clk_mgr->base.bw_params), GFP_KERNEL);
-+}
-+
-+void dcn3_clk_mgr_destroy(struct clk_mgr_internal *clk_mgr)
-+{
-+	if (clk_mgr->base.bw_params)
-+		kfree(clk_mgr->base.bw_params);
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.h
+diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.h b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.h
 new file mode 100644
-index 000000000000..dd4a0bd72458
+index 000000000000..d4106dd5a9b0
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.h
-@@ -0,0 +1,38 @@
++++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.h
+@@ -0,0 +1,333 @@
 +/*
 + * Copyright 2020 Advanced Micro Devices, Inc.
 + *
@@ -825,992 +652,354 @@ index 000000000000..dd4a0bd72458
 + *
 + */
 +
-+#ifndef __DCN30_CLK_MGR_H__
-+#define __DCN30_CLK_MGR_H__
-+
-+void dcn3_init_clocks(struct clk_mgr *clk_mgr_base);
-+
-+void dcn3_clk_mgr_construct(struct dc_context *ctx,
-+		struct clk_mgr_internal *clk_mgr,
-+		struct pp_smu_funcs *pp_smu,
-+		struct dccg *dccg);
-+
-+void dcn3_clk_mgr_destroy(struct clk_mgr_internal *clk_mgr);
-+
-+#endif //__DCN30_CLK_MGR_H__
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
-new file mode 100644
-index 000000000000..986c53a3b6a8
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
-@@ -0,0 +1,255 @@
-+/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+#include <linux/delay.h>
-+#include "dcn30_clk_mgr_smu_msg.h"
-+
-+#include "clk_mgr_internal.h"
-+#include "reg_helper.h"
-+#include "dalsmc.h"
-+
-+#define mmDAL_MSG_REG  0x1628A
-+#define mmDAL_ARG_REG  0x16273
-+#define mmDAL_RESP_REG 0x16274
-+
-+#define REG(reg_name) \
-+	mm ## reg_name
-+
-+/*
-+ * Function to be used instead of REG_WAIT macro because the wait ends when
-+ * the register is NOT EQUAL to zero, and because the translation in msg_if.h
-+ * won't work with REG_WAIT.
-+ */
-+static uint32_t dcn30_smu_wait_for_response(struct clk_mgr_internal *clk_mgr, unsigned int delay_us, unsigned int max_retries)
-+{
-+	uint32_t reg = 0;
-+
-+	do {
-+		reg = REG_READ(DAL_RESP_REG);
-+		if (reg)
-+			break;
-+
-+		if (delay_us >= 1000)
-+			msleep(delay_us/1000);
-+		else if (delay_us > 0)
-+			udelay(delay_us);
-+	} while (max_retries--);
-+
-+	/* handle DALSMC_Result_CmdRejectedBusy? */
-+
-+	/* Log? */
-+
-+	return reg;
-+}
-+
-+static bool dcn30_smu_send_msg_with_param(struct clk_mgr_internal *clk_mgr, uint32_t msg_id, uint32_t param_in, uint32_t *param_out)
-+{
-+	/* Wait for response register to be ready */
-+	dcn30_smu_wait_for_response(clk_mgr, 10, 200000);
-+
-+	/* Clear response register */
-+	REG_WRITE(DAL_RESP_REG, 0);
-+
-+	/* Set the parameter register for the SMU message */
-+	REG_WRITE(DAL_ARG_REG, param_in);
-+
-+	/* Trigger the message transaction by writing the message ID */
-+	REG_WRITE(DAL_MSG_REG, msg_id);
-+
-+	/* Wait for response */
-+	if (dcn30_smu_wait_for_response(clk_mgr, 10, 200000) == DALSMC_Result_OK) {
-+		if (param_out)
-+			*param_out = REG_READ(DAL_ARG_REG);
-+
-+		return true;
-+	}
-+
-+	return false;
-+}
-+
-+/* Test message should return input + 1 */
-+bool dcn30_smu_test_message(struct clk_mgr_internal *clk_mgr, uint32_t input)
-+{
-+	uint32_t response = 0;
-+
-+	if (dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_TestMessage, input, &response))
-+		if (response == input + 1)
-+			return true;
-+
-+	return false;
-+}
-+
-+bool dcn30_smu_get_smu_version(struct clk_mgr_internal *clk_mgr, unsigned int *version)
-+{
-+	if (dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_GetSmuVersion, 0, version))
-+		return true;
-+
-+	return false;
-+}
-+
-+/* Message output should match SMU11_DRIVER_IF_VERSION in smu11_driver_if.h */
-+bool dcn30_smu_check_driver_if_version(struct clk_mgr_internal *clk_mgr)
-+{
-+	uint32_t response = 0;
-+
-+	if (dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_GetDriverIfVersion, 0, &response))
-+		if (response == SMU11_DRIVER_IF_VERSION)
-+			return true;
-+
-+	return false;
-+}
-+
-+/* Message output should match DALSMC_VERSION in dalsmc.h */
-+bool dcn30_smu_check_msg_header_version(struct clk_mgr_internal *clk_mgr)
-+{
-+	uint32_t response = 0;
-+
-+	if (dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_GetMsgHeaderVersion, 0, &response))
-+		if (response == DALSMC_VERSION)
-+			return true;
-+
-+	return false;
-+}
-+
-+void dcn30_smu_set_dram_addr_high(struct clk_mgr_internal *clk_mgr, uint32_t addr_high)
-+{
-+	dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_SetDalDramAddrHigh, addr_high, NULL);
-+}
-+
-+void dcn30_smu_set_dram_addr_low(struct clk_mgr_internal *clk_mgr, uint32_t addr_low)
-+{
-+	dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_SetDalDramAddrLow, addr_low, NULL);
-+}
-+
-+void dcn30_smu_transfer_wm_table_smu_2_dram(struct clk_mgr_internal *clk_mgr)
-+{
-+	dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_TransferTableSmu2Dram, TABLE_WATERMARKS, NULL);
-+}
-+
-+void dcn30_smu_transfer_wm_table_dram_2_smu(struct clk_mgr_internal *clk_mgr)
-+{
-+	dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_TransferTableDram2Smu, TABLE_WATERMARKS, NULL);
-+}
-+
-+/* Returns the actual frequency that was set in MHz, 0 on failure */
-+unsigned int dcn30_smu_set_hard_min_by_freq(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, uint16_t freq_mhz)
-+{
-+	uint32_t response = 0;
-+
-+	/* bits 23:16 for clock type, lower 16 bits for frequency in MHz */
-+	uint32_t param = (clk << 16) | freq_mhz;
-+
-+	dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_SetHardMinByFreq, param, &response);
-+
-+	return response;
-+}
-+
-+/* Returns the actual frequency that was set in MHz, 0 on failure */
-+unsigned int dcn30_smu_set_hard_max_by_freq(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, uint16_t freq_mhz)
-+{
-+	uint32_t response = 0;
-+
-+	/* bits 23:16 for clock type, lower 16 bits for frequency in MHz */
-+	uint32_t param = (clk << 16) | freq_mhz;
-+
-+	dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_SetHardMaxByFreq, param, &response);
-+
-+	return response;
-+}
-+
-+/*
-+ * Frequency in MHz returned in lower 16 bits for valid DPM level
-+ *
-+ * Call with dpm_level = 0xFF to query features, return value will be:
-+ *     Bits 7:0 - number of DPM levels
-+ *     Bit   28 - 1 = auto DPM on
-+ *     Bit   29 - 1 = sweep DPM on
-+ *     Bit   30 - 1 = forced DPM on
-+ *     Bit   31 - 0 = discrete, 1 = fine-grained
-+ *
-+ * With fine-grained DPM, only min and max frequencies will be reported
-+ *
-+ * Returns 0 on failure
-+ */
-+unsigned int dcn30_smu_get_dpm_freq_by_index(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, uint8_t dpm_level)
-+{
-+	uint32_t response = 0;
-+
-+	/* bits 23:16 for clock type, lower 8 bits for DPM level */
-+	uint32_t param = (clk << 16) | dpm_level;
-+
-+	dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_GetDpmFreqByIndex, param, &response);
-+
-+	return response;
-+}
-+
-+/* Returns the max DPM frequency in DC mode in MHz, 0 on failure */
-+unsigned int dcn30_smu_get_dc_mode_max_dpm_freq(struct clk_mgr_internal *clk_mgr, PPCLK_e clk)
-+{
-+	uint32_t response = 0;
-+
-+	/* bits 23:16 for clock type */
-+	uint32_t param = clk << 16;
-+
-+	dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_GetDcModeMaxDpmFreq, param, &response);
-+
-+	return response;
-+}
-+
-+void dcn30_smu_set_min_deep_sleep_dcef_clk(struct clk_mgr_internal *clk_mgr, uint32_t freq_mhz)
-+{
-+	dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_SetMinDeepSleepDcefclk, freq_mhz, NULL);
-+}
-+
-+void dcn30_smu_set_num_of_displays(struct clk_mgr_internal *clk_mgr, uint32_t num_displays)
-+{
-+	dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_NumOfDisplays, num_displays, NULL);
-+}
-+
-+void dcn30_smu_set_external_client_df_cstate_allow(struct clk_mgr_internal *clk_mgr, bool enable)
-+{
-+	dcn30_smu_send_msg_with_param(clk_mgr,
-+			DALSMC_MSG_SetExternalClientDfCstateAllow, enable ? 1 : 0, NULL);
-+}
-+
-+void dcn30_smu_set_pme_workaround(struct clk_mgr_internal *clk_mgr)
-+{
-+	dcn30_smu_send_msg_with_param(clk_mgr,
-+	DALSMC_MSG_BacoAudioD3PME, 0, NULL);
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h
-new file mode 100644
-index 000000000000..236f20ec90d4
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h
-@@ -0,0 +1,108 @@
-+/*
-+ * Copyright 2020 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ * Authors: AMD
-+ *
-+ */
-+
-+#ifndef DAL_DC_DCN30_CLK_MGR_SMU_MSG_H_
-+#define DAL_DC_DCN30_CLK_MGR_SMU_MSG_H_
-+
-+#include "core_types.h"
-+
-+#define SMU11_DRIVER_IF_VERSION 0x1F
-+
-+typedef enum {
-+	PPCLK_GFXCLK = 0,
-+	PPCLK_SOCCLK,
-+	PPCLK_UCLK,
-+	PPCLK_FCLK,
-+	PPCLK_DCLK_0,
-+	PPCLK_VCLK_0,
-+	PPCLK_DCLK_1,
-+	PPCLK_VCLK_1,
-+	PPCLK_DCEFCLK,
-+	PPCLK_DISPCLK,
-+	PPCLK_PIXCLK,
-+	PPCLK_PHYCLK,
-+	PPCLK_DTBCLK,
-+	PPCLK_COUNT,
-+} PPCLK_e;
-+
-+typedef struct {
-+	uint16_t MinClock; // This is either DCEFCLK or SOCCLK (in MHz)
-+	uint16_t MaxClock; // This is either DCEFCLK or SOCCLK (in MHz)
-+	uint16_t MinUclk;
-+	uint16_t MaxUclk;
-+
-+	uint8_t  WmSetting;
-+	uint8_t  Flags;
-+	uint8_t  Padding[2];
-+
-+} WatermarkRowGeneric_t;
-+
-+#define NUM_WM_RANGES 4
-+
-+typedef enum {
-+	WM_SOCCLK = 0,
-+	WM_DCEFCLK,
-+	WM_COUNT,
-+} WM_CLOCK_e;
-+
-+typedef enum {
-+	WATERMARKS_CLOCK_RANGE = 0,
-+	WATERMARKS_DUMMY_PSTATE,
-+	WATERMARKS_COUNT,
-+} WATERMARKS_FLAGS_e;
-+
-+typedef struct {
-+	// Watermarks
-+	WatermarkRowGeneric_t WatermarkRow[WM_COUNT][NUM_WM_RANGES];
-+} Watermarks_t;
-+
-+typedef struct {
-+	Watermarks_t Watermarks;
-+
-+	uint32_t     MmHubPadding[8]; // SMU internal use
-+} WatermarksExternal_t;
-+
-+#define TABLE_WATERMARKS 1
-+
-+struct clk_mgr_internal;
-+
-+bool         dcn30_smu_test_message(struct clk_mgr_internal *clk_mgr, uint32_t input);
-+bool         dcn30_smu_get_smu_version(struct clk_mgr_internal *clk_mgr, unsigned int *version);
-+bool         dcn30_smu_check_driver_if_version(struct clk_mgr_internal *clk_mgr);
-+bool         dcn30_smu_check_msg_header_version(struct clk_mgr_internal *clk_mgr);
-+void         dcn30_smu_set_dram_addr_high(struct clk_mgr_internal *clk_mgr, uint32_t addr_high);
-+void         dcn30_smu_set_dram_addr_low(struct clk_mgr_internal *clk_mgr, uint32_t addr_low);
-+void         dcn30_smu_transfer_wm_table_smu_2_dram(struct clk_mgr_internal *clk_mgr);
-+void         dcn30_smu_transfer_wm_table_dram_2_smu(struct clk_mgr_internal *clk_mgr);
-+unsigned int dcn30_smu_set_hard_min_by_freq(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, uint16_t freq_mhz);
-+unsigned int dcn30_smu_set_hard_max_by_freq(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, uint16_t freq_mhz);
-+unsigned int dcn30_smu_get_dpm_freq_by_index(struct clk_mgr_internal *clk_mgr, PPCLK_e clk, uint8_t dpm_level);
-+unsigned int dcn30_smu_get_dc_mode_max_dpm_freq(struct clk_mgr_internal *clk_mgr, PPCLK_e clk);
-+void         dcn30_smu_set_min_deep_sleep_dcef_clk(struct clk_mgr_internal *clk_mgr, uint32_t freq_mhz);
-+void         dcn30_smu_set_num_of_displays(struct clk_mgr_internal *clk_mgr, uint32_t num_displays);
-+void         dcn30_smu_set_external_client_df_cstate_allow(struct clk_mgr_internal *clk_mgr, bool enable);
-+void         dcn30_smu_set_pme_workaround(struct clk_mgr_internal *clk_mgr);
-+
-+#endif /* DAL_DC_DCN30_CLK_MGR_SMU_MSG_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 04c3d9f7e323..82f63c2dc72c 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -729,6 +729,9 @@ static bool dc_construct(struct dc *dc,
- 	dc->clk_mgr = dc_clk_mgr_create(dc->ctx, dc->res_pool->pp_smu, dc->res_pool->dccg);
- 	if (!dc->clk_mgr)
- 		goto fail;
++#ifndef __DC_OPTC_DCN30_H__
++#define __DC_OPTC_DCN30_H__
++
++#include "dcn20/dcn20_optc.h"
++
++
++#define OPTC_COMMON_REG_LIST_DCN3_BASE(inst) \
++	SRI(OTG_VSTARTUP_PARAM, OTG, inst),\
++	SRI(OTG_VUPDATE_PARAM, OTG, inst),\
++	SRI(OTG_VREADY_PARAM, OTG, inst),\
++	SRI(OTG_MASTER_UPDATE_LOCK, OTG, inst),\
++	SRI(OTG_GLOBAL_CONTROL0, OTG, inst),\
++	SRI(OTG_GLOBAL_CONTROL1, OTG, inst),\
++	SRI(OTG_GLOBAL_CONTROL2, OTG, inst),\
++	SRI(OTG_GLOBAL_CONTROL4, OTG, inst),\
++	SRI(OTG_DOUBLE_BUFFER_CONTROL, OTG, inst),\
++	SRI(OTG_H_TOTAL, OTG, inst),\
++	SRI(OTG_H_BLANK_START_END, OTG, inst),\
++	SRI(OTG_H_SYNC_A, OTG, inst),\
++	SRI(OTG_H_SYNC_A_CNTL, OTG, inst),\
++	SRI(OTG_H_TIMING_CNTL, OTG, inst),\
++	SRI(OTG_V_TOTAL, OTG, inst),\
++	SRI(OTG_V_BLANK_START_END, OTG, inst),\
++	SRI(OTG_V_SYNC_A, OTG, inst),\
++	SRI(OTG_V_SYNC_A_CNTL, OTG, inst),\
++	SRI(OTG_CONTROL, OTG, inst),\
++	SRI(OTG_STEREO_CONTROL, OTG, inst),\
++	SRI(OTG_3D_STRUCTURE_CONTROL, OTG, inst),\
++	SRI(OTG_STEREO_STATUS, OTG, inst),\
++	SRI(OTG_V_TOTAL_MAX, OTG, inst),\
++	SRI(OTG_V_TOTAL_MIN, OTG, inst),\
++	SRI(OTG_V_TOTAL_CONTROL, OTG, inst),\
++	SRI(OTG_TRIGA_CNTL, OTG, inst),\
++	SRI(OTG_FORCE_COUNT_NOW_CNTL, OTG, inst),\
++	SRI(OTG_STATIC_SCREEN_CONTROL, OTG, inst),\
++	SRI(OTG_STATUS_FRAME_COUNT, OTG, inst),\
++	SRI(OTG_STATUS, OTG, inst),\
++	SRI(OTG_STATUS_POSITION, OTG, inst),\
++	SRI(OTG_NOM_VERT_POSITION, OTG, inst),\
++	SRI(OTG_BLANK_DATA_COLOR, OTG, inst),\
++	SRI(OTG_BLANK_DATA_COLOR_EXT, OTG, inst),\
++	SRI(OTG_M_CONST_DTO0, OTG, inst),\
++	SRI(OTG_M_CONST_DTO1, OTG, inst),\
++	SRI(OTG_CLOCK_CONTROL, OTG, inst),\
++	SRI(OTG_VERTICAL_INTERRUPT0_CONTROL, OTG, inst),\
++	SRI(OTG_VERTICAL_INTERRUPT0_POSITION, OTG, inst),\
++	SRI(OTG_VERTICAL_INTERRUPT1_CONTROL, OTG, inst),\
++	SRI(OTG_VERTICAL_INTERRUPT1_POSITION, OTG, inst),\
++	SRI(OTG_VERTICAL_INTERRUPT2_CONTROL, OTG, inst),\
++	SRI(OTG_VERTICAL_INTERRUPT2_POSITION, OTG, inst),\
++	SRI(OPTC_INPUT_CLOCK_CONTROL, ODM, inst),\
++	SRI(OPTC_DATA_SOURCE_SELECT, ODM, inst),\
++	SRI(OPTC_INPUT_GLOBAL_CONTROL, ODM, inst),\
++	SRI(CONTROL, VTG, inst),\
++	SRI(OTG_VERT_SYNC_CONTROL, OTG, inst),\
++	SRI(OTG_GSL_CONTROL, OTG, inst),\
++	SRI(OTG_CRC_CNTL, OTG, inst),\
++	SRI(OTG_CRC0_DATA_RG, OTG, inst),\
++	SRI(OTG_CRC0_DATA_B, OTG, inst),\
++	SRI(OTG_CRC0_WINDOWA_X_CONTROL, OTG, inst),\
++	SRI(OTG_CRC0_WINDOWA_Y_CONTROL, OTG, inst),\
++	SRI(OTG_CRC0_WINDOWB_X_CONTROL, OTG, inst),\
++	SRI(OTG_CRC0_WINDOWB_Y_CONTROL, OTG, inst),\
++	SR(GSL_SOURCE_SELECT),\
++	SRI(OTG_TRIGA_MANUAL_TRIG, OTG, inst)
++
++
++#define OPTC_COMMON_REG_LIST_DCN3_0(inst) \
++	OPTC_COMMON_REG_LIST_DCN3_BASE(inst),\
++	SRI(OTG_GLOBAL_CONTROL1, OTG, inst),\
++	SRI(OTG_GLOBAL_CONTROL2, OTG, inst),\
++	SRI(OTG_GSL_WINDOW_X, OTG, inst),\
++	SRI(OTG_GSL_WINDOW_Y, OTG, inst),\
++	SRI(OTG_VUPDATE_KEEPOUT, OTG, inst),\
++	SRI(OTG_DSC_START_POSITION, OTG, inst),\
++	SRI(OTG_DRR_TRIGGER_WINDOW, OTG, inst),\
++	SRI(OTG_DRR_V_TOTAL_CHANGE, OTG, inst),\
++	SRI(OPTC_DATA_FORMAT_CONTROL, ODM, inst),\
++	SRI(OPTC_BYTES_PER_PIXEL, ODM, inst),\
++	SRI(OPTC_WIDTH_CONTROL, ODM, inst),\
++	SRI(OPTC_MEMORY_CONFIG, ODM, inst),\
++	SR(DWB_SOURCE_SELECT)
++
++
++#define OPTC_COMMON_MASK_SH_LIST_DCN3_BASE(mask_sh)\
++	SF(OTG0_OTG_VSTARTUP_PARAM, VSTARTUP_START, mask_sh),\
++	SF(OTG0_OTG_VUPDATE_PARAM, VUPDATE_OFFSET, mask_sh),\
++	SF(OTG0_OTG_VUPDATE_PARAM, VUPDATE_WIDTH, mask_sh),\
++	SF(OTG0_OTG_VREADY_PARAM, VREADY_OFFSET, mask_sh),\
++	SF(OTG0_OTG_MASTER_UPDATE_LOCK, OTG_MASTER_UPDATE_LOCK, mask_sh),\
++	SF(OTG0_OTG_MASTER_UPDATE_LOCK, UPDATE_LOCK_STATUS, mask_sh),\
++	SF(OTG0_OTG_GLOBAL_CONTROL0, MASTER_UPDATE_LOCK_DB_START_X, mask_sh),\
++	SF(OTG0_OTG_GLOBAL_CONTROL0, MASTER_UPDATE_LOCK_DB_END_X, mask_sh),\
++	SF(OTG0_OTG_GLOBAL_CONTROL0, MASTER_UPDATE_LOCK_DB_EN, mask_sh),\
++	SF(OTG0_OTG_GLOBAL_CONTROL1, MASTER_UPDATE_LOCK_DB_START_Y, mask_sh),\
++	SF(OTG0_OTG_GLOBAL_CONTROL1, MASTER_UPDATE_LOCK_DB_END_Y, mask_sh),\
++	SF(OTG0_OTG_GLOBAL_CONTROL2, OTG_MASTER_UPDATE_LOCK_SEL, mask_sh),\
++	SF(OTG0_OTG_GLOBAL_CONTROL4, DIG_UPDATE_POSITION_X, mask_sh),\
++	SF(OTG0_OTG_GLOBAL_CONTROL4, DIG_UPDATE_POSITION_Y, mask_sh),\
++	SF(OTG0_OTG_DOUBLE_BUFFER_CONTROL, OTG_UPDATE_PENDING, mask_sh),\
++	SF(OTG0_OTG_H_TOTAL, OTG_H_TOTAL, mask_sh),\
++	SF(OTG0_OTG_H_BLANK_START_END, OTG_H_BLANK_START, mask_sh),\
++	SF(OTG0_OTG_H_BLANK_START_END, OTG_H_BLANK_END, mask_sh),\
++	SF(OTG0_OTG_H_SYNC_A, OTG_H_SYNC_A_START, mask_sh),\
++	SF(OTG0_OTG_H_SYNC_A, OTG_H_SYNC_A_END, mask_sh),\
++	SF(OTG0_OTG_H_SYNC_A_CNTL, OTG_H_SYNC_A_POL, mask_sh),\
++	SF(OTG0_OTG_V_TOTAL, OTG_V_TOTAL, mask_sh),\
++	SF(OTG0_OTG_V_BLANK_START_END, OTG_V_BLANK_START, mask_sh),\
++	SF(OTG0_OTG_V_BLANK_START_END, OTG_V_BLANK_END, mask_sh),\
++	SF(OTG0_OTG_V_SYNC_A, OTG_V_SYNC_A_START, mask_sh),\
++	SF(OTG0_OTG_V_SYNC_A, OTG_V_SYNC_A_END, mask_sh),\
++	SF(OTG0_OTG_V_SYNC_A_CNTL, OTG_V_SYNC_A_POL, mask_sh),\
++	SF(OTG0_OTG_V_SYNC_A_CNTL, OTG_V_SYNC_MODE, mask_sh),\
++	SF(OTG0_OTG_CONTROL, OTG_MASTER_EN, mask_sh),\
++	SF(OTG0_OTG_CONTROL, OTG_START_POINT_CNTL, mask_sh),\
++	SF(OTG0_OTG_CONTROL, OTG_DISABLE_POINT_CNTL, mask_sh),\
++	SF(OTG0_OTG_CONTROL, OTG_FIELD_NUMBER_CNTL, mask_sh),\
++	SF(OTG0_OTG_CONTROL, OTG_OUT_MUX, mask_sh),\
++	SF(OTG0_OTG_STEREO_CONTROL, OTG_STEREO_EN, mask_sh),\
++	SF(OTG0_OTG_STEREO_CONTROL, OTG_STEREO_SYNC_OUTPUT_LINE_NUM, mask_sh),\
++	SF(OTG0_OTG_STEREO_CONTROL, OTG_STEREO_SYNC_OUTPUT_POLARITY, mask_sh),\
++	SF(OTG0_OTG_STEREO_CONTROL, OTG_STEREO_EYE_FLAG_POLARITY, mask_sh),\
++	SF(OTG0_OTG_STEREO_CONTROL, OTG_DISABLE_STEREOSYNC_OUTPUT_FOR_DP, mask_sh),\
++	SF(OTG0_OTG_STEREO_STATUS, OTG_STEREO_CURRENT_EYE, mask_sh),\
++	SF(OTG0_OTG_3D_STRUCTURE_CONTROL, OTG_3D_STRUCTURE_EN, mask_sh),\
++	SF(OTG0_OTG_3D_STRUCTURE_CONTROL, OTG_3D_STRUCTURE_V_UPDATE_MODE, mask_sh),\
++	SF(OTG0_OTG_3D_STRUCTURE_CONTROL, OTG_3D_STRUCTURE_STEREO_SEL_OVR, mask_sh),\
++	SF(OTG0_OTG_V_TOTAL_MAX, OTG_V_TOTAL_MAX, mask_sh),\
++	SF(OTG0_OTG_V_TOTAL_MIN, OTG_V_TOTAL_MIN, mask_sh),\
++	SF(OTG0_OTG_V_TOTAL_CONTROL, OTG_V_TOTAL_MIN_SEL, mask_sh),\
++	SF(OTG0_OTG_V_TOTAL_CONTROL, OTG_V_TOTAL_MAX_SEL, mask_sh),\
++	SF(OTG0_OTG_V_TOTAL_CONTROL, OTG_FORCE_LOCK_ON_EVENT, mask_sh),\
++	SF(OTG0_OTG_V_TOTAL_CONTROL, OTG_SET_V_TOTAL_MIN_MASK_EN, mask_sh),\
++	SF(OTG0_OTG_V_TOTAL_CONTROL, OTG_SET_V_TOTAL_MIN_MASK, mask_sh),\
++	SF(OTG0_OTG_V_TOTAL_CONTROL, OTG_VTOTAL_MID_REPLACING_MIN_EN, mask_sh),\
++	SF(OTG0_OTG_V_TOTAL_CONTROL, OTG_VTOTAL_MID_REPLACING_MAX_EN, mask_sh),\
++	SF(OTG0_OTG_FORCE_COUNT_NOW_CNTL, OTG_FORCE_COUNT_NOW_CLEAR, mask_sh),\
++	SF(OTG0_OTG_FORCE_COUNT_NOW_CNTL, OTG_FORCE_COUNT_NOW_MODE, mask_sh),\
++	SF(OTG0_OTG_FORCE_COUNT_NOW_CNTL, OTG_FORCE_COUNT_NOW_OCCURRED, mask_sh),\
++	SF(OTG0_OTG_TRIGA_CNTL, OTG_TRIGA_SOURCE_SELECT, mask_sh),\
++	SF(OTG0_OTG_TRIGA_CNTL, OTG_TRIGA_SOURCE_PIPE_SELECT, mask_sh),\
++	SF(OTG0_OTG_TRIGA_CNTL, OTG_TRIGA_RISING_EDGE_DETECT_CNTL, mask_sh),\
++	SF(OTG0_OTG_TRIGA_CNTL, OTG_TRIGA_FALLING_EDGE_DETECT_CNTL, mask_sh),\
++	SF(OTG0_OTG_TRIGA_CNTL, OTG_TRIGA_POLARITY_SELECT, mask_sh),\
++	SF(OTG0_OTG_TRIGA_CNTL, OTG_TRIGA_FREQUENCY_SELECT, mask_sh),\
++	SF(OTG0_OTG_TRIGA_CNTL, OTG_TRIGA_DELAY, mask_sh),\
++	SF(OTG0_OTG_TRIGA_CNTL, OTG_TRIGA_CLEAR, mask_sh),\
++	SF(OTG0_OTG_STATIC_SCREEN_CONTROL, OTG_STATIC_SCREEN_EVENT_MASK, mask_sh),\
++	SF(OTG0_OTG_STATIC_SCREEN_CONTROL, OTG_STATIC_SCREEN_FRAME_COUNT, mask_sh),\
++	SF(OTG0_OTG_STATUS_FRAME_COUNT, OTG_FRAME_COUNT, mask_sh),\
++	SF(OTG0_OTG_STATUS, OTG_V_BLANK, mask_sh),\
++	SF(OTG0_OTG_STATUS, OTG_V_ACTIVE_DISP, mask_sh),\
++	SF(OTG0_OTG_STATUS_POSITION, OTG_HORZ_COUNT, mask_sh),\
++	SF(OTG0_OTG_STATUS_POSITION, OTG_VERT_COUNT, mask_sh),\
++	SF(OTG0_OTG_NOM_VERT_POSITION, OTG_VERT_COUNT_NOM, mask_sh),\
++	SF(OTG0_OTG_BLANK_DATA_COLOR, OTG_BLANK_DATA_COLOR_BLUE_CB, mask_sh),\
++	SF(OTG0_OTG_BLANK_DATA_COLOR, OTG_BLANK_DATA_COLOR_GREEN_Y, mask_sh),\
++	SF(OTG0_OTG_BLANK_DATA_COLOR, OTG_BLANK_DATA_COLOR_RED_CR, mask_sh),\
++	SF(OTG0_OTG_BLANK_DATA_COLOR_EXT, OTG_BLANK_DATA_COLOR_BLUE_CB_EXT, mask_sh),\
++	SF(OTG0_OTG_BLANK_DATA_COLOR_EXT, OTG_BLANK_DATA_COLOR_GREEN_Y_EXT, mask_sh),\
++	SF(OTG0_OTG_BLANK_DATA_COLOR_EXT, OTG_BLANK_DATA_COLOR_RED_CR_EXT, mask_sh),\
++	SF(OTG0_OTG_M_CONST_DTO0, OTG_M_CONST_DTO_PHASE, mask_sh),\
++	SF(OTG0_OTG_M_CONST_DTO1, OTG_M_CONST_DTO_MODULO, mask_sh),\
++	SF(OTG0_OTG_CLOCK_CONTROL, OTG_BUSY, mask_sh),\
++	SF(OTG0_OTG_CLOCK_CONTROL, OTG_CLOCK_EN, mask_sh),\
++	SF(OTG0_OTG_CLOCK_CONTROL, OTG_CLOCK_ON, mask_sh),\
++	SF(OTG0_OTG_CLOCK_CONTROL, OTG_CLOCK_GATE_DIS, mask_sh),\
++	SF(OTG0_OTG_VERTICAL_INTERRUPT0_CONTROL, OTG_VERTICAL_INTERRUPT0_INT_ENABLE, mask_sh),\
++	SF(OTG0_OTG_VERTICAL_INTERRUPT0_POSITION, OTG_VERTICAL_INTERRUPT0_LINE_START, mask_sh),\
++	SF(OTG0_OTG_VERTICAL_INTERRUPT0_POSITION, OTG_VERTICAL_INTERRUPT0_LINE_END, mask_sh),\
++	SF(OTG0_OTG_VERTICAL_INTERRUPT1_CONTROL, OTG_VERTICAL_INTERRUPT1_INT_ENABLE, mask_sh),\
++	SF(OTG0_OTG_VERTICAL_INTERRUPT1_POSITION, OTG_VERTICAL_INTERRUPT1_LINE_START, mask_sh),\
++	SF(OTG0_OTG_VERTICAL_INTERRUPT2_CONTROL, OTG_VERTICAL_INTERRUPT2_INT_ENABLE, mask_sh),\
++	SF(OTG0_OTG_VERTICAL_INTERRUPT2_POSITION, OTG_VERTICAL_INTERRUPT2_LINE_START, mask_sh),\
++	SF(ODM0_OPTC_INPUT_CLOCK_CONTROL, OPTC_INPUT_CLK_EN, mask_sh),\
++	SF(ODM0_OPTC_INPUT_CLOCK_CONTROL, OPTC_INPUT_CLK_ON, mask_sh),\
++	SF(ODM0_OPTC_INPUT_CLOCK_CONTROL, OPTC_INPUT_CLK_GATE_DIS, mask_sh),\
++	SF(ODM0_OPTC_INPUT_GLOBAL_CONTROL, OPTC_UNDERFLOW_OCCURRED_STATUS, mask_sh),\
++	SF(ODM0_OPTC_INPUT_GLOBAL_CONTROL, OPTC_UNDERFLOW_CLEAR, mask_sh),\
++	SF(VTG0_CONTROL, VTG0_ENABLE, mask_sh),\
++	SF(VTG0_CONTROL, VTG0_FP2, mask_sh),\
++	SF(VTG0_CONTROL, VTG0_VCOUNT_INIT, mask_sh),\
++	SF(OTG0_OTG_VERT_SYNC_CONTROL, OTG_FORCE_VSYNC_NEXT_LINE_OCCURRED, mask_sh),\
++	SF(OTG0_OTG_VERT_SYNC_CONTROL, OTG_FORCE_VSYNC_NEXT_LINE_CLEAR, mask_sh),\
++	SF(OTG0_OTG_VERT_SYNC_CONTROL, OTG_AUTO_FORCE_VSYNC_MODE, mask_sh),\
++	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL0_EN, mask_sh),\
++	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL1_EN, mask_sh),\
++	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL2_EN, mask_sh),\
++	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_MASTER_EN, mask_sh),\
++	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_FORCE_DELAY, mask_sh),\
++	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_CHECK_ALL_FIELDS, mask_sh),\
++	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_CONT_EN, mask_sh),\
++	SF(OTG0_OTG_CRC_CNTL, OTG_CRC0_SELECT, mask_sh),\
++	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_EN, mask_sh),\
++	SF(OTG0_OTG_CRC0_DATA_RG, CRC0_R_CR, mask_sh),\
++	SF(OTG0_OTG_CRC0_DATA_RG, CRC0_G_Y, mask_sh),\
++	SF(OTG0_OTG_CRC0_DATA_B, CRC0_B_CB, mask_sh),\
++	SF(OTG0_OTG_CRC0_WINDOWA_X_CONTROL, OTG_CRC0_WINDOWA_X_START, mask_sh),\
++	SF(OTG0_OTG_CRC0_WINDOWA_X_CONTROL, OTG_CRC0_WINDOWA_X_END, mask_sh),\
++	SF(OTG0_OTG_CRC0_WINDOWA_Y_CONTROL, OTG_CRC0_WINDOWA_Y_START, mask_sh),\
++	SF(OTG0_OTG_CRC0_WINDOWA_Y_CONTROL, OTG_CRC0_WINDOWA_Y_END, mask_sh),\
++	SF(OTG0_OTG_CRC0_WINDOWB_X_CONTROL, OTG_CRC0_WINDOWB_X_START, mask_sh),\
++	SF(OTG0_OTG_CRC0_WINDOWB_X_CONTROL, OTG_CRC0_WINDOWB_X_END, mask_sh),\
++	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_START, mask_sh),\
++	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_END, mask_sh),\
++	SF(OTG0_OTG_TRIGA_MANUAL_TRIG, OTG_TRIGA_MANUAL_TRIG, mask_sh),\
++	SF(GSL_SOURCE_SELECT, GSL0_READY_SOURCE_SEL, mask_sh),\
++	SF(GSL_SOURCE_SELECT, GSL1_READY_SOURCE_SEL, mask_sh),\
++	SF(GSL_SOURCE_SELECT, GSL2_READY_SOURCE_SEL, mask_sh),\
++	SF(OTG0_OTG_GLOBAL_CONTROL2, MANUAL_FLOW_CONTROL_SEL, mask_sh)
++
++#define OPTC_COMMON_MASK_SH_LIST_DCN3_0(mask_sh)\
++	OPTC_COMMON_MASK_SH_LIST_DCN3_BASE(mask_sh),\
++	SF(OTG0_OTG_GLOBAL_CONTROL2, GLOBAL_UPDATE_LOCK_EN, mask_sh),\
++	SF(OTG0_OTG_GSL_WINDOW_X, OTG_GSL_WINDOW_START_X, mask_sh),\
++	SF(OTG0_OTG_GSL_WINDOW_X, OTG_GSL_WINDOW_END_X, mask_sh), \
++	SF(OTG0_OTG_GSL_WINDOW_Y, OTG_GSL_WINDOW_START_Y, mask_sh),\
++	SF(OTG0_OTG_GSL_WINDOW_Y, OTG_GSL_WINDOW_END_Y, mask_sh),\
++	SF(OTG0_OTG_VUPDATE_KEEPOUT, OTG_MASTER_UPDATE_LOCK_VUPDATE_KEEPOUT_EN, mask_sh), \
++	SF(OTG0_OTG_VUPDATE_KEEPOUT, MASTER_UPDATE_LOCK_VUPDATE_KEEPOUT_START_OFFSET, mask_sh), \
++	SF(OTG0_OTG_VUPDATE_KEEPOUT, MASTER_UPDATE_LOCK_VUPDATE_KEEPOUT_END_OFFSET, mask_sh), \
++	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_MASTER_MODE, mask_sh), \
++	SF(OTG0_OTG_GSL_CONTROL, OTG_MASTER_UPDATE_LOCK_GSL_EN, mask_sh), \
++	SF(OTG0_OTG_DSC_START_POSITION, OTG_DSC_START_POSITION_X, mask_sh), \
++	SF(OTG0_OTG_DSC_START_POSITION, OTG_DSC_START_POSITION_LINE_NUM, mask_sh),\
++	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_SEG0_SRC_SEL, mask_sh),\
++	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_SEG1_SRC_SEL, mask_sh),\
++	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_NUM_OF_INPUT_SEGMENT, mask_sh),\
++	SF(ODM0_OPTC_MEMORY_CONFIG, OPTC_MEM_SEL, mask_sh),\
++	SF(ODM0_OPTC_DATA_FORMAT_CONTROL, OPTC_DATA_FORMAT, mask_sh),\
++	SF(ODM0_OPTC_DATA_FORMAT_CONTROL, OPTC_DSC_MODE, mask_sh),\
++	SF(ODM0_OPTC_BYTES_PER_PIXEL, OPTC_DSC_BYTES_PER_PIXEL, mask_sh),\
++	SF(ODM0_OPTC_WIDTH_CONTROL, OPTC_DSC_SLICE_WIDTH, mask_sh),\
++	SF(ODM0_OPTC_WIDTH_CONTROL, OPTC_SEGMENT_WIDTH, mask_sh),\
++	SF(DWB_SOURCE_SELECT, OPTC_DWB0_SOURCE_SELECT, mask_sh),\
++	SF(DWB_SOURCE_SELECT, OPTC_DWB1_SOURCE_SELECT, mask_sh),\
++	SF(OTG0_OTG_DRR_TRIGGER_WINDOW, OTG_DRR_TRIGGER_WINDOW_START_X, mask_sh),\
++	SF(OTG0_OTG_DRR_TRIGGER_WINDOW, OTG_DRR_TRIGGER_WINDOW_END_X, mask_sh),\
++	SF(OTG0_OTG_DRR_V_TOTAL_CHANGE, OTG_DRR_V_TOTAL_CHANGE_LIMIT, mask_sh),\
++	SF(OTG0_OTG_H_TIMING_CNTL, OTG_H_TIMING_DIV_BY2, mask_sh),\
++	SF(OTG0_OTG_DOUBLE_BUFFER_CONTROL, OTG_DRR_TIMING_DBUF_UPDATE_MODE, mask_sh),\
++	SF(OTG0_OTG_DOUBLE_BUFFER_CONTROL, OTG_BLANK_DATA_DOUBLE_BUFFER_EN, mask_sh)
++
++#define OPTC_COMMON_MASK_SH_LIST_DCN30(mask_sh)\
++	OPTC_COMMON_MASK_SH_LIST_DCN3_BASE(mask_sh),\
++	SF(OTG0_OTG_GLOBAL_CONTROL2, GLOBAL_UPDATE_LOCK_EN, mask_sh),\
++	SF(OTG0_OTG_GSL_WINDOW_X, OTG_GSL_WINDOW_START_X, mask_sh),\
++	SF(OTG0_OTG_GSL_WINDOW_X, OTG_GSL_WINDOW_END_X, mask_sh), \
++	SF(OTG0_OTG_GSL_WINDOW_Y, OTG_GSL_WINDOW_START_Y, mask_sh),\
++	SF(OTG0_OTG_GSL_WINDOW_Y, OTG_GSL_WINDOW_END_Y, mask_sh),\
++	SF(OTG0_OTG_VUPDATE_KEEPOUT, OTG_MASTER_UPDATE_LOCK_VUPDATE_KEEPOUT_EN, mask_sh), \
++	SF(OTG0_OTG_VUPDATE_KEEPOUT, MASTER_UPDATE_LOCK_VUPDATE_KEEPOUT_START_OFFSET, mask_sh), \
++	SF(OTG0_OTG_VUPDATE_KEEPOUT, MASTER_UPDATE_LOCK_VUPDATE_KEEPOUT_END_OFFSET, mask_sh), \
++	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_MASTER_MODE, mask_sh), \
++	SF(OTG0_OTG_GSL_CONTROL, OTG_MASTER_UPDATE_LOCK_GSL_EN, mask_sh), \
++	SF(OTG0_OTG_DSC_START_POSITION, OTG_DSC_START_POSITION_X, mask_sh), \
++	SF(OTG0_OTG_DSC_START_POSITION, OTG_DSC_START_POSITION_LINE_NUM, mask_sh),\
++	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_SEG0_SRC_SEL, mask_sh),\
++	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_SEG1_SRC_SEL, mask_sh),\
++	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_SEG2_SRC_SEL, mask_sh),\
++	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_SEG3_SRC_SEL, mask_sh),\
++	SF(ODM0_OPTC_DATA_SOURCE_SELECT, OPTC_NUM_OF_INPUT_SEGMENT, mask_sh),\
++	SF(ODM0_OPTC_MEMORY_CONFIG, OPTC_MEM_SEL, mask_sh),\
++	SF(ODM0_OPTC_DATA_FORMAT_CONTROL, OPTC_DATA_FORMAT, mask_sh),\
++	SF(ODM0_OPTC_DATA_FORMAT_CONTROL, OPTC_DSC_MODE, mask_sh),\
++	SF(ODM0_OPTC_BYTES_PER_PIXEL, OPTC_DSC_BYTES_PER_PIXEL, mask_sh),\
++	SF(ODM0_OPTC_WIDTH_CONTROL, OPTC_DSC_SLICE_WIDTH, mask_sh),\
++	SF(ODM0_OPTC_WIDTH_CONTROL, OPTC_SEGMENT_WIDTH, mask_sh),\
++	SF(DWB_SOURCE_SELECT, OPTC_DWB0_SOURCE_SELECT, mask_sh),\
++	SF(DWB_SOURCE_SELECT, OPTC_DWB1_SOURCE_SELECT, mask_sh),\
++	SF(OTG0_OTG_DRR_TRIGGER_WINDOW, OTG_DRR_TRIGGER_WINDOW_START_X, mask_sh),\
++	SF(OTG0_OTG_DRR_TRIGGER_WINDOW, OTG_DRR_TRIGGER_WINDOW_END_X, mask_sh),\
++	SF(OTG0_OTG_DRR_V_TOTAL_CHANGE, OTG_DRR_V_TOTAL_CHANGE_LIMIT, mask_sh),\
++	SF(OTG0_OTG_H_TIMING_CNTL, OTG_H_TIMING_DIV_MODE, mask_sh),\
++	SF(OTG0_OTG_DOUBLE_BUFFER_CONTROL, OTG_DRR_TIMING_DBUF_UPDATE_MODE, mask_sh)
++
++void dcn30_timing_generator_init(struct optc *optc1);
++
++void optc3_set_out_mux(struct timing_generator *optc, enum otg_out_mux_dest dest);
++
++void optc3_lock(struct timing_generator *optc);
++
++void optc3_lock_doublebuffer_enable(struct timing_generator *optc);
++
++void optc3_lock_doublebuffer_disable(struct timing_generator *optc);
++
++void optc3_set_vrr_m_const(struct timing_generator *optc,
++		double vtotal_avg);
++
++void optc3_set_drr_trigger_window(struct timing_generator *optc,
++		uint32_t window_start, uint32_t window_end);
++
++void optc3_triplebuffer_lock(struct timing_generator *optc);
++
++void optc3_program_blank_color(struct timing_generator *optc,
++		const struct tg_color *blank_color);
++
++void optc3_set_vtotal_change_limit(struct timing_generator *optc,
++		uint32_t limit);
++
++void optc3_set_dsc_config(struct timing_generator *optc,
++		enum optc_dsc_mode dsc_mode,
++		uint32_t dsc_bytes_per_pixel,
++		uint32_t dsc_slice_width);
++
++void optc3_set_timing_db_mode(struct timing_generator *optc, bool enable);
++
++#endif /* __DC_OPTC_DCN30_H__ */
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
+index f803191e3134..084432132b16 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/timing_generator.h
+@@ -98,9 +98,19 @@ enum crc_selection {
+ 	INTERSECT_WINDOW_NOT_A_NOT_B,
+ };
+ 
 +#ifdef CONFIG_DRM_AMD_DC_DCN3_0
-+	dc->clk_mgr->force_smu_not_present = init_params->force_smu_not_present;
-+#endif
- 
- 	if (dc->res_pool->funcs->update_bw_bounding_box)
- 		dc->res_pool->funcs->update_bw_bounding_box(dc, dc->clk_mgr->bw_params);
-@@ -2819,3 +2822,51 @@ void dc_get_clock(struct dc *dc, enum dc_clock_type clock_type, struct dc_clock_
- 	if (dc->hwss.get_clock)
- 		dc->hwss.get_clock(dc, clock_type, clock_cfg);
- }
-+
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+
-+void dc_allow_idle_optimizations(struct dc *dc, bool allow)
-+{
-+	if (dc->debug.disable_idle_power_optimizations)
-+		return;
-+
-+	if (allow == dc->idle_optimizations_allowed)
-+		return;
-+
-+	if (dc->hwss.apply_idle_power_optimizations && dc->hwss.apply_idle_power_optimizations(dc, allow))
-+		dc->idle_optimizations_allowed = allow;
-+}
-+
-+/*
-+ * blank all streams, and set min and max memory clock to
-+ * lowest and highest DPM level, respectively
-+ */
-+void dc_unlock_memory_clock_frequency(struct dc *dc)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < MAX_PIPES; i++)
-+		if (dc->current_state->res_ctx.pipe_ctx[i].plane_state)
-+			core_link_disable_stream(&dc->current_state->res_ctx.pipe_ctx[i]);
-+
-+	dc->clk_mgr->funcs->set_hard_min_memclk(dc->clk_mgr, false);
-+	dc->clk_mgr->funcs->set_hard_max_memclk(dc->clk_mgr);
-+}
-+
-+/*
-+ * set min memory clock to the min required for current mode,
-+ * max to maxDPM, and unblank streams
-+ */
-+void dc_lock_memory_clock_frequency(struct dc *dc)
-+{
-+	unsigned int i;
-+
-+	dc->clk_mgr->funcs->get_memclk_states_from_smu(dc->clk_mgr);
-+	dc->clk_mgr->funcs->set_hard_min_memclk(dc->clk_mgr, true);
-+	dc->clk_mgr->funcs->set_hard_max_memclk(dc->clk_mgr);
-+
-+	for (i = 0; i < MAX_PIPES; i++)
-+		if (dc->current_state->res_ctx.pipe_ctx[i].plane_state)
-+			core_link_enable_stream(dc->current_state, &dc->current_state->res_ctx.pipe_ctx[i]);
-+}
-+#endif
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-index 4f0e7203dba4..3b897372ed27 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -243,6 +243,9 @@ bool dc_stream_set_cursor_attributes(
- 	struct dc  *dc;
- 	struct resource_context *res_ctx;
- 	struct pipe_ctx *pipe_to_program = NULL;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	bool reset_idle_optimizations = false;
-+#endif
- 
- 	if (NULL == stream) {
- 		dm_error("DC: dc_stream is NULL!\n");
-@@ -262,6 +265,15 @@ bool dc_stream_set_cursor_attributes(
- 	res_ctx = &dc->current_state->res_ctx;
- 	stream->cursor_attributes = *attributes;
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	/* disable idle optimizations while updating cursor */
-+	if (dc->idle_optimizations_allowed) {
-+		dc->hwss.apply_idle_power_optimizations(dc, false);
-+		reset_idle_optimizations = true;
-+	}
-+
-+#endif
-+
- 	for (i = 0; i < MAX_PIPES; i++) {
- 		struct pipe_ctx *pipe_ctx = &res_ctx->pipe_ctx[i];
- 
-@@ -281,6 +293,12 @@ bool dc_stream_set_cursor_attributes(
- 	if (pipe_to_program)
- 		dc->hwss.cursor_lock(dc, pipe_to_program, false);
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	/* re-enable idle optimizations if necessary */
-+	if (reset_idle_optimizations)
-+		dc->hwss.apply_idle_power_optimizations(dc, true);
-+
-+#endif
- 	return true;
- }
- 
-@@ -292,6 +310,9 @@ bool dc_stream_set_cursor_position(
- 	struct dc  *dc;
- 	struct resource_context *res_ctx;
- 	struct pipe_ctx *pipe_to_program = NULL;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	bool reset_idle_optimizations = false;
-+#endif
- 
- 	if (NULL == stream) {
- 		dm_error("DC: dc_stream is NULL!\n");
-@@ -305,6 +326,16 @@ bool dc_stream_set_cursor_position(
- 
- 	dc = stream->ctx->dc;
- 	res_ctx = &dc->current_state->res_ctx;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+
-+	/* disable idle optimizations if enabling cursor */
-+	if (dc->idle_optimizations_allowed &&
-+			!stream->cursor_position.enable && position->enable) {
-+		dc->hwss.apply_idle_power_optimizations(dc, false);
-+		reset_idle_optimizations = true;
-+	}
-+
-+#endif
- 	stream->cursor_position = *position;
- 
- 	for (i = 0; i < MAX_PIPES; i++) {
-@@ -328,6 +359,12 @@ bool dc_stream_set_cursor_position(
- 	if (pipe_to_program)
- 		dc->hwss.cursor_lock(dc, pipe_to_program, false);
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	/* re-enable idle optimizations if necessary */
-+	if (reset_idle_optimizations)
-+		dc->hwss.apply_idle_power_optimizations(dc, true);
-+
-+#endif
- 	return true;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index ecbdca6d4a79..262da8a4b518 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -459,6 +459,9 @@ struct dc_debug_options {
- 	bool disable_tri_buf;
- 	bool dmub_offload_enabled;
- 	bool dmcub_emulation;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	bool disable_idle_power_optimizations;
-+#endif
- 	bool dmub_command_table; /* for testing only */
- 	struct dc_bw_validation_profile bw_val_profile;
- 	bool disable_fec;
-@@ -572,6 +575,9 @@ struct dc {
- 	/* Require to optimize clocks and bandwidth for added/removed planes */
- 	bool optimized_required;
- 	bool wm_optimized_required;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	bool idle_optimizations_allowed;
-+#endif
- 
- 	/* Require to maintain clocks and bandwidth for UEFI enabled HW */
- 	int optimize_seamless_boot_streams;
-@@ -628,6 +634,9 @@ struct dc_init_data {
- 	 */
- 	const struct gpu_info_soc_bounding_box_v1_0 *soc_bounding_box;
- 	struct dpcd_vendor_signature vendor_signature;
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+	bool force_smu_not_present;
-+#endif
- };
- 
- struct dc_callback_init {
-@@ -1198,6 +1207,23 @@ bool dc_is_dmcu_initialized(struct dc *dc);
- 
- enum dc_status dc_set_clock(struct dc *dc, enum dc_clock_type clock_type, uint32_t clk_khz, uint32_t stepping);
- void dc_get_clock(struct dc *dc, enum dc_clock_type clock_type, struct dc_clock_config *clock_cfg);
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+
-+void dc_allow_idle_optimizations(struct dc *dc, bool allow);
-+
-+/*
-+ * blank all streams, and set min and max memory clock to
-+ * lowest and highest DPM level, respectively
-+ */
-+void dc_unlock_memory_clock_frequency(struct dc *dc);
-+
-+/*
-+ * set min memory clock to the min required for current mode,
-+ * max to maxDPM, and unblank streams
-+ */
-+void dc_lock_memory_clock_frequency(struct dc *dc);
-+
-+#endif
- /*******************************************************************************
-  * DSC Interfaces
-  ******************************************************************************/
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index d2ad0504b0de..9cc65dc1970f 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -1004,16 +1004,58 @@ static bool get_pixel_clk_frequency_100hz(
- 	return false;
- }
- 
--
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
- /* this table is use to find *1.001 and /1.001 pixel rates from non-precise pixel rate */
--struct pixel_rate_range_table_entry {
--	unsigned int range_min_khz;
--	unsigned int range_max_khz;
--	unsigned int target_pixel_rate_khz;
--	unsigned short mult_factor;
--	unsigned short div_factor;
-+const struct pixel_rate_range_table_entry video_optimized_pixel_rates[] = {
-+	// /1.001 rates
-+	{25170, 25180, 25200, 1000, 1001},	//25.2MHz   ->   25.17
-+	{59340, 59350, 59400, 1000, 1001},	//59.4Mhz   ->   59.340
-+	{74170, 74180, 74250, 1000, 1001},	//74.25Mhz  ->   74.1758
-+	{125870, 125880, 126000, 1000, 1001},	//126Mhz    ->  125.87
-+	{148350, 148360, 148500, 1000, 1001},	//148.5Mhz  ->  148.3516
-+	{167830, 167840, 168000, 1000, 1001},	//168Mhz    ->  167.83
-+	{222520, 222530, 222750, 1000, 1001},	//222.75Mhz ->  222.527
-+	{257140, 257150, 257400, 1000, 1001},	//257.4Mhz  ->  257.1429
-+	{296700, 296710, 297000, 1000, 1001},	//297Mhz    ->  296.7033
-+	{342850, 342860, 343200, 1000, 1001},	//343.2Mhz  ->  342.857
-+	{395600, 395610, 396000, 1000, 1001},	//396Mhz    ->  395.6
-+	{409090, 409100, 409500, 1000, 1001},	//409.5Mhz  ->  409.091
-+	{445050, 445060, 445500, 1000, 1001},	//445.5Mhz  ->  445.055
-+	{467530, 467540, 468000, 1000, 1001},	//468Mhz    ->  467.5325
-+	{519230, 519240, 519750, 1000, 1001},	//519.75Mhz ->  519.231
-+	{525970, 525980, 526500, 1000, 1001},	//526.5Mhz  ->  525.974
-+	{545450, 545460, 546000, 1000, 1001},	//546Mhz    ->  545.455
-+	{593400, 593410, 594000, 1000, 1001},	//594Mhz    ->  593.4066
-+	{623370, 623380, 624000, 1000, 1001},	//624Mhz    ->  623.377
-+	{692300, 692310, 693000, 1000, 1001},	//693Mhz    ->  692.308
-+	{701290, 701300, 702000, 1000, 1001},	//702Mhz    ->  701.2987
-+	{791200, 791210, 792000, 1000, 1001},	//792Mhz    ->  791.209
-+	{890100, 890110, 891000, 1000, 1001},	//891Mhz    ->  890.1099
-+	{1186810, 1186820, 1188000, 1000, 1001},//1188Mhz   -> 1186.8131
-+
-+	// *1.001 rates
-+	{27020, 27030, 27000, 1001, 1000}, //27Mhz
-+	{54050, 54060, 54000, 1001, 1000}, //54Mhz
-+	{108100, 108110, 108000, 1001, 1000},//108Mhz
- };
- 
-+const struct pixel_rate_range_table_entry *look_up_in_video_optimized_rate_tlb(
-+		unsigned int pixel_rate_khz)
-+{
-+	int i;
-+
-+	for (i = 0; i < NUM_ELEMENTS(video_optimized_pixel_rates); i++) {
-+		const struct pixel_rate_range_table_entry *e = &video_optimized_pixel_rates[i];
-+
-+		if (e->range_min_khz <= pixel_rate_khz && pixel_rate_khz <= e->range_max_khz) {
-+			return e;
-+		}
-+	}
-+
-+	return NULL;
-+}
-+#endif
-+
- static bool dcn20_program_pix_clk(
- 		struct clock_source *clock_source,
- 		struct pixel_clk_params *pix_clk_params,
-@@ -1031,6 +1073,85 @@ static const struct clock_source_funcs dcn20_clk_src_funcs = {
- 	.get_pixel_clk_frequency_100hz = get_pixel_clk_frequency_100hz
- };
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+static bool dcn3_program_pix_clk(
-+		struct clock_source *clock_source,
-+		struct pixel_clk_params *pix_clk_params,
-+		struct pll_settings *pll_settings)
-+{
-+	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(clock_source);
-+	unsigned int inst = pix_clk_params->controller_id - CONTROLLER_ID_D0;
-+	unsigned int dp_dto_ref_khz = clock_source->ctx->dc->clk_mgr->dprefclk_khz;
-+	const struct pixel_rate_range_table_entry *e =
-+			look_up_in_video_optimized_rate_tlb(pix_clk_params->requested_pix_clk_100hz / 10);
-+
-+	// For these signal types Driver to program DP_DTO without calling VBIOS Command table
-+	if (dc_is_dp_signal(pix_clk_params->signal_type)) {
-+		if (e) {
-+			/* Set DTO values: phase = target clock, modulo = reference clock*/
-+			REG_WRITE(PHASE[inst], e->target_pixel_rate_khz * e->mult_factor);
-+			REG_WRITE(MODULO[inst], dp_dto_ref_khz * e->div_factor);
-+		} else {
-+			/* Set DTO values: phase = target clock, modulo = reference clock*/
-+			REG_WRITE(PHASE[inst], pll_settings->actual_pix_clk_100hz * 100);
-+			REG_WRITE(MODULO[inst], dp_dto_ref_khz * 1000);
-+		}
-+		REG_UPDATE(PIXEL_RATE_CNTL[inst], DP_DTO0_ENABLE, 1);
-+	} else
-+		// For other signal types(HDMI_TYPE_A, DVI) Driver still to call VBIOS Command table
-+		dce112_program_pix_clk(clock_source, pix_clk_params, pll_settings);
-+
-+	return true;
-+}
-+
-+static uint32_t dcn3_get_pix_clk_dividers(
-+		struct clock_source *cs,
-+		struct pixel_clk_params *pix_clk_params,
-+		struct pll_settings *pll_settings)
-+{
-+	unsigned long long actual_pix_clk_100Hz = pix_clk_params->requested_pix_clk_100hz;
-+	struct dce110_clk_src *clk_src;
-+
-+	clk_src = TO_DCE110_CLK_SRC(cs);
-+	DC_LOGGER_INIT();
-+
-+	if (pix_clk_params == NULL || pll_settings == NULL
-+			|| pix_clk_params->requested_pix_clk_100hz == 0) {
-+		DC_LOG_ERROR(
-+			"%s: Invalid parameters!!\n", __func__);
-+		return -1;
-+	}
-+
-+	memset(pll_settings, 0, sizeof(*pll_settings));
-+	/* Adjust for HDMI Type A deep color */
-+	if (pix_clk_params->signal_type == SIGNAL_TYPE_HDMI_TYPE_A) {
-+		switch (pix_clk_params->color_depth) {
-+		case COLOR_DEPTH_101010:
-+			actual_pix_clk_100Hz = (actual_pix_clk_100Hz * 5) >> 2;
-+			break;
-+		case COLOR_DEPTH_121212:
-+			actual_pix_clk_100Hz = (actual_pix_clk_100Hz * 6) >> 2;
-+			break;
-+		case COLOR_DEPTH_161616:
-+			actual_pix_clk_100Hz = actual_pix_clk_100Hz * 2;
-+			break;
-+		default:
-+			break;
-+		}
-+	}
-+	pll_settings->actual_pix_clk_100hz = (unsigned int) actual_pix_clk_100Hz;
-+	pll_settings->adjusted_pix_clk_100hz = (unsigned int) actual_pix_clk_100Hz;
-+	pll_settings->calculated_pix_clk_100hz = (unsigned int) actual_pix_clk_100Hz;
-+
-+	return 0;
-+}
-+
-+static const struct clock_source_funcs dcn3_clk_src_funcs = {
-+	.cs_power_down = dce110_clock_source_power_down,
-+	.program_pix_clk = dcn3_program_pix_clk,
-+	.get_pix_clk_dividers = dcn3_get_pix_clk_dividers
++enum otg_out_mux_dest {
++	OUT_MUX_DIO = 0,
 +};
 +#endif
- /*****************************************/
- /* Constructor                           */
- /*****************************************/
-@@ -1415,3 +1536,21 @@ bool dcn20_clk_src_construct(
++
+ enum h_timing_div_mode {
+ 	H_TIMING_NO_DIV,
+ 	H_TIMING_DIV_BY2,
++#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
++	H_TIMING_RESERVED,
++	H_TIMING_DIV_BY4,
++#endif
+ };
  
- 	return ret;
- }
-+
+ struct crc_params {
+@@ -278,6 +288,15 @@ struct timing_generator_funcs {
+ 	void (*set_gsl_source_select)(struct timing_generator *optc,
+ 			int group_idx,
+ 			uint32_t gsl_ready_signal);
 +#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+bool dcn3_clk_src_construct(
-+	struct dce110_clk_src *clk_src,
-+	struct dc_context *ctx,
-+	struct dc_bios *bios,
-+	enum clock_source_id id,
-+	const struct dce110_clk_src_regs *regs,
-+	const struct dce110_clk_src_shift *cs_shift,
-+	const struct dce110_clk_src_mask *cs_mask)
-+{
-+	bool ret = dce112_clk_src_construct(clk_src, ctx, bios, id, regs, cs_shift, cs_mask);
-+
-+	clk_src->base.funcs = &dcn3_clk_src_funcs;
-+
-+	return ret;
-+}
++	void (*set_out_mux)(struct timing_generator *tg, enum otg_out_mux_dest dest);
++	void (*set_vrr_m_const)(struct timing_generator *optc,
++			double vtotal_avg);
++	void (*set_drr_trigger_window)(struct timing_generator *optc,
++			uint32_t window_start, uint32_t window_end);
++	void (*set_vtotal_change_limit)(struct timing_generator *optc,
++			uint32_t limit);
 +#endif
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.h b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.h
-index 51bd25079606..69b904ab8151 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.h
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.h
-@@ -91,6 +91,23 @@
- 		SRII(PIXEL_RATE_CNTL, OTG, 2),\
- 		SRII(PIXEL_RATE_CNTL, OTG, 3)
+ };
  
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+#define CS_COMMON_REG_LIST_DCN3_0(index, pllid) \
-+		SRI(PIXCLK_RESYNC_CNTL, PHYPLL, pllid),\
-+		SRII(PHASE, DP_DTO, 0),\
-+		SRII(PHASE, DP_DTO, 1),\
-+		SRII(PHASE, DP_DTO, 2),\
-+		SRII(PHASE, DP_DTO, 3),\
-+		SRII(MODULO, DP_DTO, 0),\
-+		SRII(MODULO, DP_DTO, 1),\
-+		SRII(MODULO, DP_DTO, 2),\
-+		SRII(MODULO, DP_DTO, 3),\
-+		SRII(PIXEL_RATE_CNTL, OTG, 0),\
-+		SRII(PIXEL_RATE_CNTL, OTG, 1),\
-+		SRII(PIXEL_RATE_CNTL, OTG, 2),\
-+		SRII(PIXEL_RATE_CNTL, OTG, 3)
-+#endif
-+
- #define CS_COMMON_MASK_SH_LIST_DCN2_0(mask_sh)\
- 	CS_SF(DP_DTO0_PHASE, DP_DTO0_PHASE, mask_sh),\
- 	CS_SF(DP_DTO0_MODULO, DP_DTO0_MODULO, mask_sh),\
-@@ -204,4 +221,29 @@ bool dcn20_clk_src_construct(
- 	const struct dce110_clk_src_shift *cs_shift,
- 	const struct dce110_clk_src_mask *cs_mask);
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+bool dcn3_clk_src_construct(
-+	struct dce110_clk_src *clk_src,
-+	struct dc_context *ctx,
-+	struct dc_bios *bios,
-+	enum clock_source_id id,
-+	const struct dce110_clk_src_regs *regs,
-+	const struct dce110_clk_src_shift *cs_shift,
-+	const struct dce110_clk_src_mask *cs_mask);
-+#endif
-+
-+/* this table is use to find *1.001 and /1.001 pixel rates from non-precise pixel rate */
-+struct pixel_rate_range_table_entry {
-+	unsigned int range_min_khz;
-+	unsigned int range_max_khz;
-+	unsigned int target_pixel_rate_khz;
-+	unsigned short mult_factor;
-+	unsigned short div_factor;
-+};
-+
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+extern const struct pixel_rate_range_table_entry video_optimized_pixel_rates[];
-+const struct pixel_rate_range_table_entry *look_up_in_video_optimized_rate_tlb(
-+		unsigned int pixel_rate_khz);
-+#endif
  #endif
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
-index ce65678c03b2..49c50af9cd9e 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr.h
-@@ -43,6 +43,25 @@
- #define DCN_MINIMUM_DISPCLK_Khz 100000
- #define DCN_MINIMUM_DPPCLK_Khz 100000
- 
-+#if defined(CONFIG_DRM_AMD_DC_DCN3_0)
-+struct dcn3_clk_internal {
-+	int dummy;
-+	/*TODO:
-+	uint32_t CLK1_CLK0_CURRENT_CNT; //dispclk
-+	uint32_t CLK1_CLK1_CURRENT_CNT; //dppclk
-+	uint32_t CLK1_CLK2_CURRENT_CNT; //dprefclk
-+	uint32_t CLK1_CLK3_CURRENT_CNT; //dcfclk
-+	uint32_t CLK1_CLK3_DS_CNTL;	//dcf_deep_sleep_divider
-+	uint32_t CLK1_CLK3_ALLOW_DS;	//dcf_deep_sleep_allow
-+
-+	uint32_t CLK1_CLK0_BYPASS_CNTL; //dispclk bypass
-+	uint32_t CLK1_CLK1_BYPASS_CNTL; //dppclk bypass
-+	uint32_t CLK1_CLK2_BYPASS_CNTL; //dprefclk bypass
-+	uint32_t CLK1_CLK3_BYPASS_CNTL; //dcfclk bypass
-+	*/
-+};
-+
-+#endif
- /* Will these bw structures be ASIC specific? */
- 
- #define MAX_NUM_DPM_LVL		8
-@@ -55,6 +74,12 @@ struct clk_limit_table_entry {
- 	unsigned int fclk_mhz;
- 	unsigned int memclk_mhz;
- 	unsigned int socclk_mhz;
-+#ifdef CONFIG_DRM_AMD_DC_DCN3_0
-+	unsigned int dtbclk_mhz;
-+	unsigned int dispclk_mhz;
-+	unsigned int dppclk_mhz;
-+	unsigned int phyclk_mhz;
-+#endif
- };
- 
- /* This table is contiguous */
-@@ -72,6 +97,26 @@ struct wm_range_table_entry {
- 	bool valid;
- };
- 
-+#ifdef CONFIG_DRM_AMD_DC_DCN3_0
-+
-+struct nv_wm_range_entry {
-+	bool valid;
-+
-+	struct {
-+		uint8_t wm_type;
-+		uint16_t min_dcfclk;
-+		uint16_t max_dcfclk;
-+		uint16_t min_uclk;
-+		uint16_t max_uclk;
-+	} pmfw_breakdown;
-+
-+	struct {
-+		double pstate_latency_us;
-+		double sr_exit_time_us;
-+		double sr_enter_plus_exit_time_us;
-+	} dml_input;
-+};
-+#endif
- 
- struct clk_log_info {
- 	bool enabled;
-@@ -143,7 +188,14 @@ struct clk_bypass {
-  * D occupied, C will be emptry.
-  */
- struct wm_table {
-+#ifdef CONFIG_DRM_AMD_DC_DCN3_0
-+	union {
-+		struct nv_wm_range_entry nv_entries[WM_SET_COUNT];
-+#endif
- 	struct wm_range_table_entry entries[WM_SET_COUNT];
-+#ifdef CONFIG_DRM_AMD_DC_DCN3_0
-+	};
-+#endif
- };
- 
- struct clk_bw_params {
-@@ -183,6 +235,20 @@ struct clk_mgr_funcs {
- 	bool (*are_clock_states_equal) (struct dc_clocks *a,
- 			struct dc_clocks *b);
- 	void (*notify_wm_ranges)(struct clk_mgr *clk_mgr);
-+#ifdef CONFIG_DRM_AMD_DC_DCN3_0
-+	/*
-+	 * Send message to PMFW to set hard min memclk frequency
-+	 * When current_mode = false, set DPM0
-+	 * When current_mode = true, set required clock for current mode
-+	 */
-+	void (*set_hard_min_memclk)(struct clk_mgr *clk_mgr, bool current_mode);
-+
-+	/* Send message to PMFW to set hard max memclk frequency to highest DPM */
-+	void (*set_hard_max_memclk)(struct clk_mgr *clk_mgr);
-+
-+	/* Get current memclk states from PMFW, update relevant structures */
-+	void (*get_memclk_states_from_smu)(struct clk_mgr *clk_mgr);
-+#endif
- };
- 
- struct clk_mgr {
-@@ -190,6 +256,9 @@ struct clk_mgr {
- 	struct clk_mgr_funcs *funcs;
- 	struct dc_clocks clks;
- 	bool psr_allow_active_cache;
-+#ifdef CONFIG_DRM_AMD_DC_DCN3_0
-+	bool force_smu_not_present;
-+#endif
- 	int dprefclk_khz; // Used by program pixel clock in clock source funcs, need to figureout where this goes
- 	int dentist_vco_freq_khz;
- 	struct clk_state_registers_and_bypass boot_snapshot;
-diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
-index 9311d0de377f..c3c151be7d03 100644
---- a/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
-+++ b/drivers/gpu/drm/amd/display/dc/inc/hw/clk_mgr_internal.h
-@@ -101,6 +101,12 @@ enum dentist_divider_range {
- 	CLK_SRI(CLK3_CLK_PLL_REQ, CLK3, 0), \
- 	CLK_SRI(CLK3_CLK2_DFS_CNTL, CLK3, 0)
- 
-+#ifdef CONFIG_DRM_AMD_DC_DCN3_0
-+// TODO:
-+#define CLK_REG_LIST_DCN3()	  \
-+	SR(DENTIST_DISPCLK_CNTL)
-+#endif
-+
- #define CLK_SF(reg_name, field_name, post_fix)\
- 	.field_name = reg_name ## __ ## field_name ## post_fix
- 
-@@ -167,6 +173,10 @@ struct clk_mgr_registers {
- 	uint32_t CLK3_CLK2_DFS_CNTL;
- 	uint32_t CLK3_CLK_PLL_REQ;
- 
-+#ifdef CONFIG_DRM_AMD_DC_DCN3_0
-+	uint32_t CLK0_CLK2_DFS_CNTL;
-+	uint32_t CLK0_CLK_PLL_REQ;
-+#endif
- 	uint32_t MP1_SMN_C2PMSG_67;
- 	uint32_t MP1_SMN_C2PMSG_83;
- 	uint32_t MP1_SMN_C2PMSG_91;
-@@ -260,6 +270,10 @@ struct clk_mgr_internal {
- 
- 	enum dm_pp_clocks_state max_clks_state;
- 	enum dm_pp_clocks_state cur_min_clks_state;
-+#ifdef CONFIG_DRM_AMD_DC_DCN3_0
-+
-+	bool smu_present;
-+#endif
- };
- 
- struct clk_mgr_internal_funcs {
 -- 
 2.25.4
 
