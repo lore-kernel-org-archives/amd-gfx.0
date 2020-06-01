@@ -8,67 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A618C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:20:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E684C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 620532068D
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:20:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 31D4D2073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MvWOUP2M"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 620532068D
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l95QLNiM"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 31D4D2073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D45F96E2E2;
-	Mon,  1 Jun 2020 18:20:00 +0000 (UTC)
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 166FA6E2E2
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:20:00 +0000 (UTC)
-Received: by mail-qk1-x742.google.com with SMTP id s1so9982317qkf.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:20:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDF986E2E3;
+	Mon,  1 Jun 2020 18:21:04 +0000 (UTC)
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DDD76E2E3
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:04 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id i68so8489113qtb.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=+BZ0o+e9EYocn6W5FfblmtxAK5Xdbtsw8rJCEyfcwS4=;
- b=MvWOUP2M0ycrmv7GkkbeumAFFYAPF43T+80hOXcoCg6ZKpY9+T8KeVnUG4ko630AsJ
- u+bMSu620yHXYwCImHrfkVWJ5fR4VJefE9m299hJONB85SUTlEKYCMseOD9rmyH8D3c1
- 1JYG2s7KgPqQg/WqzGac2+CFHI+nGMT9DWq0uq/AAkHqzhun2st5snzQJ1eYHcRy82P7
- 0xUT9kgcfvKmTk0BFljwN9ndMyIXuYi4UFlP4seW6KMKfLEw4ttChTinex5HztaFJvh4
- eslO/jN/1+3ZSa+8rk2XUZSD6PJqPYturpVS4Qcod7eUI8QVYAdtcTFIUuFJi0vauA1B
- yLqA==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/B3UOWavwYtbNJMu3JQnAY93+ArohQ60QoSF7+18jWo=;
+ b=l95QLNiMw4f50hCwAEp8YQ4aUfYjDH+4kS8r2aKN7Is4gMQziC5Z3S0U0Z6+im5g/l
+ UZI2gIezm6+NvBY1dSNpqzq8B6dpcbxljvGiSjjDhCJBpHROedFfOLR6E6Frm4Hvh01S
+ 1UZCX42A3Tblxo95a9weg2rFWGnMSnz5Wu5SMZIHm89SWvn+VdV9EQLnAKBllwEDU7ar
+ WzL0ScXhd+XGWuh+KrUGF3Onp9UHMTUwEyrjwS8iX7B4p7D/Zu2wQ4XWF3CXcSGJDgxk
+ hOV5PNEQdoYALmmDxLtFcNaY/R7pF+7rM7OHUw+VGBT0Qvt7OXoVRqboYiVmM21dXz0C
+ yN/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=+BZ0o+e9EYocn6W5FfblmtxAK5Xdbtsw8rJCEyfcwS4=;
- b=d6SZwf/A67VfhMgX9eh/4Y0ybISfp9zBCAUU5Mj4ZBNX6yNenffMg3ZZDPY3UTibnK
- CP7S9VL/HsZ3qViRjppF0lrqON/CDVh3dB6MCj324q81sGCNY04s6HwhNKdh+3Or/4Qd
- zdGj3/O0Gs6I5uaw2ABuXSXfGspHN4Mn6gt7WEjNpnqIfwv55D97QJ+NItSvh8moWU/0
- 9QTSVTAEDkuaStCpOnt802Wz/oc6wJxoj6qgD46Uatwiy1xQ53eF5jo5ctZojM9WlfqK
- Vlt+dAZUF4BXC7+aoE7wKuDO/IcgX84xPfElB/YlzhL9fwAFmXX0Llqbffb4T4mXGCHY
- rk9w==
-X-Gm-Message-State: AOAM5331P0cqYoFvZ/5v0UtBKdYLCjy/gnzoG7n1QJo0HF9+KLKfoP5D
- ZriXBILr0ogLZTvRHG5e/1KpsQR1
-X-Google-Smtp-Source: ABdhPJwAhP4/mH7ZxuCAIrhE5WVjWM3JFz6GMexJTWVqYYgoHVtTOi7eqxqmCQO8NgWklxqsHdNB5A==
-X-Received: by 2002:a37:e205:: with SMTP id g5mr21640028qki.451.1591035599100; 
- Mon, 01 Jun 2020 11:19:59 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/B3UOWavwYtbNJMu3JQnAY93+ArohQ60QoSF7+18jWo=;
+ b=gkyTioqxLECp9T3ldKCyv1z/UnaSUX96Gj1EgejAB9d5A56tsyKCVuSpnB50aoFudx
+ nkfOB48AOoA/rAwJmkvcx91OFKk5Dbq1ereUygtRP8nHAP+v5UN1Gz7cZTP194PwmkXs
+ Q0KXarDlGblWvJ9SBT4bDMXXz6OgINMSh9UsI06DGJFqMZZ0I4AtPw0Ff6U1wQ6rJU3C
+ Lq117jggKdcGt/oFTd3i5WdKtM2VjND98u2s2X3fIAyararBMaeX+fzgrALDGjh/3Ep8
+ 1eUSexbJaHWaGo2AkB4c5OTpPx0OAZzdQA+Y2Lcl0piVl5N/mXTOHezy8utPu6q6wVp8
+ l6Lw==
+X-Gm-Message-State: AOAM533pYaHxxhf/w7VXpBMgxdagz7Gy9h8l3YrSB29KOHPuaJq7TktZ
+ AZeMKX68PLZOaEuViYe2sa3kE8lz
+X-Google-Smtp-Source: ABdhPJx8W67/QBSH1leUfsnSf9xctAbTT8KjOdiZO8xF0TxUv59PqgdVeujN8W/vjezDbIVMi3KRsQ==
+X-Received: by 2002:ac8:2a3a:: with SMTP id k55mr23039145qtk.294.1591035663407; 
+ Mon, 01 Jun 2020 11:21:03 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id r14sm15156760qke.62.2020.06.01.11.19.57
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:19:58 -0700 (PDT)
+ Mon, 01 Jun 2020 11:21:02 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 089/207] drm/amdgpu: enable JPEG3.0 PG and CG for
- Sienna_Cichlid
-Date: Mon,  1 Jun 2020 14:19:49 -0400
-Message-Id: <20200601181949.1267800-2-alexander.deucher@amd.com>
+Subject: [PATCH 090/207] drm/amdgpu: enable JPEG3.0 for Sienna_Cichlid
+Date: Mon,  1 Jun 2020 14:18:57 -0400
+Message-Id: <20200601182054.1267858-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
-In-Reply-To: <20200601181949.1267800-1-alexander.deucher@amd.com>
-References: <20200601181949.1267800-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,33 +87,36 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Leo Liu <leo.liu@amd.com>
 
-By setting up the flags to the ASIC
+By adding JPEG HW block to Sienna_Cichlid
 
 Signed-off-by: Leo Liu <leo.liu@amd.com>
 Reviewed-by: James Zhu <James.Zhu@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index a7a03706025a..81032b0d8512 100644
+index 81032b0d8512..320d4db471cb 100644
 --- a/drivers/gpu/drm/amd/amdgpu/nv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -712,8 +712,10 @@ static int nv_common_early_init(void *handle)
- 		adev->external_rev_id = adev->rev_id + 0xa;
+@@ -57,6 +57,7 @@
+ #include "vcn_v2_0.h"
+ #include "jpeg_v2_0.h"
+ #include "vcn_v3_0.h"
++#include "jpeg_v3_0.h"
+ #include "dce_virtual.h"
+ #include "mes_v10_1.h"
+ #include "mxgpu_nv.h"
+@@ -499,6 +500,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
+ 		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &sdma_v5_2_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &vcn_v3_0_ip_block);
++		amdgpu_device_ip_block_add(adev, &jpeg_v3_0_ip_block);
+ 		if (adev->enable_mes)
+ 			amdgpu_device_ip_block_add(adev, &mes_v10_1_ip_block);
  		break;
- 	case CHIP_SIENNA_CICHLID:
--		adev->cg_flags = AMD_CG_SUPPORT_VCN_MGCG;
--		adev->pg_flags = AMD_PG_SUPPORT_VCN;
-+		adev->cg_flags = AMD_CG_SUPPORT_VCN_MGCG |
-+			AMD_CG_SUPPORT_JPEG_MGCG;
-+		adev->pg_flags = AMD_PG_SUPPORT_VCN |
-+			AMD_PG_SUPPORT_JPEG;
- 		adev->external_rev_id = adev->rev_id + 0x28;
- 		break;
- 	default:
 -- 
 2.25.4
 
