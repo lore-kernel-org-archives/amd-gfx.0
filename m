@@ -2,122 +2,71 @@ Return-Path: <SRS0=+jgF=7O=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-8.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10788C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 17:39:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FFF3C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:02:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D5C8920734
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 17:39:23 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E2B2D20776
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:02:52 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZdZVrXga"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D5C8920734
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oAeyizGN"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E2B2D20776
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 789F689F75;
-	Mon,  1 Jun 2020 17:39:23 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2048.outbound.protection.outlook.com [40.107.94.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B039289F75
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 17:39:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Fo+3TMK3YE4WmE4K03uj5yGWptYU9pgKkMu57OM74RG9QsoOHcUiMJU9tEo4U9HGYGxczpXh5PnrXVf+HUuBt4fDpAV6UqljKmYAQ5I8+6WQQVDGexOp1y5OcxzsckVsl7BLrbxmV5rRyA2K5dGxzB0jPSVn0ws4HeSC76W7fwAfJjjDrxoKE29IOsheF9yMOJPkMYRM7D8j9TkK0QZ4yxR83qZXTuLkaXCxY25WOCSSsi4Hix80oUA8PbMTtD24ayYpJ7BU9Ul76D3jmXxMWSMx5otozcXlwR3XD+jhEzeZUik2OBK9FUsiwhZPqVd9t/vTiu6kfgRVITNnZiOMZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lWXxJAHjqIkH12lJ7yo75ynxy7NYBRv43ZgyMKRp2N8=;
- b=bx209n1ikCG1OuzUI7KRr3JJmfDcE7ofl7koTD0LwaTHBEO51wH8wOyjTPY3MEMafVs5Kxx3AUWNc1HOGAmldN2lj2mvcZRrnl0XdvOBUcUWWGXvGtebGWgNXIu/eGDI5vdfdIXpjOhtyRxLfk2TIeoSZ5FrXO/q6k6IPXgEdEGmkGOxLaobnJrmz3q+19ZsoPi5/0n3pNI0Cge2aE4etfqAtHM/Ai7c2NpZmSTxRso0fulUD/q4ZdBwgQ3JwZXUVEWUUuIZlpPjmD0LubDE8z/EWISYA6RbQRjIsrQ75vrY6lx3nIq+rZNuQdSb7v8fWqP2DrbcTum+YW13yszT6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lWXxJAHjqIkH12lJ7yo75ynxy7NYBRv43ZgyMKRp2N8=;
- b=ZdZVrXga1Kpb1shA/pDO7b+YKaVMD+SBv8Gr1jDRRsEr2HUOc5BcJGBhanRoTzZATNBOt5sBJKr/ea6vE7P9xN6P6Cug42nQkiwpbaJkA4Kn6r4mB89cSxw1DRCL1M+pY0cdgn4Ogl7168GIjaPY77o4PEnfHtpbKjOTa6cmJvU=
-Received: from DM6PR12MB3721.namprd12.prod.outlook.com (2603:10b6:5:1c2::18)
- by DM6PR12MB4091.namprd12.prod.outlook.com (2603:10b6:5:222::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.17; Mon, 1 Jun
- 2020 17:39:21 +0000
-Received: from DM6PR12MB3721.namprd12.prod.outlook.com
- ([fe80::e027:654c:5d9f:a648]) by DM6PR12MB3721.namprd12.prod.outlook.com
- ([fe80::e027:654c:5d9f:a648%3]) with mapi id 15.20.3045.024; Mon, 1 Jun 2020
- 17:39:21 +0000
-From: "Russell, Kent" <Kent.Russell@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>
-Subject: RE: [PATCH 2/2] drm/amdgpu: Add unique_id and serial_number for
- Arcturus
-Thread-Topic: [PATCH 2/2] drm/amdgpu: Add unique_id and serial_number for
- Arcturus
-Thread-Index: AQHWODoRbsZPeFCBrEW7lHT6QoCyjKjEBWiAgAAA1iA=
-Date: Mon, 1 Jun 2020 17:39:21 +0000
-Message-ID: <DM6PR12MB37219A4921822371C79C5F3B858A0@DM6PR12MB3721.namprd12.prod.outlook.com>
-References: <20200601172818.5560-1-kent.russell@amd.com>
- <20200601172818.5560-2-kent.russell@amd.com>
- <CADnq5_Nz-yYJtWbcGXmnq7Bw541qiq+rPwkNaKXCwLMzoogzKg@mail.gmail.com>
-In-Reply-To: <CADnq5_Nz-yYJtWbcGXmnq7Bw541qiq+rPwkNaKXCwLMzoogzKg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-06-01T17:39:06Z; 
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=3cec6669-a794-4092-8d97-0000099dca8a;
- MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-06-01T17:38:46Z
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
- Unrestricted
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: e8d7c21f-86f6-45e5-a3d0-0000d60c59ca
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-06-01T17:39:19Z
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 1261292c-57e7-4433-a7a2-0000f7b53171
-msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-x-originating-ip: [2607:fea8:1ca0:aecb:89d3:2a74:6d44:185a]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 7cc8befd-e59b-4c34-cfca-08d80652b804
-x-ms-traffictypediagnostic: DM6PR12MB4091:
-x-microsoft-antispam-prvs: <DM6PR12MB4091E99CDCD2ACDF7D2B6A85858A0@DM6PR12MB4091.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:4303;
-x-forefront-prvs: 0421BF7135
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: /proeRf2HWeZhnrgvzd3oQXBt6J+tqQUH9zFhiOvTroMqzjNoumEQ8hBdY/+nUwB7b0R6uLx62/EmcOD0g2gLIVh0PlZPipfGffAvM6il17Gf7J2pY/6W3Cu0t6/er50r6HLyBfEChJN/aiLw5TYL1DXm8rLHGtbAiuFa1Ar4hX2y4mwxeJCDlxGHiGHKdfdPnYH8bsa6ar4IZ05zCKSi3wdMdtF5sqvFbrDmdBpD6w8NiF3xVttRrAsKRiR9a/XBjTuIPLWLVUvbLjH/vrGQOK1mWJtAR6Oh6pI3VhwJRomDg0wXWOhWPcr0xIhPCgC/0iGkBptrKA6XBpzr+wryekkOw0TA92N49Ex38O9IMYZndNfR3R6Mx9iO3QWDIxx5Bc1Eb+T5JeHYLsZR/b7Kw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3721.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(396003)(136003)(366004)(346002)(376002)(39860400002)(2906002)(45080400002)(76116006)(66946007)(66476007)(66556008)(7696005)(9686003)(83380400001)(6916009)(66446008)(64756008)(55016002)(6506007)(53546011)(5660300002)(966005)(186003)(83080400001)(86362001)(4326008)(8936002)(478600001)(8676002)(316002)(33656002)(71200400001)(52536014);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: RNlX35Icigpk5b502Ed8YChTGVgF+CEKhKWn8kr47dwzqfGfnIIzHz6OgVDaU0QcoPTGR+60bTAsTn8RYsrLFhabSzhNbgoT49Jrk8HHWOuXIm9nUk28N/All3A0ypK76qkmkDYo1P7roff0JtLAYQDyfD3dnlcvuOuJFS/2LP8QZw9dvggXfssmKKQYNfU95eGOF9efHRGlKLvP8zvWM/J+KZgpqelfSQE+BqskuLUVMl0zh6I1OkAVc+zYwP37w+whlBx3uczbnCxC8WfmjExSgOJQA8VwPdcTGkr3FUj8CJjbR666lms0a8bjR4EDsTI0fznE5RWeILgSShca0Ghprw6i/LlLV6Nt6gNHKUXs00EdlfXi8gAC7J+NkiMBOBiR3rwtyi/S9DfDfPGQhwBGPS7ttRStSv8dxdqooJ+PlNJjFd+FXhA50rvpfOisCo3JKEBbAdVkzxQOm/GoQft+GCZEh9UMlkvXaXWeMXONh389Xney7eHke3rFNjj7dl/gRqUGFizIvFlSQzAanyQBT82boHOEIqdz9s9VN1QVI9V2MUnzw/gz2cYqcH/J
-x-ms-exchange-transport-forked: True
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BF0288FD2;
+	Mon,  1 Jun 2020 18:02:51 +0000 (UTC)
+Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
+ [IPv6:2607:f8b0:4864:20::829])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C4036E08A
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:02:50 +0000 (UTC)
+Received: by mail-qt1-x829.google.com with SMTP id i16so1785232qtr.7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:02:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=d1kITv/cxyuGWa0IDCEcJXWkz9MRiE5lTZ/Lb8GIxLo=;
+ b=oAeyizGN88G7njAPTiUZdB9TciyaT755VkcAS3NyiLp4UiytiXJOxDiMBIgGyJDFlN
+ 4ygVD6vobJbNuMnDHdAD3lRo1ammTA5yuC87UjAWfNxPQtaU6aMFOV0KfIiG4SNKFNbt
+ 3BeiZvfwvu0AoVWBhqL3ZTCgY5YVGC4+OdB1gc9egk/f90RzBkYXw4BAQfIVc3oKDyHR
+ pcUoQzwoJnyuF26FMrkr/Hj6Q3GsX4fSjMdaoeinBgceNzVtXwQ1rfJtoqhY12Zd0CMI
+ vB038RTVSiY7JhN03YjBk9kMQ86/nQvJL2Q0vCls4W9O7oj61neBJlNrYYOMof4dQlTO
+ BJjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=d1kITv/cxyuGWa0IDCEcJXWkz9MRiE5lTZ/Lb8GIxLo=;
+ b=dEypGcozVFJoaEiDriqzj9CSjXDD4hM4+Gx2Htz1bw/2Nvkpn0ZJ8sXQmJDk+LRtAv
+ EgZyNXO3v++INId26nml59DH6Fcz/Y329ztaZN4hkTgC6cofE73ow9B4RjQddjv2Bjp8
+ 7c3IxmXTe+0wt9WrWERLqmOPCYIxowJ/sd5ApsCjfkFYm8WPCAldBowB2BKIYTd+mP22
+ RVRL9Dx2zo51jZKliDTdHWNRNJ98OYoCoCo+Bavk/IMFzr5qxcz4MT+eybL3ilInGod0
+ olDBhxMn6nYQ+JGbyNga966G4iiSAS6jVLpVz8Fdrgd59U6DOjPVOwjrjF/wH3+VyS5g
+ td0A==
+X-Gm-Message-State: AOAM532x0dm3uRqjhDBK1ZIqgb+gToluO7JjQLtms1mwoP+PqQBjsvsR
+ sbN7/ny01rR/UQ/Xy84KaPeXjB1D
+X-Google-Smtp-Source: ABdhPJxtEMlKeGZrzJiG1FROd3y60P0xdHjOuQZbY/jd3eLJ0GqUG8SDXVWREI/dgcXplcNSPZkzhQ==
+X-Received: by 2002:ac8:7ca:: with SMTP id m10mr20587230qth.86.1591034568895; 
+ Mon, 01 Jun 2020 11:02:48 -0700 (PDT)
+Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.02.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Jun 2020 11:02:48 -0700 (PDT)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 000/207] Add Support for Sienna Cichlid
+Date: Mon,  1 Jun 2020 13:59:16 -0400
+Message-Id: <20200601180239.1267430-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.25.4
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7cc8befd-e59b-4c34-cfca-08d80652b804
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Jun 2020 17:39:21.6753 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0/6uF1EiK+9E8mM6K7+Jaiv06ZY9JtOdxZXLpfW3ZV2hqA9TiZuXSrJvpdFCwoX1XP3nAskGR7dwwZ8PorW8lA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4091
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,181 +78,567 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[AMD Public Use]
+Sienna Cichlid is a GPU from AMD.  This patch set adds support for it
+including power management, display, kfd, interrupts, gfx, multi-media,
+etc.  The new register headers are really big so I haven't sent them to
+the list.  You can view the new patches including the register headers
+on the following git branch:
+https://cgit.freedesktop.org/~agd5f/linux/log/?h=amd-staging-drm-next-sienna_cichlid
 
+Thanks,
 
+Alex
 
-> -----Original Message-----
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Monday, June 1, 2020 1:35 PM
-> To: Russell, Kent <Kent.Russell@amd.com>
-> Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-> Subject: Re: [PATCH 2/2] drm/amdgpu: Add unique_id and serial_number for
-> Arcturus
-> 
-> On Mon, Jun 1, 2020 at 1:28 PM Kent Russell <kent.russell@amd.com> wrote:
-> >
-> > Add support for unique_id and serial_number, as these are now the same
-> > value, and will be for future ASICs as well.
-> >
-> > Signed-off-by: Kent Russell <kent.russell@amd.com>
-> > Change-Id: I3b036a38b19cd84025399b0706b2dad9b7aff713
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        |  2 +-
-> >  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |  2 ++
-> >  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 32
-> +++++++++++++++++++
-> >  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  1 +
-> >  drivers/gpu/drm/amd/powerplay/smu_internal.h  |  2 ++
-> >  5 files changed, 38 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> > index b0dff9ecfb88..9136d9022c51 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> > @@ -1940,7 +1940,7 @@ static int default_attr_update(struct
-> amdgpu_device *adev, struct amdgpu_device_
-> >                 if (adev->flags & AMD_IS_APU)
-> >                         *states = ATTR_STATE_UNSUPPORTED;
-> >         } else if (DEVICE_ATTR_IS(unique_id)) {
-> > -               if (!adev->unique_id)
-> > +               if (asic_type < CHIP_VEGA10)
-> 
-> Will this work properly on navi and APUs as well?
-It will, but it's not implemented yet. Currently it will just be an empty sysfs file.
+Alex Deucher (2):
+  drm/amdgpu/mes10.1: add no scheduler flag for mes
+  drm/amdgpu/vcn3.0: schedule instance 0 for decode and 1 for encode
 
+Bhawanpreet Lakha (28):
+  drm/amd/display: Add DCN3 chip ids
+  drm/amd/display: Add DCN3 DIO
+  drm/amd/display: Add DCN3 CLK_MGR
+  drm/amd/display: Add DCN3 DCCG
+  drm/amd/display: Add DCN3 OPTC
+  drm/amd/display: Add DCN3 OPP header
+  drm/amd/display: Add DCN3 MPC
+  drm/amd/display: Add DCN3 DPP
+  drm/amd/display: Add DCN3 HUBHUB
+  drm/amd/display: Add DCN3 HUBP
+  drm/amd/display: Add DCN3 MMHUBHUB
+  drm/amd/display: Add DCN3 DWB
+  drm/amd/display: Add DCN3 DML
+  drm/amd/display: Add DCN3 IRQ
+  drm/amd/display: Add DCN3 GPIO
+  drm/amd/display: Add DCN3 DMUB
+  drm/amd/display: Add DCN3 HWSEQ
+  drm/amd/display: Add DCN3 Support in DM (v2)
+  drm/amd/display: Add DCN3 Resource
+  drm/amd/display: Add DCN3 Command Table Helpers
+  drm/amd/display: Add DCN3 AFMT
+  drm/amd/display: Add DCN3 VPG
+  drm/amd/display: Init function tables for DCN3
+  drm/amd/display: Handle RGBE_ALPHA Pixel Format
+  drm/amd/display: Remove Unused Registers
+  drm/amdgpu: Enable DM block for DCN3
+  drm/amd/display: Add DCN3 blocks to Makefile
+  drm/amd/display: Add DCN3 to Kconfig
 
-> 
-> >                         *states = ATTR_STATE_UNSUPPORTED;
-> >         } else if (DEVICE_ATTR_IS(pp_features)) {
-> >                 if (adev->flags & AMD_IS_APU || asic_type <
-> > CHIP_VEGA10) diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > index 5294aa7cdde1..7946fd8444a3 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > @@ -793,6 +793,8 @@ static int smu_late_init(void *handle)
-> >         if (!smu->pm_enabled)
-> >                 return 0;
-> >
-> > +       smu_set_unique_id(smu);
-> > +
-> >         smu_handle_task(&adev->smu,
-> >                         smu->smu_dpm.dpm_level,
-> >                         AMD_PP_TASK_COMPLETE_INIT, diff --git
-> > a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> > b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> > index d66ac7457574..855e609650d9 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> > +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> > @@ -2262,6 +2262,37 @@ static void
-> arcturus_i2c_eeprom_control_fini(struct i2c_adapter *control)
-> >         i2c_del_adapter(control);
-> >  }
-> >
-> > +static void arcturus_set_unique_id(struct smu_context *smu) {
-> > +       struct amdgpu_device *adev = smu->adev;
-> > +       uint32_t top32, bottom32, smu_version, size;
-> > +       char sn[16];
-> > +       uint64_t id;
-> > +
-> > +       if (smu_get_smc_version(smu, NULL, &smu_version)) {
-> > +               pr_warn("Failed to get smu version, cannot get unique_id or
-> serial_number\n");
-> > +               return;
-> > +       }
-> > +
-> > +       /* PPSMC_MSG_ReadSerial* is supported by 54.23.0 and onwards */
-> > +       if (smu_version < 0x361700) {
-> > +               pr_warn("ReadSerial is only supported by PMFW 54.23.0 and
-> onwards\n");
-> > +               return;
-> > +       }
-> > +
-> > +       /* Get the SN to turn into a Unique ID */
-> > +       smu_send_smc_msg(smu, SMU_MSG_ReadSerialNumTop32, &top32);
-> > +       smu_send_smc_msg(smu, SMU_MSG_ReadSerialNumBottom32,
-> > + &bottom32);
-> > +
-> > +       id = ((uint64_t)bottom32 << 32) | top32;
-> > +       adev->unique_id = id;
-> > +       /* For Arcturus-and-later, unique_id == serial_number, so convert it to a
-> > +        * 16-digit HEX string for convenience and backwards-compatibility
-> > +        */
-> > +       size = sprintf(sn, "%llx", id);
-> > +       memcpy(adev->serial, &sn, size); }
-> > +
-> >  static bool arcturus_is_baco_supported(struct smu_context *smu)  {
-> >         struct amdgpu_device *adev = smu->adev; @@ -2416,6 +2447,7 @@
-> > static const struct pptable_funcs arcturus_ppt_funcs = {
-> >         .dpm_set_uvd_enable = arcturus_dpm_set_uvd_enable,
-> >         .i2c_eeprom_init = arcturus_i2c_eeprom_control_init,
-> >         .i2c_eeprom_fini = arcturus_i2c_eeprom_control_fini,
-> > +       .set_unique_id = arcturus_set_unique_id,
-> >         .init_microcode = smu_v11_0_init_microcode,
-> >         .load_microcode = smu_v11_0_load_microcode,
-> >         .init_smc_tables = smu_v11_0_init_smc_tables, diff --git
-> > a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> > b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> > index 5bb1ac821aeb..bfa5211de079 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> > +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> > @@ -495,6 +495,7 @@ struct pptable_funcs {
-> >         int (*update_pcie_parameters)(struct smu_context *smu, uint32_t
-> pcie_gen_cap, uint32_t pcie_width_cap);
-> >         int (*i2c_eeprom_init)(struct i2c_adapter *control);
-> >         void (*i2c_eeprom_fini)(struct i2c_adapter *control);
-> > +       void (*set_unique_id)(struct smu_context *smu);
-> >         int (*get_dpm_clock_table)(struct smu_context *smu, struct dpm_clocks
-> *clock_table);
-> >         int (*init_microcode)(struct smu_context *smu);
-> >         int (*load_microcode)(struct smu_context *smu); diff --git
-> > a/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> > b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> > index 6c59eeef2590..125d976215a6 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> > +++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> > @@ -218,6 +218,8 @@ static inline int smu_send_smc_msg(struct
-> smu_context *smu, enum smu_message_typ
-> >                 ((smu)->ppt_funcs->i2c_eeprom_init ?
-> > (smu)->ppt_funcs->i2c_eeprom_init((control)) : 0)  #define
-> smu_i2c_eeprom_fini(smu, control) \
-> >                 ((smu)->ppt_funcs->i2c_eeprom_fini ?
-> > (smu)->ppt_funcs->i2c_eeprom_fini((control)) : 0)
-> > +#define smu_set_unique_id(smu) \
-> > +               ((smu)->ppt_funcs->set_unique_id ?
-> > +(smu)->ppt_funcs->set_unique_id((smu)) : 0)
-> >
-> 
-> I would call this get_unique_id() since it's fetching the id from the hw rather
-> than setting it.  Same comment for the device specific functions above.
-> 
-> >  #define smu_log_thermal_throttling(smu) \
-> >                 ((smu)->ppt_funcs->log_thermal_throttling_event ?
-> > (smu)->ppt_funcs->log_thermal_throttling_event((smu)) : 0)
-> > --
-> > 2.17.1
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
-> > s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-
-> gfx&amp;data=02%7C01%7Cke
-> >
-> nt.russell%40amd.com%7Cdd77d3b285a04b19a3c108d80652189f%7C3dd896
-> 1fe488
-> >
-> 4e608e11a82d994e183d%7C0%7C0%7C637266296955676858&amp;sdata=Uq
-> sOnA7TwH
-> > OpbvyyqfeJm3yveVpgaLnN4sF0Q7lOCJo%3D&amp;reserved=0
+Boyuan Zhang (11):
+  drm/amdgpu: add clock gating DPG mode for VCN3.0
+  drm/amdgpu: add mc resume DPG mode for VCN3.0
+  drm/amdgpu: add start DPG mode for VCN3.0
+  drm/amdgpu: add stop DPG mode for VCN3.0
+  drm/amdgpu: add pause DPG mode for VCN3.0
+  drm/amdgpu: set indirect sram mode for VCN3.0
+  drm/amdgpu: add internal reg offset translation for VCN inst 1
+  drm/amdgpu: rename macro for VCN1.0
+  drm/amdgpu: rename macro for VCN2.0 2.5 and 3.0
+  drm/amdgpu: add workaround for issue in DPG for VCN3.0
+  drm/amdgpu: enable DPG mode for VCN3.0
+
+Dmytro Laktyushkin (1):
+  drm/amd/display: fix and simplify pipe split logic for DCN3
+
+Evan Quan (1):
+  drm/amd/powerplay: let PMFW to handle the features disablement on BACO
+    in V2
+
+Hawking Zhang (7):
+  drm/amdgpu: force pa_sc_tile_steering_override to 0 for gfx10.3
+  drm/amdgpu: add vram_info v2_5 in atomfirmware header
+  drm/amdgpu: support query vram info for sienna_cichlid
+  drm/amdgpu: drop gfx_v10_0_tiling_mode_table_init
+  drm/amdgpu: add firmware_info v3_4 structure for Sienna_Cichlid
+  drm/amdgpu: add atomfirmware helper funciton to query reserved fb size
+  drm/amdgpu: switch to query reserved fb size from vbios (v3)
+
+Hersen Wu (1):
+  sound/pci/hda: add sienna_cichlid audio asic id for sienna_cichlid up
+
+Jack Xiao (25):
+  drm/amdgpu: assign the doorbell index to mes ring
+  drm/amdgpu: add the ring type definition of MES
+  drm/amdgpu: avoid dereferencing a NULL pointer
+  drm/amdgpu/mes: update some mes definitions
+  drm/amdgpu/mes10.1: allocate the eop buffer
+  drm/amdgpu/mes10.1: initialize the software part of mes ring
+  drm/amdgpu/mes10.1: implement the ring functions of mes specific
+  drm/amdgpu/mes10.1: allocate mqd buffer
+  drm/amdgpu/mes10.1: initialize the mqd
+  drm/amdgpu/mes10.1: install mes queue by register programming
+  drm/amdgpu/mes10.1: install mes queue via kiq
+  drm/amdgpu/mes10.1: enable the mes ring during initialization
+  drm/amdgpu/mes10.1: add the mes fw api
+  drm/amdgpu/mes10.1: add the helper function for mes command submission
+  drm/amdgpu/mes10.1: implement adding hardware queue
+  drm/amdgpu/mes10.1: implement removing hardware queue
+  drm/amdgpu/mes10.1: implement querying the scheduler status
+  drm/amdgpu/mes10.1: implement setting hardware resources
+  drm/amdgpu/mes10.1: add sienna_cichlid mes firmware support
+  drm/amdgpu/mes10.1: copy mes fw info into global fw array
+  drm/amdgpu: upload mes firmware to gpu buffer
+  drm/amdgpu/psp: convert amdgpu mes ucode type
+  drm/amdgpu: no need to set up GPU scheduler for mes ring
+  drm/amdgpu/mes10.1: update mes initialization
+  drm/amdgpu: add mes block to sienna_cichlid
+
+James Zhu (1):
+  drm/amdgpu: fix typo for vcn3/jpeg3 idle check
+
+Jay Cornwall (3):
+  drm/amdkfd: Add Sienna_Cichlid trap handler support
+  drm/amdkfd: Support newer assemblers in gfx10 trap handler
+  drm/amdkfd: Support debugger in Navi1x trap handler
+
+Jerry (Fangzhi) Zuo (2):
+  drm/amd/display: Add dcn30 Headers (v2)
+  drm/amdgpu/dc: Add missing Sienna_Cichlid chip id
+
+Kenneth Feng (10):
+  drm/amd/amdgpu: fix the HDP LS/DS/SD programming
+  drm/amd/amdgpu: add HDP mgcg and ls support
+  drm/amd/amdgpu: add IH cg support
+  drm/amd/amdgpu: add athub ls support
+  drm/amd/powerplay: enable athub pg
+  drm/amd/powerplay: enable mmhub pg
+  drm/amd/powerplay: enable GPO
+  drm/amd/powerplay: bundle GPO with gfx DPM
+  drm/amd/powerplay: enable fw ctf
+  drm/amd/powerplay: show gfxclk=0 in gfxoff state
+
+Le Ma (4):
+  drm/amdgpu/mes: update mes fw api
+  drm/amdgpu/mes: add status fence memory definitions
+  drm/amdgpu/mes: allocate memory slots for hw resource setting
+  drm/amdgpu: skip VM inv eng assignment for mes ring
+
+Leo Liu (14):
+  drm/amdgpu: add VCN3.0 register headers (v2)
+  drm/amdgpu: add 2rd VCN instance doorbell support
+  drm/amdgpu: add VCN3.0 support for Sienna_Cichlid
+  drm/amdgpu: add Sienna_Cichlid VCN PG and CG support (v2)
+  drm/amdgpu: enable VCN3.0 PG and CG for Sienna_Cichlid
+  drm/amdgpu: add Sienna_Cichlid VCN to the VCN family
+  drm/amdgpu: enable VCN3.0 for Sienna_Cichlid
+  drm/amdgpu: add JPEG3.0 support for Sienna_Cichlid
+  drm/amdgpu: add Sienna_Cichlid JPEG PG and CG support
+  drm/amdgpu: enable JPEG3.0 PG and CG for Sienna_Cichlid
+  drm/amdgpu: enable JPEG3.0 for Sienna_Cichlid
+  drm/amdgpu: change the offset for VCN FW cache window
+  drm/amdgpu: fix the PSP front door loading VCN firmware
+  drm/amdgpu: set the LMI ctrl and reset earlier
+
+Likun Gao (90):
+  drm/amdgpu: add GC 10.3 header files (v2)
+  drm/amdgpu: add sienna_cichlid asic type
+  drm/amdgpu: add sienna_cichlid gpu info firmware v2
+  drm/amdgpu: set fw load type for sienna_cichlid
+  drm/amdgpu: set asic family and ip blocks for sienna_cichlid
+  drm/amdgpu/gfx10: add support for sienna_cichlid firmware
+  drm/amdgpu/gmc10: add sienna_cichlid support
+  drm/amdgpu/gfx10: add clockgating support for sienna_cichlid
+  drm/amdgpu/soc15: add support for sienna_cichlid
+  drm/amdgpu: initialize IP offset for sienna_cichlid (v2)
+  drm/amdgpu/soc15: add common ip block for sienna_cichlid
+  drm/amdgpu: add support on mmhub for sienna_cichlid
+  drm/amdgpu: add support gfxhub for sienna_cichlid (v3)
+  drm/amdgpu: add gmc ip block for sienna_cichlid
+  drm/amdgpu: add ih ip block for sienna_cichlid
+  drm/amdgpu: add gfx ip block for sienna_cichlid (v3)
+  drm/amdgpu: add sdma2 and sdma3 irqsrc header files for sienna_cichlid
+    (v2)
+  drm/amdgpu: add sdma ip block for sienna_cichlid (v5)
+  drm/amdgpu: correct SDMA3 IH clinet id for sienna_cichlid
+  drm/amdgpu/gfx10: change register configure for sienna_cichlid
+  drm/amdgpu: add virtual display support for sienna_cichlid
+  drm/amdgpu/powerplay: add initial swSMU support for sienna_cichlid
+    (v2)
+  drm/amd/powerplay: add support to set performance level for
+    sienna_cichlid
+  drm/amd/powerplay: set SOCCLK DPM for sienna_cichlid
+  drm/amd/powerplay: set FCLK DPM for sienna_cichlid
+  drm/amd/powerplay: enable Ultra Low Voltage for sienna_cichlid
+  drm/amd/powerplay: enable Graphics Clock Deep Sleep for sienna_cichlid
+  drm/amd/powerplay: enable SOC Clock Deep Sleep for sienna_cichlid
+  drm/amdgpu/powerplay: set Thermal control for sienna_cichlid
+  drm/amdgpu/powerplay: set UCLK DPM for sienna_cichlid
+  drm/amd/powerplay: make gfx ds can be configure for sienna_cichlid
+  drm/amd/powerplay: Enable SOCCLK ULV for sienna_cichlid
+  drm/amd/powerplay: enable DCEFCLK DPM and DS for sienna_cichlid
+  drm/amd/powerplay: support pcie value set and update for
+    sienna_cichlid
+  drm/amd/powerplay: support to print pcie levels for sienna_cichlid
+  drm/amd/powerplay: enable LCLK DPM for sienna_cichlid
+  drm/amd/powerplay: enable GFX SS for sienna_cichlid
+  drm/amd/powerplay: enable Fan control for sienna_cichlid
+  drm/amd/powerplay: support to get power index for sienna_cichlid
+  drm/amd/powerplay: enable PPT and TDC for sienna_cichlid
+  drm/amdgpu/powerplay: add smu block for sienna_cichlid
+  drm/amdgpu: skip ASD fw load for sienna_cichlid
+  drm/amdgpu/psp: add psp support for sienna_cichlid
+  drm/amdgpu: skip for reroute ih for sienna_cichlid psp ring init
+    currently
+  drm/amdgpu: enable psp ip block for sienna_cichlid
+  drm/amdgpu: update SDMA 5.2 microcode init
+  drm/amdgpu: add support for athub v2.1
+  drm/amdgpu: add gmc cg support for sienna_cichlid
+  drm/amdgpu: add psp block load condition for sienna_cichlid
+  drm/amdgpu: update the num of queue per pipe for mec on sienna_cichlid
+  drm/amdgpu/mes: correct register offset for sienna_cichlid
+  drm/amdgpu/gfx10: add gc golden setting for sienna_cichlid
+  drm/amdgpu: add cp firmware backdoor loading triger
+  drm/amdgpu: disable gfxoff for sienna_cichlid
+  drm/amdgpu: only send one sdma firmware for sienna_cichlid
+  drm/amdgpu: open GFX clock gating for sienna_cichlid
+  drm/amdgpu: update golden setting for gfx10.3
+  drm/amdgpu: Enable Multi Media Hub (MMHUB) Clock Gating for
+    sienna_cichlid.
+  drm/amdgpu: fix SDMA hdp flush engine conflict
+  drm/amdgpu: enable 3D pipe 1 on Sienna_Cichlid
+  drm/amd/powerplay: enable VR0HOT for sienna_cichlid
+  drm/amd/powerplay: enable FCLK DS for sienna_cichlid
+  drm/amd/powerplay: enable MM DPM PG for sienna_cichlid (v2)
+  drm/amd/powerplay: enable BACO for sienna_cichlid
+  drm/amd/powerplay: enable APCC DFLL for sienna_cichlid
+  drm/amd/powerplay: add function to get power limit for sienna_cichlid
+  drm/amdgpu: update golden setting for sienna_cichlid
+  drm/amd/powerplay: enable RSMU SMN PG for sienna_cichlid
+  drm/am/powerplay: enable OUT OF BAND MONITER for sienna_cichlid
+  drm/amd/powerplay: enable ULCK DS for sienna_cichlid
+  drm/amd/powerplay: and smc dpm info struct for sienna_cichlid
+  drm/amd/powerplay: append pptable for sienna_cichlid (v2)
+  drm/amd/powerplay: enable VDDCI and MVDD for sienna_cichlid
+  drm/amdgpu: skip GPU scheduler setup for KIQ and MES ring
+  drm/amdgpu: disable runtime pm for sienna_cichlid temporarily
+  drm/amd/powerplay: drop jpeg instance1 dpm setup
+  drm/amdgpu: only use one gfx pipe for Sienna_Cichlid
+  drm/amd/powerplay: support mclk socclk limit value set for
+    sienna_cichlid.
+  drm/amd/amdgpu: disable gfxoff to retrieve gfxclk
+  drm/amdgpu: enable gfxoff for sienna_cichlid
+  drm/amdgpu/psp: add structure to support PSP SPL
+  drm/amdgpu/psp: initialization PSP SPL fw
+  drm/amdgpu/psp: support for loading PSP SPL fw
+  drm/amdgpu: update golden setting for sienna_cichlid
+  drm/amd/powerplay: update smu function for sienna_cichlid
+  drm/amd/powerplay: drop sienna_cichlid hardcode of using pptable
+  drm/amdgpu: reserve fb according to return value from vbios
+  drm/amdgpu: support memory training for sienna_cichlid
+  drm/amdgpu: remove unnecessary check for mem train
+  drm/amdgpu: bypass tmr when reserve c2p memory
+
+Yong Zhao (3):
+  drm/amdgpu: Add ATHUB 2.1 header files (v2)
+  drm/amdgpu: Use variable instead of constant for sdma doorbell range
+  drm/amdkfd: Support Sienna_Cichlid KFD v4
+
+shaoyunl (4):
+  drm/amdkfd: sienna_cichlid virtual function support
+  drm/amdgpu: Sienna_Cichlid don't enable SMU for SRIOV
+  drm/amdgpu/sriov : Use kiq to do tlb invalidation for gfx10 on sriov
+  drm/amdgpu/sriov : Add sriov detection for sienna_cichlid
+
+ drivers/gpu/drm/amd/amdgpu/Makefile           |    27 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |     4 -
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c  |   834 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c  |     5 -
+ .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c  |    79 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_atomfirmware.h  |     3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |    11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h  |    11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c     |    24 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |     1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |     3 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |     1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h       |    45 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |    39 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |     6 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h      |     3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   113 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.c     |    39 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ucode.h     |     9 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.c       |     8 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vcn.h       |    25 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c      |     1 +
+ drivers/gpu/drm/amd/amdgpu/athub_v2_1.c       |   100 +
+ drivers/gpu/drm/amd/amdgpu/athub_v2_1.h       |    30 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        |   513 +-
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c      |   375 +
+ drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.h      |    37 +
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |    81 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c        |   613 +
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.h        |    29 +
+ drivers/gpu/drm/amd/amdgpu/mes_api_def.h      |   443 +
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c        |   664 +-
+ drivers/gpu/drm/amd/amdgpu/mmhub_v2_0.c       |    72 +-
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |    21 +-
+ drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c        |    14 +-
+ drivers/gpu/drm/amd/amdgpu/nv.c               |    62 +-
+ drivers/gpu/drm/amd/amdgpu/nv.h               |     1 +
+ drivers/gpu/drm/amd/amdgpu/psp_v11_0.c        |    52 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_common.h      |    42 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |     1 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.h        |    15 -
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |  1753 +
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.h        |    30 +
+ .../drm/amd/amdgpu/sienna_cichlid_reg_init.c  |    54 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |    96 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |    86 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |    94 +-
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         |  1689 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.h         |    29 +
+ .../gpu/drm/amd/amdkfd/cwsr_trap_handler.h    |   877 +-
+ .../amd/amdkfd/cwsr_trap_handler_gfx10.asm    |   301 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c         |     1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c       |    25 +
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c |     1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_flat_memory.c  |     1 +
+ .../gpu/drm/amd/amdkfd/kfd_packet_manager.c   |     1 +
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.c     |     1 +
+ drivers/gpu/drm/amd/display/Kconfig           |     8 +
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |    27 +
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |    20 +
+ drivers/gpu/drm/amd/display/dc/Makefile       |     4 +
+ .../drm/amd/display/dc/bios/bios_parser2.c    |     3 +
+ .../display/dc/bios/command_table_helper2.c   |     5 +
+ .../dce112/command_table_helper2_dce112.c     |    40 +
+ .../dce112/command_table_helper2_dce112.h     |     3 +
+ .../gpu/drm/amd/display/dc/calcs/dcn_calcs.c  |     7 +
+ .../gpu/drm/amd/display/dc/clk_mgr/Makefile   |    10 +
+ .../gpu/drm/amd/display/dc/clk_mgr/clk_mgr.c  |    22 +
+ .../drm/amd/display/dc/clk_mgr/dcn30/dalsmc.h |    60 +
+ .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c  |   543 +
+ .../display/dc/clk_mgr/dcn30/dcn30_clk_mgr.h  |    38 +
+ .../dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c  |   255 +
+ .../dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h  |   108 +
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |    88 +
+ drivers/gpu/drm/amd/display/dc/core/dc_link.c |    14 +
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |    36 +-
+ .../gpu/drm/amd/display/dc/core/dc_stream.c   |    37 +
+ drivers/gpu/drm/amd/display/dc/dc.h           |    59 +
+ drivers/gpu/drm/amd/display/dc/dc_hw_types.h  |    75 +
+ drivers/gpu/drm/amd/display/dc/dc_stream.h    |    15 +
+ drivers/gpu/drm/amd/display/dc/dc_types.h     |    34 +
+ drivers/gpu/drm/amd/display/dc/dce/dce_abm.h  |    20 +
+ .../drm/amd/display/dc/dce/dce_clock_source.c |   153 +-
+ .../drm/amd/display/dc/dce/dce_clock_source.h |    42 +
+ .../gpu/drm/amd/display/dc/dce/dce_hwseq.h    |    46 +
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_hubp.c |    12 +
+ .../amd/display/dc/dcn10/dcn10_hw_sequencer.c |     5 +
+ .../amd/display/dc/dcn10/dcn10_link_encoder.h |     6 +
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.c |    10 +-
+ .../gpu/drm/amd/display/dc/dcn10/dcn10_optc.h |    62 +
+ .../display/dc/dcn10/dcn10_stream_encoder.h   |    42 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_dccg.h |    22 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_dsc.c  |    17 -
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_dsc.h  |    12 -
+ .../drm/amd/display/dc/dcn20/dcn20_hubbub.c   |     9 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_hubp.c |    20 +
+ .../gpu/drm/amd/display/dc/dcn20/dcn20_hubp.h |    41 +
+ .../drm/amd/display/dc/dcn20/dcn20_hwseq.c    |    85 +
+ .../amd/display/dc/dcn20/dcn20_link_encoder.h |     7 +-
+ .../drm/amd/display/dc/dcn20/dcn20_resource.c |    39 +
+ drivers/gpu/drm/amd/display/dc/dcn30/Makefile |    54 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c |   206 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_afmt.h |   230 +
+ .../amd/display/dc/dcn30/dcn30_cm_common.c    |   640 +
+ .../amd/display/dc/dcn30/dcn30_cm_common.h    |    78 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dccg.c |   100 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dccg.h |    66 +
+ .../display/dc/dcn30/dcn30_dio_link_encoder.c |   205 +
+ .../display/dc/dcn30/dcn30_dio_link_encoder.h |    76 +
+ .../dc/dcn30/dcn30_dio_stream_encoder.c       |   851 +
+ .../dc/dcn30/dcn30_dio_stream_encoder.h       |   269 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c  |  1414 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dpp.h  |   608 +
+ .../drm/amd/display/dc/dcn30/dcn30_dpp_cm.c   |   410 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dwb.c  |   264 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_dwb.h  |   923 +
+ .../drm/amd/display/dc/dcn30/dcn30_dwb_cm.c   |   354 +
+ .../drm/amd/display/dc/dcn30/dcn30_hubbub.c   |   417 +
+ .../drm/amd/display/dc/dcn30/dcn30_hubbub.h   |   119 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c |   532 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_hubp.h |   292 +
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.c    |   714 +
+ .../drm/amd/display/dc/dcn30/dcn30_hwseq.h    |    70 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_init.c |   148 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_init.h |    33 +
+ .../drm/amd/display/dc/dcn30/dcn30_mmhubbub.c |   239 +
+ .../drm/amd/display/dc/dcn30/dcn30_mmhubbub.h |   463 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c  |  1409 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_mpc.h  |   665 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_opp.h  |    36 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_optc.c |   365 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_optc.h |   333 +
+ .../drm/amd/display/dc/dcn30/dcn30_resource.c |  2671 +
+ .../drm/amd/display/dc/dcn30/dcn30_resource.h |    82 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_vpg.c  |   194 +
+ .../gpu/drm/amd/display/dc/dcn30/dcn30_vpg.h  |   133 +
+ drivers/gpu/drm/amd/display/dc/dm_helpers.h   |    23 +
+ drivers/gpu/drm/amd/display/dc/dml/Makefile   |     7 +
+ .../dc/dml/dcn30/display_mode_vba_30.c        |  6860 ++
+ .../dc/dml/dcn30/display_mode_vba_30.h        |    43 +
+ .../dc/dml/dcn30/display_rq_dlg_calc_30.c     |  1868 +
+ .../dc/dml/dcn30/display_rq_dlg_calc_30.h     |    69 +
+ .../drm/amd/display/dc/dml/display_mode_lib.c |   181 +
+ .../drm/amd/display/dc/dml/display_mode_lib.h |    11 +
+ .../amd/display/dc/dml/display_mode_structs.h |     3 +
+ .../drm/amd/display/dc/dml/display_mode_vba.c |     3 +
+ .../drm/amd/display/dc/dml/display_mode_vba.h |     3 +
+ drivers/gpu/drm/amd/display/dc/gpio/Makefile  |    10 +
+ .../display/dc/gpio/dcn30/hw_factory_dcn30.c  |   257 +
+ .../display/dc/gpio/dcn30/hw_factory_dcn30.h  |    33 +
+ .../dc/gpio/dcn30/hw_translate_dcn30.c        |   387 +
+ .../dc/gpio/dcn30/hw_translate_dcn30.h        |    35 +
+ .../gpu/drm/amd/display/dc/gpio/hw_factory.c  |     9 +-
+ .../drm/amd/display/dc/gpio/hw_translate.c    |     8 +
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |    25 +
+ .../gpu/drm/amd/display/dc/inc/hw/clk_mgr.h   |    69 +
+ .../amd/display/dc/inc/hw/clk_mgr_internal.h  |    14 +
+ .../gpu/drm/amd/display/dc/inc/hw/dchubbub.h  |     6 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/dpp.h   |     7 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/dwb.h   |    83 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/hubp.h  |     4 +
+ .../gpu/drm/amd/display/dc/inc/hw/hw_shared.h |     9 +
+ .../gpu/drm/amd/display/dc/inc/hw/mcif_wb.h   |     8 +
+ drivers/gpu/drm/amd/display/dc/inc/hw/mpc.h   |   108 +
+ .../amd/display/dc/inc/hw/stream_encoder.h    |     4 +
+ .../amd/display/dc/inc/hw/timing_generator.h  |    19 +
+ .../gpu/drm/amd/display/dc/inc/hw_sequencer.h |     4 +
+ drivers/gpu/drm/amd/display/dc/inc/resource.h |     3 +
+ drivers/gpu/drm/amd/display/dc/irq/Makefile   |    10 +
+ .../display/dc/irq/dcn30/irq_service_dcn30.c  |   384 +
+ .../display/dc/irq/dcn30/irq_service_dcn30.h  |    37 +
+ drivers/gpu/drm/amd/display/dmub/dmub_srv.h   |     3 +
+ drivers/gpu/drm/amd/display/dmub/src/Makefile |     3 +
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn30.c |   184 +
+ .../gpu/drm/amd/display/dmub/src/dmub_dcn30.h |    50 +
+ .../gpu/drm/amd/display/dmub/src/dmub_srv.c   |    15 +
+ .../gpu/drm/amd/display/include/dal_asic_id.h |     4 +
+ .../gpu/drm/amd/display/include/dal_types.h   |     1 +
+ .../asic_reg/athub/athub_2_1_0_offset.h       |   523 +
+ .../asic_reg/athub/athub_2_1_0_sh_mask.h      |  2378 +
+ .../include/asic_reg/dcn/dcn_3_0_0_offset.h   | 17880 ++++
+ .../include/asic_reg/dcn/dcn_3_0_0_sh_mask.h  | 70929 ++++++++++++++++
+ .../include/asic_reg/dcn/dpcs_3_0_0_offset.h  |   573 +
+ .../include/asic_reg/dcn/dpcs_3_0_0_sh_mask.h |  3565 +
+ .../include/asic_reg/gc/gc_10_3_0_default.h   |  7272 ++
+ .../include/asic_reg/gc/gc_10_3_0_offset.h    | 13469 +++
+ .../include/asic_reg/gc/gc_10_3_0_sh_mask.h   | 47692 +++++++++++
+ .../include/asic_reg/vcn/vcn_3_0_0_offset.h   |  1542 +
+ .../include/asic_reg/vcn/vcn_3_0_0_sh_mask.h  |  5496 ++
+ drivers/gpu/drm/amd/include/atomfirmware.h    |   283 +
+ .../include/ivsrcid/sdma2/irqsrcs_sdma2_5_0.h |    45 +
+ .../include/ivsrcid/sdma3/irqsrcs_sdma3_5_0.h |    45 +
+ .../amd/include/sienna_cichlid_ip_offset.h    |  1168 +
+ .../gpu/drm/amd/include/soc15_ih_clientid.h   |     1 +
+ drivers/gpu/drm/amd/powerplay/Makefile        |     2 +-
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |    34 +-
+ .../inc/smu11_driver_if_sienna_cichlid.h      |  1209 +
+ drivers/gpu/drm/amd/powerplay/inc/smu_types.h |     4 +
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |     1 +
+ .../drm/amd/powerplay/inc/smu_v11_0_7_ppsmc.h |   139 +
+ .../drm/amd/powerplay/sienna_cichlid_ppt.c    |  2506 +
+ .../drm/amd/powerplay/sienna_cichlid_ppt.h    |    37 +
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     |    13 +
+ include/drm/amd_asic_type.h                   |     1 +
+ sound/pci/hda/hda_intel.c                     |     3 +
+ 205 files changed, 214201 insertions(+), 792 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/athub_v2_1.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/athub_v2_1.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/gfxhub_v2_1.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/mes_api_def.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/sdma_common.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/sdma_v5_2.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/sienna_cichlid_reg_init.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/vcn_v3_0.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dalsmc.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/clk_mgr/dcn30/dcn30_clk_mgr_smu_msg.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/Makefile
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_afmt.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dccg.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dccg.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dio_link_encoder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dio_link_encoder.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dio_stream_encoder.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dio_stream_encoder.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dpp_cm.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_dwb_cm.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubbub.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubbub.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hubp.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_hwseq.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_init.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mmhubbub.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mmhubbub.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_mpc.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_opp.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_optc.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_resource.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_vpg.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dcn30/dcn30_vpg.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/dml/dcn30/display_rq_dlg_calc_30.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_factory_dcn30.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_translate_dcn30.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn30/hw_translate_dcn30.h
+ create mode 100644 drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.c
+ create mode 100644 drivers/gpu/drm/amd/display/dc/irq/dcn30/irq_service_dcn30.h
+ create mode 100644 drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.c
+ create mode 100644 drivers/gpu/drm/amd/display/dmub/src/dmub_dcn30.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/athub/athub_2_1_0_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/athub/athub_2_1_0_sh_mask.h
+ create mode 100755 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_offset.h
+ create mode 100755 drivers/gpu/drm/amd/include/asic_reg/dcn/dcn_3_0_0_sh_mask.h
+ create mode 100755 drivers/gpu/drm/amd/include/asic_reg/dcn/dpcs_3_0_0_offset.h
+ create mode 100755 drivers/gpu/drm/amd/include/asic_reg/dcn/dpcs_3_0_0_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_default.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_3_0_0_offset.h
+ create mode 100644 drivers/gpu/drm/amd/include/asic_reg/vcn/vcn_3_0_0_sh_mask.h
+ create mode 100644 drivers/gpu/drm/amd/include/ivsrcid/sdma2/irqsrcs_sdma2_5_0.h
+ create mode 100644 drivers/gpu/drm/amd/include/ivsrcid/sdma3/irqsrcs_sdma3_5_0.h
+ create mode 100644 drivers/gpu/drm/amd/include/sienna_cichlid_ip_offset.h
+ create mode 100644 drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_sienna_cichlid.h
+ create mode 100644 drivers/gpu/drm/amd/powerplay/inc/smu_v11_0_7_ppsmc.h
+ create mode 100644 drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
+ create mode 100644 drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.h
+
+-- 
+2.25.4
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
