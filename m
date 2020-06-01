@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42157C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 398D2C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B9F8207D0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 132082077D
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XpVqr7fJ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B9F8207D0
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Puy7PG1Y"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 132082077D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D656E6E2B8;
-	Mon,  1 Jun 2020 18:04:20 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 695116E2B6
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:19 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id k22so8419934qtm.6
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:19 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B402C6E2BC;
+	Mon,  1 Jun 2020 18:04:21 +0000 (UTC)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B4EB6E2B8
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:20 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id y1so8403530qtv.12
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=JSE7nWXUpMkrov3wVIgUVDUZvtIHyH5iEJmGCf9ltAE=;
- b=XpVqr7fJSCc4ArhBC04tqyjMer9e8qP3yn6ORYhC/3afxDB01GXGq6Ged/2aTHNv1f
- EoaZQChKTria+Cko2k8n4kx/jnjvPOMTNG/bpCwu8YhK/ge4+nhh4D98Db66rZkh5edv
- JFJrns3F+Panp9vJPn0IJHF5b/eFfBAJGJ5rHXRrZyk+DqdXEC6v6IlaaFRnJMzZ8bgR
- 5hHpV1JUhza+X8/CbRldW/Sq34j+nSmEKT9W96oDT4QZDfjuv9Uvzt7SMbyi4+oz2X3y
- zV39UyozVYBFgwjGPFvw4dAsR4wmEieusOUdcwXiAgSQEqnzVXdwb03ic6BXQ4TcTpIn
- yTqQ==
+ bh=8pn61z/AZlCbW46Gle17K3TRBW4SV6Pv5/9zQKRYFNA=;
+ b=Puy7PG1Ydf2rcr8zoYg7S3H4/Kac9Si9BKsSAgw4sUCENtyejDEN5hdJ2wROvEM+Uu
+ WLFOg6FiP80SIqXGLLk3h3wzQD25/413NJn90f9F7q9IDlzFEqcI0ssc4tgOJmfEn6vj
+ Rtfm5l14zZ/QtPOZeV5s0qqXmSownreJb+WId8Erl59rgw/zgLNgd9HF12saUkRRhfpu
+ lwfesBl3vvpsuD8pm12h6O2IahYMw+c5qIpjSvStDXJp6cykgcNNneCckFU1ufXmEluD
+ +8finLKVIE9kjPckBNogXyfAJPDIBXpo4/rEc+Nu2z+cU8r1y7BOCkO57DTXmvqxyNG2
+ QgTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=JSE7nWXUpMkrov3wVIgUVDUZvtIHyH5iEJmGCf9ltAE=;
- b=jjQxIPTcYlfBpwZT3yxYFXRpA2YxJceePn4IVRt5zHg+PHboP3U1KH4gA+x+5Xvk3+
- iA5Fu7EiRHm+7lNqChp+E8+wKWSNRcOf6ElE72aGr6Bpx55JGZ9itPUMwN76bPfCuWNY
- uP6r75QeSd/15P0eA0A+Hgp8U+fqUm8SwnctxNiQOYWqsfVyZVcgP27SFMLHj5KUxi8O
- 3qX8gvwQjMH8Pkbjga95GLhZLPil3eklFEBDltVIR4GIJ1C5NBueg8HyDCztc7diiSxE
- hEtA0UAzUmxkDLF9IVY75hUz0tfVZA6dh5zakLNutYDMG6VbJp1cyL65JNh0UFW48EE8
- ghYA==
-X-Gm-Message-State: AOAM533uqXRdl+/4H95dbrzvVi/pZ6ROMUx9hmpGqLgxoQYlX6WKigGK
- 6NgSRx0wRR7dQpdd7VYYTkUJgQFu
-X-Google-Smtp-Source: ABdhPJwTgLZKDcKk6jOjVvKgIcH991NnyjxWdM9fgHGRUg4K5qXT91mjaq5DnIfN+O745iFZcIcUXw==
-X-Received: by 2002:ac8:1b99:: with SMTP id z25mr23073688qtj.209.1591034658347; 
- Mon, 01 Jun 2020 11:04:18 -0700 (PDT)
+ bh=8pn61z/AZlCbW46Gle17K3TRBW4SV6Pv5/9zQKRYFNA=;
+ b=JgYbWUVqhK+u0vy0kDmhvAsnoPR7KOH635D0aaXhDI9LbtJdxZnWcbUdAlsjKmPfN9
+ +QrpAKofWpnGXHG0MOaEq3DsY1pnWyP7Evk7JvKPUlJbtuKBA15SlAx8vzZoldbhP9P2
+ 6wX1r0ZIXxDi1USb+JKZ6wOezc44Xt0j1o0kNrzbwnJzuq7OLZJvAPo7Po+ovWrgYZX1
+ Ds+eRxVOSo1t/rDtrFe+tdQGehqVs9tBIoMlevzIIWBDp36WEvK1qgz3ss4oFLLcH0kT
+ BqlGYawz6UTdPnlgfXECFbdZzJ7Hc/4aboudyHJ4pZW6wLFYijJla8mWNmkz1A0O2IUi
+ I8cQ==
+X-Gm-Message-State: AOAM531hHx9MSZXb0VgTt8msdsqcFAt9N8u7H0shXFgiwbeiuCqDgzth
+ uHo10U7rtH6K5YyyATyQxsu6wt3g
+X-Google-Smtp-Source: ABdhPJxromzq2qQu/cmIvEs0Rh6vQWY7BNgooDIQ3JH9iTL38CI9WqMLGhraDYGDe6TvnnyQPtdLew==
+X-Received: by 2002:aed:3169:: with SMTP id 96mr22135403qtg.211.1591034659435; 
+ Mon, 01 Jun 2020 11:04:19 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.04.16
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.04.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:04:17 -0700 (PDT)
+ Mon, 01 Jun 2020 11:04:19 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 064/207] drm/amdgpu/mes10.1: install mes queue by register
- programming
-Date: Mon,  1 Jun 2020 14:00:16 -0400
-Message-Id: <20200601180239.1267430-61-alexander.deucher@amd.com>
+Subject: [PATCH 065/207] drm/amdgpu/mes10.1: install mes queue via kiq
+Date: Mon,  1 Jun 2020 14:00:17 -0400
+Message-Id: <20200601180239.1267430-62-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -90,85 +89,51 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Jack Xiao <Jack.Xiao@amd.com>
 
-Directly writing mes queue registers to set up it.
+Install mes queue via kiq. Disable it temporarily
+until it's workable.
 
 Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
 Acked-by: Alex Deucher <alexander.deucher@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mes_v10_1.c | 62 ++++++++++++++++++++++++++
- 1 file changed, 62 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/mes_v10_1.c | 27 ++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-index 36d8314b8d39..02c7e4807a3e 100644
+index 02c7e4807a3e..31e8e7120640 100644
 --- a/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
 +++ b/drivers/gpu/drm/amd/amdgpu/mes_v10_1.c
-@@ -480,6 +480,68 @@ static int mes_v10_1_mqd_init(struct amdgpu_ring *ring)
- 	return 0;
+@@ -542,6 +542,33 @@ static void mes_v10_1_queue_init_register(struct amdgpu_ring *ring)
+ 	mutex_unlock(&adev->srbm_mutex);
  }
  
-+static void mes_v10_1_queue_init_register(struct amdgpu_ring *ring)
++#if 0
++static int mes_v10_1_kiq_enable_queue(struct amdgpu_device *adev)
 +{
-+	struct v10_compute_mqd *mqd = ring->mqd_ptr;
-+	struct amdgpu_device *adev = ring->adev;
-+	uint32_t data = 0;
++	struct amdgpu_kiq *kiq = &adev->gfx.kiq;
++	struct amdgpu_ring *kiq_ring = &adev->gfx.kiq.ring;
++	int r;
 +
-+	mutex_lock(&adev->srbm_mutex);
-+	nv_grbm_select(adev, 3, 0, 0, 0);
++	if (!kiq->pmf || !kiq->pmf->kiq_map_queues)
++		return -EINVAL;
 +
-+	/* set CP_HQD_VMID.VMID = 0. */
-+	data = RREG32_SOC15(GC, 0, mmCP_HQD_VMID);
-+	data = REG_SET_FIELD(data, CP_HQD_VMID, VMID, 0);
-+	WREG32_SOC15(GC, 0, mmCP_HQD_VMID, data);
++	r = amdgpu_ring_alloc(kiq_ring, kiq->pmf->map_queues_size);
++	if (r) {
++		DRM_ERROR("Failed to lock KIQ (%d).\n", r);
++		return r;
++	}
 +
-+	/* set CP_HQD_PQ_DOORBELL_CONTROL.DOORBELL_EN=0 */
-+	data = RREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL);
-+	data = REG_SET_FIELD(data, CP_HQD_PQ_DOORBELL_CONTROL,
-+			     DOORBELL_EN, 0);
-+	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL, data);
++	kiq->pmf->kiq_map_queues(kiq_ring, &adev->mes.ring);
 +
-+	/* set CP_MQD_BASE_ADDR/HI with the MQD base address */
-+	WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADDR, mqd->cp_mqd_base_addr_lo);
-+	WREG32_SOC15(GC, 0, mmCP_MQD_BASE_ADDR_HI, mqd->cp_mqd_base_addr_hi);
-+
-+	/* set CP_MQD_CONTROL.VMID=0 */
-+	data = RREG32_SOC15(GC, 0, mmCP_MQD_CONTROL);
-+	data = REG_SET_FIELD(data, CP_MQD_CONTROL, VMID, 0);
-+	WREG32_SOC15(GC, 0, mmCP_MQD_CONTROL, 0);
-+
-+	/* set CP_HQD_PQ_BASE/HI with the ring buffer base address */
-+	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_BASE, mqd->cp_hqd_pq_base_lo);
-+	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_BASE_HI, mqd->cp_hqd_pq_base_hi);
-+
-+	/* set CP_HQD_PQ_RPTR_REPORT_ADDR/HI */
-+	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR_REPORT_ADDR,
-+		     mqd->cp_hqd_pq_rptr_report_addr_lo);
-+	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_RPTR_REPORT_ADDR_HI,
-+		     mqd->cp_hqd_pq_rptr_report_addr_hi);
-+
-+	/* set CP_HQD_PQ_CONTROL */
-+	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_CONTROL, mqd->cp_hqd_pq_control);
-+
-+	/* set CP_HQD_PQ_WPTR_POLL_ADDR/HI */
-+	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR,
-+		     mqd->cp_hqd_pq_wptr_poll_addr_lo);
-+	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_WPTR_POLL_ADDR_HI,
-+		     mqd->cp_hqd_pq_wptr_poll_addr_hi);
-+
-+	/* set CP_HQD_PQ_DOORBELL_CONTROL */
-+	WREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL,
-+		     mqd->cp_hqd_pq_doorbell_control);
-+
-+	/* set CP_HQD_PERSISTENT_STATE.PRELOAD_SIZE=0x53 */
-+	WREG32_SOC15(GC, 0, mmCP_HQD_PERSISTENT_STATE, mqd->cp_hqd_persistent_state);
-+
-+	/* set CP_HQD_ACTIVE.ACTIVE=1 */
-+	WREG32_SOC15(GC, 0, mmCP_HQD_ACTIVE, mqd->cp_hqd_active);
-+
-+	nv_grbm_select(adev, 0, 0, 0, 0);
-+	mutex_unlock(&adev->srbm_mutex);
++	r = amdgpu_ring_test_ring(kiq_ring);
++	if (r) {
++		DRM_ERROR("kfq enable failed\n");
++		kiq_ring->sched.ready = false;
++	}
++	return r;
 +}
++#endif
 +
  static int mes_v10_1_ring_init(struct amdgpu_device *adev)
  {
