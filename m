@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0989EC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7ABB0C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CEFC62077D
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:06 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 544DC206E2
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:04:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lTgRWmc7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CEFC62077D
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I6Tgb2Kg"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 544DC206E2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F2A16E2A3;
-	Mon,  1 Jun 2020 18:04:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E5BC6E2A5;
+	Mon,  1 Jun 2020 18:04:08 +0000 (UTC)
 Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
  [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0E9E6E2A3
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:04 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id i68so8440068qtb.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:04 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 084016E2A5
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:04:07 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id z1so8470423qtn.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:04:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=UA93pkbA4xrCKt339sGdnsClZC2Z3g9Chuu/bgVLXZ0=;
- b=lTgRWmc7e+SV6TFiywch75swaysXmgCjsF2b4WJor7yquEL145Og1xETTJE/DEvAss
- ryohiN7v4KbcE2ggEq4wXchA34u8gdGS5NhtLW2KT8uMzOD6POENcYBkFTkg5Vv81IIa
- XvvfRiAqf/j+NS7GoqVc+y451y3cDNWCNxXsHHOFa1L4yzRJup/nbWqU4OIb432Mb90I
- gQIAFG8yU2KbfxGU3V5PzRjKZ6GsCG5u+lboawJdHVG7MWf8OsMz/gjSFIR4Xq9vwBGu
- MvvYzp76UC/RBXrEdVJ8KIkZcfjCdVkbILw38N5b1LxeKL6DN7rOwhrgwqY0ueh4Fuqo
- EhVw==
+ bh=trChD28lI+3+dcB5J1UPiOSAN1i6lK2r3bslViIznTk=;
+ b=I6Tgb2KggE4Kw+lo/6mDRMS2fr7FD2RucFzftp7alp1PeaUa/sC9ZrBChp8XFmFA0M
+ xtf6pPA8ypwcL33bzM012BPgY5OEvTHuuWIOs3W7Z1RAZa0l523DN3Gxc+nGz0s3d6E0
+ IlZ69u50iE0T6EB0I3HdwHMz99549HPTX/Fb1c6OB3k853hESK7jeOsDbInnLtLzCemE
+ XXtBIOtbNRZsRK8VfqpzddP/R4S5bFa96huntZiKb2BXFQEb466I9nZZvIuZl1xJ5R0Z
+ PVAWvMSoXNrcIdVxK162dh5xDIwQxGmcu7aVEKPjEy3rjMsNA380MMOfSrx7J5cSbsV1
+ f+oQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=UA93pkbA4xrCKt339sGdnsClZC2Z3g9Chuu/bgVLXZ0=;
- b=oS3Izvne5abve9Qu9YioOzc//GzdVvzfKxEJyizHFAO+8+L2kxBw2eh0WbDnmoYxxk
- wBMmxe7wTQ+HoIZN+Ct2XVp9iLDDEf1HT4J1aMBpkWrM+/FscCTTpkxQaENUYP+/YSAf
- tlRYb2AbruNHEmWt+jRKRPdJ5yLRj2HHMpQMbJde3A98TZ+9rImnOzUBtOr9xXosjHSa
- J52iTLnGIZy9yje4PdPIjl+hOUbRd7v2Q9uut+P4EE6dfvdm6jpJErwCxSunEGrIU832
- FnPj16X9lOFs3bGBPxJubCyKrshfkRIogPN++6aEfnTV5XGo+ERzJ7kUQiOiWd6abEAv
- eE+w==
-X-Gm-Message-State: AOAM532Hma+EvMyZoAtbIlEvvXqMW/jwxxkxACLQDie9EkNOaDKkzbQ5
- n57SPLoDTl26vT53qvAeVyP9s301
-X-Google-Smtp-Source: ABdhPJzgoccei1JlC+vmHGqXnkHfyj9mHbzNWn7BRo3mCiIRWEgBpEsFlcQZiwP6J03PKnmbQWueyA==
-X-Received: by 2002:ac8:4d0e:: with SMTP id w14mr20706791qtv.266.1591034643907; 
- Mon, 01 Jun 2020 11:04:03 -0700 (PDT)
+ bh=trChD28lI+3+dcB5J1UPiOSAN1i6lK2r3bslViIznTk=;
+ b=ZISkVcHtYbTxxL2ruojkYiMzDNsmiTwMkDt7FgGfkMzqB52bkvoaVy4KocY+NODJ2I
+ tpLGnyFDq874u2la5k5Ofst0LUEylbDuMF7hp3pbmClyqGX1zrlhZcbDFWEXgT/XyOuA
+ IZAp2MZKs4HeFWba45BNcizqGhUiJrkCnLwHCNVcTyM6S131NsZoQGaa9l8CEqPppaqz
+ 2zn50Zir1AfQX5BPPA7XrC36gVQQ+8+yfH0/q6/rZXYxLKTt2nt0O4wISwYNRlXOK4aK
+ Sui+cge76zK05cWi6aIIys9n8TU0i/rZfMv0poFImpafe/BR3W0U/XbFOw72Eqoq2L1v
+ II3g==
+X-Gm-Message-State: AOAM5325SFW1hT4vxyKIGUDcSK+OpJdodB/9D2JzQ2kq9VFa5Cqn1c67
+ 06Hln/8QfD3C2DR0gwIyDYhPJuBn
+X-Google-Smtp-Source: ABdhPJz5ExJXAZY27tuTDnNg70LWnpt3N1Jcl6glE78WDUNYe0ZGRC/1WQk93IU+kjPKjFrJbzPtKA==
+X-Received: by 2002:aed:206c:: with SMTP id 99mr23200326qta.87.1591034644962; 
+ Mon, 01 Jun 2020 11:04:04 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.04.02
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.04.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:04:03 -0700 (PDT)
+ Mon, 01 Jun 2020 11:04:04 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 054/207] drm/amdgpu: add 2rd VCN instance doorbell support
-Date: Mon,  1 Jun 2020 14:00:06 -0400
-Message-Id: <20200601180239.1267430-51-alexander.deucher@amd.com>
+Subject: [PATCH 055/207] drm/amdgpu: assign the doorbell index to mes ring
+Date: Mon,  1 Jun 2020 14:00:07 -0400
+Message-Id: <20200601180239.1267430-52-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -80,69 +80,59 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, James Zhu <James.Zhu@amd.com>,
- Leo Liu <leo.liu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Liu <leo.liu@amd.com>
+From: Jack Xiao <Jack.Xiao@amd.com>
 
-Sienna_Cichlid have 2 VCN instances, using different register for range
+MES ring will use the assigned doorbell index for
+command submission.
 
-Signed-off-by: Leo Liu <leo.liu@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Reviewed-by: James Zhu <James.Zhu@amd.com>
+Signed-off-by: Jack Xiao <Jack.Xiao@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h | 7 ++++++-
- drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c       | 6 +++++-
- 2 files changed, 11 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h | 2 ++
+ drivers/gpu/drm/amd/amdgpu/nv.c              | 1 +
+ 2 files changed, 3 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
-index b8eb5ece37c0..821289bff93a 100644
+index 821289bff93a..89e6ad30396f 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_doorbell.h
-@@ -193,8 +193,13 @@ typedef enum _AMDGPU_NAVI10_DOORBELL_ASSIGNMENT
- 	AMDGPU_NAVI10_DOORBELL64_VCN4_5			= 0x18A,
- 	AMDGPU_NAVI10_DOORBELL64_VCN6_7			= 0x18B,
- 
-+	AMDGPU_NAVI10_DOORBELL64_VCN8_9			= 0x18C,
-+	AMDGPU_NAVI10_DOORBELL64_VCNa_b			= 0x18D,
-+	AMDGPU_NAVI10_DOORBELL64_VCNc_d			= 0x18E,
-+	AMDGPU_NAVI10_DOORBELL64_VCNe_f			= 0x18F,
-+
- 	AMDGPU_NAVI10_DOORBELL64_FIRST_NON_CP		= AMDGPU_NAVI10_DOORBELL_sDMA_ENGINE0,
--	AMDGPU_NAVI10_DOORBELL64_LAST_NON_CP		= AMDGPU_NAVI10_DOORBELL64_VCN6_7,
-+	AMDGPU_NAVI10_DOORBELL64_LAST_NON_CP		= AMDGPU_NAVI10_DOORBELL64_VCNe_f,
- 
- 	AMDGPU_NAVI10_DOORBELL_MAX_ASSIGNMENT		= 0x18F,
- 	AMDGPU_NAVI10_DOORBELL_INVALID			= 0xFFFF
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-index 4a00b064be10..7429f30398b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v2_3.c
-@@ -38,6 +38,9 @@
- #define mmBIF_SDMA3_DOORBELL_RANGE		0x01d7
- #define mmBIF_SDMA3_DOORBELL_RANGE_BASE_IDX	2
- 
-+#define mmBIF_MMSCH1_DOORBELL_RANGE		0x01d8
-+#define mmBIF_MMSCH1_DOORBELL_RANGE_BASE_IDX	2
-+
- static void nbio_v2_3_remap_hdp_registers(struct amdgpu_device *adev)
- {
- 	WREG32_SOC15(NBIO, 0, mmREMAP_HDP_MEM_FLUSH_CNTL,
-@@ -109,7 +112,8 @@ static void nbio_v2_3_sdma_doorbell_range(struct amdgpu_device *adev, int instan
- static void nbio_v2_3_vcn_doorbell_range(struct amdgpu_device *adev, bool use_doorbell,
- 					 int doorbell_index, int instance)
- {
--	u32 reg = SOC15_REG_OFFSET(NBIO, 0, mmBIF_MMSCH0_DOORBELL_RANGE);
-+	u32 reg = instance ? SOC15_REG_OFFSET(NBIO, 0, mmBIF_MMSCH1_DOORBELL_RANGE) :
-+		SOC15_REG_OFFSET(NBIO, 0, mmBIF_MMSCH0_DOORBELL_RANGE);
- 
- 	u32 doorbell_range = RREG32(reg);
- 
+@@ -53,6 +53,7 @@ struct amdgpu_doorbell_index {
+ 	uint32_t gfx_ring0;
+ 	uint32_t gfx_ring1;
+ 	uint32_t sdma_engine[8];
++	uint32_t mes_ring;
+ 	uint32_t ih;
+ 	union {
+ 		struct {
+@@ -177,6 +178,7 @@ typedef enum _AMDGPU_NAVI10_DOORBELL_ASSIGNMENT
+ 	AMDGPU_NAVI10_DOORBELL_USERQUEUE_END		= 0x08A,
+ 	AMDGPU_NAVI10_DOORBELL_GFX_RING0		= 0x08B,
+ 	AMDGPU_NAVI10_DOORBELL_GFX_RING1		= 0x08C,
++	AMDGPU_NAVI10_DOORBELL_MES_RING		        = 0x090,
+ 	/* SDMA:256~335*/
+ 	AMDGPU_NAVI10_DOORBELL_sDMA_ENGINE0		= 0x100,
+ 	AMDGPU_NAVI10_DOORBELL_sDMA_ENGINE1		= 0x10A,
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index b4178ce267f3..cad66cb1b6c2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -573,6 +573,7 @@ static void nv_init_doorbell_index(struct amdgpu_device *adev)
+ 	adev->doorbell_index.userqueue_end = AMDGPU_NAVI10_DOORBELL_USERQUEUE_END;
+ 	adev->doorbell_index.gfx_ring0 = AMDGPU_NAVI10_DOORBELL_GFX_RING0;
+ 	adev->doorbell_index.gfx_ring1 = AMDGPU_NAVI10_DOORBELL_GFX_RING1;
++	adev->doorbell_index.mes_ring = AMDGPU_NAVI10_DOORBELL_MES_RING;
+ 	adev->doorbell_index.sdma_engine[0] = AMDGPU_NAVI10_DOORBELL_sDMA_ENGINE0;
+ 	adev->doorbell_index.sdma_engine[1] = AMDGPU_NAVI10_DOORBELL_sDMA_ENGINE1;
+ 	adev->doorbell_index.sdma_engine[2] = AMDGPU_NAVI10_DOORBELL_sDMA_ENGINE2;
 -- 
 2.25.4
 
