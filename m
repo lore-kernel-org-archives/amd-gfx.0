@@ -8,64 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB90FC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49865C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 865A02073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 08BD22073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tYryil6d"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 865A02073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="maS7d2o2"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 08BD22073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48A6C6E357;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAD816E35D;
 	Mon,  1 Jun 2020 18:22:33 +0000 (UTC)
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A948D6E358
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:31 +0000 (UTC)
-Received: by mail-qk1-x743.google.com with SMTP id c185so10009466qke.7
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:31 -0700 (PDT)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A3B686E357
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:32 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id g18so8452609qtu.13
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=XxuaFK/I1zuwrGBSgOOXB8SkyuzRXsLIaysejvpMOME=;
- b=tYryil6ds0NaKgCzqhGp7rCkRwnBmYFFoz240CUisOca93JxV9hvKs6Z0ltsz+tQNe
- HoaauH/iarGXICJdBxxUThIdEgif8tBeLrUMmFnJEVQoG1oe1BPVte598VCYJK8RXAu/
- z2vWtpfqZQf25e14NNTcAEYIvghJYF5UD6K2cDxjVXPAGYCfGSXCICHPLNtAMnohhcjb
- utBhXelWSz1vepmlLdKJ3kLtHA2rle6v539X6kvoLLRl2aDXblzPJvMtt3LJcy/dv8kd
- 8pnFEKr67q7D1i7p5V52JEC36SUrmc/anSTQ6dwD4YT5v2SNl1sB8d1hRdItMjr7/Shn
- XBuw==
+ bh=ooTmEIOLCn6ykc7KkzQlvOiog1LLVRRbNISBj+x/Khw=;
+ b=maS7d2o2NU0xgPJMvySR44YZjuKVLScYUUl6ZJ3h2D8ERLhmzDaU3nH30JnmNkz2xo
+ u1fJaDHK8T8FFKq4+gYvZcNn+eHKyNPF7tP3ekSyn0X/lwBYPaMDwp25DdXpYDqZWIrg
+ oEcgOi6cIyIgCC70gZbzg7TUBrojZ4J1JuopRRvBvmETFuD53nlHvbCvWhEZ3XZnSPaH
+ rYBGQB0/cOgl1ufoBmFVgd7cBjYcCT+t+8tCDdkmEml90lJp0WZnA/bQa8tPU1m/KcL/
+ 1V9ZCS5vM3zoV/vrZmN7Yi6tazr3QHn0aV9WI7W4sJyyNZ8s2TyjoL+BBQlvJnBq1mjX
+ ksbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=XxuaFK/I1zuwrGBSgOOXB8SkyuzRXsLIaysejvpMOME=;
- b=mCvg95AQ32V8uKwTU+skdv/tslVVkCQUeyocTv7HyR1mqhRGYoROg/SucAYICOTc8+
- PXd+UT+LHP1xPqm5/9KRwnHtQ1+E6Sg4/AAzwPPvhimqnpMC4/CGqsa7uLelRsP3R1CU
- fe6tvfS/JRypGCZIlBaF62z9WMgV59SBImASWllNF6evFnVrz1CKxdUIouMJtGggxxHu
- 92eXw5L1vZ2kGKvw+Hy3B3j3PnF8vYclG/EaRXSQPXYeu4ockM+f6tjukBGdIL0GieZq
- hYzKeFQSliVTH2aJjEM9OT1YwpKFIwedlTQejtc8f+9cvNgTHavXbwr9oyypf/4i6M76
- +WDQ==
-X-Gm-Message-State: AOAM532yuILetiPoIvX9083Rjh3kRW3JqJ8Ir56v5wtlFKMS0EU0OdMT
- tABfyDyAf9svAqPagyOoXb2y0R8t
-X-Google-Smtp-Source: ABdhPJwiTaljLGzt/XgSSnU2Gi39Nrv8ocyy6Bwq325qruVFeYD870+GGIChgKN9Gpq0+f1Zt68Hvg==
-X-Received: by 2002:a37:6851:: with SMTP id d78mr20960096qkc.86.1591035750548; 
- Mon, 01 Jun 2020 11:22:30 -0700 (PDT)
+ bh=ooTmEIOLCn6ykc7KkzQlvOiog1LLVRRbNISBj+x/Khw=;
+ b=sQTT2Gb2juQzdzdewkRd21PH34hSHYGBMnK7RuBvNNfLDcQnomrmrXiTZqa6MKwwqv
+ TRGya2CtQbr+lYxT53peVNBru/UumtIMB6z5TZ3rKOtAf35WMBRr8qkF1FVb3WEVwDpo
+ w5WmIUz0CDNd/a8PRGp7uxfjb3iURXGA0TOcRZS9Hxh8mqc7iSn1vyDo0XRxBp9T4hjZ
+ UTUNnbap8zeMtDVeNi7/liKhzSTtgujEk6aBISNJxSgOLX734cWwU1EeDpQfR+eJ4ydf
+ Svv7tNhJGScAaMFIeBgXuPddtEg3r/8NELPBjF0rYMUaCqBN4q38EkVBTLnRQXoNXibe
+ 0+bA==
+X-Gm-Message-State: AOAM530/q7pyYsmZ/9ri8YyEB6xsp4PevZUqF0kchxA51oZ6PIpUklOc
+ ZRP/fPVojQMe7eTMToob6phh7pyO
+X-Google-Smtp-Source: ABdhPJxnDaZ3i7Sdrn8VjDjHgVCuL4Xyy7NB//1CJhbvzUYsT6oj16uVhG8pvXWoGU4k14iSYARTpQ==
+X-Received: by 2002:aed:35af:: with SMTP id c44mr23530886qte.349.1591035751665; 
+ Mon, 01 Jun 2020 11:22:31 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.29
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:22:30 -0700 (PDT)
+ Mon, 01 Jun 2020 11:22:31 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 156/207] drm/amd/powerplay: append pptable for sienna_cichlid
- (v2)
-Date: Mon,  1 Jun 2020 14:20:03 -0400
-Message-Id: <20200601182054.1267858-67-alexander.deucher@amd.com>
+Subject: [PATCH 157/207] drm/amd/powerplay: enable VDDCI and MVDD for
+ sienna_cichlid
+Date: Mon,  1 Jun 2020 14:20:04 -0400
+Message-Id: <20200601182054.1267858-68-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -90,129 +90,30 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-Add function to append powerplay table from vbios for sienna_cichlid.
-
-v2: squash in warning fix
+Enable VDDCI and MVDD if PP_MCLK_DPM_MASK was enable for sienna_cichlid.
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 101 ++++++++++++++++++
- 1 file changed, 101 insertions(+)
+ drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index 8e3fe192e50a..5589838a2238 100644
+index 5589838a2238..6223ecf3c11b 100644
 --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -358,6 +358,107 @@ static int sienna_cichlid_check_powerplay_table(struct smu_context *smu)
+@@ -321,7 +321,9 @@ sienna_cichlid_get_allowed_feature_mask(struct smu_context *smu,
+ 	}
  
- static int sienna_cichlid_append_powerplay_table(struct smu_context *smu)
- {
-+	struct smu_table_context *table_context = &smu->smu_table;
-+	PPTable_t *smc_pptable = table_context->driver_pptable;
-+	struct atom_smc_dpm_info_v4_9 *smc_dpm_table;
-+	int index, ret;
-+	int i;
-+
-+	index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
-+					    smc_dpm_info);
-+
-+	ret = smu_get_atom_data_table(smu, index, NULL, NULL, NULL,
-+				      (uint8_t **)&smc_dpm_table);
-+	if (ret)
-+		return ret;
-+
-+	memcpy(smc_pptable->I2cControllers, smc_dpm_table->I2cControllers,
-+	       sizeof(I2cControllerConfig_t) * NUM_I2C_CONTROLLERS);
-+
-+	/* SVI2 Board Parameters */
-+	smc_pptable->VddGfxVrMapping = smc_dpm_table->VddGfxVrMapping;
-+	smc_pptable->VddSocVrMapping = smc_dpm_table->VddSocVrMapping;
-+	smc_pptable->VddMem0VrMapping = smc_dpm_table->VddMem0VrMapping;
-+	smc_pptable->VddMem1VrMapping = smc_dpm_table->VddMem1VrMapping;
-+	smc_pptable->GfxUlvPhaseSheddingMask = smc_dpm_table->GfxUlvPhaseSheddingMask;
-+	smc_pptable->SocUlvPhaseSheddingMask = smc_dpm_table->SocUlvPhaseSheddingMask;
-+	smc_pptable->VddciUlvPhaseSheddingMask = smc_dpm_table->VddciUlvPhaseSheddingMask;
-+	smc_pptable->MvddUlvPhaseSheddingMask = smc_dpm_table->MvddUlvPhaseSheddingMask;
-+
-+	/* Telemetry Settings */
-+	smc_pptable->GfxMaxCurrent = smc_dpm_table->GfxMaxCurrent;
-+	smc_pptable->GfxOffset = smc_dpm_table->GfxOffset;
-+	smc_pptable->Padding_TelemetryGfx = smc_dpm_table->Padding_TelemetryGfx;
-+	smc_pptable->SocMaxCurrent = smc_dpm_table->SocMaxCurrent;
-+	smc_pptable->SocOffset = smc_dpm_table->SocOffset;
-+	smc_pptable->Padding_TelemetrySoc = smc_dpm_table->Padding_TelemetrySoc;
-+	smc_pptable->Mem0MaxCurrent = smc_dpm_table->Mem0MaxCurrent;
-+	smc_pptable->Mem0Offset = smc_dpm_table->Mem0Offset;
-+	smc_pptable->Padding_TelemetryMem0 = smc_dpm_table->Padding_TelemetryMem0;
-+	smc_pptable->Mem1MaxCurrent = smc_dpm_table->Mem1MaxCurrent;
-+	smc_pptable->Mem1Offset = smc_dpm_table->Mem1Offset;
-+	smc_pptable->Padding_TelemetryMem1 = smc_dpm_table->Padding_TelemetryMem1;
-+	smc_pptable->MvddRatio = smc_dpm_table->MvddRatio;
-+
-+	/* GPIO Settings */
-+	smc_pptable->AcDcGpio = smc_dpm_table->AcDcGpio;
-+	smc_pptable->AcDcPolarity = smc_dpm_table->AcDcPolarity;
-+	smc_pptable->VR0HotGpio = smc_dpm_table->VR0HotGpio;
-+	smc_pptable->VR0HotPolarity = smc_dpm_table->VR0HotPolarity;
-+	smc_pptable->VR1HotGpio = smc_dpm_table->VR1HotGpio;
-+	smc_pptable->VR1HotPolarity = smc_dpm_table->VR1HotPolarity;
-+	smc_pptable->GthrGpio = smc_dpm_table->GthrGpio;
-+	smc_pptable->GthrPolarity = smc_dpm_table->GthrPolarity;
-+
-+	/* LED Display Settings */
-+	smc_pptable->LedPin0 = smc_dpm_table->LedPin0;
-+	smc_pptable->LedPin1 = smc_dpm_table->LedPin1;
-+	smc_pptable->LedPin2 = smc_dpm_table->LedPin2;
-+	smc_pptable->LedEnableMask = smc_dpm_table->LedEnableMask;
-+	smc_pptable->LedPcie = smc_dpm_table->LedPcie;
-+	smc_pptable->LedError = smc_dpm_table->LedError;
-+	smc_pptable->LedSpare1[0] = smc_dpm_table->LedSpare1[0];
-+	smc_pptable->LedSpare1[1] = smc_dpm_table->LedSpare1[1];
-+
-+	/* GFXCLK PLL Spread Spectrum */
-+	smc_pptable->PllGfxclkSpreadEnabled = smc_dpm_table->PllGfxclkSpreadEnabled;
-+	smc_pptable->PllGfxclkSpreadPercent = smc_dpm_table->PllGfxclkSpreadPercent;
-+	smc_pptable->PllGfxclkSpreadFreq = smc_dpm_table->PllGfxclkSpreadFreq;
-+
-+	/* GFXCLK DFLL Spread Spectrum */
-+	smc_pptable->DfllGfxclkSpreadEnabled = smc_dpm_table->DfllGfxclkSpreadEnabled;
-+	smc_pptable->DfllGfxclkSpreadPercent = smc_dpm_table->DfllGfxclkSpreadPercent;
-+	smc_pptable->DfllGfxclkSpreadFreq = smc_dpm_table->DfllGfxclkSpreadFreq;
-+
-+	/* UCLK Spread Spectrum */
-+	smc_pptable->UclkSpreadEnabled = smc_dpm_table->UclkSpreadEnabled;
-+	smc_pptable->UclkSpreadPercent = smc_dpm_table->UclkSpreadPercent;
-+	smc_pptable->UclkSpreadFreq = smc_dpm_table->UclkSpreadFreq;
-+
-+	/* FCLK Spred Spectrum */
-+	smc_pptable->FclkSpreadEnabled = smc_dpm_table->FclkSpreadEnabled;
-+	smc_pptable->FclkSpreadPercent = smc_dpm_table->FclkSpreadPercent;
-+	smc_pptable->FclkSpreadFreq = smc_dpm_table->FclkSpreadFreq;
-+
-+	/* Memory Config */
-+	smc_pptable->MemoryChannelEnabled = smc_dpm_table->MemoryChannelEnabled;
-+	smc_pptable->DramBitWidth = smc_dpm_table->DramBitWidth;
-+	smc_pptable->PaddingMem1[0] = smc_dpm_table->PaddingMem1[0];
-+	smc_pptable->PaddingMem1[1] = smc_dpm_table->PaddingMem1[1];
-+	smc_pptable->PaddingMem1[2] = smc_dpm_table->PaddingMem1[2];
-+
-+	/* Total board power */
-+	smc_pptable->TotalBoardPower = smc_dpm_table->TotalBoardPower;
-+	smc_pptable->BoardPowerPadding = smc_dpm_table->BoardPowerPadding;
-+
-+	/* XGMI Training */
-+	for (i = 0; i < NUM_XGMI_PSTATE_LEVELS; i++) {
-+		smc_pptable->XgmiLinkSpeed[i] = smc_dpm_table->XgmiLinkSpeed[i];
-+		smc_pptable->XgmiLinkWidth[i] = smc_dpm_table->XgmiLinkWidth[i];
-+		smc_pptable->XgmiFclkFreq[i] = smc_dpm_table->XgmiFclkFreq[i];
-+		smc_pptable->XgmiSocVoltage[i] = smc_dpm_table->XgmiSocVoltage[i];
-+	}
-+
- 	return 0;
- }
+ 	if (adev->pm.pp_feature & PP_MCLK_DPM_MASK)
+-		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_UCLK_BIT);
++		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_UCLK_BIT)
++					| FEATURE_MASK(FEATURE_MEM_VDDCI_SCALING_BIT)
++					| FEATURE_MASK(FEATURE_MEM_MVDD_SCALING_BIT);
  
+ 	if (adev->pm.pp_feature & PP_PCIE_DPM_MASK)
+ 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_LINK_BIT);
 -- 
 2.25.4
 
