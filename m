@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EEC33C433E3
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F29C4C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C7749208A9
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:10 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C829D208E4
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:11 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J4ypQLth"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7749208A9
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lhaPq0cQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C829D208E4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 647176E0D4;
-	Mon,  1 Jun 2020 18:03:10 +0000 (UTC)
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
- [IPv6:2607:f8b0:4864:20::f35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 892376E261
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:03:09 +0000 (UTC)
-Received: by mail-qv1-xf35.google.com with SMTP id e20so472765qvu.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:03:09 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 858F66E0DC;
+	Mon,  1 Jun 2020 18:03:11 +0000 (UTC)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB7E56E170
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:03:10 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id y1so8400074qtv.12
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:03:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=344f917Pzm9eUaS7lm24wwOWzG+7u3j27cmn0tA5UKE=;
- b=J4ypQLthbcR3lqI/sWFXepicBMCSnFqsoBScyDuMXmiR71ZK8KVqiCzvcnxVWuuTt3
- 6Kn51rojl9BaLJVjJslJtOrv2zaMt9uG0SOdEDZOjZ95APF4TxokaWjTRE1z0sK40imv
- 9tSTtVNmT4i+v4BPRDGEgcefNBpO3k2KG+uy9DSSg/O5RhXC92tHubzyaTGFb16Fts5A
- VsE6SNrBCEy4sOj3X9k/neOzwX2NCkG6NXJO4dNGOGH+WmjN+6NnqoTmgIyQ6DHbTG6q
- GLurxV/E2oYk93x1Jb8i14VJJ3V9qy5Dzm/GD7oRRRGsZrLUFiN7hwcVaQMGJHkE6Egl
- S+yQ==
+ bh=Zvb7XqIxhMDmNtQQReSDgTwr9hPM1oq4w/N9w9R+BXc=;
+ b=lhaPq0cQPLNXYug3toCP/o88BlsrFw8uVpURxS/wosWzdSLPgPyILzKHbWxO7jJx1l
+ c81o3cG/NIV2kxQIhjuyFl6JF1OxFdOJTZQqj2p+/WskeSvJQc5S7J1yq4yDR4PhNxL8
+ RVLj1P09Pv9Ju1EqdEeW/BFrHFB/OhHmfvjUctBzcARdkLawXsuptFoiMDzdbH8QnD71
+ 6I8gw/voJmq8KQHCTfSrolaER7Bgh5aPIcZTWxbGjpA6BuOAHa0ltr3U4/bmfoNaeqH0
+ ZkgK1HJ+WmIXqo7q2w+e+diJtks6uNl6lOPAE9TEj4iukDpXCG/I4EerbVciH9DSZBXT
+ FS3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=344f917Pzm9eUaS7lm24wwOWzG+7u3j27cmn0tA5UKE=;
- b=orMDdEaeVuyt2IuDy0ONB2Ndq0u4CduvWHimbLQeKT2TD6gLeQ80C1Fe0xUv4KWuS1
- Z7CkWkt40xeNlrWuNOsbVFTMF7PjRRwnpHotL8Fci+mrJnD3Do5C0TQNXGcwGKFw8sdP
- AnXbDBCz2exnQbGsxXB0YCgPnr5EnjX6hsdouv4q6U+uxFesPVxJPmrF7fxIE0k21PQa
- +nlNxvJv1EGCdNhM0AZTq434dHOrPptgjKTzpQTiLBt4WkF5GARmwiJS5DJCsrY4iG/L
- mrdov/fVD37QSyDquoBG/oJ0FCfzd77XjBQklc/evyOz2D6Kc66k0G8cITW/ZDWGbrRt
- VXnw==
-X-Gm-Message-State: AOAM532jdPAGYXi6oC8Pd5zuKY9TdDiVK6AaEajIqMCP4e06A41fQpq5
- qH6T77GsY5RpJBETAuhDMN+arC78
-X-Google-Smtp-Source: ABdhPJz/6+ntsVtpfxWdjg0QYjnnwVewBkLgMR0CeVTVjlSNPCpYiUSJ8nT5eYA1k6ahlDjrj/CHlA==
-X-Received: by 2002:a0c:e385:: with SMTP id a5mr22523783qvl.81.1591034588480; 
- Mon, 01 Jun 2020 11:03:08 -0700 (PDT)
+ bh=Zvb7XqIxhMDmNtQQReSDgTwr9hPM1oq4w/N9w9R+BXc=;
+ b=Bcqrn/NiX8pGZKYqV0UenNb4PFG1HDD38qQ0AUivzGv3JiOzJEauJ6zoesrnggWGkx
+ nL74PqrB+cvSI/SjZkrTOdw/uYYprKuDIWw3AGv68O6H3M94dim+w+yIXR75H4BsCX3R
+ H+B7+54tYy+VOjGFoo+3Ku/ZyQIkpZsZer4PAv9LCnLeoT1jp09SFBioSKkZvqkEsR2h
+ iwhocogbWzGY1620vEQmPLY+TmUWHAPl06BZI44N3D6gIi7q750oEPNgKthRrggyXyLn
+ H/7AdzSG5+2SzW8YSQNK8oC/VJnieMZd889H1QQ7qbaHy5XIxQJIlErmYbLRm9S+7yEE
+ /zhg==
+X-Gm-Message-State: AOAM530SfDVYjUVEMRqK2OK8FgZvx0trPZElPxBUDt94QamtaAFOpwgG
+ E+/j+O3wVICXBPLRWGdmrYzH9D99
+X-Google-Smtp-Source: ABdhPJz55MFRpmUKAguN2CPBzZ8SADfI6FGr1RFb8gvmKttJ4zKSiHpNYQEeOlCyel4atCSTNTzUmg==
+X-Received: by 2002:ac8:53cf:: with SMTP id c15mr23936182qtq.230.1591034589603; 
+ Mon, 01 Jun 2020 11:03:09 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.03.07
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.03.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:03:07 -0700 (PDT)
+ Mon, 01 Jun 2020 11:03:09 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 018/207] drm/amdgpu: add ih ip block for sienna_cichlid
-Date: Mon,  1 Jun 2020 13:59:30 -0400
-Message-Id: <20200601180239.1267430-15-alexander.deucher@amd.com>
+Subject: [PATCH 019/207] drm/amdgpu: add gfx ip block for sienna_cichlid (v3)
+Date: Mon,  1 Jun 2020 13:59:31 -0400
+Message-Id: <20200601180239.1267430-16-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -89,64 +89,88 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-Update IH handling for sienna_cichlid
+Add support for GC 10.3.
+
+v2: Squash in gb_addr_config fix (Alex)
+v3: Add num_pkrs support (Alex)
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c | 21 +++++++++++++++++----
- drivers/gpu/drm/amd/amdgpu/nv.c        |  1 +
- 2 files changed, 18 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  1 +
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  | 15 +++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/nv.c         |  1 +
+ 3 files changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-index f97857ed3c7e..471dc82fd1aa 100644
---- a/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-+++ b/drivers/gpu/drm/amd/amdgpu/navi10_ih.c
-@@ -34,6 +34,9 @@
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index d43c11671a38..50be8e3a443b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -134,6 +134,7 @@ struct gb_addr_config {
+ 	uint8_t num_banks;
+ 	uint8_t num_se;
+ 	uint8_t num_rb_per_se;
++	uint8_t num_pkrs;
+ };
  
- #define MAX_REARM_RETRY 10
+ struct amdgpu_gfx_config {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index 8a6a9ba85714..feedbde0565d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -63,6 +63,9 @@
+ #define mmCGTT_GS_NGG_CLK_CTRL	0x5087
+ #define mmCGTT_GS_NGG_CLK_CTRL_BASE_IDX	1
  
-+#define mmIH_CHICKEN_Sienna_Cichlid                 0x018d
-+#define mmIH_CHICKEN_Sienna_Cichlid_BASE_IDX        0
++#define GB_ADDR_CONFIG__NUM_PKRS__SHIFT                                                                       0x8
++#define GB_ADDR_CONFIG__NUM_PKRS_MASK                                                                         0x00000700L
 +
- static void navi10_ih_set_interrupt_funcs(struct amdgpu_device *adev);
- 
- /**
-@@ -265,10 +268,20 @@ static int navi10_ih_irq_init(struct amdgpu_device *adev)
- 
- 	if (unlikely(adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT)) {
- 		if (ih->use_bus_addr) {
--			ih_chicken = RREG32_SOC15(OSSSYS, 0, mmIH_CHICKEN);
--			ih_chicken = REG_SET_FIELD(ih_chicken,
--					IH_CHICKEN, MC_SPACE_GPA_ENABLE, 1);
--			WREG32_SOC15(OSSSYS, 0, mmIH_CHICKEN, ih_chicken);
-+			switch (adev->asic_type) {
-+			case CHIP_SIENNA_CICHLID:
-+				ih_chicken = RREG32_SOC15(OSSSYS, 0, mmIH_CHICKEN_Sienna_Cichlid);
-+				ih_chicken = REG_SET_FIELD(ih_chicken,
-+						IH_CHICKEN, MC_SPACE_GPA_ENABLE, 1);
-+				WREG32_SOC15(OSSSYS, 0, mmIH_CHICKEN_Sienna_Cichlid, ih_chicken);
-+				break;
-+			default:
-+				ih_chicken = RREG32_SOC15(OSSSYS, 0, mmIH_CHICKEN);
-+				ih_chicken = REG_SET_FIELD(ih_chicken,
-+						IH_CHICKEN, MC_SPACE_GPA_ENABLE, 1);
-+				WREG32_SOC15(OSSSYS, 0, mmIH_CHICKEN, ih_chicken);
-+				break;
-+			}
- 		}
- 	}
- 
+ MODULE_FIRMWARE("amdgpu/navi10_ce.bin");
+ MODULE_FIRMWARE("amdgpu/navi10_pfp.bin");
+ MODULE_FIRMWARE("amdgpu/navi10_me.bin");
+@@ -4002,6 +4005,16 @@ static void gfx_v10_0_gpu_early_init(struct amdgpu_device *adev)
+ 		adev->gfx.config.sc_earlyz_tile_fifo_size = 0x4C0;
+ 		gb_addr_config = RREG32_SOC15(GC, 0, mmGB_ADDR_CONFIG);
+ 		break;
++	case CHIP_SIENNA_CICHLID:
++		adev->gfx.config.max_hw_contexts = 8;
++		adev->gfx.config.sc_prim_fifo_size_frontend = 0x20;
++		adev->gfx.config.sc_prim_fifo_size_backend = 0x100;
++		adev->gfx.config.sc_hiz_tile_fifo_size = 0;
++		adev->gfx.config.sc_earlyz_tile_fifo_size = 0x4C0;
++		gb_addr_config = RREG32_SOC15(GC, 0, mmGB_ADDR_CONFIG);
++		adev->gfx.config.gb_addr_config_fields.num_pkrs =
++			1 << REG_GET_FIELD(gb_addr_config, GB_ADDR_CONFIG, NUM_PKRS);
++		break;
+ 	default:
+ 		BUG();
+ 		break;
+@@ -4107,6 +4120,7 @@ static int gfx_v10_0_sw_init(void *handle)
+ 	case CHIP_NAVI10:
+ 	case CHIP_NAVI14:
+ 	case CHIP_NAVI12:
++	case CHIP_SIENNA_CICHLID:
+ 		adev->gfx.me.num_me = 1;
+ 		adev->gfx.me.num_pipe_per_me = 1;
+ 		adev->gfx.me.num_queue_per_pipe = 1;
+@@ -8253,6 +8267,7 @@ static void gfx_v10_0_set_rlc_funcs(struct amdgpu_device *adev)
+ 	switch (adev->asic_type) {
+ 	case CHIP_NAVI10:
+ 	case CHIP_NAVI14:
++	case CHIP_SIENNA_CICHLID:
+ 		adev->gfx.rlc.funcs = &gfx_v10_0_rlc_funcs;
+ 		break;
+ 	case CHIP_NAVI12:
 diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index e6fc244d42aa..7600f42ba3e1 100644
+index 7600f42ba3e1..6dd0adb78c3a 100644
 --- a/drivers/gpu/drm/amd/amdgpu/nv.c
 +++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -486,6 +486,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
- 	case CHIP_SIENNA_CICHLID:
+@@ -487,6 +487,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
  		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
  		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
-+		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
++		amdgpu_device_ip_block_add(adev, &gfx_v10_0_ip_block);
  		break;
  	default:
  		return -EINVAL;
