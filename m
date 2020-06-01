@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0ADAFC433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:02:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2BF3DC433E4
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:02:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D8C3420776
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:02:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 02F912065C
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:02:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ka8jlqLq"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8C3420776
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VNNaNYVh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 02F912065C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C749F89079;
-	Mon,  1 Jun 2020 18:02:51 +0000 (UTC)
-Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
- [IPv6:2607:f8b0:4864:20::f42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 221E58825E
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:02:51 +0000 (UTC)
-Received: by mail-qv1-xf42.google.com with SMTP id e20so472194qvu.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:02:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 709ED89EBB;
+	Mon,  1 Jun 2020 18:02:54 +0000 (UTC)
+Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
+ [IPv6:2607:f8b0:4864:20::741])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9735D89745
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:02:52 +0000 (UTC)
+Received: by mail-qk1-x741.google.com with SMTP id s1so9923308qkf.9
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:02:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=VG3u71XwZk+KGW+aN6psww3U3z+t8lviKU+pwRGLBgE=;
- b=Ka8jlqLq+m11tqkYfBuIv2hd01sUbTt/WgxJYn2L7xps07Gr+d/2SiRCyA03z3TX6l
- EZvZiERsEBpXTQ6qqA3TqF/CLWiDCgPKAcloWr9sMGubgoEkIpLfyONiZMtXnp87C8Cm
- 8GUdV5u7g64CH/c8AtC/P00OiBCMESkHyRj0xLirA73pbMh2bm6/T8NuEoxXw7P5j2Pr
- 13I1KRO0hfw3ne2JT4KzcExOh5LlCvy37qRaqGGKkOJ/pY30J88MMixQPBjBJ4/TobZg
- +iCIobfAUgG0KkAi6bV2TFO5iHUt/JFAhjyZO4JmqEK1mVJWBAxpqBSHLtJcVFQB7BtS
- 9YxQ==
+ bh=Xqw5yNFuA4e0eftk7Hr2SsipD0shdRSzbFC8XXBXss0=;
+ b=VNNaNYVhccI5ZbZalC7NtTaVL0BbSuisjEnu4xgz8VAVEWSADP1woXChJpL1A6r4ms
+ KrpgB591uZVbUeXxiUPWE9RQhIXWCCQws3nJ1GvMhVrxFhlXFPGnYAPorp51Hw3H2bkz
+ zVC1CnLF3HseliXdLcH+2Q16sLOQ1eVzOaZS7rV4FkxwJ6Spagzd7AnHTK0Lwz0V/FDf
+ qmm9i7KMMUTba5CIsEvkN8wp9sfKikr4fBZ5R+hN685eIpCDmZWmn14PEQzILAtDGtDj
+ IYqjN3K3aWbtpvovQclgUck2mIBxBLJE9dC+WE9Q8+mX3MiD2vL5sqb0dW/YFRYXEcVF
+ mpGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=VG3u71XwZk+KGW+aN6psww3U3z+t8lviKU+pwRGLBgE=;
- b=B18FalSDwditvoBwI4l0+VJsEN5iMtZfyLKGS4+uRp40KRB5B4xDueuKf9BBBDAvOB
- mY+6kRSgfPl/JFMS34LlUihDzmM5DZCA0cXez/dENHMhGIKHLDjbbIryyayEzJOKuwVC
- BjlppfWy2TfEVMve0HD2kG+Gld5OcTeTF9MX6JYiJs9jCpmcbRmRnINkY8iwUjwquHT5
- zjjmDbO1Phdydge1qnm5WQ8sOVEshevYl/oknaOdg4QnBkm/rFHD7t7A1w0KkTaN92mE
- 1hMkbgq9ONpHet7SP9YMz3l4DakxJKl0DIxPQFRwtyWtgn9XHphT7F0RTvxl4gH2ZZwn
- 81bQ==
-X-Gm-Message-State: AOAM531tflqN6IJrYZ3jE2KBNpvr2fBIMOtjH2VUv9N4P4FtHobpanFO
- 3FKC3+2OXWqhThuV9/9J/DjBDINU
-X-Google-Smtp-Source: ABdhPJwj68ubVTHe6zel2x05zvbEpljsrdoJclNTVT5pMSEjCYqXaggOVeq5vnzhaqaxsioV6otK4w==
-X-Received: by 2002:a0c:e385:: with SMTP id a5mr22522234qvl.81.1591034570047; 
- Mon, 01 Jun 2020 11:02:50 -0700 (PDT)
+ bh=Xqw5yNFuA4e0eftk7Hr2SsipD0shdRSzbFC8XXBXss0=;
+ b=K58tDllj/gVwiNS4vsx7YwtzPDxWoFGc40UrTEBWJgZ7gPDM7BGlyk1qbAGxICUqEk
+ PRqfRhPofLmoG5zQio+eZqUrA7ntORnQTrjJVa5N8Wv3sLllaYwhgPMgBmuQhXfxBN/P
+ ZE8p8rFK1Eic+zWBFkmMmay/qCu5Jr6A39jrcxINf2rsvr/5Pqjhr+EGaBEGGBtwNo0y
+ YYUDT6NPeMEuQUjH+f24ZzOfKGMdjiJkFuEbeS7cz8qvGGYY0TKTNrrWD83clpC7ekdH
+ vA4qugL7GnMgnO+RDtftupXXgbQcFHjkR0GA2Ln88Ehfi9TaheHB3PgF+Oar2uxN+ffL
+ Y3/A==
+X-Gm-Message-State: AOAM53071M3n18JkpGlPsIE9lpFp3AJFSUO0UHORc6/Q45UejpvlLmfV
+ ElA6z9jCWbV04zJblpZXI/174XnK
+X-Google-Smtp-Source: ABdhPJwRsczY8uBREeDQrPWYFxa/0oAVTrgQWtrq3k/OkNyPe2DMZbvtwIGn1gizvtFrUWVTRNkBAQ==
+X-Received: by 2002:a37:84c5:: with SMTP id
+ g188mr20122692qkd.344.1591034571434; 
+ Mon, 01 Jun 2020 11:02:51 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.02.49
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.02.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:02:49 -0700 (PDT)
+ Mon, 01 Jun 2020 11:02:50 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 005/207] drm/amdgpu: add sienna_cichlid asic type
-Date: Mon,  1 Jun 2020 13:59:17 -0400
-Message-Id: <20200601180239.1267430-2-alexander.deucher@amd.com>
+Subject: [PATCH 006/207] drm/amdgpu: add sienna_cichlid gpu info firmware v2
+Date: Mon,  1 Jun 2020 13:59:18 -0400
+Message-Id: <20200601180239.1267430-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -89,38 +90,48 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
+gpu info fw contains chip specific parameters.
+
+v2: fix fw_name
+
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
- include/drm/amd_asic_type.h                | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index b633171281f8..5d1e445eef21 100644
+index 5d1e445eef21..2a284d4bcf3c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -112,6 +112,7 @@ const char *amdgpu_asic_name[] = {
- 	"NAVI10",
- 	"NAVI14",
- 	"NAVI12",
-+	"SIENNA_CICHLID",
- 	"LAST",
- };
+@@ -80,6 +80,7 @@ MODULE_FIRMWARE("amdgpu/renoir_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/navi10_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/navi14_gpu_info.bin");
+ MODULE_FIRMWARE("amdgpu/navi12_gpu_info.bin");
++MODULE_FIRMWARE("amdgpu/sienna_cichlid_gpu_info.bin");
  
-diff --git a/include/drm/amd_asic_type.h b/include/drm/amd_asic_type.h
-index b1230e33d506..0c5bd1134460 100644
---- a/include/drm/amd_asic_type.h
-+++ b/include/drm/amd_asic_type.h
-@@ -54,6 +54,7 @@ enum amd_asic_type {
- 	CHIP_NAVI10,	/* 25 */
- 	CHIP_NAVI14,	/* 26 */
- 	CHIP_NAVI12,	/* 27 */
-+	CHIP_SIENNA_CICHLID,	/* 28 */
- 	CHIP_LAST,
- };
+ #define AMDGPU_RESUME_MS		2000
  
+@@ -1528,7 +1529,7 @@ static void amdgpu_device_enable_virtual_display(struct amdgpu_device *adev)
+ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+ {
+ 	const char *chip_name;
+-	char fw_name[30];
++	char fw_name[40];
+ 	int err;
+ 	const struct gpu_info_firmware_header_v1_0 *hdr;
+ 
+@@ -1595,6 +1596,9 @@ static int amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+ 	case CHIP_NAVI12:
+ 		chip_name = "navi12";
+ 		break;
++	case CHIP_SIENNA_CICHLID:
++		chip_name = "sienna_cichlid";
++		break;
+ 	}
+ 
+ 	snprintf(fw_name, sizeof(fw_name), "amdgpu/%s_gpu_info.bin", chip_name);
 -- 
 2.25.4
 
