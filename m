@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F75AC433E1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 07:31:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C8EE0C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 07:31:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 548A02076B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 07:31:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 9BC7C206C3
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 07:31:03 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="xEIzV+S0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 548A02076B
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="qh+t8ZRj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9BC7C206C3
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D50A6E171;
-	Mon,  1 Jun 2020 07:31:00 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2086.outbound.protection.outlook.com [40.107.244.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 53D5D6E171
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 07:30:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DAEC6E192;
+	Mon,  1 Jun 2020 07:31:03 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2050.outbound.protection.outlook.com [40.107.223.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E39C6E188
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 07:31:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nUnIxNXA+7E8YVyKOVhEJBzL14XpjWAMWTKwnwKOPKC0bm4Ql8wIAehK+wXDLY0YrCoR4d1J273sADj85mMP9pEvA6bRl77cblErFk5yFVIszRBg9eGUJAoSinngkAkZd1Ms8ezBPfxamkMmc6GVhksRMjVcD0pbxvSaGnC4HgLFGMJhOxvAOHI5Fv+xgB6amlBZnc8AnhzAEfy5htUJwZ9mHbzl6N/PS2qk5+LifZB5NlyduirR4L8ttQE4EM48v9U9fboURrMSDBfWtwQ9qlQe4uexcyrc9rmC7o3rH91WFysn74aGO3+JKwxXlqbKjFjeezindA53ZcJCqC6VuA==
+ b=ZWVhcdFCip+TFJqDc+o72CM9y36kqGDPQDvib/VO1o/2fSa8nxFiAh4kJ2F6qo1qKq4SNk2akqnp8VO+PpFVmJI85rQKkm38h+VHB5aaRyxS9TgAIDXWwI89RMchgpQrQHnDXoKOMzo2+4bGFlXNYh+pN2+JqD2hzHkW+6LczB5abONlOUxbwfITCq6EVQ75gaUuv45IpWUNK30SwTWuzvf7A9tVV1yGe1SDbko4GyO89MFGQTq+4JpsE/Mkpz3WaAbt7hf9bsd1XkXZjJ03Zy6rlBw9LRSKCeov1mmTwdicT956WXN6HinFDqdJclEsSPjv6MLnbnXmmcwOmBIUNg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z3/qkPTln8Xby1vaQWRy+jwIsOHKFD0JYFsvFvhX0sU=;
- b=MP9DGSBiWVbu2k3MiFxyufZiDb7uVFg5wKvuups71s0fXXK+UEkF1j8Yn8NnkC/qD59ddS2i9VzpTTcOJ16WxyDUSmjKv+Cd0neEPnS62TFzl8Q+v0g7LpFx4rLO9OdhUzqztohNvTCPMmx3F+6FOVq+KXG0K2naYj0qlFB0q25ki4oKfO7iiPYSUlD/VyS2bo5nrHZSR9VeftydwIlDQnR5rNPq6P7k/r0AD88EBxQHVqiL1QTcOydaO2bcK4JxG7pGP1Hk7W1uA86cHuMycTLJ6gH8seAAHkdlRst/X6l1fR2hGpLfspurCdgtgRbWHDa69n3v2eAIXT7IB4fO6A==
+ bh=aJ28+9fE9o4vAtTtdGWSFxhKhAC7Ah9wgboC1FYvlx4=;
+ b=WHioU8ygOg6LMyBZ57GaaBwOfFf1QEoQJhAdKxWe5URvIPu/Rv6/++5FIkkoZOMw7jLiDnAAiiLz9GpG4JGiKfCyJyoAXHVbqkPHa8T81x/66EaAX7ydpg2QpoWTLBkIWu1WsV7vhiKAb93wcDE1hhqeepQVQoLibfVjiTkfCitPWfvR9BuJLapP/FwMWF6qNQEO6P//3wOv/T+j1zIXQLYjNCsDq1Gh63rcypfrQ+Q6C7YDhr5VEAGCQ0HFcNNGckNx6l/NEkBL1IXnHc1nkrVxJN5h5MaIQgDusAvfp0b1KR4fhtcdRvjTiQY2GQ5Cl8QfrYRLDzf6Rh+6DpYVhg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z3/qkPTln8Xby1vaQWRy+jwIsOHKFD0JYFsvFvhX0sU=;
- b=xEIzV+S0+lIS8z26X2wDozIqxb0zKvj+QjlpwlUPGVc7kPjp11Ra8NaPi9YASiuoHiUd54vzVYOLFAPVinbtVQ6DaP/1Mp+QSV7JQ1R74M5O3cB2iwQqA4nXuQ2cx719qctQL20uOwRb7CoTlGQdqYPa+Okwc/YiC+Lu65oZ9Pk=
+ bh=aJ28+9fE9o4vAtTtdGWSFxhKhAC7Ah9wgboC1FYvlx4=;
+ b=qh+t8ZRj5Bc6bmwVL+O6QpvIaUGRFk8esa529sBnO26OidXIjwYO8++zvp3lMTmcKnhZz9GqI2Vnih7JA3MSTKNTGclPdtn22aEdcsNtxB+Kspw36doC5hjyrGCu66ZhNHoIT1Y1TeKIRiEcHt3gQfWaVxOll7hZqCvm+vXFI6c=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB3803.namprd12.prod.outlook.com (2603:10b6:5:1ce::20) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3045.19; Mon, 1 Jun 2020 07:30:58 +0000
+ 15.20.3045.19; Mon, 1 Jun 2020 07:31:01 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3045.022; Mon, 1 Jun 2020
- 07:30:58 +0000
+ 07:31:01 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 5/9] drm/amd/powerplay: clean up the APIs for pptable setup
-Date: Mon,  1 Jun 2020 15:29:59 +0800
-Message-Id: <20200601073003.13044-5-evan.quan@amd.com>
+Subject: [PATCH 6/9] drm/amd/powerplay: clean up the overdrive settings
+Date: Mon,  1 Jun 2020 15:30:00 +0800
+Message-Id: <20200601073003.13044-6-evan.quan@amd.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20200601073003.13044-1-evan.quan@amd.com>
 References: <20200601073003.13044-1-evan.quan@amd.com>
@@ -69,33 +69,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR0302CA0020.apcprd03.prod.outlook.com (2603:1096:202::30) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3066.7 via Frontend Transport; Mon, 1 Jun 2020 07:30:56 +0000
+ 15.20.3066.7 via Frontend Transport; Mon, 1 Jun 2020 07:30:59 +0000
 X-Mailer: git-send-email 2.26.2
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 0adb7d3a-866f-4390-8596-08d805fdb9f1
+X-MS-Office365-Filtering-Correlation-Id: 9cf06948-675e-4969-f5a0-08d805fdbbb7
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3803:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3803828E8086E009A4BAE94AE48A0@DM6PR12MB3803.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6430;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB3803D01AE59469BB22A2852DE48A0@DM6PR12MB3803.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
 X-Forefront-PRVS: 0421BF7135
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: NUFbaVj6ewqvfTB8dVpR7xfN1re6Zg88EkP3RFmrENE8+IHsG9YSNS00U8X2BveNL06oofNwYt1/I/1pKB79yD92FOPdApQcG4108mENtYc062wAFNR/vIGz5Jw9mFAAZmOrPT8ZtyAn2Hpfo1Tuej2cTIS+ikz6LovlL06YirS88Dq2NrayJPrmAQQ4u6Sz+byaPoH1es0NOPLGsrVJK381h79SneOO9soq2LoPNfQaOaFoDuOoqtR+zIVsckinDXlTY7dGLYTbxngdHUyvO6Oh3tUu//ZWUx38CxGqFavJ550rVcyaekCEZHyZdNTs
+X-Microsoft-Antispam-Message-Info: cN3KuUSbR/10DPMU6S3v3FLxlmrCJIz2NU5Jt/WvL2V8zSE5xCR4G5RQNvZ3maRmtMIqRu5S4xSfSqSTXw9eFexMZ+Aucu4qOW1GONibXEwQpNBW1NY2xpQhlqLSapXxELNWw+vdwAXGE7qt/cM4uOv8gjnHR67H8Dx/VgRaFflBngNcE7I4LAgsDQcmHlsHcHkcwwfHVL1E/0jIr/lI31fxyJA+2/SK+eTsWkGdFb4p2mZ8SPtXIxP9pT8vJB8d424RdI5SH+pL5CeldyIt1ZKwBSjPy8vxK7qqtVApeXYOGxRwOyyO+Eikh0+CsIx12M9AKElzRGkQfNNymH6+mQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(366004)(396003)(39860400002)(346002)(376002)(136003)(52116002)(6916009)(1076003)(316002)(7696005)(8936002)(478600001)(30864003)(16526019)(83380400001)(2906002)(44832011)(6486002)(186003)(26005)(4326008)(66574014)(86362001)(2616005)(8676002)(956004)(36756003)(5660300002)(66946007)(66476007)(66556008);
+ SFS:(4636009)(366004)(396003)(39860400002)(346002)(376002)(136003)(52116002)(6916009)(1076003)(316002)(7696005)(8936002)(478600001)(16526019)(83380400001)(2906002)(44832011)(6486002)(186003)(26005)(4326008)(86362001)(2616005)(8676002)(956004)(36756003)(5660300002)(66946007)(6666004)(66476007)(66556008);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 55nA2KA0sMcbEi7+0CkbjxVUtdVpdHvK8kezDWSGFi/mrbPgg7Mc1WoOvMFlD35s1zsNAP2Oa2YvFRBv0Jr2g3fI/5tmorHkBiAru3EAePr66k1bTglbLB41XGsGOs7sYAAn3YQo7t8dXILp7Tebr53AhNhsWBDXw1FwskY6lKf/0VaYDc0Eqa0tyn732tlJweuhPgimQD2pOYDXCHHIYRLjI986xz0VvRsxC7eKoYyOx4TTlfpqz9U6cZH9xpcpM4V0DEuouuCw1kxThKW/OseBJzlomHZPLRS2LSwOt0SRtkhGdJ1/GbQe5jb8jpoXrk3hLsDUrqG7IJ803u78Lr1NkHffYi1zSpRFiNPrB4XF9AhzqLdPNd5O0jBwtCsSERHJOssXiGT/3zMr5D2M3jtDZISB5v21/QH0Dfjr1odckUga+RfJgpywj4u8a+8cPf1hNzDNeNTNaiKARsKUIJVONFbxLR5BczhLBZOkFmgTBdhmGMKTxfRl0r9TrNYA
+X-MS-Exchange-AntiSpam-MessageData: mGwU3JJRwAP97XEokiDAPKaZtVPO9tE9kl4vtu18ndo0GY4VryEGB5pWXJAQLOFRVQT4Wj4eh4doY6GWCR6q/tHQLHyO1VcccjHwYTICz7uqQ8IeGdbuIlxQUIpmmipVU4SP91BfbvzFhtBleM786F2MUcp/R02Udzy7qU//mmGPH/Yar0ruTQ30/SnKPUbPreJO1LbgiJTlIPhukLSkh06/hqoDhdAMpyhdhP1uLdQIcDcYo/E5qsSZQ6cU5P+NE+sJZCbj90Uo8kuTRwtErr63ndMSrcBomrjtVtMljOz4uYXIz7ObfSEUa2Cd8hfLFrdSRw4z9wG3ljCNgxvQfZJtVTR4MFzM9VKCO+SK/pzaFRhQx/trpxBUdR3o4NOody2C4zf5iC/H97oQKktM0O65vJbpjATt8l6qGbbrlMsgVoX/NfccR8v7m43CjepM7fNXpLKVuiZhto2Aa2Kc1k1zHf6rl1Z7eY836YqbXdmEcpmaIItYDpZIP4aB+qU0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0adb7d3a-866f-4390-8596-08d805fdb9f1
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2020 07:30:58.1850 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9cf06948-675e-4969-f5a0-08d805fdbbb7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2020 07:31:00.9713 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lkrG3yu6UjXqw3xme7VVCgJvPPAi4zVaniM+WT593K/59CctYdtsrOhOdoeyDOOY
+X-MS-Exchange-CrossTenant-UserPrincipalName: s3M+auqsCFKK0ulO6FfmZtgpg6ph+YOT8wPtsvBXzqbarTmDAK85JJpdHh5DscZN
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3803
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -114,402 +114,199 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Combine and simplify the logics for setup pptable.
+Eliminate the buffer allocation and drop the unnecessary
+overdrive table uploading.
 
-Change-Id: I062f15eab586050593afd960432c4c70fbdd5d41
+Change-Id: I8ba5383a330e6d5355cea219147500c1b4a43f47
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 17 ----
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 66 ++++++++-----
- .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  5 -
- drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  4 -
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c    | 92 ++++++++++---------
- drivers/gpu/drm/amd/powerplay/smu_internal.h  | 10 --
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 21 -----
- 7 files changed, 89 insertions(+), 126 deletions(-)
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |  2 +-
+ .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  2 +-
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  2 -
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c    | 74 +++++++++----------
+ drivers/gpu/drm/amd/powerplay/smu_internal.h  |  4 +-
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 20 -----
+ 6 files changed, 38 insertions(+), 66 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index 9bafa6b3e123..b079ac6325d0 100644
+index b079ac6325d0..9b81b6519a96 100644
 --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
 +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -1132,23 +1132,6 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
- 		if (ret)
- 			return ret;
+@@ -1215,7 +1215,7 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
+ 	if (ret)
+ 		return ret;
  
--		/*
--		 * check if the format_revision in vbios is up to pptable header
--		 * version, and the structure size is not 0.
--		 */
--		ret = smu_check_pptable(smu);
--		if (ret)
--			return ret;
--
--		/*
--		 * Parse pptable format and fill PPTable_t smc_pptable to
--		 * smu_table_context structure. And read the smc_dpm_table from vbios,
--		 * then fill it into smc_pptable.
--		 */
--		ret = smu_parse_pptable(smu);
--		if (ret)
--			return ret;
--
- 		/*
- 		 * Send msg GetDriverIfVersion to check if the return value is equal
- 		 * with DRIVER_IF_VERSION of smc header.
-diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-index 902c8cfa4a3b..c5c23126ec2d 100644
---- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-@@ -487,33 +487,33 @@ static int arcturus_set_default_dpm_table(struct smu_context *smu)
+-	ret = smu_set_default_od_settings(smu, initialize);
++	ret = smu_set_default_od_settings(smu);
+ 	if (ret)
+ 		return ret;
  
- static int arcturus_check_powerplay_table(struct smu_context *smu)
- {
-+	struct smu_table_context *table_context = &smu->smu_table;
-+	struct smu_11_0_powerplay_table *powerplay_table =
-+		table_context->power_play_table;
-+	struct smu_baco_context *smu_baco = &smu->smu_baco;
-+
-+	mutex_lock(&smu_baco->mutex);
-+	if (powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_BACO ||
-+	    powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_MACO)
-+		smu_baco->platform_support = true;
-+	mutex_unlock(&smu_baco->mutex);
-+
-+	table_context->thermal_controller_type =
-+		powerplay_table->thermal_controller_type;
-+
- 	return 0;
- }
- 
- static int arcturus_store_powerplay_table(struct smu_context *smu)
- {
--	struct smu_11_0_powerplay_table *powerplay_table = NULL;
- 	struct smu_table_context *table_context = &smu->smu_table;
--	struct smu_baco_context *smu_baco = &smu->smu_baco;
--	int ret = 0;
--
--	if (!table_context->power_play_table)
--		return -EINVAL;
--
--	powerplay_table = table_context->power_play_table;
-+	struct smu_11_0_powerplay_table *powerplay_table =
-+		table_context->power_play_table;
- 
- 	memcpy(table_context->driver_pptable, &powerplay_table->smc_pptable,
- 	       sizeof(PPTable_t));
- 
--	table_context->thermal_controller_type = powerplay_table->thermal_controller_type;
--
--	mutex_lock(&smu_baco->mutex);
--	if (powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_BACO ||
--	    powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_MACO)
--		smu_baco->platform_support = true;
--	mutex_unlock(&smu_baco->mutex);
--
--	return ret;
-+	return 0;
- }
- 
- static int arcturus_append_powerplay_table(struct smu_context *smu)
-@@ -544,6 +544,29 @@ static int arcturus_append_powerplay_table(struct smu_context *smu)
- 	return 0;
- }
- 
-+static int arcturus_setup_pptable(struct smu_context *smu)
-+{
-+	int ret = 0;
-+
-+	ret = smu_v11_0_setup_pptable(smu);
-+	if (ret)
-+		return ret;
-+
-+	ret = arcturus_store_powerplay_table(smu);
-+	if (ret)
-+		return ret;
-+
-+	ret = arcturus_append_powerplay_table(smu);
-+	if (ret)
-+		return ret;
-+
-+	ret = arcturus_check_powerplay_table(smu);
-+	if (ret)
-+		return ret;
-+
-+	return ret;
-+}
-+
- static int arcturus_run_btc(struct smu_context *smu)
- {
- 	int ret = 0;
-@@ -2383,10 +2406,6 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
- 	/* internal structurs allocations */
- 	.tables_init = arcturus_tables_init,
- 	.alloc_dpm_context = arcturus_allocate_dpm_context,
--	/* pptable related */
--	.check_powerplay_table = arcturus_check_powerplay_table,
--	.store_powerplay_table = arcturus_store_powerplay_table,
--	.append_powerplay_table = arcturus_append_powerplay_table,
- 	/* init dpm */
- 	.get_allowed_feature_mask = arcturus_get_allowed_feature_mask,
- 	/* btc */
-@@ -2421,10 +2440,9 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
- 	.init_power = smu_v11_0_init_power,
- 	.fini_power = smu_v11_0_fini_power,
- 	.check_fw_status = smu_v11_0_check_fw_status,
--	.setup_pptable = smu_v11_0_setup_pptable,
-+	/* pptable related */
-+	.setup_pptable = arcturus_setup_pptable,
- 	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
--	.check_pptable = smu_v11_0_check_pptable,
--	.parse_pptable = smu_v11_0_parse_pptable,
- 	.populate_smc_tables = smu_v11_0_populate_smc_pptable,
- 	.check_fw_version = smu_v11_0_check_fw_version,
- 	.write_pptable = smu_v11_0_write_pptable,
 diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-index 223678e329a5..14f4a850b553 100644
+index 14f4a850b553..4aa63dc79124 100644
 --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
 +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -417,9 +417,6 @@ struct i2c_adapter;
- 
- struct pptable_funcs {
- 	int (*alloc_dpm_context)(struct smu_context *smu);
--	int (*store_powerplay_table)(struct smu_context *smu);
--	int (*check_powerplay_table)(struct smu_context *smu);
--	int (*append_powerplay_table)(struct smu_context *smu);
- 	int (*get_smu_msg_index)(struct smu_context *smu, uint32_t index);
- 	int (*get_smu_clk_index)(struct smu_context *smu, uint32_t index);
- 	int (*get_smu_feature_index)(struct smu_context *smu, uint32_t index);
-@@ -505,8 +502,6 @@ struct pptable_funcs {
- 	int (*check_fw_status)(struct smu_context *smu);
- 	int (*setup_pptable)(struct smu_context *smu);
- 	int (*get_vbios_bootup_values)(struct smu_context *smu);
--	int (*check_pptable)(struct smu_context *smu);
--	int (*parse_pptable)(struct smu_context *smu);
- 	int (*populate_smc_tables)(struct smu_context *smu);
- 	int (*check_fw_version)(struct smu_context *smu);
- 	int (*powergate_sdma)(struct smu_context *smu, bool gate);
+@@ -480,7 +480,7 @@ struct pptable_funcs {
+ 					     uint32_t *value);
+ 	int (*get_thermal_temperature_range)(struct smu_context *smu, struct smu_temperature_range *range);
+ 	int (*get_uclk_dpm_states)(struct smu_context *smu, uint32_t *clocks_in_khz, uint32_t *num_states);
+-	int (*set_default_od_settings)(struct smu_context *smu, bool initialize);
++	int (*set_default_od_settings)(struct smu_context *smu);
+ 	int (*set_performance_level)(struct smu_context *smu, enum amd_dpm_forced_level level);
+ 	int (*display_disable_memory_clock_switch)(struct smu_context *smu, bool disable_memory_clock_switch);
+ 	void (*dump_pptable)(struct smu_context *smu);
 diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-index 5b785816aa64..51868dc33238 100644
+index 51868dc33238..8d317e05f65b 100644
 --- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
 +++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-@@ -161,10 +161,6 @@ int smu_v11_0_setup_pptable(struct smu_context *smu);
+@@ -258,8 +258,6 @@ int smu_v11_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_
  
- int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu);
+ int smu_v11_0_override_pcie_parameters(struct smu_context *smu);
  
--int smu_v11_0_check_pptable(struct smu_context *smu);
+-int smu_v11_0_set_default_od_settings(struct smu_context *smu, bool initialize, size_t overdrive_table_size);
 -
--int smu_v11_0_parse_pptable(struct smu_context *smu);
--
- int smu_v11_0_populate_smc_pptable(struct smu_context *smu);
+ uint32_t smu_v11_0_get_max_power_limit(struct smu_context *smu);
  
- int smu_v11_0_check_fw_version(struct smu_context *smu);
+ int smu_v11_0_set_performance_level(struct smu_context *smu,
 diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index bea6a96b5afb..db38fb10524d 100644
+index db38fb10524d..caa4355b601e 100644
 --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -417,6 +417,29 @@ navi10_get_allowed_feature_mask(struct smu_context *smu,
- 
- static int navi10_check_powerplay_table(struct smu_context *smu)
- {
-+	struct smu_table_context *table_context = &smu->smu_table;
-+	struct smu_11_0_powerplay_table *powerplay_table =
-+		table_context->power_play_table;
-+	struct smu_baco_context *smu_baco = &smu->smu_baco;
-+
-+	if (powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_HARDWAREDC)
-+		smu->dc_controlled_by_gpio = true;
-+
-+	mutex_lock(&smu_baco->mutex);
-+	if (powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_BACO ||
-+	    powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_MACO)
-+		smu_baco->platform_support = true;
-+	mutex_unlock(&smu_baco->mutex);
-+
-+	table_context->thermal_controller_type =
-+		powerplay_table->thermal_controller_type;
-+
-+	/*
-+	 * Instead of having its own buffer space and get overdrive_table copied,
-+	 * smu->od_settings just points to the actual overdrive_table
-+	 */
-+	smu->od_settings = &powerplay_table->overdrive_table;
-+
- 	return 0;
+@@ -1969,55 +1969,49 @@ static bool navi10_is_baco_supported(struct smu_context *smu)
+ 	return (val & RCC_BIF_STRAP0__STRAP_PX_CAPABLE_MASK) ? true : false;
  }
  
-@@ -475,30 +498,37 @@ static int navi10_append_powerplay_table(struct smu_context *smu)
- 
- static int navi10_store_powerplay_table(struct smu_context *smu)
- {
--	struct smu_11_0_powerplay_table *powerplay_table = NULL;
- 	struct smu_table_context *table_context = &smu->smu_table;
--	struct smu_baco_context *smu_baco = &smu->smu_baco;
--
--	if (!table_context->power_play_table)
--		return -EINVAL;
--
--	powerplay_table = table_context->power_play_table;
-+	struct smu_11_0_powerplay_table *powerplay_table =
-+		table_context->power_play_table;
- 
- 	memcpy(table_context->driver_pptable, &powerplay_table->smc_pptable,
- 	       sizeof(PPTable_t));
- 
--	table_context->thermal_controller_type = powerplay_table->thermal_controller_type;
-+	return 0;
-+}
- 
--	if (powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_HARDWAREDC)
--		smu->dc_controlled_by_gpio = true;
-+static int navi10_setup_pptable(struct smu_context *smu)
+-static int navi10_set_default_od_settings(struct smu_context *smu, bool initialize) {
+-	OverDriveTable_t *od_table, *boot_od_table;
++static int navi10_set_default_od_settings(struct smu_context *smu)
 +{
-+	int ret = 0;
++	OverDriveTable_t *od_table =
++		(OverDriveTable_t *)smu->smu_table.overdrive_table;
++	OverDriveTable_t *boot_od_table =
++		(OverDriveTable_t *)smu->smu_table.boot_overdrive_table;
+ 	int ret = 0;
  
--	mutex_lock(&smu_baco->mutex);
--	if (powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_BACO ||
--	    powerplay_table->platform_caps & SMU_11_0_PP_PLATFORM_CAP_MACO)
--		smu_baco->platform_support = true;
--	mutex_unlock(&smu_baco->mutex);
-+	ret = smu_v11_0_setup_pptable(smu);
-+	if (ret)
-+		return ret;
+-	ret = smu_v11_0_set_default_od_settings(smu, initialize, sizeof(OverDriveTable_t));
+-	if (ret)
++	ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, (void *)od_table, false);
++	if (ret) {
++		pr_err("Failed to get overdrive table!\n");
+ 		return ret;
++	}
  
--	return 0;
-+	ret = navi10_store_powerplay_table(smu);
-+	if (ret)
-+		return ret;
-+
-+	ret = navi10_append_powerplay_table(smu);
-+	if (ret)
-+		return ret;
-+
-+	ret = navi10_check_powerplay_table(smu);
-+	if (ret)
-+		return ret;
-+
-+	return ret;
- }
- 
- static int navi10_tables_init(struct smu_context *smu, struct smu_table *tables)
-@@ -1927,24 +1957,6 @@ static int navi10_overdrive_get_gfx_clk_base_voltage(struct smu_context *smu,
- 	return 0;
- }
- 
--static int navi10_setup_od_limits(struct smu_context *smu) {
--	struct smu_11_0_overdrive_table *overdrive_table = NULL;
--	struct smu_11_0_powerplay_table *powerplay_table = NULL;
+-	od_table = (OverDriveTable_t *)smu->smu_table.overdrive_table;
+-	boot_od_table = (OverDriveTable_t *)smu->smu_table.boot_overdrive_table;
+-	if (initialize) {
+-		if (od_table) {
+-			if (!od_table->GfxclkVolt1) {
+-				ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
+-										&od_table->GfxclkVolt1,
+-										od_table->GfxclkFreq1);
+-				if (ret)
+-					od_table->GfxclkVolt1 = 0;
+-				if (boot_od_table)
+-					boot_od_table->GfxclkVolt1 = od_table->GfxclkVolt1;
+-			}
 -
--	if (!smu->smu_table.power_play_table) {
--		pr_err("powerplay table uninitialized!\n");
--		return -ENOENT;
--	}
--	powerplay_table = (struct smu_11_0_powerplay_table *)smu->smu_table.power_play_table;
--	overdrive_table = &powerplay_table->overdrive_table;
--	if (!smu->od_settings) {
--		smu->od_settings = kmemdup(overdrive_table, sizeof(struct smu_11_0_overdrive_table), GFP_KERNEL);
--	} else {
--		memcpy(smu->od_settings, overdrive_table, sizeof(struct smu_11_0_overdrive_table));
--	}
--	return 0;
--}
--
- static bool navi10_is_baco_supported(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
-@@ -1968,11 +1980,6 @@ static int navi10_set_default_od_settings(struct smu_context *smu, bool initiali
- 	od_table = (OverDriveTable_t *)smu->smu_table.overdrive_table;
- 	boot_od_table = (OverDriveTable_t *)smu->smu_table.boot_overdrive_table;
- 	if (initialize) {
--		ret = navi10_setup_od_limits(smu);
--		if (ret) {
--			pr_err("Failed to retrieve board OD limits\n");
--			return ret;
+-			if (!od_table->GfxclkVolt2) {
+-				ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
+-										&od_table->GfxclkVolt2,
+-										od_table->GfxclkFreq2);
+-				if (ret)
+-					od_table->GfxclkVolt2 = 0;
+-				if (boot_od_table)
+-					boot_od_table->GfxclkVolt2 = od_table->GfxclkVolt2;
+-			}
++	if (!od_table->GfxclkVolt1) {
++		ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
++								&od_table->GfxclkVolt1,
++								od_table->GfxclkFreq1);
++		if (ret)
++			return ret;
++	}
+ 
+-			if (!od_table->GfxclkVolt3) {
+-				ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
+-										&od_table->GfxclkVolt3,
+-										od_table->GfxclkFreq3);
+-				if (ret)
+-					od_table->GfxclkVolt3 = 0;
+-				if (boot_od_table)
+-					boot_od_table->GfxclkVolt3 = od_table->GfxclkVolt3;
+-			}
 -		}
- 		if (od_table) {
- 			if (!od_table->GfxclkVolt1) {
- 				ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
-@@ -2274,9 +2281,6 @@ static int navi10_disable_umc_cdr_12gbps_workaround(struct smu_context *smu)
- static const struct pptable_funcs navi10_ppt_funcs = {
- 	.tables_init = navi10_tables_init,
- 	.alloc_dpm_context = navi10_allocate_dpm_context,
--	.store_powerplay_table = navi10_store_powerplay_table,
--	.check_powerplay_table = navi10_check_powerplay_table,
--	.append_powerplay_table = navi10_append_powerplay_table,
- 	.get_smu_msg_index = navi10_get_smu_msg_index,
- 	.get_smu_clk_index = navi10_get_smu_clk_index,
- 	.get_smu_feature_index = navi10_get_smu_feature_index,
-@@ -2318,10 +2322,8 @@ static const struct pptable_funcs navi10_ppt_funcs = {
- 	.init_power = smu_v11_0_init_power,
- 	.fini_power = smu_v11_0_fini_power,
- 	.check_fw_status = smu_v11_0_check_fw_status,
--	.setup_pptable = smu_v11_0_setup_pptable,
-+	.setup_pptable = navi10_setup_pptable,
- 	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
--	.check_pptable = smu_v11_0_check_pptable,
--	.parse_pptable = smu_v11_0_parse_pptable,
- 	.populate_smc_tables = smu_v11_0_populate_smc_pptable,
- 	.check_fw_version = smu_v11_0_check_fw_version,
- 	.write_pptable = smu_v11_0_write_pptable,
++	if (!od_table->GfxclkVolt2) {
++		ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
++								&od_table->GfxclkVolt2,
++								od_table->GfxclkFreq2);
++		if (ret)
++			return ret;
+ 	}
+ 
+-	if (od_table) {
+-		navi10_dump_od_table(od_table);
++	if (!od_table->GfxclkVolt3) {
++		ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
++								&od_table->GfxclkVolt3,
++								od_table->GfxclkFreq3);
++		if (ret)
++			return ret;
+ 	}
+ 
+-	return ret;
++	memcpy(boot_od_table, od_table, sizeof(OverDriveTable_t));
++
++	navi10_dump_od_table(od_table);
++
++	return 0;
+ }
+ 
+ static int navi10_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TABLE_COMMAND type, long input[], uint32_t size) {
 diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-index a31df7f4e91a..33086f94267a 100644
+index 33086f94267a..0c7d5f0b1cd1 100644
 --- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
 +++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-@@ -47,10 +47,6 @@
+@@ -70,8 +70,8 @@
+ 	((smu)->ppt_funcs->system_features_control ? (smu)->ppt_funcs->system_features_control((smu), (en)) : 0)
+ #define smu_init_max_sustainable_clocks(smu) \
+ 	((smu)->ppt_funcs->init_max_sustainable_clocks ? (smu)->ppt_funcs->init_max_sustainable_clocks((smu)) : 0)
+-#define smu_set_default_od_settings(smu, initialize) \
+-	((smu)->ppt_funcs->set_default_od_settings ? (smu)->ppt_funcs->set_default_od_settings((smu), (initialize)) : 0)
++#define smu_set_default_od_settings(smu) \
++	((smu)->ppt_funcs->set_default_od_settings ? (smu)->ppt_funcs->set_default_od_settings((smu)) : 0)
  
- #define smu_get_vbios_bootup_values(smu) \
- 	((smu)->ppt_funcs->get_vbios_bootup_values ? (smu)->ppt_funcs->get_vbios_bootup_values((smu)) : 0)
--#define smu_check_pptable(smu) \
--	((smu)->ppt_funcs->check_pptable ? (smu)->ppt_funcs->check_pptable((smu)) : 0)
--#define smu_parse_pptable(smu) \
--	((smu)->ppt_funcs->parse_pptable ? (smu)->ppt_funcs->parse_pptable((smu)) : 0)
- #define smu_populate_smc_tables(smu) \
- 	((smu)->ppt_funcs->populate_smc_tables ? (smu)->ppt_funcs->populate_smc_tables((smu)) : 0)
- #define smu_check_fw_version(smu) \
-@@ -96,12 +92,6 @@ static inline int smu_send_smc_msg(struct smu_context *smu, enum smu_message_typ
- 	((smu)->ppt_funcs->is_dpm_running ? (smu)->ppt_funcs->is_dpm_running((smu)) : 0)
- #define smu_notify_display_change(smu) \
- 	((smu)->ppt_funcs->notify_display_change? (smu)->ppt_funcs->notify_display_change((smu)) : 0)
--#define smu_store_powerplay_table(smu) \
--	((smu)->ppt_funcs->store_powerplay_table ? (smu)->ppt_funcs->store_powerplay_table((smu)) : 0)
--#define smu_check_powerplay_table(smu) \
--	((smu)->ppt_funcs->check_powerplay_table ? (smu)->ppt_funcs->check_powerplay_table((smu)) : 0)
--#define smu_append_powerplay_table(smu) \
--	((smu)->ppt_funcs->append_powerplay_table ? (smu)->ppt_funcs->append_powerplay_table((smu)) : 0)
- #define smu_set_default_dpm_table(smu) \
- 	((smu)->ppt_funcs->set_default_dpm_table ? (smu)->ppt_funcs->set_default_dpm_table((smu)) : 0)
- #define smu_populate_umd_state_clk(smu) \
+ #define smu_send_smc_msg_with_param(smu, msg, param, read_arg) \
+ 	((smu)->ppt_funcs->send_smc_msg_with_param? (smu)->ppt_funcs->send_smc_msg_with_param((smu), (msg), (param), (read_arg)) : 0)
 diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index be6dca8c6014..7a97a4510c6d 100644
+index 7a97a4510c6d..891781a5c0d4 100644
 --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
 +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -725,27 +725,6 @@ int smu_v11_0_notify_memory_pool_location(struct smu_context *smu)
- 	return ret;
+@@ -1898,26 +1898,6 @@ int smu_v11_0_override_pcie_parameters(struct smu_context *smu)
+ 
  }
  
--int smu_v11_0_check_pptable(struct smu_context *smu)
+-int smu_v11_0_set_default_od_settings(struct smu_context *smu, bool initialize, size_t overdrive_table_size)
 -{
--	int ret;
+-	struct smu_table_context *table_context = &smu->smu_table;
+-	int ret = 0;
 -
--	ret = smu_check_powerplay_table(smu);
+-	if (initialize) {
+-		ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, table_context->overdrive_table, false);
+-		if (ret) {
+-			pr_err("Failed to export overdrive table!\n");
+-			return ret;
+-		}
+-	}
+-	ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, table_context->overdrive_table, true);
+-	if (ret) {
+-		pr_err("Failed to import overdrive table!\n");
+-		return ret;
+-	}
 -	return ret;
 -}
 -
--int smu_v11_0_parse_pptable(struct smu_context *smu)
--{
--	int ret;
--
--	ret = smu_store_powerplay_table(smu);
--	if (ret)
--		return -EINVAL;
--
--	ret = smu_append_powerplay_table(smu);
--
--	return ret;
--}
--
- int smu_v11_0_populate_smc_pptable(struct smu_context *smu)
+ int smu_v11_0_set_performance_level(struct smu_context *smu,
+ 				    enum amd_dpm_forced_level level)
  {
- 	int ret;
 -- 
 2.26.2
 
