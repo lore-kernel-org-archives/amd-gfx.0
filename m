@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5DE55C433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 985BBC433E1
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 33177206E2
+	by mail.kernel.org (Postfix) with ESMTPS id 693CF206E2
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:56 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a0HrJQp6"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 33177206E2
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Iz0hzBII"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 693CF206E2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E854B6E296;
-	Mon,  1 Jun 2020 18:03:55 +0000 (UTC)
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 322EB6E296
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:03:54 +0000 (UTC)
-Received: by mail-qt1-x843.google.com with SMTP id q14so8170403qtr.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:03:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19F056E29A;
+	Mon,  1 Jun 2020 18:03:56 +0000 (UTC)
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AFF36E296
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:03:55 +0000 (UTC)
+Received: by mail-qt1-x841.google.com with SMTP id c12so8385195qtq.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:03:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=dKS7iWPmORFcjkwZg1xUl1cFRsnUpTvtM51h2Ryh7ug=;
- b=a0HrJQp6Z+oh8PO+VqIHnn9bbjc4LHkilEFw/AFKbgsKVMjP5C96icz+wVkex3hW4Y
- d35jx6Dgi60+wT7gvWoYh8SyPS3NLkgMFJ7qJPD0wF911zefiSIMqXTVt8/ACfukXfGD
- g6F2G0wvtVhKEzfYYUdBkj6aKeILd0RwSw2RhMkRsWo4H/znglDHynOcCTuKi7/P7sEu
- zX9PR7YPnfT8L5WmyFi06+Z1P+BJo9nSA9Dj3yOKID8WMfG/RE0I6L1dT0usZ6CgDDG/
- c9Cm85dp9H+E+fNhsGheUwubKL8CKm2FYnqfyPUfiBi5N5fWAzXiNfXMF13KgKDYmrRY
- s0Kg==
+ bh=Djz+zvZNsCcOjPCUP/r+h6MWpEtjSS6H25dA5OIq/zU=;
+ b=Iz0hzBIIRdI8iTmyzQY5g025Pm+HcvDarm/fVIGE/3Ceqr3x4MMVu35DE/SLbY70xk
+ XmbwhJrYHAqXxb8U99Yk/MkzTFAAVNT/EvPxN9Krp76tRk/Xfgdt9al1rLFR9+xejBz4
+ 1CqoaIfY7WwdWKsOu1H8ILKUemY+KaMNyTRLdStbaS3kT0mzk8vFXtM9wGDipHX3BHnE
+ KLKBV6s8cuiW5U2pXEUQ7UbmB4kuV/CZZBcMHYbVYjkJqXX1bf4KfGzKua3YHJ6/NnMr
+ ZWR1qoUKv5MFC/699Qp9uxEbkGoiEHB7vNbosMxmilYGe7b9qSVxNvhVm68CPKemUkVV
+ V8HA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=dKS7iWPmORFcjkwZg1xUl1cFRsnUpTvtM51h2Ryh7ug=;
- b=gOKHDom7ZThrjsPNjn3fvbeDKrq6/H7i97rOPCTJR1oZUegNHxm4oCDNwRIbIahp3z
- 8ITi/ggMMQQqSApT6DN5zi/JqltfXhdJweetKhxqk1L/fQP9MpEA90+CSED+8Fvp8YNs
- GOpQWL+CJg4o1fQeo51TbgUX4nQlJXLEKEiirV7pXnj0J1RweVxVr63F/VrQIHIf5BVq
- TMzikfqIh95/5TKLUhxi33HsArqcv9HY3ktFN0I19Z/UbjyLq88nupZxG2kyFj8RMNLK
- 7aAZ5hwYGrzsQpGoUf/3W+6NqTHSVSiXncHQ5EwxJLlyj//J1OuYNcKXPnPeGrueqAXK
- rztw==
-X-Gm-Message-State: AOAM5302GTN2jA0RJaIO3iM3Ftv2vmZl6E6WoIXJVwK+jZ+Jdk18v0E4
- +fJvznarA3og4+PBNQHGtR1/r+oZ
-X-Google-Smtp-Source: ABdhPJymOCevswGfHeaf8sBby+D9w9723SZCtKNykKRvDqGKOfL5q8iSm2tr3h6Cw1uginiVga+JLQ==
-X-Received: by 2002:aed:2d87:: with SMTP id i7mr10071123qtd.291.1591034633186; 
- Mon, 01 Jun 2020 11:03:53 -0700 (PDT)
+ bh=Djz+zvZNsCcOjPCUP/r+h6MWpEtjSS6H25dA5OIq/zU=;
+ b=HAGAN0EZNaTgjMpu6pUlwB/tB1DbTyF7920fZABRCRcecYzD9FFf44Ccsk+ix2Mi9p
+ gw5q7WNK6ABvwms8PJpb0d6KDz09Xypc3iNbBMcmq/l70O4HK5J/iCG43d6tGAHLvXGJ
+ 0QPD6ZAo90p3ca4i9094faJTngaesHpYDkSj24BEOwJ1UBPuw5cSU1ofLwxMUHec8CsA
+ R8SV/lBGfINxT9HyXkZlGk/bHzLBj12avwLldO8zDNk6BfTWkOtDLFGq/LvnEyBO82q7
+ 0LAE9IHf7iJstq1mLGjmPfLRDu2rhyX1I8twehPYIdk7jxR1upHvnFPMRaKqr5t5fXWS
+ gUEg==
+X-Gm-Message-State: AOAM530JtEtxPO4WqaGogd5NkpnAom91gJWQjLRMprBLJ448MQg1c8Pl
+ B8CC+S5M9kgCHEmnc0fKD6QdnHOE
+X-Google-Smtp-Source: ABdhPJwH6N90Tbc7zRLovEI+1lfDQKLJWvGKAAfwasnC3HOCwuGBWRiNHu/NyEraP2fW7FrHrcU74Q==
+X-Received: by 2002:ac8:23e3:: with SMTP id r32mr23435395qtr.268.1591034634396; 
+ Mon, 01 Jun 2020 11:03:54 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.03.52
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.03.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:03:52 -0700 (PDT)
+ Mon, 01 Jun 2020 11:03:53 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 047/207] drm/amdgpu: skip for reroute ih for sienna_cichlid
- psp ring init currently
-Date: Mon,  1 Jun 2020 13:59:59 -0400
-Message-Id: <20200601180239.1267430-44-alexander.deucher@amd.com>
+Subject: [PATCH 048/207] drm/amdgpu: enable psp ip block for sienna_cichlid
+Date: Mon,  1 Jun 2020 14:00:00 -0400
+Message-Id: <20200601180239.1267430-45-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -94,23 +93,21 @@ Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Jack Xiao <Jack.Xiao@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index 349fc6f2de12..234ba127ec2e 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -363,7 +363,8 @@ static int psp_v11_0_ring_init(struct psp_context *psp,
- 	struct psp_ring *ring;
- 	struct amdgpu_device *adev = psp->adev;
- 
--	if (!amdgpu_sriov_vf(adev))
-+	if ((!amdgpu_sriov_vf(adev)) &&
-+	    (adev->asic_type != CHIP_SIENNA_CICHLID))
- 		psp_v11_0_reroute_ih(psp);
- 
- 	ring = &psp->km_ring;
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index e2d97bcdf328..a4a80aed4b96 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -488,6 +488,7 @@ int nv_set_ip_blocks(struct amdgpu_device *adev)
+ 		amdgpu_device_ip_block_add(adev, &nv_common_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &gmc_v10_0_ip_block);
+ 		amdgpu_device_ip_block_add(adev, &navi10_ih_ip_block);
++		amdgpu_device_ip_block_add(adev, &psp_v11_0_ip_block);
+ 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP &&
+ 		    is_support_sw_smu(adev))
+ 			amdgpu_device_ip_block_add(adev, &smu_v11_0_ip_block);
 -- 
 2.25.4
 
