@@ -8,63 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE4E3C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED881C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 853A92073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C1B122073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:13 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ushfqrH0"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 853A92073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aIlJYpI5"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C1B122073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C4266E33C;
-	Mon,  1 Jun 2020 18:22:11 +0000 (UTC)
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 888256E33A
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:10 +0000 (UTC)
-Received: by mail-qk1-x741.google.com with SMTP id 205so10022027qkg.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:10 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ABCF6E334;
+	Mon,  1 Jun 2020 18:22:13 +0000 (UTC)
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
+ [IPv6:2607:f8b0:4864:20::f43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2A326E33D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:11 +0000 (UTC)
+Received: by mail-qv1-xf43.google.com with SMTP id r16so486220qvm.6
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=MrEuubwWcvlqtduMgphBZDM0ykvoB+A/v9risxdd55o=;
- b=ushfqrH02mZoXUGRxCwFRusOPJiOGk9fDrJn0CzZoJmbvxxXqzcPsZawXiHqZS89kt
- LIoM2+mWptElV5Uv4+DDqdLqYjd0gUi+pzVIUN7pJ9IRaR1gpE4HWTYXXDHra7ybL2/U
- xOwo2qJbj0NFom6uOgmHAknhgJf/1riEUC91tm3PcR5l6GOV8zWdje5/m7Ol6a+9E1Xe
- 6lQvsQyhT8e3Y+OhDE46p6/+FHwFTLQ1NRplnL21Vq3mPwP2L2EDyI4NONW+l8dhPA5r
- wy/5Jo1dNoY35Po4rjV7/Nu03vfrxPi6QEi7qKn+BLn0z9pyhQQ987kgihmgWqWnkfbD
- 2lDg==
+ bh=hLomqmyq+JI7Y7HQJyEB3n2m97twPjfvIcLDKCnGt0M=;
+ b=aIlJYpI5t4KLDJjxr15ka3nwtfwbb4bzGF550DtcBjnqp303flWRfcIpda1QNVeQbQ
+ eZzzZJsqwsuaoag3HnO4aGO82hHrlYg3u2cUsN+9T40BCOIQwL9Tk8WJTemA0mubbeNM
+ /nQ5yCLlHnF6jIYGw6B98aKzloLV/7WjZSeOFSMNQZma7jBkb//panAUwAVFovk3b7OT
+ r+XPdbp8GCWWOXoXpD92lvydhJYmj+Ojw5+W4AFSTzkDT8nhXYZnmDjfRObxSj/Q6uH0
+ l1abK98975FIibHUMEc21swN84VNAK5qOMVfp1Sj7iy39GTPVZbKdA7kKVo12vMm55do
+ gZVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=MrEuubwWcvlqtduMgphBZDM0ykvoB+A/v9risxdd55o=;
- b=LYF3Dylhv+fRbQjQ31W2jPS3e24kS/tBBYrq9nOfc4WAfgVxGKqynKEZXn84zIX49v
- 27MolE4AHV0QLqB3spQXhdOYWuvaxuw0nPDvILkBEDTxsDeWvBG3UhqAFBq33tl4ZUzB
- y3xxWF0p1sHUdhLsG+3YOWbw5wvqX88vpsI5u3ez043O4M1n+OJaYjsxSOd3W63n2o8C
- j2VQ5RY7ayKFTrwFR/PBOLaVEYG3zu+7zcLlWps8dkxyeEta9wLj5HiJUoUzLHmQe0+P
- 5P8jm1MTysbkrxbEVtH0XCOlNdKuz0i0qyyzIoAVYC+n8tIjNVA7dj/+jCg9SMQIqOB/
- ycEw==
-X-Gm-Message-State: AOAM530lnq/q+WcxR9SayCXitTtd/hMgB8rh2GtCXfdW/B8QV+FBtbAt
- lbXSKLjkXWWwPiYRwFTFhJTgyhcT
-X-Google-Smtp-Source: ABdhPJxoJoUywR9CUn/dCPQW/iLahWkWTK0RFYLQakg8Zi9h3eyLu4JLIMLvQMgDfyCpL7YxFu/6DQ==
-X-Received: by 2002:a37:b444:: with SMTP id d65mr4265863qkf.411.1591035729403; 
- Mon, 01 Jun 2020 11:22:09 -0700 (PDT)
+ bh=hLomqmyq+JI7Y7HQJyEB3n2m97twPjfvIcLDKCnGt0M=;
+ b=ikqM8Tmq+1bM308611/yYH/Ttmb7DO8hQJGlmUvUt2ek3XZfMdUvR1bJn15sGy+Lng
+ MVjj6VdvR45T6b54FrsMa6rwbP4BjDEMd8d8EQGPbKzFUayeGFMkbiU6/F+9iJdoGvHd
+ lIYps4BVKSmzsZJUcLCcjRV/qJlrp/IJQ22+35pFPVdYbJslhrsVTJu035fALQpShvre
+ bvp/EKrnGmKK1qx6iEV87D+FHn/6x0eG6oT8czp7RvSZ6ll4apV30anGdO7n1rrTX84R
+ ZcmX0wSouREFi7QbUkTmo/eJrrCeJd7krhPxT6cpyh/wh156yCrq0MpsqR550RYnl/uT
+ sTgQ==
+X-Gm-Message-State: AOAM532gUVvyWHBJZ6glYdjkJQUC/SBw70hHmDehtIPKIdJpKdZjPBKh
+ /4YgaD1tZCnQ7A94MpeFtG9xSpxn
+X-Google-Smtp-Source: ABdhPJx4wIS7Ovj4GuCRZIr29Q+wCFzYtK1YQrPYFoVO1hUsZBmSgSDNCHg7PRIkvMGqn04u4LVCww==
+X-Received: by 2002:a05:6214:1842:: with SMTP id
+ d2mr17747287qvy.197.1591035730859; 
+ Mon, 01 Jun 2020 11:22:10 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.08
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:22:08 -0700 (PDT)
+ Mon, 01 Jun 2020 11:22:10 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 140/207] drm/amdgpu: add clock gating DPG mode for VCN3.0
-Date: Mon,  1 Jun 2020 14:19:47 -0400
-Message-Id: <20200601182054.1267858-51-alexander.deucher@amd.com>
+Subject: [PATCH 141/207] drm/amdgpu: add mc resume DPG mode for VCN3.0
+Date: Mon,  1 Jun 2020 14:19:48 -0400
+Message-Id: <20200601182054.1267858-52-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -89,7 +90,7 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Boyuan Zhang <boyuan.zhang@amd.com>
 
-Add vcn_v3_0_clock_gating_dpg_mode to enabling clock gating in DPG mode for VCN3.0
+Add vcn_v3_0_mc_resume_dpg_mode to resume memory controller in DPG mode for VCN3.0
 
 V2: Separate from previous patch-0002, and update description.
 
@@ -98,68 +99,109 @@ Reviewed-by: James Zhu <james.zhu@amd.com>
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 48 +++++++++++++++++++++++++++
- 1 file changed, 48 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 89 +++++++++++++++++++++++++++
+ 1 file changed, 89 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 340cb344a35d..b0fc589ac88f 100644
+index b0fc589ac88f..86db36537371 100644
 --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -613,6 +613,54 @@ static void vcn_v3_0_disable_clock_gating(struct amdgpu_device *adev, int inst)
- 	WREG32_SOC15(VCN, inst, mmUVD_SUVD_CGC_CTRL, data);
+@@ -378,6 +378,95 @@ static void vcn_v3_0_mc_resume(struct amdgpu_device *adev, int inst)
+ 	WREG32_SOC15(VCN, inst, mmUVD_VCPU_CACHE_SIZE2, AMDGPU_VCN_CONTEXT_SIZE);
  }
  
-+static void vcn_v3_0_clock_gating_dpg_mode(struct amdgpu_device *adev,
-+		uint8_t sram_sel, int inst_idx, uint8_t indirect)
++static void vcn_v3_0_mc_resume_dpg_mode(struct amdgpu_device *adev, int inst_idx, bool indirect)
 +{
-+	uint32_t reg_data = 0;
++	uint32_t size = AMDGPU_GPU_PAGE_ALIGN(adev->vcn.fw->size + 4);
++	uint32_t offset;
 +
-+	/* enable sw clock gating control */
-+	if (adev->cg_flags & AMD_CG_SUPPORT_VCN_MGCG)
-+		reg_data = 1 << UVD_CGC_CTRL__DYN_CLOCK_MODE__SHIFT;
++	/* cache window 0: fw */
++	if (adev->firmware.load_type == AMDGPU_FW_LOAD_PSP) {
++		if (!indirect) {
++			WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++				VCN, inst_idx, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW),
++				(adev->firmware.ucode[AMDGPU_UCODE_ID_VCN + inst_idx].tmr_mc_addr_lo), 0, indirect);
++			WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++				VCN, inst_idx, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH),
++				(adev->firmware.ucode[AMDGPU_UCODE_ID_VCN + inst_idx].tmr_mc_addr_hi), 0, indirect);
++			WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++				VCN, inst_idx, mmUVD_VCPU_CACHE_OFFSET0), 0, 0, indirect);
++		} else {
++			WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++				VCN, inst_idx, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW), 0, 0, indirect);
++			WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++				VCN, inst_idx, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH), 0, 0, indirect);
++			WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++				VCN, inst_idx, mmUVD_VCPU_CACHE_OFFSET0), 0, 0, indirect);
++		}
++		offset = 0;
++	} else {
++		WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_LOW),
++			lower_32_bits(adev->vcn.inst[inst_idx].gpu_addr), 0, indirect);
++		WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_LMI_VCPU_CACHE_64BIT_BAR_HIGH),
++			upper_32_bits(adev->vcn.inst[inst_idx].gpu_addr), 0, indirect);
++		offset = size;
++		WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_VCPU_CACHE_OFFSET0),
++			AMDGPU_UVD_FIRMWARE_OFFSET >> 3, 0, indirect);
++	}
++
++	if (!indirect)
++		WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_VCPU_CACHE_SIZE0), size, 0, indirect);
 +	else
-+		reg_data = 0 << UVD_CGC_CTRL__DYN_CLOCK_MODE__SHIFT;
-+	reg_data |= 1 << UVD_CGC_CTRL__CLK_GATE_DLY_TIMER__SHIFT;
-+	reg_data |= 4 << UVD_CGC_CTRL__CLK_OFF_DELAY__SHIFT;
-+	reg_data &= ~(UVD_CGC_CTRL__UDEC_RE_MODE_MASK |
-+		 UVD_CGC_CTRL__UDEC_CM_MODE_MASK |
-+		 UVD_CGC_CTRL__UDEC_IT_MODE_MASK |
-+		 UVD_CGC_CTRL__UDEC_DB_MODE_MASK |
-+		 UVD_CGC_CTRL__UDEC_MP_MODE_MASK |
-+		 UVD_CGC_CTRL__SYS_MODE_MASK |
-+		 UVD_CGC_CTRL__UDEC_MODE_MASK |
-+		 UVD_CGC_CTRL__MPEG2_MODE_MASK |
-+		 UVD_CGC_CTRL__REGS_MODE_MASK |
-+		 UVD_CGC_CTRL__RBC_MODE_MASK |
-+		 UVD_CGC_CTRL__LMI_MC_MODE_MASK |
-+		 UVD_CGC_CTRL__LMI_UMC_MODE_MASK |
-+		 UVD_CGC_CTRL__IDCT_MODE_MASK |
-+		 UVD_CGC_CTRL__MPRD_MODE_MASK |
-+		 UVD_CGC_CTRL__MPC_MODE_MASK |
-+		 UVD_CGC_CTRL__LBSI_MODE_MASK |
-+		 UVD_CGC_CTRL__LRBBM_MODE_MASK |
-+		 UVD_CGC_CTRL__WCB_MODE_MASK |
-+		 UVD_CGC_CTRL__VCPU_MODE_MASK |
-+		 UVD_CGC_CTRL__MMSCH_MODE_MASK);
-+	WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
-+		VCN, inst_idx, mmUVD_CGC_CTRL), reg_data, sram_sel, indirect);
++		WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_VCPU_CACHE_SIZE0), 0, 0, indirect);
 +
-+	/* turn off clock gating */
++	/* cache window 1: stack */
++	if (!indirect) {
++		WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_LMI_VCPU_CACHE1_64BIT_BAR_LOW),
++			lower_32_bits(adev->vcn.inst[inst_idx].gpu_addr + offset), 0, indirect);
++		WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_LMI_VCPU_CACHE1_64BIT_BAR_HIGH),
++			upper_32_bits(adev->vcn.inst[inst_idx].gpu_addr + offset), 0, indirect);
++		WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_VCPU_CACHE_OFFSET1), 0, 0, indirect);
++	} else {
++		WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_LMI_VCPU_CACHE1_64BIT_BAR_LOW), 0, 0, indirect);
++		WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_LMI_VCPU_CACHE1_64BIT_BAR_HIGH), 0, 0, indirect);
++		WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_VCPU_CACHE_OFFSET1), 0, 0, indirect);
++	}
 +	WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
-+		VCN, inst_idx, mmUVD_CGC_GATE), 0, sram_sel, indirect);
++			VCN, inst_idx, mmUVD_VCPU_CACHE_SIZE1), AMDGPU_VCN_STACK_SIZE, 0, indirect);
 +
-+	/* turn on SUVD clock gating */
++	/* cache window 2: context */
 +	WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
-+		VCN, inst_idx, mmUVD_SUVD_CGC_GATE), 1, sram_sel, indirect);
++			VCN, inst_idx, mmUVD_LMI_VCPU_CACHE2_64BIT_BAR_LOW),
++			lower_32_bits(adev->vcn.inst[inst_idx].gpu_addr + offset + AMDGPU_VCN_STACK_SIZE), 0, indirect);
++	WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_LMI_VCPU_CACHE2_64BIT_BAR_HIGH),
++			upper_32_bits(adev->vcn.inst[inst_idx].gpu_addr + offset + AMDGPU_VCN_STACK_SIZE), 0, indirect);
++	WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_VCPU_CACHE_OFFSET2), 0, 0, indirect);
++	WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_VCPU_CACHE_SIZE2), AMDGPU_VCN_CONTEXT_SIZE, 0, indirect);
 +
-+	/* turn on sw mode in UVD_SUVD_CGC_CTRL */
++	/* non-cache window */
 +	WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
-+		VCN, inst_idx, mmUVD_SUVD_CGC_CTRL), 0, sram_sel, indirect);
++			VCN, inst_idx, mmUVD_LMI_VCPU_NC0_64BIT_BAR_LOW), 0, 0, indirect);
++	WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_LMI_VCPU_NC0_64BIT_BAR_HIGH), 0, 0, indirect);
++	WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_VCPU_NONCACHE_OFFSET0), 0, 0, indirect);
++	WREG32_SOC15_DPG_MODE_2_0(inst_idx, SOC15_DPG_MODE_OFFSET_2_0(
++			VCN, inst_idx, mmUVD_VCPU_NONCACHE_SIZE0), 0, 0, indirect);
 +}
 +
- /**
-  * vcn_v3_0_enable_clock_gating - enable VCN clock gating
-  *
+ static void vcn_v3_0_disable_static_power_gating(struct amdgpu_device *adev, int inst)
+ {
+ 	uint32_t data = 0;
 -- 
 2.25.4
 
