@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 486B3C433E0
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D5782C433E1
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1CA6F2073B
+	by mail.kernel.org (Postfix) with ESMTPS id AE3072073B
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B3m5DG+L"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1CA6F2073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D2JHPiU3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AE3072073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D55AF6E2F9;
-	Mon,  1 Jun 2020 18:21:34 +0000 (UTC)
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F14666E2F9
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:32 +0000 (UTC)
-Received: by mail-qt1-x841.google.com with SMTP id x29so8500489qtv.4
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:32 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 770606E311;
+	Mon,  1 Jun 2020 18:21:35 +0000 (UTC)
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5B9446E2F9
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:34 +0000 (UTC)
+Received: by mail-qt1-x844.google.com with SMTP id i68so8490582qtb.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=sf+rlxAq+SOEdkJOIUX+enMcucxwpwq/xmEqFUnwIGA=;
- b=B3m5DG+LSCvbtLc/f0hMShfZzIUy58vZbSnOPpl+x2vLDTWaPIEO5unaHtA2K6h8Qb
- wHKGxozL5gZ63V56ahydvl3YS8fyrjGZDqv/cBf9J+QLq3nseO9zEGXmE9LRppz4mO0o
- fFIVKgElufkdBfgnQAn03WM4nZCHevQTcnZ+34cLVhjAx5PLOHk8QravwxvzD9SMnqF4
- Tp57qAECx0TcsQQnIj7H/cPTtf9sgnO6H1VwIrFSI1iMQVcSMgwyCAecgdrMBlW81RLs
- KvxVC5ji3qE8fovamNBvZd7EHLV/vhJOrQkX/KygI1HqN0mqPCBAYFOsed3bHLctb8n8
- kY2A==
+ bh=8SfamSL95J2bd8Jf5/IcVfkBqCDneJo/pxt8Tjh772M=;
+ b=D2JHPiU3gFOU+iP3Nq1Nj5grZZXWIg32ZsIcmi0Ab1BeRjtesk6q0ut2rpOVo+2gDM
+ e+GrzCAPSq9PN2AW9muV+mPWKLVxIHOBtYuiMVtU8x2xwSB2cn9cDuz4CFwdc8NMFETj
+ 6Cg9zl+vCCdG5e860lWTe1S786Zmcg4EIORsLYgG5FQBfyjfPUXLfR1VBIG3nwkTmzJu
+ cSz1ZdsoZk3JajxAxRpfpya5jwPFMoH9vdb6zMqGy0o77nIjZZEpWuwf9+u2ZMtB+tNu
+ GiaewXeh4wHSbT5PlamXQrC6noTZfZ+TnBd88jv+ivgA01HxQQg0y7vKMNPdAMLcAKPP
+ DPNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=sf+rlxAq+SOEdkJOIUX+enMcucxwpwq/xmEqFUnwIGA=;
- b=aPmh+acAyMt/GR85muJk3bUTqDmXWkYSsYyCDsMqTJ2dV+cSlGBiBjM4DV0kKMt4mn
- Y5wxfk29QPQlDfifk2sfEgR3ZEYDotKXJLJL1MXrnc1cWWKNFhNfD7LFP7B3gxB6DUoA
- vyX7gnO9ATtLRz8RIVDt/NSQsAC9tSMYleFb50SYiLmQEfmLCpejffFBL7Y84swk6103
- DCjPoHLTL7ardPm8ApTp7LkhADmNohiQ3+g1dbKKAu7x0Rh24JWFXBgvMDfBDdPT3oq6
- G5ZyIim37roj7OtKpsWix6FdVw+c/PJ4BoIj8jojEj12WjqHYyRykKnYIcfDDiagyuQp
- TX5g==
-X-Gm-Message-State: AOAM533mQeeQYXzHokADkX//r1BCsxtnWIJWS9WYWL4If02OToxzFc8v
- 94yKinru4eDuqRu6nbZEyzr813rU
-X-Google-Smtp-Source: ABdhPJxHUdWb/BwX7x+OffQ9j6/Cowkjh5yHYlEMc1BtLhfBu6VFG0wnceC9RI0GVyPC98Tg8M0JLw==
-X-Received: by 2002:aed:3b56:: with SMTP id q22mr23051838qte.345.1591035691986; 
- Mon, 01 Jun 2020 11:21:31 -0700 (PDT)
+ bh=8SfamSL95J2bd8Jf5/IcVfkBqCDneJo/pxt8Tjh772M=;
+ b=i60fCWR8DWFQLajzyZv1d5Ux7SuZLIbgOTpWAgyvvMD/nhb13jHAGoXhBTa5qLm0Wj
+ EDjMFcjJconXRLQiBeJb5G/CHpmsnvBvfcJIibgHEqbuHJ/0u/bXEurG39foLUK7fQHD
+ xuK6VbyzuG68gxJGsROOfRAJ/58O+iB5ghxwSkqL0wSjU/Q74oYEicRVjPs51NO46Bc6
+ eu45fQg7GyHrdIj0y9I8Kg4jNOx4pv5ZQ1X9ivdBmKY2343iM2F0geZ8Zqru48mAB4+O
+ i+iYU9Tp2ssB30JjUmwzn6wiKxyciY/xaZ6Jv0b69oRQ/ywnSQLJkMs6OoBtbOAmwg/B
+ zHBg==
+X-Gm-Message-State: AOAM533KWpq8lCUepcvhFZnWLuAtjvOJSR76cwonc4ssL3qhH7zBUbAd
+ 2gUhcvpubHzUxyN3Pt2lM2BnhQzd
+X-Google-Smtp-Source: ABdhPJyLBVYYD9r+9rcC21KDdxfXKTp+xbKa4SkhVOam30zz61VtGv0zeDz1xTc0YAJwjAJiKp+snQ==
+X-Received: by 2002:ac8:3779:: with SMTP id p54mr23774939qtb.156.1591035693375; 
+ Mon, 01 Jun 2020 11:21:33 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.31
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:21:31 -0700 (PDT)
+ Mon, 01 Jun 2020 11:21:32 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 111/207] drm/amdgpu: Enable Multi Media Hub (MMHUB) Clock
- Gating for sienna_cichlid.
-Date: Mon,  1 Jun 2020 14:19:18 -0400
-Message-Id: <20200601182054.1267858-22-alexander.deucher@amd.com>
+Subject: [PATCH 112/207] drm/amdgpu: fix SDMA hdp flush engine conflict
+Date: Mon,  1 Jun 2020 14:19:19 -0400
+Message-Id: <20200601182054.1267858-23-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -81,8 +80,7 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Kenneth Feng <kenneth.feng@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
@@ -90,27 +88,40 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-Enable mmhub clockgating.
+Each of HDP flush engine should be used by one ring, correct allocate of
+hdp flush engine to SDMA ring.
+Correct me value of each SDMA ring, as it was cleared when init microcode.
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/nv.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
-index 451557544b85..89c3727b7a8e 100644
---- a/drivers/gpu/drm/amd/amdgpu/nv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nv.c
-@@ -717,6 +717,7 @@ static int nv_common_early_init(void *handle)
- 		adev->cg_flags = AMD_CG_SUPPORT_GFX_MGCG |
- 			AMD_CG_SUPPORT_GFX_CGCG |
- 			AMD_CG_SUPPORT_GFX_3D_CGCG |
-+			AMD_CG_SUPPORT_MC_MGCG |
- 			AMD_CG_SUPPORT_VCN_MGCG |
- 			AMD_CG_SUPPORT_JPEG_MGCG |
- 			AMD_CG_SUPPORT_HDP_MGCG |
+diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+index 52206050adb9..f072cef28b60 100644
+--- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
+@@ -391,10 +391,7 @@ static void sdma_v5_2_ring_emit_hdp_flush(struct amdgpu_ring *ring)
+ 	u32 ref_and_mask = 0;
+ 	const struct nbio_hdp_flush_reg *nbio_hf_reg = adev->nbio.hdp_flush_reg;
+ 
+-	if (ring->me == 0)
+-		ref_and_mask = nbio_hf_reg->ref_and_mask_sdma0;
+-	else
+-		ref_and_mask = nbio_hf_reg->ref_and_mask_sdma1;
++	ref_and_mask = nbio_hf_reg->ref_and_mask_sdma0 << ring->me;
+ 
+ 	amdgpu_ring_write(ring, SDMA_PKT_HEADER_OP(SDMA_OP_POLL_REGMEM) |
+ 			  SDMA_PKT_POLL_REGMEM_HEADER_HDP_FLUSH(1) |
+@@ -1224,6 +1221,7 @@ static int sdma_v5_2_sw_init(void *handle)
+ 		ring = &adev->sdma.instance[i].ring;
+ 		ring->ring_obj = NULL;
+ 		ring->use_doorbell = true;
++		ring->me = i;
+ 
+ 		DRM_INFO("use_doorbell being set to: [%s]\n",
+ 				ring->use_doorbell?"true":"false");
 -- 
 2.25.4
 
