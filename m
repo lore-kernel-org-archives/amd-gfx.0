@@ -8,64 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 17113C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D2E1C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E3FBD2073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:43 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1C5EE2074B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:22:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MTM/ojdh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E3FBD2073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qQdnWc2z"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C5EE2074B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A77176E369;
-	Mon,  1 Jun 2020 18:22:43 +0000 (UTC)
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D0A46E369
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:42 +0000 (UTC)
-Received: by mail-qt1-x842.google.com with SMTP id q14so8224837qtr.9
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:42 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAF416E366;
+	Mon,  1 Jun 2020 18:22:44 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19EE36E366
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:22:44 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id n141so10044443qke.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:22:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=rcC8WtF5IMhT9GaWkJNIr4U0DSA2tM3h8fl7q2wniUo=;
- b=MTM/ojdh30d5FrwatyV8H/FY41F+ADcIHX29+sD5dTUCPu70dJJDGHYIMjlFpJGdR7
- 5U1v0HJQPxe7JXrfPBaOa1Lbj5SM/8UXKeapHtdoCdhYxTNs3jpj4UvAqWrzvFYRIjaK
- +TgT8Brwr+LzBwoSHoQeb4X5O2vwsRq26mBuwWEhU6hKbUdOtMrKXtZPVW7Rq524MllU
- kzm4MrWExOLxxGY7vEwyKUAr7QWn4lbSNNCGaFarGqPGiScWpYRCeQukcbt8cbmH9TAY
- YVc53OL0Ve9DnGIhQuOJG/ABILc0+uY4JxDqDEDaeZnnzjCKC6hEAcH7sswZDA6wGWr7
- W6PQ==
+ bh=oV6eG/KGhV0unkqd7Ey+Hjdzo4Na52gtO/Q2si1hiXQ=;
+ b=qQdnWc2zuCqIHEcYqzkxSQ+aolffI0osiYriykDjcFoJlYWAWTKQxl1T0ETB5kUbfW
+ so4yqi+6ivWYE97WeCErZqAUAWM7qSNjrOj46IGThrLdjTyaqe3DUN+LhH1vgLcX8UYb
+ A+Ibi0d97Szf5xO/d/+e4d8oNyvuE2wsjxQrMUQdabiMijNbekwxC9YlUSsBIz2Qg168
+ L7cj0tCzMhrT+o1qoRpSi8/KRoymopFR4QlkR1Yo9LvDwrzqp9Nc7rr26caNliA53QxV
+ opgK3cQWhmTxBVbyT+Ywri6+chvdbM/2k5Qfn49oKrze0erdfi11L2nx/fH66HrvS8x+
+ NxpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=rcC8WtF5IMhT9GaWkJNIr4U0DSA2tM3h8fl7q2wniUo=;
- b=e9moSi3qguDT/Fvs0LSIeZU1DN7mtmfj7dgkA9clYFQ4zytKu2MCXN6nKxtTE0Y3jA
- DIF8ML+ydbC22/vEYFuxMo5pec8BiO2mMjbJvCX4JVCO4dEp5SCnWsOckFeKwvEC1NUr
- SP04Kk1BYmx/D3GGmnHCz42BnD2fsmxXnkwhLU0eZfSLOMdkU0ZQqAlLkksUtUjOAruE
- LzVXKFTQrarUWZGFAz/VsLWPzLvzCSBjoQFEwr6usFllMHodrXM4erUXVOVbKQzZVPa1
- FydzibyGvDymSsIOh57LIQ8oychPX3JcqPv98HfXTli7+Dsj2KaHCRbFNZW5ZKbVjj+n
- LVHg==
-X-Gm-Message-State: AOAM5336Qi0oFLvEI/Ajz1lq4bRSg4B2dIVLdzM9eu/jEKToF0wftHLs
- /aw4ReOunPa/ecS/n9vQgBvGr6gg
-X-Google-Smtp-Source: ABdhPJyXlFWNJAMhkxpLBXDIFvT+6lT/k+RBECoHT9dx1By4jkKisu7U7ux0DW9BNmBOrbiACwhNfg==
-X-Received: by 2002:ac8:31f3:: with SMTP id i48mr23200827qte.128.1591035761479; 
- Mon, 01 Jun 2020 11:22:41 -0700 (PDT)
+ bh=oV6eG/KGhV0unkqd7Ey+Hjdzo4Na52gtO/Q2si1hiXQ=;
+ b=hyXmL9/Qd5Oyf7Xsqh5m9mFcYhy0LSshz9MUujQ2Xw1iJ0rmjZfA6io9JgQCOcdvun
+ IMhZILbx+nyBtWsRyJ63s8Mug9kP/lEmg4N3eOaMjuJ7SP3qzlDqQVkF9g7yT5V8mjlM
+ vJylTS2cJikt4amo7P+oMot5YDfsvElum1PBvkPwud0jbaTmmkImxLCEPRC5L+Nl0pIq
+ Z3mvuPolrtRxFuEzu6hk9WnllzGtbRJgfnJc3I0Zgg1EjFWtDhxJSwpo+kgfQhGGWDKO
+ 3IvbGCP6XDrLH9T7sb2gonDcWTpjjqkUgaAPkvGmUpO/e7aF7D2PtszKI4YcJlztlrb1
+ wPdA==
+X-Gm-Message-State: AOAM531CpV0+oiCdllxK7jPw3wfVDBb0Q5NV9xU6cPyTkU3hQUzR7JCK
+ Ego2kVv0htgQ8+dwWYdkmZhiANDH
+X-Google-Smtp-Source: ABdhPJwnK/Eo2hgEdSFx21XTuwb4CDhjbarl9vJbCmlZG8o8U+LWnlUEPibp7OkJaPn0ObJcgQOUfw==
+X-Received: by 2002:a37:8a42:: with SMTP id m63mr20776539qkd.230.1591035762991; 
+ Mon, 01 Jun 2020 11:22:42 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.39
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.22.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:22:40 -0700 (PDT)
+ Mon, 01 Jun 2020 11:22:42 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 164/207] drm/amd/powerplay: support mclk socclk limit value
- set for sienna_cichlid.
-Date: Mon,  1 Jun 2020 14:20:11 -0400
-Message-Id: <20200601182054.1267858-75-alexander.deucher@amd.com>
+Subject: [PATCH 165/207] drm/amd/amdgpu: disable gfxoff to retrieve gfxclk
+Date: Mon,  1 Jun 2020 14:20:12 -0400
+Message-Id: <20200601182054.1267858-76-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -90,37 +89,191 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-Add support to force and unforce MCLK or SOCCLK to dpm limit value.
+For Sienna_Cichlid, GFXOFF state puts gfx dpm into standby mode, then the
+gfxclk can't be retireved.
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 71 ++++++++++++++++---
+ 1 file changed, 60 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index 667c912e47fd..ef8532ff8e30 100644
+index ef8532ff8e30..2ac30d2ddf5e 100644
 --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -945,6 +945,8 @@ static int sienna_cichlid_force_dpm_limit_value(struct smu_context *smu, bool hi
+@@ -706,6 +706,9 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 	uint32_t mark_index = 0;
+ 	uint32_t gen_speed, lane_width;
  
- 	enum smu_clk_type clks[] = {
- 		SMU_GFXCLK,
-+		SMU_MCLK,
-+		SMU_SOCCLK,
- 	};
++	if ((clk_type == SMU_GFXCLK) || (clk_type == SMU_SCLK))
++		amdgpu_gfx_off_ctrl(adev, false);
++
+ 	switch (clk_type) {
+ 	case SMU_GFXCLK:
+ 	case SMU_SCLK:
+@@ -716,20 +719,20 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 	case SMU_DCEFCLK:
+ 		ret = smu_get_current_clk_freq(smu, clk_type, &cur_value);
+ 		if (ret)
+-			return size;
++			goto print_clk_out;
  
- 	for (i = 0; i < ARRAY_SIZE(clks); i++) {
-@@ -970,6 +972,8 @@ static int sienna_cichlid_unforce_dpm_levels(struct smu_context *smu)
+ 		/* 10KHz -> MHz */
+ 		cur_value = cur_value / 100;
  
- 	enum smu_clk_type clks[] = {
- 		SMU_GFXCLK,
-+		SMU_MCLK,
-+		SMU_SOCCLK,
- 	};
+ 		ret = smu_get_dpm_level_count(smu, clk_type, &count);
+ 		if (ret)
+-			return size;
++			goto print_clk_out;
  
- 	for (i = 0; i < ARRAY_SIZE(clks); i++) {
+ 		if (!sienna_cichlid_is_support_fine_grained_dpm(smu, clk_type)) {
+ 			for (i = 0; i < count; i++) {
+ 				ret = smu_get_dpm_freq_by_index(smu, clk_type, i, &value);
+ 				if (ret)
+-					return size;
++					goto print_clk_out;
+ 
+ 				size += sprintf(buf + size, "%d: %uMhz %s\n", i, value,
+ 						cur_value == value ? "*" : "");
+@@ -737,10 +740,10 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 		} else {
+ 			ret = smu_get_dpm_freq_by_index(smu, clk_type, 0, &freq_values[0]);
+ 			if (ret)
+-				return size;
++				goto print_clk_out;
+ 			ret = smu_get_dpm_freq_by_index(smu, clk_type, count - 1, &freq_values[2]);
+ 			if (ret)
+-				return size;
++				goto print_clk_out;
+ 
+ 			freq_values[1] = cur_value;
+ 			mark_index = cur_value == freq_values[0] ? 0 :
+@@ -783,19 +786,26 @@ static int sienna_cichlid_print_clk_levels(struct smu_context *smu,
+ 		break;
+ 	}
+ 
++print_clk_out:
++	if ((clk_type == SMU_GFXCLK) || (clk_type == SMU_SCLK))
++		amdgpu_gfx_off_ctrl(adev, true);
++
+ 	return size;
+ }
+ 
+ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
+ 				   enum smu_clk_type clk_type, uint32_t mask)
+ {
+-
++	struct amdgpu_device *adev = smu->adev;
+ 	int ret = 0, size = 0;
+ 	uint32_t soft_min_level = 0, soft_max_level = 0, min_freq = 0, max_freq = 0;
+ 
+ 	soft_min_level = mask ? (ffs(mask) - 1) : 0;
+ 	soft_max_level = mask ? (fls(mask) - 1) : 0;
+ 
++	if ((clk_type == SMU_GFXCLK) || (clk_type == SMU_SCLK))
++		amdgpu_gfx_off_ctrl(adev, false);
++
+ 	switch (clk_type) {
+ 	case SMU_GFXCLK:
+ 	case SMU_SCLK:
+@@ -812,20 +822,24 @@ static int sienna_cichlid_force_clk_levels(struct smu_context *smu,
+ 
+ 		ret = smu_get_dpm_freq_by_index(smu, clk_type, soft_min_level, &min_freq);
+ 		if (ret)
+-			return size;
++			goto forec_level_out;
+ 
+ 		ret = smu_get_dpm_freq_by_index(smu, clk_type, soft_max_level, &max_freq);
+ 		if (ret)
+-			return size;
++			goto forec_level_out;
+ 
+ 		ret = smu_set_soft_freq_range(smu, clk_type, min_freq, max_freq, false);
+ 		if (ret)
+-			return size;
++			goto forec_level_out;
+ 		break;
+ 	default:
+ 		break;
+ 	}
+ 
++forec_level_out:
++	if ((clk_type == SMU_GFXCLK) || (clk_type == SMU_SCLK))
++		amdgpu_gfx_off_ctrl(adev, true);
++
+ 	return size;
+ }
+ 
+@@ -1265,6 +1279,7 @@ static int sienna_cichlid_get_profiling_clk_mask(struct smu_context *smu,
+ 					 uint32_t *mclk_mask,
+ 					 uint32_t *soc_mask)
+ {
++	struct amdgpu_device *adev = smu->adev;
+ 	int ret = 0;
+ 	uint32_t level_count = 0;
+ 
+@@ -1276,7 +1291,9 @@ static int sienna_cichlid_get_profiling_clk_mask(struct smu_context *smu,
+ 			*mclk_mask = 0;
+ 	} else if (level == AMD_DPM_FORCED_LEVEL_PROFILE_PEAK) {
+ 		if(sclk_mask) {
++			amdgpu_gfx_off_ctrl(adev, false);
+ 			ret = smu_get_dpm_level_count(smu, SMU_SCLK, &level_count);
++			amdgpu_gfx_off_ctrl(adev, true);
+ 			if (ret)
+ 				return ret;
+ 			*sclk_mask = level_count - 1;
+@@ -1698,6 +1715,38 @@ static int sienna_cichlid_update_pcie_parameters(struct smu_context *smu,
+ 	return 0;
+ }
+ 
++int sienna_cichlid_get_dpm_ultimate_freq(struct smu_context *smu,
++				enum smu_clk_type clk_type,
++				uint32_t *min, uint32_t *max)
++{
++	struct amdgpu_device *adev = smu->adev;
++	int ret;
++
++	if (clk_type == SMU_GFXCLK)
++		amdgpu_gfx_off_ctrl(adev, false);
++	ret = smu_v11_0_get_dpm_ultimate_freq(smu, clk_type, min, max);
++	if (clk_type == SMU_GFXCLK)
++		amdgpu_gfx_off_ctrl(adev, true);
++
++	return ret;
++}
++
++int sienna_cichlid_set_soft_freq_limited_range(struct smu_context *smu,
++				      enum smu_clk_type clk_type,
++				      uint32_t min, uint32_t max)
++{
++	struct amdgpu_device *adev = smu->adev;
++	int ret;
++
++	if (clk_type == SMU_GFXCLK)
++		amdgpu_gfx_off_ctrl(adev, false);
++	ret = smu_v11_0_set_soft_freq_limited_range(smu, clk_type, min, max);
++	if (clk_type == SMU_GFXCLK)
++		amdgpu_gfx_off_ctrl(adev, true);
++
++	return ret;
++}
++
+ static void sienna_cichlid_dump_pptable(struct smu_context *smu)
+ {
+ 	struct smu_table_context *table_context = &smu->smu_table;
+@@ -2452,8 +2501,8 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
+ 	.baco_set_state = smu_v11_0_baco_set_state,
+ 	.baco_enter = smu_v11_0_baco_enter,
+ 	.baco_exit = smu_v11_0_baco_exit,
+-	.get_dpm_ultimate_freq = smu_v11_0_get_dpm_ultimate_freq,
+-	.set_soft_freq_limited_range = smu_v11_0_set_soft_freq_limited_range,
++	.get_dpm_ultimate_freq = sienna_cichlid_get_dpm_ultimate_freq,
++	.set_soft_freq_limited_range = sienna_cichlid_set_soft_freq_limited_range,
+ 	.override_pcie_parameters = smu_v11_0_override_pcie_parameters,
+ 	.get_pptable_power_limit = sienna_cichlid_get_pptable_power_limit,
+ };
 -- 
 2.25.4
 
