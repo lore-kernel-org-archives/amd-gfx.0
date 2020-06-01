@@ -8,63 +8,63 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3216FC433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FD9BC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A04C2073B
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E7D622073B
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:21:28 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aLr8yNhw"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A04C2073B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iK7vFIPF"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E7D622073B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B00426E2F8;
-	Mon,  1 Jun 2020 18:21:26 +0000 (UTC)
-Received: from mail-qv1-xf44.google.com (mail-qv1-xf44.google.com
- [IPv6:2607:f8b0:4864:20::f44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B97006E2FF
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:24 +0000 (UTC)
-Received: by mail-qv1-xf44.google.com with SMTP id g7so468458qvx.11
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:24 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6A716E30F;
+	Mon,  1 Jun 2020 18:21:28 +0000 (UTC)
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 39E716E2F9
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:21:27 +0000 (UTC)
+Received: by mail-qk1-x743.google.com with SMTP id c14so8976243qka.11
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:21:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=B/xv3lNsAzkYv7SrpNGxgXr/ag3M82VVwTdNxdrsdDk=;
- b=aLr8yNhwIVNqKcMflZnc1wQW8NWeRjnOEaouBi6aQjJX5IKw1xos4cv+j4VO2ILom8
- JSZQQeDf1OEVPzEJs0J63n4qojhEAIlQZJJbYyFmXbAfo6vLtHLSGMr2Htel7sKbXcAf
- ZgwAJO5hHuHo3KkdIevrU12lK7x1PwQteBsLsYtXvi93pBfGFsUILqTQEYutQFVDMNYY
- kPKkz+SYtYPWHRfi60MEOzP0ogM8H7EQigabBR+5zs7qX8Vg6fgCOA307y1Fulaulasv
- cT1dMOUpcYMYedVAnpxf2i7/BjbZtzeQh5ydzh8gD+Rh9j3aOHgTUwFZ71bT/NJk0dCt
- EEYw==
+ bh=Q3cAjGOHu27NcEPkr4bPwz8RX8rnc0UwiCk7NMAp2v0=;
+ b=iK7vFIPFqGb8H+TVTlbE7mWTj/N14sVRpUxdUY6prEpUTYS5Hcpep/cEvKc1zk23yd
+ 20n/un0GSJriMcTkaiAqo/ob0k/WLbWBdxas22eNLB/dttBQzgPJHEh/p1RlsIYPtqfI
+ +cVINobQt2GDcEQga31j3olXPVWp17CSnMA8P1UM2bVw+hwSkukV2exXhTjKHl+Th8UI
+ W143gNooAxJtBipfFoTbTUgsAJF3dnP7DwI2fKf9Y5wnPLVA2HT3FrtS8JEAAnoLl0Qh
+ ye1/mykfonVtI88DfCzaG8M9cPI1VS6zqRPtzWjaY0/0KZLkeV5EYYaNzru5CkKuFxoQ
+ iGDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=B/xv3lNsAzkYv7SrpNGxgXr/ag3M82VVwTdNxdrsdDk=;
- b=YTS3NRzSdTDJGVvNjQNekM/14ks+LtG8SKVSlgji+KBPWORIP3Pk2JJpzZsPVQE2fb
- ukctTgV9TarRSBBIYmgmlXG3PK7IrJQHdgT/23nLfuyN8HnLoPZ0uTYOCzOlEgIKOgne
- 4yy2tJUG1XNV8YbnVFYysEWQlhkhWSxgHWqJr9xc08EuFGfNifS/hBhjHUbimsueY0cZ
- WBYcl2SpPKZkrWwENSO3Fo0Qj9l5OPfVqjK1bhhOGmWOxh6u6Ut9OLERARXGI9zeZa88
- 6/VIyEbHYfsckWN8rC0C3Ca1kgJzDuMncPFtP417jgjVEDnvCaIT6IPfiPwMYtpKpnZZ
- ZQHg==
-X-Gm-Message-State: AOAM532PPdZMrqueRYVbVICr/DvAoTnjnAohQ93CmXaDCZBpZ2iBESnd
- gFri0bAaD2YnfZu6VXb9RJWQ/jkw
-X-Google-Smtp-Source: ABdhPJyyP87MpSVZOvsJiZtiB0qAfQEPi8pu0ECUHYwDDnimQ7wrHLT0pyVBr1e9atMrnrI5Jv7YgA==
-X-Received: by 2002:a0c:b44c:: with SMTP id e12mr21605973qvf.30.1591035683692; 
- Mon, 01 Jun 2020 11:21:23 -0700 (PDT)
+ bh=Q3cAjGOHu27NcEPkr4bPwz8RX8rnc0UwiCk7NMAp2v0=;
+ b=BXD1ntp77vMTSdyqxVoD1YokuVF8ifEfTf6sXy222YxEfZddi0mzSU04hGkAu4Pacr
+ iN0gZPGRsMtPbTUjLry8X9x0zFNYk0hDN+a/lgUHPekxGfQf3hT8hM1CGhgTrybGPRWS
+ jd9OPf7+y8pn0aQJ41UZCNuY2zTDAGkCqTu0Bq3eGC5vIv6YqfFLt+Gjj1SPT+nCYbJo
+ 7gNSePM/oo2G6k9a6xw1tB+1VE+wFApT82knJaYYx06fxPBigevLSWW1cMJgTOHlGLKS
+ JrZt9dI0Qsp56UTBVD33mSpPILbiPsxsw5aUW9jiSW7dDW9MQXBsEV09n51fYnbOyAvS
+ wZRA==
+X-Gm-Message-State: AOAM531QgNh2nu3n9WbvxGubUN7tVza0gx/AGCv0I9a0ShGiaMk7WDIb
+ As/fBSuPm8BAf7K/RSjvQA/zEpy5
+X-Google-Smtp-Source: ABdhPJwg4PMI7lF4FRzrC6GUxTAcFgZD7/2ZB43w0Wf0Gt13QaDhGJ3vEZlx3I4+ifKHj8K3oojzyA==
+X-Received: by 2002:a37:cca:: with SMTP id 193mr21026185qkm.208.1591035686184; 
+ Mon, 01 Jun 2020 11:21:26 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.22
+ by smtp.gmail.com with ESMTPSA id w10sm106849qtc.15.2020.06.01.11.21.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:21:23 -0700 (PDT)
+ Mon, 01 Jun 2020 11:21:25 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 105/207] drm/amdgpu: set the LMI ctrl and reset earlier
-Date: Mon,  1 Jun 2020 14:19:12 -0400
-Message-Id: <20200601182054.1267858-16-alexander.deucher@amd.com>
+Subject: [PATCH 107/207] drm/amd/amdgpu: fix the HDP LS/DS/SD programming
+Date: Mon,  1 Jun 2020 14:19:14 -0400
+Message-Id: <20200601182054.1267858-18-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601182054.1267858-1-alexander.deucher@amd.com>
 References: <20200601182054.1267858-1-alexander.deucher@amd.com>
@@ -80,59 +80,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>, Leo Liu <leo.liu@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, Likun Gao <Likun.Gao@amd.com>,
+ Kenneth Feng <kenneth.feng@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Liu <leo.liu@amd.com>
+From: Kenneth Feng <kenneth.feng@amd.com>
 
-So the LMI register will be programmed properly
+confirmed that IPH_MEM_POWER_CTRL_EN and RC_MEM_POWER_CTRL_EN
+have to be set for SRAM LS/DS/SD
 
-Signed-off-by: Leo Liu <leo.liu@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Kenneth Feng <kenneth.feng@amd.com>
+Reviewed-by: Likun Gao <Likun.Gao@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/nv.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index dddae2b8f0f9..517484292303 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -712,6 +712,15 @@ static int vcn_v3_0_start(struct amdgpu_device *adev)
- 		WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_MASTINT_EN), 0,
- 			~UVD_MASTINT_EN__VCPU_EN_MASK);
+diff --git a/drivers/gpu/drm/amd/amdgpu/nv.c b/drivers/gpu/drm/amd/amdgpu/nv.c
+index 5d1c2eba3412..081fde347dd4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nv.c
++++ b/drivers/gpu/drm/amd/amdgpu/nv.c
+@@ -889,6 +889,16 @@ static void nv_update_hdp_mem_power_gating(struct amdgpu_device *adev,
+ 						 RC_MEM_POWER_DS_EN, enable);
+ 	}
  
-+		/* enable LMI MC and UMC channels */
-+		WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_LMI_CTRL2), 0,
-+			~UVD_LMI_CTRL2__STALL_ARB_UMC_MASK);
++	/* confirmed that IPH_MEM_POWER_CTRL_EN and RC_MEM_POWER_CTRL_EN have to
++	 * be set for SRAM LS/DS/SD */
++	if (adev->cg_flags & (AMD_CG_SUPPORT_HDP_LS | AMD_CG_SUPPORT_HDP_DS |
++							AMD_CG_SUPPORT_HDP_SD)) {
++		hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl, HDP_MEM_POWER_CTRL,
++						IPH_MEM_POWER_CTRL_EN, 1);
++		hdp_mem_pwr_cntl = REG_SET_FIELD(hdp_mem_pwr_cntl, HDP_MEM_POWER_CTRL,
++						RC_MEM_POWER_CTRL_EN, 1);
++	}
 +
-+		tmp = RREG32_SOC15(VCN, i, mmUVD_SOFT_RESET);
-+		tmp &= ~UVD_SOFT_RESET__LMI_SOFT_RESET_MASK;
-+		tmp &= ~UVD_SOFT_RESET__LMI_UMC_SOFT_RESET_MASK;
-+		WREG32_SOC15(VCN, i, mmUVD_SOFT_RESET, tmp);
-+
- 		/* setup mmUVD_LMI_CTRL */
- 		tmp = RREG32_SOC15(VCN, i, mmUVD_LMI_CTRL);
- 		WREG32_SOC15(VCN, i, mmUVD_LMI_CTRL, tmp |
-@@ -752,15 +761,6 @@ static int vcn_v3_0_start(struct amdgpu_device *adev)
- 		WREG32_SOC15(VCN, i, mmUVD_GFX10_ADDR_CONFIG,
- 			adev->gfx.config.gb_addr_config);
+ 	WREG32_SOC15(HDP, 0, mmHDP_MEM_POWER_CTRL, hdp_mem_pwr_cntl);
  
--		/* enable LMI MC and UMC channels */
--		WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_LMI_CTRL2), 0,
--			~UVD_LMI_CTRL2__STALL_ARB_UMC_MASK);
--
--		tmp = RREG32_SOC15(VCN, i, mmUVD_SOFT_RESET);
--		tmp &= ~UVD_SOFT_RESET__LMI_SOFT_RESET_MASK;
--		tmp &= ~UVD_SOFT_RESET__LMI_UMC_SOFT_RESET_MASK;
--		WREG32_SOC15(VCN, i, mmUVD_SOFT_RESET, tmp);
--
- 		/* unblock VCPU register access */
- 		WREG32_P(SOC15_REG_OFFSET(VCN, i, mmUVD_RB_ARB_CTRL), 0,
- 			~UVD_RB_ARB_CTRL__VCPU_DIS_MASK);
+ 	/* restore IPH & RC clock override after clock/power mode changing */
 -- 
 2.25.4
 
