@@ -8,64 +8,64 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB816C433E1
-	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 064C9C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 956DD20825
+	by mail.kernel.org (Postfix) with ESMTPS id D17ED20825
 	for <amd-gfx@archiver.kernel.org>; Mon,  1 Jun 2020 18:03:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AL3bIJ/4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 956DD20825
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RIViJ/L1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D17ED20825
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 555DE6E27C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A2C56E284;
 	Mon,  1 Jun 2020 18:03:40 +0000 (UTC)
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFC2E6E283
- for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:03:38 +0000 (UTC)
-Received: by mail-qt1-x844.google.com with SMTP id j32so8406142qte.10
- for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:03:38 -0700 (PDT)
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0533F6E27C
+ for <amd-gfx@lists.freedesktop.org>; Mon,  1 Jun 2020 18:03:40 +0000 (UTC)
+Received: by mail-qt1-x843.google.com with SMTP id j32so8406208qte.10
+ for <amd-gfx@lists.freedesktop.org>; Mon, 01 Jun 2020 11:03:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=ziAD5tZesxFOCj9QlfoQFnd0wXayz+YOlA8FFI+D4X8=;
- b=AL3bIJ/4lcUv5CoxhYsaar9IKa7Dpg9+yTIFeOwzUzXAMdBhIUu+bJlUq+y+oE2jBb
- 0Rnlyhwm/clX/cjb1Ve6h/wCkjKEwrb1KjQ6D1TJfhRc/aMNSh6zkNWpAuL4YL79vaul
- CJtl71Nitlz+1rybY5Nur0RJEEUpF/SQaeFPplZ/jynuHEtpDOvvoXYAq+XJQmT24ztw
- 77bE4qQAe/mGdpG0gtuvbSnsqaIRhqCbeOdmSCoXTYyi7Ju75p6jPY6jgQyPcrvioVga
- Nq1uGRCinnafwlEzcPMMn5WCz26e0H2Geb+eAguRat0TlT+Yif4WMS6i04HG6pkV8Kw4
- JRkw==
+ bh=f1a1hf+EyIMhM/UuL8wo9w45EVTeH6VTirLp1q7NN/0=;
+ b=RIViJ/L1B4JroE6Lh+6e0PuetUVxDa2Ds7RReRL1ITf5nMbMdEG0LQlA0kIJ5BjgcE
+ CRsRe26x4kXO5WL5RkCrf1TxBcCxEGhz4XA//Gkovn354EugkqEEUyjq4vO2STgBIIzC
+ /lalVJMvAVt1Ayg3msN7qYusbS/MbUSQCBJ2Ockjwldr2sZ3vJhySsTXkCy8xGYAay3m
+ +G1oQ0XLYgt+O1E6ZETItHfeu0An5UTn9wmozZmuBu5UAdu549GaJN94qR1a7JydwuUZ
+ NoyuvFvSwYmHZuuja5xmzISkDeQf5NpXVeBnlzMk+9k9QP+Bc+T1jE8XYTWUR4zHyZl4
+ pPKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=ziAD5tZesxFOCj9QlfoQFnd0wXayz+YOlA8FFI+D4X8=;
- b=n0YUA8APf3xO9qcJ/qxRy3UjChZTJky27IGOp6+H2re1vL4+nwKHwXxb6mfTVGEkCY
- hlmfsfIfsU10iX9rMckOGg1eBYmeHFF0KMCy8CWWv6G7OQ3DxQ6ULFU/oEAoCbF9DuJD
- JLVPPuwrvC9Xy2Sr2+q2f2eagygYNpA6AoMp+L9fgvK+llSs0MBu4JBVRKVwbeSEdMa4
- qceycw+lGs/oz0OkLL1hzl0P/4RfyTdbGxQpCbU3Hpw7+D9O77Q8J4cjeJ/BKB0whn6g
- 2KIEbVWPi3S8sdF8WQF/jUfyJTNJoTBKJgVPDCaBsvpb+l4Hgt3Aykj7UsJs7VoqpBpo
- 7FUQ==
-X-Gm-Message-State: AOAM532Eevd6Mx9a+YYXYRGZQn7pRbnhpJhbsIRLJ7iWwW6hUKei51wX
- PRcVYGiwOnN/JUsLyH2wpZWusoZ6
-X-Google-Smtp-Source: ABdhPJxTfJR6zPI4374pM2e3itjRnPdM45+7pTYJKtMDN1SdZMoT4+H57oohBDubnYn9ZdpTjSGdAg==
-X-Received: by 2002:ac8:4e50:: with SMTP id e16mr23637427qtw.149.1591034617790; 
- Mon, 01 Jun 2020 11:03:37 -0700 (PDT)
+ bh=f1a1hf+EyIMhM/UuL8wo9w45EVTeH6VTirLp1q7NN/0=;
+ b=Uax94ouB2cSMkKrKl1kCYzijidN7sKacfAedfzme0EJp2nhfA8P+QH6U5rVVdlZOXB
+ 00Frv4z5VZNc93TPj/8Mz/RLFKMUvxfZB0GVJseRdgun4UDM7gtOGHzWC5UaqL83MgHi
+ rygSw1xDO65P6KU6b562mql0fAr7aWVC+4HfxLTxZ7kXEaindTB9r7Ev6hNGBm1EIXWy
+ EClLI9vn17ip1v+22VMCTzW7+AbVWKuOJLOYmGkVCEpRld+l9QM7xj89B4EdT5LnjIDF
+ 9r1ybgQwZ5qwKXmczcZikQez+nRqa91e7Eqq8TAOuvVpWXprTckDOW+hu93yrOwbHTSv
+ LEWQ==
+X-Gm-Message-State: AOAM533VDKUQeyB4BMI7VoG6VD/KZot4RHfeM6rr70TEE7auoAy45Flr
+ f186SDMHgwqHvomoAxqVYiLUAArb
+X-Google-Smtp-Source: ABdhPJx7R/rDdObKiJupDZurxneKHM7LDjkld/N2/V43+OccLhOznLKAVMTHNKnSCNimzK6rJame1g==
+X-Received: by 2002:aed:2d87:: with SMTP id i7mr10069894qtd.291.1591034619031; 
+ Mon, 01 Jun 2020 11:03:39 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.03.36
+ by smtp.gmail.com with ESMTPSA id h16sm42164qtp.1.2020.06.01.11.03.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2020 11:03:37 -0700 (PDT)
+ Mon, 01 Jun 2020 11:03:38 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 035/207] drm/amd/powerplay: Enable SOCCLK ULV for
+Subject: [PATCH 036/207] drm/amd/powerplay: enable DCEFCLK DPM and DS for
  sienna_cichlid
-Date: Mon,  1 Jun 2020 13:59:47 -0400
-Message-Id: <20200601180239.1267430-32-alexander.deucher@amd.com>
+Date: Mon,  1 Jun 2020 13:59:48 -0400
+Message-Id: <20200601180239.1267430-33-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.25.4
 In-Reply-To: <20200601180239.1267430-1-alexander.deucher@amd.com>
 References: <20200601180239.1267430-1-alexander.deucher@amd.com>
@@ -90,29 +90,48 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Likun Gao <Likun.Gao@amd.com>
 
-Enable FW DSTATE for sienna_cichlid.
-Enable DF CSTATE for sienna_cichlid.
+Enable Display Clocks Dynamic Power Management (DPM) for sienna_cichlid.
+Enable Display Controller Engine Fabric Clock Deep Sleep for sienna_cichlid.
 
 Signed-off-by: Likun Gao <Likun.Gao@amd.com>
 Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index 49e157f2b39f..a91e6f753bea 100644
+index a91e6f753bea..852c364fd7a3 100644
 --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -272,6 +272,8 @@ sienna_cichlid_get_allowed_feature_mask(struct smu_context *smu,
+@@ -45,7 +45,8 @@
+ 	FEATURE_MASK(FEATURE_DPM_GFXCLK_BIT)     | \
+ 	FEATURE_MASK(FEATURE_DPM_UCLK_BIT)	 | \
+ 	FEATURE_MASK(FEATURE_DPM_SOCCLK_BIT)     | \
+-	FEATURE_MASK(FEATURE_DPM_FCLK_BIT))
++	FEATURE_MASK(FEATURE_DPM_FCLK_BIT)	 | \
++	FEATURE_MASK(FEATURE_DPM_DCEFCLK_BIT))
+ 
+ #define MSG_MAP(msg, index) \
+ 	[SMU_MSG_##msg] = {1, (index)}
+@@ -272,6 +273,7 @@ sienna_cichlid_get_allowed_feature_mask(struct smu_context *smu,
  	*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_PREFETCHER_BIT)
  				| FEATURE_MASK(FEATURE_DPM_FCLK_BIT)
  				| FEATURE_MASK(FEATURE_DS_SOCCLK_BIT)
-+				| FEATURE_MASK(FEATURE_FW_DSTATE_BIT)
-+				| FEATURE_MASK(FEATURE_DF_CSTATE_BIT)
++				| FEATURE_MASK(FEATURE_DS_DCEFCLK_BIT)
+ 				| FEATURE_MASK(FEATURE_FW_DSTATE_BIT)
+ 				| FEATURE_MASK(FEATURE_DF_CSTATE_BIT)
  				| FEATURE_MASK(FEATURE_THERMAL_BIT);
+@@ -282,6 +284,9 @@ sienna_cichlid_get_allowed_feature_mask(struct smu_context *smu,
+ 	if (adev->pm.pp_feature & PP_MCLK_DPM_MASK)
+ 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_UCLK_BIT);
  
- 	if (adev->pm.pp_feature & PP_SCLK_DPM_MASK)
++	if (adev->pm.pp_feature & PP_DCEFCLK_DPM_MASK)
++		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_DCEFCLK_BIT);
++
+ 	if (adev->pm.pp_feature & PP_SOCCLK_DPM_MASK)
+ 		*(uint64_t *)feature_mask |= FEATURE_MASK(FEATURE_DPM_SOCCLK_BIT);
+ 
 -- 
 2.25.4
 
