@@ -2,69 +2,67 @@ Return-Path: <SRS0=q3BR=7P=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A769DC433E1
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 64C84C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:32:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7A4AF206C3
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:21:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3C8FC206C3
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:32:48 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iDu5SHMR"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A4AF206C3
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V5O3fcjh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C8FC206C3
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC9E6E077;
-	Tue,  2 Jun 2020 14:21:27 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6713F6E077;
- Tue,  2 Jun 2020 14:21:25 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id r9so3118406wmh.2;
- Tue, 02 Jun 2020 07:21:25 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B99B96E3F0;
+	Tue,  2 Jun 2020 14:32:47 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 99E846E3F0
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2020 14:32:46 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id d128so3379171wmc.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2020 07:32:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=4GBFKi4AE0Zui6AvlkZAGUYSPOB17V3NVuaNVtHxfg8=;
- b=iDu5SHMRXV9p8WONfSFl2dlTGUryo+ZFiH/JA8c+BGpC0QU91UUvpFSqaIUDjwglhJ
- +yHCvrxwjM2SKBwJwKYa1GbRuovooFIfzoTCF1yl2ITib0CXGS1Wo55BhIedjUGxf4vx
- RG3eMkMSlDO2j3hjTVY5//OWrK6qpsshclWS/Qv5yLsvOaeSolKJbGUB+khoj/r74KkQ
- I2vw01NGl+huCDwhWUg0CQZssrqjSa/WN+ITveeRJgNZRro0WURSoglT5zeA200cars1
- PrtMq6YXBy9H/+RDUKJTr9cn+1Nbv3AFR3KzoMoRCs+U2F21+pZUjx6mwCqDr0z0eaar
- KyUw==
+ :cc; bh=Pf9U0xu97gNdFtPjIGR38qEJWn/idB+yZFWdxgQw2/E=;
+ b=V5O3fcjhwieYn0kOV88EjhHEwjiJuV+IQrF/t56MZumkNU4VIH6kC2kyMfgxwmbk3O
+ zYQhs/6mJ/2M05Rq39Ucb4/0hWEGda3jKmAYkXrQSLxdCk2xWLp5sDTTKdozhvQUEyJq
+ 9CuITgQfCn6FbGWFV8HdDZqvAUIrPTmZbEJIa2y7ld1udRMrs0EtFnJ+6P7WBZfvt01r
+ FoxDUx+5l4feqcJwAjcY0BwIFP7iF4MmtN72qrp2VSgMQgJekci9R19SBVlTEqYaR21X
+ kYgr5I65oJyd7uldtxVVdeTS4jvU8obo6Zx04PLUjDP+Wc3aN8HZqJiLJ7AH3PPnEZTZ
+ bQ9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=4GBFKi4AE0Zui6AvlkZAGUYSPOB17V3NVuaNVtHxfg8=;
- b=RXM97RPo8cG/b64yZ6f0MxpDfPyWzresvPGg7OxgsrpLu4sIe/5SYaeB/FR0LK5rTo
- JJTis0gFagAYa/o9cNCqKCkl3UeT+10604GbCR6wE7YoM5zP/PK9U6q5k5DNHYlg/13Q
- 27CboEy9xGfg/VVYAq4efHZt99okgGm5HvfH8cV4yrm4WT4Sh3DBYAawF1NkrUo9Uj4g
- vevYA57gDMMypgaeksluJqKZYdEBYVdNVVoBVZydNIwFnLN70I6AumPAB+Nj8zVlrxsX
- z/U+ug3m5XrBwX1gzd0TsmqMbxe1EtVYuyNhLbPg1aMfeZ5VWyb152gjxr/I+fH23enI
- Kjzw==
-X-Gm-Message-State: AOAM53286aL3Wmj/HVGs+ILSaDH0rE489bLALiFJIs1Ig0e1BQ2SV2bt
- hvYA4ovm1TxAgGQGZZ2wj+CLLuP8i29d1kyLG5U=
-X-Google-Smtp-Source: ABdhPJwiSS2Ry+bKR7lnwZokdKyewXO4Wr3aDQ7TiyQVNw6HUV1RVyRn3Wt0zFxfu5fSXC17pT+RIs2BO9uqIhfNByE=
-X-Received: by 2002:a05:600c:2201:: with SMTP id
- z1mr4316621wml.70.1591107684025; 
- Tue, 02 Jun 2020 07:21:24 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=Pf9U0xu97gNdFtPjIGR38qEJWn/idB+yZFWdxgQw2/E=;
+ b=uCLEESbdIAhK6gxIoeHnXx55OSNE8gHrBBpcTU4X5TR00HTRonHtZTf8xlapxltL3k
+ 18EVd6nFbSVnnlDwGoaTQwg4CCFRFLIC6w9sf8ABHe/YGGd7HnGrKHCEVbkdWRvelghJ
+ OU/Se+SLW6VFJXNQNfHCOou9LqYM0kenSoqWbqTqtXlrc9KipV26QjwGIIoj2gWBzQLA
+ 8ahJAJFodKG25ro5mAAu8M6OHQ266ioJPFKaQkgRUSWyXhV7ORHVpn734BQm7yaIXRX1
+ XyAQelKrLdMpU6vLKy3SX4reYyV7mbtWAdGJn9BYPNpbrEafk6q4vm0I0s03OaH3t16U
+ nEZg==
+X-Gm-Message-State: AOAM530zClvGdHnmVMcoaDPMSNW0pJOOhgnEcbMxErdEohJMAC2vgDPC
+ k6jAQnJh5E1G4Bu0TDGnLvoc5/JpvsBkr90hCsBGCg==
+X-Google-Smtp-Source: ABdhPJznm6n2EbkWRifbC5wLUQ2Jmg9mW44ZEZhfaJ2+I37rQ76UU4Q7dAE7mhkYdvkBZT+vdy5hVAHSgzrj1udiH20=
+X-Received: by 2002:a7b:cd96:: with SMTP id y22mr4478219wmj.56.1591108365276; 
+ Tue, 02 Jun 2020 07:32:45 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200602092030.31966-1-piotr.stankiewicz@intel.com>
- <14063C7AD467DE4B82DEDB5C278E8663010E23E538@FMSMSX108.amr.corp.intel.com>
- <CAHp75Vfe5dQkOiFoAZx5b-NS1afiD-YC_w+5LcX8P1Hm0ASenA@mail.gmail.com>
-In-Reply-To: <CAHp75Vfe5dQkOiFoAZx5b-NS1afiD-YC_w+5LcX8P1Hm0ASenA@mail.gmail.com>
+References: <1591020460-7020-1-git-send-email-ray.huang@amd.com>
+In-Reply-To: <1591020460-7020-1-git-send-email-ray.huang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 2 Jun 2020 10:21:12 -0400
-Message-ID: <CADnq5_OO=gyo22ZrXp6pDtz2QZ2=LC429u_kkd0ZvX4=M3mBPw@mail.gmail.com>
-Subject: Re: [PATCH 07/15] drm/amdgpu: use PCI_IRQ_MSI_TYPES where appropriate
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 2 Jun 2020 10:32:34 -0400
+Message-ID: <CADnq5_NxX3rkAc__c+BZWJZSmhHuH+Bw-Y+zaQNc4M-W9nVVjg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/powerplay: use existed smu_dpm_set* interfaces to
+ implement powergate functions
+To: Huang Rui <ray.huang@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,75 +74,143 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Ruhl,
- Michael J" <michael.j.ruhl@intel.com>, "Stankiewicz,
- Piotr" <piotr.stankiewicz@intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCBKdW4gMiwgMjAyMCBhdCAxMDowMCBBTSBBbmR5IFNoZXZjaGVua28KPGFuZHkuc2hl
-dmNoZW5rb0BnbWFpbC5jb20+IHdyb3RlOgo+Cj4gT24gVHVlLCBKdW4gMiwgMjAyMCBhdCA0OjM4
-IFBNIFJ1aGwsIE1pY2hhZWwgSiA8bWljaGFlbC5qLnJ1aGxAaW50ZWwuY29tPiB3cm90ZToKPiA+
-ID4tLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+ID4gPkZyb206IGRyaS1kZXZlbCA8ZHJpLWRl
-dmVsLWJvdW5jZXNAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPiBPbiBCZWhhbGYgT2YKPiA+ID5QaW90
-ciBTdGFua2lld2ljego+ID4gPlNlbnQ6IFR1ZXNkYXksIEp1bmUgMiwgMjAyMCA1OjIxIEFNCj4g
-PiA+VG86IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT47IENocmlzdGlh
-biBLw7ZuaWcKPiA+ID48Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPjsgRGF2aWQgWmhvdSA8RGF2
-aWQxLlpob3VAYW1kLmNvbT47IERhdmlkCj4gPiA+QWlybGllIDxhaXJsaWVkQGxpbnV4LmllPjsg
-RGFuaWVsIFZldHRlciA8ZGFuaWVsQGZmd2xsLmNoPgo+ID4gPkNjOiBTdGFua2lld2ljeiwgUGlv
-dHIgPHBpb3RyLnN0YW5raWV3aWN6QGludGVsLmNvbT47IGRyaS0KPiA+ID5kZXZlbEBsaXN0cy5m
-cmVlZGVza3RvcC5vcmc7IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBsaW51eC0KPiA+
-ID5rZXJuZWxAdmdlci5rZXJuZWwub3JnCj4gPiA+U3ViamVjdDogW1BBVENIIDA3LzE1XSBkcm0v
-YW1kZ3B1OiB1c2UgUENJX0lSUV9NU0lfVFlQRVMgd2hlcmUKPiA+ID5hcHByb3ByaWF0ZQo+Cj4g
-Li4uCj4KPiA+ID4gICAgICAgICAgICAgICBpbnQgbnZlYyA9IHBjaV9tc2l4X3ZlY19jb3VudChh
-ZGV2LT5wZGV2KTsKPiA+ID4gICAgICAgICAgICAgICB1bnNpZ25lZCBpbnQgZmxhZ3M7Cj4gPiA+
-Cj4gPiA+LSAgICAgICAgICAgICAgaWYgKG52ZWMgPD0gMCkgewo+ID4gPisgICAgICAgICAgICAg
-IGlmIChudmVjID4gMCkKPiA+ID4rICAgICAgICAgICAgICAgICAgICAgIGZsYWdzID0gUENJX0lS
-UV9NU0lfVFlQRVM7Cj4gPiA+KyAgICAgICAgICAgICAgZWxzZQo+ID4gPiAgICAgICAgICAgICAg
-ICAgICAgICAgZmxhZ3MgPSBQQ0lfSVJRX01TSTsKPiA+ID4tICAgICAgICAgICAgICB9IGVsc2Ug
-ewo+ID4gPi0gICAgICAgICAgICAgICAgICAgICAgZmxhZ3MgPSBQQ0lfSVJRX01TSSB8IFBDSV9J
-UlFfTVNJWDsKPiA+ID4tICAgICAgICAgICAgICB9Cj4gPgo+ID4gTWlub3Igbml0Ogo+ID4KPiA+
-IElzIGl0IHJlYWxseSBuZWNlc3NhcnkgdG8gc2V0IGRvIHRoaXMgY2hlY2s/ICBDYW4gZmxhZ3Mg
-anVzdAo+ID4gYmUgc2V0Pwo+ID4KPiA+IEkuZS46Cj4gPiAgICAgICAgIGZsYWdzID0gUENJX0lS
-UV9NU0lfVFlQRVM7Cj4gPgo+ID4gcGNpX2FsbG9jX2lycV92ZWN0b3IoKSB0cmllcyBzdHVmZiBp
-biBvcmRlci4gIElmIE1TSVggaXMgbm90IGF2YWlsYWJsZSwKPiA+IGl0IHdpbGwgdHJ5IE1TSS4K
-Pgo+IFRoYXQncyBhbHNvIHdoYXQgSSBwcm9wb3NlZCBlYXJsaWVyLiBCdXQgSSBzdWdnZXN0ZWQg
-YXMgd2VsbCB0byB3YWl0Cj4gZm9yIEFNRCBwZW9wbGUgdG8gY29uZmlybSB0aGF0IG5laXRoZXIg
-cGNpX21zaXhfdmVjX2NvdW50KCkgbm9yIGZsYWdzCj4gaXMgbmVlZGVkIGFuZCB3ZSBjYW4gZGly
-ZWN0bHkgc3VwcGx5IE1TSV9UWVBFUyB0byB0aGUgYmVsb3cgY2FsbC4KPgoKSSB0aGluayBpdCB3
-YXMgbGVmdG92ZXIgZnJvbSBkZWJ1Z2dpbmcgYW5kIGp1c3QgdG8gYmUgY2FyZWZ1bC4gIFdlIGhh
-ZApzb21lIGlzc3VlcyB3aGVuIHdlIG9yaWdpbmFsbHkgZW5hYmxlZCBNU0ktWCBvbiBjZXJ0YWlu
-IGJvYXJkcy4gIFRoZQpmaXggd2FzIHRvIGp1c3QgYWxsb2NhdGUgYSBzaW5nbGUgdmVjdG9yIChz
-aW5jZSB0aGF0IGlzIGFsbCB3ZSB1c2UKYW55d2F5KSBhbmQgd2Ugd2VyZSB1c2luZyB0aGUgd3Jv
-bmcgaXJxIChwZGV2LT5pcnEgdnMKcGNpX2lycV92ZWN0b3IocGRldiwgMCkpLiAgRm9yIHJlZmVy
-ZW5jZSwgdGhlIG9yaWdpbmFsIHBhdGNoIHRvIGFkZApNU0ktWDoKCmNvbW1pdCBiZDY2MGY0ZjEx
-MTE2MWY2MDM5MmRkMDI0MjRjM2EzZDIyNDBkYzJmCkF1dGhvcjogc2hhb3l1bmwgPHNoYW95dW4u
-bGl1QGFtZC5jb20+CkRhdGU6ICAgVHVlIE9jdCAxIDE1OjUyOjMxIDIwMTkgLTA0MDAKCiAgICBk
-cm0vYW1kZ3B1IDogZW5hYmxlIG1zaXggZm9yIGFtZGdwdSBkcml2ZXIKCiAgICBXZSBtaWdodCB1
-c2VkIG91dCBvZiB0aGUgbXNpIHJlc291cmNlcyBpbiBzb21lIGNsb3VkIHByb2plY3QKICAgIHdo
-aWNoIGhhdmUgYSBsb3QgZ3B1IGRldmljZXMoaW5jbHVkaW5nIFBGIGFuZCBWRiksIG1zaXggY2Fu
-CiAgICBwcm92aWRlIGVub3VnaCByZXNvdXJjZXMgZnJvbSBzeXN0ZW0gbGV2ZWwgdmlldwoKICAg
-IFNpZ25lZC1vZmYtYnk6IHNoYW95dW5sIDxzaGFveXVuLmxpdUBhbWQuY29tPgogICAgUmV2aWV3
-ZWQtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KICAgIFNpZ25l
-ZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KCkFuZCB0
-aGUgZml4OgoKY29tbWl0IDhhNzQ1YzdmZjJkZGI4NTExZWY3NjBiNGQ5Y2I0Y2Y1NmExNWZjOGQK
-QXV0aG9yOiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+CkRhdGU6ICAg
-VGh1IE9jdCAzIDEwOjM0OjMwIDIwMTkgLTA1MDAKCiAgICBkcm0vYW1kZ3B1OiBpbXByb3ZlIE1T
-SS1YIGhhbmRsaW5nICh2MykKCiAgICBDaGVjayB0aGUgbnVtYmVyIG9mIHN1cHBvcnRlZCB2ZWN0
-b3JzIGFuZCBmYWxsIGJhY2sgdG8gTVNJIGlmCiAgICB3ZSByZXR1cm4gb3IgZXJyb3Igb3IgMCBN
-U0ktWCB2ZWN0b3JzLgoKICAgIHYyOiBvbmx5IGFsbG9jYXRlIG9uZSB2ZWN0b3IuICBXZSBjYW4n
-dCBjdXJyZW50bHkgdXNlIG1vcmUgdGhhbgogICAgb25lIGFueXdheS4KCiAgICB2MzogaW5zdGFs
-bCB0aGUgaXJxIG9uIHZlY3RvciAwLgoKICAgIFRlc3RlZC1ieTogVG9tIFN0IERlbmlzIDx0b20u
-c3RkZW5pc0BhbWQuY29tPgogICAgUmV2aWV3ZWQtYnk6IFNoYW95dW4gbGl1ICA8c2hhb3l1bi5s
-aXVAYW1kLmNvbT4KICAgIFNpZ25lZC1vZmYtYnk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRl
-dWNoZXJAYW1kLmNvbT4KCkFsZXgKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3Rv
-cC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQt
-Z2Z4Cg==
+On Mon, Jun 1, 2020 at 10:08 AM Huang Rui <ray.huang@amd.com> wrote:
+>
+> Abstract powergate_vcn/jpeg functions, using smu_dpm_set* to implement it.
+>
+> Signed-off-by: Huang Rui <ray.huang@amd.com>
+> Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
+
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
+> ---
+>  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c     | 16 ++++++++++++++++
+>  drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h |  2 --
+>  drivers/gpu/drm/amd/powerplay/renoir_ppt.c     |  2 --
+>  drivers/gpu/drm/amd/powerplay/smu_internal.h   |  7 +++----
+>  drivers/gpu/drm/amd/powerplay/smu_v12_0.c      | 22 ----------------------
+>  5 files changed, 19 insertions(+), 30 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> index 3bb6ab4..846d099 100644
+> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> @@ -2736,3 +2736,19 @@ uint32_t smu_get_pptable_power_limit(struct smu_context *smu)
+>
+>         return ret;
+>  }
+> +
+> +int smu_powergate_vcn(struct smu_context *smu, bool gate)
+> +{
+> +       if (!smu->is_apu)
+> +               return 0;
+> +
+> +       return smu_dpm_set_uvd_enable(smu, !gate);
+> +}
+> +
+> +int smu_powergate_jpeg(struct smu_context *smu, bool gate)
+> +{
+> +       if (!smu->is_apu)
+> +               return 0;
+> +
+> +       return smu_dpm_set_jpeg_enable(smu, !gate);
+> +}
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> index ae2c318..e68d554 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> @@ -508,8 +508,6 @@ struct pptable_funcs {
+>         int (*populate_smc_tables)(struct smu_context *smu);
+>         int (*check_fw_version)(struct smu_context *smu);
+>         int (*powergate_sdma)(struct smu_context *smu, bool gate);
+> -       int (*powergate_vcn)(struct smu_context *smu, bool gate);
+> -       int (*powergate_jpeg)(struct smu_context *smu, bool gate);
+>         int (*set_gfx_cgpg)(struct smu_context *smu, bool enable);
+>         int (*write_pptable)(struct smu_context *smu);
+>         int (*set_min_dcef_deep_sleep)(struct smu_context *smu);
+> diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+> index 95eb445..6241d2e 100644
+> --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
+> @@ -930,8 +930,6 @@ static const struct pptable_funcs renoir_ppt_funcs = {
+>         .check_fw_status = smu_v12_0_check_fw_status,
+>         .check_fw_version = smu_v12_0_check_fw_version,
+>         .powergate_sdma = smu_v12_0_powergate_sdma,
+> -       .powergate_vcn = smu_v12_0_powergate_vcn,
+> -       .powergate_jpeg = smu_v12_0_powergate_jpeg,
+>         .send_smc_msg_with_param = smu_v12_0_send_msg_with_param,
+>         .set_gfx_cgpg = smu_v12_0_set_gfx_cgpg,
+>         .gfx_off_control = smu_v12_0_gfx_off_control,
+> diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+> index 40c35bc..2889eb2 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
+> +++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+> @@ -40,10 +40,6 @@
+>         ((smu)->ppt_funcs->setup_pptable ? (smu)->ppt_funcs->setup_pptable((smu)) : 0)
+>  #define smu_powergate_sdma(smu, gate) \
+>         ((smu)->ppt_funcs->powergate_sdma ? (smu)->ppt_funcs->powergate_sdma((smu), (gate)) : 0)
+> -#define smu_powergate_vcn(smu, gate) \
+> -       ((smu)->ppt_funcs->powergate_vcn ? (smu)->ppt_funcs->powergate_vcn((smu), (gate)) : 0)
+> -#define smu_powergate_jpeg(smu, gate) \
+> -       ((smu)->ppt_funcs->powergate_jpeg ? (smu)->ppt_funcs->powergate_jpeg((smu), (gate)) : 0)
+>
+>  #define smu_get_vbios_bootup_values(smu) \
+>         ((smu)->ppt_funcs->get_vbios_bootup_values ? (smu)->ppt_funcs->get_vbios_bootup_values((smu)) : 0)
+> @@ -214,4 +210,7 @@ static inline int smu_send_smc_msg(struct smu_context *smu, enum smu_message_typ
+>  #define smu_set_power_source(smu, power_src) \
+>         ((smu)->ppt_funcs->set_power_source ? (smu)->ppt_funcs->set_power_source((smu), (power_src)) : 0)
+>
+> +int smu_powergate_vcn(struct smu_context *smu, bool gate);
+> +int smu_powergate_jpeg(struct smu_context *smu, bool gate);
+> +
+>  #endif
+> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
+> index 4fc68d4..7c3da532 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
+> @@ -182,28 +182,6 @@ int smu_v12_0_powergate_sdma(struct smu_context *smu, bool gate)
+>                 return smu_send_smc_msg(smu, SMU_MSG_PowerUpSdma, NULL);
+>  }
+>
+> -int smu_v12_0_powergate_vcn(struct smu_context *smu, bool gate)
+> -{
+> -       if (!smu->is_apu)
+> -               return 0;
+> -
+> -       if (gate)
+> -               return smu_send_smc_msg(smu, SMU_MSG_PowerDownVcn, NULL);
+> -       else
+> -               return smu_send_smc_msg(smu, SMU_MSG_PowerUpVcn, NULL);
+> -}
+> -
+> -int smu_v12_0_powergate_jpeg(struct smu_context *smu, bool gate)
+> -{
+> -       if (!smu->is_apu)
+> -               return 0;
+> -
+> -       if (gate)
+> -               return smu_send_smc_msg_with_param(smu, SMU_MSG_PowerDownJpeg, 0, NULL);
+> -       else
+> -               return smu_send_smc_msg_with_param(smu, SMU_MSG_PowerUpJpeg, 0, NULL);
+> -}
+> -
+>  int smu_v12_0_set_gfx_cgpg(struct smu_context *smu, bool enable)
+>  {
+>         if (!(smu->adev->pg_flags & AMD_PG_SUPPORT_GFX_PG))
+> --
+> 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
