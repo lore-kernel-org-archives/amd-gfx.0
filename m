@@ -8,63 +8,65 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 22A82C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 18:38:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2778C433DF
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 18:51:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EA70D2072F
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 18:38:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B3ED0206A2
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 18:51:26 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FcrGRXX9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EA70D2072F
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eV+SxCw1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3ED0206A2
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D4FE89B7D;
-	Tue,  2 Jun 2020 18:38:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DA3F6E453;
+	Tue,  2 Jun 2020 18:51:26 +0000 (UTC)
 Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
  [IPv6:2a00:1450:4864:20::343])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69C4D89B38
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2020 18:38:01 +0000 (UTC)
-Received: by mail-wm1-x343.google.com with SMTP id j198so2835799wmj.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2020 11:38:01 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D48846E453
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2020 18:51:25 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id v19so3949567wmj.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2020 11:51:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=AfV58sipO+iKCloygrMs8Ub+k/v480JJO3IhM2hX6o4=;
- b=FcrGRXX9NrTVOTvdubc4kvytOtkjdq7Sy+CjBMLZnjHealxHxnIzK292EpBt1/HDEO
- ykTEXW/5OE8qQsVJqfvDlUbCpxZfFkeVLx2hnFImLE282+zcAdILiMVcTLXYNWL8+h/5
- Ro510raZzkGTqThXY6rCuUdrAVEJQLMgLdQxqy1F+D3SLbUCfWSR9bH5E6Hvb+Cqgdbi
- RTYVx2cIr/k04tA5obTOfqtkBqJgG75Ef8dIybWtqgRSNQ+BUbkyxuEpU2jKj0A6+8FL
- fD01pt96fxuOwv76mF7Lmu7XLsCcZBS1tBOJaZSw3KOAfhVJ7CWRvR4Ck6GY5roS0AGk
- qNlg==
+ :cc:content-transfer-encoding;
+ bh=5+7WTzkz9V+aSkJyBXg+eZS5YKtFwBQIzPWPiVEuIls=;
+ b=eV+SxCw12LL+ODHHPKRZ0Skku6FrJalijIpeTDfN2zNvAO6eC/XTVhD95DkxKfD8ZT
+ 3cUco668KjfAYywgzgKVp+HIjytyZsAcXxfMe9gwXYsHUVMg3+NBwi5Vxx+qprzP1YhI
+ kKjUSSZi76Bjsg2TIg9E5II2NVDdLSyJItJeXQcCbYGa0Mie/yzqGB0Z0Cpf/jvxi5t1
+ MFj8Z+h0dhHT7RC6fhMKRL1qsZcXEa+cBitRFJc1fFHh4judUD2Z2pEtKM+Mx0rVMtai
+ udyTVnVBiu1Sk9nM2LpOPbsQeTs65WL5c/qIJW7L9e4eWnI5iXLmSFice2cSWFMBTOTp
+ 3iDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=AfV58sipO+iKCloygrMs8Ub+k/v480JJO3IhM2hX6o4=;
- b=H003RQLK+vLqzHY7OqDZSCIP/ps8BCr/BvyKJBfh2vyQRzqLeaFd4TIdFNfPApoF56
- wBT2r/NWCiigA1+VTXQLbpyoZ6AjEmIQ2lSUs3+2zU/Q8HwI2xN5ARmdWsAXIgx9UfDG
- yfwhsbX/K9ajPj3FwqXQQbEHThSwE7BHUHxVuj9/bfBYKUTLdpN1nFwSaKs6oc7FQgbh
- 2EPcJcezl9Z3I5Nh1B4q3yVBCit1OPq1D1QfBcKtJmrQaSXtYZNfSyQc87GZ/2R0KcmU
- hJTS+o33XVWG6PouA9uI/HmAJBzf17QCs6uUn/7dEfpvNiDp7G7rIGGGG/U5aHTwhX6R
- AW6g==
-X-Gm-Message-State: AOAM532aBzW63OlGYfXJrMFjSQEnT27rbP+NmWkaCu72EZJ/Uz8mgpRM
- CPTWXKLq6Zdi8BYPGEV2zXxhZnTdqiIO3jn57T4=
-X-Google-Smtp-Source: ABdhPJw4ld5/9K64R36uTG38YZR16BJm5u5cWdB+8lB4UsS0KFWg25JjNtw2VdZxV0FN+1DINy0ZEQkFjzLJD7a0Oe8=
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=5+7WTzkz9V+aSkJyBXg+eZS5YKtFwBQIzPWPiVEuIls=;
+ b=Kpu2kyMnK1ei/xIDjEGiRS9YCFZFa0nw1q0fDx4k3sZKKFYgXO9m5v83RLHtqjIodI
+ tL1V4czDtyEJuOgRvn/n3v/XC6qha7AJKXP7R89z5cEg+glhTJTR50N9XV8RFgDT8rOO
+ 6Ag3VPScHdkMA/D8hbTwzRoWMdp04tHG8LpE2jz5J7LHt7Ele9JaOCQC6T3Ys2ng/97c
+ dN3hU7PUTIHPovWwvGVG6U27ikeofqzKGfnx1pzo+REV2P861SfncMXjMW3ilxcUHB6/
+ 9YhJIwQG09LH+4DLzRKEUcVMEBVaf+o3WCBoxHdieXj3abzxB1E6YWGSJs7r+osVQmh3
+ Gq6A==
+X-Gm-Message-State: AOAM530J93TGV2qL66/KKjBkhk7bn9WB959YQXZr0ef9K9zpFAnUPAop
+ 4PrgFnuoDUHRKz97pgDrfnRecBlkcg1dlj84l0U=
+X-Google-Smtp-Source: ABdhPJyVcgGytnpbvZVusmABIb3QA2uHnVrfudfhPWy2QEJZZjY6J7i2BivY9xr8edam71s06C99vUhN2sfAZ4w1ec0=
 X-Received: by 2002:a05:600c:2201:: with SMTP id
- z1mr5211936wml.70.1591123079978; 
- Tue, 02 Jun 2020 11:37:59 -0700 (PDT)
+ z1mr5252280wml.70.1591123884414; 
+ Tue, 02 Jun 2020 11:51:24 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200602162148.21624-1-kent.russell@amd.com>
- <20200602162148.21624-2-kent.russell@amd.com>
-In-Reply-To: <20200602162148.21624-2-kent.russell@amd.com>
+References: <20200601180239.1267430-1-alexander.deucher@amd.com>
+ <20200601180239.1267430-74-alexander.deucher@amd.com>
+ <9640f151-cfe9-600f-cc4f-7b056c09be0f@amd.com>
+In-Reply-To: <9640f151-cfe9-600f-cc4f-7b056c09be0f@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 2 Jun 2020 14:37:48 -0400
-Message-ID: <CADnq5_Mng=EfWRuqnJBCcVn00rWjiFRRU5-JZj5+WZe0Y0OzCA@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Add unique_id and serial_number for
- Arcturus v3
-To: Kent Russell <kent.russell@amd.com>
+Date: Tue, 2 Jun 2020 14:51:12 -0400
+Message-ID: <CADnq5_P9wp8DiJJ98au9FOCWMUyu+LKrPQsfdziUGQQyN2zFDA@mail.gmail.com>
+Subject: Re: [PATCH 077/207] drm/amdgpu: no need to set up GPU scheduler for
+ mes ring
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,144 +78,46 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Alex Deucher <alexander.deucher@amd.com>, Jack Xiao <Jack.Xiao@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Hawking Zhang <Hawking.Zhang@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 2, 2020 at 12:22 PM Kent Russell <kent.russell@amd.com> wrote:
->
-> Add support for unique_id and serial_number, as these are now
-> the same value, and will be for future ASICs as well.
->
-> v2: Explicitly create unique_id only for VG10/20/ARC
-> v3: Change set_unique_id to get_unique_id for clarity
->
-> Signed-off-by: Kent Russell <kent.russell@amd.com>
-> Change-Id: I3b036a38b19cd84025399b0706b2dad9b7aff713
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        |  4 ++-
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |  2 ++
->  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 32 +++++++++++++++++++
->  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  1 +
->  drivers/gpu/drm/amd/powerplay/smu_internal.h  |  2 ++
->  5 files changed, 40 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> index b0dff9ecfb88..b2cdc8a1268f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> @@ -1940,7 +1940,9 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
->                 if (adev->flags & AMD_IS_APU)
->                         *states = ATTR_STATE_UNSUPPORTED;
->         } else if (DEVICE_ATTR_IS(unique_id)) {
-> -               if (!adev->unique_id)
-> +               if (asic_type != CHIP_VEGA10 &&
-> +                   asic_type != CHIP_VEGA20 &&
-> +                   asic_type != CHIP_ARCTURUS)
->                         *states = ATTR_STATE_UNSUPPORTED;
->         } else if (DEVICE_ATTR_IS(pp_features)) {
->                 if (adev->flags & AMD_IS_APU || asic_type < CHIP_VEGA10)
-> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index 5294aa7cdde1..847502faca90 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -793,6 +793,8 @@ static int smu_late_init(void *handle)
->         if (!smu->pm_enabled)
->                 return 0;
->
-> +       smu_get_unique_id(smu);
-> +
->         smu_handle_task(&adev->smu,
->                         smu->smu_dpm.dpm_level,
->                         AMD_PP_TASK_COMPLETE_INIT,
-> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> index d66ac7457574..df7b408319f7 100644
-> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> @@ -2262,6 +2262,37 @@ static void arcturus_i2c_eeprom_control_fini(struct i2c_adapter *control)
->         i2c_del_adapter(control);
->  }
->
-> +static void arcturus_get_unique_id(struct smu_context *smu)
-> +{
-> +       struct amdgpu_device *adev = smu->adev;
-> +       uint32_t top32, bottom32, smu_version, size;
-> +       char sn[16];
-> +       uint64_t id;
-> +
-> +       if (smu_get_smc_version(smu, NULL, &smu_version)) {
-> +               pr_warn("Failed to get smu version, cannot get unique_id or serial_number\n");
-> +               return;
-> +       }
-> +
-> +       /* PPSMC_MSG_ReadSerial* is supported by 54.23.0 and onwards */
-> +       if (smu_version < 0x361700) {
-> +               pr_warn("ReadSerial is only supported by PMFW 54.23.0 and onwards\n");
-> +               return;
-> +       }
-> +
-> +       /* Get the SN to turn into a Unique ID */
-> +       smu_send_smc_msg(smu, SMU_MSG_ReadSerialNumTop32, &top32);
-> +       smu_send_smc_msg(smu, SMU_MSG_ReadSerialNumBottom32, &bottom32);
-> +
-> +       id = ((uint64_t)bottom32 << 32) | top32;
-> +       adev->unique_id = id;
-> +       /* For Arcturus-and-later, unique_id == serial_number, so convert it to a
-> +        * 16-digit HEX string for convenience and backwards-compatibility
-> +        */
-> +       size = sprintf(sn, "%llx", id);
-> +       memcpy(adev->serial, &sn, size);
-> +}
-> +
->  static bool arcturus_is_baco_supported(struct smu_context *smu)
->  {
->         struct amdgpu_device *adev = smu->adev;
-> @@ -2416,6 +2447,7 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
->         .dpm_set_uvd_enable = arcturus_dpm_set_uvd_enable,
->         .i2c_eeprom_init = arcturus_i2c_eeprom_control_init,
->         .i2c_eeprom_fini = arcturus_i2c_eeprom_control_fini,
-> +       .get_unique_id = arcturus_get_unique_id,
->         .init_microcode = smu_v11_0_init_microcode,
->         .load_microcode = smu_v11_0_load_microcode,
->         .init_smc_tables = smu_v11_0_init_smc_tables,
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> index 5bb1ac821aeb..13fc5773ba45 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> @@ -495,6 +495,7 @@ struct pptable_funcs {
->         int (*update_pcie_parameters)(struct smu_context *smu, uint32_t pcie_gen_cap, uint32_t pcie_width_cap);
->         int (*i2c_eeprom_init)(struct i2c_adapter *control);
->         void (*i2c_eeprom_fini)(struct i2c_adapter *control);
-> +       void (*get_unique_id)(struct smu_context *smu);
->         int (*get_dpm_clock_table)(struct smu_context *smu, struct dpm_clocks *clock_table);
->         int (*init_microcode)(struct smu_context *smu);
->         int (*load_microcode)(struct smu_context *smu);
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> index 6c59eeef2590..c9440c978402 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> @@ -218,6 +218,8 @@ static inline int smu_send_smc_msg(struct smu_context *smu, enum smu_message_typ
->                 ((smu)->ppt_funcs->i2c_eeprom_init ? (smu)->ppt_funcs->i2c_eeprom_init((control)) : 0)
->  #define smu_i2c_eeprom_fini(smu, control) \
->                 ((smu)->ppt_funcs->i2c_eeprom_fini ? (smu)->ppt_funcs->i2c_eeprom_fini((control)) : 0)
-> +#define smu_get_unique_id(smu) \
-> +               ((smu)->ppt_funcs->get_unique_id ? (smu)->ppt_funcs->get_unique_id((smu)) : 0)
->
->  #define smu_log_thermal_throttling(smu) \
->                 ((smu)->ppt_funcs->log_thermal_throttling_event ? (smu)->ppt_funcs->log_thermal_throttling_event((smu)) : 0)
-> --
-> 2.17.1
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gVHVlLCBKdW4gMiwgMjAyMCBhdCA1OjMwIEFNIENocmlzdGlhbiBLw7ZuaWcgPGNocmlzdGlh
+bi5rb2VuaWdAYW1kLmNvbT4gd3JvdGU6Cj4KPiBBbSAwMS4wNi4yMCB1bSAyMDowMCBzY2hyaWVi
+IEFsZXggRGV1Y2hlcjoKPiA+IEZyb206IEphY2sgWGlhbyA8SmFjay5YaWFvQGFtZC5jb20+Cj4g
+Pgo+ID4gQXMgbWVzIHJpbmcgZGlyZWN0bHkgc3VibWl0cyB0byBoYXJkd2FyZWQsCj4gPiBpdCdz
+IG5vIG5lZWQgdG8gc2V0IHVwIEdQVSBzY2hlZHVsZXIgZm9yIG1lcyByaW5nLgo+ID4KPiA+IFNp
+Z25lZC1vZmYtYnk6IEphY2sgWGlhbyA8SmFjay5YaWFvQGFtZC5jb20+Cj4gPiBBY2tlZC1ieTog
+QWxleCBEZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPgo+ID4gUmV2aWV3ZWQtYnk6
+IEhhd2tpbmcgWmhhbmcgPEhhd2tpbmcuWmhhbmdAYW1kLmNvbT4KPiA+IFJldmlld2VkLWJ5OiBD
+aHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+Cj4gPiBTaWduZWQtb2Zm
+LWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFtZC5jb20+Cj4gPiAtLS0KPiA+
+ICAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMgfCA1ICsrKy0tCj4g
+PiAgIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4gPgo+
+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9mZW5jZS5j
+IGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMKPiA+IGluZGV4IDM0
+MTRlMTE5ZjBjYi4uODcxMmEyZTFiODY5IDEwMDY0NAo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJt
+L2FtZC9hbWRncHUvYW1kZ3B1X2ZlbmNlLmMKPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQv
+YW1kZ3B1L2FtZGdwdV9mZW5jZS5jCj4gPiBAQCAtNDY5LDggKzQ2OSw5IEBAIGludCBhbWRncHVf
+ZmVuY2VfZHJpdmVyX2luaXRfcmluZyhzdHJ1Y3QgYW1kZ3B1X3JpbmcgKnJpbmcsCj4gPiAgICAg
+ICBpZiAoIXJpbmctPmZlbmNlX2Rydi5mZW5jZXMpCj4gPiAgICAgICAgICAgICAgIHJldHVybiAt
+RU5PTUVNOwo+ID4KPiA+IC0gICAgIC8qIE5vIG5lZWQgdG8gc2V0dXAgdGhlIEdQVSBzY2hlZHVs
+ZXIgZm9yIEtJUSByaW5nICovCj4gPiAtICAgICBpZiAocmluZy0+ZnVuY3MtPnR5cGUgIT0gQU1E
+R1BVX1JJTkdfVFlQRV9LSVEpIHsKPiA+ICsgICAgIC8qIE5vIG5lZWQgdG8gc2V0dXAgdGhlIEdQ
+VSBzY2hlZHVsZXIgZm9yIEtJUSBhbmQgTUVTIHJpbmcgKi8KPiA+ICsgICAgIGlmIChyaW5nLT5m
+dW5jcy0+dHlwZSAhPSBBTURHUFVfUklOR19UWVBFX0tJUSB8fAo+ID4gKyAgICAgICAgIHJpbmct
+PmZ1bmNzLT50eXBlICE9IEFNREdQVV9SSU5HX1RZUEVfTUVTKSB7Cj4KPiBCVFc6IE1ha2luZyB0
+aGlzIGEgZmxhZyBpbiB0aGUgcmluZy0+ZnVuY3Mgc3RydWN0IHdvdWxkIHByb2JhYmx5IGJlCj4g
+Y2xlYW5lciB0aGFuIGNoZWNraW5nIHRoZSB0d28gdHlwZXMgaGVyZS4KPgo+IEJ1dCBub3QgYSBt
+dXN0IGhhdmUgcmlnaHQgbm93LgoKQWxyZWFkeSBhZGRlZCBhIGZsYWcgZm9yIHRoaXMsIGp1c3Qg
+bWlzc2VkIHRoaXMgY2FzZS4KCkFsZXgKCj4KPiBDaHJpc3RpYW4uCj4KPiA+ICAgICAgICAgICAg
+ICAgc3dpdGNoIChyaW5nLT5mdW5jcy0+dHlwZSkgewo+ID4gICAgICAgICAgICAgICBjYXNlIEFN
+REdQVV9SSU5HX1RZUEVfR0ZYOgo+ID4gICAgICAgICAgICAgICAgICAgICAgIHRpbWVvdXQgPSBh
+ZGV2LT5nZnhfdGltZW91dDsKPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9w
+Lm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1n
+ZngK
