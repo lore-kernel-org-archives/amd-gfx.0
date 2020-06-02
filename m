@@ -2,69 +2,67 @@ Return-Path: <SRS0=q3BR=7P=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-11.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 967BFC433E1
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 13:15:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D669C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 13:34:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6E7632074B
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 13:15:38 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5E28F20757
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 13:34:58 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dmnR1WvZ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6E7632074B
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D/8ECYxQ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E28F20757
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7C566E3B8;
-	Tue,  2 Jun 2020 13:15:32 +0000 (UTC)
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 924366E190;
- Tue,  2 Jun 2020 10:00:00 +0000 (UTC)
-Received: by mail-pf1-x442.google.com with SMTP id a4so4825863pfo.4;
- Tue, 02 Jun 2020 03:00:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1595E6E3CE;
+	Tue,  2 Jun 2020 13:34:58 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D9C7F6E3E1
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2020 13:34:56 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id k26so3151506wmi.4
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2020 06:34:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=Zp5PU9Twd2i2tzFPrLrjXtcDPzTLivpIOOvbhmocsuo=;
- b=dmnR1WvZuRPZ/6Vpb+2SuZ+t+QRjmdnWP4ZzKF3uTHDv6g1pEoMDEDg0XZp1RQS4Rc
- PcdwQZ29rNPnq3l2fjwqhuF7j/2HX+rBmez4tAy8HbfuXFzxbKgiqrjW/bkv/yD58r1Q
- RIPnaU6YMZn5W47hiL5Cwf7GTc+8XvqW2lhYOl2l6y2WsJw0EDbx5auoVaKZRGYT/MrW
- 65P2sOwN8DsDt4Wk/Hj4ZI7jftv3djCsQ51f81pX/h2RYakYDO5iyWeC2mruTm4m/oAt
- spMKkoM1c0u9+ks+AAa++E4S2fyAHS2aD1Hvrb5vDAG2sKTV79mdr4NuETxL7Y2knUFA
- aapg==
+ :cc; bh=lTgAOeAnv9dr2gyWKxGehRc7dH/gCvjqu9sjSqhthvA=;
+ b=D/8ECYxQPgjBlHRFrboO5g9XeojQ2sNLjMjhBMW2rpyV5imCP5Brs+sA60ivHDDimn
+ 5mTbDwV7vNteZuC+pEdWpZZD9rVmlXehq0b8coS6bUPd9rU4vWP5bnFpnyTTTvwyJrbh
+ WHJ2gQusQAknQn+RvaHdO8IvxjNqq/lfOMVLM6qJOc43FldzIew/ZWBvr1CLAoBNCV/C
+ WQE2yUG+Kt66Xp7fmqFifSbqs9hDJkqY5SRNH+Wkp5G0BqYzxwYtiPw/AxqFWm5AkNze
+ Ja+4e9safdwxLj1dvl6yb8BO/m/hZIpKIB3LuY506IY0tCQxvG+jZeqPd+5k9oG1ai1k
+ kGHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=Zp5PU9Twd2i2tzFPrLrjXtcDPzTLivpIOOvbhmocsuo=;
- b=VQmVG5s9JvPFVRtg74qBjmx4SgX1uyY5MyjyDlbR0QqaAmXS2hxFXfkl+1XQDNlyzc
- Zqerbio7qweR18PgTcVQJQM9/ubvCl8j/WZ437pceUkQPp6WWTiRkZgQ/2FXD11+0iFD
- DWzR4CtrmjactiykCtCZa7f+o2T03J0n6fszNXRh0mzugLXmu9yC+tCR4U8gtZEyOo0t
- zc+sApHTpUPw6JyhiaBUVXGAVQpk0cT8Whyt2uf8ZUAozyuDB6DLq/RBEzVZGxlFItv6
- 9z9Wrr6B8mrPd6Ii12OuBYcZeFvtyUdEMcp8qZUsyCtulkPj/2AB/Yr61bWTvHNCtmon
- MKXw==
-X-Gm-Message-State: AOAM532qUbDf64XKpf6c5v1ADuymIzhUQg0jFI0eWeI0D9+U6ipP/Izj
- o4gj+fQji6bT4UwXccv/T410o5r/BCwwQuoG2HOeh3gYt04=
-X-Google-Smtp-Source: ABdhPJyDp8msT2DNgjzkwwVUe+Cx8nDbX/Gkz2pS3jjzG2aw72oIk/YYF9TBdmXcCF3WA4qheLl5NIP1f08J9GZZI+k=
-X-Received: by 2002:a63:545a:: with SMTP id e26mr22863595pgm.4.1591092000175; 
- Tue, 02 Jun 2020 03:00:00 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=lTgAOeAnv9dr2gyWKxGehRc7dH/gCvjqu9sjSqhthvA=;
+ b=cdVM8Fc2z5Lwd+6aSi4tcViwFQLiYXTvevDZEO1+VY2wiRhLse6VffUnLNkZJPpp40
+ t1z0ejq9iJvaRDpOV26tGbL1bzoHQ5TNRMI04fow9XkPT6ojaWFXIJ9/ml7A05FqcTYS
+ UTjMAYtnG+ZejazCMOAJiEOThBu2Fuu8JXERd0Tbh3/2uYmcqEEvADoY/aUyxpffTTYh
+ 0HQzD2IrSFC1zWjuJtQ7glOwTKvPykCbD32UtcoZfB2PeOtFXCgfTh9uJvy8NbkoDfvK
+ Ay9lq+JpS1o8LaW5AqfLxyV2i8O3JPhkvGAoMoZ83lPObDK1mU6THeQNXYJ6Tu30peM5
+ s2VQ==
+X-Gm-Message-State: AOAM531HiAqF+aKJ2yqNp7iGfZlPha1sI0DrRtHcLptCOlyLAolJ/xj/
+ cJcJns/PTocqyraVbbM9ZlnIc+XG8jTmlyxiVk8/2eEz
+X-Google-Smtp-Source: ABdhPJxn/mBfqXL+qpDvOahAv4gOjMrSojgl85jaQJ4g4n+UuhLM0MZDC0bgI8iPLj2x/R1v9VlTQKLGtZI5sJGcXMI=
+X-Received: by 2002:a1c:9c85:: with SMTP id f127mr4288096wme.79.1591104895475; 
+ Tue, 02 Jun 2020 06:34:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200602092030.31966-1-piotr.stankiewicz@intel.com>
- <CAHp75Ve9tdNB7s+gybsg-OUjA3HiZBgzxeOzw=qkx8t1Ybbmsg@mail.gmail.com>
- <CY4PR11MB1528E8F05A738675B0DC1A59F98B0@CY4PR11MB1528.namprd11.prod.outlook.com>
-In-Reply-To: <CY4PR11MB1528E8F05A738675B0DC1A59F98B0@CY4PR11MB1528.namprd11.prod.outlook.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Tue, 2 Jun 2020 12:59:48 +0300
-Message-ID: <CAHp75VdmaGchzGCQ1ch4-9nj=5EKFAndUCKRZKhhiSRrbTwnnA@mail.gmail.com>
-Subject: Re: [PATCH 07/15] drm/amdgpu: use PCI_IRQ_MSI_TYPES where appropriate
-To: "Stankiewicz, Piotr" <piotr.stankiewicz@intel.com>
-X-Mailman-Approved-At: Tue, 02 Jun 2020 13:15:31 +0000
+References: <1590722887-9333-1-git-send-email-Prike.Liang@amd.com>
+ <BY5PR12MB430719B6351D4AD64215A7CBFB8B0@BY5PR12MB4307.namprd12.prod.outlook.com>
+In-Reply-To: <BY5PR12MB430719B6351D4AD64215A7CBFB8B0@BY5PR12MB4307.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 2 Jun 2020 09:34:43 -0400
+Message-ID: <CADnq5_Nndacwux6UQMXBvBPOxLLGT-gnMHOjoHr1u-YGed696Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: enable renoir discovery for gc info retrieved
+To: "Liang, Prike" <Prike.Liang@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,52 +74,119 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Zhou <David1.Zhou@amd.com>, David Airlie <airlied@linux.ie>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- dri-devel <dri-devel@lists.freedesktop.org>, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Huang,
+ Ray" <Ray.Huang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-T24gVHVlLCBKdW4gMiwgMjAyMCBhdCAxMjo1OCBQTSBTdGFua2lld2ljeiwgUGlvdHIKPHBpb3Ry
-LnN0YW5raWV3aWN6QGludGVsLmNvbT4gd3JvdGU6Cj4gPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2Ut
-LS0tLQo+ID4gRnJvbTogQW5keSBTaGV2Y2hlbmtvIDxhbmR5LnNoZXZjaGVua29AZ21haWwuY29t
-Pgo+ID4gU2VudDogVHVlc2RheSwgSnVuZSAyLCAyMDIwIDExOjQ5IEFNCj4gPiBUbzogU3Rhbmtp
-ZXdpY3osIFBpb3RyIDxwaW90ci5zdGFua2lld2ljekBpbnRlbC5jb20+Cj4gPiBDYzogQWxleCBE
-ZXVjaGVyIDxhbGV4YW5kZXIuZGV1Y2hlckBhbWQuY29tPjsgQ2hyaXN0aWFuIEvDtm5pZwo+ID4g
-PGNocmlzdGlhbi5rb2VuaWdAYW1kLmNvbT47IERhdmlkIFpob3UgPERhdmlkMS5aaG91QGFtZC5j
-b20+OyBEYXZpZAo+ID4gQWlybGllIDxhaXJsaWVkQGxpbnV4LmllPjsgRGFuaWVsIFZldHRlciA8
-ZGFuaWVsQGZmd2xsLmNoPjsgYW1kLQo+ID4gZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgZHJp
-LWRldmVsIDxkcmktZGV2ZWxAbGlzdHMuZnJlZWRlc2t0b3Aub3JnPjsgTGludXgKPiA+IEtlcm5l
-bCBNYWlsaW5nIExpc3QgPGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+Cj4gPiBTdWJqZWN0
-OiBSZTogW1BBVENIIDA3LzE1XSBkcm0vYW1kZ3B1OiB1c2UgUENJX0lSUV9NU0lfVFlQRVMgd2hl
-cmUKPiA+IGFwcHJvcHJpYXRlCj4gPiBPbiBUdWUsIEp1biAyLCAyMDIwIGF0IDEyOjI0IFBNIFBp
-b3RyIFN0YW5raWV3aWN6Cj4gPiA8cGlvdHIuc3RhbmtpZXdpY3pAaW50ZWwuY29tPiB3cm90ZToK
-Ci4uLgoKPiA+ID4gICAgICAgICAgICAgICAgIGludCBudmVjID0gcGNpX21zaXhfdmVjX2NvdW50
-KGFkZXYtPnBkZXYpOwo+ID4gPiAgICAgICAgICAgICAgICAgdW5zaWduZWQgaW50IGZsYWdzOwo+
-ID4gPgo+ID4gPiAtICAgICAgICAgICAgICAgaWYgKG52ZWMgPD0gMCkgewo+ID4gPiArICAgICAg
-ICAgICAgICAgaWYgKG52ZWMgPiAwKQo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICBmbGFn
-cyA9IFBDSV9JUlFfTVNJX1RZUEVTOwo+ID4gPiArICAgICAgICAgICAgICAgZWxzZQo+ID4gPiAg
-ICAgICAgICAgICAgICAgICAgICAgICBmbGFncyA9IFBDSV9JUlFfTVNJOwo+ID4gPiAtICAgICAg
-ICAgICAgICAgfSBlbHNlIHsKPiA+ID4gLSAgICAgICAgICAgICAgICAgICAgICAgZmxhZ3MgPSBQ
-Q0lfSVJRX01TSSB8IFBDSV9JUlFfTVNJWDsKPiA+ID4gLSAgICAgICAgICAgICAgIH0KPiA+ID4g
-Kwo+ID4gPiAgICAgICAgICAgICAgICAgLyogd2Ugb25seSBuZWVkIG9uZSB2ZWN0b3IgKi8KPiA+
-ID4gICAgICAgICAgICAgICAgIG52ZWMgPSBwY2lfYWxsb2NfaXJxX3ZlY3RvcnMoYWRldi0+cGRl
-diwgMSwgMSwgZmxhZ3MpOwo+ID4KPiA+IEknbSBub3Qgc3VyZSBpZiB5b3UgaGF2ZSBzZWVuIG15
-IGxhc3QgY29tbWVudCBpbnRlcm5hbGx5IGFib3V0IHRoaXMgcGF0Y2guCj4gPgo+ID4gSSBkb24n
-dCB1bmRlcnN0YW5kIHdoeSB3ZSBuZWVkIHRoZXNlIHBjaV9tc2l4X3ZlY19jb3VudCgpIGZvbGxv
-d2VkIGJ5Cj4gPiBjb25kaXRpb25hbCBhdCBhbGwuCj4gPiBQZXJoYXBzIHdlIG1heSBzaW1wbGUg
-ZHJvcCBhbGwgdGhlc2UgYW5kIHN1cHBseSBmbGFnIGRpcmVjdGx5Pwo+ID4KPiA+IEJ1dCBPVE9I
-LCBJIGRvbid0IGtub3cgdGhlIGluaXRpYWwgbW90aXZhdGlvbiwgc28sIHRoZSBhYm92ZSBwYXRj
-aCBpcwo+ID4gbm9uLWludHJ1c2l2ZSBhbmQga2VlcHMgb3JpZ2luYWwgbG9naWMuCj4gPgo+Cj4g
-U29ycnksIEkgbXVzdCBoYXZlIG1pc3VuZGVyc3Rvb2Qgb3IgbWlzc2VkIHRoYXQgY29tbWVudC4g
-SSBhbSBoYXBweQo+IHRvIGRvIGEgVjIgaWYgZHJvcHBpbmcgdGhlIGNvbmRpdGlvbmFsIGlzIHBy
-ZWZlcmFibGUuCgpMZXQncyB3YWl0IGZvciBBTUQgcGVvcGxlIHRvIGNvbmZpcm0gZWl0aGVyLgoK
-LS0gCldpdGggQmVzdCBSZWdhcmRzLApBbmR5IFNoZXZjaGVua28KX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdmeCBtYWlsaW5nIGxpc3QKYW1kLWdm
-eEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+On Mon, Jun 1, 2020 at 10:14 PM Liang, Prike <Prike.Liang@amd.com> wrote:
+>
+> [AMD Official Use Only - Internal Distribution Only]
+>
+> Ping...
+
+Already enabled:
+https://cgit.freedesktop.org/~agd5f/linux/commit/?h=amd-staging-drm-next&id=e467ab869f5783cf93d4cf24c6ac647cc29d1fb5
+
+Alex
+
+>
+> Thanks,
+> > -----Original Message-----
+> > From: Liang, Prike <Prike.Liang@amd.com>
+> > Sent: Friday, May 29, 2020 11:28 AM
+> > To: amd-gfx@lists.freedesktop.org
+> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
+> > <Ray.Huang@amd.com>; Liang, Prike <Prike.Liang@amd.com>
+> > Subject: [PATCH] drm/amdgpu: enable renoir discovery for gc info retrieved
+> >
+> > Use ip discovery GC table instead of gpu info firmware for exporting gpu info
+> > to inquire interface.As Renoir discovery has same version with Navi1x
+> > therefore just enable it same way as Navi1x.
+> >
+> > Signed-off-by: Prike.Liang <Prike.Liang@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 23
+> > ++++++++++++++++++++---
+> >  1 file changed, 20 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > index 2f0e8da..bff740ccd 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > @@ -1528,7 +1528,7 @@ static int
+> > amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)  {
+> >  const char *chip_name;
+> >  char fw_name[30];
+> > -int err;
+> > +int err, r;
+> >  const struct gpu_info_firmware_header_v1_0 *hdr;
+> >
+> >  adev->firmware.gpu_info_fw = NULL;
+> > @@ -1578,6 +1578,23 @@ static int
+> > amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+> >  chip_name = "arcturus";
+> >  break;
+> >  case CHIP_RENOIR:
+> > +if (amdgpu_discovery) {
+> > +/**
+> > + * For RENOIR series seems needn't reinitialize the reg base
+> > again as it already set during
+> > + * early init,if any concern here will need export
+> > amdgpu_discovery_init() for this case.
+> > + */
+> > +r = amdgpu_discovery_reg_base_init(adev);
+> > +if (r) {
+> > +DRM_WARN("failed to get ip discovery table,
+> > "
+> > +"fallback to get gpu info in legacy
+> > method\n");
+> > +goto legacy_gpuinfo;
+> > +}
+> > +
+> > +amdgpu_discovery_get_gfx_info(adev);
+> > +
+> > +return 0;
+> > +}
+> > +legacy_gpuinfo:
+> >  chip_name = "renoir";
+> >  break;
+> >  case CHIP_NAVI10:
+> > @@ -1617,7 +1634,7 @@ static int
+> > amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+> >  (const struct gpu_info_firmware_v1_0 *)(adev-
+> > >firmware.gpu_info_fw->data +
+> >
+> > le32_to_cpu(hdr->header.ucode_array_offset_bytes));
+> >
+> > -if (amdgpu_discovery && adev->asic_type >= CHIP_NAVI10) {
+> > +if (amdgpu_discovery && adev->asic_type >= CHIP_RENOIR
+> > && !r) {
+> >  amdgpu_discovery_get_gfx_info(adev);
+> >  goto parse_soc_bounding_box;
+> >  }
+> > @@ -3364,7 +3381,7 @@ void amdgpu_device_fini(struct amdgpu_device
+> > *adev)
+> >  sysfs_remove_files(&adev->dev->kobj, amdgpu_dev_attributes);
+> >  if (IS_ENABLED(CONFIG_PERF_EVENTS))
+> >  amdgpu_pmu_fini(adev);
+> > -if (amdgpu_discovery && adev->asic_type >= CHIP_NAVI10)
+> > +if (amdgpu_discovery && adev->asic_type >= CHIP_RENOIR)
+> >  amdgpu_discovery_fini(adev);
+> >  }
+> >
+> > --
+> > 2.7.4
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
