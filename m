@@ -2,67 +2,69 @@ Return-Path: <SRS0=q3BR=7P=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-11.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 64C84C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:32:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F2C5C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:35:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3C8FC206C3
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:32:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 20A3E205CB
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:35:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V5O3fcjh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3C8FC206C3
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VffLUyqA"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 20A3E205CB
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B99B96E3F0;
-	Tue,  2 Jun 2020 14:32:47 +0000 (UTC)
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99E846E3F0
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2020 14:32:46 +0000 (UTC)
-Received: by mail-wm1-x342.google.com with SMTP id d128so3379171wmc.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2020 07:32:46 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E47036E3F3;
+	Tue,  2 Jun 2020 14:35:56 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 868B56E3F3
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2020 14:35:55 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id d128so3390525wmc.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2020 07:35:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Pf9U0xu97gNdFtPjIGR38qEJWn/idB+yZFWdxgQw2/E=;
- b=V5O3fcjhwieYn0kOV88EjhHEwjiJuV+IQrF/t56MZumkNU4VIH6kC2kyMfgxwmbk3O
- zYQhs/6mJ/2M05Rq39Ucb4/0hWEGda3jKmAYkXrQSLxdCk2xWLp5sDTTKdozhvQUEyJq
- 9CuITgQfCn6FbGWFV8HdDZqvAUIrPTmZbEJIa2y7ld1udRMrs0EtFnJ+6P7WBZfvt01r
- FoxDUx+5l4feqcJwAjcY0BwIFP7iF4MmtN72qrp2VSgMQgJekci9R19SBVlTEqYaR21X
- kYgr5I65oJyd7uldtxVVdeTS4jvU8obo6Zx04PLUjDP+Wc3aN8HZqJiLJ7AH3PPnEZTZ
- bQ9g==
+ :cc; bh=m3AlOrhw7KigbajhAs4e2difp/dv7u4ZBDcbKHEYJ/Q=;
+ b=VffLUyqADMeVAaGUij43GUUQLIrsh8oedA8aUiX0/1SzmX2nEOSgobFS6SqgvJBqik
+ iTS4eid6aH9s3Tx2b7Lv3vhaw9MenQM4ln349vdCoXT80e71dFRNyx/yNL7y//D5V2C4
+ jWuqXHCNxH8ReOhaOolLseTt1s67mPDYoHKHx5m8ldSehQVtzJytuWL4vHtL3lTt/h6M
+ h9o/2EeVTEejRJLfFHHLHpvi7ENiTLnlkNyR47NjJAz3vts3utVb9uf2oUIqaRLDAkP4
+ fFCPrj1xkzeOG93Em4koXaOBn6qVHbHctlqbr1RoaqZyMNSAn2P9KDRPEmeEmnpkTjcY
+ /6MA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Pf9U0xu97gNdFtPjIGR38qEJWn/idB+yZFWdxgQw2/E=;
- b=uCLEESbdIAhK6gxIoeHnXx55OSNE8gHrBBpcTU4X5TR00HTRonHtZTf8xlapxltL3k
- 18EVd6nFbSVnnlDwGoaTQwg4CCFRFLIC6w9sf8ABHe/YGGd7HnGrKHCEVbkdWRvelghJ
- OU/Se+SLW6VFJXNQNfHCOou9LqYM0kenSoqWbqTqtXlrc9KipV26QjwGIIoj2gWBzQLA
- 8ahJAJFodKG25ro5mAAu8M6OHQ266ioJPFKaQkgRUSWyXhV7ORHVpn734BQm7yaIXRX1
- XyAQelKrLdMpU6vLKy3SX4reYyV7mbtWAdGJn9BYPNpbrEafk6q4vm0I0s03OaH3t16U
- nEZg==
-X-Gm-Message-State: AOAM530zClvGdHnmVMcoaDPMSNW0pJOOhgnEcbMxErdEohJMAC2vgDPC
- k6jAQnJh5E1G4Bu0TDGnLvoc5/JpvsBkr90hCsBGCg==
-X-Google-Smtp-Source: ABdhPJznm6n2EbkWRifbC5wLUQ2Jmg9mW44ZEZhfaJ2+I37rQ76UU4Q7dAE7mhkYdvkBZT+vdy5hVAHSgzrj1udiH20=
-X-Received: by 2002:a7b:cd96:: with SMTP id y22mr4478219wmj.56.1591108365276; 
- Tue, 02 Jun 2020 07:32:45 -0700 (PDT)
+ bh=m3AlOrhw7KigbajhAs4e2difp/dv7u4ZBDcbKHEYJ/Q=;
+ b=tbmoXXWLe4yCgLbMA3WzDG5Pzb+puh6mZ74RI9npMAJUEO9QcS4JzgluWUZy6EbxfI
+ AnXN1dkLzOFEqDuyOExXRHEACq8prpHD9dYviCH57kDPuXfsDSRxSSax+SwrVzDZK8MM
+ o1PlkwcWAcr6Iwdo6u1gUfM1eREDm/kfOPwR8bEC/5zehUW8m50MWu7WOkcKpFhQI7ip
+ kNsmJ4/cCuaRybhTnYydxe326kvZCF5RC8iln3yWHDiF3EIISlV8ws3KrhJiFEDISoFq
+ 0eIQkHkmJHl5jfuOP3iTDYH9wr+RlczR0/6H4Zq5f+fx3+TbwUY0laLrgJOLgONrl5G4
+ TGLw==
+X-Gm-Message-State: AOAM530E6f0F/wWHgcpU2VSlZEkUPwXZpx2B440MgqjDZp3frCHhdZWh
+ a21UQ3UG5mcTdvE8o+bm+h96OpvVuedO6LEHrSY0Uh1F
+X-Google-Smtp-Source: ABdhPJxfbnKQyQnbp2BRc1za57KX5McnTtGG4xTest4QDUzJxOUBsIAK0OFjPxs4H4lnEPJVukqQqLv4Z3tKgmXFgQo=
+X-Received: by 2002:a1c:29c4:: with SMTP id p187mr4387063wmp.73.1591108554218; 
+ Tue, 02 Jun 2020 07:35:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <1591020460-7020-1-git-send-email-ray.huang@amd.com>
-In-Reply-To: <1591020460-7020-1-git-send-email-ray.huang@amd.com>
+References: <1590722887-9333-1-git-send-email-Prike.Liang@amd.com>
+ <BY5PR12MB430719B6351D4AD64215A7CBFB8B0@BY5PR12MB4307.namprd12.prod.outlook.com>
+ <CADnq5_Nndacwux6UQMXBvBPOxLLGT-gnMHOjoHr1u-YGed696Q@mail.gmail.com>
+ <BY5PR12MB43079E7A642EF6CAD9382393FB8B0@BY5PR12MB4307.namprd12.prod.outlook.com>
+In-Reply-To: <BY5PR12MB43079E7A642EF6CAD9382393FB8B0@BY5PR12MB4307.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 2 Jun 2020 10:32:34 -0400
-Message-ID: <CADnq5_NxX3rkAc__c+BZWJZSmhHuH+Bw-Y+zaQNc4M-W9nVVjg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/powerplay: use existed smu_dpm_set* interfaces to
- implement powergate functions
-To: Huang Rui <ray.huang@amd.com>
+Date: Tue, 2 Jun 2020 10:35:43 -0400
+Message-ID: <CADnq5_MGy2fOXs7q5Y8QEEPW4EPu_zwXeP6Wi1K0scvb3DmkVg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: enable renoir discovery for gc info retrieved
+To: "Liang, Prike" <Prike.Liang@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,142 +76,156 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Huang,
+ Ray" <Ray.Huang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 1, 2020 at 10:08 AM Huang Rui <ray.huang@amd.com> wrote:
+On Tue, Jun 2, 2020 at 9:56 AM Liang, Prike <Prike.Liang@amd.com> wrote:
 >
-> Abstract powergate_vcn/jpeg functions, using smu_dpm_set* to implement it.
+> [AMD Official Use Only - Internal Distribution Only]
 >
-> Signed-off-by: Huang Rui <ray.huang@amd.com>
-> Reviewed-by: Kevin Wang <kevin1.wang@amd.com>
+> Ah not aware the enable patch before. But the already enable patch seems can't fallback to legacy gpuinfo FW load method when not support discovery and also may miss destroy the discovery_bin object when driver shut down.
+>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+I think it's already handled.  See these patches:
+https://cgit.freedesktop.org/~agd5f/linux/commit/?h=amd-staging-drm-next&id=4d09621cc55bcec9ec0aa038c8ffcffd2017837f
+https://cgit.freedesktop.org/~agd5f/linux/commit/?h=amd-staging-drm-next&id=6206aa0f74e7d22ca43975bd8f2979cdfd128b40
 
-> ---
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c     | 16 ++++++++++++++++
->  drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h |  2 --
->  drivers/gpu/drm/amd/powerplay/renoir_ppt.c     |  2 --
->  drivers/gpu/drm/amd/powerplay/smu_internal.h   |  7 +++----
->  drivers/gpu/drm/amd/powerplay/smu_v12_0.c      | 22 ----------------------
->  5 files changed, 19 insertions(+), 30 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index 3bb6ab4..846d099 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -2736,3 +2736,19 @@ uint32_t smu_get_pptable_power_limit(struct smu_context *smu)
->
->         return ret;
->  }
-> +
-> +int smu_powergate_vcn(struct smu_context *smu, bool gate)
-> +{
-> +       if (!smu->is_apu)
-> +               return 0;
-> +
-> +       return smu_dpm_set_uvd_enable(smu, !gate);
-> +}
-> +
-> +int smu_powergate_jpeg(struct smu_context *smu, bool gate)
-> +{
-> +       if (!smu->is_apu)
-> +               return 0;
-> +
-> +       return smu_dpm_set_jpeg_enable(smu, !gate);
-> +}
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> index ae2c318..e68d554 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> @@ -508,8 +508,6 @@ struct pptable_funcs {
->         int (*populate_smc_tables)(struct smu_context *smu);
->         int (*check_fw_version)(struct smu_context *smu);
->         int (*powergate_sdma)(struct smu_context *smu, bool gate);
-> -       int (*powergate_vcn)(struct smu_context *smu, bool gate);
-> -       int (*powergate_jpeg)(struct smu_context *smu, bool gate);
->         int (*set_gfx_cgpg)(struct smu_context *smu, bool enable);
->         int (*write_pptable)(struct smu_context *smu);
->         int (*set_min_dcef_deep_sleep)(struct smu_context *smu);
-> diff --git a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> index 95eb445..6241d2e 100644
-> --- a/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/renoir_ppt.c
-> @@ -930,8 +930,6 @@ static const struct pptable_funcs renoir_ppt_funcs = {
->         .check_fw_status = smu_v12_0_check_fw_status,
->         .check_fw_version = smu_v12_0_check_fw_version,
->         .powergate_sdma = smu_v12_0_powergate_sdma,
-> -       .powergate_vcn = smu_v12_0_powergate_vcn,
-> -       .powergate_jpeg = smu_v12_0_powergate_jpeg,
->         .send_smc_msg_with_param = smu_v12_0_send_msg_with_param,
->         .set_gfx_cgpg = smu_v12_0_set_gfx_cgpg,
->         .gfx_off_control = smu_v12_0_gfx_off_control,
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> index 40c35bc..2889eb2 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-> @@ -40,10 +40,6 @@
->         ((smu)->ppt_funcs->setup_pptable ? (smu)->ppt_funcs->setup_pptable((smu)) : 0)
->  #define smu_powergate_sdma(smu, gate) \
->         ((smu)->ppt_funcs->powergate_sdma ? (smu)->ppt_funcs->powergate_sdma((smu), (gate)) : 0)
-> -#define smu_powergate_vcn(smu, gate) \
-> -       ((smu)->ppt_funcs->powergate_vcn ? (smu)->ppt_funcs->powergate_vcn((smu), (gate)) : 0)
-> -#define smu_powergate_jpeg(smu, gate) \
-> -       ((smu)->ppt_funcs->powergate_jpeg ? (smu)->ppt_funcs->powergate_jpeg((smu), (gate)) : 0)
->
->  #define smu_get_vbios_bootup_values(smu) \
->         ((smu)->ppt_funcs->get_vbios_bootup_values ? (smu)->ppt_funcs->get_vbios_bootup_values((smu)) : 0)
-> @@ -214,4 +210,7 @@ static inline int smu_send_smc_msg(struct smu_context *smu, enum smu_message_typ
->  #define smu_set_power_source(smu, power_src) \
->         ((smu)->ppt_funcs->set_power_source ? (smu)->ppt_funcs->set_power_source((smu), (power_src)) : 0)
->
-> +int smu_powergate_vcn(struct smu_context *smu, bool gate);
-> +int smu_powergate_jpeg(struct smu_context *smu, bool gate);
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> index 4fc68d4..7c3da532 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> @@ -182,28 +182,6 @@ int smu_v12_0_powergate_sdma(struct smu_context *smu, bool gate)
->                 return smu_send_smc_msg(smu, SMU_MSG_PowerUpSdma, NULL);
->  }
->
-> -int smu_v12_0_powergate_vcn(struct smu_context *smu, bool gate)
-> -{
-> -       if (!smu->is_apu)
-> -               return 0;
-> -
-> -       if (gate)
-> -               return smu_send_smc_msg(smu, SMU_MSG_PowerDownVcn, NULL);
-> -       else
-> -               return smu_send_smc_msg(smu, SMU_MSG_PowerUpVcn, NULL);
-> -}
-> -
-> -int smu_v12_0_powergate_jpeg(struct smu_context *smu, bool gate)
-> -{
-> -       if (!smu->is_apu)
-> -               return 0;
-> -
-> -       if (gate)
-> -               return smu_send_smc_msg_with_param(smu, SMU_MSG_PowerDownJpeg, 0, NULL);
-> -       else
-> -               return smu_send_smc_msg_with_param(smu, SMU_MSG_PowerUpJpeg, 0, NULL);
-> -}
-> -
->  int smu_v12_0_set_gfx_cgpg(struct smu_context *smu, bool enable)
->  {
->         if (!(smu->adev->pg_flags & AMD_PG_SUPPORT_GFX_PG))
-> --
-> 2.7.4
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Alex
+
+> Thanks,
+> Prike
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: Tuesday, June 2, 2020 9:35 PM
+> > To: Liang, Prike <Prike.Liang@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; Huang, Ray <Ray.Huang@amd.com>
+> > Subject: Re: [PATCH] drm/amdgpu: enable renoir discovery for gc info
+> > retrieved
+> >
+> > On Mon, Jun 1, 2020 at 10:14 PM Liang, Prike <Prike.Liang@amd.com> wrote:
+> > >
+> > > [AMD Official Use Only - Internal Distribution Only]
+> > >
+> > > Ping...
+> >
+> > Already enabled:
+> > https://nam11.safelinks.protection.outlook.com/?url=https:%2F%2Fcgit.free
+> > desktop.org%2F~agd5f%2Flinux%2Fcommit%2F%3Fh%3Damd-staging-drm-
+> > next%26id%3De467ab869f5783cf93d4cf24c6ac647cc29d1fb5&amp;data=02%
+> > 7C01%7CPrike.Liang%40amd.com%7C5bcc45116bb042163cec08d806f9bd58
+> > %7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637267016987033
+> > 430&amp;sdata=KJ0xmSPXwlZ4LEfhAYoFzAwaWyx3laoLAsQccMM0pcs%3D&
+> > amp;reserved=0
+> >
+> > Alex
+> >
+> > >
+> > > Thanks,
+> > > > -----Original Message-----
+> > > > From: Liang, Prike <Prike.Liang@amd.com>
+> > > > Sent: Friday, May 29, 2020 11:28 AM
+> > > > To: amd-gfx@lists.freedesktop.org
+> > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Huang, Ray
+> > > > <Ray.Huang@amd.com>; Liang, Prike <Prike.Liang@amd.com>
+> > > > Subject: [PATCH] drm/amdgpu: enable renoir discovery for gc info
+> > > > retrieved
+> > > >
+> > > > Use ip discovery GC table instead of gpu info firmware for exporting
+> > > > gpu info to inquire interface.As Renoir discovery has same version
+> > > > with Navi1x therefore just enable it same way as Navi1x.
+> > > >
+> > > > Signed-off-by: Prike.Liang <Prike.Liang@amd.com>
+> > > > ---
+> > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 23
+> > > > ++++++++++++++++++++---
+> > > >  1 file changed, 20 insertions(+), 3 deletions(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > > index 2f0e8da..bff740ccd 100644
+> > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> > > > @@ -1528,7 +1528,7 @@ static int
+> > > > amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)  {
+> > > > const char *chip_name;  char fw_name[30]; -int err;
+> > > > +int err, r;
+> > > >  const struct gpu_info_firmware_header_v1_0 *hdr;
+> > > >
+> > > >  adev->firmware.gpu_info_fw = NULL;
+> > > > @@ -1578,6 +1578,23 @@ static int
+> > > > amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)
+> > > > chip_name = "arcturus";  break;  case CHIP_RENOIR:
+> > > > +if (amdgpu_discovery) {
+> > > > +/**
+> > > > + * For RENOIR series seems needn't reinitialize the reg base
+> > > > again as it already set during
+> > > > + * early init,if any concern here will need export
+> > > > amdgpu_discovery_init() for this case.
+> > > > + */
+> > > > +r = amdgpu_discovery_reg_base_init(adev);
+> > > > +if (r) {
+> > > > +DRM_WARN("failed to get ip discovery table,
+> > > > "
+> > > > +"fallback to get gpu info in legacy
+> > > > method\n");
+> > > > +goto legacy_gpuinfo;
+> > > > +}
+> > > > +
+> > > > +amdgpu_discovery_get_gfx_info(adev);
+> > > > +
+> > > > +return 0;
+> > > > +}
+> > > > +legacy_gpuinfo:
+> > > >  chip_name = "renoir";
+> > > >  break;
+> > > >  case CHIP_NAVI10:
+> > > > @@ -1617,7 +1634,7 @@ static int
+> > > > amdgpu_device_parse_gpu_info_fw(struct amdgpu_device *adev)  (const
+> > > > struct gpu_info_firmware_v1_0 *)(adev-
+> > > > >firmware.gpu_info_fw->data +
+> > > >
+> > > > le32_to_cpu(hdr->header.ucode_array_offset_bytes));
+> > > >
+> > > > -if (amdgpu_discovery && adev->asic_type >= CHIP_NAVI10) {
+> > > > +if (amdgpu_discovery && adev->asic_type >= CHIP_RENOIR
+> > > > && !r) {
+> > > >  amdgpu_discovery_get_gfx_info(adev);
+> > > >  goto parse_soc_bounding_box;
+> > > >  }
+> > > > @@ -3364,7 +3381,7 @@ void amdgpu_device_fini(struct
+> > amdgpu_device
+> > > > *adev)
+> > > >  sysfs_remove_files(&adev->dev->kobj, amdgpu_dev_attributes);  if
+> > > > (IS_ENABLED(CONFIG_PERF_EVENTS))  amdgpu_pmu_fini(adev); -if
+> > > > (amdgpu_discovery && adev->asic_type >= CHIP_NAVI10)
+> > > > +if (amdgpu_discovery && adev->asic_type >= CHIP_RENOIR)
+> > > >  amdgpu_discovery_fini(adev);
+> > > >  }
+> > > >
+> > > > --
+> > > > 2.7.4
+> > >
+> > > _______________________________________________
+> > > amd-gfx mailing list
+> > > amd-gfx@lists.freedesktop.org
+> > > https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flist
+> > > s.freedesktop.org%2Fmailman%2Flistinfo%2Famd-
+> > gfx&amp;data=02%7C01%7CPr
+> > >
+> > ike.Liang%40amd.com%7C5bcc45116bb042163cec08d806f9bd58%7C3dd896
+> > 1fe4884
+> > >
+> > e608e11a82d994e183d%7C0%7C0%7C637267016987033430&amp;sdata=R%
+> > 2F%2BY%2B
+> > >
+> > z%2BKHh09WazkQqS%2FbwH%2BeBM97%2Fx5hvqWAjUYEtM%3D&amp;res
+> > erved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
