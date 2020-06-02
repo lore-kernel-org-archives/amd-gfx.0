@@ -5,64 +5,62 @@ X-Spam-Level:
 X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B2E3C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 15:00:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39B71C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 15:01:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D158320757
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 15:00:32 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0A7492074B
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 15:01:49 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LWMSIp9J"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D158320757
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ft1rVAHm"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A7492074B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CE276E408;
-	Tue,  2 Jun 2020 15:00:32 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B11F6E408
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2020 15:00:31 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id h5so3735248wrc.7
- for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2020 08:00:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B78BB6E406;
+	Tue,  2 Jun 2020 15:01:49 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 190C56E406
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2020 15:01:49 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id d128so3487805wmc.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2020 08:01:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FinIVepfNoqBS1OCQSkR7jyCGR7BWYvNCOerCIP/Vgo=;
- b=LWMSIp9Jik1qeBSH9czEgLkdAJJF0lEGuqwBnnrRbe7loYMIxrAlp+orCHg3QQhVj8
- ljfi5LdHTigZt0chRp0FHFRjIZWKopjzZJm9QwHigHCjoj5fFdaGufI4aukcTiaWZlAe
- GDKd/D7T1YbRSo5P9e/Ukp4elz31DGlWXpw0FB9kEDcbTnccl1vleGDIXN8xgStzMdrT
- XmpTsCzeka4eQITSphhUz/HNXusBPdts9ns6I3bzUwm0DSALGu3WJhCIucP6JqHuMUoP
- W6GyUaVyWLM9Gda4/VZ2+6NH/rp3p0RMIwOwACuBiEXNXvz4/ODJJUpUcWnCtMwWVWaO
- n0gg==
+ :cc; bh=c7vXJtrFdYzQ1lEPamJ4lEVZM97pljHIlKMcwNctAws=;
+ b=Ft1rVAHmXAk+8yzkaoxmTKXF+/nnuvDGVnszL6rRUR7RuJbB0tfSfOcBkaFDBFe9DX
+ qOfGp+ZubMjhTgBXRvxxHjpd5kjcdB6d5NzkAWQTvWaHxC/xqiT/fUAFs4zJNNYTSLDg
+ ufVcaHNwycd4tR3a47dhsvAYvpRxeqEzK5xWT36qg6gDnrSxx8iPaqAefQgMtEXMyrhp
+ wJZDZpJHxma0LDMwZ97604A0Xv4CUKs9ADy4GRl/R5k5LEiZFuZr0BGUQ98wqV1QXUWU
+ r7Z+S9wnnd3g9qizY5MvafA6uNRGpL/fOKHr4sWO4/H39k8XntQN4C3LYPn2xrPMTnYT
+ 44RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=FinIVepfNoqBS1OCQSkR7jyCGR7BWYvNCOerCIP/Vgo=;
- b=TUeV29aQXKkNSJtRfvV86iY50tdIEpxlbFbglkpyGtGpNp6LYLcU14mOmE6OmfWG89
- iDxs/5pETgne9AhkOKMBpG69nVCo3MrBtJpNvyTFp29/v1ANRu2FdqQJAPfufPsP3BcI
- 2SFey3PhbtTHhcgUtNrI1dLgQWUX8T591vrrrvLRdfZfpsY64Bh34jnigWQBaxOq6cqe
- A6iNx3+G5flg2fpjGOwboPfGNNaB1culZ9Ffhd7YLjcbGDw9568Aad6+XfC+mNYJ8lVG
- pUq8kn3j1grlpVlCMbBTGKfiQEW8dy2UwWBztKptKrBMPe0HioQj5VGEllE5z3sSAyR5
- M6wA==
-X-Gm-Message-State: AOAM531fGPY0bjN4f+xPgPeawKxjajh0W/nlMWpaRz/dUhp3uAxhZlJo
- ffJ6F8DDQSEYK0gcAqQ7XO01RJ9eApoFjnQW+eW1pg==
-X-Google-Smtp-Source: ABdhPJxUn4yRl3NVPL22nu7yzs4u7Q48Qprpu9EpN1xZGJtuSI9MabR6jG3nqxkO9YYs5KPNJuye9t6LuI5oIAG2Ksg=
-X-Received: by 2002:a5d:6789:: with SMTP id v9mr28532296wru.124.1591110029509; 
- Tue, 02 Jun 2020 08:00:29 -0700 (PDT)
+ bh=c7vXJtrFdYzQ1lEPamJ4lEVZM97pljHIlKMcwNctAws=;
+ b=FL0BZ7crrwR6IS9LGr08QiYtCNNTpZKRsrNL8/+/xkBODgBJn/hYS/9bZ3A2K2Y9bD
+ 3aS/h6QMrhN6g+cQftTu335VgdU0VMVXXhUB4EJNFz6QsNDxl2iM4Zp7SeuC8vLjCEBs
+ Zl4cJT/htQQT5eTM1s9dtaJ5v4yqbRvGycxGWvmUbSd7DD5ZV/2wc8IHdzY8GJZv/CcN
+ mypzWTOL8jeE2G3fxMCoQFyluQPtlIA3tCrhC5JwrPRupVeMcmRv03IhBPzqXZuitsGM
+ D006DL/o+nIVv1MaNdYkAOAS7OXZU2FNSY6XlN9DtjI0VfaGPcyAK8OiBrZELqkJE92T
+ ufEw==
+X-Gm-Message-State: AOAM5336wSQn6WV/8taZbs4ibi31axm0253ji8D8o2lbykux2k9ScoHT
+ nDqbtKUllCSwBGkGeJrMj5mZdwpagCjeIfDvs6M=
+X-Google-Smtp-Source: ABdhPJx//UEqm1WTP10E9uwDRziX39rKsvEh4S+6F7AlcwfdGipknWzhHRRP6K7GeUhOBJ3loyJiLEt8dWDUw6vxJUQ=
+X-Received: by 2002:a7b:cd96:: with SMTP id y22mr4587824wmj.56.1591110107598; 
+ Tue, 02 Jun 2020 08:01:47 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200601073003.13044-1-evan.quan@amd.com>
- <20200601073003.13044-3-evan.quan@amd.com>
-In-Reply-To: <20200601073003.13044-3-evan.quan@amd.com>
+ <20200601073003.13044-4-evan.quan@amd.com>
+In-Reply-To: <20200601073003.13044-4-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 2 Jun 2020 11:00:18 -0400
-Message-ID: <CADnq5_Ow1CtJx_B-g9caUJPmPV5cEQc=2E01KU2V8kSymQ9OGA@mail.gmail.com>
-Subject: Re: [PATCH 3/9] drm/amd/powerplay: centralize all buffer allocation
- in sw_init phase
+Date: Tue, 2 Jun 2020 11:01:36 -0400
+Message-ID: <CADnq5_Oh0t+So5N9r4MRp00fZXYeRFyYG343fwmED0sGi6WZwA@mail.gmail.com>
+Subject: Re: [PATCH 4/9] drm/amd/powerplay: clean up the APIs for bootup clocks
 To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,580 +82,266 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Mon, Jun 1, 2020 at 3:30 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-> To fit common design. And this can simplify the buffer deallocation.
+> Combine and simplify the logics for retrieving bootup
+> clocks.
 >
-> Change-Id: Iee682e76aadb5f34861d69d5794ced44f0a78789
+> Change-Id: Ifca28c454f3769dece0cc705ba054ff34db0ab60
 > Signed-off-by: Evan Quan <evan.quan@amd.com>
 
-Took me a little while to sort out the functional changes from the
-non-functional moves.  Might be clearer to split those up.  Either
-way:
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 330 ++++++++++-----------
->  drivers/gpu/drm/amd/powerplay/smu_v11_0.c  | 105 ++++---
->  2 files changed, 223 insertions(+), 212 deletions(-)
+>  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |   4 -
+>  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  |   1 -
+>  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |   1 -
+>  drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |   2 -
+>  drivers/gpu/drm/amd/powerplay/navi10_ppt.c    |   1 -
+>  drivers/gpu/drm/amd/powerplay/smu_internal.h  |   2 -
+>  drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 141 +++++++-----------
+>  7 files changed, 51 insertions(+), 101 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index b4f108cb52fa..70c7b3fdee79 100644
+> index 70c7b3fdee79..9bafa6b3e123 100644
 > --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
 > +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -817,6 +817,147 @@ int smu_get_atom_data_table(struct smu_context *smu, uint32_t table,
->         return 0;
->  }
->
-> +static int smu_init_fb_allocations(struct smu_context *smu)
-> +{
-> +       struct amdgpu_device *adev = smu->adev;
-> +       struct smu_table_context *smu_table = &smu->smu_table;
-> +       struct smu_table *tables = smu_table->tables;
-> +       struct smu_table *driver_table = &(smu_table->driver_table);
-> +       uint32_t max_table_size = 0;
-> +       int ret, i;
-> +
-> +       /* VRAM allocation for tool table */
-> +       if (tables[SMU_TABLE_PMSTATUSLOG].size) {
-> +               ret = amdgpu_bo_create_kernel(adev,
-> +                                             tables[SMU_TABLE_PMSTATUSLOG].size,
-> +                                             tables[SMU_TABLE_PMSTATUSLOG].align,
-> +                                             tables[SMU_TABLE_PMSTATUSLOG].domain,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].bo,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);
-> +               if (ret) {
-> +                       pr_err("VRAM allocation for tool table failed!\n");
-> +                       return ret;
-> +               }
-> +       }
-> +
-> +       /* VRAM allocation for driver table */
-> +       for (i = 0; i < SMU_TABLE_COUNT; i++) {
-> +               if (tables[i].size == 0)
-> +                       continue;
-> +
-> +               if (i == SMU_TABLE_PMSTATUSLOG)
-> +                       continue;
-> +
-> +               if (max_table_size < tables[i].size)
-> +                       max_table_size = tables[i].size;
-> +       }
-> +
-> +       driver_table->size = max_table_size;
-> +       driver_table->align = PAGE_SIZE;
-> +       driver_table->domain = AMDGPU_GEM_DOMAIN_VRAM;
-> +
-> +       ret = amdgpu_bo_create_kernel(adev,
-> +                                     driver_table->size,
-> +                                     driver_table->align,
-> +                                     driver_table->domain,
-> +                                     &driver_table->bo,
-> +                                     &driver_table->mc_address,
-> +                                     &driver_table->cpu_addr);
-> +       if (ret) {
-> +               pr_err("VRAM allocation for driver table failed!\n");
-> +               if (tables[SMU_TABLE_PMSTATUSLOG].mc_address)
-> +                       amdgpu_bo_free_kernel(&tables[SMU_TABLE_PMSTATUSLOG].bo,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-> +                                             &tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);
-> +       }
-> +
-> +       return ret;
-> +}
-> +
-> +static int smu_fini_fb_allocations(struct smu_context *smu)
-> +{
-> +       struct smu_table_context *smu_table = &smu->smu_table;
-> +       struct smu_table *tables = smu_table->tables;
-> +       struct smu_table *driver_table = &(smu_table->driver_table);
-> +
-> +       if (!tables)
-> +               return 0;
-> +
-> +       if (tables[SMU_TABLE_PMSTATUSLOG].mc_address)
-> +               amdgpu_bo_free_kernel(&tables[SMU_TABLE_PMSTATUSLOG].bo,
-> +                                     &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-> +                                     &tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);
-> +
-> +       amdgpu_bo_free_kernel(&driver_table->bo,
-> +                             &driver_table->mc_address,
-> +                             &driver_table->cpu_addr);
-> +
-> +       return 0;
-> +}
-> +
-> +/**
-> + * smu_alloc_memory_pool - allocate memory pool in the system memory
-> + *
-> + * @smu: amdgpu_device pointer
-> + *
-> + * This memory pool will be used for SMC use and msg SetSystemVirtualDramAddr
-> + * and DramLogSetDramAddr can notify it changed.
-> + *
-> + * Returns 0 on success, error on failure.
-> + */
-> +static int smu_alloc_memory_pool(struct smu_context *smu)
-> +{
-> +       struct amdgpu_device *adev = smu->adev;
-> +       struct smu_table_context *smu_table = &smu->smu_table;
-> +       struct smu_table *memory_pool = &smu_table->memory_pool;
-> +       uint64_t pool_size = smu->pool_size;
-> +       int ret = 0;
-> +
-> +       if (pool_size == SMU_MEMORY_POOL_SIZE_ZERO)
-> +               return ret;
-> +
-> +       memory_pool->size = pool_size;
-> +       memory_pool->align = PAGE_SIZE;
-> +       memory_pool->domain = AMDGPU_GEM_DOMAIN_GTT;
-> +
-> +       switch (pool_size) {
-> +       case SMU_MEMORY_POOL_SIZE_256_MB:
-> +       case SMU_MEMORY_POOL_SIZE_512_MB:
-> +       case SMU_MEMORY_POOL_SIZE_1_GB:
-> +       case SMU_MEMORY_POOL_SIZE_2_GB:
-> +               ret = amdgpu_bo_create_kernel(adev,
-> +                                             memory_pool->size,
-> +                                             memory_pool->align,
-> +                                             memory_pool->domain,
-> +                                             &memory_pool->bo,
-> +                                             &memory_pool->mc_address,
-> +                                             &memory_pool->cpu_addr);
-> +               break;
-> +       default:
-> +               break;
-> +       }
-> +
-> +       return ret;
-> +}
-> +
-> +static int smu_free_memory_pool(struct smu_context *smu)
-> +{
-> +       struct smu_table_context *smu_table = &smu->smu_table;
-> +       struct smu_table *memory_pool = &smu_table->memory_pool;
-> +
-> +       if (memory_pool->size == SMU_MEMORY_POOL_SIZE_ZERO)
-> +               return 0;
-> +
-> +       amdgpu_bo_free_kernel(&memory_pool->bo,
-> +                             &memory_pool->mc_address,
-> +                             &memory_pool->cpu_addr);
-> +
-> +       memset(memory_pool, 0, sizeof(struct smu_table));
-> +
-> +       return 0;
-> +}
-> +
->  static int smu_smc_table_sw_init(struct smu_context *smu)
->  {
->         int ret;
-> @@ -841,6 +982,17 @@ static int smu_smc_table_sw_init(struct smu_context *smu)
->                 return ret;
->         }
->
-> +       /*
-> +        * allocate vram bos to store smc table contents.
-> +        */
-> +       ret = smu_init_fb_allocations(smu);
-> +       if (ret)
-> +               return ret;
-> +
-> +       ret = smu_alloc_memory_pool(smu);
-> +       if (ret)
-> +               return ret;
-> +
->         return 0;
->  }
->
-> @@ -848,6 +1000,14 @@ static int smu_smc_table_sw_fini(struct smu_context *smu)
->  {
->         int ret;
->
-> +       ret = smu_free_memory_pool(smu);
-> +       if (ret)
-> +               return ret;
-> +
-> +       ret = smu_fini_fb_allocations(smu);
-> +       if (ret)
-> +               return ret;
-> +
->         ret = smu_fini_power(smu);
->         if (ret) {
->                 pr_err("Failed to init smu_fini_power!\n");
-> @@ -947,85 +1107,6 @@ static int smu_sw_fini(void *handle)
->         return 0;
->  }
->
-> -static int smu_init_fb_allocations(struct smu_context *smu)
-> -{
-> -       struct amdgpu_device *adev = smu->adev;
-> -       struct smu_table_context *smu_table = &smu->smu_table;
-> -       struct smu_table *tables = smu_table->tables;
-> -       struct smu_table *driver_table = &(smu_table->driver_table);
-> -       uint32_t max_table_size = 0;
-> -       int ret, i;
-> -
-> -       /* VRAM allocation for tool table */
-> -       if (tables[SMU_TABLE_PMSTATUSLOG].size) {
-> -               ret = amdgpu_bo_create_kernel(adev,
-> -                                             tables[SMU_TABLE_PMSTATUSLOG].size,
-> -                                             tables[SMU_TABLE_PMSTATUSLOG].align,
-> -                                             tables[SMU_TABLE_PMSTATUSLOG].domain,
-> -                                             &tables[SMU_TABLE_PMSTATUSLOG].bo,
-> -                                             &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-> -                                             &tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);
-> -               if (ret) {
-> -                       pr_err("VRAM allocation for tool table failed!\n");
-> -                       return ret;
-> -               }
-> -       }
-> -
-> -       /* VRAM allocation for driver table */
-> -       for (i = 0; i < SMU_TABLE_COUNT; i++) {
-> -               if (tables[i].size == 0)
-> -                       continue;
-> -
-> -               if (i == SMU_TABLE_PMSTATUSLOG)
-> -                       continue;
-> -
-> -               if (max_table_size < tables[i].size)
-> -                       max_table_size = tables[i].size;
-> -       }
-> -
-> -       driver_table->size = max_table_size;
-> -       driver_table->align = PAGE_SIZE;
-> -       driver_table->domain = AMDGPU_GEM_DOMAIN_VRAM;
-> -
-> -       ret = amdgpu_bo_create_kernel(adev,
-> -                                     driver_table->size,
-> -                                     driver_table->align,
-> -                                     driver_table->domain,
-> -                                     &driver_table->bo,
-> -                                     &driver_table->mc_address,
-> -                                     &driver_table->cpu_addr);
-> -       if (ret) {
-> -               pr_err("VRAM allocation for driver table failed!\n");
-> -               if (tables[SMU_TABLE_PMSTATUSLOG].mc_address)
-> -                       amdgpu_bo_free_kernel(&tables[SMU_TABLE_PMSTATUSLOG].bo,
-> -                                             &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-> -                                             &tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);
-> -       }
-> -
-> -       return ret;
-> -}
-> -
-> -static int smu_fini_fb_allocations(struct smu_context *smu)
-> -{
-> -       struct smu_table_context *smu_table = &smu->smu_table;
-> -       struct smu_table *tables = smu_table->tables;
-> -       struct smu_table *driver_table = &(smu_table->driver_table);
-> -
-> -       if (!tables)
-> -               return 0;
-> -
-> -       if (tables[SMU_TABLE_PMSTATUSLOG].mc_address)
-> -               amdgpu_bo_free_kernel(&tables[SMU_TABLE_PMSTATUSLOG].bo,
-> -                                     &tables[SMU_TABLE_PMSTATUSLOG].mc_address,
-> -                                     &tables[SMU_TABLE_PMSTATUSLOG].cpu_addr);
-> -
-> -       amdgpu_bo_free_kernel(&driver_table->bo,
-> -                             &driver_table->mc_address,
-> -                             &driver_table->cpu_addr);
-> -
-> -       return 0;
-> -}
-> -
->  static int smu_smc_table_hw_init(struct smu_context *smu,
->                                  bool initialize)
->  {
-> @@ -1063,13 +1144,6 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
+> @@ -1132,10 +1132,6 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
 >                 if (ret)
 >                         return ret;
 >
-> -               /*
-> -                * allocate vram bos to store smc table contents.
-> -                */
-> -               ret = smu_init_fb_allocations(smu);
+> -               ret = smu_get_clk_info_from_vbios(smu);
 > -               if (ret)
 > -                       return ret;
 > -
 >                 /*
->                  * Parse pptable format and fill PPTable_t smc_pptable to
->                  * smu_table_context structure. And read the smc_dpm_table from vbios,
-> @@ -1187,68 +1261,6 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
->         return ret;
->  }
+>                  * check if the format_revision in vbios is up to pptable header
+>                  * version, and the structure size is not 0.
+> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> index e856ad36ab01..902c8cfa4a3b 100644
+> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> @@ -2423,7 +2423,6 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
+>         .check_fw_status = smu_v11_0_check_fw_status,
+>         .setup_pptable = smu_v11_0_setup_pptable,
+>         .get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
+> -       .get_clk_info_from_vbios = smu_v11_0_get_clk_info_from_vbios,
+>         .check_pptable = smu_v11_0_check_pptable,
+>         .parse_pptable = smu_v11_0_parse_pptable,
+>         .populate_smc_tables = smu_v11_0_populate_smc_pptable,
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> index 5bb1ac821aeb..223678e329a5 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> @@ -505,7 +505,6 @@ struct pptable_funcs {
+>         int (*check_fw_status)(struct smu_context *smu);
+>         int (*setup_pptable)(struct smu_context *smu);
+>         int (*get_vbios_bootup_values)(struct smu_context *smu);
+> -       int (*get_clk_info_from_vbios)(struct smu_context *smu);
+>         int (*check_pptable)(struct smu_context *smu);
+>         int (*parse_pptable)(struct smu_context *smu);
+>         int (*populate_smc_tables)(struct smu_context *smu);
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+> index 71f829ab306e..5b785816aa64 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+> @@ -161,8 +161,6 @@ int smu_v11_0_setup_pptable(struct smu_context *smu);
 >
-> -/**
-> - * smu_alloc_memory_pool - allocate memory pool in the system memory
-> - *
-> - * @smu: amdgpu_device pointer
-> - *
-> - * This memory pool will be used for SMC use and msg SetSystemVirtualDramAddr
-> - * and DramLogSetDramAddr can notify it changed.
-> - *
-> - * Returns 0 on success, error on failure.
-> - */
-> -static int smu_alloc_memory_pool(struct smu_context *smu)
-> -{
-> -       struct amdgpu_device *adev = smu->adev;
-> -       struct smu_table_context *smu_table = &smu->smu_table;
-> -       struct smu_table *memory_pool = &smu_table->memory_pool;
-> -       uint64_t pool_size = smu->pool_size;
-> -       int ret = 0;
-> -
-> -       if (pool_size == SMU_MEMORY_POOL_SIZE_ZERO)
-> -               return ret;
-> -
-> -       memory_pool->size = pool_size;
-> -       memory_pool->align = PAGE_SIZE;
-> -       memory_pool->domain = AMDGPU_GEM_DOMAIN_GTT;
-> -
-> -       switch (pool_size) {
-> -       case SMU_MEMORY_POOL_SIZE_256_MB:
-> -       case SMU_MEMORY_POOL_SIZE_512_MB:
-> -       case SMU_MEMORY_POOL_SIZE_1_GB:
-> -       case SMU_MEMORY_POOL_SIZE_2_GB:
-> -               ret = amdgpu_bo_create_kernel(adev,
-> -                                             memory_pool->size,
-> -                                             memory_pool->align,
-> -                                             memory_pool->domain,
-> -                                             &memory_pool->bo,
-> -                                             &memory_pool->mc_address,
-> -                                             &memory_pool->cpu_addr);
-> -               break;
-> -       default:
-> -               break;
-> -       }
-> -
-> -       return ret;
-> -}
-> -
-> -static int smu_free_memory_pool(struct smu_context *smu)
-> -{
-> -       struct smu_table_context *smu_table = &smu->smu_table;
-> -       struct smu_table *memory_pool = &smu_table->memory_pool;
-> -
-> -       if (memory_pool->size == SMU_MEMORY_POOL_SIZE_ZERO)
-> -               return 0;
-> -
-> -       amdgpu_bo_free_kernel(&memory_pool->bo,
-> -                             &memory_pool->mc_address,
-> -                             &memory_pool->cpu_addr);
-> -
-> -       memset(memory_pool, 0, sizeof(struct smu_table));
-> -
-> -       return 0;
-> -}
-> -
->  static int smu_start_smc_engine(struct smu_context *smu)
->  {
->         struct amdgpu_device *adev = smu->adev;
-> @@ -1306,10 +1318,6 @@ static int smu_hw_init(void *handle)
->         if (ret)
->                 goto failed;
+>  int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu);
 >
-> -       ret = smu_alloc_memory_pool(smu);
-> -       if (ret)
-> -               goto failed;
+> -int smu_v11_0_get_clk_info_from_vbios(struct smu_context *smu);
 > -
->         /*
->          * Use msg SetSystemVirtualDramAddr and DramLogSetDramAddr can notify
->          * pool location.
-> @@ -1401,7 +1409,6 @@ static int smu_hw_fini(void *handle)
->  {
->         struct amdgpu_device *adev = (struct amdgpu_device *)handle;
->         struct smu_context *smu = &adev->smu;
-> -       struct smu_table_context *table_context = &smu->smu_table;
->         int ret = 0;
+>  int smu_v11_0_check_pptable(struct smu_context *smu);
 >
->         if (amdgpu_sriov_vf(adev)&& !amdgpu_sriov_is_pp_one_vf(adev))
-> @@ -1432,23 +1439,6 @@ static int smu_hw_fini(void *handle)
->                 return ret;
->         }
+>  int smu_v11_0_parse_pptable(struct smu_context *smu);
+> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> index 652728f18271..bea6a96b5afb 100644
+> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> @@ -2320,7 +2320,6 @@ static const struct pptable_funcs navi10_ppt_funcs = {
+>         .check_fw_status = smu_v11_0_check_fw_status,
+>         .setup_pptable = smu_v11_0_setup_pptable,
+>         .get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
+> -       .get_clk_info_from_vbios = smu_v11_0_get_clk_info_from_vbios,
+>         .check_pptable = smu_v11_0_check_pptable,
+>         .parse_pptable = smu_v11_0_parse_pptable,
+>         .populate_smc_tables = smu_v11_0_populate_smc_pptable,
+> diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+> index 6c59eeef2590..a31df7f4e91a 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
+> +++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+> @@ -47,8 +47,6 @@
 >
-> -       kfree(table_context->driver_pptable);
-> -       table_context->driver_pptable = NULL;
-> -
-> -       kfree(table_context->max_sustainable_clocks);
-> -       table_context->max_sustainable_clocks = NULL;
-> -
-> -       kfree(table_context->overdrive_table);
-> -       table_context->overdrive_table = NULL;
-> -
-> -       ret = smu_fini_fb_allocations(smu);
-> -       if (ret)
-> -               return ret;
-> -
-> -       ret = smu_free_memory_pool(smu);
-> -       if (ret)
-> -               return ret;
-> -
->         return 0;
->  }
->
+>  #define smu_get_vbios_bootup_values(smu) \
+>         ((smu)->ppt_funcs->get_vbios_bootup_values ? (smu)->ppt_funcs->get_vbios_bootup_values((smu)) : 0)
+> -#define smu_get_clk_info_from_vbios(smu) \
+> -       ((smu)->ppt_funcs->get_clk_info_from_vbios ? (smu)->ppt_funcs->get_clk_info_from_vbios((smu)) : 0)
+>  #define smu_check_pptable(smu) \
+>         ((smu)->ppt_funcs->check_pptable ? (smu)->ppt_funcs->check_pptable((smu)) : 0)
+>  #define smu_parse_pptable(smu) \
 > diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> index d6bdd2126f72..3b22f66e3fbc 100644
+> index 3b22f66e3fbc..be6dca8c6014 100644
 > --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
 > +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> @@ -432,25 +432,67 @@ int smu_v11_0_init_smc_tables(struct smu_context *smu)
->         struct smu_table *tables = NULL;
->         int ret = 0;
->
-> -       if (smu_table->tables)
-> -               return -EINVAL;
-> -
->         tables = kcalloc(SMU_TABLE_COUNT, sizeof(struct smu_table),
->                          GFP_KERNEL);
-> -       if (!tables)
-> -               return -ENOMEM;
-> -
-> +       if (!tables) {
-> +               ret = -ENOMEM;
-> +               goto err0_out;
-> +       }
->         smu_table->tables = tables;
->
->         ret = smu_tables_init(smu, tables);
->         if (ret)
-> -               return ret;
-> +               goto err1_out;
->
->         ret = smu_v11_0_init_dpm_context(smu);
->         if (ret)
-> -               return ret;
-> +               goto err1_out;
-> +
-> +       smu_table->driver_pptable =
-> +               kzalloc(tables[SMU_TABLE_PPTABLE].size, GFP_KERNEL);
-> +       if (!smu_table->driver_pptable) {
-> +               ret = -ENOMEM;
-> +               goto err2_out;
-> +       }
-> +
-> +       smu_table->max_sustainable_clocks =
-> +               kzalloc(sizeof(struct smu_11_0_max_sustainable_clocks), GFP_KERNEL);
-> +       if (!smu_table->max_sustainable_clocks) {
-> +               ret = -ENOMEM;
-> +               goto err3_out;
-> +       }
-> +
-> +       /* Arcturus does not support OVERDRIVE */
-> +       if (tables[SMU_TABLE_OVERDRIVE].size) {
-> +               smu_table->overdrive_table =
-> +                       kzalloc(tables[SMU_TABLE_OVERDRIVE].size, GFP_KERNEL);
-> +               if (!smu_table->overdrive_table) {
-> +                       ret = -ENOMEM;
-> +                       goto err4_out;
-> +               }
-> +
-> +               smu_table->boot_overdrive_table =
-> +                       kzalloc(tables[SMU_TABLE_OVERDRIVE].size, GFP_KERNEL);
-> +               if (!smu_table->boot_overdrive_table) {
-> +                       ret = -ENOMEM;
-> +                       goto err5_out;
-> +               }
-> +       }
->
+> @@ -558,6 +558,32 @@ int smu_v11_0_fini_power(struct smu_context *smu)
 >         return 0;
-> +
-> +err5_out:
-> +       kfree(smu_table->overdrive_table);
-> +err4_out:
-> +       kfree(smu_table->max_sustainable_clocks);
-> +err3_out:
-> +       kfree(smu_table->driver_pptable);
-> +err2_out:
-> +       smu_v11_0_fini_dpm_context(smu);
-> +err1_out:
-> +       kfree(tables);
-> +err0_out:
-> +       return ret;
 >  }
 >
->  int smu_v11_0_fini_smc_tables(struct smu_context *smu)
-> @@ -461,6 +503,17 @@ int smu_v11_0_fini_smc_tables(struct smu_context *smu)
->         if (!smu_table->tables)
->                 return -EINVAL;
->
-> +       kfree(smu_table->boot_overdrive_table);
-> +       kfree(smu_table->overdrive_table);
-> +       kfree(smu_table->max_sustainable_clocks);
-> +       kfree(smu_table->driver_pptable);
-> +       smu_table->boot_overdrive_table = NULL;
-> +       smu_table->overdrive_table = NULL;
-> +       smu_table->max_sustainable_clocks = NULL;
-> +       smu_table->driver_pptable = NULL;
-> +       kfree(smu_table->hardcode_pptable);
-> +       smu_table->hardcode_pptable = NULL;
+> +static int smu_v11_0_atom_get_smu_clockinfo(struct amdgpu_device *adev,
+> +                                           uint8_t clk_id,
+> +                                           uint8_t syspll_id,
+> +                                           uint32_t *clk_freq)
+> +{
+> +       struct atom_get_smu_clock_info_parameters_v3_1 input = {0};
+> +       struct atom_get_smu_clock_info_output_parameters_v3_1 *output;
+> +       int ret, index;
 > +
->         kfree(smu_table->tables);
->         kfree(smu_table->metrics_table);
->         kfree(smu_table->watermarks_table);
-> @@ -723,18 +776,6 @@ int smu_v11_0_parse_pptable(struct smu_context *smu)
+> +       input.clk_id = clk_id;
+> +       input.syspll_id = syspll_id;
+> +       input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
+> +       index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
+> +                                           getsmuclockinfo);
+> +
+> +       ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
+> +                                       (uint32_t *)&input);
+> +       if (ret)
+> +               return -EINVAL;
+> +
+> +       output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
+> +       *clk_freq = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
+> +
+> +       return 0;
+> +}
+> +
+>  int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu)
 >  {
->         int ret;
+>         int ret, index;
+> @@ -616,102 +642,37 @@ int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu)
+>         smu->smu_table.boot_values.format_revision = header->format_revision;
+>         smu->smu_table.boot_values.content_revision = header->content_revision;
 >
-> -       struct smu_table_context *table_context = &smu->smu_table;
-> -       struct smu_table *table = &table_context->tables[SMU_TABLE_PPTABLE];
-> -
-> -       /* during TDR we need to free and alloc the pptable */
-> -       if (table_context->driver_pptable)
-> -               kfree(table_context->driver_pptable);
-> -
-> -       table_context->driver_pptable = kzalloc(table->size, GFP_KERNEL);
-> -
-> -       if (!table_context->driver_pptable)
-> -               return -ENOMEM;
-> -
->         ret = smu_store_powerplay_table(smu);
->         if (ret)
->                 return -EINVAL;
-> @@ -975,17 +1016,10 @@ smu_v11_0_get_max_sustainable_clock(struct smu_context *smu, uint32_t *clock,
+> -       return 0;
+> -}
+> +       smu_v11_0_atom_get_smu_clockinfo(smu->adev,
+> +                                        (uint8_t)SMU11_SYSPLL0_SOCCLK_ID,
+> +                                        (uint8_t)0,
+> +                                        &smu->smu_table.boot_values.socclk);
 >
->  int smu_v11_0_init_max_sustainable_clocks(struct smu_context *smu)
->  {
-> -       struct smu_11_0_max_sustainable_clocks *max_sustainable_clocks;
-> +       struct smu_11_0_max_sustainable_clocks *max_sustainable_clocks =
-> +                       smu->smu_table.max_sustainable_clocks;
->         int ret = 0;
+> -int smu_v11_0_get_clk_info_from_vbios(struct smu_context *smu)
+> -{
+> -       int ret, index;
+> -       struct amdgpu_device *adev = smu->adev;
+> -       struct atom_get_smu_clock_info_parameters_v3_1 input = {0};
+> -       struct atom_get_smu_clock_info_output_parameters_v3_1 *output;
+> +       smu_v11_0_atom_get_smu_clockinfo(smu->adev,
+> +                                        (uint8_t)SMU11_SYSPLL0_DCEFCLK_ID,
+> +                                        (uint8_t)0,
+> +                                        &smu->smu_table.boot_values.dcefclk);
 >
-> -       if (!smu->smu_table.max_sustainable_clocks)
-> -               max_sustainable_clocks = kzalloc(sizeof(struct smu_11_0_max_sustainable_clocks),
-> -                                        GFP_KERNEL);
-> -       else
-> -               max_sustainable_clocks = smu->smu_table.max_sustainable_clocks;
+> -       input.clk_id = SMU11_SYSPLL0_SOCCLK_ID;
+> -       input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
+> -       index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
+> -                                           getsmuclockinfo);
 > -
-> -       smu->smu_table.max_sustainable_clocks = (void *)max_sustainable_clocks;
-> -
->         max_sustainable_clocks->uclock = smu->smu_table.boot_values.uclk / 100;
->         max_sustainable_clocks->soc_clock = smu->smu_table.boot_values.socclk / 100;
->         max_sustainable_clocks->dcef_clock = smu->smu_table.boot_values.dcefclk / 100;
-> @@ -1930,24 +1964,11 @@ int smu_v11_0_set_default_od_settings(struct smu_context *smu, bool initialize,
->         int ret = 0;
+> -       ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
+> -                                       (uint32_t *)&input);
+> -       if (ret)
+> -               return -EINVAL;
+> +       smu_v11_0_atom_get_smu_clockinfo(smu->adev,
+> +                                        (uint8_t)SMU11_SYSPLL0_ECLK_ID,
+> +                                        (uint8_t)0,
+> +                                        &smu->smu_table.boot_values.eclk);
 >
->         if (initialize) {
-> -               if (table_context->overdrive_table) {
+> -       output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
+> -       smu->smu_table.boot_values.socclk = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
+> +       smu_v11_0_atom_get_smu_clockinfo(smu->adev,
+> +                                        (uint8_t)SMU11_SYSPLL0_VCLK_ID,
+> +                                        (uint8_t)0,
+> +                                        &smu->smu_table.boot_values.vclk);
+>
+> -       memset(&input, 0, sizeof(input));
+> -       input.clk_id = SMU11_SYSPLL0_DCEFCLK_ID;
+> -       input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
+> -       index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
+> -                                           getsmuclockinfo);
+> -
+> -       ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
+> -                                       (uint32_t *)&input);
+> -       if (ret)
+> -               return -EINVAL;
+> -
+> -       output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
+> -       smu->smu_table.boot_values.dcefclk = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
+> -
+> -       memset(&input, 0, sizeof(input));
+> -       input.clk_id = SMU11_SYSPLL0_ECLK_ID;
+> -       input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
+> -       index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
+> -                                           getsmuclockinfo);
+> -
+> -       ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
+> -                                       (uint32_t *)&input);
+> -       if (ret)
+> -               return -EINVAL;
+> -
+> -       output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
+> -       smu->smu_table.boot_values.eclk = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
+> -
+> -       memset(&input, 0, sizeof(input));
+> -       input.clk_id = SMU11_SYSPLL0_VCLK_ID;
+> -       input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
+> -       index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
+> -                                           getsmuclockinfo);
+> -
+> -       ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
+> -                                       (uint32_t *)&input);
+> -       if (ret)
+> -               return -EINVAL;
+> -
+> -       output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
+> -       smu->smu_table.boot_values.vclk = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
+> -
+> -       memset(&input, 0, sizeof(input));
+> -       input.clk_id = SMU11_SYSPLL0_DCLK_ID;
+> -       input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
+> -       index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
+> -                                           getsmuclockinfo);
+> -
+> -       ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
+> -                                       (uint32_t *)&input);
+> -       if (ret)
+> -               return -EINVAL;
+> -
+> -       output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
+> -       smu->smu_table.boot_values.dclk = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
+> +       smu_v11_0_atom_get_smu_clockinfo(smu->adev,
+> +                                        (uint8_t)SMU11_SYSPLL0_DCLK_ID,
+> +                                        (uint8_t)0,
+> +                                        &smu->smu_table.boot_values.dclk);
+>
+>         if ((smu->smu_table.boot_values.format_revision == 3) &&
+> -           (smu->smu_table.boot_values.content_revision >= 2)) {
+> -               memset(&input, 0, sizeof(input));
+> -               input.clk_id = SMU11_SYSPLL1_0_FCLK_ID;
+> -               input.syspll_id = SMU11_SYSPLL1_2_ID;
+> -               input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
+> -               index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
+> -                                                   getsmuclockinfo);
+> -
+> -               ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
+> -                                               (uint32_t *)&input);
+> -               if (ret)
 > -                       return -EINVAL;
-> -               }
-> -               table_context->overdrive_table = kzalloc(overdrive_table_size, GFP_KERNEL);
-> -               if (!table_context->overdrive_table) {
-> -                       return -ENOMEM;
-> -               }
->                 ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, table_context->overdrive_table, false);
->                 if (ret) {
->                         pr_err("Failed to export overdrive table!\n");
->                         return ret;
->                 }
-> -               if (!table_context->boot_overdrive_table) {
-> -                       table_context->boot_overdrive_table = kmemdup(table_context->overdrive_table, overdrive_table_size, GFP_KERNEL);
-> -                       if (!table_context->boot_overdrive_table) {
-> -                               return -ENOMEM;
-> -                       }
-> -               }
->         }
->         ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, table_context->overdrive_table, true);
->         if (ret) {
+> -
+> -               output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
+> -               smu->smu_table.boot_values.fclk = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
+> -       }
+> +           (smu->smu_table.boot_values.content_revision >= 2))
+> +               smu_v11_0_atom_get_smu_clockinfo(smu->adev,
+> +                                                (uint8_t)SMU11_SYSPLL1_0_FCLK_ID,
+> +                                                (uint8_t)SMU11_SYSPLL1_2_ID,
+> +                                                &smu->smu_table.boot_values.fclk);
+>
+>         return 0;
+>  }
 > --
 > 2.26.2
 >
