@@ -2,70 +2,69 @@ Return-Path: <SRS0=q3BR=7P=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 634B1C433E0
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:40:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 54768C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:45:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 374DC205CB
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:40:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 2736D2068D
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:45:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UNfJ7i15"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 374DC205CB
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M8xek91x"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2736D2068D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C983F6E3F7;
-	Tue,  2 Jun 2020 14:40:01 +0000 (UTC)
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 677606E3FE;
- Tue,  2 Jun 2020 14:39:59 +0000 (UTC)
-Received: by mail-wr1-x441.google.com with SMTP id e1so3678578wrt.5;
- Tue, 02 Jun 2020 07:39:59 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A502A6E3FC;
+	Tue,  2 Jun 2020 14:45:29 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF50A6E3F9
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2020 14:45:28 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id f5so3407776wmh.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2020 07:45:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FUYPo8fB6BaXWbeo8MJfYdpZveOhkfTpvMXfShXVl2U=;
- b=UNfJ7i15I+Y/LzEU4j8lQ7MgEBaWKP0vWG7JdIILtTvy5ReIgcx3InYMMZKjAOiqRV
- FcbghXOQN1BXoMHzAAB9FppHnhkd3NUND2KjB4TmF0je+uTY/SnWRtw7C1eB/MwD4Czk
- j26LgN3HFBAmyNGdGLspNBYQJhzlbf1WT9KsDPiIsQ//AAjPp+qiUHRxyTmAZGzWTv4R
- z9phdzRtSzavTj32z+H8tzuSSllOEaueh8p7bjM4PHVJHQCRLcAGHnBE1Dn0JG/4yxus
- yBvViXAEfvsuuvU0Fcze8Q6tH3wXa4m+7bWejd+BOfiXtVtCAbE4ar5oMGiyRJxaLcDJ
- U/MA==
+ :cc; bh=ZErsVtgFuwy/8ZT4RNSv0qE1AYf5Yg9WhZ1Rj9kIpp0=;
+ b=M8xek91xr9LqrCVTHE5roZNBbFEmxDD0xVt4jrQ4BjIoQ5/OdS7FxDSuYWNGyYROG5
+ TXRvcqxjqLt8BIqj3XX03hPIAo3GXimnggEhTRQlLD8ocWH3ZhZj8gB8Dcuy/9fX3YZg
+ +481et8FBCLAJY6eEo1I3n6gG6Rv2q1ip5D9T8ihx43Ao5lkRwIvsAbX1cNk/FIFQpPD
+ 4tKWkeWn2dOZSzV3FnoGs/EVMpYrke3+L75uydTIfqdho1G0iiK/rKH03Lo/piefVs7C
+ BUO3EwkLZ9Cs+GNTfndxA1ahsBjcQTqBJxehUX6O6kY8UBiXma2Wj9IqSyhIXibIMQRt
+ raEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=FUYPo8fB6BaXWbeo8MJfYdpZveOhkfTpvMXfShXVl2U=;
- b=Neamivqf1p4OHV5TdhKKkE8LACh81JZQoHmg0x8oJ6B3Ym7bD53kFMAmS8bxuiJZzw
- mublRUmAmCewyCIBi2GcGhJqKaWQqWHxVMd0pjeZem/TLtw0UhGVu5eqCDazOboOCWYc
- vcS+0t30i5/CNBEm/m8GamvkLIMGdcb78NNA8dAbcCYMauXpE+l2PPjGQMKPwbYQZmgY
- VGcV0PZ6htF/mudvqigANzZvI/lJPWCHpXW80rQMmVCdWYZyYm9fUZpNlsMerdJO/y5K
- 27zF89hcyKoTAHV0042jsIkr1xTpH1WrpkXr6/4W6I3PTmPDgzqmtSPTYFL5B2V7pTTw
- QCKw==
-X-Gm-Message-State: AOAM532+nq9lQR0IpGU2wkJolZRLUYdFUDCP1Q7/EGS4wov20Og/JROC
- T1HBq85AWXRpSsAOyvr5xAeEJiZZSFHamH0rY3A=
-X-Google-Smtp-Source: ABdhPJwrjdBmlreZah9W7r9r21z3nSN/KOpVsiV4cBN3K6kvpACwdA9Zl067g+t1tRAigKtydZQnx9ZgBZwfjYr/bzI=
-X-Received: by 2002:adf:fd41:: with SMTP id h1mr27830873wrs.374.1591108798154; 
- Tue, 02 Jun 2020 07:39:58 -0700 (PDT)
+ bh=ZErsVtgFuwy/8ZT4RNSv0qE1AYf5Yg9WhZ1Rj9kIpp0=;
+ b=cGVfHIdA0HY3otV1NQHKJOn6L5aGGlchqsYZMomhoCK4NteVX0lb9hEmr1O382s7NG
+ X65pjz9fRyFRzgRttAUokksqVSgNLlPZ4qKNB78yr8lhAVjDe00zt8aBf4+kbmW+DPLL
+ YfqJg806OC/5UIiUPSvyVxmuhjd3dkLEG0AfrTjU2qgZEieqLHYspMj+aZvRfagxRG1P
+ mwWxvcT+01WdZhK8Wl/CF7tylLEHhFIXo4jKCSMK6JSkw+97UAHV+HAjdYW9+oRFjrde
+ 0IW2w5hDaO19q0biu1h51z68zc5Duk2KvQglNsNym7mSAH9g2MaS+xiTl83jIvumyr55
+ 6QyA==
+X-Gm-Message-State: AOAM532e/SMBgWV7kiT4x+1rsBLj2Qmv8x6Delo3CEQdkuIkMuXctJXi
+ /7Yr72HZlDdxP3h0F5StdB+Kr2Ujvz8kpYRGvSetIQ==
+X-Google-Smtp-Source: ABdhPJwpcI10VFWqSTxtawjUPq8oKPzFdw66VhOzjnXUhO2i0GpPuki8apPKun/KNpVrPSe1w02qFv8EBrn6qMZWWHM=
+X-Received: by 2002:a05:600c:2201:: with SMTP id
+ z1mr4406152wml.70.1591109127495; 
+ Tue, 02 Jun 2020 07:45:27 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200602092030.31966-1-piotr.stankiewicz@intel.com>
- <14063C7AD467DE4B82DEDB5C278E8663010E23E538@FMSMSX108.amr.corp.intel.com>
- <CAHp75Vfe5dQkOiFoAZx5b-NS1afiD-YC_w+5LcX8P1Hm0ASenA@mail.gmail.com>
- <CADnq5_OO=gyo22ZrXp6pDtz2QZ2=LC429u_kkd0ZvX4=M3mBPw@mail.gmail.com>
- <CAHp75Vd1zVt7F2+44EFPHOrCOzexe=mLaiZixqJR9NNK9-wNQg@mail.gmail.com>
-In-Reply-To: <CAHp75Vd1zVt7F2+44EFPHOrCOzexe=mLaiZixqJR9NNK9-wNQg@mail.gmail.com>
+References: <20200602125302.1839-1-kent.russell@amd.com>
+ <20200602125302.1839-2-kent.russell@amd.com>
+In-Reply-To: <20200602125302.1839-2-kent.russell@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 2 Jun 2020 10:39:47 -0400
-Message-ID: <CADnq5_Mcys8tF-UAZ1JrLy1HnL-Ms7TTrLBPrWkA08tuhjkB2A@mail.gmail.com>
-Subject: Re: [PATCH 07/15] drm/amdgpu: use PCI_IRQ_MSI_TYPES where appropriate
-To: Andy Shevchenko <andy.shevchenko@gmail.com>,
- Tom St Denis <tom.stdenis@amd.com>
+Date: Tue, 2 Jun 2020 10:45:16 -0400
+Message-ID: <CADnq5_M0oOET5cDPR-+TCtS4B_V=SzeGq36m_0hJxGvZc-aSiQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Add unique_id and serial_number for
+ Arcturus v2
+To: Kent Russell <kent.russell@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,102 +76,146 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: David Airlie <airlied@linux.ie>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Ruhl,
- Michael J" <michael.j.ruhl@intel.com>, "Stankiewicz,
- Piotr" <piotr.stankiewicz@intel.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jun 2, 2020 at 10:35 AM Andy Shevchenko
-<andy.shevchenko@gmail.com> wrote:
+On Tue, Jun 2, 2020 at 8:53 AM Kent Russell <kent.russell@amd.com> wrote:
 >
-> On Tue, Jun 2, 2020 at 5:21 PM Alex Deucher <alexdeucher@gmail.com> wrote:
-> > On Tue, Jun 2, 2020 at 10:00 AM Andy Shevchenko
-> > <andy.shevchenko@gmail.com> wrote:
-> > > On Tue, Jun 2, 2020 at 4:38 PM Ruhl, Michael J <michael.j.ruhl@intel.com> wrote:
-> > > > >From: dri-devel <dri-devel-bounces@lists.freedesktop.org> On Behalf Of
-> > > > >Piotr Stankiewicz
+> Add support for unique_id and serial_number, as these are now
+> the same value, and will be for future ASICs as well.
 >
-> > > > >               int nvec = pci_msix_vec_count(adev->pdev);
-> > > > >               unsigned int flags;
-> > > > >
-> > > > >-              if (nvec <= 0) {
-> > > > >+              if (nvec > 0)
-> > > > >+                      flags = PCI_IRQ_MSI_TYPES;
-> > > > >+              else
-> > > > >                       flags = PCI_IRQ_MSI;
-> > > > >-              } else {
-> > > > >-                      flags = PCI_IRQ_MSI | PCI_IRQ_MSIX;
-> > > > >-              }
-> > > >
-> > > > Minor nit:
-> > > >
-> > > > Is it really necessary to set do this check?  Can flags just
-> > > > be set?
-> > > >
-> > > > I.e.:
-> > > >         flags = PCI_IRQ_MSI_TYPES;
-> > > >
-> > > > pci_alloc_irq_vector() tries stuff in order.  If MSIX is not available,
-> > > > it will try MSI.
-> > >
-> > > That's also what I proposed earlier. But I suggested as well to wait
-> > > for AMD people to confirm that neither pci_msix_vec_count() nor flags
-> > > is needed and we can directly supply MSI_TYPES to the below call.
-> > >
-> >
-> > I think it was leftover from debugging and just to be careful.  We had
-> > some issues when we originally enabled MSI-X on certain boards.  The
-> > fix was to just allocate a single vector (since that is all we use
-> > anyway) and we were using the wrong irq (pdev->irq vs
-> > pci_irq_vector(pdev, 0)).
+> v2: Explicitly create unique_id only for VG10/20/ARC
 >
-> Do you agree that simple
+> Signed-off-by: Kent Russell <kent.russell@amd.com>
+> Change-Id: I3b036a38b19cd84025399b0706b2dad9b7aff713
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c        |  4 ++-
+>  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |  2 ++
+>  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 32 +++++++++++++++++++
+>  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  1 +
+>  drivers/gpu/drm/amd/powerplay/smu_internal.h  |  2 ++
+>  5 files changed, 40 insertions(+), 1 deletion(-)
 >
->   nvec = pci_alloc_irq_vectors(adev->pdev, 1, 1, PCI_IRQ_MSI_TYPES);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> index b0dff9ecfb88..b2cdc8a1268f 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
+> @@ -1940,7 +1940,9 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
+>                 if (adev->flags & AMD_IS_APU)
+>                         *states = ATTR_STATE_UNSUPPORTED;
+>         } else if (DEVICE_ATTR_IS(unique_id)) {
+> -               if (!adev->unique_id)
+> +               if (asic_type != CHIP_VEGA10 &&
+> +                   asic_type != CHIP_VEGA20 &&
+> +                   asic_type != CHIP_ARCTURUS)
+>                         *states = ATTR_STATE_UNSUPPORTED;
+>         } else if (DEVICE_ATTR_IS(pp_features)) {
+>                 if (adev->flags & AMD_IS_APU || asic_type < CHIP_VEGA10)
+> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> index 5294aa7cdde1..7946fd8444a3 100644
+> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> @@ -793,6 +793,8 @@ static int smu_late_init(void *handle)
+>         if (!smu->pm_enabled)
+>                 return 0;
 >
-> will work and we can remove that leftover?
+> +       smu_set_unique_id(smu);
+> +
+>         smu_handle_task(&adev->smu,
+>                         smu->smu_dpm.dpm_level,
+>                         AMD_PP_TASK_COMPLETE_INIT,
+> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> index d66ac7457574..855e609650d9 100644
+> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
+> @@ -2262,6 +2262,37 @@ static void arcturus_i2c_eeprom_control_fini(struct i2c_adapter *control)
+>         i2c_del_adapter(control);
+>  }
+>
+> +static void arcturus_set_unique_id(struct smu_context *smu)
+> +{
+> +       struct amdgpu_device *adev = smu->adev;
+> +       uint32_t top32, bottom32, smu_version, size;
+> +       char sn[16];
+> +       uint64_t id;
+> +
+> +       if (smu_get_smc_version(smu, NULL, &smu_version)) {
+> +               pr_warn("Failed to get smu version, cannot get unique_id or serial_number\n");
+> +               return;
+> +       }
+> +
+> +       /* PPSMC_MSG_ReadSerial* is supported by 54.23.0 and onwards */
+> +       if (smu_version < 0x361700) {
+> +               pr_warn("ReadSerial is only supported by PMFW 54.23.0 and onwards\n");
+> +               return;
+> +       }
+> +
+> +       /* Get the SN to turn into a Unique ID */
+> +       smu_send_smc_msg(smu, SMU_MSG_ReadSerialNumTop32, &top32);
+> +       smu_send_smc_msg(smu, SMU_MSG_ReadSerialNumBottom32, &bottom32);
+> +
+> +       id = ((uint64_t)bottom32 << 32) | top32;
+> +       adev->unique_id = id;
+> +       /* For Arcturus-and-later, unique_id == serial_number, so convert it to a
+> +        * 16-digit HEX string for convenience and backwards-compatibility
+> +        */
+> +       size = sprintf(sn, "%llx", id);
+> +       memcpy(adev->serial, &sn, size);
+> +}
+> +
+>  static bool arcturus_is_baco_supported(struct smu_context *smu)
+>  {
+>         struct amdgpu_device *adev = smu->adev;
+> @@ -2416,6 +2447,7 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
+>         .dpm_set_uvd_enable = arcturus_dpm_set_uvd_enable,
+>         .i2c_eeprom_init = arcturus_i2c_eeprom_control_init,
+>         .i2c_eeprom_fini = arcturus_i2c_eeprom_control_fini,
+> +       .set_unique_id = arcturus_set_unique_id,
+>         .init_microcode = smu_v11_0_init_microcode,
+>         .load_microcode = smu_v11_0_load_microcode,
+>         .init_smc_tables = smu_v11_0_init_smc_tables,
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> index 5bb1ac821aeb..bfa5211de079 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> @@ -495,6 +495,7 @@ struct pptable_funcs {
+>         int (*update_pcie_parameters)(struct smu_context *smu, uint32_t pcie_gen_cap, uint32_t pcie_width_cap);
+>         int (*i2c_eeprom_init)(struct i2c_adapter *control);
+>         void (*i2c_eeprom_fini)(struct i2c_adapter *control);
+> +       void (*set_unique_id)(struct smu_context *smu);
 
-Yes, I believe so.  Tom, can you give this a quick spin on raven just
-in case if you get a chance?  Something like this:
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-index 0cc4c67f95f7..c59111b57cc2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
-@@ -248,16 +248,10 @@ int amdgpu_irq_init(struct amdgpu_device *adev)
-        adev->irq.msi_enabled = false;
-
-        if (amdgpu_msi_ok(adev)) {
--               int nvec = pci_msix_vec_count(adev->pdev);
--               unsigned int flags;
-+               int nvec;
-
--               if (nvec <= 0) {
--                       flags = PCI_IRQ_MSI;
--               } else {
--                       flags = PCI_IRQ_MSI | PCI_IRQ_MSIX;
--               }
-                /* we only need one vector */
--               nvec = pci_alloc_irq_vectors(adev->pdev, 1, 1, flags);
-+               nvec = pci_alloc_irq_vectors(adev->pdev, 1, 1,
-PCI_IRQ_MSI | PCI_IRQ_MSIX);
-                if (nvec > 0) {
-                        adev->irq.msi_enabled = true;
-                        dev_dbg(adev->dev, "using MSI/MSI-X.\n");
-
-
-Thanks,
+As I mentioned in my previous email, I think these functions would be
+better worded as "get_unique_id" since we are fetching it from the
+hardware not storing it to the hardware.
 
 Alex
+
+>         int (*get_dpm_clock_table)(struct smu_context *smu, struct dpm_clocks *clock_table);
+>         int (*init_microcode)(struct smu_context *smu);
+>         int (*load_microcode)(struct smu_context *smu);
+> diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+> index 6c59eeef2590..125d976215a6 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
+> +++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+> @@ -218,6 +218,8 @@ static inline int smu_send_smc_msg(struct smu_context *smu, enum smu_message_typ
+>                 ((smu)->ppt_funcs->i2c_eeprom_init ? (smu)->ppt_funcs->i2c_eeprom_init((control)) : 0)
+>  #define smu_i2c_eeprom_fini(smu, control) \
+>                 ((smu)->ppt_funcs->i2c_eeprom_fini ? (smu)->ppt_funcs->i2c_eeprom_fini((control)) : 0)
+> +#define smu_set_unique_id(smu) \
+> +               ((smu)->ppt_funcs->set_unique_id ? (smu)->ppt_funcs->set_unique_id((smu)) : 0)
+>
+>  #define smu_log_thermal_throttling(smu) \
+>                 ((smu)->ppt_funcs->log_thermal_throttling_event ? (smu)->ppt_funcs->log_thermal_throttling_event((smu)) : 0)
+> --
+> 2.17.1
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
