@@ -8,60 +8,60 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CDC4AC433DF
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:50:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91AD7C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:54:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A1E742068D
-	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:50:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 6083D2074B
+	for <amd-gfx@archiver.kernel.org>; Tue,  2 Jun 2020 14:54:52 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rlVWMKWh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A1E742068D
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ucVGGUog"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6083D2074B
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5612C6E3F9;
-	Tue,  2 Jun 2020 14:50:05 +0000 (UTC)
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE0D26E3F9
- for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2020 14:50:03 +0000 (UTC)
-Received: by mail-wr1-x444.google.com with SMTP id l10so3679030wrr.10
- for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2020 07:50:03 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0DB136E400;
+	Tue,  2 Jun 2020 14:54:52 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D53F6E400
+ for <amd-gfx@lists.freedesktop.org>; Tue,  2 Jun 2020 14:54:50 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id r15so3432170wmh.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 02 Jun 2020 07:54:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xEmzexCifyiubXmaCTEn/Nra8kuzQIzx+3Ha+AAiaiM=;
- b=rlVWMKWh7UtY3OvVzrQSKjSBqoI9KIHJvC7N8avp0r8ifdnGmndDaGNUOJuUwAv87v
- aTrATEzAjtRe5GubjYWImMDS1lEwMSDtrda6vnloCB8k4x74M5ylW12ht3M+VY7CUWB9
- c8GjX9uP6G7WWdzwfHsnGz3i/kQsCyAvgHATRrL3ck2KNnX9TQJFLITcevoNE3OSi239
- GBdQqX6XwpasSC5G5iYLkkigUP/wYLILyPZV/LynLU22lkzcli8suPErNX1FjJopudz7
- WaeWzYh+nhK6Fp22udw1w3qXcaP9TcI394KM9NDV0n7u16ztSewMu04OVp9/s36IVBH1
- GbtQ==
+ :cc; bh=ThMJ4O6wOQjnSBjwULATfNggQeLzDkMuq+Rfd/kKvog=;
+ b=ucVGGUogWFcWLS0SdKWv4EA8H70HVWWabRY5UPiNjwOhHV+Isug5AaST4sxGuW7GSA
+ elvVRl47TQqQ/vbiOzGkZ6mfNowAahfmGPn2okadGNsLzvOabSjwFBeqNlhrY/64lPxG
+ 1dRIDl9LRE31kvUqBKbyi+AiQPr9YPbpvmSZEuCVjaM6lOEwgw62WIjesQTf8Nhr7cSl
+ LO9ody42aQwXEOfQVwCIoZfs5nf4ivdC/k47tb/bjuDigq+vRdjDh4nj9VlppqBVXbzI
+ feeG31dB7LXxwmKwP46rA5Y+Le14cb9/SfY87J8agUlKfLG4zuZnW0w+9tsrqfKT/seX
+ pT2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=xEmzexCifyiubXmaCTEn/Nra8kuzQIzx+3Ha+AAiaiM=;
- b=o4bPfLDBDEy5cyHkwlluNILkEU1KuV9PJIVYMXh6FSvyvAzkc99vz6Ly+FjoSPS6db
- aZd2ol8pv7+rI6k6c0tjSa9xuuaYddqkvcHX3e9pM4stBj33JXGrqmvS/c5KTv07Ju73
- 5ZqfD3A5hABF59GKuhyiZDkfkPTByUw4JraVFSmuvUzycYtK4ZFF7xuGWYKOJq/UXOl/
- x0tztWu9FVIlFlrovLjkz5Lu8wG9twzX9xNg//4D1DB46AuAY3X+Jas7Gx4on81l16Im
- fAmhzS8/14VZV0XziXWwJuJyip5gVZnYiJATXuRj4yyOUDNlgMbVJMG8h2AafGLutx3o
- OOYg==
-X-Gm-Message-State: AOAM530tUqEMncYNtXSsVJwfJKJq+3j7LBM0vJboidcC0NHN0uWuGvnE
- abSVQZTvrtJE1wMP3irnUNCXcW/nljI9XCEGL0M=
-X-Google-Smtp-Source: ABdhPJx4OPXYUabielsVr7zC5Z8cOYvWB1YhvK5/6IlRHwBThDSNuDs/ZHk59ktyHWjOoB3BDLC1tplwO1iTYEY28as=
-X-Received: by 2002:adf:fd41:: with SMTP id h1mr27865996wrs.374.1591109402181; 
- Tue, 02 Jun 2020 07:50:02 -0700 (PDT)
+ bh=ThMJ4O6wOQjnSBjwULATfNggQeLzDkMuq+Rfd/kKvog=;
+ b=DePRT743LPt7AjiHXkJNOctNwMxio0feAY1hlYQcWzVBC2v+5b0Dt9yJsoi+BGNamO
+ boUn8RYedLrTAAchyt03xEdOR8I/ULDk2eYIhwdGJI8UIlz8U1bzkXaIWZpU5njanJ6r
+ IK2Lq9Cv7PKuXvFCXnUNH+/ctcKOypsqVdjgA8CMa9rcnEnVC5Lvl0mrHFtcXdu4PQUV
+ MrTwXcdFiLr/nth+wbXDSSLqLMsUp19lJknPzKKhVHZeqjZXTzyich7iKAZcZd+Y7hRB
+ P6ZmDLgHzWAwGT6Mlaa298ZUM1d+y5hyrAnYLOGkDAKZLOxKyYJGr1Z9acrGYwAock4k
+ I+5A==
+X-Gm-Message-State: AOAM530sjGvH0/CYb4rrllAlNXnBQQ5/88bU8OiffmYeUs2xyUZv7Rrn
+ AtKIQCZsaglu+isfFqswJ7zh9pZlGOtJm0IqG/n/Ig==
+X-Google-Smtp-Source: ABdhPJy+FFBHR5YM9aYVFoV1p83RNQsGtMXmi3sU7zgN/LBqDrZk11ShzE/XYwbM4lnVq2IP32tHmSKT6Md+THx19q8=
+X-Received: by 2002:a1c:9c85:: with SMTP id f127mr4600772wme.79.1591109689090; 
+ Tue, 02 Jun 2020 07:54:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200601073003.13044-1-evan.quan@amd.com>
-In-Reply-To: <20200601073003.13044-1-evan.quan@amd.com>
+ <20200601073003.13044-2-evan.quan@amd.com>
+In-Reply-To: <20200601073003.13044-2-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 2 Jun 2020 10:49:51 -0400
-Message-ID: <CADnq5_Mm0S4X-oEYkWpz8e6dZ=LwTDNFm-Dxgtg2o8DKv9f4-Q@mail.gmail.com>
-Subject: Re: [PATCH 1/9] drm/amd/powerplay: drop unnecessary CHIP_ARCTURUS
- guard
+Date: Tue, 2 Jun 2020 10:54:37 -0400
+Message-ID: <CADnq5_OQKS2pfkCiTjFGozB+34FC-UJ6PmPog8sy-5DsQzuCBA@mail.gmail.com>
+Subject: Re: [PATCH 2/9] drm/amd/powerplay: some cosmetic fixes
 To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,115 +83,344 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Mon, Jun 1, 2020 at 3:30 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-> These APIs internally guard they will not break ARCTURUS.
+> To make code more clean and readable by moving ASIC
+> specific code to its own file, more code sharing and
+> dropping unused code.
+
+There seem to be multiple things going on here.  It's kind of hard to
+follow all of the changes.  Maybe split this patch up?  One additional
+comment below.
+
+Alex
+
 >
-> Change-Id: Ib6775c1c8c5211ea45db6c3fb604a8279411ab37
+> Change-Id: I6b299f9e98c7678b48281cbed9beb17b644bb4cc
 > Signed-off-by: Evan Quan <evan.quan@amd.com>
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
 > ---
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c   | 38 +++++++++-----------
->  drivers/gpu/drm/amd/powerplay/arcturus_ppt.c |  8 ++---
->  2 files changed, 20 insertions(+), 26 deletions(-)
+>  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 213 ++++++++-------------
+>  drivers/gpu/drm/amd/powerplay/navi10_ppt.c |  19 ++
+>  2 files changed, 102 insertions(+), 130 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index 5294aa7cdde1..4998ea942760 100644
+> index 4998ea942760..b4f108cb52fa 100644
 > --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
 > +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -1049,11 +1049,9 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
->                 return 0;
+> @@ -817,22 +817,10 @@ int smu_get_atom_data_table(struct smu_context *smu, uint32_t table,
+>         return 0;
+>  }
+>
+> -static int smu_initialize_pptable(struct smu_context *smu)
+> -{
+> -       /* TODO */
+> -       return 0;
+> -}
+> -
+>  static int smu_smc_table_sw_init(struct smu_context *smu)
+>  {
+>         int ret;
+>
+> -       ret = smu_initialize_pptable(smu);
+> -       if (ret) {
+> -               pr_err("Failed to init smu_initialize_pptable!\n");
+> -               return ret;
+> -       }
+> -
+>         /**
+>          * Create smu_table structure, and init smc tables such as
+>          * TABLE_PPTABLE, TABLE_WATERMARKS, TABLE_SMU_METRICS, and etc.
+> @@ -860,6 +848,12 @@ static int smu_smc_table_sw_fini(struct smu_context *smu)
+>  {
+>         int ret;
+>
+> +       ret = smu_fini_power(smu);
+> +       if (ret) {
+> +               pr_err("Failed to init smu_fini_power!\n");
+> +               return ret;
+> +       }
+> +
+>         ret = smu_fini_smc_tables(smu);
+>         if (ret) {
+>                 pr_err("Failed to smu_fini_smc_tables!\n");
+> @@ -950,12 +944,6 @@ static int smu_sw_fini(void *handle)
+>                 return ret;
 >         }
 >
-> -       if (adev->asic_type != CHIP_ARCTURUS) {
-> -               ret = smu_init_display_count(smu, 0);
-> -               if (ret)
-> -                       return ret;
+> -       ret = smu_fini_power(smu);
+> -       if (ret) {
+> -               pr_err("Failed to init smu_fini_power!\n");
+> -               return ret;
 > -       }
-> +       ret = smu_init_display_count(smu, 0);
-> +       if (ret)
-> +               return ret;
+> -
+>         return 0;
+>  }
 >
->         if (initialize) {
->                 /* get boot_values from vbios to set revision, gfxclk, and etc. */
-> @@ -1159,19 +1157,17 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
->                 }
->         }
->
-> -       if (adev->asic_type != CHIP_ARCTURUS) {
-> -               ret = smu_notify_display_change(smu);
-> -               if (ret)
-> -                       return ret;
-> +       ret = smu_notify_display_change(smu);
-> +       if (ret)
-> +               return ret;
->
-> -               /*
-> -                * Set min deep sleep dce fclk with bootup value from vbios via
-> -                * SetMinDeepSleepDcefclk MSG.
-> -                */
-> -               ret = smu_set_min_dcef_deep_sleep(smu);
-> -               if (ret)
-> -                       return ret;
-> -       }
-> +       /*
-> +        * Set min deep sleep dce fclk with bootup value from vbios via
-> +        * SetMinDeepSleepDcefclk MSG.
-> +        */
-> +       ret = smu_set_min_dcef_deep_sleep(smu);
-> +       if (ret)
-> +               return ret;
->
->         /*
->          * Set initialized values (get from vbios) to dpm tables context such as
-> @@ -1188,11 +1184,9 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
->                         return ret;
->         }
->
-> -       if (adev->asic_type != CHIP_ARCTURUS) {
-> -               ret = smu_override_pcie_parameters(smu);
-> -               if (ret)
-> -                       return ret;
-> -       }
-> +       ret = smu_override_pcie_parameters(smu);
-> +       if (ret)
-> +               return ret;
->
->         ret = smu_set_default_od_settings(smu, initialize);
+> @@ -1125,36 +1113,22 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
 >         if (ret)
-> diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> index 302b7e9cb5ba..e856ad36ab01 100644
-> --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-> @@ -2429,16 +2429,16 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
->         .populate_smc_tables = smu_v11_0_populate_smc_pptable,
->         .check_fw_version = smu_v11_0_check_fw_version,
->         .write_pptable = smu_v11_0_write_pptable,
-> -       .set_min_dcef_deep_sleep = smu_v11_0_set_min_dcef_deep_sleep,
-> +       .set_min_dcef_deep_sleep = NULL,
->         .set_driver_table_location = smu_v11_0_set_driver_table_location,
->         .set_tool_table_location = smu_v11_0_set_tool_table_location,
->         .notify_memory_pool_location = smu_v11_0_notify_memory_pool_location,
->         .system_features_control = smu_v11_0_system_features_control,
->         .send_smc_msg_with_param = smu_v11_0_send_msg_with_param,
-> -       .init_display_count = smu_v11_0_init_display_count,
-> +       .init_display_count = NULL,
->         .set_allowed_mask = smu_v11_0_set_allowed_mask,
->         .get_enabled_mask = smu_v11_0_get_enabled_mask,
-> -       .notify_display_change = smu_v11_0_notify_display_change,
-> +       .notify_display_change = NULL,
->         .set_power_limit = smu_v11_0_set_power_limit,
->         .get_current_clk_freq = smu_v11_0_get_current_clk_freq,
->         .init_max_sustainable_clocks = smu_v11_0_init_max_sustainable_clocks,
-> @@ -2462,7 +2462,7 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
->         .baco_exit = smu_v11_0_baco_exit,
->         .get_dpm_ultimate_freq = smu_v11_0_get_dpm_ultimate_freq,
->         .set_soft_freq_limited_range = smu_v11_0_set_soft_freq_limited_range,
-> -       .override_pcie_parameters = smu_v11_0_override_pcie_parameters,
-> +       .override_pcie_parameters = NULL,
->         .get_pptable_power_limit = arcturus_get_pptable_power_limit,
->         .set_df_cstate = arcturus_set_df_cstate,
->         .allow_xgmi_power_down = arcturus_allow_xgmi_power_down,
+>                 return ret;
+>
+> -       if (adev->asic_type == CHIP_NAVI10) {
+> -               if ((adev->pdev->device == 0x731f && (adev->pdev->revision == 0xc2 ||
+> -                                                     adev->pdev->revision == 0xc3 ||
+> -                                                     adev->pdev->revision == 0xca ||
+> -                                                     adev->pdev->revision == 0xcb)) ||
+> -                   (adev->pdev->device == 0x66af && (adev->pdev->revision == 0xf3 ||
+> -                                                     adev->pdev->revision == 0xf4 ||
+> -                                                     adev->pdev->revision == 0xf5 ||
+> -                                                     adev->pdev->revision == 0xf6))) {
+> -                       ret = smu_disable_umc_cdr_12gbps_workaround(smu);
+> -                       if (ret) {
+> -                               pr_err("Workaround failed to disable UMC CDR feature on 12Gbps SKU!\n");
+> -                               return ret;
+> -                       }
+> -               }
+> +       ret = smu_disable_umc_cdr_12gbps_workaround(smu);
+> +       if (ret) {
+> +               pr_err("Workaround failed to disable UMC CDR feature on 12Gbps SKU!\n");
+> +               return ret;
+>         }
+>
+> -       if (smu->ppt_funcs->set_power_source) {
+> -               /*
+> -                * For Navi1X, manually switch it to AC mode as PMFW
+> -                * may boot it with DC mode.
+> -                */
+> -               if (adev->pm.ac_power)
+> -                       ret = smu_set_power_source(smu, SMU_POWER_SOURCE_AC);
+> -               else
+> -                       ret = smu_set_power_source(smu, SMU_POWER_SOURCE_DC);
+> -               if (ret) {
+> -                       pr_err("Failed to switch to %s mode!\n", adev->pm.ac_power ? "AC" : "DC");
+> -                       return ret;
+> -               }
+> +       /*
+> +        * For Navi1X, manually switch it to AC mode as PMFW
+> +        * may boot it with DC mode.
+> +        */
+> +       ret = smu_set_power_source(smu,
+> +                                  adev->pm.ac_power ? SMU_POWER_SOURCE_AC :
+> +                                  SMU_POWER_SOURCE_DC);
+> +       if (ret) {
+> +               pr_err("Failed to switch to %s mode!\n", adev->pm.ac_power ? "AC" : "DC");
+> +               return ret;
+>         }
+>
+>         ret = smu_notify_display_change(smu);
+> @@ -1362,9 +1336,65 @@ static int smu_hw_init(void *handle)
+>         return ret;
+>  }
+>
+> -static int smu_stop_dpms(struct smu_context *smu)
+> +static int smu_disable_dpms(struct smu_context *smu)
+>  {
+> -       return smu_system_features_control(smu, false);
+> +       struct amdgpu_device *adev = smu->adev;
+> +       int ret = 0;
+> +       bool use_baco = !smu->is_apu &&
+> +               ((adev->in_gpu_reset &&
+> +                 (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)) ||
+> +                ((adev->in_runpm || adev->in_hibernate) && amdgpu_asic_supports_baco(adev)));
+> +
+> +       /*
+> +        * For custom pptable uploading, skip the DPM features
+> +        * disable process on Navi1x ASICs.
+> +        *   - As the gfx related features are under control of
+> +        *     RLC on those ASICs. RLC reinitialization will be
+> +        *     needed to reenable them. That will cost much more
+> +        *     efforts.
+> +        *
+> +        *   - SMU firmware can handle the DPM reenablement
+> +        *     properly.
+> +        */
+> +       if (smu->uploading_custom_pp_table &&
+> +           (adev->asic_type >= CHIP_NAVI10) &&
+> +           (adev->asic_type <= CHIP_NAVI12))
+> +               return 0;
+> +
+> +       /*
+> +        * Disable all enabled SMU features.
+> +        * This should be handled in SMU FW, as a backup
+> +        * driver can issue call to SMU FW until sequence
+> +        * in SMU FW is operational.
+> +        */
+> +       ret = smu_system_features_control(smu, false);
+> +       if (ret) {
+> +               pr_err("Failed to disable smu features.\n");
+> +               return ret;
+> +       }
+> +
+> +       /*
+> +        * For baco, need to leave BACO feature enabled
+> +        *
+> +        * Correct the way for checking whether SMU_FEATURE_BACO_BIT
+> +        * is supported.
+> +        *
+> +        * Since 'smu_feature_is_enabled(smu, SMU_FEATURE_BACO_BIT)' will
+> +        * always return false as the 'smu_system_features_control(smu, false)'
+> +        * was just issued above which disabled all SMU features.
+> +        *
+> +        * Thus 'smu_feature_get_index(smu, SMU_FEATURE_BACO_BIT)' is used
+> +        * now for the checking.
+> +        */
+> +       if (use_baco && (smu_feature_get_index(smu, SMU_FEATURE_BACO_BIT) >= 0)) {
+> +               ret = smu_feature_set_enabled(smu, SMU_FEATURE_BACO_BIT, true);
+> +               if (ret) {
+> +                       pr_warn("set BACO feature enabled failed, return %d\n", ret);
+> +                       return ret;
+> +               }
+> +       }
+> +
+> +       return ret;
+>  }
+>
+>  static int smu_hw_fini(void *handle)
+> @@ -1396,25 +1426,10 @@ static int smu_hw_fini(void *handle)
+>                 return ret;
+>         }
+>
+> -       /*
+> -        * For custom pptable uploading, skip the DPM features
+> -        * disable process on Navi1x ASICs.
+> -        *   - As the gfx related features are under control of
+> -        *     RLC on those ASICs. RLC reinitialization will be
+> -        *     needed to reenable them. That will cost much more
+> -        *     efforts.
+> -        *
+> -        *   - SMU firmware can handle the DPM reenablement
+> -        *     properly.
+> -        */
+> -       if (!smu->uploading_custom_pp_table ||
+> -                       !((adev->asic_type >= CHIP_NAVI10) &&
+> -                               (adev->asic_type <= CHIP_NAVI12))) {
+> -               ret = smu_stop_dpms(smu);
+> -               if (ret) {
+> -                       pr_warn("Fail to stop Dpms!\n");
+> -                       return ret;
+> -               }
+> +       ret = smu_disable_dpms(smu);
+> +       if (ret) {
+> +               pr_warn("Fail to stop Dpms!\n");
+> +               return ret;
+>         }
+>
+>         kfree(table_context->driver_pptable);
+> @@ -1453,68 +1468,6 @@ int smu_reset(struct smu_context *smu)
+>         return ret;
+>  }
+>
+> -static int smu_disable_dpm(struct smu_context *smu)
+> -{
+> -       struct amdgpu_device *adev = smu->adev;
+> -       uint32_t smu_version;
+> -       int ret = 0;
+> -       bool use_baco = !smu->is_apu &&
+> -               ((adev->in_gpu_reset &&
+> -                 (amdgpu_asic_reset_method(adev) == AMD_RESET_METHOD_BACO)) ||
+> -                ((adev->in_runpm || adev->in_hibernate) && amdgpu_asic_supports_baco(adev)));
+> -
+> -       ret = smu_get_smc_version(smu, NULL, &smu_version);
+> -       if (ret) {
+> -               pr_err("Failed to get smu version.\n");
+> -               return ret;
+> -       }
+> -
+> -       /*
+> -        * Disable all enabled SMU features.
+> -        * This should be handled in SMU FW, as a backup
+> -        * driver can issue call to SMU FW until sequence
+> -        * in SMU FW is operational.
+> -        */
+> -       ret = smu_system_features_control(smu, false);
+> -       if (ret) {
+> -               pr_err("Failed to disable smu features.\n");
+> -               return ret;
+> -       }
+> -
+> -       /*
+> -        * Arcturus does not have BACO bit in disable feature mask.
+> -        * Enablement of BACO bit on Arcturus should be skipped.
+> -        */
+> -       if (adev->asic_type == CHIP_ARCTURUS) {
+> -               if (use_baco && (smu_version > 0x360e00))
+> -                       return 0;
+> -       }
+> -
+> -       /* For baco, need to leave BACO feature enabled */
+> -       if (use_baco) {
+> -               /*
+> -                * Correct the way for checking whether SMU_FEATURE_BACO_BIT
+> -                * is supported.
+> -                *
+> -                * Since 'smu_feature_is_enabled(smu, SMU_FEATURE_BACO_BIT)' will
+> -                * always return false as the 'smu_system_features_control(smu, false)'
+> -                * was just issued above which disabled all SMU features.
+> -                *
+> -                * Thus 'smu_feature_get_index(smu, SMU_FEATURE_BACO_BIT)' is used
+> -                * now for the checking.
+> -                */
+> -               if (smu_feature_get_index(smu, SMU_FEATURE_BACO_BIT) >= 0) {
+> -                       ret = smu_feature_set_enabled(smu, SMU_FEATURE_BACO_BIT, true);
+> -                       if (ret) {
+> -                               pr_warn("set BACO feature enabled failed, return %d\n", ret);
+> -                               return ret;
+> -                       }
+> -               }
+> -       }
+> -
+> -       return ret;
+> -}
+> -
+>  static int smu_suspend(void *handle)
+>  {
+>         struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+> @@ -1537,7 +1490,7 @@ static int smu_suspend(void *handle)
+>                 return ret;
+>         }
+>
+> -       ret = smu_disable_dpm(smu);
+> +       ret = smu_disable_dpms(smu);
+>         if (ret)
+>                 return ret;
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> index 68142f6798c6..652728f18271 100644
+> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+> @@ -2209,12 +2209,31 @@ static int navi10_dummy_pstate_control(struct smu_context *smu, bool enable)
+>         return result;
+>  }
+>
+> +static inline bool navi10_need_umc_cdr_12gbps_workaround(struct amdgpu_device *adev)
+> +{
+> +       if (adev->asic_type != CHIP_NAVI10)
+> +               return false;
+> +
+> +       if ((adev->pdev->device == 0x731f && (adev->pdev->revision == 0xc2 ||
+> +            adev->pdev->revision == 0xc3 || adev->pdev->revision == 0xca ||
+> +            adev->pdev->revision == 0xcb)) ||
+> +           (adev->pdev->device == 0x66af && (adev->pdev->revision == 0xf3 ||
+> +            adev->pdev->revision == 0xf4 || adev->pdev->revision == 0xf5 ||
+> +            adev->pdev->revision == 0xf6)))
+> +               return true;
+> +       else
+> +               return false;
+> +}
+
+Do we need a separate function for this or can we just inline this
+code in the function below?
+
+> +
+>  static int navi10_disable_umc_cdr_12gbps_workaround(struct smu_context *smu)
+>  {
+>         uint32_t uclk_count, uclk_min, uclk_max;
+>         uint32_t smu_version;
+>         int ret = 0;
+>
+> +       if (!navi10_need_umc_cdr_12gbps_workaround(smu->adev))
+> +               return 0;
+> +
+>         ret = smu_get_smc_version(smu, NULL, &smu_version);
+>         if (ret)
+>                 return ret;
 > --
 > 2.26.2
 >
