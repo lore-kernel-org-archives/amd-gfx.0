@@ -2,103 +2,50 @@ Return-Path: <SRS0=8ysN=7Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EB67C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2020 09:49:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5ACC1C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2020 13:10:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AD70820679
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2020 09:49:52 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wURIiIzu"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AD70820679
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	by mail.kernel.org (Postfix) with ESMTPS id 385C020679
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2020 13:10:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 385C020679
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F16B89A35;
-	Wed,  3 Jun 2020 09:49:52 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2086.outbound.protection.outlook.com [40.107.220.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2A78689A35
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2020 09:49:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Er0AE9iOSJuCkaDaonmfF8LJfNcDj9uUcGsLsW/jPHazpzXObJYmdi0LSmQXzCkRYH/I59WEQv573pkO7EX9RBcGlzoqaoOwte2wr7Cy88V7oEeZ6VJxWc7ftuF70Dy6vHnd/JNlCHN8xpZKgMdQdcl/4zl4WOUUaEMHLGdQJrT8xqD9+xJerDiWj6hJqUjavnhie/fUpcxe8RbQipqUcna1beDCRkf23FOQhWyFBzca2hX9rBumBR+j/xomBTgLhLalhpvR9LpKtINzFDCmUdIqbF8ziTEoE2goWeNGtH0Jt+HIa4dQosYmHN9ASY0sYNhiv7ZxURXl1PEKKhlnbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rnAieB3wbzltYgdsuRGVJWZ2+iAgK7vIDi0xnPIH4Gc=;
- b=Oqj15zOhTUaanwVeJCB/1hg5504xHy7RXHcVSI5iFlKaehSF9DROVfu5/6a3ERzJZpXq1AtCghG0FNKre6FIqQPpiKJV0PLiXi/q7Os3wolaT0ia6rlFCc/n+dqmgzKClgjLMmIBndRXZBTG2WPDRoBStPWSsJ2NTB9Zoaf+1tYs4IbhO+Oq2MlRUZJPI31D7yRrlaBeY6SzNnLkqTjXytz+amlVL7aoA+/IX4pSWoUtWJ272M/wZbOtLgKaM23ul/oATOEZm3LUbd4M0NdEVoGrZwmDBfu1QgHnsVy+uTNO16rCeKGIj3abCyvtk1+CzIMy7Qn1Ynrk7iOl7ibriw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rnAieB3wbzltYgdsuRGVJWZ2+iAgK7vIDi0xnPIH4Gc=;
- b=wURIiIzu1vC8KV3pjVAvdgx6trZGlOf1WF85jhsYK58O6M8IMHG5P7pCHVgxRiThyA5TtGukPCL6Q6nQJOxiKbDSX/HqpIebHc/5lLDYePALXdGp66UVjRsj6rLAfGNbQqJG8AkFmSHbxAnROnaHeCAXsIDBe6xPpT3/6kLCt2Y=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3872.namprd12.prod.outlook.com (2603:10b6:208:168::17)
- by MN2PR12MB3424.namprd12.prod.outlook.com (2603:10b6:208:cc::27)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18; Wed, 3 Jun
- 2020 09:49:50 +0000
-Received: from MN2PR12MB3872.namprd12.prod.outlook.com
- ([fe80::8843:c094:fb2a:d60a]) by MN2PR12MB3872.namprd12.prod.outlook.com
- ([fe80::8843:c094:fb2a:d60a%7]) with mapi id 15.20.3045.022; Wed, 3 Jun 2020
- 09:49:50 +0000
-Subject: Re: [PATCH] drm/amd/powerplay: use work queue to perform throttling
- logging
-To: amd-gfx@lists.freedesktop.org
-References: <20200603050327.16680-1-evan.quan@amd.com>
-From: Nirmoy <nirmodas@amd.com>
-Message-ID: <422ba5b8-8072-e4b7-96d2-3777df797b64@amd.com>
-Date: Wed, 3 Jun 2020 11:50:33 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
-In-Reply-To: <20200603050327.16680-1-evan.quan@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM3PR07CA0093.eurprd07.prod.outlook.com
- (2603:10a6:207:6::27) To MN2PR12MB3872.namprd12.prod.outlook.com
- (2603:10b6:208:168::17)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (2003:c5:8f23:9100:e6ba:e215:4eda:84d0)
- by AM3PR07CA0093.eurprd07.prod.outlook.com (2603:10a6:207:6::27) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.8 via Frontend
- Transport; Wed, 3 Jun 2020 09:49:49 +0000
-X-Originating-IP: [2003:c5:8f23:9100:e6ba:e215:4eda:84d0]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 769dcfab-6a9b-4ef8-f749-08d807a3751e
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3424:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB342466FF8D01408BCC131FB68B880@MN2PR12MB3424.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:17;
-X-Forefront-PRVS: 04238CD941
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: OqBurbm4pTXk4diwGwIyc75l5DnzIHbKu2ecRFJhXClxHrRMl6U1neqHxUY+1BvdbnO+1XG36zTQtULE0TebC4DWFKjEwzaQioND6zrJpAUq5FSd6z29Ig9rUh5Pi9iUejgyn9KBOsIbAV+/ULqzD4dTFsJWeTvJQY+PeMR2eXPLIc0NS8cIOevp60bqi8s16NU2qCXD66DndhDj1vG+ZWAazZAUjPJbeIn4hcnmOao+Vlc/+mU6GpNsK0vrcAHvPig10Y5LHk7M3DlLvBrtxMXNSxYh9mJSCRAHh39Kp3rPwAdnm9KYrTmBf41WjxOG3lVCPIlQpkL60d9T34ximXl5LcacKN3Tb0r3O9BjiAOifcfvuLdhLctAVNuGBGB1
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3872.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(346002)(376002)(366004)(396003)(136003)(6486002)(66946007)(478600001)(83380400001)(66556008)(186003)(6512007)(66476007)(36756003)(2906002)(16526019)(2616005)(6916009)(31696002)(5660300002)(31686004)(316002)(6506007)(8676002)(52116002)(6666004)(53546011)(8936002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: y56aRZdYhIHAVftMJD3TKGZtqo72bCDbFXpPj+WgAItvowgVzQ2ltVsklCM/JN+cmoVe9/eyjbN9IOX9dVxyIWEeyrhF1MGlAZ9hunoP/8PsC+3C8jjhju69LbEWkftRaCC4Ey0OYK3GTWU3De1PfW5cVQ3NKy456c+0I6KpWrgfNfxoNVL+N94/8xoMSJjk7Fj2PZxxGZdaVDXigvzNA1q55737FcGr1yiA+0hGCok8SXtxaquvxQzci6tmWheB08N0UHfeG68GNzT0DKI4B1MHVRLBuGPIeCtdKGjPB8XCMR2I236VmZrxdz0u+FBhRTzD9xJs6rcxr7+ciMEiNLIKWDDv2JyMrx7aOwaaPOwsdAQJgl9ywqWsPpoas9dvi5SjDFcBRBwrYPRRTcPsDr+jMNO83kjpA8oen1/v6yqc0uOm7zRGPeAbGDhd8ZIRDZB2Awjd0nZ7trrCeqBmPJfHrufDnhvr/es0jqpGX3L/28vcYtgpIfSljPUARdyPu2yHvBHXAvHcsh88sZZhLS2jU4QfgDl4+vOgPMo9l5E=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 769dcfab-6a9b-4ef8-f749-08d807a3751e
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2020 09:49:50.0561 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /382+a4//QSn395KPtatfie5NgPhneCjxyhnAxfmBm0pU6C1BBSNxfxGIS9Yso5orhlTi69mA6iN+pSVTDYP2w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3424
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECA948937C;
+	Wed,  3 Jun 2020 13:10:35 +0000 (UTC)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0D5389BAE;
+ Wed,  3 Jun 2020 11:42:46 +0000 (UTC)
+IronPort-SDR: SYb+WHNjpXwuHRWySl04B2Y6BYHE+h1eIddD/VlHns+Xs5LiCS3a3Ahw58NDFi0a61F7CBaKmI
+ q0fmM8t8kGjg==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Jun 2020 04:42:46 -0700
+IronPort-SDR: iyflii3yVus/ItveUg/MWhxiU0Nlxg448XpGmS24PcCiJQWLyNo/QCiJZpn+7H2GrMhC2A0IyW
+ NvzkysSvdQvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,467,1583222400"; d="scan'208";a="257985605"
+Received: from gklab-125-110.igk.intel.com ([10.91.125.110])
+ by orsmga007.jf.intel.com with ESMTP; 03 Jun 2020 04:42:36 -0700
+From: Piotr Stankiewicz <piotr.stankiewicz@intel.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+	linux-pci@vger.kernel.org
+Subject: [PATCH v2 00/15] Forward MSI-X vector enable error code in
+ pci_alloc_irq_vectors_affinity()
+Date: Wed,  3 Jun 2020 13:42:12 +0200
+Message-Id: <20200603114212.12525-1-piotr.stankiewicz@intel.com>
+X-Mailer: git-send-email 2.17.2
+In-Reply-To: <20200602230608.GA868767@bjorn-Precision-5520>
+References: <20200602230608.GA868767@bjorn-Precision-5520>
+X-Mailman-Approved-At: Wed, 03 Jun 2020 13:10:35 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,89 +57,92 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Igor Russkikh <irusskikh@marvell.com>,
+ linux-doc@vger.kernel.org, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Jim Gill <jgill@vmware.com>,
+ netdev@vger.kernel.org, Kurt Schwemmer <kurt.schwemmer@microsemi.com>,
+ David Zhou <David1.Zhou@amd.com>, Herbert Xu <herbert@gondor.apana.org.au>,
+ linux-scsi@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ linux-rdma@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, Doug Ledford <dledford@redhat.com>,
+ Jakub Kicinski <kuba@kernel.org>, Yisen Zhuang <yisen.zhuang@huawei.com>,
+ linux-media@vger.kernel.org, Tom Lendacky <thomas.lendacky@amd.com>,
+ Arnd Bergmann <arnd@arndb.de>, Antoine Tenart <antoine.tenart@bootlin.com>,
+ linux-kernel@vger.kernel.org, "James E . J . Bottomley" <jejb@linux.ibm.com>,
+ Salil Mehta <salil.mehta@huawei.com>, dmaengine@vger.kernel.org,
+ Brian King <brking@us.ibm.com>, VMware PV-Drivers <pv-drivers@vmware.com>,
+ Dan Williams <dan.j.williams@intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Mike Marciniszyn <mike.marciniszyn@intel.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+ Dennis Dalessandro <dennis.dalessandro@intel.com>, linux-mmc@vger.kernel.org,
+ Adrian Hunter <adrian.hunter@intel.com>,
+ "David S . Miller" <davem@davemloft.net>, Vinod Koul <vkoul@kernel.org>,
+ linux-crypto@vger.kernel.org, Daniel Vetter <daniel@ffwll.ch>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Piotr Stankiewicz <piotr.stankiewicz@intel.com>,
+ Logan Gunthorpe <logang@deltatee.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-LGTM
+The primary objective of this patch series is to change the behaviour
+of pci_alloc_irq_vectors_affinity() such that it forwards the MSI-X enable
+error code when appropriate. In the process, though, it was pointed out
+that there are multiple places in the kernel which check/ask for message
+signalled interrupts (MSI or MSI-X), which spawned the first patch adding
+PCI_IRQ_MSI_TYPES. Finally the rest of the chain converts all users to
+take advantage of PCI_IRQ_MSI_TYPES or PCI_IRQ_ALL_TYPES, as
+appropriate.
 
-Acked-by: Nirmoy Das <nirmoy.das@amd.com>
+Piotr Stankiewicz (15):
+  PCI/MSI: Forward MSI-X vector enable error code in
+    pci_alloc_irq_vectors_affinity()
+  PCI: Add shorthand define for message signalled interrupt types
+  PCI: Use PCI_IRQ_MSI_TYPES where appropriate
+  ahci: Use PCI_IRQ_MSI_TYPES where appropriate
+  crypto: inside-secure - Use PCI_IRQ_MSI_TYPES where appropriate
+  dmaengine: dw-edma: Use PCI_IRQ_MSI_TYPES  where appropriate
+  drm/amdgpu: Use PCI_IRQ_MSI_TYPES where appropriate
+  IB/qib: Use PCI_IRQ_MSI_TYPES where appropriate
+  media: ddbridge: Use PCI_IRQ_MSI_TYPES where appropriate
+  vmw_vmci: Use PCI_IRQ_ALL_TYPES where appropriate
+  mmc: sdhci: Use PCI_IRQ_MSI_TYPES where appropriate
+  amd-xgbe: Use PCI_IRQ_MSI_TYPES where appropriate
+  aquantia: atlantic: Use PCI_IRQ_ALL_TYPES where appropriate
+  net: hns3: Use PCI_IRQ_MSI_TYPES where appropriate
+  scsi: Use PCI_IRQ_MSI_TYPES and PCI_IRQ_ALL_TYPES where appropriate
 
-On 6/3/20 7:03 AM, Evan Quan wrote:
-> As IO operations(access to SMU internals) and possible sleep are
-> involved in throttling logging. Workqueue can handle them well.
-> Otherwise we may hit "scheduling while atomic" error.
->
-> Change-Id: I454d593e965e54b13fdf04c112abb0a022204278
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-> ---
->   drivers/gpu/drm/amd/powerplay/amdgpu_smu.c     | 10 ++++++++++
->   drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h |  2 ++
->   drivers/gpu/drm/amd/powerplay/smu_v11_0.c      |  2 +-
->   3 files changed, 13 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index 342fd75b0806..e25a3b1ce7ac 100644
-> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -1053,6 +1053,14 @@ static int smu_smc_table_sw_fini(struct smu_context *smu)
->   	return 0;
->   }
->   
-> +static void smu_throttling_logging_work_fn(struct work_struct *work)
-> +{
-> +	struct smu_context *smu = container_of(work, struct smu_context,
-> +					       throttling_logging_work);
-> +
-> +	smu_log_thermal_throttling(smu);
-> +}
-> +
->   static int smu_sw_init(void *handle)
->   {
->   	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-> @@ -1074,6 +1082,7 @@ static int smu_sw_init(void *handle)
->   	spin_lock_init(&smu->metrics_lock);
->   	spin_lock_init(&smu->message_lock);
->   
-> +	INIT_WORK(&smu->throttling_logging_work, smu_throttling_logging_work_fn);
->   	smu->watermarks_bitmap = 0;
->   	smu->power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
->   	smu->default_power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
-> @@ -1295,6 +1304,7 @@ static int smu_internal_hw_cleanup(struct smu_context *smu)
->   
->   	smu_i2c_eeprom_fini(smu, &adev->pm.smu_i2c);
->   
-> +	cancel_work_sync(&smu->throttling_logging_work);
->   	ret = smu_disable_thermal_alert(smu);
->   	if (ret) {
->   		pr_warn("Fail to stop thermal control!\n");
-> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> index 6f44ffb6eb51..b970b4d663b0 100644
-> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> @@ -411,6 +411,8 @@ struct smu_context
->   
->   	bool uploading_custom_pp_table;
->   	bool dc_controlled_by_gpio;
-> +
-> +	struct work_struct throttling_logging_work;
->   };
->   
->   struct i2c_adapter;
-> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> index adde9eb7b283..69b1160d8ba2 100644
-> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> @@ -1597,7 +1597,7 @@ static int smu_v11_0_irq_process(struct amdgpu_device *adev,
->   					return 0;
->   
->   				if (__ratelimit(&adev->throttling_logging_rs))
-> -					smu_log_thermal_throttling(smu);
-> +					schedule_work(&smu->throttling_logging_work);
->   
->   				break;
->   			}
+ Documentation/PCI/msi-howto.rst                          | 5 +++--
+ drivers/ata/ahci.c                                       | 2 +-
+ drivers/crypto/inside-secure/safexcel.c                  | 2 +-
+ drivers/dma/dw-edma/dw-edma-pcie.c                       | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c                  | 9 ++-------
+ drivers/infiniband/hw/qib/qib_pcie.c                     | 6 ++++--
+ drivers/media/pci/ddbridge/ddbridge-main.c               | 2 +-
+ drivers/misc/vmw_vmci/vmci_guest.c                       | 3 +--
+ drivers/mmc/host/sdhci-pci-gli.c                         | 3 +--
+ drivers/mmc/host/sdhci-pci-o2micro.c                     | 3 +--
+ drivers/net/ethernet/amd/xgbe/xgbe-pci.c                 | 2 +-
+ drivers/net/ethernet/aquantia/atlantic/aq_pci_func.c     | 4 +---
+ drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c  | 3 +--
+ .../net/ethernet/hisilicon/hns3/hns3vf/hclgevf_main.c    | 3 +--
+ drivers/pci/msi.c                                        | 4 ++--
+ drivers/pci/pcie/portdrv_core.c                          | 4 ++--
+ drivers/pci/switch/switchtec.c                           | 3 +--
+ drivers/scsi/ipr.c                                       | 5 +++--
+ drivers/scsi/vmw_pvscsi.c                                | 2 +-
+ include/linux/pci.h                                      | 4 ++--
+ 20 files changed, 31 insertions(+), 40 deletions(-)
+
+-- 
+2.17.2
+
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
