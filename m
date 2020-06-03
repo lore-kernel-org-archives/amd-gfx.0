@@ -2,100 +2,117 @@ Return-Path: <SRS0=8ysN=7Q=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1EDE4C433E0
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2020 05:03:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DD143C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2020 05:32:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C8149206E6
-	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2020 05:03:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AEF162065C
+	for <amd-gfx@archiver.kernel.org>; Wed,  3 Jun 2020 05:32:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="rvJ35mXB"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C8149206E6
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="pWG0kbQR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AEF162065C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C63C6E4B5;
-	Wed,  3 Jun 2020 05:03:52 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr770057.outbound.protection.outlook.com [40.107.77.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17C5F6E4B5
- for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2020 05:03:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 243056E235;
+	Wed,  3 Jun 2020 05:32:33 +0000 (UTC)
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2068.outbound.protection.outlook.com [40.107.94.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 772A66E235
+ for <amd-gfx@lists.freedesktop.org>; Wed,  3 Jun 2020 05:32:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kgFjhQY8VoqKBBibj2SklVzw9tJrMTqNfDULfdMkI9G6yTaTqT902xwHiDHb3jpeUfYodq1cBIe2p2KF4j9iWf70247odp4HHDmPRZvk2e9Tbd5Bkk819Q4Ca7hsdvUScIu5YM9wj32MyMwuUPruFcz83OXKBLimzCjr09gqQhrhb3452Bm9+TNPcteiUyKFkG6Khiio5ZSm3mhMponiGIwnReFrQWwI4e3lN9zcv/U4Zl9cd0mNhhUWACB2cH6KSOUzC360X64KjDHzU0y0ZrPUTbgRhTemK8ulI+hw2z8xlMlVRdqPxbhoTD52rVpqfkbUc488VN/DkMqgqQ6BQw==
+ b=PFNsmC5MPQCg8fCv777UGWHiILdoxEAgF/WPyuddPI4c/r0YN9U/UOIVKo8LaFzohpjogy0aMq5OpAL/rUwatnsBaTD/xcpiqJkyfVFhyBzJhZ+5tGK8AnsM4/u2LIkV3d/MqkpY+cNst9BOl+5DkLvCqqyPi2YEgKk4UGHIVonEEwxRTkMrQQaT80ysnQUjsgA9MD8i392//S6f4CEw3AZ+UBS/yipuVbdg/YHpmtdR7EPYqhRFfDuR91i8lM5ele+ky22tG0D767VobGIgpPGhVbvtiPJj5D53CPs59Lc+XVPxQ3pr5UgsQi2rOXq7FjvtWJkkKo+10BXX0Ckizw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=INQukTXtjnPg9rXyKbESX5wfxKot1/bZ+GBPeVdCLJ4=;
- b=Gm7SuRRO9zwJPQVL+FViSAcx96QuAH72kFiumgt1JPzh+IueuHUFCCs/8+/thSg9Rgmd8yiCGxzyTw3CZAqEKC/0fgQbc+gwZXMzTbtAg5DwTZtxXC1G9lTteznqlFLaIjOpX3BNyxHKYAXsky7/q6Fz0EOZdw2xk2ktKiikLS2JyysEWPAzlPMsWHLhmjkiePznFif0CMGmauqwgLWAH/BHBY0GtRW+NbqHBK8Kj7bjaX4KR3nxXa9RAvSMpjaT/LhplOtnNG2mssqlPHjb6zjhhtdmBBLoP0+sTgJdzOi8mOMeuFNILMMGpSc5+/jcruUG4j8YuXDItZILacDJSA==
+ bh=1YpaSavDnGUrfI4KzOjlROnDcgJL5p3XubQgElMHymU=;
+ b=POhlheT7ST+UdVZKuiuxQ92UpyB+UkdkUoRkzG9VO+PbK0kfr8LJGJfeoonNdZE17V9brmWLRBYH2at8H+q7q7N7Q1PMY0XuHv5rueVmA78+0/sHvqmcFVYLz46EJhqbjUffYQtjzpXuro3gQrGXtN+vtdWWQ84YpbbHJZ+r1BwTbriycrf9ffvbxlYJ5r22xZllutYlAbspCSAquvV2PhRAGwaANyZH0jhtMXFeU09liM2LiEEE4FTHYFnEJx6Wys5QJPLjWNLlCNJ1UaCQHnBTpmaiaNpYm+l3tp/cpvNA7x1yXZybHT/y2kzic2aUcZJtCscH3Rq3aN41leA3nQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=INQukTXtjnPg9rXyKbESX5wfxKot1/bZ+GBPeVdCLJ4=;
- b=rvJ35mXBPCNr+NE4l890tBSGmQn3Vmc5ofAd0iWexWuvRhS/4IdTJrH/noSzXhicM7+2Zjb6WI/R6WgAF/hV0zLt7PmgnLoj/yvhj4vDSrRHrlFaU2M8RQhY22YPvgWzO0MU6gl2W0AqNN5kMAz2FXi/3qQlaEPidiIdBQZK+FI=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB3354.namprd12.prod.outlook.com (2603:10b6:5:11f::33) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3045.17; Wed, 3 Jun 2020 05:03:49 +0000
-Received: from DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
- ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3045.022; Wed, 3 Jun 2020
- 05:03:48 +0000
-From: Evan Quan <evan.quan@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amd/powerplay: use work queue to perform throttling
- logging
-Date: Wed,  3 Jun 2020 13:03:27 +0800
-Message-Id: <20200603050327.16680-1-evan.quan@amd.com>
-X-Mailer: git-send-email 2.27.0
-X-ClientProxiedBy: HK2PR06CA0018.apcprd06.prod.outlook.com
- (2603:1096:202:2e::30) To DM6PR12MB2619.namprd12.prod.outlook.com
- (2603:10b6:5:45::18)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from equan-buildpc.amd.com (58.247.170.242) by
- HK2PR06CA0018.apcprd06.prod.outlook.com (2603:1096:202:2e::30) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3066.18 via Frontend Transport; Wed, 3 Jun 2020 05:03:47 +0000
-X-Mailer: git-send-email 2.27.0
-X-Originating-IP: [58.247.170.242]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 7946bd12-e12e-4d4d-e526-08d8077b8032
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3354:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3354882CB0CB1E67A98ADFDDE4880@DM6PR12MB3354.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:39;
-X-Forefront-PRVS: 04238CD941
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: m5CmDyNUnnZWZiR44o7zYkd8V8OH6+xYvJ8TuhkupCtlUsCaoofnQv4BlVH37Vk8nLIwdTbZWIKIXvI/NiZQNVdhEa8KwX3Upx8DpEOnfxmgHvBOTJbp4Qzp1prPTcliBNah2C/5A+B9T/OvqBQt6bJKsLCYYAdGVhowYx92ORRcVfl/IT79iFbQVwVxeISSfvMkdYrRkHOV4Wwug0B7HqTvifHECco1WAksgl1d6H3Y2KphC6bi71KyENplzSxBrF+sKcWJ7NvDWIwuhjvBktwyAHSO/Fjg4yXttjvRsTWyPnwrDPg8K4wC2RFOAEYRS5+bXATj93DONf1gxodq4A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ bh=1YpaSavDnGUrfI4KzOjlROnDcgJL5p3XubQgElMHymU=;
+ b=pWG0kbQRqt+LXRgvwnlLhJ4Jne+PoW6oXemKj5mZANLBavLp8AkmBV/Ny37d7vkQr/tIyVS7fDZs6X0Ra1ygSrSFdtXbmUT4zhRg56fmi/CBSxZoe+FIoZw9BShoyubhQHwKlAcZePN04GuJBBaI2KoeSLslDByoga4wI7+/JeE=
+Received: from MN2PR12MB4175.namprd12.prod.outlook.com (2603:10b6:208:1d3::13)
+ by MN2PR12MB2989.namprd12.prod.outlook.com (2603:10b6:208:c4::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.18; Wed, 3 Jun
+ 2020 05:32:31 +0000
+Received: from MN2PR12MB4175.namprd12.prod.outlook.com
+ ([fe80::4cbc:93e:87ac:2fc1]) by MN2PR12MB4175.namprd12.prod.outlook.com
+ ([fe80::4cbc:93e:87ac:2fc1%5]) with mapi id 15.20.3066.018; Wed, 3 Jun 2020
+ 05:32:30 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: "Gao, Likun" <Likun.Gao@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amd/powerplay: update driver if file for
+ sienna_cichlid
+Thread-Topic: [PATCH] drm/amd/powerplay: update driver if file for
+ sienna_cichlid
+Thread-Index: AQHWOWCI8D3ZqvEHVk6B/qjUrbY2+qjGXdKA
+Date: Wed, 3 Jun 2020 05:32:30 +0000
+Message-ID: <MN2PR12MB4175EF86FC45D758BED23B5C8E880@MN2PR12MB4175.namprd12.prod.outlook.com>
+References: <20200603043546.3330085-1-likun.gao@amd.com>
+In-Reply-To: <20200603043546.3330085-1-likun.gao@amd.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-06-03T05:31:58Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
+ Unrestricted;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=189a719c-621c-4763-9296-00009e838429;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-06-03T05:31:58Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
+ Unrestricted
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: c87bd7a4-6586-4379-9953-00006721b576
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
+msip_justification: I confirm the recipients are approved for sharing this
+ content
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: b977002b-4418-4c31-c8a0-08d8077f82c6
+x-ms-traffictypediagnostic: MN2PR12MB2989:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MN2PR12MB2989A32D7F38408B95615FD58E880@MN2PR12MB2989.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:5236;
+x-forefront-prvs: 04238CD941
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 6bElB0789N6vxxGZ+80p8w7GAwSNnZJ4ceAmLxOAcGLWF8JR48Pqh2SGlpkCF5GxggPR5V+9am45tB70H4Ur/eeBqzM+5mpLs3fZlYXlijNLA/didq0ozbJp5nOsTMR1T9S0rKEVOP6m4J9kJc1BN1SCd/AMv9inX5g4K7LtMu+x9AaRGTUIdd9eR/Mb8cp5SQwIKOrrBQzLqUxFzK0jEzOlTsHsm5VW/jvTxLt/Ot95iyHAo45qM3RJIUXkIqvu5W9kfCqDxZAh++xxJI6f6TmYtrSxaICdwD5GohmNso+Y19Hfql1UtroJpjPC4ShO
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MN2PR12MB4175.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(346002)(396003)(366004)(136003)(376002)(39860400002)(4326008)(8676002)(26005)(66946007)(52116002)(7696005)(36756003)(5660300002)(1076003)(316002)(66556008)(6486002)(6666004)(8936002)(66476007)(2616005)(86362001)(478600001)(44832011)(186003)(6916009)(83380400001)(16526019)(956004)(2906002);
+ SFS:(4636009)(376002)(366004)(396003)(346002)(39860400002)(136003)(64756008)(6506007)(52536014)(66476007)(66556008)(26005)(66446008)(9686003)(33656002)(86362001)(55016002)(66946007)(19627235002)(83380400001)(2906002)(186003)(76116006)(5660300002)(15650500001)(53546011)(8936002)(71200400001)(316002)(4326008)(478600001)(7696005)(110136005)(8676002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 0RpVbm/jUSZkL7udGWER7LQEnVAaLAflzXA8iqQRZGt9rRY+ZluSzVZyZlpzJb59tTzfkfO8QkzPHzzitwWY5D4P15TICSh8M5L2gR75v6STm6575Sb5caCWadgrfXBs0mlK4EjmeKkO43hGyxtPD00xznZzvg8ivpwS5qaznHa8EJjoSPPptUJfGmrJbMoreTYitgn4hSgTAIERy6fbk/nPuNNMjJ31aIm2dE9f5Fk0Fgf0oL0i3/KAK5VL+kh+Yv01fXKj0JArRQtpDVqvniKjTL8zMQ1dFay4mfMJIDnIG3G0kkEpcYUwgUFq9pseozi8RX6Yrlxp7XWvFg/P0x38NVump8aLjbLNRnB3uxeHCH+8QiJKsY4p2ZIkO9g9eyliRkFczR9BXuPIcYOPNhzC1etbpyQHODGFSR7eKIS8/N+Ge6ukDnHNrjDXI69pHTK47E6IXQp7Md7ca8aKBJEO5e1wWWcfCjr+NSAS76aJTH0ESt6XfQPsmbOdaGMd
+x-ms-exchange-antispam-messagedata: r1Zx4C2Tpt5oHdHxx1wVEmNHqsHuh/EmGJDqaBUojXFBxe0JvSzmUADmfdsLSQ4qBwVuRQ3J74yVT+SVC1qbT2f6Kqe8ApZ5+2svOFsrIZr7XDAEtM1dptRMe6MdzQc80107U+s7U5nggMWk3NDpt+4AW9NBWXir5cyAwO2QtFjN7xXHzUHXTts3FpraU24RqAQHDUW/LjOxlLnPWWHgz5LBsFbpYYEsE+3hHClvEULb7Uj3v42AqK6ByLB4kWQs5okKCokT0ynlWQgHjvcYx+7YIT8YvpFZE7M1RblVl0kWNioz8q4s1PVax/rtBfa2N33s5tOgT9KVvHxamnV06pU6JPJulIl8K+Or/UPxqq+RTT8rphefW17qU0jq40n/BBcDKBsC1kkgwLCAxGdvDBgEplyzgWhRPPBYhN9aTOo7Vc+BdBK0IcZuFSvybeljkemGT3KJKTxgRcYxor17Wb109sAaRFMK8ZrA7rFsibJ19tTtxZGFqJk0TH++UuLs
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7946bd12-e12e-4d4d-e526-08d8077b8032
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2020 05:03:48.8744 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IX6BOTVQyChruUaLJiiKZiAyrMVGi6OoJ1dBuNt7Iy8iJlu/zFBwjUH8JZS84Pp5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3354
+X-MS-Exchange-CrossTenant-Network-Message-Id: b977002b-4418-4c31-c8a0-08d8077f82c6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jun 2020 05:32:30.7489 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: GqESZ+NvohaDJiZLfpLCIdnHfIaT+qpqbjssfrG4dDnbwpzyZnuo+JemYPtwkx1V
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB2989
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,88 +124,99 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexander.deucher@amd.com, Evan Quan <evan.quan@amd.com>
+Cc: "Quan, Evan" <Evan.Quan@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-As IO operations(access to SMU internals) and possible sleep are
-involved in throttling logging. Workqueue can handle them well.
-Otherwise we may hit "scheduling while atomic" error.
+[AMD Official Use Only - Internal Distribution Only]
 
-Change-Id: I454d593e965e54b13fdf04c112abb0a022204278
-Signed-off-by: Evan Quan <evan.quan@amd.com>
+Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+
+
+Best Regards
+Kenneth
+
+-----Original Message-----
+From: Gao, Likun <Likun.Gao@amd.com> 
+Sent: Wednesday, June 3, 2020 12:36 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Feng, Kenneth <Kenneth.Feng@amd.com>; Quan, Evan <Evan.Quan@amd.com>; Gao, Likun <Likun.Gao@amd.com>
+Subject: [PATCH] drm/amd/powerplay: update driver if file for sienna_cichlid
+
+From: Likun Gao <Likun.Gao@amd.com>
+
+Update sienna_cichlid driver if header file to match pptable changes.
+
+Signed-off-by: Likun Gao <Likun.Gao@amd.com>
+Change-Id: Ie0652935d512124c03f16ae75c44e134567ef5da
 ---
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c     | 10 ++++++++++
- drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h |  2 ++
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c      |  2 +-
- 3 files changed, 13 insertions(+), 1 deletion(-)
+ .../inc/smu11_driver_if_sienna_cichlid.h        | 17 ++++++++++++++---
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h   |  2 +-
+ 2 files changed, 15 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index 342fd75b0806..e25a3b1ce7ac 100644
---- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -1053,6 +1053,14 @@ static int smu_smc_table_sw_fini(struct smu_context *smu)
- 	return 0;
- }
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_sienna_cichlid.h b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_sienna_cichlid.h
+index bdffba1f0086..5322f6da3071 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_sienna_cichlid.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu11_driver_if_sienna_cichlid.h
+@@ -27,7 +27,7 @@
+ // *** IMPORTANT ***
+ // SMU TEAM: Always increment the interface version if  // any structure is changed in this file -#define SMU11_DRIVER_IF_VERSION 0x30
++#define SMU11_DRIVER_IF_VERSION 0x31
  
-+static void smu_throttling_logging_work_fn(struct work_struct *work)
-+{
-+	struct smu_context *smu = container_of(work, struct smu_context,
-+					       throttling_logging_work);
+ #define PPTABLE_Sienna_Cichlid_SMU_VERSION 4
+ 
+@@ -914,12 +914,14 @@ typedef struct {
+   uint16_t     GfxActivityLpfTau;
+   uint16_t     UclkActivityLpfTau;
+   uint16_t     SocketPowerLpfTau;  
++  uint16_t     VcnClkAverageLpfTau;
++  uint16_t     padding16; 
+ } DriverSmuConfig_t;
+ 
+ typedef struct {
+   DriverSmuConfig_t DriverSmuConfig;
+ 
+-  uint32_t     Spare[8];  
++  uint32_t     Spare[7];  
+   // Padding - ignore
+   uint32_t     MmHubPadding[8]; // SMU internal use
+ } DriverSmuConfigExternal_t;
+@@ -984,11 +986,20 @@ typedef struct {
+   uint8_t D3HotEntryCountPerMode[D3HOT_SEQUENCE_COUNT];
+   uint8_t D3HotExitCountPerMode[D3HOT_SEQUENCE_COUNT];
+   uint8_t ArmMsgReceivedCountPerMode[D3HOT_SEQUENCE_COUNT];
 +
-+	smu_log_thermal_throttling(smu);
-+}
-+
- static int smu_sw_init(void *handle)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
-@@ -1074,6 +1082,7 @@ static int smu_sw_init(void *handle)
- 	spin_lock_init(&smu->metrics_lock);
- 	spin_lock_init(&smu->message_lock);
++  //PMFW-4362
++  uint32_t EnergyAccumulator;
++  uint16_t AverageVclk0Frequency  ;
++  uint16_t AverageDclk0Frequency  ;
++  uint16_t AverageVclk1Frequency  ;
++  uint16_t AverageDclk1Frequency  ;
++  uint16_t VcnActivityPercentage ; //place holder, David N. to provide 
++ full sequence  uint16_t padding16_2;
+ } SmuMetrics_t;
  
-+	INIT_WORK(&smu->throttling_logging_work, smu_throttling_logging_work_fn);
- 	smu->watermarks_bitmap = 0;
- 	smu->power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
- 	smu->default_power_profile_mode = PP_SMC_POWER_PROFILE_BOOTUP_DEFAULT;
-@@ -1295,6 +1304,7 @@ static int smu_internal_hw_cleanup(struct smu_context *smu)
+ typedef struct {
+   SmuMetrics_t SmuMetrics;
+-  uint32_t Spare[5];
++  uint32_t Spare[1];
  
- 	smu_i2c_eeprom_fini(smu, &adev->pm.smu_i2c);
+   // Padding - ignore
+   uint32_t     MmHubPadding[8]; // SMU internal use  
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+index 4ad3f07891fe..282eb45e7b86 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
+@@ -31,7 +31,7 @@
+ #define SMU11_DRIVER_IF_VERSION_NV10 0x36  #define SMU11_DRIVER_IF_VERSION_NV12 0x33  #define SMU11_DRIVER_IF_VERSION_NV14 0x36 -#define SMU11_DRIVER_IF_VERSION_Sienna_Cichlid 0x30
++#define SMU11_DRIVER_IF_VERSION_Sienna_Cichlid 0x31
  
-+	cancel_work_sync(&smu->throttling_logging_work);
- 	ret = smu_disable_thermal_alert(smu);
- 	if (ret) {
- 		pr_warn("Fail to stop thermal control!\n");
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-index 6f44ffb6eb51..b970b4d663b0 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -411,6 +411,8 @@ struct smu_context
- 
- 	bool uploading_custom_pp_table;
- 	bool dc_controlled_by_gpio;
-+
-+	struct work_struct throttling_logging_work;
- };
- 
- struct i2c_adapter;
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index adde9eb7b283..69b1160d8ba2 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -1597,7 +1597,7 @@ static int smu_v11_0_irq_process(struct amdgpu_device *adev,
- 					return 0;
- 
- 				if (__ratelimit(&adev->throttling_logging_rs))
--					smu_log_thermal_throttling(smu);
-+					schedule_work(&smu->throttling_logging_work);
- 
- 				break;
- 			}
--- 
-2.27.0
-
+ /* MP Apertures */
+ #define MP0_Public			0x03800000
+--
+2.25.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
