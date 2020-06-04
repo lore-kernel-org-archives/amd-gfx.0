@@ -8,61 +8,61 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 215B5C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 21:10:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 13041C433E0
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 21:13:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E5B1C206E6
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 21:10:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DAF2A2077D
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 21:13:28 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s17M17R5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5B1C206E6
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AJFeqVbU"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DAF2A2077D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A978E6E5C5;
-	Thu,  4 Jun 2020 21:10:29 +0000 (UTC)
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1CE16E5C5
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2020 21:10:27 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id y17so7589549wrn.11
- for <amd-gfx@lists.freedesktop.org>; Thu, 04 Jun 2020 14:10:27 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BEE86E526;
+	Thu,  4 Jun 2020 21:13:28 +0000 (UTC)
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B98DE6E526
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2020 21:13:27 +0000 (UTC)
+Received: by mail-wm1-x344.google.com with SMTP id l26so6547500wme.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 04 Jun 2020 14:13:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kgBw9c2FZK8LuDuVxfZyOtYQurB+eys4bLaRZKEXmRU=;
- b=s17M17R5ZOba3wL6T//xNaK1jZA+KMOWMlDFvVUPNcP4MX3uaUd9imvVKL8W4/QqTb
- j+pjjqXCDhC6DSTJWUUjOkZLhn05UtZUe53LYnbQib/3/qQ4wbZDjxUm3ceHqeG1B4vL
- m5E0WE3A1X0cPkpH/H87C+ZXvti1pX50b5GKULx6W4lonQ3HylJ1jnRSVBsM8q/ZELB3
- k0z054eI3aB+d/21nvl2eyJIpbYcLxStmr3pTufBt6G4VtXAAcx8839/gkjexz17BRfl
- Z/wNIZTL/77rztEdJtJQec9eI+NzWh1VGdRndGlLsMUjF7tGVVn9uNKk9IiaAlTQ3tWf
- hMzw==
+ :cc; bh=D1Ij8gmD4C+fsYrVCDxSF9UzntfkOXlMASu2I6U92yI=;
+ b=AJFeqVbUPxl6xCQX/pTBK0doAvDs8k8wJCCG32NJQj3gtSEtLfyNZ6dq66G1VxRSOw
+ kL2t49WXETd7lRAmQ0uk/57pPiE6uoeQfyqdUiFtZ34deASDPVXVZXzHMhlGmMN5AS2f
+ lyASGxwGpaIGaYQ6xagde5ZsYi66DX4/5FiP2Xw0ow5i4vObL22lVjL6ChqK3zKWMYuw
+ zFu5tvMeh6p9Gu+MRUTgGm9ZPnGjmKa+dK5dnZqtqxnx6X1GV8YpRrWz/c40Jg06mrP6
+ +bqK17/2WNfcNvTeLuv0d7Aokt93OxVbHmotXUFUskS3q4EUBlE06vwExNKbjij800JK
+ rrsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=kgBw9c2FZK8LuDuVxfZyOtYQurB+eys4bLaRZKEXmRU=;
- b=B+t9HeNcv/TcdSu6kge4hCmGK/gC5MshxbFl7mJOuAUsFAzRjp1MUINNEzvy7CR3nD
- 7ybOK7RxV3XFuZMJW0cOyJcHKu8wkHQTMZuZBEAN1eJBX5wOlDS84iftCIteBrJ+3KpQ
- DIlzr7Z2Wpgd8UNKEjWqbHYaBLM/mLfhrAeTDWfUHaGm4ayittSsmyw1g4m7QH4YEQKK
- G8wQbqOLdoraOq/eEUzz66En1iApSpF5tbCnhoUNYHljM+2yAOsbIknLljsxU3+cb6Co
- wb4EpmEp7aklBjVYtQz0vdRJoNXuDs4O0+fYjMpiFz0A3JHHQUn3nh/GKJO1AY2uPC1z
- Ht0g==
-X-Gm-Message-State: AOAM532PjhUS1cB77auZ80Kad/92qzG+trxIv1KRjtwkgYHMqRob4Djz
- QF9g9jSzLSfut6gxedmsMAdA7L4XXfnKcYTl93k=
-X-Google-Smtp-Source: ABdhPJzS1CyWtoWWFFvUsYX+Pk0F08G4/29zxCPBoNSUZd0bSahgUWMEtqDeb55+t1dH4pILMAAKvM0SK/u1F3VRPoc=
-X-Received: by 2002:a5d:400f:: with SMTP id n15mr6552466wrp.419.1591304994727; 
- Thu, 04 Jun 2020 14:09:54 -0700 (PDT)
+ bh=D1Ij8gmD4C+fsYrVCDxSF9UzntfkOXlMASu2I6U92yI=;
+ b=HNwpUmYh+KKN0BAY8Z5nTREUM1VjENE725XWlJrG64FRgFakMyXfIGT1ftqrd6ZyFB
+ G+4R22tpxLQCjXXHAtelcxF9blJ0sBk1UK1BQC2xO+g2V9qYJJIVZO8+/KvuiIlaz2vs
+ KEXk8pu/NahWqM0At6GHjLAE4s/aYUj1BgCQcmEaL58/OuMs7EzHeHKK4aGpTmbcrQRx
+ co4oNOvjMDJiP2zxIQ5Hzi/28Gg0eBlpTAjJJJyxCyLgUSzKU4j5MHa9i/FwOVx5xsmj
+ HiAu4b+Q7UIVgVnv41ffVYI9x6pOGVUFlP/Gs1vUlLFPkZ9kZs76i7X6Mn7mt1ejjlsN
+ BZ4A==
+X-Gm-Message-State: AOAM531jL/BMaCdJZmXKJ/cBmHLqq6BlyME18pXBBWyq3UPTsAuc5S+d
+ 9foLlcwN+KqEMP1oKdIUObdM+xlrBlz+Wv/3ta0B/tjt
+X-Google-Smtp-Source: ABdhPJzD7lZOHTHgQBnwwo/rcUHOQw3gU9Cq/1v6dpH+szO8a1AIPrxtg+cNgb2LsVdU8Z1j7ZPKOW5ltieqX3T2uBc=
+X-Received: by 2002:a1c:9c85:: with SMTP id f127mr5871945wme.79.1591305206321; 
+ Thu, 04 Jun 2020 14:13:26 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200604044619.18658-1-evan.quan@amd.com>
- <20200604044619.18658-12-evan.quan@amd.com>
- <CADnq5_OpT1bxmF-F52fN0gTMffRL49m_-Ln28JuLkCmXsdxBsA@mail.gmail.com>
-In-Reply-To: <CADnq5_OpT1bxmF-F52fN0gTMffRL49m_-Ln28JuLkCmXsdxBsA@mail.gmail.com>
+ <20200604044619.18658-14-evan.quan@amd.com>
+In-Reply-To: <20200604044619.18658-14-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 4 Jun 2020 17:09:43 -0400
-Message-ID: <CADnq5_MU=T4FR++fy7BfPZmUyx7h2jODr5GfK5ZPag5VzcrU6g@mail.gmail.com>
-Subject: Re: [PATCH 12/16] drm/amd/powerplay: better namings
+Date: Thu, 4 Jun 2020 17:13:15 -0400
+Message-ID: <CADnq5_MJKpDfpPf29J0296PHCX=sAbjuYFL21qi6v1Yj=s46kQ@mail.gmail.com>
+Subject: Re: [PATCH 14/16] drm/amd/powerplay: allocate the struct
+ amdgpu_irq_src on the stack
 To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,105 +82,103 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 4, 2020 at 5:07 PM Alex Deucher <alexdeucher@gmail.com> wrote:
+On Thu, Jun 4, 2020 at 12:47 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-> On Thu, Jun 4, 2020 at 12:47 AM Evan Quan <evan.quan@amd.com> wrote:
-> >
-> > And some minor changes as dropping unused parameter and label
-> > internal used API as static.
-> >
-> > Change-Id: I0af0aea029dc4fc7d8e150ab6ec984e9a5f1a74a
-> > Signed-off-by: Evan Quan <evan.quan@amd.com>
-> > ---
-> >  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c     | 12 +++++-------
-> >  drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h |  2 --
-> >  2 files changed, 5 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > index b3410d111316..55ffbf1cf086 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> > @@ -638,7 +638,7 @@ int smu_sys_set_pp_table(struct smu_context *smu,  void *buf, size_t size)
-> >         return ret;
-> >  }
-> >
-> > -int smu_feature_init_dpm(struct smu_context *smu)
-> > +static int smu_get_driver_allowed_feature_mask(struct smu_context *smu)
-> >  {
-> >         struct smu_feature *feature = &smu->smu_feature;
-> >         int ret = 0;
-> > @@ -662,7 +662,6 @@ int smu_feature_init_dpm(struct smu_context *smu)
-> >         return ret;
-> >  }
-> >
-> > -
-> >  int smu_feature_is_enabled(struct smu_context *smu, enum smu_feature_mask mask)
-> >  {
-> >         struct smu_feature *feature = &smu->smu_feature;
-> > @@ -1115,8 +1114,7 @@ static int smu_sw_fini(void *handle)
-> >         return 0;
-> >  }
-> >
-> > -static int smu_smc_table_hw_init(struct smu_context *smu,
-> > -                                bool initialize)
-> > +static int smu_internal_hw_setup(struct smu_context *smu)
->
-> The "internal" in the name made me think this was related to someting
-> in smu_internal.h.  Maybe call it smu_smc_hw_setup()?  I guess I could
-> go either way.
+> Since it is only several bytes in size.
 
-Nevermind, I see you started using the "internal" naming in the next
-patch as well. Either way is fine with me.
+I think the subject and description should be clarified a bit.  We are
+not allocating it on the stack.  We are just moving the object to the
+smu structure allocation rather than allocating it dynamically at
+runtime.  We always allocate it anyway so no need to handle it
+allocate it separately. With that fixed:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 >
+> Change-Id: Ie9df0db543fdd4cf5b963a286ef40dee03c436bf
+> Signed-off-by: Evan Quan <evan.quan@amd.com>
 > Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c     |  3 ---
+>  drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h |  2 +-
+>  drivers/gpu/drm/amd/powerplay/smu_v11_0.c      | 15 +++------------
+>  3 files changed, 4 insertions(+), 16 deletions(-)
 >
-> >  {
-> >         struct amdgpu_device *adev = smu->adev;
-> >         int ret;
-> > @@ -1287,11 +1285,11 @@ static int smu_hw_init(void *handle)
-> >         if (ret)
-> >                 return ret;
-> >
-> > -       ret = smu_feature_init_dpm(smu);
-> > +       ret = smu_get_driver_allowed_feature_mask(smu);
-> >         if (ret)
-> >                 goto failed;
-> >
-> > -       ret = smu_smc_table_hw_init(smu, true);
-> > +       ret = smu_internal_hw_setup(smu);
-> >         if (ret)
-> >                 goto failed;
-> >
-> > @@ -1487,7 +1485,7 @@ static int smu_resume(void *handle)
-> >                 goto failed;
-> >         }
-> >
-> > -       ret = smu_smc_table_hw_init(smu, false);
-> > +       ret = smu_internal_hw_setup(smu);
-> >         if (ret)
-> >                 goto failed;
-> >
-> > diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> > index b2de042493ad..5f5a210668a1 100644
-> > --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> > +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-> > @@ -656,8 +656,6 @@ extern const struct amd_ip_funcs smu_ip_funcs;
-> >  extern const struct amdgpu_ip_block_version smu_v11_0_ip_block;
-> >  extern const struct amdgpu_ip_block_version smu_v12_0_ip_block;
-> >
-> > -extern int smu_feature_init_dpm(struct smu_context *smu);
-> > -
-> >  extern int smu_feature_is_enabled(struct smu_context *smu,
-> >                                   enum smu_feature_mask mask);
-> >  extern int smu_feature_set_enabled(struct smu_context *smu,
-> > --
-> > 2.27.0
-> >
-> > _______________________________________________
-> > amd-gfx mailing list
-> > amd-gfx@lists.freedesktop.org
-> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> index 65f5edcaa405..23eb64ae7432 100644
+> --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+> @@ -1102,9 +1102,6 @@ static int smu_sw_fini(void *handle)
+>         struct smu_context *smu = &adev->smu;
+>         int ret;
+>
+> -       kfree(smu->irq_source);
+> -       smu->irq_source = NULL;
+> -
+>         ret = smu_smc_table_sw_fini(smu);
+>         if (ret) {
+>                 pr_err("Failed to sw fini smc table!\n");
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> index 5f5a210668a1..90bb61c159fb 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> @@ -356,7 +356,7 @@ struct smu_baco_context
+>  struct smu_context
+>  {
+>         struct amdgpu_device            *adev;
+> -       struct amdgpu_irq_src           *irq_source;
+> +       struct amdgpu_irq_src           irq_source;
+>
+>         const struct pptable_funcs      *ppt_funcs;
+>         struct mutex                    mutex;
+> diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> index 5f3125ec5850..6c53488acd68 100644
+> --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+> @@ -1174,7 +1174,7 @@ int smu_v11_0_enable_thermal_alert(struct smu_context *smu)
+>                 if (ret)
+>                         return ret;
+>
+> -               ret = amdgpu_irq_get(adev, smu->irq_source, 0);
+> +               ret = amdgpu_irq_get(adev, &smu->irq_source, 0);
+>                 if (ret)
+>                         return ret;
+>
+> @@ -1198,7 +1198,7 @@ int smu_v11_0_enable_thermal_alert(struct smu_context *smu)
+>
+>  int smu_v11_0_disable_thermal_alert(struct smu_context *smu)
+>  {
+> -       return amdgpu_irq_put(smu->adev, smu->irq_source, 0);
+> +       return amdgpu_irq_put(smu->adev, &smu->irq_source, 0);
+>  }
+>
+>  static uint16_t convert_to_vddc(uint8_t vid)
+> @@ -1615,18 +1615,9 @@ static const struct amdgpu_irq_src_funcs smu_v11_0_irq_funcs =
+>  int smu_v11_0_register_irq_handler(struct smu_context *smu)
+>  {
+>         struct amdgpu_device *adev = smu->adev;
+> -       struct amdgpu_irq_src *irq_src = smu->irq_source;
+> +       struct amdgpu_irq_src *irq_src = &smu->irq_source;
+>         int ret = 0;
+>
+> -       /* already register */
+> -       if (irq_src)
+> -               return 0;
+> -
+> -       irq_src = kzalloc(sizeof(struct amdgpu_irq_src), GFP_KERNEL);
+> -       if (!irq_src)
+> -               return -ENOMEM;
+> -       smu->irq_source = irq_src;
+> -
+>         irq_src->num_types = 1;
+>         irq_src->funcs = &smu_v11_0_irq_funcs;
+>
+> --
+> 2.27.0
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
