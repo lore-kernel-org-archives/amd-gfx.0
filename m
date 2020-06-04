@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35D56C433DF
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 04:47:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 93B68C433E3
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 04:47:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0A7E02072E
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 04:47:05 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 697112072E
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 04:47:08 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="M6qCXsn8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0A7E02072E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="Cit/cdRI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 697112072E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C733F6E16F;
-	Thu,  4 Jun 2020 04:47:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F8C86E187;
+	Thu,  4 Jun 2020 04:47:08 +0000 (UTC)
 Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2067.outbound.protection.outlook.com [40.107.223.67])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64B9E6E16F
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2020 04:47:03 +0000 (UTC)
+ (mail-dm6nam11on2056.outbound.protection.outlook.com [40.107.223.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C65606E175
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2020 04:47:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=D3O8cztcB61NLvkymANrsGZJye7bqxpuXxbotWwX4qz6B65Y8FPCOch9Pscjd+OM5az4BpvpAR2TkHzmWnTyH4xVvmq0DGzNd4MM9Di7w63P3fibU464JmIZehYAFIsYecmNGPUBVNZDjv3eXUCa/sExb/akXPx9rOgTM8y2hTOD4sFZphn0MBm4uGXvQ+t/SllWmIGJ3b3Sfu8YdrzO01TJKAChvDl/ynxqEhmOjYhLYUGve2WmagOBVHJKQXe0G4uK9XCDsoLNZdte5zdgU+GRRQ52ZBeI6B9QDvcvowUFTeOA4VoUBDc1tWOr2bPL4Z2dgq1vUyE3ZmzDzR73Uw==
+ b=kVWGzT/fHnkaYasngI41+wqedDqf8nW+ZPIYZmEj+a1b11tKvOCZYuJUoG08Yl95jSGXk7zDidHEJLgrpQhCg7Gxe9ZM6Lq0jIZXkRoRkPcGSpwbGKG7cyClhEHunOMJHpJR6pLqZyoJitA2q1L94Q3Gdbtz0pi+vhk0B1ZJGEgd/Kt6i2xlFya2+VDdHUYOTMrYvuOs+5tOBbpk5ft6rBwpo/q40yvqR2icvFbFzzLQrK78wKX9Feu8WtW8BruLz0nUJISP3LPWXsUhOWJtV69F8KeHzbFx6oKa5EwrqBTZCigEIryjvY3Sb4H/BE8uuAMuLNGR5lkbaYjDVXuMWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rIZPAgyJ7NlC14/WU3MVx3AkxZrrYqR90O7u/xqaMuA=;
- b=Ff1dJvhWkw7vR/y4JdiwupkxTTmXn//6g41sYgni/0XNug1MV/1o9nKgFeROfLjcA9s58FtM0xxEjj6N/Hty+zAkM9lz13Zd/ZhJFsvCFcjhGaz1CHBTlmYjLqVWs7pefC4pJrgLXckW6Kio7ThAY2kaYJV7KN21SNsWXI8VkN6PwOebdSOciCcCZcwXhA8O9EVnKpwmX/r2TCLdJJA8OsJdZKnss3kfvUPWfKfBK6ZQCuibhqVwZC6HjcVExvtl8AK5K7QLW0OzHnuRZ7NVdqqIiLcxQnhUQ64gxi36vYqsBykm+L+9lQsxGI9fcfKr0Em0MvTxhBEOHH/QRgBTLQ==
+ bh=aoREszht9nBNiOe/49HjtvWoyEM+nr/SnuDVBPI/qUE=;
+ b=MvvPjn0qZUqctVPinIlv/uJt42YmN825d/VxefYo1nGOs1FuNTw7XM0LrHO1x4rP/6gHZvENCKqUjNoMs3ms2UCXA3mKbl4Vy6csVhEO6P4xHamLS5TNsejN9De7L+KK5yOjT7XsmRxC58eS8zrqoJpuvR307oKFlWJJtkcd8gCTsp33rGBNmsyCysk1DTDzKRJqsp75reqOEhkHN5vqimNoBoZ5Fkd8z1WFO9BDeOZdtoejKWUT0TCeRJcb7iCn9xhYpb4apjfDIgaFIPA64YCFmB8E+7edpIcoYM9ykBmBEpk0vW6UY37PewTjhHiF9pFfSggCyXFOsgWj6t4vvw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rIZPAgyJ7NlC14/WU3MVx3AkxZrrYqR90O7u/xqaMuA=;
- b=M6qCXsn8+WwpcCot/dun001rxKN3YnuJ6lurzxy8EVVn81yrD1X/5ECE5vNKUawDwbKoaSbKcCNMGArXa6xmi9cHTZx0ncCOV2GkajFbpx4ykY8XKP9PBfykvZ7BnjvHIwSW6/779b7tj3RJ4pww0l99GA+XJLn+05gRqJ/C8VA=
+ bh=aoREszht9nBNiOe/49HjtvWoyEM+nr/SnuDVBPI/qUE=;
+ b=Cit/cdRIaYNZqaGNPnMj3SfjETC/FumDKBATC5ZvISqg2E0MN99ZyuaWub8LSvNXfUw7YEm/TonDqidq7J49YY4SSkWdvuC7fD+9pZBtLxt1g93Ykbd3vNrCl5V/+m5Vy257IKS1Vk1A4ovix8gcbp8oXGZ2msD4vfgUHOiuNPc=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB3002.namprd12.prod.outlook.com (2603:10b6:5:117::15) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3066.18; Thu, 4 Jun 2020 04:47:02 +0000
+ 15.20.3066.18; Thu, 4 Jun 2020 04:47:05 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3045.022; Thu, 4 Jun 2020
- 04:47:02 +0000
+ 04:47:05 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 05/16] drm/amd/powerplay: clean up the APIs for bootup clocks
-Date: Thu,  4 Jun 2020 12:46:08 +0800
-Message-Id: <20200604044619.18658-5-evan.quan@amd.com>
+Subject: [PATCH 07/16] drm/amd/powerplay: clean up the overdrive settings
+Date: Thu,  4 Jun 2020 12:46:10 +0800
+Message-Id: <20200604044619.18658-7-evan.quan@amd.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200604044619.18658-1-evan.quan@amd.com>
 References: <20200604044619.18658-1-evan.quan@amd.com>
@@ -70,33 +70,33 @@ Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK0PR01CA0071.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::35) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18 via Frontend
- Transport; Thu, 4 Jun 2020 04:47:00 +0000
+ Transport; Thu, 4 Jun 2020 04:47:04 +0000
 X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 5ab65764-a9c9-4da5-cb15-08d80842529e
+X-MS-Office365-Filtering-Correlation-Id: f1f7b854-0473-45dc-ea24-08d80842548a
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3002:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3002956CBA35D5C85555F585E4890@DM6PR12MB3002.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB30026E6F58C38FA2029031E0E4890@DM6PR12MB3002.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
 X-Forefront-PRVS: 04244E0DC5
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: IcJ0WdXaAE5mb/e7eYsLihYj/PUw7MltDWQ2vVOaIMPeg37R5pqncvmuTd8A6tTSYEO2cLt7EsXrIzMisO+lsAjTrIk0wiG1f1GalGucclclSZGLmc/6WJMrkbF+X3ekXHN1Y6eLNQGmfZFx4gT6DsBFKAPGD+5f7NooLdKFfIsxyOpgX0caP2V3AOHoPm4dA+x3aYqGfKwKO3KvINv4/DDaDqTW05wqbPh37tv1hP6xJVvLmn7StLEKq2GtIdUSj2n/cnPL/TR4/UgixfUO5k/RoDWKaA0N4hbK/dTLgdf+MwI7cXfueLRDXDiOIxlW9Lxlxli2CUBNnB5/ppUvPg==
+X-Microsoft-Antispam-Message-Info: MgfTBXHBPp23EemireCctVatiojB6u6boKBGCmfn1y8JnTPyNA+iAKnF1PM0unlXkrR5bswdvGPjiQzqZTGRjTTHidQYk3+SYB9yGVNbnq3gzME4re/r1+UpBddsyUdY872gJuzQnojQ+xBvm04HFOA6SC9TFQ+v8cjf2M5aqj970STPYtDWGmJzAWbv800my1jKsNsw5+QQd9EUvTcK6ijfnGAOWI2TS6sPQg0GVAkBjmdStMs5s91CMsrihQr4MD/PJnJ0utlAowNsaYUFUY05IWxXoDpqDgVkFLFTUFg9IpiSUaWZU0QI0CGt77uJ75eZ4KuDMD3CgE3jc3MAug==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(366004)(346002)(396003)(376002)(136003)(7696005)(1076003)(52116002)(36756003)(2616005)(30864003)(26005)(316002)(16526019)(83380400001)(6486002)(86362001)(5660300002)(186003)(956004)(6916009)(4326008)(66946007)(2906002)(44832011)(8936002)(66476007)(66556008)(478600001)(8676002);
+ SFS:(4636009)(39860400002)(366004)(346002)(396003)(376002)(136003)(7696005)(1076003)(52116002)(36756003)(2616005)(26005)(316002)(16526019)(83380400001)(6666004)(6486002)(86362001)(5660300002)(186003)(956004)(6916009)(4326008)(66946007)(2906002)(44832011)(8936002)(66476007)(66556008)(478600001)(8676002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 1Zyb5Ir2J6qyVRMkt7mm/qvm2KWlTtyXC3enMeuavlpFJr6hzU3qFqLsuWQoJQzHbNdt6EIG8gf5V/uXKdbU+vCfdTh/UTaxWhcD9XH8mw3xHfHuhnUa/Tr3aWVQJTF/WjGtcAptXqv5qWffVu4lc8cgrZLyh7wEADOOGj73gktQQOIEasNDds5z6/ZVPmPKuDJvdsmQZE9/foTAQlopBV+luhvZkNrcff/Rl6tFpu67p0iFiZ1j3uUDg1bKo5481gQDMuwLD0QTl7Qdr1DukqLjv57NIaMuQebmrdl6NHwaK30gg7LcF8r1KuT1MI69BjTA66+UUciagf/9ba126IllGgU16l65OR97JaiBF09Jf+duwAa3b5TCJLFadU6TuQfYsUGKAAdfrUs2RjJs2XgIAvNnd703WK5fEaG5Wkfo4ArEoIDCAPDEkk57yvbHpH/e1l/K7RMR9/Z9N8hItWO1GMYzWPjPrXNwVcByXCsusbTBIFZoDspf2ceqMD60
+X-MS-Exchange-AntiSpam-MessageData: MYX6kjZVZpaVDJbh/umdlmZsj0pbMxRytzYEcG/ORCShpz4V1R0IfW/MGr+IperLYHOA18DBHUD1rbYmhwFJrfFkYkt94XQJm+0ByG/dqle52/mdgBBu3JFxKmiA0jRu8NaRMhAY2lOiXzmef76C3Z1MgXntEns6uvZP9Pd2Sekbfx20NuDPGXyU99Awr5YPsyoTwqQc9orY0ZGONp1GtNmLGoPMAzgtqD0ehEGFPXxDoNO1XvZMo9JsfW/JERqMmaIfgznXSvG3lUXbbIRk3FNq9gosRDcU8Bk6U7jF5JBckKChSs7e8TaUfymWcmBV8536Db7zg1RGED2jqbC2VML6qX+EH5DDQGG1LyXGHdecXvfFx0VXnHek+aaD94qZVAEG1rQnHDAuD535rmpXNYMXREZZA0IG39+t+arKK5AVU+9IAnYy5qkntyzA2Q8fbpd6zftLT6REUklwRjGZwM9Nn1HIDugoy0Pm3JLmMsmBZbGqhkP6xd3f+p7WyCgP
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ab65764-a9c9-4da5-cb15-08d80842529e
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2020 04:47:02.1456 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1f7b854-0473-45dc-ea24-08d80842548a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2020 04:47:05.3947 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Z03seyc+D9X7zcj7gaTyHGUG0xLFqFFIRcQOINOUWd4ZSduFhNDt6IyvoXp3+HLq
+X-MS-Exchange-CrossTenant-UserPrincipalName: N8T/s0zGccU+fzFrFP02OBBYgUbaOn7iAexTM8Zw5ZImnC5bbAncr04q7Jd/SoSO
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3002
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,277 +115,200 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Combine and simplify the logics for retrieving bootup
-clocks.
+Eliminate the buffer allocation and drop the unnecessary
+overdrive table uploading.
 
-Change-Id: Ifca28c454f3769dece0cc705ba054ff34db0ab60
+Change-Id: I8ba5383a330e6d5355cea219147500c1b4a43f47
 Signed-off-by: Evan Quan <evan.quan@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |   4 -
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  |   1 -
- .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |   1 -
- drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |   2 -
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c    |   1 -
- .../drm/amd/powerplay/sienna_cichlid_ppt.c    |   1 -
- drivers/gpu/drm/amd/powerplay/smu_internal.h  |   2 -
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 141 +++++++-----------
- 8 files changed, 51 insertions(+), 102 deletions(-)
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |  2 +-
+ .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  2 +-
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  2 -
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c    | 74 +++++++++----------
+ drivers/gpu/drm/amd/powerplay/smu_internal.h  |  4 +-
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 20 -----
+ 6 files changed, 38 insertions(+), 66 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index 0e459186a2bf..b2dad4d09d88 100644
+index de9e52ad9e25..cd7a3d3efa23 100644
 --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
 +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -1114,10 +1114,6 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
- 		if (ret)
- 			return ret;
+@@ -1197,7 +1197,7 @@ static int smu_smc_table_hw_init(struct smu_context *smu,
+ 	if (ret)
+ 		return ret;
  
--		ret = smu_get_clk_info_from_vbios(smu);
--		if (ret)
--			return ret;
--
- 		/*
- 		 * check if the format_revision in vbios is up to pptable header
- 		 * version, and the structure size is not 0.
-diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-index 1de5304d12bf..747fdd315575 100644
---- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-@@ -2457,7 +2457,6 @@ static const struct pptable_funcs arcturus_ppt_funcs = {
- 	.check_fw_status = smu_v11_0_check_fw_status,
- 	.setup_pptable = smu_v11_0_setup_pptable,
- 	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
--	.get_clk_info_from_vbios = smu_v11_0_get_clk_info_from_vbios,
- 	.check_pptable = smu_v11_0_check_pptable,
- 	.parse_pptable = smu_v11_0_parse_pptable,
- 	.populate_smc_tables = smu_v11_0_populate_smc_pptable,
+-	ret = smu_set_default_od_settings(smu, initialize);
++	ret = smu_set_default_od_settings(smu);
+ 	if (ret)
+ 		return ret;
+ 
 diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-index 210432187ceb..cab64f896c4b 100644
+index 69ad51161635..b2de042493ad 100644
 --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
 +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -506,7 +506,6 @@ struct pptable_funcs {
- 	int (*check_fw_status)(struct smu_context *smu);
- 	int (*setup_pptable)(struct smu_context *smu);
- 	int (*get_vbios_bootup_values)(struct smu_context *smu);
--	int (*get_clk_info_from_vbios)(struct smu_context *smu);
- 	int (*check_pptable)(struct smu_context *smu);
- 	int (*parse_pptable)(struct smu_context *smu);
- 	int (*populate_smc_tables)(struct smu_context *smu);
+@@ -480,7 +480,7 @@ struct pptable_funcs {
+ 					     uint32_t *value);
+ 	int (*get_thermal_temperature_range)(struct smu_context *smu, struct smu_temperature_range *range);
+ 	int (*get_uclk_dpm_states)(struct smu_context *smu, uint32_t *clocks_in_khz, uint32_t *num_states);
+-	int (*set_default_od_settings)(struct smu_context *smu, bool initialize);
++	int (*set_default_od_settings)(struct smu_context *smu);
+ 	int (*set_performance_level)(struct smu_context *smu, enum amd_dpm_forced_level level);
+ 	int (*display_disable_memory_clock_switch)(struct smu_context *smu, bool disable_memory_clock_switch);
+ 	void (*dump_pptable)(struct smu_context *smu);
 diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-index 4682a2fd4381..79736b1e3506 100644
+index e9c71e5a8093..c442fc992d2e 100644
 --- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
 +++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-@@ -162,8 +162,6 @@ int smu_v11_0_setup_pptable(struct smu_context *smu);
+@@ -259,8 +259,6 @@ int smu_v11_0_set_soft_freq_limited_range(struct smu_context *smu, enum smu_clk_
  
- int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu);
+ int smu_v11_0_override_pcie_parameters(struct smu_context *smu);
  
--int smu_v11_0_get_clk_info_from_vbios(struct smu_context *smu);
+-int smu_v11_0_set_default_od_settings(struct smu_context *smu, bool initialize, size_t overdrive_table_size);
 -
- int smu_v11_0_check_pptable(struct smu_context *smu);
+ uint32_t smu_v11_0_get_max_power_limit(struct smu_context *smu);
  
- int smu_v11_0_parse_pptable(struct smu_context *smu);
+ int smu_v11_0_set_performance_level(struct smu_context *smu,
 diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index a43c16befffd..85c7cceef9dc 100644
+index 110845922724..4c1c4af2249b 100644
 --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -2319,7 +2319,6 @@ static const struct pptable_funcs navi10_ppt_funcs = {
- 	.check_fw_status = smu_v11_0_check_fw_status,
- 	.setup_pptable = smu_v11_0_setup_pptable,
- 	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
--	.get_clk_info_from_vbios = smu_v11_0_get_clk_info_from_vbios,
- 	.check_pptable = smu_v11_0_check_pptable,
- 	.parse_pptable = smu_v11_0_parse_pptable,
- 	.populate_smc_tables = smu_v11_0_populate_smc_pptable,
-diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index f83df6adcbce..3405bdcbfbd9 100644
---- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -2457,7 +2457,6 @@ static const struct pptable_funcs sienna_cichlid_ppt_funcs = {
- 	.check_fw_status = smu_v11_0_check_fw_status,
- 	.setup_pptable = smu_v11_0_setup_pptable,
- 	.get_vbios_bootup_values = smu_v11_0_get_vbios_bootup_values,
--	.get_clk_info_from_vbios = smu_v11_0_get_clk_info_from_vbios,
- 	.check_pptable = smu_v11_0_check_pptable,
- 	.parse_pptable = smu_v11_0_parse_pptable,
- 	.populate_smc_tables = smu_v11_0_populate_smc_pptable,
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-index c9440c978402..496a401615c6 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
-+++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
-@@ -47,8 +47,6 @@
- 
- #define smu_get_vbios_bootup_values(smu) \
- 	((smu)->ppt_funcs->get_vbios_bootup_values ? (smu)->ppt_funcs->get_vbios_bootup_values((smu)) : 0)
--#define smu_get_clk_info_from_vbios(smu) \
--	((smu)->ppt_funcs->get_clk_info_from_vbios ? (smu)->ppt_funcs->get_clk_info_from_vbios((smu)) : 0)
- #define smu_check_pptable(smu) \
- 	((smu)->ppt_funcs->check_pptable ? (smu)->ppt_funcs->check_pptable((smu)) : 0)
- #define smu_parse_pptable(smu) \
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index 45d4fd2526eb..ef825327974c 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -565,6 +565,32 @@ int smu_v11_0_fini_power(struct smu_context *smu)
- 	return 0;
+@@ -1969,55 +1969,49 @@ static bool navi10_is_baco_supported(struct smu_context *smu)
+ 	return (val & RCC_BIF_STRAP0__STRAP_PX_CAPABLE_MASK) ? true : false;
  }
  
-+static int smu_v11_0_atom_get_smu_clockinfo(struct amdgpu_device *adev,
-+					    uint8_t clk_id,
-+					    uint8_t syspll_id,
-+					    uint32_t *clk_freq)
+-static int navi10_set_default_od_settings(struct smu_context *smu, bool initialize) {
+-	OverDriveTable_t *od_table, *boot_od_table;
++static int navi10_set_default_od_settings(struct smu_context *smu)
 +{
-+	struct atom_get_smu_clock_info_parameters_v3_1 input = {0};
-+	struct atom_get_smu_clock_info_output_parameters_v3_1 *output;
-+	int ret, index;
++	OverDriveTable_t *od_table =
++		(OverDriveTable_t *)smu->smu_table.overdrive_table;
++	OverDriveTable_t *boot_od_table =
++		(OverDriveTable_t *)smu->smu_table.boot_overdrive_table;
+ 	int ret = 0;
+ 
+-	ret = smu_v11_0_set_default_od_settings(smu, initialize, sizeof(OverDriveTable_t));
+-	if (ret)
++	ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, (void *)od_table, false);
++	if (ret) {
++		pr_err("Failed to get overdrive table!\n");
+ 		return ret;
++	}
+ 
+-	od_table = (OverDriveTable_t *)smu->smu_table.overdrive_table;
+-	boot_od_table = (OverDriveTable_t *)smu->smu_table.boot_overdrive_table;
+-	if (initialize) {
+-		if (od_table) {
+-			if (!od_table->GfxclkVolt1) {
+-				ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
+-										&od_table->GfxclkVolt1,
+-										od_table->GfxclkFreq1);
+-				if (ret)
+-					od_table->GfxclkVolt1 = 0;
+-				if (boot_od_table)
+-					boot_od_table->GfxclkVolt1 = od_table->GfxclkVolt1;
+-			}
+-
+-			if (!od_table->GfxclkVolt2) {
+-				ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
+-										&od_table->GfxclkVolt2,
+-										od_table->GfxclkFreq2);
+-				if (ret)
+-					od_table->GfxclkVolt2 = 0;
+-				if (boot_od_table)
+-					boot_od_table->GfxclkVolt2 = od_table->GfxclkVolt2;
+-			}
++	if (!od_table->GfxclkVolt1) {
++		ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
++								&od_table->GfxclkVolt1,
++								od_table->GfxclkFreq1);
++		if (ret)
++			return ret;
++	}
+ 
+-			if (!od_table->GfxclkVolt3) {
+-				ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
+-										&od_table->GfxclkVolt3,
+-										od_table->GfxclkFreq3);
+-				if (ret)
+-					od_table->GfxclkVolt3 = 0;
+-				if (boot_od_table)
+-					boot_od_table->GfxclkVolt3 = od_table->GfxclkVolt3;
+-			}
+-		}
++	if (!od_table->GfxclkVolt2) {
++		ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
++								&od_table->GfxclkVolt2,
++								od_table->GfxclkFreq2);
++		if (ret)
++			return ret;
+ 	}
+ 
+-	if (od_table) {
+-		navi10_dump_od_table(od_table);
++	if (!od_table->GfxclkVolt3) {
++		ret = navi10_overdrive_get_gfx_clk_base_voltage(smu,
++								&od_table->GfxclkVolt3,
++								od_table->GfxclkFreq3);
++		if (ret)
++			return ret;
+ 	}
+ 
+-	return ret;
++	memcpy(boot_od_table, od_table, sizeof(OverDriveTable_t));
 +
-+	input.clk_id = clk_id;
-+	input.syspll_id = syspll_id;
-+	input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
-+	index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
-+					    getsmuclockinfo);
-+
-+	ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
-+					(uint32_t *)&input);
-+	if (ret)
-+		return -EINVAL;
-+
-+	output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
-+	*clk_freq = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
++	navi10_dump_od_table(od_table);
 +
 +	return 0;
-+}
-+
- int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu)
- {
- 	int ret, index;
-@@ -623,102 +649,37 @@ int smu_v11_0_get_vbios_bootup_values(struct smu_context *smu)
- 	smu->smu_table.boot_values.format_revision = header->format_revision;
- 	smu->smu_table.boot_values.content_revision = header->content_revision;
- 
--	return 0;
--}
-+	smu_v11_0_atom_get_smu_clockinfo(smu->adev,
-+					 (uint8_t)SMU11_SYSPLL0_SOCCLK_ID,
-+					 (uint8_t)0,
-+					 &smu->smu_table.boot_values.socclk);
- 
--int smu_v11_0_get_clk_info_from_vbios(struct smu_context *smu)
--{
--	int ret, index;
--	struct amdgpu_device *adev = smu->adev;
--	struct atom_get_smu_clock_info_parameters_v3_1 input = {0};
--	struct atom_get_smu_clock_info_output_parameters_v3_1 *output;
-+	smu_v11_0_atom_get_smu_clockinfo(smu->adev,
-+					 (uint8_t)SMU11_SYSPLL0_DCEFCLK_ID,
-+					 (uint8_t)0,
-+					 &smu->smu_table.boot_values.dcefclk);
- 
--	input.clk_id = SMU11_SYSPLL0_SOCCLK_ID;
--	input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
--	index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
--					    getsmuclockinfo);
--
--	ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
--					(uint32_t *)&input);
--	if (ret)
--		return -EINVAL;
-+	smu_v11_0_atom_get_smu_clockinfo(smu->adev,
-+					 (uint8_t)SMU11_SYSPLL0_ECLK_ID,
-+					 (uint8_t)0,
-+					 &smu->smu_table.boot_values.eclk);
- 
--	output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
--	smu->smu_table.boot_values.socclk = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
-+	smu_v11_0_atom_get_smu_clockinfo(smu->adev,
-+					 (uint8_t)SMU11_SYSPLL0_VCLK_ID,
-+					 (uint8_t)0,
-+					 &smu->smu_table.boot_values.vclk);
- 
--	memset(&input, 0, sizeof(input));
--	input.clk_id = SMU11_SYSPLL0_DCEFCLK_ID;
--	input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
--	index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
--					    getsmuclockinfo);
--
--	ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
--					(uint32_t *)&input);
--	if (ret)
--		return -EINVAL;
--
--	output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
--	smu->smu_table.boot_values.dcefclk = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
--
--	memset(&input, 0, sizeof(input));
--	input.clk_id = SMU11_SYSPLL0_ECLK_ID;
--	input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
--	index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
--					    getsmuclockinfo);
--
--	ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
--					(uint32_t *)&input);
--	if (ret)
--		return -EINVAL;
--
--	output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
--	smu->smu_table.boot_values.eclk = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
--
--	memset(&input, 0, sizeof(input));
--	input.clk_id = SMU11_SYSPLL0_VCLK_ID;
--	input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
--	index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
--					    getsmuclockinfo);
--
--	ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
--					(uint32_t *)&input);
--	if (ret)
--		return -EINVAL;
--
--	output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
--	smu->smu_table.boot_values.vclk = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
--
--	memset(&input, 0, sizeof(input));
--	input.clk_id = SMU11_SYSPLL0_DCLK_ID;
--	input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
--	index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
--					    getsmuclockinfo);
--
--	ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
--					(uint32_t *)&input);
--	if (ret)
--		return -EINVAL;
--
--	output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
--	smu->smu_table.boot_values.dclk = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
-+	smu_v11_0_atom_get_smu_clockinfo(smu->adev,
-+					 (uint8_t)SMU11_SYSPLL0_DCLK_ID,
-+					 (uint8_t)0,
-+					 &smu->smu_table.boot_values.dclk);
- 
- 	if ((smu->smu_table.boot_values.format_revision == 3) &&
--	    (smu->smu_table.boot_values.content_revision >= 2)) {
--		memset(&input, 0, sizeof(input));
--		input.clk_id = SMU11_SYSPLL1_0_FCLK_ID;
--		input.syspll_id = SMU11_SYSPLL1_2_ID;
--		input.command = GET_SMU_CLOCK_INFO_V3_1_GET_CLOCK_FREQ;
--		index = get_index_into_master_table(atom_master_list_of_command_functions_v2_1,
--						    getsmuclockinfo);
--
--		ret = amdgpu_atom_execute_table(adev->mode_info.atom_context, index,
--						(uint32_t *)&input);
--		if (ret)
--			return -EINVAL;
--
--		output = (struct atom_get_smu_clock_info_output_parameters_v3_1 *)&input;
--		smu->smu_table.boot_values.fclk = le32_to_cpu(output->atom_smu_outputclkfreq.smu_clock_freq_hz) / 10000;
--	}
-+	    (smu->smu_table.boot_values.content_revision >= 2))
-+		smu_v11_0_atom_get_smu_clockinfo(smu->adev,
-+						 (uint8_t)SMU11_SYSPLL1_0_FCLK_ID,
-+						 (uint8_t)SMU11_SYSPLL1_2_ID,
-+						 &smu->smu_table.boot_values.fclk);
- 
- 	return 0;
  }
+ 
+ static int navi10_od_edit_dpm_table(struct smu_context *smu, enum PP_OD_DPM_TABLE_COMMAND type, long input[], uint32_t size) {
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+index d2b0b9b2f841..9dce366a6f5f 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
++++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+@@ -70,8 +70,8 @@
+ 	((smu)->ppt_funcs->system_features_control ? (smu)->ppt_funcs->system_features_control((smu), (en)) : 0)
+ #define smu_init_max_sustainable_clocks(smu) \
+ 	((smu)->ppt_funcs->init_max_sustainable_clocks ? (smu)->ppt_funcs->init_max_sustainable_clocks((smu)) : 0)
+-#define smu_set_default_od_settings(smu, initialize) \
+-	((smu)->ppt_funcs->set_default_od_settings ? (smu)->ppt_funcs->set_default_od_settings((smu), (initialize)) : 0)
++#define smu_set_default_od_settings(smu) \
++	((smu)->ppt_funcs->set_default_od_settings ? (smu)->ppt_funcs->set_default_od_settings((smu)) : 0)
+ 
+ #define smu_send_smc_msg_with_param(smu, msg, param, read_arg) \
+ 	((smu)->ppt_funcs->send_smc_msg_with_param? (smu)->ppt_funcs->send_smc_msg_with_param((smu), (msg), (param), (read_arg)) : 0)
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+index 377986a1d492..5f3125ec5850 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
++++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
+@@ -1906,26 +1906,6 @@ int smu_v11_0_override_pcie_parameters(struct smu_context *smu)
+ 
+ }
+ 
+-int smu_v11_0_set_default_od_settings(struct smu_context *smu, bool initialize, size_t overdrive_table_size)
+-{
+-	struct smu_table_context *table_context = &smu->smu_table;
+-	int ret = 0;
+-
+-	if (initialize) {
+-		ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, table_context->overdrive_table, false);
+-		if (ret) {
+-			pr_err("Failed to export overdrive table!\n");
+-			return ret;
+-		}
+-	}
+-	ret = smu_update_table(smu, SMU_TABLE_OVERDRIVE, 0, table_context->overdrive_table, true);
+-	if (ret) {
+-		pr_err("Failed to import overdrive table!\n");
+-		return ret;
+-	}
+-	return ret;
+-}
+-
+ int smu_v11_0_set_performance_level(struct smu_context *smu,
+ 				    enum amd_dpm_forced_level level)
+ {
 -- 
 2.27.0
 
