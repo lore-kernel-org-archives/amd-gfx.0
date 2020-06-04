@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 37251C433E1
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 04:47:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A98AEC433DF
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 04:47:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0BD342072E
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 04:47:16 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7A1B3207D0
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 04:47:17 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="zcqDefQg"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0BD342072E
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="aEI+yy4G"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A1B3207D0
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2A5D89FED;
-	Thu,  4 Jun 2020 04:47:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3F2C06E171;
+	Thu,  4 Jun 2020 04:47:17 +0000 (UTC)
 Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2062.outbound.protection.outlook.com [40.107.243.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7346E197
- for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2020 04:47:14 +0000 (UTC)
+ (mail-dm6nam12on2082.outbound.protection.outlook.com [40.107.243.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB2F6E171
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2020 04:47:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UEFgjNpL0DjLK+IUfiGNr4pQ/HKOehDmJDDXQ4BZzgif38S/Is337H77XQW8VdtFJ8HsIrYxz/IhHN9fU+pE6XmXt7qP3HfpPMXiRehnk3GHIio3DESM2VIR+8kpKk6Z/D+YhLQSOOIpMkaFcl6u1YOoMI9eoV2Vb7Ftl41sz4lwHBStubrpTYCo1lbzl9ax5jBMXIYbvMkVOQvh4CsubMredAFiXvxNiTQwWgVA4yrffZaqD+paIIWdt1CLIiNxUVKhRiJ6hRnNjywjjP1CyhAsySEu6lvsaM+G5NEXvItYbyH8nt4onEcpu0wOLXhRSZBciKhVyNI25qJfAUDEmw==
+ b=PojRQYoqir0pltyNyX7YTjL2Rpz4ZFwCk9N11XmXQDDLLuibCu70zUkzAxVCv1OUO7dMwPQaNawiE0QisOOaCA5Obd7sf9kI99s8/0cBobxE8ZmSOJdEw7DAue4MEnL6YbhUC8YqGkwBW1eWN4zN+G78CedPhWE4Ten1zuG+g/T0c37hgADhdzHr0ee3qtuIQCawlKk7zfydsrPJI4433bKWMvtJpdObWBtLWwAcsK90KSlbX1uJXrc22qmqSmRf9rWA4nWzg5LD8SIgyOWJXgfcMfZItVvkqN+UA7wHCcJEm3Ly5ElHzMZmyGNQJpt5/GxgK5AffIELUl87YM7k5Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zcPeLg1CVpSGLyMRjo5fmGELp58XV/6Kj6pE7RQlcSE=;
- b=OG2fF5RwThbfrUcUxndnHIckAE/bTIzpt/Z66oAHaGW70937MZQxajV48YM/Q5YcR+KfSSMmnW0A1kCs5zLxOaHr+sFspE1eU5RA+5cfeHu6wQZAEPRRU9L0iyIQCpx3KqiLoAuGjwS+WZwrbiQ7xGrYf7U5o4bnS2Gcq0XVkJWBg1eq0Dw3RTtjG1r1kFwcKZFbNrSD/6g6hfB+uPA2mXrXiWbnL/7U4I65ACwMDSivdyK0ASPdaNCF5QzsMnZ91bHQ69R9yCWUb4qEGTMHspEdeOIo7kyz6XVuSm3fzphBSz7EawvBvy5SpTc4zcjVmzGzxgHvdjd8QDtHaZw8uQ==
+ bh=tQIKQ7RxsBZNbgVe0czOKVQUnlu4+sWbrB0ZccXkCww=;
+ b=TS8djeemJlOBCS0jTI+1igI6LBb3q5pyzDwM9YL0WM4/75RF4Yy4kegQcCxVrURgeFCOJRcb1aqNgwtaUkhJnTxhqEz3vF+jbqwoFW3VgkxX+mPXu2h+nXL3Pvx1JxaO8e6hxi/N1XmXqwIae06Mopaz19esF5WFizgzfR7xmWFCKJLKGz2n5W7Ubq67+evu5i/ifBlSqmj2PCyPsOPex3azKMBiXG95L29NjfBQJWFMLkbhdF7p3auwN5lSijkD5kHYTE7f0gAOPV/kYNwQb8AhhoL6dl/20B0D8YIO9s5jDVlBLHeARdz9fOgpg8yE/HCcnx1j+aBvKXl2+Fq3CQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zcPeLg1CVpSGLyMRjo5fmGELp58XV/6Kj6pE7RQlcSE=;
- b=zcqDefQgZUyvBAwEFgOU3ldLHqzVCt3Mb4yuDifnDcX2Qur85WTteiI84E1mB/u90aTau7EB1A78Zp73q1SFY+GGrtoFKyRaxXy9q7t2g5WI/onWuEbUdmNVudNfMNvthJOQQo5seuqL4ahiaRSmvHBHGDOTskkLGuUnOEiDlrw=
+ bh=tQIKQ7RxsBZNbgVe0czOKVQUnlu4+sWbrB0ZccXkCww=;
+ b=aEI+yy4G56f5umOZ9v2h+f/rnPflJVfgo7qb0khudndDptQuVq2LNlA/Cl4pT3iShQub+BdNP46sou6MjhpAvAagrVcPG0r80XGzHC+zp61tJ9amYH7BhwnsTv4nfgTaac6WW+tslGTWN8EhT2uGCsMODqHdF7kqPJsEkth2pS8=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,16 +48,17 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB3212.namprd12.prod.outlook.com (2603:10b6:5:186::19) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3045.19; Thu, 4 Jun 2020 04:47:13 +0000
+ 15.20.3045.19; Thu, 4 Jun 2020 04:47:15 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3045.022; Thu, 4 Jun 2020
- 04:47:13 +0000
+ 04:47:15 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 12/16] drm/amd/powerplay: better namings
-Date: Thu,  4 Jun 2020 12:46:15 +0800
-Message-Id: <20200604044619.18658-12-evan.quan@amd.com>
+Subject: [PATCH 13/16] drm/amd/powerplay: max code sharing between .hw_fini
+ and .suspend
+Date: Thu,  4 Jun 2020 12:46:16 +0800
+Message-Id: <20200604044619.18658-13-evan.quan@amd.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200604044619.18658-1-evan.quan@amd.com>
 References: <20200604044619.18658-1-evan.quan@amd.com>
@@ -70,33 +71,33 @@ Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK0PR01CA0071.apcprd01.prod.exchangelabs.com (2603:1096:203:a6::35) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18 via Frontend
- Transport; Thu, 4 Jun 2020 04:47:12 +0000
+ Transport; Thu, 4 Jun 2020 04:47:13 +0000
 X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d4a06b4e-623b-409c-5c7e-08d80842595a
+X-MS-Office365-Filtering-Correlation-Id: bda4021d-96b4-4482-20d0-08d808425a46
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3212:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB32128D027858A0C35CAFA387E4890@DM6PR12MB3212.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:316;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB32123A00F4904CBB9A9D0104E4890@DM6PR12MB3212.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:20;
 X-Forefront-PRVS: 04244E0DC5
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4a6hriwMo5JJs76mj/VYMBqtFfBtMjAfrmCfL7DE3CTGfCND/YOW2x6gJUiS9JdvuOHEiNuoCZ/pJY0K57GxHRUx3FHDiay7+9VM6SrQz+yOWW/W+pAa6x+SR0oshamqnrQtYcambzSYvyyGYSxUlTt6+XeDSFL+0MN4+Y2vDDmxcwtZGxyW74U3c183U1cKaq9i8qowz3JGDFaNFeFW263iSuwMPP55YqNTrEdpL+0Tf+ocarMbmnY73fRadOjvpX5Pf1IHC1wPAu4TH40LJ4JsQ+UIQYtkzknATmLiVHuCAPVQLFBqFE2VyI71C7JLV+vFJgubUCktZRVZOXak9Q==
+X-Microsoft-Antispam-Message-Info: R92eWBidEaLYQfuedeqOeERF0SxwJCQlgsB1AeGRKn5yWRJ/KtjY335+UtY58vkA2l8Er1ygu4uxWhN3v00NF+O19aBwq1P+ln4VHhAo7MfXCBq9gC/LXYgYIa8vE36jzd1evXpQ99msXrRRZVhUXBJDP9u9pip8Y/BT793XRGaVPCb17MhonqKzvvL82yLzVJdBcuh1aJj/+lkCbzZ5pjNBOzmKkMVT5Q8D8QyT5Fy41s9Ww7Ywiyhi9Azla2/a3iRPIAnhQgDdV/XR4uWa7UmZ9rTWCHuuDstkGAqXYIWQaM05dS0j8aM58wMLw8O2VbOjhs03LmQ55zH3uSVEEy2MZrsb8aMrSHX6pETeQR/b9iLgb0TTRqm7s6/Zlwpk
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(366004)(396003)(346002)(376002)(39860400002)(8936002)(8676002)(316002)(2906002)(6916009)(956004)(186003)(66556008)(1076003)(6486002)(16526019)(478600001)(52116002)(7696005)(4326008)(83380400001)(36756003)(2616005)(66476007)(66946007)(5660300002)(86362001)(26005)(44832011);
+ SFS:(4636009)(136003)(366004)(396003)(346002)(376002)(39860400002)(8936002)(8676002)(316002)(2906002)(6916009)(956004)(186003)(66556008)(1076003)(6486002)(16526019)(478600001)(52116002)(7696005)(4326008)(83380400001)(36756003)(2616005)(66476007)(66946007)(5660300002)(86362001)(26005)(44832011)(142923001);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 6b7q9eOM6lZsHy06yfLMe5odLBANcsuwJ3KeIfDJGaxmsyfLGV02MgH4nipyIqr05BmVezyRGNvhTcQCEo1yYTVsNMMIkABPfqx6xlI7v2ScH4/tx2+dyXfhyWwjJX04wpvNuZ7s+bw5JaymXY4WD7yqRctOGxfxyrxUQxxfKlPxl8hlqGEmtsmshN2wRxQVJ8WQDH3oyHwfcAOu7SHNYM6bWcdhuy3UOfxFAetSpLLibxrA2w4M2vkW3f5EseuknOK4q7GkfHZ1/vPivQIlNAa+hzAvl5emlgZ+7o+eX7QgWCw0AgQSDyVZrC7f5Jm8Cb1KHahrWGD6ngExsjRhx7143fQ++05i/YjbavWxlyI1huIlIEOm/Ea6CW02MerIyH5agR39qY8iidKq1H/4clfPycqP0BR1tZxqpj2Hiz6PNM1yHA+x5WJe6qOc1iDp0DPVX8fsiOmHDeBFxi1pv2QBuGIK+BYxZZup/7rQh75zWJx1P+riaJa5a5k3LSM4
+X-MS-Exchange-AntiSpam-MessageData: CU0EQx0R/un6lIkCQPHg/q20/El9RWCMEL+VejsEoKF1/0eQ5YFNkUzXMVWRhU9HF+z5T8UhDf/HxI70RhK6mJevCJh1w5A5ut4ywMp1yyWJ+P1Orhu8+i4kh4mDu8Ek604ZAyfy4AekEzozX1eh3STSwejrTGVSHtrZ5u94CvkK7qJMi2a/gJjNPflznhHk17QIws9pau62Ml0YDvaPk0OYWpTiiAzsPsJOUcmjRJ8bB/G9Vy62M0+KZFFGmM6UKfpalGkMIDRL3zdES0Ej5fVtg4fKLL/7NFf0DRYmUBb8l3mENYfnNk/z1K2Tu1xR0ZnkgQuCkvLrEMiG2VNqPCP1STyunbO63BAYpaUBVkKYLQ22hVAStMcn6BYvx4xmVVwt3vyhR56uHzokC2nFeN734G6hW4beEtBVSXly4OmZ5SS4oZGKd/QH3EClD80seB9IVdeI9hx8FPkXb+YuHMH64ZH3UPOIN9JjmRQN5kytBpRd1rS91KC8++0GZB1J
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4a06b4e-623b-409c-5c7e-08d80842595a
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2020 04:47:13.4322 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bda4021d-96b4-4482-20d0-08d808425a46
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2020 04:47:14.9743 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: GMGiOWbes9gyqmSJ0ikLzUz6/UvD0XBfGeqSyZi4HP8xliFq8N6uhD5T3PDgzO1d
+X-MS-Exchange-CrossTenant-UserPrincipalName: p28jGfJ3DqAYq9HoZ+ooO1pnrC0rBY9wY7hUqBCvrOSkQiXelE89er7Wg5zvU5f5
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3212
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,83 +116,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-And some minor changes as dropping unused parameter and label
-internal used API as static.
+Thus redundant code can be dropped.
 
-Change-Id: I0af0aea029dc4fc7d8e150ab6ec984e9a5f1a74a
+Change-Id: I672f84ed5856da53b7f8f915b2f24ca11cd4b228
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c     | 12 +++++-------
- drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h |  2 --
- 2 files changed, 5 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 44 +++++++++++-----------
+ 1 file changed, 23 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index b3410d111316..55ffbf1cf086 100644
+index 55ffbf1cf086..65f5edcaa405 100644
 --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
 +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -638,7 +638,7 @@ int smu_sys_set_pp_table(struct smu_context *smu,  void *buf, size_t size)
+@@ -1376,6 +1376,26 @@ static int smu_disable_dpms(struct smu_context *smu)
  	return ret;
  }
  
--int smu_feature_init_dpm(struct smu_context *smu)
-+static int smu_get_driver_allowed_feature_mask(struct smu_context *smu)
++static int smu_internal_hw_cleanup(struct smu_context *smu)
++{
++	struct amdgpu_device *adev = smu->adev;
++	int ret = 0;
++
++	smu_i2c_eeprom_fini(smu, &adev->pm.smu_i2c);
++
++	ret = smu_disable_thermal_alert(smu);
++	if (ret) {
++		pr_warn("Fail to stop thermal control!\n");
++		return ret;
++	}
++
++	ret = smu_disable_dpms(smu);
++	if (ret)
++		return ret;
++
++	return 0;
++}
++
+ static int smu_hw_fini(void *handle)
  {
- 	struct smu_feature *feature = &smu->smu_feature;
- 	int ret = 0;
-@@ -662,7 +662,6 @@ int smu_feature_init_dpm(struct smu_context *smu)
- 	return ret;
- }
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)handle;
+@@ -1396,19 +1416,9 @@ static int smu_hw_fini(void *handle)
  
+ 	adev->pm.dpm_enabled = false;
+ 
+-	smu_i2c_eeprom_fini(smu, &adev->pm.smu_i2c);
 -
- int smu_feature_is_enabled(struct smu_context *smu, enum smu_feature_mask mask)
- {
- 	struct smu_feature *feature = &smu->smu_feature;
-@@ -1115,8 +1114,7 @@ static int smu_sw_fini(void *handle)
+-	ret = smu_disable_thermal_alert(smu);
+-	if (ret) {
+-		pr_warn("Fail to stop thermal control!\n");
+-		return ret;
+-	}
+-
+-	ret = smu_disable_dpms(smu);
+-	if (ret) {
+-		pr_warn("Fail to stop Dpms!\n");
++	ret = smu_internal_hw_cleanup(smu);
++	if (ret)
+ 		return ret;
+-	}
+ 
  	return 0;
  }
+@@ -1445,15 +1455,7 @@ static int smu_suspend(void *handle)
  
--static int smu_smc_table_hw_init(struct smu_context *smu,
--				 bool initialize)
-+static int smu_internal_hw_setup(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
- 	int ret;
-@@ -1287,11 +1285,11 @@ static int smu_hw_init(void *handle)
+ 	adev->pm.dpm_enabled = false;
+ 
+-	smu_i2c_eeprom_fini(smu, &adev->pm.smu_i2c);
+-
+-	ret = smu_disable_thermal_alert(smu);
+-	if (ret) {
+-		pr_warn("Fail to stop thermal control!\n");
+-		return ret;
+-	}
+-
+-	ret = smu_disable_dpms(smu);
++	ret = smu_internal_hw_cleanup(smu);
  	if (ret)
  		return ret;
  
--	ret = smu_feature_init_dpm(smu);
-+	ret = smu_get_driver_allowed_feature_mask(smu);
- 	if (ret)
- 		goto failed;
- 
--	ret = smu_smc_table_hw_init(smu, true);
-+	ret = smu_internal_hw_setup(smu);
- 	if (ret)
- 		goto failed;
- 
-@@ -1487,7 +1485,7 @@ static int smu_resume(void *handle)
- 		goto failed;
- 	}
- 
--	ret = smu_smc_table_hw_init(smu, false);
-+	ret = smu_internal_hw_setup(smu);
- 	if (ret)
- 		goto failed;
- 
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-index b2de042493ad..5f5a210668a1 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -656,8 +656,6 @@ extern const struct amd_ip_funcs smu_ip_funcs;
- extern const struct amdgpu_ip_block_version smu_v11_0_ip_block;
- extern const struct amdgpu_ip_block_version smu_v12_0_ip_block;
- 
--extern int smu_feature_init_dpm(struct smu_context *smu);
--
- extern int smu_feature_is_enabled(struct smu_context *smu,
- 				  enum smu_feature_mask mask);
- extern int smu_feature_set_enabled(struct smu_context *smu,
 -- 
 2.27.0
 
