@@ -2,105 +2,112 @@ Return-Path: <SRS0=gI7v=7R=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 244E3C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 01:56:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 06BC3C433DF
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 02:26:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E93F120738
-	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 01:56:00 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id A594320657
+	for <amd-gfx@archiver.kernel.org>; Thu,  4 Jun 2020 02:26:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="LJvTQClp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E93F120738
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="F4XyD6Ck"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A594320657
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7787F6E120;
-	Thu,  4 Jun 2020 01:55:59 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2078.outbound.protection.outlook.com [40.107.92.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C362B6E120;
- Thu,  4 Jun 2020 01:55:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72DB36E15B;
+	Thu,  4 Jun 2020 02:26:31 +0000 (UTC)
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com
+ (mail-bn8nam11on2084.outbound.protection.outlook.com [40.107.236.84])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D5AE6E142
+ for <amd-gfx@lists.freedesktop.org>; Thu,  4 Jun 2020 02:26:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=O74WfE3qxGKUc5vQ+8He+l3oAT67ShNINk/rzHFtG3tLdt6LEv32l7RqFfLt2rcR5SmkhxOrfEqB+zehM1F+NGvPBw81f0W3RbsJrnCLL/EjTf0qM4yc7ww737s6V3CLHzoFKDKVgjYkWY2YeKAWHgx+XBax7UWcgi72IO+7f6I3aJaeHk1j4wSzjVkd6eFo7KK2tXB1CVRfwkfgBfRESZ6cVV+4toP3k5ocUOFHEju1RozsNyoYtOOfjoIlH0y2t9/6zhYljxmyE3nwv5aXQdyLQ6aw6+rwqP1CPJDyTvv53U4XE7fPmcHcEOIFBeUQlbTOVgvZrCnk6FQp6jhXgg==
+ b=eEUTEnzTgkC7TKBtNzbgcPqpbBEfC456XOZHthH/hc6tz8+W/xLFvp24mKQdkdFdtjlx2hK1Gyd/j0BBj9x7yE7SmYdJAbwFVliC1At/7fsP6E4Smvj+QHIuzFEUdb5jnD5+JmoaxhFKazq97ufzJrqJMPZKhOygDWmavYxGwHaAjRkU6JPA5LKVfVTbMl3psAMZMyyL+vx9qYfxB+MZW6NJYTkTps6SLXtabRngEcrTeooQE6TGj+d2aOQ8u/osPltlzSrJhnJ27quHLqsZoMr5zuDFDVR/zykqQAO3vcw3sdZ864JDUFv2wwES7P63+rVMDZZgNy27RW3DplgBaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yXGGvgKncSNbULjTGhOT93qtpom+TgaNRNopjOuaObg=;
- b=XNenLsCKPjmgFgHFLckVH5ylbpFGIfEE9mcR/9Do5xWZkVBI320dh8u25FmzTCWpjT1Ydu4AnYMJD0PicwnteNuz1x5PgLc+iIKk6yRSgH5/9+68UWlQy2OXiuPsWgDgJMwAHZ8nY39wQvc7fqJ9l8CmVs7jnCXAvuYaIDOlFb/lvx2vUrCTVM5sAye+YijqZsk4vG4qI/UIND1I4PvIUORN0vT33sOq8RQ4i6iVLQICno8oEBGsluMmeTQMfNpwkmr4B/8FDiw7RQsZ/ScfhewF0FMu34xuYu6zyZ7Kuwhsuo8XUPpEXPAV0iFiX6gRulRcTYmlN5BAcWzipS3+Hg==
+ bh=lg+i9QfDj97y+7e2knGKlHnQODIA3sMchUCZ8VDGxT8=;
+ b=BjcCbTmW8/YKFCoXGXd/7Tpohe0+/G8vDwdUdf8Vk5103WD1/yiHVgwi/hd8Z2PytJlxK3fGcw/lneixWFZ7IsfcWgmBtt4Q6gsWp5mNmfoaqjrdAtF1eppMeK9uZwOhRF2z0fecz/oLpguMhsZZW+/8liT85wKIkroDWs++udAn1Mp6NIn6MhCwbxE5/Xjq3NZ0NHOlsF06wbUBC4n4fxXwaizYynZWlXoOUhXoRROSHNPV45+1v52Ulcybxz0ev6swbqKthGVlk71XbByVxKrBJ2/vhbeoQOQ5KMaZYvCoP13rlKfOfs67rtHyvouxixA/fA6bCO0j1slJWhKEGA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yXGGvgKncSNbULjTGhOT93qtpom+TgaNRNopjOuaObg=;
- b=LJvTQClplnjiJhozVyI87xrZ/304rxEe2u2e1pBd+8yutCtqGf1VzzeRwO8Db//FtOeBc4kKDPSK3SIwX2J8sWjCqfP5SO/spoi8Y7JHrSEbt7I4VzaaEHmeadus+fwMgDFQT9nxCeeQU3Cwp6+F6AIHmomgAEqm5oLXUiJxygk=
-Authentication-Results: thegoodpenguin.co.uk; dkim=none (message not signed)
- header.d=none;thegoodpenguin.co.uk; dmarc=none action=none
- header.from=amd.com;
-Received: from DM6PR12MB3355.namprd12.prod.outlook.com (2603:10b6:5:115::26)
- by DM6PR12MB2955.namprd12.prod.outlook.com (2603:10b6:5:181::33) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18; Thu, 4 Jun
- 2020 01:55:53 +0000
-Received: from DM6PR12MB3355.namprd12.prod.outlook.com
- ([fe80::cd6e:7536:4dbb:aa85]) by DM6PR12MB3355.namprd12.prod.outlook.com
- ([fe80::cd6e:7536:4dbb:aa85%5]) with mapi id 15.20.3045.024; Thu, 4 Jun 2020
- 01:55:53 +0000
-Subject: Re: [PATCH v2 02/15] PCI: Add shorthand define for message signalled
- interrupt types
-To: Piotr Stankiewicz <piotr.stankiewicz@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org
-References: <20200603114212.12525-1-piotr.stankiewicz@intel.com>
- <20200603114553.12866-1-piotr.stankiewicz@intel.com>
-From: Luben Tuikov <luben.tuikov@amd.com>
-Message-ID: <1175dbc6-de25-eb4f-b361-4048e1d64a14@amd.com>
-Date: Wed, 3 Jun 2020 21:55:45 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
-In-Reply-To: <20200603114553.12866-1-piotr.stankiewicz@intel.com>
-Content-Language: en-CA
-X-ClientProxiedBy: BN6PR03CA0073.namprd03.prod.outlook.com
- (2603:10b6:405:6f::11) To DM6PR12MB3355.namprd12.prod.outlook.com
- (2603:10b6:5:115::26)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (165.204.84.11) by
- BN6PR03CA0073.namprd03.prod.outlook.com (2603:10b6:405:6f::11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3066.18 via Frontend Transport; Thu, 4 Jun 2020 01:55:47 +0000
-X-Originating-IP: [165.204.84.11]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: a799c427-5b13-4f20-fc09-08d8082a699d
-X-MS-TrafficTypeDiagnostic: DM6PR12MB2955:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB295554C058AC08A66FB5440999890@DM6PR12MB2955.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:9508;
-X-Forefront-PRVS: 04244E0DC5
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 5coERCvQbFdfukh5huRzqxWw37YiUlggKl1ku2Mw+GmmPq3iEB4015CPMSu/uUPNuVzIFT6lr0DUBKe5+nw47hJMGKi5yIiT2nz7jHQkJAKOM3K+kOM+DoKqz12LwpZrYrdZWRiC68vl+N0RFwqCky1xYqIZ5PJ65KPXyDBUP+FUwNinF4S2L0AcgA5lnzYHpnKUQM0f0G9BlU1tsTU4Ysw4dd2WRRBAm5mU6FMvUMsbV6MYPUgJohJdR7N61FYfM89GN9CZPqPbK3fIFMJ8sXy9MdYMo+NcctJ9i5Zx0VqNH1kuELcHTukGCwnveQpZSnn4wO/RcGuWL5QbHEIkpAQ92Fm5Gg4tnkeZRAMzzz8AekKg5Hc0FJgflxwz+jlf
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3355.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ bh=lg+i9QfDj97y+7e2knGKlHnQODIA3sMchUCZ8VDGxT8=;
+ b=F4XyD6CkCS+U4VRYUZrEBoz+bN9t+rdHx01QJJqKWOAhGDB042h5WIzW/p/3lGD0m7MIAVP/kSyGsMD3MECkq7pds8OPGe2Bnx/R1p/lXsyqgDpuyqi3QpMAegFxkwREaKaey7Fj3702dAc9jPpzl4E3xQcjPcTr4IcBw2+uReI=
+Received: from MWHPR12MB1837.namprd12.prod.outlook.com (2603:10b6:300:113::20)
+ by MWHPR12MB1742.namprd12.prod.outlook.com (2603:10b6:300:112::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3045.19; Thu, 4 Jun
+ 2020 02:26:26 +0000
+Received: from MWHPR12MB1837.namprd12.prod.outlook.com
+ ([fe80::c142:31c5:738f:205c]) by MWHPR12MB1837.namprd12.prod.outlook.com
+ ([fe80::c142:31c5:738f:205c%9]) with mapi id 15.20.3045.024; Thu, 4 Jun 2020
+ 02:26:26 +0000
+From: "Yang, Stanley" <Stanley.Yang@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdgpu: support reserve bad page for virt
+Thread-Topic: [PATCH] drm/amdgpu: support reserve bad page for virt
+Thread-Index: AQHWObChXEgcpkdsdkCXrEkMip8Jk6jHA1CAgAC0sjA=
+Date: Thu, 4 Jun 2020 02:26:25 +0000
+Message-ID: <MWHPR12MB18376659DB2C653C98E099289A890@MWHPR12MB1837.namprd12.prod.outlook.com>
+References: <20200603140936.7356-1-Stanley.Yang@amd.com>
+ <DM6PR12MB4075EB57AFB77FB8540A4A71FC880@DM6PR12MB4075.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB4075EB57AFB77FB8540A4A71FC880@DM6PR12MB4075.namprd12.prod.outlook.com>
+Accept-Language: zh-CN, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Enabled=true;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SetDate=2020-06-03T14:44:33Z; 
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Method=Privileged;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_Name=Public_0;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ActionId=e468eff5-ff11-483a-926b-00000e727a69;
+ MSIP_Label_0d814d60-469d-470c-8cb0-58434e2bf457_ContentBits=1
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_enabled: true
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_setdate: 2020-06-04T02:26:22Z
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_method: Privileged
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_name: Public_0
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_actionid: 2dbe510d-e95b-47ad-b635-0000f1de87d2
+msip_label_0d814d60-469d-470c-8cb0-58434e2bf457_contentbits: 0
+authentication-results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+x-originating-ip: [58.247.170.242]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: c1afb763-2615-4d95-ef94-08d8082eae79
+x-ms-traffictypediagnostic: MWHPR12MB1742:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <MWHPR12MB17420E2AEBE07FA5C43877FD9A890@MWHPR12MB1742.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-forefront-prvs: 04244E0DC5
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: U7vZ8Wqgo4CsqwN/UFZ6t6/QSgGEsfl9nMvXdHYJX6qTfoHgvgJEy6fML0DWQawv2LuVsfj0R5ddRiulJo6LGb/UcCKfhQb/Ig50MgnBSo0AEBrda1trrxSjGRururj+6OzXTjV7oX7t+tsm53oweosQJ/GODFxuUrLrH57ZGojhgR1htalXOHKRF7U9huO0hy9V1uxrbPPRnA7zrM0onJCdO3eITm0wGbow4sP/NFJ3QLwVJLcVSK+d/j5+alRJ0I55TTe4FEIiq4hdFW0DVjgW66SZ13BvI7lRLEpKU7uL8BRV4hOh5OHnFys2RO10
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MWHPR12MB1837.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(376002)(346002)(396003)(39860400002)(136003)(366004)(7416002)(16526019)(186003)(53546011)(31696002)(36756003)(52116002)(86362001)(6506007)(26005)(66556008)(66476007)(2616005)(956004)(8936002)(66946007)(6486002)(44832011)(478600001)(31686004)(15650500001)(6512007)(4326008)(316002)(7366002)(8676002)(83380400001)(2906002)(54906003)(7406005)(5660300002)(110136005)(43740500002);
+ SFS:(4636009)(136003)(396003)(346002)(376002)(366004)(39860400002)(110136005)(55016002)(9686003)(86362001)(4326008)(33656002)(30864003)(5660300002)(7696005)(66556008)(52536014)(66476007)(76116006)(71200400001)(64756008)(186003)(316002)(26005)(54906003)(6506007)(66446008)(8936002)(8676002)(83380400001)(53546011)(2906002)(478600001)(66946007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: N8uDfZ5RbPUQZWaIKkcnn/d/2EUibuRmceHBbiIwI1S7Ess4CdJHTXqaycBDdNiebGRlDS2o22dfjR578Gf/ig3F3cxDtm34PsmsPVsvXzPLw3n/pv3CQdsAr+mPJumwg1nhiP3QI1pDUF31aLb2WZN2ir3rLJjCT+wle7EAnpR1jGrjaryEYWKcugH/n1YVQ2Yuu1XR20LRNKerKhngaPNEbn6qrZCLfQ9JNGXhfExCcB1ZeBOUvLVKdHFbaf2AZITU0BORgAJRXsWQql0ZAycVDYH3UMPRs7+WIqRG0pUrRzzdSMvLr5pdqnLj1t57YMgp4ncIZVzxOPyFqI+EarWo9vp6G3gtNpmHW1XjKYXRk9zUtVgPuwdp95iYEi1pELeorW78vRBzd3AptC3ceS/tP2N+aGfMygPe76LPtT9lIRiIxPslVfsTMsTAgTqyFk1Yh/6UjdUR4jAiVOOMv4pMkcta6RkJc700Y8FT2p0=
+x-ms-exchange-antispam-messagedata: /3TuqNbciRo2mLI6CRjxTTw9XmeTCvSnpvLRjCE9Q4NIWoJ4zcCUbQR4MQh5khhQcRfkZ4lkz44cgBDdrz5nrwJC7JE6v5K40zIhhyKNGyR+a08qyvsGpQi1qJ8BVzesZONu/2wG6L1SPI/gs6UrGpANlT1537IfM3kJgdvZzt+NcPjYy3Ty6ow0v6VJOvHUuqOuE3hq0jfn6Rn5WCHE6eIEqrYXPi5/WOQL+DWhdcfc9kJjVSRiEQFRuMkBoZbWDt1Q5nPIttUO6a1wwQ/2Vn6sUjjHWffuVTEMcp+H0U1Ly5lH5G8nlbbh6ou+bldFlCYx/gweMlnqy/7O7uxaP3DI8ZBul0spllew7ZyKF91mdZBayhxpzDDhGmcWlTemjR3egEaKvBEo5psIbEOhjpRn9/Uw6N6gswV2pH7ZXndRm7ivBQgj3TbdItqxPHEbV6qyrcgBx6FULmuRrS+omXtIKCcCqxPN5g3xW5qTbiXjB1qz3jwbI2VjVqHlgnym
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a799c427-5b13-4f20-fc09-08d8082a699d
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2020 01:55:53.1002 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vfJVwcmEFCVIdTfqQOBMH9K+dFtLm6usM9DUXNMSKddB6qif5mIe2j8UEKqfvcGR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2955
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1afb763-2615-4d95-ef94-08d8082eae79
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2020 02:26:25.8191 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: SKyK850sVJ57825GaX68vxoEvG6gj4SpRatnPS0HJElLMO+x4cobHaDgHu5Hlz38Wgkacs/FQDO31duY4kOpyA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1742
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,114 +119,431 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Krzysztof Wilczynski <kw@linux.com>, Ulf Hansson <ulf.hansson@linaro.org>,
- Igor Russkikh <irusskikh@marvell.com>, linux-doc@vger.kernel.org,
- David Airlie <airlied@linux.ie>,
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
- dri-devel@lists.freedesktop.org, Jim Gill <jgill@vmware.com>,
- Adrian Hunter <adrian.hunter@intel.com>,
- VMware PV-Drivers <pv-drivers@vmware.com>, David Zhou <David1.Zhou@amd.com>,
- Herbert Xu <herbert@gondor.apana.org.au>, linux-scsi@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, linux-rdma@vger.kernel.org,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- amd-gfx@lists.freedesktop.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Doug Ledford <dledford@redhat.com>, Zenghui Yu <yuzenghui@huawei.com>,
- Jakub Kicinski <kuba@kernel.org>, Yisen Zhuang <yisen.zhuang@huawei.com>,
- linux-media@vger.kernel.org, Tom Lendacky <thomas.lendacky@amd.com>,
- Arnd Bergmann <arnd@arndb.de>, Antoine Tenart <antoine.tenart@bootlin.com>,
- "James E . J . Bottomley" <jejb@linux.ibm.com>,
- Dan Williams <dan.j.williams@intel.com>,
- Mike Marciniszyn <mike.marciniszyn@intel.com>,
- Denis Efremov <efremov@linux.com>, Alex Deucher <alexander.deucher@amd.com>,
- Brian King <brking@us.ibm.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Kurt Schwemmer <kurt.schwemmer@microsemi.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@intel.com>, Jens Axboe <axboe@kernel.dk>,
- Salil Mehta <salil.mehta@huawei.com>,
- "Martin K . Petersen" <martin.petersen@oracle.com>, netdev@vger.kernel.org,
- Dennis Dalessandro <dennis.dalessandro@intel.com>, linux-mmc@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>,
- Vinod Koul <vkoul@kernel.org>, linux-crypto@vger.kernel.org,
- Daniel Vetter <daniel@ffwll.ch>,
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>, dmaengine@vger.kernel.org,
- Kelsey Skunberg <skunberg.kelsey@gmail.com>,
- Andrew Murray <amurray@thegoodpenguin.co.uk>,
- Logan Gunthorpe <logang@deltatee.com>,
- "David S . Miller" <davem@davemloft.net>,
- Heiner Kallweit <hkallweit1@gmail.com>
+Cc: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Clements, John" <John.Clements@amd.com>,
+ "Liu, Monk" <Monk.Liu@amd.com>, "Chen, Guchun" <Guchun.Chen@amd.com>, "Li,
+ Dennis" <Dennis.Li@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-That's a sensible change.
+[AMD Public Use]
 
-In your title you can use "macro" or "definition" or "macro definition".
-"Define" is a verb.
-"PCI: Add a macro for message-signalled interrupt types"
+Hi Hawking,
 
-On 2020-06-03 7:45 a.m., Piotr Stankiewicz wrote:
-> There are several places in the kernel which check/ask for MSI or MSI-X
-> interrupts. It would make sense to have a shorthand constant, similar to
-
-"a shorthand constant" --> "a macro which defines all MSI-type of interrupt."
+Thanks for your review, please see my replies inline.
 
 Regards,
-Luben
-
-> PCI_IRQ_ALL_TYPES, to use in these situations. So add PCI_IRQ_MSI_TYPES,
-> for this purpose.
+Stanley
+> -----Original Message-----
+> From: Zhang, Hawking <Hawking.Zhang@amd.com>
+> Sent: Wednesday, June 3, 2020 11:26 PM
+> To: Yang, Stanley <Stanley.Yang@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Chen, Guchun <Guchun.Chen@amd.com>; Liu, Monk
+> <Monk.Liu@amd.com>; Clements, John <John.Clements@amd.com>; Zhou1,
+> Tao <Tao.Zhou1@amd.com>; Li, Dennis <Dennis.Li@amd.com>; Yang,
+> Stanley <Stanley.Yang@amd.com>
+> Subject: RE: [PATCH] drm/amdgpu: support reserve bad page for virt
 > 
-> Signed-off-by: Piotr Stankiewicz <piotr.stankiewicz@intel.com>
-> Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> [AMD Public Use]
+> 
+> Please check my comments inline.
+> 
+> Regards,
+> Hawking
+> 
+> -----Original Message-----
+> From: Stanley.Yang <Stanley.Yang@amd.com>
+> Sent: Wednesday, June 3, 2020 22:10
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chen, Guchun
+> <Guchun.Chen@amd.com>; Liu, Monk <Monk.Liu@amd.com>; Clements,
+> John <John.Clements@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Li,
+> Dennis <Dennis.Li@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>
+> Subject: [PATCH] drm/amdgpu: support reserve bad page for virt
+> 
+> Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
+> Change-Id: Ia0ad9453ac3ac929f95c73cbee5b7a8fc42a9816
 > ---
->  Documentation/PCI/msi-howto.rst | 5 +++--
->  include/linux/pci.h             | 4 ++--
->  2 files changed, 5 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |   7 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c   | 164
+> +++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h   |  30 +++-
+>  3 files changed, 196 insertions(+), 5 deletions(-)  mode change 100644 =>
+> 100755 drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+>  mode change 100644 => 100755
+> drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
 > 
-> diff --git a/Documentation/PCI/msi-howto.rst b/Documentation/PCI/msi-howto.rst
-> index aa2046af69f7..2800ff5aa395 100644
-> --- a/Documentation/PCI/msi-howto.rst
-> +++ b/Documentation/PCI/msi-howto.rst
-> @@ -105,7 +105,8 @@ if it can't meet the minimum number of vectors.
->  The flags argument is used to specify which type of interrupt can be used
->  by the device and the driver (PCI_IRQ_LEGACY, PCI_IRQ_MSI, PCI_IRQ_MSIX).
->  A convenient short-hand (PCI_IRQ_ALL_TYPES) is also available to ask for
-> -any possible kind of interrupt.  If the PCI_IRQ_AFFINITY flag is set,
-> +any possible kind of interrupt, and (PCI_IRQ_MSI_TYPES) to ask for message
-> +signalled interrupts (MSI or MSI-X).  If the PCI_IRQ_AFFINITY flag is set,
->  pci_alloc_irq_vectors() will spread the interrupts around the available CPUs.
->  
->  To get the Linux IRQ numbers passed to request_irq() and free_irq() and the
-> @@ -160,7 +161,7 @@ the single MSI mode for a device.  It could be done by passing two 1s as
->  Some devices might not support using legacy line interrupts, in which case
->  the driver can specify that only MSI or MSI-X is acceptable::
->  
-> -	nvec = pci_alloc_irq_vectors(pdev, 1, nvec, PCI_IRQ_MSI | PCI_IRQ_MSIX);
-> +	nvec = pci_alloc_irq_vectors(pdev, 1, nvec, PCI_IRQ_MSI_TYPES);
->  	if (nvec < 0)
->  		goto out_err;
->  
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index 83ce1cdf5676..b6c9bf70363e 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -1422,8 +1422,8 @@ int pci_set_vga_state(struct pci_dev *pdev, bool decode,
->   */
->  #define PCI_IRQ_VIRTUAL		(1 << 4)
->  
-> -#define PCI_IRQ_ALL_TYPES \
-> -	(PCI_IRQ_LEGACY | PCI_IRQ_MSI | PCI_IRQ_MSIX)
-> +#define PCI_IRQ_MSI_TYPES	(PCI_IRQ_MSI | PCI_IRQ_MSIX)
-> +#define PCI_IRQ_ALL_TYPES	(PCI_IRQ_LEGACY | PCI_IRQ_MSI_TYPES)
->  
->  /* kmem_cache style wrapper around pci_alloc_consistent() */
->  
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index b633171281f8..e8986e007206 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -2001,8 +2001,10 @@ static int amdgpu_device_ip_init(struct
+> amdgpu_device *adev)
+>  		}
+>  	}
 > 
-
+> -	if (amdgpu_sriov_vf(adev))
+> +	if (amdgpu_sriov_vf(adev)) {
+> +		amdgpu_virt_init_err_handler_data(adev);
+> 
+> [Hawking]:
+> 1. It might be better to rename the function to
+> amdgpu_virt_init_ras_err_handler_data
+> 2. we shall apply either asic type check or more general data structure check
+> before call into amdgpu_virt_init_ras_err_handler_data. Please check my
+> comments in amdgpu_virt_init_ras_err_handler_data function
+> 
+> 
+>  		amdgpu_virt_init_data_exchange(adev);
+> +	}
+> 
+>  	r = amdgpu_ib_pool_init(adev);
+>  	if (r) {
+> @@ -2306,6 +2308,9 @@ static int amdgpu_device_ip_fini(struct
+> amdgpu_device *adev)  {
+>  	int i, r;
+> 
+> +	if (amdgpu_sriov_vf(adev))
+> +		amdgpu_release_virt_err_handler_data(adev);
+> 
+> [Hawking]:
+> 1. It might be better to rename the function to
+> amdgpu_virt_release_ras_err_handler_data
+> 2. we shall apply either asic type check or more general data structure check
+> In case it introduce regression on MI100 and V340L
+> 
+> +
+>  	amdgpu_ras_pre_fini(adev);
+> 
+>  	if (adev->gmc.xgmi.num_physical_nodes > 1) diff --git
+> a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> old mode 100644
+> new mode 100755
+> index f3b38c9e04ca..c1554562a2ce
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.c
+> @@ -26,6 +26,7 @@
+>  #include <drm/drm_drv.h>
+> 
+>  #include "amdgpu.h"
+> +#include "amdgpu_ras.h"
+> 
+>  bool amdgpu_virt_mmio_blocked(struct amdgpu_device *adev)  { @@ -
+> 255,12 +256,164 @@ int amdgpu_virt_fw_reserve_get_checksum(void *obj,
+>  	return ret;
+>  }
+> 
+> +int amdgpu_virt_init_err_handler_data(struct amdgpu_device *adev) {
+> 
+> [Hawking]:
+> 1. same as above, rename it to amdgpu_virt_init_ras_err_handler_data
+> 
+> +	struct amdgpu_virt *virt = &adev->virt;
+> +	struct virt_ras_err_handler_data **data = &virt->virt_eh_data;
+> +	/* GPU will be marked bad on host if bp count more then 10,
+> +	 * so alloc 512 is enough.
+> +	 */
+> +	unsigned int align_space = 512;
+> +	void *bps = NULL;
+> +	struct amdgpu_bo **bps_bo = NULL;
+> +
+> 
+> [Hawking]:
+> 1. This will result to regression on MI100 SRIOV if we don't apply check. Or
+> leverage general data structure for the purpose, thoughts?
+[Yang, Stanley]:
+Thanks for reminding, I will add asic type check to call it.
+> 
+> +	*data = kmalloc(sizeof(struct virt_ras_err_handler_data),
+> GFP_KERNEL);
+> 
+> [Hawking]:
+> 1. rename the data structure to amdgpu_virt_ras_err_handler_data
+> 
+> +	if (!*data)
+> +		return -ENOMEM;
+> +
+> +	bps = kmalloc(align_space * sizeof((*data)->bps), GFP_KERNEL);
+> +	bps_bo = kmalloc(align_space * sizeof((*data)->bps_bo),
+> GFP_KERNEL);
+> +
+> +	if (!bps || !bps_bo) {
+> +		kfree(bps);
+> +		kfree(bps_bo);
+> +		return -ENOMEM;
+> +	}
+> +
+> +	(*data)->bps = bps;
+> +	(*data)->bps_bo = bps_bo;
+> +	(*data)->count = 0;
+> +	(*data)->last_reserved = 0;
+> +	return 0;
+> +}
+> +
+> +static void amdgpu_virt_release_bp(struct amdgpu_device *adev) {
+> +	struct amdgpu_virt *virt = &adev->virt;
+> +	struct virt_ras_err_handler_data *data = virt->virt_eh_data;
+> 
+> [Hawking]:
+> 1. same as above, please rename the virt_ras_err_handler_data to
+> amdgpu_virt_ras_err_handler_data
+> 
+> +	struct amdgpu_bo *bo;
+> +	int i;
+> +
+> +	if (!data)
+> +		return;
+> +
+> +	for (i = data->last_reserved - 1; i >= 0; i--) {
+> +		bo = data->bps_bo[i];
+> +		amdgpu_bo_free_kernel(&bo, NULL, NULL);
+> +		data->bps_bo[i] = bo;
+> +		data->last_reserved = i;
+> +	}
+> +}
+> +
+> +void amdgpu_release_virt_err_handler_data(struct amdgpu_device *adev)
+> {
+> 
+> [Hawking]:
+> 1. same as above, rename the function to
+> amdgpu_virt_release_ras_err_handler_data
+> 
+> +	struct amdgpu_virt *virt = &adev->virt;
+> +	struct virt_ras_err_handler_data *data = virt->virt_eh_data;
+> +
+> +	if (!data)
+> +		return;
+> +
+> +	amdgpu_virt_release_bp(adev);
+> +
+> +	kfree(data->bps);
+> +	kfree(data->bps_bo);
+> +	kfree(data);
+> +	virt->virt_eh_data = NULL;
+> +}
+> +
+> +static void amdgpu_virt_ras_add_bps(struct amdgpu_device *adev,
+> +		struct eeprom_table_record *bps, int pages) {
+> +	struct amdgpu_virt *virt = &adev->virt;
+> +	struct virt_ras_err_handler_data *data = virt->virt_eh_data;
+> +
+> +	if (!data)
+> +		return;
+> +
+> +	memcpy(&data->bps[data->count], bps, pages * sizeof(*data->bps));
+> +	data->count += pages;
+> +}
+> +
+> +static void amdgpu_virt_ras_reserve_bps(struct amdgpu_device *adev) {
+> +	struct amdgpu_virt *virt = &adev->virt;
+> +	struct virt_ras_err_handler_data *data = virt->virt_eh_data;
+> +	struct amdgpu_bo *bo = NULL;
+> +	uint64_t bp;
+> +	int i;
+> +
+> +	if (!data)
+> +		return;
+> +
+> +	for (i = data->last_reserved; i < data->count; i++) {
+> +		bp = data->bps[i].retired_page;
+> +
+> +		/* There are two cases of reserve error should be ignored:
+> +		 * 1) a ras bad page has been allocated (used by someone);
+> +		 * 2) a ras bad page has been reserved (duplicate error
+> injection
+> +		 *    for one page);
+> +		 */
+> +		if (amdgpu_bo_create_kernel_at(adev, bp <<
+> AMDGPU_GPU_PAGE_SHIFT,
+> +					       AMDGPU_GPU_PAGE_SIZE,
+> +					       AMDGPU_GEM_DOMAIN_VRAM,
+> +					       &bo, NULL))
+> +			DRM_WARN("RAS WARN: reserve vram for retired
+> page %llx fail\n", bp);
+> 
+> [Hawking]:
+> 1. can we make this as debug message?
+[Yang, Stanley] :
+Sure, will modify it.
+> 
+> +
+> +		data->bps_bo[i] = bo;
+> +		data->last_reserved = i + 1;
+> +		bo = NULL;
+> +	}
+> +}
+> +
+> +static bool amdgpu_virt_check_bad_page(struct amdgpu_device *adev,
+> +		uint64_t retired_page)
+> +{
+> +	struct amdgpu_virt *virt = &adev->virt;
+> +	struct virt_ras_err_handler_data *data = virt->virt_eh_data;
+> +	int i;
+> +
+> +	if (!data)
+> +		return true;
+> +
+> +	for (i = 0; i < data->count; i++)
+> +		if (retired_page == data->bps[i].retired_page)
+> +			return true;
+> +
+> +	return false;
+> +}
+> +
+> +static void amdgpu_virt_add_bad_page(struct amdgpu_device *adev,
+> +		uint64_t bp_block_offset, uint32_t bp_block_size) {
+> +	struct eeprom_table_record bp;
+> +	uint64_t retired_page;
+> +	uint32_t bp_idx, bp_cnt;
+> +
+> +	if (bp_block_size) {
+> +		bp_cnt = bp_block_size / sizeof(uint64_t);
+> +		for (bp_idx = 0; bp_idx < bp_cnt; bp_idx++) {
+> +			retired_page = *(uint64_t *)(adev-
+> >fw_vram_usage.va +
+> +					bp_block_offset + bp_idx *
+> sizeof(uint64_t));
+> +			bp.retired_page = retired_page;
+> +
+> +			if (amdgpu_virt_check_bad_page(adev,
+> retired_page))
+> +				continue;
+> +
+> +			amdgpu_virt_ras_add_bps(adev, &bp, 1);
+> +
+> +			amdgpu_virt_ras_reserve_bps(adev);
+> +		}
+> +	}
+> +}
+> +
+>  void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev)  {
+>  	uint32_t pf2vf_size = 0;
+>  	uint32_t checksum = 0;
+>  	uint32_t checkval;
+>  	char *str;
+> +	uint64_t bp_block_offset = 0;
+> +	uint32_t bp_block_size = 0;
+> 
+>  	adev->virt.fw_reserve.p_pf2vf = NULL;
+>  	adev->virt.fw_reserve.p_vf2pf = NULL;
+> @@ -275,6 +428,17 @@ void amdgpu_virt_init_data_exchange(struct
+> amdgpu_device *adev)
+> 
+>  		/* pf2vf message must be in 4K */
+>  		if (pf2vf_size > 0 && pf2vf_size < 4096) {
+> +			if (adev->virt.fw_reserve.p_pf2vf->version == 2) {
+> +				struct amdgim_pf2vf_info_v2 *pf2vf_v2 =
+> NULL;
+> +
+> +				pf2vf_v2 = (struct amdgim_pf2vf_info_v2
+> *)adev->virt.fw_reserve.p_pf2vf;
+> +				bp_block_offset = ((uint64_t)pf2vf_v2-
+> >bp_block_offset_L & 0xFFFFFFFF) |
+> +						((((uint64_t)pf2vf_v2-
+> >bp_block_offset_H) << 32) & 0xFFFFFFFF00000000);
+> +				bp_block_size = pf2vf_v2->bp_block_size;
+> +
+> +				amdgpu_virt_add_bad_page(adev,
+> bp_block_offset, bp_block_size);
+> +			}
+> +
+>  			checkval = amdgpu_virt_fw_reserve_get_checksum(
+>  				adev->virt.fw_reserve.p_pf2vf, pf2vf_size,
+>  				adev->virt.fw_reserve.checksum_key,
+> checksum); diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> old mode 100644
+> new mode 100755
+> index b90e822cebd7..96d84f036e96
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_virt.h
+> @@ -143,19 +143,27 @@ struct  amdgim_pf2vf_info_v2 {
+>  	uint32_t vce_enc_max_pixels_count;
+>  	/* 16x16 pixels/sec, codec independent */
+>  	uint32_t vce_enc_max_bandwidth;
+> +	/* Bad pages block position in BYTE */
+> +	uint32_t bp_block_offset_L;
+> +	uint32_t bp_block_offset_H;
+> +	/* Bad pages block size in BYTE */
+> +	uint32_t bp_block_size;
+>  	/* MEC FW position in kb from the start of VF visible frame buffer */
+> -	uint64_t mecfw_kboffset;
+> +	uint32_t mecfw_kboffset_L;
+> +	uint32_t mecfw_kboffset_H;
+> 
+> [Hawking]:
+> 1. can you just explain the reason that split the position in lower 32bit and
+> higher 32 bit respectively?
+[Yang, Stanley]:
+The value is misalignment from the 64bit member in amdgim_pf2vf_info_v2 struct  if use 64bit variable.
+> 
+>  	/* MEC FW size in KB */
+>  	uint32_t mecfw_ksize;
+>  	/* UVD FW position in kb from the start of VF visible frame buffer */
+> -	uint64_t uvdfw_kboffset;
+> +	uint32_t uvdfw_kboffset_L;
+> +	uint32_t uvdfw_kboffset_H;
+>  	/* UVD FW size in KB */
+>  	uint32_t uvdfw_ksize;
+>  	/* VCE FW position in kb from the start of VF visible frame buffer */
+> -	uint64_t vcefw_kboffset;
+> +	uint32_t vcefw_kboffset_L;
+> +	uint32_t vcefw_kboffset_H;
+>  	/* VCE FW size in KB */
+>  	uint32_t vcefw_ksize;
+> -	uint32_t reserved[AMDGIM_GET_STRUCTURE_RESERVED_SIZE(256,
+> 0, 0, (9 + sizeof(struct amd_sriov_msg_pf2vf_info_header)/sizeof(uint32_t)),
+> 3)];
+> +	uint32_t reserved[AMDGIM_GET_STRUCTURE_RESERVED_SIZE(256,
+> 0, 0, (18 +
+> +sizeof(struct amd_sriov_msg_pf2vf_info_header)/sizeof(uint32_t)), 0)];
+>  } __aligned(4);
+> 
+> 
+> @@ -254,6 +262,17 @@ typedef struct amdgim_vf2pf_info_v2
+> amdgim_vf2pf_info ;
+>  		} \
+>  	} while (0)
+> 
+> +struct virt_ras_err_handler_data {
+> +	/* point to bad page records array */
+> +	struct eeprom_table_record *bps;
+> +	/* point to reserved bo array */
+> +	struct amdgpu_bo **bps_bo;
+> +	/* the count of entries */
+> +	int count;
+> +	/* last reserved entry's index + 1 */
+> +	int last_reserved;
+> +};
+> +
+>  /* GPU virtualization */
+>  struct amdgpu_virt {
+>  	uint32_t			caps;
+> @@ -272,6 +291,7 @@ struct amdgpu_virt {
+>  	uint32_t reg_access_mode;
+>  	int req_init_data_ver;
+>  	bool tdr_debug;
+> +	struct virt_ras_err_handler_data *virt_eh_data;
+>  };
+> 
+>  #define amdgpu_sriov_enabled(adev) \
+> @@ -323,6 +343,8 @@ void amdgpu_virt_free_mm_table(struct
+> amdgpu_device *adev);  int amdgpu_virt_fw_reserve_get_checksum(void
+> *obj, unsigned long obj_size,
+>  					unsigned int key,
+>  					unsigned int chksum);
+> +void amdgpu_release_virt_err_handler_data(struct amdgpu_device
+> *adev);
+> +int amdgpu_virt_init_err_handler_data(struct amdgpu_device *adev);
+>  void amdgpu_virt_init_data_exchange(struct amdgpu_device *adev);  void
+> amdgpu_detect_virtualization(struct amdgpu_device *adev);
+> 
+> --
+> 2.25.1
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
