@@ -2,99 +2,79 @@ Return-Path: <SRS0=/kPV=7S=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	UNPARSEABLE_RELAY autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C19DC433E0
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2020 13:04:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A25EFC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2020 13:28:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 127B7206E6
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2020 13:04:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7175D20663
+	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2020 13:28:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="e3Zql1Pe"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 127B7206E6
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="jFbfFfU0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7175D20663
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFEDA897E3;
-	Fri,  5 Jun 2020 13:04:33 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2073.outbound.protection.outlook.com [40.107.236.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36A05897E3
- for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2020 13:04:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nBvxqu67pgp2ir56ka9fnYgoVfvtWl3CrbFnvrl6c8AQ2CvB3EpcjUHMyjU58Q5MH+qqkFC0qWr+AdEJ4uZRWA2yW7KkpF0dq5taT45Ad/aL23N6vpicM1ax/0dsDTva7TMwlim6EZH5etORPsV1bOn/rzEE0Jb/v9qHH0/8LzkNe7hc3+Eeo0xxRCx7uvQ1nhED/oA9tCMpdgspnLuRSa/7NNNysC8TjLomTRl66nVoxnCHwixN/rRAx4lV+qYicpz/S/QObybU37cQ0adeBc/ra9hdij+AFXuakYYxUNyzUxbupfq5svzjwPh+T/2NaT2V5pzEIPDVR2JT8deTXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U/0kXUkwa/TflCBNLKeYDh9qz4QSwdMeM2Krl+sgDKI=;
- b=cL7RzhYhUN363YiyZn736ac5njfV6pTfdalEyoqWj1jEeXzS9aK1tAVQwkdj8JW0rO1KwjDR+DAYSi2yjxLjQniqzGcey//HlBBEgC9tRKabUroUeUeSTJqB6d4VD4tzA6cgVX4UoAZJXN977DJiXNu3YEJG4tnNhrm+YT0IPg1C5iADdMjeY3IjdUZXwpYFjVvtVww8ziEDv/GT8fQ4zQxeZc8lXXJPq8EgktP/7BVk2QcdS+Aub1NFnQqI/itFEIqmUd2ZibsMp0XVgDhyNNksst3xkt0IG15gzar8fWXH+j8xdb+Enb+78DPxqzxm3syx4moWjyJaCBKrxMRfKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U/0kXUkwa/TflCBNLKeYDh9qz4QSwdMeM2Krl+sgDKI=;
- b=e3Zql1Pes9zC1ms9IZZlJpVzlnAtZGfmjaYdbXdsa+C+Mydtd5PRjOTNDMmyW0Qtd6zXBPUxTQ+NrpC6cS1WKU6tpFYFBfIBOBbiiqUGrye9skQXlOVkjVSc+Av8SZEIjHveuOrtNYc9cxMgIlysddpiLVIn1iqfp2NQqTr8S68=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from CY4PR1201MB0136.namprd12.prod.outlook.com
- (2603:10b6:910:1a::19) by CY4PR1201MB2485.namprd12.prod.outlook.com
- (2603:10b6:903:d2::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.22; Fri, 5 Jun
- 2020 13:04:30 +0000
-Received: from CY4PR1201MB0136.namprd12.prod.outlook.com
- ([fe80::b1bf:dda1:dd1e:8e30]) by CY4PR1201MB0136.namprd12.prod.outlook.com
- ([fe80::b1bf:dda1:dd1e:8e30%5]) with mapi id 15.20.3066.018; Fri, 5 Jun 2020
- 13:04:30 +0000
-From: Likun Gao <likun.gao@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: skip fb size query for navi10 previous asic
-Date: Fri,  5 Jun 2020 21:04:12 +0800
-Message-Id: <20200605130412.202089-1-likun.gao@amd.com>
-X-Mailer: git-send-email 2.25.1
-X-ClientProxiedBy: HK2PR02CA0180.apcprd02.prod.outlook.com
- (2603:1096:201:21::16) To CY4PR1201MB0136.namprd12.prod.outlook.com
- (2603:10b6:910:1a::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2823B6E8D6;
+	Fri,  5 Jun 2020 13:28:06 +0000 (UTC)
+Received: from userp2120.oracle.com (userp2120.oracle.com [156.151.31.85])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31D7D6E8D6
+ for <amd-gfx@lists.freedesktop.org>; Fri,  5 Jun 2020 13:28:05 +0000 (UTC)
+Received: from pps.filterd (userp2120.oracle.com [127.0.0.1])
+ by userp2120.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 055DMCXB008869;
+ Fri, 5 Jun 2020 13:28:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : mime-version : content-type; s=corp-2020-01-29;
+ bh=DTeqG7kYnMHBl/dz5MtjpSMlXHJcuSOuhUYfvH6sfQw=;
+ b=jFbfFfU0PtD+woSKDNkrbWdCz4xWtsLvBpLALEOxyqyOkZBD0wbLZKu+W5cVcAQu3Vef
+ E4yr+4Cnr/QAMZZ7DznBQbhdf6oTmxbx0TiLX4WkHJcJic4EeYMv82RM7GunUrLQthu2
+ GeoV+5C3XsnPnzfwEseb1aNlO87nZ7DngOoqHvE2sKj9ABkiqaRnstN8kgi10RBN2n4d
+ 4q/oTW5/NvLWJzw2/xL9yyRVrr9/Xxt7quEwPr+vpRDu/WQL/qUn52JkcZJTQNrJIBkx
+ tR8Gw4Ux6+WrjD4MnoliNMp8dDNdovCdht/YnBiniY/kHuptSosMYeaRWuK8smZY7zE7 MA== 
+Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
+ by userp2120.oracle.com with ESMTP id 31f9262uak-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 05 Jun 2020 13:28:02 +0000
+Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
+ by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 055DRQp2135096;
+ Fri, 5 Jun 2020 13:28:01 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by userp3030.oracle.com with ESMTP id 31f92ssqwn-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 05 Jun 2020 13:28:01 +0000
+Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id 055DS0Zs001746;
+ Fri, 5 Jun 2020 13:28:00 GMT
+Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Fri, 05 Jun 2020 06:27:59 -0700
+Date: Fri, 5 Jun 2020 16:27:54 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Bhawanpreet.Lakha@amd.com
+Subject: [bug report] drm/amd/display: Add DCN3 HWSEQ
+Message-ID: <20200605132754.GA996387@mwanda>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from lnx-glk.amd.com (58.247.170.242) by
- HK2PR02CA0180.apcprd02.prod.outlook.com (2603:1096:201:21::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3066.18 via Frontend Transport; Fri, 5 Jun 2020 13:04:28 +0000
-X-Mailer: git-send-email 2.25.1
-X-Originating-IP: [58.247.170.242]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 1d84a3dd-71de-4d49-ce06-08d80950fbce
-X-MS-TrafficTypeDiagnostic: CY4PR1201MB2485:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR1201MB248586F5B96E2D771472F45DEF860@CY4PR1201MB2485.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
-X-Forefront-PRVS: 0425A67DEF
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Bba6fNe1d24hiCnRxEoQSQx/PKw29XVGCNsva9nWKsMyZdmfu6cowzfvRabBGETzTGa6bBmXRqbGk5Zx4X0O1RgwixV/EBTqwQAyogX3JqSKu3F3net82+7+hgn3m6fIVwX0SuVyATBNNG67AdBf1FRV5ysGsacWPHyP+dtH5lmMoua+eMhPXN75iNXjA4Fiznkc34SUZOC1MKZpYMSTRzzIH2KlKQoWzcFDILzvP3JurS5e3bhwIXNvSnNjbzdP2iFLxCnHWaI9hPktzVTk8gukkXrZc/UlOB0RgDbpebfd8uZCnZritoATrjv3O04A
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR1201MB0136.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(376002)(396003)(39860400002)(346002)(366004)(6916009)(26005)(6666004)(6486002)(956004)(44832011)(2616005)(5660300002)(478600001)(8676002)(1076003)(16526019)(186003)(4744005)(2906002)(8936002)(66556008)(66946007)(54906003)(52116002)(7696005)(86362001)(36756003)(66476007)(4326008)(316002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: mye5uiCgVUIfSjthH/V3Kywv30WqYXS5wARmwot0xwUe5kORuMhh/2Zrp5rblVWRWVbtWSY2eG7H2vnHA42/cskZ1UEQLizqmuqjXEP8gbCmy1JQBLhAE8E5zTV32WdAbpI1S7J5onpB56M4t4C71pO3YQ7kEzIYRLRJ3HdFh1rTOu/JhSmuEm4rEiZstGFMccCIA+idXfIfPPq9k82FDUZrpIEgdgncnd5RAyAioGQVaR4Ej27PbHycNSIytIVt+aSE0FQsxR7G9GNE3h1MGXFI10EoxNskGfp3+L1kay/3CV4deu7FZ46Z/ZUA8qXCEGNYZBmX0Duq8E64wndiSYD1Kom0vowUDFnQZwyBGViceQ0V55PZFqeiV43xRY9JXKpOxcPCN8MqbAjGtVxtfkz3eeyABXpJwoa+Avnsepq7Kh+3PBxN0VuRYZ3H4dWXf82WbpUn30VGzMOXyaEe61uasyQXD/WYu/R0iaADv1rEoLoqY09JIxsn2p8MITqL
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1d84a3dd-71de-4d49-ce06-08d80950fbce
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2020 13:04:30.3081 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SwryDQ/VTQjqINAcwT3aZF+CZUNXE+F008e2nobXkN61NJcbVNcZc2dJ+BLLMsNh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1201MB2485
+Content-Disposition: inline
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9642
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ bulkscore=0 mlxscore=0
+ malwarescore=0 spamscore=0 suspectscore=3 mlxlogscore=646 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2004280000
+ definitions=main-2006050101
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9642
+ signatures=668680
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ adultscore=0
+ suspectscore=3 cotscore=-2147483648 bulkscore=0 clxscore=1011
+ impostorscore=0 priorityscore=1501 malwarescore=0 mlxlogscore=645
+ spamscore=0 lowpriorityscore=0 mlxscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.12.0-2004280000
+ definitions=main-2006050100
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,41 +86,62 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Feifei Xu <Feifei.Xu@amd.com>, Likun Gao <Likun.Gao@amd.com>,
- Hawking Zhang <hawking.zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Likun Gao <Likun.Gao@amd.com>
+Hello Bhawanpreet Lakha,
 
-Skip for reserved fb size query for the ASIC older than navi10, as those
-asic do not need for TMR region reserve and may get an invalid value.
+This is a semi-automatic email about new static checker warnings.
 
-Signed-off-by: Likun Gao <Likun.Gao@amd.com>
-Change-Id: Idbc57805b8070f27ba6c3cf22f1892d6dab92f06
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c | 3 +++
- 1 file changed, 3 insertions(+)
+The patch 581b9589487e: "drm/amd/display: Add DCN3 HWSEQ" from May 
+21, 2020, leads to the following Smatch complaint:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-index a9adccfda4c0..e2a64ae7bcaf 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atomfirmware.c
-@@ -603,6 +603,9 @@ int amdgpu_atomfirmware_get_fw_reserved_fb_size(struct amdgpu_device *adev)
- 	u8 frev, crev;
- 	int fw_reserved_fb_size;
- 
-+	if (adev->asic_type < CHIP_NAVI10)
-+		return 0;
-+
- 	index = get_index_into_master_table(atom_master_list_of_data_tables_v2_1,
- 			firmwareinfo);
- 
--- 
-2.25.1
+    drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_hwseq.c:463 dcn30_init_hw()
+    warn: variable dereferenced before check 'res_pool->dccg' (see line 437)
 
+drivers/gpu/drm/amd/amdgpu/../display/dc/dcn30/dcn30_hwseq.c
+   436		// Initialize the dccg
+   437		if (res_pool->dccg->funcs->dccg_init)
+                    ^^^^^^^^^^^^^^
+The patch adds a dereference.
+
+   438			res_pool->dccg->funcs->dccg_init(res_pool->dccg);
+   439	
+   440		//Enable ability to power gate / don't force power on permanently
+   441		hws->funcs.enable_power_gating_plane(dc->hwseq, true);
+   442	
+   443		if (IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment)) {
+   444			REG_WRITE(RBBMIF_TIMEOUT_DIS, 0xFFFFFFFF);
+   445			REG_WRITE(RBBMIF_TIMEOUT_DIS_2, 0xFFFFFFFF);
+   446	
+   447			hws->funcs.dccg_init(hws);
+   448	
+   449			REG_UPDATE(DCHUBBUB_GLOBAL_TIMER_CNTL, DCHUBBUB_GLOBAL_TIMER_REFDIV, 2);
+   450			REG_UPDATE(DCHUBBUB_GLOBAL_TIMER_CNTL, DCHUBBUB_GLOBAL_TIMER_ENABLE, 1);
+   451			REG_WRITE(REFCLK_CNTL, 0);
+   452		} else {
+   453			if (!dcb->funcs->is_accelerated_mode(dcb)) {
+   454				hws->funcs.bios_golden_init(dc);
+   455				hws->funcs.disable_vga(dc->hwseq);
+   456			}
+   457	
+   458			if (dc->ctx->dc_bios->fw_info_valid) {
+   459				res_pool->ref_clocks.xtalin_clock_inKhz =
+   460						dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency;
+   461	
+   462				if (!IS_FPGA_MAXIMUS_DC(dc->ctx->dce_environment)) {
+   463					if (res_pool->dccg && res_pool->hubbub) {
+                                            ^^^^^^^^^^^^^^
+This check is too late.
+
+   464	
+   465						(res_pool->dccg->funcs->get_dccg_ref_freq)(res_pool->dccg,
+
+regards,
+dan carpenter
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
