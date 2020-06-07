@@ -1,108 +1,73 @@
-Return-Path: <SRS0=/kPV=7S=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
+Return-Path: <SRS0=ZIXC=7U=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0C72BC433DF
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2020 18:41:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B443C433DF
+	for <amd-gfx@archiver.kernel.org>; Sun,  7 Jun 2020 04:06:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D0F7D206FA
-	for <amd-gfx@archiver.kernel.org>; Fri,  5 Jun 2020 18:40:59 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 129F1206A5
+	for <amd-gfx@archiver.kernel.org>; Sun,  7 Jun 2020 04:06:15 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="tIMr+mSU"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D0F7D206FA
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O4G6ogiP"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 129F1206A5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F14866E96C;
-	Fri,  5 Jun 2020 18:40:54 +0000 (UTC)
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2082.outbound.protection.outlook.com [40.107.220.82])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5FD2D6E965;
- Fri,  5 Jun 2020 18:40:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UJJ17bM+d3bUf/hvUKVloA7yocGHvo3akgd5seqDZUuQnPjtuEVsx9bI4Yappex1AiyaMPwIvapqKyJYNKXsEMrl8xg7gAOwWCjCms9Sm4yFw5ZAYaEuBwyhT55v/9dgZevu0x22kfx59qyIPn+hTH16PnFYZ9l2eSOzuOyS/LfJCfoPc/lW8gfne7BIiFA4nqbKZyLHetrlIecyNtgVQoDL5D8jdrxthDQxNAPC3kun+7nO53+8x4CVXN7RFtea5NxEq4JoXcVgyegTvQomNPKO9r7RRQ5b+G0vBouJnTKVKw6aqhk8r62rh7ErZNj5zk6xf2xhvSWKjAPX5fxFLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zoEklmHrR/8gX351DgUT6fY/oJQruuQot1Sh9KSJitQ=;
- b=iAYRLGCZO4eh2hHiqsZQqavxoEEOE9LUsI67HJsLcQ7wO4ntcQZ/OvTmz+VeYlvgvhhimKn+Lkm6XGqqPCzjswrGCv8UKLcz2Nz/u0ozQnzDu3z9hRarBZ8oIyOp7O7sYpEtid4tyxRWbFj5pwyNyHO7ECCx7DA2ERBSLQ6tQ6yWBOZUldjMbpJMv+reYpz6j/1IMRMha3itTezNihJyxR9M04iXVtK4EfxXBMgPRMrArIYY+2Adb9LoP4H9lpbx06x1wdqtUmJ0S5hmIFwFkV152Tu+fO2o6zZedNlaocC4bQJ7UvalVhV3wyRCQyYvivarYIcOVZ4zGwkaVnTwIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zoEklmHrR/8gX351DgUT6fY/oJQruuQot1Sh9KSJitQ=;
- b=tIMr+mSUI3JvH7/N7eEg5rWFzsJVVF/3UxbwugNlbT5uSthV0WmYroQbV16KXY1qLblxgaPyNz3Zk1Zjk687dyEw1MO4PVt1Z8I3N7mTI1Oek1TqbzkxA9aYbNgMgkeXcIkoFRBDqLSTo4/LZXGqEoVCvFgZyRTtxsSPE0rhtDk=
-Authentication-Results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com (2603:10b6:5:2a9::15)
- by DM6PR12MB3242.namprd12.prod.outlook.com (2603:10b6:5:189::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.22; Fri, 5 Jun
- 2020 18:40:51 +0000
-Received: from DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::7949:b580:a2d5:f766]) by DM6PR12MB4401.namprd12.prod.outlook.com
- ([fe80::7949:b580:a2d5:f766%5]) with mapi id 15.20.3066.019; Fri, 5 Jun 2020
- 18:40:51 +0000
-Subject: Re: [PATCH 1/6] drm/ttm: Add unampping of the entire device address
- space
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-References: <1589050310-19666-1-git-send-email-andrey.grodzovsky@amd.com>
- <1589050310-19666-2-git-send-email-andrey.grodzovsky@amd.com>
- <e293af59-99df-c147-68d6-8fa3ade38829@gmail.com>
- <3758b335-25b5-403c-5936-25d5fe714842@amd.com>
-From: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-Message-ID: <d297514f-a1c9-3bd3-a1e2-6921019a5d31@amd.com>
-Date: Fri, 5 Jun 2020 20:40:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-In-Reply-To: <3758b335-25b5-403c-5936-25d5fe714842@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: AM3PR07CA0095.eurprd07.prod.outlook.com
- (2603:10a6:207:6::29) To DM6PR12MB4401.namprd12.prod.outlook.com
- (2603:10b6:5:2a9::15)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 336B26E114;
+	Sun,  7 Jun 2020 04:06:15 +0000 (UTC)
+Received: from mail-ed1-x532.google.com (mail-ed1-x532.google.com
+ [IPv6:2a00:1450:4864:20::532])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A48426E114;
+ Sun,  7 Jun 2020 04:06:13 +0000 (UTC)
+Received: by mail-ed1-x532.google.com with SMTP id e12so10624622eds.2;
+ Sat, 06 Jun 2020 21:06:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/4M9n/jjdZ6jTzSVw7Lm0ovP1fYki6oC+p2XEevFF+8=;
+ b=O4G6ogiPxqxqF93BRXpHaKQqOjsNunt+gDqsjpqQ7ZYZUf5JZAJTxamqAOpmImhC0t
+ amvtjDlE2lrA+sIxok72lG6r1m/pRyE7x1kP9+LPDgGHgwUJyyY8xlblJvTrWcNbRXgy
+ cZx6YO7CaickBeZhpNC/qSE0tOoTmzfilviKfDZVEk6hnh1jp8U9sbENvOOsC9HEXz8Y
+ tUNbR9CpSBXDMFW4TQ5Jd7eCVvhLDViCHJEFkLC7iOWyCZx3dzeeICORRfkAfSsE/va+
+ Mghz725kEH0tRJc9Zmyn4xkISXS6qxcWX9s1zMxxCTIvHDGMDpAHxRwdrK+zblHwlvAC
+ 5PJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/4M9n/jjdZ6jTzSVw7Lm0ovP1fYki6oC+p2XEevFF+8=;
+ b=XhcbanNz3+kRI7vtviX7MVedpHTr2k4ZIz3t3UDS19DJLG9TLNo/NZAiQAXXPAhg0G
+ s6qiVxRDcMUlBMEmJD4BEWEvt9hT8QEsXWh73FPgyPMpdvoLPKvmLMf2h52Ihh6H1XBS
+ bOwhgO1UgxqekC2l99LgLgJZ9NU6zf2MvFL/HwUr5ohk/7HimdeDEzrDUYNik82kb9X1
+ +Dxkb9DvbYfxhfYIvM3hwAdXM5khpZiy5sGWIaByL9SvwOGzY4M6chx5tw/HU3vQLxrJ
+ rzK15h9vneb80rIOHsfEhwcOGKA7+Sv2ZqF3P+L3hQAfMAhFJ+qOvdoc4J1/P2m4JOzs
+ 3txQ==
+X-Gm-Message-State: AOAM530Mcqn9MYBB+PB0oqLBByiu1JL0JAI6qGBgvoBDxQYLeDb+LXyk
+ Ogw7Sstyy1Q/rbttx3iJxb8/xgES
+X-Google-Smtp-Source: ABdhPJzkOthh8GTIJtfj/aSkVe9hiFPkXPFVBbW+sRIXe260iHSKDP9LHEYfOzIk9qv8mcPTZF+j5A==
+X-Received: by 2002:a50:a701:: with SMTP id h1mr14707123edc.170.1591502771825; 
+ Sat, 06 Jun 2020 21:06:11 -0700 (PDT)
+Received: from twisty.localdomain
+ (dynamic-2a01-0c23-8430-e100-f914-43b7-6b66-02cf.c23.pool.telefonica.de.
+ [2a01:c23:8430:e100:f914:43b7:6b66:2cf])
+ by smtp.gmail.com with ESMTPSA id w13sm7797243eju.124.2020.06.06.21.06.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 06 Jun 2020 21:06:10 -0700 (PDT)
+From: Mario Kleiner <mario.kleiner.de@gmail.com>
+To: dri-devel@lists.freedesktop.org,
+	amd-gfx@lists.freedesktop.org
+Subject: Enable fp16 scanout on DCE 8 and DCE 10
+Date: Sun,  7 Jun 2020 06:05:56 +0200
+Message-Id: <20200607040558.15996-1-mario.kleiner.de@gmail.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
- (2a02:908:1252:fb60:be8a:bd56:1f94:86e7) by
- AM3PR07CA0095.eurprd07.prod.outlook.com (2603:10a6:207:6::29) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3088.10 via Frontend Transport; Fri, 5 Jun 2020 18:40:50 +0000
-X-Originating-IP: [2a02:908:1252:fb60:be8a:bd56:1f94:86e7]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: fa7f1b7f-d94d-4058-ce19-08d8097ff916
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3242:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB3242950572256AA71B95657F83860@DM6PR12MB3242.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
-X-Forefront-PRVS: 0425A67DEF
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CxZWq4TGppEJKDjR+/Tss5ZiL2itE/57TV2w4lfq2wjYk2gY5JLML3jAlKHrFfDnQ+/J2sFI5xplDDo3PvwZEwXcLgZD6bZefm5mduRi4SPn72iJjJn1E4ls1gwUSJM8RLjWnGWOrOQMbM/h+kBi9FrjZcIoeILVKFImhJUQbOUU5Su9MKSqEm2OBhdbE9FkFhLcMDQQwB1WZi/tcqyNdPFDtmRqab6iqjY/gtTWTzoo3BYgYNrrWrBv8VQi43GJrwJjQX7ZH4LJRYDTGpzdHK09D1e5EVrj/NDPuDAxPNdDvn8lIlNdY/YUSQLv1zyfYvEe4aXCS5ssqj6Zw9gDmIJ5BNR+FmWECb3tVnq9yR9llJc4e0bIyoUFyOmud4Cf
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB4401.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(136003)(39860400002)(376002)(396003)(346002)(366004)(6666004)(6486002)(2616005)(5660300002)(31686004)(53546011)(16526019)(478600001)(186003)(2906002)(8676002)(8936002)(36756003)(66476007)(66946007)(4326008)(86362001)(52116002)(66556008)(66574014)(31696002)(83380400001)(316002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: wPy42ORR6fozCZN9CHnyTnwiNYN5cwJ4alxBrzFLGukmw3h4i1LfkPwAcEnRZ3BGfS2Mk2C7KtPLrcYJn/IZJmdXiI/Zczdbvzk4a1L6ZBeQmkRY5+kYbE8mVxxkZ0abLOhNxEVzS8aEv11EiJg51KYq+dmj8hCJikGzuQTm6VA0Pe9ADwih2XB7c/2Lyrxnd+NH8RpdOWBwNBwBXp3povSdsrZfUfkjVP+NCD16ggaKSSibWkhuQioEtPK4Svet6C6eqsvJ10Vqm4cBdL7NJ/5wF8lwa96pmOwpkSycGM708xD1aWRA8rK88i1nEAwNcoDfzr6tmiZq/5YDHD0meIVFGdrXbN7CkpPJFmxpGjaBKm8CbnwGFpzEKXxkMzm3DKX+6CMNdfpnukXhyw9ywCutkvt5MuFD4ESjm0miO0VZFvPjyxnGp2DnVdw+06Y4E2G99q2xTUUpV9tVPBLKrKYBYtCvnGNLEcIbMNUx8Xg0S26zGgUS24qEL2jRJDtdfH6FuN7CvnLHvciHg8YQ8Hbjij+mSKFZNhIORFJhHsBJUpMawFkaR7IhBWPDR1bb
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fa7f1b7f-d94d-4058-ce19-08d8097ff916
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2020 18:40:51.9075 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: i9zF831P3dy48lgpq1QBUsaWv8mMJaGJy7MzpXojFXYqwbOtpW3G/oPL0iqngc5x
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3242
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,60 +79,25 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: alexdeucher@gmail.com, daniel.vetter@ffwll.ch, michel@daenzer.net
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Cc: alexander.deucher@amd.com, mario.kleiner.de@gmail.com,
+ nicholas.kazlauskas@amd.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QW0gMDUuMDYuMjAgdW0gMTY6Mjkgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPgo+IE9uIDUv
-MTEvMjAgMjo0NSBBTSwgQ2hyaXN0aWFuIEvDtm5pZyB3cm90ZToKPj4gQW0gMDkuMDUuMjAgdW0g
-MjA6NTEgc2NocmllYiBBbmRyZXkgR3JvZHpvdnNreToKPj4+IFNpZ25lZC1vZmYtYnk6IEFuZHJl
-eSBHcm9kem92c2t5IDxhbmRyZXkuZ3JvZHpvdnNreUBhbWQuY29tPgo+Pj4gLS0tCj4+PiDCoCBk
-cml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jwqDCoMKgIHwgMjIgKysrKysrKysrKysrKysrKysr
-KysrLQo+Pj4gwqAgaW5jbHVkZS9kcm0vdHRtL3R0bV9ib19kcml2ZXIuaCB8wqAgMiArKwo+Pj4g
-wqAgMiBmaWxlcyBjaGFuZ2VkLCAyMyBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9uKC0pCj4+Pgo+
-Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS90dG0vdHRtX2JvLmMgCj4+PiBiL2RyaXZl
-cnMvZ3B1L2RybS90dG0vdHRtX2JvLmMKPj4+IGluZGV4IGM1YjUxNmYuLmVhZTYxY2MgMTAwNjQ0
-Cj4+PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vdHRtL3R0bV9iby5jCj4+PiArKysgYi9kcml2ZXJz
-L2dwdS9kcm0vdHRtL3R0bV9iby5jCj4+PiBAQCAtMTc1MCw5ICsxNzUwLDI5IEBAIHZvaWQgdHRt
-X2JvX3VubWFwX3ZpcnR1YWwoc3RydWN0IAo+Pj4gdHRtX2J1ZmZlcl9vYmplY3QgKmJvKQo+Pj4g
-wqDCoMKgwqDCoCB0dG1fYm9fdW5tYXBfdmlydHVhbF9sb2NrZWQoYm8pOwo+Pj4gwqDCoMKgwqDC
-oCB0dG1fbWVtX2lvX3VubG9jayhtYW4pOwo+Pj4gwqAgfQo+Pj4gK0VYUE9SVF9TWU1CT0wodHRt
-X2JvX3VubWFwX3ZpcnR1YWwpOwo+Pj4gwqAgK3ZvaWQgdHRtX2JvX3VubWFwX3ZpcnR1YWxfYWRk
-cmVzc19zcGFjZShzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldikKPj4+ICt7Cj4+PiArwqDCoMKg
-IHN0cnVjdCB0dG1fbWVtX3R5cGVfbWFuYWdlciAqbWFuOwo+Pj4gK8KgwqDCoCBpbnQgaTsKPj4+
-IMKgIC1FWFBPUlRfU1lNQk9MKHR0bV9ib191bm1hcF92aXJ0dWFsKTsKPj4KPj4+ICvCoMKgwqAg
-Zm9yIChpID0gMDsgaSA8IFRUTV9OVU1fTUVNX1RZUEVTOyBpKyspIHsKPj4+ICvCoMKgwqDCoMKg
-wqDCoCBtYW4gPSAmYmRldi0+bWFuW2ldOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmIChtYW4tPmhh
-c190eXBlICYmIG1hbi0+dXNlX3R5cGUpCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB0dG1f
-bWVtX2lvX2xvY2sobWFuLCBmYWxzZSk7Cj4+PiArwqDCoMKgIH0KPj4KPj4gWW91IHNob3VsZCBk
-cm9wIHRoYXQgaXQgd2lsbCBqdXN0IHJlc3VsdCBpbiBhIGRlYWRsb2NrIHdhcm5pbmcgZm9yIAo+
-PiBOb3V2ZWF1IGFuZCBoYXMgbm8gZWZmZWN0IGF0IGFsbC4KPj4KPj4gQXBhcnQgZnJvbSB0aGF0
-IGxvb2tzIGdvb2QgdG8gbWUsCj4+IENocmlzdGlhbi4KPgo+Cj4gQXMgSSBhbSBjb25zaWRlcmlu
-ZyB0byByZS1pbmNsdWRlIHRoaXMgaW4gVjIgb2YgdGhlIHBhdGNoc2V0cywgY2FuIHlvdSAKPiBj
-bGFyaWZ5IHBsZWFzZSB3aHkgdGhpcyB3aWxsIGhhdmUgbm8gZWZmZWN0IGF0IGFsbCA/CgpUaGUg
-bG9ja3MgYXJlIGV4Y2x1c2l2ZSBmb3IgTm91dmVhdSB0byBhbGxvY2F0ZS9mcmVlIHRoZSBpbyBh
-ZGRyZXNzIHNwYWNlLgoKU2luY2Ugd2UgZG9uJ3QgZG8gdGhpcyBoZXJlIHdlIGRvbid0IG5lZWQg
-dGhlIGxvY2tzLgoKQ2hyaXN0aWFuLgoKPgo+IEFuZHJleQo+Cj4KPj4KPj4+ICsKPj4+ICvCoMKg
-wqAgdW5tYXBfbWFwcGluZ19yYW5nZShiZGV2LT5kZXZfbWFwcGluZywgMCwgMCAsIDEpOwo+Pj4g
-K8KgwqDCoCAvKlRPRE8gV2hhdCBhYm91dCB0dG1fbWVtX2lvX2ZyZWVfdm0oYm8pID8gKi8KPj4+
-ICsKPj4+ICvCoMKgwqAgZm9yIChpID0gVFRNX05VTV9NRU1fVFlQRVMgLSAxOyBpID49IDA7IGkt
-LSkgewo+Pj4gK8KgwqDCoMKgwqDCoMKgIG1hbiA9ICZiZGV2LT5tYW5baV07Cj4+PiArwqDCoMKg
-wqDCoMKgwqAgaWYgKG1hbi0+aGFzX3R5cGUgJiYgbWFuLT51c2VfdHlwZSkKPj4+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIHR0bV9tZW1faW9fdW5sb2NrKG1hbik7Cj4+PiArwqDCoMKgIH0KPj4+
-ICt9Cj4+PiArRVhQT1JUX1NZTUJPTCh0dG1fYm9fdW5tYXBfdmlydHVhbF9hZGRyZXNzX3NwYWNl
-KTsKPj4+IMKgIMKgIGludCB0dG1fYm9fd2FpdChzdHJ1Y3QgdHRtX2J1ZmZlcl9vYmplY3QgKmJv
-LAo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGJvb2wgaW50ZXJydXB0aWJsZSwgYm9vbCBub193YWl0
-KQo+Pj4gZGlmZiAtLWdpdCBhL2luY2x1ZGUvZHJtL3R0bS90dG1fYm9fZHJpdmVyLmggCj4+PiBi
-L2luY2x1ZGUvZHJtL3R0bS90dG1fYm9fZHJpdmVyLmgKPj4+IGluZGV4IGM5ZTBmZDAuLjMxMzM0
-NjMgMTAwNjQ0Cj4+PiAtLS0gYS9pbmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZlci5oCj4+PiAr
-KysgYi9pbmNsdWRlL2RybS90dG0vdHRtX2JvX2RyaXZlci5oCj4+PiBAQCAtNjAwLDYgKzYwMCw4
-IEBAIGludCB0dG1fYm9fZGV2aWNlX2luaXQoc3RydWN0IHR0bV9ib19kZXZpY2UgKmJkZXYsCj4+
-PiDCoMKgICovCj4+PiDCoCB2b2lkIHR0bV9ib191bm1hcF92aXJ0dWFsKHN0cnVjdCB0dG1fYnVm
-ZmVyX29iamVjdCAqYm8pOwo+Pj4gwqAgK3ZvaWQgdHRtX2JvX3VubWFwX3ZpcnR1YWxfYWRkcmVz
-c19zcGFjZShzdHJ1Y3QgdHRtX2JvX2RldmljZSAqYmRldik7Cj4+PiArCj4+PiDCoCAvKioKPj4+
-IMKgwqAgKiB0dG1fYm9fdW5tYXBfdmlydHVhbAo+Pj4gwqDCoCAqCj4+CgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAph
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
+So i'm sending these on the off-chance that DCE-8/10 do
+support fp16 scanout without hw bugs. Would be nice to
+enable this if it is supported, even if the hw can't do
+HDR. This is also useful for non-HDR to get effectively
+11 bpc precision from the fb to the display outputs for
+more precise color reproduction.
+
+thanks,
+-mario
+
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
