@@ -8,66 +8,66 @@ X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 15E0BC433DF
-	for <amd-gfx@archiver.kernel.org>; Sun,  7 Jun 2020 04:06:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 47B3FC433E0
+	for <amd-gfx@archiver.kernel.org>; Sun,  7 Jun 2020 04:06:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DCD0E206A5
-	for <amd-gfx@archiver.kernel.org>; Sun,  7 Jun 2020 04:06:21 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1E25F206A5
+	for <amd-gfx@archiver.kernel.org>; Sun,  7 Jun 2020 04:06:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B8cP/1D8"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DCD0E206A5
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eD39SVG7"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E25F206A5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D20956E25B;
-	Sun,  7 Jun 2020 04:06:18 +0000 (UTC)
-Received: from mail-ej1-x643.google.com (mail-ej1-x643.google.com
- [IPv6:2a00:1450:4864:20::643])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E7666E25B;
- Sun,  7 Jun 2020 04:06:18 +0000 (UTC)
-Received: by mail-ej1-x643.google.com with SMTP id q19so14485050eja.7;
- Sat, 06 Jun 2020 21:06:18 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCFB46E25F;
+	Sun,  7 Jun 2020 04:06:20 +0000 (UTC)
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com
+ [IPv6:2a00:1450:4864:20::641])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEE176E260;
+ Sun,  7 Jun 2020 04:06:19 +0000 (UTC)
+Received: by mail-ej1-x641.google.com with SMTP id q19so14485081eja.7;
+ Sat, 06 Jun 2020 21:06:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=wQbGVJsmgUaaNGKlxIx9gObTOhSlYMWEOJh9oGiI0Ds=;
- b=B8cP/1D8oLjBQiZ/A46ol+KeJZ4vqenXN1dRJVNDB4Vi79qzt1VxKwg8Gvf/DTsR88
- VeTAlg4FUnYAUHlYZzaxsFiFGWf1qLJVOlaHTAqdQlSmO5VYwUAiMVQf6zx0ln6oYshA
- DUkKLzljRSq6kdihBKFaXPboCawZULfmvVbI2Iy38/ndjWzjaOZhgcp3I2ruMWO66WKn
- YNtTgp9H51tFb6l2HN4cQA73Lmh4W/Apj+Y8zgvxMga8Bj4UuYpfYfpQ77m/0j65qQYn
- tOG9IwMi+FNAPLYqlkjWYPm/ic75Ua53eo5428mLNuA/NL+bPC29+Qrl4/Yx3gfdLGPS
- Smkg==
+ bh=YnfNaRqVPV6XqQG2QgxhQE+LJO62l70Xq3ODGCdKbrM=;
+ b=eD39SVG7TsxYBPUexkrFKxT01/K/7WNVvcZVjjdXxDZsDBHnZR8F2bDGsKs5f0rCcx
+ SR++CBlzHVetPlhWMGVgnnNs0Gv2eyvHAS3sCkCmbaKtny0s1WU3bOPWSROlBIFqcjR7
+ nvhWhoaa8kkFj/amy6sLglXozu2G7tyEVoIyq7psRuweyrQitRuufIC7++SJa+j/ctPi
+ HlF+91KWFg9+WGyJyEXP7Rrh4vCzwboT+Lwmg/A58q+QQUx/RLT1XF6T6gQX6j6MRejM
+ caC1MoEATdDn1hqmhIlCWUVtEtAn+VXxru5fyawLWE8YSvlYux4wr76sUSdy0Tpau1ej
+ zUxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=wQbGVJsmgUaaNGKlxIx9gObTOhSlYMWEOJh9oGiI0Ds=;
- b=h9QEE9tEc7pmpnsAwkhZAP4QL8IgWtYSJmxubSxnlSAIJeVaoT/P2UME0n3upzsoC3
- i2aLSHUZuKS75jU9Slcq6jG7GoPOJZpwljitw4IPQjRusr/z/2vWs8RCgvu1q9VEi+A0
- vKKKBjljgi52mEOFn11VmVLWSHcKhQ7eDBF1l3/VwCnjm+P36XCJ+7BZDYoPYv2CRKDq
- FOhKz5EjoMXFAcTlG4vcduDmX8JsWdHdfTQfZUACMuqCbnj8YVrBouF+MHPu/2veLlcT
- 8eI7jR/iQ3ShlJeW/gDaPx3NVpInUsXeiqCQRC/hgjDVjHTKlV8bW7Zs2BQk0mTezDUk
- cvIg==
-X-Gm-Message-State: AOAM532tLF4HzKXZa7yHlLws5O5XYNH1GX3gft64WmYz5rsijiAuclWc
- opZKRRHTPhZtqbkt5kL3NUp3kQwF
-X-Google-Smtp-Source: ABdhPJzqNOOTL2xeC8kFJYl79Xci8avCzaCIKouujtXawDJPbjt2bQe9ANxacUo4kPYMJCWlBszrbg==
-X-Received: by 2002:a17:906:73db:: with SMTP id
- n27mr15127111ejl.16.1591502776665; 
- Sat, 06 Jun 2020 21:06:16 -0700 (PDT)
+ bh=YnfNaRqVPV6XqQG2QgxhQE+LJO62l70Xq3ODGCdKbrM=;
+ b=kPPP+Irj8r2NJlB4JU9is2ibG64gUz7VGxDyCrp3IAo2lxjS9J/u1U6tQ65ujt/L+v
+ s/cd5JzjrK2F6QkTAqoqQBPm0hg+wPbOAXiI7/XcKSRe8lTJyM0bMTqf1AGewuIG21Jg
+ eSPpVxDgF5ULPyVI9sxW24cz50BVjVU69S940C75UkGpowFCBklzgZaf+SF9RFO3sxXC
+ zbOxyM5zUNMGXG6xS9T9cuQaXtJZRmCBgaVa4d22jwJtw2ZAubWB7vtm0gSIpIQ7qjNk
+ 1X4o1+oCnES7Y+v1uF1Rv5r8EjTJBdx3Zxgk761CpXZGYIc8mQsxSOYoQK26PFIvHuqv
+ G+ig==
+X-Gm-Message-State: AOAM533wLacGEWFL6vsy72v2N5XQ7TUwxBS90ELdLMQIxY+R6phCr+5K
+ 1qy0caAfCKqrqJCiJ7Q5ZgKOHNu2
+X-Google-Smtp-Source: ABdhPJxhxitFum4zLZeNoJUz6WK4R5MBNcjk9wnR74y7u9CfPAXCoyIGjDW2KWz1tRVTPmFs7vRZKg==
+X-Received: by 2002:a17:906:b88c:: with SMTP id
+ hb12mr15086605ejb.483.1591502778428; 
+ Sat, 06 Jun 2020 21:06:18 -0700 (PDT)
 Received: from twisty.localdomain
  (dynamic-2a01-0c23-8430-e100-f914-43b7-6b66-02cf.c23.pool.telefonica.de.
  [2a01:c23:8430:e100:f914:43b7:6b66:2cf])
- by smtp.gmail.com with ESMTPSA id w13sm7797243eju.124.2020.06.06.21.06.15
+ by smtp.gmail.com with ESMTPSA id w13sm7797243eju.124.2020.06.06.21.06.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 06 Jun 2020 21:06:16 -0700 (PDT)
+ Sat, 06 Jun 2020 21:06:17 -0700 (PDT)
 From: Mario Kleiner <mario.kleiner.de@gmail.com>
 To: dri-devel@lists.freedesktop.org,
 	amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/2] drm/amd/display: Enable fp16 also on DCE-10.
-Date: Sun,  7 Jun 2020 06:05:57 +0200
-Message-Id: <20200607040558.15996-2-mario.kleiner.de@gmail.com>
+Subject: [PATCH 2/2] drm/amd/display: Enable fp16 also on DCE-8.
+Date: Sun,  7 Jun 2020 06:05:58 +0200
+Message-Id: <20200607040558.15996-3-mario.kleiner.de@gmail.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20200607040558.15996-1-mario.kleiner.de@gmail.com>
 References: <20200607040558.15996-1-mario.kleiner.de@gmail.com>
@@ -99,14 +99,14 @@ to get more precise color reproduction with about
 
 Signed-off-by: Mario Kleiner <mario.kleiner.de@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c | 2 +-
+ drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
-index a28c4ae0f259..10bb4e6e7bac 100644
---- a/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce100/dce100_resource.c
-@@ -385,7 +385,7 @@ static const struct dc_plane_cap plane_cap = {
+diff --git a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
+index a19be9de2df7..0dcea3106886 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/dce80/dce80_resource.c
+@@ -402,7 +402,7 @@ static const struct dc_plane_cap plane_cap = {
  	.pixel_format_support = {
  			.argb8888 = true,
  			.nv12 = false,
