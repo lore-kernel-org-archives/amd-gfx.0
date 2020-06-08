@@ -2,68 +2,52 @@ Return-Path: <SRS0=JmOw=7V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83E6CC433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 22:22:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 45F69C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 23:06:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 41B462068D
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 22:22:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1E9BB207C3
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 23:06:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KjXWnVdE"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41B462068D
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="nI2YdhB1"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1E9BB207C3
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFFC889B99;
-	Mon,  8 Jun 2020 22:22:54 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EAD6889E43
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2020 22:22:53 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id e1so19174183wrt.5
- for <amd-gfx@lists.freedesktop.org>; Mon, 08 Jun 2020 15:22:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=WsjUtdqtxV5bGEDnq4+EEAdg82KjBMU91x2gRiDEZ64=;
- b=KjXWnVdECIh96nhb9F5hV61QlT2Lx/LD0qWGNgT9Qs1l/2/E15G3SSKWwLED9dhoX1
- w7MYniikzp5ALA7bhL5tgeSWPP49XrmqvxVWmZ5W/O9nnsmSqgZLDOunWg/aM4o5NYM6
- Eudq3btWx/UpF5450XaB9MdvgNgd0A2JHwu6rqZM595COxdjwM3cMZc/JiIqQDWhAK0x
- n6SI5fdIpdV0u6d+s/CgsYsHOLndYrfKw4hb5CBlWayddy13D5NAAvQab8jxFIxpuws4
- gROVAVIOPHjKGcHr8+w978nTWRc50KHkYX/6JuV5XgAnnudJ6Vk1HmEHC5UxVM8T4hCy
- Js+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=WsjUtdqtxV5bGEDnq4+EEAdg82KjBMU91x2gRiDEZ64=;
- b=GG7LLg7tuETUmOapbyKvtdwekUssx0B6vb5SqAxq15Ew9vQvdTwqGrr6ozXlQYM4Qc
- ZO2c+ccaWh5xiUHripk4x5BrDbhH1MG1TFjJ0XLLyvpTExy6uBtlb9w3vC/dFTQr/HsV
- VxiyZB64742EKFao7h7HR8Y7v8cX/1S2WaIbAyzLlqLTOj3ifJUnJr2fLWASUvANQzSF
- TAUq+3HWFovZOfmyGOEp0oTDXA8CRMqSfNrtoj6HqCD4EZYRrWqjJXFPeuMv+JkpH0Iy
- w3JdOfErjPcxbSpQVCPEBI0z95HFXN3g8Ty6rL8h1/+aMEp9oNSSXPYbroUM2vARyN2y
- yhoQ==
-X-Gm-Message-State: AOAM530XrpZLxWJKTtFiLFsmg/Zw66+h+DUrJJXoFVkb8juO2DetyHjf
- +BVaNs1135v03/W9ZQagi+Go8ldHfyZeyCa/zlKcIA==
-X-Google-Smtp-Source: ABdhPJyTw0DSlYrqzzGNIAu42JdKldWuco3UwjhSVI3e0C2c/xqEa6MfQE1wbQPJWI7QdcIg4EV1dt9WAFIAT56YatE=
-X-Received: by 2002:a05:6000:1003:: with SMTP id
- a3mr935758wrx.111.1591654972689; 
- Mon, 08 Jun 2020 15:22:52 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C752B89C9D;
+	Mon,  8 Jun 2020 23:06:10 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4D988991C;
+ Mon,  8 Jun 2020 23:06:09 +0000 (UTC)
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 899DA2076A;
+ Mon,  8 Jun 2020 23:06:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1591657569;
+ bh=CicGRjGSOTBsUj/Eqh9polVEPmrcjtOxTk5wOZR5tgE=;
+ h=From:To:Cc:Subject:Date:From;
+ b=nI2YdhB1zt9pJ919fxs1oyKtdENrnrLP24ylg86cC/kUoj9RYMFYPe0Ipv8Hn3GWu
+ nZxfi5XehnjrGsJvLMtMlzOtIG5ZkVO4CuuenLWVF3RtdywZzfTkl4Mq+JN7GR6afq
+ ynvWaLS+BIuCTUZ7fNshAQE/pc0Txda7UNMTR2OI=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.7 001/274] drm/amdgpu: fix and cleanup
+ amdgpu_gem_object_close v4
+Date: Mon,  8 Jun 2020 19:01:34 -0400
+Message-Id: <20200608230607.3361041-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-References: <20200608105234.29864-1-evan.quan@amd.com>
- <20200608105234.29864-7-evan.quan@amd.com>
-In-Reply-To: <20200608105234.29864-7-evan.quan@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 8 Jun 2020 18:22:41 -0400
-Message-ID: <CADnq5_OZAkBNwUa4Oh5OAZLDwK=KCrGiLL7Z0Okmu4zqOSXhVQ@mail.gmail.com>
-Subject: Re: [PATCH 7/7] drm/amd/powerplay: add check for power limit OD
- support
-To: Evan Quan <evan.quan@amd.com>
+X-stable: review
+X-Patchwork-Hint: Ignore
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,57 +59,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Sasha Levin <sashal@kernel.org>, xinhui pan <xinhui.pan@amd.com>,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 8, 2020 at 6:53 AM Evan Quan <evan.quan@amd.com> wrote:
->
-> Before counting the OD percent into max power limit margin.
->
-> Change-Id: I83b24d614e07fbc5eac41ff7cd668a1c2f33c6b2
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-> ---
->  drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> index 186cdf6696f8..115794557190 100644
-> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> @@ -1920,6 +1920,7 @@ static int navi10_get_power_limit(struct smu_context *smu)
->  {
->         struct smu_11_0_powerplay_table *powerplay_table =
->                 (struct smu_11_0_powerplay_table *)smu->smu_table.power_play_table;
-> +       struct smu_11_0_overdrive_table *od_settings = smu->od_settings;
->         PPTable_t *pptable = smu->smu_table.driver_pptable;
->         uint32_t power_limit, od_percent;
->
-> @@ -1934,7 +1935,8 @@ static int navi10_get_power_limit(struct smu_context *smu)
->         }
->         smu->current_power_limit = power_limit;
->
-> -       if (smu->od_enabled) {
-> +       if (smu->od_enabled &&
-> +           navi10_od_feature_is_supported(od_settings, SMU_11_0_ODCAP_POWER_LIMIT)) {
->                 od_percent = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
->
->                 dev_dbg(smu->adev->dev, "ODSETTING_POWERPERCENTAGE: %d (default: %d)\n", od_percent, power_limit);
-> --
-> 2.27.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+RnJvbTogQ2hyaXN0aWFuIEvDtm5pZyA8Y2hyaXN0aWFuLmtvZW5pZ0BhbWQuY29tPgoKWyBVcHN0
+cmVhbSBjb21taXQgODJjNDE2YjEzY2I3ZDIyYjk2ZWMwODg4YjI5NmE0OGRmZjhhMDllYiBdCgpU
+aGUgcHJvYmxlbSBpcyB0aGF0IHdlIGNhbid0IGFkZCB0aGUgY2xlYXIgZmVuY2UgdG8gdGhlIEJP
+CndoZW4gdGhlcmUgaXMgYW4gZXhjbHVzaXZlIGZlbmNlIG9uIGl0IHNpbmNlIHdlIGNhbid0Cmd1
+YXJhbnRlZSB0aGUgdGhlIGNsZWFyIGZlbmNlIHdpbGwgY29tcGxldGUgYWZ0ZXIgdGhlCmV4Y2x1
+c2l2ZSBvbmUuCgpUbyBmaXggdGhpcyByZWZhY3RvciB0aGUgZnVuY3Rpb24gYW5kIGFsc28gYWRk
+IHRoZSBleGNsdXNpdmUKZmVuY2UgYXMgc2hhcmVkIHRvIHRoZSByZXN2IG9iamVjdC4KCnYyOiBm
+aXggd2FybmluZwp2MzogYWRkIGV4Y2wgZmVuY2UgYXMgc2hhcmVkIGluc3RlYWQKdjQ6IHNxdWFz
+aCBpbiBmaXggZm9yIGZlbmNlIGhhbmRsaW5nIGluIGFtZGdwdV9nZW1fb2JqZWN0X2Nsb3NlCgpT
+aWduZWQtb2ZmLWJ5OiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+
+ClJldmlld2VkLWJ5OiB4aW5odWkgcGFuIDx4aW5odWkucGFuQGFtZC5jb20+ClNpZ25lZC1vZmYt
+Ynk6IEFsZXggRGV1Y2hlciA8YWxleGFuZGVyLmRldWNoZXJAYW1kLmNvbT4KU2lnbmVkLW9mZi1i
+eTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L2FtZGdwdV9nZW0uYyB8IDQzICsrKysrKysrKysrKysrLS0tLS0tLS0tLS0KIDEg
+ZmlsZSBjaGFuZ2VkLCAyNSBpbnNlcnRpb25zKCspLCAxOCBkZWxldGlvbnMoLSkKCmRpZmYgLS1n
+aXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMgYi9kcml2ZXJzL2dw
+dS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMKaW5kZXggNDI3NzEyNWE3OWVlLi4zMmYzNmM5
+NDBhYmIgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9nZW0u
+YworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVfZ2VtLmMKQEAgLTE2MSwx
+NiArMTYxLDE3IEBAIHZvaWQgYW1kZ3B1X2dlbV9vYmplY3RfY2xvc2Uoc3RydWN0IGRybV9nZW1f
+b2JqZWN0ICpvYmosCiAKIAlzdHJ1Y3QgYW1kZ3B1X2JvX2xpc3RfZW50cnkgdm1fcGQ7CiAJc3Ry
+dWN0IGxpc3RfaGVhZCBsaXN0LCBkdXBsaWNhdGVzOworCXN0cnVjdCBkbWFfZmVuY2UgKmZlbmNl
+ID0gTlVMTDsKIAlzdHJ1Y3QgdHRtX3ZhbGlkYXRlX2J1ZmZlciB0djsKIAlzdHJ1Y3Qgd3dfYWNx
+dWlyZV9jdHggdGlja2V0OwogCXN0cnVjdCBhbWRncHVfYm9fdmEgKmJvX3ZhOwotCWludCByOwor
+CWxvbmcgcjsKIAogCUlOSVRfTElTVF9IRUFEKCZsaXN0KTsKIAlJTklUX0xJU1RfSEVBRCgmZHVw
+bGljYXRlcyk7CiAKIAl0di5ibyA9ICZiby0+dGJvOwotCXR2Lm51bV9zaGFyZWQgPSAxOworCXR2
+Lm51bV9zaGFyZWQgPSAyOwogCWxpc3RfYWRkKCZ0di5oZWFkLCAmbGlzdCk7CiAKIAlhbWRncHVf
+dm1fZ2V0X3BkX2JvKHZtLCAmbGlzdCwgJnZtX3BkKTsKQEAgLTE3OCwyOCArMTc5LDM0IEBAIHZv
+aWQgYW1kZ3B1X2dlbV9vYmplY3RfY2xvc2Uoc3RydWN0IGRybV9nZW1fb2JqZWN0ICpvYmosCiAJ
+ciA9IHR0bV9ldV9yZXNlcnZlX2J1ZmZlcnMoJnRpY2tldCwgJmxpc3QsIGZhbHNlLCAmZHVwbGlj
+YXRlcyk7CiAJaWYgKHIpIHsKIAkJZGV2X2VycihhZGV2LT5kZXYsICJsZWFraW5nIGJvIHZhIGJl
+Y2F1c2UgIgotCQkJIndlIGZhaWwgdG8gcmVzZXJ2ZSBibyAoJWQpXG4iLCByKTsKKwkJCSJ3ZSBm
+YWlsIHRvIHJlc2VydmUgYm8gKCVsZClcbiIsIHIpOwogCQlyZXR1cm47CiAJfQogCWJvX3ZhID0g
+YW1kZ3B1X3ZtX2JvX2ZpbmQodm0sIGJvKTsKLQlpZiAoYm9fdmEgJiYgLS1ib192YS0+cmVmX2Nv
+dW50ID09IDApIHsKLQkJYW1kZ3B1X3ZtX2JvX3JtdihhZGV2LCBib192YSk7Ci0KLQkJaWYgKGFt
+ZGdwdV92bV9yZWFkeSh2bSkpIHsKLQkJCXN0cnVjdCBkbWFfZmVuY2UgKmZlbmNlID0gTlVMTDsK
+KwlpZiAoIWJvX3ZhIHx8IC0tYm9fdmEtPnJlZl9jb3VudCkKKwkJZ290byBvdXRfdW5sb2NrOwog
+Ci0JCQlyID0gYW1kZ3B1X3ZtX2NsZWFyX2ZyZWVkKGFkZXYsIHZtLCAmZmVuY2UpOwotCQkJaWYg
+KHVubGlrZWx5KHIpKSB7Ci0JCQkJZGV2X2VycihhZGV2LT5kZXYsICJmYWlsZWQgdG8gY2xlYXIg
+cGFnZSAiCi0JCQkJCSJ0YWJsZXMgb24gR0VNIG9iamVjdCBjbG9zZSAoJWQpXG4iLCByKTsKLQkJ
+CX0KKwlhbWRncHVfdm1fYm9fcm12KGFkZXYsIGJvX3ZhKTsKKwlpZiAoIWFtZGdwdV92bV9yZWFk
+eSh2bSkpCisJCWdvdG8gb3V0X3VubG9jazsKIAotCQkJaWYgKGZlbmNlKSB7Ci0JCQkJYW1kZ3B1
+X2JvX2ZlbmNlKGJvLCBmZW5jZSwgdHJ1ZSk7Ci0JCQkJZG1hX2ZlbmNlX3B1dChmZW5jZSk7Ci0J
+CQl9Ci0JCX0KKwlmZW5jZSA9IGRtYV9yZXN2X2dldF9leGNsKGJvLT50Ym8uYmFzZS5yZXN2KTsK
+KwlpZiAoZmVuY2UpIHsKKwkJYW1kZ3B1X2JvX2ZlbmNlKGJvLCBmZW5jZSwgdHJ1ZSk7CisJCWZl
+bmNlID0gTlVMTDsKIAl9CisKKwlyID0gYW1kZ3B1X3ZtX2NsZWFyX2ZyZWVkKGFkZXYsIHZtLCAm
+ZmVuY2UpOworCWlmIChyIHx8ICFmZW5jZSkKKwkJZ290byBvdXRfdW5sb2NrOworCisJYW1kZ3B1
+X2JvX2ZlbmNlKGJvLCBmZW5jZSwgdHJ1ZSk7CisJZG1hX2ZlbmNlX3B1dChmZW5jZSk7CisKK291
+dF91bmxvY2s6CisJaWYgKHVubGlrZWx5KHIgPCAwKSkKKwkJZGV2X2VycihhZGV2LT5kZXYsICJm
+YWlsZWQgdG8gY2xlYXIgcGFnZSAiCisJCQkidGFibGVzIG9uIEdFTSBvYmplY3QgY2xvc2UgKCVs
+ZClcbiIsIHIpOwogCXR0bV9ldV9iYWNrb2ZmX3Jlc2VydmF0aW9uKCZ0aWNrZXQsICZsaXN0KTsK
+IH0KIAotLSAKMi4yNS4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9y
+ZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
