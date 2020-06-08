@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF9B0C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 04:59:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D21DC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 04:59:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9572C20801
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 04:59:52 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 72CAE20801
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 04:59:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="XhILkcxp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9572C20801
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="tNzqpUuz"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72CAE20801
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EBE96E49A;
-	Mon,  8 Jun 2020 04:59:52 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2081.outbound.protection.outlook.com [40.107.244.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09D116E49A
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16E5C6E49C;
+	Mon,  8 Jun 2020 04:59:53 +0000 (UTC)
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750050.outbound.protection.outlook.com [40.107.75.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8ACF16E49A
  for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2020 04:59:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lMME5aCqfa8wdFP/IofPC2q40bPL7KRPBcyR6zKyChFK3XGB+ugFDAuS33287fRdRqcHWKog1NB1BMMGVmhKoqtgKe034NfXLHQLD+r/Ij+rqhWS2nxsJJfsxIrRD0U2zKFswz3xfBJ/ONAyJNv0Iuv6/SfzgxMbDKz85e2fEyqNrWnQAkFn8SRptZqoUhwZbAuHUYsLlHumVjMVp0kWXWHWsGIBprCPjyr5Wt+Vhn+DFBOrgw6qcGHE7hcOthaQuD2FjhI6VYIpgSPIMTTxuqTKChAP6ssIIMzETwmvvswfgZ3sCX1bgAW2xqM8Nc6RyYPYm2xwoj2KuqvBQDTjdg==
+ b=bJgvF6UmeN2hkMDboP/xAo84oTcOZMGE3W9NEUXCfkhfHjm36FhSAgr+L/ycGbnBepwnot0hff7eI7C50PC6xSuaG9UJ+JN+DP/fmMpL2VWJQdYG8EHmYxb+Aaj2yYz4nA4L23prTaYo7Ejk2WNq2/A/7hP3ho1V7wt9Orsv+Xgb+gmHU0o/99VuRVW7Snne/ctuGbFEOcEGdNpUts7aBaYbx8scndV4sn58FdHKgw6wT4BoLvYadZzg0mu5VkBRDpNB0lfG+wXbq73AXYMJ+qEVV1dTwugmkPiA/4ggHuEu2ZN4H+pWi/p3cImCzNl2KoeDlG3D2vZ7X5Lv49I7qw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cbiVkjP3WrKlzOIUH6GfS0CCJOKPRtPFYq/il9smkg8=;
- b=kPde+Bf2z+f5ARChdI/2JSWlhZPpreHHfniPjD29JAPr1zumuyimxtEUiDDFo13Vzx7ZlNgj/rTU1YQkB0/Z5mxdBg4otvKp9mi/ToDrcNKsgfmYMaaYpdJvU57dctXiVdkvaZEhOOeH8Av1mjpTMuefCrlgfV6tGvtDDIE/jizG6Xls54WPHgo8PGkWJmfnqyjuZv8t3B2/4ByU3zMy/9IdAEFNR7TWZVZ7nHef3QYPxjq35hNI7avaJ4Qq5Jxt5lv8fwTbVjKLuG7ZIIoB4auhimcRN0V9rOeKdKOJK8Xc6nopoidyjBUeHCXO/hkg0eV+qLyZAm8q2Bhuid0saQ==
+ bh=SOOYYCg6e6pnYeebdHII+SeHhJEqzGl21ygirTwXpH0=;
+ b=j6TcYic98Whpm0vx3d+p9vNHX50sizOg0cT8K0io6LKacLE0OHqhGI2f1EYdrBuLB4uB0S1ZUxAlUIUhewz/t/roLr+mD/+kVIYAcz3VUfaQWdKRgUMf5BUP09vtjQppDcFu5XMN0NjW6pzvsyV1BuDbIbqvMu5e6EuMVA9WbrHgycWNea2fEHJcfLMu+u0WFopbEChlw3P+cMilWwkM9vts2c7ytqbKgxrB82LyEvVsZu23hbPKTHOrmwSvufh7dtBBqLM6anxv7az49IezIwBYAaDinloG0R+4oFoCwBB7qou53tLe34zhpFNSCeEaBn9rfZlYjjwANkwLEPlmcQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,17 +40,17 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cbiVkjP3WrKlzOIUH6GfS0CCJOKPRtPFYq/il9smkg8=;
- b=XhILkcxpjbvxj1V1qTbvMd1rM6JUW85QCn74g8IKLrxhcn++RVQfo89At8kf1JoJOshkdsDlgTicypBhb6k7qMYSkjpyECGwtAZDytrPkH/ZJWDo9UAkht3SPp6vYUGReeI2KYB/B0jhB2P6mB1JqALQ4U8hBtuD4W0ulYrsiSI=
-Received: from DM5PR1101CA0021.namprd11.prod.outlook.com (2603:10b6:4:4c::31)
- by DM5PR1201MB0043.namprd12.prod.outlook.com (2603:10b6:4:57::9) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=SOOYYCg6e6pnYeebdHII+SeHhJEqzGl21ygirTwXpH0=;
+ b=tNzqpUuz6GH7/5gne4ooJOLBD4k5DRKLK3VbO9fJT8wasz6FOhR0Br1Uxq73GsQ2rRupUO0r82Xh+KOByU4obfPEzQ+VNxhcXDvFerSV4Xr6ztR69XqOJ1DSk0cCJuVccFwOtzEUUQ1M4DPgNuZbpgIq6kPIcxjQsp0AOJTZQiM=
+Received: from MWHPR04CA0036.namprd04.prod.outlook.com (2603:10b6:300:ee::22)
+ by MN2PR12MB3583.namprd12.prod.outlook.com (2603:10b6:208:c5::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18; Mon, 8 Jun
  2020 04:59:49 +0000
-Received: from DM6NAM11FT063.eop-nam11.prod.protection.outlook.com
- (2603:10b6:4:4c:cafe::64) by DM5PR1101CA0021.outlook.office365.com
- (2603:10b6:4:4c::31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.19 via Frontend
+Received: from CO1NAM11FT040.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:300:ee:cafe::cc) by MWHPR04CA0036.outlook.office365.com
+ (2603:10b6:300:ee::22) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18 via Frontend
  Transport; Mon, 8 Jun 2020 04:59:49 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
@@ -58,26 +58,26 @@ X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT063.mail.protection.outlook.com (10.13.172.219) with Microsoft SMTP
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT040.mail.protection.outlook.com (10.13.174.140) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
  15.20.3066.18 via Frontend Transport; Mon, 8 Jun 2020 04:59:49 +0000
-Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Sun, 7 Jun 2020
  23:59:48 -0500
 Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
  (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Sun, 7 Jun 2020
- 23:59:48 -0500
+ 23:59:47 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Sun, 7 Jun 2020 23:59:48 -0500
+ Transport; Sun, 7 Jun 2020 23:59:47 -0500
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 26/28] drm/amd/display: Not doing bios data pack.
-Date: Mon, 8 Jun 2020 00:59:24 -0400
-Message-ID: <20200608045926.17197-27-qingqing.zhuo@amd.com>
+Subject: [PATCH 25/28] drm/amd/display: not reset dmub in driver.
+Date: Mon, 8 Jun 2020 00:59:23 -0400
+Message-ID: <20200608045926.17197-26-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200608045926.17197-1-qingqing.zhuo@amd.com>
 References: <20200608045926.17197-1-qingqing.zhuo@amd.com>
@@ -85,27 +85,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(4636009)(396003)(346002)(376002)(136003)(39860400002)(46966005)(2906002)(1076003)(6666004)(8676002)(36756003)(8936002)(86362001)(5660300002)(26005)(70586007)(186003)(6916009)(478600001)(70206006)(316002)(44832011)(2616005)(81166007)(54906003)(4326008)(47076004)(336012)(426003)(82740400003)(356005)(82310400002);
+ SFS:(4636009)(346002)(396003)(39860400002)(136003)(376002)(46966005)(6666004)(86362001)(316002)(81166007)(2906002)(70206006)(186003)(8676002)(82740400003)(26005)(70586007)(54906003)(47076004)(336012)(356005)(5660300002)(8936002)(6916009)(478600001)(1076003)(83380400001)(36756003)(426003)(2616005)(4326008)(82310400002)(44832011);
  DIR:OUT; SFP:1101; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 13e8532e-a1fb-482a-7afe-08d80b68c5be
-X-MS-TrafficTypeDiagnostic: DM5PR1201MB0043:
-X-Microsoft-Antispam-PRVS: <DM5PR1201MB0043F1E2296C23504D386C8BFB850@DM5PR1201MB0043.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
+X-MS-Office365-Filtering-Correlation-Id: 8e54304e-3fa0-4171-2e3b-08d80b68c5a5
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3583:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB35835BFB9272A3180B8BEADCFB850@MN2PR12MB3583.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:514;
 X-Forefront-PRVS: 042857DBB5
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: M7oCZy6caGAKObziz+7uacDhVmx55w8a2EjIVpdHRDQOZZwi14XJPRn0S+mSGyTTPqAFmHXyQ0SJgzBGb7W3iWA2+JBMVS6eTatXtOPjPKHhQvTZzNN9vQR1r61lsX2odMPiqzNvwPiRw1g1uKFvro5CDVFdL5F4VdPcvuvoEQ2+5tySfpoOH1h9Wcj2mvQNbZZX8LRK4SJ2TlXKCssEbDCa5PQOB5DK/0JN8JJBpj8jz8q89SAEzE7twvU/ZHfL0SnbDXLp4E7kVSeAeG0SDdRHSdGJOdCqVsS5uYrgExbzJF74NxHeqloNZV9xVvoXg3z/k03tvAfYF+fETOrPzwCfGuRphY5BNW29+xY5vbSBFzXT4XatkC6x9y0s6gr5s1wGgGMxHE5CRV0lJY/Q2g==
+X-Microsoft-Antispam-Message-Info: DVcVKEFBtUmrwx8TPF8xL5CeU/PZCsSnhDJ3SAw0P8UwKkLEwPrCBChHEk2c1eR8w7sOv0uHdm51r/4ooQChYns8O9/uJwjXvEdcX/8lLn5rRDE+D9ewh4X5GcHYoePfddlnYMniqpd7+MC16FwXg7IqBJTCopGPht1R+/Ck2cYZxMTADDFdcwsNfRVhuxJ/Xz1tugl/RuTkY4SfLSOaFUsZ/7rkgAQdCnVrBp9xrr75a2s/Xvp1dksS7saNy1bNZHKXuO+aAUJz/lpdlwyHvoEvbrpZuUNhr5y+jUs8OT2NiopcXzJAdjrYJv7k67cE8S5otR/Ra9TtH7a5duNYWKAvcQzVDTDCNZIm1LKWjsFiBXc6gqIA4FxRKlUyyD47c4xFd3Q+JfWb8ToOQLv2lw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2020 04:59:49.4184 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13e8532e-a1fb-482a-7afe-08d80b68c5be
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2020 04:59:49.1767 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8e54304e-3fa0-4171-2e3b-08d80b68c5a5
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
+ Helo=[SATLEXMB01.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0043
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3583
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,47 +128,38 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Yongqiang Sun <yongqiang.sun@amd.com>
 
 [Why]
-dmub FW running abnormal after resume from S0i3 due
-to data aliagnment issue.
+during S0i3, set power state is toggled a few times,
+and dmub uC will restart with current reset/hw_init.
 
 [How]
-Before having a solution for this issue, temparory
-not doing data pack.
+Remove reset in set power state, and before doing hw_init,
+check if dmub is enabled, and doing FW autoload check only
+if dmub is already enabled.
 
 Signed-off-by: Yongqiang Sun <yongqiang.sun@amd.com>
-Reviewed-by: Sung Lee <Sung.Lee@amd.com>
+Reviewed-by: Tony Cheng <Tony.Cheng@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-index 150cdbc02d44..9311fec1643c 100644
---- a/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-+++ b/drivers/gpu/drm/amd/display/dc/bios/bios_parser2.c
-@@ -1880,10 +1880,12 @@ static enum bp_result bios_get_board_layout_info(
- 	return BP_RESULT_OK;
- }
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
+index 1e03f6fdabd6..2c4a2fe9311d 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_dcn20.c
+@@ -275,7 +275,11 @@ void dmub_dcn20_set_inbox1_wptr(struct dmub_srv *dmub, uint32_t wptr_offset)
  
-+
- static uint16_t bios_parser_pack_data_tables(
- 	struct dc_bios *dcb,
- 	void *dst)
+ bool dmub_dcn20_is_hw_init(struct dmub_srv *dmub)
  {
-+#ifdef PACK_BIOS_DATA
- 	struct bios_parser *bp = BP_FROM_DCB(dcb);
- 	struct atom_rom_header_v2_2 *rom_header = NULL;
- 	struct atom_rom_header_v2_2 *packed_rom_header = NULL;
-@@ -1975,6 +1977,9 @@ static uint16_t bios_parser_pack_data_tables(
- 		}
- 	}
- 	return packed_data_tbl_offset;
-+#endif
-+	// TODO: There is data bytes alignment issue, disable it for now.
-+	return 0;
+-	return REG_READ(DMCUB_REGION3_CW2_BASE_ADDRESS) != 0;
++	uint32_t is_hw_init;
++
++	REG_GET(DMCUB_CNTL, DMCUB_ENABLE, &is_hw_init);
++
++	return is_hw_init != 0;
  }
  
- static const struct dc_vbios_funcs vbios_funcs = {
+ bool dmub_dcn20_is_supported(struct dmub_srv *dmub)
 -- 
 2.17.1
 
