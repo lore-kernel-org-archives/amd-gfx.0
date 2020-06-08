@@ -2,49 +2,48 @@ Return-Path: <SRS0=JmOw=7V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 07F83C433E4
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 23:12:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2C6FC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 23:14:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D67E3208C7
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 23:12:55 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7A5E721556
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 23:14:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="o0TNMQPo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D67E3208C7
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="G5Ur+A9C"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7A5E721556
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DC3189D2F;
-	Mon,  8 Jun 2020 23:12:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A2106E0D7;
+	Mon,  8 Jun 2020 23:14:47 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F0776E0DC;
- Mon,  8 Jun 2020 23:12:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC6196E0D7;
+ Mon,  8 Jun 2020 23:14:45 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1701F20E65;
- Mon,  8 Jun 2020 23:12:52 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id BC51B2158C;
+ Mon,  8 Jun 2020 23:14:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591657973;
- bh=AN4+Ouy4r6PuoweN6SQVEtPsqTvyyPgIEM8Ru3zOnRs=;
+ s=default; t=1591658085;
+ bh=mRhGw7qR37r16r1P8tKnMThQNVCj3v9b08mSdxj9QVw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=o0TNMQPoh9l8kGsYn5opGuftNojJa322vh4xd112QfsOfX8eCHE6/lzT7qp6nX89+
- rEJa3Ldx4WA9TzhFbUa5FkesN0T1qNhoZpeqMdn3wPXOTFsYtUBiFYiiXnTQfjQPPk
- 0/vOrjf0K6Yncg371bZnvtIImgx/xD5r14WaWOfg=
+ b=G5Ur+A9Ck0zyRNmmAIThPUlLHiLun/te3bWu0SqKiUbeabmqLs8vdyOoeC6VRGFFf
+ 0dhwjViWWQEkw8V+ar+tPDpDysLHz38mmJX0BbQziHkHU2PSE1yVOCUkaOpWsOYG1y
+ XEiT7+crIzhA4ahm5GlMWA7NHa0gUkHkXEoAcIBU=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.6 035/606] drm/amd/display: add basic atomic check
- for cursor plane
-Date: Mon,  8 Jun 2020 19:02:40 -0400
-Message-Id: <20200608231211.3363633-35-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.6 129/606] drm/amd/display: fix counter in
+ wait_for_no_pipes_pending
+Date: Mon,  8 Jun 2020 19:04:14 -0400
+Message-Id: <20200608231211.3363633-129-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20200608231211.3363633-1-sashal@kernel.org>
 References: <20200608231211.3363633-1-sashal@kernel.org>
@@ -62,85 +61,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Simon Ser <contact@emersion.fr>, amd-gfx@lists.freedesktop.org,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- dri-devel@lists.freedesktop.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Alex Deucher <alexander.deucher@amd.com>, Harry Wentland <hwentlan@amd.com>,
- Roman Gilg <subdiff@gmail.com>
+Cc: Sasha Levin <sashal@kernel.org>, Zhan Liu <Zhan.Liu@amd.com>,
+ Roman Li <roman.li@amd.com>, amd-gfx@lists.freedesktop.org,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, dri-devel@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Simon Ser <contact@emersion.fr>
+From: Roman Li <roman.li@amd.com>
 
-commit 626bf90fe03fa080d8df06bb0397c95c53ae8e27 upstream.
+[ Upstream commit 80797dd6f1a525d1160c463d6a9f9d29af182cbb ]
 
-This patch adds a basic cursor check when an atomic test-only commit is
-performed. The position and size of the cursor plane is checked.
+[Why]
+Wait counter is not being reset for each pipe.
 
-This should fix user-space relying on atomic checks to assign buffers to
-planes.
+[How]
+Move counter reset into pipe loop scope.
 
-Signed-off-by: Simon Ser <contact@emersion.fr>
-Reported-by: Roman Gilg <subdiff@gmail.com>
-References: https://github.com/emersion/libliftoff/issues/46
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: Harry Wentland <hwentlan@amd.com>
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Signed-off-by: Roman Li <roman.li@amd.com>
+Reviewed-by: Zhan Liu <Zhan.Liu@amd.com>
+Acked-by: Aurabindo Pillai <aurabindo.pillai@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 26 +++++++++++++++++--
- 1 file changed, 24 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 8136a58deb39..5e27a67fbc58 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -7716,6 +7716,7 @@ static int dm_update_plane_state(struct dc *dc,
- 	struct drm_crtc_state *old_crtc_state, *new_crtc_state;
- 	struct dm_crtc_state *dm_new_crtc_state, *dm_old_crtc_state;
- 	struct dm_plane_state *dm_new_plane_state, *dm_old_plane_state;
-+	struct amdgpu_crtc *new_acrtc;
- 	bool needs_reset;
- 	int ret = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 188e51600070..b3987124183a 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -803,11 +803,10 @@ static void disable_dangling_plane(struct dc *dc, struct dc_state *context)
+ static void wait_for_no_pipes_pending(struct dc *dc, struct dc_state *context)
+ {
+ 	int i;
+-	int count = 0;
+-	struct pipe_ctx *pipe;
+ 	PERF_TRACE();
+ 	for (i = 0; i < MAX_PIPES; i++) {
+-		pipe = &context->res_ctx.pipe_ctx[i];
++		int count = 0;
++		struct pipe_ctx *pipe = &context->res_ctx.pipe_ctx[i];
  
-@@ -7725,9 +7726,30 @@ static int dm_update_plane_state(struct dc *dc,
- 	dm_new_plane_state = to_dm_plane_state(new_plane_state);
- 	dm_old_plane_state = to_dm_plane_state(old_plane_state);
- 
--	/*TODO Implement atomic check for cursor plane */
--	if (plane->type == DRM_PLANE_TYPE_CURSOR)
-+	/*TODO Implement better atomic check for cursor plane */
-+	if (plane->type == DRM_PLANE_TYPE_CURSOR) {
-+		if (!enable || !new_plane_crtc ||
-+			drm_atomic_plane_disabling(plane->state, new_plane_state))
-+			return 0;
-+
-+		new_acrtc = to_amdgpu_crtc(new_plane_crtc);
-+
-+		if ((new_plane_state->crtc_w > new_acrtc->max_cursor_width) ||
-+			(new_plane_state->crtc_h > new_acrtc->max_cursor_height)) {
-+			DRM_DEBUG_ATOMIC("Bad cursor size %d x %d\n",
-+							 new_plane_state->crtc_w, new_plane_state->crtc_h);
-+			return -EINVAL;
-+		}
-+
-+		if (new_plane_state->crtc_x <= -new_acrtc->max_cursor_width ||
-+			new_plane_state->crtc_y <= -new_acrtc->max_cursor_height) {
-+			DRM_DEBUG_ATOMIC("Bad cursor position %d, %d\n",
-+							 new_plane_state->crtc_x, new_plane_state->crtc_y);
-+			return -EINVAL;
-+		}
-+
- 		return 0;
-+	}
- 
- 	needs_reset = should_reset_plane(state, plane, old_plane_state,
- 					 new_plane_state);
+ 		if (!pipe->plane_state)
+ 			continue;
 -- 
 2.25.1
 
