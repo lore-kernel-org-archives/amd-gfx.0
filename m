@@ -2,47 +2,68 @@ Return-Path: <SRS0=JmOw=7V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=0.7 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FORGED_YAHOO_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B12B8C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 07:24:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 05703C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 07:24:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8E938204EF
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 07:24:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8E938204EF
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=linutronix.de
+	by mail.kernel.org (Postfix) with ESMTPS id CF245204EF
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 07:24:45 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="sxZKgnjh"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CF245204EF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=yahoo.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 163E789D4B;
-	Mon,  8 Jun 2020 07:24:44 +0000 (UTC)
-Received: from Galois.linutronix.de (Galois.linutronix.de
- [IPv6:2a0a:51c0:0:12e:550::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C16089C59;
- Mon,  8 Jun 2020 00:58:11 +0000 (UTC)
-Received: from [5.158.153.53] (helo=debian-buster-darwi.lab.linutronix.de.)
- by Galois.linutronix.de with esmtpsa (TLS1.2:DHE_RSA_AES_256_CBC_SHA1:256)
- (Exim 4.80) (envelope-from <a.darwish@linutronix.de>)
- id 1ji66y-0000nK-57; Mon, 08 Jun 2020 02:58:00 +0200
-From: "Ahmed S. Darwish" <a.darwish@linutronix.de>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Will Deacon <will@kernel.org>
-Subject: [PATCH v2 06/18] dma-buf: Use sequence counter with associated
- wound/wait mutex
-Date: Mon,  8 Jun 2020 02:57:17 +0200
-Message-Id: <20200608005729.1874024-7-a.darwish@linutronix.de>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200608005729.1874024-1-a.darwish@linutronix.de>
-References: <20200519214547.352050-1-a.darwish@linutronix.de>
- <20200608005729.1874024-1-a.darwish@linutronix.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AED189DBA;
+	Mon,  8 Jun 2020 07:24:45 +0000 (UTC)
+Received: from sonic311-25.consmr.mail.ne1.yahoo.com
+ (sonic311-25.consmr.mail.ne1.yahoo.com [66.163.188.206])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA0CD893EF
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2020 04:42:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1591591333; bh=RqDVXMk2zbhGaupskbSW8PxEx/t2WAObK/Z6yh1Zlr0=;
+ h=Date:From:To:Cc:In-Reply-To:References:Subject:From:Subject;
+ b=sxZKgnjhn2Ed7klHtIZ4JEdTJxUL+9z4+rnGVVsaHb6dBUe/1ZKOmdzgdrHg/OhO4lOvFgcGe4goFYSddcRhmgAvQhavirNPsquGNE+812E7Ud7CmMtjU5HRDugfFCU3a8KeBm21scwf/ctasWigSa9C5IrgZf3h2cm7DkiV+YppPSByz3VJRWPtYHFKA1/AX4nV9OmHIOV83JilPN5Yman9gpaK4Bdxn1abTT9HC21UanZJWf2wIjzU589Wu3zls9C+2IuABHxRdtX+ZEZlQZMI/dKHj0oJRrhiGs+hSiJmgc+gXKRB31Zzw+YqtJxVixttvGLuVKCi1lF93Shfwg==
+X-YMail-OSG: ._5dIpQVM1mNgsZWLMXsXtaRyZJtqvj3_lqQGM4qfnE9zcg1hTMlowrC0diuq6X
+ 7sNfXHCB00uvhLWwdCq1jgOYTJPnO3aRABSeEmr1yaN72hbQSuD26Pb8RKwBxS2hSHxvm6XwN14_
+ UMfJCh8hXHT8UFBwTLICyAESM_mwuPp1BAanHHuMdV4UFTJ9p25H5X5039YBLIzXWQovJbR_z1N4
+ WVi.5lFjplRZ8YGJ0zshxjDdmiyWXEiVJBlarJbTfLo8KOQ3iN0tGSkXG5a.Hz6JePSapAaUs_EW
+ bU1wKhf5cvcCz2NwWrmWsBkF5RC4as90D.yUOkv8nNO3UouJzCPMKf5TJ6uvBWtnbLUB0tmPUxji
+ 10JqEwDLudIJZWzxFdsAGkCetrq_tBLPh69zpBl153z2ua5AmabK890gnnn0BetpNs4QbDOEtjNN
+ V.aetd05quXNO0DBS6j1Y5eAUKPcFg03yDQC_qi_EJXafrLM4Y8gpK0gJTiIX3i0fL5pN.xeoQ65
+ mh4pUOimYpZJ4muvGh.efOZsUsearcZuteoXE4DhNj4jF_9GGhesq2hi3FVOFjsSI2iSa27rhmHR
+ O1piqYyiljf6IG26SngxTeX4CeAOMnULTX8fQnuHs1_fNazhHJDUzRXwqY3oq1mt5UwfmNik_Xon
+ JAZXr4SAGg9WjvsXdRplKwfR1uslP.mwVLBJ2Atd9dmD8fVuddDvapeQ.cb3PwRwakBcwZ4s7wzD
+ 0kd_4zWCT3Wg7Qj1yz9yfe2MK8iFBclxLD6pVQFZOJ8OohFJYmErSMCiIRGFsikaqr0Oluqi19L2
+ LYKWkPxUx03ntnB_rscaRVCYU1aaIihr2KBGiSdGQBx2ZsW57wGS7d._tKQ1oG4_XMpwllYbL7k0
+ m4llNpQwtYviExewBuf7Cj22_oaEgkja3dIJmTPcXxM9E2RXoViQQpmeMYITsAE3csW5lJvEv94e
+ SkKrPX7211.Gxa_6C_7xIgFpGv2OFE0PN20FbuEe0gMIHG.3nQok.SVf4Od0etNkQLJMEw6DzwS5
+ ZbbdPfoP8ftw.YJ_8w4vRmmVw7ICa0hKlSzWpEjxXGzPkPgY09ImTaBJ.CKmfRmJtYVmxkppvyP2
+ IUTmD.T1GaSlAFKlemFty6BUTRcL0_JaAWthxm05Y1.irJl.wclh1hkvO_rkU4Unf8E0DVV_Wdgc
+ e_4fbXYLokbfYEcPJFPK4oIHcpwnWa3B6ErviVxQj57G97U1WJiAecLoOs8lUymQkR0Oz2Em58JJ
+ _zpSA1Uvr4xdj3bbdUsdjPDe8645T78wQq9Nq_PaMEOwanxq_XwqMFufVaCRW3UiTxBAbDQg6KEh
+ RKUKiMu5M_A--
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic311.consmr.mail.ne1.yahoo.com with HTTP; Mon, 8 Jun 2020 04:42:13 +0000
+Date: Mon, 8 Jun 2020 04:41:31 +0000 (UTC)
+From: Ian Rogers <gruffhacker-insta@yahoo.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Message-ID: <1604567744.748054.1591591291556@mail.yahoo.com>
+In-Reply-To: <CADnq5_N_3QepQBn9cHq5yk3og6tGFNRgV1Rye+0Z0B+7B3okPw@mail.gmail.com>
+References: <91667893.917091.1590651127476.ref@mail.yahoo.com>
+ <91667893.917091.1590651127476@mail.yahoo.com>
+ <CADnq5_N_3QepQBn9cHq5yk3og6tGFNRgV1Rye+0Z0B+7B3okPw@mail.gmail.com>
+Subject: Re: using amdgpu headless (no monitor)
 MIME-Version: 1.0
-X-Linutronix-Spam-Score: -1.0
-X-Linutronix-Spam-Level: -
-X-Linutronix-Spam-Status: No , -1.0 points, 5.0 required, ALL_TRUSTED=-1,
- SHORTCIRCUIT=-0.0001
+X-Mailer: WebService/1.1.16072 YMailNorrin Mozilla/5.0 (Windows NT 10.0; Win64;
+ x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.61
+ Safari/537.36
 X-Mailman-Approved-At: Mon, 08 Jun 2020 07:24:43 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,146 +76,33 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "David \(ChunMing\) Zhou" <David1.Zhou@amd.com>,
- amd-gfx@lists.freedesktop.org, "Paul E. McKenney" <paulmck@kernel.org>,
- David Airlie <airlied@linux.ie>,
- "Sebastian A. Siewior" <bigeasy@linutronix.de>,
- LKML <linux-kernel@vger.kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- "Ahmed S. Darwish" <a.darwish@linutronix.de>,
- Alex Deucher <alexander.deucher@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Thomas Gleixner <tglx@linutronix.de>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A sequence counter write side critical section must be protected by some
-form of locking to serialize writers. If the serialization primitive is
-not disabling preemption implicitly, preemption has to be explicitly
-disabled before entering the sequence counter write side critical
-section.
-
-The dma-buf reservation subsystem uses plain sequence counters to manage
-updates to reservations. Writer serialization is accomplished through a
-wound/wait mutex.
-
-Acquiring a wound/wait mutex does not disable preemption, so this needs
-to be done manually before and after the write side critical section.
-
-Use the newly-added seqcount_ww_mutex_t instead:
-
-  - It associates the ww_mutex with the sequence count, which enables
-    lockdep to validate that the write side critical section is properly
-    serialized.
-
-  - It removes the need to explicitly add preempt_disable/enable()
-    around the write side critical section because the write_begin/end()
-    functions for this new data type automatically do this.
-
-If lockdep is disabled this ww_mutex lock association is compiled out
-and has neither storage size nor runtime overhead.
-
-Signed-off-by: Ahmed S. Darwish <a.darwish@linutronix.de>
----
- drivers/dma-buf/dma-resv.c                       | 8 +-------
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c | 2 --
- include/linux/dma-resv.h                         | 2 +-
- 3 files changed, 2 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-index 590ce7ad60a0..3aba2b2bfc48 100644
---- a/drivers/dma-buf/dma-resv.c
-+++ b/drivers/dma-buf/dma-resv.c
-@@ -128,7 +128,7 @@ subsys_initcall(dma_resv_lockdep);
- void dma_resv_init(struct dma_resv *obj)
- {
- 	ww_mutex_init(&obj->lock, &reservation_ww_class);
--	seqcount_init(&obj->seq);
-+	seqcount_ww_mutex_init(&obj->seq, &obj->lock);
- 
- 	RCU_INIT_POINTER(obj->fence, NULL);
- 	RCU_INIT_POINTER(obj->fence_excl, NULL);
-@@ -259,7 +259,6 @@ void dma_resv_add_shared_fence(struct dma_resv *obj, struct dma_fence *fence)
- 	fobj = dma_resv_get_list(obj);
- 	count = fobj->shared_count;
- 
--	preempt_disable();
- 	write_seqcount_begin(&obj->seq);
- 
- 	for (i = 0; i < count; ++i) {
-@@ -281,7 +280,6 @@ void dma_resv_add_shared_fence(struct dma_resv *obj, struct dma_fence *fence)
- 	smp_store_mb(fobj->shared_count, count);
- 
- 	write_seqcount_end(&obj->seq);
--	preempt_enable();
- 	dma_fence_put(old);
- }
- EXPORT_SYMBOL(dma_resv_add_shared_fence);
-@@ -308,14 +306,12 @@ void dma_resv_add_excl_fence(struct dma_resv *obj, struct dma_fence *fence)
- 	if (fence)
- 		dma_fence_get(fence);
- 
--	preempt_disable();
- 	write_seqcount_begin(&obj->seq);
- 	/* write_seqcount_begin provides the necessary memory barrier */
- 	RCU_INIT_POINTER(obj->fence_excl, fence);
- 	if (old)
- 		old->shared_count = 0;
- 	write_seqcount_end(&obj->seq);
--	preempt_enable();
- 
- 	/* inplace update, no shared fences */
- 	while (i--)
-@@ -393,13 +389,11 @@ int dma_resv_copy_fences(struct dma_resv *dst, struct dma_resv *src)
- 	src_list = dma_resv_get_list(dst);
- 	old = dma_resv_get_excl(dst);
- 
--	preempt_disable();
- 	write_seqcount_begin(&dst->seq);
- 	/* write_seqcount_begin provides the necessary memory barrier */
- 	RCU_INIT_POINTER(dst->fence_excl, new);
- 	RCU_INIT_POINTER(dst->fence, dst_list);
- 	write_seqcount_end(&dst->seq);
--	preempt_enable();
- 
- 	dma_resv_list_free(src_list);
- 	dma_fence_put(old);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 6a5b91d23fd9..c71c0bb6ce26 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -258,11 +258,9 @@ static int amdgpu_amdkfd_remove_eviction_fence(struct amdgpu_bo *bo,
- 	new->shared_count = k;
- 
- 	/* Install the new fence list, seqcount provides the barriers */
--	preempt_disable();
- 	write_seqcount_begin(&resv->seq);
- 	RCU_INIT_POINTER(resv->fence, new);
- 	write_seqcount_end(&resv->seq);
--	preempt_enable();
- 
- 	/* Drop the references to the removed fences or move them to ef_list */
- 	for (i = j, k = 0; i < old->shared_count; ++i) {
-diff --git a/include/linux/dma-resv.h b/include/linux/dma-resv.h
-index a6538ae7d93f..d44a77e8a7e3 100644
---- a/include/linux/dma-resv.h
-+++ b/include/linux/dma-resv.h
-@@ -69,7 +69,7 @@ struct dma_resv_list {
-  */
- struct dma_resv {
- 	struct ww_mutex lock;
--	seqcount_t seq;
-+	seqcount_ww_mutex_t seq;
- 
- 	struct dma_fence __rcu *fence_excl;
- 	struct dma_resv_list __rcu *fence;
--- 
-2.20.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VGhhbmtzIG11Y2ggQWxleCBmb3IgcmVzcG9uZGluZy4KCk9uIFRodXJzZGF5LCBNYXkgMjgsIDIw
+MjAsIDA0OjI5OjE2IFBNIEVEVCwgQWxleCBEZXVjaGVywqAgd3JvdGU6Cgo+PiBJIGFzayBiZWNh
+dXNlIEkgd2FudCB0byBiZSBhYmxlIHRvIHJ1biBhIHN5c3RlbSB0aGF0IGlzIHNvbWV0aW1lcyBo
+ZWFkbGVzcyBhbmQgc29tZXRpbWVzIG5vdC7CoCBBbmQgSSdkIGxpa2UgdG8gYmUgYWJsZSB0byBh
+Y2Nlc3MgYSBjdXJyZW50IFggc2Vzc2lvbiAoZWl0aGVyIGxvZ2dlZCBpbiBvciBhdCB0aGUgbG9n
+aW4gZ3JlZXRlcikgYm90aCByZW1vdGVseSAoc2F5IHZpYSBWTkMpIGFuZCBsb2NhbGx5IHZpYSB0
+aGUgcGh5c2ljYWwgZGlzcGxheSAod2hlbiBpdCBpcyBwbHVnZ2VkIGluKS53aXRob3V0IGhhdmlu
+ZyB0byByZWJvb3Qgb3IgbG9zZSB0aGF0IFggc2Vzc2lvbi4KPj4KPj4gSG93ZXZlciBJJ3ZlIG5v
+dGljZWQgdGhhdCAoYXQgbGVhc3Qgd2l0aCBhIFJ5emVuIDMgMzIwMEcgd2l0aCBSYWRlb24gVmVn
+YSA4KSBhbiBYIHNlc3Npb24gZG9lcyBub3QgbG9naW4gc3VjY2Vzc2Z1bGx5IHdoZW4gYWNjZXNz
+ZWQgcmVtb3RlbHkgaWYgdGhlcmUgaXMgbm8gbW9uaXRvciBjb25uZWN0ZWQuCj4+IEkgYXNzdW1l
+IHRoaXMgaXMgY2F1c2VkIGJ5IHNvbWV0aGluZyBpbiB0aGUgYW1kZ3B1IGRyaXZlciBidXQgSSBo
+YXZlbid0IGJlZW4gYWJsZSB0byBmaWd1cmUgb3V0IHdoYXQuCj4KPkl0J3MgeW91ciBkaXNwbGF5
+IG1hbmFnZXIgKFgsIG11dHRlciwga3dpbiwgZXRjLikuwqAgVGhleSBnZW5lcmFsbHkKPndvbid0
+IHN0YXJ0IGlmIHRoZXkgZG9lc24ndCBkZXRlY3QgYSBtb25pdG9yLsKgIFlvdSBtaWdodCBiZSBh
+YmxlIHRvCj5mb3JjZSBvbmUgdmlhIHdoYXRldmVyIGNvbmZpZ3VyYXRpb24gbWVjaGFuaXNtIGlz
+IHByb3ZpZGVkIGJ5IHlvdXIKPmVudmlyb25tZW50LgoKWWVzIGl0IHNlZW1zIHRvIGJlIGFuIGlz
+c3VlIHdpdGggZ25vbWUtc2hlbGwvbXV0dGVyICh0aGUgc2hlbGwvd2luZG93IG1hbmFnZXIpLCBy
+YXRoZXIgdGhhbiBYb3JnIChteSBkaXNwbGF5IHNlcnZlciksIGJ1dCBJIHdpbGwgcmVwb3J0IGJh
+Y2sgaWYgdGhlIHJlbGV2YW50IGRldmVsb3BlciB0ZWFtcyBvZiB0aG9zZSBpdGVtcyBoYXZlIGFu
+eSByZXF1ZXN0cyBmb3IgYW1kZ3B1IHJlbGF0ZWQgdG8gdGhpcyBpc3N1ZS4KCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGluZyBsaXN0
+CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
