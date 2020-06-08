@@ -6,47 +6,47 @@ X-Spam-Status: No, score=-9.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BD5DC433E3
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 23:11:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DC3AC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 23:12:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 154EC208C3
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 23:11:04 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 45F3921501
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 23:12:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="nY3tjfeO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 154EC208C3
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="03zL/u3m"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 45F3921501
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B8BD6E0A0;
-	Mon,  8 Jun 2020 23:11:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E806689CA4;
+	Mon,  8 Jun 2020 23:12:54 +0000 (UTC)
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00AC06E0A0;
- Mon,  8 Jun 2020 23:11:01 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 625D589AB9;
+ Mon,  8 Jun 2020 23:12:54 +0000 (UTC)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E42EF2100A;
- Mon,  8 Jun 2020 23:11:00 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7EC4D208C7;
+ Mon,  8 Jun 2020 23:12:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1591657861;
- bh=FSSEj0I+Qs96LnMPO/9ObpRwOVHhKyOHosCzGUsdNQk=;
+ s=default; t=1591657974;
+ bh=erJVN+buUEYGqmBw7CVqdYyn2GDrJqQBxNNiVescaz8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nY3tjfeOqLqgfHbWwjoH5T27o3y8gH28q9tJMm/TN+uLkzmsmETD7q9GbZGbt3Fzk
- x6UXe4Of/sKdjqdk6XzkpyLFiBUxWY38cM+xhfdeKmOGyi2QZWaQ+AdNoehyxmQ59V
- ZXutCAWtYP3Li6wveroouNtF2jTLn7h+SzEQ7WoM=
+ b=03zL/u3mfrjudm9vI8T9qIa8RA2TsVpLdhXxWh/nnCpwU8K1DAUFqbBq+lEXXclls
+ XdCRB+q6mVHj1Nml3gM1pypubPZX+HLZ706g0G78gR7nxLJcNo0DKisY7kY7V20ZLt
+ 9+HzWoQaXRUho5MIEaeqKHmMEDoeMt7GwYvrY/7E=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 5.7 224/274] drm/amdgpu: Sync with VM root BO when
- switching VM to CPU update mode
-Date: Mon,  8 Jun 2020 19:05:17 -0400
-Message-Id: <20200608230607.3361041-224-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 5.6 036/606] drm/amd/amdgpu: add raven1 part to the
+ gfxoff quirk list
+Date: Mon,  8 Jun 2020 19:02:41 -0400
+Message-Id: <20200608231211.3363633-36-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200608230607.3361041-1-sashal@kernel.org>
-References: <20200608230607.3361041-1-sashal@kernel.org>
+In-Reply-To: <20200608231211.3363633-1-sashal@kernel.org>
+References: <20200608231211.3363633-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -61,44 +61,49 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sasha Levin <sashal@kernel.org>, Jay Cornwall <Jay.Cornwall@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Cc: Tom St Denis <tom.stdenis@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-RnJvbTogRmVsaXggS3VlaGxpbmcgPEZlbGl4Lkt1ZWhsaW5nQGFtZC5jb20+CgpbIFVwc3RyZWFt
-IGNvbW1pdCA5MGNhNzhkZWIwMDRhYmU3NWI1MDI0OTY4YTE5OWFjYjk2YmI3MGY5IF0KClRoaXMg
-Zml4ZXMgYW4gaW50ZXJtaXR0ZW50IGJ1ZyB3aGVyZSBhIHJvb3QgUEQgY2xlYXIgb3BlcmF0aW9u
-IHN0aWxsIGluCnByb2dyZXNzIGNvdWxkIG92ZXJ3cml0ZSBhIFBERSB1cGRhdGUgZG9uZSBieSB0
-aGUgQ1BVLCByZXN1bHRpbmcgaW4gYQpWTSBmYXVsdC4KCkZpeGVzOiAxMDhiNGQ5MjhjMDMgKCJk
-cm0vYW1kL2FtZGdwdTogVXBkYXRlIFZNIGZ1bmN0aW9uIHBvaW50ZXIiKQpSZXBvcnRlZC1ieTog
-SmF5IENvcm53YWxsIDxKYXkuQ29ybndhbGxAYW1kLmNvbT4KVGVzdGVkLWJ5OiBKYXkgQ29ybndh
-bGwgPEpheS5Db3Jud2FsbEBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBGZWxpeCBLdWVobGluZyA8
-RmVsaXguS3VlaGxpbmdAYW1kLmNvbT4KUmV2aWV3ZWQtYnk6IENocmlzdGlhbiBLw7ZuaWcgPGNo
-cmlzdGlhbi5rb2VuaWdAYW1kLmNvbT4KU2lnbmVkLW9mZi1ieTogQWxleCBEZXVjaGVyIDxhbGV4
-YW5kZXIuZGV1Y2hlckBhbWQuY29tPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFs
-QGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X3ZtLmMg
-fCAxMSArKysrKysrKystLQogMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgMiBkZWxl
-dGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dm0uYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV92bS5jCmluZGV4IDZkOTI1
-MmEyNzkxNi4uMDYyNDIwOTY5NzNjIDEwMDY0NAotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Ft
-ZGdwdS9hbWRncHVfdm0uYworKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9hbWRncHVf
-dm0uYwpAQCAtMjk5NiwxMCArMjk5NiwxNyBAQCBpbnQgYW1kZ3B1X3ZtX21ha2VfY29tcHV0ZShz
-dHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwgc3RydWN0IGFtZGdwdV92bSAqdm0sCiAJCSAgICFh
-bWRncHVfZ21jX3ZyYW1fZnVsbF92aXNpYmxlKCZhZGV2LT5nbWMpKSwKIAkJICAiQ1BVIHVwZGF0
-ZSBvZiBWTSByZWNvbW1lbmRlZCBvbmx5IGZvciBsYXJnZSBCQVIgc3lzdGVtXG4iKTsKIAotCWlm
-ICh2bS0+dXNlX2NwdV9mb3JfdXBkYXRlKQorCWlmICh2bS0+dXNlX2NwdV9mb3JfdXBkYXRlKSB7
-CisJCS8qIFN5bmMgd2l0aCBsYXN0IFNETUEgdXBkYXRlL2NsZWFyIGJlZm9yZSBzd2l0Y2hpbmcg
-dG8gQ1BVICovCisJCXIgPSBhbWRncHVfYm9fc3luY193YWl0KHZtLT5yb290LmJhc2UuYm8sCisJ
-CQkJCUFNREdQVV9GRU5DRV9PV05FUl9VTkRFRklORUQsIHRydWUpOworCQlpZiAocikKKwkJCWdv
-dG8gZnJlZV9pZHI7CisKIAkJdm0tPnVwZGF0ZV9mdW5jcyA9ICZhbWRncHVfdm1fY3B1X2Z1bmNz
-OwotCWVsc2UKKwl9IGVsc2UgewogCQl2bS0+dXBkYXRlX2Z1bmNzID0gJmFtZGdwdV92bV9zZG1h
-X2Z1bmNzOworCX0KIAlkbWFfZmVuY2VfcHV0KHZtLT5sYXN0X3VwZGF0ZSk7CiAJdm0tPmxhc3Rf
-dXBkYXRlID0gTlVMTDsKIAl2bS0+aXNfY29tcHV0ZV9jb250ZXh0ID0gdHJ1ZTsKLS0gCjIuMjUu
-MQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KYW1kLWdm
-eCBtYWlsaW5nIGxpc3QKYW1kLWdmeEBsaXN0cy5mcmVlZGVza3RvcC5vcmcKaHR0cHM6Ly9saXN0
-cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cg==
+From: Tom St Denis <tom.stdenis@amd.com>
+
+commit 975f543e7522e17b8a4bf34d7daeac44819aee5a upstream.
+
+On my raven1 system (rev c6) with VBIOS 113-RAVEN-114 GFXOFF is
+not stable (resulting in large block tiling noise in some applications).
+
+Disabling GFXOFF via the quirk list fixes the problems for me.
+
+Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index 73337e658aff..906648fca9ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -1177,6 +1177,8 @@ static const struct amdgpu_gfxoff_quirk amdgpu_gfxoff_quirk_list[] = {
+ 	{ 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc8 },
+ 	/* https://bugzilla.kernel.org/show_bug.cgi?id=207171 */
+ 	{ 0x1002, 0x15dd, 0x103c, 0x83e7, 0xd3 },
++	/* GFXOFF is unstable on C6 parts with a VBIOS 113-RAVEN-114 */
++	{ 0x1002, 0x15dd, 0x1002, 0x15dd, 0xc6 },
+ 	{ 0, 0, 0, 0, 0 },
+ };
+ 
+-- 
+2.25.1
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://lists.freedesktop.org/mailman/listinfo/amd-gfx
