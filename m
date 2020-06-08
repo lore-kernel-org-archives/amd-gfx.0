@@ -2,72 +2,101 @@ Return-Path: <SRS0=JmOw=7V=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ACBE5C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 19:46:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E60CC433E0
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 19:58:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7C376206D5
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 19:46:42 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CCC3B2074B
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 19:58:09 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uw7ae4K+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C376206D5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="zH2VmgaB"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCC3B2074B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A82A6E99A;
-	Mon,  8 Jun 2020 19:46:42 +0000 (UTC)
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C13FC89DB7;
- Mon,  8 Jun 2020 19:39:01 +0000 (UTC)
-Received: by mail-lj1-x242.google.com with SMTP id 9so12376555ljv.5;
- Mon, 08 Jun 2020 12:39:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TVOtxpmeYOWD7rcQA6p6PVJsdwW/9XtVAfJ00067Jwk=;
- b=Uw7ae4K+D9tmeKHdEU38WOe4FsdhXp1ZnKr7YKUGixiQ9oWe2zUkZdxYWRFL5TGsGn
- +V9y94pvG0g5IXdQ2s4+PKu/NvK9GfJ5zCE2bQeGG95W+5y0fJ2+gTsk4k83rf03ItCJ
- kLC6qXpWbigmmVckNhVl6m270lucklRJQLrGoqZmdnWFsJKpGVxCkW4TqmwNSvOiG1BH
- d7soMSphupowplBAdx0AqVYwm0rmW0kE6W5xrmEBYPj5QQ0rsZtXxPEdj4xYSsQtECzW
- Nrs4lqroRuljEnV+wdWyUPdWz7xp5vspC1+LTQ3C15/rCfKQ54OQWj3k6b8s7vujTbBm
- A2bQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=TVOtxpmeYOWD7rcQA6p6PVJsdwW/9XtVAfJ00067Jwk=;
- b=aocZlLd7JIFUqc9CQ/JYS9ysr/yWA6oVbxTquwZf7pe1sMuRj41tZRBPd9v00ojMW1
- KZyve7PI4ifEjb7MUqpgfN8hySjKiRvKBz+e/oNVIZWeOBYnOniIfomocMVxY9HyH+fG
- i9CsrfN0scgq7zTjdU/7QjVJcqq/EvK7iJy6DvZnq2dyirj7EZs/xTC0Jwi7C+pwIrBm
- Nuwo9AGUgqVMEd6QjA8e2v8yj9T8h4+oeuNODbC05DKlU4LzZN+fceMwON78N9qp+0P2
- ApdZzxmMghh8pcAmnK9FIflRE8VuesDaLEhuXDN85acscG7iQ2unfunqCc0WpUGsjOk4
- ImLA==
-X-Gm-Message-State: AOAM531jwh0xZeTDhfQ/Pa1dFX4iVzQj8ME1Yw3gPsd3VvB8DMaGtebP
- vXxQz+k/LW8IbzGkA07RE6n9onIwCFR97WZql4c=
-X-Google-Smtp-Source: ABdhPJzj7F/aaSi7HE9SPJMq1V4yr6hfoXBgPhFqPh91CbbkatR/Ryqmnw/QWzidGESYaRxTEW2Cmw1bqOyx6OoorZ0=
-X-Received: by 2002:a2e:9147:: with SMTP id q7mr12642562ljg.430.1591645140048; 
- Mon, 08 Jun 2020 12:39:00 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 989D189DFC;
+	Mon,  8 Jun 2020 19:58:09 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770077.outbound.protection.outlook.com [40.107.77.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7384B89DFC
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2020 19:58:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=KsKAckfUOjdNOrMobfbnnoV6N/GziR1gmBhrgLCb8izTlU7OwbZNSveftcAQl8S+5SFjUdA2FBeR6qpbByGsfWhDb+CEyWKmrcnuMHPsElxI1cvgkkwQQkfeVKYC4rA5BO/lUcn7xVzOA0S8ETSxyqO4sX6UndSfJhbAfSM+Gi6hGE5GEEIjmy6Zsf7hHQHb+o/y/a/FOq2tgyPFxnAo/RB1QPwWrmQPQZnYkih+LWROBaeQcH4sSWlRLDgyoa1+ocgs6x4oocPILuZya2mdXDUXsxEsj8vmTNrD1brykge+0hZYlEp7oK8z6JZRV/hZv1+fkaUG67XCLf7pcB5xxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tQGBYt/b4hsXYvUnAdaREBN0hFCMaMwNesfbv00uD48=;
+ b=kswbYmhPLQN90MZp5yb+netQpAyi8n7w1+Ru2fTPzFy0Gi10P9lUvdupA+aRrUvRnKNH0aYXZwn2QVK2qsvjODWPaee+zkAaT9I3u7i123GkQPuOFOlQkEZfYG9AxJA6DQPwGUz7sgwdF7bF1LIT3uJ/MuZlVOWXPeHoMAliGAHhjmvbRaQ62ha6HZDBiKJFzEMn2nesJjHhcgx/1/qMWfmHX2sf4zocj9waWEukP5gORlpEFR5TTFUZhRtDeLYkz3SmmWjE6YwXyEVZKEy7gk0i4e4Ha4XC6jH3SSj0mkusizFYlBsJ1ydOY0U8gFsb2te3/X2oUPOFtVJIJz0rKw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tQGBYt/b4hsXYvUnAdaREBN0hFCMaMwNesfbv00uD48=;
+ b=zH2VmgaBgWDgDkUEFzRT1bjM04/vSF8aahWYiHRzyGW0Gj5VGYCJwiZvVOe/SI+2yNAUN91Ad7OkliszdwViINXwdfNcws3t0IPAOVB2sPqIso4jxRFnxBbOE6rLSeyFzDtnEZVzf0j0xqemNykyl0Ej5fBaR9nyCGfqWrjWB84=
+Authentication-Results: amd.com; dkim=none (message not signed)
+ header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+Received: from SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
+ by SN1PR12MB2544.namprd12.prod.outlook.com (2603:10b6:802:2b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.22; Mon, 8 Jun
+ 2020 19:58:06 +0000
+Received: from SN1PR12MB2414.namprd12.prod.outlook.com
+ ([fe80::18d:97b:661f:9314]) by SN1PR12MB2414.namprd12.prod.outlook.com
+ ([fe80::18d:97b:661f:9314%7]) with mapi id 15.20.3066.023; Mon, 8 Jun 2020
+ 19:58:06 +0000
+Subject: Re: [PATCH] drm/amdgpu: skip BAR resizing if the bios already did it
+To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
+References: <20200608194109.224589-1-alexander.deucher@amd.com>
+From: Felix Kuehling <felix.kuehling@amd.com>
+Message-ID: <cf9578a6-0fc4-14c5-6a0b-87359b0956f9@amd.com>
+Date: Mon, 8 Jun 2020 15:58:04 -0400
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
+In-Reply-To: <20200608194109.224589-1-alexander.deucher@amd.com>
+Content-Language: en-US
+X-ClientProxiedBy: YT1PR01CA0041.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:2e::10) To SN1PR12MB2414.namprd12.prod.outlook.com
+ (2603:10b6:802:2e::31)
 MIME-Version: 1.0
-References: <1590526802-3008-1-git-send-email-jrdr.linux@gmail.com>
- <69a033cf-63b2-7da6-6a5e-a5bbc94b8afb@nvidia.com>
- <20200527084852.GN206103@phenom.ffwll.local>
- <20200527085117.GO206103@phenom.ffwll.local>
- <aaf62285-981e-3753-5501-07bbba98fc36@nvidia.com>
- <CAFqt6zZVAQ3LKwud85LgHe9300xVjyGYXjvdWKTdezZA1uRewg@mail.gmail.com>
- <011353ca-39d5-a41d-477a-f67a47ebb47b@nvidia.com>
-In-Reply-To: <011353ca-39d5-a41d-477a-f67a47ebb47b@nvidia.com>
-From: Souptick Joarder <jrdr.linux@gmail.com>
-Date: Tue, 9 Jun 2020 01:08:48 +0530
-Message-ID: <CAFqt6zZPh6RazWcwmfz1oXMbHaxMOtQtVU=Cgs79M9JG+PDrSg@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: Convert get_user_pages() --> pin_user_pages()
-To: John Hubbard <jhubbard@nvidia.com>
-X-Mailman-Approved-At: Mon, 08 Jun 2020 19:46:40 +0000
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from [192.168.2.100] (142.116.63.128) by
+ YT1PR01CA0041.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b01:2e::10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3066.18 via Frontend Transport; Mon, 8 Jun 2020 19:58:06 +0000
+X-Originating-IP: [142.116.63.128]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 27371e5d-e5d1-484e-d157-08d80be642b3
+X-MS-TrafficTypeDiagnostic: SN1PR12MB2544:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <SN1PR12MB2544163DBE1918164C73440392850@SN1PR12MB2544.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1388;
+X-Forefront-PRVS: 042857DBB5
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: B1nQiJhqzKgjtBwT5GHXSvd3aw7c5CCtlWyi+i0bjyAYPoneuWdPb7wcniLpBgW+ViOIjeUVFGks+1rGclBkm5rTqgXatbVHyi8+XOoIXhjCKuvBPeCrbws1MXUe8Kcs0UxZJTqXlGLJFMZA551Zg8BNKglaz54co4gTUZo0DXRiIWKCONM/ETF8Q61kokKuFmK4JQAak2Ez7Cm9TP2HgqVAdFVJR/T95Xn9iSFeSD0wXvenzo4jZdNZVqN5KFK/uayJzkSxCe2hGSFQ+LPtFohl5lNttaK2Ze4xyP3QilgzNd+2QurMjIh4HP5w/owX+3IcY6egndMsiqOxqraiPMoMEXSQnq7RfG054jxj8+Avi59tVGPs2/fUoHvUbNgb
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(376002)(346002)(39860400002)(396003)(136003)(366004)(478600001)(4326008)(52116002)(36756003)(66946007)(86362001)(5660300002)(16576012)(31696002)(66476007)(66556008)(4744005)(956004)(8676002)(44832011)(8936002)(316002)(26005)(6486002)(16526019)(2616005)(31686004)(186003)(2906002)(43740500002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: OCbPOKPqnuLwp8wNPCf8sRLX7otTW9Nf9iG8tHULGzzmdSufQd2Dug9FETDPAyKxkgPqUTJ4WzTApv6Wm2lH31dAxQL6pV/28/jO2KsktK80sR92MdT2Ff/g5mXZJa2QEG5dl6UDMafT05OvcyAdAg4vv+3IpXydK5SwRgaDfQOuSkMytcWgZVwUjSvM35d7MU+5RPxkPKwV+GUpHDTooZjBMB1vMEYEk1eLS9vuASnm8qjNgWOquFD+e1D+zZvCEo9W3xt9ociLpm6Cf6L7wZysfSJzmMNwDctOKVoCv7/NNRHNHbk+nFBWZU/Of452RQ+6Bwl+KM1QnvypYQHpWtJi8u4/555UMgbJ5VXOeQRZIC4XqrVcQ0rJ5iX9CFIoVBikxcS3Z9MtmR+VmeUqM3FCzkGSGtzFCbkOzjitp1O9iVu7Ipq8L7ufFlKs+3WkMwfTAVi5GWEsa7hIvGSl5EpEApS7vI4ifnBeCLb9uSZFFnRns/nOXkLwArCatYjO
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 27371e5d-e5d1-484e-d157-08d80be642b3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2020 19:58:06.5567 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LJ3sc8bR2daWLfZsQuXKjz8tUlH7FH19P6YfYH1uW/MMi3lL8Esv3lH+eoAM6bZlSRkekPog05jxqkNiEgjQtw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN1PR12MB2544
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,43 +108,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Zhou, David\(ChunMing\)" <David1.Zhou@amd.com>,
- linux-kernel@vger.kernel.org, dri-devel <dri-devel@lists.freedesktop.org>,
- amd-gfx@lists.freedesktop.org, "Deucher,
- Alexander" <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, May 29, 2020 at 12:58 PM John Hubbard <jhubbard@nvidia.com> wrote:
+Am 2020-06-08 um 3:41 p.m. schrieb Alex Deucher:
+> No need to do it again.
 >
-> On 2020-05-28 23:49, Souptick Joarder wrote:
-> ...
-> >> This is what case 3 was *intended* to cover, but it looks like case 3 needs to
-> >> be written a little better. I'll attempt that, and Cc you on the actual patch
-> >> to -mm. (I think we also need a case 5 for an unrelated scenario, too, so
-> >> it's time.)
-> >
-> > There were no *case 5* in the other patch posted in -mm. Do we need to add it ?
-> >
->
-> Working on figuring that out [1], but it's not directly relevant to this thread.
-> Maybe I shouldn't have brought it up here. :)
->
->
-> [1] https://lore.kernel.org/r/20200529070343.GL14550@quack2.suse.cz
->
-> thanks,
-> John Hubbard
-> NVIDIA
->
->
->
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 
-As this conversion is not relevant ( mentioned above), I have dropped
-this patch.
+Acked-by: Felix Kuehling <Felix.Kuehling@amd.com>
+
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 1df28b7bf22e..539010798116 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -909,6 +909,11 @@ int amdgpu_device_resize_fb_bar(struct amdgpu_device *adev)
+>  	if (amdgpu_sriov_vf(adev))
+>  		return 0;
+>  
+> +	/* skip if the bios has already enabled large BAR */
+> +	if (adev->gmc.real_vram_size &&
+> +	    (pci_resource_len(adev->pdev, 0) >= adev->gmc.real_vram_size))
+> +		return 0;
+> +
+>  	/* Check if the root BUS has 64bit memory resources */
+>  	root = adev->pdev->bus;
+>  	while (root->parent)
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
