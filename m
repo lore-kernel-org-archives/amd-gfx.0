@@ -7,32 +7,32 @@ X-Spam-Status: No, score=-9.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C2D5C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 04:59:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 077D1C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 04:59:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 31E6920801
+	by mail.kernel.org (Postfix) with ESMTPS id D0F5B20801
 	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 04:59:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="QN0iDwvX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 31E6920801
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="xaHcIkpO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D0F5B20801
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E97D66E484;
-	Mon,  8 Jun 2020 04:59:39 +0000 (UTC)
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com
- (mail-eopbgr760071.outbound.protection.outlook.com [40.107.76.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F13B6E484
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2020 04:59:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC686E486;
+	Mon,  8 Jun 2020 04:59:40 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2040.outbound.protection.outlook.com [40.107.223.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 202216E484
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2020 04:59:39 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=L5IdEl1qs4no7+GC7jdWKKb9BN5+oTVc3cbzi/04jxTkcA/TwlyByJgm0gTH/9QQwajR7bjFp0nyaWVa/TPyLbw5Wk7bBsmXFqTAUli+D4KxT9w3ADum0hc0RZIz4M8YeU4syUSt3Q1kKfFX3dK6QCyuTGJEA8Uw3mNBeH3B8doainuWc5xY0HZ4kk+KvA/01FtLDw5e5h5jrLHQnIScG+alHStRy1ghrZhqa0R/XlWRE58QOtHVojk373zWarDV+Eh509ncwkCBBAJHRKoYcpTYPUPqXdWGWFCwAkBVIM3rp33YDaapTzahw/UTSgpDuBM4ZqNPGfwGYaBD17FgGg==
+ b=kml1nbeKx+ALvvhH6V+KVz/OAu9hNnAvhjB0yx0RpVhKXahj5wZe1IMhhOS20dvkIPvWx0tyEuocdnq2BAg513qwkJOCsavGrVMFtewYKt6oQ+hfAD2z6V+c1cBFtAzm335U7WkEWaxH2faCKhNsZChg6UjPManBEY0ZFaP4sDBhP+YbGZ3A1nhYs8g8ggU/7sI578EY8Lm/E/puNq4qg9kJrN/trIS9HZ4d0j6eitAe9eOxTg9kb/BLoIIcjUEUbIFbL4+5Brw+9+XqmbjK1l1Ob7jMZqbHN+MOXRTd1wjtURRsSiQDNGUNqsI+2bGF3o9NaUDqkTD4+YFHKAVVEw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UCB//a8g1/F0LVHlCurs5LYT0fjbyTfxYI9wv71TzGY=;
- b=Kmm0l/Ojx7eF+WDwyAw52CALqVDHRcHwg0qja6RKIHOLT2MqvwPP+U27yDWaxYeLaL5w/NTo//eB4fAJ0Q/Ou72n6Mmxph2vB38NssHQuQ37lEfaxz/GMW05R0SokHndbjA7fMaU/M1qRQFKtI5VK5Kjdy0rfu8e1C2PVzfXMwETwOTIz5zLQcCcLwBFGqA4aodMLsiS80uPDFbKzPeFI5NihG037/4YmqLtAa+AP6NKqJ4PO60JCgiF17JZCDAk8T9wUj0BDzWBIHnL4g0xzspiWPLaOOrBNOKYXjylIOCFhdxTbN65uTKoj4FTnaOe4oVEPAz8r43IRnTLt9h34A==
+ bh=tr6TrtKL6mB/xqkrfgN3CYniizAOzYO6Cx3OVLEuI70=;
+ b=MEfgnaP+dTPsa2Zc9yg+COExQ87K5yM4zMqnAkKsp8Bo7/t3qjX/UFyE8hQtoVVvSBeck8GXUpbDOTTQ39XjfrOqXwkQljG6wEvJW9GIf2QiAmxHJkh4bfdmAyMYFhMYgOY9vUviai0wQWX9VNXA5DzgFM3gcxv7fODW9hR3O7UV97PPpkhqRaLpa/jWSrKo/9qWD+O+l/SsFvzNZKJ7v9ZY980fA5X9J64bVLyQDzP5qA8HJRTHSAPZLELYd6/NotuHGbUNg+3wf1B4NjbnkmjMy0Gj7b4IswHCFeBjTuzlMrZ8SYgyJ82rzcxgzExNpl02IImgfL+SuRbeVSRG0A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=permerror action=none header.from=amd.com; dkim=none (message not
@@ -40,40 +40,44 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UCB//a8g1/F0LVHlCurs5LYT0fjbyTfxYI9wv71TzGY=;
- b=QN0iDwvXIj24/SplsE85R4z4bp7W+7ytyYu9uCvAR9hoCCVCklsmv8yiNeptDm6yYfcVwKsQrzEvhSS+bAMCPTL46T2Y/n2+RP1wD2yMJ599JFiJz/lt+AMhYsFcFx5xmDunIpaJV8lbQzIzbhYb7bDQ9hiBpBMxXwu1qYkA2Kk=
-Received: from CO1PR15CA0103.namprd15.prod.outlook.com (2603:10b6:101:21::23)
- by MWHPR1201MB0016.namprd12.prod.outlook.com (2603:10b6:300:e4::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.20; Mon, 8 Jun
- 2020 04:59:33 +0000
-Received: from CO1NAM11FT037.eop-nam11.prod.protection.outlook.com
- (2603:10b6:101:21:cafe::e8) by CO1PR15CA0103.outlook.office365.com
- (2603:10b6:101:21::23) with Microsoft SMTP Server (version=TLS1_2,
+ bh=tr6TrtKL6mB/xqkrfgN3CYniizAOzYO6Cx3OVLEuI70=;
+ b=xaHcIkpOhxHojDqGCCworO/hlZf8bHVs4ji2tpD2CaouV2COH+nr9y7DYbdRRD4qxMHLEC9/v/N1iCFvD3XOlgK2bOA/cB+fmlQDYeiKBKXFJ8eS/2RJmAmmTGazbMuzi71crPiZ54iTjwJkahuo1M64ZJLIYSZ0Q0pDOnB7kco=
+Received: from DM6PR11CA0019.namprd11.prod.outlook.com (2603:10b6:5:190::32)
+ by MW3PR12MB4425.namprd12.prod.outlook.com (2603:10b6:303:5e::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18; Mon, 8 Jun
+ 2020 04:59:36 +0000
+Received: from DM6NAM11FT040.eop-nam11.prod.protection.outlook.com
+ (2603:10b6:5:190:cafe::c2) by DM6PR11CA0019.outlook.office365.com
+ (2603:10b6:5:190::32) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3066.18 via Frontend
- Transport; Mon, 8 Jun 2020 04:59:33 +0000
+ Transport; Mon, 8 Jun 2020 04:59:36 +0000
 X-MS-Exchange-Authentication-Results: spf=none (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; lists.freedesktop.org; dkim=none (message not signed)
  header.d=none;lists.freedesktop.org; dmarc=permerror action=none
  header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
-Received: from SATLEXMB01.amd.com (165.204.84.17) by
- CO1NAM11FT037.mail.protection.outlook.com (10.13.174.91) with Microsoft SMTP
+Received: from SATLEXMB02.amd.com (165.204.84.17) by
+ DM6NAM11FT040.mail.protection.outlook.com (10.13.173.133) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.3066.18 via Frontend Transport; Mon, 8 Jun 2020 04:59:33 +0000
-Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
- (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.3066.18 via Frontend Transport; Mon, 8 Jun 2020 04:59:36 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB02.amd.com
+ (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Sun, 7 Jun 2020
- 23:59:31 -0500
+ 23:59:34 -0500
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Sun, 7 Jun 2020
+ 23:59:34 -0500
 Received: from localhost.localdomain (10.180.168.240) by SATLEXMB02.amd.com
  (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5 via Frontend
- Transport; Sun, 7 Jun 2020 23:59:31 -0500
+ Transport; Sun, 7 Jun 2020 23:59:33 -0500
 From: Qingqing Zhuo <qingqing.zhuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-Subject: [PATCH 06/28] drm/amd/display: Use u16 for drm_bpp in DSC calculations
-Date: Mon, 8 Jun 2020 00:59:04 -0400
-Message-ID: <20200608045926.17197-7-qingqing.zhuo@amd.com>
+Subject: [PATCH 10/28] drm/amd/display: update audio wall clock programming
+Date: Mon, 8 Jun 2020 00:59:08 -0400
+Message-ID: <20200608045926.17197-11-qingqing.zhuo@amd.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200608045926.17197-1-qingqing.zhuo@amd.com>
 References: <20200608045926.17197-1-qingqing.zhuo@amd.com>
@@ -81,27 +85,27 @@ MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-Office365-Filtering-HT: Tenant
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SATLEXMB01.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ IPV:NLI; SFV:NSPM; H:SATLEXMB02.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(396003)(376002)(346002)(136003)(46966005)(186003)(2906002)(8936002)(26005)(86362001)(82310400002)(83380400001)(478600001)(82740400003)(54906003)(4326008)(81166007)(356005)(47076004)(2616005)(70586007)(5660300002)(36756003)(1076003)(44832011)(336012)(426003)(6916009)(6666004)(8676002)(316002)(70206006);
+ SFS:(4636009)(136003)(376002)(346002)(396003)(39860400002)(46966005)(81166007)(82310400002)(356005)(478600001)(4326008)(47076004)(82740400003)(8676002)(8936002)(83380400001)(1076003)(426003)(44832011)(2616005)(336012)(86362001)(2906002)(54906003)(186003)(5660300002)(26005)(316002)(6666004)(70586007)(70206006)(36756003)(6916009);
  DIR:OUT; SFP:1101; 
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 24f04072-83b4-4478-5612-08d80b68bc4d
-X-MS-TrafficTypeDiagnostic: MWHPR1201MB0016:
-X-Microsoft-Antispam-PRVS: <MWHPR1201MB0016D7B7FA79DFD2A9AF2954FB850@MWHPR1201MB0016.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5516;
+X-MS-Office365-Filtering-Correlation-Id: d6ded654-73f1-45b6-58f3-08d80b68bdd3
+X-MS-TrafficTypeDiagnostic: MW3PR12MB4425:
+X-Microsoft-Antispam-PRVS: <MW3PR12MB4425EBC5A61ACD8F6990A7C9FB850@MW3PR12MB4425.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:962;
 X-Forefront-PRVS: 042857DBB5
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: CrmN4JvXjKHNCeLG5R6rJyXi6Vp7C/7nOjWjVo/MHwjI7eXHLPiTsmRVMtQKfU1j6iqKN0WqKrfnjvDWAGJPgwZ4dlIxS7kVOErx7mvRqBPTnTlu3rc/nbPKualkgxvt/Ewbpq2cs8NgA1Tyna2vYN/i18hcHAy+5ZaZJt7k0s2gcVQGPZKTK9A4fDtYWprrEDdpVi9bmKkzWVbv4PcnEyOZi0FoPJIgNwRLcCnD/WCIO4Fdf/H8rLz7Mf9WApIAUHotLPQ8k9uQv+j+ivfXqUdcuaiJ+ySrukMeiKNPajMiRqggL4XS44A6fLJKKs6stu2n/JAStDI1BpkmgmbhFPDSs5WwFXZgb/wPKcn8gQPBfu6ob0fwKeWu2o2xIp/lG8RIKBGfRUs81Ub6ntUvTA==
+X-Microsoft-Antispam-Message-Info: k4gMx8pe/b9VQE0Qp3xgUIBePheQbIDcsUH4JnEcwQdl9vt0xzQAG42P2C8Kr6tTQCddh8AE0LSlygmpJQNvCUDj+pUkmcImJl1mxcE5hlB3VRNALZhJUBybJPQIEZWNxarJ2vQ7+qC6yPau0rwcM4TeTKEW2wRRMVRTS2i1RVj1K52wteMTICqtFudPghK9kk9DxvC7An2hEhpQQdr7DK4fJS/Wi7gwgGfsF/ETjP1+YPqJ5WCivASpb6O2azBdohfOEHtYjPcLzOzhCQ51Y6cNiiEnnlKpF/44ltDZcViAAjojBPDQ+kcA/Zn63a+g/5bwns7YRaEiTtuPZ5wME/Ec8t6QlT3Msa99tGuWc4AqfzADx4LyTJK+dLSsmb5fuXDadd9cy7KAHzrOSaTJDw==
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2020 04:59:33.5025 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 24f04072-83b4-4478-5612-08d80b68bc4d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2020 04:59:36.1344 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d6ded654-73f1-45b6-58f3-08d80b68bdd3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB01.amd.com]
+ Helo=[SATLEXMB02.amd.com]
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0016
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4425
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,71 +117,76 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Sunpeng.Li@amd.com, Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com,
- Aurabindo.Pillai@amd.com, Bhawanpreet.Lakha@amd.com,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: Charlene Liu <Charlene.Liu@amd.com>, Sunpeng.Li@amd.com,
+ Harry.Wentland@amd.com, Rodrigo.Siqueira@amd.com, Aurabindo.Pillai@amd.com,
+ Bhawanpreet.Lakha@amd.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
-[Why]
-DSC calculations fail because the u16 bits_per_pixel from
-the DRM struct is being casted to the u8 drm_bpp parameters
-and locals. Integer wraparound is happening because this
-value is greater than 255.
+[why]
+for audio on real TV issue.
 
-[How]
-Use u16 to match what's in the structure instead of u8.
+[how]
+-add wall clock programming for DPREF based when
+Pixel clock is done by DP DTO.
 
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Reviewed-by: Rodrigo Siqueira <Rodrigo.Siqueira@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
+Reviewed-by: Chris Park <Chris.Park@amd.com>
 Acked-by: Qingqing Zhuo <qingqing.zhuo@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dce/dce_audio.c              | 4 +++-
+ drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c | 4 +---
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c b/drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c
-index 667afbc260f9..4da21966ddce 100644
---- a/drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c
-+++ b/drivers/gpu/drm/amd/display/dc/dsc/rc_calc.c
-@@ -175,7 +175,7 @@ static int median3(int a, int b, int c)
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c b/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
+index 5a35495bc11d..408046579712 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_audio.c
+@@ -140,6 +140,8 @@ static void check_audio_bandwidth_hdmi(
+ 	bool limit_freq_to_88_2_khz = false;
+ 	bool limit_freq_to_96_khz = false;
+ 	bool limit_freq_to_174_4_khz = false;
++	if (!crtc_info)
++		return;
  
- static void _do_calc_rc_params(struct rc_params *rc, enum colour_mode cm,
--			       enum bits_per_comp bpc, u8 drm_bpp,
-+			       enum bits_per_comp bpc, u16 drm_bpp,
- 			       bool is_navite_422_or_420,
- 			       int slice_width, int slice_height,
- 			       int minor_version)
-@@ -265,7 +265,7 @@ static void _do_calc_rc_params(struct rc_params *rc, enum colour_mode cm,
- 	rc->rc_buf_thresh[13] = 8064;
- }
+ 	/* For two channels supported return whatever sink support,unmodified*/
+ 	if (channel_count > 2) {
+@@ -784,7 +786,7 @@ void dce_aud_wall_dto_setup(
  
--static u32 _do_bytes_per_pixel_calc(int slice_width, u8 drm_bpp,
-+static u32 _do_bytes_per_pixel_calc(int slice_width, u16 drm_bpp,
- 				    bool is_navite_422_or_420)
- {
- 	float bpp;
-@@ -321,7 +321,7 @@ void calc_rc_params(struct rc_params *rc, const struct drm_dsc_config *pps)
- 	enum colour_mode mode;
- 	enum bits_per_comp bpc;
- 	bool is_navite_422_or_420;
--	u8 drm_bpp = pps->bits_per_pixel;
-+	u16 drm_bpp = pps->bits_per_pixel;
- 	int slice_width  = pps->slice_width;
- 	int slice_height = pps->slice_height;
+ 	struct azalia_clock_info clock_info = { 0 };
  
-@@ -357,7 +357,7 @@ u32 calc_dsc_bytes_per_pixel(const struct drm_dsc_config *pps)
+-	if (dc_is_hdmi_signal(signal)) {
++	if (dc_is_hdmi_tmds_signal(signal)) {
+ 		uint32_t src_sel;
  
- {
- 	u32 ret;
--	u8 drm_bpp = pps->bits_per_pixel;
-+	u16 drm_bpp = pps->bits_per_pixel;
- 	int slice_width  = pps->slice_width;
- 	bool is_navite_422_or_420 = pps->native_422 || pps->native_420;
+ 		/*DTO0 Programming goal:
+diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+index 2ec5e9e1bdc6..0ce430cf4dd0 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_hw_sequencer.c
+@@ -1148,7 +1148,7 @@ static void build_audio_output(
+ 			pipe_ctx->stream_res.pix_clk_params.requested_pix_clk_100hz;
+ 
+ /*for HDMI, audio ACR is with deep color ratio factor*/
+-	if (dc_is_hdmi_signal(pipe_ctx->stream->signal) &&
++	if (dc_is_hdmi_tmds_signal(pipe_ctx->stream->signal) &&
+ 		audio_output->crtc_info.requested_pixel_clock_100Hz ==
+ 				(stream->timing.pix_clk_100hz)) {
+ 		if (pipe_ctx->stream_res.pix_clk_params.pixel_encoding == PIXEL_ENCODING_YCBCR420) {
+@@ -1963,10 +1963,8 @@ static void dce110_setup_audio_dto(
+ 
+ 		if (pipe_ctx->top_pipe)
+ 			continue;
+-
+ 		if (pipe_ctx->stream->signal != SIGNAL_TYPE_HDMI_TYPE_A)
+ 			continue;
+-
+ 		if (pipe_ctx->stream_res.audio != NULL) {
+ 			struct audio_output audio_output;
  
 -- 
 2.17.1
