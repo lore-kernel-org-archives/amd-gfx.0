@@ -7,40 +7,40 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 00EE2C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 10:53:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E1A4AC433DF
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 10:53:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C63AD2072F
-	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 10:53:27 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id B70BE2072F
+	for <amd-gfx@archiver.kernel.org>; Mon,  8 Jun 2020 10:53:30 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="uhtRA6l3"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C63AD2072F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="NyVDW5om"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B70BE2072F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FDFB896ED;
-	Mon,  8 Jun 2020 10:53:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 773BB89708;
+	Mon,  8 Jun 2020 10:53:30 +0000 (UTC)
 Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2053.outbound.protection.outlook.com [40.107.94.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BCED896ED
- for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2020 10:53:26 +0000 (UTC)
+ (mail-mw2nam10on2044.outbound.protection.outlook.com [40.107.94.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6276289708
+ for <amd-gfx@lists.freedesktop.org>; Mon,  8 Jun 2020 10:53:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HBY4mfyUYaOnlaBXVoxYPVGBLSAfk+B/cdjF9pNRdzO/aaxAIVZaVaUB/jNc7CLfGQoIF951m0TL+3+1ryCIjD6bUo3taY9r28Ihq4QuWIqt4Ncu2kkFYEkzgsndoYSE9uL1Vpo9Vhm5rrIik9lmd3cJOtE/2uR1itRv0qW7tMD6VfLPOcp9IaqlSwC69CiQ08C30vRewx3a+lvQ/5dudGMCOppXAd9992KlsumA0WIxslMP/1v+li3NANjeX9QRHQsdxUjG8H1bBMwfYcbiwkKRHfwHDIAU+1h/3e81UEId9JfxSYtV9GO6XUEQzhrPxTquXp9alRz952c1xG4I/A==
+ b=VsQwS3jBJnv2OS4vXSUsQWuJNYi9GvWDjl5ThX+ZSbEGkE7hTsLvd2qOzjkmGtIFI99cW0JvjMCDBqzhluzAiPCmalPVyylLg1x6yvwoksKkdJg8Aq+scbQFIEGnLAz8+pY2Ife+HG848GmnyR4CehEG+byuCueLf7amWZajNTI0k1986EykMCxpP/tp+2WY8nDpIKf1UYiJGWiAPQUTic5YeTx05CwpCrg6Y07xPF38q49nvaHjbCM094NOMkjVVufrgO+jlrdxImNcOr1nxwVdiUAKn32zIs+chEDaQgcojr8JOCQXAyodZ/J8L84vnHVQ8vUhZcw90saXdBmsZA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GHYjoTJb1G5R+9WhgmmsGp4q7ioMwVG8I7u+Sc5zNQY=;
- b=cWfYOg5SiP1yU9DhofERRNtK2i4Zx/R8dtl8qi/Cq6sX7OiW6+2d2jSJf40f/AWwZWHJXM/AEyqZrwf+APEJ6kXrb/A4wLn4wmtvii24X9kGEUQT9JqN1QwC7Kz+RBe4EVFuZsuD+q4YG/aEqmacbfTWQ6b4T3iHTjFNSMHj/cM2+qAhnKREQkqlyPXwEK46BQSYhHgpcAJH5gTLyznTA877dnFzjjQD6STyUeeXBX7cOzZFVk56cvnsdN6ZpXANcJlHht0UGF3GqK5rAo4c6xip9I1hu5t4fgikaOQvdULAQpFYQbpGG/x2t5/kov3DBZQxmryQcUJKHPjFylQpUQ==
+ bh=xDYbh1ua+1C5CyVSvrYGOVlzk99cOcowSJhaBT9OBrQ=;
+ b=YDVzlL3CeSX/orKCT4/FnHSyQOhUWZl3Fs1CYMufQ4I0geCw1D9PNZXaGveqea8ZZa+q6U4j8x7oeqmIB7wc16+ikFU2e4XCyQUvg+9Ln4dGf0qA7OzXYLqkN80kdCkH2bhgwj0/hMSx01UCrXRFjx3PQBBlta2/W0fshzGMcu6t2/oJOSRrUJWUyPvkSc++NCArxwOvNQnqX1sItHhxd0BEIIG/YS3OEljoKlvxuY9SFXu9N/+0ku+4FRa9wtXmHGPR2I8tn+VSGpcZz7vm+fQS6cXfvZTtVh8n0xc00zBSvtf/gx3Qn3+tjbG4ZrUoJ1CIALlSFrO3NRwFTmu1LA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GHYjoTJb1G5R+9WhgmmsGp4q7ioMwVG8I7u+Sc5zNQY=;
- b=uhtRA6l3SiryJnDgsx0HNzoe23flen8f6JKSWG+uHwoZj2iVaxQCzY42QvWKBZQB08x4gmJnTPRcdx16I4pLeia6WqcwsdvO7nry2Y12s1ZxHjy3Ij9X3Ux3QsuzdQzjxvrv4OP/6Bhx2vx5Kumj786QRu1TsysaKBUEv/0hqqQ=
+ bh=xDYbh1ua+1C5CyVSvrYGOVlzk99cOcowSJhaBT9OBrQ=;
+ b=NyVDW5om/lbRBCkJWWk1enA90RN+MeRZBXIWHjKxPzZorVa1atn4EPs3yXHSEawmr84JI/xjUwjoGcLxLq6xCHvADrg4E5zH6zCH2QRcrInjH2CTqtsi8a+66WzdLviSSjgx/ERU87ztx8KI1eAPPIsJjGnwl0RWccySQgcC3uc=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
@@ -48,17 +48,17 @@ Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB3546.namprd12.prod.outlook.com (2603:10b6:5:18d::17) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3066.18; Mon, 8 Jun 2020 10:53:25 +0000
+ 15.20.3066.18; Mon, 8 Jun 2020 10:53:28 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3066.023; Mon, 8 Jun 2020
- 10:53:25 +0000
+ 10:53:28 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/7] drm/amd/powerplay: maximize code sharing around power
- limit
-Date: Mon,  8 Jun 2020 18:52:29 +0800
-Message-Id: <20200608105234.29864-2-evan.quan@amd.com>
+Subject: [PATCH 3/7] drm/amd/powerplay: simplify the code around retrieving
+ power limit
+Date: Mon,  8 Jun 2020 18:52:30 +0800
+Message-Id: <20200608105234.29864-3-evan.quan@amd.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200608105234.29864-1-evan.quan@amd.com>
 References: <20200608105234.29864-1-evan.quan@amd.com>
@@ -70,33 +70,33 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR02CA0189.apcprd02.prod.outlook.com (2603:1096:201:21::25) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3066.19 via Frontend Transport; Mon, 8 Jun 2020 10:53:23 +0000
+ 15.20.3066.19 via Frontend Transport; Mon, 8 Jun 2020 10:53:27 +0000
 X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4ea5baa8-c1b8-4588-3d9f-08d80b9a2b1c
+X-MS-Office365-Filtering-Correlation-Id: 673370dc-da60-4dff-3161-08d80b9a2d0a
 X-MS-TrafficTypeDiagnostic: DM6PR12MB3546:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB354633A74AB598E19FA85DA3E4850@DM6PR12MB3546.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:212;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB354696819289C37E28C9F92EE4850@DM6PR12MB3546.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:328;
 X-Forefront-PRVS: 042857DBB5
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: BL2Rur8A4aNKgW+LN88m862gqXLtJUzgonbm7RWycBBFE9wajT5I5O6x/Vpa2vyAkrpSH7ck3EyMMYeiJD1IQ+HtUE1RMFVuTMxE6iB78+LytKLAhtHZ0OUCBOO8uADz6aWStMXg5DCbB/ZGtB6Cip4uqjMu6VkV0qEozBdlD5gKJn/Cdc7kwzue8wSHCzW+EJutgSpYUg2odfYyf8zqI3gCrC5FdnFzvqBn34zuB8uPMo/Cp/UEiZdHX3BgN8uR9Px8lryXQDWtiXq+S/med5sVOlDP+c0IdxtagXvE6xFFhOV4ook7c38bre/neoj5Xs2Zsst+Lrki8I/0lfIwf/VVpLeHZmzl8Y/jLkQCg77mlgQC/2lsMinzjNOu/+dh
+X-Microsoft-Antispam-Message-Info: VKnRT27ltu98qMKcsr/L9iKpK6V0V8yLY3TAK91UtlF5PBb3omps9w40KKYNdMaVG3KDeGZTb8ESlPV2Z8UJeEFBCxg/UUinorypElR7D6MTUmQyEQ2MYc574GJ16SnVuDqL+6rUoy7oi4jRh6vQxXBUiIUbUOBMDM/9Sd3RKXppG5jz0XSyx//uCuWxcgmaOS/xqH3hRmnAFYNBKjuX5bcPDtvYE3kkeJCbVEE3tcgSCqscKc8tHF3tEndBgTJ+8GFzADc3K/HmJIIEtKAFmnd/6uRZt+is3Lcu5wrYbqvFrIuKmgAdZfwX8+MW9uySwAHfPWcNbjx3CRqKDVGF/g==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(366004)(136003)(396003)(39860400002)(376002)(346002)(66556008)(2906002)(66476007)(6916009)(8676002)(956004)(66946007)(2616005)(8936002)(26005)(5660300002)(44832011)(4326008)(86362001)(6486002)(478600001)(83380400001)(316002)(186003)(52116002)(7696005)(36756003)(16526019)(1076003)(14963001);
+ SFS:(4636009)(366004)(136003)(396003)(39860400002)(376002)(346002)(66556008)(2906002)(66476007)(6666004)(6916009)(8676002)(956004)(66946007)(2616005)(8936002)(26005)(5660300002)(44832011)(4326008)(86362001)(6486002)(478600001)(83380400001)(316002)(186003)(52116002)(7696005)(36756003)(16526019)(1076003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: +eAr9EWX53z9yTeca7eE3abC6RWbBRssLVOgGcMDCe3t8vxNupRGFCEMJnvOGbu/RpdjWaGrG1FA/iH38EjxmP8cG98gjte9VwkMbN4W9wfTIRvri+v1kq3FtwnqGYd9wlqhaBIPwGfLdrY0nFOaEL9uYq891fSjEdF2QdSfYXH8unP3vtp9KTGOf+EcDPPmrFVm5TQBE51LyY5Z1hmw/DL5K/HL7T9K6u/pL1lnTN1IhCqnqcarmxQOiANaJkb0IA3m32S8v3z/ss9WDe4xShcpzCoCGx7z6YmwAttUM36SsRvLe8FDIVVgXFoYtgIG+FgZn2idwHRJj6MZ62Nov/OAaesEVYkj0PFlaqf254xP2955FvDExQzdUv9vOBMcwEgGnL5tl91P3PnNJYCLOtMjMjAMq29NzEP+n5r7VhSciSxh+hSbXHuaZhNIF+iOP7XPWxPk/XDIJdPfzt4NAUzcvVDJjMxwd1Vr/GobvxZMQ06QQUTk5MIT3oDPHaSX
+X-MS-Exchange-AntiSpam-MessageData: bB6bK8in3w3sJaYDJbMs813MUuQ3N7t03l47HHv8fSKroyvmPdiY1xCkDbzg1KMb+pUb/ABQtccgkJNrnRhlVR/NysYjdA4zuGxXOUhhiIqPdfUhLdZRbQF7z+BnsVFjhCnlseDN/L93T17HauO9ctEHsc+eX5XIZtZAvT0nMKCNFYVbAF6JXo/owpyJ4jTIuHK/obvUjovc3fObrbUV7yfJ93kgs55pVzo6bRYtx2NJWzD8FR9u8TyG0NCHA2bzQina7aXzRImNlZyGWv8AcZOrrHVvvpZSiyqRZV+s2InqRq+8TygAq0bj680DNMrokaqVdi04lkITmTKymUWB3lJtoobQwbZMVWbQr+fUx0wULtR21rRRo5IHodYEFoLj+EfuD3trkleCXMwOkfzohxnQ47ehPKVc0BZypaG7CxmDNPSKcWHRxSWYs/n7LlyT80qgabPAQdO+nlUmA3Yof/R8MzbmSk8+nYHcZ7fZ5DOzAcJ2QdBZf9Tafqs4Dabd
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ea5baa8-c1b8-4588-3d9f-08d80b9a2b1c
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2020 10:53:25.1993 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 673370dc-da60-4dff-3161-08d80b9a2d0a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2020 10:53:28.4815 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MlaAOGt7jAQ+03fW+JiZNWsp1X6+X19mVbxlaGlF2HnMD+ziMeHyc2/gL8TqjvMQ
+X-MS-Exchange-CrossTenant-UserPrincipalName: D6adNR9+X7QCwoZove0epY12VpwT2wObkBmAxYJio2V6PIfW3SMpmwDYLSP+Y5Jt
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3546
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -115,284 +115,143 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Also cache the current and max power limits.
+Use the cached max/current power limit for other cases except
+.late_init.
 
-Change-Id: Ida2ce964736bee2e558522441d3505f84c4e00f4
+Change-Id: Ia4c063207faf051db27be1956f40554913c31c3b
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  | 49 ++++++++---------
- .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  2 +
- drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |  3 ++
- drivers/gpu/drm/amd/powerplay/navi10_ppt.c    | 53 ++++++++-----------
- .../drm/amd/powerplay/sienna_cichlid_ppt.c    | 51 ++++++++----------
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c     | 23 ++++++++
- 6 files changed, 94 insertions(+), 87 deletions(-)
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c         | 7 +++----
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c       | 6 +-----
+ drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h     | 2 +-
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c         | 6 +-----
+ drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c | 6 +-----
+ drivers/gpu/drm/amd/powerplay/smu_internal.h       | 3 +++
+ 6 files changed, 10 insertions(+), 20 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+index a5fd1284ff1c..6757f65fd87e 100644
+--- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
+@@ -831,9 +831,9 @@ static int smu_late_init(void *handle)
+ 		return ret;
+ 	}
+ 
+-	ret = smu_get_power_limit(smu, &smu->default_power_limit, false, false);
++	ret = smu_get_asic_power_limits(smu);
+ 	if (ret) {
+-		dev_err(adev->dev, "Failed to get default power limit!\n");
++		dev_err(adev->dev, "Failed to get asic power limits!\n");
+ 		return ret;
+ 	}
+ 
+@@ -2222,8 +2222,7 @@ int smu_get_power_limit(struct smu_context *smu,
+ 		mutex_lock(&smu->mutex);
+ 	}
+ 
+-	if (smu->ppt_funcs->get_power_limit)
+-		ret = smu->ppt_funcs->get_power_limit(smu, limit, def);
++	*limit = (def ? smu->max_power_limit : smu->current_power_limit);
+ 
+ 	if (lock_needed)
+ 		mutex_unlock(&smu->mutex);
 diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-index 0704a9c1d567..2c78271123f7 100644
+index 2c78271123f7..66b8f143cc46 100644
 --- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-@@ -1413,40 +1413,33 @@ static int arcturus_get_power_limit(struct smu_context *smu,
- 				     uint32_t *limit,
- 				     bool cap)
- {
-+	struct smu_11_0_powerplay_table *powerplay_table =
-+		(struct smu_11_0_powerplay_table *)smu->smu_table.power_play_table;
- 	PPTable_t *pptable = smu->smu_table.driver_pptable;
--	uint32_t asic_default_power_limit = 0;
--	int ret = 0;
--	int power_src;
--
--	if (!smu->power_limit) {
--		if (smu_feature_is_enabled(smu, SMU_FEATURE_PPT_BIT)) {
--			power_src = smu_power_get_index(smu, SMU_POWER_SOURCE_AC);
--			if (power_src < 0)
--				return -EINVAL;
-+	uint32_t power_limit, od_percent;
- 
--			ret = smu_send_smc_msg_with_param(smu, SMU_MSG_GetPptLimit,
--				power_src << 16, &asic_default_power_limit);
--			if (ret) {
--				dev_err(smu->adev->dev, "[%s] get PPT limit failed!", __func__);
--				return ret;
--			}
--		} else {
--			/* the last hope to figure out the ppt limit */
--			if (!pptable) {
--				dev_err(smu->adev->dev, "Cannot get PPT limit due to pptable missing!");
--				return -EINVAL;
--			}
--			asic_default_power_limit =
--				pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
-+	if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
-+		/* the last hope to figure out the ppt limit */
-+		if (!pptable) {
-+			dev_err(smu->adev->dev, "Cannot get PPT limit due to pptable missing!");
-+			return -EINVAL;
- 		}
-+		power_limit =
-+			pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
-+	}
-+	smu->current_power_limit = power_limit;
-+
-+	if (smu->od_enabled) {
-+		od_percent = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-+
-+		dev_dbg(smu->adev->dev, "ODSETTING_POWERPERCENTAGE: %d (default: %d)\n", od_percent, power_limit);
- 
--		smu->power_limit = asic_default_power_limit;
-+		power_limit *= (100 + od_percent);
-+		power_limit /= 100;
- 	}
-+	smu->max_power_limit = power_limit;
- 
--	if (cap)
--		*limit = smu_get_max_power_limit(smu);
--	else
--		*limit = smu->power_limit;
-+	*limit = (cap ? smu->max_power_limit : smu->current_power_limit);
- 
+@@ -1409,9 +1409,7 @@ arcturus_get_profiling_clk_mask(struct smu_context *smu,
  	return 0;
  }
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-index 9276320c09d0..574a793b5d26 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -382,6 +382,8 @@ struct smu_context
- 	bool od_enabled;
- 	uint32_t power_limit;
- 	uint32_t default_power_limit;
-+	uint32_t current_power_limit;
-+	uint32_t max_power_limit;
  
- 	/* soft pptable */
- 	uint32_t ppt_offset_bytes;
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-index 9da2f26b7267..2e9939beb128 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h
-@@ -196,6 +196,9 @@ int smu_v11_0_get_enabled_mask(struct smu_context *smu,
- 
- int smu_v11_0_notify_display_change(struct smu_context *smu);
- 
-+int smu_v11_0_get_current_power_limit(struct smu_context *smu,
-+				      uint32_t *power_limit);
-+
- int smu_v11_0_set_power_limit(struct smu_context *smu, uint32_t n);
- 
- int smu_v11_0_get_current_clk_freq(struct smu_context *smu,
-diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-index e63498e747ac..b867f94ba559 100644
---- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-@@ -1923,43 +1923,36 @@ static uint32_t navi10_get_pptable_power_limit(struct smu_context *smu)
- }
- 
- static int navi10_get_power_limit(struct smu_context *smu,
+-static int arcturus_get_power_limit(struct smu_context *smu,
 -				     uint32_t *limit,
 -				     bool cap)
-+				  uint32_t *limit,
-+				  bool cap)
++static int arcturus_get_power_limit(struct smu_context *smu)
  {
-+	struct smu_11_0_powerplay_table *powerplay_table =
-+		(struct smu_11_0_powerplay_table *)smu->smu_table.power_play_table;
- 	PPTable_t *pptable = smu->smu_table.driver_pptable;
--	uint32_t asic_default_power_limit = 0;
--	int ret = 0;
--	int power_src;
--
--	if (!smu->power_limit) {
--		if (smu_feature_is_enabled(smu, SMU_FEATURE_PPT_BIT)) {
--			power_src = smu_power_get_index(smu, SMU_POWER_SOURCE_AC);
--			if (power_src < 0)
--				return -EINVAL;
-+	uint32_t power_limit, od_percent;
- 
--			ret = smu_send_smc_msg_with_param(smu, SMU_MSG_GetPptLimit,
--				power_src << 16, &asic_default_power_limit);
--			if (ret) {
--				dev_err(smu->adev->dev, "[%s] get PPT limit failed!", __func__);
--				return ret;
--			}
--		} else {
--			/* the last hope to figure out the ppt limit */
--			if (!pptable) {
--				dev_err(smu->adev->dev, "Cannot get PPT limit due to pptable missing!");
--				return -EINVAL;
--			}
--			asic_default_power_limit =
--				pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
-+	if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
-+		/* the last hope to figure out the ppt limit */
-+		if (!pptable) {
-+			dev_err(smu->adev->dev, "Cannot get PPT limit due to pptable missing!");
-+			return -EINVAL;
- 		}
-+		power_limit =
-+			pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
-+	}
-+	smu->current_power_limit = power_limit;
- 
--		smu->power_limit = asic_default_power_limit;
-+	if (smu->od_enabled) {
-+		od_percent = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_ODSETTING_POWERPERCENTAGE]);
-+
-+		dev_dbg(smu->adev->dev, "ODSETTING_POWERPERCENTAGE: %d (default: %d)\n", od_percent, power_limit);
-+
-+		power_limit *= (100 + od_percent);
-+		power_limit /= 100;
+ 	struct smu_11_0_powerplay_table *powerplay_table =
+ 		(struct smu_11_0_powerplay_table *)smu->smu_table.power_play_table;
+@@ -1439,8 +1437,6 @@ static int arcturus_get_power_limit(struct smu_context *smu,
  	}
-+	smu->max_power_limit = power_limit;
+ 	smu->max_power_limit = power_limit;
  
--	if (cap)
--		*limit = smu_get_max_power_limit(smu);
--	else
--		*limit = smu->power_limit;
-+	*limit = (cap ? smu->max_power_limit : smu->current_power_limit);
- 
+-	*limit = (cap ? smu->max_power_limit : smu->current_power_limit);
+-
  	return 0;
  }
+ 
+diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+index 574a793b5d26..db63ed057840 100644
+--- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+@@ -487,7 +487,7 @@ struct pptable_funcs {
+ 	int (*set_performance_level)(struct smu_context *smu, enum amd_dpm_forced_level level);
+ 	int (*display_disable_memory_clock_switch)(struct smu_context *smu, bool disable_memory_clock_switch);
+ 	void (*dump_pptable)(struct smu_context *smu);
+-	int (*get_power_limit)(struct smu_context *smu, uint32_t *limit, bool asic_default);
++	int (*get_power_limit)(struct smu_context *smu);
+ 	int (*get_dpm_clk_limited)(struct smu_context *smu, enum smu_clk_type clk_type,
+ 				   uint32_t dpm_level, uint32_t *freq);
+ 	int (*set_df_cstate)(struct smu_context *smu, enum pp_df_cstate state);
+diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+index b867f94ba559..2e0836976001 100644
+--- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
++++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
+@@ -1922,9 +1922,7 @@ static uint32_t navi10_get_pptable_power_limit(struct smu_context *smu)
+ 	return pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
+ }
+ 
+-static int navi10_get_power_limit(struct smu_context *smu,
+-				  uint32_t *limit,
+-				  bool cap)
++static int navi10_get_power_limit(struct smu_context *smu)
+ {
+ 	struct smu_11_0_powerplay_table *powerplay_table =
+ 		(struct smu_11_0_powerplay_table *)smu->smu_table.power_play_table;
+@@ -1952,8 +1950,6 @@ static int navi10_get_power_limit(struct smu_context *smu,
+ 	}
+ 	smu->max_power_limit = power_limit;
+ 
+-	*limit = (cap ? smu->max_power_limit : smu->current_power_limit);
+-
+ 	return 0;
+ }
+ 
 diff --git a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-index b83675227a6f..c427e233dfad 100644
+index c427e233dfad..44719c110655 100644
 --- a/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
 +++ b/drivers/gpu/drm/amd/powerplay/sienna_cichlid_ppt.c
-@@ -1747,40 +1747,33 @@ static int sienna_cichlid_get_power_limit(struct smu_context *smu,
- 				     uint32_t *limit,
- 				     bool cap)
- {
-+	struct smu_11_0_7_powerplay_table *powerplay_table =
-+		(struct smu_11_0_7_powerplay_table *)smu->smu_table.power_play_table;
- 	PPTable_t *pptable = smu->smu_table.driver_pptable;
--	uint32_t asic_default_power_limit = 0;
--	int ret = 0;
--	int power_src;
--
--	if (!smu->power_limit) {
--		if (smu_feature_is_enabled(smu, SMU_FEATURE_PPT_BIT)) {
--			power_src = smu_power_get_index(smu, SMU_POWER_SOURCE_AC);
--			if (power_src < 0)
--				return -EINVAL;
--
--			ret = smu_send_smc_msg_with_param(smu, SMU_MSG_GetPptLimit,
--							  power_src << 16, &asic_default_power_limit);
--			if (ret) {
--				dev_err(smu->adev->dev, "[%s] get PPT limit failed!", __func__);
--				return ret;
--			}
--		} else {
--			/* the last hope to figure out the ppt limit */
--			if (!pptable) {
--				dev_err(smu->adev->dev, "Cannot get PPT limit due to pptable missing!");
--				return -EINVAL;
--			}
--			asic_default_power_limit =
--				pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
-+	uint32_t power_limit, od_percent;
-+
-+	if (smu_v11_0_get_current_power_limit(smu, &power_limit)) {
-+		/* the last hope to figure out the ppt limit */
-+		if (!pptable) {
-+			dev_err(smu->adev->dev, "Cannot get PPT limit due to pptable missing!");
-+			return -EINVAL;
- 		}
-+		power_limit =
-+			pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
-+	}
-+	smu->current_power_limit = power_limit;
-+
-+	if (smu->od_enabled) {
-+		od_percent = le32_to_cpu(powerplay_table->overdrive_table.max[SMU_11_0_7_ODSETTING_POWERPERCENTAGE]);
-+
-+		dev_dbg(smu->adev->dev, "ODSETTING_POWERPERCENTAGE: %d (default: %d)\n", od_percent, power_limit);
+@@ -1743,9 +1743,7 @@ static uint32_t sienna_cichlid_get_pptable_power_limit(struct smu_context *smu)
+ 	return pptable->SocketPowerLimitAc[PPT_THROTTLER_PPT0];
+ }
  
--		smu->power_limit = asic_default_power_limit;
-+		power_limit *= (100 + od_percent);
-+		power_limit /= 100;
+-static int sienna_cichlid_get_power_limit(struct smu_context *smu,
+-				     uint32_t *limit,
+-				     bool cap)
++static int sienna_cichlid_get_power_limit(struct smu_context *smu)
+ {
+ 	struct smu_11_0_7_powerplay_table *powerplay_table =
+ 		(struct smu_11_0_7_powerplay_table *)smu->smu_table.power_play_table;
+@@ -1773,8 +1771,6 @@ static int sienna_cichlid_get_power_limit(struct smu_context *smu,
  	}
-+	smu->max_power_limit = power_limit;
+ 	smu->max_power_limit = power_limit;
  
--	if (cap)
--		*limit = smu_get_max_power_limit(smu);
--	else
--		*limit = smu->power_limit;
-+	*limit = (cap ? smu->max_power_limit : smu->current_power_limit);
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index acb9a3cec7ee..358c903c4a86 100644
---- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -1056,6 +1056,29 @@ int smu_v11_0_init_max_sustainable_clocks(struct smu_context *smu)
+-	*limit = (cap ? smu->max_power_limit : smu->current_power_limit);
+-
  	return 0;
  }
  
-+int smu_v11_0_get_current_power_limit(struct smu_context *smu,
-+				      uint32_t *power_limit)
-+{
-+	int power_src;
-+	int ret = 0;
+diff --git a/drivers/gpu/drm/amd/powerplay/smu_internal.h b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+index 9c68c6c43f9d..346aea9198e9 100644
+--- a/drivers/gpu/drm/amd/powerplay/smu_internal.h
++++ b/drivers/gpu/drm/amd/powerplay/smu_internal.h
+@@ -213,4 +213,7 @@ static inline int smu_send_smc_msg(struct smu_context *smu, enum smu_message_typ
+ #define smu_log_thermal_throttling(smu) \
+ 		((smu)->ppt_funcs->log_thermal_throttling_event ? (smu)->ppt_funcs->log_thermal_throttling_event((smu)) : 0)
+ 
++#define smu_get_asic_power_limits(smu) \
++		((smu)->ppt_funcs->get_power_limit ? (smu)->ppt_funcs->get_power_limit((smu)) : 0)
 +
-+	if (!smu_feature_is_enabled(smu, SMU_FEATURE_PPT_BIT))
-+		return -EINVAL;
-+
-+	power_src = smu_power_get_index(smu, SMU_POWER_SOURCE_AC);
-+	if (power_src < 0)
-+		return -EINVAL;
-+
-+	ret = smu_send_smc_msg_with_param(smu,
-+					  SMU_MSG_GetPptLimit,
-+					  power_src << 16,
-+					  power_limit);
-+	if (ret)
-+		dev_err(smu->adev->dev, "[%s] get PPT limit failed!", __func__);
-+
-+	return ret;
-+}
-+
- int smu_v11_0_set_power_limit(struct smu_context *smu, uint32_t n)
- {
- 	int ret = 0;
+ #endif
 -- 
 2.27.0
 
