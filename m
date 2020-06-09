@@ -7,58 +7,57 @@ X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
 	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F93FC433DF
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2020 10:21:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02378C433E0
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2020 10:21:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 53C07207ED
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2020 10:21:07 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id CA136207F9
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2020 10:21:12 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="PnUDCCkp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 53C07207ED
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="ZSJASXLz"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CA136207F9
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 184496E03C;
-	Tue,  9 Jun 2020 10:21:07 +0000 (UTC)
-Received: from NAM10-BN7-obe.outbound.protection.outlook.com
- (mail-bn7nam10on2062.outbound.protection.outlook.com [40.107.92.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FDC26E03C
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jun 2020 10:21:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ACCD6E088;
+	Tue,  9 Jun 2020 10:21:12 +0000 (UTC)
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr770047.outbound.protection.outlook.com [40.107.77.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 861D86E088
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jun 2020 10:21:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=B9lWOj8O3jnwJZYGq8mNcjx85xxVuYt8qRhjCjZckMdwNHgHQACud77DOuingh6cT8miJvaoY3+cTcUmmhhN5HlXyXmdU0xB431/lIXjeTny4WFE9T7ciRyqHYB2H3jwvPkyFPEKGKgMbg1uphARgGxLXASL8Cy39En9aHfqS3GWyk8hSapQrXB9VwJR4KLP6JhuTExYhYRRSjoxvYe0hgl1epEvUTgFNBodWvati2SsGNQI894abp1894aBFW8Oa2jcc7aSZY0APVLVoqxcKgTn04S+Rp9qvlFyv/GaW4Z8v2V4h4i8o+lXsh9OLCZpcAktjL0ojUfzXMDy3p4zeA==
+ b=goN2Y406nBTp6/6NtgW0oKom4YI10mhlgqpdZ/XZj67UzFUm8zTMLPhYcBYzJyXh91dpo+bGavJsz/oO16b4sDdDFOKnVr4gIHb6mLY+7cQbRCUFqR9Heb1fCFVxw3ytCyUX/Q0s/15HtB296ZXeMO/cKLOoidW1gUdCoTAGW1Tbg79ZotGmJ/EXVKERF7FnWzEioSdNVq+22iRxppFakg1zwjb3NrjX7CKpkUfsOc7mTZJrz6ic7MELg242Hf78fUuaHyCeODJOx84uMRnR6NUhyP/20IS54QSOxrs/2dFqMOAEP0/db4X5dklwLRU8dKp44MqBzcBJWM8tnD/P6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6S5caheyEGMxF1VGQYpPv8Y7Nj2/I/XKeevaIAkPLXo=;
- b=QVm6fHtAiI/7VsveTRVzZF19uVos8+5AXQHK8c5g7w/yT+8dJRTvq+HNwjwVLyiLseJyecldrI/rYSUWpxAWrL4jDoAoYRz4nl8ncnLLol7wwMjze9EQYzVMrdys3JK9+rjiv8I0gUqhAQL7umxjT5+098GnjOhTZ772VCQ9Nd6jmnPWOrK+HDW5ipKo/Okp/XAzB0szs8Tqzc1PWNdJvAn+b4VLiTIIWkxyjx4ucggJJD8ACxNIGq7vyJ/05QybXWDB9A5k9iKVYh7W6ryMn3Mfd8BTxDzgCDN1L0CCFuSQgroV8GQt1CGLVIjOlU2e9plWP11SWmaaQUO3e3fKGQ==
+ bh=3m+KubZ9SvvsLWgmvIiH3BKx3ON3BRxVdlnYApa9cjU=;
+ b=MGCgk5pI6InGJK2+8Kb1YtOkhIoRbMDgvzN5u4dFfmUT89KZqTW3YUHCu7E1yJZxCRhXuBJVQ8CREEITPys/oWcBmx2hCegoij+KxOEo13+NiJLSAOoBMuquGGFuEu2txADQeQGrEa1wU+TcjNzY5g7au+RZLo9/zkUG/1/XpHJBnVn1FA2G9FKWTHDsQBi3PTMx2ZOkqDuHqFhEqr+beeFKLR5Z/uAGTyFdt96eWO1/Ga081o0ZFyAz5rUBaSw3FV4cWOGPLr4kyvLhSk0FFvI/C8+n/Iew9oKxj0BWyUYMqpiSUYdvTVr3yqmyKE0CaY8LHVjpP9BVYAhPCliXxQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6S5caheyEGMxF1VGQYpPv8Y7Nj2/I/XKeevaIAkPLXo=;
- b=PnUDCCkp4dqRaYGJUc81JCrapGpRfZCeXkBzL0IXlaZazd0qOZAbDQ89sQRxjjw+837jbM0vEI16heAfo+JtWDBqxOFcUHZXG0CY2/oRsC3L7Pi9ZJVChIwIWFcGTdzQ2xvN6HGvkPWRzQ0pZQh9uDwr6bsFG1LdvgkKJ69zd/8=
+ bh=3m+KubZ9SvvsLWgmvIiH3BKx3ON3BRxVdlnYApa9cjU=;
+ b=ZSJASXLzmB+XXz1GKKZwu3LsNYJvylENm4c7qu1390mk++erNRCVhaMhfaXMrV0/wtbxFT6EhezGMRW6pQrQWXcmC8fqVwKGw5cITfjhNzWNX/sijvUv39pvn3rrxPhnSWG7HvSfSWApxu6jFkpA2ecm209fokfDCWIxFMQh8Go=
 Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
  header.d=none; lists.freedesktop.org;
  dmarc=none action=none header.from=amd.com;
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
- DM6PR12MB3084.namprd12.prod.outlook.com (2603:10b6:5:117::25) with
+ DM6PR12MB4466.namprd12.prod.outlook.com (2603:10b6:5:2ae::10) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3066.18; Tue, 9 Jun 2020 10:21:04 +0000
+ 15.20.3066.18; Tue, 9 Jun 2020 10:21:10 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3066.023; Tue, 9 Jun 2020
- 10:21:04 +0000
+ 10:21:10 +0000
 From: Evan Quan <evan.quan@amd.com>
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 2/3] drm/amd/powerplay: revise the calling chain on sensor
- reading
-Date: Tue,  9 Jun 2020 18:20:16 +0800
-Message-Id: <20200609102017.12478-2-evan.quan@amd.com>
+Subject: [PATCH 3/3] drm/amd/powerplay: maximum code sharing on sensor reading
+Date: Tue,  9 Jun 2020 18:20:17 +0800
+Message-Id: <20200609102017.12478-3-evan.quan@amd.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20200609102017.12478-1-evan.quan@amd.com>
 References: <20200609102017.12478-1-evan.quan@amd.com>
@@ -70,34 +69,34 @@ X-MS-Exchange-MessageSentRepresentingType: 1
 Received: from equan-buildpc.amd.com (58.247.170.242) by
  HK2PR04CA0071.apcprd04.prod.outlook.com (2603:1096:202:15::15) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3066.18 via Frontend Transport; Tue, 9 Jun 2020 10:21:03 +0000
+ 15.20.3066.18 via Frontend Transport; Tue, 9 Jun 2020 10:21:08 +0000
 X-Mailer: git-send-email 2.27.0
 X-Originating-IP: [58.247.170.242]
 X-MS-PublicTrafficType: Email
 X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 863a309a-7247-449e-ad4a-08d80c5ed0ed
-X-MS-TrafficTypeDiagnostic: DM6PR12MB3084:
+X-MS-Office365-Filtering-Correlation-Id: d0feadd6-afd3-4114-1c27-08d80c5ed434
+X-MS-TrafficTypeDiagnostic: DM6PR12MB4466:
 X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <DM6PR12MB308439A229474487D26172A5E4820@DM6PR12MB3084.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2399;
+X-Microsoft-Antispam-PRVS: <DM6PR12MB446601F2113C50636C8841C5E4820@DM6PR12MB4466.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826;
 X-Forefront-PRVS: 042957ACD7
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: vkhXU5AkpMK1MAl1F48mg+vrcPeoPkoTJG7XG1B/isC2+EqXH35hO6B10U06yYBl4ETlMgaFGI1NNLHOQK8viDL9cRji5ZuTtzzGFPMPZRhJlKxRnN1KL/0vpWGe1jHhSznujwR9y13mp10omY8x+foJOlSynXOxgsWgvV5/g61W4vgK2S0Xy1iTFEJM8uBSkDRCjniigP6cEtDR6juBYFHqRc95IsYNgA4PZBECzGhGxrLOUZIo7iKGabsKNT0YjbknGmpxU/hDYEhrRlpK88WRr06231itb9CxKycFWSfbtn6GevHZzysNGUP6oBRD8tWQao763OaOCz4Yp8L/Yg==
+X-Microsoft-Antispam-Message-Info: v6Eu0OoC48w/jMHuXB+WVqXJfHYRAqfl8mAQx88TbyIEDeScvni3I8V9W3/558PGWDMQsyBNcbkUsBrZCaA/qswQRwLg/tufyticSMD9kQo6fR0xsiZRDva1WK9K9E4mS+s6p2JI/AbEEt7tvRHAEthHlkaLDZEvb9me+Hd6rpdI4n1BeQhyWkLUuLSfJ8K6vwbVD1NZC5dplXhldhYHg8GmLF0VQ9haWqmp/AYL7f6drJuEQKYBe7DfEJv7oL4h94Tay4FyAEZTcPux56yyehJ/VdR96Mx69qapKUdrM5ApKOXjZ0n/sDc9v3fgqUaAvHtLXFzaMWU7nCX/Ne0WNQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(396003)(39860400002)(346002)(376002)(366004)(8936002)(478600001)(8676002)(316002)(52116002)(6666004)(4326008)(86362001)(6916009)(7696005)(1076003)(83380400001)(66476007)(5660300002)(2616005)(66556008)(6486002)(66946007)(44832011)(26005)(186003)(2906002)(36756003)(16526019)(956004);
+ SFS:(4636009)(39860400002)(376002)(366004)(396003)(346002)(136003)(6916009)(2906002)(956004)(83380400001)(478600001)(44832011)(4326008)(6486002)(2616005)(7696005)(52116002)(66476007)(6666004)(186003)(1076003)(8936002)(26005)(86362001)(66556008)(66946007)(5660300002)(8676002)(36756003)(16526019)(316002);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: cWAGcRVzJrI5ALow5gGH6Lwxb3us36B0ybDWxtVWrPtMImX2wEPheCIQM3XAxbAjZQqg2z5S2MuqTOZi22R3StmGroWAQTZ8RZB2wWmzKAiEkys1k8daETMbuaLR571Sm15pSDQ16D0p5vAq5tCN/kHSz/4MAYGsT+M+VyUcS1KD3j/8cEO90PAXyO/FBEs5vhRNCX+Rldzh8cOrJgzoYIJCRB1BRcXwsGefCG/PtSAzqTI1/YJbCFEHB3rLw4F3/LQ0uUFqAKW6Etd6JnjAna5NUD4LSjt5ifhBfoSqAujt1nAAyEHgk1BnFZYFEOt5V6SBo4wT8ev3eiFgAkp7/uLI8t+ksz3r0zkFhPEEbrGahqwp22qEeB69G9Hz/4IxU9hvLBxxo9qjFMPyxp3eFUXKJKlXPgxl1Rf1iEHmCD3XVbqz937B8Q1AAiXB9yJaiQsAUlP+67atioTU+NkssA6ScTdYYjyccufXOkcUX3noSXUwo2b+o4mGCJcpUAHd
+X-MS-Exchange-AntiSpam-MessageData: +wkPwzfy/kwToU/5/kgkP2GZHwtrGZTlmVWGntD5n/VXX3D4gBYiQz0s4ZKiBLNtoIrO/6m3ubiQvDiOWbW38uO0VAje5qKgJNARw/T/FjeHnv0cM5Uo0+YXJinsQIv7PmdFfixbQQ5pYqhPj0+6uAlExfNNmb/5n/TfuBax/UI4ZOd9hgmP3PuA+oiDV7FU1kN/r8BXEESYDYdt/qzWYO7lNXA58+8agUroGsH60b3tlGZGlj2vmMzJnlFxbUyoCJ8ltK+v6edclre+5Xw6930mF5knRHwFfyqVa/vFlKGRRPH/3lMN+m1eo/NYtAw5a7ii7xvDcySbZksqOk6MCQRUhXG1aI9qOAIhqClMl5hAKq1roR6sQ0dsyjSLxSp6HM+JGnReOf42o0U9a5uwM3121DIFgUl387IHPEOsZ4kHesE9iKUyLQCfhq5uzs68LO0zlGbcGA9EbBC4R433L8f1p6D05nkdj2xGK+Wo+kKBBiQTafSTY8z44re8rjak
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 863a309a-7247-449e-ad4a-08d80c5ed0ed
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2020 10:21:04.8239 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0feadd6-afd3-4114-1c27-08d80c5ed434
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2020 10:21:10.1248 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: cLk3BGxgV2nDru3VcIrBsi3KhbTTtuhJuLADV9FfxK+S2JcDiY1hqPMOFW9PQrmQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3084
+X-MS-Exchange-CrossTenant-UserPrincipalName: xWZtC6UgBV7bGR19R2XtI+ezSrZ8VXfRLq1yUkyzkB5Dnd/JXcsc8iCe5fPDNs05
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4466
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,160 +114,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update the calling chain from "amdgpu_smu.c -> ${asic}_ppt.c ->
-smu_v11/12_0.c -> amdgpu_smu.c (smu_common_read_sensor())" to "
-"amdgpu_smu.c -> ${asic}_ppt.c -> smu_v11/12_0.c". This can help
-to maintain clear code layers. More similar changes will be coming.
+Move the common code to amdgpu_smu.c instead of having one
+copy in both smu_v11_0.c and smu_v12_0.c.
 
-Change-Id: I95beba6c117b0cd3b0acea6158bf62240c6eac5a
+Change-Id: Idc59c6f686139d034348a613f1a7b9213198312d
 Signed-off-by: Evan Quan <evan.quan@amd.com>
 ---
- drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 81 ++++++++-----------
- .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  2 -
- drivers/gpu/drm/amd/powerplay/smu_v11_0.c     |  2 +-
- drivers/gpu/drm/amd/powerplay/smu_v12_0.c     |  2 +-
- 4 files changed, 35 insertions(+), 52 deletions(-)
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 4 ++++
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c  | 4 ----
+ drivers/gpu/drm/amd/powerplay/smu_v12_0.c  | 4 ----
+ 3 files changed, 4 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-index 78263de02678..c032680c52b0 100644
+index c032680c52b0..8415b383e7ae 100644
 --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
 +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-@@ -506,52 +506,6 @@ int smu_get_power_num_states(struct smu_context *smu,
- 	return 0;
- }
- 
--int smu_common_read_sensor(struct smu_context *smu, enum amd_pp_sensors sensor,
--			   void *data, uint32_t *size)
--{
--	struct smu_power_context *smu_power = &smu->smu_power;
--	struct smu_power_gate *power_gate = &smu_power->power_gate;
--	int ret = 0;
--
--	if(!data || !size)
--		return -EINVAL;
--
--	switch (sensor) {
--	case AMDGPU_PP_SENSOR_STABLE_PSTATE_SCLK:
--		*((uint32_t *)data) = smu->pstate_sclk;
--		*size = 4;
--		break;
--	case AMDGPU_PP_SENSOR_STABLE_PSTATE_MCLK:
--		*((uint32_t *)data) = smu->pstate_mclk;
--		*size = 4;
--		break;
--	case AMDGPU_PP_SENSOR_ENABLED_SMC_FEATURES_MASK:
--		ret = smu_feature_get_enabled_mask(smu, (uint32_t *)data, 2);
--		*size = 8;
--		break;
--	case AMDGPU_PP_SENSOR_UVD_POWER:
--		*(uint32_t *)data = smu_feature_is_enabled(smu, SMU_FEATURE_DPM_UVD_BIT) ? 1 : 0;
--		*size = 4;
--		break;
--	case AMDGPU_PP_SENSOR_VCE_POWER:
--		*(uint32_t *)data = smu_feature_is_enabled(smu, SMU_FEATURE_DPM_VCE_BIT) ? 1 : 0;
--		*size = 4;
--		break;
--	case AMDGPU_PP_SENSOR_VCN_POWER_STATE:
--		*(uint32_t *)data = power_gate->vcn_gated ? 0 : 1;
--		*size = 4;
--		break;
--	default:
--		ret = -EINVAL;
--		break;
--	}
--
--	if (ret)
--		*size = 0;
--
--	return ret;
--}
--
- int smu_update_table(struct smu_context *smu, enum smu_table_id table_index, int argument,
- 		     void *table_data, bool drv2smu)
- {
-@@ -2338,10 +2292,41 @@ int smu_read_sensor(struct smu_context *smu,
- 	if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
- 		return -EOPNOTSUPP;
- 
-+	if (!data || !size)
-+		return -EINVAL;
-+
- 	mutex_lock(&smu->mutex);
- 
--	if (smu->ppt_funcs->read_sensor)
--		ret = smu->ppt_funcs->read_sensor(smu, sensor, data, size);
-+	switch (sensor) {
-+	case AMDGPU_PP_SENSOR_STABLE_PSTATE_SCLK:
-+		*((uint32_t *)data) = smu->pstate_sclk;
+@@ -2322,6 +2322,10 @@ int smu_read_sensor(struct smu_context *smu,
+ 		*(uint32_t *)data = smu->smu_power.power_gate.vcn_gated ? 0 : 1;
+ 		*size = 4;
+ 		break;
++	case AMDGPU_PP_SENSOR_MIN_FAN_RPM:
++		*(uint32_t *)data = 0;
 +		*size = 4;
 +		break;
-+	case AMDGPU_PP_SENSOR_STABLE_PSTATE_MCLK:
-+		*((uint32_t *)data) = smu->pstate_mclk;
-+		*size = 4;
-+		break;
-+	case AMDGPU_PP_SENSOR_ENABLED_SMC_FEATURES_MASK:
-+		ret = smu_feature_get_enabled_mask(smu, (uint32_t *)data, 2);
-+		*size = 8;
-+		break;
-+	case AMDGPU_PP_SENSOR_UVD_POWER:
-+		*(uint32_t *)data = smu_feature_is_enabled(smu, SMU_FEATURE_DPM_UVD_BIT) ? 1 : 0;
-+		*size = 4;
-+		break;
-+	case AMDGPU_PP_SENSOR_VCE_POWER:
-+		*(uint32_t *)data = smu_feature_is_enabled(smu, SMU_FEATURE_DPM_VCE_BIT) ? 1 : 0;
-+		*size = 4;
-+		break;
-+	case AMDGPU_PP_SENSOR_VCN_POWER_STATE:
-+		*(uint32_t *)data = smu->smu_power.power_gate.vcn_gated ? 0 : 1;
-+		*size = 4;
-+		break;
-+	default:
-+		if (smu->ppt_funcs->read_sensor)
-+			ret = smu->ppt_funcs->read_sensor(smu, sensor, data, size);
-+		break;
-+	}
- 
- 	mutex_unlock(&smu->mutex);
- 
-diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-index 0d1429fc791b..41164a8fbe8a 100644
---- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
-@@ -695,8 +695,6 @@ int smu_update_table(struct smu_context *smu, enum smu_table_id table_index, int
- 
- bool is_support_sw_smu(struct amdgpu_device *adev);
- int smu_reset(struct smu_context *smu);
--int smu_common_read_sensor(struct smu_context *smu, enum amd_pp_sensors sensor,
--			   void *data, uint32_t *size);
- int smu_sys_get_pp_table(struct smu_context *smu, void **table);
- int smu_sys_set_pp_table(struct smu_context *smu,  void *buf, size_t size);
- int smu_get_power_num_states(struct smu_context *smu, struct pp_states_info *state_info);
+ 	default:
+ 		if (smu->ppt_funcs->read_sensor)
+ 			ret = smu->ppt_funcs->read_sensor(smu, sensor, data, size);
 diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-index d10d15fc7492..1a17d853afbd 100644
+index 1a17d853afbd..993976452467 100644
 --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
 +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-@@ -1198,7 +1198,7 @@ int smu_v11_0_read_sensor(struct smu_context *smu,
+@@ -1193,10 +1193,6 @@ int smu_v11_0_read_sensor(struct smu_context *smu,
+ 		ret = smu_v11_0_get_gfx_vdd(smu, (uint32_t *)data);
  		*size = 4;
  		break;
+-	case AMDGPU_PP_SENSOR_MIN_FAN_RPM:
+-		*(uint32_t *)data = 0;
+-		*size = 4;
+-		break;
  	default:
--		ret = smu_common_read_sensor(smu, sensor, data, size);
-+		ret = -EOPNOTSUPP;
+ 		ret = -EOPNOTSUPP;
  		break;
- 	}
- 
 diff --git a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-index 5b56e7579ff4..ae1035575808 100644
+index ae1035575808..b03127273d56 100644
 --- a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
 +++ b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-@@ -226,7 +226,7 @@ int smu_v12_0_read_sensor(struct smu_context *smu,
+@@ -221,10 +221,6 @@ int smu_v12_0_read_sensor(struct smu_context *smu,
+ 		ret = smu_get_current_clk_freq(smu, SMU_GFXCLK, (uint32_t *)data);
  		*size = 4;
  		break;
+-	case AMDGPU_PP_SENSOR_MIN_FAN_RPM:
+-		*(uint32_t *)data = 0;
+-		*size = 4;
+-		break;
  	default:
--		ret = smu_common_read_sensor(smu, sensor, data, size);
-+		ret = -EOPNOTSUPP;
+ 		ret = -EOPNOTSUPP;
  		break;
- 	}
- 
 -- 
 2.27.0
 
