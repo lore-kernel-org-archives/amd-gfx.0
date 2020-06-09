@@ -8,60 +8,60 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AB1D6C433DF
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2020 19:53:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 906CDC433DF
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2020 19:54:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7DDAD206D5
-	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2020 19:53:37 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 60F19206D5
+	for <amd-gfx@archiver.kernel.org>; Tue,  9 Jun 2020 19:54:33 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QuXJ33Rx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DDAD206D5
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="STSFZNQO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 60F19206D5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35F3E891F8;
-	Tue,  9 Jun 2020 19:53:37 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A801891F8
- for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jun 2020 19:53:36 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id q11so22700071wrp.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 09 Jun 2020 12:53:36 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CD2F6E0CA;
+	Tue,  9 Jun 2020 19:54:33 +0000 (UTC)
+Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
+ [IPv6:2a00:1450:4864:20::342])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA2326E0CA
+ for <amd-gfx@lists.freedesktop.org>; Tue,  9 Jun 2020 19:54:32 +0000 (UTC)
+Received: by mail-wm1-x342.google.com with SMTP id c71so3948899wmd.5
+ for <amd-gfx@lists.freedesktop.org>; Tue, 09 Jun 2020 12:54:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=T9MW8UBMcbsbclF6j8ZlExuGzwwKcS+tdEX677NjH9U=;
- b=QuXJ33RxO7/Cc77MTFFh4h4gRVWCBuJeOcSgt0htjfZtiXqca+2FFtmmDwo1eFjIxV
- YyibPwVCF/9wtvUgHYjS2hbPWbb7InRl2xP4ddWd+aim9uP6GYDh7Ti18dQ3Vh7w/W8/
- ItIGBmlMhs+m4FJstIn2NK6XU/lmW800oj+d/1h7wfKcHJyj4efY2PGhMB3iD2tOdqmW
- fkfeJeLlmZTuCkg+zDRo6jCBMNYGby3AfAGPi2r4SiOnWOmXWI6dHZ5UfHsKcrZi5F8k
- POwciSbCVrW+r/wMO5H8tjmS6lhtvwhrGr2BXcsQkJGsGRjkbKshDZtXDHItABydy8hi
- avMA==
+ :cc; bh=QI5pqd2qXI3HQcgnPU+qwZms/tmWVCy+Q/QpBBpROvw=;
+ b=STSFZNQOuvOKWOGp1K6NGdUim6hX2oKTRKkOpOqwvrTZKznSwKyVxt1U+VRPTkmPlL
+ ok2Xu20zsnFEI10sKPkEgEMUaYmJ/Ei4ELolf0Ag3UOmNJacdpwU1VixzPP1bWMonmrL
+ Hv7Cu1o6gsqoIK3jh+GEdYGE1etdQbLODueSUfEkmCpyGjxsnrVacvuqAkbzUoYj4dCf
+ QETM+KbazGRTCJHFIaqJozb8RcTnl3G3j4z/hW7uLIRRe0WKOdk6wsUpTUTtvvgdJH4e
+ xebHL7RlR4p7HtNPdC7GcwWthZsyLvI0/4oezkQef4OH2ZSBHPkQzsXHyGtKs5e+5/tf
+ FYtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=T9MW8UBMcbsbclF6j8ZlExuGzwwKcS+tdEX677NjH9U=;
- b=g/aaHXBxBpT9xAQwMp7TXZEJmcFrbfOygRcEJeRY4ipaS0L+0iKvVeJ5gqJWGD8dq+
- EzyN+jdWqy/xrI5aJAc9rC8sEvxNOOpC5zFUDbAebsiAObNsgXkDu3dlLfV7NAn5+nlw
- R09deQAZP11A+s0QB9aCgO/qUkXvzUKcc6bsYbTguzUaWy1bBOYSrzkTtB6pCs3U82Ff
- /PMebI33LyuJSgRrfUKWR/cO2c21nuwd+CyhED7JiIBSd8q+buGy9gfVg1WrtftUos4w
- dydOlCuKitt+GngHn9R7zEwctn4AyGMBkigj0sH+fooju4EHAsqMooeKuHk95iKMNDIT
- T2Kw==
-X-Gm-Message-State: AOAM533nuoOV2et5QVWtE3yMxJ3KkqbO40d8fans3P1okERCU1pAMttS
- 25db6VUPCpCBjM/gjGJdL2G/iQTvczJJBYCMTOg=
-X-Google-Smtp-Source: ABdhPJyFHgrlTEcx9GDULCKWCah50k9zFtAQPFUXNiFwI1gsHmv+GWeKohQDiCM/Cw0pn1iJWijqCL+7QdgCxHDPxYE=
-X-Received: by 2002:a5d:6789:: with SMTP id v9mr6648617wru.124.1591732415225; 
- Tue, 09 Jun 2020 12:53:35 -0700 (PDT)
+ bh=QI5pqd2qXI3HQcgnPU+qwZms/tmWVCy+Q/QpBBpROvw=;
+ b=F3/6bu+/Jh/zMYkmKk8eDwACusr/CLCI4JwGWXDTpK1YH5SjbGojfTyd30Q5b9um2S
+ jpDrJXGANlgS2HgLFiPFk8nDGnzTYs5WVC9lhrxA3mpDsylLPqJOLlsbuwRbGaKAWe8G
+ MJrzWJ+/c38M8RQo6PSOH7dBVS7tv7YO/Omc12uvvtXr8VHFkKW0pZiXqDOGLU6N1CX4
+ 5V8lF23xX0JRH/CtyyLEkWs6uIuBaf/kfJTgBvAqr/N1o+cCdOUUW8cQxP4UqOoTkGuI
+ wOLm3I38zimtkhobrc8CUyEA/GJXdM496+PtQXfgF3MZ5wbjQVRCf/v3fLYnThBpdL6O
+ OD0Q==
+X-Gm-Message-State: AOAM533DB/anTbo+/t9KS/jv0gvpp3tjYBQGhJommcnQZnXc9S5iwTSD
+ 9xdcoz+OTeEqu1z2aPjHwdHncyHz+29uqdPrN9PJ5b/U
+X-Google-Smtp-Source: ABdhPJwNtmtFUYkzCk9hyL/Ajw2vjcgHVgiIB74Humt9ez7JS8lBVln7ki7RKLUq1BET1RM01IMOkEws4fUJtkQl1jI=
+X-Received: by 2002:a1c:6006:: with SMTP id u6mr5563688wmb.39.1591732471346;
+ Tue, 09 Jun 2020 12:54:31 -0700 (PDT)
 MIME-Version: 1.0
 References: <20200609102017.12478-1-evan.quan@amd.com>
- <20200609102017.12478-3-evan.quan@amd.com>
-In-Reply-To: <20200609102017.12478-3-evan.quan@amd.com>
+ <20200609102017.12478-2-evan.quan@amd.com>
+In-Reply-To: <20200609102017.12478-2-evan.quan@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 9 Jun 2020 15:53:24 -0400
-Message-ID: <CADnq5_NS3tR8ZPirBUaE2Z81Nx1FvYm6zXR1A7=H1_f+7xU2jQ@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amd/powerplay: maximum code sharing on sensor
+Date: Tue, 9 Jun 2020 15:54:20 -0400
+Message-ID: <CADnq5_Onr8VZtrxBsP_Z2sgYqqGTYMtO9BqL-6R9_NaEBpNj1A@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/amd/powerplay: revise the calling chain on sensor
  reading
 To: Evan Quan <evan.quan@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -84,65 +84,163 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On Tue, Jun 9, 2020 at 6:21 AM Evan Quan <evan.quan@amd.com> wrote:
 >
-> Move the common code to amdgpu_smu.c instead of having one
-> copy in both smu_v11_0.c and smu_v12_0.c.
+> Update the calling chain from "amdgpu_smu.c -> ${asic}_ppt.c ->
+> smu_v11/12_0.c -> amdgpu_smu.c (smu_common_read_sensor())" to "
+> "amdgpu_smu.c -> ${asic}_ppt.c -> smu_v11/12_0.c". This can help
+> to maintain clear code layers. More similar changes will be coming.
 >
-> Change-Id: Idc59c6f686139d034348a613f1a7b9213198312d
+> Change-Id: I95beba6c117b0cd3b0acea6158bf62240c6eac5a
 > Signed-off-by: Evan Quan <evan.quan@amd.com>
 
 Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
 > ---
->  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c | 4 ++++
->  drivers/gpu/drm/amd/powerplay/smu_v11_0.c  | 4 ----
->  drivers/gpu/drm/amd/powerplay/smu_v12_0.c  | 4 ----
->  3 files changed, 4 insertions(+), 8 deletions(-)
+>  drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    | 81 ++++++++-----------
+>  .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |  2 -
+>  drivers/gpu/drm/amd/powerplay/smu_v11_0.c     |  2 +-
+>  drivers/gpu/drm/amd/powerplay/smu_v12_0.c     |  2 +-
+>  4 files changed, 35 insertions(+), 52 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> index c032680c52b0..8415b383e7ae 100644
+> index 78263de02678..c032680c52b0 100644
 > --- a/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
 > +++ b/drivers/gpu/drm/amd/powerplay/amdgpu_smu.c
-> @@ -2322,6 +2322,10 @@ int smu_read_sensor(struct smu_context *smu,
->                 *(uint32_t *)data = smu->smu_power.power_gate.vcn_gated ? 0 : 1;
->                 *size = 4;
->                 break;
-> +       case AMDGPU_PP_SENSOR_MIN_FAN_RPM:
-> +               *(uint32_t *)data = 0;
+> @@ -506,52 +506,6 @@ int smu_get_power_num_states(struct smu_context *smu,
+>         return 0;
+>  }
+>
+> -int smu_common_read_sensor(struct smu_context *smu, enum amd_pp_sensors sensor,
+> -                          void *data, uint32_t *size)
+> -{
+> -       struct smu_power_context *smu_power = &smu->smu_power;
+> -       struct smu_power_gate *power_gate = &smu_power->power_gate;
+> -       int ret = 0;
+> -
+> -       if(!data || !size)
+> -               return -EINVAL;
+> -
+> -       switch (sensor) {
+> -       case AMDGPU_PP_SENSOR_STABLE_PSTATE_SCLK:
+> -               *((uint32_t *)data) = smu->pstate_sclk;
+> -               *size = 4;
+> -               break;
+> -       case AMDGPU_PP_SENSOR_STABLE_PSTATE_MCLK:
+> -               *((uint32_t *)data) = smu->pstate_mclk;
+> -               *size = 4;
+> -               break;
+> -       case AMDGPU_PP_SENSOR_ENABLED_SMC_FEATURES_MASK:
+> -               ret = smu_feature_get_enabled_mask(smu, (uint32_t *)data, 2);
+> -               *size = 8;
+> -               break;
+> -       case AMDGPU_PP_SENSOR_UVD_POWER:
+> -               *(uint32_t *)data = smu_feature_is_enabled(smu, SMU_FEATURE_DPM_UVD_BIT) ? 1 : 0;
+> -               *size = 4;
+> -               break;
+> -       case AMDGPU_PP_SENSOR_VCE_POWER:
+> -               *(uint32_t *)data = smu_feature_is_enabled(smu, SMU_FEATURE_DPM_VCE_BIT) ? 1 : 0;
+> -               *size = 4;
+> -               break;
+> -       case AMDGPU_PP_SENSOR_VCN_POWER_STATE:
+> -               *(uint32_t *)data = power_gate->vcn_gated ? 0 : 1;
+> -               *size = 4;
+> -               break;
+> -       default:
+> -               ret = -EINVAL;
+> -               break;
+> -       }
+> -
+> -       if (ret)
+> -               *size = 0;
+> -
+> -       return ret;
+> -}
+> -
+>  int smu_update_table(struct smu_context *smu, enum smu_table_id table_index, int argument,
+>                      void *table_data, bool drv2smu)
+>  {
+> @@ -2338,10 +2292,41 @@ int smu_read_sensor(struct smu_context *smu,
+>         if (!smu->pm_enabled || !smu->adev->pm.dpm_enabled)
+>                 return -EOPNOTSUPP;
+>
+> +       if (!data || !size)
+> +               return -EINVAL;
+> +
+>         mutex_lock(&smu->mutex);
+>
+> -       if (smu->ppt_funcs->read_sensor)
+> -               ret = smu->ppt_funcs->read_sensor(smu, sensor, data, size);
+> +       switch (sensor) {
+> +       case AMDGPU_PP_SENSOR_STABLE_PSTATE_SCLK:
+> +               *((uint32_t *)data) = smu->pstate_sclk;
 > +               *size = 4;
 > +               break;
->         default:
->                 if (smu->ppt_funcs->read_sensor)
->                         ret = smu->ppt_funcs->read_sensor(smu, sensor, data, size);
+> +       case AMDGPU_PP_SENSOR_STABLE_PSTATE_MCLK:
+> +               *((uint32_t *)data) = smu->pstate_mclk;
+> +               *size = 4;
+> +               break;
+> +       case AMDGPU_PP_SENSOR_ENABLED_SMC_FEATURES_MASK:
+> +               ret = smu_feature_get_enabled_mask(smu, (uint32_t *)data, 2);
+> +               *size = 8;
+> +               break;
+> +       case AMDGPU_PP_SENSOR_UVD_POWER:
+> +               *(uint32_t *)data = smu_feature_is_enabled(smu, SMU_FEATURE_DPM_UVD_BIT) ? 1 : 0;
+> +               *size = 4;
+> +               break;
+> +       case AMDGPU_PP_SENSOR_VCE_POWER:
+> +               *(uint32_t *)data = smu_feature_is_enabled(smu, SMU_FEATURE_DPM_VCE_BIT) ? 1 : 0;
+> +               *size = 4;
+> +               break;
+> +       case AMDGPU_PP_SENSOR_VCN_POWER_STATE:
+> +               *(uint32_t *)data = smu->smu_power.power_gate.vcn_gated ? 0 : 1;
+> +               *size = 4;
+> +               break;
+> +       default:
+> +               if (smu->ppt_funcs->read_sensor)
+> +                       ret = smu->ppt_funcs->read_sensor(smu, sensor, data, size);
+> +               break;
+> +       }
+>
+>         mutex_unlock(&smu->mutex);
+>
+> diff --git a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> index 0d1429fc791b..41164a8fbe8a 100644
+> --- a/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/powerplay/inc/amdgpu_smu.h
+> @@ -695,8 +695,6 @@ int smu_update_table(struct smu_context *smu, enum smu_table_id table_index, int
+>
+>  bool is_support_sw_smu(struct amdgpu_device *adev);
+>  int smu_reset(struct smu_context *smu);
+> -int smu_common_read_sensor(struct smu_context *smu, enum amd_pp_sensors sensor,
+> -                          void *data, uint32_t *size);
+>  int smu_sys_get_pp_table(struct smu_context *smu, void **table);
+>  int smu_sys_set_pp_table(struct smu_context *smu,  void *buf, size_t size);
+>  int smu_get_power_num_states(struct smu_context *smu, struct pp_states_info *state_info);
 > diff --git a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> index 1a17d853afbd..993976452467 100644
+> index d10d15fc7492..1a17d853afbd 100644
 > --- a/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
 > +++ b/drivers/gpu/drm/amd/powerplay/smu_v11_0.c
-> @@ -1193,10 +1193,6 @@ int smu_v11_0_read_sensor(struct smu_context *smu,
->                 ret = smu_v11_0_get_gfx_vdd(smu, (uint32_t *)data);
+> @@ -1198,7 +1198,7 @@ int smu_v11_0_read_sensor(struct smu_context *smu,
 >                 *size = 4;
 >                 break;
-> -       case AMDGPU_PP_SENSOR_MIN_FAN_RPM:
-> -               *(uint32_t *)data = 0;
-> -               *size = 4;
-> -               break;
 >         default:
->                 ret = -EOPNOTSUPP;
+> -               ret = smu_common_read_sensor(smu, sensor, data, size);
+> +               ret = -EOPNOTSUPP;
 >                 break;
+>         }
+>
 > diff --git a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> index ae1035575808..b03127273d56 100644
+> index 5b56e7579ff4..ae1035575808 100644
 > --- a/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
 > +++ b/drivers/gpu/drm/amd/powerplay/smu_v12_0.c
-> @@ -221,10 +221,6 @@ int smu_v12_0_read_sensor(struct smu_context *smu,
->                 ret = smu_get_current_clk_freq(smu, SMU_GFXCLK, (uint32_t *)data);
+> @@ -226,7 +226,7 @@ int smu_v12_0_read_sensor(struct smu_context *smu,
 >                 *size = 4;
 >                 break;
-> -       case AMDGPU_PP_SENSOR_MIN_FAN_RPM:
-> -               *(uint32_t *)data = 0;
-> -               *size = 4;
-> -               break;
 >         default:
->                 ret = -EOPNOTSUPP;
+> -               ret = smu_common_read_sensor(smu, sensor, data, size);
+> +               ret = -EOPNOTSUPP;
 >                 break;
+>         }
+>
 > --
 > 2.27.0
 >
