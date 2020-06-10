@@ -2,82 +2,66 @@ Return-Path: <SRS0=jeuu=7X=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E9707C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2020 08:57:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20756C433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2020 10:15:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AEAEB204EA
-	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2020 08:57:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E694D2064C
+	for <amd-gfx@archiver.kernel.org>; Wed, 10 Jun 2020 10:15:53 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="eFzdfKGK"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AEAEB204EA
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=oracle.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=shipmail.org header.i=@shipmail.org header.b="LssQElC0"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E694D2064C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=shipmail.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A87D89E86;
-	Wed, 10 Jun 2020 08:57:18 +0000 (UTC)
-Received: from userp2130.oracle.com (userp2130.oracle.com [156.151.31.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BEE589E57
- for <amd-gfx@lists.freedesktop.org>; Wed, 10 Jun 2020 08:57:16 +0000 (UTC)
-Received: from pps.filterd (userp2130.oracle.com [127.0.0.1])
- by userp2130.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 05A8qZtf057987;
- Wed, 10 Jun 2020 08:57:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : mime-version : content-type : in-reply-to;
- s=corp-2020-01-29; bh=U3rmNlKU4okJAzL7TELrQhC3V+3dWp+gWSymDbfp8zg=;
- b=eFzdfKGKDuHAfoMxn9wNH76A04atieHJ3qriyUKIMe5l4CIGwnfB4Q0ebeKE1+nfQuP9
- YrsQeErvU2R1cXFFJ5do/guhwSkkMpnU8IMC70vWETfMIsXKaOhKnkmB8UQ0iw0j30Wn
- vfAKp8gEYkG1tpncUOuciYsOBxen+ZKG7woGLhmzCNZAorlfjRiIDT1R0HT3fKDMf79S
- KdIoHR7CQzBPM6AOpqbO3fSiIb16S2wELW+7lbNFK3xvKsxNwocCQ16bIiMNq+ohPos9
- 5DtSd2/FSdh3Uz9hBKqQTxeL0vuC+pgd4wLsP8mUQupfQryFA9vLkHUqfOsQl1Y9gO2w 1Q== 
-Received: from userp3030.oracle.com (userp3030.oracle.com [156.151.31.80])
- by userp2130.oracle.com with ESMTP id 31g2jr98xh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 10 Jun 2020 08:57:12 +0000
-Received: from pps.filterd (userp3030.oracle.com [127.0.0.1])
- by userp3030.oracle.com (8.16.0.42/8.16.0.42) with SMTP id 05A8liLD186955;
- Wed, 10 Jun 2020 08:57:11 GMT
-Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
- by userp3030.oracle.com with ESMTP id 31gn2y4axg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 10 Jun 2020 08:57:11 +0000
-Received: from abhmp0007.oracle.com (abhmp0007.oracle.com [141.146.116.13])
- by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id 05A8v2NT013173;
- Wed, 10 Jun 2020 08:57:03 GMT
-Received: from mwanda (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Wed, 10 Jun 2020 01:57:02 -0700
-Date: Wed, 10 Jun 2020 11:56:53 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH v2] drm/amdgpu: Fix a buffer overflow handling the serial
- number
-Message-ID: <20200610085653.GA5439@mwanda>
+	by gabe.freedesktop.org (Postfix) with ESMTP id C15F76E523;
+	Wed, 10 Jun 2020 10:15:48 +0000 (UTC)
+Received: from pio-pvt-msa2.bahnhof.se (pio-pvt-msa2.bahnhof.se [79.136.2.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3A67C6E1A7;
+ Wed, 10 Jun 2020 10:15:47 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by pio-pvt-msa2.bahnhof.se (Postfix) with ESMTP id CB52A3F528;
+ Wed, 10 Jun 2020 12:15:44 +0200 (CEST)
+Authentication-Results: pio-pvt-msa2.bahnhof.se; dkim=pass (1024-bit key;
+ unprotected) header.d=shipmail.org header.i=@shipmail.org header.b=LssQElC0; 
+ dkim-atps=neutral
+X-Virus-Scanned: Debian amavisd-new at bahnhof.se
+Received: from pio-pvt-msa2.bahnhof.se ([127.0.0.1])
+ by localhost (pio-pvt-msa2.bahnhof.se [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id Lwl8ED8-yITS; Wed, 10 Jun 2020 12:15:43 +0200 (CEST)
+Received: from mail1.shipmail.org (h-205-35.A357.priv.bahnhof.se
+ [155.4.205.35]) (Authenticated sender: mb878879)
+ by pio-pvt-msa2.bahnhof.se (Postfix) with ESMTPA id ABD1B3F520;
+ Wed, 10 Jun 2020 12:15:42 +0200 (CEST)
+Received: from localhost.localdomain (h-205-35.A357.priv.bahnhof.se
+ [155.4.205.35])
+ by mail1.shipmail.org (Postfix) with ESMTPSA id C88EE360060;
+ Wed, 10 Jun 2020 12:15:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=shipmail.org; s=mail;
+ t=1591784141; bh=dT3JdEctSByiX1xLAnOrOQyvt3Q0Ug/cZ46OWbew4lc=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=LssQElC0m1e4fsZnXd7JKh34MeSjpwf8zD2wGqvN2j/9w6eygwXkRGfyq7FjRSGon
+ o13akxaR16OprvJppEQTu3fhZ+j9aAfiNNFovWkEgyLlo/7BXLTFxuNyWHnisyjQuA
+ Uou4siUPgCIQO32xOc7mzAS+Mmq7chilOQoMzAb4=
+Subject: Re: [PATCH 1/6] drm/ttm: Add unampping of the entire device address
+ space
+To: "Koenig, Christian" <Christian.Koenig@amd.com>,
+ "Grodzovsky, Andrey" <Andrey.Grodzovsky@amd.com>
+References: <f36c1fa1-bbee-477a-9cb2-ed2726f27eef@email.android.com>
+From: =?UTF-8?Q?Thomas_Hellstr=c3=b6m_=28Intel=29?= <thomas_os@shipmail.org>
+Message-ID: <eb9e5896-1f16-2102-350a-1e64d9af7ea8@shipmail.org>
+Date: Wed, 10 Jun 2020 12:15:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <DM6PR12MB26194168100E5F96FF94D066E4820@DM6PR12MB2619.namprd12.prod.outlook.com>
-X-Mailer: git-send-email haha only kidding
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9647
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- phishscore=0 malwarescore=0
- bulkscore=0 adultscore=0 mlxlogscore=999 spamscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2004280000
- definitions=main-2006100068
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9647
- signatures=668680
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- impostorscore=0
- cotscore=-2147483648 priorityscore=1501 spamscore=0 suspectscore=0
- lowpriorityscore=0 bulkscore=0 mlxlogscore=999 malwarescore=0 mlxscore=0
- phishscore=0 clxscore=1011 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2004280000 definitions=main-2006100068
+In-Reply-To: <f36c1fa1-bbee-477a-9cb2-ed2726f27eef@email.android.com>
+Content-Language: en-US
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,83 +73,275 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Jack Xiao <Jack.Xiao@amd.com>, Jonathan Kim <jonathan.kim@amd.com>,
- Joseph Greathouse <Joseph.Greathouse@amd.com>, David Airlie <airlied@linux.ie>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
- kernel-janitors@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- Le Ma <le.ma@amd.com>, Daniel Vetter <daniel@ffwll.ch>,
- Evan Quan <evan.quan@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Hawking Zhang <Hawking.Zhang@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>,
+ "michel@daenzer.net" <michel@daenzer.net>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Content-Type: multipart/mixed; boundary="===============1781606305=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The comments say that the serial number is a 16-digit HEX string so the
-buffer needs to be at least 17 characters to hold the NUL terminator.
+This is a multi-part message in MIME format.
+--===============1781606305==
+Content-Type: multipart/alternative;
+ boundary="------------115E9B973EE48450378DE1A2"
+Content-Language: en-US
 
-The other issue is that "size" returned from sprintf() is the number of
-characters before the NUL terminator so the memcpy() wasn't copying the
-terminator.  The serial number needs to be NUL terminated so that it
-doesn't lead to a read overflow in amdgpu_device_get_serial_number().
-Also it's just cleaner and faster to sprintf() directly to adev->serial[]
-instead of using a temporary buffer.
+This is a multi-part message in MIME format.
+--------------115E9B973EE48450378DE1A2
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Fixes: 81a16241114b ("drm/amdgpu: Add unique_id and serial_number for Arcturus v3")
-Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
----
-v2: Change adev->serial.  The original patch would have just moved the
-overflow until amdgpu_device_get_serial_number() is called.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h          | 2 +-
- drivers/gpu/drm/amd/powerplay/arcturus_ppt.c | 6 ++----
- 2 files changed, 3 insertions(+), 5 deletions(-)
+On 6/9/20 7:21 PM, Koenig, Christian wrote:
+>
+>
+> Am 09.06.2020 18:37 schrieb "Grodzovsky, Andrey" 
+> <Andrey.Grodzovsky@amd.com>:
+>
+>
+>     On 6/5/20 2:40 PM, Christian König wrote:
+>     > Am 05.06.20 um 16:29 schrieb Andrey Grodzovsky:
+>     >>
+>     >> On 5/11/20 2:45 AM, Christian König wrote:
+>     >>> Am 09.05.20 um 20:51 schrieb Andrey Grodzovsky:
+>     >>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzovsky@amd.com>
+>     >>>> ---
+>     >>>> drivers/gpu/drm/ttm/ttm_bo.c    | 22 +++++++++++++++++++++-
+>     >>>> include/drm/ttm/ttm_bo_driver.h |  2 ++
+>     >>>>   2 files changed, 23 insertions(+), 1 deletion(-)
+>     >>>>
+>     >>>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
+>     >>>> b/drivers/gpu/drm/ttm/ttm_bo.c
+>     >>>> index c5b516f..eae61cc 100644
+>     >>>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+>     >>>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+>     >>>> @@ -1750,9 +1750,29 @@ void ttm_bo_unmap_virtual(struct
+>     >>>> ttm_buffer_object *bo)
+>     >>>> ttm_bo_unmap_virtual_locked(bo);
+>     >>>>       ttm_mem_io_unlock(man);
+>     >>>>   }
+>     >>>> +EXPORT_SYMBOL(ttm_bo_unmap_virtual);
+>     >>>>   +void ttm_bo_unmap_virtual_address_space(struct
+>     ttm_bo_device *bdev)
+>     >>>> +{
+>     >>>> +    struct ttm_mem_type_manager *man;
+>     >>>> +    int i;
+>     >>>> -EXPORT_SYMBOL(ttm_bo_unmap_virtual);
+>     >>>
+>     >>>> +    for (i = 0; i < TTM_NUM_MEM_TYPES; i++) {
+>     >>>> +        man = &bdev->man[i];
+>     >>>> +        if (man->has_type && man->use_type)
+>     >>>> + ttm_mem_io_lock(man, false);
+>     >>>> +    }
+>     >>>
+>     >>> You should drop that it will just result in a deadlock warning
+>     for
+>     >>> Nouveau and has no effect at all.
+>     >>>
+>     >>> Apart from that looks good to me,
+>     >>> Christian.
+>     >>
+>     >>
+>     >> As I am considering to re-include this in V2 of the patchsets, can
+>     >> you clarify please why this will have no effect at all ?
+>     >
+>     > The locks are exclusive for Nouveau to allocate/free the io address
+>     > space.
+>     >
+>     > Since we don't do this here we don't need the locks.
+>     >
+>     > Christian.
+>
+>
+>     So basically calling unmap_mapping_range doesn't require any extra
+>     locking around it and whatever locks are taken within the function
+>     should be enough ?
+>
+>
+>
+> I think so, yes.
+>
+> Christian.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 135530286f34f..905cf0bac100c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -986,7 +986,7 @@ struct amdgpu_device {
- 	/* Chip product information */
- 	char				product_number[16];
- 	char				product_name[32];
--	char				serial[16];
-+	char				serial[20];
- 
- 	struct amdgpu_autodump		autodump;
- 
-diff --git a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-index df7b408319f76..d58146a5fa21d 100644
---- a/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/powerplay/arcturus_ppt.c
-@@ -2265,8 +2265,7 @@ static void arcturus_i2c_eeprom_control_fini(struct i2c_adapter *control)
- static void arcturus_get_unique_id(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
--	uint32_t top32, bottom32, smu_version, size;
--	char sn[16];
-+	uint32_t top32, bottom32, smu_version;
- 	uint64_t id;
- 
- 	if (smu_get_smc_version(smu, NULL, &smu_version)) {
-@@ -2289,8 +2288,7 @@ static void arcturus_get_unique_id(struct smu_context *smu)
- 	/* For Arcturus-and-later, unique_id == serial_number, so convert it to a
- 	 * 16-digit HEX string for convenience and backwards-compatibility
- 	 */
--	size = sprintf(sn, "%llx", id);
--	memcpy(adev->serial, &sn, size);
-+	sprintf(adev->serial, "%llx", id);
- }
- 
- static bool arcturus_is_baco_supported(struct smu_context *smu)
--- 
-2.26.2
+Yes, that's true. However, without the bo reservation, nothing stops a 
+PTE from being immediately re-faulted back again. Even while 
+unmap_mapping_range() is running. So the device removed flag needs to be 
+advertized before this function is run, (perhaps with a memory barrier 
+pair). That should probably be added to the function documentation.
+
+(Other than that, please add a commit message if respinning).
+
+/Thomas
+
+
+
+
+--------------115E9B973EE48450378DE1A2
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 6/9/20 7:21 PM, Koenig, Christian
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:f36c1fa1-bbee-477a-9cb2-ed2726f27eef@email.android.com">
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <div dir="auto">
+        <div><br>
+          <div class="gmail_extra"><br>
+            <div class="gmail_quote">Am 09.06.2020 18:37 schrieb
+              "Grodzovsky, Andrey" <a class="moz-txt-link-rfc2396E" href="mailto:Andrey.Grodzovsky@amd.com">&lt;Andrey.Grodzovsky@amd.com&gt;</a>:<br
+                type="attribution">
+              <blockquote class="quote" style="margin:0 0 0
+                .8ex;border-left:1px #ccc solid;padding-left:1ex">
+                <div><font size="2"><span style="font-size:11pt">
+                      <div><br>
+                        On 6/5/20 2:40 PM, Christian König wrote:<br>
+                        &gt; Am 05.06.20 um 16:29 schrieb Andrey
+                        Grodzovsky:<br>
+                        &gt;&gt;<br>
+                        &gt;&gt; On 5/11/20 2:45 AM, Christian König
+                        wrote:<br>
+                        &gt;&gt;&gt; Am 09.05.20 um 20:51 schrieb Andrey
+                        Grodzovsky:<br>
+                        &gt;&gt;&gt;&gt; Signed-off-by: Andrey
+                        Grodzovsky <a class="moz-txt-link-rfc2396E" href="mailto:andrey.grodzovsky@amd.com">&lt;andrey.grodzovsky@amd.com&gt;</a><br>
+                        &gt;&gt;&gt;&gt; ---<br>
+                        &gt;&gt;&gt;&gt;  
+                        drivers/gpu/drm/ttm/ttm_bo.c    | 22
+                        +++++++++++++++++++++-<br>
+                        &gt;&gt;&gt;&gt;  
+                        include/drm/ttm/ttm_bo_driver.h |  2 ++<br>
+                        &gt;&gt;&gt;&gt;   2 files changed, 23
+                        insertions(+), 1 deletion(-)<br>
+                        &gt;&gt;&gt;&gt;<br>
+                        &gt;&gt;&gt;&gt; diff --git
+                        a/drivers/gpu/drm/ttm/ttm_bo.c <br>
+                        &gt;&gt;&gt;&gt; b/drivers/gpu/drm/ttm/ttm_bo.c<br>
+                        &gt;&gt;&gt;&gt; index c5b516f..eae61cc 100644<br>
+                        &gt;&gt;&gt;&gt; ---
+                        a/drivers/gpu/drm/ttm/ttm_bo.c<br>
+                        &gt;&gt;&gt;&gt; +++
+                        b/drivers/gpu/drm/ttm/ttm_bo.c<br>
+                        &gt;&gt;&gt;&gt; @@ -1750,9 +1750,29 @@ void
+                        ttm_bo_unmap_virtual(struct <br>
+                        &gt;&gt;&gt;&gt; ttm_buffer_object *bo)<br>
+                        &gt;&gt;&gt;&gt;      
+                        ttm_bo_unmap_virtual_locked(bo);<br>
+                        &gt;&gt;&gt;&gt;       ttm_mem_io_unlock(man);<br>
+                        &gt;&gt;&gt;&gt;   }<br>
+                        &gt;&gt;&gt;&gt;
+                        +EXPORT_SYMBOL(ttm_bo_unmap_virtual);<br>
+                        &gt;&gt;&gt;&gt;   +void
+                        ttm_bo_unmap_virtual_address_space(struct
+                        ttm_bo_device *bdev)<br>
+                        &gt;&gt;&gt;&gt; +{<!-- --><br>
+                        &gt;&gt;&gt;&gt; +    struct
+                        ttm_mem_type_manager *man;<br>
+                        &gt;&gt;&gt;&gt; +    int i;<br>
+                        &gt;&gt;&gt;&gt;  
+                        -EXPORT_SYMBOL(ttm_bo_unmap_virtual);<br>
+                        &gt;&gt;&gt;<br>
+                        &gt;&gt;&gt;&gt; +    for (i = 0; i &lt;
+                        TTM_NUM_MEM_TYPES; i++) {<!-- --><br>
+                        &gt;&gt;&gt;&gt; +        man =
+                        &amp;bdev-&gt;man[i];<br>
+                        &gt;&gt;&gt;&gt; +        if (man-&gt;has_type
+                        &amp;&amp; man-&gt;use_type)<br>
+                        &gt;&gt;&gt;&gt; +           
+                        ttm_mem_io_lock(man, false);<br>
+                        &gt;&gt;&gt;&gt; +    }<br>
+                        &gt;&gt;&gt;<br>
+                        &gt;&gt;&gt; You should drop that it will just
+                        result in a deadlock warning for <br>
+                        &gt;&gt;&gt; Nouveau and has no effect at all.<br>
+                        &gt;&gt;&gt;<br>
+                        &gt;&gt;&gt; Apart from that looks good to me,<br>
+                        &gt;&gt;&gt; Christian.<br>
+                        &gt;&gt;<br>
+                        &gt;&gt;<br>
+                        &gt;&gt; As I am considering to re-include this
+                        in V2 of the patchsets, can <br>
+                        &gt;&gt; you clarify please why this will have
+                        no effect at all ?<br>
+                        &gt;<br>
+                        &gt; The locks are exclusive for Nouveau to
+                        allocate/free the io address <br>
+                        &gt; space.<br>
+                        &gt;<br>
+                        &gt; Since we don't do this here we don't need
+                        the locks.<br>
+                        &gt;<br>
+                        &gt; Christian.<br>
+                        <br>
+                        <br>
+                        So basically calling unmap_mapping_range doesn't
+                        require any extra <br>
+                        locking around it and whatever locks are taken
+                        within the function <br>
+                        should be enough ?<br>
+                      </div>
+                    </span></font></div>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">
+          <div class="gmail_extra">
+            <div class="gmail_quote">
+              <blockquote class="quote" style="margin:0 0 0
+                .8ex;border-left:1px #ccc solid;padding-left:1ex">
+                <div><font size="2"><span style="font-size:11pt">
+                    </span></font></div>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">I think so, yes.</div>
+        <div dir="auto"><br>
+        </div>
+        <div dir="auto">Christian.</div>
+      </div>
+    </blockquote>
+    <p>Yes, that's true. However, without the bo reservation, nothing
+      stops a PTE from being immediately re-faulted back again. Even
+      while unmap_mapping_range() is running. So the device removed flag
+      needs to be advertized before this function is run, (perhaps with
+      a memory barrier pair). That should probably be added to the
+      function documentation. <br>
+    </p>
+    <p>(Other than that, please add a commit message if respinning).</p>
+    <p>/Thomas</p>
+    <p><br>
+    </p>
+    <p><br>
+    </p>
+  </body>
+</html>
+
+--------------115E9B973EE48450378DE1A2--
+
+--===============1781606305==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1781606305==--
