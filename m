@@ -2,77 +2,83 @@ Return-Path: <SRS0=7JJ9=7Y=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF952C433E0
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2020 08:24:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D1DEC433DF
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2020 08:34:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 838AE2072F
-	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2020 08:24:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5D7D220814
+	for <amd-gfx@archiver.kernel.org>; Thu, 11 Jun 2020 08:34:40 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="ZYCk+Brc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 838AE2072F
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="E74LG/P+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D7D220814
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47E1E6E0E7;
-	Thu, 11 Jun 2020 08:24:53 +0000 (UTC)
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B050F6E0E7
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2020 08:24:51 +0000 (UTC)
-Received: by mail-wr1-x442.google.com with SMTP id e1so5181042wrt.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2020 01:24:51 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF0426E051;
+	Thu, 11 Jun 2020 08:34:35 +0000 (UTC)
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 870466E048
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2020 08:34:34 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id x14so5218395wrp.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2020 01:34:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=I7CFmjNVokSFfXlefCwOMnHWTGM8u0u2rwA+Ac9BAuU=;
- b=ZYCk+BrcYh5uC5ILnO8zgbft/itNXs3wMMVfknsvikvnA/sGgOZkqqqI+5y7FcIikz
- OsVoyLjtvOl8vOshbzf8D7rVr7yII4DBqnCml8Ni6BqPM98Q2J8KkFUB4IKVv65/Lr+B
- bNDCFRKqGfoU6YU57ASCs70U4h28+yVD4m1jc=
+ h=date:from:to:cc:subject:message-id:mail-followup-to:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to; bh=QepdUMREFHwlEXMSFJDNAoF8iHTQk6RVQGlxwgtSrqY=;
+ b=E74LG/P+ZUE+YX56Cn6Zjyn3Qy68LzAK09BYAfg4YVk4oZ+KoKLm9RShaZSnfhXsyb
+ lY/VAxAlqoD8wTaWeNQg/oJboc+vBicFQYrjFpdGQgCMIStdwNU8BV2ZJqMlutdLuJxA
+ smQ33DorgG243Y/dKZ/bnO59viWQm2qRYJC1o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=I7CFmjNVokSFfXlefCwOMnHWTGM8u0u2rwA+Ac9BAuU=;
- b=idT3zN0e+xgUYc27wD8N9ZkCnKgXJWq1I2HOpNt4fGCuSZ1ri6nyouHyeRnELoFzKB
- oZmex0HFYUCzSgdjJGor95qGY2rhgL+wgDIC92Hrhx/hCQD7xSUSZ2Byx6kzjqsB9aDn
- uGZdN4kTTlzBMLMefLiynBZEQZd2AVPYEPNd604RvGaOmFpN5y8ltWkmNyoqANWOemHy
- j7JlqNwzPK053oCyuo02thPIjIEexYvxvuDoYRSlsEgEb3K0Ds3iSaQvCz303jaeZWlq
- GuovZSIincDo8CtZd5e/o4vSgo55YK5/yveeu/UVJsN0yri1gzCYBzKqQkuztbf3+yrZ
- qbvw==
-X-Gm-Message-State: AOAM532PPV5WGyv5wMlq+uZUlxSxEPo8avXrtH8NrqmT/2JlKlygvvTx
- ITQgjpiST+GBa62amnJLPvRVhg==
-X-Google-Smtp-Source: ABdhPJzTg7+kohJfX0AkSNgU+bHmELA+kMn17jTwJyprJk7KMrIgqEUZxxKVgSf6bWIebhHM4FnTpg==
-X-Received: by 2002:adf:f58b:: with SMTP id f11mr8242208wro.155.1591863890210; 
- Thu, 11 Jun 2020 01:24:50 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id
+ :mail-followup-to:references:mime-version:content-disposition
+ :content-transfer-encoding:in-reply-to;
+ bh=QepdUMREFHwlEXMSFJDNAoF8iHTQk6RVQGlxwgtSrqY=;
+ b=OhcO70Vqw1qzxDZ4nuf5TJFfGouf4UN2Q9XZEQfHRl5qJG59f5CEPaBHA655YYkwFJ
+ eN5RTGeF2uFiEfcA/P4GHrZTcT89AAqzJlA4RUI5Po6ZBEsDU19Vfcm6Xrw5zGf6n7Ks
+ liZf1dirlcSSNai2FexF31YYYxd6lzrC6S3MBnKJgTcQRu7tRjtekW5vM1dILUuvrU2o
+ ypMDI2Us4R19LJag65zLqS/09zTr5UWgQi8Bp6IzPXfiynkipN3usVu4RJPpekp+p7ik
+ 7BJYtqGvnrk0+Ss+vLnS67tq/qPZZ09Ko5yWN98ZR3v/EUMUHiSx6IATxzAO7KTVse3h
+ aJ+g==
+X-Gm-Message-State: AOAM532WpLyaNqqHRWhNBfp+kt4lJ/vyxxghbGjguM58YSov1fFUgDVA
+ FT8oo2N0MeeDpBPgThpqefQhkMT+M8w=
+X-Google-Smtp-Source: ABdhPJyPA+yFpnitoMF+MT8lLFomHpWx5gnHcG6eF5i3QAznWQkNqQBZVRnRMVL64cHRAoNHAdiHsw==
+X-Received: by 2002:a5d:42cd:: with SMTP id t13mr8054435wrr.355.1591864473075; 
+ Thu, 11 Jun 2020 01:34:33 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id j5sm3851256wrm.57.2020.06.11.01.24.48
+ by smtp.gmail.com with ESMTPSA id b14sm2955283wmj.47.2020.06.11.01.34.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2020 01:24:49 -0700 (PDT)
-Date: Thu, 11 Jun 2020 10:24:47 +0200
+ Thu, 11 Jun 2020 01:34:32 -0700 (PDT)
+Date: Thu, 11 Jun 2020 10:34:30 +0200
 From: Daniel Vetter <daniel@ffwll.ch>
 To: Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?= <thomas_os@shipmail.org>
-Subject: Re: [PATCH 1/6] drm/ttm: Add unampping of the entire device address
- space
-Message-ID: <20200611082447.GC20149@phenom.ffwll.local>
-References: <f36c1fa1-bbee-477a-9cb2-ed2726f27eef@email.android.com>
- <eb9e5896-1f16-2102-350a-1e64d9af7ea8@shipmail.org>
- <b415e3d1-eed9-9b11-b8c1-c85c7b57eb93@amd.com>
- <ce6f6109-67df-e3d0-d56e-3f5c27df40a0@amd.com>
- <20200610153020.GZ20149@phenom.ffwll.local>
- <715ad9d4-7763-382e-237e-8daab42eff46@shipmail.org>
- <CAKMK7uGyKKEk4fFdr45ipe0MmS_1qrv8z0QEPWk=zuwhiUajVA@mail.gmail.com>
- <a243f0c6-2b92-a9a8-5ed7-b33a403db54e@shipmail.org>
+Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
+Message-ID: <20200611083430.GD20149@phenom.ffwll.local>
+Mail-Followup-To: Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?=
+ <thomas_os@shipmail.org>, 
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ linux-rdma@vger.kernel.org,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>, amd-gfx@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org,
+ Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ linux-media@vger.kernel.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>
+References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
+ <20200604081224.863494-5-daniel.vetter@ffwll.ch>
+ <b11c2140-1b9c-9013-d9bb-9eb2c1906710@shipmail.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <a243f0c6-2b92-a9a8-5ed7-b33a403db54e@shipmail.org>
+In-Reply-To: <b11c2140-1b9c-9013-d9bb-9eb2c1906710@shipmail.org>
 X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,219 +91,139 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>,
- "michel@daenzer.net" <michel@daenzer.net>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: linux-rdma@vger.kernel.org, Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ linaro-mm-sig@lists.linaro.org, Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ amd-gfx@lists.freedesktop.org, Daniel Vetter <daniel.vetter@intel.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2020 at 08:12:37AM +0200, Thomas Hellstr=F6m (Intel) wrote:
+On Thu, Jun 11, 2020 at 09:30:12AM +0200, Thomas Hellstr=F6m (Intel) wrote:
 > =
 
-> On 6/10/20 11:16 PM, Daniel Vetter wrote:
-> > On Wed, Jun 10, 2020 at 10:30 PM Thomas Hellstr=F6m (Intel)
-> > <thomas_os@shipmail.org> wrote:
-> > > =
-
-> > > On 6/10/20 5:30 PM, Daniel Vetter wrote:
-> > > > On Wed, Jun 10, 2020 at 04:05:04PM +0200, Christian K=F6nig wrote:
-> > > > > Am 10.06.20 um 15:54 schrieb Andrey Grodzovsky:
-> > > > > > On 6/10/20 6:15 AM, Thomas Hellstr=F6m (Intel) wrote:
-> > > > > > > On 6/9/20 7:21 PM, Koenig, Christian wrote:
-> > > > > > > > Am 09.06.2020 18:37 schrieb "Grodzovsky, Andrey"
-> > > > > > > > <Andrey.Grodzovsky@amd.com>:
-> > > > > > > > =
-
-> > > > > > > > =
-
-> > > > > > > >       On 6/5/20 2:40 PM, Christian K=F6nig wrote:
-> > > > > > > >       > Am 05.06.20 um 16:29 schrieb Andrey Grodzovsky:
-> > > > > > > >       >>
-> > > > > > > >       >> On 5/11/20 2:45 AM, Christian K=F6nig wrote:
-> > > > > > > >       >>> Am 09.05.20 um 20:51 schrieb Andrey Grodzovsky:
-> > > > > > > >       >>>> Signed-off-by: Andrey Grodzovsky <andrey.grodzov=
-sky@amd.com>
-> > > > > > > >       >>>> ---
-> > > > > > > >       >>>> drivers/gpu/drm/ttm/ttm_bo.c    | 22 +++++++++++=
-++++++++++-
-> > > > > > > >       >>>> include/drm/ttm/ttm_bo_driver.h |  2 ++
-> > > > > > > >       >>>>   2 files changed, 23 insertions(+), 1 deletion(=
--)
-> > > > > > > >       >>>>
-> > > > > > > >       >>>> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c
-> > > > > > > >       >>>> b/drivers/gpu/drm/ttm/ttm_bo.c
-> > > > > > > >       >>>> index c5b516f..eae61cc 100644
-> > > > > > > >       >>>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> > > > > > > >       >>>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> > > > > > > >       >>>> @@ -1750,9 +1750,29 @@ void ttm_bo_unmap_virtual=
-(struct
-> > > > > > > >       >>>> ttm_buffer_object *bo)
-> > > > > > > >       >>>> ttm_bo_unmap_virtual_locked(bo);
-> > > > > > > >       >>>> ttm_mem_io_unlock(man);
-> > > > > > > >       >>>>   }
-> > > > > > > >       >>>> +EXPORT_SYMBOL(ttm_bo_unmap_virtual);
-> > > > > > > >       >>>>   +void ttm_bo_unmap_virtual_address_space(struct
-> > > > > > > >       ttm_bo_device *bdev)
-> > > > > > > >       >>>> +{
-> > > > > > > >       >>>> +    struct ttm_mem_type_manager *man;
-> > > > > > > >       >>>> +    int i;
-> > > > > > > >       >>>> -EXPORT_SYMBOL(ttm_bo_unmap_virtual);
-> > > > > > > >       >>>
-> > > > > > > >       >>>> +    for (i =3D 0; i < TTM_NUM_MEM_TYPES; i++) {
-> > > > > > > >       >>>> +        man =3D &bdev->man[i];
-> > > > > > > >       >>>> +        if (man->has_type && man->use_type)
-> > > > > > > >       >>>> + ttm_mem_io_lock(man, false);
-> > > > > > > >       >>>> +    }
-> > > > > > > >       >>>
-> > > > > > > >       >>> You should drop that it will just result in a dea=
-dlock
-> > > > > > > >       warning for
-> > > > > > > >       >>> Nouveau and has no effect at all.
-> > > > > > > >       >>>
-> > > > > > > >       >>> Apart from that looks good to me,
-> > > > > > > >       >>> Christian.
-> > > > > > > >       >>
-> > > > > > > >       >>
-> > > > > > > >       >> As I am considering to re-include this in V2 of the
-> > > > > > > >       patchsets, can
-> > > > > > > >       >> you clarify please why this will have no effect at=
- all ?
-> > > > > > > >       >
-> > > > > > > >       > The locks are exclusive for Nouveau to allocate/fre=
-e the io
-> > > > > > > >       address
-> > > > > > > >       > space.
-> > > > > > > >       >
-> > > > > > > >       > Since we don't do this here we don't need the locks.
-> > > > > > > >       >
-> > > > > > > >       > Christian.
-> > > > > > > > =
-
-> > > > > > > > =
-
-> > > > > > > >       So basically calling unmap_mapping_range doesn't requ=
-ire any extra
-> > > > > > > >       locking around it and whatever locks are taken within=
- the function
-> > > > > > > >       should be enough ?
-> > > > > > > > =
-
-> > > > > > > > =
-
-> > > > > > > > =
-
-> > > > > > > > I think so, yes.
-> > > > > > > > =
-
-> > > > > > > > Christian.
-> > > > > > > Yes, that's true. However, without the bo reservation, nothin=
-g stops
-> > > > > > > a PTE from being immediately re-faulted back again. Even while
-> > > > > > > unmap_mapping_range() is running.
-> > > > > > > =
-
-> > > > > > Can you explain more on this - specifically, which function to =
-reserve
-> > > > > > the BO, why BO reservation would prevent re-fault of the PTE ?
-> > > > > > =
-
-> > > > > Thomas is talking about ttm_bo_reserver()/ttm_bo_unreserve(), but=
- we don't
-> > > > > need this because we unmap everything because the whole device is=
- gone and
-> > > > > not just manipulate a single BO.
-> > > > > =
-
-> > > > > > > So the device removed flag needs to be advertized before this
-> > > > > > > function is run,
-> > > > > > > =
-
-> > > > > > I indeed intend to call this  right after calling drm_dev_unplu=
-g from
-> > > > > > amdgpu_pci_remove while adding drm_dev_enter/exit in ttm_bo_vm_=
-fault (or
-> > > > > > in amdgpu specific wrapper since I don't see how can I access s=
-truct
-> > > > > > drm_device from ttm_bo_vm_fault) and this in my understanding s=
-hould
-> > > > > > stop a PTE from being re-faulted back as you pointed out - so a=
-gain I
-> > > > > > don't see how  bo reservation would prevent it so it looks like=
- I am
-> > > > > > missing something...
-> > > > > > =
-
-> > > > > > =
-
-> > > > > > > (perhaps with a memory barrier pair).
-> > > > > > > =
-
-> > > > > > drm_dev_unplug and drm_dev_enter/exit are RCU synchronized and =
-so I
-> > > > > > don't think require any extra memory barriers for visibility of=
- the
-> > > > > > removed flag being set
-> > > > > > =
-
-> > > > > As far as I can see that should be perfectly sufficient.
-> > > > Only if you have a drm_dev_enter/exit pair in your fault handler.
-> > > > Otherwise you're still open to the races Thomas described. But asid=
-e from
-> > > > that the drm_dev_unplug stuff has all the barriers and stuff to mak=
-e sure
-> > > > nothing escapes.
-> > > > =
-
-> > > > Failure to drm_dev_enter could then also trigger the special case w=
-here we
-> > > > put a dummy page in place.
-> > > > -Daniel
-> > > Hmm, Yes, indeed advertizing the flag before the call to
-> > > unmap_mapping_range isn't enough, since there might be fault handlers
-> > > running that haven't picked up the flag when unmap_mapping_range is
-> > > launched.
-> > Hm ... Now I'm not sure drm_dev_enter/exit is actually good enough. I
-> > guess if you use vmf_insert_pfn within the drm_dev_enter/exit critical
-> > section, it should be fine. But I think you can also do fault handlers
-> > that just return the struct page and then let core handle the pte
-> > wrangling, those would indeed race and we can't have that I think.
-> =
-
-> For the TTM drivers, having a fault handler that defers the pte insertion=
- to
-> the core would break also the bo synchronization so I don't think that wi=
-ll
-> ever happen. To make sure we could perhaps add a return value warning at =
-the
-> end of the fault handler with a comment explaining why this is a bad idea.
-
-Yeah good thing at least is that vram drivers all use ttm thus far, so
-that worry is handled.
-
-And for usb/spi and other panels/ports connected over some bus that can't
-do mmio, the mmaps all point at system memory. So we don't have that
-problem there.
--Daniel
-
-> =
-
+> On 6/4/20 10:12 AM, Daniel Vetter wrote:
+> > Two in one go:
+> > - it is allowed to call dma_fence_wait() while holding a
+> >    dma_resv_lock(). This is fundamental to how eviction works with ttm,
+> >    so required.
 > > =
 
-> > I think we should try and make sure (as much as possible) that this is
-> > done all done in helpers and not some open coded stuff in drivers, or
-> > we'll just get it all wrong in the details.
+> > - it is allowed to call dma_fence_wait() from memory reclaim contexts,
+> >    specifically from shrinker callbacks (which i915 does), and from mmu
+> >    notifier callbacks (which amdgpu does, and which i915 sometimes also
+> >    does, and probably always should, but that's kinda a debate). Also
+> >    for stuff like HMM we really need to be able to do this, or things
+> >    get real dicey.
+> > =
+
+> > Consequence is that any critical path necessary to get to a
+> > dma_fence_signal for a fence must never a) call dma_resv_lock nor b)
+> > allocate memory with GFP_KERNEL. Also by implication of
+> > dma_resv_lock(), no userspace faulting allowed. That's some supremely
+> > obnoxious limitations, which is why we need to sprinkle the right
+> > annotations to all relevant paths.
+> > =
+
+> > The one big locking context we're leaving out here is mmu notifiers,
+> > added in
+> > =
+
+> > commit 23b68395c7c78a764e8963fc15a7cfd318bf187f
+> > Author: Daniel Vetter <daniel.vetter@ffwll.ch>
+> > Date:   Mon Aug 26 22:14:21 2019 +0200
+> > =
+
+> >      mm/mmu_notifiers: add a lockdep map for invalidate_range_start/end
+> > =
+
+> > that one covers a lot of other callsites, and it's also allowed to
+> > wait on dma-fences from mmu notifiers. But there's no ready-made
+> > functions exposed to prime this, so I've left it out for now.
+> > =
+
+> > v2: Also track against mmu notifier context.
+> > =
+
+> > v3: kerneldoc to spec the cross-driver contract. Note that currently
+> > i915 throws in a hard-coded 10s timeout on foreign fences (not sure
+> > why that was done, but it's there), which is why that rule is worded
+> > with SHOULD instead of MUST.
+> > =
+
+> > Also some of the mmu_notifier/shrinker rules might surprise SoC
+> > drivers, I haven't fully audited them all. Which is infeasible anyway,
+> > we'll need to run them with lockdep and dma-fence annotations and see
+> > what goes boom.
+> > =
+
+> > v4: A spelling fix from Mika
+> > =
+
+> > Cc: Mika Kuoppala <mika.kuoppala@intel.com>
+> > Cc: Thomas Hellstrom <thomas.hellstrom@intel.com>
+> > Cc: linux-media@vger.kernel.org
+> > Cc: linaro-mm-sig@lists.linaro.org
+> > Cc: linux-rdma@vger.kernel.org
+> > Cc: amd-gfx@lists.freedesktop.org
+> > Cc: intel-gfx@lists.freedesktop.org
+> > Cc: Chris Wilson <chris@chris-wilson.co.uk>
+> > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > Cc: Christian K=F6nig <christian.koenig@amd.com>
+> > Signed-off-by: Daniel Vetter <daniel.vetter@intel.com>
+> > ---
+> >   Documentation/driver-api/dma-buf.rst |  6 ++++
+> >   drivers/dma-buf/dma-fence.c          | 41 ++++++++++++++++++++++++++++
+> >   drivers/dma-buf/dma-resv.c           |  4 +++
+> >   include/linux/dma-fence.h            |  1 +
+> >   4 files changed, 52 insertions(+)
 > =
 
-> If doable, considering all the various fault handlers we have in DRM, I
-> agree.
+> I still have my doubts about allowing fence waiting from within shrinkers.
+> IMO ideally they should use a trywait approach, in order to allow memory
+> allocation during command submission for drivers that
+> publish fences before command submission. (Since early reservation object
+> release requires that).
+
+Yeah it is a bit annoying, e.g. for drm/scheduler I think we'll end up
+with a mempool to make sure it can handle it's allocations.
+
+> But since drivers are already waiting from within shrinkers and I take yo=
+ur
+> word for HMM requiring this,
+
+Yeah the big trouble is HMM and mmu notifiers. That's the really awkward
+one, the shrinker one is a lot less established.
+
+I do wonder whether the mmu notifier constraint should only be set when
+mmu notifiers are enabled, since on a bunch of arm-soc gpu drivers that
+stuff just doesn't matter. But I expect that sooner or later these arm
+gpus will show up in bigger arm cores, where you might want to have kvm
+and maybe device virtualization and stuff, and then you need mmu
+notifiers.
+
+Plus having a very clear and consistent cross-driver api contract is imo
+better than leaving this up to drivers and then having incompatible
+assumptions.
+
+I've pinged a bunch of armsoc gpu driver people and ask them how much this
+hurts, so that we have a clear answer. On x86 I don't think we have much
+of a choice on this, with userptr in amd and i915 and hmm work in nouveau
+(but nouveau I think doesn't use dma_fence in there). I think it'll take
+us a while to really bottom out on this specific question here.
+-Daniel
+
+
 > =
 
-> /Thomas
+> Reviewed-by: Thomas Hellstr=F6m <thomas.hellstrom@intel.com>
 > =
 
 > =
