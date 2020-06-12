@@ -2,79 +2,68 @@ Return-Path: <SRS0=wil9=7Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9EF4FC433E1
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2020 06:54:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 863CBC433DF
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2020 07:01:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 75141207ED
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2020 06:54:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 588AA207ED
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2020 07:01:14 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="PlXAmb3E"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 75141207ED
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="Z/0PZJen"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 588AA207ED
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0262B6E260;
-	Fri, 12 Jun 2020 06:54:32 +0000 (UTC)
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 268076E250
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2020 06:54:30 +0000 (UTC)
-Received: by mail-wm1-x341.google.com with SMTP id r15so7212308wmh.5
- for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2020 23:54:30 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C47076E260;
+	Fri, 12 Jun 2020 07:01:13 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B12F6E264
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2020 07:01:13 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id u26so8476173wmn.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2020 00:01:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=/A2sKJCzh2oT4BJrATj3vyVR0tXfmTNJbae39Fj8Jog=;
- b=PlXAmb3Ew+Q0kh2Hd21/AENUO8fLwZC8+Gjc/IuXK9eJ9VYERobUM1w885u3pcSMSt
- /2c8AvH2aKwSaXlBy9TemClcG8feOpbftA9rs7Js9l1uHB9go92035NMKiF7IC+wUqkH
- oSui0JAiV46g7Vm//3PIQdWMD6/FxiwDw1G9s=
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=mwb5lgpix4XST2DTfjgAUf64Z8hdMDaqX2rqhJ09+Dc=;
+ b=Z/0PZJenemEubopMdJxXwCvFPmitS5sp/UJwCCmirspo81er4XWRzvTWGAvd2s9iVi
+ bYVp1SG0UQK4AfZtyeTwGO6+q3A3rAwk9hrgQScpVHsnLxjxkAURJM9DwCyP8raHfOGR
+ 7WgNqH8c9EjkqHvSLazvcH8b7u3A8RrAuj6Ww=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=/A2sKJCzh2oT4BJrATj3vyVR0tXfmTNJbae39Fj8Jog=;
- b=pOCmAQ4K8mCY5h6+VRBKIUZcTQRRzt/l3PcwkCvSZ8q4cZsTEPrvR5mvuxpvLYCay6
- EYTfpDOPVgOlmM/DIdIXL9HwMMBNhS6cQ0tJd534ELzJ46+zChEPWZL1QXaj+6F+Kni1
- TnOtjD6VCBL3zCy/1Zi2hLxmzKh7zCacsftFA0NaszQHCMrcoc7hgcA+lydCr101x2Zm
- FZS1Y1j+0bPkDtYHFQabbMX7zjfU8qnNyjU8hr17/8qfgkEgz/5Vz59l+DzbwjE2rzL3
- RYh1Flhx40LlWTAxfYHM1vY0ebtf3FJ6jR4QdZ6UobdroUnPZr5E8yzCQ4debFPIrhat
- 6FEQ==
-X-Gm-Message-State: AOAM5301L8vANqzLPRE9EzQtACBISQlSuVhsDj6VBwdt0e1FxwcJseTs
- /SqdgpJYR+Q3/RNgxdyt637REg==
-X-Google-Smtp-Source: ABdhPJw6c2crghFoJp50f1t2up0pX7//hajsVAVJYEdNFc698vbOCY30Ib+DCB4rYQlgrCFZZ7NfFA==
-X-Received: by 2002:a1c:4c16:: with SMTP id z22mr12384500wmf.17.1591944868702; 
- Thu, 11 Jun 2020 23:54:28 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=mwb5lgpix4XST2DTfjgAUf64Z8hdMDaqX2rqhJ09+Dc=;
+ b=K41G8+adaFI8VuDusEmOmj2y5KCWDgM73+dIae77Yb/Dt0sTnyoIbwpteFBjomK5Kw
+ zZZtuqtI6VKE/tKkMIicW51Udysi1Y8zFP+9AC9qZSk5HeP9Nt2ZpNL5CPxwEF5KAddy
+ oLsZAZ+MQW6+aMzBZK5oSnJlLO7PAj4KQgz5w+/B5aK/v42hVQvBYSpPfOon70z1Jyj+
+ AhsUzj7IFlYORF33nnCaTCoAXlMbjMekry11cAhOAXSXty45IEuVFQ+qUJhMx3jc7dtC
+ 7IgTZtfutvLARQuZMKSSTocfzgbHpjL9Q0s0tri38Xs2AyYoX/eekNunZV5V0vFTESWQ
+ juyQ==
+X-Gm-Message-State: AOAM530RklVAq9skyYdUbCELfEMRA2FnRp2hEaq7pZQ4+YlvFtBZ/Mac
+ XM/cfSJguAVEcnAs2/TIOCud9Q==
+X-Google-Smtp-Source: ABdhPJwwh20KqP8ubgxA8aiC04aO22feyqX8T0rjSDRNgUxaOSxk42eulIqfnoix/xEi29+H7leXtw==
+X-Received: by 2002:a1c:9ec5:: with SMTP id h188mr11662120wme.9.1591945270420; 
+ Fri, 12 Jun 2020 00:01:10 -0700 (PDT)
 Received: from phenom.ffwll.local ([2a02:168:57f4:0:efd0:b9e5:5ae6:c2fa])
- by smtp.gmail.com with ESMTPSA id p16sm9250695wru.27.2020.06.11.23.54.27
+ by smtp.gmail.com with ESMTPSA id c5sm9401610wrb.72.2020.06.12.00.01.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 11 Jun 2020 23:54:27 -0700 (PDT)
-Date: Fri, 12 Jun 2020 08:54:25 +0200
-From: Daniel Vetter <daniel@ffwll.ch>
-To: Andrey Grodzovsky <Andrey.Grodzovsky@amd.com>
-Subject: Re: [PATCH 1/6] drm/ttm: Add unampping of the entire device address
- space
-Message-ID: <20200612065425.GI20149@phenom.ffwll.local>
-References: <f36c1fa1-bbee-477a-9cb2-ed2726f27eef@email.android.com>
- <eb9e5896-1f16-2102-350a-1e64d9af7ea8@shipmail.org>
- <b415e3d1-eed9-9b11-b8c1-c85c7b57eb93@amd.com>
- <ce6f6109-67df-e3d0-d56e-3f5c27df40a0@amd.com>
- <20200610153020.GZ20149@phenom.ffwll.local>
- <715ad9d4-7763-382e-237e-8daab42eff46@shipmail.org>
- <52eec123-3fb1-843d-4ede-1fa0daeaa8ce@amd.com>
- <36ee0021-3044-4ae9-0d13-cbc1aba03022@shipmail.org>
- <95df8d05-72b3-f4bd-f68a-696e402e5599@amd.com>
+ Fri, 12 Jun 2020 00:01:09 -0700 (PDT)
+From: Daniel Vetter <daniel.vetter@ffwll.ch>
+To: DRI Development <dri-devel@lists.freedesktop.org>
+Subject: [PATCH] dma-fence: prime lockdep annotations
+Date: Fri, 12 Jun 2020 09:01:04 +0200
+Message-Id: <20200612070104.1777608-1-daniel.vetter@ffwll.ch>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20200604081224.863494-5-daniel.vetter@ffwll.ch>
+References: <20200604081224.863494-5-daniel.vetter@ffwll.ch>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <95df8d05-72b3-f4bd-f68a-696e402e5599@amd.com>
-X-Operating-System: Linux phenom 5.6.0-1-amd64 
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,273 +75,151 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "daniel.vetter@ffwll.ch" <daniel.vetter@ffwll.ch>,
- "michel@daenzer.net" <michel@daenzer.net>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Daniel Vetter <daniel@ffwll.ch>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m_=28Intel=29?= <thomas_os@shipmail.org>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Cc: kernel test robot <lkp@intel.com>, linux-rdma@vger.kernel.org,
+ Daniel Vetter <daniel.vetter@ffwll.ch>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ amd-gfx@lists.freedesktop.org, Chris Wilson <chris@chris-wilson.co.uk>,
+ linaro-mm-sig@lists.linaro.org,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@intel.com>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ linux-media@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jun 11, 2020 at 11:06:16AM -0400, Andrey Grodzovsky wrote:
-> =
-
-> On 6/11/20 2:35 AM, Thomas Hellstr=F6m (Intel) wrote:
-> > =
-
-> > On 6/10/20 11:19 PM, Andrey Grodzovsky wrote:
-> > > =
-
-> > > On 6/10/20 4:30 PM, Thomas Hellstr=F6m (Intel) wrote:
-> > > > =
-
-> > > > On 6/10/20 5:30 PM, Daniel Vetter wrote:
-> > > > > On Wed, Jun 10, 2020 at 04:05:04PM +0200, Christian K=F6nig wrote:
-> > > > > > Am 10.06.20 um 15:54 schrieb Andrey Grodzovsky:
-> > > > > > > =
-
-> > > > > > > On 6/10/20 6:15 AM, Thomas Hellstr=F6m (Intel) wrote:
-> > > > > > > > =
-
-> > > > > > > > On 6/9/20 7:21 PM, Koenig, Christian wrote:
-> > > > > > > > > =
-
-> > > > > > > > > Am 09.06.2020 18:37 schrieb "Grodzovsky, Andrey"
-> > > > > > > > > <Andrey.Grodzovsky@amd.com>:
-> > > > > > > > > =
-
-> > > > > > > > > =
-
-> > > > > > > > > =A0=A0=A0=A0 On 6/5/20 2:40 PM, Christian K=F6nig wrote:
-> > > > > > > > > =A0=A0=A0=A0 > Am 05.06.20 um 16:29 schrieb Andrey Grodzo=
-vsky:
-> > > > > > > > > =A0=A0=A0=A0 >>
-> > > > > > > > > =A0=A0=A0=A0 >> On 5/11/20 2:45 AM, Christian K=F6nig wro=
-te:
-> > > > > > > > > =A0=A0=A0=A0 >>> Am 09.05.20 um 20:51 schrieb Andrey Grod=
-zovsky:
-> > > > > > > > > =A0=A0=A0=A0 >>>> Signed-off-by: Andrey Grodzovsky
-> > > > > > > > > <andrey.grodzovsky@amd.com>
-> > > > > > > > > =A0=A0=A0=A0 >>>> ---
-> > > > > > > > > =A0=A0=A0=A0 >>>> drivers/gpu/drm/ttm/ttm_bo.c | 22 +++++=
-++++++++++++++++-
-> > > > > > > > > =A0=A0=A0=A0 >>>> include/drm/ttm/ttm_bo_driver.h | 2 ++
-> > > > > > > > > =A0=A0=A0=A0 >>>> =A0 2 files changed, 23 insertions(+), =
-1 deletion(-)
-> > > > > > > > > =A0=A0=A0=A0 >>>>
-> > > > > > > > > =A0=A0=A0=A0 >>>> diff --git a/drivers/gpu/drm/ttm/ttm_bo=
-.c
-> > > > > > > > > =A0=A0=A0=A0 >>>> b/drivers/gpu/drm/ttm/ttm_bo.c
-> > > > > > > > > =A0=A0=A0=A0 >>>> index c5b516f..eae61cc 100644
-> > > > > > > > > =A0=A0=A0=A0 >>>> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> > > > > > > > > =A0=A0=A0=A0 >>>> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-> > > > > > > > > =A0=A0=A0=A0 >>>> @@ -1750,9 +1750,29 @@ void ttm_bo_unma=
-p_virtual(struct
-> > > > > > > > > =A0=A0=A0=A0 >>>> ttm_buffer_object *bo)
-> > > > > > > > > =A0=A0=A0=A0 >>>> ttm_bo_unmap_virtual_locked(bo);
-> > > > > > > > > =A0=A0=A0=A0 >>>> ttm_mem_io_unlock(man);
-> > > > > > > > > =A0=A0=A0=A0 >>>> =A0 }
-> > > > > > > > > =A0=A0=A0=A0 >>>> +EXPORT_SYMBOL(ttm_bo_unmap_virtual);
-> > > > > > > > > =A0=A0=A0=A0 >>>> =A0 +void ttm_bo_unmap_virtual_address_=
-space(struct
-> > > > > > > > > =A0=A0=A0=A0 ttm_bo_device *bdev)
-> > > > > > > > > =A0=A0=A0=A0 >>>> +{
-> > > > > > > > > =A0=A0=A0=A0 >>>> +=A0=A0=A0 struct ttm_mem_type_manager =
-*man;
-> > > > > > > > > =A0=A0=A0=A0 >>>> +=A0=A0=A0 int i;
-> > > > > > > > > =A0=A0=A0=A0 >>>> -EXPORT_SYMBOL(ttm_bo_unmap_virtual);
-> > > > > > > > > =A0=A0=A0=A0 >>>
-> > > > > > > > > =A0=A0=A0=A0 >>>> +=A0=A0=A0 for (i =3D 0; i < TTM_NUM_ME=
-M_TYPES; i++) {
-> > > > > > > > > =A0=A0=A0=A0 >>>> +=A0=A0=A0=A0=A0=A0=A0 man =3D &bdev->m=
-an[i];
-> > > > > > > > > =A0=A0=A0=A0 >>>> +=A0=A0=A0=A0=A0=A0=A0 if (man->has_typ=
-e && man->use_type)
-> > > > > > > > > =A0=A0=A0=A0 >>>> + ttm_mem_io_lock(man, false);
-> > > > > > > > > =A0=A0=A0=A0 >>>> +=A0=A0=A0 }
-> > > > > > > > > =A0=A0=A0=A0 >>>
-> > > > > > > > > =A0=A0=A0=A0 >>> You should drop that it will just result=
- in a deadlock
-> > > > > > > > > =A0=A0=A0=A0 warning for
-> > > > > > > > > =A0=A0=A0=A0 >>> Nouveau and has no effect at all.
-> > > > > > > > > =A0=A0=A0=A0 >>>
-> > > > > > > > > =A0=A0=A0=A0 >>> Apart from that looks good to me,
-> > > > > > > > > =A0=A0=A0=A0 >>> Christian.
-> > > > > > > > > =A0=A0=A0=A0 >>
-> > > > > > > > > =A0=A0=A0=A0 >>
-> > > > > > > > > =A0=A0=A0=A0 >> As I am considering to re-include this in=
- V2 of the
-> > > > > > > > > =A0=A0=A0=A0 patchsets, can
-> > > > > > > > > =A0=A0=A0=A0 >> you clarify please why this will have no =
-effect at all ?
-> > > > > > > > > =A0=A0=A0=A0 >
-> > > > > > > > > =A0=A0=A0=A0 > The locks are exclusive for Nouveau to all=
-ocate/free the io
-> > > > > > > > > =A0=A0=A0=A0 address
-> > > > > > > > > =A0=A0=A0=A0 > space.
-> > > > > > > > > =A0=A0=A0=A0 >
-> > > > > > > > > =A0=A0=A0=A0 > Since we don't do this here we don't need =
-the locks.
-> > > > > > > > > =A0=A0=A0=A0 >
-> > > > > > > > > =A0=A0=A0=A0 > Christian.
-> > > > > > > > > =
-
-> > > > > > > > > =
-
-> > > > > > > > > =A0=A0=A0=A0 So basically calling
-> > > > > > > > > unmap_mapping_range doesn't require any
-> > > > > > > > > extra
-> > > > > > > > > =A0=A0=A0=A0 locking around it and whatever locks
-> > > > > > > > > are taken within the function
-> > > > > > > > > =A0=A0=A0=A0 should be enough ?
-> > > > > > > > > =
-
-> > > > > > > > > =
-
-> > > > > > > > > =
-
-> > > > > > > > > I think so, yes.
-> > > > > > > > > =
-
-> > > > > > > > > Christian.
-> > > > > > > > Yes, that's true. However, without the bo
-> > > > > > > > reservation, nothing stops
-> > > > > > > > a PTE from being immediately re-faulted back again. Even wh=
-ile
-> > > > > > > > unmap_mapping_range() is running.
-> > > > > > > > =
-
-> > > > > > > Can you explain more on this - specifically, which
-> > > > > > > function to reserve
-> > > > > > > the BO, why BO reservation would prevent re-fault of the PTE ?
-> > > > > > > =
-
-> > > > > > Thomas is talking about
-> > > > > > ttm_bo_reserver()/ttm_bo_unreserve(), but we don't
-> > > > > > need this because we unmap everything because the whole
-> > > > > > device is gone and
-> > > > > > not just manipulate a single BO.
-> > > > > > =
-
-> > > > > > > > So the device removed flag needs to be advertized before th=
-is
-> > > > > > > > function is run,
-> > > > > > > > =
-
-> > > > > > > I indeed intend to call this=A0 right after calling
-> > > > > > > drm_dev_unplug from
-> > > > > > > amdgpu_pci_remove while adding drm_dev_enter/exit in
-> > > > > > > ttm_bo_vm_fault (or
-> > > > > > > in amdgpu specific wrapper since I don't see how can I access=
- struct
-> > > > > > > drm_device from ttm_bo_vm_fault) and this in my understanding=
- should
-> > > > > > > stop a PTE from being re-faulted back as you pointed
-> > > > > > > out - so again I
-> > > > > > > don't see how=A0 bo reservation would prevent it so it looks =
-like I am
-> > > > > > > missing something...
-> > > > > > > =
-
-> > > > > > > =
-
-> > > > > > > > (perhaps with a memory barrier pair).
-> > > > > > > > =
-
-> > > > > > > drm_dev_unplug and drm_dev_enter/exit are RCU synchronized an=
-d so I
-> > > > > > > don't think require any extra memory barriers for visibility =
-of the
-> > > > > > > removed flag being set
-> > > > > > > =
-
-> > > > > > As far as I can see that should be perfectly sufficient.
-> > > > > Only if you have a drm_dev_enter/exit pair in your fault handler.
-> > > > > Otherwise you're still open to the races Thomas described.
-> > > > > But aside from
-> > > > > that the drm_dev_unplug stuff has all the barriers and stuff
-> > > > > to make sure
-> > > > > nothing escapes.
-> > > > > =
-
-> > > > > Failure to drm_dev_enter could then also trigger the special
-> > > > > case where we
-> > > > > put a dummy page in place.
-> > > > > -Daniel
-> > > > =
-
-> > > > Hmm, Yes, indeed advertizing the flag before the call to
-> > > > unmap_mapping_range isn't enough, since there might be fault
-> > > > handlers running that haven't picked up the flag when
-> > > > unmap_mapping_range is launched.
-> > > =
-
-> > > =
-
-> > > If you mean those fault handlers that were in progress when the flag
-> > > (drm_dev_unplug) was set in amdgpu_pci_remove then as long as i wrap
-> > > the entire fault handler (probably using amdgpu specific .fault hook
-> > > around ttm_bo_vm_fault) with drm_dev_enter/exit pair then
-> > > drm_dev_unplug->synchronize_srcu will block until those in progress
-> > > faults have completed and only after this i will call
-> > > unmap_mapping_range. Should this be enough ?
-> > > =
-
-> > > Andrey
-> > > =
-
-> > > =
-
-> > Yes, I believe so. Although I suspect you might trip lockdep with
-> > reverse locking order against the mmap_sem which is a constant pain in
-> > fault handlers. If that's the case, you might be able to introduce
-> > another srcu lock for this special purpose and synchronize just before
-> > the address-space-wide unmap_mapping_range(). If it turns out that an
-> > address space srcu lock like this is really needed, we should follow
-> > Daniel's suggestion and try to use it from drm-wide helpers.
-> > =
-
-> > /Thomas
-> =
-
-> =
-
-> Does it make sense to prefault and set to zero page the entire VA range
-> covered by the given VMA on the first page fault post device disconnect to
-> save on other similar page faults ?
-
-Performance doesn't matter at all on hotunplug, as long as we eventually
-finish. Timing out the pci transactions will be so slow (while all the
-hotunplug processing is going on) that serving a few billion minor faults
-is peanuts. Simpler code wins here imo.
-
-Also if you want to prefault, you also really want to prefault for the
-normal use-case, and that should be done (iirc already is?) in the ttm
-fault handler.
--Daniel
-
-> =
-
-> Andrey
-> =
-
-> =
-
-> > =
-
-> > =
-
-
--- =
-
-Daniel Vetter
-Software Engineer, Intel Corporation
-http://blog.ffwll.ch
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+VHdvIGluIG9uZSBnbzoKLSBpdCBpcyBhbGxvd2VkIHRvIGNhbGwgZG1hX2ZlbmNlX3dhaXQoKSB3
+aGlsZSBob2xkaW5nIGEKICBkbWFfcmVzdl9sb2NrKCkuIFRoaXMgaXMgZnVuZGFtZW50YWwgdG8g
+aG93IGV2aWN0aW9uIHdvcmtzIHdpdGggdHRtLAogIHNvIHJlcXVpcmVkLgoKLSBpdCBpcyBhbGxv
+d2VkIHRvIGNhbGwgZG1hX2ZlbmNlX3dhaXQoKSBmcm9tIG1lbW9yeSByZWNsYWltIGNvbnRleHRz
+LAogIHNwZWNpZmljYWxseSBmcm9tIHNocmlua2VyIGNhbGxiYWNrcyAod2hpY2ggaTkxNSBkb2Vz
+KSwgYW5kIGZyb20gbW11CiAgbm90aWZpZXIgY2FsbGJhY2tzICh3aGljaCBhbWRncHUgZG9lcywg
+YW5kIHdoaWNoIGk5MTUgc29tZXRpbWVzIGFsc28KICBkb2VzLCBhbmQgcHJvYmFibHkgYWx3YXlz
+IHNob3VsZCwgYnV0IHRoYXQncyBraW5kYSBhIGRlYmF0ZSkuIEFsc28KICBmb3Igc3R1ZmYgbGlr
+ZSBITU0gd2UgcmVhbGx5IG5lZWQgdG8gYmUgYWJsZSB0byBkbyB0aGlzLCBvciB0aGluZ3MKICBn
+ZXQgcmVhbCBkaWNleS4KCkNvbnNlcXVlbmNlIGlzIHRoYXQgYW55IGNyaXRpY2FsIHBhdGggbmVj
+ZXNzYXJ5IHRvIGdldCB0byBhCmRtYV9mZW5jZV9zaWduYWwgZm9yIGEgZmVuY2UgbXVzdCBuZXZl
+ciBhKSBjYWxsIGRtYV9yZXN2X2xvY2sgbm9yIGIpCmFsbG9jYXRlIG1lbW9yeSB3aXRoIEdGUF9L
+RVJORUwuIEFsc28gYnkgaW1wbGljYXRpb24gb2YKZG1hX3Jlc3ZfbG9jaygpLCBubyB1c2Vyc3Bh
+Y2UgZmF1bHRpbmcgYWxsb3dlZC4gVGhhdCdzIHNvbWUgc3VwcmVtZWx5Cm9ibm94aW91cyBsaW1p
+dGF0aW9ucywgd2hpY2ggaXMgd2h5IHdlIG5lZWQgdG8gc3ByaW5rbGUgdGhlIHJpZ2h0CmFubm90
+YXRpb25zIHRvIGFsbCByZWxldmFudCBwYXRocy4KClRoZSBvbmUgYmlnIGxvY2tpbmcgY29udGV4
+dCB3ZSdyZSBsZWF2aW5nIG91dCBoZXJlIGlzIG1tdSBub3RpZmllcnMsCmFkZGVkIGluCgpjb21t
+aXQgMjNiNjgzOTVjN2M3OGE3NjRlODk2M2ZjMTVhN2NmZDMxOGJmMTg3ZgpBdXRob3I6IERhbmll
+bCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAZmZ3bGwuY2g+CkRhdGU6ICAgTW9uIEF1ZyAyNiAyMjox
+NDoyMSAyMDE5ICswMjAwCgogICAgbW0vbW11X25vdGlmaWVyczogYWRkIGEgbG9ja2RlcCBtYXAg
+Zm9yIGludmFsaWRhdGVfcmFuZ2Vfc3RhcnQvZW5kCgp0aGF0IG9uZSBjb3ZlcnMgYSBsb3Qgb2Yg
+b3RoZXIgY2FsbHNpdGVzLCBhbmQgaXQncyBhbHNvIGFsbG93ZWQgdG8Kd2FpdCBvbiBkbWEtZmVu
+Y2VzIGZyb20gbW11IG5vdGlmaWVycy4gQnV0IHRoZXJlJ3Mgbm8gcmVhZHktbWFkZQpmdW5jdGlv
+bnMgZXhwb3NlZCB0byBwcmltZSB0aGlzLCBzbyBJJ3ZlIGxlZnQgaXQgb3V0IGZvciBub3cuCgp2
+MjogQWxzbyB0cmFjayBhZ2FpbnN0IG1tdSBub3RpZmllciBjb250ZXh0LgoKdjM6IGtlcm5lbGRv
+YyB0byBzcGVjIHRoZSBjcm9zcy1kcml2ZXIgY29udHJhY3QuIE5vdGUgdGhhdCBjdXJyZW50bHkK
+aTkxNSB0aHJvd3MgaW4gYSBoYXJkLWNvZGVkIDEwcyB0aW1lb3V0IG9uIGZvcmVpZ24gZmVuY2Vz
+IChub3Qgc3VyZQp3aHkgdGhhdCB3YXMgZG9uZSwgYnV0IGl0J3MgdGhlcmUpLCB3aGljaCBpcyB3
+aHkgdGhhdCBydWxlIGlzIHdvcmRlZAp3aXRoIFNIT1VMRCBpbnN0ZWFkIG9mIE1VU1QuCgpBbHNv
+IHNvbWUgb2YgdGhlIG1tdV9ub3RpZmllci9zaHJpbmtlciBydWxlcyBtaWdodCBzdXJwcmlzZSBT
+b0MKZHJpdmVycywgSSBoYXZlbid0IGZ1bGx5IGF1ZGl0ZWQgdGhlbSBhbGwuIFdoaWNoIGlzIGlu
+ZmVhc2libGUgYW55d2F5LAp3ZSdsbCBuZWVkIHRvIHJ1biB0aGVtIHdpdGggbG9ja2RlcCBhbmQg
+ZG1hLWZlbmNlIGFubm90YXRpb25zIGFuZCBzZWUKd2hhdCBnb2VzIGJvb20uCgp2NDogQSBzcGVs
+bGluZyBmaXggZnJvbSBNaWthCgp2NTogI2lmZGVmIGZvciBDT05GSUdfTU1VX05PVElGSUVSLiBS
+ZXBvcnRlZCBieSAwZGF5LiBVbmZvcnR1bmF0ZWx5CnRoaXMgbWVhbnMgbG9ja2RlcCBlbmZvcmNl
+bWVudCBpcyBzbGlnaHRseSBpbmNvbnNpc3RlbnQsIGl0IHdvbid0IHNwb3QKR0ZQX05PSU8gYW5k
+IEdGUF9OT0ZTIGFsbG9jYXRpb25zIGluIHRoZSB3cm9uZyBzcG90IGlmCkNPTkZJR19NTVVfTk9U
+SUZJRVIgaXMgZGlzYWJsZWQgaW4gdGhlIGtlcm5lbCBjb25maWcuIE9oIHdlbGwuCgpDYzoga2Vy
+bmVsIHRlc3Qgcm9ib3QgPGxrcEBpbnRlbC5jb20+ClJldmlld2VkLWJ5OiBUaG9tYXMgSGVsbHN0
+csO2bSA8dGhvbWFzLmhlbGxzdHJvbUBpbnRlbC5jb20+ICh2NCkKQ2M6IE1pa2EgS3VvcHBhbGEg
+PG1pa2Eua3VvcHBhbGFAaW50ZWwuY29tPgpDYzogVGhvbWFzIEhlbGxzdHJvbSA8dGhvbWFzLmhl
+bGxzdHJvbUBpbnRlbC5jb20+CkNjOiBsaW51eC1tZWRpYUB2Z2VyLmtlcm5lbC5vcmcKQ2M6IGxp
+bmFyby1tbS1zaWdAbGlzdHMubGluYXJvLm9yZwpDYzogbGludXgtcmRtYUB2Z2VyLmtlcm5lbC5v
+cmcKQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCkNjOiBpbnRlbC1nZnhAbGlzdHMu
+ZnJlZWRlc2t0b3Aub3JnCkNjOiBDaHJpcyBXaWxzb24gPGNocmlzQGNocmlzLXdpbHNvbi5jby51
+az4KQ2M6IE1hYXJ0ZW4gTGFua2hvcnN0IDxtYWFydGVuLmxhbmtob3JzdEBsaW51eC5pbnRlbC5j
+b20+CkNjOiBDaHJpc3RpYW4gS8O2bmlnIDxjaHJpc3RpYW4ua29lbmlnQGFtZC5jb20+ClNpZ25l
+ZC1vZmYtYnk6IERhbmllbCBWZXR0ZXIgPGRhbmllbC52ZXR0ZXJAaW50ZWwuY29tPgotLS0KIERv
+Y3VtZW50YXRpb24vZHJpdmVyLWFwaS9kbWEtYnVmLnJzdCB8ICA2ICsrKysKIGRyaXZlcnMvZG1h
+LWJ1Zi9kbWEtZmVuY2UuYyAgICAgICAgICB8IDQxICsrKysrKysrKysrKysrKysrKysrKysrKysr
+KysKIGRyaXZlcnMvZG1hLWJ1Zi9kbWEtcmVzdi5jICAgICAgICAgICB8ICA4ICsrKysrKwogaW5j
+bHVkZS9saW51eC9kbWEtZmVuY2UuaCAgICAgICAgICAgIHwgIDEgKwogNCBmaWxlcyBjaGFuZ2Vk
+LCA1NiBpbnNlcnRpb25zKCspCgpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kcml2ZXItYXBp
+L2RtYS1idWYucnN0IGIvRG9jdW1lbnRhdGlvbi9kcml2ZXItYXBpL2RtYS1idWYucnN0CmluZGV4
+IDA1ZDg1NjEzMTE0MC4uZjhmNmRlY2RlMzU5IDEwMDY0NAotLS0gYS9Eb2N1bWVudGF0aW9uL2Ry
+aXZlci1hcGkvZG1hLWJ1Zi5yc3QKKysrIGIvRG9jdW1lbnRhdGlvbi9kcml2ZXItYXBpL2RtYS1i
+dWYucnN0CkBAIC0xMzMsNiArMTMzLDEyIEBAIERNQSBGZW5jZXMKIC4uIGtlcm5lbC1kb2M6OiBk
+cml2ZXJzL2RtYS1idWYvZG1hLWZlbmNlLmMKICAgIDpkb2M6IERNQSBmZW5jZXMgb3ZlcnZpZXcK
+IAorRE1BIEZlbmNlIENyb3NzLURyaXZlciBDb250cmFjdAorfn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn5+fn5+fgorCisuLiBrZXJuZWwtZG9jOjogZHJpdmVycy9kbWEtYnVmL2RtYS1mZW5jZS5j
+CisgICA6ZG9jOiBmZW5jZSBjcm9zcy1kcml2ZXIgY29udHJhY3QKKwogRE1BIEZlbmNlIFNpZ25h
+bGxpbmcgQW5ub3RhdGlvbnMKIH5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+CiAKZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVuY2UuYyBiL2RyaXZlcnMvZG1hLWJ1Zi9k
+bWEtZmVuY2UuYwppbmRleCAwMDA1YmMwMDI1MjkuLjc1NGU2ZmI4NGZiNyAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9kbWEtYnVmL2RtYS1mZW5jZS5jCisrKyBiL2RyaXZlcnMvZG1hLWJ1Zi9kbWEtZmVu
+Y2UuYwpAQCAtNjQsNiArNjQsNDcgQEAgc3RhdGljIGF0b21pYzY0X3QgZG1hX2ZlbmNlX2NvbnRl
+eHRfY291bnRlciA9IEFUT01JQzY0X0lOSVQoMSk7CiAgKiAgICZkbWFfYnVmLnJlc3YgcG9pbnRl
+ci4KICAqLwogCisvKioKKyAqIERPQzogZmVuY2UgY3Jvc3MtZHJpdmVyIGNvbnRyYWN0CisgKgor
+ICogU2luY2UgJmRtYV9mZW5jZSBwcm92aWRlIGEgY3Jvc3MgZHJpdmVyIGNvbnRyYWN0LCBhbGwg
+ZHJpdmVycyBtdXN0IGZvbGxvdyB0aGUKKyAqIHNhbWUgcnVsZXM6CisgKgorICogKiBGZW5jZXMg
+bXVzdCBjb21wbGV0ZSBpbiBhIHJlYXNvbmFibGUgdGltZS4gRmVuY2VzIHdoaWNoIHJlcHJlc2Vu
+dCBrZXJuZWxzCisgKiAgIGFuZCBzaGFkZXJzIHN1Ym1pdHRlZCBieSB1c2Vyc3BhY2UsIHdoaWNo
+IGNvdWxkIHJ1biBmb3JldmVyLCBtdXN0IGJlIGJhY2tlZAorICogICB1cCBieSB0aW1lb3V0IGFu
+ZCBncHUgaGFuZyByZWNvdmVyeSBjb2RlLiBNaW5pbWFsbHkgdGhhdCBjb2RlIG11c3QgcHJldmVu
+dAorICogICBmdXJ0aGVyIGNvbW1hbmQgc3VibWlzc2lvbiBhbmQgZm9yY2UgY29tcGxldGUgYWxs
+IGluLWZsaWdodCBmZW5jZXMsIGUuZy4KKyAqICAgd2hlbiB0aGUgZHJpdmVyIG9yIGhhcmR3YXJl
+IGRvIG5vdCBzdXBwb3J0IGdwdSByZXNldCwgb3IgaWYgdGhlIGdwdSByZXNldAorICogICBmYWls
+ZWQgZm9yIHNvbWUgcmVhc29uLiBJZGVhbGx5IHRoZSBkcml2ZXIgc3VwcG9ydHMgZ3B1IHJlY292
+ZXJ5IHdoaWNoIG9ubHkKKyAqICAgYWZmZWN0cyB0aGUgb2ZmZW5kaW5nIHVzZXJzcGFjZSBjb250
+ZXh0LCBhbmQgbm8gb3RoZXIgdXNlcnNwYWNlCisgKiAgIHN1Ym1pc3Npb25zLgorICoKKyAqICog
+RHJpdmVycyBtYXkgaGF2ZSBkaWZmZXJlbnQgaWRlYXMgb2Ygd2hhdCBjb21wbGV0aW9uIHdpdGhp
+biBhIHJlYXNvbmFibGUKKyAqICAgdGltZSBtZWFucy4gU29tZSBoYW5nIHJlY292ZXJ5IGNvZGUg
+dXNlcyBhIGZpeGVkIHRpbWVvdXQsIG90aGVycyBhIG1peAorICogICBiZXR3ZWVuIG9ic2Vydmlu
+ZyBmb3J3YXJkIHByb2dyZXNzIGFuZCBpbmNyZWFzaW5nbHkgc3RyaWN0IHRpbWVvdXRzLgorICog
+ICBEcml2ZXJzIHNob3VsZCBub3QgdHJ5IHRvIHNlY29uZCBndWVzcyB0aW1lb3V0IGhhbmRsaW5n
+IG9mIGZlbmNlcyBmcm9tCisgKiAgIG90aGVyIGRyaXZlcnMuCisgKgorICogKiBUbyBlbnN1cmUg
+dGhlcmUncyBubyBkZWFkbG9ja3Mgb2YgZG1hX2ZlbmNlX3dhaXQoKSBhZ2FpbnN0IG90aGVyIGxv
+Y2tzCisgKiAgIGRyaXZlcnMgc2hvdWxkIGFubm90YXRlIGFsbCBjb2RlIHJlcXVpcmVkIHRvIHJl
+YWNoIGRtYV9mZW5jZV9zaWduYWwoKSwKKyAqICAgd2hpY2ggY29tcGxldGVzIHRoZSBmZW5jZXMs
+IHdpdGggZG1hX2ZlbmNlX2JlZ2luX3NpZ25hbGxpbmcoKSBhbmQKKyAqICAgZG1hX2ZlbmNlX2Vu
+ZF9zaWduYWxsaW5nKCkuCisgKgorICogKiBEcml2ZXJzIGFyZSBhbGxvd2VkIHRvIGNhbGwgZG1h
+X2ZlbmNlX3dhaXQoKSB3aGlsZSBob2xkaW5nIGRtYV9yZXN2X2xvY2soKS4KKyAqICAgVGhpcyBt
+ZWFucyBhbnkgY29kZSByZXF1aXJlZCBmb3IgZmVuY2UgY29tcGxldGlvbiBjYW5ub3QgYWNxdWly
+ZSBhCisgKiAgICZkbWFfcmVzdiBsb2NrLiBOb3RlIHRoYXQgdGhpcyBhbHNvIHB1bGxzIGluIHRo
+ZSBlbnRpcmUgZXN0YWJsaXNoZWQKKyAqICAgbG9ja2luZyBoaWVyYXJjaHkgYXJvdW5kIGRtYV9y
+ZXN2X2xvY2soKSBhbmQgZG1hX3Jlc3ZfdW5sb2NrKCkuCisgKgorICogKiBEcml2ZXJzIGFyZSBh
+bGxvd2VkIHRvIGNhbGwgZG1hX2ZlbmNlX3dhaXQoKSBmcm9tIHRoZWlyICZzaHJpbmtlcgorICog
+ICBjYWxsYmFja3MuIFRoaXMgbWVhbnMgYW55IGNvZGUgcmVxdWlyZWQgZm9yIGZlbmNlIGNvbXBs
+ZXRpb24gY2Fubm90CisgKiAgIGFsbG9jYXRlIG1lbW9yeSB3aXRoIEdGUF9LRVJORUwuCisgKgor
+ICogKiBEcml2ZXJzIGFyZSBhbGxvd2VkIHRvIGNhbGwgZG1hX2ZlbmNlX3dhaXQoKSBmcm9tIHRo
+ZWlyICZtbXVfbm90aWZpZXIKKyAqICAgcmVzcGVjdGl2ZWx5ICZtbXVfaW50ZXJ2YWxfbm90aWZp
+ZXIgY2FsbGJhY2tzLiBUaGlzIG1lYW5zIGFueSBjb2RlIHJlcXVpcmVkCisgKiAgIGZvciBmZW5j
+ZSBjb21wbGV0ZWlvbiBjYW5ub3QgYWxsb2NhdGUgbWVtb3J5IHdpdGggR0ZQX05PRlMgb3IgR0ZQ
+X05PSU8uCisgKiAgIE9ubHkgR0ZQX0FUT01JQyBpcyBwZXJtaXNzaWJsZSwgd2hpY2ggbWlnaHQg
+ZmFpbC4KKyAqLworCiBzdGF0aWMgY29uc3QgY2hhciAqZG1hX2ZlbmNlX3N0dWJfZ2V0X25hbWUo
+c3RydWN0IGRtYV9mZW5jZSAqZmVuY2UpCiB7CiAgICAgICAgIHJldHVybiAic3R1YiI7CmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2RtYS1idWYvZG1hLXJlc3YuYyBiL2RyaXZlcnMvZG1hLWJ1Zi9kbWEt
+cmVzdi5jCmluZGV4IDk5YzBhMzNjOTE4ZC4uNTFmMDU4M2VhZDE5IDEwMDY0NAotLS0gYS9kcml2
+ZXJzL2RtYS1idWYvZG1hLXJlc3YuYworKysgYi9kcml2ZXJzL2RtYS1idWYvZG1hLXJlc3YuYwpA
+QCAtMzUsNiArMzUsNyBAQAogI2luY2x1ZGUgPGxpbnV4L2RtYS1yZXN2Lmg+CiAjaW5jbHVkZSA8
+bGludXgvZXhwb3J0Lmg+CiAjaW5jbHVkZSA8bGludXgvc2NoZWQvbW0uaD4KKyNpbmNsdWRlIDxs
+aW51eC9tbXVfbm90aWZpZXIuaD4KIAogLyoqCiAgKiBET0M6IFJlc2VydmF0aW9uIE9iamVjdCBP
+dmVydmlldwpAQCAtMTE1LDYgKzExNiwxMyBAQCBzdGF0aWMgaW50IF9faW5pdCBkbWFfcmVzdl9s
+b2NrZGVwKHZvaWQpCiAJaWYgKHJldCA9PSAtRURFQURMSykKIAkJZG1hX3Jlc3ZfbG9ja19zbG93
+KCZvYmosICZjdHgpOwogCWZzX3JlY2xhaW1fYWNxdWlyZShHRlBfS0VSTkVMKTsKKyNpZmRlZiBD
+T05GSUdfTU1VX05PVElGSUVSCisJbG9ja19tYXBfYWNxdWlyZSgmX19tbXVfbm90aWZpZXJfaW52
+YWxpZGF0ZV9yYW5nZV9zdGFydF9tYXApOworCV9fZG1hX2ZlbmNlX21pZ2h0X3dhaXQoKTsKKwls
+b2NrX21hcF9yZWxlYXNlKCZfX21tdV9ub3RpZmllcl9pbnZhbGlkYXRlX3JhbmdlX3N0YXJ0X21h
+cCk7CisjZWxzZQorCV9fZG1hX2ZlbmNlX21pZ2h0X3dhaXQoKTsKKyNlbmRpZgogCWZzX3JlY2xh
+aW1fcmVsZWFzZShHRlBfS0VSTkVMKTsKIAl3d19tdXRleF91bmxvY2soJm9iai5sb2NrKTsKIAl3
+d19hY3F1aXJlX2ZpbmkoJmN0eCk7CmRpZmYgLS1naXQgYS9pbmNsdWRlL2xpbnV4L2RtYS1mZW5j
+ZS5oIGIvaW5jbHVkZS9saW51eC9kbWEtZmVuY2UuaAppbmRleCAzZjI4OGY3ZGIyZWYuLjA5ZTIz
+YWRiMzUxZCAxMDA2NDQKLS0tIGEvaW5jbHVkZS9saW51eC9kbWEtZmVuY2UuaAorKysgYi9pbmNs
+dWRlL2xpbnV4L2RtYS1mZW5jZS5oCkBAIC0zNjAsNiArMzYwLDcgQEAgZG1hX2ZlbmNlX2dldF9y
+Y3Vfc2FmZShzdHJ1Y3QgZG1hX2ZlbmNlIF9fcmN1ICoqZmVuY2VwKQogI2lmZGVmIENPTkZJR19M
+T0NLREVQCiBib29sIGRtYV9mZW5jZV9iZWdpbl9zaWduYWxsaW5nKHZvaWQpOwogdm9pZCBkbWFf
+ZmVuY2VfZW5kX3NpZ25hbGxpbmcoYm9vbCBjb29raWUpOwordm9pZCBfX2RtYV9mZW5jZV9taWdo
+dF93YWl0KHZvaWQpOwogI2Vsc2UKIHN0YXRpYyBpbmxpbmUgYm9vbCBkbWFfZmVuY2VfYmVnaW5f
+c2lnbmFsbGluZyh2b2lkKQogewotLSAKMi4yNi4yCgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xp
+c3RpbmZvL2FtZC1nZngK
