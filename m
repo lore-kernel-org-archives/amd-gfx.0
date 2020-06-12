@@ -2,100 +2,66 @@ Return-Path: <SRS0=wil9=7Z=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6836FC433DF
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2020 03:35:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 349E7C433E3
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2020 05:11:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F0B3B20878
-	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2020 03:35:01 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 0BA6E20801
+	for <amd-gfx@archiver.kernel.org>; Fri, 12 Jun 2020 05:11:24 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="wtAhILxZ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F0B3B20878
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=ffwll.ch header.i=@ffwll.ch header.b="cilwx1I8"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0BA6E20801
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ffwll.ch
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A32FF6E10C;
-	Fri, 12 Jun 2020 03:35:01 +0000 (UTC)
-Received: from NAM10-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam10on2046.outbound.protection.outlook.com [40.107.93.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E0E76E10C
- for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2020 03:35:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=UMiFHn4UVEqfBlasQLP0orOzXZImn43s31pgA+a35HEWtGxohTq+6cDYSxNQofOXFg26KR6UkCxnYIzBLarNAAXDQha+q5hYPn8fnPmIYVlNzj5CzcC32OtsVyuNpTYFlnarPD5HZ8qvp9htkEWkdsyj8bcXHTeWX9WfrnKWinweKYcuy9cxbSqQB9oZqyVEeOnPgS/+lSbjV7++dw8xYdTLrPWBx3+LdkNCDe7lJWLtDepoXyBQtr7DUQvVSxrO3p6yoiKzDxYKeKUce1JR80Xdx5XvG2wPnBhkIkH68KWnJbu/lw1+hznieB08Fh92C5Fgxt2SMbYP4SQByMraTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rK1zJgIVjcZVl5tPbr+oAlOqx0F6K9Jwxlw0Edv4NT4=;
- b=Ji/07SNQI0zZ1OdSpRu4uJOWR7IfOI7JZU8RzI12BXv39iJSFbX9ZZty/koim7elTN3MdTmrXExOsFr8+Oc9IfpDxvKJ3FR4ycQASEPe7atKCXBUGLRxlxZIBEEbPSF5MlHLzWH5rc2u1RfG4166Dyn7RT3m0ULDyRLDJL9SjoUT8EJEmOj31WLYEaxUT4BrRuhGGjG/e1FRucK7NAVswUzTKWHoWr4kX9KG2P11eH5PWdvU2nPdSyK03tfxMklQXPmJg4fTv8j6wHWvpNbNEFHTswVMxiT6prDmZqRqgo4PVNgK6TkBjL2UxY37mE8tW95KilVfV3vnc0ztK/KJIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rK1zJgIVjcZVl5tPbr+oAlOqx0F6K9Jwxlw0Edv4NT4=;
- b=wtAhILxZu491Nr5DUOzmEE7JFdgMD3qE8ESkvjrgkw7HkZAvjndqnO9d159CwbNP0wa+qG+/8IuIYexQbi8IxOPS8kMemlF9lvFXzX/FSf8UiFcRm32UfjJtLVyjqQwzkWpi0B0JzLYmiiK1XdfBsYOcxCELnwizjbqFP/9Tz50=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com (2603:10b6:802:2e::31)
- by SN6PR12MB2720.namprd12.prod.outlook.com (2603:10b6:805:70::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3088.21; Fri, 12 Jun
- 2020 03:34:58 +0000
-Received: from SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::18d:97b:661f:9314]) by SN1PR12MB2414.namprd12.prod.outlook.com
- ([fe80::18d:97b:661f:9314%7]) with mapi id 15.20.3088.021; Fri, 12 Jun 2020
- 03:34:58 +0000
-From: Felix Kuehling <Felix.Kuehling@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/1] drm/amdkfd: Add eviction debug messages
-Date: Thu, 11 Jun 2020 23:34:22 -0400
-Message-Id: <20200612033422.5682-1-Felix.Kuehling@amd.com>
-X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: YTXPR0101CA0051.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b00:1::28) To SN1PR12MB2414.namprd12.prod.outlook.com
- (2603:10b6:802:2e::31)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11EDD6E22D;
+	Fri, 12 Jun 2020 05:11:21 +0000 (UTC)
+Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
+ [IPv6:2607:f8b0:4864:20::244])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B90D6E22A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 12 Jun 2020 05:11:19 +0000 (UTC)
+Received: by mail-oi1-x244.google.com with SMTP id a3so7649046oid.4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 11 Jun 2020 22:11:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ffwll.ch; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=8V+bxbj5WCvzCnxozwhnhcY6TUJ/xexRHaQJ/PDvKQU=;
+ b=cilwx1I8Xw8l4cOfCtUN5yHqBSWj+Ms0FUPp+RDFC2UUkvd9G/tKIonAgnCPmV7ju7
+ ytE8iPnQdG6xCmbt2X4xyBjcOKSUmiTKGphnksjQ2SRiZLT5IbW006hcE7QfZHx6BSiX
+ vrqTUkoSTB5lgrB2uyXPGdQVfa22TxwaFK1IQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8V+bxbj5WCvzCnxozwhnhcY6TUJ/xexRHaQJ/PDvKQU=;
+ b=CdoKzD9sDo5vI3XfLzrDbPnEI/vcVDYim16tLOY3G9kNpV2BtbVeS6JYWbFxmAnegj
+ hJcefVqSz7av5lUzBwsTFPIjoX+0Ek6MqHJHNpiZIAyWp3rX8uT7o5c+YV9VMjwysr+t
+ 4a+4VnKK2uipiCdbrQRlW647zgOmHv0ILeuysz3QJfzATIFbCnc6NDhIzBT2QKfoLQLF
+ wxd88xQRXWBv+BYuFbGYaWEdct114+7XZ8e/tb8Ds/o/qS/wr5+y00JnVY/WKRa3kJSm
+ 470lWInRNRtqleFs3JEOG8KICPmYcHxrjfL+NkKtXWT2wkGlVmto3/CXmiNr9ndqG/su
+ L+ag==
+X-Gm-Message-State: AOAM532sjEj/17ypwOyZh9BpUiOKN5A7aBqHw8Sf0Y939BQmZdK+YlXA
+ ryQgw5rWfjUXHM8uu8LPWZlScYaebQ9TtrpkIh9XiQ==
+X-Google-Smtp-Source: ABdhPJzrYoClOB8B8OguvLlFrj2m7W+GxCU2S2r//wrUh7MPNfSE//K6chPjLrBcT0Xc1X5J0GrxFt1X3IqO0jmAaSg=
+X-Received: by 2002:a05:6808:6d7:: with SMTP id
+ m23mr980424oih.14.1591938678473; 
+ Thu, 11 Jun 2020 22:11:18 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from localhost.localdomain (165.204.55.211) by
- YTXPR0101CA0051.CANPRD01.PROD.OUTLOOK.COM (2603:10b6:b00:1::28) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3088.19 via Frontend
- Transport; Fri, 12 Jun 2020 03:34:58 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [165.204.55.211]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 95daf9a2-6a74-403a-b262-08d80e8194f5
-X-MS-TrafficTypeDiagnostic: SN6PR12MB2720:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <SN6PR12MB27209145171EEC58B094B0E992810@SN6PR12MB2720.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7691;
-X-Forefront-PRVS: 0432A04947
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: WMLb7B/ifZgLUce6mH8Wv27oQtkaAPqD1oe/c/zjLD4RQBIFniNFr2+4pVuFsONzrrPIB901CvMsbJBHyjPyN4Hv4Hs22+E0PFGqG0XTcJUZV4OlLqA+yu1HruPRuW76I8daEPxgpjRk4hu9IP8ghe5aDNy/DPOiX/wru3swEklAiYBTV9e1q0DD/iJgZPB/zvWsfVbQKD636PW+CaVRjvtCPVNeOpK8rkjCWeRTrMKgEVMbEjjKhvC+4wJraNaqcv/Q+Wfl2RhDdMpXh2rdaSFMMLpJnz7cpp23ZEPE0gIcAzUr9xLzVtd42SJeBGDxABXQWL0bXmPeIWKYxshs1FHpEdI/crqlewC8+1FbOuvBfFYIwhHDi6G2+jjVpf1z
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN1PR12MB2414.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(39860400002)(136003)(366004)(346002)(376002)(396003)(8936002)(6486002)(6506007)(5660300002)(83380400001)(16526019)(478600001)(6916009)(69590400007)(1076003)(956004)(2906002)(2616005)(186003)(6666004)(36756003)(316002)(4326008)(15650500001)(66946007)(6512007)(66476007)(86362001)(26005)(8676002)(66556008)(52116002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 1zdGf8OJfVY9mviwTGQbZ8jAO3uw3YMolbRe2iM9hgmEVbCTveRiJiK8rjjtmIo9GNQ2mSsudLhWqpulJC5vVcWNMrwY80tsXiQMvDT5r3DnrJcxnnLQQM79uyzfvIogq+fXH5mqJKNumJNSja6ZYUtykjPrEl0tlEY8evMLSO63dPllULptbo8mzps23skBF34A5+glO5WxWWX5uBLSArKzzhp+bKIkrfMPNjIpnlNue8mTRkEnpQEWKj+2vOh2Xr1QymCzJEtMkF73fxFQgJ61vLhw/ynvjUePj9bWZ/7sqiqL7SCQgQs/3WXf3Mxq13u7JKkQOPDtENlOAX2+X2HLjtuaiwaEmuEosdzxG3G5yOAwEnlzSjYwsLb5oOVb1gg/yA/HfZ86vRo0J3ENMgKPJaIgqDsnWwtrT358aydmeeL4GewxLO3Si5CvJP3yJyRBDhPHfvKq3HO/oxc3rPS11G/NAwM6DQJX4cush9ZtoqBs2il1NVIUWzVLZpMl
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95daf9a2-6a74-403a-b262-08d80e8194f5
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2020 03:34:58.8103 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Py0k2eOxofYfXv8x9xzwwj7xWdonEGn7Me0CPlefP2RhpZglNVjJUskvFj7ODs/TbdSvPT/yqJVPTSoZJf2fgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR12MB2720
+References: <20200604081224.863494-1-daniel.vetter@ffwll.ch>
+ <20200604081224.863494-5-daniel.vetter@ffwll.ch>
+ <b11c2140-1b9c-9013-d9bb-9eb2c1906710@shipmail.org>
+ <20200611083430.GD20149@phenom.ffwll.local> <20200611141515.GW6578@ziepe.ca>
+ <4702e170-fd02-88fa-3da4-ea64252fff9a@amd.com>
+In-Reply-To: <4702e170-fd02-88fa-3da4-ea64252fff9a@amd.com>
+From: Daniel Vetter <daniel@ffwll.ch>
+Date: Fri, 12 Jun 2020 07:11:07 +0200
+Message-ID: <CAKMK7uFE0uc5GNU49dYYQLNWbMFmQPcz_dAHHQT-dNe+Zzva-A@mail.gmail.com>
+Subject: Re: [Linaro-mm-sig] [PATCH 04/18] dma-fence: prime lockdep annotations
+To: Felix Kuehling <felix.kuehling@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,119 +73,97 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: gang.ba@amd.com
+Cc: linux-rdma <linux-rdma@vger.kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m_=28Intel=29?= <thomas_os@shipmail.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ LKML <linux-kernel@vger.kernel.org>,
+ DRI Development <dri-devel@lists.freedesktop.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ "moderated list:DMA BUFFER SHARING FRAMEWORK" <linaro-mm-sig@lists.linaro.org>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Thomas Hellstrom <thomas.hellstrom@intel.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>,
+ Daniel Vetter <daniel.vetter@intel.com>,
+ Mika Kuoppala <mika.kuoppala@intel.com>,
+ Intel Graphics Development <intel-gfx@lists.freedesktop.org>,
+ "open list:DMA BUFFER SHARING FRAMEWORK" <linux-media@vger.kernel.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Use WARN to print messages with backtrace when evictions are triggered.
-This can help determine the root cause of evictions and help spot driver
-bugs triggering evictions unintentionally, or help with performance tuning
-by avoiding conditions that cause evictions in a specific workload.
+On Fri, Jun 12, 2020 at 1:35 AM Felix Kuehling <felix.kuehling@amd.com> wrote:
+>
+> Am 2020-06-11 um 10:15 a.m. schrieb Jason Gunthorpe:
+> > On Thu, Jun 11, 2020 at 10:34:30AM +0200, Daniel Vetter wrote:
+> >>> I still have my doubts about allowing fence waiting from within shrinkers.
+> >>> IMO ideally they should use a trywait approach, in order to allow memory
+> >>> allocation during command submission for drivers that
+> >>> publish fences before command submission. (Since early reservation object
+> >>> release requires that).
+> >> Yeah it is a bit annoying, e.g. for drm/scheduler I think we'll end up
+> >> with a mempool to make sure it can handle it's allocations.
+> >>
+> >>> But since drivers are already waiting from within shrinkers and I take your
+> >>> word for HMM requiring this,
+> >> Yeah the big trouble is HMM and mmu notifiers. That's the really awkward
+> >> one, the shrinker one is a lot less established.
+> > I really question if HW that needs something like DMA fence should
+> > even be using mmu notifiers - the best use is HW that can fence the
+> > DMA directly without having to get involved with some command stream
+> > processing.
+> >
+> > Or at the very least it should not be a generic DMA fence but a
+> > narrowed completion tied only into the same GPU driver's command
+> > completion processing which should be able to progress without
+> > blocking.
+> >
+> > The intent of notifiers was never to endlessly block while vast
+> > amounts of SW does work.
+> >
+> > Going around and switching everything in a GPU to GFP_ATOMIC seems
+> > like bad idea.
+> >
+> >> I've pinged a bunch of armsoc gpu driver people and ask them how much this
+> >> hurts, so that we have a clear answer. On x86 I don't think we have much
+> >> of a choice on this, with userptr in amd and i915 and hmm work in nouveau
+> >> (but nouveau I think doesn't use dma_fence in there).
+>
+> Soon nouveau will get company. We're working on a recoverable page fault
+> implementation for HMM in amdgpu where we'll need to update page tables
+> using the GPUs SDMA engine and wait for corresponding fences in MMU
+> notifiers.
 
-The messages are controlled by a new module parameter that can be changed
-at runtime:
+Well amdgpu already has dma_fence waits in the hmm callbacks, so
+nothing new. But since you start using these in amdkfd ... perfect
+opportunity to annotate the amdkfd paths for fence signalling critical
+sections? Especially the preempt-ctx fence should be an interesting
+case to annotate and see whether lockdep finds anything. Not sure what
+else there is.
+-Daniel
 
-  echo Y > /sys/module/amdgpu/parameters/debug_evictions
-  echo N > /sys/module/amdgpu/parameters/debug_evictions
+>
+> Regards,
+>   Felix
+>
+>
+> > Right, nor will RDMA ODP.
+> >
+> > Jason
+> > _______________________________________________
+> > amd-gfx mailing list
+> > amd-gfx@lists.freedesktop.org
+> > https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 
-Signed-off-by: Felix Kuehling <Felix.Kuehling@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h      | 2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  | 8 ++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c | 2 ++
- drivers/gpu/drm/amd/amdkfd/kfd_device.c  | 3 +++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h    | 5 +++++
- 5 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 10ae92e835f6..6c7dd0a707c9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -186,8 +186,10 @@ extern int amdgpu_noretry;
- extern int amdgpu_force_asic_type;
- #ifdef CONFIG_HSA_AMD
- extern int sched_policy;
-+extern bool debug_evictions;
- #else
- static const int sched_policy = KFD_SCHED_POLICY_HWS;
-+static const bool debug_evictions; /* = false */
- #endif
- 
- extern int amdgpu_tmz;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index d4d7cca1cc72..fdf350d5e7b7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -705,6 +705,14 @@ MODULE_PARM_DESC(hws_gws_support, "Assume MEC2 FW supports GWS barriers (false =
- int queue_preemption_timeout_ms = 9000;
- module_param(queue_preemption_timeout_ms, int, 0644);
- MODULE_PARM_DESC(queue_preemption_timeout_ms, "queue preemption timeout in ms (1 = Minimum, 9000 = default)");
-+
-+/**
-+ * DOC: debug_evictions(bool)
-+ * Enable extra debug messages to help determine the cause of evictions
-+ */
-+bool debug_evictions;
-+module_param(debug_evictions, bool, 0644);
-+MODULE_PARM_DESC(debug_evictions, "enable eviction debug messages (false = default)");
- #endif
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-index b87ca171986a..072f0e1185a8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sync.c
-@@ -275,6 +275,8 @@ int amdgpu_sync_resv(struct amdgpu_device *adev, struct amdgpu_sync *sync,
- 			continue;
- 		}
- 
-+		WARN(debug_evictions && fence_owner == AMDGPU_FENCE_OWNER_KFD,
-+		     "Adding eviction fence to sync obj");
- 		r = amdgpu_sync_fence(sync, f, false);
- 		if (r)
- 			break;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 22348cebaf36..80393e0583bb 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -942,6 +942,7 @@ int kgd2kfd_quiesce_mm(struct mm_struct *mm)
- 	if (!p)
- 		return -ESRCH;
- 
-+	WARN(debug_evictions, "Evicting pid %d", p->lead_thread->pid);
- 	r = kfd_process_evict_queues(p);
- 
- 	kfd_unref_process(p);
-@@ -1009,6 +1010,8 @@ int kgd2kfd_schedule_evict_and_restore_process(struct mm_struct *mm,
- 	/* During process initialization eviction_work.dwork is initialized
- 	 * to kfd_evict_bo_worker
- 	 */
-+	WARN(debug_evictions, "Scheduling eviction of pid %d in %ld jiffies",
-+	     p->lead_thread->pid, delay_jiffies);
- 	schedule_delayed_work(&p->eviction_work, delay_jiffies);
- out:
- 	kfd_unref_process(p);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-index 173d58b2d81f..51ba2020732e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -177,6 +177,11 @@ extern bool hws_gws_support;
-  */
- extern int queue_preemption_timeout_ms;
- 
-+/*
-+ * Enable eviction debug messages
-+ */
-+extern bool debug_evictions;
-+
- enum cache_policy {
- 	cache_policy_coherent,
- 	cache_policy_noncoherent
+
 -- 
-2.17.1
-
+Daniel Vetter
+Software Engineer, Intel Corporation
+http://blog.ffwll.ch
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
