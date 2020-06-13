@@ -2,40 +2,40 @@ Return-Path: <SRS0=UFcq=72=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-6.9 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=3.4.0
+	UNWANTED_LANGUAGE_BODY,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D375AC433E5
-	for <amd-gfx@archiver.kernel.org>; Sat, 13 Jun 2020 10:19:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92CB4C433E7
+	for <amd-gfx@archiver.kernel.org>; Sat, 13 Jun 2020 10:19:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B3F1320739
-	for <amd-gfx@archiver.kernel.org>; Sat, 13 Jun 2020 10:19:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3F1320739
+	by mail.kernel.org (Postfix) with ESMTPS id 7457D20739
+	for <amd-gfx@archiver.kernel.org>; Sat, 13 Jun 2020 10:19:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7457D20739
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 312A56E42A;
-	Sat, 13 Jun 2020 10:19:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A3586E430;
+	Sat, 13 Jun 2020 10:19:14 +0000 (UTC)
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07AA26E392
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 Jun 2020 00:41:49 +0000 (UTC)
-IronPort-SDR: sdvcBDLV/PP0z5oB9CPPt5NuQQKEzZu62avIldVjrAWpl+wXHLYcYEyKzYhRcF1+bGtJNshOBJ
- 70SHUjC0jZCw==
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47E286E392
+ for <amd-gfx@lists.freedesktop.org>; Sat, 13 Jun 2020 00:41:53 +0000 (UTC)
+IronPort-SDR: NoHHGhTSrdNFCs3Mr7X1Tb1Hk0QanDq9HOyu8eFu0ASCEGZUyjsbsyrBP10xCPltIKMntM/s0j
+ nHVCvhGqCzUg==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jun 2020 17:41:49 -0700
-IronPort-SDR: Sct9MjJC62mRYFUbJa/qZ+08V7OOdKBTlLA32kVvSAo6p/AOf5KCWiPiWgBSzWV4xUaMrkGcyA
- XUDfwA+UFgaw==
+ 12 Jun 2020 17:41:53 -0700
+IronPort-SDR: KuN5V3YFsnjdTehZFOVByIv/QV1gDwWNBWqBvcj9vWPSDG+gYq+BDBKdZttdP86sq3Ahzgy1hZ
+ cmCWPKOqxNeA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,505,1583222400"; d="scan'208";a="261011191"
+X-IronPort-AV: E=Sophos;i="5.73,505,1583222400"; d="scan'208";a="261011229"
 Received: from romley-ivt3.sc.intel.com ([172.25.110.60])
- by orsmga007.jf.intel.com with ESMTP; 12 Jun 2020 17:41:49 -0700
+ by orsmga007.jf.intel.com with ESMTP; 12 Jun 2020 17:41:52 -0700
 From: Fenghua Yu <fenghua.yu@intel.com>
 To: "Thomas Gleixner" <tglx@linutronix.de>, "Ingo Molnar" <mingo@redhat.com>,
  "Borislav Petkov" <bp@alien8.de>, "H Peter Anvin" <hpa@zytor.com>,
@@ -50,9 +50,9 @@ To: "Thomas Gleixner" <tglx@linutronix.de>, "Ingo Molnar" <mingo@redhat.com>,
  "Dave Jiang" <dave.jiang@intel.com>, "Yu-cheng Yu" <yu-cheng.yu@intel.com>,
  "Sohil Mehta" <sohil.mehta@intel.com>,
  "Ravi V Shankar" <ravi.v.shankar@intel.com>
-Subject: [PATCH v2 02/12] ocxl: Change type of pasid to unsigned int
-Date: Fri, 12 Jun 2020 17:41:23 -0700
-Message-Id: <1592008893-9388-3-git-send-email-fenghua.yu@intel.com>
+Subject: [PATCH v2 09/12] fork: Clear PASID for new mm
+Date: Fri, 12 Jun 2020 17:41:30 -0700
+Message-Id: <1592008893-9388-10-git-send-email-fenghua.yu@intel.com>
 X-Mailer: git-send-email 2.5.0
 In-Reply-To: <1592008893-9388-1-git-send-email-fenghua.yu@intel.com>
 References: <1592008893-9388-1-git-send-email-fenghua.yu@intel.com>
@@ -78,220 +78,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-PASID is defined as "int" although it's a 20-bit value and shouldn't be
-negative int. To be consistent with type defined in iommu, define PASID
-as "unsigned int".
+When a new mm is created, its PASID should be cleared, i.e. the PASID is
+initialized to its init state 0 on both ARM and X86.
 
-Suggested-by: Thomas Gleixner <tglx@linutronix.de>
 Signed-off-by: Fenghua Yu <fenghua.yu@intel.com>
 Reviewed-by: Tony Luck <tony.luck@intel.com>
 ---
 v2:
-- Create this new patch to define PASID as "unsigned int" consistently in
-  ocxl (Thomas)
+- Add this patch to initialize PASID value for a new mm.
 
- drivers/misc/ocxl/config.c        |  3 ++-
- drivers/misc/ocxl/link.c          |  6 +++---
- drivers/misc/ocxl/ocxl_internal.h |  6 +++---
- drivers/misc/ocxl/pasid.c         |  2 +-
- drivers/misc/ocxl/trace.h         | 20 ++++++++++----------
- include/misc/ocxl.h               |  6 +++---
- 6 files changed, 22 insertions(+), 21 deletions(-)
+ include/linux/mm_types.h | 2 ++
+ kernel/fork.c            | 8 ++++++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/drivers/misc/ocxl/config.c b/drivers/misc/ocxl/config.c
-index c8e19bfb5ef9..22d034caed3d 100644
---- a/drivers/misc/ocxl/config.c
-+++ b/drivers/misc/ocxl/config.c
-@@ -806,7 +806,8 @@ int ocxl_config_set_TL(struct pci_dev *dev, int tl_dvsec)
- }
- EXPORT_SYMBOL_GPL(ocxl_config_set_TL);
+diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+index 5778db3aa42d..904bc07411a9 100644
+--- a/include/linux/mm_types.h
++++ b/include/linux/mm_types.h
+@@ -22,6 +22,8 @@
+ #endif
+ #define AT_VECTOR_SIZE (2*(AT_VECTOR_SIZE_ARCH + AT_VECTOR_SIZE_BASE + 1))
  
--int ocxl_config_terminate_pasid(struct pci_dev *dev, int afu_control, int pasid)
-+int ocxl_config_terminate_pasid(struct pci_dev *dev, int afu_control,
-+				unsigned int pasid)
- {
- 	u32 val;
- 	unsigned long timeout;
-diff --git a/drivers/misc/ocxl/link.c b/drivers/misc/ocxl/link.c
-index 58d111afd9f6..931f6ae022db 100644
---- a/drivers/misc/ocxl/link.c
-+++ b/drivers/misc/ocxl/link.c
-@@ -492,7 +492,7 @@ static u64 calculate_cfg_state(bool kernel)
- 	return state;
- }
++/* Initial PASID value is 0. */
++#define INIT_PASID	0
  
--int ocxl_link_add_pe(void *link_handle, int pasid, u32 pidr, u32 tidr,
-+int ocxl_link_add_pe(void *link_handle, unsigned int pasid, u32 pidr, u32 tidr,
- 		u64 amr, struct mm_struct *mm,
- 		void (*xsl_err_cb)(void *data, u64 addr, u64 dsisr),
- 		void *xsl_err_data)
-@@ -572,7 +572,7 @@ int ocxl_link_add_pe(void *link_handle, int pasid, u32 pidr, u32 tidr,
- }
- EXPORT_SYMBOL_GPL(ocxl_link_add_pe);
- 
--int ocxl_link_update_pe(void *link_handle, int pasid, __u16 tid)
-+int ocxl_link_update_pe(void *link_handle, unsigned int pasid, __u16 tid)
- {
- 	struct ocxl_link *link = (struct ocxl_link *) link_handle;
- 	struct spa *spa = link->spa;
-@@ -608,7 +608,7 @@ int ocxl_link_update_pe(void *link_handle, int pasid, __u16 tid)
- 	return rc;
+ struct address_space;
+ struct mem_cgroup;
+diff --git a/kernel/fork.c b/kernel/fork.c
+index 142b23645d82..085e72d3e9eb 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1007,6 +1007,13 @@ static void mm_init_owner(struct mm_struct *mm, struct task_struct *p)
+ #endif
  }
  
--int ocxl_link_remove_pe(void *link_handle, int pasid)
-+int ocxl_link_remove_pe(void *link_handle, unsigned int pasid)
++static void mm_init_pasid(struct mm_struct *mm)
++{
++#ifdef CONFIG_PCI_PASID
++	mm->pasid = INIT_PASID;
++#endif
++}
++
+ static void mm_init_uprobes_state(struct mm_struct *mm)
  {
- 	struct ocxl_link *link = (struct ocxl_link *) link_handle;
- 	struct spa *spa = link->spa;
-diff --git a/drivers/misc/ocxl/ocxl_internal.h b/drivers/misc/ocxl/ocxl_internal.h
-index 345bf843a38e..3ca982ba7472 100644
---- a/drivers/misc/ocxl/ocxl_internal.h
-+++ b/drivers/misc/ocxl/ocxl_internal.h
-@@ -41,7 +41,7 @@ struct ocxl_afu {
- 	struct ocxl_afu_config config;
- 	int pasid_base;
- 	int pasid_count; /* opened contexts */
--	int pasid_max; /* maximum number of contexts */
-+	unsigned int pasid_max; /* maximum number of contexts */
- 	int actag_base;
- 	int actag_enabled;
- 	struct mutex contexts_lock;
-@@ -69,7 +69,7 @@ struct ocxl_xsl_error {
- 
- struct ocxl_context {
- 	struct ocxl_afu *afu;
--	int pasid;
-+	unsigned int pasid;
- 	struct mutex status_mutex;
- 	enum ocxl_context_status status;
- 	struct address_space *mapping;
-@@ -128,7 +128,7 @@ int ocxl_config_check_afu_index(struct pci_dev *dev,
-  * pasid: the PASID for the AFU context
-  * tid: the new thread id for the process element
-  */
--int ocxl_link_update_pe(void *link_handle, int pasid, __u16 tid);
-+int ocxl_link_update_pe(void *link_handle, unsigned int pasid, __u16 tid);
- 
- int ocxl_context_mmap(struct ocxl_context *ctx,
- 			struct vm_area_struct *vma);
-diff --git a/drivers/misc/ocxl/pasid.c b/drivers/misc/ocxl/pasid.c
-index d14cb56e6920..a151fc8f0bec 100644
---- a/drivers/misc/ocxl/pasid.c
-+++ b/drivers/misc/ocxl/pasid.c
-@@ -80,7 +80,7 @@ static void range_free(struct list_head *head, u32 start, u32 size,
- 
- int ocxl_pasid_afu_alloc(struct ocxl_fn *fn, u32 size)
- {
--	int max_pasid;
-+	unsigned int max_pasid;
- 
- 	if (fn->config.max_pasid_log < 0)
- 		return -ENOSPC;
-diff --git a/drivers/misc/ocxl/trace.h b/drivers/misc/ocxl/trace.h
-index 17e21cb2addd..019e2fc63b1d 100644
---- a/drivers/misc/ocxl/trace.h
-+++ b/drivers/misc/ocxl/trace.h
-@@ -9,13 +9,13 @@
- #include <linux/tracepoint.h>
- 
- DECLARE_EVENT_CLASS(ocxl_context,
--	TP_PROTO(pid_t pid, void *spa, int pasid, u32 pidr, u32 tidr),
-+	TP_PROTO(pid_t pid, void *spa, unsigned int pasid, u32 pidr, u32 tidr),
- 	TP_ARGS(pid, spa, pasid, pidr, tidr),
- 
- 	TP_STRUCT__entry(
- 		__field(pid_t, pid)
- 		__field(void*, spa)
--		__field(int, pasid)
-+		__field(unsigned int, pasid)
- 		__field(u32, pidr)
- 		__field(u32, tidr)
- 	),
-@@ -38,21 +38,21 @@ DECLARE_EVENT_CLASS(ocxl_context,
- );
- 
- DEFINE_EVENT(ocxl_context, ocxl_context_add,
--	TP_PROTO(pid_t pid, void *spa, int pasid, u32 pidr, u32 tidr),
-+	TP_PROTO(pid_t pid, void *spa, unsigned int pasid, u32 pidr, u32 tidr),
- 	TP_ARGS(pid, spa, pasid, pidr, tidr)
- );
- 
- DEFINE_EVENT(ocxl_context, ocxl_context_remove,
--	TP_PROTO(pid_t pid, void *spa, int pasid, u32 pidr, u32 tidr),
-+	TP_PROTO(pid_t pid, void *spa, unsigned int pasid, u32 pidr, u32 tidr),
- 	TP_ARGS(pid, spa, pasid, pidr, tidr)
- );
- 
- TRACE_EVENT(ocxl_terminate_pasid,
--	TP_PROTO(int pasid, int rc),
-+	TP_PROTO(unsigned int pasid, int rc),
- 	TP_ARGS(pasid, rc),
- 
- 	TP_STRUCT__entry(
--		__field(int, pasid)
-+		__field(unsigned int, pasid)
- 		__field(int, rc)
- 	),
- 
-@@ -107,11 +107,11 @@ DEFINE_EVENT(ocxl_fault_handler, ocxl_fault_ack,
- );
- 
- TRACE_EVENT(ocxl_afu_irq_alloc,
--	TP_PROTO(int pasid, int irq_id, unsigned int virq, int hw_irq),
-+	TP_PROTO(unsigned int pasid, int irq_id, unsigned int virq, int hw_irq),
- 	TP_ARGS(pasid, irq_id, virq, hw_irq),
- 
- 	TP_STRUCT__entry(
--		__field(int, pasid)
-+		__field(unsigned int, pasid)
- 		__field(int, irq_id)
- 		__field(unsigned int, virq)
- 		__field(int, hw_irq)
-@@ -133,11 +133,11 @@ TRACE_EVENT(ocxl_afu_irq_alloc,
- );
- 
- TRACE_EVENT(ocxl_afu_irq_free,
--	TP_PROTO(int pasid, int irq_id),
-+	TP_PROTO(unsigned int pasid, int irq_id),
- 	TP_ARGS(pasid, irq_id),
- 
- 	TP_STRUCT__entry(
--		__field(int, pasid)
-+		__field(unsigned int, pasid)
- 		__field(int, irq_id)
- 	),
- 
-diff --git a/include/misc/ocxl.h b/include/misc/ocxl.h
-index 06dd5839e438..5eca04c8da97 100644
---- a/include/misc/ocxl.h
-+++ b/include/misc/ocxl.h
-@@ -429,7 +429,7 @@ int ocxl_config_set_TL(struct pci_dev *dev, int tl_dvsec);
-  * desired AFU. It can be found in the AFU configuration
-  */
- int ocxl_config_terminate_pasid(struct pci_dev *dev,
--				int afu_control_offset, int pasid);
-+				int afu_control_offset, unsigned int pasid);
- 
- /*
-  * Read the configuration space of a function and fill in a
-@@ -466,7 +466,7 @@ void ocxl_link_release(struct pci_dev *dev, void *link_handle);
-  * 'xsl_err_data' is an argument passed to the above callback, if
-  * defined
-  */
--int ocxl_link_add_pe(void *link_handle, int pasid, u32 pidr, u32 tidr,
-+int ocxl_link_add_pe(void *link_handle, unsigned int pasid, u32 pidr, u32 tidr,
- 		u64 amr, struct mm_struct *mm,
- 		void (*xsl_err_cb)(void *data, u64 addr, u64 dsisr),
- 		void *xsl_err_data);
-@@ -474,7 +474,7 @@ int ocxl_link_add_pe(void *link_handle, int pasid, u32 pidr, u32 tidr,
- /*
-  * Remove a Process Element from the Shared Process Area for a link
-  */
--int ocxl_link_remove_pe(void *link_handle, int pasid);
-+int ocxl_link_remove_pe(void *link_handle, unsigned int pasid);
- 
- /*
-  * Allocate an AFU interrupt associated to the link.
+ #ifdef CONFIG_UPROBES
+@@ -1035,6 +1042,7 @@ static struct mm_struct *mm_init(struct mm_struct *mm, struct task_struct *p,
+ 	mm_init_cpumask(mm);
+ 	mm_init_aio(mm);
+ 	mm_init_owner(mm, p);
++	mm_init_pasid(mm);
+ 	RCU_INIT_POINTER(mm->exe_file, NULL);
+ 	mmu_notifier_subscriptions_init(mm);
+ 	init_tlb_flush_pending(mm);
 -- 
 2.19.1
 
