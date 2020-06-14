@@ -2,100 +2,77 @@ Return-Path: <SRS0=Wmcu=74=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 95B14C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 03:37:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1F5C7C433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5C8C220739
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 03:37:18 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id EAA092068E
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:06 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="CvHeSlY4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C8C220739
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Si+mBzty"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EAA092068E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C7B3989C9A;
-	Mon, 15 Jun 2020 03:37:17 +0000 (UTC)
-Received: from NAM10-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam10on2089.outbound.protection.outlook.com [40.107.94.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5C0189C9A
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2020 03:37:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=LMETjlR6hdP0geNZxpXLrMGKYf0Xnqr95OvexOK0hhO3wW0JMf5takT2oZeTBDJSoXTIO8c7hxsz64ZJkyI9wMiyL8A8LDwaGELSg8SYCS7ghgeIUaYn+zmObF415lAF21DB/Ju09LVivPy0OY4rgmsoRt7t3KRvRPqFC50cRlsCwxBa1PbSgScdcDArmLyOUCoa/ZUSJXobneMLrNdIlfKWeUyhlM1gZ+fP0K4wmTljijgLUMhl1O1AF4rYinGLdbOLLs9c6i2+tlL+RoE6o7ODxAkSUG+/7HO3wCBsfuH4OwQUXekd4TRrBDcAqhqMFW1GbAtGFoKWB8UP9W7ouA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cA6xBpsvtQHLGUeKVDlZ/7tiaRDKDnsGkmHUyZUM8pQ=;
- b=XWVlORF4GMDprkG8hpZGasGs06lGNVm7i2AhtmhMsEL4AScpVbHBHUepzMFRB3zPlvw7CNcl9fH/YpoSFY8rJAMXCbLwK1NlzhQheLuTV0JmjyHMih9FLJyBaZdt3fSHcXYjsYD1GuzaM+PU8eDODSIWfccW3hYFgMwTA7qkrk6+GRAKi+4X0ALMElk13eqyUbDbOnEgkJgNwJjApkc/6Fkco/SAE/lSvDifEA/MzwMbxY1eIA86VaC/kIYcs9nTD3KrqS43exzqSvmkMHLMyUIUxj0EhnK61pvSvwQXgyae26zBerHv/tGmNQ31hOnPBmGhvGLfLZb97rrLjUxrVQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cA6xBpsvtQHLGUeKVDlZ/7tiaRDKDnsGkmHUyZUM8pQ=;
- b=CvHeSlY46jgSScFi/a2drCWoDX/P9b6sfDeqhnpUdjBKhxBXwyK+N2Q9NadXPmqLiPv8ESP6k/3dD160R7Br1jTMbUxr2DlRjVbPTke+WN6CKKi7PGtqsC1DxrDgbAJCXBVnWNza7rD3PX5CYfBMaEZPYpZGQfYKBF4cFGMsjQY=
-Authentication-Results: lists.freedesktop.org; dkim=none (message not signed)
- header.d=none; lists.freedesktop.org;
- dmarc=none action=none header.from=amd.com;
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com (2603:10b6:903:40::8)
- by CY4PR12MB1510.namprd12.prod.outlook.com (2603:10b6:910:9::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3088.22; Mon, 15 Jun
- 2020 03:37:14 +0000
-Received: from CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::e0b1:48e7:bcbc:351c]) by CY4PR12MB1287.namprd12.prod.outlook.com
- ([fe80::e0b1:48e7:bcbc:351c%11]) with mapi id 15.20.3088.028; Mon, 15 Jun
- 2020 03:37:14 +0000
-From: Guchun Chen <guchun.chen@amd.com>
-To: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, Tao.Zhou1@amd.com,
- Xinhui.Pan@amd.com, Dennis.Li@amd.com, John.Clements@amd.com
-Subject: [PATCH] drm/amdgpu: improve ras query as part of ctx query
-Date: Mon, 15 Jun 2020 11:36:53 +0800
-Message-Id: <20200615033653.22793-1-guchun.chen@amd.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2F4D56E0FD;
+	Mon, 15 Jun 2020 07:27:55 +0000 (UTC)
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D54F589CCB;
+ Sun, 14 Jun 2020 07:09:54 +0000 (UTC)
+Received: by mail-io1-xd44.google.com with SMTP id m81so14556328ioa.1;
+ Sun, 14 Jun 2020 00:09:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=VPVqWxYm5OyjOv331996CGH9YiPFKfJycn9OwXQfzdE=;
+ b=Si+mBztyXLpNw+lq5vPMpNGKP0EI+ykD3vuqlK8ZNIb6UkkFhoAM75WVjN+g8jSLhX
+ hIJJyaxEmiWwfH5wcCzyDLENdFDvHBlpi1xEwIQ+owxGEDnzX+6UCXw2KWm0RXCVZ8xl
+ LHMyFNVk/L/xf9JlK3iCt3bsP6NN2NR0TYct1K5D9kz23w5XWNCx7UNHpAnA8vWbr1bO
+ h/L769+gQ5P8lKjDPBVsZPQ9y04jqz/kxNXDWf4GQb/M9XwDh944S2JfO/qTQRhvkxcQ
+ fx+jW6EaXGWkKxT8IanPZXM4TtDgFUJrWisoD06Gd19DB3bNP+utRmrfnc9BT4uoeyY9
+ oTOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=VPVqWxYm5OyjOv331996CGH9YiPFKfJycn9OwXQfzdE=;
+ b=XD72jbHdcTYtTfkfccg/2QrdiBcUBgcqUmTdiEPCSi78gnRjgqu2S/Ltf75L3fLQ/m
+ xyN7pcNteZg5wiaarlYCYJep/4dJUy/pQJ9PnWyff8LCTQ9gAJahg9BvVXaS5eNxS7c8
+ KU0Ca4OkKsYT/r4ngCFVGuiDvP8Em6Cgd1B1QvxwuSMDvEk5BEBzhOXTNK9lOc59mq72
+ 3K0PkAdQ8Q1Rvi97rUoqCUpuI8JmWB7WywT8nbRliBfhb6K2soz9FefZbbUArK2P/omv
+ tVvI1IX0GCS+WSQv07brchg4UMx31DjoUfMs7wndemg2BZnHfU0Lap4qoH2jsHXvkUHZ
+ dmhw==
+X-Gm-Message-State: AOAM531ncfZPghexKSVcs198B4Z0h9f7w617QPZZc3Vy9lOMkT60oD2u
+ RhgDE40NyFVzFTx2WJNKpao=
+X-Google-Smtp-Source: ABdhPJzvR4Y9Cg+Ilsim0VN1KWZMeO3R6+hDT2mOL+p/Qnv2PztUdKChVka4CMmVHQj6eU5oQ3nwIA==
+X-Received: by 2002:a05:6602:5ce:: with SMTP id
+ w14mr21839589iox.178.1592118594249; 
+ Sun, 14 Jun 2020 00:09:54 -0700 (PDT)
+Received: from cs-u-kase.dtc.umn.edu (cs-u-kase.cs.umn.edu. [160.94.64.2])
+ by smtp.googlemail.com with ESMTPSA id v11sm5944048ile.61.2020.06.14.00.09.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Jun 2020 00:09:53 -0700 (PDT)
+From: Navid Emamdoost <navid.emamdoost@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
+ Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Lyude Paul <lyude@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Shirish S <shirish.s@amd.com>, yu kuai <yukuai3@huawei.com>,
+ Navid Emamdoost <navid.emamdoost@gmail.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: fix ref count leak in
+ amdgpu_display_crtc_set_config
+Date: Sun, 14 Jun 2020 02:09:44 -0500
+Message-Id: <20200614070946.65770-1-navid.emamdoost@gmail.com>
 X-Mailer: git-send-email 2.17.1
-X-ClientProxiedBy: HK2PR02CA0128.apcprd02.prod.outlook.com
- (2603:1096:202:16::12) To CY4PR12MB1287.namprd12.prod.outlook.com
- (2603:10b6:903:40::8)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from guchchen-System-Product-Name.amd.com (58.247.170.242) by
- HK2PR02CA0128.apcprd02.prod.outlook.com (2603:1096:202:16::12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3088.18 via Frontend Transport; Mon, 15 Jun 2020 03:37:12 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [58.247.170.242]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 422c38d8-4f24-4225-f700-08d810dd652b
-X-MS-TrafficTypeDiagnostic: CY4PR12MB1510:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CY4PR12MB151074E79A3977FA40977D16F19C0@CY4PR12MB1510.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:199;
-X-Forefront-PRVS: 04359FAD81
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Zq5FqFYlTao1lcsinhYTSWZCCEItk/1dLRJ5p2YDfpRf38rd+J82i/fI3/LPgpgcORwN+MaSVWBYhzhwbd2unQGseGzKDUhtfzIvAW5xm3kqBTWdjeLqrrFF8nFxAhReUXQOnKOAFDy+UUTVIgILOiu96LUaaCQkNnX4HVn+8RtMJLr/4giuZsMmtVI338RYfOtC8uZ9EZhEZprwX38vy0dDpnEiVD8j311p1O71CYKXC+gKsWS3iBXFMqIzT2iQ73KOp2EbpQBEhslQYUaBHPQ6vGAcRXaaCdxOnOWJ1kN1jFgTKnhq5S50CjmAWKcgLwJNme13HvaYDtgYQkllcQ==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR12MB1287.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(376002)(136003)(396003)(366004)(39860400002)(316002)(8936002)(8676002)(1076003)(6666004)(5660300002)(44832011)(4326008)(2616005)(956004)(478600001)(26005)(186003)(16526019)(36756003)(83380400001)(7696005)(52116002)(66946007)(66476007)(66556008)(86362001)(6486002)(6636002)(2906002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 6PKj42JscAO63RYeqwMprM9qmejI2cv24aY8buaCpRJmV6uZcS00Lo9FWUYsBBhKykTsff3IPTibczdVOM24/tqUEs1amFjACGWi4h6MfAa+JMcweKR5KeL6jzkKFnh782jm7nokeSskCMlHVTbXOAMmpP7JjsVh+7zmZw3OnTlLWal28T6PnEiU61mh5Yp0TcKCPym7E1yyd9FJ9OQVLrASfyuAt7CiVLZqmh5xiqeIo9Ib9UsXVgs0NWDn3DmbgOdtHy2hMCdcdw09ytUsdaxRKYp3opEfAgRB1hVE0bUjJJAd+4kzLNoHtnankPLiZx3RHva0C/Ua6PsnWTQBqTs/lUY2SzMnHAa1IBBFHtBPMGZzCR5e69XvZRL3xNq//Dw6zeYeMLdl4zE7de1WmDNjN45KKohlYUA5BRHjG/beqJJyY4mSOFTA9chL2vcN2NSfgcN3oM0K6pfqoVPCgKi4UfvFHestEtnBWUe/iKY=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 422c38d8-4f24-4225-f700-08d810dd652b
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2020 03:37:14.5991 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kqO4NXNetN/2LkBQjRAW1zoeI8iGwbRMQfy0gExq0JIHUmgBzpRCJwTfRdZLCxEm2B70xNSeWq7NtKx8Izqn7A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR12MB1510
+X-Mailman-Approved-At: Mon, 15 Jun 2020 07:27:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,123 +84,52 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Guchun Chen <guchun.chen@amd.com>
+Cc: emamd001@umn.edu, kjlu@umn.edu, wu000273@umn.edu, smccaman@umn.edu
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Almost error count registers are automatically cleared
-after reading once, so immediate successive ras query is
-redudant. Merge both CE and UE count read in one calling
-to fix this.
+in amdgpu_display_crtc_set_config, the call to pm_runtime_get_sync
+increments the counter even in case of failure, leading to incorrect
+ref count. In case of failure, decrement the ref count before returning.
 
-v2: correct commit message to avoid confusion.
-
-Signed-off-by: Guchun Chen <guchun.chen@amd.com>
+Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 16 +++++++---------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 14 +++++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h |  4 ++--
- 3 files changed, 18 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index c06cb06398b1..29fa6b6b9d3e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -335,7 +335,7 @@ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
- {
- 	struct amdgpu_ctx *ctx;
- 	struct amdgpu_ctx_mgr *mgr;
--	unsigned long ras_counter;
-+	unsigned long ras_counter_ue, ras_counter_ce;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+index f7143d927b6d..5e51f0acf744 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_display.c
+@@ -282,7 +282,7 @@ int amdgpu_display_crtc_set_config(struct drm_mode_set *set,
  
- 	if (!fpriv)
- 		return -EINVAL;
-@@ -360,19 +360,17 @@ static int amdgpu_ctx_query2(struct amdgpu_device *adev,
- 	if (atomic_read(&ctx->guilty))
- 		out->state.flags |= AMDGPU_CTX_QUERY2_FLAGS_GUILTY;
+ 	ret = pm_runtime_get_sync(dev->dev);
+ 	if (ret < 0)
+-		return ret;
++		goto out;
  
--	/*query ue count*/
--	ras_counter = amdgpu_ras_query_error_count(adev, false);
-+	/*query both ue and ce count*/
-+	amdgpu_ras_query_error_count(adev, &ras_counter_ue, &ras_counter_ce);
- 	/*ras counter is monotonic increasing*/
--	if (ras_counter != ctx->ras_counter_ue) {
-+	if (ras_counter_ue != ctx->ras_counter_ue) {
- 		out->state.flags |= AMDGPU_CTX_QUERY2_FLAGS_RAS_UE;
--		ctx->ras_counter_ue = ras_counter;
-+		ctx->ras_counter_ue = ras_counter_ue;
+ 	ret = drm_crtc_helper_set_config(set, ctx);
+ 
+@@ -297,7 +297,7 @@ int amdgpu_display_crtc_set_config(struct drm_mode_set *set,
+ 	   take the current one */
+ 	if (active && !adev->have_disp_power_ref) {
+ 		adev->have_disp_power_ref = true;
+-		return ret;
++		goto out;
+ 	}
+ 	/* if we have no active crtcs, then drop the power ref
+ 	   we got before */
+@@ -306,6 +306,7 @@ int amdgpu_display_crtc_set_config(struct drm_mode_set *set,
+ 		adev->have_disp_power_ref = false;
  	}
  
--	/*query ce count*/
--	ras_counter = amdgpu_ras_query_error_count(adev, true);
--	if (ras_counter != ctx->ras_counter_ce) {
-+	if (ras_counter_ce != ctx->ras_counter_ce) {
- 		out->state.flags |= AMDGPU_CTX_QUERY2_FLAGS_RAS_CE;
--		ctx->ras_counter_ce = ras_counter;
-+		ctx->ras_counter_ce = ras_counter_ce;
- 	}
- 
- 	mutex_unlock(&mgr->lock);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 337bf2da7bdc..109eff2869b9 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -861,15 +861,18 @@ int amdgpu_ras_error_cure(struct amdgpu_device *adev,
- }
- 
- /* get the total error counts on all IPs */
--unsigned long amdgpu_ras_query_error_count(struct amdgpu_device *adev,
--		bool is_ce)
-+void amdgpu_ras_query_error_count(struct amdgpu_device *adev,
-+		unsigned long *ue_cnt, unsigned long *ce_cnt)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	struct ras_manager *obj;
- 	struct ras_err_data data = {0, 0};
- 
-+	*ue_cnt = 0;
-+	*ce_cnt = 0;
-+
- 	if (!con)
--		return 0;
-+		return;
- 
- 	list_for_each_entry(obj, &con->head, node) {
- 		struct ras_query_if info = {
-@@ -877,13 +880,14 @@ unsigned long amdgpu_ras_query_error_count(struct amdgpu_device *adev,
- 		};
- 
- 		if (amdgpu_ras_error_query(adev, &info))
--			return 0;
-+			continue;
- 
- 		data.ce_count += info.ce_count;
- 		data.ue_count += info.ue_count;
- 	}
- 
--	return is_ce ? data.ce_count : data.ue_count;
-+	*ue_cnt = data.ue_count;
-+	*ce_cnt = data.ce_count;
- }
- /* query/inject/cure end */
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-index e7df5d8429f8..733eab5bc512 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.h
-@@ -487,8 +487,8 @@ int amdgpu_ras_request_reset_on_boot(struct amdgpu_device *adev,
- void amdgpu_ras_resume(struct amdgpu_device *adev);
- void amdgpu_ras_suspend(struct amdgpu_device *adev);
- 
--unsigned long amdgpu_ras_query_error_count(struct amdgpu_device *adev,
--		bool is_ce);
-+void amdgpu_ras_query_error_count(struct amdgpu_device *adev,
-+		unsigned long *ue_cnt, unsigned long *ce_cnt);
- 
- /* error handling functions */
- int amdgpu_ras_add_bad_pages(struct amdgpu_device *adev,
++out:
+ 	/* drop the power reference we got coming in here */
+ 	pm_runtime_put_autosuspend(dev->dev);
+ 	return ret;
 -- 
 2.17.1
 
