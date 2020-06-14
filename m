@@ -2,76 +2,117 @@ Return-Path: <SRS0=Wmcu=74=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-1.8 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A7D31C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2CFFEC433E3
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7EEBE2068E
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:09 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 046BB2068E
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:10 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ng0Hs7X7"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EEBE2068E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=web.de header.i=@web.de header.b="AkVdMyZj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 046BB2068E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=web.de
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A77EB6E197;
-	Mon, 15 Jun 2020 07:27:55 +0000 (UTC)
-Received: from mail-il1-x143.google.com (mail-il1-x143.google.com
- [IPv6:2607:f8b0:4864:20::143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EEF689CCB;
- Sun, 14 Jun 2020 07:12:39 +0000 (UTC)
-Received: by mail-il1-x143.google.com with SMTP id j19so8331274ilk.9;
- Sun, 14 Jun 2020 00:12:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=J0HX3Qy+oA7OgSkbAwCFUgm7xc4/mQq2g3sSxGqtxts=;
- b=ng0Hs7X76WMv2RgLHK06guvTkOhbuJO1TZxkIDGvxw8Y8cfXgIV/12HWs0gFqNgvOe
- UM/bVQxlvagvWjXIbdCgd0k8y/XX6chWyaZW1KeVUtw5AjHuhIWQ4KHUw3jXaX4omsA7
- 9HzANrDVVvngT3aa19831CroM1Oqm5DAjVrmsQUuCefQz5mv7gnPKn7ZKQW+NjsL2lQl
- n69rfkYHJB+wiUECAcoooaS7GBQV/CImXYpLQKQ7uYEOxKRfFCoPCpaZ4pnQkZwBuR04
- xbinJ2+pytEaA+KPFsIRiRHp+tyJYzZTedi4Kngguff8RDa/SnPIRw/e9/jM7E4RE0IY
- uCGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=J0HX3Qy+oA7OgSkbAwCFUgm7xc4/mQq2g3sSxGqtxts=;
- b=QBIM2xdCkTwm1+TR9BW4pcVJ2WdtrmvOGd5ges6AFfpSuh9Y41+29dqBSoe75aidf6
- P01glN8rnkg+GQquo+MbH3E+LaSimPLOHR/VvoA20JPNTqBRwMzlkqcP6u7U1WXhMagg
- q7HRGU/r/uwuWvpRAVVoTj5qtMe3hnDz0rsiCTwr4gsrwUQt0vc8ig57m3vk53AzPCqq
- xkFzyFsPwKMg9nMRSnu2rBO4iVPnCUhWWKIRgMz6qVDokNsoqPfk67V1OlWz9H8Vr7jw
- ux7gvIP9rtBxVBn/Fm5u17EPY2VLgMzqWsCgitqwI559796rMpZG2wXmaderxouJmshT
- e//Q==
-X-Gm-Message-State: AOAM533zUZBhL+o9L5JPeqynPCdT3Dwc7YDD6SoFXSiyCEJYg4mHu8gv
- 529lmnwacgh2W49JqDgWOE0=
-X-Google-Smtp-Source: ABdhPJyimyxSAUwofweWNgN5hEFbQ/O7Qx3jeTQjffr0wRqkezjV+1DdWhLCq+42269oMOzx82Uv1A==
-X-Received: by 2002:a92:4885:: with SMTP id j5mr19444436ilg.35.1592118758649; 
- Sun, 14 Jun 2020 00:12:38 -0700 (PDT)
-Received: from cs-u-kase.dtc.umn.edu (cs-u-kase.cs.umn.edu. [160.94.64.2])
- by smtp.googlemail.com with ESMTPSA id t63sm6158788ill.54.2020.06.14.00.12.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Jun 2020 00:12:38 -0700 (PDT)
-From: Navid Emamdoost <navid.emamdoost@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>,
- Evan Quan <evan.quan@amd.com>, Leo Liu <leo.liu@amd.com>,
- James Zhu <James.Zhu@amd.com>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <marek.olsak@amd.com>,
- Hans de Goede <hdegoede@redhat.com>,
- Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: fix ref count leak in amdgpu_driver_open_kms
-Date: Sun, 14 Jun 2020 02:12:29 -0500
-Message-Id: <20200614071231.87723-1-navid.emamdoost@gmail.com>
-X-Mailer: git-send-email 2.17.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C2256E27F;
+	Mon, 15 Jun 2020 07:27:58 +0000 (UTC)
+Received: from mout.web.de (mout.web.de [217.72.192.78])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF6EB89E3E;
+ Sun, 14 Jun 2020 13:06:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
+ s=dbaedf251592; t=1592139949;
+ bh=twBWjKWwkxqpHDAJyLnk+motZ58+jjTK9fg8hzaK/BM=;
+ h=X-UI-Sender-Class:To:Cc:Subject:From:Date;
+ b=AkVdMyZjAQLAIvy9qJ20t6E1XG/33Uri3FU+pir5Lz7Q2Rjp+66I1rZHnxu/dgQQT
+ CkhVQa17hiKw9CK8kgICRXsayajLB8OhNR1oxSGU4MRYKdoE/QkS3UsAcJ4NF3PWJ/
+ 4lK/JoGE2KxGQIpIcXOQHpnIpNPLda3sZWLquZZw=
+X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
+Received: from [192.168.1.2] ([93.131.103.145]) by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MsJOq-1ivWfX0yOA-00tkAx; Sun, 14
+ Jun 2020 15:05:49 +0200
+To: Navid Emamdoost <navid.emamdoost@gmail.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amdgpu: fix ref count leak in
+ amdgpu_display_crtc_set_config
+From: Markus Elfring <Markus.Elfring@web.de>
+Autocrypt: addr=Markus.Elfring@web.de; prefer-encrypt=mutual; keydata=
+ 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 FEE=
+Message-ID: <241aaf11-d4a0-e5a9-9744-75839006c128@web.de>
+Date: Sun, 14 Jun 2020 15:05:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.9.0
+MIME-Version: 1.0
+Content-Language: en-GB
+X-Provags-ID: V03:K1:jISW+Z2OwzdSP+oBBBHLf/NafH24FJYxgakUacwhi3+VepG1uKU
+ WMiRnTTFV/i3rpYkRVT6CSokq3Y1BnhkT8jsNYH5qKecsjMfIrxUk+L+S1M00hxoS+FjuGO
+ 1gZXQyX68il89HsZuDKwZ3g94irEijpqn7pGPtJeAddqx3cDkAF4CsB+ePRn/gdPABJL3V7
+ SFyuSJlTugi3zz6ejehmg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:v7eTGvr1Xs0=:XPocsuC/DHM9Xn8JheBKVW
+ XW/nyoUHPiXrgYDha2KtAgCeX6UTf7J0nchvy8vYbvZvLXqch721rKQEjkNDNIp7guqv5acEe
+ At08joOFPl4z2pzel8gdtoTp0MAxO0o+bzC7oLwBZfMOt+wqeGrDb1qFv2pLZc30s9dRG6AnT
+ SVPyYhU+Lt+Neqi1c4ask82Z5Cc3Uv8x7dElvgqdUcgjRDcsivpFsUYev4ZAJBLq5NPV1kYrn
+ oTgvU9gbqRIqAaD7+TAQUWJWIIISXhayK/Jv5ZQ0f6maA1x4VNKatyM+tlliwRLy0Orc+I20o
+ mmtG2FAJVPiftrRm+2hocFJ36naHsyJacW2rjUCOKCxoojU74jNcd6j8w13fSr0uzfvW0mx6k
+ 7RFgHfLmwct020oEZ+YyGpv0G7zUlLicXQJ+XhDOuD8ykqEQxtwy0nMBq0rbaHtDdW6LqmEYE
+ LsWmrW2QfdPceZ6VzJMP6Z0bnBaORjrHhpz8Z9XN4xQ+o0olSsydKS8Y+GiR1/6AT9GwYSk0W
+ /ZC5aOa5fES0QmF+k7rQI/Wxpopoc7sDh113mR348P1lqNwzXs/ZA5uXyV5dwrsA94ExY56el
+ kOmmlI71j7PzNYnnr4U56CC7LZIg3MHZxcRP7UF8yfIvj4vxBxYKIKBjfzqP8UlpmZtQztDoP
+ /zIYwbyxActTbC/J6fyXsGhvZskE6kks0iAqxM4qGh9eHs86DHaTDXUA1OsytuDNd5KzZ74xb
+ ifEjcINAsvfcFGTZNW9Dfcbo57xYk1w+EZwHHA6NyRudhHJIEiAB9tjR86b76WNGNMW5P5Ldv
+ aVpxzZ8CUMzmzI3KYJq2EmQq9Kv69p82Ykv1lKhAUJtxYz3KxNq67snJFqnXRFzyzd7PT4BYv
+ /ANCXPiTHqUDeNiExvJH1OLuTREwk+XVcnsXFhC4BpyR62NcMkLT3XlRqJiHFtYExw223kN0S
+ 8Gxy5tgR425YkC/lecpEsXxWjtL8eiQA7EMFOn9IvKW8sDEs0MkuQUxEuGTIiMzJc56grxKKd
+ r/UbBYBQAg7U8f1YROBUvWYVHZHdEUyZ6BClrHfHaFRxqoLurV6T4+5gFAd3X+L8DoWDPT8Du
+ BTP4j5l5Hnw3ZVNkUNxkYxRnEIzlSjEjCZWCb3yRXNHiLbF8jmh6ih67gChwzfjOiGj5Ynd8t
+ t4Ip5ZogHoGR6x8F9JtnmY5m9xnXhlHw4FGw12C89+0FYErRg1O76h5lvWfc3BCqTOgc2PiKp
+ U3iRys3OxLLBpCwd7
 X-Mailman-Approved-At: Mon, 15 Jun 2020 07:27:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,48 +125,32 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Navid Emamdoost <navid.emamdoost@gmail.com>, emamd001@umn.edu, kjlu@umn.edu,
- wu000273@umn.edu, smccaman@umn.edu
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Andrey Grodzovsky <andrey.grodzovsky@amd.com>,
+ Daniel Vetter <daniel@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@linux.ie>, Kangjie Lu <kjlu@umn.edu>,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Shirish S <shirish.s@amd.com>, Navid Emamdoost <emamd001@umn.edu>,
+ Qiushi Wu <wu000273@umn.edu>, Stephen McCamant <smccaman@umn.edu>,
+ Alex Deucher <alexander.deucher@amd.com>, Yu Kuai <yukuai3@huawei.com>,
+ =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-in amdgpu_driver_open_kms the call to pm_runtime_get_sync increments the
-counter even in case of failure, leading to incorrect
-ref count. In case of failure, decrement the ref count before returning.
-
-Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index d7e17e34fee1..bd40aa307462 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -991,7 +991,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 
- 	r = pm_runtime_get_sync(dev->dev);
- 	if (r < 0)
--		return r;
-+		goto pm_put;
- 
- 	fpriv = kzalloc(sizeof(*fpriv), GFP_KERNEL);
- 	if (unlikely(!fpriv)) {
-@@ -1042,6 +1042,7 @@ int amdgpu_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 
- out_suspend:
- 	pm_runtime_mark_last_busy(dev->dev);
-+pm_put:
- 	pm_runtime_put_autosuspend(dev->dev);
- 
- 	return r;
--- 
-2.17.1
-
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+PiBpbiBhbWRncHVfZGlzcGxheV9jcnRjX3NldF9jb25maWcsIOKApgoKKiBDYW4gdGhlIHRlcm0g
+4oCccmVmZXJlbmNlIGNvdW504oCdIGJlY29tZSByZWxldmFudCBhbHNvIGZvciB0aGlzIGNvbW1p
+dCBtZXNzYWdlCiAgYmVzaWRlcyBvdGhlciBwb3NzaWJsZSBhZGp1c3RtZW50cz8KCiogQ2FuIGl0
+IGJlIG5pY2VyIHRvIGNvbWJpbmUgcHJvcG9zZWQgdXBkYXRlcyBmb3IgdGhpcyBzb2Z0d2FyZSBt
+b2R1bGUKICBhcyBhIHBhdGNoIHNlcmllcyAod2l0aCBhIGNvdmVyIGxldHRlcik/CgoqIFdvdWxk
+IHlvdSBsaWtlIHRvIGFkZCB0aGUgdGFnIOKAnEZpeGVz4oCdPwoKCuKApgo+ICsrKyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdwdV9kaXNwbGF5LmMK4oCmCj4gQEAgLTMwNiw2ICsz
+MDYsNyBAQCAgaW50IGFtZGdwdV9kaXNwbGF5X2NydGNfc2V0X2NvbmZpZyhzdHJ1Y3QgZHJtX21v
+ZGVfc2V0ICpzZXQsCj4gIAkJYWRldi0+aGF2ZV9kaXNwX3Bvd2VyX3JlZiA9IGZhbHNlOwo+ICAJ
+fQo+Cj4gK291dDoKPiAgCS8qIGRyb3AgdGhlIHBvd2VyIHJlZmVyZW5jZSB3ZSBnb3QgY29taW5n
+IGluIGhlcmUgKi8KPiAgCXBtX3J1bnRpbWVfcHV0X2F1dG9zdXNwZW5kKGRldi0+ZGV2KTsKPiAg
+CXJldHVybiByZXQ7CgpQZXJoYXBzIHVzZSB0aGUgbGFiZWwg4oCccHV0X3J1bnRpbWXigJ0gaW5z
+dGVhZD8KClJlZ2FyZHMsCk1hcmt1cwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwphbWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNr
+dG9wLm9yZwpodHRwczovL2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Ft
+ZC1nZngK
