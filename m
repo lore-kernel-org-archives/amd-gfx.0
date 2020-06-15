@@ -2,88 +2,62 @@ Return-Path: <SRS0=Wmcu=74=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.2 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A23A5C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 16E48C433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 741322068E
+	by mail.kernel.org (Postfix) with ESMTPS id EC3BA2068E
 	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:10 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=umn.edu header.i=@umn.edu header.b="inDQYcmH"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 741322068E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=umn.edu
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EC3BA2068E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07AC489FD7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC8576E283;
 	Mon, 15 Jun 2020 07:28:03 +0000 (UTC)
-Received: from mta-p8.oit.umn.edu (mta-p8.oit.umn.edu [134.84.196.208])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 900226E029
- for <amd-gfx@lists.freedesktop.org>; Sun, 14 Jun 2020 02:21:25 +0000 (UTC)
-Received: from localhost (unknown [127.0.0.1])
- by mta-p8.oit.umn.edu (Postfix) with ESMTP id 49kyrP22Jwz9vYVN
- for <amd-gfx@lists.freedesktop.org>; Sun, 14 Jun 2020 02:21:25 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at umn.edu
-Received: from mta-p8.oit.umn.edu ([127.0.0.1])
- by localhost (mta-p8.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id LmL74xk3jRx0 for <amd-gfx@lists.freedesktop.org>;
- Sat, 13 Jun 2020 21:21:25 -0500 (CDT)
-Received: from mail-il1-f200.google.com (mail-il1-f200.google.com
- [209.85.166.200])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mta-p8.oit.umn.edu (Postfix) with ESMTPS id 49kyrP0GJvz9vYWB
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 Jun 2020 21:21:25 -0500 (CDT)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mta-p8.oit.umn.edu 49kyrP0GJvz9vYWB
-DKIM-Filter: OpenDKIM Filter v2.11.0 mta-p8.oit.umn.edu 49kyrP0GJvz9vYWB
-Received: by mail-il1-f200.google.com with SMTP id c11so9482795ilq.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 Jun 2020 19:21:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umn.edu; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1skhAYqgTNSWsq4lvqV5pXURB90mGpd6sDboa81hzn4=;
- b=inDQYcmHcL3Cz+asrBz/w7/AH+tbLoHWzIu2j3/vBKxYRotaYrR5dtjBlReiW10muR
- JgRA7bR5vnj1ZLaL/RZraj1F3mx2KnqSqFmaI0AN1pl7t3wXWBnHQtOwIfAiEqxfhDwV
- HKUtr3/gv03Oz+PzAaaeW8sVCHIlPPzRLIpmlfBvilKpr1GJWbfuWfSLNFDpXlZKwGhc
- AjwoKU9MfTAeNWiZ1q47UyU7QzPSNrEgTkJ73Byh6v5PoKL7iiSeU/4R35njyzj/5+uT
- qCxwAwiiUTmGJIYYBX51YNcIcbOIgx4uvW6caEEPkoLiC+gnepFHBVifLyZ9PhjKnCD8
- ZIvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=1skhAYqgTNSWsq4lvqV5pXURB90mGpd6sDboa81hzn4=;
- b=o0tVPJhHz+QHCjNMMY0TiAsqpgxUdPH1RX3/LZIPQzJ5aBG/2KrY1vytrpG2X1/w0h
- tvqVZL8LDws4WldVlw78SOnJ0PxFc/kiVb0zupC76sj4mUNSfRp1xjbbHkdJhcywIxqw
- feXTVuaERrPjb2yjCcCugegqh7IheFrM4csWL/3z2YXLeOXTbY+WG/jrbrm0PoU/bR24
- NgjLTaGAOcxU7Gnc9mzVzUpEh7bQCFO5M6drj0Rlw70AmGmbt7Y4iYA6nnJVzaSJICwS
- bQzBdGwySetL/ScYAeYEwHvNJwZAzKn0qnukV4k7kNNU2Z0DQcvVmGayRmD7tvGuOUkP
- O1iQ==
-X-Gm-Message-State: AOAM533/1sijD/8GxED4uZDN5+S42+TeJpwXaz8LUfXLK+7665wCrmgE
- mWjrJccAIBUVKE8xLr3LGE9e1XnhsIBAdw25MqMz3qy5RiEv75N65fBbo3nDV0sQuh3uRpFBW3o
- FhaBuFdSovziGZayrJzHf6tFTQlwL4w==
-X-Received: by 2002:a92:6a06:: with SMTP id f6mr19738335ilc.89.1592101284491; 
- Sat, 13 Jun 2020 19:21:24 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwE+vPbigALAessccDcAKFOmVWqMDFxxHN2H7lviB9iL6LRnhGo3tuBBjuUyQNOGb53QjP8Ew==
-X-Received: by 2002:a92:6a06:: with SMTP id f6mr19738330ilc.89.1592101284325; 
- Sat, 13 Jun 2020 19:21:24 -0700 (PDT)
-Received: from syssec1.cs.umn.edu ([2607:ea00:101:3c74:49fa:9c47:e40b:9c40])
- by smtp.gmail.com with ESMTPSA id l26sm5762514ild.59.2020.06.13.19.21.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 13 Jun 2020 19:21:23 -0700 (PDT)
-From: Aditya Pakki <pakki001@umn.edu>
-To: pakki001@umn.edu
-Subject: [PATCH] drm/radeon: Fix reference count leaks caused by
- pm_runtime_get_sync
-Date: Sat, 13 Jun 2020 21:21:22 -0500
-Message-Id: <20200614022122.124908-1-pakki001@umn.edu>
-X-Mailer: git-send-email 2.25.1
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DACE989E47
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2020 02:17:48 +0000 (UTC)
+IronPort-SDR: WDc83yEvThZyZ89RQU/Z5Kb+1v3Pbi7Anx9d2dnmKmICEECRTU6wOQkuKFfaJQ1hTRwJIymwyV
+ UZjemxadFF5A==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Jun 2020 19:17:48 -0700
+IronPort-SDR: Uob3CZWz0xNCSTRrbf7iB54YQSoy4usLaGVasoq/ksqhTs/VRiosycehEva16KGBqYrPirqqzE
+ ar0CvARaiFHw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.73,513,1583222400"; d="scan'208";a="298321650"
+Received: from allen-box.sh.intel.com (HELO [10.239.159.139])
+ ([10.239.159.139])
+ by fmsmga004.fm.intel.com with ESMTP; 14 Jun 2020 19:17:43 -0700
+Subject: Re: [PATCH v2 11/12] x86/mmu: Allocate/free PASID
+To: Fenghua Yu <fenghua.yu@intel.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ H Peter Anvin <hpa@zytor.com>, David Woodhouse <dwmw2@infradead.org>,
+ Frederic Barrat <fbarrat@linux.ibm.com>, Andrew Donnellan
+ <ajd@linux.ibm.com>, Felix Kuehling <Felix.Kuehling@amd.com>,
+ Joerg Roedel <joro@8bytes.org>, Dave Hansen <dave.hansen@intel.com>,
+ Tony Luck <tony.luck@intel.com>, Ashok Raj <ashok.raj@intel.com>,
+ Jacob Jun Pan <jacob.jun.pan@intel.com>, Dave Jiang <dave.jiang@intel.com>,
+ Yu-cheng Yu <yu-cheng.yu@intel.com>, Sohil Mehta <sohil.mehta@intel.com>,
+ Ravi V Shankar <ravi.v.shankar@intel.com>
+References: <1592008893-9388-1-git-send-email-fenghua.yu@intel.com>
+ <1592008893-9388-12-git-send-email-fenghua.yu@intel.com>
+From: Lu Baolu <baolu.lu@linux.intel.com>
+Message-ID: <4d759c15-d539-cd1a-569d-eefa5fb6f039@linux.intel.com>
+Date: Mon, 15 Jun 2020 10:13:42 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
+In-Reply-To: <1592008893-9388-12-git-send-email-fenghua.yu@intel.com>
+Content-Language: en-US
 X-Mailman-Approved-At: Mon, 15 Jun 2020 07:27:54 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,78 +70,139 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: wu000273@umn.edu, David Airlie <airlied@linux.ie>, kjlu@umn.edu,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Daniel Vetter <daniel@ffwll.ch>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Content-Type: text/plain; charset="us-ascii"
+Cc: x86 <x86@kernel.org>, linux-kernel <linux-kernel@vger.kernel.org>,
+ amd-gfx <amd-gfx@lists.freedesktop.org>, iommu@lists.linux-foundation.org,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>, baolu.lu@linux.intel.com
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On calling pm_runtime_get_sync() the reference count of the device
-is incremented. In case of failure, decrement the
-reference count before returning the error.
+Hi Fenghua,
 
-Signed-off-by: Aditya Pakki <pakki001@umn.edu>
----
- drivers/gpu/drm/radeon/radeon_display.c | 4 +++-
- drivers/gpu/drm/radeon/radeon_drv.c     | 4 +++-
- drivers/gpu/drm/radeon/radeon_kms.c     | 4 +++-
- 3 files changed, 9 insertions(+), 3 deletions(-)
+On 6/13/20 8:41 AM, Fenghua Yu wrote:
+> A PASID is allocated for an "mm" the first time any thread attaches
+> to an SVM capable device. Later device attachments (whether to the same
+> device or another SVM device) will re-use the same PASID.
+> 
+> The PASID is freed when the process exits (so no need to keep
+> reference counts on how many SVM devices are sharing the PASID).
+> 
+> Signed-off-by: Fenghua Yu <fenghua.yu@intel.com>
+> Reviewed-by: Tony Luck <tony.luck@intel.com>
+> ---
+> v2:
+> - Define a helper free_bind() to simplify error exit code in bind_mm()
+>    (Thomas)
+> - Fix a ret error code in bind_mm() (Thomas)
+> - Change pasid's type from "int" to "unsigned int" to have consistent
+>    pasid type in iommu (Thomas)
+> - Simplify alloc_pasid() a bit.
+> 
+>   arch/x86/include/asm/iommu.h       |   2 +
+>   arch/x86/include/asm/mmu_context.h |  14 ++++
+>   drivers/iommu/intel/svm.c          | 101 +++++++++++++++++++++++++----
+>   3 files changed, 105 insertions(+), 12 deletions(-)
+> 
+> diff --git a/arch/x86/include/asm/iommu.h b/arch/x86/include/asm/iommu.h
+> index bf1ed2ddc74b..ed41259fe7ac 100644
+> --- a/arch/x86/include/asm/iommu.h
+> +++ b/arch/x86/include/asm/iommu.h
+> @@ -26,4 +26,6 @@ arch_rmrr_sanity_check(struct acpi_dmar_reserved_memory *rmrr)
+>   	return -EINVAL;
+>   }
+>   
+> +void __free_pasid(struct mm_struct *mm);
+> +
+>   #endif /* _ASM_X86_IOMMU_H */
+> diff --git a/arch/x86/include/asm/mmu_context.h b/arch/x86/include/asm/mmu_context.h
+> index 47562147e70b..f8c91ce8c451 100644
+> --- a/arch/x86/include/asm/mmu_context.h
+> +++ b/arch/x86/include/asm/mmu_context.h
+> @@ -13,6 +13,7 @@
+>   #include <asm/tlbflush.h>
+>   #include <asm/paravirt.h>
+>   #include <asm/debugreg.h>
+> +#include <asm/iommu.h>
+>   
+>   extern atomic64_t last_mm_ctx_id;
+>   
+> @@ -117,9 +118,22 @@ static inline int init_new_context(struct task_struct *tsk,
+>   	init_new_context_ldt(mm);
+>   	return 0;
+>   }
+> +
+> +static inline void free_pasid(struct mm_struct *mm)
+> +{
+> +	if (!IS_ENABLED(CONFIG_INTEL_IOMMU_SVM))
+> +		return;
+> +
+> +	if (!cpu_feature_enabled(X86_FEATURE_ENQCMD))
+> +		return;
+> +
+> +	__free_pasid(mm);
+> +}
+> +
+>   static inline void destroy_context(struct mm_struct *mm)
+>   {
+>   	destroy_context_ldt(mm);
+> +	free_pasid(mm);
+>   }
+>   
+>   extern void switch_mm(struct mm_struct *prev, struct mm_struct *next,
+> diff --git a/drivers/iommu/intel/svm.c b/drivers/iommu/intel/svm.c
+> index 4e775e12ae52..27dc866b8461 100644
+> --- a/drivers/iommu/intel/svm.c
+> +++ b/drivers/iommu/intel/svm.c
+> @@ -425,6 +425,53 @@ int intel_svm_unbind_gpasid(struct device *dev, unsigned int pasid)
+>   	return ret;
+>   }
+>   
+> +static void free_bind(struct intel_svm *svm, struct intel_svm_dev *sdev,
+> +		      bool new_pasid)
+> +{
+> +	if (new_pasid)
+> +		ioasid_free(svm->pasid);
+> +	kfree(svm);
+> +	kfree(sdev);
+> +}
+> +
+> +/*
+> + * If this mm already has a PASID, use it. Otherwise allocate a new one.
+> + * Let the caller know if a new PASID is allocated via 'new_pasid'.
+> + */
+> +static int alloc_pasid(struct intel_svm *svm, struct mm_struct *mm,
+> +		       unsigned int pasid_max, bool *new_pasid,
+> +		       unsigned int flags)
+> +{
+> +	unsigned int pasid;
+> +
+> +	*new_pasid = false;
+> +
+> +	/*
+> +	 * Reuse the PASID if the mm already has a PASID and not a private
+> +	 * PASID is requested.
+> +	 */
+> +	if (mm && mm->pasid && !(flags & SVM_FLAG_PRIVATE_PASID)) {
+> +		/*
+> +		 * Once a PASID is allocated for this mm, the PASID
+> +		 * stays with the mm until the mm is dropped. Reuse
+> +		 * the PASID which has been already allocated for the
+> +		 * mm instead of allocating a new one.
+> +		 */
+> +		ioasid_set_data(mm->pasid, svm);
 
-diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
-index 35db79a168bf..df1a7eb73651 100644
---- a/drivers/gpu/drm/radeon/radeon_display.c
-+++ b/drivers/gpu/drm/radeon/radeon_display.c
-@@ -635,8 +635,10 @@ radeon_crtc_set_config(struct drm_mode_set *set,
- 	dev = set->crtc->dev;
- 
- 	ret = pm_runtime_get_sync(dev->dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_autosuspend(dev->dev);
- 		return ret;
-+	}
- 
- 	ret = drm_crtc_helper_set_config(set, ctx);
- 
-diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
-index bbb0883e8ce6..62b5069122cc 100644
---- a/drivers/gpu/drm/radeon/radeon_drv.c
-+++ b/drivers/gpu/drm/radeon/radeon_drv.c
-@@ -549,8 +549,10 @@ long radeon_drm_ioctl(struct file *filp,
- 	long ret;
- 	dev = file_priv->minor->dev;
- 	ret = pm_runtime_get_sync(dev->dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_autosuspend(dev->dev);
- 		return ret;
-+	}
- 
- 	ret = drm_ioctl(filp, cmd, arg);
- 	
-diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
-index c5d1dc9618a4..99ee60f8b604 100644
---- a/drivers/gpu/drm/radeon/radeon_kms.c
-+++ b/drivers/gpu/drm/radeon/radeon_kms.c
-@@ -638,8 +638,10 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
- 	file_priv->driver_priv = NULL;
- 
- 	r = pm_runtime_get_sync(dev->dev);
--	if (r < 0)
-+	if (r < 0) {
-+		pm_runtime_put_autosuspend(dev->dev);
- 		return r;
-+	}
- 
- 	/* new gpu have virtual address space support */
- 	if (rdev->family >= CHIP_CAYMAN) {
--- 
-2.25.1
+How about adding some sanity checks here? For example,
 
+	void *p = ioasid_find(NULL, mm->pasid, NULL);
+
+	if (!p)
+		ioasid_set_data(mm->pasid, svm);
+	else if (IS_ERR(p) || p != svm)
+		return INVALID_IOSASID;
+
+Best regards,
+baolu
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
