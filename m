@@ -6,57 +6,56 @@ X-Spam-Status: No, score=-0.6 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CD84EC433E1
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9208FC433E2
 	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 13:21:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9C4F02076A
+	by mail.kernel.org (Postfix) with ESMTPS id 67BD62076A
 	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 13:21:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="oczihRk4"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9C4F02076A
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="PJLM8Zj6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67BD62076A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D5226E32B;
-	Mon, 15 Jun 2020 13:21:00 +0000 (UTC)
-Received: from merlin.infradead.org (merlin.infradead.org
- [IPv6:2001:8b0:10b:1231::1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCE90896C7
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2020 07:57:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E47926E332;
+	Mon, 15 Jun 2020 13:20:59 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1E6D89CDF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2020 07:52:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
+ :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=IulpOX2ZXgYia0hOJz1PbMFRWrf1LR01eti82WL5/mk=; b=oczihRk4Bm3qcABlCzOnJf+2OJ
- 0XEBNhA69dQZfOVFjforrMajTMyU6oALzgTuDvb2GeMeG2T1r+tILte4kFI4uUu5taSMg3ym3qIXB
- /+SpsF9m/yFWIopT3APyh4HKoysD8lYUyRyOuZnjn6W8bh4lVl3p2NODhfXAJewux95NkSmBkzxEO
- RTgAZ+9Lvii0nNQJWkcQs7m3PJAYCZAAspLWgGZASo7fVIJQ8JP5TfSUCjCBOg204HN+5bc9ES9Xj
- +db4VuKfq1mznnM24NsJLQ4Z4kVaIXAZWi3u8V9+2eWuWqt6f5a7Pm9z7n/TEczt4pSpBO1v1vZes
- dhhuLDvA==;
+ bh=IFIgfCZKxYBKxbJqOaOomXVh77FtYCcmEiPni2KP6UA=; b=PJLM8Zj6g6NZ+vPpv2mFDxYEVR
+ ZjwG4jOU060O8kA/hZ3nBzvV0Ys1Ob067i4BJAzLXk0kJFvnTPk9HZv2N4bq1zlOx6kt6I0wYqNYD
+ WxXEU7shn6V1Hnnc7bMPriYIGQJxK6my2wENuYqexpKzud2otelfOGiVZI8ThFKaGsZx3wAkFAehx
+ xyuZg+PiJgIGmBooQprqIC07vu+0si6nXsW+gBniM0mtgDy0EY4XX2SW3mvm3WDBh0Zyo6E43wWXf
+ h7zkeOgMVO5U0sw55sa+N7+9CXGuXOBfv7vXirugectMtOB6P+FPq3eo1CWbJiozbXhA4ITyj/cH5
+ ElEiN+6w==;
 Received: from j217100.upc-j.chello.nl ([24.132.217.100]
  helo=noisy.programming.kicks-ass.net)
- by merlin.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jkjz8-0005nK-Rt; Mon, 15 Jun 2020 07:56:51 +0000
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1jkjua-0001C1-5z; Mon, 15 Jun 2020 07:52:08 +0000
 Received: from hirez.programming.kicks-ass.net
  (hirez.programming.kicks-ass.net [192.168.1.225])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 2D9D6301A32;
- Mon, 15 Jun 2020 09:56:49 +0200 (CEST)
+ by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id A2710307458;
+ Mon, 15 Jun 2020 09:52:03 +0200 (CEST)
 Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id 1903521059BE1; Mon, 15 Jun 2020 09:56:49 +0200 (CEST)
-Date: Mon, 15 Jun 2020 09:56:49 +0200
+ id EF23021059BE4; Mon, 15 Jun 2020 09:52:02 +0200 (CEST)
+Date: Mon, 15 Jun 2020 09:52:02 +0200
 From: Peter Zijlstra <peterz@infradead.org>
 To: Fenghua Yu <fenghua.yu@intel.com>
-Subject: Re: [PATCH v2 12/12] x86/traps: Fix up invalid PASID
-Message-ID: <20200615075649.GK2497@hirez.programming.kicks-ass.net>
+Subject: Re: [PATCH v2 00/12] x86: tag application address space for devices
+Message-ID: <20200615075202.GI2497@hirez.programming.kicks-ass.net>
 References: <1592008893-9388-1-git-send-email-fenghua.yu@intel.com>
- <1592008893-9388-13-git-send-email-fenghua.yu@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1592008893-9388-13-git-send-email-fenghua.yu@intel.com>
+In-Reply-To: <1592008893-9388-1-git-send-email-fenghua.yu@intel.com>
 X-Mailman-Approved-At: Mon, 15 Jun 2020 13:20:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,60 +86,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jun 12, 2020 at 05:41:33PM -0700, Fenghua Yu wrote:
-> +/*
-> + * Apply some heuristics to see if the #GP fault was caused by a thread
-> + * that hasn't had the IA32_PASID MSR initialized.  If it looks like that
-> + * is the problem, try initializing the IA32_PASID MSR. If the heuristic
-> + * guesses incorrectly, take one more #GP fault.
+On Fri, Jun 12, 2020 at 05:41:21PM -0700, Fenghua Yu wrote:
 
-How is that going to help? Aren't we then going to run this same
-heuristic again and again and again?
+> This series only provides simple and basic support for ENQCMD and the MSR:
+> 1. Clean up type definitions (patch 1-3). These patches can be in a
+>    separate series.
+>    - Define "pasid" as "unsigned int" consistently (patch 1 and 2).
+>    - Define "flags" as "unsigned int"
+> 2. Explain different various technical terms used in the series (patch 4).
+> 3. Enumerate support for ENQCMD in the processor (patch 5).
+> 4. Handle FPU PASID state and the MSR during context switch (patches 6-7).
+> 5. Define "pasid" in mm_struct (patch 8).
+> 5. Clear PASID state for new mm and forked and cloned thread (patch 9-10).
+> 6. Allocate and free PASID for a process (patch 11).
+> 7. Fix up the PASID MSR in #GP handler when one thread in a process
+>    executes ENQCMD for the first time (patches 12).
 
-> + */
-> +bool __fixup_pasid_exception(void)
-> +{
-> +	u64 pasid_msr;
-> +	unsigned int pasid;
-> +
-> +	/*
-> +	 * This function is called only when this #GP was triggered from user
-> +	 * space. So the mm cannot be NULL.
-> +	 */
-> +	pasid = current->mm->pasid;
-> +	/* If the mm doesn't have a valid PASID, then can't help. */
-> +	if (invalid_pasid(pasid))
-> +		return false;
-> +
-> +	/*
-> +	 * Since IRQ is disabled now, the current task still owns the FPU on
-
-That's just weird and confusing. What you want to say is that you rely
-on the exception disabling the interrupt.
-
-> +	 * this CPU and the PASID MSR can be directly accessed.
-> +	 *
-> +	 * If the MSR has a valid PASID, the #GP must be for some other reason.
-> +	 *
-> +	 * If rdmsr() is really a performance issue, a TIF_ flag may be
-> +	 * added to check if the thread has a valid PASID instead of rdmsr().
-
-I don't understand any of this. Nobody except us writes to this MSR, we
-should bloody well know what's in it. What gives?
-
-> +	 */
-> +	rdmsrl(MSR_IA32_PASID, pasid_msr);
-> +	if (pasid_msr & MSR_IA32_PASID_VALID)
-> +		return false;
-> +
-> +	/* Fix up the MSR if the MSR doesn't have a valid PASID. */
-> +	wrmsrl(MSR_IA32_PASID, pasid | MSR_IA32_PASID_VALID);
-> +
-> +	return true;
-> +}
-> -- 
-> 2.19.1
-> 
+If this is per mm, should not switch_mm() update the MSR ? I'm not
+seeing that, nor do I see it explained why not.
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
