@@ -2,102 +2,74 @@ Return-Path: <SRS0=Wmcu=74=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.0 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	MSGID_FROM_MTA_HEADER,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BC335C433E0
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 20:44:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9080CC433DF
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 21:48:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 811202078E
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 20:44:48 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5CE0720714
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 21:48:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="3hCVMDGp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 811202078E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=amacapital-net.20150623.gappssmtp.com header.i=@amacapital-net.20150623.gappssmtp.com header.b="2GB7LupH"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5CE0720714
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 246886E504;
-	Mon, 15 Jun 2020 20:44:48 +0000 (UTC)
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com
- (mail-eopbgr750041.outbound.protection.outlook.com [40.107.75.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 730DE6E504
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2020 20:44:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nKFsD48U9Ow/JyICVvfI7yadJjLcicSywH4cp7XEyHcW7Oz+nRpdr2y52KT2r1tkYN4XOOK0alS0RvFpj4LfgLt+dE5jVzVUrmWGXPiD9GhO1+6ULo5yV12BxZwAnE+10+rEBp3biguWoQOoCtmjA+ZxeGEnROLUZCpyjo4PQCKi5ShZDiwEMYFew22+3e/1oCazc9H6x3op36hj9rUq5Zbw0qA/d65kjbQVDlC0jOMubb8iImlZnXfzNTQr7hJRyRnsA65V2Qtv3IpLT5EwvnEX8fOTqSUlkOxchXxLTrbqoZ9RwtIdy0jzgm3JSbySypgTPhaGkg9G21vWKz30pg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NiQaPtEAZTchsC/4FE2fbrosZaSgdgNRuaSIunKxLGI=;
- b=LbANgW0o4nbXGXUwKlZl2KXS53o8L/MQpYCvP2QXcwghDk99oGeoy7nmXt6MYSRPxLfL6KR0jrrW6ZH7uKSxW5jPGiinWYyGAuJ4b9CwE6dfIN9jOFUuTsWl/xFgHgWPtrUwJMinuSqv7XDIByOvnX+uXC2r2WpCsS7e/N188zE67Op36FViRbiODfCsq33IUS6Ez7q5XDJ431EqMUVJaz2F1imWGAnUl6rK26O/bzkrHqKloAHwt5Gj/LreorHK2Th22M6At5YbWWAreRHNlwNZ7sF/Jgf2RZ3I3Rrv1Z5JK74VN5M0zW5a53EeUeBjH0CRvAKDXOjI8p2FVoQ8FA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED5236E524;
+	Mon, 15 Jun 2020 21:48:37 +0000 (UTC)
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 410086E511
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2020 21:18:43 +0000 (UTC)
+Received: by mail-pj1-x1044.google.com with SMTP id b7so327151pju.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2020 14:18:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NiQaPtEAZTchsC/4FE2fbrosZaSgdgNRuaSIunKxLGI=;
- b=3hCVMDGpxulVd3C3vySOHjSDpjGQsD21HxJglTTB9QmoF9wFw6zCKSBPD6lmr2GsxQJxq+vsqnH5BlzjzsUGv8QLlEYAkJ4z1zO5Hu1/yOj60OcTi/VNBFrmP17Anl5r7faHagNAQRWqSwVwJsOfhJVABipZJQtbKnt3k80rKvg=
-Authentication-Results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
-Received: from MN2PR12MB3872.namprd12.prod.outlook.com (2603:10b6:208:168::17)
- by MN2PR12MB3663.namprd12.prod.outlook.com (2603:10b6:208:16e::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3088.18; Mon, 15 Jun
- 2020 20:44:45 +0000
-Received: from MN2PR12MB3872.namprd12.prod.outlook.com
- ([fe80::8843:c094:fb2a:d60a]) by MN2PR12MB3872.namprd12.prod.outlook.com
- ([fe80::8843:c094:fb2a:d60a%7]) with mapi id 15.20.3088.029; Mon, 15 Jun 2020
- 20:44:45 +0000
-Subject: Re: [PATCH] drm/amdgpu: fix documentation around busy_percentage
-To: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org
-References: <20200615204001.2477190-1-alexander.deucher@amd.com>
-From: Nirmoy <nirmodas@amd.com>
-Message-ID: <1d337f72-0a94-fff5-8ae9-980bb7363b81@amd.com>
-Date: Mon, 15 Jun 2020 22:45:53 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.9.0
-In-Reply-To: <20200615204001.2477190-1-alexander.deucher@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: BN6PR22CA0065.namprd22.prod.outlook.com
- (2603:10b6:404:ca::27) To MN2PR12MB3872.namprd12.prod.outlook.com
- (2603:10b6:208:168::17)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from [IPv6:2003:c5:8f1d:cf00:1537:110:ee74:9484]
- (2003:c5:8f1d:cf00:1537:110:ee74:9484) by
- BN6PR22CA0065.namprd22.prod.outlook.com (2603:10b6:404:ca::27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3088.21 via Frontend Transport; Mon, 15 Jun 2020 20:44:44 +0000
-X-Originating-IP: [2003:c5:8f1d:cf00:1537:110:ee74:9484]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 6aee1784-9a87-4dac-243a-08d8116cf004
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3663:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB36631A08D736EF95085C965F8B9C0@MN2PR12MB3663.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4941;
-X-Forefront-PRVS: 04359FAD81
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 3z0DyiTW1kz3wAlZzoogwbb5a0bNX4tKmFmsOnuPstYY+mjyB+XlTCZiar43UO/2h7O6jagMo8jX17T6cvgerlHSwKLPDGB3z6ESQeefL/mz+CSd+rIYOctMJIZSZX/OHMiAHhlMCd0tSCcpYp8lSeVEEK4NCdrRtVTQCk7PV3Rwv1qiYWyZj27DEn0ArXjBCedomMYa/8M2N53Xow7zVHJ3G6n/iYT4V7ADBF979UWII1OtNT8E+RBazEutIr0TU8SYYjBXrpAmqi5bs8szF3We3I8ZjVeoHfdQU/yFrDabBqVDT9aPQx6ubvbtrzPV6eCNcMBrlof+LSVXFf6gcGoR4ijEuPIBDFMTtlEpmLObkxEweB2fxWEE+5ntoFBF
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MN2PR12MB3872.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(4636009)(346002)(376002)(396003)(366004)(136003)(39860400002)(31686004)(66946007)(66476007)(2616005)(31696002)(6666004)(66556008)(4326008)(8676002)(36756003)(83380400001)(2906002)(186003)(16526019)(8936002)(316002)(53546011)(6486002)(478600001)(5660300002)(52116002)(43740500002);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData: 19D1M3iLNkdRle0sfys/1NJ8I9YBynAqgnM7TjRgsoAyZkXMxBAdZE5Op7FdMF0ZcOPgdfAm09zNbl0rD2oCcwxq6SzQagiOayIEnnOAvh5MyJtfytmmA5+dNYETpWxTzonrl3WqK/6awrSfs1o34+mdBWpKCuj/CIB2F10Q0Pk1WhjpcORYg2xw+4vMOZlo8A2O2UE3JzkBS39MN/i+lCuCo36DLbkqBnJBuohvYvCE6NI2pdTAcs8Va9oI3GICm9cb+h/j66X1gBZA4rjvYyba04MlSyrz8rPqSrQqcWHKsr+u/wqf8G6kUB0QK0xlwRq30Iulj0xdaJVzgUCA1gOwZo9nrS98eAzHPZGVEZ9zOMED6M2P0EqM2ZhJwKIyK9SGPkK5H4GlLVSN8QhNR2gTB0WCbzsnn+RxRBAR+Q/JyDkSDhxc/EEvtgQUQ6s0UupZHuGRvtrgzn2Fz6+RI1isajWCyxSJE0kTobk0KxxSQzmgfTfE3qdFKV5yTPKRQ1v6ykdtE0TN44mWZqkeCq7o3bOZhKw3cr51XAPy40Y=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6aee1784-9a87-4dac-243a-08d8116cf004
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jun 2020 20:44:45.6177 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TgSxBRZ9bbURcxjOidjT0g38Oxd6gcI/gc1PcX7lMD5I6t7+8d9Y8W0dH4AqQICAQLzSI1ptbgWgii09SkaPxg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3663
+ d=amacapital-net.20150623.gappssmtp.com; s=20150623;
+ h=content-transfer-encoding:from:mime-version:subject:date:message-id
+ :references:cc:in-reply-to:to;
+ bh=K+cMiKrRga91vCTBmD8D5XGxUlsSQ1EKO7QoeTvwQ14=;
+ b=2GB7LupHwlZ6MZtJPWSNxp3apFXotPM40suzbHcMbHpAtfxMDlfoT68CSyoFNL8a5W
+ Z0tAhownZcTP8TRk6IoslRw8BJAf1OXzJREAwoj7wWd3V14OSBwEBVF70E7hminRlU56
+ 2VsxRj20OP0xyXqNS18gd25MtW6DEU2un5q7P64tYWB4Fs7qzeb27Scj4voailQZlsxX
+ kibSCzCnlI3uAzFI7DH/O+JIlSgCq0aVl2WDsd7HhTrTfAWwnO/iAvwlYH/1TAJRTivU
+ y1ZhI4gCO2NoAYrkyYozZCRaczRqz8a/Xr9GEbYWOyr3GPdZ6rbRamLSMm4DX8QTnYXG
+ f0Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:content-transfer-encoding:from:mime-version
+ :subject:date:message-id:references:cc:in-reply-to:to;
+ bh=K+cMiKrRga91vCTBmD8D5XGxUlsSQ1EKO7QoeTvwQ14=;
+ b=MIvFeoSH/uLgoksfTeZPivSEbgfFV08e2fqISlOrceYyF8PT+gtW8+YxL7sW9KeqHq
+ 7D2SecGA4whznCfot+j8/+HpgXBT5ODo4rHaVyohp9KhaNfo4uS7puzwB5D8PK3KpUkx
+ o5Ipxrmj1NYtNU9LUGwVLpqXYdskhPq5n0QN3vx0HiQ0FVai+fxrzPw6U9satzrAXS7u
+ SdQQiO0WaLiMv0tRdpUmW6GFNqndEcCHZax6+6uOBGRPM/XOsIQRjHJIgsVC+b75lXP/
+ lVlmm42XqZ+jhqDukw+PlkDlx+yH0Uf3ORwMNo42Z7HJzTWUSDh+MELDeN+4I1JYjniV
+ +hQA==
+X-Gm-Message-State: AOAM531svUY495DZDnSsLPY8tL7mt8firmoF+mRmvR2S5tObE7UhuPMw
+ Ge/641jWlqVajMyV55U8bBNJww==
+X-Google-Smtp-Source: ABdhPJyk8XIeff9RCB4w5FuIJDrmQLNmbSUdiTI79aWKrOQ2lLPVa5D7eCOAxgksAA4QZIZRamSHVA==
+X-Received: by 2002:a17:90a:e509:: with SMTP id
+ t9mr1153242pjy.189.1592255922875; 
+ Mon, 15 Jun 2020 14:18:42 -0700 (PDT)
+Received: from ?IPv6:2601:646:c200:1ef2:d2f:b9d:749:9ce5?
+ ([2601:646:c200:1ef2:d2f:b9d:749:9ce5])
+ by smtp.gmail.com with ESMTPSA id g65sm14766552pfb.61.2020.06.15.14.18.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jun 2020 14:18:42 -0700 (PDT)
+From: Andy Lutomirski <luto@amacapital.net>
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH v2 12/12] x86/traps: Fix up invalid PASID
+Date: Mon, 15 Jun 2020 14:18:39 -0700
+Message-Id: <E39A5DE2-5615-41FF-9953-4F4C4E8499D8@amacapital.net>
+References: <3908561D78D1C84285E8C5FCA982C28F7F66C849@ORSMSX115.amr.corp.intel.com>
+In-Reply-To: <3908561D78D1C84285E8C5FCA982C28F7F66C849@ORSMSX115.amr.corp.intel.com>
+To: "Luck, Tony" <tony.luck@intel.com>
+X-Mailer: iPhone Mail (17F80)
+X-Mailman-Approved-At: Mon, 15 Jun 2020 21:48:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,60 +81,39 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Cc: "Shankar, Ravi V" <ravi.v.shankar@intel.com>,
+ Peter Zijlstra <peterz@infradead.org>, "Hansen, Dave" <dave.hansen@intel.com>,
+ H Peter Anvin <hpa@zytor.com>, "Jiang, Dave" <dave.jiang@intel.com>, "Raj,
+ Ashok" <ashok.raj@intel.com>, Joerg Roedel <joro@8bytes.org>,
+ x86 <x86@kernel.org>, amd-gfx <amd-gfx@lists.freedesktop.org>,
+ Ingo Molnar <mingo@redhat.com>, "Yu, Fenghua" <fenghua.yu@intel.com>, "Yu,
+ Yu-cheng" <yu-cheng.yu@intel.com>, Andrew Donnellan <ajd@linux.ibm.com>,
+ Borislav Petkov <bp@alien8.de>, "Mehta, Sohil" <sohil.mehta@intel.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>, "Pan,
+ Jacob jun" <jacob.jun.pan@intel.com>, Frederic Barrat <fbarrat@linux.ibm.com>,
+ David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Nirmoy Das <nirmoy.das@amd.com>
-
-On 6/15/20 10:40 PM, Alex Deucher wrote:
-> Add rename the gpu busy percentage for consistency and
-> add the mem busy percentage documentation.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->   Documentation/gpu/amdgpu.rst           | 9 ++++++---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c | 2 +-
->   2 files changed, 7 insertions(+), 4 deletions(-)
->
-> diff --git a/Documentation/gpu/amdgpu.rst b/Documentation/gpu/amdgpu.rst
-> index 4cc74325bf91..17112352f605 100644
-> --- a/Documentation/gpu/amdgpu.rst
-> +++ b/Documentation/gpu/amdgpu.rst
-> @@ -197,11 +197,14 @@ pp_power_profile_mode
->   .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
->      :doc: pp_power_profile_mode
->   
-> -busy_percent
-> -~~~~~~~~~~~~
-> +*_busy_percent
-> +~~~~~~~~~~~~~~
->   
->   .. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> -   :doc: busy_percent
-> +   :doc: gpu_busy_percent
-> +
-> +.. kernel-doc:: drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> +   :doc: mem_busy_percent
->   
->   GPU Product Information
->   =======================
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> index 5a8e177e4f56..42bbdf49458e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_pm.c
-> @@ -1668,7 +1668,7 @@ static ssize_t amdgpu_set_pp_power_profile_mode(struct device *dev,
->   }
->   
->   /**
-> - * DOC: busy_percent
-> + * DOC: gpu_busy_percent
->    *
->    * The amdgpu driver provides a sysfs API for reading how busy the GPU
->    * is as a percentage.  The file gpu_busy_percent is used for this.
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+Cgo+IE9uIEp1biAxNSwgMjAyMCwgYXQgMTo1NiBQTSwgTHVjaywgVG9ueSA8dG9ueS5sdWNrQGlu
+dGVsLmNvbT4gd3JvdGU6Cj4gCj4g77u/Cj4+IAo+PiBBcmUgd2UgcGxhbm5pbmcgdG8ga2VlcCBQ
+QVNJRCBsaXZlIG9uY2UgYSB0YXNrIGhhcyB1c2VkIGl0IG9uY2Ugb3IgYXJlIHdlIGdvaW5nIHRv
+IHN3YXAgaXQgbGF6aWx5PyAgSWYgdGhlIGxhdHRlciwgYSBwZXJjcHUgdmFyaWFibGUgbWlnaHQg
+YmUgYmV0dGVyLgo+IAo+IEN1cnJlbnQgcGxhbiBpcyAidG91Y2ggaXQgb25jZSBhbmQgdGhlIHRh
+c2sgb3ducyBpdCB1bnRpbCBleGl0KDIpIgo+IAo+IE1heWJlIHNvbWVkYXkgaW4gdGhlIGZ1dHVy
+ZSB3aGVuIHdlIGhhdmUgZGF0YSBvbiBob3cgYXBwbGljYXRpb25zCj4gYWN0dWFsbHkgdXNlIGFj
+Y2VsZXJhdG9ycyB3ZSBjb3VsZCBsb29rIGF0IHNvbWV0aGluZyBtb3JlIGNvbXBsZXgKPiBpZiB1
+c2FnZSBwYXR0ZXJucyBsb29rIGxpa2UgaXQgd291bGQgYmUgYmVuZWZpY2lhbC4KPiAKPiAKClNv
+IHdoYXTigJlzIHRoZSBSRE1TUiBmb3I/ICBTdXJlbHkgeW91CmhhdmUgc29tZSBzdGF0ZSBzb21l
+d2hlcmUgdGhhdCBzYXlzIOKAnHRoaXMgdGFzayBoYXMgYSBQQVNJRC7igJ0gIENhbuKAmXQgeW91
+IGp1c3QgbWFrZSBzdXJlIHRoYXQgc3RheXMgaW4gc3luYyB3aXRoIHRoZSBNU1I/ICBUaGVuLCBv
+biAjR1AsIGlmIHRoZSB0YXNrIGFscmVhZHkgaGFzIGEgUEFTSUQsIHlvdSBrbm93IHRoZSBNU1Ig
+aXMgc2V0LgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwph
+bWQtZ2Z4IG1haWxpbmcgbGlzdAphbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZwpodHRwczov
+L2xpc3RzLmZyZWVkZXNrdG9wLm9yZy9tYWlsbWFuL2xpc3RpbmZvL2FtZC1nZngK
