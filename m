@@ -2,89 +2,54 @@ Return-Path: <SRS0=Wmcu=74=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.3 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A34E3C433E2
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F39E4C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 794052068E
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C095D2068E
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 07:29:21 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=umn.edu header.i=@umn.edu header.b="XNWmcjhn"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 794052068E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=umn.edu
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=163.com header.i=@163.com header.b="ohFavSo+"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C095D2068E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=163.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2156B6E28A;
-	Mon, 15 Jun 2020 07:28:14 +0000 (UTC)
-X-Greylist: delayed 544 seconds by postgrey-1.36 at gabe;
- Sat, 13 Jun 2020 19:41:38 UTC
-Received: from mta-p6.oit.umn.edu (mta-p6.oit.umn.edu [134.84.196.206])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0F2F6E0D2
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 Jun 2020 19:41:38 +0000 (UTC)
-Received: from localhost (unknown [127.0.0.1])
- by mta-p6.oit.umn.edu (Postfix) with ESMTP id 49knmf3hL9z9w33b
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 Jun 2020 19:32:34 +0000 (UTC)
-X-Virus-Scanned: amavisd-new at umn.edu
-Received: from mta-p6.oit.umn.edu ([127.0.0.1])
- by localhost (mta-p6.oit.umn.edu [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id uGorUlSH-N3O for <amd-gfx@lists.freedesktop.org>;
- Sat, 13 Jun 2020 14:32:34 -0500 (CDT)
-Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
- [209.85.166.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mta-p6.oit.umn.edu (Postfix) with ESMTPS id 49knmf1zwLz9w33Z
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 Jun 2020 14:32:34 -0500 (CDT)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mta-p6.oit.umn.edu 49knmf1zwLz9w33Z
-DKIM-Filter: OpenDKIM Filter v2.11.0 mta-p6.oit.umn.edu 49knmf1zwLz9w33Z
-Received: by mail-io1-f72.google.com with SMTP id z20so8565202iog.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 13 Jun 2020 12:32:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=umn.edu; s=google;
- h=from:to:cc:subject:date:message-id;
- bh=pJ20cKcKMnGm3+Riu7jtthOtL7g8EIT2MKkma1MPE6o=;
- b=XNWmcjhnocnx2PCeGekIOa6hmp/5qTxzXhmI/rnG/BdQUSUHtNzIw27S8a5v6/a0D6
- QHdgNQrOk9lqbEto8IVTmS3CbgaZdQCIKp+U8A2/9KOWjxuFB1itO+tJL+4z/o0I0PEu
- nYotRjHX1C7FW4T+5Ctpjbp/BVOqmhuyFsstGn5SB+ycEN9N13+5T5+20alrtR0bLrFa
- W8nGcO6mnr+f3ls1xudYP4uIXiOsTb9hgkK7R4fHPwxAXMajNQUC4isiBInG2sjgpTfJ
- wq288R8VLIDVgeRi7H3GKk2l4u7hD5cr1DYRAIEpPPXVX26pAYfpmg9utXKpYI56LSZ9
- E3zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=pJ20cKcKMnGm3+Riu7jtthOtL7g8EIT2MKkma1MPE6o=;
- b=GA+pAPPV9d4gMmtwJ0ofJTDa0N/HZ0X/lNcdXs1Y2zCsK+kLVG5daMvw83zngfR3XI
- Jg8PjlC0b5NrzbuVBJrqoVt8+3L9GzajppoNsa5IVG6t2Qgy7C0nKTexYTnU/oDoEsuI
- v/ktY6Watith+dHvBb9QTGqMEmQDW+zZyn15t1p/s89KAIJpoPvm3qtv1fTYyjv3b4Cs
- kmVXJOimr2sC/tVVZojsMTY3Nx6hd1ZqCS2+Ritqfdsojoq/sMkJal9uCmf8CdTxJmsx
- 142fErQ5lsABAfCUt0FHR3f9mNBLMD/h6EH+UMuYQL5hDOVfIK83muae9FwcQEyYFDCJ
- g7lw==
-X-Gm-Message-State: AOAM531eGOzqDp8dbz9TTEMKyUICAdr5mR2mPMKlfvasncYDKoGy3aUz
- MSOZ1JEp835NgXL99qdAhilovuXkQNbx5LGc+TdN7tDf1zznROpi5wrI7JRY2mcVG6CEp8wxEZx
- rTkb+6jCb4oqnBAkPkhkOe1iG57X3qg==
-X-Received: by 2002:a05:6638:dd3:: with SMTP id
- m19mr14405843jaj.106.1592076753491; 
- Sat, 13 Jun 2020 12:32:33 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzNb/Sk7PVT9zM53pVsCho9Wzso9hsmtHF+L1UVP9LJR0pCZeyktih4ZL5JuGWYbfJxALxufQ==
-X-Received: by 2002:a05:6638:dd3:: with SMTP id
- m19mr14405814jaj.106.1592076753173; 
- Sat, 13 Jun 2020 12:32:33 -0700 (PDT)
-Received: from qiushi.cs.umn.edu ([2607:ea00:101:3c74:4874:45:bcb4:df60])
- by smtp.gmail.com with ESMTPSA id t63sm5383628ill.54.2020.06.13.12.32.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 13 Jun 2020 12:32:32 -0700 (PDT)
-From: wu000273@umn.edu
-To: kjlu@umn.edu
-Subject: [PATCH] drm/amdkfd: Fix reference count leaks.
-Date: Sat, 13 Jun 2020 14:32:26 -0500
-Message-Id: <20200613193226.21531-1-wu000273@umn.edu>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Mon, 15 Jun 2020 07:27:54 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8426E2BD;
+	Mon, 15 Jun 2020 07:29:00 +0000 (UTC)
+X-Greylist: delayed 906 seconds by postgrey-1.36 at gabe;
+ Mon, 15 Jun 2020 07:28:58 UTC
+Received: from m1382.mail.163.com (m1382.mail.163.com [220.181.13.82])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 354746E2B2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2020 07:28:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=MinxN
+ B2rtPLm+WPE9jcC+0KeFgL8vITTt2/LRkTCfzw=; b=ohFavSo+n4Ls9Zpscx+Uj
+ eG4brTzsa1uegntN7JKZuAXUTZiXwa+tTu8oZhYt61lW2lk1PcfWqHVgR4j8AYOX
+ jvhLht7wetKgJATsJb9aQpIJ2XM2VuaveAHKnY1HrMuFDUswcwovndZ2o1aUZ4vu
+ oegpJpG2jeqLTjMgtQXMOY=
+Received: from raykwok1150$163.com ( [118.242.3.34] ) by
+ ajax-webmail-wmsvr82 (Coremail) ; Mon, 15 Jun 2020 15:13:42 +0800 (CST)
+X-Originating-IP: [118.242.3.34]
+Date: Mon, 15 Jun 2020 15:13:42 +0800 (CST)
+From: "Guo Lei" <raykwok1150@163.com>
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH] drm/amdgpu: Fix incorrect firmware size calculation
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.10 build 20190724(ac680a23)
+ Copyright (c) 2002-2020 www.mailtech.cn 163com
+X-CM-CTRLDATA: KAQsKWZvb3Rlcl9odG09MjQ5MDo1Ng==
+MIME-Version: 1.0
+Message-ID: <611402e8.64f3.172b6d3a40c.Coremail.raykwok1150@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: UsGowABXY2amH+dedhdUAA--.61412W
+X-CM-SenderInfo: 5ud1y41rnrikqq6rljoofrz/1tbitB9EYFSIhcSzUgABsy
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,96 +61,103 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
- Felix Kuehling <Felix.Kuehling@amd.com>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- wu000273@umn.edu, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1925081485=="
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Qiushi Wu <wu000273@umn.edu>
+--===============1925081485==
+Content-Type: multipart/alternative; 
+	boundary="----=_Part_93883_1020225277.1592205222924"
 
-kobject_init_and_add() takes reference even when it fails.
-If this function returns an error, kobject_put() must be called to
-properly clean up the memory associated with the object.
+------=_Part_93883_1020225277.1592205222924
+Content-Type: text/plain; charset=GBK
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Qiushi Wu <wu000273@umn.edu>
----
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 20 +++++++++++++++-----
- 1 file changed, 15 insertions(+), 5 deletions(-)
+RnJvbSAwMTQxNjJmNjliOTA5YTU5YzI0MWU3ZjczYzM2MzBkMWRhMzQ2OTZjIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQoKRnJvbTogTGVpIEd1byA8cmF5a3dvazExNTBAMTYzLmNvbT4KCkRhdGU6
+IE1vbiwgMTUgSnVuIDIwMjAgMTM6NTQ6MjYgKzA4MDAKClN1YmplY3Q6IFtQQVRDSF0gZHJtL2Ft
+ZGdwdTogRml4IGluY29ycmVjdCBmaXJtd2FyZSBzaXplIGNhbGN1bGF0aW9uCgoKCgpbV0hZXQoK
+VGhlIG1lbWNweSgpIGZ1bmN0aW9uIGNvcGllcyBuIGJ5dGVzIGZyb20gbWVtb3J5IGFyZWEgc3Jj
+IHRvIG1lbW9yeSBhcmVhCgpkZXN0LiBTbyBzcGVjaWZ5IHRoZSBmaXJtd2FyZSBzaXplIGluIGJ5
+dGVzLgoKCgoKW0hvd10KCkNvcnJlY3QgdGhlIGNhbGN1bGF0aW9uLgoKCgoKU2lnbmVkLW9mZi1i
+eTogTGVpIEd1byA8cmF5a3dvazExNTBAMTYzLmNvbT4KClJldmlld2VkLWJ5OiBKdW53ZWkgWmhh
+bmcgPHpqdW53ZWloaXRAMTYzLmNvbT4KCi0tLQoKIGRyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1
+L2dmeF92OV8wLmMgfCAyICstCgogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRl
+bGV0aW9uKC0pCgoKCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
+X3Y5XzAuYyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMKCmluZGV4IDZi
+OTQ1ODdkZjQwNy4uYzNlNTliNzY1MjY4IDEwMDY0NAoKLS0tIGEvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvZ2Z4X3Y5XzAuYwoKKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4
+X3Y5XzAuYwoKQEAgLTE5NjAsNyArMTk2MCw3IEBAIHN0YXRpYyBpbnQgZ2Z4X3Y5XzBfbWVjX2lu
+aXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpCgogZndfZGF0YSA9IChjb25zdCBfX2xlMzIg
+KikKCiAoYWRldi0+Z2Z4Lm1lY19mdy0+ZGF0YSArCgogIGxlMzJfdG9fY3B1KG1lY19oZHItPmhl
+YWRlci51Y29kZV9hcnJheV9vZmZzZXRfYnl0ZXMpKTsKCi1md19zaXplID0gbGUzMl90b19jcHUo
+bWVjX2hkci0+aGVhZGVyLnVjb2RlX3NpemVfYnl0ZXMpIC8gNDsKCitmd19zaXplID0gbGUzMl90
+b19jcHUobWVjX2hkci0+aGVhZGVyLnVjb2RlX3NpemVfYnl0ZXMpOwoKIAoKIHIgPSBhbWRncHVf
+Ym9fY3JlYXRlX3Jlc2VydmVkKGFkZXYsIG1lY19oZHItPmhlYWRlci51Y29kZV9zaXplX2J5dGVz
+LAoKICAgICAgIFBBR0VfU0laRSwgQU1ER1BVX0dFTV9ET01BSU5fR1RULAoKLS0gCgoyLjE3LjEK
+Cgo=
+------=_Part_93883_1020225277.1592205222924
+Content-Type: text/html; charset=GBK
+Content-Transfer-Encoding: base64
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index bb77f7af2b6d..dc3c4149f860 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -632,8 +632,10 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
- 
- 	ret = kobject_init_and_add(dev->kobj_node, &node_type,
- 			sys_props.kobj_nodes, "%d", id);
--	if (ret < 0)
-+	if (ret < 0) {
-+		kobject_put(dev->kobj_node);
- 		return ret;
-+	}
- 
- 	dev->kobj_mem = kobject_create_and_add("mem_banks", dev->kobj_node);
- 	if (!dev->kobj_mem)
-@@ -680,8 +682,10 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
- 			return -ENOMEM;
- 		ret = kobject_init_and_add(mem->kobj, &mem_type,
- 				dev->kobj_mem, "%d", i);
--		if (ret < 0)
-+		if (ret < 0) {
-+			kobject_put(mem->kobj);
- 			return ret;
-+		}
- 
- 		mem->attr.name = "properties";
- 		mem->attr.mode = KFD_SYSFS_FILE_MODE;
-@@ -699,8 +703,10 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
- 			return -ENOMEM;
- 		ret = kobject_init_and_add(cache->kobj, &cache_type,
- 				dev->kobj_cache, "%d", i);
--		if (ret < 0)
-+		if (ret < 0) {
-+			kobject_put(cache->kobj);
- 			return ret;
-+		}
- 
- 		cache->attr.name = "properties";
- 		cache->attr.mode = KFD_SYSFS_FILE_MODE;
-@@ -718,8 +724,10 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
- 			return -ENOMEM;
- 		ret = kobject_init_and_add(iolink->kobj, &iolink_type,
- 				dev->kobj_iolink, "%d", i);
--		if (ret < 0)
-+		if (ret < 0) {
-+			kobject_put(iolink->kobj);
- 			return ret;
-+		}
- 
- 		iolink->attr.name = "properties";
- 		iolink->attr.mode = KFD_SYSFS_FILE_MODE;
-@@ -798,8 +806,10 @@ static int kfd_topology_update_sysfs(void)
- 		ret = kobject_init_and_add(sys_props.kobj_topology,
- 				&sysprops_type,  &kfd_device->kobj,
- 				"topology");
--		if (ret < 0)
-+		if (ret < 0) {
-+			kobject_put(sys_props.kobj_topology);
- 			return ret;
-+		}
- 
- 		sys_props.kobj_nodes = kobject_create_and_add("nodes",
- 				sys_props.kobj_topology);
--- 
-2.17.1
+PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
+Zm9udC1mYW1pbHk6QXJpYWwiPjxwIHN0eWxlPSJtYXJnaW46MDsiPkZyb20gMDE0MTYyZjY5Yjkw
+OWE1OWMyNDFlN2Y3M2MzNjMwZDFkYTM0Njk2YyBNb24gU2VwIDE3IDAwOjAwOjAwIDIwMDE8L3A+
+PHAgc3R5bGU9Im1hcmdpbjowOyI+RnJvbTogTGVpIEd1byAmbHQ7cmF5a3dvazExNTBAMTYzLmNv
+bSZndDs8L3A+PHAgc3R5bGU9Im1hcmdpbjowOyI+RGF0ZTogTW9uLCAxNSBKdW4gMjAyMCAxMzo1
+NDoyNiArMDgwMDwvcD48cCBzdHlsZT0ibWFyZ2luOjA7Ij5TdWJqZWN0OiBbUEFUQ0hdIGRybS9h
+bWRncHU6IEZpeCBpbmNvcnJlY3QgZmlybXdhcmUgc2l6ZSBjYWxjdWxhdGlvbjwvcD48cCBzdHls
+ZT0ibWFyZ2luOjA7Ij48YnI+PC9wPjxwIHN0eWxlPSJtYXJnaW46MDsiPltXSFldPC9wPjxwIHN0
+eWxlPSJtYXJnaW46MDsiPlRoZSBtZW1jcHkoKSBmdW5jdGlvbiBjb3BpZXMgbiBieXRlcyBmcm9t
+IG1lbW9yeSBhcmVhIHNyYyB0byBtZW1vcnkgYXJlYTwvcD48cCBzdHlsZT0ibWFyZ2luOjA7Ij5k
+ZXN0LiBTbyBzcGVjaWZ5IHRoZSBmaXJtd2FyZSBzaXplIGluIGJ5dGVzLjwvcD48cCBzdHlsZT0i
+bWFyZ2luOjA7Ij48YnI+PC9wPjxwIHN0eWxlPSJtYXJnaW46MDsiPltIb3ddPC9wPjxwIHN0eWxl
+PSJtYXJnaW46MDsiPkNvcnJlY3QgdGhlIGNhbGN1bGF0aW9uLjwvcD48cCBzdHlsZT0ibWFyZ2lu
+OjA7Ij48YnI+PC9wPjxwIHN0eWxlPSJtYXJnaW46MDsiPlNpZ25lZC1vZmYtYnk6IExlaSBHdW8g
+Jmx0O3JheWt3b2sxMTUwQDE2My5jb20mZ3Q7PC9wPjxwIHN0eWxlPSJtYXJnaW46MDsiPlJldmll
+d2VkLWJ5OiBKdW53ZWkgWmhhbmcgJmx0O3pqdW53ZWloaXRAMTYzLmNvbSZndDs8L3A+PHAgc3R5
+bGU9Im1hcmdpbjowOyI+LS0tPC9wPjxwIHN0eWxlPSJtYXJnaW46MDsiPiZuYnNwO2RyaXZlcnMv
+Z3B1L2RybS9hbWQvYW1kZ3B1L2dmeF92OV8wLmMgfCAyICstPC9wPjxwIHN0eWxlPSJtYXJnaW46
+MDsiPiZuYnNwOzEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKTwv
+cD48cCBzdHlsZT0ibWFyZ2luOjA7Ij48YnI+PC9wPjxwIHN0eWxlPSJtYXJnaW46MDsiPmRpZmYg
+LS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5jIGIvZHJpdmVycy9n
+cHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYzwvcD48cCBzdHlsZT0ibWFyZ2luOjA7Ij5pbmRl
+eCA2Yjk0NTg3ZGY0MDcuLmMzZTU5Yjc2NTI2OCAxMDA2NDQ8L3A+PHAgc3R5bGU9Im1hcmdpbjow
+OyI+LS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvZ2Z4X3Y5XzAuYzwvcD48cCBzdHls
+ZT0ibWFyZ2luOjA7Ij4rKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9nZnhfdjlfMC5j
+PC9wPjxwIHN0eWxlPSJtYXJnaW46MDsiPkBAIC0xOTYwLDcgKzE5NjAsNyBAQCBzdGF0aWMgaW50
+IGdmeF92OV8wX21lY19pbml0KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KTwvcD48cCBzdHls
+ZT0ibWFyZ2luOjA7Ij4mbmJzcDs8c3BhbiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4JPC9zcGFu
+PmZ3X2RhdGEgPSAoY29uc3QgX19sZTMyICopPC9wPjxwIHN0eWxlPSJtYXJnaW46MDsiPiZuYnNw
+OzxzcGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgkJPC9zcGFuPihhZGV2LSZndDtnZngubWVj
+X2Z3LSZndDtkYXRhICs8L3A+PHAgc3R5bGU9Im1hcmdpbjowOyI+Jm5ic3A7PHNwYW4gc3R5bGU9
+IndoaXRlLXNwYWNlOnByZSI+CQk8L3NwYW4+IGxlMzJfdG9fY3B1KG1lY19oZHItJmd0O2hlYWRl
+ci51Y29kZV9hcnJheV9vZmZzZXRfYnl0ZXMpKTs8L3A+PHAgc3R5bGU9Im1hcmdpbjowOyI+LTxz
+cGFuIHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgk8L3NwYW4+Zndfc2l6ZSA9IGxlMzJfdG9fY3B1
+KG1lY19oZHItJmd0O2hlYWRlci51Y29kZV9zaXplX2J5dGVzKSAvIDQ7PC9wPjxwIHN0eWxlPSJt
+YXJnaW46MDsiPis8c3BhbiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4JPC9zcGFuPmZ3X3NpemUg
+PSBsZTMyX3RvX2NwdShtZWNfaGRyLSZndDtoZWFkZXIudWNvZGVfc2l6ZV9ieXRlcyk7PC9wPjxw
+IHN0eWxlPSJtYXJnaW46MDsiPiZuYnNwOzwvcD48cCBzdHlsZT0ibWFyZ2luOjA7Ij4mbmJzcDs8
+c3BhbiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4JPC9zcGFuPnIgPSBhbWRncHVfYm9fY3JlYXRl
+X3Jlc2VydmVkKGFkZXYsIG1lY19oZHItJmd0O2hlYWRlci51Y29kZV9zaXplX2J5dGVzLDwvcD48
+cCBzdHlsZT0ibWFyZ2luOjA7Ij4mbmJzcDs8c3BhbiBzdHlsZT0id2hpdGUtc3BhY2U6cHJlIj4J
+CQkJPC9zcGFuPiZuYnNwOyAmbmJzcDsgJm5ic3A7IFBBR0VfU0laRSwgQU1ER1BVX0dFTV9ET01B
+SU5fR1RULDwvcD48cCBzdHlsZT0ibWFyZ2luOjA7Ij4tLSZuYnNwOzwvcD48cCBzdHlsZT0ibWFy
+Z2luOjA7Ij4yLjE3LjE8L3A+PGRpdj48YnI+PC9kaXY+PC9kaXY+PGJyPjxicj48c3BhbiB0aXRs
+ZT0ibmV0ZWFzZWZvb3RlciI+PHA+Jm5ic3A7PC9wPjwvc3Bhbj4=
+------=_Part_93883_1020225277.1592205222924--
+
+
+--===============1925081485==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+
+--===============1925081485==--
+
