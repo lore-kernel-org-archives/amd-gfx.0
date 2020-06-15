@@ -2,64 +2,66 @@ Return-Path: <SRS0=Wmcu=74=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 87DC4C433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 16:22:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E2C3C433E0
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 16:54:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 59B052078A
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 16:22:54 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id E572220663
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 16:54:51 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="pwp3yCkx"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 59B052078A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rufny+kz"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E572220663
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E693C6E3DA;
-	Mon, 15 Jun 2020 16:22:53 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E5516E379
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2020 16:04:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=UVfQPVFT8zu5fELoM5Bet6sVk8Wjqh3zVoIY71Sa5zI=; b=pwp3yCkx0FzValuPTLZTDE+uLj
- PFBHm97sqLs53h2d3HqLL3ytlpmB6PojSrsWK4H5aqtjN5vCH1RTTyAEQjJVz4azHKj9aAY7OEJey
- ZE75JyGJXIBZ6WCsFz5oPBTq75nrPvhIbvX/DqyTMGbYInTNjk6XjUsXfEZm+3mMF0C9X4FA2YJml
- wiexxaTXGHytfJQ7qkJG5ZhFC9E5M2LGj76lL4MCPyG7blvIBPpjBfOGNye7pWD+fQCLLBfapvPq9
- 4Qhcxp7Q4M+wUrzTtmAH8hCmNitj8/j6duDNMUq7FfEe61MFCYAmCmp5xXfGUpNr/inZHibBHUy44
- Y92f487A==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1jkraa-0007UV-PY; Mon, 15 Jun 2020 16:04:01 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id CBB61306089;
- Mon, 15 Jun 2020 18:03:57 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id B256920E05A91; Mon, 15 Jun 2020 18:03:57 +0200 (CEST)
-Date: Mon, 15 Jun 2020 18:03:57 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Fenghua Yu <fenghua.yu@intel.com>
-Subject: Re: [PATCH v2 12/12] x86/traps: Fix up invalid PASID
-Message-ID: <20200615160357.GA2531@hirez.programming.kicks-ass.net>
-References: <1592008893-9388-1-git-send-email-fenghua.yu@intel.com>
- <1592008893-9388-13-git-send-email-fenghua.yu@intel.com>
- <20200615075649.GK2497@hirez.programming.kicks-ass.net>
- <20200615154854.GB13792@romley-ivt3.sc.intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9AA626E4A2;
+	Mon, 15 Jun 2020 16:54:51 +0000 (UTC)
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9A316E4A2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2020 16:54:50 +0000 (UTC)
+Received: by mail-wm1-x341.google.com with SMTP id r15so262070wmh.5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2020 09:54:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=QYRIvEyVSPQMEvYsOBrI+5vg8pTBA86JG4mG79tS2ug=;
+ b=rufny+kz29smVqH6T06KWipOwAzhCLFQNTQv/Pw/zIuSyhSdwSuPsUwCG8PnG+kNmh
+ ru7BeG+iCUSQR3uvwEhfDs+QZDmwlp3M4HgTVeYzTJbTRRIn733i8KuMFIdoIZAbT93e
+ lXzDQVo1ncMvO5YuOm0+tV6QIdWmQJDeJ7L2Rk9DBNfhg6ErGtQ98QoawXa9jOSz9OfV
+ 9jMPRlVWNIk4qMhxRYVBsZApU9ElLCQxs0XTJvudMUpLqS2/Vg/ZfZZ1pzXlPomvWhjs
+ aXsRrLq8YtOJffHAW0j3wKXPGeTMxbVzBYxCCIxv5YqfKAEJALKY+Gxvdvn/6gWrH0Mf
+ 0Uvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=QYRIvEyVSPQMEvYsOBrI+5vg8pTBA86JG4mG79tS2ug=;
+ b=FPD//479KvoagOWkk/kjuYZ9aWMfqqkrBQc1yyzT021CT3OXjwDWb52u5WoyeG7br7
+ Cepy+mR5kFfrez4hCPKNUut6XJvIKZ1FG/dGKY35KA9HD3QBWjDF9sSBg9mK1MXop5ot
+ eM7qss9jV7usuNQTNWGUaMDLoWRgIYiT1sjit1SjxkTzV7wpX56o/iYIlWFAxgglCbjt
+ zrsLpYwm2pVmCyfYvLmzXRlP/3EEG31/s85KWJiSuW9jNgYVLSv800+FWFy4ubCNnx0a
+ Yls3dPbhwwS+h9kV40PFw4CvmIj6CLBw/JSTHXk6tHBiPyvyv4rTWJhzZ+GioCZLQjDn
+ 02wA==
+X-Gm-Message-State: AOAM531NjMQQhpuIvNVVCtoi6Kt6j3hCCzXnZnt/9VPO3PP+V+etESpC
+ RM94Q08MaT6ST2BZAopkRL6z6uBVmkxORVEYqQWz3Q==
+X-Google-Smtp-Source: ABdhPJwXWUogN+snOBel94l3aciXfTNJ+UHxxs7840dxR34n82lm/jBD45gRW00diB1MRz7uKom6WrSdEwgDxaq2L+8=
+X-Received: by 2002:a1c:32c4:: with SMTP id y187mr234535wmy.79.1592240089336; 
+ Mon, 15 Jun 2020 09:54:49 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200615154854.GB13792@romley-ivt3.sc.intel.com>
-X-Mailman-Approved-At: Mon, 15 Jun 2020 16:22:52 +0000
+References: <20200615161824.164285-1-tom.stdenis@amd.com>
+In-Reply-To: <20200615161824.164285-1-tom.stdenis@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Jun 2020 12:54:38 -0400
+Message-ID: <CADnq5_P5WfraZuPm_uuR2qpn3tBoaAWS8m5+0FHL9RwvxZS1pg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: Fix SQ_DEBUG_STS_GLOBAL* registers
+To: Tom St Denis <tom.stdenis@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,112 +73,129 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Dave Hansen <dave.hansen@intel.com>, H Peter Anvin <hpa@zytor.com>,
- Dave Jiang <dave.jiang@intel.com>, Ashok Raj <ashok.raj@intel.com>,
- Joerg Roedel <joro@8bytes.org>, x86 <x86@kernel.org>,
- amd-gfx <amd-gfx@lists.freedesktop.org>, Ingo Molnar <mingo@redhat.com>,
- Ravi V Shankar <ravi.v.shankar@intel.com>, Yu-cheng Yu <yu-cheng.yu@intel.com>,
- Andrew Donnellan <ajd@linux.ibm.com>, Borislav Petkov <bp@alien8.de>,
- Sohil Mehta <sohil.mehta@intel.com>, Thomas Gleixner <tglx@linutronix.de>,
- Tony Luck <tony.luck@intel.com>, linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, iommu@lists.linux-foundation.org,
- Jacob Jun Pan <jacob.jun.pan@intel.com>,
- Frederic Barrat <fbarrat@linux.ibm.com>, David Woodhouse <dwmw2@infradead.org>,
- Lu Baolu <baolu.lu@linux.intel.com>
+Cc: amd-gfx list <amd-gfx@lists.freedesktop.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Jun 15, 2020 at 08:48:54AM -0700, Fenghua Yu wrote:
-> Hi, Peter,
-> On Mon, Jun 15, 2020 at 09:56:49AM +0200, Peter Zijlstra wrote:
-> > On Fri, Jun 12, 2020 at 05:41:33PM -0700, Fenghua Yu wrote:
-> > > +/*
-> > > + * Apply some heuristics to see if the #GP fault was caused by a thread
-> > > + * that hasn't had the IA32_PASID MSR initialized.  If it looks like that
-> > > + * is the problem, try initializing the IA32_PASID MSR. If the heuristic
-> > > + * guesses incorrectly, take one more #GP fault.
-> > 
-> > How is that going to help? Aren't we then going to run this same
-> > heuristic again and again and again?
-> 
-> The heuristic always initializes the MSR with the per mm PASID IIF the
-> mm has a valid PASID but the MSR doesn't have one. This heuristic usually
-> happens only once on the first #GP in a thread.
+On Mon, Jun 15, 2020 at 12:18 PM Tom St Denis <tom.stdenis@amd.com> wrote:
+>
+> Forgot to subtract the SOC15 IP offsetand add the BASE_IDX values.
+>
+> Signed-off-by: Tom St Denis <tom.stdenis@amd.com>
 
-But it doesn't guarantee the PASID is the right one. Suppose both the mm
-has a PASID and the MSR has a VALID one, but the MSR isn't the mm one.
-Then we NO-OP. So if the exception was due to us having the wrong PASID,
-we stuck.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> If the next #GP still comes in, the heuristic finds out the MSR already
-> has a valid PASID and thus will not fixup the MSR any more. The fixup()
-> returns "false" and lets others to handle the #GP.
-> 
-> So the heuristic will be executed once (at most) and won't be executed
-> again and again.
-
-So I get that you want to set the PASID on-demand, but I find this all
-really weird code to make that happen.
-
-> > > +bool __fixup_pasid_exception(void)
-> > > +{
-> > > +	u64 pasid_msr;
-> > > +	unsigned int pasid;
-> > > +
-> > > +	/*
-> > > +	 * This function is called only when this #GP was triggered from user
-> > > +	 * space. So the mm cannot be NULL.
-> > > +	 */
-> > > +	pasid = current->mm->pasid;
-> > > +	/* If the mm doesn't have a valid PASID, then can't help. */
-> > > +	if (invalid_pasid(pasid))
-> > > +		return false;
-> > > +
-> > > +	/*
-> > > +	 * Since IRQ is disabled now, the current task still owns the FPU on
-> > 
-> > That's just weird and confusing. What you want to say is that you rely
-> > on the exception disabling the interrupt.
-> 
-> I checked SDM again. You are right. #GP can be interrupted by machine check
-> or other interrupts. So I cannot assume the current task still owns the FPU.
-> Instead of directly rdmsr() and wrmsr(), I will add helpers that can access
-> either the MSR on the processor or the PASID state in the memory.
-
-That's not in fact what I meant, but yes, you can take exceptions while
-!IF just fine.
-
-> > > +	 * this CPU and the PASID MSR can be directly accessed.
-> > > +	 *
-> > > +	 * If the MSR has a valid PASID, the #GP must be for some other reason.
-> > > +	 *
-> > > +	 * If rdmsr() is really a performance issue, a TIF_ flag may be
-> > > +	 * added to check if the thread has a valid PASID instead of rdmsr().
-> > 
-> > I don't understand any of this. Nobody except us writes to this MSR, we
-> > should bloody well know what's in it. What gives?
-> 
-> Patch 4 describes how to manage the MSR and patch 7 describes the format
-> of the MSR (20-bit PASID value and bit 31 is valid bit).
-> 
-> Are they sufficient to help? Or do you mean something else?
-
-I don't get why you need a rdmsr here, or why not having one would
-require a TIF flag. Is that because this MSR is XSAVE/XRSTOR managed?
-
-> > > +	 */
-> > > +	rdmsrl(MSR_IA32_PASID, pasid_msr);
-> > > +	if (pasid_msr & MSR_IA32_PASID_VALID)
-> > > +		return false;
-> > > +
-> > > +	/* Fix up the MSR if the MSR doesn't have a valid PASID. */
-> > > +	wrmsrl(MSR_IA32_PASID, pasid | MSR_IA32_PASID_VALID);
-
-How much more expensive is the wrmsr over the rdmsr? Can't we just
-unconditionally write the current PASID and call it a day?
+> ---
+>  .../gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h   | 6 ++++--
+>  .../gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h   | 6 ++++--
+>  drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h  | 9 ++++++---
+>  drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_1_offset.h  | 9 ++++++---
+>  .../gpu/drm/amd/include/asic_reg/gc/gc_9_2_1_offset.h    | 9 ++++++---
+>  5 files changed, 26 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+> index aab3d22c3b0f..baac40fa70e7 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_1_0_offset.h
+> @@ -21,8 +21,10 @@
+>  #ifndef _gc_10_1_0_OFFSET_HEADER
+>  #define _gc_10_1_0_OFFSET_HEADER
+>
+> -#define mmSQ_DEBUG_STS_GLOBAL                                                                          0x2309
+> -#define mmSQ_DEBUG_STS_GLOBAL2                                                                         0x2310
+> +#define mmSQ_DEBUG_STS_GLOBAL                                                                          0x0309
+> +#define mmSQ_DEBUG_STS_GLOBAL_BASE_IDX                                                                 0
+> +#define mmSQ_DEBUG_STS_GLOBAL2                                                                         0x0310
+> +#define mmSQ_DEBUG_STS_GLOBAL2_BASE_IDX                                                                0
+>
+>  // addressBlock: gc_sdma0_sdma0dec
+>  // base address: 0x4980
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
+> index 16c7f6f2467e..0bde3b4e9567 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_10_3_0_offset.h
+> @@ -22,8 +22,10 @@
+>  #ifndef _gc_10_3_0_OFFSET_HEADER
+>  #define _gc_10_3_0_OFFSET_HEADER
+>
+> -#define mmSQ_DEBUG_STS_GLOBAL                                                                          0x2309
+> -#define mmSQ_DEBUG_STS_GLOBAL2                                                                         0x2310
+> +#define mmSQ_DEBUG_STS_GLOBAL                                                                          0x0309
+> +#define mmSQ_DEBUG_STS_GLOBAL_BASE_IDX                                                                 0
+> +#define mmSQ_DEBUG_STS_GLOBAL2                                                                         0x0310
+> +#define mmSQ_DEBUG_STS_GLOBAL2_BASE_IDX                                                                0
+>
+>  // addressBlock: gc_sdma0_sdma0dec
+>  // base address: 0x4980
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h
+> index e3e1a9c1153b..12d451e5475b 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_0_offset.h
+> @@ -21,9 +21,12 @@
+>  #ifndef _gc_9_0_OFFSET_HEADER
+>  #define _gc_9_0_OFFSET_HEADER
+>
+> -#define mmSQ_DEBUG_STS_GLOBAL                                                                          0x2309
+> -#define mmSQ_DEBUG_STS_GLOBAL2                                                                         0x2310
+> -#define mmSQ_DEBUG_STS_GLOBAL3                                                                         0x2311
+> +#define mmSQ_DEBUG_STS_GLOBAL                                                                          0x0309
+> +#define mmSQ_DEBUG_STS_GLOBAL_BASE_IDX                                                                 0
+> +#define mmSQ_DEBUG_STS_GLOBAL2                                                                         0x0310
+> +#define mmSQ_DEBUG_STS_GLOBAL2_BASE_IDX                                                                0
+> +#define mmSQ_DEBUG_STS_GLOBAL3                                                                         0x0311
+> +#define mmSQ_DEBUG_STS_GLOBAL3_BASE_IDX                                                                0
+>
+>  // addressBlock: gc_grbmdec
+>  // base address: 0x8000
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_1_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_1_offset.h
+> index 6b1ad9082a2c..d17d1e622e4f 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_1_offset.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_1_offset.h
+> @@ -21,9 +21,12 @@
+>  #ifndef _gc_9_1_OFFSET_HEADER
+>  #define _gc_9_1_OFFSET_HEADER
+>
+> -#define mmSQ_DEBUG_STS_GLOBAL                                                                          0x2309
+> -#define mmSQ_DEBUG_STS_GLOBAL2                                                                         0x2310
+> -#define mmSQ_DEBUG_STS_GLOBAL3                                                                         0x2311
+> +#define mmSQ_DEBUG_STS_GLOBAL                                                                          0x0309
+> +#define mmSQ_DEBUG_STS_GLOBAL_BASE_IDX                                                                 0
+> +#define mmSQ_DEBUG_STS_GLOBAL2                                                                         0x0310
+> +#define mmSQ_DEBUG_STS_GLOBAL2_BASE_IDX                                                                0
+> +#define mmSQ_DEBUG_STS_GLOBAL3                                                                         0x0311
+> +#define mmSQ_DEBUG_STS_GLOBAL3_BASE_IDX                                                                0
+>
+>  // addressBlock: gc_grbmdec
+>  // base address: 0x8000
+> diff --git a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_2_1_offset.h b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_2_1_offset.h
+> index f377354e850e..c30720277912 100644
+> --- a/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_2_1_offset.h
+> +++ b/drivers/gpu/drm/amd/include/asic_reg/gc/gc_9_2_1_offset.h
+> @@ -21,9 +21,12 @@
+>  #ifndef _gc_9_2_1_OFFSET_HEADER
+>  #define _gc_9_2_1_OFFSET_HEADER
+>
+> -#define mmSQ_DEBUG_STS_GLOBAL                                                                          0x2309
+> -#define mmSQ_DEBUG_STS_GLOBAL2                                                                         0x2310
+> -#define mmSQ_DEBUG_STS_GLOBAL3                                                                         0x2311
+> +#define mmSQ_DEBUG_STS_GLOBAL                                                                          0x0309
+> +#define mmSQ_DEBUG_STS_GLOBAL_BASE_IDX                                                                 0
+> +#define mmSQ_DEBUG_STS_GLOBAL2                                                                         0x0310
+> +#define mmSQ_DEBUG_STS_GLOBAL2_BASE_IDX                                                                0
+> +#define mmSQ_DEBUG_STS_GLOBAL3                                                                         0x0311
+> +#define mmSQ_DEBUG_STS_GLOBAL3_BASE_IDX                                                                0
+>
+>  // addressBlock: gc_grbmdec
+>  // base address: 0x8000
+> --
+> 2.26.2
+>
+> _______________________________________________
+> amd-gfx mailing list
+> amd-gfx@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
