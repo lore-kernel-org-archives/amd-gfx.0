@@ -2,62 +2,66 @@ Return-Path: <SRS0=Wmcu=74=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 027DAC433DF
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 21:48:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 20EABC433E1
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 21:52:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D197320714
-	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 21:48:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D197320714
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id E7FD1208E4
+	for <amd-gfx@archiver.kernel.org>; Mon, 15 Jun 2020 21:52:29 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tExXfijl"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E7FD1208E4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86A086E528;
-	Mon, 15 Jun 2020 21:48:40 +0000 (UTC)
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 512BD6E509
- for <amd-gfx@lists.freedesktop.org>; Mon, 15 Jun 2020 20:56:28 +0000 (UTC)
-IronPort-SDR: DTuF3dI2B5Y/x0Al8FmKhcN1FiMWlPSOxohi30kftJIv/7PsPusXM/fl2WgC1ijCORfOcPJvk2
- ET1s65mSP+WA==
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Jun 2020 13:56:27 -0700
-IronPort-SDR: muuOGndW6l2twqgKRUp5gHj+I6DHwdVVXjshaVMnzZ31gcVkdJsq7yUI+1XuAIXfF8xffWXCmG
- 4mfjL2O9CNyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.73,516,1583222400"; d="scan'208";a="261210056"
-Received: from orsmsx107.amr.corp.intel.com ([10.22.240.5])
- by fmsmga007.fm.intel.com with ESMTP; 15 Jun 2020 13:56:26 -0700
-Received: from orsmsx115.amr.corp.intel.com ([169.254.4.56]) by
- ORSMSX107.amr.corp.intel.com ([169.254.1.92]) with mapi id 14.03.0439.000;
- Mon, 15 Jun 2020 13:56:15 -0700
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Andy Lutomirski <luto@amacapital.net>, "Yu, Fenghua" <fenghua.yu@intel.com>
-Subject: RE: [PATCH v2 12/12] x86/traps: Fix up invalid PASID
-Thread-Topic: [PATCH v2 12/12] x86/traps: Fix up invalid PASID
-Thread-Index: AQHWQRt0fMmHYsE9aUKb3rSjyAIL46jZyC2AgACD5gCAAAQ1gIAAJA2AgAAFHACAAAbEgIAAA+gAgAATCICAAAmFgP//iy/g
-Date: Mon, 15 Jun 2020 20:56:15 +0000
-Message-ID: <3908561D78D1C84285E8C5FCA982C28F7F66C849@ORSMSX115.amr.corp.intel.com>
-References: <20200615201735.GE13792@romley-ivt3.sc.intel.com>
- <C41D099B-BE2E-4D0E-A7B5-7CE587E11930@amacapital.net>
-In-Reply-To: <C41D099B-BE2E-4D0E-A7B5-7CE587E11930@amacapital.net>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.2.0.6
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.138]
+	by gabe.freedesktop.org (Postfix) with ESMTP id C90846E530;
+	Mon, 15 Jun 2020 21:52:27 +0000 (UTC)
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E7236E52F;
+ Mon, 15 Jun 2020 21:52:26 +0000 (UTC)
+Received: by mail-wm1-x343.google.com with SMTP id r9so1010716wmh.2;
+ Mon, 15 Jun 2020 14:52:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=pMrmQR08NbuxMuMQ9XTt0aege9jgLzpM8HoXAcM2lr4=;
+ b=tExXfijlyDzCgiPKBttpScZpH7EE0HQbvlprkUGn54gjurJarPMV0iKnTgho8tBucC
+ nk+dgtb0H3n7ccO1adYneQODQn9PnSRoqgDVhPAffWjhSq3p+PeGnV42A6hU3HcjR7cw
+ OCuZuQBKhZTKSRlocN73E1fSqeHc6W5WwGoEtWxsQUTIXGBLzpPOqiHkB9lQUo8kqKMI
+ LdykCrm6aFJY7yehqk1cxFzlJ3R1GIRe8uqQi1r+WXlFRc1/F57y8KV90Ga6W+S11i7n
+ 7Kb5Hcw1py9IfXCwtjD/zPBchiFqChNmuTgbcLd/9kFHBg5CzWhpBMdLfH8UHGVpFLnv
+ cEyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=pMrmQR08NbuxMuMQ9XTt0aege9jgLzpM8HoXAcM2lr4=;
+ b=UgZl3CcN0yjMz/hk/5Uti4xXkabSoG+qlnX03rpWtYdNopxl5mhXFf/4JFPtUHlRka
+ 6FCY20QR0VxX4MEQLH1KQKeqLFtZwdLVN4PwEUZKVpzVSv80jnVaRnPeBCRNi+AiGCGd
+ qKV/Ctvgowv6RGCfAGK8JBJnVZo4oYIoaf5uSR+AHz0G6UAWkSVTF4IR7Mt9WbgA/6A0
+ zz5ucI9uSY0eyxbk28dW6X98tTg7dW2ZivT6SmJamIr2gWz/ZmTw17lKpd+4sN+k2kUU
+ wS+VYJV/Fd4bmSgIIMeisoMsA8q46NXeB/GUNcDq8VmhBtqHN5L2JhwzeVbXX0PYMX/y
+ PtCQ==
+X-Gm-Message-State: AOAM532IPc+ExKaGlmZvCsyI57uGj9U1sLcBJuBCE5+/Tg0jDdYazABy
+ Ux8k+l2Gkpdz9kE0mp0IMngNsJuO1Yia9rW1jgk=
+X-Google-Smtp-Source: ABdhPJwSxUGklIsrSu/SHjWDyPn/otPVKio1ZbHbv4bC0MTX+tgbgI1YdyYgobjmthIhIY4phxxYn+K1f0UdCUPIRMU=
+X-Received: by 2002:a1c:32c4:: with SMTP id y187mr1309269wmy.79.1592257945080; 
+ Mon, 15 Jun 2020 14:52:25 -0700 (PDT)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 15 Jun 2020 21:48:37 +0000
+References: <20200614015539.123654-1-pakki001@umn.edu>
+In-Reply-To: <20200614015539.123654-1-pakki001@umn.edu>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 15 Jun 2020 17:52:14 -0400
+Message-ID: <CADnq5_NK7YP-yfN1SWhXk0Kromxs46LbEtFSTfA94cbhvgUEGQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: fix multiple reference count leak
+To: Aditya Pakki <pakki001@umn.edu>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,35 +73,104 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: Peter Zijlstra <peterz@infradead.org>, "Hansen,
- Dave" <dave.hansen@intel.com>, H Peter Anvin <hpa@zytor.com>, "Jiang,
- Dave" <dave.jiang@intel.com>, "Raj, Ashok" <ashok.raj@intel.com>,
- Joerg Roedel <joro@8bytes.org>, x86 <x86@kernel.org>,
- amd-gfx <amd-gfx@lists.freedesktop.org>, Ingo Molnar <mingo@redhat.com>,
- "Shankar, Ravi V" <ravi.v.shankar@intel.com>, "Yu, 
- Yu-cheng" <yu-cheng.yu@intel.com>, Andrew Donnellan <ajd@linux.ibm.com>,
- Borislav Petkov <bp@alien8.de>, "Mehta, Sohil" <sohil.mehta@intel.com>,
- Thomas Gleixner <tglx@linutronix.de>,
- linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- "iommu@lists.linux-foundation.org" <iommu@lists.linux-foundation.org>, "Pan,
- Jacob jun" <jacob.jun.pan@intel.com>, Frederic Barrat <fbarrat@linux.ibm.com>,
- David Woodhouse <dwmw2@infradead.org>, Lu Baolu <baolu.lu@linux.intel.com>
+Cc: David Airlie <airlied@linux.ie>, Kangjie Lu <kjlu@umn.edu>,
+ LKML <linux-kernel@vger.kernel.org>,
+ Maling list - DRI developers <dri-devel@lists.freedesktop.org>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>, wu000273@umn.edu,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> Are we planning to keep PASID live once a task has used it once or are we going to swap it lazily?  If the latter, a percpu variable might be better.
+On Mon, Jun 15, 2020 at 3:27 AM Aditya Pakki <pakki001@umn.edu> wrote:
+>
+> On calling pm_runtime_get_sync() the reference count of the device
+> is incremented. In case of failure, decrement the
+> reference count before returning the error.
 
-Current plan is "touch it once and the task owns it until exit(2)"
+Is this required if pm_runtime_get_sync() fails?
 
-Maybe someday in the future when we have data on how applications
-actually use accelerators we could look at something more complex
-if usage patterns look like it would be beneficial.
+Alex
 
--Tony
+>
+> Signed-off-by: Aditya Pakki <pakki001@umn.edu>
+> ---
+>  drivers/gpu/drm/radeon/radeon_connectors.c | 20 +++++++++++++++-----
+>  1 file changed, 15 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_connectors.c b/drivers/gpu/drm/radeon/radeon_connectors.c
+> index fe12d9d91d7a..e30834434442 100644
+> --- a/drivers/gpu/drm/radeon/radeon_connectors.c
+> +++ b/drivers/gpu/drm/radeon/radeon_connectors.c
+> @@ -879,8 +879,10 @@ radeon_lvds_detect(struct drm_connector *connector, bool force)
+>
+>         if (!drm_kms_helper_is_poll_worker()) {
+>                 r = pm_runtime_get_sync(connector->dev->dev);
+> -               if (r < 0)
+> +               if (r < 0) {
+> +                       pm_runtime_put_autosuspend(connector->dev->dev);
+>                         return connector_status_disconnected;
+> +               }
+>         }
+>
+>         if (encoder) {
+> @@ -1025,8 +1027,10 @@ radeon_vga_detect(struct drm_connector *connector, bool force)
+>
+>         if (!drm_kms_helper_is_poll_worker()) {
+>                 r = pm_runtime_get_sync(connector->dev->dev);
+> -               if (r < 0)
+> +               if (r < 0) {
+> +                       pm_runtime_put_autosuspend(connector->dev->dev);
+>                         return connector_status_disconnected;
+> +               }
+>         }
+>
+>         encoder = radeon_best_single_encoder(connector);
+> @@ -1163,8 +1167,10 @@ radeon_tv_detect(struct drm_connector *connector, bool force)
+>
+>         if (!drm_kms_helper_is_poll_worker()) {
+>                 r = pm_runtime_get_sync(connector->dev->dev);
+> -               if (r < 0)
+> +               if (r < 0) {
+> +                       pm_runtime_put_autosuspend(connector->dev->dev);
+>                         return connector_status_disconnected;
+> +               }
+>         }
+>
+>         encoder = radeon_best_single_encoder(connector);
+> @@ -1247,8 +1253,10 @@ radeon_dvi_detect(struct drm_connector *connector, bool force)
+>
+>         if (!drm_kms_helper_is_poll_worker()) {
+>                 r = pm_runtime_get_sync(connector->dev->dev);
+> -               if (r < 0)
+> +               if (r < 0) {
+> +                       pm_runtime_put_autosuspend(connector->dev->dev);
+>                         return connector_status_disconnected;
+> +               }
+>         }
+>
+>         if (radeon_connector->detected_hpd_without_ddc) {
+> @@ -1657,8 +1665,10 @@ radeon_dp_detect(struct drm_connector *connector, bool force)
+>
+>         if (!drm_kms_helper_is_poll_worker()) {
+>                 r = pm_runtime_get_sync(connector->dev->dev);
+> -               if (r < 0)
+> +               if (r < 0) {
+> +                       pm_runtime_put_autosuspend(connector->dev->dev);
+>                         return connector_status_disconnected;
+> +               }
+>         }
+>
+>         if (!force && radeon_check_hpd_status_unchanged(connector)) {
+> --
+> 2.25.1
+>
+> _______________________________________________
+> dri-devel mailing list
+> dri-devel@lists.freedesktop.org
+> https://lists.freedesktop.org/mailman/listinfo/dri-devel
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
