@@ -2,104 +2,105 @@ Return-Path: <SRS0=tiv0=75=lists.freedesktop.org=amd-gfx-bounces@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 927EFC433E1
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2020 03:26:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A910AC433E1
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2020 03:26:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5619720756
-	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2020 03:26:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7FB7B207D4
+	for <amd-gfx@archiver.kernel.org>; Tue, 16 Jun 2020 03:26:25 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="kuU0iiw9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5619720756
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="atu2KqCe"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FB7B207D4
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2F516E81B;
-	Tue, 16 Jun 2020 03:26:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B5356E81D;
+	Tue, 16 Jun 2020 03:26:25 +0000 (UTC)
 Received: from NAM11-CO1-obe.outbound.protection.outlook.com
- (mail-co1nam11on2070.outbound.protection.outlook.com [40.107.220.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BEA736E81B
- for <amd-gfx@lists.freedesktop.org>; Tue, 16 Jun 2020 03:26:09 +0000 (UTC)
+ (mail-co1nam11on2062.outbound.protection.outlook.com [40.107.220.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82E3B6E81D;
+ Tue, 16 Jun 2020 03:26:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Cz8sjNWPnJdjin9REcwcaPCB6/JU1sSm0sdiDZeFpDNfTAgyzszE5YqOI6BcBvtGf/9BCpf0OzzrleuZr3WaQfSVEs29gLN0HPHVn5m3WNUVO00vChtvGWIK35NVXFGTzlcFE7ZrxvDOW+JZke/BDVEVLkL5oMKpM3DniHSK1XptGaEhdzWMA2FQxAD6g+hPUsYaUP8u6q+hY3AuwCT9VwGViym9XaRcwX0mNajrKF7bHIEKCmwDstBKSFSnQ81xrml97bCarj2OrOxw9oSKGzBFC8D+Nni2vytnibIK+Dp9Alon1m5JYP4/uLcSI20FUyjA3BWBG5SJjXOlXmDq1A==
+ b=PR42pd6BqXd9P0jZ1Rtw72gPrkUz2SYNLP7R6kluKD09xs27jWZHm8xhrkgE0G9JUTAHMerlWlR3EvVHkmsLXDLU8ndFfp4zXLLsI2LNixN8F4tC8qy2QVfWVveZFk4xDMNFszFVDIThGQC6H7G0VHh+ef6HIw70FtzSyj1x7vskBnD5avauZFCU84Hwctz8dTpj/SXLnhsoU/QSyZSs2hC56Ih8rt2wqofAu5/18BAiFk4Yia3x8w4oR36PhJd9cJPLDz5M9EGzriNsZw4Arh5NG+V2+LrRMxPGl7WMKSJXtlyCdsm1UuHTIaAiUHR2hcenmqtE64Utjp0VbZN2Nw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wfa/CKNsgnLomZvh+C0Fq64Jk6Xo0/BT53/o+wwBtNA=;
- b=M7nnbQJMv1M+LMh6TGB6y4pLMdRWIsA9ZYZZTqzlwwCZPDz6nhLHGpZOvCXgrNar00CkTPkATg0hDcS06K1KpuLKJTwATc0KTYpoY8Q5DNfTSSETxP1Qar0Sq8wswzZQKCxqKbrpIbaFckfsRrTGQ+QTuVixbj8qf8PidOlzOCqPk8YVJT13O1FWeaJwwgWFb5sEYiXqXkw5ifIW4BHLmP6/FEoUvZWnezzLrwwxn5gyBV0t6zPu1QpUTrp/V/iaVE3uDUclV3s2FKBuBnOCmhb8JHJxPVmaAxhk+blPSMIXPG5CTwUTh8VYKljpWoe2v4a0YOiSL08Ubz77h8e9Kg==
+ bh=950eqgcI9TSXOLEUO53JgvtfFoF2aQqAqU8X8TgjlXk=;
+ b=ogqt/h1GPLQqEpNyxQHZDXYH4tWQzJSEJxweV9vP4pE2f3gVx98v6wI0ZESp1qa8doBnJmVWWnPztR+CkwkODnWa6w/1AU8S2DVYikQ+3qzmzk3YUHBBFiVdmEafirDQT+50kv5h+oWOhV0aaRd5JWasst2JO6aS+ledRCOXL1CYvfcvI86ePNWImXcEzwidHi65/BjzuLs2LQa1HKY7kcqu4FwhS11eXYQzC2gDf7CwrHJ0lbt58erepbU1Geq5F+TLULB0Clp2fT2CbFl5GtFtRj7IxC5ImWS0RYDIJjxAHGve80AaWu0gbEcX5td+RmDbQSmbT8bwD7eP1niqWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wfa/CKNsgnLomZvh+C0Fq64Jk6Xo0/BT53/o+wwBtNA=;
- b=kuU0iiw9lfr8qWd/t0BglNS+RM0JA+335DrGmvhfVN0bnlVWZxqqeiTSdXOUg6RKrv+qlLHESFwz5zD/qIRkULng9U5g+C/xn4P+RyGb57Bbs7nFEqMEr9sD1aI4bPoHPhcuNJaoWdgxxjmuVLNJYK7bT6aVTpiThH5lRTnlYKs=
+ bh=950eqgcI9TSXOLEUO53JgvtfFoF2aQqAqU8X8TgjlXk=;
+ b=atu2KqCeuudx/c0H9I1ku7NyCPIetMIqkn62uOrSLelWwQsnd9QU6tLPBGLvbO2yQKEURS1SLWqkwF4jnDqvkAnYO2t1E+stGUudXPVKY8gPzMT161GTkhlwlU2V7LyOO26ZFlQdwBe99uoHhnJibQ0Imawy9cwjXaEXy1SFo7o=
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com (2603:10b6:5:45::18) by
  DM6PR12MB4435.namprd12.prod.outlook.com (2603:10b6:5:2a6::23) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.3088.18; Tue, 16 Jun 2020 03:26:08 +0000
+ 15.20.3088.18; Tue, 16 Jun 2020 03:26:23 +0000
 Received: from DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f]) by DM6PR12MB2619.namprd12.prod.outlook.com
  ([fe80::c157:8999:dcc3:536f%3]) with mapi id 15.20.3088.029; Tue, 16 Jun 2020
- 03:26:08 +0000
+ 03:26:23 +0000
 From: "Quan, Evan" <Evan.Quan@amd.com>
-To: Guo Lei <raykwok1150@163.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amdgpu: Fix incorrect firmware size calculation
-Thread-Topic: [PATCH] drm/amdgpu: Fix incorrect firmware size calculation
-Thread-Index: AQHWQuayhtZQLgesdk2R1XNx60aSq6jaldwg
-Date: Tue, 16 Jun 2020 03:26:07 +0000
-Message-ID: <DM6PR12MB2619E7D9CA062AC4A696A363E49D0@DM6PR12MB2619.namprd12.prod.outlook.com>
-References: <611402e8.64f3.172b6d3a40c.Coremail.raykwok1150@163.com>
-In-Reply-To: <611402e8.64f3.172b6d3a40c.Coremail.raykwok1150@163.com>
+To: Aditya Pakki <pakki001@umn.edu>
+Subject: RE: [PATCH] drm/radeon: Fix reference count leaks caused by
+ pm_runtime_get_sync
+Thread-Topic: [PATCH] drm/radeon: Fix reference count leaks caused by
+ pm_runtime_get_sync
+Thread-Index: AQHWQuauNl/WjlQpGECR+5+KDwzsI6jalfZQ
+Date: Tue, 16 Jun 2020 03:26:23 +0000
+Message-ID: <DM6PR12MB2619368F4139A00380A5F397E49D0@DM6PR12MB2619.namprd12.prod.outlook.com>
+References: <20200614022122.124908-1-pakki001@umn.edu>
+In-Reply-To: <20200614022122.124908-1-pakki001@umn.edu>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=634a53f4-f49e-4599-84ce-0000d3542e1d;
+msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=6f7ec339-cbe6-4918-8ec0-00008d425f0f;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal
  Use Only - Unrestricted;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-06-16T03:25:50Z;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-06-16T03:26:12Z;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
-authentication-results: 163.com; dkim=none (message not signed)
- header.d=none;163.com; dmarc=none action=none header.from=amd.com;
+authentication-results: umn.edu; dkim=none (message not signed)
+ header.d=none;umn.edu; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [58.247.170.242]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: ade91690-0b86-499f-842f-08d811a50272
+x-ms-office365-filtering-correlation-id: fb03db33-953b-4ac2-18e0-08d811a50bb2
 x-ms-traffictypediagnostic: DM6PR12MB4435:
-x-microsoft-antispam-prvs: <DM6PR12MB4435F430B79CA85DA2EB89A1E49D0@DM6PR12MB4435.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB4435C1467B52D57D1F2B6C72E49D0@DM6PR12MB4435.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:415;
 x-forefront-prvs: 04362AC73B
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: wFOpMvtl5bo8Cb/wyyalb352N7Bbnz22v2koIqxE8DUDBG/55Mva0fTUzjsh201BXYPr7iA6xBYIk2/JzHKDS+H9zJQKXU5wSEgqDKuotM5rPzxPCmYhj/xX+9o241CSjz37Bhoko6u1tmE+nTnwVe16nVZ5CRNxM2EpQCvpz23eqiAp0DdqoTfi2IsGvp7phjC4dP7yZu+o7st+rNzEpUwNDpgS1Jzh87C636OVss1282jECVuYdL/5BCaJxFAa6SBLK6cYHlRXmVxIFEvuE3tGAYaa2+HMwptGsGba02dzz8tqNP6X8g8YwBKKhPmw
+x-microsoft-antispam-message-info: NWgMEmcrUgTzZ80qlhbA9BASCrBmZbI6+uvQDHhDvAHUHWGfGVwErGTxzoiLbaOz+LXvJRlvOMLmHv08S9j9vVRvkEmLv+GC3K5EAoPJq0S6izRKYQHDbYiwDQ4IBf7DRiinjV+JnREggmuI/hntX9fYWOCQ+trEfbHgCTWYZ38tNL2jX0USmNrrsd5HO2bCllORjKqHUsN7zlk1gKGV8Uol3/IftF3+Bge8T0Vaty+6iSuoxlDzd8Xijs1A+tfDcIECFxxwTgo4P0XDVJA6bKvKz16DISjSfUyARC95qArYHqp/XhhUcVE6qwg1rDKXY1FprexKu2pRKXl0JOgjUSLZ5dFo5LFf0LfEAwQLt60=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB2619.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(39860400002)(366004)(396003)(376002)(346002)(136003)(8676002)(83380400001)(478600001)(110136005)(52536014)(5660300002)(71200400001)(8936002)(33656002)(186003)(26005)(6506007)(53546011)(2906002)(316002)(66476007)(66556008)(76116006)(66946007)(66446008)(64756008)(55016002)(86362001)(7696005)(9686003);
+ SFS:(4636009)(39860400002)(366004)(396003)(376002)(346002)(136003)(54906003)(8676002)(83380400001)(478600001)(966005)(45080400002)(52536014)(5660300002)(71200400001)(8936002)(4326008)(33656002)(186003)(26005)(6916009)(6506007)(53546011)(2906002)(316002)(66476007)(66556008)(76116006)(66946007)(66446008)(64756008)(55016002)(86362001)(7696005)(9686003);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: BkdXFVFK7+Wzj59WJTBAGH2uGce32dMZZWRxRVabwtmxLMjPTpmpYPiT+1I7VtXgbxBXqe8cCcnia692zEzy1GHXj+Pb20uOTUDeK7fZ84ps8L3pGVA4rD5S4x8YjWCxrwCeUeSOUlYyH/DTK2++Jmif6qh1Ij/A98r4k51rnnxb0Cw/Twvb1VrvYzTIIrLSbtX3mGWUU0kwuDqDmMtHWu+pVAhoFI+pLBs9rtYE/0FAOURtOFcYUK3cACMV56R5nAI8tOe0+XUr7MCWO1Icfvnzz1PCjfFdTvFTfXqyJ7DDE9H9XP/2lViO1Gtb7k33U3NTMk0EshWsCK4vS02zy2nFqUf56ce7AeUuLyUQbJD/w67NLe6ZInOSeMFnbHDC2B7QA1+n92AbTOu0GEVXcL7PoihFv1rcmapoxVsNTqV3nzcOQoTZoEoBCM/tOAnsSRt8geMl7MsCJV2PvyG6VjZr25puSHqLg2HvuT3wrSxBq2Ea2lXtMELElCkxB2K7
-x-ms-exchange-transport-forked: True
+x-ms-exchange-antispam-messagedata: dyACNK9uM84la8QsJcgDBC+rpdxApv6b3R5FMR0HDK2I1NiCxjsmUycgiTi9RNI87bOz8BKSHsP7/sux0hu+rNZGqu5WKVtEVBeajgznS6xdm6La7gUu+JMI838zg3qkXPvnzbL1CT+WAeGyd6/cg8I7gvYVqrb3d84HpchqQ+0lFQaxF7nBqDbbtDB4ravqHXvKvv0nEy4gggEq8fjG/Pb2MeNyyydafyY0yNwV2Prloxn1ZgoeyX5m4T/8yCCVx7t3uhpgIXLFBQ25IzXG6SOWgZh4xHbivg7i2qep2RHBeNy9r+ZiVXAxqZp+0Sd8NzhvEDE2RmYj1glEvZed43+q83m/V9+WGUUnaA3LtS77SA/ixuZKinso6LE8HAUa1Ad6rpzX2tiS7c+V62ZlItgIMmbj2DWV1Je7iGgQPFebwwZBVCmvzpiYdqgwSKiNI25vEWZMPlvRWHgpiNztvcbbskCcFLeg5xe39P9q2eEwXYU0FNtP7p/+oqaF6kAB
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ade91690-0b86-499f-842f-08d811a50272
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jun 2020 03:26:07.9981 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb03db33-953b-4ac2-18e0-08d811a50bb2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Jun 2020 03:26:23.5193 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: vkQjshm7ko/8MzG4C1AveYeTeD8HPCpQPwydDNFlBBMlaT5yZ6X2URpot1nbfmQG
+X-MS-Exchange-CrossTenant-userprincipalname: kM0k/oApvg1gruyQCZP1eMQoaKa/nxoWzrnk0dBez/KNbfaRKx+YSLFSToFJXbFJ
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4435
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,333 +113,95 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1290638362=="
+Cc: Daniel Vetter <daniel@ffwll.ch>, David Airlie <airlied@linux.ie>,
+ "kjlu@umn.edu" <kjlu@umn.edu>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "wu000273@umn.edu" <wu000273@umn.edu>, "Deucher, 
+ Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
-
---===============1290638362==
-Content-Language: en-US
-Content-Type: multipart/alternative;
-	boundary="_000_DM6PR12MB2619E7D9CA062AC4A696A363E49D0DM6PR12MB2619namp_"
-
---_000_DM6PR12MB2619E7D9CA062AC4A696A363E49D0DM6PR12MB2619namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 
 [AMD Official Use Only - Internal Distribution Only]
 
 Acked-by: Evan Quan <evan.quan@amd.com>
 
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Guo Lei
-Sent: Monday, June 15, 2020 3:14 PM
-To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH] drm/amdgpu: Fix incorrect firmware size calculation
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Aditya Pakki
+Sent: Sunday, June 14, 2020 10:21 AM
+To: pakki001@umn.edu
+Cc: wu000273@umn.edu; David Airlie <airlied@linux.ie>; kjlu@umn.edu; linux-kernel@vger.kernel.org; amd-gfx@lists.freedesktop.org; dri-devel@lists.freedesktop.org; Daniel Vetter <daniel@ffwll.ch>; Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+Subject: [PATCH] drm/radeon: Fix reference count leaks caused by pm_runtime_get_sync
 
+On calling pm_runtime_get_sync() the reference count of the device is incremented. In case of failure, decrement the reference count before returning the error.
 
-From 014162f69b909a59c241e7f73c3630d1da34696c Mon Sep 17 00:00:00 2001
-
-From: Lei Guo <raykwok1150@163.com<mailto:raykwok1150@163.com>>
-
-Date: Mon, 15 Jun 2020 13:54:26 +0800
-
-Subject: [PATCH] drm/amdgpu: Fix incorrect firmware size calculation
-
-
-
-[WHY]
-
-The memcpy() function copies n bytes from memory area src to memory area
-
-dest. So specify the firmware size in bytes.
-
-
-
-[How]
-
-Correct the calculation.
-
-
-
-Signed-off-by: Lei Guo <raykwok1150@163.com<mailto:raykwok1150@163.com>>
-
-Reviewed-by: Junwei Zhang <zjunweihit@163.com<mailto:zjunweihit@163.com>>
-
+Signed-off-by: Aditya Pakki <pakki001@umn.edu>
 ---
+ drivers/gpu/drm/radeon/radeon_display.c | 4 +++-
+ drivers/gpu/drm/radeon/radeon_drv.c     | 4 +++-
+ drivers/gpu/drm/radeon/radeon_kms.c     | 4 +++-
+ 3 files changed, 9 insertions(+), 3 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c | 2 +-
+diff --git a/drivers/gpu/drm/radeon/radeon_display.c b/drivers/gpu/drm/radeon/radeon_display.c
+index 35db79a168bf..df1a7eb73651 100644
+--- a/drivers/gpu/drm/radeon/radeon_display.c
++++ b/drivers/gpu/drm/radeon/radeon_display.c
+@@ -635,8 +635,10 @@ radeon_crtc_set_config(struct drm_mode_set *set,
+ dev = set->crtc->dev;
 
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ ret = pm_runtime_get_sync(dev->dev);
+-if (ret < 0)
++if (ret < 0) {
++pm_runtime_put_autosuspend(dev->dev);
+ return ret;
++}
 
+ ret = drm_crtc_helper_set_config(set, ctx);
 
+diff --git a/drivers/gpu/drm/radeon/radeon_drv.c b/drivers/gpu/drm/radeon/radeon_drv.c
+index bbb0883e8ce6..62b5069122cc 100644
+--- a/drivers/gpu/drm/radeon/radeon_drv.c
++++ b/drivers/gpu/drm/radeon/radeon_drv.c
+@@ -549,8 +549,10 @@ long radeon_drm_ioctl(struct file *filp,
+ long ret;
+ dev = file_priv->minor->dev;
+ ret = pm_runtime_get_sync(dev->dev);
+-if (ret < 0)
++if (ret < 0) {
++pm_runtime_put_autosuspend(dev->dev);
+ return ret;
++}
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/am=
-dgpu/gfx_v9_0.c
+ ret = drm_ioctl(filp, cmd, arg);
 
-index 6b94587df407..c3e59b765268 100644
+diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
+index c5d1dc9618a4..99ee60f8b604 100644
+--- a/drivers/gpu/drm/radeon/radeon_kms.c
++++ b/drivers/gpu/drm/radeon/radeon_kms.c
+@@ -638,8 +638,10 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
+ file_priv->driver_priv = NULL;
 
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+ r = pm_runtime_get_sync(dev->dev);
+-if (r < 0)
++if (r < 0) {
++pm_runtime_put_autosuspend(dev->dev);
+ return r;
++}
 
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-
-@@ -1960,7 +1960,7 @@ static int gfx_v9_0_mec_init(struct amdgpu_device *ad=
-ev)
-
-          fw_data =3D (const __le32 *)
-
-                      (adev->gfx.mec_fw->data +
-
-                      le32_to_cpu(mec_hdr->header.ucode_array_offset_bytes)=
-);
-
--         fw_size =3D le32_to_cpu(mec_hdr->header.ucode_size_bytes) / 4;
-
-+        fw_size =3D le32_to_cpu(mec_hdr->header.ucode_size_bytes);
-
-
-
-          r =3D amdgpu_bo_create_reserved(adev, mec_hdr->header.ucode_size_=
-bytes,
-
-                                                    PAGE_SIZE, AMDGPU_GEM_D=
-OMAIN_GTT,
-
+ /* new gpu have virtual address space support */
+ if (rdev->family >= CHIP_CAYMAN) {
 --
-
-2.17.1
-
-
-
-
-
---_000_DM6PR12MB2619E7D9CA062AC4A696A363E49D0DM6PR12MB2619namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:SimSun;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<p style=3D"font-family:Arial;font-size:10pt;color:#0078D7;margin:15pt;" al=
-ign=3D"Left">
-[AMD Official Use Only - Internal Distribution Only]<br>
-</p>
-<br>
-<div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif">Acked-by: Evan Quan &lt;evan.quan@amd.com&gt;<o:p><=
-/o:p></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ca=
-libri&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
-4.0pt">
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
-0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
-;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
-font-family:&quot;Calibri&quot;,sans-serif"> amd-gfx &lt;amd-gfx-bounces@li=
-sts.freedesktop.org&gt;
-<b>On Behalf Of </b>Guo Lei<br>
-<b>Sent:</b> Monday, June 15, 2020 3:14 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Fix incorrect firmware size calculation=
-<o:p></o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<div>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">From 014162f69b909=
-a59c241e7f73c3630d1da34696c Mon Sep 17 00:00:00 2001<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">From: Lei Guo &lt;=
-<a href=3D"mailto:raykwok1150@163.com">raykwok1150@163.com</a>&gt;<o:p></o:=
-p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">Date: Mon, 15 Jun =
-2020 13:54:26 &#43;0800<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">Subject: [PATCH] d=
-rm/amdgpu: Fix incorrect firmware size calculation<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p><=
-/span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">[WHY]<o:p></o:p></=
-span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">The memcpy() funct=
-ion copies n bytes from memory area src to memory area<o:p></o:p></span></p=
->
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">dest. So specify t=
-he firmware size in bytes.<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p><=
-/span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">[How]<o:p></o:p></=
-span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">Correct the calcul=
-ation.<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p><=
-/span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">Signed-off-by: Lei=
- Guo &lt;<a href=3D"mailto:raykwok1150@163.com">raykwok1150@163.com</a>&gt;=
-<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">Reviewed-by: Junwe=
-i Zhang &lt;<a href=3D"mailto:zjunweihit@163.com">zjunweihit@163.com</a>&gt=
-;<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">---<o:p></o:p></sp=
-an></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">&nbsp;drivers/gpu/=
-drm/amd/amdgpu/gfx_v9_0.c | 2 &#43;-<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">&nbsp;1 file chang=
-ed, 1 insertion(&#43;), 1 deletion(-)<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p><=
-/span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">diff --git a/drive=
-rs/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<o:=
-p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">index 6b94587df407=
-..c3e59b765268 100644<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">--- a/drivers/gpu/=
-drm/amd/amdgpu/gfx_v9_0.c<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">&#43;&#43;&#43; b/=
-drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">@@ -1960,7 &#43;19=
-60,7 @@ static int gfx_v9_0_mec_init(struct amdgpu_device *adev)<o:p></o:p>=
-</span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_data =3D (const __le32 *)<o:p></o:p=
-></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (adev-&gt;gfx.mec_fw-&gt;data &#43;<o:p><=
-/o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; le32_to_cpu(mec_hdr-&gt;header.ucode_arra=
-y_offset_bytes));<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">-&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_size =3D le32_to_cpu(mec_hdr-&gt;header.=
-ucode_size_bytes) / 4;<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">&#43;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fw_size =3D le32_to_cpu(mec_hdr-&gt;header.uc=
-ode_size_bytes);<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">&nbsp;<o:p></o:p><=
-/span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_bo_create_reserved(adev, =
-mec_hdr-&gt;header.ucode_size_bytes,<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; PAGE_SIZE, AMDGPU_GEM_DOMA=
-IN_GTT,<o:p></o:p></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">--&nbsp;<o:p></o:p=
-></span></p>
-<p style=3D"margin:0in;margin-bottom:.0001pt"><span style=3D"font-size:10.5=
-pt;font-family:&quot;Arial&quot;,sans-serif;color:black">2.17.1<o:p></o:p><=
-/span></p>
-<div>
-<p class=3D"MsoNormal"><span style=3D"font-size:10.5pt;font-family:&quot;Ar=
-ial&quot;,sans-serif;color:black"><o:p>&nbsp;</o:p></span></p>
-</div>
-</div>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><o:p>&nbsp;</o:p></p>
-<p>&nbsp;<o:p></o:p></p>
-</div>
-</div>
-</div>
-</body>
-</html>
-
---_000_DM6PR12MB2619E7D9CA062AC4A696A363E49D0DM6PR12MB2619namp_--
-
---===============1290638362==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+2.25.1
 
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Cevan.quan%40amd.com%7Cc86101e02ef24c52b36408d810fdcc14%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637278029582429567&amp;sdata=qtKTCV33q8l2GTxMUX0nlJ4fV32dXaLH7y6hymksQEo%3D&amp;reserved=0
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
 https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-
---===============1290638362==--
