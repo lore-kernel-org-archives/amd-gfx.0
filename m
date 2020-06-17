@@ -6,114 +6,112 @@ X-Spam-Status: No, score=-6.5 required=3.0 tests=DKIM_INVALID,DKIM_SIGNED,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
 	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A8CBC433E0
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 20:26:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B792C433E0
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 20:27:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D0BB214DB
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 20:26:57 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id F0F7E214DB
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 20:27:57 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="d9/Menzk"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D0BB214DB
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=amdcloud.onmicrosoft.com header.i=@amdcloud.onmicrosoft.com header.b="hncCSkPR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F0F7E214DB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=amd.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E38466E17D;
-	Wed, 17 Jun 2020 20:26:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B54356E17F;
+	Wed, 17 Jun 2020 20:27:57 +0000 (UTC)
 Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2081.outbound.protection.outlook.com [40.107.244.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CCAC6E17D
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 20:26:55 +0000 (UTC)
+ (mail-mw2nam12on2070.outbound.protection.outlook.com [40.107.244.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED68B6E17F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 20:27:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=aFdxEc10WXpMgFkxQtdXkWh+Q4Mf2trFJq/Umx69kDLa/jalAUo7P/CWP3GsvLv2cFsSoJ+wWAK7BHy4PlhDRvvD9DTGPTJEcuPmiaNHKYUFfwadoO4cgHUOP0DTjazXDO3HQ1+4FyvBWPIug6Nr21PG7+9Yq2qPs5CgAgZsRJCe+0MSlSVRYwhJFpgbpCyMVJvKg/NyBGrEk9jkZZEC9r/G4EeIKv5MH+/bPEob+0hX9PghpsdFacmU0vtXHgRu3WcrA3GLzSTQglMdT0oN3BB4ktVUchu5twt+rDPBFM7OdBJ8hNwoVWs68FqJ9g9yf7RuqxkzhbT1KBlIzPc/LA==
+ b=X5f9YTFM7FF65offBrEe9jCAcgw0O/5pdbbLV2iK5ZA6OLpXx0ARTUurR+r5qgUQrjxtbakvB93UNMRLik+XJRcGIrIq408MCEZtKI/Y0rWLOdN2tHoy8wjTQe5JoY4xnXGATtD6qBPRKTAPwydiMVL0yoUe8DcVjjirCKZZXhMyN+E/lf9f3l0grhIX/CVPnkO2wgEKhv/h0b8dxCrsxJ2Q+H66ryxrg1YmiqYHCbMbCytgEvmafPVFSfkW1KGWn2vrOAoIR5RomCoKUoZSu7qG3RPHFKI425UEdHtiJx4AJHPMuZ9borwbtDu0iDBHUUwaSKD/oWSVqmc2l4I4EQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r3GIYvu52lK0lggzEpKWSn0VcmeS92lt0i7nVZlb0c4=;
- b=hjeTn4XOD/C1QEieWJ0qpXsNkAVtKeOU0rwSTbKMDc8EsqiwX57jYkNyiPnireERSaQe2Ljuxape4rYTzBBIdRw/HBqK/yqGXHAad8dfxor92khS/7gt0MFgIAFBB5wfVtUFThqtiwX46yCdGXbBCNsTcEz7uuzWHLR5bdaMuwi20bNwYpG22yEuJolw7JeMioRgyCeGVQdupxA6HRrRv6P6O1yQKomrWqkS/ftuQauvJaeNmd0Vzey0Zt65hxQduzTxs0/K/4TAl35gVOgVhyH86bJvn4LXPDzyxe7UWZaGh7N/SWCm70soODMuBRsl02Q46VSu6eeRl0Vcfb/EDg==
+ bh=2bFRlcKhjxJSWFXzz5sIt+LcS3UgVsScUNblmuOy8ls=;
+ b=j+PTIcQXnk4qTA8MEVFSBkXCos54BbS6D13Vy1PCimWCkYMieIefmmxU4cVPQ5JtB1iCIs1rPNfQYNXgG1QP1QF8Bqpz9MECP7pdghF4mgrbRhtE7JSEhlHhzq6ncsD5hv/l4bBxAjqzrVUyV2nH/+pUIor8YcYrhuvhNMcDF5pFiKjQAzQ0nWAx/s8JMcsGriBoh9L9IzTKYFmuY7v/OTzpaov/zX9hy8TWh8t2/sKeOSEw6tg3Xn81rLVrrgmt9Fu76/vo2Pb2G76aJUTGbHpKFHvTUII3a9rD9iu8WJjgdeZoXtcLi6dQKhbAMxpMHts+6itGFg8r1ajUqGe/+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r3GIYvu52lK0lggzEpKWSn0VcmeS92lt0i7nVZlb0c4=;
- b=d9/Menzk0aaek9YYAUcGKamGvMX62hwAsi/lP55oqcihBu396qLFAnd/Ejaq4eDkKAD9z++GQzYN9+wz70oAGSTQqpaO6SccGbSinp3oKB9B+Jfk9I+V33GW7SHspE8mpNI/staxcyQL5KM1REMP3qV5q3xebtXtNHKJXvFDeu4=
+ bh=2bFRlcKhjxJSWFXzz5sIt+LcS3UgVsScUNblmuOy8ls=;
+ b=hncCSkPRgcp8cSqAHLX4NwJU/4ju/E+rdpXJhFn8Vl25W4HPF3R9J0+9TbQPIjqYMU+uuO6pmSFTjz5RiRZvjbogZjNzib1I/ON6dls3vaLfmQC3Zf4PE/oPF/nkBkZvN0m+nXH1WbSlfhB9Au856hKtAjtJDr1NFugR7VKT4P8=
 Received: from BN6PR12MB1155.namprd12.prod.outlook.com (2603:10b6:404:1b::17)
  by BN8PR12MB3026.namprd12.prod.outlook.com (2603:10b6:408:41::26)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3109.22; Wed, 17 Jun
- 2020 20:26:53 +0000
+ 2020 20:27:56 +0000
 Received: from BN6PR12MB1155.namprd12.prod.outlook.com
  ([fe80::6c17:115:fa26:adf2]) by BN6PR12MB1155.namprd12.prod.outlook.com
  ([fe80::6c17:115:fa26:adf2%12]) with mapi id 15.20.3109.021; Wed, 17 Jun 2020
- 20:26:52 +0000
+ 20:27:56 +0000
 From: "Bhardwaj, Rajneesh" <Rajneesh.Bhardwaj@amd.com>
-To: "Kuehling, Felix" <Felix.Kuehling@amd.com>, Alex Deucher
- <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
+To: Alex Deucher <alexdeucher@gmail.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 4/4] drm/amdkfd: fix ref count leak when
+Subject: RE: [PATCH 3/4] drm/amdgpu/fence: fix ref count leak when
  pm_runtime_get_sync fails
-Thread-Topic: [PATCH 4/4] drm/amdkfd: fix ref count leak when
+Thread-Topic: [PATCH 3/4] drm/amdgpu/fence: fix ref count leak when
  pm_runtime_get_sync fails
-Thread-Index: AQHWRNnbiioKuhCsT0KOn4EzE65C06jdPrMAgAACpuA=
-Date: Wed, 17 Jun 2020 20:26:52 +0000
-Message-ID: <BN6PR12MB1155F8B21B98948FD107F747FE9A0@BN6PR12MB1155.namprd12.prod.outlook.com>
+Thread-Index: AQHWRNnbPStYGvlf10qIgHeJTmpNsKjdQcsA
+Date: Wed, 17 Jun 2020 20:27:55 +0000
+Message-ID: <BN6PR12MB1155BDECA1EF5732F4F28914FE9A0@BN6PR12MB1155.namprd12.prod.outlook.com>
 References: <20200617190212.3519907-1-alexander.deucher@amd.com>
- <20200617190212.3519907-4-alexander.deucher@amd.com>
- <68e00259-d3dc-2ed8-cb66-faee4cb17716@amd.com>
-In-Reply-To: <68e00259-d3dc-2ed8-cb66-faee4cb17716@amd.com>
+ <20200617190212.3519907-3-alexander.deucher@amd.com>
+In-Reply-To: <20200617190212.3519907-3-alexander.deucher@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=true;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-06-17T20:26:21Z; 
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2020-06-17T20:27:50Z; 
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Standard;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Name=Internal Use Only -
  Unrestricted;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=83f528e6-062d-47ff-8837-000049737c48;
+ MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ActionId=983f0840-0b11-49fe-9516-000070ca4169;
  MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=1
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_enabled: true
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-06-17T20:26:21Z
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_setdate: 2020-06-17T20:27:50Z
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_method: Standard
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_name: Internal Use Only -
  Unrestricted
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_siteid: 3dd8961f-e488-4e60-8e11-a82d994e183d
-msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 3ace066c-69fc-44ea-8370-0000c72932e2
+msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_actionid: 54d96c5f-3434-4e94-9499-0000b640da30
 msip_label_76546daa-41b6-470c-bb85-f6f40f044d7f_contentbits: 0
 msip_justification: I confirm the recipients are approved for sharing this
  content
-authentication-results: amd.com; dkim=none (message not signed)
- header.d=none;amd.com; dmarc=none action=none header.from=amd.com;
+authentication-results: gmail.com; dkim=none (message not signed)
+ header.d=none;gmail.com; dmarc=none action=none header.from=amd.com;
 x-originating-ip: [38.121.83.65]
 x-ms-publictraffictype: Email
 x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: bf8c5fcc-769e-4121-a865-08d812fcc59e
+x-ms-office365-filtering-correlation-id: 4f7279fc-7012-4efe-fc29-08d812fceb41
 x-ms-traffictypediagnostic: BN8PR12MB3026:
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <BN8PR12MB30263C19A5D76E859E0A880AFE9A0@BN8PR12MB3026.namprd12.prod.outlook.com>
+x-microsoft-antispam-prvs: <BN8PR12MB302640FFEA7E9B40F5DBB296FE9A0@BN8PR12MB3026.namprd12.prod.outlook.com>
 x-ms-oob-tlc-oobclassifiers: OLM:4502;
 x-forefront-prvs: 04371797A5
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: k5NwJB3bVw4vWiniN84TVKkJx7P/1IhYcbBA5L6Ky08+mV784lSTo5HfxgNXZEndrfDOU/HIivpLfMXSAItrYUcZDQ64I5dpUUtU5SrYzBY0z09geykdStEMN5rAI2jl22XXWsIQOzcokbKHRZQM7LL5ZLvNR1k+0OYt2AMj7f+WZn39rxJXvx3ApIibkeTtGYON17lbSoPZhPi1gOtpOB+uS6uEWNyMEUJTgLnleCBGBybW9iFq74y34hKa0XOoiAPDi8kgVEOPTFi0TNIYpwO7O90kKJKa2AEh+/P9KiK/CY3fKPk4Ite5i1vpd7/h2T0fLsSaJFjD4a2C+sJafQ==
+x-microsoft-antispam-message-info: WNgLtOiCba+RRUUgb6ZOHV0rjmF+pV3/yp6YfzQXn0p5wRyUDcVol1ojVdNyRN6+NQxhCk4eoFfc5JKKFw86zAK3czmDTnReHB7SBxfE7TW1aHM2njjAU/g/g7XxedSa21OxNZ67Nnk2wm7ZTKJN9pl3U8LHzD/nf9qh57geoAGc9T5e+aCOwcP4HOcNl0umOdYYnHdmbDXkwJ85x+PIODn5yH1ACDVgkehMLedgaAD1CbiLZ3aIGEws/H7y5B9TRWz0c1tDZEW4+S6vl8Ky2rWX3+kTDv017FK19t3nJEZ8e6+sriIIe3G8KVuO6XZZY42fLMMUjDNNIRNCBrZh97awY82jDxV7gNV/2/MfbP8=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:BN6PR12MB1155.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFTY:;
- SFS:(4636009)(136003)(396003)(346002)(376002)(366004)(39860400002)(52536014)(83380400001)(53546011)(478600001)(8676002)(71200400001)(6506007)(8936002)(86362001)(7696005)(55016002)(186003)(2906002)(26005)(4326008)(316002)(76116006)(9686003)(33656002)(64756008)(66946007)(66556008)(66446008)(110136005)(5660300002)(66476007);
+ SFS:(4636009)(136003)(396003)(346002)(376002)(366004)(39860400002)(52536014)(83380400001)(45080400002)(53546011)(478600001)(8676002)(71200400001)(6506007)(8936002)(86362001)(7696005)(55016002)(186003)(2906002)(26005)(966005)(4326008)(316002)(76116006)(9686003)(33656002)(64756008)(66946007)(66556008)(66446008)(110136005)(5660300002)(66476007);
  DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: xIRWEeYZCWKVFPjUroFkcdrJEGWf0i4DoxnmaK6fjXdw1it8OqIiLv2Q1QbCx2F+CR0l31T9i8bHqG/P7i9Wb/vXe69bwg2prbdyWAODezUvesJ9p+wdOYvEhRUdl2q5/rN19VHuKVodkrTS+hy2PcdEjR0koNrQDQuLzGz5s40N1W6KHIlor4hUxDwBY/MfxP5fbj793O6j3bSM7EM8hgtEuc4w/O1UaSodlTTTZPi5uZbdqyqsKD9SCuIG2iLeqYVs/l8QX9EsvyGlFRFpQUBcCA5joQkDjpnQkRs0Ho5Tys9PmltTV17XZqcM2hefFlks7S+kUV+2dAAo7woV0Sq0LYMNxjuKBBuOX676UIcv8Tx+aLK+tc69Zxno++4N/nOOWNlfCuydUJawK0odZ0NVhgc1F8YTgudRsX/A4xOlqAYdj+YItSGaVtL9evqAKi8FfT+FZzB/1pPa0VhyCqYmQn0/fYhgXl+Umoz6v+Y=
+x-ms-exchange-antispam-messagedata: kNMwXCrp5YwSIxn/3Wc8Hu3u2FJfnil2csxst0KwkY+DA4bR8bff6uKFKF8IkL3+A+1NgoYXfTlBh23OevUGksEcKRbh3CKUp+tkg8fyd+LvpLbvQY/D+AdPILMZfj9HrwaDpDtNp5U1jtlMOY32eOea2cdT5K1j4YPp7S7TLAFdH1qDEDpfXyhMlGOxkngVViTGHZH71pqUb9mFI5OHPgtalq7fFI3h3ykFEEzQLEaFYEAbIZx3x6D0c1y6YzWg8UXeOqxHO5h/YhgvJh/F/CNnAvhF7ulqX5dhvelcMy056xkt49Gew1kDfWnmDYkVUAbYXAXqQ1ovCOXQZJ0TnrL5VB0NJbxqoeaotKR/fbx3Io0RfwZmbC8t/gHOS4jcHfRKLeGQqC9F4JpjYXu5JZbnY21W9GCkXZpY5aZ/83MH2o32KO8avzkS3vqt9z0bL6Kkhg8McnZNIqeR5TI/L4ZuWodJLI18UqXLT12uuJY=
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bf8c5fcc-769e-4121-a865-08d812fcc59e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2020 20:26:52.7773 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4f7279fc-7012-4efe-fc29-08d812fceb41
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jun 2020 20:27:55.9974 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sDMkk2KgaE3IAPoMaToKG21CuD16PTWiC5pQpjgBWToXl3m7DHFLw3cCVT/yu4qOD3x0lGrDxHT0unt8Hc3atQ==
+X-MS-Exchange-CrossTenant-userprincipalname: l/Fkw/IVhUwfFjQdTrIg79h9Yd3BBjVXymyDDyWtSkevMcniQuQ00dULwfVo6JJXlBjimERY4c6mmDrn0FdZpQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3026
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -134,48 +132,48 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [AMD Official Use Only - Internal Distribution Only]
 
-Acked-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
+Reviewed-by: Rajneesh Bhardwaj <rajneesh.bhardwaj@amd.com>
 
 -----Original Message-----
-From: Kuehling, Felix <Felix.Kuehling@amd.com> 
-Sent: Wednesday, June 17, 2020 4:17 PM
-To: Alex Deucher <alexdeucher@gmail.com>; amd-gfx@lists.freedesktop.org; Bhardwaj, Rajneesh <Rajneesh.Bhardwaj@amd.com>
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Alex Deucher
+Sent: Wednesday, June 17, 2020 3:02 PM
+To: amd-gfx@lists.freedesktop.org
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>
-Subject: Re: [PATCH 4/4] drm/amdkfd: fix ref count leak when pm_runtime_get_sync fails
+Subject: [PATCH 3/4] drm/amdgpu/fence: fix ref count leak when pm_runtime_get_sync fails
 
-[+Rajneesh]
+[CAUTION: External Email]
 
-Am 2020-06-17 um 3:02 p.m. schrieb Alex Deucher:
-> The call to pm_runtime_get_sync increments the counter even in case of 
-> failure, leading to incorrect ref count.
-> In case of failure, decrement the ref count before returning.
->
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+The call to pm_runtime_get_sync increments the counter even in case of failure, leading to incorrect ref count.
+In case of failure, decrement the ref count before returning.
 
-Reviewed-by: Felix Kuehling <Felix.Kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+index 8537f4704348..60b323d7caf2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_fence.c
+@@ -755,8 +755,10 @@ static int amdgpu_debugfs_gpu_recover(struct seq_file *m, void *data)
+        int r;
 
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_process.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c 
-> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index a9a7f5aa2710..0b4f40905f55 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -1116,8 +1116,10 @@ struct kfd_process_device *kfd_bind_process_to_device(struct kfd_dev *dev,
->  	 */
->  	if (!pdd->runtime_inuse) {
->  		err = pm_runtime_get_sync(dev->ddev->dev);
-> -		if (err < 0)
-> +		if (err < 0) {
-> +			pm_runtime_put_autosuspend(dev->ddev->dev);
->  			return ERR_PTR(err);
-> +		}
->  	}
->  
->  	err = kfd_iommu_bind_process_to_device(pdd);
+        r = pm_runtime_get_sync(dev->dev);
+-       if (r < 0)
++       if (r < 0) {
++               pm_runtime_put_autosuspend(dev->dev);
+                return 0;
++       }
+
+        seq_printf(m, "gpu recover\n");
+        amdgpu_device_gpu_recover(adev, NULL);
+--
+2.25.4
+
+_______________________________________________
+amd-gfx mailing list
+amd-gfx@lists.freedesktop.org
+https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flists.freedesktop.org%2Fmailman%2Flistinfo%2Famd-gfx&amp;data=02%7C01%7Crajneesh.bhardwaj%40amd.com%7Cdcc3842e55284da6689f08d812f0fb07%7C3dd8961fe4884e608e11a82d994e183d%7C0%7C0%7C637280173535571918&amp;sdata=NU1AzDtdUzmvXItL05quhP35rT1plj4%2B3vOJE9Rr2lA%3D&amp;reserved=0
 _______________________________________________
 amd-gfx mailing list
 amd-gfx@lists.freedesktop.org
