@@ -8,60 +8,61 @@ X-Spam-Status: No, score=-6.3 required=3.0 tests=DKIM_ADSP_CUSTOM_MED,
 	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B2449C433DF
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 13:16:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 72E7AC433DF
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 13:17:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8329A20FC3
-	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 13:16:36 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 44F1620786
+	for <amd-gfx@archiver.kernel.org>; Wed, 17 Jun 2020 13:17:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="prkshgq9"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8329A20FC3
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SI/wklB3"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 44F1620786
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=none smtp.mailfrom=amd-gfx-bounces@lists.freedesktop.org
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AA0189F43;
-	Wed, 17 Jun 2020 13:16:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3A8A89FFD;
+	Wed, 17 Jun 2020 13:17:31 +0000 (UTC)
 Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
  [IPv6:2a00:1450:4864:20::443])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2ED1489F43
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 13:16:35 +0000 (UTC)
-Received: by mail-wr1-x443.google.com with SMTP id b6so2280632wrs.11
- for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 06:16:35 -0700 (PDT)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD91189FFD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 13:17:30 +0000 (UTC)
+Received: by mail-wr1-x443.google.com with SMTP id a6so341682wrm.4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 17 Jun 2020 06:17:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=LzpkZLLo3QzsTLNBytsoeIn3TVGzEPO4q9Ei2i+dIss=;
- b=prkshgq9T1Pn3YJvnmbh4rlHdlc8p316TZLLWKaxIr27EG/z72mch2wWik690sb8tw
- NqhBchpRb1Lp12p6GeFQk2HwaW7Z2tbPGSBvZ4AxIZgcg2U/32hBp+IEy+juoQLuf3m8
- efd4ahivWus8N3XfDkkUIgW8uhe8BgtXBZhe8mZxyLOi09+l/R90Fje+hqFSGJ4+ELwQ
- OK294yH5Nn42JIjqAAUn73YH3CqaXT7jV7s996zxcaJarLE/EzDLPlL5qlR+PEt2bHuN
- wdYD2/s77OXROxNQ2oQHfbbpi1Dm1Oy03KMqGhr4TZPSBTIBRlZn/0vxkVJMj5gEKsNs
- BkfQ==
+ :cc:content-transfer-encoding;
+ bh=QKWzRcgtOTmkrP4D1phOpq63vQXn5sBx4u2NDbhPLOM=;
+ b=SI/wklB3/55xy6vxra8DQZjYpQPl/dGV/uGB93z+nfJP2fVlzdXeP0i2jo6DMxrqOa
+ GcsK79ZvLbSqpNTrrQro6KAKq/1FT4zDrSzqjBCzXlKU1sjSVkWZQunhAaMUkPmWtg1g
+ 0f3b4jDB9Zt+jGTQ25iEKk1s41jPlWp7lYk8mcj/Xp629ae/42/BmOVitb+OnaH02Vx7
+ YA7Nr2YMI2KOxk3MZv8hSPyOEp5NBxZetVfRc4O1TPaQrqPoRXtsvXPe1DTWD1wik8Qo
+ fV5rrLn7JymuChcn96Q8cXtpCiGZRsbmG30PxTA/5IlF7uS1Z2nJPpW3uBS7FAzKJftZ
+ NvwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=LzpkZLLo3QzsTLNBytsoeIn3TVGzEPO4q9Ei2i+dIss=;
- b=Od7n5gAq2B6pjwTCSVXonaMDS70U698az8D/2yBEyKqf6UYTTxqWMsVCRjcLrIWSwP
- QprjqVy3vKjdXRKdVEd5XRsrE1A/oYRYL/GC0wp+ZvIZqG3rXJ6XcbKoj7xeDNsxmF/G
- +qFliTWqejgXngDatzmFX0dONqm5TOD/cOdCFqX1YHjX3jujmPyFee9va96sYa1x8jma
- 58pV84B8LPw5sogOYslZAj8AYkOEQXJw6664vvQ/9j8iq8VshWIVvCZq6Zp7EO5CdYnf
- ImyyEZKamOmCZ5Vs5zxlkLBdr3HiLN8dqq11BS4apOghbiVYRISwSHLEnxXXOUDxqZfy
- q/fQ==
-X-Gm-Message-State: AOAM533GQHCwNUPQxla4E6unzYnL/5esX/ct6VpjOgZBGAUcBuj4sLI0
- qF6dEPzuUEdptNkerbkJQlgXcap1DntPzRpBfRJ2mQ==
-X-Google-Smtp-Source: ABdhPJy95UUx2sL4rAue8kUnqdatYUPwPqDK0IuyC2rZR+0TT1EOioKv3LpgcX4NJQUCgx7hnXgYO2fVBLMaJxeBsN4=
-X-Received: by 2002:a5d:6789:: with SMTP id v9mr9107248wru.124.1592399793827; 
- Wed, 17 Jun 2020 06:16:33 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=QKWzRcgtOTmkrP4D1phOpq63vQXn5sBx4u2NDbhPLOM=;
+ b=I7VqJKofwHxiRAyTg3VrMq6mrl0u85wJoHXjIV246BBg2uCnLsvgGn566trE3/KH2y
+ RmbvyhFVEpPzEjPAl6urJkaJZiTneP3LMb7o6nDQ2JHg0v11Sc/0H6blKDYzZcVfH6zK
+ o6k3/DrFKgoBXpuYHRn3jHyyeDqHM48X2PtK9KeQ/3mzzmWFB3leUoVIuoCxazWYVfvn
+ 0V4F9++R0DBH+/QG6Dwp87diAK0qE+tSuHDeph1a3FV7wL2d6KptugZ9g2VHmvzBX/eu
+ bM1Ln2WFs5OqHIpVLvOvEGG6E4ZUjf8AlD/Nq1O+KT9+xpJc6js0TJpKJkdbBKv1KbNP
+ z9Bw==
+X-Gm-Message-State: AOAM53070Xjf9ufCNwS4RtfX0sReckhhqC6XB7ds2SMCwMatz79OWzYU
+ lK68JqQ7VEtxKixjx8jNb/5uga+X+Z74WJJilsgYsQ==
+X-Google-Smtp-Source: ABdhPJxjF3he75Dz6vOBVcDh1bcpLwYDodmQtO3pFYyMjFoRWcF64fGwFkUKSlUfFuCRnbcy/929XpPRq15joi1U4ik=
+X-Received: by 2002:a5d:400f:: with SMTP id n15mr9011251wrp.419.1592399849568; 
+ Wed, 17 Jun 2020 06:17:29 -0700 (PDT)
 MIME-Version: 1.0
-References: <20200617035948.10855-1-evan.quan@amd.com>
-In-Reply-To: <20200617035948.10855-1-evan.quan@amd.com>
+References: <20200617114218.42330-1-nirmoy.das@amd.com>
+In-Reply-To: <20200617114218.42330-1-nirmoy.das@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 17 Jun 2020 09:16:22 -0400
-Message-ID: <CADnq5_MDheFnaCgSih1RbZa7ENg53di7r2u9T4_iYykr7NR=kA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/powerplay: drop unnecessary "@" on OD sysfs output
-To: Evan Quan <evan.quan@amd.com>
+Date: Wed, 17 Jun 2020 09:17:18 -0400
+Message-ID: <CADnq5_NxbgC01FDd1VRFzZB3sEuTBKuuhA0uUqYehL1tkckKPQ@mail.gmail.com>
+Subject: Re: [PATCH 1/1] drm/amdgpu: fix compiler warning
+To: Nirmoy Das <nirmoy.aiemd@gmail.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,49 +74,40 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Cc: "Deucher, Alexander" <alexander.deucher@amd.com>,
- amd-gfx list <amd-gfx@lists.freedesktop.org>, "Freehill,
- Chris" <Chris.Freehill@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Cc: Nirmoy Das <nirmoy.das@amd.com>,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jun 17, 2020 at 12:00 AM Evan Quan <evan.quan@amd.com> wrote:
->
-> To follow conventional style. And this unnecessary "@" confuses
-> our userspace tool.
->
-> Change-Id: Id4cdc611d63e800cf5a93449b6331a1e8323e727
-> Signed-off-by: Evan Quan <evan.quan@amd.com>
-
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-> ---
->  drivers/gpu/drm/amd/powerplay/navi10_ppt.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> index d0f9991c4958..e99071f1fa59 100644
-> --- a/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> +++ b/drivers/gpu/drm/amd/powerplay/navi10_ppt.c
-> @@ -1035,7 +1035,7 @@ static int navi10_print_clk_levels(struct smu_context *smu,
->                         default:
->                                 break;
->                         }
-> -                       size += sprintf(buf + size, "%d: %uMHz @ %umV\n", i, curve_settings[0], curve_settings[1] / NAVI10_VOLTAGE_SCALE);
-> +                       size += sprintf(buf + size, "%d: %uMHz %umV\n", i, curve_settings[0], curve_settings[1] / NAVI10_VOLTAGE_SCALE);
->                 }
->                 break;
->         case SMU_OD_RANGE:
-> --
-> 2.27.0
->
-> _______________________________________________
-> amd-gfx mailing list
-> amd-gfx@lists.freedesktop.org
-> https://lists.freedesktop.org/mailman/listinfo/amd-gfx
-_______________________________________________
-amd-gfx mailing list
-amd-gfx@lists.freedesktop.org
-https://lists.freedesktop.org/mailman/listinfo/amd-gfx
+T24gV2VkLCBKdW4gMTcsIDIwMjAgYXQgNzo0MSBBTSBOaXJtb3kgRGFzIDxuaXJtb3kuYWllbWRA
+Z21haWwuY29tPiB3cm90ZToKPgo+IEZpeGVzIGJlbG93IHdhcm5pbmc6Cj4gZHJpdmVycy9ncHUv
+ZHJtL2FtZC9hbWRncHUvZGZfdjNfNi5jOiBJbiBmdW5jdGlvbiDigJhkZl92M182X3Jlc2V0X3Bl
+cmZtb25fY250cuKAmToKPiBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kZl92M182LmM6NTcx
+OjI6IHdhcm5pbmc6IOKAmGhpX2Jhc2VfYWRkcuKAmSBtYXkgYmUgdXNlZAo+IHVuaW5pdGlhbGl6
+ZWQgaW4gdGhpcyBmdW5jdGlvbiBbLVdtYXliZS11bmluaXRpYWxpemVkXQo+ICAgNTcxIHwgIGRm
+X3YzXzZfcGVyZm1vbl93cmVnKGFkZXYsIGxvX2Jhc2VfYWRkciwgMCwgaGlfYmFzZV9hZGRyLCAw
+KTsKPiAgICAgICB8ICBefn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
+fn5+fn5+fn5+fn5+fn5+fn4KPgo+IFNpZ25lZC1vZmYtYnk6IE5pcm1veSBEYXMgPG5pcm1veS5k
+YXNAYW1kLmNvbT4KCkFja2VkLWJ5OiBBbGV4IERldWNoZXIgPGFsZXhhbmRlci5kZXVjaGVyQGFt
+ZC5jb20+Cgo+IC0tLQo+ICBkcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9kZl92M182LmMgfCAy
+ICstCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQo+Cj4g
+ZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RmX3YzXzYuYyBiL2RyaXZl
+cnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RmX3YzXzYuYwo+IGluZGV4IGE3YjgyOTJjZWZlZS4uMWFi
+MjYxODM2OTgzIDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RmX3Yz
+XzYuYwo+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2RmX3YzXzYuYwo+IEBAIC01
+NjAsNyArNTYwLDcgQEAgc3RhdGljIHZvaWQgZGZfdjNfNl9wbWNfcmVsZWFzZV9jbnRyKHN0cnVj
+dCBhbWRncHVfZGV2aWNlICphZGV2LAo+ICBzdGF0aWMgdm9pZCBkZl92M182X3Jlc2V0X3BlcmZt
+b25fY250cihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldiwKPiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHVpbnQ2NF90IGNvbmZpZykKPiAgewo+IC0gICAgICAgdWlu
+dDMyX3QgbG9fYmFzZV9hZGRyLCBoaV9iYXNlX2FkZHI7Cj4gKyAgICAgICB1aW50MzJfdCBsb19i
+YXNlX2FkZHIgPSAwLCBoaV9iYXNlX2FkZHIgPSAwOwo+Cj4gICAgICAgICBkZl92M182X3BtY19n
+ZXRfcmVhZF9zZXR0aW5ncyhhZGV2LCBjb25maWcsICZsb19iYXNlX2FkZHIsCj4gICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmaGlfYmFzZV9hZGRyKTsKPiAtLQo+IDIuMjYu
+Mgo+Cj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBh
+bWQtZ2Z4IG1haWxpbmcgbGlzdAo+IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCj4gaHR0
+cHM6Ly9saXN0cy5mcmVlZGVza3RvcC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbWQtZ2Z4Cl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCmFtZC1nZnggbWFpbGlu
+ZyBsaXN0CmFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnCmh0dHBzOi8vbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnL21haWxtYW4vbGlzdGluZm8vYW1kLWdmeAo=
